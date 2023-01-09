@@ -4,58 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA228C5479D
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Jan 2023 15:04:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCF32C54EBD
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Jan 2023 15:38:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17FCE10E025;
-	Mon,  9 Jan 2023 15:04:11 +0000 (UTC)
-Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
- [IPv6:2001:4860:4864:20::2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E316910E0BA;
- Mon,  9 Jan 2023 15:04:08 +0000 (UTC)
-Received: by mail-oa1-x2c.google.com with SMTP id
- 586e51a60fabf-14ffd3c5b15so8896783fac.3; 
- Mon, 09 Jan 2023 07:04:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=hb6l/3EQCXcQMc9Oj7FE1RlQn9zpzjkC52YbW7YGrj8=;
- b=Hied4hLJvh3RLMwiYkX33n7hp4wHWNoW4vQLKWYeAO4Y7S3IGiBkaoMzESEPLY+I3i
- td6flMNVJ969zSiEOrk2Sz8xgwbOR6eAKPCXf14829qYAM3LYo/iBwMeMyDArBfYxNgI
- eZ+H8GtpeDu74SBK2wSiIVnYNsNcO8df+q9D/tWB75GFf+gnDiULybo3gu+000tsPHCA
- rNp/iyRBSp+pn7TIewHlVrD9MYSKJvnDzNa2pl3PNNnPsbnBefSUdLuLYu+8hDXETYdc
- iwnXbEuOWY7Y3Rj2B5s3fhaKUrb+vIpFH/h3ak4alUNKnVQl1ZXfNS0jyzfZ7aCVrpDl
- n2Cw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=hb6l/3EQCXcQMc9Oj7FE1RlQn9zpzjkC52YbW7YGrj8=;
- b=DWOihfAiyAJJQns4FNHPFWsyBhIG8c3bSY6HH+lA8/eV1D2UJJgMZDa512Rse0IdHg
- rqIIm4cGTVP8ymSKL4lqAsSG7KINJy7qn9n8dKAywrLvSkFsVhtheJjbXtuJi05mxw6Q
- EFnLUGUgvdN0H9+6DRGb/gklxX78ChxWltGeJngbB5lknyWRAKM4RSMdkoTgDkrS3bbe
- 1fZfE1ElJpm4OBVQFbzgt/hpqlh31gMlR6zpOG/yw0q6HPEYMtr2jZdZouD05skhMMfP
- xFf++dm34+dYA0ObYXfeN+1apTalAW+5KX+TkzXggjS2woK7lmtZEHCQ92uALobGqZOD
- NFgw==
-X-Gm-Message-State: AFqh2krInqc4LANm4B95hIfBFzWK+heELFV6eJnGTyk1/rsCwm838mBf
- 7Dfj9gDCO+iflDU5gjnBXh7BaD1LZ8QHAKBBKSw=
-X-Google-Smtp-Source: AMrXdXuUBBLeoXIryLLbNKhZB9cwzDxnNAuRunoFD5OIMJKZHirancGnUd8FGm+5nhFGPx2NWLW1OyHHKkhCb5Zp/ss=
-X-Received: by 2002:a05:6870:c59c:b0:150:d9aa:4011 with SMTP id
- ba28-20020a056870c59c00b00150d9aa4011mr1900031oab.96.1673276647911; Mon, 09
- Jan 2023 07:04:07 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5546E10E437;
+	Mon,  9 Jan 2023 15:38:45 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9DA410E440;
+ Mon,  9 Jan 2023 15:38:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=HkzrJvHG5eP/+sO3EJo364HJ9wYMZ3WxH8zqQdyOBOE=; b=KKPHiQs4iyLAmtlywJw51sKQwd
+ iJmgVvgeEpR15EZcgO3jEgfY9diA7ZfWOflekAiDv1sqYS58UpJxyRzljA3PljS9LdTqvnbpDNUhw
+ ITsYyKJJnw7ouWWm0rkHvpsSiKIt6XgOPqhjNfFNtk5n7PKN6vjkG6EM0gro11+nRy+bgO4NqSXdM
+ FLUFsd/BTlug+1ErlU6aj+ca4rHHOBI7yy+fM2c+GoSIAuEjbf622sWkwGoceZPe+N5HSKJMkrHro
+ Ao7FSOQmCe/YDn1/94Et4p3gcoEBVfuvL/SGX7P5c5eYRjyhr+7R0aYAU6cR4/aiG3j/T0t0RbL8s
+ ZIgBVqnA==;
+Received: from [41.74.137.107] (helo=mail.igalia.com)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1pEuED-003XBs-IP; Mon, 09 Jan 2023 16:38:25 +0100
+Date: Mon, 9 Jan 2023 14:38:09 -0100
+From: Melissa Wen <mwen@igalia.com>
+To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ daniel@ffwll.ch, harry.wentland@amd.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ Rodrigo.Siqueira@amd.com, sunpeng.li@amd.com, tzimmermann@suse.de,
+ Xinhui.Pan@amd.com
+Subject: Re: [RFC PATCH v2 00/18] Add DRM CRTC 3D LUT interface
+Message-ID: <20230109153809.mmjm22oa2gkwe3sf@mail.igalia.com>
+References: <20230109143846.1966301-1-mwen@igalia.com>
 MIME-Version: 1.0
-References: <20230107151523.29864-1-Arunpravin.PaneerSelvam@amd.com>
- <8354c408-623a-1fc0-d5e0-201a0bce0309@gmail.com>
-In-Reply-To: <8354c408-623a-1fc0-d5e0-201a0bce0309@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 9 Jan 2023 10:03:56 -0500
-Message-ID: <CADnq5_OnFGBrkDaeGetCujUA2m1aZ1q+hG2vCAT5cX82U252cg@mail.gmail.com>
-Subject: Re: [PATCH] drm: Alloc high address for drm buddy topdown flag
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="tmyb43q24jxzny3v"
+Content-Disposition: inline
+In-Reply-To: <20230109143846.1966301-1-mwen@igalia.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,183 +55,151 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- matthew.auld@intel.com, alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: laurent.pinchart+renesas@ideasonboard.com,
+ Shashank Sharma <shashank.sharma@amd.com>, alex.hung@amd.com,
+ contact@emersion.fr, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, ppaalanen@gmail.com, seanpaul@chromium.org,
+ ville.syrjala@linux.intel.com, kernel-dev@igalia.com,
+ bhawanpreet.lakha@amd.com, nicholas.kazlauskas@amd.com,
+ Joshua Ashton <joshua@froggi.es>, sungjoon.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 9, 2023 at 5:13 AM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> Am 07.01.23 um 16:15 schrieb Arunpravin Paneer Selvam:
-> > As we are observing low numbers in viewperf graphics benchmark, we
-> > are strictly not allowing the top down flag enabled allocations
-> > to steal the memory space from cpu visible region.
-> >
-> > The approach is, we are sorting each order list entries in
-> > ascending order and compare the last entry of each order
-> > list in the freelist and return the max block.
-> >
-> > This patch improves the viewperf 3D benchmark scores.
-> >
-> > Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.co=
-m>
->
-> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>, but somebody w=
-ith more insight of the drm buddy allocator should take a closer look at th=
-is.
 
-I'm not a drm_buddy expert either, but this patch fixes a lot of
-issues on both dGPUs and APUs:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+--tmyb43q24jxzny3v
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
->
->
-> > ---
-> >   drivers/gpu/drm/drm_buddy.c | 81 ++++++++++++++++++++++++------------=
--
-> >   1 file changed, 54 insertions(+), 27 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-> > index 11bb59399471..50916b2f2fc5 100644
-> > --- a/drivers/gpu/drm/drm_buddy.c
-> > +++ b/drivers/gpu/drm/drm_buddy.c
-> > @@ -38,6 +38,25 @@ static void drm_block_free(struct drm_buddy *mm,
-> >       kmem_cache_free(slab_blocks, block);
-> >   }
-> >
-> > +static void list_insert_sorted(struct drm_buddy *mm,
-> > +                            struct drm_buddy_block *block)
-> > +{
-> > +     struct drm_buddy_block *node;
-> > +     struct list_head *head;
-> > +
-> > +     head =3D &mm->free_list[drm_buddy_block_order(block)];
-> > +     if (list_empty(head)) {
-> > +             list_add(&block->link, head);
-> > +             return;
-> > +     }
-> > +
-> > +     list_for_each_entry(node, head, link)
-> > +             if (drm_buddy_block_offset(block) < drm_buddy_block_offse=
-t(node))
-> > +                     break;
-> > +
-> > +     __list_add(&block->link, node->link.prev, &node->link);
-> > +}
-> > +
-> >   static void mark_allocated(struct drm_buddy_block *block)
-> >   {
-> >       block->header &=3D ~DRM_BUDDY_HEADER_STATE;
-> > @@ -52,8 +71,7 @@ static void mark_free(struct drm_buddy *mm,
-> >       block->header &=3D ~DRM_BUDDY_HEADER_STATE;
-> >       block->header |=3D DRM_BUDDY_FREE;
-> >
-> > -     list_add(&block->link,
-> > -              &mm->free_list[drm_buddy_block_order(block)]);
-> > +     list_insert_sorted(mm, block);
-> >   }
-> >
-> >   static void mark_split(struct drm_buddy_block *block)
-> > @@ -387,20 +405,26 @@ alloc_range_bias(struct drm_buddy *mm,
-> >   }
-> >
-> >   static struct drm_buddy_block *
-> > -get_maxblock(struct list_head *head)
-> > +get_maxblock(struct drm_buddy *mm, unsigned int order)
-> >   {
-> >       struct drm_buddy_block *max_block =3D NULL, *node;
-> > +     unsigned int i;
-> >
-> > -     max_block =3D list_first_entry_or_null(head,
-> > -                                          struct drm_buddy_block,
-> > -                                          link);
-> > -     if (!max_block)
-> > -             return NULL;
-> > +     for (i =3D order; i <=3D mm->max_order; ++i) {
-> > +             if (!list_empty(&mm->free_list[i])) {
-> > +                     node =3D list_last_entry(&mm->free_list[i],
-> > +                                            struct drm_buddy_block,
-> > +                                            link);
-> > +                     if (!max_block) {
-> > +                             max_block =3D node;
-> > +                             continue;
-> > +                     }
-> >
-> > -     list_for_each_entry(node, head, link) {
-> > -             if (drm_buddy_block_offset(node) >
-> > -                 drm_buddy_block_offset(max_block))
-> > -                     max_block =3D node;
-> > +                     if (drm_buddy_block_offset(node) >
-> > +                             drm_buddy_block_offset(max_block)) {
-> > +                             max_block =3D node;
-> > +                     }
-> > +             }
-> >       }
-> >
-> >       return max_block;
-> > @@ -412,20 +436,23 @@ alloc_from_freelist(struct drm_buddy *mm,
-> >                   unsigned long flags)
-> >   {
-> >       struct drm_buddy_block *block =3D NULL;
-> > -     unsigned int i;
-> > +     unsigned int tmp;
-> >       int err;
-> >
-> > -     for (i =3D order; i <=3D mm->max_order; ++i) {
-> > -             if (flags & DRM_BUDDY_TOPDOWN_ALLOCATION) {
-> > -                     block =3D get_maxblock(&mm->free_list[i]);
-> > -                     if (block)
-> > -                             break;
-> > -             } else {
-> > -                     block =3D list_first_entry_or_null(&mm->free_list=
-[i],
-> > -                                                      struct drm_buddy=
-_block,
-> > -                                                      link);
-> > -                     if (block)
-> > -                             break;
-> > +     if (flags & DRM_BUDDY_TOPDOWN_ALLOCATION) {
-> > +             block =3D get_maxblock(mm, order);
-> > +             if (block)
-> > +                     /* Store the obtained block order */
-> > +                     tmp =3D drm_buddy_block_order(block);
-> > +     } else {
-> > +             for (tmp =3D order; tmp <=3D mm->max_order; ++tmp) {
-> > +                     if (!list_empty(&mm->free_list[tmp])) {
-> > +                             block =3D list_last_entry(&mm->free_list[=
-tmp],
-> > +                                                     struct drm_buddy_=
-block,
-> > +                                                     link);
-> > +                             if (block)
-> > +                                     break;
-> > +                     }
-> >               }
-> >       }
-> >
-> > @@ -434,18 +461,18 @@ alloc_from_freelist(struct drm_buddy *mm,
-> >
-> >       BUG_ON(!drm_buddy_block_is_free(block));
-> >
-> > -     while (i !=3D order) {
-> > +     while (tmp !=3D order) {
-> >               err =3D split_block(mm, block);
-> >               if (unlikely(err))
-> >                       goto err_undo;
-> >
-> >               block =3D block->right;
-> > -             i--;
-> > +             tmp--;
-> >       }
-> >       return block;
-> >
-> >   err_undo:
-> > -     if (i !=3D order)
-> > +     if (tmp !=3D order)
-> >               __drm_buddy_free(mm, block);
-> >       return ERR_PTR(err);
-> >   }
->
+On 01/09, Melissa Wen wrote:
+> Hi,
+>=20
+> After collecting comments in different places, here is a second version
+> of the work on adding DRM CRTC 3D LUT support to the current DRM color
+> mgmt interface. In comparison to previous proposals [1][2][3], here we
+> add 3D LUT before gamma 1D LUT, but also a shaper 1D LUT before 3D LUT,
+> that means the following DRM CRTC color correction pipeline:
+>=20
+> Blend -> Degamma 1D LUT -> CTM -> Shaper 1D LUT -> 3D LUT -> Gamma 1D LUT
+>=20
+> and we also add a DRM CRTC LUT3D_MODE property, based on Alex Hung
+> proposal for pre-blending 3D LUT [4] (Thanks!), instead of just a
+> LUT3D_SIZE, that allows userspace to use different supported settings of
+> 3D LUT, fitting VA-API and new color API better. In this sense, I
+> adjusted the pre-blending proposal for post-blending usage.
+>=20
+> Patches 1-6 targets the addition of shaper LUT and 3D LUT properties to
+> the current DRM CRTC color mgmt pipeline. Patch 6 can be considered an
+> extra/optional patch to define a default value for LUT3D_MODE, inspired
+> by what we do for the plane blend mode property (pre-multiplied).
+>=20
+> Patches 7-18 targets AMD display code to enable shaper and 3D LUT usage
+> on DCN 301 (our HW case). Patches 7-9 performs code cleanups on current
+> AMD DM colors code, patch 10 updates AMD stream in case of user 3D LUT
+> changes, patch 11/12 rework AMD MPC 3D LUT resource handling by context
+> for DCN 301 (easily extendible to other DCN families). Finally, from
+> 13-18, we wire up SHAPER LUT, LUT3D and LUT3D MODE to AMD display
+> driver, exposing modes supported by HW and programming user shaper and
+> 3D LUT accordingly.
+>=20
+> Our target userspace is Gamescope/SteamOS.
+>=20
+> Basic IGT tests were based on [5][6] and are available here (in-progress):
+> https://gitlab.freedesktop.org/mwen/igt-gpu-tools/-/commits/crtc-lut3d-api
+>=20
+> [1] https://lore.kernel.org/all/20201221015730.28333-1-laurent.pinchart+r=
+enesas@ideasonboard.com/
+> [2] https://github.com/vsyrjala/linux/commit/4d28e8ddf2a076f30f9e5bdc17cb=
+b4656fe23e69
+> [3] https://lore.kernel.org/amd-gfx/20220619223104.667413-1-mwen@igalia.c=
+om/
+> [4] https://lore.kernel.org/dri-devel/20221004211451.1475215-1-alex.hung@=
+amd.com/
+> [5] https://patchwork.freedesktop.org/series/90165/
+> [6] https://patchwork.freedesktop.org/series/109402/
+> [VA_API] http://intel.github.io/libva/structVAProcFilterParameterBuffer3D=
+LUT.html
+> [KMS_pipe_API] https://gitlab.freedesktop.org/pq/color-and-hdr/-/issues/11
+>=20
+> Let me know your thoughts.
+
++Simon Ser, +Pekka Paalanen who might also be interested in this series.
+
+Also please let me know if I forgot to address any comments.
+
+Melissa
+
+>=20
+> Thanks,
+>=20
+> Melissa
+>=20
+> Alex Hung (2):
+>   drm: Add 3D LUT mode and its attributes
+>   drm/amd/display: Define 3D LUT struct for HDR planes
+>=20
+> Melissa Wen (16):
+>   drm/drm_color_mgmt: add shaper LUT to color mgmt properties
+>   drm/drm_color_mgmt: add 3D LUT props to DRM color mgmt
+>   drm/drm_color_mgmt: add function to create 3D LUT modes supported
+>   drm/drm_color_mgmt: add function to attach 3D LUT props
+>   drm/drm_color_mgmt: set first lut3d mode as default
+>   drm/amd/display: remove unused regamma condition
+>   drm/amd/display: add comments to describe DM crtc color mgmt behavior
+>   drm/amd/display: encapsulate atomic regamma operation
+>   drm/amd/display: update lut3d and shaper lut to stream
+>   drm/amd/display: handle MPC 3D LUT resources for a given context
+>   drm/amd/display: acquire/release 3D LUT resources for ctx on DCN301
+>   drm/amd/display: expand array of supported 3D LUT modes
+>   drm/amd/display: enable 3D-LUT DRM properties if supported
+>   drm/amd/display: add user 3D LUT support to the amdgpu_dm color
+>     pipeline
+>   drm/amd/display: decouple steps to reuse in shaper LUT support
+>   drm/amd/display: add user shaper LUT support to amdgpu_dm color
+>     pipeline
+>=20
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   6 +
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   3 +
+>  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 370 ++++++++++++++++--
+>  .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |   2 +
+>  drivers/gpu/drm/amd/display/dc/core/dc.c      |  49 ++-
+>  drivers/gpu/drm/amd/display/dc/dc.h           |   8 +
+>  .../amd/display/dc/dcn301/dcn301_resource.c   |  47 ++-
+>  .../amd/display/modules/color/color_gamma.h   |  43 ++
+>  drivers/gpu/drm/drm_atomic_state_helper.c     |   7 +
+>  drivers/gpu/drm/drm_atomic_uapi.c             |  24 ++
+>  drivers/gpu/drm/drm_color_mgmt.c              | 127 ++++++
+>  drivers/gpu/drm/drm_fb_helper.c               |   5 +
+>  drivers/gpu/drm/drm_mode_config.c             |  21 +
+>  include/drm/drm_color_mgmt.h                  |   8 +
+>  include/drm/drm_crtc.h                        |  32 +-
+>  include/drm/drm_mode_config.h                 |  25 ++
+>  include/drm/drm_mode_object.h                 |   2 +-
+>  include/uapi/drm/drm_mode.h                   |  17 +
+>  18 files changed, 757 insertions(+), 39 deletions(-)
+>=20
+> --=20
+> 2.35.1
+>=20
+
+--tmyb43q24jxzny3v
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmO8NNsACgkQwqF3j0dL
+ehw7CxAArnA4MeLfz361bMvzr1FCtOj6Ehe5x4XIpoobyLTvnpAqQLVSNuHl6StY
+AIOE7h44ZuxO2L6dTNHFJI5K2iFifz7SJIXVlRrFiB3i3179vsACeXQdDLJeZUEA
+3IRpeOQdwc5V9O+6XL3VbUktaNfjOSq/JAa65kLoK1NYb09vu9WdndZcLSCkvGVW
+rYDWuViTQ/nYEL9WK864F3Y7rXUaBlcD3lRFS4OH3pEKZtw1MRYg57j8Lhp7irFc
+qNL9AxfVenCDswzflT7Hx1J+/XEEIbsd879MdmYyLYeCDlWsPBUXwxPh5UJmdm1w
+clcMnV/x9WTp9tUQhBq6CjiaGrUGvzhKNS+3tX/YTHI0MRdahVM7/BdeHHs9yEM/
+PBNmPC34UD4jUUf7a1BAH+QseU+XDh092s5M6/jU/fN4RgGpSgRT6LLoRVYril96
+Nr4nq517QZ4+hraWxNCQgjnh8lkx3QLlZ60jC/2ekFIrAUxhP1DWvO8giplm7gl5
+Cw0ElCUD57AMZ4Ph63HMVi7/3/ij/KpY1zEI/vb8nk9EYmAbEufi1A5DWZ/dDsto
+xtS//YRcHHYMYdQzjcQBjAuJmlkAFtbLpSgkjix5AupZ4RWZVJ5pUORpptwWYml/
+qayn3KP4f9DT9xqgRzfmzRVayeiIWjaVXCqS7brOrw5Tbb4orHk=
+=XhhF
+-----END PGP SIGNATURE-----
+
+--tmyb43q24jxzny3v--
