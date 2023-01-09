@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7FEEC54EBD
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Jan 2023 14:45:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCF40C5479D
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Jan 2023 14:45:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A516610E49A;
-	Mon,  9 Jan 2023 14:44:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CADFF10E4A1;
+	Mon,  9 Jan 2023 14:44:53 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CB8110E439;
- Mon,  9 Jan 2023 14:44:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7091310E451;
+ Mon,  9 Jan 2023 14:44:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,24 +19,24 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=TnpDW0+fbBbPza9wMiMd8HlnPnuskPiG6Rgbq1iBi8g=; b=TWlBIDGPLku7ghz50n9qdn+SRR
- rSsoJ5irFxQwjH15eFYk2IYJNrqpRurnCYXnxw8WGxnaWVqs7UDlgQyYIBvLG24rYFugu5wijcoZv
- D0f6aZZUucwt2K6Z8czdhtetq5QjYHLt51W5IrZuwDpY0zWIa8YnszsUXY/aF8qtWcguCFcJ+L14a
- X89hvd3/m7fir50TxzHQv1WUOJfvo4JiUrZMeQt9uNvQf6xeUrKn9r+fuIGn43F4m6BQRYWY1LPoa
- 45WaPqH8IRnEpNo9jpedCoIFIWWrEiWODP/gUFrutpPMPqb06Dt/vkFD/F0gu1cjz6kCdboGFe/fX
- xiBK5j1w==;
+ bh=2zK6khS89ThpmVaHiRDcsbcddbtTFdwhm1vSRQdPNqQ=; b=f1FH40gSKxdQJGhbFNvdkdwPo2
+ 2X2NSIOskXk+ypl8si36Usf3NWqtJqUwuak0ujIcj1akVquJuy5uooBVl5gdOtYW15GVUP5eQl4Rv
+ 41f/Ukbr7PJ6dGpgqi4hcQd4siyK38kSRKkaIenpC0PszhAy5cXygnEYs1RdODCMHI/rC+qeqVFNF
+ 9rcB8IeJ7za8s1OKx6lQTdK/b5dI9hw/gqb7TIEkJkWkkO0K0TAnH2RhdO6wgC4lqa8ss2yH0avGO
+ gNuDzcLqnZbA/WVl+FD5QCfdavInGcUBEFB4eLZBPFJxQO/b4qB0WYroX+S9NM07+VHO3qZah/O2g
+ JI1IZbZA==;
 Received: from [41.74.137.107] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1pEtNx-003TyM-HA; Mon, 09 Jan 2023 15:44:25 +0100
+ id 1pEtO7-003TyM-73; Mon, 09 Jan 2023 15:44:35 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
  alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  airlied@gmail.com, daniel@ffwll.ch
-Subject: [RFC PATCH v2 14/18] drm/amd/display: expand array of supported 3D
- LUT modes
-Date: Mon,  9 Jan 2023 13:38:42 -0100
-Message-Id: <20230109143846.1966301-15-mwen@igalia.com>
+Subject: [RFC PATCH v2 17/18] drm/amd/display: decouple steps to reuse in
+ shaper LUT support
+Date: Mon,  9 Jan 2023 13:38:45 -0100
+Message-Id: <20230109143846.1966301-18-mwen@igalia.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20230109143846.1966301-1-mwen@igalia.com>
 References: <20230109143846.1966301-1-mwen@igalia.com>
@@ -65,56 +65,58 @@ Cc: laurent.pinchart+renesas@ideasonboard.com, kernel-dev@igalia.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD MPC block support 3D LUTs of dimensions 17 and 9, and also bit
-depth 12 and 10, therefore, advertise them to the userspace.
+Decouple steps of shaper LUT setup and LUT size validation according to
+HW caps as a preparation for shaper LUT support.
 
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- .../amd/display/modules/color/color_gamma.h   | 31 +++++++++++++++++++
- 1 file changed, 31 insertions(+)
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 22 ++++++++++++-------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.h b/drivers/gpu/drm/amd/display/modules/color/color_gamma.h
-index 8e159b1eb9c6..69b9a1aa6dd4 100644
---- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.h
-+++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.h
-@@ -47,6 +47,37 @@ static const struct drm_mode_lut3d_mode lut3d_mode_17_12bit = {
- 	.flags = 0,
- };
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+index 0fb1244c8aef..8a930f9bce60 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+@@ -497,6 +497,19 @@ static void amdgpu_dm_atomic_lut3d(struct dc_stream_state *stream,
+ 	stream->lut3d_func = lut;
+ }
  
-+static const struct drm_mode_lut3d_mode amdgpu_lut3d_modes[] = {
-+	{
-+		.lut_size = 17,
-+		.lut_stride = {17, 17, 18},
-+		.bit_depth = 12,
-+		.color_format = DRM_FORMAT_XRGB16161616,
-+		.flags = 0,
-+	},
-+	{
-+		.lut_size = 17,
-+		.lut_stride = {17, 17, 18},
-+		.bit_depth = 10,
-+		.color_format = DRM_FORMAT_XRGB16161616,
-+		.flags = 0,
-+	},
-+	{
-+		.lut_size = 9,
-+		.lut_stride = {9, 9, 10},
-+		.bit_depth = 12,
-+		.color_format = DRM_FORMAT_XRGB16161616,
-+		.flags = 0,
-+	},
-+	{
-+		.lut_size = 9,
-+		.lut_stride = {9, 9, 10},
-+		.bit_depth = 10,
-+		.color_format = DRM_FORMAT_XRGB16161616,
-+		.flags = 0,
-+	},
-+};
++static int amdgpu_dm_atomic_shaper_lut(struct dc_stream_state *stream,
++				       struct dc_transfer_func *func_shaper_new)
++{
++	/* We don't get DRM shaper LUT yet. We assume the input color space is already
++	 * delinearized, so we don't need a shaper LUT and we can just BYPASS
++	 */
++	func_shaper_new->type = TF_TYPE_BYPASS;
++	func_shaper_new->tf = TRANSFER_FUNCTION_LINEAR;
++	stream->func_shaper = func_shaper_new;
 +
- /* For SetRegamma ADL interface support
-  * Must match escape type
-  */
++	return 0;
++}
++
+ /* amdgpu_dm_atomic_shaper_lut3d - set DRM CRTC shaper LUT and 3D LUT to DC
+  * interface
+  * @dc: Display Core control structure
+@@ -519,18 +532,11 @@ static int amdgpu_dm_atomic_shaper_lut3d(struct dc *dc,
+ 	lut3d_func_new = (struct dc_3dlut *) stream->lut3d_func;
+ 	func_shaper_new = (struct dc_transfer_func *) stream->func_shaper;
+ 
+-	/* We don't get DRM shaper LUT yet. We assume the input color space is
+-	 * already delinearized, so we don't need a shaper LUT and we can just
+-	 * BYPASS.
+-	 */
+-	func_shaper_new->type = TF_TYPE_BYPASS;
+-	func_shaper_new->tf = TRANSFER_FUNCTION_LINEAR;
+-	stream->func_shaper = func_shaper_new;
+ 
+ 	amdgpu_dm_atomic_lut3d(stream, drm_lut3d, drm_lut3d_size,
+ 			       mode, lut3d_func_new);
+ 
+-	return 0;
++	return amdgpu_dm_atomic_shaper_lut(stream, func_shaper_new);
+ }
+ 
+ static const struct drm_mode_lut3d_mode *
 -- 
 2.35.1
 
