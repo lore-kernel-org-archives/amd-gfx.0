@@ -4,65 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF73CC54EBD
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Jan 2023 10:13:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FA67C54EBD
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Jan 2023 10:29:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C72B10E3AF;
-	Mon,  9 Jan 2023 10:13:33 +0000 (UTC)
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1B4C10E3AF;
- Mon,  9 Jan 2023 10:13:31 +0000 (UTC)
-Received: by mail-ej1-x62a.google.com with SMTP id qk9so18800789ejc.3;
- Mon, 09 Jan 2023 02:13:31 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CD0610E3C8;
+	Mon,  9 Jan 2023 10:29:53 +0000 (UTC)
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04DA910E3C8;
+ Mon,  9 Jan 2023 10:29:50 +0000 (UTC)
+Received: by mail-ej1-x635.google.com with SMTP id fy8so18793337ejc.13;
+ Mon, 09 Jan 2023 02:29:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=OWDI1MgxL/tmvA0NEV7h+e9N1yw/Y8AfDqibTRwZNtg=;
- b=ZcS/Ya23uW74wDrALUJvNKPSDwCX6GINryeKm3hGJcGGFmo8gmExeHNEqtl42FZPE6
- 1QNennyQ1cz0gSvZznvKySBLdgswiArkH9yTi8ixiCtN313K68bvzM+iB0nG+mUKq1Bj
- ArZ+w6ERAaCljQjwYsJ4c9EM6gcHFy8m6BtUbdHYFyoPTPmqzvAEOPj53CVvojrUwx1N
- ifijV6QPuRZYZ6BUZi4cOwW9iV3jE5y3B6rASMzU/ZDlzddxsyj5tQZhoFr6t+uWwaN3
- mRxHuuzewvyGl46EeZry//dpI7NuPcY7PvLUYlySgxw/xdTA0NnNj8/ziyUDm9jz+rG7
- Xi7g==
+ bh=53yCfXCnGBqKSDgva2IDsy44ww2slUgVQWJ4k6Gom1E=;
+ b=l4yl+LSq/wtEZwE/vtpD5m+M2J2pOQPMaWpd1hz+4x9HkSwCNaepXZyD6wbe/4ERVd
+ EyUJtYiiJjNhoBuqd89b+8NmAQGYFevcn6hOsCBNalHDub4bFD74QdXcleXhryH1bCcA
+ qcGGu2Ih2mAGPdloSOm8sYlAhrxb2Tv/MFJuGxbQkjXAMGvCgrgQJVjzCnX8lPZS+Ulj
+ plrXyqpwL8vg8BSNNOYrJMdgr8lskr26FZrmVi/WhfFB6jEAYOfVq85lBRd45BzGWDLR
+ ZwcJT5nrFTnrNTOsUwwk1wP+wrYO3djoGMemsbWXfmWTnIQ1koSxjx9OBqoC1gEHyxpr
+ XBrA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=OWDI1MgxL/tmvA0NEV7h+e9N1yw/Y8AfDqibTRwZNtg=;
- b=STsBFufSx6uaYNeNJdfVcIT9woKk1YU4CfXZb8EQgNlAzoegIMs/gmXD1FG7olMsqf
- 97mRt/Vruaqd0HRPgrgBrNQzc9hP7k3o2oNWr+gEoWqLDd/j+JHo+D0biXoUSYVIJD2P
- gZcPCRaw7CIUTBub1LMTxmL9uD97ktO/f9mTubiXOQiJfLN8VVUe7Gt+Ry66g38BHMuZ
- HcrRg0+TEJmjuUzBt32Xr4E1y/z5TF3vf+Vt5BqJnuSlHn8vsjs5Q9CGKSPb0AbrZ3nS
- wOFqV7hE3Mdo5tSt2lJs+PdAK2tUdf3M5axxXGjiI9RVkL5QUBF1rsQPQHyhj6U27sOg
- T+WQ==
-X-Gm-Message-State: AFqh2krRCvW9/tjEuWMwcvfTA3l7Oy/p6ODyT0l5ZtMRYnachYhYXT3j
- QyYiOUo9Z3v3TtP+x84Sc9k=
-X-Google-Smtp-Source: AMrXdXuBdecK0uZ3Vpq4DRwbUHm3eVqMbgwMHCVqashcx9KLmAW3Drm8d6H1VNkmu61nW2HHTkH9Hg==
-X-Received: by 2002:a17:906:c0c2:b0:836:3d22:5d73 with SMTP id
- bn2-20020a170906c0c200b008363d225d73mr54555509ejb.39.1673259210337; 
- Mon, 09 Jan 2023 02:13:30 -0800 (PST)
+ bh=53yCfXCnGBqKSDgva2IDsy44ww2slUgVQWJ4k6Gom1E=;
+ b=1YIabCrC1BO/Ew19iiCHCVaAYagxchzYmFgF08iZqH0DT/WzyKn8B3aq8x0l9QX/1E
+ DWOdBe0T334Xc5mfXAZzLVwvGb6a3Pla0fJMYcRqfO2kilUDURrw7vxDveLeItwT8C6K
+ r3oNsolllCokx9LS+iWKeqH/7jzpLPI2SbWGPTsVIVCKz8m4D1vNHehtWB7qDHjM0smV
+ 7zq6eKNC9D/Bi36EYK8pNgXLlh6C+n3jCBghGDTiB4Mnp6uWYMcPy7ZzaVlSL3x5OMp4
+ FBNYYhhrxS6PlsjdSCP03fIZmt8su2r74vVKm4qYLxbqkhy04vSui30zilleZGPciC9p
+ /CYg==
+X-Gm-Message-State: AFqh2koK3MRbUe1gYZTXmhHGGP2NCWvRBcWFENbbapeu1N3ZE4rmfzjM
+ qwviHMLyp5iI/Xehw6soz8E=
+X-Google-Smtp-Source: AMrXdXsY2iJSM/uBTyGIF/IRda+e/pLJC9vqHSLloQntq+Izb0PZ2v4QxNOWoU5TDvE3N4rHk+toGw==
+X-Received: by 2002:a17:906:191a:b0:84d:3822:a14e with SMTP id
+ a26-20020a170906191a00b0084d3822a14emr5069702eje.64.1673260189522; 
+ Mon, 09 Jan 2023 02:29:49 -0800 (PST)
 Received: from [192.168.178.21] (p5b0ea2e7.dip0.t-ipconnect.de.
  [91.14.162.231]) by smtp.gmail.com with ESMTPSA id
- r2-20020a17090609c200b007bd28b50305sm3544634eje.200.2023.01.09.02.13.29
+ u10-20020a1709061daa00b0084cc87c03ebsm3569544ejh.110.2023.01.09.02.29.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Jan 2023 02:13:29 -0800 (PST)
-Message-ID: <8354c408-623a-1fc0-d5e0-201a0bce0309@gmail.com>
-Date: Mon, 9 Jan 2023 11:13:28 +0100
+ Mon, 09 Jan 2023 02:29:49 -0800 (PST)
+Message-ID: <2d3b3fcb-e8d5-c123-df6b-0e09c90b22a5@gmail.com>
+Date: Mon, 9 Jan 2023 11:29:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
-Subject: Re: [PATCH] drm: Alloc high address for drm buddy topdown flag
+Subject: Re: [PATCH 1/5] drm: Include <linux/backlight.h> where needed
 Content-Language: en-US
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, matthew.auld@intel.com,
- christian.koenig@amd.com, alexander.deucher@amd.com
-References: <20230107151523.29864-1-Arunpravin.PaneerSelvam@amd.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, daniel@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ patrik.r.jakobsson@gmail.com, thierry.reding@gmail.com, sam@ravnborg.org,
+ f.fainelli@gmail.com
+References: <20230109101243.26995-1-tzimmermann@suse.de>
+ <20230109101243.26995-2-tzimmermann@suse.de>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20230107151523.29864-1-Arunpravin.PaneerSelvam@amd.com>
+In-Reply-To: <20230109101243.26995-2-tzimmermann@suse.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -76,162 +78,92 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: linux-arm-kernel@lists.infradead.org, bcm-kernel-feedback-list@broadcom.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-rpi-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 07.01.23 um 16:15 schrieb Arunpravin Paneer Selvam:
-> As we are observing low numbers in viewperf graphics benchmark, we
-> are strictly not allowing the top down flag enabled allocations
-> to steal the memory space from cpu visible region.
+Am 09.01.23 um 11:12 schrieb Thomas Zimmermann:
+> Include <linux/backlight.h> in source files that need it. Some of
+> DRM's source code gets the backlight header via drm_crtc_helper.h
+> and <linux/fb.h>, which can leed to unnecessary recompilation. If
+> possible, do not include drm_crtc_helper.h any longer.
 >
-> The approach is, we are sorting each order list entries in
-> ascending order and compare the last entry of each order
-> list in the freelist and return the max block.
->
-> This patch improves the viewperf 3D benchmark scores.
->
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-Acked-by: Christian König <christian.koenig@amd.com>, but somebody with more insight of the drm buddy allocator should take a closer look at this.
-
+Acked-by: Christian König <christian.koenig@amd.com> for the amdgpu parts.
 
 > ---
->   drivers/gpu/drm/drm_buddy.c | 81 ++++++++++++++++++++++++-------------
->   1 file changed, 54 insertions(+), 27 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c          | 2 +-
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
+>   drivers/gpu/drm/gma500/backlight.c                | 2 ++
+>   drivers/gpu/drm/radeon/radeon_acpi.c              | 2 +-
+>   4 files changed, 5 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-> index 11bb59399471..50916b2f2fc5 100644
-> --- a/drivers/gpu/drm/drm_buddy.c
-> +++ b/drivers/gpu/drm/drm_buddy.c
-> @@ -38,6 +38,25 @@ static void drm_block_free(struct drm_buddy *mm,
->   	kmem_cache_free(slab_blocks, block);
->   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> index 57b5e11446c6..f29c1d0ad4c1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> @@ -24,6 +24,7 @@
 >   
-> +static void list_insert_sorted(struct drm_buddy *mm,
-> +			       struct drm_buddy_block *block)
-> +{
-> +	struct drm_buddy_block *node;
-> +	struct list_head *head;
+>   #include <linux/pci.h>
+>   #include <linux/acpi.h>
+> +#include <linux/backlight.h>
+>   #include <linux/slab.h>
+>   #include <linux/power_supply.h>
+>   #include <linux/pm_runtime.h>
+> @@ -31,7 +32,6 @@
+>   #include <acpi/video.h>
+>   #include <acpi/actbl.h>
+>   
+> -#include <drm/drm_crtc_helper.h>
+>   #include "amdgpu.h"
+>   #include "amdgpu_pm.h"
+>   #include "amdgpu_display.h"
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 1b7f20a9d4ae..55a845eb0c6d 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -67,6 +67,7 @@
+>   #include "ivsrcid/ivsrcid_vislands30.h"
+>   
+>   #include "i2caux_interface.h"
+> +#include <linux/backlight.h>
+>   #include <linux/module.h>
+>   #include <linux/moduleparam.h>
+>   #include <linux/types.h>
+> diff --git a/drivers/gpu/drm/gma500/backlight.c b/drivers/gpu/drm/gma500/backlight.c
+> index 577a4987b193..8711a7a5b8da 100644
+> --- a/drivers/gpu/drm/gma500/backlight.c
+> +++ b/drivers/gpu/drm/gma500/backlight.c
+> @@ -7,6 +7,8 @@
+>    * Authors: Eric Knopp
+>    */
+>   
+> +#include <linux/backlight.h>
 > +
-> +	head = &mm->free_list[drm_buddy_block_order(block)];
-> +	if (list_empty(head)) {
-> +		list_add(&block->link, head);
-> +		return;
-> +	}
-> +
-> +	list_for_each_entry(node, head, link)
-> +		if (drm_buddy_block_offset(block) < drm_buddy_block_offset(node))
-> +			break;
-> +
-> +	__list_add(&block->link, node->link.prev, &node->link);
-> +}
-> +
->   static void mark_allocated(struct drm_buddy_block *block)
->   {
->   	block->header &= ~DRM_BUDDY_HEADER_STATE;
-> @@ -52,8 +71,7 @@ static void mark_free(struct drm_buddy *mm,
->   	block->header &= ~DRM_BUDDY_HEADER_STATE;
->   	block->header |= DRM_BUDDY_FREE;
+>   #include <acpi/video.h>
 >   
-> -	list_add(&block->link,
-> -		 &mm->free_list[drm_buddy_block_order(block)]);
-> +	list_insert_sorted(mm, block);
->   }
+>   #include "psb_drv.h"
+> diff --git a/drivers/gpu/drm/radeon/radeon_acpi.c b/drivers/gpu/drm/radeon/radeon_acpi.c
+> index b603c0b77075..5771d1fcb073 100644
+> --- a/drivers/gpu/drm/radeon/radeon_acpi.c
+> +++ b/drivers/gpu/drm/radeon/radeon_acpi.c
+> @@ -22,6 +22,7 @@
+>    */
 >   
->   static void mark_split(struct drm_buddy_block *block)
-> @@ -387,20 +405,26 @@ alloc_range_bias(struct drm_buddy *mm,
->   }
+>   #include <linux/acpi.h>
+> +#include <linux/backlight.h>
+>   #include <linux/pci.h>
+>   #include <linux/pm_runtime.h>
+>   #include <linux/power_supply.h>
+> @@ -30,7 +31,6 @@
+>   #include <acpi/acpi_bus.h>
+>   #include <acpi/video.h>
 >   
->   static struct drm_buddy_block *
-> -get_maxblock(struct list_head *head)
-> +get_maxblock(struct drm_buddy *mm, unsigned int order)
->   {
->   	struct drm_buddy_block *max_block = NULL, *node;
-> +	unsigned int i;
+> -#include <drm/drm_crtc_helper.h>
+>   #include <drm/drm_probe_helper.h>
 >   
-> -	max_block = list_first_entry_or_null(head,
-> -					     struct drm_buddy_block,
-> -					     link);
-> -	if (!max_block)
-> -		return NULL;
-> +	for (i = order; i <= mm->max_order; ++i) {
-> +		if (!list_empty(&mm->free_list[i])) {
-> +			node = list_last_entry(&mm->free_list[i],
-> +					       struct drm_buddy_block,
-> +					       link);
-> +			if (!max_block) {
-> +				max_block = node;
-> +				continue;
-> +			}
->   
-> -	list_for_each_entry(node, head, link) {
-> -		if (drm_buddy_block_offset(node) >
-> -		    drm_buddy_block_offset(max_block))
-> -			max_block = node;
-> +			if (drm_buddy_block_offset(node) >
-> +				drm_buddy_block_offset(max_block)) {
-> +				max_block = node;
-> +			}
-> +		}
->   	}
->   
->   	return max_block;
-> @@ -412,20 +436,23 @@ alloc_from_freelist(struct drm_buddy *mm,
->   		    unsigned long flags)
->   {
->   	struct drm_buddy_block *block = NULL;
-> -	unsigned int i;
-> +	unsigned int tmp;
->   	int err;
->   
-> -	for (i = order; i <= mm->max_order; ++i) {
-> -		if (flags & DRM_BUDDY_TOPDOWN_ALLOCATION) {
-> -			block = get_maxblock(&mm->free_list[i]);
-> -			if (block)
-> -				break;
-> -		} else {
-> -			block = list_first_entry_or_null(&mm->free_list[i],
-> -							 struct drm_buddy_block,
-> -							 link);
-> -			if (block)
-> -				break;
-> +	if (flags & DRM_BUDDY_TOPDOWN_ALLOCATION) {
-> +		block = get_maxblock(mm, order);
-> +		if (block)
-> +			/* Store the obtained block order */
-> +			tmp = drm_buddy_block_order(block);
-> +	} else {
-> +		for (tmp = order; tmp <= mm->max_order; ++tmp) {
-> +			if (!list_empty(&mm->free_list[tmp])) {
-> +				block = list_last_entry(&mm->free_list[tmp],
-> +							struct drm_buddy_block,
-> +							link);
-> +				if (block)
-> +					break;
-> +			}
->   		}
->   	}
->   
-> @@ -434,18 +461,18 @@ alloc_from_freelist(struct drm_buddy *mm,
->   
->   	BUG_ON(!drm_buddy_block_is_free(block));
->   
-> -	while (i != order) {
-> +	while (tmp != order) {
->   		err = split_block(mm, block);
->   		if (unlikely(err))
->   			goto err_undo;
->   
->   		block = block->right;
-> -		i--;
-> +		tmp--;
->   	}
->   	return block;
->   
->   err_undo:
-> -	if (i != order)
-> +	if (tmp != order)
->   		__drm_buddy_free(mm, block);
->   	return ERR_PTR(err);
->   }
+>   #include "atom.h"
 
