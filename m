@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A53F8C54EBC
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Jan 2023 16:58:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63E44C54EBE
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Jan 2023 16:58:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BD6C10E61F;
-	Tue, 10 Jan 2023 16:58:56 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DFB510E61D
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Jan 2023 16:58:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09E5310E61D;
+	Tue, 10 Jan 2023 16:58:58 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2068.outbound.protection.outlook.com [40.107.93.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A1C710E61D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Jan 2023 16:58:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ltrtfpniYo5teri1z+nOxfoBjhVNAokvbTX2LnNvQQoqcpSKEhDSqu+KCF66jvhuJhWQXJ3zFgHEue87JPDpzC8+6HJTrEmhYSaXyuv8Re4lItp2D1Z+3ahAjSRESsPSTFDyr7RHS17JkYM+4tqfLBZAu/VpYGFS+dIO2E9HEneL8uVQ4Hh5uN3P2iqp3FVlC1C3AuM9RuAQD2vw4nB8/SqAMdJrtFIkyfA21j7pQaJpF9g/I01HV3Qs8QCTGCEz4dBASwqMHoFrf/e7XlMPKx3ZBqCkAr2m2hw3r2Rf6tAyVRYZmHUzCSAwk61NrbNpekRPCQFgaM9P9i1PUIKPQw==
+ b=Q2XiCnugJeC/Gv0uIqzTv37c+1MtFcDMiYoY9NlGCib0cXgf7hvoEsANoOl+MCD8DcOztWk1r5ZE5Wu/HvGKe9OMrHjEePoD/LktjYHHrOJxq8aQvh2HBbM4FgXXC1a9lewOaMFnNpBamRJ4l7Lua9zlDLCANjSA025KW/qNaIzrtarCq3N9Nk81E39kKuQCwaxF8KU/RYWcLgXALTgJ8nylgKBDUxNVNaWNTLsUX3QkEyrZu6nvTXJMOH7VHNFm3/D4m/qLr3MywsdRpvr2UGf7haaHFmZDXxpSU+0P8BtsqN+30uws+/kqAdmd6KAtJF3p/DrGUkVTZ0YQ/C3l5w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vN9++vOy95c/w9qFDiB3PGjsSkAcBHJELRSHo7E4srI=;
- b=TB4ayQ9oGYSGDmgG1uSZoDqdidJt6k5CZb10l30sPyRb5JqPhiTlSjLcA0FF+XmC5TCt4qC26UrXzd3b1dYSpcBNRvPeJRd9HhPVjJr1RI4P+aznYKiXEXWB5A0fBEwTSF5zZ7Bur/UCUEmxOhcm5AQ5jHZHr9BukQPZ5Pn6oOjQXVsA1lH4TqHfUh4gPpFdzZKU95qIX8wqum/W6GSW8ZN0gV+RkHBHvGf21p6UeQiOAI39JPsqev8K/DBsiI9yPydkT2XvKe38epCq7qEyfnypxP/r2nyq9Aq0Yerj7NLTgFkBrQMNae9goDyp4qVwuY7x8Avqnz5iZlegbLdiGg==
+ bh=VXx1LQe5e3Y/TiL+Jn0l+2SCZ/7RWs11I+mzKaiYk4g=;
+ b=EmLRSJKJljoro7DRIENpxCy4x6S0KGEI8bJUrpi+j70FIZVDaAkocynXi8b5PfqzlW+J9sGdI5sMVvWyg/8fXpuyFVjDwHQ77Nnd0VCq5cChrjW2lo+0+vTNExfkK5GPjinDe8cYHmdq/nCRovRaqZwHtnyFBVLAXGA7mu6fTbEVmCG2evNeZYPzs7e+BGYFG/qED8fWGUNXebMez9+N88mMmO5Fd6QgADHot2M9VA/l4zWlBqkKBDZmQM7Nx8KzQPcbGQx0nSftE/H3NCqFnvD8PmlXsWr5XIR6jML6bNobW4/oZgJDvxehVWcZQNHSfLV/LATiT1+Tw2xTnlWhUA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vN9++vOy95c/w9qFDiB3PGjsSkAcBHJELRSHo7E4srI=;
- b=ZWLKEH1qGsn73pr+fOUpCrp1rhx9zaxITAEj1l4LsoxKgTr8P3bIXwh1j/z0nKKOauo3HEF3J0wMxrHX79T8TOXV+TtlzsW4d3ZLUnPR2NhS8EXlh/GSRTixAgHOqWgzw6xjLbRt+R4mE1Lh8q272RD03AIceZhQucpS9PydO9A=
-Received: from MW4PR03CA0029.namprd03.prod.outlook.com (2603:10b6:303:8f::34)
- by PH7PR12MB7986.namprd12.prod.outlook.com (2603:10b6:510:27d::17)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=VXx1LQe5e3Y/TiL+Jn0l+2SCZ/7RWs11I+mzKaiYk4g=;
+ b=OhhFzIolMuxchv4O98tzhzv8IlyWyXJjl1wrNaEZ7mL3gafV4rQT3tEfrAefgwq9sn2TOEOIS1GrUux2wDaPET3wf6H5fhhzAIbgmsmLR4bZEsm/EX3HSUfEN0+//6hqpsDRQpwjGplh8VSAhKk9zOpAZpLfnl80cQs1I9cBlI0=
+Received: from MW4PR03CA0003.namprd03.prod.outlook.com (2603:10b6:303:8f::8)
+ by DS0PR12MB7897.namprd12.prod.outlook.com (2603:10b6:8:146::13) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Tue, 10 Jan
- 2023 16:58:51 +0000
+ 2023 16:58:53 +0000
 Received: from CO1NAM11FT091.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8f:cafe::8) by MW4PR03CA0029.outlook.office365.com
- (2603:10b6:303:8f::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.12 via Frontend
- Transport; Tue, 10 Jan 2023 16:58:51 +0000
+ (2603:10b6:303:8f:cafe::b7) by MW4PR03CA0003.outlook.office365.com
+ (2603:10b6:303:8f::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18 via Frontend
+ Transport; Tue, 10 Jan 2023 16:58:53 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT091.mail.protection.outlook.com (10.13.175.146) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6002.12 via Frontend Transport; Tue, 10 Jan 2023 16:58:51 +0000
+ 15.20.6002.12 via Frontend Transport; Tue, 10 Jan 2023 16:58:53 +0000
 Received: from atma-again.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 10 Jan
- 2023 10:58:29 -0600
+ 2023 10:58:51 -0600
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 28/37] drm/amd/display: Remove DISPCLK dentist programming for
- dcn32
-Date: Tue, 10 Jan 2023 11:55:26 -0500
-Message-ID: <20230110165535.3358492-29-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 30/37] drm/amd/display: Skip backlight control delay on
+ external powered links
+Date: Tue, 10 Jan 2023 11:55:28 -0500
+Message-ID: <20230110165535.3358492-31-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230110165535.3358492-1-Rodrigo.Siqueira@amd.com>
 References: <20230110165535.3358492-1-Rodrigo.Siqueira@amd.com>
@@ -69,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT091:EE_|PH7PR12MB7986:EE_
-X-MS-Office365-Filtering-Correlation-Id: 66c3e9be-22be-4831-93fe-08daf32bf32b
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT091:EE_|DS0PR12MB7897:EE_
+X-MS-Office365-Filtering-Correlation-Id: 97a91e6a-2af6-40ff-cfb6-08daf32bf450
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: uct6bQ2QmXkFyEEiljNXr7fYXt85A6rYA1jqSIFT+Pt+LE7t495Cr78F5e6TMhWYqBnmUTr0VPF6LaPnlMzaprppws0uYPzPzboguevmCONeeRSANmto87QcUgDUO+bBfZmtWFQUksExdQCRLcjP3Eh5Ai7rzxv9PFCKX+T9HpOWlTuKmgV7w5zGbQX1wF9JXRTHDJEh8Yya8ZAvj8HqmU6oYfTx81xZFXC5mI0s4TwjAfwm9z4EM3+sg8BLaBKV2xhPEvwu3jLMhm17uukOBdEzvzcWTd9OaqiRZ6uyQByEF3kgXRofo6Tz+36t8zpkpPgEPDpW8nsxQHkvUh9VlS1uo/PEiO+UN2LrFQGu1KZp8Mtba6FjjH1SXElt28cRbXsMjXAn5zZ6jasBX/KKMkCUedU49BOZBCoIk+124aRrvhODWDencsUl/lOLw1o70j3moQTVWuiDi47jhwOkYG0ba0AhMSAVbzpsIaE8qcFuAQ1teSeVIUxX6fDyMjO9LwkJ8T0TrV+ln0R8kQwyqoiC/RNMXVIsoB9duVAXcUnNKxJrRQZO9LfYhqPUTlx6vXtcJhaetwm2O3VvML/Rn104FzIS6Vyd7WDj5Sbr9eumd/xoaizH5gxrr66iAZrJo599g2No/MQUijA7IW8MNl9GbSy1BGWBT0w3cfHQpmdT4CPgCgq6QEKz3aAnwuK80lnEHzWxG5lZEMZjHNIjpUU9M3ErBGojDvNKP5tcqFU=
+X-Microsoft-Antispam-Message-Info: uvKi9ntPd1aFsdB+BbxGhIrt7i4pAFiK/1VxnCUo68zGsjEd3zWUP3YDmyQHIq8DuQL38gzeupnBWQ539SoPiVJ4FPChpyejwM25JnC3zEWtlcX6+cBz1VSLu2IYocJVgSa3KusNggINzNFsJM01Jv2S7S+S88jrdeJmWK2AsEKzhOuG+Tn0q6lKWminGEJYMetgKqBNsOTRfWZ+rbE3MFYrItTWreuANVNeGU9hnbuqVBc/YXV0atB3u9xjE4ynqUdbUvAMz6BTGax2F6akTx/UqlOHX0c7HhtdjH9Y7jO8mHiZzNcs9eojCawuj9KJM8Uzts+07jyn0MCp26WyPAzpV9p0a3CTMTslDzvTfOYpwrCbJUsNBzJObHeUvkXk3MvT4Z2DfgMGugyoi75SsUHagaaw93pX0zxY36g/8kpA5Eun67or2/8HNiVAaHVhfr65Wx86oVDToce8LGTdil19lJvfV6RMNFw8lQPKFObIU3cBQrVQjhhjmZW/H9w5XJYf0IoK161IFj9e/6Rfh2xHHcANxjhnSipawZLDybHf5QYqDvYWSrTJ6Prs4/3IP76OdPy9cmNFd+yf43ZhwjNf6QLWJb3q+eXXNKh7CRLoGay8hDwJqKNWSy9aa+gOoy9rJ/h4fOvsIW71r7bTfcy2zaZ24YRBg4PNydtJ29N4HLOR7EwBu6n+7/dxBi3AXYIYWnvShQjRQ4JlJ2f0Wrot0qhwTEEmBE9mWHMb2kyHgkvx8SpAJvtKgP1ADd3owyboKa2vd4kjzTL8Xmej6uj3JWjR75dnBAL0MOS+Syk=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(136003)(396003)(376002)(39860400002)(451199015)(46966006)(36840700001)(40470700004)(16526019)(54906003)(186003)(40480700001)(2616005)(82310400005)(1076003)(336012)(6666004)(40460700003)(82740400003)(8676002)(86362001)(4326008)(47076005)(70206006)(70586007)(5660300002)(426003)(478600001)(36756003)(6916009)(2906002)(26005)(316002)(356005)(81166007)(8936002)(41300700001)(36860700001)(7696005)(83380400001)(36900700001);
+ SFS:(13230022)(4636009)(39860400002)(396003)(376002)(346002)(136003)(451199015)(46966006)(40470700004)(36840700001)(2906002)(26005)(16526019)(7696005)(6666004)(478600001)(186003)(54906003)(2616005)(336012)(70206006)(70586007)(36756003)(6916009)(41300700001)(8676002)(4326008)(316002)(40460700003)(47076005)(426003)(1076003)(5660300002)(83380400001)(8936002)(82740400003)(40480700001)(36860700001)(86362001)(82310400005)(81166007)(356005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2023 16:58:51.3646 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 66c3e9be-22be-4831-93fe-08daf32bf32b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2023 16:58:53.3020 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 97a91e6a-2af6-40ff-cfb6-08daf32bf450
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT091.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7986
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7897
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,163 +100,186 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Aric Cyr <Aric.Cyr@amd.com>,
- Dillon Varone <Dillon.Varone@amd.com>, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- roman.li@amd.com, solomon.chiu@amd.com, jerry.zuo@amd.com,
- Aurabindo.Pillai@amd.com, hamza.mahfooz@amd.com, wayne.lin@amd.com,
- Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: stylon.wang@amd.com, Felipe
+ Clark <felipe.clark@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ Tony Tascioglu <tony.tascioglu@amd.com>, solomon.chiu@amd.com,
+ jerry.zuo@amd.com, Aurabindo.Pillai@amd.com, hamza.mahfooz@amd.com,
+ wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dillon Varone <Dillon.Varone@amd.com>
+From: Tony Tascioglu <tony.tascioglu@amd.com>
 
-[WHY?]
-For dcn32, SMU handles DISPCLK dentist programming.
+[Why]
+When an eDP panel is powered externally from a different GPU, we can avoid
+waiting for hardware sequencing delays when switching the backlight on/off
+as the display backlight is no longer powered by the original source.
 
-[HOW?]
-Only use calls to SMU to set DISPCLK.
+[How]
+This commit extends the 'link_powered_externally' variable to allow
+bypassing hardware delays for additional backlight commands and force the
+backlight on/off when a link is powered by another GPU.
 
-Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
+Reviewed-by: Felipe Clark <felipe.clark@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Dillon Varone <Dillon.Varone@amd.com>
+Signed-off-by: Tony Tascioglu <tony.tascioglu@amd.com>
 ---
- .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  | 96 ++++++++++++++++++-
- 1 file changed, 91 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c   |  4 ++--
+ drivers/gpu/drm/amd/display/dc/bios/command_table2.c | 12 ++++++------
+ drivers/gpu/drm/amd/display/dc/bios/command_table2.h |  2 +-
+ drivers/gpu/drm/amd/display/dc/dc_bios_types.h       |  2 +-
+ .../drm/amd/display/dc/dce110/dce110_hw_sequencer.c  |  9 ++++++---
+ drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h      |  2 +-
+ 6 files changed, 17 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-index 791a788c52f2..352c977d1495 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-@@ -256,6 +256,94 @@ static void dcn32_update_dppclk_dispclk_freq(struct clk_mgr_internal *clk_mgr, s
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+index 9f11dcf67c28..2c278b626256 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+@@ -1698,14 +1698,14 @@ static enum bp_result bios_parser_enable_lvtma_control(
+ 	struct dc_bios *dcb,
+ 	uint8_t uc_pwr_on,
+ 	uint8_t panel_instance,
+-	uint8_t bypass_powerdown_wait)
++	uint8_t bypass_panel_control_wait)
+ {
+ 	struct bios_parser *bp = BP_FROM_DCB(dcb);
+ 
+ 	if (!bp->cmd_tbl.enable_lvtma_control)
+ 		return BP_RESULT_FAILURE;
+ 
+-	return bp->cmd_tbl.enable_lvtma_control(bp, uc_pwr_on, panel_instance, bypass_powerdown_wait);
++	return bp->cmd_tbl.enable_lvtma_control(bp, uc_pwr_on, panel_instance, bypass_panel_control_wait);
  }
  
-+static void dcn32_update_clocks_update_dentist(
-+		struct clk_mgr_internal *clk_mgr,
-+		struct dc_state *context,
-+		uint32_t old_dispclk_khz)
-+{
-+	uint32_t new_disp_divider = 0;
-+	uint32_t old_disp_divider = 0;
-+	uint32_t new_dispclk_wdivider = 0;
-+	uint32_t old_dispclk_wdivider = 0;
-+	uint32_t i;
-+
-+	if (old_dispclk_khz == 0 || clk_mgr->base.clks.dispclk_khz == 0)
-+		return;
-+
-+	new_disp_divider = DENTIST_DIVIDER_RANGE_SCALE_FACTOR
-+			* clk_mgr->base.dentist_vco_freq_khz / clk_mgr->base.clks.dispclk_khz;
-+	old_disp_divider = DENTIST_DIVIDER_RANGE_SCALE_FACTOR
-+			* clk_mgr->base.dentist_vco_freq_khz / old_dispclk_khz;
-+
-+	new_dispclk_wdivider = dentist_get_did_from_divider(new_disp_divider);
-+	old_dispclk_wdivider = dentist_get_did_from_divider(old_disp_divider);
-+
-+	/* When changing divider to or from 127, some extra programming is required to prevent corruption */
-+	if (old_dispclk_wdivider == 127 && new_dispclk_wdivider != 127) {
-+		for (i = 0; i < clk_mgr->base.ctx->dc->res_pool->pipe_count; i++) {
-+			struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[i];
-+			uint32_t fifo_level;
-+			struct dccg *dccg = clk_mgr->base.ctx->dc->res_pool->dccg;
-+			struct stream_encoder *stream_enc = pipe_ctx->stream_res.stream_enc;
-+			int32_t N;
-+			int32_t j;
-+
-+			if (!pipe_ctx->stream)
-+				continue;
-+			/* Virtual encoders don't have this function */
-+			if (!stream_enc->funcs->get_fifo_cal_average_level)
-+				continue;
-+			fifo_level = stream_enc->funcs->get_fifo_cal_average_level(
-+					stream_enc);
-+			N = fifo_level / 4;
-+			dccg->funcs->set_fifo_errdet_ovr_en(
-+					dccg,
-+					true);
-+			for (j = 0; j < N - 4; j++)
-+				dccg->funcs->otg_drop_pixel(
-+						dccg,
-+						pipe_ctx->stream_res.tg->inst);
-+			dccg->funcs->set_fifo_errdet_ovr_en(
-+					dccg,
-+					false);
-+		}
-+	} else if (new_dispclk_wdivider == 127 && old_dispclk_wdivider != 127) {
-+		/* request clock with 126 divider first */
-+		uint32_t temp_disp_divider = dentist_get_divider_from_did(126);
-+		uint32_t temp_dispclk_khz = (DENTIST_DIVIDER_RANGE_SCALE_FACTOR * clk_mgr->base.dentist_vco_freq_khz) / temp_disp_divider;
-+
-+		if (clk_mgr->smu_present)
-+			dcn32_smu_set_hard_min_by_freq(clk_mgr, PPCLK_DISPCLK, khz_to_mhz_ceil(temp_dispclk_khz));
-+
-+		for (i = 0; i < clk_mgr->base.ctx->dc->res_pool->pipe_count; i++) {
-+			struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[i];
-+			struct dccg *dccg = clk_mgr->base.ctx->dc->res_pool->dccg;
-+			struct stream_encoder *stream_enc = pipe_ctx->stream_res.stream_enc;
-+			uint32_t fifo_level;
-+			int32_t N;
-+			int32_t j;
-+
-+			if (!pipe_ctx->stream)
-+				continue;
-+			/* Virtual encoders don't have this function */
-+			if (!stream_enc->funcs->get_fifo_cal_average_level)
-+				continue;
-+			fifo_level = stream_enc->funcs->get_fifo_cal_average_level(
-+					stream_enc);
-+			N = fifo_level / 4;
-+			dccg->funcs->set_fifo_errdet_ovr_en(dccg, true);
-+			for (j = 0; j < 12 - N; j++)
-+				dccg->funcs->otg_add_pixel(dccg,
-+						pipe_ctx->stream_res.tg->inst);
-+			dccg->funcs->set_fifo_errdet_ovr_en(dccg, false);
-+		}
-+	}
-+
-+	/* do requested DISPCLK updates*/
-+	if (clk_mgr->smu_present)
-+		dcn32_smu_set_hard_min_by_freq(clk_mgr, PPCLK_DISPCLK, khz_to_mhz_ceil(clk_mgr->base.clks.dispclk_khz));
-+}
-+
- static void dcn32_update_clocks(struct clk_mgr *clk_mgr_base,
- 			struct dc_state *context,
- 			bool safe_to_lower)
-@@ -274,6 +362,7 @@ static void dcn32_update_clocks(struct clk_mgr *clk_mgr_base,
- 	bool p_state_change_support;
- 	bool fclk_p_state_change_support;
- 	int total_plane_count;
-+	int old_dispclk_khz = clk_mgr_base->clks.dispclk_khz;
+ static bool bios_parser_is_accelerated_mode(
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/command_table2.c b/drivers/gpu/drm/amd/display/dc/bios/command_table2.c
+index 91adebc5c5b7..1ef9e4053bb7 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/command_table2.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/command_table2.c
+@@ -987,7 +987,7 @@ static enum bp_result enable_lvtma_control(
+ 	struct bios_parser *bp,
+ 	uint8_t uc_pwr_on,
+ 	uint8_t panel_instance,
+-	uint8_t bypass_powerdown_wait);
++	uint8_t bypass_panel_control_wait);
  
- 	if (dc->work_arounds.skip_clock_update)
- 		return;
-@@ -397,9 +486,6 @@ static void dcn32_update_clocks(struct clk_mgr *clk_mgr_base,
- 	if (should_set_clock(safe_to_lower, new_clocks->dispclk_khz, clk_mgr_base->clks.dispclk_khz)) {
- 		clk_mgr_base->clks.dispclk_khz = new_clocks->dispclk_khz;
+ static void init_enable_lvtma_control(struct bios_parser *bp)
+ {
+@@ -1000,7 +1000,7 @@ static void enable_lvtma_control_dmcub(
+ 	struct dc_dmub_srv *dmcub,
+ 	uint8_t uc_pwr_on,
+ 	uint8_t panel_instance,
+-	uint8_t bypass_powerdown_wait)
++	uint8_t bypass_panel_control_wait)
+ {
  
--		if (clk_mgr->smu_present)
--			dcn32_smu_set_hard_min_by_freq(clk_mgr, PPCLK_DISPCLK, khz_to_mhz_ceil(clk_mgr_base->clks.dispclk_khz));
+ 	union dmub_rb_cmd cmd;
+@@ -1014,8 +1014,8 @@ static void enable_lvtma_control_dmcub(
+ 			uc_pwr_on;
+ 	cmd.lvtma_control.data.panel_inst =
+ 			panel_instance;
+-	cmd.lvtma_control.data.bypass_powerdown_wait =
+-			bypass_powerdown_wait;
++	cmd.lvtma_control.data.bypass_panel_control_wait =
++			bypass_panel_control_wait;
+ 	dc_dmub_srv_cmd_queue(dmcub, &cmd);
+ 	dc_dmub_srv_cmd_execute(dmcub);
+ 	dc_dmub_srv_wait_idle(dmcub);
+@@ -1026,7 +1026,7 @@ static enum bp_result enable_lvtma_control(
+ 	struct bios_parser *bp,
+ 	uint8_t uc_pwr_on,
+ 	uint8_t panel_instance,
+-	uint8_t bypass_powerdown_wait)
++	uint8_t bypass_panel_control_wait)
+ {
+ 	enum bp_result result = BP_RESULT_FAILURE;
+ 
+@@ -1035,7 +1035,7 @@ static enum bp_result enable_lvtma_control(
+ 		enable_lvtma_control_dmcub(bp->base.ctx->dmub_srv,
+ 				uc_pwr_on,
+ 				panel_instance,
+-				bypass_powerdown_wait);
++				bypass_panel_control_wait);
+ 		return BP_RESULT_OK;
+ 	}
+ 	return result;
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/command_table2.h b/drivers/gpu/drm/amd/display/dc/bios/command_table2.h
+index acb7cc69f699..b6d09bf6cf72 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/command_table2.h
++++ b/drivers/gpu/drm/amd/display/dc/bios/command_table2.h
+@@ -97,7 +97,7 @@ struct cmd_tbl {
+ 	enum bp_result (*enable_lvtma_control)(struct bios_parser *bp,
+ 			uint8_t uc_pwr_on,
+ 			uint8_t panel_instance,
+-			uint8_t bypass_powerdown_wait);
++			uint8_t bypass_panel_control_wait);
+ };
+ 
+ void dal_firmware_parser_init_cmd_tbl(struct bios_parser *bp);
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_bios_types.h b/drivers/gpu/drm/amd/display/dc/dc_bios_types.h
+index 07d996c992ed..be9aa1a71847 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_bios_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_bios_types.h
+@@ -141,7 +141,7 @@ struct dc_vbios_funcs {
+ 		struct dc_bios *bios,
+ 		uint8_t uc_pwr_on,
+ 		uint8_t panel_instance,
+-		uint8_t bypass_powerdown_wait);
++		uint8_t bypass_panel_control_wait);
+ 
+ 	enum bp_result (*get_soc_bb_info)(
+ 		struct dc_bios *dcb,
+diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+index ef5afd2a5cf7..a51bd21a796f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+@@ -943,7 +943,6 @@ void dce110_edp_wait_for_T12(
+ 			msleep(t12_duration - time_since_edp_poweroff_ms);
+ 	}
+ }
 -
- 		update_dispclk = true;
+ /*todo: cloned in stream enc, fix*/
+ /*
+  * @brief
+@@ -1022,16 +1021,20 @@ void dce110_edp_backlight_control(
+ 			DC_LOG_DC("edp_receiver_ready_T7 skipped\n");
  	}
  
-@@ -419,13 +505,13 @@ static void dcn32_update_clocks(struct clk_mgr *clk_mgr_base,
- 		if (dpp_clock_lowered) {
- 			/* if clock is being lowered, increase DTO before lowering refclk */
- 			dcn20_update_clocks_update_dpp_dto(clk_mgr, context, safe_to_lower);
--			dcn20_update_clocks_update_dentist(clk_mgr, context);
-+			dcn32_update_clocks_update_dentist(clk_mgr, context, old_dispclk_khz);
- 			if (clk_mgr->smu_present)
- 				dcn32_smu_set_hard_min_by_freq(clk_mgr, PPCLK_DPPCLK, khz_to_mhz_ceil(clk_mgr_base->clks.dppclk_khz));
- 		} else {
- 			/* if clock is being raised, increase refclk before lowering DTO */
- 			if (update_dppclk || update_dispclk)
--				dcn20_update_clocks_update_dentist(clk_mgr, context);
-+				dcn32_update_clocks_update_dentist(clk_mgr, context, old_dispclk_khz);
- 			/* There is a check inside dcn20_update_clocks_update_dpp_dto which ensures
- 			 * that we do not lower dto when it is not safe to lower. We do not need to
- 			 * compare the current and new dppclk before calling this function.
++	/* Setting link_powered_externally will bypass delays in the backlight
++	 * as they are not required if the link is being powered by a different
++	 * source.
++	 */
+ 	if (ctx->dc->ctx->dmub_srv &&
+ 			ctx->dc->debug.dmub_command_table) {
+ 		if (cntl.action == TRANSMITTER_CONTROL_BACKLIGHT_ON)
+ 			ctx->dc_bios->funcs->enable_lvtma_control(ctx->dc_bios,
+ 					LVTMA_CONTROL_LCD_BLON,
+-					panel_instance, 0);
++					panel_instance, link->link_powered_externally);
+ 		else
+ 			ctx->dc_bios->funcs->enable_lvtma_control(ctx->dc_bios,
+ 					LVTMA_CONTROL_LCD_BLOFF,
+-					panel_instance, 0);
++					panel_instance, link->link_powered_externally);
+ 	}
+ 
+ 	link_transmitter_control(ctx->dc_bios, &cntl);
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+index b3acdb53875c..06c553b61322 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+@@ -3111,7 +3111,7 @@ struct dmub_rb_cmd_panel_cntl {
+  */
+ struct dmub_cmd_lvtma_control_data {
+ 	uint8_t uc_pwr_action; /**< LVTMA_ACTION */
+-	uint8_t bypass_powerdown_wait;
++	uint8_t bypass_panel_control_wait;
+ 	uint8_t reserved_0[2];
+ 	uint8_t panel_inst; /**< LVTMA control instance */
+ 	uint8_t reserved_1[3]; /**< For future use */
 -- 
 2.39.0
 
