@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 233A0C46467
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EDE9C54EBC
 	for <amd-gfx@archiver.kernel.org>; Tue, 10 Jan 2023 16:57:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77E0310E609;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C69D310E60E;
 	Tue, 10 Jan 2023 16:57:14 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2061.outbound.protection.outlook.com [40.107.102.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A64A10E609
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Jan 2023 16:57:12 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2074.outbound.protection.outlook.com [40.107.223.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D18810E609
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Jan 2023 16:57:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mdjEijP/yY2v/sLjImxjYJbMX34O3s2kqKCfX3izuD5F/WzMKhSBn+RkiVRnHUuv5U29qiC4dzyIrQKXhZN2X4tFjCo8F560v++isXTZYma3UkV8YJbWlyf2QDgPBNWXEoQsXfAzTGo7+9xRzMW2KmOyLaUoW73PCcHWZTTKNxU5RimjXk9gmMd8JvDJmRDvXfJwEfOMvSSqfdZYrt+HA3u6UDjxZVcMBGfa4s12PzGyAd5whA03QH/rUzJ24vDnqodoxTBKbvVOQcNossbKL6sq6ZbX+cQF4NC9H4W8q4GepImkDq3qKUAHWSqymo6bKJTv36P5rq3tALmSIn2yiw==
+ b=GmEj8Zw+TSkBxK/Jc9wZ22HPpIpscIAhtLU/Lpy1mR15OddB8pWLOrxwKFLyacG3Lhq73akzcZdCzjIRK6xAaXxIjmiiecsLJ2oO7GImbCDoY3w0FaMXe4Nw1nozauxsbJthPZjGFkOEPZtVxMxCMa1rrhUQgWywVO/XdaC8XcQYNZA5y3n7r/5tloqfJE9oPPGmf0nv3SvefrWH/VfAd8uFSB1e+MhjAC6Hd5IT9mSuvfPfuSSBBJPMwafbB6aM3d3Mw92Fx7pNbd484qdhV81Lhn7xQ8BaSiCGwdYPrLpHO1csoZPaYQf1EZTdo3W8x/LfbyHdviIDNhln3thHxA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MaGhJ26ZhMzJDJ880HmjkvLTul9vQorV7BPmvmmeaYo=;
- b=TUccW44IS52hloKv5ygSV5pkVDo+DuNyDpJ8His6OiSkFvDcMCN8mVcB+BwS/uQk+Ouf9VzbHdZHACx0AU9CvWefTGjpeQCptP3nMJWZ98ixf7Sn3MmQfj7mkNxMgwIhA0ZJPujgiSl8ZW896t9olvWIUGpKYW3c+wjDMyV5FSPk9F92B77Tn0h0OZ6GFp2qFPAtEahktwUU4+ts2bIJI1RBtPXHHoe74sQ2S8zkcEA2aNznyu1rhBPQv9WYV/AiVHuuRtBcnaP7NLNtxqFXw0lj5p6HikxdmnZFC7KXGEdX3r3sFgQqLD0pUU5CdwzBU3ojrOvl5ubB02Wyp7AHKA==
+ bh=+3IYr/tb6AfBNoO/2tQpzp7EgYHtw8oXP77wsxg7dok=;
+ b=KVupfBHEypD4NIcS3LLyK1P+478jB90TznQddIyOzwCsuRBgglmEiwUKsHI917QF7EbAc7wDa+qFBtOz7nBvZGDSren46kUS2aFNFmw37IgG2BVmq2jB/DBXLBBDsvKGcvJHkLq5+cY/XEzmhC9ZzYRexa5M30aZWE9ztoSUFN+Jdm3yDJTqbqx914ZnWBuafpCaxjTPSR1424KNME50Ddltf7C1PYeoPeIpMIa2IK16Ya+wfGf9P/QDDUPn0neCevBI40J2LZBgKK70f02t0qXhNXHCYouN4NXmUJvMTfYIbP7f9xDrtYMN7GAvRbNTuMQV3R0dwWEqjk79PeUtug==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MaGhJ26ZhMzJDJ880HmjkvLTul9vQorV7BPmvmmeaYo=;
- b=iFgwGLBf0hGmFG7o0RQHt0D+1uxo2uhEPB6sgsJkgGlkMYmNwRDEX6bYAMJ/+J7VZostUjAcY/4c5LhRsAAeUjPj/ENWMMmMk8THX2ylI61wJ3bHBPQtOw/J9Z8EDEr+zraZh52JZ4qOwLozu+mfI/Fvy0rmkPYSQIf39jLkjt8=
-Received: from MW4PR04CA0192.namprd04.prod.outlook.com (2603:10b6:303:86::17)
- by BY5PR12MB5511.namprd12.prod.outlook.com (2603:10b6:a03:1d8::13)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=+3IYr/tb6AfBNoO/2tQpzp7EgYHtw8oXP77wsxg7dok=;
+ b=U4K00egu853Z2hDTYs15OmKlMfQg5u1Zm+HXTc/QheH25C4Upd8pXMfreWCfSIksxtU1APEuEosWnATlT73cbkPTKTWsZZ4WhZ4LKN9pJ6NCboyIvvViopJemYz3uRDcvYqwtm8UTcv5koyi7d/eZJkIlrybc8zTeoPJ7KF6U5c=
+Received: from MW4PR04CA0181.namprd04.prod.outlook.com (2603:10b6:303:86::6)
+ by IA1PR12MB6018.namprd12.prod.outlook.com (2603:10b6:208:3d6::6) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Tue, 10 Jan
- 2023 16:57:09 +0000
+ 2023 16:57:11 +0000
 Received: from CO1NAM11FT028.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:86:cafe::48) by MW4PR04CA0192.outlook.office365.com
- (2603:10b6:303:86::17) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:303:86:cafe::60) by MW4PR04CA0181.outlook.office365.com
+ (2603:10b6:303:86::6) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18 via Frontend
- Transport; Tue, 10 Jan 2023 16:57:09 +0000
+ Transport; Tue, 10 Jan 2023 16:57:10 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT028.mail.protection.outlook.com (10.13.175.214) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5986.18 via Frontend Transport; Tue, 10 Jan 2023 16:57:09 +0000
+ 15.20.5986.18 via Frontend Transport; Tue, 10 Jan 2023 16:57:10 +0000
 Received: from atma-again.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 10 Jan
- 2023 10:57:07 -0600
+ 2023 10:57:08 -0600
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 08/37] drm/amd/display: move dpcd logic from dc_link_dpcd to
- link_dpcd
-Date: Tue, 10 Jan 2023 11:55:06 -0500
-Message-ID: <20230110165535.3358492-9-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 09/37] drm/amd/display: move dc_link_dpia logic to link_dp_dpia
+Date: Tue, 10 Jan 2023 11:55:07 -0500
+Message-ID: <20230110165535.3358492-10-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230110165535.3358492-1-Rodrigo.Siqueira@amd.com>
 References: <20230110165535.3358492-1-Rodrigo.Siqueira@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT028:EE_|BY5PR12MB5511:EE_
-X-MS-Office365-Filtering-Correlation-Id: c6b5723d-3cc3-4d9e-2e53-08daf32bb663
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT028:EE_|IA1PR12MB6018:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6b5cd647-dfc7-4624-fbe3-08daf32bb715
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: WZuZBxASnvJ2+sHrfS6VK8Umyv/xdFznbDBz5XljVray3Wr2sPPm6p1vnXRRToDrFG/xDaVK2iI6O9YVzHw8DPmFxnz7A7Kgjxa+t/luqaqDnNX++kAd/NLzf5l+Z0aSACz/nqnG+/AkXE9wk68cVJbi3PHyLycAS5qvx7JYvoolM5jaRVLLEBwnIAXyCn2fF8jNe+Wrdk1CGYx+q+Plxqi8enACE8q17LFpQ2uQuyUjEuNaXmaeVuzyQUjca4U5+xxrABFkOH35ct2sip5iTtLV9ixlbzWi2nDrFfWKcU7SsAhZtISm5rAOzpSO/mtVqLInsfgZrvi2NPA4gEQ61qR//dQtYr+y6WvDs782I7cd8M3sGAhMtKGbTQzkN2CoXlIx2AOCOwd994mvlMcQzU2OziIF0919TdG6W9rz6FcYAEr3ffGhMHxlBmCInyknf+D98G2DVNoWaEsg5hEDAuUzGkY8x9ezQBVrz5mqdoCLojYOafhdxhd7Kt1KRhkByZEeL90e6Ko5EqNtCa0kZD9mVmknK0CAukU5pevAAZJGYco/ly8OOQb7bxSouo2UvrQE3iTs6rzCCgyDq/8PS6cpovMDBG7J7ztiptK0NYfFKpgKBgZgPmEwv1M08DU3+pJry1zBtgwFd70cOh0Z85Kng36f4ny44c2GAOfQRn1bLtYzc6PGuVKux8Cf01LbZs9+5ntid8VqSxeaYWDN0fdQRpnS//evke2aaXr48Ns=
+X-Microsoft-Antispam-Message-Info: EQm1LzhT7pa3nCxOKVfEgZWZbQ4yOgkmrozoMdy8G+G/UY/Mup655dJXqN7ryz1THF+3yd1RBQF98jmOECUc0n7Yz6S8ZyMywRKLfUjr8Mq8MZCbBJoiG7CbPN6MX7h5OqenLxwTKuUFtSW6jKhmrdIbwxH2Kym5MlHwS3DuCzeP/oVIoiT8GPpd8YPXvKN6RV5MeWexZvzDxzf6T4w7P4kX4rXpqGSZzw+82TjDHPG9Odcvi7YnDquwYD1SS4WLje0lpJNR4xBg+vGOlXuUV4n7/V7uQa0Ih9xUkXnhb0/Tt4OOPokWOsEa43zy9oSU2uAEwnML07yGImiVQxQs4fU5ZLLvL+WJ0CgQ/47ksYxOzdEufulaf1UFamB4o36AK+r+8vlHTO+pSukOMeKNweHSeoD5m77CzASLfsKNufogk5cHhKDGfH8mPQ6sdpx0QYlzK7QEGzK3KemxoQP6hOX6L46p+nTjQTo2Et3ZYTu4Xg/TOgZzbWdVOeCCtekF5j6/Klek1k3S2sV+4hddduq++TNUiBC0QHd6yQtNG/ikA6kWpvg94rlT75qWJWtxfARE4/vx0eWaq9e365oBNUNDdkEoOfRjWWBEcR2EsDrDyBjfsNey2XT1Jfnci//jIMuLQlMxcO6+IwwOmjntWlz/B9JLH1Y+BpWaq4NfQNpSICE2wh1r0J4WrJ7Ibo3p2hCAuWl0WCvb7FnPaxNh7+qmPz0de3+zbY4Egs1YSms=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(376002)(346002)(136003)(396003)(451199015)(36840700001)(40470700004)(46966006)(36860700001)(82740400003)(81166007)(2906002)(356005)(478600001)(2616005)(1076003)(30864003)(16526019)(26005)(7696005)(186003)(5660300002)(316002)(40480700001)(83380400001)(8936002)(82310400005)(36756003)(86362001)(40460700003)(47076005)(426003)(41300700001)(8676002)(336012)(54906003)(70586007)(4326008)(6916009)(70206006)(36900700001);
+ SFS:(13230022)(4636009)(136003)(396003)(346002)(376002)(39860400002)(451199015)(46966006)(40470700004)(36840700001)(186003)(1076003)(5660300002)(40480700001)(316002)(7696005)(16526019)(26005)(2616005)(478600001)(40460700003)(47076005)(6916009)(4326008)(54906003)(8676002)(336012)(70586007)(70206006)(41300700001)(82310400005)(8936002)(83380400001)(86362001)(36756003)(426003)(36860700001)(82740400003)(356005)(2906002)(81166007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2023 16:57:09.4036 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6b5723d-3cc3-4d9e-2e53-08daf32bb663
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2023 16:57:10.5598 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b5cd647-dfc7-4624-fbe3-08daf32bb715
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT028.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB5511
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6018
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,283 +110,113 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Wenjing Liu <wenjing.liu@amd.com>
 
-[why]
-Moving dpcd logic from dc_link_dpcd to link_dpcd as part of link file
-restructure
-
 Reviewed-by: George Shen <George.Shen@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/Makefile             |  2 +-
- drivers/gpu/drm/amd/display/dc/core/dc_link.c       |  2 +-
- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c    |  2 +-
- drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c  |  2 +-
- .../drm/amd/display/dc/dce110/dce110_hw_sequencer.c |  1 -
- .../drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c   |  1 -
- .../drm/amd/display/dc/dcn10/dcn10_stream_encoder.c |  2 +-
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c  |  1 -
- .../drm/amd/display/dc/dcn20/dcn20_stream_encoder.c |  2 +-
- drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c  |  1 -
- drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c  |  1 -
- .../display/dc/dcn314/dcn314_dio_stream_encoder.c   |  2 +-
- .../gpu/drm/amd/display/dc/dcn314/dcn314_hwseq.c    |  1 -
- .../amd/display/dc/dcn32/dcn32_dio_stream_encoder.c |  2 +-
- drivers/gpu/drm/amd/display/dc/hdcp/hdcp_msg.c      |  2 +-
- drivers/gpu/drm/amd/display/dc/link/Makefile        |  2 +-
- .../dc/{core/dc_link_dpcd.c => link/link_dpcd.c}    | 13 ++++++++-----
- .../drm/amd/display/dc/{inc => link}/link_dpcd.h    |  4 +---
- 18 files changed, 19 insertions(+), 24 deletions(-)
- rename drivers/gpu/drm/amd/display/dc/{core/dc_link_dpcd.c => link/link_dpcd.c} (97%)
- rename drivers/gpu/drm/amd/display/dc/{inc => link}/link_dpcd.h (95%)
+ drivers/gpu/drm/amd/display/dc/Makefile                       | 2 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c                 | 2 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c              | 2 +-
+ drivers/gpu/drm/amd/display/dc/link/Makefile                  | 2 +-
+ .../display/dc/{core/dc_link_dpia.c => link/link_dp_dpia.c}   | 3 ++-
+ .../display/dc/{inc/dc_link_dpia.h => link/link_dp_dpia.h}    | 4 +---
+ 6 files changed, 7 insertions(+), 8 deletions(-)
+ rename drivers/gpu/drm/amd/display/dc/{core/dc_link_dpia.c => link/link_dp_dpia.c} (99%)
+ rename drivers/gpu/drm/amd/display/dc/{inc/dc_link_dpia.h => link/link_dp_dpia.h} (98%)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/Makefile b/drivers/gpu/drm/amd/display/dc/Makefile
-index 4438f3c16636..c5b7bcba5a3d 100644
+index c5b7bcba5a3d..98c508313350 100644
 --- a/drivers/gpu/drm/amd/display/dc/Makefile
 +++ b/drivers/gpu/drm/amd/display/dc/Makefile
 @@ -66,7 +66,7 @@ include $(AMD_DC)
  
  DISPLAY_CORE = dc.o dc_stat.o dc_link.o dc_resource.o dc_hw_sequencer.o dc_sink.o \
  dc_surface.o dc_link_dp.o dc_debug.o dc_stream.o \
--dc_link_enc_cfg.o dc_link_dpia.o dc_link_dpcd.o
-+dc_link_enc_cfg.o dc_link_dpia.o
+-dc_link_enc_cfg.o dc_link_dpia.o
++dc_link_enc_cfg.o
  
  DISPLAY_CORE += dc_vm_helper.o
  
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index b5572f5202ca..b20dde4b05d5 100644
+index b20dde4b05d5..cb3a57190cb7 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -51,7 +51,7 @@
- #include "dmub/dmub_srv.h"
- #include "inc/hw/panel_cntl.h"
- #include "inc/link_enc_cfg.h"
--#include "inc/link_dpcd.h"
-+#include "link/link_dpcd.h"
- #include "link/link_dp_trace.h"
- #include "link/link_hpd.h"
- 
+@@ -33,7 +33,7 @@
+ #include "gpio_service_interface.h"
+ #include "core_status.h"
+ #include "dc_link_dp.h"
+-#include "dc_link_dpia.h"
++#include "link/link_dp_dpia.h"
+ #include "link/link_ddc.h"
+ #include "link_hwss.h"
+ #include "link.h"
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index 815652da4126..9f2f10a957f6 100644
+index 9f2f10a957f6..9edfcdf3db3b 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -50,7 +50,7 @@ static const uint8_t DP_VGA_LVDS_CONVERTER_ID_3[] = "dnomlA";
- 	link->ctx->logger
- #define DC_TRACE_LEVEL_MESSAGE(...) /* do nothing */
- 
--#include "link_dpcd.h"
-+#include "link/link_dpcd.h"
- 
- #ifndef MAX
- #define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c
-index d130d58ac08e..e1db05966d83 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c
-@@ -33,7 +33,7 @@
- #include "link_hwss.h"
- #include "dm_helpers.h"
- #include "dmub/inc/dmub_cmd.h"
--#include "inc/link_dpcd.h"
-+#include "link/link_dpcd.h"
- #include "dc_dmub_srv.h"
- 
- #define DC_LOGGER \
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-index 358431f0d98a..833a1c37cbe4 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-@@ -55,7 +55,6 @@
- #include "audio.h"
- #include "reg_helper.h"
- #include "panel_cntl.h"
--#include "inc/link_dpcd.h"
+@@ -37,7 +37,7 @@
  #include "dpcd_defs.h"
- /* include DCE11 register header files */
- #include "dce/dce_11_0_d.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-index fe2023f18b7d..c1d4e66b413f 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-@@ -57,7 +57,6 @@
- #include "dc_trace.h"
- #include "dce/dmub_outbox.h"
- #include "inc/dc_link_dp.h"
--#include "inc/link_dpcd.h"
- 
- #define DC_LOGGER_INIT(logger)
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c
-index 484e7cdf00b8..1527c3b4fb19 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c
-@@ -28,7 +28,7 @@
- #include "dcn10_stream_encoder.h"
- #include "reg_helper.h"
- #include "hw_shared.h"
--#include "inc/link_dpcd.h"
-+#include "dc_link_dp.h"
- #include "dpcd_defs.h"
- #include "dcn30/dcn30_afmt.h"
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-index 20c85ef2a957..c2066a5057e8 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-@@ -52,7 +52,6 @@
  #include "dc_dmub_srv.h"
  #include "dce/dmub_hw_lock_mgr.h"
- #include "hw_sequencer.h"
--#include "inc/link_dpcd.h"
- #include "dpcd_defs.h"
+-#include "inc/dc_link_dpia.h"
++#include "link/link_dp_dpia.h"
  #include "inc/link_enc_cfg.h"
- #include "link_hwss.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_stream_encoder.c
-index b40489e678f9..cacf3f5298b0 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_stream_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_stream_encoder.c
-@@ -29,7 +29,7 @@
- #include "dcn20_stream_encoder.h"
- #include "reg_helper.h"
- #include "hw_shared.h"
--#include "inc/link_dpcd.h"
-+#include "dc_link_dp.h"
- #include "dpcd_defs.h"
+ #include "link/link_dp_trace.h"
  
- #define DC_LOGGER \
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-index 8c5045711264..7360b3ce4283 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-@@ -51,7 +51,6 @@
- #include "../dcn20/dcn20_hwseq.h"
- #include "dcn30_resource.h"
- #include "inc/dc_link_dp.h"
--#include "inc/link_dpcd.h"
- 
- 
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
-index 165c920ca776..3b354f0db2a5 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
-@@ -46,7 +46,6 @@
- #include "dpcd_defs.h"
- #include "dce/dmub_outbox.h"
- #include "dc_link_dp.h"
--#include "inc/link_dpcd.h"
- #include "dcn10/dcn10_hw_sequencer.h"
- #include "inc/link_enc_cfg.h"
- #include "dcn30/dcn30_vpg.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_dio_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_dio_stream_encoder.c
-index 0926db018338..9c9875368bea 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_dio_stream_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_dio_stream_encoder.c
-@@ -30,7 +30,7 @@
- #include "dcn314_dio_stream_encoder.h"
- #include "reg_helper.h"
- #include "hw_shared.h"
--#include "inc/link_dpcd.h"
-+#include "dc_link_dp.h"
- #include "dpcd_defs.h"
- 
- #define DC_LOGGER \
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_hwseq.c
-index a0741794db62..edc2c08939b0 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_hwseq.c
-@@ -48,7 +48,6 @@
- #include "dce/dmub_outbox.h"
- #include "dc_link_dp.h"
- #include "inc/dc_link_dp.h"
--#include "inc/link_dpcd.h"
- #include "dcn10/dcn10_hw_sequencer.h"
- #include "inc/link_enc_cfg.h"
- #include "dcn30/dcn30_vpg.h"
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dio_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dio_stream_encoder.c
-index 7d09c62a405a..f01968f6d182 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dio_stream_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dio_stream_encoder.c
-@@ -29,7 +29,7 @@
- #include "dcn32_dio_stream_encoder.h"
- #include "reg_helper.h"
- #include "hw_shared.h"
--#include "inc/link_dpcd.h"
-+#include "dc_link_dp.h"
- #include "dpcd_defs.h"
- 
- #define DC_LOGGER \
-diff --git a/drivers/gpu/drm/amd/display/dc/hdcp/hdcp_msg.c b/drivers/gpu/drm/amd/display/dc/hdcp/hdcp_msg.c
-index 6c4b47f90d49..906a43e85f6d 100644
---- a/drivers/gpu/drm/amd/display/dc/hdcp/hdcp_msg.c
-+++ b/drivers/gpu/drm/amd/display/dc/hdcp/hdcp_msg.c
-@@ -32,7 +32,7 @@
- #include "core_types.h"
- #include "link.h"
- #include "link_hwss.h"
--#include "inc/link_dpcd.h"
-+#include "link/link_dpcd.h"
- 
- #define DC_LOGGER \
- 	link->ctx->logger
 diff --git a/drivers/gpu/drm/amd/display/dc/link/Makefile b/drivers/gpu/drm/amd/display/dc/link/Makefile
-index d1b1bb3c5352..b905c53e738b 100644
+index b905c53e738b..69333ac9bab0 100644
 --- a/drivers/gpu/drm/amd/display/dc/link/Makefile
 +++ b/drivers/gpu/drm/amd/display/dc/link/Makefile
 @@ -24,7 +24,7 @@
  # PHY, HPD, DDC and etc).
  
  LINK = link_hwss_dio.o link_hwss_dpia.o link_hwss_hpo_dp.o link_dp_trace.o \
--link_hpd.o link_ddc.o
-+link_hpd.o link_ddc.o link_dpcd.o
+-link_hpd.o link_ddc.o link_dpcd.o
++link_hpd.o link_ddc.o link_dpcd.o link_dp_dpia.o
  
  AMD_DAL_LINK = $(addprefix $(AMDDALPATH)/dc/link/,$(LINK))
  
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dpcd.c b/drivers/gpu/drm/amd/display/dc/link/link_dpcd.c
-similarity index 97%
-rename from drivers/gpu/drm/amd/display/dc/core/dc_link_dpcd.c
-rename to drivers/gpu/drm/amd/display/dc/link/link_dpcd.c
-index af110bf9470f..5c9a30211c10 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dpcd.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_dpcd.c
-@@ -23,11 +23,14 @@
-  *
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c b/drivers/gpu/drm/amd/display/dc/link/link_dp_dpia.c
+similarity index 99%
+rename from drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c
+rename to drivers/gpu/drm/amd/display/dc/link/link_dp_dpia.c
+index e1db05966d83..47ad2cae483b 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dpia.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_dp_dpia.c
+@@ -25,11 +25,12 @@
   */
  
--#include <inc/core_status.h>
--#include <dc_link.h>
--#include <inc/link_hwss.h>
--#include <inc/link_dpcd.h>
--#include <dc_dp_types.h>
-+/* FILE POLICY AND INTENDED USAGE:
-+ *
-+ * This file implements basic dpcd read/write functionality. It also does basic
-+ * dpcd range check to ensure that every dpcd request is compliant with specs
-+ * range requirements.
-+ */
+ #include "dc.h"
+-#include "dc_link_dpia.h"
+ #include "inc/core_status.h"
+ #include "dc_link.h"
+ #include "dc_link_dp.h"
+ #include "dpcd_defs.h"
 +
-+#include "link_dpcd.h"
- #include <drm/display/drm_dp_helper.h>
++#include "link_dp_dpia.h"
+ #include "link_hwss.h"
  #include "dm_helpers.h"
+ #include "dmub/inc/dmub_cmd.h"
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/dc_link_dpia.h b/drivers/gpu/drm/amd/display/dc/link/link_dp_dpia.h
+similarity index 98%
+rename from drivers/gpu/drm/amd/display/dc/inc/dc_link_dpia.h
+rename to drivers/gpu/drm/amd/display/dc/link/link_dp_dpia.h
+index 39c1d1d07357..1e97e4264dde 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/dc_link_dpia.h
++++ b/drivers/gpu/drm/amd/display/dc/link/link_dp_dpia.h
+@@ -27,11 +27,9 @@
+ #ifndef __DC_LINK_DPIA_H__
+ #define __DC_LINK_DPIA_H__
  
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/link_dpcd.h b/drivers/gpu/drm/amd/display/dc/link/link_dpcd.h
-similarity index 95%
-rename from drivers/gpu/drm/amd/display/dc/inc/link_dpcd.h
-rename to drivers/gpu/drm/amd/display/dc/link/link_dpcd.h
-index d561f86d503c..27b08cdbb4a1 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/link_dpcd.h
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_dpcd.h
-@@ -25,9 +25,7 @@
- 
- #ifndef __LINK_DPCD_H__
- #define __LINK_DPCD_H__
--#include <inc/core_status.h>
--#include <dc_link.h>
--#include <dc_link_dp.h>
 +#include "link.h"
+ /* This module implements functionality for training DPIA links. */
  
- enum dc_status core_link_read_dpcd(
- 		struct dc_link *link,
+-struct dc_link;
+-struct dc_link_settings;
+-
+ /* The approximate time (us) it takes to transmit 9 USB4 DP clock sync packets. */
+ #define DPIA_CLK_SYNC_DELAY 16000
+ 
 -- 
 2.39.0
 
