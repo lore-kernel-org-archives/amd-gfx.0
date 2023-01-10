@@ -4,48 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7A43C46467
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Jan 2023 13:52:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5EC9C54EBC
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Jan 2023 13:52:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35F0D10E5C5;
-	Tue, 10 Jan 2023 13:52:09 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2044.outbound.protection.outlook.com [40.107.237.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAD9010E5C7
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Jan 2023 13:51:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 790D510E5C4;
+	Tue, 10 Jan 2023 13:52:10 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2082.outbound.protection.outlook.com [40.107.93.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B78A10E5C0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Jan 2023 13:26:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=laY6N4AGovCVOR2G5zN0BbJ80zut/bofyLmhLfVNdZC5Rsp54pkqLQ/G1lqISyJ+qk//ws5W6etaQTMRhY1uQN3oecAYM1ZLD00kt5uIETPQhg0FFcZofbkhA39CJ94puiNCciPH7NJLsmKkGuAM6Z4x5QTX01KvgRNsqIQe8oHoHhBMyO3vTRIDT9QoHc/G+TO3Y3kUrKXLFja9WLszcS8F1AgGYiwx1SWS/Yo+zLkQWs+yCdyerpYMJEN2+IzjD5INf5T90C0xqNzswR6xe/WB2Z1696hIfKG+lrGq1/A2B89PcWdiIeGHaWYBVCN1WqEHhBgynpT3EOxpRVoEhQ==
+ b=n5KjfCeDLmkZ2r9sPxIDKeCHm4eyBKgIY9++grzZ9IZeNUT0HJG9Ub6lRdR2OosQuSnJEs2DOY7zzhVFwvg88KdZt+i/XqLrFmDGGuqHBfKI7bLr7Jh6BgaZh0oqbbzbZsI+/PjDzddx1jASUy/pg/jBPgaBs/ReuZtUT2dkRUx3ccVgfUXGSS1RB1ZJ3boy+3pjEQFy+OBmLov91Hfau/S9KcZvSdjrBWLHbJ0NNrOto3ADjuhmsmpSsRZFVOGHcC9psgK/YhHbmaLnSBRp4k2GmS+o+FqoofU59+Bnumh1+X2nrUd/ordy8U3duU9ek97DawR9CUX929EHPF9Yaw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TGPLuklMW5UNMUmKGKR+3eIl+g/OQWf11c5ki19M5fA=;
- b=hw1MzZ5CGxZH00gyP4oitUVn8jeTtAF+lKZv1NF/tuMl0m50x1Q72gJbDo4nrSGuBStJFOs5WfPBJiSLkYvk9Sb/54Aon4n6uC8TTz5BH4TdoUA22rxJVMQfSd4mrqGJiwShdGR7OZXWg3XOZoQ5Gj5qr1MTzJ66e0DPTEj9t3i0KGOx097EKyzK/gQ8bh58R6WTeROdYpaEVxfpoSdI9nodGMiph282cR7cDyMe3uE2AUa4bDOD7oVCJoMYEmXMksFCJah+7BqD3q9Xl+hqM/CIdIbFTn4f2z8ZQ2h7KBT7CKU3Ji4sbnvBj10G+CFDIjhbSFz/dgxcCGgxmzW0Uw==
+ bh=meZQwNlzPWxJGmSdggnEC8F+UR+wCQ/fTvqckuydb74=;
+ b=KdFzKM7TnNmDIFxkZ2drAbJNwaUyu+bwSikdb3Nsh4rqgLtvEhjIc/osH6sVsWxzXznOpdrPEv1ZQywQEHwPA6Gylwrsk536ohJ6amJPQiSYii/MLWEqQLzKAPp4XswMfOEZ3MQty57Fa3tOIm1xwkVGTNgqnqUYRNPCIEBgBwmx96fhHMauEnhWkslTqmcYbHaTYv1YNLJspK3/dZkZQrukDoZo5mavwiEs4L3d4nC+1EVcnpwP6SqiK44dRabmKvNS4iyiB+pI8SQWHU9u5iRdi9ctGzoD3D2+ZMuwHpVySugLPFmLNitAtnr1V8xsjBBuMR88nJ78sKhrJK79FQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TGPLuklMW5UNMUmKGKR+3eIl+g/OQWf11c5ki19M5fA=;
- b=XYI1+ncj4sZW5w4+rwZIT7M0QGdaWn+7VP06qEHnXqH5Loc082Mtz+Rey6lhmnZWJMdKOOQFEogqyu0EQlcufpNdhdDyEiB7qeHRILtJlvtW6IGqtLJLSLdWDV0HB/3gq5aIdtcgp2K+3Lnaey21KFIl2QGgN6zzbhHFtXzAlxp7iboSrlizSIvPHuEE3WLVROenvTYnt36oA6FaZd5F4FHcHVJy/YB9WusiF7pehLw/3pQl/fM1/UR8bwkiXRbJNXB8mfD5C1D7vaYMG7VCE1+AkAJlPCeKQLurJ/+aiHpx6R8bzUGlcuXYa6kBhdbJSm+dGP0lzYsjQzNFF/CHsw==
+ bh=meZQwNlzPWxJGmSdggnEC8F+UR+wCQ/fTvqckuydb74=;
+ b=tJ+rZwHDsSynGRTxPp/qIjf2EfxDLGKDdnmWB9KQORAX8fCwHfchiMHyY8jSWrX0aUcUREaLVV2WLJL21xB8AvtqbMXPCgffllgNK9m3Kd0ygSu7bZ0gboJ6Kqh5IsfR4DW40lZoQrJgFCarsQkG4kW/Uo6BGgMLBwkVeICZKN7in1+/NQr6cuG6m2z+VNgrUfMKuQpnR+rrfDlCvUfDtfJiua+PuW40a81wGuWqzo3FGeO4ImxZTmHhq0WAyBQWsjslwLhv+rp8Nx29Gy/m9EmXeJLQo4kPzITEPBOaj26VB6k+Ti5itEEHY08YEKH3H+36XE3Qw9IcHnyjBTqBIg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from LV2PR12MB5869.namprd12.prod.outlook.com (2603:10b6:408:176::16)
- by PH8PR12MB7448.namprd12.prod.outlook.com (2603:10b6:510:214::11)
+ by PH0PR12MB7009.namprd12.prod.outlook.com (2603:10b6:510:21c::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Tue, 10 Jan
- 2023 13:51:10 +0000
+ 2023 13:26:00 +0000
 Received: from LV2PR12MB5869.namprd12.prod.outlook.com
  ([fe80::f8b0:df13:5f8d:12a]) by LV2PR12MB5869.namprd12.prod.outlook.com
  ([fe80::f8b0:df13:5f8d:12a%8]) with mapi id 15.20.5986.018; Tue, 10 Jan 2023
- 13:51:10 +0000
-Date: Tue, 10 Jan 2023 09:51:09 -0400
+ 13:26:00 +0000
+Date: Tue, 10 Jan 2023 09:25:58 -0400
 From: Jason Gunthorpe <jgg@nvidia.com>
-To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+To: Baolu Lu <baolu.lu@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>
 Subject: Re: [regression, bisected, =?utf-8?Q?pci?=
  =?utf-8?Q?=2Fiommu=5D_Bug=C2=A0216865_-_Black_screen_whe?= =?utf-8?Q?n?=
  amdgpu started during 6.2-rc1 boot with AMD IOMMU enabled
-Message-ID: <Y71tTdm/f+uxsTKj@nvidia.com>
+Message-ID: <Y71nZuF5wQp3eqmn@nvidia.com>
 References: <15d0f9ff-2a56-b3e9-5b45-e6b23300ae3b@leemhuis.info>
  <5aa0e698-f715-0481-36e5-46505024ebc1@bell.net>
  <aea57c5f-2d20-c589-ad44-a63f1133a3db@linux.intel.com>
@@ -54,74 +57,62 @@ References: <15d0f9ff-2a56-b3e9-5b45-e6b23300ae3b@leemhuis.info>
  <6fff9d10-f77f-e55a-9020-8a1bd34cf508@amd.com>
  <Y7gs0zYKp/VXACBi@nvidia.com>
  <f96b1cf3-6865-663d-f1cd-466a71519b08@linux.intel.com>
- <Y71nZuF5wQp3eqmn@nvidia.com>
- <2d1b2183-7e93-f8a5-3c74-8f66824bc8f2@amd.com>
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2d1b2183-7e93-f8a5-3c74-8f66824bc8f2@amd.com>
-X-ClientProxiedBy: BL1PR13CA0229.namprd13.prod.outlook.com
- (2603:10b6:208:2bf::24) To LV2PR12MB5869.namprd12.prod.outlook.com
+In-Reply-To: <f96b1cf3-6865-663d-f1cd-466a71519b08@linux.intel.com>
+X-ClientProxiedBy: MN2PR08CA0021.namprd08.prod.outlook.com
+ (2603:10b6:208:239::26) To LV2PR12MB5869.namprd12.prod.outlook.com
  (2603:10b6:408:176::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV2PR12MB5869:EE_|PH8PR12MB7448:EE_
-X-MS-Office365-Filtering-Correlation-Id: d1241da4-c16c-41b4-1d6e-08daf311bb11
+X-MS-TrafficTypeDiagnostic: LV2PR12MB5869:EE_|PH0PR12MB7009:EE_
+X-MS-Office365-Filtering-Correlation-Id: 02bd86e2-15fa-4989-fd75-08daf30e36d0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ArYgSq11Y04FYul/HrrB7MBVz+wzwkyovmy1nwYIbQNkAeCc7OQ9u/SJTCZLphrqOBs/ZwUi6KcHiI2+Ot901eiNEWhvnQtY+5bJ/HFILbyh2oXJcc48cZbSAVpa1/ar37pluoILRRX7iDtUOehGGJapaVZOPwL5iq8VryKJBphDL6NkHMR3fVANgQc2HDlj4z1U0R5WuWE7nW5NW75zTMvwbk3zUwyhCWNp15X4oRi0QRWJ8AhIORod6ARURrjyT/OCMSBMjqI+0bQZLMfJOSNc3+3MfZwMxVjYVDy0HyIZX8y76owrpP0hpSy79+xq4/tjN+R8/uaTc7ZCQE74Nx5UwK7xMzK+Ys0r/v0b4xUC4lSTcUf65LJbMPhmFsWWWjDAokSLN2UVmtm7pd9I18Y6rP8Tt+A1SktWXjlpFO+3PqDZ09bktM4x5TAVL4GggZSgLHTwlGK8LUm6dfwOk9Ywa4mL3Ow92g6X0bRgOuEz7GsS5y5eY5R0ZZ16VxgKdy/BrqFIKLYigLJ5K1BC+ZXE0R2655MCqnntbFXGMTga8KMibeJXAOZ+MIoHBsAAm5oyC/bINg0y7KndAiKcOoMt3VShKjitnv1h42tWICFAfeG6/f7t+3ewG7g2L06K
+X-Microsoft-Antispam-Message-Info: gfw8UTz0Qf9SG4i5uhTNJPOVMndb2fN3pEyZ6TzJrVlnDUOZKnc1Bu+AZt/3R/RgBq4gGoZ/1ReVV0A5XgYJoEBcvCgRA3pbnC41ADKgo0ATzWauq0WySDGY7kgAimWqkgrJY2WK2R1ai1gDsZDbchYIpBFLNTHWBsEdUlSwxOF2w/85NEx56BOdSBLTmDzj+K8/owibozINU4VQ2A0nH7dVHUUQ1JhZG3PNMMqgh7AKyiu037X2/JmXNpO0rxL9fiA+A93HdYm7iEVWMysC2jrUTZg6oMURse3xjhaBD9xLf+jjqKe5g+aK1Ngbx24/IBKmuTRce0ZLouJHkl4QgFVN0vfVotSEGVYfrvwh/X7vIRgEaz4gX2mhcH+fXqf0wq8eWzoJpgudBf9lw1XVd7eTK1hz5px3oW7FaC7Ndm4PvjaxjnV3yrUwFyyMvRu1R3SkjBu89SQEFQWdIlXDgC1eI5bdrls6b2xbVmG1Lr62FKbtCD/hQqsrTFghUYIfhyTI9bQQ9kcJRnearia8gMmC7rI0J0uKz0TDQb5k6ls3AgjY62KDf/JaV3DgF5fOdlz1S/nacPky6ONsh/w2V15waMfVmBDH1HYYYyOULRWdu4IuXIx1QE4sGLa8txo5ACljsqzK2etwmh0dIIgT9AZYPLO+eNeiCJ4EjsV+MMPlOnCQbsEfMvQs9ljE5R+CUGTHshx0CMpxCnX6Z+fEkyReJ2feCe7Vt+XqwK4lAbS9w2pAI6d2Wso2yZ0n4AgKaMClFkhZMtA/f0/8zFWUVg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LV2PR12MB5869.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(346002)(136003)(366004)(396003)(39860400002)(451199015)(66574015)(41300700001)(54906003)(316002)(6916009)(2616005)(36756003)(66476007)(4326008)(66556008)(66946007)(86362001)(5660300002)(83380400001)(38100700002)(7416002)(8936002)(4744005)(2906002)(6506007)(6486002)(6512007)(186003)(26005)(478600001);
+ SFS:(13230022)(4636009)(366004)(346002)(396003)(39860400002)(376002)(136003)(451199015)(86362001)(36756003)(7416002)(8936002)(5660300002)(966005)(83380400001)(6486002)(6506007)(53546011)(478600001)(2616005)(26005)(186003)(6512007)(38100700002)(41300700001)(4326008)(66556008)(66476007)(66946007)(316002)(110136005)(54906003)(2906002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZmFuY2xoVnZZV2MyZVJGUGJUcjl5UUxyeHhacktrRThrK0xXcStQUmI0YzBE?=
- =?utf-8?B?WXIxc2c5OW54cm14c2dJUWZqTVRtbW13bk9Zb2FxbERZUk56TnNpSTE1SFZD?=
- =?utf-8?B?MlcvZlRHcEYzK0ZxRlJEeVY2UFlSZUxMWjB4cVZxdkZPRnR5ekNBQkI3endQ?=
- =?utf-8?B?bG1qVkxyYzJ3aFcvbUhYRVlzY1d3MEVlZnFLdVIvQktkckRHM0xUdGN5UXoy?=
- =?utf-8?B?ZHYrTHE2dWJvRjM0aGxpUjluT1YvbUtQNDZIb09MU3BjdkltU2pSWkg3SFVw?=
- =?utf-8?B?cytVQzZTSHB4eUsvcmx6OGJZMit2dkxXVG5vU3doSWFvZ1BvZmZ5V1RzR1pF?=
- =?utf-8?B?WFZiSElRL2c3Z0dSU3AraUR4SUtoczdBS0syQ0pzTHNZTnVaM29qdU1jZmI5?=
- =?utf-8?B?YUJJVm53YTNVUG4yaEwrVnZEZU1yMkNSajRZKzZqVmR0Zy9CWURxQU1PTGpl?=
- =?utf-8?B?N0dxZjg5b0w1VGdreDFOSnE4ZXZkUG81VWdsdVBGY3FaLzhFWkZkVXJneU9D?=
- =?utf-8?B?THFvWTA1ek9nemE4S0tJZERXVGwzTllhYmZVaDZ3NlQ4WWxDWHFlZWZHRHBR?=
- =?utf-8?B?dy96WUhZMjV6YVFTZXlhbWNkejhHZ1lMQVhvRHVVdjdnMkE4SkUxUTRGemlY?=
- =?utf-8?B?SVgwMnVPVTZHdmYwZXBmWWdDM2tacDg2MEVtVVJFN0ZXUTNMNmZhRnBPVjJn?=
- =?utf-8?B?aUNKNVpCSjRmbEZKb3RjK2crcm5DYlVMNXA4Ylp3V283VzJuL3BMRHIvZU5w?=
- =?utf-8?B?dzZSUUF3aGVzaERONmdGY1lRblg5ZUFjTjNsQ042S0hINWQzWkJINGpPSmtU?=
- =?utf-8?B?cTJ3YThBYk50U0puMWkyUFVMWmxGUWtZSXZZa1ZVMTFhaFZTVmM0bkgwQ3dn?=
- =?utf-8?B?TU1qdEsvT0dkbkw4azk4RGViSDloNm9XM1FlRmZjU2xvRVRRYnN0a05LUW12?=
- =?utf-8?B?Y1lOUG14eVk1aEtuTjFpOVdtbnJaVmJLQVdVejByalRaR0xIU3RpcXNBUWZM?=
- =?utf-8?B?bUw2SFVxdUhpQldTNHpvdTZXNy9Ld0twZFdnSkpjS3BtT0d3UVViTFZNbDJs?=
- =?utf-8?B?cnVLRTA2ditwVUdLN1VOMVAyY25wYWJxSTV6eVROZW9iL3VqVFU2Q1VMN0Vv?=
- =?utf-8?B?NjhTd3hJM1Bna3ZIUmdPN0VzbVhWNXdDa2tWRm9BMGtEbDVkQUdjampVN3Fu?=
- =?utf-8?B?ejFqY2hJT1Z3QkpUejg4QTVnemgvMytoVytwQXhVRk9lbU1zYmFKcytZUS96?=
- =?utf-8?B?MmpXRE5naGdFMW95dnJtSmZDU1poT1Ara2U5dlF2eXdicHVWZngrTGhYT25M?=
- =?utf-8?B?cGpGK1NJWDRIdUR4MVNVRy8wcW1lSWF6NVQ0S2d3WUI4NXBPK0kvamxtbXBo?=
- =?utf-8?B?THNUWFJXZHlJY3U0WVZCVzRQM3psZ3d4NkFSck5XWmV2UW12Ym1oeTRUY1Br?=
- =?utf-8?B?WkltWlpFSWhpWGdhM05FbEZlWW1xTTJRREV4MkdNRzFKd0oyaXB1N25TQVpw?=
- =?utf-8?B?dnNFYjF6aXlJaG5STEZ5bzRJNzB3VG9xbVo5UHNLZ1FWVmU4TlJxZlhnejIr?=
- =?utf-8?B?S295Y2xBQVJzR2E0RjNJR0tsZTc5K0U3VUw3MzF4RU01U1JsNG53Rkt3U3oy?=
- =?utf-8?B?ZDdGSFhhZ2pGaEVaZnlTYnd0UUNIdnIwbGtQeG9SWmM4VEd3amQrY0ZzaXUr?=
- =?utf-8?B?WnZHOXQ2aTA3UXlmV3ZSdXkrNkI1TWJtZERVZTUzNmY5ZzF3N1c0NEhnRVNo?=
- =?utf-8?B?ajdidkxmMjhnWkJYMitjOWtQT0poakpieGd6YlZXdkpuU3VKdmtDR0lBOGgr?=
- =?utf-8?B?UHdyRHZsNGluSFcxOVBoTXVyZUJlcmtuZnlWSERrM3JhVGZjWkdoa0FkdXlW?=
- =?utf-8?B?cHl1YUVpQ2RHdTVsdmYvWEtKN2lnMTFhNHhVSmprNERNSWQrNDZ2cHBLeVB2?=
- =?utf-8?B?dTROd29WK0hBQUdlVC9nRkVkL04xZEVLT29DRWZGeUhPM2ZobEhGS2J4K05L?=
- =?utf-8?B?VmN5RDF4YS9zVnVFRDBIZjhmZCtPTVc0ZlVuN3VPR1QzUTJjVDFLT2lpdi9j?=
- =?utf-8?B?TDVGbW5GN2tvZCt3a2ljL1RxVWk2ZkNDdmNCVUhUV0tBR1oxMUlqM3FkNmhv?=
- =?utf-8?Q?CdvrFN2Bg5JyS+1v72pi51c2d?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?TkNrg0KyDZEtZpEcwwqUqDfNSHjPmoD+KA1ehM+8PqcByTF7FNpQApgy4x9d?=
+ =?us-ascii?Q?MXLSFAGtNMmTkvaziy3ETBk+OBJNeBf+3awJGNteiTQolbNdb26uQ75XVSk+?=
+ =?us-ascii?Q?Q+ob1GUu78y4QgxwilE131eBztffqAWBQwZsaOggrfg6b7L3dGiCLjPBzmPF?=
+ =?us-ascii?Q?rm+9SC4QjS6adPpF0Wk8NtN1cvB9GwXREwOC6db7nB1uULa2KZxz2BPzsx6E?=
+ =?us-ascii?Q?UARmDp1xQ1CX7kM9DAmlVnXpq+9d2sOrd1Y1zHgYka5iENV5R2YH0K4p+10X?=
+ =?us-ascii?Q?CMWPltc5oNrGUlQHHnOUZKv4mnA18kugbZIos9wTdDLNVt+gApWxvPOTKEK+?=
+ =?us-ascii?Q?EdXYK6itiuhOWG6L4/eIXZ3kcwT0/fVoc/Biey+611huqHb2EImx96XqFPSl?=
+ =?us-ascii?Q?nN5h0NExhOaxYdjAzIijOtIQknhPUjVpHLYWm+l1YvLNfa597jfnqjvJQE0l?=
+ =?us-ascii?Q?WV4R19HOjT1YCdXv0oRugJKtBlhd1qF78MVHD7+DW+tE1487nmzckuSrkPx+?=
+ =?us-ascii?Q?yQXion/Bs2eNCAcuRhHlkW1fn3nU96h6UBfFz4BJ2AvdyiIKo7Q4jQ41WMrc?=
+ =?us-ascii?Q?t59KlnLtHVinKQIj2Slpyz+2efAyxEeIObgULVvE6epK3ychHGTlp6AfydDW?=
+ =?us-ascii?Q?yaH3d3Hgh+1vt2jRmKX48772L3cT7tTPCJKDeGTikEK6YLPEpVi8WTfaCSF4?=
+ =?us-ascii?Q?aM+P9o2f6pUcEfxTwEK+dR45vqb0jgbVH4AkjVU/LXR4Mt5Fog6zTh2TKGU+?=
+ =?us-ascii?Q?15aqoufF5mZw7CrIZuTV1hqi3PZpSPlBhi91yXeXXumI6QDATItHwcD/FgQc?=
+ =?us-ascii?Q?JuIDTHJnPTeSjj8uPEpcJ4Ee9UXg2skmUDZyTMZJ4T2Tt7UVZokpToG0RZBF?=
+ =?us-ascii?Q?s38sH4ZUI25R8IqxCvqV3JOiSontxoUnFgZNQUNQ+OzqYCyNatp+rvvScONx?=
+ =?us-ascii?Q?lk1yI6HbW/f96FR5EHgEK5/Ux/Y0U4SAX7v84uzCi2US+RP19tp0+l5cJa59?=
+ =?us-ascii?Q?LozFgW0J8vuhh29LxHqnyghQogQui1iXWXm22iWr2hYxgsoiVkq8AhuXmPAF?=
+ =?us-ascii?Q?U69kGWxoe3ybhmR9DCA6X2KoKW/JBnPdlUsBYLPg9qt1LbDJMqRG+3XYSq1z?=
+ =?us-ascii?Q?5uWJxwWzh0cq8bhOx5coYDFSRcDEIIR8+Vgaljxe8/wNGIQzPkcq0S5PHLoW?=
+ =?us-ascii?Q?ndxBXpuUfrBaGllCv2qJD8c59/ZQ6s0d7qCoKNYTfuwdcQMKzSghPJ7JQF7w?=
+ =?us-ascii?Q?FSyQSwWbbibF3vlkSqxC65NjQHuzMSNkYustZxzBnvgHmFYi4AxGh755abxe?=
+ =?us-ascii?Q?ZhqJ7ZWmW3+BT7gqitRa9lTdrcIq6VgdIzNTf0Jy59FtmfB4XAcs7FpuQBx0?=
+ =?us-ascii?Q?bvRajU1X4D6Bk5CFMDq1k3s0QVyZEAPJnI3QoRIi4TOzdfg5vppAaqDXXg3g?=
+ =?us-ascii?Q?HWGBxUA4qiF5R4/dHaW+DV4LBxgKF0Mfhk1887p+/+YH/cmLrEA9kXwmtDoR?=
+ =?us-ascii?Q?62sJmXSiiM/ni1Xxtt7OKW0/SuyzjAN+aQ8jixzaCKUW0amMCgHDV187TT4H?=
+ =?us-ascii?Q?pY5R2Y3irSWtagudK2vupnKvTLLCYTNEmYzfPoGX?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1241da4-c16c-41b4-1d6e-08daf311bb11
+X-MS-Exchange-CrossTenant-Network-Message-Id: 02bd86e2-15fa-4989-fd75-08daf30e36d0
 X-MS-Exchange-CrossTenant-AuthSource: LV2PR12MB5869.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2023 13:51:10.6363 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2023 13:26:00.2978 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kIYrQD2dAjvCo/YaShxKU+Rv7lxMAnKmqd/Z3eOjGs54Mk39/R4NVGfY4B7ELvbB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7448
+X-MS-Exchange-CrossTenant-UserPrincipalName: IkudYMYOFIE+ltRC4ORwJSBXzRQ2Gbhwhq320Mz0IWi8/4Im83ACiDNYG7wWiX4g
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7009
 X-Mailman-Approved-At: Tue, 10 Jan 2023 13:52:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -137,23 +128,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Cc: Joerg Roedel <jroedel@suse.de>,
  "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
  Thorsten Leemhuis <regressions@leemhuis.info>,
- Linux PCI <linux-pci@vger.kernel.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Vasant Hegde <vasant.hegde@amd.com>, amd-gfx@lists.freedesktop.org,
- LKML <linux-kernel@vger.kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Linux PCI <linux-pci@vger.kernel.org>, Vasant Hegde <vasant.hegde@amd.com>,
+ amd-gfx@lists.freedesktop.org, LKML <linux-kernel@vger.kernel.org>,
  "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
- Matt Fagnani <matt.fagnani@bell.net>, Alex Deucher <alexander.deucher@amd.com>,
- Baolu Lu <baolu.lu@linux.intel.com>
+ Matt Fagnani <matt.fagnani@bell.net>, Bjorn Helgaas <bhelgaas@google.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jan 10, 2023 at 02:45:30PM +0100, Christian König wrote:
+On Tue, Jan 10, 2023 at 01:48:39PM +0800, Baolu Lu wrote:
+> On 2023/1/6 22:14, Jason Gunthorpe wrote:
+> > On Thu, Jan 05, 2023 at 03:57:28PM +0530, Vasant Hegde wrote:
+> > > Matt,
+> > > 
+> > > On 1/5/2023 6:39 AM, Matt Fagnani wrote:
+> > > > I built 6.2-rc2 with the patch applied. The same black screen problem happened
+> > > > with 6.2-rc2 with the patch. I tried to use early kdump with 6.2-rc2 with the
+> > > > patch twice by panicking the kernel with sysrq+alt+c after the black screen
+> > > > happened. The system rebooted after about 10-20 seconds both times, but no kdump
+> > > > and dmesg files were saved in /var/crash. I'm attaching the lspci -vvv output as
+> > > > requested.
+> > > > 
+> > > Thanks for testing. As mentioned earlier I was not expecting this patch to fix
+> > > the black screen issue. It should fix kernel warnings and IOMMU page fault
+> > > related call traces. By any chance do you have the kernel boot logs?
+> > > 
+> > > 
+> > > @Baolu,
+> > >    Looking into lspci output, it doesn't list ACS feature for Graphics card. So
+> > > with your fix it didn't enable PASID and hence it failed to boot.
+> > The ACS checks being done are feature of the path not the end point or
+> > root port.
+> > 
+> > If we are expecting ACS on the end port then it is just a bug in how
+> > the test was written.. The test should be a NOP because there are no
+> > switches in this topology.
+> > 
+> > Looking at it, this seems to just be because pci_enable_pasid is
+> > calling pci_acs_path_enabled wrong, the only other user is here:
+> > 
+> > 	for (bus = pdev->bus; !pci_is_root_bus(bus); bus = bus->parent) {
+> > 		if (!bus->self)
+> > 			continue;
+> > 
+> > 		if (pci_acs_path_enabled(bus->self, NULL, REQ_ACS_FLAGS))
+> > 			break;
+> > 
+> > 		pdev = bus->self;
+> > 
+> > 		group = iommu_group_get(&pdev->dev);
+> > 		if (group)
+> > 			return group;
+> > 	}
+> > 
+> > And notice it is calling it on pdev->bus not on pdev itself which
+> > naturally excludes the end point from the ACS validation.
+> > 
+> > So try something like:
+> > 
+> > 	if (!pci_acs_path_enabled(pdev->bus->self, NULL, PCI_ACS_RR | PCI_ACS_UF))
+> > 
+> > (and probably need to check for null ?)
+> 
+> Hi Matt,
+> 
+> Do you mind helping to test below change? No other change needed.
+> 
+> diff --git a/drivers/pci/ats.c b/drivers/pci/ats.c
+> index f9cc2e10b676..48f34cc996e4 100644
+> --- a/drivers/pci/ats.c
+> +++ b/drivers/pci/ats.c
+> @@ -382,8 +382,15 @@ int pci_enable_pasid(struct pci_dev *pdev, int
+> features)
+>         if (!pasid)
+>                 return -EINVAL;
+> 
+> -       if (!pci_acs_path_enabled(pdev, NULL, PCI_ACS_RR | PCI_ACS_UF))
+> -               return -EINVAL;
+> +       if (pdev->multifunction) {
+> +               if (!pci_acs_path_enabled(pdev, NULL, PCI_ACS_RR |
+> PCI_ACS_UF))
+> +                       return -EINVAL;
 
-> Since this is a device integrated in the CPU it could be that the ACS/ATS
-> functionalities are controlled by the BIOS and can be enabled/disabled
-> there. But this should always enable/disable both.
+The AMD device is multi-function according to the lspci, and we
+already know that 'pci_acs_path_enabled' will fail on it because that
+is the problem..
 
-This sounds like a GPU driver bug then, it should tolerate PASID being
-unavailable because of BIOS issues/whatever and not black screen on
-boot?
+Actually, I remember it is supposed to be like this:
+
+ https://lore.kernel.org/linux-iommu/Ygpb6CxmTdUHiN50@8bytes.org/
+
+The GPU and sound device are considered non-isolated by the group
+code, presumably because of the missing ACS caps.
+
+So, if I remember the issue, PCIe says that MemWr/Rd are routed
+according to their address and ignore the PASID header.
+
+A multifunction device is permitted to loop back DMAs one function
+issues that match a MMIO BAR of another function. eg the GPU could DMA
+to an MMIO address that overlaps the sound device and the function
+will deliver the MMIO to the sound device not the host bridge even
+though it is PASID tagged.
+
+This is what get_pci_function_alias_group() is looking for.
+
+Multifunction devices that do not do that are supposed to set the ACS
+RR|UF bits and get_pci_function_alias_group()/etc are supposed to
+succeed.
+
+Thus - the PCI information is telling us that the AMD GPU device does
+not support PASID because it may be looping back the MMIO to the other
+functions on the device and thus creating an unacceptable hole in the
+PASID address space.
+
+So - we need AMD to comment on which of these describes their GPU device:
+
+ 1) Is the issue that the PCI Caps are incorrect on this device and
+ there is no loopback? Thus we should fix it with a quirk to correct
+ the caps which will naturally split the iommu group too.
+
+ 2) Is the device broken and loops back PASID DMAs and we are
+ legimiate and correct in blocking PASID? So far AMD just got lucky
+ that no user had a SVA that overlaps with MMIO? Seems unlikely
+
+ 3) Is the device odd in that it doesn't loop back PASID tagged DMAs,
+ but does loop untagged? I would say this is non-compliant and PCI
+ provides no way to describe this. But we should again quirk it to
+ allow the PASID to be enabled but keep the group separated.
+
+Alex/Christian/Pan - can you please find out? The HW is:
+
+00:01.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Wani [Radeon R5/R6/R7 Graphics] (rev ca) (prog-if 00 [VGA controller])
+	DeviceName: ATI EG BROADWAY
+	Subsystem: Hewlett-Packard Company Device 8332
+00:01.1 Audio device: Advanced Micro Devices, Inc. [AMD/ATI] Kabini HDMI/DP Audio
+	Subsystem: Hewlett-Packard Company Device 8332
+
+https://lore.kernel.org/all/223ee6d6-70ea-1d53-8bc2-2d22201d8dde@bell.net/
+
+> +       } else {
+> +               if (!pdev->bus->self ||
+> +                   !pci_acs_path_enabled(pdev->bus->self, NULL,
+> +                                         PCI_ACS_RR | PCI_ACS_UF))
+> +                       return -EINVAL;
+> +       }
+
+Why would these be exclusive? Both the path and endpoint needs to be
+checked
 
 Jason
