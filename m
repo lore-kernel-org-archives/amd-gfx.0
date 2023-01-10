@@ -4,53 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4028C67871
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Jan 2023 12:03:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8977C54EBC
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Jan 2023 13:45:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65B1D10E5AD;
-	Tue, 10 Jan 2023 12:03:04 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C114A10E5AB;
- Tue, 10 Jan 2023 12:03:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673352181; x=1704888181;
- h=message-id:date:mime-version:subject:to:references:from:
- in-reply-to:content-transfer-encoding;
- bh=05jqlNtiS5owacvMk5DptB9H6iSW7Vh8h1rmk9nzURw=;
- b=b0je0w/QSUzZNeGq/02MARMn8VOxMxNBd8Vv9jq8ukquTbLA1yFLCbV9
- OKDbyQy0P7p60yUrinXOlBIzgiHr5QuxjHXLRw7s0JvaJHim+3+xrBvxm
- pVvo66Iu4cAO7P+F2rXJTriIKX8ijNJOHEcKgqAV5y2U5gKTzCd8MIVDc
- 5SXmo7t7G8z6xG26Kw/l8KGEtK0RLH9ry5wQHuec7RphyWAzlbSVKCB9P
- pYcvcui9k+ebOZrqYVsZRWreGBCrYiT7/fet+T6aoX2OkW4D+88ZpsaHa
- gJW95l5/MepE/h4J86USOhx5967VHudZ1XMAY9gnxgKw6mATIb6rghhp7 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10585"; a="324365576"
-X-IronPort-AV: E=Sophos;i="5.96,315,1665471600"; d="scan'208";a="324365576"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2023 04:03:01 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10585"; a="606939542"
-X-IronPort-AV: E=Sophos;i="5.96,315,1665471600"; d="scan'208";a="606939542"
-Received: from ffagan-mobl1.ger.corp.intel.com (HELO [10.252.26.60])
- ([10.252.26.60])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2023 04:02:59 -0800
-Message-ID: <8f376efe-e19b-d1d5-031d-35df399bb6cf@intel.com>
-Date: Tue, 10 Jan 2023 12:02:55 +0000
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DED510E5C3;
+	Tue, 10 Jan 2023 13:45:46 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2047.outbound.protection.outlook.com [40.107.100.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE19E10E5C3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Jan 2023 13:45:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QAtp8Hz3Xzm/dnPnpWdYQImPUphvasAUAg1ZiUGn20NGVN9di9CQehHMRFpb6Ecq41UGtp04w4VWzwNU6NXq2M5Zk8UeC9HP8hkok6f9ywcdSIBhP/IctHvesXfr1km5wdrSLZzYy3NrcFR0iA8oJb37mOghNtHkdFJoQjuXXpbm2YcvSfr5amkaxbIRN5I2EmMUNNd4HFSRQJlnJPXrnyOg97McRPJNJz/A9rtTgJ+ryRcCzXE5ijESr/togfWpy/usrTBgjNoIsNSCY8zAP7YhCoorZXkDo9MiP8NZg3zufvoLJDL34Q5DI1LdALNOApWSiCAHBa86DboY0i/quA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=u2WbGihGi2AMiPg1WA6GqjHNNmI06w/MXCXer0v51og=;
+ b=femRIRSK5vgawrBA8VLOtkdYgYB27WsGweFOKPCfu3M31/9InO4x0QbjaM4NYwmFZu7dldrMCGmjpV6akSLZvUcDRewHnWU2DaoSpYrA+EtfRKJZ+TpgvfNBcvn54qiuTRjfAjMXE+R2mrDHIZw+Um6fLjg5JiD9d7srejU+WvKeZcGCiPT8JzvccRRnulZhLaybq9hWuUpTMowWZwOI9tImBM0yPUe4fISkwjUmede2HJAIe93Gebb9sI/UsTguaj80r79m6zE31+xtZvsjSLMbaCBpguOYb+Yz5Hf0p/45AiV5ACTRxpX9RdxsaubdP/S7kWSs2QoUEgemgvpGww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=u2WbGihGi2AMiPg1WA6GqjHNNmI06w/MXCXer0v51og=;
+ b=cUaHpcThJOKndSuOwbFAyrhGyP41k3fHHLk6fT2XqOmtncv98xZPjtV/D1WCoB+Fu2WJ7GfDKAk58xZPJ0uCPSc/uXqqlb4erVUk/QHHNbjKkmguA709QHpqhD0pGrSKOvC+HtACGQdR94gsPVmlKaBCqlIPV6Fdo21thAzruO8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by CY8PR12MB7515.namprd12.prod.outlook.com (2603:10b6:930:93::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Tue, 10 Jan
+ 2023 13:45:40 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::80d8:934f:caa7:67b0]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::80d8:934f:caa7:67b0%3]) with mapi id 15.20.5986.018; Tue, 10 Jan 2023
+ 13:45:39 +0000
+Message-ID: <2d1b2183-7e93-f8a5-3c74-8f66824bc8f2@amd.com>
+Date: Tue, 10 Jan 2023 14:45:30 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.6.0
-Subject: Re: [PATCH] drm: Alloc high address for drm buddy topdown flag
-Content-Language: en-GB
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
- alexander.deucher@amd.com
-References: <20230107151523.29864-1-Arunpravin.PaneerSelvam@amd.com>
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20230107151523.29864-1-Arunpravin.PaneerSelvam@amd.com>
+ Thunderbird/102.4.2
+Subject: =?UTF-8?Q?Re=3a_=5bregression=2c_bisected=2c_pci/iommu=5d_Bug=c2=a0?=
+ =?UTF-8?Q?216865_-_Black_screen_when_amdgpu_started_during_6=2e2-rc1_boot_w?=
+ =?UTF-8?Q?ith_AMD_IOMMU_enabled?=
+Content-Language: en-US
+To: Jason Gunthorpe <jgg@nvidia.com>, Baolu Lu <baolu.lu@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>
+References: <15d0f9ff-2a56-b3e9-5b45-e6b23300ae3b@leemhuis.info>
+ <5aa0e698-f715-0481-36e5-46505024ebc1@bell.net>
+ <aea57c5f-2d20-c589-ad44-a63f1133a3db@linux.intel.com>
+ <157c4ca4-370a-5d7e-fe32-c64d934f6979@amd.com>
+ <223ee6d6-70ea-1d53-8bc2-2d22201d8dde@bell.net>
+ <6fff9d10-f77f-e55a-9020-8a1bd34cf508@amd.com> <Y7gs0zYKp/VXACBi@nvidia.com>
+ <f96b1cf3-6865-663d-f1cd-466a71519b08@linux.intel.com>
+ <Y71nZuF5wQp3eqmn@nvidia.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <Y71nZuF5wQp3eqmn@nvidia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0041.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4a::17) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|CY8PR12MB7515:EE_
+X-MS-Office365-Filtering-Correlation-Id: 049972cb-e766-4fe0-665d-08daf310f5b7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: bad4By0LXk1OLOEvgsgik3sdS6g7R9P5yU4NZ47AbqNtUbUrVW6rcQuJJ0dfjI7ufOkLXH1yBplRiMPSJXmollzXkG6jV04v3eb6CVDMSOnk4KGyWhRfVjmv31FDRFOLlrLlfdz1hdT+p0N9+3Uqrv1H/qeENGJj/vSpO1En7dqOVushp666vxUdAWJ1lrsuWX+hqwhjRyzUq36dGAy+GWi4z0UlSr6yK4ozx/fcRq9/5Kp3l8pAwyPO5sVNkUD/r+1mc9W5yVGlRrV8R5/HolfD9E+fKHgADGzjYNpWP5B5iVQ3rJWh1zED09inzno/rKOb7AqPVPQxcHOrBxJHp2DHOo+cR883Hi4AtmyGvjh6eUNa448fxk/4Vsqm1ZJmUBrZiXD1Kx/MZ1az0vRiP0PT9IKrwJ6z2wX3a5ESxVEsX0r9J+oQGOFbb8lICzU7/Vv2FdIm6RD3e8fcY+71AmIKEnC6+PS8X90Xr6+KbIxhMEMDrayrtEwupBokd3NcO0c6AXEinN2ixz6xiCjEx0kAh1GhAUsVoZ1JRDFS0d2euOkHIxLHRQK22u5MtuZEJ97889lW1uT55lmIFJ7IKZvSNhexXourZhv4mNDrse/aO3WQ5cZ6FCz+Cnbr5fgsNGHyEd0HdUKEArADe5a6InUp9gjr8Vky2raLMF+QOSEeZYL3S7BesBhIBdKfCS/AkzVCTwVIHjONTAaQVJ3wAVgNp048zRB86dU0F+UFoVGadjQbFfz/rj0aO8NTRs+EyRBDZE3vvnGGRs/IOTnLXVt80qHK9pMakndS3Ah8+Zr9n3yDiWu7dlhoDem19sMC
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(39860400002)(346002)(376002)(366004)(396003)(451199015)(66556008)(31686004)(7416002)(2906002)(5660300002)(36756003)(8936002)(6666004)(41300700001)(66946007)(66476007)(316002)(4326008)(6636002)(54906003)(110136005)(53546011)(6486002)(6506007)(478600001)(26005)(186003)(6512007)(2616005)(45080400002)(966005)(31696002)(86362001)(83380400001)(38100700002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VmY3RS9UZHVqNzJ1TVhTMGxSZDRJUDJDTWliMDlXcE1KcVR5b3dON2tteEZr?=
+ =?utf-8?B?M2hoVEE2Q001SGcvQ1BLQ1IybjEwdXRnUDNoSG1UdStwcC9VcTE5YXd6WWtS?=
+ =?utf-8?B?Tk9SNTF6VkdnWEo3NTd2bHdTb2tYM09wdWliakZMd0pNdkhTazNENktTZGhN?=
+ =?utf-8?B?ZXFlTDJibXhWaEVmMzltSVQrMzlPcjg2czdDY1RCcFFCK2Uwd0QvekNQTVp5?=
+ =?utf-8?B?VmxveW8wR0xXZFZVRWdlMEs0ci85eXlPV2hZRXR2d1ZCOC93aGx2UW1CZmt4?=
+ =?utf-8?B?MVQ0UFJHdSt1dUZOMnZxVFo2UUt3VkFtbHlrQitPWDFKck5Yb3BSdm92WW8y?=
+ =?utf-8?B?UjQ3aEpybWJaMVF3bkZYdGlrb3ZCcjgxdTI1UHJVeExsWW9pZnVwYXcyZ3NW?=
+ =?utf-8?B?ZW8xR0hDTUZnemtzS200dktzdlAvbldzLzVlRDhkendWUFhzQVRkbzJoUmYr?=
+ =?utf-8?B?NjFuTWlsc0dTU1RoNEVMNFhBZjRKcXNUbWkvRzRxdGhUVDZwU0Z5YlA4Yk1J?=
+ =?utf-8?B?UEx1TjBrTU16YTJtZ2FURnJDSjRvUUJxU0dndjliazhzVWgrS3VnWDQrZGZy?=
+ =?utf-8?B?aUloMHo1YnhHakNpMUtOODNEVWRndFNqM1B4cWk1TTR5NXEzL1NZQy9CVlVa?=
+ =?utf-8?B?eVJONFdBNHl2TW5GVDFlYnBZZ0xXd3oxQ29rcVJRbzZTS1ZvU3Z3akZRL3h2?=
+ =?utf-8?B?aVgrb0t2YkRidVZjSjVDejFrcDY0dXlYU0lpRGZPcFROdmo0Mk40aCs1OXFY?=
+ =?utf-8?B?SU9ka2tZWm5KeEh1cEh4enRLUU9MUVpHcHlsV1dBTEtxbVR3ZFRJTlFaTXlo?=
+ =?utf-8?B?ZWZxYy9kWGVJOVg5SHh3R2toY3hwWE92UXhIcDQ0UWdMbXlxZTJUZUR2ckVx?=
+ =?utf-8?B?U2QyNi9YdWx3Tll1czd2ZkRoNFNxdUx5SVFFd2NIZ3E3NjVaWDVMM1ZEbStL?=
+ =?utf-8?B?NUFzTFFiUnlYaFNVSlp3RmVSTm5LS2tHOW1IMkZObUgycE04WXZ4TCsybmhn?=
+ =?utf-8?B?d1hXUkJuMnZxVnNiUWNMR2ppckVoWmhXbTd0amQxQXBjNklGbCtDbGN1R0tu?=
+ =?utf-8?B?cGExK0pxRnhGa0hNaStsQzZmQjhLakRtNEhaa3FXdnFvQ0RxR1BlbTkwZGpV?=
+ =?utf-8?B?VXNMd3lkVWduaTFRZEJWV0Z4MVJBbVhxS3RhRlhvQXUvY2RvbHMzZVJxbC9D?=
+ =?utf-8?B?akpYSUE1UXpURzBoV1NIanVJNGxubjRJellCSW0xNkc5ZXpDYU5wL0JKb2hj?=
+ =?utf-8?B?NVVyVTFiSithbmE2d1l1blRhcE1BcDRZeTU0b1NNdzhzUzJReUU4dmt5V0ZT?=
+ =?utf-8?B?UFcxV3Y4b0Q4WWdEdHA4Y2lxUytuWjRrTGV5aUEzK21mZ2lYaFk1bTE3K3pO?=
+ =?utf-8?B?YzdYazVxdWxaTlYzVEcvTmJnMGVKMTlsQ0hNYlNSa3lEckFjeXdZK3E0Y1ZV?=
+ =?utf-8?B?Z0hIMnVmV2VaTlNLeE40QmZuTURJSllVdm40ZERlZWo1QjVrdkR0Yk5XOEJn?=
+ =?utf-8?B?czZOREg0TGhVV29MMFNsbUxwdWR5TndsOGx1QzZNMk1naFFWN1dobzdTSktk?=
+ =?utf-8?B?MGpmWHJwV1dDelhibHpGMGZ1T2xPeVNMS09xWVZzR0pJM2p5bW56WkdwOHlZ?=
+ =?utf-8?B?Um1xWkcrai9HQmJjd09iWjhTYXJ6Wm03cFo0TVVGV2RWRU4rN3JHYWYwVGxm?=
+ =?utf-8?B?MitYNWtwZHQ5RXJkNU9HNExVRks2bTJLRGdRWjkwQkx5WnQ1SncwOEttaGY1?=
+ =?utf-8?B?YzhFazliZlNwRWVnNFkwRFlSZDRDdnFPM0RGcWs0VUZEUG5iUTFVa2orcSsw?=
+ =?utf-8?B?VVJuZlBFUEYraHdYUTJ6SVlMcVg1enVidmowUnFNeHBQYUNOWVJGY1BSekFm?=
+ =?utf-8?B?aDBZekxFNGpwNE9GVkRYS015VXJuMmdGaytkWE5rd1p6NWJFL1Q1RktsSVM0?=
+ =?utf-8?B?UXZVWnlVaWFuaVhneU1Dc1VTQjNrQnZPdHllMWFpM3hHVzdYeFdJZ0RkNDJZ?=
+ =?utf-8?B?cmlKd3o2TWEralVCbURpY2QreGpHdklGMjA4QWJ1VjI4U2F5WFBVOEVHMXZy?=
+ =?utf-8?B?OU8wM2lYNGJiYUdjMEpIZmR0YWtUMVVRV3Ruek9IRWo1NkdnTVdvdnEyNWlJ?=
+ =?utf-8?Q?PII0Nl/z4oPRDDlmUmZbyT1Sv?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 049972cb-e766-4fe0-665d-08daf310f5b7
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2023 13:45:39.6309 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CaHREv+1z8c5tFVWYDua4sVNDMBKfLJu/GvaUo3BcQEVal8L7bNEagvAj1Z2Qobj
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7515
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,174 +133,184 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Joerg Roedel <jroedel@suse.de>,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ Thorsten Leemhuis <regressions@leemhuis.info>,
+ Linux PCI <linux-pci@vger.kernel.org>, Vasant Hegde <vasant.hegde@amd.com>,
+ amd-gfx@lists.freedesktop.org, LKML <linux-kernel@vger.kernel.org>,
+ "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
+ Matt Fagnani <matt.fagnani@bell.net>, Bjorn Helgaas <bhelgaas@google.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 07/01/2023 15:15, Arunpravin Paneer Selvam wrote:
-> As we are observing low numbers in viewperf graphics benchmark, we
-> are strictly not allowing the top down flag enabled allocations
-> to steal the memory space from cpu visible region.
-> 
-> The approach is, we are sorting each order list entries in
-> ascending order and compare the last entry of each order
-> list in the freelist and return the max block.
+Am 10.01.23 um 14:25 schrieb Jason Gunthorpe:
+> On Tue, Jan 10, 2023 at 01:48:39PM +0800, Baolu Lu wrote:
+>> On 2023/1/6 22:14, Jason Gunthorpe wrote:
+>>> On Thu, Jan 05, 2023 at 03:57:28PM +0530, Vasant Hegde wrote:
+>>>> Matt,
+>>>>
+>>>> On 1/5/2023 6:39 AM, Matt Fagnani wrote:
+>>>>> I built 6.2-rc2 with the patch applied. The same black screen problem happened
+>>>>> with 6.2-rc2 with the patch. I tried to use early kdump with 6.2-rc2 with the
+>>>>> patch twice by panicking the kernel with sysrq+alt+c after the black screen
+>>>>> happened. The system rebooted after about 10-20 seconds both times, but no kdump
+>>>>> and dmesg files were saved in /var/crash. I'm attaching the lspci -vvv output as
+>>>>> requested.
+>>>>>
+>>>> Thanks for testing. As mentioned earlier I was not expecting this patch to fix
+>>>> the black screen issue. It should fix kernel warnings and IOMMU page fault
+>>>> related call traces. By any chance do you have the kernel boot logs?
+>>>>
+>>>>
+>>>> @Baolu,
+>>>>     Looking into lspci output, it doesn't list ACS feature for Graphics card. So
+>>>> with your fix it didn't enable PASID and hence it failed to boot.
+>>> The ACS checks being done are feature of the path not the end point or
+>>> root port.
+>>>
+>>> If we are expecting ACS on the end port then it is just a bug in how
+>>> the test was written.. The test should be a NOP because there are no
+>>> switches in this topology.
+>>>
+>>> Looking at it, this seems to just be because pci_enable_pasid is
+>>> calling pci_acs_path_enabled wrong, the only other user is here:
+>>>
+>>> 	for (bus = pdev->bus; !pci_is_root_bus(bus); bus = bus->parent) {
+>>> 		if (!bus->self)
+>>> 			continue;
+>>>
+>>> 		if (pci_acs_path_enabled(bus->self, NULL, REQ_ACS_FLAGS))
+>>> 			break;
+>>>
+>>> 		pdev = bus->self;
+>>>
+>>> 		group = iommu_group_get(&pdev->dev);
+>>> 		if (group)
+>>> 			return group;
+>>> 	}
+>>>
+>>> And notice it is calling it on pdev->bus not on pdev itself which
+>>> naturally excludes the end point from the ACS validation.
+>>>
+>>> So try something like:
+>>>
+>>> 	if (!pci_acs_path_enabled(pdev->bus->self, NULL, PCI_ACS_RR | PCI_ACS_UF))
+>>>
+>>> (and probably need to check for null ?)
+>> Hi Matt,
+>>
+>> Do you mind helping to test below change? No other change needed.
+>>
+>> diff --git a/drivers/pci/ats.c b/drivers/pci/ats.c
+>> index f9cc2e10b676..48f34cc996e4 100644
+>> --- a/drivers/pci/ats.c
+>> +++ b/drivers/pci/ats.c
+>> @@ -382,8 +382,15 @@ int pci_enable_pasid(struct pci_dev *pdev, int
+>> features)
+>>          if (!pasid)
+>>                  return -EINVAL;
+>>
+>> -       if (!pci_acs_path_enabled(pdev, NULL, PCI_ACS_RR | PCI_ACS_UF))
+>> -               return -EINVAL;
+>> +       if (pdev->multifunction) {
+>> +               if (!pci_acs_path_enabled(pdev, NULL, PCI_ACS_RR |
+>> PCI_ACS_UF))
+>> +                       return -EINVAL;
+> The AMD device is multi-function according to the lspci, and we
+> already know that 'pci_acs_path_enabled' will fail on it because that
+> is the problem..
+>
+> Actually, I remember it is supposed to be like this:
+>
+>   https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Flinux-iommu%2FYgpb6CxmTdUHiN50%408bytes.org%2F&data=05%7C01%7Cchristian.koenig%40amd.com%7Cb45e8c5a24394d66ae2908daf30e3802%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638089539666187724%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=vf9QsDFqp9s1NUxuP5iMsQJn1R0K9tVRTImTR6uZWAE%3D&reserved=0
+>
+> The GPU and sound device are considered non-isolated by the group
+> code, presumably because of the missing ACS caps.
+>
+> So, if I remember the issue, PCIe says that MemWr/Rd are routed
+> according to their address and ignore the PASID header.
+>
+> A multifunction device is permitted to loop back DMAs one function
+> issues that match a MMIO BAR of another function. eg the GPU could DMA
+> to an MMIO address that overlaps the sound device and the function
+> will deliver the MMIO to the sound device not the host bridge even
+> though it is PASID tagged.
+>
+> This is what get_pci_function_alias_group() is looking for.
+>
+> Multifunction devices that do not do that are supposed to set the ACS
+> RR|UF bits and get_pci_function_alias_group()/etc are supposed to
+> succeed.
+>
+> Thus - the PCI information is telling us that the AMD GPU device does
+> not support PASID because it may be looping back the MMIO to the other
+> functions on the device and thus creating an unacceptable hole in the
+> PASID address space.
+>
+> So - we need AMD to comment on which of these describes their GPU device:
+>
+>   1) Is the issue that the PCI Caps are incorrect on this device and
+>   there is no loopback? Thus we should fix it with a quirk to correct
+>   the caps which will naturally split the iommu group too.
+>
+>   2) Is the device broken and loops back PASID DMAs and we are
+>   legimiate and correct in blocking PASID? So far AMD just got lucky
+>   that no user had a SVA that overlaps with MMIO? Seems unlikely
+>
+>   3) Is the device odd in that it doesn't loop back PASID tagged DMAs,
+>   but does loop untagged? I would say this is non-compliant and PCI
+>   provides no way to describe this. But we should again quirk it to
+>   allow the PASID to be enabled but keep the group separated.
 
-Did you also run the selftests? Does everything still pass and complete 
-in a reasonable amount of time?
+Mhm, I don't have a Kabini at hand but I have a Raven and there I see on 
+the GPU:
 
-> 
-> This patch improves the viewperf 3D benchmark scores.
-> 
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> ---
->   drivers/gpu/drm/drm_buddy.c | 81 ++++++++++++++++++++++++-------------
->   1 file changed, 54 insertions(+), 27 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-> index 11bb59399471..50916b2f2fc5 100644
-> --- a/drivers/gpu/drm/drm_buddy.c
-> +++ b/drivers/gpu/drm/drm_buddy.c
-> @@ -38,6 +38,25 @@ static void drm_block_free(struct drm_buddy *mm,
->   	kmem_cache_free(slab_blocks, block);
->   }
->   
-> +static void list_insert_sorted(struct drm_buddy *mm,
-> +			       struct drm_buddy_block *block)
-> +{
-> +	struct drm_buddy_block *node;
-> +	struct list_head *head;
-> +
-> +	head = &mm->free_list[drm_buddy_block_order(block)];
-> +	if (list_empty(head)) {
-> +		list_add(&block->link, head);
-> +		return;
-> +	}
-> +
-> +	list_for_each_entry(node, head, link)
-> +		if (drm_buddy_block_offset(block) < drm_buddy_block_offset(node))
-> +			break;
-> +
-> +	__list_add(&block->link, node->link.prev, &node->link);
-> +}
-> +
->   static void mark_allocated(struct drm_buddy_block *block)
->   {
->   	block->header &= ~DRM_BUDDY_HEADER_STATE;
-> @@ -52,8 +71,7 @@ static void mark_free(struct drm_buddy *mm,
->   	block->header &= ~DRM_BUDDY_HEADER_STATE;
->   	block->header |= DRM_BUDDY_FREE;
->   
-> -	list_add(&block->link,
-> -		 &mm->free_list[drm_buddy_block_order(block)]);
-> +	list_insert_sorted(mm, block);
+     Capabilities: [2a0 v1] Access Control Services
+         ACSCap:    SrcValid- TransBlk- ReqRedir- CmpltRedir- 
+UpstreamFwd- EgressCtrl- DirectTrans-
+         ACSCtl:    SrcValid- TransBlk- ReqRedir- CmpltRedir- 
+UpstreamFwd- EgressCtrl- DirectTrans-
 
-One advantage of not sorting is when splitting down a large block. 
-Previously the most-recently-split would be at the start of the list for 
-the next order down, where potentially the next allocation could use it. 
-So perhaps less fragmentation if it's all part of one BO. Otherwise I 
-don't see any other downsides, other than the extra overhead of sorting.
+     Capabilities: [2b0 v1] Address Translation Service (ATS)
+         ATSCap:    Invalidate Queue Depth: 00
+         ATSCtl:    Enable+, Smallest Translation Unit: 00
 
->   }
->   
->   static void mark_split(struct drm_buddy_block *block)
-> @@ -387,20 +405,26 @@ alloc_range_bias(struct drm_buddy *mm,
->   }
->   
->   static struct drm_buddy_block *
-> -get_maxblock(struct list_head *head)
-> +get_maxblock(struct drm_buddy *mm, unsigned int order)
->   {
->   	struct drm_buddy_block *max_block = NULL, *node;
-> +	unsigned int i;
->   
-> -	max_block = list_first_entry_or_null(head,
-> -					     struct drm_buddy_block,
-> -					     link);
-> -	if (!max_block)
-> -		return NULL;
-> +	for (i = order; i <= mm->max_order; ++i) {
-> +		if (!list_empty(&mm->free_list[i])) {
-> +			node = list_last_entry(&mm->free_list[i],
-> +					       struct drm_buddy_block,
-> +					       link);
-> +			if (!max_block) {
-> +				max_block = node;
-> +				continue;
-> +			}
->   
-> -	list_for_each_entry(node, head, link) {
-> -		if (drm_buddy_block_offset(node) >
-> -		    drm_buddy_block_offset(max_block))
-> -			max_block = node;
-> +			if (drm_buddy_block_offset(node) >
-> +				drm_buddy_block_offset(max_block)) {
+On the bridge:
 
-Formatting doesn't look right here.
+     Capabilities: [2a0 v1] Access Control Services
+         ACSCap:    SrcValid+ TransBlk+ ReqRedir- CmpltRedir- 
+UpstreamFwd- EgressCtrl- DirectTrans-
+         ACSCtl:    SrcValid+ TransBlk- ReqRedir- CmpltRedir- 
+UpstreamFwd- EgressCtrl- DirectTrans-
 
-Going to test this today with some workloads with small-bar and i915 
-just to see if this improves/impacts anything for us.
+And I'm like 99% sure that Kabini/Wani should be identical to that.
 
-> +				max_block = node;
-> +			}
-> +		}
->   	}
->   
->   	return max_block;
-> @@ -412,20 +436,23 @@ alloc_from_freelist(struct drm_buddy *mm,
->   		    unsigned long flags)
->   {
->   	struct drm_buddy_block *block = NULL;
-> -	unsigned int i;
-> +	unsigned int tmp;
->   	int err;
->   
-> -	for (i = order; i <= mm->max_order; ++i) {
-> -		if (flags & DRM_BUDDY_TOPDOWN_ALLOCATION) {
-> -			block = get_maxblock(&mm->free_list[i]);
-> -			if (block)
-> -				break;
-> -		} else {
-> -			block = list_first_entry_or_null(&mm->free_list[i],
-> -							 struct drm_buddy_block,
-> -							 link);
-> -			if (block)
-> -				break;
-> +	if (flags & DRM_BUDDY_TOPDOWN_ALLOCATION) {
-> +		block = get_maxblock(mm, order);
-> +		if (block)
-> +			/* Store the obtained block order */
-> +			tmp = drm_buddy_block_order(block);
-> +	} else {
-> +		for (tmp = order; tmp <= mm->max_order; ++tmp) {
-> +			if (!list_empty(&mm->free_list[tmp])) {
-> +				block = list_last_entry(&mm->free_list[tmp],
-> +							struct drm_buddy_block,
-> +							link);
-> +				if (block)
-> +					break;
-> +			}
->   		}
->   	}
->   
-> @@ -434,18 +461,18 @@ alloc_from_freelist(struct drm_buddy *mm,
->   
->   	BUG_ON(!drm_buddy_block_is_free(block));
->   
-> -	while (i != order) {
-> +	while (tmp != order) {
->   		err = split_block(mm, block);
->   		if (unlikely(err))
->   			goto err_undo;
->   
->   		block = block->right;
-> -		i--;
-> +		tmp--;
->   	}
->   	return block;
->   
->   err_undo:
-> -	if (i != order)
-> +	if (tmp != order)
->   		__drm_buddy_free(mm, block);
->   	return ERR_PTR(err);
->   }
+Since this is a device integrated in the CPU it could be that the 
+ACS/ATS functionalities are controlled by the BIOS and can be 
+enabled/disabled there. But this should always enable/disable both.
+
+Regards,
+Christian.
+
+>
+> Alex/Christian/Pan - can you please find out? The HW is:
+>
+> 00:01.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Wani [Radeon R5/R6/R7 Graphics] (rev ca) (prog-if 00 [VGA controller])
+> 	DeviceName: ATI EG BROADWAY
+> 	Subsystem: Hewlett-Packard Company Device 8332
+> 00:01.1 Audio device: Advanced Micro Devices, Inc. [AMD/ATI] Kabini HDMI/DP Audio
+> 	Subsystem: Hewlett-Packard Company Device 8332
+>
+> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Fall%2F223ee6d6-70ea-1d53-8bc2-2d22201d8dde%40bell.net%2F&data=05%7C01%7Cchristian.koenig%40amd.com%7Cb45e8c5a24394d66ae2908daf30e3802%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638089539666187724%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=TMB3pXS0eUKPZhcRCvUIxzvJvPYosvv3ofrFKZx7b%2FI%3D&reserved=0
+>
+>> +       } else {
+>> +               if (!pdev->bus->self ||
+>> +                   !pci_acs_path_enabled(pdev->bus->self, NULL,
+>> +                                         PCI_ACS_RR | PCI_ACS_UF))
+>> +                       return -EINVAL;
+>> +       }
+> Why would these be exclusive? Both the path and endpoint needs to be
+> checked
+>
+> Jason
+
