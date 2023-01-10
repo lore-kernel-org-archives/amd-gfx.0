@@ -4,125 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18417C63797
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Jan 2023 15:22:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A38EC46467
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Jan 2023 15:27:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8611D10E5D7;
-	Tue, 10 Jan 2023 15:22:25 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2054.outbound.protection.outlook.com [40.107.244.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEB6E10E5D7
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Jan 2023 15:19:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DF3B10E5DD;
+	Tue, 10 Jan 2023 15:27:04 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2066.outbound.protection.outlook.com [40.107.94.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBFD510E5DB;
+ Tue, 10 Jan 2023 15:27:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GUoVps0NrMn653v2yxyZiZ9yMX9LY8by98Y0vOc7Gpwx2W+mn4XUsnR7C5PjB5lHg5T1BEMIXtFexshc70sCyKXWvNn/KIX+E/UASGbUmG9YXNBKNuwKG8sordZ/sdQU40HOu4VqoulfUrh0bc0heitToVVyMiGvb1HLRp5zjqAxPtAvb5bmAw/mi2cWZqUYsBMkqfwtyOmtQnA9SCq+etCCFkKggxVPEYGvgzt8PYvsmbri48BLcye2ocCA24Z/zrcnaT0vmRa1QPoizWTqrbMvg1fED4Vd9NisTBirJlGU8s43BjvCok3/R40pS2+f4i35bAEfqS8VfFyjWnNTew==
+ b=nWCDlugXqDe+JggNBTMQPX/BtdYSnnmTBXlIgDqylozcqyaDSCd6RecIyZywRafeNJ2Wir8dSSoOxp9LZkFRMUOATg9v5KdlbvtT7mo53xZ3oexHNyGrwtYBfaXccZ0ZI1F2AfXf6rWITsbwYEWiTA1/nASCb9YEmFQMGddy3DpwK1GkXap+cTjfhJ+qd1S8FUvUO8Xmu6OCdmOAtqXvGt9Uku4W+IwReCcNcWhUSYMzn9Qlur+3BGrKu48HOoXzf9FVdkrETh7G79Nft4tpS/z2/7kuLXSf9cTcpznQNdANnz2YhiNdaiu3lA/ZN+n6dpUHV1SCsiJjPz8gTvWzVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FYwgY6I57GCIzCSTLCU69IeGYbe1uenkd/RkjRZU2eI=;
- b=BcV5WCNaTONpqsKvVf7hlZZGGIkr3ZUneSQwtabGeDkKJsLyz4peslRe10VXhJwABsmnBF7w+JCUe6/bDKj68JpybtmlIOSacVr4MBHwC3zO+ix8b31gWBKbbv8rPx3wGzZqN1SLNfrJOnZL1+/TXLWd1/gsaHyFH1DCIycKsUA8Rb1kt0+FYQHJryhBD2DOJPQuc9cQ9ZgqT+UlJXDmKHdLdqB57pOjyjOaKjlIrF0k+w/wy9WIpFY4mN9NxQwD960hDz1gtIbTovd5Gu4Ya0vLZyDtR/BfnbtXhQs1IauVmeGTjQNxSfA7cYIt7JI8BEeTlBTmHkcIgRSSuYFoJg==
+ bh=J7jx9Zbzh2GGeCJ8VidX7HJtlXOjG6dyxGmsxqjIZ9Q=;
+ b=JNIeQxXTG5LMvYVWO13yA8PRipJkDFRUCSZMT25bwNU4oIWwf9vgehmEwRLI4aa4UFIaL4emoAbvQiEhzWL3dHl/WFtpebWl0s7+8cmsbLK8WtH67gIrV30jtSqlIBUkRnKfttlzBNPth5lfeSVGWfFsXaos5H656cMeEmssqXIVOalyy+lpPQQSCK9Uu5NDQe/+HD01ugs9ZStbtcWr1E6zj7WR3aFfMpfDupJE2cuYiM7DGSUlCDIgaN3TSgYPT3ZnbLSPtzx6QvxAVRh/biIAfjqlNPTuipErcUZAeNFgO8we0cDuPai0ymTQp84zD0BLfk48J1WABv0P72Cr7w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FYwgY6I57GCIzCSTLCU69IeGYbe1uenkd/RkjRZU2eI=;
- b=rZOw8dF5PTjzwkKnqkt1rqQF2bl0C+eTUC0L4ZVcb6C0FXb8CR7/cbjt/9dV+c8mFpcv+a9gZuMbKOwU0TxGVxRRME4I6hWkWOqDY5XaARYmgIlwif1HejGFRfnD1PXAht+QD6FUS8b8SASG51M7V+MeR3pWZhwjp6Kf2XJnojjRqrB+msnXXE7SsAmAD70QXRdvQZYKUT8iHy+gLBj5JzNA0jxG8WEIYdfD7OhajZ2+zSo2nyepALrnZ2e/oETrb0zEFt0CDNFHPkuh0rqND5nKgARlEtQ8QsNhpU0zSUtMlMx7x82Ohob0KfQN733he4P4ATxAjQLG8g6DvlLm5w==
+ bh=J7jx9Zbzh2GGeCJ8VidX7HJtlXOjG6dyxGmsxqjIZ9Q=;
+ b=09oTFYY0yxlqMxOa7HajJK7jmG9vt35+a3R1AOZsEuE6JIzCZbyu7Dk/Z400DTGx4U//uewIKb7NcVyJxiG2ZKI9IxPhFJ3wO9kx2t+P8QjLC3sVjiGtfJJ0xox1sqJy3SaEGuAIkQEo/Wd3OUbbw93Dcn91LhsFndurr6eNE7Y=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV2PR12MB5869.namprd12.prod.outlook.com (2603:10b6:408:176::16)
- by BY5PR12MB4305.namprd12.prod.outlook.com (2603:10b6:a03:213::17)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
+ by MN0PR12MB6293.namprd12.prod.outlook.com (2603:10b6:208:3c2::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Tue, 10 Jan
- 2023 15:19:42 +0000
-Received: from LV2PR12MB5869.namprd12.prod.outlook.com
- ([fe80::f8b0:df13:5f8d:12a]) by LV2PR12MB5869.namprd12.prod.outlook.com
- ([fe80::f8b0:df13:5f8d:12a%8]) with mapi id 15.20.5986.018; Tue, 10 Jan 2023
- 15:19:42 +0000
-Date: Tue, 10 Jan 2023 11:19:41 -0400
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Felix Kuehling <felix.kuehling@amd.com>
-Subject: Re: [regression, bisected, =?utf-8?Q?pci?=
- =?utf-8?Q?=2Fiommu=5D_Bug=C2=A0216865_-_Black_screen_whe?= =?utf-8?Q?n?=
- amdgpu started during 6.2-rc1 boot with AMD IOMMU enabled
-Message-ID: <Y72CDYBjXi813/KY@nvidia.com>
-References: <5aa0e698-f715-0481-36e5-46505024ebc1@bell.net>
- <aea57c5f-2d20-c589-ad44-a63f1133a3db@linux.intel.com>
- <157c4ca4-370a-5d7e-fe32-c64d934f6979@amd.com>
- <223ee6d6-70ea-1d53-8bc2-2d22201d8dde@bell.net>
- <6fff9d10-f77f-e55a-9020-8a1bd34cf508@amd.com>
- <Y7gs0zYKp/VXACBi@nvidia.com>
- <f96b1cf3-6865-663d-f1cd-466a71519b08@linux.intel.com>
- <Y71nZuF5wQp3eqmn@nvidia.com>
- <2d1b2183-7e93-f8a5-3c74-8f66824bc8f2@amd.com>
- <fa99d96e-6897-850a-8a46-98b03696e0bb@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+ 2023 15:27:00 +0000
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::c6ec:8cc8:ced1:1aac]) by MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::c6ec:8cc8:ced1:1aac%8]) with mapi id 15.20.5986.018; Tue, 10 Jan 2023
+ 15:26:59 +0000
+Message-ID: <13418209-c381-b6b2-ed23-acc0763839c4@amd.com>
+Date: Tue, 10 Jan 2023 20:56:47 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+Subject: Re: [PATCH] drm: Alloc high address for drm buddy topdown flag
+Content-Language: en-US
+To: Matthew Auld <matthew.auld@intel.com>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com, alexander.deucher@amd.com
+References: <20230107151523.29864-1-Arunpravin.PaneerSelvam@amd.com>
+ <8f376efe-e19b-d1d5-031d-35df399bb6cf@intel.com>
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <8f376efe-e19b-d1d5-031d-35df399bb6cf@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <fa99d96e-6897-850a-8a46-98b03696e0bb@amd.com>
-X-ClientProxiedBy: MN2PR05CA0006.namprd05.prod.outlook.com
- (2603:10b6:208:c0::19) To LV2PR12MB5869.namprd12.prod.outlook.com
- (2603:10b6:408:176::16)
+X-ClientProxiedBy: PN0PR01CA0023.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:4e::18) To MN2PR12MB4342.namprd12.prod.outlook.com
+ (2603:10b6:208:264::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV2PR12MB5869:EE_|BY5PR12MB4305:EE_
-X-MS-Office365-Filtering-Correlation-Id: dac670f9-4bbe-47fb-40cd-08daf31e194a
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4342:EE_|MN0PR12MB6293:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7fe2f5b5-2982-478d-1ed2-08daf31f1dae
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dsZQmpoWQQC+olEuOsiyEV3abCO4MJEe0+fFOFRcrrkf8S8+EPIL2bjp1c3pkg4Hl2Bn5mogx3dhqwgXHVrlid3H1KqdvijwT//XPIlWoApAojlMxyOwsYXTMg4BQtw4XR1ZOVHqSskYIdKrtlAW+Sq/U2A+9Q2FDOlorl9jdueSZ9QxA+PTZqcv2bNolLzfNQ7nUdx8PXc0e6M9ewMwhjt67d4ewMksJJLEyLZ0JZUxU6inON8Nsv5o8fUlpOoJYDcWjQZBXojoKI6swwDHOOkBc3k+ewUNLkwb53Gd3XZDRjfk92qSQadAO/vhaactCLSoYzBh54lneEKcc3e6JHhtkb+FEppwiHTR8gWLBwKxLplDo6jAonENLyWgw1VpVDnnld+6XuCqHgNfsZ8er3BytXyX3WAlPSNqTo87eBlgueUEpIvPnOKfGpKehMxHJaWuTVXMxa/bM+x3FQD+feCAEM8G944ihdsHdGAsV9CQPsJivyLJqezsT47+MuI0P59T5TsRNpKyJgMzG+WuM9OlUhzhf6XxGFKVO0728iHPCxOiPBV7SLqmIJK+v8ypj2qcXirj/Px8K/hh83fVkpQW2yN7YOgnzKRXquFkanXnnMySISUatYlBs2ch0ty26lmyMPeWVGaFeNK2vV+Xgv7qwvGcPMHmvG3UsVn+d5f0cYWkdOBkL55I8esx1hLQES5hHdbLBDOSOw+kiO1Hn5Ov+x3w12aNVfBQwjkEU8A=
+X-Microsoft-Antispam-Message-Info: g6jtmvik3bdvY3dHDTHsdXmiGWaajnTz4F9DMWILkVaDVbkhgnkzpaMHFoV+bysp7+dy8muUJ2WjsZyh1nZdJA0LasZbK8w/7VzC4bu6FgfJpsigbktu081UiJbM129xjpglm9IyyzOtPKr608UqK6l3S8mhlGJyIcMB62F7YlLvHKszKwhrqxM2UEqbBGY/Ckrppw3f4THAaEtkucbOkar1FlzWsGScdsZgOWkRNy6qghNZEMrZWbS0dZIHGgzhsoFm/PVArl+TOu4jq/MkSCktjc1Sfh+SjkXP3/ZsxZ8la8wTsIwnAJVaMu6caHgZic6a5pX83XxxYBDPQIDjZwsYmtkWuo/O9HiTMg3taWLFHJH8/FMW3+jyDTFhbjJfhxZG03MjeCh0hEyHXXQiDwrWqQ4FW8MlX8BBevzNJAlXDgu5ppgm/vyz5xenhoCYQ5gzq/pmgVy9FI+tWqHibOWqM/f9Xf9XUC8Lkn0vjTjJtgrSUqvujsbyWFCjU+3UzJ9YHQGI5lRBC7wHoKNH5Fk5qKQ+Zge6HxZuQaCtxlEXATUJIJ+uvZ9puI34fSueGFfPFtWqhPqyHRv9j/nnk72k8g+2SpSTroQnU9IzJ0/N5M6iEegk6jrr/vKOnhXIFxk9/ob3YH5zU7IDWlw2LHmsd+pRgYsBUW+SZqZ/fRnJVdd1pmrIDhPj3FumzNy0eAebLV7YpQivKhj3oPiJyEe3ZhREpU4Hbx24HBuhXNw=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV2PR12MB5869.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(136003)(39860400002)(346002)(396003)(366004)(451199015)(6916009)(66476007)(66946007)(66556008)(316002)(4326008)(54906003)(2906002)(5660300002)(8936002)(7416002)(66574015)(41300700001)(36756003)(966005)(83380400001)(478600001)(6486002)(6506007)(2616005)(38100700002)(6512007)(26005)(186003)(86362001);
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(346002)(366004)(136003)(396003)(39860400002)(451199015)(6506007)(6486002)(53546011)(6666004)(478600001)(2616005)(26005)(186003)(6512007)(66556008)(316002)(8676002)(66476007)(6636002)(86362001)(38100700002)(83380400001)(31696002)(41300700001)(66946007)(31686004)(36756003)(5660300002)(2906002)(8936002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SXdINjhNNHdRZ2V0ZTV3TjduUDQ1bGJJTGdvM2NtVFpzY0k1czhrMU9yZFBw?=
- =?utf-8?B?QTJYS1Yxb2l4SHM4WWZsNW11dnRhK1BRR3Z5eElQRkZ5OWFTNnBzTm9XRkE1?=
- =?utf-8?B?azIrME5YalhjanRNa3pTd3FqQTNKa1lEQXRLSDFxeVJhOTZOa1c2RVFLOVg4?=
- =?utf-8?B?RXM0OVYwT3JlNm5Td2kwZUx2bjgwb2dzbVZiTWZyazc3bHN1azFtbU1CaXo5?=
- =?utf-8?B?ck1QVWdYamJpOFpnVlRTMXlCTXp3TUhnSzdhOXhkaUEzU3VTcU1xQXJpTmd1?=
- =?utf-8?B?dEVWLzFxd292cFVXZHFsYjRlbklWcSszR3pGd29KbDNQaTYyNG1ZQ3BaRWhX?=
- =?utf-8?B?dXIwbUlDQkM5aHM1R2IzZlFZaC83UzlBSXJhd3ljWjhBSjk5eStxbzlBbTA0?=
- =?utf-8?B?RkQ3aG5kamJYRkgwZzZ2UVc1VTBqTnYrNmkzcnR1STFteVJzT0lrVHlYQjRw?=
- =?utf-8?B?NjJ2a3VPRzVJQzdrWlJCZEhlTkpnRTRtZjNsK0grcUZab1lKOTZyT3BYMFA1?=
- =?utf-8?B?VDNqSzFMRjNXVlBENnFoTE9mODVXdVdrQ05yL1NPVkJvWkI2a2NLUFBYcFUw?=
- =?utf-8?B?ak56eGkydnRuOWtsMXd4ZGh4OWxjM08yOG1WZlh2VnZva1ZlWlJwMFAzNlhH?=
- =?utf-8?B?LzBQbDFjbm96UHZrdml4RzFJOTd4WTFpQU9nNWErQzlTSUV2L1AyeitLUDdr?=
- =?utf-8?B?R3JuT3g5YWQ2TVRDK1I4SzJ3Rzg0aTdXMmNTWmR5QkozV2I1amx1c3NLejFS?=
- =?utf-8?B?UzRvK29Sb0lvSml3UHIwbVRxVm9KRHB0Y3BJQnJoblpMTjd6K0R0VU9oR1RE?=
- =?utf-8?B?UGNiZ2NTVmtUcFl3K25ldjkyZlJsQUJJdy9rTVFXRCtQMHh1eVIvdzJXOFQy?=
- =?utf-8?B?Q29EdEFNUVQ0dUxyQVYrV3NCQzRyNFJ6b2x2Wm5Hc3ZjeElENHdKcWg3ZklO?=
- =?utf-8?B?cUo1cEFWclFsWTFoVlhuNFdZM2FwbFpkSGFiOFhhSUpIRWV4Uk5iK0NxUkdP?=
- =?utf-8?B?RTJpSWlBQkQyZDFCUXZjT1NNU2NKbkVCRVI4QWhSaFBBOTUvR0Y4QkQrL0Zp?=
- =?utf-8?B?emFLd0EwdVRjYUJOdGluMkZzMXA1L1ZMbzZuRU9WSlZPc3BMTE0yb0poaHE2?=
- =?utf-8?B?QzNIallFbWdpK2RtNFFFSi9RN0xTOXN2L1U0SEVOWVRYV0N2UWFoQ29nWnE0?=
- =?utf-8?B?RWtNVURCUE9FS0JzK1VVNjVERjRtMVMwaDhFNUtaYXpWb204c3RLbUdBcnJ4?=
- =?utf-8?B?OTlGdXgyMGJuK1F4QWViZlFuNFNiVEVnVzdkazRSVUVKcndYNmNNTzUzSzdm?=
- =?utf-8?B?L3dtQUNhaDBhNkZvTndqTE9wTzgzdzhBdFV0NzVvQ2krTUszb2x5VGRranVN?=
- =?utf-8?B?S2xkZFVSN3dqZ3BtU1NKVEs1SHQwZXYzUytzSVgxTzI0c3Q3WWhXUWN1c2pP?=
- =?utf-8?B?T01UbWVFNGhxcmdiOHhFUEUyZDdLSjNWdm1pUHJnREZydzBsUjVkbHBHRGpQ?=
- =?utf-8?B?UmgxTTJBa0dPTS82UEk2dWdtWFEyR0VOL1o3bGhKeTRSaWhlanRTS0ZVeEFt?=
- =?utf-8?B?ckhqeHlZelloblFWaWw0dGRSR3BsNStCdkhTeHBmaGg3R1Z5eStPaXo2bUNC?=
- =?utf-8?B?MkYxY3JtZzlDL2I2aWJsL1RwbHFLUUZ2bExqMlBjRU52RklSMlQwb3h3YjVV?=
- =?utf-8?B?a0NYaStpem8wTGJhRUhia1V0bU1GQndUemlLR0JIbU5VbXMzb1RRVVVtVEJa?=
- =?utf-8?B?VmdSNStYLzNBN1ZPbkt6TUd0S2pQV3F4eHBreGdFRng5am9QNUZDS2M4Nkhv?=
- =?utf-8?B?SHlVbFBvVDhWU3ZwY0svSFhIWEFVVjlPeiszQlN4a3JhczNiZzhmdiszdGJa?=
- =?utf-8?B?Q0ZQbUJzN1VWUG92L3Zod2RRSkhLNEcwNk5JOVlLU0Q5TDZvb1djdlVsMzJY?=
- =?utf-8?B?TmJFa21jVDdNNFcvdlRGYVBVeWFBZTYyTFZTdFpKWGN4N0VPd3ppb0ZTMUdD?=
- =?utf-8?B?STZGZ3RkaVppM0ZwRUhESUZMc21rRnI1MUNvT1FqTEJSUWgrcVhjS0JGVUs0?=
- =?utf-8?B?Y0tFdmFmS2d5UnFkam04bWpPVm5TdkFBWVBHNDl5T2VzNXdsSHdxYTc3NUN3?=
- =?utf-8?Q?lWfJh3ZbZpMNPzqM85iuEHk1e?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dac670f9-4bbe-47fb-40cd-08daf31e194a
-X-MS-Exchange-CrossTenant-AuthSource: LV2PR12MB5869.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WjRRTStxaEVNMmFpdkxCeENISno2UXNMdmI2WEtsZW4rSkdOTHlTZm94cnZP?=
+ =?utf-8?B?YnRnQ25IOE1sUXF3QzE5SGFYQzRCc1ZhcVlVVWNBSkYzM3F2NW9INmFxeGth?=
+ =?utf-8?B?N080YmlZdlB2ZEZUU0Z4aXpDVUxVTTFXZVEvTzF0U2RicEdDbmpZZDZ5aURy?=
+ =?utf-8?B?bllEYnJEY05ibVA1UzZia3RpYmFKWHNrQVpWN055UnV5M1RYaXJ2V1pxb2hQ?=
+ =?utf-8?B?SXBTOHJuNEF3THpjZmxTcHR6L05VejdBUEJSWS9EODFRc01qTmdJYzM4ZlpO?=
+ =?utf-8?B?WndpMllSa0xkTHBESWhBbzVLQ0J4SjRoalJqNERWWHNLOXBlWGs4SFFBdHNx?=
+ =?utf-8?B?RWYzZlJnU2hhMlVaUm1PelROK1duSkM5SFJzNTNIdk9qOE5sTlBvYkV0ejda?=
+ =?utf-8?B?T1UrRFJiWnZlRlJCMHBHdkxROWx1ZWU1VGZsT3BFNHJsRkZvZnRKMlRaQVd4?=
+ =?utf-8?B?V3pPaEd3UHQ2dnUxc3VmQ0ZvYzdOYjYwRzhEcjk2bnUxL3RSWEEzQ0xjOUNW?=
+ =?utf-8?B?dTlLOFhnNkJraTFIS3FoeGpGUThyK090MTQrakowdWJzdkthblNXRS9hY3hW?=
+ =?utf-8?B?RHVxV3ZuYXlUdlVmb1JIcTZyUE8xU05pTGhsTHhHOHhyN3B5QjlCbGJWRVB2?=
+ =?utf-8?B?ajBaQ2ZpOEEyOUI0UWJnSWhMc0hkcVM3bG43MlRXa0MwNEFxN1lCNVNTRUgv?=
+ =?utf-8?B?d25URStnMWZaSmJNZHpkVkw1RTlDSGNXVU03YUt6dWZTMkJLZTlXM20yTU9T?=
+ =?utf-8?B?dTdsSDN0NUk2OEFMMlpRTXduRDQwOXJzSE9ZbEs4M0FtTEhnUnBZNDZkaUVP?=
+ =?utf-8?B?dkRHRmdJWEtGVUMwT1JDTnUzcExjSi9jSlBrazlPZ1U0Z2VYTW1ZdjhQNll2?=
+ =?utf-8?B?Q0JBTUNUTzlJZ1UvYytmbVRqZXJUZmw3WDB0aTRRWUptRm16SThKN0xId2t0?=
+ =?utf-8?B?WVVFN1pPbnF3dUZDaWx5a3RQRkpKVDE2SUlaaVVmZGZ2dm9TMGtJdGg2Tzhp?=
+ =?utf-8?B?TW5UWjBVM1cralJkb3JHdVVsRkx4cU9HdE8wRGJ5SXBTVm9HOFI2OFVLVStD?=
+ =?utf-8?B?cXJvVERKeldnY1dTbHQxY0R5eVM4dVI3RWpIb0NncU15T2xpMEJjcFk2V0dK?=
+ =?utf-8?B?WDBBbnlpWjFoN0M4U1kzRi85Ky80VXFLQjdDOGtsb2p6Ykkram9YWFRnWkN5?=
+ =?utf-8?B?Um9NWk9UMHl1Y3g2VWdLRHRuY21Hc29ZTXNZZHFTRUwxalNNN0IzWlRRMGZT?=
+ =?utf-8?B?bEVEbDJxeXpnWmMzMlJWamY4akVYUWU5TDdqQjFSWkpsMlZuR2JWZkpZeXFM?=
+ =?utf-8?B?dUNUNmlZZ1orRy9PY3JnVE5iYVpTWmlyaktLQ3EyUWtDT3FkcGZUNkJzdWJm?=
+ =?utf-8?B?blRXSCt4d2tTOVU5RzZFdWRkc1VHSjV6V0JlblpMckpDaGE3a1F2anQ1WTNJ?=
+ =?utf-8?B?OWo2dUFxYnRoVTFlNE1vbWFJaEJnRzQrQTJ4UnY1aWc4cGdPdkNkbFk4cHc4?=
+ =?utf-8?B?amNQQkFVRzVjMHE0b1l3a2J1N09TL3JTZzh5eUZPN0RHU1VLdGM0ZlZHZHZU?=
+ =?utf-8?B?cjhLZlRUeCszTGdQdzVjaEF2amg2Y1RCZUlTMFMzR3BQd3dtMk1POVZXQXhD?=
+ =?utf-8?B?L1BWdlVkZWN4d3hNTlBWUkJTc3lvTExUOU5sd214dFBNSTVTTndpSmttQ04v?=
+ =?utf-8?B?RHVWbEFPRkp2RERtRFpxTGN1cTI4bmhMeXhyNTY0RTI1aWdWSFc0OTU3WnFD?=
+ =?utf-8?B?cTBlVG5NU1ZjVVRtZjNpR253WWRWME56ekZrTUNKVGRHaE55MnZJK01TSEQr?=
+ =?utf-8?B?d2ZmYzEwL085SStWektBcFQ0TTBwWjIyR1dEblhQeUJ4YXRrK0t0ZHliRE5u?=
+ =?utf-8?B?emhzNWZnRnFGZ3FSSzdXbEkrSGE3TTJFUW9KZVRiLzBlNm1CYm9wNnZDRjU5?=
+ =?utf-8?B?NzBNbXhucUtCUTBxUkJqT010cWZZWUkrQnBzeW95RGd5OCtqZkJRR1l3b0pq?=
+ =?utf-8?B?QmZJYURZcDJaUjhRMVdjdFpzbnNMTVNXYjZLZ0dna0dYZnlrdVFBMHYzVG54?=
+ =?utf-8?B?Z08rK0RFNWlWajFBcGZVL2ZJd1NlMGtWM1AwaVpUaytva2c5RWFXaGdkV0ZK?=
+ =?utf-8?Q?FqPDYphmp5OFRhGOAr4fwEmBM?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7fe2f5b5-2982-478d-1ed2-08daf31f1dae
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2023 15:19:42.6774 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2023 15:26:59.7425 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: R5ZPpAgxIf09XZduiH7Jb1BTjVDGj+S7HWohzt7+tZ/GAHutGTxSfC6AUepBKAFk
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4305
-X-Mailman-Approved-At: Tue, 10 Jan 2023 15:22:23 +0000
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2f0X1BRhqeym6IJ9WCQ5CakmTrkn6+z9qhl8CyM3KQzWmDqr3X6eLVNe90fKiuq6W++JBlpFzx63QdKk5VKrEA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6293
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,63 +126,182 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Joerg Roedel <jroedel@suse.de>,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- Linux PCI <linux-pci@vger.kernel.org>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Vasant Hegde <vasant.hegde@amd.com>, amd-gfx@lists.freedesktop.org,
- LKML <linux-kernel@vger.kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
- Thorsten Leemhuis <regressions@leemhuis.info>,
- Alex Deucher <alexander.deucher@amd.com>, Matt Fagnani <matt.fagnani@bell.net>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Baolu Lu <baolu.lu@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jan 10, 2023 at 10:05:44AM -0500, Felix Kuehling wrote:
-> Am 2023-01-10 um 08:45 schrieb Christian König:
-> > And I'm like 99% sure that Kabini/Wani should be identical to that.
-> 
-> Kabini is not supported by KFD. There should be no calls to amd_iommu_...
-> functions on Kabini, at least not from kfd_iommu.c. And I'm not aware of any
-> other callers in amdgpu.ko.
+Hi Matthew,
 
-The backtrace from the system says otherwise..
+On 1/10/2023 5:32 PM, Matthew Auld wrote:
+> On 07/01/2023 15:15, Arunpravin Paneer Selvam wrote:
+>> As we are observing low numbers in viewperf graphics benchmark, we
+>> are strictly not allowing the top down flag enabled allocations
+>> to steal the memory space from cpu visible region.
+>>
+>> The approach is, we are sorting each order list entries in
+>> ascending order and compare the last entry of each order
+>> list in the freelist and return the max block.
+>
+> Did you also run the selftests? Does everything still pass and 
+> complete in a reasonable amount of time?
+> I will try giving a run
+>>
+>> This patch improves the viewperf 3D benchmark scores.
+>>
+>> Signed-off-by: Arunpravin Paneer Selvam 
+>> <Arunpravin.PaneerSelvam@amd.com>
+>> ---
+>>   drivers/gpu/drm/drm_buddy.c | 81 ++++++++++++++++++++++++-------------
+>>   1 file changed, 54 insertions(+), 27 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+>> index 11bb59399471..50916b2f2fc5 100644
+>> --- a/drivers/gpu/drm/drm_buddy.c
+>> +++ b/drivers/gpu/drm/drm_buddy.c
+>> @@ -38,6 +38,25 @@ static void drm_block_free(struct drm_buddy *mm,
+>>       kmem_cache_free(slab_blocks, block);
+>>   }
+>>   +static void list_insert_sorted(struct drm_buddy *mm,
+>> +                   struct drm_buddy_block *block)
+>> +{
+>> +    struct drm_buddy_block *node;
+>> +    struct list_head *head;
+>> +
+>> +    head = &mm->free_list[drm_buddy_block_order(block)];
+>> +    if (list_empty(head)) {
+>> +        list_add(&block->link, head);
+>> +        return;
+>> +    }
+>> +
+>> +    list_for_each_entry(node, head, link)
+>> +        if (drm_buddy_block_offset(block) < 
+>> drm_buddy_block_offset(node))
+>> +            break;
+>> +
+>> +    __list_add(&block->link, node->link.prev, &node->link);
+>> +}
+>> +
+>>   static void mark_allocated(struct drm_buddy_block *block)
+>>   {
+>>       block->header &= ~DRM_BUDDY_HEADER_STATE;
+>> @@ -52,8 +71,7 @@ static void mark_free(struct drm_buddy *mm,
+>>       block->header &= ~DRM_BUDDY_HEADER_STATE;
+>>       block->header |= DRM_BUDDY_FREE;
+>>   -    list_add(&block->link,
+>> -         &mm->free_list[drm_buddy_block_order(block)]);
+>> +    list_insert_sorted(mm, block);
+>
+> One advantage of not sorting is when splitting down a large block. 
+> Previously the most-recently-split would be at the start of the list 
+> for the next order down, where potentially the next allocation could 
+> use it. So perhaps less fragmentation if it's all part of one BO. 
+> Otherwise I don't see any other downsides, other than the extra 
+> overhead of sorting.
+>
+Allocating from freelist is traversing through right side (i.e top most 
+address range) and for TOPDOWN flag allocations we just split the top 
+most large block once and the subsequent TOPDOWN low order allocations 
+would get block from same already split large block
+For the normal allocations, I modified to retrieve the blocks in each 
+order list from the last entry which has the high probability of getting 
+top most blocks as we have sorted the blocks in each order list.
+Thus the bottom most large blocks are not frequently used, hence we have 
+more space for the visible region on dGPU.
 
->> [   13.515710]  amd_iommu_attach_device+0x2e0/0x300
->> [   13.515719]  __iommu_attach_device+0x1b/0x90
->> [   13.515727]  iommu_attach_group+0x65/0xa0
->> [   13.515735]  amd_iommu_init_device+0x16b/0x250 [iommu_v2]
->> [   13.515747]  kfd_iommu_resume+0x4c/0x1a0 [amdgpu]
->> [   13.517094]  kgd2kfd_resume_iommu+0x12/0x30 [amdgpu]
->> [   13.518419]  kgd2kfd_device_init.cold+0x346/0x49a [amdgpu]
->> [   13.519699]  amdgpu_amdkfd_device_init+0x142/0x1d0 [amdgpu]
->> [   13.520877]  amdgpu_device_init.cold+0x19f5/0x1e21 [amdgpu]
->> [   13.522118]  ? _raw_spin_lock_irqsave+0x23/0x50
->> [   13.522126]  amdgpu_driver_load_kms+0x15/0x110 [amdgpu]
->> [   13.523386]  amdgpu_pci_probe+0x161/0x370 [amdgpu]
->> [   13.524516]  local_pci_probe+0x41/0x80
->> [   13.524525]  pci_device_probe+0xb3/0x220
->> [   13.524533]  really_probe+0xde/0x380
->> [   13.524540]  ? pm_runtime_barrier+0x50/0x90
->> [   13.524546]  __driver_probe_device+0x78/0x170
->> [   13.524555]  driver_probe_device+0x1f/0x90
->> [   13.524560]  __driver_attach+0xce/0x1c0
->> [   13.524565]  ? __pfx___driver_attach+0x10/0x10
->> [   13.524570]  bus_for_each_dev+0x73/0xa0
->> [   13.524575]  bus_add_driver+0x1ae/0x200
->> [   13.524580]  driver_register+0x89/0xe0
->> [   13.524586]  ? __pfx_init_module+0x10/0x10 [amdgpu]
->> [   13.525819]  do_one_initcall+0x59/0x230
->> [   13.525828]  do_init_module+0x4a/0x200
->> [   13.525834]  __do_sys_init_module+0x157/0x180
->> [   13.525839]  do_syscall_64+0x5b/0x80
->> [   13.525845]  ? handle_mm_fault+0xff/0x2f0
->> [   13.525850]  ? do_user_addr_fault+0x1ef/0x690
->> [   13.525856]  ? exc_page_fault+0x70/0x170
->> [   13.525860]  entry_SYSCALL_64_after_hwframe+0x72/0xdc
->> [   13.525867] RIP: 0033:0x7fabd66cde4e
+For APU which has small sized VRAM space, the allocations are now 
+ordered and we don't allocate randomly from freelist solving 
+fragmentation issues.
+>>   }
+>>     static void mark_split(struct drm_buddy_block *block)
+>> @@ -387,20 +405,26 @@ alloc_range_bias(struct drm_buddy *mm,
+>>   }
+>>     static struct drm_buddy_block *
+>> -get_maxblock(struct list_head *head)
+>> +get_maxblock(struct drm_buddy *mm, unsigned int order)
+>>   {
+>>       struct drm_buddy_block *max_block = NULL, *node;
+>> +    unsigned int i;
+>>   -    max_block = list_first_entry_or_null(head,
+>> -                         struct drm_buddy_block,
+>> -                         link);
+>> -    if (!max_block)
+>> -        return NULL;
+>> +    for (i = order; i <= mm->max_order; ++i) {
+>> +        if (!list_empty(&mm->free_list[i])) {
+>> +            node = list_last_entry(&mm->free_list[i],
+>> +                           struct drm_buddy_block,
+>> +                           link);
+>> +            if (!max_block) {
+>> +                max_block = node;
+>> +                continue;
+>> +            }
+>>   -    list_for_each_entry(node, head, link) {
+>> -        if (drm_buddy_block_offset(node) >
+>> -            drm_buddy_block_offset(max_block))
+>> -            max_block = node;
+>> +            if (drm_buddy_block_offset(node) >
+>> +                drm_buddy_block_offset(max_block)) {
+>
+> Formatting doesn't look right here.
+I will check.
+>
+> Going to test this today with some workloads with small-bar and i915 
+> just to see if this improves/impacts anything for us.
+>
+>> +                max_block = node;
+>> +            }
+>> +        }
+>>       }
+>>         return max_block;
+>> @@ -412,20 +436,23 @@ alloc_from_freelist(struct drm_buddy *mm,
+>>               unsigned long flags)
+>>   {
+>>       struct drm_buddy_block *block = NULL;
+>> -    unsigned int i;
+>> +    unsigned int tmp;
+>>       int err;
+>>   -    for (i = order; i <= mm->max_order; ++i) {
+>> -        if (flags & DRM_BUDDY_TOPDOWN_ALLOCATION) {
+>> -            block = get_maxblock(&mm->free_list[i]);
+>> -            if (block)
+>> -                break;
+>> -        } else {
+>> -            block = list_first_entry_or_null(&mm->free_list[i],
+>> -                             struct drm_buddy_block,
+>> -                             link);
+>> -            if (block)
+>> -                break;
+>> +    if (flags & DRM_BUDDY_TOPDOWN_ALLOCATION) {
+>> +        block = get_maxblock(mm, order);
+>> +        if (block)
+>> +            /* Store the obtained block order */
+>> +            tmp = drm_buddy_block_order(block);
+>> +    } else {
+>> +        for (tmp = order; tmp <= mm->max_order; ++tmp) {
+>> +            if (!list_empty(&mm->free_list[tmp])) {
+>> +                block = list_last_entry(&mm->free_list[tmp],
+>> +                            struct drm_buddy_block,
+>> +                            link);
+>> +                if (block)
+>> +                    break;
+>> +            }
+>>           }
+>>       }
+>>   @@ -434,18 +461,18 @@ alloc_from_freelist(struct drm_buddy *mm,
+>>         BUG_ON(!drm_buddy_block_is_free(block));
+>>   -    while (i != order) {
+>> +    while (tmp != order) {
+>>           err = split_block(mm, block);
+>>           if (unlikely(err))
+>>               goto err_undo;
+>>             block = block->right;
+>> -        i--;
+>> +        tmp--;
+>>       }
+>>       return block;
+>>     err_undo:
+>> -    if (i != order)
+>> +    if (tmp != order)
+>>           __drm_buddy_free(mm, block);
+>>       return ERR_PTR(err);
+>>   }
 
-https://lore.kernel.org/all/157c4ca4-370a-5d7e-fe32-c64d934f6979@amd.com/
-
-Jason
