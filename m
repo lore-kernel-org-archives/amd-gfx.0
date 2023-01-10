@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0984CC54EBC
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Jan 2023 15:44:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9ECA8C46467
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Jan 2023 15:45:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7627610E5F2;
-	Tue, 10 Jan 2023 15:44:56 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2064.outbound.protection.outlook.com [40.107.92.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3141E10E5EF
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Jan 2023 15:44:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18FD810E5F3;
+	Tue, 10 Jan 2023 15:44:58 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2058.outbound.protection.outlook.com [40.107.96.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BC3910E5F1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Jan 2023 15:44:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=R5zRCXVHwbvlZeNZkBt4djq59sLFkfABuyu8Qu2MGA8HmgCGaUwMs/igDU+KrheUy0thD5n44fh92Li+jvc1LHicztrVr60ZeMAPJ1sElzLhuZRKrOEVdD35KjS79U4KuQUI9eoC/T7Op9/ULrrGiTukrvWlVCgMj0sKhRTMK3q6Rlb8t65zfFoIyI79zrO7SqHIYe+SNLcAW6M8RNDIv26EIpoNfVDNYmbdc3BMfdY5G8NNQ0h+0vZAVeGNik9M1IfmU5zOB94lslZAkuggSnbSUwoFXcIWDPFR2xfoP56ZnY5TeGNsxUfCFfk0LQGHd5/HRF0Q6ufz8Sf36fDt4g==
+ b=WVFH/IfGBPTBSy6eMt4wPjv+k0bqKPmB+5J9MQMWroxnXWZKPDBNg1MFf+c2RpkpEWOP94ZibcQVLWdQC8Hjb6JgNwtPILCoUzb7eV2B1SfiqgHuVjpsIB4qYzUC/nYgvIIULG1Q7AnQpGztKPUm6mnyvJ1/sRCJr8DRr8i8fXd7VE8gFlQfJGeojzORu8C5/ERpc2d7VOWzrsAFWrvlOzEKjWu8wsP0tCTvpxTi/jr3nUHS7OyX1yaPPJOPyutG8IDnNYf52iupqF7qfdJrU1+9tM+yrV2iPXNThK0DBoS2gN9oGMTJPtOG4+VGSNBiXuYDHwPIZh5CAU8XVT3fvQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=l2Ch4MKLi+Rp6Y0EFdLUiCwYO4rkjv6ORSZFmxzVsOQ=;
- b=UW/TW962RS4VCLvYbR4j5BeUwZbVMEFxrNDfjNRSuBel8Hlz0XhwVGGplLfpdOuvZAi7fP/5z4Rk3kU70VGJrD7XmBsckENCuE1qvw2ywFsIwMMwLBH88YChSIlNKjmEcFH73kZij7O/6g4HIioxxMNrZLtgG4VI4EZ8yW1gd/J3LnNBMDacHB2ccBUCPjVAqqkN1zz0LvooXhHthif2r+zthxOv540mPe6Lxu6uzV3ZgkhgnKTsBMATvhwmetkuEV3XD4oZNPrd8VPAn7syvzHnXDugo57UcD8PBaKyiZoYRZ1kVvBciZ6NLk+xPE01avuAyw3vGqG3l2tdWcv6PA==
+ bh=9A/VMFCW1AElTkekMKRghRaBn67g8RCWRgPo2N4RYfk=;
+ b=JIT62zx1CdF2HjpEYHpWuwbssqzRm+BAMFn9Jykfrf00X6UD2B5HYqpsEo3ueNP1aH6bwPXPRKyjclPaCywYvXqeEk7PjGDjdintYZAxck9zjalofTiPc/Ul9Fy9h4uIM9qqw3KSrfsWl+3NmCUa4F1Cx78Pob5+QIEPBqWgiNV8Uy760HU+yEnA0wcMI5i0Leg1ZtYu48NLSg9VOXGSKJBTj4ldBUDeXh2OzUmCwcUfTScE7CUuDdltWoCbaPauj04hw1FFhUhpqI/FtzBBQO5NXRwYzHTVcen4+W4m4UQAEe4RU8+u+bH1Q6WLcBxMqhqcHL5uKUiyk0omS3AyyA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l2Ch4MKLi+Rp6Y0EFdLUiCwYO4rkjv6ORSZFmxzVsOQ=;
- b=Nh/7Z3r+H4nHtTNme32xmdfRVX2sd9A+0WXQ7KLqgOAXipUDmrDP2Jek1yVRhp8uPgKsVHc5QW5Paq4TWHv8QVz7yP8GSrwVIpsKyJ8SPRRN+CW+uzxna93bKfTLOhfiG59ALOzax8w6Seo1iSgWITxK0ZdUprdB66xIHfMuSes=
-Received: from DM6PR13CA0051.namprd13.prod.outlook.com (2603:10b6:5:134::28)
- by SA0PR12MB4366.namprd12.prod.outlook.com (2603:10b6:806:72::16) with
+ bh=9A/VMFCW1AElTkekMKRghRaBn67g8RCWRgPo2N4RYfk=;
+ b=e6GFlmAIL7rA3IRPZ0KJNqD2pFYcE32QmDGE1QWds2oK6jRXheIQLrElnA4I0KwSYxmW8ggOddYBCMpLkYUeuT95wvjeF+pg+DAVQF2/ZuOfy4hFICgkVIH3MdUWu4t5CuYRx/83IGpzIhUeIwDnQcv3nCIhyF5pyOjVNsFOAv0=
+Received: from DM6PR13CA0059.namprd13.prod.outlook.com (2603:10b6:5:134::36)
+ by SA0PR12MB4351.namprd12.prod.outlook.com (2603:10b6:806:71::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Tue, 10 Jan
- 2023 15:44:51 +0000
+ 2023 15:44:52 +0000
 Received: from DM6NAM11FT094.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:134:cafe::24) by DM6PR13CA0051.outlook.office365.com
- (2603:10b6:5:134::28) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:5:134:cafe::cb) by DM6PR13CA0059.outlook.office365.com
+ (2603:10b6:5:134::36) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.12 via Frontend
- Transport; Tue, 10 Jan 2023 15:44:50 +0000
+ Transport; Tue, 10 Jan 2023 15:44:51 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DM6NAM11FT094.mail.protection.outlook.com (10.13.172.195) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5944.17 via Frontend Transport; Tue, 10 Jan 2023 15:44:50 +0000
+ 15.20.5944.17 via Frontend Transport; Tue, 10 Jan 2023 15:44:51 +0000
 Received: from atma-again.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 10 Jan
- 2023 09:44:46 -0600
+ 2023 09:44:47 -0600
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>
-Subject: [PATCH 1/9] drm/amd/display: Introduce UseMinimumDCFCLK_vars to
- reduce stack size in DML
-Date: Tue, 10 Jan 2023 10:43:17 -0500
-Message-ID: <20230110154325.3350916-2-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 2/9] drm/amd/display: Move two arrays of doubles to
+ UseMinimumDCFCLK_vars
+Date: Tue, 10 Jan 2023 10:43:18 -0500
+Message-ID: <20230110154325.3350916-3-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230110154325.3350916-1-Rodrigo.Siqueira@amd.com>
 References: <20230110154325.3350916-1-Rodrigo.Siqueira@amd.com>
@@ -69,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT094:EE_|SA0PR12MB4366:EE_
-X-MS-Office365-Filtering-Correlation-Id: a2d12124-aba2-4184-e569-08daf3219c4f
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT094:EE_|SA0PR12MB4351:EE_
+X-MS-Office365-Filtering-Correlation-Id: ae7cdbff-5508-441f-026a-08daf3219cf2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5BMxVI/47I5fA/pojivJtIyvhH/FWftSpwS8ygLOfGaKEQKHaGL00xGWMC7bvnA8mN98J5MtWZQWY36/tSUu1F/PjGfyXWi+qCCiQL5Byqjg7mMohZZmgOHXIDotpvOvjeFwR6KVXWVV5apdO3WZbxnU67mmHDplsRGzC7U2TFHvuQD8YIrowRQsr8Zc79Atgs3AsDhsXiJAXlhTZ0vCb3/Vcc319rZmZPk/Mh/ZtwdhFjMNgX1bTqFR5wEOolIIsRMqnr4ptiTHXwVGDwfNuBDuZuZltTqfHNGrbAIU5ux5utJT7g9L55l4gX/pmWLb4x8tVKSYrnlYG1GDs40Nm+8+pEyMazaDCWgNJHnoDVvJ0J0nSVK1b/BFh/7apcIq+E5+mk6Mo4yT6/Zsd9AvyfM6VIJTW1wHQPnszJ9sHRddGmtK2b4q5edUoCYQe7rqRJ4UzaSigNLqXDmnotgWHH2Y0zeLIfoE9YZL91dUUFhbmNZ4ET1KtpE3+iOYCWKAyl3Q65OOz5ahaxXjoXeYUtDXVRLkzl3s5ncYkvNpjrCvMS8uCKfaQt3hSCHTZ2pYcTlxnrb1ezNnLVb3l1jSg7uH2SYndGTjxWCeIMCDMLRPaogz1w8IygFkws0giGqBJW77iwctMRP+rXYiR8wepf6Da+juXVev7CqD7KG/1exyueWbBtJepOgY3AJKudMMny8TD2fjbandDRN34Ajy3YPgi7HXPqZdMe4GxI4rqeJLqi6NWp+S6gBEnufJ6jr1Oj2P0mRhC8U7r/OBi0cC0K/kmcpbZz/fGAFChHKu+wY=
+X-Microsoft-Antispam-Message-Info: 2vKCzMNBATar4itEu6KIJx6YyFU5oj0XCBz6YPHizkp1Sd1Z9DntmXGD6v2kbguTt/psauQKQ48vklld9bIEkDeF10HlMvbQJwJ6Bp4gTulcoy/51DrFLjX1//m1j0naplhL6uvXO2vvBBPxPBfD95YFo8zlBkiRc5NHskGQ52i4sFNsHf88ASiWey0XhlaAjXzFyI6uyJdBsE0BfcOY8ZAAml0FMNm8+C1NQjJ1qHlBSh7hitLVYDvNk/fpLYSu86EfB/W9mhQhvF0+O+Ahm4CyAbWtN4oSXWr3gUA6AlPrBbDTMUuDhWFP7fLPHdJqWdedPv0OoJJx6vnKZ7CD0/n/XTDMltJqCMjy29auYeCqRSpfqDWZ6Sw/e2O1uomSXkQV+z+t9ZNuVh3LJZyKsU33KzMBj3ZfKmKqeRy8nbcO6iVe+7+j2GLxuId2SLbK8i1b6/AClv8pNy0eU/Zb38FFCwU6WxJLEQCExZ2Q04aL1wXXQv+4tC6utvQ2ERkUGOQec07N+ur32r2ftg6wSaEOCscEk4tVUlXbLpSMR0Yr0GVELmfJI9hi+zDjRrkicuv7JWJFRHBqiqrmEVE0cFCrsuLbtknxVY9nDPO0zKUbD96FmUlObZjjTZusAUux3B/GHP6VEGNLuc5LcdLFUAoVGksXV79GL51UlMf+u7iy/V1gH6MExuUzOmVizgL8iBfMeLx9Kbdt00JBoQi7kdKMUoMsJmq+kam11Kn3lLhN/TiBs2d/zdyVVB3lWLi/+w08L0oN1l5g0rw2gLsIyZYLexHG+Sp6A57OtHhW9HU=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(346002)(396003)(39860400002)(376002)(451199015)(40470700004)(36840700001)(46966006)(36756003)(66899015)(86362001)(83380400001)(70206006)(54906003)(40460700003)(110136005)(6636002)(8676002)(41300700001)(4326008)(70586007)(81166007)(82740400003)(356005)(36860700001)(7696005)(478600001)(19627235002)(966005)(186003)(26005)(6666004)(2906002)(8936002)(316002)(5660300002)(40480700001)(426003)(2616005)(16526019)(82310400005)(336012)(47076005)(1076003)(36900700001)(44824005);
+ SFS:(13230022)(4636009)(376002)(346002)(39860400002)(396003)(136003)(451199015)(36840700001)(46966006)(40470700004)(66899015)(8936002)(40460700003)(5660300002)(82310400005)(6666004)(83380400001)(86362001)(966005)(478600001)(16526019)(7696005)(186003)(26005)(81166007)(356005)(70586007)(70206006)(40480700001)(36860700001)(8676002)(82740400003)(4326008)(336012)(1076003)(2616005)(2906002)(36756003)(316002)(19627235002)(426003)(47076005)(41300700001)(110136005)(54906003)(6636002)(36900700001)(44824005);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2023 15:44:50.7517 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a2d12124-aba2-4184-e569-08daf3219c4f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2023 15:44:51.8141 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae7cdbff-5508-441f-026a-08daf3219cf2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT094.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4366
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4351
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,10 +118,9 @@ Error 2
 frame size of 2224 bytes is larger than 2048 bytes
 [-Werror=frame-larger-than=]
 
-This commit introduces a new struct that will accommodate some internal
-variables under the UseMinimumDCFCLK function. This change is the first
-of a series of patches that gradually move each of the arrays of double
-to the new struct to reduce the stack size for DCN31 and DCN314.
+This commit moves two arrays of doubles from UseMinimumDCFCLK to
+UseMinimumDCFCLK_vars and makes the necessary changes to access those
+values from the struct.
 
 Cc: Alex Deucher <alexdeucher@gmail.com>
 Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
@@ -132,66 +131,83 @@ Link: https://lore.kernel.org/all/20221227082932.798359-1-geert@linux-m68k.org/
 Reported-by: Geert Uytterhoeven <geert@linux-m68k.org>
 Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- .../gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c | 7 +++----
- drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h      | 5 +++++
- 2 files changed, 8 insertions(+), 4 deletions(-)
+ .../dc/dml/dcn31/display_mode_vba_31.c        | 20 +++++++++----------
+ .../drm/amd/display/dc/dml/display_mode_vba.h |  2 ++
+ 2 files changed, 11 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
-index ec351c8418cb..00d3c57f0d98 100644
+index 00d3c57f0d98..28dcd46a28c0 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
 +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
-@@ -6928,7 +6928,6 @@ static void UseMinimumDCFCLK(
- 	struct vba_vars_st *v = &mode_lib->vba;
- 	int dummy1, i, j, k;
- 	double NormalEfficiency,  dummy2, dummy3;
--	double TotalMaxPrefetchFlipDPTERowBandwidth[DC__VOLTAGE_STATES][2];
- 
+@@ -6932,8 +6932,6 @@ static void UseMinimumDCFCLK(
  	NormalEfficiency = v->PercentOfIdealFabricAndSDPPortBWReceivedAfterUrgLatency / 100.0;
  	for (i = 0; i < v->soc.num_states; ++i) {
-@@ -6947,9 +6946,9 @@ static void UseMinimumDCFCLK(
- 			int NoOfDPPState[DC__NUM_DPP__MAX];
- 			double MinimumTvmPlus2Tr0;
+ 		for (j = 0; j <= 1; ++j) {
+-			double PixelDCFCLKCyclesRequiredInPrefetch[DC__NUM_DPP__MAX];
+-			double PrefetchPixelLinesTime[DC__NUM_DPP__MAX];
+ 			double DCFCLKRequiredForPeakBandwidthPerPlane[DC__NUM_DPP__MAX];
+ 			double DynamicMetadataVMExtraLatency[DC__NUM_DPP__MAX];
+ 			double MinimumTWait;
+@@ -6986,13 +6984,13 @@ static void UseMinimumDCFCLK(
+ 				double ExpectedPrefetchBWAcceleration;
+ 				double PrefetchTime;
  
--			TotalMaxPrefetchFlipDPTERowBandwidth[i][j] = 0;
-+			v->UseMinimumDCFCLK_stack_reduction.TotalMaxPrefetchFlipDPTERowBandwidth[i][j] = 0;
+-				PixelDCFCLKCyclesRequiredInPrefetch[k] = (v->PrefetchLinesY[i][j][k] * v->swath_width_luma_ub_all_states[i][j][k] * v->BytePerPixelY[k]
++				v->UseMinimumDCFCLK_stack_reduction.PixelDCFCLKCyclesRequiredInPrefetch[k] = (v->PrefetchLinesY[i][j][k] * v->swath_width_luma_ub_all_states[i][j][k] * v->BytePerPixelY[k]
+ 						+ v->PrefetchLinesC[i][j][k] * v->swath_width_chroma_ub_all_states[i][j][k] * v->BytePerPixelC[k]) / NormalEfficiency / v->ReturnBusWidth;
+ 				DCFCLKCyclesRequiredInPrefetch = 2 * ExtraLatencyCycles / NoOfDPPState[k]
+ 						+ v->PDEAndMetaPTEBytesPerFrame[i][j][k] / NormalEfficiency / NormalEfficiency / v->ReturnBusWidth * (v->GPUVMMaxPageTableLevels > 2 ? 1 : 0)
+ 						+ 2 * v->DPTEBytesPerRow[i][j][k] / NormalEfficiency / NormalEfficiency / v->ReturnBusWidth
+-						+ 2 * v->MetaRowBytes[i][j][k] / NormalEfficiency / v->ReturnBusWidth + PixelDCFCLKCyclesRequiredInPrefetch[k];
+-				PrefetchPixelLinesTime[k] = dml_max(v->PrefetchLinesY[i][j][k], v->PrefetchLinesC[i][j][k]) * v->HTotal[k] / v->PixelClock[k];
++						+ 2 * v->MetaRowBytes[i][j][k] / NormalEfficiency / v->ReturnBusWidth + v->UseMinimumDCFCLK_stack_reduction.PixelDCFCLKCyclesRequiredInPrefetch[k];
++				v->UseMinimumDCFCLK_stack_reduction.PrefetchPixelLinesTime[k] = dml_max(v->PrefetchLinesY[i][j][k], v->PrefetchLinesC[i][j][k]) * v->HTotal[k] / v->PixelClock[k];
+ 				ExpectedPrefetchBWAcceleration = (v->VActivePixelBandwidth[i][j][k] + v->VActiveCursorBandwidth[i][j][k])
+ 						/ (v->ReadBandwidthLuma[k] + v->ReadBandwidthChroma[k]);
+ 				DynamicMetadataVMExtraLatency[k] =
+@@ -7006,9 +7004,9 @@ static void UseMinimumDCFCLK(
+ 
+ 				if (PrefetchTime > 0) {
+ 					double ExpectedVRatioPrefetch;
+-					ExpectedVRatioPrefetch = PrefetchPixelLinesTime[k]
+-							/ (PrefetchTime * PixelDCFCLKCyclesRequiredInPrefetch[k] / DCFCLKCyclesRequiredInPrefetch);
+-					DCFCLKRequiredForPeakBandwidthPerPlane[k] = NoOfDPPState[k] * PixelDCFCLKCyclesRequiredInPrefetch[k] / PrefetchPixelLinesTime[k]
++					ExpectedVRatioPrefetch = v->UseMinimumDCFCLK_stack_reduction.PrefetchPixelLinesTime[k]
++							/ (PrefetchTime * v->UseMinimumDCFCLK_stack_reduction.PixelDCFCLKCyclesRequiredInPrefetch[k] / DCFCLKCyclesRequiredInPrefetch);
++					DCFCLKRequiredForPeakBandwidthPerPlane[k] = NoOfDPPState[k] * v->UseMinimumDCFCLK_stack_reduction.PixelDCFCLKCyclesRequiredInPrefetch[k] / v->UseMinimumDCFCLK_stack_reduction.PrefetchPixelLinesTime[k]
+ 							* dml_max(1.0, ExpectedVRatioPrefetch) * dml_max(1.0, ExpectedVRatioPrefetch / 4) * ExpectedPrefetchBWAcceleration;
+ 					if (v->HostVMEnable == true || v->ImmediateFlipRequirement[0] == dm_immediate_flip_required) {
+ 						DCFCLKRequiredForPeakBandwidthPerPlane[k] = DCFCLKRequiredForPeakBandwidthPerPlane[k]
+@@ -7066,13 +7064,13 @@ static void UseMinimumDCFCLK(
  			for (k = 0; k < v->NumberOfActivePlanes; ++k) {
--				TotalMaxPrefetchFlipDPTERowBandwidth[i][j] = TotalMaxPrefetchFlipDPTERowBandwidth[i][j]
-+				v->UseMinimumDCFCLK_stack_reduction.TotalMaxPrefetchFlipDPTERowBandwidth[i][j] = v->UseMinimumDCFCLK_stack_reduction.TotalMaxPrefetchFlipDPTERowBandwidth[i][j]
- 						+ v->NoOfDPP[i][j][k] * v->DPTEBytesPerRow[i][j][k] / (15.75 * v->HTotal[k] / v->PixelClock[k]);
+ 				double MaximumTvmPlus2Tr0PlusTsw;
+ 				MaximumTvmPlus2Tr0PlusTsw = (v->MaximumVStartup[i][j][k] - 2) * v->HTotal[k] / v->PixelClock[k] - MinimumTWait - DynamicMetadataVMExtraLatency[k];
+-				if (MaximumTvmPlus2Tr0PlusTsw <= MinimumTvmPlus2Tr0 + PrefetchPixelLinesTime[k] / 4) {
++				if (MaximumTvmPlus2Tr0PlusTsw <= MinimumTvmPlus2Tr0 + v->UseMinimumDCFCLK_stack_reduction.PrefetchPixelLinesTime[k] / 4) {
+ 					DCFCLKRequiredForPeakBandwidth = v->DCFCLKPerState[i];
+ 				} else {
+ 					DCFCLKRequiredForPeakBandwidth = dml_max3(
+ 							DCFCLKRequiredForPeakBandwidth,
+-							2 * ExtraLatencyCycles / (MaximumTvmPlus2Tr0PlusTsw - MinimumTvmPlus2Tr0 - PrefetchPixelLinesTime[k] / 4),
+-							(2 * ExtraLatencyCycles + PixelDCFCLKCyclesRequiredInPrefetch[k]) / (MaximumTvmPlus2Tr0PlusTsw - MinimumTvmPlus2Tr0));
++							2 * ExtraLatencyCycles / (MaximumTvmPlus2Tr0PlusTsw - MinimumTvmPlus2Tr0 - v->UseMinimumDCFCLK_stack_reduction.PrefetchPixelLinesTime[k] / 4),
++							(2 * ExtraLatencyCycles + v->UseMinimumDCFCLK_stack_reduction.PixelDCFCLKCyclesRequiredInPrefetch[k]) / (MaximumTvmPlus2Tr0PlusTsw - MinimumTvmPlus2Tr0));
+ 				}
  			}
- 
-@@ -6960,7 +6959,7 @@ static void UseMinimumDCFCLK(
- 			MinimumTWait = CalculateTWait(MaxPrefetchMode, v->FinalDRAMClockChangeLatency, v->UrgLatency[i], v->SREnterPlusExitTime);
- 			NonDPTEBandwidth = v->TotalVActivePixelBandwidth[i][j] + v->TotalVActiveCursorBandwidth[i][j] + v->TotalMetaRowBandwidth[i][j];
- 			DPTEBandwidth = (v->HostVMEnable == true || v->ImmediateFlipRequirement[0] == dm_immediate_flip_required) ?
--					TotalMaxPrefetchFlipDPTERowBandwidth[i][j] : v->TotalDPTERowBandwidth[i][j];
-+					v->UseMinimumDCFCLK_stack_reduction.TotalMaxPrefetchFlipDPTERowBandwidth[i][j] : v->TotalDPTERowBandwidth[i][j];
- 			DCFCLKRequiredForAverageBandwidth = dml_max3(
- 					v->ProjectedDCFCLKDeepSleep[i][j],
- 					(NonDPTEBandwidth + v->TotalDPTERowBandwidth[i][j]) / v->ReturnBusWidth
+ 			v->DCFCLKState[i][j] = dml_min(v->DCFCLKPerState[i], 1.05 * dml_max(DCFCLKRequiredForAverageBandwidth, DCFCLKRequiredForPeakBandwidth));
 diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
-index 81e53e67cd0b..660c22a19c8d 100644
+index 660c22a19c8d..733947be3737 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
 +++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
-@@ -249,6 +249,10 @@ struct dml32_ModeSupportAndSystemConfigurationFull {
- 	bool dummy_boolean[2];
+@@ -251,6 +251,8 @@ struct dml32_ModeSupportAndSystemConfigurationFull {
+ 
+ struct UseMinimumDCFCLK_vars {
+ 	double TotalMaxPrefetchFlipDPTERowBandwidth[DC__VOLTAGE_STATES][2];
++	double PixelDCFCLKCyclesRequiredInPrefetch[DC__NUM_DPP__MAX];
++	double PrefetchPixelLinesTime[DC__NUM_DPP__MAX];
  };
  
-+struct UseMinimumDCFCLK_vars {
-+	double TotalMaxPrefetchFlipDPTERowBandwidth[DC__VOLTAGE_STATES][2];
-+};
-+
  struct dummy_vars {
- 	struct DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation
- 	DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation;
-@@ -1236,6 +1240,7 @@ struct vba_vars_st {
- 	bool VActiveBandwithSupport[DC__VOLTAGE_STATES][2];
- 	bool NotEnoughDETSwathFillLatencyHidingPerState[DC__VOLTAGE_STATES][2];
- 	struct dummy_vars dummy_vars;
-+	struct UseMinimumDCFCLK_vars UseMinimumDCFCLK_stack_reduction;
- };
- 
- bool CalculateMinAndMaxPrefetchMode(
 -- 
 2.39.0
 
