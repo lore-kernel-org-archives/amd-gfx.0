@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBA4DC677F1
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Jan 2023 16:57:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF950C46467
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Jan 2023 16:57:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33E2C10E618;
-	Tue, 10 Jan 2023 16:57:22 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2041.outbound.protection.outlook.com [40.107.94.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF5C010E614
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Jan 2023 16:57:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BABC10E610;
+	Tue, 10 Jan 2023 16:57:24 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2048.outbound.protection.outlook.com [40.107.237.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB7CD10E610
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Jan 2023 16:57:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aKp7hakc60cl1PnXUvVNibDXf/R6Cs4ErmkfmiVYnk7RkFKNs/z2tXOOuPHZr8J8nT52pXBd1LgOhvx1P3Cz6DiPesNO0D7gGVdn6CjsjyAcswXrizSQPweSRoLQqgNDid+IdhBT8CieGVDe8glnP5FXqvAxlgMUuYr/1sNelE6JpjTHJt/tLUST8yDTrLum0tfx1OGpsFzziExmaiO4+BigTbUuophjVYGMFTiuLOw3aNTG9v9KPbh4JLXbaAf+HUPwACNa9v/2ZKnKxu7nf3g+mVBIt0OKs/6zxCdBXf2q/5JwfhPFjisnMIysuoZXXdrGQV4hSm7sIJG4ztSBLQ==
+ b=npOyg20LisQPvoRLTybJ29O73z9lKeH1uFoE9uTsBO4vVwWZe0kzdYFyNcjruS47BKw6OUrBa93YA/nRIZO/gr1g+SlnRYuUr2BMilowB4mXdjkhD5g4zzZKJw8Lnp2hMCU4vuoRMEy8X6XpVbnqHoqaDawpdHeeza8zHoSwer4ESwwv+4ylrPngbweQxg3jG8FV6nI5snMHJTeqC3L2OPTo1WiYeL41fCfH7QnYSU5KO0bPou8dMpRNtnwaxjVsc87NkgobPL85b/jq9lMYnugpSszyCejCgCFC9hAxatdd56zhyMAA6u+FmVqDjTsiXorTgAUYQSaDtMsqEY+Rqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9z2MK6Zq/R8L4VHTToQunJrj/HJH1nUj71J4HRLcr0Q=;
- b=SeJ3IOTKaAyQvPzDh6stdQHW78aUWwodG8haqcxwSikZSUs+nciIHRgLpm0hDG7TdEcg71fG/OXjdt9qrPSlISCkACHeMR5OEFnlxX01NN8twVutMX1v9sHktCEL852Wmp7Ec7t+OL1Dz3ZGRwhyqLjlckjwxuvYuFDUTnDPb9/pnyG3KatyRbGHSEh6CiIfJs/9/71+jLsL9nzm+BMvUXSxhVhsTModugM8j6xmzRPntJxf5CqY31la4rkxEFeZUYs5hKczch805I6yKfgKo+Yu0kElZkdYO3kIio4ZA0I0BNOYCoPwdtC3XuONzIQUJtcFBnRVWny3U7IxNq8ZGQ==
+ bh=SOWR73w1+5JB4w5wzp4wtsGm5QjtGQUoqXMWt1e9N9M=;
+ b=JYSGVxB0D6dYwgLSFNNskP7VsaiZNyaS7OQCEqOX3+27ARGU+SXjc73sw7SewJea6CMQGvwHu9jvs9TRJlsZfwtLDSG3V6MTzlPxZu2WoCrQCBdr0OUwZOkGg1pV6PJDj0ch7J4ARODOufy7dGkRA7/0bAXXDAz7B+c0PQAovqf/z/CCmf9BpSr+M475S4jurqtM/wYOdF5y1ReaNuSFqngXohBoL+53lOTf6Et8r+WBjKy9LNvY/ALmaiBsu+Gf6y1M0thJwW5hNLGtpAmnXaVWPeDp1YSfcG0jnt4ZfeEq9ptqIPaJX4hW42gMzDe+e2tZTXRdwh8saX5gMjMH0w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9z2MK6Zq/R8L4VHTToQunJrj/HJH1nUj71J4HRLcr0Q=;
- b=V9DcKlCR/qlcMbPEtDEAkqXmx6WCjXoYN9Oz28mMr5VXvryb1g8TDDBg/sB/SJVTJlSGtVCPlEyk1jdSqKurE5LJ93zfMqq/FIgoOIrtwSOcaTFmPXQQTnmv93GKo+YoPLuMSoWhCkz0azyH3KFqxMAGOjSGhmNGZOxsc3z+how=
-Received: from MW4PR04CA0204.namprd04.prod.outlook.com (2603:10b6:303:86::29)
- by PH0PR12MB5419.namprd12.prod.outlook.com (2603:10b6:510:e9::24)
+ bh=SOWR73w1+5JB4w5wzp4wtsGm5QjtGQUoqXMWt1e9N9M=;
+ b=Q9G5hEa17LSo4gEQB+oUCyaaLmt/9GgOVbSE4fBKvl8H1PTuWyHXg/9m3+Y3jJvp/rAbD+uuau35erY47xGLSZ8JMTIX9oY7iyNi15nQzhKD8dsFpnjmK4arEjRJweRr8Z6qxQ6jSjpQnibgiWTi3cwq/umhInyDVYFZINwODuQ=
+Received: from MW4PR04CA0196.namprd04.prod.outlook.com (2603:10b6:303:86::21)
+ by PH0PR12MB8005.namprd12.prod.outlook.com (2603:10b6:510:26c::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Tue, 10 Jan
- 2023 16:57:17 +0000
+ 2023 16:57:20 +0000
 Received: from CO1NAM11FT028.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:86:cafe::af) by MW4PR04CA0204.outlook.office365.com
- (2603:10b6:303:86::29) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:303:86:cafe::10) by MW4PR04CA0196.outlook.office365.com
+ (2603:10b6:303:86::21) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18 via Frontend
- Transport; Tue, 10 Jan 2023 16:57:17 +0000
+ Transport; Tue, 10 Jan 2023 16:57:20 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT028.mail.protection.outlook.com (10.13.175.214) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5986.18 via Frontend Transport; Tue, 10 Jan 2023 16:57:17 +0000
+ 15.20.5986.18 via Frontend Transport; Tue, 10 Jan 2023 16:57:19 +0000
 Received: from atma-again.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 10 Jan
- 2023 10:57:14 -0600
+ 2023 10:57:16 -0600
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 13/37] drm/amd/display: Account for DCC Meta pitch in DML MALL
+Subject: [PATCH 14/37] drm/amd/display: Account for Subvp Phantoms in DML MALL
  surface calculations
-Date: Tue, 10 Jan 2023 11:55:11 -0500
-Message-ID: <20230110165535.3358492-14-Rodrigo.Siqueira@amd.com>
+Date: Tue, 10 Jan 2023 11:55:12 -0500
+Message-ID: <20230110165535.3358492-15-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230110165535.3358492-1-Rodrigo.Siqueira@amd.com>
 References: <20230110165535.3358492-1-Rodrigo.Siqueira@amd.com>
@@ -69,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT028:EE_|PH0PR12MB5419:EE_
-X-MS-Office365-Filtering-Correlation-Id: 15605b4e-e5ef-4fd4-6cbf-08daf32bbb25
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT028:EE_|PH0PR12MB8005:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2cd9bd61-1483-4981-05f1-08daf32bbcaa
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: H7KBYPM2coRTHuT6sA0RdiIV3iNqKUoKhiudLhxfdFSkVj+fIejzy738qBUm5gZKpmyOyekRp/X6n/ZfG7BcY7c8B+oQfiC4QOw/dwDbG0qkUzBGHYY7RXdu+Bqejox58z0lFQVMF9kN3grRHXx+qCD7vqFnS9UzRS27w8HhRimvVLq/u/7rZ60KhAGGBI3DpM+ksW4FQwxG+d+AE6l1Qf54BFsWgJSMT7uPJkqnFFdAPBZlEC54baVMGcIRMhh+axwGGCHZ944wwxQ39LMEwmW4KTgTtkfVS0nIIcG3hLRuyfXVUn5yTiRD6h8R+AovZErt4WK4g1vYzCES1l7568vMWK1zJ5npfNR5GkKBsh52nGq5exjd7JWQyXv6qLFA4ExZ/BZlmJO2f5ZtL5nhAy7zypP/utb97lHCEXX1j6LsYaSBpT3W9m9QGz+7braJ/2SfNNRj08ovhRiSckzNzDM/7VFdqkWLH+uCjxILbTnVY/I/4iEClj3YwWIag0irkBibbb85LGmbuoPWuRxzTTaysc4GMinVVGnBMLOVEpc7WEBog2jFuVBf1Yj8XxYQ7bREM3R1pHLYjmJJxNRoGgaadmjpz9xUfuNRKQBm2fX19/wBZqVH75uEx1IJjk/bybXSMAOpXuRxIjbR+JLduvvJoYZjeofOE9RvURQNAQJGw0hdRzchiwmZoZA1Q6Z1Mv/16tQMeF8ZGMjCAVUc7SmfgNYY0nTLL7tE4cIR0ak=
+X-Microsoft-Antispam-Message-Info: ywC7QtBSGuDj0YNTQRCwD4UWKGJT50a4pfk3wZWte8wFSxtDcX44gGaWomTyX2MrGurCYJwQBDSyTXI0RX+te7t9Xf4YufpdKVSSe75SortoeQNb9bE9kVLLRQWAMlCcCCcDmjWOO0yeeqoQ7QUcDvPT3lnzLnAZi21JkPEYMvfftf3Yy3yoWv5C/ad6CEW8DFivPQ/7GBf1tWOt13SrkXfndTRTHQNM4bQeBcqFauoFKLFJpXJD+hNL60oW368X9192FTbxVy1qe0MoDI4ddo81XVq6p4IcFgleprllpr/nxLKzFw+LPXUscJPV077gi0wBzbdOHqRnkTNAJKr1NgfMj9Gn+o83840U+8NUWD9dGFv3J147iksKgxGfIpwEcU2rlF1tz4cHdDXz6+VzqysbR6uJ/iDnQTcB1kz6ZA/gD3WYGXP1GKdyQeUQGr23eDN/mD+4NVs2+MeQ0TOgPuAEQj9xYvcZ7giSds8/BKGtMME4mTRgHLhzZPo83JlFd4rrPNYyd2UuGSzJpy/FbA5i7sZq/JbUaox7dMknN9EEIql+RiueWrQc3HmHLZ88iJLxl8OdE++reO0Nd84C8cxDGVnjICBUcPlSz08o2sX5u2+tyf5Dnsd/M6wma0GhA2Ox5uA2RRIyHSI4I1I3gN8CEL0I+JPEgMJqgLA4Ey5zDNrE2XUsWBmqs/Rj4qIyf/+3tDzeYdaKP1tz5exIVt/Ee4pkZJrbNblrdRV1tyQ=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(136003)(376002)(396003)(39860400002)(451199015)(36840700001)(46966006)(40470700004)(40460700003)(426003)(41300700001)(2616005)(47076005)(54906003)(316002)(70586007)(4326008)(336012)(36756003)(1076003)(6916009)(70206006)(8676002)(86362001)(82310400005)(36860700001)(40480700001)(83380400001)(81166007)(356005)(82740400003)(8936002)(5660300002)(2906002)(478600001)(186003)(16526019)(7696005)(6666004)(26005)(36900700001);
+ SFS:(13230022)(4636009)(346002)(39860400002)(396003)(136003)(376002)(451199015)(46966006)(36840700001)(40470700004)(36756003)(186003)(16526019)(40460700003)(26005)(41300700001)(8936002)(82740400003)(2616005)(1076003)(2906002)(316002)(36860700001)(356005)(7696005)(6916009)(40480700001)(86362001)(8676002)(54906003)(82310400005)(70586007)(6666004)(70206006)(4326008)(81166007)(5660300002)(426003)(83380400001)(478600001)(47076005)(336012)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2023 16:57:17.3719 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15605b4e-e5ef-4fd4-6cbf-08daf32bbb25
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2023 16:57:19.9186 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2cd9bd61-1483-4981-05f1-08daf32bbcaa
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT028.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5419
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8005
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,102 +111,93 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Dillon Varone <Dillon.Varone@amd.com>
 
-DML incorrectly uses surface width for determining DCC meta size in MALL
-allocation calculations.  Meta pitch should be used instead.
+DML does not explicitly consider support for space in MALL required for
+subvp phantom pipes. This adds a check to make sure portion of phantom
+surface can fit in MALL.
 
 Reviewed-by: Alvin Lee <Alvin.Lee2@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Signed-off-by: Dillon Varone <Dillon.Varone@amd.com>
 ---
- .../drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c |  4 ++++
- .../display/dc/dml/dcn32/display_mode_vba_util_32.c    | 10 ++++++----
- .../display/dc/dml/dcn32/display_mode_vba_util_32.h    |  2 ++
- 3 files changed, 12 insertions(+), 4 deletions(-)
+ .../display/dc/dml/dcn32/display_mode_vba_32.c    |  2 ++
+ .../dc/dml/dcn32/display_mode_vba_util_32.c       | 15 +++++++++++----
+ .../dc/dml/dcn32/display_mode_vba_util_32.h       |  1 +
+ 3 files changed, 14 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-index 4b8f5fa0f0ad..83765008dd5f 100644
+index 83765008dd5f..6c5ab5c26b38 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
 +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-@@ -411,6 +411,8 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 				v->BlockWidthC,
- 				v->BlockHeightY,
- 				v->BlockHeightC,
-+				mode_lib->vba.DCCMetaPitchY,
-+				mode_lib->vba.DCCMetaPitchC,
- 
- 				/* Output */
- 				v->SurfaceSizeInMALL,
-@@ -2650,6 +2652,8 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 			mode_lib->vba.MacroTileWidthC,
- 			mode_lib->vba.MacroTileHeightY,
- 			mode_lib->vba.MacroTileHeightC,
-+			mode_lib->vba.DCCMetaPitchY,
-+			mode_lib->vba.DCCMetaPitchC,
- 
- 			/* Output */
- 			mode_lib->vba.SurfaceSizeInMALL,
+@@ -387,6 +387,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+ 				mode_lib->vba.NumberOfActiveSurfaces,
+ 				mode_lib->vba.MALLAllocatedForDCNFinal,
+ 				mode_lib->vba.UseMALLForStaticScreen,
++				mode_lib->vba.UsesMALLForPStateChange,
+ 				mode_lib->vba.DCCEnable,
+ 				mode_lib->vba.ViewportStationary,
+ 				mode_lib->vba.ViewportXStartY,
+@@ -2628,6 +2629,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 			mode_lib->vba.NumberOfActiveSurfaces,
+ 			mode_lib->vba.MALLAllocatedForDCNFinal,
+ 			mode_lib->vba.UseMALLForStaticScreen,
++			mode_lib->vba.UsesMALLForPStateChange,
+ 			mode_lib->vba.DCCEnable,
+ 			mode_lib->vba.ViewportStationary,
+ 			mode_lib->vba.ViewportXStartY,
 diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-index b53feeaf5cf1..4279cd481de1 100644
+index 4279cd481de1..ba23b199afa6 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
 +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-@@ -1796,6 +1796,8 @@ void dml32_CalculateSurfaceSizeInMall(
- 		unsigned int ReadBlockWidthC[],
- 		unsigned int ReadBlockHeightY[],
- 		unsigned int ReadBlockHeightC[],
-+		unsigned int DCCMetaPitchY[],
-+		unsigned int DCCMetaPitchC[],
- 
- 		/* Output */
+@@ -1772,6 +1772,7 @@ void dml32_CalculateSurfaceSizeInMall(
+ 		unsigned int NumberOfActiveSurfaces,
+ 		unsigned int MALLAllocatedForDCN,
+ 		enum dm_use_mall_for_static_screen_mode UseMALLForStaticScreen[],
++		enum dm_use_mall_for_pstate_change_mode UsesMALLForPStateChange[],
+ 		bool DCCEnable[],
+ 		bool ViewportStationary[],
+ 		unsigned int ViewportXStartY[],
+@@ -1803,8 +1804,10 @@ void dml32_CalculateSurfaceSizeInMall(
  		unsigned int    SurfaceSizeInMALL[],
-@@ -1828,7 +1830,7 @@ void dml32_CalculateSurfaceSizeInMall(
- 			}
- 			if (DCCEnable[k] == true) {
- 				SurfaceSizeInMALL[k] = SurfaceSizeInMALL[k] +
--						dml_min(dml_ceil(SurfaceWidthY[k], 8 * Read256BytesBlockWidthY[k]),
-+						dml_min(dml_ceil(DCCMetaPitchY[k], 8 * Read256BytesBlockWidthY[k]),
- 							dml_floor(ViewportXStartY[k] + ViewportWidthY[k] + 8 *
- 							Read256BytesBlockWidthY[k] - 1, 8 * Read256BytesBlockWidthY[k])
- 							- dml_floor(ViewportXStartY[k], 8 * Read256BytesBlockWidthY[k]))
-@@ -1839,7 +1841,7 @@ void dml32_CalculateSurfaceSizeInMall(
- 							* Read256BytesBlockHeightY[k])) * BytesPerPixelY[k] / 256;
- 				if (Read256BytesBlockWidthC[k] > 0) {
- 					SurfaceSizeInMALL[k] = SurfaceSizeInMALL[k] +
--							dml_min(dml_ceil(SurfaceWidthC[k], 8 *
-+							dml_min(dml_ceil(DCCMetaPitchC[k], 8 *
- 								Read256BytesBlockWidthC[k]),
- 								dml_floor(ViewportXStartC[k] + ViewportWidthC[k] + 8
- 								* Read256BytesBlockWidthC[k] - 1, 8 *
-@@ -1872,7 +1874,7 @@ void dml32_CalculateSurfaceSizeInMall(
- 			}
- 			if (DCCEnable[k] == true) {
- 				SurfaceSizeInMALL[k] = SurfaceSizeInMALL[k] +
--						dml_ceil(dml_min(SurfaceWidthY[k], ViewportWidthY[k] + 8 *
-+						dml_ceil(dml_min(DCCMetaPitchY[k], ViewportWidthY[k] + 8 *
- 								Read256BytesBlockWidthY[k] - 1), 8 *
- 								Read256BytesBlockWidthY[k]) *
- 						dml_ceil(dml_min(SurfaceHeightY[k], ViewportHeightY[k] + 8 *
-@@ -1881,7 +1883,7 @@ void dml32_CalculateSurfaceSizeInMall(
+ 		bool *ExceededMALLSize)
+ {
+-	unsigned int TotalSurfaceSizeInMALL  = 0;
+ 	unsigned int k;
++	unsigned int TotalSurfaceSizeInMALLForSS = 0;
++	unsigned int TotalSurfaceSizeInMALLForSubVP = 0;
++	unsigned int MALLAllocatedForDCNInBytes = MALLAllocatedForDCN * 1024 * 1024;
  
- 				if (Read256BytesBlockWidthC[k] > 0) {
- 					SurfaceSizeInMALL[k] = SurfaceSizeInMALL[k] +
--							dml_ceil(dml_min(SurfaceWidthC[k], ViewportWidthC[k] + 8 *
-+							dml_ceil(dml_min(DCCMetaPitchC[k], ViewportWidthC[k] + 8 *
- 									Read256BytesBlockWidthC[k] - 1), 8 *
- 									Read256BytesBlockWidthC[k]) *
- 							dml_ceil(dml_min(SurfaceHeightC[k], ViewportHeightC[k] + 8 *
+ 	for (k = 0; k < NumberOfActiveSurfaces; ++k) {
+ 		if (ViewportStationary[k]) {
+@@ -1896,10 +1899,14 @@ void dml32_CalculateSurfaceSizeInMall(
+ 	}
+ 
+ 	for (k = 0; k < NumberOfActiveSurfaces; ++k) {
+-		if (UseMALLForStaticScreen[k] == dm_use_mall_static_screen_enable)
+-			TotalSurfaceSizeInMALL = TotalSurfaceSizeInMALL + SurfaceSizeInMALL[k];
++		/* SS and Subvp counted separate as they are never used at the same time */
++		if (UsesMALLForPStateChange[k] == dm_use_mall_pstate_change_phantom_pipe)
++			TotalSurfaceSizeInMALLForSubVP = TotalSurfaceSizeInMALLForSubVP + SurfaceSizeInMALL[k];
++		else if (UseMALLForStaticScreen[k] == dm_use_mall_static_screen_enable)
++			TotalSurfaceSizeInMALLForSS = TotalSurfaceSizeInMALLForSS + SurfaceSizeInMALL[k];
+ 	}
+-	*ExceededMALLSize =  (TotalSurfaceSizeInMALL > MALLAllocatedForDCN * 1024 * 1024);
++	*ExceededMALLSize =  (TotalSurfaceSizeInMALLForSS > MALLAllocatedForDCNInBytes) ||
++							(TotalSurfaceSizeInMALLForSubVP > MALLAllocatedForDCNInBytes);
+ } // CalculateSurfaceSizeInMall
+ 
+ void dml32_CalculateVMRowAndSwath(
 diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
-index 779c6805f599..83edfcee8851 100644
+index 83edfcee8851..5c7196d1ddef 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
 +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
-@@ -358,6 +358,8 @@ void dml32_CalculateSurfaceSizeInMall(
- 		unsigned int ReadBlockWidthC[],
- 		unsigned int ReadBlockHeightY[],
- 		unsigned int ReadBlockHeightC[],
-+		unsigned int DCCMetaPitchY[],
-+		unsigned int DCCMetaPitchC[],
- 
- 		/* Output */
- 		unsigned int    SurfaceSizeInMALL[],
+@@ -334,6 +334,7 @@ void dml32_CalculateSurfaceSizeInMall(
+ 		unsigned int NumberOfActiveSurfaces,
+ 		unsigned int MALLAllocatedForDCN,
+ 		enum dm_use_mall_for_static_screen_mode UseMALLForStaticScreen[],
++		enum dm_use_mall_for_pstate_change_mode UsesMALLForPStateChange[],
+ 		bool DCCEnable[],
+ 		bool ViewportStationary[],
+ 		unsigned int ViewportXStartY[],
 -- 
 2.39.0
 
