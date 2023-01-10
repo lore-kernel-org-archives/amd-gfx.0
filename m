@@ -4,129 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38634C54EBC
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Jan 2023 19:40:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82399C46467
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Jan 2023 19:41:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 902DD10E1C2;
-	Tue, 10 Jan 2023 19:40:35 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2040.outbound.protection.outlook.com [40.107.244.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C16A610E1C2
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Jan 2023 19:40:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JOrk7lH5fRjPjQK+pUEjuqFLwX7kIz07HOlBX06GBM+Gq1H0lj+rtCsBcI7fb1KLWSXLO/lNgdUihvdZHvZD202c8vClCHvHCvlt5byR53A8KtKMRqfONgwfvFqHSBYN1wsyaJWKEDTuO6+3FP0VwXNiNzq/C1prwQN0/pSyhcRdFpGG2Og833RRYBE9nJBMI/Wna3p46yHTpB1IpJ8KTQHpVih6WYGtcoH5u6pf4CTQkGvHmupt9UOx3gWRF+h/w+Gvds8AhnoG/etRkajXivej0fObp/nNAGBjlGF6/2/k+SjpQx4HX11esySDcgvCny2UaOPZA3Vcvs9jpFPs5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BJq8cCWwbRnX8oAbAWZK98aIErkxXWynm+xA939j4IA=;
- b=CmxC1b6EQAAq2b9iN4lM8Oh8AUf8dSvcL7DdBtecWGh+i4V72ejCXI91lPCvB81ILrFlcoyxRKYN4nllVoX7EsQG9c8BQfb6LDfzracvjpep6lZCpGlw0vqFMhUvfw6bDc6dbrxz6mJ1Wihs6RFUGdjEQuev98gOOJyTWlSahXROIpQOB3ysx4hqloCfZ1V7QD8NF9/o0R9fz9hmY+uAhiSOwoEo9YriayAdcbEyXb0JRwmnvERj/2eDPC+R9RRjUhxBuLintr2xzzxMh/O39xgsdsuIX7oXyiL4dGymfgWdSB4nrGesZr2tnzItrtVoTXcJzlo3VJrtz4jX9DWYHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BJq8cCWwbRnX8oAbAWZK98aIErkxXWynm+xA939j4IA=;
- b=qqqb9ztUE5naV3i8VicEln0dkgYZFNt8n1ZtU1oHNC4DlsyOU4wwfekMCUH2xgOs4HBwBIF4xVrhDi9Emk9GeUDiB1dQGU7VT32I4JAXRAG/vshOEIdlMnKYuQfAYLlFxhrV19JMjH9LQn5sXL8QtJzK5wTmh6+G+eB2/Ayx5Bg=
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by PH7PR12MB5596.namprd12.prod.outlook.com (2603:10b6:510:136::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Tue, 10 Jan
- 2023 19:40:31 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::ff3c:2d37:75f3:442a]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::ff3c:2d37:75f3:442a%7]) with mapi id 15.20.5986.018; Tue, 10 Jan 2023
- 19:40:31 +0000
-From: "Limonciello, Mario" <Mario.Limonciello@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: RE: [PATCH] drm/amd: Only load TA microcode for psp v12_0 once
-Thread-Topic: [PATCH] drm/amd: Only load TA microcode for psp v12_0 once
-Thread-Index: AQHZJSf3X7xKujxrxEWZ3EiMNpcrVa6YCWaAgAAC3TA=
-Date: Tue, 10 Jan 2023 19:40:30 +0000
-Message-ID: <MN0PR12MB6101F4E129A260830E72B2BEE2FF9@MN0PR12MB6101.namprd12.prod.outlook.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A92310E657;
+	Tue, 10 Jan 2023 19:41:57 +0000 (UTC)
+Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
+ [IPv6:2607:f8b0:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A073110E657
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Jan 2023 19:41:54 +0000 (UTC)
+Received: by mail-oi1-x22b.google.com with SMTP id r130so10997009oih.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Jan 2023 11:41:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=AEJkXFqby1yqVMn9wcYhOSmRMUoMFoY9K+OwIFwllPI=;
+ b=WsmILlS2kyqCKABo8g4loVArESQcinADkizmlMlsqaceOfvfAUyhKOK7bfJIL8+NJx
+ aZ1nEzexKFYknFzo1K0I5yFWba9pywPIQU+0WgX+poWmlJo2kuJ2W45Rca1J2QOoO6PR
+ 8drKHRRlkn01IOBnfkgLJqvSsEJWuJTE+la4g9odJPJv91rxtMmqp+9sVseiNJqEaxBc
+ KNuzzTx45MxCe9gU1Nw5HO/WVkHAPZwn+M7mZdDJADtVik2bKO3cCWw7t3RF+lMks8i3
+ vlmqg+3WRYy1wbO61wXPRZc9rKE6XKqA+57ksMfAky715clSCrWkrDoo1p8WnjZEHL7R
+ 9aqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=AEJkXFqby1yqVMn9wcYhOSmRMUoMFoY9K+OwIFwllPI=;
+ b=Uled9SpBMBfRfWBqk86N5hjhZJHxXhPMxu5g8/rI3Gc1BQlcrHO3m0MgXfnWeCyik9
+ eYv2O3F6YWjKnv2+naJHH5f98oPpMMyzVP4UzfSBnEUMTiQvutA84mFGrnMgi2w8C4wC
+ 0Zxiq5mpkuHTIi7d+jrcs4Clhz4cnx70vJtcvUztHAo67JROUrlEfS1ntIe8vBsHBiDl
+ AX6eqhurtjqRXwLdoY5lhkfaHvIPj5eN6hYfUn58kGuu1s1BswFg+L0yUsYCoph/y7FR
+ +tib5OInL5Btu9pksEw6JN5xHXbqaWWIKjIXdGnH2TgT8CC0aIiiRKPJIlW8Up2GuELd
+ MpgA==
+X-Gm-Message-State: AFqh2kotcA6fNpbyDxNuVqQxltn5bc4OE45C8RnPcblmW4N6maveJAlK
+ mblJjgmCQiDWxj8k7hAcouaPJPGiM7civNe8E0k=
+X-Google-Smtp-Source: AMrXdXs8ln7d10CUJKFG9nLaX/NW7v4s3Al0ih7DDkDJO6V0tEI6P/Ux+lFljqoYqrIak34/g34SVYMgKXgMNNRRtmQ=
+X-Received: by 2002:a05:6808:2994:b0:35b:f5f7:3ed0 with SMTP id
+ ex20-20020a056808299400b0035bf5f73ed0mr4803617oib.46.1673379713730; Tue, 10
+ Jan 2023 11:41:53 -0800 (PST)
+MIME-Version: 1.0
 References: <20230110191547.5042-1-mario.limonciello@amd.com>
  <CADnq5_M1z0j1559YkadccZ-d3MAw1K7ZZb-gJeyrykdQgn=utg@mail.gmail.com>
-In-Reply-To: <CADnq5_M1z0j1559YkadccZ-d3MAw1K7ZZb-gJeyrykdQgn=utg@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-01-10T19:40:29Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=6a9663dc-96b2-47cb-bcb7-46e4bcaf22f0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2023-01-10T19:40:29Z
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: ee30a24f-ad54-413a-8128-5881d0527e25
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MN0PR12MB6101:EE_|PH7PR12MB5596:EE_
-x-ms-office365-filtering-correlation-id: ce07a0ea-a95d-4b2d-19fd-08daf3428886
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: FL95gVGINE6Dc9ypEpCSpnI7ZO+Pm+YEQ1RF6M2vW4XP7+v+EJyfGx8fldGZPJP1JEiqV0URvLHdtdS+6UoniRAyl83OziMyb7dOH3lKZoIibiN60j1EaOdvEEf4auHyI3rCwwRnQwvEWKgk6bGSXfA+HSpqdjdYhZd9lmyk4cn2sQgyhPhUm/5s3+lSy23shM+mdS5X4HhvkSzOMuW0vTcQuqJBHiZtL2ynzYRUhNDpsVt2v0bPMBWCRaS9XEGLVKuxlDc2C7oZcKsbP4uJlNdt68UBFFMFV1mDBdxR/dGSNYNjJoN36ZnRdcFGm5uRBVaIPQq8E7tRO2czK0sOd/eNcRvBpO3Uls95tI9BCEIfAcK3oXT4ujfaWiWmhTbVmmsTIhLVGVoB4VBbWWL+yyxEG3Dy5oHnFedAiCM1QlZHuvOe5Zg3zX87+syGW3TKt8884eap5OfkQJSgozxBQeDnvkxFyH8mvE2e6sjBiaDqWLf5brr1CNJaUs1k5YpKu4PotXeuM98Xm5yECqHGPn244xnKoaWzoqKIVjgkDgIoDjFyXSll9Qx/ckbtrTHeS/psmqTukdTXMP3O40qoCWqnS7byM0oZJZC7hG0BqnjB2wsENTPuq/KslBUTFypkFpKO12vlS8x/vH+2WiGHcml5uu3BqtjtDX7mgBtuDST34MsgUIm4whbvvVZ9dEYbezYpRUKDx6kCHf5dH7tqPw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(136003)(346002)(376002)(39860400002)(366004)(451199015)(38070700005)(33656002)(6916009)(71200400001)(7696005)(316002)(55016003)(86362001)(122000001)(9686003)(38100700002)(186003)(53546011)(26005)(8936002)(2906002)(76116006)(478600001)(6506007)(5660300002)(66946007)(52536014)(66446008)(83380400001)(66476007)(66556008)(41300700001)(4326008)(64756008)(8676002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?a0RGTmg0U1BDOFFiRzNsOWpvM0plK0d6N3Z1NzZ6a0o4b1JRT3FTd0swNDhC?=
- =?utf-8?B?OTFOcGVYK3d6WjM5azdFQXdkQmZtVFQxekRrWThRd3l0VW5wN29WMkl1Zi9J?=
- =?utf-8?B?QXFOVnhBcFd3ckFYWi92UVBnVHJuQS84dWNCMGJ4V3B1c1dLRGk2YzJYbjc3?=
- =?utf-8?B?T2VpVm5meFVtMkRwbmovQzV4YmxsQ20zNzRJTmpQUloyc3FvY2hqRkVSQ3R4?=
- =?utf-8?B?UTlSdm1kbVZpb05qaDFueU5UdXlxUzg4bTZTUkVjVkVKVmRrbUhkdGNubW9G?=
- =?utf-8?B?eld4K0lzQm9uY1pPZDRYYnlIaHpQdnJ3a3dXU2ZnUzNjQTlUTUtuQmlVblVS?=
- =?utf-8?B?bzhzOVg4SzZOVlZkVnBEWllDQ0RBWEM0US9XSXVzNHF5VE1DNUphQ3cxRzJF?=
- =?utf-8?B?WWJIY1ozTmNPN0NXSk9kSTlDUGJ0Mis1Q2xFcUU4UnZqMWpKRmtESFNrd2Nx?=
- =?utf-8?B?U3JCbXhXbGJ3NW03SGZrK1VUeXorQWgycUJRVVZIdXBrWVhiTzI2NlgyUnIz?=
- =?utf-8?B?SDAyK0xZczF4Q2FRcXFpM2xjdlZaQmIrSFBVcXB1NlJsMFFKbFFmSDJyeEpn?=
- =?utf-8?B?OEVWdFR5dk1LaW9mUDdpQ2x6aXZ5cUtPY25BK0FwdDZFTFprb3IwZlJTbFRr?=
- =?utf-8?B?eEFaZEFtcXlNblloVUV3U1V3a2hWUWNwWTUzSE5YSUp6Rzc3Z0lRQnNZdGZG?=
- =?utf-8?B?OEhqak5GR3lYaFo2ZVpRZ3ZJYVRpR1FSSFJhWTRUMzMzeUdaQ09IU252NGZT?=
- =?utf-8?B?ZXJieTNsOUlZSGE2ZXIwSGZWa1FzR1Rla2pLdEU3ZTFVS2hvY296N2dicHIx?=
- =?utf-8?B?c1ZxdFNWL3lmK0oxbThPUHNzY083VWV6VE1JQTNJRmpHMGgyZUc1TDJoN0FE?=
- =?utf-8?B?VGJXd01rM2hNZVJEOGhwT2JYVklmTjhpNFZNcDlBUWt3ZE1EWTE0K0Y0VFVI?=
- =?utf-8?B?ZEpoK2t1bEMzQXcweG5SUDYySkpJMVlwZFlZcnFIcGUxYUFZQ3ppY05wOVJa?=
- =?utf-8?B?b0hOUGRyZEFaR2lNc2hhSy9kU2M1SXJkTU9tR0I4WHRRcVYra0Q1TUxuS2lO?=
- =?utf-8?B?SGJLRHhNVXFQT21MYTJiNWZBNnBZVmNXcFk2WDV4V1RjdkpvMW9ieE43Rlpp?=
- =?utf-8?B?R3BFa2dyOThqRDhVZlVSaVRESjJyK2ZJdmZVYjJzazlOVmJpdnRjamhNbUtE?=
- =?utf-8?B?cGwyOEtaejErOHVRYlJKQWlEdElvZkJUT3B2QThoelRIZGZ0azNOWjZZNGdR?=
- =?utf-8?B?OGNVNzdndzRWMS92WkNxYjRwRkMyWDFEUXMwRHliUE5DWW1kVnlZTktEZmNs?=
- =?utf-8?B?RFcvaERFQ3M5bXc4SDRYM3dSclJSRWF3dElWYVRaNUxKUHoycXdJZWQ2VCtD?=
- =?utf-8?B?Qm1iZ0ZzT2VOY01rVzhMc2Fqb2JuZDZSTEhJSU5rSHUvWWpjbGlZUTVCeTlk?=
- =?utf-8?B?VTFQQjY3WDlxWHg5bEhiOE1zNVhTcS9IQksycDFpYndMUU5vZjh0WnRKUHV1?=
- =?utf-8?B?UDFJQ3h6dFdHTzg0N2FoWXB0UnNmYlc2SW05dExwcUs1cjNEdmY4Qkd3UEw0?=
- =?utf-8?B?RlhnWlUrZ3lIVDh0MjlIOWxKclpjSHhNRFRIYWZwWUZmRUZGRHNCWnI5cTQ0?=
- =?utf-8?B?RmVZU0ptbkVmR29ML0h6bWdJTXY2cXpYV09BZnhjK3JzejU0RTJFdm9naWww?=
- =?utf-8?B?Mm5nU0wyd0lNditqT1hwaVlXQzdTN0VQNmpiRTJzSlhZNDNzQngzZXJzWmh5?=
- =?utf-8?B?UlZjVHhXQm5yUHRXdUZSUVNnRnF1WHNQR1Z0NE41YkQyZ3RsTFhlZWVVS3Vn?=
- =?utf-8?B?QkJOVFJiOStGVENlbHUxQkoyM2YxUlRyWHB6Z1VxVUJpNG9DZWRQdnhWQ243?=
- =?utf-8?B?cVZBNzFRay9iaFg1Rk5rV3pIUEtUL20rc0wrRUR6WmdYOFR4cTJ6VUw1VTBH?=
- =?utf-8?B?bk9mUlAxM2d5VUYxRitNQzZxS0ZtdDl4N1JiM0ZIM3Q4ak13TmE5WWQ4TWNl?=
- =?utf-8?B?WWlvSlpvaVVZcWE0c3k2ZU4rVXcvdDBPZ3IvUFZsN09Zb0pwYUFFY2JSWWZK?=
- =?utf-8?B?MXlsMmFkcmhwTlptdGxlbGYzbGxORVQ3K1NXMzMycnJ6emZNVDhkRzFpK0hQ?=
- =?utf-8?Q?qLzQ=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce07a0ea-a95d-4b2d-19fd-08daf3428886
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Jan 2023 19:40:30.9915 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: wIL+wCb88kHLznDHw8y4TbRPcFJkpHgyEXSfI67DcljaqzmoVLzD1sqq6cJ7yhh0nk+ZOO4pIIHz7uXtbuovsQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5596
+ <MN0PR12MB6101F4E129A260830E72B2BEE2FF9@MN0PR12MB6101.namprd12.prod.outlook.com>
+In-Reply-To: <MN0PR12MB6101F4E129A260830E72B2BEE2FF9@MN0PR12MB6101.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 10 Jan 2023 14:41:41 -0500
+Message-ID: <CADnq5_NsDsHUytcJAi86Mwj9+M92xaDwSOA5AesZ7JSvyzdNoQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd: Only load TA microcode for psp v12_0 once
+To: "Limonciello, Mario" <Mario.Limonciello@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,36 +69,68 @@ Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNCg0KDQo+IC0tLS0tT3JpZ2luYWwg
-TWVzc2FnZS0tLS0tDQo+IEZyb206IEFsZXggRGV1Y2hlciA8YWxleGRldWNoZXJAZ21haWwuY29t
-Pg0KPiBTZW50OiBUdWVzZGF5LCBKYW51YXJ5IDEwLCAyMDIzIDEzOjI5DQo+IFRvOiBMaW1vbmNp
-ZWxsbywgTWFyaW8gPE1hcmlvLkxpbW9uY2llbGxvQGFtZC5jb20+DQo+IENjOiBhbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBTdWJqZWN0OiBSZTogW1BBVENIXSBkcm0vYW1kOiBPbmx5
-IGxvYWQgVEEgbWljcm9jb2RlIGZvciBwc3AgdjEyXzAgb25jZQ0KPiANCj4gT24gVHVlLCBKYW4g
-MTAsIDIwMjMgYXQgMjoxNiBQTSBNYXJpbyBMaW1vbmNpZWxsbw0KPiA8bWFyaW8ubGltb25jaWVs
-bG9AYW1kLmNvbT4gd3JvdGU6DQo+ID4NCj4gPiBEdXJpbmcgcmViYXNlIGZyb20gcGF0Y2ggc2Vy
-aWVzIGFjY2lkZW50YWxseSBlbmRlZCB1cCB3aXRoIHR3byBjYWxscw0KPiA+IHRvIGxvYWQgVEEg
-bWljcm9jb2RlIGZvciBwc3AgdjEyXzAuIE9ubHkgb25lIGlzIG5lZWRlZCwgc28gcmVtb3ZlIHRo
-ZQ0KPiA+IHNlY29uZC4NCj4gPg0KPiA+IEZpeGVzOiBmMWVmZWQ0MDFiYWRiICgiZHJtL2FtZDog
-UGFyc2UgYm90aCB2MSBhbmQgdjIgVEEgbWljcm9jb2RlDQo+IGhlYWRlcnMgdXNpbmcgc2FtZSBm
-dW5jdGlvbiIpDQo+ID4gU2lnbmVkLW9mZi1ieTogTWFyaW8gTGltb25jaWVsbG8gPG1hcmlvLmxp
-bW9uY2llbGxvQGFtZC5jb20+DQo+IA0KPiBSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4
-YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KPiANCj4gSSdsbCBzcXVhc2ggdGhpcyBpbnRvIGYxZWZl
-ZDQwMWJhZGIuDQoNCllvdSBtZWFuIHdoZW4geW91IHNlbmQgaXQgdXAgZm9yIGRybS1uZXh0PyAg
-QXQgbGVhc3QgZm9yIGFtZC1zdGFnaW5nLWRybS1uZXh0IGl0DQpzaG91bGQgcHJvYmFibHkgYmUg
-aXQncyBvd24gc2VwYXJhdGUgY29tbWl0IHRob3VnaCBzdGlsbCByaWdodD8NCg0KPiANCj4gQWxl
-eA0KPiANCj4gPiAtLS0NCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3YxMl8w
-LmMgfCAzIC0tLQ0KPiA+ICAxIGZpbGUgY2hhbmdlZCwgMyBkZWxldGlvbnMoLSkNCj4gPg0KPiA+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjEyXzAuYw0KPiBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92MTJfMC5jDQo+ID4gaW5kZXggZTgyYTBj
-MmJmMWZhYS4uZmNkNzA4ZWFlNzVjYyAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9wc3BfdjEyXzAuYw0KPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L3BzcF92MTJfMC5jDQo+ID4gQEAgLTU1LDkgKzU1LDYgQEAgc3RhdGljIGludCBwc3BfdjEy
-XzBfaW5pdF9taWNyb2NvZGUoc3RydWN0DQo+IHBzcF9jb250ZXh0ICpwc3ApDQo+ID4gICAgICAg
-ICBhbWRncHVfdWNvZGVfaXBfdmVyc2lvbl9kZWNvZGUoYWRldiwgTVAwX0hXSVAsIHVjb2RlX3By
-ZWZpeCwNCj4gc2l6ZW9mKHVjb2RlX3ByZWZpeCkpOw0KPiA+DQo+ID4gICAgICAgICBlcnIgPSBw
-c3BfaW5pdF9hc2RfbWljcm9jb2RlKHBzcCwgdWNvZGVfcHJlZml4KTsNCj4gPiAtICAgICAgIGlm
-IChlcnIpDQo+ID4gLSAgICAgICAgICAgICAgIHJldHVybiBlcnI7DQo+ID4gLSAgICAgICBlcnIg
-PSBwc3BfaW5pdF90YV9taWNyb2NvZGUocHNwLCB1Y29kZV9wcmVmaXgpOw0KPiA+ICAgICAgICAg
-aWYgKGVycikNCj4gPiAgICAgICAgICAgICAgICAgcmV0dXJuIGVycjsNCj4gPg0KPiA+IC0tDQo+
-ID4gMi4yNS4xDQo+ID4NCg==
+On Tue, Jan 10, 2023 at 2:40 PM Limonciello, Mario
+<Mario.Limonciello@amd.com> wrote:
+>
+> [AMD Official Use Only - General]
+>
+>
+>
+> > -----Original Message-----
+> > From: Alex Deucher <alexdeucher@gmail.com>
+> > Sent: Tuesday, January 10, 2023 13:29
+> > To: Limonciello, Mario <Mario.Limonciello@amd.com>
+> > Cc: amd-gfx@lists.freedesktop.org
+> > Subject: Re: [PATCH] drm/amd: Only load TA microcode for psp v12_0 once
+> >
+> > On Tue, Jan 10, 2023 at 2:16 PM Mario Limonciello
+> > <mario.limonciello@amd.com> wrote:
+> > >
+> > > During rebase from patch series accidentally ended up with two calls
+> > > to load TA microcode for psp v12_0. Only one is needed, so remove the
+> > > second.
+> > >
+> > > Fixes: f1efed401badb ("drm/amd: Parse both v1 and v2 TA microcode
+> > headers using same function")
+> > > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> >
+> > Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> >
+> > I'll squash this into f1efed401badb.
+>
+> You mean when you send it up for drm-next?  At least for amd-staging-drm-next it
+> should probably be it's own separate commit though still right?
+
+Correct.
+
+Alex
+
+
+>
+> >
+> > Alex
+> >
+> > > ---
+> > >  drivers/gpu/drm/amd/amdgpu/psp_v12_0.c | 3 ---
+> > >  1 file changed, 3 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
+> > b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
+> > > index e82a0c2bf1faa..fcd708eae75cc 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
+> > > @@ -55,9 +55,6 @@ static int psp_v12_0_init_microcode(struct
+> > psp_context *psp)
+> > >         amdgpu_ucode_ip_version_decode(adev, MP0_HWIP, ucode_prefix,
+> > sizeof(ucode_prefix));
+> > >
+> > >         err = psp_init_asd_microcode(psp, ucode_prefix);
+> > > -       if (err)
+> > > -               return err;
+> > > -       err = psp_init_ta_microcode(psp, ucode_prefix);
+> > >         if (err)
+> > >                 return err;
+> > >
+> > > --
+> > > 2.25.1
+> > >
