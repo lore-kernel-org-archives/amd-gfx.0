@@ -4,88 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 362D1C5479D
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 21:52:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 987D3C46467
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 23:02:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA00E10E159;
-	Wed, 11 Jan 2023 21:52:54 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2079.outbound.protection.outlook.com [40.107.237.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6869410E159
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 21:52:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Y/PDNLuIZLUpedXVyp7jiaQZsIJXKeDR9rbAy4Z1+QpQEL5VxJtgjfNr+VRRFwHrDQEvqpvY212EAAqbJNROruuyb6ehXpY6quLYaj/qNYzP5uNnlLrEVzzm71bypr5ReoauclR6zSmF7cv27h06DhcjqEn1NvvhBbycmsGeR9fxoJ7+e0waYdk5IRLIxLCBccLVqpqkA6ImjClPjC3ZkafQqTpG5p70v6mI0hvPyx74gR0FcrvdrnwWCnMQgw3Wxt1FcBtd15KA7ZLXq2hITw6BVZ4onVL/J5NpVjypblLz2kCVUnqICtbv1XsWNT5Jjnb/6ik/9rMUAehOCY6+8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YIqtL6LXJiyJzXc2W73S4bGTqF39YkkTPt9jtfbskss=;
- b=VFneouUTekaw0y4/2LQ5YrR83NOMdfizamsACs0lm05b7i1yt5jBHpM/u9azSXl28bfWcoEVux8UwydZiHPD1AKsMc+ju1VO0R1NAIvdZbhlT+kfOOQ9cUEhxnPXHJ7JI3Ti7EpVtawTeneeUf0/lJm6czoEA0jjvKFB62ImUMoYENCt/5ITp4L0fdeVZZ2TJ/EwANCEMXVEmhxKtCEWTwchpU98tcUqmBuedFNdoCYoxDv9SQhCLfHXGTGSuzmh19MjOlua/mOqlPhuzWcoPEw2px+XOwyHN0gBH8Uaqw0lSjzjQnN1hgLhQhHtJ1AZz1uQQ4XDv0Bqo0IjKJNzYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YIqtL6LXJiyJzXc2W73S4bGTqF39YkkTPt9jtfbskss=;
- b=lHR648+a0lwGD/pQM8WI45Yd0RJODGw0sBRWZy2YZm/LsRGqYF70dO4MoK/qdbJvIeUG8dwBhIJBV0uanUUZIl2/a7hJvzuMO3lMpKu4jokEuE1PYvtN7MOby5u/YQJyE5oSbX2oTpfmyfTcYYFP/B62Ph6ZbjrfpmpRlXegftY=
-Received: from DS7PR03CA0042.namprd03.prod.outlook.com (2603:10b6:5:3b5::17)
- by MN0PR12MB6319.namprd12.prod.outlook.com (2603:10b6:208:3c0::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Wed, 11 Jan
- 2023 21:52:50 +0000
-Received: from DM6NAM11FT083.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3b5:cafe::cd) by DS7PR03CA0042.outlook.office365.com
- (2603:10b6:5:3b5::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18 via Frontend
- Transport; Wed, 11 Jan 2023 21:52:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT083.mail.protection.outlook.com (10.13.173.97) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5986.18 via Frontend Transport; Wed, 11 Jan 2023 21:52:49 +0000
-Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 11 Jan
- 2023 15:52:48 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd: Avoid ASSERT for some message failures
-Date: Wed, 11 Jan 2023 15:52:31 -0600
-Message-ID: <20230111215231.20122-1-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0649110E833;
+	Wed, 11 Jan 2023 23:02:39 +0000 (UTC)
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [IPv6:2a00:1450:4864:20::32a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9994810E833
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 23:02:36 +0000 (UTC)
+Received: by mail-wm1-x32a.google.com with SMTP id ja17so12083981wmb.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 15:02:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=in-reply-to:content-disposition:mime-version:references
+ :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=f5DAHiUXNSqP8lsMat4V7Y9pDYdgiNXYeg0YIR9t8tw=;
+ b=ijgJVYN6mmNTbTPFO5OqRoZJG72dUQWCDuNXxKwYGwTa0H+jMvm9BpIyRHatxnCL+G
+ H98LSjPJpsNaGcsjI/aze5PgnnoHRW8kyHFa6VjVASmpy7N+Pq2lh2SPkWtTXdQsZZVJ
+ 4IHyqrcso5C29wuZwnx/ROG5bnhHvvZpFV+r0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references
+ :mail-followup-to:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=f5DAHiUXNSqP8lsMat4V7Y9pDYdgiNXYeg0YIR9t8tw=;
+ b=1IcD74w4ojDoht59+UebZeTAomPdU9p+ECOJeF0eHDFukqHCmmlIWHnO+BpsB/WkCN
+ SmQs+YK2g/GYafPq/3kkDygZUYF1Cz7nT75xq6cmlkqFv9ch4sZsTIm9UP6/oYhIGU9a
+ HzGjOhx9pJC613dMHx0dG1hGVxgqjbug7s9EAJ8NTScRyOwSc+HRh6Yp0cRwOSxJJ7ui
+ 4pStz9L8PzBeMJxg9ZJ+WWdM9yn7grwdHsVzOX55Bb3fUD4hk+M98EEOIzIFkbWnzyy5
+ KdJnF4F+FPlug7OvPhOK2rlqo0nEj9sPuU7PyTrQ11uu25v7BNCOHQL0LAzdZQ63yUF6
+ 9erg==
+X-Gm-Message-State: AFqh2kqQqYHBFIl+BDw0plJQjcuNPzI+q+1K5edFymQUy+GybV/JV1ii
+ 0NC0Ne08oLKipu7Vv08JIXXQgg==
+X-Google-Smtp-Source: AMrXdXu42yEstUzQrpMN6ziaFxtpQwABY5sjgNZ43ZWdGx9iwmPJ1+C7GDfu3P+KAaFELhdK5tZrJg==
+X-Received: by 2002:a05:600c:3d91:b0:3d9:103d:9078 with SMTP id
+ bi17-20020a05600c3d9100b003d9103d9078mr52671943wmb.22.1673478155135; 
+ Wed, 11 Jan 2023 15:02:35 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id
+ k30-20020a05600c1c9e00b003d9b89a39b2sm22004350wms.10.2023.01.11.15.02.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Jan 2023 15:02:34 -0800 (PST)
+Date: Thu, 12 Jan 2023 00:02:32 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Jim Cromie <jim.cromie@gmail.com>
+Subject: Re: [RFC PATCH 13/17] drm_print: fix stale macro-name in comment
+Message-ID: <Y79ACEDu4ePaWMQr@phenom.ffwll.local>
+Mail-Followup-To: Jim Cromie <jim.cromie@gmail.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, seanpaul@chromium.org,
+ robdclark@gmail.com, jbaron@akamai.com, gregkh@linuxfoundation.org
+References: <20221206003424.592078-1-jim.cromie@gmail.com>
+ <20221206003424.592078-14-jim.cromie@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT083:EE_|MN0PR12MB6319:EE_
-X-MS-Office365-Filtering-Correlation-Id: a6b07396-d89a-4aa6-5006-08daf41e2ed7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: xDD/SD0n2bFAIM67eAV+EiTtGDuPa/UCpZUYaRx6GxQzkpekfR4YWIFPFywtnNKdOxdLdVwgR7NOdzfzskI/KN/cBe2VTo3h9SCooaSIbTxjZPcySm5x/PyWFQ0nOtDGjOiJsQ877vQDPU+lHm32EPB1u4kzB25oD3vwK5WnatfdBltA1+Ds/wAJjTaaa6gb2A4E8BtyLsaMtcPyBr85Izz9mzw8dGTeWv7EXHcEggWx/bQf3RHtGb8xPt5wyp/HFQBjwIQdBomOwQKiagYSW736gskRc8XZ2x619C3wxwMpmk+O9d4z8g4YfzE6mvIX9OVCLaCzk3D8CvzOc835zkllxHjX8xWyP4FH68sHenub5NVgjPQnvejXgBawWfEFPuFhHtzkdv2FbPBE+ieAVdmBYI0LEcVzlM6ue39YJz9/f7/QUaDWx3BdQNNnpczSROGW6KQDXHLbrc0fp617zfv+qu17CEt7nTHKLd+jvrmsp4rfD1Z/7vm6/sOPxLUhmGSO8ywgsIpgbi3BEyjYOMJmDxbPyILYeU7gJG5MtbSHfhS+ZYigU+Trek7EkffPwP7jKmbzfAQdJoAXd0gK8RacXpKsyuZaidNR0sZp+ij738TzDqA93S4h83VdGhEl/sckNWPd8aOFIokSklTzNaZUaeuFLuxV3AII4ZDr/WhQDzHVxj9yTKQ2GIf+aNU461NAckSgHicIdsYHdYtMwoNQ3Up4wvxoly5z/4oKQ2E=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(346002)(39860400002)(396003)(136003)(451199015)(46966006)(36840700001)(40470700004)(8936002)(2906002)(5660300002)(44832011)(316002)(6666004)(41300700001)(4326008)(478600001)(8676002)(70206006)(6916009)(54906003)(19627235002)(70586007)(336012)(26005)(82310400005)(426003)(16526019)(40480700001)(7696005)(83380400001)(47076005)(1076003)(86362001)(356005)(82740400003)(2616005)(186003)(81166007)(40460700003)(36860700001)(36756003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2023 21:52:49.7780 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6b07396-d89a-4aa6-5006-08daf41e2ed7
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT083.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6319
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20221206003424.592078-14-jim.cromie@gmail.com>
+X-Operating-System: Linux phenom 5.19.0-2-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,39 +75,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Richard.Gong@amd.com, Roman.Li@amd.com,
- Mario Limonciello <mario.limonciello@amd.com>
+Cc: jani.nikula@intel.com, daniel.vetter@ffwll.ch,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, robdclark@gmail.com, seanpaul@chromium.org,
+ dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org, jbaron@akamai.com,
+ intel-gvt-dev@lists.freedesktop.org, ville.syrjala@linux.intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On DCN314 when resuming from s0i3 an ASSERT is shown indicating that
-`VBIOSSMC_MSG_SetHardMinDcfclkByFreq` returned `VBIOSSMC_Result_Failed`.
+On Mon, Dec 05, 2022 at 05:34:20PM -0700, Jim Cromie wrote:
+> Cited commit uses stale macro name, fix this, and explain better.
+> 
+> When DRM_USE_DYNAMIC_DEBUG=y, DYNDBG_CLASSMAP_DEFINE() maps DRM_UT_*
+> onto BITs in drm.debug.  This still uses enum drm_debug_category, but
+> it is somewhat indirect, with the ordered set of DRM_UT_* enum-vals.
+> This requires that the macro args: DRM_UT_* list must be kept in sync
+> and in order.
+> 
+> Fixes: f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 
-This isn't a driver bug; it's a BIOS/configuration bug. To make this
-easier to triage, add an explicit warning when this issue happens.
+Should I land this already?
+-Daniel
 
-This matches the behavior utilized for failures with
-`VBIOSSMC_MSG_TransferTableDram2Smu` configuration.
+> ---
+> . emphasize ABI non-change despite enum val change - Jani Nikula
+> . reorder to back of patchset to follow API name changes.
+> ---
+>  include/drm/drm_print.h | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+> index 6a27e8f26770..7695ba31b3a4 100644
+> --- a/include/drm/drm_print.h
+> +++ b/include/drm/drm_print.h
+> @@ -276,7 +276,10 @@ static inline struct drm_printer drm_err_printer(const char *prefix)
+>   *
+>   */
+>  enum drm_debug_category {
+> -	/* These names must match those in DYNAMIC_DEBUG_CLASSBITS */
+> +	/*
+> +	 * Keep DYNDBG_CLASSMAP_DEFINE args in sync with changes here,
+> +	 * the enum-values define BIT()s in drm.debug, so are ABI.
+> +	 */
+>  	/**
+>  	 * @DRM_UT_CORE: Used in the generic drm code: drm_ioctl.c, drm_mm.c,
+>  	 * drm_memory.c, ...
+> -- 
+> 2.38.1
+> 
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c
-index f47cfe6b42bd2..0765334f08259 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c
-@@ -146,6 +146,9 @@ static int dcn314_smu_send_msg_with_param(struct clk_mgr_internal *clk_mgr,
- 		if (msg_id == VBIOSSMC_MSG_TransferTableDram2Smu &&
- 		    param == TABLE_WATERMARKS)
- 			DC_LOG_WARNING("Watermarks table not configured properly by SMU");
-+		else if (msg_id == VBIOSSMC_MSG_SetHardMinDcfclkByFreq ||
-+			 msg_id == VBIOSSMC_MSG_SetMinDeepSleepDcfclk)
-+			DC_LOG_WARNING("DCFCLK_DPM is not enabled by BIOS");
- 		else
- 			ASSERT(0);
- 		REG_WRITE(MP1_SMN_C2PMSG_91, VBIOSSMC_Result_OK);
 -- 
-2.25.1
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
