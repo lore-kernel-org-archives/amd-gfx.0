@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E62BC5479D
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 15:38:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59E19C5479D
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 16:05:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 941BA10E76B;
-	Wed, 11 Jan 2023 15:38:19 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C97610E76A;
- Wed, 11 Jan 2023 15:38:17 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A35C24CAF;
- Wed, 11 Jan 2023 15:38:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1673451495; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=MJGfGfVefGEL7N6HPphyFura7q7rrK2NkqnFwM9VBeo=;
- b=LhpN/9qn9POSyc89imFbxAtUalpsKfozhNxe0p1JpdvZCe5FEoqgMbA7+O9ZO+B/Xxhqp0
- f/hARGRjBltev99VHkv5I7jGxhhc5Bz0RjnkMNFtkC5BcSJ1fpNxmPEyDk0Qp7ybTghVPD
- Y6W5jEI/RLlsPZzjwVmvqLfYXw8heAE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1673451495;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=MJGfGfVefGEL7N6HPphyFura7q7rrK2NkqnFwM9VBeo=;
- b=mKGqH5Y+ekjOQSQn0+DiQQP5LUBYNqrDQHUDGFmfNq9g5kRvCRu0/KGMTwdY7ByOM5/ENr
- 7nVi78j9IHhQLMCA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6C53B1358A;
- Wed, 11 Jan 2023 15:38:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 1YtsGefXvmOOOAAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Wed, 11 Jan 2023 15:38:15 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, evan.quan@amd.com
-Subject: [PATCH] drm/fb-helper: Set framebuffer for vga-switcheroo clients
-Date: Wed, 11 Jan 2023 16:38:13 +0100
-Message-Id: <20230111153813.16051-1-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.39.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B42B10E778;
+	Wed, 11 Jan 2023 16:05:56 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2A2B10E787;
+ Wed, 11 Jan 2023 16:05:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1673453153; x=1704989153;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=yS1Tx9MBv2MTrnHDrpfFP/1IYvWDkXEmBZQT9Uxwuqg=;
+ b=jCyjK+8TJID2nkW+w4hMSPExvK0TNwRgKmUds9P7DMFD7Vv2O48iBW1g
+ nk877iid91UkneusAJFBamJ/TSQoG7mwbgC6Jugd32OwquVnr3luWdEob
+ uBN/bmnx0RIzspof2l1e3sHIgSDG/IocSdPnm2j7WVtri8PB2hKDJqsTT
+ S6WGjX7oL5RQry26u5nUdQk++ijzbLFR9Wbmhblsg0EVgrvCyKS8utHaQ
+ cVjjRp2YEBp7l80y/9qJCeFLYVvNHNPOXDBvi3jmnPO7mManGPd4rKfZ6
+ l1PbdNBymqWWJuXJ+xYXRcG7vBDlD8+j27rf/UIRWUiYfNcxZxgJbG3Vo g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="387919018"
+X-IronPort-AV: E=Sophos;i="5.96,317,1665471600"; d="scan'208";a="387919018"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jan 2023 08:03:37 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="720769406"
+X-IronPort-AV: E=Sophos;i="5.96,317,1665471600"; d="scan'208";a="720769406"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.55])
+ by fmsmga008.fm.intel.com with SMTP; 11 Jan 2023 08:03:31 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 11 Jan 2023 18:03:31 +0200
+Date: Wed, 11 Jan 2023 18:03:31 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v2 03/10] drm: Don't include <linux/fb.h> in
+ drm_crtc_helper.h
+Message-ID: <Y77d0x9ZV5ZZyT/0@intel.com>
+References: <20230111130206.29974-1-tzimmermann@suse.de>
+ <20230111130206.29974-4-tzimmermann@suse.de>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230111130206.29974-4-tzimmermann@suse.de>
+X-Patchwork-Hint: comment
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,137 +61,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander Deucher <Alexander.Deucher@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
+Cc: f.fainelli@gmail.com, amd-gfx@lists.freedesktop.org, sam@ravnborg.org,
+ dri-devel@lists.freedesktop.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, thierry.reding@gmail.com, james.qian.wang@arm.com,
+ patrik.r.jakobsson@gmail.com, daniel@ffwll.ch, alexander.deucher@amd.com,
+ bcm-kernel-feedback-list@broadcom.com, liviu.dudau@arm.com, airlied@gmail.com,
+ christian.koenig@amd.com, linux-arm-kernel@lists.infradead.org,
+ linux-rpi-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Set the framebuffer info for drivers that support VGA switcheroo. Only
-affects the amdgpu driver, which uses VGA switcheroo and generic fbdev
-emulation. For other drivers, this does nothing.
+On Wed, Jan 11, 2023 at 02:01:59PM +0100, Thomas Zimmermann wrote:
+> Including <linux/fb.h> in drm_crtc_helper.h is not required. Remove
+> the include statement and avoid rebuilding DRM whenever the fbdev
+> header changes.
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>  include/drm/drm_crtc_helper.h | 2 --
+>  1 file changed, 2 deletions(-)
+> 
+> diff --git a/include/drm/drm_crtc_helper.h b/include/drm/drm_crtc_helper.h
+> index 1840db247f69..072bc4f90349 100644
+> --- a/include/drm/drm_crtc_helper.h
+> +++ b/include/drm/drm_crtc_helper.h
+> @@ -37,8 +37,6 @@
+>  #include <linux/types.h>
+>  #include <linux/idr.h>
 
-Amdgpu's lastclose helper called vga_switcheroo_process_delayed_switch().
-But as amdgpu uses generic fbdev emulation, it's better to call the helper
-from drm_lastclose(), after the kernel client's screen has been restored.
-So all drivers and clients can benefit. Radeon and nouveau with modernized
-fbdev code are possible candidates.
+^ bunch of other unnecessary headers there as well.
 
-There was an earlier patchset to do something similar. [1]
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Suggested-by: Alexander Deucher <Alexander.Deucher@amd.com>
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Link: https://lore.kernel.org/amd-gfx/20221020143603.563929-1-alexander.deucher@amd.com/ # 1
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 12 ------------
- drivers/gpu/drm/drm_fb_helper.c         |  8 ++++++++
- drivers/gpu/drm/drm_file.c              |  3 +++
- 5 files changed, 11 insertions(+), 14 deletions(-)
+>  
+> -#include <linux/fb.h>
+> -
+>  #include <drm/drm_crtc.h>
+>  #include <drm/drm_modeset_helper_vtables.h>
+>  #include <drm/drm_modeset_helper.h>
+> -- 
+> 2.39.0
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 63c921c55fb9..7120b9b6e580 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1330,7 +1330,6 @@ extern const int amdgpu_max_kms_ioctl;
- 
- int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags);
- void amdgpu_driver_unload_kms(struct drm_device *dev);
--void amdgpu_driver_lastclose_kms(struct drm_device *dev);
- int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv);
- void amdgpu_driver_postclose_kms(struct drm_device *dev,
- 				 struct drm_file *file_priv);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index ebc6e6cbe2ab..02d636f781a2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2784,7 +2784,6 @@ static const struct drm_driver amdgpu_kms_driver = {
- 	    DRIVER_SYNCOBJ_TIMELINE,
- 	.open = amdgpu_driver_open_kms,
- 	.postclose = amdgpu_driver_postclose_kms,
--	.lastclose = amdgpu_driver_lastclose_kms,
- 	.ioctls = amdgpu_ioctls_kms,
- 	.num_ioctls = ARRAY_SIZE(amdgpu_ioctls_kms),
- 	.dumb_create = amdgpu_mode_dumb_create,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 7aa7e52ca784..886739576d3d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -1104,18 +1104,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- /*
-  * Outdated mess for old drm with Xorg being in charge (void function now).
-  */
--/**
-- * amdgpu_driver_lastclose_kms - drm callback for last close
-- *
-- * @dev: drm dev pointer
-- *
-- * Switch vga_switcheroo state after last close (all asics).
-- */
--void amdgpu_driver_lastclose_kms(struct drm_device *dev)
--{
--	drm_fb_helper_lastclose(dev);
--	vga_switcheroo_process_delayed_switch();
--}
- 
- /**
-  * amdgpu_driver_open_kms - drm callback for open
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index 427631706128..5e445c61252d 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -30,7 +30,9 @@
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
- 
- #include <linux/console.h>
-+#include <linux/pci.h>
- #include <linux/sysrq.h>
-+#include <linux/vga_switcheroo.h>
- 
- #include <drm/drm_atomic.h>
- #include <drm/drm_drv.h>
-@@ -1940,6 +1942,7 @@ static int drm_fb_helper_single_fb_probe(struct drm_fb_helper *fb_helper,
- 					 int preferred_bpp)
- {
- 	struct drm_client_dev *client = &fb_helper->client;
-+	struct drm_device *dev = fb_helper->dev;
- 	struct drm_fb_helper_surface_size sizes;
- 	int ret;
- 
-@@ -1961,6 +1964,11 @@ static int drm_fb_helper_single_fb_probe(struct drm_fb_helper *fb_helper,
- 		return ret;
- 
- 	strcpy(fb_helper->fb->comm, "[fbcon]");
-+
-+	/* Set the fb info for vgaswitcheroo clients. Does nothing otherwise. */
-+	if (dev_is_pci(dev->dev))
-+		vga_switcheroo_client_fb_set(to_pci_dev(dev->dev), fb_helper->info);
-+
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-index a51ff8cee049..314c309db9a3 100644
---- a/drivers/gpu/drm/drm_file.c
-+++ b/drivers/gpu/drm/drm_file.c
-@@ -38,6 +38,7 @@
- #include <linux/pci.h>
- #include <linux/poll.h>
- #include <linux/slab.h>
-+#include <linux/vga_switcheroo.h>
- 
- #include <drm/drm_client.h>
- #include <drm/drm_drv.h>
-@@ -460,6 +461,8 @@ void drm_lastclose(struct drm_device * dev)
- 		drm_legacy_dev_reinit(dev);
- 
- 	drm_client_dev_restore(dev);
-+
-+	vga_switcheroo_process_delayed_switch();
- }
- 
- /**
 -- 
-2.39.0
-
+Ville Syrjälä
+Intel
