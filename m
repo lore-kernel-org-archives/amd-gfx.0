@@ -4,59 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EF26C46467
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 13:02:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 369AFC46467
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 13:02:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4812910E738;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6882610E739;
 	Wed, 11 Jan 2023 13:02:19 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5137110E726;
- Wed, 11 Jan 2023 13:02:15 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A69C10E092
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 13:02:15 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2A9C777271;
- Wed, 11 Jan 2023 13:02:13 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 624A41792D;
+ Wed, 11 Jan 2023 13:02:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1673442133; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ t=1673442131; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=udTl3DM0I3j9wYNIKYaZIAJbQA2AX6jAbAF0fxPrm20=;
- b=QFWuIylFlAvgXOBPfJsrun8B+AL0Nh+mAeoURxwIgX6byrG5qUsTA8s8+T+9fYXCz4KGfh
- yKH9zS0dtv1yrcknaZsgQRIlsCw64HNJhLRNEexcVBr5qyVABi4fMIyYLQhhXTsZIRxcdl
- Hg9h3fezVRMctyYHzzOeQkG0eD9bSiA=
+ bh=pm8ek4hDUphlch7rnkc3tHvEtCI54vReUBKunHCNbL0=;
+ b=Is4riAVS2tZVBRj9YQmmIIeU7JpEE1oNAFkoMnfMRzwTNXt5b2uUx1kL7K4+sdAv5xJgQR
+ CpheGsvg+OdVnSNcKdMZQmBv906r1Js6geo221TmOQyulGXkGwyCybhoZBS8/6wr075P/o
+ pqBcSsx0fVa0Ks8zZMUCC4yKJIg/V1w=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1673442133;
+ s=susede2_ed25519; t=1673442131;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=udTl3DM0I3j9wYNIKYaZIAJbQA2AX6jAbAF0fxPrm20=;
- b=c7/xAccRAZpjo6Jsrc3E7hY7t5VfqNZAlC+VSwC0o6w0ELIR7n7dyoNa6NqjjMii+OjkF+
- Q8AK/j+O3lrccBCA==
+ bh=pm8ek4hDUphlch7rnkc3tHvEtCI54vReUBKunHCNbL0=;
+ b=6QiYCwpxmAYT7btwLuPD8ZkxUYUUHPE1J+lTt5b8Px8SKwvzqNcH1oK93HqcngMzOX7fVN
+ cl0IaBy9JkhqQxDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C92B213594;
- Wed, 11 Jan 2023 13:02:12 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0971A13591;
+ Wed, 11 Jan 2023 13:02:11 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id sFU9MFSzvmMaXAAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Wed, 11 Jan 2023 13:02:12 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 4O5XAVOzvmMaXAAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Wed, 11 Jan 2023 13:02:11 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
  daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
  patrik.r.jakobsson@gmail.com, thierry.reding@gmail.com, sam@ravnborg.org,
  f.fainelli@gmail.com, james.qian.wang@arm.com, liviu.dudau@arm.com
-Subject: [PATCH v2 09/10] drm/radeon: Remove trailing whitespaces
-Date: Wed, 11 Jan 2023 14:02:05 +0100
-Message-Id: <20230111130206.29974-10-tzimmermann@suse.de>
+Subject: [PATCH v2 04/10] drm/amdgpu: Do not include <linux/fb.h>
+Date: Wed, 11 Jan 2023 14:02:00 +0100
+Message-Id: <20230111130206.29974-5-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230111130206.29974-1-tzimmermann@suse.de>
 References: <20230111130206.29974-1-tzimmermann@suse.de>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,26 +76,131 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix coding style. No functional changes.
+Remove unnecessary include statements for <linux/fb.h>. No functional
+changes.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Acked-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/radeon/radeon_legacy_crtc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c                         | 1 -
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c             | 1 -
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c           | 1 -
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_processpptables.c | 1 -
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c           | 1 -
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_processpptables.c | 1 -
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c           | 1 -
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_processpptables.c | 1 -
+ drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c             | 1 -
+ 9 files changed, 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_legacy_crtc.c b/drivers/gpu/drm/radeon/radeon_legacy_crtc.c
-index 6072ed5f2dd3..648e78862d2f 100644
---- a/drivers/gpu/drm/radeon/radeon_legacy_crtc.c
-+++ b/drivers/gpu/drm/radeon/radeon_legacy_crtc.c
-@@ -322,7 +322,7 @@ static void radeon_crtc_dpms(struct drm_crtc *crtc, int mode)
- 	 */
- 	if (rdev->flags & RADEON_SINGLE_CRTC)
- 		crtc_ext_cntl = RADEON_CRTC_CRT_ON;
--	
-+
- 	switch (mode) {
- 	case DRM_MODE_DPMS_ON:
- 		radeon_crtc->enabled = true;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 1353ffd08988..ebc6e6cbe2ab 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -39,7 +39,6 @@
+ #include <linux/mmu_notifier.h>
+ #include <linux/suspend.h>
+ #include <linux/cc_platform.h>
+-#include <linux/fb.h>
+ #include <linux/dynamic_debug.h>
+ 
+ #include "amdgpu.h"
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+index 7ef7e81525a3..d6edd83f67c6 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+@@ -22,7 +22,6 @@
+  */
+ #include "pp_debug.h"
+ #include <linux/delay.h>
+-#include <linux/fb.h>
+ #include <linux/module.h>
+ #include <linux/pci.h>
+ #include <linux/slab.h>
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+index c8c9fb827bda..733cac4600ff 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c
+@@ -22,7 +22,6 @@
+  */
+ 
+ #include <linux/delay.h>
+-#include <linux/fb.h>
+ #include <linux/module.h>
+ #include <linux/pci.h>
+ #include <linux/slab.h>
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_processpptables.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_processpptables.c
+index 95b988823f50..bb90d8abf79b 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_processpptables.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_processpptables.c
+@@ -23,7 +23,6 @@
+ #include <linux/module.h>
+ #include <linux/pci.h>
+ #include <linux/slab.h>
+-#include <linux/fb.h>
+ 
+ #include "vega10_processpptables.h"
+ #include "ppatomfwctrl.h"
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
+index a2f4d6773d45..c73693dc4c09 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c
+@@ -22,7 +22,6 @@
+  */
+ 
+ #include <linux/delay.h>
+-#include <linux/fb.h>
+ #include <linux/module.h>
+ #include <linux/slab.h>
+ 
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_processpptables.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_processpptables.c
+index bd54fbd393b9..89148f73b514 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_processpptables.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_processpptables.c
+@@ -22,7 +22,6 @@
+  */
+ #include <linux/module.h>
+ #include <linux/slab.h>
+-#include <linux/fb.h>
+ 
+ #include "vega12/smu9_driver_if.h"
+ #include "vega12_processpptables.h"
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
+index b30684c84e20..33f3d9792181 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c
+@@ -22,7 +22,6 @@
+  */
+ 
+ #include <linux/delay.h>
+-#include <linux/fb.h>
+ #include <linux/module.h>
+ #include <linux/slab.h>
+ 
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_processpptables.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_processpptables.c
+index 1f9082539457..79c817752a33 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_processpptables.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_processpptables.c
+@@ -22,7 +22,6 @@
+  */
+ #include <linux/module.h>
+ #include <linux/slab.h>
+-#include <linux/fb.h>
+ 
+ #include "smu11_driver_if.h"
+ #include "vega20_processpptables.h"
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
+index 5ca3c422f7d4..5c3f42d97f69 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
+@@ -22,7 +22,6 @@
+  */
+ #include <linux/module.h>
+ #include <linux/slab.h>
+-#include <linux/fb.h>
+ #include "linux/delay.h"
+ #include <linux/types.h>
+ #include <linux/pci.h>
 -- 
 2.39.0
 
