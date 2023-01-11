@@ -4,59 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47139C63797
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 13:02:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2413C5479D
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 13:02:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AD1B10E733;
-	Wed, 11 Jan 2023 13:02:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EFDB10E72F;
+	Wed, 11 Jan 2023 13:02:20 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F109410E735;
- Wed, 11 Jan 2023 13:02:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B305710E722;
+ Wed, 11 Jan 2023 13:02:12 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C4A6D17931;
- Wed, 11 Jan 2023 13:02:12 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id EE23533CF9;
+ Wed, 11 Jan 2023 13:02:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1673442132; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=sZsr9jEMXp1L4QZWptzy2vVe17c43optEH8PsgWa1M4=;
- b=KxvXqNYjwzwCL6fFdV7xe6nR2jfZpvJSex0oH5482upN/tZUcGU3mAvU8CcT2gLUnd3dj6
- AAKwLOIW/Ej1wv6K00H+GAPHI1PyVu+fQkFJWO3zL36TJUR/OEEA1zouijwiWln294OTL9
- kVNd0eM1IA0yC5DxQihMDJSvzF6nY3M=
+ t=1673442129; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=9oONkZEyJ8J1igj9qEL4QXWADQTc/UpGLwdCjKydhiI=;
+ b=SxbwuRLAwQP/DDVJ73sd4y+muqp0PPVq2BWxYvwvQEhuJ4TuvMicxDI7Iqbjg6aLROy6i1
+ Wt/WB5pRB/Oco6106z1hl//ciMmnDaJZHCVjiYyiXnkGrvh1VR1Cz+x4ZI2SV0QC0F2sc4
+ vmNUunaVOU+rWl8fbmaKeM/IdRBch2U=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1673442132;
+ s=susede2_ed25519; t=1673442129;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=sZsr9jEMXp1L4QZWptzy2vVe17c43optEH8PsgWa1M4=;
- b=Lo/x26s6S8z7TBMxF04165uSzlRaagPKWTnVE3O+qZM7V39iLQq10/j7vv4CyYXnjpwz9T
- uKYxA65NyPdt5RAg==
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=9oONkZEyJ8J1igj9qEL4QXWADQTc/UpGLwdCjKydhiI=;
+ b=7bhxGerCDupCwiCadeIWtrzhmusamjozhJJGD2w0eb+ilfqwITpr2ALUPZJn4iGTSgjola
+ oRKoTsNtaRQneDAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7408113591;
- Wed, 11 Jan 2023 13:02:12 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9C4CA13591;
+ Wed, 11 Jan 2023 13:02:09 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id SGBGG1SzvmMaXAAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Wed, 11 Jan 2023 13:02:12 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id gDw/JVGzvmMaXAAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Wed, 11 Jan 2023 13:02:09 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
  daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
  patrik.r.jakobsson@gmail.com, thierry.reding@gmail.com, sam@ravnborg.org,
  f.fainelli@gmail.com, james.qian.wang@arm.com, liviu.dudau@arm.com
-Subject: [PATCH v2 08/10] drm/nouveau: Do not include <drm/drm_fb_helper.h>
-Date: Wed, 11 Jan 2023 14:02:04 +0100
-Message-Id: <20230111130206.29974-9-tzimmermann@suse.de>
+Subject: [PATCH v2 00/10] drm: Do not include <linux/fb.h> unnecessarily
+Date: Wed, 11 Jan 2023 14:01:56 +0100
+Message-Id: <20230111130206.29974-1-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230111130206.29974-1-tzimmermann@suse.de>
-References: <20230111130206.29974-1-tzimmermann@suse.de>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,39 +72,68 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Including <drm/drm_fb_helper.h> is not required, so remove the include
-statement. No functional changes.
+Remove unnecessary include statements for <linux/fb.h>. I recently
+changed this header and had to rebuild a good part of DRM. So avoid
+this by removing the dependency.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/nouveau/dispnv04/crtc.c | 1 -
- drivers/gpu/drm/nouveau/nouveau_drm.c   | 1 -
- 2 files changed, 2 deletions(-)
+Several files include <linux/fb.h> via drm_fb_helper.h. So in v2 I
+added additional patches that remove some of those include statements
+as well.
 
-diff --git a/drivers/gpu/drm/nouveau/dispnv04/crtc.c b/drivers/gpu/drm/nouveau/dispnv04/crtc.c
-index 0e0f117bc70b..ca6d07d8c2c6 100644
---- a/drivers/gpu/drm/nouveau/dispnv04/crtc.c
-+++ b/drivers/gpu/drm/nouveau/dispnv04/crtc.c
-@@ -23,7 +23,6 @@
-  * DEALINGS IN THE SOFTWARE.
-  */
- #include <drm/drm_crtc_helper.h>
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_plane_helper.h>
- #include <drm/drm_vblank.h>
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index 80f154b6adab..af07d5e44138 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -33,7 +33,6 @@
- #include <drm/drm_aperture.h>
- #include <drm/drm_crtc_helper.h>
- #include <drm/drm_drv.h>
--#include <drm/drm_fb_helper.h>
- #include <drm/drm_fbdev_generic.h>
- #include <drm/drm_gem_ttm_helper.h>
- #include <drm/drm_ioctl.h>
+Some source files require the OF or backlight headers. Include those
+instead.
+
+v2:
+	* add more patches to handle drm_fb_helper.h includes
+	* fix komeda build (kernel test robot)
+
+Thomas Zimmermann (10):
+  drm: Include <linux/backlight.h> where needed
+  drm: Include <linux/of.h> where needed
+  drm: Don't include <linux/fb.h> in drm_crtc_helper.h
+  drm/amdgpu: Do not include <linux/fb.h>
+  drm/panel: Do not include <linux/fb.h>
+  drm: Define enum mode_set_atomic in drm_modeset_helper_tables.h
+  drm/amdgpu: Do not include <drm/drm_fb_helper.h>
+  drm/nouveau: Do not include <drm/drm_fb_helper.h>
+  drm/radeon: Remove trailing whitespaces
+  drm/radeon: Do not include <drm/drm_fb_helper.h>
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c                    | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c                     | 1 -
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c                      | 1 -
+ drivers/gpu/drm/amd/amdgpu/dce_v11_0.c                      | 1 -
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c                       | 1 -
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c                       | 1 -
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c           | 1 +
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c         | 1 -
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c       | 1 -
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega10_processpptables.c | 1 -
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c       | 1 -
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega12_processpptables.c | 1 -
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c       | 1 -
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega20_processpptables.c | 1 -
+ drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c         | 1 -
+ drivers/gpu/drm/arm/display/komeda/komeda_drv.c             | 1 +
+ drivers/gpu/drm/drm_modes.c                                 | 5 +++--
+ drivers/gpu/drm/gma500/backlight.c                          | 2 ++
+ drivers/gpu/drm/nouveau/dispnv04/crtc.c                     | 1 -
+ drivers/gpu/drm/nouveau/nouveau_drm.c                       | 1 -
+ drivers/gpu/drm/panel/panel-ilitek-ili9881c.c               | 1 -
+ drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c       | 1 -
+ drivers/gpu/drm/panel/panel-ronbo-rb070d30.c                | 2 +-
+ drivers/gpu/drm/radeon/atombios_crtc.c                      | 1 -
+ drivers/gpu/drm/radeon/radeon_acpi.c                        | 2 +-
+ drivers/gpu/drm/radeon/radeon_connectors.c                  | 1 -
+ drivers/gpu/drm/radeon/radeon_drv.c                         | 1 -
+ drivers/gpu/drm/radeon/radeon_legacy_crtc.c                 | 3 +--
+ include/drm/drm_crtc_helper.h                               | 2 --
+ include/drm/drm_fb_helper.h                                 | 5 -----
+ include/drm/drm_modeset_helper_vtables.h                    | 6 +++++-
+ 31 files changed, 16 insertions(+), 35 deletions(-)
+
+
+base-commit: ac04152253dccfb02dcedfa0c57443122cf79314
 -- 
 2.39.0
 
