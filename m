@@ -4,52 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 443EFC5479D
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 08:26:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75A17C46467
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 08:30:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAED710E4A8;
-	Wed, 11 Jan 2023 08:26:25 +0000 (UTC)
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [IPv6:2a00:1450:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E112D10E4A8
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 08:26:22 +0000 (UTC)
-Received: by mail-wm1-x334.google.com with SMTP id
- bg13-20020a05600c3c8d00b003d9712b29d2so13773791wmb.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 00:26:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=mbyJ7a7yfBTJKKqCfN41bCUJY2XLnxxmJzPNDD8hnM0=;
- b=WK3h4hUr5FORVEPwiky8Ljjd6TReBpXaUZ+w91Bu+4hkVCmYKng8rlXUddVyqZy25T
- lWHb862uLPOoNOwomgrB5/3gxPqsv6257g+hFINX/pkIiMwbpEtyhX/oeeFwZ6FEWosn
- OOdI5+90ZZgMpKF2/fgIsE8E4GTuLCAKaiWRogZ/1wuk/58M6MZrFEkAL4CuO0z++0r6
- z+rMrz56byn7PYF49Xv9Czl45UKNhXFJA4sDQydocUvGu7cuDA6M0BP2DJu5K29vVV4U
- oij5kzI+17DSVE+JZtH7QB3W2ifKeVxDk/RkUdCakvNlgoMPadZ3fIOjEXx+PKhBOUAO
- vSPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=mbyJ7a7yfBTJKKqCfN41bCUJY2XLnxxmJzPNDD8hnM0=;
- b=y6t7k3WRF/s5UTPHAOBzcJwXM8uNdSlXSRwXwp34fkOFDZL+B9Ik2hAVwm9KYlZCBw
- PAu8ZOzUOA71otUymqnOwrwr2LSJZjtvSjnAxI6BYRENXkH05X4OR1QCzkU1SqMnIMbU
- IQJbOC0pCWxKWbrpiAWW2BQa8LUGoOtSGIjI7ICSzFJYbw8LZ09+Fcjj34Hs7ywyojU1
- IAsPUEW36JrC5ltz51dv9EXPnQGkKKjzQptsyPk8E6vrKGkAZuhAu3SOiSOqOnGt/EZH
- XLeyyZilZ8M4MnjyvjI01TMq8IhGVNwLgQso9Zi0tbJpnCL+UbT74xGPuh5j7BQNZr+c
- BqAQ==
-X-Gm-Message-State: AFqh2kqCmVl38UpLZf38+xNLWrnC5bXqd9Wn89zfzeaZiD63S09Kjm+N
- dahwm8GNqJ2wxv+BochQoXY9FaWV4hYszGqkP0TSSEHbm3g=
-X-Google-Smtp-Source: AMrXdXtmtSWf0TYFUuXgS1ShnnNLj/boNYjVFV37y+/MM7Xg9oGuBXEi7b1ZGIHzZWvWJPp/9htumC4BOA7it2owrjY=
-X-Received: by 2002:a05:600c:2d91:b0:3d2:2e7f:a036 with SMTP id
- i17-20020a05600c2d9100b003d22e7fa036mr5185514wmg.190.1673425580902; Wed, 11
- Jan 2023 00:26:20 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97F9C10E6F1;
+	Wed, 11 Jan 2023 08:30:34 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4271F10E6C0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 03:16:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1673407000; x=1704943000;
+ h=message-id:date:mime-version:cc:subject:to:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=eiUGacdelBh6i4MLgLO5PEcQ0q58R3cpUTNNPuRjubk=;
+ b=PYfV8lnAtVk31KaE982I012NC0pBA8A1J+piu+P7sApX9aVJj69j1OGD
+ Bscm2a5krrKaR1EmHvn/OmFb7R+BTcRoqpRDqdJf20OOGfuiQ6IWYyGiq
+ 3P7Fm+qkNcM7O/6l25okQaLRiiZ5oTxDKs7821Hp5BmLbTT99mgm5nCE7
+ qZ9n9TMvHGPpbiPKb95At2eSsR5kn0Xz/5g6Et2jHeIsyFmHPXNSnhYO2
+ G0Wie2Ku+nybyjta2tkkVM03/AhFNZPG2HWE46iY8Z70d8GSau33RJJkN
+ SMQkGsYdEZOzswElCncAS2MQLNrHm+EUXo2dDcCsgvrMD0T0lbohLKQei A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="303688163"
+X-IronPort-AV: E=Sophos;i="5.96,315,1665471600"; d="scan'208";a="303688163"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jan 2023 19:16:39 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="607206515"
+X-IronPort-AV: E=Sophos;i="5.96,315,1665471600"; d="scan'208";a="607206515"
+Received: from blu2-mobl3.ccr.corp.intel.com (HELO [10.252.188.177])
+ ([10.252.188.177])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jan 2023 19:16:35 -0800
+Message-ID: <7c2af186-5868-d962-f810-ef810fbd074c@linux.intel.com>
+Date: Wed, 11 Jan 2023 11:16:32 +0800
 MIME-Version: 1.0
-From: Yury Zhuravlev <stalkerg@gmail.com>
-Date: Wed, 11 Jan 2023 17:26:00 +0900
-Message-ID: <CANiD2e9bdhxdJr_N9wb7O0Su+LRhzE1n=TepvbBiOoqmKRRgeg@mail.gmail.com>
-Subject: Wrong revert commit in stable channel
-To: amd-gfx@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="0000000000004ecbe505f1f8c1d3"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: =?UTF-8?Q?Re=3a_=5bregression=2c_bisected=2c_pci/iommu=5d_Bug=c2=a0?=
+ =?UTF-8?Q?216865_-_Black_screen_when_amdgpu_started_during_6=2e2-rc1_boot_w?=
+ =?UTF-8?Q?ith_AMD_IOMMU_enabled?=
+To: Jason Gunthorpe <jgg@nvidia.com>, Alex Deucher
+ <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?=
+ <christian.koenig@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>
+References: <15d0f9ff-2a56-b3e9-5b45-e6b23300ae3b@leemhuis.info>
+ <5aa0e698-f715-0481-36e5-46505024ebc1@bell.net>
+ <aea57c5f-2d20-c589-ad44-a63f1133a3db@linux.intel.com>
+ <157c4ca4-370a-5d7e-fe32-c64d934f6979@amd.com>
+ <223ee6d6-70ea-1d53-8bc2-2d22201d8dde@bell.net>
+ <6fff9d10-f77f-e55a-9020-8a1bd34cf508@amd.com> <Y7gs0zYKp/VXACBi@nvidia.com>
+ <f96b1cf3-6865-663d-f1cd-466a71519b08@linux.intel.com>
+ <Y71nZuF5wQp3eqmn@nvidia.com>
+Content-Language: en-US
+From: Baolu Lu <baolu.lu@linux.intel.com>
+In-Reply-To: <Y71nZuF5wQp3eqmn@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Wed, 11 Jan 2023 08:30:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,43 +71,30 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Joerg Roedel <jroedel@suse.de>,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ Thorsten Leemhuis <regressions@leemhuis.info>,
+ Linux PCI <linux-pci@vger.kernel.org>, Vasant Hegde <vasant.hegde@amd.com>,
+ amd-gfx@lists.freedesktop.org, LKML <linux-kernel@vger.kernel.org>,
+ "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
+ Matt Fagnani <matt.fagnani@bell.net>, Bjorn Helgaas <bhelgaas@google.com>,
+ baolu.lu@linux.intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000004ecbe505f1f8c1d3
-Content-Type: text/plain; charset="UTF-8"
+On 2023/1/10 21:25, Jason Gunthorpe wrote:
+>> +       } else {
+>> +               if (!pdev->bus->self ||
+>> +                   !pci_acs_path_enabled(pdev->bus->self, NULL,
+>> +                                         PCI_ACS_RR | PCI_ACS_UF))
+>> +                       return -EINVAL;
+>> +       }
+> Why would these be exclusive? Both the path and endpoint needs to be
+> checked
 
-Hello,
+If the device is not an MFD, do we still need to check the ACS on it?
+Perhaps I didn't get your point correctly.
 
-Something went wrong, and we commited what we diced not commit.
-
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?h=v6.2-rc3&id=e5b781c56d46c44c52caa915f1b65064f2f7c1ba
-
-and
-
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?h=v6.2-rc3&id=4545ae2ed3f2f7c3f615a53399c9c8460ee5bca7
-
-It's wrong reverts because, initially was an issue with a test case, not a
-patch itself.
-My GPU is not working correctly again after such "stable" patch.
-
---0000000000004ecbe505f1f8c1d3
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hello,</div><div><br></div><div>Something went wrong,=
- and we commited what we diced not commit.<br></div><div><br></div><div><a =
-href=3D"https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/=
-commit/?h=3Dv6.2-rc3&amp;id=3De5b781c56d46c44c52caa915f1b65064f2f7c1ba">htt=
-ps://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?h=
-=3Dv6.2-rc3&amp;id=3De5b781c56d46c44c52caa915f1b65064f2f7c1ba</a></div><div=
-><br></div><div>and</div><div><br></div><div><a href=3D"https://git.kernel.=
-org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?h=3Dv6.2-rc3&amp;id=
-=3D4545ae2ed3f2f7c3f615a53399c9c8460ee5bca7">https://git.kernel.org/pub/scm=
-/linux/kernel/git/torvalds/linux.git/commit/?h=3Dv6.2-rc3&amp;id=3D4545ae2e=
-d3f2f7c3f615a53399c9c8460ee5bca7</a></div><div><br></div><div>It&#39;s wron=
-g reverts because, initially was an issue with a test case, not a patch its=
-elf. <br></div><div>My GPU is not working correctly again after such &quot;=
-stable&quot; patch.<br></div></div>
-
---0000000000004ecbe505f1f8c1d3--
+--
+Best regards,
+baolu
