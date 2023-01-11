@@ -4,69 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A22D4C46467
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 20:50:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 362D1C5479D
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 21:52:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3D9610E0AA;
-	Wed, 11 Jan 2023 20:50:53 +0000 (UTC)
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
- [IPv6:2001:4860:4864:20::2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C925510E0AA
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 20:50:50 +0000 (UTC)
-Received: by mail-oa1-x2a.google.com with SMTP id
- 586e51a60fabf-14455716674so16855233fac.7
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 12:50:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yrBjQokvcEZdIumW2F5m3BPWXHRtOAt8bGIwOzedDWM=;
- b=XzFklYqJfO5B9i3Jw+tGEcH3c4hCW3KnXvMNmcKaejQwljnGIDohQS9hu+NxjYAzFO
- ygbnFm197lsUAE+7KTSi7uExPQJpa0LWOae1/qUpG3gEbmBhMMmAQ7Py/g1MKFMv0l97
- a7xZq4WnGEH4Gps334FsExRpsMtrn0pWXGgbTLjQgYvomLrW/kOnj7uXa9K1XjNDWK08
- g9SgPh6rRJr3p3M2qxp0++FXJ02JLK66ZRmKkQBGpO3DQNjqeTd6oeI+wkmfTcs6hdFk
- S2HlJS+6n25nP8VuXLsjboDpkw0/tFyu+HRIc695mnX2ru0us8xRduqb+d3zwIpER+Og
- 2jtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=yrBjQokvcEZdIumW2F5m3BPWXHRtOAt8bGIwOzedDWM=;
- b=tgSmc2nzENIA0dqIJttQKSrJU2FiH0SKhfFUJmFZpO1smu6DhqLIMqMxQgJOAD+Fzp
- zbGb9p6G/24LqhGw7DfpdDWFMzaVGrJqlAlyA5rmvij2mHPda/uogk9PSMyISiY1n9+Q
- blpBKup5eRkTFt9IcCPP7DVe1hBc3yQcnb4swi2E5UNjDdP1ZwS5A/78a9Qbv13I/e6/
- kEnay1UwgPsTVLFV6ZYFVe14FiY4HiQ0X5szUtDfXJ48zZ/2FE0FDx6KayZcZba9q+bM
- 6IRl7d6J/KagkvwnUqh8WB9B2TOfglRSQ5mVLk1liYKJmnw9j+WFFy6td7jIpY1nY2/S
- FPfA==
-X-Gm-Message-State: AFqh2kqOPcX6uB4sVECq7nBn+bluayRhsSJY5oLPfjeraVNKxaAQy86T
- 3w1HvWbVbYqIH8UpssBa6l6H8VhtJ9H4XSOBYhA=
-X-Google-Smtp-Source: AMrXdXskGyv/Q4gDusRaWcr73EBiXPzR4VBGEzK7AKpbuXwqadc29/h1C1nQg9xGiOGTRSR+uQDdBiNV8wQ/RAx8DMY=
-X-Received: by 2002:a05:6870:970e:b0:148:3c8f:15ab with SMTP id
- n14-20020a056870970e00b001483c8f15abmr6282659oaq.46.1673470249991; Wed, 11
- Jan 2023 12:50:49 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA00E10E159;
+	Wed, 11 Jan 2023 21:52:54 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2079.outbound.protection.outlook.com [40.107.237.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6869410E159
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 21:52:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Y/PDNLuIZLUpedXVyp7jiaQZsIJXKeDR9rbAy4Z1+QpQEL5VxJtgjfNr+VRRFwHrDQEvqpvY212EAAqbJNROruuyb6ehXpY6quLYaj/qNYzP5uNnlLrEVzzm71bypr5ReoauclR6zSmF7cv27h06DhcjqEn1NvvhBbycmsGeR9fxoJ7+e0waYdk5IRLIxLCBccLVqpqkA6ImjClPjC3ZkafQqTpG5p70v6mI0hvPyx74gR0FcrvdrnwWCnMQgw3Wxt1FcBtd15KA7ZLXq2hITw6BVZ4onVL/J5NpVjypblLz2kCVUnqICtbv1XsWNT5Jjnb/6ik/9rMUAehOCY6+8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YIqtL6LXJiyJzXc2W73S4bGTqF39YkkTPt9jtfbskss=;
+ b=VFneouUTekaw0y4/2LQ5YrR83NOMdfizamsACs0lm05b7i1yt5jBHpM/u9azSXl28bfWcoEVux8UwydZiHPD1AKsMc+ju1VO0R1NAIvdZbhlT+kfOOQ9cUEhxnPXHJ7JI3Ti7EpVtawTeneeUf0/lJm6czoEA0jjvKFB62ImUMoYENCt/5ITp4L0fdeVZZ2TJ/EwANCEMXVEmhxKtCEWTwchpU98tcUqmBuedFNdoCYoxDv9SQhCLfHXGTGSuzmh19MjOlua/mOqlPhuzWcoPEw2px+XOwyHN0gBH8Uaqw0lSjzjQnN1hgLhQhHtJ1AZz1uQQ4XDv0Bqo0IjKJNzYA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YIqtL6LXJiyJzXc2W73S4bGTqF39YkkTPt9jtfbskss=;
+ b=lHR648+a0lwGD/pQM8WI45Yd0RJODGw0sBRWZy2YZm/LsRGqYF70dO4MoK/qdbJvIeUG8dwBhIJBV0uanUUZIl2/a7hJvzuMO3lMpKu4jokEuE1PYvtN7MOby5u/YQJyE5oSbX2oTpfmyfTcYYFP/B62Ph6ZbjrfpmpRlXegftY=
+Received: from DS7PR03CA0042.namprd03.prod.outlook.com (2603:10b6:5:3b5::17)
+ by MN0PR12MB6319.namprd12.prod.outlook.com (2603:10b6:208:3c0::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Wed, 11 Jan
+ 2023 21:52:50 +0000
+Received: from DM6NAM11FT083.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b5:cafe::cd) by DS7PR03CA0042.outlook.office365.com
+ (2603:10b6:5:3b5::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18 via Frontend
+ Transport; Wed, 11 Jan 2023 21:52:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT083.mail.protection.outlook.com (10.13.173.97) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5986.18 via Frontend Transport; Wed, 11 Jan 2023 21:52:49 +0000
+Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 11 Jan
+ 2023 15:52:48 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd: Avoid ASSERT for some message failures
+Date: Wed, 11 Jan 2023 15:52:31 -0600
+Message-ID: <20230111215231.20122-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <CAAxE2A720cJguG5b+0zbP=G4TxTjpqKBvOqDXXAP0LWHZEuj0A@mail.gmail.com>
- <0931a762-c3a3-16c3-33a5-88e83fca4bcb@gmail.com>
- <CAAxE2A5pBqOkny15tSRCWn_UW8=TTE=zYPChBZofZCrHZoQbww@mail.gmail.com>
- <35304b1e-98a7-d342-9f1b-50f07b45cf98@gmail.com>
- <CAAxE2A6KJWPJ3eqKoaiJZUJCNqRpx+WYwoGEZKxX2Kf_auLUWg@mail.gmail.com>
- <a90b0e8e-dd02-031f-0432-1c5f6f02e949@amd.com>
- <CAAxE2A7PJdiPORP-X+7kFmix9pCo63PqeamP20BZJx4GDfJdEQ@mail.gmail.com>
- <8ec2b238-fa8b-a693-b9d9-3a590cc05664@amd.com>
- <CAAxE2A7G_gjvuGNNtZ6J-4R25Ykx8ziz1B2f0Dc3KuC4KeYdzA@mail.gmail.com>
- <BYAPR12MB461473D2083BC8B9FB012AC297F59@BYAPR12MB4614.namprd12.prod.outlook.com>
- <CAAxE2A4F59qttYfrT66v4Fe0D1h4Km=DLY779uC=HHSGswg4Lg@mail.gmail.com>
- <CADnq5_MLO4FLXrmUXPUzo2UBzqxa_hjfL0qBzibWAqO79uhxvw@mail.gmail.com>
-In-Reply-To: <CADnq5_MLO4FLXrmUXPUzo2UBzqxa_hjfL0qBzibWAqO79uhxvw@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 11 Jan 2023 15:50:38 -0500
-Message-ID: <CADnq5_PPJanTuyNgL8eyxj-+HvPiPXN3e3hR3AHHivj0omcsXg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: return the PCIe gen and lanes from the
- INFO
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT083:EE_|MN0PR12MB6319:EE_
+X-MS-Office365-Filtering-Correlation-Id: a6b07396-d89a-4aa6-5006-08daf41e2ed7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: xDD/SD0n2bFAIM67eAV+EiTtGDuPa/UCpZUYaRx6GxQzkpekfR4YWIFPFywtnNKdOxdLdVwgR7NOdzfzskI/KN/cBe2VTo3h9SCooaSIbTxjZPcySm5x/PyWFQ0nOtDGjOiJsQ877vQDPU+lHm32EPB1u4kzB25oD3vwK5WnatfdBltA1+Ds/wAJjTaaa6gb2A4E8BtyLsaMtcPyBr85Izz9mzw8dGTeWv7EXHcEggWx/bQf3RHtGb8xPt5wyp/HFQBjwIQdBomOwQKiagYSW736gskRc8XZ2x619C3wxwMpmk+O9d4z8g4YfzE6mvIX9OVCLaCzk3D8CvzOc835zkllxHjX8xWyP4FH68sHenub5NVgjPQnvejXgBawWfEFPuFhHtzkdv2FbPBE+ieAVdmBYI0LEcVzlM6ue39YJz9/f7/QUaDWx3BdQNNnpczSROGW6KQDXHLbrc0fp617zfv+qu17CEt7nTHKLd+jvrmsp4rfD1Z/7vm6/sOPxLUhmGSO8ywgsIpgbi3BEyjYOMJmDxbPyILYeU7gJG5MtbSHfhS+ZYigU+Trek7EkffPwP7jKmbzfAQdJoAXd0gK8RacXpKsyuZaidNR0sZp+ij738TzDqA93S4h83VdGhEl/sckNWPd8aOFIokSklTzNaZUaeuFLuxV3AII4ZDr/WhQDzHVxj9yTKQ2GIf+aNU461NAckSgHicIdsYHdYtMwoNQ3Up4wvxoly5z/4oKQ2E=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(346002)(39860400002)(396003)(136003)(451199015)(46966006)(36840700001)(40470700004)(8936002)(2906002)(5660300002)(44832011)(316002)(6666004)(41300700001)(4326008)(478600001)(8676002)(70206006)(6916009)(54906003)(19627235002)(70586007)(336012)(26005)(82310400005)(426003)(16526019)(40480700001)(7696005)(83380400001)(47076005)(1076003)(86362001)(356005)(82740400003)(2616005)(186003)(81166007)(40460700003)(36860700001)(36756003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2023 21:52:49.7780 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a6b07396-d89a-4aa6-5006-08daf41e2ed7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT083.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6319
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,220 +97,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Lazar, Lijo" <Lijo.Lazar@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Richard.Gong@amd.com, Roman.Li@amd.com,
+ Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 11, 2023 at 3:48 PM Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> On Wed, Jan 4, 2023 at 3:17 PM Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com> w=
-rote:
-> >
-> > Yes, it's meant to be like a spec sheet. We are not interested in the c=
-urrent bandwidth utilization.
->
-> After chatting with Marek on IRC and thinking about this more, I think
-> this patch is fine.  It's not really meant for bandwidth per se, but
-> rather as a limit to determine what the driver should do in certain
-> cases (i.e., when does it make sense to copy to vram vs not).  It's
-> not straightforward for userspace to parse the full topology to
-> determine what links may be slow.  I guess one potential pitfall would
-> be that if you pass the device into a VM, the driver may report the
-> wrong values.  Generally in a VM the VM doesn't get the full view up
-> to the root port.  I don't know if the hypervisors report properly for
-> pcie_bandwidth_available() in a VM or if it just shows the info about
-> the endpoint in the VM.
->
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+On DCN314 when resuming from s0i3 an ASSERT is shown indicating that
+`VBIOSSMC_MSG_SetHardMinDcfclkByFreq` returned `VBIOSSMC_Result_Failed`.
 
-Actually:
+This isn't a driver bug; it's a BIOS/configuration bug. To make this
+easier to triage, add an explicit warning when this issue happens.
 
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index fe7f871e3080..f7fc7325f17f 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -1053,7 +1053,7 @@ struct drm_amdgpu_info_device {
-     __u32 enabled_rb_pipes_mask;
-     __u32 num_rb_pipes;
-     __u32 num_hw_gfx_contexts;
--    __u32 _pad;
-+    __u32 pcie_gen;
-     __u64 ids_flags;
-     /** Starting virtual address for UMDs. */
-     __u64 virtual_address_offset;
-@@ -1109,6 +1109,7 @@ struct drm_amdgpu_info_device {
-     __u64 high_va_max;
-     /* gfx10 pa_sc_tile_steering_override */
-     __u32 pa_sc_tile_steering_override;
-+    __u32 pcie_num_lanes;
-     /* disabled TCCs */
-     __u64 tcc_disabled_mask;
-     __u64 min_engine_clock;
+This matches the behavior utilized for failures with
+`VBIOSSMC_MSG_TransferTableDram2Smu` configuration.
 
-Doesn't that last one need to be added to the end of the structure?
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c
+index f47cfe6b42bd2..0765334f08259 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c
+@@ -146,6 +146,9 @@ static int dcn314_smu_send_msg_with_param(struct clk_mgr_internal *clk_mgr,
+ 		if (msg_id == VBIOSSMC_MSG_TransferTableDram2Smu &&
+ 		    param == TABLE_WATERMARKS)
+ 			DC_LOG_WARNING("Watermarks table not configured properly by SMU");
++		else if (msg_id == VBIOSSMC_MSG_SetHardMinDcfclkByFreq ||
++			 msg_id == VBIOSSMC_MSG_SetMinDeepSleepDcfclk)
++			DC_LOG_WARNING("DCFCLK_DPM is not enabled by BIOS");
+ 		else
+ 			ASSERT(0);
+ 		REG_WRITE(MP1_SMN_C2PMSG_91, VBIOSSMC_Result_OK);
+-- 
+2.25.1
 
->
-> Alex
->
-> >
-> > Marek
-> >
-> > On Wed, Jan 4, 2023 at 10:33 AM Lazar, Lijo <Lijo.Lazar@amd.com> wrote:
-> >>
-> >> [AMD Official Use Only - General]
-> >>
-> >>
-> >> To clarify, with DPM in place, the current bandwidth will be changing =
-based on the load.
-> >>
-> >> If apps/umd already has a way to know the current bandwidth utilisatio=
-n, then possible maximum also could be part of the same API. Otherwise, thi=
-s only looks like duplicate information. We have the same information in sy=
-sfs DPM nodes.
-> >>
-> >> BTW, I don't know to what extent app/umd really makes use of this. Tak=
-e that memory frequency as an example (I'm reading it as 16GHz). It only lo=
-oks like a spec sheet.
-> >>
-> >> Thanks,
-> >> Lijo
-> >> ________________________________
-> >> From: Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com>
-> >> Sent: Wednesday, January 4, 2023 8:40:00 PM
-> >> To: Lazar, Lijo <Lijo.Lazar@amd.com>
-> >> Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-> >> Subject: Re: [PATCH 1/2] drm/amdgpu: return the PCIe gen and lanes fro=
-m the INFO
-> >>
-> >> On Wed, Jan 4, 2023 at 9:19 AM Lazar, Lijo <lijo.lazar@amd.com> wrote:
-> >>
-> >>
-> >>
-> >> On 1/4/2023 7:43 PM, Marek Ol=C5=A1=C3=A1k wrote:
-> >> > On Wed, Jan 4, 2023 at 6:50 AM Lazar, Lijo <lijo.lazar@amd.com
-> >> > <mailto:lijo.lazar@amd.com>> wrote:
-> >> >
-> >> >
-> >> >
-> >> >     On 1/4/2023 4:11 AM, Marek Ol=C5=A1=C3=A1k wrote:
-> >> >      > I see. Well, those sysfs files are not usable, and I don't th=
-ink it
-> >> >      > would be important even if they were usable, but for complete=
-ness:
-> >> >      >
-> >> >      > The ioctl returns:
-> >> >      >      pcie_gen =3D 1
-> >> >      >      pcie_num_lanes =3D 16
-> >> >      >
-> >> >      > Theoretical bandwidth from those values: 4.0 GB/s
-> >> >      > My DMA test shows this write bandwidth: 3.5 GB/s
-> >> >      > It matches the expectation.
-> >> >      >
-> >> >      > Let's see the devices (there is only 1 GPU Navi21 in the syst=
-em):
-> >> >      > $ lspci |egrep '(PCI|VGA).*Navi'
-> >> >      > 0a:00.0 PCI bridge: Advanced Micro Devices, Inc. [AMD/ATI] Na=
-vi
-> >> >     10 XL
-> >> >      > Upstream Port of PCI Express Switch (rev c3)
-> >> >      > 0b:00.0 PCI bridge: Advanced Micro Devices, Inc. [AMD/ATI] Na=
-vi
-> >> >     10 XL
-> >> >      > Downstream Port of PCI Express Switch
-> >> >      > 0c:00.0 VGA compatible controller: Advanced Micro Devices, In=
-c.
-> >> >      > [AMD/ATI] Navi 21 [Radeon RX 6800/6800 XT / 6900 XT] (rev c3)
-> >> >      >
-> >> >      > Let's read sysfs:
-> >> >      >
-> >> >      > $ cat /sys/bus/pci/devices/0000:0a:00.0/current_link_width
-> >> >      > 16
-> >> >      > $ cat /sys/bus/pci/devices/0000:0b:00.0/current_link_width
-> >> >      > 16
-> >> >      > $ cat /sys/bus/pci/devices/0000:0c:00.0/current_link_width
-> >> >      > 16
-> >> >      > $ cat /sys/bus/pci/devices/0000:0a:00.0/current_link_speed
-> >> >      > 2.5 GT/s PCIe
-> >> >      > $ cat /sys/bus/pci/devices/0000:0b:00.0/current_link_speed
-> >> >      > 16.0 GT/s PCIe
-> >> >      > $ cat /sys/bus/pci/devices/0000:0c:00.0/current_link_speed
-> >> >      > 16.0 GT/s PCIe
-> >> >      >
-> >> >      > Problem 1: None of the speed numbers match 4 GB/s.
-> >> >
-> >> >     US bridge =3D 2.5GT/s means operating at PCIe Gen 1 speed. Total
-> >> >     theoretical bandwidth is then derived based on encoding and tota=
-l
-> >> >     number
-> >> >     of lanes.
-> >> >
-> >> >      > Problem 2: Userspace doesn't know the bus index of the bridge=
-s,
-> >> >     and it's
-> >> >      > not clear which bridge should be used.
-> >> >
-> >> >     In general, modern ones have this arch=3D US->DS->EP. US is the =
-one
-> >> >     connected to physical link.
-> >> >
-> >> >      > Problem 3: The PCIe gen number is missing.
-> >> >
-> >> >     Current link speed is based on whether it's Gen1/2/3/4/5.
-> >> >
-> >> >     BTW, your patch makes use of capabilities flags which gives the =
-maximum
-> >> >     supported speed/width by the device. It may not necessarily refl=
-ect the
-> >> >     current speed/width negotiated. I guess in NV, this info is alre=
-ady
-> >> >     obtained from PMFW and made available through metrics table.
-> >> >
-> >> >
-> >> > It computes the minimum of the device PCIe gen and the motherboard/s=
-lot
-> >> > PCIe gen to get the final value. These 2 lines do that. The low 16 b=
-its
-> >> > of the mask contain the device PCIe gen mask. The high 16 bits of th=
-e
-> >> > mask contain the slot PCIe gen mask.
-> >> > + pcie_gen_mask =3D adev->pm.pcie_gen_mask & (adev->pm.pcie_gen_mask=
- >> 16);
-> >> > + dev_info->pcie_gen =3D fls(pcie_gen_mask);
-> >> >
-> >>
-> >> With DPM in place on some ASICs, how much does this static info help f=
-or
-> >> upper level apps?
-> >>
-> >>
-> >> It helps UMDs make better decisions if they know the maximum achievabl=
-e bandwidth. UMDs also compute the maximum memory bandwidth and compute per=
-formance (FLOPS). Right now it's printed by Mesa to give users detailed inf=
-ormation about their GPU. For example:
-> >>
-> >> $ AMD_DEBUG=3Dinfo glxgears
-> >> Device info:
-> >>     name =3D NAVI21
-> >>     marketing_name =3D AMD Radeon RX 6800
-> >>     num_se =3D 3
-> >>     num_rb =3D 12
-> >>     num_cu =3D 60
-> >>     max_gpu_freq =3D 2475 MHz
-> >>     max_gflops =3D 19008 GFLOPS
-> >>     l0_cache_size =3D 16 KB
-> >>     l1_cache_size =3D 128 KB
-> >>     l2_cache_size =3D 4096 KB
-> >>     l3_cache_size =3D 128 MB
-> >>     memory_channels =3D 16 (TCC blocks)
-> >>     memory_size =3D 16 GB (16384 MB)
-> >>     memory_freq =3D 16 GHz
-> >>     memory_bus_width =3D 256 bits
-> >>     memory_bandwidth =3D 512 GB/s
-> >>     pcie_gen =3D 1
-> >>     pcie_num_lanes =3D 16
-> >>     pcie_bandwidth =3D 4.0 GB/s
-> >>
-> >> Marek
