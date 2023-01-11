@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6ADADC63797
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 13:02:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30387C5479D
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 13:02:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 754C310E729;
-	Wed, 11 Jan 2023 13:02:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDE2110E734;
+	Wed, 11 Jan 2023 13:02:18 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C4FB10E722;
- Wed, 11 Jan 2023 13:02:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC84310E092;
+ Wed, 11 Jan 2023 13:02:14 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9FCF97724E;
- Wed, 11 Jan 2023 13:02:10 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6F7E07725B;
+ Wed, 11 Jan 2023 13:02:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1673442130; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1673442132; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=HAQ+vGdFHIOKmUMVDXoS/GsY4nkmzF3bO8yR2aLReHc=;
- b=TJtx2OMpuNe03r9rouzlOgGT3LhdMA5bkZhbAJEFyVcuIPAq9Amh7A60a9KL1eXSjtIcGh
- 24eX9NZ5dhoN10bwDwlZJ6l7GfrKxKdRvvQZpc31k51KdQXm+5JXaw0r9OArtrvcqSYKGS
- HflTYP/TgOgtWiPEzVIZm9oj3Rl2zBw=
+ bh=UWBPEe6YpFe509uZsCP6V7S/y2k21Y9i4CjZJQwrAUo=;
+ b=yUZqAebhnwPYIAVzUmaFOX9qDQsie0o/ruNbdAZCK+YLQAA+rNNlRYg+oWD1OiJCFKVuwy
+ 0CBHgnLvr+pPsKUp2AW7h6U5V8bKwAXpKCFZ3VL2x2hN0iiJYpLwm5zxqOE4DgJiu2TWe0
+ SIDstMPxFoLhxtdtp5+yoP0fgcqkNvU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1673442130;
+ s=susede2_ed25519; t=1673442132;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=HAQ+vGdFHIOKmUMVDXoS/GsY4nkmzF3bO8yR2aLReHc=;
- b=BNSAFlX6BD+SsWlmXnD//q26GovIf6uHd50DoWee7ABuEF7OwoETfNaI7mHQKlmTOFQFn0
- k5Ik+V3Vjia6dGAg==
+ bh=UWBPEe6YpFe509uZsCP6V7S/y2k21Y9i4CjZJQwrAUo=;
+ b=KPOgluwCiZ7Wd5HZJKgCR4pM8VdPV5T81HgTenxhjL+JunApd/QyQ7f/fbZ0pp00OlHmg/
+ 8SAxjLU2O/fuAbCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 548AF13591;
- Wed, 11 Jan 2023 13:02:10 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 00C5813594;
+ Wed, 11 Jan 2023 13:02:11 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id oKKuE1KzvmMaXAAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Wed, 11 Jan 2023 13:02:10 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id UKAGO1OzvmMaXAAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Wed, 11 Jan 2023 13:02:11 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
  daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
  patrik.r.jakobsson@gmail.com, thierry.reding@gmail.com, sam@ravnborg.org,
  f.fainelli@gmail.com, james.qian.wang@arm.com, liviu.dudau@arm.com
-Subject: [PATCH v2 02/10] drm: Include <linux/of.h> where needed
-Date: Wed, 11 Jan 2023 14:01:58 +0100
-Message-Id: <20230111130206.29974-3-tzimmermann@suse.de>
+Subject: [PATCH v2 07/10] drm/amdgpu: Do not include <drm/drm_fb_helper.h>
+Date: Wed, 11 Jan 2023 14:02:03 +0100
+Message-Id: <20230111130206.29974-8-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230111130206.29974-1-tzimmermann@suse.de>
 References: <20230111130206.29974-1-tzimmermann@suse.de>
@@ -75,67 +75,65 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Include <linux/of.h> in source files that need it. Some of DRM's
-source code gets OF header via drm_crtc_helper.h and <linux/fb.h>,
-which can leed to unnecessary recompilation.
-
-In drm_modes.c, add a comment on the reason for still including
-<linux/fb.h>. The header file is required to get KHZ2PICOS(). The
-macro is part of the UAPI headers, so it cannot be moved to a less
-prominent location.
-
-v2:
-	* include <linux/of.h> in komeda_drv.c (kernel test robot)
+Including <drm/drm_fb_helper.h> is not required, so remove the include
+statements. No functional changes.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/arm/display/komeda/komeda_drv.c | 1 +
- drivers/gpu/drm/drm_modes.c                     | 5 +++--
- drivers/gpu/drm/panel/panel-ronbo-rb070d30.c    | 1 +
- 3 files changed, 5 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c | 1 -
+ drivers/gpu/drm/amd/amdgpu/dce_v11_0.c | 1 -
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c  | 1 -
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c  | 1 -
+ 4 files changed, 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_drv.c b/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
-index 3f4e719eebd8..28f76e07dd95 100644
---- a/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
-+++ b/drivers/gpu/drm/arm/display/komeda/komeda_drv.c
-@@ -6,6 +6,7 @@
-  */
- #include <linux/module.h>
- #include <linux/kernel.h>
-+#include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/component.h>
- #include <linux/pm_runtime.h>
-diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
-index be030f4a5311..40d482a01178 100644
---- a/drivers/gpu/drm/drm_modes.c
-+++ b/drivers/gpu/drm/drm_modes.c
-@@ -31,10 +31,11 @@
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+index 248f1a4e915f..a2452fc304c5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+@@ -21,7 +21,6 @@
+  *
   */
  
- #include <linux/ctype.h>
-+#include <linux/export.h>
-+#include <linux/fb.h> /* for KHZ2PICOS() */
- #include <linux/list.h>
- #include <linux/list_sort.h>
--#include <linux/export.h>
--#include <linux/fb.h>
-+#include <linux/of.h>
+-#include <drm/drm_fb_helper.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_vblank.h>
  
- #include <video/of_display_timing.h>
- #include <video/of_videomode.h>
-diff --git a/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c b/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c
-index a8a98c91b13c..866d1bf5530e 100644
---- a/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c
-+++ b/drivers/gpu/drm/panel/panel-ronbo-rb070d30.c
-@@ -15,6 +15,7 @@
- #include <linux/kernel.h>
- #include <linux/media-bus-format.h>
- #include <linux/module.h>
-+#include <linux/of.h>
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+index cd9c19060d89..6ac680c4c6e2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+@@ -21,7 +21,6 @@
+  *
+  */
  
- #include <linux/gpio/consumer.h>
- #include <linux/regulator/consumer.h>
+-#include <drm/drm_fb_helper.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_vblank.h>
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+index 76323deecc58..354ae09cc9a2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+@@ -23,7 +23,6 @@
+ 
+ #include <linux/pci.h>
+ 
+-#include <drm/drm_fb_helper.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_vblank.h>
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+index 01cf3ab111cb..33977b0ba19d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+@@ -21,7 +21,6 @@
+  *
+  */
+ 
+-#include <drm/drm_fb_helper.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_vblank.h>
+ 
 -- 
 2.39.0
 
