@@ -4,56 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97AB1C46467
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 14:21:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D33C5C5479D
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 14:47:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34A3E10E74A;
-	Wed, 11 Jan 2023 14:21:02 +0000 (UTC)
-Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
- [IPv6:2001:4860:4864:20::34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4E5B10E74A
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 14:20:59 +0000 (UTC)
-Received: by mail-oa1-x34.google.com with SMTP id
- 586e51a60fabf-15eaa587226so982727fac.8
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 06:20:59 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C12210E182;
+	Wed, 11 Jan 2023 14:47:42 +0000 (UTC)
+Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
+ [IPv6:2001:4860:4864:20::2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB7AF10E182
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 14:47:40 +0000 (UTC)
+Received: by mail-oa1-x2e.google.com with SMTP id
+ 586e51a60fabf-15bb8ec196aso3987586fac.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 06:47:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=go7aaELgD7WrkzwIy65SscdJ/YB3zfRk9jfnuqfJTcA=;
- b=keaCHcleRhYp7nCdah4kgmTeohQa2u2YxzctRdkXmGsrTmTyzzASoN9RDTCWs0woK8
- 9lpVwJyb/bnlhHpPGG51PvpyaIPPbxLRKbj5nth5gvFJsbArVyvi6Lg5rEutAzE97r4p
- J2NbQrDKeEzBdlQjcDPKd9DGWVOskXpJn/xLetvL8pNt45ktBJgPvBz1ocIlfZvNeUn6
- gGHxV3avPCEEdFTn6V3CPPgNaodeG3S0Setc+b6GfKKaxuOY7+LXQFUThoeubzGTQedj
- FjlzHyz7k/BBWPIfaIvJmk7LLGbLSStZ0P3h6EKK2XJy9qotGs14STWn6uIC25Hp/5m6
- 6K8Q==
+ bh=FK2+uw+zjyn2bkQTH1uT+g159Q5BkxTC7GAI+9P08hQ=;
+ b=MRhVyRv6YOQiNMCJAKTsaAsfBO2nUpy7Ri8n/8oTBVNs4WlAeZB1f3T4L8fVUj8dhL
+ h6rlMKFdBk39jV2M/i7QtisRcsYLp02xjR4v3YweXdZJdCLGHuj3k/2/0H3QWvKHL6nj
+ 047iWYdI8WMlUipYKnxRndHEQVmuI249joPgWi6y4lVPArsNm6uF1EQZt01oLUtNHk58
+ 5yZt0d3LKujCF91+kIwMbgz386Kp0Vyc8AuT2i9+l5jNWPgE0HyOFk+thmZ4BmhCYkR4
+ 7lB7wU88h9bZ1GgdusndoRUxUcqVYhUSBsDe1xO5TL4jtzInihXJxshWsq8paVOyLtcx
+ zBKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=go7aaELgD7WrkzwIy65SscdJ/YB3zfRk9jfnuqfJTcA=;
- b=JKvYh50CrD9BzCyndsrkMSWfMUkZZbgzelLQbKnYHoLSUgKAryofFwvORKBNQzgOht
- M4TBpcFh2naWW4Y5jbh4U3X5Y01j6nYl64TCr/dmP8xcXLy9onhF/898v3p3niR8NWBS
- jhxqmj6zOqP8wX81lgVwNuSVvdL3NMywCOuF7izQ7wLQfkwPcMn7I8Nmk/B2LKIM+00y
- H6++KgEJ1naBCjklh2uEK0gCBgkCEYd2hUDmDd8NycWU+yXZY0k4PXw/fdrKbkDHKLb8
- WRGN/YJekaqGVrcikBDcnsJgidwOKtkQBPRHPeUolqeOKc2dQYOGobHJAzWPWJDR2ONy
- zLVQ==
-X-Gm-Message-State: AFqh2kpQb+U1DyKy1UyikC7SEMhLvifaX4KX7y03Ps7j0m0hDAiiKi31
- wB2alVklsXxRtx/YOZJMdUDQNZjfCApg4eDhMAw=
-X-Google-Smtp-Source: AMrXdXu8MYZzLEExoAS6gWgEZ9xIf+QchJe39KhueOPVH4muUbsA0IDWzcZx/l48xr67YCL1J3EfHg7MIf7SGqKqft0=
+ bh=FK2+uw+zjyn2bkQTH1uT+g159Q5BkxTC7GAI+9P08hQ=;
+ b=Vj20f1svs4rq/XtvD90wEnZxLp6sAyFgcbSMM+iZJEq2nm+3FQKoRexlXUzuDErRHW
+ zUVgUbx80VvFpT/mo6NDjMryN/elzMBteyDXQYYqHwIA3A73v4qlMlBHk7e4YZnwvOc6
+ FpKmJj5IQPeWks0GU/2J4/jL0Em+Q8TvWeFtv4UT7TArIrfn9fbzeGjcz4UguVoKqI+1
+ vxVxYFIx87M+H7auYafRQXMi8kcCCPIeWNy1hAlr1eAbPlMU12vttT+p1Diky7KdIUr9
+ GCq2EL+hu+DxVp7IvfT3xmD3XklDrKpURXqi1zX9JZQFqrJFb7LJo+pd65pDluWQgM1V
+ opbg==
+X-Gm-Message-State: AFqh2kooSQ4PUriFlCpNEy7O22iSTV9qX6XC222aOKAfM9npf+7ouu0W
+ Dq2zn98xqrYXr7fj3G1qJ0sNT13uu1T6DpeQ0U4=
+X-Google-Smtp-Source: AMrXdXvGcXPLQtjoC9ZfdkAwWvvgn+HwjFyZPAYAvVUYLPctkDuaHdBwX+MiLT/BCsqn52yrNLQvKlgCrQ4szOobepc=
 X-Received: by 2002:a05:6870:c59c:b0:150:d9aa:4011 with SMTP id
- ba28-20020a056870c59c00b00150d9aa4011mr2534447oab.96.1673446859100; Wed, 11
- Jan 2023 06:20:59 -0800 (PST)
+ ba28-20020a056870c59c00b00150d9aa4011mr2541367oab.96.1673448459989; Wed, 11
+ Jan 2023 06:47:39 -0800 (PST)
 MIME-Version: 1.0
-References: <20230110154325.3350916-1-Rodrigo.Siqueira@amd.com>
- <20230110154325.3350916-2-Rodrigo.Siqueira@amd.com>
-In-Reply-To: <20230110154325.3350916-2-Rodrigo.Siqueira@amd.com>
+References: <20230105032259.2032789-1-evan.quan@amd.com>
+ <20230105032259.2032789-8-evan.quan@amd.com>
+ <DM6PR12MB26191B413EDC7BD52A9D0532E4FF9@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <bc81b6b8-4bf8-4565-80f4-cb46539318ff@gmail.com>
+ <DM6PR12MB26194938F0D4873D5DB83A1DE4FC9@DM6PR12MB2619.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB26194938F0D4873D5DB83A1DE4FC9@DM6PR12MB2619.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 11 Jan 2023 09:20:47 -0500
-Message-ID: <CADnq5_MfiJ-rhmAWfMQfHHenHx3-2WiaALWw1sgEZiJ431x2wQ@mail.gmail.com>
-Subject: Re: [PATCH 1/9] drm/amd/display: Introduce UseMinimumDCFCLK_vars to
- reduce stack size in DML
-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Date: Wed, 11 Jan 2023 09:47:28 -0500
+Message-ID: <CADnq5_N8RQAZtEy03qohNQF_7c_kLLQOQ0FGvXtRAqvBbV-Aeg@mail.gmail.com>
+Subject: Re: [PATCH 8/8] drm/amd/pm: drop the support for manual fan speed
+ setting on SMU13.0.7
+To: "Quan, Evan" <Evan.Quan@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,105 +69,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, Roman Li <roman.li@amd.com>,
- amd-gfx@lists.freedesktop.org, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>, Harry Wentland <harry.wentland@amd.com>
+Cc: Matt Coffin <mcoffin13@gmail.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jan 10, 2023 at 10:44 AM Rodrigo Siqueira
-<Rodrigo.Siqueira@amd.com> wrote:
+On Wed, Jan 11, 2023 at 8:23 AM Quan, Evan <Evan.Quan@amd.com> wrote:
 >
-> It was reported that on kernel v6.2-rc1, we have the following stack
-> size issue:
+> [AMD Official Use Only - General]
 >
-> make[3]: *** [/kisskb/src/scripts/Makefile.build:504: drivers/media]
-> Error 2
-> [...]/display/dc/dml/dcn31/display_mode_vba_31.c: In function
-> 'UseMinimumDCFCLK':
-> [...]/display/dc/dml/dcn31/display_mode_vba_31.c:7082:1: error: the
-> frame size of 2224 bytes is larger than 2048 bytes
-> [-Werror=frame-larger-than=]
+> Hi Matt,
 >
-> This commit introduces a new struct that will accommodate some internal
-> variables under the UseMinimumDCFCLK function. This change is the first
-> of a series of patches that gradually move each of the arrays of double
-> to the new struct to reduce the stack size for DCN31 and DCN314.
+> The problem with the approach(removal of interface functions from the ppt_funcs) is:
+> 1. If to drop support for some sysfs interface, you need to know the internal implementation details to mask out the corresponding function.
+>     That's not straightforward and might be not an easy job for new comer.
+> 2. Sometimes the missing of some interfaces is unintentional. It needs to be added instead of being treated as unsupported.
+> 3. The removal of the interface cannot update the sysfs file permission together. That means the sysfs file might be still shown as writable while
+>     actually the setting is not supported at all.
+> The patch series try to address these in a simple and straightforward way.
 >
-> Cc: Alex Deucher <alexdeucher@gmail.com>
-> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
-> Cc: Roman Li <roman.li@amd.com>
-> Cc: Geert Uytterhoeven <geert@linux-m68k.org>
-> Link: https://lore.kernel.org/all/20221227082932.798359-1-geert@linux-m68k.org/
-> Reported-by: Geert Uytterhoeven <geert@linux-m68k.org>
-> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> Regarding the manual fan speed setting issue targeted by this patch, the SCPM feature of the new SMU13 asics prevents us from toggling the fan control feature from auto to manual.
+> Without that, the manual fan speed setting to some specific RPM/PWM is not possible.
+> About the capability in the OD table you mentioned, it might be a different issue.
+> Since as I know, the capability the OD table provided is to change the minimum/maximum fan speed limit.
+> That should be not affected by the SCPM and relevant.
 
-Series is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Right.  Manual fan control is no longer possible.  As Evan said, you
+can adjust the automatic fan curve using the OD interface, but that is
+it.
 
-> ---
->  .../gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c | 7 +++----
->  drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h      | 5 +++++
->  2 files changed, 8 insertions(+), 4 deletions(-)
+Alex
+
+
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
-> index ec351c8418cb..00d3c57f0d98 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
-> @@ -6928,7 +6928,6 @@ static void UseMinimumDCFCLK(
->         struct vba_vars_st *v = &mode_lib->vba;
->         int dummy1, i, j, k;
->         double NormalEfficiency,  dummy2, dummy3;
-> -       double TotalMaxPrefetchFlipDPTERowBandwidth[DC__VOLTAGE_STATES][2];
->
->         NormalEfficiency = v->PercentOfIdealFabricAndSDPPortBWReceivedAfterUrgLatency / 100.0;
->         for (i = 0; i < v->soc.num_states; ++i) {
-> @@ -6947,9 +6946,9 @@ static void UseMinimumDCFCLK(
->                         int NoOfDPPState[DC__NUM_DPP__MAX];
->                         double MinimumTvmPlus2Tr0;
->
-> -                       TotalMaxPrefetchFlipDPTERowBandwidth[i][j] = 0;
-> +                       v->UseMinimumDCFCLK_stack_reduction.TotalMaxPrefetchFlipDPTERowBandwidth[i][j] = 0;
->                         for (k = 0; k < v->NumberOfActivePlanes; ++k) {
-> -                               TotalMaxPrefetchFlipDPTERowBandwidth[i][j] = TotalMaxPrefetchFlipDPTERowBandwidth[i][j]
-> +                               v->UseMinimumDCFCLK_stack_reduction.TotalMaxPrefetchFlipDPTERowBandwidth[i][j] = v->UseMinimumDCFCLK_stack_reduction.TotalMaxPrefetchFlipDPTERowBandwidth[i][j]
->                                                 + v->NoOfDPP[i][j][k] * v->DPTEBytesPerRow[i][j][k] / (15.75 * v->HTotal[k] / v->PixelClock[k]);
->                         }
->
-> @@ -6960,7 +6959,7 @@ static void UseMinimumDCFCLK(
->                         MinimumTWait = CalculateTWait(MaxPrefetchMode, v->FinalDRAMClockChangeLatency, v->UrgLatency[i], v->SREnterPlusExitTime);
->                         NonDPTEBandwidth = v->TotalVActivePixelBandwidth[i][j] + v->TotalVActiveCursorBandwidth[i][j] + v->TotalMetaRowBandwidth[i][j];
->                         DPTEBandwidth = (v->HostVMEnable == true || v->ImmediateFlipRequirement[0] == dm_immediate_flip_required) ?
-> -                                       TotalMaxPrefetchFlipDPTERowBandwidth[i][j] : v->TotalDPTERowBandwidth[i][j];
-> +                                       v->UseMinimumDCFCLK_stack_reduction.TotalMaxPrefetchFlipDPTERowBandwidth[i][j] : v->TotalDPTERowBandwidth[i][j];
->                         DCFCLKRequiredForAverageBandwidth = dml_max3(
->                                         v->ProjectedDCFCLKDeepSleep[i][j],
->                                         (NonDPTEBandwidth + v->TotalDPTERowBandwidth[i][j]) / v->ReturnBusWidth
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
-> index 81e53e67cd0b..660c22a19c8d 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
-> @@ -249,6 +249,10 @@ struct dml32_ModeSupportAndSystemConfigurationFull {
->         bool dummy_boolean[2];
->  };
->
-> +struct UseMinimumDCFCLK_vars {
-> +       double TotalMaxPrefetchFlipDPTERowBandwidth[DC__VOLTAGE_STATES][2];
-> +};
-> +
->  struct dummy_vars {
->         struct DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation
->         DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation;
-> @@ -1236,6 +1240,7 @@ struct vba_vars_st {
->         bool VActiveBandwithSupport[DC__VOLTAGE_STATES][2];
->         bool NotEnoughDETSwathFillLatencyHidingPerState[DC__VOLTAGE_STATES][2];
->         struct dummy_vars dummy_vars;
-> +       struct UseMinimumDCFCLK_vars UseMinimumDCFCLK_stack_reduction;
->  };
->
->  bool CalculateMinAndMaxPrefetchMode(
-> --
-> 2.39.0
->
+> BR
+> Evan
+> > -----Original Message-----
+> > From: Matt Coffin <mcoffin13@gmail.com>
+> > Sent: Tuesday, January 10, 2023 9:57 PM
+> > To: amd-gfx@lists.freedesktop.org
+> > Cc: Quan, Evan <Evan.Quan@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>
+> > Subject: Re: [PATCH 8/8] drm/amd/pm: drop the support for manual fan
+> > speed setting on SMU13.0.7
+> >
+> > On 1/9/23 23:48, Quan, Evan wrote:
+> > > [AMD Official Use Only - General]
+> > >
+> > > We need these to address the fan speed setting failure reported for the
+> > new SMU13 asics.
+> > My opinion shouldn't matter much given sparseness of activity, but, despite
+> > his... short tonality, I agree with Lijo's assessment there.
+> >
+> > As someone less familiar with the code base, the use of "multiple sources of
+> > truth" contributes to making it harder to understand and ramp up with.
+> >
+> > As for the sysfs fan control issue itself, this won't really "fix" the issue, but
+> > rather just remove write permissions from the hwmon files (if my
+> > testing+understanding is right), so it wouldn't seem to be a hyper-critical
+> > deliverable to me as a random outsider looking in (despite being effected by
+> > the issue personally). Even with that interface removed, there isn't another
+> > way to control the "auto" fans, as the FW reports it doesn't support that
+> > capability in the OD table, and ignores anything set therein for that purpose.
+> > Hopefully that's temporary until FW gets fixed?
+> >
+> > I also think the behavior of the other proposed solution (removal of interface
+> > functions from the ppt_funcs), is objectively a better experience w/r/t
+> > outcome. If the functions are NULL, then the hwmon device files go away
+> > *completely*, instead of just being masked from write permission, which
+> > would make the message clearer to the end user that it's not an error, but an
+> > actual lack of functionality.
+> >
+> > Cheers, sorry I couldn't help, but wanted to at least have something come of
+> > the last few days I spent implmenting OD on SMU13 for nothing!
+> >
+> > ~Matt
