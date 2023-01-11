@@ -4,60 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D33C5C5479D
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 14:47:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69694C5479D
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 15:19:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C12210E182;
-	Wed, 11 Jan 2023 14:47:42 +0000 (UTC)
-Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
- [IPv6:2001:4860:4864:20::2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB7AF10E182
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 14:47:40 +0000 (UTC)
-Received: by mail-oa1-x2e.google.com with SMTP id
- 586e51a60fabf-15bb8ec196aso3987586fac.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 06:47:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=FK2+uw+zjyn2bkQTH1uT+g159Q5BkxTC7GAI+9P08hQ=;
- b=MRhVyRv6YOQiNMCJAKTsaAsfBO2nUpy7Ri8n/8oTBVNs4WlAeZB1f3T4L8fVUj8dhL
- h6rlMKFdBk39jV2M/i7QtisRcsYLp02xjR4v3YweXdZJdCLGHuj3k/2/0H3QWvKHL6nj
- 047iWYdI8WMlUipYKnxRndHEQVmuI249joPgWi6y4lVPArsNm6uF1EQZt01oLUtNHk58
- 5yZt0d3LKujCF91+kIwMbgz386Kp0Vyc8AuT2i9+l5jNWPgE0HyOFk+thmZ4BmhCYkR4
- 7lB7wU88h9bZ1GgdusndoRUxUcqVYhUSBsDe1xO5TL4jtzInihXJxshWsq8paVOyLtcx
- zBKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=FK2+uw+zjyn2bkQTH1uT+g159Q5BkxTC7GAI+9P08hQ=;
- b=Vj20f1svs4rq/XtvD90wEnZxLp6sAyFgcbSMM+iZJEq2nm+3FQKoRexlXUzuDErRHW
- zUVgUbx80VvFpT/mo6NDjMryN/elzMBteyDXQYYqHwIA3A73v4qlMlBHk7e4YZnwvOc6
- FpKmJj5IQPeWks0GU/2J4/jL0Em+Q8TvWeFtv4UT7TArIrfn9fbzeGjcz4UguVoKqI+1
- vxVxYFIx87M+H7auYafRQXMi8kcCCPIeWNy1hAlr1eAbPlMU12vttT+p1Diky7KdIUr9
- GCq2EL+hu+DxVp7IvfT3xmD3XklDrKpURXqi1zX9JZQFqrJFb7LJo+pd65pDluWQgM1V
- opbg==
-X-Gm-Message-State: AFqh2kooSQ4PUriFlCpNEy7O22iSTV9qX6XC222aOKAfM9npf+7ouu0W
- Dq2zn98xqrYXr7fj3G1qJ0sNT13uu1T6DpeQ0U4=
-X-Google-Smtp-Source: AMrXdXvGcXPLQtjoC9ZfdkAwWvvgn+HwjFyZPAYAvVUYLPctkDuaHdBwX+MiLT/BCsqn52yrNLQvKlgCrQ4szOobepc=
-X-Received: by 2002:a05:6870:c59c:b0:150:d9aa:4011 with SMTP id
- ba28-20020a056870c59c00b00150d9aa4011mr2541367oab.96.1673448459989; Wed, 11
- Jan 2023 06:47:39 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDE2010E75B;
+	Wed, 11 Jan 2023 15:19:15 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2083.outbound.protection.outlook.com [40.107.93.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 837E210E754;
+ Wed, 11 Jan 2023 15:19:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dAIzUYqo5ZD0vQXonB1RZknWuBIEQKS8IFXpj+j1iXY4yVd+9bZQqOCvg7bVsWvEcX4cEDCfzcLh9WyRSWOvbfXmj4UPPNc5x3CyUsQ7ej6EUU1zg9hzrS4YCcLTdJmoq6EuKZPHT6p/u1+d4z4fxnj+Tm05GfXDyKUMW2Z97v3vO14w+vmyxav+D4k8vrGwyMRZLdycKB8NlhZeS2zu8hu53lPrEnonxjXfCpXmCdSOTXG1/X1yoIiAvXYztG9vZ43vZFoeLIlv7d5Lf1kKOu+XaKeMt1RzL+OwUPUTyIYwxdv+LKoKY4p2BYayfeCVuOGB9TH7PfaMNMwhrtMsnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DsUdLjuI/UdrkuJZS0rK4ndpO7Dlevicr8Ixp7QP+Ws=;
+ b=DJqQGjhvGroelpGRy2FSxS2g6UAG8S8EpvQ4M1AMYsu6ln/pDjDAoEokrYcQ1rS6BqPVtv1OXctkx+Ewy67m+Z49BCVVY8Mta2CVvNdTiyeYzsU6CdH4PqsZeRvzPscz+3itdINrqV+NyZKoiOIVCzQGAkOWx0PdCLMVCGE1k1LGu8NLuPSOFgbLmMho4DE3sf3MX/adl3OeBh3/V2+e69oCsj1VTDR/7ZEm7jidwSyn1LSN563RmDtaZyCKEKqyrIg3GH0w85zEX8jHAI/8iQiQpG7v7Avo9alR6iRwXqMqVJZFb/MJ3gIXsuyMYLnVsR22Wvf2iytdgEJbY9pyhQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DsUdLjuI/UdrkuJZS0rK4ndpO7Dlevicr8Ixp7QP+Ws=;
+ b=PrmWq+2GEoTcId3APV27nXDbe1mrKtHy8SpyhMINTyQkASrvcLBo3mNe+QP9cT3/3aob6/FFskX8AXo/oLtcJDegRjCdJEfQMPZEpojSefvov9Bm2Sz/EOyfDkyf1mJmEkV2fRs9BP21mQDuP9iE+1N0cXOOiIqhbLkDDpqe9m8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by SA1PR12MB7409.namprd12.prod.outlook.com (2603:10b6:806:29c::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Wed, 11 Jan
+ 2023 15:19:11 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::152b:e615:3d60:2bf0]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::152b:e615:3d60:2bf0%5]) with mapi id 15.20.6002.013; Wed, 11 Jan 2023
+ 15:19:11 +0000
+Message-ID: <aea4b937-351a-f036-61e5-790af633f5f2@amd.com>
+Date: Wed, 11 Jan 2023 10:19:06 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH] drm/amd/display: Fix set scaling doesn's work
+Content-Language: en-US
+To: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>,
+ nicholas.kazlauskas@amd.com, hongao <hongao@uniontech.com>
+References: <20221122112034.30080-1-hongao@uniontech.com>
+ <789c2c61-4959-c3c1-0916-d1cc7f659247@amd.com>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <789c2c61-4959-c3c1-0916-d1cc7f659247@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YTBP288CA0029.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:b01:14::42) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
-References: <20230105032259.2032789-1-evan.quan@amd.com>
- <20230105032259.2032789-8-evan.quan@amd.com>
- <DM6PR12MB26191B413EDC7BD52A9D0532E4FF9@DM6PR12MB2619.namprd12.prod.outlook.com>
- <bc81b6b8-4bf8-4565-80f4-cb46539318ff@gmail.com>
- <DM6PR12MB26194938F0D4873D5DB83A1DE4FC9@DM6PR12MB2619.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB26194938F0D4873D5DB83A1DE4FC9@DM6PR12MB2619.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 11 Jan 2023 09:47:28 -0500
-Message-ID: <CADnq5_N8RQAZtEy03qohNQF_7c_kLLQOQ0FGvXtRAqvBbV-Aeg@mail.gmail.com>
-Subject: Re: [PATCH 8/8] drm/amd/pm: drop the support for manual fan speed
- setting on SMU13.0.7
-To: "Quan, Evan" <Evan.Quan@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|SA1PR12MB7409:EE_
+X-MS-Office365-Filtering-Correlation-Id: 081897ea-6d9c-495a-6280-08daf3e730db
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: tyKc2pboCJkq//jXXL/7ouIVI85FwFz/xVVORSE960ildsRWb7EpQPz6nmtA4Yql00Hgs4bdO5hnuGp+XTJ94WuYobsuJKZuRPY7OEoGH9li/ESTEN3eQqum6Ehy4Oa3gf3zHOGTAiJAOQWkLGImX7sy/TqcWGdJ2Rnw9Fpw9zulolRrmZgxEeuygOt14ct+yzBlZtFUkTIbho3ZtHLlspwiEaUoYQTHsWh/D0DEEnv02waqEeUb2ovi0Aq1bt3FB1z2MrzBzFdnvBTaDA5FAr79J32/0uw94RPa8CiUORqXIgWN14/ndbhoEscdav0N7WZT2RnD3b24gv+bDqKqPR6qYXprxqJW4XM5gVMw4o+zyCtvvdkKysxatGb8Vq/7HveT3+mmYs2hHHRxtHf8cmuDa8JO3/YTL2NPcaWEIvB/IVb4JpPY9e8GRQdLLYydwzVvy+L534smcA+u/bULk/Ri/4dTx+XT666MYwh2bY2RUnjqY0444Rui3nQrA+pIYZLdnK9ti2IGjCHS+edu9Hrf5cqy0fpAAmJbt8xojBZwnhNeHeldyI1nhSl1WyScQ/y2+f+cK5+f9p4j4gAtJT9xMWV5HJKHZ3pBeCU2K0lwsVdb9L4qB9LcDjsUnVJAZO/rM+IgqN7CbxQa1flkaSzgqQ8pjFdZLLJ0oxkimtvMuLcQYtwneeioF/yBpWZGyTk7JgEyKHrwZlWVVd+NotkusqrJHnnzxFLiMOlCv0s=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(136003)(346002)(366004)(376002)(396003)(451199015)(31686004)(110136005)(2906002)(66946007)(5660300002)(6486002)(36756003)(31696002)(86362001)(44832011)(8936002)(66476007)(41300700001)(316002)(66556008)(4326008)(8676002)(38100700002)(53546011)(6506007)(83380400001)(2616005)(6666004)(6512007)(186003)(26005)(478600001)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q3Vza2g1eHVWZi9KcTNNbUQwYWdHQzJUbWRjY2ZiQ2ViT1ZOWWtURXgzb2FW?=
+ =?utf-8?B?bU9NcFY3YmxtOHZRSEFCcmZPL0RLdWRyWHdsWkwyOVpnVXJnVWFYZmZIdEVQ?=
+ =?utf-8?B?enQ2dFpJMHVtRUhobTdyZnVhT2k5S1dCWk9rWC9lWjFTVUNYcHlnTjl4ZGdQ?=
+ =?utf-8?B?QkZHM05ibzlCUmFncllYTlJidzhoMDFKd29TTnQ3b3lGWDFwUHIzZ09reXVS?=
+ =?utf-8?B?V29nMGJTZXV0YlJSdXZoQnRmc0Z3Z0ZSSVpGU0h4TEtISmwybmF5cWdCalFR?=
+ =?utf-8?B?L1VWV3hxS0htOWhPQnBJREpGNWJvV3lMYVVtVFNaa1gzaVNvLzR1amJnS2c1?=
+ =?utf-8?B?N3BOWTJJOXN4UVdYeFJuak9wY0JhYTN3TU9rK3c1NC9yREhDSldJYVJ4NTVG?=
+ =?utf-8?B?ajVuVys2WHV3YVFUaGVNeWNCMnoxK1g5MjZaSGRraVBnMVkwWk9tTHZhVDhm?=
+ =?utf-8?B?eThvbnBSTnpTWFY5K0ticnBsNWZpRXp6NWtzeVdhNHZlcFEzOUR6dEFGYitT?=
+ =?utf-8?B?RDF1Rml4Y2pxUnVOSnRjMDN0MmdtdGdwYkQxamMxWXdkMEFaTlN6b3pxb0dn?=
+ =?utf-8?B?VTNLclJ4UXhaVUx2SWFYK0lyc2ZXVld6MlR6bUFjYUNMV3dwQU5UbmdJZStF?=
+ =?utf-8?B?ekFKbFpvTzVMMDFSYno1LzA3bE9FNmEyUTA0Z0RoWm5VV3NrWktHYTB5cW1O?=
+ =?utf-8?B?ZGFMNVNOUHlWQkxPUGoxTzVMRTVQOUVUa2hPTFB4L2RHWHdjaVFSa0dyVW54?=
+ =?utf-8?B?c2l2d3JBM1c0ZzM5eXpJOVJVSUtzdVV2OXBYZDZyMkxEekh3OGV2eFQvbytv?=
+ =?utf-8?B?dS9waUVnaGs1RWNyV2I2NkpsNnRJNHFOMXRYa3ZTZ2RxVmREU2lveFI4ZEZu?=
+ =?utf-8?B?eURkaGJ2NzVXbUdCQ3lJRmNra2loYmtMeTN0KytaUUk5TFJ4Z0pQNUZqM3hP?=
+ =?utf-8?B?RllzRlF5RlVmMmJ3ODE0NUU2eUpGbEJsaGdSdnNHREk2VmpxOG1tRWRGOXJU?=
+ =?utf-8?B?Qy82aktZNFRHR2oxQnNMUWRmRUMycDZUcUpLS2lFT09WeWx0Ry80Q0dndU1G?=
+ =?utf-8?B?NDFZSVB2anZmUEoxYy9POUJ2VUZqa210dm9yT1REOTNHejlUSkkwaTJBeEhW?=
+ =?utf-8?B?S0NtM2dpZmljQWs5WW5hTFIzOFo2T1J5NEtMT3J0MFVBQTZsYWhzSEVhMHpv?=
+ =?utf-8?B?SDBuWUtaeGh4NjA1dXVMdkpsZHZveW9jY3Fadm0vR0haWjROUHNrSmxoNE16?=
+ =?utf-8?B?YlRZQU9YY01nOGF3aTE1dUJEbm1hNW1WajE1a3g2LzNaVUdSRjd4Z3pBNW9y?=
+ =?utf-8?B?OHlkbWY0TmRZNnp6NnRSUllWbHlPTmQ2U1lackVKQlhEU2lxL2QzMWtIOGNZ?=
+ =?utf-8?B?bjNSazVGaDdTZjVRUk01OEFtZUlpUW9kdVA1aDYxbWpjZzNPV29VOHAxcjNI?=
+ =?utf-8?B?bEowQThkbnE3czlCYnVUUGlQREVNMUlMa014cGcwMTR5dTFCYVBmOGdhaG9r?=
+ =?utf-8?B?dHVOdFBhVW9DalVNYVlLTElTNnJQY2dVcE53UER4eWxPVHhOejZOQkx0c2dX?=
+ =?utf-8?B?ZzVuc1BEZkJoaUIyaVUrWkwvRnc5SEo4WFVTK0grRkplUmZzYi9UR3VFYTBM?=
+ =?utf-8?B?dHRuN1pUMmxKM3VYUUxHWkpITEpqZWcrc3FwSysvcWNCSy9vbEFWV2ovNGl6?=
+ =?utf-8?B?THdmNjNDcEJ3ZzFBWElmYTV5aTVIc1pvc21VMGQ2UkNLQW50cTBTeGFWUDlX?=
+ =?utf-8?B?Ym5lSDlSaFdVa2w5VGlsb3VxMjRVVzRkQzFBVERldUNKVUdnMSt3ajc4REhF?=
+ =?utf-8?B?c3dzNEpvZm9LeXd5c0RaZEZUZ3FWV0U0RVltUzJWL3hzR3ptbDZzSmxRRll4?=
+ =?utf-8?B?bXV0aFNvMG8yVU5qSHhYWmZrWWZEVXNxZHBzM1ErM2Z0enU5bUFwbk5JSkNV?=
+ =?utf-8?B?NEkrL05OVi9ZUGZybWhXY3dWdld3OW9VcktUelBIL2M3aE9aMVFPNDRqaFZU?=
+ =?utf-8?B?aTF4N3hHTzVHRnoxUGNtckM4U3o0QTFMNmxOZWplS2lHYklSVXRha1owNU42?=
+ =?utf-8?B?dlZWTFNqdFpIcDJiWHh0Rm4xMkh6UkxVL1NqcmttUnM2OEFmYWg3ZnN1UHk5?=
+ =?utf-8?Q?k97vuJUBxMO49U31yJCUCb/J6?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 081897ea-6d9c-495a-6280-08daf3e730db
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2023 15:19:11.2821 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AiWUtaG9TmKpXF51+KJQQnxdkli+wA5Eh011v1H3jE1tXDlTTJB0MIrcolewXzo35Wg83XD1mz7pRtffhSjfGw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7409
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,77 +125,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Matt Coffin <mcoffin13@gmail.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: sunpeng.li@amd.com, Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, roman.li@amd.com, Jerry.Zuo@amd.com,
+ aurabindo.pillai@amd.com, amd-gfx@lists.freedesktop.org, daniel@ffwll.ch,
+ alexander.deucher@amd.com, airlied@gmail.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 11, 2023 at 8:23 AM Quan, Evan <Evan.Quan@amd.com> wrote:
->
-> [AMD Official Use Only - General]
->
-> Hi Matt,
->
-> The problem with the approach(removal of interface functions from the ppt_funcs) is:
-> 1. If to drop support for some sysfs interface, you need to know the internal implementation details to mask out the corresponding function.
->     That's not straightforward and might be not an easy job for new comer.
-> 2. Sometimes the missing of some interfaces is unintentional. It needs to be added instead of being treated as unsupported.
-> 3. The removal of the interface cannot update the sysfs file permission together. That means the sysfs file might be still shown as writable while
->     actually the setting is not supported at all.
-> The patch series try to address these in a simple and straightforward way.
->
-> Regarding the manual fan speed setting issue targeted by this patch, the SCPM feature of the new SMU13 asics prevents us from toggling the fan control feature from auto to manual.
-> Without that, the manual fan speed setting to some specific RPM/PWM is not possible.
-> About the capability in the OD table you mentioned, it might be a different issue.
-> Since as I know, the capability the OD table provided is to change the minimum/maximum fan speed limit.
-> That should be not affected by the SCPM and relevant.
+On 1/10/23 10:58, Rodrigo Siqueira Jordao wrote:
+> 
+> 
+> On 11/22/22 06:20, hongao wrote:
+>> [Why]
+>> Setting scaling does not correctly update CRTC state. As a result
+>> dc stream state's src (composition area) && dest (addressable area)
+>> was not calculated as expected. This causes set scaling doesn's work.
+>>
+>> [How]
+>> Correctly update CRTC state when setting scaling property.
+>>
+>> Signed-off-by: hongao <hongao@uniontech.com>
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> index 3e1ecca72430..a88a6f758748 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> @@ -9386,8 +9386,8 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+>>               goto fail;
+>>           }
+>>   -        if (dm_old_con_state->abm_level !=
+>> -            dm_new_con_state->abm_level)
+>> +        if (dm_old_con_state->abm_level != dm_new_con_state->abm_level ||
+>> +            dm_old_con_state->scaling != dm_new_con_state->scaling)
+>>               new_crtc_state->connectors_changed = true;
+>>       }
+>>   
+> 
+> Hi,
+> 
+> This change lgtm, and I also run it in our CI, and from IGT perspective, we are good.
+> 
+> Harry, do you have any comment about this change?
+> 
 
-Right.  Manual fan control is no longer possible.  As Evan said, you
-can adjust the automatic fan curve using the OD interface, but that is
-it.
+LGTM
 
-Alex
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 
+Harry
 
->
-> BR
-> Evan
-> > -----Original Message-----
-> > From: Matt Coffin <mcoffin13@gmail.com>
-> > Sent: Tuesday, January 10, 2023 9:57 PM
-> > To: amd-gfx@lists.freedesktop.org
-> > Cc: Quan, Evan <Evan.Quan@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>
-> > Subject: Re: [PATCH 8/8] drm/amd/pm: drop the support for manual fan
-> > speed setting on SMU13.0.7
-> >
-> > On 1/9/23 23:48, Quan, Evan wrote:
-> > > [AMD Official Use Only - General]
-> > >
-> > > We need these to address the fan speed setting failure reported for the
-> > new SMU13 asics.
-> > My opinion shouldn't matter much given sparseness of activity, but, despite
-> > his... short tonality, I agree with Lijo's assessment there.
-> >
-> > As someone less familiar with the code base, the use of "multiple sources of
-> > truth" contributes to making it harder to understand and ramp up with.
-> >
-> > As for the sysfs fan control issue itself, this won't really "fix" the issue, but
-> > rather just remove write permissions from the hwmon files (if my
-> > testing+understanding is right), so it wouldn't seem to be a hyper-critical
-> > deliverable to me as a random outsider looking in (despite being effected by
-> > the issue personally). Even with that interface removed, there isn't another
-> > way to control the "auto" fans, as the FW reports it doesn't support that
-> > capability in the OD table, and ignores anything set therein for that purpose.
-> > Hopefully that's temporary until FW gets fixed?
-> >
-> > I also think the behavior of the other proposed solution (removal of interface
-> > functions from the ppt_funcs), is objectively a better experience w/r/t
-> > outcome. If the functions are NULL, then the hwmon device files go away
-> > *completely*, instead of just being masked from write permission, which
-> > would make the message clearer to the end user that it's not an error, but an
-> > actual lack of functionality.
-> >
-> > Cheers, sorry I couldn't help, but wanted to at least have something come of
-> > the last few days I spent implmenting OD on SMU13 for nothing!
-> >
-> > ~Matt
+> Thanks
+> Siqueira
+
