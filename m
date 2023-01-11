@@ -4,58 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82A0AC5479D
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 13:49:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97AB1C46467
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 14:21:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D54AD10E154;
-	Wed, 11 Jan 2023 13:49:05 +0000 (UTC)
-Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
- [IPv6:2607:f8b0:4864:20::333])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3546610E154
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 13:49:05 +0000 (UTC)
-Received: by mail-ot1-x333.google.com with SMTP id
- cc13-20020a05683061cd00b00684b8cf2f4dso603488otb.12
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 05:49:05 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34A3E10E74A;
+	Wed, 11 Jan 2023 14:21:02 +0000 (UTC)
+Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
+ [IPv6:2001:4860:4864:20::34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4E5B10E74A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 14:20:59 +0000 (UTC)
+Received: by mail-oa1-x34.google.com with SMTP id
+ 586e51a60fabf-15eaa587226so982727fac.8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 06:20:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=egXhKLvUWnUE0Rb4v1WAOmgqSXCapW86SxppYiuDsvk=;
- b=BCcTQEmq3snJ31Ox84xohXBUbLhviGA/c+xY7ULlFl1Lmssg+NG1TrZwuLA/sZkxpU
- 3DVU3EaYfPKbvIG4W9bBVgzBGQ+QGGhdAFIbV6UF7rIWcnXfvmYTiiJC2CpPXM/PUQFU
- hUMajxUrdDMKowqi0OOQFUUvIDzFTVs9IvH+YrDL+KXVCuRB2sHoYwPwSRLwZQy59mYb
- 4YwuH6ZRxVOufeQf/q75DLUJz15SepEQ/pwY7e6tMz4dvY5BQzOuA156wqCq4Xibm/ey
- VLLKf9GhV4jU5GK0ZFverzFdIG3iNKWhf4jyoO2r1fBUH9RIGzecZX4JjM2zgX3Y1kFK
- ybFA==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=go7aaELgD7WrkzwIy65SscdJ/YB3zfRk9jfnuqfJTcA=;
+ b=keaCHcleRhYp7nCdah4kgmTeohQa2u2YxzctRdkXmGsrTmTyzzASoN9RDTCWs0woK8
+ 9lpVwJyb/bnlhHpPGG51PvpyaIPPbxLRKbj5nth5gvFJsbArVyvi6Lg5rEutAzE97r4p
+ J2NbQrDKeEzBdlQjcDPKd9DGWVOskXpJn/xLetvL8pNt45ktBJgPvBz1ocIlfZvNeUn6
+ gGHxV3avPCEEdFTn6V3CPPgNaodeG3S0Setc+b6GfKKaxuOY7+LXQFUThoeubzGTQedj
+ FjlzHyz7k/BBWPIfaIvJmk7LLGbLSStZ0P3h6EKK2XJy9qotGs14STWn6uIC25Hp/5m6
+ 6K8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=egXhKLvUWnUE0Rb4v1WAOmgqSXCapW86SxppYiuDsvk=;
- b=SYYlGSap1zupZl73zJAruX4lqGMbx/6wXzHB0cUL6fcDsctB/Zs71lE33+KTXYj4V/
- 2ixsUJaGfmIPhg8Cj52W2ztnJ/n+4uLeshCgk/W+WOFhWKxR0n/HjOOLewlh4esO+T9r
- Ea3PGMuvYha+Gh46O53UOpBQWES4O/KCwFdmSFuEMotDVjJmpw6MlAG9aJZrj4UBSl/a
- yB84WXqia8fgcA39TEuz+VsdF0TFSmv+rkfdgrPbM0BYWuXv+qaApMN+3tEzjXz9G79k
- 4HbLZ7Yus+KlvVODXJvRanavjrYZ518FuCoHBKNINop8xyZWR1hN0B+NrlvUI4EAXgOK
- FkuA==
-X-Gm-Message-State: AFqh2koc/qE4lNyA+1sn3P8OwaJuc1wd1nx61r7XwVcjUDXZ4AAHS1oU
- EqD1baoezGd8auaJN6JUk6wOg4NvpUQVk7VeMzk=
-X-Google-Smtp-Source: AMrXdXsMzt7x1u/HMvBZ7LMIYiyI4R6l5dpxLbtF+rR43mEtpLKcly3NL0z3X+qg3ryqgcYR1xyGDsXk6vemFaa3wXQ=
-X-Received: by 2002:a9d:489:0:b0:684:bedc:4f54 with SMTP id
- 9-20020a9d0489000000b00684bedc4f54mr21631otm.233.1673444944426; Wed, 11 Jan
- 2023 05:49:04 -0800 (PST)
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=go7aaELgD7WrkzwIy65SscdJ/YB3zfRk9jfnuqfJTcA=;
+ b=JKvYh50CrD9BzCyndsrkMSWfMUkZZbgzelLQbKnYHoLSUgKAryofFwvORKBNQzgOht
+ M4TBpcFh2naWW4Y5jbh4U3X5Y01j6nYl64TCr/dmP8xcXLy9onhF/898v3p3niR8NWBS
+ jhxqmj6zOqP8wX81lgVwNuSVvdL3NMywCOuF7izQ7wLQfkwPcMn7I8Nmk/B2LKIM+00y
+ H6++KgEJ1naBCjklh2uEK0gCBgkCEYd2hUDmDd8NycWU+yXZY0k4PXw/fdrKbkDHKLb8
+ WRGN/YJekaqGVrcikBDcnsJgidwOKtkQBPRHPeUolqeOKc2dQYOGobHJAzWPWJDR2ONy
+ zLVQ==
+X-Gm-Message-State: AFqh2kpQb+U1DyKy1UyikC7SEMhLvifaX4KX7y03Ps7j0m0hDAiiKi31
+ wB2alVklsXxRtx/YOZJMdUDQNZjfCApg4eDhMAw=
+X-Google-Smtp-Source: AMrXdXu8MYZzLEExoAS6gWgEZ9xIf+QchJe39KhueOPVH4muUbsA0IDWzcZx/l48xr67YCL1J3EfHg7MIf7SGqKqft0=
+X-Received: by 2002:a05:6870:c59c:b0:150:d9aa:4011 with SMTP id
+ ba28-20020a056870c59c00b00150d9aa4011mr2534447oab.96.1673446859100; Wed, 11
+ Jan 2023 06:20:59 -0800 (PST)
 MIME-Version: 1.0
-References: <CANiD2e9bdhxdJr_N9wb7O0Su+LRhzE1n=TepvbBiOoqmKRRgeg@mail.gmail.com>
- <DM5PR12MB24692E12F2C533BD8D88508AF1FC9@DM5PR12MB2469.namprd12.prod.outlook.com>
-In-Reply-To: <DM5PR12MB24692E12F2C533BD8D88508AF1FC9@DM5PR12MB2469.namprd12.prod.outlook.com>
+References: <20230110154325.3350916-1-Rodrigo.Siqueira@amd.com>
+ <20230110154325.3350916-2-Rodrigo.Siqueira@amd.com>
+In-Reply-To: <20230110154325.3350916-2-Rodrigo.Siqueira@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 11 Jan 2023 08:48:52 -0500
-Message-ID: <CADnq5_M8ECkmggxLJRmO6S1fP2SCT_rudz2gbxV-KcNL-V2MCA@mail.gmail.com>
-Subject: Re: Wrong revert commit in stable channel
-To: "Chen, Guchun" <Guchun.Chen@amd.com>
+Date: Wed, 11 Jan 2023 09:20:47 -0500
+Message-ID: <CADnq5_MfiJ-rhmAWfMQfHHenHx3-2WiaALWw1sgEZiJ431x2wQ@mail.gmail.com>
+Subject: Re: [PATCH 1/9] drm/amd/display: Introduce UseMinimumDCFCLK_vars to
+ reduce stack size in DML
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,68 +66,105 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Yury Zhuravlev <stalkerg@gmail.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Leo Li <sunpeng.li@amd.com>, Roman Li <roman.li@amd.com>,
+ amd-gfx@lists.freedesktop.org, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, Harry Wentland <harry.wentland@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Yes, the revert was reverted.
+On Tue, Jan 10, 2023 at 10:44 AM Rodrigo Siqueira
+<Rodrigo.Siqueira@amd.com> wrote:
+>
+> It was reported that on kernel v6.2-rc1, we have the following stack
+> size issue:
+>
+> make[3]: *** [/kisskb/src/scripts/Makefile.build:504: drivers/media]
+> Error 2
+> [...]/display/dc/dml/dcn31/display_mode_vba_31.c: In function
+> 'UseMinimumDCFCLK':
+> [...]/display/dc/dml/dcn31/display_mode_vba_31.c:7082:1: error: the
+> frame size of 2224 bytes is larger than 2048 bytes
+> [-Werror=frame-larger-than=]
+>
+> This commit introduces a new struct that will accommodate some internal
+> variables under the UseMinimumDCFCLK function. This change is the first
+> of a series of patches that gradually move each of the arrays of double
+> to the new struct to reduce the stack size for DCN31 and DCN314.
+>
+> Cc: Alex Deucher <alexdeucher@gmail.com>
+> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
+> Cc: Roman Li <roman.li@amd.com>
+> Cc: Geert Uytterhoeven <geert@linux-m68k.org>
+> Link: https://lore.kernel.org/all/20221227082932.798359-1-geert@linux-m68k.org/
+> Reported-by: Geert Uytterhoeven <geert@linux-m68k.org>
+> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 
-Alex
+Series is:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-On Wed, Jan 11, 2023 at 3:35 AM Chen, Guchun <Guchun.Chen@amd.com> wrote:
+> ---
+>  .../gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c | 7 +++----
+>  drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h      | 5 +++++
+>  2 files changed, 8 insertions(+), 4 deletions(-)
 >
-> Hi Yury,
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+> index ec351c8418cb..00d3c57f0d98 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+> @@ -6928,7 +6928,6 @@ static void UseMinimumDCFCLK(
+>         struct vba_vars_st *v = &mode_lib->vba;
+>         int dummy1, i, j, k;
+>         double NormalEfficiency,  dummy2, dummy3;
+> -       double TotalMaxPrefetchFlipDPTERowBandwidth[DC__VOLTAGE_STATES][2];
 >
+>         NormalEfficiency = v->PercentOfIdealFabricAndSDPPortBWReceivedAfterUrgLatency / 100.0;
+>         for (i = 0; i < v->soc.num_states; ++i) {
+> @@ -6947,9 +6946,9 @@ static void UseMinimumDCFCLK(
+>                         int NoOfDPPState[DC__NUM_DPP__MAX];
+>                         double MinimumTvmPlus2Tr0;
 >
+> -                       TotalMaxPrefetchFlipDPTERowBandwidth[i][j] = 0;
+> +                       v->UseMinimumDCFCLK_stack_reduction.TotalMaxPrefetchFlipDPTERowBandwidth[i][j] = 0;
+>                         for (k = 0; k < v->NumberOfActivePlanes; ++k) {
+> -                               TotalMaxPrefetchFlipDPTERowBandwidth[i][j] = TotalMaxPrefetchFlipDPTERowBandwidth[i][j]
+> +                               v->UseMinimumDCFCLK_stack_reduction.TotalMaxPrefetchFlipDPTERowBandwidth[i][j] = v->UseMinimumDCFCLK_stack_reduction.TotalMaxPrefetchFlipDPTERowBandwidth[i][j]
+>                                                 + v->NoOfDPP[i][j][k] * v->DPTEBytesPerRow[i][j][k] / (15.75 * v->HTotal[k] / v->PixelClock[k]);
+>                         }
 >
-> My understanding is though that=E2=80=99s a revert of your original patch=
-, we did a revert again on top of the reverted patch later on. Can you plea=
-se sync to below commit to check again? Or do I understand wrong?
+> @@ -6960,7 +6959,7 @@ static void UseMinimumDCFCLK(
+>                         MinimumTWait = CalculateTWait(MaxPrefetchMode, v->FinalDRAMClockChangeLatency, v->UrgLatency[i], v->SREnterPlusExitTime);
+>                         NonDPTEBandwidth = v->TotalVActivePixelBandwidth[i][j] + v->TotalVActiveCursorBandwidth[i][j] + v->TotalMetaRowBandwidth[i][j];
+>                         DPTEBandwidth = (v->HostVMEnable == true || v->ImmediateFlipRequirement[0] == dm_immediate_flip_required) ?
+> -                                       TotalMaxPrefetchFlipDPTERowBandwidth[i][j] : v->TotalDPTERowBandwidth[i][j];
+> +                                       v->UseMinimumDCFCLK_stack_reduction.TotalMaxPrefetchFlipDPTERowBandwidth[i][j] : v->TotalDPTERowBandwidth[i][j];
+>                         DCFCLKRequiredForAverageBandwidth = dml_max3(
+>                                         v->ProjectedDCFCLKDeepSleep[i][j],
+>                                         (NonDPTEBandwidth + v->TotalDPTERowBandwidth[i][j]) / v->ReturnBusWidth
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
+> index 81e53e67cd0b..660c22a19c8d 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_vba.h
+> @@ -249,6 +249,10 @@ struct dml32_ModeSupportAndSystemConfigurationFull {
+>         bool dummy_boolean[2];
+>  };
 >
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
-/drivers/gpu/drm/amd/pm/powerplay/hwmgr?h=3Dv6.2-rc3&id=3Df936f535fa70f35ce=
-3369b1418ebae0e657cda6a
+> +struct UseMinimumDCFCLK_vars {
+> +       double TotalMaxPrefetchFlipDPTERowBandwidth[DC__VOLTAGE_STATES][2];
+> +};
+> +
+>  struct dummy_vars {
+>         struct DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation
+>         DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerformanceCalculation;
+> @@ -1236,6 +1240,7 @@ struct vba_vars_st {
+>         bool VActiveBandwithSupport[DC__VOLTAGE_STATES][2];
+>         bool NotEnoughDETSwathFillLatencyHidingPerState[DC__VOLTAGE_STATES][2];
+>         struct dummy_vars dummy_vars;
+> +       struct UseMinimumDCFCLK_vars UseMinimumDCFCLK_stack_reduction;
+>  };
 >
+>  bool CalculateMinAndMaxPrefetchMode(
+> --
+> 2.39.0
 >
->
-> Regards,
->
-> Guchun
->
->
->
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Yury Z=
-huravlev
-> Sent: Wednesday, January 11, 2023 4:26 PM
-> To: amd-gfx@lists.freedesktop.org
-> Subject: Wrong revert commit in stable channel
->
->
->
-> Hello,
->
->
->
-> Something went wrong, and we commited what we diced not commit.
->
->
->
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
-/?h=3Dv6.2-rc3&id=3De5b781c56d46c44c52caa915f1b65064f2f7c1ba
->
->
->
-> and
->
->
->
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
-/?h=3Dv6.2-rc3&id=3D4545ae2ed3f2f7c3f615a53399c9c8460ee5bca7
->
->
->
-> It's wrong reverts because, initially was an issue with a test case, not =
-a patch itself.
->
-> My GPU is not working correctly again after such "stable" patch.
