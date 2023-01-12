@@ -4,57 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E4EAC54EBC
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Jan 2023 14:05:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85FC9C54EBC
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Jan 2023 14:08:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBBAB10E8F2;
-	Thu, 12 Jan 2023 14:05:40 +0000 (UTC)
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A8D410E8F2
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Jan 2023 14:05:39 +0000 (UTC)
-Received: by mail-ot1-x32c.google.com with SMTP id
- f5-20020a9d5f05000000b00684c0c2eb3fso1560399oti.10
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Jan 2023 06:05:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=n71UOiGds9dqpvPic03BWL1oPR249647GGlAjvB0zWY=;
- b=YCX/kKbZ6unkRpKXdzk3Nos6IQTIoQ9BfLt6rYXFcDPoLBQ86MFX0apN1jaJkK2L5g
- CDPWLZ6o2X3u60WsGAu1lpHxfYTSkSaW02k7QtR+lRmEDSNT1BhnKBcmVTJz7umQuOWO
- zo1j5QscI1pToe82Ax0D+/tykQPSv96aNm006yQliFe6l0gixjXYPXzZfhjWfZJDANeM
- 1Ul7rYepyAJ8eqsSqT9IKTmSW7w1VrYF+FAuI1EmDWGWc72UstaGQq8dGIIrGeFnhOHP
- gr6OFdVLtD/exUxfvslRBBjkLRAqyD0VFxJ8xgpTXH1K3wbGcEcYfO2urVi1da5ulQNc
- qsGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=n71UOiGds9dqpvPic03BWL1oPR249647GGlAjvB0zWY=;
- b=4lRM0QgvHOrQrl9LglHkW4d5hnofFjAO06dwtRoVa9hNjh1ilCfkRDAFSdWGqoSRNd
- JDJuE0QvcmiH4JWOQlrRQBgl4Mx3RXieOCD5ppi6Ck8swSC3T+rvfxN8BJt61FCMam4t
- lEJdOV1bPeAmm9xZu3L3C32kj+sys7rUU0pV9CVFhhUhkMFbIYoMWCknzRZMWa46Ui7R
- +VY/YiAi7zSRlqCYEaPcYeINkuCfbZGQLu45kmB++1UCC0DQJRq6tdgqCF6MtYFXOqSQ
- uc/Y5cWXPhwe5aPguKN7lovZklVqb/hUHsLypEtkS3Rwd5T5GQDqBaATYLIapHtKPCs/
- FUTg==
-X-Gm-Message-State: AFqh2kqqAg7iNIU1hEgg3HSw8Gg1id98ZegTvlNDx0GKoFXX98NCDOLf
- 1/VMWAk/iebYSTzSaxUpzC3/OR/huBrfs+DVKz8Eq6tKoNs=
-X-Google-Smtp-Source: AMrXdXumgvOIKIDxSDZtkzkutzG5Jw1PeAxKAdSjj65slWTixgxMAF/ZhVRJTcJfmsqR79n1O95m7pbYERlYrH0JhRo=
-X-Received: by 2002:a9d:489:0:b0:684:bedc:4f54 with SMTP id
- 9-20020a9d0489000000b00684bedc4f54mr255978otm.233.1673532338466; Thu, 12 Jan
- 2023 06:05:38 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F195E10E8F9;
+	Thu, 12 Jan 2023 14:08:09 +0000 (UTC)
+Received: from msg-2.mailo.com (msg-2.mailo.com [213.182.54.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39F0110E8EC;
+ Thu, 12 Jan 2023 13:51:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mailo.com; s=mailo;
+ t=1673531496; bh=ZAn7ZSvuny3A40ep6L1C3DqFhwPZfavNHTKFbfUsRxU=;
+ h=X-EA-Auth:Date:From:To:Cc:Subject:Message-ID:MIME-Version:
+ Content-Type;
+ b=hsLsYzmBjETINLz1Ja9/z1RFZVcBYUbHn7a9lGQeWWxVIR2aOvEaCHM3hW/0vW3Wg
+ 4uQveX+YjNjCQ7FeCzMA0owVm4zZaIibEUhv69J8B1+mduCsJuL/r6IvseMXRAIcLL
+ UKBbH2XziNiSDioZE0ffoofCAATDAKel1aRhBse4=
+Received: by b-3.in.mailobj.net [192.168.90.13] with ESMTP
+ via ip-206.mailobj.net [213.182.55.206]
+ Thu, 12 Jan 2023 14:51:36 +0100 (CET)
+X-EA-Auth: Jql7kLVBTRErAY5Y8kPmRih3iDlhh+Av3Q2tRc5pWKa4/h+rUuSd4pAfiyzp58G/Z7umku8+u+IV1WMtssm9vCSzWYHyaSk2
+Date: Thu, 12 Jan 2023 19:21:30 +0530
+From: Deepak R Varma <drv@mailo.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd/display: Conversion to bool not necessary
+Message-ID: <Y8AQYhVkJjV86VXV@ubun2204.myguest.virtualbox.org>
 MIME-Version: 1.0
-References: <20230112134811.495086-1-christian.koenig@amd.com>
-In-Reply-To: <20230112134811.495086-1-christian.koenig@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 12 Jan 2023 09:05:26 -0500
-Message-ID: <CADnq5_NC93kgwPZxv550JxtzMDb6=Y9Pi4DAED5B1sZiiTx-vQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix amdgpu_job_free_resources
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailman-Approved-At: Thu, 12 Jan 2023 14:08:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,52 +50,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, thong.thai@amd.com
+Cc: Praveen Kumar <kumarpraveen@linux.microsoft.com>,
+ Saurabh Singh Sengar <ssengar@microsoft.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 12, 2023 at 8:48 AM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> It can be that neither fence were initialized when we run out of UVD
-> streams for example.
->
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+A logical evaluation already results in bool. There is no need for using
+a ternary operator based evaluation and bool conversion of the outcome.
+Issue identified using boolconv.cocci Coccinelle semantic patch.
+This was also reported by the Kernel Test Robot. Hence
 
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2324
+Fixes: 473683a03495 ("drm/amd/display: Create a file dedicated for CRTC")
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Deepak R Varma <drv@mailo.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+index 22125daf9dcf..1e39d0939700 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+@@ -105,8 +105,7 @@ static void vblank_control_worker(struct work_struct *work)
+ 	else if (dm->active_vblank_irq_count)
+ 		dm->active_vblank_irq_count--;
+ 
+-	dc_allow_idle_optimizations(
+-		dm->dc, dm->active_vblank_irq_count == 0 ? true : false);
++	dc_allow_idle_optimizations(dm->dc, dm->active_vblank_irq_count == 0);
+ 
+ 	DRM_DEBUG_KMS("Allow idle optimizations (MALL): %d\n", dm->active_vblank_irq_count == 0);
+ 
+-- 
+2.34.1
 
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_job.c
-> index 9e549923622b..28929c6219a7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -161,8 +161,14 @@ void amdgpu_job_free_resources(struct amdgpu_job *jo=
-b)
->         struct dma_fence *f;
->         unsigned i;
->
-> -       /* use sched fence if available */
-> -       f =3D job->base.s_fence ? &job->base.s_fence->finished :  &job->h=
-w_fence;
-> +       /* Check if any fences where initialized */
-> +       if (job->base.s_fence && job->base.s_fence->finished->ops)
-> +               f =3D &job->base.s_fence->finished;
-> +       else if (job->hw_fence.ops)
-> +               f =3D &job->hw_fence;
-> +       else
-> +               f =3D NULL;
-> +
->         for (i =3D 0; i < job->num_ibs; ++i)
->                 amdgpu_ib_free(ring->adev, &job->ibs[i], f);
->  }
-> --
-> 2.25.1
->
+
