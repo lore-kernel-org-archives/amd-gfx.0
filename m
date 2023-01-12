@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F0ABC61DB3
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Jan 2023 22:49:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26352C54EBE
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Jan 2023 22:49:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8F2310E94E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC1D110E950;
 	Thu, 12 Jan 2023 22:49:33 +0000 (UTC)
-Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
- [IPv6:2607:f8b0:4864:20::102c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 063BE10E94B
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Jan 2023 22:45:42 +0000 (UTC)
-Received: by mail-pj1-x102c.google.com with SMTP id
- w4-20020a17090ac98400b002186f5d7a4cso25203525pjt.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Jan 2023 14:45:42 -0800 (PST)
+Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com
+ [IPv6:2607:f8b0:4864:20::1032])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38FA010E94D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Jan 2023 22:48:03 +0000 (UTC)
+Received: by mail-pj1-x1032.google.com with SMTP id
+ o8-20020a17090a9f8800b00223de0364beso25128575pjp.4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Jan 2023 14:48:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Ooim2Wn4nxPzype/U3O2bg5SkJtVRY7qsQNtyTRmags=;
- b=YGaM1pN0C8twUIzQgGfKjkYks+VnXiObKg1aQaTkoY3olojecUD3RTItE7YfBzxsXQ
- ap49M0nIV5gwf/pkXPjh3bX8XHcHw2MqaSz2nwdIGfXeyGzq/xzLxr3Cigh1uBhm0PdQ
- xXPPrdT6WSBM60Mci5MPFJD/YztPmxYo5yMbg=
+ bh=fzuKIZ8Z+3b4uawi4BGHfQ4wFpj7ytOPE07LAdmBEaE=;
+ b=BoXXCDssqYGTs6nz4SH2ZBN4BYe4RMftfjOxtpLwMYY3mJ78EtstYNpyJr9jBx/Vsz
+ A8lDlYkQ70cyJ+def1sy513WoZBnQpci2be00fioiWQHjiC2O1HDAIeIs/d8Qf6rewU2
+ 2J0DhYZwUffvSU4e25o2a3Eum9JaMM06b8Nz0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Ooim2Wn4nxPzype/U3O2bg5SkJtVRY7qsQNtyTRmags=;
- b=ydmsFjScFMl961MEEIvHqOrP466HDFv5Nx4BMnHGx3w9OHPh59dazCllyyOC9ZGhO0
- GhqnK8TOJ9YJ0ep1WUptMr3KFSYUmNGOvYnBD2/dyQ41nBCUaLYPpi8MHJsdosL4amzF
- m0k3DEzDz40DsljNQZ9potRaeBGyqu6MAhUT8k6YFeR1nFYLpGUxq7TtJYoXKACmSmXp
- /Gpe5mSXdo8EkuHa25yy8JYAwWh80ndy1ftVQoW2dTBuAoQCO7WT/OE8PNcshza+6d3a
- rZHUaCrBKQ+OHq+h/AIY4OUa/GL2csZbeq2484K1WjzqKeo0ptgmOSUFWOGLGGmThSAO
- yLVA==
-X-Gm-Message-State: AFqh2kpVyVMpoO69SeZnDJ3gNzWhXn4aeAKJ99PSoTpXIiJDMAXY9poF
- W7LvqEoj+YnnWVYqluvKwCprEw==
-X-Google-Smtp-Source: AMrXdXvGve+4kNjBvlBdmOxwGLXehsNBREHOMLlomMlydd2DdmmiiiqSkLXYqlPUtwZFaLbLOdvQUw==
-X-Received: by 2002:a17:90b:2356:b0:226:e1a0:6596 with SMTP id
- ms22-20020a17090b235600b00226e1a06596mr8726077pjb.12.1673563541660; 
- Thu, 12 Jan 2023 14:45:41 -0800 (PST)
+ bh=fzuKIZ8Z+3b4uawi4BGHfQ4wFpj7ytOPE07LAdmBEaE=;
+ b=Mr+Sa97+UuZxwB9pcRkKiiEGePPBUURH9EgY7yf93Noq6Zp4nogktF0ON00/uw6AvF
+ 6DhcjMMSA7VCt2xhMcVjb5SAS4OqZLH950f1nTAhAgxzMOGf5yAqF//S9sLA4YtGHZv6
+ hLhXeFwh5RYYQwXPsedefefPciUN3bSy1wdzleXN4TUCxRTdl4DpracyeQx6Z1ipfGrU
+ zzbmE1f1BlW8IrDnK1AqoE52oF4SgNeJnrmFOfcUC/jo3dmQ4YHXCrBjgbK3LiOeTnPl
+ j3o4I5dyps+wL65lgY31LQ4qwyYtSxZtumoqAGchllOEjyujm48SjQXf2NyS9YadhWDl
+ Sy3A==
+X-Gm-Message-State: AFqh2kody8LY3EFx9KBk6L2zO3sEoFTvzhhUD46j6RRZHpGnzh1wQgcr
+ yufHz3hDCRYIm7xY+od4uN3Erg==
+X-Google-Smtp-Source: AMrXdXuTsFlMNh6MMKdrdsul54cA0E1JL8Ob6na1I2fpfcJyXwI1vOEw8+I7nyo4fHi8aYlTYeASXA==
+X-Received: by 2002:a17:902:edc3:b0:191:4389:f8f5 with SMTP id
+ q3-20020a170902edc300b001914389f8f5mr68064623plk.34.1673563682817; 
+ Thu, 12 Jan 2023 14:48:02 -0800 (PST)
 Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
  by smtp.gmail.com with ESMTPSA id
- y7-20020a17090a474700b00219463262desm10980238pjg.39.2023.01.12.14.45.40
+ x3-20020a170902a38300b0018997f6fc88sm12692569pla.34.2023.01.12.14.48.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Jan 2023 14:45:41 -0800 (PST)
-Date: Thu, 12 Jan 2023 14:45:40 -0800
+ Thu, 12 Jan 2023 14:48:02 -0800 (PST)
+Date: Thu, 12 Jan 2023 14:48:01 -0800
 From: Kees Cook <keescook@chromium.org>
-To: "Limonciello, Mario" <Mario.Limonciello@amd.com>
-Subject: Re: Coverity: dm_dmub_sw_init(): Incorrect expression
-Message-ID: <202301121445.393EAD9B21@keescook>
-References: <202301121425.FB249B61B4@keescook>
- <MN0PR12MB6101667DFB81967706C13111E2FD9@MN0PR12MB6101.namprd12.prod.outlook.com>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Subject: Re: [PATCH] drm/amd: fix some dead code in
+ `gfx_v9_0_init_cp_compute_microcode`
+Message-ID: <202301121447.580861E8A3@keescook>
+References: <20230112223701.29477-1-mario.limonciello@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <MN0PR12MB6101667DFB81967706C13111E2FD9@MN0PR12MB6101.namprd12.prod.outlook.com>
+In-Reply-To: <20230112223701.29477-1-mario.limonciello@amd.com>
 X-Mailman-Approved-At: Thu, 12 Jan 2023 22:49:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,30 +69,21 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "Gustavo A. R. Silva" <gustavo@embeddedor.com>, "Li,
- Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, David Airlie <airlied@gmail.com>,
- "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Siqueira,
- Rodrigo" <Rodrigo.Siqueira@amd.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Li,
- Roman" <Roman.Li@amd.com>, "Wheeler, Daniel" <Daniel.Wheeler@amd.com>,
- "linux-next@vger.kernel.org" <linux-next@vger.kernel.org>, "Zuo,
- Jerry" <Jerry.Zuo@amd.com>, "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>,
- "Wu, Hersen" <hersenxs.wu@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>,
- "linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 12, 2023 at 10:39:20PM +0000, Limonciello, Mario wrote:
-> This particular one was fixed already in https://patchwork.freedesktop.org/patch/518050/ which got applied today.
+On Thu, Jan 12, 2023 at 04:37:01PM -0600, Mario Limonciello wrote:
+> Some dead code was introdcued as part of utilizing the `amdgpu_ucode_*`
+> helpers. Adjust the control flow to make sure that firmware is released
+> in the appropriate error flows.
+> 
+> Reported-by: coverity-bot <keescook+coverity-bot@chromium.org>
+> Addresses-Coverity-ID: 1530548 ("Control flow issues")
+> Fixes: ec787deb2ddf ("drm/amd: Use `amdgpu_ucode_*` helpers for GFX9")
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
-Ah-ha; thanks!
+Reviewed-by: Kees Cook <keescook@chromium.org>
 
 -- 
 Kees Cook
