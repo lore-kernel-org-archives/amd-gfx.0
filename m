@@ -4,56 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C318C61DB3
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Jan 2023 19:34:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEBF5C678DD
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Jan 2023 20:12:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCC7E10E1BF;
-	Thu, 12 Jan 2023 19:34:51 +0000 (UTC)
-Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
- [IPv6:2001:4860:4864:20::2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2AEE10E1BF
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Jan 2023 19:34:49 +0000 (UTC)
-Received: by mail-oa1-x2c.google.com with SMTP id
- 586e51a60fabf-15027746720so19973743fac.13
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Jan 2023 11:34:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=+8nu1ZxSz+lzsOwmnk3S6vpGyooNUhSvY+dMLIN+ciw=;
- b=VwG05rRmriP2tu6X6AaAtseGv47fsiz283oXXpLMYIAw6UqllPdufT/GGRsqJwRbE1
- awyF66rus7FXrHo/+0JuV/qhsvVWKmX/Pi89e9FC2QhOrmHK18ylFvAKN1S/Rf/vkffC
- J/MFtH+htYzsf6BX/seVlRxopVHW6tD7l2DV4bzDgBCtkZVWN1CaFKwYbNyP+EkC1M/i
- dOI2A9EVBM3DTNgfq2iFmPlgB6LzGX3wTcjMXyESJJyjh7AmsQGWWSSACVRX0tNcW4AG
- oQZ6Eb+QH9+PldloIw9egaehddb08G9ld3VDeWaBn8Wowa45Vp+jLBENfbzVAWHywVDU
- W+7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=+8nu1ZxSz+lzsOwmnk3S6vpGyooNUhSvY+dMLIN+ciw=;
- b=4rO8zbnL9yxoVDMMdQoGesHHCPI+DS4B3dYsTWVmYWxP+GrzWpCyn9sxJoQk3wTljc
- z3Hclku1or5FFq6cMO79QPNEjRTMahuUR6StGOWQ3dNHCkOP9PSgAChMXn1R4gp+Zdxk
- BkkyX43ek4ZWbckgtHEcaWqN9by5cxKfRDPgtzNKZwdwyqibevg7PYhaZ56aOHImbzRX
- cuRu8nW+Fbg4y5jUNrMKVr+lND8gvI4ZY2XiTxjXGXygfajvreYLerNxk4T6OuW/oGPv
- nxNZat4EZQjU03znazFAXDH+VckQy2qIOjscXeg6kFnCbMtNSHiYiDq+o3tLvsN6nFVJ
- HD5g==
-X-Gm-Message-State: AFqh2kq+aZ+VDCq2lLH396dnEGsSE6oxxmrtUwGwJZv4bOeRbL3S25vk
- 722XR26jOCBzv7ObNr7KBr7ELDthkxgITG//rrY=
-X-Google-Smtp-Source: AMrXdXuFrKCd0QXQbVOIPL9uEcp2V6JHdWWvP7GmqMmm8eDgu0uZ4BOc1SxWLglM3yXQSIu+uCLOso/9Aqzg3EYeTOQ=
-X-Received: by 2002:a05:6870:c59c:b0:150:d9aa:4011 with SMTP id
- ba28-20020a056870c59c00b00150d9aa4011mr2951182oab.96.1673552087550; Thu, 12
- Jan 2023 11:34:47 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D79210E353;
+	Thu, 12 Jan 2023 20:12:03 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6276310E1D9;
+ Thu, 12 Jan 2023 20:12:01 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A795022A10;
+ Thu, 12 Jan 2023 20:11:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1673554318; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=rtrU1OUykO34xWHMi3G0sI22GeMOQtI4CaSGkZ/Gb64=;
+ b=u0lcxmvnsfJo7t1P1xH2Dxro87+YV/OBhAtKuEvjwPe+U2hl8NXy4xnT+aeGsD58bdhYTW
+ CqI9oS2oJoY6beiOWFoeOYP77+6SZARDm8z8nrGRkw2sV2tmFl+oe7IfLSCH0RDl9Q7SIQ
+ +7csj7Cu0OzDH4nYiGOzh0Ksqg0aDwE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1673554318;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=rtrU1OUykO34xWHMi3G0sI22GeMOQtI4CaSGkZ/Gb64=;
+ b=PXClotV4TKstWXpGYQf19Rvh8ZhhnQrXYtLDSySKCek7/GrxXW0BacIjQF4gpYW08gOuhC
+ 0hsbG2MmGFPTgkCQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 54F9713585;
+ Thu, 12 Jan 2023 20:11:58 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id jwn0E45pwGMGKgAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Thu, 12 Jan 2023 20:11:58 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ tvrtko.ursulin@linux.intel.com, bskeggs@redhat.com, kherbst@redhat.com,
+ lyude@redhat.com, evan.quan@amd.com, jose.souza@intel.com
+Subject: [PATCH v2 0/3] drm: Generic fbdev and vga-switcheroo
+Date: Thu, 12 Jan 2023 21:11:53 +0100
+Message-Id: <20230112201156.26849-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-References: <20230111075226.150161-1-Yifan.Zha@amd.com>
-In-Reply-To: <20230111075226.150161-1-Yifan.Zha@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 12 Jan 2023 14:34:36 -0500
-Message-ID: <CADnq5_NNF8=oMYrhhe1K=jrAj10fO_6qvHn4B72ew7NrdFkGnA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Skip specific mmhub and sdma registers
- accessing under sriov
-To: Yifan Zha <Yifan.Zha@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,96 +68,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Horace.Chen@amd.com, haijun.chang@amd.com,
- amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com
+Cc: nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 11, 2023 at 2:53 AM Yifan Zha <Yifan.Zha@amd.com> wrote:
->
-> [Why]
-> SDMA0_CNTL and MMHUB system aperture related registers are blocked by L1 Policy.
-> Therefore, they cannot be accessed by VF and loged in violation.
->
-> [How]
-> For MMHUB registers, they will be programmed by PF. So VF will skip to program them in mmhubv3_0.
-> For SDMA0_CNTL which is a PF_only register, VF don't need to program it in sdma_v6_0.
->
-> Signed-off-by: Yifan Zha <Yifan.Zha@amd.com>
+(was: drm/fb-helper: Set framebuffer for vga-switcheroo clients)
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+This patch has now turned into a little series. The first two patches
+are bug fixes for the existing code. The third patch cleans up the
+drivers.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c | 34 ++++++++++++-------------
->  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c  | 10 +++++---
->  2 files changed, 23 insertions(+), 21 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c
-> index e9dcd6fcde7f..ae9cd1a4cfee 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c
-> @@ -169,23 +169,23 @@ static void mmhub_v3_0_init_system_aperture_regs(struct amdgpu_device *adev)
->         uint64_t value;
->         uint32_t tmp;
->
-> -       if (!amdgpu_sriov_vf(adev)) {
-> -               /*
-> -                * the new L1 policy will block SRIOV guest from writing
-> -                * these regs, and they will be programed at host.
-> -                * so skip programing these regs.
-> -                */
-> -               /* Disable AGP. */
-> -               WREG32_SOC15(MMHUB, 0, regMMMC_VM_AGP_BASE, 0);
-> -               WREG32_SOC15(MMHUB, 0, regMMMC_VM_AGP_TOP, 0);
-> -               WREG32_SOC15(MMHUB, 0, regMMMC_VM_AGP_BOT, 0x00FFFFFF);
-> -
-> -               /* Program the system aperture low logical page number. */
-> -               WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_LOW_ADDR,
-> -                            adev->gmc.vram_start >> 18);
-> -               WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
-> -                            adev->gmc.vram_end >> 18);
-> -       }
-> +       if (amdgpu_sriov_vf(adev))
-> +               return;
-> +
-> +       /*
-> +        * the new L1 policy will block SRIOV guest from writing
-> +        * these regs, and they will be programed at host.
-> +        * so skip programing these regs.
-> +        */
-> +       /* Disable AGP. */
-> +       WREG32_SOC15(MMHUB, 0, regMMMC_VM_AGP_BASE, 0);
-> +       WREG32_SOC15(MMHUB, 0, regMMMC_VM_AGP_TOP, 0);
-> +       WREG32_SOC15(MMHUB, 0, regMMMC_VM_AGP_BOT, 0x00FFFFFF);
-> +       /* Program the system aperture low logical page number. */
-> +       WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_LOW_ADDR,
-> +                    adev->gmc.vram_start >> 18);
-> +       WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
-> +                    adev->gmc.vram_end >> 18);
->
->         /* Set default page address. */
->         value = adev->mem_scratch.gpu_addr - adev->gmc.vram_start +
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> index bf1fa5e8d2f9..6fe292a2486b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-> @@ -1403,10 +1403,12 @@ static int sdma_v6_0_set_trap_irq_state(struct amdgpu_device *adev,
->
->         u32 reg_offset = sdma_v6_0_get_reg_offset(adev, type, regSDMA0_CNTL);
->
-> -       sdma_cntl = RREG32(reg_offset);
-> -       sdma_cntl = REG_SET_FIELD(sdma_cntl, SDMA0_CNTL, TRAP_ENABLE,
-> -                      state == AMDGPU_IRQ_STATE_ENABLE ? 1 : 0);
-> -       WREG32(reg_offset, sdma_cntl);
-> +       if (!amdgpu_sriov_vf(adev)) {
-> +               sdma_cntl = RREG32(reg_offset);
-> +               sdma_cntl = REG_SET_FIELD(sdma_cntl, SDMA0_CNTL, TRAP_ENABLE,
-> +                               state == AMDGPU_IRQ_STATE_ENABLE ? 1 : 0);
-> +               WREG32(reg_offset, sdma_cntl);
-> +       }
->
->         return 0;
->  }
-> --
-> 2.25.1
->
+Patch 1 fixes i915 to do the correct thing if the device has not been
+initialized yet. Switching to the device is only possible after the
+initialization, but switching away is always possible.
+
+Patch 2 is the original patch without the amdgpu changes. Installs
+the fbdev framebuffer in vga-switcheroo for the PCI device. Does
+nothing for drivers without vga-switcheroo.
+
+Patch 3 cleans up vga_switcheroo_process_delayed_switch() in amdgpu
+and the other related drivers (i.e., i915, nouveau and radeon). The
+call is now located at the end of drm_lastclose() and drivers do not
+need their own lastclose helpers any longer.
+
+I kept the r-bs from v1, but patch 1 is entirely new and patch 3 has
+significantly grown in size.
+
+Thomas Zimmermann (3):
+  drm/i915: Allow switching away via vga-switcheroo if uninitialized
+  drm/fb-helper: Set framebuffer for vga-switcheroo clients
+  drm: Call vga_switcheroo_process_delayed_switch() in drm_lastclose
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  2 --
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 13 -------------
+ drivers/gpu/drm/drm_fb_helper.c         |  8 ++++++++
+ drivers/gpu/drm/drm_file.c              |  3 +++
+ drivers/gpu/drm/i915/i915_driver.c      | 26 ++-----------------------
+ drivers/gpu/drm/i915/i915_switcheroo.c  |  6 +++++-
+ drivers/gpu/drm/nouveau/nouveau_drm.c   |  1 -
+ drivers/gpu/drm/nouveau/nouveau_vga.c   |  7 -------
+ drivers/gpu/drm/nouveau/nouveau_vga.h   |  1 -
+ drivers/gpu/drm/radeon/radeon_drv.c     |  2 +-
+ drivers/gpu/drm/radeon/radeon_drv.h     |  1 -
+ drivers/gpu/drm/radeon/radeon_kms.c     | 18 -----------------
+ drivers/gpu/vga/vga_switcheroo.c        |  4 ++--
+ 14 files changed, 21 insertions(+), 72 deletions(-)
+
+
+base-commit: ac04152253dccfb02dcedfa0c57443122cf79314
+-- 
+2.39.0
+
