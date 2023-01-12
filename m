@@ -4,115 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB32DC54EBD
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Jan 2023 09:19:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B1A1C54EBC
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Jan 2023 11:46:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DBB210E8B0;
-	Thu, 12 Jan 2023 09:19:17 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2058.outbound.protection.outlook.com [40.107.93.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB76F10E8AD
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Jan 2023 09:19:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49AD010E16E;
+	Thu, 12 Jan 2023 11:46:59 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2045.outbound.protection.outlook.com [40.107.237.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2CBD10E03E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Jan 2023 11:46:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aHyckqeXEduphVbl61FLarBrASs2I0dT75F/VxzFpqr77HKlbOHy/cbVh11XIoO127apqFny1WAnwQ4MdGevAsfDswOYbPB9zUn7WnSpPlmwqsVEItuyFKKn02dvM8da886cyhgsrIO3f4XmyBkuB6c6J8RH1RZ9kQPe+RDxzRflSMNHqhhAX62IICANknE3aP4UMn4Ml29o8414yKsgr3DbYaJs6FbLfmS3v+esdrUMgBUmqpn+K4wne/tOPLS5QVo1X7LHvAQdBQSbZUCwAFtRgBN3ia6dMjxwYThW0o4lf/nC5wbbxoE9xgHVWEd1CPfmg+TzkUjGWZb4LPRCcQ==
+ b=BinnBAUE02uo4pqe65MgbHuujxNgCETs5uNxM6vUTdLbA3gfBh/b3nN+wg8jrXuMIeGBTfXub5GLXWFAedp//TFYh6SRaZaoWJAjIRoFItGxXkRddX5pUYuov1yj+pBpjJnyHGtyaRsLosYqjsPTh98tIgdW2YcjVY+eZJO3sU0snoR8E/C3PJ2o9Hi7ag0qC4Bf1Y1jz78r8BzFj5n5RvLHDDP2P4tEAteLPQh+fWesYkJb4np7bfm6H7pKEKDe/5WSeE4JFazOmYWUxhrUjkJl/tnf9sKWt5JrBdDZr5G1t5dTm2gpdQFeqqLpkr7YvcevvDU/+TeodubBavW8Fw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OfJRnbZUQcKE3ulhXgtARtvSWmfjfKQHmaDsZlQlKi4=;
- b=Zpq/A9gDbj6CPXFXtY0zipng+++LRqLLll+3Cxb6TGfObr9h0lKI88PbPMElBEbDob5QuT1cMSmtVaSfuXxetbP/f/kHL9clvrJFOKdlKADI7HG/sTMRxgH6LPqBTT9SIRF3nz6o3hJcRjQ9Yy8cz1x2a/oi0DHyqoT18xT6AqtgqqyeN22ohPDd/bB1tMAnM7V9vsVGPveySDslDkJx1KNLpbJhPgGey2kBRiqLKI/lrNdtpEGYyfAUREIj/aPiygvJkPcNeKpz8Wg4YW3Bb/AP0tSENLzdx5RBRfMJDgSv8UdiPU0OkGQSnVQgkFuvnSJFJNAEd7bBboI6OC5oKQ==
+ bh=2alhDB2+jh43J7NP/VbtcjGdq8huKRg+5b18EbYHi58=;
+ b=LT4okBYeMU89GLZiLtEnJK3kPlVoBI7l9/li9Gwo6WK/r1JpU59rKwKdDZRST1yfkQkfPF1tj2rODGIPWTtm2/qq5PknFq7T+maSEv2onKFEhcg4G+9smN37Ap5olHe/ULi3Xp57XLLDtueJiFluevQqDaQlZE1IYFNTno+qQF5IKbeqDafwEGvuk29V6bxsvwT6CKE0R724pNytKhBh5EvR1AeDtdEuC0D1Q/Nlhb1t9mAAcOZtSN4PzqD8msnzkIKdG1+qDiXumxvh2TPZc0tWrwL4N8L1Rf63lwAXq8AWHe14cVC60Wobg69R9z+6lT85hIQMJtjjfJx078ENgw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OfJRnbZUQcKE3ulhXgtARtvSWmfjfKQHmaDsZlQlKi4=;
- b=wVJrMfyAI3N7ChCA0ApxOmEYRBo8vVyjwiZRRZxOeofLtNLp5V6u5IOYXerYAOHlk/pftnkmMlQ2a1luJM1iikRavizUdRYg0eBr7Bw8dttfZ/GVzoUKzvsW/HRcCSf81rQP3WJbru7aHkidTvAyfYIngXGomsaYxPN2DeH2JYM=
+ bh=2alhDB2+jh43J7NP/VbtcjGdq8huKRg+5b18EbYHi58=;
+ b=nhz/YFD6chK23jmkzb75eIX2Bj/IKgFCSlHI8MSL4dWpqzzxfjJCERHYdvpJCxRnUxKPRUhHkFfn030emMxI2SnjodMka2Eo48IUqnuRNId60Dl6VOa5++PAKoQlWH7OsAgpwQZu0h2cp6QURwMhgyJmT9fR1I3BYi4E+AOR8ek=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
- CY5PR12MB6299.namprd12.prod.outlook.com (2603:10b6:930:20::21) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5986.18; Thu, 12 Jan 2023 09:19:12 +0000
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::2fd1:bdaf:af05:e178]) by DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::2fd1:bdaf:af05:e178%3]) with mapi id 15.20.5986.018; Thu, 12 Jan 2023
- 09:19:12 +0000
-Message-ID: <0985804a-d465-a1ca-f4f7-aed8b7188ac4@amd.com>
-Date: Thu, 12 Jan 2023 04:19:10 -0500
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by MN2PR12MB4061.namprd12.prod.outlook.com (2603:10b6:208:19a::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.13; Thu, 12 Jan
+ 2023 11:46:54 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::80d8:934f:caa7:67b0]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::80d8:934f:caa7:67b0%3]) with mapi id 15.20.5986.018; Thu, 12 Jan 2023
+ 11:46:54 +0000
+Message-ID: <d30389e9-2a2a-c3c8-3c3b-a8b43ccd3318@amd.com>
+Date: Thu, 12 Jan 2023 12:46:47 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx@lists.freedesktop.org
-References: <20230109130120.73389-1-christian.koenig@amd.com>
-Content-Language: en-CA
-From: Luben Tuikov <luben.tuikov@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: fix pipeline sync v2
-In-Reply-To: <20230109130120.73389-1-christian.koenig@amd.com>
-Content-Type: text/plain; charset=UTF-8
+ Thunderbird/102.4.2
+Subject: Re: [PATCH 1/2] drm/amdgpu: return the PCIe gen and lanes from the
+ INFO
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?=
+ <maraeo@gmail.com>
+References: <CAAxE2A720cJguG5b+0zbP=G4TxTjpqKBvOqDXXAP0LWHZEuj0A@mail.gmail.com>
+ <0931a762-c3a3-16c3-33a5-88e83fca4bcb@gmail.com>
+ <CAAxE2A5pBqOkny15tSRCWn_UW8=TTE=zYPChBZofZCrHZoQbww@mail.gmail.com>
+ <35304b1e-98a7-d342-9f1b-50f07b45cf98@gmail.com>
+ <CAAxE2A6KJWPJ3eqKoaiJZUJCNqRpx+WYwoGEZKxX2Kf_auLUWg@mail.gmail.com>
+ <a90b0e8e-dd02-031f-0432-1c5f6f02e949@amd.com>
+ <CAAxE2A7PJdiPORP-X+7kFmix9pCo63PqeamP20BZJx4GDfJdEQ@mail.gmail.com>
+ <8ec2b238-fa8b-a693-b9d9-3a590cc05664@amd.com>
+ <CAAxE2A7G_gjvuGNNtZ6J-4R25Ykx8ziz1B2f0Dc3KuC4KeYdzA@mail.gmail.com>
+ <BYAPR12MB461473D2083BC8B9FB012AC297F59@BYAPR12MB4614.namprd12.prod.outlook.com>
+ <CAAxE2A4F59qttYfrT66v4Fe0D1h4Km=DLY779uC=HHSGswg4Lg@mail.gmail.com>
+ <CADnq5_MLO4FLXrmUXPUzo2UBzqxa_hjfL0qBzibWAqO79uhxvw@mail.gmail.com>
+ <CADnq5_PPJanTuyNgL8eyxj-+HvPiPXN3e3hR3AHHivj0omcsXg@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <CADnq5_PPJanTuyNgL8eyxj-+HvPiPXN3e3hR3AHHivj0omcsXg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT1PR01CA0106.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2c::15) To DM6PR12MB3370.namprd12.prod.outlook.com
- (2603:10b6:5:38::25)
+X-ClientProxiedBy: FR2P281CA0064.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:93::12) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|CY5PR12MB6299:EE_
-X-MS-Office365-Filtering-Correlation-Id: 69a887e0-8061-4dc5-4331-08daf47e1189
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|MN2PR12MB4061:EE_
+X-MS-Office365-Filtering-Correlation-Id: b99f51c3-22d9-4759-db53-08daf492b341
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dUxutbslE3FFgCXDbnHFOy9se+bDk2HJkBS2IO4XfInDsNxGwnB9K3yMWUy6czTij2PImoJWhJPWiO4wMwUUBHooxwo4NCynCapUpYkJQl2Oj3tfJs/MZRU3T2cTAJctz5RnkQN6UOiuAbc6UrZR4w1vevFGx5ZTe2huKk6KkJxje9ttz5XXBzPvJBRTaeuQKnf+b8YaxmTYECHgcjnoW3R7k6REfvF23eWtH3W+nXvQP6q52A/e/9ToyzGa52voHwj6OsARruo2FAcZnexBPmaumIJXop3cZeRywmsRUXIkexIjsLGAuVSMbmt/9beh9KraISz6TOnVHhWRqA3vu0cTUY3P+E4NW8u4y0koTeh+FWKmRcLvScpYNdkZrrYljMyZiasB6trfVLrAsrOiu3ViNt27vxcf2kVhrtTtQQedtw5L8vzRof/DsdfbKa8n9z8adkifcYi/onwrzy5AOoNVEJRlexY+SKCVhZ5Ibi4U1f2RaIkt3jkCfr71lo/tMtTrC0yRKOO2XHZqBQJ3tmm8RyKTQbbI0ChUMaAzL1P+BUF6w6NeI40+P5e2cIqkIMRkP4ieQizSNj0xV4QaS4bzECvmX6F2InYWQv9VBnyLoNzBqT56vh/pYhju+eRZ/+jZFoc8U0qv6R6unZEFrEzW1DR99wJ3fT0dDsk8Z08=
+X-Microsoft-Antispam-Message-Info: tXSKbqE3978ntA1Ip5DcsQz8pOcw20T6bYGuYLSy7631KBkWf8Ez/AnRSAPQ+VvavJf9Hxx5hEtkA9WLj1MxVshbu2/NwNncVzgvl3c0yvwD4+0FC/VRlfpquri1t3gWs+Brry4lQ9EiV4eL19n9w6rLZZngTHcfhWMdH0UvbOAwGhbm9k25P3nJ5kRJUdT7DWTgPtlRAg1lO2ck6yVUCbVoSl+DlZ3FnlAMX7mpUqMGhSNzi86URmALIRArG+VwhqSl2pwCRPPOpeDiit553HR7+jXmqdHQTKuaHdCk5YAJ2tO886c84poILpQbUFkvxHK1v7HDwIXr8AH+OOU2s8Tf20AT/DTLKfo6s//NR8PTjWrF0HB1rzqAnEly3w2vD89ILQDv/CiJIFHj4Ww8CKNEqu1E3RNRmWn2q2Oaoytk6LoWTz6YnMpVxjMKqKlu5D9Xb1kQyEqrKXfH9gzxcXOi0NKqN4cgF/6oLYswJScY9YPzRcbiU2PUP8zRT+IEQVtkDMde/5qARpZw9QCopJ58UEbcKYq9Xj6fEEM6r74nxETig8+RBI13znE/W2NlYkMYj5hR1OrP6c1O0ODXo/wMbn3K9rnx/sz2n3Ml6Pr2UI18w0k/N5UXbsAYt7rMaE0p+VS58RLFsC2KtykwmmQOU87S7HM6SGMm37hS3txGA8rLnRjus1r8pjmla7vQNP08w+0ettoxzNEEy3gcqg8Z8Dx/DtSH3fHha9PvYMo=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(136003)(39860400002)(366004)(376002)(346002)(451199015)(31686004)(66556008)(44832011)(2906002)(5660300002)(36756003)(8936002)(66946007)(41300700001)(66476007)(8676002)(2616005)(316002)(53546011)(6486002)(66574015)(478600001)(6506007)(26005)(45080400002)(6512007)(186003)(966005)(31696002)(86362001)(83380400001)(38100700002)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(136003)(346002)(366004)(376002)(39860400002)(396003)(451199015)(5660300002)(54906003)(6666004)(2616005)(6506007)(36756003)(2906002)(53546011)(31696002)(38100700002)(83380400001)(86362001)(6486002)(316002)(6512007)(110136005)(186003)(478600001)(26005)(31686004)(8936002)(66946007)(4326008)(8676002)(66476007)(41300700001)(66556008)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MWp6MGtvRHd0bkZSQUNEeVhyalA2S2FWWXZja1NvWkI1NnNYNkNkT3k3N01z?=
- =?utf-8?B?MUNQVEcxNW5UUkczSmhhaE5aTmluOUNROXJvRW9udWJQemhXNGdTUmxWQW1T?=
- =?utf-8?B?R1QyUElWdXZ1UnJaZ2s0dGNLY0ZWbllvc29CNC85MHQ4alVyOGRIWlkyS1M2?=
- =?utf-8?B?b0tZSGFBaDBXNnVGM3NxSUtaWVU2N2NQRzA4YU9rRy9JVjVlVnF0cVhsM3lh?=
- =?utf-8?B?cHljVHBTWFBCSHdvbkxmTGp3UVF0aHFTK2IxcmkyVVNmWS9PcnQvMXdWYTZX?=
- =?utf-8?B?T3dRVnFxcjhhaXVPeFMzc2lpR1JlNjl3eXdCcHREKy80enl2SS9WbkMyOE1u?=
- =?utf-8?B?bzBPZEJiU2NvNlY4d3NtMU5qdTh0cEl5c3dkT2lxMW5oOXNob0dpenE2VzFw?=
- =?utf-8?B?K3ZYY1FtRnNpRG4rQUxQRkN1OEh3ai9GZHpIS3VNdFFhZWI0LyszT0h1Rm1B?=
- =?utf-8?B?S2dNV0RJTVBGcS93Q3RibjFxc3c1QTZhUWZITkxHUXEvZDhxY21XdHQydEY5?=
- =?utf-8?B?OU5YaVJFRTExZ1JiZlRGRC9ST2NEaU1YTDVqc2ZuMG15WXlwbHo5aU5ZbjRx?=
- =?utf-8?B?amgva1pTa3NBRnRzTEtsUG1DRCtIQXlIZFJBdjRLRWpjQzhya2J4WEN3Nm5j?=
- =?utf-8?B?MEg4a2tOdlREbjdLVURCalgwWmZ4OWY2eFI5T0tDd080WmluSFlkcEVVRCtw?=
- =?utf-8?B?d0h1R05QcG1pUlI5RThsOUVLdWFuaGJrZlZES2pxUFlDdHY5QWhJWEZ1em93?=
- =?utf-8?B?cTF6am14YXExNVI0cGxzbUt0dGEwdUxtaXJVdVZHNm9rcGlqT0thZlhmeFdh?=
- =?utf-8?B?WXZUSitnVGpkLzlUZUE3a2xveVJWZWx5L2xvam1Va2ovRllpaDEwNFpvNk5C?=
- =?utf-8?B?QjlpWVphZG9QaVduRDVpWGpTUTRaS2J2SlJZcTRGelI3a3pwNGxBTDhuT3gx?=
- =?utf-8?B?R1hERC9oYXdxYWNOUStic04rYURZa2dMNEN2UUk0MGszK2dQeE43TUVFMkJn?=
- =?utf-8?B?cmlaN2U1ZnFoUlJxMjloWUl2T2o0Y1VJTlFIeGdOVFpzOHgyUjZrNWsxZTFW?=
- =?utf-8?B?Z2o4R2tJV0t6WVVYWGdUQjVMSVN6Znowa2crRk9aU1lJelJmSWNhNkhPS0w2?=
- =?utf-8?B?SEF0OG52Y0x2T0pWSW94VXRZd1Z5SlJscXhGUitmQ3FFZmhiaGZLZ0VoQnFw?=
- =?utf-8?B?QnoyOUcxT3c5QnZDOURUNVdHL25SRW13dFFqM0hRd3psQm4yMDc5V3Zobmp0?=
- =?utf-8?B?U2xUT2Uxc1ZpWlpYWVVEZ1dVWVdKMS9BVkE4TU4yaDIzbEJZejVTRTVnU2hE?=
- =?utf-8?B?eHRXRkhWTzczbVlVM1ZORCtHRDlLUkFRcHZYZTEzMHhlNlQxTThPVGlGZ3FO?=
- =?utf-8?B?bzE1NnJ2anMrMFozMVNraDdXd3lOWXNNT0ZMNEQwSE00QmpQOHVhaVNJMEEx?=
- =?utf-8?B?QzJQU3JlSC9LVFpESUU0b253NlJRMEJEdkVIY1RRRndSdDB4T080cUlLU0kr?=
- =?utf-8?B?dHNIamlpR0o1NkVSL3QyZWd3b25zQ005ZkNoeEpSVHp6N3pGSDZYV0lFMnM4?=
- =?utf-8?B?UnJIS0x6MUhpSStLanVKMk5mY2o2WEl5amNkVVcrVTJyTlQvK2FYR3p4d0Vj?=
- =?utf-8?B?NHl2R0VZSzYrbVlndFh6cE9icjZqMnhBSHVsN0xLZUMvK3Y3YWljbjZWNFZs?=
- =?utf-8?B?Y2hYZ0RKOHBZdktpS0NrQStFdG1KZlplbVBMMFFIeEpwdDlYOEpadngrM2pT?=
- =?utf-8?B?eEYzVHZJbmRYa2pkeTlCaThrcFJUVDNKTmRtL0FLVHpkU2lmVjRoelhJQTVJ?=
- =?utf-8?B?a052UHFLbUlyaEZZWTdNY0ZFVEVYMDRXMUc1TWszUU5BbFg4QWpHMldod3dy?=
- =?utf-8?B?cjVSdC9sTXVmY1cxQ1Nlcm1qWGYrVmpsRm8wMDZWcFYvZmpzQ1dYN0g3T2oy?=
- =?utf-8?B?VllHNFl6aDU1NWtaTVBDdzFLd2dzQXlpdmd6ajhQczVLeEljZjlIWHc3TFhm?=
- =?utf-8?B?TlFySTNndFoxUmhpc0YyTTk4WkRTZ05iaDEzYjFCL3B6eXMvMFBRTG1TNElv?=
- =?utf-8?B?VjRRSVFrWHp3K0preDNib0dZRURlbHFjRThrZ29RSWFSS2JvbEFMQzhkaFA1?=
- =?utf-8?Q?O2eii2L82OdvdD8Frwmp+4bEG?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VndzRTZ4NFp6anBRemNBOGdCK25HU1NMaEVYbGhaeWxVSFhKUTk1UUMrd0JG?=
+ =?utf-8?B?UjM3bkt6V0tkRmNVSjlhQlBmbDh0V3lnWlFDOFdrQUFIdlFJa0hzbXBqT2RX?=
+ =?utf-8?B?Z1RxRXZlU2xxWFhlc3N6cUg3OGdSTVVhelhOTk9hSUVONjFnZDNuSEYwRnFv?=
+ =?utf-8?B?QmtqWlBSdzdJNmdiQjl3c2ZBL2J4K1BBL3J0VWVZRzJtNnJqbHpLMU5qeHhY?=
+ =?utf-8?B?VGVoaW9IMSt0N2haMUdBNnR4Wk9qdlBwMlVENWpEOFVQcDdVSUsxWGpqcll5?=
+ =?utf-8?B?dTZRQ2dlNksvTTg2QVhhdFF4UkhURXllZnQ1UENNSXFybUtyYllWTnQzcDBI?=
+ =?utf-8?B?UkJMZVp5d3pyclU1aE9NSXl5MkJWWjRsWnBhQy9WeDNzVVpuZmRVZFFpZFZp?=
+ =?utf-8?B?QnpuMWhqK1lwZ3ZzZzNhajV3cmJWZVczS0taQVR2ZlZQTVFzalFqZ0d0QmpO?=
+ =?utf-8?B?TXNrU01rcXBTREhkUXdNejlBS0hpMG1VZzg4dTNNcTEweFYwRUI3VjA2d3J0?=
+ =?utf-8?B?YnpaMG92M2kvR0JmamlLNm4yZjJ6dlVXd1YxdDBDM05BMGlKanlGVzFnU3B3?=
+ =?utf-8?B?djcxNC80dUc2UHdoNmdaWXpYaDBoYlRvUDVVTENLRElZNDdhU1dqdnZhWFRT?=
+ =?utf-8?B?eUQ1Ymd5N2pPb3JWZUdWMFRPZDgyTnl5VFpCbjBVYWtzYWxGWklOSGgvT0dG?=
+ =?utf-8?B?N3BQMFNyOWhNejRLeFV4OTRiWUpoN2pmVFh0bUd6V29ZTWtNODQ5Mi8zUTdO?=
+ =?utf-8?B?SHZaZFBaVFFBMUY3VldjakRZTEw3NFhsQ2dGdlBsMkxnN1Rtb3JQOHJVMjUx?=
+ =?utf-8?B?YjJwQTRjVEM1cTFwT1YxdHN5c1VsZC9ubFBVRjQ1enlIU0NVUitoY2ZKZEJl?=
+ =?utf-8?B?UUVWMG5ReWhwcEd5OXBEWWNiSWo0YU44VkxMRlpENTV3enJqaDdveHVCRkhD?=
+ =?utf-8?B?MHFLWVJ3T2E2cEFCOVFUbHdlaitYOHBVK2JsdDlkQVBGMnRTVUdnNG02RWgx?=
+ =?utf-8?B?aVNTdDFMUnljdnBiZ0pESU5icVU4NzZwcHNIbFJrUklWQmhBMjZFMXJadzRE?=
+ =?utf-8?B?WEo0SjRza2JYNjhrZW11UHZGUjNuZmhvWmZwdHRETnA4OTd5eUdkRnFFemVR?=
+ =?utf-8?B?RTFUclBLZlZpVkdoVHY2TTBnMVRxQ0E2MG9Ba1oxYzk4Wmc4bFNCaDF3YUtJ?=
+ =?utf-8?B?Sy9FVTBOWGhNNUZ0OFNJSTBqTitsQnR6NjhnU083N0Fwa1d6cmtGMkhRMmF2?=
+ =?utf-8?B?ODJoVEN3elpNTTJobndueHd0SzNzS2JCKzZGQitYQWdpSUJwL3Z3cUU0cWVk?=
+ =?utf-8?B?Wm9mVUtkYzFWRWpER1c2RnVsR2liRXVmWE1YdzEwc1RPV1k1TlRIWkcrc2xJ?=
+ =?utf-8?B?NEcvODhZK1B4WTZ4UjFvL0pFUFNXR2NxSmcyYTdWamkzM0JXQ3ovT3VZNEJP?=
+ =?utf-8?B?a0pCakxGejBkS2doWnMzQWs2cTBpVmlvY2hKK0JKZG5WS0lwYVBuUU9DZVdn?=
+ =?utf-8?B?M1VNT0N5akZnYkVKSEFwRm1aWnh2a1MxTEVZbG5IVnFQbHFYKzZET2tvaTMr?=
+ =?utf-8?B?SzJNQUZrQUxjd3U3QVpMQXFKMlNWd1I4a1FFamhzK3NiSGpuSFo5ZjlxVHM3?=
+ =?utf-8?B?NVhVSUJ6QnJ5c2VoY0l5d2g5UVlURmFuU1oxbHNjbmNlTGcxdzFCS0VDOG9m?=
+ =?utf-8?B?NG9YNUd2aFpWTHQ2bUJaTnhocDlhbUhJb3J4bWxoR3A4UmMyN2ZPZVhlNm1j?=
+ =?utf-8?B?QmZzdUhWT0krOXZpbmRJRmRjY3p0QndCSHN5UDJJTmk4N0w2QXlRZWtPZ25M?=
+ =?utf-8?B?MVFGUGdKeFovL1oxWXA0Q3FUUU5pd2E0ckRjYmR5NjBCMGM3THA0UEE5SG9J?=
+ =?utf-8?B?cWFxZGtocUdwRTdyVkt3V05pK3BPZUFUajl0RzU3Mm5YMEM2dmdFZC8yZGNx?=
+ =?utf-8?B?eWZicmx3Tk0rYVYwY3Q4SGx1N2M0YTkyd2ordnRTbGwyQWd4b1JDMU16U1lr?=
+ =?utf-8?B?MDYzbUpNbmNTVitXNkVPbms2bGVDQTF4SlFBbDRLWkUyNkJqQ1lwWExYeXJ0?=
+ =?utf-8?B?KysweTRIOU43VVpXOE9HR0crSlBPc2F6d0ZCUXg1Z0lObEppY0ZzaHZlQmlL?=
+ =?utf-8?Q?b22JxnAY93ZruVCzL43agfjuy?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69a887e0-8061-4dc5-4331-08daf47e1189
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b99f51c3-22d9-4759-db53-08daf492b341
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2023 09:19:12.5330 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2023 11:46:54.0092 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Y4ISPHsjX5Johyirbsx60Bmdi63bUnMjbISxnaRHdeuHKt3q1FP8oRpr0JEWrSub
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6299
+X-MS-Exchange-CrossTenant-UserPrincipalName: qLJbtd17sW66EE2aDGUbL036/tE+OoEsCm7IFAkmmW25ScJu7zOVzXoH+HUJcAzg
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4061
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,115 +137,193 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Lazar, Lijo" <Lijo.Lazar@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Acked-by: Luben Tuikov <luben.tuikov@amd.com>
+Am 11.01.23 um 21:50 schrieb Alex Deucher:
+> On Wed, Jan 11, 2023 at 3:48 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+>> On Wed, Jan 4, 2023 at 3:17 PM Marek Olšák <maraeo@gmail.com> wrote:
+>>> Yes, it's meant to be like a spec sheet. We are not interested in the current bandwidth utilization.
+>> After chatting with Marek on IRC and thinking about this more, I think
+>> this patch is fine.  It's not really meant for bandwidth per se, but
+>> rather as a limit to determine what the driver should do in certain
+>> cases (i.e., when does it make sense to copy to vram vs not).  It's
+>> not straightforward for userspace to parse the full topology to
+>> determine what links may be slow.  I guess one potential pitfall would
+>> be that if you pass the device into a VM, the driver may report the
+>> wrong values.  Generally in a VM the VM doesn't get the full view up
+>> to the root port.  I don't know if the hypervisors report properly for
+>> pcie_bandwidth_available() in a VM or if it just shows the info about
+>> the endpoint in the VM.
+>>
+>> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> Actually:
+>
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+> index fe7f871e3080..f7fc7325f17f 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -1053,7 +1053,7 @@ struct drm_amdgpu_info_device {
+>       __u32 enabled_rb_pipes_mask;
+>       __u32 num_rb_pipes;
+>       __u32 num_hw_gfx_contexts;
+> -    __u32 _pad;
+> +    __u32 pcie_gen;
+>       __u64 ids_flags;
+>       /** Starting virtual address for UMDs. */
+>       __u64 virtual_address_offset;
+> @@ -1109,6 +1109,7 @@ struct drm_amdgpu_info_device {
+>       __u64 high_va_max;
+>       /* gfx10 pa_sc_tile_steering_override */
+>       __u32 pa_sc_tile_steering_override;
+> +    __u32 pcie_num_lanes;
+>       /* disabled TCCs */
+>       __u64 tcc_disabled_mask;
+>       __u64 min_engine_clock;
+>
+> Doesn't that last one need to be added to the end of the structure?
 
-Regards,
-Luben
+I think the the structure has a padding here because the next member is 
+u64 again.
 
-On 2023-01-09 08:01, Christian König wrote:
-> This fixes a potential memory leak of dma_fence objects in the CS code
-> as well as glitches in firefox because of missing pipeline sync.
-> 
-> v2: use the scheduler instead of the fence context for the test
-> 
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> Bug: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.freedesktop.org%2Fdrm%2Famd%2F-%2Fissues%2F2323&data=05%7C01%7Cluben.tuikov%40amd.com%7C78ed156f30284f9b6dfd08daf2419c17%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638088660850593361%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=R3ZsrQUOHoz4pYWRSFYQTRjsWT0wok4otsi7I%2FxJ9AA%3D&reserved=0
-> Fixes: 1b2d5eda5ad7 ("drm/amdgpu: move explicit sync check into the CS")
-> Tested-by: Michal Kubecek <mkubecek@suse.cz>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 46 +++++++++++++++++---------
->  1 file changed, 30 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> index 47763ac0d14a..7b5ce00f0602 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -61,6 +61,8 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p,
->  		amdgpu_ctx_put(p->ctx);
->  		return -ECANCELED;
->  	}
-> +
-> +	amdgpu_sync_create(&p->sync);
->  	return 0;
->  }
->  
-> @@ -452,18 +454,6 @@ static int amdgpu_syncobj_lookup_and_add(struct amdgpu_cs_parser *p,
->  	}
->  
->  	r = amdgpu_sync_fence(&p->sync, fence);
-> -	if (r)
-> -		goto error;
-> -
-> -	/*
-> -	 * When we have an explicit dependency it might be necessary to insert a
-> -	 * pipeline sync to make sure that all caches etc are flushed and the
-> -	 * next job actually sees the results from the previous one.
-> -	 */
-> -	if (fence->context == p->gang_leader->base.entity->fence_context)
-> -		r = amdgpu_sync_fence(&p->gang_leader->explicit_sync, fence);
-> -
-> -error:
->  	dma_fence_put(fence);
->  	return r;
->  }
-> @@ -1188,10 +1178,19 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
->  static int amdgpu_cs_sync_rings(struct amdgpu_cs_parser *p)
->  {
->  	struct amdgpu_fpriv *fpriv = p->filp->driver_priv;
-> +	struct drm_gpu_scheduler *sched;
->  	struct amdgpu_bo_list_entry *e;
-> +	struct dma_fence *fence;
->  	unsigned int i;
->  	int r;
->  
-> +	r = amdgpu_ctx_wait_prev_fence(p->ctx, p->entities[p->gang_leader_idx]);
-> +	if (r) {
-> +		if (r != -ERESTARTSYS)
-> +			DRM_ERROR("amdgpu_ctx_wait_prev_fence failed.\n");
-> +		return r;
-> +	}
-> +
->  	list_for_each_entry(e, &p->validated, tv.head) {
->  		struct amdgpu_bo *bo = ttm_to_amdgpu_bo(e->tv.bo);
->  		struct dma_resv *resv = bo->tbo.base.resv;
-> @@ -1211,10 +1210,24 @@ static int amdgpu_cs_sync_rings(struct amdgpu_cs_parser *p)
->  			return r;
->  	}
->  
-> -	r = amdgpu_ctx_wait_prev_fence(p->ctx, p->entities[p->gang_leader_idx]);
-> -	if (r && r != -ERESTARTSYS)
-> -		DRM_ERROR("amdgpu_ctx_wait_prev_fence failed.\n");
-> -	return r;
-> +	sched = p->gang_leader->base.entity->rq->sched;
-> +	while ((fence = amdgpu_sync_get_fence(&p->sync))) {
-> +		struct drm_sched_fence *s_fence = to_drm_sched_fence(fence);
-> +
-> +		/*
-> +		 * When we have an dependency it might be necessary to insert a
-> +		 * pipeline sync to make sure that all caches etc are flushed and the
-> +		 * next job actually sees the results from the previous one
-> +		 * before we start executing on the same scheduler ring.
-> +		 */
-> +		if (!s_fence || s_fence->sched != sched)
-> +			continue;
-> +
-> +		r = amdgpu_sync_fence(&p->gang_leader->explicit_sync, fence);
-> +		if (r)
-> +			return r;
-> +	}
-> +	return 0;
->  }
->  
->  static void amdgpu_cs_post_dependencies(struct amdgpu_cs_parser *p)
-> @@ -1347,6 +1360,7 @@ static void amdgpu_cs_parser_fini(struct amdgpu_cs_parser *parser)
->  {
->  	unsigned i;
->  
-> +	amdgpu_sync_free(&parser->sync);
->  	for (i = 0; i < parser->num_post_deps; i++) {
->  		drm_syncobj_put(parser->post_deps[i].syncobj);
->  		kfree(parser->post_deps[i].chain);
+But probably better to double check using pahole.
+
+Christian.
+
+>
+> Alex
+>
+>> Alex
+>>
+>>> Marek
+>>>
+>>> On Wed, Jan 4, 2023 at 10:33 AM Lazar, Lijo <Lijo.Lazar@amd.com> wrote:
+>>>> [AMD Official Use Only - General]
+>>>>
+>>>>
+>>>> To clarify, with DPM in place, the current bandwidth will be changing based on the load.
+>>>>
+>>>> If apps/umd already has a way to know the current bandwidth utilisation, then possible maximum also could be part of the same API. Otherwise, this only looks like duplicate information. We have the same information in sysfs DPM nodes.
+>>>>
+>>>> BTW, I don't know to what extent app/umd really makes use of this. Take that memory frequency as an example (I'm reading it as 16GHz). It only looks like a spec sheet.
+>>>>
+>>>> Thanks,
+>>>> Lijo
+>>>> ________________________________
+>>>> From: Marek Olšák <maraeo@gmail.com>
+>>>> Sent: Wednesday, January 4, 2023 8:40:00 PM
+>>>> To: Lazar, Lijo <Lijo.Lazar@amd.com>
+>>>> Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+>>>> Subject: Re: [PATCH 1/2] drm/amdgpu: return the PCIe gen and lanes from the INFO
+>>>>
+>>>> On Wed, Jan 4, 2023 at 9:19 AM Lazar, Lijo <lijo.lazar@amd.com> wrote:
+>>>>
+>>>>
+>>>>
+>>>> On 1/4/2023 7:43 PM, Marek Olšák wrote:
+>>>>> On Wed, Jan 4, 2023 at 6:50 AM Lazar, Lijo <lijo.lazar@amd.com
+>>>>> <mailto:lijo.lazar@amd.com>> wrote:
+>>>>>
+>>>>>
+>>>>>
+>>>>>      On 1/4/2023 4:11 AM, Marek Olšák wrote:
+>>>>>       > I see. Well, those sysfs files are not usable, and I don't think it
+>>>>>       > would be important even if they were usable, but for completeness:
+>>>>>       >
+>>>>>       > The ioctl returns:
+>>>>>       >      pcie_gen = 1
+>>>>>       >      pcie_num_lanes = 16
+>>>>>       >
+>>>>>       > Theoretical bandwidth from those values: 4.0 GB/s
+>>>>>       > My DMA test shows this write bandwidth: 3.5 GB/s
+>>>>>       > It matches the expectation.
+>>>>>       >
+>>>>>       > Let's see the devices (there is only 1 GPU Navi21 in the system):
+>>>>>       > $ lspci |egrep '(PCI|VGA).*Navi'
+>>>>>       > 0a:00.0 PCI bridge: Advanced Micro Devices, Inc. [AMD/ATI] Navi
+>>>>>      10 XL
+>>>>>       > Upstream Port of PCI Express Switch (rev c3)
+>>>>>       > 0b:00.0 PCI bridge: Advanced Micro Devices, Inc. [AMD/ATI] Navi
+>>>>>      10 XL
+>>>>>       > Downstream Port of PCI Express Switch
+>>>>>       > 0c:00.0 VGA compatible controller: Advanced Micro Devices, Inc.
+>>>>>       > [AMD/ATI] Navi 21 [Radeon RX 6800/6800 XT / 6900 XT] (rev c3)
+>>>>>       >
+>>>>>       > Let's read sysfs:
+>>>>>       >
+>>>>>       > $ cat /sys/bus/pci/devices/0000:0a:00.0/current_link_width
+>>>>>       > 16
+>>>>>       > $ cat /sys/bus/pci/devices/0000:0b:00.0/current_link_width
+>>>>>       > 16
+>>>>>       > $ cat /sys/bus/pci/devices/0000:0c:00.0/current_link_width
+>>>>>       > 16
+>>>>>       > $ cat /sys/bus/pci/devices/0000:0a:00.0/current_link_speed
+>>>>>       > 2.5 GT/s PCIe
+>>>>>       > $ cat /sys/bus/pci/devices/0000:0b:00.0/current_link_speed
+>>>>>       > 16.0 GT/s PCIe
+>>>>>       > $ cat /sys/bus/pci/devices/0000:0c:00.0/current_link_speed
+>>>>>       > 16.0 GT/s PCIe
+>>>>>       >
+>>>>>       > Problem 1: None of the speed numbers match 4 GB/s.
+>>>>>
+>>>>>      US bridge = 2.5GT/s means operating at PCIe Gen 1 speed. Total
+>>>>>      theoretical bandwidth is then derived based on encoding and total
+>>>>>      number
+>>>>>      of lanes.
+>>>>>
+>>>>>       > Problem 2: Userspace doesn't know the bus index of the bridges,
+>>>>>      and it's
+>>>>>       > not clear which bridge should be used.
+>>>>>
+>>>>>      In general, modern ones have this arch= US->DS->EP. US is the one
+>>>>>      connected to physical link.
+>>>>>
+>>>>>       > Problem 3: The PCIe gen number is missing.
+>>>>>
+>>>>>      Current link speed is based on whether it's Gen1/2/3/4/5.
+>>>>>
+>>>>>      BTW, your patch makes use of capabilities flags which gives the maximum
+>>>>>      supported speed/width by the device. It may not necessarily reflect the
+>>>>>      current speed/width negotiated. I guess in NV, this info is already
+>>>>>      obtained from PMFW and made available through metrics table.
+>>>>>
+>>>>>
+>>>>> It computes the minimum of the device PCIe gen and the motherboard/slot
+>>>>> PCIe gen to get the final value. These 2 lines do that. The low 16 bits
+>>>>> of the mask contain the device PCIe gen mask. The high 16 bits of the
+>>>>> mask contain the slot PCIe gen mask.
+>>>>> + pcie_gen_mask = adev->pm.pcie_gen_mask & (adev->pm.pcie_gen_mask >> 16);
+>>>>> + dev_info->pcie_gen = fls(pcie_gen_mask);
+>>>>>
+>>>> With DPM in place on some ASICs, how much does this static info help for
+>>>> upper level apps?
+>>>>
+>>>>
+>>>> It helps UMDs make better decisions if they know the maximum achievable bandwidth. UMDs also compute the maximum memory bandwidth and compute performance (FLOPS). Right now it's printed by Mesa to give users detailed information about their GPU. For example:
+>>>>
+>>>> $ AMD_DEBUG=info glxgears
+>>>> Device info:
+>>>>      name = NAVI21
+>>>>      marketing_name = AMD Radeon RX 6800
+>>>>      num_se = 3
+>>>>      num_rb = 12
+>>>>      num_cu = 60
+>>>>      max_gpu_freq = 2475 MHz
+>>>>      max_gflops = 19008 GFLOPS
+>>>>      l0_cache_size = 16 KB
+>>>>      l1_cache_size = 128 KB
+>>>>      l2_cache_size = 4096 KB
+>>>>      l3_cache_size = 128 MB
+>>>>      memory_channels = 16 (TCC blocks)
+>>>>      memory_size = 16 GB (16384 MB)
+>>>>      memory_freq = 16 GHz
+>>>>      memory_bus_width = 256 bits
+>>>>      memory_bandwidth = 512 GB/s
+>>>>      pcie_gen = 1
+>>>>      pcie_num_lanes = 16
+>>>>      pcie_bandwidth = 4.0 GB/s
+>>>>
+>>>> Marek
 
