@@ -4,53 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA91FC63797
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Jan 2023 19:33:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C318C61DB3
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Jan 2023 19:34:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BAEE10E1B5;
-	Thu, 12 Jan 2023 19:33:51 +0000 (UTC)
-Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
- [IPv6:2607:f8b0:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 400BC10E1B5;
- Thu, 12 Jan 2023 19:33:50 +0000 (UTC)
-Received: by mail-oi1-x22d.google.com with SMTP id o66so16104340oia.6;
- Thu, 12 Jan 2023 11:33:50 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCC7E10E1BF;
+	Thu, 12 Jan 2023 19:34:51 +0000 (UTC)
+Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
+ [IPv6:2001:4860:4864:20::2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2AEE10E1BF
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Jan 2023 19:34:49 +0000 (UTC)
+Received: by mail-oa1-x2c.google.com with SMTP id
+ 586e51a60fabf-15027746720so19973743fac.13
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Jan 2023 11:34:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=aypgsOMzmGEhnMGY/eHKs1+jahN6svk47TXr3cbBLDY=;
- b=XJIfIuVyF+2IeoN8v3sm8ShKWmRSQhjtD/VSFe40yy9oq/Bd/3BrFL/EiH/ND/xLtv
- AoSNUskM/kLb/ByQl4tqDJ1BZT0ulle6DoHja4hqpFL9LBn0efdGnj9Zcpq56jHrl0E1
- Kz5tZ64Lcx2JRTrsUNQjkVSo6sYM95eqe0b1cpt/8qvFTUkN3GHYe63eOAVQWY/0b7rz
- 3nOpFcdKPJpHdAnTunPdlNZs4yMBAO+6uROA2EF/4GEbWv37fh3qA4L8h+GzuGMUG1gO
- O+d+3F+8CBODT/B6OMZH+5ZDWX0UMV4/W83OcrbQUG0DQVpZwPzqPKHjAjbyWyZxj/VS
- gayg==
+ bh=+8nu1ZxSz+lzsOwmnk3S6vpGyooNUhSvY+dMLIN+ciw=;
+ b=VwG05rRmriP2tu6X6AaAtseGv47fsiz283oXXpLMYIAw6UqllPdufT/GGRsqJwRbE1
+ awyF66rus7FXrHo/+0JuV/qhsvVWKmX/Pi89e9FC2QhOrmHK18ylFvAKN1S/Rf/vkffC
+ J/MFtH+htYzsf6BX/seVlRxopVHW6tD7l2DV4bzDgBCtkZVWN1CaFKwYbNyP+EkC1M/i
+ dOI2A9EVBM3DTNgfq2iFmPlgB6LzGX3wTcjMXyESJJyjh7AmsQGWWSSACVRX0tNcW4AG
+ oQZ6Eb+QH9+PldloIw9egaehddb08G9ld3VDeWaBn8Wowa45Vp+jLBENfbzVAWHywVDU
+ W+7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=aypgsOMzmGEhnMGY/eHKs1+jahN6svk47TXr3cbBLDY=;
- b=ZvpyTt8iavqYqRJzE+bge8NmeESNc08Hx3AJpcliPhKxnhYNFqqxpLubtUjAARP0nZ
- 9z5aMMLxAkJtQvk8MxUPheoxbv1yoLqOOuJZDCndCigUFtgrGWenCf4Aakc2ep3hz7lw
- GnD81O/z8rZV0DFGV+iRTmLyT4a1BI7rXKsQCChnYBW1sxdh17aZnHVIzKsyZNMURFnd
- 6Kp+CEUXOvkC4rSyRm1bkWmg5nsXJsA+SXoITYqnwpHG9VhYFC4rDoE0edLJCDSj6vJJ
- bDBDKURqnya/lwo5NpRXl6ji6+IRXDQVPw9QtEdpkmlXNvZYpwklPHEHiRxCQjPM83NW
- jiww==
-X-Gm-Message-State: AFqh2kpaKCSn/mHvo2WQ1bXtVD4+GMsvhGjdH8/UNT0zhohcCxcmYHRP
- 0QK9aG8stW+hXfRSaFHwrekbi5/6oZOR8JXRnn4=
-X-Google-Smtp-Source: AMrXdXtyJjc6vkU/EGsBHOqdS2kLFiSshjKvc0JLtfUFk6F0VTt7UUKvuL5X6VXwN3sLCNU5UUTi3xMRk9SAdlEVp+s=
-X-Received: by 2002:a05:6808:2994:b0:35b:f5f7:3ed0 with SMTP id
- ex20-20020a056808299400b0035bf5f73ed0mr5306345oib.46.1673552029252; Thu, 12
- Jan 2023 11:33:49 -0800 (PST)
+ bh=+8nu1ZxSz+lzsOwmnk3S6vpGyooNUhSvY+dMLIN+ciw=;
+ b=4rO8zbnL9yxoVDMMdQoGesHHCPI+DS4B3dYsTWVmYWxP+GrzWpCyn9sxJoQk3wTljc
+ z3Hclku1or5FFq6cMO79QPNEjRTMahuUR6StGOWQ3dNHCkOP9PSgAChMXn1R4gp+Zdxk
+ BkkyX43ek4ZWbckgtHEcaWqN9by5cxKfRDPgtzNKZwdwyqibevg7PYhaZ56aOHImbzRX
+ cuRu8nW+Fbg4y5jUNrMKVr+lND8gvI4ZY2XiTxjXGXygfajvreYLerNxk4T6OuW/oGPv
+ nxNZat4EZQjU03znazFAXDH+VckQy2qIOjscXeg6kFnCbMtNSHiYiDq+o3tLvsN6nFVJ
+ HD5g==
+X-Gm-Message-State: AFqh2kq+aZ+VDCq2lLH396dnEGsSE6oxxmrtUwGwJZv4bOeRbL3S25vk
+ 722XR26jOCBzv7ObNr7KBr7ELDthkxgITG//rrY=
+X-Google-Smtp-Source: AMrXdXuFrKCd0QXQbVOIPL9uEcp2V6JHdWWvP7GmqMmm8eDgu0uZ4BOc1SxWLglM3yXQSIu+uCLOso/9Aqzg3EYeTOQ=
+X-Received: by 2002:a05:6870:c59c:b0:150:d9aa:4011 with SMTP id
+ ba28-20020a056870c59c00b00150d9aa4011mr2951182oab.96.1673552087550; Thu, 12
+ Jan 2023 11:34:47 -0800 (PST)
 MIME-Version: 1.0
-References: <Y8AQYhVkJjV86VXV@ubun2204.myguest.virtualbox.org>
-In-Reply-To: <Y8AQYhVkJjV86VXV@ubun2204.myguest.virtualbox.org>
+References: <20230111075226.150161-1-Yifan.Zha@amd.com>
+In-Reply-To: <20230111075226.150161-1-Yifan.Zha@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 12 Jan 2023 14:33:37 -0500
-Message-ID: <CADnq5_OttrDQ=nDQSg3OWj_aqwKSs1s3YpWRqnM1wmzJQ-F2RA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Conversion to bool not necessary
-To: Deepak R Varma <drv@mailo.com>
+Date: Thu, 12 Jan 2023 14:34:36 -0500
+Message-ID: <CADnq5_NNF8=oMYrhhe1K=jrAj10fO_6qvHn4B72ew7NrdFkGnA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Skip specific mmhub and sdma registers
+ accessing under sriov
+To: Yifan Zha <Yifan.Zha@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,53 +65,96 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Saurabh Singh Sengar <ssengar@microsoft.com>, Leo Li <sunpeng.li@amd.com>,
- David Airlie <airlied@gmail.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org,
- Praveen Kumar <kumarpraveen@linux.microsoft.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alexander.Deucher@amd.com, Horace.Chen@amd.com, haijun.chang@amd.com,
+ amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Wed, Jan 11, 2023 at 2:53 AM Yifan Zha <Yifan.Zha@amd.com> wrote:
+>
+> [Why]
+> SDMA0_CNTL and MMHUB system aperture related registers are blocked by L1 Policy.
+> Therefore, they cannot be accessed by VF and loged in violation.
+>
+> [How]
+> For MMHUB registers, they will be programmed by PF. So VF will skip to program them in mmhubv3_0.
+> For SDMA0_CNTL which is a PF_only register, VF don't need to program it in sdma_v6_0.
+>
+> Signed-off-by: Yifan Zha <Yifan.Zha@amd.com>
 
-Alex
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-On Thu, Jan 12, 2023 at 8:51 AM Deepak R Varma <drv@mailo.com> wrote:
->
-> A logical evaluation already results in bool. There is no need for using
-> a ternary operator based evaluation and bool conversion of the outcome.
-> Issue identified using boolconv.cocci Coccinelle semantic patch.
-> This was also reported by the Kernel Test Robot. Hence
->
-> Fixes: 473683a03495 ("drm/amd/display: Create a file dedicated for CRTC")
->
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: Deepak R Varma <drv@mailo.com>
 > ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c | 34 ++++++++++++-------------
+>  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c  | 10 +++++---
+>  2 files changed, 23 insertions(+), 21 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> index 22125daf9dcf..1e39d0939700 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> @@ -105,8 +105,7 @@ static void vblank_control_worker(struct work_struct *work)
->         else if (dm->active_vblank_irq_count)
->                 dm->active_vblank_irq_count--;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c
+> index e9dcd6fcde7f..ae9cd1a4cfee 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c
+> @@ -169,23 +169,23 @@ static void mmhub_v3_0_init_system_aperture_regs(struct amdgpu_device *adev)
+>         uint64_t value;
+>         uint32_t tmp;
 >
-> -       dc_allow_idle_optimizations(
-> -               dm->dc, dm->active_vblank_irq_count == 0 ? true : false);
-> +       dc_allow_idle_optimizations(dm->dc, dm->active_vblank_irq_count == 0);
+> -       if (!amdgpu_sriov_vf(adev)) {
+> -               /*
+> -                * the new L1 policy will block SRIOV guest from writing
+> -                * these regs, and they will be programed at host.
+> -                * so skip programing these regs.
+> -                */
+> -               /* Disable AGP. */
+> -               WREG32_SOC15(MMHUB, 0, regMMMC_VM_AGP_BASE, 0);
+> -               WREG32_SOC15(MMHUB, 0, regMMMC_VM_AGP_TOP, 0);
+> -               WREG32_SOC15(MMHUB, 0, regMMMC_VM_AGP_BOT, 0x00FFFFFF);
+> -
+> -               /* Program the system aperture low logical page number. */
+> -               WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_LOW_ADDR,
+> -                            adev->gmc.vram_start >> 18);
+> -               WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
+> -                            adev->gmc.vram_end >> 18);
+> -       }
+> +       if (amdgpu_sriov_vf(adev))
+> +               return;
+> +
+> +       /*
+> +        * the new L1 policy will block SRIOV guest from writing
+> +        * these regs, and they will be programed at host.
+> +        * so skip programing these regs.
+> +        */
+> +       /* Disable AGP. */
+> +       WREG32_SOC15(MMHUB, 0, regMMMC_VM_AGP_BASE, 0);
+> +       WREG32_SOC15(MMHUB, 0, regMMMC_VM_AGP_TOP, 0);
+> +       WREG32_SOC15(MMHUB, 0, regMMMC_VM_AGP_BOT, 0x00FFFFFF);
+> +       /* Program the system aperture low logical page number. */
+> +       WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_LOW_ADDR,
+> +                    adev->gmc.vram_start >> 18);
+> +       WREG32_SOC15(MMHUB, 0, regMMMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
+> +                    adev->gmc.vram_end >> 18);
 >
->         DRM_DEBUG_KMS("Allow idle optimizations (MALL): %d\n", dm->active_vblank_irq_count == 0);
+>         /* Set default page address. */
+>         value = adev->mem_scratch.gpu_addr - adev->gmc.vram_start +
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> index bf1fa5e8d2f9..6fe292a2486b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+> @@ -1403,10 +1403,12 @@ static int sdma_v6_0_set_trap_irq_state(struct amdgpu_device *adev,
 >
+>         u32 reg_offset = sdma_v6_0_get_reg_offset(adev, type, regSDMA0_CNTL);
+>
+> -       sdma_cntl = RREG32(reg_offset);
+> -       sdma_cntl = REG_SET_FIELD(sdma_cntl, SDMA0_CNTL, TRAP_ENABLE,
+> -                      state == AMDGPU_IRQ_STATE_ENABLE ? 1 : 0);
+> -       WREG32(reg_offset, sdma_cntl);
+> +       if (!amdgpu_sriov_vf(adev)) {
+> +               sdma_cntl = RREG32(reg_offset);
+> +               sdma_cntl = REG_SET_FIELD(sdma_cntl, SDMA0_CNTL, TRAP_ENABLE,
+> +                               state == AMDGPU_IRQ_STATE_ENABLE ? 1 : 0);
+> +               WREG32(reg_offset, sdma_cntl);
+> +       }
+>
+>         return 0;
+>  }
 > --
-> 2.34.1
->
->
+> 2.25.1
 >
