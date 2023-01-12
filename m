@@ -4,90 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C822CC54EBC
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Jan 2023 01:33:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71C4EC5479D
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Jan 2023 02:39:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA45B10E84D;
-	Thu, 12 Jan 2023 01:32:38 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2071.outbound.protection.outlook.com [40.107.223.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28B5710E2D9;
- Thu, 12 Jan 2023 01:32:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OyzFT4BrbrIfUVa//9SRlkQG3sHeolHk9BywBtV88IDH4++jPfqDS0RyFiW3oxOK2GkKzJUSoDKS925cNX0/grkdqGKHsltblzwaqHtBIC74q2XPoq6IxSXkL4NW+/NS9xWlkYg/CKt7TdjMGMhFY9lcyeIdSSvz8pseEHimSmxER2Glc7YTHVEvVHhSC/ylNDOux1uUWwcgTk8AssHWAYRu6ugmViB4X4Hc/6O0nsnAU76jq/sdTBcduAsr2lL8CmqNU5YZMgDXK5t+pf+YjU4cbVyYRom0nyy0gglLEcSXqizc5A4/BiH6Zmv/a5JiWvuvFJHsH6iuZENP+3Cmlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Dhs0ceRYNkUpFglPWLJH03bvZ9c2a+1Q0JCmLkqt17g=;
- b=XDoGZO0P1fMx/yztIuq9xgHnq9VN8RXYRV3eKGoRIwO/7P8cLZxqlRwP+F/Ipy72Or9iXf8m1hpv4+FGHepw2eWV51RUoP4L2OPs0ntv5dZ7V0MQ9O6UsLpryiDUTfwevRoITShONMYNWJZlyneRAlyCOf6WMfs+ncOydzH8K4G14V8Aj7twmkX62P0Yl2/3lfKbaULofo3LGmS6ON6xoOnCbiL5qe5NH+UDF2rTMMnZDEdQ7KhbjSz01LjgMBHZWsHzpP3tTK4VxqY2R/lNQ2a0Xq7/JrflW6DyOaN28bgaX796pq2OGSltch9bF2aEeDsi04bqiv+QlQ60Il2gmw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Dhs0ceRYNkUpFglPWLJH03bvZ9c2a+1Q0JCmLkqt17g=;
- b=rWEmK/Y/YPPp8mNEd44b+b984jk8o0cTk/SFOIZBM1l2fgLNXy8fy71k2E9FGghFd2jcdAPIr/c3Ld+5uPR9hVYbw4ZuRBeIyOV6fk4lODRfsezp3bCHEhwQurCa3amJnTyAw2xpHpND1/NA8eN4O5Vg3LjE21Qib1A0JIBbpCs=
-Received: from MW4PR04CA0176.namprd04.prod.outlook.com (2603:10b6:303:85::31)
- by IA0PR12MB8254.namprd12.prod.outlook.com (2603:10b6:208:408::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Thu, 12 Jan
- 2023 01:32:31 +0000
-Received: from CO1NAM11FT063.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:85:cafe::6d) by MW4PR04CA0176.outlook.office365.com
- (2603:10b6:303:85::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.13 via Frontend
- Transport; Thu, 12 Jan 2023 01:32:30 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT063.mail.protection.outlook.com (10.13.175.37) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5986.18 via Frontend Transport; Thu, 12 Jan 2023 01:32:30 +0000
-Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 11 Jan
- 2023 19:32:27 -0600
-From: Felix Kuehling <Felix.Kuehling@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: [PATCH 6/6] drm/amdgpu: Do bo_va ref counting for KFD BOs
-Date: Wed, 11 Jan 2023 20:31:57 -0500
-Message-ID: <20230112013157.750568-7-Felix.Kuehling@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230112013157.750568-1-Felix.Kuehling@amd.com>
-References: <20230112013157.750568-1-Felix.Kuehling@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D53D510E128;
+	Thu, 12 Jan 2023 02:39:32 +0000 (UTC)
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [IPv6:2a00:1450:4864:20::530])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82AC510E128
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Jan 2023 02:39:30 +0000 (UTC)
+Received: by mail-ed1-x530.google.com with SMTP id z11so25062325ede.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 18:39:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=F4OYvyqfIILYbu766xHlD+M6ysxbDa+Bjo45DwpWHAw=;
+ b=irSRdzm6oa0uwPwv1+HZnsG6Hh3YOqa/U7JyjWgc7JW1BsDDkN0GCeXN+AX/RvaIuy
+ ebgCxLn/ejA/hahSzhNeT+NVaWEE6rlB84ck3LncwDo2i5xYTmCWLQ1fJsr4PHN0IGxk
+ qta4RURFHHH1lI36BKzP99ZNM+QHfxRveMHBBimZbX8I8GEUgHRA2t1ZVjDco4aPXpZ2
+ bARR70sYwsg9C9tguI0cf2SO9bFLf3G7HyxVodlGIh4DbCpR8HKVceZashx56XUGIBzs
+ szrdETzfPdX0ddA6/rasoZKGIQVJEaplrVTNfx0tTjkruWYzd4yOvEBAA2KbasAA6YUw
+ JeOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=F4OYvyqfIILYbu766xHlD+M6ysxbDa+Bjo45DwpWHAw=;
+ b=OAQm1EoFS5LhifsABjG7yQ5YIxAzRzX7aqdFb4DUTxttF26JoI60VMHAooQ73OtYhi
+ nWWWZflawN4DYMC6TRg4D8UZBGZ0vUPlv2H8hqHY7sgnkFdI6JxWNjQbwVaA9EMbFWhy
+ KnS97I2m/lHkWNUj2hRh8Qc58IYjsDN/Ay8Bwg7OuJ2RoF/x8j1isTXyqc4Gb540syVn
+ PkDvvJTFvGTpaM9eD9SZbR5JqirZlqy5S7rFoPQzIMjRymPm6aHu/P6GgM/lH0Z0uYaO
+ UW06n9ryda6PkT6W/1VBKFAVoXt9RInVvW40JUi01+tWNhvum954eZw4S9CEzeSTVFod
+ I2Qg==
+X-Gm-Message-State: AFqh2kpSf8ajvaXiNifaEyYx+XZVt6BrSlAyR7G0PJ6943Ba6loQ5j/t
+ 4j1mD1Rt3Efr2N4ZxLTwrEyc8hd7VDOkaf7BjOc=
+X-Google-Smtp-Source: AMrXdXsPBptr1IYGDarL4fYPB4T9aQpjQiFe0HPu5APDVJb8fhd7V1kUjBZmIeJaJrkwni/+OQRkwsdtMT69tWhN5G8=
+X-Received: by 2002:a05:6402:2b90:b0:495:a21b:b3b0 with SMTP id
+ fj16-20020a0564022b9000b00495a21bb3b0mr2322044edb.131.1673491168868; Wed, 11
+ Jan 2023 18:39:28 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT063:EE_|IA0PR12MB8254:EE_
-X-MS-Office365-Filtering-Correlation-Id: 973803bd-f1c6-4efb-4d88-08daf43cdf25
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RuZfugg9vLqARrLegzMFxUI1SSpBVhcIjKaNxrC8Vptaap3iofigHSNdgTKAV1geXFk8MUrYOeiECu0DOVB+xI9tOAP2brfRMKOp1PE6S8qVy9ABfBCjLzEO4NacFiArNrRmt+1X/5TWZSi9DwDrqjsPel4pRiTQjZcGzwRdljJUScIio09Ni2186OT4/oaUZevcyBMLpbnixNzbkdR/Gh4/nJnbDT9CBldY8Xirle8Hee4gFRL1jmzyyFywoNLYOWuo+yXA5QEPTIzx4HV4S2kDxermswrbU4MtEDcdIaq8/qcUE069pxC2885QohC3KE+HQ3Ym27o5YUttt090FCFNxW34jEQp22BSuehXLV2Y69XLSO5ljXq+puHA8dNfT5aX60vrw3taOQjG98HELhm5dbnjfs19y5QjFWf5NPXzcF/j6bCgS/Gh5oUqs5By78yK7Xm9RvAIPQzXl4+jpQug8ULBIbUHJQW9QHCB5FoM4/mKsq3GnN03sczrALIcWOxf2QpF+gfjrdPG8C8+Wv7i8IUwi4iQjPBXnQBU0nAXR8Q+HAqmO/otEzGYQT5micMCw1DesTKPj19Dc7c3Yf6GLH3BQ6W1OXHhLCR7VJzkek2a0peRPE0GM6JdtrWImpFDPUOPq7SNHu3t62zP3fKxHQYjIQlyOuo11V6Bu88Tgwb9YLqj5Ez/CSp8N8P9MVtHwhI4xubUJw/3PWTEiXD6lGJ9JHaVlitQI1Rui+Y=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(376002)(396003)(346002)(136003)(451199015)(40470700004)(46966006)(36840700001)(26005)(16526019)(478600001)(40480700001)(186003)(1076003)(336012)(70586007)(2616005)(7696005)(6666004)(8676002)(41300700001)(450100002)(110136005)(316002)(54906003)(4326008)(47076005)(83380400001)(36860700001)(86362001)(81166007)(82740400003)(40460700003)(356005)(426003)(70206006)(82310400005)(8936002)(36756003)(5660300002)(2906002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2023 01:32:30.3763 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 973803bd-f1c6-4efb-4d88-08daf43cdf25
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT063.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8254
+References: <CAAxE2A720cJguG5b+0zbP=G4TxTjpqKBvOqDXXAP0LWHZEuj0A@mail.gmail.com>
+ <0931a762-c3a3-16c3-33a5-88e83fca4bcb@gmail.com>
+ <CAAxE2A5pBqOkny15tSRCWn_UW8=TTE=zYPChBZofZCrHZoQbww@mail.gmail.com>
+ <35304b1e-98a7-d342-9f1b-50f07b45cf98@gmail.com>
+ <CAAxE2A6KJWPJ3eqKoaiJZUJCNqRpx+WYwoGEZKxX2Kf_auLUWg@mail.gmail.com>
+ <a90b0e8e-dd02-031f-0432-1c5f6f02e949@amd.com>
+ <CAAxE2A7PJdiPORP-X+7kFmix9pCo63PqeamP20BZJx4GDfJdEQ@mail.gmail.com>
+ <8ec2b238-fa8b-a693-b9d9-3a590cc05664@amd.com>
+ <CAAxE2A7G_gjvuGNNtZ6J-4R25Ykx8ziz1B2f0Dc3KuC4KeYdzA@mail.gmail.com>
+ <BYAPR12MB461473D2083BC8B9FB012AC297F59@BYAPR12MB4614.namprd12.prod.outlook.com>
+ <CAAxE2A4F59qttYfrT66v4Fe0D1h4Km=DLY779uC=HHSGswg4Lg@mail.gmail.com>
+ <CADnq5_MLO4FLXrmUXPUzo2UBzqxa_hjfL0qBzibWAqO79uhxvw@mail.gmail.com>
+ <CADnq5_PPJanTuyNgL8eyxj-+HvPiPXN3e3hR3AHHivj0omcsXg@mail.gmail.com>
+In-Reply-To: <CADnq5_PPJanTuyNgL8eyxj-+HvPiPXN3e3hR3AHHivj0omcsXg@mail.gmail.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Wed, 11 Jan 2023 21:39:16 -0500
+Message-ID: <CAAxE2A732j-NNff4Dfqc7GAtrUJ6HcCMoz8ZFEz5KNpqWgvxkw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu: return the PCIe gen and lanes from the
+ INFO
+To: Alex Deucher <alexdeucher@gmail.com>
+Content-Type: multipart/alternative; boundary="000000000000a7bbc505f2080695"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,85 +76,523 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: xiaogang.chen@amd.com, christian.koenig@amd.com
+Cc: "Lazar, Lijo" <Lijo.Lazar@amd.com>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is needed to correctly handle BOs imported into the GEM API, which
-would otherwise get added twice to the same VM.
+--000000000000a7bbc505f2080695
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
----
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 28 +++++++++++++++----
- 1 file changed, 22 insertions(+), 6 deletions(-)
+On Wed, Jan 11, 2023, 15:50 Alex Deucher <alexdeucher@gmail.com> wrote:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index df08e84f01d7..8b5ba2e04a79 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -370,9 +370,17 @@ static int amdgpu_amdkfd_bo_validate_and_fence(struct amdgpu_bo *bo,
- 		return ret;
- 
- 	ret = amdgpu_amdkfd_bo_validate(bo, domain, true);
--	if (!ret)
--		dma_resv_add_fence(bo->tbo.base.resv, fence,
--				   DMA_RESV_USAGE_BOOKKEEP);
-+	if (ret)
-+		goto unreserve_out;
-+
-+	ret = dma_resv_reserve_fences(bo->tbo.base.resv, 1);
-+	if (ret)
-+		goto unreserve_out;
-+
-+	dma_resv_add_fence(bo->tbo.base.resv, fence,
-+			   DMA_RESV_USAGE_BOOKKEEP);
-+
-+unreserve_out:
- 	amdgpu_bo_unreserve(bo);
- 
- 	return ret;
-@@ -785,6 +793,7 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
- 	uint64_t va = mem->va;
- 	struct kfd_mem_attachment *attachment[2] = {NULL, NULL};
- 	struct amdgpu_bo *bo[2] = {NULL, NULL};
-+	struct amdgpu_bo_va *bo_va;
- 	bool same_hive = false;
- 	int i, ret;
- 
-@@ -871,7 +880,12 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
- 			pr_debug("Unable to reserve BO during memory attach");
- 			goto unwind;
- 		}
--		attachment[i]->bo_va = amdgpu_vm_bo_add(adev, vm, bo[i]);
-+		bo_va = amdgpu_vm_bo_find(vm, bo[i]);
-+		if (!bo_va)
-+			bo_va = amdgpu_vm_bo_add(adev, vm, bo[i]);
-+		else
-+			++bo_va->ref_count;
-+		attachment[i]->bo_va = bo_va;
- 		amdgpu_bo_unreserve(bo[i]);
- 		if (unlikely(!attachment[i]->bo_va)) {
- 			ret = -ENOMEM;
-@@ -895,7 +909,8 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
- 			continue;
- 		if (attachment[i]->bo_va) {
- 			amdgpu_bo_reserve(bo[i], true);
--			amdgpu_vm_bo_del(adev, attachment[i]->bo_va);
-+			if (--attachment[i]->bo_va->ref_count == 0)
-+				amdgpu_vm_bo_del(adev, attachment[i]->bo_va);
- 			amdgpu_bo_unreserve(bo[i]);
- 			list_del(&attachment[i]->list);
- 		}
-@@ -912,7 +927,8 @@ static void kfd_mem_detach(struct kfd_mem_attachment *attachment)
- 
- 	pr_debug("\t remove VA 0x%llx in entry %p\n",
- 			attachment->va, attachment);
--	amdgpu_vm_bo_del(attachment->adev, attachment->bo_va);
-+	if (--attachment->bo_va->ref_count == 0)
-+		amdgpu_vm_bo_del(attachment->adev, attachment->bo_va);
- 	drm_gem_object_put(&bo->tbo.base);
- 	list_del(&attachment->list);
- 	kfree(attachment);
--- 
-2.34.1
+> On Wed, Jan 11, 2023 at 3:48 PM Alex Deucher <alexdeucher@gmail.com>
+> wrote:
+> >
+> > On Wed, Jan 4, 2023 at 3:17 PM Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com>=
+ wrote:
+> > >
+> > > Yes, it's meant to be like a spec sheet. We are not interested in the
+> current bandwidth utilization.
+> >
+> > After chatting with Marek on IRC and thinking about this more, I think
+> > this patch is fine.  It's not really meant for bandwidth per se, but
+> > rather as a limit to determine what the driver should do in certain
+> > cases (i.e., when does it make sense to copy to vram vs not).  It's
+> > not straightforward for userspace to parse the full topology to
+> > determine what links may be slow.  I guess one potential pitfall would
+> > be that if you pass the device into a VM, the driver may report the
+> > wrong values.  Generally in a VM the VM doesn't get the full view up
+> > to the root port.  I don't know if the hypervisors report properly for
+> > pcie_bandwidth_available() in a VM or if it just shows the info about
+> > the endpoint in the VM.
+> >
+> > Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+>
+> Actually:
+>
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.=
+h
+> index fe7f871e3080..f7fc7325f17f 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -1053,7 +1053,7 @@ struct drm_amdgpu_info_device {
+>      __u32 enabled_rb_pipes_mask;
+>      __u32 num_rb_pipes;
+>      __u32 num_hw_gfx_contexts;
+> -    __u32 _pad;
+> +    __u32 pcie_gen;
+>      __u64 ids_flags;
+>      /** Starting virtual address for UMDs. */
+>      __u64 virtual_address_offset;
+> @@ -1109,6 +1109,7 @@ struct drm_amdgpu_info_device {
+>      __u64 high_va_max;
+>      /* gfx10 pa_sc_tile_steering_override */
+>      __u32 pa_sc_tile_steering_override;
+> +    __u32 pcie_num_lanes;
+>      /* disabled TCCs */
+>      __u64 tcc_disabled_mask;
+>      __u64 min_engine_clock;
+>
+> Doesn't that last one need to be added to the end of the structure?
+>
 
+There was a hole because one u32 was surrounded by 2 u64s. (unless I missed
+some packing #pragma)
+
+Marek
+
+
+> Alex
+>
+> >
+> > Alex
+> >
+> > >
+> > > Marek
+> > >
+> > > On Wed, Jan 4, 2023 at 10:33 AM Lazar, Lijo <Lijo.Lazar@amd.com>
+> wrote:
+> > >>
+> > >> [AMD Official Use Only - General]
+> > >>
+> > >>
+> > >> To clarify, with DPM in place, the current bandwidth will be changin=
+g
+> based on the load.
+> > >>
+> > >> If apps/umd already has a way to know the current bandwidth
+> utilisation, then possible maximum also could be part of the same API.
+> Otherwise, this only looks like duplicate information. We have the same
+> information in sysfs DPM nodes.
+> > >>
+> > >> BTW, I don't know to what extent app/umd really makes use of this.
+> Take that memory frequency as an example (I'm reading it as 16GHz). It on=
+ly
+> looks like a spec sheet.
+> > >>
+> > >> Thanks,
+> > >> Lijo
+> > >> ________________________________
+> > >> From: Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com>
+> > >> Sent: Wednesday, January 4, 2023 8:40:00 PM
+> > >> To: Lazar, Lijo <Lijo.Lazar@amd.com>
+> > >> Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+> > >> Subject: Re: [PATCH 1/2] drm/amdgpu: return the PCIe gen and lanes
+> from the INFO
+> > >>
+> > >> On Wed, Jan 4, 2023 at 9:19 AM Lazar, Lijo <lijo.lazar@amd.com>
+> wrote:
+> > >>
+> > >>
+> > >>
+> > >> On 1/4/2023 7:43 PM, Marek Ol=C5=A1=C3=A1k wrote:
+> > >> > On Wed, Jan 4, 2023 at 6:50 AM Lazar, Lijo <lijo.lazar@amd.com
+> > >> > <mailto:lijo.lazar@amd.com>> wrote:
+> > >> >
+> > >> >
+> > >> >
+> > >> >     On 1/4/2023 4:11 AM, Marek Ol=C5=A1=C3=A1k wrote:
+> > >> >      > I see. Well, those sysfs files are not usable, and I don't
+> think it
+> > >> >      > would be important even if they were usable, but for
+> completeness:
+> > >> >      >
+> > >> >      > The ioctl returns:
+> > >> >      >      pcie_gen =3D 1
+> > >> >      >      pcie_num_lanes =3D 16
+> > >> >      >
+> > >> >      > Theoretical bandwidth from those values: 4.0 GB/s
+> > >> >      > My DMA test shows this write bandwidth: 3.5 GB/s
+> > >> >      > It matches the expectation.
+> > >> >      >
+> > >> >      > Let's see the devices (there is only 1 GPU Navi21 in the
+> system):
+> > >> >      > $ lspci |egrep '(PCI|VGA).*Navi'
+> > >> >      > 0a:00.0 PCI bridge: Advanced Micro Devices, Inc. [AMD/ATI]
+> Navi
+> > >> >     10 XL
+> > >> >      > Upstream Port of PCI Express Switch (rev c3)
+> > >> >      > 0b:00.0 PCI bridge: Advanced Micro Devices, Inc. [AMD/ATI]
+> Navi
+> > >> >     10 XL
+> > >> >      > Downstream Port of PCI Express Switch
+> > >> >      > 0c:00.0 VGA compatible controller: Advanced Micro Devices,
+> Inc.
+> > >> >      > [AMD/ATI] Navi 21 [Radeon RX 6800/6800 XT / 6900 XT] (rev c=
+3)
+> > >> >      >
+> > >> >      > Let's read sysfs:
+> > >> >      >
+> > >> >      > $ cat /sys/bus/pci/devices/0000:0a:00.0/current_link_width
+> > >> >      > 16
+> > >> >      > $ cat /sys/bus/pci/devices/0000:0b:00.0/current_link_width
+> > >> >      > 16
+> > >> >      > $ cat /sys/bus/pci/devices/0000:0c:00.0/current_link_width
+> > >> >      > 16
+> > >> >      > $ cat /sys/bus/pci/devices/0000:0a:00.0/current_link_speed
+> > >> >      > 2.5 GT/s PCIe
+> > >> >      > $ cat /sys/bus/pci/devices/0000:0b:00.0/current_link_speed
+> > >> >      > 16.0 GT/s PCIe
+> > >> >      > $ cat /sys/bus/pci/devices/0000:0c:00.0/current_link_speed
+> > >> >      > 16.0 GT/s PCIe
+> > >> >      >
+> > >> >      > Problem 1: None of the speed numbers match 4 GB/s.
+> > >> >
+> > >> >     US bridge =3D 2.5GT/s means operating at PCIe Gen 1 speed. Tot=
+al
+> > >> >     theoretical bandwidth is then derived based on encoding and
+> total
+> > >> >     number
+> > >> >     of lanes.
+> > >> >
+> > >> >      > Problem 2: Userspace doesn't know the bus index of the
+> bridges,
+> > >> >     and it's
+> > >> >      > not clear which bridge should be used.
+> > >> >
+> > >> >     In general, modern ones have this arch=3D US->DS->EP. US is th=
+e
+> one
+> > >> >     connected to physical link.
+> > >> >
+> > >> >      > Problem 3: The PCIe gen number is missing.
+> > >> >
+> > >> >     Current link speed is based on whether it's Gen1/2/3/4/5.
+> > >> >
+> > >> >     BTW, your patch makes use of capabilities flags which gives th=
+e
+> maximum
+> > >> >     supported speed/width by the device. It may not necessarily
+> reflect the
+> > >> >     current speed/width negotiated. I guess in NV, this info is
+> already
+> > >> >     obtained from PMFW and made available through metrics table.
+> > >> >
+> > >> >
+> > >> > It computes the minimum of the device PCIe gen and the
+> motherboard/slot
+> > >> > PCIe gen to get the final value. These 2 lines do that. The low 16
+> bits
+> > >> > of the mask contain the device PCIe gen mask. The high 16 bits of
+> the
+> > >> > mask contain the slot PCIe gen mask.
+> > >> > + pcie_gen_mask =3D adev->pm.pcie_gen_mask & (adev->pm.pcie_gen_ma=
+sk
+> >> 16);
+> > >> > + dev_info->pcie_gen =3D fls(pcie_gen_mask);
+> > >> >
+> > >>
+> > >> With DPM in place on some ASICs, how much does this static info help
+> for
+> > >> upper level apps?
+> > >>
+> > >>
+> > >> It helps UMDs make better decisions if they know the maximum
+> achievable bandwidth. UMDs also compute the maximum memory bandwidth and
+> compute performance (FLOPS). Right now it's printed by Mesa to give users
+> detailed information about their GPU. For example:
+> > >>
+> > >> $ AMD_DEBUG=3Dinfo glxgears
+> > >> Device info:
+> > >>     name =3D NAVI21
+> > >>     marketing_name =3D AMD Radeon RX 6800
+> > >>     num_se =3D 3
+> > >>     num_rb =3D 12
+> > >>     num_cu =3D 60
+> > >>     max_gpu_freq =3D 2475 MHz
+> > >>     max_gflops =3D 19008 GFLOPS
+> > >>     l0_cache_size =3D 16 KB
+> > >>     l1_cache_size =3D 128 KB
+> > >>     l2_cache_size =3D 4096 KB
+> > >>     l3_cache_size =3D 128 MB
+> > >>     memory_channels =3D 16 (TCC blocks)
+> > >>     memory_size =3D 16 GB (16384 MB)
+> > >>     memory_freq =3D 16 GHz
+> > >>     memory_bus_width =3D 256 bits
+> > >>     memory_bandwidth =3D 512 GB/s
+> > >>     pcie_gen =3D 1
+> > >>     pcie_num_lanes =3D 16
+> > >>     pcie_bandwidth =3D 4.0 GB/s
+> > >>
+> > >> Marek
+>
+
+--000000000000a7bbc505f2080695
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D=
+"gmail_attr">On Wed, Jan 11, 2023, 15:50 Alex Deucher &lt;<a href=3D"mailto=
+:alexdeucher@gmail.com">alexdeucher@gmail.com</a>&gt; wrote:<br></div><bloc=
+kquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #cc=
+c solid;padding-left:1ex">On Wed, Jan 11, 2023 at 3:48 PM Alex Deucher &lt;=
+<a href=3D"mailto:alexdeucher@gmail.com" target=3D"_blank" rel=3D"noreferre=
+r">alexdeucher@gmail.com</a>&gt; wrote:<br>
+&gt;<br>
+&gt; On Wed, Jan 4, 2023 at 3:17 PM Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"ma=
+ilto:maraeo@gmail.com" target=3D"_blank" rel=3D"noreferrer">maraeo@gmail.co=
+m</a>&gt; wrote:<br>
+&gt; &gt;<br>
+&gt; &gt; Yes, it&#39;s meant to be like a spec sheet. We are not intereste=
+d in the current bandwidth utilization.<br>
+&gt;<br>
+&gt; After chatting with Marek on IRC and thinking about this more, I think=
+<br>
+&gt; this patch is fine.=C2=A0 It&#39;s not really meant for bandwidth per =
+se, but<br>
+&gt; rather as a limit to determine what the driver should do in certain<br=
+>
+&gt; cases (i.e., when does it make sense to copy to vram vs not).=C2=A0 It=
+&#39;s<br>
+&gt; not straightforward for userspace to parse the full topology to<br>
+&gt; determine what links may be slow.=C2=A0 I guess one potential pitfall =
+would<br>
+&gt; be that if you pass the device into a VM, the driver may report the<br=
+>
+&gt; wrong values.=C2=A0 Generally in a VM the VM doesn&#39;t get the full =
+view up<br>
+&gt; to the root port.=C2=A0 I don&#39;t know if the hypervisors report pro=
+perly for<br>
+&gt; pcie_bandwidth_available() in a VM or if it just shows the info about<=
+br>
+&gt; the endpoint in the VM.<br>
+&gt;<br>
+&gt; Reviewed-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.=
+com" target=3D"_blank" rel=3D"noreferrer">alexander.deucher@amd.com</a>&gt;=
+<br>
+<br>
+Actually:<br>
+<br>
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h<=
+br>
+index fe7f871e3080..f7fc7325f17f 100644<br>
+--- a/include/uapi/drm/amdgpu_drm.h<br>
++++ b/include/uapi/drm/amdgpu_drm.h<br>
+@@ -1053,7 +1053,7 @@ struct drm_amdgpu_info_device {<br>
+=C2=A0 =C2=A0 =C2=A0__u32 enabled_rb_pipes_mask;<br>
+=C2=A0 =C2=A0 =C2=A0__u32 num_rb_pipes;<br>
+=C2=A0 =C2=A0 =C2=A0__u32 num_hw_gfx_contexts;<br>
+-=C2=A0 =C2=A0 __u32 _pad;<br>
++=C2=A0 =C2=A0 __u32 pcie_gen;<br>
+=C2=A0 =C2=A0 =C2=A0__u64 ids_flags;<br>
+=C2=A0 =C2=A0 =C2=A0/** Starting virtual address for UMDs. */<br>
+=C2=A0 =C2=A0 =C2=A0__u64 virtual_address_offset;<br>
+@@ -1109,6 +1109,7 @@ struct drm_amdgpu_info_device {<br>
+=C2=A0 =C2=A0 =C2=A0__u64 high_va_max;<br>
+=C2=A0 =C2=A0 =C2=A0/* gfx10 pa_sc_tile_steering_override */<br>
+=C2=A0 =C2=A0 =C2=A0__u32 pa_sc_tile_steering_override;<br>
++=C2=A0 =C2=A0 __u32 pcie_num_lanes;<br>
+=C2=A0 =C2=A0 =C2=A0/* disabled TCCs */<br>
+=C2=A0 =C2=A0 =C2=A0__u64 tcc_disabled_mask;<br>
+=C2=A0 =C2=A0 =C2=A0__u64 min_engine_clock;<br>
+<br>
+Doesn&#39;t that last one need to be added to the end of the structure?<br>=
+</blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">Ther=
+e was a hole because one u32 was surrounded by 2 u64s. (unless I missed som=
+e packing #pragma)</div><div dir=3D"auto"><br></div><div dir=3D"auto">Marek=
+</div><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quo=
+te"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-lef=
+t:1px #ccc solid;padding-left:1ex">
+<br>
+Alex<br>
+<br>
+&gt;<br>
+&gt; Alex<br>
+&gt;<br>
+&gt; &gt;<br>
+&gt; &gt; Marek<br>
+&gt; &gt;<br>
+&gt; &gt; On Wed, Jan 4, 2023 at 10:33 AM Lazar, Lijo &lt;<a href=3D"mailto=
+:Lijo.Lazar@amd.com" target=3D"_blank" rel=3D"noreferrer">Lijo.Lazar@amd.co=
+m</a>&gt; wrote:<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; [AMD Official Use Only - General]<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; To clarify, with DPM in place, the current bandwidth will be =
+changing based on the load.<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; If apps/umd already has a way to know the current bandwidth u=
+tilisation, then possible maximum also could be part of the same API. Other=
+wise, this only looks like duplicate information. We have the same informat=
+ion in sysfs DPM nodes.<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; BTW, I don&#39;t know to what extent app/umd really makes use=
+ of this. Take that memory frequency as an example (I&#39;m reading it as 1=
+6GHz). It only looks like a spec sheet.<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; Thanks,<br>
+&gt; &gt;&gt; Lijo<br>
+&gt; &gt;&gt; ________________________________<br>
+&gt; &gt;&gt; From: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:maraeo@gmai=
+l.com" target=3D"_blank" rel=3D"noreferrer">maraeo@gmail.com</a>&gt;<br>
+&gt; &gt;&gt; Sent: Wednesday, January 4, 2023 8:40:00 PM<br>
+&gt; &gt;&gt; To: Lazar, Lijo &lt;<a href=3D"mailto:Lijo.Lazar@amd.com" tar=
+get=3D"_blank" rel=3D"noreferrer">Lijo.Lazar@amd.com</a>&gt;<br>
+&gt; &gt;&gt; Cc: <a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=
+=3D"_blank" rel=3D"noreferrer">amd-gfx@lists.freedesktop.org</a> &lt;<a hre=
+f=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank" rel=3D"norefer=
+rer">amd-gfx@lists.freedesktop.org</a>&gt;<br>
+&gt; &gt;&gt; Subject: Re: [PATCH 1/2] drm/amdgpu: return the PCIe gen and =
+lanes from the INFO<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; On Wed, Jan 4, 2023 at 9:19 AM Lazar, Lijo &lt;<a href=3D"mai=
+lto:lijo.lazar@amd.com" target=3D"_blank" rel=3D"noreferrer">lijo.lazar@amd=
+.com</a>&gt; wrote:<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; On 1/4/2023 7:43 PM, Marek Ol=C5=A1=C3=A1k wrote:<br>
+&gt; &gt;&gt; &gt; On Wed, Jan 4, 2023 at 6:50 AM Lazar, Lijo &lt;<a href=
+=3D"mailto:lijo.lazar@amd.com" target=3D"_blank" rel=3D"noreferrer">lijo.la=
+zar@amd.com</a><br>
+&gt; &gt;&gt; &gt; &lt;mailto:<a href=3D"mailto:lijo.lazar@amd.com" target=
+=3D"_blank" rel=3D"noreferrer">lijo.lazar@amd.com</a>&gt;&gt; wrote:<br>
+&gt; &gt;&gt; &gt;<br>
+&gt; &gt;&gt; &gt;<br>
+&gt; &gt;&gt; &gt;<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0On 1/4/2023 4:11 AM, Marek Ol=C5=A1=
+=C3=A1k wrote:<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; I see. Well, those sysfs files =
+are not usable, and I don&#39;t think it<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; would be important even if they=
+ were usable, but for completeness:<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; The ioctl returns:<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 pcie_gen =
+=3D 1<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0 pcie_num_la=
+nes =3D 16<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; Theoretical bandwidth from thos=
+e values: 4.0 GB/s<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; My DMA test shows this write ba=
+ndwidth: 3.5 GB/s<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; It matches the expectation.<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; Let&#39;s see the devices (ther=
+e is only 1 GPU Navi21 in the system):<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; $ lspci |egrep &#39;(PCI|VGA).*=
+Navi&#39;<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; 0a:00.0 PCI bridge: Advanced Mi=
+cro Devices, Inc. [AMD/ATI] Navi<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A010 XL<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; Upstream Port of PCI Express Sw=
+itch (rev c3)<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; 0b:00.0 PCI bridge: Advanced Mi=
+cro Devices, Inc. [AMD/ATI] Navi<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A010 XL<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; Downstream Port of PCI Express =
+Switch<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; 0c:00.0 VGA compatible controll=
+er: Advanced Micro Devices, Inc.<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; [AMD/ATI] Navi 21 [Radeon RX 68=
+00/6800 XT / 6900 XT] (rev c3)<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; Let&#39;s read sysfs:<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; $ cat /sys/bus/pci/devices/0000=
+:0a:00.0/current_link_width<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; 16<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; $ cat /sys/bus/pci/devices/0000=
+:0b:00.0/current_link_width<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; 16<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; $ cat /sys/bus/pci/devices/0000=
+:0c:00.0/current_link_width<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; 16<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; $ cat /sys/bus/pci/devices/0000=
+:0a:00.0/current_link_speed<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; 2.5 GT/s PCIe<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; $ cat /sys/bus/pci/devices/0000=
+:0b:00.0/current_link_speed<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; 16.0 GT/s PCIe<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; $ cat /sys/bus/pci/devices/0000=
+:0c:00.0/current_link_speed<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; 16.0 GT/s PCIe<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; Problem 1: None of the speed nu=
+mbers match 4 GB/s.<br>
+&gt; &gt;&gt; &gt;<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0US bridge =3D 2.5GT/s means operating=
+ at PCIe Gen 1 speed. Total<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0theoretical bandwidth is then derived=
+ based on encoding and total<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0number<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0of lanes.<br>
+&gt; &gt;&gt; &gt;<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; Problem 2: Userspace doesn&#39;=
+t know the bus index of the bridges,<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0and it&#39;s<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; not clear which bridge should b=
+e used.<br>
+&gt; &gt;&gt; &gt;<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0In general, modern ones have this arc=
+h=3D US-&gt;DS-&gt;EP. US is the one<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0connected to physical link.<br>
+&gt; &gt;&gt; &gt;<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0 &gt; Problem 3: The PCIe gen number =
+is missing.<br>
+&gt; &gt;&gt; &gt;<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0Current link speed is based on whethe=
+r it&#39;s Gen1/2/3/4/5.<br>
+&gt; &gt;&gt; &gt;<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0BTW, your patch makes use of capabili=
+ties flags which gives the maximum<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0supported speed/width by the device. =
+It may not necessarily reflect the<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0current speed/width negotiated. I gue=
+ss in NV, this info is already<br>
+&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0obtained from PMFW and made available=
+ through metrics table.<br>
+&gt; &gt;&gt; &gt;<br>
+&gt; &gt;&gt; &gt;<br>
+&gt; &gt;&gt; &gt; It computes the minimum of the device PCIe gen and the m=
+otherboard/slot<br>
+&gt; &gt;&gt; &gt; PCIe gen to get the final value. These 2 lines do that. =
+The low 16 bits<br>
+&gt; &gt;&gt; &gt; of the mask contain the device PCIe gen mask. The high 1=
+6 bits of the<br>
+&gt; &gt;&gt; &gt; mask contain the slot PCIe gen mask.<br>
+&gt; &gt;&gt; &gt; + pcie_gen_mask =3D adev-&gt;pm.pcie_gen_mask &amp; (ade=
+v-&gt;pm.pcie_gen_mask &gt;&gt; 16);<br>
+&gt; &gt;&gt; &gt; + dev_info-&gt;pcie_gen =3D fls(pcie_gen_mask);<br>
+&gt; &gt;&gt; &gt;<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; With DPM in place on some ASICs, how much does this static in=
+fo help for<br>
+&gt; &gt;&gt; upper level apps?<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; It helps UMDs make better decisions if they know the maximum =
+achievable bandwidth. UMDs also compute the maximum memory bandwidth and co=
+mpute performance (FLOPS). Right now it&#39;s printed by Mesa to give users=
+ detailed information about their GPU. For example:<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; $ AMD_DEBUG=3Dinfo glxgears<br>
+&gt; &gt;&gt; Device info:<br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0name =3D NAVI21<br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0marketing_name =3D AMD Radeon RX 6800<br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0num_se =3D 3<br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0num_rb =3D 12<br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0num_cu =3D 60<br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0max_gpu_freq =3D 2475 MHz<br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0max_gflops =3D 19008 GFLOPS<br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0l0_cache_size =3D 16 KB<br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0l1_cache_size =3D 128 KB<br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0l2_cache_size =3D 4096 KB<br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0l3_cache_size =3D 128 MB<br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0memory_channels =3D 16 (TCC blocks)<br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0memory_size =3D 16 GB (16384 MB)<br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0memory_freq =3D 16 GHz<br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0memory_bus_width =3D 256 bits<br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0memory_bandwidth =3D 512 GB/s<br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0pcie_gen =3D 1<br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0pcie_num_lanes =3D 16<br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0pcie_bandwidth =3D 4.0 GB/s<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; Marek<br>
+</blockquote></div></div></div>
+
+--000000000000a7bbc505f2080695--
