@@ -4,127 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84D51C54EBC
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Jan 2023 11:50:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2924DC54EBD
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Jan 2023 12:02:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6CCC10E1A4;
-	Thu, 12 Jan 2023 11:50:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E50B10E2DC;
+	Thu, 12 Jan 2023 12:02:10 +0000 (UTC)
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2080.outbound.protection.outlook.com [40.107.237.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECF6610E1A4
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Jan 2023 11:50:40 +0000 (UTC)
+ (mail-bn8nam12on2055.outbound.protection.outlook.com [40.107.237.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19EA210E2DC;
+ Thu, 12 Jan 2023 12:02:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WDi2CqdysyPidZFHDMXXogBcr2IXUbD8Fd9fFB4cbASlLNFcfABQT/unPK+ME6888ubZue8P1XOUSHZveBonBcqhTq3TH35bCplkn1bEsGKApg+fTs+iXNrfMc+4DzRz/bSdwPMfFlCK7UaZNXFqLlwcSvFmigFl8L3D6CPOe+uskZ4Yfk7lHfqZaIHxH+S/15xhPSWX4yXcN9n6RLqRRM6Tfo9xvmX5CrKQY1O6I8/uFgSiFcHY3I5QuPDTb0ZPifBu5eHyeCQUxATFb4xnWme27sE+PgzE8PUjj+KrHPITVG5ynPlBXwCiB59TCbS6c4yUSGRTc/naXMvWzFA8fw==
+ b=EGdiAHuYW538ujIVU915wYytFGabDAmPgXaasTtefL1iYZcev9d0trkaLNUKRkjeVDiXO3iEv9Pu2KWkXbDala3VbJKkWZGTd+7ZQqTUWggryPSOFvmzvtUXAwd3yjFKcu75M1YXRMrdsO8RyRS8FPWIKamy07a8jkoszBI14Kg34THUR/ZhGPLVwPCL1ca+mGkWmAJOUtw85oeoJl/J9nMjUYT9fUJUz9Aj2GAyLcHIHowQUBv9s67A3mKhUkf2kWFANKGN0oH2d0WjH1eLUE46osaXUilqbsn5PbMPxo/D9tNWZaTdUPNli8QeBH+QkW/CPzKf+c148UCxiqNt0g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5mHm3NukN+xmZyn8S0so1aafETKJr01VFUcGoIo1+pw=;
- b=NODTEgCyjeztvDRljyqCDJixesoQScI3KfN3ZfGetkXCKvqA7v1/aty4WykJnyaGluJdSd81sU8kuc1WUw3khfpLX1WjHXdaey2riIGLPw42TmctCsPC4Fp+NHpUAv59IxMoYncRDNzgnCZOHq9AJXILYS/i3lbQHD5LhycBHFth/FblndrShPw91Jgn9y1m8HHq5OuIs/dqX2sMk31U5lMmjmqnQ14Tdh9BwrmxwqQPyyCsIeqgCp7hka6V2wU3GbSLsYyAMYWt41YfYlT1tVePhSrdshGPP6AeFvMRJMASLH6bPze7d5Zll1lsmddCcw3yP261AiKZDm9O9dQqBw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=NdbUzn8q0xGKlgY0mobVpFoHgdmzv3lyen7jbdpyfC8=;
+ b=J2RHQ5mXayr6/RCtqmDV1OrgF74v4pzRNIODPqUjOfq51sG27JYXacTj4+aQijJs/qHyX06uDYiPbWnbdsKnfw7GrpL9SxEp+telQivM022CAdZZAvgK8HeSeiJfTxNP3RZUhU4O/Ek11PYnYT34WrCVNqRjZWzftw4Kgt48tZeel+B7NyJtxXGJ4bct/NPgJfT2a1o5Y/BP5NGiQOGKxLI753aIzjFea2oAukDLgdA11jceO9W2iYcFpU1wDJuMqKkug+OgO+9tyCTd6lV0TCb+/fq2HM0D8Vs+OtZGs8hmQOLphWJzqSu1hsYpmnG7ZqDDVwfMbPMtC/2gBZ9tUQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5mHm3NukN+xmZyn8S0so1aafETKJr01VFUcGoIo1+pw=;
- b=rMJ6UM7YE7Ioc1bvRrWSg2DyhMDSet1R5CRD+Yk/JMhH/jbhAIhWesbLEQhGqyPo7F5bYa/9dLHg2wxpe6sgv0Rqd0v+mPJ9uiikyLvmH9BPitYmY0IDBZzWHlwgn9P53XjUw13Xc8ol5MsYMHpeJCLbW0GLFPQ2NdyR4elI9tE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by MN2PR12MB4061.namprd12.prod.outlook.com (2603:10b6:208:19a::18)
+ bh=NdbUzn8q0xGKlgY0mobVpFoHgdmzv3lyen7jbdpyfC8=;
+ b=fssBo51YX1LOijaubKiU4p2er+aSwoUdHs9YZ7Jrgv5y3p1yWi2gHqklP0sR9iXFC+mzAYU93F3UwXJdchiHcNQ7wXMdSPJK8RklUUuDtGuDukYOe34Ee7DfmHYBEbnjMWBAVgOmWVzwXgxA7e90r8hplODx0B83uGEcMu/5X0g=
+Received: from CY5PR04CA0018.namprd04.prod.outlook.com (2603:10b6:930:1e::31)
+ by BL1PR12MB5874.namprd12.prod.outlook.com (2603:10b6:208:396::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.13; Thu, 12 Jan
- 2023 11:50:39 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::80d8:934f:caa7:67b0]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::80d8:934f:caa7:67b0%3]) with mapi id 15.20.5986.018; Thu, 12 Jan 2023
- 11:50:38 +0000
-Message-ID: <e931b723-d4bf-be9c-0f08-6f3bf00eb938@amd.com>
-Date: Thu, 12 Jan 2023 12:50:32 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH 1/2] drm/amdgpu: return the PCIe gen and lanes from the
- INFO
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?=
- <maraeo@gmail.com>
-References: <CAAxE2A720cJguG5b+0zbP=G4TxTjpqKBvOqDXXAP0LWHZEuj0A@mail.gmail.com>
- <0931a762-c3a3-16c3-33a5-88e83fca4bcb@gmail.com>
- <CAAxE2A5pBqOkny15tSRCWn_UW8=TTE=zYPChBZofZCrHZoQbww@mail.gmail.com>
- <35304b1e-98a7-d342-9f1b-50f07b45cf98@gmail.com>
- <CAAxE2A6KJWPJ3eqKoaiJZUJCNqRpx+WYwoGEZKxX2Kf_auLUWg@mail.gmail.com>
- <a90b0e8e-dd02-031f-0432-1c5f6f02e949@amd.com>
- <CAAxE2A7PJdiPORP-X+7kFmix9pCo63PqeamP20BZJx4GDfJdEQ@mail.gmail.com>
- <8ec2b238-fa8b-a693-b9d9-3a590cc05664@amd.com>
- <CAAxE2A7G_gjvuGNNtZ6J-4R25Ykx8ziz1B2f0Dc3KuC4KeYdzA@mail.gmail.com>
- <BYAPR12MB461473D2083BC8B9FB012AC297F59@BYAPR12MB4614.namprd12.prod.outlook.com>
- <CAAxE2A4F59qttYfrT66v4Fe0D1h4Km=DLY779uC=HHSGswg4Lg@mail.gmail.com>
- <CADnq5_MLO4FLXrmUXPUzo2UBzqxa_hjfL0qBzibWAqO79uhxvw@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CADnq5_MLO4FLXrmUXPUzo2UBzqxa_hjfL0qBzibWAqO79uhxvw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0040.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:92::7) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.19; Thu, 12 Jan
+ 2023 12:02:06 +0000
+Received: from CY4PEPF0000C96F.namprd02.prod.outlook.com
+ (2603:10b6:930:1e:cafe::17) by CY5PR04CA0018.outlook.office365.com
+ (2603:10b6:930:1e::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.13 via Frontend
+ Transport; Thu, 12 Jan 2023 12:02:06 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000C96F.mail.protection.outlook.com (10.167.242.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6002.11 via Frontend Transport; Thu, 12 Jan 2023 12:02:06 +0000
+Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.34; Thu, 12 Jan 2023 06:02:04 -0600
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <amd-gfx@lists.freedesktop.org>, <matthew.auld@intel.com>,
+ <christian.koenig@amd.com>, <alexander.deucher@amd.com>
+Subject: [PATCH v2] drm: Optimize drm buddy top-down allocation method
+Date: Thu, 12 Jan 2023 04:00:27 -0800
+Message-ID: <20230112120027.3072-1-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|MN2PR12MB4061:EE_
-X-MS-Office365-Filtering-Correlation-Id: ad09d3f2-790c-4b92-1ff3-08daf493395e
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000C96F:EE_|BL1PR12MB5874:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1dce6029-037f-4b75-ba66-08daf494d377
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1zZ62AdpQilBU/YugKnF+PssIz5mE34alv0z1ptnX2T8pbblWvDi4NSvUvE1GQEdAN76ti+dLd0XQYp67/2Veg9xblCa8ysKQb6ajtGJmR2ht9o1RikKcCwNbVaHTk8zdEgo+jIX0AhWJE2R3B1sAE6OhecSaVpxcONpqmHkH4og5DqGeWsuolfI3uz7iOJv/SA/Br7u8zivjIgV8H6z99lo5uQG2eq+CjoCMV4xVbrm7KcyI8blf/rt9BoUniqS23HQJ0JGhR2jxtgqKN1vbH4Fdq3w2Zn1GURk/2uINcGCMryq+2oVibmO9GNDchO5N+6KtLjBXHY2jRJNQe3LzCoa3/3DLFH3AQ5AGm8YDgowNguzx5LHg7QmTxDHpFPAjLlGuAOvn2SPx5/ozNvXrLXlYSD3xVPUNmJ/JOvW3QfL/kDVsRXPaZ4NiWZzIYKGa/d9BmXIqVLU8BGM2YTkT2GNy986FX65tEXSwSRKb0ic4rScO/lB8jN+hoHnqQx85hKMy7jnaaD8iy3pmh2o9H80+s0SQSNEgMdFz9k/I8BKHHmVm9aW5bE3EamN3gm5H94jFHA1Eu/E8cZfRJouVpPDzTibwN8/ckRtxNQ3MwJIGR/TC9y6TfYW44uhogls68wESBPtX3wkqapvxhMNxwaC2LvH2ypDnfOyzMYp9l/PF7WwA0hkl1F5GWDptr2VAe/x45Lh42d45LuGXS4YPxOMvM45HjH8GIMq9J4IAq8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(346002)(366004)(376002)(39860400002)(396003)(451199015)(5660300002)(54906003)(6666004)(2616005)(6506007)(36756003)(2906002)(53546011)(31696002)(38100700002)(83380400001)(86362001)(6486002)(316002)(6512007)(110136005)(186003)(478600001)(26005)(31686004)(8936002)(66946007)(4326008)(8676002)(66476007)(41300700001)(66556008)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: E8nC50UPsvZOxviT62v4vDPs7By2RAzXj9L/Y8nG9L2tE5zpGgpBuSZSOKrqSbwm64iHcpHKrk7ZntmJs6zHUn9TJxbIGbhnRS0vcLtD6tce9y4cFJwz+nS6/mtzyI1TBgzyX+LhKVmnOSUPOxoUNzef23UgLIRHTUQXrVMrl981Lfw2zJ5ekNYKszWH0GAktHroxdse5CrP9guRhLpM2TiNhvbR/mT76T45nb9araXf6ualhA4vuvPbxFqIxnD8zimaojZPQzrxeBDtwxyHNP3QTm/KVv9VFXVuvekwUIY1fu9JEpnIx+RJsVrbzjqyfx1EzSGxISIcu/JIinrEQ1tYIw7n9NYVZ870IeOo3TQ0KwQC5CHuPnTVNUgJbxdJZb9qa00cifc/aLcOQmer04o677URFu9gHUDywPcFtV3S2M+uFkhXABDKQXVGpBCe256liG4UjZftpKCc1oHIffAWnC3sHCpqbP15NojvyMeGXO2RnD/xqKpPG942U+/AvjGac2VHmEST3eCIHrsUWp+hLcihq1ADO7Qsb2/DxJaVdWeytlqmgtu3r16aYuRJy0WAEWCsVGzNBhas25XFSvn50ljLZfAB+dEyLugjRtd0q7jadQYxESQ2b4w4CJKEdK2ZX2IzPb3Kn3xib0W+wanleQdmdAidwOSN2F03eG+XWklx+WFDA5wDpZJN2DJN1gT7uMKfz3hlxoqOOh5Ivq6hs2yIGLpFiyYnCuwz81s=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(39860400002)(346002)(376002)(136003)(451199015)(46966006)(40470700004)(36840700001)(8936002)(5660300002)(83380400001)(41300700001)(426003)(47076005)(66574015)(81166007)(86362001)(82740400003)(82310400005)(356005)(36756003)(40460700003)(2906002)(40480700001)(36860700001)(478600001)(26005)(186003)(7696005)(16526019)(336012)(8676002)(4326008)(70586007)(70206006)(316002)(1076003)(110136005)(2616005)(6636002)(6666004)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MHRMU1Rlblpka2hGTXVObFdtTTNMNnd6ZHl6bzRIV1F5b3RpdGMrTjdUR0JI?=
- =?utf-8?B?Q3pHTGlWbWQybGRBT2dkRWNyZEdkRkFhMDRhMEFoOGtkMlpxQ0IyZDg1Mlo0?=
- =?utf-8?B?aXVPYjY4WHdoQnBQa0lldDlQMlZVekNxVGQxL1BkcG5JdEgyQ3UyLzRDaXAy?=
- =?utf-8?B?ektCMmJJRm9kaVlicnRwN24yVzRTSEhhWkR6NHVIMjZ2NnpRbm5CRGw0TzZq?=
- =?utf-8?B?VnJOZXlIMnh0K3BWYlArTlFYK0VvaS8xSVV6aFE5NlNxOFZKazltWERyM0hx?=
- =?utf-8?B?Y2NYQ1RGa3haaUErUk1TdithQU5WVUwyRFc3S3FPSHMvQVN0NkF4K2hxTExL?=
- =?utf-8?B?R3pIUlRXVUtsUEs5dkNha3V6MU1oVWJNRXVaRHVFWVB3VVl2WG80U2YyNllI?=
- =?utf-8?B?OGswK0FXWXNkYkJGUzVFMHdCK3ZDSjBoeHdmT2IySXFUcUtwNWlxMkVtWm9V?=
- =?utf-8?B?SVZ5eUI2cG55NDRGK295L1NySk5hYlI0R1JhS1ZBeTV4aTROMHBBS2lINkJi?=
- =?utf-8?B?QmQzQXFLYlNnRk43c0c0ek1FUVJRM212MXhTczdWVTdtOFMyUHlHUVkvME5s?=
- =?utf-8?B?dWxyQWh1L0NxVktHNEN4MzFaeEVOZGFKUGNXelBtdzBXVXZwbmQvMDh5YUV0?=
- =?utf-8?B?c0svWjhUVytIK2RIWkJWaW43MlM1VXVrNE9aNTJVV2JySWdBbTZ3ZWRtYUsy?=
- =?utf-8?B?UjZSNktLdThsWVZZN1Z2Sk1KdFZ4NmhrNkFFYjVVQzc1Rm96SVYyT0xGanJp?=
- =?utf-8?B?SjdnNHlrc1lTM0o4QnBhaTlLQjhpMmU1ZGpWeHg3cVNXc3pLRkUzc3VTbGpo?=
- =?utf-8?B?YWdhOEtPWVhnVUNjaVRablB3SWZkSzZucU5wVkFYalBtYVQwbXRUdHZneFVV?=
- =?utf-8?B?UTFVdGNHVUY3UE8yTkVrVHdyRk5ac0RRR0VzQXVKd1ZCcHk0MmZLaXFLTG5O?=
- =?utf-8?B?cVdmaXZiaFZ3Y09ZbTFvbEhDQ2cwclhOY0J2N0FCamsxNnh6MWV2UVdwSlpU?=
- =?utf-8?B?dmppMVZ2cHppaDZ0Z09TYk9aYlZ2MkhGWktiblcrcG9UejdRZ1UraFpoUzdM?=
- =?utf-8?B?bENUR1JUSDRXalZVRVJCcTNUb2wvMFkzSlB6NXFueGpINTJMRXErR2lqTUxp?=
- =?utf-8?B?NS9Zc1NKWWczNjVTUWpPNnFVYjArQUxZSi9NcURWUHg2TitEN2pFNTU4dW9S?=
- =?utf-8?B?bWxNdlkvdzkxOElhbUR0SlBFeXM3RkxYc0NOcGtxcmFZVlA3NU5HU3ozbFpt?=
- =?utf-8?B?M2ZGRUNlSEZwTmJFV080NDdoVmxkeGxnK0tHcjRzK0ZwelUxSVN6TmFQOC9i?=
- =?utf-8?B?Z1dkZWxLVXExS2w5cnRZRXVjRkRVblQvWEpVQU1vaFVUYlFjTmUvN0hPNDlJ?=
- =?utf-8?B?QjZXaWdjNHdFMEN0OElDYnZibVVEaXNUSDFNUEpEcm11L3VIOEVWb0NQTlFO?=
- =?utf-8?B?SHRyUmJvQmVzbm1WREtFeUFCUTcrS0RaOE1rNUpiYm9YM05WaS9xMVZheEhv?=
- =?utf-8?B?aGdhaTI2aVJhbUZLUTNDM1o4ZkFuK1pjaTI4M0Z3VFpKY3hXQTlHc2UrQjkv?=
- =?utf-8?B?WkZ1Qm9kZW5TTy8wTmwwbXM5b0V5YnlJdUZUTXBKWVN3UElSVi9yZFR5OXBs?=
- =?utf-8?B?TzlzRUVyeEJKNDhZM1RrOWJRQ01rZzNyY0FxZ1ZFbERoSmg1cG9zS0pBMWdk?=
- =?utf-8?B?RThkSXZadkdBcGlKbmZaT3Rialh5WWRaUFcycVlMQ21oKzg3VTRUOXFEVHRE?=
- =?utf-8?B?RFkrNEUwNG1GanF0Q3czZjVMemZORzdMVDdVOHcxekNXaWlaK0J5V280MWtt?=
- =?utf-8?B?Njd1TTFRR3lBQjhZUVZtRkFlcWdaWXl2QXVwNTltd1MrdVh5VTFyWEdHMUMw?=
- =?utf-8?B?WVFPTWVoV0xyUTYrVVdaZ29La0JZeVBxQXYwMFJyTUtHbjV3Z0tGejNpbVdX?=
- =?utf-8?B?bFRjVllKWlpwSXl5WkpIbnA5Ty9URjBYREN5Tlk2ZnZZNy82YlYrR0tFMDBt?=
- =?utf-8?B?bUNYZEltVSszQ2F1RWg0QVYyejQxOHVVV0tnb2F4UVhMM2pHTmlQZlIwYkhu?=
- =?utf-8?B?WDQzRXNBa3JzZDVBKzJCbTRKeEI2UWdBKzYyN3lJbHFOUnRvTkJFSlRyMU1P?=
- =?utf-8?Q?NN2+iH5OsbGzI2Pd1+sUfjt/Z?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ad09d3f2-790c-4b92-1ff3-08daf493395e
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2023 11:50:38.8529 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2023 12:02:06.5428 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1dce6029-037f-4b75-ba66-08daf494d377
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SJUJtNXREykaXoLA2uS6QRkJuEc329kkxCSuVEerN1e2Lf5Q8V5eUtxPG88K11gC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4061
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C96F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5874
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,166 +99,168 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Lazar, Lijo" <Lijo.Lazar@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 11.01.23 um 21:48 schrieb Alex Deucher:
-> On Wed, Jan 4, 2023 at 3:17 PM Marek Olšák <maraeo@gmail.com> wrote:
->> Yes, it's meant to be like a spec sheet. We are not interested in the current bandwidth utilization.
-> After chatting with Marek on IRC and thinking about this more, I think
-> this patch is fine.  It's not really meant for bandwidth per se, but
-> rather as a limit to determine what the driver should do in certain
-> cases (i.e., when does it make sense to copy to vram vs not).  It's
-> not straightforward for userspace to parse the full topology to
-> determine what links may be slow.  I guess one potential pitfall would
-> be that if you pass the device into a VM, the driver may report the
-> wrong values.  Generally in a VM the VM doesn't get the full view up
-> to the root port.  I don't know if the hypervisors report properly for
-> pcie_bandwidth_available() in a VM or if it just shows the info about
-> the endpoint in the VM.
+We are observing performance drop in many usecases which include
+games, 3D benchmark applications,etc.. To solve this problem, We
+are strictly not allowing top down flag enabled allocations to
+steal the memory space from cpu visible region.
 
-So this basically doesn't return the gen and lanes of the device, but 
-rather what was negotiated between the device and the upstream root port?
+The idea is, we are sorting each order list entries in
+ascending order and compare the last entry of each order
+list in the freelist and return the max block.
 
-If I got that correctly then we should probably document that cause 
-otherwise somebody will try to "fix" it at some time.
+This patch improves the 3D benchmark scores and solves
+fragmentation issues.
 
-Christian.
+All drm buddy selftests are verfied.
+drm_buddy: pass:6 fail:0 skip:0 total:6
 
->
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
->
-> Alex
->
->> Marek
->>
->> On Wed, Jan 4, 2023 at 10:33 AM Lazar, Lijo <Lijo.Lazar@amd.com> wrote:
->>> [AMD Official Use Only - General]
->>>
->>>
->>> To clarify, with DPM in place, the current bandwidth will be changing based on the load.
->>>
->>> If apps/umd already has a way to know the current bandwidth utilisation, then possible maximum also could be part of the same API. Otherwise, this only looks like duplicate information. We have the same information in sysfs DPM nodes.
->>>
->>> BTW, I don't know to what extent app/umd really makes use of this. Take that memory frequency as an example (I'm reading it as 16GHz). It only looks like a spec sheet.
->>>
->>> Thanks,
->>> Lijo
->>> ________________________________
->>> From: Marek Olšák <maraeo@gmail.com>
->>> Sent: Wednesday, January 4, 2023 8:40:00 PM
->>> To: Lazar, Lijo <Lijo.Lazar@amd.com>
->>> Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
->>> Subject: Re: [PATCH 1/2] drm/amdgpu: return the PCIe gen and lanes from the INFO
->>>
->>> On Wed, Jan 4, 2023 at 9:19 AM Lazar, Lijo <lijo.lazar@amd.com> wrote:
->>>
->>>
->>>
->>> On 1/4/2023 7:43 PM, Marek Olšák wrote:
->>>> On Wed, Jan 4, 2023 at 6:50 AM Lazar, Lijo <lijo.lazar@amd.com
->>>> <mailto:lijo.lazar@amd.com>> wrote:
->>>>
->>>>
->>>>
->>>>      On 1/4/2023 4:11 AM, Marek Olšák wrote:
->>>>       > I see. Well, those sysfs files are not usable, and I don't think it
->>>>       > would be important even if they were usable, but for completeness:
->>>>       >
->>>>       > The ioctl returns:
->>>>       >      pcie_gen = 1
->>>>       >      pcie_num_lanes = 16
->>>>       >
->>>>       > Theoretical bandwidth from those values: 4.0 GB/s
->>>>       > My DMA test shows this write bandwidth: 3.5 GB/s
->>>>       > It matches the expectation.
->>>>       >
->>>>       > Let's see the devices (there is only 1 GPU Navi21 in the system):
->>>>       > $ lspci |egrep '(PCI|VGA).*Navi'
->>>>       > 0a:00.0 PCI bridge: Advanced Micro Devices, Inc. [AMD/ATI] Navi
->>>>      10 XL
->>>>       > Upstream Port of PCI Express Switch (rev c3)
->>>>       > 0b:00.0 PCI bridge: Advanced Micro Devices, Inc. [AMD/ATI] Navi
->>>>      10 XL
->>>>       > Downstream Port of PCI Express Switch
->>>>       > 0c:00.0 VGA compatible controller: Advanced Micro Devices, Inc.
->>>>       > [AMD/ATI] Navi 21 [Radeon RX 6800/6800 XT / 6900 XT] (rev c3)
->>>>       >
->>>>       > Let's read sysfs:
->>>>       >
->>>>       > $ cat /sys/bus/pci/devices/0000:0a:00.0/current_link_width
->>>>       > 16
->>>>       > $ cat /sys/bus/pci/devices/0000:0b:00.0/current_link_width
->>>>       > 16
->>>>       > $ cat /sys/bus/pci/devices/0000:0c:00.0/current_link_width
->>>>       > 16
->>>>       > $ cat /sys/bus/pci/devices/0000:0a:00.0/current_link_speed
->>>>       > 2.5 GT/s PCIe
->>>>       > $ cat /sys/bus/pci/devices/0000:0b:00.0/current_link_speed
->>>>       > 16.0 GT/s PCIe
->>>>       > $ cat /sys/bus/pci/devices/0000:0c:00.0/current_link_speed
->>>>       > 16.0 GT/s PCIe
->>>>       >
->>>>       > Problem 1: None of the speed numbers match 4 GB/s.
->>>>
->>>>      US bridge = 2.5GT/s means operating at PCIe Gen 1 speed. Total
->>>>      theoretical bandwidth is then derived based on encoding and total
->>>>      number
->>>>      of lanes.
->>>>
->>>>       > Problem 2: Userspace doesn't know the bus index of the bridges,
->>>>      and it's
->>>>       > not clear which bridge should be used.
->>>>
->>>>      In general, modern ones have this arch= US->DS->EP. US is the one
->>>>      connected to physical link.
->>>>
->>>>       > Problem 3: The PCIe gen number is missing.
->>>>
->>>>      Current link speed is based on whether it's Gen1/2/3/4/5.
->>>>
->>>>      BTW, your patch makes use of capabilities flags which gives the maximum
->>>>      supported speed/width by the device. It may not necessarily reflect the
->>>>      current speed/width negotiated. I guess in NV, this info is already
->>>>      obtained from PMFW and made available through metrics table.
->>>>
->>>>
->>>> It computes the minimum of the device PCIe gen and the motherboard/slot
->>>> PCIe gen to get the final value. These 2 lines do that. The low 16 bits
->>>> of the mask contain the device PCIe gen mask. The high 16 bits of the
->>>> mask contain the slot PCIe gen mask.
->>>> + pcie_gen_mask = adev->pm.pcie_gen_mask & (adev->pm.pcie_gen_mask >> 16);
->>>> + dev_info->pcie_gen = fls(pcie_gen_mask);
->>>>
->>> With DPM in place on some ASICs, how much does this static info help for
->>> upper level apps?
->>>
->>>
->>> It helps UMDs make better decisions if they know the maximum achievable bandwidth. UMDs also compute the maximum memory bandwidth and compute performance (FLOPS). Right now it's printed by Mesa to give users detailed information about their GPU. For example:
->>>
->>> $ AMD_DEBUG=info glxgears
->>> Device info:
->>>      name = NAVI21
->>>      marketing_name = AMD Radeon RX 6800
->>>      num_se = 3
->>>      num_rb = 12
->>>      num_cu = 60
->>>      max_gpu_freq = 2475 MHz
->>>      max_gflops = 19008 GFLOPS
->>>      l0_cache_size = 16 KB
->>>      l1_cache_size = 128 KB
->>>      l2_cache_size = 4096 KB
->>>      l3_cache_size = 128 MB
->>>      memory_channels = 16 (TCC blocks)
->>>      memory_size = 16 GB (16384 MB)
->>>      memory_freq = 16 GHz
->>>      memory_bus_width = 256 bits
->>>      memory_bandwidth = 512 GB/s
->>>      pcie_gen = 1
->>>      pcie_num_lanes = 16
->>>      pcie_bandwidth = 4.0 GB/s
->>>
->>> Marek
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Acked-by: Christian König <christian.koenig@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+---
+ drivers/gpu/drm/drm_buddy.c | 81 ++++++++++++++++++++++++-------------
+ 1 file changed, 54 insertions(+), 27 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+index 11bb59399471..3d1f50f481cf 100644
+--- a/drivers/gpu/drm/drm_buddy.c
++++ b/drivers/gpu/drm/drm_buddy.c
+@@ -38,6 +38,25 @@ static void drm_block_free(struct drm_buddy *mm,
+ 	kmem_cache_free(slab_blocks, block);
+ }
+ 
++static void list_insert_sorted(struct drm_buddy *mm,
++			       struct drm_buddy_block *block)
++{
++	struct drm_buddy_block *node;
++	struct list_head *head;
++
++	head = &mm->free_list[drm_buddy_block_order(block)];
++	if (list_empty(head)) {
++		list_add(&block->link, head);
++		return;
++	}
++
++	list_for_each_entry(node, head, link)
++		if (drm_buddy_block_offset(block) < drm_buddy_block_offset(node))
++			break;
++
++	__list_add(&block->link, node->link.prev, &node->link);
++}
++
+ static void mark_allocated(struct drm_buddy_block *block)
+ {
+ 	block->header &= ~DRM_BUDDY_HEADER_STATE;
+@@ -52,8 +71,7 @@ static void mark_free(struct drm_buddy *mm,
+ 	block->header &= ~DRM_BUDDY_HEADER_STATE;
+ 	block->header |= DRM_BUDDY_FREE;
+ 
+-	list_add(&block->link,
+-		 &mm->free_list[drm_buddy_block_order(block)]);
++	list_insert_sorted(mm, block);
+ }
+ 
+ static void mark_split(struct drm_buddy_block *block)
+@@ -387,20 +405,26 @@ alloc_range_bias(struct drm_buddy *mm,
+ }
+ 
+ static struct drm_buddy_block *
+-get_maxblock(struct list_head *head)
++get_maxblock(struct drm_buddy *mm, unsigned int order)
+ {
+ 	struct drm_buddy_block *max_block = NULL, *node;
++	unsigned int i;
+ 
+-	max_block = list_first_entry_or_null(head,
+-					     struct drm_buddy_block,
+-					     link);
+-	if (!max_block)
+-		return NULL;
++	for (i = order; i <= mm->max_order; ++i) {
++		if (!list_empty(&mm->free_list[i])) {
++			node = list_last_entry(&mm->free_list[i],
++					       struct drm_buddy_block,
++					       link);
++			if (!max_block) {
++				max_block = node;
++				continue;
++			}
+ 
+-	list_for_each_entry(node, head, link) {
+-		if (drm_buddy_block_offset(node) >
+-		    drm_buddy_block_offset(max_block))
+-			max_block = node;
++			if (drm_buddy_block_offset(node) >
++			    drm_buddy_block_offset(max_block)) {
++				max_block = node;
++			}
++		}
+ 	}
+ 
+ 	return max_block;
+@@ -412,20 +436,23 @@ alloc_from_freelist(struct drm_buddy *mm,
+ 		    unsigned long flags)
+ {
+ 	struct drm_buddy_block *block = NULL;
+-	unsigned int i;
++	unsigned int tmp;
+ 	int err;
+ 
+-	for (i = order; i <= mm->max_order; ++i) {
+-		if (flags & DRM_BUDDY_TOPDOWN_ALLOCATION) {
+-			block = get_maxblock(&mm->free_list[i]);
+-			if (block)
+-				break;
+-		} else {
+-			block = list_first_entry_or_null(&mm->free_list[i],
+-							 struct drm_buddy_block,
+-							 link);
+-			if (block)
+-				break;
++	if (flags & DRM_BUDDY_TOPDOWN_ALLOCATION) {
++		block = get_maxblock(mm, order);
++		if (block)
++			/* Store the obtained block order */
++			tmp = drm_buddy_block_order(block);
++	} else {
++		for (tmp = order; tmp <= mm->max_order; ++tmp) {
++			if (!list_empty(&mm->free_list[tmp])) {
++				block = list_last_entry(&mm->free_list[tmp],
++							struct drm_buddy_block,
++							link);
++				if (block)
++					break;
++			}
+ 		}
+ 	}
+ 
+@@ -434,18 +461,18 @@ alloc_from_freelist(struct drm_buddy *mm,
+ 
+ 	BUG_ON(!drm_buddy_block_is_free(block));
+ 
+-	while (i != order) {
++	while (tmp != order) {
+ 		err = split_block(mm, block);
+ 		if (unlikely(err))
+ 			goto err_undo;
+ 
+ 		block = block->right;
+-		i--;
++		tmp--;
+ 	}
+ 	return block;
+ 
+ err_undo:
+-	if (i != order)
++	if (tmp != order)
+ 		__drm_buddy_free(mm, block);
+ 	return ERR_PTR(err);
+ }
+-- 
+2.25.1
 
