@@ -4,115 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23694C3DA78
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 21:44:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F6CDC3DA78
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 22:27:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A615D10E246;
-	Fri, 13 Jan 2023 21:44:13 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2080.outbound.protection.outlook.com [40.107.223.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECC4910E246
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 21:44:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3720A10E0AD;
+	Fri, 13 Jan 2023 22:27:04 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2071.outbound.protection.outlook.com [40.107.243.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 026C210E0AD;
+ Fri, 13 Jan 2023 22:27:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ef6rRjuc2w1oV/TbhOmUp/zcF7n5dLEDHp3nrEbWhufbDFh9mZpDE37clvYgLfXZThNteZWknIaHmzWcVSsyCZUWodpkn/ZGh0uXVCul+w3TRg4miuiAmpB0sSIuI7q30O8gp7XdvW5TbHZhDlJGqSm3cewRHgEH9sGwggVXg8F7WvrNPTg9hfa4GCNt3GKXRO3IyA9qU3feEGnkhrJUkE3fSeK6rFXTDejVDE3fqGBrkq+qyOMg0SA01H8LPMknX/WxLCs3IOBy7dYpq5SSTaEPaR2m+If6RyNIs8CKUVGPUvcHa3UTGryk5q0899ZgzfFOwh9Ksp2wlxUQGYVHYg==
+ b=b9DnMWR7DZKjsyCn4K6k/98zka1s+vOJhw9CwUwcMkiGkfbr6Ifn/ZKHII39U0MeiXeP6I+2UygqmSnPqb4LPnTLLlIb7iYTXIM0H/ivgMIfnFsa23xaspwR+xIuvlIBc6JH3Gj8+h/Ky+hHQW9k+kzR3l3SKnNV7PW4Ai56fPV8Asxj1GOM/7oR80GTxv8GMX38Q8zaEQUDZFD1H0kol3Ly+Zh96tYzLoh+SLSDZRJ0CqVNU9kIhE4GEfqUxQ8Ose2KsfXnBv7nIdHVcFkjzz427qtWNC3rCUrPr6ARA1vHcUuKZD5XnSb89Iuz/+qWThTXgsI7qOOSzGlQKUzscA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BlBPzYlPyzbMHSpy4Cw4W6TFd6cSXVfLYcb35BFDfG4=;
- b=HxuuF/b4o3OS10NupGKTNAzl0B+eHadfvO0FKOuMUeF+5vKwYW5Z4Bmh/LbQvAp+tq+l+ZSPsAMky/6NsObhpvR6Vm/uh7CTQH1bX677psItYuUMs1nXueF24t7U0PJ0kNMA9I6dyeHEdwd2VOZMfJyaSmQtFY3FWeA/OFwUHcZAYLEammrQYpAyhVB5KdRHLuOx09TszWBo3bhdaidJdj637/uGXiZjMdYV6eJ6nIKTappVKjh4f+5NtUFGr7FK0wXvUN2LWrBv/ZfLKlLsbDMAIVLlZX5kNziJ3GmXyYbv3IHsIEkB9y+BmbvPBrWYGllVsWZl3ztzTBUSSb9rAQ==
+ bh=Uy21Odwee9zEBDKNtFEIYppD9drucV349Y72Y8lJrBo=;
+ b=AHoJ0ELFe0/mm4yPUXYmuAWkZ/eztTsO1yun69Gxbfjq1WlsPrkN185jCJgcfnEwAoZ+cA1o2F+76/zGAf4h6bzaMWm+EECpcLhiQcWnMYK6itxQ9WcaIHlZy1mhF9oxWoCrltjcpx08WaFlBIi2ukXfS7/jmvbBlT5pwWPU+v/nMT7i1fKTNHeujHbQDQ1jkmO8nvIuL6STs3ZfaJ+dpZOkE9F+VWAYWt7LNyUI+nAejXnwFtGmCZ/LIhM3oZu2OIJKhn3R0is+IIIbaGPWxNBcwujjZP42audX6VlBv59fC7x5YAGgc5HIkdfYCbnHS8F+iZsRoo5uMR/Vp5YRng==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BlBPzYlPyzbMHSpy4Cw4W6TFd6cSXVfLYcb35BFDfG4=;
- b=TMYdt+AAMAe2TxzahXgz7gs1y6c2hJV/X8yhMC6TLDlHd4hljAIZkEwlg345UolfTvFo7aG+ly4J2eeEuRvJZXEkRac85OnpsqV3jpicXIWkHG1SH/rVjNjD+KprmiJJi0CFeejkyf5wt+65gPgyrMe2VeJ1DwK358Adlw0Y32Y=
+ bh=Uy21Odwee9zEBDKNtFEIYppD9drucV349Y72Y8lJrBo=;
+ b=mjxfUkFv0MjmoUc0CMghGB04yHco3bXKepT1iCTk9eJZGVqp0+v5Wyo9okO04B9elvBo/Q8E7C/8Y+GvjvRbZRfVwBG/cLCxVFR8jo+LPxEj2iOl8FPwXVADzcfVU3sUAxI9LYJ2wb0weCXQZugIl6SVHt4XlqfHNfOYiK/OorQ=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DS0PR12MB6440.namprd12.prod.outlook.com (2603:10b6:8:c8::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Fri, 13 Jan
- 2023 21:44:07 +0000
+ by CH2PR12MB4277.namprd12.prod.outlook.com (2603:10b6:610:ae::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.19; Fri, 13 Jan
+ 2023 22:27:00 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::c3f5:aede:fa4d:5411]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::c3f5:aede:fa4d:5411%5]) with mapi id 15.20.5986.019; Fri, 13 Jan 2023
- 21:44:07 +0000
-Message-ID: <cfe9c792-0361-bab0-2a02-ca2f50b57b94@amd.com>
-Date: Fri, 13 Jan 2023 16:44:05 -0500
+ 22:26:59 +0000
+Message-ID: <9b5b20e0-e04b-f7f6-9459-42d5a4bb44c7@amd.com>
+Date: Fri, 13 Jan 2023 17:26:58 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
-Subject: Re: [PATCH] drm/amdkfd: Support process XNACK mode dynamic change
+Subject: Re: [PATCH 1/6] drm/amdgpu: Generalize KFD dmabuf import
 Content-Language: en-US
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230112211829.20095-1-Philip.Yang@amd.com>
+To: "Chen, Xiaogang" <xiaogang.chen@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20230112013157.750568-1-Felix.Kuehling@amd.com>
+ <20230112013157.750568-2-Felix.Kuehling@amd.com>
+ <cab37a40-9737-1b77-3a3f-87965d4c70b2@amd.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-In-Reply-To: <20230112211829.20095-1-Philip.Yang@amd.com>
+In-Reply-To: <cab37a40-9737-1b77-3a3f-87965d4c70b2@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4P288CA0067.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d2::27) To BN9PR12MB5115.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT2PR01CA0007.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:38::12) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DS0PR12MB6440:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4d442147-06e7-44f8-8cb7-08daf5af4c3d
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CH2PR12MB4277:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0adac1d4-9e6c-4a11-05ec-08daf5b5497b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Nc04b6Difd/1YLK+qtsXD7hkOBOj2Ot99teZTG0pojFyRqwscA9SKEjrIQQ/b1JH7SStKTYJMexa2xDqFtvqggPC+W5uzbqe7NrqNdlUFzH0Agbqnz6Z9ws6bviUWocyHxYp5tbUz955Qy80H1H0P6xacVU0YoKsmEzAEeRJ0f9xaizp31rxDi9dELaaXYTFZwboXx1HszIWn0M7k6FFPNzW2KBpqMN+oMwJbUgmXG1BpYP3hAj+gUV8LtFscXB3BqABir1TkgubTSK+ihEt+6OEqBN8y+xjwDjjTeSVOBLd1oSt1C4ywRlumj62P5wM/Bo19I0uXgGOBUm2p5ZlYiTHkLOwoCSBG+UwFzU/Kt/7tsc8jhrw3iPXYeG0mAsZHpaDIMJh9oPHXbwhdh+3Lfz6/CfU7Wtjnz/YKma2ajZQLxI3bKdrzNaZ0TXZygjw9mhDXWZtt6kByHbGmIIuNUniHV8la9+xeemCHR1m76vsVlprNX8TFEBF5sVbyBBdt469hRm28GFBDH7RPWBeg0wdRPDaqJX6u4P4e0i05nUdbLIwwI+tBLLU9hltIOE3jGZGJ9FjFDcJy/gd3XokhZf3AbvoLk58Xt95jtZj94OKk+Nf1aICRp646ZcfMI2qgAaRcXnNSxexq5WO5WJlHD3HVE0cjx2Am3WJdruhUKjq4yu8GRj/kGpS0je27OeaStNuaW9/VGEWXxoeu5UGcyXA0zbILfSvSCC0gWMriZg=
+X-Microsoft-Antispam-Message-Info: sVdxT+Kh98Jg9X8I2t5ldfTwbioF4HbJz+ELtrBjh/vCH1xUwCscyRwVYjCuD5PidEN1+UQnO/XpxvX49LKq1KHkPmkbFDFrrHWDTxlpt58ZbD+UW3h1Nfd4y3QNXP2fWIcQcZkvKHRnpPX4TH+3qrAnief6rKUBTi5zhKidL0sbk7F0kD9eNWFyIGN4qkfTRxtaLhNLuF3gVrXJTWtpcMuk60tI5OOln7Fzkll2SChpDL/ieQbEdxoozjfg+fDs7A/ZAYoT3qx3zXYKCtAyQ1CabLK3kwmzMh/dVmSf5pv6vKTDQAlhxXfOUkpOdO/U+dNYsg0+AW+C3JWM9Tu/svInY6EcfVBQaEFQwVgiRZ2wf1+c4ZUsNtrpCiPhx1B3pf23bzeodamyCvoKWqKEu+7FT9/waKHu3A+lBhP+73aLGaFAv8TR70e9q4owqJN/h9BOmBkDTqHJ8zhHHMpjrj3AGI8XTteZMft0yYgrY7toKnC9L0NoLWx0Fqarj+84IhIO566/NDWS+7PU536QN3Kyio7lcxvsBVq022sqUuW6kcb6+Q82kRWwOXWPiVJaIU69cGRr01OuafyZRP9YHSIfegsIhARfyES6BMHIhhoU38jf4RyVxDE7yWxUrGl+vobTQczHIvfa0QlqtGiB1DksoqpHDEjp2zX21INdzr7OJHR9wnibj9LA1chY0wgBvda0VdbJ39ZDSOsYMeBSLO5DHD6u5DYb8dW3U9T3owE=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(136003)(366004)(39860400002)(346002)(376002)(451199015)(66946007)(66476007)(66556008)(8676002)(316002)(36916002)(2906002)(8936002)(26005)(5660300002)(41300700001)(83380400001)(53546011)(36756003)(31696002)(478600001)(6486002)(6506007)(2616005)(38100700002)(6512007)(186003)(44832011)(31686004)(86362001)(43740500002)(45980500001);
+ SFS:(13230022)(4636009)(136003)(366004)(346002)(39860400002)(376002)(396003)(451199015)(36916002)(6512007)(31686004)(26005)(186003)(478600001)(53546011)(66946007)(316002)(66556008)(2616005)(6506007)(8676002)(450100002)(4326008)(6486002)(66476007)(38100700002)(8936002)(5660300002)(86362001)(41300700001)(83380400001)(44832011)(31696002)(36756003)(2906002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bU1ETjRDOTJNSExsN3BhT01QME1kbUtNVXdWVlV1cE1GekJBeTd4VHRNMmM1?=
- =?utf-8?B?UW9hcXRQVlVJQ0tid1F4OTZWa1FmUGljUUtHUzdPN0x2MFZhS1ZZd3grQkZz?=
- =?utf-8?B?WmYwcDQwQzRmSGZQZmVUMEpKelNiWWlrK05jOWNFc3ByV1FCbU54aEFtUktl?=
- =?utf-8?B?NngvK0MzeWZMNS9VQ3h6SUlqN1FmS1FiNjNhaFkwR01uU2xRT245TUxFbUtT?=
- =?utf-8?B?d3NTV29YeW8wMHBVV1RtRFNQSk5ZUkNMT2tRenU2Z0p4Ly9UTE55Y2JmYWFx?=
- =?utf-8?B?ZUVvdmV1UUlqTUtHb2hjQjJ0NGR0L25IMDVKMlJJQ0FmbWFqZC9sc2laK3Yx?=
- =?utf-8?B?NEhBYkx2b1VZbEdLcjcrQWhWU0tCckRUMStEWnRyR2d0b3VIU0JvbmRPNEVo?=
- =?utf-8?B?VTBQR1BNZmlkTXFENEFIU1J1SjVwaVErcDBKVy8vaXNoZUhKRTljL2hsKzk2?=
- =?utf-8?B?cVV6cjdScWR6L0REUU1aNkVzWTFyMTJGQ0JEVXhtaURodmdhUTQ3YnNpa1BW?=
- =?utf-8?B?aFZPU1Fmdkx2R3RSYXJncTYrakhSeU9xYUVqbGs3b2pUODAydFpIVzJyQWFG?=
- =?utf-8?B?akUxbW5taE8vOEVZY3BBZnMrbHpqa21lMVZFNEgwcGlLb0tKOGxlcEFESnh4?=
- =?utf-8?B?WHc1S0JYdEp0NzJrVEhIczZRc2NiSXpUY3RyaTBaVUc1Z3k1TnplK3VmbWdL?=
- =?utf-8?B?dVJrUzRoODBzN29WMU9SV3RLNlp4SDRPLzdCa1g5UGczZFJsbHBYQk5kcWNR?=
- =?utf-8?B?UDlBKzNkVkJYVU43MGdObEF6MGVCR0wvUWRwV3NhVHFkYXE4Q3VKNWVjWU9o?=
- =?utf-8?B?TTc3UXU1MDRpS094Rlp3cXRuR1VXSTBFbW1zVFJHMVFIQjdaamV6Y3RhdU5k?=
- =?utf-8?B?OFRlSWFaVmNSTDVHU05XeXBCZFRPSkVUTmxpcWV0VmxNVzBVVVdYTER5U2M3?=
- =?utf-8?B?NlVzaEZ4NXJ0OFAwSUpUV3hpRTZUNTY1TTM5RGlTU3pLQll5UXlqVzZnRWlS?=
- =?utf-8?B?NXlQc3J0Y1J6dzJRSTVTOWp1Y2NiSjRnSmZpZk9IVUw5ZmptRXdnNWxZZVNx?=
- =?utf-8?B?QWgzZWVYQWF1SjFPdDhzWm9pM1gwTjFOc29hTUVLVG1FdTNBbnkyRGJyRzhk?=
- =?utf-8?B?YlJmK09zZDYwUXdxR1hFVkpqVDNlZzk3eFJsVXA5djNhalVodWhhMVJ6ZUdV?=
- =?utf-8?B?RTF4Slp0NVljOEtJd3F2R29YemJyNndNWUpkMkNKaVJrQTI1TEh1aUpHVzJw?=
- =?utf-8?B?MWZEU2gwYVZIQlYyYUFBSXNtTEcyMVl3NmhZckJqTWlIMzdRZ3QzUTh3UjVY?=
- =?utf-8?B?cmtxT2d0czJmeFYwN1pMUk1ERWt6YXArcElabHhndTk3MHZrc1h0TzVZaENL?=
- =?utf-8?B?R21lNU1BS3UvVnlHUkZlK0VtZXNsUHRlZGFJeDdhWkU1cjZQNTF5UUFDUjB4?=
- =?utf-8?B?T2R0b0JKcTI1M1pSVUFhcVJRa3ZvcFBJK2FZdDJVaDRhT2lDRi9zT3B2aGxx?=
- =?utf-8?B?QjZUSXRvQnBjMC9wemY2NXJKeW5VWklRNkVrZmZZYXhXelQzTGpQdW5IT1Zh?=
- =?utf-8?B?NEgwWW9zUXBoc21rcDJ5aWJkSVpYNG5jcDRKM3dmYjVxTEUreW05ZWRHS2lu?=
- =?utf-8?B?aEdsekl1NEkzUExYZU5HWDZnenFkTkp1MWpiRnZHME5wV2pYWGU5VjBUUFMv?=
- =?utf-8?B?TTdTMUpyVDhxWklieDQ5MDl5U1VoVVBiS3dWOXN1U1hkTENZWWpWa296aTZV?=
- =?utf-8?B?dzdDMWpYbVNhZE5wVXQ1TDlmYktxLzF6cjRndUpNM0pUaXpYOEZpaHJXbldr?=
- =?utf-8?B?QzNQdHkwRDFJWENwdCtnbUlueTZmSkhRNlRBVVZxU0l1NjN2b3FNai9GV0hz?=
- =?utf-8?B?RWxiUFhucFBkZVQ3d2VkQmE5cHpOVmE1SCtINWVvZ0c4YlJJMlVYYmhYUkVW?=
- =?utf-8?B?d1FhbWJWTGRjNS9UY0JIcWNuSDRaMU5JT1NSaUlib3VoRXJmcWFJMDJTUXlu?=
- =?utf-8?B?WUVFaGJVY1NBdVlMZzUwb3ZZemNOaURLVVdWWG1kVGRrbUx1ZkJ2ZnpEY1pK?=
- =?utf-8?B?VDdKUU9JTEpWV3EvZDlJb0JDZmlBdzJrTE5ySzdNN2RQVjlRa0k1OWNRd0tY?=
- =?utf-8?Q?JtUr49OZjb/U3qXr/eFGOeenG?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N1RCcXR3RWs4UHNMb0NjL3ZkVGQxQkNpak9IM1pja2E4b0lmSUQ5WnMzWHAr?=
+ =?utf-8?B?OGpWaVpnamJLS2E2aUg3TFZrbXN3RG5IUEtDQjNaM1dtWHY2d0x6U1hMK00r?=
+ =?utf-8?B?N2F2aUhpbEIzNGdRdWcvMlQveDY0ZGJ5MGJESHJtN0N6ZXR1S0pHamRDWTdl?=
+ =?utf-8?B?YzNhUGhUcXBYTDU3ZGRGZlZOTGhBL3R3a1YvTExLQmVMaE1rNFRLRzFPRjR6?=
+ =?utf-8?B?YmxwSVhFUHZlaFlJblVzWjFNQ25Pak1ib3g3UDBYZXRWWWh6Vmhvd213WDlP?=
+ =?utf-8?B?bHdVdlJxck1kcHJMVXZxS3RiMmJlYU5WWTJacnhSVVo1ZEVHa0lVWHUvTTE3?=
+ =?utf-8?B?bHNNY0V6OWZtdDBXelBLeWtNMHZaYTI4Q1RnbTlseFhhUUZNM2E3bk5yZW5h?=
+ =?utf-8?B?MytZV3l4ZDNGa1dTbHBKeDA5UDhUTDJwNGRSNkpLdjlaRFNaS2prS0ZjK0hT?=
+ =?utf-8?B?a1JzczdvQ2pVd0dqamhMaG1wSmZFM2dzTG1KdkM5U2VzZXVKbENydjE4ZHhL?=
+ =?utf-8?B?YWVmK1NueUVFZnhwUGtTdDB2QkhlYTU3TU5wU3h5QUsweXcvb1Bqcm1KMklr?=
+ =?utf-8?B?RTZoaEhlczR4M2NzKzhGWElsZ0tFc1MvZ0dYdHh4RFlDc0NtK3hGYzlhUlFW?=
+ =?utf-8?B?akhUZ08wVyt0NWpXRVRLOUFzaVR0UEpFdnllTElnYUtXejNVQWJneUN2Mk1z?=
+ =?utf-8?B?VkV0OVNjckszZ2prd0xwTTRCWjl6dXRQcFNuNy9STDJ4QVpKK21pVENpSHU5?=
+ =?utf-8?B?NFFMOWorNWt1eWp4NmZwYkswT1AydXV2dG9PODZFWmdUL01zOTI2WGlxMTVG?=
+ =?utf-8?B?Y3ZiNHpFbkhmaWc5WDJMTUZnQkgzclpUVzRGdThOUXY2YkM4RzZIN2ZJVE9y?=
+ =?utf-8?B?Q0VxUVNRM3I2NHlFNHlKQytUb0l4UzZZZDdhODh4ajZVdGVmSm5qWGJnT2F6?=
+ =?utf-8?B?aWpPcWJPQVpKYzRONTlIcytqM0V5TThMc3JOVU5TNlJUQmxDMjBNRC9xemo4?=
+ =?utf-8?B?a3cxdFJaMnMwME5LMWVYVWRlc3VTdWRtYnpNdGk5blhScDlXbFo2LzZ3eVdh?=
+ =?utf-8?B?Y2tWaC9uRTAyUnplZks0WTVtd1g5dWcxbW44ZE1MOHdFNjd2bFA5Tm53T05i?=
+ =?utf-8?B?V0xyYjYvQTdlMjFQUFBKblM3bzRyMWg0UVV1VUNZWHVnY0xSZm1oOFFqQ09u?=
+ =?utf-8?B?SkIrOG14OHRiSmQ0MkpRTHExK3Q2RjFIZGRid3JRT0hLQm5yaXRROTI3eTdo?=
+ =?utf-8?B?Ym1TamdEb3NLU1lGVDA2NWQwbVN6Z2tiRHdnMis4bXpid3Qyczk4TDc3OGZj?=
+ =?utf-8?B?cEpvaHJoTzJUVmRmTSt2VWI4eFVCL3k5WFZWWnVabzd2ZzZ2T3NnSVROQUU4?=
+ =?utf-8?B?VjEzMG1veXRpWFpoRXV3a0g0RUYvRytaMzlTbmhwOHBHUjV0TjdaOUVCclZa?=
+ =?utf-8?B?ZHFjRHdkc3lVKys3VXBwYmtPL0tMcktCTDFKVThqY2NsK0dERllRT1QxMXdv?=
+ =?utf-8?B?ODBCbzRFNnQ2Vkg4bzFwL0JNWnV1UjdaOWJzUU1MR25UbWxOUDkzbkFrdHdI?=
+ =?utf-8?B?ZWk3OEpUVVpWdjlQZkFXeVFpNFpMQVBFZXdzZjRFc2NIbDRuR3VyN1U1R1pK?=
+ =?utf-8?B?ZXJTVlpQejBIZGc5bzV1TGRKRDhWcUJacm9WbXRYSUNUbG0vWFgwcUlsMS9t?=
+ =?utf-8?B?akFFMmNlbGtwNnc4TzMxRE14Rk1FQmRsRXordFBnUEIvaUZTVUI0cVQ4Szlr?=
+ =?utf-8?B?SmtucTZNVkZFRVlsekd2U2hzb0VvVEJ2V0VwL3pYVlFrWFhEZERVcmx0UDlr?=
+ =?utf-8?B?ck5jWDdDRUZDWlRlWGg5NDN2aEw1UWh0YkVnN3ZHOWNOUll6aEVrcUd0QzRN?=
+ =?utf-8?B?YlpOMlV2NWhuMUZlMU5CUEhXZlV6L1k3Y2ZaTEhxMk8yZDRFQzFXWkNiRFUx?=
+ =?utf-8?B?VnlKakc2bTJPVnVEL0NTL0NqWWZ0emFtWVVEeGVxbnA2TFZJSVZJTGpJUGhu?=
+ =?utf-8?B?ZWQvWVZwaWtiMXhjazArWmQ1SUlPTTViVjVtcy9wenNwWWN3TlFHY3YzSjQ1?=
+ =?utf-8?B?byttK2FOQStOSW5EZVFlYjNKMU5iRVNBajBFbnJtTnFwdjA5a0lIZ1JOTi93?=
+ =?utf-8?Q?Ar0a4MfLCXKtgdDzfOOyO1JFd?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d442147-06e7-44f8-8cb7-08daf5af4c3d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0adac1d4-9e6c-4a11-05ec-08daf5b5497b
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2023 21:44:07.4780 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2023 22:26:59.8749 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7d3n7WcgDhGdSrxYff3fUwJEoQvfMqGz0YPMnAGRCGsnUE//S2m7WP67/7oprj/kwpYPcxLcr44QOVhSwt0E0w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6440
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7AFgr3KM32QqhmczB6ItTL3phsz9X89I/n0ZcIzlfeINmXRsA8LnKenLkqKCxA9EOKB7VdhmwIUX2amr9iN2NQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4277
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,99 +127,108 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2023-01-12 16:18, Philip Yang wrote:
-> Update queue qpd is done for the first queue creation of the process,
-> if the device support XNACK mode per process, update qpd setup
-> sh_mem_config based on the process XNACK mode, to support the process
-> destory all queues, change XNACK mode, and then create queues.
+On 2023-01-12 17:41, Chen, Xiaogang wrote:
 >
-> Add helper macro KFD_SUPPORT_XNACK_PER_PROCESS to remove duplicate code
-> and add new ASICs support in future.
+> On 1/11/2023 7:31 PM, Felix Kuehling wrote:
+>> Use proper amdgpu_gem_prime_import function to handle all kinds of
+>> imports. Remember the dmabuf reference to enable proper multi-GPU
+>> attachment to multiple VMs without erroneously re-exporting the
+>> underlying BO multiple times.
+>>
+>> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+>> ---
+>>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 38 ++++++++++---------
+>>   1 file changed, 21 insertions(+), 17 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> index 6f236ded5f12..e13c3493b786 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> @@ -2209,30 +2209,27 @@ int amdgpu_amdkfd_gpuvm_import_dmabuf(struct 
+>> amdgpu_device *adev,
+>>       struct amdgpu_bo *bo;
+>>       int ret;
+>>   -    if (dma_buf->ops != &amdgpu_dmabuf_ops)
+>> -        /* Can't handle non-graphics buffers */
+>> -        return -EINVAL;
+>> -
+>> -    obj = dma_buf->priv;
+>> -    if (drm_to_adev(obj->dev) != adev)
+>> -        /* Can't handle buffers from other devices */
+>> -        return -EINVAL;
+>> +    obj = amdgpu_gem_prime_import(adev_to_drm(adev), dma_buf);
+>> +    if (IS_ERR(obj))
+>> +        return PTR_ERR(obj);
+>>         bo = gem_to_amdgpu_bo(obj);
+>>       if (!(bo->preferred_domains & (AMDGPU_GEM_DOMAIN_VRAM |
+>> -                    AMDGPU_GEM_DOMAIN_GTT)))
+>> +                    AMDGPU_GEM_DOMAIN_GTT))) {
+>>           /* Only VRAM and GTT BOs are supported */
+>> -        return -EINVAL;
+>> +        ret = -EINVAL;
+>> +        goto err_put_obj;
+>> +    }
+>>         *mem = kzalloc(sizeof(struct kgd_mem), GFP_KERNEL);
+>> -    if (!*mem)
+>> -        return -ENOMEM;
+>> +    if (!*mem) {
+>> +        ret = -ENOMEM;
+>> +        goto err_put_obj;
+>> +    }
+>>         ret = drm_vma_node_allow(&obj->vma_node, drm_priv);
+>> -    if (ret) {
+>> -        kfree(*mem);
+>> -        return ret;
+>> -    }
+>> +    if (ret)
+>> +        goto err_free_mem;
+>>         if (size)
+>>           *size = amdgpu_bo_size(bo);
 >
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-
-
-> ---
->   .../amd/amdkfd/kfd_device_queue_manager_v9.c  | 27 +++++++++----------
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  2 ++
->   drivers/gpu/drm/amd/amdkfd/kfd_process.c      |  2 +-
->   3 files changed, 15 insertions(+), 16 deletions(-)
+> Hi Felix:
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
-> index d119070956fb..8b2dd2670ab7 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager_v9.c
-> @@ -59,30 +59,27 @@ static int update_qpd_v9(struct device_queue_manager *dqm,
->   
->   	/* check if sh_mem_config register already configured */
->   	if (qpd->sh_mem_config == 0) {
-> -		qpd->sh_mem_config =
-> -				SH_MEM_ALIGNMENT_MODE_UNALIGNED <<
-> +		qpd->sh_mem_config = SH_MEM_ALIGNMENT_MODE_UNALIGNED <<
->   					SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT;
->   
-> -		if (KFD_GC_VERSION(dqm->dev) == IP_VERSION(9, 4, 2)) {
-> -			/* Aldebaran can safely support different XNACK modes
-> -			 * per process
-> -			 */
-> -			if (!pdd->process->xnack_enabled)
-> -				qpd->sh_mem_config |=
-> -					1 << SH_MEM_CONFIG__RETRY_DISABLE__SHIFT;
-> -		} else if (dqm->dev->noretry &&
-> -			   !dqm->dev->use_iommu_v2) {
-> -			qpd->sh_mem_config |=
-> -				1 << SH_MEM_CONFIG__RETRY_DISABLE__SHIFT;
-> -		}
-> +		if (dqm->dev->noretry && !dqm->dev->use_iommu_v2)
-> +			qpd->sh_mem_config |= 1 << SH_MEM_CONFIG__RETRY_DISABLE__SHIFT;
->   
->   		qpd->sh_mem_ape1_limit = 0;
->   		qpd->sh_mem_ape1_base = 0;
->   	}
->   
-> +	if (KFD_SUPPORT_XNACK_PER_PROCESS(dqm->dev)) {
-> +		if (!pdd->process->xnack_enabled)
-> +			qpd->sh_mem_config |= 1 << SH_MEM_CONFIG__RETRY_DISABLE__SHIFT;
-> +		else
-> +			qpd->sh_mem_config &= ~(1 << SH_MEM_CONFIG__RETRY_DISABLE__SHIFT);
-> +	}
-> +
->   	qpd->sh_mem_bases = compute_sh_mem_bases_64bit(pdd);
->   
-> -	pr_debug("sh_mem_bases 0x%X\n", qpd->sh_mem_bases);
-> +	pr_debug("sh_mem_bases 0x%X sh_mem_config 0x%X\n", qpd->sh_mem_bases,
-> +		 qpd->sh_mem_config);
->   
->   	return 0;
->   }
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index 552c3ac85a13..bfa30d12406b 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -206,6 +206,8 @@ enum cache_policy {
->   
->   #define KFD_GC_VERSION(dev) ((dev)->adev->ip_versions[GC_HWIP][0])
->   #define KFD_IS_SOC15(dev)   ((KFD_GC_VERSION(dev)) >= (IP_VERSION(9, 0, 1)))
-> +#define KFD_SUPPORT_XNACK_PER_PROCESS(dev)\
-> +		(KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2))
->   
->   struct kfd_event_interrupt_class {
->   	bool (*interrupt_isr)(struct kfd_dev *dev,
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> index 71db24fefe05..72df6286e240 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -1330,7 +1330,7 @@ bool kfd_process_xnack_mode(struct kfd_process *p, bool supported)
->   		 * per-process XNACK mode selection. But let the dev->noretry
->   		 * setting still influence the default XNACK mode.
->   		 */
-> -		if (supported && KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2))
-> +		if (supported && KFD_SUPPORT_XNACK_PER_PROCESS(dev))
->   			continue;
->   
->   		/* GFXv10 and later GPUs do not support shader preemption
+> I have a question when using amdgpu_gem_prime_import. It will allow 
+> importing a dmabuf to different gpus, then can we still call 
+> amdgpu_bo_mmap_offset on the generated bo if 
+> amdgpu_amdkfd_gpuvm_import_dmabuf also ask mmap_offset?
+
+The mmap  offset comes from drm_vma_node_offset_addr. The DRM VMA 
+address is allocated when ttm_bo_init_reserved calls drm_vma_offset_add, 
+so there should be no problem querying the mmap_offset. Whether mmapping 
+of an imported BO is actually supported is a different question. As far 
+as I can see, it should be possible. That said, currently ROCm 
+(libhsakmt) uses only original BOs for CPU mappings, not imported BOs.
+
+Regards,
+   Felix
+
+
+>
+>> @@ -2249,7 +2246,8 @@ int amdgpu_amdkfd_gpuvm_import_dmabuf(struct 
+>> amdgpu_device *adev,
+>>           | KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE
+>>           | KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE;
+>>   -    drm_gem_object_get(&bo->tbo.base);
+>> +    get_dma_buf(dma_buf);
+>> +    (*mem)->dmabuf = dma_buf;
+>>       (*mem)->bo = bo;
+>>       (*mem)->va = va;
+>>       (*mem)->domain = (bo->preferred_domains & 
+>> AMDGPU_GEM_DOMAIN_VRAM) ?
+>> @@ -2261,6 +2259,12 @@ int amdgpu_amdkfd_gpuvm_import_dmabuf(struct 
+>> amdgpu_device *adev,
+>>       (*mem)->is_imported = true;
+>>         return 0;
+>> +
+>> +err_free_mem:
+>> +    kfree(*mem);
+>> +err_put_obj:
+>> +    drm_gem_object_put(obj);
+>> +    return ret;
+>>   }
+>>     /* Evict a userptr BO by stopping the queues if necessary
