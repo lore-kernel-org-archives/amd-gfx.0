@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3435EC61DB3
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 16:26:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CE2FC678D7
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 16:26:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AC2110EA49;
-	Fri, 13 Jan 2023 16:26:46 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2076.outbound.protection.outlook.com [40.107.92.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F035010EA2C;
- Fri, 13 Jan 2023 16:26:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9D0D10EA4F;
+	Fri, 13 Jan 2023 16:26:48 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2086.outbound.protection.outlook.com [40.107.223.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6ACE10EA2C;
+ Fri, 13 Jan 2023 16:26:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AmzizEb40+3mMc7AUX6GjaV/3kB8vTAinJo3Byrwtx+zPIXZGpTe1Y07aIRSO6Jq43vkA3kw7HKCDp9acOF7a74WwRAUl4GNVgyYM1upa9fGh2UkzxNB2yxkTpbS3RmXMpEo67N8FQpSV1BEQ6O3tSKmB6c0S7phxoPm7r60LRJbwxPLGg/LdB1i7fOsJAisE4N/z8LWTirFpBQPIERzvc0vHr5WEQ2lOAtOa53PjVXkl5n9SSvbHpeJyqSy/+j3QAxB6lcRKbxMqB4uhtPGK9SvuPFBeSRAGh5X8fmUT4cI69eExJGKgn5FmCgN5MwgpXC+zh4/hgPgZsnOCfubbw==
+ b=FQcmFkfveXMbSYDFlnKK0nSauzLXkvI8tSx03PW/DWsMZV7WOG3aq3fS2q/F/B4/FsvhpsU6kM8eZxOMkDS06m+eN8bUh5qxwkwDq7Ttvdk+EG0Ug3u8SrOofEXa2LPx5iB+gFBcwj6eVCMo+VUdFvK2Dtwll0nXYZxNf+O22OzYC0x7tcGvVDfRiv+fdXkg99Sm1xcaBv8fQqVQN2x6laXaBucaTBlNE9FCREXiNvOZJtbacmTaDvM5uAcOy3Ep7voATFdH8K0LRNPUIM+topiK2OzF7IETKzZnVAflrsZAUvDwpQmIeLvEPb3p8oqYK0arv3vWeO19y6OKols6GA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5s73/vEColYOLgso5yBPNWZLOfZkh6u+gq/M4kzdSP0=;
- b=PgQi7RFm2uG71YRK/7F7bA23sjj3qhiRRF9rZBFCXCKW/crAExG93y6K7d9xH1EoHS4xHrrwf5XabkBLhRjj9iFq+L5r9ZOcpNkJqKKJbvUbYw57z5juGObQDXf8tnNcFvnt+xZCtKYhPhDSjHh5ybUK23atjid36LHVfA9inQmnk3tZCz82J3kBjqrPKSidm7HNfM1pBlx+Y90w2PsVwDPceodkdZRQ77sdEqk9vfGTUmVq9TOCD4uqWGNiXBVBnNtcntOAc37GP1jU7YR6Ec26riPUmujK+Xa5d/Cl0SQM/ybiCmfRnqoursO5ZWk5MEFtoTWnp8TsUu9+J4qaNg==
+ bh=FXnlXww2mGNYT2t1GK5lhCJcdxhGrfeLD2rfbCJoSdY=;
+ b=kegWadtAfcQmhM8VZSE0qUmNgzaP8/765cJtm6NxSmR0wrW39rPaN8fLDVDNHLKvMipaE/IyYyguYtn8pzv05BH8LW/HIE8JL/lDqiV/SLCHaw1I1SLn+PPfyw+GMNM11CKbYjaWt+cn37KEYzX3WhQCYgxU30TnxRS5roD/Z1we6uzVF/VRHwFN2TcZdg+D3QwV1zgx9qIcRE/WkTxfGGTEq1M1yRYNRef17c7KC8kcjL/1KyfhavRBUdU0y9drUJ34NU+udIoh+PtXg8Uc1kzixWPnCKWkkUml0ZA9OKEjuh4g2R0dVsri8eFXKb5em/kGUQm/tETGNI7fK6SapA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5s73/vEColYOLgso5yBPNWZLOfZkh6u+gq/M4kzdSP0=;
- b=g6k/qqJpRv7TvCCDMNCqFgmWmQ6hJyOW+BcLF2tqmll6Ny0MZ9YqNqrvwM25qiIJg511L73IKQgUamv2zMKCc4ajd0hNe+mEAsAiSqNAyAciOgvMyhkxfZuPJzQqDPTGIxx23/OmjqDyJWDT1tQahG9fk9AQ/rLYxNcrKp3Zcdk=
-Received: from CY5PR15CA0021.namprd15.prod.outlook.com (2603:10b6:930:14::26)
- by CH0PR12MB5331.namprd12.prod.outlook.com (2603:10b6:610:d6::20)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=FXnlXww2mGNYT2t1GK5lhCJcdxhGrfeLD2rfbCJoSdY=;
+ b=AEd3hvhj05HJ18I+/pJOexudlb1b73/xxIkdG32SGvI03Jxy/EDSy7VP7dcomHAbMfC175I3AvamNr1Vn/uZGjZIFL88AUa2zr1i04/ifJs36DjowDuj0KmBRytoXCtc0pE1T9ltjYAsJieVTtoAlQxVwGFb8Bt18yzq9DktpVQ=
+Received: from DS7PR05CA0098.namprd05.prod.outlook.com (2603:10b6:8:56::8) by
+ SA1PR12MB6872.namprd12.prod.outlook.com (2603:10b6:806:24c::10) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.19; Fri, 13 Jan
- 2023 16:26:41 +0000
-Received: from CY4PEPF0000C96B.namprd02.prod.outlook.com
- (2603:10b6:930:14:cafe::48) by CY5PR15CA0021.outlook.office365.com
- (2603:10b6:930:14::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.16 via Frontend
- Transport; Fri, 13 Jan 2023 16:26:41 +0000
+ 2023 16:26:43 +0000
+Received: from DS1PEPF0000E636.namprd02.prod.outlook.com
+ (2603:10b6:8:56:cafe::b0) by DS7PR05CA0098.outlook.office365.com
+ (2603:10b6:8:56::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6023.6 via Frontend
+ Transport; Fri, 13 Jan 2023 16:26:42 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,50 +45,50 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000C96B.mail.protection.outlook.com (10.167.241.75) with Microsoft
+ DS1PEPF0000E636.mail.protection.outlook.com (10.167.17.68) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6002.11 via Frontend Transport; Fri, 13 Jan 2023 16:26:41 +0000
+ 15.20.6002.11 via Frontend Transport; Fri, 13 Jan 2023 16:26:42 +0000
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 13 Jan
- 2023 10:24:54 -0600
+ 2023 10:24:57 -0600
 Received: from hwentlanryzen.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Fri, 13 Jan 2023 10:24:54 -0600
+ Transport; Fri, 13 Jan 2023 10:24:57 -0600
 From: Harry Wentland <harry.wentland@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: [PATCH v2 05/21] drm/connector: Pull out common
- create_colorspace_property code
-Date: Fri, 13 Jan 2023 11:24:12 -0500
-Message-ID: <20230113162428.33874-6-harry.wentland@amd.com>
+Subject: [PATCH v2 08/21] drm/amd/display: Always pass connector_state to
+ stream validation
+Date: Fri, 13 Jan 2023 11:24:15 -0500
+Message-ID: <20230113162428.33874-9-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230113162428.33874-1-harry.wentland@amd.com>
 References: <20230113162428.33874-1-harry.wentland@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000C96B:EE_|CH0PR12MB5331:EE_
-X-MS-Office365-Filtering-Correlation-Id: e045d734-b57e-47a7-f8ab-08daf582f410
+X-MS-TrafficTypeDiagnostic: DS1PEPF0000E636:EE_|SA1PR12MB6872:EE_
+X-MS-Office365-Filtering-Correlation-Id: 48b5db1f-7ea4-4a57-2a5d-08daf582f4e5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: T41U4FEM++WsdxN683qBmjVjxcYs2euHLa5/QA5r3Zl11+cg4LDHDvok0winvzTRTts3/PxX1FjCceaRgImoR6Xevui+2pG69rJnKF9ldlVMvfA9pd1TzPWTNK3uZ1yfiti+QNAhH4t3wvKykIPzCWUeKeUB58l4vjh1Oh4Kcphk41qVo+BZjsAyMR5AT1Yb04QfYoaEQiUMvg4MssbzbAccq53AJvvYL1YVvGj45WdAw/e4XiJ4KvCf0sx3X0qfEOeMp+wEdnFHr330G3Ytz07BHS6xff0nD1jtd3GYQE6YepgZawDwHrtyRc5kRBnE7i6lpmbIN2EYpOzcoJ6LlBo+JA2tT0z1f9nh5O7TFhbRN+q7hiQvl/zFbl63S4J5FcMwMsgoXsqfahG2oC3LrlZdzhqgb7tLXh9bu8U7n7kC17WKb2Kk+onZ4bIAuC03qSUcOAmOmO4vLxDDZV6fUm/VFXjateHB0QWT3qzGE/CAuuJZd7JdZHvkYW/dGNG5+XIkfaiBAnoK9v/ONreqNJZVy84NnkE7Ei9CHgypfVwtNSyU9sSmABY3aqeyciSoVKOle4CsfaoI95wBVKFwlWpPXJw+tA8WLoGW5++JUlV1Jl4vlT7Yjj6NubTPYJm3o/1tTCmYMSW1FQQmDAPNST4I2bIJE6xkeKT53cKzOJcQPhFnV90jT2/XMg0WSuyg6hR3YwielSH9qY7Oi/GJBca1C+bfMqbC7Zm6lAxJ32Q=
+X-Microsoft-Antispam-Message-Info: lYIFzUNRa0MHbduysv813H2oPTL5C3tmdO0iu9KAEA5iRBbHkBQn6qlUpPI6u26iyg+kLFYQ/GmUHjcPQcAn2MZIdCZt81ncVvkml7zH1zwvYzeYBqt1iYEtUDFaw5Wy4ajO6+AzCqxLWpmN546Awdc7QnfYqK9clsEtRuT1R/OEkGg0OmoMTEjHiAwmrZHUmZv8UIxexMslJ0Q+OHowL1YjWnNhR9jrQrnuPDA/0dV7ysKLIeHvmSIgUnM571Tb+YivwfBMqKhQy9uPVtLScUv5YUZLcCmo9MtpT4wtLs/Fd98fIuNXyIu0A6AcNLPbtQ0z39VMUg03CY/OFrigIBfyfKw4ONfV7kdsa18/tA17gVHsY34LNO5WKsypKfxHecxEPfIo61jXhVOai+7Mjy0wFDPDueXP06lFJanf/WbbhfGZuP/y3ChoYeCRR/3D+R7ZhklqZwIBlOBQDasiulOgMon4xE4rSXqLCoyE1yyU2z957pOr3szMiPrZYKmrlhX5R8pk5PxBFid6d5bHIBVkPFqUbDoAcsWOb8K034+UyC2WnAM8f9xSudrIHBvWCnwJLbIRxDIqrIE1eZhAf7sexKncfCHCjbvFttZLwy0quwLZM5AltUvAUmwWyR0FchsZWxBq4UC77pN+NuipOHjqldhrJNSHbZKpgtJ+kvMMmjHMTfVQDYVG9KOkWQQKkHAHDIQjHcvCWGPW/emJseV3gQV+Dw0pS9RG55KvEmg=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(39860400002)(346002)(136003)(376002)(451199015)(40470700004)(46966006)(36840700001)(8936002)(5660300002)(41300700001)(83380400001)(86362001)(426003)(47076005)(81166007)(66574015)(82310400005)(36756003)(40460700003)(82740400003)(356005)(2906002)(44832011)(40480700001)(36860700001)(478600001)(186003)(7696005)(26005)(8676002)(336012)(4326008)(316002)(110136005)(70206006)(1076003)(54906003)(2616005)(70586007)(6666004)(36900700001);
+ SFS:(13230022)(4636009)(376002)(136003)(39860400002)(396003)(346002)(451199015)(36840700001)(46966006)(40470700004)(47076005)(426003)(83380400001)(40480700001)(40460700003)(36860700001)(82310400005)(44832011)(81166007)(356005)(86362001)(36756003)(82740400003)(316002)(336012)(2906002)(54906003)(70586007)(110136005)(8676002)(70206006)(41300700001)(4326008)(8936002)(5660300002)(26005)(186003)(6666004)(1076003)(2616005)(478600001)(7696005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2023 16:26:41.4558 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e045d734-b57e-47a7-f8ab-08daf582f410
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2023 16:26:42.8778 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 48b5db1f-7ea4-4a57-2a5d-08daf582f4e5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C96B.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000E636.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5331
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6872
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,116 +100,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Pekka Paalanen <ppaalanen@gmail.com>, Uma Shankar <uma.shankar@intel.com>,
- Vitaly.Prosyak@amd.com, Joshua Ashton <joshua@froggi.es>,
+Cc: Pekka Paalanen <ppaalanen@gmail.com>,
  Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+ Sebastian Wick <sebastian.wick@redhat.com>, Joshua Ashton <joshua@froggi.es>,
+ Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
+
+We need the connector_state for colorspace and scaling information
+and can get it from connector->state.
 
 Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 Cc: Pekka Paalanen <ppaalanen@gmail.com>
 Cc: Sebastian Wick <sebastian.wick@redhat.com>
 Cc: Vitaly.Prosyak@amd.com
-Cc: Uma Shankar <uma.shankar@intel.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Cc: Joshua Ashton <joshua@froggi.es>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
 Cc: dri-devel@lists.freedesktop.org
 Cc: amd-gfx@lists.freedesktop.org
 Reviewed-By: Joshua Ashton <joshua@froggi.es>
 ---
- drivers/gpu/drm/drm_connector.c | 54 ++++++++++++++++-----------------
- 1 file changed, 27 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 61c29ce74b03..ddba0b9fcc17 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -1971,33 +1971,44 @@ EXPORT_SYMBOL(drm_mode_create_aspect_ratio_property);
-  * drm_mode_create_dp_colorspace_property() is used for DP connector.
-  */
- 
--/**
-- * drm_mode_create_hdmi_colorspace_property - create hdmi colorspace property
-- * @connector: connector to create the Colorspace property on.
-- *
-- * Called by a driver the first time it's needed, must be attached to desired
-- * HDMI connectors.
-- *
-- * Returns:
-- * Zero on success, negative errno on failure.
-- */
--int drm_mode_create_hdmi_colorspace_property(struct drm_connector *connector)
-+static int drm_mode_create_colorspace_property(struct drm_connector *connector,
-+					const struct drm_prop_enum_list *colorspaces,
-+					int size)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index b8638f0508b0..bc10ac5e772d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -5776,15 +5776,14 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
  {
- 	struct drm_device *dev = connector->dev;
+ 	struct drm_display_mode *preferred_mode = NULL;
+ 	struct drm_connector *drm_connector;
+-	const struct drm_connector_state *con_state =
+-		dm_state ? &dm_state->base : NULL;
++	const struct drm_connector_state *con_state = &dm_state->base;
+ 	struct dc_stream_state *stream = NULL;
+ 	struct drm_display_mode mode;
+ 	struct drm_display_mode saved_mode;
+ 	struct drm_display_mode *freesync_mode = NULL;
+ 	bool native_mode_found = false;
+ 	bool recalculate_timing = false;
+-	bool scale = dm_state ? (dm_state->scaling != RMX_OFF) : false;
++	bool scale = dm_state->scaling != RMX_OFF;
+ 	int mode_refresh;
+ 	int preferred_refresh = 0;
+ 	enum color_transfer_func tf = TRANSFER_FUNC_UNKNOWN;
+@@ -6397,7 +6396,9 @@ enum drm_mode_status amdgpu_dm_connector_mode_valid(struct drm_connector *connec
+ 		goto fail;
+ 	}
  
- 	if (connector->colorspace_property)
- 		return 0;
- 
-+	if (!colorspaces)
-+		return 0;
-+
- 	connector->colorspace_property =
- 		drm_property_create_enum(dev, DRM_MODE_PROP_ENUM, "Colorspace",
--					 hdmi_colorspaces,
--					 ARRAY_SIZE(hdmi_colorspaces));
-+					colorspaces,
-+					size);
- 
- 	if (!connector->colorspace_property)
- 		return -ENOMEM;
- 
- 	return 0;
- }
-+/**
-+ * drm_mode_create_hdmi_colorspace_property - create hdmi colorspace property
-+ * @connector: connector to create the Colorspace property on.
-+ *
-+ * Called by a driver the first time it's needed, must be attached to desired
-+ * HDMI connectors.
-+ *
-+ * Returns:
-+ * Zero on success, negative errno on failure.
-+ */
-+int drm_mode_create_hdmi_colorspace_property(struct drm_connector *connector)
-+{
-+	return drm_mode_create_colorspace_property(connector,
-+						   hdmi_colorspaces,
-+						   ARRAY_SIZE(hdmi_colorspaces));
-+}
- EXPORT_SYMBOL(drm_mode_create_hdmi_colorspace_property);
- 
- /**
-@@ -2012,20 +2023,9 @@ EXPORT_SYMBOL(drm_mode_create_hdmi_colorspace_property);
-  */
- int drm_mode_create_dp_colorspace_property(struct drm_connector *connector)
- {
--	struct drm_device *dev = connector->dev;
--
--	if (connector->colorspace_property)
--		return 0;
--
--	connector->colorspace_property =
--		drm_property_create_enum(dev, DRM_MODE_PROP_ENUM, "Colorspace",
--					 dp_colorspaces,
--					 ARRAY_SIZE(dp_colorspaces));
--
--	if (!connector->colorspace_property)
--		return -ENOMEM;
--
--	return 0;
-+	return drm_mode_create_colorspace_property(connector,
-+						   dp_colorspaces,
-+						   ARRAY_SIZE(dp_colorspaces));
- }
- EXPORT_SYMBOL(drm_mode_create_dp_colorspace_property);
- 
+-	stream = create_validate_stream_for_sink(aconnector, mode, NULL, NULL);
++	stream = create_validate_stream_for_sink(aconnector, mode,
++						 to_dm_connector_state(connector->state),
++						 NULL);
+ 	if (stream) {
+ 		dc_stream_release(stream);
+ 		result = MODE_OK;
 -- 
 2.39.0
 
