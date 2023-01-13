@@ -4,47 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D893C54EBE
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 11:30:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F8B7C54EBD
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 11:47:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AAD110E9F7;
-	Fri, 13 Jan 2023 11:30:02 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34B7610E9ED;
- Fri, 13 Jan 2023 11:29:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=hMAR/fe4a+AqXAMEBm+JMkSSpKLeGsuHKZQINVwuouc=; b=LhaDe5mhl16sH5G5xPhH2DW2JR
- o4pEfB07Vv6iEMcqQkqTXykHllm+RF5SHwq15hsmCX3nhsI5oumo3Xtbt2/KwZwXetR7PrvKpQxFg
- xYdv9La38MLFjdjjbc3mVDtip/SAv0ZiqvxrTQ+Hiqyv/5mn6XUo1OOpFDpYN09zLYgtUfDb7ESoR
- E6i+dulb4jJE+7ggQz5H3VFheFn5pXAA1Maef5q0KqZZFXKWw3YzsXvKY42ziK+PIfOld+1oarUdw
- GtCZPoyCcw5UfkIETSJELwvh4cSawcFkzsQ5EW2B15b1qHkrbmJh2VFr7/mkqKcIj4erTUmNzKdol
- pL9rneYg==;
-Received: from [187.36.234.139] (helo=bowie..)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1pGIFk-0075dF-IM; Fri, 13 Jan 2023 12:29:45 +0100
-From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-To: Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Rob Clark <robdclark@gmail.com>,
- Simon Ser <contact@emersion.fr>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Zack Rusin <zackr@vmware.com>
-Subject: [PATCH v2 3/3] drm/vmwgfx: Remove redundant framebuffer format check
-Date: Fri, 13 Jan 2023 08:27:44 -0300
-Message-Id: <20230113112743.188486-4-mcanal@igalia.com>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230113112743.188486-1-mcanal@igalia.com>
-References: <20230113112743.188486-1-mcanal@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85E2A10E9EF;
+	Fri, 13 Jan 2023 11:47:47 +0000 (UTC)
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [IPv6:2a00:1450:4864:20::532])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E01E410E9EF
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 11:47:45 +0000 (UTC)
+Received: by mail-ed1-x532.google.com with SMTP id v10so29613606edi.8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 03:47:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=tmjVNRu0Uv624NAYwK4qMkCkisFs5Y4/7x0DBpnezbY=;
+ b=ehSySWe7HObzgfZYc07oJDMVoNij5ZFa/crnC90SfcgCzrhBlDcvBOM3cwCU+kE3zJ
+ gFFBKuPxGpZqiCaR+wvoaGRupJnwpaHdP+OVnZ8FXulMwLcjZqK4tLKyI00UX6XxDmD6
+ 8TdnC6ea9Oz477EUJpn/UTrcf8KcxW50XwTFxFa9z+pKVjJNSoJAkhsi832EP2v0G/ET
+ f7UM81wwDq7HVfSMxU2EL3IB2trPu0F7rf1LTO8CAAOYn2udLOR+wrDjDjRmzGTAS2c2
+ P4UN+Ir3FXVDXXPtFD2uqcsVl1bMfk6ETmuawGk14bKJsxgjcvTG8/0CbVkLOu8tw5zE
+ HxFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=tmjVNRu0Uv624NAYwK4qMkCkisFs5Y4/7x0DBpnezbY=;
+ b=Ast9LwiIrp6bs184DNee+Q0mI0dBeQg9sVljv3J+FQSZAhFB3K4/ACQvJDq8Pf+Zyx
+ OBZYX1bUd7xhgkTDc4eloEwz7w1jDuRz0sIfkEu8lMtO6lgcAZGSlTkhhsePQLvdNwaO
+ 6aBba9BQ8Vn5N8VuBS2yZs/buZQ/AwhQLPufavxIoGYKE5X0yRcq/yRTd2l602nfcPPT
+ x6wAPTl907UrAE5vkzTPZuhJrdKSWgnMM/kJST0mYmvIPULteZmj/HLiodeEUbYDWdOh
+ KJqfs+gddmY5V9TMRqSYclZxK6ffoflNGyRQy33ZYUzHZzq+ABFHHdIooSS/eHG6BNGe
+ Gf8Q==
+X-Gm-Message-State: AFqh2kpOClib9B9KugU/rpJ1pXVTu1QLWb0eVJTInKoeb+7mU6NFBL8d
+ u/oduHsE2uuVN2LdbleGJ2M=
+X-Google-Smtp-Source: AMrXdXtEd4v4Zt4hgrkVSiDGTzJyUpb0w2Pgql3RcHE+PiggE6kzcj5y+Hxn7FpEkF6KQ1s+IsaJWQ==
+X-Received: by 2002:a05:6402:448f:b0:498:1f8:5378 with SMTP id
+ er15-20020a056402448f00b0049801f85378mr21715011edb.16.1673610464390; 
+ Fri, 13 Jan 2023 03:47:44 -0800 (PST)
+Received: from ?IPV6:2a02:908:1256:79a0:a701:87ca:cb14:526e?
+ ([2a02:908:1256:79a0:a701:87ca:cb14:526e])
+ by smtp.gmail.com with ESMTPSA id
+ l6-20020a170906078600b0084d381d0528sm7238767ejc.180.2023.01.13.03.47.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 13 Jan 2023 03:47:43 -0800 (PST)
+Message-ID: <fde7c277-1b1f-83f4-d7c8-dd53a994ff2d@gmail.com>
+Date: Fri, 13 Jan 2023 12:47:43 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH] drm/amdgpu: print bo inode number instead of ptr
+Content-Language: en-US
+To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20230112165938.55022-1-pierre-eric.pelloux-prayer@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20230112165938.55022-1-pierre-eric.pelloux-prayer@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,65 +75,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- amd-gfx@lists.freedesktop.org, Melissa Wen <mwen@igalia.com>,
- VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
- dri-devel@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that framebuffer_check() verifies that the format is properly
-supported, there is no need to check it again on vmwgfx's inside
-helpers.
+Am 12.01.23 um 17:59 schrieb Pierre-Eric Pelloux-Prayer:
+> This allows to correlate the infos printed by
+> /sys/kernel/debug/dri/n/amdgpu_gem_info to the ones found
+> in /proc/.../fdinfo and /sys/kernel/debug/dma_buf/bufinfo.
+>
+> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 
-Therefore, remove the redundant framebuffer format check from the
-vmw_kms_new_framebuffer_surface() and vmw_kms_new_framebuffer_bo()
-functions, letting framebuffer_check() perform the framebuffer
-validation.
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-Reviewed-by: Zack Rusin <zackr@vmware.com>
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
----
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c | 18 ------------------
- 1 file changed, 18 deletions(-)
-
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-index 257f090071f1..05b8d8f912bf 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-@@ -1317,15 +1317,6 @@ static int vmw_kms_new_framebuffer_surface(struct vmw_private *dev_priv,
- 	 * Sanity checks.
- 	 */
-
--	if (!drm_any_plane_has_format(&dev_priv->drm,
--				      mode_cmd->pixel_format,
--				      mode_cmd->modifier[0])) {
--		drm_dbg(&dev_priv->drm,
--			"unsupported pixel format %p4cc / modifier 0x%llx\n",
--			&mode_cmd->pixel_format, mode_cmd->modifier[0]);
--		return -EINVAL;
--	}
--
- 	/* Surface must be marked as a scanout. */
- 	if (unlikely(!surface->metadata.scanout))
- 		return -EINVAL;
-@@ -1648,15 +1639,6 @@ static int vmw_kms_new_framebuffer_bo(struct vmw_private *dev_priv,
- 		return -EINVAL;
- 	}
-
--	if (!drm_any_plane_has_format(&dev_priv->drm,
--				      mode_cmd->pixel_format,
--				      mode_cmd->modifier[0])) {
--		drm_dbg(&dev_priv->drm,
--			"unsupported pixel format %p4cc / modifier 0x%llx\n",
--			&mode_cmd->pixel_format, mode_cmd->modifier[0]);
--		return -EINVAL;
--	}
--
- 	vfbd = kzalloc(sizeof(*vfbd), GFP_KERNEL);
- 	if (!vfbd) {
- 		ret = -ENOMEM;
---
-2.39.0
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> index 90eb07106609..2b076ed46e78 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -1572,9 +1572,9 @@ u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *m)
+>   	attachment = READ_ONCE(bo->tbo.base.import_attach);
+>   
+>   	if (attachment)
+> -		seq_printf(m, " imported from %p", dma_buf);
+> +		seq_printf(m, " imported from ino:%lu", file_inode(dma_buf->file)->i_ino);
+>   	else if (dma_buf)
+> -		seq_printf(m, " exported as %p", dma_buf);
+> +		seq_printf(m, " exported as ino:%lu", file_inode(dma_buf->file)->i_ino);
+>   
+>   	amdgpu_bo_print_flag(m, bo, CPU_ACCESS_REQUIRED);
+>   	amdgpu_bo_print_flag(m, bo, NO_CPU_ACCESS);
 
