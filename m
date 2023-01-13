@@ -4,54 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FC39C54EBD
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 19:07:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA891C54EBD
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 19:18:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D3A310EA93;
-	Fri, 13 Jan 2023 19:07:58 +0000 (UTC)
-Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
- [IPv6:2001:4860:4864:20::31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E90610EA93
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 19:07:55 +0000 (UTC)
-Received: by mail-oa1-x31.google.com with SMTP id
- 586e51a60fabf-1322d768ba7so23264286fac.5
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 11:07:55 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 723BD10EAAF;
+	Fri, 13 Jan 2023 19:18:24 +0000 (UTC)
+Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
+ [IPv6:2001:4860:4864:20::2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0E6510EAAF
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 19:18:22 +0000 (UTC)
+Received: by mail-oa1-x2d.google.com with SMTP id
+ 586e51a60fabf-15bb8ec196aso11544183fac.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 11:18:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=9/++tYBx4/CS9oFbvJdyuPyBg3xARMphBR/Ge5oHz/4=;
- b=EqT8rCrUXsb83eM5PH27bLad2RfhDACW+8ErSCKO8faaPXz+l0tBcqpkQ8J4eDQ5nn
- dZOYMgCldb6f1soJS5MVB5gm7Qzux+3xtZuqzlx+rSgQDw2Z7g3pRsHMEA7lRr+CfCEB
- JShMsWbab0bGtYIm6eFi0qNUxAPml8sO/F7GXKEqTEgQ3k0XgWBxHB4bDnKN0m7Rn1nK
- VQBzjgw2AzMs/Z0SYJtB9/nsm8nnV7vTKfOxJS0c/hb5YQEI87WXsHEunl7Jolao2bkY
- xg7yuKn/xRpu2Wuu5jnIP23S9+rSO/tJVgaky6Kn3Gh9X2RhLrY5ByfYD33aC2kM8mLv
- ZV1g==
+ bh=9F+1F2QsaPLeFTp1uKRLd5yD4reGj/H8N6wrHIZojd8=;
+ b=Ih/w5A0LjC2JouEtAR3BpNikzilXdyJAoTGuDxhuAIcOlKtB1Y3nXFXcpd88+4u568
+ /Q5mK51niQOEqV7s7e58HB0RyGJlFlE/POniBeQEv8+ZUAYoDpQ91cwE9c0+FrNiE/LJ
+ 1oCi5Wrjbojd6ZMMVFm88wZFbSeNr7xwIJIEoarkNf4AOKXAnxE7LyCkH6AwrwzuPmdZ
+ T/1ES7qufUrIDj48QOQLByo536usCxP97pZkwG4JCDHDRPOfKqwmKlXXu9SUeleu12Iu
+ rz78z7qATlnDp1zFC8X1LCMt5+BEYNKG7jarLMEjfeMGNJua5E02T6/P/nrGM8pcs7xj
+ 6Tew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=9/++tYBx4/CS9oFbvJdyuPyBg3xARMphBR/Ge5oHz/4=;
- b=Tvrqys/kUdyCNRFmN1jx9CFnqyMrzwFKi88hcB3iuTsF8xMXKoWnma0Ta7P5Wi8LRT
- e3Zf60Qa68/D57FadtnodFDoJSs2cZx4qcdgt7y3qIzQCAlo33d3EAkfRMFEFisapJtq
- qqEpZfjpJFniE3B6/dSVSyS06Zrc4JPptjOU5/LglsHeL0zkkjMkQqk93oqrKrGdW0uz
- nEiZlD65pp+oKRQzijp4WMFmRxDuHWll9SgA231yhzhi5bHiG/bXGsrwlixEBCV5cyul
- Pkzc2wNeWhPEAkewdffoKSnj/ApTl7QofQljUcGvYIoTtE3NipXdcjMLcnWGBYDvurZX
- /J4w==
-X-Gm-Message-State: AFqh2kozzO+J3FqxL1dFkHcOtpb9b6zD1OzuAbzWNeoAIoCLSMpcUH7+
- qswZSaqb9B3BzpsyGGRcrGydFqdP3aj9eQaSyNI=
-X-Google-Smtp-Source: AMrXdXtpQSgU1PV1XJK3cFJA5lOvfVijyOp0bzqMhFGbsrzplgtF8yyrzgqJYOzu3JV43x8bPHa3IO8vZQkZkeX+fJw=
-X-Received: by 2002:a05:6870:c59c:b0:150:d9aa:4011 with SMTP id
- ba28-20020a056870c59c00b00150d9aa4011mr3293252oab.96.1673636874615; Fri, 13
- Jan 2023 11:07:54 -0800 (PST)
+ bh=9F+1F2QsaPLeFTp1uKRLd5yD4reGj/H8N6wrHIZojd8=;
+ b=j/muovMbLv+fDZnRRRFJ0dJPUx7LLmA1vw802aW28BWBTNyD8CfRxIu1MKrJZMDY+Z
+ zRnX/07lhAPDqp8UX3eg4Ug+qtSzrBH7srVSPrjzBi9P/QxXSSj40ufyyuwlkOdrxVhE
+ OgvwVTucWg7xpzQnga6AvbLpPXDqr/lycbHjXYFM2xT0mgb2TBX6eScsCI+8pzxDrw/p
+ PlN8Yac31CvK0vMUb1TXRE82Kl1krOByzBxQFq7qq7TLM+qrW1UZHC1EvIEHI/8C6Kpw
+ wS0JRaDj6/ve7qE33Jnk+M3r1bbssjJaUkrZSWLljPwq1c3wH4x2QLJcT7n/RIlgaU9g
+ pDUA==
+X-Gm-Message-State: AFqh2krPqfZue89l+d68AEGtHmDS2n82lmr/NAbXn5gCoSzKLce9Phq9
+ gnr4RTE/mykRWJ0h6vthTYWKG3naUXGIj4aW5TGa19jF
+X-Google-Smtp-Source: AMrXdXvBoXKqgmlGUjMRAABzwRNoAFEdUeG1m23fFTzDUaOBK+iDm4Mtfgkt5dWkHRuVRc+QeJxJ7VOseS1aNpp5Cso=
+X-Received: by 2002:a05:6870:970e:b0:148:3c8f:15ab with SMTP id
+ n14-20020a056870970e00b001483c8f15abmr7007733oaq.46.1673637502178; Fri, 13
+ Jan 2023 11:18:22 -0800 (PST)
 MIME-Version: 1.0
-References: <Y8EtbpVGFJSDxM/m@kili>
-In-Reply-To: <Y8EtbpVGFJSDxM/m@kili>
+References: <20230112162443.603552-1-alexander.deucher@amd.com>
+ <20230112162443.603552-2-alexander.deucher@amd.com>
+In-Reply-To: <20230112162443.603552-2-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 13 Jan 2023 14:07:43 -0500
-Message-ID: <CADnq5_PvyeKXopyUA4JQFRs7ftfZUuaj6juWvE4B0Cy6Yrt2JQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Add a missing tab
-To: Dan Carpenter <error27@gmail.com>
+Date: Fri, 13 Jan 2023 14:18:11 -0500
+Message-ID: <CADnq5_OVDjZ=a2SE25LPuusCUukD6jiUYAm28wg_3V2-OeL7Xw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu/pm: update hwmon power documentation
+To: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,49 +65,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jack Xiao <Jack.Xiao@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Haohui Mai <ricetons@gmail.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, kernel-janitors@vger.kernel.org,
- Lang Yu <Lang.Yu@amd.com>, amd-gfx@lists.freedesktop.org,
- Mario Limonciello <mario.limonciello@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Can someone review this patch (2/2)?  1/2 is superseded by Jesse's
+patch, but this one still makes sense.
 
-Alex
+Thanks
 
-On Fri, Jan 13, 2023 at 9:46 AM Dan Carpenter <error27@gmail.com> wrote:
+On Thu, Jan 12, 2023 at 11:25 AM Alex Deucher <alexander.deucher@amd.com> wrote:
 >
-> This tab was deleted accidentally and triggers a Smatch warning:
+> Power reporting is socket power.  On APUs this includes
+> the CPU.  Update the documentation to clarify this.
 >
->     drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c:1006 gfx_v8_0_init_microcode()
->     warn: inconsistent indenting
->
-> Add it back.
->
-> Fixes: 0aaafb7359d2 ("drm/amd: Use `amdgpu_ucode_*` helpers for GFX8")
-> Signed-off-by: Dan Carpenter <error27@gmail.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 2 +-
+>  drivers/gpu/drm/amd/pm/amdgpu_pm.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> index 4fb577d047fd..b1f2684d854a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> @@ -1003,7 +1003,7 @@ static int gfx_v8_0_init_microcode(struct amdgpu_device *adev)
->                 err = amdgpu_ucode_request(adev, &adev->gfx.me_fw, fw_name);
->                 if (err == -ENODEV) {
->                         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_me.bin", chip_name);
-> -               err = amdgpu_ucode_request(adev, &adev->gfx.me_fw, fw_name);
-> +                       err = amdgpu_ucode_request(adev, &adev->gfx.me_fw, fw_name);
->                 }
->         } else {
->                 snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_me.bin", chip_name);
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> index 236657eece47..76b9ec64ca50 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> @@ -3059,7 +3059,7 @@ static ssize_t amdgpu_hwmon_show_mclk_label(struct device *dev,
+>   *
+>   * hwmon interfaces for GPU power:
+>   *
+> - * - power1_average: average power used by the GPU in microWatts
+> + * - power1_average: average power used by the SoC in microWatts.  On APUs this includes the CPU.
+>   *
+>   * - power1_cap_min: minimum cap supported in microWatts
+>   *
 > --
-> 2.35.1
+> 2.39.0
+>
