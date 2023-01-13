@@ -4,48 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C14A2C67871
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 17:00:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BEA2C3DA78
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 17:06:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED2BE10EA6F;
-	Fri, 13 Jan 2023 17:00:54 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EBE210EA70;
- Fri, 13 Jan 2023 17:00:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=hMAR/fe4a+AqXAMEBm+JMkSSpKLeGsuHKZQINVwuouc=; b=peM/G9C7k2HUlD7jat6cOSPzU9
- 8uNMHGtngx06eV9F78Fti+qynhmhmz186Rc3Bu3nykmWf2vrQMogZeq7elnMxn0/6GeDMD8MJ5kOY
- 3Jal1x7vNxsbIxWKKfz0sikIMS7/n3HvbcaNOwdBoHw+ub5bGq5/vYsGh9maTJg6pj4J/mlWNyqoX
- PHfRNP1iPrJPCTSzknti/5bB9f75IiduN692EuMiEDyHFS6blY3I7h1lzdIa3I6wah4gm+ea+My4m
- qzHNOk5n20gvwQEeGBIzpopDq6t4JHuNxihqp90aNHdJcQEUSYLC04XskLOu0wcitRn0xihrw2P3a
- EjH/Dcxw==;
-Received: from [187.36.234.139] (helo=bowie..)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1pGNPx-007Hoz-Co; Fri, 13 Jan 2023 18:00:37 +0100
-From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-To: Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Rob Clark <robdclark@gmail.com>,
- Simon Ser <contact@emersion.fr>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Zack Rusin <zackr@vmware.com>
-Subject: [PATCH v3 3/3] drm/vmwgfx: Remove redundant framebuffer format check
-Date: Fri, 13 Jan 2023 13:59:20 -0300
-Message-Id: <20230113165919.580210-4-mcanal@igalia.com>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230113165919.580210-1-mcanal@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96D5D10EA73;
+	Fri, 13 Jan 2023 17:06:28 +0000 (UTC)
+Received: from mail-41103.protonmail.ch (mail-41103.protonmail.ch
+ [185.70.41.103])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5593910EA73
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 17:06:26 +0000 (UTC)
+Date: Fri, 13 Jan 2023 17:06:13 +0000
+Authentication-Results: mail-41103.protonmail.ch;
+ dkim=pass (2048-bit key) header.d=emersion.fr header.i=@emersion.fr
+ header.b="myo3w9kx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail3; t=1673629580; x=1673888780;
+ bh=jJeQxB8/KmXQitNwPXMWSStRuaiDU+YY9uukqpwJCMM=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=myo3w9kxodoVv683E7PVtGGb+N1R3b5tkPqfMdcwwscIzUnicMv96wCp72tzSCxVL
+ CdP/7+F/8Ybe0SfOUqn2AvM8sSsAOEAD61eNOHB7vg1kLBYf/EOsMN67ouFVt2UHsw
+ dkjtlyouAn81Y5p4/coJdnCMPoQIFP2Rs+X4qPFBAOQkWqarvfoTp1QOHOkBg9fqmE
+ heM0G8LtnEdhB9BoQfHmKFMPeSNmYHgf1gDalORVEAtC0ehRF6KqNP7LwNzdqVkNxs
+ akwPGsMADpvYijyMCNs+Y/5tjEaJsRGZZ8GT1QxHFFTzkqgReFjoFLh3d0X1RL0Bd+
+ ebU+iW/r8ADag==
+To: =?utf-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+From: Simon Ser <contact@emersion.fr>
+Subject: Re: [PATCH v3 2/3] drm/amdgpu: Remove redundant framebuffer format
+ check
+Message-ID: <feD8ifyiQQcVKESmwwRiyFCSBrXbRd6kGm8LGHgC0ympY2Qsc9Oi3UEqva2xVspk59CvZV4kpgCJUUKPJt9scwsIMAVBvDZrXMihMehs_WM=@emersion.fr>
+In-Reply-To: <20230113165919.580210-3-mcanal@igalia.com>
 References: <20230113165919.580210-1-mcanal@igalia.com>
+ <20230113165919.580210-3-mcanal@igalia.com>
+Feedback-ID: 1358184:user:proton
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,65 +52,23 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- amd-gfx@lists.freedesktop.org, Melissa Wen <mwen@igalia.com>,
+Cc: amd-gfx@lists.freedesktop.org,
+ =?utf-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Melissa Wen <mwen@igalia.com>,
+ Rob Clark <robdclark@gmail.com>,
  VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
- dri-devel@lists.freedesktop.org
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Zack Rusin <zackr@vmware.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that framebuffer_check() verifies that the format is properly
-supported, there is no need to check it again on vmwgfx's inside
-helpers.
+Hm, unfortunately I think we need to keep the check in amdgpu for the
+same reason as i915: amdgpu will pick a modifier if user-space didn't
+supply one on GFX9+.
 
-Therefore, remove the redundant framebuffer format check from the
-vmw_kms_new_framebuffer_surface() and vmw_kms_new_framebuffer_bo()
-functions, letting framebuffer_check() perform the framebuffer
-validation.
-
-Reviewed-by: Zack Rusin <zackr@vmware.com>
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
----
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c | 18 ------------------
- 1 file changed, 18 deletions(-)
-
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-index 257f090071f1..05b8d8f912bf 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-@@ -1317,15 +1317,6 @@ static int vmw_kms_new_framebuffer_surface(struct vmw_private *dev_priv,
- 	 * Sanity checks.
- 	 */
- 
--	if (!drm_any_plane_has_format(&dev_priv->drm,
--				      mode_cmd->pixel_format,
--				      mode_cmd->modifier[0])) {
--		drm_dbg(&dev_priv->drm,
--			"unsupported pixel format %p4cc / modifier 0x%llx\n",
--			&mode_cmd->pixel_format, mode_cmd->modifier[0]);
--		return -EINVAL;
--	}
--
- 	/* Surface must be marked as a scanout. */
- 	if (unlikely(!surface->metadata.scanout))
- 		return -EINVAL;
-@@ -1648,15 +1639,6 @@ static int vmw_kms_new_framebuffer_bo(struct vmw_private *dev_priv,
- 		return -EINVAL;
- 	}
- 
--	if (!drm_any_plane_has_format(&dev_priv->drm,
--				      mode_cmd->pixel_format,
--				      mode_cmd->modifier[0])) {
--		drm_dbg(&dev_priv->drm,
--			"unsupported pixel format %p4cc / modifier 0x%llx\n",
--			&mode_cmd->pixel_format, mode_cmd->modifier[0]);
--		return -EINVAL;
--	}
--
- 	vfbd = kzalloc(sizeof(*vfbd), GFP_KERNEL);
- 	if (!vfbd) {
- 		ret = -ENOMEM;
--- 
-2.39.0
-
+I wonder if that also applies to vmwgfx? Maybe that would be a reason
+to have the check in framebuffer_init()? (Not sure!)
