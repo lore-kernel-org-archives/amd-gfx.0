@@ -4,66 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F8B7C54EBD
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 11:47:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D94A4C678D4
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 12:10:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85E2A10E9EF;
-	Fri, 13 Jan 2023 11:47:47 +0000 (UTC)
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [IPv6:2a00:1450:4864:20::532])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E01E410E9EF
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 11:47:45 +0000 (UTC)
-Received: by mail-ed1-x532.google.com with SMTP id v10so29613606edi.8
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 03:47:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=tmjVNRu0Uv624NAYwK4qMkCkisFs5Y4/7x0DBpnezbY=;
- b=ehSySWe7HObzgfZYc07oJDMVoNij5ZFa/crnC90SfcgCzrhBlDcvBOM3cwCU+kE3zJ
- gFFBKuPxGpZqiCaR+wvoaGRupJnwpaHdP+OVnZ8FXulMwLcjZqK4tLKyI00UX6XxDmD6
- 8TdnC6ea9Oz477EUJpn/UTrcf8KcxW50XwTFxFa9z+pKVjJNSoJAkhsi832EP2v0G/ET
- f7UM81wwDq7HVfSMxU2EL3IB2trPu0F7rf1LTO8CAAOYn2udLOR+wrDjDjRmzGTAS2c2
- P4UN+Ir3FXVDXXPtFD2uqcsVl1bMfk6ETmuawGk14bKJsxgjcvTG8/0CbVkLOu8tw5zE
- HxFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=tmjVNRu0Uv624NAYwK4qMkCkisFs5Y4/7x0DBpnezbY=;
- b=Ast9LwiIrp6bs184DNee+Q0mI0dBeQg9sVljv3J+FQSZAhFB3K4/ACQvJDq8Pf+Zyx
- OBZYX1bUd7xhgkTDc4eloEwz7w1jDuRz0sIfkEu8lMtO6lgcAZGSlTkhhsePQLvdNwaO
- 6aBba9BQ8Vn5N8VuBS2yZs/buZQ/AwhQLPufavxIoGYKE5X0yRcq/yRTd2l602nfcPPT
- x6wAPTl907UrAE5vkzTPZuhJrdKSWgnMM/kJST0mYmvIPULteZmj/HLiodeEUbYDWdOh
- KJqfs+gddmY5V9TMRqSYclZxK6ffoflNGyRQy33ZYUzHZzq+ABFHHdIooSS/eHG6BNGe
- Gf8Q==
-X-Gm-Message-State: AFqh2kpOClib9B9KugU/rpJ1pXVTu1QLWb0eVJTInKoeb+7mU6NFBL8d
- u/oduHsE2uuVN2LdbleGJ2M=
-X-Google-Smtp-Source: AMrXdXtEd4v4Zt4hgrkVSiDGTzJyUpb0w2Pgql3RcHE+PiggE6kzcj5y+Hxn7FpEkF6KQ1s+IsaJWQ==
-X-Received: by 2002:a05:6402:448f:b0:498:1f8:5378 with SMTP id
- er15-20020a056402448f00b0049801f85378mr21715011edb.16.1673610464390; 
- Fri, 13 Jan 2023 03:47:44 -0800 (PST)
-Received: from ?IPV6:2a02:908:1256:79a0:a701:87ca:cb14:526e?
- ([2a02:908:1256:79a0:a701:87ca:cb14:526e])
- by smtp.gmail.com with ESMTPSA id
- l6-20020a170906078600b0084d381d0528sm7238767ejc.180.2023.01.13.03.47.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 Jan 2023 03:47:43 -0800 (PST)
-Message-ID: <fde7c277-1b1f-83f4-d7c8-dd53a994ff2d@gmail.com>
-Date: Fri, 13 Jan 2023 12:47:43 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BA2910EA09;
+	Fri, 13 Jan 2023 12:10:40 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AEC210E9F8;
+ Fri, 13 Jan 2023 12:10:37 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2120B6AF4B;
+ Fri, 13 Jan 2023 12:10:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1673611836; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=sXpapRuX916Le+bJNj5IyZ3za3IyLIEyf+ZchkfgtPU=;
+ b=nmihVpa8mYRVJH7OXWFvnHHE40gzYLmUktrtmnYos+FvV7CZ/gu6L5xpCm+uQNJgNPLe7x
+ vcHD4ObtKcGprs5ym0hpDH7HhDrFhkTQ287XQUKEddp6cubx1w+46cRA+br8YlQkZM2aNS
+ LA65D7dn6qbMgzKqSw0AXGejCynz6+w=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1673611836;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=sXpapRuX916Le+bJNj5IyZ3za3IyLIEyf+ZchkfgtPU=;
+ b=6XbabrpdxspIXnKCfpYCnNt9YDv6oTZ1GeAlVXqO4NJVkI85PihJ9W+iiamz9xuNkPYlOv
+ pjgqL2OEA/FM6HAg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DC4021358A;
+ Fri, 13 Jan 2023 12:10:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id PhGqNDtKwWP6SwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Fri, 13 Jan 2023 12:10:35 +0000
+Message-ID: <6043efee-7b52-2be8-6fca-13c11e0e946e@suse.de>
+Date: Fri, 13 Jan 2023 13:10:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH] drm/amdgpu: print bo inode number instead of ptr
+ Thunderbird/102.6.1
+Subject: Re: [PATCH 0/5] drm: Do not include <linux/fb.h> unnecessarily
 Content-Language: en-US
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20230112165938.55022-1-pierre-eric.pelloux-prayer@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20230112165938.55022-1-pierre-eric.pelloux-prayer@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+To: Maxime Ripard <maxime@cerno.tech>
+References: <20230109101243.26995-1-tzimmermann@suse.de>
+ <20230113103604.bh6ey24ehpufwuab@houat>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+In-Reply-To: <20230113103604.bh6ey24ehpufwuab@houat>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------TpAfTuHW6zhmfUyhhkbNq8qp"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,36 +69,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: f.fainelli@gmail.com, dri-devel@lists.freedesktop.org,
+ thierry.reding@gmail.com, bcm-kernel-feedback-list@broadcom.com,
+ amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, sam@ravnborg.org,
+ christian.koenig@amd.com, linux-arm-kernel@lists.infradead.org,
+ linux-rpi-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 12.01.23 um 17:59 schrieb Pierre-Eric Pelloux-Prayer:
-> This allows to correlate the infos printed by
-> /sys/kernel/debug/dri/n/amdgpu_gem_info to the ones found
-> in /proc/.../fdinfo and /sys/kernel/debug/dma_buf/bufinfo.
->
-> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------TpAfTuHW6zhmfUyhhkbNq8qp
+Content-Type: multipart/mixed; boundary="------------hghfHyrdK0FB5Pr05Det0N8j";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Maxime Ripard <maxime@cerno.tech>
+Cc: f.fainelli@gmail.com, amd-gfx@lists.freedesktop.org, sam@ravnborg.org,
+ thierry.reding@gmail.com, bcm-kernel-feedback-list@broadcom.com,
+ dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
+ christian.koenig@amd.com, linux-arm-kernel@lists.infradead.org,
+ linux-rpi-kernel@lists.infradead.org
+Message-ID: <6043efee-7b52-2be8-6fca-13c11e0e946e@suse.de>
+Subject: Re: [PATCH 0/5] drm: Do not include <linux/fb.h> unnecessarily
+References: <20230109101243.26995-1-tzimmermann@suse.de>
+ <20230113103604.bh6ey24ehpufwuab@houat>
+In-Reply-To: <20230113103604.bh6ey24ehpufwuab@houat>
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+--------------hghfHyrdK0FB5Pr05Det0N8j
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> index 90eb07106609..2b076ed46e78 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -1572,9 +1572,9 @@ u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *m)
->   	attachment = READ_ONCE(bo->tbo.base.import_attach);
->   
->   	if (attachment)
-> -		seq_printf(m, " imported from %p", dma_buf);
-> +		seq_printf(m, " imported from ino:%lu", file_inode(dma_buf->file)->i_ino);
->   	else if (dma_buf)
-> -		seq_printf(m, " exported as %p", dma_buf);
-> +		seq_printf(m, " exported as ino:%lu", file_inode(dma_buf->file)->i_ino);
->   
->   	amdgpu_bo_print_flag(m, bo, CPU_ACCESS_REQUIRED);
->   	amdgpu_bo_print_flag(m, bo, NO_CPU_ACCESS);
+DQoNCkFtIDEzLjAxLjIzIHVtIDExOjM2IHNjaHJpZWIgTWF4aW1lIFJpcGFyZDoNCj4gT24g
+TW9uLCBKYW4gMDksIDIwMjMgYXQgMTE6MTI6MzhBTSArMDEwMCwgVGhvbWFzIFppbW1lcm1h
+bm4gd3JvdGU6DQo+PiBSZW1vdmUgdW5uZWNlc3NhcnkgaW5jbHVkZSBzdGF0ZW1lbnRzIGZv
+ciA8bGludXgvZmIuaD4uIEkgcmVjZW50bHkNCj4+IGNoYW5nZWQgdGhpcyBoZWFkZXIgYW5k
+IGhhZCB0byByZWJ1aWxkIGEgZ29vZCBwYXJ0IG9mIERSTS4gU28gYXZvaWQNCj4+IHRoaXMg
+YnkgcmVtb3ZpbmcgdGhlIGRlcGVuZGVuY3kuDQo+Pg0KPj4gU29tZSBzb3VyY2UgZmlsZXMg
+cmVxdWlyZSB0aGUgT0Ygb3IgYmFja2xpZ2h0IGhlYWRlcnMuIEluY2x1ZGUgdGhvc2UNCj4+
+IGluc3RlYWQuDQo+IA0KPiBGb3IgdGhlIHNlcmllczoNCj4gQWNrZWQtYnk6IE1heGltZSBS
+aXBhcmQgPG1heGltZUBjZXJuby50ZWNoPg0KDQpwZXIgaXJjIGRpc2N1c3Npb24sIGFja2Vk
+IGZvciBhbGwgb2YgdjIgYXMgd2VsbA0KDQo+IA0KPiBNYXhpbWUNCg0KLS0gDQpUaG9tYXMg
+WmltbWVybWFubg0KR3JhcGhpY3MgRHJpdmVyIERldmVsb3Blcg0KU1VTRSBTb2Z0d2FyZSBT
+b2x1dGlvbnMgR2VybWFueSBHbWJIDQpNYXhmZWxkc3RyLiA1LCA5MDQwOSBOw7xybmJlcmcs
+IEdlcm1hbnkNCihIUkIgMzY4MDksIEFHIE7DvHJuYmVyZykNCkdlc2Now6RmdHNmw7xocmVy
+OiBJdm8gVG90ZXYNCg==
 
+--------------hghfHyrdK0FB5Pr05Det0N8j--
+
+--------------TpAfTuHW6zhmfUyhhkbNq8qp
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmPBSjsFAwAAAAAACgkQlh/E3EQov+A2
+Jw/7BNND+t1Q54sWZe1MTEjrDibY/BBs6jY+i+004NhWPU7enGrmfwkRJroiYZ0f71X+3rHeveE3
+uEkfK+dvdgquB25V+NP1oQjccOn+YJxqfnc5bDiomY42km0t/Ajcjxuziwa6DW9mijJdvAtBAeWq
+tTFVy+66BA7fW/rvXV2wCNNITkxpEdp+skVWXno85nABlE2Gkp/icfQGPhf4A7OyuTpn/7anW2JS
+NvvWWJSeE32scsht/TSWokUZCSkzQX3IQRjJsOtMTrdnDIE5mCQbdop2KKdk/pzumMRUONNhE/aR
+mQ6A1qgsUsW29FCrD5e7LKT6gLi39u6Zss+k8Fe7Y4X9bhzUeqr1xWHLuel5YCs9bl7o1zxyc3ro
+vuJ1NKRIOP7HLVYuWj9WkRwF+5u1+E0DpH7LlErCwTVYNchztyjfuEbDzNtGKJFxlsdB1SOPhCoc
+lepqbVmuqukh+SZrSFEsJGdoTCmyYrbAIt4lu70CyE2tnRKO9MX4CSdCdf7kJAOMpDV1rt2slwWz
+wbyNd9ZGi0zD7f4V860MAUBGoxoKNslHRZSmEq2VloE+gXQ5Ju5192BZIwptyV/aJ0NuKTrdzy3L
+XPl/HowSZvTF0pBsYxSK5OtQOgRALkI2WQKSm9dvktmC3SgaIXiI5017gavLnYpdfWgburzh2EmK
+Wo8=
+=dkAk
+-----END PGP SIGNATURE-----
+
+--------------TpAfTuHW6zhmfUyhhkbNq8qp--
