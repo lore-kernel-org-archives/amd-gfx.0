@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFFBFC678DE
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 06:25:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50D38C7113D
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 06:25:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25A6A10E99C;
-	Fri, 13 Jan 2023 06:25:06 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2078.outbound.protection.outlook.com [40.107.244.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59A6710E1E2
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 06:25:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 782F310E993;
+	Fri, 13 Jan 2023 06:25:10 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2059.outbound.protection.outlook.com [40.107.92.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B0B210E99D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 06:25:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kVyQwPzyQXTFvmnSsDBLW2E1cIuuqMCGZ2pX1T2aY4eZBNZEZtTFO+CngyzIB3a2S7lP6R/PjRZOIaeTx1yV2KjSDlqlJzTvwrU981xUuv4hVqGvw+Zu80TdPMXtDGQntw+JYbSY5jUhrczmDlw7RvJxIuSOXFwgAveL4+gTAhUmAC6imhP1qy0ZPjctpaoZN9HFYoNWmepkNyESgKYLrm11oqPw3Flx5mC9UxhJuMgqzG1JpIVL/QyKYaLUyRwqa9biPT0PI/d6eZGT+thcFJS6AnVXWuDdxyj/B9u1DhY7vdS0qE0VxfcQosTpXIRxNl9HL/1J9QqsfiS2roKCmg==
+ b=V2TZodo3bEnSC9G+bMdCwkBO/u3Jg6NHCZPYt7gzpAzFJqCnCegGlMrqoH60uex52LNKrXzUS+Pxgvyl3R5kdGbpmVqiFRokEZUW+T3keLRa+pnTYOg8ZSkCe8p0tpmnquw+/xuNcDz+78uVoWkMyS24W3Dy71ggSgOEnPJzN8DwqpWtpBBQIIcBRilMIc3NVnoy5AcF5kuTu5x+EOeW0xoluNdfIIhmtt2NTPEapuvOrDyX/mkYzrtj930lIDMGgoYE8hIAOmwMGFkjPYubdno72EO+vwQgKpwM1g/e8q/TF2aAwlnCGIu8w8DgbXmoAzIWuvtIO5kE8sgwRicbMw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lEC9PAh08Hg+SlBRRrt4G1KDXKeVlAl0ehgPJwcyCNg=;
- b=RR11jnkzAXyYn8Tp2h9ixApi5m55T0Hd7AJ+QgA9zWJZISOEjJ3c/yfsyRLxSEmkSxmPl0GGQNRQeh2OYhE2TCszSLwlO528q9STnGRttqfO8hYMZ4Zr3JWg1mO8xiKUZhtE+iUZuxFdlzCijGARJomyW+xwctpCGIgKti4Kobm2ctnyl+BvyzTRGes1azogL6uW0gLUluD4ofUs9lPc75BUOo3dq3m38NYGEEFwdMSasyuqePdSHHnxZSEusyghI0f2LNhQqyFgRY9Dew8i0AEuuKAs/KqT/TI/Bz1+xGHqG48ZI/50kcyxc1S4tpxRQcTGJTHWD/YFfGCeVtUhcQ==
+ bh=JsOW13VxY/MC7Y2BGJUPiDGtuqUMmueEAigtnzElUeY=;
+ b=LuoInl2ratY2gWXrZSUJbqRmLfI24EuBhnWTWXnn9QS4yBw0uRB412o2xu+Xw+Y/DqUQH7MjgPDeeH/HHtfakNefKqYfJDzIz+SijVFPumUGs9djMx8C+T4MQgyuLFr64ybAv2oeR9YZ+0XOz/vfIK+KQbSPTVy0xh4d2DNBZ5DvcvEaxndphliInMYK/LJldT4ACP1DRr4vkZBubWRJYFmumwECQn0uXSFBfHfvkMYtMnP8Smyb2l3fnNTgTbdTTC9Me3OJLnEXAEnV2CjZuP6o8nnJTX+KbyFryW5PDFsxVnEyJLT6TcfrKZKAC+TLf6aSYndPopHgFtqVv4bg9w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lEC9PAh08Hg+SlBRRrt4G1KDXKeVlAl0ehgPJwcyCNg=;
- b=kJcJw8giDHnrCHgEtST6ulxEvNTwgpXNu0UFeXK2K3/ZfAJcfkPmkJ3KKLy4Nv5EU2xbymzjmN/rGQ83trup3MYNx4n5csI0SPzKNSthrLO43hs0Q/Wq9PhEBo6cl5R1zqBBVl8J9SNfccpv3ThRLWf1H3OtiDVKHJbzuNrl1S0=
-Received: from DS7PR06CA0041.namprd06.prod.outlook.com (2603:10b6:8:54::10) by
- SA0PR12MB7075.namprd12.prod.outlook.com (2603:10b6:806:2d5::14) with
+ bh=JsOW13VxY/MC7Y2BGJUPiDGtuqUMmueEAigtnzElUeY=;
+ b=Zp3OI0iLvIFCtEJTkjMU2TSsIj+nQUMMhnm5ScZA693UZ1EWh6rdBTYJpfWRkzD2MSO81drbYNTzoISHaeP3GoAO9MZbzAI62BR4qt+7g4PV5mIfgvvCzuBlfOXZu43nWqfx/Lmk2soITg1u72xtZlD0uQQWwb5t7U/4b8Ww8gI=
+Received: from DM6PR06CA0003.namprd06.prod.outlook.com (2603:10b6:5:120::16)
+ by PH0PR12MB7471.namprd12.prod.outlook.com (2603:10b6:510:1e9::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Fri, 13 Jan
- 2023 06:25:02 +0000
-Received: from DM6NAM11FT058.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:54:cafe::11) by DS7PR06CA0041.outlook.office365.com
- (2603:10b6:8:54::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.13 via Frontend
- Transport; Fri, 13 Jan 2023 06:25:02 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.13; Fri, 13 Jan
+ 2023 06:25:04 +0000
+Received: from DM6NAM11FT079.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:120:cafe::d8) by DM6PR06CA0003.outlook.office365.com
+ (2603:10b6:5:120::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.14 via Frontend
+ Transport; Fri, 13 Jan 2023 06:25:03 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT058.mail.protection.outlook.com (10.13.172.216) with Microsoft SMTP
+ DM6NAM11FT079.mail.protection.outlook.com (10.13.173.4) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6002.13 via Frontend Transport; Fri, 13 Jan 2023 06:25:01 +0000
+ 15.20.6002.13 via Frontend Transport; Fri, 13 Jan 2023 06:25:03 +0000
 Received: from thomas-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 13 Jan
- 2023 00:24:58 -0600
+ 2023 00:25:00 -0600
 From: YiPeng Chai <YiPeng.Chai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/5] drm/amdgpu: Add gfx ras function on gfx v11_0_3
-Date: Fri, 13 Jan 2023 14:23:54 +0800
-Message-ID: <20230113062358.1727355-1-YiPeng.Chai@amd.com>
+Subject: [PATCH 2/5] amd/amdgpu: Add RLC_RLCS_FED_STATUS_* to gc v11_0_3 ip
+ headers
+Date: Fri, 13 Jan 2023 14:23:55 +0800
+Message-ID: <20230113062358.1727355-2-YiPeng.Chai@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230113062358.1727355-1-YiPeng.Chai@amd.com>
+References: <20230113062358.1727355-1-YiPeng.Chai@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT058:EE_|SA0PR12MB7075:EE_
-X-MS-Office365-Filtering-Correlation-Id: cd9e8892-359a-4a08-1fd7-08daf52ee6e6
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT079:EE_|PH0PR12MB7471:EE_
+X-MS-Office365-Filtering-Correlation-Id: 83a65b6b-a665-45b1-795d-08daf52ee7c4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ic24NSgeeoKnQKHJCa3DwTRDRvdFRxtLbA48StzElSM4iJtbZc3HfSaorLtbdRJOkAz/efVPEEa+yqnoW3I2qpxlP93iyw4+t8ThaoyqEtn3LOrARV8Bdk9diZB2yWtGFFC23AhUhcJd7TO6GaWRtR84Y7N7XxeNCs2BD2ezK4GwWEZ/cwKKTfZNzuGbrRd8Vewaui5uIxOPpTRxRVLOMa7UqB21e8sKnDbQXdEwVBPuZhoq4ajubTBccdNcM5MtcUuX+0g4reJOSIxCCOkYOlwwCOwXSb4fkR7RyCnvz0hvZC3sECasqROuCVn8LINrSHBeOh5mMn0WpKViUmD25k0dn2nvhObCK2Tq/PF2G2+q6WP+IqWli/FJW8aUi1NknZk7HP6ZANmoioqHItH7qZdCBnjFBW83QtenMPcbNPnTsnNeCulB7LC1Z3FX3/fgxrz6hwT4tUjLGWyqJIXxvORdounEF8YFCJBxPfzqsDiTQdUSgrCKofs/dnshXt1nBgXZ/BjLUpHWFg2y3J/J6njsfejHLqY1ixKGJQ+C5+OPpyo8vxYuXSmqYM8jLLMpvmG33kLDYO6UyNIVRv5R2fLIKvlMz7IGcBFZNYx8EfvUp1Y+JGrD9l6OElqZrygTPRTuBvhM+XEuHryuhBIk/MXNCgF7E47r0xhVVO/5F1E89HLovAEPlP7y6eOlrCB5tBrJbcshEI5rCfhlOzNZNXGsm279rezuh4yyAwDU0ho=
+X-Microsoft-Antispam-Message-Info: e+BvjUDVjr2psEnwCrXvD73xwPLPg0CVOCkPn6UY9n0Nae/KMvHKiou3qlF3rLYjMF/m9EhBaCgtTv2WDO2np6VhhZLfgGyKQwtoK0CkQ0SeogJl4VJ9YygA7Qtl9aKxJB09WTb4Mb7hQpKn+p1NEaN166EXNc6NMoC/cHHn2fAHtaIpK1TqhpnFBSQqyDrEbJvsvxupNzhLvK6mki35wJisueYR3ibr3Nexdt5HUtCim9cv/zqWusI6rA1XiH3hI+lWqWYEgqxexg1tNdX5tHYJ522dhJyQ8S5muIviWd/1a5TCFGsE/VOxkUYzHLvgvxssMnbG8E4FlyEqNTUqI1I1f6AqaUBbuoezPXnz2ZIYaICPrQVB+N4aLQ58pwGrnPdiThZZK5Ez2hZxFOhhPI0LoW3QiombI3v5w5ZYAFwb24eZ/4F8yMqj9rpm8WvIwulaSirxUNq1URJt9hiXN7lWfEe8mxnte7YiZCMXabdS+fqTE9a4+9L8DylpQ7qNcT0AF9MPgR38YnyxwEckVLBTFHSiHps80qJf4hEKYp7rq0CUoOED9hrNpEK4UWonEFbSSQ6IPsADUSwhqx9FVGcZSp5ueDJFAANvQKIMynimVxjJ571wHIFeApAYjFAguZQJOFgitNZ093VzuBsIqNcuDDHiXU7rfiiOT9f0Pm6ml2Nf1Y30jSRAZUVp+1VFPK586TQ2TKwu9jHX2Iib9qCLTyn+uSuw5XkXTOyQku4=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(396003)(136003)(346002)(376002)(451199015)(40470700004)(36840700001)(46966006)(66899015)(2906002)(7696005)(6666004)(26005)(16526019)(478600001)(186003)(36756003)(54906003)(4326008)(8676002)(6916009)(70586007)(316002)(70206006)(336012)(2616005)(426003)(1076003)(40460700003)(41300700001)(36860700001)(82740400003)(5660300002)(83380400001)(8936002)(40480700001)(47076005)(86362001)(82310400005)(356005)(81166007)(36900700001);
+ SFS:(13230022)(4636009)(346002)(136003)(39860400002)(396003)(376002)(451199015)(40470700004)(36840700001)(46966006)(36860700001)(83380400001)(86362001)(356005)(4326008)(2906002)(81166007)(70206006)(8936002)(6916009)(8676002)(5660300002)(70586007)(336012)(40480700001)(426003)(82310400005)(186003)(16526019)(6666004)(26005)(41300700001)(2616005)(47076005)(1076003)(316002)(54906003)(7696005)(40460700003)(478600001)(82740400003)(36756003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2023 06:25:01.6707 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd9e8892-359a-4a08-1fd7-08daf52ee6e6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2023 06:25:03.1122 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 83a65b6b-a665-45b1-795d-08daf52ee7c4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT058.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT079.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7075
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7471
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,218 +100,105 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tao Zhou <tao.zhou1@amd.com>, Hawking.Zhang@amd.com,
- YiPeng Chai <YiPeng.Chai@amd.com>, Candice.Li@amd.com, yipechai@amd.com
+Cc: Tao Zhou <tao.zhou1@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>,
+ yipechai@amd.com, Alex Deucher <alexander.deucher@amd.com>, Candice.Li@amd.com,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add gfx ras function on gfx v11_0_3.
-
 V2:
- 1. Add separate source files for gfx v11_0_3.
- 2. Create a common function to initialize gfx ras block.
-
-V3:
- 1. Rename amdgpu_gfx_ras_block_init to amdgpu_gfx_ras_sw_init.
- 2. Adjust the calling position of amdgpu_gfx_ras_sw_init.
- 3. Remove gfx_v11_0_3_ras_ops.
-
-V4:
- Revert changes in amdgpu_ras_interrupt_poison_consumption_handler.
-
-V5:
- 1. Remove invalid include file in gfx_v11_0_3.c.
- 2. Reduce the number of parameters of amdgpu_gfx_ras_sw_init.
+   Add RLC_RLCS_FED_STATUS_0 and RLC_RLCS_FED_STATUS_1 register
+   offset and shift masks.
 
 Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/Makefile      |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c  | 35 ++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h  |  1 +
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c   | 13 +++++++++
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.c | 27 ++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.h | 29 ++++++++++++++++++++
- 6 files changed, 106 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.h
+ .../include/asic_reg/gc/gc_11_0_3_offset.h    |  8 +++
+ .../include/asic_reg/gc/gc_11_0_3_sh_mask.h   | 50 +++++++++++++++++++
+ 2 files changed, 58 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index 332cf8bda7a2..5df603192cdc 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -137,6 +137,7 @@ amdgpu-y += \
- 	gfx_v10_0.o \
- 	imu_v11_0.o \
- 	gfx_v11_0.o \
-+	gfx_v11_0_3.o \
- 	imu_v11_0_3.o
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_3_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_3_offset.h
+index 3b95a59b196c..56e00252bff8 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_3_offset.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_3_offset.h
+@@ -3593,6 +3593,14 @@
+ #define regGCL2TLB_PERFCOUNTER_RSLT_CNTL_BASE_IDX                                                       1
  
- # add async DMA block
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index 42a939cd2eac..09c42c00e43c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -696,6 +696,41 @@ int amdgpu_gfx_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *r
- 	return r;
- }
  
-+int amdgpu_gfx_ras_sw_init(struct amdgpu_device *adev)
-+{
-+	int err = 0;
-+	struct amdgpu_gfx_ras *ras = NULL;
-+
-+	/* adev->gfx.ras is NULL, which means gfx does not
-+	 * support ras function, then do nothing here.
-+	 */
-+	if (!adev->gfx.ras)
-+		return 0;
-+
-+	ras = adev->gfx.ras;
-+
-+	err = amdgpu_ras_register_ras_block(adev, &ras->ras_block);
-+	if (err) {
-+		dev_err(adev->dev, "Failed to register gfx ras block!\n");
-+		return err;
-+	}
-+
-+	strcpy(ras->ras_block.ras_comm.name, "gfx");
-+	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__GFX;
-+	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
-+	adev->gfx.ras_if = &ras->ras_block.ras_comm;
-+
-+	/* If not define special ras_late_init function, use gfx default ras_late_init */
-+	if (!ras->ras_block.ras_late_init)
-+		ras->ras_block.ras_late_init = amdgpu_ras_block_late_init;
-+
-+	/* If not defined special ras_cb function, use default ras_cb */
-+	if (!ras->ras_block.ras_cb)
-+		ras->ras_block.ras_cb = amdgpu_gfx_process_ras_data_cb;
-+
-+	return 0;
-+}
-+
- int amdgpu_gfx_process_ras_data_cb(struct amdgpu_device *adev,
- 		void *err_data,
- 		struct amdgpu_iv_entry *entry)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index b3df4787877e..6b26597217ed 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -432,4 +432,5 @@ void amdgpu_kiq_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v);
- int amdgpu_gfx_get_num_kcq(struct amdgpu_device *adev);
- void amdgpu_gfx_cp_init_microcode(struct amdgpu_device *adev, uint32_t ucode_id);
- 
-+int amdgpu_gfx_ras_sw_init(struct amdgpu_device *adev);
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index 259ebf0356db..82beb46788cf 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -46,6 +46,7 @@
- #include "clearstate_gfx11.h"
- #include "v11_structs.h"
- #include "gfx_v11_0.h"
-+#include "gfx_v11_0_3.h"
- #include "nbio_v4_3.h"
- #include "mes_v11_0.h"
- 
-@@ -852,7 +853,14 @@ static int gfx_v11_0_gpu_early_init(struct amdgpu_device *adev)
- 	switch (adev->ip_versions[GC_HWIP][0]) {
- 	case IP_VERSION(11, 0, 0):
- 	case IP_VERSION(11, 0, 2):
-+		adev->gfx.config.max_hw_contexts = 8;
-+		adev->gfx.config.sc_prim_fifo_size_frontend = 0x20;
-+		adev->gfx.config.sc_prim_fifo_size_backend = 0x100;
-+		adev->gfx.config.sc_hiz_tile_fifo_size = 0;
-+		adev->gfx.config.sc_earlyz_tile_fifo_size = 0x4C0;
-+		break;
- 	case IP_VERSION(11, 0, 3):
-+		adev->gfx.ras = &gfx_v11_0_3_ras;
- 		adev->gfx.config.max_hw_contexts = 8;
- 		adev->gfx.config.sc_prim_fifo_size_frontend = 0x20;
- 		adev->gfx.config.sc_prim_fifo_size_backend = 0x100;
-@@ -1422,6 +1430,11 @@ static int gfx_v11_0_sw_init(void *handle)
- 	if (r)
- 		return r;
- 
-+	if (amdgpu_gfx_ras_sw_init(adev)) {
-+		dev_err(adev->dev, "Failed to initialize gfx ras block!\n");
-+		return -EINVAL;
-+	}
-+
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.c
-new file mode 100644
-index 000000000000..5966d984a30a
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.c
-@@ -0,0 +1,27 @@
-+/*
-+ * Copyright 2023 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#include "amdgpu.h"
++// addressBlock: gc_rlcsdec
++// base address: 0x3b980
++#define regRLC_RLCS_FED_STATUS_0                                                                        0x4eff
++#define regRLC_RLCS_FED_STATUS_0_BASE_IDX                                                               1
++#define regRLC_RLCS_FED_STATUS_1                                                                        0x4f00
++#define regRLC_RLCS_FED_STATUS_1_BASE_IDX                                                               1
 +
 +
-+struct amdgpu_gfx_ras gfx_v11_0_3_ras;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.h b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.h
-new file mode 100644
-index 000000000000..7095abddcbc0
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.h
-@@ -0,0 +1,29 @@
-+/*
-+ * Copyright 2023 dvanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#ifndef __GFX_V11_0_3_H__
-+#define __GFX_V11_0_3_H__
-+
-+extern struct amdgpu_gfx_ras gfx_v11_0_3_ras;
-+
-+#endif
+ // addressBlock: gc_gcvml2pspdec
+ // base address: 0x3f900
+ #define regGCUTCL2_TRANSLATION_BYPASS_BY_VMID                                                           0x5e41
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_3_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_3_sh_mask.h
+index ae3ef8a9e702..658e88a8e2ac 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_3_sh_mask.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_11_0_3_sh_mask.h
+@@ -37642,6 +37642,56 @@
+ #define RLC_RLCG_DOORBELL_RANGE__LOWER_ADDR_MASK                                                              0x00000FFCL
+ #define RLC_RLCG_DOORBELL_RANGE__UPPER_ADDR_RESERVED_MASK                                                     0x00030000L
+ #define RLC_RLCG_DOORBELL_RANGE__UPPER_ADDR_MASK                                                              0x0FFC0000L
++//RLC_RLCS_FED_STATUS_0
++#define RLC_RLCS_FED_STATUS_0__RLC_FED_ERR__SHIFT                                                             0x0
++#define RLC_RLCS_FED_STATUS_0__UTCL2_FED_ERR__SHIFT                                                           0x1
++#define RLC_RLCS_FED_STATUS_0__GE_FED_ERR__SHIFT                                                              0x2
++#define RLC_RLCS_FED_STATUS_0__CPC_FED_ERR__SHIFT                                                             0x3
++#define RLC_RLCS_FED_STATUS_0__CPF_FED_ERR__SHIFT                                                             0x4
++#define RLC_RLCS_FED_STATUS_0__CPG_FED_ERR__SHIFT                                                             0x5
++#define RLC_RLCS_FED_STATUS_0__SDMA0_FED_ERR__SHIFT                                                           0x6
++#define RLC_RLCS_FED_STATUS_0__SDMA1_FED_ERR__SHIFT                                                           0x7
++#define RLC_RLCS_FED_STATUS_0__RLC_FED_ERR_MASK                                                               0x00000001L
++#define RLC_RLCS_FED_STATUS_0__UTCL2_FED_ERR_MASK                                                             0x00000002L
++#define RLC_RLCS_FED_STATUS_0__GE_FED_ERR_MASK                                                                0x00000004L
++#define RLC_RLCS_FED_STATUS_0__CPC_FED_ERR_MASK                                                               0x00000008L
++#define RLC_RLCS_FED_STATUS_0__CPF_FED_ERR_MASK                                                               0x00000010L
++#define RLC_RLCS_FED_STATUS_0__CPG_FED_ERR_MASK                                                               0x00000020L
++#define RLC_RLCS_FED_STATUS_0__SDMA0_FED_ERR_MASK                                                             0x00000040L
++#define RLC_RLCS_FED_STATUS_0__SDMA1_FED_ERR_MASK                                                             0x00000080L
++//RLC_RLCS_FED_STATUS_1
++#define RLC_RLCS_FED_STATUS_1__GL2C0_FED_ERR__SHIFT                                                           0x0
++#define RLC_RLCS_FED_STATUS_1__GL2C1_FED_ERR__SHIFT                                                           0x1
++#define RLC_RLCS_FED_STATUS_1__GL2C2_FED_ERR__SHIFT                                                           0x2
++#define RLC_RLCS_FED_STATUS_1__GL2C3_FED_ERR__SHIFT                                                           0x3
++#define RLC_RLCS_FED_STATUS_1__GL2C4_FED_ERR__SHIFT                                                           0x4
++#define RLC_RLCS_FED_STATUS_1__GL2C5_FED_ERR__SHIFT                                                           0x5
++#define RLC_RLCS_FED_STATUS_1__GL2C6_FED_ERR__SHIFT                                                           0x6
++#define RLC_RLCS_FED_STATUS_1__GL2C7_FED_ERR__SHIFT                                                           0x7
++#define RLC_RLCS_FED_STATUS_1__GL2C8_FED_ERR__SHIFT                                                           0x8
++#define RLC_RLCS_FED_STATUS_1__GL2C9_FED_ERR__SHIFT                                                           0x9
++#define RLC_RLCS_FED_STATUS_1__GL2C10_FED_ERR__SHIFT                                                          0xa
++#define RLC_RLCS_FED_STATUS_1__GL2C11_FED_ERR__SHIFT                                                          0xb
++#define RLC_RLCS_FED_STATUS_1__GL2C12_FED_ERR__SHIFT                                                          0xc
++#define RLC_RLCS_FED_STATUS_1__GL2C13_FED_ERR__SHIFT                                                          0xd
++#define RLC_RLCS_FED_STATUS_1__GL2C14_FED_ERR__SHIFT                                                          0xe
++#define RLC_RLCS_FED_STATUS_1__GL2C15_FED_ERR__SHIFT                                                          0xf
++#define RLC_RLCS_FED_STATUS_1__GL2C0_FED_ERR_MASK                                                             0x00000001L
++#define RLC_RLCS_FED_STATUS_1__GL2C1_FED_ERR_MASK                                                             0x00000002L
++#define RLC_RLCS_FED_STATUS_1__GL2C2_FED_ERR_MASK                                                             0x00000004L
++#define RLC_RLCS_FED_STATUS_1__GL2C3_FED_ERR_MASK                                                             0x00000008L
++#define RLC_RLCS_FED_STATUS_1__GL2C4_FED_ERR_MASK                                                             0x00000010L
++#define RLC_RLCS_FED_STATUS_1__GL2C5_FED_ERR_MASK                                                             0x00000020L
++#define RLC_RLCS_FED_STATUS_1__GL2C6_FED_ERR_MASK                                                             0x00000040L
++#define RLC_RLCS_FED_STATUS_1__GL2C7_FED_ERR_MASK                                                             0x00000080L
++#define RLC_RLCS_FED_STATUS_1__GL2C8_FED_ERR_MASK                                                             0x00000100L
++#define RLC_RLCS_FED_STATUS_1__GL2C9_FED_ERR_MASK                                                             0x00000200L
++#define RLC_RLCS_FED_STATUS_1__GL2C10_FED_ERR_MASK                                                            0x00000400L
++#define RLC_RLCS_FED_STATUS_1__GL2C11_FED_ERR_MASK                                                            0x00000800L
++#define RLC_RLCS_FED_STATUS_1__GL2C12_FED_ERR_MASK                                                            0x00001000L
++#define RLC_RLCS_FED_STATUS_1__GL2C13_FED_ERR_MASK                                                            0x00002000L
++#define RLC_RLCS_FED_STATUS_1__GL2C14_FED_ERR_MASK                                                            0x00004000L
++#define RLC_RLCS_FED_STATUS_1__GL2C15_FED_ERR_MASK                                                            0x00008000L
+ //RLC_CGTT_MGCG_OVERRIDE
+ #define RLC_CGTT_MGCG_OVERRIDE__RLC_REPEATER_FGCG_OVERRIDE__SHIFT                                             0x0
+ #define RLC_CGTT_MGCG_OVERRIDE__RLC_CGTT_SCLK_OVERRIDE__SHIFT                                                 0x1
 -- 
 2.25.1
 
