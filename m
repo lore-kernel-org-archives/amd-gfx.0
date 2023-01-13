@@ -4,65 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CB45C54EBD
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 15:02:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD4A8C54EBE
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 15:07:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 127B910EA10;
-	Fri, 13 Jan 2023 15:02:25 +0000 (UTC)
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E4D410EA10
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 15:02:24 +0000 (UTC)
-Received: by mail-ej1-x62c.google.com with SMTP id cf18so46579149ejb.5
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 07:02:23 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49D4C10EA12;
+	Fri, 13 Jan 2023 15:07:53 +0000 (UTC)
+Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
+ [IPv6:2001:4860:4864:20::2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C63510EA27
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 15:07:50 +0000 (UTC)
+Received: by mail-oa1-x2e.google.com with SMTP id
+ 586e51a60fabf-15eeec85280so1433828fac.11
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 07:07:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Bhz5vXzbxv2+ka9buAzRHyvZeXMKtONHqAc8AjLdJFM=;
- b=FTOf/MRXikCM4AZ9T8J+FXRgrNkEpkOMfwVS8oduacTeBywUQD2jY7MNZVCSO3IW/c
- wKjPcPKDIx39Ab0kUzaM9AjoMdUt37c2PsDfUW7r4M/n57iwsmQ5haOur09VjZGKRMvL
- mz/Hx0P/JMSVEAIbbBjFMVKIj8urg8jRgnmN7suIvUFlRoCu0Va9MH7h8cNSCNK7hOBO
- V3NUbOc1SDBPZ/SHHpRai28kUsAJu7fBw+xWCmzW2QDVqA/WeIfjrt2Z+6aMhBIf3OSY
- b3NfaEmSzgl3cURTzWrOFAIyq0K5CgxeqQmvM8WphFKt4vjqnVO/pZ7sMcBbtKWqSWqY
- bVeA==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=3squmkvf8+Hyo4sOkO0tbwQ+mJfb+vZx3IOuGl3coY8=;
+ b=Q7A2tf6w3gi52IDlJV+0i5/KUmJ/Mo8eWOyKXlX7mmSGGCDYUhceXDF4vBtzS/HwIj
+ DF2wfaKAp8Gmy9QVAtTlrNz1oT2Vz8V61OipirH40HnEQhcFBQiNUVMPsnCVODpNoNqN
+ Ecep8w5svMt6dzKBrAvwwi2Ns9mCdzYrASk9zQg8p22jlFA+g2ZqREZvYS8fV6dddMSh
+ K19k+Sw6eQUTUTj8Jxi4v5C0J0wx7G8C6Md1uKMpik5fWMYP36mUdqZIi52+SUNW+Y3N
+ sbe07teVIX/ufomNOcqEvYMR/B943WRfI5SukdEe0W7fUqFpQyB9HI8w8dB0J4LdFqna
+ 33YQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Bhz5vXzbxv2+ka9buAzRHyvZeXMKtONHqAc8AjLdJFM=;
- b=RurFQqTABgd6tU6Ga5kCJ5vwFINRqf+uY+ezXYROR9AUfP0qTB19RSG8+buoedM90I
- HGKo8WJQuWE08RhHk9+6T1U6Cb29AjBxguRU9aWmHSSFz0Tj2q87H0PPsaAuBsb2kaZ8
- jh/JjLQ6f4A7kTNmzwXl6ifoq9u9el0Z12SGnUKLoakB6t8DDxw0y4BRxJX6pCaeNvd3
- pdYw0TJkv8mJ75B+nzVzRvkJWJP9CSuHPukdam3xKK+ZhqFOHnlYcfFrs+XesL/kWmFZ
- vO6sQY8Kx7k5bWkBQQ+oNdgFrP/Zdz2oJMo1rq2O5CrFeWb9ywuZ+cDZJNrj/QSI+vRU
- u+CQ==
-X-Gm-Message-State: AFqh2krzXsV/jKOCERHQ4xysUmMh5dbr46gNfIjemTiUJ+/rjHal8Pz/
- 3MdqQs0Qu9dWRpu9RUhje5myE4EEDo0=
-X-Google-Smtp-Source: AMrXdXuxw6PnMvmcKfdqredMNjLcCMAoICEHVe5wlgX83t8XN21XZltoJfL2fs/a5kf00viXjBa0fw==
-X-Received: by 2002:a17:907:c70b:b0:7c0:e535:13fd with SMTP id
- ty11-20020a170907c70b00b007c0e53513fdmr72630241ejc.70.1673622142517; 
- Fri, 13 Jan 2023 07:02:22 -0800 (PST)
-Received: from ?IPV6:2a02:908:1256:79a0:9fe7:7ab3:383d:1efb?
- ([2a02:908:1256:79a0:9fe7:7ab3:383d:1efb])
- by smtp.gmail.com with ESMTPSA id
- w23-20020a1709062f9700b0084d3bf44996sm7136293eji.142.2023.01.13.07.02.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 Jan 2023 07:02:21 -0800 (PST)
-Message-ID: <b00f9dc7-695e-bf7b-5828-efa00d56c3d7@gmail.com>
-Date: Fri, 13 Jan 2023 16:02:20 +0100
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=3squmkvf8+Hyo4sOkO0tbwQ+mJfb+vZx3IOuGl3coY8=;
+ b=wrscJuR7EHmymJunChJ4ufOsiJzkB3HAHAncpxCPLGu3SmbzI2MBsx7ZPdaZ2yvjxV
+ T8lF4/GZMPx72r8OQpp8Uc/DHmCJdyr01GvGO/4YBUv1I2xjfMEt4DZ1j9zG8Bo3ec5t
+ 8rKIlKR8zZYQ0iCRgYenXZWBX+LwbYLceaXQPiGF4K+wBgMSFZXHQCd/opB0828TOK8t
+ Kvr/e4crHyGjl/JIKAW3t6OHrOF45MN6/xT2x5z6HH48ugzXylmwVUBLTqNT0m7NcscT
+ xD+MgbctqO+Y1MxgnEMH7e7z5Vmj6mS/m5t+qM1tTtBrHPOsgJaXZ9f/xF3M3cpDCzHF
+ xFSA==
+X-Gm-Message-State: AFqh2kr8tBXgyOYRhJskFFZHr/kTFKDz9XD27Ryt9FBG3SdnDpO3+O1J
+ k78DAL7uKuJdOz/Q38cjFAwPL0vrVnx7cfPCJi736oYI
+X-Google-Smtp-Source: AMrXdXtsq8XabHAo4Dfy/VX2EaLmSZJs7TcfO9oJKDZbKTnYSE7iLuhbAP97U9Za3q3jFwKzjjPEfsqQ3uFQ3EZWnGY=
+X-Received: by 2002:a05:6870:970e:b0:148:3c8f:15ab with SMTP id
+ n14-20020a056870970e00b001483c8f15abmr6930876oaq.46.1673622469199; Fri, 13
+ Jan 2023 07:07:49 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: Is "perfectly equal monitors" really required to reclock MCLK
-Content-Language: en-US
-To: Braiam <braiamp@gmail.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
-References: <CAG=7Bt9ivGs8rtZx3rzZj_uoTzeGwnYRYQ6ohfpxVFMNV3YtOw@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CAG=7Bt9ivGs8rtZx3rzZj_uoTzeGwnYRYQ6ohfpxVFMNV3YtOw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20230113094445.5933-1-vitaly.prosyak@amd.com>
+In-Reply-To: <20230113094445.5933-1-vitaly.prosyak@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 13 Jan 2023 10:07:37 -0500
+Message-ID: <CADnq5_N85j2NCem0-d0y3EBmyvR=ba0hF44+1DQrj982WgA-Zg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: revert part of a commit fac53471d0ea9
+To: vitaly.prosyak@amd.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,74 +64,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: alexander.deucher@amd.com, yipeng.chai@amd.com, christian.koenig@amd.com,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 13.01.23 um 11:35 schrieb Braiam:
-> Hi,
+On Fri, Jan 13, 2023 at 4:44 AM <vitaly.prosyak@amd.com> wrote:
 >
-> I have two monitors with the current following configuration:
+> From: Vitaly Prosyak <vitaly.prosyak@amd.com>
 >
-> Screen 0: minimum 320 x 200, current 5120 x 1440, maximum 16384 x 16384
-> DisplayPort-0 connected primary 2560x1440+0+0 (normal left inverted
-> right x axis y axis) 597mm x 336mm
->     2560x1440    164.83 +  59.95 + 120.05*   96.01    72.01    60.01
-> 143.97   120.00    74.97
-> [snip]
-> DisplayPort-1 connected 2560x1440+2560+0 (normal left inverted right x
-> axis y axis) 597mm x 336mm
->     2560x1440    165.00 +  59.95 + 120.06*   96.04    72.01    60.01
-> 50.01    48.01   144.00   119.99    99.99
-> [snip]
-> HDMI-A-0 disconnected (normal left inverted right x axis y axis)
-> HDMI-A-1 disconnected (normal left inverted right x axis y axis)
-> DVI-D-0 disconnected (normal left inverted right x axis y axis)
->
-> The pp_profile_mode:
->
-> NUM        MODE_NAME     SCLK_UP_HYST   SCLK_DOWN_HYST
-> SCLK_ACTIVE_LEVEL     MCLK_UP_HYST   MCLK_DOWN_HYST MCLK_ACTIVE_LEVEL
->    0   BOOTUP_DEFAULT:        -                -                -
->           -                -                -
->    1 3D_FULL_SCREEN *:        0              100               30
->          10               60               25
->    2     POWER_SAVING:       10                0               30
->           -                -                -
->    3            VIDEO:        -                -                -
->          10               16               31
->    4               VR:        0               11               50
->           0              100               10
->    5          COMPUTE:        0                5               30
->           -                -                -
->    6           CUSTOM:        -                -                -
->           -                -                -
->
-> I have set their refresh rate to 72.01 which is a mode equal for both,
-> and the MCLK wasn't downclocked either. They are branded HP and
-> Scepter. Using a vtty doesn't help either.
->
-> Is having the exact same monitor really required? If not, how can I
-> check what is causing
-> the memory clock to be pegged that high?
+> Revert the following change: move drm_dev_unplug call after
+> amdgpu_driver_unload_kms in amdgpu_pci_remove.
+> The reason is following: amdgpu_pci_remove calls drm_dev_unregister
+> and it should be called first to ensure userspace can't access the
+> device instance anymore. If we call drm_dev_unplug after
+> amdgpu_driver_unload_kms then we observe IGT PCI software unplug
+> test failure (kernel hung) for all ASIC's. This is how this
+> regression was found.
 
-First of all you need a minimum MCLK to support scanout for two 
-monitors, so even if you have two identical monitors your minimum MCLK 
-is higher.
+Maybe just revert the entire patch rather than a partial revert?  That
+said, reverting the change will break
+driver unload because we need to send certain messages to the PSP to
+clean things up.  I'm not sure
+what the best way around that is.
 
-Then for MCLK switching in the VBLANK period the two monitors must run 
-in sync with each other, e.g. using the same PLL source and having the 
-VBLANK at the same time.
-
-For this not only the refresh rate, resolution and pixel clock needs to 
-be the same, but also all the other timing parameters must match exactly.
-
-Could be that you can run both monitors with the same mode, but that 
-they have that by coincident is rather unlikely if they are not identical.
-
-Regards,
-Christian.
+Alex
 
 >
-> I'm using 6.0.0-6-amd64 from Debian testing.
+> Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 >
-
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 06aba201d4db..8a1047224000 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -2226,6 +2226,8 @@ amdgpu_pci_remove(struct pci_dev *pdev)
+>         struct drm_device *dev = pci_get_drvdata(pdev);
+>         struct amdgpu_device *adev = drm_to_adev(dev);
+>
+> +       drm_dev_unplug(dev);
+> +
+>         if (adev->pm.rpm_mode != AMDGPU_RUNPM_NONE) {
+>                 pm_runtime_get_sync(dev->dev);
+>                 pm_runtime_forbid(dev->dev);
+> @@ -2265,7 +2267,7 @@ amdgpu_pci_remove(struct pci_dev *pdev)
+>
+>         amdgpu_driver_unload_kms(dev);
+>
+> -       drm_dev_unplug(dev);
+> +
+>
+>         /*
+>          * Flush any in flight DMA operations from device.
+> --
+> 2.25.1
+>
