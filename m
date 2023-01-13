@@ -4,59 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63246C3DA78
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 19:31:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFF49C54EBD
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 19:31:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 355A710EAD2;
-	Fri, 13 Jan 2023 19:30:54 +0000 (UTC)
-Received: from mail-il1-x12c.google.com (mail-il1-x12c.google.com
- [IPv6:2607:f8b0:4864:20::12c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1FF910EABC;
- Fri, 13 Jan 2023 19:30:44 +0000 (UTC)
-Received: by mail-il1-x12c.google.com with SMTP id a3so5290001ilp.6;
- Fri, 13 Jan 2023 11:30:44 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E56CC10EACF;
+	Fri, 13 Jan 2023 19:30:53 +0000 (UTC)
+Received: from mail-io1-xd32.google.com (mail-io1-xd32.google.com
+ [IPv6:2607:f8b0:4864:20::d32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E616510EABB;
+ Fri, 13 Jan 2023 19:30:48 +0000 (UTC)
+Received: by mail-io1-xd32.google.com with SMTP id y205so6365199iof.0;
+ Fri, 13 Jan 2023 11:30:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=h7E8mOROiZFak1hyuDLHZO4dWBPRJx+AzyZtVyPnB1c=;
- b=NFGI8G4J3JHcHWVJJCje1tn4wX4/c1V8buxhNGuHGLE8ioehj37HI2hvsXan7Iauj1
- bWiQH6MGv9cOKH5nmWV6A+0M/JOqI0hhwUzgAIHVc5Kq0RqrRPFL5FJCLxbDqrdlIy+y
- UUz3LreilLsYdvT8RHh+wNBRnYKAmYuInZ33RrJREgW7fnV8RvLua8XDtq3KyvlUrm4h
- 8nNE8/1pZpXH4qvP22FNR5anq3q07NAS+Qk4kXZcZ8Y+PIru3803BdzsGR/Fy6TJXhBo
- 8GDAghcOV4YeYkquVwMQN64IO3O1+wd5nUVrgmYkTBsezoi8F8QrkhWN/Gv4GLGp7Xhi
- DtHw==
+ bh=WpVmv1h4fPy7xv9D1lk2U93L73H6vXkFF3YkrgZSyFU=;
+ b=gFUquBpFFu+HxDwgXo2T7EYvrJWxXCrd1buhezZ09V2hbi5S1BKEdRMtdlhLOAkV6h
+ CbplhtQMj3XxYm+uO9scNEFGWh2aBYnlDKwjfmx7FSV3CjXdyt5JaYzgnzr4BNRzCu/8
+ 5NdHHcLhPyaJCq2v5glPcalnBcf4QlnLw2MpnwmWdhjCVdneaDRkYuUWA95X6ts+D9PW
+ VqvO5JmqXxi5U+aEfJWiKN1mel1MkAd939pDrEn8+rQnvfiDPXni5X3IBtN1XvL8hDmI
+ FzQpFi6FmrIld0rYG6M09QnDte8qZp4AS3K3aJyNa1hv83c/39gnId7Czd6yKPLDyIvr
+ PSSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=h7E8mOROiZFak1hyuDLHZO4dWBPRJx+AzyZtVyPnB1c=;
- b=WY1wgCnX9/fsn7brIKdx5VVPmdfgVmL3UJImsglFoESKy0MYSeBebkeOv0M6820598
- HJSqe/p1WpQ8xQHN8OBSIJXrpbkAK5B4H+cxFzcxrqchKUSGR4drCMOD6P8O0RlULiaA
- D0MfNaDuwCuSiPbiVN5SWLKctRmuLsSyiXtG6yGLdSsU9DUfMooqoMzpvaW0ebtfSFlF
- Voq+DNmFxl5hx009XfaG+jeVCrzzefgAJ4zBl2PY3LYYV4HNV3s6a5MAZT3DGLwOpblU
- P68ksK7CLlyGLGq8Y6DvF/ICgAPMfU1Q0wbZSYuiSdjSPPu6UF9JABrRjEj7Ge8ezq2K
- g02g==
-X-Gm-Message-State: AFqh2kpA5Gz2h3a0NU+XacEvxd4K1Dtk9mvhZ5C4q98cDtvrO4A/itjE
- X18eUIKNDuifz1v3A4sTA18=
-X-Google-Smtp-Source: AMrXdXvPH129dWnUpJa8DkRWJYweDtctq7cHertzhMd9iaMmt2QU3y+ioZ4YvEafYXsPdjHT7P3j0w==
-X-Received: by 2002:a92:d10f:0:b0:305:dee9:bcc6 with SMTP id
- a15-20020a92d10f000000b00305dee9bcc6mr53274901ilb.17.1673638243665; 
- Fri, 13 Jan 2023 11:30:43 -0800 (PST)
+ bh=WpVmv1h4fPy7xv9D1lk2U93L73H6vXkFF3YkrgZSyFU=;
+ b=G9kjCxkwDW8cYb4mzWINNWrlRP77AqHZm3zUJYaQXkTarq91bdtneLV7vSwudvUsBA
+ PwG9ddNwexM5BWaQ3Vx+M+WMB4NpZRqlW6bsQzCeSPtdjUWuTGuIZepAfqbRAqsmA4Mv
+ IFd9J/A6fxCVlgRazwkkGrZYQtBLtqImcN6XEZNmPd/7ivR5weGnpVA7dzmH4ZScsGXD
+ Pi+lx0fOrXc6N9ZZhKaZAP8gNaicQNtUjQBclsEtQpX9f7vbBTn12RRk1YkLwWsEGnmS
+ uBtYhIytU7uvXvl/KM8GbobzRO34nIOE2ZIOH1BZ1YPhRahiLO6vgh3t4S3xidLKvBKQ
+ /DrQ==
+X-Gm-Message-State: AFqh2kqBUIuoakwA0V7GAZHQ+u6Bx7eZ3G5HtOEOsPU9QlIk8J992M1G
+ WpHp2/8HRyHAsgoUqbJoPgk=
+X-Google-Smtp-Source: AMrXdXvn4tS2uVrgMipElARhcLYnJJmJiUsrVzXuu5YXxTVLwT5HxYgCx4hh/+ZwI64J3mnDtR0ncQ==
+X-Received: by 2002:a5d:9801:0:b0:6e4:eab7:8c67 with SMTP id
+ a1-20020a5d9801000000b006e4eab78c67mr53011199iol.14.1673638248128; 
+ Fri, 13 Jan 2023 11:30:48 -0800 (PST)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e32-20020a026d60000000b0039e583abceasm6497289jaf.68.2023.01.13.11.30.42
+ e32-20020a026d60000000b0039e583abceasm6497289jaf.68.2023.01.13.11.30.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Jan 2023 11:30:43 -0800 (PST)
+ Fri, 13 Jan 2023 11:30:47 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH v2 02/20] test-dyndbg: show that DEBUG enables prdbgs at
- compiletime
-Date: Fri, 13 Jan 2023 12:29:58 -0700
-Message-Id: <20230113193016.749791-3-jim.cromie@gmail.com>
+Subject: [PATCH v2 06/20] dyndbg: drop NUM_TYPE_ARRAY
+Date: Fri, 13 Jan 2023 12:30:02 -0700
+Message-Id: <20230113193016.749791-7-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230113193016.749791-1-jim.cromie@gmail.com>
 References: <20230113193016.749791-1-jim.cromie@gmail.com>
@@ -79,55 +78,30 @@ Cc: jani.nikula@intel.com, daniel.vetter@ffwll.ch, jbaron@akamai.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Dyndbg is required to enable prdbgs at compile-time if DEBUG is
-defined.  Show this works; add the defn to test_dynamic_debug.c,
-and manually inspect/verify its effect at module load:
-
-[   15.292810] dyndbg: module:test_dynamic_debug attached 4 classes
-[   15.293189] dyndbg:  32 debug prints in module test_dynamic_debug
-[   15.293715] test_dd: init start
-[   15.293716] test_dd: doing categories
-[   15.293716] test_dd: LOW msg
-...
-[   15.293733] test_dd: L6 msg
-[   15.293733] test_dd: L7 msg
-[   15.293733] test_dd: init done
-
-NOTES:
-
-As is observable above, define DEBUG enables all prdbgs, including
-those in mod_init-fn, and more notably, the class'd ones (callsites
-with non-default class_ids).
-
-This differs from the >control interface, which in order to properly
-protect a client's class'd prdbgs, requires a "class FOO" in queries
-to change them.  If this sounds wrong, note that the DEBUG is in the
-module source file, and is thus privileged.
-
-This yields an occaisional surprise; the following disables all the
-compile-time enabled plain prdbgs, but leaves the class'd ones
-enabled.
-
- :#> modprobe test_dynamic_debug dyndbg==_
+ARRAY_SIZE works here, since array decl is complete.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/test_dynamic_debug.c | 2 ++
- 1 file changed, 2 insertions(+)
+ include/linux/dynamic_debug.h | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index a01f0193a419..89dd7f285e31 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -8,6 +8,8 @@
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index bf47bcfad8e6..81b643ab7f6e 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -104,11 +104,9 @@ struct ddebug_class_map {
+ 		.mod_name = KBUILD_MODNAME,				\
+ 		.base = _base,						\
+ 		.map_type = _maptype,					\
+-		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
++		.length = ARRAY_SIZE(_var##_classnames),		\
+ 		.class_names = _var##_classnames,			\
+ 	}
+-#define NUM_TYPE_ARGS(eltype, ...)				\
+-        (sizeof((eltype[]){__VA_ARGS__}) / sizeof(eltype))
  
- #define pr_fmt(fmt) "test_dd: " fmt
- 
-+#define DEBUG /* enable all prdbgs (plain & class'd) at compiletime */
-+
- #include <linux/module.h>
- 
- /* run tests by reading or writing sysfs node: do_prints */
+ /* encapsulate linker provided built-in (or module) dyndbg data */
+ struct _ddebug_info {
 -- 
 2.39.0
 
