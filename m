@@ -4,56 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C186FC54EBE
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 06:02:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFFBFC678DE
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 06:25:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5737B10E1D8;
-	Fri, 13 Jan 2023 06:02:12 +0000 (UTC)
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B91F010E1D8
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 06:02:09 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id
- bi26-20020a05600c3d9a00b003d3404a89faso230666wmb.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Jan 2023 22:02:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=x8R866yQt51YUiei5A6DEugeaJxwDMBUbSrneNSHkX4=;
- b=IZ8DRRQeW01aUUHGROueMCsJTNP7I9o+ShpHpU3ou26oZGnBnZwSZRn7zwHL6/qxsG
- H/9SBMCh+WATiUn+HrSMl0FOFPnEH71DDabfTBp9sqUoGEsKd6QjBZQhM54ImwTSzXvQ
- 3WcWz/W/s/tWbhFJJ2vI4AzS6Q4kZa8Vc+zsfOeMpP9iGEE95tQYVYJQ9vNSJx+8CPZY
- S+XqJUglT9hNNcFl0lIjQZkEedvc4+shEr1EBGrXjtyZmoomFXVg6m7HoWogSmnfBQ+t
- 9VStnEqYEApdTcHka7YiaqKFpHi7Q77VhiehTi90H/+VKggl65WUWaPtYYBsKyByAcbG
- vYIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=x8R866yQt51YUiei5A6DEugeaJxwDMBUbSrneNSHkX4=;
- b=veAL7whIM3DRVlGEw2Zr6W+AM6e4ybuQw0ewQhDKeG/NUS353CdjTlPhyWe8w4GuYz
- IHqb2qchsJE8dX/CuV8yxmi5WUI7YsAMFLmgqtG8UOxxtqbE23uIE5SqvsivZUnoVekd
- wyiEmKvUwKirjMLAEEszz2O0fpjWtbzdvF2lA6LAeKlUTH3ZAZqEFS8iPxWj7D7ZN2JX
- 7/1uYlmFD8LVg/5lo8vPwDyp3vS8vPbtYVpZRhPIpQXgygdYa5F+CyrKsbqLqqtAO4vT
- oa7zdEOkC+Ccv+Sva+4NGA8eRxt9GDsOAT2iCfJtH2n30apl3yhg9jQFI5DEVXK9gC2j
- +DJg==
-X-Gm-Message-State: AFqh2kpIXj8uBX7aOX75Y/uUtx+kXxzUuw7pwo8QR0w/3boSoKN7sD3I
- /zMYJwCl4MGzE0G1/5t+IrixLoYFPuGiqLsRiPQ=
-X-Google-Smtp-Source: AMrXdXudVE8CsDDRmGdGSeN1kQo3RQwjOpf+IqFbYs2Y7JgK9Qx/cnJO1J55WAO8pSkx2sCi7/EpkT1ogPES8nQ1Csk=
-X-Received: by 2002:a05:600c:4688:b0:3da:1c49:d630 with SMTP id
- p8-20020a05600c468800b003da1c49d630mr279844wmo.190.1673589727926; Thu, 12 Jan
- 2023 22:02:07 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25A6A10E99C;
+	Fri, 13 Jan 2023 06:25:06 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2078.outbound.protection.outlook.com [40.107.244.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59A6710E1E2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 06:25:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kVyQwPzyQXTFvmnSsDBLW2E1cIuuqMCGZ2pX1T2aY4eZBNZEZtTFO+CngyzIB3a2S7lP6R/PjRZOIaeTx1yV2KjSDlqlJzTvwrU981xUuv4hVqGvw+Zu80TdPMXtDGQntw+JYbSY5jUhrczmDlw7RvJxIuSOXFwgAveL4+gTAhUmAC6imhP1qy0ZPjctpaoZN9HFYoNWmepkNyESgKYLrm11oqPw3Flx5mC9UxhJuMgqzG1JpIVL/QyKYaLUyRwqa9biPT0PI/d6eZGT+thcFJS6AnVXWuDdxyj/B9u1DhY7vdS0qE0VxfcQosTpXIRxNl9HL/1J9QqsfiS2roKCmg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lEC9PAh08Hg+SlBRRrt4G1KDXKeVlAl0ehgPJwcyCNg=;
+ b=RR11jnkzAXyYn8Tp2h9ixApi5m55T0Hd7AJ+QgA9zWJZISOEjJ3c/yfsyRLxSEmkSxmPl0GGQNRQeh2OYhE2TCszSLwlO528q9STnGRttqfO8hYMZ4Zr3JWg1mO8xiKUZhtE+iUZuxFdlzCijGARJomyW+xwctpCGIgKti4Kobm2ctnyl+BvyzTRGes1azogL6uW0gLUluD4ofUs9lPc75BUOo3dq3m38NYGEEFwdMSasyuqePdSHHnxZSEusyghI0f2LNhQqyFgRY9Dew8i0AEuuKAs/KqT/TI/Bz1+xGHqG48ZI/50kcyxc1S4tpxRQcTGJTHWD/YFfGCeVtUhcQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lEC9PAh08Hg+SlBRRrt4G1KDXKeVlAl0ehgPJwcyCNg=;
+ b=kJcJw8giDHnrCHgEtST6ulxEvNTwgpXNu0UFeXK2K3/ZfAJcfkPmkJ3KKLy4Nv5EU2xbymzjmN/rGQ83trup3MYNx4n5csI0SPzKNSthrLO43hs0Q/Wq9PhEBo6cl5R1zqBBVl8J9SNfccpv3ThRLWf1H3OtiDVKHJbzuNrl1S0=
+Received: from DS7PR06CA0041.namprd06.prod.outlook.com (2603:10b6:8:54::10) by
+ SA0PR12MB7075.namprd12.prod.outlook.com (2603:10b6:806:2d5::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Fri, 13 Jan
+ 2023 06:25:02 +0000
+Received: from DM6NAM11FT058.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:54:cafe::11) by DS7PR06CA0041.outlook.office365.com
+ (2603:10b6:8:54::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.13 via Frontend
+ Transport; Fri, 13 Jan 2023 06:25:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT058.mail.protection.outlook.com (10.13.172.216) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6002.13 via Frontend Transport; Fri, 13 Jan 2023 06:25:01 +0000
+Received: from thomas-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 13 Jan
+ 2023 00:24:58 -0600
+From: YiPeng Chai <YiPeng.Chai@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/5] drm/amdgpu: Add gfx ras function on gfx v11_0_3
+Date: Fri, 13 Jan 2023 14:23:54 +0800
+Message-ID: <20230113062358.1727355-1-YiPeng.Chai@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <CANiD2e9bdhxdJr_N9wb7O0Su+LRhzE1n=TepvbBiOoqmKRRgeg@mail.gmail.com>
- <DM5PR12MB24692E12F2C533BD8D88508AF1FC9@DM5PR12MB2469.namprd12.prod.outlook.com>
-In-Reply-To: <DM5PR12MB24692E12F2C533BD8D88508AF1FC9@DM5PR12MB2469.namprd12.prod.outlook.com>
-From: Yury Zhuravlev <stalkerg@gmail.com>
-Date: Fri, 13 Jan 2023 15:01:50 +0900
-Message-ID: <CANiD2e-JebLZGvc0tSis=062t+=vPBVr_50=wm76G0Vu8nwnbg@mail.gmail.com>
-Subject: Re: Wrong revert commit in stable channel
-To: "Chen, Guchun" <Guchun.Chen@amd.com>
-Content-Type: multipart/alternative; boundary="0000000000003b9f0305f21ef97f"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT058:EE_|SA0PR12MB7075:EE_
+X-MS-Office365-Filtering-Correlation-Id: cd9e8892-359a-4a08-1fd7-08daf52ee6e6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ic24NSgeeoKnQKHJCa3DwTRDRvdFRxtLbA48StzElSM4iJtbZc3HfSaorLtbdRJOkAz/efVPEEa+yqnoW3I2qpxlP93iyw4+t8ThaoyqEtn3LOrARV8Bdk9diZB2yWtGFFC23AhUhcJd7TO6GaWRtR84Y7N7XxeNCs2BD2ezK4GwWEZ/cwKKTfZNzuGbrRd8Vewaui5uIxOPpTRxRVLOMa7UqB21e8sKnDbQXdEwVBPuZhoq4ajubTBccdNcM5MtcUuX+0g4reJOSIxCCOkYOlwwCOwXSb4fkR7RyCnvz0hvZC3sECasqROuCVn8LINrSHBeOh5mMn0WpKViUmD25k0dn2nvhObCK2Tq/PF2G2+q6WP+IqWli/FJW8aUi1NknZk7HP6ZANmoioqHItH7qZdCBnjFBW83QtenMPcbNPnTsnNeCulB7LC1Z3FX3/fgxrz6hwT4tUjLGWyqJIXxvORdounEF8YFCJBxPfzqsDiTQdUSgrCKofs/dnshXt1nBgXZ/BjLUpHWFg2y3J/J6njsfejHLqY1ixKGJQ+C5+OPpyo8vxYuXSmqYM8jLLMpvmG33kLDYO6UyNIVRv5R2fLIKvlMz7IGcBFZNYx8EfvUp1Y+JGrD9l6OElqZrygTPRTuBvhM+XEuHryuhBIk/MXNCgF7E47r0xhVVO/5F1E89HLovAEPlP7y6eOlrCB5tBrJbcshEI5rCfhlOzNZNXGsm279rezuh4yyAwDU0ho=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(396003)(136003)(346002)(376002)(451199015)(40470700004)(36840700001)(46966006)(66899015)(2906002)(7696005)(6666004)(26005)(16526019)(478600001)(186003)(36756003)(54906003)(4326008)(8676002)(6916009)(70586007)(316002)(70206006)(336012)(2616005)(426003)(1076003)(40460700003)(41300700001)(36860700001)(82740400003)(5660300002)(83380400001)(8936002)(40480700001)(47076005)(86362001)(82310400005)(356005)(81166007)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2023 06:25:01.6707 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cd9e8892-359a-4a08-1fd7-08daf52ee6e6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT058.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7075
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,229 +97,218 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Tao Zhou <tao.zhou1@amd.com>, Hawking.Zhang@amd.com,
+ YiPeng Chai <YiPeng.Chai@amd.com>, Candice.Li@amd.com, yipechai@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000003b9f0305f21ef97f
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Add gfx ras function on gfx v11_0_3.
 
-Yes, this is right in 6.2-rc3
+V2:
+ 1. Add separate source files for gfx v11_0_3.
+ 2. Create a common function to initialize gfx ras block.
 
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit
-/drivers/gpu/drm/amd/pm/powerplay/hwmgr?h=3Dv6.2-rc3&id=3Df936f535fa70f35ce=
-3369b1418ebae0e657cda6a
+V3:
+ 1. Rename amdgpu_gfx_ras_block_init to amdgpu_gfx_ras_sw_init.
+ 2. Adjust the calling position of amdgpu_gfx_ras_sw_init.
+ 3. Remove gfx_v11_0_3_ras_ops.
 
+V4:
+ Revert changes in amdgpu_ras_interrupt_poison_consumption_handler.
 
-But somebody reverted it again for the stable stream:
+V5:
+ 1. Remove invalid include file in gfx_v11_0_3.c.
+ 2. Reduce the number of parameters of amdgpu_gfx_ras_sw_init.
 
-https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=
-=3Dv6.1.4&id=3D9ccd11718d76b95c69aa773f2abedef560776037
+Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/Makefile      |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c  | 35 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h  |  1 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c   | 13 +++++++++
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.c | 27 ++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.h | 29 ++++++++++++++++++++
+ 6 files changed, 106 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.h
 
-On Wed, Jan 11, 2023 at 5:35 PM Chen, Guchun <Guchun.Chen@amd.com> wrote:
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index 332cf8bda7a2..5df603192cdc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -137,6 +137,7 @@ amdgpu-y += \
+ 	gfx_v10_0.o \
+ 	imu_v11_0.o \
+ 	gfx_v11_0.o \
++	gfx_v11_0_3.o \
+ 	imu_v11_0_3.o
+ 
+ # add async DMA block
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 42a939cd2eac..09c42c00e43c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -696,6 +696,41 @@ int amdgpu_gfx_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *r
+ 	return r;
+ }
+ 
++int amdgpu_gfx_ras_sw_init(struct amdgpu_device *adev)
++{
++	int err = 0;
++	struct amdgpu_gfx_ras *ras = NULL;
++
++	/* adev->gfx.ras is NULL, which means gfx does not
++	 * support ras function, then do nothing here.
++	 */
++	if (!adev->gfx.ras)
++		return 0;
++
++	ras = adev->gfx.ras;
++
++	err = amdgpu_ras_register_ras_block(adev, &ras->ras_block);
++	if (err) {
++		dev_err(adev->dev, "Failed to register gfx ras block!\n");
++		return err;
++	}
++
++	strcpy(ras->ras_block.ras_comm.name, "gfx");
++	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__GFX;
++	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
++	adev->gfx.ras_if = &ras->ras_block.ras_comm;
++
++	/* If not define special ras_late_init function, use gfx default ras_late_init */
++	if (!ras->ras_block.ras_late_init)
++		ras->ras_block.ras_late_init = amdgpu_ras_block_late_init;
++
++	/* If not defined special ras_cb function, use default ras_cb */
++	if (!ras->ras_block.ras_cb)
++		ras->ras_block.ras_cb = amdgpu_gfx_process_ras_data_cb;
++
++	return 0;
++}
++
+ int amdgpu_gfx_process_ras_data_cb(struct amdgpu_device *adev,
+ 		void *err_data,
+ 		struct amdgpu_iv_entry *entry)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index b3df4787877e..6b26597217ed 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -432,4 +432,5 @@ void amdgpu_kiq_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v);
+ int amdgpu_gfx_get_num_kcq(struct amdgpu_device *adev);
+ void amdgpu_gfx_cp_init_microcode(struct amdgpu_device *adev, uint32_t ucode_id);
+ 
++int amdgpu_gfx_ras_sw_init(struct amdgpu_device *adev);
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 259ebf0356db..82beb46788cf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -46,6 +46,7 @@
+ #include "clearstate_gfx11.h"
+ #include "v11_structs.h"
+ #include "gfx_v11_0.h"
++#include "gfx_v11_0_3.h"
+ #include "nbio_v4_3.h"
+ #include "mes_v11_0.h"
+ 
+@@ -852,7 +853,14 @@ static int gfx_v11_0_gpu_early_init(struct amdgpu_device *adev)
+ 	switch (adev->ip_versions[GC_HWIP][0]) {
+ 	case IP_VERSION(11, 0, 0):
+ 	case IP_VERSION(11, 0, 2):
++		adev->gfx.config.max_hw_contexts = 8;
++		adev->gfx.config.sc_prim_fifo_size_frontend = 0x20;
++		adev->gfx.config.sc_prim_fifo_size_backend = 0x100;
++		adev->gfx.config.sc_hiz_tile_fifo_size = 0;
++		adev->gfx.config.sc_earlyz_tile_fifo_size = 0x4C0;
++		break;
+ 	case IP_VERSION(11, 0, 3):
++		adev->gfx.ras = &gfx_v11_0_3_ras;
+ 		adev->gfx.config.max_hw_contexts = 8;
+ 		adev->gfx.config.sc_prim_fifo_size_frontend = 0x20;
+ 		adev->gfx.config.sc_prim_fifo_size_backend = 0x100;
+@@ -1422,6 +1430,11 @@ static int gfx_v11_0_sw_init(void *handle)
+ 	if (r)
+ 		return r;
+ 
++	if (amdgpu_gfx_ras_sw_init(adev)) {
++		dev_err(adev->dev, "Failed to initialize gfx ras block!\n");
++		return -EINVAL;
++	}
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.c
+new file mode 100644
+index 000000000000..5966d984a30a
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.c
+@@ -0,0 +1,27 @@
++/*
++ * Copyright 2023 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++#include "amdgpu.h"
++
++
++struct amdgpu_gfx_ras gfx_v11_0_3_ras;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.h b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.h
+new file mode 100644
+index 000000000000..7095abddcbc0
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.h
+@@ -0,0 +1,29 @@
++/*
++ * Copyright 2023 dvanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++#ifndef __GFX_V11_0_3_H__
++#define __GFX_V11_0_3_H__
++
++extern struct amdgpu_gfx_ras gfx_v11_0_3_ras;
++
++#endif
+-- 
+2.25.1
 
-> Hi Yury,
->
->
->
-> My understanding is though that=E2=80=99s a revert of your original patch=
-, we did
-> a revert again on top of the reverted patch later on. Can you please sync
-> to below commit to check again? Or do I understand wrong?
->
->
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
-/drivers/gpu/drm/amd/pm/powerplay/hwmgr?h=3Dv6.2-rc3&id=3Df936f535fa70f35ce=
-3369b1418ebae0e657cda6a
->
->
->
-> Regards,
->
-> Guchun
->
->
->
-> *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org> *On Behalf Of *Yu=
-ry
-> Zhuravlev
-> *Sent:* Wednesday, January 11, 2023 4:26 PM
-> *To:* amd-gfx@lists.freedesktop.org
-> *Subject:* Wrong revert commit in stable channel
->
->
->
-> Hello,
->
->
->
-> Something went wrong, and we commited what we diced not commit.
->
->
->
->
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
-/?h=3Dv6.2-rc3&id=3De5b781c56d46c44c52caa915f1b65064f2f7c1ba
-> <https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgit.=
-kernel.org%2Fpub%2Fscm%2Flinux%2Fkernel%2Fgit%2Ftorvalds%2Flinux.git%2Fcomm=
-it%2F%3Fh%3Dv6.2-rc3%26id%3De5b781c56d46c44c52caa915f1b65064f2f7c1ba&data=
-=3D05%7C01%7Cguchun.chen%40amd.com%7C9b399d97a2624b5bc46e08daf3ad88a1%7C3dd=
-8961fe4884e608e11a82d994e183d%7C0%7C0%7C638090223898249455%7CUnknown%7CTWFp=
-bGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%=
-7C3000%7C%7C%7C&sdata=3D%2FkLymTjCMQ3uC669%2BWNXePiZ9ysaAGdvm7gFw5kIGeQ%3D&=
-reserved=3D0>
->
->
->
-> and
->
->
->
->
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
-/?h=3Dv6.2-rc3&id=3D4545ae2ed3f2f7c3f615a53399c9c8460ee5bca7
-> <https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgit.=
-kernel.org%2Fpub%2Fscm%2Flinux%2Fkernel%2Fgit%2Ftorvalds%2Flinux.git%2Fcomm=
-it%2F%3Fh%3Dv6.2-rc3%26id%3D4545ae2ed3f2f7c3f615a53399c9c8460ee5bca7&data=
-=3D05%7C01%7Cguchun.chen%40amd.com%7C9b399d97a2624b5bc46e08daf3ad88a1%7C3dd=
-8961fe4884e608e11a82d994e183d%7C0%7C0%7C638090223898249455%7CUnknown%7CTWFp=
-bGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%=
-7C3000%7C%7C%7C&sdata=3DI57dx%2FORRXDeu0TTENlejr0IcuSncVHfy7LCPOJNekw%3D&re=
-served=3D0>
->
->
->
-> It's wrong reverts because, initially was an issue with a test case, not =
-a
-> patch itself.
->
-> My GPU is not working correctly again after such "stable" patch.
->
-
---0000000000003b9f0305f21ef97f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Yes, this is right in 6.2-rc3<br>
-<p class=3D"MsoNormal"><a href=3D"https://git.kernel.org/pub/scm/linux/kern=
-el/git/torvalds/linux.git/commit/drivers/gpu/drm/amd/pm/powerplay/hwmgr?h=
-=3Dv6.2-rc3&amp;id=3Df936f535fa70f35ce3369b1418ebae0e657cda6a" target=3D"_b=
-lank">https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/<s=
-pan class=3D"gmail-il">commit</span>/drivers/gpu/drm/amd/pm/powerplay/hwmgr=
-?h=3Dv6.2-rc3&amp;id=3Df936f535fa70f35ce3369b1418ebae0e657cda6a</a></p><p c=
-lass=3D"MsoNormal"><br></p><p class=3D"MsoNormal">But somebody reverted it =
-again for the stable stream:</p><p class=3D"MsoNormal"><a href=3D"https://g=
-it.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=3Dv6.1.4&=
-amp;id=3D9ccd11718d76b95c69aa773f2abedef560776037">https://git.kernel.org/p=
-ub/scm/linux/kernel/git/stable/linux.git/commit/?h=3Dv6.1.4&amp;id=3D9ccd11=
-718d76b95c69aa773f2abedef560776037</a></p></div><br><div class=3D"gmail_quo=
-te"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, Jan 11, 2023 at 5:35 PM C=
-hen, Guchun &lt;<a href=3D"mailto:Guchun.Chen@amd.com">Guchun.Chen@amd.com<=
-/a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
-px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><=
-div class=3D"msg-6172821185785906225">
-
-
-
-
-
-<div style=3D"overflow-wrap: break-word;" lang=3D"EN-US">
-<div class=3D"m_-6172821185785906225WordSection1">
-<p class=3D"MsoNormal">Hi Yury,<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">My understanding is though that=E2=80=99s a revert o=
-f your original patch, we did a revert again on top of the reverted patch l=
-ater on. Can you please sync to below commit to check again? Or do I unders=
-tand wrong?<u></u><u></u></p>
-<p class=3D"MsoNormal"><a href=3D"https://git.kernel.org/pub/scm/linux/kern=
-el/git/torvalds/linux.git/commit/drivers/gpu/drm/amd/pm/powerplay/hwmgr?h=
-=3Dv6.2-rc3&amp;id=3Df936f535fa70f35ce3369b1418ebae0e657cda6a" target=3D"_b=
-lank">https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/co=
-mmit/drivers/gpu/drm/amd/pm/powerplay/hwmgr?h=3Dv6.2-rc3&amp;id=3Df936f535f=
-a70f35ce3369b1418ebae0e657cda6a</a><u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">Regards,<u></u><u></u></p>
-<p class=3D"MsoNormal">Guchun<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div style=3D"border-color:rgb(225,225,225) currentcolor currentcolor;borde=
-r-style:solid none none;border-width:1pt medium medium;padding:3pt 0in 0in"=
->
-<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;<a href=3D"mailto:amd-gfx-b=
-ounces@lists.freedesktop.org" target=3D"_blank">amd-gfx-bounces@lists.freed=
-esktop.org</a>&gt;
-<b>On Behalf Of </b>Yury Zhuravlev<br>
-<b>Sent:</b> Wednesday, January 11, 2023 4:26 PM<br>
-<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blan=
-k">amd-gfx@lists.freedesktop.org</a><br>
-<b>Subject:</b> Wrong revert commit in stable channel<u></u><u></u></p>
-</div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div>
-<div>
-<p class=3D"MsoNormal">Hello,<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Something went wrong, and we commited what we diced =
-not commit.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><a href=3D"https://nam11.safelinks.protection.outloo=
-k.com/?url=3Dhttps%3A%2F%2Fgit.kernel.org%2Fpub%2Fscm%2Flinux%2Fkernel%2Fgi=
-t%2Ftorvalds%2Flinux.git%2Fcommit%2F%3Fh%3Dv6.2-rc3%26id%3De5b781c56d46c44c=
-52caa915f1b65064f2f7c1ba&amp;data=3D05%7C01%7Cguchun.chen%40amd.com%7C9b399=
-d97a2624b5bc46e08daf3ad88a1%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C63=
-8090223898249455%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMz=
-IiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=3D%2FkLymTjCMQ3u=
-C669%2BWNXePiZ9ysaAGdvm7gFw5kIGeQ%3D&amp;reserved=3D0" target=3D"_blank">ht=
-tps://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?h=
-=3Dv6.2-rc3&amp;id=3De5b781c56d46c44c52caa915f1b65064f2f7c1ba</a><u></u><u>=
-</u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">and<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><a href=3D"https://nam11.safelinks.protection.outloo=
-k.com/?url=3Dhttps%3A%2F%2Fgit.kernel.org%2Fpub%2Fscm%2Flinux%2Fkernel%2Fgi=
-t%2Ftorvalds%2Flinux.git%2Fcommit%2F%3Fh%3Dv6.2-rc3%26id%3D4545ae2ed3f2f7c3=
-f615a53399c9c8460ee5bca7&amp;data=3D05%7C01%7Cguchun.chen%40amd.com%7C9b399=
-d97a2624b5bc46e08daf3ad88a1%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C63=
-8090223898249455%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMz=
-IiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=3DI57dx%2FORRXDe=
-u0TTENlejr0IcuSncVHfy7LCPOJNekw%3D&amp;reserved=3D0" target=3D"_blank">http=
-s://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?h=3D=
-v6.2-rc3&amp;id=3D4545ae2ed3f2f7c3f615a53399c9c8460ee5bca7</a><u></u><u></u=
-></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">It&#39;s wrong reverts because, initially was an iss=
-ue with a test case, not a patch itself.
-<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">My GPU is not working correctly again after such &qu=
-ot;stable&quot; patch.<u></u><u></u></p>
-</div>
-</div>
-</div>
-</div>
-
-</div></blockquote></div>
-
---0000000000003b9f0305f21ef97f--
