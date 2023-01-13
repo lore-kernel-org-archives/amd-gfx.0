@@ -4,56 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E44DC54EBD
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 16:48:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12E5CC54EBE
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 17:00:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B33D110EA2D;
-	Fri, 13 Jan 2023 16:48:36 +0000 (UTC)
-Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
- [IPv6:2607:f8b0:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3C8F10EA2D
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 16:48:34 +0000 (UTC)
-Received: by mail-oi1-x236.google.com with SMTP id h185so18130274oif.5
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 08:48:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Hv9TwrU38tNIh820HfxIuraK/buEwMAzSLgY9mxaBBg=;
- b=NDN2yX8n3mpl3nQVCfaLxVOVC/MrFAvhXf7TstDb98+4wTJS0WcOBe5317nIp5jjAO
- 9YzDKKrbWIbpIIwIxVj/pTqXC8PZxbn9NpwnqNhjG6VuWe8MHmHt8k4AQwFNRKn/+v/e
- 1y+KNbHBXHoevut3GNvGR0GGBzjrRL6Y1CJFi5zWeb/nNbAuTqUg0Ozmo1wnXJsLpWGg
- k0xD9D33nVAJw3+sAUR5KgERGRdxFHa0mvTMfrMee1DKtftMNF3wnrlLUWblN0NV1N62
- +eS3I+ph1EiBitKgrlK+72v7L8dLjE8MIC8coHtvVvnCjkMd/YkA+xd5dXA/k38mn69m
- QTRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Hv9TwrU38tNIh820HfxIuraK/buEwMAzSLgY9mxaBBg=;
- b=PUUawK+pFShkG0CivG5t2AGGXQtcTcDSzF7bXyk6R086Hcl2q6VLAo1VjYEDtcZnJc
- mu5s0GeaWI4gdWKdBP/yWfpc0UiUgBOwtO32EgpmVsL6FPcZmvzkJIU7Alkmtn6tFdN+
- FtReAhH9ccdR5sPL1M+LxUoptdiJ1/WKHpsL0vmuHO0moChngawBYbfhWwUjl0+4cGoe
- XMqDhlgxIRyH2xIB9vam8UYORljKoMEG6FgS6OIMXTMW4YN2OsQLf5eTNGnBBDJGuBt1
- IQzP3RP+NeqtyZ463+cHEmqeat/4pDhjbRTeiqaF8DdeFJOJ3tf3+k4JRyNhSqXdcDje
- r0RQ==
-X-Gm-Message-State: AFqh2krJ8seKUOHCWyQaNIasS6aZHuxuL9NOzG85ZcfcbsKI/LyIKLV4
- JwBldIKIYoh2WgSy5JR+3LMCpvTWR/mdbEzXmNM=
-X-Google-Smtp-Source: AMrXdXvz/9Tj+9FDDlrusM0LraZs1y2JBZm9a6Ygeq2esfEv1ZSnqHVsUzbHYxqQyF/UfgMr5s6jDuJaCyIPRdbKvgA=
-X-Received: by 2002:a05:6808:2994:b0:35b:f5f7:3ed0 with SMTP id
- ex20-20020a056808299400b0035bf5f73ed0mr5516817oib.46.1673628514083; Fri, 13
- Jan 2023 08:48:34 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3A3010EA6E;
+	Fri, 13 Jan 2023 17:00:48 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0319910EA70;
+ Fri, 13 Jan 2023 17:00:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-Id:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=DrZc8MSzrHVHBgJa18wvhWOqlyQHor/Els1DuHpffTk=; b=AF1L9pxnYrH5CkcpGl1zPyEksX
+ XCW9YXyIfpo2mz0JvtbYlzmoPNiqmLXaxzrUUcsX+Niq4KDFG9Je/G6jhZhgcBYSISFoTCoTG9mDS
+ np+NKLS9PNX9B7JGd2LJ1VMl+mG4eDQIO5L1t1yy5C7obh/38htyYyOXhVp4DgEfUGrDgwtj/xB8T
+ 0BI7IN88jHVAW7SRfEIqq+GhapRbyY/XAUZ95Q5xByb8AK2xu4KGVENQx8Jg8/dPTNoh+IK/TLOGK
+ 96y93S+PkE1kEUjXL12FKQYWcG3dH7jFmkUIvUHaQvXBwK4qiCe7wxABJlOsM9axUmBK14Kj+3BNF
+ sksMsIhA==;
+Received: from [187.36.234.139] (helo=bowie..)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1pGNPg-007Hoz-Mk; Fri, 13 Jan 2023 18:00:21 +0100
+From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+To: Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Rob Clark <robdclark@gmail.com>,
+ Simon Ser <contact@emersion.fr>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Zack Rusin <zackr@vmware.com>
+Subject: [PATCH v3 0/3] Check for valid framebuffer's format
+Date: Fri, 13 Jan 2023 13:59:17 -0300
+Message-Id: <20230113165919.580210-1-mcanal@igalia.com>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-References: <20230113163531.175294-1-christian.koenig@amd.com>
-In-Reply-To: <20230113163531.175294-1-christian.koenig@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 13 Jan 2023 11:48:22 -0500
-Message-ID: <CADnq5_OjeFLZ-s=8nr2N_ERecX3dCSiGg1R9XPc=cxB=f2RYDA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix cleaning up reserved VMID on release
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,39 +55,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Candice.Li@amd.com, amd-gfx@lists.freedesktop.org
+Cc: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ amd-gfx@lists.freedesktop.org, Melissa Wen <mwen@igalia.com>,
+ VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
+ dri-devel@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 13, 2023 at 11:35 AM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> We need to reset this or otherwise run into list corruption later on./
+This series is a follow-up of the [1] in which I introduced a check for valid
+formats on drm_gem_fb_create(). During the discussion, I realized that would be
+a better idea to put the check inside framebuffer_check() so that it wouldn't be
+needed to hit any driver-specific code path when the check fails.
 
-Drop the / above.
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Therefore, add the valid format check inside framebuffer_check() and remove the
+same check from the drivers, except from i915, because this doesn't work for the
+legacy tiling->modifier path. Adding the check to framebuffer_check() will
+guarantee that the igt@kms_addfb_basic@addfb25-bad-modifier IGT test passes,
+showing the correct behavior of the check.
 
->
-> Fixes: 16be3e9f6f03 ("drm/amdgpu: rework reserved VMID handling")
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ids.c
-> index 6481b43ffe25..a0545d51b6bd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-> @@ -499,6 +499,7 @@ void amdgpu_vmid_free_reserved(struct amdgpu_device *=
-adev,
->             !--id_mgr->reserved_use_count) {
->                 /* give the reserved ID back to normal round robin */
->                 list_add(&id_mgr->reserved->list, &id_mgr->ids_lru);
-> +               id_mgr->reserved =3D NULL;
->         }
->         vm->reserved_vmid[vmhub] =3D false;
->         mutex_unlock(&id_mgr->lock);
-> --
-> 2.34.1
->
+This patchset was tested on amdgpu and vc4 with the IGT tests.
+
+[1] https://lore.kernel.org/dri-devel/20230103125322.855089-1-mcanal@igalia.com/T/
+
+---
+
+v1 -> v2: https://lore.kernel.org/dri-devel/20230109105807.18172-1-mcanal@igalia.com/T/
+
+- Don't remove check from i915 driver (Ville Syrjälä).
+- Don't unexport drm_any_plane_has_format().
+
+v2 -> v3: https://lore.kernel.org/dri-devel/20230113112743.188486-1-mcanal@igalia.com/T/
+
+- Check if r->modifier[0] != 0 (Ville Syrjälä).
+
+---
+
+Best Regards,
+- Maíra Canal
+
+Maíra Canal (3):
+  drm/framebuffer: Check for valid formats
+  drm/amdgpu: Remove redundant framebuffer format check
+  drm/vmwgfx: Remove redundant framebuffer format check
+
+ Documentation/gpu/todo.rst                  |  9 ++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 10 ----------
+ drivers/gpu/drm/drm_framebuffer.c           |  8 ++++++++
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.c         | 18 ------------------
+ 4 files changed, 12 insertions(+), 33 deletions(-)
+
+-- 
+2.39.0
+
