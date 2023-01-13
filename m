@@ -4,64 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68073C678D4
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 19:31:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6DB7C54EBD
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 19:32:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C4D910EB0A;
-	Fri, 13 Jan 2023 19:31:11 +0000 (UTC)
-Received: from mail-il1-x135.google.com (mail-il1-x135.google.com
- [IPv6:2607:f8b0:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D74910EAEE;
- Fri, 13 Jan 2023 19:31:03 +0000 (UTC)
-Received: by mail-il1-x135.google.com with SMTP id u8so11214261ilq.13;
- Fri, 13 Jan 2023 11:31:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=uMbqFdT/JDbk6t20JvgexRk0zFVQ3CnaOgmAmhMmoxs=;
- b=fKgaTMeKfzcqUfAoemEcsC8YuW2QdVhaDfa6TQ7dB9H++nXnzumgfjDbDOaSXTlsiI
- 8l2owubojC/NE1uAXHlOSh6N7FChBcCf5jPSaT1lfB98BZm89yNIJ+IvYRUPl1C2wcEc
- bMF4k8sPQB9TtECRFYzDFROaP3Dk4ZBn9M89opTudqwUuQsLOx0pY+Gwai7EbueylZ7z
- HTYZ27hIsC+v/TAhy5OFLTsAHB3rbwSTXW70Zl1NM4ZzSb/+oHctn+IdG3/DwnhJXzBF
- OtnQKGdkAxIYZmqUWiu5JdLVXtBVGrXrt0rVEvp6zXxt7zDyhkfeWq2A13rOHoMJbN1s
- WEQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=uMbqFdT/JDbk6t20JvgexRk0zFVQ3CnaOgmAmhMmoxs=;
- b=bCRRPyft33sR9MsWFEWMb3qG6RzKSkN+oqUsXySqnKp6kBuHstEjHWCYuZNJ238ogy
- VoZ22t+vEfeaiJIwH9cK3wa9LoPHzBelud1kdkzpe+xWkK/K0P+aBuZEC4RZLz97RXGp
- b38HayTOrOEAMSPsLt9mlkgV26D9HFDELiL9NFuePvIW1LCppxRvt/RNhDdAjpBPOGEY
- qhkqgKUNENWgWk5bP2WHobXLv44dNL4cjcEikT52zbGu4Ko9plVqp+Z2seNWIPS8JOgs
- 1s160vGuWZ2RSpZ8Xehyd8qIciyYddTHLeXvQxhQ7cd4CtFuB+YmEMbx+/E5eXe7E9l0
- Fu6w==
-X-Gm-Message-State: AFqh2kp0T1CmJD6RnGWLXqKG9nqnMz+HmXncc4NcVY3xpYNlM9VhEiyc
- n/8Exxbh1QQEalfB4EpuvDQ=
-X-Google-Smtp-Source: AMrXdXvGslnAVKLoPH+t01+Ripv46/ISSZmTMAWZank9F3QWH6C5s89RkS8L/E/8JmO84IbTeA0dtA==
-X-Received: by 2002:a92:c26f:0:b0:30d:6de3:268b with SMTP id
- h15-20020a92c26f000000b0030d6de3268bmr36191703ild.19.1673638263209; 
- Fri, 13 Jan 2023 11:31:03 -0800 (PST)
-Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
- by smtp.googlemail.com with ESMTPSA id
- e32-20020a026d60000000b0039e583abceasm6497289jaf.68.2023.01.13.11.31.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Jan 2023 11:31:02 -0800 (PST)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Subject: [PATCH v2 19/20] dyndbg: unwrap __ddebug_add_module inner function
- NOTYET
-Date: Fri, 13 Jan 2023 12:30:15 -0700
-Message-Id: <20230113193016.749791-20-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230113193016.749791-1-jim.cromie@gmail.com>
-References: <20230113193016.749791-1-jim.cromie@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B87410EABA;
+	Fri, 13 Jan 2023 19:31:48 +0000 (UTC)
+Received: from mail-4317.proton.ch (mail-4317.proton.ch [185.70.43.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3520710EABA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 19:31:42 +0000 (UTC)
+Date: Fri, 13 Jan 2023 19:31:29 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail3; t=1673638299; x=1673897499;
+ bh=zRwWsMDd5Kf2yQpedEA3Ka2dLpgNvYvwuOL0uYq4mxY=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=LM/cvxdxu1h67rgJmHGTZ5TA/54rBU4PAWlLcMZwqucruMoTz/3ZDQ5jOrVT2YuYT
+ UulQsVo6SO523340mlJZf+1DsqoA+CtbkxBR4usIdLzIuYDa2Quz9bvrRa/2emDIIe
+ pMqTr1BDaCH4+BJikpXiYzmYNIqFV6TvUSh/wpoQEW/oByqBUMN3Ej5cdcAMHJBwlq
+ /spDqIrNM6Ivmryhoq4pJ79J5BZu4ovROCxtUKH/2zTkPsd9S7OE908KwwJlNwgrEi
+ E9dEKMucBcz9FZvd8xhDM3J1QwlrhMRcKDAYoniuSM3++XZd7xSG9LezoVZb2W5S3y
+ UBBAxQAENMNTQ==
+To: Harry Wentland <harry.wentland@amd.com>
+From: Simon Ser <contact@emersion.fr>
+Subject: Re: [PATCH v2 04/21] drm/connector: Convert DRM_MODE_COLORIMETRY to
+ enum
+Message-ID: <kheFUP1l7rBWCZbD5XFZtgF1efA52MViV-fZAxzA2wqbIixOTiBUJI4k-SvznW2nUujcumWv-VK3k5lRxY57tXW5vwJbSXwAvnfhM9fgCh4=@emersion.fr>
+In-Reply-To: <20230113162428.33874-5-harry.wentland@amd.com>
+References: <20230113162428.33874-1-harry.wentland@amd.com>
+ <20230113162428.33874-5-harry.wentland@amd.com>
+Feedback-ID: 1358184:user:proton
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,77 +48,11 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, daniel.vetter@ffwll.ch, jbaron@akamai.com,
- Jim Cromie <jim.cromie@gmail.com>, robdclark@gmail.com, seanpaul@chromium.org,
- gregkh@linuxfoundation.org, ville.syrjala@linux.intel.com
+Cc: Sebastian Wick <sebastian.wick@redhat.com>, dri-devel@lists.freedesktop.org,
+ Pekka Paalanen <ppaalanen@gmail.com>, Uma Shankar <uma.shankar@intel.com>,
+ amd-gfx@lists.freedesktop.org, Joshua Ashton <joshua@froggi.es>,
+ Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The inner func has a base arg which is unused in the body, so theres
-no point in having the inner fn.
-
-Its one-time purpose was to expose a wider interface to the internal
-caller: dynamic_debug_init(), to allow communicating each module's
-offset in the builtin _ddebug[] table.
-
-That purpose was obsoleted by cited commit, when ddebug_add_module()
-was converted to pass a *ddebug_info, which is used as a cursor by the
-caller.
-
-TODO: the cited commit gives another reason for base, to provide an
-index in support of de-duplicating column data.  Refresh that patchset
-to see if its still true.
-
-Fixes: b7b4eebdba7b ("dyndbg: gather __dyndbg[] state into struct _ddebug_info")
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- lib/dynamic_debug.c | 12 +++---------
- 1 file changed, 3 insertions(+), 9 deletions(-)
-
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 19bf66229d45..eb1fb10d7272 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -1348,8 +1348,7 @@ static void ddebug_attach_client_module_classes(struct ddebug_table *dt, const s
-  * Allocate a new ddebug_table for the given module
-  * and add it to the global list.
-  */
--static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
--			       const char *modname)
-+int ddebug_add_module(struct _ddebug_info *di, const char *modname)
- {
- 	struct ddebug_table *dt;
- 
-@@ -1391,11 +1390,6 @@ static int __ddebug_add_module(struct _ddebug_info *di, unsigned int base,
- 	return 0;
- }
- 
--int ddebug_add_module(struct _ddebug_info *di, const char *modname)
--{
--	return __ddebug_add_module(di, 0, modname);
--}
--
- /* helper for ddebug_dyndbg_(boot|module)_param_cb */
- static int ddebug_dyndbg_param_cb(char *param, char *val,
- 				const char *modname, int on_err)
-@@ -1538,7 +1532,7 @@ static int __init dynamic_debug_init(void)
- 			mod_ct++;
- 			di.num_descs = mod_sites;
- 			di.descs = iter_mod_start;
--			ret = __ddebug_add_module(&di, i - mod_sites, modname);
-+			ret = ddebug_add_module(&di, modname);
- 			if (ret)
- 				goto out_err;
- 
-@@ -1549,7 +1543,7 @@ static int __init dynamic_debug_init(void)
- 	}
- 	di.num_descs = mod_sites;
- 	di.descs = iter_mod_start;
--	ret = __ddebug_add_module(&di, i - mod_sites, modname);
-+	ret = ddebug_add_module(&di, modname);
- 	if (ret)
- 		goto out_err;
- 
--- 
-2.39.0
-
+Reviewed-by: Simon Ser <contact@emersion.fr>
