@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0209C3DA78
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 19:31:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D3DDC678D8
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 19:31:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32EC710EAF7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 505D410EB06;
 	Fri, 13 Jan 2023 19:31:09 +0000 (UTC)
-Received: from mail-il1-x12e.google.com (mail-il1-x12e.google.com
- [IPv6:2607:f8b0:4864:20::12e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC3AE10EADF;
- Fri, 13 Jan 2023 19:30:59 +0000 (UTC)
-Received: by mail-il1-x12e.google.com with SMTP id v6so1707600ilq.3;
- Fri, 13 Jan 2023 11:30:59 -0800 (PST)
+Received: from mail-il1-x131.google.com (mail-il1-x131.google.com
+ [IPv6:2607:f8b0:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61F2B10EAE1;
+ Fri, 13 Jan 2023 19:31:01 +0000 (UTC)
+Received: by mail-il1-x131.google.com with SMTP id h26so11225218ila.11;
+ Fri, 13 Jan 2023 11:31:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=oflCfmI+To4S37iZ6t08kU0uJ39RtZq/82Mw2ARcM4o=;
- b=boR7+PhjjreSbcb2CFMZ8IGN4V1ff1LGHcDj/cYpWNrXNK+1kEtpRjBfDvMJEgWp3X
- TOs7VlqymYk/vX9zrTZvF9TMgdL6ASgebePP2TThFG3nrUtkdttP9gOiiyox4gFSfmxf
- npzxy4DPSUFSRkh/nFvDWxgPLvhBfbFV/FoOuG41AJdtv86TJhQ43jBiK8RsZhv31tZM
- BN3qHsBxiSif7yHeryIuD8J0aN9K+z8XTpyuU/vnupaqz63HRshjgh/eInP2RqfzztjI
- EIpS8acbttsYtqTF14QoH39rSELMU/mEmNfMES9CC0P59JvgHBtxyyquCaOIPF60e/V1
- H7RQ==
+ bh=sXtZaooZ45JiB4b6dTyLmd0EG5FQixGlgDB25zw6+E4=;
+ b=WilaoJVI3YuxchGiCcrK3zBv9B+yXVCKf7HtcgZ7GEGn+bZVJADzIBemXqTfws+FsU
+ yX8BOLN/2Y9uvpkAW/0tHxItxH2t9f54BIJMd+bEO4h/I2ShfDrNsf4bgbeVJOLta0T5
+ 4iKxs16V2MhWJf90+7+ewR6vNwB9maVvQRPiVPq3wH0AwkKr8AJnu9nsNWYwAqNBHWA1
+ Wsa39pOO57OQlA4skLoav1ADNWoWY0ibbAT2U5FGEBLefrVCFDZIweFkd5Bkh7gnq7qt
+ zOKnwm4MMk8U4BIEPj2fIEKFaO5X3YBs6lmZf9S5iGIUwZFsocRElG6WlWFvXLXNCuCW
+ VPSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=oflCfmI+To4S37iZ6t08kU0uJ39RtZq/82Mw2ARcM4o=;
- b=qwnVYHUrI0NUFZ0Uw+Kd4GzV5oYwBR0pTzLB75AluUq6TXq0zfyhJw85qKmYax158z
- QWwX8/cnHzZMjYNzMw2jFdqbWx6WFpqWIlmGwlZUXXQM9F9I0UMahcu6vCZBZYKmwosV
- 8X24ctmr1cB+JFWGbpmMnLYE0WTwtnPbJEspCWJXphgyXzAg5p684KagIUwCfNghamdj
- JHHmj2k/pcNAn9Y8P76Sq0LPlTOQfScqQuX0iVNyGQ6UVDpOtCfrdLcl/C8FuGEa5CcA
- PeArbFf5b8YSrHZrS0kfxkt20wCSCdbmkHQF3/Bp2+2uD1fyyGMHTVzk8ju6weyXKgGh
- UgYw==
-X-Gm-Message-State: AFqh2kqlIsgZUTb/AcCMKIStDY5zu1MNkU7lMguzs6PUkn9CU7EVqW2D
- SmLQWWOGBBYdGdyp0xVFJSY=
-X-Google-Smtp-Source: AMrXdXvkUeNjsRv+x3kOF1bN+++9C2WbmGJXER7bc6ntCQtuKLR6ABMmuBJO8/FkGaZwdYy+rP4ZfQ==
-X-Received: by 2002:a05:6e02:108:b0:30c:5c54:c264 with SMTP id
- t8-20020a056e02010800b0030c5c54c264mr29478009ilm.13.1673638258905; 
- Fri, 13 Jan 2023 11:30:58 -0800 (PST)
+ bh=sXtZaooZ45JiB4b6dTyLmd0EG5FQixGlgDB25zw6+E4=;
+ b=KHvIBCVGQOfkS1y6+TgksXMbZVg+d7Dy2AibETXnYbbmPcVUQz1YM4cBd7HT0fw0S2
+ XgJVzer6LAWrLC5DfSuCStWioe2X7QsXl3icue4vnKDsRZ3gAqEUj1/baC9TTMqWazsj
+ 7awKx+hpnGhgZ7da7k6Ge/2UzMInqD7UxVcXp4ceCG1gUN0Kfrg67bvhkGQ41EHcwgxt
+ 4WYXTAlW6kSc6zs8psHMGGdViqnkCNENYj2Oj0rED+2kNz/gpR3OF2lyGA6OiQPx0h+/
+ jeSsBZfUKEt9ey/SpQLSYhwpQproGrRmbAKY2oEUBudkCMqOCEdEEqSrPN9Bu+BPU/M7
+ 0RJw==
+X-Gm-Message-State: AFqh2kpyJWM+HT+3edWc+mZnOWYl5XJ/nPjCR1w+ZR3BZ67WpHWWpSqW
+ gdk2qmkaVnek1c9Ei44t3Wc=
+X-Google-Smtp-Source: AMrXdXsrMaDJ+qnbKaUj7ZlrxW3dvJ4frh8HAEVmIwYKqJASSo9Im4/1fW4l0and/BelKRWmXYmbfw==
+X-Received: by 2002:a92:d8cb:0:b0:30e:ebc9:f19d with SMTP id
+ l11-20020a92d8cb000000b0030eebc9f19dmr274283ilo.25.1673638261006; 
+ Fri, 13 Jan 2023 11:31:01 -0800 (PST)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e32-20020a026d60000000b0039e583abceasm6497289jaf.68.2023.01.13.11.30.57
+ e32-20020a026d60000000b0039e583abceasm6497289jaf.68.2023.01.13.11.31.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Jan 2023 11:30:58 -0800 (PST)
+ Fri, 13 Jan 2023 11:31:00 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH v2 15/20] test-dyndbg: build test_dynamic_debug_submod
-Date: Fri, 13 Jan 2023 12:30:11 -0700
-Message-Id: <20230113193016.749791-16-jim.cromie@gmail.com>
+Subject: [PATCH v2 17/20] test-dyndbg: disable WIP dyndbg-trace params
+Date: Fri, 13 Jan 2023 12:30:13 -0700
+Message-Id: <20230113193016.749791-18-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230113193016.749791-1-jim.cromie@gmail.com>
 References: <20230113193016.749791-1-jim.cromie@gmail.com>
@@ -78,180 +78,64 @@ Cc: jani.nikula@intel.com, daniel.vetter@ffwll.ch, jbaron@akamai.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-CONFIG_DRM_USE_DYNAMIC_DEBUG=y has a regression; drm subsystem
-modules, which depend upon drm.ko and use the drm.debug API, do not
-get enabled when __drm_debug is set by `modprobe drm debug=0x1f`.
+The dyndbg-to-trace feature is WIP, and not in mainline, so the
+presence of the interface to use/test it is unhelpful/confusing.
 
-With =N, __drm_debug is checked before logging the msg, so the
-end-of-modprobe debug=$init affected all later checks.  But with =y,
-each run-time check is replaced by a static-key that is set at
-end-of-modprobe.
-
-This creates a chicken-egg dependency; i915 must be modprobed before
-its drm.debugs are enabled, but drm.ko (and __drm_debug=$init) must be
-done before modprobe i915, so its callsites arent there yet to be
-enabled.
-
-The WIP-fix is to split DECLARE_DYNDBG_CLASSMAP to:
-
-DYNDBG_CLASSMAP_DEFINE - invoked in 'parent'
-DYNDBG_CLASSMAP_USE - invoked in dependent, to USE the exported definition
-
-To prove the fix w/o involving DRM, we need 2 modules, one dependent
-on the other.  Add test_dynamic_debug_submod.ko, which _USEs the
-classmaps _exported by test_dynamic_debug.ko
-
-To keep code to a minimum, test_dynamic_debug.c ifdefs on
-TEST_DYNAMIC_DEBUG_SUBMOD to build either parent or dependent, with
-either DYNDBG_CLASSMAP_DEFINE or DYNDBG_CLASSMAP_USE blocks.
-
-So test_dynamic_debug_submod.c is just 2 lines: include parent after
-defining SUBMOD.  This also gives the 2 modules identical logging
-behavior as a baseline.
+So define DYNDBG_CLASSMAP_PARAM_T() as DYNDBG_CLASSMAP_PARAM() or
+blank, depending upon ifdef DYDBG_TRACE, and update 4 params
+controlling the T-flag to use it.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/Makefile                    |  3 +-
- lib/test_dynamic_debug.c        | 50 ++++++++++++++++++++++++++++-----
- lib/test_dynamic_debug_submod.c | 10 +++++++
- 3 files changed, 55 insertions(+), 8 deletions(-)
- create mode 100644 lib/test_dynamic_debug_submod.c
+ lib/test_dynamic_debug.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/lib/Makefile b/lib/Makefile
-index 59bd7c2f793a..0f04c59bdc8e 100644
---- a/lib/Makefile
-+++ b/lib/Makefile
-@@ -78,7 +78,7 @@ obj-$(CONFIG_TEST_SORT) += test_sort.o
- obj-$(CONFIG_TEST_USER_COPY) += test_user_copy.o
- obj-$(CONFIG_TEST_STATIC_KEYS) += test_static_keys.o
- obj-$(CONFIG_TEST_STATIC_KEYS) += test_static_key_base.o
--obj-$(CONFIG_TEST_DYNAMIC_DEBUG) += test_dynamic_debug.o
-+obj-$(CONFIG_TEST_DYNAMIC_DEBUG) += test_dynamic_debug.o test_dynamic_debug_submod.o
- obj-$(CONFIG_TEST_PRINTF) += test_printf.o
- obj-$(CONFIG_TEST_SCANF) += test_scanf.o
- obj-$(CONFIG_TEST_BITMAP) += test_bitmap.o
-@@ -100,6 +100,7 @@ obj-$(CONFIG_KPROBES_SANITY_TEST) += test_kprobes.o
- obj-$(CONFIG_TEST_REF_TRACKER) += test_ref_tracker.o
- CFLAGS_test_fprobe.o += $(CC_FLAGS_FTRACE)
- obj-$(CONFIG_FPROBE_SANITY_TEST) += test_fprobe.o
-+
- #
- # CFLAGS for compiling floating point code inside the kernel. x86/Makefile turns
- # off the generation of FPU/SSE* instructions for kernel proper but FPU_FLAGS
 diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index e678884066bf..39d4f63cade1 100644
+index 45e123b29a9b..9e66c5a7e138 100644
 --- a/lib/test_dynamic_debug.c
 +++ b/lib/test_dynamic_debug.c
-@@ -6,7 +6,11 @@
-  *      Jim Cromie	<jim.cromie@gmail.com>
-  */
+@@ -54,6 +54,14 @@ module_param_cb(do_prints, &param_ops_do_prints, NULL, 0600);
+ 	module_param_cb(_flags##_##_model, &param_ops_dyndbg_classes,	\
+ 			&_flags##_##_model, 0600)
  
--#define pr_fmt(fmt) "test_dd: " fmt
-+#if defined(TEST_DYNAMIC_DEBUG_SUBMOD)
-+  #define pr_fmt(fmt) "test_dd_submod: " fmt
++/* TBD */
++#ifdef DYNDBG_TRACE
++#define DYNDBG_CLASSMAP_PARAM_T(_model, _flags)	\
++	DYNDBG_CLASSMAP_PARAM(_model, _flags)
 +#else
-+  #define pr_fmt(fmt) "test_dd: " fmt
++#define DYNDBG_CLASSMAP_PARAM_T(_model, _flags)
 +#endif
++
+ /*
+  * dynamic-debug imitates drm.debug model's use of enums (DRM_UT_CORE
+  * etc) to define it's classes/categories.  dyndbg allows class-id's
+@@ -114,22 +122,22 @@ DYNDBG_CLASSMAP_DEFINE(map_disjoint_bits, DD_CLASS_TYPE_DISJOINT_BITS,
+ 		       D2_DP,
+ 		       D2_DRMRES);
+ DYNDBG_CLASSMAP_PARAM(disjoint_bits, p);
+-DYNDBG_CLASSMAP_PARAM(disjoint_bits, T);
++DYNDBG_CLASSMAP_PARAM_T(disjoint_bits, T);
  
- #define DEBUG /* enable all prdbgs (plain & class'd) at compiletime */
- 
-@@ -49,6 +53,13 @@ module_param_cb(do_prints, &param_ops_do_prints, NULL, 0600);
- 	};								\
- 	module_param_cb(_flags##_##_model, &param_ops_dyndbg_classes, &_flags##_model, 0600)
- 
-+/*
-+ * dynamic-debug imitates drm.debug model's use of enums (DRM_UT_CORE
-+ * etc) to define it's classes/categories.  dyndbg allows class-id's
-+ * 0..62, reserving 63 for plain old (non-class'd) prdbgs.  A module
-+ * can define multiple classmaps, as long as they share the range.
-+ */
-+
- /* numeric input, independent bits */
- enum cat_disjoint_bits {
- 	D2_CORE = 0,
-@@ -61,7 +72,36 @@ enum cat_disjoint_bits {
- 	D2_LEASE,
- 	D2_DP,
- 	D2_DRMRES };
-+
-+/* symbolic input, independent bits */
-+enum cat_disjoint_names { LOW = 10, MID, HI };
-+
-+/* numeric verbosity, V2 > V1 related */
-+enum cat_level_num { V0 = 14, V1, V2, V3, V4, V5, V6, V7 };
-+
-+/* symbolic verbosity */
-+enum cat_level_names { L0 = 22, L1, L2, L3, L4, L5, L6, L7 };
-+
-+#if defined(TEST_DYNAMIC_DEBUG_SUBMOD)
-+
-+/* use the classmaps defined in 'parent' module below */
-+DYNDBG_CLASSMAP_USE(map_disjoint_bits);
-+DYNDBG_CLASSMAP_USE(map_disjoint_names);
-+DYNDBG_CLASSMAP_USE(map_level_num);
-+DYNDBG_CLASSMAP_USE(map_level_names);
-+
-+#else
-+
-+/*
-+ * parent module, define a classmap of each of 4 types.
-+ * enum values are class-ids
-+ * enum symbols are stringified, used as classnames
-+ * param bits are mapped in order: 0..N
-+ * (a straight, obvious, linear map is encouraged)
-+ */
-+
- DYNDBG_CLASSMAP_DEFINE(map_disjoint_bits, DD_CLASS_TYPE_DISJOINT_BITS,
-+		       /* bits 0..N of param are mapped to these class-ids */
- 		       D2_CORE,
- 		       D2_DRIVER,
- 		       D2_KMS,
-@@ -75,27 +115,23 @@ DYNDBG_CLASSMAP_DEFINE(map_disjoint_bits, DD_CLASS_TYPE_DISJOINT_BITS,
- DD_SYS_WRAP(disjoint_bits, p);
- DD_SYS_WRAP(disjoint_bits, T);
- 
--/* symbolic input, independent bits */
--enum cat_disjoint_names { LOW = 10, MID, HI };
  DYNDBG_CLASSMAP_DEFINE(map_disjoint_names, DD_CLASS_TYPE_DISJOINT_NAMES,
  		       LOW, MID, HI);
- DD_SYS_WRAP(disjoint_names, p);
- DD_SYS_WRAP(disjoint_names, T);
+ DYNDBG_CLASSMAP_PARAM(disjoint_names, p);
+-DYNDBG_CLASSMAP_PARAM(disjoint_names, T);
++DYNDBG_CLASSMAP_PARAM_T(disjoint_names, T);
  
--/* numeric verbosity, V2 > V1 related */
--enum cat_level_num { V0 = 14, V1, V2, V3, V4, V5, V6, V7 };
  DYNDBG_CLASSMAP_DEFINE(map_level_num, DD_CLASS_TYPE_LEVEL_NUM,
  		       V0, V1, V2, V3, V4, V5, V6, V7);
- DD_SYS_WRAP(level_num, p);
- DD_SYS_WRAP(level_num, T);
+ DYNDBG_CLASSMAP_PARAM(level_num, p);
+-DYNDBG_CLASSMAP_PARAM(level_num, T);
++DYNDBG_CLASSMAP_PARAM_T(level_num, T);
  
--/* symbolic verbosity */
--enum cat_level_names { L0 = 22, L1, L2, L3, L4, L5, L6, L7 };
  DYNDBG_CLASSMAP_DEFINE(map_level_names, DD_CLASS_TYPE_LEVEL_NAMES,
  		       L0, L1, L2, L3, L4, L5, L6, L7);
- DD_SYS_WRAP(level_names, p);
- DD_SYS_WRAP(level_names, T);
+ DYNDBG_CLASSMAP_PARAM(level_names, p);
+-DYNDBG_CLASSMAP_PARAM(level_names, T);
++DYNDBG_CLASSMAP_PARAM_T(level_names, T);
  
-+#endif /* TEST_DYNAMIC_DEBUG_SUBMOD */
-+
- /* stand-in for all pr_debug etc */
- #define prdbg(SYM) __pr_debug_cls(SYM, #SYM " msg\n")
+ #endif /* TEST_DYNAMIC_DEBUG_SUBMOD */
  
-diff --git a/lib/test_dynamic_debug_submod.c b/lib/test_dynamic_debug_submod.c
-new file mode 100644
-index 000000000000..f4ee7a6d6989
---- /dev/null
-+++ b/lib/test_dynamic_debug_submod.c
-@@ -0,0 +1,10 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Kernel module for testing dynamic_debug
-+ *
-+ * Authors:
-+ *      Jim Cromie	<jim.cromie@gmail.com>
-+ */
-+
-+#define TEST_DYNAMIC_DEBUG_SUBMOD
-+#include "test_dynamic_debug.c"
 -- 
 2.39.0
 
