@@ -4,67 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BC91C677F1
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 18:48:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FC39C54EBD
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 19:07:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4A5310EA98;
-	Fri, 13 Jan 2023 18:48:11 +0000 (UTC)
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [IPv6:2a00:1450:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 213AC10EA93
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 18:48:09 +0000 (UTC)
-Received: by mail-ej1-x630.google.com with SMTP id qk9so54353063ejc.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 10:48:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
- :subject:date:message-id:reply-to;
- bh=EG7jr/g9OljSlpvTsWEcmSixEQmShFVdzLVLaGMM5uM=;
- b=FHNytH06W0UmXriNfArsKvuBHWyeeP40z9gCwoD//tkNxKoF3yEHvkTmM2lpJYyPvh
- aUyQRjEdDyKDeYHV4ZnvgLw5xckxaKf3W0c5KQwF8eb11onD2e1VJmqQ2Atq0Kyojgno
- GKVKsYXK5U/vmuLBdCYPIZKreg21A3xg5cKdE=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D3A310EA93;
+	Fri, 13 Jan 2023 19:07:58 +0000 (UTC)
+Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
+ [IPv6:2001:4860:4864:20::31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E90610EA93
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 19:07:55 +0000 (UTC)
+Received: by mail-oa1-x31.google.com with SMTP id
+ 586e51a60fabf-1322d768ba7so23264286fac.5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 11:07:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=9/++tYBx4/CS9oFbvJdyuPyBg3xARMphBR/Ge5oHz/4=;
+ b=EqT8rCrUXsb83eM5PH27bLad2RfhDACW+8ErSCKO8faaPXz+l0tBcqpkQ8J4eDQ5nn
+ dZOYMgCldb6f1soJS5MVB5gm7Qzux+3xtZuqzlx+rSgQDw2Z7g3pRsHMEA7lRr+CfCEB
+ JShMsWbab0bGtYIm6eFi0qNUxAPml8sO/F7GXKEqTEgQ3k0XgWBxHB4bDnKN0m7Rn1nK
+ VQBzjgw2AzMs/Z0SYJtB9/nsm8nnV7vTKfOxJS0c/hb5YQEI87WXsHEunl7Jolao2bkY
+ xg7yuKn/xRpu2Wuu5jnIP23S9+rSO/tJVgaky6Kn3Gh9X2RhLrY5ByfYD33aC2kM8mLv
+ ZV1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=EG7jr/g9OljSlpvTsWEcmSixEQmShFVdzLVLaGMM5uM=;
- b=wCu0WD92vB1Hh6JlDu/GQBSNk7X5n+Vp6AYQaL/ZtoIUcCm+c+ZoO/5g7Od+a2iZJ7
- IxQeXQ00b6xy8avJm5u5sAp5VE7zGz1J8UwzWIMB2r/kx2JuBf7NiwMY2mg/rqllP3mp
- 4ACH2w3ou2jzaa0frAka9mgkGEVBYrJeHVKjWiDFyf9G69Dy7fKcc7q7VVAVfv9UEbwq
- CZ1XTl2fnscCVmwtXUxdc0GoDjEZ6GghWvajwTOShU0dHxBey/tIgQjK5SKvv7b1CTt7
- 2So5vacXNMgMD1UlXfDTRQaAZyjUhCmVp7PYXr+FDkoUZA8uqq4ePrAri5m872oDNOjy
- Sg9g==
-X-Gm-Message-State: AFqh2kqVKTzveXBi5yldZ540w3sekU2fJEk7cxg+IjMkbrhY2rp9YFgM
- aZoBv/gGhnZZ9notoZAmQA+bTQ==
-X-Google-Smtp-Source: AMrXdXsDpOBPrtmtkIdWBJZbgTmyQYDq0rUmqeQfEqwOFTt1cJYFl4hQ+nnqLt3BH5+kuiBBd52u2A==
-X-Received: by 2002:a17:906:cec4:b0:84d:269c:760a with SMTP id
- si4-20020a170906cec400b0084d269c760amr23264615ejb.51.1673635687677; 
- Fri, 13 Jan 2023 10:48:07 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- k2-20020a170906970200b0073dbaeb50f6sm8691799ejx.169.2023.01.13.10.48.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Jan 2023 10:48:05 -0800 (PST)
-Date: Fri, 13 Jan 2023 19:48:03 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: jim.cromie@gmail.com
-Subject: Re: [RFC PATCH 00/17] DRM_USE_DYNAMIC_DEBUG regression
-Message-ID: <Y8GnY7k22KkG/AmN@phenom.ffwll.local>
-Mail-Followup-To: jim.cromie@gmail.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, seanpaul@chromium.org,
- robdclark@gmail.com, jbaron@akamai.com, gregkh@linuxfoundation.org
-References: <20221206003424.592078-1-jim.cromie@gmail.com>
- <Y79Btep8JnPKvuAp@phenom.ffwll.local>
- <CAJfuBxxZ0Kjc0G5Ngv7bmokkC4AJKZ07OMCKyLmHBGSsjG7qfA@mail.gmail.com>
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=9/++tYBx4/CS9oFbvJdyuPyBg3xARMphBR/Ge5oHz/4=;
+ b=Tvrqys/kUdyCNRFmN1jx9CFnqyMrzwFKi88hcB3iuTsF8xMXKoWnma0Ta7P5Wi8LRT
+ e3Zf60Qa68/D57FadtnodFDoJSs2cZx4qcdgt7y3qIzQCAlo33d3EAkfRMFEFisapJtq
+ qqEpZfjpJFniE3B6/dSVSyS06Zrc4JPptjOU5/LglsHeL0zkkjMkQqk93oqrKrGdW0uz
+ nEiZlD65pp+oKRQzijp4WMFmRxDuHWll9SgA231yhzhi5bHiG/bXGsrwlixEBCV5cyul
+ Pkzc2wNeWhPEAkewdffoKSnj/ApTl7QofQljUcGvYIoTtE3NipXdcjMLcnWGBYDvurZX
+ /J4w==
+X-Gm-Message-State: AFqh2kozzO+J3FqxL1dFkHcOtpb9b6zD1OzuAbzWNeoAIoCLSMpcUH7+
+ qswZSaqb9B3BzpsyGGRcrGydFqdP3aj9eQaSyNI=
+X-Google-Smtp-Source: AMrXdXtpQSgU1PV1XJK3cFJA5lOvfVijyOp0bzqMhFGbsrzplgtF8yyrzgqJYOzu3JV43x8bPHa3IO8vZQkZkeX+fJw=
+X-Received: by 2002:a05:6870:c59c:b0:150:d9aa:4011 with SMTP id
+ ba28-20020a056870c59c00b00150d9aa4011mr3293252oab.96.1673636874615; Fri, 13
+ Jan 2023 11:07:54 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAJfuBxxZ0Kjc0G5Ngv7bmokkC4AJKZ07OMCKyLmHBGSsjG7qfA@mail.gmail.com>
-X-Operating-System: Linux phenom 5.19.0-2-amd64 
+References: <Y8EtbpVGFJSDxM/m@kili>
+In-Reply-To: <Y8EtbpVGFJSDxM/m@kili>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 13 Jan 2023 14:07:43 -0500
+Message-ID: <CADnq5_PvyeKXopyUA4JQFRs7ftfZUuaj6juWvE4B0Cy6Yrt2JQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Add a missing tab
+To: Dan Carpenter <error27@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,69 +64,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, gregkh@linuxfoundation.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, robdclark@gmail.com, seanpaul@chromium.org,
- dri-devel@lists.freedesktop.org, daniel.vetter@ffwll.ch, jbaron@akamai.com,
- intel-gvt-dev@lists.freedesktop.org, ville.syrjala@linux.intel.com
+Cc: Jack Xiao <Jack.Xiao@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Haohui Mai <ricetons@gmail.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, kernel-janitors@vger.kernel.org,
+ Lang Yu <Lang.Yu@amd.com>, amd-gfx@lists.freedesktop.org,
+ Mario Limonciello <mario.limonciello@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 13, 2023 at 11:29:57AM -0700, jim.cromie@gmail.com wrote:
-> On Wed, Jan 11, 2023 at 4:09 PM Daniel Vetter <daniel@ffwll.ch> wrote:
-> >
-> > On Mon, Dec 05, 2022 at 05:34:07PM -0700, Jim Cromie wrote:
-> > > Hi everyone,
-> > >
-> > > DRM_USE_DYNAMIC_DEBUG=y has a regression on rc-*
-> > >
-> > > Regression is due to a chicken-egg problem loading modules; on
-> > > `modprobe i915`, drm is loaded 1st, and drm.debug is set.  When
-> > > drm_debug_enabled() tested __drm_debug at runtime, that just worked.
-> > >
-> > > But with DRM_USE_DYNAMIC_DEBUG=y, the runtime test is replaced with a
-> > > post-load enablement of drm_dbg/dyndbg callsites (static-keys), via
-> > > dyndbg's callback on __drm_debug.  Since all drm-drivers need drm.ko,
-> > > it is loaded 1st, then drm.debug=X is applied, then drivers load, but
-> > > too late for drm_dbgs to be enabled.
-> > >
-> > > STATUS
-> > >
-> > > For all-loadable drm,i915,amdgpu configs, it almost works, but
-> > > propagating drm.debug to dependent modules doesnt actually apply,
-> > > though the motions are there.  This is not the problem I want to chase
-> > > here.
-> > >
-> > > The more basic trouble is:
-> > >
-> > > For builtin drm + helpers, things are broken pretty early; at the
-> > > beginning of dynamic_debug_init().  As the ddebug_sanity() commit-msg
-> > > describes in some detail, the records added by _USE fail to reference
-> > > the struct ddebug_class_map created and exported by _DEFINE, but get
-> > > separate addresses to "other" data that segv's when used as the
-> > > expected pointer. FWIW, the pointer val starts with "revi".
-> >
-> > So I honestly have no idea here, linker stuff is way beyond where I have
-> > clue. So what's the way forward here?
-> >
-> 
-> Ive fixed this aspect.
-> Unsurprisingly, it wasnt the linker :-}
+Applied.  Thanks!
 
-Awesome!
+Alex
 
-> > The DEFINE/USE split does like the right thing to do at least from the
-> > "how it's used in drivers" pov. But if we're just running circles not
-> > quite getting there I dunno :-/
-> > -Daniel
-> >
-> 
-> Sending new rev next.
-> I think its getting close.
-
-Thanks a lot for keeping on pushing this.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+On Fri, Jan 13, 2023 at 9:46 AM Dan Carpenter <error27@gmail.com> wrote:
+>
+> This tab was deleted accidentally and triggers a Smatch warning:
+>
+>     drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c:1006 gfx_v8_0_init_microcode()
+>     warn: inconsistent indenting
+>
+> Add it back.
+>
+> Fixes: 0aaafb7359d2 ("drm/amd: Use `amdgpu_ucode_*` helpers for GFX8")
+> Signed-off-by: Dan Carpenter <error27@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> index 4fb577d047fd..b1f2684d854a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> @@ -1003,7 +1003,7 @@ static int gfx_v8_0_init_microcode(struct amdgpu_device *adev)
+>                 err = amdgpu_ucode_request(adev, &adev->gfx.me_fw, fw_name);
+>                 if (err == -ENODEV) {
+>                         snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_me.bin", chip_name);
+> -               err = amdgpu_ucode_request(adev, &adev->gfx.me_fw, fw_name);
+> +                       err = amdgpu_ucode_request(adev, &adev->gfx.me_fw, fw_name);
+>                 }
+>         } else {
+>                 snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_me.bin", chip_name);
+> --
+> 2.35.1
