@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B683C71140
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 06:25:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B13AC71149
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 06:25:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CA6C10E9A2;
-	Fri, 13 Jan 2023 06:25:16 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2075.outbound.protection.outlook.com [40.107.93.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B9FF10E9A0
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 06:25:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7ABD210E9A4;
+	Fri, 13 Jan 2023 06:25:18 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2049.outbound.protection.outlook.com [40.107.223.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A492410E9A0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 06:25:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UUrS84wtlymWQ8pO0hFnvzDeVrlm5UgJ37tYzb2+ziy0gtL1yrYNTpSMO9p4tN/EMWcwRofDaRYFkQmpUY/Ve3vkIjS0XECzXcdCetK5g7z8jcBuUGM/Qx5slUpBMsjJelKbeaXOjMbP0OLCCPWSKGZvxtB57QKSUAybO8xRZeYe9rRgky+Dt282fcNaQtZjvxMLmANQa1tbN9JmFvWhYd9ZfL/mgS6NgjFLfAD6x2vxRYjJnQXT2sSpXaNHfRjF4zOLx2fdUi15FHaEXHK7W1DcAJt8m29f+qNizjFyX8NO4B1Zc6wqqDkrg77F0hITLcPPygFVlKZbb2dpx8o0gw==
+ b=D+Cl4kZDSFGSo5kO/fZwhlh8Idb6nQeFgbFhAoIkNjmug6SvD+fvDRcHeOjqqsZYPsggKnubeCHInY8icuF/udtk+NaGKYzTPDqOKt3IonHPvWmq06nolio6lKzQBJajbeKhXxiyyFGGCT5FFQ92LZRdSM4U51b1Ih1YGX0wzqczVtBY0Le/lvmFrMA3/DGBgW3CvMYJwehl4Xjs9v/eCDABtlLRSg1ZHEud3IMFVWrfBvdRmsm7YZ1h9C3Ud9ADFWCfgPx4exGR5nkIcjeQgynCwdXlXOa7zCEOWKeBdWXPUjAptHTZpi0sJ8Lq+7fo7/59kKD0n84GGzAfzYSBqA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/vJ3L3Cv4qiMuf7WRae4X+7fC9IhjZXk2On+612SEmI=;
- b=VIxnL6lB8XQhqcJ13B2K1Akw8whSyUk6DitoaRNPFULQrt9nvPY8rp8S5jTSaM+zw22hYTEavKxPoFAKqPJXQsaXR6blaz6Rc+qM5VOAZ6oSPD6Z+0xT7qjGJHezdc9g9wAEDwaEkgRLDZJtKGyaF+tCEcCGP3aut3r6gZktQSR4ZKVJC/sRGVFf0hq3vl7oVo3+aksOEpt43+77HX7w2RNPFLy26WwV6HkfBOXa8o9UNR+4n5u8KcK71Toh5yyxf1ZNEGnGzcXK4DwGjqgkcpyZty6wMj77FUBAEaxYz7r1UsoqbHJ5HREkQ/XhDA+MdWCqSVBMXo8Z4n6pkgARrg==
+ bh=QmhWLpou6dsFY47HR3seOHVxcw3qTsGGw1Oeqt/P2gc=;
+ b=hIkj4jYClxsxPAwZ4FpgO6nyvZo+B8dCJUKBRTUlTNT/8kb2LRtvcBk82ATCSJlguWEBVFl0y4p/DwxOApOjTbOaB4LwPFeYNG52AzbKmcPHnERtizz2kPHFfiWlRjYoTHn0ffHqM2dC1/pjvQm3i73MzGAsQccV6v0zID79+m1m3xYgMPHYAV08xYdqbdy41YJMM0TOaYlB0IGr/jo1omxAQhZiNxxFTM/33OgxOl64cRjWp5FIQR7P9/o9Jf9jegVwMqL6RuUaTT3cD8VYpFct3szTuizJGiP7w3T6M6JbyX1/qJQXs3bbdFQwOD5RzCdsVDwZ2D5KuKy/jlN0DQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/vJ3L3Cv4qiMuf7WRae4X+7fC9IhjZXk2On+612SEmI=;
- b=uu4on20glMsw45Xv8BCUDQwY8PjKKbc6NFnEf9q3LaRoFJwTUJlE4X5fgglEOVT3TKlm2r3bDSIMBoheiQoTYxnRkVo4xMUv1QmgXbWGB4ChRMoHeaZ3ya+PpSELfntsk+0H8zdFQxjNM2nUbHzSw3ttPX3gZU305WFgpimQCyM=
-Received: from DM5PR07CA0080.namprd07.prod.outlook.com (2603:10b6:4:ad::45) by
- MN2PR12MB4142.namprd12.prod.outlook.com (2603:10b6:208:1dd::19) with
+ bh=QmhWLpou6dsFY47HR3seOHVxcw3qTsGGw1Oeqt/P2gc=;
+ b=RBqs6cprXCZm7YdT2S73hVi2VUsuYDlue2vnA7+HapFXa1knre+RCXPtrimHljiVR69Tr5nfAUxF9vRL5XBphKWoDWzILYdbLDAWdT4J03oTLD3kxCa2UasjHpRlJGtqebiTMNApM/JQ/8+yFeJSdmx8SUGmNtHOaWDIKzXVhM8=
+Received: from DM5PR07CA0053.namprd07.prod.outlook.com (2603:10b6:4:ad::18) by
+ MN2PR12MB4584.namprd12.prod.outlook.com (2603:10b6:208:24e::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.19; Fri, 13 Jan
- 2023 06:25:09 +0000
+ 2023 06:25:11 +0000
 Received: from DM6NAM11FT109.eop-nam11.prod.protection.outlook.com
- (2603:10b6:4:ad:cafe::dd) by DM5PR07CA0080.outlook.office365.com
- (2603:10b6:4:ad::45) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:4:ad:cafe::ac) by DM5PR07CA0053.outlook.office365.com
+ (2603:10b6:4:ad::18) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.13 via Frontend
- Transport; Fri, 13 Jan 2023 06:25:09 +0000
+ Transport; Fri, 13 Jan 2023 06:25:11 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DM6NAM11FT109.mail.protection.outlook.com (10.13.173.178) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6002.13 via Frontend Transport; Fri, 13 Jan 2023 06:25:08 +0000
+ 15.20.6002.13 via Frontend Transport; Fri, 13 Jan 2023 06:25:10 +0000
 Received: from thomas-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 13 Jan
- 2023 00:25:05 -0600
+ 2023 00:25:07 -0600
 From: YiPeng Chai <YiPeng.Chai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 4/5] drm/amdgpu: Add gfx cp ecc error irq handling on gfx
- v11_0_3
-Date: Fri, 13 Jan 2023 14:23:57 +0800
-Message-ID: <20230113062358.1727355-4-YiPeng.Chai@amd.com>
+Subject: [PATCH 5/5] drm/amdgpu: Perform gpu reset after gfx finishes
+ processing ras poison consumption on gfx_v11_0_3
+Date: Fri, 13 Jan 2023 14:23:58 +0800
+Message-ID: <20230113062358.1727355-5-YiPeng.Chai@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230113062358.1727355-1-YiPeng.Chai@amd.com>
 References: <20230113062358.1727355-1-YiPeng.Chai@amd.com>
@@ -69,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT109:EE_|MN2PR12MB4142:EE_
-X-MS-Office365-Filtering-Correlation-Id: 49afedcd-8cda-4032-2f48-08daf52eeb44
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT109:EE_|MN2PR12MB4584:EE_
+X-MS-Office365-Filtering-Correlation-Id: 081eb58d-8d4e-485b-a914-08daf52eec45
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0aScSdE3SFdAG2AKMsClghuqoOBneVN7/KyRS1kuBcR+hQbBG58YDpTo9byP0z5yhmMbvFrbOOTwqC+rykohxPPgcJHr+PAS4/G8mxk74sBbw4j0AwaXQvPClddnNxIWGojMGRti4lAGaDO/70T0k7OfQ5CJ5lhYFW3X/pKsJkOwCGnQxjy0Q4MJYhX4lUuMqXZYgsGv+no8Rhu6h8mPHuMIiFOcY0pouoVvoGKx/PhyTzCQfRRvAIVgY6cv6V9W9EFB/nHWmnMIkDCeYSK6ZHjKgW1zq03xU29ZZEBHLSxeZvl8ctF8THGMys+Pu7bexUuTfPQgfle9j558kFgGPTXgwrMDU5usdHHzdj/dQIRDu+Yu57DFLXyzwTL+JBtPTM1R2t9+ZMlVMNFd+H3mqY3NxblullQbT9ZcfHZAEVXY+jvWQJFDlGeckTtrBZmT9HRNgnnwEwnMmuigwNz+WuQ/ZoYf0guDNDAItadAMESAfw9QKLus09VnQocqxpfJFxaeEh+TrBUqbpnnNpFVuUlt7uKdasdKcZCftM2B264+Zb1LpGa8725xEedGln9ZU3kUhKGkRf+mnHKnSNbpw5+P3tlbijIhHGJGzUmbEnLAeikQ7xzfcEZc4PSaevb7c8pnnhBuJA1Ngcg9ZNpX8sq2nsul/fz2onbRjoXPE+aLz6C1kjc2h0IUrIMYCDltUtO7CmP9MRaoBa1P1G6myy/1ir7SVNdJ7lIu8n+OKts=
+X-Microsoft-Antispam-Message-Info: sT+44urAxBL+CdJ7pxJlDoc4sGTQUeaSaonk3huZGsGO7hmRXTrtSLO0KOzXGm5RvGs29mfWpYhXoIyHXFqWg6RgPnbmVfLianSLbq3ry3QL9CkDuGo24SaJX6PM+iwo9HWVlMf1qeZk3ufIA0yIxp2ekzllCflrAVDWvCkQUdUY+0XIHsvALrODLbOI6RBJCpa9ic4X+LSkyBHkK47lQBJL2oaMpFhktZYNTez83WWlthndMK2wjTiyQUI1qFMtxjPYuNFGGQ/UA0wF0wVfPYxkPMQqZt70F+OQR/r9MnrX0aKedWgX6Y10xeolI1WZdKyk8WKA1nQ2hMabY/J+q5Y6E8v2Ejrtyr2D+Xbq84oJLvImcs7aob59WxgQMd6mkXFk7UrAGeVi9llKDzszGwHwsg/pAbEtHBmUufyc2Hb+W9OkKGomi4fN70q1+1zesDzOW0Id1sIX8/hA2+ISzgtQSUGltoM6FmrA9wUqWNRotVo4qDkG9KKSuZtM3Ez9P+IdATdoujy1i9il3UCvJL/LL9dX8xbfsNyZd6tOGkO/qU7qkV1y/48f5xCX2uipsTmeFp5De+PaLkEZ2w17lIxzq32YhkIki97tO7JDSa/OrLy/PYbcgSJWoJqpaiV/9Vyvr6Xlk7+Rl6DN4ZVDPvlmrE8Tw5rqZbVpNP13njbPe1x3CdYtJ2zRF039Tz2w6ijsbwFe9KCEoIUBTlupcyw+1nQuUSO8eLoh6pDqQUg=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(376002)(39860400002)(396003)(136003)(451199015)(36840700001)(46966006)(40470700004)(2906002)(40460700003)(5660300002)(54906003)(316002)(36756003)(2616005)(82310400005)(1076003)(36860700001)(336012)(426003)(47076005)(7696005)(86362001)(40480700001)(26005)(356005)(81166007)(82740400003)(16526019)(186003)(478600001)(6666004)(8936002)(6916009)(4326008)(8676002)(70586007)(41300700001)(70206006)(36900700001);
+ SFS:(13230022)(4636009)(39860400002)(346002)(396003)(136003)(376002)(451199015)(46966006)(36840700001)(40470700004)(8936002)(5660300002)(83380400001)(41300700001)(426003)(47076005)(81166007)(2906002)(82740400003)(82310400005)(36756003)(356005)(40460700003)(40480700001)(86362001)(186003)(478600001)(26005)(7696005)(36860700001)(16526019)(8676002)(336012)(6916009)(4326008)(316002)(1076003)(70586007)(2616005)(54906003)(70206006)(6666004)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2023 06:25:08.9980 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49afedcd-8cda-4032-2f48-08daf52eeb44
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2023 06:25:10.6854 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 081eb58d-8d4e-485b-a914-08daf52eec45
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT109.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4142
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4584
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,113 +105,134 @@ Cc: Tao Zhou <tao.zhou1@amd.com>, Hawking.Zhang@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Perform gpu reset after gfx finishes processing
+ras poison consumption on gfx_v11_0_3.
+
 V2:
-  Optimize gfx_v11_0_set_cp_ecc_error_state function.
+ Move gfx poison consumption handler from hw_ops to ip
+ function level.
 
 V3:
-  Define macro constant for me pipe instance address interval.
+ Adjust the calling position of amdgpu_gfx_poison_consumation_handler.
 
-V5:
-  Register and handle gfx cp ecc error irq on gfx v11_0_3.
-
-V6:
-  Remove invalid intermediate function call.
+V4:
+   Since gfx v11_0_3 does not have .hw_ops instance, the .hw_ops null
+ pointer check in amdgpu_ras_interrupt_poison_consumption_handler
+ needs to be adjusted.
 
 Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 47 ++++++++++++++++++++++++++
- 1 file changed, 47 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c  |  9 +++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h  |  4 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c  |  8 +++++---
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.c | 13 +++++++++++++
+ 4 files changed, 31 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index cc634cae77d7..39f48227bcf8 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -1338,6 +1338,13 @@ static int gfx_v11_0_sw_init(void *handle)
- 	if (r)
- 		return r;
- 
-+	/* ECC error */
-+	r = amdgpu_irq_add_id(adev, SOC21_IH_CLIENTID_GRBM_CP,
-+				  GFX_11_0_0__SRCID__CP_ECC_ERROR,
-+				  &adev->gfx.cp_ecc_error_irq);
-+	if (r)
-+		return r;
-+
- 	/* FED error */
- 	r = amdgpu_irq_add_id(adev, SOC21_IH_CLIENTID_GFX,
- 				  GFX_11_0_0__SRCID__RLC_GC_FED_INTERRUPT,
-@@ -4434,6 +4441,7 @@ static int gfx_v11_0_hw_fini(void *handle)
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 	int r;
- 
-+	amdgpu_irq_put(adev, &adev->gfx.cp_ecc_error_irq, 0);
- 	amdgpu_irq_put(adev, &adev->gfx.priv_reg_irq, 0);
- 	amdgpu_irq_put(adev, &adev->gfx.priv_inst_irq, 0);
- 
-@@ -5865,6 +5873,36 @@ static void gfx_v11_0_set_compute_eop_interrupt_state(struct amdgpu_device *adev
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 09c42c00e43c..caf7fd3adcbd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -731,6 +731,15 @@ int amdgpu_gfx_ras_sw_init(struct amdgpu_device *adev)
+ 	return 0;
  }
  
-+#define CP_ME1_PIPE_INST_ADDR_INTERVAL  0x1
-+#define SET_ECC_ME_PIPE_STATE(reg_addr, state) \
-+	do { \
-+		uint32_t tmp = RREG32_SOC15_IP(GC, reg_addr); \
-+		tmp = REG_SET_FIELD(tmp, CP_ME1_PIPE0_INT_CNTL, CP_ECC_ERROR_INT_ENABLE, state); \
-+		WREG32_SOC15_IP(GC, reg_addr, tmp); \
-+	} while (0)
-+
-+static int gfx_v11_0_set_cp_ecc_error_state(struct amdgpu_device *adev,
-+							struct amdgpu_irq_src *source,
-+							unsigned type,
-+							enum amdgpu_interrupt_state state)
++int amdgpu_gfx_poison_consumption_handler(struct amdgpu_device *adev,
++						struct amdgpu_iv_entry *entry)
 +{
-+	uint32_t ecc_irq_state = 0;
-+	uint32_t pipe0_int_cntl_addr = 0;
-+	int i = 0;
-+
-+	ecc_irq_state = (state == AMDGPU_IRQ_STATE_ENABLE) ? 1 : 0;
-+
-+	pipe0_int_cntl_addr = SOC15_REG_OFFSET(GC, 0, regCP_ME1_PIPE0_INT_CNTL);
-+
-+	WREG32_FIELD15_PREREG(GC, 0, CP_INT_CNTL_RING0, CP_ECC_ERROR_INT_ENABLE, ecc_irq_state);
-+
-+	for (i = 0; i < adev->gfx.mec.num_pipe_per_mec; i++)
-+		SET_ECC_ME_PIPE_STATE(pipe0_int_cntl_addr + i * CP_ME1_PIPE_INST_ADDR_INTERVAL,
-+					ecc_irq_state);
++	if (adev->gfx.ras && adev->gfx.ras->poison_consumption_handler)
++		return adev->gfx.ras->poison_consumption_handler(adev, entry);
 +
 +	return 0;
 +}
 +
- static int gfx_v11_0_set_eop_interrupt_state(struct amdgpu_device *adev,
- 					    struct amdgpu_irq_src *src,
- 					    unsigned type,
-@@ -6281,6 +6319,11 @@ static const struct amdgpu_irq_src_funcs gfx_v11_0_priv_inst_irq_funcs = {
- 	.process = gfx_v11_0_priv_inst_irq,
+ int amdgpu_gfx_process_ras_data_cb(struct amdgpu_device *adev,
+ 		void *err_data,
+ 		struct amdgpu_iv_entry *entry)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index 0b39fe3cd624..86ec9d0d12c8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -213,6 +213,8 @@ struct amdgpu_gfx_ras {
+ 	int (*rlc_gc_fed_irq)(struct amdgpu_device *adev,
+ 				struct amdgpu_irq_src *source,
+ 				struct amdgpu_iv_entry *entry);
++	int (*poison_consumption_handler)(struct amdgpu_device *adev,
++						struct amdgpu_iv_entry *entry);
  };
  
-+static const struct amdgpu_irq_src_funcs gfx_v11_0_cp_ecc_error_irq_funcs = {
-+	.set = gfx_v11_0_set_cp_ecc_error_state,
-+	.process = amdgpu_gfx_cp_ecc_error_irq,
-+};
-+
- static const struct amdgpu_irq_src_funcs gfx_v11_0_rlc_gc_fed_irq_funcs = {
- 	.process = gfx_v11_0_rlc_gc_fed_irq,
- };
-@@ -6296,8 +6339,12 @@ static void gfx_v11_0_set_irq_funcs(struct amdgpu_device *adev)
- 	adev->gfx.priv_inst_irq.num_types = 1;
- 	adev->gfx.priv_inst_irq.funcs = &gfx_v11_0_priv_inst_irq_funcs;
+ struct amdgpu_gfx_funcs {
+@@ -437,4 +439,6 @@ int amdgpu_gfx_get_num_kcq(struct amdgpu_device *adev);
+ void amdgpu_gfx_cp_init_microcode(struct amdgpu_device *adev, uint32_t ucode_id);
  
-+	adev->gfx.cp_ecc_error_irq.num_types = 1; /* CP ECC error */
-+	adev->gfx.cp_ecc_error_irq.funcs = &gfx_v11_0_cp_ecc_error_irq_funcs;
-+
- 	adev->gfx.rlc_gc_fed_irq.num_types = 1; /* 0x80 FED error */
- 	adev->gfx.rlc_gc_fed_irq.funcs = &gfx_v11_0_rlc_gc_fed_irq_funcs;
-+
+ int amdgpu_gfx_ras_sw_init(struct amdgpu_device *adev);
++int amdgpu_gfx_poison_consumption_handler(struct amdgpu_device *adev,
++						struct amdgpu_iv_entry *entry);
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index d06beb884a16..0a95d1c1e7ab 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -1620,14 +1620,14 @@ static void amdgpu_ras_interrupt_poison_consumption_handler(struct ras_manager *
+ 	struct amdgpu_ras_block_object *block_obj =
+ 		amdgpu_ras_get_ras_block(adev, obj->head.block, 0);
+ 
+-	if (!block_obj || !block_obj->hw_ops)
++	if (!block_obj)
+ 		return;
+ 
+ 	/* both query_poison_status and handle_poison_consumption are optional,
+ 	 * but at least one of them should be implemented if we need poison
+ 	 * consumption handler
+ 	 */
+-	if (block_obj->hw_ops->query_poison_status) {
++	if (block_obj->hw_ops && block_obj->hw_ops->query_poison_status) {
+ 		poison_stat = block_obj->hw_ops->query_poison_status(adev);
+ 		if (!poison_stat) {
+ 			/* Not poison consumption interrupt, no need to handle it */
+@@ -1641,7 +1641,7 @@ static void amdgpu_ras_interrupt_poison_consumption_handler(struct ras_manager *
+ 	if (!adev->gmc.xgmi.connected_to_cpu)
+ 		amdgpu_umc_poison_handler(adev, false);
+ 
+-	if (block_obj->hw_ops->handle_poison_consumption)
++	if (block_obj->hw_ops && block_obj->hw_ops->handle_poison_consumption)
+ 		poison_stat = block_obj->hw_ops->handle_poison_consumption(adev);
+ 
+ 	/* gpu reset is fallback for failed and default cases */
+@@ -1649,6 +1649,8 @@ static void amdgpu_ras_interrupt_poison_consumption_handler(struct ras_manager *
+ 		dev_info(adev->dev, "GPU reset for %s RAS poison consumption is issued!\n",
+ 				block_obj->ras_comm.name);
+ 		amdgpu_ras_reset_gpu(adev);
++	} else {
++		amdgpu_gfx_poison_consumption_handler(adev, entry);
+ 	}
  }
  
- static void gfx_v11_0_set_imu_funcs(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.c
+index a18e09de31dd..b07a72ca25d9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3.c
+@@ -70,6 +70,19 @@ static int gfx_v11_0_3_rlc_gc_fed_irq(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
++static int gfx_v11_0_3_poison_consumption_handler(struct amdgpu_device *adev,
++					struct amdgpu_iv_entry *entry)
++{
++	/* Workaround: when vmid and pasid are both zero, trigger gpu reset in KGD. */
++	if (entry && (entry->client_id == SOC21_IH_CLIENTID_GFX) &&
++	    (entry->src_id == GFX_11_0_0__SRCID__RLC_GC_FED_INTERRUPT) &&
++	     !entry->vmid && !entry->pasid)
++		amdgpu_ras_reset_gpu(adev);
++
++	return 0;
++}
++
+ struct amdgpu_gfx_ras gfx_v11_0_3_ras = {
+ 	.rlc_gc_fed_irq = gfx_v11_0_3_rlc_gc_fed_irq,
++	.poison_consumption_handler = gfx_v11_0_3_poison_consumption_handler,
+ };
 -- 
 2.25.1
 
