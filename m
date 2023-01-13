@@ -4,58 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC2E8C54EBE
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 14:46:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46C26C54EBD
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 14:46:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72E5710E191;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6F0610EA0B;
 	Fri, 13 Jan 2023 14:46:58 +0000 (UTC)
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D535D10E15E
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 10:07:47 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id q10so1246516wrs.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 02:07:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=LgdeVYZ+deMRc/ei+kMH+4SXCwx2TEgssACm0boSjEM=;
- b=aOdehrQKCnmwEtX56FiU6NCxjPIOxuIzXVpC4QiHmPZZfby+fTkgW3dhSZ30bzAFEO
- Y2gywrOWSy7zPamNyLCa2YDVNJfJlhzq0zdCGsjAkZ/fE8Wh8Ev6ZXXrozy4BBe6yn4Q
- pUR+xr5aHbRnxR2gdgmWO+Qu+/VlILMMP1SWIcitWSmGt/GAljeuN43l7Zc/izzsBxHw
- totc1kX0LN9AUAEyA4GqlEPHJ93aWSTWZN0vwa0Qp5pGXXDq2DDyqYRayvKcySkyCtBU
- 0wQCZzW0DJF9Mcr1JXtY3NQHRSKfQaeHOTuBGT6Rm5CQXkm1RWFAg8ZnHpEXgxU1pxEF
- Rddg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=LgdeVYZ+deMRc/ei+kMH+4SXCwx2TEgssACm0boSjEM=;
- b=0QsTLBSge2fGW8z8sehP36PIktN7Ev2I1xCr5QDdqerQMWBeXLxYgEmWUGz6F6eWXq
- EGw0dIeyjlbnQR5vvC63UjntUcv9LxyE+mEHyEytZ4gzY3WOsAnuM6K0mMT5j7cTl82D
- y6TZYLL2AIOVsKvfM1BBMg0cgAuKGwqD7mlbBWs/NjhmhEZluFzkoA+YjKKFS22cASSP
- NOj7nD/AvjXoiJIRgY8ZN8suDRytsmSshrk46cTPVxATZuAO9dJgkXIxo/Axr4XSENui
- 1fkpTXGcUVKP8vIWnfiCR9EA1XFVhUUxrnKa2+0PpjBx1l35m1X0xwZ1EOmNfXkvETV7
- bSLg==
-X-Gm-Message-State: AFqh2ko/JyzLdV/u8MkyXTdhGxSF8w5/0KKx50oXXoF7D6JW/GflmFPY
- 8yHeC/EyClX7dsndjwbd+TA=
-X-Google-Smtp-Source: AMrXdXvsko1ZJDxi4t9nddmcNn062AcrE+xH8KlU5ueUwz/6CI/UwTOcW8zDwjENTNO4bcjlJLKg7w==
-X-Received: by 2002:adf:e193:0:b0:2a5:74c9:a8c1 with SMTP id
- az19-20020adfe193000000b002a574c9a8c1mr22046389wrb.16.1673604466261; 
- Fri, 13 Jan 2023 02:07:46 -0800 (PST)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- bp28-20020a5d5a9c000000b00273cd321a1bsm18564014wrb.107.2023.01.13.02.07.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Jan 2023 02:07:45 -0800 (PST)
-Date: Fri, 13 Jan 2023 13:07:42 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH] drm/amdgpu: Add a missing tab
-Message-ID: <Y8EtbpVGFJSDxM/m@kili>
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9093C10E9E1;
+ Fri, 13 Jan 2023 10:36:09 +0000 (UTC)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id D35825C00C6;
+ Fri, 13 Jan 2023 05:36:07 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Fri, 13 Jan 2023 05:36:07 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
+ :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to; s=fm1; t=1673606167; x=1673692567; bh=B4xgVGbZP/
+ /mPID47KYBQmz2/ryc50GyA9PU/HCj7es=; b=EQP9lIamhGnb+YFu0N+BdtPgTT
+ f7LCY+JFCMqiXIoHJf3xOMDA4QvULy+RS/n4vDud72qnaYlXFcGUhSca7eo/kz11
+ 8vw7HyXypoJMj7HqE+NPaz4UZGOpPJT2W7XWMn7h7i/Ptm37almORI/4iO63cjpj
+ PvgYA1o56IwALPzSWJ/3xQdwbTyaz3ayOgV3JpZcKhaKa5MTCDGBF0OIaZdguNDD
+ /i9x3cRr2hPCdb5m/qO9Hf4LgkSvKUCq/Eu/xG9Fq0S6xOGYP9j4ZPdDTSqMghDM
+ orzNe/f8XHtOsLxVFmT7kq2Nq1SVK2FWPu6Tmj1qSg7K5tdhDPiOYG0ccnsQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+ :feedback-id:from:from:in-reply-to:in-reply-to:message-id
+ :mime-version:references:reply-to:sender:subject:subject:to:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm3; t=1673606167; x=1673692567; bh=B4xgVGbZP//mPID47KYBQmz2/ryc
+ 50GyA9PU/HCj7es=; b=MCSaH7i7lEFjTqeaqYSQdUrrXKgBUZAhoET36saYkLLH
+ h2nrVyrTUZmk/giT8ht0cypOivzO48ydrSYAESc4DVaiQT7Dhrl3JWm9rY8vIt6W
+ CpnJUWlBvHKSEbuHgstPzApU2DsLlLHaaCvGpO/W8tzq5CdoV+m5ETkFwE/Qb+Gg
+ kqhDP0IJJcTXq+Gtcme8CQEfQdax7LCQzLHmKgoGFYUQ0ArMrH6gemuJLRn8q+U6
+ Iqev56qTfO9kik29Y+96prZ7JumZdjuuPSSX0Y62pCRlan2PMomeHni1SqvMT/fl
+ H01/4qOId/WmzwA5YlHpbjUyc2/NVGN1+2NTx1pgmQ==
+X-ME-Sender: <xms:FzTBYx_OmF1qC_nRc4duADYSgCxHiTC9jBExYPWvrqPCeTErP8COUQ>
+ <xme:FzTBY1u5yVHQ4d7c3D54Vl9jv0z66sea2MisK66aG8rtq2fefWvBnBeUH67zJQAwt
+ i1p6Str1B4ZDfUozaw>
+X-ME-Received: <xmr:FzTBY_AFsNC-0qw3y4MDpj2kqGo882l6-BosTfOYOsP4U4Ae6PtBo9HYLR1ci0BoAFUL7MA2b5TmG2z2oydcV2rprrfcAzd7VIunU4zmEKfGvQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrleekgddufecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvvefukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
+ vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
+ htvghrnhepteefffefgfektdefgfeludfgtdejfeejvddttdekteeiffejvdfgheehfffh
+ vedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
+ grgihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:FzTBY1eTa97DFEbgB-U7hSrKi62yQG_ao3X94G3VhXiXONGsARpXbg>
+ <xmx:FzTBY2OqpdwRV_9x62MouMI7F4AxxSJ7-TkP5eMnp9rHpWybcRxYaA>
+ <xmx:FzTBY3kayTforKEvs0rL6fZ7AEiCeNLTPJXVkSxNYgJC6fb-yOvbDA>
+ <xmx:FzTBY7ZXGtH0YRCh31yNOgvtnmrdOQxY4249Lk2GlZWs_ks4evZQ0g>
+Feedback-ID: i8771445c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 13 Jan 2023 05:36:06 -0500 (EST)
+Date: Fri, 13 Jan 2023 11:36:04 +0100
+From: Maxime Ripard <maxime@cerno.tech>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH 0/5] drm: Do not include <linux/fb.h> unnecessarily
+Message-ID: <20230113103604.bh6ey24ehpufwuab@houat>
+References: <20230109101243.26995-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="74tcum4n2u6zdlwk"
 Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
+In-Reply-To: <20230109101243.26995-1-tzimmermann@suse.de>
 X-Mailman-Approved-At: Fri, 13 Jan 2023 14:46:57 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,42 +82,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jack Xiao <Jack.Xiao@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- kernel-janitors@vger.kernel.org, David Airlie <airlied@gmail.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Haohui Mai <ricetons@gmail.com>, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Evan Quan <evan.quan@amd.com>,
- Lang Yu <Lang.Yu@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: f.fainelli@gmail.com, amd-gfx@lists.freedesktop.org, sam@ravnborg.org,
+ maarten.lankhorst@linux.intel.com, patrik.r.jakobsson@gmail.com,
+ thierry.reding@gmail.com, bcm-kernel-feedback-list@broadcom.com,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
+ airlied@gmail.com, christian.koenig@amd.com,
+ linux-arm-kernel@lists.infradead.org, linux-rpi-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This tab was deleted accidentally and triggers a Smatch warning:
 
-    drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c:1006 gfx_v8_0_init_microcode()
-    warn: inconsistent indenting
+--74tcum4n2u6zdlwk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Add it back.
+On Mon, Jan 09, 2023 at 11:12:38AM +0100, Thomas Zimmermann wrote:
+> Remove unnecessary include statements for <linux/fb.h>. I recently
+> changed this header and had to rebuild a good part of DRM. So avoid
+> this by removing the dependency.
+>=20
+> Some source files require the OF or backlight headers. Include those
+> instead.
 
-Fixes: 0aaafb7359d2 ("drm/amd: Use `amdgpu_ucode_*` helpers for GFX8")
-Signed-off-by: Dan Carpenter <error27@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+For the series:
+Acked-by: Maxime Ripard <maxime@cerno.tech>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index 4fb577d047fd..b1f2684d854a 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -1003,7 +1003,7 @@ static int gfx_v8_0_init_microcode(struct amdgpu_device *adev)
- 		err = amdgpu_ucode_request(adev, &adev->gfx.me_fw, fw_name);
- 		if (err == -ENODEV) {
- 			snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_me.bin", chip_name);
--		err = amdgpu_ucode_request(adev, &adev->gfx.me_fw, fw_name);
-+			err = amdgpu_ucode_request(adev, &adev->gfx.me_fw, fw_name);
- 		}
- 	} else {
- 		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_me.bin", chip_name);
---
-2.35.1
+Maxime
+
+--74tcum4n2u6zdlwk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCY8E0CgAKCRDj7w1vZxhR
+xTGjAP0e3aO1L9q/tCCMkUhwmR4mqzeR9hDDwfaljUDORAYpfwD7BE4GRZrFWerW
+7C24p9S26l562JuDbNR9BlEAIz6ylQw=
+=x8tq
+-----END PGP SIGNATURE-----
+
+--74tcum4n2u6zdlwk--
