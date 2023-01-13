@@ -4,51 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A2E4C54EBE
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 13:06:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD501C54EBE
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 14:37:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7421E10E1EF;
-	Fri, 13 Jan 2023 13:06:42 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 996BC10E1EE;
- Fri, 13 Jan 2023 13:06:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673615200; x=1705151200;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=LhbeKovqZSB+MvKETHc05L5lrhNB1IekiqbZZa6UlNY=;
- b=bN4jSjcAOx56AX1XX2BQvU2szARFC7+R1MeBJotulrTSuMKyikJO1R91
- Bf9qCQ0yQfZ94ML2Wn8jiHZVRCbHyBQ0y7bYrgWBfWAeK4zS8k1fMlaZQ
- SOKfm9EANi9ZrLRfnLQsqK3uFakuccIPl8jgnPoKojSjF4zJC3TliNYlL
- XHtHhzJrL9kCjZ3xmXaodSBVfZ/b+afXRmJ6CEDdWs2ns9bPMkTuH7VXh
- C9he0SfJNcq1WupDDq5w8eK7nbMZgqahTbQghhWwzVSswUAyG0SYY5oRs
- UDWQI+rJVbwdz3IyI36Q5MSMnndSwk/Q6/aYl0HyaKd4m/TIvMRTns195 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="303684266"
-X-IronPort-AV: E=Sophos;i="5.97,214,1669104000"; d="scan'208";a="303684266"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2023 05:06:39 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="660211887"
-X-IronPort-AV: E=Sophos;i="5.97,214,1669104000"; d="scan'208";a="660211887"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.55])
- by fmsmga007.fm.intel.com with SMTP; 13 Jan 2023 05:06:34 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 13 Jan 2023 15:06:34 +0200
-Date: Fri, 13 Jan 2023 15:06:34 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: =?iso-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>
-Subject: Re: [PATCH v2 1/3] drm/framebuffer: Check for valid formats
-Message-ID: <Y8FXWvEhO7GCRKVJ@intel.com>
-References: <20230113112743.188486-1-mcanal@igalia.com>
- <20230113112743.188486-2-mcanal@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id F205010EA19;
+	Fri, 13 Jan 2023 14:37:57 +0000 (UTC)
+Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
+ [IPv6:2001:4860:4864:20::31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1FA110EA16
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 14:37:55 +0000 (UTC)
+Received: by mail-oa1-x31.google.com with SMTP id
+ 586e51a60fabf-15b9c93848dso14183021fac.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 06:37:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=vWrCLcUHfgZZix1VxmNI8xEOMY2Uq0aw/oqM4nM9BB0=;
+ b=C74xiuZFggmskSi9xhGkFd4XCaIArDqqtcwXxAfpqYaZGfvGulmEWthDxnvdMmCUqt
+ GUVfWObGyTD29K6iu03rlzYgRj2s4b4pKEm9Q73QEIh44OwBxbgoHiY2K5X6qOZXj0L2
+ EJkt+DzUIW+6hcvnoCba+uI31MOCH647z4c9QU3nz0ggQbpKynthy/yF80MayGFRg+XT
+ 2S6R7BW8D1VOsxyW3t0k5CF8ATFaddIBplXi+jAaZQdoVfPf7gRJAA1EchvtMO6LuQGN
+ uzuhmAs+5YNirAkzOdSeZ38EUqIx4v4TOzORyL4JTApEXeL2Akn2qiY38qqPGYOkoD5R
+ hrPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=vWrCLcUHfgZZix1VxmNI8xEOMY2Uq0aw/oqM4nM9BB0=;
+ b=zSjkOuODs2wtiNPCXRZxBJBNxedqITnyfH1v91Tis/WFLf4K/Bon8pYWqZf8FMSJpu
+ Bb4yVYzQbnIKAx+wj186duldcCAn431r5XnFgwS4mjjrATTesJMRwAa2o5I8hH4YZ7VH
+ XA4EwW1n5VIopxhomcV/uZYsKIIuFfGg1G7T6phwXv9AjifT4gGy6599o6bJbHB44Vii
+ QDSjQkDs06NH0Z336UcaYGItcTluPN/DAWp2ZBvstuJzm++90+UfGO2gHnNmlgbEUpvi
+ jNLAHggcCn1Mht0ZHOD0NHWHGC/57fxNQA+JMF/Kj00sFSoahoAOWz/2WdrAgog0MsxA
+ c16w==
+X-Gm-Message-State: AFqh2kpcunPmrfgnC8VV1DF0yWetWDVK8knGn2egd2tSiGh/HOYotA3C
+ LHUp6zieU/9I5qHAleBOp38drObukuRVKE5h2yKaXK7E
+X-Google-Smtp-Source: AMrXdXvSZFDL9FeuFBq6uR9TcA25ZWXL/hT0Mu1rEfRnwGNdC/gaRWgI1ZbfsUJ7MnJMP0epoR8YQpNXHIKuLeEuLJI=
+X-Received: by 2002:a05:6870:970e:b0:148:3c8f:15ab with SMTP id
+ n14-20020a056870970e00b001483c8f15abmr6920470oaq.46.1673620675125; Fri, 13
+ Jan 2023 06:37:55 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230113112743.188486-2-mcanal@igalia.com>
-X-Patchwork-Hint: comment
+References: <CANiD2e9bdhxdJr_N9wb7O0Su+LRhzE1n=TepvbBiOoqmKRRgeg@mail.gmail.com>
+ <DM5PR12MB24692E12F2C533BD8D88508AF1FC9@DM5PR12MB2469.namprd12.prod.outlook.com>
+ <CANiD2e-JebLZGvc0tSis=062t+=vPBVr_50=wm76G0Vu8nwnbg@mail.gmail.com>
+In-Reply-To: <CANiD2e-JebLZGvc0tSis=062t+=vPBVr_50=wm76G0Vu8nwnbg@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 13 Jan 2023 09:37:43 -0500
+Message-ID: <CADnq5_PWc92J+0=-L+8ShjY+aRcn4L9sMTS42QUO5f-GrAG0kw@mail.gmail.com>
+Subject: Re: Wrong revert commit in stable channel
+To: Yury Zhuravlev <stalkerg@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,85 +68,84 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simon Ser <contact@emersion.fr>,
- dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Melissa Wen <mwen@igalia.com>,
- Rob Clark <robdclark@gmail.com>,
- VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Zack Rusin <zackr@vmware.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Chen,
+ Guchun" <Guchun.Chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 13, 2023 at 08:27:42AM -0300, Maíra Canal wrote:
-> Currently, framebuffer_check() doesn't check if the pixel format is
-> supported, which can lead to the acceptance of invalid pixel formats
-> e.g. the acceptance of invalid modifiers. Therefore, add a check for
-> valid formats on framebuffer_check(), so that the ADDFB2 IOCTL rejects
-> calls with invalid formats.
-> 
-> Moreover, note that this check is only valid for atomic drivers,
-> because, for non-atomic drivers, checking drm_any_plane_has_format() is
-> not possible since the format list for the primary plane is fake, and
-> we'd therefore reject valid formats.
-> 
-> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Signed-off-by: Maíra Canal <mcanal@igalia.com>
-> ---
->  Documentation/gpu/todo.rst        | 9 ++++-----
->  drivers/gpu/drm/drm_framebuffer.c | 8 ++++++++
->  2 files changed, 12 insertions(+), 5 deletions(-)
-> 
-> diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-> index 1f8a5ebe188e..3a79c26c5cc7 100644
-> --- a/Documentation/gpu/todo.rst
-> +++ b/Documentation/gpu/todo.rst
-> @@ -276,11 +276,10 @@ Various hold-ups:
->  - Need to switch to drm_fbdev_generic_setup(), otherwise a lot of the custom fb
->    setup code can't be deleted.
->  
-> -- Many drivers wrap drm_gem_fb_create() only to check for valid formats. For
-> -  atomic drivers we could check for valid formats by calling
-> -  drm_plane_check_pixel_format() against all planes, and pass if any plane
-> -  supports the format. For non-atomic that's not possible since like the format
-> -  list for the primary plane is fake and we'd therefor reject valid formats.
-> +- Need to switch to drm_gem_fb_create(), as now framebuffer_check() checks for
-> +  valid formats for atomic drivers.
-> +
-> +- Add an addfb format validation for non-atomic drivers.
->  
->  - Many drivers subclass drm_framebuffer, we'd need a embedding compatible
->    version of the varios drm_gem_fb_create functions. Maybe called
-> diff --git a/drivers/gpu/drm/drm_framebuffer.c b/drivers/gpu/drm/drm_framebuffer.c
-> index aff3746dedfb..605642bf3650 100644
-> --- a/drivers/gpu/drm/drm_framebuffer.c
-> +++ b/drivers/gpu/drm/drm_framebuffer.c
-> @@ -280,6 +280,14 @@ static int framebuffer_check(struct drm_device *dev,
->  		}
->  	}
->  
-> +	/* Verify that the modifier is supported. */
-> +	if (drm_drv_uses_atomic_modeset(dev) &&
-> +	    !drm_any_plane_has_format(dev, r->pixel_format, r->modifier[0])) {
-> +		drm_dbg_kms(dev, "Unsupported pixel format %p4cc / modifier 0x%llx\n",
-> +			    &r->pixel_format, r->modifier[0]);
-> +		return -EINVAL;
-> +	}
+Looks like Sasha picked it up again for some reason.  I'll revert that on 6=
+.1.x.
 
-Like I said this is still wrong for the !modifiers case.
+Alex
 
-> +
->  	return 0;
->  }
->  
-> -- 
-> 2.39.0
-
--- 
-Ville Syrjälä
-Intel
+On Fri, Jan 13, 2023 at 1:02 AM Yury Zhuravlev <stalkerg@gmail.com> wrote:
+>
+> Yes, this is right in 6.2-rc3
+>
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
+/drivers/gpu/drm/amd/pm/powerplay/hwmgr?h=3Dv6.2-rc3&id=3Df936f535fa70f35ce=
+3369b1418ebae0e657cda6a
+>
+>
+> But somebody reverted it again for the stable stream:
+>
+> https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?=
+h=3Dv6.1.4&id=3D9ccd11718d76b95c69aa773f2abedef560776037
+>
+>
+> On Wed, Jan 11, 2023 at 5:35 PM Chen, Guchun <Guchun.Chen@amd.com> wrote:
+>>
+>> Hi Yury,
+>>
+>>
+>>
+>> My understanding is though that=E2=80=99s a revert of your original patc=
+h, we did a revert again on top of the reverted patch later on. Can you ple=
+ase sync to below commit to check again? Or do I understand wrong?
+>>
+>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commi=
+t/drivers/gpu/drm/amd/pm/powerplay/hwmgr?h=3Dv6.2-rc3&id=3Df936f535fa70f35c=
+e3369b1418ebae0e657cda6a
+>>
+>>
+>>
+>> Regards,
+>>
+>> Guchun
+>>
+>>
+>>
+>> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Yury =
+Zhuravlev
+>> Sent: Wednesday, January 11, 2023 4:26 PM
+>> To: amd-gfx@lists.freedesktop.org
+>> Subject: Wrong revert commit in stable channel
+>>
+>>
+>>
+>> Hello,
+>>
+>>
+>>
+>> Something went wrong, and we commited what we diced not commit.
+>>
+>>
+>>
+>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commi=
+t/?h=3Dv6.2-rc3&id=3De5b781c56d46c44c52caa915f1b65064f2f7c1ba
+>>
+>>
+>>
+>> and
+>>
+>>
+>>
+>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commi=
+t/?h=3Dv6.2-rc3&id=3D4545ae2ed3f2f7c3f615a53399c9c8460ee5bca7
+>>
+>>
+>>
+>> It's wrong reverts because, initially was an issue with a test case, not=
+ a patch itself.
+>>
+>> My GPU is not working correctly again after such "stable" patch.
