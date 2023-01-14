@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6362DC3DA78
-	for <amd-gfx@archiver.kernel.org>; Sun, 15 Jan 2023 15:29:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 206F1C63797
+	for <amd-gfx@archiver.kernel.org>; Sun, 15 Jan 2023 15:29:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC11D10E374;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C853710E373;
 	Sun, 15 Jan 2023 15:29:41 +0000 (UTC)
 Received: from msg-2.mailo.com (msg-2.mailo.com [213.182.54.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6777B10E0C9;
- Sun, 15 Jan 2023 07:17:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1E0910E073;
+ Sat, 14 Jan 2023 21:18:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mailo.com; s=mailo;
- t=1673767035; bh=I3+xbeejP+Mpq4K5m4TzJZrSIon4q38AOF3ZpdFrylo=;
- h=X-EA-Auth:Date:From:To:Cc:Subject:Message-ID:References:
- MIME-Version:Content-Type:In-Reply-To;
- b=IsRjtVNsGDYx+WOWd6j4eCyEdIyigztK7dZmLZbcf8VEXIPNIre0Hid9UvnhbFR47
- 95tkI7mlCLsYVn4EZxpB1fAfYzm2CgrrPHB6s3GJDuq3LWN4o4YXENvsuqqyp2W+6t
- RYNc34aizemXPMpsMWbWhGBRZOP9rcCF++N7Q6to=
-Received: by b-4.in.mailobj.net [192.168.90.14] with ESMTP
+ t=1673731129; bh=3TmlAYNT5GDcotyrQzGG/ieTPPZo+e5QhheiYHUPMHY=;
+ h=X-EA-Auth:Date:From:To:Cc:Subject:Message-ID:MIME-Version:
+ Content-Type;
+ b=AvFRc7+n8i2Nw7E7jr053MWfQ3L+4QV74ebbNGgh02HmrJS7l7Ud4DhvINXL/0abD
+ pfbHyHPNKw3yfeQF7xMqkoAxrEXgf1UW5/Ppm5I9Tlo8QvjFoTFObGTT4k/DRHt8+o
+ V1ULwSMTT30mchpwgC2/Sju75f070DoziBcPsp74=
+Received: by b-6.in.mailobj.net [192.168.90.16] with ESMTP
  via ip-206.mailobj.net [213.182.55.206]
- Sun, 15 Jan 2023 08:17:15 +0100 (CET)
-X-EA-Auth: i0m5Yh1v59gse93tDhXj0+cVsXlEcluODqey9DktC0Ky9u6sczLwoOHPrya1/xH80c7qkR+ph0gDxQO0Ht4k4uok3OssLyDy
-Date: Sun, 15 Jan 2023 12:47:11 +0530
+ Sat, 14 Jan 2023 22:18:49 +0100 (CET)
+X-EA-Auth: uVnKFoCMuV/obeMLZg8OScqnQxIJEr+NAWTtfpnll7R0imO4Icz5jqfWj1Y0SEym1IVEkawUgpbFlxBdodPz4zy952dcvsaR
+Date: Sun, 15 Jan 2023 02:48:45 +0530
 From: Deepak R Varma <drv@mailo.com>
-To: Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
  Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
  "Pan, Xinhui" <Xinhui.Pan@amd.com>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 2/3] drm/amd/pm/powerplay/hwmgr: use bitwise or for bitmasks
- addition
-Message-ID: <77f7e23c8a40cbaa72aa92b35e013f43f0952f45.1673766696.git.drv@mailo.com>
-References: <cover.1673766696.git.drv@mailo.com>
+Subject: [PATCH 0/4] drm/amd/display: Use min()/max() helper macros
+Message-ID: <cover.1673730293.git.drv@mailo.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <cover.1673766696.git.drv@mailo.com>
 X-Mailman-Approved-At: Sun, 15 Jan 2023 15:29:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,55 +55,24 @@ Cc: Praveen Kumar <kumarpraveen@linux.microsoft.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For bit mask addition, it is recommended to use or operator "|" instead
-of numerical addition as the former is quicker and cleaner. Change
-suggested by orplus.cocci Coccinelle semantic patch.
+This patch series proposes using standard min() / max() helper macros instead of
+direct variable comparison using the ternary operator or if/else evaluations. I
+have tested the change using a dummy module and similar simulations on my x86
+machine.
 
-Signed-off-by: Deepak R Varma <drv@mailo.com>
----
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Deepak R Varma (4):
+  drm/amd/display: Use min()/max() macros in dcn_calc_math
+  drm/amd/display: dcn20: Use min()/max() helper macros
+  drm/amd/display: dcn21: Use min()/max() helper macros
+  drm/amd/display: dcn32: Use min()/max() helper macros
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-index 7ef7e81525a3..bf9bcc4e5338 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-@@ -4153,7 +4153,7 @@ static int smu7_freeze_sclk_mclk_dpm(struct pp_hwmgr *hwmgr)
- 
- 	if ((0 == data->sclk_dpm_key_disabled) &&
- 		(data->need_update_smu7_dpm_table &
--			(DPMTABLE_OD_UPDATE_SCLK + DPMTABLE_UPDATE_SCLK))) {
-+			(DPMTABLE_OD_UPDATE_SCLK | DPMTABLE_UPDATE_SCLK))) {
- 		PP_ASSERT_WITH_CODE(true == smum_is_dpm_running(hwmgr),
- 				"Trying to freeze SCLK DPM when DPM is disabled",
- 				);
-@@ -4210,7 +4210,7 @@ static int smu7_populate_and_upload_sclk_mclk_dpm_levels(
- 	}
- 
- 	if (data->need_update_smu7_dpm_table &
--			(DPMTABLE_OD_UPDATE_SCLK + DPMTABLE_UPDATE_SCLK)) {
-+			(DPMTABLE_OD_UPDATE_SCLK | DPMTABLE_UPDATE_SCLK)) {
- 		result = smum_populate_all_graphic_levels(hwmgr);
- 		PP_ASSERT_WITH_CODE((0 == result),
- 				"Failed to populate SCLK during PopulateNewDPMClocksStates Function!",
-@@ -4218,7 +4218,7 @@ static int smu7_populate_and_upload_sclk_mclk_dpm_levels(
- 	}
- 
- 	if (data->need_update_smu7_dpm_table &
--			(DPMTABLE_OD_UPDATE_MCLK + DPMTABLE_UPDATE_MCLK)) {
-+			(DPMTABLE_OD_UPDATE_MCLK | DPMTABLE_UPDATE_MCLK)) {
- 		/*populate MCLK dpm table to SMU7 */
- 		result = smum_populate_all_memory_levels(hwmgr);
- 		PP_ASSERT_WITH_CODE((0 == result),
-@@ -4309,7 +4309,7 @@ static int smu7_unfreeze_sclk_mclk_dpm(struct pp_hwmgr *hwmgr)
- 
- 	if ((0 == data->sclk_dpm_key_disabled) &&
- 		(data->need_update_smu7_dpm_table &
--		(DPMTABLE_OD_UPDATE_SCLK + DPMTABLE_UPDATE_SCLK))) {
-+		(DPMTABLE_OD_UPDATE_SCLK | DPMTABLE_UPDATE_SCLK))) {
- 
- 		PP_ASSERT_WITH_CODE(true == smum_is_dpm_running(hwmgr),
- 				"Trying to Unfreeze SCLK DPM when DPM is disabled",
+ .../gpu/drm/amd/display/dc/dml/calcs/dcn_calc_math.c   | 10 +++++-----
+ .../drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c |  5 +----
+ .../amd/display/dc/dml/dcn20/display_mode_vba_20v2.c   |  5 +----
+ .../drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c |  5 +----
+ drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c   |  4 ++--
+ 5 files changed, 10 insertions(+), 19 deletions(-)
+
 -- 
 2.34.1
 
