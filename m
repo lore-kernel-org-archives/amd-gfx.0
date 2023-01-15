@@ -4,35 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3023EC3DA78
-	for <amd-gfx@archiver.kernel.org>; Sun, 15 Jan 2023 19:22:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F447C3DA78
+	for <amd-gfx@archiver.kernel.org>; Sun, 15 Jan 2023 19:22:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91A6610E120;
-	Sun, 15 Jan 2023 19:22:11 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2087.outbound.protection.outlook.com [40.107.220.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6872810E08D
- for <amd-gfx@lists.freedesktop.org>; Sun, 15 Jan 2023 19:22:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D11810E08D;
+	Sun, 15 Jan 2023 19:22:14 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2059.outbound.protection.outlook.com [40.107.94.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64F7810E08D
+ for <amd-gfx@lists.freedesktop.org>; Sun, 15 Jan 2023 19:22:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GsF4Zy+pGekC/LlytxSYXP/A4ihND65WW0q68jpzhXk3yar568tGIIIj2HzK5QjB0+1rYi0shv+kBXwvAj4UwIE9QPXZLlhKxr0Ld8bwvWOgK49haLGlQzexUQPnBY7tR03pfMHIAT+MZI+t3C558WhuIq3wW4D5PxCFE9VRY3sLhov1dmaEtQiIQJHfd/WHazqmyTM/DS4DMFSdv9dDnU/DDf2CAnuGD/4wgWNMjGABqkTT4YaZcbrbnN0s6LOkq4yCkIQJ6x/vA71H94T04Vb8Cjc0teZtIrnqE38XJiaPkjrQpl9HCdPHcieF4sI8skcCBwGYTXQFXajfu4QcHA==
+ b=NgTBe6b22qKpIeUEfLOItNpnqKIxWgPPR5M1ALYjrBkAFxFS5yO11/PLAnUv2Q9o3ZGbT3f7Rk5sUV4pfilOaneB02ahnhHXVj/OVORLQCufSBXbBkPH1vWmdqwB4YRG54mqsHQuq2ZS74neNBax9VeqfAMMAFgaxMyx17Flqhxfu+wotiLwJHhCUp4+ZNUJB0i27aIVNA+hzNNLpS1zktr/2jnr15fhR7lM/t/HWvWsmPv8UprvZNv1ZovG1huaW40nh3hUFQHrJSnxYbJD3FKoS7IINfKl0BlRfZ6p1x0MZDLUh1Vp/jqOE4TOTuG39hzmPMOZCXc2QZXrKQUM3w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c4DsibvojgYJskJnfW5AofSdLPUuoAsl2sgGYh/8V0Y=;
- b=JzwCdFBYGLazrHATvAzFz9GVKFv8aCV6xXCsGleMet646Eaw1Da0L7OE6Qns4ZzgMywt2mIHBUeJypvoRi2z+iQRFO0oDviyShG1SfE0GjPmLcjNkf6qNYeVgyfqB1KDxi3eEm+2T8rK42yJmdD3ImkuOwLLvTW+LprDfOhojJPJ97DGLMN3qEro799uKnGyC/I1rVitD8lVSRQPYjdTbb5zce7KzuhsDEit4nR8MNSvgLM91qBZYiGWwEC2+BMtzguCDdE6ai9IvmYr6FPyrDr16BrI4460pe1/KrLcRV5smFoOs8mLLNL475+oa1Er1LfXtUUGCkSMmR8RymDNiQ==
+ bh=huK7v01HRN64S54cEAmyPOn9rJFy0mOvF+QPT3+XxSk=;
+ b=NABpu23hB6bq/yzHbIEEm5/2pODcQ1kiiHTPd+KdrURWz82XeMkbjH6iXsRM3LWIaGBBH92r68ajSou7XNp2WuCuqdkRVWbC0kFfGt4Nkr5tZ/f9rSKLDkIZKkmaRQq003ONFkB1HrCQSynIjqJwNxHGhFiGO7+zNTrnLgIO53qsoVO8S2x/tqsrGfmq3DERd1JMvUTBnha4QrYmdIwdaa/UOqY0kO45hsSO8JsGlRUDeuOr/i+URbbFRhE/pWvRmkK/NZv1xrlCIdyMmhkzTuugQLF1sH4NspsT5YT1rZ5yoznuBX/536FV7QZUGtjqyr0s4JnDDCKuEQFGxAKZXw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c4DsibvojgYJskJnfW5AofSdLPUuoAsl2sgGYh/8V0Y=;
- b=DURh6rsayVOE3TUYB+wMgkPQ1W7bcUos6sP0W+DOBDcgK6N/UPSIISLMrIfLGXdPXJ66JPZ0jBYbL+yXIM1XWadhChYBBiM0UVLyjPhfsa27oqliBvNcB7VZ/k0nxkWhZbv2o3zbJuQYfDRD9iIe7DgrrCRVbDiKHtG0oU/HRVs=
+ bh=huK7v01HRN64S54cEAmyPOn9rJFy0mOvF+QPT3+XxSk=;
+ b=M60JAMvGfo3NiZgWPpAR6jQRHuEDA+SJaWKj3ZAUnEdA3dDLWhTSClDvKs0S+nKv0mLesFi6/rwz2Sg4mXnRPFZNmn93FTgga6Q4Uv2/vwSSpeh5sWUBzZDwwwd6baYf9swelwEuuU2iFyJVI1dLhjsb2unXSoU9gpHGKUHq9Do=
 Received: from DS7PR03CA0333.namprd03.prod.outlook.com (2603:10b6:8:55::15) by
- PH8PR12MB7277.namprd12.prod.outlook.com (2603:10b6:510:223::13) with
+ PH8PR12MB6868.namprd12.prod.outlook.com (2603:10b6:510:1cb::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.23; Sun, 15 Jan
- 2023 19:22:07 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.19; Sun, 15 Jan
+ 2023 19:22:08 +0000
 Received: from DS1PEPF0000E650.namprd02.prod.outlook.com
  (2603:10b6:8:55:cafe::30) by DS7PR03CA0333.outlook.office365.com
  (2603:10b6:8:55::15) with Microsoft SMTP Server (version=TLS1_2,
@@ -54,10 +54,10 @@ Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  2023 13:22:06 -0600
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/3] drm/amd: Remove needless break for legacy IP discovery
- MP0 9.0.0
-Date: Sun, 15 Jan 2023 13:21:43 -0600
-Message-ID: <20230115192144.4566-2-mario.limonciello@amd.com>
+Subject: [PATCH 3/3] drm/amd: Evaluate early init for all IP blocks even if
+ one fails
+Date: Sun, 15 Jan 2023 13:21:44 -0600
+Message-ID: <20230115192144.4566-3-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230115192144.4566-1-mario.limonciello@amd.com>
 References: <20230115192144.4566-1-mario.limonciello@amd.com>
@@ -69,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0000E650:EE_|PH8PR12MB7277:EE_
-X-MS-Office365-Filtering-Correlation-Id: e8cd8938-77b4-4629-9918-08daf72dcacd
+X-MS-TrafficTypeDiagnostic: DS1PEPF0000E650:EE_|PH8PR12MB6868:EE_
+X-MS-Office365-Filtering-Correlation-Id: f66bb073-b878-44b2-34cc-08daf72dcb09
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: gFNMIlsYIuidv9MZYYb+rYgor0q8i3KtjnSdOG4bmIPeWF11eNtGe0eacSzVQyxuCa+9RW9jmAP39NFGRYmiATwyeE1MltdXyNxf38P9qv02aglE0ESpCgyAbA4Fr23Sp4TYq7YN2f6dS+C1Wyy36qKrxQKNrNkhxb2c4jyCruB9Wwr5UEJlW9dlIkYRKIT84ilJv0BjoQUyuSZMzJnVoF6dyyhsspxqX8s2lQfqM9BDpb/CWpvnOWgoVAe4JbYoWgRueAJ5Z7DXf4RwbGQLZTX8OnnmdAy1akWRNEpxQ4bwUNvES/35hawOf6+cJRDO9kYH0LTQghx8+lV+MW5sftrz9kyjHIvjs0EY9I71Fq3ohBRyhgv7GVN6IPUhLqZ1SkUvwK/xqW8Qb1qrjIUCGDuUHGkNIqm6tUFfBjWSahJ0EhVvW7Hiy4Ai9mEM9k9qghhJO1OBLPs9mmNA1WY0ZVblrY1NWIMf8k3TiW51ZHsftEBEG7O334hDqxtfngoQkAAIeeE18/1FE3wAa+GvpkWd/RqDAWbIBtvnDTGbYU4s77cOXb4L5krMKr0a2xH3moxzfTodAmAK4Z0+eYJnhXesrVAUDVpHZVVVPykTszD5gVn4MTTfMeA9n4U0A5k0Cd6OuCIMJ4bypjVrSVxU6VKo5CQF2Ru5OkySOq8xrPIeLUI4cY8OjjKt5A4WFVs3DiakdnLC1dnJgZjl5DXcJ1jv+Zwb1nPNOJ+qWTeMlC0=
+X-Microsoft-Antispam-Message-Info: GaUzCMBBL8eMBu+Eyg2du//w+MR0QhezWny5LleeriDf58lDk7qxd0zsPAkcfEbvoFPiTnZOPhcA1mmT7oQIbeXWCOaFmzVM8Ffg692hf1VxNQ+ZbcqjEanGTmodaPRW0PpkOIu33K6UP8ANehamlOxdlrk7vFZl8LiD1Q03MyEpbl5VmAtnOM17U8G7ZhU8d8ERmg6fODzTaj04FAE0Oq1TtdLjMFDe+OXqhRhtT7TxVhF0FZ/DSkedhsiwsgwbu0DnUqSYyq74DNPKv1PVZsr3r7k+Dzxr5gndzWkAJ0pn54dMb8BqHZ8TLj6Ki313VDHfwbZzhxbbAuHI6P4PA1OroFKuBTOjk3lgu6WHpb9rtC1SW+vNt3CU7BANqVQplDCfq5RGC162biw7un3kYjhb9lgPE04vmK/xu55bpMD6crXEl5wiqg1E9/1JDKbtKMhswnRZbMgkPJ63oFtbm6ZPkej2gWvARyUg/SnPcaqV1KUP6XKLpxM783rxMTGfvdJsSJgxC+m9PRfOWVs4/LUyvz8v4r7eZFmcEmmH5SmnVl4Esp4bTfzeC3Aaq5No9kWRHtaUUYgyq4mjiHur7YLs+EKowObCs37kXzKyBCm2ykCt8tB+UFkXVAx6CRcvBGr8mLsZ2tDG5+EUwDIRlnFSZRgqaLb8DNjCg94aF2dd7PZU5nV3fOMIHY6iTm+Ea4U6BolHrRTKIB6/p2vWQzwcXvzbulwndn3/YG4Ewiw=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(136003)(376002)(396003)(39860400002)(451199015)(36840700001)(46966006)(40470700004)(5660300002)(8936002)(4744005)(41300700001)(44832011)(2906002)(36756003)(316002)(70206006)(36860700001)(1076003)(7696005)(6666004)(8676002)(478600001)(4326008)(70586007)(6916009)(83380400001)(336012)(40460700003)(426003)(2616005)(40480700001)(81166007)(82310400005)(47076005)(26005)(82740400003)(186003)(16526019)(356005)(86362001)(36900700001);
+ SFS:(13230022)(4636009)(376002)(39860400002)(136003)(396003)(346002)(451199015)(36840700001)(46966006)(40470700004)(26005)(6666004)(82310400005)(16526019)(186003)(36756003)(7696005)(82740400003)(356005)(81166007)(478600001)(86362001)(40480700001)(40460700003)(83380400001)(2616005)(336012)(1076003)(36860700001)(47076005)(426003)(8936002)(5660300002)(6916009)(44832011)(316002)(2906002)(8676002)(70206006)(4326008)(70586007)(41300700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2023 19:22:07.3625 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8cd8938-77b4-4629-9918-08daf72dcacd
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2023 19:22:07.7532 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f66bb073-b878-44b2-34cc-08daf72dcb09
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000E650.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7277
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6868
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,26 +104,57 @@ Cc: Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There is already a "default" case in the switch block, so there is
-no need to have a break after the switch block.
+If early init fails for a single IP block, then no further IP blocks
+are evaluated.  This means that if a user was missing more than one
+firmware binary they would have to keep adding binaries and re-probing
+until they discovered the ones missing.
+
+To make this easier, run early init for each IP block and report a single
+failure if not all passed.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-index 0d950ae14b27c..26cc529d4fde9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-@@ -1072,7 +1072,6 @@ static const char *amdgpu_ucode_legacy_naming(struct amdgpu_device *adev, int bl
- 			default:
- 				return NULL;
- 			}
--			break;
- 		case IP_VERSION(10, 0, 0):
- 			if (adev->apu_flags & AMD_APU_IS_PICASSO)
- 				return "picasso";
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 8846f026eeece..2f904bb545fe4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2074,6 +2074,7 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
+ 	struct drm_device *dev = adev_to_drm(adev);
+ 	struct pci_dev *parent;
+ 	int i, r;
++	bool total;
+ 
+ 	amdgpu_device_enable_virtual_display(adev);
+ 
+@@ -2157,6 +2158,7 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
+ 	if (amdgpu_sriov_vf(adev) && adev->asic_type == CHIP_SIENNA_CICHLID)
+ 		adev->pm.pp_feature &= ~PP_OVERDRIVE_MASK;
+ 
++	total = true;
+ 	for (i = 0; i < adev->num_ip_blocks; i++) {
+ 		if ((amdgpu_ip_block_mask & (1 << i)) == 0) {
+ 			DRM_ERROR("disabled ip block: %d <%s>\n",
+@@ -2170,7 +2172,7 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
+ 				} else if (r) {
+ 					DRM_ERROR("early_init of IP block <%s> failed %d\n",
+ 						  adev->ip_blocks[i].version->funcs->name, r);
+-					return r;
++					total = false;
+ 				} else {
+ 					adev->ip_blocks[i].status.valid = true;
+ 				}
+@@ -2201,6 +2203,8 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
+ 
+ 		}
+ 	}
++	if (!total)
++		return -ENODEV;
+ 
+ 	adev->cg_flags &= amdgpu_cg_mask;
+ 	adev->pg_flags &= amdgpu_pg_mask;
 -- 
 2.25.1
 
