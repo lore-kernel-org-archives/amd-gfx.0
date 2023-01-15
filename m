@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 206F1C63797
-	for <amd-gfx@archiver.kernel.org>; Sun, 15 Jan 2023 15:29:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19AFAC677F1
+	for <amd-gfx@archiver.kernel.org>; Sun, 15 Jan 2023 15:29:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C853710E373;
-	Sun, 15 Jan 2023 15:29:41 +0000 (UTC)
-Received: from msg-2.mailo.com (msg-2.mailo.com [213.182.54.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1E0910E073;
- Sat, 14 Jan 2023 21:18:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FFE310E377;
+	Sun, 15 Jan 2023 15:29:42 +0000 (UTC)
+Received: from msg-1.mailo.com (msg-1.mailo.com [213.182.54.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A5F810E0C4;
+ Sun, 15 Jan 2023 07:16:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mailo.com; s=mailo;
- t=1673731129; bh=3TmlAYNT5GDcotyrQzGG/ieTPPZo+e5QhheiYHUPMHY=;
- h=X-EA-Auth:Date:From:To:Cc:Subject:Message-ID:MIME-Version:
- Content-Type;
- b=AvFRc7+n8i2Nw7E7jr053MWfQ3L+4QV74ebbNGgh02HmrJS7l7Ud4DhvINXL/0abD
- pfbHyHPNKw3yfeQF7xMqkoAxrEXgf1UW5/Ppm5I9Tlo8QvjFoTFObGTT4k/DRHt8+o
- V1ULwSMTT30mchpwgC2/Sju75f070DoziBcPsp74=
-Received: by b-6.in.mailobj.net [192.168.90.16] with ESMTP
+ t=1673767007; bh=+fQITG3zFSx+3AQZJEQdW3kgJY9FXR6AQ5P5BGfD2f0=;
+ h=X-EA-Auth:Date:From:To:Cc:Subject:Message-ID:References:
+ MIME-Version:Content-Type:In-Reply-To;
+ b=LpJYY7WRGDZodMaM42Nvvqcb2MZktoqZz+wtt4XW7KBZiD1VUwc4IzgbJOvnTvcf/
+ QPZfZcbt9uq3rLkD6qTMS7gSQHXGwfHl0ljBiDiUuRsqlHR8h0WZ19QOHRqt8Kj8gn
+ TBlQHS+QRDAIKTJOd/VQCmKw1Z5fO2zlXm/gbk0A=
+Received: by b-1.in.mailobj.net [192.168.90.11] with ESMTP
  via ip-206.mailobj.net [213.182.55.206]
- Sat, 14 Jan 2023 22:18:49 +0100 (CET)
-X-EA-Auth: uVnKFoCMuV/obeMLZg8OScqnQxIJEr+NAWTtfpnll7R0imO4Icz5jqfWj1Y0SEym1IVEkawUgpbFlxBdodPz4zy952dcvsaR
-Date: Sun, 15 Jan 2023 02:48:45 +0530
+ Sun, 15 Jan 2023 08:16:47 +0100 (CET)
+X-EA-Auth: TgOkwxa4yz4MbR4/OVAaqXgSCIUEw7Eb+uea7TiQJukxZ6pfKqePsPmuSldH7seB5/nw1+KkWUkNpqZu4IcfmodnAMEIlYgN
+Date: Sun, 15 Jan 2023 12:46:43 +0530
 From: Deepak R Varma <drv@mailo.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
+To: Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
  Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
  "Pan, Xinhui" <Xinhui.Pan@amd.com>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 0/4] drm/amd/display: Use min()/max() helper macros
-Message-ID: <cover.1673730293.git.drv@mailo.com>
+Subject: [PATCH 1/3] drm/amd/pm/powerplay/smumgr: use bitwise or for addition
+Message-ID: <b1cceaacb32bd2a72ac4d8e12a04da3f78e8c41c.1673766696.git.drv@mailo.com>
+References: <cover.1673766696.git.drv@mailo.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <cover.1673766696.git.drv@mailo.com>
 X-Mailman-Approved-At: Sun, 15 Jan 2023 15:29:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,24 +55,42 @@ Cc: Praveen Kumar <kumarpraveen@linux.microsoft.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch series proposes using standard min() / max() helper macros instead of
-direct variable comparison using the ternary operator or if/else evaluations. I
-have tested the change using a dummy module and similar simulations on my x86
-machine.
+For bit mask addition, it is recommended to use or operator "|" instead
+of numerical addition as the former is quicker and cleaner. Change
+suggested by orplus.cocci Coccinelle semantic patch.
 
-Deepak R Varma (4):
-  drm/amd/display: Use min()/max() macros in dcn_calc_math
-  drm/amd/display: dcn20: Use min()/max() helper macros
-  drm/amd/display: dcn21: Use min()/max() helper macros
-  drm/amd/display: dcn32: Use min()/max() helper macros
+Signed-off-by: Deepak R Varma <drv@mailo.com>
+---
+ drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c | 2 +-
+ drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c   | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
- .../gpu/drm/amd/display/dc/dml/calcs/dcn_calc_math.c   | 10 +++++-----
- .../drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c |  5 +----
- .../amd/display/dc/dml/dcn20/display_mode_vba_20v2.c   |  5 +----
- .../drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c |  5 +----
- drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c   |  4 ++--
- 5 files changed, 10 insertions(+), 19 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c
+index 03df35dee8ba..060fc140c574 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c
+@@ -2165,7 +2165,7 @@ static int iceland_program_mem_timing_parameters(struct pp_hwmgr *hwmgr)
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+ 
+ 	if (data->need_update_smu7_dpm_table &
+-		(DPMTABLE_OD_UPDATE_SCLK + DPMTABLE_OD_UPDATE_MCLK))
++		(DPMTABLE_OD_UPDATE_SCLK | DPMTABLE_OD_UPDATE_MCLK))
+ 		return iceland_program_memory_timing_parameters(hwmgr);
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c
+index 04b561f5d932..acbe41174d7e 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c
+@@ -2554,7 +2554,7 @@ static int tonga_program_mem_timing_parameters(struct pp_hwmgr *hwmgr)
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+ 
+ 	if (data->need_update_smu7_dpm_table &
+-		(DPMTABLE_OD_UPDATE_SCLK + DPMTABLE_OD_UPDATE_MCLK))
++		(DPMTABLE_OD_UPDATE_SCLK | DPMTABLE_OD_UPDATE_MCLK))
+ 		return tonga_program_memory_timing_parameters(hwmgr);
+ 
+ 	return 0;
 -- 
 2.34.1
 
