@@ -4,35 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35C99C3DA78
-	for <amd-gfx@archiver.kernel.org>; Sun, 15 Jan 2023 15:29:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6B58C63797
+	for <amd-gfx@archiver.kernel.org>; Sun, 15 Jan 2023 15:29:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7028B10E012;
-	Sun, 15 Jan 2023 15:29:30 +0000 (UTC)
-Received: from msg-4.mailo.com (msg-4.mailo.com [213.182.54.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A27710E08C;
- Sun, 15 Jan 2023 07:16:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD1C110E013;
+	Sun, 15 Jan 2023 15:29:31 +0000 (UTC)
+Received: from msg-1.mailo.com (msg-1.mailo.com [213.182.54.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D9CE10E0EA;
+ Sun, 15 Jan 2023 10:00:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mailo.com; s=mailo;
- t=1673766960; bh=k5POMcfBwYa5wr18jkQ33y/uNrey1LaJ5KoUUlzdv6A=;
+ t=1673776843; bh=/iD5FdGsACL4AeAQezA9XNB8C/O5bx6Q/X5pHtL9znk=;
  h=X-EA-Auth:Date:From:To:Cc:Subject:Message-ID:MIME-Version:
  Content-Type;
- b=LopZqf+yn1hhl0YuM6zkt2JTOg5AETKGr2sYtd1YDkX3LFcc0/mpG+HA27CTeandU
- C1XwxHwcbLUiL4I9ZHdOABKVLiT7lTn8cV8arwrwZG8YSEgUdOHx4oD+Fi6qYec/uZ
- zq1uKOAPSDBqEoe+qOuT7cZSKA8JFgKO7RAOrxbk=
-Received: by b-3.in.mailobj.net [192.168.90.13] with ESMTP
+ b=j/AHSimET66MvDWv+l8/PtEAWvnrhLtKagZQwJmMQZcGGc2STk00RUpyw8LALrtNM
+ ZnsIOPFDKQvAX/0CNhJx6g+LV5WxkZpCK/+5ao00eYs/low/H+qAJjJcLjhzpGnWfw
+ tEoHNhFdf3SdsMewyN0YhTKDmukAc7EcXt/C0cQo=
+Received: by b-2.in.mailobj.net [192.168.90.12] with ESMTP
  via ip-206.mailobj.net [213.182.55.206]
- Sun, 15 Jan 2023 08:15:59 +0100 (CET)
-X-EA-Auth: pNsW6gMqAA4UK+pay/T5Ic7nnC99FGL29jntdCvEEt0A2pa31p9Ixh21ivPxrrsr4A2rD8nmlS2jy69Y6D2ZZDT3/yrs+LLn
-Date: Sun, 15 Jan 2023 12:45:54 +0530
+ Sun, 15 Jan 2023 11:00:43 +0100 (CET)
+X-EA-Auth: QUVQkKdtaa3ThPmH0jN9hkKBEF3clhbPL9AScoOFF2o6Ipb8m9b2YiEd1CacQfHgw+lTtqJAFAhum5ZmXRrFw35fBU6TjDC8
+Date: Sun, 15 Jan 2023 15:30:38 +0530
 From: Deepak R Varma <drv@mailo.com>
-To: Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
  Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
  "Pan, Xinhui" <Xinhui.Pan@amd.com>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 0/3] drm/amd/pm/powerplay: use bitwise or for bitmasks addition
-Message-ID: <cover.1673766696.git.drv@mailo.com>
+Subject: [PATCH] drm/amd/display: Simplify same effect if/else blocks
+Message-ID: <Y8POxreeC3EvOXhC@ubun2204.myguest.virtualbox.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
@@ -53,22 +55,43 @@ Cc: Praveen Kumar <kumarpraveen@linux.microsoft.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The patch series proposes usage of bitwise or "|" operator for addition of
-bitmasks instead of using numerial additions. The former is quicker and cleaner.
+The if / else block code has same effect irrespective of the logical
+evaluation.  Hence, simply the implementation by removing the unnecessary
+conditional evaluation. While at it, also fix the long line checkpatch
+complaint. Issue identified using cond_no_effect.cocci Coccinelle
+semantic patch script.
 
-The proposed change is compile tested.
+Signed-off-by: Deepak R Varma <drv@mailo.com>
+---
+Please note: The proposed change is compile tested only. If there are any
+inbuilt test cases that I should run for further verification, I will appreciate
+guidance about it. Thank you.
 
-Deepak R Varma (3):
-  drm/amd/pm/powerplay/smumgr: use bitwise or for addition
-  drm/amd/pm/powerplay/hwmgr: use bitwise or for bitmasks addition
-  drm/amd/pm/powerplay/smumgr/ci: use bitwise or for bitmasks addition
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c      | 8 ++++----
- drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c      | 2 +-
- drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c | 2 +-
- drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c   | 2 +-
- 4 files changed, 7 insertions(+), 7 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 0cb8d1f934d1..776209e5d21f 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -3470,14 +3470,9 @@ static void commit_planes_for_stream(struct dc *dc,
+ 		/* Since phantom pipe programming is moved to post_unlock_program_front_end,
+ 		 * move the SubVP lock to after the phantom pipes have been setup
+ 		 */
+-		if (should_lock_all_pipes && dc->hwss.interdependent_update_lock) {
+-			if (dc->hwss.subvp_pipe_control_lock)
+-				dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes, NULL, subvp_prev_use);
+-		} else {
+-			if (dc->hwss.subvp_pipe_control_lock)
+-				dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes, NULL, subvp_prev_use);
+-		}
+-
++		if (dc->hwss.subvp_pipe_control_lock)
++			dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes,
++							 NULL, subvp_prev_use);
+ 		return;
+ 	}
+ 
 -- 
 2.34.1
 
