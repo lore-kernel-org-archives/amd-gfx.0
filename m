@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6B58C63797
-	for <amd-gfx@archiver.kernel.org>; Sun, 15 Jan 2023 15:29:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC5FEC3DA78
+	for <amd-gfx@archiver.kernel.org>; Sun, 15 Jan 2023 15:29:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD1C110E013;
-	Sun, 15 Jan 2023 15:29:31 +0000 (UTC)
-Received: from msg-1.mailo.com (msg-1.mailo.com [213.182.54.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D9CE10E0EA;
- Sun, 15 Jan 2023 10:00:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C0B910E090;
+	Sun, 15 Jan 2023 15:29:32 +0000 (UTC)
+Received: from msg-2.mailo.com (msg-2.mailo.com [213.182.54.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 977CB10E0D7;
+ Sun, 15 Jan 2023 07:17:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mailo.com; s=mailo;
- t=1673776843; bh=/iD5FdGsACL4AeAQezA9XNB8C/O5bx6Q/X5pHtL9znk=;
- h=X-EA-Auth:Date:From:To:Cc:Subject:Message-ID:MIME-Version:
- Content-Type;
- b=j/AHSimET66MvDWv+l8/PtEAWvnrhLtKagZQwJmMQZcGGc2STk00RUpyw8LALrtNM
- ZnsIOPFDKQvAX/0CNhJx6g+LV5WxkZpCK/+5ao00eYs/low/H+qAJjJcLjhzpGnWfw
- tEoHNhFdf3SdsMewyN0YhTKDmukAc7EcXt/C0cQo=
-Received: by b-2.in.mailobj.net [192.168.90.12] with ESMTP
+ t=1673767061; bh=k7u5aS66zy2fmuck3/VN5zNUw4xK14B+PFhiVV5QSGQ=;
+ h=X-EA-Auth:Date:From:To:Cc:Subject:Message-ID:References:
+ MIME-Version:Content-Type:In-Reply-To;
+ b=VQOO7un7PPsAFbAr7KLG2+tIkjqC7C0QcZmQbjuHusQ18C1pFFrQHmd+RKrWKh4NP
+ javzOLx2ZdrFw/pEEx9HxL7fj4GGE7To2jNQxQlDX3Z1kEbEMnlLSzq/he5g09DJpZ
+ eqaHh0L3aPZisPBRejM6T4OxJQzFQ4PHneoXf/Sk=
+Received: by b-5.in.mailobj.net [192.168.90.15] with ESMTP
  via ip-206.mailobj.net [213.182.55.206]
- Sun, 15 Jan 2023 11:00:43 +0100 (CET)
-X-EA-Auth: QUVQkKdtaa3ThPmH0jN9hkKBEF3clhbPL9AScoOFF2o6Ipb8m9b2YiEd1CacQfHgw+lTtqJAFAhum5ZmXRrFw35fBU6TjDC8
-Date: Sun, 15 Jan 2023 15:30:38 +0530
+ Sun, 15 Jan 2023 08:17:41 +0100 (CET)
+X-EA-Auth: gJML6+RJH0TCGtjLi2DcR+NBXo7OT6FysMxuzOTd0N300DEI59IhkImS0QOaE82bWbmULJnwFnOdmU0aCdOgs6ZHYd2Kcspi
+Date: Sun, 15 Jan 2023 12:47:37 +0530
 From: Deepak R Varma <drv@mailo.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
+To: Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
  Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
  "Pan, Xinhui" <Xinhui.Pan@amd.com>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amd/display: Simplify same effect if/else blocks
-Message-ID: <Y8POxreeC3EvOXhC@ubun2204.myguest.virtualbox.org>
+Subject: [PATCH 3/3] drm/amd/pm/powerplay/smumgr/ci: use bitwise or for
+ bitmasks addition
+Message-ID: <6be220cf26f5416dc7e3dbd13ad42f6e7353d960.1673766696.git.drv@mailo.com>
+References: <cover.1673766696.git.drv@mailo.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <cover.1673766696.git.drv@mailo.com>
 X-Mailman-Approved-At: Sun, 15 Jan 2023 15:29:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,43 +56,28 @@ Cc: Praveen Kumar <kumarpraveen@linux.microsoft.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The if / else block code has same effect irrespective of the logical
-evaluation.  Hence, simply the implementation by removing the unnecessary
-conditional evaluation. While at it, also fix the long line checkpatch
-complaint. Issue identified using cond_no_effect.cocci Coccinelle
-semantic patch script.
+For bit mask addition, it is recommended to use or operator "|" instead
+of numerical addition as the former is quicker and cleaner. Change
+suggested by orplus.cocci Coccinelle semantic patch.
 
 Signed-off-by: Deepak R Varma <drv@mailo.com>
 ---
-Please note: The proposed change is compile tested only. If there are any
-inbuilt test cases that I should run for further verification, I will appreciate
-guidance about it. Thank you.
+ drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/gpu/drm/amd/display/dc/core/dc.c | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 0cb8d1f934d1..776209e5d21f 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -3470,14 +3470,9 @@ static void commit_planes_for_stream(struct dc *dc,
- 		/* Since phantom pipe programming is moved to post_unlock_program_front_end,
- 		 * move the SubVP lock to after the phantom pipes have been setup
- 		 */
--		if (should_lock_all_pipes && dc->hwss.interdependent_update_lock) {
--			if (dc->hwss.subvp_pipe_control_lock)
--				dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes, NULL, subvp_prev_use);
--		} else {
--			if (dc->hwss.subvp_pipe_control_lock)
--				dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes, NULL, subvp_prev_use);
--		}
--
-+		if (dc->hwss.subvp_pipe_control_lock)
-+			dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes,
-+							 NULL, subvp_prev_use);
- 		return;
- 	}
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
+index 5ca3c422f7d4..a164d12b88ad 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c
+@@ -2203,7 +2203,7 @@ static int ci_program_mem_timing_parameters(struct pp_hwmgr *hwmgr)
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
  
+ 	if (data->need_update_smu7_dpm_table &
+-			(DPMTABLE_OD_UPDATE_SCLK + DPMTABLE_OD_UPDATE_MCLK))
++			(DPMTABLE_OD_UPDATE_SCLK | DPMTABLE_OD_UPDATE_MCLK))
+ 		return ci_program_memory_timing_parameters(hwmgr);
+ 
+ 	return 0;
 -- 
 2.34.1
 
