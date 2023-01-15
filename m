@@ -4,60 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A1AFC46467
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 13:13:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE91AC54EBE
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 13:43:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EA8810E43B;
-	Mon, 16 Jan 2023 13:12:59 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75CB610E409;
- Mon, 16 Jan 2023 13:12:43 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3A9426777E;
- Mon, 16 Jan 2023 13:12:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1673874762; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=kJ/7xrLP5uwWcMX3PN81GVaMZX3B0DkAS43Dtz5uzYw=;
- b=aTzNlmo9z+ymdLwIq1sSKww7fRmnCdFiJLYN93Wa/oQ/hlf5wYjffFWZoLQA8s5tQP65bJ
- U/Zyu8lBU/GNt58tc+3pA7ZCYAmYA5XnFwvW/+8mUxTl7Yg65YnfoWRKSh7OhadMyOMAR4
- aVhBd7PSM7aNG659m65d4NxYv3CHWxM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1673874762;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=kJ/7xrLP5uwWcMX3PN81GVaMZX3B0DkAS43Dtz5uzYw=;
- b=7v5IVaymjuUO685jQmpDV8F1Lo7g091cuLdYqg42SxXejuSw0q8mf7OVFzbhqTZma+f9iq
- 4zS4OQqm27FoMFBw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EDBF0138FA;
- Mon, 16 Jan 2023 13:12:41 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id +NIFOUlNxWNrNQAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 16 Jan 2023 13:12:41 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: sam@ravnborg.org,
-	daniel@ffwll.ch,
-	airlied@gmail.com
-Subject: [PATCH 16/22] drm/shmobile: Remove unnecessary include statements for
- drm_crtc_helper.h
-Date: Mon, 16 Jan 2023 14:12:29 +0100
-Message-Id: <20230116131235.18917-17-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230116131235.18917-1-tzimmermann@suse.de>
-References: <20230116131235.18917-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D46610E00D;
+	Mon, 16 Jan 2023 13:43:38 +0000 (UTC)
+X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
+ Sun, 15 Jan 2023 20:57:19 UTC
+Received: from relay.hostedemail.com (smtprelay0010.hostedemail.com
+ [216.40.44.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 797CD10E3B0;
+ Sun, 15 Jan 2023 20:57:19 +0000 (UTC)
+Received: from omf10.hostedemail.com (a10.router.float.18 [10.200.18.1])
+ by unirelay04.hostedemail.com (Postfix) with ESMTP id 55F981A0A53;
+ Sun, 15 Jan 2023 20:52:15 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by
+ omf10.hostedemail.com (Postfix) with ESMTPA id A6A8832; 
+ Sun, 15 Jan 2023 20:52:11 +0000 (UTC)
+Message-ID: <33ecbe8971bb9c90d72c67d43ca740abac160908.camel@perches.com>
+Subject: Re: [PATCH] drm/amd/display: Simplify same effect if/else blocks
+From: Joe Perches <joe@perches.com>
+To: Deepak R Varma <drv@mailo.com>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Christian
+ =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "Pan, Xinhui"
+ <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>, Daniel Vetter
+ <daniel@ffwll.ch>,  amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,  linux-kernel@vger.kernel.org
+Date: Sun, 15 Jan 2023 12:52:10 -0800
+In-Reply-To: <Y8POxreeC3EvOXhC@ubun2204.myguest.virtualbox.org>
+References: <Y8POxreeC3EvOXhC@ubun2204.myguest.virtualbox.org>
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4 (3.44.4-2.fc36) 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: A6A8832
+X-Rspamd-Server: rspamout03
+X-Stat-Signature: nmp5jzgs6mbr4ybrsoi3t7kdy77pzftq
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Session-ID: U2FsdGVkX1+vcIh7h853zIRDiyU/iVp2UCz25hch+jM=
+X-HE-Tag: 1673815931-499090
+X-HE-Meta: U2FsdGVkX1/EeyVIfaSREYkP20+/ZisoRlOpWZ33AFH9Y7nb5ddC0nDiZ8wdYjIk0gbCITI5svD3Yr3xHWrKTg==
+X-Mailman-Approved-At: Mon, 16 Jan 2023 13:43:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,65 +57,68 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
- linux-mips@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Cc: Praveen Kumar <kumarpraveen@linux.microsoft.com>,
+ Saurabh Singh Sengar <ssengar@microsoft.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Several source files include drm_crtc_helper.h without needing it or
-only to get its transitive include statements; leading to unnecessary
-compile-time dependencies.
+On Sun, 2023-01-15 at 15:30 +0530, Deepak R Varma wrote:
+> The if / else block code has same effect irrespective of the logical
+> evaluation.  Hence, simply the implementation by removing the unnecessary
+> conditional evaluation. While at it, also fix the long line checkpatch
+> complaint. Issue identified using cond_no_effect.cocci Coccinelle
+> semantic patch script.
+>=20
+> Signed-off-by: Deepak R Varma <drv@mailo.com>
+> ---
+> Please note: The proposed change is compile tested only. If there are any
+> inbuilt test cases that I should run for further verification, I will app=
+reciate
+> guidance about it. Thank you.
 
-Directly include required headers and drop drm_crtc_helper.h where
-possible.
+Preface: I do not know the code.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/shmobile/shmob_drm_crtc.c  | 2 ++
- drivers/gpu/drm/shmobile/shmob_drm_drv.c   | 1 -
- drivers/gpu/drm/shmobile/shmob_drm_plane.c | 1 -
- 3 files changed, 2 insertions(+), 2 deletions(-)
+Perhaps Rodrigo Siqueira made a copy/paste error submitting the code for
+commit 9114b55fabae ("drm/amd/display: Fix SubVP control flow in the MPO co=
+ntext")
+as the code prior to this change is identical.
 
-diff --git a/drivers/gpu/drm/shmobile/shmob_drm_crtc.c b/drivers/gpu/drm/shmobile/shmob_drm_crtc.c
-index 4624c0aff51f..d354ab3077ce 100644
---- a/drivers/gpu/drm/shmobile/shmob_drm_crtc.c
-+++ b/drivers/gpu/drm/shmobile/shmob_drm_crtc.c
-@@ -16,6 +16,8 @@
- #include <drm/drm_fourcc.h>
- #include <drm/drm_framebuffer.h>
- #include <drm/drm_gem_dma_helper.h>
-+#include <drm/drm_modeset_helper.h>
-+#include <drm/drm_modeset_helper_vtables.h>
- #include <drm/drm_probe_helper.h>
- #include <drm/drm_simple_kms_helper.h>
- #include <drm/drm_vblank.h>
-diff --git a/drivers/gpu/drm/shmobile/shmob_drm_drv.c b/drivers/gpu/drm/shmobile/shmob_drm_drv.c
-index 337040fa6438..faacfee24763 100644
---- a/drivers/gpu/drm/shmobile/shmob_drm_drv.c
-+++ b/drivers/gpu/drm/shmobile/shmob_drm_drv.c
-@@ -15,7 +15,6 @@
- #include <linux/pm.h>
- #include <linux/slab.h>
- 
--#include <drm/drm_crtc_helper.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_gem_dma_helper.h>
- #include <drm/drm_module.h>
-diff --git a/drivers/gpu/drm/shmobile/shmob_drm_plane.c b/drivers/gpu/drm/shmobile/shmob_drm_plane.c
-index 6c5f0cbe7d95..604ae23825da 100644
---- a/drivers/gpu/drm/shmobile/shmob_drm_plane.c
-+++ b/drivers/gpu/drm/shmobile/shmob_drm_plane.c
-@@ -8,7 +8,6 @@
-  */
- 
- #include <drm/drm_crtc.h>
--#include <drm/drm_crtc_helper.h>
- #include <drm/drm_fb_dma_helper.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_framebuffer.h>
--- 
-2.39.0
+Perhaps one of the false uses should be true or dependent on the
+interdependent_update_lock state.
+
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/a=
+md/display/dc/core/dc.c
+[]
+> @@ -3470,14 +3470,9 @@ static void commit_planes_for_stream(struct dc *dc=
+,
+>  		/* Since phantom pipe programming is moved to post_unlock_program_fron=
+t_end,
+>  		 * move the SubVP lock to after the phantom pipes have been setup
+>  		 */
+> -		if (should_lock_all_pipes && dc->hwss.interdependent_update_lock) {
+> -			if (dc->hwss.subvp_pipe_control_lock)
+> -				dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all=
+_pipes, NULL, subvp_prev_use);
+> -		} else {
+> -			if (dc->hwss.subvp_pipe_control_lock)
+> -				dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all=
+_pipes, NULL, subvp_prev_use);
+> -		}
+> -
+
+Perhaps something like:
+
+		if (dc->hwss.subvp_pipe_control_lock)
+			dc->hwss.subvp_pipe_control_lock(dc, context,
+							 should_lock_all_pipes &&
+							 dc->hwss.interdependent_update_lock,
+							 should_lock_all_pipes, NULL, subvp_prev_use);
+
+> +		if (dc->hwss.subvp_pipe_control_lock)
+> +			dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_=
+pipes,
+> +							 NULL, subvp_prev_use);
+>  		return;
+>  	}
+> =20
 
