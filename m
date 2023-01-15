@@ -4,55 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A955C63797
-	for <amd-gfx@archiver.kernel.org>; Sun, 15 Jan 2023 15:41:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB87AC3DA78
+	for <amd-gfx@archiver.kernel.org>; Sun, 15 Jan 2023 16:43:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1E6C10E380;
-	Sun, 15 Jan 2023 15:41:27 +0000 (UTC)
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
- [IPv6:2607:f8b0:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51BC210E37F
- for <amd-gfx@lists.freedesktop.org>; Sun, 15 Jan 2023 15:41:25 +0000 (UTC)
-Received: by mail-ot1-x32b.google.com with SMTP id
- k44-20020a9d19af000000b00683e176ab01so14886910otk.13
- for <amd-gfx@lists.freedesktop.org>; Sun, 15 Jan 2023 07:41:25 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B026210E385;
+	Sun, 15 Jan 2023 16:43:05 +0000 (UTC)
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8AF210E13E;
+ Sun, 15 Jan 2023 16:43:03 +0000 (UTC)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ z8-20020a05600c220800b003d33b0bda11so2923294wml.0; 
+ Sun, 15 Jan 2023 08:43:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=XOuan4LsCgRqpEescxEfB9Yp34m7vUZ9ubhoTXItw4M=;
- b=jMF3nUMXCg3r1DdU4FI+GyRQa9irIGqSBlh21rN4Mg1OfJ6ZGgY0zg4pVw0y/1xMMx
- l24WJXPXwNTx4cPnAJSB0e93RcD4dcUmZRbynKME9AUdh53+2HzPF3XqG7CLRfdG6cYp
- kXcSjzyva6FVS1KGsABBHHIeELl/trM9JQTD6X42xPro96oJWJODWaNQZ7HsmSfkIRTv
- 5+1fAQ3GtvDQsAybPkmg/anKM0s0V6eL/Wv7l6CZTxcMsEw33DyY7Z2nQukPIcGIqas/
- H5hKLnHaWKxT5vvM1vU7KSJpq+8qjWUBDs9nDs1+QXJ+wf2QiF2jVH+LItPHPaRq51TD
- lWfw==
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=r2XFHI9hzlymkwecU7/N6nJzjS0uK7bZYTYKVdGKd/8=;
+ b=nw2y2GaNl48dcEBWnmbk+WCMN4j/IyUqgOOZakXplo6S7fhbjXLJlX0fpKqxwUXQGu
+ 82oaLZ1FPiDlTIshz1oTwAsuB0OLlZ/q9W4/mC+BP5UqLvmJDvMAwqR2ogR7UEmREqDx
+ qVKs9utmq0/Z3pBT7ZH4S1ZH8RzJj/ay5vg4vsFxS5kimX09N1w5xB0vnNhPEBTAEHJa
+ 9gpK/clvzjDt740MA6XcU5qSwT45aqHOfD8WUZI7/55RCGF06OYN7pLfGnoVPmwEv2K0
+ ct9JRRSGKyxQb9ulzv61PQgIsr7nJC7nYVXTXT+mdiNSffQUO01ryFCuyITr1zMtpKiV
+ 9E7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=XOuan4LsCgRqpEescxEfB9Yp34m7vUZ9ubhoTXItw4M=;
- b=yUrRG0JCUZJIgtGaQRi5CpxtlO/1xSKXqWIcge+Uo60FbheGLNbS6JpHZwb/Na9k01
- SWp8ZJuacTaZ+IWcPmm/Te8JhW8R9qPawWuvhzHc6ithtuVtxKfg9hMcJD59yMqp8tP2
- 7sPEn6nWyuEPQloOcTYL8UQB2pLoivwTz0wxJw6PLPF+SOIzme9LjRP1ZYsnP105MBTM
- 7xns/tKpqVYe1KJA6+15N1Kp3pYbxGT+cGY2+++fhcAjdbFndFi5x/kwk7qjDeNKD7YB
- nEOPlRM+wgf2JAW3LZhqrYXje9VP0w6d10Pq9bunmAjupOQcJ27v4Wnapy7sWQQg4koP
- dE2A==
-X-Gm-Message-State: AFqh2ko4pL1nfinY8c7hc7Ixp+ZOD70Xn01S9L5Uo4ULIogCFLIYe7nh
- i2Mw1A/Zdn2A5YRutga8tgAOyoqGUBtNkapzEb4WM+Dc
-X-Google-Smtp-Source: AMrXdXsvCm0L3a6rXWdIpHsKCh8Pcs3U8DOcCWI02xYQSSQvWWfBVXTypomNenlrlIT1yHlxpsEcDJUtLR/wgdlftEk=
-X-Received: by 2002:a9d:62d1:0:b0:675:cde9:90b9 with SMTP id
- z17-20020a9d62d1000000b00675cde990b9mr5738407otk.123.1673797284579; Sun, 15
- Jan 2023 07:41:24 -0800 (PST)
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=r2XFHI9hzlymkwecU7/N6nJzjS0uK7bZYTYKVdGKd/8=;
+ b=YA2twIfvpTsFcWwpuJVHrq/VuDkuIiJltHjcS+G5PvvUpuvxqNo+H6lInJJ8j3UfJy
+ zXY+8sjm+1m4rsmxJmHpyL6VzdJxTgq/VIYACUtnutBocl+H2bhqdsLWq9JGIGRkMQvk
+ C1Rp6MZtPCripwvZn9L6buVYdEVbQbqJIFJdAsqTa2mCbLVP8hGMO3zEh70RwJe2sXaI
+ iR/2SPoGDKW3AUQnjYvtmjBc4tL+dbFWSR39bj+Y4mkL9Uev3evA9cz7vQbE8C8uXmx8
+ SMUaYXAWmLm/l1yajt+ijzP4xYYEi9UR8HnBHavTuPzXOuI8q6Jl2GP0r5SmDRsPmzYj
+ CUhw==
+X-Gm-Message-State: AFqh2kry6xN+yCcJEo1pLeV61HB36J9mQa9V4ETVEAiJ4l9rWpF6it/B
+ zUvjD3WV0faMV9ey+Afw5Fc=
+X-Google-Smtp-Source: AMrXdXtwa3nCbXxMmDvWXjk6rTf324dW5nzxkNB6CydWoeJRFUKj5t6wW1hzj3Lv4e3vVsLNyiJheA==
+X-Received: by 2002:a05:600c:3b93:b0:3d3:43ae:4d10 with SMTP id
+ n19-20020a05600c3b9300b003d343ae4d10mr67483761wms.11.1673800982037; 
+ Sun, 15 Jan 2023 08:43:02 -0800 (PST)
+Received: from ?IPV6:2a02:908:1256:79a0:a615:2979:ed92:fafd?
+ ([2a02:908:1256:79a0:a615:2979:ed92:fafd])
+ by smtp.gmail.com with ESMTPSA id
+ l14-20020a05600c1d0e00b003da105437besm14457102wms.29.2023.01.15.08.43.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 15 Jan 2023 08:43:01 -0800 (PST)
+Message-ID: <27d2a3eb-541f-fd5b-6a92-77e49c74d1b4@gmail.com>
+Date: Sun, 15 Jan 2023 17:43:00 +0100
 MIME-Version: 1.0
-References: <20230114030148.139-1-mario.limonciello@amd.com>
-In-Reply-To: <20230114030148.139-1-mario.limonciello@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Sun, 15 Jan 2023 10:41:13 -0500
-Message-ID: <CADnq5_P5kQ99vwLviYh+Gsr=DJ+8zRb4LYbFe1yCT_j7XZcaWA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: Fix renoir/green sardine MP0 IP version detection
-To: Mario Limonciello <mario.limonciello@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH 1/6] drm/amdgpu: Generalize KFD dmabuf import
+Content-Language: en-US
+To: Felix Kuehling <felix.kuehling@amd.com>,
+ "Chen, Xiaogang" <xiaogang.chen@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20230112013157.750568-1-Felix.Kuehling@amd.com>
+ <20230112013157.750568-2-Felix.Kuehling@amd.com>
+ <cab37a40-9737-1b77-3a3f-87965d4c70b2@amd.com>
+ <9b5b20e0-e04b-f7f6-9459-42d5a4bb44c7@amd.com>
+ <1437874c-4b4b-191f-4486-de6ac69e99cc@amd.com>
+ <19873c87-5d01-30dd-84d2-ced61b236fa0@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <19873c87-5d01-30dd-84d2-ced61b236fa0@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,66 +82,168 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Hung <Alex.Hung@amd.com>, Nicholas Choi <Nicholas.Choi@amd.com>,
- Ekene Akuneme <Ekene.Akuneme@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 13, 2023 at 10:02 PM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
-> The existing codebase never had a case for detecting MP0 version on
-> Renoir and instead relied upon hardcoded chip name.  This was missed as
-> part of the changes to migrate all IP blocks to build filenames from
-> `amdgpu_ucode.c`.
->
-> Consequently, Renoir tries to fetch a binary with 11_0_3 in the filename
-> and since it's supposed to have "renoir" in the filename fails to probe.
-> The fbdev still works though so the series worked.
->
-> Add a case for Renoir into the legacy table to ensure the right ASD and
-> TA firmware load again.
->
-> Reported-by: Ekene Akuneme <Ekene.Akuneme@amd.com>
-> Reported-by: Nicholas Choi <Nicholas.Choi@amd.com>
-> Cc: Alex Hung <Alex.Hung@amd.com>
-> Fixes: 994a97447e38 ("drm/amd: Parse both v1 and v2 TA microcode headers using same function")
-> Fixes: 54a3e032340e ("drm/amd: Add a legacy mapping to "amdgpu_ucode_ip_version_decode")
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 9 +++------
->  1 file changed, 3 insertions(+), 6 deletions(-)
+Am 14.01.23 um 00:15 schrieb Felix Kuehling:
+> On 2023-01-13 18:00, Chen, Xiaogang wrote:
+>>
+>> On 1/13/2023 4:26 PM, Felix Kuehling wrote:
+>>> On 2023-01-12 17:41, Chen, Xiaogang wrote:
+>>>>
+>>>> On 1/11/2023 7:31 PM, Felix Kuehling wrote:
+>>>>> Use proper amdgpu_gem_prime_import function to handle all kinds of
+>>>>> imports. Remember the dmabuf reference to enable proper multi-GPU
+>>>>> attachment to multiple VMs without erroneously re-exporting the
+>>>>> underlying BO multiple times.
+>>>>>
+>>>>> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+>>>>> ---
+>>>>>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 38 
+>>>>> ++++++++++---------
+>>>>>   1 file changed, 21 insertions(+), 17 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c 
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>>>> index 6f236ded5f12..e13c3493b786 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>>>> @@ -2209,30 +2209,27 @@ int 
+>>>>> amdgpu_amdkfd_gpuvm_import_dmabuf(struct amdgpu_device *adev,
+>>>>>       struct amdgpu_bo *bo;
+>>>>>       int ret;
+>>>>>   -    if (dma_buf->ops != &amdgpu_dmabuf_ops)
+>>>>> -        /* Can't handle non-graphics buffers */
+>>>>> -        return -EINVAL;
+>>>>> -
+>>>>> -    obj = dma_buf->priv;
+>>>>> -    if (drm_to_adev(obj->dev) != adev)
+>>>>> -        /* Can't handle buffers from other devices */
+>>>>> -        return -EINVAL;
+>>>>> +    obj = amdgpu_gem_prime_import(adev_to_drm(adev), dma_buf);
+>>>>> +    if (IS_ERR(obj))
+>>>>> +        return PTR_ERR(obj);
+>>>>>         bo = gem_to_amdgpu_bo(obj);
+>>>>>       if (!(bo->preferred_domains & (AMDGPU_GEM_DOMAIN_VRAM |
+>>>>> -                    AMDGPU_GEM_DOMAIN_GTT)))
+>>>>> +                    AMDGPU_GEM_DOMAIN_GTT))) {
+>>>>>           /* Only VRAM and GTT BOs are supported */
+>>>>> -        return -EINVAL;
+>>>>> +        ret = -EINVAL;
+>>>>> +        goto err_put_obj;
+>>>>> +    }
+>>>>>         *mem = kzalloc(sizeof(struct kgd_mem), GFP_KERNEL);
+>>>>> -    if (!*mem)
+>>>>> -        return -ENOMEM;
+>>>>> +    if (!*mem) {
+>>>>> +        ret = -ENOMEM;
+>>>>> +        goto err_put_obj;
+>>>>> +    }
+>>>>>         ret = drm_vma_node_allow(&obj->vma_node, drm_priv);
+>>>>> -    if (ret) {
+>>>>> -        kfree(*mem);
+>>>>> -        return ret;
+>>>>> -    }
+>>>>> +    if (ret)
+>>>>> +        goto err_free_mem;
+>>>>>         if (size)
+>>>>>           *size = amdgpu_bo_size(bo);
+>>>>
+>>>> Hi Felix:
+>>>>
+>>>> I have a question when using amdgpu_gem_prime_import. It will allow 
+>>>> importing a dmabuf to different gpus, then can we still call 
+>>>> amdgpu_bo_mmap_offset on the generated bo if 
+>>>> amdgpu_amdkfd_gpuvm_import_dmabuf also ask mmap_offset?
+>>>
+>>> The mmap  offset comes from drm_vma_node_offset_addr. The DRM VMA 
+>>> address is allocated when ttm_bo_init_reserved calls 
+>>> drm_vma_offset_add, so there should be no problem querying the 
+>>> mmap_offset. Whether mmapping of an imported BO is actually 
+>>> supported is a different question. As far as I can see, it should be 
+>>> possible. That said, currently ROCm (libhsakmt) uses only original 
+>>> BOs for CPU mappings, not imported BOs.
+>>>
+>>> Regards,
+>>>   Felix
+>>
+>> The mmap_offset is actually not returned to user space. I just wonder 
+>> if here we should get mmap_offset of imported vram buffer if allow bo 
+>> be imported to difference gpus. If a vram buffer is imported to same 
+>> gpu device amdgpu_bo_mmap_offset is ok, otherwise I think 
+>> amdgpu_bo_mmap_offset would not give correct mmap_offset for the 
+>> device that the buffer is  imported to.
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> index 47549d659d9b0..c03824d0311bd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> @@ -1087,6 +1087,8 @@ static const char *amdgpu_ucode_legacy_naming(struct amdgpu_device *adev, int bl
->                         return "navi10";
->                 case IP_VERSION(11, 0, 2):
->                         return "vega20";
-> +               case IP_VERSION(11, 0, 3):
-> +                       return "renoir";
->                 case IP_VERSION(11, 0, 4):
->                         return "arcturus";
->                 case IP_VERSION(11, 0, 5):
-> @@ -1104,12 +1106,7 @@ static const char *amdgpu_ucode_legacy_naming(struct amdgpu_device *adev, int bl
->                 case IP_VERSION(11, 5, 0):
->                         return "vangogh";
->                 case IP_VERSION(12, 0, 1):
-> -                       if (adev->asic_type == CHIP_RENOIR) {
-> -                               if (adev->apu_flags & AMD_APU_IS_RENOIR)
-> -                                       return "renoir";
-> -                               return "green_sardine";
-> -                       }
-> -                       break;
-> +                       return "green_sardine";
->                 case IP_VERSION(13, 0, 2):
->                         return "aldebaran";
->                 case IP_VERSION(13, 0, 1):
-> --
-> 2.34.1
+> When the BO is imported into the same GPU, you get a reference to the 
+> same BO, so the imported BO has the same mmap_offset as the original BO.
 >
+> When the BO is imported into a different GPU, it is a new BO with a 
+> new mmap_offset.
+
+That won't work.
+
+> I don't think this is incorrect.
+
+No, this is completely incorrect. It mixes up the reverse tracking of 
+mappings and might crash the system. This is the reason why we can't 
+mmap() imported BOs.
+
+> mmapping the memory with that new offset should still work. The 
+> imported BO is created with ttm_bo_type_sg, and AFAICT ttm_bo_vm.c 
+> supports mapping of SG BOs.
+
+Actually it shouldn't. This can go boom really easily.
+
+When you have imported a BO the only correct way of to mmap() it is to 
+do so on the original exporter.
+
+Regards,
+Christian.
+
+>
+> Regards,
+>   Felix
+>
+>
+>>
+>> Maybe we should remove mmap_offset parameter of 
+>> amdgpu_amdkfd_gpuvm_import_dmabuf since we do not return it to user 
+>> space anyway. With that:
+>>
+>> Reviewed-by: Xiaogang Chen <Xiaoganng.Chen@amd.com>
+>>
+>> Regards
+>>
+>> Xiaogang
+>>
+>>
+>>>
+>>>
+>>>>
+>>>>> @@ -2249,7 +2246,8 @@ int amdgpu_amdkfd_gpuvm_import_dmabuf(struct 
+>>>>> amdgpu_device *adev,
+>>>>>           | KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE
+>>>>>           | KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE;
+>>>>>   -    drm_gem_object_get(&bo->tbo.base);
+>>>>> +    get_dma_buf(dma_buf);
+>>>>> +    (*mem)->dmabuf = dma_buf;
+>>>>>       (*mem)->bo = bo;
+>>>>>       (*mem)->va = va;
+>>>>>       (*mem)->domain = (bo->preferred_domains & 
+>>>>> AMDGPU_GEM_DOMAIN_VRAM) ?
+>>>>> @@ -2261,6 +2259,12 @@ int 
+>>>>> amdgpu_amdkfd_gpuvm_import_dmabuf(struct amdgpu_device *adev,
+>>>>>       (*mem)->is_imported = true;
+>>>>>         return 0;
+>>>>> +
+>>>>> +err_free_mem:
+>>>>> +    kfree(*mem);
+>>>>> +err_put_obj:
+>>>>> +    drm_gem_object_put(obj);
+>>>>> +    return ret;
+>>>>>   }
+>>>>>     /* Evict a userptr BO by stopping the queues if necessary
+
