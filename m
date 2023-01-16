@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E6C6C46467
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 13:13:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9088FC677F1
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 13:13:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAE5010E415;
-	Mon, 16 Jan 2023 13:12:47 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 521BC10E3FC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A5EB10E418;
+	Mon, 16 Jan 2023 13:12:48 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6E2310E072;
  Mon, 16 Jan 2023 13:12:40 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E5D263751C;
- Mon, 16 Jan 2023 13:12:38 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 80E3467853;
+ Mon, 16 Jan 2023 13:12:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1673874758; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1673874759; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=x/vz2BcD1Z9VIU+zomnn/JSq/Q+Ij2CZcro4KecLVFI=;
- b=PBTYF+XGwdboXc/yThmRZkzpSJcK4rp8zkfD02CRy3uurj5rqZ8xWjIbbUj0VMbWkhAuP5
- U+RpigQwhRE2/nFI0jUoo6YpK3lI82eU5vERQGv0h8jffkQ3uVfixqzdiolxfeqMMI6Lda
- HckJvU2Z9L1MmY5QSRFiweOXopiWC+U=
+ bh=ux8DO5Cbg3WS+Dfk4vpf92hsyg6mGAUkiBHpQHhMXvk=;
+ b=0udO1KOY9nse10LxnrwMJ/4ZBUmhjfQOxP9YFBL2ZxLj3CfzcWAjAOExUTIMm24SZobp1H
+ DvxZ0zUaperDGLiu36fywRIwV4O3kGFoaVLE78Wu/hbk/ICHfXwCBTrGC2qMpxsbbw6m7d
+ DMAKQUFqxRABvqGDM/iZ0TaY6nuYYBA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1673874758;
+ s=susede2_ed25519; t=1673874759;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=x/vz2BcD1Z9VIU+zomnn/JSq/Q+Ij2CZcro4KecLVFI=;
- b=OPcsrRVAEHO6uGy3pfM6rX4A+VvtjacGBGXp5ThQBNIsBBZCEt7u3sX/EHHG9gZu5MDhmQ
- TF6vTNJ4WM9dSKBg==
+ bh=ux8DO5Cbg3WS+Dfk4vpf92hsyg6mGAUkiBHpQHhMXvk=;
+ b=0kAsl8d5/KED7Gle3yOJOyWgMXWXtm6cjqGel8SpMUh/SCfZ64itz4QqFBB4i9CN68yps5
+ HJXIA+2DwlHYM9Dw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9FC71139C3;
- Mon, 16 Jan 2023 13:12:38 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3B449139C3;
+ Mon, 16 Jan 2023 13:12:39 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id GNkGJkZNxWNrNQAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 16 Jan 2023 13:12:38 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id OLCbDUdNxWNrNQAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 16 Jan 2023 13:12:39 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: sam@ravnborg.org,
 	daniel@ffwll.ch,
 	airlied@gmail.com
-Subject: [PATCH 05/22] drm/aspeed: Remove unnecessary include statements for
+Subject: [PATCH 07/22] drm/bridge: Remove unnecessary include statements for
  drm_crtc_helper.h
-Date: Mon, 16 Jan 2023 14:12:18 +0100
-Message-Id: <20230116131235.18917-6-tzimmermann@suse.de>
+Date: Mon, 16 Jan 2023 14:12:20 +0100
+Message-Id: <20230116131235.18917-8-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230116131235.18917-1-tzimmermann@suse.de>
 References: <20230116131235.18917-1-tzimmermann@suse.de>
@@ -86,47 +86,99 @@ possible.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c | 1 -
- drivers/gpu/drm/aspeed/aspeed_gfx_drv.c  | 1 -
- drivers/gpu/drm/aspeed/aspeed_gfx_out.c  | 1 -
- 3 files changed, 3 deletions(-)
+ drivers/gpu/drm/bridge/analogix/analogix-anx6345.c  | 1 -
+ drivers/gpu/drm/bridge/analogix/anx7625.c           | 1 -
+ drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c | 1 -
+ drivers/gpu/drm/bridge/ite-it6505.c                 | 1 -
+ drivers/gpu/drm/bridge/ite-it66121.c                | 1 -
+ drivers/gpu/drm/bridge/tc358768.c                   | 1 -
+ drivers/gpu/drm/bridge/tc358775.c                   | 1 -
+ 7 files changed, 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c b/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c
-index 55a3444a51d8..7877a57b8e26 100644
---- a/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c
-+++ b/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c
-@@ -5,7 +5,6 @@
- #include <linux/reset.h>
- #include <linux/regmap.h>
- 
--#include <drm/drm_crtc_helper.h>
- #include <drm/drm_device.h>
- #include <drm/drm_fb_dma_helper.h>
- #include <drm/drm_fourcc.h>
-diff --git a/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c b/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
-index 718119e168a6..ecfb060d2557 100644
---- a/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
-+++ b/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
-@@ -14,7 +14,6 @@
- #include <linux/reset.h>
- 
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c b/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
+index 339e0f05b260..3577c532abb4 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
+@@ -22,7 +22,6 @@
  #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_crtc.h>
 -#include <drm/drm_crtc_helper.h>
- #include <drm/drm_device.h>
- #include <drm/drm_fbdev_generic.h>
- #include <drm/drm_gem_dma_helper.h>
-diff --git a/drivers/gpu/drm/aspeed/aspeed_gfx_out.c b/drivers/gpu/drm/aspeed/aspeed_gfx_out.c
-index 4f2187025a21..78775e0c853f 100644
---- a/drivers/gpu/drm/aspeed/aspeed_gfx_out.c
-+++ b/drivers/gpu/drm/aspeed/aspeed_gfx_out.c
-@@ -3,7 +3,6 @@
- 
+ #include <drm/drm_edid.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_panel.h>
+diff --git a/drivers/gpu/drm/bridge/analogix/anx7625.c b/drivers/gpu/drm/bridge/analogix/anx7625.c
+index b375887e655d..6846199a2ee1 100644
+--- a/drivers/gpu/drm/bridge/analogix/anx7625.c
++++ b/drivers/gpu/drm/bridge/analogix/anx7625.c
+@@ -26,7 +26,6 @@
+ #include <drm/display/drm_hdcp_helper.h>
  #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+-#include <drm/drm_crtc_helper.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
+diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+index 31442a922502..f6822dfa3805 100644
+--- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
++++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+@@ -43,7 +43,6 @@
+ #include <drm/drm_atomic_state_helper.h>
+ #include <drm/drm_bridge.h>
  #include <drm/drm_connector.h>
 -#include <drm/drm_crtc_helper.h>
  #include <drm/drm_edid.h>
+ #include <drm/drm_modeset_helper_vtables.h>
+ #include <drm/drm_print.h>
+diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge/ite-it6505.c
+index 9cda2df21b88..bc451b2a77c2 100644
+--- a/drivers/gpu/drm/bridge/ite-it6505.c
++++ b/drivers/gpu/drm/bridge/ite-it6505.c
+@@ -26,7 +26,6 @@
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_crtc.h>
+-#include <drm/drm_crtc_helper.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_print.h>
  #include <drm/drm_probe_helper.h>
+diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/bridge/ite-it66121.c
+index b34860871627..a2d723d6a4be 100644
+--- a/drivers/gpu/drm/bridge/ite-it66121.c
++++ b/drivers/gpu/drm/bridge/ite-it66121.c
+@@ -22,7 +22,6 @@
  
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+-#include <drm/drm_crtc_helper.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_modes.h>
+ #include <drm/drm_print.h>
+diff --git a/drivers/gpu/drm/bridge/tc358768.c b/drivers/gpu/drm/bridge/tc358768.c
+index 839b8832b9b5..7c0cbe84611b 100644
+--- a/drivers/gpu/drm/bridge/tc358768.c
++++ b/drivers/gpu/drm/bridge/tc358768.c
+@@ -15,7 +15,6 @@
+ #include <linux/slab.h>
+ 
+ #include <drm/drm_atomic_helper.h>
+-#include <drm/drm_crtc_helper.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
+diff --git a/drivers/gpu/drm/bridge/tc358775.c b/drivers/gpu/drm/bridge/tc358775.c
+index 91b5e1207c47..19316994ddd1 100644
+--- a/drivers/gpu/drm/bridge/tc358775.c
++++ b/drivers/gpu/drm/bridge/tc358775.c
+@@ -23,7 +23,6 @@
+ #include <drm/display/drm_dp_helper.h>
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+-#include <drm/drm_crtc_helper.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_panel.h>
 -- 
 2.39.0
 
