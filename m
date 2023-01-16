@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 181E8C63797
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C8C9C54EBE
 	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 13:13:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A29DD10E449;
-	Mon, 16 Jan 2023 13:12:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A09210E43C;
+	Mon, 16 Jan 2023 13:12:59 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06A9E10E404;
- Mon, 16 Jan 2023 13:12:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35E6010E401;
+ Mon, 16 Jan 2023 13:12:43 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id BCF8A67842;
- Mon, 16 Jan 2023 13:12:42 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E9D0D67777;
+ Mon, 16 Jan 2023 13:12:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1673874762; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1673874761; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=iMWrrVURFOdZlPDrSQjPvTy4WvSl6jIkUYePEf/jIB0=;
- b=UxVaOrSFyjouFhmAZS5h/SHqg6/IBoomW+s8b5fEhWFAWA1efS1iNCNo9MTfiOdWSRlfH4
- IuwBsCDFgJiJ3QDWRnvZ4uqKadiBVb9NSDFX89/jMiBC7vXyL0fVdOsB1TOWOp7He7ew7Z
- o243vwFfHr16dc7/p++LjWOTeZ/30Mg=
+ bh=D+84Yocus/rHqFinyKAgXDadevtPY35U+9l3s56/nC4=;
+ b=TAek5Ith12OIB3p1oT2YdarI2Rv8otFm9PfgTdOAT39TtOqKs7u3WEPR3Ti+93zI/IZkzp
+ r3kVYHrDxzcZciGceYLUI/G1hDCNIFUrecJbq28iFhDerOoCAzeJfFMmDQ1/syvlL3991N
+ 4e5J2AkgnK7tXdFZhdNoFLIRBthSqKM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1673874762;
+ s=susede2_ed25519; t=1673874761;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=iMWrrVURFOdZlPDrSQjPvTy4WvSl6jIkUYePEf/jIB0=;
- b=Vv7gBxVnrO8Kq1tEjCJb2E8h180KuG7452sbf68LEcxGEP4e0TzBeSUTEQiPViQc+qF6gF
- CIhea/utyyyqTxBw==
+ bh=D+84Yocus/rHqFinyKAgXDadevtPY35U+9l3s56/nC4=;
+ b=5FTsz845/YgFtmhfN4xH7Znpuy6jxgLrk33mZcDjQOCW3Dac9vRz6bgac196Kq/3sQXlnf
+ VIlsdTC7otIhMzBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7F227138FA;
- Mon, 16 Jan 2023 13:12:42 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AA4B1139C3;
+ Mon, 16 Jan 2023 13:12:41 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id aNMZHkpNxWNrNQAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 16 Jan 2023 13:12:42 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id +PSPKElNxWNrNQAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 16 Jan 2023 13:12:41 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: sam@ravnborg.org,
 	daniel@ffwll.ch,
 	airlied@gmail.com
-Subject: [PATCH 18/22] drm/sun4i: Remove unnecessary include statements for
+Subject: [PATCH 15/22] drm/rockchip: Remove unnecessary include statements for
  drm_crtc_helper.h
-Date: Mon, 16 Jan 2023 14:12:31 +0100
-Message-Id: <20230116131235.18917-19-tzimmermann@suse.de>
+Date: Mon, 16 Jan 2023 14:12:28 +0100
+Message-Id: <20230116131235.18917-16-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230116131235.18917-1-tzimmermann@suse.de>
 References: <20230116131235.18917-1-tzimmermann@suse.de>
@@ -86,23 +86,21 @@ possible.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c b/drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c
-index 477cb6985b4d..37dc66332bbd 100644
---- a/drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c
-+++ b/drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c
-@@ -8,8 +8,8 @@
- #include <linux/of_device.h>
- #include <linux/platform_device.h>
- 
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index 8cecf81a5ae0..ba3b81789509 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -25,7 +25,6 @@
+ #include <drm/drm_atomic_uapi.h>
+ #include <drm/drm_blend.h>
+ #include <drm/drm_crtc.h>
 -#include <drm/drm_crtc_helper.h>
- #include <drm/drm_of.h>
-+#include <drm/drm_modeset_helper_vtables.h>
- #include <drm/drm_simple_kms_helper.h>
- 
- #include "sun8i_dw_hdmi.h"
+ #include <drm/drm_debugfs.h>
+ #include <drm/drm_flip_work.h>
+ #include <drm/drm_framebuffer.h>
 -- 
 2.39.0
 
