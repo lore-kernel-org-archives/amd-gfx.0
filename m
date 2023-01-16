@@ -4,56 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FA5BC63797
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 21:50:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F5B3C46467
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 21:53:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E999210E4E6;
-	Mon, 16 Jan 2023 21:50:35 +0000 (UTC)
-Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
- [IPv6:2001:4860:4864:20::34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 943F010E4E2;
- Mon, 16 Jan 2023 21:50:31 +0000 (UTC)
-Received: by mail-oa1-x34.google.com with SMTP id
- 586e51a60fabf-142b72a728fso30134732fac.9; 
- Mon, 16 Jan 2023 13:50:31 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B11A610E4E9;
+	Mon, 16 Jan 2023 21:53:50 +0000 (UTC)
+Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
+ [IPv6:2607:f8b0:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB92010E4E9;
+ Mon, 16 Jan 2023 21:53:49 +0000 (UTC)
+Received: by mail-oi1-x22c.google.com with SMTP id v17so3137301oie.5;
+ Mon, 16 Jan 2023 13:53:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=jZ7eQSS6PMori/MjrjUvY94RXNIWpc7bEkAM61SOQ00=;
- b=jNZJzDDxMTiSQxqtYc6ERQOAkdFxwSnmoaMWS7tGajvvvLyQDgJX+f4IPCF3a3cnfM
- ID6opTgymIqqXHwm/AJ4YCOs6NfFIUbyAkqm0v1MqK5wmJjkaIUw9Q8JX7dp6hFxJdqS
- gQgEw6jB68dVbHbXEkIAMvg84aeAk91yxvoZwstvHwsiOCIpWSuBC4hLjsTn6o/D57KQ
- g8dOceykSCat79fiOGvWemcXJwmDldCpgysXvXkWHGMPlm/l0alVyOGjSX/8JLiTEeR1
- JxhABMaKN2vT5R1lYC+FCgz7/AGH1V5Y4ifEOyL68cBAzxAp5OFrfewq38HPU1DRjTE2
- wYBQ==
+ bh=R6Qj/cjxnMMGHZOFEQZ4yanfn40iQo0zh3vT2s+AI6E=;
+ b=c9S/FIIY8mcDvAYuGjYpHGDq8HklIkgYhC8LdIDAgUmhp+vmlMnu5b0LfDHivn495F
+ a4pWt9NF9+BZbQlGOgiWvGAGrKRT/U+PmwA64icxsXi607RY8w5X4MIHwYMkr+zHjBrh
+ dNEMitm/xQIMnhq+TVP9j02eW9NIlrwkRGeAbJWCK3KsenBGNdGxmfd7HJymxwGleKdR
+ Ag6BhHrqP1cA++QNAKt77u088VfqX3WmfHp7Q8z0BsJKrXryeiHvj2DzU+SekmHjXDYv
+ Kg1aQYgdAi9geV4T/itNh6YqlQEGFMrdxryRfYCyFsURigyKgCaFPQhANPZvtAa5/IzJ
+ hOyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=jZ7eQSS6PMori/MjrjUvY94RXNIWpc7bEkAM61SOQ00=;
- b=hRL3jY86uCwgDUIytoRC9IVyRL2fQfJ0d7dPLHZ6LoeUSk6NqS36Rb90SUDXl7D+nS
- 6xuCi1ezFUS0TJiLlyFwfm2HZR7t4kcjm3hLxujrkw0VmRYIIxzYIiNNLc7yKCEQygF9
- +S56Ir6pC8TpxOJueUSyiMScQLHrf5euZkSGROZ52Obm+NRVqQOU8YagRgkEcYviT2cp
- 9dy56bovC4U/IcqfpBrc7iGuOlzwLKrORyRAK6XozAULnUbRlyUoWbqaQRTKuYVUGPdm
- SwCyL9IxktkeBILrD7OdRsEBKVUI1lKUdZxH8xkKZ2f5/7pTe1zC+7SUWhvKdol1U5YL
- g/1Q==
-X-Gm-Message-State: AFqh2kqs97QuO4aBZNLh8qiZQQ2WY++C/PLBNQ8RNe6ecQN18IyYaxQ7
- SIyjwIBjKBvz03NFRQLnAOvgYRfW74Df/nFHr2BCar4n
-X-Google-Smtp-Source: AMrXdXuOZSZ5ljOKO+BgJCtQuWVy3x1t+NPoAMYu8feiNFCQ5U0bEjuk7ez6LveeFIuRwqqJPvaMisivpqRNxDSUegA=
-X-Received: by 2002:a05:6870:7a18:b0:15f:5509:9a0d with SMTP id
- hf24-20020a0568707a1800b0015f55099a0dmr102990oab.46.1673905830802; Mon, 16
- Jan 2023 13:50:30 -0800 (PST)
+ bh=R6Qj/cjxnMMGHZOFEQZ4yanfn40iQo0zh3vT2s+AI6E=;
+ b=JCaVPletObHtbCi/Zk20n64w+NpG647ZRpDOuSI6WJORFELinQr5Lxr9f1UFhnFNoY
+ OGvahWIwvj8T6YB55lBzCjsuk7DHcUMo7UwX4A8avA9acz14kfEoBtzmHTNFbByM8aPw
+ GUBi4Lqp2psMJo7AvAs424QxQUeRJT0zU2q0Grrf+YKeNckXaai0mDwX/cEe3TAmVKND
+ lVtWzyvagAF3OVAKL5m1xPwvVC1zw7Ug2KPGTpepa74eXsLk66GFtkm41a2fLjq7adW5
+ haKZ1/q3EnIiK3sDOzhM0jZoEWfDUPfCF7eapND090wY92JdOamMcZh9zaFQUHhv3Azh
+ o7TQ==
+X-Gm-Message-State: AFqh2kr2/jEh73Au7snQR8AKJ3iO6RHnwbDH5LKzkl3ybTXjHMKUagLj
+ 9JZLF4bUk5cNNmWPjNdHsMag5GdaRQD7om12OUQ=
+X-Google-Smtp-Source: AMrXdXuPkHbNVdDxfT+LoXrVx2FOZ/5uKJ8tO7NecBJjn+VEsSPyWWZoOmQjpWA0nqvWI25n9EE0u/RjwOrnsesf4Jg=
+X-Received: by 2002:a05:6808:4387:b0:35b:d93f:cbc4 with SMTP id
+ dz7-20020a056808438700b0035bd93fcbc4mr49021oib.96.1673906029047; Mon, 16 Jan
+ 2023 13:53:49 -0800 (PST)
 MIME-Version: 1.0
 References: <20230116212004.860968-1-gpiccoli@igalia.com>
- <20230116212004.860968-3-gpiccoli@igalia.com>
-In-Reply-To: <20230116212004.860968-3-gpiccoli@igalia.com>
+ <20230116212004.860968-2-gpiccoli@igalia.com>
+ <CADnq5_M6z=BTvcspVsC_5YmZCwEP48e=6nvcr4ck4Q7KR126MA@mail.gmail.com>
+ <MN0PR12MB6101142C0E3653D7DA57866EE2C19@MN0PR12MB6101.namprd12.prod.outlook.com>
+In-Reply-To: <MN0PR12MB6101142C0E3653D7DA57866EE2C19@MN0PR12MB6101.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 16 Jan 2023 16:50:19 -0500
-Message-ID: <CADnq5_Oh5Vdygo12evQKxw3w-ipRoQMvSNFHGcKtBNbSmtW7GQ@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/amdgpu/vcn: Add parameter to force (en/dis)abling
- indirect SRAM mode
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Date: Mon, 16 Jan 2023 16:53:37 -0500
+Message-ID: <CADnq5_MrMLP35SSOQEgZWMzZW-uVRjCfiJaVLoGMyjM7mbr6SA@mail.gmail.com>
+Subject: Re: [PATCH 2/3] drm/amdgpu/vcn: Deduplicate indirect SRAM checking
+ code
+To: "Limonciello, Mario" <Mario.Limonciello@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,121 +67,207 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lazar Lijo <Lijo.Lazar@amd.com>, kernel@gpiccoli.net, Xinhui.Pan@amd.com,
- dri-devel@lists.freedesktop.org, Sonny Jiang <sonny.jiang@amd.com>,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- alexander.deucher@amd.com, James Zhu <James.Zhu@amd.com>,
- Leo Liu <leo.liu@amd.com>, christian.koenig@amd.com,
- Mario Limonciello <mario.limonciello@amd.com>
+Cc: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ "kernel@gpiccoli.net" <kernel@gpiccoli.net>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Jiang,
+ Sonny" <Sonny.Jiang@amd.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "kernel-dev@igalia.com" <kernel-dev@igalia.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Zhu, James" <James.Zhu@amd.com>, "Liu,
+ Leo" <Leo.Liu@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 16, 2023 at 4:21 PM Guilherme G. Piccoli
-<gpiccoli@igalia.com> wrote:
+On Mon, Jan 16, 2023 at 4:49 PM Limonciello, Mario
+<Mario.Limonciello@amd.com> wrote:
 >
-> Currently the FW loading path perform some checks based on IP model
-> and in case it is advertised as supported, the VCN indirect SRAM
-> mode is used.
+> [Public]
 >
-> Happens that in case there's any issue on FW and this mode ends-up
-> not being properly supported, the driver probe fails [0]. Debugging
-> this requires driver rebuilding, so to allow fast debug and experiments,
-> add a parameter to force setting indirect SRAM mode to true/false from
-> the kernel command-line; parameter default is -1, which doesn't change
-> the current driver's behavior.
+>
+>
+> > -----Original Message-----
+> > From: Alex Deucher <alexdeucher@gmail.com>
+> > Sent: Monday, January 16, 2023 15:42
+> > To: Guilherme G. Piccoli <gpiccoli@igalia.com>
+> > Cc: amd-gfx@lists.freedesktop.org; Jiang, Sonny <Sonny.Jiang@amd.com>;
+> > kernel@gpiccoli.net; Pan, Xinhui <Xinhui.Pan@amd.com>; dri-
+> > devel@lists.freedesktop.org; Lazar, Lijo <Lijo.Lazar@amd.com>; Limonciello,
+> > Mario <Mario.Limonciello@amd.com>; kernel-dev@igalia.com; Deucher,
+> > Alexander <Alexander.Deucher@amd.com>; Zhu, James
+> > <James.Zhu@amd.com>; Liu, Leo <Leo.Liu@amd.com>; Koenig, Christian
+> > <Christian.Koenig@amd.com>
+> > Subject: Re: [PATCH 2/3] drm/amdgpu/vcn: Deduplicate indirect SRAM
+> > checking code
+> >
+> > On Mon, Jan 16, 2023 at 4:20 PM Guilherme G. Piccoli
+> > <gpiccoli@igalia.com> wrote:
+> > >
+> > > Currently both conditionals checked to enable indirect SRAM are
+> > > repeated for all HW/IP models. Let's just simplify it a bit so
+> > > code is more compact and readable.
+> > >
+> > > While at it, add the legacy names as a comment per case block, to
+> > > help whoever is reading the code and doesn't have much experience
+> > > with the name/number mapping.
+> > >
+> > > Cc: James Zhu <James.Zhu@amd.com>
+> > > Cc: Lazar Lijo <Lijo.Lazar@amd.com>
+> > > Cc: Leo Liu <leo.liu@amd.com>
+> > > Cc: Mario Limonciello <mario.limonciello@amd.com>
+> > > Cc: Sonny Jiang <sonny.jiang@amd.com>
+> > > Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
+> > > ---
+> > >
+> > >
+> > > Hi folks, first of all thanks in advance for reviews/comments!
+> > >
+> > > This work is based on agd5f/amd-staging-drm-next branch - there is this
+> > > patch from Mario that refactored the amdgpu_vcn.c, and since it dropped
+> > > the legacy names from the switch cases, I've decided to also include them
+> > > here as comments.
+> > >
+> > > I'm not sure if that's a good idea, feels good for somebody not so
+> > > used to the code read the codenames instead of purely numbers, but
+> > > if you wanna move away from the legacy names for good, lemme know
+> > > and I can rework without these comments.
+> > >
+> > > Cheers,
+> > >
+> > >
+> > > Guilherme
+> > >
+> > >
+> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 84 +++++--------------------
+> > >  1 file changed, 16 insertions(+), 68 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> > > index 1b1a3c9e1863..1f880e162d9d 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> > > @@ -111,78 +111,26 @@ int amdgpu_vcn_sw_init(struct amdgpu_device
+> > *adev)
+> > >                 atomic_set(&adev->vcn.inst[i].dpg_enc_submission_cnt, 0);
+> > >
+> > >         switch (adev->ip_versions[UVD_HWIP][0]) {
+> > > -       case IP_VERSION(1, 0, 0):
+> > > -       case IP_VERSION(1, 0, 1):
+> > > -       case IP_VERSION(2, 5, 0):
+> > > -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+> > > -                   (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+> > > -                       adev->vcn.indirect_sram = true;
+> > > -               break;
+> > > -       case IP_VERSION(2, 2, 0):
+> > > -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+> > > -                   (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+> > > -                       adev->vcn.indirect_sram = true;
+> > > -               break;
+> > > -       case IP_VERSION(2, 6, 0):
+> > > -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+> > > -                   (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+> > > -                       adev->vcn.indirect_sram = true;
+> > > -               break;
+> > > -       case IP_VERSION(2, 0, 0):
+> > > -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+> > > -                   (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+> > > -                       adev->vcn.indirect_sram = true;
+> > > -               break;
+> > > -       case IP_VERSION(2, 0, 2):
+> > > -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+> > > -                   (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+> > > -                       adev->vcn.indirect_sram = true;
+> > > -               break;
+> > > -       case IP_VERSION(3, 0, 0):
+> > > -       case IP_VERSION(3, 0, 64):
+> > > -       case IP_VERSION(3, 0, 192):
+> > > -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+> > > -                   (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+> > > -                       adev->vcn.indirect_sram = true;
+> > > -               break;
+> > > -       case IP_VERSION(3, 0, 2):
+> > > -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+> > > -                   (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+> > > -                       adev->vcn.indirect_sram = true;
+> > > -               break;
+> > > -       case IP_VERSION(3, 0, 16):
+> > > -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+> > > -                   (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+> > > -                       adev->vcn.indirect_sram = true;
+> > > -               break;
+> > > -       case IP_VERSION(3, 0, 33):
+> > > -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+> > > -                   (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+> > > -                       adev->vcn.indirect_sram = true;
+> > > -               break;
+> > > -       case IP_VERSION(3, 1, 1):
+> > > -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+> > > -                   (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+> > > -                       adev->vcn.indirect_sram = true;
+> > > -               break;
+> > > +       case IP_VERSION(1, 0, 0):       /* Raven (1/2) / Picasso */
+> > > +       case IP_VERSION(1, 0, 1):       /* Raven (1/2) / Picasso */
+> > > +       case IP_VERSION(2, 0, 0):       /* Navi10 */
+> > > +       case IP_VERSION(2, 0, 2):       /* Navi12 / Navi14 */
+> > > +       case IP_VERSION(2, 2, 0):       /* Renoir / Green Sardine */
+> > > +       case IP_VERSION(2, 5, 0):       /* Arcturus */
+> > > +       case IP_VERSION(2, 6, 0):       /* Aldebaran */
+> > > +       case IP_VERSION(3, 0, 0):       /* Sienna Cichlid / Navy Flounder */
+> > > +       case IP_VERSION(3, 0, 2):       /* Vangogh */
+> > > +       case IP_VERSION(3, 0, 64):      /* Sienna Cichlid / Navy Flounder */
+> > > +       case IP_VERSION(3, 0, 16):      /* Dimgray Cavefish */
+> > > +       case IP_VERSION(3, 0, 33):      /* Beige Goby */
+> > > +       case IP_VERSION(3, 0, 192):     /* Sienna Cichlid / Navy Flounder */
+> > > +       case IP_VERSION(3, 1, 1):       /* Yellow Carp */
+>
+> The problem with adding a comment about which platform it's in is that
+> this will probably go stale.  Some IP blocks are re-used in multiple ASICs.
+>
+> VCN 3, 1, 1 is a great example.  This is used in both Yellow Carp (Rembrandt) as well
+> as Mendocino.   I would think a better approach would be to have a single point
+> of documentation somewhere in the source tree that we can update after new
+> ASICs launch that could act as a decoder ring.
+>
+> It's effort to remember to update it, but it's at least a single point of failure.
 
-Probably a question for Leo or James, but I was under the impression
-non-indirect mode didn't work on production silicon for most chips,
-but maybe I'm mis-remembering that.
+
+Maybe it would be better to just drop the case statement and just
+always set this condition.  I don't think there is a case where we
+don't set it?
 
 Alex
 
-
 >
-> [0] Example of this issue, observed on Steam Deck:
->
-> [drm] kiq ring mec 2 pipe 1 q 0
-> [drm] failed to load ucode VCN0_RAM(0x3A)
-> [drm] psp gfx command LOAD_IP_FW(0x6) failed and response status is (0xFFFF0000)
-> amdgpu 0000:04:00.0: [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR* ring vcn_dec_0 test failed (-110)
-> [drm:amdgpu_device_init.cold [amdgpu]] *ERROR* hw_init of IP block <vcn_v3_0> failed -110
-> amdgpu 0000:04:00.0: amdgpu: amdgpu_device_ip_init failed
-> amdgpu 0000:04:00.0: amdgpu: Fatal error during GPU init
->
-> Cc: James Zhu <James.Zhu@amd.com>
-> Cc: Lazar Lijo <Lijo.Lazar@amd.com>
-> Cc: Leo Liu <leo.liu@amd.com>
-> Cc: Mario Limonciello <mario.limonciello@amd.com>
-> Cc: Sonny Jiang <sonny.jiang@amd.com>
-> Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
-> ---
->
->
-> This work is based on agd5f/amd-staging-drm-next branch.
-> Thanks in advance for reviews/comments!
-> Cheers,
->
-> Guilherme
->
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 9 +++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 3 +++
->  3 files changed, 13 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 872450a3a164..5d3c92c94f18 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -215,6 +215,7 @@ extern int amdgpu_noretry;
->  extern int amdgpu_force_asic_type;
->  extern int amdgpu_smartshift_bias;
->  extern int amdgpu_use_xgmi_p2p;
-> +extern int amdgpu_indirect_sram;
->  #ifdef CONFIG_HSA_AMD
->  extern int sched_policy;
->  extern bool debug_evictions;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 06aba201d4db..c7182c0bc841 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -187,6 +187,7 @@ int amdgpu_num_kcq = -1;
->  int amdgpu_smartshift_bias;
->  int amdgpu_use_xgmi_p2p = 1;
->  int amdgpu_vcnfw_log;
-> +int amdgpu_indirect_sram = -1;
->
->  static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work);
->
-> @@ -941,6 +942,14 @@ MODULE_PARM_DESC(smu_pptable_id,
->         "specify pptable id to be used (-1 = auto(default) value, 0 = use pptable from vbios, > 0 = soft pptable id)");
->  module_param_named(smu_pptable_id, amdgpu_smu_pptable_id, int, 0444);
->
-> +/**
-> + * DOC: indirect_sram (int)
-> + * Allow users to force using (or not) the VCN indirect SRAM mode in the fw load
-> + * code. Default is -1, meaning auto (aka, don't mess with driver's behavior).
-> + */
-> +MODULE_PARM_DESC(indirect_sram, "Force VCN indirect SRAM (-1 = auto (default), 0 = disabled, 1 = enabled)");
-> +module_param_named(indirect_sram, amdgpu_indirect_sram, int, 0444);
-> +
->  /* These devices are not supported by amdgpu.
->   * They are supported by the mach64, r128, radeon drivers
->   */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> index 1f880e162d9d..a2290087e01c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> @@ -137,6 +137,9 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
->                 return -EINVAL;
->         }
->
-> +       if (amdgpu_indirect_sram >= 0)
-> +               adev->vcn.indirect_sram = (bool)amdgpu_indirect_sram;
-> +
->         hdr = (const struct common_firmware_header *)adev->vcn.fw->data;
->         adev->vcn.fw_version = le32_to_cpu(hdr->ucode_version);
->
-> --
-> 2.39.0
->
+> > >         case IP_VERSION(3, 1, 2):
+> > > -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+> > > -                   (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+> > > -                       adev->vcn.indirect_sram = true;
+> > > -               break;
+> > > -       case IP_VERSION(4, 0, 0):
+> > > -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+> > > -                       (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+> > > -                       adev->vcn.indirect_sram = true;
+> > > -               break;
+> > > +       case IP_VERSION(4, 0, 0):       /* Vega10 */
+> >
+> > This comment is incorrect.  Vega10 does not have VCN (it has UVD and VCE).
+> >
+> > Alex
+> >
+> >
+> > Alex
+> >
+> > >         case IP_VERSION(4, 0, 2):
+> > > -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+> > > -                       (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+> > > -                       adev->vcn.indirect_sram = true;
+> > > -               break;
+> > >         case IP_VERSION(4, 0, 4):
+> > >                 if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+> > > -                       (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+> > > +                   (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+> > >                         adev->vcn.indirect_sram = true;
+> > >                 break;
+> > >         default:
+> > > --
+> > > 2.39.0
+> > >
