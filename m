@@ -4,48 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE91AC54EBE
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 13:43:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEC45C54EBE
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 13:51:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D46610E00D;
-	Mon, 16 Jan 2023 13:43:38 +0000 (UTC)
-X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
- Sun, 15 Jan 2023 20:57:19 UTC
-Received: from relay.hostedemail.com (smtprelay0010.hostedemail.com
- [216.40.44.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 797CD10E3B0;
- Sun, 15 Jan 2023 20:57:19 +0000 (UTC)
-Received: from omf10.hostedemail.com (a10.router.float.18 [10.200.18.1])
- by unirelay04.hostedemail.com (Postfix) with ESMTP id 55F981A0A53;
- Sun, 15 Jan 2023 20:52:15 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by
- omf10.hostedemail.com (Postfix) with ESMTPA id A6A8832; 
- Sun, 15 Jan 2023 20:52:11 +0000 (UTC)
-Message-ID: <33ecbe8971bb9c90d72c67d43ca740abac160908.camel@perches.com>
-Subject: Re: [PATCH] drm/amd/display: Simplify same effect if/else blocks
-From: Joe Perches <joe@perches.com>
-To: Deepak R Varma <drv@mailo.com>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Christian
- =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "Pan, Xinhui"
- <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>, Daniel Vetter
- <daniel@ffwll.ch>,  amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org,  linux-kernel@vger.kernel.org
-Date: Sun, 15 Jan 2023 12:52:10 -0800
-In-Reply-To: <Y8POxreeC3EvOXhC@ubun2204.myguest.virtualbox.org>
-References: <Y8POxreeC3EvOXhC@ubun2204.myguest.virtualbox.org>
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4 (3.44.4-2.fc36) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30B9610E032;
+	Mon, 16 Jan 2023 13:51:32 +0000 (UTC)
+Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
+ [IPv6:2001:4860:4864:20::31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6B7110E03D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jan 2023 13:51:29 +0000 (UTC)
+Received: by mail-oa1-x31.google.com with SMTP id
+ 586e51a60fabf-15ed38a9b04so10257005fac.8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jan 2023 05:51:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=6AN1hciLHtE8NjF6MqwI5BHLs0Uwr6NEg43L1FYTYPU=;
+ b=oBnwn5Gt3TWlDabJB7XBEUJRtpOqd5p/Kbr/WqiUxgf1paw1GiRc+SwyO54C6Ynsyt
+ QSTirgCQw+elPq7biWxAq4AoCzeGhxd9cu83FZSd4W0/CKct76+VlcFxIDukdqyl7iXg
+ QGk4skVEu9lpgBgDxPcA5ps52iP7w3BBRHe0NtyU5xnOIUe1yCwOpshoDXiTZjNKnwKE
+ VtxQw1DGMoU9rVAfNRB8EWATF4fGrQ8veOB2FaU+sHpV//GeJ5J3NRs+1NPVOZjsHFcV
+ eQWXRQJatrE4qOZ+sVM6BzJn5omEd0zOpyHT3KcVKY2wFHCwervLNPrfM1RDXVa8OvpW
+ B/NA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=6AN1hciLHtE8NjF6MqwI5BHLs0Uwr6NEg43L1FYTYPU=;
+ b=EaRN8XPI9oWb99cpk5gjdwTImr2o0P57om6PWVB5weg9Ih4aXj/AGorN2ZCyamIn3D
+ 423qh66RFQUi89ouhXgzgw8pqLFTCzE0nP29heykW8QZLfDc44mlCtprd8orYmDeYWl2
+ Jiwf0KGjQq0AqF13Jutv3MIPUeaFBVARAd1NrR9ncFzlzdauYnQZy/iMhWKc6Zv81HpD
+ YOb18pSu3tX4c9Oqic+TT/ZmsZqOhPgtINPD8BQz7w8nLRb7GFvxKMVRqssEwGeQ45zF
+ on3XWkQ+FsMZS9BFW1G2+E3fHXZorPp9GMNIwqvIGBuxsEFvqcdxb/WGWcRpugaZFfKD
+ g8BA==
+X-Gm-Message-State: AFqh2ko0fdEhRh6RRtWWGqdaDY5+iJNIEiGdFIO/zt4pr9V1deiBRsEu
+ zZhoxggPMSFPYAZisC+twuPvwo69wQF/SJPFpkk=
+X-Google-Smtp-Source: AMrXdXv0IZV4g2aM2FK6lOG6p9uHkKY2MfxuLI596Fw41ZhSYxGwcsqZnQ24fQN0g58nhQQT7k0aHQzjso5cpZGID0s=
+X-Received: by 2002:a05:6870:c59c:b0:150:d9aa:4011 with SMTP id
+ ba28-20020a056870c59c00b00150d9aa4011mr3885295oab.96.1673877088792; Mon, 16
+ Jan 2023 05:51:28 -0800 (PST)
 MIME-Version: 1.0
-X-Rspamd-Queue-Id: A6A8832
-X-Rspamd-Server: rspamout03
-X-Stat-Signature: nmp5jzgs6mbr4ybrsoi3t7kdy77pzftq
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX1+vcIh7h853zIRDiyU/iVp2UCz25hch+jM=
-X-HE-Tag: 1673815931-499090
-X-HE-Meta: U2FsdGVkX1/EeyVIfaSREYkP20+/ZisoRlOpWZ33AFH9Y7nb5ddC0nDiZ8wdYjIk0gbCITI5svD3Yr3xHWrKTg==
-X-Mailman-Approved-At: Mon, 16 Jan 2023 13:43:36 +0000
+References: <20230115192144.4566-1-mario.limonciello@amd.com>
+In-Reply-To: <20230115192144.4566-1-mario.limonciello@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 16 Jan 2023 08:51:17 -0500
+Message-ID: <CADnq5_OW7rmBqGbW=X+LHGkhW6Dr5tC628JPboAg7cP+uHct1Q@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/amd: Adjust legacy IP discovery for
+ Picasso/Raven/Raven2
+To: Mario Limonciello <mario.limonciello@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,68 +65,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Praveen Kumar <kumarpraveen@linux.microsoft.com>,
- Saurabh Singh Sengar <ssengar@microsoft.com>
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, 2023-01-15 at 15:30 +0530, Deepak R Varma wrote:
-> The if / else block code has same effect irrespective of the logical
-> evaluation.  Hence, simply the implementation by removing the unnecessary
-> conditional evaluation. While at it, also fix the long line checkpatch
-> complaint. Issue identified using cond_no_effect.cocci Coccinelle
-> semantic patch script.
->=20
-> Signed-off-by: Deepak R Varma <drv@mailo.com>
+On Sun, Jan 15, 2023 at 2:22 PM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+> The switch/case statement currently combines 10.0.0 and 10.0.1, but
+> 10.0.1 is only used for Raven 2.  So split the two cases up to
+> make this clearer.
+
+Keep the logic as is.  We don't know the revision id which is used to
+differentiate the raven variants until after IP discovery so we can't
+assign the proper IP versions for each raven variant and raven asics
+don't have an IP discovery table (it's hardcoded in
+amdgpu_discovery.c).
+
+Alex
+
+>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 > ---
-> Please note: The proposed change is compile tested only. If there are any
-> inbuilt test cases that I should run for further verification, I will app=
-reciate
-> guidance about it. Thank you.
-
-Preface: I do not know the code.
-
-Perhaps Rodrigo Siqueira made a copy/paste error submitting the code for
-commit 9114b55fabae ("drm/amd/display: Fix SubVP control flow in the MPO co=
-ntext")
-as the code prior to this change is identical.
-
-Perhaps one of the false uses should be true or dependent on the
-interdependent_update_lock state.
-
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/a=
-md/display/dc/core/dc.c
-[]
-> @@ -3470,14 +3470,9 @@ static void commit_planes_for_stream(struct dc *dc=
-,
->  		/* Since phantom pipe programming is moved to post_unlock_program_fron=
-t_end,
->  		 * move the SubVP lock to after the phantom pipes have been setup
->  		 */
-> -		if (should_lock_all_pipes && dc->hwss.interdependent_update_lock) {
-> -			if (dc->hwss.subvp_pipe_control_lock)
-> -				dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all=
-_pipes, NULL, subvp_prev_use);
-> -		} else {
-> -			if (dc->hwss.subvp_pipe_control_lock)
-> -				dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all=
-_pipes, NULL, subvp_prev_use);
-> -		}
-> -
-
-Perhaps something like:
-
-		if (dc->hwss.subvp_pipe_control_lock)
-			dc->hwss.subvp_pipe_control_lock(dc, context,
-							 should_lock_all_pipes &&
-							 dc->hwss.interdependent_update_lock,
-							 should_lock_all_pipes, NULL, subvp_prev_use);
-
-> +		if (dc->hwss.subvp_pipe_control_lock)
-> +			dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_=
-pipes,
-> +							 NULL, subvp_prev_use);
->  		return;
->  	}
-> =20
-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 12 ++++--------
+>  1 file changed, 4 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+> index c03824d0311bd..0d950ae14b27c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+> @@ -1074,15 +1074,11 @@ static const char *amdgpu_ucode_legacy_naming(struct amdgpu_device *adev, int bl
+>                         }
+>                         break;
+>                 case IP_VERSION(10, 0, 0):
+> +                       if (adev->apu_flags & AMD_APU_IS_PICASSO)
+> +                               return "picasso";
+> +                       return "raven";
+>                 case IP_VERSION(10, 0, 1):
+> -                       if (adev->asic_type == CHIP_RAVEN) {
+> -                               if (adev->apu_flags & AMD_APU_IS_RAVEN2)
+> -                                       return "raven2";
+> -                               else if (adev->apu_flags & AMD_APU_IS_PICASSO)
+> -                                       return "picasso";
+> -                               return "raven";
+> -                       }
+> -                       break;
+> +                       return "raven2";
+>                 case IP_VERSION(11, 0, 0):
+>                         return "navi10";
+>                 case IP_VERSION(11, 0, 2):
+> --
+> 2.25.1
+>
