@@ -4,55 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C4D8C54EBE
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 18:04:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22560C54EBE
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 18:06:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E21010E481;
-	Mon, 16 Jan 2023 18:04:40 +0000 (UTC)
-Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
- [IPv6:2607:f8b0:4864:20::c2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52B4B10E483
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jan 2023 18:04:38 +0000 (UTC)
-Received: by mail-oo1-xc2a.google.com with SMTP id
- c145-20020a4a4f97000000b004f505540a20so726599oob.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jan 2023 10:04:38 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE89910E480;
+	Mon, 16 Jan 2023 18:06:02 +0000 (UTC)
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
+ [IPv6:2607:f8b0:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D69DE10E47E;
+ Mon, 16 Jan 2023 18:06:00 +0000 (UTC)
+Received: by mail-oi1-x22f.google.com with SMTP id o66so23988274oia.6;
+ Mon, 16 Jan 2023 10:06:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=ImKZvRmoZQgZlDC4GMXGYoOd91lOS/E1Hd6WgsQpT0M=;
- b=hfdf6V7QQeobbyqnMXn0Wh8gWNnYBNzSOX2Y+hi8in6+W/bPXmRaNZ9lWTbRMnIez4
- MqEnB0Y9k+3MAs2SatMbL+7tOvd6dpdnWnG3sr7yhoUS8GVPgbq5xAurRQDUPpvXDpbm
- 9oH6sYYXyGuqKQchWagnzJfZLpkx8RKz8P6Sm74WBSSUJal49KqoefqoqOwKSGolkWHE
- V0fek7AGOCd5fedaA4//dZQLO6RvelUkRQwDofcRma8nlkerdx+yw4tU5PfZPVimyprR
- dkwrNMdsu+aWhYm+9bi1H/SwJiJ2GwB8P0zPwI3Qiw6HASvmzBZyP+9BoTs/UavHyct2
- f9KA==
+ bh=jS6lFIJFjFUtY3mw8cyMrgKm76WlKsu232wNoOu9BFI=;
+ b=pJUbclSZ3i6Jdg01liLqHc4w2CrtWVSvaOfhA/DUvmwvBfI9LV/fSr9f0+RsBvfbLx
+ mSuHpfqzVwUOvdgr8BT+nESWO/0QhJY7FYtEC48w4a2xddiPX+BPDav7qXMtorGbTXUq
+ hjQMR/WAaB4ryPMo9lf54fjFLNek6uWrPFOwM6l8Xd/xDdB6xaxgevUnUfNn/0eWYNTc
+ bKMw7E9OC5EgqTES2vcg5jM7PqToB0TgsIByf+obkVK3lyB6P/PcTiK4JkRpIAYBGTyB
+ 1Id0dsqzXGVrfVIItHtSGIEkdKnSeVlrgExRRUQaOVdZ/2a73hix4y96Jlu2eI2bS7Za
+ OBIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=ImKZvRmoZQgZlDC4GMXGYoOd91lOS/E1Hd6WgsQpT0M=;
- b=ix96jRnnaLXOnBoMKALNCuripd++ID6RpllzF+tHMezwOLWWUUxRxt8vL9CJqsfBYK
- 31nqR4sq+bgQ/jzoCMNSeTFY1TU//7EwylvdEaBqJDlfFZZKBN0qjEfIHnZ/9hDnWIq5
- y1EBWPRXh2NXkGBEJRR5Bp+InsKaWOKz4UBJne8JX/OGiPMy+AXk8XoM5rU7dQ4ysv6P
- azbAEIonShOdGYVgc/6ECDor6bzLSWS5/Mou2QPc0eMDP3KTYKPrIvWZsRVvCcmBep3w
- YhwudU35PWbxCxh42dTu6sYdkNJxMiFmGe+ezBx3RCFkJeupxd6PfVGNp45UqDRvY3Jp
- 8IOQ==
-X-Gm-Message-State: AFqh2kpUJS+/1h+QQvrXVZI/SM3nUqZoFqXWru/sGlzobu3XEVwnh48C
- 4QESu0s3HhVfwcSL0MHlksF0hXw7JXvQtZ5GWt2qxRhB
-X-Google-Smtp-Source: AMrXdXs+lOk+z3jL6SG4Q23uvxrEy3iiu35eTm7qhCY+rAsxRC5kWpO7WjAz9kLmGnG5EHnoO6zq6SDClr+nQ17UwT0=
-X-Received: by 2002:a4a:e712:0:b0:4f5:2859:f146 with SMTP id
- y18-20020a4ae712000000b004f52859f146mr13995oou.97.1673892277592; Mon, 16 Jan
- 2023 10:04:37 -0800 (PST)
+ bh=jS6lFIJFjFUtY3mw8cyMrgKm76WlKsu232wNoOu9BFI=;
+ b=Oj9yd2reWsDbouWrahoPCJ/Elcgk6Tgt5UYsGwqbnzwOf2BCDnkmO8C3i+lqatNfDf
+ LRXptjlBx5GmExJ46rwREVosymaW0bgF5+OOL00osjcBB609ugq8CfAxYttACw+cqjMJ
+ AY4wGoiShuK71DFYQHccgqwkxxYe19ejdxa6dtzGqWTXvWiEIKhNJro85PyLhI0yUbiU
+ CCDVWc0WBPHN99nWXxtum1OqoEEkqYbHLhvH5EC1WasciEaHxB7o6xR7xv2pLlbgPqzf
+ tqCuuzh3SUiZjLUAHBk9G7gnBXuwhIICg9Ro1sb4KGQN3YOZMoylWH8uKBjxLDxGKJ3c
+ ywgQ==
+X-Gm-Message-State: AFqh2koLHt99v1Psi/ptibbJS4u5Pm0q07u4ohaxtp0EmL/rSSiseTxQ
+ 72RpHRTb1qpmQCEeW4eUK4ID4Bki6wFxaQkUvvw=
+X-Google-Smtp-Source: AMrXdXvrZGLO62Oo0eXSOIOLUZCvlkDtQzC8DtTWKD6P/g/Ade7N08+e9NEuxmouzOQHO07H0ArjVT5oqOGIBob8wbI=
+X-Received: by 2002:a05:6808:4387:b0:35b:d93f:cbc4 with SMTP id
+ dz7-20020a056808438700b0035bd93fcbc4mr8161oib.96.1673892358616; Mon, 16 Jan
+ 2023 10:05:58 -0800 (PST)
 MIME-Version: 1.0
-References: <20230110225042.6710-1-joshua@froggi.es>
- <d9d534bc-938c-c112-c779-4bc95360cf45@igalia.com>
-In-Reply-To: <d9d534bc-938c-c112-c779-4bc95360cf45@igalia.com>
+References: <20230116131235.18917-1-tzimmermann@suse.de>
+ <20230116131235.18917-2-tzimmermann@suse.de>
+In-Reply-To: <20230116131235.18917-2-tzimmermann@suse.de>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 16 Jan 2023 13:04:26 -0500
-Message-ID: <CADnq5_MGLoyaev++K8C_QKAZSb3v00YK9asjH1Ou5UPU4_8bfQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Fix COLOR_SPACE_YCBCR2020_TYPE matrix
-To: Melissa Wen <mwen@igalia.com>
+Date: Mon, 16 Jan 2023 13:05:47 -0500
+Message-ID: <CADnq5_P4DgCi_JwXo2fJS=cCBmumsw5Og5ZYt+J4J_Lak74e0Q@mail.gmail.com>
+Subject: Re: [PATCH 01/22] drm/amdgpu: Fix coding style
+To: Thomas Zimmermann <tzimmermann@suse.de>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,62 +64,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, Joshua Ashton <joshua@froggi.es>
+Cc: linux-aspeed@lists.ozlabs.org, sam@ravnborg.org, linux-mips@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, nouveau@lists.freedesktop.org, airlied@gmail.com,
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied with the fixes tag.
-
-Thanks,
-
-Alex
-
-On Mon, Jan 16, 2023 at 9:50 AM Melissa Wen <mwen@igalia.com> wrote:
+Applied.  Thanks!
+On Mon, Jan 16, 2023 at 8:13 AM Thomas Zimmermann <tzimmermann@suse.de> wrote:
 >
-> On 01/10, Joshua Ashton wrote:
-> > The YCC conversion matrix for RGB -> COLOR_SPACE_YCBCR2020_TYPE is
-> > missing the values for the fourth column of the matrix.
-> >
-> > The fourth column of the matrix is essentially just a value that is
-> > added given that the color is 3 components in size.
-> > These values are needed to bias the chroma from the [-1, 1] -> [0, 1]
-> > range.
-> >
-> > This fixes color being very green when using Gamescope HDR on HDMI
-> > output which prefers YCC 4:4:4.
-> >
-> > Signed-off-by: Joshua Ashton <joshua@froggi.es>
-> > ---
-> >  drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-> > index 471078fc3900..652270a0b498 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-> > @@ -90,8 +90,8 @@ static const struct out_csc_color_matrix_type output_csc_matrix[] = {
-> >               { 0xE00, 0xF349, 0xFEB7, 0x1000, 0x6CE, 0x16E3,
-> >                               0x24F, 0x200, 0xFCCB, 0xF535, 0xE00, 0x1000} },
-> >       { COLOR_SPACE_YCBCR2020_TYPE,
-> > -             { 0x1000, 0xF149, 0xFEB7, 0x0000, 0x0868, 0x15B2,
-> > -                             0x01E6, 0x0000, 0xFB88, 0xF478, 0x1000, 0x0000} },
-> > +             { 0x1000, 0xF149, 0xFEB7, 0x1004, 0x0868, 0x15B2,
-> > +                             0x01E6, 0x201, 0xFB88, 0xF478, 0x1000, 0x1004} },
+> Align a closing brace and remove trailing whitespaces. No functional
+> changes.
 >
-> LGTM.
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> I'd also add a fixes tag here to:
->
-> Fixes: 40df2f809e8f ("drm/amd/display: color space ycbcr709 support")
->
-> Thanks,
->
-> Reviewed-by: Melissa Wen <mwen@igalia.com>
->
-> >       { COLOR_SPACE_YCBCR709_BLACK_TYPE,
-> >               { 0x0000, 0x0000, 0x0000, 0x1000, 0x0000, 0x0000,
-> >                               0x0000, 0x0200, 0x0000, 0x0000, 0x0000, 0x1000} },
-> > --
-> > 2.39.0
-> >
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index e47058c2c294..0993ee91fe18 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -5871,8 +5871,8 @@ void amdgpu_device_invalidate_hdp(struct amdgpu_device *adev,
+>  int amdgpu_in_reset(struct amdgpu_device *adev)
+>  {
+>         return atomic_read(&adev->reset_domain->in_gpu_reset);
+> -       }
+> -
+> +}
+> +
+>  /**
+>   * amdgpu_device_halt() - bring hardware to some kind of halt state
+>   *
+> --
+> 2.39.0
 >
