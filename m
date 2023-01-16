@@ -4,48 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36D70C46467
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 20:47:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00991C46467
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 21:39:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F02BC10E4C9;
-	Mon, 16 Jan 2023 20:47:14 +0000 (UTC)
-X-Greylist: delayed 1728 seconds by postgrey-1.36 at gabe;
- Mon, 16 Jan 2023 20:47:11 UTC
-Received: from mailrelay3-1.pub.mailoutpod2-cph3.one.com
- (mailrelay3-1.pub.mailoutpod2-cph3.one.com [IPv6:2a02:2350:5:402::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FEB310E05D
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jan 2023 20:47:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ravnborg.org; s=rsa2;
- h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
- from:date:from;
- bh=hRkGhkGEnmgInCvs3rVTwzKWsHh71Vg6LNBuwBJhnGI=;
- b=QpnuNWjLm3HBShNHcv1jkSScOozA8nnb9tpP+9W+043hpJ6PGppYJYI84cxZGlrmGe7ujd0PptYxG
- UUvbYWLLqfrxsTfUgKV/DOQoSkAJgPOD5o+u6sNhB99ST605WNzltrTnMSpRVz6aEQk41HeRil52vw
- DvtpDbVTkouMlsjRLL4/z0jE88xfAHyxmDyfHOEGzmyQyQPuL/r2CYcpx1flwP3+rHOCEdicnuvs/W
- jM7Sl2WRxpVKA/mNBJ35JXcIEKPBseR8jqbmHVxwY0qvlMsWz5KI6lrsqzage8xYkyxtnvI445elRs
- 23dxmjsrEbVTFfR9rEzkEYmhMT9TGuA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed;
- d=ravnborg.org; s=ed2;
- h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
- from:date:from;
- bh=hRkGhkGEnmgInCvs3rVTwzKWsHh71Vg6LNBuwBJhnGI=;
- b=mCI+axuI2AfxFUOLQXYc2VJUv0VtmpAfcrLE6qklmT6q+xl8lgRJLmMDbSswchsPqWUlGnmCIrq0A
- k5Y79kqBw==
-X-HalOne-ID: f12f8be1-95de-11ed-b1f5-ede074c87fad
-Received: from ravnborg.org (2-105-2-98-cable.dk.customer.tdc.net [2.105.2.98])
- by mailrelay3 (Halon) with ESMTPSA
- id f12f8be1-95de-11ed-b1f5-ede074c87fad;
- Mon, 16 Jan 2023 20:47:09 +0000 (UTC)
-Date: Mon, 16 Jan 2023 21:47:07 +0100
-From: Sam Ravnborg <sam@ravnborg.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH 00/22] drm: Remove includes for drm_crtc_helper.h
-Message-ID: <Y8W3y32sOpP3D6YX@ravnborg.org>
-References: <20230116131235.18917-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65D6A10E07C;
+	Mon, 16 Jan 2023 21:39:25 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E918F10E07B;
+ Mon, 16 Jan 2023 21:20:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=hD+7uyKw33Lwp0YuzHiWz1RVxGMk3M97nmlFr3nsiy0=; b=RR7YSsL2Zew/yJY78gvwuev6uJ
+ Y7FQZ4PHmPi6WGa1pr+y6JLtN4LXDx4UhBxF9sEdIQwAg5utxZ2w8wbMwtFBXFsqhvFMWjPgCEWZ0
+ Qb9Ef6TY0lyKeQr66I36jy7QwaBZOtJy/h2Hcv5OYaLY/NuDTD369uw9+P1a8T1Jt5wb2ubk7xcpI
+ an1tD/FsR95WH8ihnHrcYxoZuwt+/xiBuUJN4LtTDmCTuUOqtRvyb8V4mFeD0ZHmSUpwrGuUXYk2V
+ FILEbfAkyZWJvkj68fcfyeO5GxOmw/GkY2fo+lHVH/Td2D6g3qozjKpKaq8gjNOOOaJskDTfWjyQM
+ VfPt6GnQ==;
+Received: from [187.56.70.205] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1pHWuF-00A8mQ-HP; Mon, 16 Jan 2023 22:20:40 +0100
+From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 2/3] drm/amdgpu/vcn: Deduplicate indirect SRAM checking code
+Date: Mon, 16 Jan 2023 18:20:03 -0300
+Message-Id: <20230116212004.860968-2-gpiccoli@igalia.com>
+X-Mailer: git-send-email 2.39.0
+In-Reply-To: <20230116212004.860968-1-gpiccoli@igalia.com>
+References: <20230116212004.860968-1-gpiccoli@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230116131235.18917-1-tzimmermann@suse.de>
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 16 Jan 2023 21:39:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,196 +51,152 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
- linux-mips@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, airlied@gmail.com,
- linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Cc: Sonny Jiang <sonny.jiang@amd.com>, kernel@gpiccoli.net, Xinhui.Pan@amd.com,
+ dri-devel@lists.freedesktop.org, Lazar Lijo <Lijo.Lazar@amd.com>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, James Zhu <James.Zhu@amd.com>,
+ Leo Liu <leo.liu@amd.com>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Thomas.
+Currently both conditionals checked to enable indirect SRAM are
+repeated for all HW/IP models. Let's just simplify it a bit so
+code is more compact and readable.
 
-On Mon, Jan 16, 2023 at 02:12:13PM +0100, Thomas Zimmermann wrote:
-> A lot of source files include drm_crtc_helper.h for its contained
-> include statements. This leads to excessive compile-time dependencies.
-> 
-> Where possible, remove the include statements for drm_crtc_helper.h
-> and include the required source files directly. Also remove the
-> include statements from drm_crtc_helper.h itself, which doesn't need
-> most of them.
-With this patchset drm_crtc_helper usage is reduced from 85 places to 35
-places. And the 35 places is only .c files.
-This is a very nice reduction of bloat! I hope this has a measureable
-effect on building times.
+While at it, add the legacy names as a comment per case block, to
+help whoever is reading the code and doesn't have much experience
+with the name/number mapping.
 
-I was working on something similar, but that approach only added missing
-includes, and did not kill all the unnessesary includes - which I think
-is the biggest win here.
-
-All patches are:
-Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
-
-For a few of them the r-b is conditional, see the specific comments
-posted.
+Cc: James Zhu <James.Zhu@amd.com>
+Cc: Lazar Lijo <Lijo.Lazar@amd.com>
+Cc: Leo Liu <leo.liu@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Sonny Jiang <sonny.jiang@amd.com>
+Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
+---
 
 
-I did a build check here with the archs and config I verifies with.
-This covers "alpha arm arm64 sparc64 i386 x86 powerpc s390 riscv sh"
-and everything was fine. I have a few specific configs to pull in
-drivers that need a bit extra to be built.
-So I consider build coverage OK for applying, but it would be nice to
-wait a few days for the bots to verify too.
+Hi folks, first of all thanks in advance for reviews/comments!
 
-My own work on slimming drm_atomic_helper.h and drm_print.h will be
-rebased on top of your work before I continue it.
-I need to look into removing unused includes too.
+This work is based on agd5f/amd-staging-drm-next branch - there is this
+patch from Mario that refactored the amdgpu_vcn.c, and since it dropped
+the legacy names from the switch cases, I've decided to also include them
+here as comments.
 
-	Sam
+I'm not sure if that's a good idea, feels good for somebody not so
+used to the code read the codenames instead of purely numbers, but
+if you wanna move away from the legacy names for good, lemme know
+and I can rework without these comments.
 
-> 
-> I built this patchset on x86-64, aarch64 and arm. Hopefully I found
-> all include dependencies.
-> 
-> Thanks to Sam Ravnborg for bringing this to my attention.
-> 
-> Thomas Zimmermann (22):
->   drm/amdgpu: Fix coding style
->   drm: Remove unnecessary include statements for drm_crtc_helper.h
->   drm/amdgpu: Remove unnecessary include statements for
->     drm_crtc_helper.h
->   drm/arm/komeda: Remove unnecessary include statements for
->     drm_crtc_helper.h
->   drm/aspeed: Remove unnecessary include statements for
->     drm_crtc_helper.h
->   drm/ast: Remove unnecessary include statements for drm_crtc_helper.h
->   drm/bridge: Remove unnecessary include statements for
->     drm_crtc_helper.h
->   drm/gma500: Remove unnecessary include statements for
->     drm_crtc_helper.h
->   drm/i2c/ch7006: Remove unnecessary include statements for
->     drm_crtc_helper.h
->   drm/ingenic: Remove unnecessary include statements for
->     drm_crtc_helper.h
->   drm/kmb: Remove unnecessary include statements for drm_crtc_helper.h
->   drm/logicvc: Remove unnecessary include statements for
->     drm_crtc_helper.h
->   drm/nouveau: Remove unnecessary include statements for
->     drm_crtc_helper.h
->   drm/radeon: Remove unnecessary include statements for
->     drm_crtc_helper.h
->   drm/rockchip: Remove unnecessary include statements for
->     drm_crtc_helper.h
->   drm/shmobile: Remove unnecessary include statements for
->     drm_crtc_helper.h
->   drm/sprd: Remove unnecessary include statements for drm_crtc_helper.h
->   drm/sun4i: Remove unnecessary include statements for drm_crtc_helper.h
->   drm/tidss: Remove unnecessary include statements for drm_crtc_helper.h
->   drm/udl: Remove unnecessary include statements for drm_crtc_helper.h
->   drm/vboxvideo: Remove unnecessary include statements for
->     drm_crtc_helper.h
->   drm/crtc-helper: Remove most include statements from drm_crtc_helper.h
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c     |  2 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  5 +++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c        |  1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_encoders.c       |  1 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c            |  1 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h           |  1 -
->  drivers/gpu/drm/amd/amdgpu/atombios_crtc.c         |  1 -
->  drivers/gpu/drm/amd/amdgpu/atombios_encoders.c     |  1 -
->  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c             |  2 ++
->  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c             |  2 ++
->  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c              |  2 ++
->  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c              |  2 ++
->  drivers/gpu/drm/arm/display/komeda/komeda_crtc.c   |  1 -
->  drivers/gpu/drm/arm/display/komeda/komeda_kms.h    |  1 -
->  drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c           |  1 -
->  drivers/gpu/drm/aspeed/aspeed_gfx_drv.c            |  1 -
->  drivers/gpu/drm/aspeed/aspeed_gfx_out.c            |  1 -
->  drivers/gpu/drm/ast/ast_drv.c                      |  1 -
->  drivers/gpu/drm/ast/ast_main.c                     |  1 -
->  drivers/gpu/drm/ast/ast_mode.c                     |  1 -
->  drivers/gpu/drm/bridge/analogix/analogix-anx6345.c |  1 -
->  drivers/gpu/drm/bridge/analogix/anx7625.c          |  1 -
->  .../gpu/drm/bridge/cadence/cdns-mhdp8546-core.c    |  1 -
->  drivers/gpu/drm/bridge/ite-it6505.c                |  1 -
->  drivers/gpu/drm/bridge/ite-it66121.c               |  1 -
->  drivers/gpu/drm/bridge/tc358768.c                  |  1 -
->  drivers/gpu/drm/bridge/tc358775.c                  |  1 -
->  drivers/gpu/drm/drm_crtc_helper.c                  |  1 -
->  drivers/gpu/drm/drm_lease.c                        |  2 +-
->  drivers/gpu/drm/drm_plane_helper.c                 |  1 -
->  drivers/gpu/drm/gma500/cdv_device.c                |  1 +
->  drivers/gpu/drm/gma500/cdv_intel_crt.c             |  2 ++
->  drivers/gpu/drm/gma500/cdv_intel_display.c         |  1 +
->  drivers/gpu/drm/gma500/cdv_intel_dp.c              |  1 +
->  drivers/gpu/drm/gma500/cdv_intel_hdmi.c            |  2 ++
->  drivers/gpu/drm/gma500/cdv_intel_lvds.c            |  2 ++
->  drivers/gpu/drm/gma500/framebuffer.c               |  2 ++
->  drivers/gpu/drm/gma500/gma_display.c               |  2 ++
->  drivers/gpu/drm/gma500/oaktrail_crtc.c             |  1 +
->  drivers/gpu/drm/gma500/oaktrail_hdmi.c             |  2 ++
->  drivers/gpu/drm/gma500/oaktrail_lvds.c             |  1 +
->  drivers/gpu/drm/gma500/psb_device.c                |  1 +
->  drivers/gpu/drm/gma500/psb_intel_display.c         |  3 +++
->  drivers/gpu/drm/gma500/psb_intel_drv.h             |  1 -
->  drivers/gpu/drm/gma500/psb_intel_lvds.c            |  2 ++
->  drivers/gpu/drm/gma500/psb_intel_sdvo.c            |  2 ++
->  drivers/gpu/drm/i2c/ch7006_drv.c                   |  2 ++
->  drivers/gpu/drm/i2c/ch7006_priv.h                  |  1 -
->  drivers/gpu/drm/ingenic/ingenic-drm-drv.c          |  1 -
->  drivers/gpu/drm/kmb/kmb_crtc.c                     |  1 -
->  drivers/gpu/drm/kmb/kmb_plane.c                    |  1 -
->  drivers/gpu/drm/logicvc/logicvc_interface.c        |  1 -
->  drivers/gpu/drm/logicvc/logicvc_mode.c             |  1 -
->  drivers/gpu/drm/nouveau/dispnv04/crtc.c            |  1 +
->  drivers/gpu/drm/nouveau/dispnv04/dac.c             |  2 +-
->  drivers/gpu/drm/nouveau/dispnv04/dfp.c             |  2 +-
->  drivers/gpu/drm/nouveau/dispnv04/tvmodesnv17.c     |  1 -
->  drivers/gpu/drm/nouveau/dispnv04/tvnv04.c          |  2 +-
->  drivers/gpu/drm/nouveau/dispnv04/tvnv17.c          |  1 +
->  drivers/gpu/drm/nouveau/dispnv50/head.c            |  1 -
->  drivers/gpu/drm/nouveau/nouveau_drm.c              |  1 -
->  drivers/gpu/drm/nouveau/nouveau_vga.c              |  1 -
->  drivers/gpu/drm/radeon/atombios_crtc.c             |  2 +-
->  drivers/gpu/drm/radeon/atombios_encoders.c         |  1 +
->  drivers/gpu/drm/radeon/r300.c                      |  1 -
->  drivers/gpu/drm/radeon/radeon_asic.c               |  1 -
->  drivers/gpu/drm/radeon/radeon_connectors.c         |  1 +
->  drivers/gpu/drm/radeon/radeon_display.c            |  1 +
->  drivers/gpu/drm/radeon/radeon_drv.c                |  1 -
->  drivers/gpu/drm/radeon/radeon_encoders.c           |  1 -
->  drivers/gpu/drm/radeon/radeon_irq_kms.c            |  1 -
->  drivers/gpu/drm/radeon/radeon_legacy_crtc.c        |  2 +-
->  drivers/gpu/drm/radeon/radeon_legacy_encoders.c    |  2 +-
->  drivers/gpu/drm/radeon/radeon_legacy_tv.c          |  1 -
->  drivers/gpu/drm/radeon/radeon_mode.h               |  2 +-
->  drivers/gpu/drm/rockchip/rockchip_drm_vop2.c       |  1 -
->  drivers/gpu/drm/shmobile/shmob_drm_crtc.c          |  2 ++
->  drivers/gpu/drm/shmobile/shmob_drm_drv.c           |  1 -
->  drivers/gpu/drm/shmobile/shmob_drm_plane.c         |  1 -
->  drivers/gpu/drm/sprd/sprd_dpu.c                    |  1 -
->  drivers/gpu/drm/sprd/sprd_drm.c                    |  1 -
->  drivers/gpu/drm/sprd/sprd_dsi.c                    |  1 -
->  drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c              |  2 +-
->  drivers/gpu/drm/tidss/tidss_crtc.c                 |  1 -
->  drivers/gpu/drm/tidss/tidss_drv.c                  |  1 -
->  drivers/gpu/drm/tidss/tidss_encoder.c              |  2 +-
->  drivers/gpu/drm/tidss/tidss_kms.c                  |  1 -
->  drivers/gpu/drm/tidss/tidss_plane.c                |  1 -
->  drivers/gpu/drm/udl/udl_drv.c                      |  2 +-
->  drivers/gpu/drm/udl/udl_modeset.c                  |  1 -
->  drivers/gpu/drm/vboxvideo/vbox_drv.c               |  2 +-
->  drivers/gpu/drm/vboxvideo/vbox_main.c              |  1 -
->  include/drm/drm_crtc_helper.h                      | 14 +++++++++-----
->  include/drm/drm_fixed.h                            |  1 +
->  94 files changed, 70 insertions(+), 70 deletions(-)
-> 
-> 
-> base-commit: 68d139b609a97a83e7c231189d4864aba4e1679b
-> prerequisite-patch-id: 0aa359f6144c4015c140c8a6750be19099c676fb
-> prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
-> prerequisite-patch-id: 3f204510fcbf9530d6540bd8e6128cce598988b6
-> -- 
-> 2.39.0
+Cheers,
+
+
+Guilherme
+
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 84 +++++--------------------
+ 1 file changed, 16 insertions(+), 68 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index 1b1a3c9e1863..1f880e162d9d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -111,78 +111,26 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
+ 		atomic_set(&adev->vcn.inst[i].dpg_enc_submission_cnt, 0);
+ 
+ 	switch (adev->ip_versions[UVD_HWIP][0]) {
+-	case IP_VERSION(1, 0, 0):
+-	case IP_VERSION(1, 0, 1):
+-	case IP_VERSION(2, 5, 0):
+-		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+-		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+-			adev->vcn.indirect_sram = true;
+-		break;
+-	case IP_VERSION(2, 2, 0):
+-		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+-		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+-			adev->vcn.indirect_sram = true;
+-		break;
+-	case IP_VERSION(2, 6, 0):
+-		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+-		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+-			adev->vcn.indirect_sram = true;
+-		break;
+-	case IP_VERSION(2, 0, 0):
+-		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+-		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+-			adev->vcn.indirect_sram = true;
+-		break;
+-	case IP_VERSION(2, 0, 2):
+-		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+-		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+-			adev->vcn.indirect_sram = true;
+-		break;
+-	case IP_VERSION(3, 0, 0):
+-	case IP_VERSION(3, 0, 64):
+-	case IP_VERSION(3, 0, 192):
+-		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+-		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+-			adev->vcn.indirect_sram = true;
+-		break;
+-	case IP_VERSION(3, 0, 2):
+-		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+-		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+-			adev->vcn.indirect_sram = true;
+-		break;
+-	case IP_VERSION(3, 0, 16):
+-		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+-		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+-			adev->vcn.indirect_sram = true;
+-		break;
+-	case IP_VERSION(3, 0, 33):
+-		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+-		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+-			adev->vcn.indirect_sram = true;
+-		break;
+-	case IP_VERSION(3, 1, 1):
+-		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+-		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+-			adev->vcn.indirect_sram = true;
+-		break;
++	case IP_VERSION(1, 0, 0):	/* Raven (1/2) / Picasso */
++	case IP_VERSION(1, 0, 1):	/* Raven (1/2) / Picasso */
++	case IP_VERSION(2, 0, 0):	/* Navi10 */
++	case IP_VERSION(2, 0, 2):	/* Navi12 / Navi14 */
++	case IP_VERSION(2, 2, 0):	/* Renoir / Green Sardine */
++	case IP_VERSION(2, 5, 0):	/* Arcturus */
++	case IP_VERSION(2, 6, 0):	/* Aldebaran */
++	case IP_VERSION(3, 0, 0):	/* Sienna Cichlid / Navy Flounder */
++	case IP_VERSION(3, 0, 2):	/* Vangogh */
++	case IP_VERSION(3, 0, 64):	/* Sienna Cichlid / Navy Flounder */
++	case IP_VERSION(3, 0, 16):	/* Dimgray Cavefish */
++	case IP_VERSION(3, 0, 33):	/* Beige Goby */
++	case IP_VERSION(3, 0, 192):	/* Sienna Cichlid / Navy Flounder */
++	case IP_VERSION(3, 1, 1):	/* Yellow Carp */
+ 	case IP_VERSION(3, 1, 2):
+-		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+-		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+-			adev->vcn.indirect_sram = true;
+-		break;
+-	case IP_VERSION(4, 0, 0):
+-		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+-			(adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+-			adev->vcn.indirect_sram = true;
+-		break;
++	case IP_VERSION(4, 0, 0):	/* Vega10 */
+ 	case IP_VERSION(4, 0, 2):
+-		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+-			(adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+-			adev->vcn.indirect_sram = true;
+-		break;
+ 	case IP_VERSION(4, 0, 4):
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+-			(adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
++		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
+ 		break;
+ 	default:
+-- 
+2.39.0
+
