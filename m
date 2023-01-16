@@ -4,63 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45D80C678D7
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 11:54:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85E60C54EBE
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 13:12:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A9E410E3E8;
-	Mon, 16 Jan 2023 11:54:34 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9596E10E3DC;
- Mon, 16 Jan 2023 11:54:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD66A10E402;
+	Mon, 16 Jan 2023 13:12:41 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9C2C10E072;
+ Mon, 16 Jan 2023 13:12:38 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 49B9233B43;
- Mon, 16 Jan 2023 11:54:29 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6377167773;
+ Mon, 16 Jan 2023 13:12:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1673870069; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=EUggysgncP9uMhVH+dhNfBvNG/A+cX9Zl3Vz7+cHkwc=;
- b=yxk3skraO/Mtj5vW9U468+SdCqUo76uvOOBqxcntqYHfu8yby99nvJCGJzs5PMG8fjHkBj
- mEiOR8kxkfox2YIiVgZ9sDTHU+8Lwsr4UqojgdhCJCz2zmYNyU1vV/TM0rXzxVRwokCn4H
- v1yhwCoLg2pvV6eD89eO2yFdoFelesE=
+ t=1673874757; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=YQ1YlOVInu6WsLhZgXbEIaFPrF+YO75TAo9I3Omn8lU=;
+ b=Dkv3ssXgPwtN3kjuLt7Xxr/dpn86Y80sgPw+gQlpFgefvho7hRs6ljDYQCyek6cMEtIUnp
+ SGEO72jh9B2QUiQxGcZyPKQaYAjaBkQX6BEYNtY97jAsb7ULX/NOuF6qTPbpybqJn3siaP
+ eD2uYvokqxFn1uMu5oUg76PGtAveSj0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1673870069;
+ s=susede2_ed25519; t=1673874757;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=EUggysgncP9uMhVH+dhNfBvNG/A+cX9Zl3Vz7+cHkwc=;
- b=S4GS866Ou0/y6g8PuMrZ9fXlBegOCcv3edlcCNcfMSttSyBU7pgZ46BBXsXpY79aawt7qM
- qX4LmkHG7Zi9BJDQ==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=YQ1YlOVInu6WsLhZgXbEIaFPrF+YO75TAo9I3Omn8lU=;
+ b=YKR9ZNdxeA1F59bn4EWw8CGDO8y6VBcLVvAazzlL5QGqy3h8+ATlpHDblpJITTnrXS4Km0
+ xUgsEi/Z9reSwIDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 86905139C2;
- Mon, 16 Jan 2023 11:54:28 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1E2A3138FA;
+ Mon, 16 Jan 2023 13:12:37 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id MMoXIPQ6xWPLBAAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 16 Jan 2023 11:54:28 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id CRPmBUVNxWNrNQAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 16 Jan 2023 13:12:37 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- tvrtko.ursulin@linux.intel.com, bskeggs@redhat.com, kherbst@redhat.com,
- lyude@redhat.com, evan.quan@amd.com, jose.souza@intel.com
-Subject: [PATCH v3 2/3] drm/fb-helper: Set framebuffer for vga-switcheroo
- clients
-Date: Mon, 16 Jan 2023 12:54:24 +0100
-Message-Id: <20230116115425.13484-3-tzimmermann@suse.de>
+To: sam@ravnborg.org,
+	daniel@ffwll.ch,
+	airlied@gmail.com
+Subject: [PATCH 00/22] drm: Remove includes for drm_crtc_helper.h
+Date: Mon, 16 Jan 2023 14:12:13 +0100
+Message-Id: <20230116131235.18917-1-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230116115425.13484-1-tzimmermann@suse.de>
-References: <20230116115425.13484-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,118 +62,165 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org,
- YiPeng Chai <YiPeng.Chai@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Likun Gao <Likun.Gao@amd.com>, Sam Ravnborg <sam@ravnborg.org>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Guchun Chen <guchun.chen@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>, amd-gfx@lists.freedesktop.org,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Stanley Yang <Stanley.Yang@amd.com>, nouveau@lists.freedesktop.org,
- Dave Airlie <airlied@redhat.com>,
- =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak@amd.com>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Jani Nikula <jani.nikula@intel.com>, Bokun Zhang <Bokun.Zhang@amd.com>,
- intel-gfx@lists.freedesktop.org, "Tianci.Yin" <tianci.yin@amd.com>,
- Hans de Goede <hdegoede@redhat.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Xiaojian Du <Xiaojian.Du@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
- Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>, stable@vger.kernel.org,
- Solomon Chiu <solomon.chiu@amd.com>,
- Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
+ linux-mips@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Set the framebuffer info for drivers that support VGA switcheroo. Only
-affects the amdgpu and nouveau drivers, which use VGA switcheroo and
-generic fbdev emulation. For other drivers, this does nothing.
+A lot of source files include drm_crtc_helper.h for its contained
+include statements. This leads to excessive compile-time dependencies.
 
-This fixes a potential regression in the console code. Both, amdgpu and
-nouveau, invoked vga_switcheroo_client_fb_set() from their internal fbdev
-code. But the call got lost when the drivers switched to the generic
-emulation.
+Where possible, remove the include statements for drm_crtc_helper.h
+and include the required source files directly. Also remove the
+include statements from drm_crtc_helper.h itself, which doesn't need
+most of them.
 
-Fixes: 087451f372bf ("drm/amdgpu: use generic fb helpers instead of setting up AMD own's.")
-Fixes: 4a16dd9d18a0 ("drm/nouveau/kms: switch to drm fbdev helpers")
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: Ben Skeggs <bskeggs@redhat.com>
-Cc: Karol Herbst <kherbst@redhat.com>
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Javier Martinez Canillas <javierm@redhat.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Dave Airlie <airlied@redhat.com>
-Cc: Evan Quan <evan.quan@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-Cc: Likun Gao <Likun.Gao@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: Stanley Yang <Stanley.Yang@amd.com>
-Cc: "Tianci.Yin" <tianci.yin@amd.com>
-Cc: Xiaojian Du <Xiaojian.Du@amd.com>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Cc: YiPeng Chai <YiPeng.Chai@amd.com>
-Cc: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
-Cc: Bokun Zhang <Bokun.Zhang@amd.com>
-Cc: Guchun Chen <guchun.chen@amd.com>
-Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Solomon Chiu <solomon.chiu@amd.com>
-Cc: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: "Marek Olšák" <marek.olsak@amd.com>
-Cc: Sam Ravnborg <sam@ravnborg.org>
-Cc: Hans de Goede <hdegoede@redhat.com>
-Cc: "Ville Syrjälä" <ville.syrjala@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: nouveau@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v5.17+
----
- drivers/gpu/drm/drm_fb_helper.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+I built this patchset on x86-64, aarch64 and arm. Hopefully I found
+all include dependencies.
 
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index 367fb8b2d5fa..c5c13e192b64 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -30,7 +30,9 @@
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
- 
- #include <linux/console.h>
-+#include <linux/pci.h>
- #include <linux/sysrq.h>
-+#include <linux/vga_switcheroo.h>
- 
- #include <drm/drm_atomic.h>
- #include <drm/drm_drv.h>
-@@ -1924,6 +1926,7 @@ static int drm_fb_helper_single_fb_probe(struct drm_fb_helper *fb_helper,
- 					 int preferred_bpp)
- {
- 	struct drm_client_dev *client = &fb_helper->client;
-+	struct drm_device *dev = fb_helper->dev;
- 	struct drm_fb_helper_surface_size sizes;
- 	int ret;
- 
-@@ -1945,6 +1948,11 @@ static int drm_fb_helper_single_fb_probe(struct drm_fb_helper *fb_helper,
- 		return ret;
- 
- 	strcpy(fb_helper->fb->comm, "[fbcon]");
-+
-+	/* Set the fb info for vgaswitcheroo clients. Does nothing otherwise. */
-+	if (dev_is_pci(dev->dev))
-+		vga_switcheroo_client_fb_set(to_pci_dev(dev->dev), fb_helper->info);
-+
- 	return 0;
- }
- 
+Thanks to Sam Ravnborg for bringing this to my attention.
+
+Thomas Zimmermann (22):
+  drm/amdgpu: Fix coding style
+  drm: Remove unnecessary include statements for drm_crtc_helper.h
+  drm/amdgpu: Remove unnecessary include statements for
+    drm_crtc_helper.h
+  drm/arm/komeda: Remove unnecessary include statements for
+    drm_crtc_helper.h
+  drm/aspeed: Remove unnecessary include statements for
+    drm_crtc_helper.h
+  drm/ast: Remove unnecessary include statements for drm_crtc_helper.h
+  drm/bridge: Remove unnecessary include statements for
+    drm_crtc_helper.h
+  drm/gma500: Remove unnecessary include statements for
+    drm_crtc_helper.h
+  drm/i2c/ch7006: Remove unnecessary include statements for
+    drm_crtc_helper.h
+  drm/ingenic: Remove unnecessary include statements for
+    drm_crtc_helper.h
+  drm/kmb: Remove unnecessary include statements for drm_crtc_helper.h
+  drm/logicvc: Remove unnecessary include statements for
+    drm_crtc_helper.h
+  drm/nouveau: Remove unnecessary include statements for
+    drm_crtc_helper.h
+  drm/radeon: Remove unnecessary include statements for
+    drm_crtc_helper.h
+  drm/rockchip: Remove unnecessary include statements for
+    drm_crtc_helper.h
+  drm/shmobile: Remove unnecessary include statements for
+    drm_crtc_helper.h
+  drm/sprd: Remove unnecessary include statements for drm_crtc_helper.h
+  drm/sun4i: Remove unnecessary include statements for drm_crtc_helper.h
+  drm/tidss: Remove unnecessary include statements for drm_crtc_helper.h
+  drm/udl: Remove unnecessary include statements for drm_crtc_helper.h
+  drm/vboxvideo: Remove unnecessary include statements for
+    drm_crtc_helper.h
+  drm/crtc-helper: Remove most include statements from drm_crtc_helper.h
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c     |  2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  5 +++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c        |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_encoders.c       |  1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c            |  1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h           |  1 -
+ drivers/gpu/drm/amd/amdgpu/atombios_crtc.c         |  1 -
+ drivers/gpu/drm/amd/amdgpu/atombios_encoders.c     |  1 -
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c             |  2 ++
+ drivers/gpu/drm/amd/amdgpu/dce_v11_0.c             |  2 ++
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c              |  2 ++
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c              |  2 ++
+ drivers/gpu/drm/arm/display/komeda/komeda_crtc.c   |  1 -
+ drivers/gpu/drm/arm/display/komeda/komeda_kms.h    |  1 -
+ drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c           |  1 -
+ drivers/gpu/drm/aspeed/aspeed_gfx_drv.c            |  1 -
+ drivers/gpu/drm/aspeed/aspeed_gfx_out.c            |  1 -
+ drivers/gpu/drm/ast/ast_drv.c                      |  1 -
+ drivers/gpu/drm/ast/ast_main.c                     |  1 -
+ drivers/gpu/drm/ast/ast_mode.c                     |  1 -
+ drivers/gpu/drm/bridge/analogix/analogix-anx6345.c |  1 -
+ drivers/gpu/drm/bridge/analogix/anx7625.c          |  1 -
+ .../gpu/drm/bridge/cadence/cdns-mhdp8546-core.c    |  1 -
+ drivers/gpu/drm/bridge/ite-it6505.c                |  1 -
+ drivers/gpu/drm/bridge/ite-it66121.c               |  1 -
+ drivers/gpu/drm/bridge/tc358768.c                  |  1 -
+ drivers/gpu/drm/bridge/tc358775.c                  |  1 -
+ drivers/gpu/drm/drm_crtc_helper.c                  |  1 -
+ drivers/gpu/drm/drm_lease.c                        |  2 +-
+ drivers/gpu/drm/drm_plane_helper.c                 |  1 -
+ drivers/gpu/drm/gma500/cdv_device.c                |  1 +
+ drivers/gpu/drm/gma500/cdv_intel_crt.c             |  2 ++
+ drivers/gpu/drm/gma500/cdv_intel_display.c         |  1 +
+ drivers/gpu/drm/gma500/cdv_intel_dp.c              |  1 +
+ drivers/gpu/drm/gma500/cdv_intel_hdmi.c            |  2 ++
+ drivers/gpu/drm/gma500/cdv_intel_lvds.c            |  2 ++
+ drivers/gpu/drm/gma500/framebuffer.c               |  2 ++
+ drivers/gpu/drm/gma500/gma_display.c               |  2 ++
+ drivers/gpu/drm/gma500/oaktrail_crtc.c             |  1 +
+ drivers/gpu/drm/gma500/oaktrail_hdmi.c             |  2 ++
+ drivers/gpu/drm/gma500/oaktrail_lvds.c             |  1 +
+ drivers/gpu/drm/gma500/psb_device.c                |  1 +
+ drivers/gpu/drm/gma500/psb_intel_display.c         |  3 +++
+ drivers/gpu/drm/gma500/psb_intel_drv.h             |  1 -
+ drivers/gpu/drm/gma500/psb_intel_lvds.c            |  2 ++
+ drivers/gpu/drm/gma500/psb_intel_sdvo.c            |  2 ++
+ drivers/gpu/drm/i2c/ch7006_drv.c                   |  2 ++
+ drivers/gpu/drm/i2c/ch7006_priv.h                  |  1 -
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c          |  1 -
+ drivers/gpu/drm/kmb/kmb_crtc.c                     |  1 -
+ drivers/gpu/drm/kmb/kmb_plane.c                    |  1 -
+ drivers/gpu/drm/logicvc/logicvc_interface.c        |  1 -
+ drivers/gpu/drm/logicvc/logicvc_mode.c             |  1 -
+ drivers/gpu/drm/nouveau/dispnv04/crtc.c            |  1 +
+ drivers/gpu/drm/nouveau/dispnv04/dac.c             |  2 +-
+ drivers/gpu/drm/nouveau/dispnv04/dfp.c             |  2 +-
+ drivers/gpu/drm/nouveau/dispnv04/tvmodesnv17.c     |  1 -
+ drivers/gpu/drm/nouveau/dispnv04/tvnv04.c          |  2 +-
+ drivers/gpu/drm/nouveau/dispnv04/tvnv17.c          |  1 +
+ drivers/gpu/drm/nouveau/dispnv50/head.c            |  1 -
+ drivers/gpu/drm/nouveau/nouveau_drm.c              |  1 -
+ drivers/gpu/drm/nouveau/nouveau_vga.c              |  1 -
+ drivers/gpu/drm/radeon/atombios_crtc.c             |  2 +-
+ drivers/gpu/drm/radeon/atombios_encoders.c         |  1 +
+ drivers/gpu/drm/radeon/r300.c                      |  1 -
+ drivers/gpu/drm/radeon/radeon_asic.c               |  1 -
+ drivers/gpu/drm/radeon/radeon_connectors.c         |  1 +
+ drivers/gpu/drm/radeon/radeon_display.c            |  1 +
+ drivers/gpu/drm/radeon/radeon_drv.c                |  1 -
+ drivers/gpu/drm/radeon/radeon_encoders.c           |  1 -
+ drivers/gpu/drm/radeon/radeon_irq_kms.c            |  1 -
+ drivers/gpu/drm/radeon/radeon_legacy_crtc.c        |  2 +-
+ drivers/gpu/drm/radeon/radeon_legacy_encoders.c    |  2 +-
+ drivers/gpu/drm/radeon/radeon_legacy_tv.c          |  1 -
+ drivers/gpu/drm/radeon/radeon_mode.h               |  2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c       |  1 -
+ drivers/gpu/drm/shmobile/shmob_drm_crtc.c          |  2 ++
+ drivers/gpu/drm/shmobile/shmob_drm_drv.c           |  1 -
+ drivers/gpu/drm/shmobile/shmob_drm_plane.c         |  1 -
+ drivers/gpu/drm/sprd/sprd_dpu.c                    |  1 -
+ drivers/gpu/drm/sprd/sprd_drm.c                    |  1 -
+ drivers/gpu/drm/sprd/sprd_dsi.c                    |  1 -
+ drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c              |  2 +-
+ drivers/gpu/drm/tidss/tidss_crtc.c                 |  1 -
+ drivers/gpu/drm/tidss/tidss_drv.c                  |  1 -
+ drivers/gpu/drm/tidss/tidss_encoder.c              |  2 +-
+ drivers/gpu/drm/tidss/tidss_kms.c                  |  1 -
+ drivers/gpu/drm/tidss/tidss_plane.c                |  1 -
+ drivers/gpu/drm/udl/udl_drv.c                      |  2 +-
+ drivers/gpu/drm/udl/udl_modeset.c                  |  1 -
+ drivers/gpu/drm/vboxvideo/vbox_drv.c               |  2 +-
+ drivers/gpu/drm/vboxvideo/vbox_main.c              |  1 -
+ include/drm/drm_crtc_helper.h                      | 14 +++++++++-----
+ include/drm/drm_fixed.h                            |  1 +
+ 94 files changed, 70 insertions(+), 70 deletions(-)
+
+
+base-commit: 68d139b609a97a83e7c231189d4864aba4e1679b
+prerequisite-patch-id: 0aa359f6144c4015c140c8a6750be19099c676fb
+prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
+prerequisite-patch-id: 3f204510fcbf9530d6540bd8e6128cce598988b6
 -- 
 2.39.0
 
