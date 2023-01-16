@@ -4,56 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 761C0C46467
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 18:02:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C4D8C54EBE
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 18:04:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E940F10E040;
-	Mon, 16 Jan 2023 18:02:57 +0000 (UTC)
-Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
- [IPv6:2607:f8b0:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DBCD10E040
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jan 2023 18:02:56 +0000 (UTC)
-Received: by mail-oi1-x22f.google.com with SMTP id d127so23943284oif.12
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jan 2023 10:02:56 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E21010E481;
+	Mon, 16 Jan 2023 18:04:40 +0000 (UTC)
+Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
+ [IPv6:2607:f8b0:4864:20::c2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52B4B10E483
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jan 2023 18:04:38 +0000 (UTC)
+Received: by mail-oo1-xc2a.google.com with SMTP id
+ c145-20020a4a4f97000000b004f505540a20so726599oob.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jan 2023 10:04:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=X7wwBc2/hjoNa2z6QfzpwrZCG262VF7pAy3F1KFdzS8=;
- b=OyEsTBO9w9witcq3R/EvL8dbhb+TdJKRjqtFK/WRJEVbG1+HgGipqGtq3zbtjNKCjR
- 42CSDiMpAhko4gayjWfa9wWbkj0LTZDON+96WoEjZGf9E8b2QKGgvB5fcWCIdkqhvLms
- hR5MiTn9Bqy+5gkNOF75P+F4qSQ9hcMTuqxmoVNs2vhLaLYaa9izeuAnloOrHEAZyF6r
- 5wB7aBJ7kdsxTTL6dUMXMPO8OMY9KXc74fqJsnmMXl0Ngu0qLReF0t2wdmbXF9lqWJ+t
- fv0MxxLCTJrwIYILe56EBCjQFyuT2gW3kLs7s8kXpLeftVPDRLxervSA2QfHgICVJnnH
- Iy/w==
+ bh=ImKZvRmoZQgZlDC4GMXGYoOd91lOS/E1Hd6WgsQpT0M=;
+ b=hfdf6V7QQeobbyqnMXn0Wh8gWNnYBNzSOX2Y+hi8in6+W/bPXmRaNZ9lWTbRMnIez4
+ MqEnB0Y9k+3MAs2SatMbL+7tOvd6dpdnWnG3sr7yhoUS8GVPgbq5xAurRQDUPpvXDpbm
+ 9oH6sYYXyGuqKQchWagnzJfZLpkx8RKz8P6Sm74WBSSUJal49KqoefqoqOwKSGolkWHE
+ V0fek7AGOCd5fedaA4//dZQLO6RvelUkRQwDofcRma8nlkerdx+yw4tU5PfZPVimyprR
+ dkwrNMdsu+aWhYm+9bi1H/SwJiJ2GwB8P0zPwI3Qiw6HASvmzBZyP+9BoTs/UavHyct2
+ f9KA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=X7wwBc2/hjoNa2z6QfzpwrZCG262VF7pAy3F1KFdzS8=;
- b=35pOCs9ciba1TUbXLcR0YgshLMXv29/6lI2eU/DY14viTXV+abcBo9V15E6hJJSThu
- 1i9yS+thMCOqWze5diB+bR9es/MBeLuCEvGDIL53NpWsIUaqQuxv7LqVjE3kxnwspG2B
- 5lXL45zUzOuVbs5K9rXtILnqQdQsH+u6DHVZ2mqFmtQtQZuOEwA3+cEiDH0WGIHSKQd1
- MWKXT+lApnS/RYM11U7SlEvVm4B89WhhQ9FCS+er0G9OxzAukBt2scp8hqUQmI4zH5BO
- J5qKlbWM3YExKfBGABjZ3rW2vb36voyqsEGeb1CQVVuJhwyaQVrfgUF2M/wDPxEBe40a
- 4bqQ==
-X-Gm-Message-State: AFqh2kpt+BnHZqUGmdhOcxnUi4xqRmwkA58EnWg/CsP3g7u7aKpKOVeL
- B1DNgtxnG2Y6v0WBK1I6uqyW2hnIGS0yrdarL64Oqy8J
-X-Google-Smtp-Source: AMrXdXuTJPGBM2hwODi3uzrENuf/C5P+2+ETxbZU9h7woVjiNCoOqhCI5HWhH5lwShCUSEXUKg8z9RKVe+cOy4wf4mc=
-X-Received: by 2002:aca:2807:0:b0:35b:f5f7:3ed0 with SMTP id
- 7-20020aca2807000000b0035bf5f73ed0mr9971oix.46.1673892175259; Mon, 16 Jan
- 2023 10:02:55 -0800 (PST)
+ bh=ImKZvRmoZQgZlDC4GMXGYoOd91lOS/E1Hd6WgsQpT0M=;
+ b=ix96jRnnaLXOnBoMKALNCuripd++ID6RpllzF+tHMezwOLWWUUxRxt8vL9CJqsfBYK
+ 31nqR4sq+bgQ/jzoCMNSeTFY1TU//7EwylvdEaBqJDlfFZZKBN0qjEfIHnZ/9hDnWIq5
+ y1EBWPRXh2NXkGBEJRR5Bp+InsKaWOKz4UBJne8JX/OGiPMy+AXk8XoM5rU7dQ4ysv6P
+ azbAEIonShOdGYVgc/6ECDor6bzLSWS5/Mou2QPc0eMDP3KTYKPrIvWZsRVvCcmBep3w
+ YhwudU35PWbxCxh42dTu6sYdkNJxMiFmGe+ezBx3RCFkJeupxd6PfVGNp45UqDRvY3Jp
+ 8IOQ==
+X-Gm-Message-State: AFqh2kpUJS+/1h+QQvrXVZI/SM3nUqZoFqXWru/sGlzobu3XEVwnh48C
+ 4QESu0s3HhVfwcSL0MHlksF0hXw7JXvQtZ5GWt2qxRhB
+X-Google-Smtp-Source: AMrXdXs+lOk+z3jL6SG4Q23uvxrEy3iiu35eTm7qhCY+rAsxRC5kWpO7WjAz9kLmGnG5EHnoO6zq6SDClr+nQ17UwT0=
+X-Received: by 2002:a4a:e712:0:b0:4f5:2859:f146 with SMTP id
+ y18-20020a4ae712000000b004f52859f146mr13995oou.97.1673892277592; Mon, 16 Jan
+ 2023 10:04:37 -0800 (PST)
 MIME-Version: 1.0
-References: <20230110194338.281829-1-joshua@froggi.es>
- <20230110201221.671544-1-joshua@froggi.es>
- <20230116143517.lcckjls3eaxvc7r6@mail.igalia.com>
- <20230116144109.y4dyhlkfjw2bpxzk@mail.igalia.com>
-In-Reply-To: <20230116144109.y4dyhlkfjw2bpxzk@mail.igalia.com>
+References: <20230110225042.6710-1-joshua@froggi.es>
+ <d9d534bc-938c-c112-c779-4bc95360cf45@igalia.com>
+In-Reply-To: <d9d534bc-938c-c112-c779-4bc95360cf45@igalia.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 16 Jan 2023 13:02:43 -0500
-Message-ID: <CADnq5_PhETqB=J=aG9+4GvgK=P5WD8R6cbRykiXZ_Ssf-yzbTw@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd/display: Calculate output_color_space after
- pixel encoding adjustment
+Date: Mon, 16 Jan 2023 13:04:26 -0500
+Message-ID: <CADnq5_MGLoyaev++K8C_QKAZSb3v00YK9asjH1Ou5UPU4_8bfQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Fix COLOR_SPACE_YCBCR2020_TYPE matrix
 To: Melissa Wen <mwen@igalia.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -71,62 +69,58 @@ Cc: amd-gfx@lists.freedesktop.org, Joshua Ashton <joshua@froggi.es>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied with the fixes tag.  Thanks!
+Applied with the fixes tag.
+
+Thanks,
 
 Alex
 
-On Mon, Jan 16, 2023 at 9:41 AM Melissa Wen <mwen@igalia.com> wrote:
+On Mon, Jan 16, 2023 at 9:50 AM Melissa Wen <mwen@igalia.com> wrote:
 >
-> On 01/16, Melissa Wen wrote:
-> > On 01/10, Joshua Ashton wrote:
-> > > Code in get_output_color_space depends on knowing the pixel encoding to
-> > > determine whether to pick between eg. COLOR_SPACE_SRGB or
-> > > COLOR_SPACE_YCBCR709 for transparent RGB -> YCbCr 4:4:4 in the driver.
-> > >
-> > > v2: Fixed patch being accidentally based on a personal feature branch, oops!
-> > >
-> > > Signed-off-by: Joshua Ashton <joshua@froggi.es>
-> > > ---
-> > >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
-> > >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > index b4d60eedbcbf..9da71ee8fcc4 100644
-> > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > @@ -5341,8 +5341,6 @@ static void fill_stream_properties_from_drm_display_mode(
-> > >
-> > >     timing_out->aspect_ratio = get_aspect_ratio(mode_in);
-> > >
-> > > -   stream->output_color_space = get_output_color_space(timing_out);
-> > > -
-> > >     stream->out_transfer_func->type = TF_TYPE_PREDEFINED;
-> > >     stream->out_transfer_func->tf = TRANSFER_FUNCTION_SRGB;
-> > >     if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A) {
-> > > @@ -5353,6 +5351,8 @@ static void fill_stream_properties_from_drm_display_mode(
-> > >                     adjust_colour_depth_from_display_info(timing_out, info);
-> > >             }
-> > >     }
-> > > +
-> > > +   stream->output_color_space = get_output_color_space(timing_out);
+> On 01/10, Joshua Ashton wrote:
+> > The YCC conversion matrix for RGB -> COLOR_SPACE_YCBCR2020_TYPE is
+> > missing the values for the fourth column of the matrix.
 > >
-> > LGTM.
+> > The fourth column of the matrix is essentially just a value that is
+> > added given that the color is 3 components in size.
+> > These values are needed to bias the chroma from the [-1, 1] -> [0, 1]
+> > range.
 > >
-> > I see that we were ignoring the updated value of pixel_encoding in the
-> > previous point. Nice catch!
+> > This fixes color being very green when using Gamescope HDR on HDMI
+> > output which prefers YCC 4:4:4.
 > >
-> > Reviewed-by: Melissa Wen <mwen@igalia.com>
->
-> BTW, I think it deserves a fixes tag to:
->
-> Fixes: ea117312ea9f ("drm/amd/display: Reduce HDMI pixel encoding if max clock is exceeded")
->
+> > Signed-off-by: Joshua Ashton <joshua@froggi.es>
+> > ---
+> >  drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
 > >
-> > >  }
-> > >
-> > >  static void fill_audio_info(struct audio_info *audio_info,
-> > > --
-> > > 2.39.0
-> > >
+> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+> > index 471078fc3900..652270a0b498 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+> > @@ -90,8 +90,8 @@ static const struct out_csc_color_matrix_type output_csc_matrix[] = {
+> >               { 0xE00, 0xF349, 0xFEB7, 0x1000, 0x6CE, 0x16E3,
+> >                               0x24F, 0x200, 0xFCCB, 0xF535, 0xE00, 0x1000} },
+> >       { COLOR_SPACE_YCBCR2020_TYPE,
+> > -             { 0x1000, 0xF149, 0xFEB7, 0x0000, 0x0868, 0x15B2,
+> > -                             0x01E6, 0x0000, 0xFB88, 0xF478, 0x1000, 0x0000} },
+> > +             { 0x1000, 0xF149, 0xFEB7, 0x1004, 0x0868, 0x15B2,
+> > +                             0x01E6, 0x201, 0xFB88, 0xF478, 0x1000, 0x1004} },
 >
+> LGTM.
+>
+> I'd also add a fixes tag here to:
+>
+> Fixes: 40df2f809e8f ("drm/amd/display: color space ycbcr709 support")
+>
+> Thanks,
+>
+> Reviewed-by: Melissa Wen <mwen@igalia.com>
+>
+> >       { COLOR_SPACE_YCBCR709_BLACK_TYPE,
+> >               { 0x0000, 0x0000, 0x0000, 0x1000, 0x0000, 0x0000,
+> >                               0x0000, 0x0200, 0x0000, 0x0000, 0x0000, 0x1000} },
+> > --
+> > 2.39.0
+> >
 >
