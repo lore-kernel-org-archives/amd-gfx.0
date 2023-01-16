@@ -4,56 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E2BCC54EBE
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 20:16:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BDA8C46467
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 20:16:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4770010E4C6;
-	Mon, 16 Jan 2023 20:16:04 +0000 (UTC)
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [IPv6:2607:f8b0:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB68910E4BA
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jan 2023 20:16:01 +0000 (UTC)
-Received: by mail-oi1-x22e.google.com with SMTP id v17so2955523oie.5
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jan 2023 12:16:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=QigZbi52NqRvig/LROqmqUOaJynFzx/7ysmQqfPxLG0=;
- b=RawWag+RwGRb3zw7CSVLZngFKebaOwk+6MUWvIAOaaFtVk8jsVObJ8YocxfOYPWRUV
- Imw2VdvU3b0rgVAfWMIeXXV5SRMFt1/MxSS1hvURKctMLQ7je5t86k8gwoJX/aWm9ZGx
- K+UofYHxDnDucRYlumlFsz/RKEtW3sgATRhhcKzp3W9Ywko09zCSoJpacKeJr+K7k8js
- u2koTGUbR76DXl0+rlmJyXoxHFs5sYiU+NxCDy5gYXKoaTnzSb50ro0YJci9ANx8iSDH
- ieYLXsRomxWnyq/uHOnbzggY2no4sEtsErPR7CFv9AarQTwOgRs9C/x4AV2Egi2dqZKM
- epQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=QigZbi52NqRvig/LROqmqUOaJynFzx/7ysmQqfPxLG0=;
- b=sYMX9opOBtzZ5YztfU1yAhnrEM5w7AQS0vcok/w1Ri42lEk1FWmhhQS3QhBd5j/L95
- ztI/5Uj+C3wLsx9aAhiSAYAvuapghmR1x23aEY7fNRYvo7YcbEXM9U22a10ooI7y2UCi
- Ig2IrCLV8lyDwAc64n0xaqNOqclfeZjEhXno05iWdopK00x+SUSD4yDuYtkz6YyWqVh0
- obuiV6H+iQpejaY9uk6eN9WrxIjmRZnov5VHmWwLIry7i9dhHdernnYGYYi53rp1N4Fd
- ir4bCAqKstATYCHZ9wpkaL+HPSjUbkL87qdVDLG/tk0F1a9q6an2Hsx8JcLdooOPy/AO
- lMPA==
-X-Gm-Message-State: AFqh2kpuYCbWgHqkubYzZ93zRa/YSW4i5/KkeM2n5SMUvHM3XA+DGEYA
- nwBfh2ZRqRoyKW/bOgkgHcJ5pwRIUGcBpieMFtCRj7sA
-X-Google-Smtp-Source: AMrXdXt+YHtj3EtkD4eK9ggn6WHjqWqsMi8fCPvED/K855RHYB5sXeuZUpMPqKDlJk9Xuhrstalhj7DaL9rnNE41Us4=
-X-Received: by 2002:a05:6808:4387:b0:35b:d93f:cbc4 with SMTP id
- dz7-20020a056808438700b0035bd93fcbc4mr34938oib.96.1673900161117; Mon, 16 Jan
- 2023 12:16:01 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D7B310E04D;
+	Mon, 16 Jan 2023 20:16:56 +0000 (UTC)
+Received: from mailrelay1-1.pub.mailoutpod2-cph3.one.com
+ (mailrelay1-1.pub.mailoutpod2-cph3.one.com [46.30.211.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A07110E04D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jan 2023 20:16:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ravnborg.org; s=rsa2;
+ h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
+ from:date:from;
+ bh=qWZKxlX4KW/JmPpNe4hoOYISYsciP5gHQlpn+CvfXf8=;
+ b=kt2RebpVMaIBssccQkMEgek+nwW85G6J0siMHGZ1qETVQeJlMBKmjG0mlVm3r7ePnu8jfPm81ygq7
+ Mz8rQydCpwnm7+yWjbjNIN/fzDJe5WsKcBoAUsBadcQc0vOYb6T41tQjEeU/05VcOGjEkJnNNqYFDv
+ W6Hs6b61sUUwtJAeXWksNEBFK4Y9hM1amCX4haYovx3yLNNcTv+aB4AWsRcwfANqGXT1LV3gcWRrqV
+ ROUTznYXXwPl8HONFIMoZCbhWD4ezvanZv5cXNNxoJUbsVJ4K/EAnSMi/8BPSb4nuXYYFMXiL4SyAH
+ nCwGrMJpVzOvZphymhAQroedp3D9X1Q==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed;
+ d=ravnborg.org; s=ed2;
+ h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
+ from:date:from;
+ bh=qWZKxlX4KW/JmPpNe4hoOYISYsciP5gHQlpn+CvfXf8=;
+ b=xE4aoD0tRO5MstpdlKpx4S2jKlZCleYS/37b6LqWjWapIOw44SoqoiaLAWrBeI0WODd2oUSv6O6cJ
+ cNcxfeJCQ==
+X-HalOne-ID: 90146bb7-95da-11ed-afa2-11abd97b9443
+Received: from ravnborg.org (2-105-2-98-cable.dk.customer.tdc.net [2.105.2.98])
+ by mailrelay1 (Halon) with ESMTPSA
+ id 90146bb7-95da-11ed-afa2-11abd97b9443;
+ Mon, 16 Jan 2023 20:15:49 +0000 (UTC)
+Date: Mon, 16 Jan 2023 21:15:47 +0100
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH 02/22] drm: Remove unnecessary include statements for
+ drm_crtc_helper.h
+Message-ID: <Y8Wwcy3LuknhDQz1@ravnborg.org>
+References: <20230116131235.18917-1-tzimmermann@suse.de>
+ <20230116131235.18917-3-tzimmermann@suse.de>
 MIME-Version: 1.0
-References: <20230116201218.5113-1-christian.koenig@amd.com>
-In-Reply-To: <20230116201218.5113-1-christian.koenig@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 16 Jan 2023 15:15:49 -0500
-Message-ID: <CADnq5_OghKCnPJ_eGZQ=de2zaXfC6syG_h_NYCQrPLM8dT=ACQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: fix amdgpu_job_free_resources v2
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230116131235.18917-3-tzimmermann@suse.de>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,50 +57,91 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, thong.thai@amd.com
+Cc: linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
+ linux-mips@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, airlied@gmail.com,
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 16, 2023 at 3:12 PM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> It can be that neither fence were initialized when we run out of UVD
-> streams for example.
->
-> v2: fix typo breaking compile
->
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+Hi Thomas.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
+On Mon, Jan 16, 2023 at 02:12:15PM +0100, Thomas Zimmermann wrote:
+> Several DRM core and helper source files include drm_crtc_helper.h
+> without needing it or only to get its transitive include statements;
+> leading to unnecessary compile-time dependencies.
+> 
+> Directly include required headers and drop drm_crtc_helper.h where
+> possible. The header file, drm_fixed.h, includes <linux/kernel.h>
+> for lower_32_bits().
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_job.c
-> index f4a3122352de..6b73c074aa25 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -154,8 +154,14 @@ void amdgpu_job_free_resources(struct amdgpu_job *jo=
-b)
->         struct dma_fence *f;
->         unsigned i;
->
-> -       /* use sched fence if available */
-> -       f =3D job->base.s_fence ? &job->base.s_fence->finished :  &job->h=
-w_fence;
-> +       /* Check if any fences where initialized */
-> +       if (job->base.s_fence && job->base.s_fence->finished.ops)
-> +               f =3D &job->base.s_fence->finished;
-> +       else if (job->hw_fence.ops)
-> +               f =3D &job->hw_fence;
-> +       else
-> +               f =3D NULL;
-> +
->         for (i =3D 0; i < job->num_ibs; ++i)
->                 amdgpu_ib_free(ring->adev, &job->ibs[i], f);
->  }
-> --
-> 2.34.1
->
+>  drivers/gpu/drm/drm_crtc_helper.c  | 1 -
+>  drivers/gpu/drm/drm_lease.c        | 2 +-
+>  drivers/gpu/drm/drm_plane_helper.c | 1 -
+>  include/drm/drm_fixed.h            | 1 +
+>  4 files changed, 2 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_crtc_helper.c b/drivers/gpu/drm/drm_crtc_helper.c
+> index a209659a996c..e7a23e18140c 100644
+> --- a/drivers/gpu/drm/drm_crtc_helper.c
+> +++ b/drivers/gpu/drm/drm_crtc_helper.c
+> @@ -39,7 +39,6 @@
+>  #include <drm/drm_atomic_uapi.h>
+>  #include <drm/drm_bridge.h>
+>  #include <drm/drm_crtc.h>
+> -#include <drm/drm_crtc_helper.h>
+
+drm_crtc_helper.c may not require drm/drm_crtc_helper.h, but it should
+include it so we get a warning in case there is a mismatch between the
+header file and the implementation.
+I think sparse would also complain that the function is not declared
+or something like that.
+
+With this fixed:
+Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
+
+>  #include <drm/drm_drv.h>
+>  #include <drm/drm_edid.h>
+>  #include <drm/drm_encoder.h>
+> diff --git a/drivers/gpu/drm/drm_lease.c b/drivers/gpu/drm/drm_lease.c
+> index 08ab75303a00..150fe1555068 100644
+> --- a/drivers/gpu/drm/drm_lease.c
+> +++ b/drivers/gpu/drm/drm_lease.c
+> @@ -6,7 +6,7 @@
+>  #include <linux/uaccess.h>
+>  
+>  #include <drm/drm_auth.h>
+> -#include <drm/drm_crtc_helper.h>
+> +#include <drm/drm_crtc.h>
+>  #include <drm/drm_drv.h>
+>  #include <drm/drm_file.h>
+>  #include <drm/drm_lease.h>
+> diff --git a/drivers/gpu/drm/drm_plane_helper.c b/drivers/gpu/drm/drm_plane_helper.c
+> index ba6a9136a065..c91e454eba09 100644
+> --- a/drivers/gpu/drm/drm_plane_helper.c
+> +++ b/drivers/gpu/drm/drm_plane_helper.c
+> @@ -28,7 +28,6 @@
+>  #include <drm/drm_atomic.h>
+>  #include <drm/drm_atomic_helper.h>
+>  #include <drm/drm_atomic_uapi.h>
+> -#include <drm/drm_crtc_helper.h>
+>  #include <drm/drm_device.h>
+>  #include <drm/drm_drv.h>
+>  #include <drm/drm_encoder.h>
+> diff --git a/include/drm/drm_fixed.h b/include/drm/drm_fixed.h
+> index 553210c02ee0..255645c1f9a8 100644
+> --- a/include/drm/drm_fixed.h
+> +++ b/include/drm/drm_fixed.h
+> @@ -25,6 +25,7 @@
+>  #ifndef DRM_FIXED_H
+>  #define DRM_FIXED_H
+>  
+> +#include <linux/kernel.h>
+>  #include <linux/math64.h>
+>  
+>  typedef union dfixed {
+> -- 
+> 2.39.0
