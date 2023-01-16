@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7C95C46467
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 13:13:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58367C63797
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 13:13:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 851CF10E072;
-	Mon, 16 Jan 2023 13:12:50 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1B9510E40B;
- Mon, 16 Jan 2023 13:12:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5758510E430;
+	Mon, 16 Jan 2023 13:12:52 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16FCA10E072;
+ Mon, 16 Jan 2023 13:12:42 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5087437519;
- Mon, 16 Jan 2023 13:12:43 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B6C1E67774;
+ Mon, 16 Jan 2023 13:12:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1673874763; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1673874760; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=c5NMOHULn2JrUd8r3QeP+VZJnEWyurXQ0or7P4hsXMs=;
- b=mjV5f5I31A7SYw05FRd96i9dsdd4NLWEdnEgxHW4zrQG5wQO7vCBoGt1pK1C1/9MwIJFXG
- hl3eBCxcaqrJHbA4QZb68pYNm+MFRvFxK8XGCgeEAGwlTKhLwz9TOLIcI1zqlvDn+kEV8l
- +Ta4jTCGtLC3eG7AU+elICNf0Ky0cbw=
+ bh=aGIRfrzVt2lRRJCGWOkDzXbm/q1OhozGZKyV82xrWWY=;
+ b=AS5i292l/TLgt4y3tGHiRr01JCShlfp66THwbAg3jJFIvnImn7Ct5+50iO9uIlgjh8MZQd
+ tQfNMSwxEbemShLlp/b33L8ieGHwaQif1y2izATuwJW66AnyuBL/ixmmMbhx5yPH5WbUDs
+ pTXW2tCqZOU34yzoIjzEPBt66vjaaNE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1673874763;
+ s=susede2_ed25519; t=1673874760;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=c5NMOHULn2JrUd8r3QeP+VZJnEWyurXQ0or7P4hsXMs=;
- b=XkhQ20prHuOF9WpHyQ/F9tG++Mu5R3CwIUwmd1O4dXc9qzw8OcQBZX5FnU6cvU1VNvaMuI
- 4Z06+lmS4pXeEzCw==
+ bh=aGIRfrzVt2lRRJCGWOkDzXbm/q1OhozGZKyV82xrWWY=;
+ b=rOl/art5B6sAVF+ULi2azkGtW2PW8r8ly1/1Kntr5X0XMWjqhkvrRVE/NwY/U8yaFWfWbG
+ 2eAWnTQU0aIcWFDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1170D138FA;
- Mon, 16 Jan 2023 13:12:43 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 74066139C3;
+ Mon, 16 Jan 2023 13:12:40 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id wIB6A0tNxWNrNQAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 16 Jan 2023 13:12:43 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id sHD7GkhNxWNrNQAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 16 Jan 2023 13:12:40 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: sam@ravnborg.org,
 	daniel@ffwll.ch,
 	airlied@gmail.com
-Subject: [PATCH 20/22] drm/udl: Remove unnecessary include statements for
+Subject: [PATCH 11/22] drm/kmb: Remove unnecessary include statements for
  drm_crtc_helper.h
-Date: Mon, 16 Jan 2023 14:12:33 +0100
-Message-Id: <20230116131235.18917-21-tzimmermann@suse.de>
+Date: Mon, 16 Jan 2023 14:12:24 +0100
+Message-Id: <20230116131235.18917-12-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230116131235.18917-1-tzimmermann@suse.de>
 References: <20230116131235.18917-1-tzimmermann@suse.de>
@@ -86,40 +86,34 @@ possible.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/udl/udl_drv.c     | 2 +-
- drivers/gpu/drm/udl/udl_modeset.c | 1 -
- 2 files changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/kmb/kmb_crtc.c  | 1 -
+ drivers/gpu/drm/kmb/kmb_plane.c | 1 -
+ 2 files changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/udl/udl_drv.c b/drivers/gpu/drm/udl/udl_drv.c
-index e81352126a0f..1506094a8009 100644
---- a/drivers/gpu/drm/udl/udl_drv.c
-+++ b/drivers/gpu/drm/udl/udl_drv.c
-@@ -5,12 +5,12 @@
- 
- #include <linux/module.h>
- 
--#include <drm/drm_crtc_helper.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_fbdev_generic.h>
- #include <drm/drm_file.h>
- #include <drm/drm_gem_shmem_helper.h>
- #include <drm/drm_managed.h>
-+#include <drm/drm_modeset_helper.h>
- #include <drm/drm_ioctl.h>
- #include <drm/drm_probe_helper.h>
- #include <drm/drm_print.h>
-diff --git a/drivers/gpu/drm/udl/udl_modeset.c b/drivers/gpu/drm/udl/udl_modeset.c
-index 4b79d44752c9..aa02fd2789c3 100644
---- a/drivers/gpu/drm/udl/udl_modeset.c
-+++ b/drivers/gpu/drm/udl/udl_modeset.c
-@@ -12,7 +12,6 @@
- 
+diff --git a/drivers/gpu/drm/kmb/kmb_crtc.c b/drivers/gpu/drm/kmb/kmb_crtc.c
+index 06613ffeaaf8..647872f65bff 100644
+--- a/drivers/gpu/drm/kmb/kmb_crtc.c
++++ b/drivers/gpu/drm/kmb/kmb_crtc.c
+@@ -8,7 +8,6 @@
  #include <drm/drm_atomic.h>
  #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_crtc.h>
 -#include <drm/drm_crtc_helper.h>
- #include <drm/drm_damage_helper.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_edid.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_vblank.h>
+ #include <drm/drm_modeset_helper_vtables.h>
+diff --git a/drivers/gpu/drm/kmb/kmb_plane.c b/drivers/gpu/drm/kmb/kmb_plane.c
+index d172a302f902..9e0562aa2bcb 100644
+--- a/drivers/gpu/drm/kmb/kmb_plane.c
++++ b/drivers/gpu/drm/kmb/kmb_plane.c
+@@ -7,7 +7,6 @@
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_blend.h>
+ #include <drm/drm_crtc.h>
+-#include <drm/drm_crtc_helper.h>
+ #include <drm/drm_fb_dma_helper.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_framebuffer.h>
 -- 
 2.39.0
 
