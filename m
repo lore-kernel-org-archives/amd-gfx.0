@@ -4,53 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 224F4C54EBE
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 16:55:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9866EC54EBE
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 17:56:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6035410E46A;
-	Mon, 16 Jan 2023 16:55:23 +0000 (UTC)
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
- [IPv6:2607:f8b0:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AA2C10E468;
- Mon, 16 Jan 2023 16:55:21 +0000 (UTC)
-Received: by mail-oi1-x230.google.com with SMTP id s124so7052128oif.1;
- Mon, 16 Jan 2023 08:55:21 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1112C10E0B4;
+	Mon, 16 Jan 2023 17:56:01 +0000 (UTC)
+Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
+ [IPv6:2001:4860:4864:20::36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93B9B10E0B4;
+ Mon, 16 Jan 2023 17:55:59 +0000 (UTC)
+Received: by mail-oa1-x36.google.com with SMTP id
+ 586e51a60fabf-1322d768ba7so29569608fac.5; 
+ Mon, 16 Jan 2023 09:55:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=y0O74+UeA2cZ/ibulGY4megxEzD1ddBBq/HJy5G2D6I=;
- b=lIKbtkzJNII7ozfex6uzbS7O0xYtmCwLrWEPTZyBFgac82aO2taYqsjS5Tc3XHI/Z7
- hooYavPelZ/DThKvazCTkd18NxILlKjaGKCCaBbo7YvHS1QT6px3bowpiAKhxAMAAL4H
- hWvhLfCZ0BiYJQS3PVY28aaZO4ciEpCub1Hph14lLcWcFdc8bY8CRytxkCEr0zEf3nSF
- KC0nIiLwdTbcO2CHUpW1U4nc4R2a/Yx7e/l+p2gLPzXuxNQ9oAblXW+tCOdLmq7bFe8i
- noZV/cls/19DUdmgYxFC/ekMCyKiGqdb0sqSVFYXvI/NEyNDR5n3iyK58WgarFGAtFDo
- ZtMw==
+ bh=Hmr/4EGVT6Movw4Gw2eBDFQeNgD1pGHhChAaxlPCJsU=;
+ b=SfTnM2vVsOQnrYLrQD9H+RG2EW9ZSkr0xjOPTijmu0aGqrobYsidOwmjAWl+UKjvYp
+ u5Qel07zihwL3o7ogRlLfYtYLm9CQ39KoEN54v5dBoL9AcWzj/NKt2rJSx82+K1fXdUH
+ kwq1u0PKUTd0iqtVB2XV+N3JgSQlwsfdxrne2dtY+DNLtRwzb4CCs/HMic+3OY7NxxAp
+ 61E3JU+1SewSBPbs89B2q3R/A1wm9TQDV1VohQ+ygim0h4CXkBW8taXnDh4ySXm5H3c5
+ r1b1gN1WO0kd2rh25bsyQl3A4QGXc2FyOEBSZVNq9MTM8OJuvt0KOilwPvvOzD1dmL5I
+ W9oA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=y0O74+UeA2cZ/ibulGY4megxEzD1ddBBq/HJy5G2D6I=;
- b=HRzQAx36A+4+bVTMUG+cvw3s+0w+BXutrbug5w/v522+pSI91sW9W759+cqzgMoYMX
- LnJMuxcLfPRVF614RWDi80/qoO0Dm3RzPc2QLPt39gmJ1wqMtYw0GOimo92XJTcvBlqE
- bDmjAdPJQHDiL/UnoS62twgAYFETCipKXbu/faZUV7bAjysSH6MtmVNSLTV+flH75/pt
- KfiKZnxuuA1ynI8VNvV+6Ca72bXbI9uNyy3rG+p9i+BTEE9IAHZDx5yDQuWa8iqj+aOO
- KmezAcjBpYBSE0KCkES/zZTgHEyyv2Kd63E7OoUEAvot1f8mcj70ViHqB5y3oK1Lzok7
- jD2A==
-X-Gm-Message-State: AFqh2ko2skKIi3QMNIa6FAOXHP2thy0Lx5dJrfs4azTdr+ecWA7o6siY
- JLbsorD5QKvSg1ywZGEBCgTIdA58odv4ZIigvbk=
-X-Google-Smtp-Source: AMrXdXuTnJ7x7DrIPXzxliD3T3AyoQo6XafEzt4UKcXpC+LEqtjn8wHIiMMhnQ0t5noVRMcovw8k4Cc2S1F90fvB7ok=
-X-Received: by 2002:aca:2807:0:b0:35b:f5f7:3ed0 with SMTP id
- 7-20020aca2807000000b0035bf5f73ed0mr811oix.46.1673888120292; Mon, 16 Jan 2023
- 08:55:20 -0800 (PST)
+ bh=Hmr/4EGVT6Movw4Gw2eBDFQeNgD1pGHhChAaxlPCJsU=;
+ b=iOcyey2DGKdLid7b/MrYX4hT0qwCDo/ci2fhfF+Xf1GtXq/EwWE/Zp9Z75h/NLky3c
+ Sw41dwkRql9/HNi4/xgqi93lBJp6UL5x64EoxGQq/13uNC/K1xriSQovzVUiBFIGRtih
+ PhG1eqFTaMlLJvgasIbPoJOHhXC21WVDeYCfktLuOnxHJBLjsOLJnJrylAWbqAWHTWOJ
+ FNE1Cz7rQzhCZpXYzAn4OOdElQd+sDuO1kkkYppraMw7WBvOyy9vHRmaypu5HSMvaGx6
+ g9aiPbkwBtAp64a+CKUynzPEcPKwY5oEVkhVtfWyXFjwjuTcMp21Yd60oBzhjaQ0vkSj
+ AN9A==
+X-Gm-Message-State: AFqh2kq3jf2V+MqFNnsslRE8FW97v7q8SUUytardI6nTZ5N2lhkdy+hB
+ VVTZ6qLyKCr8/P6suXhDtipB3MS1vF6WGEg2b/0=
+X-Google-Smtp-Source: AMrXdXtsyr3fZssneo+m+TaFDxl8UcCwFPa0HZ9ecIR2snIjS8XHBcWS8ZqbYDjLLr2NyLRnUaMRQxi7OAUj8r8E+KM=
+X-Received: by 2002:a05:6870:7a18:b0:15f:5509:9a0d with SMTP id
+ hf24-20020a0568707a1800b0015f55099a0dmr52425oab.46.1673891758551; Mon, 16 Jan
+ 2023 09:55:58 -0800 (PST)
 MIME-Version: 1.0
-References: <Y8QkZZiV78SskCIT@camel3.lan>
-In-Reply-To: <Y8QkZZiV78SskCIT@camel3.lan>
+References: <cover.1673766696.git.drv@mailo.com>
+ <DM6PR12MB2619EF8DBE956A8F79A579DCE4C19@DM6PR12MB2619.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB2619EF8DBE956A8F79A579DCE4C19@DM6PR12MB2619.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 16 Jan 2023 11:55:08 -0500
-Message-ID: <CADnq5_OQ=i8GSwqEDTYrbaC1uYLw9kJepdACUTqmd24ci3Yg0g@mail.gmail.com>
-Subject: Re: Barco MXRT-5600 branded W5100 with PCI ID 664d
-To: Matthias Reichl <hias@horus.com>
+Date: Mon, 16 Jan 2023 12:55:47 -0500
+Message-ID: <CADnq5_NuNYcgK1K-5J-cU7ZSNuMrkEMuO_ZkcNzWsESSKH-SaA@mail.gmail.com>
+Subject: Re: [PATCH 0/3] drm/amd/pm/powerplay: use bitwise or for bitmasks
+ addition
+To: "Quan, Evan" <Evan.Quan@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,76 +66,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org
+Cc: Saurabh Singh Sengar <ssengar@microsoft.com>,
+ Deepak R Varma <drv@mailo.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Praveen Kumar <kumarpraveen@linux.microsoft.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Jan 15, 2023 at 11:49 AM Matthias Reichl <hias@horus.com> wrote:
->
-> I noticed some of the used HP Z240 workstations I recently bought had a
-> Barco MXRT-5600 branded FirePro W5100 card installed - some others came with
-> an unbranded W5100 (with the standard 6449 PCI ID).
->
-> Except for a large Barco sticker on the top and Barco being mentioned on
-> the barcode label on the back they look completely identical.
->
-> lspci knows about the 644d PCI ID but neither the radeon nor amdgpu kernel
-> drivers do nor does drm/mesa/xorg userspace.
->
-> I had a go at it, added the pci id to kernel drivers, libdrm, mesa, xf86-video-ati
-> and xserver and got the card working fine on Debian Bullseye with kernel 6.2-rc3.
-> I also gave it a quick try with LibreELEC (where we build bleeding edge versions
-> from scratch) and that worked fine, too.
->
-> Do you happen to know more about that card and why the PCI ID is missing in
-> linux drivers/userspace?
-
-I don't see that DID in either the Linux driver or our windows driver.
-Presumably it was a special card supported with a special driver for a
-specific customer.  I'm not really sure off hand whether it needs some
-special handling.
+Applied.  Thanks!
 
 Alex
 
-
+On Sun, Jan 15, 2023 at 9:27 PM Quan, Evan <Evan.Quan@amd.com> wrote:
 >
-> I'm just attaching my current kernel and userspace patches as a reference
-> for now but I'm very unsure in which sequence they should be applied without
-> risking breakage - I already found out the hard way that patched xorg server
-> and driver with old libdrm is a bad idea as that results in "Failed to initialize
-> surface manager" instead of starting with framebuffer driver.
+> [AMD Official Use Only - General]
 >
-> If you prefer I can send proper patches or I can just you let handle it.
+> Series is reviewed-by: Evan Quan <evan.quan@amd.com>
 >
-> For reference here's the lspci outout (with patched kernel and cik support
-> enabled in amdgpu):
->
-> root@camel3:~# lspci -vn -s 01:00.0
-> 01:00.0 0300: 1002:664d (prog-if 00 [VGA controller])
->         Subsystem: 13cc:3d2a
->         Flags: bus master, fast devsel, latency 0, IRQ 137
->         Memory at 1c00000000 (64-bit, prefetchable) [size=4G]
->         Memory at 1d00000000 (64-bit, prefetchable) [size=8M]
->         I/O ports at 3000 [size=256]
->         Memory at d0f00000 (32-bit, non-prefetchable) [size=256K]
->         Expansion ROM at d0f40000 [disabled] [size=128K]
->         Capabilities: [48] Vendor Specific Information: Len=08 <?>
->         Capabilities: [50] Power Management version 3
->         Capabilities: [58] Express Legacy Endpoint, MSI 00
->         Capabilities: [a0] MSI: Enable+ Count=1/1 Maskable- 64bit+
->         Capabilities: [100] Vendor Specific Information: ID=0001 Rev=1 Len=010 <?>
->         Capabilities: [150] Advanced Error Reporting
->         Capabilities: [200] Physical Resizable BAR
->         Capabilities: [270] Secondary PCI Express
->         Capabilities: [2b0] Address Translation Service (ATS)
->         Capabilities: [2c0] Page Request Interface (PRI)
->         Capabilities: [2d0] Process Address Space ID (PASID)
->         Kernel driver in use: amdgpu
->         Kernel modules: radeon, amdgpu
->
-> so long,
->
-> Hias
+> > -----Original Message-----
+> > From: Deepak R Varma <drv@mailo.com>
+> > Sent: Sunday, January 15, 2023 3:16 PM
+> > To: Quan, Evan <Evan.Quan@amd.com>; Deucher, Alexander
+> > <Alexander.Deucher@amd.com>; Koenig, Christian
+> > <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; David
+> > Airlie <airlied@gmail.com>; Daniel Vetter <daniel@ffwll.ch>; amd-
+> > gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-
+> > kernel@vger.kernel.org
+> > Cc: Saurabh Singh Sengar <ssengar@microsoft.com>; Praveen Kumar
+> > <kumarpraveen@linux.microsoft.com>
+> > Subject: [PATCH 0/3] drm/amd/pm/powerplay: use bitwise or for bitmasks
+> > addition
+> >
+> > The patch series proposes usage of bitwise or "|" operator for addition of
+> > bitmasks instead of using numerial additions. The former is quicker and
+> > cleaner.
+> >
+> > The proposed change is compile tested.
+> >
+> > Deepak R Varma (3):
+> >   drm/amd/pm/powerplay/smumgr: use bitwise or for addition
+> >   drm/amd/pm/powerplay/hwmgr: use bitwise or for bitmasks addition
+> >   drm/amd/pm/powerplay/smumgr/ci: use bitwise or for bitmasks addition
+> >
+> >  drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c      | 8 ++++---
+> > -
+> >  drivers/gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c      | 2 +-
+> >  drivers/gpu/drm/amd/pm/powerplay/smumgr/iceland_smumgr.c | 2 +-
+> >  drivers/gpu/drm/amd/pm/powerplay/smumgr/tonga_smumgr.c   | 2 +-
+> >  4 files changed, 7 insertions(+), 7 deletions(-)
+> >
+> > --
+> > 2.34.1
+> >
+> >
