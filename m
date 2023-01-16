@@ -4,48 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E9BEC67871
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 20:19:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C3EBC54EBE
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 20:25:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 690A910E4B3;
-	Mon, 16 Jan 2023 20:19:30 +0000 (UTC)
-Received: from mailrelay3-1.pub.mailoutpod2-cph3.one.com
- (mailrelay3-1.pub.mailoutpod2-cph3.one.com [46.30.211.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED82010E4B2
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jan 2023 20:19:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ravnborg.org; s=rsa2;
- h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
- from:date:from;
- bh=bytMIduQNheRqZe6kytm7ykaGcqK/vKRwfXEFkmSQ90=;
- b=QyWyNEP/8+tGmIwWiEt9T7RyGf/vIOdDrLK40zukj0pdscxv8+C/qAH+sgoBlHmgjVIefXoSUF4jH
- Xt9O1NouPoVELk7nTE/xW6hIZBEW1ZJ6Qr2QTro/02sZYiWpOed3SFv1PerB5de3A/aXdMVkw82Cz0
- wZjKtq+ux5P3qYOysPwrHB5utIaKFtMxIf3ybwGNSOQunHtchICX6AFPhIUSSPHjbe7VjamdWH/T4A
- am9/LBvAr5TLWp3D5Dtrz2asFE6c2vHwR/p25qvtnYe1GeIrrCCygm9z5knlSWirunI6DZHRTMEKVm
- vTANNZ/ycTbCK28vo9dFA/JId2NgLyw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed;
- d=ravnborg.org; s=ed2;
- h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
- from:date:from;
- bh=bytMIduQNheRqZe6kytm7ykaGcqK/vKRwfXEFkmSQ90=;
- b=vtzSjnBZqhZ4qvoCa9tGfq1uiYGVTigg/jlRxjalISRNzouXb9Cok8iKjyjF61/lGG6D46KLzGBKy
- 7zf9MIgCA==
-X-HalOne-ID: eb382d74-95da-11ed-b179-ede074c87fad
-Received: from ravnborg.org (2-105-2-98-cable.dk.customer.tdc.net [2.105.2.98])
- by mailrelay3 (Halon) with ESMTPSA
- id eb382d74-95da-11ed-b179-ede074c87fad;
- Mon, 16 Jan 2023 20:18:21 +0000 (UTC)
-Date: Mon, 16 Jan 2023 21:18:20 +0100
-From: Sam Ravnborg <sam@ravnborg.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH 03/22] drm/amdgpu: Remove unnecessary include statements
- for drm_crtc_helper.h
-Message-ID: <Y8WxDCtn8HriRhyG@ravnborg.org>
-References: <20230116131235.18917-1-tzimmermann@suse.de>
- <20230116131235.18917-4-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C05410E4B4;
+	Mon, 16 Jan 2023 20:25:09 +0000 (UTC)
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69A4B10E4B4
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jan 2023 20:25:07 +0000 (UTC)
+Received: by mail-ot1-x331.google.com with SMTP id
+ k44-20020a9d19af000000b00683e176ab01so16701423otk.13
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jan 2023 12:25:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=oyHrQKSrI2xY08/CxRkLvVyIkiEr34nu/gSvHRqslBo=;
+ b=UCFTn+oycVkDbh8KgquiZuT29hlFXoLDiMLkARdQvQMOnjM4/MjTS13mspiBpDDbK2
+ feJqCJ1enF2V1x7QIiWSkCKS3YnCgCsIe/kVsyAyazvT7hLkpjximwMZs27aQ2NLA/21
+ c/yw0Q2/xB6r9kjop4930EQ+IjowT8ftbyfFmzn9eIdxY/pEYVg6Gb0+A7WJGOezdKmy
+ rpPpZDl+Wj375dt0YCUcmsepca1h5C7+07pVWvbK1sdmZQukcLSgbRbkIor5OugPS6E/
+ S2qGlTHWBB3o00iU8VmnDz1KSq1HCO3L2/gDFJp6mJAApFV+Pg18gkO58URqEePNE7t3
+ aJCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=oyHrQKSrI2xY08/CxRkLvVyIkiEr34nu/gSvHRqslBo=;
+ b=GhVgNK3FKGxIzim8zjih39Oshxs4Bb54LcN6qKch2EABVZOJkG0azk9tI1G4ue03z0
+ 77sndZyBBR+aRAivAvuzF9Q9cmsNLhAAvgK28DFBWmOJj9HQ8lSUzq2p69ha5PmQBONX
+ PaIhjJTbQUPaEFAByjZM3J84ndUChA1d88mYvsQUyg+NxrI/EZQtpunhuaykTfftVN7A
+ PBx7L6CHLTrdjLRVq5GsbbYO1VZmaLncUucTlehvZ1vgQmnmzrNp1Fx9fjXHg1XaoVFD
+ uzp9o8o9+KEtfiA7gPfSJ6hrMGbmlrkGaDX9WR4/1VWn4LMmOHabTyZLlfWzW3FucSqM
+ 6xTQ==
+X-Gm-Message-State: AFqh2kpZZvr4yKImYtHKrLe+oXy1A2YMW8rwQ31rySoPSg7COMOeaeA1
+ iqs299Olu94d4FdvwoziDP/cXsNJiwOBix6Itbs=
+X-Google-Smtp-Source: AMrXdXsfOzJwqDhcn/azqVB6ZGKwEOpFCJhbNRQeCcGqpQwJqZztHtnGOUDanFillBuMMhEen+FEM4wu16QJGam5Vfg=
+X-Received: by 2002:a05:6830:449:b0:684:bedc:4f54 with SMTP id
+ d9-20020a056830044900b00684bedc4f54mr20178otc.233.1673900706590; Mon, 16 Jan
+ 2023 12:25:06 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230116131235.18917-4-tzimmermann@suse.de>
+References: <20230116201218.5113-1-christian.koenig@amd.com>
+ <CADnq5_OghKCnPJ_eGZQ=de2zaXfC6syG_h_NYCQrPLM8dT=ACQ@mail.gmail.com>
+In-Reply-To: <CADnq5_OghKCnPJ_eGZQ=de2zaXfC6syG_h_NYCQrPLM8dT=ACQ@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 16 Jan 2023 15:24:54 -0500
+Message-ID: <CADnq5_NQpsaec3Azz1UVWLpYKaVouVDhCU51MnFt+wqmzXCD7A@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu: fix amdgpu_job_free_resources v2
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,191 +67,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
- linux-mips@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, airlied@gmail.com,
- linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Cc: amd-gfx@lists.freedesktop.org, thong.thai@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 16, 2023 at 02:12:16PM +0100, Thomas Zimmermann wrote:
-> Several source files include drm_crtc_helper.h without needing it or
-> only to get its transitive include statements; leading to unnecessary
-> compile-time dependencies.
-> 
-> Directly include required headers and drop drm_crtc_helper.h where
-> possible.
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c | 2 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c     | 1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c    | 1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_encoders.c   | 1 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c        | 1 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h       | 1 -
->  drivers/gpu/drm/amd/amdgpu/atombios_crtc.c     | 1 -
->  drivers/gpu/drm/amd/amdgpu/atombios_encoders.c | 1 -
->  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c         | 2 ++
->  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c         | 2 ++
->  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c          | 2 ++
->  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c          | 2 ++
->  12 files changed, 12 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> index 2ebbc6382a06..3c962d0214cc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> @@ -25,7 +25,9 @@
->   */
->  
->  #include <drm/display/drm_dp_helper.h>
-> +#include <drm/drm_crtc_helper.h>
->  #include <drm/drm_edid.h>
-> +#include <drm/drm_modeset_helper_vtables.h>
->  #include <drm/drm_probe_helper.h>
->  #include <drm/amdgpu_drm.h>
->  #include "amdgpu.h"
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 0993ee91fe18..63122482208d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -39,6 +39,7 @@
->  #include <drm/drm_aperture.h>
->  #include <drm/drm_atomic_helper.h>
->  #include <drm/drm_fb_helper.h>
-> +#include <drm/drm_crtc_helper.h>
-Move it one line up to keep the sorting.
+On Mon, Jan 16, 2023 at 3:15 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> On Mon, Jan 16, 2023 at 3:12 PM Christian K=C3=B6nig
+> <ckoenig.leichtzumerken@gmail.com> wrote:
+> >
+> > It can be that neither fence were initialized when we run out of UVD
+> > streams for example.
+> >
+> > v2: fix typo breaking compile
+> >
+> > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-With this fixed:
-Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
->  #include <drm/drm_probe_helper.h>
->  #include <drm/amdgpu_drm.h>
->  #include <linux/vgaarb.h>
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> index b22471b3bd63..c5b98e9a69e9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> @@ -42,6 +42,7 @@
->  #include <drm/drm_fb_helper.h>
->  #include <drm/drm_gem_framebuffer_helper.h>
->  #include <drm/drm_fourcc.h>
-> +#include <drm/drm_modeset_helper.h>
->  #include <drm/drm_vblank.h>
->  
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_encoders.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_encoders.c
-> index c96e458ed088..27a782a9dc72 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_encoders.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_encoders.c
-> @@ -24,7 +24,6 @@
->   *          Alex Deucher
->   */
->  
-> -#include <drm/drm_crtc_helper.h>
->  #include <drm/amdgpu_drm.h>
->  #include "amdgpu.h"
->  #include "amdgpu_connectors.h"
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> index a6aef488a822..d0a1cc88832c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> @@ -45,7 +45,6 @@
->  #include <linux/irq.h>
->  #include <linux/pci.h>
->  
-> -#include <drm/drm_crtc_helper.h>
->  #include <drm/drm_vblank.h>
->  #include <drm/amdgpu_drm.h>
->  #include <drm/drm_drv.h>
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> index 8a39300b1a84..cf4b6e8d7d1e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> @@ -35,7 +35,6 @@
->  #include <drm/drm_edid.h>
->  #include <drm/drm_encoder.h>
->  #include <drm/drm_fixed.h>
-> -#include <drm/drm_crtc_helper.h>
->  #include <drm/drm_framebuffer.h>
->  #include <drm/drm_probe_helper.h>
->  #include <linux/i2c.h>
-> diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_crtc.c b/drivers/gpu/drm/amd/amdgpu/atombios_crtc.c
-> index afad094f84c2..10098fdd33fc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/atombios_crtc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/atombios_crtc.c
-> @@ -24,7 +24,6 @@
->   *          Alex Deucher
->   */
->  
-> -#include <drm/drm_crtc_helper.h>
->  #include <drm/amdgpu_drm.h>
->  #include <drm/drm_fixed.h>
->  #include "amdgpu.h"
-> diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
-> index 18ae9433e463..d95b2dc78063 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/atombios_encoders.c
-> @@ -28,7 +28,6 @@
->  
->  #include <acpi/video.h>
->  
-> -#include <drm/drm_crtc_helper.h>
->  #include <drm/amdgpu_drm.h>
->  #include "amdgpu.h"
->  #include "amdgpu_connectors.h"
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> index a2452fc304c5..01d1e2a631be 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> @@ -22,6 +22,8 @@
->   */
->  
->  #include <drm/drm_fourcc.h>
-> +#include <drm/drm_modeset_helper.h>
-> +#include <drm/drm_modeset_helper_vtables.h>
->  #include <drm/drm_vblank.h>
->  
->  #include "amdgpu.h"
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> index 6ac680c4c6e2..973abe989ebe 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> @@ -22,6 +22,8 @@
->   */
->  
->  #include <drm/drm_fourcc.h>
-> +#include <drm/drm_modeset_helper.h>
-> +#include <drm/drm_modeset_helper_vtables.h>
->  #include <drm/drm_vblank.h>
->  
->  #include "amdgpu.h"
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> index 354ae09cc9a2..86e95b1c9d0e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> @@ -24,6 +24,8 @@
->  #include <linux/pci.h>
->  
->  #include <drm/drm_fourcc.h>
-> +#include <drm/drm_modeset_helper.h>
-> +#include <drm/drm_modeset_helper_vtables.h>
->  #include <drm/drm_vblank.h>
->  
->  #include "amdgpu.h"
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> index 33977b0ba19d..f81f1d5d3e8a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> @@ -22,6 +22,8 @@
->   */
->  
->  #include <drm/drm_fourcc.h>
-> +#include <drm/drm_modeset_helper.h>
-> +#include <drm/drm_modeset_helper_vtables.h>
->  #include <drm/drm_vblank.h>
->  
->  #include "amdgpu.h"
-> -- 
-> 2.39.0
+Also add:
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2324
+
+Alex
+
+>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 10 ++++++++--
+> >  1 file changed, 8 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_job.c
+> > index f4a3122352de..6b73c074aa25 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > @@ -154,8 +154,14 @@ void amdgpu_job_free_resources(struct amdgpu_job *=
+job)
+> >         struct dma_fence *f;
+> >         unsigned i;
+> >
+> > -       /* use sched fence if available */
+> > -       f =3D job->base.s_fence ? &job->base.s_fence->finished :  &job-=
+>hw_fence;
+> > +       /* Check if any fences where initialized */
+> > +       if (job->base.s_fence && job->base.s_fence->finished.ops)
+> > +               f =3D &job->base.s_fence->finished;
+> > +       else if (job->hw_fence.ops)
+> > +               f =3D &job->hw_fence;
+> > +       else
+> > +               f =3D NULL;
+> > +
+> >         for (i =3D 0; i < job->num_ibs; ++i)
+> >                 amdgpu_ib_free(ring->adev, &job->ibs[i], f);
+> >  }
+> > --
+> > 2.34.1
+> >
