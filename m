@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A506C63797
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 13:13:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E8FCC63797
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 13:13:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44FB210E439;
-	Mon, 16 Jan 2023 13:12:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2E0010E428;
+	Mon, 16 Jan 2023 13:12:56 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 542C210E3FC;
- Mon, 16 Jan 2023 13:12:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2F7510E401;
+ Mon, 16 Jan 2023 13:12:41 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 108BF37517;
- Mon, 16 Jan 2023 13:12:43 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 6EDE937516;
+ Mon, 16 Jan 2023 13:12:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1673874763; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1673874760; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=CHJduNjTlBdtfxl8JrayP6NLHP0T+8ZzSLanopuII3s=;
- b=cTP0/Amq7eept+EgzV+NHtfmjOf92B9XzudnFU/YSuugqMCvmwMkXsRbr6qp7KLnqxXQNB
- MvopcVNU5LyUbuBdiVC6KCzhmkXbL4yLAvQKFNQLzlEIdNZx+NrcMbsyFMdPEMuUdIRIxb
- +QCZwiZ89nMyuIe+MQrmacQu0N7DFOs=
+ bh=PHWdhA2xJu7hAXQ9WJX00V//m+GFCfQeaohs5Oa6Mx8=;
+ b=gJQ6CzKL0YVSDc7SFHh/root3sxcKDJDmvfnkqUWM6kNW7hKdSP+Tk+X6hvvxnlppUVZRd
+ SGorwoEGSX9XxlgXvGYMOebves9yYmbVAvZifK7epWIbYAlSgfne8onn7xBA8MCwlniMlQ
+ mZblMhFVtuIWCsQcq/cNYAUHmGYscLM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1673874763;
+ s=susede2_ed25519; t=1673874760;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=CHJduNjTlBdtfxl8JrayP6NLHP0T+8ZzSLanopuII3s=;
- b=HKTNeajy+YLfmf8rC2RHhY13CZrsNsl8trSX5oZ5oiq8I2qrnlASkppmuZJecr4oNc8QCU
- IE7z7+mqVPua4BCg==
+ bh=PHWdhA2xJu7hAXQ9WJX00V//m+GFCfQeaohs5Oa6Mx8=;
+ b=JAqnOdnpkbzMvbaY3jFsS786rm7V6DysBPyCNLSbftyFn80T6WBMTOBVDqpwuD9kX2u/Ka
+ mGLYXeFGeZHAP4Dg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C0A05139C3;
- Mon, 16 Jan 2023 13:12:42 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2D8A7138FA;
+ Mon, 16 Jan 2023 13:12:40 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id yOcwLkpNxWNrNQAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 16 Jan 2023 13:12:42 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id MGHxCUhNxWNrNQAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 16 Jan 2023 13:12:40 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: sam@ravnborg.org,
 	daniel@ffwll.ch,
 	airlied@gmail.com
-Subject: [PATCH 19/22] drm/tidss: Remove unnecessary include statements for
+Subject: [PATCH 10/22] drm/ingenic: Remove unnecessary include statements for
  drm_crtc_helper.h
-Date: Mon, 16 Jan 2023 14:12:32 +0100
-Message-Id: <20230116131235.18917-20-tzimmermann@suse.de>
+Date: Mon, 16 Jan 2023 14:12:23 +0100
+Message-Id: <20230116131235.18917-11-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230116131235.18917-1-tzimmermann@suse.de>
 References: <20230116131235.18917-1-tzimmermann@suse.de>
@@ -86,74 +86,21 @@ possible.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/tidss/tidss_crtc.c    | 1 -
- drivers/gpu/drm/tidss/tidss_drv.c     | 1 -
- drivers/gpu/drm/tidss/tidss_encoder.c | 2 +-
- drivers/gpu/drm/tidss/tidss_kms.c     | 1 -
- drivers/gpu/drm/tidss/tidss_plane.c   | 1 -
- 5 files changed, 1 insertion(+), 5 deletions(-)
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tidss/tidss_crtc.c b/drivers/gpu/drm/tidss/tidss_crtc.c
-index cd3c43a6c806..5e5e466f35d1 100644
---- a/drivers/gpu/drm/tidss/tidss_crtc.c
-+++ b/drivers/gpu/drm/tidss/tidss_crtc.c
-@@ -7,7 +7,6 @@
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
+diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+index 3d5af44bf92d..5ec75e9ba499 100644
+--- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
++++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+@@ -26,7 +26,6 @@
+ #include <drm/drm_bridge_connector.h>
+ #include <drm/drm_color_mgmt.h>
  #include <drm/drm_crtc.h>
 -#include <drm/drm_crtc_helper.h>
- #include <drm/drm_gem_dma_helper.h>
- #include <drm/drm_vblank.h>
- 
-diff --git a/drivers/gpu/drm/tidss/tidss_drv.c b/drivers/gpu/drm/tidss/tidss_drv.c
-index 07d94b1e8089..2dac8727d2f4 100644
---- a/drivers/gpu/drm/tidss/tidss_drv.c
-+++ b/drivers/gpu/drm/tidss/tidss_drv.c
-@@ -12,7 +12,6 @@
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_crtc.h>
--#include <drm/drm_crtc_helper.h>
+ #include <drm/drm_damage_helper.h>
  #include <drm/drm_drv.h>
- #include <drm/drm_fbdev_generic.h>
- #include <drm/drm_gem_dma_helper.h>
-diff --git a/drivers/gpu/drm/tidss/tidss_encoder.c b/drivers/gpu/drm/tidss/tidss_encoder.c
-index e278a9c89476..0d4865e9c03d 100644
---- a/drivers/gpu/drm/tidss/tidss_encoder.c
-+++ b/drivers/gpu/drm/tidss/tidss_encoder.c
-@@ -7,7 +7,7 @@
- #include <linux/export.h>
- 
- #include <drm/drm_crtc.h>
--#include <drm/drm_crtc_helper.h>
-+#include <drm/drm_modeset_helper_vtables.h>
- #include <drm/drm_panel.h>
- #include <drm/drm_of.h>
- 
-diff --git a/drivers/gpu/drm/tidss/tidss_kms.c b/drivers/gpu/drm/tidss/tidss_kms.c
-index 345bcc3011e4..ad2fa3c3d4a7 100644
---- a/drivers/gpu/drm/tidss/tidss_kms.c
-+++ b/drivers/gpu/drm/tidss/tidss_kms.c
-@@ -9,7 +9,6 @@
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_bridge.h>
--#include <drm/drm_crtc_helper.h>
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_of.h>
- #include <drm/drm_panel.h>
-diff --git a/drivers/gpu/drm/tidss/tidss_plane.c b/drivers/gpu/drm/tidss/tidss_plane.c
-index 42d50ec5526d..fe2c41f0cd4f 100644
---- a/drivers/gpu/drm/tidss/tidss_plane.c
-+++ b/drivers/gpu/drm/tidss/tidss_plane.c
-@@ -8,7 +8,6 @@
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_blend.h>
- #include <drm/drm_crtc.h>
--#include <drm/drm_crtc_helper.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_framebuffer.h>
- #include <drm/drm_gem_atomic_helper.h>
+ #include <drm/drm_encoder.h>
 -- 
 2.39.0
 
