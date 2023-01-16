@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22560C54EBE
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 18:06:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 301E7C46467
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 18:37:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE89910E480;
-	Mon, 16 Jan 2023 18:06:02 +0000 (UTC)
-Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
- [IPv6:2607:f8b0:4864:20::22f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D69DE10E47E;
- Mon, 16 Jan 2023 18:06:00 +0000 (UTC)
-Received: by mail-oi1-x22f.google.com with SMTP id o66so23988274oia.6;
- Mon, 16 Jan 2023 10:06:00 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B29D510E48B;
+	Mon, 16 Jan 2023 18:37:47 +0000 (UTC)
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
+ [IPv6:2607:f8b0:4864:20::231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42E1E10E0C2;
+ Mon, 16 Jan 2023 18:37:43 +0000 (UTC)
+Received: by mail-oi1-x231.google.com with SMTP id r9so13301184oie.13;
+ Mon, 16 Jan 2023 10:37:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=jS6lFIJFjFUtY3mw8cyMrgKm76WlKsu232wNoOu9BFI=;
- b=pJUbclSZ3i6Jdg01liLqHc4w2CrtWVSvaOfhA/DUvmwvBfI9LV/fSr9f0+RsBvfbLx
- mSuHpfqzVwUOvdgr8BT+nESWO/0QhJY7FYtEC48w4a2xddiPX+BPDav7qXMtorGbTXUq
- hjQMR/WAaB4ryPMo9lf54fjFLNek6uWrPFOwM6l8Xd/xDdB6xaxgevUnUfNn/0eWYNTc
- bKMw7E9OC5EgqTES2vcg5jM7PqToB0TgsIByf+obkVK3lyB6P/PcTiK4JkRpIAYBGTyB
- 1Id0dsqzXGVrfVIItHtSGIEkdKnSeVlrgExRRUQaOVdZ/2a73hix4y96Jlu2eI2bS7Za
- OBIA==
+ bh=bz6Srssb7KxtWIp2StQowmALBQ/ecYiEATmxxDpLUgE=;
+ b=da/8FrC3su8n4920e9FOvu1j/TWeGMIAZK3QFppvkb8spsp70RYdvbMm2q6kr8fatp
+ 5ZhAWveL0+ghlV+yoW55uxO1VApqKx7SI3P9NQE44tN5xuWeO0ji9XuxwTvr/dlc9rsT
+ tVUpF37v44gwmO7bLXKdtbiGDN/w5BQAj3xAbBkq52KC4lJdYL5HB8bnXAJ4+Its3plb
+ v4Jme9uznTgidvg/tGOHCdyd7VszsqLeOpmjJn9xH6h/dQojHZTl8CSLKaqG/edls6PK
+ yQ1U3V9Jp+1Ca32YYe1xYlqr5URZI2+ZvAQNN1kMuPpVWR6dfbhkvE0JUVZPCO257Kdu
+ QMeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=jS6lFIJFjFUtY3mw8cyMrgKm76WlKsu232wNoOu9BFI=;
- b=Oj9yd2reWsDbouWrahoPCJ/Elcgk6Tgt5UYsGwqbnzwOf2BCDnkmO8C3i+lqatNfDf
- LRXptjlBx5GmExJ46rwREVosymaW0bgF5+OOL00osjcBB609ugq8CfAxYttACw+cqjMJ
- AY4wGoiShuK71DFYQHccgqwkxxYe19ejdxa6dtzGqWTXvWiEIKhNJro85PyLhI0yUbiU
- CCDVWc0WBPHN99nWXxtum1OqoEEkqYbHLhvH5EC1WasciEaHxB7o6xR7xv2pLlbgPqzf
- tqCuuzh3SUiZjLUAHBk9G7gnBXuwhIICg9Ro1sb4KGQN3YOZMoylWH8uKBjxLDxGKJ3c
- ywgQ==
-X-Gm-Message-State: AFqh2koLHt99v1Psi/ptibbJS4u5Pm0q07u4ohaxtp0EmL/rSSiseTxQ
- 72RpHRTb1qpmQCEeW4eUK4ID4Bki6wFxaQkUvvw=
-X-Google-Smtp-Source: AMrXdXvrZGLO62Oo0eXSOIOLUZCvlkDtQzC8DtTWKD6P/g/Ade7N08+e9NEuxmouzOQHO07H0ArjVT5oqOGIBob8wbI=
-X-Received: by 2002:a05:6808:4387:b0:35b:d93f:cbc4 with SMTP id
- dz7-20020a056808438700b0035bd93fcbc4mr8161oib.96.1673892358616; Mon, 16 Jan
- 2023 10:05:58 -0800 (PST)
+ bh=bz6Srssb7KxtWIp2StQowmALBQ/ecYiEATmxxDpLUgE=;
+ b=DzTV/hf6xCj0balEHdcnbV5wUaa7j9/0cClKxAP/1E8RHutOpaHJD8ZZZQxrqr7NcB
+ kvQSNNOPbXhfKEtTilwL7ghF3AeOn7443lYt/Y1AJBKexvcIr6pNwKpnDD+mFsHlgtaA
+ bdXnkvFQVzKUNcXTq23iTlV5QVNlI1k68CkG0DPf2ROqHRQKZqHD7C4FYbIDWe6GOKJ0
+ qJ7LCqX7Nm+jwzFE9hWaCP0Kc4Ix3j1e5QV4ebMRSyW2s1mqR8QQZisXu5gEj4vHhnxD
+ AD+9ZfQvfG5Gb56tI7LBED+SPOIs7dQ54rF1oGuTix3ad+sML1NWaR00huvPK2vJa3m2
+ WS/g==
+X-Gm-Message-State: AFqh2krzJPQBHDluIWbQTpBCi0zddvg0eXfFztQq7rgNMMk2isb2wFRs
+ NKTcmpv0qCEBjhOrwceUpqQsZBIjjPiSOCE3U38=
+X-Google-Smtp-Source: AMrXdXtOKveG9OHXqQHo9xNE/hNA9+TOjgR84/kFoTmzmkWJIw/wZWO6Z17PeC1Jr2qOmQVHIKAxEfu0US9MC60q0b0=
+X-Received: by 2002:aca:2807:0:b0:35b:f5f7:3ed0 with SMTP id
+ 7-20020aca2807000000b0035bf5f73ed0mr17751oix.46.1673894262477; Mon, 16 Jan
+ 2023 10:37:42 -0800 (PST)
 MIME-Version: 1.0
 References: <20230116131235.18917-1-tzimmermann@suse.de>
- <20230116131235.18917-2-tzimmermann@suse.de>
-In-Reply-To: <20230116131235.18917-2-tzimmermann@suse.de>
+ <87k01me9jn.fsf@intel.com>
+In-Reply-To: <87k01me9jn.fsf@intel.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 16 Jan 2023 13:05:47 -0500
-Message-ID: <CADnq5_P4DgCi_JwXo2fJS=cCBmumsw5Og5ZYt+J4J_Lak74e0Q@mail.gmail.com>
-Subject: Re: [PATCH 01/22] drm/amdgpu: Fix coding style
-To: Thomas Zimmermann <tzimmermann@suse.de>
+Date: Mon, 16 Jan 2023 13:37:31 -0500
+Message-ID: <CADnq5_PsL8N27_LC_h1m8i_FCg6mJtr7K9Yjv=guw-KGD2wU5w@mail.gmail.com>
+Subject: Re: [PATCH 00/22] drm: Remove includes for drm_crtc_helper.h
+To: Jani Nikula <jani.nikula@linux.intel.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,40 +64,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-aspeed@lists.ozlabs.org, sam@ravnborg.org, linux-mips@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, nouveau@lists.freedesktop.org, airlied@gmail.com,
- linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, linux-aspeed@lists.ozlabs.org,
+ sam@ravnborg.org, linux-mips@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ nouveau@lists.freedesktop.org, airlied@gmail.com, linux-sunxi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
-On Mon, Jan 16, 2023 at 8:13 AM Thomas Zimmermann <tzimmermann@suse.de> wrote:
+On Mon, Jan 16, 2023 at 11:20 AM Jani Nikula
+<jani.nikula@linux.intel.com> wrote:
 >
-> Align a closing brace and remove trailing whitespaces. No functional
-> changes.
+> On Mon, 16 Jan 2023, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> > A lot of source files include drm_crtc_helper.h for its contained
+> > include statements. This leads to excessive compile-time dependencies.
+> >
+> > Where possible, remove the include statements for drm_crtc_helper.h
+> > and include the required source files directly. Also remove the
+> > include statements from drm_crtc_helper.h itself, which doesn't need
+> > most of them.
+> >
+> > I built this patchset on x86-64, aarch64 and arm. Hopefully I found
+> > all include dependencies.
 >
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+> I think this is the right direction and I support this. Personally I
+> think it's enough to build test and fix any fallout afterwards.
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index e47058c2c294..0993ee91fe18 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -5871,8 +5871,8 @@ void amdgpu_device_invalidate_hdp(struct amdgpu_device *adev,
->  int amdgpu_in_reset(struct amdgpu_device *adev)
->  {
->         return atomic_read(&adev->reset_domain->in_gpu_reset);
-> -       }
-> -
-> +}
-> +
->  /**
->   * amdgpu_device_halt() - bring hardware to some kind of halt state
->   *
+> To that end, I did build test this myself with my config, and it was
+> fine, though that probably doesn't add much coverage.
+>
+> FWIW,
+>
+> Acked-by: Jani Nikula <jani.nikula@intel.com>
+
+Agreed.  I applied 1/22 since it was an unrelated cleanup, but the
+rest of the series is:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
+>
+>
 > --
-> 2.39.0
->
+> Jani Nikula, Intel Open Source Graphics Center
