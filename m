@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F529C54EBE
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 21:54:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1480FC63797
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 21:54:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C87A810E4EF;
-	Mon, 16 Jan 2023 21:54:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89CFB10E4F0;
+	Mon, 16 Jan 2023 21:54:48 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF22D10E4EB;
- Mon, 16 Jan 2023 21:54:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 038B710E4E4;
+ Mon, 16 Jan 2023 21:51:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
@@ -19,32 +19,30 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=gEkHWkVQNVLsdoln9F9nH34ku6oBlSwFeBccFnovilI=; b=nT6CU9tWBOb84pDY1DSLYw7Fje
- qBuGyQwSPFKwY+BfB3hZ55PK4HA7n2J4eg5Wq2NjEt8QIoyz/lGRtAxeCeJ/qhYAdilivt7UQ3bFY
- puS1rLZYnFW04bVhaOYcLMPCzpdoTWxC7G4v4wD4Xv/5rpuuOQKJrAQaycay+rdolixsrUPI0hWVt
- HcVLBvutzSRDvt+AVcpTfsDqvk+l7Qv3l6Xu/DoePhzJD/IZpb0bcBhRXFoomhIrKjzP0urJ/CW2b
- nQdiwCWmTeLwml+GaNwYFJLH7xiMDcpWJnMAM+u3EOz6ygvnlFlxCgarwPkiRELGlWMxmqM6MjBtx
- 5uhIysxA==;
+ bh=nxsoxIaD5n9KqvB4XRuJJaPVzZr53OQhOp6rYWEhgw4=; b=kXrr2vyCyk4gaFMeD0J8cmZdfZ
+ ZzrO+hY0fLzEgcpdNRMMwgxWT9r4ay3rdx+2Ec5PDvhPHW1uu4xLdw7DFLYG/tLYVpEzuzBo6iVL1
+ x0LKACS3jozegjT7YTsHLmFWqIW0z9bgIRBRHWTrIHUySssMj01/VatjS5L9kRa+zhReGoajx2pP0
+ NdUdL2RMu2R+TXgxb7Vk3S5E/cDEn+D78aoHnGhjBEbtc822Z4Y4mu3dLXGoZPwbhYVRAZERYPICX
+ o/KSI79bXqFDtAjFPnpht3nNdXBtCR1viDSBwLFa8uhe8dAoCFbTbkExfOE3yqynkUUIaI9ZjDsGI
+ nreBgRLw==;
 Received: from [187.56.70.205] (helo=[192.168.1.60])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1pHXR1-00A9YZ-Bg; Mon, 16 Jan 2023 22:54:31 +0100
-Message-ID: <304bdd9f-5d47-008c-11d9-0995cf33041a@igalia.com>
-Date: Mon, 16 Jan 2023 18:54:25 -0300
+ id 1pHXOB-00A9VH-Iw; Mon, 16 Jan 2023 22:51:35 +0100
+Message-ID: <dbb667bb-dbc0-a6ff-63e2-b81309a2fc62@igalia.com>
+Date: Mon, 16 Jan 2023 18:51:28 -0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.1
 Subject: Re: [PATCH 2/3] drm/amdgpu/vcn: Deduplicate indirect SRAM checking
  code
 Content-Language: en-US
-To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>
+To: Alex Deucher <alexdeucher@gmail.com>
 References: <20230116212004.860968-1-gpiccoli@igalia.com>
  <20230116212004.860968-2-gpiccoli@igalia.com>
  <CADnq5_M6z=BTvcspVsC_5YmZCwEP48e=6nvcr4ck4Q7KR126MA@mail.gmail.com>
- <MN0PR12MB6101142C0E3653D7DA57866EE2C19@MN0PR12MB6101.namprd12.prod.outlook.com>
 From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-In-Reply-To: <MN0PR12MB6101142C0E3653D7DA57866EE2C19@MN0PR12MB6101.namprd12.prod.outlook.com>
+In-Reply-To: <CADnq5_M6z=BTvcspVsC_5YmZCwEP48e=6nvcr4ck4Q7KR126MA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 16 Jan 2023 21:54:44 +0000
@@ -59,35 +57,28 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Lazar, Lijo" <Lijo.Lazar@amd.com>,
- "kernel@gpiccoli.net" <kernel@gpiccoli.net>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Jiang,
- Sonny" <Sonny.Jiang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "kernel-dev@igalia.com" <kernel-dev@igalia.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Zhu, James" <James.Zhu@amd.com>, "Liu,
- Leo" <Leo.Liu@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: Lazar Lijo <Lijo.Lazar@amd.com>, kernel@gpiccoli.net, Xinhui.Pan@amd.com,
+ dri-devel@lists.freedesktop.org, Sonny Jiang <sonny.jiang@amd.com>,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, James Zhu <James.Zhu@amd.com>,
+ Leo Liu <leo.liu@amd.com>, christian.koenig@amd.com,
+ Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 16/01/2023 18:49, Limonciello, Mario wrote:
-> [...] 
+On 16/01/2023 18:41, Alex Deucher wrote:
+> [...]
+>> +       case IP_VERSION(4, 0, 0):       /* Vega10 */
 > 
-> The problem with adding a comment about which platform it's in is that
-> this will probably go stale.  Some IP blocks are re-used in multiple ASICs.
+> This comment is incorrect.  Vega10 does not have VCN (it has UVD and VCE).
 > 
-> VCN 3, 1, 1 is a great example.  This is used in both Yellow Carp (Rembrandt) as well
-> as Mendocino.   I would think a better approach would be to have a single point
-> of documentation somewhere in the source tree that we can update after new
-> ASICs launch that could act as a decoder ring.
-> 
-> It's effort to remember to update it, but it's at least a single point of failure.
-> 
+> Alex
 
-Hi Mario, thanks - it makes a lot of sense! I can remove the comments in
-the V2, I'll wait a bit more for (potential) extra feedback but I agree
-with you, so I'm inclined to remove them.
+Thanks Alex! I'll resubmit V2 with this comment removed.
+
+I've stolen it from
+https://gitlab.freedesktop.org/agd5f/linux/-/blob/amd-staging-drm-next/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c#L1147
+, but obviously I misunderstood the mapping here heheh
 
 Cheers,
 
