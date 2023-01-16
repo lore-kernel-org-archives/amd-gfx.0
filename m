@@ -4,64 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BC30C54EBE
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 20:12:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E2BCC54EBE
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 20:16:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 689A410E4AE;
-	Mon, 16 Jan 2023 20:12:26 +0000 (UTC)
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [IPv6:2a00:1450:4864:20::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4357510E04D
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jan 2023 20:12:23 +0000 (UTC)
-Received: by mail-ej1-x62b.google.com with SMTP id cf18so64168776ejb.5
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jan 2023 12:12:23 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4770010E4C6;
+	Mon, 16 Jan 2023 20:16:04 +0000 (UTC)
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB68910E4BA
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jan 2023 20:16:01 +0000 (UTC)
+Received: by mail-oi1-x22e.google.com with SMTP id v17so2955523oie.5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jan 2023 12:16:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=HFjDO5U6/iRRr8060PjKyCg5Jlp4Qful1+ofUOZVw5o=;
- b=EoZ/HWpSZiO0j9XpxSS26PhRork7cEwqS2akggsoat+efEFDiuvYMG8pbc1qqjHLW7
- pVP2zudawNqW00H/+pBuDUslwUDUfTSqffQoSADyO+xkPrAgnQpAvVNYlB6ZvunbD0wj
- breoV78F5t/xJ4PHrSedF2TlG1OKP1OA0x8dU81xmMfeDT123QhMeB7VGAWoT51tgmLQ
- eg31O7IXAmp2wGa9UvAkgaj8mputGJpu4sCuWNxVIZNALFbBeN5yFBzOS8kCGzHlOSZU
- +978bLXIcpg9xQc7sDo0mGdcUr4psBF8V1nHulKmTWo76je1lE/UligZvPjdQ9bsla2C
- 9xxQ==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QigZbi52NqRvig/LROqmqUOaJynFzx/7ysmQqfPxLG0=;
+ b=RawWag+RwGRb3zw7CSVLZngFKebaOwk+6MUWvIAOaaFtVk8jsVObJ8YocxfOYPWRUV
+ Imw2VdvU3b0rgVAfWMIeXXV5SRMFt1/MxSS1hvURKctMLQ7je5t86k8gwoJX/aWm9ZGx
+ K+UofYHxDnDucRYlumlFsz/RKEtW3sgATRhhcKzp3W9Ywko09zCSoJpacKeJr+K7k8js
+ u2koTGUbR76DXl0+rlmJyXoxHFs5sYiU+NxCDy5gYXKoaTnzSb50ro0YJci9ANx8iSDH
+ ieYLXsRomxWnyq/uHOnbzggY2no4sEtsErPR7CFv9AarQTwOgRs9C/x4AV2Egi2dqZKM
+ epQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=HFjDO5U6/iRRr8060PjKyCg5Jlp4Qful1+ofUOZVw5o=;
- b=tkL+/OzKQtf8A57pVkP/EIl89MgH3xBzz65Dgl9/n4FXIwpOmc2Mmx7QN1QRLZG3PX
- 5orJMIJ5M5O/VAmV2MFjTKjY7YsIlKz6G/Lgjx9HrmQi6IzacRmrLfXkaFcCXvwtKzmf
- NQxqo6cQ96QKaufVzD5hXxFbZYb1qFzBPImfXcnhAhWmb0gYBsncZrlN1EQBB1qB/3by
- C3/F301rSME8R6GWYALpCmznFkr3CULplcg8VR7Xr3h8BBkJOtmS6XUxACO1mpPZdJJc
- R2PwWMnkfkl3Mqm9BXvOxbCIFuRn+RK7LzC4zoXOYTgGKfVHd0WHsLkX6pE01A8wgqmD
- agWw==
-X-Gm-Message-State: AFqh2kouacaWNY9bbddW3q7Q6Z1IzqhmT0PzBPOSMAEdpDhZ89XAgAzh
- N8gMi6kHq0pHsEPcI5b3cE3bp6mW6os=
-X-Google-Smtp-Source: AMrXdXtSGL68OSQA139X5el316KArrFyFkU/mj3pp//S0eKJW5iso2NBRqLIWSAYx99b6g13GgNMnA==
-X-Received: by 2002:a17:906:fac3:b0:7c1:808e:7660 with SMTP id
- lu3-20020a170906fac300b007c1808e7660mr232853ejb.43.1673899941665; 
- Mon, 16 Jan 2023 12:12:21 -0800 (PST)
-Received: from able.fritz.box (p5b0ea2e7.dip0.t-ipconnect.de. [91.14.162.231])
- by smtp.gmail.com with ESMTPSA id
- g3-20020a1709067c4300b007c0a7286ac8sm12238492ejp.69.2023.01.16.12.12.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Jan 2023 12:12:21 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: thong.thai@amd.com,
-	amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/amdgpu: simplify and cleanup amdgpu_uvd_send_msg
-Date: Mon, 16 Jan 2023 21:12:18 +0100
-Message-Id: <20230116201218.5113-2-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230116201218.5113-1-christian.koenig@amd.com>
-References: <20230116201218.5113-1-christian.koenig@amd.com>
+ bh=QigZbi52NqRvig/LROqmqUOaJynFzx/7ysmQqfPxLG0=;
+ b=sYMX9opOBtzZ5YztfU1yAhnrEM5w7AQS0vcok/w1Ri42lEk1FWmhhQS3QhBd5j/L95
+ ztI/5Uj+C3wLsx9aAhiSAYAvuapghmR1x23aEY7fNRYvo7YcbEXM9U22a10ooI7y2UCi
+ Ig2IrCLV8lyDwAc64n0xaqNOqclfeZjEhXno05iWdopK00x+SUSD4yDuYtkz6YyWqVh0
+ obuiV6H+iQpejaY9uk6eN9WrxIjmRZnov5VHmWwLIry7i9dhHdernnYGYYi53rp1N4Fd
+ ir4bCAqKstATYCHZ9wpkaL+HPSjUbkL87qdVDLG/tk0F1a9q6an2Hsx8JcLdooOPy/AO
+ lMPA==
+X-Gm-Message-State: AFqh2kpuYCbWgHqkubYzZ93zRa/YSW4i5/KkeM2n5SMUvHM3XA+DGEYA
+ nwBfh2ZRqRoyKW/bOgkgHcJ5pwRIUGcBpieMFtCRj7sA
+X-Google-Smtp-Source: AMrXdXt+YHtj3EtkD4eK9ggn6WHjqWqsMi8fCPvED/K855RHYB5sXeuZUpMPqKDlJk9Xuhrstalhj7DaL9rnNE41Us4=
+X-Received: by 2002:a05:6808:4387:b0:35b:d93f:cbc4 with SMTP id
+ dz7-20020a056808438700b0035bd93fcbc4mr34938oib.96.1673900161117; Mon, 16 Jan
+ 2023 12:16:01 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20230116201218.5113-1-christian.koenig@amd.com>
+In-Reply-To: <20230116201218.5113-1-christian.koenig@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 16 Jan 2023 15:15:49 -0500
+Message-ID: <CADnq5_OghKCnPJ_eGZQ=de2zaXfC6syG_h_NYCQrPLM8dT=ACQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu: fix amdgpu_job_free_resources v2
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,89 +65,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: amd-gfx@lists.freedesktop.org, thong.thai@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We only need one offset and not an array of it.
+On Mon, Jan 16, 2023 at 3:12 PM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> It can be that neither fence were initialized when we run out of UVD
+> streams for example.
+>
+> v2: fix typo breaking compile
+>
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 
-We have a wait in the amdgpu_bo_kmap() code for quite a while now, so
-waiting here isn't needed any more.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 38 +++++++------------------
- 1 file changed, 10 insertions(+), 28 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-index b67a5fb2ff3e..229419c0c031 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-@@ -1118,30 +1118,26 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
- {
- 	struct amdgpu_device *adev = ring->adev;
- 	struct dma_fence *f = NULL;
-+	uint32_t offset, data[4];
- 	struct amdgpu_job *job;
- 	struct amdgpu_ib *ib;
--	uint32_t data[4];
- 	uint64_t addr;
--	long r;
--	int i;
--	unsigned offset_idx = 0;
--	unsigned offset[3] = { UVD_BASE_SI, 0, 0 };
-+	int i, r;
- 
- 	r = amdgpu_job_alloc_with_ib(adev, 64, direct ? AMDGPU_IB_POOL_DIRECT :
- 				     AMDGPU_IB_POOL_DELAYED, &job);
- 	if (r)
- 		return r;
- 
--	if (adev->asic_type >= CHIP_VEGA10) {
--		offset_idx = 1 + ring->me;
--		offset[1] = adev->reg_offset[UVD_HWIP][0][1];
--		offset[2] = adev->reg_offset[UVD_HWIP][1][1];
--	}
-+	if (adev->asic_type >= CHIP_VEGA10)
-+		offset = adev->reg_offset[UVD_HWIP][ring->me][1];
-+	else
-+		offset = UVD_BASE_SI;
- 
--	data[0] = PACKET0(offset[offset_idx] + UVD_GPCOM_VCPU_DATA0, 0);
--	data[1] = PACKET0(offset[offset_idx] + UVD_GPCOM_VCPU_DATA1, 0);
--	data[2] = PACKET0(offset[offset_idx] + UVD_GPCOM_VCPU_CMD, 0);
--	data[3] = PACKET0(offset[offset_idx] + UVD_NO_OP, 0);
-+	data[0] = PACKET0(offset + UVD_GPCOM_VCPU_DATA0, 0);
-+	data[1] = PACKET0(offset + UVD_GPCOM_VCPU_DATA1, 0);
-+	data[2] = PACKET0(offset + UVD_GPCOM_VCPU_CMD, 0);
-+	data[3] = PACKET0(offset + UVD_NO_OP, 0);
- 
- 	ib = &job->ibs[0];
- 	addr = amdgpu_bo_gpu_offset(bo);
-@@ -1158,24 +1154,10 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
- 	ib->length_dw = 16;
- 
- 	if (direct) {
--		r = dma_resv_wait_timeout(bo->tbo.base.resv,
--					  DMA_RESV_USAGE_KERNEL, false,
--					  msecs_to_jiffies(10));
--		if (r == 0)
--			r = -ETIMEDOUT;
--		if (r < 0)
--			goto err_free;
--
- 		r = amdgpu_job_submit_direct(job, ring, &f);
- 		if (r)
- 			goto err_free;
- 	} else {
--		r = amdgpu_sync_resv(adev, &job->sync, bo->tbo.base.resv,
--				     AMDGPU_SYNC_ALWAYS,
--				     AMDGPU_FENCE_OWNER_UNDEFINED);
--		if (r)
--			goto err_free;
--
- 		r = amdgpu_job_submit(job, &adev->uvd.entity,
- 				      AMDGPU_FENCE_OWNER_UNDEFINED, &f);
- 		if (r)
--- 
-2.34.1
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_job.c
+> index f4a3122352de..6b73c074aa25 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> @@ -154,8 +154,14 @@ void amdgpu_job_free_resources(struct amdgpu_job *jo=
+b)
+>         struct dma_fence *f;
+>         unsigned i;
+>
+> -       /* use sched fence if available */
+> -       f =3D job->base.s_fence ? &job->base.s_fence->finished :  &job->h=
+w_fence;
+> +       /* Check if any fences where initialized */
+> +       if (job->base.s_fence && job->base.s_fence->finished.ops)
+> +               f =3D &job->base.s_fence->finished;
+> +       else if (job->hw_fence.ops)
+> +               f =3D &job->hw_fence;
+> +       else
+> +               f =3D NULL;
+> +
+>         for (i =3D 0; i < job->num_ibs; ++i)
+>                 amdgpu_ib_free(ring->adev, &job->ibs[i], f);
+>  }
+> --
+> 2.34.1
+>
