@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E07E3C54EBE
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 14:35:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B773C46467
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Jan 2023 14:41:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEDB410E0B5;
-	Mon, 16 Jan 2023 14:35:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE4ED10E2B3;
+	Mon, 16 Jan 2023 14:41:24 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF0BD10E0B5
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jan 2023 14:35:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57C2D10E2B3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Jan 2023 14:41:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
@@ -19,29 +19,30 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=efWTBqEEyvoJaQG1I94AIeRUujEWBbXJDoc31Tk7bkE=; b=sgZLDE0OKMbHDOusiCv+Mv+G3X
- /vAyXtE1QFKneLRLnI5OjByysXRoOa5u4IvkpNa8GYPGpWTRWxurbrbJzJrWPPOQwsSg6a/mrh7bS
- v5hS4BgBs7DspMdRwdI5qAKR8Ul73hiTBzBLK0FcG9IbyHWt6sKpdNRer5vnLiBlmapWruzipMdfS
- qsyyFxgQQVjih0b4zQy84iMJPK2aWFX3FWNgm9qOMduRA+tCgpO58mqa+j3mrBzidMp/md+KdWYfI
- PDg+NYalT9z5F1TOTGUhrSbLENuwrIBbze/2RXXsUNzPuLQd7RcR0fFCBNvD3q0QImkPDPOtdQ0/P
- TGI3HEYw==;
+ bh=v2vxThehneTotw9TlTfzkgndCuWTo/iJbjZ6qzY4Qvw=; b=KhXPKtNglSJeF/I58+/ZiJNlYg
+ Oz+Vldw7VU7MOfaib50PW7mezkb8AExheu4IaqOlWMxgDniQN4Ct8bx3/5Oi0WGCrNvmKX60zoCM4
+ 7+ObzVrWkl0G3POsVyW8rm8mj8TrEYJx8WkEjp5EuGQha7WKh6Wh761JtDaw4QLo0Vp1FQe6zJ+Sb
+ EiPfTXL08/cvD6Rzzfn/o/ytzgJiKkirAlan6Qq3/BZ8VE+JACR+IDKGlZlDmV7YPK0HKUTFkNDLj
+ CiFJN0vnuXdy8FJ8xxjbuhWiDTTVGdlDmKtSgTVYtMNKvkVoNsjfnF/X5/XOqBLvIa5UfTVBa8eUm
+ 7blwsY8A==;
 Received: from [38.44.66.31] (helo=mail.igalia.com)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1pHQa5-009sA4-Uj; Mon, 16 Jan 2023 15:35:26 +0100
-Date: Mon, 16 Jan 2023 13:35:17 -0100
+ id 1pHQfo-009sMv-H3; Mon, 16 Jan 2023 15:41:20 +0100
+Date: Mon, 16 Jan 2023 13:41:09 -0100
 From: Melissa Wen <mwen@igalia.com>
 To: Joshua Ashton <joshua@froggi.es>
 Subject: Re: [PATCH v2] drm/amd/display: Calculate output_color_space after
  pixel encoding adjustment
-Message-ID: <20230116143517.lcckjls3eaxvc7r6@mail.igalia.com>
+Message-ID: <20230116144109.y4dyhlkfjw2bpxzk@mail.igalia.com>
 References: <20230110194338.281829-1-joshua@froggi.es>
  <20230110201221.671544-1-joshua@froggi.es>
+ <20230116143517.lcckjls3eaxvc7r6@mail.igalia.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="n2rvt4vzssvw3gkq"
+ protocol="application/pgp-signature"; boundary="z2qx6ygxfusbvnzu"
 Content-Disposition: inline
-In-Reply-To: <20230110201221.671544-1-joshua@froggi.es>
+In-Reply-To: <20230116143517.lcckjls3eaxvc7r6@mail.igalia.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,79 +59,88 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
---n2rvt4vzssvw3gkq
+--z2qx6ygxfusbvnzu
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On 01/10, Joshua Ashton wrote:
-> Code in get_output_color_space depends on knowing the pixel encoding to
-> determine whether to pick between eg. COLOR_SPACE_SRGB or
-> COLOR_SPACE_YCBCR709 for transparent RGB -> YCbCr 4:4:4 in the driver.
+On 01/16, Melissa Wen wrote:
+> On 01/10, Joshua Ashton wrote:
+> > Code in get_output_color_space depends on knowing the pixel encoding to
+> > determine whether to pick between eg. COLOR_SPACE_SRGB or
+> > COLOR_SPACE_YCBCR709 for transparent RGB -> YCbCr 4:4:4 in the driver.
+> >=20
+> > v2: Fixed patch being accidentally based on a personal feature branch, =
+oops!
+> >=20
+> > Signed-off-by: Joshua Ashton <joshua@froggi.es>
+> > ---
+> >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/driver=
+s/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > index b4d60eedbcbf..9da71ee8fcc4 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > @@ -5341,8 +5341,6 @@ static void fill_stream_properties_from_drm_displ=
+ay_mode(
+> > =20
+> >  	timing_out->aspect_ratio =3D get_aspect_ratio(mode_in);
+> > =20
+> > -	stream->output_color_space =3D get_output_color_space(timing_out);
+> > -
+> >  	stream->out_transfer_func->type =3D TF_TYPE_PREDEFINED;
+> >  	stream->out_transfer_func->tf =3D TRANSFER_FUNCTION_SRGB;
+> >  	if (stream->signal =3D=3D SIGNAL_TYPE_HDMI_TYPE_A) {
+> > @@ -5353,6 +5351,8 @@ static void fill_stream_properties_from_drm_displ=
+ay_mode(
+> >  			adjust_colour_depth_from_display_info(timing_out, info);
+> >  		}
+> >  	}
+> > +
+> > +	stream->output_color_space =3D get_output_color_space(timing_out);
 >=20
-> v2: Fixed patch being accidentally based on a personal feature branch, oo=
-ps!
+> LGTM.
 >=20
-> Signed-off-by: Joshua Ashton <joshua@froggi.es>
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+> I see that we were ignoring the updated value of pixel_encoding in the
+> previous point. Nice catch!
 >=20
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index b4d60eedbcbf..9da71ee8fcc4 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -5341,8 +5341,6 @@ static void fill_stream_properties_from_drm_display=
-_mode(
-> =20
->  	timing_out->aspect_ratio =3D get_aspect_ratio(mode_in);
-> =20
-> -	stream->output_color_space =3D get_output_color_space(timing_out);
-> -
->  	stream->out_transfer_func->type =3D TF_TYPE_PREDEFINED;
->  	stream->out_transfer_func->tf =3D TRANSFER_FUNCTION_SRGB;
->  	if (stream->signal =3D=3D SIGNAL_TYPE_HDMI_TYPE_A) {
-> @@ -5353,6 +5351,8 @@ static void fill_stream_properties_from_drm_display=
-_mode(
->  			adjust_colour_depth_from_display_info(timing_out, info);
->  		}
->  	}
-> +
-> +	stream->output_color_space =3D get_output_color_space(timing_out);
+> Reviewed-by: Melissa Wen <mwen@igalia.com>
 
-LGTM.
+BTW, I think it deserves a fixes tag to:
 
-I see that we were ignoring the updated value of pixel_encoding in the
-previous point. Nice catch!
+Fixes: ea117312ea9f ("drm/amd/display: Reduce HDMI pixel encoding if max cl=
+ock is exceeded")
 
-Reviewed-by: Melissa Wen <mwen@igalia.com>
-
->  }
-> =20
->  static void fill_audio_info(struct audio_info *audio_info,
-> --=20
-> 2.39.0
 >=20
+> >  }
+> > =20
+> >  static void fill_audio_info(struct audio_info *audio_info,
+> > --=20
+> > 2.39.0
+> >=20
 
---n2rvt4vzssvw3gkq
+
+
+--z2qx6ygxfusbvnzu
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmPFYJ4ACgkQwqF3j0dL
-ehwGoRAAm4Fxjr4bGsgw94GNGyl5ftmksS49WYJhnOK4sBA6VVPSzM8vutGAe9uz
-PuzU2WWPS+5sG/ip+k7rs2zTGonKmmO7HUte/FCyX1rZ0YkZtRoaaLZP/Xk4IQwd
-axt4fGSUZiWP8lpZ7LzxnnnhxQX0K5QbgynctjWXaqwX8WuGhlW8t+9iO1Gm+vcn
-Z04j7H84aoW01nYh5Rzsyy7HK/aenb0/ykn5M3beyInJk089KkGiEg39TdBSsZnf
-0zbd4zCfyHBJQiV3C9jd4M6ACR4YIUCjAgLdXdQEUlj7XI5jLzIuoP1ocuiwafj7
-hVmV2Uqz9mZ76SScYe5AE0VHzRijfjyMednXtwt9RByG+mLmPqYnK3Rwxh1vSuUa
-Me9vVM1erNrhrzl5YHm4r9+ILFAmu/9p8A0j90YZHiO81PekByjzr2OHOEbYE18r
-4aDeFIVxP36SxWqBWrPLV4unxi9W7EvlojVDbuRzZcXn9hcCluSNNtaJHXR0veGl
-wkgS58+WlczIBHDp39QE4ZkGjAOg2ujEN/n+YIynLZiT2CWLzuN8hu5K4LHbUHen
-kidYdiw+3zgksQZWaHHStgsddTjHtAXeDEahdF7WmvtSqccelK9RG3Fh0YG3O+5D
-8JMjOMqcy8AcQJ3+gCjKY/GeCaEWHuj69oaK7O1jFgH6AhyEKHw=
-=vys5
+iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmPFYgUACgkQwqF3j0dL
+ehzWhw/9Fo4mWnB47pfN5tVYe0OJBbfXrVc60oNuNKlydn5iatmQgWZXGs2iWtkS
+6Gm2iZXMnI4gkdafPKFNPnpnjb3yiBgOuKNA8wS5KWyF57ECP+Rk/GyVEB5ruahD
+dHcZ+QkGGVg5NNSskV/p6EqVqp0lGjzlVSlVz1EH4087YwINy5MSXx6jY1MdOlsH
+GsXxzZe0rWivjkxk1p0CG5EzkRzpcM+rOcIw7kVqbhoggtZlmJKcEqxXVgNaGd2q
+A8cFna5ipwaeOhPrm7QD1+A0M+YJyHwVVmOx3rTx4j2ryWoOoX46fpaI4FQnOJnW
+HBcXJU95nb2x7PDzYwaq+Rn2IoYoTr5O3E1gN/+RJxjk7ZxEsny5q4rt3B2SOJD4
+qY7SAkqBBuXEto0zORIIOoXxetdF+epcMNYdgX4IQQb9Vh5ZWEmnsbjx04p8UMzH
+hPqklLC0lIHrDys0C3HpUmIxS3n3JT5TCUnAbbRtOBVYbmTeMhSerVTNcgco6gwy
+3SN6rrXg1lMMI+PN050FpRAzGnmi4uzlZezOJOdvp6WK/OG9+fD6c0v820bx2UW1
+0YSWy6UTvberYB8jmjXNPOnqFERyFfW4BnHg4s9u7iEFN4FnxfgURGCPP/pYlxJm
+qj99YKwIYpwnLKxERlc+DtD/5GkNkdGctSq0AsTAjTIy1Q0jAMY=
+=GKeS
 -----END PGP SIGNATURE-----
 
---n2rvt4vzssvw3gkq--
+--z2qx6ygxfusbvnzu--
