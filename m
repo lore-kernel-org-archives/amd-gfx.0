@@ -4,64 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56498C3DA78
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jan 2023 08:12:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A396C3DA78
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jan 2023 08:22:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC0AD10E2E2;
-	Tue, 17 Jan 2023 08:12:48 +0000 (UTC)
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00ED710E2DE
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jan 2023 08:12:44 +0000 (UTC)
-Received: by mail-wr1-x42b.google.com with SMTP id b7so3706973wrt.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jan 2023 00:12:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=vs0V50N8JPFXlKlrVTAGXK35hqLC+XbAHH0alD8jGHM=;
- b=OVBczFLanhOMwgtEBsLfswBHdlBa7IBSDgnEuDckzjdi2ZcxcS5c7z3r8kBrU6tBOV
- Y4DcFsnF7sG+d1HcV4snR5pZgZBfCVF4Pxtd34AWxc7Natw5dUelJRahKcfgUi4WeiO9
- rEg3P2BkzME49C6n4FjU0uHOcSRzWs2O2XW6wJ3st80a7kybM44GkQO68XqPOx3CP+bu
- 02rfx68k3DtNeX6Gf6qznNM5Vgu4GsAGS1adubEBABoAL+FPiF8kIasb1uWqm8vh6vry
- TKQQuNjdnDQnJ4qAutvmEbVK4ga6m0GcUoxsvVVqGRa5BrQNL4/9FDs++VbuowWxoLgr
- EEYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=vs0V50N8JPFXlKlrVTAGXK35hqLC+XbAHH0alD8jGHM=;
- b=Y5G1bklCmBw20T+uV7C0K0Xx6lGGSCWTUiOscvZh8lvEiXPz0dJhwkuX5Ljw8GuhN7
- xZDR2ZxJGwvbjxP9rB11OafdemBheRTBqQqbCmtPnTeSI2S5OOekTfcA1SVT35oWmhP2
- lf78pOn+DCSMu/0z1Avfp4muAsuLa2rsDfGDJD8Qy3Cd1QGs1lszaVMVMx0ZacCfrBuZ
- ZjIyKJ3Vew50Qrhl1uXHog1o+7VHjcLAZa4xfUdO9KvL/ErpbUl3yG30tkV7p3vYL6Wy
- /E8tPXtn7hf/aQZrjXHIkRVdDhDhNGgKODtGZc7YYSiaFvftXwqpC2r2wkSUe+68MB48
- Cn4w==
-X-Gm-Message-State: AFqh2kreY1p3n/F1W0L1dH33g/pndsvX0FV6uhWYUPvHCpM5YWWdJK4d
- 67j0Hl+BjgGgNnMtxHU5+1LXuyL3J+I=
-X-Google-Smtp-Source: AMrXdXtHJ3NPZVi+MLsool83aIEnB0Tse1LtnGcFRLpsJW5AAOYLfKMFmHi2sZ7irqeEZaXIrOujBw==
-X-Received: by 2002:a05:6000:1706:b0:2bd:dfbe:c17f with SMTP id
- n6-20020a056000170600b002bddfbec17fmr2304980wrc.58.1673943163495; 
- Tue, 17 Jan 2023 00:12:43 -0800 (PST)
-Received: from able.fritz.box (p5b0ea2e7.dip0.t-ipconnect.de. [91.14.162.231])
- by smtp.gmail.com with ESMTPSA id
- i10-20020adff30a000000b0024228b0b932sm33917822wro.27.2023.01.17.00.12.42
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Jan 2023 00:12:43 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/amdgpu: simplify amdgpu_uvd_send_msg
-Date: Tue, 17 Jan 2023 09:12:40 +0100
-Message-Id: <20230117081240.13669-2-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230117081240.13669-1-christian.koenig@amd.com>
-References: <20230117081240.13669-1-christian.koenig@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5E0D10E496;
+	Tue, 17 Jan 2023 08:22:23 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89CA610E170;
+ Tue, 17 Jan 2023 00:47:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=7rA3dOZYWNXtMCsmezhMtKfclk/IKSdCdL3lUcKIGqo=; b=FU54kzvbdSnqn+Ve8r7bMnrBAv
+ WulqJ+KYg0XBL682MyaPd4t5WCXPuLPBcAgDPqnlpPpTC+GZDx74eIlDaxlo0VACHAqvBAYkFQYAG
+ Y74QE//xaTPLIA3D+KCYuYuiFbfiSZSMIzPBN3OO19pdGjvTVJbtr0lHPU6tzE8J0ai000Emfb+cx
+ CsIBYR/zUCGBkfpxY9SyNysFBDN6HcIWn0OL4hwYcRsTicSQt0T2O3C55y65BRh/RoS4VC9jnmdZa
+ kHdPxHdMx+om1taKJl/iOplBbpgv3O3SeRiD4XzEPxt+cVwzUnMPQBajHTEow9jiT10yYb8jfJE1p
+ rNq8FtcA==;
+Received: from [187.56.70.205] (helo=[192.168.1.60])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1pHa8j-00AEPd-Ui; Tue, 17 Jan 2023 01:47:50 +0100
+Message-ID: <a6680b24-372f-673c-4b3c-1fd3c309f242@igalia.com>
+Date: Mon, 16 Jan 2023 21:47:41 -0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH 3/3] drm/amdgpu/vcn: Add parameter to force (en/dis)abling
+ indirect SRAM mode
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>
+References: <20230116212004.860968-1-gpiccoli@igalia.com>
+ <20230116212004.860968-3-gpiccoli@igalia.com>
+ <CADnq5_Oh5Vdygo12evQKxw3w-ipRoQMvSNFHGcKtBNbSmtW7GQ@mail.gmail.com>
+ <DM8PR12MB53991481A19B6AC8BA7A4E0AE5C19@DM8PR12MB5399.namprd12.prod.outlook.com>
+ <b8a7253e-6902-e143-1bf2-ff107f25fd2b@igalia.com>
+ <CADnq5_NJ7Kjoi7d+8bL2KNY3Leg8Jy7QL5reDS_dyEt7MUB0wA@mail.gmail.com>
+From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+In-Reply-To: <CADnq5_NJ7Kjoi7d+8bL2KNY3Leg8Jy7QL5reDS_dyEt7MUB0wA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Tue, 17 Jan 2023 08:22:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,59 +60,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Lazar, Lijo" <Lijo.Lazar@amd.com>,
+ "kernel@gpiccoli.net" <kernel@gpiccoli.net>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Jiang,
+ Sonny" <Sonny.Jiang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "kernel-dev@igalia.com" <kernel-dev@igalia.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Zhu, James" <James.Zhu@amd.com>, "Liu,
+ Leo" <Leo.Liu@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
+ Pierre-Loup Griffais <pgriffais@valvesoftware.com>, "Limonciello,
+ Mario" <Mario.Limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We only need one offset and not an array of it.
+On 16/01/2023 20:00, Alex Deucher wrote:
+> [...]
+> 
+> It's not clear to me when this would be used.  We only disable it
+> briefly during new asic bring up, after that we never touch it again.
+> No end user on production hardware should ever have to change it and
+> doing so would break VCN on their system.
+> 
+> Alex
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 21 +++++++++------------
- 1 file changed, 9 insertions(+), 12 deletions(-)
+[+ Pierre-Loup]
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-index dd0894c9740d..229419c0c031 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-@@ -1118,29 +1118,26 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
- {
- 	struct amdgpu_device *adev = ring->adev;
- 	struct dma_fence *f = NULL;
-+	uint32_t offset, data[4];
- 	struct amdgpu_job *job;
- 	struct amdgpu_ib *ib;
--	uint32_t data[4];
- 	uint64_t addr;
- 	int i, r;
--	unsigned offset_idx = 0;
--	unsigned offset[3] = { UVD_BASE_SI, 0, 0 };
- 
- 	r = amdgpu_job_alloc_with_ib(adev, 64, direct ? AMDGPU_IB_POOL_DIRECT :
- 				     AMDGPU_IB_POOL_DELAYED, &job);
- 	if (r)
- 		return r;
- 
--	if (adev->asic_type >= CHIP_VEGA10) {
--		offset_idx = 1 + ring->me;
--		offset[1] = adev->reg_offset[UVD_HWIP][0][1];
--		offset[2] = adev->reg_offset[UVD_HWIP][1][1];
--	}
-+	if (adev->asic_type >= CHIP_VEGA10)
-+		offset = adev->reg_offset[UVD_HWIP][ring->me][1];
-+	else
-+		offset = UVD_BASE_SI;
- 
--	data[0] = PACKET0(offset[offset_idx] + UVD_GPCOM_VCPU_DATA0, 0);
--	data[1] = PACKET0(offset[offset_idx] + UVD_GPCOM_VCPU_DATA1, 0);
--	data[2] = PACKET0(offset[offset_idx] + UVD_GPCOM_VCPU_CMD, 0);
--	data[3] = PACKET0(offset[offset_idx] + UVD_NO_OP, 0);
-+	data[0] = PACKET0(offset + UVD_GPCOM_VCPU_DATA0, 0);
-+	data[1] = PACKET0(offset + UVD_GPCOM_VCPU_DATA1, 0);
-+	data[2] = PACKET0(offset + UVD_GPCOM_VCPU_CMD, 0);
-+	data[3] = PACKET0(offset + UVD_NO_OP, 0);
- 
- 	ib = &job->ibs[0];
- 	addr = amdgpu_bo_gpu_offset(bo);
--- 
-2.34.1
+Steam Deck is facing a pretty weird scenario then heheh
 
+Commit 82132ecc543 ("drm/amdgpu: enable Vangogh VCN indirect sram mode")
+corrected a long-term issue in which the indirect SRAM mode wasn't
+enabled for Vangogh - and Deck GPU architecture is Vangogh, so it was
+working perfectly with that disabled.
+
+Happens that a bad FW candidate seems to have broken something - it was
+a bit convoluted to debug, but we proved that disabling indirect SRAM is
+a good workaround so far, it "restored the behavior" pre-82132ecc543.
+
+Hence my proposal - this parameter would've made life so much easier,
+and we're start using it "downstream" now. While I understand that of
+course the FW should be fixed, meanwhile this is a cheap solution to
+allow further debug and real use of the system.
+
+Thanks,
+
+
+Guilherme
