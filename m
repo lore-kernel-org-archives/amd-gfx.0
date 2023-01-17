@@ -4,49 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 346EDC3DA78
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jan 2023 18:05:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D201C54E76
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jan 2023 18:07:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CFBB10E598;
-	Tue, 17 Jan 2023 18:05:33 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82C3810E30F;
- Tue, 17 Jan 2023 18:04:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673978689; x=1705514689;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=OD7j79DRiTFV8ZWi8Id42iAqpnY4oi7w03hVQl4OcHs=;
- b=KRJA8sFFtiXfOMZfUmYZBM0f0lo1/5cORJO5Vf7qhiDdI+GPr2ljzbT6
- wJuV+Sm76jJp0CI6DJ0dgLoDPMy78VD8Q6Kzog1gqXcq6TP1Ic0V0Hh8O
- UUvZuIM0dIq3bJkRJlsGB1OS1hGcbP2gbIlNyUTlFCwbIGazAY52Jukbb
- jdObbGjRnotjFYdYG4lCf46lI2chEGRc/XSlbqi9XcU4kcEBmTLLvW1Z6
- 5+vSblJF9lE4Jqsti6dXLtKZTnaQTosAMUTX7TKA8qBa4VsWQDkmRRDkE
- 4liDjlubx+YnPMo9ZINT7zKmXi5RRTWTe+EGOEE4EIdSrHjxwCmJD/lre Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10592"; a="387116359"
-X-IronPort-AV: E=Sophos;i="5.97,224,1669104000"; d="scan'208";a="387116359"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jan 2023 10:04:48 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10592"; a="659467378"
-X-IronPort-AV: E=Sophos;i="5.97,224,1669104000"; d="scan'208";a="659467378"
-Received: from nirmoyda-desk.igk.intel.com ([10.102.42.231])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jan 2023 10:04:47 -0800
-From: Nirmoy Das <nirmoy.das@intel.com>
-To: dri-devel@lists.freedesktop.org
-Subject: [PATCH v2] drm/radeon: Do not use deprecated drm log API
-Date: Tue, 17 Jan 2023 19:04:16 +0100
-Message-Id: <20230117180417.21066-1-nirmoy.das@intel.com>
-X-Mailer: git-send-email 2.39.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68F7310E59D;
+	Tue, 17 Jan 2023 18:07:08 +0000 (UTC)
+Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
+ [IPv6:2001:4860:4864:20::34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCA7710E2FC;
+ Tue, 17 Jan 2023 18:07:06 +0000 (UTC)
+Received: by mail-oa1-x34.google.com with SMTP id
+ 586e51a60fabf-1442977d77dso32824131fac.6; 
+ Tue, 17 Jan 2023 10:07:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=YH0tyjOraCEsXrTRPzVKAAAXeacUbo0t7ksEO6wukzo=;
+ b=JmOyvINOTDS5c49Vm6ys7Qcnmb2ez8aIJDdJPlOi6H9Xy/oCNfHp6I4O7GDPBkkDsl
+ ervAMVINSTGwc+gTd0wh9n+Ccc8meq8APiQ4M68eL88gKnLq0N8dcoVdmFL4oZqdXd5Z
+ 9NFHIh03sbkrSYWa04SYRFJgY3GDq5lH8weINQcwDE5bxN21dznr8JRKzqac8l7sufkm
+ TRsCe+Y25XDAWoxtVQQhwHOMwSRTGklQ/NikPlOQnkL/qZidWeH9D0G2ZONAaTwOrv26
+ 6Zdgow2Vo3sdHc0qPvnqHgnEKIsaOaJrK3nSJ53xO+AleE+SntR0sN0D2zjxz/Xl4Kvp
+ 1FqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=YH0tyjOraCEsXrTRPzVKAAAXeacUbo0t7ksEO6wukzo=;
+ b=hYVRaXt5MEwZ4BMiMa1gc5kFSFRX5WZ7qAWft+gHlNFIhi5iDlXvbgs426TGXVXS1h
+ CI7zZjwvxhBLgWJ7bzOWWo43l5yvDl9ggfSHeaqk0nS9VmqaPsshY9bQ6Zud4a8sQm9S
+ pBzNcDT/Ux5YVQpNb4Ch8UAMTUwtvEybFzZWbpVyz58v2H9o2zZJt98pT8qeQ6VUiSaO
+ zXZQSC4urZjgQ96tXBZuv0PeThoWKKsLgv36A7Zrm54BX03g4FjPM2WjXcTCDcdKBZ/Q
+ qDm/iR21pdFDvJ05U26F1ujs2G/EGQsY4fBGciBLd2ohJtXMBYD5vGq01eC/2MoJdPjf
+ QeBA==
+X-Gm-Message-State: AFqh2krmKpQtf0CPw9S9z9bf8sroMMlAf8UWxkmXBhQ/2OA9DYCzswNw
+ ukypyVTiGf7h9sl0bf+VQ9/R7lFr9Fbqo5XFqgHLmNx5
+X-Google-Smtp-Source: AMrXdXvAfwvqLHdouE5UEqVR8838wHy2DoFiH1+2lIIyCGtkJZp4YrjxlECOI3RBJoDIky9KDntRkhwgeAPm2uhBNz8=
+X-Received: by 2002:a05:6871:4593:b0:150:d9aa:4011 with SMTP id
+ nl19-20020a056871459300b00150d9aa4011mr340680oab.96.1673978825905; Tue, 17
+ Jan 2023 10:07:05 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Deutschland GmbH, Registered Address: Am Campeon 10,
- 85579 Neubiberg, Germany,
- Commercial Register: Amtsgericht Muenchen HRB 186928 
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 17 Jan 2023 18:05:31 +0000
+References: <20230117180417.21066-1-nirmoy.das@intel.com>
+ <20230117180417.21066-2-nirmoy.das@intel.com>
+In-Reply-To: <20230117180417.21066-2-nirmoy.das@intel.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 17 Jan 2023 13:06:54 -0500
+Message-ID: <CADnq5_NY9B4dtswNzowG_KrPuSSFdtpsonY_7wNhtzW0G7uJXQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm_print: Remove deprecated
+ DRM_DEBUG_KMS_RATELIMITED()
+To: Nirmoy Das <nirmoy.das@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,48 +66,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, Nirmoy Das <nirmoy.das@intel.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Sam Ravnborg <sam@ravnborg.org>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace deprecated DRM_DEBUG_KMS_RATELIMITED() and DRM_ERROR()
-with proper APIs.
+On Tue, Jan 17, 2023 at 1:05 PM Nirmoy Das <nirmoy.das@intel.com> wrote:
+>
+> There are no current users of DRM_DEBUG_KMS_RATELIMITED()
+> so remove it.
+>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Cc: Sam Ravnborg <sam@ravnborg.org>
+>
+> Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
+> Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
 
-v2: replace pr_err with dev_err(Alex).
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
+Feel free to take the patches through whatever tree you want.
 
-Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
----
- drivers/gpu/drm/radeon/radeon_dp_auxch.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/radeon/radeon_dp_auxch.c b/drivers/gpu/drm/radeon/radeon_dp_auxch.c
-index 69379b95146e..1e5b6baf76a1 100644
---- a/drivers/gpu/drm/radeon/radeon_dp_auxch.c
-+++ b/drivers/gpu/drm/radeon/radeon_dp_auxch.c
-@@ -158,7 +158,7 @@ radeon_dp_aux_transfer_native(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg
- 	} while (retry_count++ < 1000);
- 
- 	if (retry_count >= 1000) {
--		DRM_ERROR("auxch hw never signalled completion, error %08x\n", tmp);
-+		dev_err(rdev->dev, "auxch hw never signalled completion, error %08x\n", tmp);
- 		ret = -EIO;
- 		goto done;
- 	}
-@@ -168,8 +168,7 @@ radeon_dp_aux_transfer_native(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg
- 		goto done;
- 	}
- 	if (tmp & AUX_RX_ERROR_FLAGS) {
--		DRM_DEBUG_KMS_RATELIMITED("dp_aux_ch flags not zero: %08x\n",
--					  tmp);
-+		drm_dbg_kms_ratelimited(dev, "dp_aux_ch flags not zero: %08x\n", tmp);
- 		ret = -EIO;
- 		goto done;
- 	}
--- 
-2.39.0
-
+> ---
+>  include/drm/drm_print.h | 3 ---
+>  1 file changed, 3 deletions(-)
+>
+> diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+> index a44fb7ef257f..c3753da97c4e 100644
+> --- a/include/drm/drm_print.h
+> +++ b/include/drm/drm_print.h
+> @@ -605,9 +605,6 @@ void __drm_err(const char *format, ...);
+>  #define drm_dbg_kms_ratelimited(drm, fmt, ...) \
+>         __DRM_DEFINE_DBG_RATELIMITED(KMS, drm, fmt, ## __VA_ARGS__)
+>
+> -/* NOTE: this is deprecated in favor of drm_dbg_kms_ratelimited(NULL, ...). */
+> -#define DRM_DEBUG_KMS_RATELIMITED(fmt, ...) drm_dbg_kms_ratelimited(NULL, fmt, ## __VA_ARGS__)
+> -
+>  /*
+>   * struct drm_device based WARNs
+>   *
+> --
+> 2.39.0
+>
