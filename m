@@ -4,91 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E1C3C54E76
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jan 2023 20:00:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACE2DC3DA78
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jan 2023 20:25:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAD7D10E343;
-	Tue, 17 Jan 2023 20:00:11 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2073.outbound.protection.outlook.com [40.107.96.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D79A310E1BA
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jan 2023 20:00:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gm2yCL9NDdybkAeAJTer1jHNJVbZIPXFCHXzNqfp9hSOR7rrSu6PUIoXDZlDgCVOc0yn/KBHa3/rT/Vyo3inQoggVGADtaZxEiA14E2LEiTr3tx51frqF2iLsCwWCzopcJI4ZWjTJv4rm10G1ShRcKlX60+Phx1+Wkes0v27/+7Phmc/gHbUyxy00BhqgAakPqOEoLnFYHvEDCzDiubnVRDyHU3q1l+13uwTHxJE5UgHunBROKXjR3C1Se5OvbsKrDn10GbR6qzNjCYdP/FwA7ehmlYLHCmqhETVsDPf3ZdjaZrnsyBtkpkD5QmaM7bnFOmE1OtX4/sPlXylo1PYZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cHrJeTVlk5bQpeEgL2kyJAfJsPnc+q4/GBp+5KXSDW4=;
- b=ONk1QDFgRmzydS3+hgUFf+JDLT+cVZP29FfhlZjOOckmCNkntXatyd0i+Bc3lE7US6KQrVGOxqzW2UYOl3Wn+jqrxqwwDEv6tDjta0WHP2Rv6xZ6B2UrCAsXP9Kwu5Gz7ctNd6GdDdtISigonMseDYiO0LayJFNDIARquX20f0kGvGIWyVjmnyaSbFPnN9zxB8WIfUIrZOg32/tL5g8Nkhcm8s0mzUpYhLkf9qTf/1Q6qH79iKtsvZP4ZwxsJ2AVrq7+tfJkipwADUGxe61AZhUmxyI4ROZo+E7PxQdbvf/o6DQ5LkqLbauj5NkO/8CdnvXaQqaINE5VfXQzDz0Ziw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cHrJeTVlk5bQpeEgL2kyJAfJsPnc+q4/GBp+5KXSDW4=;
- b=tjS69T80IdQE9Apq7fKcYs6bD66L6rIea62UheOSo2YBR0Ot3Bj1i2KcKMf2kVG/X6Ad3aeQvetltEETEMLzX7MlRj5lHZxQzL3D5uvUi62dsl6xJKASEFu4vX4psm4WOHlCe7ZhUX73yRvBEN8rO7KiVpmJWvLi+sMLeCYXrpU=
-Received: from MW4PR04CA0297.namprd04.prod.outlook.com (2603:10b6:303:89::32)
- by PH0PR12MB5434.namprd12.prod.outlook.com (2603:10b6:510:d5::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.23; Tue, 17 Jan
- 2023 20:00:06 +0000
-Received: from CO1NAM11FT047.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:89:cafe::9b) by MW4PR04CA0297.outlook.office365.com
- (2603:10b6:303:89::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.19 via Frontend
- Transport; Tue, 17 Jan 2023 20:00:06 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT047.mail.protection.outlook.com (10.13.174.132) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6002.13 via Frontend Transport; Tue, 17 Jan 2023 20:00:06 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 17 Jan
- 2023 14:00:05 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 4/4] drm/amdgpu/vcn4: fail to schedule IB for AV1 if VCN0 is
- harvested
-Date: Tue, 17 Jan 2023 14:59:49 -0500
-Message-ID: <20230117195949.1729608-4-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230117195949.1729608-1-alexander.deucher@amd.com>
-References: <20230117195949.1729608-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E164910E5CB;
+	Tue, 17 Jan 2023 20:25:30 +0000 (UTC)
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com
+ [209.85.160.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AE8110E33D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jan 2023 20:06:13 +0000 (UTC)
+Received: by mail-qt1-f173.google.com with SMTP id r15so4950703qtx.6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jan 2023 12:06:13 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=3xoeiV+nYOsKZ3P5r1QIbmJ251MgYmk7NsIx6imHg00=;
+ b=gPT6hfFioQHk9DIsSTrabRoUDDraOFTG2Nt4SoCUhPyd0vIMCxlYJuGnrPVqLVJfAp
+ 6U4Urgj4ZEpg+fXAOutzQpmwGEmlAzwxKsjhqw+iRliB7MPF/PHC30JFXnUS431p0ikQ
+ yudJCGubWnpDAqBmEUUFMwwefSWsp/L5ggEdTNmsJ1dy9B4DEEskELvyTOOCFOdbsgxj
+ trZfpri/DJuCC7EQLrqg/hqTNjq7+jVEDKxAC832Z/4EvOgFcdydSgB/7xg9OYkybjr2
+ L+T8VxuiUc5lEdgQ0duQlX3xrsUmfQmrwNbXrMIqJgGts2ZSV7vNlDGFl14JTmgcyA1T
+ p0wg==
+X-Gm-Message-State: AFqh2kqF7OmWtWAYoCLaCiCUtFiwUrj9RO5+yEUpyakWI75X2zPqTv5j
+ /Ao3CTwWv9RIoe/5SYwC0tUkF1yI6cO4fQ==
+X-Google-Smtp-Source: AMrXdXuLF6nIZ5WaW9Iot2STa/ZLTH2bJjBt+mgfCZ2KywCMQkV17DNrtCB/C3XTpT+iGJMpKCzhTg==
+X-Received: by 2002:ac8:4443:0:b0:3b6:2ec0:69fe with SMTP id
+ m3-20020ac84443000000b003b62ec069femr5968653qtn.40.1673985971902; 
+ Tue, 17 Jan 2023 12:06:11 -0800 (PST)
+Received: from mail-yb1-f173.google.com (mail-yb1-f173.google.com.
+ [209.85.219.173]) by smtp.gmail.com with ESMTPSA id
+ t13-20020ac8760d000000b003b63187dbe1sm3329582qtq.27.2023.01.17.12.06.10
+ for <amd-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 17 Jan 2023 12:06:11 -0800 (PST)
+Received: by mail-yb1-f173.google.com with SMTP id p188so35525005yba.5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jan 2023 12:06:10 -0800 (PST)
+X-Received: by 2002:a25:9012:0:b0:7b8:a0b8:f7ec with SMTP id
+ s18-20020a259012000000b007b8a0b8f7ecmr700718ybl.36.1673985970579; Tue, 17 Jan
+ 2023 12:06:10 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT047:EE_|PH0PR12MB5434:EE_
-X-MS-Office365-Filtering-Correlation-Id: fd14a130-d34d-405d-828e-08daf8c56df9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Dua1wX9wsdTarUcU2b6CDJ8EepJUkPTxUSvL8KiYP80wPCRhoWq8A1IuveKOTq6kDmzkUxKWkBIMRDIjaW+hcOtK2tw8Ar+c+ZXbn/AfqkiGziO5AOE++fsLBR8yhOggVAaU1aNGHKOB9PZ/U/wrmOUZPvKyDumxntDEIqIenUwZyHGrgPt/rNvGdgPQmXWPi3Z8KmojoWdthljC0DBdAkgBLQ6NYxm/TbmJp8bN9JwI9cYXJXJPKvCnaDfseRbF3yFFPJsrS1jrSU8T701x+TbMViX6VuU3KHIsegMYm1M2Fj1R27hoVJLPWA2flWgPrzPVpyt+BLJ27prpFAZE4Prwkz/jGClGIigL3h3feTUTDeGIEBCInNJAv7T7cbd6APqREzv6mgXIg8HpPxN2sG3yZpavimOY3nnhBOEvfHvezH+Yr64kDXl371FfD35JS4dlYIh0qKn/26wkCMFK2KG4HMffzODj2Qqto7vJsYd1z4NGFtM/1lZSQUUR/C70pv9AA+Hb1f5yqM0dPSwrv/rzGa4p/1tmP4Z9QoqzmwDNgvz0wtnSPbJkw1HaGuW8DgOzNFusk+IYui7msk73lAAwHzPFCeyE07Fx5aHa1uLxlyk9udNyWMn91p+kiYwGMuogrv4IfmooldbbxNc7ICKfhGSn1oIvdKdHbVN+r8436uABkVkADhxvXZme2HAaRsewZDVou7IkUiPpz8k/b6Yab2pMwgtmTAFUqb2Pgjo=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(396003)(346002)(39860400002)(136003)(451199015)(40470700004)(46966006)(36840700001)(83380400001)(82310400005)(40460700003)(16526019)(7696005)(40480700001)(36756003)(478600001)(186003)(81166007)(356005)(36860700001)(2616005)(82740400003)(1076003)(47076005)(336012)(86362001)(426003)(2906002)(4744005)(26005)(6666004)(70206006)(8936002)(8676002)(6916009)(70586007)(4326008)(316002)(5660300002)(41300700001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2023 20:00:06.2254 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fd14a130-d34d-405d-828e-08daf8c56df9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT047.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5434
+References: <CAHk-=wgf929uGOVpiWALPyC7pv_9KbwB2EAvQ3C4woshZZ5zqQ@mail.gmail.com>
+ <20221227082932.798359-1-geert@linux-m68k.org>
+ <alpine.DEB.2.22.394.2212270933530.311423@ramsan.of.borg>
+ <c05bee5d-0d69-289b-fe4b-98f4cd31a4f5@physik.fu-berlin.de>
+ <CAMuHMdXNJveXHeS=g-aHbnxtyACxq1wCeaTg8LbpYqJTCqk86g@mail.gmail.com>
+ <3800eaa8-a4da-b2f0-da31-6627176cb92e@physik.fu-berlin.de>
+ <CAMuHMdWbBRkhecrqcir92TgZnffMe8ku2t7PcVLqA6e6F-j=iw@mail.gmail.com>
+ <429140e0-72fe-c91c-53bc-124d33ab5ffa@physik.fu-berlin.de>
+In-Reply-To: <429140e0-72fe-c91c-53bc-124d33ab5ffa@physik.fu-berlin.de>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 17 Jan 2023 21:05:58 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdWpHSsAB3WosyCVgS6+t4pU35Xfj3tjmdCDoyS2QkS7iw@mail.gmail.com>
+Message-ID: <CAMuHMdWpHSsAB3WosyCVgS6+t4pU35Xfj3tjmdCDoyS2QkS7iw@mail.gmail.com>
+Subject: Re: Calculating array sizes in C - was: Re: Build
+ regressions/improvements in v6.2-rc1
+To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Tue, 17 Jan 2023 20:25:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,32 +74,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: linux-xtensa@linux-xtensa.org, Arnd Bergmann <arnd@arndb.de>,
+ linux-sh@vger.kernel.org, linux-wireless@vger.kernel.org,
+ linux-mips@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+ Michael Karcher <kernel@mkarcher.dialup.fu-berlin.de>,
+ linux-f2fs-devel@lists.sourceforge.net, linuxppc-dev@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Only VCN0 supports AV1.
+Hi Adrian,
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 4 ++++
- 1 file changed, 4 insertions(+)
+On Tue, Jan 17, 2023 at 6:06 PM John Paul Adrian Glaubitz
+<glaubitz@physik.fu-berlin.de> wrote:
+> On 1/17/23 18:01, Geert Uytterhoeven wrote:
+> > The issue is that some of the parameters are not arrays, but
+> > NULL. E.g.:
+> >
+> > arch/sh/kernel/cpu/sh2/setup-sh7619.c:static
+> > DECLARE_INTC_DESC(intc_desc, "sh7619", vectors, NULL,
+> > arch/sh/kernel/cpu/sh2/setup-sh7619.c-                   NULL,
+> > prio_registers, NULL);
+>
+> Isn't this supposed to be caught by this check:
+>
+>         a, __same_type(a, NULL)
+>
+> ?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-index a79b6088374b..efb22d0975b3 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-@@ -1632,6 +1632,10 @@ static int vcn_v4_0_limit_sched(struct amdgpu_cs_parser *p,
- 	if (atomic_read(&job->base.entity->fence_seq))
- 		return -EINVAL;
- 
-+	/* if VCN0 is harvested, we can't support AV1 */
-+	if (p->adev->vcn.harvest_config & AMDGPU_VCN_HARVEST_VCN0)
-+		return -EINVAL;
-+
- 	scheds = p->adev->gpu_sched[AMDGPU_HW_IP_VCN_ENC]
- 		[AMDGPU_RING_PRIO_0].sched;
- 	drm_sched_entity_modify_sched(job->base.entity, scheds, 1);
--- 
-2.39.0
+Yeah, but gcc thinks it is smarter than us...
+Probably it drops the test, assuming UB cannot happen.
 
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
