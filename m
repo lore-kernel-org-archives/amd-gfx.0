@@ -4,30 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 621E4C63797
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jan 2023 08:22:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 323CCC678D4
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jan 2023 08:22:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31A1A10E50A;
-	Tue, 17 Jan 2023 08:22:24 +0000 (UTC)
-Received: from out30-101.freemail.mail.aliyun.com
- (out30-101.freemail.mail.aliyun.com [115.124.30.101])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F089E10E2C5;
- Tue, 17 Jan 2023 05:57:55 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R171e4; CH=green; DM=||false|;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AF5610E50B;
+	Tue, 17 Jan 2023 08:22:25 +0000 (UTC)
+Received: from out30-6.freemail.mail.aliyun.com
+ (out30-6.freemail.mail.aliyun.com [115.124.30.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C27110E2C7;
+ Tue, 17 Jan 2023 05:59:46 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R121e4; CH=green; DM=||false|;
  DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046059;
  MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
- TI=SMTPD_---0VZlg57-_1673935061; 
+ TI=SMTPD_---0VZluILG_1673935178; 
 Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0VZlg57-_1673935061) by smtp.aliyun-inc.com;
- Tue, 17 Jan 2023 13:57:51 +0800
+ fp:SMTPD_---0VZluILG_1673935178) by smtp.aliyun-inc.com;
+ Tue, 17 Jan 2023 13:59:42 +0800
 From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 To: alexander.deucher@amd.com
-Subject: [PATCH 1/3] drm/amd/display: Remove the unused variable optc
-Date: Tue, 17 Jan 2023 13:57:34 +0800
-Message-Id: <20230117055736.50883-1-jiapeng.chong@linux.alibaba.com>
+Subject: [PATCH 3/3] drm/amd/display: Clean up some inconsistent indenting
+Date: Tue, 17 Jan 2023 13:59:22 +0800
+Message-Id: <20230117055922.53911-2-jiapeng.chong@linux.alibaba.com>
 X-Mailer: git-send-email 2.20.1.7.g153144c
+In-Reply-To: <20230117055922.53911-1-jiapeng.chong@linux.alibaba.com>
+References: <20230117055922.53911-1-jiapeng.chong@linux.alibaba.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 17 Jan 2023 08:22:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -48,35 +49,34 @@ Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, Xinhui.Pan@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Variable optc is not effectively used, so delete it.
+No functional modification involved.
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_hwseq.c:325:27: warning: variable ‘optc’ set but not used.
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_hpd.c:140 get_hpd_line() warn: inconsistent indenting.
 
-Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=3782
+Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=3787
 Reported-by: Abaci Robot <abaci@linux.alibaba.com>
 Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/link/link_hpd.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-index 7360b3ce4283..bae6e3b52546 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-@@ -322,13 +322,11 @@ void dcn30_enable_writeback(
- {
- 	struct dwbc *dwb;
- 	struct mcif_wb *mcif_wb;
--	struct timing_generator *optc;
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_hpd.c b/drivers/gpu/drm/amd/display/dc/link/link_hpd.c
+index 5f39dfe06e9a..4746ea623354 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_hpd.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_hpd.c
+@@ -137,10 +137,9 @@ enum hpd_source_id get_hpd_line(struct dc_link *link)
+ 	struct gpio *hpd;
+ 	enum hpd_source_id hpd_id;
  
- 	dwb = dc->res_pool->dwbc[wb_info->dwb_pipe_inst];
- 	mcif_wb = dc->res_pool->mcif_wb[wb_info->dwb_pipe_inst];
+-		hpd_id = HPD_SOURCEID_UNKNOWN;
+-
++	hpd_id = HPD_SOURCEID_UNKNOWN;
+ 	hpd = link_get_hpd_gpio(link->ctx->dc_bios, link->link_id,
+-			   link->ctx->gpio_service);
++				link->ctx->gpio_service);
  
- 	/* set the OPTC source mux */
--	optc = dc->res_pool->timing_generators[dwb->otg_inst];
- 	DC_LOG_DWB("%s dwb_pipe_inst = %d, mpcc_inst = %d",\
- 		__func__, wb_info->dwb_pipe_inst,\
- 		wb_info->mpcc_inst);
+ 	if (hpd) {
+ 		switch (dal_irq_get_source(hpd)) {
 -- 
 2.20.1.7.g153144c
 
