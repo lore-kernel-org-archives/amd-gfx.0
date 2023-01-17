@@ -4,55 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA6DEC63797
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jan 2023 14:22:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C48BC63797
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jan 2023 14:38:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51C2310E549;
-	Tue, 17 Jan 2023 14:22:41 +0000 (UTC)
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
- [IPv6:2001:4860:4864:20::2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 034AE10E549
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jan 2023 14:22:39 +0000 (UTC)
-Received: by mail-oa1-x2a.google.com with SMTP id
- 586e51a60fabf-15ed38a9b04so13442387fac.8
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jan 2023 06:22:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=3RlhoRZaieEjiz+WaRdj3z/M4QovOErKiUFZd2ESVTk=;
- b=gtQ6VGojWy9x2LVnQsaJ4HOLT1gZHhIjuOo1vPYnXlvIDwiRWhP+BkXcSLtVQENPET
- TmtjMb5Iv28RYGAmQO0Q9KiY8tiKO9Btf/3rymPDBSax2I7EDfcVmPSOYVzp+eEndpfh
- Bw0xtRXvRm0WZQdu1jdMp8yr/Fbkh0SxlNHeqMewP1en1Cn1/2yfwM87CbxQjWlg8NDi
- t5Rt849EEcX7mor6+zlq7tBxiRT6ral17JtcGJ49g/UmyCTJhALf6QImX0Jo6dFptbwQ
- 2YE8LzXAHGaqAIR8wuIfi3gb7Zagwx8gQTkNtMrJsUkJ0oYoXaXwwxsbjCYE57Hidjin
- BPNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=3RlhoRZaieEjiz+WaRdj3z/M4QovOErKiUFZd2ESVTk=;
- b=goRHT4wryZ90I11LtELv3IfnuTojhIGtwIoM7m8TyT2QagjxXBS4Qo78ToPcmh7AcC
- 5Z8akLmZhM9ZqYfYFThF68JfqLofxO9+u12/7l+NeC2BecHhKauZcMWkyK543SNwKABH
- qYHPFgb1hqkBr5ZhcQCXQH2LA0iq6haDKGG8A3rV5bMBFGUz8LEe9NiK0caP19x9g0zY
- gZtwJHuBUliuSoKVo5Nd+9fMUBBJwR0ORMaGgwcYGsuRpEHS5gbLc3XjH0ess9gyu9AX
- iFbFwdKf8YSkWybsULaxdw0cAGcfvit0vnysOSz8XvPav0XvgMn6JcDJKBLWv8CecuBO
- Ah9g==
-X-Gm-Message-State: AFqh2koBm2Ep/aUG/DoEBdZ47E5dPRAz62vPFGhHOrobrsXirz7hVvQ+
- 4Yv6ZBL9v+Jll9qaByR+WlPGYgeaMU0EXVAv5Sg=
-X-Google-Smtp-Source: AMrXdXu3WJ8E+mCHZJdkr6Ekw0XIPEkuHcXUctX8Z/3SkOq+jFopDZcdDR+F450lsnq2mFuORLzwPmQWGVc03fASBpQ=
-X-Received: by 2002:a05:6870:7a18:b0:15f:5509:9a0d with SMTP id
- hf24-20020a0568707a1800b0015f55099a0dmr310842oab.46.1673965359266; Tue, 17
- Jan 2023 06:22:39 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85C5E10E54C;
+	Tue, 17 Jan 2023 14:38:22 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B145E10E54A;
+ Tue, 17 Jan 2023 14:38:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=jvCND7U5mCx/0/d5hUtwhsEg9nPGo+xA4gIoGMnASvA=; b=Rf5a2/Bao6+pYgfKcC/BJrUsxL
+ Q9iZ1PS+LTP5VyIP6P8AIwNqBNdx3n3E/OZNHR93EllE65kPfrZbXOEX+Dyck0kkTlom0hhTlhBqS
+ 8S0QhqEXz8Bih9CAeWdiLvlDtRQW5rtZlk23IVClKdd1ynl7qy/QtC7aWSFjLUALi4EswzozfOzF6
+ 3N31/2qWXCXC89fybY4EEOQMA+dbyJz1qu9uSrbJsqQkFcSF1yfMFjGydqb9edN02pXB03YW9a2ff
+ mCfKynIs/jHyhCSfdtMHY+NSr7n+Kn5AmPvnzKNK3+PCjY+fHxGmmIx2SnqHA/4uoAdd3UjhPBolv
+ ZKI2bzPQ==;
+Received: from [187.36.234.139] (helo=[192.168.1.195])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1pHn67-00AgQV-JC; Tue, 17 Jan 2023 15:37:59 +0100
+Message-ID: <763513db-7d0d-5946-a9af-11db85aa0db6@igalia.com>
+Date: Tue, 17 Jan 2023 11:37:50 -0300
 MIME-Version: 1.0
-References: <20230117030528.13525-1-Jane.Jian@amd.com>
-In-Reply-To: <20230117030528.13525-1-Jane.Jian@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 17 Jan 2023 09:22:28 -0500
-Message-ID: <CADnq5_OS9UujAF8E0Nou7UMw5MVUsWJAU98mAR9kCWzYDrFrSw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/smu: skip pptable init under sriov
-To: Jane Jian <Jane.Jian@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Subject: Re: [PATCH v3 2/3] drm/amdgpu: Remove redundant framebuffer format
+ check
+Content-Language: en-US
+To: Simon Ser <contact@emersion.fr>
+References: <20230113165919.580210-1-mcanal@igalia.com>
+ <20230113165919.580210-3-mcanal@igalia.com>
+ <feD8ifyiQQcVKESmwwRiyFCSBrXbRd6kGm8LGHgC0ympY2Qsc9Oi3UEqva2xVspk59CvZV4kpgCJUUKPJt9scwsIMAVBvDZrXMihMehs_WM=@emersion.fr>
+From: =?UTF-8?Q?Ma=c3=adra_Canal?= <mcanal@igalia.com>
+In-Reply-To: <feD8ifyiQQcVKESmwwRiyFCSBrXbRd6kGm8LGHgC0ympY2Qsc9Oi3UEqva2xVspk59CvZV4kpgCJUUKPJt9scwsIMAVBvDZrXMihMehs_WM=@emersion.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,47 +56,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Horace.Chen@amd.com, amd-gfx@lists.freedesktop.org, HaiJun.Chang@amd.com
+Cc: amd-gfx@lists.freedesktop.org,
+ =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Melissa Wen <mwen@igalia.com>,
+ Rob Clark <robdclark@gmail.com>,
+ VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Zack Rusin <zackr@vmware.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 16, 2023 at 10:05 PM Jane Jian <Jane.Jian@amd.com> wrote:
->
-> sriov does not need to init pptable from amdgpu driver
-> we finish it from PF
->
-> Signed-off-by: Jane Jian <Jane.Jian@amd.com>
+Hi Simon,
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+On 1/13/23 14:06, Simon Ser wrote:
+> Hm, unfortunately I think we need to keep the check in amdgpu for the
+> same reason as i915: amdgpu will pick a modifier if user-space didn't
+> supply one on GFX9+.
+> 
+> I wonder if that also applies to vmwgfx? Maybe that would be a reason
+> to have the check in framebuffer_init()? (Not sure!)
 
-> ---
->  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> index d0cdc578344d..7d711861b90e 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> @@ -407,6 +407,9 @@ static int smu_v13_0_0_setup_pptable(struct smu_context *smu)
->         struct amdgpu_device *adev = smu->adev;
->         int ret = 0;
->
-> +       if (amdgpu_sriov_vf(smu->adev))
-> +               return 0;
-> +
->         ret = smu_v13_0_0_get_pptable_from_pmfw(smu,
->                                                 &smu_table->power_play_table,
->                                                 &smu_table->power_play_table_size);
-> @@ -1257,6 +1260,9 @@ static int smu_v13_0_0_get_thermal_temperature_range(struct smu_context *smu,
->                 table_context->power_play_table;
->         PPTable_t *pptable = smu->smu_table.driver_pptable;
->
-> +       if (amdgpu_sriov_vf(smu->adev))
-> +               return 0;
-> +
->         if (!range)
->                 return -EINVAL;
->
-> --
-> 2.17.1
->
+I tried to move the check to framebuffer_init(), but it ended up causing
+problems in the i915 driver (the kernel was emitting warnings when running
+the IGT tests). I was thinking of going back to the drm_gem_fb_create()
+approach [1], as it would make the other drivers return EINVAL in the case of
+a bad modifier and it wouldn't change the current behavior of i915 and amdgpu.
+
+[1] https://lore.kernel.org/dri-devel/20230103125322.855089-1-mcanal@igalia.com/T/
+
+Best Regards,
+- Maíra Canal
