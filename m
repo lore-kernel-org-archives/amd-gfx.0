@@ -4,62 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55E93C678D4
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jan 2023 10:36:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2CADC3DA78
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jan 2023 14:03:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86BA910E469;
-	Tue, 17 Jan 2023 10:36:07 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B976C10E06B;
- Tue, 17 Jan 2023 10:36:04 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B77B10E17C;
+	Tue, 17 Jan 2023 14:03:07 +0000 (UTC)
+X-Greylist: delayed 1030 seconds by postgrey-1.36 at gabe;
+ Tue, 17 Jan 2023 12:15:08 UTC
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A40B310E521;
+ Tue, 17 Jan 2023 12:15:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=a+Z1S1xLoCDY3+cEJ4MNUOsPlXtKXXWmP1+DQ4QDsac=; b=evMQhc5/xMEy+lhk6J7pBkUh8b
+ nhYD9qQYyxgSYOKUhBcEB6FN+q4d3+76POpvVi3Kwnh4t6iZr9bnzmPH35XwZsEWX9VpjSu/iJ2qY
+ 6FGKZPeNYW/xByoKChnP3sj3BHAv59X36zTLnB5UsmYB1c2exkEiNof3OiLa1AwTelAJirDSum+UT
+ vWX4iTxx0P7lzSf/2wPpcYks84YO0dhwXEfyNc2Nn3XvSVMdvZ4RyR+W4Fq7VqLZBxaW8J5v53pyQ
+ Vr4BXcj2QDslVT5oi5ZePwjDOBaKrA0qbKvLGDog/P3faF8Cgt638yoYmaBgjpHoIHCB8UnuDr4M7
+ kF/EBoZw==;
+Received: from j130084.upc-j.chello.nl ([24.132.130.84]
+ helo=noisy.programming.kicks-ass.net)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1pHkbC-009ec6-W2; Tue, 17 Jan 2023 11:57:55 +0000
+Received: from hirez.programming.kicks-ass.net
+ (hirez.programming.kicks-ass.net [192.168.1.225])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 55EE4684CF;
- Tue, 17 Jan 2023 10:36:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1673951763; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=m7FsluwkJu0yidaKtHiLwAfSD8O/evg3nH97MdSWSxI=;
- b=McgLaBl8g8aerxwEJtKmeUNqZLlgOmw55wAeQB5hJ7wCfSxdWaquDRp36xhLhlvxlYO3hK
- EKQa+Lx4c6V7T0bcVA7zXAjZNYm0YtvOojiqC1+8ZjSvk3NGT5wj0N47mwWpYd8QV69tze
- qc28uHchGOr6ZPb1auL4W1bQV9eSpR8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1673951763;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=m7FsluwkJu0yidaKtHiLwAfSD8O/evg3nH97MdSWSxI=;
- b=oyLjoKmxOb/0RrqoezZT0o7bM59EoqL1VjA99cueUJTKj3uQUO1yQd/hrEk74HE+FAL92U
- 2yITtWi8NEQKFrCQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E48EA1390C;
- Tue, 17 Jan 2023 10:36:02 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id DzGCNhJ6xmOPIAAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Tue, 17 Jan 2023 10:36:02 +0000
-Message-ID: <a714aa55-71b4-7f0b-c25a-23e3b9c14c09@suse.de>
-Date: Tue, 17 Jan 2023 11:36:02 +0100
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (Client did not present a certificate)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id A904A300094;
+ Tue, 17 Jan 2023 12:57:39 +0100 (CET)
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+ id 8495A2B305DE7; Tue, 17 Jan 2023 12:57:39 +0100 (CET)
+Date: Tue, 17 Jan 2023 12:57:39 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Jim Cromie <jim.cromie@gmail.com>
+Subject: Re: [PATCH v2 20/20] jump_label: RFC - tolerate toggled state
+Message-ID: <Y8aNMxHpvZ8qecSc@hirez.programming.kicks-ass.net>
+References: <20230113193016.749791-1-jim.cromie@gmail.com>
+ <20230113193016.749791-21-jim.cromie@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH v2 3/3] drm: Call vga_switcheroo_process_delayed_switch()
- in drm_lastclose
-Content-Language: en-US
-To: Lukas Wunner <lukas@wunner.de>
-References: <20230112201156.26849-1-tzimmermann@suse.de>
- <20230112201156.26849-4-tzimmermann@suse.de>
- <20230117094440.GA30914@wunner.de>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-In-Reply-To: <20230117094440.GA30914@wunner.de>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------ppNCEqAK6nP4o1Y0NY3V832g"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230113193016.749791-21-jim.cromie@gmail.com>
+X-Mailman-Approved-At: Tue, 17 Jan 2023 14:03:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,110 +61,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: tvrtko.ursulin@linux.intel.com, kherbst@redhat.com,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- rodrigo.vivi@intel.com, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel.vetter@ffwll.ch>, jose.souza@intel.com,
- evan.quan@amd.com, christian.koenig@amd.com, bskeggs@redhat.com
+Cc: jani.nikula@intel.com, daniel.vetter@ffwll.ch,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, robdclark@gmail.com, seanpaul@chromium.org,
+ dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org, jbaron@akamai.com,
+ intel-gvt-dev@lists.freedesktop.org, ville.syrjala@linux.intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------ppNCEqAK6nP4o1Y0NY3V832g
-Content-Type: multipart/mixed; boundary="------------RW3kpQ0nqBpwFFCPJvFxo8Ni";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Lukas Wunner <lukas@wunner.de>
-Cc: tvrtko.ursulin@linux.intel.com, dri-devel@lists.freedesktop.org,
- kherbst@redhat.com, amd-gfx@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Xinhui.Pan@amd.com, Daniel Vetter <daniel.vetter@ffwll.ch>,
- jose.souza@intel.com, rodrigo.vivi@intel.com, alexander.deucher@amd.com,
- evan.quan@amd.com, christian.koenig@amd.com, bskeggs@redhat.com
-Message-ID: <a714aa55-71b4-7f0b-c25a-23e3b9c14c09@suse.de>
-Subject: Re: [PATCH v2 3/3] drm: Call vga_switcheroo_process_delayed_switch()
- in drm_lastclose
-References: <20230112201156.26849-1-tzimmermann@suse.de>
- <20230112201156.26849-4-tzimmermann@suse.de>
- <20230117094440.GA30914@wunner.de>
-In-Reply-To: <20230117094440.GA30914@wunner.de>
+On Fri, Jan 13, 2023 at 12:30:16PM -0700, Jim Cromie wrote:
+> __jump_label_patch currently will "crash the box" if it finds a
+> jump_entry not as expected.  ISTM this overly harsh; it doesn't
+> distinguish between "alternate/opposite" state, and truly
+> "insane/corrupted".
+> 
+> The "opposite" (but well-formed) state is a milder mis-initialization
+> problem, and some less severe mitigation seems practical.  ATM this
+> just warns about it; a range/enum of outcomes: warn, crash, silence,
+> ok, fixup-continue, etc, are possible on a case-by-case basis.
+> 
+> Ive managed to create this mis-initialization condition with
+> test_dynamic_debug.ko & _submod.ko.  These replicate DRM's regression
+> on DRM_USE_DYNAMIC_DEBUG=y; drm.debug callsites in drivers/helpers
+> (dependent modules) are not enabled along with those in drm.ko itself.
+> 
 
---------------RW3kpQ0nqBpwFFCPJvFxo8Ni
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+> Ive hit this case a few times, but havent been able to isolate the
+> when and why.
+> 
+> warn-only is something of a punt, and I'm still left with remaining
+> bugs which are likely related; I'm able to toggle the p-flag on
+> callsites in the submod, but their enablement still doesn't yield
+> logging activity.
 
-SGkNCg0KQW0gMTcuMDEuMjMgdW0gMTA6NDQgc2NocmllYiBMdWthcyBXdW5uZXI6DQo+IE9u
-IFRodSwgSmFuIDEyLCAyMDIzIGF0IDA5OjExOjU2UE0gKzAxMDAsIFRob21hcyBaaW1tZXJt
-YW5uIHdyb3RlOg0KPj4gU2V2ZXJhbCBsYXN0Y2xvc2UgaGVscGVycyBjYWxsIHZnYV9zd2l0
-Y2hlcm9vX3Byb2Nlc3NfZGVsYXllZF9zd2l0Y2goKS4NCj4+IEl0J3MgYmV0dGVyIHRvIGNh
-bGwgdGhlIGhlbHBlciBmcm9tIGRybV9sYXN0Y2xvc2UoKSBhZnRlciB0aGUga2VybmVsDQo+
-PiBjbGllbnQncyBzY3JlZW4gaGFzIGJlZW4gcmVzdG9yZWQuIFRoaXMgd2F5LCBhbGwgZHJp
-dmVycyBjYW4gYmVuZWZpdA0KPj4gd2l0aG91dCBoYXZpbmcgdG8gaW1wbGVtZW50IHRoZWly
-IG93biBsYXN0Y2xvc2UgaGVscGVyLiBGb3IgZHJpdmVycw0KPj4gd2l0aG91dCB2Z2Etc3dp
-dGNoZXJvbywgdmdhX3N3aXRjaGVyb29fcHJvY2Vzc19kZWxheWVkX3N3aXRjaCgpIGRvZXMN
-Cj4+IG5vdGhpbmcuDQo+IFsuLi5dDQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2Zp
-bGUuYw0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9maWxlLmMNCj4+IEBAIC0zOCw2
-ICszOCw3IEBADQo+PiAgICNpbmNsdWRlIDxsaW51eC9wY2kuaD4NCj4+ICAgI2luY2x1ZGUg
-PGxpbnV4L3BvbGwuaD4NCj4+ICAgI2luY2x1ZGUgPGxpbnV4L3NsYWIuaD4NCj4+ICsjaW5j
-bHVkZSA8bGludXgvdmdhX3N3aXRjaGVyb28uaD4NCj4+ICAgDQo+PiAgICNpbmNsdWRlIDxk
-cm0vZHJtX2NsaWVudC5oPg0KPj4gICAjaW5jbHVkZSA8ZHJtL2RybV9kcnYuaD4NCj4+IEBA
-IC00NjAsNiArNDYxLDggQEAgdm9pZCBkcm1fbGFzdGNsb3NlKHN0cnVjdCBkcm1fZGV2aWNl
-ICogZGV2KQ0KPj4gICAJCWRybV9sZWdhY3lfZGV2X3JlaW5pdChkZXYpOw0KPj4gICANCj4+
-ICAgCWRybV9jbGllbnRfZGV2X3Jlc3RvcmUoZGV2KTsNCj4+ICsNCj4+ICsJdmdhX3N3aXRj
-aGVyb29fcHJvY2Vzc19kZWxheWVkX3N3aXRjaCgpOw0KPj4gICB9DQo+IA0KPiBIbSwgdGhp
-cyBsb29rcyBsaWtlIGEgY2FzZSBvZiBtaWRsYXllciBmYWxsYWN5Og0KPiANCj4gaHR0cHM6
-Ly9ibG9nLmZmd2xsLmNoLzIwMTYvMTIvbWlkbGF5ZXJzLW9uY2UtbW9yZS13aXRoLWZlZWxp
-bmcuaHRtbA0KPiANCj4gSXQgaXMgYSBkZXBhcnR1cmUgZnJvbSB0aGUgb3B0LWluIGxpYnJh
-cnkgYXBwcm9hY2ggd2UndmUgaGFkIHNvIGZhci4NCj4gDQo+IEZvciBzd2l0Y2hlcm9vLWF3
-YXJlIEVESUQgcmV0cmlldmFsLCB0aGVyZSdzIGEgZHJtX2dldF9lZGlkX3N3aXRjaGVyb28o
-KQ0KPiBoZWxwZXIuICBIb3cgYWJvdXQgaW50cm9kdWNpbmcgYSBzd2l0Y2hlcm9vLWF3YXJl
-IGxhc3RjbG9zZSBoZWxwZXIgd2hpY2gNCj4gZHJpdmVycyBjYW4gcmVmZXJlbmNlPw0KDQpD
-b25zb2xlIGVtdWxhdGlvbiBpcyBhIG1lc3MuIEknbSB3b3JraW5nIG9uIGl0LCBidXQgaXQg
-dGFrZXMgdGltZS4gDQpUaGVyZWZvcmUgYSBuaWNlIHNvbHV0aW9uIGlzIHByb2JhYmx5IG5v
-dCBwb3NzaWJsZSBBVE0uDQoNCldlIGNvdWxkIGhhdmUgc29tZXRoaW5nIGxpa2UgZHJtX2Zi
-X2hlbHBlcl9sYXN0Y2xvc2Vfc3dpdGNoZXJvbygpLCB3aGljaCANCmRvZXMgZHJtX2ZiX2hl
-bHBlcl9sYXN0Y2xvc2UoKSArIA0KdmdhX3N3aXRjaGVyb29fcHJvY2Vzc19kZWxheWVkX3N3
-aXRjaCgpLiBpOTE1IGFuZCByYWRlb24gY291bGQgdXNlIHRoYXQgDQphcy1pcy4gYW1kZ3B1
-IGFuZCBub3V2ZWF1IGhhdmUgYWxyZWFkeSBzd2l0Y2hlZCB0byBnZW5lcmljIGZiZGV2IA0K
-ZW11bGF0aW9uLiBXZSBjb3VsZCB1c2UgZHJtX2ZiX2hlbHBlcl9sYXN0Y2xvc2Vfc3dpdGNo
-ZXJvbygpIGZyb20gdGhlIA0KZ2VuZXJpYyBjb2RlIGFzIHdlbGwsIGJ1dCBpdCB3aWxsIHN0
-aWxsIGJlIHNvbWV3aGF0IG1pZGxheWVyaXNoLg0KDQpCdXQgd2l0aCBhbGwgdGhhdCwgaXQn
-cyBwcm9iYWJseSBiZXR0ZXIgdG8gbm90IGxhbmQgcGF0Y2ggMyBhdCBhbGwuIFRoZSANCmhv
-b2sgZHJtX2RyaXZlci5sYXN0Y2xvc2UgaXMganVzdCBmb3IgdGhlIG9sZCBmYmRldiBlbXVs
-YXRpb24uIEZvciB0aGUgDQpuZXcgZmJkZXYgZW11bGF0aW9uLCB3ZSBoYXZlIGJldHRlciBk
-YXRhIHN0cnVjdHVyZXMgKHNlZSBkcm1fY2xpZW50X2RldikuDQoNClRoZSBjb3JyZWN0IGRl
-c2lnbiB3b3VsZCBiZSB0byBzd2l0Y2ggYW1kZ3B1IGFuZCBub3V2ZWF1IGJhY2sgdG8gdGhl
-aXIgDQpvd24gZmJkZXYgZW11bGF0aW9uIGFuZCBoYW5kbGUgc3dpdGNoZXJvbyB0aGVyZS4g
-QnV0IHRoZWlyIG9sZCBmYmRldiANCmNvZGUgbmVlZGVkIGFuIG92ZXJoYXVsLCBzbyBqdXN0
-IHJldmVydGluZyBpc24ndCBhbiBvcHRpb24uDQoNCkJlc3QgcmVnYXJkcw0KVGhvbWFzDQoN
-Cj4gDQo+IFRoYW5rcywNCj4gDQo+IEx1a2FzDQoNCi0tIA0KVGhvbWFzIFppbW1lcm1hbm4N
-CkdyYXBoaWNzIERyaXZlciBEZXZlbG9wZXINClNVU0UgU29mdHdhcmUgU29sdXRpb25zIEdl
-cm1hbnkgR21iSA0KTWF4ZmVsZHN0ci4gNSwgOTA0MDkgTsO8cm5iZXJnLCBHZXJtYW55DQoo
-SFJCIDM2ODA5LCBBRyBOw7xybmJlcmcpDQpHZXNjaMOkZnRzZsO8aHJlcjogSXZvIFRvdGV2
-DQo=
+Right; having been in this is state is bad since it will generate
+inconsistent code-flow. Full on panic *might* not be warranted (as it
+does for corrupted text) but it is still a fairly bad situation -- so
+I'm not convinced we want to warn and carry on.
 
---------------RW3kpQ0nqBpwFFCPJvFxo8Ni--
+It would be really good to figure out why the site was skipped over and
+got out of skew.
 
---------------ppNCEqAK6nP4o1Y0NY3V832g
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Given it's all module stuff, the 'obvious' case would be something like
+a race between adding the new sites and flipping it, but I'm not seeing
+how -- things are rather crudely serialized by jump_label_mutex.
 
------BEGIN PGP SIGNATURE-----
+The only other option I can come up with is that somehow the update
+condition in jump_label_add_module() is somehow wrong.
 
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmPGehIFAwAAAAAACgkQlh/E3EQov+DE
-eg/+KMd/ThFV+V1YGvh0Kd6a3BpmjG57gMQQXFiIHJW8xBfMKe3Foq0gouHk6XdvrRnx/jhftAwe
-ft1dcJe6r5Djl97zX7T2OpjymUE2m/vsC6vgutsHfXIZcbRI7hkhO+Tu5jGObvJSyg29EsIJ5C5O
-nYmkNr1M+m5ZU7J/qKxaquUu26zX3aFk+OmPwLpWBFiGsnZMs/v0E1sxJyqaaU4sy+PDacUug3vs
-DQhmc4kjZitIzM7YVCiHZqwzIPxsMUNTzy6OVLXpf0kxMwShylDUr8rraJIfUR233V/eo7VezJgd
-FDNhrtaeN7O9148AiXn9tRU8i46961VpTQmZ+/wVwHN2jVZweIOGNJM6E23woUSZ8dS0m2Xe9Fyx
-Se4l2YA5vXdoOAnrhXMD5Oo7/8lFhBm1lU0LMBEES1oHY19gCMoWWCJNOqxMP+DgcslNk5iV1Ryq
-cIKO8mWAeo9lnombAspyOyP4h7GXi3uLbeBOuK9RFoiw4UquVH6ffi+O0MaJNFyQC5Z4vucab8DF
-XyD6NiAC8BiPRjU616DS+zT+Y4RGMNqvABjTfeuwop5wjTYANQjoPxEiih/lf45lwlumEys5gbS2
-pFy9uVxscRgNbrche7imkHp4A7n65IARyhp5ZKD09wW8AnX0KrpxZdgrmZI2MLjKOvJVO03mEoF9
-h/k=
-=Dnmq
------END PGP SIGNATURE-----
-
---------------ppNCEqAK6nP4o1Y0NY3V832g--
