@@ -4,50 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A396C3DA78
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jan 2023 08:22:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 621E4C63797
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jan 2023 08:22:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5E0D10E496;
-	Tue, 17 Jan 2023 08:22:23 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89CA610E170;
- Tue, 17 Jan 2023 00:47:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=7rA3dOZYWNXtMCsmezhMtKfclk/IKSdCdL3lUcKIGqo=; b=FU54kzvbdSnqn+Ve8r7bMnrBAv
- WulqJ+KYg0XBL682MyaPd4t5WCXPuLPBcAgDPqnlpPpTC+GZDx74eIlDaxlo0VACHAqvBAYkFQYAG
- Y74QE//xaTPLIA3D+KCYuYuiFbfiSZSMIzPBN3OO19pdGjvTVJbtr0lHPU6tzE8J0ai000Emfb+cx
- CsIBYR/zUCGBkfpxY9SyNysFBDN6HcIWn0OL4hwYcRsTicSQt0T2O3C55y65BRh/RoS4VC9jnmdZa
- kHdPxHdMx+om1taKJl/iOplBbpgv3O3SeRiD4XzEPxt+cVwzUnMPQBajHTEow9jiT10yYb8jfJE1p
- rNq8FtcA==;
-Received: from [187.56.70.205] (helo=[192.168.1.60])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1pHa8j-00AEPd-Ui; Tue, 17 Jan 2023 01:47:50 +0100
-Message-ID: <a6680b24-372f-673c-4b3c-1fd3c309f242@igalia.com>
-Date: Mon, 16 Jan 2023 21:47:41 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31A1A10E50A;
+	Tue, 17 Jan 2023 08:22:24 +0000 (UTC)
+Received: from out30-101.freemail.mail.aliyun.com
+ (out30-101.freemail.mail.aliyun.com [115.124.30.101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F089E10E2C5;
+ Tue, 17 Jan 2023 05:57:55 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R171e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046059;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
+ TI=SMTPD_---0VZlg57-_1673935061; 
+Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
+ fp:SMTPD_---0VZlg57-_1673935061) by smtp.aliyun-inc.com;
+ Tue, 17 Jan 2023 13:57:51 +0800
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+To: alexander.deucher@amd.com
+Subject: [PATCH 1/3] drm/amd/display: Remove the unused variable optc
+Date: Tue, 17 Jan 2023 13:57:34 +0800
+Message-Id: <20230117055736.50883-1-jiapeng.chong@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH 3/3] drm/amdgpu/vcn: Add parameter to force (en/dis)abling
- indirect SRAM mode
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <20230116212004.860968-1-gpiccoli@igalia.com>
- <20230116212004.860968-3-gpiccoli@igalia.com>
- <CADnq5_Oh5Vdygo12evQKxw3w-ipRoQMvSNFHGcKtBNbSmtW7GQ@mail.gmail.com>
- <DM8PR12MB53991481A19B6AC8BA7A4E0AE5C19@DM8PR12MB5399.namprd12.prod.outlook.com>
- <b8a7253e-6902-e143-1bf2-ff107f25fd2b@igalia.com>
- <CADnq5_NJ7Kjoi7d+8bL2KNY3Leg8Jy7QL5reDS_dyEt7MUB0wA@mail.gmail.com>
-From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-In-Reply-To: <CADnq5_NJ7Kjoi7d+8bL2KNY3Leg8Jy7QL5reDS_dyEt7MUB0wA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 17 Jan 2023 08:22:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,49 +41,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Lazar, Lijo" <Lijo.Lazar@amd.com>,
- "kernel@gpiccoli.net" <kernel@gpiccoli.net>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Jiang,
- Sonny" <Sonny.Jiang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "kernel-dev@igalia.com" <kernel-dev@igalia.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Zhu, James" <James.Zhu@amd.com>, "Liu,
- Leo" <Leo.Liu@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
- Pierre-Loup Griffais <pgriffais@valvesoftware.com>, "Limonciello,
- Mario" <Mario.Limonciello@amd.com>
+Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, Xinhui.Pan@amd.com,
+ Abaci Robot <abaci@linux.alibaba.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, airlied@gmail.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 16/01/2023 20:00, Alex Deucher wrote:
-> [...]
-> 
-> It's not clear to me when this would be used.  We only disable it
-> briefly during new asic bring up, after that we never touch it again.
-> No end user on production hardware should ever have to change it and
-> doing so would break VCN on their system.
-> 
-> Alex
+Variable optc is not effectively used, so delete it.
 
-[+ Pierre-Loup]
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_hwseq.c:325:27: warning: variable ‘optc’ set but not used.
 
-Steam Deck is facing a pretty weird scenario then heheh
+Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=3782
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+---
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-Commit 82132ecc543 ("drm/amdgpu: enable Vangogh VCN indirect sram mode")
-corrected a long-term issue in which the indirect SRAM mode wasn't
-enabled for Vangogh - and Deck GPU architecture is Vangogh, so it was
-working perfectly with that disabled.
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+index 7360b3ce4283..bae6e3b52546 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+@@ -322,13 +322,11 @@ void dcn30_enable_writeback(
+ {
+ 	struct dwbc *dwb;
+ 	struct mcif_wb *mcif_wb;
+-	struct timing_generator *optc;
+ 
+ 	dwb = dc->res_pool->dwbc[wb_info->dwb_pipe_inst];
+ 	mcif_wb = dc->res_pool->mcif_wb[wb_info->dwb_pipe_inst];
+ 
+ 	/* set the OPTC source mux */
+-	optc = dc->res_pool->timing_generators[dwb->otg_inst];
+ 	DC_LOG_DWB("%s dwb_pipe_inst = %d, mpcc_inst = %d",\
+ 		__func__, wb_info->dwb_pipe_inst,\
+ 		wb_info->mpcc_inst);
+-- 
+2.20.1.7.g153144c
 
-Happens that a bad FW candidate seems to have broken something - it was
-a bit convoluted to debug, but we proved that disabling indirect SRAM is
-a good workaround so far, it "restored the behavior" pre-82132ecc543.
-
-Hence my proposal - this parameter would've made life so much easier,
-and we're start using it "downstream" now. While I understand that of
-course the FW should be fixed, meanwhile this is a cheap solution to
-allow further debug and real use of the system.
-
-Thanks,
-
-
-Guilherme
