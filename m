@@ -4,52 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2CADC3DA78
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jan 2023 14:03:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86FF8C3DA78
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jan 2023 14:13:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B77B10E17C;
-	Tue, 17 Jan 2023 14:03:07 +0000 (UTC)
-X-Greylist: delayed 1030 seconds by postgrey-1.36 at gabe;
- Tue, 17 Jan 2023 12:15:08 UTC
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A40B310E521;
- Tue, 17 Jan 2023 12:15:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=a+Z1S1xLoCDY3+cEJ4MNUOsPlXtKXXWmP1+DQ4QDsac=; b=evMQhc5/xMEy+lhk6J7pBkUh8b
- nhYD9qQYyxgSYOKUhBcEB6FN+q4d3+76POpvVi3Kwnh4t6iZr9bnzmPH35XwZsEWX9VpjSu/iJ2qY
- 6FGKZPeNYW/xByoKChnP3sj3BHAv59X36zTLnB5UsmYB1c2exkEiNof3OiLa1AwTelAJirDSum+UT
- vWX4iTxx0P7lzSf/2wPpcYks84YO0dhwXEfyNc2Nn3XvSVMdvZ4RyR+W4Fq7VqLZBxaW8J5v53pyQ
- Vr4BXcj2QDslVT5oi5ZePwjDOBaKrA0qbKvLGDog/P3faF8Cgt638yoYmaBgjpHoIHCB8UnuDr4M7
- kF/EBoZw==;
-Received: from j130084.upc-j.chello.nl ([24.132.130.84]
- helo=noisy.programming.kicks-ass.net)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1pHkbC-009ec6-W2; Tue, 17 Jan 2023 11:57:55 +0000
-Received: from hirez.programming.kicks-ass.net
- (hirez.programming.kicks-ass.net [192.168.1.225])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id A904A300094;
- Tue, 17 Jan 2023 12:57:39 +0100 (CET)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id 8495A2B305DE7; Tue, 17 Jan 2023 12:57:39 +0100 (CET)
-Date: Tue, 17 Jan 2023 12:57:39 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Jim Cromie <jim.cromie@gmail.com>
-Subject: Re: [PATCH v2 20/20] jump_label: RFC - tolerate toggled state
-Message-ID: <Y8aNMxHpvZ8qecSc@hirez.programming.kicks-ass.net>
-References: <20230113193016.749791-1-jim.cromie@gmail.com>
- <20230113193016.749791-21-jim.cromie@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA45110E546;
+	Tue, 17 Jan 2023 14:13:19 +0000 (UTC)
+Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
+ [IPv6:2001:4860:4864:20::32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CABF10E546
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jan 2023 14:13:18 +0000 (UTC)
+Received: by mail-oa1-x32.google.com with SMTP id
+ 586e51a60fabf-15b9c93848dso23789144fac.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jan 2023 06:13:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=09uObknMqzP1TxSF5N7o6B2YYXa5LgL7geMM1HNGUrw=;
+ b=FYzwFZzIN2gauxmzH4n2Ct3yLcggFqFmv71qZMKtvKf9DhLxc95+e0c9g9aVVg1SAr
+ UZkX7wRXvpraOHptJdO32g/BTmDLXmNarBbo6abMem25cUjZgilGuNI6FuTp0x1kitSZ
+ 78lc94OI6GYTi/OTqp4aN5wVCxFWRN1+kKGF9efgx8vRqMpeSIdQ7Y+ANW5d+EQSWHrZ
+ qcooep1kri+L5nG1Q3m5vYsuz/hxGV6K0F1Cayf4QUocNwLVME1e/P6egXIP6Jt9RKvR
+ 2XojSNj8DtAoRZrhW4/iSIiIoj+gA3vdMDvB8VuetHzXlSFzk8msFSKqT9Tc7VvCxxdP
+ YcNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=09uObknMqzP1TxSF5N7o6B2YYXa5LgL7geMM1HNGUrw=;
+ b=jxp/LA4ihWKJuPoEN66/NXX4d15kVxyLdqTvhKOncpwTH5IQtf35+K/SLO+SXrIkdU
+ rIOGijVw3ZeysCWJB4EU7QDz2X6RG9tRBBf9Z+AQITUEO3lDzYfM4C4OHra5IJV/9UUj
+ qLi10WzoAbowv3zT5dAJeqziQW0KmL5wdBwiOtmnsIe8vZQyhta/wYfO+Uv1ARHn5CR+
+ +DU6ZTDN+EyBWcgAzTklESlzMSN486G6cLKFJGhpBACz4szv6I2qopZ4MqSHmsgc6KPL
+ XYrUiqvLUx8ky9MeZLx5eq5FvZnr+qRStrIx7yu35NaOPEzHW17ES5CJYSeIBxeO+Msd
+ dUMQ==
+X-Gm-Message-State: AFqh2krdmJxXJ3iCRqDvOD/UK2rzPzYoCADi6XRQlEyaQk1ZDPVIaSfx
+ deRJxSevnJFCzIBwYJuRJprEfw14NJ/LiQDRaCM=
+X-Google-Smtp-Source: AMrXdXu2YJva9FcqZY7tP4IsE2oKh3/vHMPKBpiXoz+xvl7ywyAKrLx4zOPEtg/1oqJ+Yj7eZTn5zTVsDRnWG/rl8Os=
+X-Received: by 2002:a05:6871:4593:b0:150:d9aa:4011 with SMTP id
+ nl19-20020a056871459300b00150d9aa4011mr279411oab.96.1673964797761; Tue, 17
+ Jan 2023 06:13:17 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230113193016.749791-21-jim.cromie@gmail.com>
-X-Mailman-Approved-At: Tue, 17 Jan 2023 14:03:05 +0000
+References: <20230117081240.13669-1-christian.koenig@amd.com>
+ <20230117081240.13669-2-christian.koenig@amd.com>
+In-Reply-To: <20230117081240.13669-2-christian.koenig@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 17 Jan 2023 09:13:06 -0500
+Message-ID: <CADnq5_NQwe1kvK98Oqsrvs-LnuBr=w173bAQb+dxo5k5rr8qOg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: simplify amdgpu_uvd_send_msg
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,51 +67,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, daniel.vetter@ffwll.ch,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, robdclark@gmail.com, seanpaul@chromium.org,
- dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org, jbaron@akamai.com,
- intel-gvt-dev@lists.freedesktop.org, ville.syrjala@linux.intel.com
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 13, 2023 at 12:30:16PM -0700, Jim Cromie wrote:
-> __jump_label_patch currently will "crash the box" if it finds a
-> jump_entry not as expected.  ISTM this overly harsh; it doesn't
-> distinguish between "alternate/opposite" state, and truly
-> "insane/corrupted".
-> 
-> The "opposite" (but well-formed) state is a milder mis-initialization
-> problem, and some less severe mitigation seems practical.  ATM this
-> just warns about it; a range/enum of outcomes: warn, crash, silence,
-> ok, fixup-continue, etc, are possible on a case-by-case basis.
-> 
-> Ive managed to create this mis-initialization condition with
-> test_dynamic_debug.ko & _submod.ko.  These replicate DRM's regression
-> on DRM_USE_DYNAMIC_DEBUG=y; drm.debug callsites in drivers/helpers
-> (dependent modules) are not enabled along with those in drm.ko itself.
-> 
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-> Ive hit this case a few times, but havent been able to isolate the
-> when and why.
-> 
-> warn-only is something of a punt, and I'm still left with remaining
-> bugs which are likely related; I'm able to toggle the p-flag on
-> callsites in the submod, but their enablement still doesn't yield
-> logging activity.
-
-Right; having been in this is state is bad since it will generate
-inconsistent code-flow. Full on panic *might* not be warranted (as it
-does for corrupted text) but it is still a fairly bad situation -- so
-I'm not convinced we want to warn and carry on.
-
-It would be really good to figure out why the site was skipped over and
-got out of skew.
-
-Given it's all module stuff, the 'obvious' case would be something like
-a race between adding the new sites and flipping it, but I'm not seeing
-how -- things are rather crudely serialized by jump_label_mutex.
-
-The only other option I can come up with is that somehow the update
-condition in jump_label_add_module() is somehow wrong.
-
+On Tue, Jan 17, 2023 at 3:12 AM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> We only need one offset and not an array of it.
+>
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 21 +++++++++------------
+>  1 file changed, 9 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_uvd.c
+> index dd0894c9740d..229419c0c031 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> @@ -1118,29 +1118,26 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring=
+ *ring, struct amdgpu_bo *bo,
+>  {
+>         struct amdgpu_device *adev =3D ring->adev;
+>         struct dma_fence *f =3D NULL;
+> +       uint32_t offset, data[4];
+>         struct amdgpu_job *job;
+>         struct amdgpu_ib *ib;
+> -       uint32_t data[4];
+>         uint64_t addr;
+>         int i, r;
+> -       unsigned offset_idx =3D 0;
+> -       unsigned offset[3] =3D { UVD_BASE_SI, 0, 0 };
+>
+>         r =3D amdgpu_job_alloc_with_ib(adev, 64, direct ? AMDGPU_IB_POOL_=
+DIRECT :
+>                                      AMDGPU_IB_POOL_DELAYED, &job);
+>         if (r)
+>                 return r;
+>
+> -       if (adev->asic_type >=3D CHIP_VEGA10) {
+> -               offset_idx =3D 1 + ring->me;
+> -               offset[1] =3D adev->reg_offset[UVD_HWIP][0][1];
+> -               offset[2] =3D adev->reg_offset[UVD_HWIP][1][1];
+> -       }
+> +       if (adev->asic_type >=3D CHIP_VEGA10)
+> +               offset =3D adev->reg_offset[UVD_HWIP][ring->me][1];
+> +       else
+> +               offset =3D UVD_BASE_SI;
+>
+> -       data[0] =3D PACKET0(offset[offset_idx] + UVD_GPCOM_VCPU_DATA0, 0)=
+;
+> -       data[1] =3D PACKET0(offset[offset_idx] + UVD_GPCOM_VCPU_DATA1, 0)=
+;
+> -       data[2] =3D PACKET0(offset[offset_idx] + UVD_GPCOM_VCPU_CMD, 0);
+> -       data[3] =3D PACKET0(offset[offset_idx] + UVD_NO_OP, 0);
+> +       data[0] =3D PACKET0(offset + UVD_GPCOM_VCPU_DATA0, 0);
+> +       data[1] =3D PACKET0(offset + UVD_GPCOM_VCPU_DATA1, 0);
+> +       data[2] =3D PACKET0(offset + UVD_GPCOM_VCPU_CMD, 0);
+> +       data[3] =3D PACKET0(offset + UVD_NO_OP, 0);
+>
+>         ib =3D &job->ibs[0];
+>         addr =3D amdgpu_bo_gpu_offset(bo);
+> --
+> 2.34.1
+>
