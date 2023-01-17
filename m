@@ -4,57 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BE7AC54E76
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jan 2023 18:49:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00791C3DA78
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Jan 2023 19:21:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 873CE10E328;
-	Tue, 17 Jan 2023 18:49:50 +0000 (UTC)
-Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
- [IPv6:2001:4860:4864:20::2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CECC710E328;
- Tue, 17 Jan 2023 18:49:48 +0000 (UTC)
-Received: by mail-oa1-x2e.google.com with SMTP id
- 586e51a60fabf-15bb8ec196aso21196733fac.3; 
- Tue, 17 Jan 2023 10:49:48 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94F0110E32E;
+	Tue, 17 Jan 2023 19:21:55 +0000 (UTC)
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9224010E32B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jan 2023 19:21:52 +0000 (UTC)
+Received: by mail-oi1-x22d.google.com with SMTP id s66so26141539oib.7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Jan 2023 11:21:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=d3KD/4A2J8yQYLK7u5mPtbJnPhhTITEco8MNWNkQ76g=;
- b=P6U1VOaWh8x4YcUJxRl6J6wwXbXG7MtxzhJ4Mc+FSSsop+ENKFGfbyCXu/XGhj2/5Y
- lR6hOUklvHeJaofwTzHRMuc3xgRBWrqyFN8ZiDbCJWr9p17gh6lpKBlWyFvdoSvB//0q
- zhwwmOyVDtqHEQ5Ma37i6mS8gIJEJyzWzWDz1cVrJQdGaGGP9NIMIbsnq5DFqz6uwwkK
- pmleAFJbFNFRcjalDef6u7fFYz27hNXZ+8u6t91lGhQd296Hrt4AMicy7/kwXJBd01A5
- ISBqqTzFQeMd2Bs5+1b9hXV0zW54H7iswqOdSKJoDIabz8mwAmXgZ43O/F6qculBvHqF
- OceQ==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4eIbFR5/bFscUmmrsNHGCKWjFRSxO0rhe2moVV5VA1s=;
+ b=UNwDz9YBMrSPQa0iUDkhMm89ewppY68LloJQB64g+euqmtWS56GN+ooyHX0EBOQ3y5
+ aEmpsD2uqpln9LE5anqnXwowfTrmhqzxxJQ97pIgEWJBhQDSSlD+EkkImzQKBKaooWFt
+ SBJAwNliyd4yyJduk517zD1UIZHMGsQzocX1BP5DM+hCHYXu+iF0LRz4vcueUgfY92+t
+ sfBfqmERh9Cj/SCn3qFH/MYVQguqtBf5FfdjqIXaur+aJUMCEJjrJ8TP5ykyeI6iBAGh
+ QzMwPsZytM3eFuw/Nz/06E/UHTUnUanDG3qf5W8LVXA9DklL5Q7sPNmlLqTaTBDM2VTp
+ Qd6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=d3KD/4A2J8yQYLK7u5mPtbJnPhhTITEco8MNWNkQ76g=;
- b=w/tD3taiz5pElI9W1YohZZG2Wl9bckXxcMTc/uC2qThmr21/Yhrdtm/Wzt5nhi5EDB
- HUll6sdKR0yESJ8/Cov/Psm85NQBRgGB29hfJdZaSEvfTPQLPj1z7ZdYSoWHpJzYSumH
- +fAKTgD4ucBRIHgtJFfOslPxS30rCGR1oH44oqZ6Elct3HRbAA/u578FO//XcuvYgotk
- F1XH5NJ82+Il/uS/xej4Y0AnC29QH1VEQGFXFadSJQ4/TOgmWBEZzYT+sOfU9E1RWrLu
- ijGgySPVT0r14Av2uEEV/d8dJ094Kdi51iC3ip5qNY8boHWkpYUFQ1JyZPXS0BlOZiXj
- d9qQ==
-X-Gm-Message-State: AFqh2kpkKuYw6NVf6dkxKqIG2YDQjdRmNNAzDOHICbfbIy9RoNqjGNDe
- /UxTQhRzzrL1CvPOc/D8UzIDcwMbw2WhCTdYUxM=
-X-Google-Smtp-Source: AMrXdXuE0mA0a5beSu7kR+h55N7zRNPT9zXoMGW6u/7Q8EalF0r55KdVpBqjN/42xP98OSAXzS1VK80zAguFzatRIs4=
-X-Received: by 2002:a05:6871:4593:b0:150:d9aa:4011 with SMTP id
- nl19-20020a056871459300b00150d9aa4011mr351570oab.96.1673981388073; Tue, 17
- Jan 2023 10:49:48 -0800 (PST)
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=4eIbFR5/bFscUmmrsNHGCKWjFRSxO0rhe2moVV5VA1s=;
+ b=LhW0OlOx83ZjoVDWGsOQZBYXC5owPaCh0iymJ5q5SW997Arhg1bY3p0ZY4vFBrjowJ
+ DmxmnQv6caIhRVspDRl4bRhShHsLXidPBhIqKXaEnJilEzQmkKtYgCruw41wbf0l/jUk
+ gNbXQ3QNNxNzMFiD3AauLIWK2AIGDCDi6IqOoez23M8drlhnxntZYiprBm3LEneCgeXc
+ jrEdwXIUuZH4urJuUXNngZ0XiQb1yBRb4fjtiFt4fIcJ6KfzMlGuRwaM/mqqMuj4Jb+C
+ H7Cy/CwMsOWY4+0oTsS8a4VOqHk/tqqIdTJPaNmJ+p49HmOhKXZf2SNBJSJqmpW8NPe1
+ LY+w==
+X-Gm-Message-State: AFqh2koLy3x+XKthcF+VVmEW10XilU8HliIHAisjtfLEvKxu/5hTRAr8
+ YB9KSoyzEE4UVBXcbn0wm21M/npBZaSRCWKymDw4fAbgIaw=
+X-Google-Smtp-Source: AMrXdXv7D9e4gZTx+oOC7oPhkKiPfB+G9dVB4i8wOzDmNuu45Tm5mPEZKHDqBMjeKwfjTgt12aqgKLlwO2d+kO3mJsY=
+X-Received: by 2002:a05:6808:4387:b0:35b:d93f:cbc4 with SMTP id
+ dz7-20020a056808438700b0035bd93fcbc4mr254888oib.96.1673983311752; Tue, 17 Jan
+ 2023 11:21:51 -0800 (PST)
 MIME-Version: 1.0
-References: <20230117181524.915372-1-gpiccoli@igalia.com>
- <20230117181524.915372-2-gpiccoli@igalia.com>
-In-Reply-To: <20230117181524.915372-2-gpiccoli@igalia.com>
+References: <CAAxE2A720cJguG5b+0zbP=G4TxTjpqKBvOqDXXAP0LWHZEuj0A@mail.gmail.com>
+ <0931a762-c3a3-16c3-33a5-88e83fca4bcb@gmail.com>
+ <CAAxE2A5pBqOkny15tSRCWn_UW8=TTE=zYPChBZofZCrHZoQbww@mail.gmail.com>
+ <35304b1e-98a7-d342-9f1b-50f07b45cf98@gmail.com>
+ <CAAxE2A6KJWPJ3eqKoaiJZUJCNqRpx+WYwoGEZKxX2Kf_auLUWg@mail.gmail.com>
+ <a90b0e8e-dd02-031f-0432-1c5f6f02e949@amd.com>
+ <CAAxE2A7PJdiPORP-X+7kFmix9pCo63PqeamP20BZJx4GDfJdEQ@mail.gmail.com>
+ <8ec2b238-fa8b-a693-b9d9-3a590cc05664@amd.com>
+ <CAAxE2A7G_gjvuGNNtZ6J-4R25Ykx8ziz1B2f0Dc3KuC4KeYdzA@mail.gmail.com>
+ <BYAPR12MB461473D2083BC8B9FB012AC297F59@BYAPR12MB4614.namprd12.prod.outlook.com>
+ <CAAxE2A4F59qttYfrT66v4Fe0D1h4Km=DLY779uC=HHSGswg4Lg@mail.gmail.com>
+ <CADnq5_MLO4FLXrmUXPUzo2UBzqxa_hjfL0qBzibWAqO79uhxvw@mail.gmail.com>
+ <e931b723-d4bf-be9c-0f08-6f3bf00eb938@amd.com>
+ <CADnq5_NOmdq9_kUzm9cnavyn6czx18-kKmLm0-R6msRdqOwXsA@mail.gmail.com>
+ <CAAxE2A7QvaE3triTt6vAYuWmkaG6DRZsdkQrLJcpDXj96-GO9w@mail.gmail.com>
+ <CADnq5_Pr+8vdtEtn4K5kd-ssbvsGAf2_wnsqAkMpLJUPW+55_g@mail.gmail.com>
+ <CAAxE2A5xivt_4PK2uEkVS_v08viJVJP9E39DfTb4VsVCvDMkTw@mail.gmail.com>
+In-Reply-To: <CAAxE2A5xivt_4PK2uEkVS_v08viJVJP9E39DfTb4VsVCvDMkTw@mail.gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 17 Jan 2023 13:49:34 -0500
-Message-ID: <CADnq5_OE9eURUJ2LwyOrTbrNBSd--Nhc330UFV-Z0-d4q7VOPA@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] drm/amdgpu/vcn: Remove redundant indirect SRAM HW
- model check
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Date: Tue, 17 Jan 2023 14:21:40 -0500
+Message-ID: <CADnq5_OLWnJMRT8vZTRh_Kq9KW6z9BPahq7L=rbyqLELp9LY7Q@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu: return the PCIe gen and lanes from the
+ INFO
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,145 +82,263 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lazar Lijo <Lijo.Lazar@amd.com>, kernel@gpiccoli.net, Xinhui.Pan@amd.com,
- dri-devel@lists.freedesktop.org, Sonny Jiang <sonny.jiang@amd.com>,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Alex Deucher <Alexander.Deucher@amd.com>, James Zhu <James.Zhu@amd.com>,
- Leo Liu <leo.liu@amd.com>, christian.koenig@amd.com,
- Mario Limonciello <mario.limonciello@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied the series.  Thanks!
+Looks good to me.  It might be good to add a comment above pcie_gen in
+amdgpu_drm.h to specify that this is the max common pcie gen supported
+by both the GPU and the slot.  With that fixed, the patch is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Alex
-
-On Tue, Jan 17, 2023 at 1:15 PM Guilherme G. Piccoli
-<gpiccoli@igalia.com> wrote:
+On Fri, Jan 13, 2023 at 6:33 PM Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com> wr=
+ote:
 >
-> The HW model validation that guards the indirect SRAM checking in the
-> VCN code path is redundant - there's no model that's not included in the
-> switch, making it useless in practice [0].
+> There is no hole on 32-bit unfortunately. It looks like the hole on 64-bi=
+t is now ABI.
 >
-> So, let's remove this switch statement for good.
+> I moved the field to replace _pad1. The patch is attached (with your Rb).
 >
-> [0] lore.kernel.org/amd-gfx/MN0PR12MB61013D20B8A2263B22AE1BCFE2C19@MN0PR12MB6101.namprd12.prod.outlook.com
+> Marek
 >
-> Suggested-by: Alex Deucher <Alexander.Deucher@amd.com>
-> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-> Cc: James Zhu <James.Zhu@amd.com>
-> Cc: Lazar Lijo <Lijo.Lazar@amd.com>
-> Cc: Leo Liu <leo.liu@amd.com>
-> Cc: Sonny Jiang <sonny.jiang@amd.com>
-> Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
-> ---
->
->
-> V3:
-> * Added Mario's review tag and Alex's suggested tag - thanks
-> for the reminder Mario!
->
-> V2:
-> * Changed the approach after ML discussion- instead of cleaning up
-> the switch statement, removed it entirely - special thanks to Alex
-> and Mario for the feedback!
->
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 81 +------------------------
->  1 file changed, 3 insertions(+), 78 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> index 1b1a3c9e1863..02d428ddf2f8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> @@ -110,84 +110,9 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
->         for (i = 0; i < adev->vcn.num_vcn_inst; i++)
->                 atomic_set(&adev->vcn.inst[i].dpg_enc_submission_cnt, 0);
->
-> -       switch (adev->ip_versions[UVD_HWIP][0]) {
-> -       case IP_VERSION(1, 0, 0):
-> -       case IP_VERSION(1, 0, 1):
-> -       case IP_VERSION(2, 5, 0):
-> -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
-> -                   (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
-> -                       adev->vcn.indirect_sram = true;
-> -               break;
-> -       case IP_VERSION(2, 2, 0):
-> -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
-> -                   (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
-> -                       adev->vcn.indirect_sram = true;
-> -               break;
-> -       case IP_VERSION(2, 6, 0):
-> -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
-> -                   (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
-> -                       adev->vcn.indirect_sram = true;
-> -               break;
-> -       case IP_VERSION(2, 0, 0):
-> -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
-> -                   (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
-> -                       adev->vcn.indirect_sram = true;
-> -               break;
-> -       case IP_VERSION(2, 0, 2):
-> -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
-> -                   (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
-> -                       adev->vcn.indirect_sram = true;
-> -               break;
-> -       case IP_VERSION(3, 0, 0):
-> -       case IP_VERSION(3, 0, 64):
-> -       case IP_VERSION(3, 0, 192):
-> -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
-> -                   (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
-> -                       adev->vcn.indirect_sram = true;
-> -               break;
-> -       case IP_VERSION(3, 0, 2):
-> -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
-> -                   (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
-> -                       adev->vcn.indirect_sram = true;
-> -               break;
-> -       case IP_VERSION(3, 0, 16):
-> -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
-> -                   (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
-> -                       adev->vcn.indirect_sram = true;
-> -               break;
-> -       case IP_VERSION(3, 0, 33):
-> -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
-> -                   (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
-> -                       adev->vcn.indirect_sram = true;
-> -               break;
-> -       case IP_VERSION(3, 1, 1):
-> -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
-> -                   (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
-> -                       adev->vcn.indirect_sram = true;
-> -               break;
-> -       case IP_VERSION(3, 1, 2):
-> -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
-> -                   (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
-> -                       adev->vcn.indirect_sram = true;
-> -               break;
-> -       case IP_VERSION(4, 0, 0):
-> -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
-> -                       (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
-> -                       adev->vcn.indirect_sram = true;
-> -               break;
-> -       case IP_VERSION(4, 0, 2):
-> -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
-> -                       (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
-> -                       adev->vcn.indirect_sram = true;
-> -               break;
-> -       case IP_VERSION(4, 0, 4):
-> -               if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
-> -                       (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
-> -                       adev->vcn.indirect_sram = true;
-> -               break;
-> -       default:
-> -               return -EINVAL;
-> -       }
-> +       if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
-> +           (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
-> +               adev->vcn.indirect_sram = true;
->
->         hdr = (const struct common_firmware_header *)adev->vcn.fw->data;
->         adev->vcn.fw_version = le32_to_cpu(hdr->ucode_version);
-> --
-> 2.39.0
->
+> On Fri, Jan 13, 2023 at 4:20 PM Alex Deucher <alexdeucher@gmail.com> wrot=
+e:
+>>
+>> On Fri, Jan 13, 2023 at 4:02 PM Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com>=
+ wrote:
+>> >
+>> > i've added the comments and indeed pahole shows the hole as expected.
+>>
+>> What about on 32-bit?
+>>
+>> Alex
+>>
+>> >
+>> > Marek
+>> >
+>> > On Thu, Jan 12, 2023 at 11:44 AM Alex Deucher <alexdeucher@gmail.com> =
+wrote:
+>> >>
+>> >> On Thu, Jan 12, 2023 at 6:50 AM Christian K=C3=B6nig
+>> >> <christian.koenig@amd.com> wrote:
+>> >> >
+>> >> > Am 11.01.23 um 21:48 schrieb Alex Deucher:
+>> >> > > On Wed, Jan 4, 2023 at 3:17 PM Marek Ol=C5=A1=C3=A1k <maraeo@gmai=
+l.com> wrote:
+>> >> > >> Yes, it's meant to be like a spec sheet. We are not interested i=
+n the current bandwidth utilization.
+>> >> > > After chatting with Marek on IRC and thinking about this more, I =
+think
+>> >> > > this patch is fine.  It's not really meant for bandwidth per se, =
+but
+>> >> > > rather as a limit to determine what the driver should do in certa=
+in
+>> >> > > cases (i.e., when does it make sense to copy to vram vs not).  It=
+'s
+>> >> > > not straightforward for userspace to parse the full topology to
+>> >> > > determine what links may be slow.  I guess one potential pitfall =
+would
+>> >> > > be that if you pass the device into a VM, the driver may report t=
+he
+>> >> > > wrong values.  Generally in a VM the VM doesn't get the full view=
+ up
+>> >> > > to the root port.  I don't know if the hypervisors report properl=
+y for
+>> >> > > pcie_bandwidth_available() in a VM or if it just shows the info a=
+bout
+>> >> > > the endpoint in the VM.
+>> >> >
+>> >> > So this basically doesn't return the gen and lanes of the device, b=
+ut
+>> >> > rather what was negotiated between the device and the upstream root=
+ port?
+>> >>
+>> >> Correct. It exposes the max gen and lanes of the slowest link between
+>> >> the device and the root port.
+>> >>
+>> >> >
+>> >> > If I got that correctly then we should probably document that cause
+>> >> > otherwise somebody will try to "fix" it at some time.
+>> >>
+>> >> Good point.
+>> >>
+>> >> Alex
+>> >>
+>> >> >
+>> >> > Christian.
+>> >> >
+>> >> > >
+>> >> > > Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+>> >> > >
+>> >> > > Alex
+>> >> > >
+>> >> > >> Marek
+>> >> > >>
+>> >> > >> On Wed, Jan 4, 2023 at 10:33 AM Lazar, Lijo <Lijo.Lazar@amd.com>=
+ wrote:
+>> >> > >>> [AMD Official Use Only - General]
+>> >> > >>>
+>> >> > >>>
+>> >> > >>> To clarify, with DPM in place, the current bandwidth will be ch=
+anging based on the load.
+>> >> > >>>
+>> >> > >>> If apps/umd already has a way to know the current bandwidth uti=
+lisation, then possible maximum also could be part of the same API. Otherwi=
+se, this only looks like duplicate information. We have the same informatio=
+n in sysfs DPM nodes.
+>> >> > >>>
+>> >> > >>> BTW, I don't know to what extent app/umd really makes use of th=
+is. Take that memory frequency as an example (I'm reading it as 16GHz). It =
+only looks like a spec sheet.
+>> >> > >>>
+>> >> > >>> Thanks,
+>> >> > >>> Lijo
+>> >> > >>> ________________________________
+>> >> > >>> From: Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com>
+>> >> > >>> Sent: Wednesday, January 4, 2023 8:40:00 PM
+>> >> > >>> To: Lazar, Lijo <Lijo.Lazar@amd.com>
+>> >> > >>> Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.or=
+g>
+>> >> > >>> Subject: Re: [PATCH 1/2] drm/amdgpu: return the PCIe gen and la=
+nes from the INFO
+>> >> > >>>
+>> >> > >>> On Wed, Jan 4, 2023 at 9:19 AM Lazar, Lijo <lijo.lazar@amd.com>=
+ wrote:
+>> >> > >>>
+>> >> > >>>
+>> >> > >>>
+>> >> > >>> On 1/4/2023 7:43 PM, Marek Ol=C5=A1=C3=A1k wrote:
+>> >> > >>>> On Wed, Jan 4, 2023 at 6:50 AM Lazar, Lijo <lijo.lazar@amd.com
+>> >> > >>>> <mailto:lijo.lazar@amd.com>> wrote:
+>> >> > >>>>
+>> >> > >>>>
+>> >> > >>>>
+>> >> > >>>>      On 1/4/2023 4:11 AM, Marek Ol=C5=A1=C3=A1k wrote:
+>> >> > >>>>       > I see. Well, those sysfs files are not usable, and I d=
+on't think it
+>> >> > >>>>       > would be important even if they were usable, but for c=
+ompleteness:
+>> >> > >>>>       >
+>> >> > >>>>       > The ioctl returns:
+>> >> > >>>>       >      pcie_gen =3D 1
+>> >> > >>>>       >      pcie_num_lanes =3D 16
+>> >> > >>>>       >
+>> >> > >>>>       > Theoretical bandwidth from those values: 4.0 GB/s
+>> >> > >>>>       > My DMA test shows this write bandwidth: 3.5 GB/s
+>> >> > >>>>       > It matches the expectation.
+>> >> > >>>>       >
+>> >> > >>>>       > Let's see the devices (there is only 1 GPU Navi21 in t=
+he system):
+>> >> > >>>>       > $ lspci |egrep '(PCI|VGA).*Navi'
+>> >> > >>>>       > 0a:00.0 PCI bridge: Advanced Micro Devices, Inc. [AMD/=
+ATI] Navi
+>> >> > >>>>      10 XL
+>> >> > >>>>       > Upstream Port of PCI Express Switch (rev c3)
+>> >> > >>>>       > 0b:00.0 PCI bridge: Advanced Micro Devices, Inc. [AMD/=
+ATI] Navi
+>> >> > >>>>      10 XL
+>> >> > >>>>       > Downstream Port of PCI Express Switch
+>> >> > >>>>       > 0c:00.0 VGA compatible controller: Advanced Micro Devi=
+ces, Inc.
+>> >> > >>>>       > [AMD/ATI] Navi 21 [Radeon RX 6800/6800 XT / 6900 XT] (=
+rev c3)
+>> >> > >>>>       >
+>> >> > >>>>       > Let's read sysfs:
+>> >> > >>>>       >
+>> >> > >>>>       > $ cat /sys/bus/pci/devices/0000:0a:00.0/current_link_w=
+idth
+>> >> > >>>>       > 16
+>> >> > >>>>       > $ cat /sys/bus/pci/devices/0000:0b:00.0/current_link_w=
+idth
+>> >> > >>>>       > 16
+>> >> > >>>>       > $ cat /sys/bus/pci/devices/0000:0c:00.0/current_link_w=
+idth
+>> >> > >>>>       > 16
+>> >> > >>>>       > $ cat /sys/bus/pci/devices/0000:0a:00.0/current_link_s=
+peed
+>> >> > >>>>       > 2.5 GT/s PCIe
+>> >> > >>>>       > $ cat /sys/bus/pci/devices/0000:0b:00.0/current_link_s=
+peed
+>> >> > >>>>       > 16.0 GT/s PCIe
+>> >> > >>>>       > $ cat /sys/bus/pci/devices/0000:0c:00.0/current_link_s=
+peed
+>> >> > >>>>       > 16.0 GT/s PCIe
+>> >> > >>>>       >
+>> >> > >>>>       > Problem 1: None of the speed numbers match 4 GB/s.
+>> >> > >>>>
+>> >> > >>>>      US bridge =3D 2.5GT/s means operating at PCIe Gen 1 speed=
+. Total
+>> >> > >>>>      theoretical bandwidth is then derived based on encoding a=
+nd total
+>> >> > >>>>      number
+>> >> > >>>>      of lanes.
+>> >> > >>>>
+>> >> > >>>>       > Problem 2: Userspace doesn't know the bus index of the=
+ bridges,
+>> >> > >>>>      and it's
+>> >> > >>>>       > not clear which bridge should be used.
+>> >> > >>>>
+>> >> > >>>>      In general, modern ones have this arch=3D US->DS->EP. US =
+is the one
+>> >> > >>>>      connected to physical link.
+>> >> > >>>>
+>> >> > >>>>       > Problem 3: The PCIe gen number is missing.
+>> >> > >>>>
+>> >> > >>>>      Current link speed is based on whether it's Gen1/2/3/4/5.
+>> >> > >>>>
+>> >> > >>>>      BTW, your patch makes use of capabilities flags which giv=
+es the maximum
+>> >> > >>>>      supported speed/width by the device. It may not necessari=
+ly reflect the
+>> >> > >>>>      current speed/width negotiated. I guess in NV, this info =
+is already
+>> >> > >>>>      obtained from PMFW and made available through metrics tab=
+le.
+>> >> > >>>>
+>> >> > >>>>
+>> >> > >>>> It computes the minimum of the device PCIe gen and the motherb=
+oard/slot
+>> >> > >>>> PCIe gen to get the final value. These 2 lines do that. The lo=
+w 16 bits
+>> >> > >>>> of the mask contain the device PCIe gen mask. The high 16 bits=
+ of the
+>> >> > >>>> mask contain the slot PCIe gen mask.
+>> >> > >>>> + pcie_gen_mask =3D adev->pm.pcie_gen_mask & (adev->pm.pcie_ge=
+n_mask >> 16);
+>> >> > >>>> + dev_info->pcie_gen =3D fls(pcie_gen_mask);
+>> >> > >>>>
+>> >> > >>> With DPM in place on some ASICs, how much does this static info=
+ help for
+>> >> > >>> upper level apps?
+>> >> > >>>
+>> >> > >>>
+>> >> > >>> It helps UMDs make better decisions if they know the maximum ac=
+hievable bandwidth. UMDs also compute the maximum memory bandwidth and comp=
+ute performance (FLOPS). Right now it's printed by Mesa to give users detai=
+led information about their GPU. For example:
+>> >> > >>>
+>> >> > >>> $ AMD_DEBUG=3Dinfo glxgears
+>> >> > >>> Device info:
+>> >> > >>>      name =3D NAVI21
+>> >> > >>>      marketing_name =3D AMD Radeon RX 6800
+>> >> > >>>      num_se =3D 3
+>> >> > >>>      num_rb =3D 12
+>> >> > >>>      num_cu =3D 60
+>> >> > >>>      max_gpu_freq =3D 2475 MHz
+>> >> > >>>      max_gflops =3D 19008 GFLOPS
+>> >> > >>>      l0_cache_size =3D 16 KB
+>> >> > >>>      l1_cache_size =3D 128 KB
+>> >> > >>>      l2_cache_size =3D 4096 KB
+>> >> > >>>      l3_cache_size =3D 128 MB
+>> >> > >>>      memory_channels =3D 16 (TCC blocks)
+>> >> > >>>      memory_size =3D 16 GB (16384 MB)
+>> >> > >>>      memory_freq =3D 16 GHz
+>> >> > >>>      memory_bus_width =3D 256 bits
+>> >> > >>>      memory_bandwidth =3D 512 GB/s
+>> >> > >>>      pcie_gen =3D 1
+>> >> > >>>      pcie_num_lanes =3D 16
+>> >> > >>>      pcie_bandwidth =3D 4.0 GB/s
+>> >> > >>>
+>> >> > >>> Marek
+>> >> >
