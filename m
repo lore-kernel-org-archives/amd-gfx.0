@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD804C46467
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 16:27:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE4A7C32793
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 16:32:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3013410E791;
-	Wed, 18 Jan 2023 16:27:45 +0000 (UTC)
-Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
- [IPv6:2607:f8b0:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C29A610E791;
- Wed, 18 Jan 2023 16:27:43 +0000 (UTC)
-Received: by mail-ot1-x330.google.com with SMTP id
- t7-20020a05683014c700b006864760b1caso3256685otq.0; 
- Wed, 18 Jan 2023 08:27:43 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3A5F10E1F1;
+	Wed, 18 Jan 2023 16:32:29 +0000 (UTC)
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
+ [IPv6:2001:4860:4864:20::2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD66210E047;
+ Wed, 18 Jan 2023 16:32:27 +0000 (UTC)
+Received: by mail-oa1-x2a.google.com with SMTP id
+ 586e51a60fabf-15b9c93848dso27754882fac.1; 
+ Wed, 18 Jan 2023 08:32:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=ZLdC3qx5X23ZTWTn4lkdwFcqpO5MTmWNpyLG41+WA1s=;
- b=nLf9epBFlxR6krgARsD3lbkWmGeZHvQA1oRluTyMi/qL2RWgXgcljSPE7Um4nStOdu
- 9SI5Cz6hszekFbr1yxIl4bVZbVtn3y3jp605uNt12b8Yue1hdvqQzaXvDLANaOetbLew
- +hycseY5Y1eFI5b3JV+GAXEogzZsxBHm6g2iZmYvUCRazrBJfQ8dUH/l1OOB91/SQxMg
- p4O6FNSjUiv7p7V9d7jm1LkClKWZ3XUSIyu3d85I8Qbh/7eKN3EXAxIptZRpdbMRDK8S
- 78bakS5oUq1sAleAjQPlmLtyqKiFDNRJ9X5YF0dBh9l8ozwVy+5FeDdnY6NyTutrOd2u
- t6Qg==
+ bh=FzGHdZnG38PUUso3BdMIxZ7feb7Goq8YWG54jrX7zvU=;
+ b=GzemvJG3q98iiC1WOZ/vHs+0ci5tOEzqaW+djlTNc/h3csNqfHs8q3ah49wH69giFg
+ Xd+vx1PvINMXJr9GDJ2t3YQ389aUfD5tKEO8m9EX7XorrooVPyqaC8MV0rd0DEESzKOp
+ xBfHIxUjb7j5kk6DaGyyUmFbLg8Ly53BNGcVIVgll32oMGVW9NptEFEkTDjDShyTKlT2
+ 0e/zPlwN1iCRWFNfpQEA2zAc4wlEnoyROiEP49m+ty63pY27BV4dTFwz2HKjfJUs6BfH
+ RNbS8BB868nWBfPIa5dortHoUp2ymPSyXmoV84X/nO9njNScIdO2LeykUaAK0QARvbaM
+ Vu1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=ZLdC3qx5X23ZTWTn4lkdwFcqpO5MTmWNpyLG41+WA1s=;
- b=QIr110p6b6Wl6Uvblzip/G4kWaXkHCCWQ+y5s7RuCz2eDBTs0BYRjWKO17GJFwTA+e
- AT9xqg6UC+OnVAV5LdOYWwo8J24+Q22TfhmC6UITMTiWe9C7mqxLZqjCDZqPukE1mvUm
- O7ixI2GVp2ubS6WIeqYLNfqJhX++RusPeBjNFifZC37156nmOIWH+xKWqgKNz33ifuPs
- NYz18QSP+AliKyzZKyw6nzId+RcUZlYGdF3YgiX83B6xajzRmU26t2yc6IPvqeF7GqMp
- SYluUJ6REj0KzPYHS8kLmS73ZnRPYbcFNH39KRGfZNKk/MFeX/QHUsn4SBJEQZNOwZF1
- rz7w==
-X-Gm-Message-State: AFqh2ko1+XveuW4x2tSli1jaClY5ApKQGSMVE+OIv9AE0rZb99PrdVsD
- LdQaD43tZnW2M+ZDnwEYQPuhGSaJkXedZKI/r/E=
-X-Google-Smtp-Source: AMrXdXsegNk4k/rAkAxVNuPoRKAagjpW/F5xdsb24pH+zMi0Qk+mVGdtzKwl2en7fSBvf1GQSm5XETg6FeTPZl2AstU=
-X-Received: by 2002:a05:6830:449:b0:684:bedc:4f54 with SMTP id
- d9-20020a056830044900b00684bedc4f54mr406381otc.233.1674059263009; Wed, 18 Jan
- 2023 08:27:43 -0800 (PST)
+ bh=FzGHdZnG38PUUso3BdMIxZ7feb7Goq8YWG54jrX7zvU=;
+ b=4//hkLn0Dx76AazLTIbf8KQJn/PEwdLOrSeK8JCfvujvhfWQKLLdN1YFxDbIiSXhrz
+ 4i6SsSzctpQneIITbIfP7nf+LlgDWDv//K5qFFvjCCkD/sAH8nlfLDKLrUCVXrKhEkXb
+ DkV3Thpxj3oCAPtq2Y+YkvdwtgaQXovgj65aLAGHA0kGPg4tUQgXxWyLCgxcOEutqN2y
+ xDb4FcCMUSU9uQ0W5Qxqzc0SXt7fJUjqBlPkEzmuUOI05uecmtzOqex5uucm3QCZhAOX
+ yL+ojh7sqD1DUB5W9Nm+t8coaAxutQnGCTKALXlh3oVmnLPBiEAz6Yw03YhZ15o05FzU
+ ckTg==
+X-Gm-Message-State: AFqh2kpF7nOITUhWaO/X2Tg60YbCRgfgpQ/gtMhKysyEjJOjURMClCdG
+ oFScFxJmQeWDRS6DXFdUXF2kzplKrVTt+rU2Y1g=
+X-Google-Smtp-Source: AMrXdXs3xaVHPfIEvEvlPCi6maxmp3xBY1Iji7ce+Clj8jRQDwb5a3yegddizqXtH7OPOAPAkq/8C0VDJbyVyAapx/k=
+X-Received: by 2002:a05:6870:7a18:b0:15f:5509:9a0d with SMTP id
+ hf24-20020a0568707a1800b0015f55099a0dmr726423oab.46.1674059546916; Wed, 18
+ Jan 2023 08:32:26 -0800 (PST)
 MIME-Version: 1.0
-References: <20230118093011.3796248-1-arnd@kernel.org>
-In-Reply-To: <20230118093011.3796248-1-arnd@kernel.org>
+References: <20230118160722.289840-1-arnd@kernel.org>
+In-Reply-To: <20230118160722.289840-1-arnd@kernel.org>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 18 Jan 2023 11:27:31 -0500
-Message-ID: <CADnq5_PF7j+X6_o7tVrnhnKhSY9=gASSgxzpTwPJ7WEq=YsR+Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: fix dp_retrieve_lttpr_cap() return value
+Date: Wed, 18 Jan 2023 11:32:15 -0500
+Message-ID: <CADnq5_NPmDjmU+KpHU6z_pNDoASim7Hokq9XnHu8ONP6HqZZdw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: fix hdmi_encoded_link_bw definition
 To: Arnd Bergmann <arnd@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -64,13 +64,15 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lewis Huang <Lewis.Huang@amd.com>,
- Wesley Chalmers <Wesley.Chalmers@amd.com>, Arnd Bergmann <arnd@arndb.de>,
- Leo Li <sunpeng.li@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
+Cc: Ian Chen <ian.chen@amd.com>, Wesley Chalmers <Wesley.Chalmers@amd.com>,
+ Arnd Bergmann <arnd@arndb.de>, Leo Li <sunpeng.li@amd.com>,
+ Wenjing Liu <wenjing.liu@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Solomon Chiu <solomon.chiu@amd.com>,
+ Michael Strauss <michael.strauss@amd.com>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, "Shen, George" <George.Shen@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Po Ting Chen <robin.chen@amd.com>, Harry Wentland <harry.wentland@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
@@ -79,49 +81,73 @@ Applied.  Thanks!
 
 Alex
 
-On Wed, Jan 18, 2023 at 4:30 AM Arnd Bergmann <arnd@kernel.org> wrote:
+On Wed, Jan 18, 2023 at 11:07 AM Arnd Bergmann <arnd@kernel.org> wrote:
 >
 > From: Arnd Bergmann <arnd@arndb.de>
 >
-> gcc-13 notices a mismatch between the return type of dp_retrieve_lttpr_cap()
-> and the returned value:
+> Some of the data structures are hidden when CONFIG_DRM_AMD_DC_DCN is
+> disabled, which leads to a link failure:
 >
-> drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c: In function 'dp_retrieve_lttpr_cap':
-> drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c:1465:24: error: implicit conversion from 'enum <anonymous>' to 'enum dc_status' [-Werror=enum-conversion]
->  1465 |                 return false;
->       |                        ^~~~~
+> drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c:234:21: error: 'union hdmi_encoded_link_bw' declared inside parameter list will not be visible outside of this definition or declaration [-Werror]
+>   234 |         const union hdmi_encoded_link_bw hdmi_encoded_link_bw)
+>       |                     ^~~~~~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c:234:42: error: parameter 2 ('hdmi_encoded_link_bw') has incomplete type
+>   234 |         const union hdmi_encoded_link_bw hdmi_encoded_link_bw)
+>       |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c:232:17: error: function declaration isn't a prototype [-Werror=strict-prototypes]
+>   232 | static uint32_t intersect_frl_link_bw_support(
+>       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c: In function 'get_active_converter_info':
+> drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c:1126:76: error: storage size of 'hdmi_encoded_link_bw' isn't known
+>  1126 |                                                 union hdmi_encoded_link_bw hdmi_encoded_link_bw;
+>       |                                                                            ^~~~~~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c:1130:101: error: 'struct <anonymous>' has no member named 'MAX_ENCODED_LINK_BW_SUPPORT'
+>  1130 |                                                                                 hdmi_color_caps.bits.MAX_ENCODED_LINK_BW_SUPPORT);
 >
-> Change the value to an actual dc_status code and remove the bogus
-> initialization that was apparently meant to get returned here.
+> There is probably no need to hide the data structure, and removing
+> the #ifdef makes it build cleanly.
 >
-> Fixes: b473bd5fc333 ("drm/amd/display: refine wake up aux in retrieve link caps")
+> Fixes: d5a43956b73b ("drm/amd/display: move dp capability related logic to link_dp_capability")
 > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 > ---
->  drivers/gpu/drm/amd/display/dc/link/link_dp_capability.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/amd/display/dc/dc_dp_types.h | 6 ------
+>  1 file changed, 6 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/link_dp_capability.c
-> index 088f4291bfbf..e72ad1b8330f 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/link_dp_capability.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/link_dp_capability.c
-> @@ -1455,14 +1455,14 @@ static bool dpcd_read_sink_ext_caps(struct dc_link *link)
->  enum dc_status dp_retrieve_lttpr_cap(struct dc_link *link)
->  {
->         uint8_t lttpr_dpcd_data[8];
-> -       enum dc_status status = DC_ERROR_UNEXPECTED;
-> -       bool is_lttpr_present = false;
-> +       enum dc_status status;
-> +       bool is_lttpr_present;
+> diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+> index b7e53b7dc4ed..84da54358922 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+> @@ -361,14 +361,10 @@ enum dpcd_downstream_port_detailed_type {
+>  union dwnstream_port_caps_byte2 {
+>         struct {
+>                 uint8_t MAX_BITS_PER_COLOR_COMPONENT:2;
+> -#if defined(CONFIG_DRM_AMD_DC_DCN)
+>                 uint8_t MAX_ENCODED_LINK_BW_SUPPORT:3;
+>                 uint8_t SOURCE_CONTROL_MODE_SUPPORT:1;
+>                 uint8_t CONCURRENT_LINK_BRING_UP_SEQ_SUPPORT:1;
+>                 uint8_t RESERVED:1;
+> -#else
+> -               uint8_t RESERVED:6;
+> -#endif
+>         } bits;
+>         uint8_t raw;
+>  };
+> @@ -406,7 +402,6 @@ union dwnstream_port_caps_byte3_hdmi {
+>         uint8_t raw;
+>  };
 >
->         /* Logic to determine LTTPR support*/
->         bool vbios_lttpr_interop = link->dc->caps.vbios_lttpr_aware;
+> -#if defined(CONFIG_DRM_AMD_DC_DCN)
+>  union hdmi_sink_encoded_link_bw_support {
+>         struct {
+>                 uint8_t HDMI_SINK_ENCODED_LINK_BW_SUPPORT:3;
+> @@ -428,7 +423,6 @@ union hdmi_encoded_link_bw {
+>         } bits;
+>         uint8_t raw;
+>  };
+> -#endif
 >
->         if (!vbios_lttpr_interop || !link->dc->caps.extended_aux_timeout_support)
-> -               return false;
-> +               return DC_ERROR_UNEXPECTED;
->
->         /* By reading LTTPR capability, RX assumes that we will enable
->          * LTTPR extended aux timeout if LTTPR is present.
+>  /*4-byte structure for detailed capabilities of a down-stream port
+>  (DP-to-TMDS converter).*/
 > --
 > 2.39.0
 >
