@@ -4,64 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EE02C32793
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 14:47:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC6A1C32793
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 16:07:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94A8510E760;
-	Wed, 18 Jan 2023 14:47:20 +0000 (UTC)
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13AAA10E6F6
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Jan 2023 14:47:19 +0000 (UTC)
-Received: by mail-ej1-x633.google.com with SMTP id az20so64706338ejc.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Jan 2023 06:47:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=ZSd1+vYtGfSUJaEAlvyt0j0HFUyfohqvlKrCz3wK6H4=;
- b=pMK1s60/dFTf7DGkUIUwyBEOQ1y4FprY3desohcz1UB1YLmu4yyDqcNQwLO1M2HnAj
- 36RZhNe7/dxOGW8S7GRJ4XYAAfacBnOFfMDlbABC95yW6nBGymmjsSnHzN2OKOr5wJsD
- bEL7UkcCe9Kuuwnk32fe4PxhFeLBeBeFktK+Ln/6xTWPlNpz9eP7xfG+4jNSLfT3lh2I
- D+zARLnThZzFjMbq+bvYtJk/aEFndQcOv0Laf0IxV7tDLfjxD6VSjghdO/Zx7HT/Va9f
- Y5EfNvrvaUWUO7hib+VXU7QJc1cL/AU/ciJJoLg00kbtZiptapb/Jwh0b7xc0gPzP130
- 3azQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ZSd1+vYtGfSUJaEAlvyt0j0HFUyfohqvlKrCz3wK6H4=;
- b=siYIxn+ev0DgKr+nWkoUtYewmtvIQUXrqRp1fI0o51tHpHhq4GS2J9lnIunUl+ao2m
- qu4/FrNvWdNufKS4R/alF5ACzqKHR5M3Bag1k71amfc20amMkS3ZiDVXHF97U41eirJt
- Gb5AZPaYDgsRp6TFrfTBJBfNsl5m4kXZ7T5d8b37hHgBVeSSvcm9QLdvErgUYXE8Lvkd
- 4QomsmP5W7s2fYQaLkC10B8SdrfOAx+8djiUmfzQvbnFSN5q1PsL/EdjaOVJHFbuELBF
- G9pl0Nu9oZLCKn87iQ3oRuvFxPNk0KbeQ9Rcwvp4e+r2zehN8EVBPG4FZtaiq0jj0OrV
- 2DnA==
-X-Gm-Message-State: AFqh2kqUY4Rmvj7Wbn3d79CkWPaDwlz1ZjP/kJWuQp5+gZj5Zdr7iHmj
- e211E2u2ksynycwl5uR3PAc=
-X-Google-Smtp-Source: AMrXdXsnhvwQOSh4xlWKiBDLyLFkhKBIQs+aZKM9kj5xCfrEfZrUZ4d3S2Ka7ACu49dS2C5cTe8Sbg==
-X-Received: by 2002:a17:906:3f94:b0:861:4671:a834 with SMTP id
- b20-20020a1709063f9400b008614671a834mr6405891ejj.71.1674053237670; 
- Wed, 18 Jan 2023 06:47:17 -0800 (PST)
-Received: from ?IPV6:2a02:908:1256:79a0:11b:aaf8:6e8b:724f?
- ([2a02:908:1256:79a0:11b:aaf8:6e8b:724f])
- by smtp.gmail.com with ESMTPSA id
- d2-20020a056402000200b0049e09105705sm4542006edu.62.2023.01.18.06.47.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Jan 2023 06:47:17 -0800 (PST)
-Message-ID: <3e534cde-b52b-79e1-e114-811956c068f5@gmail.com>
-Date: Wed, 18 Jan 2023 15:47:16 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FE7B10E77E;
+	Wed, 18 Jan 2023 16:07:33 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDD3010E77E;
+ Wed, 18 Jan 2023 16:07:31 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 4D945B81D7D;
+ Wed, 18 Jan 2023 16:07:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27895C433EF;
+ Wed, 18 Jan 2023 16:07:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1674058049;
+ bh=erza5wFZzZpKsQRpijn12Ne9oD+6s0EUVrxM9VxD0K8=;
+ h=From:To:Cc:Subject:Date:From;
+ b=sU3sjFUfD9qPsYWoFVqac92lNyW7s5zIZLNULDMetjK6srOOinZ/Whv3xtYKSEGbG
+ P66TD0OK/sWifzth9E5i7XqmapF+84ckRZlVDw6piDgLfi0rs7CGqVmRU1qJkV19Bs
+ mRbyO0OXexSnHcMsyUBr42YV2jYhy77KXvs7JrSdccbFZx/9TivXOXp4E+clBwjU00
+ Xi5tH73RcZNQhJjyve4H7PyA9jeWEmgu39meb6wMuyTbpYRaBIVEWYINn2S5CqvmtV
+ 8SFUaQwKSQsqrMhFfKw0IjkulweS4tKfmfJgh1dVNTqgOm7nYe4jmiJvzBmw/xd/6t
+ r2qeo9C0iNY+w==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Subject: [PATCH] drm/amd/display: fix hdmi_encoded_link_bw definition
+Date: Wed, 18 Jan 2023 17:06:27 +0100
+Message-Id: <20230118160722.289840-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH 1/2] drm/amd/display: disable S/G display on DCN 3.1.5
-Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230118142611.1780725-1-alexander.deucher@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20230118142611.1780725-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,35 +49,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: yifan1.zhang@amd.com, roman.li@amd.com
+Cc: Ian Chen <ian.chen@amd.com>, Wesley Chalmers <Wesley.Chalmers@amd.com>,
+ Arnd Bergmann <arnd@arndb.de>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Wenjing Liu <wenjing.liu@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Solomon Chiu <solomon.chiu@amd.com>,
+ Michael Strauss <michael.strauss@amd.com>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, "Shen, George" <George.Shen@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Po Ting Chen <robin.chen@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 18.01.23 um 15:26 schrieb Alex Deucher:
-> Causes flickering or white screens in some configurations.
-> Disable it for now until we can fix the issue.
->
-> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2354
-> Cc: roman.li@amd.com
-> Cc: yifan1.zhang@amd.com
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+From: Arnd Bergmann <arnd@arndb.de>
 
-Acked-by: Christian König <christian.koenig@amd.com> for the series.
+Some of the data structures are hidden when CONFIG_DRM_AMD_DC_DCN is
+disabled, which leads to a link failure:
 
-> ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 -
->   1 file changed, 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 500d3d9b59d2..7167a7b63f8c 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -1503,7 +1503,6 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
->   		case IP_VERSION(3, 1, 2):
->   		case IP_VERSION(3, 1, 3):
->   		case IP_VERSION(3, 1, 4):
-> -		case IP_VERSION(3, 1, 5):
->   		case IP_VERSION(3, 1, 6):
->   			init_data.flags.gpu_vm_support = true;
->   			break;
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c:234:21: error: 'union hdmi_encoded_link_bw' declared inside parameter list will not be visible outside of this definition or declaration [-Werror]
+  234 |         const union hdmi_encoded_link_bw hdmi_encoded_link_bw)
+      |                     ^~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c:234:42: error: parameter 2 ('hdmi_encoded_link_bw') has incomplete type
+  234 |         const union hdmi_encoded_link_bw hdmi_encoded_link_bw)
+      |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c:232:17: error: function declaration isn't a prototype [-Werror=strict-prototypes]
+  232 | static uint32_t intersect_frl_link_bw_support(
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c: In function 'get_active_converter_info':
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c:1126:76: error: storage size of 'hdmi_encoded_link_bw' isn't known
+ 1126 |                                                 union hdmi_encoded_link_bw hdmi_encoded_link_bw;
+      |                                                                            ^~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c:1130:101: error: 'struct <anonymous>' has no member named 'MAX_ENCODED_LINK_BW_SUPPORT'
+ 1130 |                                                                                 hdmi_color_caps.bits.MAX_ENCODED_LINK_BW_SUPPORT);
+
+There is probably no need to hide the data structure, and removing
+the #ifdef makes it build cleanly.
+
+Fixes: d5a43956b73b ("drm/amd/display: move dp capability related logic to link_dp_capability")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ drivers/gpu/drm/amd/display/dc/dc_dp_types.h | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+index b7e53b7dc4ed..84da54358922 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+@@ -361,14 +361,10 @@ enum dpcd_downstream_port_detailed_type {
+ union dwnstream_port_caps_byte2 {
+ 	struct {
+ 		uint8_t MAX_BITS_PER_COLOR_COMPONENT:2;
+-#if defined(CONFIG_DRM_AMD_DC_DCN)
+ 		uint8_t MAX_ENCODED_LINK_BW_SUPPORT:3;
+ 		uint8_t SOURCE_CONTROL_MODE_SUPPORT:1;
+ 		uint8_t CONCURRENT_LINK_BRING_UP_SEQ_SUPPORT:1;
+ 		uint8_t RESERVED:1;
+-#else
+-		uint8_t RESERVED:6;
+-#endif
+ 	} bits;
+ 	uint8_t raw;
+ };
+@@ -406,7 +402,6 @@ union dwnstream_port_caps_byte3_hdmi {
+ 	uint8_t raw;
+ };
+ 
+-#if defined(CONFIG_DRM_AMD_DC_DCN)
+ union hdmi_sink_encoded_link_bw_support {
+ 	struct {
+ 		uint8_t HDMI_SINK_ENCODED_LINK_BW_SUPPORT:3;
+@@ -428,7 +423,6 @@ union hdmi_encoded_link_bw {
+ 	} bits;
+ 	uint8_t raw;
+ };
+-#endif
+ 
+ /*4-byte structure for detailed capabilities of a down-stream port
+ (DP-to-TMDS converter).*/
+-- 
+2.39.0
 
