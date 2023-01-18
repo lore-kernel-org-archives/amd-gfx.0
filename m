@@ -4,64 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 088F5C38147
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 10:43:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83D77C38159
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 14:26:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D78D110E70D;
-	Wed, 18 Jan 2023 10:43:08 +0000 (UTC)
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95A9E10E628;
- Wed, 18 Jan 2023 10:11:42 +0000 (UTC)
-Received: by mail-wr1-x42a.google.com with SMTP id n7so7314502wrx.5;
- Wed, 18 Jan 2023 02:11:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=X9erqJru4XPgjOURANw2ncUgTgC8yFwhYsbY0uUOyl8=;
- b=aetc572Jkz81PofCbQdsfwcHdm8KluXPcZ6+I3ifpv1I/B3j4TBDMH2yjxmIxMAS9R
- JPeU2+G7hMcQXLsi07akridWxfeGElEi5Yxty1YIXhnbocYaQvn7ClpsEsdS8wjILVAF
- EmzEdq8u1Pn2LB939plEC4a7yRmCG79QXq2eOeWlz3N9stVyj8iCv6HTbJfdvmTptLvF
- 1FtOpZ78FLu30c5aPtEeXTTTtgO03BDjT3U+RRrof24v8ktVT/+Q8AvdOMkKpjehrrug
- +Cr3mbbMIi7LMfR5p0WTyE5dEKPBAVNfh1syL1wW6rd9WoiJtVdoFfWe5kHYFGzHpGBQ
- axtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=X9erqJru4XPgjOURANw2ncUgTgC8yFwhYsbY0uUOyl8=;
- b=bHKQTJmDJLLAWX7D4w4L5v5D7m1aDx74IregDjm6M6bvpbRw+NLcWihtW4nVN9rFvs
- XJzvx3iREH34H/JjHwaJQ0tqk32Vl8RDdBn+3WSoPErlkJBMbu/kk2M9RJ6hibmDAmb7
- w8xpFixd3MQjiQevfLua3xofj2c7jTXEkxWbax21Gbf1w/ChAxlLk6ZKc2ZtUFJ+XRsy
- 81bSkJEw1D22+4u9d/esQQk+79SPAAbgxShbzwAE8sZIjzLim9OT1BjVOK8aulW3NOgR
- xNO01gfBaXkt0p2I20XBaEsTH6mnxeEijA7dJSI32ANqpEg2r6Xw/4gq71slKal96/wo
- qqrQ==
-X-Gm-Message-State: AFqh2krdYy2j16kB8+9KKtC3rz11+UIoKz0Xp/LHDGoPwlkN1zoEHzam
- RSDyeiXb82nynhJrXIso0S0=
-X-Google-Smtp-Source: AMrXdXs/tYTCR9qwFQpShs1CcYyu71qYkTmhz7D33Q/9wLUaLCCGuYZGvTol6zaRTTnGbS8z7gCe9g==
-X-Received: by 2002:a5d:5608:0:b0:2b6:daf8:52ad with SMTP id
- l8-20020a5d5608000000b002b6daf852admr1567589wrv.52.1674036701073; 
- Wed, 18 Jan 2023 02:11:41 -0800 (PST)
-Received: from localhost.localdomain ([93.119.166.152])
- by smtp.gmail.com with ESMTPSA id
- y18-20020a5d6152000000b002425be3c9e2sm30323113wrt.60.2023.01.18.02.11.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Jan 2023 02:11:40 -0800 (PST)
-From: Nicu Borta <nicuborta123@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Subject: [PATCH] amd/dcn20: Fix high mem clock with multiple displays
-Date: Wed, 18 Jan 2023 12:11:08 +0200
-Message-Id: <20230118101107.10173-1-nicuborta123@gmail.com>
-X-Mailer: git-send-email 2.38.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 266D510E752;
+	Wed, 18 Jan 2023 14:26:39 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2046.outbound.protection.outlook.com [40.107.95.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9278410E752
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Jan 2023 14:26:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EornkPpvfpI2SqlxlVhndIme6IEu5DdS+MVq5EBHZs0WWJkeQMcTLR4OvSD7q74arT+jdv9YF52TWuHIigR5xODvj9/bxCW3llN3ijDcesDl1lkGMFgmMI4DDcIDCna0/htmbIueMZoaG5drdOWiCr1sWKdOJJbKV8kpR9+5fRIfu/IOvjDaVT1FeTr7XTD/PDji0hFVKNlGVLygk7dOkr7mvLtW9eNU6XwJR2ZquJL0EMrik4zvzvumwpD/hszeOucKRAjjmkYV7ZXSMCzfweyiI5Gw6Opxv+iJ2kHICIn45xQqM3AldfhahR50XmJwTvFh/JFduAKyAdeWxBrV0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TcP+0uZbA4T5bfBuje757LtmEXyAYP9+E95NsHqFewE=;
+ b=m7YB6vKIxZwI0Wki9huVM6KAvRllHqXYOjVXyRO/ytRcE6eAIG3gNkux1Pe6GuESr1KuN/DMYhozZAnIFCaGZsNKiD5OlPYr4qSsooFrrIUd0tllbM6V9tHuOd4aU1nGiIr57iHuftMhS9GLoY7vYkJaYDlJ9XTBih/QM0KqOXZD4KQR5XDJWOGP4wyFEgoLEFJ0Uc9kYGWwX/kgaUd/0zTv7E3EVagntasPQuhtBK9sq+5iSWUE0QcKPDF7AVzhI6MuRbWsSMeN0j7DuM0uhrT8JcZD69FPN5dXTSHZNJs1QkVFF9O7FkXSw1O5/ByrwmlnouZ7p/kHFy16IU24sA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TcP+0uZbA4T5bfBuje757LtmEXyAYP9+E95NsHqFewE=;
+ b=MYC5pKaLHF0nEJgC1GGLcyzx5HYfgE//3OevJIQoErhcX5isk3uukLR8JwgCMyc0HXpHno7R/CGNE9f68cPGawm+UqLmG8kODhtoSG7iUMboqKyDlfoktGNRLmkG7/114/xPmulP5Q+mvORa0icYo7+jQyJFtOCQqkoMenrUxjA=
+Received: from BN8PR12CA0035.namprd12.prod.outlook.com (2603:10b6:408:60::48)
+ by PH8PR12MB6963.namprd12.prod.outlook.com (2603:10b6:510:1be::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.24; Wed, 18 Jan
+ 2023 14:26:35 +0000
+Received: from BN8NAM11FT039.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:60:cafe::29) by BN8PR12CA0035.outlook.office365.com
+ (2603:10b6:408:60::48) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.19 via Frontend
+ Transport; Wed, 18 Jan 2023 14:26:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT039.mail.protection.outlook.com (10.13.177.169) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6002.13 via Frontend Transport; Wed, 18 Jan 2023 14:26:34 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 18 Jan
+ 2023 08:26:32 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amd/display: disable S/G display on DCN 3.1.5
+Date: Wed, 18 Jan 2023 09:26:10 -0500
+Message-ID: <20230118142611.1780725-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 18 Jan 2023 10:43:05 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT039:EE_|PH8PR12MB6963:EE_
+X-MS-Office365-Filtering-Correlation-Id: 96ed9d53-a6b1-4c4f-a00f-08daf960005c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: odianre7m5MjlTz+ne8iB7z2p9zA5bRjjvIp0eJFiZM9K2o3JimEaykYSPM8AjiZZI66BEUThFXDRCs24ycAd8TgtR8UT7MVQFMM+rdZmhPbSLjql/PKeKPPmhv4wH7Xdcl285uishQXn+5jnU04hm3btPohT0X/hC7Y0OaXcADV+++pbpoYXEvdWnGZR7kdfinw8kIyoVmH0B+mRNKS0Hy794XU8a+e7JtgJxUwXxUW85u1ksx6+H7nOH5wZD7gxMcfw1Vp/qCu0R6iDYOaVnPUEs+LWin3j11RbahbbT4IhR8/+nJxlsLYDJ4T3twpM6IXFDgc0CEIpMdsCewv9JmUM45oMY3UOEk2hAkfX/54o6h1AidCDKBk82dc4aLqoNei3Bsai3EtFneD7LE5Ad8fo+qb08e7NzAQrDcRgmY6PUE1CSaywA02MOEttq2KSIITnev17JrdR4PuDDObXqSQp/s8k5M1/gNxAS2k7dz6LYWjFTPPytrtGpWMWZmS5Tr2ZevbUYMhcumEeQa9XJ4HqzpFKXuINAIWM+1dhl9vhptCTUJkdUkjffNDEsspw+XNcG7GwyIL/qhCN+tRse4ykgkyEmJlzRDOTTeEqYiGs2wWr3/MxsHKUBaWGMTlVgJnQDKUfxH9TwfOi9/7dDN253dWMMmpOytPh7Wa5Q9dkrX0ev/k82wFedWwKqVq
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(136003)(376002)(39860400002)(346002)(451199015)(46966006)(36840700001)(40470700004)(82740400003)(81166007)(36860700001)(356005)(86362001)(8936002)(5660300002)(70586007)(2906002)(4744005)(70206006)(40480700001)(4326008)(8676002)(6916009)(41300700001)(82310400005)(16526019)(40460700003)(2616005)(1076003)(186003)(336012)(26005)(83380400001)(47076005)(426003)(316002)(6666004)(54906003)(7696005)(966005)(478600001)(36756003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2023 14:26:34.3499 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 96ed9d53-a6b1-4c4f-a00f-08daf960005c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT039.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6963
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,43 +97,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Nicu Borta <nicuborta123@gmail.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, yifan1.zhang@amd.com,
+ roman.li@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On RX5000 series GPUs, using a high refresh rate monitor causes the VRAM to
-always stay at the highest clock (according to AMD, this is done to prevent
-flickering).
+Causes flickering or white screens in some configurations.
+Disable it for now until we can fix the issue.
 
-However, when using 2 monitors (e.g. one at 165Hz and another at 60Hz), then
-disconnecting the high refresh monitor, before this patch the VRAM clock didn't
-decrease like it should.
-
-This patch fixes that bug, and now, when disconnecting the high refresh rate
-monitor, the VRAM clock jumps to the minimum.
-
-Tested for a few months, I haven't noticed any visual artifacts or other errors
-(RX5700XT).
-
-Signed-off-by: Nicu Borta <nicuborta123@gmail.com>
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2354
+Cc: roman.li@amd.com
+Cc: yifan1.zhang@amd.com
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-index 8a0dd0d7134b..481a15b02126 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-@@ -714,7 +714,7 @@ static const struct dc_debug_options debug_defaults_drv = {
- 		.timing_trace = false,
- 		.clock_trace = true,
- 		.disable_pplib_clock_request = true,
--		.pipe_split_policy = MPC_SPLIT_AVOID_MULT_DISP,
-+		.pipe_split_policy = MPC_SPLIT_DYNAMIC,
- 		.force_single_disp_pipe_split = false,
- 		.disable_dcc = DCC_ENABLE,
- 		.vsr_support = true,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 500d3d9b59d2..7167a7b63f8c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1503,7 +1503,6 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 		case IP_VERSION(3, 1, 2):
+ 		case IP_VERSION(3, 1, 3):
+ 		case IP_VERSION(3, 1, 4):
+-		case IP_VERSION(3, 1, 5):
+ 		case IP_VERSION(3, 1, 6):
+ 			init_data.flags.gpu_vm_support = true;
+ 			break;
 -- 
-2.38.2
+2.39.0
 
