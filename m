@@ -4,40 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7C5DC004D4
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 09:30:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D795C46467
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 10:43:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B20310E6EB;
-	Wed, 18 Jan 2023 09:30:28 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D099C10E225;
- Wed, 18 Jan 2023 09:30:25 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEA1810E70B;
+	Wed, 18 Jan 2023 10:43:06 +0000 (UTC)
+X-Greylist: delayed 619 seconds by postgrey-1.36 at gabe;
+ Wed, 18 Jan 2023 07:49:51 UTC
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [58.251.27.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B64BB10E192;
+ Wed, 18 Jan 2023 07:49:51 +0000 (UTC)
+Received: from mxde.zte.com.cn (unknown [10.35.20.165])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mxct.zte.com.cn (FangMail) with ESMTPS id 4Nxd1t17n4z1Dwk;
+ Wed, 18 Jan 2023 15:39:30 +0800 (CST)
+Received: from mxus.zte.com.cn (unknown [10.207.168.7])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mxde.zte.com.cn (FangMail) with ESMTPS id 4Nxd1b6gr7z4xBV7;
+ Wed, 18 Jan 2023 15:39:15 +0800 (CST)
+Received: from mxhk.zte.com.cn (unknown [192.168.250.138])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mxus.zte.com.cn (FangMail) with ESMTPS id 4Nxd1X6sr3z9tyDF;
+ Wed, 18 Jan 2023 15:39:12 +0800 (CST)
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 0B039CE1BDD;
- Wed, 18 Jan 2023 09:30:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 303B3C433D2;
- Wed, 18 Jan 2023 09:30:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674034218;
- bh=pUmitdCWgBZAVCI5fSjyfp0oSa/dGTogN9eI1BRZzrs=;
- h=From:To:Cc:Subject:Date:From;
- b=gwxTJQ77MUNvbysMBAN4/g9PBW68M3KSkeVAUYbBd4nDgMtihXlrtfGnEp8W+P5Mw
- fizsYN1JvKhCZcRTxr1+ZE5zMGsWBd4fxLYarfFaoSu3434LeHKYeU5ysqFW2t+zGx
- ucnrF/g1B5QlWKw0pwjH5xmPL+Pn7Zlpo7cEbe2tJr3ry9B1sDmJKMjxwLMAyGiWph
- fWVTfk+d1eO9xgH8qV9r4+p8z96Y3nnfvRl+Qa86z0XtLf6TYOEcT+ra9rezyV9u7k
- XtnDrzzgtIAClHuwHcPK6hCZ6QRdYIRocPww2ORNSIxuIUGhbpOiagnxV7aEdzvgCp
- oT01Ddi2oC/2Q==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Subject: [PATCH] drm/amd/display: fix dp_retrieve_lttpr_cap() return value
-Date: Wed, 18 Jan 2023 10:29:56 +0100
-Message-Id: <20230118093011.3796248-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.39.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ by mxhk.zte.com.cn (FangMail) with ESMTPS id 4Nxd1N3nh7z6FK2Q;
+ Wed, 18 Jan 2023 15:39:04 +0800 (CST)
+Received: from xaxapp01.zte.com.cn ([10.88.99.176])
+ by mse-fl1.zte.com.cn with SMTP id 30I7cwNo067361;
+ Wed, 18 Jan 2023 15:38:58 +0800 (+08)
+ (envelope-from ye.xingchen@zte.com.cn)
+Received: from mapi (xaxapp01[null]) by mapi (Zmail) with MAPI id mid31;
+ Wed, 18 Jan 2023 15:39:00 +0800 (CST)
+Date: Wed, 18 Jan 2023 15:39:00 +0800 (CST)
+X-Zmail-TransId: 2af963c7a214131734d8
+X-Mailer: Zmail v1.0
+Message-ID: <202301181539003991927@zte.com.cn>
+Mime-Version: 1.0
+From: <ye.xingchen@zte.com.cn>
+To: <alexander.deucher@amd.com>
+Subject: =?UTF-8?B?W1BBVENIXSBkcm0vYW1kL2Rpc3BsYXk6IHJlbW92ZSBkdXBsaWNhdGUgaW5jbHVkZWQgaGVhZGVyIGZpbGVz?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL: mse-fl1.zte.com.cn 30I7cwNo067361
+X-Fangmail-Gw-Spam-Type: 0
+X-FangMail-Miltered: at cgslv5.04-192.168.251.14.novalocal with ID
+ 63C7A231.002 by FangMail milter!
+X-FangMail-Envelope: 1674027570/4Nxd1t17n4z1Dwk/63C7A231.002/10.35.20.165/[10.35.20.165]/mxde.zte.com.cn/<ye.xingchen@zte.com.cn>
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 63C7A231.002/4Nxd1t17n4z1Dwk
+X-Mailman-Approved-At: Wed, 18 Jan 2023 10:43:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,57 +69,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lewis Huang <Lewis.Huang@amd.com>,
- Wesley Chalmers <Wesley.Chalmers@amd.com>, Arnd Bergmann <arnd@arndb.de>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: sunpeng.li@amd.com, harry.wentland@amd.com, xinhui.pan@amd.com,
+ rodrigo.siqueira@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, wenjing.liu@amd.com, michael.strauss@amd.com,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, george.shen@amd.com,
+ jun.lei@amd.com, airlied@gmail.com, christian.koenig@amd.com,
+ jimmy.kizito@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
+From: ye xingchen <ye.xingchen@zte.com.cn>
 
-gcc-13 notices a mismatch between the return type of dp_retrieve_lttpr_cap()
-and the returned value:
+resource.h is included more than once.
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c: In function 'dp_retrieve_lttpr_cap':
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c:1465:24: error: implicit conversion from 'enum <anonymous>' to 'enum dc_status' [-Werror=enum-conversion]
- 1465 |                 return false;
-      |                        ^~~~~
-
-Change the value to an actual dc_status code and remove the bogus
-initialization that was apparently meant to get returned here.
-
-Fixes: b473bd5fc333 ("drm/amd/display: refine wake up aux in retrieve link caps")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: ye xingchen <ye.xingchen@zte.com.cn>
 ---
- drivers/gpu/drm/amd/display/dc/link/link_dp_capability.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/link_dp_capability.c
-index 088f4291bfbf..e72ad1b8330f 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_dp_capability.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_dp_capability.c
-@@ -1455,14 +1455,14 @@ static bool dpcd_read_sink_ext_caps(struct dc_link *link)
- enum dc_status dp_retrieve_lttpr_cap(struct dc_link *link)
- {
- 	uint8_t lttpr_dpcd_data[8];
--	enum dc_status status = DC_ERROR_UNEXPECTED;
--	bool is_lttpr_present = false;
-+	enum dc_status status;
-+	bool is_lttpr_present;
- 
- 	/* Logic to determine LTTPR support*/
- 	bool vbios_lttpr_interop = link->dc->caps.vbios_lttpr_aware;
- 
- 	if (!vbios_lttpr_interop || !link->dc->caps.extended_aux_timeout_support)
--		return false;
-+		return DC_ERROR_UNEXPECTED;
- 
- 	/* By reading LTTPR capability, RX assumes that we will enable
- 	 * LTTPR extended aux timeout if LTTPR is present.
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index 1e60827911c6..6747e4b199de 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -47,7 +47,6 @@
+ #include "link/link_dp_training_auxless.h"
+ #include "link/link_dp_phy.h"
+ #include "link/link_dp_capability.h"
+-#include "resource.h"
+ #define DC_LOGGER \
+ 	link->ctx->logger
+
 -- 
-2.39.0
-
+2.25.1
