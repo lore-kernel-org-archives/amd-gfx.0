@@ -4,55 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE4A7C32793
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 16:32:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E60DC32793
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 17:28:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3A5F10E1F1;
-	Wed, 18 Jan 2023 16:32:29 +0000 (UTC)
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
- [IPv6:2001:4860:4864:20::2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD66210E047;
- Wed, 18 Jan 2023 16:32:27 +0000 (UTC)
-Received: by mail-oa1-x2a.google.com with SMTP id
- 586e51a60fabf-15b9c93848dso27754882fac.1; 
- Wed, 18 Jan 2023 08:32:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=FzGHdZnG38PUUso3BdMIxZ7feb7Goq8YWG54jrX7zvU=;
- b=GzemvJG3q98iiC1WOZ/vHs+0ci5tOEzqaW+djlTNc/h3csNqfHs8q3ah49wH69giFg
- Xd+vx1PvINMXJr9GDJ2t3YQ389aUfD5tKEO8m9EX7XorrooVPyqaC8MV0rd0DEESzKOp
- xBfHIxUjb7j5kk6DaGyyUmFbLg8Ly53BNGcVIVgll32oMGVW9NptEFEkTDjDShyTKlT2
- 0e/zPlwN1iCRWFNfpQEA2zAc4wlEnoyROiEP49m+ty63pY27BV4dTFwz2HKjfJUs6BfH
- RNbS8BB868nWBfPIa5dortHoUp2ymPSyXmoV84X/nO9njNScIdO2LeykUaAK0QARvbaM
- Vu1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=FzGHdZnG38PUUso3BdMIxZ7feb7Goq8YWG54jrX7zvU=;
- b=4//hkLn0Dx76AazLTIbf8KQJn/PEwdLOrSeK8JCfvujvhfWQKLLdN1YFxDbIiSXhrz
- 4i6SsSzctpQneIITbIfP7nf+LlgDWDv//K5qFFvjCCkD/sAH8nlfLDKLrUCVXrKhEkXb
- DkV3Thpxj3oCAPtq2Y+YkvdwtgaQXovgj65aLAGHA0kGPg4tUQgXxWyLCgxcOEutqN2y
- xDb4FcCMUSU9uQ0W5Qxqzc0SXt7fJUjqBlPkEzmuUOI05uecmtzOqex5uucm3QCZhAOX
- yL+ojh7sqD1DUB5W9Nm+t8coaAxutQnGCTKALXlh3oVmnLPBiEAz6Yw03YhZ15o05FzU
- ckTg==
-X-Gm-Message-State: AFqh2kpF7nOITUhWaO/X2Tg60YbCRgfgpQ/gtMhKysyEjJOjURMClCdG
- oFScFxJmQeWDRS6DXFdUXF2kzplKrVTt+rU2Y1g=
-X-Google-Smtp-Source: AMrXdXs3xaVHPfIEvEvlPCi6maxmp3xBY1Iji7ce+Clj8jRQDwb5a3yegddizqXtH7OPOAPAkq/8C0VDJbyVyAapx/k=
-X-Received: by 2002:a05:6870:7a18:b0:15f:5509:9a0d with SMTP id
- hf24-20020a0568707a1800b0015f55099a0dmr726423oab.46.1674059546916; Wed, 18
- Jan 2023 08:32:26 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFAE710E7B4;
+	Wed, 18 Jan 2023 17:28:43 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2070.outbound.protection.outlook.com [40.107.223.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D84BC10E7B4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Jan 2023 17:28:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nfFOSHGMyq/3CjEnz6Zjc0f9Ltg9axYpruh+g9jwJUP6ZPnB2zEYLFKZiALXAlpbfBA9OXFpsakwwUi9SdE4oDaBpK7dTgEakhagJKYECgbgyoHyZi9LhDN1u27EkXCFYEAbVAbUiW5QtS3aoaRPhKgOrCIGPPwCB5UIag3gR66J983izxrkXbtcYD1ZXMwGagj6lzZ0UKjOILzf+amp8rD0auQgmYrmCDuhLphS6M2TE1RygHBZ6m+cYMgZmXXvHK/9TTO6XIyFA663DwWTwW2RNmXnrHgj9PlGIiUqHfcl6PFMYBykW7ysTNk7ymmjq0fAPySvH3qJ0Vo8pqOJeQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mgNpR75+yTwMjIaOaLQxw5lH0S9cswexbEybeLixpJ8=;
+ b=gmpFYItlvHm/A9OOiLswdwYQIVwQCd78BwKRzhpZivQMnMNJCYRcjB5ZAQnVLKKln/PMoW+jlCY63mEbV+jbwh9BLVMLgdQr2Di03efjajOpyYT+YqXH6v/5Fb1VGVffw5tcXxZBqNMZzcj0ENN2e6txpZRrJJLh9X1h9siQ+SSlnUYMQ2PyZ/LTwMConVHrSbakmzWM75eUQtxIl6ScqPAyIsePAyDaHQArXptOWmEpM0c6uHu5flpL+MzW6hHnmy7KF43rZNnvNddwDdHZ6G0I3VNuvdihyOvXSjhkFxPMKNOvnni0htbU7pu1aewGTTIjmozHcslNAM/jPVGmyg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mgNpR75+yTwMjIaOaLQxw5lH0S9cswexbEybeLixpJ8=;
+ b=18jvKMO6Lkz9LfyYuNPkmOgRL+vBf7bqA7gkkjGI0g6WBusyAa+e/T/zwOMYkgMn+hvKwBBwchWfpYQuRfhm+J08alMhRxTJ9ieC2oPxAc/3QjitztON5ULZO9swjIove8QqhSEuYsyo637CsTTFcpwUgoglCr05E2C37WSZbuI=
+Received: from MN2PR13CA0008.namprd13.prod.outlook.com (2603:10b6:208:160::21)
+ by DM6PR12MB4220.namprd12.prod.outlook.com (2603:10b6:5:21d::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.23; Wed, 18 Jan
+ 2023 17:28:39 +0000
+Received: from BL02EPF0000EE3D.namprd05.prod.outlook.com
+ (2603:10b6:208:160:cafe::f0) by MN2PR13CA0008.outlook.office365.com
+ (2603:10b6:208:160::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6023.12 via Frontend
+ Transport; Wed, 18 Jan 2023 17:28:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0000EE3D.mail.protection.outlook.com (10.167.241.134) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6002.11 via Frontend Transport; Wed, 18 Jan 2023 17:28:39 +0000
+Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 18 Jan
+ 2023 11:28:38 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 0/4] Update AMD APU IP version docs
+Date: Wed, 18 Jan 2023 11:28:37 -0600
+Message-ID: <20230118172841.5690-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20230118160722.289840-1-arnd@kernel.org>
-In-Reply-To: <20230118160722.289840-1-arnd@kernel.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 18 Jan 2023 11:32:15 -0500
-Message-ID: <CADnq5_NPmDjmU+KpHU6z_pNDoASim7Hokq9XnHu8ONP6HqZZdw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: fix hdmi_encoded_link_bw definition
-To: Arnd Bergmann <arnd@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0000EE3D:EE_|DM6PR12MB4220:EE_
+X-MS-Office365-Filtering-Correlation-Id: d40be094-fe3c-4c6f-b630-08daf979702d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: gj3X7oo8k0HT9TPMSBhImof/lDXxyv4vRxLUOs24a+tiMbKxGeOoVdBrPY/BWKV4HSdp5FpLN87hA8jMqmHvrR7sVsVKBcR+YSpN3qykLOO82Yq3KgMzAmQ6yXCDgbL2llqXIQbmzWs5Y/LIQaeVvlXSdelQipXgIdNGHIHdLReWnHiA24fguBFr7HacPMfUzDzI4KQUPV3skfdalVsO6BoT4xBtXRrTphWJIrBRizJPsyb7Qt/n+u3yfjYjOSVHu2bwwXg6dewhfrNGlYBtrg3aVgOfaap2ohRLzmKfWIeMUdrqR9Lo5TRRX4vi2TJbx6XYjCNHGyUCXvzd0fXlhWy8NdERm1C1nQWAiRP22eZw5KjN6ysM5J/ygg0zKxoIrXcKST/FUop8YMkQX03ipq3dqp2HfI0VgWHoDCcSJOQlhwVeEbBFfFPub61noo1vVaBFhq60yaFVUfN3OvVLXaaiPRFZvCXw692ELs+499zsDtja4SMCqvL4gFhuCyVd0HonHxfDPMGGJ/1UBUns//ounEA32R9IYxeVoOfy9Ow9gqj2CdSc4RlehSGm/diNVZDtJgwCAnJyexHHby6XRKolQh9ND6sobkOlX81A3ilzdYJHivQ5yERLDy6U9PEQLN7p7nmY9wdib0V7WdmP+7fUHZ9u1Ctv7Pz9ypk57KZjwrzYiE34lZAxmrMkGLu/qbU8mumk8efd+1NArwaWBrJKn7EA1/tMf8IQzgsmjP0=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(376002)(136003)(39860400002)(396003)(451199015)(40470700004)(46966006)(36840700001)(36756003)(356005)(8676002)(86362001)(15650500001)(44832011)(4326008)(70586007)(70206006)(6916009)(5660300002)(8936002)(2906002)(36860700001)(81166007)(82740400003)(83380400001)(478600001)(316002)(7696005)(54906003)(40460700003)(82310400005)(47076005)(41300700001)(2616005)(1076003)(186003)(336012)(26005)(426003)(40480700001)(16526019)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2023 17:28:39.4280 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d40be094-fe3c-4c6f-b630-08daf979702d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0000EE3D.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4220
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,90 +97,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ian Chen <ian.chen@amd.com>, Wesley Chalmers <Wesley.Chalmers@amd.com>,
- Arnd Bergmann <arnd@arndb.de>, Leo Li <sunpeng.li@amd.com>,
- Wenjing Liu <wenjing.liu@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Solomon Chiu <solomon.chiu@amd.com>,
- Michael Strauss <michael.strauss@amd.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, "Shen, George" <George.Shen@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Po Ting Chen <robin.chen@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: "Guilherme G . Piccoli" <gpiccoli@igalia.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Guilherme G. Piccoli submitted some patches recently to the mailing list
+related to removing IP version detection code.  As part of the discussion
+it was mentioned that non-obviously some IP blocks are shared between
+multiple APU parts.
 
-Alex
+The example given was for launched products Rembrandt and Mendocino VCN,
+but in looking at the existing table I found that we don't actually
+indicate the VCN version for Mendocino.
 
-On Wed, Jan 18, 2023 at 11:07 AM Arnd Bergmann <arnd@kernel.org> wrote:
->
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> Some of the data structures are hidden when CONFIG_DRM_AMD_DC_DCN is
-> disabled, which leads to a link failure:
->
-> drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c:234:21: error: 'union hdmi_encoded_link_bw' declared inside parameter list will not be visible outside of this definition or declaration [-Werror]
->   234 |         const union hdmi_encoded_link_bw hdmi_encoded_link_bw)
->       |                     ^~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c:234:42: error: parameter 2 ('hdmi_encoded_link_bw') has incomplete type
->   234 |         const union hdmi_encoded_link_bw hdmi_encoded_link_bw)
->       |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c:232:17: error: function declaration isn't a prototype [-Werror=strict-prototypes]
->   232 | static uint32_t intersect_frl_link_bw_support(
->       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c: In function 'get_active_converter_info':
-> drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c:1126:76: error: storage size of 'hdmi_encoded_link_bw' isn't known
->  1126 |                                                 union hdmi_encoded_link_bw hdmi_encoded_link_bw;
->       |                                                                            ^~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c:1130:101: error: 'struct <anonymous>' has no member named 'MAX_ENCODED_LINK_BW_SUPPORT'
->  1130 |                                                                                 hdmi_color_caps.bits.MAX_ENCODED_LINK_BW_SUPPORT);
->
-> There is probably no need to hide the data structure, and removing
-> the #ifdef makes it build cleanly.
->
-> Fixes: d5a43956b73b ("drm/amd/display: move dp capability related logic to link_dp_capability")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->  drivers/gpu/drm/amd/display/dc/dc_dp_types.h | 6 ------
->  1 file changed, 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-> index b7e53b7dc4ed..84da54358922 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-> @@ -361,14 +361,10 @@ enum dpcd_downstream_port_detailed_type {
->  union dwnstream_port_caps_byte2 {
->         struct {
->                 uint8_t MAX_BITS_PER_COLOR_COMPONENT:2;
-> -#if defined(CONFIG_DRM_AMD_DC_DCN)
->                 uint8_t MAX_ENCODED_LINK_BW_SUPPORT:3;
->                 uint8_t SOURCE_CONTROL_MODE_SUPPORT:1;
->                 uint8_t CONCURRENT_LINK_BRING_UP_SEQ_SUPPORT:1;
->                 uint8_t RESERVED:1;
-> -#else
-> -               uint8_t RESERVED:6;
-> -#endif
->         } bits;
->         uint8_t raw;
->  };
-> @@ -406,7 +402,6 @@ union dwnstream_port_caps_byte3_hdmi {
->         uint8_t raw;
->  };
->
-> -#if defined(CONFIG_DRM_AMD_DC_DCN)
->  union hdmi_sink_encoded_link_bw_support {
->         struct {
->                 uint8_t HDMI_SINK_ENCODED_LINK_BW_SUPPORT:3;
-> @@ -428,7 +423,6 @@ union hdmi_encoded_link_bw {
->         } bits;
->         uint8_t raw;
->  };
-> -#endif
->
->  /*4-byte structure for detailed capabilities of a down-stream port
->  (DP-to-TMDS converter).*/
-> --
-> 2.39.0
->
+So I added this to the table, and then noticed we're missing references
+to some other recently launched products.
+
+So update the table with all missing launched products as well as products
+launching this year that don't have IP version changes.
+
+Mario Limonciello (4):
+  Documentation/gpu: Add MP0 version to apu-asic-info-table
+  Documentation/gpu: Update lines for GREEN_SARDINE and YELLOW_CARP
+  Documentation/gpu: Add Mendocino to apu-asic-info-table
+  Documentation/gpu: Add Raphael to apu-asic-info-table
+
+ .../gpu/amdgpu/apu-asic-info-table.csv         | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
+
+-- 
+2.25.1
+
