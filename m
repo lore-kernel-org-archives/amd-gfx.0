@@ -4,43 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74EC9C46467
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Jan 2023 18:21:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC8D3C46467
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Jan 2023 18:42:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4D2A10E0E9;
-	Thu, 19 Jan 2023 18:21:57 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09F3710E0E9
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Jan 2023 18:21:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=Yxxabfy+YmV+u63yUiYb9125u6etJvMJCDlIUmODJsY=; b=F3TAhDJKCHwJJMo50QbCppbn1Q
- KALnrGbctbfT5tVLKZA2nPWuw4AwRVNcsWCNwm1KBBQ9h0qY/7opJr8PrP2CQSrs9sNdB2IThW4Zj
- PNA99xvi26dymAyLonWUw3nxJperZLkwyxgBeY08tUxb3/wYKglb4NxSfYwQdvgKEmjEdC+jrNEXw
- TUYVxn/m2wTAWIqNE1M198/TdEhW3XfJGeSE/ne9t+Cll6eZi621TDfZ+YvT5MNPp1ku2e1qfJLKQ
- Wy4HrIGUT2WLIaMeqdSrHmZDlbvXMDN3VxD1HDblBpx2VAqZpToDSiv9OlPISHvhK1yWowJc15Wx6
- cJJYNySg==;
-Received: from [38.44.66.31] (helo=mail.igalia.com)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1pIZXt-00CXPO-4Z; Thu, 19 Jan 2023 19:21:53 +0100
-Date: Thu, 19 Jan 2023 17:21:42 -0100
-From: Melissa Wen <mwen@igalia.com>
-To: Joshua Ashton <joshua@froggi.es>
-Subject: Re: [PATCH 2/2] drm/amd/display: Remove unused display_content_support
-Message-ID: <20230119182142.hgy7od6zveolys3v@mail.igalia.com>
-References: <20230117212620.11262-1-joshua@froggi.es>
- <20230117212620.11262-2-joshua@froggi.es>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 586BB10E1E0;
+	Thu, 19 Jan 2023 18:42:10 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B16E10E1CE
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Jan 2023 18:42:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1674153729; x=1705689729;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=q4o9kflqG0iNYlQlt5XKi8GkpnkbCfsjhiiSbsGnuZ4=;
+ b=nyk3uPrMCMikSzfWyOtJTra9QaemcWOsI3fZGfpT+xpgb2oJano6ltoA
+ Frp5ekLh9AofR0WqX5uyCBHTUIK/fG8XjBEqIxkVDGOSQL7P56AJ0brWk
+ 9mi0uI9d5ArZdAoC3hXKNheIyvU+BVw0/JJtVstcerQ4ZUQahXyvkC3T+
+ qk4TS0uKvp9Bnb48h05yHuhudYZmkUMxl+bZycDhgLakpHtToGbiU6YsZ
+ SZ7xhG1aiXZ81sgQ58qYWU9mEFR/XqyajuhaJ2+pP8EM3FZ1u6gY6GsRJ
+ BtiGzWLhSl2EPVRtZojj+FaKZxgYu6czR2FZVQbsvtyNrq7Imw57fzf8n g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="326659680"
+X-IronPort-AV: E=Sophos;i="5.97,229,1669104000"; d="scan'208";a="326659680"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2023 10:42:08 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="749029368"
+X-IronPort-AV: E=Sophos;i="5.97,229,1669104000"; d="scan'208";a="749029368"
+Received: from lkp-server01.sh.intel.com (HELO 5646d64e7320) ([10.239.97.150])
+ by FMSMGA003.fm.intel.com with ESMTP; 19 Jan 2023 10:42:06 -0800
+Received: from kbuild by 5646d64e7320 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pIZrR-0001jm-2c;
+ Thu, 19 Jan 2023 18:42:05 +0000
+Date: Fri, 20 Jan 2023 02:41:56 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ aa5c49149a823599764e6953229b028e4bf6e9cc
+Message-ID: <63c98ef4.WF7KGM4apV4U5xFO%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="2irw3f7xiqlh7422"
-Content-Disposition: inline
-In-Reply-To: <20230117212620.11262-2-joshua@froggi.es>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,108 +58,148 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, harry.wentland@amd.com,
- amd-gfx@lists.freedesktop.org
+Cc: Linux Memory Management List <linux-mm@kvack.org>,
+ linux-wireless@vger.kernel.org, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: aa5c49149a823599764e6953229b028e4bf6e9cc  Add linux-next specific files for 20230119
 
---2irw3f7xiqlh7422
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Error/Warning reports:
 
-On 01/17, Joshua Ashton wrote:
-> This was never filled in and thus never truly used.
->=20
-> Checking the EDID for content_type support is not required for sending
-> the avi infoframe packet.
->=20
-> Signed-off-by: Joshua Ashton <joshua@froggi.es>
-> ---
->  drivers/gpu/drm/amd/display/dc/dc_stream.h |  1 -
->  drivers/gpu/drm/amd/display/dc/dc_types.h  | 14 --------------
->  2 files changed, 15 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm=
-/amd/display/dc/dc_stream.h
-> index 51dc30706e43..a499c0952ea0 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
-> @@ -182,7 +182,6 @@ struct dc_stream_state {
->  	 */
->  	struct link_encoder *link_enc;
->  	struct dc_panel_patch sink_patches;
-> -	union display_content_support content_support;
->  	struct dc_crtc_timing timing;
->  	struct dc_crtc_timing_adjust adjust;
->  	struct dc_info_packet vrr_infopacket;
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/=
-amd/display/dc/dc_types.h
-> index c73a655bd687..862af36027e7 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc_types.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
-> @@ -175,18 +175,6 @@ struct dc_edid {
-> =20
->  #define AUDIO_INFO_DISPLAY_NAME_SIZE_IN_CHARS 20
-> =20
-> -union display_content_support {
-> -	unsigned int raw;
-> -	struct {
-> -		unsigned int valid_content_type :1;
-> -		unsigned int game_content :1;
-> -		unsigned int cinema_content :1;
-> -		unsigned int photo_content :1;
-> -		unsigned int graphics_content :1;
-> -		unsigned int reserved :27;
-> -	} bits;
-> -};
-> -
->  struct dc_panel_patch {
->  	unsigned int dppowerup_delay;
->  	unsigned int extra_t12_ms;
-> @@ -219,8 +207,6 @@ struct dc_edid_caps {
->  	uint32_t audio_latency;
->  	uint32_t video_latency;
-> =20
-> -	union display_content_support content_support;
-> -
-LGTM.
+https://lore.kernel.org/oe-kbuild-all/202301191616.R33Dvxk4-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202301192229.wL7iPJxS-lkp@intel.com
 
-It depends on the previous patch, but if the first patch are fine, they
-are both:
+Error/Warning: (recently discovered and may have been fixed)
 
-Reviewed-by: Melissa Wen <mwen@igalia.com>
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c:1125:76: error: storage size of 'hdmi_encoded_link_bw' isn't known
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c:1129:101: error: 'struct <anonymous>' has no member named 'MAX_ENCODED_LINK_BW_SUPPORT'
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c:231:17: error: function declaration isn't a prototype [-Werror=strict-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_capability.c:233:42: error: parameter 2 ('hdmi_encoded_link_bw') has incomplete type
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_training.c:1583:38: warning: variable 'result' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_training.c:1585:38: warning: variable 'result' set but not used [-Wunused-but-set-variable]
+drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_core.c:5198:24: sparse:    left side has type restricted __le16
+drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_core.c:5198:24: sparse:    right side has type restricted __le32
+idma64.c:(.text+0x6a): undefined reference to `devm_platform_ioremap_resource'
 
-CC'ing AMD DC folks again since I don't know if it's in use by other
-platforms. But it'd be nice to get rid of this or have a
-comment/explanation, if not.
+Error/Warning ids grouped by kconfigs:
 
->  	uint8_t qs_bit;
->  	uint8_t qy_bit;
-> =20
-> --=20
-> 2.39.0
->=20
+gcc_recent_errors
+|-- alpha-randconfig-r024-20230119
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arc-randconfig-r023-20230118
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:function-declaration-isn-t-a-prototype
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:parameter-(-hdmi_encoded_link_bw-)-has-incomplete-type
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:storage-size-of-hdmi_encoded_link_bw-isn-t-known
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:struct-anonymous-has-no-member-named-MAX_ENCODED_LINK_BW_SUPPORT
+|-- arm-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:function-declaration-isn-t-a-prototype
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:parameter-(-hdmi_encoded_link_bw-)-has-incomplete-type
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:storage-size-of-hdmi_encoded_link_bw-isn-t-known
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:struct-anonymous-has-no-member-named-MAX_ENCODED_LINK_BW_SUPPORT
+|-- ia64-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:function-declaration-isn-t-a-prototype
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:parameter-(-hdmi_encoded_link_bw-)-has-incomplete-type
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:storage-size-of-hdmi_encoded_link_bw-isn-t-known
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:struct-anonymous-has-no-member-named-MAX_ENCODED_LINK_BW_SUPPORT
+|-- mips-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:function-declaration-isn-t-a-prototype
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:parameter-(-hdmi_encoded_link_bw-)-has-incomplete-type
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:storage-size-of-hdmi_encoded_link_bw-isn-t-known
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:struct-anonymous-has-no-member-named-MAX_ENCODED_LINK_BW_SUPPORT
+|-- mips-randconfig-r036-20230118
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:function-declaration-isn-t-a-prototype
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:parameter-(-hdmi_encoded_link_bw-)-has-incomplete-type
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:storage-size-of-hdmi_encoded_link_bw-isn-t-known
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:struct-anonymous-has-no-member-named-MAX_ENCODED_LINK_BW_SUPPORT
+|-- openrisc-randconfig-s043-20230119
+|   |-- drivers-net-wireless-realtek-rtl8xxxu-rtl8xxxu_core.c:sparse:left-side-has-type-restricted-__le16
+|   |-- drivers-net-wireless-realtek-rtl8xxxu-rtl8xxxu_core.c:sparse:right-side-has-type-restricted-__le32
+|   `-- drivers-net-wireless-realtek-rtl8xxxu-rtl8xxxu_core.c:sparse:sparse:invalid-assignment:
+|-- powerpc-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:function-declaration-isn-t-a-prototype
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:parameter-(-hdmi_encoded_link_bw-)-has-incomplete-type
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:storage-size-of-hdmi_encoded_link_bw-isn-t-known
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:struct-anonymous-has-no-member-named-MAX_ENCODED_LINK_BW_SUPPORT
+|-- s390-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:function-declaration-isn-t-a-prototype
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:parameter-(-hdmi_encoded_link_bw-)-has-incomplete-type
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:storage-size-of-hdmi_encoded_link_bw-isn-t-known
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:struct-anonymous-has-no-member-named-MAX_ENCODED_LINK_BW_SUPPORT
+|-- sparc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:function-declaration-isn-t-a-prototype
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:parameter-(-hdmi_encoded_link_bw-)-has-incomplete-type
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:storage-size-of-hdmi_encoded_link_bw-isn-t-known
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_capability.c:error:struct-anonymous-has-no-member-named-MAX_ENCODED_LINK_BW_SUPPORT
+`-- x86_64-allyesconfig
+    `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+clang_recent_errors
+`-- s390-randconfig-r044-20230119
+    `-- idma64.c:(.text):undefined-reference-to-devm_platform_ioremap_resource
 
---2irw3f7xiqlh7422
-Content-Type: application/pgp-signature; name="signature.asc"
+elapsed time: 721m
 
------BEGIN PGP SIGNATURE-----
+configs tested: 53
+configs skipped: 2
 
-iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmPJijYACgkQwqF3j0dL
-ehz7jA//YsNz38eeh/oEyj/1LMKE2xSvoRXxi4jyV32s5KkH2h9gbddcFBjvFyV4
-XTSH1MNAcehynu5uxJIL4PVrW6v4JeT612nGgrHDEUlCWMMLNMLF2HdpGyKJXnOl
-vxTC/PcShFfirFVTThiCbedMM8rWGBFM9hennCV0M0rnD7RGz9Uqm9IMJceA3xjC
-x2kC32jyCxvUL7KcRBmY41hP1axDpyaY81NHYdQiHDAStUMqReMWACAbAjgLTqNf
-Niy7e7HJc16op3E2VFsef0kaBCdhcyOiz6bilPCgdPafyoQQJhMvLbsJ3s111aQA
-Lb+AB1+I13stj6KJ2lKAaBD58KlEilFdUy2M8kjZjYFtgQD6PfnwB6DHRys5kCSN
-07RilPINe3ZMOkOi1WrV556KR44UVM25MpL4DdLfbgqsdGvIzJDe3RYVdIgsoL2h
-mKBes3n1Ry8rsmOKCL4rE97PAOQ7JYKtwXo067HwSgzXZnB7yzRULdk9MVkrYy2v
-cFtavO4g8WzArC46ZrOgVQlBoQE9Uwed5WHnKMk+kMD9MLKqKsZFGO8+2Ig85Rdv
-tOFiIkmAnANsn4nGq4WNiG0PZCdLwhbJaZjjdqBcZIFkH0zXgK1p0H8cTyCWzxMh
-U9pmHgsaMGoJSP5qL+RAn76VGheDWeE1Mcb/485ogFtOsxIqvL0=
-=9HJl
------END PGP SIGNATURE-----
+gcc tested configs:
+arc                                 defconfig
+alpha                               defconfig
+x86_64                           rhel-8.3-bpf
+x86_64                         rhel-8.3-kunit
+i386                                defconfig
+x86_64                            allnoconfig
+s390                                defconfig
+x86_64                           rhel-8.3-syz
+s390                             allmodconfig
+x86_64                           rhel-8.3-kvm
+m68k                             allmodconfig
+arc                              allyesconfig
+arc                  randconfig-r043-20230118
+alpha                            allyesconfig
+s390                             allyesconfig
+x86_64                        randconfig-a004
+riscv                randconfig-r042-20230118
+m68k                             allyesconfig
+x86_64                        randconfig-a002
+s390                 randconfig-r044-20230118
+x86_64                        randconfig-a006
+um                             i386_defconfig
+x86_64                    rhel-8.3-kselftests
+powerpc                          allmodconfig
+i386                          randconfig-a012
+x86_64                              defconfig
+mips                             allyesconfig
+um                           x86_64_defconfig
+x86_64                               rhel-8.3
+x86_64                          rhel-8.3-func
+powerpc                           allnoconfig
+i386                          randconfig-a014
+ia64                             allmodconfig
+arm                                 defconfig
+i386                          randconfig-a001
+i386                          randconfig-a003
+arm                              allyesconfig
+i386                             allyesconfig
+x86_64                        randconfig-a015
+arm64                            allyesconfig
+x86_64                           allyesconfig
+sh                               allmodconfig
 
---2irw3f7xiqlh7422--
+clang tested configs:
+x86_64                          rhel-8.3-rust
+hexagon              randconfig-r041-20230118
+arm                  randconfig-r046-20230118
+hexagon              randconfig-r045-20230118
+x86_64                        randconfig-a001
+x86_64                        randconfig-a003
+i386                          randconfig-a011
+x86_64                        randconfig-a005
+i386                          randconfig-a013
+i386                          randconfig-a002
+i386                          randconfig-a004
+
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
