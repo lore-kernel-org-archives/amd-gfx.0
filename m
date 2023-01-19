@@ -4,66 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08651C004D4
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6F64C678D4
 	for <amd-gfx@archiver.kernel.org>; Thu, 19 Jan 2023 23:52:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E0AA10E9EA;
-	Thu, 19 Jan 2023 23:52:29 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2041.outbound.protection.outlook.com [40.107.220.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C349610E9E3;
- Thu, 19 Jan 2023 23:52:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC23010E9EE;
+	Thu, 19 Jan 2023 23:52:30 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2081.outbound.protection.outlook.com [40.107.93.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C22A410E292;
+ Thu, 19 Jan 2023 23:52:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=i+0X5vhcPnMC8n3P1dRl323/cNg1tEYAVEZf+aFChlIWEl8viCymAivLmoTEvCDpcbmq9I5XOME287R6D2qoI4tD5OyUDDQuCqzQVA9bbhyNDmaMRGfzcODR5y18ScQfEJUfTzu7426IpDjSH7BIW/omxRGaq9Mi2JJKUSYtotzJzeqgcIYGVcJl9P1h4HKdvM6ILIlsfWfa6njR7c4qJPojLQLK8IjviYaBlutEy3AOB77z57vL1XdpfzNzr7QNVXptj/5p1yokiVva5Uy58ulyfqurjA2pXddcPmrQ8gSXWoQDAg7IrndSgxpmG/A19qDoyBnAaZw6/glXcV3PpA==
+ b=JFB4eAoen9+RsT4/hB7r+SqKmqVoiq95GdLkj9rm9+ZSp45bN/uVYsznODvbsdV4Bh+z374X/SJ2CIdhDObhMIyVykG0Nt0E1EaZEOMYUmL7k8/Y2DN5NCyYsvUwYVUjnFy2B1JT6trkxHtH9HtfqiGU18C8Uey8zxgX+jKnMasesjx67lCCDbB34m2JRU0nbSPqh+Y/WF9jgyJTZs/ugNca0Ad7ANRHibGqSevd90xAEltSQSTqZskq+FmE8BYXLgpn+S+ihmlgVt0SkhNJxB5nLFVTgARPLwaab1mf4Gg2tiT6QUW7FGDvcu5H9/XIbVexYY0nXJpO1drUsC9ezg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wBJIIN+ViafixL6W8vqbMM7fjXgIVlqKEuKPor4mVIU=;
- b=kHq8YI/PdbwUhgICG8Kjc1qAdmoPIaaO/fFuNB+OeZHSMgmGIuZHIC5bl8aeP6TLkyuXpgrun9SllTlyiHQsjIkNrhOQU1PzRv5zPzdHRmILNFhRCQICgU3+BthIrYV5UMCoFVf3AjnaCj4/W2gBAHt+yMGqP9xGBYxxsbVqzPW3KK6MJ7GI3tXgvzTaCoGbcPQbyPVVJtjvIaQ3RnZCNuKPszJQP2zECFmNExhL0+y4yW9E3pRB29yWb+bqKtXJ+Rd++c2XVmhQ1EIGwgOjY6MXDZws0IvoZ6sVuF5L5U2eQBBFwgDrGsKqjasZicefTaDCdC5xz+Y4e806RByzyA==
+ bh=UoTb851I2qcWpjzki/BNc1wSpOxdnUcvbhcgbIciZu0=;
+ b=oYVh2W3bfNWE2E2mf2O6tmpd66cSx3C1ML/ttv3PUqn3yCugiGbLRo4HVIlwgwaVQiVnRg2j3wHurELw1ygFvDZEocRop8nEBoK6xxcvJbmGX1E7of5uUrDqk89PsI7/cM8+tNXnnfs3VSrQtla6hbmxIfwJJ1svDU5RgRwn6iP5Y6k8zcs0I7spRXgpyxgJ1UrmOnGFeueGw9isH9z0xC9TlrrsaxvN1ZU4mwCA9dN+XN2SYOiErunUTIH7PSNpsmHOJrNTGQFqLyf5QMuzAqDbxwsg0DpqTCbWwx9tVurPrfVz5DZs8DjDM6n9D1JsvmErXcX/OUuu3TtpPJgHag==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wBJIIN+ViafixL6W8vqbMM7fjXgIVlqKEuKPor4mVIU=;
- b=EAuxYcRsj8Kx03QKsemkvPdytC1VnCfU4EavXjayssYLA7MSrJSzFpX831bj/lr7WDkPuJ4TS1yAX6VsCKTQCaq4kNGpI/ZMe3BSbeX3lHTCeGtteOT15yDivDlnrP8YxpqjYzWHoIWbc0bZ7PE14LbJX1nHQXTDOLBIca4zL6c=
-Received: from DM6PR08CA0053.namprd08.prod.outlook.com (2603:10b6:5:1e0::27)
- by DS0PR12MB7771.namprd12.prod.outlook.com (2603:10b6:8:138::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.26; Thu, 19 Jan
- 2023 23:52:17 +0000
-Received: from DM6NAM11FT004.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:1e0:cafe::bd) by DM6PR08CA0053.outlook.office365.com
- (2603:10b6:5:1e0::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.27 via Frontend
- Transport; Thu, 19 Jan 2023 23:52:17 +0000
+ bh=UoTb851I2qcWpjzki/BNc1wSpOxdnUcvbhcgbIciZu0=;
+ b=oXqvXDsiGezjL5uhF2eIfrMMUops3RinT+NQwo/MQVx0zgtW7g6vcOdotE3nq7BADaSfFroQlvvcbqokuc+buNBoxdPgEX8IxzZRBsRS6V4LR3Op1GuOyg+3WVwKh0t660ukEaTGPt19+EQezbXAFn6LAZmpkkyjtc8EF1Bk0Z8=
+Received: from DM5PR08CA0031.namprd08.prod.outlook.com (2603:10b6:4:60::20) by
+ CH2PR12MB4230.namprd12.prod.outlook.com (2603:10b6:610:aa::23) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6002.24; Thu, 19 Jan 2023 23:52:13 +0000
+Received: from DM6NAM11FT104.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:4:60:cafe::8a) by DM5PR08CA0031.outlook.office365.com
+ (2603:10b6:4:60::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.26 via Frontend
+ Transport; Thu, 19 Jan 2023 23:52:13 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT004.mail.protection.outlook.com (10.13.172.217) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT104.mail.protection.outlook.com (10.13.173.232) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6023.16 via Frontend Transport; Thu, 19 Jan 2023 23:52:17 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6002.13 via Frontend Transport; Thu, 19 Jan 2023 23:52:13 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 19 Jan
- 2023 17:52:16 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 17:52:12 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 19 Jan
- 2023 15:52:16 -0800
+ 2023 15:52:12 -0800
 Received: from hwentlanryzen.amd.com (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Thu, 19 Jan 2023 17:52:15 -0600
+ Transport; Thu, 19 Jan 2023 17:52:11 -0600
 From: Harry Wentland <harry.wentland@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: [PATCH 5/7] drm/display/dp_mst: Correct the kref of port.
-Date: Thu, 19 Jan 2023 18:51:58 -0500
-Message-ID: <20230119235200.441386-6-harry.wentland@amd.com>
+Subject: [PATCH 2/7] drm/amdgpu/display/mst: limit payload to be updated one
+ by one
+Date: Thu, 19 Jan 2023 18:51:55 -0500
+Message-ID: <20230119235200.441386-3-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230119235200.441386-1-harry.wentland@amd.com>
 References: <20230119235200.441386-1-harry.wentland@amd.com>
@@ -72,26 +73,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT004:EE_|DS0PR12MB7771:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1c19dd20-8099-4f52-490f-08dafa783248
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT104:EE_|CH2PR12MB4230:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4abf48f9-3148-4733-e8c0-08dafa783002
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: T2zzTrS2DtP+vNSZTDW+cyCttOVIBqGOykL05OTdWcma7m6vcO/fr/FIV7KV9Bq8AasRwV23gVfpvSmH44L6mh9TlOt/kHN8ToLqs33VAJuPMPf6hNX51mvfUxLj6mj4QcROm7kQemyg1V2KSGBA1yqtaKh0riOTC/pxZN1vwshdJSLJgh5OsA3UB+oHt/zS62/+dOy0lqKx9u0OhVnNL4b8AG2VSoBNCRP57StjmUbGuyEDRGItYKqbIvxNlOA0WwXK7wbA9h0moJZd39QvhG+sWCqKFG4BeHiYAQ1vviHgYMOazUn18pPCNhSBO4nVq+gUa4zgYUui+jus3c3cjCKb8UG0SWyyz9HPMWDfrpSchmac4oUVMrIxrtjeidIAf9ermJakD1P5MLSkbK894UHItB80OCbbxgRQzG64U97aWjuYVk4xnDlPH74XH5a19KUzZICFMbmr5EHkuNATeKRxyuFkeu1IKIMDmkxlIrstVtPb2WLhKVoOuYgMMjchoWAUo4/sj3/ALVwCvVfzIB3GVkrS8u0ovtYm/psLS8DlrLXUHJDTcZITTyacu6tYijOYbaZbYUYwvDVAEVen04R6VnXkVxZ+Q85rhV/a96VfLesYDxlCrIGp8g+dder8nO4qZNNFjLtJIaCqQ77swm6Br2k6b+A0GoiRs+6qIIl5os3UwU1P8TGPBfLPCitc
+X-Microsoft-Antispam-Message-Info: MAhQqxP9rb8TFX0sxX6t1Pwh/7UZ/e4PpcYt3HikM5BOj8QRkmGKKqIStwNs22L1b6qAJKJ4h0maf4GlJVS1eYqMX0YrYtBww6RJ6Zk/15+Qkcdmh75/a9vas08VX4E7zprLaUucMRt9iBXpT7+BCci370vaz0HQNSj06giKqHNr15O4RbU86W+kxYL2gRzko7TqpR5Ny+wKuXH3j1U7plIu+Xi71LPhKya1UFuJZ9UUtNMHu2bl3EFNmo7JAtPcMKVpm6QK0DHvxrYieXm1ksICYdZZXhqQlgJwvYPPsOSOxZmT5+ghuEYSWjbCXu1pQ2C+kyU9nRole0PDuQzKq2p2DRyxopl3P8M4VfN54bfUDs/YFrFFS7Dei4TfixRHQEqJpZ71WyF8JLC8OdvjRZOPqUDTEF1DCKqkqYHqOhS6ch35q4pBC+ozq511AjK19rR8Gxnit/cZR/l6SStw8+VpMjBGoqzjW8oNAzSpSQbk2uOU5hFwmEJnlpEW625QCiasSna3YW91wEX5sCSTx1UDAD11ToKtXuM6E/tz+IB+YhozjFPeEKnmbtnXPnHs9PJXDrrDmpoHygLu8dJop5e6wQ4cy4/qzhOcNqQDwWa8+wEfbPJCd2x4q+80VMReOy0ViKr9c3yNRu/pTX8xh/t3mJ+4wahDyvL3J/qNeMr/2MVK6k8NSPo2+TSGcGZB
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(376002)(346002)(396003)(39860400002)(451199015)(46966006)(40470700004)(36840700001)(82310400005)(356005)(6666004)(40480700001)(966005)(36860700001)(478600001)(7696005)(336012)(86362001)(2906002)(54906003)(82740400003)(1076003)(5660300002)(4326008)(2616005)(316002)(81166007)(70586007)(70206006)(8676002)(47076005)(83380400001)(44832011)(110136005)(40460700003)(426003)(41300700001)(8936002)(186003)(26005)(36756003)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(136003)(346002)(39860400002)(396003)(451199015)(40470700004)(46966006)(36840700001)(41300700001)(4326008)(6666004)(26005)(8676002)(70586007)(8936002)(70206006)(36756003)(82310400005)(336012)(2906002)(36860700001)(44832011)(40460700003)(5660300002)(15650500001)(110136005)(316002)(2616005)(54906003)(7696005)(40480700001)(86362001)(966005)(186003)(478600001)(356005)(81166007)(1076003)(83380400001)(82740400003)(426003)(47076005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2023 23:52:17.2182 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c19dd20-8099-4f52-490f-08dafa783248
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2023 23:52:13.4081 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4abf48f9-3148-4733-e8c0-08dafa783002
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT004.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT104.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7771
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4230
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,9 +113,16 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Wayne Lin <Wayne.Lin@amd.com>
 
-[why & how]
-We still need to refer to port while removing payload at commit_tail.
-we should keep the kref till then to release.
+[Why]
+amdgpu expects to update payload table for one stream one time
+by calling dm_helpers_dp_mst_write_payload_allocation_table().
+Currently, it get modified to try to update HW payload table
+at once by referring mst_state.
+
+[How]
+This is just a quick workaround. Should find way to remove the
+temporary struct dc_dp_mst_stream_allocation_table later if set
+struct link_mst_stream_allocatio directly is possible.
 
 Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2171
 Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
@@ -123,31 +131,84 @@ Fixes: 4d07b0bc4034 ("drm/display/dp_mst: Move all payload info into the atomic 
 Cc: stable@vger.kernel.org # 6.1
 Acked-by: Harry Wentland <harry.wentland@amd.com>
 ---
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 51 ++++++++++++++-----
+ 1 file changed, 39 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index 51a46689cda7..4ca37261584a 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -3372,6 +3372,9 @@ void drm_dp_remove_payload(struct drm_dp_mst_topology_mgr *mgr,
- 
- 	mgr->payload_count--;
- 	mgr->next_start_slot -= payload->time_slots;
-+
-+	if (payload->delete)
-+		drm_dp_mst_put_port_malloc(payload->port);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 6994c9a1ed85..5cff56bb8f56 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -120,23 +120,50 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
  }
- EXPORT_SYMBOL(drm_dp_remove_payload);
  
-@@ -4327,7 +4330,6 @@ int drm_dp_atomic_release_time_slots(struct drm_atomic_state *state,
+ static void
+-fill_dc_mst_payload_table_from_drm(struct drm_dp_mst_topology_state *mst_state,
+-				   struct amdgpu_dm_connector *aconnector,
++fill_dc_mst_payload_table_from_drm(struct dc_link *link,
++				   bool enable,
++				   struct drm_dp_mst_atomic_payload *target_payload,
+ 				   struct dc_dp_mst_stream_allocation_table *table)
+ {
+ 	struct dc_dp_mst_stream_allocation_table new_table = { 0 };
+ 	struct dc_dp_mst_stream_allocation *sa;
+-	struct drm_dp_mst_atomic_payload *payload;
++	struct link_mst_stream_allocation_table copy_of_link_table =
++										link->mst_stream_alloc_table;
++
++	int i;
++	int current_hw_table_stream_cnt = copy_of_link_table.stream_count;
++	struct link_mst_stream_allocation *dc_alloc;
++
++	/* TODO: refactor to set link->mst_stream_alloc_table directly if possible.*/
++	if (enable) {
++		dc_alloc =
++		&copy_of_link_table.stream_allocations[current_hw_table_stream_cnt];
++		dc_alloc->vcp_id = target_payload->vcpi;
++		dc_alloc->slot_count = target_payload->time_slots;
++	} else {
++		for (i = 0; i < copy_of_link_table.stream_count; i++) {
++			dc_alloc =
++			&copy_of_link_table.stream_allocations[i];
++
++			if (dc_alloc->vcp_id == target_payload->vcpi) {
++				dc_alloc->vcp_id = 0;
++				dc_alloc->slot_count = 0;
++				break;
++			}
++		}
++		ASSERT(i != copy_of_link_table.stream_count);
++	}
  
- 	drm_dbg_atomic(mgr->dev, "[MST PORT:%p] TU %d -> 0\n", port, payload->time_slots);
- 	if (!payload->delete) {
--		drm_dp_mst_put_port_malloc(port);
- 		payload->pbn = 0;
- 		payload->delete = true;
- 		topology_state->payload_mask &= ~BIT(payload->vcpi - 1);
+ 	/* Fill payload info*/
+-	list_for_each_entry(payload, &mst_state->payloads, next) {
+-		if (payload->delete)
+-			continue;
+-
+-		sa = &new_table.stream_allocations[new_table.stream_count];
+-		sa->slot_count = payload->time_slots;
+-		sa->vcp_id = payload->vcpi;
+-		new_table.stream_count++;
++	for (i = 0; i < MAX_CONTROLLER_NUM; i++) {
++		dc_alloc =
++			&copy_of_link_table.stream_allocations[i];
++		if (dc_alloc->vcp_id > 0 && dc_alloc->slot_count > 0) {
++			sa = &new_table.stream_allocations[new_table.stream_count];
++			sa->slot_count = dc_alloc->slot_count;
++			sa->vcp_id = dc_alloc->vcp_id;
++			new_table.stream_count++;
++		}
+ 	}
+ 
+ 	/* Overwrite the old table */
+@@ -185,7 +212,7 @@ bool dm_helpers_dp_mst_write_payload_allocation_table(
+ 	 * AUX message. The sequence is slot 1-63 allocated sequence for each
+ 	 * stream. AMD ASIC stream slot allocation should follow the same
+ 	 * sequence. copy DRM MST allocation to dc */
+-	fill_dc_mst_payload_table_from_drm(mst_state, aconnector, proposed_table);
++	fill_dc_mst_payload_table_from_drm(stream->link, enable, payload, proposed_table);
+ 
+ 	return true;
+ }
 -- 
 2.39.0
 
