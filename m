@@ -4,147 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9DDFC6379F
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Jan 2023 22:11:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5467CC46467
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Jan 2023 22:20:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 109FC10E27B;
-	Thu, 19 Jan 2023 22:11:49 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB27710E275;
- Thu, 19 Jan 2023 22:11:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674166306; x=1705702306;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=updzMQ74X/QiFpN6nlsmFJKfZFNn55SJEZQyMONzavY=;
- b=PD3rUTSQOVNbID7Oj6VpD+Gdb1csOLlMmiSaKluPR9t7ygWml+Al5aci
- 26YJIdiIQIeWBAtsIxouxWKPt2w61CTdB0iyLNLOedrCWviRsQ6PRuR4o
- p1yhl3CWSQFi6/X9i1tFCG3kT2MvmvLrYO39/6T4IlixhKGLZYXtTG4ql
- FEj28ION2zD+sNBNQj4O/AUMKo68/4gZS9G8OnDiDZ3DlpRv6epLqMIYJ
- 0okwyL9+A3ACO15RsHimG5oz3ZCUcsJVjoMRbdUgPEXl8BLho7TNZOe1Z
- 7N83nrEQyiJBFaGegXUxZ7dzHF0J13ErWDIjlR5PaWlqO1t+eu9wEw7tj w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="305807466"
-X-IronPort-AV: E=Sophos;i="5.97,230,1669104000"; d="scan'208";a="305807466"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2023 14:10:49 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="653550890"
-X-IronPort-AV: E=Sophos;i="5.97,230,1669104000"; d="scan'208";a="653550890"
-Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
- by orsmga007.jf.intel.com with ESMTP; 19 Jan 2023 14:10:46 -0800
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16; Thu, 19 Jan 2023 14:10:46 -0800
-Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
- orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16 via Frontend Transport; Thu, 19 Jan 2023 14:10:46 -0800
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com (104.47.56.173)
- by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.16; Thu, 19 Jan 2023 14:10:45 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ahghHEUdEhE4x46cR5fc8BmY0mnCErFKm7EQnWpEth3iRi6quSmmJHJF5JO591RJtU43rQ7vW5BH3bsECsTwNjCSofFaB5UqyabdP8UCyfky42uFGWAJoET9PEOXqRetcBcBVqMeeG4/eZ5Kfi4XHRwHqs35S9xSMK3zQG+GUpWCK20WkxxeYlx/TZzRvxHcfzz7h0+rheROcYOdBhvz/w+nFESq5K12NnFEU9T9J4yxpMFQZb3VUWMx3XAogJeESkg/1b9NrZsne1/XJwDsGZbMVGQhJ/1lT87Hdu0Xd0YrWkdWML9mzY0Khu4sBSYCh5TaQhsgu/UOSKaC1eMG0Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hry/Fc9zeC/bQjbzoy12+bSd1Kt2qSZd0IhtMoO1yKU=;
- b=jYdf/Dk5kd7GcgN/mGsQVD4uvDmX/BXt1JLpVG9qNhsxeLxxcfIciSOD287XafBMBisXki4d5ANTo0MZmXa34kfm4WE+9elz3//pH64/Cr9reaUvLbnNrsU0GicakwqpGWL9fLqdDl7Sb1gWhS53L/wYwv3nSZTA1VBSFfVti+fXJt3dbdL0YALb3mWpQXu8T1CrVoq+q1jPQp0MC1C4Ce8+DGNsQn1WYaZlF+aSUHy3Drhp9zhBczGn4KAx6BWdkEW5IiNAi3OS2Dsd8HuoWzC2w6yUKG+dGVz/imLvxJdSjhRQhdKaJ2x/1BA8IqMSEdItSUEOFZ0JqwhBaClJeA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MN0PR11MB6059.namprd11.prod.outlook.com (2603:10b6:208:377::9)
- by DM8PR11MB5655.namprd11.prod.outlook.com (2603:10b6:8:28::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.25; Thu, 19 Jan
- 2023 22:10:37 +0000
-Received: from MN0PR11MB6059.namprd11.prod.outlook.com
- ([fe80::1818:e39d:454d:a930]) by MN0PR11MB6059.namprd11.prod.outlook.com
- ([fe80::1818:e39d:454d:a930%4]) with mapi id 15.20.6002.025; Thu, 19 Jan 2023
- 22:10:37 +0000
-Date: Thu, 19 Jan 2023 17:10:25 -0500
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [Intel-gfx] [PATCH v2 2/3] drm/fb-helper: Set framebuffer for
- vga-switcheroo clients
-Message-ID: <Y8m/0UZl/aXxOnBS@intel.com>
-References: <20230112201156.26849-1-tzimmermann@suse.de>
- <20230112201156.26849-3-tzimmermann@suse.de>
- <Y8hGsX+yafmFbq4g@intel.com>
- <7ec650c7-d530-54f7-5323-45c05ee50802@suse.de>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7ec650c7-d530-54f7-5323-45c05ee50802@suse.de>
-X-ClientProxiedBy: BYAPR04CA0017.namprd04.prod.outlook.com
- (2603:10b6:a03:40::30) To MN0PR11MB6059.namprd11.prod.outlook.com
- (2603:10b6:208:377::9)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66F0C10E270;
+	Thu, 19 Jan 2023 22:20:13 +0000 (UTC)
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0833910E270
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Jan 2023 22:20:11 +0000 (UTC)
+Received: by mail-wr1-x434.google.com with SMTP id n7so3243765wrx.5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Jan 2023 14:20:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=froggi.es; s=google;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=hWoXuPpGcGHvJfoS8a0d7Jz/G6WEKzX8Q0qSp8JN0rI=;
+ b=R18tWXXnxT9R7UbDo0Y30xtTHhOnk/m4PNMQiczh2KaIMBmbv9SB1/xatqGN0pJ8/0
+ aZRLNI8fk+2dJ9SgFYeaz5aKY8pd3CCNMawn1lrZq8w2/oHSY3r+e5nXswJltKrOolpo
+ rjmbUnV/H8N2C8yCO0W2gOK15wjXx0CFG67ZGKyxBfhNo7ph5mraedbsIcpoMxe8eHD/
+ b/++WEnbSh80ByonYVTIACNa0Hxe1V4JDhDJnQ83S5zwFBhBCuFklNdNFOQMy762Hv6S
+ fq54EEvLyhSPEER97aAs88CZ7DZw0VpGlen7szRyQXeepkiksJYbWgkeOWjKe0csoYh6
+ feFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=hWoXuPpGcGHvJfoS8a0d7Jz/G6WEKzX8Q0qSp8JN0rI=;
+ b=t5PkX7awAGmDJ1qqk+cqnNJ9AokCQb58XpiJnpppaGo3X8RKRmtW3TMkewhfnlhaLg
+ nI0DcMXtqxiDx5AyTt+t70wODTLJu+bJyJJ/LYUJa4qnUGxvxStHULvD0G3yMRX6BWU9
+ pT+Rr0Dhvi255i8pJNBnp59TnEqFmFKoZWLooOBsjqQ9kZSBRdnpRGICvNlVuYoFLcxL
+ qGQ1AyjGvs+havMwqfKE6C/+RBPODFmF1w8BgyMbf1w60NY4FQl65uLts51hPCU/edxi
+ gB/thw25E4LG9250bE6Z4+VR4YxkLjXnNi3mDv1gYUo2khDtPKi175yoKBnhAQoRAMYH
+ LYkw==
+X-Gm-Message-State: AFqh2krRSZznsDc02OBG6mNuz+6r9sHmCCLKFDrqm6vZHId6zBRBHz9X
+ eE2Hp4IZ46BVV45MNz5SurRyWA==
+X-Google-Smtp-Source: AMrXdXsoxx/ERUUC5z7Nntnqy/CvuFXBqXhk6uvTH6S9kgjqcC4XliJRCL7UsUdvYZMfpKCBqyd/sw==
+X-Received: by 2002:a05:6000:a06:b0:2bc:858a:3df0 with SMTP id
+ co6-20020a0560000a0600b002bc858a3df0mr12449869wrb.48.1674166809339; 
+ Thu, 19 Jan 2023 14:20:09 -0800 (PST)
+Received: from [192.168.0.89]
+ (darl-09-b2-v4wan-165404-cust288.vm5.cable.virginm.net. [86.17.61.33])
+ by smtp.gmail.com with ESMTPSA id
+ n16-20020a5d4010000000b002bbed1388a5sm29422449wrp.15.2023.01.19.14.20.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 19 Jan 2023 14:20:09 -0800 (PST)
+Message-ID: <bfe3d3e0-9a9d-23d8-9527-817faf6ce3d1@froggi.es>
+Date: Thu, 19 Jan 2023 22:20:08 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR11MB6059:EE_|DM8PR11MB5655:EE_
-X-MS-Office365-Filtering-Correlation-Id: f411d7a1-1695-4330-935f-08dafa69fdac
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Dj4DXeuqaoK+4KnW2uTYgwBJ4/Ru3GeF8JblWcVE2DrmYzh5ZRSkfHn4IYlmGbc6YIUu8GhiUWYYan5yi8qTVGnNHyYOD66y5uh0L8XWlbBwOCb6kN0jEbccNN6xAeHFWO9MsM9iUVQeGN1sYr3l0Fo+scRZcOpdQ+mEGSXeOZtSt3z+SUNICKDLde3o8emH9arivXnSOO13GxzrmVjWMXXB9tHpRAtRqd9wHhQpri6cUlhpx1KfeVEv5l2sDbDCxO1daND7+GKdym9eziTCE0HDy2lZfGPJqbPQ0MQq0ucXqkf+R6hbHPQu5TJM1j6uruc4BuWiJY8LbEfvy/cTtuuiu/qZ9Sn25Uedln8zrTMGgktm4BtxpCqj2opb7aFX3bQRosWtvBuCIUSc+KsWrt8g0tHoKYcrmRLPR+pOOpklAcjn1YwJqKFvN2d3gmA3CiNLx6LU5FLHZM4O36EoaCNTst4wgJhh5MVe2q5YGwXTwdHjHkSNalyMJuyOCYdsTHJqXOVXQUenjcX3ByHA5A/7tbUrEmP0M3Ur4zu1B9AOi7LV3vvkap+p5igIPqrFDogV2jUWi7z150mW7ZLGvFMEdJdKUsI2JkP0zo1f1MFCOzlv8oI7kmFIm/7shv2GOGKgag+4cVfXuU1jIpf/uQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR11MB6059.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(346002)(396003)(39860400002)(136003)(376002)(366004)(451199015)(86362001)(6506007)(6486002)(6666004)(478600001)(36756003)(8936002)(5660300002)(316002)(6916009)(38100700002)(66946007)(82960400001)(66476007)(4326008)(7416002)(66556008)(8676002)(7406005)(26005)(6512007)(186003)(41300700001)(83380400001)(2906002)(54906003)(44832011)(66574015)(2616005);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cy9rMllEKzczejNhUFk3eWYveWg4SmNmWEZKRXo0a2RFVlc0M3Fka2xISUk1?=
- =?utf-8?B?RDZyVWN6OStIZVBtUklhakgrZWNCLzJ5UWJjWGFEelgvOWQ4c2tUUHVaTDg5?=
- =?utf-8?B?R0syVHlTdWphSEY4YjBZZGIyTWxSaVVHNkllakJLSjM5L1VHKzNFMEJvSGFq?=
- =?utf-8?B?TlhTckNLZUFkN2FwK1F0V0VTb0FqcUhOUmF4VFFWMGdaemx0VStNc2xBT0hx?=
- =?utf-8?B?NDJvQU5rVHVjaFZNaTVDOEpBR1hGSkxRbVZwNTRPUFVzT0ZVMzB2ZkxrQ1I3?=
- =?utf-8?B?OVptS0J0ZHozOThvMkRudzZaVDQyUWpIMXJ4SG5pNW85L200dFRTVTM5d21Y?=
- =?utf-8?B?ekI1LytHcnVIaWZTZFh6b3VOS1pRUkhLdjFUemNnSkdHZzgyZitoMW1wS01z?=
- =?utf-8?B?Z1ZnSFFTaDVzNE42alFVZUdxRW9ReEp4aXB5bmZwdWhnWTVnaSt6N3NHeWdM?=
- =?utf-8?B?czRKR0ViWHhvUzAwVGJkL2VJaHlmc0VCUDdVN0x4Y0hhN1pTbTkrU0YzSVRt?=
- =?utf-8?B?RnhobjBIb3FpWnByeDdBdHlHeGtQNEhJd0ZkUUR4TWhFL0k4RTgvMnZPY2N3?=
- =?utf-8?B?eXdoQ2RqTWJzQjJleXZlek5TRkxma3pCZWc1UXViM0dkQnBPeWkwWmhUbE5n?=
- =?utf-8?B?VWs5a2tHN28wK3hSQjhSWHFBZ0drVDlRR2Vqc2tHRzI3MTVxSTV1UmhEOCtK?=
- =?utf-8?B?dThGcTZyc2g4SldtWnZCYmdaWU5nc2R2Ky9MWUpOMDdsZFE2cGdqL0VtaEpQ?=
- =?utf-8?B?ZkVySjAxT0JFNTBGRVN2QzhSbDdZVWtlTEZrNTVmRDlpaDcvSjhFaER5SDFu?=
- =?utf-8?B?YVJURnBvL0cyN2ZGNk5SS2VBbVY4MFo1Y2F2TXEzVmJIYzhENXVKRkY4S3J2?=
- =?utf-8?B?MlNBU2lYNDhZdWgvbDN6dnZYdDdoRXpIdjBzMG1OS0FMUzhSTEt4NTBaNnN0?=
- =?utf-8?B?VWdtVThuMm5OVStPRk5uNlVkZ25VMkdpRW8xRmk2NGtreG1VcDcrclZ1QTdL?=
- =?utf-8?B?b1l5cFB6MU1MZmE4amIyZ3lGMTBoR1JvWFNpRDhkN0hHQWJqK3Y0bHZ3QndU?=
- =?utf-8?B?SmdGNkNma0FrVktFWmZQRnVKemcxeEtDVWNnQnEwak9reG9MQkwrdFF0SS9t?=
- =?utf-8?B?TWFhbTlBYUM4S25QcnlDUGFncktETG81a1dkUTk1ZCt2N3U2OUkyV1lrNVc2?=
- =?utf-8?B?dVBwQkRsbTR0OWluVGg4cXdPMXc0TjBwVCtnUm5KdU5jNjBmT1U3SG5CUTBU?=
- =?utf-8?B?bnRnOWlMdWhiOUh0cm1YTjdBNFU1aDF0UHJxL3BoeS9rL0RBaHlhb2g5NXhz?=
- =?utf-8?B?TFEyT3ZpMnhlVW9ncGh1V1dGOFRoQkpGWFg1VkVJclA2RzlnZmJ5QWRhLzIx?=
- =?utf-8?B?VVdMRmRpUFUzOXoreUlrZFBKRWVCdzZ3YVFFQXE5V0RBNFJ5UjlKOEh5ZFI0?=
- =?utf-8?B?VVpQRFp3ME9kYjlRNmRlQmZLbFhQbjdySU5COGluVlhNeGlyQytSRGx5Y1JT?=
- =?utf-8?B?OEhxYWtqdXVmZ3U3Q1FiNmJKZTdsa0JpN3YvWG81aTd4MldyWjFtYmRiVi9h?=
- =?utf-8?B?ai8vZ0pkOEZzNVNaVHJYenNnNEE0QTRkRGNzU1R3UDFVV3FaU1R1V1Z6RGQ3?=
- =?utf-8?B?Q1oyaVNLUUtYOFdCU2cxK1l0ZVU1SDFYMjdOa0REYU9ZdXN4Wi9ZNGVQeEZY?=
- =?utf-8?B?YkhBci82Ym1RdUFrTUljUjJLMVRxNzhiQS9OYUFCckJTMVBJTDhqd0VRN0Qz?=
- =?utf-8?B?SXpOL2g2S3ZHTFArMC9KVk9JUlNBMk5rd0FpWU0zZ3dySnJuQ1NFQjdXUjV2?=
- =?utf-8?B?Q2ZrbUpXZk1YdzhVdGhBTWRIY1JxSnQyTVk4TC9XMlRMZkVyNDI2TkM1ZDAy?=
- =?utf-8?B?Ni9CMlcyb2RtVDFVR3FXNDFMbkV6VnM1QnNrdktjcXdhcTFRSU8rU2FzUjI4?=
- =?utf-8?B?VStSOWtpMkt6ZXEzQzB6QmN2d24xMVc2UjFwWitPRmxFOGtPamlFdUk3WG1U?=
- =?utf-8?B?QVJ4QzlVOGJjS3U1QnRGVjQ5b3BVSmkyT1VsNWJPc09TU1F1T1B4NmliSnd1?=
- =?utf-8?B?a01NdlZjRk1lZjBtbmFiN3cyZnFwKzlNTHlMNVQzK2p3SXlDam9GWW83QlZ2?=
- =?utf-8?B?cEMyN3I4blVXTDdIVk1TYUUvN0tyejJlYWxvRFhnZ1ZUd3RIRWRCNDc5T1Rl?=
- =?utf-8?B?SGc9PQ==?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: f411d7a1-1695-4330-935f-08dafa69fdac
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR11MB6059.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2023 22:10:37.1728 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: v1vrK0RHOA33U9YGxG8WtGG17eb/s0Ho8PUUmPas+dO9spS0ZMJUqH37MjPkdcGWQ3vp0N9kNKElHfxc/HlWrw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR11MB5655
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH 1/2] drm/amd/display: Hook up 'content type' property for
+ HDMI
+To: Melissa Wen <mwen@igalia.com>
+References: <20230117212620.11262-1-joshua@froggi.es>
+ <20230119181458.n4divmninme7o3dr@mail.igalia.com>
+Content-Language: en-US
+From: Joshua Ashton <joshua@froggi.es>
+In-Reply-To: <20230119181458.n4divmninme7o3dr@mail.igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,166 +76,213 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>, kherbst@redhat.com,
- Daniel
- Vetter <daniel.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org, YiPeng
- Chai <YiPeng.Chai@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Likun Gao <Likun.Gao@amd.com>, Sam Ravnborg <sam@ravnborg.org>,
- Guchun Chen <guchun.chen@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>, amd-gfx@lists.freedesktop.org,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Stanley Yang <Stanley.Yang@amd.com>, bskeggs@redhat.com,
- nouveau@lists.freedesktop.org, airlied@redhat.com,
- intel-gfx@lists.freedesktop.org, Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Jani Nikula <jani.nikula@intel.com>, Bokun Zhang <Bokun.Zhang@amd.com>,
- Marek =?utf-8?B?T2zFocOhaw==?= <marek.olsak@amd.com>,
- "Tianci.Yin" <tianci.yin@amd.com>, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, Hans de Goede <hdegoede@redhat.com>, jose.souza@intel.com,
- evan.quan@amd.com, tvrtko.ursulin@linux.intel.com,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Xiaojian Du <Xiaojian.Du@amd.com>, Felix
- Kuehling <Felix.Kuehling@amd.com>, Xinhui.Pan@amd.com, stable@vger.kernel.org,
- Solomon Chiu <solomon.chiu@amd.com>,
- Kai-Heng Feng <kai.heng.feng@canonical.com>, alexander.deucher@amd.com,
- Hawking Zhang <Hawking.Zhang@amd.com>, christian.koenig@amd.com,
- Mario Limonciello <mario.limonciello@amd.com>
+Cc: sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, harry.wentland@amd.com,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 19, 2023 at 09:06:54AM +0100, Thomas Zimmermann wrote:
-> Hi
+
+
+On 1/19/23 18:14, Melissa Wen wrote:
+> On 01/17, Joshua Ashton wrote:
+>> Implements the 'content type' property for HDMI connectors.
+>> Verified by checking the avi infoframe on a connected TV.
+>>
+>> This also simplifies a lot of the code in that area as well, there were
+>> a lot of temp variables doing very little and unnecessary logic
+>> that was quite confusing.
+>>
+>> It is not necessary to check for support in the EDID before sending a
+>> 'content type' value in the avi infoframe also.
+>>
+>> Signed-off-by: Joshua Ashton <joshua@froggi.es>
+>> ---
+>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 24 +++++++
+>>   .../gpu/drm/amd/display/dc/core/dc_resource.c | 69 ++++++-------------
+>>   drivers/gpu/drm/amd/display/dc/dc_stream.h    |  1 +
+>>   3 files changed, 46 insertions(+), 48 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> index 9547037857b6..999965fe3de9 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> @@ -5216,6 +5216,24 @@ get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing)
+>>   	return color_space;
+>>   }
+>>   
+>> +static enum display_content_type
+>> +get_output_content_type(const struct drm_connector_state *connector_state)
+>> +{
+>> +	switch (connector_state->content_type) {
+>> +	default:
+>> +	case DRM_MODE_CONTENT_TYPE_NO_DATA:
+>> +		return DISPLAY_CONTENT_TYPE_NO_DATA;
+>> +	case DRM_MODE_CONTENT_TYPE_GRAPHICS:
+>> +		return DISPLAY_CONTENT_TYPE_GRAPHICS;
+>> +	case DRM_MODE_CONTENT_TYPE_PHOTO:
+>> +		return DISPLAY_CONTENT_TYPE_PHOTO;
+>> +	case DRM_MODE_CONTENT_TYPE_CINEMA:
+>> +		return DISPLAY_CONTENT_TYPE_CINEMA;
+>> +	case DRM_MODE_CONTENT_TYPE_GAME:
+>> +		return DISPLAY_CONTENT_TYPE_GAME;
+>> +	}
+>> +}
+>> +
+>>   static bool adjust_colour_depth_from_display_info(
+>>   	struct dc_crtc_timing *timing_out,
+>>   	const struct drm_display_info *info)
+>> @@ -5349,6 +5367,7 @@ static void fill_stream_properties_from_drm_display_mode(
+>>   	}
+>>   
+>>   	stream->output_color_space = get_output_color_space(timing_out);
+>> +	stream->content_type = get_output_content_type(connector_state);
+>>   }
+>>   
+>>   static void fill_audio_info(struct audio_info *audio_info,
+>> @@ -7123,6 +7142,11 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+>>   				adev->mode_info.abm_level_property, 0);
+>>   	}
+>>   
+>> +	if (connector_type == DRM_MODE_CONNECTOR_HDMIA) {
+>> +		/* Content Type is currently only implemented for HDMI. */
+>> +		drm_connector_attach_content_type_property(&aconnector->base);
+>> +	}
+>> +
+>>   	if (connector_type == DRM_MODE_CONNECTOR_HDMIA ||
+>>   	    connector_type == DRM_MODE_CONNECTOR_DisplayPort ||
+>>   	    connector_type == DRM_MODE_CONNECTOR_eDP) {
+>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+>> index a5b5f8592c1b..39ceccdb6586 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+>> @@ -2944,14 +2944,9 @@ static void set_avi_info_frame(
+>>   	uint32_t pixel_encoding = 0;
+>>   	enum scanning_type scan_type = SCANNING_TYPE_NODATA;
+>>   	enum dc_aspect_ratio aspect = ASPECT_RATIO_NO_DATA;
+>> -	bool itc = false;
+>> -	uint8_t itc_value = 0;
+>> -	uint8_t cn0_cn1 = 0;
+>> -	unsigned int cn0_cn1_value = 0;
+>>   	uint8_t *check_sum = NULL;
+>>   	uint8_t byte_index = 0;
+>>   	union hdmi_info_packet hdmi_info;
+>> -	union display_content_support support = {0};
+>>   	unsigned int vic = pipe_ctx->stream->timing.vic;
+>>   	unsigned int rid = pipe_ctx->stream->timing.rid;
+>>   	unsigned int fr_ind = pipe_ctx->stream->timing.fr_index;
+>> @@ -3055,49 +3050,27 @@ static void set_avi_info_frame(
+>>   	/* Active Format Aspect ratio - same as Picture Aspect Ratio. */
+>>   	hdmi_info.bits.R0_R3 = ACTIVE_FORMAT_ASPECT_RATIO_SAME_AS_PICTURE;
+>>   
+>> -	/* TODO: un-hardcode cn0_cn1 and itc */
+>> -
+>> -	cn0_cn1 = 0;
+>> -	cn0_cn1_value = 0;
+>> -
+>> -	itc = true;
+>> -	itc_value = 1;
+>> -
+>> -	support = stream->content_support;
+>> -
+>> -	if (itc) {
+>> -		if (!support.bits.valid_content_type) {
+>> -			cn0_cn1_value = 0;
+>> -		} else {
+>> -			if (cn0_cn1 == DISPLAY_CONTENT_TYPE_GRAPHICS) {
+>> -				if (support.bits.graphics_content == 1) {
+>> -					cn0_cn1_value = 0;
+>> -				}
+>> -			} else if (cn0_cn1 == DISPLAY_CONTENT_TYPE_PHOTO) {
+>> -				if (support.bits.photo_content == 1) {
+>> -					cn0_cn1_value = 1;
+>> -				} else {
+>> -					cn0_cn1_value = 0;
+>> -					itc_value = 0;
+>> -				}
+>> -			} else if (cn0_cn1 == DISPLAY_CONTENT_TYPE_CINEMA) {
+>> -				if (support.bits.cinema_content == 1) {
+>> -					cn0_cn1_value = 2;
+>> -				} else {
+>> -					cn0_cn1_value = 0;
+>> -					itc_value = 0;
+>> -				}
+>> -			} else if (cn0_cn1 == DISPLAY_CONTENT_TYPE_GAME) {
+>> -				if (support.bits.game_content == 1) {
+>> -					cn0_cn1_value = 3;
+>> -				} else {
+>> -					cn0_cn1_value = 0;
+>> -					itc_value = 0;
+>> -				}
+>> -			}
+>> -		}
+>> -		hdmi_info.bits.CN0_CN1 = cn0_cn1_value;
+>> -		hdmi_info.bits.ITC = itc_value;
+>> +	switch (stream->content_type) {
+>> +	case DISPLAY_CONTENT_TYPE_NO_DATA:
+>> +		hdmi_info.bits.CN0_CN1 = 0;
+>> +		hdmi_info.bits.ITC = 0;
+> Hmm.. why is ITC value equal zero here ^, instead of the same hardcoded
+> `itc_value = 1`? Does it come from a DRM default value?
 > 
-> Am 18.01.23 um 20:21 schrieb Rodrigo Vivi:
-> > On Thu, Jan 12, 2023 at 09:11:55PM +0100, Thomas Zimmermann wrote:
-> > > Set the framebuffer info for drivers that support VGA switcheroo. Only
-> > > affects the amdgpu and nouveau drivers, which use VGA switcheroo and
-> > > generic fbdev emulation. For other drivers, this does nothing.
-> > > 
-> > > This fixes a potential regression in the console code. Both, amdgpu and
-> > > nouveau, invoked vga_switcheroo_client_fb_set() from their internal fbdev
-> > > code. But the call got lost when the drivers switched to the generic
-> > > emulation.
-> > > 
-> > > Fixes: 087451f372bf ("drm/amdgpu: use generic fb helpers instead of setting up AMD own's.")
-> > > Fixes: 4a16dd9d18a0 ("drm/nouveau/kms: switch to drm fbdev helpers")
-> > > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> > > Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> > > Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-> > > Cc: Ben Skeggs <bskeggs@redhat.com>
-> > > Cc: Karol Herbst <kherbst@redhat.com>
-> > > Cc: Lyude Paul <lyude@redhat.com>
-> > > Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> > > Cc: Javier Martinez Canillas <javierm@redhat.com>
-> > > Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> > > Cc: Jani Nikula <jani.nikula@intel.com>
-> > > Cc: Dave Airlie <airlied@redhat.com>
-> > > Cc: Evan Quan <evan.quan@amd.com>
-> > > Cc: Christian König <christian.koenig@amd.com>
-> > > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > > Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-> > > Cc: Likun Gao <Likun.Gao@amd.com>
-> > > Cc: "Christian König" <christian.koenig@amd.com>
-> > > Cc: Stanley Yang <Stanley.Yang@amd.com>
-> > > Cc: "Tianci.Yin" <tianci.yin@amd.com>
-> > > Cc: Xiaojian Du <Xiaojian.Du@amd.com>
-> > > Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-> > > Cc: YiPeng Chai <YiPeng.Chai@amd.com>
-> > > Cc: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
-> > > Cc: Bokun Zhang <Bokun.Zhang@amd.com>
-> > > Cc: Guchun Chen <guchun.chen@amd.com>
-> > > Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
-> > > Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> > > Cc: Mario Limonciello <mario.limonciello@amd.com>
-> > > Cc: Solomon Chiu <solomon.chiu@amd.com>
-> > > Cc: Kai-Heng Feng <kai.heng.feng@canonical.com>
-> > > Cc: Felix Kuehling <Felix.Kuehling@amd.com>
-> > > Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> > > Cc: "Marek Olšák" <marek.olsak@amd.com>
-> > > Cc: Sam Ravnborg <sam@ravnborg.org>
-> > > Cc: Hans de Goede <hdegoede@redhat.com>
-> > > Cc: "Ville Syrjälä" <ville.syrjala@linux.intel.com>
-> > > Cc: dri-devel@lists.freedesktop.org
-> > > Cc: nouveau@lists.freedesktop.org
-> > > Cc: <stable@vger.kernel.org> # v5.17+
-> > > ---
-> > >   drivers/gpu/drm/drm_fb_helper.c | 8 ++++++++
-> > >   1 file changed, 8 insertions(+)
-> > > 
-> > > diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-> > > index 427631706128..5e445c61252d 100644
-> > > --- a/drivers/gpu/drm/drm_fb_helper.c
-> > > +++ b/drivers/gpu/drm/drm_fb_helper.c
-> > > @@ -30,7 +30,9 @@
-> > >   #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-> > >   #include <linux/console.h>
-> > > +#include <linux/pci.h>
-> > >   #include <linux/sysrq.h>
-> > > +#include <linux/vga_switcheroo.h>
-> > >   #include <drm/drm_atomic.h>
-> > >   #include <drm/drm_drv.h>
-> > > @@ -1940,6 +1942,7 @@ static int drm_fb_helper_single_fb_probe(struct drm_fb_helper *fb_helper,
-> > >   					 int preferred_bpp)
-> > >   {
-> > >   	struct drm_client_dev *client = &fb_helper->client;
-> > > +	struct drm_device *dev = fb_helper->dev;
-> > 
-> > On drm-tip, this commit has a silent conflict with
-> > cff84bac9922 ("drm/fh-helper: Split fbdev single-probe helper")
-> > that's already in drm-next.
-> > 
-> > I had created a fix-up patch in drm-tip re-introducing this line.
+> Other than that, changes seem fine to me and it's nice to see the code
+> wired to the DRM and actually used.
 > 
-> Thank you. Is it fixed for now?
+> CC'ing other AMD DC folks since I don't know if these changes affect
+> other platforms. Can you guys verify it?
 
-Fixed in drm-tip, yes. But broke linux-next as well. This
-resolution will need to go up with any merge...
+This is the same logic as before, itc_value is defaulted to 1, yes, but 
+only assigned to hdmi_info.bits.ITC in the path with valid_content_type 
+which was always false as that struct was never filled in.
+So previously, ITC = 0 CN0_CN1 = 0 always.
+
+The logic added here also matches the logic used by other DRM drivers 
+using the common `drm_hdmi_avi_infoframe_content_type` logic such as Intel.
+
+It might be nice to clean up the code so we can take advantage of the 
+common helper here at some point, but currently AMDGPU uses its own 
+`avi_info_frame` structure instead of the common one in DRM.
+The structures should match (in theory! I did not look) so it might be 
+possible to just cast `avi_info_frame*` to `hdmi_avi_infoframe*` and use 
+the helper
+
+Let me know what is preferred.
+
+Thanks!
+- Joshie 🐸✨
 
 > 
-> > 
-> > We probably need a backmerge from drm-next into drm-misc-fixes with
-> > the resolution applied there. And probably propagated that resolution
-> > later...
-> 
-> Backmerging from -next into -fixes branches is a problem, as -fixes should
-> be close to the latest release.
-
-doh! Indeed I should've known this by heart... -ENOTEHOUGHCOFFEE
-
-> 
-> Can we solve this by merging -fixes into upstream and backmerging this into
-> our -next branches?
-
-hmmm... probably better just wait and let folks know the resolution
-when the patches are moving up...
-
-> 
-> Best regards
-> Thomas
-> 
-> > 
-> > >   	struct drm_fb_helper_surface_size sizes;
-> > >   	int ret;
-> > > @@ -1961,6 +1964,11 @@ static int drm_fb_helper_single_fb_probe(struct drm_fb_helper *fb_helper,
-> > >   		return ret;
-> > >   	strcpy(fb_helper->fb->comm, "[fbcon]");
-> > > +
-> > > +	/* Set the fb info for vgaswitcheroo clients. Does nothing otherwise. */
-> > > +	if (dev_is_pci(dev->dev))
-> > > +		vga_switcheroo_client_fb_set(to_pci_dev(dev->dev), fb_helper->info);
-> > > +
-> > >   	return 0;
-> > >   }
-> > > -- 
-> > > 2.39.0
-> > > 
-> 
-> -- 
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Maxfeldstr. 5, 90409 Nürnberg, Germany
-> (HRB 36809, AG Nürnberg)
-> Geschäftsführer: Ivo Totev
-
-
-
+>> +		break;
+>> +	case DISPLAY_CONTENT_TYPE_GRAPHICS:
+>> +		hdmi_info.bits.CN0_CN1 = 0;
+>> +		hdmi_info.bits.ITC = 1;
+>> +		break;
+>> +	case DISPLAY_CONTENT_TYPE_PHOTO:
+>> +		hdmi_info.bits.CN0_CN1 = 1;
+>> +		hdmi_info.bits.ITC = 1;
+>> +		break;
+>> +	case DISPLAY_CONTENT_TYPE_CINEMA:
+>> +		hdmi_info.bits.CN0_CN1 = 2;
+>> +		hdmi_info.bits.ITC = 1;
+>> +		break;
+>> +	case DISPLAY_CONTENT_TYPE_GAME:
+>> +		hdmi_info.bits.CN0_CN1 = 3;
+>> +		hdmi_info.bits.ITC = 1;
+>> +		break;
+>>   	}
+>>   
+>>   	if (stream->qs_bit == 1) {
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+>> index ef33d7d8a2bf..51dc30706e43 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
+>> +++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+>> @@ -205,6 +205,7 @@ struct dc_stream_state {
+>>   	struct dc_csc_transform csc_color_matrix;
+>>   
+>>   	enum dc_color_space output_color_space;
+>> +	enum display_content_type content_type;
+>>   	enum dc_dither_option dither_option;
+>>   
+>>   	enum view_3d_format view_format;
+>> -- 
+>> 2.39.0
+>>
