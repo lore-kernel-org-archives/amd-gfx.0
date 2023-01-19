@@ -4,112 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23A0BC32793
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 22:53:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FE3CC677F1
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Jan 2023 01:13:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FF1010E865;
-	Wed, 18 Jan 2023 22:53:39 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2067.outbound.protection.outlook.com [40.107.243.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D60D310E865
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Jan 2023 22:53:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 964B110E21A;
+	Thu, 19 Jan 2023 01:13:01 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2073.outbound.protection.outlook.com [40.107.93.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 605B510E21A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Jan 2023 01:12:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=K21H7RVCP+b3o2pWZQGltbG0H/JWDCYGmgxgBoxDw//cLQc4HhRSZZCkXFyhruJIT1N3SsgJPfFIUhWC75m9rDbc2jLqa46q88N6N9AzE9vnvIN1O1Skf/Xqsdrg2wwLoyf0rk6OGF1J7kszpWyRuwbeEgC7fjNK8KQVeiwt58On4VD0OkG/z5c3RSAUJI8cgvPADHGya0qvBBaxLVngYQCOuHUWQdlAzK2ssDnaxYny+9RWw3rktaE09VRy6X1M45aKNX9shhvme2uXrp95JRumibSVeoxUISfeT7mZaOlgQyL+NEeBnuFrPhIpoRpCnU85GoLpctkq2uqP+IrP8A==
+ b=CK6avbVWu7JVGWVxVIyoEml5LiCVKxVbXTJZ4DkfgqvhZmNmdWTpJ9O1ldppto0sNZD+IIIG887wzJzYlEil/xYh3U31I+gPlBW/LStubgU3Z7fooCaknaLeuZDW2NvEJfNOVMmifeoj/9mwDHR/SQuSpAGsidRHk2wOeqVTcU5gEsTw182J5S3H6Z3QHCdjBIj8nNuwbS1+YMDjpFDi8lSlCtpeMosJOfiMrFM1i5MdgAMwzp2hUlYjvmeRZLy3tkW6YI66OkPZfIqDASMrBOqalAQsTfs1aMbxTB9A/i4J09DzZR4Qf1Lq3V62QfyeMW8/Cw6II9z0V7P3/lSAEw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eF+OdXfY/waHJVH6GtgfpDGEY9CSE4lo98m5P8I5dLI=;
- b=l/KjviYLKoyCqXGu3QQOhBM/S2td7K5ejMqbw6cHstKXp22pMst4CgUmDeaKlJOovu4LmXu7J7TLxJwIzVUv1l24Bjpf0RWwcb+j1UoQWCnwjXokNAiikQ58XfEgYBdqgVaU2uHcCayYNuwEPcL3L0K53c61qLG+HNISGOR4UGHMbo+q/nhIG9ojonba8x/dok/Ceww8ISnpMvCmTgy+p2J0lkb+bHG3Mj1EiX8uoiWcnRDJesFQ6L6jNl+ojbXS4D5PVypziqkoFRdLLNiDG9rzQpVyxNSWf6TSDYrQDgwq81bnzHNCsLy0BuXRGqij29GlDT1+yzuXaICHBRAJpg==
+ bh=BFVCvgAiO2SriVj0FL26a+yKAD8oOWuQ2jWt15p/xWw=;
+ b=kGQ9iqwDqiPWQpQwPYWTUAzaYEw9EA0/UzTLfZ/FHIRMzMJmVwC5bp1vONN6R1by5keixl7NPY7IW0CgGeVqLkmdfdyCDYsk5Nt1gs59TuKlKrs6StZeYLG5an7jp6J4t/Ys1GwBS2PvxrgKnfsMTgaNce79BsDLrdePaSqsy2U2xpkkGRH7LmzdwHK8Q36mQ0yFG3THj0K9wEMkqmIYF2zaX+V3AKZXi1iTnjvl7YTXjiHJgwyFyNDxpDEKSapWmFZz6oJPXjBQwrI2FSVXmSHcH0DdS2TocFKGYLIjrIeG3ZWXRN5SRUjmlyVKHnPI5lPZEe899X7QKTSxVO05Rw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eF+OdXfY/waHJVH6GtgfpDGEY9CSE4lo98m5P8I5dLI=;
- b=J/kvoyw1AM5+VqfIhSj49bcvCWNdxpo2jvcne1znq+7h4EAaYNgcWjvhLYS2bm16m5CxrXWSKHP1WA3vd3DJzajGRitF4wFZRbhMdivr6hxm0LtWKICAKSFtcy1cDpxIKTuORattfkGVSpFwKHvszuz3b8AaC/Mcxit04Qw4TIE=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by DM4PR12MB6541.namprd12.prod.outlook.com (2603:10b6:8:88::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.24; Wed, 18 Jan
- 2023 22:53:35 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::5cbd:2c52:1e96:dd41]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::5cbd:2c52:1e96:dd41%6]) with mapi id 15.20.6002.024; Wed, 18 Jan 2023
- 22:53:35 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 0/3] Quiet down some warnings on laptops
-Thread-Topic: [PATCH 0/3] Quiet down some warnings on laptops
-Thread-Index: AQHZK47Um4ixFexR/UGun/M79FQqp66kyDBa
-Date: Wed, 18 Jan 2023 22:53:35 +0000
-Message-ID: <BL1PR12MB51441F33F4BBD0AD3FB03CDDF7C79@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20230118224711.6832-1-mario.limonciello@amd.com>
-In-Reply-To: <20230118224711.6832-1-mario.limonciello@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-01-18T22:53:34.937Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
-authentication-results: dkim=none (message not signed)
+ bh=BFVCvgAiO2SriVj0FL26a+yKAD8oOWuQ2jWt15p/xWw=;
+ b=vWlPJUiGrsmumvrDnH3E9ItEGByJTUBb8q+c+jvi17uEHJxpYp9mcFKdBnFPI72qeXN8rs5TCzN9ZNwBwOwPz/Qi8sH60drOV1YDlUsrloGmvJ45b2PbZVJ0MzXCOoSki6Lc2wnrRU5Lk3MtBU4UEAm0Si4kscSLg5dFMakjLrc=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|DM4PR12MB6541:EE_
-x-ms-office365-filtering-correlation-id: 8db0b7af-d3ba-43ac-a060-08daf9a6d4af
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: EGYmaWIHKPzWdkHoYR1OEdKPuO5AULFxMsGVDuznUk4ZsZ6BpiXY6NYY8YtcgyIWoaaEge5jRnVOTIBsY1ojGPKkkpDV386gPoa+ZMYukc2HJeFHBKKUnbBaKaWWW17pwOScJ47ru1z2oUqtddYopVD43UikwEkbxPE+B7Ii+fqvCNZttrpde14E0FoOaCiObM+1KbuNNkuH05fnI013LO1kCB5DOgAkCZyf+47PGRP7Sp7223h9LdOjzImxtqH9fSOWgkvD+3yBOJJmURJzKIIFpf7+pakGGo1KGIvqsXITxRWnS01PMJZf4RVPBRBvz1zgA/cmH0w0JQhLm7ZIWtbqIyZ8sTwwHM38VqL+6EOFjc+S0JHjStBm1WS7divoq6m3bHz1HI6cFUMduvczVTAmYzG1OGx4cA/v6Es1bY8Pc1WnFszqCCzi/ySTw7eECuxYdhxOV73oCvtU/RlV072O2nre4LLNm2u6fR9XIT0YI6n5tW0dD4AF2fwCqaC+Ft69SAn91Vct0yi3ej/6R26rABY33XSwksGZIi7gWQ0X6V2COM435FMS+Kbv7klkPkeLoRl6mI6MjNwL/T3AH2iVRPkIe498lKedWtfb3Y63dmdoVj9CNUYXyyVnHvhS6SAGDbOhuPC6pkVdYCYL3VzT+mhEEvxaFysZ9BHWJODVlS1dW7wHeKqVkns6jVvjaP4p2F7Fywg0psuS8xcuFg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(366004)(396003)(346002)(136003)(376002)(39860400002)(451199015)(38100700002)(33656002)(122000001)(86362001)(5660300002)(8936002)(55016003)(66476007)(2906002)(76116006)(52536014)(66556008)(66946007)(64756008)(66446008)(8676002)(41300700001)(9686003)(186003)(26005)(83380400001)(7696005)(53546011)(71200400001)(316002)(110136005)(38070700005)(478600001)(6506007)(19627405001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?0Ydr39xSjvlhhZrkhuTHwvpitT20M7BpF/wg793HgQ7uZNVf4I9OGrqtcrpX?=
- =?us-ascii?Q?c9LhaM9NhRenlFzWh7aBS5ZD7twMCkNycfJS2GjELKpPVa63YGdtBZFN5Bpg?=
- =?us-ascii?Q?3OtS+r+S8MZgNWpGdRyWmv7TEmuR8hyZdJenOdFFbGZAEhXlNqoszYxUV8eM?=
- =?us-ascii?Q?kX3EM7Fy+PUBHJWYmjoOZb5LE+slLxApPnJfP5Rgs9g1gWlGEOm4+96kRPV8?=
- =?us-ascii?Q?zTzXsROQIyvn5dr5c/P6Evv6WkqQF+2ZOAaJCO4eVqoKqN+UKOK5J0bU0pny?=
- =?us-ascii?Q?qsiCD7c5U6vdB/1XNY3T3Qxwa0VxNS7UCajWpw647qT9E8G01FV+XRGSNzdl?=
- =?us-ascii?Q?gRRviq8pda0eiK7z47wfDe65mw+DOXV81THB1REUSUkO9fy7Q5NOAA7oHfRK?=
- =?us-ascii?Q?i4s3qOPl7qSoJaGR1GbiH4EqRASt5otCNa89/TbTlBSfhai953Z+fuMMW/Vz?=
- =?us-ascii?Q?/T19TKYs0/xIEROReZjhjrvJN//FpEYFqupBmWewSzt2GXWRh0PCeZ1w/rtl?=
- =?us-ascii?Q?WegIgIrNeroTpjFmVJ7PlvbqQ/S0uUwe2JM7J28SPYT8JlmpKwjaze1wdYv0?=
- =?us-ascii?Q?IwgYgMWZHzn05NgdmK41d882FP52I/den4VVcd7IngR+dNAeyV+kRYMX9IFg?=
- =?us-ascii?Q?Ew+uxCSHNl5G925R1zndZDNVMOpsP86tBjo7y+TRVIB035Hy+m7N8Twui4Kv?=
- =?us-ascii?Q?8BSFpENE1goJObWCCGMbtbi9n8BhQqe6ofa2vYjCusdK9SCyY/XVyuDjYvgG?=
- =?us-ascii?Q?53vBPoc6BwaA78Zu8XtIgkSdSawil34FvuZqNBaO2rpXEA738LR2m/ipDwvl?=
- =?us-ascii?Q?q1fFaDTYrL8oBprVuygqXZU48VvSNwp/j6z2i63fqIeY2LJNrnyhXAfjj/b0?=
- =?us-ascii?Q?IzhQh9BnNSNIuBS0R/k8OhVR3kT3mOSh4gqi23mNKTvw5Gv8ilD3NE31P/nH?=
- =?us-ascii?Q?26JA8i8xsEI1fpFR81njqFlnRtKP/XXgjBF5w+cWZEXknSzBWVOyzmWDZhVc?=
- =?us-ascii?Q?dJ+5aE3LLACe1UCDfWaQDpc9LDF8KOVXBeq6MY75BoYpd0QAFe+5iHg2j2Q7?=
- =?us-ascii?Q?WT9t5azmsIxZyUVp+6VcUs0Z0gE+tB1VnPf1pdIJgc9DqjnuRkvJ9i15tMfk?=
- =?us-ascii?Q?zYg3TyBSBIl44UQfIQ2VhTOPzshDSa0vpROklaNv22QdZnNL44HJEpzM2aFE?=
- =?us-ascii?Q?0e6fcoTcYrvGdQuCtNRVjPC3A8b8mGfSKui6RcqBGnxULMtsAOty/uEP18Zf?=
- =?us-ascii?Q?EQ8VWq3ZHpNdALwfLE7Ab07fQ1zdpARNHl/ttjRL/i3nidm2KxSrpjNB7AXY?=
- =?us-ascii?Q?B0ifVnu4s0LoTUPhB5rN9BOoCxf2kqpmOpCvFlmT5IrPxbBk0KQXO1EGF1iq?=
- =?us-ascii?Q?c6dzERAHyFBRYB+XocYzVn2a0nHmeSeuR+uv+PWm4sg0Q/yc56tVH3Ri/Df6?=
- =?us-ascii?Q?QsXlJJzW2SED5uWPZOpAgQXsvYu9EmLpCXC7JJjlVA7/pmQeCtJAK3IPxTvn?=
- =?us-ascii?Q?og2W/y9oNotmBncf6Zey3u+lwjgAkdk2GXRFZ9toJmM/jVnQSHXQre2t/ILx?=
- =?us-ascii?Q?9D5nmm7r5fNp5EaxUec=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB51441F33F4BBD0AD3FB03CDDF7C79BL1PR12MB5144namp_"
+Received: from BL1PR12MB5112.namprd12.prod.outlook.com (2603:10b6:208:316::16)
+ by SJ0PR12MB7008.namprd12.prod.outlook.com (2603:10b6:a03:486::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.24; Thu, 19 Jan
+ 2023 01:12:53 +0000
+Received: from BL1PR12MB5112.namprd12.prod.outlook.com
+ ([fe80::6dbf:f425:e4d6:d273]) by BL1PR12MB5112.namprd12.prod.outlook.com
+ ([fe80::6dbf:f425:e4d6:d273%4]) with mapi id 15.20.6002.025; Thu, 19 Jan 2023
+ 01:12:47 +0000
+Message-ID: <28184a40-6c5e-5552-089d-8c8c261e099f@amd.com>
+Date: Wed, 18 Jan 2023 20:12:44 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH 2/3] drm/amd: Decrease warning about missing SRAT table to
+ debug
+Content-Language: en-US
+To: amd-gfx@lists.freedesktop.org,
+ "Limonciello, Mario" <Mario.Limonciello@amd.com>
+References: <20230118224711.6832-1-mario.limonciello@amd.com>
+ <20230118224711.6832-3-mario.limonciello@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <20230118224711.6832-3-mario.limonciello@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR0101CA0279.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:68::10) To BL1PR12MB5112.namprd12.prod.outlook.com
+ (2603:10b6:208:316::16)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5112:EE_|SJ0PR12MB7008:EE_
+X-MS-Office365-Filtering-Correlation-Id: fb55ceb8-58d7-4f85-ebcf-08daf9ba46b2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Q9fWYMeLisBrA/sRaZpnpI4kcGGEVfX8KL0IPxV+ijmiuKX90RAHMpWj/bwm3VPNfqFgAvauN8HHQPzUKNAcJuuiLTH8cUbHIme951qkjQo/3oDuqON31i59iVIBKwcZ/Cj8H31esl0UEuhzYE2CEWegHRh8amrbQJQiVbNZvoReD4ZeJU7tLyRiodoYmnN9FJxvK0AweituCvK1oGp//IZSkErjG9W+p4LRE5q6vbCPFeGzPHPpPv4ajn4TKbrJMJtg9LpNAXpMXWywPEeszg1cNsGalt4W9yb6MteRqhLmRNTGSTCI88lqEYp6tS7xfJXFGFmqJ4TOrSUpdlikDNaoE89chcpxGODMSZt1MQDtdwAaCOMbZfUf/OmNWioEK6/SPPlWDRQmsvWuZwpo4seOFWQDYbs2q97mttUPPwfBuWLqk+T/jQYlkcAPy+SjN84ETe6tnC7A4/ma37cCdRocp+rLGzvj6YdqUfLOswMcX5gVRN3dO3Z73FPVM1AbJsGndFQek6ZPojy/F09XOaXqmvDB3C0Chs148xlDFQHxiGxptcltaMM/lSR9qMg789vk7sg8hCJyQWgyhrXiie99m/h0Ljxkf9ltaPkijBO3+x/C1o2Welgi41DZNR/0zO7/DruqYFgdJQRqxFbaqjtZwlObY3KD6vl3/SwSIDt/s0OrivLUA//Av2kvOk4KB20xTPgq3L2s5WnxpNQfyHbNLsaKW/92fvdN19DYI/E=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5112.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(396003)(136003)(376002)(366004)(346002)(451199015)(186003)(6666004)(2616005)(478600001)(31686004)(26005)(6512007)(38100700002)(316002)(6506007)(37006003)(8676002)(6486002)(6636002)(66476007)(66556008)(66946007)(41300700001)(5660300002)(2906002)(8936002)(6862004)(44832011)(83380400001)(36756003)(31696002)(86362001)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bkZKem54TnV2anE3andpWEZuYVRsbkNvYk1xcEM2bTE5bWEySFNtZngvY1Jt?=
+ =?utf-8?B?b2pOYXI5TkJiS3pIV2lUanFyTTZKT1JLVlJ5SDBja3MwTExJYkp6NlRiZEJM?=
+ =?utf-8?B?TFZDZjVTQXhJWms1dkl4NTM1T0w4ZUY2ZXg2azA2OEIxbzJwbnE1TzVhSy9v?=
+ =?utf-8?B?ck1RSXQyajVqaDh2SW5iQVloWWRQenVmd2cxa1JyODR2UkNES2tRU2xaKzdM?=
+ =?utf-8?B?VHh2RStld21kRE1RYVFMcXJKU0M1RlRSbm1haWtCREdYc2paOVhBcEFzRnJF?=
+ =?utf-8?B?S1dyK2NnS2Z3UFZCaGVtTUhxMm5BbmVzb0paZlhIYll6OVlNQ29xOEF2aUYz?=
+ =?utf-8?B?S0g3Y2VpUjQwMkpxZ2hHZ0dTcWVTRTV2SDhQUzhtVThXQ243THpSbmxZUTZo?=
+ =?utf-8?B?akxTQnZRbVZKK0twYklvaHdKSEVEU2NFZ0pqajFiWi9nWDBDdUNuYzRuejJO?=
+ =?utf-8?B?LzYwTjVxM3NzWEFFL0xIZ0xKN0JyZHd5QVVCaGNFN2NyRWlUc1k4a3pNcmto?=
+ =?utf-8?B?UEVINDdUbkVWUnZtNy9ZYmF4UlZlallnR0d6UDRBbk9qa3JhdEhuZHlRMUk4?=
+ =?utf-8?B?UWJ2U3Q0VXhrVVhtMVdQVHhESVJvUVZMbFUwRTNBdVBkbmZ5RExMeStZc3Za?=
+ =?utf-8?B?eVpoc3llTFNQcWdCL0o0S3VWaVFRaXkzTHdweVdQZWtLQ0RCY2E1QXM3WVBx?=
+ =?utf-8?B?dFVVdFRpTnpheURodWlkc0EvcWhGWGVWWXFhUCtsNUdhemFWaUlpWFdDRCtN?=
+ =?utf-8?B?VUlQZXM0RzJWSCtIZGYzNk9vUnUyencxS2licTJDMlFyUUIzcGwySjJ5QzVT?=
+ =?utf-8?B?Y2JuL3ZBT0pBSmZFZHJRcElCMklObVcyVElDekRpZGF2bWlIbjJQZG1MTWtk?=
+ =?utf-8?B?dGRTK24yNm1MdW1SZ0xKSHowU0kwL0RGeU5jejZ5bC82YlFlSCtSOC9JNFhB?=
+ =?utf-8?B?a0hKT3g3dllQNkFhbWtEdyswWXNOSFhZSW5rSGVOUHdKZ1oyS3F1OTVVWWhE?=
+ =?utf-8?B?MWRmOGZrWkxaUDlmLzdjR1RwUjEvMXNYNkMxT2YxM3lTU2pHYzd5YTdvbW1l?=
+ =?utf-8?B?d0plZFVBRVZEVzdJdjFyS3pLcFYyamdOeUdSWTlOSGJCT1M5alh3eEMxamlX?=
+ =?utf-8?B?Rk5CQ3lXR09uNDZpbkxuc0pxaC9OTkVVZVhMVzI2WDhjN3ROMDl1Qm5FT0dJ?=
+ =?utf-8?B?ZjZwdENVTHAyaFozbnpkanZiZmtwN1Q1KzQveUtFd3MrQ0p6UUNoTVIyd1l1?=
+ =?utf-8?B?dU8wNmdLQXZIQUpqM0kxN0MrNVNwUGhoMkt2ZmRnaVF2dTJzamthTUZDbWEr?=
+ =?utf-8?B?Qk9wVVBxaVJCK2NXQmlzVnB6T3ErMFcrTEs4QXlxYzVpU0tIN3dLVkZCZ2pO?=
+ =?utf-8?B?NmFQM2FSbmk5RndtN1ViaENuU3JWT0lpdDJ2WTF5dlJVOWpVdnBxcFF5aUsz?=
+ =?utf-8?B?by9jc3ZCa3pKaW5XT0dWcDBXcTlyd2JHaFFjRXROS1BYS2YxclZqSm5OM3Aw?=
+ =?utf-8?B?Mm52dGd4Yk83TlREdGlLTHNMU1J3ZkpzV0xLOG5pUTZoZEcwbE9CK1RwVzly?=
+ =?utf-8?B?V1NzcWFSNlo5b25xaTlZNVZnZzhLQ2RLR0djQkcvUmh5U3RhMkh2U1p2TFhh?=
+ =?utf-8?B?bmorcXNlYXRScDB4K3Jpald1eGxBb3JXUTNzTmkxN0lMai9kTmpwODN3Z0Rh?=
+ =?utf-8?B?QXpQcUU5c1V6VmxOV1U0YXFlVlEreml3RytiVmxseXZ0RjVBalJTVFJCRWlT?=
+ =?utf-8?B?a1R3SlhPNEl5T3FUa2JIZkdkdDl0bkdyMVB4UmR4c1FWNEdpNU1tSmJVTDRB?=
+ =?utf-8?B?N0h3Vy82NzdpOUYvbHd2S0N6bGZWMUN5K2oxMEc2cWYwK3R1RjJUaXhDTWdE?=
+ =?utf-8?B?ekVIdWUvaWROcVVUeG5EdFhRTFVLaXdJSkxEc0lDNmxiUnNoN05xaU1mazg3?=
+ =?utf-8?B?UUcyMFlZeVlya1BqbEJvRFVwM1VYeXFuTFNzWVRLTnZPa3I2WEJRLzQxUlVi?=
+ =?utf-8?B?K3dkWEdQTlgzNVovMEZsa2s5T2lSTzZNM2YxL003bHNXNXo1V3lqMHdCNWpL?=
+ =?utf-8?B?MWdianZPWlpMZ2x4RkxZK0tYTFMrY2wwejB6bDgyZWEvTHZEUkR3RCtjcTRD?=
+ =?utf-8?Q?dlv+P/sWQdj0BYqeqS++67u/V?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb55ceb8-58d7-4f85-ebcf-08daf9ba46b2
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5112.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8db0b7af-d3ba-43ac-a060-08daf9a6d4af
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jan 2023 22:53:35.4358 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 9PCBL7szf9mGW1aHaFmkVvKu8H28VApTRCy55vVUJsU+azs+P+zvAUMZA6yMN8guQADI7BlyQcS3JCpzkE1JxQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6541
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2023 01:12:47.3585 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2zRJfbTwy6h3skAXO+kNMkUqlVevFdrAwxoH28CwGroNo9sTPS3cmo7I4qjEmGUoApvmjc16N8oyKjfbpcHBcg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7008
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,108 +129,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB51441F33F4BBD0AD3FB03CDDF7C79BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Am 2023-01-18 um 17:47 schrieb Mario Limonciello:
+> As OEMs will control what ACPI tables are on their systems, SRAT
+> might not be present. To avoid making an assumption that it is
+> there but still be useful for debugging a missing table decrease
+> warning about missing table to debug.
 
-[AMD Official Use Only - General]
+Finding out the NUMA node for a device only makes sense on NUMA systems. 
+I suspect a Cezanne laptop is not NUMA. So maybe we should update the 
+condition that leads to calling kfd_find_numa_node_in_srat:
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Mario Li=
-monciello <mario.limonciello@amd.com>
-Sent: Wednesday, January 18, 2023 5:47 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Limonciello, Mario <Mario.Limonciello@amd.com>
-Subject: [PATCH 0/3] Quiet down some warnings on laptops
+#ifdef CONFIG_ACPI_NUMA
+         if (kdev->adev->pdev->dev.numa_node == NUMA_NO_NODE)
+                 kfd_find_numa_node_in_srat(kdev);
+#endif
 
-Looking at Cezanne laptops from a few manufacturers I've noticed a few
-harmless warnings are emitted to the logs.  I looked through them and
-think they can all be decreased to debug.
+To something like this:
 
-Mario Limonciello (3):
-  drm/amd/display: Decrease messaging about DP alt mode state to debug
-  drm/amd: Decrease warning about missing SRAT table to debug
-  drm/amd: decrease message about missing PSP runtime database to debug
+#ifdef CONFIG_ACPI_NUMA
+         if (kdev->adev->pdev->dev.numa_node == NUMA_NO_NODE &&
+	    num_possible_nodes() > 1)
+                 kfd_find_numa_node_in_srat(kdev);
+#endif
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       | 2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c         | 2 +-
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+That way we'd still see a warning if we can't find out the NUMA node of 
+a GPU on a NUMA system, but you won't see a warning on non-NUMA systems.
 
---
-2.34.1
+Regards,
+   Felix
 
 
---_000_BL1PR12MB51441F33F4BBD0AD3FB03CDDF7C79BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - General]<br>
-</p>
-<br>
-<div>
-<div class=3D"elementToProof"><span style=3D"font-family: Calibri, Arial, H=
-elvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0); background-colo=
-r: rgb(255, 255, 255);" class=3D"elementToProof">Series is:</span></div>
-<div class=3D"elementToProof"><span style=3D"font-family: Calibri, Arial, H=
-elvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0); background-colo=
-r: rgb(255, 255, 255);" class=3D"elementToProof">Reviewed-by: Alex Deucher =
-&lt;alexander.deucher@amd.com&gt;<br>
-</span></div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Mario Limonciello &lt;mario.l=
-imonciello@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, January 18, 2023 5:47 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Limonciello, Mario &lt;Mario.Limonciello@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 0/3] Quiet down some warnings on laptops</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Looking at Cezanne laptops from a few manufacturer=
-s I've noticed a few<br>
-harmless warnings are emitted to the logs.&nbsp; I looked through them and<=
-br>
-think they can all be decreased to debug.<br>
-<br>
-Mario Limonciello (3):<br>
-&nbsp; drm/amd/display: Decrease messaging about DP alt mode state to debug=
-<br>
-&nbsp; drm/amd: Decrease warning about missing SRAT table to debug<br>
-&nbsp; drm/amd: decrease message about missing PSP runtime database to debu=
-g<br>
-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; | 2 +-<br>
-&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_crat.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; | 2 +-<br>
-&nbsp;drivers/gpu/drm/amd/display/dc/core/dc_link.c | 2 +-<br>
-&nbsp;3 files changed, 3 insertions(+), 3 deletions(-)<br>
-<br>
--- <br>
-2.34.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BL1PR12MB51441F33F4BBD0AD3FB03CDDF7C79BL1PR12MB5144namp_--
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> index 3251f4783ba10..a309cbc235c61 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> @@ -1904,7 +1904,7 @@ static void kfd_find_numa_node_in_srat(struct kfd_dev *kdev)
+>   	/* Fetch the SRAT table from ACPI */
+>   	status = acpi_get_table(ACPI_SIG_SRAT, 0, &table_header);
+>   	if (status == AE_NOT_FOUND) {
+> -		pr_warn("SRAT table not found\n");
+> +		pr_debug("SRAT table not found\n");
+>   		return;
+>   	} else if (ACPI_FAILURE(status)) {
+>   		const char *err = acpi_format_exception(status);
