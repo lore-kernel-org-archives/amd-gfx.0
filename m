@@ -4,52 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E98AC05027
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Jan 2023 21:50:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0419C05027
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Jan 2023 21:50:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B381610EAC2;
-	Fri, 20 Jan 2023 21:50:26 +0000 (UTC)
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de
- [130.133.4.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31DA110E39D
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Jan 2023 19:29:46 +0000 (UTC)
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
- by outpost.zedat.fu-berlin.de (Exim 4.95) with esmtps (TLS1.3)
- tls TLS_AES_256_GCM_SHA384
- (envelope-from <mkarcher@zedat.fu-berlin.de>)
- id 1pIx54-002uuw-Fd; Fri, 20 Jan 2023 20:29:42 +0100
-Received: from pd9f631ca.dip0.t-ipconnect.de ([217.246.49.202]
- helo=[192.168.144.87]) by inpost2.zedat.fu-berlin.de (Exim 4.95)
- with esmtpsa (TLS1.3) tls TLS_AES_128_GCM_SHA256
- (envelope-from <kernel@mkarcher.dialup.fu-berlin.de>)
- id 1pIx54-002Kos-8o; Fri, 20 Jan 2023 20:29:42 +0100
-Content-Type: multipart/mixed; boundary="------------noR0LwKfcoz0L7zbRzJSPHS4"
-Message-ID: <def16c9b-7bb1-a454-0896-b063a9e85964@fu-berlin.de>
-Date: Fri, 20 Jan 2023 20:29:40 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E9CD10EAC8;
+	Fri, 20 Jan 2023 21:50:30 +0000 (UTC)
+Received: from mail-oo1-xc33.google.com (mail-oo1-xc33.google.com
+ [IPv6:2607:f8b0:4864:20::c33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D518010E196;
+ Fri, 20 Jan 2023 21:00:44 +0000 (UTC)
+Received: by mail-oo1-xc33.google.com with SMTP id
+ c145-20020a4a4f97000000b004f505540a20so1219737oob.1; 
+ Fri, 20 Jan 2023 13:00:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:subject:from:references:cc:to
+ :content-language:user-agent:mime-version:date:message-id:sender
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=CDDzVfb3PboGUZ1ek82m5PLa0K8UtUGpbjnyxxvLkcI=;
+ b=byii7Hj+8+LKxY69s+XuNvu6mpQvxsu7DtCFHAIen3WyhQhMAJAhm8joJwO2qVZqIv
+ FcyaJyFJIWeLm04YUTU8SbTNDg+k83ogniWSoNAj6l/TDlRO815cSI/GQ7d7xbx7Kdxo
+ IegEC6IpE1NOhx1xEN+sur71tSQMTXXSypwz922VlbXOXoBnnwePaCAy37SJ6YpJPbx0
+ N5Ygtd6rnpDdhT5opZuD7czRTPM6oeywjm9NUpBG6yxgZfUQBv01H7cyC3FswEH1NOjs
+ d51aiAfTOwwufO+5n00boGQd00mjshUba9xivbU2eR9k+8FuJJinAwk3PVfcShYJ8l0m
+ omiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:subject:from:references:cc:to
+ :content-language:user-agent:mime-version:date:message-id:sender
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=CDDzVfb3PboGUZ1ek82m5PLa0K8UtUGpbjnyxxvLkcI=;
+ b=EtAaB8nTv/joud86DxWhqtRA0ZqeFiICRHQyvpAB0V/vVgt6Ua5CJk3UOITuhstGH4
+ b+7y+KN4dFw2aTjTKf+J4kDAVocSgV8EjVafBYa5pE3knnmxaYBuFaQ5uFm+Zoi6cMvK
+ hdlZIkDBbxJm878EwmMgjSmgZ37cAuydLDxoDIdMbQZZzDzirlWVDbAuTDw6/n2ESAim
+ XKctGWJDkmZftWC9IusSX+KCMWnRpPpHoBROrz13ARL3tvkoX1qyCAf3chR5pkxQBBPj
+ 5n6hfngR8pt3oylDfjhd4FsJL18akj/C9Z+8PHAAq1Xpki/acH5DqDIXAOSMOtVtj9ly
+ aIIQ==
+X-Gm-Message-State: AFqh2kpwSwXkYS6kKT01Ky7Z7PJ1/+W4yTpDIY8JAgYxaUxxjnc5+P9p
+ d7PPrItussTUTomL3gt/sUI=
+X-Google-Smtp-Source: AMrXdXux2SadVMxuQYTh+X9u46rTjIh0ZWTNszXZy2RR0PyWcpRHbLUCf0qTMXzi+38BJtTTclMrug==
+X-Received: by 2002:a4a:acc4:0:b0:4f2:a1c1:4dfc with SMTP id
+ c4-20020a4aacc4000000b004f2a1c14dfcmr7510500oon.6.1674248443947; 
+ Fri, 20 Jan 2023 13:00:43 -0800 (PST)
+Received: from ?IPV6:2600:1700:e321:62f0:329c:23ff:fee3:9d7c?
+ ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id
+ m22-20020a4ac696000000b0049bfbf7c5a8sm19766449ooq.38.2023.01.20.13.00.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 20 Jan 2023 13:00:42 -0800 (PST)
+Message-ID: <9927d839-4abc-0daf-36cd-e547beb7c87d@roeck-us.net>
+Date: Fri, 20 Jan 2023 13:00:40 -0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: Calculating array sizes in C - was: Re: Build
- regressions/improvements in v6.2-rc1
-To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Geert Uytterhoeven <geert@linux-m68k.org>
-References: <CAHk-=wgf929uGOVpiWALPyC7pv_9KbwB2EAvQ3C4woshZZ5zqQ@mail.gmail.com>
- <20221227082932.798359-1-geert@linux-m68k.org>
- <alpine.DEB.2.22.394.2212270933530.311423@ramsan.of.borg>
- <c05bee5d-0d69-289b-fe4b-98f4cd31a4f5@physik.fu-berlin.de>
- <CAMuHMdXNJveXHeS=g-aHbnxtyACxq1wCeaTg8LbpYqJTCqk86g@mail.gmail.com>
- <3800eaa8-a4da-b2f0-da31-6627176cb92e@physik.fu-berlin.de>
- <CAMuHMdWbBRkhecrqcir92TgZnffMe8ku2t7PcVLqA6e6F-j=iw@mail.gmail.com>
- <429140e0-72fe-c91c-53bc-124d33ab5ffa@physik.fu-berlin.de>
- <CAMuHMdWpHSsAB3WosyCVgS6+t4pU35Xfj3tjmdCDoyS2QkS7iw@mail.gmail.com>
- <0d238f02-4d78-6f14-1b1b-f53f0317a910@physik.fu-berlin.de>
- <1732342f-49fe-c20e-b877-bc0a340e1a50@fu-berlin.de>
- <c1d233b9-bc85-dce9-ffa0-eb3170602c6c@physik.fu-berlin.de>
-From: Michael Karcher <kernel@mkarcher.dialup.fu-berlin.de>
-In-Reply-To: <c1d233b9-bc85-dce9-ffa0-eb3170602c6c@physik.fu-berlin.de>
-X-Original-Sender: kernel@mkarcher.dialup.fu-berlin.de
-X-Originating-IP: 217.246.49.202
-X-ZEDAT-Hint: A
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Content-Language: en-US
+To: "Limonciello, Mario" <Mario.Limonciello@amd.com>
+References: <20230112085044.1706379-1-Wayne.Lin@amd.com>
+ <20230120174634.GA889896@roeck-us.net>
+ <a9deecb3-5955-ee4e-c76f-2654ee9f1a92@amd.com>
+ <20230120181806.GA890663@roeck-us.net>
+ <MN0PR12MB6101FE67D355FF2A47470C37E2C59@MN0PR12MB6101.namprd12.prod.outlook.com>
+From: Guenter Roeck <linux@roeck-us.net>
+Subject: Re: [PATCH] Revert "drm/display/dp_mst: Move all payload info into
+ the atomic state"
+In-Reply-To: <MN0PR12MB6101FE67D355FF2A47470C37E2C59@MN0PR12MB6101.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Fri, 20 Jan 2023 21:50:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,48 +81,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-xtensa@linux-xtensa.org, Arnd Bergmann <arnd@arndb.de>,
- linux-sh@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-mips@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- linux-f2fs-devel@lists.sourceforge.net, linuxppc-dev@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ "stanislav.lisovskiy@intel.com" <stanislav.lisovskiy@intel.com>, "Zuo,
+ Jerry" <Jerry.Zuo@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Lin,
+ Wayne" <Wayne.Lin@amd.com>, "bskeggs@redhat.com" <bskeggs@redhat.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------noR0LwKfcoz0L7zbRzJSPHS4
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+On 1/20/23 10:39, Limonciello, Mario wrote:
+[ ... ]
+>>>
+>>> Wayne is OOO for CNY, but let me update you.
+>>>
+>>> Harry has sent out this series which is a collection of proper fixes.
+>>> https://patchwork.freedesktop.org/series/113125/
+>>>
+>>> Once that's reviewed and accepted, 4 of them are applicable for 6.1.
+>>
+>> Thanks a lot for the update. There is talk about abandoning v6.1.y as
+>> LTS candidate, in large part due to this problem, so it would be great
+>> to get the problem fixed before that happens.
+> 
+> Any idea how soon that decision is happening?  It seems that we have line
+> of sight to a solution including back to 6.1.y pending that review.  So perhaps
+> we can put off the decision until those are landed.
 
-Hello Adrian,
-> Could you post a kernel patch for that? I would be happy to test it on my
-> SH-7785CLR board. Also, I'm going to file a bug report against GCC.
+I honestly don't know. All I know is that Greg is concerned about
+the number of regressions in v6.1.y, and this problem was one
+he specifically mentioned to me as potential reason to not designate
+6.1.y as LTS kernel. The extensive discussion at [1] may be an
+indication that there is a problem, though that mostly refers to
+[lack of] test coverage and does not point to specific regressions.
 
-I filed the bug already. It's 
-https://gcc.gnu.org/bugzilla/show_bug.cgi?id=108483.
+Guenter
 
-The diff is attached. It's published as CC0 in case anyone considers 
-this trivial change copyrightable. This patch prevents this one specific 
-warning from being upgraded to "error" even if you configure the kernel 
-to use "-Werror". It still keeps it active as warning, though.
+---
+[1] https://lore.kernel.org/lkml/CAPDLWs-Z8pYkwQ13dEgHXqSCjiq4xVnjuAXTy26H3=8NZCpV_g@mail.gmail.com/
 
-Kind regards,
-   Michael Karcher
-
---------------noR0LwKfcoz0L7zbRzJSPHS4
-Content-Type: text/plain; charset=UTF-8; name="werror.diff"
-Content-Disposition: attachment; filename="werror.diff"
-Content-Transfer-Encoding: base64
-
-ZGlmZiAtLWdpdCBhL01ha2VmaWxlIGIvTWFrZWZpbGUKaW5kZXggZTA5ZmUxMDBlZmIyLi5i
-NGNkMDc1YzZhMTkgMTAwNjQ0Ci0tLSBhL01ha2VmaWxlCisrKyBiL01ha2VmaWxlCkBAIC04
-NzAsNyArODcwLDcgQEAgc3RhY2twLWZsYWdzLSQoQ09ORklHX1NUQUNLUFJPVEVDVE9SX1NU
-Uk9ORykgICAgICA6PSAtZnN0YWNrLXByb3RlY3Rvci1zdHJvbmcKIAogS0JVSUxEX0NGTEFH
-UyArPSAkKHN0YWNrcC1mbGFncy15KQogCi1LQlVJTERfQ1BQRkxBR1MtJChDT05GSUdfV0VS
-Uk9SKSArPSAtV2Vycm9yCitLQlVJTERfQ1BQRkxBR1MtJChDT05GSUdfV0VSUk9SKSArPSAt
-V2Vycm9yIC1Xbm8tZXJyb3I9c2l6ZW9mLXBvaW50ZXItZGl2CiBLQlVJTERfQ1BQRkxBR1Mg
-Kz0gJChLQlVJTERfQ1BQRkxBR1MteSkKIEtCVUlMRF9DRkxBR1MtJChDT05GSUdfQ0NfTk9f
-QVJSQVlfQk9VTkRTKSArPSAtV25vLWFycmF5LWJvdW5kcwogCg==
-
---------------noR0LwKfcoz0L7zbRzJSPHS4--
