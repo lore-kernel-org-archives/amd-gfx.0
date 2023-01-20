@@ -4,61 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 069C4C05027
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Jan 2023 16:04:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B801C05027
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Jan 2023 16:29:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7519C10EAA1;
-	Fri, 20 Jan 2023 16:04:55 +0000 (UTC)
-X-Greylist: delayed 313 seconds by postgrey-1.36 at gabe;
- Fri, 20 Jan 2023 11:49:02 UTC
-Received: from eu-smtp-delivery-151.mimecast.com
- (eu-smtp-delivery-151.mimecast.com [185.58.85.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1224B10EA1C
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Jan 2023 11:49:01 +0000 (UTC)
-Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- uk-mta-129-4gsduPDlOrGmwEjdKMB1gA-1; Fri, 20 Jan 2023 11:42:44 +0000
-X-MC-Unique: 4gsduPDlOrGmwEjdKMB1gA-1
-Received: from AcuMS.Aculab.com (10.202.163.4) by AcuMS.aculab.com
- (10.202.163.4) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Fri, 20 Jan
- 2023 11:42:42 +0000
-Received: from AcuMS.Aculab.com ([::1]) by AcuMS.aculab.com ([::1]) with mapi
- id 15.00.1497.044; Fri, 20 Jan 2023 11:42:42 +0000
-From: David Laight <David.Laight@ACULAB.COM>
-To: 'Segher Boessenkool' <segher@kernel.crashing.org>, Rob Landley
- <rob@landley.net>
-Subject: RE: Calculating array sizes in C - was: Re: Build
- regressions/improvements in v6.2-rc1
-Thread-Topic: Calculating array sizes in C - was: Re: Build
- regressions/improvements in v6.2-rc1
-Thread-Index: AQHZLL5SlbpKhYJiU02AbZRDtfTmb66nLCYA
-Date: Fri, 20 Jan 2023 11:42:42 +0000
-Message-ID: <931141d03e8748cebad42aff1a508d7f@AcuMS.aculab.com>
-References: <alpine.DEB.2.22.394.2212270933530.311423@ramsan.of.borg>
- <c05bee5d-0d69-289b-fe4b-98f4cd31a4f5@physik.fu-berlin.de>
- <CAMuHMdXNJveXHeS=g-aHbnxtyACxq1wCeaTg8LbpYqJTCqk86g@mail.gmail.com>
- <3800eaa8-a4da-b2f0-da31-6627176cb92e@physik.fu-berlin.de>
- <CAMuHMdWbBRkhecrqcir92TgZnffMe8ku2t7PcVLqA6e6F-j=iw@mail.gmail.com>
- <429140e0-72fe-c91c-53bc-124d33ab5ffa@physik.fu-berlin.de>
- <CAMuHMdWpHSsAB3WosyCVgS6+t4pU35Xfj3tjmdCDoyS2QkS7iw@mail.gmail.com>
- <0d238f02-4d78-6f14-1b1b-f53f0317a910@physik.fu-berlin.de>
- <1732342f-49fe-c20e-b877-bc0a340e1a50@fu-berlin.de>
- <0f51dac4-836b-0ff2-38c6-5521745c1c88@landley.net>
- <20230120105341.GI25951@gate.crashing.org>
-In-Reply-To: <20230120105341.GI25951@gate.crashing.org>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.202.205.107]
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DAF010E102;
+	Fri, 20 Jan 2023 16:29:48 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2052.outbound.protection.outlook.com [40.107.243.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5608210E102
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Jan 2023 16:29:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=M0bDMMgHf/aARibL4fu3dySdHupdcC9b8kpbcLVkPQUUrdxhRcJWDO369HwNZ5Rd0Eobx5Yeec9EvL7zipTqqq133OI8XifaF4UpkVuqlp7AvKadRYjjmXXegYyNI3pGE/JAbJno7dk3yY5dEbruQGRwfda/ZJKTS1aQZNE3tw+3K0yNTz/+kjZQVItrv1MdHEjEQpOi5CVKLpPH7osI+CufhdrL+cKgi2rm4D0sF0mwN+J3iJnz8tGNY0Xh6WC/o6ETVlFx8v2cky9TyvQ3YCpyht89G5P7/Zcu08EbPTFv+pC4m5WMXJTEMtOlqKdzfKWn/fp/L8EIZiuim7BLRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UBajkvhi6517h9+IGk4NvVfbKiu1g8cDWhxU5XtQNqw=;
+ b=XTW96SWxhiF6eRq5IwBQteqValixl62fSYzNE/kmPKYFfCFxyo5oCQe4ybogpfW/VNzbBeElC9jXyTae+fXeplC3/21deCuNdHbmUMZRtxmedCZaqw71299zNOQqfc+nQrST9ul5GWN9YEhry78B6EVWiI2604lkxjMGVtSxxjIYPrPpovOR/sAwedWIlAq6JLk+XQUiDghbsAGxfYNJ1kFtN4OWknddO5s4i3nYVZXvxFHkpmevQz8P0Do7EIohaqYbfN9dO6ay+6C51Xy5U8MlhEAmKGkHPy0nygoNu9vdPsDkd9UX3GZnYD8LdLFRRs2ds7L+/IAR1BL/pMirDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UBajkvhi6517h9+IGk4NvVfbKiu1g8cDWhxU5XtQNqw=;
+ b=ioGwy2MyBL/9uySfKHeBq8brB5qncpAP12CxMv/QrwimBAH13tYYUuQEEmlftSqts37n/2gMqArZQQQpv/Vwdgfp3JGkmjKVwe9rUwUcVdovCDXB6XEqA2gi2PY02MOFWFWkbulLObbqwfK+EUpDx6EJq1MLufxqqzAr7eEgC6w=
+Received: from BN0PR04CA0146.namprd04.prod.outlook.com (2603:10b6:408:ed::31)
+ by MN2PR12MB4174.namprd12.prod.outlook.com (2603:10b6:208:15f::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.27; Fri, 20 Jan
+ 2023 16:29:43 +0000
+Received: from BN8NAM11FT102.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:ed:cafe::a1) by BN0PR04CA0146.outlook.office365.com
+ (2603:10b6:408:ed::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.27 via Frontend
+ Transport; Fri, 20 Jan 2023 16:29:43 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT102.mail.protection.outlook.com (10.13.177.27) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6002.13 via Frontend Transport; Fri, 20 Jan 2023 16:29:42 +0000
+Received: from ldev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 20 Jan
+ 2023 10:29:40 -0600
+From: Tim Huang <tim.huang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 2/2] drm/amd/pm: drop unneeded dpm features disablement for
+ SMU 13.0.4/11
+Date: Sat, 21 Jan 2023 00:28:58 +0800
+Message-ID: <20230120162858.1580755-2-tim.huang@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230120162858.1580755-1-tim.huang@amd.com>
+References: <20230120162858.1580755-1-tim.huang@amd.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: aculab.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Fri, 20 Jan 2023 16:04:43 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT102:EE_|MN2PR12MB4174:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4920a653-82ea-400c-5022-08dafb038921
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: /a/wFT53d4YJ8iS0l2+F6V2E/BJJjmrK8q5Fcnc0d9o1GkKVnMQk9cH8foUkJ0Y5HobjqsHmOilpPTrom/jMAAgMljKcji1Te9dHqrPNoky+s4pRdTZ1rrN07x29wfdi41MDqYQDyTiLzVFK1q3NoOMY19+5eN8krtyj8PxCFuYzWx+xqFA54cl0Goa29L4suOpsz2clelpW6DIgItSVPEVPV6gP2V+ZlJQDpNMiw3HQu48zt/s5QGjTtQmRyRMbRGsaFtN7N1CPL47lfPOscAblVz1YBOCxnGzybTEGkUhmbvufdT1wLr6IkCgbdMyYtrSKnpMlo8rok+C+YMQDouLPY05M8ki/LqtcJNhBfbyi3L+LW8kjAvxKFL5KO+mCcuxVkKIAtc2ctXrT5+4KH85E1GINR+x0dSGJkVV26XHLAG3AEJy/6gk6xEW5Mioq46kpd/hTPyQbf9WXcMQQTIkBquDNEbMreXXsHvaR8y+mB296foX9CRUbaTKcZLVhameOcZow7osPmAyKRNaZiCITWXtdabZiFbQInHiDESYVjAvf3p5xIXIFUaLBE6/7/Fd9FMSvBzECxU0wmXXhsR4tLPW449r/5q0JeHo7XtVLoYMN1x+jNWNSYIaK5upLrL6qlfky48hPtXcEY32MU1kIfsPdIOwhIdpYXwSTcWOTIs6ZqgZLdp2ud1jjMO8NPECIgf1+A5i1z7n4jN5ahye1kub8NBUpYWBHE/IShyA=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(136003)(346002)(396003)(39860400002)(451199015)(40470700004)(46966006)(36840700001)(4744005)(5660300002)(44832011)(8936002)(4326008)(82310400005)(8676002)(6916009)(70586007)(70206006)(6666004)(16526019)(186003)(2906002)(54906003)(26005)(36756003)(478600001)(2616005)(7696005)(316002)(41300700001)(40460700003)(40480700001)(82740400003)(356005)(36860700001)(86362001)(81166007)(1076003)(336012)(47076005)(426003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2023 16:29:42.9075 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4920a653-82ea-400c-5022-08dafb038921
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT102.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4174
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,64 +100,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "linux-xtensa@linux-xtensa.org" <linux-xtensa@linux-xtensa.org>, Arnd
- Bergmann <arnd@arndb.de>, "linux-sh@vger.kernel.org" <linux-sh@vger.kernel.org>,
- "Michael.Karcher" <Michael.Karcher@fu-berlin.de>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
- "linux-mips@vger.kernel.org" <linux-mips@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Geert
- Uytterhoeven <geert@linux-m68k.org>,
- "kasan-dev@googlegroups.com" <kasan-dev@googlegroups.com>,
- Michael Karcher <kernel@mkarcher.dialup.fu-berlin.de>,
- "linux-f2fs-devel@lists.sourceforge.net"
- <linux-f2fs-devel@lists.sourceforge.net>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
+Cc: Yifan1.zhang@amd.com, Xiaojian.Du@amd.com, Tim
+ Huang <tim.huang@amd.com>, li.ma@amd.com, Alexander.Deucher@amd.com,
+ mario.limonciello@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Segher Boessenkool
-> Sent: 20 January 2023 10:54
-...
-> > > I suggest to file a bug against gcc complaining about a "spurious
-> > > warning", and using "-Werror -Wno-error-sizeof-pointer-div" until gcc=
- is
-> > > adapted to not emit the warning about the pointer division if the res=
-ult
-> > > is not used.
->=20
-> Yeah.  If the first operand of a conditional operator is non-zero, the
-> second operand is not evaluated, and if the first is zero, the third
-> operand is not evaluated.  It is better if we do not warn about
-> something we do not evaluate.  In cases like here where it is clear at
-> compile time which branch is taken, that shouldn't be too hard.
->=20
-> Can someone please file a GCC PR?  With reduced testcase preferably.
+PMFW will handle that properly. Driver involvement may cause some
+unexpected issues.
 
-It's not a bug.
-All the operands of the conditional operator have to be valid.
-It might be that the optimiser can discard one, but that happens
-much later on.
-Even the operands of choose_expr() have to be valid - but can
-have different types.
+Signed-off-by: Tim Huang <tim.huang@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-I'm not sure what the code is trying to do or why it is failing.
-Was it a fail in userspace - where the option to allow sizeof (void)
-isn't allowed.
-
-FWIW you can check for a compile-time NULL (or 0) with:
-#define is_null(x) (sizeof *(0 : (void *)(x) ? (int *)0) !=3D 1)
-
-Although that is a compile-time error for non-NULL unless
-'void *' arithmetic is allowed.
-
-=09David
-
--
-Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1 1=
-PT, UK
-Registration No: 1397386 (Wales)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index ec52830dde24..800eb5ad1dcb 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -1448,6 +1448,8 @@ static int smu_disable_dpms(struct smu_context *smu)
+ 	case IP_VERSION(13, 0, 0):
+ 	case IP_VERSION(13, 0, 7):
+ 	case IP_VERSION(13, 0, 10):
++	case IP_VERSION(13, 0, 4):
++	case IP_VERSION(13, 0, 11):
+ 		return 0;
+ 	default:
+ 		break;
+-- 
+2.25.1
 
