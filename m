@@ -4,49 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17188C05027
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Jan 2023 17:14:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E90DAC25B4E
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Jan 2023 17:31:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0F2710E10C;
-	Fri, 20 Jan 2023 17:14:25 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5C9010E10C
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Jan 2023 17:14:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674234863; x=1705770863;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=BfH+DhemtVbRApOmVu9miMo8w9suHcbrBpKwXq6ubtM=;
- b=DIa/M1FH0aUzcvsq7yQ1NsipPirrMRRCg8ov4Z6UR/eN/Oy/dJTVmGpK
- IYX3kNRW6+WlS/VckYedouMAm9hiy0pR2ca0iOTpybjzBw78t6kTu8ew6
- ZkqXcOO9ST6HJHwL/Jl7ZSIsK8Pb5SU8jmk43+Xv04NqRmXu2jUk4B54i
- d1t8H8iFNcQ3jz7jM333t1YXv0KEhrYWtybtwofoUSpjWu1ZRAGQtllOI
- PVoA9ucl94Ag51hc1dHf3tdtiZ8FeEveXKch/ll1+z77VE2QGoFzH2xHZ
- Xebjm/AssutRgTaT3Hg1AuJyCbtGQXoNKPoPkpxIe7aEaFMaxoczQYjqf w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10596"; a="326907269"
-X-IronPort-AV: E=Sophos;i="5.97,232,1669104000"; d="scan'208";a="326907269"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2023 09:14:23 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10596"; a="803128754"
-X-IronPort-AV: E=Sophos;i="5.97,232,1669104000"; d="scan'208";a="803128754"
-Received: from lkp-server01.sh.intel.com (HELO 5646d64e7320) ([10.239.97.150])
- by fmsmga001.fm.intel.com with ESMTP; 20 Jan 2023 09:14:20 -0800
-Received: from kbuild by 5646d64e7320 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pIuxw-0002jq-0P;
- Fri, 20 Jan 2023 17:14:12 +0000
-Date: Sat, 21 Jan 2023 01:13:57 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- d514392f17fd4d386cfadde7f849d97db4ca1fb0
-Message-ID: <63cacbd5.EvTYTGZtWc/zCwC9%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8711410E385;
+	Fri, 20 Jan 2023 17:31:51 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2061.outbound.protection.outlook.com [40.107.100.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B70C610E385;
+ Fri, 20 Jan 2023 17:31:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VnjE3zo9LyA+hl0fDjQerf0OTwPydaohXjmHzSQseFgyz8XpIrvFL0BU57+I4j3+RmeZtRZcygKo//uXQ/4zFSh/YzrchWzCrTV8zFP2iPG+EOR8s/LFELyapstDoXgeO+oQEW9gTVJ8gH5Iv7znGFVmtyF5S+r2MKtyx7dgCF1RE/aCIwiyqDXRhXVG0qHIWys+Hwr81zSpz+J0q/Z8BYE5++7VgO7TffwgxD9voON0aEBeWeDWk8XLNrtlCrtdlV6TVlAvQc52YHpEclsO7SVHHED7P3nMmMpAXgKAc1ZDWpGPVPe5DjxABIcfFYzjDLt9VXnMoaJI0Gzuz1w7vw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1UaUlVHi9t0u9oFk/h5G2dJi5oO6zN5KYpcCNzQnFns=;
+ b=BCxBKoERGhxKxiGQTvCyfsDvxpWdSQ+w08Pyupx9QbgPZ7rjSiiXY4MHJr0R3o7dWeRUq8XXu3WnCOV4vHUv45nsXBPQVZsXtjQ9IQM9l3bLRLm1qVyGgsm+Xlvzg/ZwdRzvC/pAFLuFdbUsNQGdcav0+u7I+fON3FGeT4F1UTkZqqD4ZdijvKIqDtOZC0DPSeOVgyOMYMoMP+7mJAZ+uwmnMCs+abRi/Ryu5R7l0D/+NSILup7xQPE1MxQky6FFP4w0WHLzE1tgDbz1QZJYk60ugCd2ki6ultVR3Jls34RDSILKSPcAOOvBjDnQ3HsdDCU7PFeD5GvaBGF4X3QiKw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1UaUlVHi9t0u9oFk/h5G2dJi5oO6zN5KYpcCNzQnFns=;
+ b=r4dRhdTAymOD5wYjNNKY3PVonzSA/B939lsj62MoALZQBEwOKrMEMIw4KXzplaUyWA72iphZQkjhvszlBdLlVuwEhkC5Qm9LxoQUGAX1i9E+HsaxSknY2kP9oGb0jhWXrQhfr8rPA0+Srg/Yw/b2qcKh6atL/qTPMKOCg4eQTVg=
+Received: from BN9PR03CA0168.namprd03.prod.outlook.com (2603:10b6:408:f4::23)
+ by DM4PR12MB7741.namprd12.prod.outlook.com (2603:10b6:8:103::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.23; Fri, 20 Jan
+ 2023 17:31:46 +0000
+Received: from BN8NAM11FT074.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:f4:cafe::1b) by BN9PR03CA0168.outlook.office365.com
+ (2603:10b6:408:f4::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.27 via Frontend
+ Transport; Fri, 20 Jan 2023 17:31:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT074.mail.protection.outlook.com (10.13.176.154) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6023.16 via Frontend Transport; Fri, 20 Jan 2023 17:31:45 +0000
+Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 20 Jan
+ 2023 11:31:43 -0600
+From: Hamza Mahfooz <hamza.mahfooz@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/display: use a more appropriate return value in
+ dp_retrieve_lttpr_cap()
+Date: Fri, 20 Jan 2023 12:32:23 -0500
+Message-ID: <20230120173226.98569-1-hamza.mahfooz@amd.com>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT074:EE_|DM4PR12MB7741:EE_
+X-MS-Office365-Filtering-Correlation-Id: 77d5ffcd-5b88-4624-165f-08dafb0c3405
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Nr1dzFOGMJQRyzkC/kMAcDjeh0cldPF0X+AE472sPcy5Nx4w6tKniXa3dC3S42KSttRsGEjz4ffgow33vA2wTNn9oisCkRuPcSTtzQoCMqgJDRxT+1Uu9iFw5qkGC9YA2MAyd0ORKcqivm6tCTSdNALG7njDE7jTTZD6i4wQdSxIuI8KH7lNxcp90UClqDkBZ/BrkMIdg5jgBhY4Vn5HaHhMQNYBCxq1RxD32TBEJSnHAcgaxzVfa6pN5CokF5dOdShIBNwplAAyv/fcr6wDhMrOcbxCkDIrjC4+MUJy0PAm7qxwjCq569d6fhgHcJgrLAXYtP7bZ+jYBhOQx15D5LdsxAEujKzI0betULrupyh6BYJktTl/3yroVhVK88EluYiUmJafEOi6+aImNPdSOgC2QgG6M7t2k6xBdnbZG2P8giUiA1rJKGJ2ENJLyQl+4g6PAGIfnTeUSO8EMnDC7cytpTaHi0GPH4FzkaK8LoPfofmvhwDgYCBwfdqM7qqZlLkYsSV2WfqokDjzEdW8/hA+hS6z643GNIfowDQ7MqcAKvZd4FF+VDvA6uT2R4Y6ZRdD/PcE7TA4qhdyvRJxA5HKZ2ekSjnmk49ImVmJ2O+NPes/tEn0GZcmghbkjxWf6KM6Id+EuLWWv9aiiWnpzj8fqmKXPTOiDlhH8llYEKa57Wy/ENo0DOsvg/XTMBtHnQDhQOG9mek+XexejRk9p2ILHV0fDNPsr9B2QTBNOeBllPb5iGtR80IxXyzJpOghiZnH8uP/tZOs5knwYGEPeQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(136003)(396003)(346002)(376002)(451199015)(46966006)(36840700001)(40470700004)(83380400001)(36860700001)(82740400003)(81166007)(70586007)(6916009)(5660300002)(44832011)(356005)(4326008)(8936002)(2906002)(70206006)(1076003)(82310400005)(86362001)(426003)(478600001)(40480700001)(336012)(16526019)(186003)(26005)(2616005)(41300700001)(54906003)(40460700003)(8676002)(316002)(6666004)(47076005)(36756003)(16060500005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2023 17:31:45.6805 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 77d5ffcd-5b88-4624-165f-08dafb0c3405
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT074.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7741
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,187 +98,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kvm@vger.kernel.org, netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- amd-gfx@lists.freedesktop.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- linux-arm-kernel@lists.infradead.org, sound-open-firmware@alsa-project.org
+Cc: Arnd Bergmann <arnd@arndb.de>, Leo Li <sunpeng.li@amd.com>,
+ Wenjing Liu <wenjing.liu@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: d514392f17fd4d386cfadde7f849d97db4ca1fb0  Add linux-next specific files for 20230120
+Not all ASICs support LTTPR, however if they don't it doesn't mean that
+we have encountered unexpected behaviour. So, use DC_NOT_SUPPORTED
+instead of DC_ERROR_UNEXPECTED.
 
-Error/Warning reports:
+Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/link/link_dp_capability.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-https://lore.kernel.org/oe-kbuild-all/202301191616.R33Dvxk4-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202301192229.wL7iPJxS-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202301201120.aIaz7dT4-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202301202042.herfGxx6-lkp@intel.com
-
-Error/Warning: (recently discovered and may have been fixed)
-
-Documentation/virt/kvm/api.rst:5070: WARNING: Unexpected indentation.
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_training.c:1585:38: warning: variable 'result' set but not used [-Wunused-but-set-variable]
-drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_core.c:5253:24: sparse:    left side has type restricted __le16
-drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_core.c:5253:24: sparse:    right side has type restricted __le32
-idma64.c:(.text+0x6a): undefined reference to `devm_platform_ioremap_resource'
-
-Unverified Error/Warning (likely false positive, please contact us if interested):
-
-drivers/net/dsa/microchip/ksz_ptp.c:217 ksz_ptp_clock_register() warn: passing zero to 'PTR_ERR'
-drivers/nvmem/imx-ocotp.c:599:21: sparse: sparse: symbol 'imx_ocotp_layout' was not declared. Should it be static?
-drivers/nvmem/layouts/sl28vpd.c:143:21: sparse: sparse: symbol 'sl28vpd_layout' was not declared. Should it be static?
-mm/hugetlb.c:3101 alloc_hugetlb_folio() error: uninitialized symbol 'h_cg'.
-mm/zsmalloc.c:900:20: warning: unused function 'obj_allocated' [-Wunused-function]
-sound/soc/sof/sof-audio.c:329 sof_prepare_widgets_in_path() error: we previously assumed 'swidget' could be null (see line 306)
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- arc-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- arm-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- arm-randconfig-s032-20230119
-|   `-- drivers-nvmem-imx-ocotp.c:sparse:sparse:symbol-imx_ocotp_layout-was-not-declared.-Should-it-be-static
-|-- arm64-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- csky-randconfig-m041-20230119
-|   |-- drivers-net-dsa-microchip-ksz_ptp.c-ksz_ptp_clock_register()-warn:passing-zero-to-PTR_ERR
-|   `-- sound-soc-sof-sof-audio.c-sof_prepare_widgets_in_path()-error:we-previously-assumed-swidget-could-be-null-(see-line-)
-|-- csky-randconfig-r025-20230119
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- csky-randconfig-s043-20230119
-|   |-- drivers-net-wireless-realtek-rtl8xxxu-rtl8xxxu_core.c:sparse:left-side-has-type-restricted-__le16
-|   |-- drivers-net-wireless-realtek-rtl8xxxu-rtl8xxxu_core.c:sparse:right-side-has-type-restricted-__le32
-|   `-- drivers-net-wireless-realtek-rtl8xxxu-rtl8xxxu_core.c:sparse:sparse:invalid-assignment:
-|-- i386-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- ia64-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- ia64-randconfig-c033-20230119
-|   `-- drivers-net-ethernet-microchip-vcap-vcap_api.c:WARNING-opportunity-for-kmemdup
-|-- ia64-randconfig-s052-20230119
-|   `-- drivers-nvmem-imx-ocotp.c:sparse:sparse:symbol-imx_ocotp_layout-was-not-declared.-Should-it-be-static
-|-- loongarch-randconfig-r024-20230119
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- loongarch-randconfig-s042-20230119
-|   `-- drivers-nvmem-layouts-sl28vpd.c:sparse:sparse:symbol-sl28vpd_layout-was-not-declared.-Should-it-be-static
-|-- m68k-randconfig-c004-20230119
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- mips-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- openrisc-randconfig-s033-20230119
-|   `-- drivers-nvmem-imx-ocotp.c:sparse:sparse:symbol-imx_ocotp_layout-was-not-declared.-Should-it-be-static
-|-- powerpc-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- riscv-randconfig-s041-20230119
-|   `-- drivers-nvmem-imx-ocotp.c:sparse:sparse:symbol-imx_ocotp_layout-was-not-declared.-Should-it-be-static
-|-- s390-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- sparc-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- x86_64-allnoconfig
-|   `-- Documentation-virt-kvm-api.rst:WARNING:Unexpected-indentation.
-|-- x86_64-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
-`-- x86_64-randconfig-m001
-clang_recent_errors
-|-- s390-randconfig-r044-20230119
-|   `-- idma64.c:(.text):undefined-reference-to-devm_platform_ioremap_resource
-`-- x86_64-randconfig-a012
-    `-- mm-zsmalloc.c:warning:unused-function-obj_allocated
-
-elapsed time: 882m
-
-configs tested: 79
-configs skipped: 3
-
-gcc tested configs:
-x86_64                            allnoconfig
-um                             i386_defconfig
-i386                                defconfig
-um                           x86_64_defconfig
-x86_64                              defconfig
-x86_64                               rhel-8.3
-arc                                 defconfig
-alpha                               defconfig
-arm                                 defconfig
-i386                          randconfig-a001
-x86_64                          rhel-8.3-func
-m68k                             allyesconfig
-x86_64                           rhel-8.3-syz
-x86_64                    rhel-8.3-kselftests
-x86_64                           allyesconfig
-powerpc                           allnoconfig
-x86_64                         rhel-8.3-kunit
-ia64                             allmodconfig
-arm                  randconfig-r046-20230119
-x86_64                        randconfig-a002
-arm                              allyesconfig
-arc                  randconfig-r043-20230119
-m68k                             allmodconfig
-i386                          randconfig-a003
-arc                              allyesconfig
-arm64                            allyesconfig
-alpha                            allyesconfig
-x86_64                           rhel-8.3-kvm
-x86_64                        randconfig-a006
-i386                          randconfig-a005
-x86_64                           rhel-8.3-bpf
-x86_64                        randconfig-a004
-sparc64                          alldefconfig
-riscv                             allnoconfig
-sparc                       sparc32_defconfig
-m68k                          hp300_defconfig
-i386                             allyesconfig
-powerpc                 mpc85xx_cds_defconfig
-parisc                           alldefconfig
-riscv                    nommu_virt_defconfig
-mips                         bigsur_defconfig
-arm                        keystone_defconfig
-sh                   secureedge5410_defconfig
-i386                          randconfig-a014
-riscv                    nommu_k210_defconfig
-s390                                defconfig
-i386                          randconfig-a012
-x86_64                        randconfig-a013
-i386                          randconfig-a016
-riscv                          rv32_defconfig
-s390                             allmodconfig
-sh                               allmodconfig
-i386                   debian-10.3-kselftests
-x86_64                        randconfig-a011
-i386                              debian-10.3
-i386                          randconfig-c001
-mips                             allyesconfig
-x86_64                        randconfig-a015
-s390                             allyesconfig
-powerpc                          allmodconfig
-
-clang tested configs:
-x86_64                          rhel-8.3-rust
-x86_64                        randconfig-a005
-hexagon              randconfig-r045-20230119
-x86_64                        randconfig-a001
-i386                          randconfig-a002
-riscv                randconfig-r042-20230119
-x86_64                        randconfig-a003
-hexagon              randconfig-r041-20230119
-s390                 randconfig-r044-20230119
-i386                          randconfig-a006
-x86_64                        randconfig-k001
-i386                          randconfig-a004
-arm                           omap1_defconfig
-i386                          randconfig-a013
-i386                          randconfig-a011
-i386                          randconfig-a015
-x86_64                        randconfig-a016
-x86_64                        randconfig-a012
-x86_64                        randconfig-a014
-
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/link_dp_capability.c
+index e72ad1b8330f..21fd9275ae4c 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_dp_capability.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_dp_capability.c
+@@ -1462,7 +1462,7 @@ enum dc_status dp_retrieve_lttpr_cap(struct dc_link *link)
+ 	bool vbios_lttpr_interop = link->dc->caps.vbios_lttpr_aware;
+ 
+ 	if (!vbios_lttpr_interop || !link->dc->caps.extended_aux_timeout_support)
+-		return DC_ERROR_UNEXPECTED;
++		return DC_NOT_SUPPORTED;
+ 
+ 	/* By reading LTTPR capability, RX assumes that we will enable
+ 	 * LTTPR extended aux timeout if LTTPR is present.
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+2.39.0
+
