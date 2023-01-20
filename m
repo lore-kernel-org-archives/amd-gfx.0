@@ -4,89 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 136AFC004D4
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Jan 2023 00:44:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85A81C38142
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Jan 2023 01:14:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8438110E0D6;
-	Fri, 20 Jan 2023 00:44:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0FF810E9FE;
+	Fri, 20 Jan 2023 01:14:33 +0000 (UTC)
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2071.outbound.protection.outlook.com [40.107.237.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6052010E0D6
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Jan 2023 00:44:46 +0000 (UTC)
+ (mail-bn8nam12on2080.outbound.protection.outlook.com [40.107.237.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE15B10E9FE
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Jan 2023 01:14:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nYvWYyCJ1AQUilw4JvddKAfp5V7CWdmhD72t3v4csnPTxXYzyd5iY+LhFDFlN6ccmoRljHRNI8BV496R0vUvbZEkBCzhH6xN1x6Po1uUxLOgYIx2Xp2Jv2tkmOncDGrxqpbG0fX2R3STnlSmt1hHfELC4L0pt6L2mW2FajLZS3dtFXbWu8/vXq6gqzOGxE/Uthfxs8P1fNJznnB0mjFcXplx9T9L3rV4Eb7+txdw8KhLMO5hE0X8owK9TECDJPjIBEWUqJxn/YGkPYk5+0e9TnQBG1vN+1A3Fd/HMLa26VrWGRU/QZpRQbA6vHLqIIWKKMfYBCW6XZFdMrB1HGM9vg==
+ b=L6w6xOtH09tqc/rgEwfedXkx5Fpj2WTr8Q24K9jQ+A32cocjpBDu7r4w5qTZrV1Nzjy+xZyilyQ3SsIZWoN1120F9upDGyMj/hb/Y1Tx/BybLOXv1o9JgpsVJs5HqR3P2WyRxc3WKP3osPzwfAvWYlRU4yx6kx0sCaTs1IxQZ+9sHd/GrckX9yW52U05NmNZUcY6uiXemWi/3VX+V2SH0uloH22NKhZHeSBi2yMyULNF44AzRncAYc6ktGSy4SWWTTe0Uen3Qc3LaaRtVeM8AmBI7kAOHDRPMXjkeb5qM/fZXsPs5fDX2npS/Dr708DSPbi9M7Ddl6h745PREuiVWg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jc9gd5MB89u9PBYbSTnGSrt4ezCCywJwX/7C3IS6oBI=;
- b=jQmZKrRmHLIoLLL3OWEKx8NPazg5CchpEUEVBiWngbU7pDMquMfkVnkA2qCwbCN3ab3NNVo4gj5y3wXtz5xyZ7NW5SEDBfXh9cTS1hZHbL3Gp2sYLauX+7764sErYgUWkNh20p8SE+ODGoLC8+pRmJ7sm08WLCj8c/qvj4GRV8BU1AsWZB/Z69/G+08/gpEOr5Di9FxW5f6HWu3xOfnvg01aJlYFvopeO01+oPefS7zzabNy75LcpHLbSbVRWWhrYA7j7boi35mkvOSjLHyL244LyN1QS+u2YiWj4Z0qtHgjrw50Cm7s+vMSXVKk5I6JVy54rihAkrvD27CcJTGvpQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=Gz1PbJQiZGdj+CepfMAcgASkVGzfPwgCIVCVJcjNz1o=;
+ b=HDkh4iJP3/snVEOlPomwcdldvmehgfRdn8kPf2BOqtSBBezd5W+OSYE7ndYPvQ22M+4zRgZnmF3KLPx1KcOpsAUtSy2VR0gTm3pLm+bHLsyThC/aoUJGzOhzBC3pcaTB1ZgwrWUF2827A3Ko0sKH14iIiSKxN+1jg3+WwVrzQk5oKM+HXQGfder1j323GttswxBrkMzsB3VgsPyg9QTpyuPFTCTcwu1cPZuRYNBfADkWRhBMJusd4BO7ZftiYwI00wIp4vtExyL0dukZgajBQhyrAbeUuuILhXyv5kKe5IMpfqcPj/uvGGz3l0qrIZk0o976Q7ZW8CqtziBkicD9Nw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jc9gd5MB89u9PBYbSTnGSrt4ezCCywJwX/7C3IS6oBI=;
- b=jtZtjPbjV9UdWn7HWcj3jgi3tPq6b/zOpRqsuN3FifvNN7olxWAUTrdDAa0IDxRjO1MmC+asZGGEFUSG0qb51ZltiYNy3Nh9hKXe5qFe0NOUqZKE6PW3ZtAeJ7Il5VkqglHCSuAR3Bu7RLEZUv9qeGk+UPAVB1gkbIWhh1Rkk8E=
-Received: from DM6PR07CA0057.namprd07.prod.outlook.com (2603:10b6:5:74::34) by
- SN7PR12MB6861.namprd12.prod.outlook.com (2603:10b6:806:266::14) with
+ bh=Gz1PbJQiZGdj+CepfMAcgASkVGzfPwgCIVCVJcjNz1o=;
+ b=UjzG25e1JO3DeTUinQNstzTj8aMmE6TWkNLP9jTeE0tOLuJX9BmUDiON1RiXh5gDbUqiZLLO7oGbrRkYcWjMqJ/QvVAljUX7ZFdBmgNyO/sJHeI+M3d/edE7jcCvZrsRaGX2ktaTwnYWV0bUHSoUZQDDFuaYrr2mdprDVfv21OU=
+Received: from DM6PR12MB3067.namprd12.prod.outlook.com (2603:10b6:5:115::10)
+ by MW4PR12MB7014.namprd12.prod.outlook.com (2603:10b6:303:218::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.24; Fri, 20 Jan
- 2023 00:44:43 +0000
-Received: from DM6NAM11FT026.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:74:cafe::9d) by DM6PR07CA0057.outlook.office365.com
- (2603:10b6:5:74::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.25 via Frontend
- Transport; Fri, 20 Jan 2023 00:44:43 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT026.mail.protection.outlook.com (10.13.172.161) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6023.16 via Frontend Transport; Fri, 20 Jan 2023 00:44:42 +0000
-Received: from jonathan-KFD.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 19 Jan
- 2023 18:44:41 -0600
-From: Jonathan Kim <jonathan.kim@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: remove unconditional trap enable on add gfx11
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.23; Fri, 20 Jan
+ 2023 01:14:29 +0000
+Received: from DM6PR12MB3067.namprd12.prod.outlook.com
+ ([fe80::12e2:2ad2:8167:b84b]) by DM6PR12MB3067.namprd12.prod.outlook.com
+ ([fe80::12e2:2ad2:8167:b84b%3]) with mapi id 15.20.5986.023; Fri, 20 Jan 2023
+ 01:14:29 +0000
+From: "Sider, Graham" <Graham.Sider@amd.com>
+To: "Kim, Jonathan" <Jonathan.Kim@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: remove unconditional trap enable on add gfx11
  queues
-Date: Thu, 19 Jan 2023 19:43:56 -0500
-Message-ID: <20230120004356.3872152-1-jonathan.kim@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT026:EE_|SN7PR12MB6861:EE_
-X-MS-Office365-Filtering-Correlation-Id: f76da042-b66f-4a44-f5c5-08dafa7f8535
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: BzEj0biP3FD1iLvvMwcln0oV9XTKlrqXj7pfzrjw2Jykjr5IKQV1LmOcUNR7Euc0GBMnGdGuNJmQwda/wz5OOLcn0iEB/1r0gaXfswFVmbFAo+pRvZGwPq4ufOMtgmEGcD8GNnkqnM6109wofb6ngcdQ/fQh9NDcr99fHv2lQJABN0M2hZ16i2HVbtDUyDA8XSbN7Uq2fenI/S1lg9vTs73BLjrVZEddjf+UYzqbsx5MW54xZljlSo0S3Nx2aRRR/l35qi5FFLlG5o/ArYeVikh7yFwqeverGcWgWCKPhcDQmIn1Zyz8ZbOJ94uKqWLh963+OwZ1E4HDeR+Gp+hs5+BU2BFPOsSJ7DQJEmFBppQoO+ta9BHazf7QQ/uxUQ1oH4Vjlc6ZjpWgNVRUCPtz77hv3/xotK7ccxDyQ/+uyJTCciww4WB/A7Ed9G28waKEOkCaaCW7CPaOmWt8abvNWLNGLSvP/elYMIjsyLBQSZYRiNj1b/lhR1RPpWTl0iZoxcl/AALVp4qVwdOSOZudqTnatrg8aPP09yS7/ZBNXqiSEyAwhtA2jJZ24n8CasI0/Wojl2/vnOphQGV1Jw5rqEdB2oPswEXjynQ3h4+04rrrkfsZsIyaATxH71aH1KA05ns/JuFHcFcsH4pb/cpaxqS5mwEL2QCGAhXvbIuwaFe1sWl+wKnWGXB2OfBzUXG5jRW9dalJTzcihn9gZhCcASkMElpQAVVlywffZUrkPdg=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230022)(4636009)(346002)(396003)(39860400002)(136003)(376002)(451199015)(40470700004)(36840700001)(46966006)(36860700001)(81166007)(70586007)(478600001)(356005)(86362001)(82740400003)(5660300002)(8936002)(44832011)(70206006)(2906002)(82310400005)(4326008)(6916009)(41300700001)(8676002)(40480700001)(186003)(40460700003)(336012)(2616005)(83380400001)(1076003)(26005)(16526019)(7696005)(316002)(54906003)(6666004)(426003)(47076005)(36756003)(36900700001);
+Thread-Topic: [PATCH] drm/amdgpu: remove unconditional trap enable on add
+ gfx11 queues
+Thread-Index: AQHZLGhjAXmoYOFjnk6OYEgraSEhHK6mgAEw
+Date: Fri, 20 Jan 2023 01:14:28 +0000
+Message-ID: <DM6PR12MB30677D531AF2DF4EF1C8DB2D8AC59@DM6PR12MB3067.namprd12.prod.outlook.com>
+References: <20230120004356.3872152-1-jonathan.kim@amd.com>
+In-Reply-To: <20230120004356.3872152-1-jonathan.kim@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-01-20T01:14:24Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=593e1dd6-619f-46bc-9dde-39822857103c;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2023-01-20T01:14:25Z
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: d84ba5b7-b92f-4bf7-bf43-613d3e021d39
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR12MB3067:EE_|MW4PR12MB7014:EE_
+x-ms-office365-filtering-correlation-id: cce0a458-46c3-4f26-b93e-08dafa83adcd
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: KUZSvgbO+aHwZL8i2xfv1/cNPvRk816fMxBbtUJMefK2kkrofPhhAsleq4O2YBdpDxLnzlwSghW6lC91/8neXEDuNQTAhP/vWV/CEbnU0guqe/zfNyFrhn6wfUKfyfApka39NOyKGQjy3JGjE/owSOeb6VD1/D9OcoL0l5w5H5Klk/3Czk0Kr0SjWoh1zN5ew+i/bkW9EUqUDR09SuSxmgr3nv43MoyK+Iu6xJTyG/1+pqoL+PhKnBH70xt54+Cex8ZcAWHZNbP/pSXk866hGaOaNyiM7Ghddao8o2dLlmctUTgDvxue8PKMbjDVOJduOpslnjO6aivw8uXDHSth9UAyOqXiP4/uwBxFEiO8+VVT9mj5+uLkspSXW3i/r2yaYKUn6pIZh4fof4HXqokmtd7p4TxHCLrxJ4d3F09/sDg4skW7q+pCzqNC78Y4RuqVeWt4zhDfnfa2piusdNujshoNMTNNvcHXRpuaM4vU72XJQKcGn1vHDYvmc2B/9UAGXNGHRhe1Q5l8c0RgsmrsAk7DHQlUt6lrMuGZhTAyZya4zpkUtVwG/6nTwiUhEWflfB+8YiM60DW1326q62xrYktg4hGANlsvlz8xGQE522JQxgB5x/GwocPcPV4ZHqRL1HkprwqqqN6aBeqTXs2qLfoj+KYPWtvs3sydWAP3yym8hngslGIz37nx5Dn8AE8T8G3gG0EBe4xQByVoKkyrvw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3067.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(376002)(136003)(39860400002)(346002)(396003)(366004)(451199015)(33656002)(76116006)(41300700001)(66476007)(66446008)(66946007)(64756008)(4326008)(8676002)(66556008)(110136005)(316002)(86362001)(38070700005)(83380400001)(8936002)(122000001)(52536014)(38100700002)(55016003)(5660300002)(71200400001)(2906002)(9686003)(7696005)(53546011)(478600001)(6506007)(26005)(186003);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?RJL0Y8S/rIDQk1dQ+dbr74+8G4xvpzR8xAIjKEzmK+P1UJniqfsFDL825MKG?=
+ =?us-ascii?Q?KKoMSZh8vHNybAWJI8uM3DfPek1YlKrP5vEzOQLnUnHv/eb1WSRETfE/nJ0c?=
+ =?us-ascii?Q?wL/+EorC3id2OJ9Pp20UH3zDTK8UtQjktAyjUpu3vz5X0siY+Q1ByQrAifFR?=
+ =?us-ascii?Q?d+fg8FppcB4avVVWAxB0PQybDhRuMOvgOav6sTc6bJsVX7eIMIrB6hfkAagD?=
+ =?us-ascii?Q?/dEnPE3EikqI6sjD1FMsSGVmNkM5HrrYA+6IZ6rZJAQ8coDtUFSBE6rJTG7g?=
+ =?us-ascii?Q?lmYSFGjQ9VRtCOvgrHVozrnL7jsbDUBweKLHSE1LeebIM7tlc8jnRrN0BMSu?=
+ =?us-ascii?Q?F5YvrkqKilKJ49clHEf54tpjgV5vsk6eq7Nwn56MrC1SJSuha5+F6a12Lusq?=
+ =?us-ascii?Q?wVrUIAJAIzA0OuXuHlkridHbSp3cSoFgpb44TXuizRdzxJxEzvEzvC3tx7MR?=
+ =?us-ascii?Q?KkQMuCguVHIBYtY9+GeytJBEpCE42TOueDsYb/vhVl8n9jsBXH3VuoS2twdo?=
+ =?us-ascii?Q?/iQAG+tONrlXoZ7TKJSHyApDxgVEDs2H3bdn3YB2o5hHq7k7+bure+8rWE5J?=
+ =?us-ascii?Q?UaOGTr2kTWTRrac0FAH0ODwrzaZdsFfTRBHo8wJJ/0brDgVGvsbefMgQlrzi?=
+ =?us-ascii?Q?MLxPxMmmOLoFuZbVSCirCHttKNMZSi34RYrS6xepA9vNwRR86mA/hMacGNFa?=
+ =?us-ascii?Q?Evv4vt0T885qZdbKs/P1ye8RdM2ICBE7dRe9TmyMravuCNNTsiXU8VkRrg/T?=
+ =?us-ascii?Q?1c4FdiV4OeqnDaRivHPNnTtn29jrng3jQiSKRlBrVjW1XgTTiaZWFedTaXJn?=
+ =?us-ascii?Q?XOWJrJNiw7FDVJqiHOKuagyDFHX1F1wE49ugGLfS4efnN2OlTXFk9DQnexaC?=
+ =?us-ascii?Q?eyHmLV2w+5EMR70C2RWrkTwkm2YTWvR7M38GVMBOkxZWxz0pQL1DNWbzyEkJ?=
+ =?us-ascii?Q?//H1IoDGZThikmqognHBEmfIP5DgK99xPCrkCRhWjDAMmqJofs+73Dx65b6P?=
+ =?us-ascii?Q?0kg5pNACaWwhLnX/Ib9DUby99eVTNeu12hkDbZ8jlEzpyqlk9tYCXYb1qD32?=
+ =?us-ascii?Q?VLAlZ9OSs3ketheE/w32jBxoIcAQuiKRb54hDRiQC8/7nJbg3dCLaRyUbEQG?=
+ =?us-ascii?Q?dIW3AwIRYwbO47FMzT+X653n4oGpxpGzHb+rg4qfKngMW+CBkTE0szUxqkoc?=
+ =?us-ascii?Q?6pB3+PxFMmoJNISo9SYnBmaRuCqI8yY2DnjpeZrO00W6OiKxl7M50pgPUv7H?=
+ =?us-ascii?Q?fyVi2jT4h7opd+Kmwd6eubPSZJviy7lYwVFc+9t7RzPpT/yawd2Liz6MEeDv?=
+ =?us-ascii?Q?Ynh5QqgEz2JFzTIgddZkVaor8MiOkRfxJSBkmNxNZQK+khZSKKt8ixNJvSvf?=
+ =?us-ascii?Q?m0JlOUxcguB7cKecICDVLpxKw5MrMc+0WiCYbwzOCwFbstSieY8MjSCG3JIC?=
+ =?us-ascii?Q?hX4o9wDNMaMRFck+MrpKkRHvF7qAAaS9vG2DvEEgYuh/pdr6mb9tl/wWnHk1?=
+ =?us-ascii?Q?oadWY611/d+kgkH4UI32wsaeAS5vjkwInJWYsWYzVaBM4JJFSINJsThY/q3J?=
+ =?us-ascii?Q?jIdqIzJVypBL1gxsPeo=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2023 00:44:42.8261 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f76da042-b66f-4a44-f5c5-08dafa7f8535
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT026.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6861
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3067.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cce0a458-46c3-4f26-b93e-08dafa83adcd
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jan 2023 01:14:28.9634 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: nxWjC2/h3y+ocEh4t9e01JvVzjJBngg8wxQbMeu6nyicjNp/cr0bqlcwY266jwKBhGYZEyOrrAt+Smj7ZRU1RQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7014
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,13 +131,26 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix.Kuehling@amd.com, Jonathan Kim <jonathan.kim@amd.com>,
- Graham Sider <graham.sider@amd.com>
+Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Rebase of driver has incorrect unconditional trap enablement
-for GFX11 when adding mes queues.
+[AMD Official Use Only - General]
+
+Reviewed-by: Graham Sider <Graham.Sider@amd.com>
+
+-----Original Message-----
+From: Kim, Jonathan <Jonathan.Kim@amd.com>=20
+Sent: Thursday, January 19, 2023 7:44 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Sider, Graham <Graham.Sider@amd.com>; Kuehling, Felix <Felix.Kuehling@a=
+md.com>; Kim, Jonathan <Jonathan.Kim@amd.com>; Sider, Graham <Graham.Sider@=
+amd.com>
+Subject: [PATCH] drm/amdgpu: remove unconditional trap enable on add gfx11 =
+queues
+
+Rebase of driver has incorrect unconditional trap enablement for GFX11 when=
+ adding mes queues.
 
 Reported-by: Graham Sider <graham.sider@amd.com>
 Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
@@ -112,30 +158,32 @@ Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/mes_v11_0.c
 index bfa305079bfc..00e64838bb8b 100644
 --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -190,19 +190,18 @@ static int mes_v11_0_add_hw_queue(struct amdgpu_mes *mes,
- 	mes_add_queue_pkt.queue_type =
+@@ -190,19 +190,18 @@ static int mes_v11_0_add_hw_queue(struct amdgpu_mes *=
+mes,
+ 	mes_add_queue_pkt.queue_type =3D
  		convert_to_mes_queue_type(input->queue_type);
- 	mes_add_queue_pkt.paging = input->paging;
- 	mes_add_queue_pkt.vm_context_cntl = vm_cntx_cntl;
- 	mes_add_queue_pkt.gws_base = input->gws_base;
- 	mes_add_queue_pkt.gws_size = input->gws_size;
- 	mes_add_queue_pkt.trap_handler_addr = input->tba_addr;
- 	mes_add_queue_pkt.tma_addr = input->tma_addr;
- 	mes_add_queue_pkt.is_kfd_process = input->is_kfd_process;
--	mes_add_queue_pkt.trap_en = 1;
- 
- 	/* For KFD, gds_size is re-used for queue size (needed in MES for AQL queues) */
- 	mes_add_queue_pkt.is_aql_queue = input->is_aql_queue;
- 	mes_add_queue_pkt.gds_size = input->queue_size;
- 
- 	if (!(((adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) >= 4) &&
- 		  (adev->ip_versions[GC_HWIP][0] >= IP_VERSION(11, 0, 0)) &&
- 		  (adev->ip_versions[GC_HWIP][0] <= IP_VERSION(11, 0, 3))))
- 		mes_add_queue_pkt.trap_en = 1;
--- 
+ 	mes_add_queue_pkt.paging =3D input->paging;
+ 	mes_add_queue_pkt.vm_context_cntl =3D vm_cntx_cntl;
+ 	mes_add_queue_pkt.gws_base =3D input->gws_base;
+ 	mes_add_queue_pkt.gws_size =3D input->gws_size;
+ 	mes_add_queue_pkt.trap_handler_addr =3D input->tba_addr;
+ 	mes_add_queue_pkt.tma_addr =3D input->tma_addr;
+ 	mes_add_queue_pkt.is_kfd_process =3D input->is_kfd_process;
+-	mes_add_queue_pkt.trap_en =3D 1;
+=20
+ 	/* For KFD, gds_size is re-used for queue size (needed in MES for AQL que=
+ues) */
+ 	mes_add_queue_pkt.is_aql_queue =3D input->is_aql_queue;
+ 	mes_add_queue_pkt.gds_size =3D input->queue_size;
+=20
+ 	if (!(((adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) >=3D 4) &&
+ 		  (adev->ip_versions[GC_HWIP][0] >=3D IP_VERSION(11, 0, 0)) &&
+ 		  (adev->ip_versions[GC_HWIP][0] <=3D IP_VERSION(11, 0, 3))))
+ 		mes_add_queue_pkt.trap_en =3D 1;
+--
 2.25.1
-
