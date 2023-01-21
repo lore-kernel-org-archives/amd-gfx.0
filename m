@@ -4,42 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4999FC54EAA
-	for <amd-gfx@archiver.kernel.org>; Sun, 22 Jan 2023 21:33:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F06EC25B4E
+	for <amd-gfx@archiver.kernel.org>; Sun, 22 Jan 2023 21:33:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A52F10E2FD;
-	Sun, 22 Jan 2023 21:33:02 +0000 (UTC)
-Received: from msg-2.mailo.com (msg-2.mailo.com [213.182.54.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E480810E1A3;
- Sun, 22 Jan 2023 18:46:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mailo.com; s=mailo;
- t=1674413155; bh=J41ioDWqknlOzdipOF5sD31nhNZl3NF7T0hUSNvNhsI=;
- h=X-EA-Auth:Date:From:To:Cc:Subject:Message-ID:References:
- MIME-Version:Content-Type:In-Reply-To;
- b=f2vIwTa7gBjC8QW6zWihuU2CxvUGZIQ4lWSAAJlEknZHH1gQPn/chKhj0P2B3ADr3
- 6ljtIFr4O7T2RQiDTIMJkNU+erNDHvRrCizCJoNWofiZJE97w1pYFTWD6mQuSCJVY7
- e3+tYz4LnDkCixQalsK1OwmPlwBwutWHkDA8qCwM=
-Received: by b-1.in.mailobj.net [192.168.90.11] with ESMTP
- via ip-206.mailobj.net [213.182.55.206]
- Sun, 22 Jan 2023 19:45:55 +0100 (CET)
-X-EA-Auth: LxLdcSa5DAPkBdm3lAE5Zi4Ztr6lojNLOTcMK4tmNwTIrMEaL45b16ba2tEHLBsIZr6K+6GtA76prZjHrpgzJvjUV0jW4QZq
-Date: Mon, 23 Jan 2023 00:15:50 +0530
-From: Deepak R Varma <drv@mailo.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/4] drm/amd/display: Use min()/max() helper macros
-Message-ID: <Y82EXrIgJyJTVAFk@ubun2204.myguest.virtualbox.org>
-References: <cover.1673730293.git.drv@mailo.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B15E810E2FE;
+	Sun, 22 Jan 2023 21:33:10 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF93F10E05A
+ for <amd-gfx@lists.freedesktop.org>; Sat, 21 Jan 2023 07:28:22 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 49F57B82A23;
+ Sat, 21 Jan 2023 07:28:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89570C433EF;
+ Sat, 21 Jan 2023 07:28:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1674286099;
+ bh=uelgkkZaVqe9jys5JEJEwc7kCy9WMXkTngwZlLUTO98=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=RZj7zOmZx4ZeiLs0jZLeZMGauIj7LrvvUlujVoVmB4FMVRDd25R1M1Uh8ou4k2dnS
+ e/F9G58buKo8i24ohcNp2za464IXZhUdMUrO9k53bZwFJ0cCMU6u+y17J6QHzRQfPj
+ NZKcSJLBmGvT3Dt1yKoE1eUHe9S/prcVM2cIKnvk=
+Date: Sat, 21 Jan 2023 08:28:17 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Tim Huang <tim.huang@amd.com>
+Subject: Re: [PATCH RESEND] drm/amdgpu: skip psp suspend for IMU enabled
+ ASICs mode2 reset
+Message-ID: <Y8uUEUwXCq0yztbq@kroah.com>
+References: <20230121021216.1596133-1-tim.huang@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <cover.1673730293.git.drv@mailo.com>
+In-Reply-To: <20230121021216.1596133-1-tim.huang@amd.com>
 X-Mailman-Approved-At: Sun, 22 Jan 2023 21:32:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -52,41 +50,29 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Praveen Kumar <kumarpraveen@linux.microsoft.com>,
- Saurabh Singh Sengar <ssengar@microsoft.com>
+Cc: mario.limonciello@amd.com, Yifan1.zhang@amd.com, Xiaojian.Du@amd.com,
+ stable@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Alexander.Deucher@amd.com, li.ma@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Jan 15, 2023 at 02:48:45AM +0530, Deepak R Varma wrote:
-> This patch series proposes using standard min() / max() helper macros instead of
-> direct variable comparison using the ternary operator or if/else evaluations. I
-> have tested the change using a dummy module and similar simulations on my x86
-> machine.
-
-Hello,
-May I request a review feedback and comments on this patch set please?
-
-Thank you,
-./drv
-
+On Sat, Jan 21, 2023 at 10:12:16AM +0800, Tim Huang wrote:
+> The psp suspend & resume should be skipped to avoid destroy
+> the TMR and reload FWs again for IMU enabled APU ASICs.
 > 
-> Deepak R Varma (4):
->   drm/amd/display: Use min()/max() macros in dcn_calc_math
->   drm/amd/display: dcn20: Use min()/max() helper macros
->   drm/amd/display: dcn21: Use min()/max() helper macros
->   drm/amd/display: dcn32: Use min()/max() helper macros
-> 
->  .../gpu/drm/amd/display/dc/dml/calcs/dcn_calc_math.c   | 10 +++++-----
->  .../drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c |  5 +----
->  .../amd/display/dc/dml/dcn20/display_mode_vba_20v2.c   |  5 +----
->  .../drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c |  5 +----
->  drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c   |  4 ++--
->  5 files changed, 10 insertions(+), 19 deletions(-)
-> 
-> -- 
-> 2.34.1
-> 
-> 
+> Signed-off-by: Tim Huang <tim.huang@amd.com>
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
 > 
 
+<formletter>
 
+This is not the correct way to submit patches for inclusion in the
+stable kernel tree.  Please read:
+    https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
+for how to do this properly.
+
+</formletter>
