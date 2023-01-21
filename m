@@ -4,38 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1326EC38142
-	for <amd-gfx@archiver.kernel.org>; Sun, 22 Jan 2023 21:33:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC6FFC38142
+	for <amd-gfx@archiver.kernel.org>; Sun, 22 Jan 2023 21:33:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44F5110E1C3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9786910E1CA;
 	Sun, 22 Jan 2023 21:33:01 +0000 (UTC)
-Received: from msg-4.mailo.com (msg-4.mailo.com [213.182.54.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0F1310E1A6;
- Sun, 22 Jan 2023 18:53:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mailo.com; s=mailo;
- t=1674413605; bh=rhAsGMbfg+PGnakQKnQpMWQ6FxgRoSYxPcJe5xXrEP4=;
- h=X-EA-Auth:Date:From:To:Cc:Subject:Message-ID:References:
- MIME-Version:Content-Type:In-Reply-To;
- b=hT8NPtqnyUtg+ElcMwV88lvqkCGTlGRVq4YQGAh3fAn5RkzBzKGAjttv8MwWKTfSw
- 4YJauRG89NBJzra+gabj9BFbuW3SBxhmHoxvZqYMc2IQCvNOXrYDYwDKcuM+meIJ1Q
- Tdjvlg6yAtpzzC+s+HuYI/jTsSipE3mMDUuM1KBE=
-Received: by b-5.in.mailobj.net [192.168.90.15] with ESMTP
- via ip-206.mailobj.net [213.182.55.206]
- Sun, 22 Jan 2023 19:53:25 +0100 (CET)
-X-EA-Auth: sQZjZHsUkHUGta+zBnh7yPGpKpJVDiCrF1C498o1U618e/SJLNy3cV3sT4ijWDGAMV5xW3Qdj6ueHRi05+1t3RVsHHs9s1PC
-Date: Mon, 23 Jan 2023 00:23:19 +0530
-From: Deepak R Varma <drv@mailo.com>
-To: Joe Perches <joe@perches.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>
-Subject: Re: [PATCH] drm/amd/display: Simplify same effect if/else blocks
-Message-ID: <Y82GHzOUHgEqTUq7@ubun2204.myguest.virtualbox.org>
-References: <Y8POxreeC3EvOXhC@ubun2204.myguest.virtualbox.org>
- <33ecbe8971bb9c90d72c67d43ca740abac160908.camel@perches.com>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5464410E14E
+ for <amd-gfx@lists.freedesktop.org>; Sat, 21 Jan 2023 07:20:33 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 14899606DC;
+ Sat, 21 Jan 2023 07:20:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10DDCC433D2;
+ Sat, 21 Jan 2023 07:20:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1674285631;
+ bh=PnVSxXkaLYKWQfgTwGiRvhv/631TKMtH6r7V3MnhUjE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=CGVVHl+901mj841DkQ2+w2VR97373sUHMkCDOghEHcOWA1pfL1RGPRwRzyaDjBZa6
+ 4rXUkYyPUp6Z2xu2LfLZ3jbO1vDGYF9xbykdYjnEYn2d/LOvYSQYXiraqdQoBmY2Or
+ BSSvubc/g2KSCM9x8I36Wk6ssk+5iOM1GQDmzAVo=
+Date: Sat, 21 Jan 2023 08:20:28 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Tim Huang <tim.huang@amd.com>
+Subject: Re: [PATCH v2] drm/amd/pm: drop unneeded dpm features disablement
+ for SMU 13.0.4/11
+Message-ID: <Y8uSPP34u39uPvvp@kroah.com>
+References: <20230121024955.1601467-1-tim.huang@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <33ecbe8971bb9c90d72c67d43ca740abac160908.camel@perches.com>
+In-Reply-To: <20230121024955.1601467-1-tim.huang@amd.com>
 X-Mailman-Approved-At: Sun, 22 Jan 2023 21:32:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -48,79 +49,27 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Saurabh Singh Sengar <ssengar@microsoft.com>, Leo Li <sunpeng.li@amd.com>,
- David Airlie <airlied@gmail.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org,
- Praveen Kumar <kumarpraveen@linux.microsoft.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: mario.limonciello@amd.com, Yifan1.zhang@amd.com, Xiaojian.Du@amd.com,
+ stable@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Alexander.Deucher@amd.com, li.ma@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Jan 15, 2023 at 12:52:10PM -0800, Joe Perches wrote:
-> On Sun, 2023-01-15 at 15:30 +0530, Deepak R Varma wrote:
-> > The if / else block code has same effect irrespective of the logical
-> > evaluation.  Hence, simply the implementation by removing the unnecessary
-> > conditional evaluation. While at it, also fix the long line checkpatch
-> > complaint. Issue identified using cond_no_effect.cocci Coccinelle
-> > semantic patch script.
-> > 
-> > Signed-off-by: Deepak R Varma <drv@mailo.com>
-> > ---
-> > Please note: The proposed change is compile tested only. If there are any
-> > inbuilt test cases that I should run for further verification, I will appreciate
-> > guidance about it. Thank you.
+On Sat, Jan 21, 2023 at 10:49:55AM +0800, Tim Huang wrote:
+> PMFW will handle that properly for gpu reset case. Driver involvement
+> may cause some unexpected issues.
 > 
-> Preface: I do not know the code.
-> 
-> Perhaps Rodrigo Siqueira made a copy/paste error submitting the code for
-> commit 9114b55fabae ("drm/amd/display: Fix SubVP control flow in the MPO context")
-> as the code prior to this change is identical.
-> 
-> Perhaps one of the false uses should be true or dependent on the
-> interdependent_update_lock state.
-
-Thank you Joe for the recommendation.
-
-Hi Rodrigo,
-Can you review and comment on if and what is wrong with your commit?
-
-Thank you,
-./drv
-
-> 
-> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> []
-> > @@ -3470,14 +3470,9 @@ static void commit_planes_for_stream(struct dc *dc,
-> >  		/* Since phantom pipe programming is moved to post_unlock_program_front_end,
-> >  		 * move the SubVP lock to after the phantom pipes have been setup
-> >  		 */
-> > -		if (should_lock_all_pipes && dc->hwss.interdependent_update_lock) {
-> > -			if (dc->hwss.subvp_pipe_control_lock)
-> > -				dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes, NULL, subvp_prev_use);
-> > -		} else {
-> > -			if (dc->hwss.subvp_pipe_control_lock)
-> > -				dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes, NULL, subvp_prev_use);
-> > -		}
-> > -
-> 
-> Perhaps something like:
-> 
-> 		if (dc->hwss.subvp_pipe_control_lock)
-> 			dc->hwss.subvp_pipe_control_lock(dc, context,
-> 							 should_lock_all_pipes &&
-> 							 dc->hwss.interdependent_update_lock,
-> 							 should_lock_all_pipes, NULL, subvp_prev_use);
-> 
-> > +		if (dc->hwss.subvp_pipe_control_lock)
-> > +			dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes,
-> > +							 NULL, subvp_prev_use);
-> >  		return;
-> >  	}
-> >  
+> Signed-off-by: Tim Huang <tim.huang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
 > 
 
+<formletter>
 
+This is not the correct way to submit patches for inclusion in the
+stable kernel tree.  Please read:
+    https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
+for how to do this properly.
+
+</formletter>
