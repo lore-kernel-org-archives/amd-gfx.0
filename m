@@ -4,51 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A57D6C38142
-	for <amd-gfx@archiver.kernel.org>; Sun, 22 Jan 2023 17:29:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1326EC38142
+	for <amd-gfx@archiver.kernel.org>; Sun, 22 Jan 2023 21:33:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 016C410E199;
-	Sun, 22 Jan 2023 17:29:15 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D60110E199;
- Sun, 22 Jan 2023 17:29:13 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id D65F6B80B43;
- Sun, 22 Jan 2023 17:29:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86CB4C433B4;
- Sun, 22 Jan 2023 17:29:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674408549;
- bh=I5pV/HoNpTTtkCpHa3T7LwdnAQwwVwXQ/luDQGSOteE=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=L3R3VeuI8b7SphmS83VI3MhZIjgDm6ANfUG/6GLDdAssBf8R7BhAf78erSlDbdCOA
- SHR+IgQ6/XkSHZgpJfPyQerUVWvlHhmeN4a9pX9i1iiMGQR1NCtYmJ1cXwTwfhZX7o
- nSUmSWPnPqViFik1ksvVU9V1IDz/9d4RBT2fojd5aUL4rHTIN4194hnchaX8aC+BTF
- BVqo/UYoMw7a7dCGuw7CuV/Pc986UJI4q+9eT9V3NhMq3b5TVJgU4xKxtdcd/uUXK3
- PYu79weFDNfEExeZDTIf8YARqxjWnMGBiR5AM+Sg0Tc3PNXSMv1Gk/Hn9eD63agM4/
- o6TOm8IVHvoHg==
-Received: by mail-oi1-f182.google.com with SMTP id o66so8555895oia.6;
- Sun, 22 Jan 2023 09:29:09 -0800 (PST)
-X-Gm-Message-State: AFqh2krEicRs755LDH687F5HMz3vherDpXvk8k2mFuBcDgtVZT8KaRkg
- nvWOF6AYezaAXMAvaeJu6xzpjxvR2WxHf5rma3k=
-X-Google-Smtp-Source: AMrXdXv8T6XTJrOgPfMqPTdeIlKFiVnKdMrLMQCnsb/JOpLPDdW3j/ypXqu3QgM9nVl1xzM73W2o7XvcmK9sHyhknFM=
-X-Received: by 2002:a05:6808:1786:b0:35e:7c55:b015 with SMTP id
- bg6-20020a056808178600b0035e7c55b015mr1279449oib.287.1674408548537; Sun, 22
- Jan 2023 09:29:08 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44F5110E1C3;
+	Sun, 22 Jan 2023 21:33:01 +0000 (UTC)
+Received: from msg-4.mailo.com (msg-4.mailo.com [213.182.54.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0F1310E1A6;
+ Sun, 22 Jan 2023 18:53:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mailo.com; s=mailo;
+ t=1674413605; bh=rhAsGMbfg+PGnakQKnQpMWQ6FxgRoSYxPcJe5xXrEP4=;
+ h=X-EA-Auth:Date:From:To:Cc:Subject:Message-ID:References:
+ MIME-Version:Content-Type:In-Reply-To;
+ b=hT8NPtqnyUtg+ElcMwV88lvqkCGTlGRVq4YQGAh3fAn5RkzBzKGAjttv8MwWKTfSw
+ 4YJauRG89NBJzra+gabj9BFbuW3SBxhmHoxvZqYMc2IQCvNOXrYDYwDKcuM+meIJ1Q
+ Tdjvlg6yAtpzzC+s+HuYI/jTsSipE3mMDUuM1KBE=
+Received: by b-5.in.mailobj.net [192.168.90.15] with ESMTP
+ via ip-206.mailobj.net [213.182.55.206]
+ Sun, 22 Jan 2023 19:53:25 +0100 (CET)
+X-EA-Auth: sQZjZHsUkHUGta+zBnh7yPGpKpJVDiCrF1C498o1U618e/SJLNy3cV3sT4ijWDGAMV5xW3Qdj6ueHRi05+1t3RVsHHs9s1PC
+Date: Mon, 23 Jan 2023 00:23:19 +0530
+From: Deepak R Varma <drv@mailo.com>
+To: Joe Perches <joe@perches.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>
+Subject: Re: [PATCH] drm/amd/display: Simplify same effect if/else blocks
+Message-ID: <Y82GHzOUHgEqTUq7@ubun2204.myguest.virtualbox.org>
+References: <Y8POxreeC3EvOXhC@ubun2204.myguest.virtualbox.org>
+ <33ecbe8971bb9c90d72c67d43ca740abac160908.camel@perches.com>
 MIME-Version: 1.0
-References: <20221228-drop-qunused-arguments-v2-0-9adbddd20d86@kernel.org>
-In-Reply-To: <20221228-drop-qunused-arguments-v2-0-9adbddd20d86@kernel.org>
-From: Masahiro Yamada <masahiroy@kernel.org>
-Date: Mon, 23 Jan 2023 02:28:32 +0900
-X-Gmail-Original-Message-ID: <CAK7LNAQ-HmyKYAWbF2MHEU1FzBzKOvE2DU7Js6tntszLrtUkDg@mail.gmail.com>
-Message-ID: <CAK7LNAQ-HmyKYAWbF2MHEU1FzBzKOvE2DU7Js6tntszLrtUkDg@mail.gmail.com>
-Subject: Re: [PATCH v2 00/14] Remove clang's -Qunused-arguments from
- KBUILD_CPPFLAGS
-To: Nathan Chancellor <nathan@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <33ecbe8971bb9c90d72c67d43ca740abac160908.camel@perches.com>
+X-Mailman-Approved-At: Sun, 22 Jan 2023 21:32:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,143 +48,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: trix@redhat.com, dave.hansen@linux.intel.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-s390@vger.kernel.org, kernel test robot <lkp@intel.com>,
- mpe@ellerman.id.au, x86@kernel.org, christophe.leroy@csgroup.eu,
- mingo@redhat.com, llvm@lists.linux.dev, nicolas@fjasle.eu,
- Segher Boessenkool <segher@kernel.crashing.org>, linux-kbuild@vger.kernel.org,
- Heiko Carstens <hca@linux.ibm.com>, npiggin@gmail.com, bp@alien8.de,
- tglx@linutronix.de, Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>,
- ndesaulniers@google.com, linux-mips@vger.kernel.org,
- Sven Schnelle <svens@linux.ibm.com>, Alex Deucher <alexander.deucher@amd.com>,
- linuxppc-dev@lists.ozlabs.org
+Cc: Saurabh Singh Sengar <ssengar@microsoft.com>, Leo Li <sunpeng.li@amd.com>,
+ David Airlie <airlied@gmail.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org,
+ Praveen Kumar <kumarpraveen@linux.microsoft.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 12, 2023 at 12:05 PM Nathan Chancellor <nathan@kernel.org> wrote:
->
-> Hi all,
->
-> Clang can emit a few different warnings when it encounters a flag that it
-> recognizes but does not support internally. These warnings are elevated to
-> errors within {as,cc}-option via -Werror to catch unsupported flags that should
-> not be added to KBUILD_{A,C}FLAGS; see commit c3f0d0bc5b01 ("kbuild, LLVMLinux:
-> Add -Werror to cc-option to support clang").
->
-> If an unsupported flag is unconditionally to KBUILD_{A,C}FLAGS, all subsequent
-> {as,cc}-option will always fail, preventing supported and even potentially
-> necessary flags from getting adding to the tool flags.
->
-> One would expect these warnings to be visible in the kernel build logs since
-> they are added to KBUILD_{A,C}FLAGS but unfortunately, these warnings are
-> hidden with clang's -Qunused-arguments flag, which is added to KBUILD_CPPFLAGS
-> and used for both compiling and assembling files.
->
-> Patches 1-4 address the internal inconsistencies of invoking the assembler
-> within kbuild by using KBUILD_AFLAGS consistently and using '-x
-> assembler-with-cpp' over '-x assembler'. This matches how assembly files are
-> built across the kernel and helps avoid problems in situations where macro
-> definitions or warning flags are present in KBUILD_AFLAGS, which cause
-> instances of -Wunused-command-line-argument when the preprocessor is not called
-> to consume them. There were a couple of places in architecture code where this
-> change would break things so those are fixed first.
->
-> Patches 5-12 clean up warnings that will show up when -Qunused-argument is
-> dropped. I hope none of these are controversial.
->
-> Patch 13 turns two warnings into errors so that the presence of unused flags
-> cannot be easily ignored.
->
-> Patch 14 drops -Qunused-argument. This is done last so that it can be easily
-> reverted if need be.
->
-> This series has seen my personal test framework, which tests several different
-> configurations and architectures, with LLVM tip of tree (16.0.0). I have done
-> defconfig, allmodconfig, and allnoconfig builds for arm, arm64, i386, mips,
-> powerpc, riscv, s390, and x86_64 with GCC 12.2.0 as well but I am hoping the
-> rest of the test infrastructure will catch any lurking problems.
->
-> I would like this series to stay together so that there is no opportunity for
-> breakage so please consider giving acks so that this can be carried via the
-> kbuild tree (and many thanks to the people who have already provided such
-> tags).
+On Sun, Jan 15, 2023 at 12:52:10PM -0800, Joe Perches wrote:
+> On Sun, 2023-01-15 at 15:30 +0530, Deepak R Varma wrote:
+> > The if / else block code has same effect irrespective of the logical
+> > evaluation.  Hence, simply the implementation by removing the unnecessary
+> > conditional evaluation. While at it, also fix the long line checkpatch
+> > complaint. Issue identified using cond_no_effect.cocci Coccinelle
+> > semantic patch script.
+> > 
+> > Signed-off-by: Deepak R Varma <drv@mailo.com>
+> > ---
+> > Please note: The proposed change is compile tested only. If there are any
+> > inbuilt test cases that I should run for further verification, I will appreciate
+> > guidance about it. Thank you.
+> 
+> Preface: I do not know the code.
+> 
+> Perhaps Rodrigo Siqueira made a copy/paste error submitting the code for
+> commit 9114b55fabae ("drm/amd/display: Fix SubVP control flow in the MPO context")
+> as the code prior to this change is identical.
+> 
+> Perhaps one of the false uses should be true or dependent on the
+> interdependent_update_lock state.
+
+Thank you Joe for the recommendation.
+
+Hi Rodrigo,
+Can you review and comment on if and what is wrong with your commit?
+
+Thank you,
+./drv
+
+> 
+> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> []
+> > @@ -3470,14 +3470,9 @@ static void commit_planes_for_stream(struct dc *dc,
+> >  		/* Since phantom pipe programming is moved to post_unlock_program_front_end,
+> >  		 * move the SubVP lock to after the phantom pipes have been setup
+> >  		 */
+> > -		if (should_lock_all_pipes && dc->hwss.interdependent_update_lock) {
+> > -			if (dc->hwss.subvp_pipe_control_lock)
+> > -				dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes, NULL, subvp_prev_use);
+> > -		} else {
+> > -			if (dc->hwss.subvp_pipe_control_lock)
+> > -				dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes, NULL, subvp_prev_use);
+> > -		}
+> > -
+> 
+> Perhaps something like:
+> 
+> 		if (dc->hwss.subvp_pipe_control_lock)
+> 			dc->hwss.subvp_pipe_control_lock(dc, context,
+> 							 should_lock_all_pipes &&
+> 							 dc->hwss.interdependent_update_lock,
+> 							 should_lock_all_pipes, NULL, subvp_prev_use);
+> 
+> > +		if (dc->hwss.subvp_pipe_control_lock)
+> > +			dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes,
+> > +							 NULL, subvp_prev_use);
+> >  		return;
+> >  	}
+> >  
+> 
 
 
-All applied to linux-kbuild. Thanks.
-
-I left small comments in 07/14.
-
-
-
-
-
-
-
-
-> ---
-> Changes in v2:
-> - Pick up tags where provided (thank you everyone!)
-> - Patch 6 and 9: Clarify that '-s' is a compiler flag that is only relevant to
->   the linking phase and remove all mention of the assembler's '-s' flag, as the
->   assembler is never directly invoked (Nick, Segher)
-> - Patch 7: Move '-z noexecstack' into new ldflags-y variable (Nick)
-> - Patch 8: Reword commit message to explain the problem in a clearer manner
->   (Nick)
-> - Link to v1: https://lore.kernel.org/r/20221228-drop-qunused-arguments-v1-0-658cbc8fc592@kernel.org
->
-> ---
-> Nathan Chancellor (12):
->       MIPS: Always use -Wa,-msoft-float and eliminate GAS_HAS_SET_HARDFLOAT
->       MIPS: Prefer cc-option for additions to cflags
->       powerpc: Remove linker flag from KBUILD_AFLAGS
->       powerpc/vdso: Remove unused '-s' flag from ASFLAGS
->       powerpc/vdso: Improve linker flags
->       powerpc/vdso: Remove an unsupported flag from vgettimeofday-32.o with clang
->       s390/vdso: Drop unused '-s' flag from KBUILD_AFLAGS_64
->       s390/vdso: Drop '-shared' from KBUILD_CFLAGS_64
->       s390/purgatory: Remove unused '-MD' and unnecessary '-c' flags
->       drm/amd/display: Do not add '-mhard-float' to dml_ccflags for clang
->       kbuild: Turn a couple more of clang's unused option warnings into errors
->       kbuild: Stop using '-Qunused-arguments' with clang
->
-> Nick Desaulniers (2):
->       x86/boot/compressed: prefer cc-option for CFLAGS additions
->       kbuild: Update assembler calls to use proper flags and language target
->
->  Makefile                                    |  1 -
->  arch/mips/Makefile                          | 13 ++-------
->  arch/mips/include/asm/asmmacro-32.h         |  4 +--
->  arch/mips/include/asm/asmmacro.h            | 42 ++++++++++++++---------------
->  arch/mips/include/asm/fpregdef.h            | 14 ----------
->  arch/mips/include/asm/mipsregs.h            | 20 +++-----------
->  arch/mips/kernel/genex.S                    |  2 +-
->  arch/mips/kernel/r2300_fpu.S                |  4 +--
->  arch/mips/kernel/r4k_fpu.S                  | 12 ++++-----
->  arch/mips/kvm/fpu.S                         |  6 ++---
->  arch/mips/loongson2ef/Platform              |  2 +-
->  arch/powerpc/Makefile                       |  2 +-
->  arch/powerpc/kernel/vdso/Makefile           | 25 +++++++++++------
->  arch/s390/kernel/vdso64/Makefile            |  4 +--
->  arch/s390/purgatory/Makefile                |  2 +-
->  arch/x86/boot/compressed/Makefile           |  2 +-
->  drivers/gpu/drm/amd/display/dc/dml/Makefile |  3 ++-
->  scripts/Kconfig.include                     |  2 +-
->  scripts/Makefile.clang                      |  2 ++
->  scripts/Makefile.compiler                   |  8 +++---
->  scripts/as-version.sh                       |  2 +-
->  21 files changed, 74 insertions(+), 98 deletions(-)
-> ---
-> base-commit: 88603b6dc419445847923fcb7fe5080067a30f98
-> change-id: 20221228-drop-qunused-arguments-0c5c7dae54fb
->
-> Best regards,
-> --
-> Nathan Chancellor <nathan@kernel.org>
->
-
-
---
-Best Regards
-Masahiro Yamada
