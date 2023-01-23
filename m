@@ -4,43 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C02B8C38142
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Jan 2023 20:27:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82F67C05027
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Jan 2023 20:31:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BEEC10E561;
-	Mon, 23 Jan 2023 20:27:50 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C35C210E561;
- Mon, 23 Jan 2023 20:27:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=7CaXIdoI8n3ZxHPPdx/samyORw/Wg8sXLQapZ/RBkNE=; b=fCiKDcxtbjDgmimIhRvRxngTgb
- 85ecoNKuvlffUrBzca6OUqFTCOLG0GS7Y/xSl3W/9hbE+t0B2gyqmJSYiQuk2LBwWEegoZ3e1Beyv
- xgJQf92lfA0BDtJdh3VXEeAxhCTdb0SiB9pBHldjMxitNCo+e34ZQXEWuVcZ4CCgM4vOBcvQYSIhW
- biBOMXlXcpU/lrG4Mtc3zEEXRurpxjeAYqCxY5cs/Dp9scqHc3FsoQLXbr7lS2AIQfZTUxUN1f9wV
- qm1N6tVbRNqHdsnV/TnFYpgiZceWEIwPCtUflMN62LJnBvC709vFP0uHsyDCThSSeWu6mrVSc4kBS
- ACFvJknQ==;
-Received: from [177.102.82.39] (helo=steammachine.lan)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1pK3Pt-00GEfP-7R; Mon, 23 Jan 2023 21:27:45 +0100
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [RFC PATCH] drm: Create documentation about device resets
-Date: Mon, 23 Jan 2023 17:26:46 -0300
-Message-Id: <20230123202646.356592-2-andrealmeid@igalia.com>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230123202646.356592-1-andrealmeid@igalia.com>
-References: <20230123202646.356592-1-andrealmeid@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3A2B10E011;
+	Mon, 23 Jan 2023 20:31:02 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B297710E55C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Jan 2023 20:31:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1674505859;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=uvUFT3kV4hOrH8BWbPQYPcqX1gmhS+oL3sA9caAYEgg=;
+ b=YcYGWEDqXxqn379VJkaQD9lq9GSCdp5DlF60VhGGci4yxIvPXmSq0NLc8Q2ZurkiZwyRKC
+ ZWsn9Zd3kqKp71K3lHjQOYUpX6gapPGz/A5vvt7dRh10706wWce1yRT+Rl/XjCD+YJqfxH
+ py0m/+pNiPZAa7ONG+OqRM1LSZo26Tk=
+Received: from mail-lj1-f199.google.com (mail-lj1-f199.google.com
+ [209.85.208.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-403-CKdOrymTONm5peajVBCt1A-1; Mon, 23 Jan 2023 15:30:58 -0500
+X-MC-Unique: CKdOrymTONm5peajVBCt1A-1
+Received: by mail-lj1-f199.google.com with SMTP id
+ bx38-20020a05651c19a600b0028bcbe5dd69so2153461ljb.21
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Jan 2023 12:30:57 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=uvUFT3kV4hOrH8BWbPQYPcqX1gmhS+oL3sA9caAYEgg=;
+ b=AVvJ8RUkGxIAkiLmw7vrrpX6IrUA2fGc7Fg5EfgnahH2ai3fXBZe3b9KPitiVuV9w+
+ x9Y73eBHOx1JvgUn9xSa7U0KT3DqZ60dhlwNHyJYU5zIAd5E43Nno8OvAAYbe5y3AzgU
+ ZvaK43PxadckRNKASd1WGDR0VvjLwK1v8Y7kRvvPZDawtHIbS8X1a1NSde6Vt5M4lZby
+ +VMhs0DAtBU81Fvyp/7wN5rz+BJ1ea1TuxIcbSKSSsAfKVqL6pfPR0TYLWBHvZIfUdJc
+ KeQlW2baaqMuJfpySALyz2W6s+CI/45sMLrjogFeKiX5jVm+cfG9nGy6O6kxMREWWiCH
+ kf6Q==
+X-Gm-Message-State: AFqh2krzfn+3F4c/Et1L7dbhQ2iDFEK5G6ihcdscb6aNi4KydBovtfJ0
+ Yz1BQKu5RWla/jI8HdCXxRc4SBPwfJsg5MZ1cxYY5LkB9I0vVWabdYcoI06lsXpfN390yCk4car
+ fvB1+kbXsJDHhtCulJ60qi+nNpUIzdjR4Bos9LjzahQ==
+X-Received: by 2002:ac2:5451:0:b0:4cc:971c:b3f6 with SMTP id
+ d17-20020ac25451000000b004cc971cb3f6mr2729376lfn.77.1674505856607; 
+ Mon, 23 Jan 2023 12:30:56 -0800 (PST)
+X-Google-Smtp-Source: AMrXdXsFYBYAL9y60IeorNFy250ZZasB8/QgVaF6tMPDxWwgf8FxW/qYJrUCfop49dKr4nz/GHs7XtNBQms1GfDA7DM=
+X-Received: by 2002:ac2:5451:0:b0:4cc:971c:b3f6 with SMTP id
+ d17-20020ac25451000000b004cc971cb3f6mr2729373lfn.77.1674505856429; Mon, 23
+ Jan 2023 12:30:56 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20230113162428.33874-1-harry.wentland@amd.com>
+ <20230113162428.33874-19-harry.wentland@amd.com>
+In-Reply-To: <20230113162428.33874-19-harry.wentland@amd.com>
+From: Sebastian Wick <sebastian.wick@redhat.com>
+Date: Mon, 23 Jan 2023 21:30:45 +0100
+Message-ID: <CA+hFU4xHKNSWO21Swq_b2VPPxtYGdeo4e3rPEVo44OPmB+opZw@mail.gmail.com>
+Subject: Re: [PATCH v2 18/21] drm/amd/display: Fallback to 2020_YCBCR if the
+ pixel encoding is not RGB
+To: Harry Wentland <harry.wentland@amd.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,98 +76,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?q?=27Marek=20Ol=C5=A1=C3=A1k=27?= <maraeo@gmail.com>,
- Simon Ser <contact@emersion.fr>, amaranath.somalapuram@amd.com,
- Pekka Paalanen <ppaalanen@gmail.com>, Daniel Stone <daniel@fooishbar.org>,
- Rob Clark <robdclark@gmail.com>, kernel-dev@igalia.com,
- alexander.deucher@amd.com, contactshashanksharma@gmail.com,
- Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com,
- "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>
+Cc: Joshua Ashton <joshua@froggi.es>, Pekka Paalanen <ppaalanen@gmail.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Create a document that specifies how to deal with DRM device resets for
-kernel and userspace drivers.
+A new property to control YCC and subsampling would be the more
+complete path here. If we actually want to fix this in the short-term
+though, we should handle the YCC and RGB Colorspace values as
+equivalent, everywhere. Technically we're breaking the user space API
+here so it should be documented on the KMS property and other drivers
+must be adjusted accordingly as well.
 
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
----
- Documentation/gpu/drm-reset.rst | 51 +++++++++++++++++++++++++++++++++
- Documentation/gpu/index.rst     |  1 +
- 2 files changed, 52 insertions(+)
- create mode 100644 Documentation/gpu/drm-reset.rst
-
-diff --git a/Documentation/gpu/drm-reset.rst b/Documentation/gpu/drm-reset.rst
-new file mode 100644
-index 000000000000..0dd11a469cf9
---- /dev/null
-+++ b/Documentation/gpu/drm-reset.rst
-@@ -0,0 +1,51 @@
-+================
-+DRM Device Reset
-+================
-+
-+The GPU stack is really complex and is prone to errors, from hardware bugs,
-+faulty applications and everything in the many layers in between. To recover
-+from this kind of state, sometimes is needed to reset the GPU. Unproper handling
-+of GPU resets can lead to an unstable userspace. This page describes what's the
-+expected behaviour from DRM drivers to do in those situations, from usermode
-+drivers and compositors as well.
-+
-+Robustness
-+----------
-+
-+First of all, application robust APIs, when available, should be used. This
-+allows the application to correctly recover and continue to run after a reset.
-+Apps that doesn't use this should be promptly killed when the kernel driver
-+detects that it's in broken state. Specifically guidelines for some APIs:
-+
-+- OpenGL: During a reset, KMD kill processes that haven't ARB Robustness
-+  enabled, assuming they can't recover.
-+- Vulkan: Assumes that every app is able to deal with ``VK_ERROR_DEVICE_LOST``,
-+  so KMD doesn't kill any. If it doesn't do it right, it's considered a broken
-+  application and UMD will deal with it.
-+
-+Kernel mode driver
-+------------------
-+
-+The KMD should be able to detect that something is wrong with the application
-+and that a reset is needed to take place to recover the device (e.g. an endless
-+wait). It needs to properly track the context that is broken and mark it as
-+dead, so any other syscalls to that context should be further rejected. The
-+other contexts should be preserved when possible, avoid crashing the rest of
-+userspace. KMD can ban a file descriptor that keeps causing resets, as it's
-+likely in a broken loop.
-+
-+User mode driver
-+----------------
-+
-+During a reset, UMD should be aware that rejected syscalls indicates that the
-+context is broken and for robust apps the recovery should happen for the
-+context. Non-robust apps would be already terminated by KMD. If no new context
-+is created for some time, it is assumed that the recovery didn't work, so UMD
-+should terminate it.
-+
-+Compositors
-+-----------
-+
-+(In the long term) compositors should be robust as well to properly deal with it
-+errors. Init systems should be aware of the compositor status and reset it if is
-+broken.
-diff --git a/Documentation/gpu/index.rst b/Documentation/gpu/index.rst
-index b99dede9a5b1..300b2529bd39 100644
---- a/Documentation/gpu/index.rst
-+++ b/Documentation/gpu/index.rst
-@@ -9,6 +9,7 @@ Linux GPU Driver Developer's Guide
-    drm-mm
-    drm-kms
-    drm-kms-helpers
-+   drm-reset
-    drm-uapi
-    drm-usage-stats
-    driver-uapi
--- 
-2.39.1
+On Fri, Jan 13, 2023 at 5:26 PM Harry Wentland <harry.wentland@amd.com> wrote:
+>
+> From: Joshua Ashton <joshua@froggi.es>
+>
+> Userspace might not aware whether we're sending RGB or YCbCr
+> data to the display. If COLOR_SPACE_2020_RGB_FULLRANGE is
+> requested but the output encoding is YCbCr we should
+> send COLOR_SPACE_2020_YCBCR.
+>
+> Signed-off-by: Joshua Ashton <joshua@froggi.es>
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> Cc: Pekka Paalanen <ppaalanen@gmail.com>
+> Cc: Sebastian Wick <sebastian.wick@redhat.com>
+> Cc: Vitaly.Prosyak@amd.com
+> Cc: Joshua Ashton <joshua@froggi.es>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: amd-gfx@lists.freedesktop.org
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index f74b125af31f..16940ea61b59 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -5184,7 +5184,10 @@ get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
+>                 color_space = COLOR_SPACE_ADOBERGB;
+>                 break;
+>         case DRM_MODE_COLORIMETRY_BT2020_RGB:
+> -               color_space = COLOR_SPACE_2020_RGB_FULLRANGE;
+> +               if (dc_crtc_timing->pixel_encoding == PIXEL_ENCODING_RGB)
+> +                       color_space = COLOR_SPACE_2020_RGB_FULLRANGE;
+> +               else
+> +                       color_space = COLOR_SPACE_2020_YCBCR;
+>                 break;
+>         case DRM_MODE_COLORIMETRY_BT2020_YCC:
+>                 color_space = COLOR_SPACE_2020_YCBCR;
+> --
+> 2.39.0
+>
 
