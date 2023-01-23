@@ -4,116 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 368B6C54E94
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Jan 2023 17:03:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6869AC38142
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Jan 2023 17:19:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF3D510E515;
-	Mon, 23 Jan 2023 17:03:40 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2084.outbound.protection.outlook.com [40.107.243.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD38F10E515;
- Mon, 23 Jan 2023 17:03:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L/5r1J7N7oiZI6tm2yu3WwrURzH73lNWegzAMFr9TXeRzSW+47XQDuA+X83XeRtOyJ+xvMyDru4KC5c9R5qOLbyyULEOYwzfHcnp5dqG8gARUbgeJY9EH3wqejByoSxAAIuus14ZuLbSkgw4cTb9sYrQndvOPovTb+O9OXqaVXRkrsrhi/lG4DiZJKOFqC1ke5swUTaYyobxZY6gfitXDEfCDJxO6GrjoWdLu1s3pVjF0xD8OJmcyHRjCsVPqWY38SN9jHP3XHqXOncpeyKdCQth0cDysRhTjtPhWEbQJnyuXjvsqb5FEyOhsF7T3BBo+wIEkL1RknGfsdO8GhmTDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kVwPX5E6WhR7mM4R/zPagoQdcJg2vO4tv0que421Wvo=;
- b=LgmLeqNEM4PgJLJCa4gBepVxtJxIbcu0rPT/4E+ZOOIoKHA5DK48MS7OkmgFqfHzBuyJ+jQ+LbTosYQrJ4lvRk5bSD8AlNkF+nl0voKevgIEXeQD3MvjizUha835FtFelVVBDIDgjOOzyiH/pPDwpD4WIWG/fohJLFIT0kx7Wqe9m2OWsL1IoFQKNfAlWmQxQP1biYh/RpJ4H6lVrhMolSqdX3i7UqBW1B4SeMJeDsI2tswOsbs72Z02Gapk7Ok2RnUH+hEzBn2w7PDZhBg92BU3sxKVX/kjxzysk06o8NjqJtkpICr1RgHiJcgm8IR1/F/+4CbLbMWa953FJTDzOA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kVwPX5E6WhR7mM4R/zPagoQdcJg2vO4tv0que421Wvo=;
- b=MJY5ah6Ck2uHxnsrD/x0uSRxpQBV0dcsn5hpJyGibnFi3P1TKHkr4OWT7bXb2at43crSqPJ/C5h9B9PFnBG7T3StNBWuNJ/QhVyG3kiNWaidb0R2Fzzpl9nakm/x07FD1+VjwxuslBhCQijbVJ/l7jk4ts06uxeyWy50tQpbX5g=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by SJ0PR12MB5662.namprd12.prod.outlook.com (2603:10b6:a03:429::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33; Mon, 23 Jan
- 2023 17:03:36 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::152b:e615:3d60:2bf0]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::152b:e615:3d60:2bf0%6]) with mapi id 15.20.6002.033; Mon, 23 Jan 2023
- 17:03:36 +0000
-Message-ID: <2f37b537-5ce9-ff5c-d577-24d6ac6b5efe@amd.com>
-Date: Mon, 23 Jan 2023 12:03:31 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH 0/7] Fix MST on amdgpu
-Content-Language: en-US
-To: Didier 'OdyX' Raboud <odyx@debian.org>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20230119235200.441386-1-harry.wentland@amd.com>
- <4499220.LvFx2qVVIh@turnagra>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <4499220.LvFx2qVVIh@turnagra>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT3PR01CA0002.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:86::10) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB26910E517;
+	Mon, 23 Jan 2023 17:19:21 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70A6610E517
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Jan 2023 17:19:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1674494359; x=1706030359;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=QxKTXC1q61zdzF23NI5tLZ2E5StXSr3Z/SKaZ/ipFdc=;
+ b=hTXmf4iUbYSWmHMZcQi5cjlkhRWgYruhyr+gKNwPR9tVzqu5vjDkp690
+ Uv/xfYBKozeyDO7PQUq7t4uTtovlY+goi3LEouX67qvm47IAVNxld4WfL
+ qR0CZjvRFpX+GtT59LgyPszRoiKbOc+LJrtsHuTn04681+R+6Zn4os7Ix
+ eUkZy1iPia1sw8fDOkkR1BL6xIjBq9Seiycf3EehGI5nf5n4WssbI9b1G
+ pz7LZPT/8RdKKNxNNNKN33lqK9wpwTu2eV0xnDumA+OsXHCAqxtaJO69R
+ z3gQbupHRMJ0Ko5ZrldmaTI3SPMlXMMVf36Ac4Jy2Tml6hZCO3/0gGDP7 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10599"; a="306451045"
+X-IronPort-AV: E=Sophos;i="5.97,240,1669104000"; d="scan'208";a="306451045"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jan 2023 09:19:18 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10599"; a="661791647"
+X-IronPort-AV: E=Sophos;i="5.97,240,1669104000"; d="scan'208";a="661791647"
+Received: from lkp-server01.sh.intel.com (HELO 5646d64e7320) ([10.239.97.150])
+ by orsmga002.jf.intel.com with ESMTP; 23 Jan 2023 09:19:15 -0800
+Received: from kbuild by 5646d64e7320 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pK0TS-0005mq-0v;
+ Mon, 23 Jan 2023 17:19:14 +0000
+Date: Tue, 24 Jan 2023 01:18:23 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 691781f561e9868a94c3ed7daf4adad7f8af5d16
+Message-ID: <63cec15f.4eitr3XQwks0MqhA%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|SJ0PR12MB5662:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3c39aeb4-6e98-4e30-5f86-08dafd63c415
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Z20edbr4qUq/ah/4k6lxZYCdcLYULgxrZcAYt7SlOOmS+Mgy+O3wVSfzLXlTbiJzkkgdoFO4pPt5UCCthBEcnwdhAPXE1DtfpaHazNqRibbts7O9wi2XY45gJwz4AyK50Dry44qbL1sS4ZTjY4XX84+ysUQCDtPWhWc+7Rnp7lyeGtofDdPwcc6cfyyxL99Mf9HAZSN83nNm2cXLQZrDl/MS65ApYxfREtbrUr+Qv24X1BlIyVaUC8CeSOlMtTJUu70gMnmDDFI/kO1fIetp0IbTvDopifqaKdm8TQsPAgusIkLpaeyKQuOvupwvhSXkhAZsoRQ+xMQ7xxrsYBHBJKSrXmacC+dfrm477HwhGMfjQKsnWfv1WEM1oTQYfKgwtC91rJKgEKG3UT5WuvSPMPP2UFEmpKTHQrxwBo211bqmbWAtOWSftpq4TsZPgOCfCpQ1Bz2Cnqjr+ozLvcXu3vYE3U4EefPv5VZqA0ulTB5SEMKxB5veAO/uXlmGtNvHOs/z99nTabg6RaQcGqwTVJntDpX/GDVow2wcuLdSzO1phMBs/8xnn+d/uI74SqNCKyOELKJODf/9C/+7a1/mx90PllCA+Ocbk37g+nIxxnNl3R/PDuNAxgOqDONPbCBrlhWhBeEVUQQLlR/Clwvt9KXSrfa+PCBVOy4ufgWJqeHRCPnVHcc/DYnRPMxmU+PC
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(366004)(396003)(346002)(376002)(136003)(39860400002)(451199015)(83380400001)(31696002)(38100700002)(41300700001)(86362001)(4744005)(2906002)(44832011)(8936002)(5660300002)(4326008)(26005)(8676002)(53546011)(186003)(6506007)(6512007)(6666004)(66476007)(66556008)(316002)(2616005)(66946007)(478600001)(966005)(6486002)(31686004)(36756003)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VFBLUXYrVnk0bkpHbE5HbDIwVlhFME5KM0UrQk8rUUd1UWFRcTNpMkdiOHM3?=
- =?utf-8?B?QW5QK1o5RW9vMmNZUHFnaTZYdkwweGoySUdIZmdOSUxJa2M3WWNVWDZwcFl4?=
- =?utf-8?B?OVZXTzZvSDZCb2o1VHN4M3lqLzY0YjRWSlZndkZHQWlnUXFrY0QyQnFyRVVL?=
- =?utf-8?B?VUdIcklmWTMrWnE5aE5wYVk5RVNQZjYxNUdhVkpuaksyN2VuTGc5T0IxeUVS?=
- =?utf-8?B?QWxLVko0L0Q4NTN2YTVSZ1NUckM5ZThKVjNtcEwvdHBuT1RZMzcvK0Vrbk81?=
- =?utf-8?B?eW5nb1hLZUlXdjBOR0JRYUdHSmE0dWxIU2ZqTE1EUHkrQ05mcHpPMVd2cGZw?=
- =?utf-8?B?MFkwc0d5Qmh0bjVoSnJCUjlBWVducnFvSkdnV2lKQzE2b1pqd0FySjVOcFQ4?=
- =?utf-8?B?djJTcFBxMWVsdDBOYlNUM2FaNXFUVUE4YXJTLzVRUTVHQWZvcWZwK1p0UW94?=
- =?utf-8?B?ZVdsR0s5bGZQV090SWNmRHVhK3ZCNkNqbWFJeFZmTzRWT2dObmRmbmtXWWdZ?=
- =?utf-8?B?SWdjS29oNTBzNkFSL01iQlV6RTZLTnRtN1ZZOU1TZ0F2NllGbFk1YWMzT1pY?=
- =?utf-8?B?OFBJbVBWRHRGQ2xMRjR1RkhUeVJoWlNYUmhFa2xFdG05N2xNK3pKV1FKZTBi?=
- =?utf-8?B?UWRaK0llaTZvMEd6SHAwVFNJSVc5eVBtV3d5T0RpZE45ZTV0bFBNMFB4VGNP?=
- =?utf-8?B?WmYwZnRUM0o0UUIvWE5yRTRabWVjQUo0a3k0cUlDTmkwQXJyeS8zNzRUWkow?=
- =?utf-8?B?RVFrS0VEdkN0bVBFQlBnR295cUVyR2ovNU5NRU91WjNsaGZWZlQ3Y0xWdDJD?=
- =?utf-8?B?UElISTRFUHAxcVBMVWlxdTBybmROTFRMYUxCZTBmd2F6NnRUWlhsUG1kdk9Y?=
- =?utf-8?B?a2N3TElOdXl4bFBDYXc2S0drVGZubHpzaGE5bCtScHk2VVEzNjNpcUc3U2tP?=
- =?utf-8?B?QWlKZ21IMjl1dEE1Z1FHRncyaUNtM1VDQVhBSVIvYTZhaXh3c3gySEJ3QVpF?=
- =?utf-8?B?WWlGckwvYlM3M3BaUytEVTBuOXBTYytDTjBENndrSVNUaEVrMEFqbzYyRUZE?=
- =?utf-8?B?UXQ1UzB3OHVwdkIvSkFOSUhLMUJxYzN3cURZdW1RWHBqUGdYUE84VnZTTFhv?=
- =?utf-8?B?N3hGLzUvV2xwcGI2eU5UdmFENk8vUWI5WmhiSEhQVFZvbUZlZGNoVjlOTy8v?=
- =?utf-8?B?WjNGaEJjblRpR3g4ZUdmcGVjVEd5SG1pYStiZlFPL0pKd3hPbDM1c2JXR01B?=
- =?utf-8?B?MjlOOVdCY3B6b1F5VnNjUVpYRmNPYUp5MG1Ibmp4Y1JuZ3JGY1NJRFRUMUh0?=
- =?utf-8?B?MFVPa2lIYXNydER2VXRpRzRNcC96elpoYzVWbUUxOVBNTy9pZysxdFJsSHRM?=
- =?utf-8?B?VnlUUU9sNzlLT3NwMTh4RDQ3Z09Lb2tvR3hXM2xmM25qdnlpcGhweVZqdTBI?=
- =?utf-8?B?MHBMTjMwUnJQNjkvVEpDT1J0QWpDMDM5bnY1UitHamFDZ2JlT3ZSOFMzRmNP?=
- =?utf-8?B?VEJnWXVmRVA1V1JqaUE4bUpOanUxaE1BdUVWQ3g1aE9lMGg5K3ZlRU9ZbFpq?=
- =?utf-8?B?d0xRWjY1d3hqOC8rZE1wZW9GOWE0N0ViYTd1MVl3eG4zbHBFdUFTQ09kY0V2?=
- =?utf-8?B?amlNZEVQeWloamxiRFBCeTY3ZXI0RHF4OGdKT0JFUlQwVS84ODNyZzcwSk1w?=
- =?utf-8?B?dUpqYlFacVZtWnN6bGlYTlBDWXNQYXlZSjRhVkhHV1d5ZFFtcjdWMGVta2Ey?=
- =?utf-8?B?Z2JEQzQxcXBtZGhEV3BBY0o2SnFSdGFNQXNVcmkrMEJUZkIweGxuRDJZRUZ0?=
- =?utf-8?B?d1JnbStqTGY0MGxDNkdhZkI3OHBuZCtMWUZHMWd3ZkxlTHlldCszYS8yc2oy?=
- =?utf-8?B?TUViRXFlUjVFTUJUeWxnTVlZVmZKbzc2cHRrOXhWTlhUUEJSbFhJQUJoN0ZV?=
- =?utf-8?B?SjJBb2NHS1gzcjI2RnpLQ09XMUNUdVBJSmNwUnY1d2xKbXhtbEZycHdFMTMz?=
- =?utf-8?B?MHNmTjhjS0JjR0thTXA5dmFhWXhtR3p0a3B0YmorbCs2L1pDRElFelE2Lzhu?=
- =?utf-8?B?RUdSSnFGalk1a3djRGwxQktHb29oditkdVl1VEZsUXNrTFNRcVBnMUh5bkQ2?=
- =?utf-8?Q?2ZEIqeYfZXEMWofHeDCeFAxIt?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c39aeb4-6e98-4e30-5f86-08dafd63c415
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2023 17:03:36.2326 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UdRSic0zTfQZWd5vnueHPca6xA6wg7a1TQRMOt96K0GLBX7/y8NU+f8LkgvGkTg39c2X5AzcWQCfE3Gd5Hp2Mg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5662
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,33 +58,193 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable@vger.kernel.org, stanislav.lisovskiy@intel.com, jerry.zuo@amd.com,
- bskeggs@redhat.com, Wayne.Lin@amd.com, ville.syrjala@linux.intel.com,
- mario.limonciello@amd.com
+Cc: alsa-devel@alsa-project.org, linux-gpio@vger.kernel.org,
+ netdev@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 691781f561e9868a94c3ed7daf4adad7f8af5d16  Add linux-next specific files for 20230123
 
+Error/Warning: (recently discovered and may have been fixed)
 
-On 1/22/23 14:12, Didier 'OdyX' Raboud wrote:
-> For the whole series, as rebased on v6.1.7. Tested on this Thinkpad X13 AMD 
-> Gen2:
-> 
-> Tested-By: Didier Raboud <odyx@debian.org>
+ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/fsl-edma.ko] undefined!
+ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/idma64.ko] undefined!
+drivers/gpio/gpio-zevio.c:174:40: error: invalid use of undefined type 'struct platform_device'
+drivers/gpio/gpio-zevio.c:178:9: error: implicit declaration of function 'platform_set_drvdata' [-Werror=implicit-function-declaration]
+drivers/gpio/gpio-zevio.c:184:28: error: implicit declaration of function 'devm_platform_ioremap_resource'; did you mean 'devm_ioremap_resource'? [-Werror=implicit-function-declaration]
+drivers/gpio/gpio-zevio.c:211:15: error: variable 'zevio_gpio_driver' has initializer but incomplete type
+drivers/gpio/gpio-zevio.c:211:31: error: storage size of 'zevio_gpio_driver' isn't known
+drivers/gpio/gpio-zevio.c:212:10: error: 'struct platform_driver' has no member named 'driver'
+drivers/gpio/gpio-zevio.c:212:27: error: extra brace group at end of initializer
+drivers/gpio/gpio-zevio.c:217:10: error: 'struct platform_driver' has no member named 'probe'
+drivers/gpio/gpio-zevio.c:219:1: error: type defaults to 'int' in declaration of 'builtin_platform_driver' [-Werror=implicit-int]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_training.c:1585:38: warning: variable 'result' set but not used [-Wunused-but-set-variable]
 
-Thanks.
+Unverified Error/Warning (likely false positive, please contact us if interested):
 
-Harry
+drivers/block/virtio_blk.c:721:9: sparse:    bad type *
+drivers/block/virtio_blk.c:721:9: sparse:    unsigned int *
+drivers/block/virtio_blk.c:721:9: sparse: sparse: incompatible types in comparison expression (different base types):
+drivers/block/virtio_blk.c:721:9: sparse: sparse: no generic selection for 'restricted __le32 [addressable] virtio_cread_v'
+drivers/block/virtio_blk.c:721:9: sparse: sparse: no generic selection for 'restricted __le32 virtio_cread_v'
+drivers/media/i2c/max9286.c:771 max9286_s_stream() error: buffer overflow 'priv->fmt' 4 <= 32
+drivers/nvmem/imx-ocotp.c:599:21: sparse: sparse: symbol 'imx_ocotp_layout' was not declared. Should it be static?
+mm/hugetlb.c:3100 alloc_hugetlb_folio() error: uninitialized symbol 'h_cg'.
+net/devlink/leftover.c:7160 devlink_fmsg_prepare_skb() error: uninitialized symbol 'err'.
+sound/ac97/bus.c:465:1: sparse: sparse: symbol 'dev_attr_vendor_id' was not declared. Should it be static?
 
-> 
-> Le vendredi, 20 janvier 2023, 00.51:53 h CET Harry Wentland a écrit :
->> MST has been broken on amdgpu after a refactor in drm_dp_mst
->> code that was aligning drm_dp_mst more closely with the atomic
->> model.
->>
->> The gitlab issue: https://gitlab.freedesktop.org/drm/amd/-/issues/2171
->>
->> This series fixes it.
-> 
-> 
+Error/Warning ids grouped by kconfigs:
 
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arc-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arc-randconfig-m031-20230123
+|   `-- drivers-media-i2c-max9286.c-max9286_s_stream()-error:buffer-overflow-priv-fmt
+|-- arm-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arm-buildonly-randconfig-r005-20230123
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arm-randconfig-r023-20230123
+|   |-- drivers-gpio-gpio-zevio.c:error:extra-brace-group-at-end-of-initializer
+|   |-- drivers-gpio-gpio-zevio.c:error:implicit-declaration-of-function-devm_platform_ioremap_resource
+|   |-- drivers-gpio-gpio-zevio.c:error:implicit-declaration-of-function-platform_set_drvdata
+|   |-- drivers-gpio-gpio-zevio.c:error:invalid-use-of-undefined-type-struct-platform_device
+|   |-- drivers-gpio-gpio-zevio.c:error:storage-size-of-zevio_gpio_driver-isn-t-known
+|   |-- drivers-gpio-gpio-zevio.c:error:struct-platform_driver-has-no-member-named-driver
+|   |-- drivers-gpio-gpio-zevio.c:error:struct-platform_driver-has-no-member-named-probe
+|   |-- drivers-gpio-gpio-zevio.c:error:type-defaults-to-int-in-declaration-of-builtin_platform_driver
+|   `-- drivers-gpio-gpio-zevio.c:error:variable-zevio_gpio_driver-has-initializer-but-incomplete-type
+|-- arm64-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- csky-randconfig-s033-20230123
+|   |-- drivers-nvmem-imx-ocotp.c:sparse:sparse:symbol-imx_ocotp_layout-was-not-declared.-Should-it-be-static
+|   `-- sound-ac97-bus.c:sparse:sparse:symbol-dev_attr_vendor_id-was-not-declared.-Should-it-be-static
+|-- i386-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- ia64-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- ia64-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- mips-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- parisc-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- powerpc-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- riscv-randconfig-s053-20230123
+|   |-- drivers-block-virtio_blk.c:sparse:bad-type
+|   |-- drivers-block-virtio_blk.c:sparse:sparse:incompatible-types-in-comparison-expression-(different-base-types):
+|   |-- drivers-block-virtio_blk.c:sparse:sparse:no-generic-selection-for-restricted-__le32-addressable-virtio_cread_v
+|   |-- drivers-block-virtio_blk.c:sparse:sparse:no-generic-selection-for-restricted-__le32-virtio_cread_v
+|   `-- drivers-block-virtio_blk.c:sparse:unsigned-int
+|-- s390-allmodconfig
+|   |-- ERROR:devm_platform_ioremap_resource-drivers-dma-fsl-edma.ko-undefined
+|   `-- ERROR:devm_platform_ioremap_resource-drivers-dma-idma64.ko-undefined
+|-- s390-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- x86_64-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+
+elapsed time: 721m
+
+configs tested: 85
+configs skipped: 4
+
+gcc tested configs:
+x86_64                            allnoconfig
+um                             i386_defconfig
+um                           x86_64_defconfig
+i386                                defconfig
+x86_64                          rhel-8.3-func
+x86_64                    rhel-8.3-kselftests
+x86_64                              defconfig
+sh                        edosk7705_defconfig
+ia64                             allmodconfig
+x86_64                               rhel-8.3
+i386                 randconfig-a004-20230123
+arm                         axm55xx_defconfig
+i386                 randconfig-a003-20230123
+x86_64                           allyesconfig
+sh                           se7722_defconfig
+sh                                  defconfig
+arm                        spear6xx_defconfig
+i386                 randconfig-a002-20230123
+m68k                             allmodconfig
+arm                           u8500_defconfig
+i386                 randconfig-a001-20230123
+x86_64               randconfig-a002-20230123
+arc                        nsimosci_defconfig
+arc                  randconfig-r043-20230123
+powerpc                           allnoconfig
+sh                            hp6xx_defconfig
+arc                              allyesconfig
+x86_64               randconfig-a004-20230123
+mips                             allyesconfig
+alpha                            allyesconfig
+x86_64               randconfig-a003-20230123
+i386                 randconfig-a005-20230123
+mips                     loongson1b_defconfig
+x86_64               randconfig-a005-20230123
+arm                                 defconfig
+x86_64                           rhel-8.3-syz
+i386                             allyesconfig
+i386                 randconfig-a006-20230123
+x86_64                         rhel-8.3-kunit
+m68k                             allyesconfig
+powerpc                          allmodconfig
+x86_64                           rhel-8.3-kvm
+x86_64                           rhel-8.3-bpf
+arm                  randconfig-r046-20230123
+sh                               allmodconfig
+x86_64               randconfig-a001-20230123
+mips                  decstation_64_defconfig
+sh                          rsk7203_defconfig
+xtensa                  nommu_kc705_defconfig
+arm                           imxrt_defconfig
+arm                              allyesconfig
+arm64                            allyesconfig
+powerpc                     rainier_defconfig
+ia64                             allyesconfig
+powerpc              randconfig-c003-20230123
+i386                 randconfig-c001-20230123
+arc                                 defconfig
+s390                             allmodconfig
+alpha                               defconfig
+s390                                defconfig
+s390                             allyesconfig
+
+clang tested configs:
+x86_64                          rhel-8.3-rust
+hexagon              randconfig-r041-20230123
+hexagon              randconfig-r045-20230123
+powerpc                   microwatt_defconfig
+s390                 randconfig-r044-20230123
+x86_64               randconfig-a015-20230123
+mips                     cu1000-neo_defconfig
+mips                           ip22_defconfig
+x86_64               randconfig-a011-20230123
+i386                 randconfig-a014-20230123
+mips                          ath79_defconfig
+x86_64               randconfig-a013-20230123
+arm                   milbeaut_m10v_defconfig
+riscv                randconfig-r042-20230123
+x86_64               randconfig-a012-20230123
+mips                        maltaup_defconfig
+i386                 randconfig-a012-20230123
+x86_64               randconfig-a014-20230123
+i386                 randconfig-a013-20230123
+i386                 randconfig-a011-20230123
+i386                 randconfig-a015-20230123
+arm                       aspeed_g4_defconfig
+mips                          ath25_defconfig
+arm                         socfpga_defconfig
+
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
