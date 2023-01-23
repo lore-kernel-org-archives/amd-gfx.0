@@ -4,44 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04F72C05027
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Jan 2023 16:12:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98CFEC54EAA
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Jan 2023 17:03:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C02F10E502;
-	Mon, 23 Jan 2023 16:12:01 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92A9D10E502;
- Mon, 23 Jan 2023 16:12:00 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 1AC61B80DCE;
- Mon, 23 Jan 2023 16:11:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BC20C433EF;
- Mon, 23 Jan 2023 16:11:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674490317;
- bh=45mhFq9YDMVcNdd2xkCq4u+U7UCgDMs1bAiH53dwA5g=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=YjiD3zZtEFJIkA+Nor+5GCqgslFnaX5gEiCIFf0yNlmFHAVZXoLk57mUvhhZFjOaF
- kWMXW2bDKxSnTvn1pt8WMauceMZhWdbXzymXk94z+XrBUS6HfWdn1TJshmre8OiQZn
- fOAdnMEXacbTs4G9yC7ZrgvhVHrLdnaTwDqlDnTRvsZZJV4aDg6QKcya511GvE5uq5
- kZhuhklNnmb3B0aNLy63mtrZalOeiz6gJirUHcUWx+/2Bp9i/LL1rKnDZ2bm2igyJ+
- I7kRtRgnWJWse7sgv1KSq1G7R68QmB3slY2POODY2LOv2rHYEGOC28wPaEiBp8X6sp
- HnKIGE9JiGgQQ==
-Date: Mon, 23 Jan 2023 09:11:54 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Naresh Kamboju <naresh.kamboju@linaro.org>
-Subject: Re: [PATCH v2 00/14] Remove clang's -Qunused-arguments from
- KBUILD_CPPFLAGS
-Message-ID: <Y86xyqe+Rd9wri7I@dev-arch.thelio-3990X>
-References: <20221228-drop-qunused-arguments-v2-0-9adbddd20d86@kernel.org>
- <CA+G9fYs58vWj705MdaBKomVfHxNJ5ekSTmf53S4=4oVmc43CZg@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BCD810E047;
+	Mon, 23 Jan 2023 17:03:30 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2073.outbound.protection.outlook.com [40.107.243.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDBCF10E1F1;
+ Mon, 23 Jan 2023 17:03:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=N4EkENdHYKZS8+uaXsg3rXZcN8cLUJZN5wotNia5/FC8xuc+iSnLLzQpLMpRQS0Nd7k+yXU8+VLv/Uldf+q7deM/GdCxfalwy87gZlcEXcODmsnONIf8FMtLaYuOQLZr2ulYhLWJDmkMuo6l1ghqi28MgB2cDubX29lhD0G7t6cZ1tYCrHKwwsVjjBFWoG7v5cG2p4m/ooaxaO861piuse+z49CfLZAXppnb569NVCrGBaNy+RexTW9NbkK+22wWQwgvEaavrH0hRY3i9rF+c1ed0D/yBeEkNhw4TGAZYLD4gAC/N6KCJLu4RD48/PFOEO5KUXiw/J7K2mD/9G+S6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j4jc0R8APsUOkLy5/Z5sxZ3b0xpgecr7OyCHwUQnjHU=;
+ b=DLHfq8A1hqPKnn0WK3rZA4malEtBFrC/+XaBEQTlmf2brNdXqzer+NNqYbK+I6SM29+S0P7v9+Sk4fMiNAJ34DgbhDDXx5zSHJwq27tItzJ4IO93bLTN4bWojr1xwp8w5p5+VP97aTSoVP2E7qazynswWFRBIiEJ/kb4wDvPgjpVED2Peva3wlDg2treEKR2O4Omdx186gv+nCQjIb9siWZPG0BODlPLcVQo5m/G+67HiP518CMWy3SmJBfCRGyMXlmLjBlkLsH8l4QOgXnJxMXbW9R/QdZ+wbsiomha5hxC8JlprIZMtu5yihns7pgdrZwDllFJzBERaiah14PzkQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j4jc0R8APsUOkLy5/Z5sxZ3b0xpgecr7OyCHwUQnjHU=;
+ b=gEmvwUOBe3nkHvt+/S6G8uVSXg/T5v3nCqXctTab1oTCoNBDoq2I7zcwftYKiWXEtIfehUDzEbXYSkaUr0lVoR8nreK1VT90bTRe0NwvJotnqqjvyspkZFOHo7PdEg6fNq8gi84vH+UgTi/rpAICWts48WxtFuBIWCCKLqciiPw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by SJ0PR12MB5662.namprd12.prod.outlook.com (2603:10b6:a03:429::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33; Mon, 23 Jan
+ 2023 17:03:20 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::152b:e615:3d60:2bf0]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::152b:e615:3d60:2bf0%6]) with mapi id 15.20.6002.033; Mon, 23 Jan 2023
+ 17:03:20 +0000
+Message-ID: <21e6cd4d-cfc3-53eb-1b46-26288dfa509e@amd.com>
+Date: Mon, 23 Jan 2023 12:03:15 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH 0/7] Fix MST on amdgpu
+Content-Language: en-US
+To: Lyude Paul <lyude@redhat.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20230119235200.441386-1-harry.wentland@amd.com>
+ <965500917008cd17b47c1be1f5eeda7ccc4eede6.camel@redhat.com>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <965500917008cd17b47c1be1f5eeda7ccc4eede6.camel@redhat.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CA+G9fYs58vWj705MdaBKomVfHxNJ5ekSTmf53S4=4oVmc43CZg@mail.gmail.com>
+X-ClientProxiedBy: YT3PR01CA0007.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:86::19) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|SJ0PR12MB5662:EE_
+X-MS-Office365-Filtering-Correlation-Id: a00156e4-24e4-4e1e-fb09-08dafd63baba
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: N0E0y2wytDB9kgE5gjIXr0alnO8SWBlocJ4CaVzto5mW0terkngOYems/Ywe3OSECYTNywKtyO2dsCQXfJeC6iLna29vp5PyVQi5O7v//SKQO01EIiTf9nr3OQSzyDHnQratGQ+0WbrA1QYuLlu3DO5wRS02atKeFco0HkrVNK2eQgq3n+A4k/qk02wfhXlGHYo/jI0Xk5noYySkAZukNamx877yoC7MlAvvAyqq7xFt3QEbJ7M94BqtwkPaD4SpADC/X4V06ug1hfEcT8LpQaSUfSjasUXnisHOjGjlMxKXuwa7SJ3WOrQVas/+XiBstDt0I3/k/Teo7WK2fuu/Luxhs0i1qewIUcAIT5AzTEOtLCYkgURUj5cDZw/W9E3Bn4XL1O1ZCFfOIukiNNP6/XKRzJhYHepuQmEwFPaFAPGWXBtPmJVMM7PEUMXbpso5kfWuYmHYIn33T+vekO4uqMpVH4WGUML0AUSDEQDTTShkn+Vtyxx4V5P7kWXaIOxXJiaK5gb/RPRz2kx8iISN1P2wguImQpnXHmKXrpDorgu51B5NiD7BYqJEGSJazuHbGzhcJyDm+DZDNbWO5fjb4ZoniFRGpJquK7jgs6wuIceeUwvcufl4ScGMr59OgrAAetU5svcuIXSXcBDRceDbleDygn4C5rAa5WvkzZXNDi79B1af2K5hcTBoZ+UxQBUB
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(366004)(396003)(346002)(376002)(136003)(39860400002)(451199015)(83380400001)(31696002)(38100700002)(41300700001)(86362001)(2906002)(44832011)(8936002)(5660300002)(4326008)(26005)(8676002)(53546011)(186003)(6506007)(6512007)(6666004)(66476007)(66556008)(316002)(2616005)(66946007)(478600001)(966005)(6486002)(31686004)(36756003)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R1lDcGpJMnR6em02c05NekVvQmVUUGdYTkpUdDdmeW92ZDRFOUE5YlhWcFA4?=
+ =?utf-8?B?SEZ4NDcyeEsvVlJ2MjcyK0NEVGVWM20xS1QvNmg5MTRGRU5aSlZEdVQ3dFVT?=
+ =?utf-8?B?VnV5SHFMcFA5VDRaaG0wU3R3NUlHOGVBdjZOU2E5QS82WjMvR25RbG1sVXVv?=
+ =?utf-8?B?cUNGSFlSMDcrRFB4dGppZlh2MHpXVGlhOGZhK2N0ZmdZeE5UblNkb1VpNVNO?=
+ =?utf-8?B?NlhWcHFVTDVUc2pNTUNNM2tuanpuNHY4MWsyWXNSVDEweHRTckVUVXg0Sy9K?=
+ =?utf-8?B?dS9jeVBnZzFpVkNTT0d1bXVZNWlmOGpnZWZDTSs3RWJkc0xOQ3JCZVU0d3da?=
+ =?utf-8?B?Z2M2djZrWGpvZlBoR1RydDJwK0d5WTZtV0llcm1XY3g1ZUl5VjMrcUJSSGJ2?=
+ =?utf-8?B?QkxLajNjZ1o4UCtzaXlUSncvb2F1N3lKWG0wMElGdEIyQkl4c3RiYlorcDUz?=
+ =?utf-8?B?eWhIM2l3WnZNNjNrVGFBcm1uUjhLZEJCZU5UM05zdFJsYSs3YW5qcTNWREVY?=
+ =?utf-8?B?K0g1c1UxSDhQZHZsWHB2ZDFvQjZTbitNbCtidTZCK0pBclNQYW81cVU3VW5w?=
+ =?utf-8?B?eHozbEVJU2xLUXo2SVpueDk5ZU5FdjNNZ2Z5dG5wczFPeG1McmJVTlBaZUZM?=
+ =?utf-8?B?ZVNmMjVJdE04OEFaMTllQUJWQUg0SkhIV3dERGswbVNwdzRIY0c1YTN6NXRX?=
+ =?utf-8?B?MzBVMjVuek0zaXp3VnUxNDY2anN6c24rR1FEcHpUZit4c1FYaHo2WjFFVXZZ?=
+ =?utf-8?B?V1JsM2xLaXRFYmpBUU1zZ1JQZ1Z2aXJNekNvdkF4cG1tSjRxdEo5T2YwMzZN?=
+ =?utf-8?B?RkJkaGtVdzkxOVZxNFhXQUpsSUNQUzc5QU5SRit4SmJYOGR5RURtcHBPNUsy?=
+ =?utf-8?B?SGR0V0FoMHR2MkRjb0tVdk53L0Mwb2NHM01ady8zUGt1TzRLR1JWcll0dm5Y?=
+ =?utf-8?B?TTZjeWJSVEFINkVIOTFlQXJ5Z2ZlU0VmMzVaWXVTNGpmSWZJK0NUTjcrcVZi?=
+ =?utf-8?B?em05S0JyZTk3OEVTOU9Md0VSbDRwdjMwWE16M09jWkpPbG1ndGNKSi9hQmV1?=
+ =?utf-8?B?UlRsWGtaSmc3c3QvcEY3WUlGaEtlKzZvVkI4NFV4dVNySXVJajBzeEsrNE55?=
+ =?utf-8?B?OGxBZk1kazBwKzQ4Y3lod0I1OE10RW5pNjlhZVJXZDZKSk9ZZU5rQzhxc2NM?=
+ =?utf-8?B?aUhQekc2bkU2M2dwK3lhK3F3eG5RdWxxREV3L25PQzF2UTh6SFdVK1E5WDI4?=
+ =?utf-8?B?S3JxeEZmNEZNU1ZYdjFJQUJvSG92QnhFUzkzYXNVR3lXeFAzZHRvcTRkV05Q?=
+ =?utf-8?B?cWhHUXBqdTJaVG5SaTRraFc4MlM3OVNaUmVKUEZ5VHplRytta2VsRmpPUGpI?=
+ =?utf-8?B?UWZjUEtReWFOUzRwOTdMUmRKQzBVSXZUS3JvUFF5YTZwemR4V0lHZko4NlZX?=
+ =?utf-8?B?MDdWd0dJeHZwOUwxNzZUTGdVV2tvR0pwZ3FaUU1jb05ONEs3WEt6a3cvOVVG?=
+ =?utf-8?B?V2FmQ3JoZVFKRGptS0RCRUloYXdVYXRtWGUyZW8valBkeEwrM3VwSW1XZGZx?=
+ =?utf-8?B?NkdTd3pqSGc4SFFIbTFlMDFEZWFjUDFWaVRyNkM4em9wSGpuVEdnWVRGcEpr?=
+ =?utf-8?B?d1dMaGtnMDd6QmpzNkh4TWdjbzRuQUFSdDBSdjVkTVk4OGwzOEp0ZmdaVS9R?=
+ =?utf-8?B?djlqbElvZUZZOVk4YlBRd2ZYWnl6dmJnQXcxRjNYQ1NEQmJDS2x4TjlBY2Ir?=
+ =?utf-8?B?UmdVdUprQWpkcE1VY1JiNTZlTU9abkxucVRRbFRVYjVtV1BFb0lYbnNDd0xP?=
+ =?utf-8?B?eTFveW9zY0JUdjhZMHFsdWN6R0ZPaGEyREdkNVhKTUszbUQvajgxNGo2dDJB?=
+ =?utf-8?B?K041aXgyOWpPVUpDcG01b3BNTzNaaW9WUk94eGhEcGNtMngxWGE1OEFUcngr?=
+ =?utf-8?B?bHoyRzF3NkNTSlN6L1JMTFpaUGw3bmhaR2c5WTFEZ2NlWkM1elVIdEZjaGNi?=
+ =?utf-8?B?aUlaUUpvaGdUb2g5eTZtaG9yemRtZXpCbTNCZFB0SU00OUFtR1VReDh5ZVFC?=
+ =?utf-8?B?QXZiQkhTOGt1amM2QVE0b3h3bGR4QWNFRGVOWGdjcG1MTUMrTHJOQnc1Wjdu?=
+ =?utf-8?Q?QVMxNZFqVAeFuv8rLKNY5sTkS?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a00156e4-24e4-4e1e-fb09-08dafd63baba
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2023 17:03:20.5251 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gAfEzmKUf8PLQENQ50W+7M5mNB154cDpUH0vwrFDDPSBj8ZeXFzDiGXr5i2mEPEO23rxrw4QfdJx4pEmYi9kEw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5662
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,131 +125,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: trix@redhat.com, dave.hansen@linux.intel.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-s390@vger.kernel.org, kernel test robot <lkp@intel.com>,
- mpe@ellerman.id.au, masahiroy@kernel.org, x86@kernel.org,
- christophe.leroy@csgroup.eu, mingo@redhat.com, llvm@lists.linux.dev,
- nicolas@fjasle.eu, Segher Boessenkool <segher@kernel.crashing.org>,
- linux-kbuild@vger.kernel.org, Heiko Carstens <hca@linux.ibm.com>,
- npiggin@gmail.com, bp@alien8.de, lkft-triage@lists.linaro.org,
- tglx@linutronix.de, Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
- ndesaulniers@google.com, linux-mips@vger.kernel.org,
- Sven Schnelle <svens@linux.ibm.com>, Alex Deucher <alexander.deucher@amd.com>,
- linuxppc-dev@lists.ozlabs.org
+Cc: stable@vger.kernel.org, stanislav.lisovskiy@intel.com, jerry.zuo@amd.com,
+ bskeggs@redhat.com, Wayne.Lin@amd.com, ville.syrjala@linux.intel.com,
+ mario.limonciello@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Naresh,
-
-On Mon, Jan 23, 2023 at 07:28:10PM +0530, Naresh Kamboju wrote:
-> FYI,
-> [ please provide comments, feedback and improvements on build/ ltp smoke tests ]
+On 1/20/23 18:15, Lyude Paul wrote:
+> For the whole series:
 > 
-> LKFT test farm have fetched your patch series [1]
-> [PATCH v2 00/14] Remove clang's -Qunused-arguments from KBUILD_CPPFLAGS
->  [1] https://lore.kernel.org/llvm/20221228-drop-qunused-arguments-v2-0-9adbddd20d86@kernel.org/
+> Reviewed-by: Lyude Paul <lyude@redhat.com>
 
-Thank you a lot for testing this series, it is much appreciated!
+Thanks, series is merged to amd-staging-drm-next.
 
-It looks like this was applied on top of 6.2-rc3 if I am reading your
-logs right but your mainline testing is recent, 6.2-rc5. I think the
-errors you are seeing here are just existing mainline regressions that
-were later fixed.
+Harry
 
-> Following build warnings and errors reported.
 > 
-> sh:
-> gcc-11-defconfig — FAIL
-> gcc-11-shx3_defconfig — FAIL
-> https://qa-reports.linaro.org/~anders.roxell/linux-mainline-patches/build/https___lore_kernel_org_llvm_20221228-drop-qunused-arguments-v2-1-9adbddd20d86_kernel_org/testrun/14221835/suite/build/tests/
+> So glad to have this fixed finally ♥
 > 
-> mainline getting passed.
-> https://qa-reports.linaro.org/lkft/linux-mainline-master/build/v6.2-rc5/testrun/14298156/suite/build/test/gcc-11-defconfig/history/
-> https://qa-reports.linaro.org/lkft/linux-mainline-master/build/v6.2-rc5/testrun/14298156/suite/build/test/gcc-11-shx3_defconfig/history/
+> On Thu, 2023-01-19 at 18:51 -0500, Harry Wentland wrote:
+>> MST has been broken on amdgpu after a refactor in drm_dp_mst
+>> code that was aligning drm_dp_mst more closely with the atomic
+>> model.
+>>
+>> The gitlab issue: https://gitlab.freedesktop.org/drm/amd/-/issues/2171
+>>
+>> This series fixes it.
+>>
+>> It can be found at
+>> https://gitlab.freedesktop.org/hwentland/linux/-/tree/mst_regression
+>>
+>> A stable-6.1.y rebase can be found at
+>> https://gitlab.freedesktop.org/hwentland/linux/-/tree/mst_regression_6.1
+>>
+>> Lyude Paul (1):
+>>   drm/amdgpu/display/mst: Fix mst_state->pbn_div and slot count
+>>     assignments
+>>
+>> Wayne Lin (6):
+>>   drm/amdgpu/display/mst: limit payload to be updated one by one
+>>   drm/amdgpu/display/mst: update mst_mgr relevant variable when long HPD
+>>   drm/drm_print: correct format problem
+>>   drm/display/dp_mst: Correct the kref of port.
+>>   drm/amdgpu/display/mst: adjust the naming of mst_port and port of
+>>     aconnector
+>>   drm/amdgpu/display/mst: adjust the logic in 2nd phase of updating
+>>     payload
+>>
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |  4 +-
+>>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 48 +++++++++---
+>>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  4 +-
+>>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c |  2 +-
+>>  .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 16 ++--
+>>  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 76 +++++++++++++------
+>>  .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 53 ++++++-------
+>>  drivers/gpu/drm/amd/display/dc/core/dc_link.c | 14 +++-
+>>  drivers/gpu/drm/display/drm_dp_mst_topology.c |  4 +-
+>>  include/drm/drm_print.h                       |  2 +-
+>>  10 files changed, 143 insertions(+), 80 deletions(-)
+>>
+>> --
+>> 2.39.0
+>>
 > 
-> Build error:
-> In function 'follow_pmd_mask',
->     inlined from 'follow_pud_mask' at /builds/linux/mm/gup.c:735:9,
->     inlined from 'follow_p4d_mask' at /builds/linux/mm/gup.c:752:9,
->     inlined from 'follow_page_mask' at /builds/linux/mm/gup.c:809:9:
-> /builds/linux/include/linux/compiler_types.h:358:45: error: call to
-> '__compiletime_assert_263' declared with attribute error: Unsupported
-> access size for {READ,WRITE}_ONCE().
->   358 |         _compiletime_assert(condition, msg,
-> __compiletime_assert_, __COUNTER__)
 
-I think this was fixed with mainline commit 526970be53d5 ("sh/mm: Fix
-pmd_t for real"), released in 6.2-rc4. You can see a previous build
-failing in the same manner:
-
-https://qa-reports.linaro.org/lkft/linux-mainline-master/build/v6.2-rc3-9-g5a41237ad1d4/testrun/14056384/suite/build/tests/
-
-> s390:
-> clang-15-defconfig — FAIL
-> https://qa-reports.linaro.org/~anders.roxell/linux-mainline-patches/build/https___lore_kernel_org_llvm_20221228-drop-qunused-arguments-v2-1-9adbddd20d86_kernel_org/testrun/14221913/suite/build/tests/
-> 
-> mainline getting passed.
-> https://qa-reports.linaro.org/lkft/linux-mainline-master/build/v6.2-rc5/testrun/14300495/suite/build/test/clang-15-defconfig/history/
-> 
-> Build error:
-> make --silent --keep-going --jobs=8
-> O=/home/tuxbuild/.cache/tuxmake/builds/1/build LLVM_IAS=0 ARCH=s390
-> CROSS_COMPILE=s390x-linux-gnu- 'HOSTCC=sccache clang' 'CC=sccache
-> clang'
-> `.exit.text' referenced in section `__jump_table' of fs/fuse/inode.o:
-> defined in discarded section `.exit.text' of fs/fuse/inode.o
-> `.exit.text' referenced in section `__jump_table' of fs/fuse/inode.o:
-> defined in discarded section `.exit.text' of fs/fuse/inode.o
-> `.exit.text' referenced in section `__bug_table' of crypto/algboss.o:
-> defined in discarded section `.exit.text' of crypto/algboss.o
-> `.exit.text' referenced in section `__bug_table' of drivers/scsi/sd.o:
-> defined in discarded section `.exit.text' of drivers/scsi/sd.o
-> `.exit.text' referenced in section `__jump_table' of drivers/md/md.o:
-> defined in discarded section `.exit.text' of drivers/md/md.o
-> `.exit.text' referenced in section `__jump_table' of drivers/md/md.o:
-> defined in discarded section `.exit.text' of drivers/md/md.o
-> `.exit.text' referenced in section `.altinstructions' of
-> drivers/md/md.o: defined in discarded section `.exit.text' of
-> drivers/md/md.o
-> `.exit.text' referenced in section `.altinstructions' of
-> drivers/md/md.o: defined in discarded section `.exit.text' of
-> drivers/md/md.o
-> `.exit.text' referenced in section `.altinstructions' of
-> net/iucv/iucv.o: defined in discarded section `.exit.text' of
-> net/iucv/iucv.o
-> `.exit.text' referenced in section `__bug_table' of
-> drivers/s390/cio/qdio_thinint.o: defined in discarded section
-> `.exit.text' of drivers/s390/cio/qdio_thinint.o
-> `.exit.text' referenced in section `__bug_table' of
-> drivers/s390/net/qeth_l3_main.o: defined in discarded section
-> `.exit.text' of drivers/s390/net/qeth_l3_main.o
-> `.exit.text' referenced in section `__bug_table' of
-> drivers/s390/net/qeth_l3_main.o: defined in discarded section
-> `.exit.text' of drivers/s390/net/qeth_l3_main.o
-> s390x-linux-gnu-ld: BFD (GNU Binutils for Debian) 2.35.2 assertion
-> fail ../../bfd/elf64-s390.c:3349
-> make[2]: *** [/builds/linux/scripts/Makefile.vmlinux:34: vmlinux] Error 1
-
-This should be fixed with mainline commit a494398bde27 ("s390: define
-RUNTIME_DISCARD_EXIT to fix link error with GNU ld < 2.36"), released in
-6.2-rc4 as well. Same as before, visible in mainline at one point
-without this series:
-
-https://qa-reports.linaro.org/lkft/linux-mainline-master/build/v6.2-rc3-9-g5a41237ad1d4/testrun/14057142/suite/build/tests/
-
-> But,
-> Build and boot pass on arm64, arm, x86_64 and i386.
-> Build test performed for mips, parisc, riscv, s390, sh, sparc and
-> powerpc (known build errors for maple_defconfig and cell_defconfig),
-
-Good to hear!
-
-Please consider retesting this series on top of 6.2-rc5 or testing the
-current kbuild tree, which has this series applied in it:
-
-https://git.kernel.org/pub/scm/linux/kernel/git/masahiroy/linux-kbuild.git/log/?h=for-next
-
-Cheers,
-Nathan
