@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D78D6C25B4E
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 08:13:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 994B4C25B4E
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 08:27:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4BCF10E61F;
-	Tue, 24 Jan 2023 08:13:41 +0000 (UTC)
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B08A110E61F
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Jan 2023 08:13:39 +0000 (UTC)
-Received: by mail-ej1-x636.google.com with SMTP id rl14so33515076ejb.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Jan 2023 00:13:39 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 220F610E62C;
+	Tue, 24 Jan 2023 08:27:45 +0000 (UTC)
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [IPv6:2a00:1450:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4969A10E62C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Jan 2023 08:27:43 +0000 (UTC)
+Received: by mail-ej1-x62a.google.com with SMTP id hw16so36866490ejc.10
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Jan 2023 00:27:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=Yxlorrz12YlU50XIkmsJ0dRs1osrLd+a7g70jVE6kj8=;
- b=Qp2y5nPayPOWayz0ez3AWeMlNqahpIfwlzBaqYoqqrhM7JzsDcsVJTPJy4BdzJAfZ5
- sdjjbnJIZ6I0+9M0EVTUEw3e7SveNKfc5RJuzKM7g176BfX8M225lUhSs1Ap8JOka8yS
- JxjwaubMN6c5pwg6FRM/DDvecA+3TVAbYE9zoupGD6Mah2BqP+4pE2dWenuHmzVCp0eg
- ipOEUWB/7WF9ndbVxtxD9/2kZVmFfSTciZNrF23WVZsTOi3whTesUVlEeaZNhtD1/B6Z
- KUOB7lWhYghZ8EaSLeOH1ZMqm6uirmqiLrsZaJ6mr2o/JU2H0Wttg4XxHG4qqW5cXp1q
- +bxA==
+ bh=UUgjZN0rYxY2lB2BGb/XAk6rpThkSEYcaxKpWLFV8a4=;
+ b=bQDW3GxJPLePCUDEBMQPOqipNBlTEpobOR3Mmyn+5NlfAM8G1VMZwaMxFnmbpSN4f1
+ ZWYBqtnBahmzKvQ/bEmqLCfDKMFOaVbYugNEKtZYTOsFWzaHmDPRypGRG/TCMiwSLKGg
+ hMmcBunAG24196DLea5gCB8HsSl4IkrfJ40nEfgtChphwAGzJALxLugG3da0q3mQyyll
+ omnQ0EqYnymqP4kr0Ouxy6oceZBCWPoEuMM02fRNtFipZI1aaZY1XLHqbjstkvfOg/lY
+ 8zXN5oZi4aG5c5CMeMPv+xbGtcJRlnvdRpzJJCn03XqQ5iDBwcdmVX1TkQQ7UdS9cW1+
+ 0IhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=Yxlorrz12YlU50XIkmsJ0dRs1osrLd+a7g70jVE6kj8=;
- b=I3BhOuN8v5op/bJX960j9vy4NYLyn0HDenaUBgNHRPH+0wzdjXfwIG+29h9kQ8C5CJ
- C89KWjds5daU1rsvHAzz7hw/ZWYx/OpNJnqSo1Lfrqz1TVRPsE+naj6Ky9MyuZrTIYFZ
- iddCrrgw2me71xYmvMidLgm68lbULlO0PLmdAUc7fxkgtj7pld6icn7aszI7RGWa8OgS
- tIxdZh6tssjnK+frhxtzVm1E8ltvstD9LxZcwVceauhoqirCJ35k58X1P1I8XSs4K8jt
- qXMhhA4Hi2SSPRvsTuXuFkC4HIGNt1XYiZn7JjyttORToU8pElwI4a6OJHL9XM4uY0gF
- KGXg==
-X-Gm-Message-State: AFqh2kp8wSnD2gsYyddWO49en574Mdj/KHo/Hd+jQ6FA15WiGd4cHIrm
- Isaun+IoivPqYtvpLK/vVcabW6UlEnJx8Rd+JinTcqejBWE=
-X-Google-Smtp-Source: AMrXdXvurghW76LdQIGvQGwCNjF3BTiXJ6dqaAWRMzMYHkmAX2SXILbaollWiXM5VmzzZE/XER7grN+91EwG28dILCk=
-X-Received: by 2002:a17:906:eb16:b0:86c:3978:65ca with SMTP id
- mb22-20020a170906eb1600b0086c397865camr2675796ejb.320.1674548018037; Tue, 24
- Jan 2023 00:13:38 -0800 (PST)
+ bh=UUgjZN0rYxY2lB2BGb/XAk6rpThkSEYcaxKpWLFV8a4=;
+ b=VBX40t2z1MOnm4x09yMExqKxzLo8J/Anszf4mZrhhstdztcp548Sw644fzTRZbPlkN
+ AbIu+TbvOOp4B5f60Vz7Ia0DhrJ/WPXVfUxHwEiUIqWch8oxh3b5WkiHDgYsWvDA/Bns
+ cKgdkxxxJSLx+2dz6/yCLtfWiWTLNn22bSpGZTWVJRJu3syN7CBnBf0/IMdnC+CC6t2u
+ j93+9H5ozPxnL/4WKYXy1SV/74WwWvaY6BbTIwgEQ97WvfGGoLqmpvsYL9v4ZFmb39dJ
+ HwrwfTo3t/eM4Nf64tvRvrnNdeTv78w0ahydZpiuiy8OaJDVlsvvTFgvi7O4ZlHtQSVK
+ ldhg==
+X-Gm-Message-State: AFqh2koN4JbcACP0mbaZ/bdhcBPByW7vY5EPEX/XvbfKY8W+obw/f50a
+ XdVwKOr/RH8WS1Co+xvi8HKJImuCY7UlCZnzXihIqSXn
+X-Google-Smtp-Source: AMrXdXujnsU1/M3IdKA7e/QIgbUrKpYnyXhCypyOUmYTOC+UhP9BtTRllrVNdCcpuPZz2KAryNyIW3JaXuYr4Mx8mZg=
+X-Received: by 2002:a17:906:9e95:b0:7c1:98f:c16a with SMTP id
+ fx21-20020a1709069e9500b007c1098fc16amr2222010ejc.215.1674548861738; Tue, 24
+ Jan 2023 00:27:41 -0800 (PST)
 MIME-Version: 1.0
 References: <CAAxE2A5su09qWsCekUX4ZzTMAX+9m-BemDxqL2Hh9328Z1WDqw@mail.gmail.com>
  <355bab4f-2ca8-3dd2-4cbc-264931fe9d7a@gmail.com>
@@ -57,13 +57,14 @@ References: <CAAxE2A5su09qWsCekUX4ZzTMAX+9m-BemDxqL2Hh9328Z1WDqw@mail.gmail.com>
  <4992933e-ad45-5f7a-b7af-39c6d0948321@gmail.com>
  <CAAxE2A4rxdVqYp5qvN4DyV-=9TxE6EgeXPu++=7f1BEEhOs+Bw@mail.gmail.com>
  <a11b75da-9008-411d-66ed-6dc3c21f73ea@gmail.com>
-In-Reply-To: <a11b75da-9008-411d-66ed-6dc3c21f73ea@gmail.com>
+ <CAAxE2A686+RMwmUkN=dLRptKaHKEQemXDfMoidQbw55JrVWQWA@mail.gmail.com>
+In-Reply-To: <CAAxE2A686+RMwmUkN=dLRptKaHKEQemXDfMoidQbw55JrVWQWA@mail.gmail.com>
 From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Tue, 24 Jan 2023 03:13:01 -0500
-Message-ID: <CAAxE2A686+RMwmUkN=dLRptKaHKEQemXDfMoidQbw55JrVWQWA@mail.gmail.com>
+Date: Tue, 24 Jan 2023 03:27:05 -0500
+Message-ID: <CAAxE2A4zRPr5fJdQdAoBw8=OMrm9BjJHgnzLrXoomq0o-29UBw@mail.gmail.com>
 Subject: Re: [PATCH 2/2] drm/amdgpu: add AMDGPU_INFO_VM_STAT to return GPU VM
 To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: multipart/alternative; boundary="000000000000c6458305f2fe17cb"
+Content-Type: multipart/alternative; boundary="00000000000010202f05f2fe4abf"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,259 +80,287 @@ Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000c6458305f2fe17cb
+--00000000000010202f05f2fe4abf
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-The table of exposed driver-specific counters:
-https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/gallium/drivers/ra=
-deonsi/si_query.c#L1751
-
-Counter enums. They use the same interface as e.g. occlusion queries,
-except that begin_query and end_query save the results in the driver/CPU.
-https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/gallium/drivers/ra=
-deonsi/si_query.h#L45
-
-Counters exposed by the winsys:
-https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/gallium/include/wi=
-nsys/radeon_winsys.h#L126
-
-I just need to query the counters in the winsys and return them.
+A new Gallium HUD "value producer" could be added that reads fdinfo without
+calling the driver. I still think there is merit in having this in
+amdgpu_drm.h too.
 
 Marek
 
-On Tue, Jan 24, 2023 at 2:58 AM Christian K=C3=B6nig <
-ckoenig.leichtzumerken@gmail.com> wrote:
+On Tue, Jan 24, 2023 at 3:13 AM Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com> wr=
+ote:
 
-> How are the counters which the HUD consumes declared?
+> The table of exposed driver-specific counters:
 >
-> See what I want to avoid is a) to nail down the interface with the kernel
-> on specific values and b) make it possible to easily expose new values.
+> https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/gallium/drivers/=
+radeonsi/si_query.c#L1751
 >
-> In other words what we could do with fdinfo is to have something like thi=
-s:
+> Counter enums. They use the same interface as e.g. occlusion queries,
+> except that begin_query and end_query save the results in the driver/CPU.
 >
-> GALLIUM_FDINFO_HUD=3Ddrm-memory-vram,amd-evicted-vram,amd-mclk glxgears
+> https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/gallium/drivers/=
+radeonsi/si_query.h#L45
 >
-> And the HUD just displays the values the kernel provides without the need
-> to re-compile mesa when we want to add some more values nor have the valu=
-es
-> as part of the UAPI.
+> Counters exposed by the winsys:
 >
-> Christian.
+> https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/gallium/include/=
+winsys/radeon_winsys.h#L126
 >
-> Am 24.01.23 um 08:37 schrieb Marek Ol=C5=A1=C3=A1k:
->
-> The Gallium HUD doesn't consume strings. It only consumes values that are
-> exposed as counters from the driver. In this case, we need the driver to
-> expose evicted stats as counters. Each counter can set whether the value =
-is
-> absolute (e.g. memory usage) or monotonic (e.g. perf counter). Parsing
-> fdinfo to get the values is undesirable.
+> I just need to query the counters in the winsys and return them.
 >
 > Marek
 >
-> On Mon, Jan 23, 2023 at 4:31 AM Christian K=C3=B6nig <
+> On Tue, Jan 24, 2023 at 2:58 AM Christian K=C3=B6nig <
 > ckoenig.leichtzumerken@gmail.com> wrote:
 >
->> Let's do this as valid in fdinfo.
+>> How are the counters which the HUD consumes declared?
 >>
->> This way we can easily extend whatever the kernel wants to display as
->> statistics in the userspace HUD.
+>> See what I want to avoid is a) to nail down the interface with the kerne=
+l
+>> on specific values and b) make it possible to easily expose new values.
 >>
->> Regards,
+>> In other words what we could do with fdinfo is to have something like
+>> this:
+>>
+>> GALLIUM_FDINFO_HUD=3Ddrm-memory-vram,amd-evicted-vram,amd-mclk glxgears
+>>
+>> And the HUD just displays the values the kernel provides without the nee=
+d
+>> to re-compile mesa when we want to add some more values nor have the val=
+ues
+>> as part of the UAPI.
+>>
 >> Christian.
 >>
->> Am 21.01.23 um 01:45 schrieb Marek Ol=C5=A1=C3=A1k:
+>> Am 24.01.23 um 08:37 schrieb Marek Ol=C5=A1=C3=A1k:
 >>
->> We badly need a way to query evicted memory usage. It's essential for
->> investigating performance problems and it uncovered the buddy allocator
->> disaster. Please either suggest an alternative, suggest changes, or revi=
-ew.
->> We need it ASAP.
+>> The Gallium HUD doesn't consume strings. It only consumes values that ar=
+e
+>> exposed as counters from the driver. In this case, we need the driver to
+>> expose evicted stats as counters. Each counter can set whether the value=
+ is
+>> absolute (e.g. memory usage) or monotonic (e.g. perf counter). Parsing
+>> fdinfo to get the values is undesirable.
 >>
->> Thanks,
 >> Marek
 >>
->> On Tue, Jan 10, 2023 at 11:55 AM Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com=
-> wrote:
+>> On Mon, Jan 23, 2023 at 4:31 AM Christian K=C3=B6nig <
+>> ckoenig.leichtzumerken@gmail.com> wrote:
 >>
->>> On Tue, Jan 10, 2023 at 11:23 AM Christian K=C3=B6nig <
->>> ckoenig.leichtzumerken@gmail.com> wrote:
+>>> Let's do this as valid in fdinfo.
 >>>
->>>> Am 10.01.23 um 16:28 schrieb Marek Ol=C5=A1=C3=A1k:
->>>>
->>>> On Wed, Jan 4, 2023 at 9:51 AM Christian K=C3=B6nig <
->>>> ckoenig.leichtzumerken@gmail.com> wrote:
->>>>
->>>>> Am 04.01.23 um 00:08 schrieb Marek Ol=C5=A1=C3=A1k:
->>>>>
->>>>> I see about the access now, but did you even look at the patch?
->>>>>
->>>>>
->>>>> I did look at the patch, but I haven't fully understood yet what you
->>>>> are trying to do here.
->>>>>
->>>>
->>>> First and foremost, it returns the evicted size of VRAM and visible
->>>> VRAM, and returns visible VRAM usage. It should be obvious which stat
->>>> includes the size of another.
->>>>
->>>>
->>>>> Because what the patch does isn't even exposed to common drm code,
->>>>> such as the preferred domain and visible VRAM placement, so it can't =
-be in
->>>>> fdinfo right now.
->>>>>
->>>>> Or do you even know what fdinfo contains? Because it contains nothing
->>>>> useful. It only has VRAM and GTT usage, which we already have in the =
-INFO
->>>>> ioctl, so it has nothing that we need. We mainly need the eviction
->>>>> information and visible VRAM information now. Everything else is a bo=
-nus.
->>>>>
->>>>>
->>>>> Well the main question is what are you trying to get from that
->>>>> information? The eviction list for example is completely meaningless =
-to
->>>>> userspace, that stuff is only temporary and will be cleared on the ne=
-xt CS
->>>>> again.
->>>>>
->>>>
->>>> I don't know what you mean. The returned eviction stats look correct
->>>> and are stable (they don't change much). You can suggest changes if yo=
-u
->>>> think some numbers are not reported correctly.
->>>>
->>>>
->>>>>
->>>>> What we could expose is the VRAM over-commit value, e.g. how much BOs
->>>>> which where supposed to be in VRAM are in GTT now. I think that's wha=
-t you
->>>>> are looking for here, right?
->>>>>
->>>>
->>>> The VRAM overcommit value is "evicted_vram".
->>>>
->>>>
->>>>>
->>>>> Also, it's undesirable to open and parse a text file if we can just
->>>>> call an ioctl.
->>>>>
->>>>>
->>>>> Well I see the reasoning for that, but I also see why other drivers d=
-o
->>>>> a lot of the stuff we have as IOCTL as separate files in sysfs, fdinf=
-o or
->>>>> debugfs.
->>>>>
->>>>> Especially repeating all the static information which were already
->>>>> available under sysfs in the INFO IOCTL was a design mistake as far a=
-s I
->>>>> can see. Just compare what AMDGPU and the KFD code is doing to what f=
-or
->>>>> example i915 is doing.
->>>>>
->>>>> Same for things like debug information about a process. The fdinfo
->>>>> stuff can be queried from external tools (gdb, gputop, umr etc...) as=
- well
->>>>> which makes that interface more preferred.
->>>>>
->>>>
->>>> Nothing uses fdinfo in Mesa. No driver uses sysfs in Mesa except drm
->>>> shims, noop drivers, and Intel for perf metrics. sysfs itself is an
->>>> unusable mess for the PCIe query and is missing information.
->>>>
->>>> I'm not against exposing more stuff through sysfs and fdinfo for tools=
-,
->>>> but I don't see any reason why drivers should use it (other than for
->>>> slowing down queries and initialization).
->>>>
->>>>
->>>> That's what I'm asking: Is this for some tool or to make some driver
->>>> decision based on it?
->>>>
->>>> If you just want the numbers for over displaying then I think it would
->>>> be better to put this into fdinfo together with the other existing stu=
-ff
->>>> there.
->>>>
+>>> This way we can easily extend whatever the kernel wants to display as
+>>> statistics in the userspace HUD.
 >>>
->>>> If you want to make allocation decisions based on this then we should
->>>> have that as IOCTL or even better as mmap() page between kernel and
->>>> userspace. But in this case I would also calculation the numbers compl=
-etely
->>>> different as well.
->>>>
->>>> See we have at least the following things in the kernel:
->>>> 1. The eviction list in the VM.
->>>>     Those are the BOs which are currently evicted and tried to moved
->>>> back in on the next CS.
->>>>
->>>> 2. The VRAM over commit value.
->>>>     In other words how much more VRAM than available has the
->>>> application tried to allocate?
->>>>
->>>> 3. The visible VRAM usage by this application.
->>>>
->>>> The end goal is that the eviction list will go away, e.g. we will
->>>> always have stable allocations based on allocations of other applicati=
-ons
->>>> and not constantly swap things in and out.
->>>>
->>>> When you now expose the eviction list to userspace we will be stuck
->>>> with this interface forever.
->>>>
+>>> Regards,
+>>> Christian.
 >>>
->>> It's for the GALLIUM HUD.
+>>> Am 21.01.23 um 01:45 schrieb Marek Ol=C5=A1=C3=A1k:
 >>>
->>> The only missing thing is the size of all evicted VRAM allocations, and
->>> the size of all evicted visible VRAM allocations.
+>>> We badly need a way to query evicted memory usage. It's essential for
+>>> investigating performance problems and it uncovered the buddy allocator
+>>> disaster. Please either suggest an alternative, suggest changes, or rev=
+iew.
+>>> We need it ASAP.
 >>>
->>> 1. No list is exposed. Only sums of buffer sizes are exposed. Also, the
->>> eviction list has no meaning here. All lists are treated equally, and
->>> mem_type is compared with preferred_domains to determine where buffers =
-are
->>> and where they should be.
->>>
->>> 2. I'm not interested in the overcommit value. I'm only interested in
->>> knowing the number of bytes of evicted VRAM right now. It can be as
->>> variable as the CPU load, but in practice it shouldn't be because PCIe
->>> doesn't have the bandwidth to move things quickly.
->>>
->>> 3. Yes, that's true.
->>>
+>>> Thanks,
 >>> Marek
 >>>
+>>> On Tue, Jan 10, 2023 at 11:55 AM Marek Ol=C5=A1=C3=A1k <maraeo@gmail.co=
+m> wrote:
+>>>
+>>>> On Tue, Jan 10, 2023 at 11:23 AM Christian K=C3=B6nig <
+>>>> ckoenig.leichtzumerken@gmail.com> wrote:
+>>>>
+>>>>> Am 10.01.23 um 16:28 schrieb Marek Ol=C5=A1=C3=A1k:
+>>>>>
+>>>>> On Wed, Jan 4, 2023 at 9:51 AM Christian K=C3=B6nig <
+>>>>> ckoenig.leichtzumerken@gmail.com> wrote:
+>>>>>
+>>>>>> Am 04.01.23 um 00:08 schrieb Marek Ol=C5=A1=C3=A1k:
+>>>>>>
+>>>>>> I see about the access now, but did you even look at the patch?
+>>>>>>
+>>>>>>
+>>>>>> I did look at the patch, but I haven't fully understood yet what you
+>>>>>> are trying to do here.
+>>>>>>
+>>>>>
+>>>>> First and foremost, it returns the evicted size of VRAM and visible
+>>>>> VRAM, and returns visible VRAM usage. It should be obvious which stat
+>>>>> includes the size of another.
+>>>>>
+>>>>>
+>>>>>> Because what the patch does isn't even exposed to common drm code,
+>>>>>> such as the preferred domain and visible VRAM placement, so it can't=
+ be in
+>>>>>> fdinfo right now.
+>>>>>>
+>>>>>> Or do you even know what fdinfo contains? Because it contains nothin=
+g
+>>>>>> useful. It only has VRAM and GTT usage, which we already have in the=
+ INFO
+>>>>>> ioctl, so it has nothing that we need. We mainly need the eviction
+>>>>>> information and visible VRAM information now. Everything else is a b=
+onus.
+>>>>>>
+>>>>>>
+>>>>>> Well the main question is what are you trying to get from that
+>>>>>> information? The eviction list for example is completely meaningless=
+ to
+>>>>>> userspace, that stuff is only temporary and will be cleared on the n=
+ext CS
+>>>>>> again.
+>>>>>>
+>>>>>
+>>>>> I don't know what you mean. The returned eviction stats look correct
+>>>>> and are stable (they don't change much). You can suggest changes if y=
+ou
+>>>>> think some numbers are not reported correctly.
+>>>>>
+>>>>>
+>>>>>>
+>>>>>> What we could expose is the VRAM over-commit value, e.g. how much BO=
+s
+>>>>>> which where supposed to be in VRAM are in GTT now. I think that's wh=
+at you
+>>>>>> are looking for here, right?
+>>>>>>
+>>>>>
+>>>>> The VRAM overcommit value is "evicted_vram".
+>>>>>
+>>>>>
+>>>>>>
+>>>>>> Also, it's undesirable to open and parse a text file if we can just
+>>>>>> call an ioctl.
+>>>>>>
+>>>>>>
+>>>>>> Well I see the reasoning for that, but I also see why other drivers
+>>>>>> do a lot of the stuff we have as IOCTL as separate files in sysfs, f=
+dinfo
+>>>>>> or debugfs.
+>>>>>>
+>>>>>> Especially repeating all the static information which were already
+>>>>>> available under sysfs in the INFO IOCTL was a design mistake as far =
+as I
+>>>>>> can see. Just compare what AMDGPU and the KFD code is doing to what =
+for
+>>>>>> example i915 is doing.
+>>>>>>
+>>>>>> Same for things like debug information about a process. The fdinfo
+>>>>>> stuff can be queried from external tools (gdb, gputop, umr etc...) a=
+s well
+>>>>>> which makes that interface more preferred.
+>>>>>>
+>>>>>
+>>>>> Nothing uses fdinfo in Mesa. No driver uses sysfs in Mesa except drm
+>>>>> shims, noop drivers, and Intel for perf metrics. sysfs itself is an
+>>>>> unusable mess for the PCIe query and is missing information.
+>>>>>
+>>>>> I'm not against exposing more stuff through sysfs and fdinfo for
+>>>>> tools, but I don't see any reason why drivers should use it (other th=
+an for
+>>>>> slowing down queries and initialization).
+>>>>>
+>>>>>
+>>>>> That's what I'm asking: Is this for some tool or to make some driver
+>>>>> decision based on it?
+>>>>>
+>>>>> If you just want the numbers for over displaying then I think it woul=
+d
+>>>>> be better to put this into fdinfo together with the other existing st=
+uff
+>>>>> there.
+>>>>>
+>>>>
+>>>>> If you want to make allocation decisions based on this then we should
+>>>>> have that as IOCTL or even better as mmap() page between kernel and
+>>>>> userspace. But in this case I would also calculation the numbers comp=
+letely
+>>>>> different as well.
+>>>>>
+>>>>> See we have at least the following things in the kernel:
+>>>>> 1. The eviction list in the VM.
+>>>>>     Those are the BOs which are currently evicted and tried to moved
+>>>>> back in on the next CS.
+>>>>>
+>>>>> 2. The VRAM over commit value.
+>>>>>     In other words how much more VRAM than available has the
+>>>>> application tried to allocate?
+>>>>>
+>>>>> 3. The visible VRAM usage by this application.
+>>>>>
+>>>>> The end goal is that the eviction list will go away, e.g. we will
+>>>>> always have stable allocations based on allocations of other applicat=
+ions
+>>>>> and not constantly swap things in and out.
+>>>>>
+>>>>> When you now expose the eviction list to userspace we will be stuck
+>>>>> with this interface forever.
+>>>>>
+>>>>
+>>>> It's for the GALLIUM HUD.
+>>>>
+>>>> The only missing thing is the size of all evicted VRAM allocations, an=
+d
+>>>> the size of all evicted visible VRAM allocations.
+>>>>
+>>>> 1. No list is exposed. Only sums of buffer sizes are exposed. Also, th=
+e
+>>>> eviction list has no meaning here. All lists are treated equally, and
+>>>> mem_type is compared with preferred_domains to determine where buffers=
+ are
+>>>> and where they should be.
+>>>>
+>>>> 2. I'm not interested in the overcommit value. I'm only interested in
+>>>> knowing the number of bytes of evicted VRAM right now. It can be as
+>>>> variable as the CPU load, but in practice it shouldn't be because PCIe
+>>>> doesn't have the bandwidth to move things quickly.
+>>>>
+>>>> 3. Yes, that's true.
+>>>>
+>>>> Marek
+>>>>
+>>>>
 >>>
 >>
->
 
---000000000000c6458305f2fe17cb
+--00000000000010202f05f2fe4abf
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div>The table of exposed driver-specific counters:<br></d=
-iv><div></div><div><a href=3D"https://gitlab.freedesktop.org/mesa/mesa/-/bl=
-ob/main/src/gallium/drivers/radeonsi/si_query.c#L1751">https://gitlab.freed=
-esktop.org/mesa/mesa/-/blob/main/src/gallium/drivers/radeonsi/si_query.c#L1=
-751</a></div><div><br></div><div>Counter enums. They use the same interface=
- as e.g. occlusion queries, except that begin_query and end_query save the =
-results in the driver/CPU.<br></div><div><a href=3D"https://gitlab.freedesk=
-top.org/mesa/mesa/-/blob/main/src/gallium/drivers/radeonsi/si_query.h#L45">=
-https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/gallium/drivers/ra=
-deonsi/si_query.h#L45</a></div><div><br></div><div>Counters exposed by the =
-winsys:</div><div><a href=3D"https://gitlab.freedesktop.org/mesa/mesa/-/blo=
-b/main/src/gallium/include/winsys/radeon_winsys.h#L126">https://gitlab.free=
-desktop.org/mesa/mesa/-/blob/main/src/gallium/include/winsys/radeon_winsys.=
-h#L126</a></div><div><br></div><div>I just need to query the counters in th=
-e winsys and return them.<br></div><div><br></div><div>Marek<br></div></div=
-><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Tu=
-e, Jan 24, 2023 at 2:58 AM Christian K=C3=B6nig &lt;<a href=3D"mailto:ckoen=
-ig.leichtzumerken@gmail.com">ckoenig.leichtzumerken@gmail.com</a>&gt; wrote=
-:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.=
-8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+<div dir=3D"ltr"><div>A new Gallium HUD &quot;value producer&quot; could be=
+ added that reads fdinfo without calling the driver. I still think there is=
+ merit in having this in amdgpu_drm.h too.</div><div><br></div><div>Marek<b=
+r></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmai=
+l_attr">On Tue, Jan 24, 2023 at 3:13 AM Marek Ol=C5=A1=C3=A1k &lt;<a href=
+=3D"mailto:maraeo@gmail.com" target=3D"_blank">maraeo@gmail.com</a>&gt; wro=
+te:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
+0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"=
+ltr"><div>The table of exposed driver-specific counters:<br></div><div></di=
+v><div><a href=3D"https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/=
+gallium/drivers/radeonsi/si_query.c#L1751" target=3D"_blank">https://gitlab=
+.freedesktop.org/mesa/mesa/-/blob/main/src/gallium/drivers/radeonsi/si_quer=
+y.c#L1751</a></div><div><br></div><div>Counter enums. They use the same int=
+erface as e.g. occlusion queries, except that begin_query and end_query sav=
+e the results in the driver/CPU.<br></div><div><a href=3D"https://gitlab.fr=
+eedesktop.org/mesa/mesa/-/blob/main/src/gallium/drivers/radeonsi/si_query.h=
+#L45" target=3D"_blank">https://gitlab.freedesktop.org/mesa/mesa/-/blob/mai=
+n/src/gallium/drivers/radeonsi/si_query.h#L45</a></div><div><br></div><div>=
+Counters exposed by the winsys:</div><div><a href=3D"https://gitlab.freedes=
+ktop.org/mesa/mesa/-/blob/main/src/gallium/include/winsys/radeon_winsys.h#L=
+126" target=3D"_blank">https://gitlab.freedesktop.org/mesa/mesa/-/blob/main=
+/src/gallium/include/winsys/radeon_winsys.h#L126</a></div><div><br></div><d=
+iv>I just need to query the counters in the winsys and return them.<br></di=
+v><div><br></div><div>Marek<br></div></div><br><div class=3D"gmail_quote"><=
+div dir=3D"ltr" class=3D"gmail_attr">On Tue, Jan 24, 2023 at 2:58 AM Christ=
+ian K=C3=B6nig &lt;<a href=3D"mailto:ckoenig.leichtzumerken@gmail.com" targ=
+et=3D"_blank">ckoenig.leichtzumerken@gmail.com</a>&gt; wrote:<br></div><blo=
+ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left=
+:1px solid rgb(204,204,204);padding-left:1ex">
  =20
    =20
  =20
@@ -686,5 +715,6 @@ r
   </div>
 
 </blockquote></div>
+</blockquote></div>
 
---000000000000c6458305f2fe17cb--
+--00000000000010202f05f2fe4abf--
