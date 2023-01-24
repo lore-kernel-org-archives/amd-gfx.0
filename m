@@ -4,117 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BE83C25B50
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 00:24:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65411C25B4E
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 07:37:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 101D510E209;
-	Tue, 24 Jan 2023 00:24:27 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2074.outbound.protection.outlook.com [40.107.237.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7BC210E209
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Jan 2023 00:24:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=APIVoFmo1UMS5wqJarfSugGDISm9iGpYH4w+c5tOZBLePeTEkkipaTYd9OjDu6VfFO6tyufANQvvCHviQ98IfOOA/II7yXe21H7FCYwp0fiXIqZXXKhJ3bEmBrHOhOnX2osAtaq0YMrArKXV5437luvqJJpiyyCDgWamRoHAOhIQtsaqkVj77fjksR2MFEDiz4sQuVLHpjkIYp/6+Nb5bhQklAHvRIzCR014BeO9ZFzV+zQsR50pyHhKuhH7qTZbNSg9Tv99/LRCGg6wQasqhFZbEXz1zXpQoitDRG8k4/pltB5XWVwbQg++0lBlGGnDnGHq6OBVadIK8p6/FcSJIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HFT0ma2iURBg4xgJu9CdI9nppKXCqsXExnmSERK8TCY=;
- b=PaTuloNKBtqM4LtrOUKG+M8M5Vnk7jz5Hxfr5LlQNgbDkhAGyj/EvJt834H8fwBF77y5acvOK2UcM5ptA67qwQTxZN0KC4Zo734Kllgd5GFepT/u+fNnwujb8fOxO95+tpqRKsezYNhHn2G15M+kNRCyv5CuPzNX1IwSQAuqWQJnQL/Evfvze3ketHgq6rsPBgfrNlNbXOT4eVaV4HhUmDY0I6q9sTCtMjqUQ4mIJwOWlC3GT27aJ/O6ePGo+elhtdM3FWY89qEr+R+bPMyNGjLnZisfU24IJmOYWGmlcCdsfez428689z3JGIMhLQNjL+4wxXA5YxseJ19olNb5AQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HFT0ma2iURBg4xgJu9CdI9nppKXCqsXExnmSERK8TCY=;
- b=qboDYkTEUWfE7qV5fszG8URK7bMYvusI7AGkRQ2Fk/igPyKAYEoB2/cxKvx4umBPPWshtXUvt8XPlZQo6B1Th2nyHKE8xWztkncFhLHo/cVEks+9phNLVaPN612K0XyNEoJCBY8ApaNt7GbvlMXI3tNLdJDUaTPotKJX7IBXKO8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by DM4PR12MB5232.namprd12.prod.outlook.com (2603:10b6:5:39c::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33; Tue, 24 Jan
- 2023 00:24:23 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::152b:e615:3d60:2bf0]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::152b:e615:3d60:2bf0%6]) with mapi id 15.20.6002.033; Tue, 24 Jan 2023
- 00:24:22 +0000
-Message-ID: <208bc529-d954-ab89-17ac-9b01acd93cc5@amd.com>
-Date: Mon, 23 Jan 2023 19:24:19 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-From: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [PATCH 1/2] drm/amd/display: Hook up 'content type' property for
- HDMI
-To: Joshua Ashton <joshua@froggi.es>, Melissa Wen <mwen@igalia.com>
-References: <20230117212620.11262-1-joshua@froggi.es>
- <20230119181458.n4divmninme7o3dr@mail.igalia.com>
- <bfe3d3e0-9a9d-23d8-9527-817faf6ce3d1@froggi.es>
-Content-Language: en-US
-In-Reply-To: <bfe3d3e0-9a9d-23d8-9527-817faf6ce3d1@froggi.es>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0287.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:109::9) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1B7B10E612;
+	Tue, 24 Jan 2023 07:37:40 +0000 (UTC)
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [IPv6:2a00:1450:4864:20::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5064C10E612
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Jan 2023 07:37:38 +0000 (UTC)
+Received: by mail-ej1-x62e.google.com with SMTP id hw16so36586848ejc.10
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Jan 2023 23:37:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=9AIB4pYc7BmjdkAZmOpHmsTGHIlrKuBk27cLbE48OPQ=;
+ b=pG4bekXkqMwhB/01o34Iicm8C6d1RBzm7TZqlJvq1Yok0bLgCpb97c1wljB/vALMR6
+ 3ODSrUbdj9sVhpKehv6rwK07n9Qs2YSN/MnMrMaT78nYa8b5Br3nl7ikh7P7EugkW2iL
+ fdEobArzqoNQavC7tvX/7BWVHdGLYl+yyKu6UJCZElKOarHTA4T6XHl1V1j4Zab+1QqW
+ UxHTN2qypT0xPS64ehNqXShxPJ0XlerTU4qleRY6ShI3Hsi06lSlXnhnXxqk4RFzWUYb
+ bdvG8vGG6rUyjKNSYoufAFjDeJdxbc29GfYLuTHGtdazfCVWo6Gk+jKBdLYVWvptjkul
+ RNMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=9AIB4pYc7BmjdkAZmOpHmsTGHIlrKuBk27cLbE48OPQ=;
+ b=IZlWYnjywSFsVQmg5crjpgJd00BpYoZaEY1JdGijBqVyuQdhb670dS4dlYsDdJgosa
+ OGAPDLzDgTmgQGB2JTz121UuYDhelCs13sP3pHynNUlrpydqJmuNliBN3YOPv1SSn/ls
+ Vh0sd/tZO6V4ElEvD+A/n/G5YWV0TlJ6m1xsJt6ik7YvbWGPZnPG6SvpDuzOD54GjmCq
+ oFh44bdyBv/UZW9YQd5wpVDt1IJmL2LJharFthHM1klhCmT48IFNDAiL3Us7CkHFxnzh
+ 3yjZ5jiQCyJ6/76sknUDafc8z4qD1jKODWFm3vAM6BhBihGqlJBONV507iHjXVgKIcJq
+ Ewgw==
+X-Gm-Message-State: AFqh2koRLQGGSgroWFS9oShH9LjN3WRUc+JzFg3wKS1yFSFmF5mi2rZo
+ D085Q8wyrHRNWjwZHEm9v8uzbRLvgyZsc17dtP1IFnPf
+X-Google-Smtp-Source: AMrXdXufLLjqbi29PGLquPNFwIKlbqZWPgnlPbTUdY2u+/RkRT3x+XuyQIFu8kxrcpfXRtlUn2/R7hg7rmu4CyvIyqo=
+X-Received: by 2002:a17:906:eb16:b0:86c:3978:65ca with SMTP id
+ mb22-20020a170906eb1600b0086c397865camr2660182ejb.320.1674545856641; Mon, 23
+ Jan 2023 23:37:36 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|DM4PR12MB5232:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7b304ccc-8ca7-4970-ab75-08dafda1577b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /gH1PCd+drW2rcWimnWNQgCNSiYgGQOIH3GZXq1j/NhVePErzbHNBd3Y1d0gxn05hyqZjQxFuzSOr9b5P3EUJt3WCZQKjvrLIrTHqcgiAkMjvYNhDT+BuNP6EtRlgh8yYyNZVEHiKLB67DbhbwVOoBUAP4d2ex4B8P6ishdjP3/+pdiQmkfCar3FU+U2uD9jvsbvviIay/tFzkQOUy5GH+FJh57BbTzL3yuVmLbjc4OkvW9LuIsQsU2X13hSem62tqm5G1AnLHxMSxzaE0kF+KULeV4h20w3bhQqz1D64s/0e/Xk338ZSmuY1DudKszOIZUyXVG2fgO/BGNmJDmFmOUd5Pu3g54gXX5kX81HBBPrtRQferYaAaAoDx/a+pG53v1PjfyEE/NqpPPCd9vYJ97zQjkVHHWe8a/y+wUXrwXWEfHjOOJ+rWUaRCq2tGjcPe00PDdiGJwK9BaL7EvxQ/WOYhrP/sWq7Cc808AFijgNAvmB4mo7di2Jaod+lDA6vvrfd5FJ+DavkgxXOQmm3daKOPSS8DO2bXsvfeYk+EPRbuxFYO7zTCGrx1Ru9CoWPuWaCAmLSNWvRGc7MGI52gRso4DqyFkBclijM8g39H2OY2HO8ZKmPePbi4LRJ991tnyfWXxuoDvpDR+GwUw2eUcN5jLGDWQq27mH96Z58wCbw7oqfR7UFlXk89z3vdTi/hGMQYCwYrN4EqoDMGfcru8W1vHBxz3u8brQ95omoGRplolx0MOEX7tNYPj2/h3PxlOydDrLb/vzxUvRulxBHuaAnClLYjG3nSWS4rlmBK8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(136003)(346002)(376002)(366004)(39860400002)(451199015)(41300700001)(31696002)(83380400001)(86362001)(5660300002)(38100700002)(2906002)(8936002)(44832011)(4326008)(26005)(2616005)(6506007)(53546011)(6512007)(186003)(8676002)(6666004)(66556008)(66946007)(316002)(478600001)(110136005)(66476007)(6486002)(31686004)(36756003)(52103002)(158003001)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SWRiWGIvZ245bEJ3dkhxZFBiWXZYNjVlNjJya3Y4WlRJb1NwWWNoVnBXeTFv?=
- =?utf-8?B?cHlISUxFTmpWQ09qTGgybENqb0JMb2hNNFJqVzA4K0lURU9vU1VncFJ2SFpX?=
- =?utf-8?B?V2RnM256ODIxOS9zSXdXMEhtZG8rbC9FWFMwVFp3TS8zRFpTbjUwMThSTHNV?=
- =?utf-8?B?b3Z2c3VSU3RmcVZJMmhydG5VTGR6dXBiVDFuZG0ydlpKbTFsNExVMmNXQWJq?=
- =?utf-8?B?WFdTSU9OT0thcklDTnNwK3Y2VlVtSzB2THg0Z2tFWjhwUThudTR4YlphWStl?=
- =?utf-8?B?b0tBNnZuQWRHSitINnBzS2hKVWhFR1pFZXQvSjNjckNMNkRwMnlqaTFLOTU4?=
- =?utf-8?B?eFI0bFMyNWRlUUQ5VENpSGYvRnMvYWZGVEp4VHNQY3RGNWg1aFBLVzJZMjRM?=
- =?utf-8?B?SlNJdmpmQVJ2UzB0OUJQTVRXQjg4MCtEU3ZNYURMSUN1TE1TeWRXdlplTDZL?=
- =?utf-8?B?Y0Z5Ym5iL2pTMXhDcUlvSG5TOTQvNkk0SnRub25QSkFUY3dheXBkVVo1ZzNH?=
- =?utf-8?B?b1BFck40TVU2WVdBaGZjUW11RWQ3YUVPSnlzTStaTUZsbVJlbThUWmV6bmQ5?=
- =?utf-8?B?TjA5ME5LNUswZkZwYkYzU3hCTUU1aUJUVk45TVpKWjlwWjB0TFYzajZrRDBQ?=
- =?utf-8?B?c3hmdmlod3IxS1hzUFZ6ZExhZWJYbHF5Mzg1bzlJTkZ3M2wrNCtuQTU1R0tL?=
- =?utf-8?B?NFJRKzVWMkJ6ZG9NT0h1RmNoRHYwKzlVMDJBaGRBTWFoVFlBbkNHWnhQdW1B?=
- =?utf-8?B?RWVkaVVIQThGUGVBT1JiakV2QUJPWThiaG0vdG1YNFZLck8zZDdDMnJVL3Rs?=
- =?utf-8?B?S2dhSTVxdzhJdFdqbEtOQUxVek12dzlwNS9Wb0g1aE0rdnhNa0d0bWtYYmc1?=
- =?utf-8?B?SVZCNFlPY3ZtcW1XYmVLTlBPMi9wVEwzTEJqU3VycUNqbHNnK2QwTitsOHBN?=
- =?utf-8?B?Z3FIbFpiV2Z5a09vSExCSzBETjVmUlM5anBpTFhXWHJ3YVE1czNKMzJkUGxE?=
- =?utf-8?B?eHg1eXJTM3BYdFJCUUdpK3dZN0Y3R3VYakw2Sllqa3d2UEtIZDBrbkt3VnpR?=
- =?utf-8?B?V1RSRVhNcE9USUtsM2ZrdDgxNzlDUUo5bktnWjh1Ym9pTS9GUzdIdnN5V0h0?=
- =?utf-8?B?RHE2d1paYTBVaHpkVWdLek1NcTJ5amdvbU1zSFBSaGpWbHlRcVVEa20yMzdp?=
- =?utf-8?B?bDR4UXZHMVJPNDdWUXFibG55OTZZRUJueE5kM0dsVU5KR3lXd1VpZnZETHBt?=
- =?utf-8?B?c2pIQUxFTkZLTUYweE1acHVjVGxtM3lhR01xbktzWnh2SXJTbjdRNjhpQ1pL?=
- =?utf-8?B?VFlWZEYzSEdRcUs0ZXZwTVBPNzArV0VuMDczRjNKRE9XTVN2OXdUdE5teVpK?=
- =?utf-8?B?UXBRWTdYYjlPcXBmOWFHQmVVempyZWNSZlhxaVV5aWQyME1ObmdYazF2VFh6?=
- =?utf-8?B?dVFKcmVXR2lGeWYwRDFhakd4VkliWkdWWk9JMWgweVlUdEgwM0lCSzhENWRr?=
- =?utf-8?B?dFBPK21yVnhOSEJKR29iM0xNMEhOK2lTUGJkRHA5RjBGWlJjSXl4cXJsQkh1?=
- =?utf-8?B?bjVaKzVmUVA2NGdKNFdZOGJZK3plVnp6TTN6UHNmbGV3cUZINGNsS1dkdElM?=
- =?utf-8?B?RWpZT0V3eTV1WVpDcTZHSzBRRDltSXU0WWRranpCZmoreTFoMTFJSU9UbnFH?=
- =?utf-8?B?V3k3YlM4THVleEcwVHNSaDlpOUdNdi9xRDNESGQ5anJYQVRjVU5hL0lwbU4w?=
- =?utf-8?B?b1hBVmw2dGpEUzNBNEF3aHR4WTBFcWwyanNtOHZMYkhsTjI2OXpSU3dCcmdt?=
- =?utf-8?B?VmU4dWpKU0YyMGc1aUFVc0E0OTBhRU0vSGpta2E1U1h4aHcrTWlXYitucnBI?=
- =?utf-8?B?U3JTVTdQRW05bk9FQk5xeEo5VVY0SC9QZHl6Mjg4VytFcjUwOVNsOXZaa0hJ?=
- =?utf-8?B?elpjK0tmVnVwYVBDQThGTGdHSEIrQm9WVFZnVDZVZmlOLzVRYVVFdldERXU0?=
- =?utf-8?B?K0VtajQyYnhjTnlmWklXT0h3SzNNMHF4ek1FT09DZldFYTJnNFplTU1CMkdt?=
- =?utf-8?B?RFl2UlAvRzYyd2tpbm51NERIQlJQYjZITGxwOUZFUE9OYmRRS0JwaUs3cVIv?=
- =?utf-8?Q?QN1wwUj4dh+FWlEd1iTzvIWkS?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7b304ccc-8ca7-4970-ab75-08dafda1577b
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2023 00:24:22.8144 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: F17V8/Q3rJPMAavgl774UMJf8VavmZpuRDnmAvDUPjt9AuWe0kYKp9XNWKXwkMEoUUKmJskC2Y55XHOf/J7y5g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5232
+References: <CAAxE2A5su09qWsCekUX4ZzTMAX+9m-BemDxqL2Hh9328Z1WDqw@mail.gmail.com>
+ <355bab4f-2ca8-3dd2-4cbc-264931fe9d7a@gmail.com>
+ <CAAxE2A487Ra9ropymBGZpXSt=Zz81cjf56p_7wq+tK4cDfn1sA@mail.gmail.com>
+ <1d0ddc01-b315-a5ff-f4cc-30b8aedfeb57@gmail.com>
+ <CAAxE2A69e+rHQJP+wHYOxywB0+B4Vp4XsO429euoGE=H-VRsPw@mail.gmail.com>
+ <d1463910-1eab-2dac-a633-812ada011cc4@gmail.com>
+ <CAAxE2A5fWDp==muWuXSXuGGHtT_RThLpC1rK92c2mLVLdmGdUQ@mail.gmail.com>
+ <fe0ca4a4-b339-20ab-fd42-68b2a5e00e9c@gmail.com>
+ <CAAxE2A71r9sQqFCPajK2VhL5GBJZ=Js5YRvYkrrsRtTRT5yxTg@mail.gmail.com>
+ <CAAxE2A6JcREmKKmh1n0xSgkOZq77kpnzC-27-srunLKduyAwiw@mail.gmail.com>
+ <4992933e-ad45-5f7a-b7af-39c6d0948321@gmail.com>
+In-Reply-To: <4992933e-ad45-5f7a-b7af-39c6d0948321@gmail.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Tue, 24 Jan 2023 02:37:00 -0500
+Message-ID: <CAAxE2A4rxdVqYp5qvN4DyV-=9TxE6EgeXPu++=7f1BEEhOs+Bw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: add AMDGPU_INFO_VM_STAT to return GPU VM
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: multipart/alternative; boundary="000000000000f2002905f2fd96e4"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,218 +73,493 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org
+Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--000000000000f2002905f2fd96e4
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+The Gallium HUD doesn't consume strings. It only consumes values that are
+exposed as counters from the driver. In this case, we need the driver to
+expose evicted stats as counters. Each counter can set whether the value is
+absolute (e.g. memory usage) or monotonic (e.g. perf counter). Parsing
+fdinfo to get the values is undesirable.
 
-On 1/19/23 17:20, Joshua Ashton wrote:
-> 
-> 
-> On 1/19/23 18:14, Melissa Wen wrote:
->> On 01/17, Joshua Ashton wrote:
->>> Implements the 'content type' property for HDMI connectors.
->>> Verified by checking the avi infoframe on a connected TV.
->>>
->>> This also simplifies a lot of the code in that area as well, there were
->>> a lot of temp variables doing very little and unnecessary logic
->>> that was quite confusing.
->>>
->>> It is not necessary to check for support in the EDID before sending a
->>> 'content type' value in the avi infoframe also.
->>>
->>> Signed-off-by: Joshua Ashton <joshua@froggi.es>
->>> ---
->>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 24 +++++++
->>>   .../gpu/drm/amd/display/dc/core/dc_resource.c | 69 ++++++-------------
->>>   drivers/gpu/drm/amd/display/dc/dc_stream.h    |  1 +
->>>   3 files changed, 46 insertions(+), 48 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> index 9547037857b6..999965fe3de9 100644
->>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> @@ -5216,6 +5216,24 @@ get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing)
->>>       return color_space;
->>>   }
->>>   +static enum display_content_type
->>> +get_output_content_type(const struct drm_connector_state *connector_state)
->>> +{
->>> +    switch (connector_state->content_type) {
->>> +    default:
->>> +    case DRM_MODE_CONTENT_TYPE_NO_DATA:
->>> +        return DISPLAY_CONTENT_TYPE_NO_DATA;
->>> +    case DRM_MODE_CONTENT_TYPE_GRAPHICS:
->>> +        return DISPLAY_CONTENT_TYPE_GRAPHICS;
->>> +    case DRM_MODE_CONTENT_TYPE_PHOTO:
->>> +        return DISPLAY_CONTENT_TYPE_PHOTO;
->>> +    case DRM_MODE_CONTENT_TYPE_CINEMA:
->>> +        return DISPLAY_CONTENT_TYPE_CINEMA;
->>> +    case DRM_MODE_CONTENT_TYPE_GAME:
->>> +        return DISPLAY_CONTENT_TYPE_GAME;
->>> +    }
->>> +}
->>> +
->>>   static bool adjust_colour_depth_from_display_info(
->>>       struct dc_crtc_timing *timing_out,
->>>       const struct drm_display_info *info)
->>> @@ -5349,6 +5367,7 @@ static void fill_stream_properties_from_drm_display_mode(
->>>       }
->>>         stream->output_color_space = get_output_color_space(timing_out);
->>> +    stream->content_type = get_output_content_type(connector_state);
->>>   }
->>>     static void fill_audio_info(struct audio_info *audio_info,
->>> @@ -7123,6 +7142,11 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
->>>                   adev->mode_info.abm_level_property, 0);
->>>       }
->>>   +    if (connector_type == DRM_MODE_CONNECTOR_HDMIA) {
->>> +        /* Content Type is currently only implemented for HDMI. */
->>> +        drm_connector_attach_content_type_property(&aconnector->base);
->>> +    }
->>> +
->>>       if (connector_type == DRM_MODE_CONNECTOR_HDMIA ||
->>>           connector_type == DRM_MODE_CONNECTOR_DisplayPort ||
->>>           connector_type == DRM_MODE_CONNECTOR_eDP) {
->>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
->>> index a5b5f8592c1b..39ceccdb6586 100644
->>> --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
->>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
->>> @@ -2944,14 +2944,9 @@ static void set_avi_info_frame(
->>>       uint32_t pixel_encoding = 0;
->>>       enum scanning_type scan_type = SCANNING_TYPE_NODATA;
->>>       enum dc_aspect_ratio aspect = ASPECT_RATIO_NO_DATA;
->>> -    bool itc = false;
->>> -    uint8_t itc_value = 0;
->>> -    uint8_t cn0_cn1 = 0;
->>> -    unsigned int cn0_cn1_value = 0;
->>>       uint8_t *check_sum = NULL;
->>>       uint8_t byte_index = 0;
->>>       union hdmi_info_packet hdmi_info;
->>> -    union display_content_support support = {0};
->>>       unsigned int vic = pipe_ctx->stream->timing.vic;
->>>       unsigned int rid = pipe_ctx->stream->timing.rid;
->>>       unsigned int fr_ind = pipe_ctx->stream->timing.fr_index;
->>> @@ -3055,49 +3050,27 @@ static void set_avi_info_frame(
->>>       /* Active Format Aspect ratio - same as Picture Aspect Ratio. */
->>>       hdmi_info.bits.R0_R3 = ACTIVE_FORMAT_ASPECT_RATIO_SAME_AS_PICTURE;
->>>   -    /* TODO: un-hardcode cn0_cn1 and itc */
->>> -
->>> -    cn0_cn1 = 0;
->>> -    cn0_cn1_value = 0;
->>> -
->>> -    itc = true;
->>> -    itc_value = 1;
->>> -
->>> -    support = stream->content_support;
->>> -
->>> -    if (itc) {
->>> -        if (!support.bits.valid_content_type) {
->>> -            cn0_cn1_value = 0;
->>> -        } else {
->>> -            if (cn0_cn1 == DISPLAY_CONTENT_TYPE_GRAPHICS) {
->>> -                if (support.bits.graphics_content == 1) {
->>> -                    cn0_cn1_value = 0;
->>> -                }
->>> -            } else if (cn0_cn1 == DISPLAY_CONTENT_TYPE_PHOTO) {
->>> -                if (support.bits.photo_content == 1) {
->>> -                    cn0_cn1_value = 1;
->>> -                } else {
->>> -                    cn0_cn1_value = 0;
->>> -                    itc_value = 0;
->>> -                }
->>> -            } else if (cn0_cn1 == DISPLAY_CONTENT_TYPE_CINEMA) {
->>> -                if (support.bits.cinema_content == 1) {
->>> -                    cn0_cn1_value = 2;
->>> -                } else {
->>> -                    cn0_cn1_value = 0;
->>> -                    itc_value = 0;
->>> -                }
->>> -            } else if (cn0_cn1 == DISPLAY_CONTENT_TYPE_GAME) {
->>> -                if (support.bits.game_content == 1) {
->>> -                    cn0_cn1_value = 3;
->>> -                } else {
->>> -                    cn0_cn1_value = 0;
->>> -                    itc_value = 0;
->>> -                }
->>> -            }
->>> -        }
->>> -        hdmi_info.bits.CN0_CN1 = cn0_cn1_value;
->>> -        hdmi_info.bits.ITC = itc_value;
->>> +    switch (stream->content_type) {
->>> +    case DISPLAY_CONTENT_TYPE_NO_DATA:
->>> +        hdmi_info.bits.CN0_CN1 = 0;
->>> +        hdmi_info.bits.ITC = 0;
->> Hmm.. why is ITC value equal zero here ^, instead of the same hardcoded
->> `itc_value = 1`? Does it come from a DRM default value?
+Marek
+
+On Mon, Jan 23, 2023 at 4:31 AM Christian K=C3=B6nig <
+ckoenig.leichtzumerken@gmail.com> wrote:
+
+> Let's do this as valid in fdinfo.
+>
+> This way we can easily extend whatever the kernel wants to display as
+> statistics in the userspace HUD.
+>
+> Regards,
+> Christian.
+>
+> Am 21.01.23 um 01:45 schrieb Marek Ol=C5=A1=C3=A1k:
+>
+> We badly need a way to query evicted memory usage. It's essential for
+> investigating performance problems and it uncovered the buddy allocator
+> disaster. Please either suggest an alternative, suggest changes, or revie=
+w.
+> We need it ASAP.
+>
+> Thanks,
+> Marek
+>
+> On Tue, Jan 10, 2023 at 11:55 AM Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com>=
+ wrote:
+>
+>> On Tue, Jan 10, 2023 at 11:23 AM Christian K=C3=B6nig <
+>> ckoenig.leichtzumerken@gmail.com> wrote:
 >>
->> Other than that, changes seem fine to me and it's nice to see the code
->> wired to the DRM and actually used.
->>
->> CC'ing other AMD DC folks since I don't know if these changes affect
->> other platforms. Can you guys verify it?
-> 
-> This is the same logic as before, itc_value is defaulted to 1, yes, but only assigned to hdmi_info.bits.ITC in the path with valid_content_type which was always false as that struct was never filled in.
-> So previously, ITC = 0 CN0_CN1 = 0 always.
-> 
-> The logic added here also matches the logic used by other DRM drivers using the common `drm_hdmi_avi_infoframe_content_type` logic such as Intel.
-> 
-> It might be nice to clean up the code so we can take advantage of the common helper here at some point, but currently AMDGPU uses its own `avi_info_frame` structure instead of the common one in DRM.
-> The structures should match (in theory! I did not look) so it might be possible to just cast `avi_info_frame*` to `hdmi_avi_infoframe*` and use the helper
-> 
-> Let me know what is preferred.
-> 
-
-This series looks good to me and is
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-
-I have not had a chance to test it. Do you have any way to verify
-that the receiver gets the correct content type?
-
-I also don't see any IGT tests that exercise these. It might be
-good to have those. Even if we can't verify correct functionality
-from IGT we can at least ensure setting this property doesn't
-lead to bad results in the drivers.
-
-Would you like me to merge it through amd-staging-drm-next?
-
-Harry
-
-> Thanks!
-> - Joshie 🐸✨
-> 
->>
->>> +        break;
->>> +    case DISPLAY_CONTENT_TYPE_GRAPHICS:
->>> +        hdmi_info.bits.CN0_CN1 = 0;
->>> +        hdmi_info.bits.ITC = 1;
->>> +        break;
->>> +    case DISPLAY_CONTENT_TYPE_PHOTO:
->>> +        hdmi_info.bits.CN0_CN1 = 1;
->>> +        hdmi_info.bits.ITC = 1;
->>> +        break;
->>> +    case DISPLAY_CONTENT_TYPE_CINEMA:
->>> +        hdmi_info.bits.CN0_CN1 = 2;
->>> +        hdmi_info.bits.ITC = 1;
->>> +        break;
->>> +    case DISPLAY_CONTENT_TYPE_GAME:
->>> +        hdmi_info.bits.CN0_CN1 = 3;
->>> +        hdmi_info.bits.ITC = 1;
->>> +        break;
->>>       }
->>>         if (stream->qs_bit == 1) {
->>> diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
->>> index ef33d7d8a2bf..51dc30706e43 100644
->>> --- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
->>> +++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
->>> @@ -205,6 +205,7 @@ struct dc_stream_state {
->>>       struct dc_csc_transform csc_color_matrix;
->>>         enum dc_color_space output_color_space;
->>> +    enum display_content_type content_type;
->>>       enum dc_dither_option dither_option;
->>>         enum view_3d_format view_format;
->>> -- 
->>> 2.39.0
+>>> Am 10.01.23 um 16:28 schrieb Marek Ol=C5=A1=C3=A1k:
 >>>
+>>> On Wed, Jan 4, 2023 at 9:51 AM Christian K=C3=B6nig <
+>>> ckoenig.leichtzumerken@gmail.com> wrote:
+>>>
+>>>> Am 04.01.23 um 00:08 schrieb Marek Ol=C5=A1=C3=A1k:
+>>>>
+>>>> I see about the access now, but did you even look at the patch?
+>>>>
+>>>>
+>>>> I did look at the patch, but I haven't fully understood yet what you
+>>>> are trying to do here.
+>>>>
+>>>
+>>> First and foremost, it returns the evicted size of VRAM and visible
+>>> VRAM, and returns visible VRAM usage. It should be obvious which stat
+>>> includes the size of another.
+>>>
+>>>
+>>>> Because what the patch does isn't even exposed to common drm code, suc=
+h
+>>>> as the preferred domain and visible VRAM placement, so it can't be in
+>>>> fdinfo right now.
+>>>>
+>>>> Or do you even know what fdinfo contains? Because it contains nothing
+>>>> useful. It only has VRAM and GTT usage, which we already have in the I=
+NFO
+>>>> ioctl, so it has nothing that we need. We mainly need the eviction
+>>>> information and visible VRAM information now. Everything else is a bon=
+us.
+>>>>
+>>>>
+>>>> Well the main question is what are you trying to get from that
+>>>> information? The eviction list for example is completely meaningless t=
+o
+>>>> userspace, that stuff is only temporary and will be cleared on the nex=
+t CS
+>>>> again.
+>>>>
+>>>
+>>> I don't know what you mean. The returned eviction stats look correct an=
+d
+>>> are stable (they don't change much). You can suggest changes if you thi=
+nk
+>>> some numbers are not reported correctly.
+>>>
+>>>
+>>>>
+>>>> What we could expose is the VRAM over-commit value, e.g. how much BOs
+>>>> which where supposed to be in VRAM are in GTT now. I think that's what=
+ you
+>>>> are looking for here, right?
+>>>>
+>>>
+>>> The VRAM overcommit value is "evicted_vram".
+>>>
+>>>
+>>>>
+>>>> Also, it's undesirable to open and parse a text file if we can just
+>>>> call an ioctl.
+>>>>
+>>>>
+>>>> Well I see the reasoning for that, but I also see why other drivers do
+>>>> a lot of the stuff we have as IOCTL as separate files in sysfs, fdinfo=
+ or
+>>>> debugfs.
+>>>>
+>>>> Especially repeating all the static information which were already
+>>>> available under sysfs in the INFO IOCTL was a design mistake as far as=
+ I
+>>>> can see. Just compare what AMDGPU and the KFD code is doing to what fo=
+r
+>>>> example i915 is doing.
+>>>>
+>>>> Same for things like debug information about a process. The fdinfo
+>>>> stuff can be queried from external tools (gdb, gputop, umr etc...) as =
+well
+>>>> which makes that interface more preferred.
+>>>>
+>>>
+>>> Nothing uses fdinfo in Mesa. No driver uses sysfs in Mesa except drm
+>>> shims, noop drivers, and Intel for perf metrics. sysfs itself is an
+>>> unusable mess for the PCIe query and is missing information.
+>>>
+>>> I'm not against exposing more stuff through sysfs and fdinfo for tools,
+>>> but I don't see any reason why drivers should use it (other than for
+>>> slowing down queries and initialization).
+>>>
+>>>
+>>> That's what I'm asking: Is this for some tool or to make some driver
+>>> decision based on it?
+>>>
+>>> If you just want the numbers for over displaying then I think it would
+>>> be better to put this into fdinfo together with the other existing stuf=
+f
+>>> there.
+>>>
+>>
+>>> If you want to make allocation decisions based on this then we should
+>>> have that as IOCTL or even better as mmap() page between kernel and
+>>> userspace. But in this case I would also calculation the numbers comple=
+tely
+>>> different as well.
+>>>
+>>> See we have at least the following things in the kernel:
+>>> 1. The eviction list in the VM.
+>>>     Those are the BOs which are currently evicted and tried to moved
+>>> back in on the next CS.
+>>>
+>>> 2. The VRAM over commit value.
+>>>     In other words how much more VRAM than available has the applicatio=
+n
+>>> tried to allocate?
+>>>
+>>> 3. The visible VRAM usage by this application.
+>>>
+>>> The end goal is that the eviction list will go away, e.g. we will alway=
+s
+>>> have stable allocations based on allocations of other applications and =
+not
+>>> constantly swap things in and out.
+>>>
+>>> When you now expose the eviction list to userspace we will be stuck wit=
+h
+>>> this interface forever.
+>>>
+>>
+>> It's for the GALLIUM HUD.
+>>
+>> The only missing thing is the size of all evicted VRAM allocations, and
+>> the size of all evicted visible VRAM allocations.
+>>
+>> 1. No list is exposed. Only sums of buffer sizes are exposed. Also, the
+>> eviction list has no meaning here. All lists are treated equally, and
+>> mem_type is compared with preferred_domains to determine where buffers a=
+re
+>> and where they should be.
+>>
+>> 2. I'm not interested in the overcommit value. I'm only interested in
+>> knowing the number of bytes of evicted VRAM right now. It can be as
+>> variable as the CPU load, but in practice it shouldn't be because PCIe
+>> doesn't have the bandwidth to move things quickly.
+>>
+>> 3. Yes, that's true.
+>>
+>> Marek
+>>
+>>
+>
 
+--000000000000f2002905f2fd96e4
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr"><div>The Gallium HUD doesn&#39;t consume strings. It only =
+consumes values that are exposed as counters from the driver. In this case,=
+ we need the driver to expose evicted stats as counters. Each counter can s=
+et whether the value is absolute (e.g. memory usage) or monotonic (e.g. per=
+f counter). Parsing fdinfo to get the values is undesirable.<br></div><div>=
+<br></div><div>Marek<br></div></div><br><div class=3D"gmail_quote"><div dir=
+=3D"ltr" class=3D"gmail_attr">On Mon, Jan 23, 2023 at 4:31 AM Christian K=
+=C3=B6nig &lt;<a href=3D"mailto:ckoenig.leichtzumerken@gmail.com">ckoenig.l=
+eichtzumerken@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_=
+quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
+204);padding-left:1ex">
+ =20
+   =20
+ =20
+  <div>
+    Let&#39;s do this as valid in fdinfo.<br>
+    <br>
+    This way we can easily extend whatever the kernel wants to display
+    as statistics in the userspace HUD.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <div>Am 21.01.23 um 01:45 schrieb Marek
+      Ol=C5=A1=C3=A1k:<br>
+    </div>
+    <blockquote type=3D"cite">
+     =20
+      <div dir=3D"ltr">
+        <div>We badly need a way to query evicted memory usage. It&#39;s
+          essential for investigating performance problems and it
+          uncovered the buddy allocator disaster. Please either suggest
+          an alternative, suggest changes, or review. We need it ASAP.<br>
+        </div>
+        <div><br>
+        </div>
+        <div>Thanks,</div>
+        <div>Marek<br>
+        </div>
+      </div>
+      <br>
+      <div class=3D"gmail_quote">
+        <div dir=3D"ltr" class=3D"gmail_attr">On Tue, Jan 10, 2023 at 11:55
+          AM Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:maraeo@gmail.com" =
+target=3D"_blank">maraeo@gmail.com</a>&gt;
+          wrote:<br>
+        </div>
+        <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
+;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+          <div dir=3D"ltr">
+            <div class=3D"gmail_quote">
+              <div dir=3D"ltr" class=3D"gmail_attr">On Tue, Jan 10, 2023 at
+                11:23 AM Christian K=C3=B6nig &lt;<a href=3D"mailto:ckoenig=
+.leichtzumerken@gmail.com" target=3D"_blank">ckoenig.leichtzumerken@gmail.c=
+om</a>&gt;
+                wrote:<br>
+              </div>
+              <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px=
+ 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+                <div> Am 10.01.23 um 16:28 schrieb Marek Ol=C5=A1=C3=A1k:<b=
+r>
+                  <blockquote type=3D"cite">
+                    <div dir=3D"ltr">
+                      <div class=3D"gmail_quote">
+                        <div dir=3D"ltr" class=3D"gmail_attr">On Wed, Jan 4=
+,
+                          2023 at 9:51 AM Christian K=C3=B6nig &lt;<a href=
+=3D"mailto:ckoenig.leichtzumerken@gmail.com" target=3D"_blank">ckoenig.leic=
+htzumerken@gmail.com</a>&gt;
+                          wrote:<br>
+                        </div>
+                        <blockquote class=3D"gmail_quote" style=3D"margin:0=
+px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+                          <div> Am 04.01.23 um 00:08 schrieb Marek
+                            Ol=C5=A1=C3=A1k:<br>
+                            <blockquote type=3D"cite">
+                              <div dir=3D"ltr">
+                                <div>I see about the access now, but did
+                                  you even look at the patch?</div>
+                              </div>
+                            </blockquote>
+                            <br>
+                            I did look at the patch, but I haven&#39;t full=
+y
+                            understood yet what you are trying to do
+                            here.<br>
+                          </div>
+                        </blockquote>
+                        <div><br>
+                        </div>
+                        <div>First and foremost, it returns the evicted
+                          size of VRAM and visible VRAM, and returns
+                          visible VRAM usage. It should be obvious which
+                          stat includes the size of another.<br>
+                        </div>
+                        <div><br>
+                        </div>
+                        <blockquote class=3D"gmail_quote" style=3D"margin:0=
+px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+                          <div> <br>
+                            <blockquote type=3D"cite">
+                              <div dir=3D"ltr">
+                                <div> Because what the patch does isn&#39;t
+                                  even exposed to common drm code, such
+                                  as the preferred domain and visible
+                                  VRAM placement, so it can&#39;t be in
+                                  fdinfo right now.<br>
+                                </div>
+                                <div><br>
+                                </div>
+                                <div>Or do you even know what fdinfo
+                                  contains? Because it contains nothing
+                                  useful. It only has VRAM and GTT
+                                  usage, which we already have in the
+                                  INFO ioctl, so it has nothing that we
+                                  need. We mainly need the eviction
+                                  information and visible VRAM
+                                  information now. Everything else is a
+                                  bonus.<br>
+                                </div>
+                              </div>
+                            </blockquote>
+                            <br>
+                            Well the main question is what are you
+                            trying to get from that information? The
+                            eviction list for example is completely
+                            meaningless to userspace, that stuff is only
+                            temporary and will be cleared on the next CS
+                            again.<br>
+                          </div>
+                        </blockquote>
+                        <div><br>
+                        </div>
+                        <div>I don&#39;t know what you mean. The returned
+                          eviction stats look correct and are stable
+                          (they don&#39;t change much). You can suggest
+                          changes if you think some numbers are not
+                          reported correctly.<br>
+                        </div>
+                        <div>=C2=A0</div>
+                        <blockquote class=3D"gmail_quote" style=3D"margin:0=
+px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+                          <div> <br>
+                            What we could expose is the VRAM over-commit
+                            value, e.g. how much BOs which where
+                            supposed to be in VRAM are in GTT now. I
+                            think that&#39;s what you are looking for here,
+                            right?<br>
+                          </div>
+                        </blockquote>
+                        <div><br>
+                        </div>
+                        <div>The VRAM overcommit value is
+                          &quot;evicted_vram&quot;.<br>
+                        </div>
+                        <div>=C2=A0</div>
+                        <blockquote class=3D"gmail_quote" style=3D"margin:0=
+px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+                          <div> <br>
+                            <blockquote type=3D"cite">
+                              <div dir=3D"ltr">
+                                <div>
+                                  <div>Also, it&#39;s undesirable to open
+                                    and parse a text file if we can just
+                                    call an ioctl.</div>
+                                </div>
+                              </div>
+                            </blockquote>
+                            <br>
+                            Well I see the reasoning for that, but I
+                            also see why other drivers do a lot of the
+                            stuff we have as IOCTL as separate files in
+                            sysfs, fdinfo or debugfs.<br>
+                            <br>
+                            Especially repeating all the static
+                            information which were already available
+                            under sysfs in the INFO IOCTL was a design
+                            mistake as far as I can see. Just compare
+                            what AMDGPU and the KFD code is doing to
+                            what for example i915 is doing.<br>
+                            <br>
+                            Same for things like debug information about
+                            a process. The fdinfo stuff can be queried
+                            from external tools (gdb, gputop, umr
+                            etc...) as well which makes that interface
+                            more preferred.<br>
+                          </div>
+                        </blockquote>
+                        <div><br>
+                        </div>
+                        <div>Nothing uses fdinfo in Mesa. No driver uses
+                          sysfs in Mesa except drm shims, noop drivers,
+                          and Intel for perf metrics. sysfs itself is an
+                          unusable mess for the PCIe query and is
+                          missing information.</div>
+                        <div><br>
+                        </div>
+                        <div>I&#39;m not against exposing more stuff throug=
+h
+                          sysfs and fdinfo for tools, but I don&#39;t see
+                          any reason why drivers should use it (other
+                          than for slowing down queries and
+                          initialization).</div>
+                      </div>
+                    </div>
+                  </blockquote>
+                  <br>
+                  That&#39;s what I&#39;m asking: Is this for some tool or =
+to
+                  make some driver decision based on it?<br>
+                  <br>
+                  If you just want the numbers for over displaying then
+                  I think it would be better to put this into fdinfo
+                  together with the other existing stuff there.<br>
+                </div>
+              </blockquote>
+              <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px=
+ 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+                <div> <br>
+                  If you want to make allocation decisions based on this
+                  then we should have that as IOCTL or even better as
+                  mmap() page between kernel and userspace. But in this
+                  case I would also calculation the numbers completely
+                  different as well.<br>
+                  <br>
+                  See we have at least the following things in the
+                  kernel:<br>
+                  1. The eviction list in the VM.<br>
+                  =C2=A0=C2=A0=C2=A0 Those are the BOs which are currently =
+evicted and
+                  tried to moved back in on the next CS.<br>
+                  <br>
+                  2. The VRAM over commit value.<br>
+                  =C2=A0=C2=A0=C2=A0 In other words how much more VRAM than=
+ available
+                  has the application tried to allocate?<br>
+                  <br>
+                  3. The visible VRAM usage by this application.<br>
+                  <br>
+                  The end goal is that the eviction list will go away,
+                  e.g. we will always have stable allocations based on
+                  allocations of other applications and not constantly
+                  swap things in and out.<br>
+                  <br>
+                  When you now expose the eviction list to userspace we
+                  will be stuck with this interface forever.<br>
+                </div>
+              </blockquote>
+              <div><br>
+              </div>
+              <div>It&#39;s for the GALLIUM HUD.</div>
+              <div><br>
+              </div>
+              <div>The only missing thing is the size of all evicted
+                VRAM allocations, and the size of all evicted visible
+                VRAM allocations.<br>
+              </div>
+              <div><br>
+              </div>
+              <div>1. No list is exposed. Only sums of buffer sizes are
+                exposed. Also, the eviction list has no meaning here.
+                All lists are treated equally, and mem_type is compared
+                with preferred_domains to determine where buffers are
+                and where they should be.<br>
+              </div>
+              <div><br>
+              </div>
+              <div>2. I&#39;m not interested in the overcommit value. I&#39=
+;m
+                only interested in knowing the number of bytes of
+                evicted VRAM right now. It can be as variable as the CPU
+                load, but in practice it shouldn&#39;t be because PCIe
+                doesn&#39;t have the bandwidth to move things quickly.<br>
+              </div>
+              <div><br>
+              </div>
+              <div>3. Yes, that&#39;s true.</div>
+              <div><br>
+              </div>
+              <div>Marek</div>
+              <br>
+            </div>
+          </div>
+        </blockquote>
+      </div>
+    </blockquote>
+    <br>
+  </div>
+
+</blockquote></div>
+
+--000000000000f2002905f2fd96e4--
