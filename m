@@ -4,117 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66F8EC25B4E
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 15:37:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77223C25B4E
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 15:53:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 438FB10E6BB;
-	Tue, 24 Jan 2023 15:37:48 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2070.outbound.protection.outlook.com [40.107.96.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93EDB10E6B3;
- Tue, 24 Jan 2023 15:37:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=e7U1sP4r0CIJ7Jhsi/qOd9OCCYLI6N1U6XuuTjDeK2SOg4TSezGX1AMUi8SG4Lku3ffeN2VFnA7W6kK6Pw8/4jgB7qwT3gdbvXmQFe6KOHFtURYsbP5Y5p1DtWmU004DsSbSieCY3+QlZ8MYvMnYWe4fbZrmYjWsPvk5rX7MgxRMaRIa/y89b8Lssnepg2d4LHut72hIS1WRFPjH4VA5IEWCMC9W+71xqR6uo0k5NRL1lGW5GiwO2lG+Hh4MhltG2KZuboEbn7LC28if3piCFTkoQirxOmBa3S8u7CFArhCIy2CcoOwG3hP+1C39MoVPLC1nSaBvX+ESU1KQyLId/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IR7rCdriMlckcS3CwnUoKsgOJXU0cnieIUFnU/hp0tQ=;
- b=aZxYL5Z0JMQxvSom1cHQXgCVXTtHT37GCYT+FvrrPae0HVkc91ZydC3YjM3vV7H5kUMqd7Oc0ws7bv8gYYzFvaBP6sD78+R+ud5fjhFomhtDAvdPDoiYJjr3QWzGazChrFyfBprGU8QY2cQl0sO/26ZqexhLZ1ThOV1zRumaVbpxi2R8FA2NH3/ozpIfyEV/LJ1Ak5HmJZ/dEUR1KMxrZK+x9QilOpaNW8xTpevThDix25TGombSYmGaOyIgL6pLfNBtgkc6el8YNgwVr8bwpcS4pxdkGRYFYzTOEkEQE2kBfAzVPaTMt+AIvdDlLWTeL0jikFWO2iAcIGHgWUUjAw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IR7rCdriMlckcS3CwnUoKsgOJXU0cnieIUFnU/hp0tQ=;
- b=j1cWZp5aXcebeKGc+7C1wThhvw9tCW1oaAxtmEMmfuNkVwfK9EmJtKtSNIZAAIBJNfNEfkR1deZo8Mtbr9vbBkm3zPEocKDD1AY3PL6+HlGnvSU4TJI2XYNT8/kEq1L48fR+M5tzUB5awXiTgRin962KBuzNt26/f68QuW2gqPM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by DM6PR12MB4578.namprd12.prod.outlook.com (2603:10b6:5:2a9::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33; Tue, 24 Jan
- 2023 15:37:43 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::152b:e615:3d60:2bf0]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::152b:e615:3d60:2bf0%6]) with mapi id 15.20.6002.033; Tue, 24 Jan 2023
- 15:37:43 +0000
-Message-ID: <0a57bc76-91f7-dc00-6877-cd0a1dfa7347@amd.com>
-Date: Tue, 24 Jan 2023 10:37:39 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH v2 18/21] drm/amd/display: Fallback to 2020_YCBCR if the
- pixel encoding is not RGB
-Content-Language: en-US
-To: Sebastian Wick <sebastian.wick@redhat.com>
-References: <20230113162428.33874-1-harry.wentland@amd.com>
- <20230113162428.33874-19-harry.wentland@amd.com>
- <CA+hFU4xHKNSWO21Swq_b2VPPxtYGdeo4e3rPEVo44OPmB+opZw@mail.gmail.com>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <CA+hFU4xHKNSWO21Swq_b2VPPxtYGdeo4e3rPEVo44OPmB+opZw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0348.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:6b::25) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECF6C10E6C1;
+	Tue, 24 Jan 2023 15:53:35 +0000 (UTC)
+Received: from mail-ua1-x934.google.com (mail-ua1-x934.google.com
+ [IPv6:2607:f8b0:4864:20::934])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33EA410E6B6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Jan 2023 15:30:11 +0000 (UTC)
+Received: by mail-ua1-x934.google.com with SMTP id bx24so3837372uab.4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Jan 2023 07:30:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=UyCfMSVt5YQ93dvQzsfOUKEDIKXZpwg4MvkDLyqNHiA=;
+ b=XZ2VY4ncaYA9BICy27D7vfCt1S+bUXYea16Cc2fJhPUE0OX1kj8HsB47D77IsDONZl
+ U6Cf5/aXnbFjyoJeW1LaVZ0Kw7VnuZvBsCo/9vOQkt8jCc6eTkSOZJaQ35OEDIebTY4e
+ wjfhJgqG6HfeXBAulPceXNd5fs697ZnmJhzHhbgdi8A72RuX/LdvU2wr7GWOWSyJ6p3P
+ vXBUBFY+QVUd9X8Out3vC1ZXZ7XMAtzXt/A5seZeMwxTDUohxC6h/ktDqD4qVtfwcrDA
+ qpxk9+y+gGehYvlG9VMUupGcLXEPj8YK5MYH8uzIwwlrpGSEhJZdRnBGcARX68T3MR2A
+ ys1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=UyCfMSVt5YQ93dvQzsfOUKEDIKXZpwg4MvkDLyqNHiA=;
+ b=HJjceeIu0SeyyrA/x+PeyNcm+ko+CcB3/i6gzaH5tbjs6qRQA7ftp7mVt62dMczc27
+ njUqFYG1xZtfe5T6MWX0y1DMETHe7bRcIDEkfjdiYFWCOtVw6ZEZSiQRICdr3awfanD2
+ rqtcRF4Ju+YTHDB/YZLci2ofaA0hwAvPzsI3Owt+OnLqqXq4/VqWn9bOmIq0lZXqiP5Q
+ /7AYfTM3sUZH+MB62MAeF7skLI8VGXUcRsLzpCAK5n82G+hdgBkuqSTBszGtefnKCA3Z
+ iFTU45eR1tFRnwlMqsqFuyGAJva20UKn/Xry0xd3p66buAI4ShsfnqUlxzme7bh5R9OY
+ TkkQ==
+X-Gm-Message-State: AFqh2koAniEr+ioj82LjrtI8mTOMcoFZr0HLca8V3RbgfBaMCj6CF6Ye
+ 2mLiiRwG46pz5yWznBbyPpXlVibTgJ4Ym4FjqOO3lg==
+X-Google-Smtp-Source: AMrXdXuKRuAD41xpguf1eHKBlJO8W4vD7lac7tM28Emygp2ffmu3CfYnqjmwkMJDzMpgKkJSkz2p0bDht+YE9XQTmVE=
+X-Received: by 2002:a9f:3263:0:b0:5d5:d02:8626 with SMTP id
+ y32-20020a9f3263000000b005d50d028626mr3149869uad.115.1674574209956; Tue, 24
+ Jan 2023 07:30:09 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|DM6PR12MB4578:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1daf80b4-0d39-4f1b-bb17-08dafe20ef0c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OA0nbJqu7wDE1tpqShKdMOYtAP/DLapDiT5gdjryBBUOcTV+F7CmrlhluGOA0Ao6pSC3nztei6voLM3Usxb//4/jTjAgat5LqfzTWI/M4FtsHW37NO28qfwYGhNy4982axCekf5QBN4CNIo8eixKXuf4pFRXbCfTFpT91RamUHLrKb2kykHtySELZDCoJ2upeBRsviBWHpJCgbRhj/UBJD37Mx7CK72v20nti6WaJl+tCYNdpkzSS41ynUOv6im7bUm094j4pcoLe/cUOF9CI6Re/1f7maMVWzdbuiPBW0BppV6EHgmXYHmKctlSZ2xwEiAu8ddkg6pSykImtOpJGjSbVXZdtOjpAweecLZaP34R/Bnw9vwnah5V36VaZrUDaXKfaKqRoj8tp1MOZOku6kNPdcW6fqL91w3ERUNw37uUGA8vkzStm7ZxeNU2ZKGi/3s767YKExGLHFMJqf5ADNcdAOamE3Zh88dgJ/4oQDvYa7jgu2+WuIJX+5LcsX5dFUZ0NaMDs/WHraYf1wXA/0VS+AO20pUnIdV72Z3OEWrnEQNJZTk/5409UVfUsQHYN7JDdOgAhtfpXT3KgFX6H1r6HeVMyoYUiCZ5RPE+VbZhQNMrj618osaA0s2A/tjVGsz/2KNM51pTpUtIcGe4x6IFoCLiESwEwPd5Cgndl6/mdb4hbRPdGG0dFXKm2lRWof820Vm9WNRMKbQLaz7lMV/SVQ4O700QmDQy8ay23eA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(396003)(366004)(39860400002)(376002)(136003)(346002)(451199015)(38100700002)(83380400001)(41300700001)(86362001)(44832011)(2906002)(8936002)(5660300002)(4326008)(316002)(6512007)(6916009)(26005)(53546011)(6506007)(186003)(8676002)(6666004)(66476007)(66556008)(54906003)(2616005)(478600001)(6486002)(66946007)(31686004)(31696002)(36756003)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bitNaXA1SW5LbnBpeGF4ZnA0aytJZU02THlGemRBTDZna1J6NFhFcTZldDdS?=
- =?utf-8?B?S0p4aEtZaXIvWUlscytrYk9XTHFJZXJCdGQ5YUhvOGVRalM3bzBIdTY3Nksz?=
- =?utf-8?B?a3JSN3hQWkxOTzQ1NFRNVStaS2lzZjcxc3JZWlBHbkx6cEgzTVorQVY3dWdE?=
- =?utf-8?B?NFB6OUdpcTkzV0R0Z2RRRjI0OVJBK0Nwb0FIanNOdGl6VmVPb0JnUDRXV1d0?=
- =?utf-8?B?M2UrbjgzRldvZk5mUVlkc2kvcC9VbW1sNEd0ZUh5Z2hXTmtqZEdHdVlHbTlL?=
- =?utf-8?B?ZUlLYUpLQkZwdjZYaFNRanpNTjUyY1Y3ek9jTUNMaHprRVN3SitlMDA5dGVV?=
- =?utf-8?B?cTF3cDNlM1ArczNIaEJuc2dDUEI3L3llUFlzSmszRmtNNUtqR2N0QjltZFZm?=
- =?utf-8?B?UmdZSHJWdWVsZnJOQXJFMGhTUlBoWVlaUG8yV2k0WDNBZWtmT1RmYmhrVC8w?=
- =?utf-8?B?VC94SFl5QzBwZWZISEhweVIxYTBWdzBGS1FlTXorM3pIRllBOFVKK2M3Skcy?=
- =?utf-8?B?QTcrOTllMElHdFFsWVM1VUo1R2NZNXFNYzFwRjk4bVFYeUZuTE9ydE5nYlhV?=
- =?utf-8?B?bkkrVzl5TW10SjRVOEpmK1RwWkNNaEIvZDdvcFR6MzgrQlhkTURwT2NsV3Q5?=
- =?utf-8?B?RlJIQXJYMHp6L2EvMXpFK3M3amEzbnJMWFdtUDZ0NUVlYUhoU3FnejZ0VktH?=
- =?utf-8?B?ZTc3NnZLY1o0YWdkL20yYUk0WFV1RytrWkN4d2ZRKzVxL2p5bHlVd01ZOFoy?=
- =?utf-8?B?MERML3Y5YnUzQ3lZSzZBOWEyb1FHQ0xEUGlJTmdUVU1ocDVTMDVJMzlIaWdQ?=
- =?utf-8?B?UURNc1A5bTJwMGtza2hBUWFhWUF2WkgwR1gzOGxZVGhMVDk1ZVFMTGM4UTZw?=
- =?utf-8?B?dXVWZjZnbEQ4eUh6MzVZWDcyd1ZBR3JOYUYrNWpwTU5MK3ZaVFZjaUZvWHFm?=
- =?utf-8?B?VUJIMWVwSHc2OUdac3BoSWZDakUzeUpzM0ZxcjhONmp6cUxZRkNrcWs3T1Fw?=
- =?utf-8?B?Y2RZTzNJSlNyMFBwdlh4T1JGQWp0MjVSZTFSQitQdlgrU0VVNnE4VHFmblZ3?=
- =?utf-8?B?QlFTanZIRWF2dUwrSWh4bDhHdGkxc3NhRGM1TXc0SkduRnV4NVFCNGlLSnFl?=
- =?utf-8?B?OFFZZnQzK211WTc1WWR6SFlWK0dDL0Vsbm1oYS8wenprVlVBaXRjdlpnZFBU?=
- =?utf-8?B?d0l1VDV0ejArVi8vdzY2a29yM2phbTRORncxczVxVkNDajlOdlpyRHB1RWVt?=
- =?utf-8?B?U2h1TVJ6VmQ5T3NBSzNZSDZ3Mzh5c3k4cWd0bkw1S2xlZ1lEMVlzVTFiVHJT?=
- =?utf-8?B?RVdGbi90U202V2Y5dkdvejhhMkFONmlBQkNnYTBqMlYvelgwdldielpNMmRj?=
- =?utf-8?B?RjBDdmhxeUhQRGFhbU5qOCt1SHJhYVVabHVFc2k2U0YzRWlxRmY4OVpkOFJX?=
- =?utf-8?B?Vi8rd1RVZGxlQWxyS2xqOGhRRFBkdG5PMDljWklMdzVUUmpucm5XMnNPWGVZ?=
- =?utf-8?B?VDUwQit5bmIza3FMNTFBOW90RURCam9PT21GaHBCclJDSjBZTklFeG5UOWFx?=
- =?utf-8?B?YWVFdHlVVC9oTW1XcE9zUEtQR2dIS2x4Z2dacHgvbmhaUjdGc0FLUXgyblNk?=
- =?utf-8?B?TlRXZ2JaWHFQV0xPSzBPWDgrTUFzMzVkTjdwWGQzeFNQdy9oQlR6bE80SUgy?=
- =?utf-8?B?Z2FYVVR0cnB4VDJibnhvZ0VRMGVmaGlIL3BuV051YkQ2ODJ2NWEzRnltY2Ew?=
- =?utf-8?B?ZGRCaWFub1FuR2lxbkxjVEdDYXRFZ0NWTjJndmNkQmxEakdsVElqZG9JSjlX?=
- =?utf-8?B?dkNkNitQdE5DNFNmSjYyUUNlWHpBOERkSE9odmdKSVNxMkt1K3pQZHAxa2JH?=
- =?utf-8?B?b0JPaFh1RGNkUFhTUjdublA4dWl5YXZBdFBXS2sxQ2hvSi9VR09kTVkwU1Qv?=
- =?utf-8?B?ME42eXlnNnh2aEduc3Z3RmJRaTNOZ01MRW1UVTFQUVNSS09vYjd5QlhrU1M2?=
- =?utf-8?B?c0FCSk5HcytLZ1ppRzdVR3AvcjdveWdqc05PS2MrcjNHRVRubzBtSUlzR3pD?=
- =?utf-8?B?c2V5TzdmZXVYUFYreGJOTm8rMjBORDNKS3lZV0pCbW5SNUNWTDlxQW43VEFS?=
- =?utf-8?Q?K7WzQQcY4JUTsfWwBQqA1mzl/?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1daf80b4-0d39-4f1b-bb17-08dafe20ef0c
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2023 15:37:43.2446 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cYsFkSwN00Um0gYwBsU/tRVMm5xEBZ4TdqWKH6Q32zI696t7RaNqO77FmLxVRekAPgYM+gLp8rcvH02i9D8dMA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4578
+References: <20221228-drop-qunused-arguments-v2-0-9adbddd20d86@kernel.org>
+ <CA+G9fYs58vWj705MdaBKomVfHxNJ5ekSTmf53S4=4oVmc43CZg@mail.gmail.com>
+ <Y86xyqe+Rd9wri7I@dev-arch.thelio-3990X>
+In-Reply-To: <Y86xyqe+Rd9wri7I@dev-arch.thelio-3990X>
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Tue, 24 Jan 2023 20:59:58 +0530
+Message-ID: <CA+G9fYv1cAfGUDmz-+XC-E7aXQdU55D7SW=-WFc_RiUuNgGNsw@mail.gmail.com>
+Subject: Re: [PATCH v2 00/14] Remove clang's -Qunused-arguments from
+ KBUILD_CPPFLAGS
+To: Nathan Chancellor <nathan@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Tue, 24 Jan 2023 15:53:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,67 +69,179 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Joshua Ashton <joshua@froggi.es>, Pekka Paalanen <ppaalanen@gmail.com>,
+Cc: trix@redhat.com, dave.hansen@linux.intel.com,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Vitaly.Prosyak@amd.com
+ linux-s390@vger.kernel.org, Anders Roxell <anders.roxell@linaro.org>,
+ kernel test robot <lkp@intel.com>, mpe@ellerman.id.au, masahiroy@kernel.org,
+ x86@kernel.org, christophe.leroy@csgroup.eu, mingo@redhat.com,
+ llvm@lists.linux.dev, nicolas@fjasle.eu,
+ Segher Boessenkool <segher@kernel.crashing.org>, linux-kbuild@vger.kernel.org,
+ Heiko Carstens <hca@linux.ibm.com>, npiggin@gmail.com, bp@alien8.de,
+ lkft-triage@lists.linaro.org, tglx@linutronix.de,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>,
+ ndesaulniers@google.com, linux-mips@vger.kernel.org,
+ Sven Schnelle <svens@linux.ibm.com>, Alex Deucher <alexander.deucher@amd.com>,
+ linuxppc-dev@lists.ozlabs.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Nathan,
 
+On Mon, 23 Jan 2023 at 21:41, Nathan Chancellor <nathan@kernel.org> wrote:
+>
+> Hi Naresh,
+>
+> On Mon, Jan 23, 2023 at 07:28:10PM +0530, Naresh Kamboju wrote:
+> > FYI,
+> > [ please provide comments, feedback and improvements on build/ ltp smok=
+e tests ]
+> >
+> > LKFT test farm have fetched your patch series [1]
+> > [PATCH v2 00/14] Remove clang's -Qunused-arguments from KBUILD_CPPFLAGS
+> >  [1] https://lore.kernel.org/llvm/20221228-drop-qunused-arguments-v2-0-=
+9adbddd20d86@kernel.org/
+>
+> Thank you a lot for testing this series, it is much appreciated!
+>
+> It looks like this was applied on top of 6.2-rc3 if I am reading your
+> logs right but your mainline testing is recent, 6.2-rc5. I think the
+> errors you are seeing here are just existing mainline regressions that
+> were later fixed.
+>
+> > Following build warnings and errors reported.
+> >
+> > sh:
+> > gcc-11-defconfig =E2=80=94 FAIL
+> > gcc-11-shx3_defconfig =E2=80=94 FAIL
+> > https://qa-reports.linaro.org/~anders.roxell/linux-mainline-patches/bui=
+ld/https___lore_kernel_org_llvm_20221228-drop-qunused-arguments-v2-1-9adbdd=
+d20d86_kernel_org/testrun/14221835/suite/build/tests/
+> >
+> > mainline getting passed.
+> > https://qa-reports.linaro.org/lkft/linux-mainline-master/build/v6.2-rc5=
+/testrun/14298156/suite/build/test/gcc-11-defconfig/history/
+> > https://qa-reports.linaro.org/lkft/linux-mainline-master/build/v6.2-rc5=
+/testrun/14298156/suite/build/test/gcc-11-shx3_defconfig/history/
+> >
+> > Build error:
+> > In function 'follow_pmd_mask',
+> >     inlined from 'follow_pud_mask' at /builds/linux/mm/gup.c:735:9,
+> >     inlined from 'follow_p4d_mask' at /builds/linux/mm/gup.c:752:9,
+> >     inlined from 'follow_page_mask' at /builds/linux/mm/gup.c:809:9:
+> > /builds/linux/include/linux/compiler_types.h:358:45: error: call to
+> > '__compiletime_assert_263' declared with attribute error: Unsupported
+> > access size for {READ,WRITE}_ONCE().
+> >   358 |         _compiletime_assert(condition, msg,
+> > __compiletime_assert_, __COUNTER__)
+>
+> I think this was fixed with mainline commit 526970be53d5 ("sh/mm: Fix
+> pmd_t for real"), released in 6.2-rc4. You can see a previous build
+> failing in the same manner:
+>
+> https://qa-reports.linaro.org/lkft/linux-mainline-master/build/v6.2-rc3-9=
+-g5a41237ad1d4/testrun/14056384/suite/build/tests/
+>
+> > s390:
+> > clang-15-defconfig =E2=80=94 FAIL
+> > https://qa-reports.linaro.org/~anders.roxell/linux-mainline-patches/bui=
+ld/https___lore_kernel_org_llvm_20221228-drop-qunused-arguments-v2-1-9adbdd=
+d20d86_kernel_org/testrun/14221913/suite/build/tests/
+> >
+> > mainline getting passed.
+> > https://qa-reports.linaro.org/lkft/linux-mainline-master/build/v6.2-rc5=
+/testrun/14300495/suite/build/test/clang-15-defconfig/history/
+> >
+> > Build error:
+> > make --silent --keep-going --jobs=3D8
+> > O=3D/home/tuxbuild/.cache/tuxmake/builds/1/build LLVM_IAS=3D0 ARCH=3Ds3=
+90
+> > CROSS_COMPILE=3Ds390x-linux-gnu- 'HOSTCC=3Dsccache clang' 'CC=3Dsccache
+> > clang'
+> > `.exit.text' referenced in section `__jump_table' of fs/fuse/inode.o:
+> > defined in discarded section `.exit.text' of fs/fuse/inode.o
+> > `.exit.text' referenced in section `__jump_table' of fs/fuse/inode.o:
+> > defined in discarded section `.exit.text' of fs/fuse/inode.o
+> > `.exit.text' referenced in section `__bug_table' of crypto/algboss.o:
+> > defined in discarded section `.exit.text' of crypto/algboss.o
+> > `.exit.text' referenced in section `__bug_table' of drivers/scsi/sd.o:
+> > defined in discarded section `.exit.text' of drivers/scsi/sd.o
+> > `.exit.text' referenced in section `__jump_table' of drivers/md/md.o:
+> > defined in discarded section `.exit.text' of drivers/md/md.o
+> > `.exit.text' referenced in section `__jump_table' of drivers/md/md.o:
+> > defined in discarded section `.exit.text' of drivers/md/md.o
+> > `.exit.text' referenced in section `.altinstructions' of
+> > drivers/md/md.o: defined in discarded section `.exit.text' of
+> > drivers/md/md.o
+> > `.exit.text' referenced in section `.altinstructions' of
+> > drivers/md/md.o: defined in discarded section `.exit.text' of
+> > drivers/md/md.o
+> > `.exit.text' referenced in section `.altinstructions' of
+> > net/iucv/iucv.o: defined in discarded section `.exit.text' of
+> > net/iucv/iucv.o
+> > `.exit.text' referenced in section `__bug_table' of
+> > drivers/s390/cio/qdio_thinint.o: defined in discarded section
+> > `.exit.text' of drivers/s390/cio/qdio_thinint.o
+> > `.exit.text' referenced in section `__bug_table' of
+> > drivers/s390/net/qeth_l3_main.o: defined in discarded section
+> > `.exit.text' of drivers/s390/net/qeth_l3_main.o
+> > `.exit.text' referenced in section `__bug_table' of
+> > drivers/s390/net/qeth_l3_main.o: defined in discarded section
+> > `.exit.text' of drivers/s390/net/qeth_l3_main.o
+> > s390x-linux-gnu-ld: BFD (GNU Binutils for Debian) 2.35.2 assertion
+> > fail ../../bfd/elf64-s390.c:3349
+> > make[2]: *** [/builds/linux/scripts/Makefile.vmlinux:34: vmlinux] Error=
+ 1
+>
+> This should be fixed with mainline commit a494398bde27 ("s390: define
+> RUNTIME_DISCARD_EXIT to fix link error with GNU ld < 2.36"), released in
+> 6.2-rc4 as well. Same as before, visible in mainline at one point
+> without this series:
+>
+> https://qa-reports.linaro.org/lkft/linux-mainline-master/build/v6.2-rc3-9=
+-g5a41237ad1d4/testrun/14057142/suite/build/tests/
+>
+> > But,
+> > Build and boot pass on arm64, arm, x86_64 and i386.
+> > Build test performed for mips, parisc, riscv, s390, sh, sparc and
+> > powerpc (known build errors for maple_defconfig and cell_defconfig),
+>
+> Good to hear!
+>
+> Please consider retesting this series on top of 6.2-rc5 or testing the
+> current kbuild tree, which has this series applied in it:
 
-On 1/23/23 15:30, Sebastian Wick wrote:
-> A new property to control YCC and subsampling would be the more
-> complete path here. If we actually want to fix this in the short-term
-> though, we should handle the YCC and RGB Colorspace values as
-> equivalent, everywhere. Technically we're breaking the user space API
-> here so it should be documented on the KMS property and other drivers
-> must be adjusted accordingly as well.
-> 
+This is the perfect place to test.
 
-Could someone point me to a userspace that uses this currently?
+> https://git.kernel.org/pub/scm/linux/kernel/git/masahiroy/linux-kbuild.gi=
+t/log/?h=3Dfor-next
 
-Harry
+Build test pass on arm, arm64, i386, mips, parisc, powerpc, riscv, s390, sh=
+,
+sparc and x86_64.
+Boot and LTP smoke pass on qemu-arm64, qemu-armv7, qemu-i386 and qemu-x86_6=
+4.
 
-> On Fri, Jan 13, 2023 at 5:26 PM Harry Wentland <harry.wentland@amd.com> wrote:
->>
->> From: Joshua Ashton <joshua@froggi.es>
->>
->> Userspace might not aware whether we're sending RGB or YCbCr
->> data to the display. If COLOR_SPACE_2020_RGB_FULLRANGE is
->> requested but the output encoding is YCbCr we should
->> send COLOR_SPACE_2020_YCBCR.
->>
->> Signed-off-by: Joshua Ashton <joshua@froggi.es>
->> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
->> Cc: Pekka Paalanen <ppaalanen@gmail.com>
->> Cc: Sebastian Wick <sebastian.wick@redhat.com>
->> Cc: Vitaly.Prosyak@amd.com
->> Cc: Joshua Ashton <joshua@froggi.es>
->> Cc: dri-devel@lists.freedesktop.org
->> Cc: amd-gfx@lists.freedesktop.org
->> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
->> ---
->>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 ++++-
->>  1 file changed, 4 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> index f74b125af31f..16940ea61b59 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> @@ -5184,7 +5184,10 @@ get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
->>                 color_space = COLOR_SPACE_ADOBERGB;
->>                 break;
->>         case DRM_MODE_COLORIMETRY_BT2020_RGB:
->> -               color_space = COLOR_SPACE_2020_RGB_FULLRANGE;
->> +               if (dc_crtc_timing->pixel_encoding == PIXEL_ENCODING_RGB)
->> +                       color_space = COLOR_SPACE_2020_RGB_FULLRANGE;
->> +               else
->> +                       color_space = COLOR_SPACE_2020_YCBCR;
->>                 break;
->>         case DRM_MODE_COLORIMETRY_BT2020_YCC:
->>                 color_space = COLOR_SPACE_2020_YCBCR;
->> --
->> 2.39.0
->>
-> 
+  Tested-by: Linux Kernel Functional Testing <lkft@linaro.org>
+  Tested-by: Anders Roxell <anders.roxell@linaro.org>
 
+Please refer to the following link for details of testing.
+  https://qa-reports.linaro.org/~anders.roxell/linux-mainline-patches/build=
+/linux-kbuild_masahiroy-branch-kbuild-20230124/?failures_only=3Dfalse&resul=
+ts_layout=3Dtable#!#test-results
+
+metadata:
+  git_describe : v6.2-rc5-46-ga778c9dd138b
+  git_repo : https://git.kernel.org/pub/scm/linux/kernel/git/masahiroy/linu=
+x-kbuild.git
+  git_sha : a778c9dd138b4f4410779705b444d58ce6f8fc44
+  git_short_log : a778c9dd138b ("builddeb: clean generated package content"=
+)
+
+--
+Linaro LKFT
+https://lkft.linaro.org
+
+>
+> Cheers,
+> Nathan
