@@ -4,78 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDF3AC25B4E
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 08:29:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 543E1C25B4E
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 08:39:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E3E310E62D;
-	Tue, 24 Jan 2023 08:29:09 +0000 (UTC)
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FD9110E62D
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Jan 2023 08:29:08 +0000 (UTC)
-Received: by mail-wr1-x42b.google.com with SMTP id h16so13057058wrz.12
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Jan 2023 00:29:08 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD03510E62E;
+	Tue, 24 Jan 2023 08:39:17 +0000 (UTC)
+Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
+ [IPv6:2607:f8b0:4864:20::82e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 512D910E221
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Jan 2023 02:03:06 +0000 (UTC)
+Received: by mail-qt1-x82e.google.com with SMTP id a25so11997728qto.10
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Jan 2023 18:03:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=in-reply-to:from:references:cc:to:content-language:subject
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=sWEBYDE90pt5jMdQnFNnS8AFNzPAC26mZbQUQnKSHGg=;
- b=aFGJIRlz5b1LCR6wIlXzWmessktP7bswhcZ0xWmnI2WQ8GOqePWsjKX+nkIxap5ZkH
- mrMIWFVvs1bLNrmUyg0wsOK/Uu4tyiHydtieeVnPEYuJnCe6cK5ASdwIomw1khzI9Y2t
- tX/+ddM++1eb3c3Be4jtOy7Vqub4wI+HDHAEPcKN1Hj9RAG766yUzbxEhOOIIB/Lxlpw
- J1LZKc0L4fF0DL986R6mdQLCGCVLe0iePjIPd6T+3S8ArOYBky0FGGdyHERhcYhYkRAU
- 6XqZyB699FyHobsvLcI4MPRQNk0+tEn1bsVjfnOE20jWkSP3IOPfpVxqLYNJ0NiJvNjO
- 1dZA==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=5fwAlp70Ff4dBjWPdd/F0+lK8VDSloFSOXJcS+AUrrM=;
+ b=V0D4L90ZZUkdJf/6DGZzuuLkYyesEi0Jl2hiKZoR8TLDJ5CRHjAUjuZmLSc6ZihVXT
+ zQ7JCpYnVDANz/rreLnJ+M+u40T8wqXD31l59Px2B6WhH/yxSMFcKopDarmiNg1UzI44
+ oj976H1QZprkzZ+LeR8XtLUUM83eBui4m7oVwMayUxnw+eeDv1dhQ1WaSUdRQ+8veDQQ
+ pRJkBAge0izg3P2A9Nccn0pjDYAy5tmRMacz0S1h/ZSbstc+tIm6sDy7iXmEYbLkJfb0
+ TaKYfjbLt0uQDH5mojt+avozhSbFMY0qJpT7YQX5PdQ/O4nUTgOAdWCit9n218JaZzqS
+ Z1/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:from:references:cc:to:content-language:subject
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=sWEBYDE90pt5jMdQnFNnS8AFNzPAC26mZbQUQnKSHGg=;
- b=b8Uj3DLur92ungh3fYk7948uBmWQY3H6dj/THZCbuiPTULnb5LyR09IjJlVyzjM5oG
- iUk7EBafe2bb8J+ZJYdM/fi9mFSwYSTJOVJLPtLp+TSCaU1OvzqxvNI9Zq1wOcEws/eh
- UwOPKxitLh8NC4q3odzwVQR5+SLnZQG/OzbCwg2TMGgfRJDjRQNjjs1NRizwy8+jpyYj
- cChTypyL9qCfovFapMMECjatzJI+GtFRX6a+dRz5QtXUgUz4ish3KbuAqFdsjlx1c6F/
- dQ5YX/raHrSt7s4gPQpHWuGfotUCbBl/1uH533dTHzkLpb6CVIO4j0KfrFaLC+l/QFRP
- jSig==
-X-Gm-Message-State: AFqh2koWoOrgic98xh05kKui9dUr4BJ5eR4BvYWWo5ehEMU3flZ35vHr
- t6TdIDcWNlK1xgKOHvLEk7AprbUG9dM=
-X-Google-Smtp-Source: AMrXdXsjHvni/kiU8lxOuIPXFX2+2c53moP1/pY+1Es1h8VmIyG/HRJKKUCED4nCmu7DsfbUHVekgg==
-X-Received: by 2002:adf:fd83:0:b0:2bd:dbd8:d41e with SMTP id
- d3-20020adffd83000000b002bddbd8d41emr23840388wrr.57.1674548946659; 
- Tue, 24 Jan 2023 00:29:06 -0800 (PST)
-Received: from [192.168.178.21] (p5b0ea2e7.dip0.t-ipconnect.de.
- [91.14.162.231]) by smtp.gmail.com with ESMTPSA id
- j19-20020adfd213000000b002423620d356sm1282769wrh.35.2023.01.24.00.29.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Jan 2023 00:29:06 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------TRlaO7dvMo4gt4UcxnXTrmBY"
-Message-ID: <b03e1daf-e035-6199-5f11-8b9f9bf0d9f8@gmail.com>
-Date: Tue, 24 Jan 2023 09:29:04 +0100
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=5fwAlp70Ff4dBjWPdd/F0+lK8VDSloFSOXJcS+AUrrM=;
+ b=5gPggtF3NVoEwbhicW5tLMIRf5+FBasH9sHQ5lBuAXv++HB7ymjjdnZg0BU/Uo3+WK
+ 9Hhsw0HO5MzXCpGPypAgmXacZE4PuFCkQFOm+WewfDIqRpg9gSBR4V0UWCt+hadrZ32E
+ vlu9pHFA5+MGp0aJDwEJdXpWbzOVgEuOKj4/JF5CXxM30tKoSmMMqdoUPVw40qT+z+zw
+ xm/qiZq6z4Q3KY3+wO+lHfMCxY0cqj1zd8u7c/Zl9gsCEz2R01CA0qrN93kQtlLY1FkN
+ xirwcpHEfw89HtIUFpaJgTA4pG6VJwCrlZ7CC8zj6+2sio5VFekjvTpgjUMOWK0lPalS
+ BEtQ==
+X-Gm-Message-State: AFqh2kpkCfbjJ8mCLFyaTaa4mlpZlj3AJ1FeGnK07UBeMsaORTtsY/gC
+ 8rLBpTXUS1gICPwswa6JZUY9ZC6erbkJKMu6dhs=
+X-Google-Smtp-Source: AMrXdXsECu2naqYe2lCRPinn6EhL3OkOZ/D126kEQS4qf3HFIfCEeJ2wlj/mgQI1xEjEQoEdef6ZA9Wbq4wv1XTmCiI=
+X-Received: by 2002:ac8:774d:0:b0:3b6:6669:dd20 with SMTP id
+ g13-20020ac8774d000000b003b66669dd20mr755912qtu.93.1674525785184; Mon, 23 Jan
+ 2023 18:03:05 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH 2/2] drm/amdgpu: add AMDGPU_INFO_VM_STAT to return GPU VM
-Content-Language: en-US
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-References: <CAAxE2A5su09qWsCekUX4ZzTMAX+9m-BemDxqL2Hh9328Z1WDqw@mail.gmail.com>
- <355bab4f-2ca8-3dd2-4cbc-264931fe9d7a@gmail.com>
- <CAAxE2A487Ra9ropymBGZpXSt=Zz81cjf56p_7wq+tK4cDfn1sA@mail.gmail.com>
- <1d0ddc01-b315-a5ff-f4cc-30b8aedfeb57@gmail.com>
- <CAAxE2A69e+rHQJP+wHYOxywB0+B4Vp4XsO429euoGE=H-VRsPw@mail.gmail.com>
- <d1463910-1eab-2dac-a633-812ada011cc4@gmail.com>
- <CAAxE2A5fWDp==muWuXSXuGGHtT_RThLpC1rK92c2mLVLdmGdUQ@mail.gmail.com>
- <fe0ca4a4-b339-20ab-fd42-68b2a5e00e9c@gmail.com>
- <CAAxE2A71r9sQqFCPajK2VhL5GBJZ=Js5YRvYkrrsRtTRT5yxTg@mail.gmail.com>
- <CAAxE2A6JcREmKKmh1n0xSgkOZq77kpnzC-27-srunLKduyAwiw@mail.gmail.com>
- <4992933e-ad45-5f7a-b7af-39c6d0948321@gmail.com>
- <CAAxE2A4rxdVqYp5qvN4DyV-=9TxE6EgeXPu++=7f1BEEhOs+Bw@mail.gmail.com>
- <a11b75da-9008-411d-66ed-6dc3c21f73ea@gmail.com>
- <CAAxE2A686+RMwmUkN=dLRptKaHKEQemXDfMoidQbw55JrVWQWA@mail.gmail.com>
- <CAAxE2A4zRPr5fJdQdAoBw8=OMrm9BjJHgnzLrXoomq0o-29UBw@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CAAxE2A4zRPr5fJdQdAoBw8=OMrm9BjJHgnzLrXoomq0o-29UBw@mail.gmail.com>
+References: <63cacbd5.EvTYTGZtWc/zCwC9%lkp@intel.com>
+In-Reply-To: <63cacbd5.EvTYTGZtWc/zCwC9%lkp@intel.com>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Mon, 23 Jan 2023 18:02:54 -0800
+Message-ID: <CAKEwX=OTDeJDs0ChuLXk8o__U6h_dHBB7YuVPBx4zOwDNU5eBw@mail.gmail.com>
+Subject: Re: [linux-next:master] BUILD REGRESSION
+ d514392f17fd4d386cfadde7f849d97db4ca1fb0
+To: kernel test robot <lkp@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Tue, 24 Jan 2023 08:39:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,786 +65,198 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+Cc: kvm@vger.kernel.org, netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ linux-arm-kernel@lists.infradead.org, sound-open-firmware@alsa-project.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------TRlaO7dvMo4gt4UcxnXTrmBY
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+On Fri, Jan 20, 2023 at 9:14 AM kernel test robot <lkp@intel.com> wrote:
+>
+> tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+> branch HEAD: d514392f17fd4d386cfadde7f849d97db4ca1fb0  Add linux-next specific files for 20230120
+>
+> Error/Warning reports:
+>
+> https://lore.kernel.org/oe-kbuild-all/202301191616.R33Dvxk4-lkp@intel.com
+> https://lore.kernel.org/oe-kbuild-all/202301192229.wL7iPJxS-lkp@intel.com
+> https://lore.kernel.org/oe-kbuild-all/202301201120.aIaz7dT4-lkp@intel.com
+> https://lore.kernel.org/oe-kbuild-all/202301202042.herfGxx6-lkp@intel.com
+>
+> Error/Warning: (recently discovered and may have been fixed)
+>
+> Documentation/virt/kvm/api.rst:5070: WARNING: Unexpected indentation.
+> drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_training.c:1585:38: warning: variable 'result' set but not used [-Wunused-but-set-variable]
+> drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_core.c:5253:24: sparse:    left side has type restricted __le16
+> drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_core.c:5253:24: sparse:    right side has type restricted __le32
+> idma64.c:(.text+0x6a): undefined reference to `devm_platform_ioremap_resource'
+>
+> Unverified Error/Warning (likely false positive, please contact us if interested):
+>
+> drivers/net/dsa/microchip/ksz_ptp.c:217 ksz_ptp_clock_register() warn: passing zero to 'PTR_ERR'
+> drivers/nvmem/imx-ocotp.c:599:21: sparse: sparse: symbol 'imx_ocotp_layout' was not declared. Should it be static?
+> drivers/nvmem/layouts/sl28vpd.c:143:21: sparse: sparse: symbol 'sl28vpd_layout' was not declared. Should it be static?
+> mm/hugetlb.c:3101 alloc_hugetlb_folio() error: uninitialized symbol 'h_cg'.
+> mm/zsmalloc.c:900:20: warning: unused function 'obj_allocated' [-Wunused-function]
 
-Am 24.01.23 um 09:27 schrieb Marek Olšák:
-> A new Gallium HUD "value producer" could be added that reads fdinfo 
-> without calling the driver.
+This bug was detected and fix by Arnd Bergmann:
 
-That sounds good. To be honest I would have plenty of use for that.
+https://lore.kernel.org/lkml/CAKEwX=OTpY9Wg6YPfADDqeu7FFzciY9o_nNE5dRR3cu_-2ntaw@mail.gmail.com/T/
 
-> I still think there is merit in having this in amdgpu_drm.h too.
+It is triggered when neither CONFIG_ZPOOL nor CONFIG_COMPACTION is set.
 
-Why?
-
-Christian.
-
+> sound/soc/sof/sof-audio.c:329 sof_prepare_widgets_in_path() error: we previously assumed 'swidget' could be null (see line 306)
 >
-> Marek
+> Error/Warning ids grouped by kconfigs:
 >
-> On Tue, Jan 24, 2023 at 3:13 AM Marek Olšák <maraeo@gmail.com> wrote:
+> gcc_recent_errors
+> |-- alpha-allyesconfig
+> |   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+> |-- arc-allyesconfig
+> |   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+> |-- arm-allyesconfig
+> |   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+> |-- arm-randconfig-s032-20230119
+> |   `-- drivers-nvmem-imx-ocotp.c:sparse:sparse:symbol-imx_ocotp_layout-was-not-declared.-Should-it-be-static
+> |-- arm64-allyesconfig
+> |   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+> |-- csky-randconfig-m041-20230119
+> |   |-- drivers-net-dsa-microchip-ksz_ptp.c-ksz_ptp_clock_register()-warn:passing-zero-to-PTR_ERR
+> |   `-- sound-soc-sof-sof-audio.c-sof_prepare_widgets_in_path()-error:we-previously-assumed-swidget-could-be-null-(see-line-)
+> |-- csky-randconfig-r025-20230119
+> |   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+> |-- csky-randconfig-s043-20230119
+> |   |-- drivers-net-wireless-realtek-rtl8xxxu-rtl8xxxu_core.c:sparse:left-side-has-type-restricted-__le16
+> |   |-- drivers-net-wireless-realtek-rtl8xxxu-rtl8xxxu_core.c:sparse:right-side-has-type-restricted-__le32
+> |   `-- drivers-net-wireless-realtek-rtl8xxxu-rtl8xxxu_core.c:sparse:sparse:invalid-assignment:
+> |-- i386-allyesconfig
+> |   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+> |-- ia64-allmodconfig
+> |   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+> |-- ia64-randconfig-c033-20230119
+> |   `-- drivers-net-ethernet-microchip-vcap-vcap_api.c:WARNING-opportunity-for-kmemdup
+> |-- ia64-randconfig-s052-20230119
+> |   `-- drivers-nvmem-imx-ocotp.c:sparse:sparse:symbol-imx_ocotp_layout-was-not-declared.-Should-it-be-static
+> |-- loongarch-randconfig-r024-20230119
+> |   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+> |-- loongarch-randconfig-s042-20230119
+> |   `-- drivers-nvmem-layouts-sl28vpd.c:sparse:sparse:symbol-sl28vpd_layout-was-not-declared.-Should-it-be-static
+> |-- m68k-randconfig-c004-20230119
+> |   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+> |-- mips-allyesconfig
+> |   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+> |-- openrisc-randconfig-s033-20230119
+> |   `-- drivers-nvmem-imx-ocotp.c:sparse:sparse:symbol-imx_ocotp_layout-was-not-declared.-Should-it-be-static
+> |-- powerpc-allmodconfig
+> |   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+> |-- riscv-randconfig-s041-20230119
+> |   `-- drivers-nvmem-imx-ocotp.c:sparse:sparse:symbol-imx_ocotp_layout-was-not-declared.-Should-it-be-static
+> |-- s390-allyesconfig
+> |   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+> |-- sparc-allyesconfig
+> |   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+> |-- x86_64-allnoconfig
+> |   `-- Documentation-virt-kvm-api.rst:WARNING:Unexpected-indentation.
+> |-- x86_64-allyesconfig
+> |   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+> `-- x86_64-randconfig-m001
+> clang_recent_errors
+> |-- s390-randconfig-r044-20230119
+> |   `-- idma64.c:(.text):undefined-reference-to-devm_platform_ioremap_resource
+> `-- x86_64-randconfig-a012
+>     `-- mm-zsmalloc.c:warning:unused-function-obj_allocated
 >
->     The table of exposed driver-specific counters:
->     https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/gallium/drivers/radeonsi/si_query.c#L1751
+> elapsed time: 882m
 >
->     Counter enums. They use the same interface as e.g. occlusion
->     queries, except that begin_query and end_query save the results in
->     the driver/CPU.
->     https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/gallium/drivers/radeonsi/si_query.h#L45
+> configs tested: 79
+> configs skipped: 3
 >
->     Counters exposed by the winsys:
->     https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/gallium/include/winsys/radeon_winsys.h#L126
+> gcc tested configs:
+> x86_64                            allnoconfig
+> um                             i386_defconfig
+> i386                                defconfig
+> um                           x86_64_defconfig
+> x86_64                              defconfig
+> x86_64                               rhel-8.3
+> arc                                 defconfig
+> alpha                               defconfig
+> arm                                 defconfig
+> i386                          randconfig-a001
+> x86_64                          rhel-8.3-func
+> m68k                             allyesconfig
+> x86_64                           rhel-8.3-syz
+> x86_64                    rhel-8.3-kselftests
+> x86_64                           allyesconfig
+> powerpc                           allnoconfig
+> x86_64                         rhel-8.3-kunit
+> ia64                             allmodconfig
+> arm                  randconfig-r046-20230119
+> x86_64                        randconfig-a002
+> arm                              allyesconfig
+> arc                  randconfig-r043-20230119
+> m68k                             allmodconfig
+> i386                          randconfig-a003
+> arc                              allyesconfig
+> arm64                            allyesconfig
+> alpha                            allyesconfig
+> x86_64                           rhel-8.3-kvm
+> x86_64                        randconfig-a006
+> i386                          randconfig-a005
+> x86_64                           rhel-8.3-bpf
+> x86_64                        randconfig-a004
+> sparc64                          alldefconfig
+> riscv                             allnoconfig
+> sparc                       sparc32_defconfig
+> m68k                          hp300_defconfig
+> i386                             allyesconfig
+> powerpc                 mpc85xx_cds_defconfig
+> parisc                           alldefconfig
+> riscv                    nommu_virt_defconfig
+> mips                         bigsur_defconfig
+> arm                        keystone_defconfig
+> sh                   secureedge5410_defconfig
+> i386                          randconfig-a014
+> riscv                    nommu_k210_defconfig
+> s390                                defconfig
+> i386                          randconfig-a012
+> x86_64                        randconfig-a013
+> i386                          randconfig-a016
+> riscv                          rv32_defconfig
+> s390                             allmodconfig
+> sh                               allmodconfig
+> i386                   debian-10.3-kselftests
+> x86_64                        randconfig-a011
+> i386                              debian-10.3
+> i386                          randconfig-c001
+> mips                             allyesconfig
+> x86_64                        randconfig-a015
+> s390                             allyesconfig
+> powerpc                          allmodconfig
 >
->     I just need to query the counters in the winsys and return them.
+> clang tested configs:
+> x86_64                          rhel-8.3-rust
+> x86_64                        randconfig-a005
+> hexagon              randconfig-r045-20230119
+> x86_64                        randconfig-a001
+> i386                          randconfig-a002
+> riscv                randconfig-r042-20230119
+> x86_64                        randconfig-a003
+> hexagon              randconfig-r041-20230119
+> s390                 randconfig-r044-20230119
+> i386                          randconfig-a006
+> x86_64                        randconfig-k001
+> i386                          randconfig-a004
+> arm                           omap1_defconfig
+> i386                          randconfig-a013
+> i386                          randconfig-a011
+> i386                          randconfig-a015
+> x86_64                        randconfig-a016
+> x86_64                        randconfig-a012
+> x86_64                        randconfig-a014
 >
->     Marek
+> --
+> 0-DAY CI Kernel Test Service
+> https://01.org/lkp
 >
->     On Tue, Jan 24, 2023 at 2:58 AM Christian König
->     <ckoenig.leichtzumerken@gmail.com> wrote:
->
->         How are the counters which the HUD consumes declared?
->
->         See what I want to avoid is a) to nail down the interface with
->         the kernel on specific values and b) make it possible to
->         easily expose new values.
->
->         In other words what we could do with fdinfo is to have
->         something like this:
->
->         GALLIUM_FDINFO_HUD=drm-memory-vram,amd-evicted-vram,amd-mclk
->         glxgears
->
->         And the HUD just displays the values the kernel provides
->         without the need to re-compile mesa when we want to add some
->         more values nor have the values as part of the UAPI.
->
->         Christian.
->
->         Am 24.01.23 um 08:37 schrieb Marek Olšák:
->>         The Gallium HUD doesn't consume strings. It only consumes
->>         values that are exposed as counters from the driver. In this
->>         case, we need the driver to expose evicted stats as counters.
->>         Each counter can set whether the value is absolute (e.g.
->>         memory usage) or monotonic (e.g. perf counter). Parsing
->>         fdinfo to get the values is undesirable.
->>
->>         Marek
->>
->>         On Mon, Jan 23, 2023 at 4:31 AM Christian König
->>         <ckoenig.leichtzumerken@gmail.com> wrote:
->>
->>             Let's do this as valid in fdinfo.
->>
->>             This way we can easily extend whatever the kernel wants
->>             to display as statistics in the userspace HUD.
->>
->>             Regards,
->>             Christian.
->>
->>             Am 21.01.23 um 01:45 schrieb Marek Olšák:
->>>             We badly need a way to query evicted memory usage. It's
->>>             essential for investigating performance problems and it
->>>             uncovered the buddy allocator disaster. Please either
->>>             suggest an alternative, suggest changes, or review. We
->>>             need it ASAP.
->>>
->>>             Thanks,
->>>             Marek
->>>
->>>             On Tue, Jan 10, 2023 at 11:55 AM Marek Olšák
->>>             <maraeo@gmail.com> wrote:
->>>
->>>                 On Tue, Jan 10, 2023 at 11:23 AM Christian König
->>>                 <ckoenig.leichtzumerken@gmail.com> wrote:
->>>
->>>                     Am 10.01.23 um 16:28 schrieb Marek Olšák:
->>>>                     On Wed, Jan 4, 2023 at 9:51 AM Christian König
->>>>                     <ckoenig.leichtzumerken@gmail.com> wrote:
->>>>
->>>>                         Am 04.01.23 um 00:08 schrieb Marek Olšák:
->>>>>                         I see about the access now, but did you
->>>>>                         even look at the patch?
->>>>
->>>>                         I did look at the patch, but I haven't
->>>>                         fully understood yet what you are trying to
->>>>                         do here.
->>>>
->>>>
->>>>                     First and foremost, it returns the evicted size
->>>>                     of VRAM and visible VRAM, and returns visible
->>>>                     VRAM usage. It should be obvious which stat
->>>>                     includes the size of another.
->>>>
->>>>
->>>>>                         Because what the patch does isn't even
->>>>>                         exposed to common drm code, such as the
->>>>>                         preferred domain and visible VRAM
->>>>>                         placement, so it can't be in fdinfo right now.
->>>>>
->>>>>                         Or do you even know what fdinfo contains?
->>>>>                         Because it contains nothing useful. It
->>>>>                         only has VRAM and GTT usage, which we
->>>>>                         already have in the INFO ioctl, so it has
->>>>>                         nothing that we need. We mainly need the
->>>>>                         eviction information and visible VRAM
->>>>>                         information now. Everything else is a bonus.
->>>>
->>>>                         Well the main question is what are you
->>>>                         trying to get from that information? The
->>>>                         eviction list for example is completely
->>>>                         meaningless to userspace, that stuff is
->>>>                         only temporary and will be cleared on the
->>>>                         next CS again.
->>>>
->>>>
->>>>                     I don't know what you mean. The returned
->>>>                     eviction stats look correct and are stable
->>>>                     (they don't change much). You can suggest
->>>>                     changes if you think some numbers are not
->>>>                     reported correctly.
->>>>
->>>>
->>>>                         What we could expose is the VRAM
->>>>                         over-commit value, e.g. how much BOs which
->>>>                         where supposed to be in VRAM are in GTT
->>>>                         now. I think that's what you are looking
->>>>                         for here, right?
->>>>
->>>>
->>>>                     The VRAM overcommit value is "evicted_vram".
->>>>
->>>>
->>>>>                         Also, it's undesirable to open and parse a
->>>>>                         text file if we can just call an ioctl.
->>>>
->>>>                         Well I see the reasoning for that, but I
->>>>                         also see why other drivers do a lot of the
->>>>                         stuff we have as IOCTL as separate files in
->>>>                         sysfs, fdinfo or debugfs.
->>>>
->>>>                         Especially repeating all the static
->>>>                         information which were already available
->>>>                         under sysfs in the INFO IOCTL was a design
->>>>                         mistake as far as I can see. Just compare
->>>>                         what AMDGPU and the KFD code is doing to
->>>>                         what for example i915 is doing.
->>>>
->>>>                         Same for things like debug information
->>>>                         about a process. The fdinfo stuff can be
->>>>                         queried from external tools (gdb, gputop,
->>>>                         umr etc...) as well which makes that
->>>>                         interface more preferred.
->>>>
->>>>
->>>>                     Nothing uses fdinfo in Mesa. No driver uses
->>>>                     sysfs in Mesa except drm shims, noop drivers,
->>>>                     and Intel for perf metrics. sysfs itself is an
->>>>                     unusable mess for the PCIe query and is missing
->>>>                     information.
->>>>
->>>>                     I'm not against exposing more stuff through
->>>>                     sysfs and fdinfo for tools, but I don't see any
->>>>                     reason why drivers should use it (other than
->>>>                     for slowing down queries and initialization).
->>>
->>>                     That's what I'm asking: Is this for some tool or
->>>                     to make some driver decision based on it?
->>>
->>>                     If you just want the numbers for over displaying
->>>                     then I think it would be better to put this into
->>>                     fdinfo together with the other existing stuff there.
->>>
->>>
->>>                     If you want to make allocation decisions based
->>>                     on this then we should have that as IOCTL or
->>>                     even better as mmap() page between kernel and
->>>                     userspace. But in this case I would also
->>>                     calculation the numbers completely different as
->>>                     well.
->>>
->>>                     See we have at least the following things in the
->>>                     kernel:
->>>                     1. The eviction list in the VM.
->>>                         Those are the BOs which are currently
->>>                     evicted and tried to moved back in on the next CS.
->>>
->>>                     2. The VRAM over commit value.
->>>                         In other words how much more VRAM than
->>>                     available has the application tried to allocate?
->>>
->>>                     3. The visible VRAM usage by this application.
->>>
->>>                     The end goal is that the eviction list will go
->>>                     away, e.g. we will always have stable
->>>                     allocations based on allocations of other
->>>                     applications and not constantly swap things in
->>>                     and out.
->>>
->>>                     When you now expose the eviction list to
->>>                     userspace we will be stuck with this interface
->>>                     forever.
->>>
->>>
->>>                 It's for the GALLIUM HUD.
->>>
->>>                 The only missing thing is the size of all evicted
->>>                 VRAM allocations, and the size of all evicted
->>>                 visible VRAM allocations.
->>>
->>>                 1. No list is exposed. Only sums of buffer sizes are
->>>                 exposed. Also, the eviction list has no meaning
->>>                 here. All lists are treated equally, and mem_type is
->>>                 compared with preferred_domains to determine where
->>>                 buffers are and where they should be.
->>>
->>>                 2. I'm not interested in the overcommit value. I'm
->>>                 only interested in knowing the number of bytes of
->>>                 evicted VRAM right now. It can be as variable as the
->>>                 CPU load, but in practice it shouldn't be because
->>>                 PCIe doesn't have the bandwidth to move things quickly.
->>>
->>>                 3. Yes, that's true.
->>>
->>>                 Marek
->>>
->>
->
-
---------------TRlaO7dvMo4gt4UcxnXTrmBY
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    Am 24.01.23 um 09:27 schrieb Marek Olšák:<br>
-    <blockquote type="cite"
-cite="mid:CAAxE2A4zRPr5fJdQdAoBw8=OMrm9BjJHgnzLrXoomq0o-29UBw@mail.gmail.com">
-      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-      <div dir="ltr">
-        <div>A new Gallium HUD "value producer" could be added that
-          reads fdinfo without calling the driver.</div>
-      </div>
-    </blockquote>
-    <br>
-    That sounds good. To be honest I would have plenty of use for that.<br>
-    <br>
-    <blockquote type="cite"
-cite="mid:CAAxE2A4zRPr5fJdQdAoBw8=OMrm9BjJHgnzLrXoomq0o-29UBw@mail.gmail.com">
-      <div dir="ltr">
-        <div>I still think there is merit in having this in amdgpu_drm.h
-          too.</div>
-      </div>
-    </blockquote>
-    <br>
-    Why?<br>
-    <br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite"
-cite="mid:CAAxE2A4zRPr5fJdQdAoBw8=OMrm9BjJHgnzLrXoomq0o-29UBw@mail.gmail.com">
-      <div dir="ltr">
-        <div><br>
-        </div>
-        <div>Marek<br>
-        </div>
-      </div>
-      <br>
-      <div class="gmail_quote">
-        <div dir="ltr" class="gmail_attr">On Tue, Jan 24, 2023 at 3:13
-          AM Marek Olšák &lt;<a href="mailto:maraeo@gmail.com"
-            target="_blank" moz-do-not-send="true"
-            class="moz-txt-link-freetext">maraeo@gmail.com</a>&gt;
-          wrote:<br>
-        </div>
-        <blockquote class="gmail_quote" style="margin:0px 0px 0px
-          0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-          <div dir="ltr">
-            <div>The table of exposed driver-specific counters:<br>
-            </div>
-            <div><a
-href="https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/gallium/drivers/radeonsi/si_query.c#L1751"
-                target="_blank" moz-do-not-send="true"
-                class="moz-txt-link-freetext">https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/gallium/drivers/radeonsi/si_query.c#L1751</a></div>
-            <div><br>
-            </div>
-            <div>Counter enums. They use the same interface as e.g.
-              occlusion queries, except that begin_query and end_query
-              save the results in the driver/CPU.<br>
-            </div>
-            <div><a
-href="https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/gallium/drivers/radeonsi/si_query.h#L45"
-                target="_blank" moz-do-not-send="true"
-                class="moz-txt-link-freetext">https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/gallium/drivers/radeonsi/si_query.h#L45</a></div>
-            <div><br>
-            </div>
-            <div>Counters exposed by the winsys:</div>
-            <div><a
-href="https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/gallium/include/winsys/radeon_winsys.h#L126"
-                target="_blank" moz-do-not-send="true"
-                class="moz-txt-link-freetext">https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/gallium/include/winsys/radeon_winsys.h#L126</a></div>
-            <div><br>
-            </div>
-            <div>I just need to query the counters in the winsys and
-              return them.<br>
-            </div>
-            <div><br>
-            </div>
-            <div>Marek<br>
-            </div>
-          </div>
-          <br>
-          <div class="gmail_quote">
-            <div dir="ltr" class="gmail_attr">On Tue, Jan 24, 2023 at
-              2:58 AM Christian König &lt;<a
-                href="mailto:ckoenig.leichtzumerken@gmail.com"
-                target="_blank" moz-do-not-send="true"
-                class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>&gt;
-              wrote:<br>
-            </div>
-            <blockquote class="gmail_quote" style="margin:0px 0px 0px
-              0.8ex;border-left:1px solid
-              rgb(204,204,204);padding-left:1ex">
-              <div> How are the counters which the HUD consumes
-                declared?<br>
-                <br>
-                See what I want to avoid is a) to nail down the
-                interface with the kernel on specific values and b) make
-                it possible to easily expose new values.<br>
-                <br>
-                In other words what we could do with fdinfo is to have
-                something like this:<br>
-                <br>
-GALLIUM_FDINFO_HUD=drm-memory-vram,amd-evicted-vram,amd-mclk glxgears<br>
-                <br>
-                And the HUD just displays the values the kernel provides
-                without the need to re-compile mesa when we want to add
-                some more values nor have the values as part of the
-                UAPI.<br>
-                <br>
-                Christian.<br>
-                <br>
-                <div>Am 24.01.23 um 08:37 schrieb Marek Olšák:<br>
-                </div>
-                <blockquote type="cite">
-                  <div dir="ltr">
-                    <div>The Gallium HUD doesn't consume strings. It
-                      only consumes values that are exposed as counters
-                      from the driver. In this case, we need the driver
-                      to expose evicted stats as counters. Each counter
-                      can set whether the value is absolute (e.g. memory
-                      usage) or monotonic (e.g. perf counter). Parsing
-                      fdinfo to get the values is undesirable.<br>
-                    </div>
-                    <div><br>
-                    </div>
-                    <div>Marek<br>
-                    </div>
-                  </div>
-                  <br>
-                  <div class="gmail_quote">
-                    <div dir="ltr" class="gmail_attr">On Mon, Jan 23,
-                      2023 at 4:31 AM Christian König &lt;<a
-                        href="mailto:ckoenig.leichtzumerken@gmail.com"
-                        target="_blank" moz-do-not-send="true"
-                        class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>&gt;
-                      wrote:<br>
-                    </div>
-                    <blockquote class="gmail_quote" style="margin:0px
-                      0px 0px 0.8ex;border-left:1px solid
-                      rgb(204,204,204);padding-left:1ex">
-                      <div> Let's do this as valid in fdinfo.<br>
-                        <br>
-                        This way we can easily extend whatever the
-                        kernel wants to display as statistics in the
-                        userspace HUD.<br>
-                        <br>
-                        Regards,<br>
-                        Christian.<br>
-                        <br>
-                        <div>Am 21.01.23 um 01:45 schrieb Marek Olšák:<br>
-                        </div>
-                        <blockquote type="cite">
-                          <div dir="ltr">
-                            <div>We badly need a way to query evicted
-                              memory usage. It's essential for
-                              investigating performance problems and it
-                              uncovered the buddy allocator disaster.
-                              Please either suggest an alternative,
-                              suggest changes, or review. We need it
-                              ASAP.<br>
-                            </div>
-                            <div><br>
-                            </div>
-                            <div>Thanks,</div>
-                            <div>Marek<br>
-                            </div>
-                          </div>
-                          <br>
-                          <div class="gmail_quote">
-                            <div dir="ltr" class="gmail_attr">On Tue,
-                              Jan 10, 2023 at 11:55 AM Marek Olšák &lt;<a
-                                href="mailto:maraeo@gmail.com"
-                                target="_blank" moz-do-not-send="true"
-                                class="moz-txt-link-freetext">maraeo@gmail.com</a>&gt;
-                              wrote:<br>
-                            </div>
-                            <blockquote class="gmail_quote"
-                              style="margin:0px 0px 0px
-                              0.8ex;border-left:1px solid
-                              rgb(204,204,204);padding-left:1ex">
-                              <div dir="ltr">
-                                <div class="gmail_quote">
-                                  <div dir="ltr" class="gmail_attr">On
-                                    Tue, Jan 10, 2023 at 11:23 AM
-                                    Christian König &lt;<a
-                                      href="mailto:ckoenig.leichtzumerken@gmail.com"
-                                      target="_blank"
-                                      moz-do-not-send="true"
-                                      class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>&gt;
-                                    wrote:<br>
-                                  </div>
-                                  <blockquote class="gmail_quote"
-                                    style="margin:0px 0px 0px
-                                    0.8ex;border-left:1px solid
-                                    rgb(204,204,204);padding-left:1ex">
-                                    <div> Am 10.01.23 um 16:28 schrieb
-                                      Marek Olšák:<br>
-                                      <blockquote type="cite">
-                                        <div dir="ltr">
-                                          <div class="gmail_quote">
-                                            <div dir="ltr"
-                                              class="gmail_attr">On Wed,
-                                              Jan 4, 2023 at 9:51 AM
-                                              Christian König &lt;<a
-                                                href="mailto:ckoenig.leichtzumerken@gmail.com"
-                                                target="_blank"
-                                                moz-do-not-send="true"
-                                                class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>&gt;
-                                              wrote:<br>
-                                            </div>
-                                            <blockquote
-                                              class="gmail_quote"
-                                              style="margin:0px 0px 0px
-                                              0.8ex;border-left:1px
-                                              solid
-                                              rgb(204,204,204);padding-left:1ex">
-                                              <div> Am 04.01.23 um 00:08
-                                                schrieb Marek Olšák:<br>
-                                                <blockquote type="cite">
-                                                  <div dir="ltr">
-                                                    <div>I see about the
-                                                      access now, but
-                                                      did you even look
-                                                      at the patch?</div>
-                                                  </div>
-                                                </blockquote>
-                                                <br>
-                                                I did look at the patch,
-                                                but I haven't fully
-                                                understood yet what you
-                                                are trying to do here.<br>
-                                              </div>
-                                            </blockquote>
-                                            <div><br>
-                                            </div>
-                                            <div>First and foremost, it
-                                              returns the evicted size
-                                              of VRAM and visible VRAM,
-                                              and returns visible VRAM
-                                              usage. It should be
-                                              obvious which stat
-                                              includes the size of
-                                              another.<br>
-                                            </div>
-                                            <div><br>
-                                            </div>
-                                            <blockquote
-                                              class="gmail_quote"
-                                              style="margin:0px 0px 0px
-                                              0.8ex;border-left:1px
-                                              solid
-                                              rgb(204,204,204);padding-left:1ex">
-                                              <div> <br>
-                                                <blockquote type="cite">
-                                                  <div dir="ltr">
-                                                    <div> Because what
-                                                      the patch does
-                                                      isn't even exposed
-                                                      to common drm
-                                                      code, such as the
-                                                      preferred domain
-                                                      and visible VRAM
-                                                      placement, so it
-                                                      can't be in fdinfo
-                                                      right now.<br>
-                                                    </div>
-                                                    <div><br>
-                                                    </div>
-                                                    <div>Or do you even
-                                                      know what fdinfo
-                                                      contains? Because
-                                                      it contains
-                                                      nothing useful. It
-                                                      only has VRAM and
-                                                      GTT usage, which
-                                                      we already have in
-                                                      the INFO ioctl, so
-                                                      it has nothing
-                                                      that we need. We
-                                                      mainly need the
-                                                      eviction
-                                                      information and
-                                                      visible VRAM
-                                                      information now.
-                                                      Everything else is
-                                                      a bonus.<br>
-                                                    </div>
-                                                  </div>
-                                                </blockquote>
-                                                <br>
-                                                Well the main question
-                                                is what are you trying
-                                                to get from that
-                                                information? The
-                                                eviction list for
-                                                example is completely
-                                                meaningless to
-                                                userspace, that stuff is
-                                                only temporary and will
-                                                be cleared on the next
-                                                CS again.<br>
-                                              </div>
-                                            </blockquote>
-                                            <div><br>
-                                            </div>
-                                            <div>I don't know what you
-                                              mean. The returned
-                                              eviction stats look
-                                              correct and are stable
-                                              (they don't change much).
-                                              You can suggest changes if
-                                              you think some numbers are
-                                              not reported correctly.<br>
-                                            </div>
-                                            <div> </div>
-                                            <blockquote
-                                              class="gmail_quote"
-                                              style="margin:0px 0px 0px
-                                              0.8ex;border-left:1px
-                                              solid
-                                              rgb(204,204,204);padding-left:1ex">
-                                              <div> <br>
-                                                What we could expose is
-                                                the VRAM over-commit
-                                                value, e.g. how much BOs
-                                                which where supposed to
-                                                be in VRAM are in GTT
-                                                now. I think that's what
-                                                you are looking for
-                                                here, right?<br>
-                                              </div>
-                                            </blockquote>
-                                            <div><br>
-                                            </div>
-                                            <div>The VRAM overcommit
-                                              value is "evicted_vram".<br>
-                                            </div>
-                                            <div> </div>
-                                            <blockquote
-                                              class="gmail_quote"
-                                              style="margin:0px 0px 0px
-                                              0.8ex;border-left:1px
-                                              solid
-                                              rgb(204,204,204);padding-left:1ex">
-                                              <div> <br>
-                                                <blockquote type="cite">
-                                                  <div dir="ltr">
-                                                    <div>
-                                                      <div>Also, it's
-                                                        undesirable to
-                                                        open and parse a
-                                                        text file if we
-                                                        can just call an
-                                                        ioctl.</div>
-                                                    </div>
-                                                  </div>
-                                                </blockquote>
-                                                <br>
-                                                Well I see the reasoning
-                                                for that, but I also see
-                                                why other drivers do a
-                                                lot of the stuff we have
-                                                as IOCTL as separate
-                                                files in sysfs, fdinfo
-                                                or debugfs.<br>
-                                                <br>
-                                                Especially repeating all
-                                                the static information
-                                                which were already
-                                                available under sysfs in
-                                                the INFO IOCTL was a
-                                                design mistake as far as
-                                                I can see. Just compare
-                                                what AMDGPU and the KFD
-                                                code is doing to what
-                                                for example i915 is
-                                                doing.<br>
-                                                <br>
-                                                Same for things like
-                                                debug information about
-                                                a process. The fdinfo
-                                                stuff can be queried
-                                                from external tools
-                                                (gdb, gputop, umr
-                                                etc...) as well which
-                                                makes that interface
-                                                more preferred.<br>
-                                              </div>
-                                            </blockquote>
-                                            <div><br>
-                                            </div>
-                                            <div>Nothing uses fdinfo in
-                                              Mesa. No driver uses sysfs
-                                              in Mesa except drm shims,
-                                              noop drivers, and Intel
-                                              for perf metrics. sysfs
-                                              itself is an unusable mess
-                                              for the PCIe query and is
-                                              missing information.</div>
-                                            <div><br>
-                                            </div>
-                                            <div>I'm not against
-                                              exposing more stuff
-                                              through sysfs and fdinfo
-                                              for tools, but I don't see
-                                              any reason why drivers
-                                              should use it (other than
-                                              for slowing down queries
-                                              and initialization).</div>
-                                          </div>
-                                        </div>
-                                      </blockquote>
-                                      <br>
-                                      That's what I'm asking: Is this
-                                      for some tool or to make some
-                                      driver decision based on it?<br>
-                                      <br>
-                                      If you just want the numbers for
-                                      over displaying then I think it
-                                      would be better to put this into
-                                      fdinfo together with the other
-                                      existing stuff there.<br>
-                                    </div>
-                                  </blockquote>
-                                  <blockquote class="gmail_quote"
-                                    style="margin:0px 0px 0px
-                                    0.8ex;border-left:1px solid
-                                    rgb(204,204,204);padding-left:1ex">
-                                    <div> <br>
-                                      If you want to make allocation
-                                      decisions based on this then we
-                                      should have that as IOCTL or even
-                                      better as mmap() page between
-                                      kernel and userspace. But in this
-                                      case I would also calculation the
-                                      numbers completely different as
-                                      well.<br>
-                                      <br>
-                                      See we have at least the following
-                                      things in the kernel:<br>
-                                      1. The eviction list in the VM.<br>
-                                          Those are the BOs which are
-                                      currently evicted and tried to
-                                      moved back in on the next CS.<br>
-                                      <br>
-                                      2. The VRAM over commit value.<br>
-                                          In other words how much more
-                                      VRAM than available has the
-                                      application tried to allocate?<br>
-                                      <br>
-                                      3. The visible VRAM usage by this
-                                      application.<br>
-                                      <br>
-                                      The end goal is that the eviction
-                                      list will go away, e.g. we will
-                                      always have stable allocations
-                                      based on allocations of other
-                                      applications and not constantly
-                                      swap things in and out.<br>
-                                      <br>
-                                      When you now expose the eviction
-                                      list to userspace we will be stuck
-                                      with this interface forever.<br>
-                                    </div>
-                                  </blockquote>
-                                  <div><br>
-                                  </div>
-                                  <div>It's for the GALLIUM HUD.</div>
-                                  <div><br>
-                                  </div>
-                                  <div>The only missing thing is the
-                                    size of all evicted VRAM
-                                    allocations, and the size of all
-                                    evicted visible VRAM allocations.<br>
-                                  </div>
-                                  <div><br>
-                                  </div>
-                                  <div>1. No list is exposed. Only sums
-                                    of buffer sizes are exposed. Also,
-                                    the eviction list has no meaning
-                                    here. All lists are treated equally,
-                                    and mem_type is compared with
-                                    preferred_domains to determine where
-                                    buffers are and where they should
-                                    be.<br>
-                                  </div>
-                                  <div><br>
-                                  </div>
-                                  <div>2. I'm not interested in the
-                                    overcommit value. I'm only
-                                    interested in knowing the number of
-                                    bytes of evicted VRAM right now. It
-                                    can be as variable as the CPU load,
-                                    but in practice it shouldn't be
-                                    because PCIe doesn't have the
-                                    bandwidth to move things quickly.<br>
-                                  </div>
-                                  <div><br>
-                                  </div>
-                                  <div>3. Yes, that's true.</div>
-                                  <div><br>
-                                  </div>
-                                  <div>Marek</div>
-                                  <br>
-                                </div>
-                              </div>
-                            </blockquote>
-                          </div>
-                        </blockquote>
-                        <br>
-                      </div>
-                    </blockquote>
-                  </div>
-                </blockquote>
-                <br>
-              </div>
-            </blockquote>
-          </div>
-        </blockquote>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------TRlaO7dvMo4gt4UcxnXTrmBY--
