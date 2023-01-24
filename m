@@ -4,60 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77223C25B4E
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 15:53:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1100EC38142
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 16:37:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECF6C10E6C1;
-	Tue, 24 Jan 2023 15:53:35 +0000 (UTC)
-Received: from mail-ua1-x934.google.com (mail-ua1-x934.google.com
- [IPv6:2607:f8b0:4864:20::934])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33EA410E6B6
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Jan 2023 15:30:11 +0000 (UTC)
-Received: by mail-ua1-x934.google.com with SMTP id bx24so3837372uab.4
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Jan 2023 07:30:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=UyCfMSVt5YQ93dvQzsfOUKEDIKXZpwg4MvkDLyqNHiA=;
- b=XZ2VY4ncaYA9BICy27D7vfCt1S+bUXYea16Cc2fJhPUE0OX1kj8HsB47D77IsDONZl
- U6Cf5/aXnbFjyoJeW1LaVZ0Kw7VnuZvBsCo/9vOQkt8jCc6eTkSOZJaQ35OEDIebTY4e
- wjfhJgqG6HfeXBAulPceXNd5fs697ZnmJhzHhbgdi8A72RuX/LdvU2wr7GWOWSyJ6p3P
- vXBUBFY+QVUd9X8Out3vC1ZXZ7XMAtzXt/A5seZeMwxTDUohxC6h/ktDqD4qVtfwcrDA
- qpxk9+y+gGehYvlG9VMUupGcLXEPj8YK5MYH8uzIwwlrpGSEhJZdRnBGcARX68T3MR2A
- ys1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=UyCfMSVt5YQ93dvQzsfOUKEDIKXZpwg4MvkDLyqNHiA=;
- b=HJjceeIu0SeyyrA/x+PeyNcm+ko+CcB3/i6gzaH5tbjs6qRQA7ftp7mVt62dMczc27
- njUqFYG1xZtfe5T6MWX0y1DMETHe7bRcIDEkfjdiYFWCOtVw6ZEZSiQRICdr3awfanD2
- rqtcRF4Ju+YTHDB/YZLci2ofaA0hwAvPzsI3Owt+OnLqqXq4/VqWn9bOmIq0lZXqiP5Q
- /7AYfTM3sUZH+MB62MAeF7skLI8VGXUcRsLzpCAK5n82G+hdgBkuqSTBszGtefnKCA3Z
- iFTU45eR1tFRnwlMqsqFuyGAJva20UKn/Xry0xd3p66buAI4ShsfnqUlxzme7bh5R9OY
- TkkQ==
-X-Gm-Message-State: AFqh2koAniEr+ioj82LjrtI8mTOMcoFZr0HLca8V3RbgfBaMCj6CF6Ye
- 2mLiiRwG46pz5yWznBbyPpXlVibTgJ4Ym4FjqOO3lg==
-X-Google-Smtp-Source: AMrXdXuKRuAD41xpguf1eHKBlJO8W4vD7lac7tM28Emygp2ffmu3CfYnqjmwkMJDzMpgKkJSkz2p0bDht+YE9XQTmVE=
-X-Received: by 2002:a9f:3263:0:b0:5d5:d02:8626 with SMTP id
- y32-20020a9f3263000000b005d50d028626mr3149869uad.115.1674574209956; Tue, 24
- Jan 2023 07:30:09 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 572D810E0A0;
+	Tue, 24 Jan 2023 16:37:12 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4661210E0A0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Jan 2023 16:37:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1674578231; x=1706114231;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=pn97jEIAu/MECh0v1WxEWAkGQxc1uJC47tP454sU/qE=;
+ b=CwrSHt2t4B6nS2w0TaPvDKfJMjfp/MBlEhj1KMJKpbb9Rg+TdIC50tzD
+ bk0m8VJQ7fLPG3ARgl9KBpBq75mIpXibH3B/t1NLUhRNILZ0fZkmnCn0U
+ 2Zoa1yFtR6icvFPS1LQFJ2zknIMUhPzscG8278CGvOracn1hGC8eCSo73
+ vgbDB1Swv5SJ88Zqe1Mh/lSyxQM4oG3lMV+Giod5ZobvC9Goy+DHvug03
+ fh7o9nQ3nASk8fUM6SoPecSD+zw0PAC9/AZrh3Y43fMjEEHUj7sxP3cRQ
+ QkY/9oinaas/6tMATyr0jitW7nfJYjkA5cmAxo7UtsxxVtiChLicOQuKr g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="309908743"
+X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="309908743"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jan 2023 08:37:10 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="612099752"
+X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="612099752"
+Received: from lkp-server01.sh.intel.com (HELO 5646d64e7320) ([10.239.97.150])
+ by orsmga003.jf.intel.com with ESMTP; 24 Jan 2023 08:37:08 -0800
+Received: from kbuild by 5646d64e7320 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pKMIF-0006cm-2N;
+ Tue, 24 Jan 2023 16:37:07 +0000
+Date: Wed, 25 Jan 2023 00:37:05 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ a54df7622717a40ddec95fd98086aff8ba7839a6
+Message-ID: <63d00931.j+gAM+ywiXvJX7wP%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-References: <20221228-drop-qunused-arguments-v2-0-9adbddd20d86@kernel.org>
- <CA+G9fYs58vWj705MdaBKomVfHxNJ5ekSTmf53S4=4oVmc43CZg@mail.gmail.com>
- <Y86xyqe+Rd9wri7I@dev-arch.thelio-3990X>
-In-Reply-To: <Y86xyqe+Rd9wri7I@dev-arch.thelio-3990X>
-From: Naresh Kamboju <naresh.kamboju@linaro.org>
-Date: Tue, 24 Jan 2023 20:59:58 +0530
-Message-ID: <CA+G9fYv1cAfGUDmz-+XC-E7aXQdU55D7SW=-WFc_RiUuNgGNsw@mail.gmail.com>
-Subject: Re: [PATCH v2 00/14] Remove clang's -Qunused-arguments from
- KBUILD_CPPFLAGS
-To: Nathan Chancellor <nathan@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Tue, 24 Jan 2023 15:53:34 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,179 +58,152 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: trix@redhat.com, dave.hansen@linux.intel.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-s390@vger.kernel.org, Anders Roxell <anders.roxell@linaro.org>,
- kernel test robot <lkp@intel.com>, mpe@ellerman.id.au, masahiroy@kernel.org,
- x86@kernel.org, christophe.leroy@csgroup.eu, mingo@redhat.com,
- llvm@lists.linux.dev, nicolas@fjasle.eu,
- Segher Boessenkool <segher@kernel.crashing.org>, linux-kbuild@vger.kernel.org,
- Heiko Carstens <hca@linux.ibm.com>, npiggin@gmail.com, bp@alien8.de,
- lkft-triage@lists.linaro.org, tglx@linutronix.de,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>,
- ndesaulniers@google.com, linux-mips@vger.kernel.org,
- Sven Schnelle <svens@linux.ibm.com>, Alex Deucher <alexander.deucher@amd.com>,
- linuxppc-dev@lists.ozlabs.org
+Cc: Linux Memory Management List <linux-mm@kvack.org>, netdev@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ virtualization@lists.linux-foundation.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Nathan,
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: a54df7622717a40ddec95fd98086aff8ba7839a6  Add linux-next specific files for 20230124
 
-On Mon, 23 Jan 2023 at 21:41, Nathan Chancellor <nathan@kernel.org> wrote:
->
-> Hi Naresh,
->
-> On Mon, Jan 23, 2023 at 07:28:10PM +0530, Naresh Kamboju wrote:
-> > FYI,
-> > [ please provide comments, feedback and improvements on build/ ltp smok=
-e tests ]
-> >
-> > LKFT test farm have fetched your patch series [1]
-> > [PATCH v2 00/14] Remove clang's -Qunused-arguments from KBUILD_CPPFLAGS
-> >  [1] https://lore.kernel.org/llvm/20221228-drop-qunused-arguments-v2-0-=
-9adbddd20d86@kernel.org/
->
-> Thank you a lot for testing this series, it is much appreciated!
->
-> It looks like this was applied on top of 6.2-rc3 if I am reading your
-> logs right but your mainline testing is recent, 6.2-rc5. I think the
-> errors you are seeing here are just existing mainline regressions that
-> were later fixed.
->
-> > Following build warnings and errors reported.
-> >
-> > sh:
-> > gcc-11-defconfig =E2=80=94 FAIL
-> > gcc-11-shx3_defconfig =E2=80=94 FAIL
-> > https://qa-reports.linaro.org/~anders.roxell/linux-mainline-patches/bui=
-ld/https___lore_kernel_org_llvm_20221228-drop-qunused-arguments-v2-1-9adbdd=
-d20d86_kernel_org/testrun/14221835/suite/build/tests/
-> >
-> > mainline getting passed.
-> > https://qa-reports.linaro.org/lkft/linux-mainline-master/build/v6.2-rc5=
-/testrun/14298156/suite/build/test/gcc-11-defconfig/history/
-> > https://qa-reports.linaro.org/lkft/linux-mainline-master/build/v6.2-rc5=
-/testrun/14298156/suite/build/test/gcc-11-shx3_defconfig/history/
-> >
-> > Build error:
-> > In function 'follow_pmd_mask',
-> >     inlined from 'follow_pud_mask' at /builds/linux/mm/gup.c:735:9,
-> >     inlined from 'follow_p4d_mask' at /builds/linux/mm/gup.c:752:9,
-> >     inlined from 'follow_page_mask' at /builds/linux/mm/gup.c:809:9:
-> > /builds/linux/include/linux/compiler_types.h:358:45: error: call to
-> > '__compiletime_assert_263' declared with attribute error: Unsupported
-> > access size for {READ,WRITE}_ONCE().
-> >   358 |         _compiletime_assert(condition, msg,
-> > __compiletime_assert_, __COUNTER__)
->
-> I think this was fixed with mainline commit 526970be53d5 ("sh/mm: Fix
-> pmd_t for real"), released in 6.2-rc4. You can see a previous build
-> failing in the same manner:
->
-> https://qa-reports.linaro.org/lkft/linux-mainline-master/build/v6.2-rc3-9=
--g5a41237ad1d4/testrun/14056384/suite/build/tests/
->
-> > s390:
-> > clang-15-defconfig =E2=80=94 FAIL
-> > https://qa-reports.linaro.org/~anders.roxell/linux-mainline-patches/bui=
-ld/https___lore_kernel_org_llvm_20221228-drop-qunused-arguments-v2-1-9adbdd=
-d20d86_kernel_org/testrun/14221913/suite/build/tests/
-> >
-> > mainline getting passed.
-> > https://qa-reports.linaro.org/lkft/linux-mainline-master/build/v6.2-rc5=
-/testrun/14300495/suite/build/test/clang-15-defconfig/history/
-> >
-> > Build error:
-> > make --silent --keep-going --jobs=3D8
-> > O=3D/home/tuxbuild/.cache/tuxmake/builds/1/build LLVM_IAS=3D0 ARCH=3Ds3=
-90
-> > CROSS_COMPILE=3Ds390x-linux-gnu- 'HOSTCC=3Dsccache clang' 'CC=3Dsccache
-> > clang'
-> > `.exit.text' referenced in section `__jump_table' of fs/fuse/inode.o:
-> > defined in discarded section `.exit.text' of fs/fuse/inode.o
-> > `.exit.text' referenced in section `__jump_table' of fs/fuse/inode.o:
-> > defined in discarded section `.exit.text' of fs/fuse/inode.o
-> > `.exit.text' referenced in section `__bug_table' of crypto/algboss.o:
-> > defined in discarded section `.exit.text' of crypto/algboss.o
-> > `.exit.text' referenced in section `__bug_table' of drivers/scsi/sd.o:
-> > defined in discarded section `.exit.text' of drivers/scsi/sd.o
-> > `.exit.text' referenced in section `__jump_table' of drivers/md/md.o:
-> > defined in discarded section `.exit.text' of drivers/md/md.o
-> > `.exit.text' referenced in section `__jump_table' of drivers/md/md.o:
-> > defined in discarded section `.exit.text' of drivers/md/md.o
-> > `.exit.text' referenced in section `.altinstructions' of
-> > drivers/md/md.o: defined in discarded section `.exit.text' of
-> > drivers/md/md.o
-> > `.exit.text' referenced in section `.altinstructions' of
-> > drivers/md/md.o: defined in discarded section `.exit.text' of
-> > drivers/md/md.o
-> > `.exit.text' referenced in section `.altinstructions' of
-> > net/iucv/iucv.o: defined in discarded section `.exit.text' of
-> > net/iucv/iucv.o
-> > `.exit.text' referenced in section `__bug_table' of
-> > drivers/s390/cio/qdio_thinint.o: defined in discarded section
-> > `.exit.text' of drivers/s390/cio/qdio_thinint.o
-> > `.exit.text' referenced in section `__bug_table' of
-> > drivers/s390/net/qeth_l3_main.o: defined in discarded section
-> > `.exit.text' of drivers/s390/net/qeth_l3_main.o
-> > `.exit.text' referenced in section `__bug_table' of
-> > drivers/s390/net/qeth_l3_main.o: defined in discarded section
-> > `.exit.text' of drivers/s390/net/qeth_l3_main.o
-> > s390x-linux-gnu-ld: BFD (GNU Binutils for Debian) 2.35.2 assertion
-> > fail ../../bfd/elf64-s390.c:3349
-> > make[2]: *** [/builds/linux/scripts/Makefile.vmlinux:34: vmlinux] Error=
- 1
->
-> This should be fixed with mainline commit a494398bde27 ("s390: define
-> RUNTIME_DISCARD_EXIT to fix link error with GNU ld < 2.36"), released in
-> 6.2-rc4 as well. Same as before, visible in mainline at one point
-> without this series:
->
-> https://qa-reports.linaro.org/lkft/linux-mainline-master/build/v6.2-rc3-9=
--g5a41237ad1d4/testrun/14057142/suite/build/tests/
->
-> > But,
-> > Build and boot pass on arm64, arm, x86_64 and i386.
-> > Build test performed for mips, parisc, riscv, s390, sh, sparc and
-> > powerpc (known build errors for maple_defconfig and cell_defconfig),
->
-> Good to hear!
->
-> Please consider retesting this series on top of 6.2-rc5 or testing the
-> current kbuild tree, which has this series applied in it:
+Error/Warning: (recently discovered and may have been fixed)
 
-This is the perfect place to test.
+ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/fsl-edma.ko] undefined!
+ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/idma64.ko] undefined!
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_dp_training.c:1585:38: warning: variable 'result' set but not used [-Wunused-but-set-variable]
 
-> https://git.kernel.org/pub/scm/linux/kernel/git/masahiroy/linux-kbuild.gi=
-t/log/?h=3Dfor-next
+Unverified Error/Warning (likely false positive, please contact us if interested):
 
-Build test pass on arm, arm64, i386, mips, parisc, powerpc, riscv, s390, sh=
-,
-sparc and x86_64.
-Boot and LTP smoke pass on qemu-arm64, qemu-armv7, qemu-i386 and qemu-x86_6=
-4.
+drivers/block/virtio_blk.c:721:9: sparse:    bad type *
+drivers/block/virtio_blk.c:721:9: sparse:    unsigned int *
+drivers/block/virtio_blk.c:721:9: sparse: sparse: incompatible types in comparison expression (different base types):
+drivers/block/virtio_blk.c:721:9: sparse: sparse: no generic selection for 'restricted __le32 [addressable] virtio_cread_v'
+drivers/block/virtio_blk.c:721:9: sparse: sparse: no generic selection for 'restricted __le32 virtio_cread_v'
+drivers/nvmem/imx-ocotp.c:599:21: sparse: sparse: symbol 'imx_ocotp_layout' was not declared. Should it be static?
+mm/hugetlb.c:3100 alloc_hugetlb_folio() error: uninitialized symbol 'h_cg'.
+net/devlink/leftover.c:7160 devlink_fmsg_prepare_skb() error: uninitialized symbol 'err'.
 
-  Tested-by: Linux Kernel Functional Testing <lkft@linaro.org>
-  Tested-by: Anders Roxell <anders.roxell@linaro.org>
+Error/Warning ids grouped by kconfigs:
 
-Please refer to the following link for details of testing.
-  https://qa-reports.linaro.org/~anders.roxell/linux-mainline-patches/build=
-/linux-kbuild_masahiroy-branch-kbuild-20230124/?failures_only=3Dfalse&resul=
-ts_layout=3Dtable#!#test-results
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arc-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arm-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arm-buildonly-randconfig-r005-20230123
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arm-randconfig-r014-20230123
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arm64-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- i386-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- ia64-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- microblaze-randconfig-s033-20230123
+|   |-- drivers-block-virtio_blk.c:sparse:bad-type
+|   |-- drivers-block-virtio_blk.c:sparse:sparse:incompatible-types-in-comparison-expression-(different-base-types):
+|   |-- drivers-block-virtio_blk.c:sparse:sparse:no-generic-selection-for-restricted-__le32-addressable-virtio_cread_v
+|   |-- drivers-block-virtio_blk.c:sparse:sparse:no-generic-selection-for-restricted-__le32-virtio_cread_v
+|   |-- drivers-block-virtio_blk.c:sparse:unsigned-int
+|   `-- drivers-nvmem-imx-ocotp.c:sparse:sparse:symbol-imx_ocotp_layout-was-not-declared.-Should-it-be-static
+|-- mips-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- powerpc-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- powerpc-randconfig-s032-20230123
+|   `-- drivers-nvmem-imx-ocotp.c:sparse:sparse:symbol-imx_ocotp_layout-was-not-declared.-Should-it-be-static
+|-- s390-allmodconfig
+|   |-- ERROR:devm_platform_ioremap_resource-drivers-dma-fsl-edma.ko-undefined
+|   `-- ERROR:devm_platform_ioremap_resource-drivers-dma-idma64.ko-undefined
+|-- s390-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- sparc-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- x86_64-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_dp_training.c:warning:variable-result-set-but-not-used
+`-- x86_64-randconfig-m001-20230123
+    |-- mm-hugetlb.c-alloc_hugetlb_folio()-error:uninitialized-symbol-h_cg-.
+    `-- net-devlink-leftover.c-devlink_fmsg_prepare_skb()-error:uninitialized-symbol-err-.
 
-metadata:
-  git_describe : v6.2-rc5-46-ga778c9dd138b
-  git_repo : https://git.kernel.org/pub/scm/linux/kernel/git/masahiroy/linu=
-x-kbuild.git
-  git_sha : a778c9dd138b4f4410779705b444d58ce6f8fc44
-  git_short_log : a778c9dd138b ("builddeb: clean generated package content"=
-)
+elapsed time: 724m
 
---
-Linaro LKFT
-https://lkft.linaro.org
+configs tested: 66
+configs skipped: 3
 
->
-> Cheers,
-> Nathan
+gcc tested configs:
+powerpc                           allnoconfig
+x86_64                              defconfig
+x86_64                            allnoconfig
+x86_64                               rhel-8.3
+x86_64                          rhel-8.3-func
+um                             i386_defconfig
+arc                  randconfig-r043-20230123
+x86_64                    rhel-8.3-kselftests
+um                           x86_64_defconfig
+arm                  randconfig-r046-20230123
+arc                                 defconfig
+sh                               allmodconfig
+alpha                               defconfig
+i386                                defconfig
+x86_64                           allyesconfig
+mips                             allyesconfig
+powerpc                          allmodconfig
+i386                 randconfig-a004-20230123
+i386                 randconfig-a003-20230123
+i386                 randconfig-a002-20230123
+arm                                 defconfig
+i386                 randconfig-a001-20230123
+i386                 randconfig-a005-20230123
+i386                 randconfig-a006-20230123
+x86_64               randconfig-a002-20230123
+x86_64               randconfig-a001-20230123
+s390                                defconfig
+s390                             allmodconfig
+x86_64               randconfig-a006-20230123
+arm64                            allyesconfig
+x86_64               randconfig-a004-20230123
+ia64                             allmodconfig
+x86_64               randconfig-a003-20230123
+arm                              allyesconfig
+i386                             allyesconfig
+x86_64               randconfig-a005-20230123
+x86_64                           rhel-8.3-syz
+x86_64                         rhel-8.3-kunit
+x86_64                           rhel-8.3-kvm
+x86_64                           rhel-8.3-bpf
+s390                             allyesconfig
+m68k                             allyesconfig
+m68k                             allmodconfig
+arc                              allyesconfig
+alpha                            allyesconfig
+powerpc                       eiger_defconfig
+arc                            hsdk_defconfig
+mips                            ar7_defconfig
+arm                        multi_v7_defconfig
+
+clang tested configs:
+x86_64                          rhel-8.3-rust
+hexagon              randconfig-r041-20230123
+hexagon              randconfig-r045-20230123
+s390                 randconfig-r044-20230123
+riscv                randconfig-r042-20230123
+x86_64               randconfig-a013-20230123
+x86_64               randconfig-a011-20230123
+i386                 randconfig-a012-20230123
+x86_64               randconfig-a012-20230123
+i386                 randconfig-a013-20230123
+i386                 randconfig-a011-20230123
+x86_64               randconfig-a016-20230123
+i386                 randconfig-a014-20230123
+x86_64               randconfig-a015-20230123
+x86_64               randconfig-a014-20230123
+i386                 randconfig-a016-20230123
+i386                 randconfig-a015-20230123
+
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
