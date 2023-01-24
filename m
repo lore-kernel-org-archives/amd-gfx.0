@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A833C25B4E
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 13:40:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B27F9C38142
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 13:40:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA8FF10E686;
-	Tue, 24 Jan 2023 13:40:18 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68CFA10E68A;
- Tue, 24 Jan 2023 13:40:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29C5610E69E;
+	Tue, 24 Jan 2023 13:40:19 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48F2D10E683;
+ Tue, 24 Jan 2023 13:40:14 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id EEB011FDBF;
- Tue, 24 Jan 2023 13:40:11 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id D4C311FDCE;
+ Tue, 24 Jan 2023 13:40:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1674567611; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1674567612; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=bkFQqvsdRxbFh+T/xgjgYaZo/8sz/0LHQ7jzsk0ZmNc=;
- b=ZM9perR3zfHsbqddSsBIqCNYfegdPwzpG5QiOfR5H6SGs/rzEyIxETO2dWv95am94wnLXs
- tY8wy1o6wAgZP4BtE+qXyiYJjI+Ywn7X5gE/m030vLjoMjYPI+MGNG4WbehltB6BlGrpci
- 0qYeolhSrNCglLsvcJu774/ZuJlTidg=
+ bh=/JNXSH2jIbyrZQ/ublt+0Y9YLxXlg5ibmb+zIaFCthg=;
+ b=BAtK/Ult52JSIjKqJmaQK4oWks8zqTqrvk+MMPmnQF27yg69mB5wzZ3yyoLAjCsa9TyG/c
+ //JG7qz+I5dNzW2haRgZZME3KjomHiVnvVCmlBjpk79z83L8x4UNAfuYffGn1ge5JIGnVc
+ znXGJcZoNHjukbTVQHv4jevugFc6bQk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1674567611;
+ s=susede2_ed25519; t=1674567612;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=bkFQqvsdRxbFh+T/xgjgYaZo/8sz/0LHQ7jzsk0ZmNc=;
- b=vHhgPBAuqrG4dLoI1MubNO5r3KDCDwlxIjcCqBi2c+bZo8b2bRA2COsoC9e+WV57p9N/rQ
- 2EI5OVQohJCOWECQ==
+ bh=/JNXSH2jIbyrZQ/ublt+0Y9YLxXlg5ibmb+zIaFCthg=;
+ b=WmQLlqkZhW0+2NzjccoNBj+ylcLKgGEmSu/jKwmS1FNUluqQ18uuibUj+D8G+eNSYFan9O
+ wOkRUdD6psDtMoCQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A856B13487;
- Tue, 24 Jan 2023 13:40:11 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9375E139FF;
+ Tue, 24 Jan 2023 13:40:12 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id +B4MKLvfz2PWZgAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Tue, 24 Jan 2023 13:40:11 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id MKUgI7zfz2PWZgAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Tue, 24 Jan 2023 13:40:12 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: airlied@gmail.com, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, javierm@redhat.com
-Subject: [PATCH v2 01/10] drm/client: Test for connectors before sending
- hotplug event
-Date: Tue, 24 Jan 2023 14:40:01 +0100
-Message-Id: <20230124134010.30263-2-tzimmermann@suse.de>
+Subject: [PATCH v2 04/10] drm/fbdev-generic: Initialize fb-helper structure in
+ generic setup
+Date: Tue, 24 Jan 2023 14:40:04 +0100
+Message-Id: <20230124134010.30263-5-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230124134010.30263-1-tzimmermann@suse.de>
 References: <20230124134010.30263-1-tzimmermann@suse.de>
@@ -76,48 +76,56 @@ Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Test for connectors in the client code and remove a similar test
-from the generic fbdev emulation. Do nothing if the test fails.
-Not having connectors indicates a driver bug.
+Initialize the fb-helper structure immediately after its allocation
+in drm_fbdev_generic_setup(). That will make it easier to fill it with
+driver-specific values, such as the preferred BPP.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/drm_client.c        | 5 +++++
- drivers/gpu/drm/drm_fbdev_generic.c | 5 -----
- 2 files changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/drm_fbdev_generic.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_client.c b/drivers/gpu/drm/drm_client.c
-index 262ec64d4397..09ac191c202d 100644
---- a/drivers/gpu/drm/drm_client.c
-+++ b/drivers/gpu/drm/drm_client.c
-@@ -198,6 +198,11 @@ void drm_client_dev_hotplug(struct drm_device *dev)
- 	if (!drm_core_check_feature(dev, DRIVER_MODESET))
- 		return;
- 
-+	if (!dev->mode_config.num_connector) {
-+		drm_dbg_kms(dev, "No connectors found, will not send hotplug events!\n");
-+		return;
-+	}
-+
- 	mutex_lock(&dev->clientlist_mutex);
- 	list_for_each_entry(client, &dev->clientlist, list) {
- 		if (!client->funcs || !client->funcs->hotplug)
 diff --git a/drivers/gpu/drm/drm_fbdev_generic.c b/drivers/gpu/drm/drm_fbdev_generic.c
-index 0a4c160e0e58..3d455a2e3fb5 100644
+index 135d58b8007b..63f66325a8a5 100644
 --- a/drivers/gpu/drm/drm_fbdev_generic.c
 +++ b/drivers/gpu/drm/drm_fbdev_generic.c
-@@ -389,11 +389,6 @@ static int drm_fbdev_client_hotplug(struct drm_client_dev *client)
+@@ -385,8 +385,6 @@ static int drm_fbdev_client_hotplug(struct drm_client_dev *client)
  	if (dev->fb_helper)
  		return drm_fb_helper_hotplug_event(dev->fb_helper);
  
--	if (!dev->mode_config.num_connector) {
--		drm_dbg_kms(dev, "No connectors found, will not create framebuffer!\n");
--		return 0;
--	}
+-	drm_fb_helper_prepare(dev, fb_helper, &drm_fb_helper_generic_funcs);
 -
- 	drm_fb_helper_prepare(dev, fb_helper, &drm_fb_helper_generic_funcs);
- 
  	ret = drm_fb_helper_init(dev, fb_helper);
+ 	if (ret)
+ 		goto err;
+@@ -456,12 +454,12 @@ void drm_fbdev_generic_setup(struct drm_device *dev,
+ 	fb_helper = kzalloc(sizeof(*fb_helper), GFP_KERNEL);
+ 	if (!fb_helper)
+ 		return;
++	drm_fb_helper_prepare(dev, fb_helper, &drm_fb_helper_generic_funcs);
+ 
+ 	ret = drm_client_init(dev, &fb_helper->client, "fbdev", &drm_fbdev_client_funcs);
+ 	if (ret) {
+-		kfree(fb_helper);
+ 		drm_err(dev, "Failed to register client: %d\n", ret);
+-		return;
++		goto err_drm_client_init;
+ 	}
+ 
+ 	/*
+@@ -484,5 +482,12 @@ void drm_fbdev_generic_setup(struct drm_device *dev,
+ 		drm_dbg_kms(dev, "client hotplug ret=%d\n", ret);
+ 
+ 	drm_client_register(&fb_helper->client);
++
++	return;
++
++err_drm_client_init:
++	drm_fb_helper_unprepare(fb_helper);
++	kfree(fb_helper);
++	return;
+ }
+ EXPORT_SYMBOL(drm_fbdev_generic_setup);
 -- 
 2.39.0
 
