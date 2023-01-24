@@ -4,117 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97972C25B4E
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 15:26:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66F8EC25B4E
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 15:37:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDD0710E6AD;
-	Tue, 24 Jan 2023 15:26:21 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2083.outbound.protection.outlook.com [40.107.92.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE80010E6AD;
- Tue, 24 Jan 2023 15:26:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 438FB10E6BB;
+	Tue, 24 Jan 2023 15:37:48 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2070.outbound.protection.outlook.com [40.107.96.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93EDB10E6B3;
+ Tue, 24 Jan 2023 15:37:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gbsl7E5nsCpBvgDS2oauykPaSs1CkBAVwz9pZvxDz1VsqjCidXwkUC9d/sJ285BnaCduY0fDuBKUR9Nni8abnZVhye3DBKnoqv9YBRNG9CZi5M0pb7C6UzlrWC1JfNsM1hZAwQRFi7HSxPgi5Gg5/8+vq80U733deTHs7bawYA6WwnWk6B+wJRJUl9aSPURf7sx1S8UngKLBiZW3fO/RDoIxNE5X/2IA/2eUtRRtlE6CcFbVAvuhxlEVrVvOb1KQvGMqd9DRDGFQ2DUIH8PSW3RP/OpIO5LEC7CAA25Sb/4C9dWNANyYv+yMmnDBjhfbuWBrlOEerMHJYWDs8xIr9Q==
+ b=e7U1sP4r0CIJ7Jhsi/qOd9OCCYLI6N1U6XuuTjDeK2SOg4TSezGX1AMUi8SG4Lku3ffeN2VFnA7W6kK6Pw8/4jgB7qwT3gdbvXmQFe6KOHFtURYsbP5Y5p1DtWmU004DsSbSieCY3+QlZ8MYvMnYWe4fbZrmYjWsPvk5rX7MgxRMaRIa/y89b8Lssnepg2d4LHut72hIS1WRFPjH4VA5IEWCMC9W+71xqR6uo0k5NRL1lGW5GiwO2lG+Hh4MhltG2KZuboEbn7LC28if3piCFTkoQirxOmBa3S8u7CFArhCIy2CcoOwG3hP+1C39MoVPLC1nSaBvX+ESU1KQyLId/A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MfxfZ70fzv5Xuc1FK1ZGx9XlgIreUtBLGi9cwz+2sfU=;
- b=dvRJc3lh6ppXAhUaEg2RcXrcG98rKLHKAFBwfnTRUSeWYblwD74n8hJwVLFbZoLaO9g3Gmfascn5TBDag44AlzPvQL2e10+o3FuWyJ6tCPZKACDNzz0DAG0Dk2HyQvoQ7X3WdsqetL86ypQEonmokMQWrPyl/dFX2mvBJlU+9LxIf93HlsXlBRKdLL/VK4sGNHNO3uPHl92nqVS5SUeAZ813oKZqcaYE3kK8jYLQN6+wChivuoOkaEfCvy+IKWff0R/CZzO1TVEBZqcBLG7xTp7II6OXuGl9x4hHtNfAOLQ20y+VKh4MPypve4IbPpxZTLiOLR9Pp9Is/znPuU0Txw==
+ bh=IR7rCdriMlckcS3CwnUoKsgOJXU0cnieIUFnU/hp0tQ=;
+ b=aZxYL5Z0JMQxvSom1cHQXgCVXTtHT37GCYT+FvrrPae0HVkc91ZydC3YjM3vV7H5kUMqd7Oc0ws7bv8gYYzFvaBP6sD78+R+ud5fjhFomhtDAvdPDoiYJjr3QWzGazChrFyfBprGU8QY2cQl0sO/26ZqexhLZ1ThOV1zRumaVbpxi2R8FA2NH3/ozpIfyEV/LJ1Ak5HmJZ/dEUR1KMxrZK+x9QilOpaNW8xTpevThDix25TGombSYmGaOyIgL6pLfNBtgkc6el8YNgwVr8bwpcS4pxdkGRYFYzTOEkEQE2kBfAzVPaTMt+AIvdDlLWTeL0jikFWO2iAcIGHgWUUjAw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MfxfZ70fzv5Xuc1FK1ZGx9XlgIreUtBLGi9cwz+2sfU=;
- b=o1t/nBeTavr18FeCaBshGTmiEovHIGxT2NfYcDkzYj1xtD1v7aVah5a73+RyhDFp0JaO4RvQU9xfeFolqtQCWyHMIg9cJH1lpVG5+twp+cAeAANDXHoF/mcTOP1lXT7lNLBQ9wDl0qcgcagdfaZ7SuKWbLqawi+ZX6Jttu9zKos=
+ bh=IR7rCdriMlckcS3CwnUoKsgOJXU0cnieIUFnU/hp0tQ=;
+ b=j1cWZp5aXcebeKGc+7C1wThhvw9tCW1oaAxtmEMmfuNkVwfK9EmJtKtSNIZAAIBJNfNEfkR1deZo8Mtbr9vbBkm3zPEocKDD1AY3PL6+HlGnvSU4TJI2XYNT8/kEq1L48fR+M5tzUB5awXiTgRin962KBuzNt26/f68QuW2gqPM=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5311.namprd12.prod.outlook.com (2603:10b6:5:39f::7) by
- PH7PR12MB6787.namprd12.prod.outlook.com (2603:10b6:510:1ad::15) with
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by DM6PR12MB4578.namprd12.prod.outlook.com (2603:10b6:5:2a9::22) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33; Tue, 24 Jan
- 2023 15:26:14 +0000
-Received: from DM4PR12MB5311.namprd12.prod.outlook.com
- ([fe80::2d5c:4370:2ece:ea]) by DM4PR12MB5311.namprd12.prod.outlook.com
- ([fe80::2d5c:4370:2ece:ea%4]) with mapi id 15.20.6002.033; Tue, 24 Jan 2023
- 15:26:14 +0000
-Message-ID: <349f8e1c-2e33-4519-5238-9080dbfc8009@amd.com>
-Date: Tue, 24 Jan 2023 10:26:06 -0500
+ 2023 15:37:43 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::152b:e615:3d60:2bf0]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::152b:e615:3d60:2bf0%6]) with mapi id 15.20.6002.033; Tue, 24 Jan 2023
+ 15:37:43 +0000
+Message-ID: <0a57bc76-91f7-dc00-6877-cd0a1dfa7347@amd.com>
+Date: Tue, 24 Jan 2023 10:37:39 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.1
-Subject: Re: [PATCH v2 10/21] drm/amd/display: Signal mode_changed if
- colorspace changed
+Subject: Re: [PATCH v2 18/21] drm/amd/display: Fallback to 2020_YCBCR if the
+ pixel encoding is not RGB
 Content-Language: en-US
-To: Harry Wentland <harry.wentland@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
+To: Sebastian Wick <sebastian.wick@redhat.com>
 References: <20230113162428.33874-1-harry.wentland@amd.com>
- <20230113162428.33874-11-harry.wentland@amd.com>
-From: Leo Li <sunpeng.li@amd.com>
-In-Reply-To: <20230113162428.33874-11-harry.wentland@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR0101CA0290.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:6d::26) To DM4PR12MB5311.namprd12.prod.outlook.com
- (2603:10b6:5:39f::7)
+ <20230113162428.33874-19-harry.wentland@amd.com>
+ <CA+hFU4xHKNSWO21Swq_b2VPPxtYGdeo4e3rPEVo44OPmB+opZw@mail.gmail.com>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <CA+hFU4xHKNSWO21Swq_b2VPPxtYGdeo4e3rPEVo44OPmB+opZw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0348.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6b::25) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5311:EE_|PH7PR12MB6787:EE_
-X-MS-Office365-Filtering-Correlation-Id: f55a499c-6d0c-4516-4804-08dafe1f546d
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|DM6PR12MB4578:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1daf80b4-0d39-4f1b-bb17-08dafe20ef0c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Yw1QaqjkH6KUg6QIQTUyhZZ31ZyXWzFozxld+BFuVXV2lypdOW0lRnH6CfXMzCFxQe+o4TjoJRb/Uq+xjqRIoooSpMfLx1PAWeekl/R3ZFoa4Py3l84uXaE91lhnp5yhAmjpXxPbKo/+LcmnkmsPWUzXkzHKVGmKDo6k/ZxH+A1MzKlKJAPs3KjGyMDc4UJ+CglPGrpagv07UFvqdbkE69sNNJOoaCXQTGw0UmZSu8xhf0WqoZnvEEIqE8lBtBGVbjYsKxpC3wdwv/ZJYvhMsVdLaoWXwmOfuLVHpyEUpldYjeFxfheSskj8GCByPNiwu3rglyQ5sSVdUFjnQM9l6AE2hgz5yOuX5eodXKYVsqueMa2k1B+RW3FXzT/PbGXhjoXgj1nsmsRR/eKHKYwAQs4vuLoUlBNa5mdHzM8qsmS0ht6YrqlEMLHfro7aWinaCmMIZPBj8KDGLQsm1CEgTROFFz77Ni07/s4XiPYt1CwQs6xTMsUFQBjpeu0qC8Ly55n+0Cw3l63bFHgR4B+dcgKKxc8eebAZJNr0stYVj3WXyZaP0ie7cgg+9OvHPjyERPAnbFqTtwpzkSMhTtuCurME01cmhoh/mWuPQZAZKiduwB6xdHSDB9bmWvKX6V/7h550xgb6uUCAwKtAjmOvlum4Q5UdFumsF8qdk9JXmOcWWjctZl25hYfVsJykOP2edoNvEl/ar9m0sb8ab8BtK1th5QWR+Temfic9FQXqaaw=
+X-Microsoft-Antispam-Message-Info: OA0nbJqu7wDE1tpqShKdMOYtAP/DLapDiT5gdjryBBUOcTV+F7CmrlhluGOA0Ao6pSC3nztei6voLM3Usxb//4/jTjAgat5LqfzTWI/M4FtsHW37NO28qfwYGhNy4982axCekf5QBN4CNIo8eixKXuf4pFRXbCfTFpT91RamUHLrKb2kykHtySELZDCoJ2upeBRsviBWHpJCgbRhj/UBJD37Mx7CK72v20nti6WaJl+tCYNdpkzSS41ynUOv6im7bUm094j4pcoLe/cUOF9CI6Re/1f7maMVWzdbuiPBW0BppV6EHgmXYHmKctlSZ2xwEiAu8ddkg6pSykImtOpJGjSbVXZdtOjpAweecLZaP34R/Bnw9vwnah5V36VaZrUDaXKfaKqRoj8tp1MOZOku6kNPdcW6fqL91w3ERUNw37uUGA8vkzStm7ZxeNU2ZKGi/3s767YKExGLHFMJqf5ADNcdAOamE3Zh88dgJ/4oQDvYa7jgu2+WuIJX+5LcsX5dFUZ0NaMDs/WHraYf1wXA/0VS+AO20pUnIdV72Z3OEWrnEQNJZTk/5409UVfUsQHYN7JDdOgAhtfpXT3KgFX6H1r6HeVMyoYUiCZ5RPE+VbZhQNMrj618osaA0s2A/tjVGsz/2KNM51pTpUtIcGe4x6IFoCLiESwEwPd5Cgndl6/mdb4hbRPdGG0dFXKm2lRWof820Vm9WNRMKbQLaz7lMV/SVQ4O700QmDQy8ay23eA=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5311.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(39860400002)(136003)(376002)(366004)(346002)(396003)(451199015)(66574015)(83380400001)(2616005)(31696002)(86362001)(38100700002)(36756003)(4326008)(31686004)(8676002)(66476007)(66556008)(6506007)(66946007)(5660300002)(2906002)(41300700001)(8936002)(6666004)(6486002)(478600001)(53546011)(26005)(186003)(54906003)(6512007)(316002)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(396003)(366004)(39860400002)(376002)(136003)(346002)(451199015)(38100700002)(83380400001)(41300700001)(86362001)(44832011)(2906002)(8936002)(5660300002)(4326008)(316002)(6512007)(6916009)(26005)(53546011)(6506007)(186003)(8676002)(6666004)(66476007)(66556008)(54906003)(2616005)(478600001)(6486002)(66946007)(31686004)(31696002)(36756003)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a01zVUsySlJ4VmF1OC9lVGdYb0tWd0VtYkFlUE5sWlNWWmVzckNrTmEyTE5M?=
- =?utf-8?B?M0RPVGdZMEE4SFd6NlNYczdDRDZJL0NBSjErK3dZKzU0MWlXUmx5S3BhOUd5?=
- =?utf-8?B?aWhjbWJWYndvSDk2TW9YTEhOZ0J1bGw0L3AraGtaZXl3eFhDRmpTSGNtMTRE?=
- =?utf-8?B?V3hmMHA4THlBakgrZW1VRGE5VmV3UVRKaGZVU3RyYVhUTFJOQ2VQcFVkVTVy?=
- =?utf-8?B?N2xrRnppRjhYWnR0YTAxN2pNRE43MW96NjBpQ0RLYjlBUmFFU3IzaHY0cmNj?=
- =?utf-8?B?bUdjQWkzUFdLUy90eC9sQXd1a2lXTU5WMWN3ais4R2tHMWszQUtQTE01UHZa?=
- =?utf-8?B?WnRYUEV2b1JUY0hLNkFESHZnMVp3T2dndEd0aHUweXBmNkFEOVhnK1BjWXR6?=
- =?utf-8?B?RVlQeXRLZWE1Y0kyTXpZemJUdjZydG14ejJKd1grZXNpR2U3RGN0eDBjZG40?=
- =?utf-8?B?bE1xSlcrV1FnaW1PTjNXUG80ekF3cnRXNjFRUDUvVUFkNEhMWEdnOHk1cnl0?=
- =?utf-8?B?Q3J1cU9ORnRncy8yWTVDMUZ5TW1FVktKVHYyV0RLazZhTUp2aVJ4Wkg1NHhl?=
- =?utf-8?B?WGsvaDQzbm1yemxZRlpsWWFUVWdHcTFwdTBLYjNGZi9BcjF3T1RTMGZtaUNr?=
- =?utf-8?B?ZWNEdjBMMmU0VkJjRjhWd0tCOWNFTVd1T2l2M2w5bG1UQVpUK0hHd2Zub216?=
- =?utf-8?B?Zkd6Q1dvemUrclpvZ0tLbEc5R09KNWhHNzhRQXR6YlFDZmVRMWFmSGJtTW9P?=
- =?utf-8?B?WTRSOUtPOWd4OHlDUE1TNjJrbzlNQ1JGZ21lR04xeUQvckprYk80dzA5c0dt?=
- =?utf-8?B?WnJjdWJoVU5GbDVOU0lBZmd6VjhuenVoSXBrRVlweGJyL1QrK3Jua2NJY2d0?=
- =?utf-8?B?K1VOdjZkaVhVMkwrRVM2dmluaVFrbjFZOVpVZktaV201TW5Gand0T3BReHgy?=
- =?utf-8?B?dTFuaGVGYzE3RXVJUU5PMmh2UVp6b2VXZGg5ODl3eG1HNm9PaWduY0tWVThu?=
- =?utf-8?B?Zk81T0d0ekxNdGc3V3ZSM3lUZ3JtWTU1WVNKZnpCRTVxVWkwZis5djdhQ0lV?=
- =?utf-8?B?V2VObUthYWhlYkI4QWI5QU8wdVFGT2w3Q2R2S2VySFNlSmpQZGsyY1l6bUN5?=
- =?utf-8?B?MmVVUXF6d01tUDBtdWw2Vk9iaWNzdWtDOVpHQVdIc0p2SGU2YndlZFllL2ZR?=
- =?utf-8?B?WldGNXpSTzFiaWM1cXZ4OVl2N3o2SXg5OWZIRTdWd1N0aEx6KzlCditLd0lN?=
- =?utf-8?B?Z3FlRjhhbnFzSkN5d2w2RmxmQ2ZHdnltZ3JsWVBUZ0taQXhUbTZHb21tK2xT?=
- =?utf-8?B?UGVyQWdCSElvTTEzay9ENlhvT0NMZnpzQ3lmK3RCQW41NmlHWVJkZklSVVQ5?=
- =?utf-8?B?YzlRWit0NXdnZ010VjlCK3JoNEdaWHRTWEE4K1I4ekxISklPV2J5ekJVVjFN?=
- =?utf-8?B?K0FUTkVvc1BtbDJBK2NZTldpS3RSVDV2eWFtWnFOREs4cy9DQ2MzTitSYzJL?=
- =?utf-8?B?dXFZbkdGUVBsdytKNW11bHp1L05idUhDOXpoT1FhRmVOaWUxcFVMNkhKQ0py?=
- =?utf-8?B?TFhzY3ZPWEtlNUxUbnpNU1JhZStpM2VxVW1RckZ2ZGc4c29HT01qQktqR2tN?=
- =?utf-8?B?bFExZVR2VzRHYit0MmxiSTd3cTA2L2ZTczd6eTcrYWszbEoxSjNWcTlXOWxR?=
- =?utf-8?B?azRremNlV1FiOFZiSWdWM3hrRzVBaEVmVGZ0MU95MzZuSm1sOURoMnAwdm1P?=
- =?utf-8?B?Y0RXbDRldE1aSm5YVXQ5YzhMdDVTVDRZMFJ1RFBrQTFKUDl3VDlJUjg3Qi83?=
- =?utf-8?B?anR0MCtSMDRWeUhXU29mVGpraTRKUDhNb1h0Skl6ODRVbUVva1F4ZWlBd0Rw?=
- =?utf-8?B?Z2w3YndtbExoQ0JNajR3bklDYlpOcXVYeWtsa2V1bk5xeitUd1JXZlNLeXBJ?=
- =?utf-8?B?NFNzZENQUVRsakNaMEsyOGpnMG5MZ2JMSHl6Z0xhNklaNTd3QmREd1dpQWxX?=
- =?utf-8?B?TkRVMkN5b2Y4em9aNnNzYlNNcEMzZTQybXVEVVVic2dpSHFxOHFpSzI5L1Ix?=
- =?utf-8?B?QmF1MDcvaWl6TGtjUjBuUVQvbHZ6eCtsbXcwRjkvcCt5TS8rdUs3eXE0MFRy?=
- =?utf-8?Q?ZBqYPF7hNOuumyQ3oMvCXlHYV?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bitNaXA1SW5LbnBpeGF4ZnA0aytJZU02THlGemRBTDZna1J6NFhFcTZldDdS?=
+ =?utf-8?B?S0p4aEtZaXIvWUlscytrYk9XTHFJZXJCdGQ5YUhvOGVRalM3bzBIdTY3Nksz?=
+ =?utf-8?B?a3JSN3hQWkxOTzQ1NFRNVStaS2lzZjcxc3JZWlBHbkx6cEgzTVorQVY3dWdE?=
+ =?utf-8?B?NFB6OUdpcTkzV0R0Z2RRRjI0OVJBK0Nwb0FIanNOdGl6VmVPb0JnUDRXV1d0?=
+ =?utf-8?B?M2UrbjgzRldvZk5mUVlkc2kvcC9VbW1sNEd0ZUh5Z2hXTmtqZEdHdVlHbTlL?=
+ =?utf-8?B?ZUlLYUpLQkZwdjZYaFNRanpNTjUyY1Y3ek9jTUNMaHprRVN3SitlMDA5dGVV?=
+ =?utf-8?B?cTF3cDNlM1ArczNIaEJuc2dDUEI3L3llUFlzSmszRmtNNUtqR2N0QjltZFZm?=
+ =?utf-8?B?UmdZSHJWdWVsZnJOQXJFMGhTUlBoWVlaUG8yV2k0WDNBZWtmT1RmYmhrVC8w?=
+ =?utf-8?B?VC94SFl5QzBwZWZISEhweVIxYTBWdzBGS1FlTXorM3pIRllBOFVKK2M3Skcy?=
+ =?utf-8?B?QTcrOTllMElHdFFsWVM1VUo1R2NZNXFNYzFwRjk4bVFYeUZuTE9ydE5nYlhV?=
+ =?utf-8?B?bkkrVzl5TW10SjRVOEpmK1RwWkNNaEIvZDdvcFR6MzgrQlhkTURwT2NsV3Q5?=
+ =?utf-8?B?RlJIQXJYMHp6L2EvMXpFK3M3amEzbnJMWFdtUDZ0NUVlYUhoU3FnejZ0VktH?=
+ =?utf-8?B?ZTc3NnZLY1o0YWdkL20yYUk0WFV1RytrWkN4d2ZRKzVxL2p5bHlVd01ZOFoy?=
+ =?utf-8?B?MERML3Y5YnUzQ3lZSzZBOWEyb1FHQ0xEUGlJTmdUVU1ocDVTMDVJMzlIaWdQ?=
+ =?utf-8?B?UURNc1A5bTJwMGtza2hBUWFhWUF2WkgwR1gzOGxZVGhMVDk1ZVFMTGM4UTZw?=
+ =?utf-8?B?dXVWZjZnbEQ4eUh6MzVZWDcyd1ZBR3JOYUYrNWpwTU5MK3ZaVFZjaUZvWHFm?=
+ =?utf-8?B?VUJIMWVwSHc2OUdac3BoSWZDakUzeUpzM0ZxcjhONmp6cUxZRkNrcWs3T1Fw?=
+ =?utf-8?B?Y2RZTzNJSlNyMFBwdlh4T1JGQWp0MjVSZTFSQitQdlgrU0VVNnE4VHFmblZ3?=
+ =?utf-8?B?QlFTanZIRWF2dUwrSWh4bDhHdGkxc3NhRGM1TXc0SkduRnV4NVFCNGlLSnFl?=
+ =?utf-8?B?OFFZZnQzK211WTc1WWR6SFlWK0dDL0Vsbm1oYS8wenprVlVBaXRjdlpnZFBU?=
+ =?utf-8?B?d0l1VDV0ejArVi8vdzY2a29yM2phbTRORncxczVxVkNDajlOdlpyRHB1RWVt?=
+ =?utf-8?B?U2h1TVJ6VmQ5T3NBSzNZSDZ3Mzh5c3k4cWd0bkw1S2xlZ1lEMVlzVTFiVHJT?=
+ =?utf-8?B?RVdGbi90U202V2Y5dkdvejhhMkFONmlBQkNnYTBqMlYvelgwdldielpNMmRj?=
+ =?utf-8?B?RjBDdmhxeUhQRGFhbU5qOCt1SHJhYVVabHVFc2k2U0YzRWlxRmY4OVpkOFJX?=
+ =?utf-8?B?Vi8rd1RVZGxlQWxyS2xqOGhRRFBkdG5PMDljWklMdzVUUmpucm5XMnNPWGVZ?=
+ =?utf-8?B?VDUwQit5bmIza3FMNTFBOW90RURCam9PT21GaHBCclJDSjBZTklFeG5UOWFx?=
+ =?utf-8?B?YWVFdHlVVC9oTW1XcE9zUEtQR2dIS2x4Z2dacHgvbmhaUjdGc0FLUXgyblNk?=
+ =?utf-8?B?TlRXZ2JaWHFQV0xPSzBPWDgrTUFzMzVkTjdwWGQzeFNQdy9oQlR6bE80SUgy?=
+ =?utf-8?B?Z2FYVVR0cnB4VDJibnhvZ0VRMGVmaGlIL3BuV051YkQ2ODJ2NWEzRnltY2Ew?=
+ =?utf-8?B?ZGRCaWFub1FuR2lxbkxjVEdDYXRFZ0NWTjJndmNkQmxEakdsVElqZG9JSjlX?=
+ =?utf-8?B?dkNkNitQdE5DNFNmSjYyUUNlWHpBOERkSE9odmdKSVNxMkt1K3pQZHAxa2JH?=
+ =?utf-8?B?b0JPaFh1RGNkUFhTUjdublA4dWl5YXZBdFBXS2sxQ2hvSi9VR09kTVkwU1Qv?=
+ =?utf-8?B?ME42eXlnNnh2aEduc3Z3RmJRaTNOZ01MRW1UVTFQUVNSS09vYjd5QlhrU1M2?=
+ =?utf-8?B?c0FCSk5HcytLZ1ppRzdVR3AvcjdveWdqc05PS2MrcjNHRVRubzBtSUlzR3pD?=
+ =?utf-8?B?c2V5TzdmZXVYUFYreGJOTm8rMjBORDNKS3lZV0pCbW5SNUNWTDlxQW43VEFS?=
+ =?utf-8?Q?K7WzQQcY4JUTsfWwBQqA1mzl/?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f55a499c-6d0c-4516-4804-08dafe1f546d
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5311.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1daf80b4-0d39-4f1b-bb17-08dafe20ef0c
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2023 15:26:14.2266 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2023 15:37:43.2446 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1Ka6PaOoaZSdv7PgjB+KUDzTlkxXjDosyAsvjBRTVQq1n1bIzLbhMJMjlL9Pno9Z
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6787
+X-MS-Exchange-CrossTenant-UserPrincipalName: cYsFkSwN00Um0gYwBsU/tRVMm5xEBZ4TdqWKH6Q32zI696t7RaNqO77FmLxVRekAPgYM+gLp8rcvH02i9D8dMA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4578
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,64 +126,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>,
- Pekka Paalanen <ppaalanen@gmail.com>, Uma Shankar <uma.shankar@intel.com>,
- Joshua Ashton <joshua@froggi.es>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+Cc: Joshua Ashton <joshua@froggi.es>, Pekka Paalanen <ppaalanen@gmail.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 1/13/23 11:24, Harry Wentland wrote:
-> We need to signal mode_changed to make sure we update the output
-> colorspace.
+On 1/23/23 15:30, Sebastian Wick wrote:
+> A new property to control YCC and subsampling would be the more
+> complete path here. If we actually want to fix this in the short-term
+> though, we should handle the YCC and RGB Colorspace values as
+> equivalent, everywhere. Technically we're breaking the user space API
+> here so it should be documented on the KMS property and other drivers
+> must be adjusted accordingly as well.
 > 
-> v2: No need to call drm_hdmi_avi_infoframe_colorimetry as DC does its
->      own infoframe packing.
-> 
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> Cc: Pekka Paalanen <ppaalanen@gmail.com>
-> Cc: Sebastian Wick <sebastian.wick@redhat.com>
-> Cc: Vitaly.Prosyak@amd.com
-> Cc: Uma Shankar <uma.shankar@intel.com>
-> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> Cc: Joshua Ashton <joshua@froggi.es>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: amd-gfx@lists.freedesktop.org
 
-Reviewed-by: Leo Li <sunpeng.li@amd.com>
+Could someone point me to a userspace that uses this currently?
 
-> ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 +++++++++-
->   1 file changed, 9 insertions(+), 1 deletion(-)
+Harry
+
+> On Fri, Jan 13, 2023 at 5:26 PM Harry Wentland <harry.wentland@amd.com> wrote:
+>>
+>> From: Joshua Ashton <joshua@froggi.es>
+>>
+>> Userspace might not aware whether we're sending RGB or YCbCr
+>> data to the display. If COLOR_SPACE_2020_RGB_FULLRANGE is
+>> requested but the output encoding is YCbCr we should
+>> send COLOR_SPACE_2020_YCBCR.
+>>
+>> Signed-off-by: Joshua Ashton <joshua@froggi.es>
+>> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+>> Cc: Pekka Paalanen <ppaalanen@gmail.com>
+>> Cc: Sebastian Wick <sebastian.wick@redhat.com>
+>> Cc: Vitaly.Prosyak@amd.com
+>> Cc: Joshua Ashton <joshua@froggi.es>
+>> Cc: dri-devel@lists.freedesktop.org
+>> Cc: amd-gfx@lists.freedesktop.org
+>> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+>> ---
+>>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 ++++-
+>>  1 file changed, 4 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> index f74b125af31f..16940ea61b59 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> @@ -5184,7 +5184,10 @@ get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
+>>                 color_space = COLOR_SPACE_ADOBERGB;
+>>                 break;
+>>         case DRM_MODE_COLORIMETRY_BT2020_RGB:
+>> -               color_space = COLOR_SPACE_2020_RGB_FULLRANGE;
+>> +               if (dc_crtc_timing->pixel_encoding == PIXEL_ENCODING_RGB)
+>> +                       color_space = COLOR_SPACE_2020_RGB_FULLRANGE;
+>> +               else
+>> +                       color_space = COLOR_SPACE_2020_YCBCR;
+>>                 break;
+>>         case DRM_MODE_COLORIMETRY_BT2020_YCC:
+>>                 color_space = COLOR_SPACE_2020_YCBCR;
+>> --
+>> 2.39.0
+>>
 > 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index c311135f1e6f..f74462c282a6 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -6492,6 +6492,14 @@ amdgpu_dm_connector_atomic_check(struct drm_connector *conn,
->   	if (!crtc)
->   		return 0;
->   
-> +	if (new_con_state->colorspace != old_con_state->colorspace) {
-> +		new_crtc_state = drm_atomic_get_crtc_state(state, crtc);
-> +		if (IS_ERR(new_crtc_state))
-> +			return PTR_ERR(new_crtc_state);
-> +
-> +		new_crtc_state->mode_changed = true;
-> +	}
-> +
->   	if (!drm_connector_atomic_hdr_metadata_equal(old_con_state, new_con_state)) {
->   		struct dc_info_packet hdr_infopacket;
->   
-> @@ -6514,7 +6522,7 @@ amdgpu_dm_connector_atomic_check(struct drm_connector *conn,
->   		 * set is permissible, however. So only force a
->   		 * modeset if we're entering or exiting HDR.
->   		 */
-> -		new_crtc_state->mode_changed =
-> +		new_crtc_state->mode_changed = new_crtc_state->mode_changed ||
->   			!old_con_state->hdr_output_metadata ||
->   			!new_con_state->hdr_output_metadata;
->   	}
+
