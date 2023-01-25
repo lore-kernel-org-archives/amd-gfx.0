@@ -4,52 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7285C27C76
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 04:51:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED9D4C54E94
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 08:30:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F76210E711;
-	Wed, 25 Jan 2023 04:51:51 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8434E10E65A;
- Wed, 25 Jan 2023 04:51:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674622308; x=1706158308;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=KD4JMgqxwED5gr4VrmwBvzAy0O3wbRpFXRdRP7EMoe0=;
- b=FEmgoNLWyBgjAyPlTsiv+aLs/9XXJtHbBIyAFsk7d5g6QpLykFjpZxcx
- V6TTlOqHrNaexg/SOq8jWsuSm1Fbe98PN6DWJCEB0ls7/hs86/vvI1cfK
- 37ObPlwEAIn0rm09S3wOBmNAyaFfwTeYjBUPsV/KtWxgsdymxrTWHsfEb
- S1Zqp7Yi/1Cy2FzwUmFAC21ogl5YCYndkVWcF1xMSCgVtGbRjnRkrpdc2
- bGL+JEjUQUbrwtoWoRKAwL5iG4BSQpIS6VlYP1O7Ecz1BWYNvbLSSI1C0
- 3XWsnwwaJwDzkLnKFK2Zsp5ojFdDDodt58TqAHds9+LVwPpkZjCD+jT/2 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="310057101"
-X-IronPort-AV: E=Sophos;i="5.97,244,1669104000"; d="scan'208";a="310057101"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2023 20:51:47 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="725743677"
-X-IronPort-AV: E=Sophos;i="5.97,244,1669104000"; d="scan'208";a="725743677"
-Received: from lkp-server01.sh.intel.com (HELO 5646d64e7320) ([10.239.97.150])
- by fmsmga008.fm.intel.com with ESMTP; 24 Jan 2023 20:51:42 -0800
-Received: from kbuild by 5646d64e7320 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pKXl7-00072i-39;
- Wed, 25 Jan 2023 04:51:41 +0000
-Date: Wed, 25 Jan 2023 12:51:20 +0800
-From: kernel test robot <lkp@intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, airlied@gmail.com,
- daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, javierm@redhat.com
-Subject: Re: [Intel-gfx] [PATCH v2 06/10] drm/fb-helper: Initialize
- fb-helper's preferred BPP in prepare function
-Message-ID: <202301251250.eyIn4zjn-lkp@intel.com>
-References: <20230124134010.30263-7-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1B8810E755;
+	Wed, 25 Jan 2023 08:30:50 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D7EE10E753
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 08:30:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1674635446;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=kr0S8akD6qUBjK/SM2fF6lu+0ihmEwSHU9fQtaMUMNo=;
+ b=a226Pt8ipebt2JExWTP+yldLIG1Lfl899UTZS7iA+3dVwvply0S76b4deLn347wh3ffLg3
+ FsVELr1/d5UqE5GhUfIcrwF27va0xHyx4GLfne/lmMhnCfBSwjUAZgZ0IJtiEnv4SSSY5I
+ cubzDy99jzk9z/pK3MHql3yjuGms5x8=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-102-xfbOr0rKPUWpGCS_KgqLmA-1; Wed, 25 Jan 2023 03:30:45 -0500
+X-MC-Unique: xfbOr0rKPUWpGCS_KgqLmA-1
+Received: by mail-wm1-f72.google.com with SMTP id
+ bg25-20020a05600c3c9900b003da1f6a7b2dso736276wmb.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 00:30:45 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=kr0S8akD6qUBjK/SM2fF6lu+0ihmEwSHU9fQtaMUMNo=;
+ b=28BzRTEwmFC98dBWfpd5XzPkX7+yfl3UxsoaLsMd0UmPnuygqqc2KPAoXIjs2IlcHU
+ IPqLfhmHXk6w0mr94ZX8a6zxVtKGw0Zfn9AQPH4icWNL2VjZ7MEyMkA8dpMQOCP/yCKt
+ 1gI9MltOGqYdpj49ncabeQSyVYEpBe1TWGqvBvpDw9AIWtPBugx6JbJdMwd9Vx6eK9d2
+ EFpEf1Iq3KyPykTOXqbNBWHA4aMoCX+mf9c2Vw+zx55t6YluuNcIZ0L80tit9Y6D10GF
+ 9ibksoI0T4+knogarkzNC84v9K+nKSUIxqf/N6Jb7mL5AwS4f6XynQsaln2ZBjeJpI1f
+ /ybA==
+X-Gm-Message-State: AFqh2koW1Blv68yXbJHRc3hbt5SDZUcnG/P4A2pg6PyMy4aqKQB1zweo
+ GTTMYYMtmB3m3s3JSskaloknl41XD2EvTN6WlIVUUSc7ak72DPuzGAaXlRA7imAX2uMjBny6Aod
+ 2bIdXD+ld187JygWa9zqNzValjw==
+X-Received: by 2002:a05:6000:388:b0:2bc:7ec3:8b2 with SMTP id
+ u8-20020a056000038800b002bc7ec308b2mr29736122wrf.68.1674635444580; 
+ Wed, 25 Jan 2023 00:30:44 -0800 (PST)
+X-Google-Smtp-Source: AMrXdXvJXEPl3F4VP/2Wui1NMuiLkn1RDtzF7t2lLspd9Qgz+v3EiIOxwRmTCt+QhhFH4DIAkfWI6g==
+X-Received: by 2002:a05:6000:388:b0:2bc:7ec3:8b2 with SMTP id
+ u8-20020a056000038800b002bc7ec308b2mr29736083wrf.68.1674635444065; 
+ Wed, 25 Jan 2023 00:30:44 -0800 (PST)
+Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
+ [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
+ n17-20020a5d67d1000000b002425be3c9e2sm3716862wrw.60.2023.01.25.00.30.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 25 Jan 2023 00:30:43 -0800 (PST)
+Message-ID: <296bcff0-9d75-3d6b-e101-dddb26edadf1@redhat.com>
+Date: Wed, 25 Jan 2023 09:30:42 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230124134010.30263-7-tzimmermann@suse.de>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Subject: Re: [PATCH v2 01/10] drm/client: Test for connectors before sending
+ hotplug event
+To: Thomas Zimmermann <tzimmermann@suse.de>, airlied@gmail.com,
+ daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org
+References: <20230124134010.30263-1-tzimmermann@suse.de>
+ <20230124134010.30263-2-tzimmermann@suse.de>
+From: Javier Martinez Canillas <javierm@redhat.com>
+In-Reply-To: <20230124134010.30263-2-tzimmermann@suse.de>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,111 +88,56 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, llvm@lists.linux.dev,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, oe-kbuild-all@lists.linux.dev,
- linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Thomas,
+Hello Thomas,
 
-I love your patch! Yet something to improve:
+On 1/24/23 14:40, Thomas Zimmermann wrote:
+> Test for connectors in the client code and remove a similar test
+> from the generic fbdev emulation. Do nothing if the test fails.
+> Not having connectors indicates a driver bug.
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
 
-[auto build test ERROR on 7d3e7f64a42d66ba8da6e7b66a8d85457ef84570]
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Thomas-Zimmermann/drm-client-Test-for-connectors-before-sending-hotplug-event/20230124-214220
-base:   7d3e7f64a42d66ba8da6e7b66a8d85457ef84570
-patch link:    https://lore.kernel.org/r/20230124134010.30263-7-tzimmermann%40suse.de
-patch subject: [Intel-gfx] [PATCH v2 06/10] drm/fb-helper: Initialize fb-helper's preferred BPP in prepare function
-config: riscv-randconfig-r042-20230123 (https://download.01.org/0day-ci/archive/20230125/202301251250.eyIn4zjn-lkp@intel.com/config)
-compiler: clang version 16.0.0 (https://github.com/llvm/llvm-project 4196ca3278f78c6e19246e54ab0ecb364e37d66a)
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # install riscv cross compiling tool for clang build
-        # apt-get install binutils-riscv64-linux-gnu
-        # https://github.com/intel-lab-lkp/linux/commit/70e38534e74e4d12bb02b3b352bba2aed417f541
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Thomas-Zimmermann/drm-client-Test-for-connectors-before-sending-hotplug-event/20230124-214220
-        git checkout 70e38534e74e4d12bb02b3b352bba2aed417f541
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=riscv olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=riscv SHELL=/bin/bash drivers/gpu/drm/radeon/
+but I've a question below.
 
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
+>  drivers/gpu/drm/drm_client.c        | 5 +++++
+>  drivers/gpu/drm/drm_fbdev_generic.c | 5 -----
+>  2 files changed, 5 insertions(+), 5 deletions(-)
 
-All errors (new ones prefixed by >>):
+[...]
 
->> drivers/gpu/drm/radeon/radeon_fb.c:352:10: error: too many arguments to function call, expected 3, have 4
-                                 &radeon_fb_helper_funcs);
-                                 ^~~~~~~~~~~~~~~~~~~~~~~
-   include/drm/drm_fb_helper.h:295:20: note: 'drm_fb_helper_prepare' declared here
-   static inline void drm_fb_helper_prepare(struct drm_device *dev,
-                      ^
->> drivers/gpu/drm/radeon/radeon_fb.c:361:52: error: too few arguments to function call, expected 2, have 1
-           ret = drm_fb_helper_initial_config(&rfbdev->helper);
-                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~                ^
-   include/drm/drm_fb_helper.h:459:19: note: 'drm_fb_helper_initial_config' declared here
-   static inline int drm_fb_helper_initial_config(struct drm_fb_helper *fb_helper,
-                     ^
-   2 errors generated.
+> --- a/drivers/gpu/drm/drm_fbdev_generic.c
+> +++ b/drivers/gpu/drm/drm_fbdev_generic.c
+> @@ -389,11 +389,6 @@ static int drm_fbdev_client_hotplug(struct drm_client_dev *client)
+>  	if (dev->fb_helper)
+>  		return drm_fb_helper_hotplug_event(dev->fb_helper);
+>  
+> -	if (!dev->mode_config.num_connector) {
+> -		drm_dbg_kms(dev, "No connectors found, will not create framebuffer!\n");
+> -		return 0;
+> -	}
+> -
 
+What about the following code snippet:
 
-vim +352 drivers/gpu/drm/radeon/radeon_fb.c
+	if (!drm_drv_uses_atomic_modeset(dev))
+		drm_helper_disable_unused_functions(dev);
 
-386516744ba45d Dave Airlie       2010-03-30  326  
-386516744ba45d Dave Airlie       2010-03-30  327  int radeon_fbdev_init(struct radeon_device *rdev)
-386516744ba45d Dave Airlie       2010-03-30  328  {
-8be48d924c307e Dave Airlie       2010-03-30  329  	struct radeon_fbdev *rfbdev;
-4abe35204af82a Dave Airlie       2010-03-30  330  	int bpp_sel = 32;
-5a79395b2791cc Chris Wilson      2010-06-06  331  	int ret;
-4abe35204af82a Dave Airlie       2010-03-30  332  
-e5f243bd2edd95 Alex Deucher      2016-03-10  333  	/* don't enable fbdev if no connectors */
-e5f243bd2edd95 Alex Deucher      2016-03-10  334  	if (list_empty(&rdev->ddev->mode_config.connector_list))
-e5f243bd2edd95 Alex Deucher      2016-03-10  335  		return 0;
-e5f243bd2edd95 Alex Deucher      2016-03-10  336  
-7b8bd6bb4298ac Egbert Eich       2017-07-18  337  	/* select 8 bpp console on 8MB cards, or 16 bpp on RN50 or 32MB */
-7b8bd6bb4298ac Egbert Eich       2017-07-18  338  	if (rdev->mc.real_vram_size <= (8*1024*1024))
-4abe35204af82a Dave Airlie       2010-03-30  339  		bpp_sel = 8;
-7b8bd6bb4298ac Egbert Eich       2017-07-18  340  	else if (ASIC_IS_RN50(rdev) ||
-7b8bd6bb4298ac Egbert Eich       2017-07-18  341  		 rdev->mc.real_vram_size <= (32*1024*1024))
-7b8bd6bb4298ac Egbert Eich       2017-07-18  342  		bpp_sel = 16;
-8be48d924c307e Dave Airlie       2010-03-30  343  
-8be48d924c307e Dave Airlie       2010-03-30  344  	rfbdev = kzalloc(sizeof(struct radeon_fbdev), GFP_KERNEL);
-8be48d924c307e Dave Airlie       2010-03-30  345  	if (!rfbdev)
-8be48d924c307e Dave Airlie       2010-03-30  346  		return -ENOMEM;
-771fe6b912fca5 Jerome Glisse     2009-06-05  347  
-8be48d924c307e Dave Airlie       2010-03-30  348  	rfbdev->rdev = rdev;
-8be48d924c307e Dave Airlie       2010-03-30  349  	rdev->mode_info.rfbdev = rfbdev;
-10a231026574f9 Thierry Reding    2014-06-27  350  
-70e38534e74e4d Thomas Zimmermann 2023-01-24  351  	drm_fb_helper_prepare(rdev->ddev, &rfbdev->helper, bpp_sel,
-10a231026574f9 Thierry Reding    2014-06-27 @352  			      &radeon_fb_helper_funcs);
-785b93ef8c3097 Dave Airlie       2009-08-28  353  
-2dea2d1182179e Pankaj Bharadiya  2020-03-05  354  	ret = drm_fb_helper_init(rdev->ddev, &rfbdev->helper);
-01934c2a691882 Thierry Reding    2014-12-19  355  	if (ret)
-01934c2a691882 Thierry Reding    2014-12-19  356  		goto free;
-5a79395b2791cc Chris Wilson      2010-06-06  357  
-76a39dbfb2d1bc Daniel Vetter     2013-01-20  358  	/* disable all the possible outputs/crtcs before entering KMS mode */
-76a39dbfb2d1bc Daniel Vetter     2013-01-20  359  	drm_helper_disable_unused_functions(rdev->ddev);
-76a39dbfb2d1bc Daniel Vetter     2013-01-20  360  
-70e38534e74e4d Thomas Zimmermann 2023-01-24 @361  	ret = drm_fb_helper_initial_config(&rfbdev->helper);
-01934c2a691882 Thierry Reding    2014-12-19  362  	if (ret)
-01934c2a691882 Thierry Reding    2014-12-19  363  		goto fini;
-01934c2a691882 Thierry Reding    2014-12-19  364  
-771fe6b912fca5 Jerome Glisse     2009-06-05  365  	return 0;
-01934c2a691882 Thierry Reding    2014-12-19  366  
-01934c2a691882 Thierry Reding    2014-12-19  367  fini:
-01934c2a691882 Thierry Reding    2014-12-19  368  	drm_fb_helper_fini(&rfbdev->helper);
-01934c2a691882 Thierry Reding    2014-12-19  369  free:
-01934c2a691882 Thierry Reding    2014-12-19  370  	kfree(rfbdev);
-01934c2a691882 Thierry Reding    2014-12-19  371  	return ret;
-386516744ba45d Dave Airlie       2010-03-30  372  }
-386516744ba45d Dave Airlie       2010-03-30  373  
+that seems to be something that should be in the core client dev hotplug
+as well, since it isn't specific to the fbdev emulation client ?
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
+
