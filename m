@@ -4,60 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D525C27C76
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 18:22:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7912AC54E94
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 18:33:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 892C010E37F;
-	Wed, 25 Jan 2023 18:22:02 +0000 (UTC)
-Received: from mail-yb1-xb33.google.com (mail-yb1-xb33.google.com
- [IPv6:2607:f8b0:4864:20::b33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AC3A10E7F5
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 17:22:36 +0000 (UTC)
-Received: by mail-yb1-xb33.google.com with SMTP id x4so22155773ybp.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 09:22:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=IqJXv+IInDU1mKTOWecSjx46uIp9RhIiEah7PjvPLrg=;
- b=QlZyecSvRJAlH7daZiVbTmdMCDJawwIkjqybbPcYd50INvCOOFwycJjGFsDCENBvPF
- JeBM9yeOQDknmaZC6LT0p7wlzLAJo3QYgAn7K1xQNCTJjPrh6oinOxgRNGwGedAqUfeH
- 4EF6oknHwKU0N6BIZOc0CJi1hrgM4W0zxm3gicvvOuEGF7JC9HCNICDdMPEAz6Lz/B5y
- FN2dpyuojKkpe3r7ipsFxRIyHaJ4nJmkiiUGkQy6aOsuBhBZ3WzwUsGkq0uXDlGTKFEH
- iRh4N/trPN148wcbBUC1DmqB3ErHQLF9n9pkmMXooLK6oXyXf0aS41iIJv2buhnN7zSu
- X8Bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=IqJXv+IInDU1mKTOWecSjx46uIp9RhIiEah7PjvPLrg=;
- b=stpfExCoY8ZkYWvXL6LlGF+5jSX2T/e0KrTtNf4DwY38ilSMwMBLVrUPJhvflm3gVO
- 9SKyxgb8QRvNZrYSvuj+mmP8FeEHFWKRcd0OzUEkPQ2nKNbHwGSjz6P1tZBenBdGqUC9
- dFQnp1+7uRQdFWKJ++xpuJOTgckRjjQYXvLN1fvau0Zr2flzMUzUqjUxPz1Z0KboX2D7
- pjLUdka5kUejrtdL6tklBP1Sgku5ST6lsiuDU2uOkh8SQ+zN/G0asLgeAiNzQn7bYhlC
- IAEBdEdnQB0Pcria6AdEyqYdBP6zGBXeqXoHc+vCTEUvxv11zRg1awpvTSq6EYKK5OGX
- rFzA==
-X-Gm-Message-State: AFqh2krrBN2otEyukgUsSxFPl31enFOnh4eBAnS/5lRj1i3eu/gS99Z6
- 635zYHaC2D+/Hjnm8ybEb9e844YtOFShZbGuxFk6mA==
-X-Google-Smtp-Source: AMrXdXv634nY3BrnZ3PlTUGlyUi8i7L3YenO2gMgxW5qJ4tF6Xha6yZp+2FFeWeU8OQrXrCFeHpomo5nr++haHZW7UI=
-X-Received: by 2002:a25:a408:0:b0:800:28d4:6936 with SMTP id
- f8-20020a25a408000000b0080028d46936mr2303639ybi.431.1674667354997; Wed, 25
- Jan 2023 09:22:34 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0353710E0E0;
+	Wed, 25 Jan 2023 18:33:41 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2064.outbound.protection.outlook.com [40.107.220.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2483610E0E0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 18:33:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XRjkOrbTIGu99VKxOzvfqdkCzJ73RMfdW67xsjzV9fftCMKlR7diNBhOOZmMNm7POuRHgbHEtDqW3xU1ZdLW3wABR1BWdwuPHB24LiLpqA2dZwLj/R9AfydCVa2SL5uNL5TcxZJIk/MeE8cTALhK4xNjy8KqZULRsgUG0NlDJoKoLQ7ThqPJEiP4GMHnB/TpbVCItJVxwGc7Rv5EOuT/9WOv38CBHftLSxvMoNSWOWNmrXEbhCQ6Q2te3SaReMz6lZ1Gz3cowToAJ1dYWFO0CvLrO2Utpu8GBn1fjgxST/u+S2Ca93BOzXrxHsBscSEutJhMSkaV0BNFk5ou/h1uDw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5Xw6puB22y9d2iJu6DB7XLMHlKbx06xbt+n/96rXwjc=;
+ b=iF+gqHPspBzLeB7zzcf+iAPiNNF+TBS2E97E4cHJyIZQNDdGVuPjxTh5M9gk2l5NjmDLXrA4qkabmq6CADceZaUeianf7GhKMsuj3rsidrhOKk4VV2/0Qm5iZA5nG5r4CPZofDVUAQBLHHmtJyEoyW+FDJ3eKQDCvRHSy3AWBw2ioHbquOTgKrTaVuK8XNIGN1GLKSX3qkt8jutnijAD2UOWMdDGaaH2peM6ep275H6WHWR3wvCC56mivrVeKgDgfnvT11UPgjilSD07UmHE1I1oN6/xRI36VKQS5OcmIc3/90/DqJUhuy5cIPgFi7DC01cACkBLFg6VzsvoyVhNZw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5Xw6puB22y9d2iJu6DB7XLMHlKbx06xbt+n/96rXwjc=;
+ b=YcRH2/cycwE6a5EnHQsNgRoRnDoii4G+ScTb25G3fMo8hs8+JOwcItSsLmENw/wNUg3cL3TXTi4eVULsNlMMvgCpV5ABsaeVqZcn28gIJ97zL/PmGBfPDnVqHsI+nGqtZ88pj8f0pc3ISYHx/kGm1CU29ObZ3c0MufdmnxCHS98=
+Received: from BN8PR04CA0057.namprd04.prod.outlook.com (2603:10b6:408:d4::31)
+ by CH2PR12MB4940.namprd12.prod.outlook.com (2603:10b6:610:65::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.21; Wed, 25 Jan
+ 2023 18:33:37 +0000
+Received: from BN8NAM11FT064.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:d4:cafe::ac) by BN8PR04CA0057.outlook.office365.com
+ (2603:10b6:408:d4::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33 via Frontend
+ Transport; Wed, 25 Jan 2023 18:33:37 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT064.mail.protection.outlook.com (10.13.176.160) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6043.17 via Frontend Transport; Wed, 25 Jan 2023 18:33:37 +0000
+Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 25 Jan
+ 2023 12:33:36 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd: Allow s0ix without BIOS support
+Date: Wed, 25 Jan 2023 12:33:39 -0600
+Message-ID: <20230125183339.15664-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20230125083851.27759-1-surenb@google.com>
- <20230125083851.27759-5-surenb@google.com>
- <Y9D4rWEsajV/WfNx@dhcp22.suse.cz>
- <CAJuCfpGd2eG0RSMte9OVgsRVWPo+Sj7+t8EOo8o_iKzZoh1MXA@mail.gmail.com>
- <Y9Fh9joU3vTCwYbX@dhcp22.suse.cz>
-In-Reply-To: <Y9Fh9joU3vTCwYbX@dhcp22.suse.cz>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Wed, 25 Jan 2023 09:22:23 -0800
-Message-ID: <CAJuCfpEJ1U2UHBNhLx4gggN3PLZKP5RejiZL_U5ZLxU_wdviVg@mail.gmail.com>
-Subject: Re: [PATCH v2 4/6] mm: replace vma->vm_flags indirect modification in
- ksm_madvise
-To: Michal Hocko <mhocko@suse.com>
 Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Wed, 25 Jan 2023 18:22:00 +0000
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT064:EE_|CH2PR12MB4940:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2fe0921c-0799-4da6-e859-08daff02ac3f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Uf9EzOFGATu60XhQt5VYgj2uwJFfIQs0faKJp7sxIlmmAZNexho54Kq4nZLqvDfjX2uVC78JNE1av8koxQ2GlyqZLvcXpizaOJxDAgxO0fv02Q/2fO2sQckwvxSatWnwcJ/9k1oQhjR/zUK0RScuayfJoWqMQd5et20pIlpQpuFFZ4stoY3e3bJgjPu+FijpkteKD7WdlAYZgjLCv4rAon4RrC8+XCUhgESmsSGiYqOJCtqqNxVnMdxfnHSHbA/p7QTYEZFofC78RuACTAel06xdIUtDdnZStDdL8w7uhVc2TvikXRC5T8wn3j1Gi9HzWL03YXO4SE7SOG2EsVkq3H8C6okAmmqR/1PPKPKMFjFd4ZyuaL3mhRGMIhbNVa6K2uALVyxEqcIT+J/Gdfg1rvxbewYKyik6vcBRUg3u7gqEqYOkN9pSpIzghmKtw6Oa/rLXB1FzCyKS6RYTzTFOpJ2sww7rSiGL8McpZBQy3aXaJdwTOvbP5Z1NntE7tiL2/Pv9m3X75wAnIFvn/WU8EUHEyNipyDBWuckblkjMxF1xXcCV7IJv1SuPqBteWgy2BKl6li19SSzGCQB0qKiq6MJUHiMAbna6l/rYMG/dnthfH2RPc4cD3loMWpU6Ha00+1rQYd4Av2+uMUZRzO4FHObOMGfcntBCWhssWqa1SjX4uwxC4tM+cVbjp94Wo1yStqoLGXM1UmjmEdHwtERPKQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(396003)(136003)(39860400002)(346002)(376002)(451199018)(40470700004)(36840700001)(46966006)(47076005)(66574015)(82310400005)(86362001)(40460700003)(40480700001)(36756003)(81166007)(356005)(36860700001)(54906003)(82740400003)(44832011)(2906002)(66899018)(41300700001)(4326008)(8936002)(70586007)(70206006)(6916009)(8676002)(5660300002)(16526019)(186003)(26005)(1076003)(2616005)(316002)(7696005)(426003)(83380400001)(478600001)(966005)(336012)(32563001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2023 18:33:37.0764 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2fe0921c-0799-4da6-e859-08daff02ac3f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT064.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4940
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,92 +97,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
- leewalsh@google.com, dri-devel@lists.freedesktop.org, perex@perex.cz,
- jglisse@google.com, arjunroy@google.com, m.szyprowski@samsung.com,
- linux-arch@vger.kernel.org, qianweili@huawei.com,
- linux-samsung-soc@vger.kernel.org, aneesh.kumar@linux.ibm.com,
- chenhuacai@kernel.org, kasan-dev@googlegroups.com, linux-acpi@vger.kernel.org,
- rientjes@google.com, xen-devel@lists.xenproject.org, devel@lists.orangefs.org,
- robdclark@gmail.com, minchan@google.com, robert.jarzmik@free.fr,
- linux-um@lists.infradead.org, etnaviv@lists.freedesktop.org, npiggin@gmail.com,
- alex.williamson@redhat.com, viro@zeniv.linux.org.uk, luto@kernel.org,
- gthelen@google.com, tglx@linutronix.de, ldufour@linux.ibm.com,
- linux-sgx@vger.kernel.org, martin.petersen@oracle.com,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
- linux-media@vger.kernel.org, freedreno@lists.freedesktop.org,
- joelaf@google.com, linux-aio@kvack.org, linux-fbdev@vger.kernel.org,
- linux-ia64@vger.kernel.org, david@redhat.com, dave.hansen@linux.intel.com,
- virtualization@lists.linux-foundation.org, edumazet@google.com,
- target-devel@vger.kernel.org, punit.agrawal@bytedance.com,
- linux-s390@vger.kernel.org, dave@stgolabs.net, deller@gmx.de, hughd@google.com,
- andrii@kernel.org, patrik.r.jakobsson@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
- linux-graphics-maintainer@vmware.com, kernel-team@android.com,
- jayalk@intworks.biz, soheil@google.com, selinux@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, mripard@kernel.org, shakeelb@google.com,
- haojian.zhuang@gmail.com, loongarch@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, tytso@mit.edu, nico@fluxnic.net,
- muchun.song@linux.dev, hjc@rock-chips.com, mcoquelin.stm32@gmail.com,
- tatashin@google.com, mike.kravetz@oracle.com, songliubraving@fb.com,
- jasowang@redhat.com, alsa-devel@alsa-project.org, peterx@redhat.com,
- linux-tegra@vger.kernel.org, kraxel@redhat.com, will@kernel.org,
- dmaengine@vger.kernel.org, bhe@redhat.com, miklos@szeredi.hu,
- linux-rdma@vger.kernel.org, linux-staging@lists.linux.dev, willy@infradead.org,
- gurua@google.com, dgilbert@interlog.com, xiang@kernel.org, pabeni@redhat.com,
- jejb@linux.ibm.com, quic_abhinavk@quicinc.com, bp@alien8.de,
- mchehab@kernel.org, linux-ext4@vger.kernel.org, tomba@kernel.org,
- hughlynch@google.com, sre@kernel.org, tfiga@chromium.org,
- linux-xfs@vger.kernel.org, zhangfei.gao@linaro.org, wangzhou1@hisilicon.com,
- netdev@vger.kernel.org, bpf@vger.kernel.org, linux-erofs@lists.ozlabs.org,
- davem@davemloft.net, kvm@vger.kernel.org, mst@redhat.com, peterz@infradead.org,
- bigeasy@linutronix.de, alexandre.torgue@foss.st.com, dhowells@redhat.com,
- linux-mm@kvack.org, ray.huang@amd.com, adilger.kernel@dilger.ca,
- kuba@kernel.org, sparclinux@vger.kernel.org, airlied@gmail.com,
- anton.ivanov@cambridgegreys.com, herbert@gondor.apana.org.au,
- linux-scsi@vger.kernel.org, richard@nod.at, x86@kernel.org, vkoul@kernel.org,
- mingo@redhat.com, axelrasmussen@google.com, intel-gfx@lists.freedesktop.org,
- daniel@ffwll.ch, paulmck@kernel.org, jannh@google.com, chao@kernel.org,
- maarten.lankhorst@linux.intel.com, liam.howlett@oracle.com,
- hdegoede@redhat.com, linux-mediatek@lists.infradead.org,
- matthias.bgg@gmail.com, vbabka@suse.cz, dimitri.sivanich@hpe.com,
- amd-gfx@lists.freedesktop.org, posk@google.com, lstoakes@gmail.com,
- peterjung1337@gmail.com, yoshfuji@linux-ipv6.org,
- linuxppc-dev@lists.ozlabs.org, dsahern@kernel.org, kent.overstreet@linux.dev,
- kexec@lists.infradead.org, tiwai@suse.com, krzysztof.kozlowski@linaro.org,
- tzimmermann@suse.de, hannes@cmpxchg.org, dmitry.baryshkov@linaro.org,
- johannes@sipsolutions.net, mgorman@techsingularity.net,
- linux-accelerators@lists.ozlabs.org, l.stach@pengutronix.de
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ =?UTF-8?q?Rafael=20=C3=81vila=20de=20Esp=C3=ADndola?= <rafael@espindo.la>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 25, 2023 at 9:08 AM Michal Hocko <mhocko@suse.com> wrote:
->
-> On Wed 25-01-23 08:57:48, Suren Baghdasaryan wrote:
-> > On Wed, Jan 25, 2023 at 1:38 AM 'Michal Hocko' via kernel-team
-> > <kernel-team@android.com> wrote:
-> > >
-> > > On Wed 25-01-23 00:38:49, Suren Baghdasaryan wrote:
-> > > > Replace indirect modifications to vma->vm_flags with calls to modifier
-> > > > functions to be able to track flag changes and to keep vma locking
-> > > > correctness. Add a BUG_ON check in ksm_madvise() to catch indirect
-> > > > vm_flags modification attempts.
-> > >
-> > > Those BUG_ONs scream to much IMHO. KSM is an MM internal code so I
-> > > gueess we should be willing to trust it.
-> >
-> > Yes, but I really want to prevent an indirect misuse since it was not
-> > easy to find these. If you feel strongly about it I will remove them
-> > or if you have a better suggestion I'm all for it.
->
-> You can avoid that by making flags inaccesible directly, right?
+We guard the suspend entry code from running unless we have proper
+BIOS support for either S3 mode or s0ix mode.
 
-Ah, you mean Peter's suggestion of using __private? I guess that would
-cover it. I'll drop these BUG_ONs in the next version. Thanks!
+If a user's system doesn't support either of these modes the kernel
+still does offer s2idle in `/sys/power/mem_sleep` so there is an
+expectation from users that it works even if the power consumption
+remains very high.
 
->
-> --
-> Michal Hocko
-> SUSE Labs
+Rafael Ávila de Espíndola reports that a system of his has a
+non-functional graphics stack after resuming.  That system doesn't
+support S3 and the FADT doesn't indicate support for low power idle.
+
+Through some experimentation it was concluded that even without the
+hardware s0i3 support provided by the amd_pmc driver the power
+consumption over suspend is decreased by running amdgpu's s0ix
+suspend routine.
+
+The numbers over suspend showed:
+* No patch: 9.2W
+* Skip amdgpu suspend entirely: 10.5W
+* Run amdgpu s0ix routine: 7.7W
+
+As this does improve the power, remove some of the guard rails in
+`amdgpu_acpi.c` for only running s0ix suspend routines in the right
+circumstances.
+
+However if this turns out to cause regressions for anyone, we should
+revert this change and instead opt for skipping suspend/resume routines
+entirely or try to fix the underlying behavior that makes graphics fail
+after resume without underlying platform support.
+
+Reported-by: Rafael Ávila de Espíndola <rafael@espindo.la>
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2364
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+index 57b5e11446c65..fa7375b97fd47 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+@@ -1079,20 +1079,16 @@ bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev)
+ 	 * S0ix even though the system is suspending to idle, so return false
+ 	 * in that case.
+ 	 */
+-	if (!(acpi_gbl_FADT.flags & ACPI_FADT_LOW_POWER_S0)) {
++	if (!(acpi_gbl_FADT.flags & ACPI_FADT_LOW_POWER_S0))
+ 		dev_warn_once(adev->dev,
+ 			      "Power consumption will be higher as BIOS has not been configured for suspend-to-idle.\n"
+ 			      "To use suspend-to-idle change the sleep mode in BIOS setup.\n");
+-		return false;
+-	}
+ 
+ #if !IS_ENABLED(CONFIG_AMD_PMC)
+ 	dev_warn_once(adev->dev,
+ 		      "Power consumption will be higher as the kernel has not been compiled with CONFIG_AMD_PMC.\n");
+-	return false;
+-#else
+-	return true;
+ #endif /* CONFIG_AMD_PMC */
++	return true;
+ }
+ 
+ #endif /* CONFIG_SUSPEND */
+-- 
+2.25.1
+
