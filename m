@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08355C61D9D
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 20:38:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16AD4C61DA0
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 20:38:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B91C10E8A1;
-	Wed, 25 Jan 2023 20:38:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C60410E877;
+	Wed, 25 Jan 2023 20:38:20 +0000 (UTC)
 Received: from mail-il1-x12b.google.com (mail-il1-x12b.google.com
  [IPv6:2607:f8b0:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C12D10E89D;
- Wed, 25 Jan 2023 20:38:16 +0000 (UTC)
-Received: by mail-il1-x12b.google.com with SMTP id g16so20393ilr.1;
- Wed, 25 Jan 2023 12:38:16 -0800 (PST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBDAF10E873;
+ Wed, 25 Jan 2023 20:38:06 +0000 (UTC)
+Received: by mail-il1-x12b.google.com with SMTP id p12so1510ilq.10;
+ Wed, 25 Jan 2023 12:38:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=XVl+HnEN+v0wIxiGTzNKn42qnV5EhpwvJd73YIzQ2wo=;
- b=IMpgUVnDUOYBdwOs7bcqbaDGzsgkMjf4UUiGkvJo+mgk1fMWICHH/gxINumJ6rKM1J
- tVhgMss0X3b9ABU1U73Wt1lfekDkcCVIWmdGNepY5MwtuSq7Kk2NOKNVAdfKwBCckO03
- A8LBZh70TSs4MJZN35D5PBH3jwzwGoOWHBH7bEUDD67yZ3RJAt9WmjOV347nsH9xOU7O
- wLHp3yGxGjPLV/+kr5EPBbr9AM0cQSTQ4c5r0mYz8kWA1XOljmB9FUh9R+rbdMcEZJ/D
- CUkt0NrwJVrJlek1ZavtN3VL/L4MIz2G9J8IjjUNxU27kb8nf17mg78w7vRJCZZfSpH/
- r6HQ==
+ bh=g3mh2Po5S0GZ5nMRIdtsGUfg1b0n2GFzCmBwQMpYGZ8=;
+ b=cwnxSD1lO2UoA3ND/8ysyNhK+m3hJUFQWyuvBlRWa3ZlcQ2vUivawFa2qHsdqd2Yxb
+ I7nMhI5TmTzKD9jAxA6Qu/biaZfMCs9EmkGzHvA92NAS4EbAXJ1NaZXW4KbrV8dnidNy
+ N0A1zoROSXBLzrheK2IiHKVOipyXsUyDdE5gj0Fr1dZoBHN2ZPfAupYgYMTdidok+rA8
+ WnjE82WcAY72ZVd9FjJMiqhuMYBrcxeyiwyYYJ8S32I1XDKgV5ZE9gQwiyhSnL6+dqpp
+ JQMHQGhjmB3LYMV7XT/5f/En0DBvTOU/WfLuXPUOp7NmmcSceISL9STkQB7JeGqZgiGX
+ 9Y6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=XVl+HnEN+v0wIxiGTzNKn42qnV5EhpwvJd73YIzQ2wo=;
- b=nD4HYnbnX7nndXbYaz0ti4V0u0vrlHbC3K5DV+3A2T24IITmDAWsXFbalXKnn80qDI
- ikasFxqaLmjRZ24EpPdYiwNvnntijh8FdCIiQQB5r9/PbTMuPfq+AnKRWaQ+IJ2IjRAD
- w4hH480UEJWZHHqITZmmsjLrruykT5qk9gaKRLq/h3nXV7tVwrQayMjW8vqskCSNeHl9
- Dd4MGWAXcV4Sap36VfZiUVUhigx6gNxk+GtN3dtTIvufNQ7JS2leG7bwi9MOd68c4TuX
- NdhLv0lxVuoQgU0WVt8bE4GlQRwL2lf9Rm/IS5Bcz230IfDtr5nnv8HO4jsT25hBpIc+
- U+wA==
-X-Gm-Message-State: AFqh2kpge0ovCYMckDpNmUHoeKNlK+FDmw6w6AONGX6XiRKWg/aMivaF
- 5NncJS8tms2DX4aeLvkQpwoDvglaeWQ=
-X-Google-Smtp-Source: AMrXdXssIhDZ6YkcdjXT6Rn0LjRYjWgQ9PPO1ngV+ocC8+5A0CqhOWrLj9OLnLvXLGAah5Uk5Sl2yQ==
-X-Received: by 2002:a92:d48c:0:b0:30e:e8d3:a5ff with SMTP id
- p12-20020a92d48c000000b0030ee8d3a5ffmr30054140ilg.27.1674679095367; 
- Wed, 25 Jan 2023 12:38:15 -0800 (PST)
+ bh=g3mh2Po5S0GZ5nMRIdtsGUfg1b0n2GFzCmBwQMpYGZ8=;
+ b=Om7i5yC8t2UYFM3nG7aE6NE65jQzOBbM7Vi/8jie2y80rXxwsw8WZclcf7c7G1XlRo
+ Vr1qO29FVM5SQ3mjnihrWjMDSwKh4KJ1m7ZhiTQ3TeI7lVBRevpSIFvrsi2KeCRtqPQN
+ nNnkFyzSaC4bAyZtIarrYW7Fx+70PUd9L5AGo622xUNAuCdJyAO4iknzOXKzsBfsZKpg
+ FLK6bk/sdExFzqHLWBjQBBH1BZXjcMR7vs78GhxzJeK6tt0T8Eq9kXmZfku4Q59cX6E5
+ f5Kl3PEwpGpZBYMs1AnpSecK/0Bg5q2R0OAmlGLbmeGArqK1jsA8nTzLfOazC5tgA1bW
+ nvww==
+X-Gm-Message-State: AFqh2kp+4gNPhMkUVACJgOFP/XAvP9poBdQi2DuT0XyhCBmwvbXQhA9X
+ 9Y2j8435uTQRrphgqeOGl40=
+X-Google-Smtp-Source: AMrXdXvPM8t3vFwyNndtrfyKS5vIOllgROIQouuVnZ3VU8nVIZJ2wrfXnDHR4gwh6+zL7uWEumkpXw==
+X-Received: by 2002:a92:b007:0:b0:30e:f02f:f1bf with SMTP id
+ x7-20020a92b007000000b0030ef02ff1bfmr31186264ilh.30.1674679085895; 
+ Wed, 25 Jan 2023 12:38:05 -0800 (PST)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- y11-20020a056e02128b00b00310a599fd43sm665104ilq.46.2023.01.25.12.38.14
+ y11-20020a056e02128b00b00310a599fd43sm665104ilq.46.2023.01.25.12.38.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Jan 2023 12:38:15 -0800 (PST)
+ Wed, 25 Jan 2023 12:38:05 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH v3 17/19] test-dyndbg: disable WIP dyndbg-trace params
-Date: Wed, 25 Jan 2023 13:37:41 -0700
-Message-Id: <20230125203743.564009-18-jim.cromie@gmail.com>
+Subject: [PATCH v3 08/19] dyndbg: tighten ddebug_class_name() 1st arg
+Date: Wed, 25 Jan 2023 13:37:32 -0700
+Message-Id: <20230125203743.564009-9-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230125203743.564009-1-jim.cromie@gmail.com>
 References: <20230125203743.564009-1-jim.cromie@gmail.com>
@@ -78,64 +78,46 @@ Cc: jani.nikula@intel.com, daniel.vetter@ffwll.ch,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The dyndbg-to-trace feature is WIP, and not in mainline, so the
-presence of the interface to use/test it is unhelpful/confusing.
+Change function's 1st arg-type, by derefing in the caller.
+The fn doesn't need any other fields in the struct.
 
-So define DYNDBG_CLASSMAP_PARAM_T() as DYNDBG_CLASSMAP_PARAM() or
-blank, depending upon ifdef DYDBG_TRACE, and update 4 params
-controlling the T-flag to use it.
+no functional change.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/test_dynamic_debug.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+ lib/dynamic_debug.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index ff1e70ae060e..6b7bd35c3e15 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -54,6 +54,14 @@ module_param_cb(do_prints, &param_ops_do_prints, NULL, 0600);
- 	module_param_cb(_flags##_##_model, &param_ops_dyndbg_classes,	\
- 			&_flags##_##_model, 0600)
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 2d4640479e5b..10c29bc19901 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -1110,12 +1110,12 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
+ #define class_in_range(class_id, map)					\
+ 	(class_id >= map->base && class_id < map->base + map->length)
  
-+/* TBD */
-+#ifdef DYNDBG_TRACE
-+#define DYNDBG_CLASSMAP_PARAM_T(_model, _flags)	\
-+	DYNDBG_CLASSMAP_PARAM(_model, _flags)
-+#else
-+#define DYNDBG_CLASSMAP_PARAM_T(_model, _flags)
-+#endif
-+
- /*
-  * dynamic-debug imitates drm.debug's use of enums (DRM_UT_CORE etc)
-  * to define its classes/categories.  dyndbg allows class-id's 0..62,
-@@ -115,22 +123,22 @@ DYNDBG_CLASSMAP_DEFINE(map_disjoint_bits, DD_CLASS_TYPE_DISJOINT_BITS,
- 		       D2_DP,
- 		       D2_DRMRES);
- DYNDBG_CLASSMAP_PARAM(disjoint_bits, p);
--DYNDBG_CLASSMAP_PARAM(disjoint_bits, T);
-+DYNDBG_CLASSMAP_PARAM_T(disjoint_bits, T);
+-static const char *ddebug_class_name(struct ddebug_iter *iter, struct _ddebug *dp)
++static const char *ddebug_class_name(struct ddebug_table *dt, struct _ddebug *dp)
+ {
+-	struct ddebug_class_map *map = iter->table->classes;
+-	int i, nc = iter->table->num_classes;
++	struct ddebug_class_map *map = dt->classes;
++	int i;
  
- DYNDBG_CLASSMAP_DEFINE(map_disjoint_names, DD_CLASS_TYPE_DISJOINT_NAMES,
- 		       LOW, MID, HI);
- DYNDBG_CLASSMAP_PARAM(disjoint_names, p);
--DYNDBG_CLASSMAP_PARAM(disjoint_names, T);
-+DYNDBG_CLASSMAP_PARAM_T(disjoint_names, T);
+-	for (i = 0; i < nc; i++, map++)
++	for (i = 0; i < dt->num_classes; i++, map++)
+ 		if (class_in_range(dp->class_id, map))
+ 			return map->class_names[dp->class_id - map->base];
  
- DYNDBG_CLASSMAP_DEFINE(map_level_num, DD_CLASS_TYPE_LEVEL_NUM,
- 		       V0, V1, V2, V3, V4, V5, V6, V7);
- DYNDBG_CLASSMAP_PARAM(level_num, p);
--DYNDBG_CLASSMAP_PARAM(level_num, T);
-+DYNDBG_CLASSMAP_PARAM_T(level_num, T);
+@@ -1149,7 +1149,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+ 	seq_puts(m, "\"");
  
- DYNDBG_CLASSMAP_DEFINE(map_level_names, DD_CLASS_TYPE_LEVEL_NAMES,
- 		       L0, L1, L2, L3, L4, L5, L6, L7);
- DYNDBG_CLASSMAP_PARAM(level_names, p);
--DYNDBG_CLASSMAP_PARAM(level_names, T);
-+DYNDBG_CLASSMAP_PARAM_T(level_names, T);
- 
- #endif /* TEST_DYNAMIC_DEBUG_SUBMOD */
- 
+ 	if (dp->class_id != _DPRINTK_CLASS_DFLT) {
+-		class = ddebug_class_name(iter, dp);
++		class = ddebug_class_name(iter->table, dp);
+ 		if (class)
+ 			seq_printf(m, " class:%s", class);
+ 		else
 -- 
 2.39.1
 
