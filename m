@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94107C54E94
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 17:08:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D847C54EAA
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 17:08:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 035CA10E102;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 309C510E118;
 	Wed, 25 Jan 2023 17:08:54 +0000 (UTC)
-Received: from mail-yb1-xb30.google.com (mail-yb1-xb30.google.com
- [IPv6:2607:f8b0:4864:20::b30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C47E10E102
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 16:58:02 +0000 (UTC)
-Received: by mail-yb1-xb30.google.com with SMTP id d132so2265681ybb.5
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 08:58:02 -0800 (PST)
+Received: from mail-yw1-x1131.google.com (mail-yw1-x1131.google.com
+ [IPv6:2607:f8b0:4864:20::1131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61CA610E127
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 16:50:04 +0000 (UTC)
+Received: by mail-yw1-x1131.google.com with SMTP id
+ 00721157ae682-4fda31c3351so243276567b3.11
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 08:50:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=G/HaQvIeifLKJJp6JsBUTA/Cu0PG4HCFXOBV2LCBpGc=;
- b=ngnRJahtqVxSN6UIjLqWU+1aTxdIhv7re4hDfLrN8LXncI6BNG1ZwqGy4tzOTLxPiH
- 4VWOIuHk0tMtzp4F11bJV5cn9qN75X4TjPW2iyn4nOIj2Y2qsTa18wfmHkOGhLKlmZoS
- vXpRc/g/QGDtReYNnPGF6rlvG7jz8sM8MsRTR7LhXioKCpHgDgO7fKBddw0dzS48JeET
- 78piPZYcyZX9vIYyfAzpklatM6XnaaFqr/b+XLZlxI1Y0y+wCHWFOsnbVElEi6T+CQOb
- 4zMPa96gAXD4xbmjnQv7nMUvo5bgJJEK/r3Eu0NIV8f4SPGC7eT5IU6zl2RkKdozGWcK
- sknQ==
+ bh=9oBkpwDuDP6Raat/HRHsNpx8MqzIjjZSJojQEumXoyE=;
+ b=telMSbMEB1I/JdT8E+AOlYPkvLPDxj1UCnywL1f/zz+GxB6zyzUgN+Q3Q48l8AYc8X
+ qS5rmRFlzboD9JIVNM4srPZju+Dc0OvfYTnyPjpp4sHdEutwmKfLXtqzcN+4YmFBRVgu
+ A3oTpxaFO/E/7LaM1iu3pe6Iv0CmRV+MC10+sbVUAqr2eeBPD17IhS27buTMH3bCJoMu
+ fEQq5XzvwDAqtF1fp8r2H4g3vh98tijISo+CkjBRkXWvZWGfdkjpWZzF8VgIKtCc5sLs
+ +bZFNae0CmrxcmnBVuga8Dg0CQRlWnW+6m8p+riuFjzQ8BSrHATHKU3+MoO2RS3dWuby
+ cPfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=G/HaQvIeifLKJJp6JsBUTA/Cu0PG4HCFXOBV2LCBpGc=;
- b=xJE0EbMHi8gWzdNqftXvylRa0yDabwi9NgF9WqfK7q3MMJgBFZY+NNKL1JOrMFAt3r
- h2KRiKJYy3vtQ41KOmBM55E9UqDM0ly5w/mrcuGEbB6ezKtwORILe7hsm/Q5SR/D3r+V
- TzleEUU7zHTiH4JZplPRGQl3BBiOyImFIri8OkMe5KtJEckuka6NM4LMiXp+z0+ytQ3K
- F0vut3pnAhxpgyuVIWtuDa46rQof3ufUVqR9nhdOfepCwhNkR7V/RcCpbvWXz6GqPer3
- /ex3KNlC3+DJBnf0m9mgbJ5Lf1bblDnAEjXAk7jFiRzIfnF0PcdOS22CUCCPRZO6fUD1
- XKNw==
-X-Gm-Message-State: AO0yUKU2xssDysSCLPGpe1n0TyUTC0wrrVwGtbKtChASX3+mVufPT2g3
- 05J8S20hBf2obSzFO3U8HlOSDXaJHimRYlnK+bNbhg==
-X-Google-Smtp-Source: AK7set97wrc43TM0/ovVONCfpWDKrtFzkyYmNKL3FW97qdU/yOGMPZssBTWD4MRF2UhZkPfEz4JLEj3/xF1loldnjYM=
-X-Received: by 2002:a25:ad02:0:b0:80b:6fd3:84d3 with SMTP id
- y2-20020a25ad02000000b0080b6fd384d3mr714673ybi.316.1674665880846; Wed, 25 Jan
- 2023 08:58:00 -0800 (PST)
+ bh=9oBkpwDuDP6Raat/HRHsNpx8MqzIjjZSJojQEumXoyE=;
+ b=0VhqAo1VsjNeApYoQAGKg5GXqSIYqU5En59QYVLhWhQwb70OHEw6Zg3KFN+QXaXgSj
+ nL5mBRpXejA1VDQ0HJGCQcT9nmnM82u0ViyLnLTIc3OLrKJjO23/OkPY54dCRwfM6yJl
+ HujPpWMmCb1Ufvm1VzzT7Z6XHP1sPHZCAlwpmGrLbB7j3knRqtu/8oK+66G5G7R5uPTc
+ EiUMWhOU0tAzuqyYXzNoYaCSFzLqpn2dk0+mygw+eoyGLOC185ine6+j2ouqgTBDWzTu
+ ViGBmAsRHFg/aD4pnOd5/EeBBEvQRdCU5rAn0aHhTJtSymZ6mdHH1HDBK46lb/3ELzgK
+ db3g==
+X-Gm-Message-State: AFqh2kqrE32lQaZbPi7bYXXngHbz6+pr2bDS2yjZkZpghvMCOxhw5bDj
+ 50wsGNIvo88/wR0e+sAfLePyvBVd5v6Eaf6ncQm8yA==
+X-Google-Smtp-Source: AMrXdXsah5c2WKVW38d6ZSr7pPop+n/mEJC53KDRGLQOXrHcU20AK6F0ktCN8HrtzVAtxjIN7wyafP19A/nGyLOtNU8=
+X-Received: by 2002:a81:1d2:0:b0:433:f1c0:3f1c with SMTP id
+ 201-20020a8101d2000000b00433f1c03f1cmr4401576ywb.438.1674665403087; Wed, 25
+ Jan 2023 08:50:03 -0800 (PST)
 MIME-Version: 1.0
 References: <20230125083851.27759-1-surenb@google.com>
- <20230125083851.27759-5-surenb@google.com>
- <Y9D4rWEsajV/WfNx@dhcp22.suse.cz>
-In-Reply-To: <Y9D4rWEsajV/WfNx@dhcp22.suse.cz>
+ <20230125083851.27759-2-surenb@google.com>
+ <Y9Dx0cPXF2yoLwww@hirez.programming.kicks-ass.net>
+In-Reply-To: <Y9Dx0cPXF2yoLwww@hirez.programming.kicks-ass.net>
 From: Suren Baghdasaryan <surenb@google.com>
-Date: Wed, 25 Jan 2023 08:57:48 -0800
-Message-ID: <CAJuCfpGd2eG0RSMte9OVgsRVWPo+Sj7+t8EOo8o_iKzZoh1MXA@mail.gmail.com>
-Subject: Re: [PATCH v2 4/6] mm: replace vma->vm_flags indirect modification in
- ksm_madvise
-To: Michal Hocko <mhocko@suse.com>
+Date: Wed, 25 Jan 2023 08:49:50 -0800
+Message-ID: <CAJuCfpEcVCZaCGzc-Wim25eaV5e6YG1YJAAdKwZ6JHViB0z8aw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/6] mm: introduce vma->vm_flags modifier functions
+To: Peter Zijlstra <peterz@infradead.org>
 Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Wed, 25 Jan 2023 17:08:53 +0000
+X-Mailman-Approved-At: Wed, 25 Jan 2023 17:08:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,13 +101,13 @@ Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
  linux-tegra@vger.kernel.org, kraxel@redhat.com, will@kernel.org,
  dmaengine@vger.kernel.org, bhe@redhat.com, miklos@szeredi.hu,
  linux-rdma@vger.kernel.org, linux-staging@lists.linux.dev, willy@infradead.org,
- gurua@google.com, dgilbert@interlog.com, xiang@kernel.org, pabeni@redhat.com,
- jejb@linux.ibm.com, quic_abhinavk@quicinc.com, bp@alien8.de,
- mchehab@kernel.org, linux-ext4@vger.kernel.org, tomba@kernel.org,
- hughlynch@google.com, sre@kernel.org, tfiga@chromium.org,
- linux-xfs@vger.kernel.org, zhangfei.gao@linaro.org, wangzhou1@hisilicon.com,
- netdev@vger.kernel.org, bpf@vger.kernel.org, linux-erofs@lists.ozlabs.org,
- davem@davemloft.net, kvm@vger.kernel.org, mst@redhat.com, peterz@infradead.org,
+ dgilbert@interlog.com, xiang@kernel.org, pabeni@redhat.com, jejb@linux.ibm.com,
+ quic_abhinavk@quicinc.com, bp@alien8.de, mchehab@kernel.org,
+ linux-ext4@vger.kernel.org, tomba@kernel.org, hughlynch@google.com,
+ sre@kernel.org, tfiga@chromium.org, linux-xfs@vger.kernel.org,
+ zhangfei.gao@linaro.org, wangzhou1@hisilicon.com, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-erofs@lists.ozlabs.org, davem@davemloft.net,
+ mhocko@suse.com, kvm@vger.kernel.org, mst@redhat.com, gurua@google.com,
  bigeasy@linutronix.de, alexandre.torgue@foss.st.com, dhowells@redhat.com,
  linux-mm@kvack.org, ray.huang@amd.com, adilger.kernel@dilger.ca,
  kuba@kernel.org, sparclinux@vger.kernel.org, airlied@gmail.com,
@@ -128,30 +128,33 @@ Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 25, 2023 at 1:38 AM 'Michal Hocko' via kernel-team
-<kernel-team@android.com> wrote:
+On Wed, Jan 25, 2023 at 1:10 AM Peter Zijlstra <peterz@infradead.org> wrote:
 >
-> On Wed 25-01-23 00:38:49, Suren Baghdasaryan wrote:
-> > Replace indirect modifications to vma->vm_flags with calls to modifier
-> > functions to be able to track flag changes and to keep vma locking
-> > correctness. Add a BUG_ON check in ksm_madvise() to catch indirect
-> > vm_flags modification attempts.
+> On Wed, Jan 25, 2023 at 12:38:46AM -0800, Suren Baghdasaryan wrote:
 >
-> Those BUG_ONs scream to much IMHO. KSM is an MM internal code so I
-> gueess we should be willing to trust it.
+> > diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+> > index 2d6d790d9bed..6c7c70bf50dd 100644
+> > --- a/include/linux/mm_types.h
+> > +++ b/include/linux/mm_types.h
+> > @@ -491,7 +491,13 @@ struct vm_area_struct {
+> >        * See vmf_insert_mixed_prot() for discussion.
+> >        */
+> >       pgprot_t vm_page_prot;
+> > -     unsigned long vm_flags;         /* Flags, see mm.h. */
+> > +
+> > +     /*
+> > +      * Flags, see mm.h.
+> > +      * WARNING! Do not modify directly.
+> > +      * Use {init|reset|set|clear|mod}_vm_flags() functions instead.
+> > +      */
+> > +     unsigned long vm_flags;
+>
+> We have __private and ACCESS_PRIVATE() to help with enforcing this.
 
-Yes, but I really want to prevent an indirect misuse since it was not
-easy to find these. If you feel strongly about it I will remove them
-or if you have a better suggestion I'm all for it.
+Thanks for pointing this out, Peter! I guess for that I'll need to
+convert all read accesses and provide get_vm_flags() too? That will
+cause some additional churt (a quick search shows 801 hits over 248
+files) but maybe it's worth it? I think Michal suggested that too in
+another patch. Should I do that while we are at it?
 
->
-> > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
->
-> Acked-by: Michal Hocko <mhocko@suse.com>
-> --
-> Michal Hocko
-> SUSE Labs
->
-> --
-> To unsubscribe from this group and stop receiving emails from it, send an email to kernel-team+unsubscribe@android.com.
 >
