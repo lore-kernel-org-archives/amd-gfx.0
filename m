@@ -4,57 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0F5EC54EAA
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 14:08:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABD12C61D9D
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 14:08:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81AB710E7C2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB14810E7D6;
 	Wed, 25 Jan 2023 14:08:09 +0000 (UTC)
-Received: from mail-yw1-x1149.google.com (mail-yw1-x1149.google.com
- [IPv6:2607:f8b0:4864:20::1149])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC20710E75B
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 08:39:01 +0000 (UTC)
-Received: by mail-yw1-x1149.google.com with SMTP id
- 00721157ae682-4c11ae6ab25so180221397b3.8
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 00:39:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=lALTt0Cs0OJR7OUarHpyHJwBeXB89z2/3DAseSYxnFw=;
- b=n8rHaHJ5xFxeipCQlmXzBA+dLl0Q/zQ/7gpJayuWnen6FrB+fqCbvqlW8MPEXS4yhs
- bSL1pYwp+yfHB69Hp8M4s6QhrR4Bh+owtXwR86TSKSSBvXCHkuElvnXJB2pYl2OH40Sk
- 6JqqQAtuTJiqmWpETSSPHy8wmwcbh6uJm29hqrWWlo46flaJs7O8ixI8LA96LhuTgZ3K
- 6bp3GycG9gG7sxo2rAWEXyc1+zeJtRrm7H/AIZ+tvA74dyl+qbdsA4sZuPo2ibgOOxUJ
- sgArwf+v4A/cnZMkh1Y6cHQmLN0WEk5ISpsmps7k3RlDvYj2gT49VkTmf7cSvZeX/37U
- drJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=lALTt0Cs0OJR7OUarHpyHJwBeXB89z2/3DAseSYxnFw=;
- b=vWNPU1XhdWHpM7gkPqmASBkiEfKC1BxWpfak6GjgPMIWAih5QVp+3QllVclWhftp3c
- GlRXcI8ZQ2vvtrDX7e/DfuKspI+4SiQaz+z7hotVnzxx+CfzJIz+4sRNRwfCYSniDNEz
- 9lgZQntCOAAI5ekwDSpiPP4w6wFiSJ6yKrIMKwZ8otXFu69r2ZErOqrkIcJu5sVrx5+o
- U7IcVmRpFHwo3gcx81D8H5Qix7F1ikLmYhFFDcknk3+HptSUdz1P76pKvzU82tvydxcT
- 1NoECscR5yicW7AfAQgMu4e9tMyE7qyz662qLcjojml3/B3L77Ks49YTxngvXXRi561F
- KF4g==
-X-Gm-Message-State: AFqh2kpp+81eEIo9r/sMDGDhdJ9KT5U9xt8DLVO8Dc6J55iBU1dQOHGz
- YmfemBBKphk03ITJ6EodICRCqUgJ9Zo=
-X-Google-Smtp-Source: AMrXdXtyE3jRCV+tlQlIzUhs3264UUIvOIjga3fyBI7LKMqSD9M/fdJ0aCCVUOrfvnEcBmXTcpHYPERTKZU=
-X-Received: from surenb-desktop.mtv.corp.google.com
- ([2620:15c:211:200:f7b0:20e8:ce66:f98])
- (user=surenb job=sendgmr) by 2002:a25:c057:0:b0:802:898f:6e73 with SMTP id
- c84-20020a25c057000000b00802898f6e73mr2020239ybf.411.1674635940754; Wed, 25
- Jan 2023 00:39:00 -0800 (PST)
-Date: Wed, 25 Jan 2023 00:38:47 -0800
-In-Reply-To: <20230125083851.27759-1-surenb@google.com>
-Mime-Version: 1.0
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3F2710E0DB;
+ Wed, 25 Jan 2023 09:42:32 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4168D21C82;
+ Wed, 25 Jan 2023 09:42:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1674639751; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=wTTa+i+nU+PdO+h/KcQj1hMAey36ZrEColPN1KlfYvE=;
+ b=clWvQxTxYrcNsHq7lTW0Gmn0i9h9Vid00Q4BuOr2XE/g1EjsCUMp3x1tEVjyMZZDFxjZ7J
+ MRDv0FaWEHjjbLpg/9bXRPSZ0dzlfrRGaR9q7sau82jdMWVZcIKDfvaIB1lskwM2rm1evI
+ GWHFNFcuhlRvYoauPeDnqXLmG4Hflh8=
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EA4FB1358F;
+ Wed, 25 Jan 2023 09:42:30 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id yLixOIb50GN6IgAAMHmgww
+ (envelope-from <mhocko@suse.com>); Wed, 25 Jan 2023 09:42:30 +0000
+Date: Wed, 25 Jan 2023 10:42:30 +0100
+From: Michal Hocko <mhocko@suse.com>
+To: Suren Baghdasaryan <surenb@google.com>
+Subject: Re: [PATCH v2 5/6] mm: introduce mod_vm_flags_nolock and use it in
+ untrack_pfn
+Message-ID: <Y9D5hjcprLI92VKf@dhcp22.suse.cz>
 References: <20230125083851.27759-1-surenb@google.com>
-X-Mailer: git-send-email 2.39.1.405.gd4c25cc71f-goog
-Message-ID: <20230125083851.27759-3-surenb@google.com>
-Subject: [PATCH v2 2/6] mm: replace VM_LOCKED_CLEAR_MASK with VM_LOCKED_MASK
-From: Suren Baghdasaryan <surenb@google.com>
-To: akpm@linux-foundation.org
-Content-Type: text/plain; charset="UTF-8"
+ <20230125083851.27759-6-surenb@google.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230125083851.27759-6-surenb@google.com>
 X-Mailman-Approved-At: Wed, 25 Jan 2023 14:08:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,14 +70,15 @@ Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
  linux-um@lists.infradead.org, etnaviv@lists.freedesktop.org, npiggin@gmail.com,
  alex.williamson@redhat.com, viro@zeniv.linux.org.uk, luto@kernel.org,
  gthelen@google.com, tglx@linutronix.de, ldufour@linux.ibm.com,
- surenb@google.com, linux-sgx@vger.kernel.org, martin.petersen@oracle.com,
+ linux-sgx@vger.kernel.org, martin.petersen@oracle.com,
  linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-perf-users@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-media@vger.kernel.org,
- freedreno@lists.freedesktop.org, joelaf@google.com, linux-aio@kvack.org,
- linux-fbdev@vger.kernel.org, linux-ia64@vger.kernel.org, david@redhat.com,
- dave.hansen@linux.intel.com, virtualization@lists.linux-foundation.org,
- edumazet@google.com, target-devel@vger.kernel.org, punit.agrawal@bytedance.com,
+ linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
+ linux-media@vger.kernel.org, freedreno@lists.freedesktop.org,
+ joelaf@google.com, linux-aio@kvack.org, linux-fbdev@vger.kernel.org,
+ linux-ia64@vger.kernel.org, david@redhat.com, dave.hansen@linux.intel.com,
+ virtualization@lists.linux-foundation.org, edumazet@google.com,
+ target-devel@vger.kernel.org, punit.agrawal@bytedance.com,
  linux-s390@vger.kernel.org, dave@stgolabs.net, deller@gmx.de, hughd@google.com,
  andrii@kernel.org, patrik.r.jakobsson@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
@@ -106,19 +99,19 @@ Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
  hughlynch@google.com, sre@kernel.org, tfiga@chromium.org,
  linux-xfs@vger.kernel.org, zhangfei.gao@linaro.org, wangzhou1@hisilicon.com,
  netdev@vger.kernel.org, bpf@vger.kernel.org, linux-erofs@lists.ozlabs.org,
- davem@davemloft.net, mhocko@suse.com, kvm@vger.kernel.org, mst@redhat.com,
- peterz@infradead.org, bigeasy@linutronix.de, alexandre.torgue@foss.st.com,
- dhowells@redhat.com, linux-mm@kvack.org, ray.huang@amd.com,
- adilger.kernel@dilger.ca, kuba@kernel.org, sparclinux@vger.kernel.org,
- airlied@gmail.com, anton.ivanov@cambridgegreys.com,
- herbert@gondor.apana.org.au, linux-scsi@vger.kernel.org, richard@nod.at,
- x86@kernel.org, vkoul@kernel.org, mingo@redhat.com, axelrasmussen@google.com,
- intel-gfx@lists.freedesktop.org, daniel@ffwll.ch, paulmck@kernel.org,
- jannh@google.com, chao@kernel.org, maarten.lankhorst@linux.intel.com,
- liam.howlett@oracle.com, hdegoede@redhat.com,
- linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com, vbabka@suse.cz,
- dimitri.sivanich@hpe.com, amd-gfx@lists.freedesktop.org, posk@google.com,
- lstoakes@gmail.com, peterjung1337@gmail.com, yoshfuji@linux-ipv6.org,
+ davem@davemloft.net, kvm@vger.kernel.org, mst@redhat.com, peterz@infradead.org,
+ bigeasy@linutronix.de, alexandre.torgue@foss.st.com, dhowells@redhat.com,
+ linux-mm@kvack.org, ray.huang@amd.com, adilger.kernel@dilger.ca,
+ kuba@kernel.org, sparclinux@vger.kernel.org, airlied@gmail.com,
+ anton.ivanov@cambridgegreys.com, herbert@gondor.apana.org.au,
+ linux-scsi@vger.kernel.org, richard@nod.at, x86@kernel.org, vkoul@kernel.org,
+ mingo@redhat.com, axelrasmussen@google.com, intel-gfx@lists.freedesktop.org,
+ daniel@ffwll.ch, paulmck@kernel.org, jannh@google.com, chao@kernel.org,
+ maarten.lankhorst@linux.intel.com, liam.howlett@oracle.com,
+ hdegoede@redhat.com, linux-mediatek@lists.infradead.org,
+ matthias.bgg@gmail.com, vbabka@suse.cz, dimitri.sivanich@hpe.com,
+ amd-gfx@lists.freedesktop.org, posk@google.com, lstoakes@gmail.com,
+ peterjung1337@gmail.com, yoshfuji@linux-ipv6.org,
  linuxppc-dev@lists.ozlabs.org, dsahern@kernel.org, kent.overstreet@linux.dev,
  kexec@lists.infradead.org, tiwai@suse.com, krzysztof.kozlowski@linaro.org,
  tzimmermann@suse.de, hannes@cmpxchg.org, dmitry.baryshkov@linaro.org,
@@ -127,130 +120,258 @@ Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-To simplify the usage of VM_LOCKED_CLEAR_MASK in clear_vm_flags(),
-replace it with VM_LOCKED_MASK bitmask and convert all users.
+On Wed 25-01-23 00:38:50, Suren Baghdasaryan wrote:
+> In cases when VMA flags are modified after VMA was isolated and mmap_lock
+> was downgraded, flags modifications would result in an assertion because
+> mmap write lock is not held.
+> Introduce mod_vm_flags_nolock to be used in such situation.
+> Pass a hint to untrack_pfn to conditionally use mod_vm_flags_nolock for
+> flags modification and to avoid assertion.
 
-Signed-off-by: Suren Baghdasaryan <surenb@google.com>
----
- include/linux/mm.h | 4 ++--
- kernel/fork.c      | 2 +-
- mm/hugetlb.c       | 4 ++--
- mm/mlock.c         | 6 +++---
- mm/mmap.c          | 6 +++---
- mm/mremap.c        | 2 +-
- 6 files changed, 12 insertions(+), 12 deletions(-)
+The changelog nor the documentation of mod_vm_flags_nolock 
+really explain when it is safe to use it. This is really important for
+future potential users.
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index b71f2809caac..da62bdd627bf 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -421,8 +421,8 @@ extern unsigned int kobjsize(const void *objp);
- /* This mask defines which mm->def_flags a process can inherit its parent */
- #define VM_INIT_DEF_MASK	VM_NOHUGEPAGE
- 
--/* This mask is used to clear all the VMA flags used by mlock */
--#define VM_LOCKED_CLEAR_MASK	(~(VM_LOCKED | VM_LOCKONFAULT))
-+/* This mask represents all the VMA flag bits used by mlock */
-+#define VM_LOCKED_MASK	(VM_LOCKED | VM_LOCKONFAULT)
- 
- /* Arch-specific flags to clear when updating VM flags on protection change */
- #ifndef VM_ARCH_CLEAR
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 6683c1b0f460..03d472051236 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -669,7 +669,7 @@ static __latent_entropy int dup_mmap(struct mm_struct *mm,
- 			tmp->anon_vma = NULL;
- 		} else if (anon_vma_fork(tmp, mpnt))
- 			goto fail_nomem_anon_vma_fork;
--		tmp->vm_flags &= ~(VM_LOCKED | VM_LOCKONFAULT);
-+		clear_vm_flags(tmp, VM_LOCKED_MASK);
- 		file = tmp->vm_file;
- 		if (file) {
- 			struct address_space *mapping = file->f_mapping;
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index d20c8b09890e..4ecdbad9a451 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -6973,8 +6973,8 @@ static unsigned long page_table_shareable(struct vm_area_struct *svma,
- 	unsigned long s_end = sbase + PUD_SIZE;
- 
- 	/* Allow segments to share if only one is marked locked */
--	unsigned long vm_flags = vma->vm_flags & VM_LOCKED_CLEAR_MASK;
--	unsigned long svm_flags = svma->vm_flags & VM_LOCKED_CLEAR_MASK;
-+	unsigned long vm_flags = vma->vm_flags & ~VM_LOCKED_MASK;
-+	unsigned long svm_flags = svma->vm_flags & ~VM_LOCKED_MASK;
- 
- 	/*
- 	 * match the virtual addresses, permission and the alignment of the
-diff --git a/mm/mlock.c b/mm/mlock.c
-index 0336f52e03d7..5c4fff93cd6b 100644
---- a/mm/mlock.c
-+++ b/mm/mlock.c
-@@ -497,7 +497,7 @@ static int apply_vma_lock_flags(unsigned long start, size_t len,
- 		if (vma->vm_start != tmp)
- 			return -ENOMEM;
- 
--		newflags = vma->vm_flags & VM_LOCKED_CLEAR_MASK;
-+		newflags = vma->vm_flags & ~VM_LOCKED_MASK;
- 		newflags |= flags;
- 		/* Here we know that  vma->vm_start <= nstart < vma->vm_end. */
- 		tmp = vma->vm_end;
-@@ -661,7 +661,7 @@ static int apply_mlockall_flags(int flags)
- 	struct vm_area_struct *vma, *prev = NULL;
- 	vm_flags_t to_add = 0;
- 
--	current->mm->def_flags &= VM_LOCKED_CLEAR_MASK;
-+	current->mm->def_flags &= ~VM_LOCKED_MASK;
- 	if (flags & MCL_FUTURE) {
- 		current->mm->def_flags |= VM_LOCKED;
- 
-@@ -681,7 +681,7 @@ static int apply_mlockall_flags(int flags)
- 	for_each_vma(vmi, vma) {
- 		vm_flags_t newflags;
- 
--		newflags = vma->vm_flags & VM_LOCKED_CLEAR_MASK;
-+		newflags = vma->vm_flags & ~VM_LOCKED_MASK;
- 		newflags |= to_add;
- 
- 		/* Ignore errors */
-diff --git a/mm/mmap.c b/mm/mmap.c
-index d4abc6feced1..323bd253b25a 100644
---- a/mm/mmap.c
-+++ b/mm/mmap.c
-@@ -2671,7 +2671,7 @@ unsigned long mmap_region(struct file *file, unsigned long addr,
- 		if ((vm_flags & VM_SPECIAL) || vma_is_dax(vma) ||
- 					is_vm_hugetlb_page(vma) ||
- 					vma == get_gate_vma(current->mm))
--			vma->vm_flags &= VM_LOCKED_CLEAR_MASK;
-+			clear_vm_flags(vma, VM_LOCKED_MASK);
- 		else
- 			mm->locked_vm += (len >> PAGE_SHIFT);
- 	}
-@@ -3340,8 +3340,8 @@ static struct vm_area_struct *__install_special_mapping(
- 	vma->vm_start = addr;
- 	vma->vm_end = addr + len;
- 
--	vma->vm_flags = vm_flags | mm->def_flags | VM_DONTEXPAND | VM_SOFTDIRTY;
--	vma->vm_flags &= VM_LOCKED_CLEAR_MASK;
-+	init_vm_flags(vma, (vm_flags | mm->def_flags |
-+		      VM_DONTEXPAND | VM_SOFTDIRTY) & ~VM_LOCKED_MASK);
- 	vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
- 
- 	vma->vm_ops = ops;
-diff --git a/mm/mremap.c b/mm/mremap.c
-index 1b3ee02bead7..35db9752cb6a 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -687,7 +687,7 @@ static unsigned long move_vma(struct vm_area_struct *vma,
- 
- 	if (unlikely(!err && (flags & MREMAP_DONTUNMAP))) {
- 		/* We always clear VM_LOCKED[ONFAULT] on the old vma */
--		vma->vm_flags &= VM_LOCKED_CLEAR_MASK;
-+		clear_vm_flags(vma, VM_LOCKED_MASK);
- 
- 		/*
- 		 * anon_vma links of the old vma is no longer needed after its page
+> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> ---
+>  arch/x86/mm/pat/memtype.c | 10 +++++++---
+>  include/linux/mm.h        | 12 +++++++++---
+>  include/linux/pgtable.h   |  5 +++--
+>  mm/memory.c               | 13 +++++++------
+>  mm/memremap.c             |  4 ++--
+>  mm/mmap.c                 | 16 ++++++++++------
+>  6 files changed, 38 insertions(+), 22 deletions(-)
+> 
+> diff --git a/arch/x86/mm/pat/memtype.c b/arch/x86/mm/pat/memtype.c
+> index ae9645c900fa..d8adc0b42cf2 100644
+> --- a/arch/x86/mm/pat/memtype.c
+> +++ b/arch/x86/mm/pat/memtype.c
+> @@ -1046,7 +1046,7 @@ void track_pfn_insert(struct vm_area_struct *vma, pgprot_t *prot, pfn_t pfn)
+>   * can be for the entire vma (in which case pfn, size are zero).
+>   */
+>  void untrack_pfn(struct vm_area_struct *vma, unsigned long pfn,
+> -		 unsigned long size)
+> +		 unsigned long size, bool mm_wr_locked)
+>  {
+>  	resource_size_t paddr;
+>  	unsigned long prot;
+> @@ -1065,8 +1065,12 @@ void untrack_pfn(struct vm_area_struct *vma, unsigned long pfn,
+>  		size = vma->vm_end - vma->vm_start;
+>  	}
+>  	free_pfn_range(paddr, size);
+> -	if (vma)
+> -		clear_vm_flags(vma, VM_PAT);
+> +	if (vma) {
+> +		if (mm_wr_locked)
+> +			clear_vm_flags(vma, VM_PAT);
+> +		else
+> +			mod_vm_flags_nolock(vma, 0, VM_PAT);
+> +	}
+>  }
+>  
+>  /*
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index 55335edd1373..48d49930c411 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -656,12 +656,18 @@ static inline void clear_vm_flags(struct vm_area_struct *vma,
+>  	vma->vm_flags &= ~flags;
+>  }
+>  
+> +static inline void mod_vm_flags_nolock(struct vm_area_struct *vma,
+> +				       unsigned long set, unsigned long clear)
+> +{
+> +	vma->vm_flags |= set;
+> +	vma->vm_flags &= ~clear;
+> +}
+> +
+>  static inline void mod_vm_flags(struct vm_area_struct *vma,
+>  				unsigned long set, unsigned long clear)
+>  {
+>  	mmap_assert_write_locked(vma->vm_mm);
+> -	vma->vm_flags |= set;
+> -	vma->vm_flags &= ~clear;
+> +	mod_vm_flags_nolock(vma, set, clear);
+>  }
+>  
+>  static inline void vma_set_anonymous(struct vm_area_struct *vma)
+> @@ -2087,7 +2093,7 @@ static inline void zap_vma_pages(struct vm_area_struct *vma)
+>  }
+>  void unmap_vmas(struct mmu_gather *tlb, struct maple_tree *mt,
+>  		struct vm_area_struct *start_vma, unsigned long start,
+> -		unsigned long end);
+> +		unsigned long end, bool mm_wr_locked);
+>  
+>  struct mmu_notifier_range;
+>  
+> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
+> index 5fd45454c073..c63cd44777ec 100644
+> --- a/include/linux/pgtable.h
+> +++ b/include/linux/pgtable.h
+> @@ -1185,7 +1185,8 @@ static inline int track_pfn_copy(struct vm_area_struct *vma)
+>   * can be for the entire vma (in which case pfn, size are zero).
+>   */
+>  static inline void untrack_pfn(struct vm_area_struct *vma,
+> -			       unsigned long pfn, unsigned long size)
+> +			       unsigned long pfn, unsigned long size,
+> +			       bool mm_wr_locked)
+>  {
+>  }
+>  
+> @@ -1203,7 +1204,7 @@ extern void track_pfn_insert(struct vm_area_struct *vma, pgprot_t *prot,
+>  			     pfn_t pfn);
+>  extern int track_pfn_copy(struct vm_area_struct *vma);
+>  extern void untrack_pfn(struct vm_area_struct *vma, unsigned long pfn,
+> -			unsigned long size);
+> +			unsigned long size, bool mm_wr_locked);
+>  extern void untrack_pfn_moved(struct vm_area_struct *vma);
+>  #endif
+>  
+> diff --git a/mm/memory.c b/mm/memory.c
+> index d6902065e558..5b11b50e2c4a 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -1613,7 +1613,7 @@ void unmap_page_range(struct mmu_gather *tlb,
+>  static void unmap_single_vma(struct mmu_gather *tlb,
+>  		struct vm_area_struct *vma, unsigned long start_addr,
+>  		unsigned long end_addr,
+> -		struct zap_details *details)
+> +		struct zap_details *details, bool mm_wr_locked)
+>  {
+>  	unsigned long start = max(vma->vm_start, start_addr);
+>  	unsigned long end;
+> @@ -1628,7 +1628,7 @@ static void unmap_single_vma(struct mmu_gather *tlb,
+>  		uprobe_munmap(vma, start, end);
+>  
+>  	if (unlikely(vma->vm_flags & VM_PFNMAP))
+> -		untrack_pfn(vma, 0, 0);
+> +		untrack_pfn(vma, 0, 0, mm_wr_locked);
+>  
+>  	if (start != end) {
+>  		if (unlikely(is_vm_hugetlb_page(vma))) {
+> @@ -1675,7 +1675,7 @@ static void unmap_single_vma(struct mmu_gather *tlb,
+>   */
+>  void unmap_vmas(struct mmu_gather *tlb, struct maple_tree *mt,
+>  		struct vm_area_struct *vma, unsigned long start_addr,
+> -		unsigned long end_addr)
+> +		unsigned long end_addr, bool mm_wr_locked)
+>  {
+>  	struct mmu_notifier_range range;
+>  	struct zap_details details = {
+> @@ -1689,7 +1689,8 @@ void unmap_vmas(struct mmu_gather *tlb, struct maple_tree *mt,
+>  				start_addr, end_addr);
+>  	mmu_notifier_invalidate_range_start(&range);
+>  	do {
+> -		unmap_single_vma(tlb, vma, start_addr, end_addr, &details);
+> +		unmap_single_vma(tlb, vma, start_addr, end_addr, &details,
+> +				 mm_wr_locked);
+>  	} while ((vma = mas_find(&mas, end_addr - 1)) != NULL);
+>  	mmu_notifier_invalidate_range_end(&range);
+>  }
+> @@ -1723,7 +1724,7 @@ void zap_page_range_single(struct vm_area_struct *vma, unsigned long address,
+>  	 * unmap 'address-end' not 'range.start-range.end' as range
+>  	 * could have been expanded for hugetlb pmd sharing.
+>  	 */
+> -	unmap_single_vma(&tlb, vma, address, end, details);
+> +	unmap_single_vma(&tlb, vma, address, end, details, false);
+>  	mmu_notifier_invalidate_range_end(&range);
+>  	tlb_finish_mmu(&tlb);
+>  }
+> @@ -2492,7 +2493,7 @@ int remap_pfn_range(struct vm_area_struct *vma, unsigned long addr,
+>  
+>  	err = remap_pfn_range_notrack(vma, addr, pfn, size, prot);
+>  	if (err)
+> -		untrack_pfn(vma, pfn, PAGE_ALIGN(size));
+> +		untrack_pfn(vma, pfn, PAGE_ALIGN(size), true);
+>  	return err;
+>  }
+>  EXPORT_SYMBOL(remap_pfn_range);
+> diff --git a/mm/memremap.c b/mm/memremap.c
+> index 08cbf54fe037..2f88f43d4a01 100644
+> --- a/mm/memremap.c
+> +++ b/mm/memremap.c
+> @@ -129,7 +129,7 @@ static void pageunmap_range(struct dev_pagemap *pgmap, int range_id)
+>  	}
+>  	mem_hotplug_done();
+>  
+> -	untrack_pfn(NULL, PHYS_PFN(range->start), range_len(range));
+> +	untrack_pfn(NULL, PHYS_PFN(range->start), range_len(range), true);
+>  	pgmap_array_delete(range);
+>  }
+>  
+> @@ -276,7 +276,7 @@ static int pagemap_range(struct dev_pagemap *pgmap, struct mhp_params *params,
+>  	if (!is_private)
+>  		kasan_remove_zero_shadow(__va(range->start), range_len(range));
+>  err_kasan:
+> -	untrack_pfn(NULL, PHYS_PFN(range->start), range_len(range));
+> +	untrack_pfn(NULL, PHYS_PFN(range->start), range_len(range), true);
+>  err_pfn_remap:
+>  	pgmap_array_delete(range);
+>  	return error;
+> diff --git a/mm/mmap.c b/mm/mmap.c
+> index 2c6e9072e6a8..69d440997648 100644
+> --- a/mm/mmap.c
+> +++ b/mm/mmap.c
+> @@ -78,7 +78,7 @@ core_param(ignore_rlimit_data, ignore_rlimit_data, bool, 0644);
+>  static void unmap_region(struct mm_struct *mm, struct maple_tree *mt,
+>  		struct vm_area_struct *vma, struct vm_area_struct *prev,
+>  		struct vm_area_struct *next, unsigned long start,
+> -		unsigned long end);
+> +		unsigned long end, bool mm_wr_locked);
+>  
+>  static pgprot_t vm_pgprot_modify(pgprot_t oldprot, unsigned long vm_flags)
+>  {
+> @@ -2136,14 +2136,14 @@ static inline void remove_mt(struct mm_struct *mm, struct ma_state *mas)
+>  static void unmap_region(struct mm_struct *mm, struct maple_tree *mt,
+>  		struct vm_area_struct *vma, struct vm_area_struct *prev,
+>  		struct vm_area_struct *next,
+> -		unsigned long start, unsigned long end)
+> +		unsigned long start, unsigned long end, bool mm_wr_locked)
+>  {
+>  	struct mmu_gather tlb;
+>  
+>  	lru_add_drain();
+>  	tlb_gather_mmu(&tlb, mm);
+>  	update_hiwater_rss(mm);
+> -	unmap_vmas(&tlb, mt, vma, start, end);
+> +	unmap_vmas(&tlb, mt, vma, start, end, mm_wr_locked);
+>  	free_pgtables(&tlb, mt, vma, prev ? prev->vm_end : FIRST_USER_ADDRESS,
+>  				 next ? next->vm_start : USER_PGTABLES_CEILING);
+>  	tlb_finish_mmu(&tlb);
+> @@ -2391,7 +2391,11 @@ do_vmi_align_munmap(struct vma_iterator *vmi, struct vm_area_struct *vma,
+>  			mmap_write_downgrade(mm);
+>  	}
+>  
+> -	unmap_region(mm, &mt_detach, vma, prev, next, start, end);
+> +	/*
+> +	 * We can free page tables without write-locking mmap_lock because VMAs
+> +	 * were isolated before we downgraded mmap_lock.
+> +	 */
+> +	unmap_region(mm, &mt_detach, vma, prev, next, start, end, !downgrade);
+>  	/* Statistics and freeing VMAs */
+>  	mas_set(&mas_detach, start);
+>  	remove_mt(mm, &mas_detach);
+> @@ -2704,7 +2708,7 @@ unsigned long mmap_region(struct file *file, unsigned long addr,
+>  
+>  		/* Undo any partial mapping done by a device driver. */
+>  		unmap_region(mm, &mm->mm_mt, vma, prev, next, vma->vm_start,
+> -			     vma->vm_end);
+> +			     vma->vm_end, true);
+>  	}
+>  	if (file && (vm_flags & VM_SHARED))
+>  		mapping_unmap_writable(file->f_mapping);
+> @@ -3031,7 +3035,7 @@ void exit_mmap(struct mm_struct *mm)
+>  	tlb_gather_mmu_fullmm(&tlb, mm);
+>  	/* update_hiwater_rss(mm) here? but nobody should be looking */
+>  	/* Use ULONG_MAX here to ensure all VMAs in the mm are unmapped */
+> -	unmap_vmas(&tlb, &mm->mm_mt, vma, 0, ULONG_MAX);
+> +	unmap_vmas(&tlb, &mm->mm_mt, vma, 0, ULONG_MAX, false);
+>  	mmap_read_unlock(mm);
+>  
+>  	/*
+> -- 
+> 2.39.1
+
 -- 
-2.39.1
-
+Michal Hocko
+SUSE Labs
