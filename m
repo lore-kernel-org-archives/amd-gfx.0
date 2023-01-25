@@ -4,42 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C944DC54E94
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 21:46:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FDF6C54E94
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 21:46:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39E0510E130;
-	Wed, 25 Jan 2023 21:46:34 +0000 (UTC)
-X-Greylist: delayed 1406 seconds by postgrey-1.36 at gabe;
- Wed, 25 Jan 2023 19:02:27 UTC
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7B5A10E815;
- Wed, 25 Jan 2023 19:02:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=j8xmcwaWWp8ClSuIcWbfPO9W4DI7+K1SIXYR1hupOAY=; b=uqNynxzucz1vO4Sybud/wnfqlG
- XxsLNOwKfxMMQq2z+2mEwSQepA2Cgl288rz8ppyGnCDD245OrpnK+lLHo83C85yAJqJOOkyy9NCp4
- qmW1PdDBkKx7H5H7CuTrTaW668Ax6XD7hJfO7woN7MoWAjzhSqQRaCuht1RFhZ03cdOhzx8vskmyo
- utYjRqoPln+RK+MIFkiqDBv2fEqneNERI4c9/pWDfp7yn00dEjgBzAOu+9ajSFVQvgY4Ml53E7t5d
- 4KvoHjjGbdeWlMlk7Lgwsa8VGdyruWiJYIAak7bpfijYPXdYqIwuOD9Kmo+xWyNX8MhOoxpc82QLY
- /xONblxA==;
-Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1pKkeP-0066hH-0o; Wed, 25 Jan 2023 18:37:37 +0000
-Date: Wed, 25 Jan 2023 18:37:36 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: Suren Baghdasaryan <surenb@google.com>
-Subject: Re: [PATCH v2 1/6] mm: introduce vma->vm_flags modifier functions
-Message-ID: <Y9F28J9njAtwifuL@casper.infradead.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00DC010E131;
+	Wed, 25 Jan 2023 21:46:37 +0000 (UTC)
+Received: from mail-yw1-x1130.google.com (mail-yw1-x1130.google.com
+ [IPv6:2607:f8b0:4864:20::1130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7D5D10E38B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 19:22:50 +0000 (UTC)
+Received: by mail-yw1-x1130.google.com with SMTP id
+ 00721157ae682-4ff1fa82bbbso231669047b3.10
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 11:22:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=PCnMypYs8jymH6Ufuva+9r/69Y/DZs8kYxwQEYrzQFk=;
+ b=hXTUs83qvSMCw0sqrewtph/1zyRGQA8EwV9VOqASoIhN1O27YlTeLHvU30LwpkaPKE
+ 6ZtbduOBpeU0Mk6yScQyxHGjdOZ8W8NbAK7HCSbKR2qQVwpslpoP2Mqh8DnM60UrkSEV
+ Fy/rJx/xAj6ReR1yQheSDvUeiLsUOZe36GsXUe+/pA5dp4+pot+ScO1k5jhTafZOkoJo
+ vEjMe7B3/0BupSIQn5CSlkYjolaKBFMYB73xyId061H8p1ZYZbkvvK9SPdZltanRDpUl
+ vOuM+M/xFo7tmOP85pcv8h038+SVqlBqYWxO3Lgun0O5W06va+PJHK2pFsHgrhvmIiGL
+ lvow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=PCnMypYs8jymH6Ufuva+9r/69Y/DZs8kYxwQEYrzQFk=;
+ b=MIapJej/VOhzcuH7Y1sP4/K+VlzTpPLf8/wegxcocP6UHKWhPo9+2q4uUimtz6HwW9
+ SDODUKwq0rrf5Psf7PRCQYOLVdTYDuN4rPTHKSaVy7BbeK+W/ruc/MGO7NHa/pl5DUyB
+ P/VYARbdItrhOrgIx0iTBcLkiG7vF1zQw0nMYq37gurucQ+eF9KCzxTV9j9DA29Q93Pz
+ hnJ5qMgzM/2CKqVu0QLGonNg8pMt3hjtv6c56wFP46DwFycpfkDMnVgzKYz6gK8Y7nQp
+ rokDMFdjNbV2MwsJKBBQTlr/VcJtevLA4qGkMB5sXAFE7+LptzYbTXSRX3D6kJaqthsF
+ 0DBA==
+X-Gm-Message-State: AO0yUKWB1WSEWY0hZqdquOgqZyg/sADj9PX9wRUCPFju22KmZMDqys1r
+ Q9+vX/o+WKNlRapX0+29cjNax6JfY5rbSWcBP5hsdw==
+X-Google-Smtp-Source: AK7set/Rj29H3r8vHaYccCmp943Un+QyMRF/w8dcRdt99GFw8apI+/L+5tSmXBTsBLdlTBniti7hA8kyFbpjr3H10kc=
+X-Received: by 2002:a0d:d456:0:b0:507:26dc:ebd with SMTP id
+ w83-20020a0dd456000000b0050726dc0ebdmr298632ywd.455.1674674569763; Wed, 25
+ Jan 2023 11:22:49 -0800 (PST)
+MIME-Version: 1.0
 References: <20230125083851.27759-1-surenb@google.com>
  <20230125083851.27759-2-surenb@google.com>
- <Y9Dx0cPXF2yoLwww@hirez.programming.kicks-ass.net>
- <CAJuCfpEcVCZaCGzc-Wim25eaV5e6YG1YJAAdKwZ6JHViB0z8aw@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAJuCfpEcVCZaCGzc-Wim25eaV5e6YG1YJAAdKwZ6JHViB0z8aw@mail.gmail.com>
+ <Y9F19QEDX5d/44EV@casper.infradead.org>
+In-Reply-To: <Y9F19QEDX5d/44EV@casper.infradead.org>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Wed, 25 Jan 2023 11:22:38 -0800
+Message-ID: <CAJuCfpH+LMFX=TT04gSMA05cz_-CXMum6fobRrduWvzm1HWPmQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/6] mm: introduce vma->vm_flags modifier functions
+To: Matthew Wilcox <willy@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Wed, 25 Jan 2023 21:46:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,50 +108,49 @@ Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
  sre@kernel.org, tfiga@chromium.org, linux-xfs@vger.kernel.org,
  zhangfei.gao@linaro.org, wangzhou1@hisilicon.com, netdev@vger.kernel.org,
  bpf@vger.kernel.org, linux-erofs@lists.ozlabs.org, davem@davemloft.net,
- mhocko@suse.com, kvm@vger.kernel.org, mst@redhat.com,
- Peter Zijlstra <peterz@infradead.org>, bigeasy@linutronix.de,
- alexandre.torgue@foss.st.com, dhowells@redhat.com, linux-mm@kvack.org,
- ray.huang@amd.com, adilger.kernel@dilger.ca, kuba@kernel.org,
- sparclinux@vger.kernel.org, airlied@gmail.com, anton.ivanov@cambridgegreys.com,
- herbert@gondor.apana.org.au, linux-scsi@vger.kernel.org, richard@nod.at,
- x86@kernel.org, vkoul@kernel.org, mingo@redhat.com, axelrasmussen@google.com,
- intel-gfx@lists.freedesktop.org, daniel@ffwll.ch, paulmck@kernel.org,
- jannh@google.com, chao@kernel.org, maarten.lankhorst@linux.intel.com,
- liam.howlett@oracle.com, hdegoede@redhat.com,
- linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com, vbabka@suse.cz,
- dimitri.sivanich@hpe.com, posk@google.com, lstoakes@gmail.com,
- peterjung1337@gmail.com, yoshfuji@linux-ipv6.org,
- linuxppc-dev@lists.ozlabs.org, dsahern@kernel.org, kent.overstreet@linux.dev,
- kexec@lists.infradead.org, tiwai@suse.com, krzysztof.kozlowski@linaro.org,
- tzimmermann@suse.de, hannes@cmpxchg.org, dmitry.baryshkov@linaro.org,
- johannes@sipsolutions.net, mgorman@techsingularity.net,
- linux-accelerators@lists.ozlabs.org, l.stach@pengutronix.de
+ mhocko@suse.com, kvm@vger.kernel.org, mst@redhat.com, peterz@infradead.org,
+ bigeasy@linutronix.de, alexandre.torgue@foss.st.com, dhowells@redhat.com,
+ linux-mm@kvack.org, ray.huang@amd.com, adilger.kernel@dilger.ca,
+ kuba@kernel.org, sparclinux@vger.kernel.org, airlied@gmail.com,
+ anton.ivanov@cambridgegreys.com, herbert@gondor.apana.org.au,
+ linux-scsi@vger.kernel.org, richard@nod.at, x86@kernel.org, vkoul@kernel.org,
+ mingo@redhat.com, axelrasmussen@google.com, intel-gfx@lists.freedesktop.org,
+ daniel@ffwll.ch, paulmck@kernel.org, jannh@google.com, chao@kernel.org,
+ maarten.lankhorst@linux.intel.com, liam.howlett@oracle.com,
+ hdegoede@redhat.com, linux-mediatek@lists.infradead.org,
+ matthias.bgg@gmail.com, vbabka@suse.cz, dimitri.sivanich@hpe.com,
+ posk@google.com, lstoakes@gmail.com, peterjung1337@gmail.com,
+ yoshfuji@linux-ipv6.org, linuxppc-dev@lists.ozlabs.org, dsahern@kernel.org,
+ kent.overstreet@linux.dev, kexec@lists.infradead.org, tiwai@suse.com,
+ krzysztof.kozlowski@linaro.org, tzimmermann@suse.de, hannes@cmpxchg.org,
+ dmitry.baryshkov@linaro.org, johannes@sipsolutions.net,
+ mgorman@techsingularity.net, linux-accelerators@lists.ozlabs.org,
+ l.stach@pengutronix.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 25, 2023 at 08:49:50AM -0800, Suren Baghdasaryan wrote:
-> On Wed, Jan 25, 2023 at 1:10 AM Peter Zijlstra <peterz@infradead.org> wrote:
-> > > +     /*
-> > > +      * Flags, see mm.h.
-> > > +      * WARNING! Do not modify directly.
-> > > +      * Use {init|reset|set|clear|mod}_vm_flags() functions instead.
-> > > +      */
-> > > +     unsigned long vm_flags;
-> >
-> > We have __private and ACCESS_PRIVATE() to help with enforcing this.
-> 
-> Thanks for pointing this out, Peter! I guess for that I'll need to
-> convert all read accesses and provide get_vm_flags() too? That will
-> cause some additional churt (a quick search shows 801 hits over 248
-> files) but maybe it's worth it? I think Michal suggested that too in
-> another patch. Should I do that while we are at it?
+On Wed, Jan 25, 2023 at 10:33 AM Matthew Wilcox <willy@infradead.org> wrote:
+>
+> On Wed, Jan 25, 2023 at 12:38:46AM -0800, Suren Baghdasaryan wrote:
+> > +/* Use when VMA is not part of the VMA tree and needs no locking */
+> > +static inline void init_vm_flags(struct vm_area_struct *vma,
+> > +                              unsigned long flags)
+> > +{
+> > +     vma->vm_flags = flags;
+>
+> vm_flags are supposed to have type vm_flags_t.  That's not been
+> fully realised yet, but perhaps we could avoid making it worse?
+>
+> >       pgprot_t vm_page_prot;
+> > -     unsigned long vm_flags;         /* Flags, see mm.h. */
+> > +
+> > +     /*
+> > +      * Flags, see mm.h.
+> > +      * WARNING! Do not modify directly.
+> > +      * Use {init|reset|set|clear|mod}_vm_flags() functions instead.
+> > +      */
+> > +     unsigned long vm_flags;
+>
+> Including changing this line to vm_flags_t
 
-Here's a trick I saw somewhere in the VFS:
-
-	union {
-		const vm_flags_t vm_flags;
-		vm_flags_t __private __vm_flags;
-	};
-
-Now it can be read by anybody but written only by those using
-ACCESS_PRIVATE.
+Good point. Will make the change. Thanks!
