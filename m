@@ -4,48 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51131C27C76
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 14:08:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE7B1C61D97
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 14:08:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D9B310E7CB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E86710E7D8;
 	Wed, 25 Jan 2023 14:08:08 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BD3D10E759;
- Wed, 25 Jan 2023 08:56:24 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 0B83B1FEC6;
- Wed, 25 Jan 2023 08:56:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1674636983; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=HlfVezvAjFmKLztHMOaZ+yji8Nsqp9vLwu4LVliFLNo=;
- b=sP3k2vbL/TMjnnanRjZuUO51OPKL7NCAE7wor1COt2s99RKg6YGTByegVuny2bFzwE3+s6
- UutXKdgKZ+JCm3/zcJc6jOoDAopdP55BVOpdwrjI4e178jvtCsfm11DvfUjHyJJs6l60Lo
- ZwU2a8676f0/M9W0HO3obY7BVSmDGjU=
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B78841339E;
- Wed, 25 Jan 2023 08:56:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ZJ2WLLbu0GN/CQAAMHmgww
- (envelope-from <mhocko@suse.com>); Wed, 25 Jan 2023 08:56:22 +0000
-Date: Wed, 25 Jan 2023 09:56:22 +0100
-From: Michal Hocko <mhocko@suse.com>
-To: Suren Baghdasaryan <surenb@google.com>
-Subject: Re: [PATCH v2 1/6] mm: introduce vma->vm_flags modifier functions
-Message-ID: <Y9DuttqjdKSRCVYh@dhcp22.suse.cz>
+Received: from mail-yb1-xb49.google.com (mail-yb1-xb49.google.com
+ [IPv6:2607:f8b0:4864:20::b49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D10F610E760
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 08:39:06 +0000 (UTC)
+Received: by mail-yb1-xb49.google.com with SMTP id
+ c2-20020a25a2c2000000b008016611ca77so15076523ybn.9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 00:39:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=mVuGMhZwlEMXe0FAwC4rLE7OnnAfe6cAroxVvXklBMk=;
+ b=VwtVZ3ffN/XX+4OSphvkCPu5LWSZpevMhnHytsAi7M7gsxKAkKbzq3/Ez6cAZGs+/z
+ JzIcfmxATmRyceN+/Zt8AqltlXqbiRJWNjswPpQNjZE22YwQ3Z8QnOSAOet+uqjmXlIE
+ OyZz8lnbt23bEWFA19bN7QyWM6BlHY9bxVkgVCuFfE21FaJHoilx3LiQj39QBuuIrUeb
+ wQOUdgl76g8l+p4COnuz8oTsyo6A7P+o3cLtEEcXBMjD1VU3kk8/P76KYyyBr91hidcu
+ b/JvxTM3TLDOWOtw79r0Hu/8F/9388RbMrqUiDk2vbRh2AxEmOh9ht/7njQAxt7Q0X5z
+ 07nA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=mVuGMhZwlEMXe0FAwC4rLE7OnnAfe6cAroxVvXklBMk=;
+ b=t41Opz+PH6gZcAHeFJ4tCz2Q02KWnyfrdvdj4/Z/MhTq6HTcbOOtevOM/EwdOfS2QX
+ Pg+HYEWdG5qW15YtDThpljwqR7Fi4FfA1Bf0IU+7sNhIzMryx8U/YPRPTf0oBvJ0k33m
+ f1gugnnDOYm6KFP/WTCZ2f/K0fI5uDLnFboJjaT7bg3yP8xpCN+wHlQpqfYTabRGQdm7
+ G7ZI2bIaxeSW3AwW37mMv3l30/Cjhc+bgpXaX4mgePTuEKCGbIXyUqHuCSa5UEF8PXsy
+ Vfs+iLF/gnBzGn5+47kv5IXl4DHL1B62+tB1z6eotKqxiBMfjs6cmH3A2zF6s12uDbtn
+ k/dA==
+X-Gm-Message-State: AO0yUKXeLs5ov6c8P9j6WyfMKmg4ualuv/SEOw1kMlp/UA8gP2Cllyj+
+ s4ZjPh1VAyuzoiNspv22zP75KIeok0s=
+X-Google-Smtp-Source: AK7set/eGcbmxK47Xow2TUKC1msmny+SAO+Fcyz1BhvcA/uBRY0Kash94Ztfh9nd8yz0OXKqanY9SYPz0MI=
+X-Received: from surenb-desktop.mtv.corp.google.com
+ ([2620:15c:211:200:f7b0:20e8:ce66:f98])
+ (user=surenb job=sendgmr) by 2002:a25:c247:0:b0:80b:6201:bee7 with SMTP id
+ s68-20020a25c247000000b0080b6201bee7mr702095ybf.340.1674635945821; Wed, 25
+ Jan 2023 00:39:05 -0800 (PST)
+Date: Wed, 25 Jan 2023 00:38:49 -0800
+In-Reply-To: <20230125083851.27759-1-surenb@google.com>
+Mime-Version: 1.0
 References: <20230125083851.27759-1-surenb@google.com>
- <20230125083851.27759-2-surenb@google.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230125083851.27759-2-surenb@google.com>
+X-Mailer: git-send-email 2.39.1.405.gd4c25cc71f-goog
+Message-ID: <20230125083851.27759-5-surenb@google.com>
+Subject: [PATCH v2 4/6] mm: replace vma->vm_flags indirect modification in
+ ksm_madvise
+From: Suren Baghdasaryan <surenb@google.com>
+To: akpm@linux-foundation.org
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Wed, 25 Jan 2023 14:08:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,15 +79,14 @@ Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
  linux-um@lists.infradead.org, etnaviv@lists.freedesktop.org, npiggin@gmail.com,
  alex.williamson@redhat.com, viro@zeniv.linux.org.uk, luto@kernel.org,
  gthelen@google.com, tglx@linutronix.de, ldufour@linux.ibm.com,
- linux-sgx@vger.kernel.org, martin.petersen@oracle.com,
+ surenb@google.com, linux-sgx@vger.kernel.org, martin.petersen@oracle.com,
  linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-perf-users@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
- linux-media@vger.kernel.org, freedreno@lists.freedesktop.org,
- joelaf@google.com, linux-aio@kvack.org, linux-fbdev@vger.kernel.org,
- linux-ia64@vger.kernel.org, david@redhat.com, dave.hansen@linux.intel.com,
- virtualization@lists.linux-foundation.org, edumazet@google.com,
- target-devel@vger.kernel.org, punit.agrawal@bytedance.com,
+ linux-fsdevel@vger.kernel.org, linux-media@vger.kernel.org,
+ freedreno@lists.freedesktop.org, joelaf@google.com, linux-aio@kvack.org,
+ linux-fbdev@vger.kernel.org, linux-ia64@vger.kernel.org, david@redhat.com,
+ dave.hansen@linux.intel.com, virtualization@lists.linux-foundation.org,
+ edumazet@google.com, target-devel@vger.kernel.org, punit.agrawal@bytedance.com,
  linux-s390@vger.kernel.org, dave@stgolabs.net, deller@gmx.de, hughd@google.com,
  andrii@kernel.org, patrik.r.jakobsson@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
@@ -98,19 +107,19 @@ Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
  hughlynch@google.com, sre@kernel.org, tfiga@chromium.org,
  linux-xfs@vger.kernel.org, zhangfei.gao@linaro.org, wangzhou1@hisilicon.com,
  netdev@vger.kernel.org, bpf@vger.kernel.org, linux-erofs@lists.ozlabs.org,
- davem@davemloft.net, kvm@vger.kernel.org, mst@redhat.com, peterz@infradead.org,
- bigeasy@linutronix.de, alexandre.torgue@foss.st.com, dhowells@redhat.com,
- linux-mm@kvack.org, ray.huang@amd.com, adilger.kernel@dilger.ca,
- kuba@kernel.org, sparclinux@vger.kernel.org, airlied@gmail.com,
- anton.ivanov@cambridgegreys.com, herbert@gondor.apana.org.au,
- linux-scsi@vger.kernel.org, richard@nod.at, x86@kernel.org, vkoul@kernel.org,
- mingo@redhat.com, axelrasmussen@google.com, intel-gfx@lists.freedesktop.org,
- daniel@ffwll.ch, paulmck@kernel.org, jannh@google.com, chao@kernel.org,
- maarten.lankhorst@linux.intel.com, liam.howlett@oracle.com,
- hdegoede@redhat.com, linux-mediatek@lists.infradead.org,
- matthias.bgg@gmail.com, vbabka@suse.cz, dimitri.sivanich@hpe.com,
- amd-gfx@lists.freedesktop.org, posk@google.com, lstoakes@gmail.com,
- peterjung1337@gmail.com, yoshfuji@linux-ipv6.org,
+ davem@davemloft.net, mhocko@suse.com, kvm@vger.kernel.org, mst@redhat.com,
+ peterz@infradead.org, bigeasy@linutronix.de, alexandre.torgue@foss.st.com,
+ dhowells@redhat.com, linux-mm@kvack.org, ray.huang@amd.com,
+ adilger.kernel@dilger.ca, kuba@kernel.org, sparclinux@vger.kernel.org,
+ airlied@gmail.com, anton.ivanov@cambridgegreys.com,
+ herbert@gondor.apana.org.au, linux-scsi@vger.kernel.org, richard@nod.at,
+ x86@kernel.org, vkoul@kernel.org, mingo@redhat.com, axelrasmussen@google.com,
+ intel-gfx@lists.freedesktop.org, daniel@ffwll.ch, paulmck@kernel.org,
+ jannh@google.com, chao@kernel.org, maarten.lankhorst@linux.intel.com,
+ liam.howlett@oracle.com, hdegoede@redhat.com,
+ linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com, vbabka@suse.cz,
+ dimitri.sivanich@hpe.com, amd-gfx@lists.freedesktop.org, posk@google.com,
+ lstoakes@gmail.com, peterjung1337@gmail.com, yoshfuji@linux-ipv6.org,
  linuxppc-dev@lists.ozlabs.org, dsahern@kernel.org, kent.overstreet@linux.dev,
  kexec@lists.infradead.org, tiwai@suse.com, krzysztof.kozlowski@linaro.org,
  tzimmermann@suse.de, hannes@cmpxchg.org, dmitry.baryshkov@linaro.org,
@@ -119,93 +128,96 @@ Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed 25-01-23 00:38:46, Suren Baghdasaryan wrote:
-> vm_flags are among VMA attributes which affect decisions like VMA merging
-> and splitting. Therefore all vm_flags modifications are performed after
-> taking exclusive mmap_lock to prevent vm_flags updates racing with such
-> operations. Introduce modifier functions for vm_flags to be used whenever
-> flags are updated. This way we can better check and control correct
-> locking behavior during these updates.
-> 
-> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+Replace indirect modifications to vma->vm_flags with calls to modifier
+functions to be able to track flag changes and to keep vma locking
+correctness. Add a BUG_ON check in ksm_madvise() to catch indirect
+vm_flags modification attempts.
 
-Acked-by: Michal Hocko <mhocko@suse.com>
+Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+---
+ arch/powerpc/kvm/book3s_hv_uvmem.c | 5 ++++-
+ arch/s390/mm/gmap.c                | 5 ++++-
+ mm/khugepaged.c                    | 2 ++
+ mm/ksm.c                           | 2 ++
+ 4 files changed, 12 insertions(+), 2 deletions(-)
 
-> ---
->  include/linux/mm.h       | 37 +++++++++++++++++++++++++++++++++++++
->  include/linux/mm_types.h |  8 +++++++-
->  2 files changed, 44 insertions(+), 1 deletion(-)
-> 
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index c2f62bdce134..b71f2809caac 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -627,6 +627,43 @@ static inline void vma_init(struct vm_area_struct *vma, struct mm_struct *mm)
->  	INIT_LIST_HEAD(&vma->anon_vma_chain);
->  }
->  
-> +/* Use when VMA is not part of the VMA tree and needs no locking */
-> +static inline void init_vm_flags(struct vm_area_struct *vma,
-> +				 unsigned long flags)
-> +{
-> +	vma->vm_flags = flags;
-> +}
-> +
-> +/* Use when VMA is part of the VMA tree and modifications need coordination */
-> +static inline void reset_vm_flags(struct vm_area_struct *vma,
-> +				  unsigned long flags)
-> +{
-> +	mmap_assert_write_locked(vma->vm_mm);
-> +	init_vm_flags(vma, flags);
-> +}
-> +
-> +static inline void set_vm_flags(struct vm_area_struct *vma,
-> +				unsigned long flags)
-> +{
-> +	mmap_assert_write_locked(vma->vm_mm);
-> +	vma->vm_flags |= flags;
-> +}
-> +
-> +static inline void clear_vm_flags(struct vm_area_struct *vma,
-> +				  unsigned long flags)
-> +{
-> +	mmap_assert_write_locked(vma->vm_mm);
-> +	vma->vm_flags &= ~flags;
-> +}
-> +
-> +static inline void mod_vm_flags(struct vm_area_struct *vma,
-> +				unsigned long set, unsigned long clear)
-> +{
-> +	mmap_assert_write_locked(vma->vm_mm);
-> +	vma->vm_flags |= set;
-> +	vma->vm_flags &= ~clear;
-> +}
-> +
->  static inline void vma_set_anonymous(struct vm_area_struct *vma)
->  {
->  	vma->vm_ops = NULL;
-> diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-> index 2d6d790d9bed..6c7c70bf50dd 100644
-> --- a/include/linux/mm_types.h
-> +++ b/include/linux/mm_types.h
-> @@ -491,7 +491,13 @@ struct vm_area_struct {
->  	 * See vmf_insert_mixed_prot() for discussion.
->  	 */
->  	pgprot_t vm_page_prot;
-> -	unsigned long vm_flags;		/* Flags, see mm.h. */
-> +
-> +	/*
-> +	 * Flags, see mm.h.
-> +	 * WARNING! Do not modify directly.
-> +	 * Use {init|reset|set|clear|mod}_vm_flags() functions instead.
-> +	 */
-> +	unsigned long vm_flags;
->  
->  	/*
->  	 * For areas with an address space and backing store,
-> -- 
-> 2.39.1
-
+diff --git a/arch/powerpc/kvm/book3s_hv_uvmem.c b/arch/powerpc/kvm/book3s_hv_uvmem.c
+index 1d67baa5557a..325a7a47d348 100644
+--- a/arch/powerpc/kvm/book3s_hv_uvmem.c
++++ b/arch/powerpc/kvm/book3s_hv_uvmem.c
+@@ -393,6 +393,7 @@ static int kvmppc_memslot_page_merge(struct kvm *kvm,
+ {
+ 	unsigned long gfn = memslot->base_gfn;
+ 	unsigned long end, start = gfn_to_hva(kvm, gfn);
++	unsigned long vm_flags;
+ 	int ret = 0;
+ 	struct vm_area_struct *vma;
+ 	int merge_flag = (merge) ? MADV_MERGEABLE : MADV_UNMERGEABLE;
+@@ -409,12 +410,14 @@ static int kvmppc_memslot_page_merge(struct kvm *kvm,
+ 			ret = H_STATE;
+ 			break;
+ 		}
++		vm_flags = vma->vm_flags;
+ 		ret = ksm_madvise(vma, vma->vm_start, vma->vm_end,
+-			  merge_flag, &vma->vm_flags);
++			  merge_flag, &vm_flags);
+ 		if (ret) {
+ 			ret = H_STATE;
+ 			break;
+ 		}
++		reset_vm_flags(vma, vm_flags);
+ 		start = vma->vm_end;
+ 	} while (end > vma->vm_end);
+ 
+diff --git a/arch/s390/mm/gmap.c b/arch/s390/mm/gmap.c
+index 3a695b8a1e3c..d5eb47dcdacb 100644
+--- a/arch/s390/mm/gmap.c
++++ b/arch/s390/mm/gmap.c
+@@ -2587,14 +2587,17 @@ int gmap_mark_unmergeable(void)
+ {
+ 	struct mm_struct *mm = current->mm;
+ 	struct vm_area_struct *vma;
++	unsigned long vm_flags;
+ 	int ret;
+ 	VMA_ITERATOR(vmi, mm, 0);
+ 
+ 	for_each_vma(vmi, vma) {
++		vm_flags = vma->vm_flags;
+ 		ret = ksm_madvise(vma, vma->vm_start, vma->vm_end,
+-				  MADV_UNMERGEABLE, &vma->vm_flags);
++				  MADV_UNMERGEABLE, &vm_flags);
+ 		if (ret)
+ 			return ret;
++		reset_vm_flags(vma, vm_flags);
+ 	}
+ 	mm->def_flags &= ~VM_MERGEABLE;
+ 	return 0;
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 8abc59345bf2..76b24cd0c179 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -354,6 +354,8 @@ struct attribute_group khugepaged_attr_group = {
+ int hugepage_madvise(struct vm_area_struct *vma,
+ 		     unsigned long *vm_flags, int advice)
+ {
++	/* vma->vm_flags can be changed only using modifier functions */
++	BUG_ON(vm_flags == &vma->vm_flags);
+ 	switch (advice) {
+ 	case MADV_HUGEPAGE:
+ #ifdef CONFIG_S390
+diff --git a/mm/ksm.c b/mm/ksm.c
+index 04f1c8c2df11..992b2be9f5e6 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -2573,6 +2573,8 @@ int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
+ 	struct mm_struct *mm = vma->vm_mm;
+ 	int err;
+ 
++	/* vma->vm_flags can be changed only using modifier functions */
++	BUG_ON(vm_flags == &vma->vm_flags);
+ 	switch (advice) {
+ 	case MADV_MERGEABLE:
+ 		/*
 -- 
-Michal Hocko
-SUSE Labs
+2.39.1
+
