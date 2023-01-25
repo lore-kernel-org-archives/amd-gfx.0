@@ -4,50 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABD12C61D9D
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 14:08:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C35DFC54E94
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 14:11:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB14810E7D6;
-	Wed, 25 Jan 2023 14:08:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C71510E7C4;
+	Wed, 25 Jan 2023 14:11:47 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3F2710E0DB;
- Wed, 25 Jan 2023 09:42:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCDCD10E7B9;
+ Wed, 25 Jan 2023 14:11:45 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4168D21C82;
- Wed, 25 Jan 2023 09:42:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1674639751; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 883AC219F8;
+ Wed, 25 Jan 2023 14:11:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1674655904; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=wTTa+i+nU+PdO+h/KcQj1hMAey36ZrEColPN1KlfYvE=;
- b=clWvQxTxYrcNsHq7lTW0Gmn0i9h9Vid00Q4BuOr2XE/g1EjsCUMp3x1tEVjyMZZDFxjZ7J
- MRDv0FaWEHjjbLpg/9bXRPSZ0dzlfrRGaR9q7sau82jdMWVZcIKDfvaIB1lskwM2rm1evI
- GWHFNFcuhlRvYoauPeDnqXLmG4Hflh8=
+ bh=Yz5VDm1k5I1ztdBG/BHIBO00HvHLkqpo6yWiKf4vCQA=;
+ b=bKIYw6zNUJM2ld5PHempeAxhOhFzotW5y1OJAO4xhfZfcwzST4FMbQqCkCoTbhjzuRuMTx
+ v5rOtGQvFGAPaqVQ6Si99fJSBJixgKp4MHbl+xHiW+7F1PHQLHtHNwezaU4hso/diIcEVq
+ 6Nvv89lmlGabwOXirigD2MNqUI4Ds6Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1674655904;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Yz5VDm1k5I1ztdBG/BHIBO00HvHLkqpo6yWiKf4vCQA=;
+ b=BjicCOzmJO6BeVd/DxXc3eJUAmSZ6QkNzrzWehhRaBtk1KcZ8W8P0Z5j9FnAI1WXpwTwyt
+ jS1mbURNCbnC+WCA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EA4FB1358F;
- Wed, 25 Jan 2023 09:42:30 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4323A1358F;
+ Wed, 25 Jan 2023 14:11:44 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id yLixOIb50GN6IgAAMHmgww
- (envelope-from <mhocko@suse.com>); Wed, 25 Jan 2023 09:42:30 +0000
-Date: Wed, 25 Jan 2023 10:42:30 +0100
-From: Michal Hocko <mhocko@suse.com>
-To: Suren Baghdasaryan <surenb@google.com>
-Subject: Re: [PATCH v2 5/6] mm: introduce mod_vm_flags_nolock and use it in
- untrack_pfn
-Message-ID: <Y9D5hjcprLI92VKf@dhcp22.suse.cz>
-References: <20230125083851.27759-1-surenb@google.com>
- <20230125083851.27759-6-surenb@google.com>
+ by imap2.suse-dmz.suse.de with ESMTPSA id 3LFjD6A40WNwQwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Wed, 25 Jan 2023 14:11:44 +0000
+Message-ID: <511111fe-f228-b902-927e-271977b05201@suse.de>
+Date: Wed, 25 Jan 2023 15:11:43 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230125083851.27759-6-surenb@google.com>
-X-Mailman-Approved-At: Wed, 25 Jan 2023 14:08:05 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH v2 03/10] drm/fb-helper: Introduce
+ drm_fb_helper_unprepare()
+Content-Language: en-US
+To: Javier Martinez Canillas <javierm@redhat.com>, airlied@gmail.com,
+ daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org
+References: <20230124134010.30263-1-tzimmermann@suse.de>
+ <20230124134010.30263-4-tzimmermann@suse.de>
+ <2a007c84-1dd6-ed8a-39ac-8c7c070513f3@redhat.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+In-Reply-To: <2a007c84-1dd6-ed8a-39ac-8c7c070513f3@redhat.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------uhOt4lte6SCpXJgrHcNZJ5Kc"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,319 +72,125 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
- leewalsh@google.com, dri-devel@lists.freedesktop.org, perex@perex.cz,
- jglisse@google.com, arjunroy@google.com, m.szyprowski@samsung.com,
- linux-arch@vger.kernel.org, qianweili@huawei.com,
- linux-samsung-soc@vger.kernel.org, aneesh.kumar@linux.ibm.com,
- chenhuacai@kernel.org, kasan-dev@googlegroups.com, linux-acpi@vger.kernel.org,
- rientjes@google.com, xen-devel@lists.xenproject.org, devel@lists.orangefs.org,
- robdclark@gmail.com, minchan@google.com, robert.jarzmik@free.fr,
- linux-um@lists.infradead.org, etnaviv@lists.freedesktop.org, npiggin@gmail.com,
- alex.williamson@redhat.com, viro@zeniv.linux.org.uk, luto@kernel.org,
- gthelen@google.com, tglx@linutronix.de, ldufour@linux.ibm.com,
- linux-sgx@vger.kernel.org, martin.petersen@oracle.com,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
- linux-media@vger.kernel.org, freedreno@lists.freedesktop.org,
- joelaf@google.com, linux-aio@kvack.org, linux-fbdev@vger.kernel.org,
- linux-ia64@vger.kernel.org, david@redhat.com, dave.hansen@linux.intel.com,
- virtualization@lists.linux-foundation.org, edumazet@google.com,
- target-devel@vger.kernel.org, punit.agrawal@bytedance.com,
- linux-s390@vger.kernel.org, dave@stgolabs.net, deller@gmx.de, hughd@google.com,
- andrii@kernel.org, patrik.r.jakobsson@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
- linux-graphics-maintainer@vmware.com, kernel-team@android.com,
- jayalk@intworks.biz, soheil@google.com, selinux@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, mripard@kernel.org, shakeelb@google.com,
- haojian.zhuang@gmail.com, loongarch@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, tytso@mit.edu, nico@fluxnic.net,
- muchun.song@linux.dev, hjc@rock-chips.com, mcoquelin.stm32@gmail.com,
- tatashin@google.com, mike.kravetz@oracle.com, songliubraving@fb.com,
- jasowang@redhat.com, alsa-devel@alsa-project.org, peterx@redhat.com,
- linux-tegra@vger.kernel.org, kraxel@redhat.com, will@kernel.org,
- dmaengine@vger.kernel.org, bhe@redhat.com, miklos@szeredi.hu,
- linux-rdma@vger.kernel.org, linux-staging@lists.linux.dev, willy@infradead.org,
- gurua@google.com, dgilbert@interlog.com, xiang@kernel.org, pabeni@redhat.com,
- jejb@linux.ibm.com, quic_abhinavk@quicinc.com, bp@alien8.de,
- mchehab@kernel.org, linux-ext4@vger.kernel.org, tomba@kernel.org,
- hughlynch@google.com, sre@kernel.org, tfiga@chromium.org,
- linux-xfs@vger.kernel.org, zhangfei.gao@linaro.org, wangzhou1@hisilicon.com,
- netdev@vger.kernel.org, bpf@vger.kernel.org, linux-erofs@lists.ozlabs.org,
- davem@davemloft.net, kvm@vger.kernel.org, mst@redhat.com, peterz@infradead.org,
- bigeasy@linutronix.de, alexandre.torgue@foss.st.com, dhowells@redhat.com,
- linux-mm@kvack.org, ray.huang@amd.com, adilger.kernel@dilger.ca,
- kuba@kernel.org, sparclinux@vger.kernel.org, airlied@gmail.com,
- anton.ivanov@cambridgegreys.com, herbert@gondor.apana.org.au,
- linux-scsi@vger.kernel.org, richard@nod.at, x86@kernel.org, vkoul@kernel.org,
- mingo@redhat.com, axelrasmussen@google.com, intel-gfx@lists.freedesktop.org,
- daniel@ffwll.ch, paulmck@kernel.org, jannh@google.com, chao@kernel.org,
- maarten.lankhorst@linux.intel.com, liam.howlett@oracle.com,
- hdegoede@redhat.com, linux-mediatek@lists.infradead.org,
- matthias.bgg@gmail.com, vbabka@suse.cz, dimitri.sivanich@hpe.com,
- amd-gfx@lists.freedesktop.org, posk@google.com, lstoakes@gmail.com,
- peterjung1337@gmail.com, yoshfuji@linux-ipv6.org,
- linuxppc-dev@lists.ozlabs.org, dsahern@kernel.org, kent.overstreet@linux.dev,
- kexec@lists.infradead.org, tiwai@suse.com, krzysztof.kozlowski@linaro.org,
- tzimmermann@suse.de, hannes@cmpxchg.org, dmitry.baryshkov@linaro.org,
- johannes@sipsolutions.net, mgorman@techsingularity.net,
- linux-accelerators@lists.ozlabs.org, l.stach@pengutronix.de
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed 25-01-23 00:38:50, Suren Baghdasaryan wrote:
-> In cases when VMA flags are modified after VMA was isolated and mmap_lock
-> was downgraded, flags modifications would result in an assertion because
-> mmap write lock is not held.
-> Introduce mod_vm_flags_nolock to be used in such situation.
-> Pass a hint to untrack_pfn to conditionally use mod_vm_flags_nolock for
-> flags modification and to avoid assertion.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------uhOt4lte6SCpXJgrHcNZJ5Kc
+Content-Type: multipart/mixed; boundary="------------1xFZhqx0BfEL0gHwPWLPEDpU";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Javier Martinez Canillas <javierm@redhat.com>, airlied@gmail.com,
+ daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Message-ID: <511111fe-f228-b902-927e-271977b05201@suse.de>
+Subject: Re: [PATCH v2 03/10] drm/fb-helper: Introduce
+ drm_fb_helper_unprepare()
+References: <20230124134010.30263-1-tzimmermann@suse.de>
+ <20230124134010.30263-4-tzimmermann@suse.de>
+ <2a007c84-1dd6-ed8a-39ac-8c7c070513f3@redhat.com>
+In-Reply-To: <2a007c84-1dd6-ed8a-39ac-8c7c070513f3@redhat.com>
 
-The changelog nor the documentation of mod_vm_flags_nolock 
-really explain when it is safe to use it. This is really important for
-future potential users.
+--------------1xFZhqx0BfEL0gHwPWLPEDpU
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
-> ---
->  arch/x86/mm/pat/memtype.c | 10 +++++++---
->  include/linux/mm.h        | 12 +++++++++---
->  include/linux/pgtable.h   |  5 +++--
->  mm/memory.c               | 13 +++++++------
->  mm/memremap.c             |  4 ++--
->  mm/mmap.c                 | 16 ++++++++++------
->  6 files changed, 38 insertions(+), 22 deletions(-)
-> 
-> diff --git a/arch/x86/mm/pat/memtype.c b/arch/x86/mm/pat/memtype.c
-> index ae9645c900fa..d8adc0b42cf2 100644
-> --- a/arch/x86/mm/pat/memtype.c
-> +++ b/arch/x86/mm/pat/memtype.c
-> @@ -1046,7 +1046,7 @@ void track_pfn_insert(struct vm_area_struct *vma, pgprot_t *prot, pfn_t pfn)
->   * can be for the entire vma (in which case pfn, size are zero).
->   */
->  void untrack_pfn(struct vm_area_struct *vma, unsigned long pfn,
-> -		 unsigned long size)
-> +		 unsigned long size, bool mm_wr_locked)
->  {
->  	resource_size_t paddr;
->  	unsigned long prot;
-> @@ -1065,8 +1065,12 @@ void untrack_pfn(struct vm_area_struct *vma, unsigned long pfn,
->  		size = vma->vm_end - vma->vm_start;
->  	}
->  	free_pfn_range(paddr, size);
-> -	if (vma)
-> -		clear_vm_flags(vma, VM_PAT);
-> +	if (vma) {
-> +		if (mm_wr_locked)
-> +			clear_vm_flags(vma, VM_PAT);
-> +		else
-> +			mod_vm_flags_nolock(vma, 0, VM_PAT);
-> +	}
->  }
->  
->  /*
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index 55335edd1373..48d49930c411 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -656,12 +656,18 @@ static inline void clear_vm_flags(struct vm_area_struct *vma,
->  	vma->vm_flags &= ~flags;
->  }
->  
-> +static inline void mod_vm_flags_nolock(struct vm_area_struct *vma,
-> +				       unsigned long set, unsigned long clear)
-> +{
-> +	vma->vm_flags |= set;
-> +	vma->vm_flags &= ~clear;
-> +}
-> +
->  static inline void mod_vm_flags(struct vm_area_struct *vma,
->  				unsigned long set, unsigned long clear)
->  {
->  	mmap_assert_write_locked(vma->vm_mm);
-> -	vma->vm_flags |= set;
-> -	vma->vm_flags &= ~clear;
-> +	mod_vm_flags_nolock(vma, set, clear);
->  }
->  
->  static inline void vma_set_anonymous(struct vm_area_struct *vma)
-> @@ -2087,7 +2093,7 @@ static inline void zap_vma_pages(struct vm_area_struct *vma)
->  }
->  void unmap_vmas(struct mmu_gather *tlb, struct maple_tree *mt,
->  		struct vm_area_struct *start_vma, unsigned long start,
-> -		unsigned long end);
-> +		unsigned long end, bool mm_wr_locked);
->  
->  struct mmu_notifier_range;
->  
-> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-> index 5fd45454c073..c63cd44777ec 100644
-> --- a/include/linux/pgtable.h
-> +++ b/include/linux/pgtable.h
-> @@ -1185,7 +1185,8 @@ static inline int track_pfn_copy(struct vm_area_struct *vma)
->   * can be for the entire vma (in which case pfn, size are zero).
->   */
->  static inline void untrack_pfn(struct vm_area_struct *vma,
-> -			       unsigned long pfn, unsigned long size)
-> +			       unsigned long pfn, unsigned long size,
-> +			       bool mm_wr_locked)
->  {
->  }
->  
-> @@ -1203,7 +1204,7 @@ extern void track_pfn_insert(struct vm_area_struct *vma, pgprot_t *prot,
->  			     pfn_t pfn);
->  extern int track_pfn_copy(struct vm_area_struct *vma);
->  extern void untrack_pfn(struct vm_area_struct *vma, unsigned long pfn,
-> -			unsigned long size);
-> +			unsigned long size, bool mm_wr_locked);
->  extern void untrack_pfn_moved(struct vm_area_struct *vma);
->  #endif
->  
-> diff --git a/mm/memory.c b/mm/memory.c
-> index d6902065e558..5b11b50e2c4a 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -1613,7 +1613,7 @@ void unmap_page_range(struct mmu_gather *tlb,
->  static void unmap_single_vma(struct mmu_gather *tlb,
->  		struct vm_area_struct *vma, unsigned long start_addr,
->  		unsigned long end_addr,
-> -		struct zap_details *details)
-> +		struct zap_details *details, bool mm_wr_locked)
->  {
->  	unsigned long start = max(vma->vm_start, start_addr);
->  	unsigned long end;
-> @@ -1628,7 +1628,7 @@ static void unmap_single_vma(struct mmu_gather *tlb,
->  		uprobe_munmap(vma, start, end);
->  
->  	if (unlikely(vma->vm_flags & VM_PFNMAP))
-> -		untrack_pfn(vma, 0, 0);
-> +		untrack_pfn(vma, 0, 0, mm_wr_locked);
->  
->  	if (start != end) {
->  		if (unlikely(is_vm_hugetlb_page(vma))) {
-> @@ -1675,7 +1675,7 @@ static void unmap_single_vma(struct mmu_gather *tlb,
->   */
->  void unmap_vmas(struct mmu_gather *tlb, struct maple_tree *mt,
->  		struct vm_area_struct *vma, unsigned long start_addr,
-> -		unsigned long end_addr)
-> +		unsigned long end_addr, bool mm_wr_locked)
->  {
->  	struct mmu_notifier_range range;
->  	struct zap_details details = {
-> @@ -1689,7 +1689,8 @@ void unmap_vmas(struct mmu_gather *tlb, struct maple_tree *mt,
->  				start_addr, end_addr);
->  	mmu_notifier_invalidate_range_start(&range);
->  	do {
-> -		unmap_single_vma(tlb, vma, start_addr, end_addr, &details);
-> +		unmap_single_vma(tlb, vma, start_addr, end_addr, &details,
-> +				 mm_wr_locked);
->  	} while ((vma = mas_find(&mas, end_addr - 1)) != NULL);
->  	mmu_notifier_invalidate_range_end(&range);
->  }
-> @@ -1723,7 +1724,7 @@ void zap_page_range_single(struct vm_area_struct *vma, unsigned long address,
->  	 * unmap 'address-end' not 'range.start-range.end' as range
->  	 * could have been expanded for hugetlb pmd sharing.
->  	 */
-> -	unmap_single_vma(&tlb, vma, address, end, details);
-> +	unmap_single_vma(&tlb, vma, address, end, details, false);
->  	mmu_notifier_invalidate_range_end(&range);
->  	tlb_finish_mmu(&tlb);
->  }
-> @@ -2492,7 +2493,7 @@ int remap_pfn_range(struct vm_area_struct *vma, unsigned long addr,
->  
->  	err = remap_pfn_range_notrack(vma, addr, pfn, size, prot);
->  	if (err)
-> -		untrack_pfn(vma, pfn, PAGE_ALIGN(size));
-> +		untrack_pfn(vma, pfn, PAGE_ALIGN(size), true);
->  	return err;
->  }
->  EXPORT_SYMBOL(remap_pfn_range);
-> diff --git a/mm/memremap.c b/mm/memremap.c
-> index 08cbf54fe037..2f88f43d4a01 100644
-> --- a/mm/memremap.c
-> +++ b/mm/memremap.c
-> @@ -129,7 +129,7 @@ static void pageunmap_range(struct dev_pagemap *pgmap, int range_id)
->  	}
->  	mem_hotplug_done();
->  
-> -	untrack_pfn(NULL, PHYS_PFN(range->start), range_len(range));
-> +	untrack_pfn(NULL, PHYS_PFN(range->start), range_len(range), true);
->  	pgmap_array_delete(range);
->  }
->  
-> @@ -276,7 +276,7 @@ static int pagemap_range(struct dev_pagemap *pgmap, struct mhp_params *params,
->  	if (!is_private)
->  		kasan_remove_zero_shadow(__va(range->start), range_len(range));
->  err_kasan:
-> -	untrack_pfn(NULL, PHYS_PFN(range->start), range_len(range));
-> +	untrack_pfn(NULL, PHYS_PFN(range->start), range_len(range), true);
->  err_pfn_remap:
->  	pgmap_array_delete(range);
->  	return error;
-> diff --git a/mm/mmap.c b/mm/mmap.c
-> index 2c6e9072e6a8..69d440997648 100644
-> --- a/mm/mmap.c
-> +++ b/mm/mmap.c
-> @@ -78,7 +78,7 @@ core_param(ignore_rlimit_data, ignore_rlimit_data, bool, 0644);
->  static void unmap_region(struct mm_struct *mm, struct maple_tree *mt,
->  		struct vm_area_struct *vma, struct vm_area_struct *prev,
->  		struct vm_area_struct *next, unsigned long start,
-> -		unsigned long end);
-> +		unsigned long end, bool mm_wr_locked);
->  
->  static pgprot_t vm_pgprot_modify(pgprot_t oldprot, unsigned long vm_flags)
->  {
-> @@ -2136,14 +2136,14 @@ static inline void remove_mt(struct mm_struct *mm, struct ma_state *mas)
->  static void unmap_region(struct mm_struct *mm, struct maple_tree *mt,
->  		struct vm_area_struct *vma, struct vm_area_struct *prev,
->  		struct vm_area_struct *next,
-> -		unsigned long start, unsigned long end)
-> +		unsigned long start, unsigned long end, bool mm_wr_locked)
->  {
->  	struct mmu_gather tlb;
->  
->  	lru_add_drain();
->  	tlb_gather_mmu(&tlb, mm);
->  	update_hiwater_rss(mm);
-> -	unmap_vmas(&tlb, mt, vma, start, end);
-> +	unmap_vmas(&tlb, mt, vma, start, end, mm_wr_locked);
->  	free_pgtables(&tlb, mt, vma, prev ? prev->vm_end : FIRST_USER_ADDRESS,
->  				 next ? next->vm_start : USER_PGTABLES_CEILING);
->  	tlb_finish_mmu(&tlb);
-> @@ -2391,7 +2391,11 @@ do_vmi_align_munmap(struct vma_iterator *vmi, struct vm_area_struct *vma,
->  			mmap_write_downgrade(mm);
->  	}
->  
-> -	unmap_region(mm, &mt_detach, vma, prev, next, start, end);
-> +	/*
-> +	 * We can free page tables without write-locking mmap_lock because VMAs
-> +	 * were isolated before we downgraded mmap_lock.
-> +	 */
-> +	unmap_region(mm, &mt_detach, vma, prev, next, start, end, !downgrade);
->  	/* Statistics and freeing VMAs */
->  	mas_set(&mas_detach, start);
->  	remove_mt(mm, &mas_detach);
-> @@ -2704,7 +2708,7 @@ unsigned long mmap_region(struct file *file, unsigned long addr,
->  
->  		/* Undo any partial mapping done by a device driver. */
->  		unmap_region(mm, &mm->mm_mt, vma, prev, next, vma->vm_start,
-> -			     vma->vm_end);
-> +			     vma->vm_end, true);
->  	}
->  	if (file && (vm_flags & VM_SHARED))
->  		mapping_unmap_writable(file->f_mapping);
-> @@ -3031,7 +3035,7 @@ void exit_mmap(struct mm_struct *mm)
->  	tlb_gather_mmu_fullmm(&tlb, mm);
->  	/* update_hiwater_rss(mm) here? but nobody should be looking */
->  	/* Use ULONG_MAX here to ensure all VMAs in the mm are unmapped */
-> -	unmap_vmas(&tlb, &mm->mm_mt, vma, 0, ULONG_MAX);
-> +	unmap_vmas(&tlb, &mm->mm_mt, vma, 0, ULONG_MAX, false);
->  	mmap_read_unlock(mm);
->  
->  	/*
-> -- 
-> 2.39.1
+SGkNCg0KQW0gMjUuMDEuMjMgdW0gMTA6MTggc2NocmllYiBKYXZpZXIgTWFydGluZXogQ2Fu
+aWxsYXM6DQo+IE9uIDEvMjQvMjMgMTQ6NDAsIFRob21hcyBaaW1tZXJtYW5uIHdyb3RlOg0K
+Pj4gTW92ZSB0aGUgZmItaGVscGVyIGNsZWFuLXVwIGNvZGUgaW50byBkcm1fZmJfaGVscGVy
+X3VucHJlcGFyZSgpLiBObw0KPj4gZnVuY3Rpb25hbCBjaGFuZ2VzLg0KPj4NCj4+IHYyOg0K
+Pj4gCSogZGVjbGFyZSBhcyBzdGF0aWMgaW5saW5lIChrZXJuZWwgdGVzdCByb2JvdCkNCj4+
+DQo+PiBTaWduZWQtb2ZmLWJ5OiBUaG9tYXMgWmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3Vz
+ZS5kZT4NCj4+IC0tLQ0KPj4gICBkcml2ZXJzL2dwdS9kcm0vZHJtX2ZiX2hlbHBlci5jIHwg
+MTQgKysrKysrKysrKysrKy0NCj4+ICAgaW5jbHVkZS9kcm0vZHJtX2ZiX2hlbHBlci5oICAg
+ICB8ICA1ICsrKysrDQo+PiAgIDIgZmlsZXMgY2hhbmdlZCwgMTggaW5zZXJ0aW9ucygrKSwg
+MSBkZWxldGlvbigtKQ0KPj4NCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZHJt
+X2ZiX2hlbHBlci5jIGIvZHJpdmVycy9ncHUvZHJtL2RybV9mYl9oZWxwZXIuYw0KPj4gaW5k
+ZXggYzVjMTNlMTkyYjY0Li40Mzc5YmNkNzcxOGIgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vZHJtX2ZiX2hlbHBlci5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJt
+X2ZiX2hlbHBlci5jDQo+PiBAQCAtNDM1LDYgKzQzNSwxOCBAQCB2b2lkIGRybV9mYl9oZWxw
+ZXJfcHJlcGFyZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCBzdHJ1Y3QgZHJtX2ZiX2hlbHBl
+ciAqaGVscGVyLA0KPj4gICB9DQo+PiAgIEVYUE9SVF9TWU1CT0woZHJtX2ZiX2hlbHBlcl9w
+cmVwYXJlKTsNCj4+ICAgDQo+PiArLyoqDQo+PiArICogZHJtX2ZiX2hlbHBlcl91bnByZXBh
+cmUgLSBjbGVhbiB1cCBhIGRybV9mYl9oZWxwZXIgc3RydWN0dXJlDQo+PiArICogQGZiX2hl
+bHBlcjogZHJpdmVyLWFsbG9jYXRlZCBmYmRldiBoZWxwZXIgc3RydWN0dXJlIHRvIHNldCB1
+cA0KPj4gKyAqDQo+PiArICogQ2xlYW5zIHVwIHRoZSBmcmFtZWJ1ZmZlciBoZWxwZXIuIElu
+dmVyc2Ugb2YgZHJtX2ZiX2hlbHBlcl9wcmVwYXJlKCkuDQo+PiArICovDQo+PiArdm9pZCBk
+cm1fZmJfaGVscGVyX3VucHJlcGFyZShzdHJ1Y3QgZHJtX2ZiX2hlbHBlciAqZmJfaGVscGVy
+KQ0KPj4gK3sNCj4+ICsJbXV0ZXhfZGVzdHJveSgmZmJfaGVscGVyLT5sb2NrKTsNCj4+ICt9
+DQo+IA0KPiBJIGxpa2UgdGhhdCB3ZSBoYXZlIGFuIF91bnByZXBhcmUgdGhhdCBpcyB0aGUg
+aW52ZXJzZSBvZiB0aGUgX3ByZXBhcmUsIGJ1dA0KPiBzaW5jZSBpcyBvbmx5IGRlc3Ryb3lp
+bmcgdGhlIG11dGV4LCBtYXliZSBpcyBhbiB1bm5lZWRlZCBpbmRpcmVjdGlvbiBsZXZlbD8N
+Cj4gDQo+IE9yIGRvIHlvdSBwbGFuIHRvIGFkZCBtb3JlIGNsZWFudXAgdG8gdGhhdCBfdW5w
+cmVwYXJlIGZ1bmN0aW9uPyBPdGhlcndpc2UgSQ0KPiB3b3VsZCBqdXN0IG1ha2UgaXQgYW4g
+aW5saW5lIGZ1bmN0aW9uLg0KDQpUaGVyZSBjb3VsZCBwb3NzaWJseSBiZSBtb3JlOyBub3Qg
+c3VyZSB5ZXQuIFdpdGggcGF0Y2ggMDQsIHRoZSBjYWxsIGlzIA0KYmVpbmcgaW52b2tlZCBm
+cm9tIGRybV9mYmRldl9nZW5lcmljLmMuIEFuZCBJIGhhdmUgcHJvdG90eXBlIHBhdGNoZXMg
+DQp0aGF0IGNvbnZlcnQgYSBudW1iZXIgb2YgZHJpdmVyLWludGVybmFsIGZiZGV2cyB0byB1
+c2Ugc3RydWN0IA0KZHJtX2NsaWVudC4gVGhleSBhbGwgZm9sbG93IHRoZSBzYW1lIGRlc2ln
+bi9zdHJ1Y3R1cmUvcGF0dGVybiB0aGF0IGlzIA0KYmVpbmcgbGF5ZWQgb3V0IGluIGdlbmVy
+aWMtZmJkZXYgaW4gdGhpcyBwYXRjaHNldC4gSW4gdGhlIGVuZCANCmRybV9mYl9oZWxwZXJf
+dW5wcmVwYXJlIHdpbGwgZGVmaW5pdGVseSBiZSBhIHB1YmxpYyBpbnRlcmZhY2Ugb2YgdGhl
+IA0KZmJkZXYgaGVscGVycy4NCg0KQmVzdCByZWdhcmRzDQpUaG9tYXMNCg0KPiANCj4+ICtF
+WFBPUlRfU1lNQk9MKGRybV9mYl9oZWxwZXJfdW5wcmVwYXJlKTsNCj4+ICsNCj4gDQo+IERv
+ZXMgaXQgaGF2ZSB0byBiZSBhbiBleHBvcnRlZCBzeW1ib2w/IEFGQUlDVCB0aGUgb25seSB1
+c2VyIGZvciBub3cgaXMgdGhlDQo+IGRybV9mYl9oZWxwZXJfZmluaSgpIGZ1bmN0aW9uLCBz
+byB0aGUgZnVuY3Rpb24gY291bGQgYmUgYSBzdGF0aWMgaW5saW5lLg0KPiANCj4gWy4uLl0N
+Cj4gDQo+PiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vZHJtX2ZiX2hlbHBlci5oIGIvaW5j
+bHVkZS9kcm0vZHJtX2ZiX2hlbHBlci5oDQo+PiBpbmRleCBmNDQzZTFmMTE2NTQuLjM5NzEw
+YzU3MGEwNCAxMDA2NDQNCj4+IC0tLSBhL2luY2x1ZGUvZHJtL2RybV9mYl9oZWxwZXIuaA0K
+Pj4gKysrIGIvaW5jbHVkZS9kcm0vZHJtX2ZiX2hlbHBlci5oDQo+PiBAQCAtMjMwLDYgKzIz
+MCw3IEBAIGRybV9mYl9oZWxwZXJfZnJvbV9jbGllbnQoc3RydWN0IGRybV9jbGllbnRfZGV2
+ICpjbGllbnQpDQo+PiAgICNpZmRlZiBDT05GSUdfRFJNX0ZCREVWX0VNVUxBVElPTg0KPj4g
+ICB2b2lkIGRybV9mYl9oZWxwZXJfcHJlcGFyZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCBz
+dHJ1Y3QgZHJtX2ZiX2hlbHBlciAqaGVscGVyLA0KPj4gICAJCQkgICBjb25zdCBzdHJ1Y3Qg
+ZHJtX2ZiX2hlbHBlcl9mdW5jcyAqZnVuY3MpOw0KPj4gK3ZvaWQgZHJtX2ZiX2hlbHBlcl91
+bnByZXBhcmUoc3RydWN0IGRybV9mYl9oZWxwZXIgKmZiX2hlbHBlcik7DQo+PiAgIGludCBk
+cm1fZmJfaGVscGVyX2luaXQoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgc3RydWN0IGRybV9m
+Yl9oZWxwZXIgKmhlbHBlcik7DQo+PiAgIHZvaWQgZHJtX2ZiX2hlbHBlcl9maW5pKHN0cnVj
+dCBkcm1fZmJfaGVscGVyICpoZWxwZXIpOw0KPj4gICBpbnQgZHJtX2ZiX2hlbHBlcl9ibGFu
+ayhpbnQgYmxhbmssIHN0cnVjdCBmYl9pbmZvICppbmZvKTsNCj4+IEBAIC0yOTYsNiArMjk3
+LDEwIEBAIHN0YXRpYyBpbmxpbmUgdm9pZCBkcm1fZmJfaGVscGVyX3ByZXBhcmUoc3RydWN0
+IGRybV9kZXZpY2UgKmRldiwNCj4+ICAgew0KPj4gICB9DQo+PiAgIA0KPj4gK3N0YXRpYyBp
+bmxpbmUgdm9pZCBkcm1fZmJfaGVscGVyX3VucHJlcGFyZShzdHJ1Y3QgZHJtX2ZiX2hlbHBl
+ciAqZmJfaGVscGVyKQ0KPj4gK3sNCj4+ICt9DQo+PiArDQo+IA0KPiBBbmQgeW91IHNob3Vs
+ZCBiZSBhYmxlIHRvIHJlbW92ZSB0aGlzIHN0dWIgaWYgeW91IGxpbWl0IHRoZSBzY29wZSBv
+ZiB0aGUgaGVscGVyLg0KPiANCj4gTm8gc3Ryb25nIG9waW5pb24gdGhvdWdoLiBTbyBpZiB5
+b3UgcHJlZmVyIHRvIGtlZXAgaXQgYXMgaXMsIGZlZWwgZnJlZSB0byBhZGQ6DQo+IA0KPiBS
+ZXZpZXdlZC1ieTogSmF2aWVyIE1hcnRpbmV6IENhbmlsbGFzIDxqYXZpZXJtQHJlZGhhdC5j
+b20+DQo+IA0KDQotLSANClRob21hcyBaaW1tZXJtYW5uDQpHcmFwaGljcyBEcml2ZXIgRGV2
+ZWxvcGVyDQpTVVNFIFNvZnR3YXJlIFNvbHV0aW9ucyBHZXJtYW55IEdtYkgNCk1heGZlbGRz
+dHIuIDUsIDkwNDA5IE7DvHJuYmVyZywgR2VybWFueQ0KKEhSQiAzNjgwOSwgQUcgTsO8cm5i
+ZXJnKQ0KR2VzY2jDpGZ0c2bDvGhyZXI6IEl2byBUb3Rldg0K
 
--- 
-Michal Hocko
-SUSE Labs
+--------------1xFZhqx0BfEL0gHwPWLPEDpU--
+
+--------------uhOt4lte6SCpXJgrHcNZJ5Kc
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmPROJ8FAwAAAAAACgkQlh/E3EQov+DU
+gQ//VRXnT2/Muz4aNAJWKoqp2XtuHqq88l8DpoLVW70D9Hv+tAAhLBPmxf0l06H0timMiKd0hW6e
+E37h1/oz5jaaWFTyfW6biLp8GRJOlse5nutdh6KzH4cgWyQLQIJIFyN3kwtUd7ei9n8bAWMUo1RM
+td1NBOa+shzcHZlJvkWH5aiczHzTTlHEZNY9QpTKutnXK38ttSFHsy4n5D+n9p5FpfIIjp6vpv/3
+w/hJwtrrVdBb8aobCgwNwFa2f+A5M4pJe37IXacyQFfgH31jEEBL9Cx0sFFXLQ9Q6Qto2ZbDFbXN
+NArJqFuY8PyIWq/Dy6wGewEbEeWgOQGu6g44fYZd/+YB44RDpUlQsL6Tjx63i+0lRUuGt96FkVr7
+5AwKkQeaIqUK6eW7pbMUjpJHW1OKniHu2rzzy28O+E2Uqyy62TBzmvkjfYMyL6QNhrwQTBgT7Kfw
+TWJGMUmdsNwu14VVUnexT/Fc8pVNe3hIHKjdxSSNs2hObHJ0n+QbLpXJr4Xo+ujLvtNDa21sUQ1W
+7AJFcBWQSBmSjjRxB2CrsST57yaoHUA5wftA2tA6T+Elx2FqPpQPJbHL4sWjZPiG/UGN/Pl696VL
+aIG2ZwGUOIbiWO75NzoJOxv9xStlWzFJIVm/HLjZpDQoMT1XXOUXP/pv4WRyGuPaQHGcGrCK163u
+3fA=
+=kMJL
+-----END PGP SIGNATURE-----
+
+--------------uhOt4lte6SCpXJgrHcNZJ5Kc--
