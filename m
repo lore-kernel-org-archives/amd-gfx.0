@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FA2CC27C76
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 09:25:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E4F3C61DA4
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 09:31:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF35710E0DC;
-	Wed, 25 Jan 2023 09:25:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8552510E27D;
+	Wed, 25 Jan 2023 09:31:12 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6879E10E74B
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 09:25:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3874610E0DB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 09:31:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1674638710;
+ s=mimecast20190719; t=1674639069;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=MJl0EBn4HtiAr3IA7OgQLEz430pat4/3/h3H46oRT3g=;
- b=KO/F8P4vq8StqgMN5WTrUy+yBRODcTmvXLkNdiWJbBvY+PrQxM152TJ52cTrRMGmJgp3hd
- Mq418D+5UWJW/g7TONCkcO1TCMq3/FrAUDBt9CPrkiXfrSZDdhtjHIFV6w17aWUi8qd2gu
- XGMkU581WKYiDI4LD9T4aRRWm3FgGkI=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=e/WkTUKbzuIyITLmeh/5Sbr5wRBScMiQq+Y/7HiPtGw=;
+ b=OfK3zKcB1isdL/EGhdqOytLkF69cqVhTSaO1ki1ytPPq1xlE1KkWuW7+T181WAtGXfM3bH
+ 7/TOaM3XjJ0k8g/OMvefkK2wOh7TGlyQxu5QLAYrDRCTaj7WXKNNTaCl/po4D+kmlrbQL9
+ 2313j4I//YcaU/GJwoom02tsDLgjrRI=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-76-_E7SKel_M_G-e5pHWCa5UQ-1; Wed, 25 Jan 2023 04:25:09 -0500
-X-MC-Unique: _E7SKel_M_G-e5pHWCa5UQ-1
-Received: by mail-wm1-f72.google.com with SMTP id
- q19-20020a1cf313000000b003d96c95e2f9so332260wmq.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 01:25:08 -0800 (PST)
+ us-mta-614-rnVcUeHFPuKB8sxIjSOqAw-1; Wed, 25 Jan 2023 04:31:08 -0500
+X-MC-Unique: rnVcUeHFPuKB8sxIjSOqAw-1
+Received: by mail-wr1-f69.google.com with SMTP id
+ bj7-20020a0560001e0700b002bfb3c6ec00so608712wrb.4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 01:31:07 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=MJl0EBn4HtiAr3IA7OgQLEz430pat4/3/h3H46oRT3g=;
- b=v+sXbVk+E2Eus5zEDaeZxIyHTYMAhz/ncvESDP0pQCSzlDq1RJbxKjyZzjoyC9Qtpq
- fpYoVQJPqrZKcbY1cj75/DueC+3vypJwXN6GEEX7yeUdphjAuKobJV8jC1fQt/UiFxIt
- ZF/OJg6UzLOsSCMmWUbTcYi92Y1VvkLkuGyUfZJ11IM9AMad8DTmTaS+52XHvPEsoIak
- h7fjoFq61e8aNWW8n5dVB77J+3FCtbnBWKtRMooT1Ae1g4L+mWUPQ0A7dBI2dXSxQx99
- DQUTNn96u0tTzw+N9eSmYdLJ4PkrIvYpleoNy4tW+90GrUUy5rzVdD+m+5JnvUur/y4i
- QUwQ==
-X-Gm-Message-State: AFqh2kpaWZfEWfw/CKsKdBW24nDHkdYGUoovCAYTcjFUbClQ8MyCoK9N
- HLcfVXHCv2y5TL4UTtnywzouSLXCQudngqjR9PAl6Mwe300hwx1VxCU2bHSQEQdqfdDKpGTUCAk
- z21sb6Z0lIjy52S/C02LiG/jjbg==
-X-Received: by 2002:adf:a38d:0:b0:2bf:9527:ce62 with SMTP id
- l13-20020adfa38d000000b002bf9527ce62mr13001327wrb.60.1674638707871; 
- Wed, 25 Jan 2023 01:25:07 -0800 (PST)
-X-Google-Smtp-Source: AMrXdXvA3fpsEqb88MB1qU578so/hL+p+6J8snUbZz7AHyqAc1so8GvG1XEiL3HmPZITj9u0u/0ozg==
-X-Received: by 2002:adf:a38d:0:b0:2bf:9527:ce62 with SMTP id
- l13-20020adfa38d000000b002bf9527ce62mr13001312wrb.60.1674638707672; 
- Wed, 25 Jan 2023 01:25:07 -0800 (PST)
+ bh=e/WkTUKbzuIyITLmeh/5Sbr5wRBScMiQq+Y/7HiPtGw=;
+ b=YN3EOpaQ8pCCW1lHjQgpWrqgmjI+D7JAZtJRiPvZPKbALDj7T04WXGOTO+vfXkY48z
+ oNxlAR75zHMcZOe2hldxWcQt8sFFdOrCv2osAwHkz81LCC3jSti7PoEsP9R994lgp4yu
+ iGrY0O+ukVFv09D/5JyB6cleI3FoMEGre56xNC3cW4p+b8HOd6K+A4qrXG1SUf8nIyng
+ 32lCH2XyWp80L5weHgl36+4OsWrwf5HOKzbMzqAYwxupGlPe2i1Nk8dNwTmYOMrRqoxk
+ GVnkGuDH85sjDs92PyBi2ZHJ4+23JBhPu9AkmsVkcGK0SlhB+rzLuZ8wCbKNph/yrplA
+ Edqg==
+X-Gm-Message-State: AFqh2kpoNgh3skx3VbgVrw3Z8UgWoNuec0Vv0QhjcI8VqrpHtCuZGVQr
+ j8PDw1HEyp3z8k+jMLYgDD7WEH/IrUo+BBgULy601T44YPAgWTB60W8B22sH+JAqxgqlcyUkeJh
+ BnM8uQqqUvGdhOeQ+l66qfJMxRA==
+X-Received: by 2002:a05:600c:c10:b0:3da:f5e6:a320 with SMTP id
+ fm16-20020a05600c0c1000b003daf5e6a320mr35822716wmb.22.1674639066890; 
+ Wed, 25 Jan 2023 01:31:06 -0800 (PST)
+X-Google-Smtp-Source: AMrXdXtFX/Kp2mSluNmLe5a+pgmO0l5es7cQOLhWqEKWjvp22TqYJWLpxeu0OJ4sOlzZNMpRvS8iog==
+X-Received: by 2002:a05:600c:c10:b0:3da:f5e6:a320 with SMTP id
+ fm16-20020a05600c0c1000b003daf5e6a320mr35822702wmb.22.1674639066649; 
+ Wed, 25 Jan 2023 01:31:06 -0800 (PST)
 Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
  [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- q8-20020adff788000000b002bfbda53b98sm534384wrp.35.2023.01.25.01.25.06
+ t20-20020adfa2d4000000b002bdcce37d31sm4573358wra.99.2023.01.25.01.31.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Jan 2023 01:25:07 -0800 (PST)
-Message-ID: <c0377e71-12b8-a545-dc48-704c223f344c@redhat.com>
-Date: Wed, 25 Jan 2023 10:25:06 +0100
+ Wed, 25 Jan 2023 01:31:06 -0800 (PST)
+Message-ID: <6bb09a17-2f13-4920-b156-3be80e507f48@redhat.com>
+Date: Wed, 25 Jan 2023 10:31:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
-Subject: Re: [PATCH v2 04/10] drm/fbdev-generic: Initialize fb-helper
- structure in generic setup
+Subject: Re: [PATCH v2 05/10] drm/fb-helper: Remove preferred_bpp parameter
+ from fbdev internals
 To: Thomas Zimmermann <tzimmermann@suse.de>, airlied@gmail.com,
  daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org
 References: <20230124134010.30263-1-tzimmermann@suse.de>
- <20230124134010.30263-5-tzimmermann@suse.de>
+ <20230124134010.30263-6-tzimmermann@suse.de>
 From: Javier Martinez Canillas <javierm@redhat.com>
-In-Reply-To: <20230124134010.30263-5-tzimmermann@suse.de>
+In-Reply-To: <20230124134010.30263-6-tzimmermann@suse.de>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
@@ -95,24 +95,19 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 1/24/23 14:40, Thomas Zimmermann wrote:
-> Initialize the fb-helper structure immediately after its allocation
-> in drm_fbdev_generic_setup(). That will make it easier to fill it with
-> driver-specific values, such as the preferred BPP.
+> Store the console's preferred BPP value in struct drm_fb_helper
+> and remove the respective function parameters from the internal
+> fbdev code.
+> 
+> The BPP value is only required as a fallback and will now always
+> be available in the fb-helper instance.
+> 
+> No functional changes.
 > 
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
 
-[...]
-
-> @@ -456,12 +454,12 @@ void drm_fbdev_generic_setup(struct drm_device *dev,
->  	fb_helper = kzalloc(sizeof(*fb_helper), GFP_KERNEL);
->  	if (!fb_helper)
->  		return;
-
-Maybe add a new line here?
-
-> +	drm_fb_helper_prepare(dev, fb_helper, &drm_fb_helper_generic_funcs);
->  
+That's much better indeed.
 
 Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 
