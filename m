@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 824DBC27C76
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 09:52:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C4C8C27C76
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 09:54:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 165EA10E763;
-	Wed, 25 Jan 2023 09:52:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D28A010E765;
+	Wed, 25 Jan 2023 09:54:30 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 957FE10E758
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 09:52:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2440C10E765
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 09:54:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1674640374;
+ s=mimecast20190719; t=1674640468;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=c6cPchqoXvC7fz4HOb1ChIaitTq8x3iNoLBlJaQ4TwQ=;
- b=ajymRgqzesHlDyjRtzzf4GoaDIEkCmdhsEAHLfvxU30Iq0plKkALI48ljdmHbkf8KJa0WC
- b0DSPIeD5BSMwNNH+o+IMUoQcjOW/qEexMzUIB8w7mc3ULi00xehGooHi/kaqxwglUJc0x
- YrCFZvTz2WbuHPXgkoHdeP9zB6tAD5Y=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=TouYpeVIY3sVaURhe3OBQ2as0Nh1mIpj/44gYLj7/xc=;
+ b=drh/E+7mDMGR49LUHRQH72giJXmyEJfT7HphMML1jyITbr0g5bocRge7O7EIjQxf8i/g+k
+ ZbRoyA/AP6Ol9OrA9a7Pb5eUodiS44NHOrIquEVZYHcBzlQ/oF7fVU0ylfW/sfd0W8IqOU
+ AwwSFVp6sDMTIW0zdUmOYtxP2Ed/0G8=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-606-2LYyywDzONWcChuFosN8RA-1; Wed, 25 Jan 2023 04:52:51 -0500
-X-MC-Unique: 2LYyywDzONWcChuFosN8RA-1
-Received: by mail-wr1-f70.google.com with SMTP id
- k18-20020adfb352000000b002bdd0a7a2b5so3055855wrd.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 01:52:51 -0800 (PST)
+ us-mta-390-1ouB8mzeNLSby6BcBf3LzQ-1; Wed, 25 Jan 2023 04:54:27 -0500
+X-MC-Unique: 1ouB8mzeNLSby6BcBf3LzQ-1
+Received: by mail-wm1-f71.google.com with SMTP id
+ o5-20020a05600c4fc500b003db0b3230efso810784wmq.9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 01:54:26 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=c6cPchqoXvC7fz4HOb1ChIaitTq8x3iNoLBlJaQ4TwQ=;
- b=nD5P5+NVAG44mFZkL90KZrWJHpvBXWSmjzDNCAHhSfZ7a48wxgNMvNkOWTNKovo7sQ
- CkzLiHmGeJx6Y5fI99c58UVOFem/zsimSVgZRu7CK3C2KkfJ3jT4jThq1PVSmOFTsM2B
- g156O+Fl6MPhngWVBnjWXUIFTVUSes3v7yo4GJ04wrtZiGLJtO0QmQyHhalaT+SWR+YA
- Xn8EZFH7Xj40LoyGMvoET5w/uMRz0bGakQ2lXZQI3nnjEs/9wP9lAbVChL7dRRxVql3c
- vyRoWqghcTIBcfqHOFh0gFoi+M7bmUl21pZWQy1a3FVTHkFFHnW1UxhrjyWpksRw5x+g
- PhKg==
-X-Gm-Message-State: AFqh2krRYcf/LBZpdezl+FEqyW0eQrhC39hxGUjLks9/k6S6FF7NPoq4
- TaNE3/72DhzTItbPXhpi3G+cL1ntL4CXvmOjosRrYwHu8Aw5oBYgKovSbenyav4lQ50mD1/Pvr0
- SKY4cqWuOT/4xfUCzrYgAXjHMSA==
-X-Received: by 2002:adf:df10:0:b0:2bb:e891:1829 with SMTP id
- y16-20020adfdf10000000b002bbe8911829mr26349575wrl.4.1674640370485; 
- Wed, 25 Jan 2023 01:52:50 -0800 (PST)
-X-Google-Smtp-Source: AMrXdXuvmq2QmH2lib1EOjSoV1HyQPmQn7B/0nRysa3FFY81sXz4YqkvR1qkRuVsXj3rXTMZ7umf1Q==
-X-Received: by 2002:adf:df10:0:b0:2bb:e891:1829 with SMTP id
- y16-20020adfdf10000000b002bbe8911829mr26349557wrl.4.1674640370241; 
- Wed, 25 Jan 2023 01:52:50 -0800 (PST)
+ bh=TouYpeVIY3sVaURhe3OBQ2as0Nh1mIpj/44gYLj7/xc=;
+ b=d2W7pWT7ScOO2w0cMTUxX7C3RzlCM4rxXkgbQXEwY2MEHbQV+Gb03AQkRfZRuitniz
+ JsiXL4RMDj9H4vhLyYpiuU/zyg8My2x1+GCF0CWxCqcXo/m69rGrxDfc6kqh1CiRVUZh
+ 130ZO56Pdhr+w/1FZq5ALe6wQObQb04OhtcxBhuVWczu56oL91//2+OdWlUBNq27UpZ9
+ UD2GFRPolHOKgKi5Zok7oFqe0np2iVD1x52M6yl47N50xjNb04lItbeHwyLknv2Pxza5
+ 0xAOj5vR/WzIbYlOkZ0c683UQdZ4RMsmKRuFYVHLsz+qLavsI47taisW+ack0Jnqkalh
+ G30w==
+X-Gm-Message-State: AFqh2koL0JJ0v48n+A/5kqYME6qWf7+g4miPCo4f5LTBXmHTLMUdlQJf
+ VJv+C5ulSonH/2eOidl7fVXdDka1YwhVebcqbezf9/zdgUUZe5bbVhBKN4PXyVX5bXcIdEafqS7
+ dPCGRxdDOQH60dzSd9sQrG2mN1Q==
+X-Received: by 2002:a5d:6944:0:b0:2bf:960b:7282 with SMTP id
+ r4-20020a5d6944000000b002bf960b7282mr15280445wrw.44.1674640465869; 
+ Wed, 25 Jan 2023 01:54:25 -0800 (PST)
+X-Google-Smtp-Source: AMrXdXs0qhPZq4DvvRBWKlYakMR9y6Uj+/MSQrsj/7lcQHcP5rYP7V12fMSxLIHPoxhHoCWiXuL3sg==
+X-Received: by 2002:a5d:6944:0:b0:2bf:960b:7282 with SMTP id
+ r4-20020a5d6944000000b002bf960b7282mr15280426wrw.44.1674640465680; 
+ Wed, 25 Jan 2023 01:54:25 -0800 (PST)
 Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
  [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- q14-20020adff78e000000b002be07cbefb2sm4747862wrp.18.2023.01.25.01.52.49
+ t9-20020adff049000000b002bddaea7a0bsm3982230wro.57.2023.01.25.01.54.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Jan 2023 01:52:49 -0800 (PST)
-Message-ID: <8e5bb4ed-11fb-272d-4d70-f25252a0c5c5@redhat.com>
-Date: Wed, 25 Jan 2023 10:52:48 +0100
+ Wed, 25 Jan 2023 01:54:24 -0800 (PST)
+Message-ID: <f1441822-c85d-4a2e-7e0c-98c3a6de31ac@redhat.com>
+Date: Wed, 25 Jan 2023 10:54:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
-Subject: Re: [PATCH v2 09/10] drm/fbdev-generic: Inline clean-up helpers into
- drm_fbdev_fb_destroy()
+Subject: Re: [PATCH v2 10/10] drm/fbdev-generic: Rename struct fb_info 'fbi'
+ to 'info'
 To: Thomas Zimmermann <tzimmermann@suse.de>, airlied@gmail.com,
  daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org
 References: <20230124134010.30263-1-tzimmermann@suse.de>
- <20230124134010.30263-10-tzimmermann@suse.de>
+ <20230124134010.30263-11-tzimmermann@suse.de>
 From: Javier Martinez Canillas <javierm@redhat.com>
-In-Reply-To: <20230124134010.30263-10-tzimmermann@suse.de>
+In-Reply-To: <20230124134010.30263-11-tzimmermann@suse.de>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
@@ -95,9 +95,11 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 1/24/23 14:40, Thomas Zimmermann wrote:
-> The fbdev framebuffer cleanup in drm_fbdev_fb_destroy() calls
-> drm_fbdev_release() and drm_fbdev_cleanup(). Inline both into the
-> caller. No functional changes.
+> The generic fbdev emulation names variables of type struct fb_info
+> both 'fbi' and 'info'. The latter seems to be more common in fbdev
+> code, so name fbi accordingly.
+> 
+> Also replace the duplicate variable in drm_fbdev_fb_destroy().
 > 
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
