@@ -4,39 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52714C54E94
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 21:46:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0C0FC54E94
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 22:02:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBBA310E1BB;
-	Wed, 25 Jan 2023 21:46:41 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E39A710E815;
- Wed, 25 Jan 2023 19:04:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=WhE3p5nMlMDjaV/irGLArTSJUCL3MW0izpTScdbc1OU=; b=mx74wVm8uyXRMzRkznkmPv14f3
- DM5mkZY0d2Y454KV/p1DBO6bVWUBYmLnjNwq5de4oOCp4K1tzlZ+pYhblaAnUsgNim9Cg22n4lXC7
- YVziRodKlXV3h1dcA4wCil3iZ6I2W+LteukgjO5nFw9bnJFOnLJvx0ni4Ju6wCzLw38ztU2xqwXDF
- Hz7a4pCnrIPatIpdvDFmrtxTdMVr7eH9j59LSpJj79ys6zGb7fhMV69syzXZoxm/q67WE7IxkNx+x
- YR6wIJfVUlSwCzFkthS2vqR79CZmfDxbuiYrAaQdlm8CD16FJpwzTtCFj0zPf7AtdmoIV8Mlhhb7E
- KwDK04uQ==;
-Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1pKkaL-0066XZ-MG; Wed, 25 Jan 2023 18:33:25 +0000
-Date: Wed, 25 Jan 2023 18:33:25 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: Suren Baghdasaryan <surenb@google.com>
-Subject: Re: [PATCH v2 1/6] mm: introduce vma->vm_flags modifier functions
-Message-ID: <Y9F19QEDX5d/44EV@casper.infradead.org>
-References: <20230125083851.27759-1-surenb@google.com>
- <20230125083851.27759-2-surenb@google.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F27A10E1C2;
+	Wed, 25 Jan 2023 22:02:19 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2089.outbound.protection.outlook.com [40.107.93.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B6AD10E1C2;
+ Wed, 25 Jan 2023 22:02:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Np/GgQS5hgvusZkXVZ9hIS4laK23f2emhRwu9ZDUZPTLFuzzl6dfSgvTxxkmx5XbJssXILllbdwAdAt/bQOWWIdwCiLPyI/JHjeHTTs5AdZoqpJBGQVdVtJWIwsQ2w2dvlrk5DqSGQSekAl/nameXrYB3CsF86TpM7/VCgLfbgGO3Ng4a0u6+l2teQ1YUnF2+AEKBsrcIxM1z/29sPO6DzPie9HRgya7sOU2pBdOXiKRWSoSqADK1A+nlMUG6Q1Fnni61XrpAfP8WgdudYeM4sx1AnKY/dTLI92SSjSPgPGt9g8ltMUBd2SFYeQHaKJWypHDYLD+6WWKti8eB6KT0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bkS2YKSuDYgUQkXqzBjqZmKYYflqkeoKN1vnBdaX36A=;
+ b=lHuyfhV7YJvaJx0ISw51bJ2xXs7SoMff6/czKJuxehpHi3zmkAGUz/JE/P5BJT1I6LV73kCldURy05xOfvQdoNdxeYqvshZQsDdR2IumfJhrpVLo4sS1DOqXUJmdnEbhkvP5oeDNMEGEzS5FqCxxze0PPLGjkn0/vsytKSMkn7/7nQSxq1Ho8+2ZCDcaVllLrk0K6Pqd5s4qKBm5rqJg9Xn4KoqoGoyVCkugHuoVGOhcktRxOdyd3VW9dQNLmDdwR4qogmG22czr4eHC3/9wGyorkt0muu7pFZR3Vi8CHzz87csqXvpffoxlcNTTzIdneqlJKEAVVAVNJQ8mPv5k4A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bkS2YKSuDYgUQkXqzBjqZmKYYflqkeoKN1vnBdaX36A=;
+ b=xCw3SscNm+jrEG8oN66z4IbhMdxGpghN8t3sZND43SKQRCvctMIRWYqlsI6eusHfmj0aXRwLRJu35jeoFQzFZ3STCel/PqDNEsNnSZ5eCVdHm8S7T72JnJfX+rgm8DuaSv2tCozulv/Z4A52cg3nGH2zdo0EIoqurMYLNx692i8=
+Received: from BN0PR04CA0082.namprd04.prod.outlook.com (2603:10b6:408:ea::27)
+ by SA0PR12MB4383.namprd12.prod.outlook.com (2603:10b6:806:94::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33; Wed, 25 Jan
+ 2023 22:02:16 +0000
+Received: from BN8NAM11FT020.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:ea::4) by BN0PR04CA0082.outlook.office365.com
+ (2603:10b6:408:ea::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33 via Frontend
+ Transport; Wed, 25 Jan 2023 22:02:16 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT020.mail.protection.outlook.com (10.13.176.223) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6043.17 via Frontend Transport; Wed, 25 Jan 2023 22:02:15 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 25 Jan
+ 2023 16:02:14 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
+Subject: [PULL] amdgpu, drm drm-fixes-6.2
+Date: Wed, 25 Jan 2023 17:01:53 -0500
+Message-ID: <20230125220153.320248-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.39.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230125083851.27759-2-surenb@google.com>
-X-Mailman-Approved-At: Wed, 25 Jan 2023 21:46:32 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT020:EE_|SA0PR12MB4383:EE_
+X-MS-Office365-Filtering-Correlation-Id: da47f219-caae-4e60-61fc-08daff1fd207
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: CYH+bz7hK85pLCkjawoH8tQA8uQ9c+nOhXSaoBOb0Vb1M9Q5dhDTT1OcDwfOEgtUEOtaGJ4ZAAhaLJkeyeukqa+VIIIvr1mb4a7EycwSRZRiSwbUDWZU4CCRuRm7NpP1SdzGU44/pUjnlsistHSzVKCC1iPfDXiaDHPgnkA+xrQQ8I9kEkMiP9+T7F/a69uwo4P4PfiLc0kDbLMO1G31mrt10Su2bDjG8foRa7I2/pCDWF9be9aVa63muf1yaVDj7AKDoEytX9k+YMJKcxyVhTn3Dt8+C4heaaEkhs8swZyGoGAyOuCPneiM+AUByJML8IspRDGDqYH54cv7lCdP//SJACKNiGHy1PV/UmiX/fW3EtevCeX1OcjtiOVbSUsh752y2Rrkz7BmNlNKHCErnGnV94kZCx8eNwsOe87uMCeGaIBiCyNLL1ioGnnReqzfe7GKH/3/RWauYmMQC3LWoXCYLhfcFrdkx21l+7CukJ9bZvEf04NTYxX9R5bD6kzgCB49d9z18bq5yTsgR4PpjDyzWZK8YEr9PjHaEff1+rHE/URSz0iq4tVB1a8Xa5SL9VA2BgDnnO6bikmuxHuh2RQuWErJwGOzYXKnE1nKQFxPzNO24VxKULb8gskWg9y3ojtn55tTQuoLlwXuCvzbLzncjWRHvc0qX26q5FVKVvfFXCszN+5T5X3L3Km9sM6p
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(396003)(376002)(39860400002)(136003)(346002)(451199018)(40470700004)(36840700001)(46966006)(83380400001)(36860700001)(26005)(5660300002)(81166007)(7696005)(2906002)(356005)(41300700001)(82740400003)(86362001)(4326008)(8936002)(82310400005)(16526019)(40480700001)(316002)(40460700003)(6666004)(186003)(8676002)(47076005)(478600001)(2616005)(336012)(426003)(110136005)(36756003)(966005)(70586007)(1076003)(70206006)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2023 22:02:15.8646 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: da47f219-caae-4e60-61fc-08daff1fd207
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT020.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4383
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,86 +98,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
- leewalsh@google.com, dri-devel@lists.freedesktop.org, perex@perex.cz,
- jglisse@google.com, arjunroy@google.com, m.szyprowski@samsung.com,
- linux-arch@vger.kernel.org, qianweili@huawei.com,
- linux-samsung-soc@vger.kernel.org, aneesh.kumar@linux.ibm.com,
- chenhuacai@kernel.org, kasan-dev@googlegroups.com, linux-acpi@vger.kernel.org,
- rientjes@google.com, xen-devel@lists.xenproject.org, devel@lists.orangefs.org,
- robdclark@gmail.com, minchan@google.com, robert.jarzmik@free.fr,
- linux-um@lists.infradead.org, etnaviv@lists.freedesktop.org, npiggin@gmail.com,
- alex.williamson@redhat.com, viro@zeniv.linux.org.uk, luto@kernel.org,
- gthelen@google.com, tglx@linutronix.de, ldufour@linux.ibm.com,
- linux-sgx@vger.kernel.org, martin.petersen@oracle.com,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
- linux-media@vger.kernel.org, freedreno@lists.freedesktop.org,
- joelaf@google.com, linux-aio@kvack.org, linux-fbdev@vger.kernel.org,
- linux-ia64@vger.kernel.org, david@redhat.com, dave.hansen@linux.intel.com,
- virtualization@lists.linux-foundation.org, edumazet@google.com,
- target-devel@vger.kernel.org, punit.agrawal@bytedance.com,
- linux-s390@vger.kernel.org, dave@stgolabs.net, deller@gmx.de, hughd@google.com,
- andrii@kernel.org, patrik.r.jakobsson@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
- linux-graphics-maintainer@vmware.com, kernel-team@android.com,
- jayalk@intworks.biz, soheil@google.com, selinux@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, mripard@kernel.org, shakeelb@google.com,
- haojian.zhuang@gmail.com, loongarch@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, tytso@mit.edu, nico@fluxnic.net,
- muchun.song@linux.dev, hjc@rock-chips.com, mcoquelin.stm32@gmail.com,
- tatashin@google.com, mike.kravetz@oracle.com, songliubraving@fb.com,
- jasowang@redhat.com, alsa-devel@alsa-project.org, peterx@redhat.com,
- linux-tegra@vger.kernel.org, kraxel@redhat.com, will@kernel.org,
- dmaengine@vger.kernel.org, bhe@redhat.com, miklos@szeredi.hu,
- linux-rdma@vger.kernel.org, linux-staging@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, gurua@google.com, dgilbert@interlog.com,
- xiang@kernel.org, pabeni@redhat.com, jejb@linux.ibm.com,
- quic_abhinavk@quicinc.com, bp@alien8.de, mchehab@kernel.org,
- linux-ext4@vger.kernel.org, tomba@kernel.org, hughlynch@google.com,
- sre@kernel.org, tfiga@chromium.org, linux-xfs@vger.kernel.org,
- zhangfei.gao@linaro.org, wangzhou1@hisilicon.com, netdev@vger.kernel.org,
- bpf@vger.kernel.org, linux-erofs@lists.ozlabs.org, davem@davemloft.net,
- mhocko@suse.com, kvm@vger.kernel.org, mst@redhat.com, peterz@infradead.org,
- bigeasy@linutronix.de, alexandre.torgue@foss.st.com, dhowells@redhat.com,
- linux-mm@kvack.org, ray.huang@amd.com, adilger.kernel@dilger.ca,
- kuba@kernel.org, sparclinux@vger.kernel.org, airlied@gmail.com,
- anton.ivanov@cambridgegreys.com, herbert@gondor.apana.org.au,
- linux-scsi@vger.kernel.org, richard@nod.at, x86@kernel.org, vkoul@kernel.org,
- mingo@redhat.com, axelrasmussen@google.com, intel-gfx@lists.freedesktop.org,
- daniel@ffwll.ch, paulmck@kernel.org, jannh@google.com, chao@kernel.org,
- maarten.lankhorst@linux.intel.com, liam.howlett@oracle.com,
- hdegoede@redhat.com, linux-mediatek@lists.infradead.org,
- matthias.bgg@gmail.com, vbabka@suse.cz, dimitri.sivanich@hpe.com,
- posk@google.com, lstoakes@gmail.com, peterjung1337@gmail.com,
- yoshfuji@linux-ipv6.org, linuxppc-dev@lists.ozlabs.org, dsahern@kernel.org,
- kent.overstreet@linux.dev, kexec@lists.infradead.org, tiwai@suse.com,
- krzysztof.kozlowski@linaro.org, tzimmermann@suse.de, hannes@cmpxchg.org,
- dmitry.baryshkov@linaro.org, johannes@sipsolutions.net,
- mgorman@techsingularity.net, linux-accelerators@lists.ozlabs.org,
- l.stach@pengutronix.de
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 25, 2023 at 12:38:46AM -0800, Suren Baghdasaryan wrote:
-> +/* Use when VMA is not part of the VMA tree and needs no locking */
-> +static inline void init_vm_flags(struct vm_area_struct *vma,
-> +				 unsigned long flags)
-> +{
-> +	vma->vm_flags = flags;
+Hi Dave, Daniel,
 
-vm_flags are supposed to have type vm_flags_t.  That's not been
-fully realised yet, but perhaps we could avoid making it worse?
+Fixes for 6.2.  This contains a fix for DP MST that avoids the big revert.
+There are still some corner cases, but it fixes things for most users.
 
->  	pgprot_t vm_page_prot;
-> -	unsigned long vm_flags;		/* Flags, see mm.h. */
-> +
-> +	/*
-> +	 * Flags, see mm.h.
-> +	 * WARNING! Do not modify directly.
-> +	 * Use {init|reset|set|clear|mod}_vm_flags() functions instead.
-> +	 */
-> +	unsigned long vm_flags;
+The following changes since commit 3f30a6e67ce49c0068f8058893326db46b6db11f:
 
-Including changing this line to vm_flags_t
+  Merge tag 'amd-drm-fixes-6.2-2023-01-19' of https://gitlab.freedesktop.org/agd5f/linux into drm-fixes (2023-01-20 11:21:20 +1000)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.2-2023-01-25
+
+for you to fetch changes up to 4b069553246f993c4221e382d0d0ae34f5ba730e:
+
+  drm/amd/display: Fix timing not changning when freesync video is enabled (2023-01-25 14:50:18 -0500)
+
+----------------------------------------------------------------
+amd-drm-fixes-6.2-2023-01-25:
+
+amdgpu:
+- GC11.x fixes
+- SMU13.0.0 fix
+- Freesync video fix
+- DP MST fixes
+
+drm:
+- DP MST kref fix
+
+----------------------------------------------------------------
+Aurabindo Pillai (1):
+      drm/amd/display: Fix timing not changning when freesync video is enabled
+
+Evan Quan (1):
+      drm/amd/pm: add missing AllowIHInterrupt message mapping for SMU13.0.0
+
+Jonathan Kim (1):
+      drm/amdgpu: remove unconditional trap enable on add gfx11 queues
+
+Li Ma (2):
+      drm/amdgpu: enable imu firmware for GC 11.0.4
+      drm/amdgpu: declare firmware for new MES 11.0.4
+
+Lyude Paul (1):
+      drm/amdgpu/display/mst: Fix mst_state->pbn_div and slot count assignments
+
+Wayne Lin (3):
+      drm/amdgpu/display/mst: limit payload to be updated one by one
+      drm/amdgpu/display/mst: update mst_mgr relevant variable when long HPD
+      drm/display/dp_mst: Correct the kref of port.
+
+ drivers/gpu/drm/amd/amdgpu/imu_v11_0.c             |  1 +
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c             |  3 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 31 +++++++++++++
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  | 51 +++++++++++++++++-----
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  5 ---
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c      | 14 +++++-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   |  1 +
+ drivers/gpu/drm/display/drm_dp_mst_topology.c      |  4 +-
+ 8 files changed, 89 insertions(+), 21 deletions(-)
