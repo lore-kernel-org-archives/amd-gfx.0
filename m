@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CAAAC61D97
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Jan 2023 13:57:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FD8BC05027
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Jan 2023 13:57:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E05510E903;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A03D710E904;
 	Thu, 26 Jan 2023 13:56:57 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E7A010E296;
- Thu, 26 Jan 2023 09:27:56 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CC7910E1CC;
+ Thu, 26 Jan 2023 09:18:05 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3647A61778;
- Thu, 26 Jan 2023 09:27:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3921C433EF;
- Thu, 26 Jan 2023 09:27:09 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id C2FD8B818BE;
+ Thu, 26 Jan 2023 09:18:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B686C433EF;
+ Thu, 26 Jan 2023 09:17:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674725274;
- bh=SoMuUCKccvLBFFlS2yaoZNAJ6vi8hf11UD5LIFXhHPI=;
+ s=k20201202; t=1674724682;
+ bh=A3jqgSV9WUxdb3ZkujtLcqAQwnfqkoU5ybDSQdNw5cg=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=j//Fl5kIolRbc8e9oVCQ2yHwbpz0TuieYLSj+mDFLpa1qwKxXUhf5PJmcO75Ujh3s
- twG4fOSIQIUcY+3MnnJB2LFgFpgYd/SthHle/+axd8X6B40DgEguPrzEIDstErfxF8
- ko0Mb6Gc7DtRkgMx2KamDNuuhnb/IfTXyWRUAI8okoWPpJCrU+5VBwHmsXg3EJf5FZ
- gJ2/jlRLLWN+Ab/FNlmJJeHDKv+eOxzvt50mhgYbacQHyS9BYwkvyF434NJwFVAGsI
- dA9tzS1LLkbpY2wsykh131+0o90nnu9297soO8LSNeHRZppCk70KOOayN+gSrVyob+
- 3jVum/MlvC8IQ==
-Date: Thu, 26 Jan 2023 11:26:58 +0200
+ b=sky5enLFwJr3DfJ9b2ymbv/d7rE2oypuJvDM2cNeWmTa68+LJkoJeMjxMVF911xjR
+ /p46Fe2/pbyCsXipax42/Hou3ZWrY6fA7yy3y0E4tly4hSn7A+WSEbwQZyXAjmF/fy
+ t3crMkotzOdGBKQN+I5JbdstqSnsQJbVUv4CaD/JnI/YsWTl+N0fRV5BPO+OqFre41
+ 7ERJV1xNKFLVanuVeJ94drHEBHBdP99mIJAbLamNbCF2r05esRYyfEqSbQFmRXAtIl
+ xm2AXIIoDKu6q2SCf9/o5Ej3L+rCFY/nYnTN8yhQCyREfEIhRdSCFxGuw7sIOiHW7k
+ L6KyLx8xuXeew==
+Date: Thu, 26 Jan 2023 11:17:09 +0200
 From: Mike Rapoport <rppt@kernel.org>
 To: Suren Baghdasaryan <surenb@google.com>
-Subject: Re: [PATCH v2 4/6] mm: replace vma->vm_flags indirect modification
- in ksm_madvise
-Message-ID: <Y9JHYvihjxGpAFPg@kernel.org>
+Subject: Re: [PATCH v2 1/6] mm: introduce vma->vm_flags modifier functions
+Message-ID: <Y9JFFYjfJf9uDijE@kernel.org>
 References: <20230125083851.27759-1-surenb@google.com>
- <20230125083851.27759-5-surenb@google.com>
+ <20230125083851.27759-2-surenb@google.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230125083851.27759-5-surenb@google.com>
+In-Reply-To: <20230125083851.27759-2-surenb@google.com>
 X-Mailman-Approved-At: Thu, 26 Jan 2023 13:56:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -115,100 +114,93 @@ Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 25, 2023 at 12:38:49AM -0800, Suren Baghdasaryan wrote:
-> Replace indirect modifications to vma->vm_flags with calls to modifier
-> functions to be able to track flag changes and to keep vma locking
-> correctness. Add a BUG_ON check in ksm_madvise() to catch indirect
-> vm_flags modification attempts.
+On Wed, Jan 25, 2023 at 12:38:46AM -0800, Suren Baghdasaryan wrote:
+> vm_flags are among VMA attributes which affect decisions like VMA merging
+> and splitting. Therefore all vm_flags modifications are performed after
+> taking exclusive mmap_lock to prevent vm_flags updates racing with such
+> operations. Introduce modifier functions for vm_flags to be used whenever
+> flags are updated. This way we can better check and control correct
+> locking behavior during these updates.
 > 
 > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> ---
+>  include/linux/mm.h       | 37 +++++++++++++++++++++++++++++++++++++
+>  include/linux/mm_types.h |  8 +++++++-
+>  2 files changed, 44 insertions(+), 1 deletion(-)
+> 
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index c2f62bdce134..b71f2809caac 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -627,6 +627,43 @@ static inline void vma_init(struct vm_area_struct *vma, struct mm_struct *mm)
+>  	INIT_LIST_HEAD(&vma->anon_vma_chain);
+>  }
+>  
+> +/* Use when VMA is not part of the VMA tree and needs no locking */
+> +static inline void init_vm_flags(struct vm_area_struct *vma,
+> +				 unsigned long flags)
+
+I'd suggest to make it vm_flags_init() etc.
+Except that
 
 Acked-by: Mike Rapoport (IBM) <rppt@kernel.org>
 
-> ---
->  arch/powerpc/kvm/book3s_hv_uvmem.c | 5 ++++-
->  arch/s390/mm/gmap.c                | 5 ++++-
->  mm/khugepaged.c                    | 2 ++
->  mm/ksm.c                           | 2 ++
->  4 files changed, 12 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/powerpc/kvm/book3s_hv_uvmem.c b/arch/powerpc/kvm/book3s_hv_uvmem.c
-> index 1d67baa5557a..325a7a47d348 100644
-> --- a/arch/powerpc/kvm/book3s_hv_uvmem.c
-> +++ b/arch/powerpc/kvm/book3s_hv_uvmem.c
-> @@ -393,6 +393,7 @@ static int kvmppc_memslot_page_merge(struct kvm *kvm,
+> +{
+> +	vma->vm_flags = flags;
+> +}
+> +
+> +/* Use when VMA is part of the VMA tree and modifications need coordination */
+> +static inline void reset_vm_flags(struct vm_area_struct *vma,
+> +				  unsigned long flags)
+> +{
+> +	mmap_assert_write_locked(vma->vm_mm);
+> +	init_vm_flags(vma, flags);
+> +}
+> +
+> +static inline void set_vm_flags(struct vm_area_struct *vma,
+> +				unsigned long flags)
+> +{
+> +	mmap_assert_write_locked(vma->vm_mm);
+> +	vma->vm_flags |= flags;
+> +}
+> +
+> +static inline void clear_vm_flags(struct vm_area_struct *vma,
+> +				  unsigned long flags)
+> +{
+> +	mmap_assert_write_locked(vma->vm_mm);
+> +	vma->vm_flags &= ~flags;
+> +}
+> +
+> +static inline void mod_vm_flags(struct vm_area_struct *vma,
+> +				unsigned long set, unsigned long clear)
+> +{
+> +	mmap_assert_write_locked(vma->vm_mm);
+> +	vma->vm_flags |= set;
+> +	vma->vm_flags &= ~clear;
+> +}
+> +
+>  static inline void vma_set_anonymous(struct vm_area_struct *vma)
 >  {
->  	unsigned long gfn = memslot->base_gfn;
->  	unsigned long end, start = gfn_to_hva(kvm, gfn);
+>  	vma->vm_ops = NULL;
+> diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+> index 2d6d790d9bed..6c7c70bf50dd 100644
+> --- a/include/linux/mm_types.h
+> +++ b/include/linux/mm_types.h
+> @@ -491,7 +491,13 @@ struct vm_area_struct {
+>  	 * See vmf_insert_mixed_prot() for discussion.
+>  	 */
+>  	pgprot_t vm_page_prot;
+> -	unsigned long vm_flags;		/* Flags, see mm.h. */
+> +
+> +	/*
+> +	 * Flags, see mm.h.
+> +	 * WARNING! Do not modify directly.
+> +	 * Use {init|reset|set|clear|mod}_vm_flags() functions instead.
+> +	 */
 > +	unsigned long vm_flags;
->  	int ret = 0;
->  	struct vm_area_struct *vma;
->  	int merge_flag = (merge) ? MADV_MERGEABLE : MADV_UNMERGEABLE;
-> @@ -409,12 +410,14 @@ static int kvmppc_memslot_page_merge(struct kvm *kvm,
->  			ret = H_STATE;
->  			break;
->  		}
-> +		vm_flags = vma->vm_flags;
->  		ret = ksm_madvise(vma, vma->vm_start, vma->vm_end,
-> -			  merge_flag, &vma->vm_flags);
-> +			  merge_flag, &vm_flags);
->  		if (ret) {
->  			ret = H_STATE;
->  			break;
->  		}
-> +		reset_vm_flags(vma, vm_flags);
->  		start = vma->vm_end;
->  	} while (end > vma->vm_end);
 >  
-> diff --git a/arch/s390/mm/gmap.c b/arch/s390/mm/gmap.c
-> index 3a695b8a1e3c..d5eb47dcdacb 100644
-> --- a/arch/s390/mm/gmap.c
-> +++ b/arch/s390/mm/gmap.c
-> @@ -2587,14 +2587,17 @@ int gmap_mark_unmergeable(void)
->  {
->  	struct mm_struct *mm = current->mm;
->  	struct vm_area_struct *vma;
-> +	unsigned long vm_flags;
->  	int ret;
->  	VMA_ITERATOR(vmi, mm, 0);
->  
->  	for_each_vma(vmi, vma) {
-> +		vm_flags = vma->vm_flags;
->  		ret = ksm_madvise(vma, vma->vm_start, vma->vm_end,
-> -				  MADV_UNMERGEABLE, &vma->vm_flags);
-> +				  MADV_UNMERGEABLE, &vm_flags);
->  		if (ret)
->  			return ret;
-> +		reset_vm_flags(vma, vm_flags);
->  	}
->  	mm->def_flags &= ~VM_MERGEABLE;
->  	return 0;
-> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-> index 8abc59345bf2..76b24cd0c179 100644
-> --- a/mm/khugepaged.c
-> +++ b/mm/khugepaged.c
-> @@ -354,6 +354,8 @@ struct attribute_group khugepaged_attr_group = {
->  int hugepage_madvise(struct vm_area_struct *vma,
->  		     unsigned long *vm_flags, int advice)
->  {
-> +	/* vma->vm_flags can be changed only using modifier functions */
-> +	BUG_ON(vm_flags == &vma->vm_flags);
->  	switch (advice) {
->  	case MADV_HUGEPAGE:
->  #ifdef CONFIG_S390
-> diff --git a/mm/ksm.c b/mm/ksm.c
-> index 04f1c8c2df11..992b2be9f5e6 100644
-> --- a/mm/ksm.c
-> +++ b/mm/ksm.c
-> @@ -2573,6 +2573,8 @@ int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
->  	struct mm_struct *mm = vma->vm_mm;
->  	int err;
->  
-> +	/* vma->vm_flags can be changed only using modifier functions */
-> +	BUG_ON(vm_flags == &vma->vm_flags);
->  	switch (advice) {
->  	case MADV_MERGEABLE:
->  		/*
+>  	/*
+>  	 * For areas with an address space and backing store,
 > -- 
 > 2.39.1
 > 
