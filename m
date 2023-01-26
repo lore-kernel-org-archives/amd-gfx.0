@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D178C54E94
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Jan 2023 00:34:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C453C61D97
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Jan 2023 00:34:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 207A210E3B9;
-	Thu, 26 Jan 2023 00:34:32 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA7B310E3B9
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Jan 2023 00:34:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD33F10E3BA;
+	Thu, 26 Jan 2023 00:34:45 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2071.outbound.protection.outlook.com [40.107.100.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79D5F10E3BA
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Jan 2023 00:34:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QkzsaWddhdA87/ruGY+lZANzCWVFKqezA0N6F4G3ckjfqs7zQ68W490ELYfH9T+7TbFAdJAFlmcJq4MVm6pdnIXiiF0hYGjgDuf/cOR/EartW8fptYxRFXjWK8sjzxvlK/C+cOqPCp+aLpwbJD7bCNtoN8DEZhm7FexDW+v48b4I7paJqKvAs102Ul83jwHeKlfH2S1djVnQ1jtdfyg579ShG2SnMfD32nLttl2TBNIK2rvYE3DwdJ+nLwLftVEIODUzGTl+ArKP1UkhGJsg7wwBmIFyZKVFz6INXGeaYMZwtFtjs1/JP7pxYD7RyuVDYcYDwofVdzt5888H86aYyA==
+ b=ihjm6cq6wGXa1G17aQ84IzACQh+tIWImAWSAH9raWKkfVYwOG4yNtyQ2V+fRQIZ/yyi0FLafDKtETviDRJ5ZGJwdAtsroQrB8wzXT36P4B65NsVisupqXVhukuysojy2ilXQLKpY4uAizkCwzKXzdupXcpatMislA3FI3foLeTC5iHoGuUo49dE5rT8/ZOzYHN/9F64CS8tJl5upmx6lH7kdzJrqCIsyTJsKAbDebGWfSTGLSkX/LO7Lo9nOASbv51aXuSUxshz2qBKl5ZTZcqKworzH95vD70MEmpRHkS3qO85GnlJiluWzKODi352WT0INTzFJZIMHKUOgXd6QMw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cFNBKQ4Ce2KwUkoL/Z7yCh6mXKjPYQsfANPUkpMXNY0=;
- b=CHT4F5OiVNkC2VSgaScqnuxoEWP+gVWWNVm6kd7H2lYnUB8pQTzW2JXLNuBppNx1f5NRXQfy5PHn1RCupOpwP2LsCtvQyo8JDcr5PAJetORWKfoFb/CcQNNH2Ut+bDrwpwksy2cG012PcOXv4ve737ageNsXb8h5FG6hbggS4lao5Q7OzXQSKjoCp+D5djUVV30nY1ERIW5RpLA+7/uANVqxJQA67J4AO4vqce8rrbJ3GHSEeyANqd98fLzWHDDb9+HL0QBUM/0vXX1Sqrx3RNnWRj7hZxDE9UosNF1uU8zkqIAKXjD4SyqlNKUOPsWTjCRCs0DJS7ZXTwSBQsj0Rw==
+ bh=3+5E5XSWWuIlD8UmmxFsBBZyyvPHUeXJpHSVq+IyfwE=;
+ b=cnH6VV8cVeLho4y8CIuZOC/f53VHEAFE8sBKsogGir5j4Vecsv+pb1dZNp6QOie3j4MVntNkKgg2KIdXSzScO7WBu1iYow/IHhOj1UYZ8nP9eyQ9Xx59wkzUxMS9419J59wdtQ5uJ7HZATajuTN+dPLyNydk7IqNMyl/0PblQTQlzIeUQRuxrxojyKkK5D1Ad//brmIdG8NXK4n0yPP6d5c3oGI70Iv9KQpP/8DUITJxetTT0H36lKEAYAqObRt7R37o7NRDsb9wp1laVqbXJ9IQ7L+x5pC/2FSmPIbeM5DrT2S4VXXpoTf9OAF2H6a5rNR7/PopmqvZO45lAJGT5g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cFNBKQ4Ce2KwUkoL/Z7yCh6mXKjPYQsfANPUkpMXNY0=;
- b=R8kOp7uF9vYn4gA+FafmTxvh+tBGCTaTEbjSQMszmxWW+LiAi7L2PubBd3Z8P6NXNU0O346DfnBFSOBLkuTGXvePQFSeZp+pcxqQuZQhYhA9zJp9YYLyoOHe+XJa8ObKYtQJkPLBdWtPEyjkXPxFoJ+XDC40dmMCQbdcexYJ8CY=
-Received: from DS7PR06CA0022.namprd06.prod.outlook.com (2603:10b6:8:2a::10) by
- SN7PR12MB8146.namprd12.prod.outlook.com (2603:10b6:806:323::10) with
+ bh=3+5E5XSWWuIlD8UmmxFsBBZyyvPHUeXJpHSVq+IyfwE=;
+ b=wIP4sNhFL3UWBTFSOW9zyOXC2KwpBepGSwh2UAYxSboTm3vmLePb6owbl1gfuu5REHoVcDNKu/Ft6njgPZf5rrY/T3jqElvu/xMQGLIl7rhDVR1IXLvG4noEFIg6UpT19niclyA4mIZx18DG3aygqk12ZPadDQMJmDGUVWo/fO0=
+Received: from DM6PR17CA0021.namprd17.prod.outlook.com (2603:10b6:5:1b3::34)
+ by DS7PR12MB6094.namprd12.prod.outlook.com (2603:10b6:8:9d::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33; Thu, 26 Jan
- 2023 00:34:26 +0000
-Received: from DM6NAM11FT005.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:2a:cafe::33) by DS7PR06CA0022.outlook.office365.com
- (2603:10b6:8:2a::10) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 00:34:40 +0000
+Received: from DM6NAM11FT089.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:1b3:cafe::e6) by DM6PR17CA0021.outlook.office365.com
+ (2603:10b6:5:1b3::34) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33 via Frontend
- Transport; Thu, 26 Jan 2023 00:34:26 +0000
+ Transport; Thu, 26 Jan 2023 00:34:40 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT005.mail.protection.outlook.com (10.13.172.238) with Microsoft SMTP
+ DM6NAM11FT089.mail.protection.outlook.com (10.13.173.82) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6023.16 via Frontend Transport; Thu, 26 Jan 2023 00:34:25 +0000
+ 15.20.6023.16 via Frontend Transport; Thu, 26 Jan 2023 00:34:39 +0000
 Received: from dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 25 Jan
- 2023 18:34:23 -0600
+ 2023 18:34:36 -0600
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 04/16] drm/amd/display: Add Debug Log for MST and PCON
-Date: Wed, 25 Jan 2023 17:32:18 -0700
-Message-ID: <20230126003230.4178466-5-alex.hung@amd.com>
+Subject: [PATCH 05/16] drm/amd/display: Fix Z8 support configurations
+Date: Wed, 25 Jan 2023 17:32:19 -0700
+Message-ID: <20230126003230.4178466-6-alex.hung@amd.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230126003230.4178466-1-alex.hung@amd.com>
 References: <20230126003230.4178466-1-alex.hung@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT005:EE_|SN7PR12MB8146:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7ade0bc6-9920-48aa-1282-08daff3513fc
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT089:EE_|DS7PR12MB6094:EE_
+X-MS-Office365-Filtering-Correlation-Id: 04897148-f2b4-4845-d666-08daff351c4c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: GpNiRPh3LKKGclT96/eCMLXhjKXO6pqg/8EE8MTDnNvJh686NS8xuXD3Ykv8uacmqCxFEK/dEUBOHqV1EAw7pk4uNGR/wZuVDPAnMXZxliw+Yr+l1yZxWipDKSkaG07ro+QVv8oEXMobYYgijBoJxxXNAYwVkPq9v5llDHc6FKnyx5lfEZDXuOFazZMgRvzEME5vHktXsgmylxfLZqfScRsh4NlEnBGn1FvGy10Z7Wc+8t6SrEZPkrrhdhUOZEZsdXoXk56fOKg5VPuXLKjJIGL2ltYMU+rhD4BS540UnLHnMNEYdBHu3KgURaW+DUtWnYQf8NVHh8u8hOfQWRm7n4fMvCz7ySgl2hQ8A/F+VyWr+z4dNGckqmnjgboOhmS3fo7VnzupEwT5/UKanhzkjiSLceNNTbVGSWFMY3Bx4NgEjtDDEyggF++KJ2nXdTrWfPIKI53ejXqU0+5RqdIkh7L4fAlKBJqTbimULDxodfprZrBBshht186iz93HlCQ5ABu+B44BlEIOPjTnqDz3t1dqzk9aw6gqcqW00kijYSCqXZdSDP67y1tcrVXPLdHpP3sDC3SNmRD5gfhfJ90KaubebJ7U/+rKNRskQ2BG2dDExv4QXiYF3dIMZEPHI+VOI6MSTJd3tVYGu575DSb3kjkSH2N5Gq6vIXZaWCeJmWaxRNi4a4UJIHv6y++JaOmfo1Lp5dUmCuaNc25A6SaT2pwAxk6110HTNUyzEleVCx4=
+X-Microsoft-Antispam-Message-Info: sO2i96raAZaXF2Q++Z+BaU5p0wpanMeIqTzkCdORG5rco7iPnpks19Oz8zIdT36PKfsgSSonszPkU0qFCb8+mSZKTkvGtkQasBaYzUb1MA1FBozMR7AfoKsbdnhsOJ+hSqpu476xh38Fofg8HGtpwvlymBqIy2j+fG1arYukPCHGZwzRr13EOeYWTLo1vFEECzvO3Mkb5ohcJ2AU9udxy1eKCZew/sp2DliSmLpv0SgNeF87Kd2Wi+rwOJkRvhNNbFCM1rEFyvc4m3VXBXfFeBzJmKyyjd0dGfW+1cBp1S9kMs9+zROj9g+k7Udr156OW675kUsMogpKKb8/ZDgJeW27cw5/dsywMqn5ESQKuYwiaHwihJD0mXimctu/1vTRYLyPDRxAHWLkTvCAJikBZ3+Uq1z/FyqQu9tjUcDriZlGml3E40dAtNar2Zv97rsOGVXScuxeHCWFu6iwcVRzV/bHweD1hnPpRya7m4Mj7dO/BkM477i2i7VUBK25UmnR09UVPedwNERnZDkM6ChJZnL4q5D1xypPhIzKwRuTtRkhRoONdVuPgt6PyPSOFjY4i4fIRR/d16c+StSJv+GR/yFH/I8nDyk6ylhSm+IohTOJLs5rbyE/vfXUPseQPN1aXliPYv+xstnvYnP7BY1IGOiAacXijKvNmWcSP2qw9rjy4WHwSa53l6GBy/w4aI9XroeF899Fjwk65FJDXT0Hyo6bs8MSjDfy2AA5HoOvYUM=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(346002)(136003)(39860400002)(376002)(451199018)(36840700001)(40470700004)(46966006)(6916009)(36756003)(70206006)(36860700001)(8676002)(316002)(26005)(86362001)(2906002)(70586007)(186003)(54906003)(40480700001)(4326008)(7696005)(6666004)(83380400001)(2616005)(356005)(478600001)(81166007)(336012)(5660300002)(1076003)(41300700001)(47076005)(8936002)(426003)(40460700003)(44832011)(82740400003)(16526019)(82310400005)(36900700001);
+ SFS:(13230025)(4636009)(136003)(376002)(396003)(39860400002)(346002)(451199018)(40470700004)(36840700001)(46966006)(336012)(16526019)(86362001)(6666004)(26005)(478600001)(1076003)(186003)(82310400005)(36860700001)(4326008)(2906002)(83380400001)(40480700001)(81166007)(356005)(54906003)(47076005)(6916009)(82740400003)(70206006)(8676002)(426003)(70586007)(40460700003)(44832011)(7696005)(316002)(5660300002)(2616005)(8936002)(36756003)(41300700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2023 00:34:25.9201 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7ade0bc6-9920-48aa-1282-08daff3513fc
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2023 00:34:39.8712 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04897148-f2b4-4845-d666-08daff351c4c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT005.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT089.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8146
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6094
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,120 +99,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Fangzhi Zuo <Jerry.Zuo@amd.com>,
- Aurabindo.Pillai@amd.com, Hersen Wu <Hersenxs.Wu@amd.com>, wayne.lin@amd.com,
- Alex Hung <alex.hung@amd.com>, Bhawanpreet.Lakha@amd.com,
+Cc: stylon.wang@amd.com, Charlene Liu <Charlene.Liu@amd.com>,
+ Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, Alex Hung <alex.hung@amd.com>, wayne.lin@amd.com,
+ Bhawanpreet.Lakha@amd.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
  agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Fangzhi Zuo <Jerry.Zuo@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-Add log for MST/PCON specific use case:
-1. If DP1.2 hub where gives reduced link bw and no dsc support.
-2. If less than 4-lane configuration where gives reduced bw.
-3. If FRL PCON enabled for asic.
-4. Track MST sink count.
+[Why]
+It's not supported in multi-display, but it is supported in 2nd eDP
+screen only.
 
-Reviewed-by: Hersen Wu <Hersenxs.Wu@amd.com>
+[How]
+Remove multi display support, restrict number of planes for all
+z-states support, but still allow Z8 if we're not using PWRSEQ0.
+
+Reviewed-by: Charlene Liu <Charlene.Liu@amd.com>
 Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    |  3 +++
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c    | 12 +++++++++++-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c  | 12 ++++++++++++
- 3 files changed, 26 insertions(+), 1 deletion(-)
+ .../gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c   | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 763bc92385da..ceeab2cd8569 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1622,6 +1622,9 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
- 	/* TODO: Remove after DP2 receiver gets proper support of Cable ID feature */
- 	adev->dm.dc->debug.ignore_cable_id = true;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+index 197df404761a..d3ba65efe1d2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+@@ -949,7 +949,6 @@ static enum dcn_zstate_support_state  decide_zstate_support(struct dc *dc, struc
+ 	int plane_count;
+ 	int i;
+ 	unsigned int optimized_min_dst_y_next_start_us;
+-	bool allow_z8 = context->bw_ctx.dml.vba.StutterPeriod > 1000.0;
  
-+	if (adev->dm.dc->caps.dp_hdmi21_pcon_support)
-+		DRM_INFO("DP-HDMI FRL PCON supported\n");
-+
- 	r = dm_dmub_hw_init(adev);
- 	if (r) {
- 		DRM_ERROR("DMUB interface failed to initialize: status=%d\n", r);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 5c733d445fe9..c6794196a11d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -403,6 +403,7 @@ bool dm_helpers_dp_mst_start_top_mgr(
- 		bool boot)
- {
- 	struct amdgpu_dm_connector *aconnector = link->priv;
-+	int ret;
+ 	plane_count = 0;
+ 	optimized_min_dst_y_next_start_us = 0;
+@@ -974,6 +973,8 @@ static enum dcn_zstate_support_state  decide_zstate_support(struct dc *dc, struc
+ 	else if (context->stream_count == 1 &&  context->streams[0]->signal == SIGNAL_TYPE_EDP) {
+ 		struct dc_link *link = context->streams[0]->sink->link;
+ 		struct dc_stream_status *stream_status = &context->stream_status[0];
++		bool allow_z8 = context->bw_ctx.dml.vba.StutterPeriod > 1000.0;
++		bool is_pwrseq0 = link->link_index == 0;
  
- 	if (!aconnector) {
- 		DRM_ERROR("Failed to find connector for link!");
-@@ -418,7 +419,16 @@ bool dm_helpers_dp_mst_start_top_mgr(
- 	DRM_INFO("DM_MST: starting TM on aconnector: %p [id: %d]\n",
- 			aconnector, aconnector->base.base.id);
- 
--	return (drm_dp_mst_topology_mgr_set_mst(&aconnector->mst_mgr, true) == 0);
-+	ret = drm_dp_mst_topology_mgr_set_mst(&aconnector->mst_mgr, true);
-+	if (ret < 0) {
-+		DRM_ERROR("DM_MST: Failed to set the device into MST mode!");
-+		return false;
-+	}
-+
-+	DRM_INFO("DM_MST: DP%x, %d-lane link detected\n", aconnector->mst_mgr.dpcd[0],
-+		aconnector->mst_mgr.dpcd[2] & DP_MAX_LANE_COUNT_MASK);
-+
-+	return true;
- }
- 
- bool dm_helpers_dp_mst_stop_top_mgr(
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 0bff2cc20b02..33f53cae939d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -177,6 +177,9 @@ amdgpu_dm_mst_connector_early_unregister(struct drm_connector *connector)
- 		if (dc_link->sink_count)
- 			dc_link_remove_remote_sink(dc_link, dc_sink);
- 
-+		DC_LOG_MST("DM_MST: remove remote sink 0x%p, %d remaining\n",
-+			dc_sink, dc_link->sink_count);
-+
- 		dc_sink_release(dc_sink);
- 		aconnector->dc_sink = NULL;
- 		aconnector->edid = NULL;
-@@ -308,6 +311,9 @@ static int dm_dp_mst_get_modes(struct drm_connector *connector)
- 					return 0;
+ 		if (dc_extended_blank_supported(dc)) {
+ 			for (i = 0; i < dc->res_pool->pipe_count; i++) {
+@@ -986,18 +987,17 @@ static enum dcn_zstate_support_state  decide_zstate_support(struct dc *dc, struc
  				}
- 
-+				DC_LOG_MST("DM_MST: add remote sink 0x%p, %d remaining\n",
-+					dc_sink, aconnector->dc_link->sink_count);
-+
- 				dc_sink->priv = aconnector;
- 				aconnector->dc_sink = dc_sink;
  			}
-@@ -341,6 +347,9 @@ static int dm_dp_mst_get_modes(struct drm_connector *connector)
- 			return 0;
  		}
- 
-+		DC_LOG_MST("DM_MST: add remote sink 0x%p, %d remaining\n",
-+			dc_sink, aconnector->dc_link->sink_count);
+-		/* zstate only supported on PWRSEQ0  and when there's <2 planes*/
+-		if (link->link_index != 0 || stream_status->plane_count > 1)
 +
- 		dc_sink->priv = aconnector;
- 		/* dc_link_add_remote_sink returns a new reference */
- 		aconnector->dc_sink = dc_sink;
-@@ -458,6 +467,9 @@ dm_dp_mst_detect(struct drm_connector *connector,
- 		if (aconnector->dc_link->sink_count)
- 			dc_link_remove_remote_sink(aconnector->dc_link, aconnector->dc_sink);
++		/* Don't support multi-plane configurations */
++		if (stream_status->plane_count > 1)
+ 			return DCN_ZSTATE_SUPPORT_DISALLOW;
  
-+		DC_LOG_MST("DM_MST: remove remote sink 0x%p, %d remaining\n",
-+			aconnector->dc_link, aconnector->dc_link->sink_count);
-+
- 		dc_sink_release(aconnector->dc_sink);
- 		aconnector->dc_sink = NULL;
- 		aconnector->edid = NULL;
+-		if (context->bw_ctx.dml.vba.StutterPeriod > 5000.0 || optimized_min_dst_y_next_start_us > 5000)
++		if (is_pwrseq0 && (context->bw_ctx.dml.vba.StutterPeriod > 5000.0 || optimized_min_dst_y_next_start_us > 5000))
+ 			return DCN_ZSTATE_SUPPORT_ALLOW;
+-		else if (link->psr_settings.psr_version == DC_PSR_VERSION_1 && !link->panel_config.psr.disable_psr)
++		else if (is_pwrseq0 && link->psr_settings.psr_version == DC_PSR_VERSION_1 && !link->panel_config.psr.disable_psr)
+ 			return allow_z8 ? DCN_ZSTATE_SUPPORT_ALLOW_Z8_Z10_ONLY : DCN_ZSTATE_SUPPORT_ALLOW_Z10_ONLY;
+ 		else
+ 			return allow_z8 ? DCN_ZSTATE_SUPPORT_ALLOW_Z8_ONLY : DCN_ZSTATE_SUPPORT_DISALLOW;
+-	} else if (allow_z8) {
+-		return DCN_ZSTATE_SUPPORT_ALLOW_Z8_ONLY;
+ 	} else {
+ 		return DCN_ZSTATE_SUPPORT_DISALLOW;
+ 	}
 -- 
 2.39.1
 
