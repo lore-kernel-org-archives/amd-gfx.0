@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CEFEC54EAA
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Jan 2023 00:34:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30411C54E94
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Jan 2023 00:34:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01DDF10E3B5;
-	Thu, 26 Jan 2023 00:34:06 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2051.outbound.protection.outlook.com [40.107.102.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C70110E3B5
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Jan 2023 00:34:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C430310E3B8;
+	Thu, 26 Jan 2023 00:34:16 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2047.outbound.protection.outlook.com [40.107.93.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3A3210E3B8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Jan 2023 00:34:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kBGZIU3E2PhfHv+X1aTQlZTI2YAcYlf+pLznUw4vM/iUqfsQatJgNDPDCyB/569lTNyYkuZ+7sKc/7XPWoXP4c59J0bDXQNZrwj/LvdO9xjZ5etkfgxG4Kj1PmlR/oZkWOHKpRiUQLQtcSkrn1+2Xa46AtVynpzyHMCV/YjVfpxvZMtcvN/Cs3jA3Uy15zmzPjMfHRNknf6LBY7k8EPc7o5CAylF+4UPcfsMtFT/3AJgSA5uS9HRsqW+tVgSjXhUto18jJXJ2uChGAUzV4UA1N/88HVlzKpgbZfIFb8gq7W0VHe1TaVXuvAMCWU1ZOWM3c3KOP7ROSG7BOsNH9GwZA==
+ b=XAsEdRa8MBXe6iyTqrxy3hKp1NGcxJFVrnOjaOmRGK2Cb6ypwzK1g30DTQnDOo/zA0KIJ1PxpOMq7urnWmXMQeG5WwjpOWxf6eKcbhUN2aLzjlv5vqEbdi4gKsZk8DosMD+bnc8DinA8F+4S4hojbIPtvcws/MrkIEEcuZoYbNdktD54zHQw1ImZlrg6mD/HIX+1U9Zt6LQZk2l0Mo02MT1Fbzii4jRHfVw20rolpOXQeQXdPDCFj55E1qN4V/23FIE2vcuXBzmFVSybnDCUodF5Ksv4VJtKPtGYSW1TNrQocdCXL34QLSBuLZQAgtoKlSL2lE129QT9l7LsANen5w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5ANqxjEadx2utlpXQs4lPHjMvoi7JNVhLPKIakI7h3E=;
- b=fi/cZBTt/QNvtzEpqZkJ7XGPbbp88fQSkYp/kmq+4pqxbvS7Lb+37xgT60eOyNTtbdcivPaj6gyCIdQHFeeeDaMOGRQCr0zBVpG7JD11U5HHK1KynzwF/vY233rmiGLEj17aXN+XKlaZzaP1ihzfjPjTarjf9J9AlwhWXGhRSLLq2yJyP/6eDGDZLZrylR7ZdeIc5aOukM46o8+no5jXOyvPBMJRPCVNs/J42dufBf4rxwBbEAB0XmIJB5u2kMTCJJuMn3I1ZiVgDlfVq8As5PC8qQspa83Hc0Potjk54wZvIk5qzQqKwKbLj0SFkjVGdVCBlOQdl2TCLfAryJnZ/Q==
+ bh=uZBhXsdcifrTNZVG/mLdpL/8EuBwM80AbyVse9nvf9Y=;
+ b=es5u87cSDh0rDAAT2P066tEDIDoJQNgQ+rY198YtIJGpW0BgZRBYrwLNv01MIrNEzYS3yTGdary3rZROwRDorka+LDr2AAAamcwaWFNujVzELIbyGIhtlkfYEGpfQHI2cAm3LMQ0XipCyOUT880fOOcb/C/OVMESLFAOH3abH7eKp1zC5liQIWkkQYfWyxHX4teZdg+2+GBg5W3H+7D6IEbKj/Ylb6RHtUSooLKAa8kZSyjBd4VO1C8pfuDfoKQUeV78bhSocQNxUYSkIp78D0wwAgtO3yrXy4se/XTForekFZ+ts5NjkBfPJUnhePOKHyd5KQ85HtH+SW428hpsUQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5ANqxjEadx2utlpXQs4lPHjMvoi7JNVhLPKIakI7h3E=;
- b=jqxPxAxzW1zZOtw6Ktnr9Yp2USDZcmBNLhAcycD7QKbK4ZVhI2dnYvODO/H3qQLQMX/QJdA8tJkSEo6DDgfo3O3oYNRNfz1f7pXtVSNV+rWRR90FD20A9JYnlB1oSl/2TYweYKwkSzYQGQdjdjtx9ZigBcwZPyt57+9XN9RY3tw=
-Received: from DS7P222CA0021.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::20) by
- MN0PR12MB5931.namprd12.prod.outlook.com (2603:10b6:208:37e::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6002.33; Thu, 26 Jan 2023 00:33:59 +0000
-Received: from DM6NAM11FT076.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:2e:cafe::e3) by DS7P222CA0021.outlook.office365.com
- (2603:10b6:8:2e::20) with Microsoft SMTP Server (version=TLS1_2,
+ bh=uZBhXsdcifrTNZVG/mLdpL/8EuBwM80AbyVse9nvf9Y=;
+ b=kipQBXUcnr9jYYhNQkvv7d75JMVKj1XpXdZP/Ynx5ddS7qR0agdqPUsdmiwoDFwhZN5YPTvp+ObSxMSq4HuiECcgZOUfEsbiPyfe6evIUgSQB5cMIhRoTD31A7LJteXfzi5J5KLWMmJJM8R/51lNoRI4PA2x2zkizBY/DlvDBww=
+Received: from DS7PR03CA0123.namprd03.prod.outlook.com (2603:10b6:5:3b4::8) by
+ LV2PR12MB5918.namprd12.prod.outlook.com (2603:10b6:408:174::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33; Thu, 26 Jan
+ 2023 00:34:13 +0000
+Received: from DM6NAM11FT106.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b4:cafe::42) by DS7PR03CA0123.outlook.office365.com
+ (2603:10b6:5:3b4::8) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33 via Frontend
- Transport; Thu, 26 Jan 2023 00:33:59 +0000
+ Transport; Thu, 26 Jan 2023 00:34:13 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT076.mail.protection.outlook.com (10.13.173.204) with Microsoft SMTP
+ DM6NAM11FT106.mail.protection.outlook.com (10.13.172.229) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6043.17 via Frontend Transport; Thu, 26 Jan 2023 00:33:59 +0000
+ 15.20.6043.21 via Frontend Transport; Thu, 26 Jan 2023 00:34:13 +0000
 Received: from dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 25 Jan
- 2023 18:33:56 -0600
+ 2023 18:34:10 -0600
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 02/16] drm/amd/display: add rc_params_override option in
- dc_dsc_config
-Date: Wed, 25 Jan 2023 17:32:16 -0700
-Message-ID: <20230126003230.4178466-3-alex.hung@amd.com>
+Subject: [PATCH 03/16] drm/amd/display: fix MALL size hardcoded for DCN321
+Date: Wed, 25 Jan 2023 17:32:17 -0700
+Message-ID: <20230126003230.4178466-4-alex.hung@amd.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230126003230.4178466-1-alex.hung@amd.com>
 References: <20230126003230.4178466-1-alex.hung@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT076:EE_|MN0PR12MB5931:EE_
-X-MS-Office365-Filtering-Correlation-Id: 71938ac8-2424-46e2-d7f9-08daff350428
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT106:EE_|LV2PR12MB5918:EE_
+X-MS-Office365-Filtering-Correlation-Id: 71282157-f625-4024-c8af-08daff350c52
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: C+N9ISpmyLIOYCeICMM6hJwHus82Ppa54ZFTTNvcVLxkukBd1QVsSpMbt7J9Kg/Kq0LE5Uf+Cav5jEfSGxcw7h+7gfiTOfkvlrGS5O1AHlQ0a/DA4UXttfNG/ekuZ7IvKpULEOF1+9UFcTlD1ZOI0w+sZfAYNyceTgpV00I68owWjwTgJ/XrgXgwfBq77MJOrEtv/cNUcKnk4h+Ke6p78o3pgoopZ5v9k4cJgS0QyjkB4IgCM5whMPlukqv+Qg62dlq6rB/8lngdKGNM0PZPYq19dgV3X+/gliZ1GsfmD0oIvohj/o5juX9NuyJn932pJE0Tbv9ws3pecT1Qf3KTw/hRkWqrtZaVaGwg2NVZwFCFbuty3/6IdlnFj18j2APnb9Z5SI+qKRZ2SfnxgTqtaFAUvLS7CuC8ZfW2fuRiyOvUfiZnGX+NoC9B1rIWJ2WaNIS1gQUxuPvD+TEnCXlmtJXQKpMsSEY0TyABSEaUZwHFa+gVpsSYNbUrHWdzVnc/fX8KS6Fa6qoFDD7gKGV6StVipHMljzGv9HSeC0BLPKS1ONys/zNhaBJG0YDXYn+SxN7MHCxUedzIcASmI55oLp9LYcehxoUcXSpCUp8f0OZgQvQ06zoRdLOSrIzqKcz+B0hWgVeucU5Hrcn3MWh8r57e9LrStVjgPf24geWepAUtk/XkRptJuzZCHM9y5oAsHkdRpntAfUBMwcVO8ck+e+IxTO/Msk4lbJQGexG/iec=
+X-Microsoft-Antispam-Message-Info: opMfFafJh7r2CTBUHnj6S0Fx9pXVIdquvB3cO4xwytAtFXCS2bcAtri+K3UqJjagAU1/y6WV3jTmi3h8BEJBQ++818EIGYNtse6jTzf2T58YlkAqArPeqocoo8BDnqtZCjTvUzpf6INO/HVv99SxoCe3xAGnCt7A9Wf6XdXj4ACdwLtfV/jfU0kU/L394+UPEMBAccxJ7Uu3MVJy/1uc+g2sFdm1SHaLWkVLBBNVNM3XiI5T1C6W1GOIU/y6N/ph0UJOb9WRKXbwnLb+scMaCcbQiE5Okom2L2J7r8XNZszJeG3l90QhNOKgDnRMW7c72Dqi2W9wkSLyO0IZhfNxpeiWx9m+ncuy7OLAmiWUdqBJEwl7BX9JMbMz1AgFWDpOW9B12IK/19KTEq49gS+/PLJZpMkXIkbUp2hE1Y+6J8i/ofcM0IqmxW1Ao/jl3jvzIV0v3mdTz3i+CV2NHVOmL7Yn2yBFHiKRBSXa04+9IbH5lMvYi9LmHUfvKMSEjg0RrBeGhrk/Il2OAPU8vaOFjm7CTPg6qHvcOAKxCfQqqzVffWXwddluri/zh+A3XvTdihMkME0tMi6fSOHH5pRaPJYoXOcAJTTh2SGluyEoKVsbk4mwdP9Hi9T8bBmirb/Cr83yGwOtNo1AD9lxuxSuxPCt6P78PCIIv2izFg1cTS2EdR6NAV8rZIsWtcEsQTKBRi5nNwEIbxYADBQ3GcuOBnGw1DydIsf3CumTY0VvfjM=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(346002)(39860400002)(136003)(376002)(451199018)(40470700004)(46966006)(36840700001)(82740400003)(40460700003)(81166007)(356005)(36756003)(40480700001)(478600001)(336012)(82310400005)(8676002)(316002)(54906003)(6916009)(86362001)(4326008)(70206006)(426003)(70586007)(2616005)(7696005)(1076003)(36860700001)(47076005)(2906002)(16526019)(6666004)(41300700001)(26005)(44832011)(5660300002)(8936002)(186003)(83380400001)(36900700001);
+ SFS:(13230025)(4636009)(136003)(376002)(39860400002)(346002)(396003)(451199018)(40470700004)(36840700001)(46966006)(40480700001)(426003)(1076003)(336012)(83380400001)(82740400003)(86362001)(47076005)(82310400005)(81166007)(356005)(5660300002)(36860700001)(2616005)(70586007)(6916009)(36756003)(4326008)(54906003)(70206006)(16526019)(40460700003)(8676002)(41300700001)(2906002)(8936002)(44832011)(186003)(7696005)(26005)(316002)(478600001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2023 00:33:59.3700 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 71938ac8-2424-46e2-d7f9-08daff350428
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2023 00:34:13.0510 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 71282157-f625-4024-c8af-08daff350c52
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT076.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT106.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5931
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5918
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,185 +100,42 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Martin Leung <Martin.Leung@amd.com>,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, Wenjing Liu <wenjing.liu@amd.com>,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, Alex Hung <alex.hung@amd.com>,
- wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
- pavle.kotarac@amd.com
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ Samson Tam <Samson.Tam@amd.com>, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, Alex Hung <alex.hung@amd.com>,
+ Alvin Lee <Alvin.Lee2@amd.com>, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
+ agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wenjing Liu <wenjing.liu@amd.com>
+From: Samson Tam <Samson.Tam@amd.com>
 
-[why]
-Current RC params are based on VESA recommended configurations.
-Some DSC sink may prefer non standard rc params values due to
-hardware limitations. To support those DSC sink we will allow DM to
-optionally pass rc_params_ovrd in dc_dsc_config so DC will override
-the default VESA recommended configurations.
+[Why]
+MALL size available can vary for different SKUs
+MALL size was still hardcoded for DCN321
 
-Reviewed-by: Martin Leung <Martin.Leung@amd.com>
+[How]
+Remove hardcoding MALL size for DCN321
+
+Reviewed-by: Alvin Lee <Alvin.Lee2@amd.com>
 Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Samson Tam <Samson.Tam@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc_hw_types.h  | 24 +++++++++++++
- .../gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c  | 36 ++++++++++++++++++-
- .../gpu/drm/amd/display/dc/dsc/dscc_types.h   |  5 ++-
- .../gpu/drm/amd/display/dc/dsc/rc_calc_dpi.c  | 10 +++---
- 4 files changed, 68 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
-index 848db8676adf..cc3d6fb39364 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
-@@ -797,6 +797,29 @@ enum dc_timing_3d_format {
- 	TIMING_3D_FORMAT_MAX,
- };
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+index fd57e0167737..55f918b44077 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+@@ -1714,7 +1714,6 @@ static bool dcn321_resource_construct(
+ 		dc->caps.mall_size_per_mem_channel * 1024 * 1024;
+ 	dc->caps.mall_size_total = dc->caps.max_cab_allocation_bytes;
  
-+#define DC_DSC_QP_SET_SIZE 15
-+#define DC_DSC_RC_BUF_THRESH_SIZE 14
-+struct dc_dsc_rc_params_override {
-+	int32_t rc_model_size;
-+	int32_t rc_buf_thresh[DC_DSC_RC_BUF_THRESH_SIZE];
-+	int32_t rc_minqp[DC_DSC_QP_SET_SIZE];
-+	int32_t rc_maxqp[DC_DSC_QP_SET_SIZE];
-+	int32_t rc_offset[DC_DSC_QP_SET_SIZE];
-+
-+	int32_t rc_tgt_offset_hi;
-+	int32_t rc_tgt_offset_lo;
-+	int32_t rc_edge_factor;
-+	int32_t rc_quant_incr_limit0;
-+	int32_t rc_quant_incr_limit1;
-+
-+	int32_t initial_fullness_offset;
-+	int32_t initial_delay;
-+
-+	int32_t flatness_min_qp;
-+	int32_t flatness_max_qp;
-+	int32_t flatness_det_thresh;
-+};
-+
- struct dc_dsc_config {
- 	uint32_t num_slices_h; /* Number of DSC slices - horizontal */
- 	uint32_t num_slices_v; /* Number of DSC slices - vertical */
-@@ -811,6 +834,7 @@ struct dc_dsc_config {
- #endif
- 	bool is_dp; /* indicate if DSC is applied based on DP's capability */
- 	uint32_t mst_pbn; /* pbn of display on dsc mst hub */
-+	const struct dc_dsc_rc_params_override *rc_params_ovrd; /* DM owned memory. If not NULL, apply custom dsc rc params */
- };
- 
- /**
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c
-index c08c01e05dcf..42344aec60d6 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c
-@@ -28,6 +28,7 @@
- #include "reg_helper.h"
- #include "dcn20_dsc.h"
- #include "dsc/dscc_types.h"
-+#include "dsc/rc_calc.h"
- 
- static void dsc_log_pps(struct display_stream_compressor *dsc, struct drm_dsc_config *pps);
- static bool dsc_prepare_config(const struct dsc_config *dsc_cfg, struct dsc_reg_values *dsc_reg_vals,
-@@ -344,10 +345,38 @@ static void dsc_log_pps(struct display_stream_compressor *dsc, struct drm_dsc_co
- 	}
- }
- 
-+static void dsc_override_rc_params(struct rc_params *rc, const struct dc_dsc_rc_params_override *override)
-+{
-+	uint8_t i;
-+
-+	rc->rc_model_size = override->rc_model_size;
-+	for (i = 0; i < DC_DSC_RC_BUF_THRESH_SIZE; i++)
-+		rc->rc_buf_thresh[i] = override->rc_buf_thresh[i];
-+	for (i = 0; i < DC_DSC_QP_SET_SIZE; i++) {
-+		rc->qp_min[i] = override->rc_minqp[i];
-+		rc->qp_max[i] = override->rc_maxqp[i];
-+		rc->ofs[i] = override->rc_offset[i];
-+	}
-+
-+	rc->rc_tgt_offset_hi = override->rc_tgt_offset_hi;
-+	rc->rc_tgt_offset_lo = override->rc_tgt_offset_lo;
-+	rc->rc_edge_factor = override->rc_edge_factor;
-+	rc->rc_quant_incr_limit0 = override->rc_quant_incr_limit0;
-+	rc->rc_quant_incr_limit1 = override->rc_quant_incr_limit1;
-+
-+	rc->initial_fullness_offset = override->initial_fullness_offset;
-+	rc->initial_xmit_delay = override->initial_delay;
-+
-+	rc->flatness_min_qp = override->flatness_min_qp;
-+	rc->flatness_max_qp = override->flatness_max_qp;
-+	rc->flatness_det_thresh = override->flatness_det_thresh;
-+}
-+
- static bool dsc_prepare_config(const struct dsc_config *dsc_cfg, struct dsc_reg_values *dsc_reg_vals,
- 			struct dsc_optc_config *dsc_optc_cfg)
- {
- 	struct dsc_parameters dsc_params;
-+	struct rc_params rc;
- 
- 	/* Validate input parameters */
- 	ASSERT(dsc_cfg->dc_dsc_cfg.num_slices_h);
-@@ -412,7 +441,12 @@ static bool dsc_prepare_config(const struct dsc_config *dsc_cfg, struct dsc_reg_
- 	dsc_reg_vals->pps.native_420 = (dsc_reg_vals->pixel_format == DSC_PIXFMT_NATIVE_YCBCR420);
- 	dsc_reg_vals->pps.simple_422 = (dsc_reg_vals->pixel_format == DSC_PIXFMT_SIMPLE_YCBCR422);
- 
--	if (dscc_compute_dsc_parameters(&dsc_reg_vals->pps, &dsc_params)) {
-+	calc_rc_params(&rc, &dsc_reg_vals->pps);
-+
-+	if (dsc_cfg->dc_dsc_cfg.rc_params_ovrd)
-+		dsc_override_rc_params(&rc, dsc_cfg->dc_dsc_cfg.rc_params_ovrd);
-+
-+	if (dscc_compute_dsc_parameters(&dsc_reg_vals->pps, &rc, &dsc_params)) {
- 		dm_output_to_console("%s: DSC config failed\n", __func__);
- 		return false;
- 	}
-diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dscc_types.h b/drivers/gpu/drm/amd/display/dc/dsc/dscc_types.h
-index ad80bde9bc0f..31574940ccc7 100644
---- a/drivers/gpu/drm/amd/display/dc/dsc/dscc_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dsc/dscc_types.h
-@@ -46,7 +46,10 @@ struct dsc_parameters {
- 	uint32_t rc_buffer_model_size;
- };
- 
--int dscc_compute_dsc_parameters(const struct drm_dsc_config *pps, struct dsc_parameters *dsc_params);
-+struct rc_params;
- 
-+int dscc_compute_dsc_parameters(const struct drm_dsc_config *pps,
-+		const struct rc_params *rc,
-+		struct dsc_parameters *dsc_params);
- #endif
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dsc/rc_calc_dpi.c b/drivers/gpu/drm/amd/display/dc/dsc/rc_calc_dpi.c
-index f0aea988fef0..36d6c1646a51 100644
---- a/drivers/gpu/drm/amd/display/dc/dsc/rc_calc_dpi.c
-+++ b/drivers/gpu/drm/amd/display/dc/dsc/rc_calc_dpi.c
-@@ -95,19 +95,19 @@ static void copy_rc_to_cfg(struct drm_dsc_config *dsc_cfg, const struct rc_param
- 		dsc_cfg->rc_buf_thresh[i] = rc->rc_buf_thresh[i];
- }
- 
--int dscc_compute_dsc_parameters(const struct drm_dsc_config *pps, struct dsc_parameters *dsc_params)
-+int dscc_compute_dsc_parameters(const struct drm_dsc_config *pps,
-+		const struct rc_params *rc,
-+		struct dsc_parameters *dsc_params)
- {
- 	int              ret;
--	struct rc_params rc;
- 	struct drm_dsc_config   dsc_cfg;
- 	unsigned long long tmp;
- 
--	calc_rc_params(&rc, pps);
- 	dsc_params->pps = *pps;
--	dsc_params->pps.initial_scale_value = 8 * rc.rc_model_size / (rc.rc_model_size - rc.initial_fullness_offset);
-+	dsc_params->pps.initial_scale_value = 8 * rc->rc_model_size / (rc->rc_model_size - rc->initial_fullness_offset);
- 
- 	copy_pps_fields(&dsc_cfg, &dsc_params->pps);
--	copy_rc_to_cfg(&dsc_cfg, &rc);
-+	copy_rc_to_cfg(&dsc_cfg, rc);
- 
- 	dsc_cfg.mux_word_size = dsc_params->pps.bits_per_component <= 10 ? 48 : 64;
- 
+-	dc->caps.max_cab_allocation_bytes = 33554432; // 32MB = 1024 * 1024 * 32
+ 	dc->caps.subvp_fw_processing_delay_us = 15;
+ 	dc->caps.subvp_drr_max_vblank_margin_us = 40;
+ 	dc->caps.subvp_prefetch_end_to_mall_start_us = 15;
 -- 
 2.39.1
 
