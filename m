@@ -4,46 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90B62C54E94
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Jan 2023 13:57:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B938C05027
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Jan 2023 13:57:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 173E510E905;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3C3110E908;
 	Thu, 26 Jan 2023 13:56:58 +0000 (UTC)
-X-Greylist: delayed 600 seconds by postgrey-1.36 at gabe;
- Thu, 26 Jan 2023 10:56:43 UTC
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A20EC10E2BF
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Jan 2023 10:56:43 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4P2cp53NNMz9sSm;
- Thu, 26 Jan 2023 11:46:37 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=espindo.la; s=MBO0001; 
- t=1674729997;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=fxhZh3hJF4hylpVAxVI3gLKcRWRw/KJhGWahEaNDrDM=;
- b=MsvlwEo5xlZc/F/kMf6QBvwXsUWGroBW5iom9q9vEtz35aXvXr64gegxgCEJ+gh0csG5kt
- BAIAGWhpUqWYwuzjLH+9ZqMmhpZZWREVeZXX9lbOR/bzSB/e+CKG+vjU0vHEI9ll/8MZ2o
- MXQFqHub0qLtIF3WYHC13jj3NLEUQ5QI32yNODh7Onr6DeDSlL//AriIJdhc9QtuQaD9Ej
- Ddv0hk1p6RHYmivK4e+HLrq2t3yD/Es6JdYHOOkN816o6ugt40sxcX4dQ/XL9SblwYTzjQ
- i702KikF2B3r0wGvjmRixiR5MMzGoRHTYLrVebwHVAnGr+z3BSxzrAUFgExQJg==
-From: Rafael =?utf-8?Q?=C3=81vila?= de =?utf-8?Q?Esp=C3=ADndola?=
- <rafael@espindo.la>
-To: Mario Limonciello <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH] drm/amd: Allow s0ix without BIOS support
-In-Reply-To: <20230125183339.15664-1-mario.limonciello@amd.com>
-References: <20230125183339.15664-1-mario.limonciello@amd.com>
-Date: Thu, 26 Jan 2023 09:46:34 -0100
-Message-ID: <87ilgtshdh.fsf@espindo.la>
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73A3F10E075
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Jan 2023 11:07:00 +0000 (UTC)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ o17-20020a05600c511100b003db021ef437so860318wms.4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Jan 2023 03:07:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=RWvA/LuMivm6khb5ABFFkww00AXK1hEHUXiSdgFZ3Yg=;
+ b=kJeAgdZmt4SrBrlV55IMiRPBZ9qJcFWocfzInFvkOz8DOrRchQDBI1pzLawF3AFPB5
+ 1KEwPBH/O7Etafs+VoxA5oT2SXmtMd9gCqQdJwtLDsimM66EEmWKyCGJHpHcYdDMPdhM
+ YLgqT5hpTI/r3dbclhr+jWM0PCiWqsdUSkE46j0vrI0ftpdzC0KUQWBrM9QRQc5t396v
+ MoonKGr6L9droptziBePCFXzyXJzQDJ6WWovO7R/eonlLTV8xgxgwuWXcIPyvrm+/5lA
+ 8nGeQeSkLVDh2mM3adqtmFNF/Dd4+G4oI2Y/lX/S3fxi22EccjNiQdGFrhq0IfJdH6wq
+ h5cg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=RWvA/LuMivm6khb5ABFFkww00AXK1hEHUXiSdgFZ3Yg=;
+ b=Nl6iUQBXfBlTNP9IMckbYy61Z8Fhm0sG0EhDunXIl2axdFzbN4Rz2QbfVbNIyxVBwI
+ HLlqPFmpPSZIzcyhhe8KfP87BDpBpDwU3a8Rvv8px543Wz0v8zT88hNQMBni7HuUZO+v
+ a3djOvfIld3R3gyIq55G0fpmzeApTKQGvGmAJzTFYwYi5LSwt2LsS9ZHtFMGNEIeFQmQ
+ oIDkt1m1We83cFHLT66xnQ64q5I3vJ1b0/NwiO8cccUVNoEIN7yV5EUtj1bUSRLEl7Iv
+ Os99VDgPYATZhlRsZHcUDYQIg8AC2PUfJNtQnaMZWsrSH3QX7Qe6q892a2lHTgQE7B0v
+ gYIg==
+X-Gm-Message-State: AFqh2kp8yZC16yE3qi0tmVfJSmU0rNYm4VqqDu3N1GS0yVpUISLuNcw/
+ W3bG4wFqyydalxZYfzQMpF8=
+X-Google-Smtp-Source: AMrXdXvrmOhwuMrvCRT4UpvMKxjXCNw6EDUGRseVr+3ha9BA98bQv1gDpiow2vHd1oeqam8FHd9ghg==
+X-Received: by 2002:a7b:c5d6:0:b0:3d9:fb89:4e3d with SMTP id
+ n22-20020a7bc5d6000000b003d9fb894e3dmr36703776wmk.28.1674731218808; 
+ Thu, 26 Jan 2023 03:06:58 -0800 (PST)
+Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
+ q4-20020adff944000000b002bfae3f6802sm1020444wrr.58.2023.01.26.03.06.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Jan 2023 03:06:58 -0800 (PST)
+Date: Thu, 26 Jan 2023 14:06:54 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: wenjing.liu@amd.com
+Subject: [bug report] drm/amd/display: move eDP panel control logic to
+ link_edp_panel_control
+Message-ID: <Y9JezlqdEleSQh23@kili>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Mailman-Approved-At: Thu, 26 Jan 2023 13:56:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,92 +68,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Mario Limonciello <mario.limonciello@amd.com> writes:
+Hello Wenjing Liu,
 
-> We guard the suspend entry code from running unless we have proper
-> BIOS support for either S3 mode or s0ix mode.
->
-> If a user's system doesn't support either of these modes the kernel
-> still does offer s2idle in `/sys/power/mem_sleep` so there is an
-> expectation from users that it works even if the power consumption
-> remains very high.
->
-> Rafael =C3=81vila de Esp=C3=ADndola reports that a system of his has a
-> non-functional graphics stack after resuming.  That system doesn't
-> support S3 and the FADT doesn't indicate support for low power idle.
->
-> Through some experimentation it was concluded that even without the
-> hardware s0i3 support provided by the amd_pmc driver the power
-> consumption over suspend is decreased by running amdgpu's s0ix
-> suspend routine.
->
-> The numbers over suspend showed:
-> * No patch: 9.2W
-> * Skip amdgpu suspend entirely: 10.5W
-> * Run amdgpu s0ix routine: 7.7W
->
-> As this does improve the power, remove some of the guard rails in
-> `amdgpu_acpi.c` for only running s0ix suspend routines in the right
-> circumstances.
->
-> However if this turns out to cause regressions for anyone, we should
-> revert this change and instead opt for skipping suspend/resume routines
-> entirely or try to fix the underlying behavior that makes graphics fail
-> after resume without underlying platform support.
->
-> Reported-by: Rafael =C3=81vila de Esp=C3=ADndola <rafael@espindo.la>
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2364
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+The patch 0078c924e733: "drm/amd/display: move eDP panel control
+logic to link_edp_panel_control" from Dec 19, 2022, leads to the
+following Smatch static checker warning:
 
-Acked-by: Rafael =C3=81vila de Esp=C3=ADndola <rafael@espindo.la>
+    drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_edp_panel_control.c:353
+    link_edp_receiver_ready_T9() warn: potential negative cast to bool 'result'
 
-I have tested this patch on a Gigabyte B550I AORUS PRO AX with a 4350G
-and can confirm that the errors are gone and the power consumption during
-suspend is down to 7.7 W.
+    drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_edp_panel_control.c:388
+    link_edp_receiver_ready_T7() warn: potential negative cast to bool 'result'
 
-Thanks,
-Rafael
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_edp_panel_control.c
+    331 bool link_edp_receiver_ready_T9(struct dc_link *link)
 
+This function returns DC_OK (1) on success or positive on error or -1
+on unknown error.  So casting it to bool means it always returns true.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 8 ++------
->  1 file changed, 2 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_acpi.c
-> index 57b5e11446c65..fa7375b97fd47 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> @@ -1079,20 +1079,16 @@ bool amdgpu_acpi_is_s0ix_active(struct amdgpu_dev=
-ice *adev)
->  	 * S0ix even though the system is suspending to idle, so return false
->  	 * in that case.
->  	 */
-> -	if (!(acpi_gbl_FADT.flags & ACPI_FADT_LOW_POWER_S0)) {
-> +	if (!(acpi_gbl_FADT.flags & ACPI_FADT_LOW_POWER_S0))
->  		dev_warn_once(adev->dev,
->  			      "Power consumption will be higher as BIOS has not been configur=
-ed for suspend-to-idle.\n"
->  			      "To use suspend-to-idle change the sleep mode in BIOS setup.\n"=
-);
-> -		return false;
-> -	}
->=20=20
->  #if !IS_ENABLED(CONFIG_AMD_PMC)
->  	dev_warn_once(adev->dev,
->  		      "Power consumption will be higher as the kernel has not been com=
-piled with CONFIG_AMD_PMC.\n");
-> -	return false;
-> -#else
-> -	return true;
->  #endif /* CONFIG_AMD_PMC */
-> +	return true;
->  }
->=20=20
->  #endif /* CONFIG_SUSPEND */
-> --=20
-> 2.25.1
+    332 {
+    333         unsigned int tries = 0;
+    334         unsigned char sinkstatus = 0;
+    335         unsigned char edpRev = 0;
+    336         enum dc_status result = DC_OK;
+    337 
+    338         result = core_link_read_dpcd(link, DP_EDP_DPCD_REV, &edpRev, sizeof(edpRev));
+    339 
+    340         /* start from eDP version 1.2, SINK_STAUS indicate the sink is ready.*/
+    341         if (result == DC_OK && edpRev >= DP_EDP_12) {
+    342                 do {
+    343                         sinkstatus = 1;
+    344                         result = core_link_read_dpcd(link, DP_SINK_STATUS, &sinkstatus, sizeof(sinkstatus));
+    345                         if (sinkstatus == 0)
+    346                                 break;
+    347                         if (result != DC_OK)
+    348                                 break;
+    349                         udelay(100); //MAx T9
+    350                 } while (++tries < 50);
+    351         }
+    352 
+--> 353         return result;
+    354 }
+
+regards,
+dan carpenter
