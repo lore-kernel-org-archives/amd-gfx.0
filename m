@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85114C61D97
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Jan 2023 00:35:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F72AC54EAA
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Jan 2023 00:35:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18F5310E8BF;
-	Thu, 26 Jan 2023 00:35:11 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2066.outbound.protection.outlook.com [40.107.92.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95B2110E8BF
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Jan 2023 00:35:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD76E10E8C4;
+	Thu, 26 Jan 2023 00:35:23 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2047.outbound.protection.outlook.com [40.107.95.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DC9F10E8C4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Jan 2023 00:35:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TjNLRp/OwhffX5PFlfBgZF+sjA7NDyvOZMQZrAQXsSLBXD7+NCvNTU+q1Dr1Mf7vQf3b885jVeslHB/7M3tHQx3+eO/f6TsEvtb6hmPzBYYyjNIL9Cy+fsH8Lm48kDreLPaS6uDRJE6e9OpU+JK2NCfP8GUEnG3JZf7XK/kkpPOuWYR6b100sNHJTc2AUpUQ1APlQjNtZjiKJciclhdIRedQ63jWoqp/L1g7bXsampoln5vzAqWksfMFxOOClQwrU1YBT9/N8IZr3tAu3iWS8G91aEeY8vN0znuXZgsB0xxLADNFBfmQQGsmsC8c6PT9qsHUu5NvrOB04f0UdIo+gg==
+ b=LyAqXyNHTvzxLBlGt/66rWuMYMYkx129NYxddgZZjvUxOOOLiT/bnlGMbrxBYnG43MtsAjywNrV6Bb8n6WA4a3UTTtCywDKhwFMsQWm/H65GFZIFW0yWbm9LVfN/B+OfB7JV37lLXLh12eFRVn+fLwop321E7HR+1YhZKpAywNyl1plpuqK8hLKC87Rstrrd2m2am4A/kqzZLFKq340gn2R8o4i23UcHEJsPdYcdEGwKD5e8z15j6713Y0Vkf4+gcptK6kKyJ/LlTYC+FAvpwUwn68CsOQl43rj0F9exIcdsNTR+QXTXPpiKPn4OXB5v3C8o4735AqeY7/x1L2doAQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VtAPVf9h3+ldR+dS6P1tioKvzrWaBcRK8LE1b/yb4zA=;
- b=oPZ6fHxB4VEGA1OaV/i6uFwftEnKepRBmR5dg8vw2BzZxuYQMpc1Ofhe5JoKpC1XHwcw1sY5/IJLh37sQIhU20BCHbPYALes2AjVwSHG6DKn42q+dWTy1Vzu2PHolZRWTit5ytZOdNNEPsPnQIPAPFsD+ZjkWVL+8t6CUlabYFpfhc4dyuJp9D2CZ5+9t5VxkyZpe4mKtbDJzTIbW5maj1yPxrKMBkvOEUO2IOic/my2vXt3J9Nk/Uk1rISREIAea2tjiUWvTIjL30XydMdJ2tB8GzWB4vqBWpO1zMThxBP26yAVo2/Dwnt+UzBGXx7kS8ABaxKDbFKkyfxuP7UE9Q==
+ bh=dG0uUEBerQoNJ47yeNUSqT+RHnOvyHN8bjUkbJMgkw8=;
+ b=hfslD5/fQgq0mBagBqDsF/TUH3zQlORZny07f5pxKTd/9L1MvxFM0R+7iBvsKdDlMBqLZK4rtJZ8wlquVPfoZ+QnoioJsj2Pv6YAufTRIq9njL8y958zAOeSRsjc7mAzM04idy9TCLVMrK2AhC4DLC3MZ+B4RShhaBv4Mr7bd3PiCfX2rU4ZJdiv+y+Qukje3rybNrQ4/Z+FKUmUUghduI+X/sDC4tlTyLyvMh39AjYodU2M40zZf6WLvkIK6NHQmAiOX6SzxjqreMSApWp4MJve8uvSO5m44164s6S6o3EWrqddygO3CvmbS0SQb/6IeSXmcfADj8nSD8+zELG0iQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VtAPVf9h3+ldR+dS6P1tioKvzrWaBcRK8LE1b/yb4zA=;
- b=ATAjR2cvaN0XuhUSr47QCIoWmVkAanyIed5we+iB0NBG2/D8gguy4hYESqaLmQfixvMJPGaoWtAXSOHzZ1jYH6di2f/XyYg8UHSc+8YIIMGPhBFlVpTaUQy7KAYPlFCyOTTZF9KTfuI20bNl9oJ7VjRbkK5bmh3y4FaLrURqYlY=
-Received: from DS7PR03CA0343.namprd03.prod.outlook.com (2603:10b6:8:55::17) by
- LV2PR12MB5944.namprd12.prod.outlook.com (2603:10b6:408:14f::12) with
+ bh=dG0uUEBerQoNJ47yeNUSqT+RHnOvyHN8bjUkbJMgkw8=;
+ b=VmcaNyphjFRaDbUMx3wEvTHT5lerDonFb5UXhIIVkQF8kdP4AoKnJ8etD5inHiaah9SdzMP/AsUehONGCu+c9tMZk8clxMy+RZIsUfd0VTMx9y4y1CdqM2ixo9GChGjfRgiV1aNyZI5yGRuOTSOV73mjeWqSuIOvyvoNsscxfbQ=
+Received: from DM6PR05CA0062.namprd05.prod.outlook.com (2603:10b6:5:335::31)
+ by BL1PR12MB5707.namprd12.prod.outlook.com (2603:10b6:208:386::10) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33; Thu, 26 Jan
- 2023 00:35:06 +0000
-Received: from DM6NAM11FT109.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:55:cafe::c0) by DS7PR03CA0343.outlook.office365.com
- (2603:10b6:8:55::17) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 00:35:19 +0000
+Received: from DM6NAM11FT111.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:335:cafe::ca) by DM6PR05CA0062.outlook.office365.com
+ (2603:10b6:5:335::31) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.20 via Frontend
- Transport; Thu, 26 Jan 2023 00:35:06 +0000
+ Transport; Thu, 26 Jan 2023 00:35:19 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT109.mail.protection.outlook.com (10.13.173.178) with Microsoft SMTP
+ DM6NAM11FT111.mail.protection.outlook.com (10.13.173.26) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6043.21 via Frontend Transport; Thu, 26 Jan 2023 00:35:05 +0000
+ 15.20.6043.21 via Frontend Transport; Thu, 26 Jan 2023 00:35:19 +0000
 Received: from dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 25 Jan
- 2023 18:35:03 -0600
+ 2023 18:35:16 -0600
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 07/16] drm/amd/display: Add missing brackets in calculation
-Date: Wed, 25 Jan 2023 17:32:21 -0700
-Message-ID: <20230126003230.4178466-8-alex.hung@amd.com>
+Subject: [PATCH 08/16] drm/amd/display: Fix only one ABM pipe enabled under
+ ODM combined case
+Date: Wed, 25 Jan 2023 17:32:22 -0700
+Message-ID: <20230126003230.4178466-9-alex.hung@amd.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230126003230.4178466-1-alex.hung@amd.com>
 References: <20230126003230.4178466-1-alex.hung@amd.com>
@@ -68,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT109:EE_|LV2PR12MB5944:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0e6dc581-9acf-4877-b44e-08daff352bc4
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT111:EE_|BL1PR12MB5707:EE_
+X-MS-Office365-Filtering-Correlation-Id: fe29687e-e5fb-4c23-c80b-08daff3533c8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bFPmtx0F4nUonhFjfo8vZZ+ZlWqEDTyLmcLROTf5wmIuXTc1EndjRia5YTowVkLfRV8m6+yBQ0oZHlJfTWkkN/5kVZY5ayIcffhsUmWX5HqAJBf2cVY4oSI+aZMrBdf/yKitBm5TOQmYikODfzdCJWDtohShoU+8Gu/xuxyLbEybooTbbkT8TvQsuYtU3h5Zf6JXMG89Hbm5b/qQibUD/AsKH3/FuQiFPdXL9nS6QfE7F6zsf+6K4vs6xxsdKA6kTVf5e8F0AMKpva4OZlEERUIHl16ecVl2Mk7xH4V2Kfql+IuA5/bUVhz+/rAQ13ngxvFXAKJFKw7wpt88cgj7FJ3VwSiz/RPi74GgrPwBj0ZL8p7kpIHoWpxZtMPIVdf7GIqs30fv2q13EfnSEsg6xWREHQlpqNrEXnCofvtHcMSEMqgSlMR8pRIKarde3qbgYJDCiPzZSVF95OZ+vfk0RJwBhRVRpvYBrwjoV4d5DIi+6y+fMrNPoXtWct/J0xvcU99YTq6X1i0ML9j6CTtEQri2mDGyeSQ0n19FgqOz90EDWxp3N1RQIbhR0wbb8MPALZIzAv2rBxL8loNLH3f/qsOORY/FSvz8FHFxEWMKG3hJE47eJpRDzNDk3d5FN8SYy2bm/y+zqsoQny0ZID7v3pNIDiWikVxRoFL42012bvdhf6UCFHlVCX7Bf3AzAlJlCULTtMhLOkwqDfv36s76YoYNdxsBB15tNmbmSRY25S8=
+X-Microsoft-Antispam-Message-Info: 8moltzd3ETrRSC6zm15tE6hBkMX6fEtkVWMloeUK4J/39nBT4YaW4d4D9N/io8u//hX2C4zgmdJf7hu4kjKdQHqanDnoTR5acIG4fnxzFDCF63tr2209Y4OtXEDZPVX2+ll6k61R8DCa6ZyQ31BQLsviGVXR6znIuhUOBrXR8Ccr/40vby8XjXAP+pEgjVmDntfD5IFZYFuaNICgiXACIbNITrbHMD9sbEFGvDXJInT/mTbIIx7UvD3449V0tio14zzdNP6Dit4/Mq8FxJxa+BZNyLqzi/j1aSl6EitpvS+0uLbOEAsq0/09T8HKWKCC4gc3cNIBZBJklcjvMp3QJvqbT7zIYy5tJZ8tOpcRO8OCTEgkrWszEuF6SCBBoQxHCSbWQqwV4BX1iXVLJsEm2oBSTSTRst6Hu/ar0t6h8zcviPHEhK1dG+O2EBnz7ZXVQ9/GCP1ODMqxjO/n7mnzJuAZQDzNIHx1sDS5EFkqPijkHWptjgPKXud3X/1J9uIwc5MSfjw644FdE23KVn9asuFY6Om1gg37iZroW5A82OcciJUjfq96S5bT0+cy1xjbvrFKmK9IMR3kGBXIw0XALgua9BXzNrz8JKz8Hh3/S6PKUI+t4Virzp1PRWpl+ArZbKgas4axzcHCjxUCxLELQAWyDJ7vD5r3iZ3BtNDnGpabkAPqKBnihi3w9u6kIdwlN/cllUs5ODMlmOeR5z8yRwrO1Vv0mqjrtL99T1IN6RLMNIgd5OH2zygUVj5YmXUfoeGYpGW5IS+X7UGrdNEKbQ859upU5j2wSJnmIk5SuIE=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(39860400002)(136003)(346002)(376002)(451199018)(36840700001)(46966006)(40470700004)(36860700001)(26005)(83380400001)(81166007)(5660300002)(2906002)(82740400003)(7696005)(41300700001)(86362001)(44832011)(8936002)(82310400005)(4326008)(6666004)(16526019)(40460700003)(316002)(40480700001)(356005)(186003)(8676002)(47076005)(2616005)(426003)(336012)(478600001)(54906003)(6916009)(36756003)(70586007)(1076003)(70206006)(36900700001);
+ SFS:(13230025)(4636009)(376002)(346002)(136003)(39860400002)(396003)(451199018)(40470700004)(46966006)(36840700001)(26005)(40460700003)(47076005)(36756003)(82310400005)(186003)(36860700001)(316002)(54906003)(426003)(7696005)(1076003)(83380400001)(2616005)(336012)(6666004)(16526019)(5660300002)(40480700001)(356005)(81166007)(8936002)(44832011)(478600001)(2906002)(6916009)(82740400003)(86362001)(4326008)(70586007)(8676002)(41300700001)(70206006)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2023 00:35:05.8226 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0e6dc581-9acf-4877-b44e-08daff352bc4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2023 00:35:19.2711 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe29687e-e5fb-4c23-c80b-08daff3533c8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT109.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT111.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5944
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5707
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,44 +100,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Daniel Miess <Daniel.Miess@amd.com>,
- Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ Leon Huang <Leon.Huang1@amd.com>, solomon.chiu@amd.com,
  Aurabindo.Pillai@amd.com, Alex Hung <alex.hung@amd.com>, wayne.lin@amd.com,
- Bhawanpreet.Lakha@amd.com, Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+ Chun-Liang Chang <Chun-Liang.Chang@amd.com>, Bhawanpreet.Lakha@amd.com,
+ Nicholas
+ Kazlauskas <Nicholas.Kazlauskas@amd.com>, agustin.gutierrez@amd.com,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Daniel Miess <Daniel.Miess@amd.com>
+From: Leon Huang <Leon.Huang1@amd.com>
 
 [Why]
-Brackets missing in the calculation for MIN_DST_Y_NEXT_START
+ABM set pipe before updating ODM status,
+it leads to incorrect ABM pipe setting when enabling ODM combine.
 
 [How]
-Add missing brackets for this calculation
+Call ABM set pipe flow after ODM status update in program pipe sequence.
 
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Reviewed-by: Chun-Liang Chang <Chun-Liang.Chang@amd.com>
 Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
 Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Daniel Miess <Daniel.Miess@amd.com>
+Signed-off-by: Leon Huang <Leon.Huang1@amd.com>
 ---
- .../gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c    | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
-index 950669f2c10d..cb7c0c878423 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
-@@ -3183,7 +3183,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 		} else {
- 			v->MIN_DST_Y_NEXT_START[k] = v->VTotal[k] - v->VFrontPorch[k] + v->VTotal[k] - v->VActive[k] - v->VStartup[k];
- 		}
--		v->MIN_DST_Y_NEXT_START[k] += dml_floor(4.0 * v->TSetup[k] / (double)v->HTotal[k] / v->PixelClock[k], 1.0) / 4.0;
-+		v->MIN_DST_Y_NEXT_START[k] += dml_floor(4.0 * v->TSetup[k] / ((double)v->HTotal[k] / v->PixelClock[k]), 1.0) / 4.0;
- 		if (((v->VUpdateOffsetPix[k] + v->VUpdateWidthPix[k] + v->VReadyOffsetPix[k]) / v->HTotal[k])
- 				<= (isInterlaceTiming ?
- 						dml_floor((v->VTotal[k] - v->VActive[k] - v->VFrontPorch[k] - v->VStartup[k]) / 2.0, 1.0) :
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+index 916dceecd3de..cb8edb14603a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+@@ -1777,6 +1777,15 @@ static void dcn20_program_pipe(
+ 			&pipe_ctx->stream->bit_depth_params,
+ 			&pipe_ctx->stream->clamping);
+ 	}
++
++	/* Set ABM pipe after other pipe configurations done */
++	if (pipe_ctx->plane_state->visible) {
++		if (pipe_ctx->stream_res.abm) {
++			dc->hwss.set_pipe(pipe_ctx);
++			pipe_ctx->stream_res.abm->funcs->set_abm_level(pipe_ctx->stream_res.abm,
++				pipe_ctx->stream->abm_level);
++		}
++	}
+ }
+ 
+ void dcn20_program_front_end_for_ctx(
 -- 
 2.39.1
 
