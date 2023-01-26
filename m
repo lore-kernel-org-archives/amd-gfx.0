@@ -4,118 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF985C54E94
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Jan 2023 09:53:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99714C54E94
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Jan 2023 13:56:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 953B710E4C6;
-	Thu, 26 Jan 2023 09:52:50 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2048.outbound.protection.outlook.com [40.107.243.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5D1C10E1D1;
- Thu, 26 Jan 2023 09:52:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XKAnSkv2oFghMcpR44nC2fr5f8V+DSrZl5yEBLjp2fiACr3bBLpXjsMqOOiu19gFKBNogEm0VCYQx6qoepgUr20DTc4E2797vNOhIb0evoj6tk3SfOrkE7gpWME/U1NspYG5gzhV+dBGFfdriz+7qCawtkz7bAI4NYw5QSj2hIpReh8JkZTxypBlgz5na4/d8ruc3Aukf/lqWsRfbrnqXMelh5hXDGZU13IjsCesAKYP3Dz0nTxkrpus/YJZduc7k8yayPrz0e2DPlOxCT8u1VfAGusbamcHse7CRqBQkY2UlNI8Dp+UTPGs1eZ143oRT7gpzH1XQ48Oa1q8gTCgmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V9rQZaWNxTGscy77XmY8wLVgpKvWf+JGmrE1tge0of8=;
- b=EbNBBRmHj0BYz68c+h/DRo5mb6duwyl+lwEC9WpIPeQB/m+YQiptjfStJHrFND3fF0YnWXoWFDFhCUrO3yz+2xXpXoPDmOGy57KxB3DOklEjdY5HUu7zfqMERMP5xM94vHtkvozfxXkM7/qM6YtIJNWxSQuQMnA3L3KfK5Ssnz2gfBMQgXmGcSX1G/K+jFhuSJ8XkHCZF6cAooyseZS5ldhK3LIkV75DXdlQSZ22umeg2y8DD4tLgJqK0sYPs8n6Q8UtPM5qC4Ol5yHChVuDsA5mA9FzG1p+3BXv6KGN5599G8DKbYEs8ADDJmlpQgLwlqLSy1floeEqhqc/vsGf4Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V9rQZaWNxTGscy77XmY8wLVgpKvWf+JGmrE1tge0of8=;
- b=UDY5TkQ6c0odRhCMaHpqYKTKH5J5E5bAcSdTpJuc46TtSsQPqpmQIy4uihRqcP0B9zRm2f+rRV2+Y+PFBCSNOtDysS0q6DWA/gO1HjHPRh08R9IdHqqVaqfVOq9eMf7fwIXuB5sUVbUbjD/vviGUmfDahsa0UaUhlHDwMguvVTU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by PH0PR12MB8097.namprd12.prod.outlook.com (2603:10b6:510:295::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.22; Thu, 26 Jan
- 2023 09:52:43 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::2e4f:4041:28be:ba7a]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::2e4f:4041:28be:ba7a%6]) with mapi id 15.20.6043.017; Thu, 26 Jan 2023
- 09:52:43 +0000
-Message-ID: <15b56780-5d10-4d4b-9915-017650e6b22d@amd.com>
-Date: Thu, 26 Jan 2023 10:52:34 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH v4 3/4] drm/amdgpu: Movie the amdgpu_gtt_mgr start and
- size from pages to bytes
-Content-Language: en-US
-To: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org
-References: <20230125152006.3945-1-Amaranath.Somalapuram@amd.com>
- <20230125152006.3945-3-Amaranath.Somalapuram@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230125152006.3945-3-Amaranath.Somalapuram@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0095.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a9::12) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 205E910E900;
+	Thu, 26 Jan 2023 13:56:57 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A956910E679;
+ Thu, 26 Jan 2023 09:35:56 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 93D00B81D14;
+ Thu, 26 Jan 2023 09:35:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40FC4C433EF;
+ Thu, 26 Jan 2023 09:35:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1674725753;
+ bh=Jq0Q+Dfka0m9QKRqrUV8u4PYW6lJ0tXLbKty2Z/MONQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=DpDvg8hLIsvs2nUChgLqcCzQb5MGT6xlFHD2548qKue6I+mFb5y6KuSL9cEj8Sv48
+ 34VITUz8VdpEiQ9Lx/p/ZzxIfgWzJF/ix7JV7i7oWmkpSZBBDw/wkwDZeRctfKpgE4
+ Ug8fi9SZm0Ot2nPaKiPqjgCQxC9GT5ZFTD04h9bfnxijqaLpzmrs/o75HcASj7qn/g
+ 7zriVl66jfzZ9BuQJRZl5X3Xuu5sTLySnZxHc1US6dXmWen4DqRyj7BX7yuPOxA0Ol
+ 7+wswiyrJ+2czF/DMRCi3tC4jGYGzS4NDlKIoMpCo6a40qDBmQLb9AasmuzNqhmeLt
+ 5DbFCNBqCE0QQ==
+Date: Thu, 26 Jan 2023 11:34:54 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Suren Baghdasaryan <surenb@google.com>
+Subject: Re: [PATCH v2 5/6] mm: introduce mod_vm_flags_nolock and use it in
+ untrack_pfn
+Message-ID: <Y9JJPvvuvSjQ+x9h@kernel.org>
+References: <20230125083851.27759-1-surenb@google.com>
+ <20230125083851.27759-6-surenb@google.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|PH0PR12MB8097:EE_
-X-MS-Office365-Filtering-Correlation-Id: 35b291d0-6bcd-4a8d-9638-08daff8311c7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: j9WWg5IhznRnFfFYckTZ7cyV+xfcxGPkF8f6wWFUflN2L56J+MSLcB+PwuyMv2BeXFDjJ+Dzvq0yZ1ron/NAsoPecTuP8ktNXMJ10rPOmclLPlt60+zSJcd5uW37omJcRNICwfW2qZIbZjKGX9UsF0hXWE8PDRNvyTDwDo13shoGLJ8t3wndMA9lHARt/ODTO/cR0PskeCwbuiu6wOKSZdkojP46AMdnBkVRPCnlmFdCHBzRP4YFLlXe9e1j2/y94tZLepr3gg739O2Ms6iHJRR36TdEiCYWLtUzQkRSnWAAVtiKaqdZ7QokBiz5fNifSH2zSBeGuZ3cyqDhke6ai5UYD2DE0LARqU/iWKYLGrSuaqjcScU+KFfxQKNeBqQ9Hrbwv1sPx0QCIBqTDEi12TWwLM67lFPb5fJOUyO2BwitD/1arEE/CfNTADO2dnBOJh1LoNhSCkqUs5EUt296KHhsCtjMy2VOkq8aRW12SI8ef8jDBsZ1JyWPP2iJz6h5OQbECfepHFRxy2uXLB/w5iZIXma+urTOKiICWUASMZcrJS8c+4XV8P2QPCVRo96szCTxOc9xfU9AmGHvi+ebYA8UhzYcFi1/60WVmvXwKmizUWAAwv5xTD9THJ5s38lkuipBJ3EV/RofMeQ7Tb8Y6tl018FBDKi/D6Aq3ucaeb6vhQho1EWXZ7Oqn6Sf3vEuRvVybEogTjk72V5OqJHZ8lLxpMzh1iy/fJynvyWGl/I=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(39860400002)(136003)(376002)(396003)(366004)(346002)(451199018)(6506007)(26005)(6512007)(6666004)(83380400001)(2616005)(316002)(186003)(4326008)(8676002)(478600001)(6486002)(66946007)(38100700002)(86362001)(450100002)(31696002)(5660300002)(36756003)(2906002)(66556008)(66476007)(41300700001)(8936002)(31686004)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?alowZVN5eXVlOFAxTXkvd29ZbTJGRVpzK3N2bjFsT2RIM3JRRzFiWXAzZHpi?=
- =?utf-8?B?K2VucmhBNTBlZE0zeXpPUmtFdWQ5Q3cxd0FyeUlSQTBjUUhmbG16bnRFcmQx?=
- =?utf-8?B?blpjU0JIUXROR1d4blJBaTZlelJFT05yeXdJZnB3TzRtTnI1R1JWa3pMdkl6?=
- =?utf-8?B?MWFjODZ3bDB3K0NSUk9ZcEN4OEg3ZVFUTE1JVEJQK3BzSVppYm9xWWV2ajZl?=
- =?utf-8?B?Q3NTZ0FhR0JQaVB1T1lpcFJWby9zeUJPZS9HSGNZUTZTMzNCQlVsUHB5dmJs?=
- =?utf-8?B?bmo5OGZNVGxRcGd5VUJaOUs5WmRqRzNvcXpFNGU1emloZFYrY1EydVJYNWVm?=
- =?utf-8?B?bjcrUWJiaWY5L29vK2MvQVRXNldWSzUrRFBJQXhVVEtPdWZvMERXa01CQ3dj?=
- =?utf-8?B?K3cwRWlBSzJZTm1EUU15dlRnQUFmM09QajVlaEdzc3hFWldBSkFhT1l2VEVs?=
- =?utf-8?B?Mk81SFV3NHQ0clBPM0ozWXZmNXFCY3c2b1grWVpFVk5uVmIyMUxhaVBsa2RK?=
- =?utf-8?B?TE1WSlhOLzhGaFk5b2RCWXBoSmQvRjVJVW4zT29ONDlvNmJoL2lNVER3Qkl1?=
- =?utf-8?B?c2t0ZlBDOTBZaDBudUFDNndHYm9ZMjNpOWxQRjRsb1k1dHlSZUU0cVlkWnBo?=
- =?utf-8?B?R3p1aTA4czNtZVRTYXIranIycVhNVkJGOFpkd2l4bGNQVklWNFFHSzhCWEoy?=
- =?utf-8?B?MmlseGEyQlo5LzhiRStRc3dXcG9qSlN1Yk9UMzg1S0ZYUEg5Q0owbVVOMU0x?=
- =?utf-8?B?UXdabDJmZDcyaEJPS05uc2NTazhreVdCdmE5c1hqek9iSU1HRGF0OGtVdWtX?=
- =?utf-8?B?anViNDlCMkd4cm9qMTREQXVnaHZ2dDBlL2RTWk54MStOWUVyd3pjblVKeGpj?=
- =?utf-8?B?UUNCOFBsbEhkUzEySE9TOWdOY1YwYUNCOFB4TWpQY1JLSktmRVY5Rk5pRnFl?=
- =?utf-8?B?ZUFBSC96RENpeDlLVmduWTAwdGxvSFpwbjk1bnVhclJLbjdCYXhaLzBMeVMw?=
- =?utf-8?B?YjdHaUNINUNJWjNKdmpETko1dVFmUlgxd3JiNkdkQU5zVytOcnVDNDB4VVlu?=
- =?utf-8?B?anVNUEg5U2MxWkozUjRwRVpySDdHTzc2eVIzMWg0M3VjdXJSWTlvdnpMTzcz?=
- =?utf-8?B?YVJmMVFiSTNDaFpEQnFFcWl2ckcvNlRweVB2M2xjWkp1d21tL3dFeVlxZkRM?=
- =?utf-8?B?UTdOVGRzT0dGL2xSanVXMmZHbTJrK01sZmYwanhseGJkaFFRVnk1Q0hkVmRp?=
- =?utf-8?B?VDZ0cENwMW41ZjVKME9tem91VEhlVm9VMW8zeHVoaDE2K1AwV0ZjUWlhVnBO?=
- =?utf-8?B?L3hadHNUSjhUcUwzZEVpSkh3Q2hQbkFsWEp3TStxRTdOZWpGZm96NWZiN004?=
- =?utf-8?B?NndUWkx1bndPSDM4NnF0OUZONWZPTnZmU0RKa2UyMXlEV1BNdW9QYkQ0cVdR?=
- =?utf-8?B?VzIwUUVGV2VtSDNOQldYVktNUFB2NXNrdmFBK0s3UEt4bnhYdjBJTU5HR2ty?=
- =?utf-8?B?UmMzWU01TXI4bVByc2hEWS9xVU9uMnRXSk92TFM3Q3R2NElwWjloaUprUVJL?=
- =?utf-8?B?K28vaGJ6RytSYkNZdmtJbHZtdXhUeHp3bjdsZTI0VURCSG91U2JzSkR2Wit5?=
- =?utf-8?B?L1VEa1dHclRib2pHaEpWcXRmSlJDVUk1Lzl1QnMwZ01PK0VqaVladXdhelZE?=
- =?utf-8?B?bElmdlI5eTlhbnFtbVk5enlmZGpYR2JocUdJVXNNZzdrVVJxVm9acERjVGtZ?=
- =?utf-8?B?bHhsd24wMXlrR2RYUlNDVFpuNzQyTjNtcmpnNUl4Ly9QeFJSaGY2M29vTWxs?=
- =?utf-8?B?TXhmS2xITUNrNDZOWXRzaFNLNWxQaDdwbUY4S28rMU9DZERJOUZRZVVJdUtl?=
- =?utf-8?B?ZlVpUTJraXptNkZnZ3h4SVZSeUV6MktXY243OFFzVE53L0pOSXRNbEh0MU5m?=
- =?utf-8?B?UXVIa0hUaU0zK0N2RnpHYm0wTzRZRWkwVUgvMDB4enBpYVpFcGdXaUFvRGxo?=
- =?utf-8?B?TUl0OEtmRVc0em5DdFRnR3M5Ykh2STIvZTZDRHI1cTBpbk1sckd6cFd6em1j?=
- =?utf-8?B?UDlXclkxckVSNGo1bmdtTFFDaTBNUFVGTXVUKzJOYi9VeWtad3NXNjJ0aEhy?=
- =?utf-8?Q?pcndZwlCRokEuFFFkWTah1Fz0?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 35b291d0-6bcd-4a8d-9638-08daff8311c7
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2023 09:52:43.2937 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: libqDZkF72K4cwKJ4Mo/WikfvR+ARJGtiWCg5dtUjogKPmmZ87+172SOk/my7r3z
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8097
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230125083851.27759-6-surenb@google.com>
+X-Mailman-Approved-At: Thu, 26 Jan 2023 13:56:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,101 +53,316 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, arunpravin.paneerselvam@amd.com,
- arvind.yadav@amd.com, shashank.sharma@amd.com
+Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
+ leewalsh@google.com, dri-devel@lists.freedesktop.org, perex@perex.cz,
+ jglisse@google.com, arjunroy@google.com, m.szyprowski@samsung.com,
+ linux-arch@vger.kernel.org, qianweili@huawei.com,
+ linux-samsung-soc@vger.kernel.org, aneesh.kumar@linux.ibm.com,
+ chenhuacai@kernel.org, kasan-dev@googlegroups.com, linux-acpi@vger.kernel.org,
+ rientjes@google.com, xen-devel@lists.xenproject.org, devel@lists.orangefs.org,
+ robdclark@gmail.com, minchan@google.com, robert.jarzmik@free.fr,
+ linux-um@lists.infradead.org, etnaviv@lists.freedesktop.org, npiggin@gmail.com,
+ alex.williamson@redhat.com, viro@zeniv.linux.org.uk, luto@kernel.org,
+ gthelen@google.com, tglx@linutronix.de, ldufour@linux.ibm.com,
+ linux-sgx@vger.kernel.org, martin.petersen@oracle.com,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
+ linux-media@vger.kernel.org, freedreno@lists.freedesktop.org,
+ joelaf@google.com, linux-aio@kvack.org, linux-fbdev@vger.kernel.org,
+ linux-ia64@vger.kernel.org, david@redhat.com, dave.hansen@linux.intel.com,
+ virtualization@lists.linux-foundation.org, edumazet@google.com,
+ target-devel@vger.kernel.org, punit.agrawal@bytedance.com,
+ linux-s390@vger.kernel.org, dave@stgolabs.net, deller@gmx.de, hughd@google.com,
+ andrii@kernel.org, patrik.r.jakobsson@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
+ linux-graphics-maintainer@vmware.com, kernel-team@android.com,
+ jayalk@intworks.biz, soheil@google.com, selinux@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, mripard@kernel.org, shakeelb@google.com,
+ haojian.zhuang@gmail.com, loongarch@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, tytso@mit.edu, nico@fluxnic.net,
+ muchun.song@linux.dev, hjc@rock-chips.com, mcoquelin.stm32@gmail.com,
+ tatashin@google.com, mike.kravetz@oracle.com, songliubraving@fb.com,
+ jasowang@redhat.com, alsa-devel@alsa-project.org, peterx@redhat.com,
+ linux-tegra@vger.kernel.org, kraxel@redhat.com, will@kernel.org,
+ dmaengine@vger.kernel.org, bhe@redhat.com, miklos@szeredi.hu,
+ linux-rdma@vger.kernel.org, linux-staging@lists.linux.dev, willy@infradead.org,
+ gurua@google.com, dgilbert@interlog.com, xiang@kernel.org, pabeni@redhat.com,
+ jejb@linux.ibm.com, quic_abhinavk@quicinc.com, bp@alien8.de,
+ mchehab@kernel.org, linux-ext4@vger.kernel.org, tomba@kernel.org,
+ hughlynch@google.com, sre@kernel.org, tfiga@chromium.org,
+ linux-xfs@vger.kernel.org, zhangfei.gao@linaro.org, wangzhou1@hisilicon.com,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+ davem@davemloft.net, mhocko@suse.com, kvm@vger.kernel.org, mst@redhat.com,
+ peterz@infradead.org, bigeasy@linutronix.de, alexandre.torgue@foss.st.com,
+ dhowells@redhat.com, linux-mm@kvack.org, ray.huang@amd.com,
+ adilger.kernel@dilger.ca, kuba@kernel.org, sparclinux@vger.kernel.org,
+ airlied@gmail.com, anton.ivanov@cambridgegreys.com,
+ herbert@gondor.apana.org.au, linux-scsi@vger.kernel.org, richard@nod.at,
+ x86@kernel.org, vkoul@kernel.org, mingo@redhat.com, axelrasmussen@google.com,
+ intel-gfx@lists.freedesktop.org, daniel@ffwll.ch, paulmck@kernel.org,
+ jannh@google.com, chao@kernel.org, maarten.lankhorst@linux.intel.com,
+ liam.howlett@oracle.com, hdegoede@redhat.com,
+ linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com, vbabka@suse.cz,
+ dimitri.sivanich@hpe.com, amd-gfx@lists.freedesktop.org, posk@google.com,
+ lstoakes@gmail.com, peterjung1337@gmail.com, yoshfuji@linux-ipv6.org,
+ linuxppc-dev@lists.ozlabs.org, dsahern@kernel.org, kent.overstreet@linux.dev,
+ kexec@lists.infradead.org, tiwai@suse.com, krzysztof.kozlowski@linaro.org,
+ tzimmermann@suse.de, hannes@cmpxchg.org, dmitry.baryshkov@linaro.org,
+ johannes@sipsolutions.net, mgorman@techsingularity.net,
+ linux-accelerators@lists.ozlabs.org, l.stach@pengutronix.de
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 25.01.23 um 16:20 schrieb Somalapuram Amaranath:
-> To support GTT manager amdgpu_res_first, amdgpu_res_next
-> from pages to bytes and clean up PAGE_SHIFT operation.
-> Change the GTT manager init and allocate from pages to bytes
-> v1 -> v2: reorder patch sequence
-> v3 -> v4: reorder patch sequence
+On Wed, Jan 25, 2023 at 12:38:50AM -0800, Suren Baghdasaryan wrote:
+> In cases when VMA flags are modified after VMA was isolated and mmap_lock
+> was downgraded, flags modifications would result in an assertion because
+> mmap write lock is not held.
+> Introduce mod_vm_flags_nolock to be used in such situation.
 
-That won't work like this and break the driver because you only have 
-halve of the necessary changes inside this patch here.
+vm_flags_mod_nolock?
 
-Please *never ever* again send out incomplete patches like this.
-
-Christian.
-
->
-> Signed-off-by: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
+> Pass a hint to untrack_pfn to conditionally use mod_vm_flags_nolock for
+> flags modification and to avoid assertion.
+> 
+> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c    | 13 +++++++------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h |  8 ++++----
->   2 files changed, 11 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-> index 44367f03316f..a1fbfc5984d8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-> @@ -116,7 +116,6 @@ static int amdgpu_gtt_mgr_new(struct ttm_resource_manager *man,
->   			      struct ttm_resource **res)
->   {
->   	struct amdgpu_gtt_mgr *mgr = to_gtt_mgr(man);
-> -	uint32_t num_pages = PFN_UP(tbo->base.size);
->   	struct ttm_range_mgr_node *node;
->   	int r;
->   
-> @@ -134,8 +133,10 @@ static int amdgpu_gtt_mgr_new(struct ttm_resource_manager *man,
->   	if (place->lpfn) {
->   		spin_lock(&mgr->lock);
->   		r = drm_mm_insert_node_in_range(&mgr->mm, &node->mm_nodes[0],
-> -						num_pages, tbo->page_alignment,
-> -						0, place->fpfn, place->lpfn,
-> +						tbo->base.size,
-> +						tbo->page_alignment << PAGE_SHIFT, 0,
-> +						place->fpfn << PAGE_SHIFT,
-> +						place->lpfn << PAGE_SHIFT,
->   						DRM_MM_INSERT_BEST);
->   		spin_unlock(&mgr->lock);
->   		if (unlikely(r))
-> @@ -144,7 +145,7 @@ static int amdgpu_gtt_mgr_new(struct ttm_resource_manager *man,
->   		node->base.start = node->mm_nodes[0].start;
->   	} else {
->   		node->mm_nodes[0].start = 0;
-> -		node->mm_nodes[0].size = PFN_UP(node->base.size);
-> +		node->mm_nodes[0].size = node->base.size;
->   		node->base.start = AMDGPU_BO_INVALID_OFFSET;
->   	}
->   
-> @@ -285,8 +286,8 @@ int amdgpu_gtt_mgr_init(struct amdgpu_device *adev, uint64_t gtt_size)
->   
->   	ttm_resource_manager_init(man, &adev->mman.bdev, gtt_size);
->   
-> -	start = AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GTT_NUM_TRANSFER_WINDOWS;
-> -	size = (adev->gmc.gart_size >> PAGE_SHIFT) - start;
-> +	start = (AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GTT_NUM_TRANSFER_WINDOWS) << PAGE_SHIFT;
-> +	size = adev->gmc.gart_size - start;
->   	drm_mm_init(&mgr->mm, start, size);
->   	spin_lock_init(&mgr->lock);
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h
-> index 5c4f93ee0c57..5c78f0b09351 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h
-> @@ -94,8 +94,8 @@ static inline void amdgpu_res_first(struct ttm_resource *res,
->   		while (start >= node->size << PAGE_SHIFT)
->   			start -= node++->size << PAGE_SHIFT;
->   
-> -		cur->start = (node->start << PAGE_SHIFT) + start;
-> -		cur->size = min((node->size << PAGE_SHIFT) - start, size);
-> +		cur->start = node->start + start;
-> +		cur->size = min(node->size - start, size);
->   		cur->remaining = size;
->   		cur->node = node;
->   		break;
-> @@ -155,8 +155,8 @@ static inline void amdgpu_res_next(struct amdgpu_res_cursor *cur, uint64_t size)
->   		node = cur->node;
->   
->   		cur->node = ++node;
-> -		cur->start = node->start << PAGE_SHIFT;
-> -		cur->size = min(node->size << PAGE_SHIFT, cur->remaining);
-> +		cur->start = node->start;
-> +		cur->size = min(node->size, cur->remaining);
->   		break;
->   	default:
->   		return;
-
+>  arch/x86/mm/pat/memtype.c | 10 +++++++---
+>  include/linux/mm.h        | 12 +++++++++---
+>  include/linux/pgtable.h   |  5 +++--
+>  mm/memory.c               | 13 +++++++------
+>  mm/memremap.c             |  4 ++--
+>  mm/mmap.c                 | 16 ++++++++++------
+>  6 files changed, 38 insertions(+), 22 deletions(-)
+> 
+> diff --git a/arch/x86/mm/pat/memtype.c b/arch/x86/mm/pat/memtype.c
+> index ae9645c900fa..d8adc0b42cf2 100644
+> --- a/arch/x86/mm/pat/memtype.c
+> +++ b/arch/x86/mm/pat/memtype.c
+> @@ -1046,7 +1046,7 @@ void track_pfn_insert(struct vm_area_struct *vma, pgprot_t *prot, pfn_t pfn)
+>   * can be for the entire vma (in which case pfn, size are zero).
+>   */
+>  void untrack_pfn(struct vm_area_struct *vma, unsigned long pfn,
+> -		 unsigned long size)
+> +		 unsigned long size, bool mm_wr_locked)
+>  {
+>  	resource_size_t paddr;
+>  	unsigned long prot;
+> @@ -1065,8 +1065,12 @@ void untrack_pfn(struct vm_area_struct *vma, unsigned long pfn,
+>  		size = vma->vm_end - vma->vm_start;
+>  	}
+>  	free_pfn_range(paddr, size);
+> -	if (vma)
+> -		clear_vm_flags(vma, VM_PAT);
+> +	if (vma) {
+> +		if (mm_wr_locked)
+> +			clear_vm_flags(vma, VM_PAT);
+> +		else
+> +			mod_vm_flags_nolock(vma, 0, VM_PAT);
+> +	}
+>  }
+>  
+>  /*
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index 55335edd1373..48d49930c411 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -656,12 +656,18 @@ static inline void clear_vm_flags(struct vm_area_struct *vma,
+>  	vma->vm_flags &= ~flags;
+>  }
+>  
+> +static inline void mod_vm_flags_nolock(struct vm_area_struct *vma,
+> +				       unsigned long set, unsigned long clear)
+> +{
+> +	vma->vm_flags |= set;
+> +	vma->vm_flags &= ~clear;
+> +}
+> +
+>  static inline void mod_vm_flags(struct vm_area_struct *vma,
+>  				unsigned long set, unsigned long clear)
+>  {
+>  	mmap_assert_write_locked(vma->vm_mm);
+> -	vma->vm_flags |= set;
+> -	vma->vm_flags &= ~clear;
+> +	mod_vm_flags_nolock(vma, set, clear);
+>  }
+>  
+>  static inline void vma_set_anonymous(struct vm_area_struct *vma)
+> @@ -2087,7 +2093,7 @@ static inline void zap_vma_pages(struct vm_area_struct *vma)
+>  }
+>  void unmap_vmas(struct mmu_gather *tlb, struct maple_tree *mt,
+>  		struct vm_area_struct *start_vma, unsigned long start,
+> -		unsigned long end);
+> +		unsigned long end, bool mm_wr_locked);
+>  
+>  struct mmu_notifier_range;
+>  
+> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
+> index 5fd45454c073..c63cd44777ec 100644
+> --- a/include/linux/pgtable.h
+> +++ b/include/linux/pgtable.h
+> @@ -1185,7 +1185,8 @@ static inline int track_pfn_copy(struct vm_area_struct *vma)
+>   * can be for the entire vma (in which case pfn, size are zero).
+>   */
+>  static inline void untrack_pfn(struct vm_area_struct *vma,
+> -			       unsigned long pfn, unsigned long size)
+> +			       unsigned long pfn, unsigned long size,
+> +			       bool mm_wr_locked)
+>  {
+>  }
+>  
+> @@ -1203,7 +1204,7 @@ extern void track_pfn_insert(struct vm_area_struct *vma, pgprot_t *prot,
+>  			     pfn_t pfn);
+>  extern int track_pfn_copy(struct vm_area_struct *vma);
+>  extern void untrack_pfn(struct vm_area_struct *vma, unsigned long pfn,
+> -			unsigned long size);
+> +			unsigned long size, bool mm_wr_locked);
+>  extern void untrack_pfn_moved(struct vm_area_struct *vma);
+>  #endif
+>  
+> diff --git a/mm/memory.c b/mm/memory.c
+> index d6902065e558..5b11b50e2c4a 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -1613,7 +1613,7 @@ void unmap_page_range(struct mmu_gather *tlb,
+>  static void unmap_single_vma(struct mmu_gather *tlb,
+>  		struct vm_area_struct *vma, unsigned long start_addr,
+>  		unsigned long end_addr,
+> -		struct zap_details *details)
+> +		struct zap_details *details, bool mm_wr_locked)
+>  {
+>  	unsigned long start = max(vma->vm_start, start_addr);
+>  	unsigned long end;
+> @@ -1628,7 +1628,7 @@ static void unmap_single_vma(struct mmu_gather *tlb,
+>  		uprobe_munmap(vma, start, end);
+>  
+>  	if (unlikely(vma->vm_flags & VM_PFNMAP))
+> -		untrack_pfn(vma, 0, 0);
+> +		untrack_pfn(vma, 0, 0, mm_wr_locked);
+>  
+>  	if (start != end) {
+>  		if (unlikely(is_vm_hugetlb_page(vma))) {
+> @@ -1675,7 +1675,7 @@ static void unmap_single_vma(struct mmu_gather *tlb,
+>   */
+>  void unmap_vmas(struct mmu_gather *tlb, struct maple_tree *mt,
+>  		struct vm_area_struct *vma, unsigned long start_addr,
+> -		unsigned long end_addr)
+> +		unsigned long end_addr, bool mm_wr_locked)
+>  {
+>  	struct mmu_notifier_range range;
+>  	struct zap_details details = {
+> @@ -1689,7 +1689,8 @@ void unmap_vmas(struct mmu_gather *tlb, struct maple_tree *mt,
+>  				start_addr, end_addr);
+>  	mmu_notifier_invalidate_range_start(&range);
+>  	do {
+> -		unmap_single_vma(tlb, vma, start_addr, end_addr, &details);
+> +		unmap_single_vma(tlb, vma, start_addr, end_addr, &details,
+> +				 mm_wr_locked);
+>  	} while ((vma = mas_find(&mas, end_addr - 1)) != NULL);
+>  	mmu_notifier_invalidate_range_end(&range);
+>  }
+> @@ -1723,7 +1724,7 @@ void zap_page_range_single(struct vm_area_struct *vma, unsigned long address,
+>  	 * unmap 'address-end' not 'range.start-range.end' as range
+>  	 * could have been expanded for hugetlb pmd sharing.
+>  	 */
+> -	unmap_single_vma(&tlb, vma, address, end, details);
+> +	unmap_single_vma(&tlb, vma, address, end, details, false);
+>  	mmu_notifier_invalidate_range_end(&range);
+>  	tlb_finish_mmu(&tlb);
+>  }
+> @@ -2492,7 +2493,7 @@ int remap_pfn_range(struct vm_area_struct *vma, unsigned long addr,
+>  
+>  	err = remap_pfn_range_notrack(vma, addr, pfn, size, prot);
+>  	if (err)
+> -		untrack_pfn(vma, pfn, PAGE_ALIGN(size));
+> +		untrack_pfn(vma, pfn, PAGE_ALIGN(size), true);
+>  	return err;
+>  }
+>  EXPORT_SYMBOL(remap_pfn_range);
+> diff --git a/mm/memremap.c b/mm/memremap.c
+> index 08cbf54fe037..2f88f43d4a01 100644
+> --- a/mm/memremap.c
+> +++ b/mm/memremap.c
+> @@ -129,7 +129,7 @@ static void pageunmap_range(struct dev_pagemap *pgmap, int range_id)
+>  	}
+>  	mem_hotplug_done();
+>  
+> -	untrack_pfn(NULL, PHYS_PFN(range->start), range_len(range));
+> +	untrack_pfn(NULL, PHYS_PFN(range->start), range_len(range), true);
+>  	pgmap_array_delete(range);
+>  }
+>  
+> @@ -276,7 +276,7 @@ static int pagemap_range(struct dev_pagemap *pgmap, struct mhp_params *params,
+>  	if (!is_private)
+>  		kasan_remove_zero_shadow(__va(range->start), range_len(range));
+>  err_kasan:
+> -	untrack_pfn(NULL, PHYS_PFN(range->start), range_len(range));
+> +	untrack_pfn(NULL, PHYS_PFN(range->start), range_len(range), true);
+>  err_pfn_remap:
+>  	pgmap_array_delete(range);
+>  	return error;
+> diff --git a/mm/mmap.c b/mm/mmap.c
+> index 2c6e9072e6a8..69d440997648 100644
+> --- a/mm/mmap.c
+> +++ b/mm/mmap.c
+> @@ -78,7 +78,7 @@ core_param(ignore_rlimit_data, ignore_rlimit_data, bool, 0644);
+>  static void unmap_region(struct mm_struct *mm, struct maple_tree *mt,
+>  		struct vm_area_struct *vma, struct vm_area_struct *prev,
+>  		struct vm_area_struct *next, unsigned long start,
+> -		unsigned long end);
+> +		unsigned long end, bool mm_wr_locked);
+>  
+>  static pgprot_t vm_pgprot_modify(pgprot_t oldprot, unsigned long vm_flags)
+>  {
+> @@ -2136,14 +2136,14 @@ static inline void remove_mt(struct mm_struct *mm, struct ma_state *mas)
+>  static void unmap_region(struct mm_struct *mm, struct maple_tree *mt,
+>  		struct vm_area_struct *vma, struct vm_area_struct *prev,
+>  		struct vm_area_struct *next,
+> -		unsigned long start, unsigned long end)
+> +		unsigned long start, unsigned long end, bool mm_wr_locked)
+>  {
+>  	struct mmu_gather tlb;
+>  
+>  	lru_add_drain();
+>  	tlb_gather_mmu(&tlb, mm);
+>  	update_hiwater_rss(mm);
+> -	unmap_vmas(&tlb, mt, vma, start, end);
+> +	unmap_vmas(&tlb, mt, vma, start, end, mm_wr_locked);
+>  	free_pgtables(&tlb, mt, vma, prev ? prev->vm_end : FIRST_USER_ADDRESS,
+>  				 next ? next->vm_start : USER_PGTABLES_CEILING);
+>  	tlb_finish_mmu(&tlb);
+> @@ -2391,7 +2391,11 @@ do_vmi_align_munmap(struct vma_iterator *vmi, struct vm_area_struct *vma,
+>  			mmap_write_downgrade(mm);
+>  	}
+>  
+> -	unmap_region(mm, &mt_detach, vma, prev, next, start, end);
+> +	/*
+> +	 * We can free page tables without write-locking mmap_lock because VMAs
+> +	 * were isolated before we downgraded mmap_lock.
+> +	 */
+> +	unmap_region(mm, &mt_detach, vma, prev, next, start, end, !downgrade);
+>  	/* Statistics and freeing VMAs */
+>  	mas_set(&mas_detach, start);
+>  	remove_mt(mm, &mas_detach);
+> @@ -2704,7 +2708,7 @@ unsigned long mmap_region(struct file *file, unsigned long addr,
+>  
+>  		/* Undo any partial mapping done by a device driver. */
+>  		unmap_region(mm, &mm->mm_mt, vma, prev, next, vma->vm_start,
+> -			     vma->vm_end);
+> +			     vma->vm_end, true);
+>  	}
+>  	if (file && (vm_flags & VM_SHARED))
+>  		mapping_unmap_writable(file->f_mapping);
+> @@ -3031,7 +3035,7 @@ void exit_mmap(struct mm_struct *mm)
+>  	tlb_gather_mmu_fullmm(&tlb, mm);
+>  	/* update_hiwater_rss(mm) here? but nobody should be looking */
+>  	/* Use ULONG_MAX here to ensure all VMAs in the mm are unmapped */
+> -	unmap_vmas(&tlb, &mm->mm_mt, vma, 0, ULONG_MAX);
+> +	unmap_vmas(&tlb, &mm->mm_mt, vma, 0, ULONG_MAX, false);
+>  	mmap_read_unlock(mm);
+>  
+>  	/*
+> -- 
+> 2.39.1
+> 
+> 
