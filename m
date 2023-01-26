@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 534B0C54E94
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Jan 2023 00:34:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85114C61D97
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Jan 2023 00:35:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E000D10E8BD;
-	Thu, 26 Jan 2023 00:34:57 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2062.outbound.protection.outlook.com [40.107.94.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 304A710E8BD
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Jan 2023 00:34:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18F5310E8BF;
+	Thu, 26 Jan 2023 00:35:11 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2066.outbound.protection.outlook.com [40.107.92.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95B2110E8BF
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Jan 2023 00:35:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=exQRkL3zEbEjybsEI0gBEW00pm7/a4D0Xb2IZzajZxHBhCxREQpduiOM5g8HWHUP998Q/flCFW5XdFYdggIbAkKd+JX4sDn0fnXILv1At4MlPMbUKJLE/l+KdYqkf0N4TVj+yO+aDXESdDY2YZ0mCWN9evxyDi3OgqRLe+faK7avdnMXG5FikQ1EVzzGXENLtx67oK6TiShhzINhEvebGf2CQla8SMh52X2jnc1hbgRzUUkbzV0EWOujL7hJfgfSjc/5I0m6ihpWscVJAXwcEr5yv+HIQ8IsqZQRin8/BBu1Spl0bvp21GCiL+4OSLoaPHZ7B3d7B1VqQfRkPmTicA==
+ b=TjNLRp/OwhffX5PFlfBgZF+sjA7NDyvOZMQZrAQXsSLBXD7+NCvNTU+q1Dr1Mf7vQf3b885jVeslHB/7M3tHQx3+eO/f6TsEvtb6hmPzBYYyjNIL9Cy+fsH8Lm48kDreLPaS6uDRJE6e9OpU+JK2NCfP8GUEnG3JZf7XK/kkpPOuWYR6b100sNHJTc2AUpUQ1APlQjNtZjiKJciclhdIRedQ63jWoqp/L1g7bXsampoln5vzAqWksfMFxOOClQwrU1YBT9/N8IZr3tAu3iWS8G91aEeY8vN0znuXZgsB0xxLADNFBfmQQGsmsC8c6PT9qsHUu5NvrOB04f0UdIo+gg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=99phY+Xd+lCE/Aod/ysFIM1+B7Nke3DVnzTcRJ7MSlo=;
- b=UpWn9vHp1NAxSZT7vnnaVDrspSNQyBpT2/cZE0Oigu6aTwpgki4oQgZVRwtNbI3WEhAHsOvnbrgijpvKfPEjlPu8CV793PHoo3n3Tjir+YFlhgYDLxt4/tBFK5SYH59Vqznfghs1gubzK7tlUfZ4aHb6hA3mw35lVSfVFx4/n/O2SVIXhkX0s8GQ/+2eTIw6xgy0mPhr3/SpUCqrP48GWHBJFBHZchoVyOMTzMC2RCX5FBXx7xH7ELrZVLw6+36c99uNETwmDkxRkxtMc/sXQZM8fmPFYJV6o5IT8VGsCW1pJBZWbsJazesXTWO5kALQs4p1B+FMUb1P0OXJSQboww==
+ bh=VtAPVf9h3+ldR+dS6P1tioKvzrWaBcRK8LE1b/yb4zA=;
+ b=oPZ6fHxB4VEGA1OaV/i6uFwftEnKepRBmR5dg8vw2BzZxuYQMpc1Ofhe5JoKpC1XHwcw1sY5/IJLh37sQIhU20BCHbPYALes2AjVwSHG6DKn42q+dWTy1Vzu2PHolZRWTit5ytZOdNNEPsPnQIPAPFsD+ZjkWVL+8t6CUlabYFpfhc4dyuJp9D2CZ5+9t5VxkyZpe4mKtbDJzTIbW5maj1yPxrKMBkvOEUO2IOic/my2vXt3J9Nk/Uk1rISREIAea2tjiUWvTIjL30XydMdJ2tB8GzWB4vqBWpO1zMThxBP26yAVo2/Dwnt+UzBGXx7kS8ABaxKDbFKkyfxuP7UE9Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=99phY+Xd+lCE/Aod/ysFIM1+B7Nke3DVnzTcRJ7MSlo=;
- b=JahctIii/C8v+yPESBPrfWUbCNoTiUndmy6eKYokMz5x815+u9wnmsbAgequafxjgIOR9uFbewdgvJ+ykozscWgc/JTjUVwtJcVzww2tW0i1vyGhOEQ9F5StYmWDCYcZW5pcDQofmWpu+OPmH14i6ulbR2XYGu9RQ3fJ99SEV0M=
-Received: from DM6PR05CA0063.namprd05.prod.outlook.com (2603:10b6:5:335::32)
- by CY8PR12MB7339.namprd12.prod.outlook.com (2603:10b6:930:51::22) with
+ bh=VtAPVf9h3+ldR+dS6P1tioKvzrWaBcRK8LE1b/yb4zA=;
+ b=ATAjR2cvaN0XuhUSr47QCIoWmVkAanyIed5we+iB0NBG2/D8gguy4hYESqaLmQfixvMJPGaoWtAXSOHzZ1jYH6di2f/XyYg8UHSc+8YIIMGPhBFlVpTaUQy7KAYPlFCyOTTZF9KTfuI20bNl9oJ7VjRbkK5bmh3y4FaLrURqYlY=
+Received: from DS7PR03CA0343.namprd03.prod.outlook.com (2603:10b6:8:55::17) by
+ LV2PR12MB5944.namprd12.prod.outlook.com (2603:10b6:408:14f::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33; Thu, 26 Jan
- 2023 00:34:53 +0000
-Received: from DM6NAM11FT058.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:335:cafe::95) by DM6PR05CA0063.outlook.office365.com
- (2603:10b6:5:335::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.17 via Frontend
- Transport; Thu, 26 Jan 2023 00:34:53 +0000
+ 2023 00:35:06 +0000
+Received: from DM6NAM11FT109.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:55:cafe::c0) by DS7PR03CA0343.outlook.office365.com
+ (2603:10b6:8:55::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.20 via Frontend
+ Transport; Thu, 26 Jan 2023 00:35:06 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT058.mail.protection.outlook.com (10.13.172.216) with Microsoft SMTP
+ DM6NAM11FT109.mail.protection.outlook.com (10.13.173.178) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6043.21 via Frontend Transport; Thu, 26 Jan 2023 00:34:53 +0000
+ 15.20.6043.21 via Frontend Transport; Thu, 26 Jan 2023 00:35:05 +0000
 Received: from dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 25 Jan
- 2023 18:34:50 -0600
+ 2023 18:35:03 -0600
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 06/16] drm/amd/display: Correct bw_params population
-Date: Wed, 25 Jan 2023 17:32:20 -0700
-Message-ID: <20230126003230.4178466-7-alex.hung@amd.com>
+Subject: [PATCH 07/16] drm/amd/display: Add missing brackets in calculation
+Date: Wed, 25 Jan 2023 17:32:21 -0700
+Message-ID: <20230126003230.4178466-8-alex.hung@amd.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230126003230.4178466-1-alex.hung@amd.com>
 References: <20230126003230.4178466-1-alex.hung@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT058:EE_|CY8PR12MB7339:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2998c3fa-e9b9-48ac-8474-08daff352437
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT109:EE_|LV2PR12MB5944:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0e6dc581-9acf-4877-b44e-08daff352bc4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: f922NSN49Np9bAjM3ZiFeNB7Jzs0fZ5bxYNwG/+ED3mTRSHuik4dQOROsheKNv3Leyooi+zPp9bqDFRLcgxmAHTfr86ACt0Z/XT78bnQGetAiT2y7HtD2Mt49e7t5yHDmfWUtbYs90A+IjvX5hSpPFiwuSuM6hMOgN95bJ/2twYiJwRu5Pl1LrbsgPGk7OGCjIJ6qsaXVZQnitPVIZzSpx/4Rtut9SdBLW+i1TjRJ5z4W3eHaknkGuQtv/Ax11c81jthIdk6ZqLOfQVOH1qk8amzL9FJURaN9Wi4Y9NaNRZNl1onMPGAeWS1Bv+PWHmr6KP0DUUWmgYgbRq2AkFI2YwBx/cjBDnM1JXYd/in/3mhvOBnKS9VNnSHraTd5KUL6/X8DL9Vi6FRsRRB+V000lSBDPO0FQjPg6+xm6HtYLEF6ATHbOXeOXPd3ulqtc1S/qTs17XrgTOWqMfUSORvXBZyQ6sbga85kCxflTpjySblBLzZY9Bx3e+OjWUHvV8iLQ/W3Ae7+/Q0KihL+9HCnGZsCRr4kRuKb+yMZwWGxSg2MiVOsKMzNqZh5W05CzfhsX1V7Sjsv7F2h7ESnr4b84sjo/p8Kmfg7BO+zQpj2qxIEKdWLwt7OuZxS3PpHEvegtQfkBc1dpWUuXDtXNUjVpi2NEoiTEMe/pAYSUAU19dI1wBmH5aB8eM2eSFksPhVy37BhkjVJ+iFPYssn9H6d/3A3ioETq5H7eM9FVJbyZM=
+X-Microsoft-Antispam-Message-Info: bFPmtx0F4nUonhFjfo8vZZ+ZlWqEDTyLmcLROTf5wmIuXTc1EndjRia5YTowVkLfRV8m6+yBQ0oZHlJfTWkkN/5kVZY5ayIcffhsUmWX5HqAJBf2cVY4oSI+aZMrBdf/yKitBm5TOQmYikODfzdCJWDtohShoU+8Gu/xuxyLbEybooTbbkT8TvQsuYtU3h5Zf6JXMG89Hbm5b/qQibUD/AsKH3/FuQiFPdXL9nS6QfE7F6zsf+6K4vs6xxsdKA6kTVf5e8F0AMKpva4OZlEERUIHl16ecVl2Mk7xH4V2Kfql+IuA5/bUVhz+/rAQ13ngxvFXAKJFKw7wpt88cgj7FJ3VwSiz/RPi74GgrPwBj0ZL8p7kpIHoWpxZtMPIVdf7GIqs30fv2q13EfnSEsg6xWREHQlpqNrEXnCofvtHcMSEMqgSlMR8pRIKarde3qbgYJDCiPzZSVF95OZ+vfk0RJwBhRVRpvYBrwjoV4d5DIi+6y+fMrNPoXtWct/J0xvcU99YTq6X1i0ML9j6CTtEQri2mDGyeSQ0n19FgqOz90EDWxp3N1RQIbhR0wbb8MPALZIzAv2rBxL8loNLH3f/qsOORY/FSvz8FHFxEWMKG3hJE47eJpRDzNDk3d5FN8SYy2bm/y+zqsoQny0ZID7v3pNIDiWikVxRoFL42012bvdhf6UCFHlVCX7Bf3AzAlJlCULTtMhLOkwqDfv36s76YoYNdxsBB15tNmbmSRY25S8=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(346002)(39860400002)(396003)(376002)(136003)(451199018)(46966006)(36840700001)(40470700004)(2616005)(36756003)(86362001)(2906002)(82310400005)(356005)(82740400003)(4326008)(8936002)(83380400001)(44832011)(81166007)(36860700001)(41300700001)(5660300002)(316002)(478600001)(70206006)(7696005)(186003)(6916009)(8676002)(40460700003)(26005)(70586007)(47076005)(336012)(40480700001)(54906003)(1076003)(16526019)(426003)(6666004)(36900700001);
+ SFS:(13230025)(4636009)(396003)(39860400002)(136003)(346002)(376002)(451199018)(36840700001)(46966006)(40470700004)(36860700001)(26005)(83380400001)(81166007)(5660300002)(2906002)(82740400003)(7696005)(41300700001)(86362001)(44832011)(8936002)(82310400005)(4326008)(6666004)(16526019)(40460700003)(316002)(40480700001)(356005)(186003)(8676002)(47076005)(2616005)(426003)(336012)(478600001)(54906003)(6916009)(36756003)(70586007)(1076003)(70206006)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2023 00:34:53.1533 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2998c3fa-e9b9-48ac-8474-08daff352437
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2023 00:35:05.8226 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0e6dc581-9acf-4877-b44e-08daff352bc4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT058.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT109.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7339
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5944
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,95 +111,32 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Daniel Miess <Daniel.Miess@amd.com>
 
 [Why]
-Underflow observed during P010 video playback on
-dcn314 due to incorrectly populated bw_params
+Brackets missing in the calculation for MIN_DST_Y_NEXT_START
 
 [How]
-Populate fclk, memclk and voltage in bw_params with
-values from max pstate rather than min pstate
+Add missing brackets for this calculation
 
+Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
 Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
 Acked-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Daniel Miess <Daniel.Miess@amd.com>
 ---
- .../dc/clk_mgr/dcn314/dcn314_clk_mgr.c        | 31 +++++++++++++------
- 1 file changed, 21 insertions(+), 10 deletions(-)
+ .../gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c    | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
-index 89df7244b272..f5276bacfa4e 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c
-@@ -572,10 +572,11 @@ static void dcn314_clk_mgr_helper_populate_bw_params(struct clk_mgr_internal *cl
- {
- 	struct clk_bw_params *bw_params = clk_mgr->base.bw_params;
- 	struct clk_limit_table_entry def_max = bw_params->clk_table.entries[bw_params->clk_table.num_entries - 1];
--	uint32_t max_pstate = 0,  max_fclk = 0,  min_pstate = 0, max_dispclk = 0, max_dppclk = 0;
-+	uint32_t max_pstate = 0, max_fclk = 0, max_dispclk = 0, max_dppclk = 0;
-+	uint32_t min_pstate = 0, min_fclk = clock_table->DfPstateTable[0].FClk;
- 	int i;
- 
--	/* Find highest valid fclk pstate */
-+	/* Find highest and lowest valid fclk pstate */
- 	for (i = 0; i < clock_table->NumDfPstatesEnabled; i++) {
- 		if (is_valid_clock_value(clock_table->DfPstateTable[i].FClk) &&
- 		    clock_table->DfPstateTable[i].FClk > max_fclk) {
-@@ -584,6 +585,14 @@ static void dcn314_clk_mgr_helper_populate_bw_params(struct clk_mgr_internal *cl
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
+index 950669f2c10d..cb7c0c878423 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
+@@ -3183,7 +3183,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+ 		} else {
+ 			v->MIN_DST_Y_NEXT_START[k] = v->VTotal[k] - v->VFrontPorch[k] + v->VTotal[k] - v->VActive[k] - v->VStartup[k];
  		}
- 	}
- 
-+	for (i = 0; i < clock_table->NumDfPstatesEnabled; i++) {
-+		if (is_valid_clock_value(clock_table->DfPstateTable[i].FClk) &&
-+		    clock_table->DfPstateTable[i].FClk < min_fclk) {
-+			min_fclk = clock_table->DfPstateTable[i].FClk;
-+			min_pstate = i;
-+		}
-+	}
-+
- 	/* We expect the table to contain at least one valid fclk entry. */
- 	ASSERT(is_valid_clock_value(max_fclk));
- 
-@@ -599,15 +608,17 @@ static void dcn314_clk_mgr_helper_populate_bw_params(struct clk_mgr_internal *cl
- 
- 	/* Base the clock table on dcfclk, need at least one entry regardless of pmfw table */
- 	for (i = 0; i < clock_table->NumDcfClkLevelsEnabled; i++) {
--		uint32_t min_fclk = clock_table->DfPstateTable[0].FClk;
-+		uint32_t max_level_fclk = clock_table->DfPstateTable[0].FClk;
-+		uint32_t max_level_pstate = 0;
- 		int j;
- 
-+		/* Look for the maximum supported FCLK for the current voltage. */
- 		for (j = 1; j < clock_table->NumDfPstatesEnabled; j++) {
- 			if (is_valid_clock_value(clock_table->DfPstateTable[j].FClk) &&
--			    clock_table->DfPstateTable[j].FClk < min_fclk &&
-+			    clock_table->DfPstateTable[j].FClk > max_level_fclk &&
- 			    clock_table->DfPstateTable[j].Voltage <= clock_table->SocVoltage[i]) {
--				min_fclk = clock_table->DfPstateTable[j].FClk;
--				min_pstate = j;
-+				max_level_fclk = clock_table->DfPstateTable[j].FClk;
-+				max_level_pstate = j;
- 			}
- 		}
- 
-@@ -621,15 +632,15 @@ static void dcn314_clk_mgr_helper_populate_bw_params(struct clk_mgr_internal *cl
- 		bw_params->clk_table.entries[i].dtbclk_mhz = bw_params->clk_table.entries[j].dtbclk_mhz;
- 
- 		/* Now update clocks we do read */
--		bw_params->clk_table.entries[i].fclk_mhz = min_fclk;
--		bw_params->clk_table.entries[i].memclk_mhz = clock_table->DfPstateTable[min_pstate].MemClk;
--		bw_params->clk_table.entries[i].voltage = clock_table->DfPstateTable[min_pstate].Voltage;
-+		bw_params->clk_table.entries[i].fclk_mhz = max_level_fclk;
-+		bw_params->clk_table.entries[i].memclk_mhz = clock_table->DfPstateTable[max_level_pstate].MemClk;
-+		bw_params->clk_table.entries[i].voltage = clock_table->DfPstateTable[max_level_pstate].Voltage;
- 		bw_params->clk_table.entries[i].dcfclk_mhz = clock_table->DcfClocks[i];
- 		bw_params->clk_table.entries[i].socclk_mhz = clock_table->SocClocks[i];
- 		bw_params->clk_table.entries[i].dispclk_mhz = max_dispclk;
- 		bw_params->clk_table.entries[i].dppclk_mhz = max_dppclk;
- 		bw_params->clk_table.entries[i].wck_ratio = convert_wck_ratio(
--			clock_table->DfPstateTable[min_pstate].WckRatio);
-+			clock_table->DfPstateTable[max_level_pstate].WckRatio);
- 	}
- 
- 	/* Make sure to include at least one entry at highest pstate */
+-		v->MIN_DST_Y_NEXT_START[k] += dml_floor(4.0 * v->TSetup[k] / (double)v->HTotal[k] / v->PixelClock[k], 1.0) / 4.0;
++		v->MIN_DST_Y_NEXT_START[k] += dml_floor(4.0 * v->TSetup[k] / ((double)v->HTotal[k] / v->PixelClock[k]), 1.0) / 4.0;
+ 		if (((v->VUpdateOffsetPix[k] + v->VUpdateWidthPix[k] + v->VReadyOffsetPix[k]) / v->HTotal[k])
+ 				<= (isInterlaceTiming ?
+ 						dml_floor((v->VTotal[k] - v->VActive[k] - v->VFrontPorch[k] - v->VStartup[k]) / 2.0, 1.0) :
 -- 
 2.39.1
 
