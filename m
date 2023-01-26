@@ -4,89 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0C0FC54E94
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 22:02:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 372D5C27C76
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Jan 2023 00:14:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F27A10E1C2;
-	Wed, 25 Jan 2023 22:02:19 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2089.outbound.protection.outlook.com [40.107.93.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B6AD10E1C2;
- Wed, 25 Jan 2023 22:02:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Np/GgQS5hgvusZkXVZ9hIS4laK23f2emhRwu9ZDUZPTLFuzzl6dfSgvTxxkmx5XbJssXILllbdwAdAt/bQOWWIdwCiLPyI/JHjeHTTs5AdZoqpJBGQVdVtJWIwsQ2w2dvlrk5DqSGQSekAl/nameXrYB3CsF86TpM7/VCgLfbgGO3Ng4a0u6+l2teQ1YUnF2+AEKBsrcIxM1z/29sPO6DzPie9HRgya7sOU2pBdOXiKRWSoSqADK1A+nlMUG6Q1Fnni61XrpAfP8WgdudYeM4sx1AnKY/dTLI92SSjSPgPGt9g8ltMUBd2SFYeQHaKJWypHDYLD+6WWKti8eB6KT0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bkS2YKSuDYgUQkXqzBjqZmKYYflqkeoKN1vnBdaX36A=;
- b=lHuyfhV7YJvaJx0ISw51bJ2xXs7SoMff6/czKJuxehpHi3zmkAGUz/JE/P5BJT1I6LV73kCldURy05xOfvQdoNdxeYqvshZQsDdR2IumfJhrpVLo4sS1DOqXUJmdnEbhkvP5oeDNMEGEzS5FqCxxze0PPLGjkn0/vsytKSMkn7/7nQSxq1Ho8+2ZCDcaVllLrk0K6Pqd5s4qKBm5rqJg9Xn4KoqoGoyVCkugHuoVGOhcktRxOdyd3VW9dQNLmDdwR4qogmG22czr4eHC3/9wGyorkt0muu7pFZR3Vi8CHzz87csqXvpffoxlcNTTzIdneqlJKEAVVAVNJQ8mPv5k4A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bkS2YKSuDYgUQkXqzBjqZmKYYflqkeoKN1vnBdaX36A=;
- b=xCw3SscNm+jrEG8oN66z4IbhMdxGpghN8t3sZND43SKQRCvctMIRWYqlsI6eusHfmj0aXRwLRJu35jeoFQzFZ3STCel/PqDNEsNnSZ5eCVdHm8S7T72JnJfX+rgm8DuaSv2tCozulv/Z4A52cg3nGH2zdo0EIoqurMYLNx692i8=
-Received: from BN0PR04CA0082.namprd04.prod.outlook.com (2603:10b6:408:ea::27)
- by SA0PR12MB4383.namprd12.prod.outlook.com (2603:10b6:806:94::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33; Wed, 25 Jan
- 2023 22:02:16 +0000
-Received: from BN8NAM11FT020.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ea::4) by BN0PR04CA0082.outlook.office365.com
- (2603:10b6:408:ea::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33 via Frontend
- Transport; Wed, 25 Jan 2023 22:02:16 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT020.mail.protection.outlook.com (10.13.176.223) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6043.17 via Frontend Transport; Wed, 25 Jan 2023 22:02:15 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 25 Jan
- 2023 16:02:14 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
-Subject: [PULL] amdgpu, drm drm-fixes-6.2
-Date: Wed, 25 Jan 2023 17:01:53 -0500
-Message-ID: <20230125220153.320248-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.39.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT020:EE_|SA0PR12MB4383:EE_
-X-MS-Office365-Filtering-Correlation-Id: da47f219-caae-4e60-61fc-08daff1fd207
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CYH+bz7hK85pLCkjawoH8tQA8uQ9c+nOhXSaoBOb0Vb1M9Q5dhDTT1OcDwfOEgtUEOtaGJ4ZAAhaLJkeyeukqa+VIIIvr1mb4a7EycwSRZRiSwbUDWZU4CCRuRm7NpP1SdzGU44/pUjnlsistHSzVKCC1iPfDXiaDHPgnkA+xrQQ8I9kEkMiP9+T7F/a69uwo4P4PfiLc0kDbLMO1G31mrt10Su2bDjG8foRa7I2/pCDWF9be9aVa63muf1yaVDj7AKDoEytX9k+YMJKcxyVhTn3Dt8+C4heaaEkhs8swZyGoGAyOuCPneiM+AUByJML8IspRDGDqYH54cv7lCdP//SJACKNiGHy1PV/UmiX/fW3EtevCeX1OcjtiOVbSUsh752y2Rrkz7BmNlNKHCErnGnV94kZCx8eNwsOe87uMCeGaIBiCyNLL1ioGnnReqzfe7GKH/3/RWauYmMQC3LWoXCYLhfcFrdkx21l+7CukJ9bZvEf04NTYxX9R5bD6kzgCB49d9z18bq5yTsgR4PpjDyzWZK8YEr9PjHaEff1+rHE/URSz0iq4tVB1a8Xa5SL9VA2BgDnnO6bikmuxHuh2RQuWErJwGOzYXKnE1nKQFxPzNO24VxKULb8gskWg9y3ojtn55tTQuoLlwXuCvzbLzncjWRHvc0qX26q5FVKVvfFXCszN+5T5X3L3Km9sM6p
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(376002)(39860400002)(136003)(346002)(451199018)(40470700004)(36840700001)(46966006)(83380400001)(36860700001)(26005)(5660300002)(81166007)(7696005)(2906002)(356005)(41300700001)(82740400003)(86362001)(4326008)(8936002)(82310400005)(16526019)(40480700001)(316002)(40460700003)(6666004)(186003)(8676002)(47076005)(478600001)(2616005)(336012)(426003)(110136005)(36756003)(966005)(70586007)(1076003)(70206006)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2023 22:02:15.8646 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: da47f219-caae-4e60-61fc-08daff1fd207
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT020.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4383
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D1AE10E3B6;
+	Thu, 26 Jan 2023 00:14:50 +0000 (UTC)
+Received: from mail-il1-x136.google.com (mail-il1-x136.google.com
+ [IPv6:2607:f8b0:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A25A10E8CE
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Jan 2023 00:14:49 +0000 (UTC)
+Received: by mail-il1-x136.google.com with SMTP id i17so59433ils.11
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 16:14:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=in-reply-to:references:message-id:mime-version
+ :content-transfer-encoding:subject:cc:to:from:date:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=33mXmPci7ffEe/wPaYjaikNTfCW2kUalaqkIdVKl8ks=;
+ b=pwdFX3Xu1xnA+pgGszjAc+tF9g+fEW6Ra9k37TUO4/iQJ44CyD0rZLX+wg0SoJrEee
+ 7H8xxAA2c7S1po/zokxR3UswjYrIVgP64seV/40hRMG8w1EEWLj+bIMlLMhNG+MzqU+7
+ +WF5HSsTWoSTnWayrh2Wn5UrGJ/6NcsuQDmkHDwj5yRBfAD7h/DaNfrapYj5tu/1dula
+ dWuwbOOkaoUoOFiU4dFvWAxxO4fC88edDuwbJ4+EpecfGC2D5eTcFHfjzrebJv9+oEAq
+ isXUY+q2Z/wjkgZ4LBZScfSpRUekGMXQ5ClwfF8x1lFmsFToYjkOkpsz7BCvjZ7Zu3PR
+ wArw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:references:message-id:mime-version
+ :content-transfer-encoding:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=33mXmPci7ffEe/wPaYjaikNTfCW2kUalaqkIdVKl8ks=;
+ b=llW68WoEySqAwA+BQxDb4PAPn+z4iQEKc2IldfFy2/hxmtyfbxJk9FIPbx/Z1CAN+t
+ TAfASfhmVufxxel8x500b24z3zykbBGp8214VwLa80YvqMgfGAcdYAQYKTkLylkb+VGj
+ CPA2M6+cqVRxQjjepLpfZin6VdD+EFgjYprIqSrjHMsCV7T1i6oiWYohdPUkhc7LI8hP
+ yvAzv7Q/kv55FC33NQtOgSHPBN33QflrT0Y5Rwr0lld/ZAEstfb7mNw19rEuOpopwg+F
+ TwQNsR67rIIpsddTXYskhy/wTYM4RxB7l1iLI7FwdWdW+LZs0Vf274PEWnLTl3R4wcgc
+ uTyw==
+X-Gm-Message-State: AFqh2kr1w1NYzyx4U/z5erNrXW2aSCKMXroHthhhsMZIV4BDMzcuEAHh
+ IOVdLtaARcdfSG33Cb8XN9I=
+X-Google-Smtp-Source: AMrXdXvDHmQu2YHwLLwC1P4K3im8S+6wxOlGwBonN7fLfVOl35EbgnDpuup8782kiLuu5jRY2NH31w==
+X-Received: by 2002:a92:d70e:0:b0:30d:aed2:20aa with SMTP id
+ m14-20020a92d70e000000b0030daed220aamr23534362iln.29.1674692088205; 
+ Wed, 25 Jan 2023 16:14:48 -0800 (PST)
+Received: from localhost ([2602:47:d3e7:3200:aa5e:45ff:fed0:7395])
+ by smtp.gmail.com with ESMTPSA id
+ h3-20020a92c263000000b0030db1001846sm1869074ild.82.2023.01.25.16.14.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 25 Jan 2023 16:14:47 -0800 (PST)
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 25 Jan 2023 17:14:47 -0700
+From: "Matt Coffin" <mcoffin13@gmail.com>
+To: "Alex Deucher" <alexdeucher@gmail.com>, "Quan, Evan" <Evan.Quan@amd.com>
+Subject: Re: [PATCH 8/8] drm/amd/pm: drop the support for manual fan speed
+ setting on SMU13.0.7
+Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Message-Id: <CQ1NGA3RIC0B.1SZDU9JBEN6MW@mcoffin-dev-tower>
+X-Mailer: aerc 0.14.0
+References: <20230105032259.2032789-1-evan.quan@amd.com>
+ <20230105032259.2032789-8-evan.quan@amd.com>
+ <DM6PR12MB26191B413EDC7BD52A9D0532E4FF9@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <bc81b6b8-4bf8-4565-80f4-cb46539318ff@gmail.com>
+ <DM6PR12MB26194938F0D4873D5DB83A1DE4FC9@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <CADnq5_N8RQAZtEy03qohNQF_7c_kLLQOQ0FGvXtRAqvBbV-Aeg@mail.gmail.com>
+In-Reply-To: <CADnq5_N8RQAZtEy03qohNQF_7c_kLLQOQ0FGvXtRAqvBbV-Aeg@mail.gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,67 +77,131 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Lazar, Lijo" <Lijo.Lazar@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+On Wed Jan 11, 2023 at 7:47 AM MST, Alex Deucher wrote:
+> On Wed, Jan 11, 2023 at 8:23 AM Quan, Evan <Evan.Quan@amd.com> wrote:
+> >
+> > [AMD Official Use Only - General]
+> >
+> > Regarding the manual fan speed setting issue targeted by this patch, th=
+e SCPM feature of the new SMU13 asics prevents us from toggling the fan con=
+trol feature from auto to manual.
 
-Fixes for 6.2.  This contains a fix for DP MST that avoids the big revert.
-There are still some corner cases, but it fixes things for most users.
+This makes sense as a move towards using the same interface that other
+platforms are most likely using.
 
-The following changes since commit 3f30a6e67ce49c0068f8058893326db46b6db11f:
+> > About the capability in the OD table you mentioned, it might be a diffe=
+rent issue.
 
-  Merge tag 'amd-drm-fixes-6.2-2023-01-19' of https://gitlab.freedesktop.org/agd5f/linux into drm-fixes (2023-01-20 11:21:20 +1000)
+I included some info/questions below; any hints you could give to point
+me in the right way to keep learning would be appreciated.
 
-are available in the Git repository at:
+>
+> Right.  Manual fan control is no longer possible.  As Evan said, you
+> can adjust the automatic fan curve using the OD interface, but that is
+> it.
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.2-2023-01-25
+Sorry for the late reply; I became busy with day job. I've been working
+on implementing OD support (and a sysfs interface to set *any* OD
+setting by number, in contrast with pp_od_clk_voltage's pidgeon-holing
+into supporting only PP_OD_DPM_TABLE_COMMAND commands), at the very
+least for my own experimentation.
 
-for you to fetch changes up to 4b069553246f993c4221e382d0d0ae34f5ba730e:
+The following is what I see when I read the OD table out from the SMU
+(assuming that the inclusion of another VF curve setting at index 4 in
+the header was a mistake, based on the values returned by the SMU).
 
-  drm/amd/display: Fix timing not changning when freesync video is enabled (2023-01-25 14:50:18 -0500)
+It seems that, at least in my case, my hardware is running in some kind
+of mode that would *not* allow changing of the fan curve? Is it possble
+that the header information in pm/inc/smu_v13_0_0_pptable.h is incorrect
+even beyond the potential idx 4 of ODSETTINGs?
 
-----------------------------------------------------------------
-amd-drm-fixes-6.2-2023-01-25:
+It appears also that transferring the OD table *back* to the SMU results
+in no error, but also no action taken, as subsequent reads to not
+reflect any changes. I'm thinking this is due to some values read in on
+the inital read of the table being invalid, but seemingly irrelevant
+given what is reported by the capabilities (see: FAN_CURVE[*]).
 
-amdgpu:
-- GC11.x fixes
-- SMU13.0.0 fix
-- Freesync video fix
-- DP MST fixes
+Is there any hints you guys could offer in terms of
 
-drm:
-- DP MST kref fix
+1. what might be mal-aligned or mis-labeled in the smu_v13 pptable
+header above?
+2. What pre-requisites I might be missing to allow the support for
+ODCAP_FAN_CURVE?
+3. Why the apparent values for some settings in the boot table seemingly
+wildly invalid? Will those somehow become valid once pre-requisites for
+OD operation are met?
 
-----------------------------------------------------------------
-Aurabindo Pillai (1):
-      drm/amd/display: Fix timing not changning when freesync video is enabled
+I also feel like I've strayed from the original topic of the proposed
+patch, and this probably belongs in it's own thread... but quite know
+how to preserve any context there (sorry).
 
-Evan Quan (1):
-      drm/amd/pm: add missing AllowIHInterrupt message mapping for SMU13.0.0
+Thanks in advance for helping out an eager outsider,
+Matt
 
-Jonathan Kim (1):
-      drm/amdgpu: remove unconditional trap enable on add gfx11 queues
+Capabilities:
+SMU_13_0_0_ODCAP_GFXCLK_LIMITS[0] true
+SMU_13_0_0_ODCAP_GFXCLK_CURVE[1] true
+SMU_13_0_0_ODCAP_UCLK_LIMITS[2] true
+SMU_13_0_0_ODCAP_POWER_LIMIT[3] true
+SMU_13_0_0_ODCAP_FAN_ACOUSTIC_LIMIT[4] true
+SMU_13_0_0_ODCAP_FAN_SPEED_MIN[5] true
+SMU_13_0_0_ODCAP_TEMPERATURE_FAN[6] true
+SMU_13_0_0_ODCAP_TEMPERATURE_SYSTEM[7] true
+SMU_13_0_0_ODCAP_MEMORY_TIMING_TUNE[8] true
+SMU_13_0_0_ODCAP_FAN_ZERO_RPM_CONTROL[9] true
+SMU_13_0_0_ODCAP_AUTO_UV_ENGINE[10] true
+SMU_13_0_0_ODCAP_AUTO_OC_ENGINE[11] true
+SMU_13_0_0_ODCAP_AUTO_OC_MEMORY[12] true
+SMU_13_0_0_ODCAP_FAN_CURVE[13] false
+SMU_13_0_0_ODCAP_AUTO_FAN_ACOUSTIC_LIMIT[14] true
+SMU_13_0_0_ODCAP_POWER_MODE[15] false
 
-Li Ma (2):
-      drm/amdgpu: enable imu firmware for GC 11.0.4
-      drm/amdgpu: declare firmware for new MES 11.0.4
+Limits:
+SMU_13_0_0_ODSETTING_GFXCLKFMAX[0] - [500,5000]
+SMU_13_0_0_ODSETTING_GFXCLKFMIN[1] - [500,5000]
+SMU_13_0_0_ODSETTING_CUSTOM_GFX_VF_CURVE_A[2] - [97,1500]
+SMU_13_0_0_ODSETTING_CUSTOM_GFX_VF_CURVE_B[3] - [97,1500]
+SMU_13_0_0_ODSETTING_CUSTOM_CURVE_VFT_FMIN[4] - [10,15]
+SMU_13_0_0_ODSETTING_UCLKFMIN[5] - [500,3200]
+SMU_13_0_0_ODSETTING_UCLKFMAX[6] - [500,3200]
+SMU_13_0_0_ODSETTING_POWERPERCENTAGE[7] - [25,105]
+SMU_13_0_0_ODSETTING_FANRPMMIN[8] - [50,110]
+SMU_13_0_0_ODSETTING_FANRPMACOUSTICLIMIT[9] - [0,1]
+SMU_13_0_0_ODSETTING_FANTARGETTEMPERATURE[10] - [0,1]
+SMU_13_0_0_ODSETTING_OPERATINGTEMPMAX[11] - [0,1]
+SMU_13_0_0_ODSETTING_ACTIMING[12] - [0,1]
+SMU_13_0_0_ODSETTING_FAN_ZERO_RPM_CONTROL[13] - [0,1]
+SMU_13_0_0_ODSETTING_AUTOUVENGINE[14] - [25,100]
+SMU_13_0_0_ODSETTING_AUTOOCENGINE[15] - [23,100]
+SMU_13_0_0_ODSETTING_AUTOOCMEMORY[16] - [25,100]
+SMU_13_0_0_ODSETTING_FAN_CURVE_TEMPERATURE_1[17] - [23,100]
+SMU_13_0_0_ODSETTING_FAN_CURVE_SPEED_1[18] - [25,100]
+SMU_13_0_0_ODSETTING_FAN_CURVE_TEMPERATURE_2[19] - [23,100]
+SMU_13_0_0_ODSETTING_FAN_CURVE_SPEED_2[20] - [25,100]
+SMU_13_0_0_ODSETTING_FAN_CURVE_TEMPERATURE_3[21] - [23,100]
+SMU_13_0_0_ODSETTING_FAN_CURVE_SPEED_3[22] - [25,100]
+SMU_13_0_0_ODSETTING_FAN_CURVE_TEMPERATURE_4[23] - [23,100]
+SMU_13_0_0_ODSETTING_FAN_CURVE_SPEED_4[24] - [0,0]
+SMU_13_0_0_ODSETTING_FAN_CURVE_TEMPERATURE_5[25] - [0,1]
+SMU_13_0_0_ODSETTING_FAN_CURVE_SPEED_5[26] - [0,0]
+SMU_13_0_0_ODSETTING_AUTO_FAN_ACOUSTIC_LIMIT[27] - [0,0]
+SMU_13_0_0_ODSETTING_POWER_MODE[28] - [0,0]
 
-Lyude Paul (1):
-      drm/amdgpu/display/mst: Fix mst_state->pbn_div and slot count assignments
-
-Wayne Lin (3):
-      drm/amdgpu/display/mst: limit payload to be updated one by one
-      drm/amdgpu/display/mst: update mst_mgr relevant variable when long HPD
-      drm/display/dp_mst: Correct the kref of port.
-
- drivers/gpu/drm/amd/amdgpu/imu_v11_0.c             |  1 +
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c             |  3 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 31 +++++++++++++
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  | 51 +++++++++++++++++-----
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  5 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link.c      | 14 +++++-
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   |  1 +
- drivers/gpu/drm/display/drm_dp_mst_topology.c      |  4 +-
- 8 files changed, 89 insertions(+), 21 deletions(-)
+Boot OD Table:
+GFXFLK: [600, 2945]
+UCLK: [97, 1249]
+FAN_CURVE[0]: 0 @ 0
+FAN_CURVE[1]: 0 @ 0
+FAN_CURVE[2]: 0 @ 0
+FAN_CURVE[3]: 0 @ 0
+FAN_CURVE[4]: 0 @ 0
+FAN_CURVE[5]: 0 @ 0
+FAN_MIN_PWM: 35
+FAN_TARGET_TEMP: 94
+FAN_ZERO_RPM_ENABLE: true
+FAN_MODE: 0
