@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E215C54E94
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Jan 2023 00:36:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 423C2C27C76
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Jan 2023 00:36:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AADAC10E8CB;
-	Thu, 26 Jan 2023 00:36:43 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2061.outbound.protection.outlook.com [40.107.223.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEB9B10E8CB
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Jan 2023 00:36:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA8F510E8CE;
+	Thu, 26 Jan 2023 00:36:56 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2046.outbound.protection.outlook.com [40.107.237.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F72010E8CC
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Jan 2023 00:36:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=T0h6LkVTaEadgvBMa00ZeSc4lexCRibsVeywU+/kU6NQTqL7jNqkxpu4m8/WFuhA8dd08GU1JcTyPtEEtPho3L1cc5BtyLF7TH7+SszDwNilhhBISlM8brCNrbk7sBq6Or/bu5OJ5CAU3pw/7jPD7/vDM3AZqXiaeu3967sVZq44u6SqL8Fnng1hq9fFaAbKAcgAlcvJ425L9HH/ffZOypzVIlT1AqbZd9lse9owMCvbReI6EfT0Qsfy9AvGKlauHwLjlBr/3Xsw12y7B49J1OVmKDEY5tIicqKzim4f6ziVwe/kx9qbB94B2DkBF/2pzH/TGURt+pJEe2IWAK1+0A==
+ b=BWgKc0JDUO+1czi/CT1fyk+l6q8mcqbWAzwU4MxQJLmeRrmz40dW14MzeKdY8VsoZRL3usPJljvZAYMt2d5HLY0vE1fAMFW90OTCzorgpGgOccIpSyGRN1J4fJsa360F8aIJnQSq+1GjDWyT3jXTeU9wSnx1W3QZsFFiw8LBfwwo5Gxeet5adnbZJzwtFU62/7/UI/TQfJxwQmqOATudYR5opHIOUrgYeVxqhusXiu8Jc47Xkp4iv9JpEj879v9yA3RQ8N71qb4LvBN7F/9OdtrQf2UdTg29sDTjEIzBRFb3OEOJDcXifYr7SHzK42i/y9vgpPW1+VatwXXXaKlxvA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BI3AZLWLxQPnZZQ7z+FX7FhFuZwDbeJgr4YVj0f4tak=;
- b=hDAUfuRno05hmieepQxDquZjjSVkpQ4yaI1grpuH9R46jyf1f4GgBZs7r61H8Xa+ZDJtbZpOCj7t3OSZlvqIH6QwPU1vGZIHpTKh/29FhpCKfxaIsL/Hu6vxUarFYUXAUl9CzmuxIdE1bFzWRAVY4mYRVIaGNWHVriGDTU6m48dcnIxl2OwWLVO3rtS0SOC2kiIxS7G8HO0lArUMQDsZ2P5qQK30QAXIcCRIdLSKfHaBlAL77lounGcUW80qlCekD2kUsbOautKd+x7MB6K3mWUTkorTeTbVuUjqlJePGp7qQSYlNI0RHahiJD6R/hY3ODYX6gqrocc5vCf0FkgDlg==
+ bh=xRDbKA4PzZlH6TfP/18oRaEq9N1JmbWj1nhO9MzqSu4=;
+ b=GAIk363Ei/9zNrCSxtUM1YLmecikBx4xG9w82BWO4YSo+/i3FvD/Qct9P6RII+dP10urrwwMKLxbqrp7W5/V4SOQVy9zUZmxxXz0bL355IZ/KO57kJ8KtIl+kk+8fvh32xakVWgBaTnSFZ1R1uTXqDpxe7xDIn7Hm7RzergIXyQC9D8YiwX6mbdyeoh7NqIDwb2i3MCc9rXmn5MYZCYdxmUTKsa6hKOCndCTMnBWzC1Zomavy6JYDp3sdUQz0EltJ/OXS3u2YzQcaqTz0WAY5JYCzXWTeyuAQDiHxxzSgdLwe2yiPdSi8xDc6OKX7h33lVz7yKhwNe1kCYqQluklhw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BI3AZLWLxQPnZZQ7z+FX7FhFuZwDbeJgr4YVj0f4tak=;
- b=c2kPQgpgJpjBsOpPdjNDKY/7saN25lHHRFiwJhJe2NZH2ZtPbJ2ZWil8AxGAag0r+jnDJjMK2qmFbnD9MVTKapqVsT6E4Vzp1NNzP3dGDcXyGFM20BlNIHvnFeXcGriJ1maofa+x1UDd5qdMr5HHPdlUR3mBa2MS+2tcT08AGj4=
-Received: from BN1PR10CA0018.namprd10.prod.outlook.com (2603:10b6:408:e0::23)
- by CY8PR12MB7514.namprd12.prod.outlook.com (2603:10b6:930:92::21)
+ bh=xRDbKA4PzZlH6TfP/18oRaEq9N1JmbWj1nhO9MzqSu4=;
+ b=yy19BEZp2bXgM7R4XDilz9HwtOl33/BMGSOA8IQRERBOHyLjCGZiMrveaDukDU2MNLrZ5dGnpyeBix2164BEG2sp9cXVcq/aShxOyKS6YKYWOHWnFuNdwS9Nyctxill1fBrMTTr1f4YoHMHJeuRpSwQGe/t5sDSJMZ77dOdWC7o=
+Received: from BN0PR04CA0170.namprd04.prod.outlook.com (2603:10b6:408:eb::25)
+ by SA0PR12MB4543.namprd12.prod.outlook.com (2603:10b6:806:9d::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33; Thu, 26 Jan
- 2023 00:36:39 +0000
-Received: from BN8NAM11FT058.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e0:cafe::94) by BN1PR10CA0018.outlook.office365.com
- (2603:10b6:408:e0::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.21 via Frontend
- Transport; Thu, 26 Jan 2023 00:36:39 +0000
+ 2023 00:36:52 +0000
+Received: from BN8NAM11FT116.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:eb:cafe::31) by BN0PR04CA0170.outlook.office365.com
+ (2603:10b6:408:eb::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33 via Frontend
+ Transport; Thu, 26 Jan 2023 00:36:52 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT058.mail.protection.outlook.com (10.13.177.58) with Microsoft SMTP
+ BN8NAM11FT116.mail.protection.outlook.com (10.13.176.67) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6043.17 via Frontend Transport; Thu, 26 Jan 2023 00:36:39 +0000
+ 15.20.6043.17 via Frontend Transport; Thu, 26 Jan 2023 00:36:52 +0000
 Received: from dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 25 Jan
- 2023 18:36:36 -0600
+ 2023 18:36:50 -0600
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 14/16] drm/amd/display: Reset DMUB mailbox SW state after HW
- reset
-Date: Wed, 25 Jan 2023 17:32:28 -0700
-Message-ID: <20230126003230.4178466-15-alex.hung@amd.com>
+Subject: [PATCH 15/16] drm/amd/display: fix linux dp link lost handled only
+ one time
+Date: Wed, 25 Jan 2023 17:32:29 -0700
+Message-ID: <20230126003230.4178466-16-alex.hung@amd.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230126003230.4178466-1-alex.hung@amd.com>
 References: <20230126003230.4178466-1-alex.hung@amd.com>
@@ -69,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT058:EE_|CY8PR12MB7514:EE_
-X-MS-Office365-Filtering-Correlation-Id: b95e1bc1-7c94-4252-f2b9-08daff35634d
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT116:EE_|SA0PR12MB4543:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0a43902e-51f7-4b87-a04e-08daff356b2b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kA1skHQirAgQRgoi0EVI//tvlziW3MGTLjXbuXCuuzXhAJFfdX3/xqHz1jPvXvh9MqIugrD93QsSqZNMP0/LXoc7NU3rg4+pGhvSYpWEBODR+nGVPrJBPuoy+rnqC2ohX9trdsqmYLGAsZGISdWUY1jKPOEBL5KpIjKrzxnms6w00yagpHNpRs3UyStlJGZcv0R4lG1EoN5sCnyTDHOnmHkntzRD7HRo+jlss693SdUd4f86JdZNU1IQELDd2I2BuuxLj86qOUdr8C2VQQGdPw2TYyM2PsoQGsZheULZnF/SwzXp+T64PLnHfAUjjxZvFsiruAI/J1Y17iIncWNnGBqS9Nx5XEU9C/Aw81lfsm6tecYgDfR1xNDlYW8eLRy2RvSVkhvF/BsgWbPpXsp+PRcBCW/3HfyBD2pi6eWX+7TStUQpvFyE7xKbC//VkT7Cx8na5iMQQZREF9FSYjkZOPUK5SQT4VbNmiKnIKOkyc1Dns0Fd4l/jLAWMc4ohl4tglcflxe6YA6RMVM8jZkw7XIc51OqeHcss+Z+nOq43unPEAAnzap77wUYN0idArrWZMdcFPaANBlFM0hha+62URnyPuqg9CBDH+EfH8rFbsIDqVf9MKJqZOSKTkNbKiLClN2U9VJ94aYX4lkDr40rQx8uj19ddYpLIup6NrEsNShwBJl+MjSaizIK7u77AW/Bf5mu5M+mjzE2zWUGSheSI4vI8Du3Zgmpi62szJmcOoc=
+X-Microsoft-Antispam-Message-Info: xMjkt+ca5v6o246Vlc0Dcq7leUxFIAAFAxjlDzKxhH1Q32jN7ULisa1TALq3NM+qlI0KeUYJ70iE10fkT83LrJnMYVXkAo6QZ+v7yx3IUFvq9vNEo8r+ymoX+69iRZpWvsfI/oRVzmNKRmYMOYKVeuSjJaUCpEr170IoljMPGhoHN/JC74pzAUPWSZIAqcW8qFUUMcykhjU91SVAl7ThOYJKN+xtDcMcw2YliV0/CPM08D47K+lV9UO1J8CTgqdwAqIoAC6yr34uaz2XI/Vxy/JuNCLty0szbQKnECWiiSI78z2JFEQVxk7esItUJtK1spsjrqt7QT5YQjqwhm3Z1UziRmb/2MPt3FtBDoiH+TkRfxjhfVnSQjFRwSqX+qgCA604NqjTGZIAL7B34HU0HYeyUuCfC2HQW1eTM1G82YYwN8rb4kfv5q30wcLgWUk7zOInll8rZgPal/SKhMiGuIlioIZLkqF8u6zo9DxTx6H+JbWA5odTlKN72REK7jwmrlPaOUxZqaqw8tPBbz2Mg8saIWyh8Wzq/459/vH6QR70IKOIc6wS8h5sLpA4gEO2I+fUl2CIq/6DYBl3jXyGLwPxpIiVcMJ8tqrIfSLS1OHxXeQgOENbzLUT9eozvBgMBl2ZmOcv+iMlgkLK3AWZ/VDquIUyF9bKyM4ktHl0+PXZa2Y76UmJTJx6BCVVx96h1DffobWLFNv733idlSGwQ8841ubtgqDOGM9mBoSkaNs=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(346002)(39860400002)(396003)(376002)(136003)(451199018)(46966006)(36840700001)(40470700004)(2616005)(36756003)(86362001)(2906002)(15650500001)(82310400005)(356005)(82740400003)(4326008)(8936002)(83380400001)(44832011)(81166007)(36860700001)(41300700001)(5660300002)(316002)(478600001)(70206006)(7696005)(186003)(6916009)(8676002)(40460700003)(26005)(70586007)(47076005)(336012)(40480700001)(54906003)(1076003)(16526019)(426003)(6666004)(36900700001);
+ SFS:(13230025)(4636009)(376002)(396003)(136003)(39860400002)(346002)(451199018)(36840700001)(46966006)(40470700004)(81166007)(82740400003)(356005)(40460700003)(40480700001)(36756003)(47076005)(86362001)(478600001)(336012)(54906003)(7696005)(82310400005)(4326008)(70586007)(70206006)(6916009)(426003)(2616005)(8676002)(316002)(2906002)(6666004)(1076003)(186003)(16526019)(41300700001)(44832011)(83380400001)(5660300002)(8936002)(36860700001)(26005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2023 00:36:39.0280 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b95e1bc1-7c94-4252-f2b9-08daff35634d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2023 00:36:52.2248 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0a43902e-51f7-4b87-a04e-08daff356b2b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT058.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT116.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7514
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4543
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,64 +100,100 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Hansen Dsouza <hansen.dsouza@amd.com>,
- Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, Alex
- Hung <alex.hung@amd.com>, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, agustin.gutierrez@amd.com,
- pavle.kotarac@amd.com
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+ Hersen Wu <hersenxs.wu@amd.com>, wayne.lin@amd.com,
+ Alex Hung <alex.hung@amd.com>, Bhawanpreet.Lakha@amd.com,
+ agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: Hersen Wu <hersenxs.wu@amd.com>
 
 [Why]
-Otherwise we can be out of sync with what's in the hardware, leading
-to us rerunning every command that's presently in the ringbuffer.
+linux amdgpu defer handle link lost irq. dm add handle
+request to irq work queue for the first irq of link lost.
+if link training fails for link lost handle, link will not
+be enabled anymore.
 
 [How]
-Reset software state for the mailboxes in hw_reset callback.
-This is already done as part of the mailbox init in hw_init, but we
-do need to remember to reset the last cached wptr value as well here.
+allow adding handle request of link lost to work queue
+before running dp link training for link lost.
 
-Reviewed-by: Hansen Dsouza <hansen.dsouza@amd.com>
+Signed-off-by: Hersen Wu <hersenxs.wu@amd.com>
 Acked-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 ---
- drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 24 ++++++++++++++++---
+ drivers/gpu/drm/amd/display/dc/dc_link.h      |  3 +++
+ 2 files changed, 24 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-index 4a122925c3ae..92c18bfb98b3 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-@@ -532,6 +532,9 @@ enum dmub_status dmub_srv_hw_init(struct dmub_srv *dmub,
- 	if (dmub->hw_funcs.reset)
- 		dmub->hw_funcs.reset(dmub);
- 
-+	/* reset the cache of the last wptr as well now that hw is reset */
-+	dmub->inbox1_last_wptr = 0;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index ceeab2cd8569..9e138d48cd5d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1301,10 +1301,28 @@ static void dm_handle_hpd_rx_offload_work(struct work_struct *work)
+ 	else if ((dc_link->connector_signal != SIGNAL_TYPE_EDP) &&
+ 			dc_link_check_link_loss_status(dc_link, &offload_work->data) &&
+ 			dc_link_dp_allow_hpd_rx_irq(dc_link)) {
+-		dc_link_dp_handle_link_loss(dc_link);
++		/* offload_work->data is from handle_hpd_rx_irq->
++		 * schedule_hpd_rx_offload_work.this is defer handle
++		 * for hpd short pulse. upon here, link status may be
++		 * changed, need get latest link status from dpcd
++		 * registers. if link status is good, skip run link
++		 * training again.
++		 */
++		union hpd_irq_data irq_data;
 +
- 	cw0.offset.quad_part = inst_fb->gpu_addr;
- 	cw0.region.base = DMUB_CW0_BASE;
- 	cw0.region.top = cw0.region.base + inst_fb->size - 1;
-@@ -649,6 +652,15 @@ enum dmub_status dmub_srv_hw_reset(struct dmub_srv *dmub)
- 	if (dmub->hw_funcs.reset)
- 		dmub->hw_funcs.reset(dmub);
- 
-+	/* mailboxes have been reset in hw, so reset the sw state as well */
-+	dmub->inbox1_last_wptr = 0;
-+	dmub->inbox1_rb.wrpt = 0;
-+	dmub->inbox1_rb.rptr = 0;
-+	dmub->outbox0_rb.wrpt = 0;
-+	dmub->outbox0_rb.rptr = 0;
-+	dmub->outbox1_rb.wrpt = 0;
-+	dmub->outbox1_rb.rptr = 0;
++		memset(&irq_data, 0, sizeof(irq_data));
 +
- 	dmub->hw_init = false;
++		/* before dc_link_dp_handle_link_loss, allow new link lost handle
++		 * request be added to work queue if link lost at end of dc_link_
++		 * dp_handle_link_loss
++		 */
+ 		spin_lock_irqsave(&offload_work->offload_wq->offload_lock, flags);
+ 		offload_work->offload_wq->is_handling_link_loss = false;
+ 		spin_unlock_irqrestore(&offload_work->offload_wq->offload_lock, flags);
++
++		if ((dp_read_hpd_rx_irq_data(dc_link, &irq_data) == DC_OK) &&
++			dc_link_check_link_loss_status(dc_link, &irq_data))
++			dc_link_dp_handle_link_loss(dc_link);
+ 	}
+ 	mutex_unlock(&adev->dm.dc_lock);
  
- 	return DMUB_STATUS_OK;
+@@ -3238,7 +3256,7 @@ static void handle_hpd_rx_irq(void *param)
+ 	union hpd_irq_data hpd_irq_data;
+ 	bool link_loss = false;
+ 	bool has_left_work = false;
+-	int idx = aconnector->base.index;
++	int idx = dc_link->link_index;
+ 	struct hpd_rx_irq_offload_work_queue *offload_wq = &adev->dm.hpd_rx_offload_wq[idx];
+ 
+ 	memset(&hpd_irq_data, 0, sizeof(hpd_irq_data));
+@@ -3380,7 +3398,7 @@ static void register_hpd_handlers(struct amdgpu_device *adev)
+ 					(void *) aconnector);
+ 
+ 			if (adev->dm.hpd_rx_offload_wq)
+-				adev->dm.hpd_rx_offload_wq[connector->index].aconnector =
++				adev->dm.hpd_rx_offload_wq[dc_link->link_index].aconnector =
+ 					aconnector;
+ 		}
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h b/drivers/gpu/drm/amd/display/dc/dc_link.h
+index 85b57848f5cb..64d5d9b28ca6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_link.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
+@@ -433,6 +433,9 @@ void dc_link_dp_handle_link_loss(struct dc_link *link);
+ bool dc_link_dp_allow_hpd_rx_irq(const struct dc_link *link);
+ bool dc_link_check_link_loss_status(struct dc_link *link,
+ 				       union hpd_irq_data *hpd_irq_dpcd_data);
++enum dc_status dp_read_hpd_rx_irq_data(
++	struct dc_link *link,
++	union hpd_irq_data *irq_data);
+ struct dc_sink_init_data;
+ 
+ struct dc_sink *dc_link_add_remote_sink(
 -- 
 2.39.1
 
