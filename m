@@ -4,38 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6832C54EAA
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Jan 2023 14:14:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B1CAC38142
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Jan 2023 14:14:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B3AE10E98F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EBF210E996;
 	Fri, 27 Jan 2023 14:14:32 +0000 (UTC)
 Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
  [80.237.130.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A649C10E0BC
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Jan 2023 12:52:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8B0A89755;
+ Fri, 27 Jan 2023 09:15:14 +0000 (UTC)
 Received: from [2a02:8108:963f:de38:4bc7:2566:28bd:b73c]; authenticated
  by wp530.webpack.hosteurope.de running ExIM with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1pLODp-0001vu-Om; Fri, 27 Jan 2023 13:52:49 +0100
-Message-ID: <cea5051b-1a13-45a9-6cbe-a664a9cd1d88@leemhuis.info>
-Date: Fri, 27 Jan 2023 13:52:49 +0100
+ id 1pLKpC-00042p-Pj; Fri, 27 Jan 2023 10:15:10 +0100
+Message-ID: <36e72298-e9d3-967e-8b14-7197719953cb@leemhuis.info>
+Date: Fri, 27 Jan 2023 10:15:10 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
-Subject: Re: [PATCH] ALSA: hda/hdmi: Use only dynamic PCM device allocation
- #forregzbot
 Content-Language: en-US, de-DE
-From: "Linux kernel regression tracking (#update)" <regressions@leemhuis.info>
-To: ALSA development <alsa-devel@alsa-project.org>
-References: <20220922084017.25925-1-perex@perex.cz>
- <1c9c00dec72c241a399b3b7c0a305382a5712529.camel@bi-co.net>
- <163d5366-35d9-f7db-cf50-796d6b011c0a@leemhuis.info>
-In-Reply-To: <163d5366-35d9-f7db-cf50-796d6b011c0a@leemhuis.info>
+To: Greg KH <gregkh@linuxfoundation.org>,
+ "Limonciello, Mario" <mario.limonciello@amd.com>
+References: <20230112085044.1706379-1-Wayne.Lin@amd.com>
+ <20230120174634.GA889896@roeck-us.net>
+ <a9deecb3-5955-ee4e-c76f-2654ee9f1a92@amd.com> <Y9N/wiIL758c3ozv@kroah.com>
+From: "Linux kernel regression tracking (Thorsten Leemhuis)"
+ <regressions@leemhuis.info>
+Subject: Re: [PATCH] Revert "drm/display/dp_mst: Move all payload info into
+ the atomic state"
+In-Reply-To: <Y9N/wiIL758c3ozv@kroah.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1674823971;
- dfef2cc9; 
-X-HE-SMSGID: 1pLODp-0001vu-Om
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1674810914;
+ 28913ce1; 
+X-HE-SMSGID: 1pLKpC-00042p-Pj
 X-Mailman-Approved-At: Fri, 27 Jan 2023 14:14:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -49,42 +51,59 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
-Cc: "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ stanislav.lisovskiy@intel.com, Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ stable@vger.kernel.org, Wayne Lin <Wayne.Lin@amd.com>,
+ Guenter Roeck <linux@roeck-us.net>, bskeggs@redhat.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[TLDR: This mail in primarily relevant for Linux kernel regression
-tracking. See link in footer if these mails annoy you.]
-
-On 26.12.22 14:26, Thorsten Leemhuis wrote:
-> On 25.12.22 13:14, Michael Laß wrote:
->> CC'ing amd-gfx as this might be an issue in the amd driver.
+On 27.01.23 08:39, Greg KH wrote:
+> On Fri, Jan 20, 2023 at 11:51:04AM -0600, Limonciello, Mario wrote:
+>> On 1/20/2023 11:46, Guenter Roeck wrote:
+>>> On Thu, Jan 12, 2023 at 04:50:44PM +0800, Wayne Lin wrote:
+>>>> This reverts commit 4d07b0bc403403438d9cf88450506240c5faf92f.
+>>>>
+>>>> [Why]
+>>>> Changes cause regression on amdgpu mst.
+>>>> E.g.
+>>>> In fill_dc_mst_payload_table_from_drm(), amdgpu expects to add/remove payload
+>>>> one by one and call fill_dc_mst_payload_table_from_drm() to update the HW
+>>>> maintained payload table. But previous change tries to go through all the
+>>>> payloads in mst_state and update amdpug hw maintained table in once everytime
+>>>> driver only tries to add/remove a specific payload stream only. The newly
+>>>> design idea conflicts with the implementation in amdgpu nowadays.
+>>>>
+>>>> [How]
+>>>> Revert this patch first. After addressing all regression problems caused by
+>>>> this previous patch, will add it back and adjust it.
+>>>
+>>> Has there been any progress on this revert, or on fixing the underlying
+>>> problem ?
+>>>
+>>> Thanks,
+>>> Guenter
 >>
->> This change causes a regression in Linux 6.1 at least on some AMD APUs.
->> There are reports from users with Ryzen 4750U, 5800U and 5850U chips
->> where the HDMI sound devices don't show up anymore. I'm affected by
->> this as well.
+>> Hi Guenter,
 >>
->> Reverting this commit (ef6f5494) makes the HDMI audio devices show up
->> again. I verified that this is still an issue in current Linux git
->> (72a85e2b).
+>> Wayne is OOO for CNY, but let me update you.
+>>
+>> Harry has sent out this series which is a collection of proper fixes.
+>> https://patchwork.freedesktop.org/series/113125/
+>>
+>> Once that's reviewed and accepted, 4 of them are applicable for 6.1.
 > 
-> Thanks for the report. To be sure below issue doesn't fall through the
-> cracks unnoticed, I'm adding it to regzbot, my Linux kernel regression
-> tracking bot:
-> 
-> #regzbot ^introduced ef6f5494faf6a37c74990689a
-> #regzbot title alsa: hda/hdmi: HDMI sound devices don't show up anymore
-> with some AMD APUs
-> #regzbot ignore-activity
+> Any hint on when those will be reviewed and accepted?  patchwork doesn't
+> show any activity on them, or at least I can't figure it out...
 
-#regzbot fix: 090ddad4c7a9
-#regzbot ignore-activity
+I didn't look closer (hence please correct me if I'm wrong), but the
+core changes afaics are in the DRM pull airlied send a few hours ago to
+Linus (note the "amdgpu […] DP MST fixes" line):
+
+https://lore.kernel.org/all/CAPM%3D9tzuu4xnx6T5v7sKsK%2BA5HEaPOc1ieMyzNSYQZGztJ%3D6Qw@mail.gmail.com/
 
 Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
 --
 Everything you wanna know about Linux kernel regression tracking:
 https://linux-regtracking.leemhuis.info/about/#tldr
-That page also explains what to do if mails like this annoy you.
-
+If I did something stupid, please tell me, as explained on that page.
