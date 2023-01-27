@@ -4,78 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0861C54EAA
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Jan 2023 03:26:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0DD2C38142
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Jan 2023 03:55:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C01E10E3E2;
-	Fri, 27 Jan 2023 03:26:00 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F04110E3D8
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Jan 2023 01:38:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1674783513;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=ZaWLbVYYzGv21vJO7aGswdiJnWhUW0nGAziQI0ZtQyY=;
- b=O6xmflnlnNYsQc6v7552ELIS6XWueVcPW2wFmLYrDd3ghk7IhZJcHeEGHixSS2V+9phwSQ
- uUh/Dge9ISSjSBBVlCipxsLR/TTiVzhLVz+gtctA5A9ZoZT3QS+izltxoYSx7BKmQfCVRh
- H7KVj0nzYCjkzWEZSN647Hu73S4Z0W4=
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-647-wYbwcWffPDChZTk587D2rA-1; Thu, 26 Jan 2023 20:38:32 -0500
-X-MC-Unique: wYbwcWffPDChZTk587D2rA-1
-Received: by mail-qt1-f200.google.com with SMTP id
- bp43-20020a05622a1bab00b003b63be6827dso1615408qtb.23
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Jan 2023 17:38:32 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 779A910E3EA;
+	Fri, 27 Jan 2023 03:55:30 +0000 (UTC)
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [IPv6:2a00:1450:4864:20::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E210F10E3E4;
+ Fri, 27 Jan 2023 03:55:27 +0000 (UTC)
+Received: by mail-ej1-x629.google.com with SMTP id k4so4939040eje.1;
+ Thu, 26 Jan 2023 19:55:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=ocwlvVVRwbuYPWxcE07iTDqSaV/OyweQxO5lM24FLrg=;
+ b=JR6e/ZUvBcVeqhG6fnc+zYKDWAhSlViQ7SBV+T34Wn7KIThgieQBvXEN/NkOF8CjX4
+ c9qUgJDrGdWvP/ktrRjss5iiciB9cRdjI3pTQD56ZGf396wRWBtBUZf7Mhfh5oZ28LIh
+ 9P3F7TALrIFRYkyU+QRFTZ2o/psJ3Mo0GBAdhIMEPeB640SzgjUfu/dSqcGMyVhvUx9Z
+ xpF+/XrNxuC0zljqM5I9Bvw7e3uUJoPn0nIdQmymtLk51hxuhir2ZgXFCQ2dY9GBvlPI
+ B6j7w2t0PzqAQpJUCarlENo/6Q6NyBU2rWywpEVlcXho1RF9cBEkT32/gG/muTKBq94u
+ OjqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=ZaWLbVYYzGv21vJO7aGswdiJnWhUW0nGAziQI0ZtQyY=;
- b=ZKu1x6xqvt/GqLLlxROGoeZPcHUjfu/wf+Gh+wDf2XGj0P2z5kx1puF2TNfHf+PkwQ
- 0wyKHh1M62qVDQV6TZo9DzbiAMYIH5Sp0jOcgZcPSzxg6oBtrZM/kfKI5pqgqdfSzj3M
- z0cs28f+pyBHpA2kJ9uK8GX/2JZuJcUY8QgMwe/cFiQokPln+w6Ipppis2zVRjXnzOpJ
- pr6Uo02KBZnQziWyvuP9hFWFnt7kXwEJ5/7kwVRxtRAc0/kX9FXWeA30IjsjuhMjxbNC
- j7UVC3LjVE1E4NYGZiJXgFhjjlsZOlKPclbcetILNezrzlQaHrUBmRmQYQKThfwcs8JI
- pJWA==
-X-Gm-Message-State: AFqh2krV23IHcVYpStDO+rtQNLOE3+txAxdXuIir+Y2VlRz67tYkjnOK
- eD7tcq+Znzns4QIrbQw2dxldwoX2/MLrDoX5CIX7hM/dKNwuSDn+MOGH9Jpj6iD+RV+AsPY9mXH
- wuzAzqYiRdezo3n/WyKJYx2KEpQ==
-X-Received: by 2002:a05:6214:e8e:b0:4ed:fb72:9186 with SMTP id
- hf14-20020a0562140e8e00b004edfb729186mr82795461qvb.0.1674783511681; 
- Thu, 26 Jan 2023 17:38:31 -0800 (PST)
-X-Google-Smtp-Source: AMrXdXvj0I8ZKFown/tFr5t6mdJxPm3gmzyISiA4AAWzoztipBf2zfexnkIA+fwENP+IzIKg1Fl40g==
-X-Received: by 2002:a05:6214:e8e:b0:4ed:fb72:9186 with SMTP id
- hf14-20020a0562140e8e00b004edfb729186mr82795411qvb.0.1674783511392; 
- Thu, 26 Jan 2023 17:38:31 -0800 (PST)
-Received: from localhost.localdomain.com (024-205-208-113.res.spectrum.com.
- [24.205.208.113]) by smtp.gmail.com with ESMTPSA id
- dm30-20020a05620a1d5e00b00704a2a40cf2sm2013364qkb.38.2023.01.26.17.38.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Jan 2023 17:38:30 -0800 (PST)
-From: Tom Rix <trix@redhat.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, Anthony.Koo@amd.com, alex.hung@amd.com,
- aurabindo.pillai@amd.com, Roman.Li@amd.com, wenjing.liu@amd.com,
- Dillon.Varone@amd.com, mwen@igalia.com, dingchen.zhang@amd.com,
- martin.tsai@amd.com, aric.cyr@amd.com, Wesley.Chalmers@amd.com,
- Max.Tseng@amd.com, sivapiriyan.kumarasamy@amd.com, Tony.Cheng@amd.com
-Subject: [PATCH] drm/amd/display: reduce else-if to else in
- dcn10_blank_pixel_data()
-Date: Thu, 26 Jan 2023 17:38:23 -0800
-Message-Id: <20230127013823.832698-1-trix@redhat.com>
-X-Mailer: git-send-email 2.26.3
+ bh=ocwlvVVRwbuYPWxcE07iTDqSaV/OyweQxO5lM24FLrg=;
+ b=UiSjHhNtL7q5B5jHh1FZegtD7EEgUhw6Z0gEoGknWzpPI4X/MHv3Qw+Zm6FhmlOvt1
+ Z1xBa3Fm69uUCmXriciwUz9mcWr7hG6mkTHoFmT6PkeWp4/9NXwav/BKMm8UeByuDULH
+ egBRjY3gHfu8ktEgPArKg2j84fNRThTC1Aj8rTfnfxDhxyNZujoQZppXDmlH05PUlqnq
+ GXU203bCSIHH91yge7R9noBKB3I8QbjXeaR9jWK4lNWKSzZbE9u72QgQJxbDDjns9gCa
+ ma47TfpZKlOnBfodd9uBaQaNZlZ+pK5VYVYPGUcIOiXTkR2ljKdc0JC+TTNl1RkMCsB1
+ NZbA==
+X-Gm-Message-State: AFqh2kpWBIjryR8Ht+1SOJscQzlV+ViU0kg2fhpTmaJ1WqRdhjd+Jnf7
+ rDFCVPqMgTld23uV2pLxq3YO8X5rMTdg9pLaqHU=
+X-Google-Smtp-Source: AMrXdXsS68fiCxg4Ak+9N/1iWAU6p9z/wehS+2LyShiGBRRDnGpRNDONi6/u3qcSksMZq6E5nq2kwabPITng8+2D5QE=
+X-Received: by 2002:a17:906:ce43:b0:84d:6f4a:3b15 with SMTP id
+ se3-20020a170906ce4300b0084d6f4a3b15mr5259881ejb.48.1674791726033; Thu, 26
+ Jan 2023 19:55:26 -0800 (PST)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
-X-Mailman-Approved-At: Fri, 27 Jan 2023 03:25:58 +0000
+References: <20230126163605.3524630-1-arnd@kernel.org>
+ <5ad53f8f-155a-d1e8-68e3-c82577816c76@amd.com>
+In-Reply-To: <5ad53f8f-155a-d1e8-68e3-c82577816c76@amd.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Fri, 27 Jan 2023 13:55:13 +1000
+Message-ID: <CAPM=9ty76NiuhUyk=AA75YUx=LXBU26OX4hCUFL=M7exh=eSRw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/display/mst: fix an unused-variable warning
+To: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,43 +64,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tom Rix <trix@redhat.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Stylon Wang <stylon.wang@amd.com>, Arnd Bergmann <arnd@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, Leo Li <sunpeng.li@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Roman Li <roman.li@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ hersen wu <hersenxs.wu@amd.com>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Wayne Lin <Wayne.Lin@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-checkpatch reports
-drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c:2902:13: style:
-  Expression is always true because 'else if' condition is opposite to previous condition at line 2895. [multiCondition]
- } else if (blank) {
-            ^
-drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c:2895:6: note: first condition
- if (!blank) {
-     ^
-drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c:2902:13: note: else if condition is opposite to first condition
- } else if (blank) {
+On Fri, 27 Jan 2023 at 07:06, Hamza Mahfooz <hamza.mahfooz@amd.com> wrote:
+>
+> On 1/26/23 11:35, Arnd Bergmann wrote:
+> > From: Arnd Bergmann <arnd@arndb.de>
+> >
+> > The newly added code is in an #ifdef, so the variables that
+> > are only used in there cause a warning if CONFIG_DRM_AMD_DC_DCN
+> > is disabled:
+> >
+> > drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c: In function 'amdgpu_dm_atomic_check':
+> > drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:9698:43: error: unused variable 'mst_state' [-Werror=unused-variable]
+> >   9698 |         struct drm_dp_mst_topology_state *mst_state;
+> >        |                                           ^~~~~~~~~
+> > drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:9697:41: error: unused variable 'mgr' [-Werror=unused-variable]
+> >   9697 |         struct drm_dp_mst_topology_mgr *mgr;
+> >        |                                         ^~~
+> >
+> > Fixes: c689e1e362ea ("drm/amdgpu/display/mst: Fix mst_state->pbn_div and slot count assignments")
+> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+>
+> Applied, thanks!
+>
+> > ---
+> >   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 ++
+> >   1 file changed, 2 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > index be1232356f9e..c966bb05f6c7 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > @@ -9694,8 +9694,10 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+> >       struct drm_connector_state *old_con_state, *new_con_state;
+> >       struct drm_crtc *crtc;
+> >       struct drm_crtc_state *old_crtc_state, *new_crtc_state;
+> > +#if defined(CONFIG_DRM_AMD_DC_DCN)
+> >       struct drm_dp_mst_topology_mgr *mgr;
+> >       struct drm_dp_mst_topology_state *mst_state;
+> > +#endif
+> >       struct drm_plane *plane;
+> >       struct drm_plane_state *old_plane_state, *new_plane_state;
+> >       enum dc_status status;
+>
 
-It is not necessary to explicitly the check != condition, an else is simplier.
+I've pushed an alternate fix to drm-fixes as I pulled in a tree this
+morning and it failed to build on arm here.
 
-Fixes: aa5a57773042 ("drm/amd/display: Vari-bright looks disabled near end of MM14")
-Signed-off-by: Tom Rix <trix@redhat.com>
----
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-index bb155734ac93..f735ae5e045f 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-@@ -2899,7 +2899,7 @@ void dcn10_blank_pixel_data(
- 			dc->hwss.set_pipe(pipe_ctx);
- 			stream_res->abm->funcs->set_abm_level(stream_res->abm, stream->abm_level);
- 		}
--	} else if (blank) {
-+	} else {
- 		dc->hwss.set_abm_immediate_disable(pipe_ctx);
- 		if (stream_res->tg->funcs->set_blank) {
- 			stream_res->tg->funcs->wait_for_state(stream_res->tg, CRTC_STATE_VBLANK);
--- 
-2.26.3
-
+Dave.
