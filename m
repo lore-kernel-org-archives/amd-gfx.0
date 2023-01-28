@@ -4,55 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4052C54EAA
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Jan 2023 08:18:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21C90C54EED
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Jan 2023 08:18:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7827610E0D6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8161810E132;
 	Mon, 30 Jan 2023 08:18:13 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B78C210E0B6;
- Sun, 29 Jan 2023 15:18:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net; s=s31663417;
- t=1675005479; bh=Qq27hLNazqH6IS+M8JNjhsN17IYOdE9EIDZkEI6lmRQ=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
- b=oaGcEF25MVLWvpj9LSN33dXSWNdRumAqNqKMDM1pxOPQ7uSE9BOsvjHQqwYVWRTuJ
- X0xtkIWaGU1oXwLE6ggdUFQdnXk+IsAQ3tI1aEQXXpdCDCEB9tbRkA+P7GfKA/CK3p
- qyVRy5aypRa8fzlI04xJ8uQ93nba1k7ECvW7e9mQo3lRrvtItArAqfdTUxyADuEwml
- mxWOIYWrfLVa96inwpBvUrB00dFLd8klmQr62cJo9NuXv3d51uHwgp3hQrNdwt1699
- MV2jNFi2P1eHWRzE52fHjNdvi58tCpU+e0n9W2oN0SyQbTvYU77YDybu8lKpRhKBGz
- 2BU4kz3KLUUng==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from probook ([95.223.44.193]) by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1N4Qwg-1ocSpc3fxG-011VXG; Sun, 29
- Jan 2023 16:17:58 +0100
-From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: Fix a typo ("boradcast")
-Date: Sun, 29 Jan 2023 16:17:52 +0100
-Message-Id: <20230129151752.1531144-1-j.neuschaefer@gmx.net>
-X-Mailer: git-send-email 2.39.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:xA1iziq1qDckbUx7DYH0baOF/Vz4I/NB3FFlnQfCBb3BQrDRP8l
- 5m3hjte8K/tgYs9o/DN6oqtO+oGEoOBkdNexPlWO99DMjOqqNWIbYM0gfPfEcvzChPmsmW2
- B99/WPZZwCqAJZ+U/zRPWDl8FFp1I93BEEKVN+p9Ue8IUB0jzqVRo29j84b1wxaA9Kviumr
- t08iOcW1c7bqIc9WedRUQ==
-UI-OutboundReport: notjunk:1;M01:P0:eTk6eCX3x2s=;tecDAsgsvgPjd+fgAz8NtozAi6T
- wpr85IP/1M7zQdspO1A+t5hJE9dQ/BRzM1AW1yl8qgejive8BRFM2hYblISQFwslC+cuiS/st
- VwZ3OvKdCLXouUKdmOwrR4Q+edsAM3CcXgTbcyu8rFwYzFxNFyVjCXeiQmdHCELGjanhkGElz
- lh7z/IrfLPeK1NrDO161iRgcdRwVxA4SefTaqW8bliYU1FZV9Ri5HPwfYdgXlD91ioe+D+iRG
- IJLhyRN8o6ukxPXkEnVmqaijlp4ARI7yX9V0o19D+oJSD0kv77+e9cwu+vR0gFEzEV0rZ9yvR
- me0uuoDxRYwJ5PkJ+9LGqnfeRjCnfUKG6YTZufnakDPxvn4VliwJthfgOKZyw26z8DKtt/Fgg
- kLyxgEJyX2ankdPas1BGlzrhmL8D9KeZq4YXpZ1jFCm79e5ZkouLF298UiPWg8X9+9I2hixUX
- 3qAek6Ka86FmTXf4iYzIpxGOQCcXEYlFnsNhkcCmR3sP3XMVPndQGqO4aNIjFY+WpufIeOgtg
- 58wpN89gCVfK85izhYHVbAcpIQ+soLXNtScIY6FPmb/t2JdKI+snQZSr6WFPNFhJAKTT/bM5d
- 14Km2IX6TKyENfpNWS/zrpoRJS2f5pUWKruEoHnljTQKTADpJ9qEtcBXh9PeuaDeW0wtHysJk
- NQ4tyqFdry9uV7vsht2TsXpxGzi5gZ/Lg07rQ0/GQTGp81Ple8cz31FsCnl3MrrLSgkAsx8Yd
- 1Oo/GEhtFjNtX86I7bHnypb/1fWXP2C4JZ9UcAmsk20y1o2gTdkflKyLNYs7Duu/czs9zaqLW
- 7USzxyMBPvH+C4dwe3vO5a5DDMqvCiWp/o+sZs6wAorZw5FfxZbyGzp95vcLINKuUMETDf1QC
- 7sXP/PKB4mZ65+greqznVrqD+E2E2mfm5L6r0XQsHgLnnk7ZBbD3heSJhQI15+9vNFfB1nCtl
- dIyVkvo9vQ76GfERETec4y2nSq0=
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [58.251.27.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31F8110E2E2
+ for <amd-gfx@lists.freedesktop.org>; Sat, 28 Jan 2023 01:39:45 +0000 (UTC)
+Received: from mxde.zte.com.cn (unknown [10.35.20.121])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mxct.zte.com.cn (FangMail) with ESMTPS id 4P3cZ53Hbyz1DF4
+ for <amd-gfx@lists.freedesktop.org>; Sat, 28 Jan 2023 09:39:41 +0800 (CST)
+Received: from mxus.zte.com.cn (unknown [10.207.168.8])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mxde.zte.com.cn (FangMail) with ESMTPS id 4P3cYk0Pb1zBRK7W
+ for <amd-gfx@lists.freedesktop.org>; Sat, 28 Jan 2023 09:39:22 +0800 (CST)
+Received: from mxhk.zte.com.cn (unknown [192.168.250.137])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mxus.zte.com.cn (FangMail) with ESMTPS id 4P3cYf4tlszdmX8h
+ for <amd-gfx@lists.freedesktop.org>; Sat, 28 Jan 2023 09:39:18 +0800 (CST)
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mxhk.zte.com.cn (FangMail) with ESMTPS id 4P3cYZ2KBQz8R039;
+ Sat, 28 Jan 2023 09:39:14 +0800 (CST)
+Received: from xaxapp01.zte.com.cn ([10.88.99.176])
+ by mse-fl2.zte.com.cn with SMTP id 30S1d71v045972;
+ Sat, 28 Jan 2023 09:39:07 +0800 (+08)
+ (envelope-from ye.xingchen@zte.com.cn)
+Received: from mapi (xaxapp01[null]) by mapi (Zmail) with MAPI id mid31;
+ Sat, 28 Jan 2023 09:39:08 +0800 (CST)
+Date: Sat, 28 Jan 2023 09:39:08 +0800 (CST)
+X-Zmail-TransId: 2af963d47cbcffffffffea16db64
+X-Mailer: Zmail v1.0
+Message-ID: <202301280939083976293@zte.com.cn>
+Mime-Version: 1.0
+From: <ye.xingchen@zte.com.cn>
+To: <alexander.deucher@amd.com>
+Subject: =?UTF-8?B?W1BBVENIXSBkcm0vYW1kZ3B1L2Rpc3BsYXk6IHJlbW92ZSBkdXBsaWNhdGUgaW5jbHVkZSBoZWFkZXIgaW4gZmlsZXM=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL: mse-fl2.zte.com.cn 30S1d71v045972
+X-FangMail-Bounce-Flag: 1674869958.63D47CC5.000
+X-FangMail-Outinfo: 1674869958/63D47CC5.000/4P3cYf4tlszdmX8h/ye.xingchen@zte.com.cn/1
+X-Fangmail-Gw-Spam-Type: 0
+X-FangMail-Miltered: at cgslv5.04-192.168.251.14.novalocal with ID
+ 63D47CDC.001 by FangMail milter!
+X-FangMail-Envelope: 1674869981/4P3cZ53Hbyz1DF4/63D47CDC.001/10.35.20.121/[10.35.20.121]/mxde.zte.com.cn/<ye.xingchen@zte.com.cn>
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 63D47CDC.001/4P3cZ53Hbyz1DF4
 X-Mailman-Approved-At: Mon, 30 Jan 2023 08:18:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,38 +69,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Evan Quan <evan.quan@amd.com>, David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: haoping.liu@amd.com, ian.chen@amd.com, dingchen.zhang@amd.com,
+ sunpeng.li@amd.com, harry.wentland@amd.com, xinhui.pan@amd.com,
+ rodrigo.siqueira@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, wenjing.liu@amd.com,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, george.shen@amd.com,
+ airlied@gmail.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Spell it as "broadcast".
+From: ye xingchen <ye.xingchen@zte.com.cn>
 
-Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
-=2D--
- drivers/gpu/drm/amd/amdgpu/df_v1_7.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+opp.h is included more than once.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/df_v1_7.c b/drivers/gpu/drm/amd/am=
-dgpu/df_v1_7.c
-index b991609f46c10..5dfab80ffff21 100644
-=2D-- a/drivers/gpu/drm/amd/amdgpu/df_v1_7.c
-+++ b/drivers/gpu/drm/amd/amdgpu/df_v1_7.c
-@@ -94,7 +94,7 @@ static void df_v1_7_update_medium_grain_clock_gating(str=
-uct amdgpu_device *adev,
- 		WREG32_SOC15(DF, 0, mmDF_PIE_AON0_DfGlobalClkGater, tmp);
- 	}
+Signed-off-by: ye xingchen <ye.xingchen@zte.com.cn>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 1 -
+ 1 file changed, 1 deletion(-)
 
--	/* Exit boradcast mode */
-+	/* Exit broadcast mode */
- 	adev->df.funcs->enable_broadcast_mode(adev, false);
- }
-
-=2D-
-2.39.0
-
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index 6475664baa8a..1a2ab934b4bd 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -46,7 +46,6 @@
+ #include "dpcd_defs.h"
+ #include "dmcu.h"
+ #include "dsc.h"
+-#include "opp.h"
+ #include "hw/clk_mgr.h"
+ #include "dce/dmub_psr.h"
+ #include "dmub/dmub_srv.h"
+-- 
+2.25.1
