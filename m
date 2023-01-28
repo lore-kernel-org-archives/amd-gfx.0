@@ -4,49 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44E1CC54EAA
-	for <amd-gfx@archiver.kernel.org>; Sat, 28 Jan 2023 01:13:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B16AC38142
+	for <amd-gfx@archiver.kernel.org>; Sat, 28 Jan 2023 03:37:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C048B10E1C0;
-	Sat, 28 Jan 2023 01:13:08 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 456FD10E1C0
- for <amd-gfx@lists.freedesktop.org>; Sat, 28 Jan 2023 01:13:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674868386; x=1706404386;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=JM0DsUAXnIVbnyyRDEiq76v4MhII6gm7ppcnS6Lm9Js=;
- b=PEBqaJDJO80/yttrBOMY8t3uqlD9xZmBNFUFuNcuVh8v87DtkgL+Y1eb
- F87eeaKvSBfUY73gnsbTLmsp2PJnsaKu3FuwZNMD11NVR4SiO7fdadNeU
- gBEHL/UIKhhIhzKs5leG+2O5hH+C2sNtb0rH5s2+vr/eVo+DNqeOrdHOj
- RFaMqnaH2ftyKN9M4B2O5snCBnAeJsbSoduPFzdMf3odFoN+fIJUEQj06
- LZf+7QJd4k6purWZNbiuHXbHMnec6HD5BxQUwXaEA/jOEGZreBjNnSxyn
- VTuayhFHXLE2CizwEiXf5UYr7yi1uUPHieSMBjsjCObsFpBU8xp8MaxIw g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10603"; a="307586088"
-X-IronPort-AV: E=Sophos;i="5.97,252,1669104000"; d="scan'208";a="307586088"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2023 17:12:43 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10603"; a="695721767"
-X-IronPort-AV: E=Sophos;i="5.97,252,1669104000"; d="scan'208";a="695721767"
-Received: from lkp-server01.sh.intel.com (HELO ffa7f14d1d0f) ([10.239.97.150])
- by orsmga001.jf.intel.com with ESMTP; 27 Jan 2023 17:12:40 -0800
-Received: from kbuild by ffa7f14d1d0f with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pLZln-0000AT-0S;
- Sat, 28 Jan 2023 01:12:39 +0000
-Date: Sat, 28 Jan 2023 09:11:50 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 9fbee811e479aca2f3523787cae1f46553141b40
-Message-ID: <63d47656.PrqiDwRpfWhLZF/8%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD40B10E0F0;
+	Sat, 28 Jan 2023 03:37:11 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10hn2217.outbound.protection.outlook.com [52.100.157.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9117D10E0F0
+ for <amd-gfx@lists.freedesktop.org>; Sat, 28 Jan 2023 03:37:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZYKesRHnnOvqp6UzTGW98QtfKX5QN1qRSj7rqRvhqD24pEuGVtjFaWOCjzO61UCdUV6W1GIikSLNe3n9B4QIVNxLsDYUkMhC3zT1PidI2ZXIRdxuMee4hHhopvzPRehJWkPJQf4TYuy9e+mhOzd1xrKb7ltTBEYGCx8ySHfetZ8Kgxe2nwz7GdDWpETrKqUP4XDgq4Qdka5DyS2KMLMg8s5ss3hnUPxb2AE0nL5PnXFJrnNu/2t3wuQmKdIlapRtehej7WffsvqbtR1CFTsOZuEVQOsoIB2dkEXct1YdU78IUaojVtad5FebCCkrRjKxZlpqi076wmogkktzQikApQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=F/mlDAai+V+VyI4khp0S6MqXIOKEQ26ppE40VLzDiZw=;
+ b=i1i5PlHsTKzkO/us+tHl4u4GERh8zcqFmJdh9ydmL3CX390xB4wKbaNMod6fcFNDAq+sY51AifsUkxlkdM0rn/ikYJC0u8dVVPnW49kPsVjUoMiCytTcaSDsLcnzU9QrDUyh7ghiu5DDSL38sjPfurlHMgjxL/zMrZ5YQ/28EA5nIGeoB31VSMUEQXwpSzouDkz6ZoeijWaqgFVdsHbyw3SPH2a5a5mPqZmg01Zl0EjLoJ5IEdPJmDa5aB7DqutWpsKejrhCHdvhBA96G0WQhm9INCJpc3jUpLS3uqEYh2I7bX7eYY+uD/9QU8TrEJaFOpEv1z0NKQ+SQ+sQMJoemw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=F/mlDAai+V+VyI4khp0S6MqXIOKEQ26ppE40VLzDiZw=;
+ b=m1GNN/ZUNbSzscaSgWaewHY/SKn0bOqapDS61qtM6lGTFDZVblHf4UfksPbUubliKh7IqQ43681v7gfd0KHn5GYbKcfy9QHKUG917LrSDXxuJDdcJOj9IsuEtRiscjSEkLaVVkHXukOQJYMqshLUjOw7sDyKzTTIIE5Bdl0D5D4=
+Received: from DM6PR13CA0066.namprd13.prod.outlook.com (2603:10b6:5:134::43)
+ by PH7PR12MB8123.namprd12.prod.outlook.com (2603:10b6:510:2bb::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.21; Sat, 28 Jan
+ 2023 03:37:08 +0000
+Received: from DM6NAM11FT093.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:134:cafe::ba) by DM6PR13CA0066.outlook.office365.com
+ (2603:10b6:5:134::43) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.13 via Frontend
+ Transport; Sat, 28 Jan 2023 03:37:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT093.mail.protection.outlook.com (10.13.172.235) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6023.16 via Frontend Transport; Sat, 28 Jan 2023 03:37:07 +0000
+Received: from ldev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 27 Jan
+ 2023 21:37:05 -0600
+From: Tim Huang <tim.huang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH RESEND] drm/amd/pm: drop unneeded dpm features disablement for
+ SMU 13.0.4/11
+Date: Sat, 28 Jan 2023 11:36:04 +0800
+Message-ID: <20230128033604.2117471-1-tim.huang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT093:EE_|PH7PR12MB8123:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9777bcc2-3c84-4f70-d941-08db00e0ee9e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 0smL8LQwRx3OHqB77645wm8SAfVQGgO8HCGhq2UWcmXUtvDCvTdEmLuVL0Tj4MI7FaPEew5Zj+wdwTgETEli+JCL4mzFNk0kqKyLp7Sp8LjPx5mAiPh0Av60IgHdKodTZjUKnv9/UXd5op5flH/uEkMeiUj7OVL3zwXjfgI9WlzFQr+qv9NFoL+HDh46mD80snDE4hc/58qy0rRcm055jj72YDPBALowLhDNaTQ2hj+sRn/2yW6a7fyLb17m17La+Gp/FTxTeLtlPcRvV9rC1aywaDTPdFrxtvVJIpL0HSsIAsPA/MrCp2fKOexdIKhYu1QxwbhMkB9u6OVTRKY2kNkVZcs1jtTqHOuTtQAhx8jUrlCYheeYpIpOJ0/Hd9W5/VIKJRUHOjjfMzRlJvErHJarBk/3qUK8bdTaGRrWTQUUaWMcaGaRhiM4hKZ924at+nnQ58WmpcGSrvqdbgwzdwine/jdlmHJq/fIvb+txyHxFvAZVbiJcxUhO5EGWlX71Xdq2qTFW0RK+g7NA3/aBxYDWUW0lz0hS0dpGNlWVKw8Jg+Be7sJH9YSin0du/df28FqArcwWdgUzrbhh7nRrPWTve1DeXd6S+0NInC5ynMrGWleLllWT8NhSgnszH594/qivlKiAB3nj6M74ySXJDUxGLRY2MqxGSoPH/MmOMVfIA06/G9PvBFdQnqOUQ4Oya6G0sHAiqv1Qc8sYi6qy7NQI+0EZ2AFH1PKXzw6tjM=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(346002)(39860400002)(136003)(396003)(376002)(34036004)(451199018)(40470700004)(46966006)(36840700001)(5660300002)(16526019)(2906002)(8676002)(186003)(70206006)(4326008)(8936002)(41300700001)(7696005)(426003)(336012)(508600001)(1076003)(6916009)(2616005)(26005)(316002)(70586007)(44832011)(810100004)(82310400005)(47076005)(54906003)(81166007)(356005)(86362001)(40480700001)(41320700001)(40460700003)(36860700001)(36756003)(36900700001);
+ DIR:OUT; SFP:1501; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2023 03:37:07.8337 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9777bcc2-3c84-4f70-d941-08db00e0ee9e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT093.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8123
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,133 +98,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linux Memory Management List <linux-mm@kvack.org>, netdev@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
+Cc: Yifan1.zhang@amd.com, Xiaojian.Du@amd.com, Tim
+ Huang <tim.huang@amd.com>, li.ma@amd.com, Alexander.Deucher@amd.com,
+ mario.limonciello@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 9fbee811e479aca2f3523787cae1f46553141b40  Add linux-next specific files for 20230125
+PMFW will handle the features disablement properly for gpu reset case,
+driver involvement may cause some unexpected issues.
 
-Error/Warning: (recently discovered and may have been fixed)
+Signed-off-by: Tim Huang <tim.huang@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/fsl-edma.ko] undefined!
-ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/idma64.ko] undefined!
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/accessories/link_dp_trace.c:148:6: warning: no previous prototype for 'link_dp_trace_set_edp_power_timestamp' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/accessories/link_dp_trace.c:158:10: warning: no previous prototype for 'link_dp_trace_get_edp_poweron_timestamp' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/accessories/link_dp_trace.c:163:10: warning: no previous prototype for 'link_dp_trace_get_edp_poweroff_timestamp' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:1294:32: warning: variable 'result_write_min_hblank' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:1295:32: warning: variable 'result_write_min_hblank' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:278:42: warning: variable 'ds_port' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:279:42: warning: variable 'ds_port' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_training.c:1585:38: warning: variable 'result' set but not used [-Wunused-but-set-variable]
-
-Unverified Error/Warning (likely false positive, please contact us if interested):
-
-drivers/media/i2c/max9286.c:802 max9286_s_stream() error: buffer overflow 'priv->fmt' 4 <= 32
-drivers/nvmem/imx-ocotp.c:599:21: sparse: sparse: symbol 'imx_ocotp_layout' was not declared. Should it be static?
-net/devlink/leftover.c:7160 devlink_fmsg_prepare_skb() error: uninitialized symbol 'err'.
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- arc-randconfig-m031-20230123
-|   `-- drivers-media-i2c-max9286.c-max9286_s_stream()-error:buffer-overflow-priv-fmt
-|-- loongarch-randconfig-r014-20230123
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- riscv-randconfig-s033-20230123
-|   `-- drivers-nvmem-imx-ocotp.c:sparse:sparse:symbol-imx_ocotp_layout-was-not-declared.-Should-it-be-static
-|-- s390-allmodconfig
-|   |-- ERROR:devm_platform_ioremap_resource-drivers-dma-fsl-edma.ko-undefined
-|   `-- ERROR:devm_platform_ioremap_resource-drivers-dma-idma64.ko-undefined
-|-- s390-randconfig-c042-20230123
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|-- s390-randconfig-r032-20230123
-|   `-- ERROR:devm_platform_ioremap_resource-drivers-dma-idma64.ko-undefined
-`-- x86_64-randconfig-m001-20230123
-    `-- net-devlink-leftover.c-devlink_fmsg_prepare_skb()-error:uninitialized-symbol-err-.
-
-elapsed time: 4125m
-
-configs tested: 62
-configs skipped: 2
-
-gcc tested configs:
-um                             i386_defconfig
-x86_64                            allnoconfig
-um                           x86_64_defconfig
-x86_64                          rhel-8.3-func
-powerpc                           allnoconfig
-x86_64                    rhel-8.3-kselftests
-x86_64                              defconfig
-i386                                defconfig
-x86_64                           rhel-8.3-syz
-x86_64                         rhel-8.3-kunit
-x86_64                           rhel-8.3-kvm
-x86_64                           rhel-8.3-bpf
-arc                                 defconfig
-s390                             allmodconfig
-alpha                               defconfig
-x86_64                               rhel-8.3
-x86_64               randconfig-a002-20230123
-arm                                 defconfig
-i386                 randconfig-a004-20230123
-ia64                             allmodconfig
-i386                 randconfig-a003-20230123
-s390                                defconfig
-sh                               allmodconfig
-x86_64               randconfig-a001-20230123
-x86_64                           allyesconfig
-arc                  randconfig-r043-20230123
-arm                  randconfig-r046-20230123
-i386                 randconfig-a002-20230123
-x86_64               randconfig-a004-20230123
-m68k                             allyesconfig
-i386                 randconfig-a001-20230123
-x86_64               randconfig-a003-20230123
-s390                             allyesconfig
-x86_64               randconfig-a005-20230123
-i386                 randconfig-a005-20230123
-i386                             allyesconfig
-m68k                             allmodconfig
-mips                             allyesconfig
-x86_64               randconfig-a006-20230123
-i386                 randconfig-a006-20230123
-powerpc                          allmodconfig
-arc                              allyesconfig
-alpha                            allyesconfig
-arm64                            allyesconfig
-arm                              allyesconfig
-
-clang tested configs:
-x86_64                          rhel-8.3-rust
-x86_64               randconfig-a013-20230123
-x86_64               randconfig-a011-20230123
-i386                 randconfig-a012-20230123
-x86_64               randconfig-a012-20230123
-i386                 randconfig-a013-20230123
-i386                 randconfig-a011-20230123
-x86_64               randconfig-a015-20230123
-hexagon              randconfig-r041-20230123
-x86_64               randconfig-a014-20230123
-x86_64               randconfig-a016-20230123
-i386                 randconfig-a014-20230123
-hexagon              randconfig-r045-20230123
-i386                 randconfig-a016-20230123
-i386                 randconfig-a015-20230123
-s390                 randconfig-r044-20230123
-riscv                randconfig-r042-20230123
-
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index ec52830dde24..8bae3fe869cd 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -1497,6 +1497,20 @@ static int smu_disable_dpms(struct smu_context *smu)
+ 		}
+ 	}
+ 
++	/*
++	 * For SMU 13.0.4/11, PMFW will handle the features disablement properly
++	 * for gpu reset case. Driver involvement is unnecessary.
++	 */
++	if (amdgpu_in_reset(adev)) {
++		switch (adev->ip_versions[MP1_HWIP][0]) {
++		case IP_VERSION(13, 0, 4):
++		case IP_VERSION(13, 0, 11):
++			return 0;
++		default:
++			break;
++		}
++	}
++
+ 	/*
+ 	 * For gpu reset, runpm and hibernation through BACO,
+ 	 * BACO feature has to be kept enabled.
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+2.25.1
+
