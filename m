@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33F43C05027
-	for <amd-gfx@archiver.kernel.org>; Sun, 29 Jan 2023 05:12:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45A08C05027
+	for <amd-gfx@archiver.kernel.org>; Sun, 29 Jan 2023 06:34:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E2F710E1F9;
-	Sun, 29 Jan 2023 05:12:49 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86B3C10E037;
- Sun, 29 Jan 2023 05:12:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C9F910E045;
+	Sun, 29 Jan 2023 06:34:55 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0E3510E045;
+ Sun, 29 Jan 2023 06:34:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674969167; x=1706505167;
+ t=1674974093; x=1706510093;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=Z13zcVVLBQ5KnhMvyN6O7PTmY7wxwKK0EOWVtTqiuog=;
- b=dAvVNgzsJzP2aKRI0AmKvZsuF40k267iAyCCr63aQZJpq4c6l/T9qQOH
- pkgEPp19srwsoviDtYKt1NK99+PzNnpIxqPClDyYrl2bLXO+nrE8CHz9K
- EpcD4JPqnY5MT9Ja8kLf9VsfMQ7S60Xqx1uNZwBWK7cw/ExRCU2ENuxDI
- nUfpuA5zrs/s5EHi9P2Qm1V0WG+j2t8wHgq5IGLio8BLuFW9ZjdmM4rU6
- 8euaOZ4qiUFrGCUvZscMdHSA1Fn6x4NzCJtVlVTGBAhoLJwsBkfzbjGu+
- Z9OnLf8wmMYz+eUThR08uhHK0oPpjl0u+xnUuW/HEhVkmoDi6MTkpz8nO w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10604"; a="326034983"
-X-IronPort-AV: E=Sophos;i="5.97,254,1669104000"; d="scan'208";a="326034983"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2023 21:12:46 -0800
+ bh=JBVSW09m4oCTd6bOXWl3/8kb708D4wokFFHySa6TEVs=;
+ b=iz57ofGJMORXZjVvqqhdcjaWoBUOpJZYwYYrqeRx9UPcVXU4eujBEzg6
+ naaanz7n8Tz0lhdoEqlXB1lnhMOzc1ciPGNv/qjaz6WaSyq4EbyXp0z6y
+ sI5VTJzYmcQQNjSTpo1UUNxhTMG+nVCh0WKxQofh2rr7pB+QmrRhc6ShW
+ MWQ+e2vLX1S6Ad3MpEcJYO0VBVntF0Z8PndajMzTnLQH4al8AwI7hwUr2
+ QQQ3/EGbBDE+EJLOteTnJtqYzCOY6WjN6YiYvM4fvbZKnaX2FDlvMjjgK
+ Q8/hIqA2ofQOtKZKyG6Nn8a4tXKGklF+ONATLXUtStNBl/RzCS+ahPd/I A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10604"; a="413588256"
+X-IronPort-AV: E=Sophos;i="5.97,254,1669104000"; d="scan'208";a="413588256"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jan 2023 22:34:52 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10604"; a="752424808"
-X-IronPort-AV: E=Sophos;i="5.97,254,1669104000"; d="scan'208";a="752424808"
+X-IronPort-AV: E=McAfee;i="6500,9779,10604"; a="663747832"
+X-IronPort-AV: E=Sophos;i="5.97,254,1669104000"; d="scan'208";a="663747832"
 Received: from lkp-server01.sh.intel.com (HELO ffa7f14d1d0f) ([10.239.97.150])
- by FMSMGA003.fm.intel.com with ESMTP; 28 Jan 2023 21:12:44 -0800
+ by orsmga002.jf.intel.com with ESMTP; 28 Jan 2023 22:34:50 -0800
 Received: from kbuild by ffa7f14d1d0f with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pLzzf-0002Tm-2N;
- Sun, 29 Jan 2023 05:12:43 +0000
-Date: Sun, 29 Jan 2023 13:12:31 +0800
+ (envelope-from <lkp@intel.com>) id 1pM1H7-0002Ws-1Y;
+ Sun, 29 Jan 2023 06:34:49 +0000
+Date: Sun, 29 Jan 2023 14:34:11 +0800
 From: kernel test robot <lkp@intel.com>
 To: Jonathan Kim <jonathan.kim@amd.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 06/32] drm/amdgpu: add gfx9 hw debug mode enable and
+Subject: Re: [PATCH 07/32] drm/amdgpu: add gfx9.4.1 hw debug mode enable and
  disable calls
-Message-ID: <202301291257.PRqg0VpG-lkp@intel.com>
-References: <20230125195401.4183544-7-jonathan.kim@amd.com>
+Message-ID: <202301291457.nbbgmBEG-lkp@intel.com>
+References: <20230125195401.4183544-8-jonathan.kim@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230125195401.4183544-7-jonathan.kim@amd.com>
+In-Reply-To: <20230125195401.4183544-8-jonathan.kim@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,15 +77,15 @@ https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
 url:    https://github.com/intel-lab-lkp/linux/commits/Jonathan-Kim/drm-amdkfd-add-debug-and-runtime-enable-interface/20230128-092952
 base:   git://anongit.freedesktop.org/drm/drm-tip drm-tip
-patch link:    https://lore.kernel.org/r/20230125195401.4183544-7-jonathan.kim%40amd.com
-patch subject: [PATCH 06/32] drm/amdgpu: add gfx9 hw debug mode enable and disable calls
-config: x86_64-allyesconfig (https://download.01.org/0day-ci/archive/20230129/202301291257.PRqg0VpG-lkp@intel.com/config)
+patch link:    https://lore.kernel.org/r/20230125195401.4183544-8-jonathan.kim%40amd.com
+patch subject: [PATCH 07/32] drm/amdgpu: add gfx9.4.1 hw debug mode enable and disable calls
+config: x86_64-allyesconfig (https://download.01.org/0day-ci/archive/20230129/202301291457.nbbgmBEG-lkp@intel.com/config)
 compiler: gcc-11 (Debian 11.3.0-8) 11.3.0
 reproduce (this is a W=1 build):
-        # https://github.com/intel-lab-lkp/linux/commit/11bb8b2034cd92b687a2d5461298cc72d720d5c9
+        # https://github.com/intel-lab-lkp/linux/commit/3983dc0f35ebf17452f97c096b866e38c98318db
         git remote add linux-review https://github.com/intel-lab-lkp/linux
         git fetch --no-tags linux-review Jonathan-Kim/drm-amdkfd-add-debug-and-runtime-enable-interface/20230128-092952
-        git checkout 11bb8b2034cd92b687a2d5461298cc72d720d5c9
+        git checkout 3983dc0f35ebf17452f97c096b866e38c98318db
         # save the config file
         mkdir build_dir && cp config build_dir/.config
         make W=1 O=build_dir ARCH=x86_64 olddefconfig
@@ -96,39 +96,115 @@ If you fix the issue, kindly add following tag where applicable
 
 All warnings (new ones prefixed by >>):
 
->> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c:694: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c: In function 'suspend_resume_compute_scheduler':
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c:312:53: warning: implicit conversion from 'enum amd_hw_ip_block_type' to 'enum amd_ip_block_type' [-Wenum-conversion]
+     312 |         return amdgpu_device_ip_wait_for_idle(adev, GC_HWIP);
+         |                                                     ^~~~~~~
+   In file included from drivers/gpu/drm/amd/amdgpu/../display/dc/dc_types.h:36,
+                    from drivers/gpu/drm/amd/amdgpu/../display/dc/dm_services_types.h:30,
+                    from drivers/gpu/drm/amd/amdgpu/../include/dm_pp_interface.h:26,
+                    from drivers/gpu/drm/amd/amdgpu/amdgpu.h:64,
+                    from drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c:26:
+   At top level:
+   drivers/gpu/drm/amd/amdgpu/../display/dc/dc_hdmi_types.h:53:22: warning: 'dp_hdmi_dongle_signature_str' defined but not used [-Wunused-const-variable=]
+      53 | static const uint8_t dp_hdmi_dongle_signature_str[] = "DP-HDMI ADAPTOR";
+         |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c:343: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
     * restore_dbg_reisters is ignored here but is a general interface requirement
-   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c:718: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c:369: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
     * keep_trap_enabled is ignored here but is a general interface requirement
 
 
-vim +694 drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+vim +312 drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
 
-   692	
-   693	/**
- > 694	 * restore_dbg_reisters is ignored here but is a general interface requirement
-   695	 * for devices that support GFXOFF and where the RLC save/restore list
-   696	 * does not support hw registers for debugging i.e. the driver has to manually
-   697	 * initialize the debug mode registers after it has disabled GFX off during the
-   698	 * debug session.
-   699	 */
-   700	uint32_t kgd_gfx_v9_enable_debug_trap(struct amdgpu_device *adev,
-   701					bool restore_dbg_registers,
-   702					uint32_t vmid)
-   703	{
-   704		mutex_lock(&adev->grbm_idx_mutex);
-   705	
-   706		kgd_gfx_v9_set_wave_launch_stall(adev, vmid, true);
-   707	
-   708		WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_MASK), 0);
-   709	
-   710		kgd_gfx_v9_set_wave_launch_stall(adev, vmid, false);
-   711	
-   712		mutex_unlock(&adev->grbm_idx_mutex);
-   713	
-   714		return 0;
-   715	}
-   716	
+   281	
+   282	/*
+   283	 * Helper used to suspend/resume gfx pipe for image post process work to set
+   284	 * barrier behaviour.
+   285	 */
+   286	static int suspend_resume_compute_scheduler(struct amdgpu_device *adev, bool suspend)
+   287	{
+   288		int i, r = 0;
+   289	
+   290		for (i = 0; i < adev->gfx.num_compute_rings; i++) {
+   291			struct amdgpu_ring *ring = &adev->gfx.compute_ring[i];
+   292	
+   293			if (!(ring && ring->sched.thread))
+   294				continue;
+   295	
+   296			/* stop secheduler and drain ring. */
+   297			if (suspend) {
+   298				drm_sched_stop(&ring->sched, NULL);
+   299				r = amdgpu_fence_wait_empty(ring);
+   300				if (r)
+   301					goto out;
+   302			} else {
+   303				drm_sched_start(&ring->sched, false);
+   304			}
+   305		}
+   306	
+   307	out:
+   308		/* return on resume or failure to drain rings. */
+   309		if (!suspend || r)
+   310			return r;
+   311	
+ > 312		return amdgpu_device_ip_wait_for_idle(adev, GC_HWIP);
+   313	}
+   314	
+   315	static void set_barrier_auto_waitcnt(struct amdgpu_device *adev, bool enable_waitcnt)
+   316	{
+   317		uint32_t data;
+   318	
+   319		WRITE_ONCE(adev->barrier_has_auto_waitcnt, enable_waitcnt);
+   320	
+   321		if (!down_read_trylock(&adev->reset_domain->sem))
+   322			return;
+   323	
+   324		amdgpu_amdkfd_suspend(adev, false);
+   325	
+   326		if (suspend_resume_compute_scheduler(adev, true))
+   327			goto out;
+   328	
+   329		data = RREG32(SOC15_REG_OFFSET(GC, 0, mmSQ_CONFIG));
+   330		data = REG_SET_FIELD(data, SQ_CONFIG, DISABLE_BARRIER_WAITCNT,
+   331							enable_waitcnt ? 0 : 1);
+   332		WREG32(SOC15_REG_OFFSET(GC, 0, mmSQ_CONFIG), data);
+   333	
+   334	out:
+   335		suspend_resume_compute_scheduler(adev, false);
+   336	
+   337		amdgpu_amdkfd_resume(adev, false);
+   338	
+   339		up_read(&adev->reset_domain->sem);
+   340	}
+   341	
+   342	/**
+ > 343	 * restore_dbg_reisters is ignored here but is a general interface requirement
+   344	 * for devices that support GFXOFF and where the RLC save/restore list
+   345	 * does not support hw registers for debugging i.e. the driver has to manually
+   346	 * initialize the debug mode registers after it has disabled GFX off during the
+   347	 * debug session.
+   348	 */
+   349	static uint32_t kgd_arcturus_enable_debug_trap(struct amdgpu_device *adev,
+   350					bool restore_dbg_registers,
+   351					uint32_t vmid)
+   352	{
+   353		mutex_lock(&adev->grbm_idx_mutex);
+   354	
+   355		kgd_gfx_v9_set_wave_launch_stall(adev, vmid, true);
+   356	
+   357		set_barrier_auto_waitcnt(adev, true);
+   358	
+   359		WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_MASK), 0);
+   360	
+   361		kgd_gfx_v9_set_wave_launch_stall(adev, vmid, false);
+   362	
+   363		mutex_unlock(&adev->grbm_idx_mutex);
+   364	
+   365		return 0;
+   366	}
+   367	
 
 -- 
 0-DAY CI Kernel Test Service
