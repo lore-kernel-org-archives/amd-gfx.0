@@ -4,59 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21C90C54EED
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Jan 2023 08:18:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E7F3C54EED
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Jan 2023 08:18:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8161810E132;
-	Mon, 30 Jan 2023 08:18:13 +0000 (UTC)
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [58.251.27.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31F8110E2E2
- for <amd-gfx@lists.freedesktop.org>; Sat, 28 Jan 2023 01:39:45 +0000 (UTC)
-Received: from mxde.zte.com.cn (unknown [10.35.20.121])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mxct.zte.com.cn (FangMail) with ESMTPS id 4P3cZ53Hbyz1DF4
- for <amd-gfx@lists.freedesktop.org>; Sat, 28 Jan 2023 09:39:41 +0800 (CST)
-Received: from mxus.zte.com.cn (unknown [10.207.168.8])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mxde.zte.com.cn (FangMail) with ESMTPS id 4P3cYk0Pb1zBRK7W
- for <amd-gfx@lists.freedesktop.org>; Sat, 28 Jan 2023 09:39:22 +0800 (CST)
-Received: from mxhk.zte.com.cn (unknown [192.168.250.137])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mxus.zte.com.cn (FangMail) with ESMTPS id 4P3cYf4tlszdmX8h
- for <amd-gfx@lists.freedesktop.org>; Sat, 28 Jan 2023 09:39:18 +0800 (CST)
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	by gabe.freedesktop.org (Postfix) with ESMTP id 146C010E140;
+	Mon, 30 Jan 2023 08:18:17 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D407D10E057;
+ Sun, 29 Jan 2023 13:31:54 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mxhk.zte.com.cn (FangMail) with ESMTPS id 4P3cYZ2KBQz8R039;
- Sat, 28 Jan 2023 09:39:14 +0800 (CST)
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
- by mse-fl2.zte.com.cn with SMTP id 30S1d71v045972;
- Sat, 28 Jan 2023 09:39:07 +0800 (+08)
- (envelope-from ye.xingchen@zte.com.cn)
-Received: from mapi (xaxapp01[null]) by mapi (Zmail) with MAPI id mid31;
- Sat, 28 Jan 2023 09:39:08 +0800 (CST)
-Date: Sat, 28 Jan 2023 09:39:08 +0800 (CST)
-X-Zmail-TransId: 2af963d47cbcffffffffea16db64
-X-Mailer: Zmail v1.0
-Message-ID: <202301280939083976293@zte.com.cn>
-Mime-Version: 1.0
-From: <ye.xingchen@zte.com.cn>
-To: <alexander.deucher@amd.com>
-Subject: =?UTF-8?B?W1BBVENIXSBkcm0vYW1kZ3B1L2Rpc3BsYXk6IHJlbW92ZSBkdXBsaWNhdGUgaW5jbHVkZSBoZWFkZXIgaW4gZmlsZXM=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL: mse-fl2.zte.com.cn 30S1d71v045972
-X-FangMail-Bounce-Flag: 1674869958.63D47CC5.000
-X-FangMail-Outinfo: 1674869958/63D47CC5.000/4P3cYf4tlszdmX8h/ye.xingchen@zte.com.cn/1
-X-Fangmail-Gw-Spam-Type: 0
-X-FangMail-Miltered: at cgslv5.04-192.168.251.14.novalocal with ID
- 63D47CDC.001 by FangMail milter!
-X-FangMail-Envelope: 1674869981/4P3cZ53Hbyz1DF4/63D47CDC.001/10.35.20.121/[10.35.20.121]/mxde.zte.com.cn/<ye.xingchen@zte.com.cn>
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 63D47CDC.001/4P3cZ53Hbyz1DF4
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4CD2560D3A;
+ Sun, 29 Jan 2023 13:31:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 573CFC433EF;
+ Sun, 29 Jan 2023 13:31:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1674999112;
+ bh=vbOcOQvLI7LJlxcTePJ5Zy1AAvu47HqN45gtrJuttt4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=P6GacKiwueCw3hOihvbZQYjL+kShUibaANrpvwDF2j7San2zs3U8gCZl7/4ti7Wcl
+ NsNyi36DdWbyg4i7M8gB6ooxQvWE+U9vQCVthKZYrwQtIBN99Os0jYzTdfS0y0kyFz
+ uMpK5+mQyoE6XBmMqfzR9zWcSRSmABylszZFXvyU=
+Date: Sun, 29 Jan 2023 14:31:49 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: "Limonciello, Mario" <Mario.Limonciello@amd.com>
+Subject: Re: [PATCH] Revert "drm/display/dp_mst: Move all payload info into
+ the atomic state"
+Message-ID: <Y9Z1RdnfM4ypM/zW@kroah.com>
+References: <20230112085044.1706379-1-Wayne.Lin@amd.com>
+ <20230120174634.GA889896@roeck-us.net>
+ <a9deecb3-5955-ee4e-c76f-2654ee9f1a92@amd.com>
+ <Y9N/wiIL758c3ozv@kroah.com>
+ <36e72298-e9d3-967e-8b14-7197719953cb@leemhuis.info>
+ <MN0PR12MB610184AF496001F3B92706BDE2CC9@MN0PR12MB6101.namprd12.prod.outlook.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <MN0PR12MB610184AF496001F3B92706BDE2CC9@MN0PR12MB6101.namprd12.prod.outlook.com>
 X-Mailman-Approved-At: Mon, 30 Jan 2023 08:18:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,35 +55,98 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: haoping.liu@amd.com, ian.chen@amd.com, dingchen.zhang@amd.com,
- sunpeng.li@amd.com, harry.wentland@amd.com, xinhui.pan@amd.com,
- rodrigo.siqueira@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, wenjing.liu@amd.com,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, george.shen@amd.com,
- airlied@gmail.com, christian.koenig@amd.com
+Cc: Linux regressions mailing list <regressions@lists.linux.dev>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ "stanislav.lisovskiy@intel.com" <stanislav.lisovskiy@intel.com>, "Zuo,
+ Jerry" <Jerry.Zuo@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Lin,
+ Wayne" <Wayne.Lin@amd.com>, Guenter Roeck <linux@roeck-us.net>,
+ "bskeggs@redhat.com" <bskeggs@redhat.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: ye xingchen <ye.xingchen@zte.com.cn>
+On Fri, Jan 27, 2023 at 03:02:41PM +0000, Limonciello, Mario wrote:
+> [Public]
+> 
+> 
+> 
+> > -----Original Message-----
+> > From: Linux kernel regression tracking (Thorsten Leemhuis)
+> > <regressions@leemhuis.info>
+> > Sent: Friday, January 27, 2023 03:15
+> > To: Greg KH <gregkh@linuxfoundation.org>; Limonciello, Mario
+> > <Mario.Limonciello@amd.com>
+> > Cc: dri-devel@lists.freedesktop.org; stable@vger.kernel.org;
+> > stanislav.lisovskiy@intel.com; Zuo, Jerry <Jerry.Zuo@amd.com>; amd-
+> > gfx@lists.freedesktop.org; Lin, Wayne <Wayne.Lin@amd.com>; Guenter
+> > Roeck <linux@roeck-us.net>; bskeggs@redhat.com
+> > Subject: Re: [PATCH] Revert "drm/display/dp_mst: Move all payload info into
+> > the atomic state"
+> > 
+> > On 27.01.23 08:39, Greg KH wrote:
+> > > On Fri, Jan 20, 2023 at 11:51:04AM -0600, Limonciello, Mario wrote:
+> > >> On 1/20/2023 11:46, Guenter Roeck wrote:
+> > >>> On Thu, Jan 12, 2023 at 04:50:44PM +0800, Wayne Lin wrote:
+> > >>>> This reverts commit 4d07b0bc403403438d9cf88450506240c5faf92f.
+> > >>>>
+> > >>>> [Why]
+> > >>>> Changes cause regression on amdgpu mst.
+> > >>>> E.g.
+> > >>>> In fill_dc_mst_payload_table_from_drm(), amdgpu expects to
+> > add/remove payload
+> > >>>> one by one and call fill_dc_mst_payload_table_from_drm() to update
+> > the HW
+> > >>>> maintained payload table. But previous change tries to go through all
+> > the
+> > >>>> payloads in mst_state and update amdpug hw maintained table in once
+> > everytime
+> > >>>> driver only tries to add/remove a specific payload stream only. The
+> > newly
+> > >>>> design idea conflicts with the implementation in amdgpu nowadays.
+> > >>>>
+> > >>>> [How]
+> > >>>> Revert this patch first. After addressing all regression problems caused
+> > by
+> > >>>> this previous patch, will add it back and adjust it.
+> > >>>
+> > >>> Has there been any progress on this revert, or on fixing the underlying
+> > >>> problem ?
+> > >>>
+> > >>> Thanks,
+> > >>> Guenter
+> > >>
+> > >> Hi Guenter,
+> > >>
+> > >> Wayne is OOO for CNY, but let me update you.
+> > >>
+> > >> Harry has sent out this series which is a collection of proper fixes.
+> > >> https://patchwork.freedesktop.org/series/113125/
+> > >>
+> > >> Once that's reviewed and accepted, 4 of them are applicable for 6.1.
+> > >
+> > > Any hint on when those will be reviewed and accepted?  patchwork
+> > doesn't
+> > > show any activity on them, or at least I can't figure it out...
+> > 
+> > I didn't look closer (hence please correct me if I'm wrong), but the
+> > core changes afaics are in the DRM pull airlied send a few hours ago to
+> > Linus (note the "amdgpu […] DP MST fixes" line):
+> > 
+> > https://lore.kernel.org/all/CAPM%3D9tzuu4xnx6T5v7sKsK%2BA5HEaPOc1ie
+> > MyzNSYQZGztJ%3D6Qw@mail.gmail.com/
+> 
+> That's right.  There are 4 commits in that PR with the appropriate stable tags
+> that should fix the majority of the MST issues introduced in 6.1 by 4d07b0bc40340
+> ("drm/display/dp_mst: Move all payload info into the atomic state"):
+> 
+>       drm/amdgpu/display/mst: Fix mst_state->pbn_div and slot count assignments
+>       drm/amdgpu/display/mst: limit payload to be updated one by one
+>       drm/amdgpu/display/mst: update mst_mgr relevant variable when long HPD
+>       drm/display/dp_mst: Correct the kref of port.
+> 
+> There will be follow ups for any remaining corner cases.
 
-opp.h is included more than once.
+Great, thanks for this, all are now queued up in the 6.1.y queue.
 
-Signed-off-by: ye xingchen <ye.xingchen@zte.com.cn>
----
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index 6475664baa8a..1a2ab934b4bd 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -46,7 +46,6 @@
- #include "dpcd_defs.h"
- #include "dmcu.h"
- #include "dsc.h"
--#include "opp.h"
- #include "hw/clk_mgr.h"
- #include "dce/dmub_psr.h"
- #include "dmub/dmub_srv.h"
--- 
-2.25.1
+greg k-h
