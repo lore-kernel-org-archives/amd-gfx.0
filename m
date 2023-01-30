@@ -4,62 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F36AC54EAA
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Jan 2023 08:40:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 275E5C61DA4
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Jan 2023 14:12:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5877689830;
-	Mon, 30 Jan 2023 08:40:11 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C6CB89C0A;
- Mon, 30 Jan 2023 08:40:09 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD70910E00B;
+	Mon, 30 Jan 2023 14:12:40 +0000 (UTC)
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7757810E24E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Jan 2023 14:08:11 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::202])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1D4E721904;
- Mon, 30 Jan 2023 08:40:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1675068008; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4P594l5MVbz9scG;
+ Mon, 30 Jan 2023 15:08:07 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=espindo.la; s=MBO0001; 
+ t=1675087687;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=2SVfhz4vtI64h5SERZ/9fRgC8aqv2ev6ARHJYCOeeH4=;
- b=G2mVqFvKEL/BlzFzerKAcMGLe5N4yjYl5NQQhVVFOPOvi8MDzhZ/HfgNTmcGw1vpcO3+V/
- qC2QH1B7wcDHgG+hGne07hmu22/jcjJ1CCma6zbPvY0lpxpR6UFScXgGG2P+7VuhSN5y91
- K5HvfO+CrgNfQvoR+K30ExwPDfcMQtA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1675068008;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=2SVfhz4vtI64h5SERZ/9fRgC8aqv2ev6ARHJYCOeeH4=;
- b=2J6FYGxp4Pro5SY2sXN5uFjh9m5a2UI3v22+JjjdQpCOqwELpLu5MyUzkzpZ0cFkCqJCYs
- GRUiM7cHFllcEbBQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D7E4D13A06;
- Mon, 30 Jan 2023 08:40:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id QqG+M2eC12PIUwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 30 Jan 2023 08:40:07 +0000
-Message-ID: <23bcc048-5c74-5781-33a7-98d28fafbdf8@suse.de>
-Date: Mon, 30 Jan 2023 09:40:07 +0100
+ bh=uDQxOmJ4ZseLGo0UFsWBJfxaG5b//N8BspyymbndZQA=;
+ b=QHNFJop4VQ1IqDAzuyNqj8KhT9zqmlsuIg7XxKUde2uxGqv3bdEdZFRU0FazWc/MS1GkhQ
+ CdGqQoCWkNyqtMgek3k1vtJKzca/aMQaklBgesCTjTonAU5djO2s+WOq95HDCtegq84l1l
+ 6SZ1DeUp71RFHrYXJS10iHPNiOF/IeNPfcIs04XS4Av1+VzFLMeecJp8wRecl6cGL4aOJU
+ hPTEUBjUO7vl7qnwdQqZsOEe4t9oHHYtdmJrC+e+8z7gIeNHg0B5fsiewby25EYybftQSQ
+ dL4pwKHRpiqqkO/72rWeIYEqrbqVuI5TKkbnsECV7sISThkabP7VvNsJzTNllw==
+From: Rafael =?utf-8?Q?=C3=81vila?= de =?utf-8?Q?Esp=C3=ADndola?=
+ <rafael@espindo.la>
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] drm/amd: Allow s0ix without BIOS support
+In-Reply-To: <20230125183339.15664-1-mario.limonciello@amd.com>
+References: <20230125183339.15664-1-mario.limonciello@amd.com>
+Date: Mon, 30 Jan 2023 13:08:04 -0100
+Message-ID: <87edrc15ff.fsf@espindo.la>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH v3 01/10] drm/client: Test for connectors before sending
- hotplug event
-Content-Language: en-US
-To: Simon Ser <contact@emersion.fr>
-References: <20230125200415.14123-1-tzimmermann@suse.de>
- <20230125200415.14123-2-tzimmermann@suse.de>
- <tc_igyYrgA_B5xJ15j6H2fQ00aA6vzd4nuQ8XusqeJqWWNZDJx8fFRgBAWoWOV8L5BEhjFDMYgANfdKXLqJZ0DMcsZfy8OUHDRatj36oOXo=@emersion.fr>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-In-Reply-To: <tc_igyYrgA_B5xJ15j6H2fQ00aA6vzd4nuQ8XusqeJqWWNZDJx8fFRgBAWoWOV8L5BEhjFDMYgANfdKXLqJZ0DMcsZfy8OUHDRatj36oOXo=@emersion.fr>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------9hAz08szS0xR2UsvN0rZCqf5"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Rspamd-Queue-Id: 4P594l5MVbz9scG
+X-Mailman-Approved-At: Mon, 30 Jan 2023 14:12:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,71 +56,87 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, javierm@redhat.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org
+Cc: Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------9hAz08szS0xR2UsvN0rZCqf5
-Content-Type: multipart/mixed; boundary="------------WtGY1Ja0eVD12VghFsROTVfh";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Simon Ser <contact@emersion.fr>
-Cc: freedreno@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, javierm@redhat.com,
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Message-ID: <23bcc048-5c74-5781-33a7-98d28fafbdf8@suse.de>
-Subject: Re: [PATCH v3 01/10] drm/client: Test for connectors before sending
- hotplug event
-References: <20230125200415.14123-1-tzimmermann@suse.de>
- <20230125200415.14123-2-tzimmermann@suse.de>
- <tc_igyYrgA_B5xJ15j6H2fQ00aA6vzd4nuQ8XusqeJqWWNZDJx8fFRgBAWoWOV8L5BEhjFDMYgANfdKXLqJZ0DMcsZfy8OUHDRatj36oOXo=@emersion.fr>
-In-Reply-To: <tc_igyYrgA_B5xJ15j6H2fQ00aA6vzd4nuQ8XusqeJqWWNZDJx8fFRgBAWoWOV8L5BEhjFDMYgANfdKXLqJZ0DMcsZfy8OUHDRatj36oOXo=@emersion.fr>
+BTW, to which git repo this gets added first? I took a look at
+git://anongit.freedesktop.org/drm-tip, but it is not there.
 
---------------WtGY1Ja0eVD12VghFsROTVfh
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Thanks,
+Rafael
 
-SGkNCg0KQW0gMjcuMDEuMjMgdW0gMTk6MDIgc2NocmllYiBTaW1vbiBTZXI6DQo+IE9uIFdl
-ZG5lc2RheSwgSmFudWFyeSAyNXRoLCAyMDIzIGF0IDIxOjA0LCBUaG9tYXMgWmltbWVybWFu
-biA8dHppbW1lcm1hbm5Ac3VzZS5kZT4gd3JvdGU6DQo+IA0KPj4gTm90IGhhdmluZyBjb25u
-ZWN0b3JzIGluZGljYXRlcyBhIGRyaXZlciBidWcuDQo+IA0KPiBJcyBpdD8gV2hhdCBpZiBh
-bGwgY29ubmVjdG9ycyBhcmUgb2YgdGhlIERQLU1TVCB0eXBlLCBpZS4gdGhleSBhcmUNCj4g
-Y3JlYXRlZCBvbi10aGUtZmx5Pw0KDQpNeSBjb21taXQgbWVzc2FnZSB3YXMgbm9uc2Vuc2Uu
-IEkgZXZlbiB3cml0ZSB0aGlzIGhlcmUgdGhhdCBoYXZpbmcgbm8gDQpjb25uZWN0b3JzIGlz
-IGxlZ2l0aW1hdGUuDQoNCkJlc3QgcmVnYXJkcw0KVGhvbWFzDQoNCg0KLS0gDQpUaG9tYXMg
-WmltbWVybWFubg0KR3JhcGhpY3MgRHJpdmVyIERldmVsb3Blcg0KU1VTRSBTb2Z0d2FyZSBT
-b2x1dGlvbnMgR2VybWFueSBHbWJIDQpNYXhmZWxkc3RyLiA1LCA5MDQwOSBOw7xybmJlcmcs
-IEdlcm1hbnkNCihIUkIgMzY4MDksIEFHIE7DvHJuYmVyZykNCkdlc2Now6RmdHNmw7xocmVy
-OiBJdm8gVG90ZXYNCg==
+Mario Limonciello <mario.limonciello@amd.com> writes:
 
---------------WtGY1Ja0eVD12VghFsROTVfh--
-
---------------9hAz08szS0xR2UsvN0rZCqf5
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmPXgmcFAwAAAAAACgkQlh/E3EQov+AQ
-Lw//aZ2S6JqzI3HN2smO8qU+8YYo347edHPSYqgFtXYNPh3cskycgaxH6JIls8ewpLF85X5KdCnL
-XBt1OEkxB971xIY+IIKEpyYtSogk036qBJGGlGkhHDvPNKAjvOJqZaUjiRDPNd/pMIbQy9TUlqjo
-QITr7Pz5mfdt5iW+OEOUYWPSIDMvYjxK9CHPPmsVsVNaIsl7cW9jyVCdbv4SYqqJTwCoHONNB2XW
-vGu/wsa1c+Qtj2LRN6kx7WkEJmx9qwmgwuc5zJ7ucRRs5ODZ28FWfVxPTi7BY4yilClpvctXZLpw
-EZvCnFgjb2TASEqS1dTes6yP50lvv1wXbwc+2ujM6gqIG1HqaxAEOBUcjdUOuhTBXf2890OWaAzM
-wa/sMoxafn5lGDGT8vLnz/aUfqUIeY8xrDyb/HED/bryXsaepjUYxI8rUmXNiQsNIjG/ONle8LZd
-mKWCreWhoowp/ezL1/Hgk8vE9rlazNvx17ydqIhLK3DwrbsiH3YwY2lfYahS3sIjcnjPeOdWNGgs
-rbyNvA4m/h7VCdby8PTEthQxkkU5S5yXwJrd5Jk+d4Eewmqx0SWhr/zV9AIJ9eemNfq531zvX3Se
-E7Fmz390mmQVdwr88P2wDs1Wp8h9s9oZ+tbgYjpsVRMgzO+dUM4fYRnWvXUq4EU+1dtQLoHc0s3v
-J50=
-=3ibD
------END PGP SIGNATURE-----
-
---------------9hAz08szS0xR2UsvN0rZCqf5--
+> We guard the suspend entry code from running unless we have proper
+> BIOS support for either S3 mode or s0ix mode.
+>
+> If a user's system doesn't support either of these modes the kernel
+> still does offer s2idle in `/sys/power/mem_sleep` so there is an
+> expectation from users that it works even if the power consumption
+> remains very high.
+>
+> Rafael =C3=81vila de Esp=C3=ADndola reports that a system of his has a
+> non-functional graphics stack after resuming.  That system doesn't
+> support S3 and the FADT doesn't indicate support for low power idle.
+>
+> Through some experimentation it was concluded that even without the
+> hardware s0i3 support provided by the amd_pmc driver the power
+> consumption over suspend is decreased by running amdgpu's s0ix
+> suspend routine.
+>
+> The numbers over suspend showed:
+> * No patch: 9.2W
+> * Skip amdgpu suspend entirely: 10.5W
+> * Run amdgpu s0ix routine: 7.7W
+>
+> As this does improve the power, remove some of the guard rails in
+> `amdgpu_acpi.c` for only running s0ix suspend routines in the right
+> circumstances.
+>
+> However if this turns out to cause regressions for anyone, we should
+> revert this change and instead opt for skipping suspend/resume routines
+> entirely or try to fix the underlying behavior that makes graphics fail
+> after resume without underlying platform support.
+>
+> Reported-by: Rafael =C3=81vila de Esp=C3=ADndola <rafael@espindo.la>
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2364
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 8 ++------
+>  1 file changed, 2 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_acpi.c
+> index 57b5e11446c65..fa7375b97fd47 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> @@ -1079,20 +1079,16 @@ bool amdgpu_acpi_is_s0ix_active(struct amdgpu_dev=
+ice *adev)
+>  	 * S0ix even though the system is suspending to idle, so return false
+>  	 * in that case.
+>  	 */
+> -	if (!(acpi_gbl_FADT.flags & ACPI_FADT_LOW_POWER_S0)) {
+> +	if (!(acpi_gbl_FADT.flags & ACPI_FADT_LOW_POWER_S0))
+>  		dev_warn_once(adev->dev,
+>  			      "Power consumption will be higher as BIOS has not been configur=
+ed for suspend-to-idle.\n"
+>  			      "To use suspend-to-idle change the sleep mode in BIOS setup.\n"=
+);
+> -		return false;
+> -	}
+>=20=20
+>  #if !IS_ENABLED(CONFIG_AMD_PMC)
+>  	dev_warn_once(adev->dev,
+>  		      "Power consumption will be higher as the kernel has not been com=
+piled with CONFIG_AMD_PMC.\n");
+> -	return false;
+> -#else
+> -	return true;
+>  #endif /* CONFIG_AMD_PMC */
+> +	return true;
+>  }
+>=20=20
+>  #endif /* CONFIG_SUSPEND */
+> --=20
+> 2.25.1
