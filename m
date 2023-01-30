@@ -4,55 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5853C54EAA
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Jan 2023 16:31:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8005C54EAA
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Jan 2023 18:19:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 646AA10E275;
-	Mon, 30 Jan 2023 16:31:35 +0000 (UTC)
-Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
- [IPv6:2001:4860:4864:20::31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B943710E0F8
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Jan 2023 16:31:33 +0000 (UTC)
-Received: by mail-oa1-x31.google.com with SMTP id
- 586e51a60fabf-163adf0cfc4so4438607fac.7
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Jan 2023 08:31:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=KJ+6sl/FOdqRjO5izT/BrKJrBbcUVaLnFErRbMWVl9M=;
- b=W1zskDgQB+L96TobostjdScB7gYCv+uVc6eak8sRa9+ns1tbAXnJC+dvFJdXy01iRX
- RnojpRjTMPmvNy4lNfcEBpHbXNYpJ0R/8Lgq7rBN/+4TQAIXbzgv/9vFcO1QgSQEfaS+
- hidTexUEu6zdbnMckXFLhEXuWBNoKVhjHjXcrsgBL/eyNZ1O7bAh7z2x36+XIYGS3D27
- CPOQTTTPeUvGu/x0J5b8Qp3inGUhYJMg9yHTYJVSOS/+kMCQy0uC9WnCCfYeba/jm1yj
- xhD0fDyuEnlhnzN4ZQBKlzxAoH7uQdZz5XsW+ikNXRHLkMNNi/P2o5SLVwoB5xX3LDN9
- ZPvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=KJ+6sl/FOdqRjO5izT/BrKJrBbcUVaLnFErRbMWVl9M=;
- b=5wQcinGbYq53snjQX81+PjpDUe94PPfCdT7d3T4H8RdgERufJHEZLFYNhP2qcVlbES
- CPYjNmn4pr8DrJbcVKnYPzoXwhRteIT2nVWVhw+T097X+i2o8tkswsaA0A6YhqJ3mm5B
- G7yRjVwRlMeusvvbXQFJ6JLB59FkKe6Qdvrr2Lh4wbgFEHCWDWZuxksxj4yoSOgnRI7F
- NDP3T0hcJ4XgW7z4JtXE5ypiaHoidGlizNtiB2zsn1ytwQ/bxI725CC/+hdE8wJMn1p+
- mAQ2bcyuuNXPpRjBJ2+VUHqFglY3WWe7IPTDMXusB9O3LtqIiqPSMVG08eeF/PHUd+OE
- aSFQ==
-X-Gm-Message-State: AO0yUKX5cLiWE9knBVF2kEN7x/e32KikbCQgozFYikGdPgUi8TFCDWO0
- DoG9zQi3OAFfSX2R4FczmQGy8agTqpSMX2pm3Hs=
-X-Google-Smtp-Source: AK7set8oYSA6aBnrYN2514jUMbpVgpmr/lDZE4V0pDY0tFab08HlCsYSwaAYRZ7IOaynxyB/Gdd3jBfaZ4Lhpfdt9+g=
-X-Received: by 2002:a05:6870:b522:b0:163:8cc6:86a with SMTP id
- v34-20020a056870b52200b001638cc6086amr1062500oap.46.1675096292897; Mon, 30
- Jan 2023 08:31:32 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB62E10E0FD;
+	Mon, 30 Jan 2023 18:19:22 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9578F10E0C3;
+ Mon, 30 Jan 2023 18:19:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1675102760; x=1706638760;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=DRtzzOgVDPKFkGC1t3GTlTEe2UUizuLp1A0OwFAaQkY=;
+ b=DHC0MpF+OrQ0/CzM79PtMOD5C9Swz9QCZdo46OVY01PhqzMRar4zykc4
+ uzW0r8hCDDu8jnniMahmZCzWJp8wtIaPZw8xl+IcH8QumsSsIUrCCGByt
+ nBRJt+SwNmc0iCeqPwshvwzqq+xWtDoaCZ6Qg77VY3GjhJayR+FqyfZZg
+ /2qcTepRTdJK4qsJxgwUIC6xrYsooaPagPqrkrSL2nrWHHulzIT4GWClz
+ qtLTeXMjiIL2CDEOwGEnYaJdc6JGK1Zbh6XLVuRpMEI2TZeXnBZmJQZ9c
+ NmAOkEm3RZRurw9wCsQt6MzLycwOWUGyyc2Q1SEEvn4r3ciEqbToDkh+C A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10606"; a="392181531"
+X-IronPort-AV: E=Sophos;i="5.97,258,1669104000"; d="scan'208";a="392181531"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jan 2023 10:19:18 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10606"; a="788117174"
+X-IronPort-AV: E=Sophos;i="5.97,258,1669104000"; d="scan'208";a="788117174"
+Received: from lkp-server01.sh.intel.com (HELO ffa7f14d1d0f) ([10.239.97.150])
+ by orsmga004.jf.intel.com with ESMTP; 30 Jan 2023 10:19:15 -0800
+Received: from kbuild by ffa7f14d1d0f with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pMYkM-0003oM-2b;
+ Mon, 30 Jan 2023 18:19:14 +0000
+Date: Tue, 31 Jan 2023 02:18:18 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ ae0c77e1bc6963c67c6c09e8c72959fcb1ed8d5f
+Message-ID: <63d809ea.gvDoFQVzTVK4NFiz%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-References: <20230130161606.6386-1-mario.limonciello@amd.com>
-In-Reply-To: <20230130161606.6386-1-mario.limonciello@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 30 Jan 2023 11:31:21 -0500
-Message-ID: <CADnq5_O6w0-yhH1rw3hmZMh9OCdMUT64HY4JSoQNH-fm-JzYuw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: Fix initialization for nbio 4.3.0
-To: Mario Limonciello <mario.limonciello@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,50 +58,209 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Satyanarayana ReddyTVN <Satyanarayana.ReddyTVN@amd.com>,
- Rutvij Gajjar <Rutvij.Gajjar@amd.com>, amd-gfx@lists.freedesktop.org,
- Natikar Basavaraj <Basavaraj.Natikar@amd.com>
+Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org,
+ Linux Memory Management List <linux-mm@kvack.org>, kvmarm@lists.linux.dev,
+ linux-riscv@lists.infradead.org, kvmarm@lists.cs.columbia.edu,
+ linux-arm-kernel@lists.infradead.org, linux-trace-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 30, 2023 at 11:16 AM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
-> A mistake has been made on some boards with NBIO 4.3.0 where some
-> NBIO registers aren't properly set by the hardware.
->
-> Ensure that they're set during initialization.
->
-> Cc: Natikar Basavaraj <Basavaraj.Natikar@amd.com>
-> Tested-by: Satyanarayana ReddyTVN <Satyanarayana.ReddyTVN@amd.com>
-> Tested-by: Rutvij Gajjar <Rutvij.Gajjar@amd.com>
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c | 7 +++++++
->  1 file changed, 7 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
-> index 15eb3658d70e6..4b1c6946a60f3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
-> @@ -337,6 +337,13 @@ const struct nbio_hdp_flush_reg nbio_v4_3_hdp_flush_reg = {
->
->  static void nbio_v4_3_init_registers(struct amdgpu_device *adev)
->  {
-> +       if (adev->ip_versions[NBIO_HWIP][0] == IP_VERSION(4, 3, 0)) {
-> +               uint32_t data;
-> +
-> +               data = RREG32_SOC15(NBIO, 0, regRCC_DEV0_EPF2_STRAP2);
-> +               data &= ~RCC_DEV0_EPF2_STRAP2__STRAP_NO_SOFT_RESET_DEV0_F2_MASK;
-> +               WREG32_SOC15(NBIO, 0, regRCC_DEV0_EPF2_STRAP2, data);
-> +       }
->         return;
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: ae0c77e1bc6963c67c6c09e8c72959fcb1ed8d5f  Add linux-next specific files for 20230130
 
-You can drop the return here.  With that, the patch is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Error/Warning reports:
 
->  }
->
-> --
-> 2.34.1
->
+https://lore.kernel.org/oe-kbuild-all/202301230743.Xnut0Zvc-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202301300743.bp7Dpazv-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202301301722.6fghRppL-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202301301801.y5O08tQx-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202301302110.mEtNwkBD-lkp@intel.com
+
+Error/Warning: (recently discovered and may have been fixed)
+
+Documentation/riscv/uabi.rst:24: WARNING: Enumerated list ends without a blank line; unexpected unindent.
+ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/fsl-edma.ko] undefined!
+ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/idma64.ko] undefined!
+arch/arm64/kvm/arm.c:2211: warning: expecting prototype for Initialize Hyp(). Prototype was for kvm_arm_init() instead
+drivers/clk/qcom/gcc-sa8775p.c:313:32: warning: unused variable 'gcc_parent_map_10' [-Wunused-const-variable]
+drivers/clk/qcom/gcc-sa8775p.c:318:37: warning: unused variable 'gcc_parent_data_10' [-Wunused-const-variable]
+drivers/clk/qcom/gcc-sa8775p.c:333:32: warning: unused variable 'gcc_parent_map_12' [-Wunused-const-variable]
+drivers/clk/qcom/gcc-sa8775p.c:338:37: warning: unused variable 'gcc_parent_data_12' [-Wunused-const-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/accessories/link_dp_trace.c:148:6: warning: no previous prototype for 'link_dp_trace_set_edp_power_timestamp' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/accessories/link_dp_trace.c:158:10: warning: no previous prototype for 'link_dp_trace_get_edp_poweron_timestamp' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/accessories/link_dp_trace.c:163:10: warning: no previous prototype for 'link_dp_trace_get_edp_poweroff_timestamp' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:1295:32: warning: variable 'result_write_min_hblank' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:279:42: warning: variable 'ds_port' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_training.c:1585:38: warning: variable 'result' set but not used [-Wunused-but-set-variable]
+kismet: WARNING: unmet direct dependencies detected for VFIO_MDEV when selected by SAMPLE_VFIO_MDEV_MTTY
+libbpf: failed to find '.BTF' ELF section in vmlinux
+
+Unverified Error/Warning (likely false positive, please contact us if interested):
+
+drivers/nvmem/imx-ocotp.c:599:21: sparse: sparse: symbol 'imx_ocotp_layout' was not declared. Should it be static?
+drivers/nvmem/layouts/sl28vpd.c:143:21: sparse: sparse: symbol 'sl28vpd_layout' was not declared. Should it be static?
+drivers/thermal/qcom/tsens-v0_1.c:106:40: sparse: sparse: symbol 'tsens_9607_nvmem' was not declared. Should it be static?
+drivers/thermal/qcom/tsens-v0_1.c:26:40: sparse: sparse: symbol 'tsens_8916_nvmem' was not declared. Should it be static?
+drivers/thermal/qcom/tsens-v0_1.c:42:40: sparse: sparse: symbol 'tsens_8939_nvmem' was not declared. Should it be static?
+drivers/thermal/qcom/tsens-v0_1.c:62:40: sparse: sparse: symbol 'tsens_8974_nvmem' was not declared. Should it be static?
+drivers/thermal/qcom/tsens-v0_1.c:84:40: sparse: sparse: symbol 'tsens_8974_backup_nvmem' was not declared. Should it be static?
+drivers/thermal/qcom/tsens-v1.c:24:40: sparse: sparse: symbol 'tsens_qcs404_nvmem' was not declared. Should it be static?
+drivers/thermal/qcom/tsens-v1.c:45:40: sparse: sparse: symbol 'tsens_8976_nvmem' was not declared. Should it be static?
+pahole: .tmp_vmlinux.btf: No such file or directory
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- alpha-randconfig-r016-20230130
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- alpha-randconfig-s032-20230129
+|   `-- drivers-nvmem-layouts-sl28vpd.c:sparse:sparse:symbol-sl28vpd_layout-was-not-declared.-Should-it-be-static
+|-- arc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arm-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arm64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arm64-buildonly-randconfig-r005-20230130
+|   `-- arch-arm64-kvm-arm.c:warning:expecting-prototype-for-Initialize-Hyp().-Prototype-was-for-kvm_arm_init()-instead
+|-- arm64-randconfig-s053-20230129
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   |-- drivers-nvmem-imx-ocotp.c:sparse:sparse:symbol-imx_ocotp_layout-was-not-declared.-Should-it-be-static
+|   |-- drivers-thermal-qcom-tsens-v0_1.c:sparse:sparse:symbol-tsens_8916_nvmem-was-not-declared.-Should-it-be-static
+|   |-- drivers-thermal-qcom-tsens-v0_1.c:sparse:sparse:symbol-tsens_8939_nvmem-was-not-declared.-Should-it-be-static
+|   |-- drivers-thermal-qcom-tsens-v0_1.c:sparse:sparse:symbol-tsens_8974_backup_nvmem-was-not-declared.-Should-it-be-static
+|   |-- drivers-thermal-qcom-tsens-v0_1.c:sparse:sparse:symbol-tsens_8974_nvmem-was-not-declared.-Should-it-be-static
+clang_recent_errors
+`-- mips-randconfig-r036-20230129
+    |-- drivers-clk-qcom-gcc-sa8775p.c:warning:unused-variable-gcc_parent_data_10
+    |-- drivers-clk-qcom-gcc-sa8775p.c:warning:unused-variable-gcc_parent_data_12
+    |-- drivers-clk-qcom-gcc-sa8775p.c:warning:unused-variable-gcc_parent_map_10
+    `-- drivers-clk-qcom-gcc-sa8775p.c:warning:unused-variable-gcc_parent_map_12
+
+elapsed time: 730m
+
+configs tested: 83
+configs skipped: 5
+
+gcc tested configs:
+powerpc                           allnoconfig
+x86_64                            allnoconfig
+um                             i386_defconfig
+um                           x86_64_defconfig
+arc                                 defconfig
+alpha                               defconfig
+x86_64                              defconfig
+x86_64               randconfig-a001-20230130
+x86_64                               rhel-8.3
+x86_64               randconfig-a003-20230130
+i386                 randconfig-a002-20230130
+x86_64               randconfig-a004-20230130
+i386                 randconfig-a001-20230130
+x86_64               randconfig-a002-20230130
+x86_64               randconfig-a006-20230130
+i386                 randconfig-a004-20230130
+x86_64               randconfig-a005-20230130
+i386                 randconfig-a003-20230130
+x86_64                           allyesconfig
+i386                 randconfig-a005-20230130
+i386                 randconfig-a006-20230130
+sh                          kfr2r09_defconfig
+s390                             allmodconfig
+arm                                 defconfig
+s390                                defconfig
+x86_64                           rhel-8.3-syz
+x86_64                         rhel-8.3-kunit
+x86_64                           rhel-8.3-kvm
+sh                           se7705_defconfig
+arm64                            allyesconfig
+s390                             allyesconfig
+i386                                defconfig
+x86_64                           rhel-8.3-bpf
+arm                              allyesconfig
+m68k                             allyesconfig
+i386                             allyesconfig
+m68k                             allmodconfig
+x86_64                    rhel-8.3-kselftests
+x86_64                          rhel-8.3-func
+arc                              allyesconfig
+m68k                       m5249evb_defconfig
+alpha                            allyesconfig
+sh                        apsh4ad0a_defconfig
+arc                  randconfig-r043-20230129
+arm                  randconfig-r046-20230129
+i386                          randconfig-c001
+riscv                             allnoconfig
+riscv                    nommu_virt_defconfig
+i386                   debian-10.3-kselftests
+sh                               allmodconfig
+i386                              debian-10.3
+mips                             allyesconfig
+riscv                    nommu_k210_defconfig
+riscv                          rv32_defconfig
+powerpc                          allmodconfig
+powerpc                     tqm8548_defconfig
+m68k                          amiga_defconfig
+m68k                            mac_defconfig
+sh                           se7724_defconfig
+parisc                              defconfig
+mips                  maltasmvp_eva_defconfig
+sh                         ecovec24_defconfig
+xtensa                         virt_defconfig
+
+clang tested configs:
+i386                 randconfig-a013-20230130
+i386                 randconfig-a012-20230130
+i386                 randconfig-a014-20230130
+i386                 randconfig-a011-20230130
+i386                 randconfig-a015-20230130
+x86_64                          rhel-8.3-rust
+i386                 randconfig-a016-20230130
+x86_64               randconfig-a012-20230130
+powerpc                      pmac32_defconfig
+x86_64               randconfig-a013-20230130
+x86_64               randconfig-a014-20230130
+x86_64               randconfig-a011-20230130
+i386                              allnoconfig
+mips                      maltaaprp_defconfig
+x86_64               randconfig-a015-20230130
+x86_64               randconfig-a016-20230130
+hexagon              randconfig-r045-20230129
+riscv                randconfig-r042-20230129
+s390                 randconfig-r044-20230129
+hexagon              randconfig-r041-20230129
+
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
