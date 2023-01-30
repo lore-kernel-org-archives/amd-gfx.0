@@ -4,51 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEE5DC61D97
-	for <amd-gfx@archiver.kernel.org>; Sun, 29 Jan 2023 07:56:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EB86C05027
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Jan 2023 02:27:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39EF810E170;
-	Sun, 29 Jan 2023 07:56:00 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B56CC10E170;
- Sun, 29 Jan 2023 07:55:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674978957; x=1706514957;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=x4WTrpuvv+/zgSnOBDWsX2EtXNw7Yj18SFXCDGN2RQU=;
- b=DU7Q/0g4medleQrls4KK5j0VZ2WWfftEYNC9n9dYcF/9ZEe4c6yxGLeC
- 9ZUNRt+6UzJX9HRcA67JCNQ7O62zSRdBQMvJkHNxrXcob29oPu9EagFFz
- F8SzDMA4Q/xG4SVjXmkiHL9P9xmPKOuxp3sae8AWmnRM5bRGi/uJe6+zx
- qlvr3g9p6t0KlnaU8nEPjyzUh+eBJUFNMzqMOwXsYCFyXQ5frtp8Pw2sQ
- R/q5X6HJDhALh6PEYEAPlsuWfywQXvgHPCX8AY3w1w2zEPR2YaZ4Lgb+9
- EtRoE9j79aor8tViX6KNDA7b90+O2pao/6wjKau6Vty8/QvNjc+O5v2lk Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10604"; a="389753587"
-X-IronPort-AV: E=Sophos;i="5.97,254,1669104000"; d="scan'208";a="389753587"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2023 23:55:56 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10604"; a="752450871"
-X-IronPort-AV: E=Sophos;i="5.97,254,1669104000"; d="scan'208";a="752450871"
-Received: from lkp-server01.sh.intel.com (HELO ffa7f14d1d0f) ([10.239.97.150])
- by FMSMGA003.fm.intel.com with ESMTP; 28 Jan 2023 23:55:53 -0800
-Received: from kbuild by ffa7f14d1d0f with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pM2XZ-0002aw-0E;
- Sun, 29 Jan 2023 07:55:53 +0000
-Date: Sun, 29 Jan 2023 15:55:34 +0800
-From: kernel test robot <lkp@intel.com>
-To: Jonathan Kim <jonathan.kim@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 08/32] drm/amdgpu: add gfx10 hw debug mode enable and
- disable calls
-Message-ID: <202301291502.el73Nchv-lkp@intel.com>
-References: <20230125195401.4183544-9-jonathan.kim@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8211F10E096;
+	Mon, 30 Jan 2023 02:27:38 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2044.outbound.protection.outlook.com [40.107.92.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37FCE10E096
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Jan 2023 02:27:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hocmuHCsPTFJbxB5LjzS2VI+ayRvcPzUflY8jdNUZ+J9SHn7OVbP7QR5ugYwogbdy8DoGsavBT049TEzed1wLphESeMZsLaeeG6PiEQE67RF0PLGI+0uKNnp6oyHVQXJZtv70is2z6djVbXDi7/IxeobxwCtdnbXN/YUU4Q5Fs7f/bOjgOJXn0I7SraR+dAViJDbjmoCOLAlXVUReW7GgkA3SVD6JYaVoUWwkQr6m3q2U5dnmKYqlK9dvSSB5qjNhcVF9wlr2SXMu1+Vd3uIYsNENvcXInHUZtDHggF/KDf+o3NjGRQq4yFXd/PRYxtkOykji1Y8XYbwSdQfAPB6Ow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uQwmx0jpxwVcNzBHVirfqDtabMN2szuul012+0JjgyQ=;
+ b=gxMmJuGsXhOHxEZWan0VFNLdcps+ETEcDqIVbO7LlCEdTjlI+ad4VTe92AloFgamK10pEEfy386zDvUvbDWLkSuWd+YN04pY7qML+6fGei7hLaHfMo84u4ymWO+y2o+9dK2FmvMo9lT3rF9BW1D1OH6/74KYVRzQtCcmmeqON5UPVwJ8debNxX29ZOP5zWqhHaF84pKFWOftlcNAIrRRfb54zuSpagNdEhJAfDbkKDhg0ryw+EKOUHSMTFty4i/xQiBVNhIRwLvhpA7b85eHzsYe0GlmsYfpInBVtAOwZSajXeY7k0/bQ/XGvoLdzL2zrXXW+WTOZLl1CwRgZAbJFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uQwmx0jpxwVcNzBHVirfqDtabMN2szuul012+0JjgyQ=;
+ b=UA90MoaP4/iplxwLmqv9+rNoIk/LmpoHy6bBqQ6V3aDu2b07i1B1Z51DTd3q8BZPHIX+Npyz+sxTlHW7BC5kDQc/WdgMNN+h6Ogt+m1HbWaOs7q4P9XoNqL8OfaGVIMZwyl4VUoPG7w3M8F5o1MdrzDWGkDeUmXLmZ8ZFeIwzu8=
+Received: from CY5PR12MB6369.namprd12.prod.outlook.com (2603:10b6:930:21::10)
+ by BL1PR12MB5379.namprd12.prod.outlook.com (2603:10b6:208:317::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.36; Mon, 30 Jan
+ 2023 02:27:33 +0000
+Received: from CY5PR12MB6369.namprd12.prod.outlook.com
+ ([fe80::4f83:ee28:88d3:e58f]) by CY5PR12MB6369.namprd12.prod.outlook.com
+ ([fe80::4f83:ee28:88d3:e58f%9]) with mapi id 15.20.6043.036; Mon, 30 Jan 2023
+ 02:27:33 +0000
+From: "Zhang, Yifan" <Yifan1.Zhang@amd.com>
+To: "Huang, Tim" <Tim.Huang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH RESEND] drm/amd/pm: drop unneeded dpm features disablement
+ for SMU 13.0.4/11
+Thread-Topic: [PATCH RESEND] drm/amd/pm: drop unneeded dpm features
+ disablement for SMU 13.0.4/11
+Thread-Index: AQHZMsnNRSFt3faCZU21AEnyKpiG4K62Pwig
+Date: Mon, 30 Jan 2023 02:27:33 +0000
+Message-ID: <CY5PR12MB6369CB8E2C9714DBD82FE293C1D39@CY5PR12MB6369.namprd12.prod.outlook.com>
+References: <20230128033604.2117471-1-tim.huang@amd.com>
+In-Reply-To: <20230128033604.2117471-1-tim.huang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-01-30T02:27:29Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=cdcea6ac-8e7e-4cd9-8d21-95e97cdc2dd8;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2023-01-30T02:27:29Z
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: 5e96f708-6e67-4725-b2d0-d377dcfe084d
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY5PR12MB6369:EE_|BL1PR12MB5379:EE_
+x-ms-office365-filtering-correlation-id: 7e7e72d7-7c7c-4229-46a3-08db02698b1a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: RZYP0vQk/3u2u27rrPbcZf3DI9Ym7YZhegVzRabol+iTY0wuLsjvObG3NB6NzEGYbJCZ3HabFUgxcxB7Hfmd4uXGFvZVt/FtgGdneDXBGGXdIGJziGzOetJHf36kFUJGgddfhzRzvLMZJF/i2hxpo9ZzDxrqQesZ7m38qx5nXHE3RpQvL/VtfIKKwtRxUXHVK8RQlc6adlYrpfTl7hMTJF05QOBsDNThNT8nJvZGthgLWE8hOogbSKOjev3d3hOVnxYyDsX4a/1X+cs4V8hx6ZcnWUNW90Wd9yW/rmgPKLx7BX/q3vLlJKX5v1IkVe1gg6tvuYybq3KGCn3VzQ4YHvJ3zM/IkSL0DhILpi0RC0P5QSJ5oWgvMm4ORbhqERaIUSZ3snQLsbGgwNt1TGlwmfMVVWtudwd0ugapdp5pygzs666Zi23UvcmKIX+72GQ1qadHKPsMK+A/tIvyFNj4gwZ0AbjCJgdgdghNOWglXZHwY/jPWldpBdb9IFF5jpmgt6RsjmCV2SerMNNUswAtQUqcsHgvrn+xnOhCpDoXKio67yA2I1pLxepQbX9HGt0TZLMOfgZr7VI62lJ6ChrRXNu6wGPzX777LFeOZTPr1dLJUQaWkVVNf2lS3c7oY6Bmo8sSMFqJFUFlEMJMUpLOvSkZabA+D8Eh72i4tq1Y90/WysSkJl9pQVpYd7o/N4RMkqtphPTGi+LGUY1DeedVUA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY5PR12MB6369.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(376002)(136003)(39860400002)(346002)(366004)(396003)(451199018)(54906003)(110136005)(316002)(66946007)(4326008)(8676002)(66476007)(66556008)(64756008)(66446008)(76116006)(8936002)(41300700001)(52536014)(5660300002)(122000001)(38100700002)(86362001)(33656002)(38070700005)(71200400001)(53546011)(9686003)(186003)(26005)(6506007)(55016003)(2906002)(478600001)(7696005)(83380400001);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?fx7Vsug+FCSp8X8L+WDtcKHYkOyurVSEt9R2EnAMSYR/GAldctoWyetoItgG?=
+ =?us-ascii?Q?lZI5PTFEaH4mAVqMlSq7h1XUbj10gT3qHhai5jicFGdDs+fJBZH8tAfvb8wk?=
+ =?us-ascii?Q?oDRxYGP5YWyq/rNOLr/RtvxOVbUF+rjyn2I5uWbAKdR7rATX26ole0gwz96j?=
+ =?us-ascii?Q?/2q8ml5c44HXSoAg0rsSR/uRsDIfbcL/O6R+rzD8eodLGPuL4gZhteQbliux?=
+ =?us-ascii?Q?SZAHtrUZ00V2iM/VSYGmgFPCd7Y0mpUAvFyvf/WhU6w5EVuYzmfQnSkn8mqk?=
+ =?us-ascii?Q?aM0EEAoDfeLmXwDw5x5aUAK0R2d8i98xP0AjMs2JWF8rbZdzPBucl8uzn6Z3?=
+ =?us-ascii?Q?iQ9eoDqBKN+BAB+MfSxl1kQI5x/oiMkYg7SaLW4hpdCnYDVGrNeY84dLos98?=
+ =?us-ascii?Q?rBeX9ct4OFOy55MSUDGIGASzMZ2E0SRUzBR1VrYKqf0pvbfgY6SLrp8YUKIg?=
+ =?us-ascii?Q?DN7cl6esGtXbeSMTxpJxmSmk8qhowj1H941cwi1sB3T46Ri/DMu/3DqNxn99?=
+ =?us-ascii?Q?Krju45ka60sTtIHAhAKN/Aog26vGudHzCw8802l/F6Q5C2DJij8nnQbr1UN2?=
+ =?us-ascii?Q?FffFBtUS8CW9at5ZZvnaq2PDUBYlh1wuF+oTn7yrJuZhoBFC3wE7tdpIjkY4?=
+ =?us-ascii?Q?JTFSoXgMS4I5NNGaQEmHRRot2TTOve6U09mxi8FMk3UmHT6gM8kb2Okc7veR?=
+ =?us-ascii?Q?zMzm238j0b3SH2GPYvFO5qVBrhJ56zSHbYtdGXLiXw28uhJMKtW3pVxCNeFq?=
+ =?us-ascii?Q?PirBju+ynJ8Ud5GE7FiYYRPhN3JPZMksi+2WvUJFmmhgFUf9zJQL55x/WSz2?=
+ =?us-ascii?Q?tE+sYMiG45grTprKui6Z02lB5o52xHgCGjwHo6qHaHGbe14FTSgz6Yok2SUQ?=
+ =?us-ascii?Q?wVwpBF7D8vWSH6rfBGEN1GjAfSPBKVYFONLmwe+/oY+uqL0ectew8ngbBJBB?=
+ =?us-ascii?Q?AL3NjCz1Ys5qALs7c817NBocYmFiVDIPAqEXO6nJi5M/ezAuE1I1bD9So+7q?=
+ =?us-ascii?Q?L1Wzb9Jp/pgbVpxhp95TgXkjL88wJeblJO88N/Uv/anIf4n3qduq044e0vXN?=
+ =?us-ascii?Q?XWRx3HHQC0wsgQzP0rVumphAVExEwno08gCXXKeln5+RMwurCpy5SsgPeWap?=
+ =?us-ascii?Q?KuYsJvwexSLf7uO+zmDhHi/KKKDtaJNmW8tJ+13weUgLgk0K9rQS2HFCTyU+?=
+ =?us-ascii?Q?4vDqb60I7eXp5tjM6OHnUTCdMecHk20qdnciwXmGV4jlf3NHIqxh4QKeJxzC?=
+ =?us-ascii?Q?eYWbFrEWELXi6LIXm9bir5K7uQsOOYCKU1UnahClhZTLJil06zK85pKZf0k4?=
+ =?us-ascii?Q?iNv735RijWzCqES6fnVrtM0CRXyVyr3GPEEfCLvMZYCldgkhjKrrvmtj3yc8?=
+ =?us-ascii?Q?qp5Vvg2jsopnFthzud9932Y71S6tI3h0ehtnJg5bq29P6rjgpyXNfM1YPfBn?=
+ =?us-ascii?Q?rJZ3SVYIXC++gSrDF9ox6mRGP3HCwyPYDohyLlKXraHPskXNiK3Ag/XYC6YQ?=
+ =?us-ascii?Q?MR3EWmihN9VIHXE653ArZ9FDgVrTeP1Bd8m7pAnEnituMLTpgKhM7ig4XI5T?=
+ =?us-ascii?Q?uTBz2H89ymyYopIExEc=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230125195401.4183544-9-jonathan.kim@amd.com>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6369.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7e7e72d7-7c7c-4229-46a3-08db02698b1a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jan 2023 02:27:33.1008 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: +KIW1Y6j9O4ngpy8irEyHQUiyp/QMSN0ktpTrdWpBbri5WkxQaFmdEOsgNKQlSkB
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5379
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,116 +131,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix.Kuehling@amd.com, Jonathan.Kim@amd.com, oe-kbuild-all@lists.linux.dev
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Ma, Li" <Li.Ma@amd.com>,
+ "Du, Xiaojian" <Xiaojian.Du@amd.com>, "Limonciello,
+ Mario" <Mario.Limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Jonathan,
+[AMD Official Use Only - General]
 
-Thank you for the patch! Perhaps something to improve:
-
-[auto build test WARNING on drm-tip/drm-tip]
-[also build test WARNING on linus/master v6.2-rc5]
-[cannot apply to drm-misc/drm-misc-next drm/drm-next drm-exynos/exynos-drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Jonathan-Kim/drm-amdkfd-add-debug-and-runtime-enable-interface/20230128-092952
-base:   git://anongit.freedesktop.org/drm/drm-tip drm-tip
-patch link:    https://lore.kernel.org/r/20230125195401.4183544-9-jonathan.kim%40amd.com
-patch subject: [PATCH 08/32] drm/amdgpu: add gfx10 hw debug mode enable and disable calls
-config: x86_64-allyesconfig (https://download.01.org/0day-ci/archive/20230129/202301291502.el73Nchv-lkp@intel.com/config)
-compiler: gcc-11 (Debian 11.3.0-8) 11.3.0
-reproduce (this is a W=1 build):
-        # https://github.com/intel-lab-lkp/linux/commit/ca722ec7f4d749b61a30b4654fabf05f03d8d2cf
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Jonathan-Kim/drm-amdkfd-add-debug-and-runtime-enable-interface/20230128-092952
-        git checkout ca722ec7f4d749b61a30b4654fabf05f03d8d2cf
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        make W=1 O=build_dir ARCH=x86_64 olddefconfig
-        make W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash drivers/gpu/drm/amd/amdgpu/
-
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-
-All warnings (new ones prefixed by >>):
-
->> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c:750:10: warning: no previous prototype for 'kgd_gfx_v10_enable_debug_trap' [-Wmissing-prototypes]
-     750 | uint32_t kgd_gfx_v10_enable_debug_trap(struct amdgpu_device *adev,
-         |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c:787:10: warning: no previous prototype for 'kgd_gfx_v10_disable_debug_trap' [-Wmissing-prototypes]
-     787 | uint32_t kgd_gfx_v10_disable_debug_trap(struct amdgpu_device *adev,
-         |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   In file included from drivers/gpu/drm/amd/amdgpu/../display/dc/dc_types.h:36,
-                    from drivers/gpu/drm/amd/amdgpu/../display/dc/dm_services_types.h:30,
-                    from drivers/gpu/drm/amd/amdgpu/../include/dm_pp_interface.h:26,
-                    from drivers/gpu/drm/amd/amdgpu/amdgpu.h:64,
-                    from drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c:22:
-   drivers/gpu/drm/amd/amdgpu/../display/dc/dc_hdmi_types.h:53:22: warning: 'dp_hdmi_dongle_signature_str' defined but not used [-Wunused-const-variable=]
-      53 | static const uint8_t dp_hdmi_dongle_signature_str[] = "DP-HDMI ADAPTOR";
-         |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Reviewed-by: Yifan Zhang <yifan1.zhang@amd.com>
 
 
-vim +/kgd_gfx_v10_enable_debug_trap +750 drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+-----Original Message-----
+From: Huang, Tim <Tim.Huang@amd.com>=20
+Sent: Saturday, January 28, 2023 11:36 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Yifan <Yifan1.Zh=
+ang@amd.com>; Du, Xiaojian <Xiaojian.Du@amd.com>; Ma, Li <Li.Ma@amd.com>; L=
+imonciello, Mario <Mario.Limonciello@amd.com>; Huang, Tim <Tim.Huang@amd.co=
+m>
+Subject: [PATCH RESEND] drm/amd/pm: drop unneeded dpm features disablement =
+for SMU 13.0.4/11
 
-   749	
- > 750	uint32_t kgd_gfx_v10_enable_debug_trap(struct amdgpu_device *adev,
-   751					bool restore_dbg_registers,
-   752					uint32_t vmid)
-   753	{
-   754	
-   755		mutex_lock(&adev->grbm_idx_mutex);
-   756	
-   757		kgd_gfx_v10_set_wave_launch_stall(adev, vmid, true);
-   758	
-   759		/* assume gfx off is disabled for the debug session if rlc restore not supported. */
-   760		if (restore_dbg_registers) {
-   761			uint32_t data = 0;
-   762	
-   763			data = REG_SET_FIELD(data, SPI_GDBG_TRAP_CONFIG,
-   764					VMID_SEL, 1 << vmid);
-   765			data = REG_SET_FIELD(data, SPI_GDBG_TRAP_CONFIG,
-   766					TRAP_EN, 1);
-   767			WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_CONFIG), data);
-   768			WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_DATA0), 0);
-   769			WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_DATA1), 0);
-   770	
-   771			kgd_gfx_v10_set_wave_launch_stall(adev, vmid, false);
-   772	
-   773			mutex_unlock(&adev->grbm_idx_mutex);
-   774	
-   775			return 0;
-   776		}
-   777	
-   778		WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_MASK), 0);
-   779	
-   780		kgd_gfx_v10_set_wave_launch_stall(adev, vmid, false);
-   781	
-   782		mutex_unlock(&adev->grbm_idx_mutex);
-   783	
-   784		return 0;
-   785	}
-   786	
- > 787	uint32_t kgd_gfx_v10_disable_debug_trap(struct amdgpu_device *adev,
-   788						bool keep_trap_enabled,
-   789						uint32_t vmid)
-   790	{
-   791		mutex_lock(&adev->grbm_idx_mutex);
-   792	
-   793		kgd_gfx_v10_set_wave_launch_stall(adev, vmid, true);
-   794	
-   795		WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_MASK), 0);
-   796	
-   797		kgd_gfx_v10_set_wave_launch_stall(adev, vmid, false);
-   798	
-   799		mutex_unlock(&adev->grbm_idx_mutex);
-   800	
-   801		return 0;
-   802	}
-   803	
+PMFW will handle the features disablement properly for gpu reset case, driv=
+er involvement may cause some unexpected issues.
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+Signed-off-by: Tim Huang <tim.huang@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/am=
+d/pm/swsmu/amdgpu_smu.c
+index ec52830dde24..8bae3fe869cd 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -1497,6 +1497,20 @@ static int smu_disable_dpms(struct smu_context *smu)
+ 		}
+ 	}
+=20
++	/*
++	 * For SMU 13.0.4/11, PMFW will handle the features disablement properly
++	 * for gpu reset case. Driver involvement is unnecessary.
++	 */
++	if (amdgpu_in_reset(adev)) {
++		switch (adev->ip_versions[MP1_HWIP][0]) {
++		case IP_VERSION(13, 0, 4):
++		case IP_VERSION(13, 0, 11):
++			return 0;
++		default:
++			break;
++		}
++	}
++
+ 	/*
+ 	 * For gpu reset, runpm and hibernation through BACO,
+ 	 * BACO feature has to be kept enabled.
+--
+2.25.1
