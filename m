@@ -4,81 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B35BDC54EAA
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Jan 2023 22:45:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12F2EC636CD
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Jan 2023 06:36:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7789610E305;
-	Mon, 30 Jan 2023 22:45:32 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4499010E303
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Jan 2023 22:45:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1675118728;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=N8o8Rhd4sel1C6oh+rw0VuQFQ55i8FksRNvBFfvYTTs=;
- b=MUdVEeL+yEkeMtr2DmY4MRBkpfILlJG4B7BQW6+NrvqdNAIY8IFQ04JYvUI0iCUFpWaf0Y
- baBg4iOZAS9MsK37fabAtkSr8YOHexPHIB2XUMGp0NpUuiju6aO9VDMEIJGIXJ1HZFjBkp
- vuY7aLzdbzj8yU0myCkwHiqg1UugBRA=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-68-hRRGdCExPPS6LE8bHX1w7Q-1; Mon, 30 Jan 2023 17:45:27 -0500
-X-MC-Unique: hRRGdCExPPS6LE8bHX1w7Q-1
-Received: by mail-qk1-f200.google.com with SMTP id
- x7-20020a05620a098700b007242aa494ddso1217948qkx.19
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Jan 2023 14:45:26 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=mime-version:user-agent:content-transfer-encoding:organization
- :references:in-reply-to:date:cc:to:from:subject:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=YRpkYJeAY4fR+O7gfXMan8c007OCAP8+OFxbnnC3mIY=;
- b=Bpz809++ToHwbyk7TGaoyyisQA1/EyfC4y6Xfl8laX6yIcjdKT7xE1trbfwTn+O/oW
- y60RarwY8ZoVHSD4tKj6lTap6O4jvbByNQqmv1ymzvH7RB6s3EcvCnMN2FlDg/hH3A+g
- tnc2MvBas2oB0SYb9EKpOOGNraHJ2j+maDuMq3rFS1F+qIMQ/3m/lhVAsDpjpogfuKc5
- M85jqqrhSbBfT2Kv+WvxSnYuTPmv5xtC0CyG5dO1xBpjnaZmWiMD6srTT5kxWDUaYt8a
- hzs4zvZ+MC95u5DVt3gJXNPvqSBu0yWndkBWSKNwjLc0fC/oyw5T4oMSYsjD6Q8eyL1M
- bbpA==
-X-Gm-Message-State: AFqh2kqFnT34URdaWu4lSKsdbzRkCWn/DK1jImf6ZbeDiUbk/AwSS6R4
- POSvLM3CDaElda40mK6jLpZYLW/o0OdmygzXuXgDGR2XQ93VMFzSeqLEKKUEJUy7K3CtAULV/gG
- OjVTSIhzVCL0sXxBvYBOtN/W3ow==
-X-Received: by 2002:a05:6214:ca6:b0:537:4d43:9c55 with SMTP id
- s6-20020a0562140ca600b005374d439c55mr70765114qvs.39.1675118726461; 
- Mon, 30 Jan 2023 14:45:26 -0800 (PST)
-X-Google-Smtp-Source: AMrXdXu0QFMKgggOPzEwfCc7M8SZd99arSnlL8jcaw+gLk5xP9Bmws0IiZ5C0yUOMG7jU62fJisupQ==
-X-Received: by 2002:a05:6214:ca6:b0:537:4d43:9c55 with SMTP id
- s6-20020a0562140ca600b005374d439c55mr70765062qvs.39.1675118726129; 
- Mon, 30 Jan 2023 14:45:26 -0800 (PST)
-Received: from ?IPv6:2600:4040:5c68:6800::feb? ([2600:4040:5c68:6800::feb])
- by smtp.gmail.com with ESMTPSA id
- pe27-20020a05620a851b00b0071883954df4sm7269744qkn.103.2023.01.30.14.45.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Jan 2023 14:45:25 -0800 (PST)
-Message-ID: <750324ffe72fb2d07c0d39e8b4a4e77b6449b794.camel@redhat.com>
-Subject: Re: [PATCH v2 3/3] drm: Call
- vga_switcheroo_process_delayed_switch() in drm_lastclose
-From: Lyude Paul <lyude@redhat.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, alexander.deucher@amd.com, 
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch,  maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com, 
- rodrigo.vivi@intel.com, tvrtko.ursulin@linux.intel.com, bskeggs@redhat.com,
- kherbst@redhat.com, evan.quan@amd.com, jose.souza@intel.com
-Date: Mon, 30 Jan 2023 17:45:24 -0500
-In-Reply-To: <20230112201156.26849-4-tzimmermann@suse.de>
-References: <20230112201156.26849-1-tzimmermann@suse.de>
- <20230112201156.26849-4-tzimmermann@suse.de>
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.44.4 (3.44.4-2.fc36)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B3B410E329;
+	Tue, 31 Jan 2023 06:36:46 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2075.outbound.protection.outlook.com [40.107.237.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64B9910E329;
+ Tue, 31 Jan 2023 06:36:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=e5mZAdaNjGZgC+2YAweRzotuf5yS4dqjGJOzMbt3f8NuFbVCMRMwr5jdmmkpGICaaVC+Gl9qfA4XTk+FDr30ZtxSr14yarlnS2DqwNvFVQHjBm1YVA09FNpPldClhIlmISiJ/yK2t0X7rxu7y5jB2vMsViS2Nmj2lxqQhXOTw7UY4zIV7OrFM1MfnYUyQfmgSOIjp7Kf8d7uYGeDJCXCLC0hmK/luSPULWnYwATmZjoQp2kW9z93JvRt6t6XfkiOhq1lR3XLCmmEuEeVtQDImGD01feDnxnfN1WEBV2CfC35on+AyWKEwMJwGWQMFxB1qNI7q7swQ5zVRMK/+iXxVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=w3RnVU43IZr8KUDFe9AOqqjaCT3mSpTRWQLWUydw0eM=;
+ b=d9mlC9chwSZZ/igMgl+S7G8lgPUEAYFupDIu5zx/wHIckZxx/c3wtj6/MSPv5oR8Xhw54lFGcF1cXcwDYKWEsntA394AgY8sGWiwesXNEGxEjoBG7BUTDRwFlUBQzySYsMDtfxsgl0Xo2UmhmS2xNpVScfHe4vEkQN6Lc2+e7iCCZ3khOlaEc9KIhVvu9ffoKi8zn5OKvjS6/ktDPd/vvJOi0ZfXhfNRsIAfTJ8VO0ouJEPExXShIjiICtgmtk1+osO3HO+RLmg1ylaRGvabQiEZxXfD+3w2R4rRo9wxiikPbr9ZXfb2uuwi1Kq2tGsJ5ijz9tXDNfDZbFpqqOuIyg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w3RnVU43IZr8KUDFe9AOqqjaCT3mSpTRWQLWUydw0eM=;
+ b=rBgw9bSqAJ/AQU2kL5EcB5PX+zR4n2ABQd/PrXxuwoxfTGmPTf9BAjflZBGVhsgRQeNg06wF+FsDxdKxwHvc6aBl/y+rxU/2vbvuH+ElMR0oc4zhQN3AIwF2Vu6AuH1LXf/oPOR/NzWdJnFjt3DTcB43oZuCPSey6RJkDdOrA38=
+Received: from DM5PR12MB2469.namprd12.prod.outlook.com (2603:10b6:4:af::38) by
+ SA1PR12MB8143.namprd12.prod.outlook.com (2603:10b6:806:333::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.38; Tue, 31 Jan
+ 2023 06:36:40 +0000
+Received: from DM5PR12MB2469.namprd12.prod.outlook.com
+ ([fe80::d068:807d:11c:eee0]) by DM5PR12MB2469.namprd12.prod.outlook.com
+ ([fe80::d068:807d:11c:eee0%5]) with mapi id 15.20.6043.038; Tue, 31 Jan 2023
+ 06:36:39 +0000
+From: "Chen, Guchun" <Guchun.Chen@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>, "Guilherme G. Piccoli"
+ <gpiccoli@igalia.com>
+Subject: RE: [PATCH] drm/amdgpu/fence: Fix oops due to non-matching drm_sched
+ init/fini
+Thread-Topic: [PATCH] drm/amdgpu/fence: Fix oops due to non-matching drm_sched
+ init/fini
+Thread-Index: AQHZNPQqGMT8M8ST7USP4Twf9c/CJK63gAOAgAAK34CAAIcCEA==
+Date: Tue, 31 Jan 2023 06:36:39 +0000
+Message-ID: <DM5PR12MB24693E815CAB63FE2DE06E4CF1D09@DM5PR12MB2469.namprd12.prod.outlook.com>
+References: <20230130214504.1305042-1-gpiccoli@igalia.com>
+ <ac604d40-ef87-7147-b1ee-3620e68b3268@igalia.com>
+ <CADnq5_NEyGNXpo3mZ=WR5Me8b9r24aq0MmMZ6GsvBRoBmNVGGQ@mail.gmail.com>
+In-Reply-To: <CADnq5_NEyGNXpo3mZ=WR5Me8b9r24aq0MmMZ6GsvBRoBmNVGGQ@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM5PR12MB2469:EE_|SA1PR12MB8143:EE_
+x-ms-office365-filtering-correlation-id: 469d450f-723b-4ac5-5138-08db03558268
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: GJbA6E4w4DqwM18YSGR9Js0+1ElELFzB9nlYxe5G5uOQoC5xNtylRPyD71tM6nc5lGpwEIpmdSHAx1etmHFsyVwGnfr4mhrNplhK1fJTM1y/CSXVKoVSLLL6ln7nnkGvCdj3SRUIjbm1xhmXBMJ6paxMZbhW8M3KyUWIjAgyxKp/Ola0FmAjJOzFifJldu3mlF/UhjIS8lWQN3ZxPL0Edwk2MYUk8wcQLrt4aCpWQNlDZzaANyrGANIai2kebD0rRhMe9DjKofiHYG9pGzDW89rTyeDJagu5Sm4tW+9DVNcdRyXPxZUJQMYY6IUbZGd1NCZgUUrPKgdzHIxCc09A8jHKqhd5sIrVRYfdL8Z1sxTwEPWZTzMlnaJnrwKN6J+sOhv+HaZ7rWwQLyDhulhDpy0AcFFEHTIC+ZtYXM1GqKL+Umap2XnM5Cwj9hG7y3U0o76jKJDMMAB285yc7NeS2Gk6YeskU9YYmYAkI1/I9UhIJnqJnT1UFyw7FA8n6+JAlx6DsVQim/9Bz+qysjzkaKAypsEzIB4OXRyJRaz6RFJ1VNssHvfC6fwPv15fMMvNc+khSjLLXupzvVkcjnKqsECtQQcjxbSmdS2g/2F0bYzpXWHW3BWNsjusQZAPk2xWDp6ItxyXjmLDZNx5UlJOXD3iQ4lcgXXVusyOCJidUbZ3Ij1JB4RrFpHz6yXuD71/NqvUJ+Wv8qbFWBWrC6e78g==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB2469.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(136003)(39860400002)(396003)(376002)(366004)(346002)(451199018)(83380400001)(110136005)(316002)(54906003)(41300700001)(76116006)(4326008)(8936002)(52536014)(66446008)(66476007)(66556008)(64756008)(66946007)(8676002)(9686003)(6506007)(186003)(53546011)(478600001)(26005)(7696005)(71200400001)(38070700005)(86362001)(33656002)(55016003)(5660300002)(2906002)(122000001)(38100700002)(66899018);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?TTRKVWp1T0FQVGU5MmdJTUxsWXBwWGJITDMzY0MxOWpDYk1iVFF5S3hYZS9Z?=
+ =?utf-8?B?ZkpUSzRDQTM4MEE5dUxwYXltV3lnTkovNlpUUEVEdXd5WUd6YVFCMmpBT2pP?=
+ =?utf-8?B?WGZWZ2NLdEFsR1BlUTNQOXQvL1R2aXNZR2JUUGNlQWhudU1ROEZadlhITmpz?=
+ =?utf-8?B?YXdxQ0plVWZmMkpZZTVwb3RHVVZNNEFzd1dKRmxCejU1dXdPYUxQQzZxODRH?=
+ =?utf-8?B?Kys1a0I5Y0tkRHRPZVNocXVWcUI0TGwwMU5XaXYyeENGb0JNb0tSeXZ5d2Rq?=
+ =?utf-8?B?TkN2OFgraVpBMmE3d0l2dElHNVdoV3hUSjlTWWhvOUhnUEFKZW9ESGNNUDZ3?=
+ =?utf-8?B?QmtDTzZYd2lKT3JPRUV2c1plM09kOURla20xY2tUWnJPUlF5VTNZMzF3b2E5?=
+ =?utf-8?B?WHhJUTMwM2tYU2VpeTF3MjlrWFVYZktiazcrSEtvZ1FlV3g5OUlLc2NNanBs?=
+ =?utf-8?B?dXhOWmhDY1Q4WmZ3bW1PNzRNMC9CUjRxWGwyK2svNjlDUGVncVJKeGh2Y2hK?=
+ =?utf-8?B?bGMrNXdqQ2tNcEFRQUpnZGxXeUwrb2FEYVpkeXgxQU1nU0RPL2JFMHVkOWFC?=
+ =?utf-8?B?dWhDNjBUYmJCZlFTbGlXYk0yQ3lEbXlab2VnZWlkdC9QRTZrcXZFT0dFMzBS?=
+ =?utf-8?B?d3MzVGVUcnQyNnp5cjBiYXVYallIZlhxNWgvMlNRVFZ3ZWxRRG9yTU5JOEhD?=
+ =?utf-8?B?OUNXR3ZaN0lRTkhxeFE2NlY3R2NTOVJkRURqUGtwUk0zb0dJaHRpT0o0MG82?=
+ =?utf-8?B?VHlueVM1QVZDRWcxaG94eGJSOCtMeE40QTk0SjNoYm1RWWdXc1BMcFJOTFNC?=
+ =?utf-8?B?MStPZlhDQlB4emhDWThhTko5QXVKQVFpNTJlUzA5UktNSjYyYnA3akppMHUz?=
+ =?utf-8?B?N1d2NnozaWR1L3J0ZWlMRDZYK3NtTzlZTkFaSzBpczB3WFRhU2FoTVh1N0Mv?=
+ =?utf-8?B?SXR5TlRUbko2Zk4xNDljK2VvYlJ1T3gxeXpPbjEyZ0s1N3d5K084ZStYckdr?=
+ =?utf-8?B?RVZTamZlbENyLzFWWTEwYTY5STBTUGdtaUtZcGF0aTI1WmsxdkpzTWoxM1FF?=
+ =?utf-8?B?MjQwV0Q2dzE4VnRJWkVRb1JsZlFUQ1lmYU9FQzRmTXptS2p3amdZdERuMmtD?=
+ =?utf-8?B?SkVpOTBpMjRQRUY4LzBRd1NsU0l0MThHdHYyVkN2U1VEOTBZTEY5dUUyMno4?=
+ =?utf-8?B?R3RoaHl2dHpWY2FoMGdZQmd4VmhYRlVlMEZJN3lzeklZK00zZkVRRVJ2N05y?=
+ =?utf-8?B?b1BtN3JWYzg2d3B5TTBGOE45WFRtNXgwT1hKZkg3ZjlkRTQrQzZjbFJOTzZj?=
+ =?utf-8?B?Vkh6alA3ajJ1VWhpZDR1azJlMWIzVmVNU3dJNllJdzRpcFBXK3J4cm1jSk1N?=
+ =?utf-8?B?R2l3NUx6U1M5M1U0ekQzZ0o0OTlLUXZTclNlb0hSZU04Vk9ncVRVT0VSS2Y0?=
+ =?utf-8?B?WmY0bUJWR1JvQURObzNKS2krNlcrOWdqUDc4NTYrMWpvQW9GWm93eG5nRmJL?=
+ =?utf-8?B?K05jZ3NZWnMxTmo2WW0zUnJ1TzNrTjJWTUVtWXdpbzB6SzhQYWt6L0JPakpy?=
+ =?utf-8?B?UUhtYUc1QXlrN3ZxcTlhRVZyKzRhQ2wzN3dRUUx2QXdxQTFxdmV0SDRvTE81?=
+ =?utf-8?B?RGNETThyL01Hc294T2lsbWU4R2xac1g5OXhJNUU2bzN3dlpLV3ZSeWdPVFNk?=
+ =?utf-8?B?WXgxc3M3amNCUXRPZ1A4K2E2ZGdHdWNtUURhQ1JlaDJNbHUwWkdTMVFEaGQv?=
+ =?utf-8?B?OW9na2xwbDRmcndNdjZMRzhYS3ZnK2ttdHVoUWZCTnphNGFUd0ZhVGdMNFZw?=
+ =?utf-8?B?eHN4SnVGNWRTSG53a0MrMHFhbXlZblE1aHhBVnVrV3BLZUJOenJnVll5V3Bs?=
+ =?utf-8?B?bEdwYlNqbG1XU3p4bWEyT2JCVG1pbDQrZjVYdHpWZ2xWcmdIbTV5VEZBZFVr?=
+ =?utf-8?B?MGZaejA3TlpuYnd6a2ZBZjQ5TGJjSms1b0EvdkM5c0NyR2hrdER3S2tacWo4?=
+ =?utf-8?B?VHIzbnNiVENsVldGYWw5bktJRjAxdlk4MGdsaHEvc3pST2t3MzBVSUNCczU4?=
+ =?utf-8?B?aUFMVE5xR1Q2UFZyVVdqSkswNnhjYURBOTlrVk1ROG45VENSTkNvSXlMYWVY?=
+ =?utf-8?Q?1W73f2J8lbJ9C7PGFDNYU2/dD?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2469.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 469d450f-723b-4ac5-5138-08db03558268
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Jan 2023 06:36:39.7566 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 3cjX2a0+mAjgBKFtF6n0USR/jMkRA/8IIgU6Qy9wc8OFlIl1MiQ15Q8Ojm6dn61/6AjGbGucJHwmfzR08dQi0w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8143
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,337 +128,110 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: "kernel@gpiccoli.net" <kernel@gpiccoli.net>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Tuikov,
+ Luben" <Luben.Tuikov@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "kernel-dev@igalia.com" <kernel-dev@igalia.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, "Limonciello,
+ Mario" <Mario.Limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Acked-by: Lyude Paul <lyude@redhat.com>
-
-On Thu, 2023-01-12 at 21:11 +0100, Thomas Zimmermann wrote:
-> Several lastclose helpers call vga_switcheroo_process_delayed_switch().
-> It's better to call the helper from drm_lastclose() after the kernel
-> client's screen has been restored. This way, all drivers can benefit
-> without having to implement their own lastclose helper. For drivers
-> without vga-switcheroo, vga_switcheroo_process_delayed_switch() does
-> nothing.
->=20
-> There was an earlier patchset to do something similar. [1]
->=20
-> v2:
-> =09* handle vga_switcheroo_client_fb_set() in a separate patch
-> =09* also update i915, nouveau and radeon
-> =09* remove unnecessary include statements
-> =09* update vga-switcheroo docs
->=20
-> Suggested-by: Alexander Deucher <Alexander.Deucher@amd.com>
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-> Link: https://lore.kernel.org/amd-gfx/20221020143603.563929-1-alexander.d=
-eucher@amd.com/ # 1
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  1 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  2 --
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 13 -------------
->  drivers/gpu/drm/drm_file.c              |  3 +++
->  drivers/gpu/drm/i915/i915_driver.c      | 25 ++-----------------------
->  drivers/gpu/drm/nouveau/nouveau_drm.c   |  1 -
->  drivers/gpu/drm/nouveau/nouveau_vga.c   |  7 -------
->  drivers/gpu/drm/nouveau/nouveau_vga.h   |  1 -
->  drivers/gpu/drm/radeon/radeon_drv.c     |  2 +-
->  drivers/gpu/drm/radeon/radeon_drv.h     |  1 -
->  drivers/gpu/drm/radeon/radeon_kms.c     | 18 ------------------
->  drivers/gpu/vga/vga_switcheroo.c        |  4 ++--
->  12 files changed, 8 insertions(+), 70 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
-dgpu/amdgpu.h
-> index 63c921c55fb9..7120b9b6e580 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1330,7 +1330,6 @@ extern const int amdgpu_max_kms_ioctl;
-> =20
->  int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long fla=
-gs);
->  void amdgpu_driver_unload_kms(struct drm_device *dev);
-> -void amdgpu_driver_lastclose_kms(struct drm_device *dev);
->  int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file=
-_priv);
->  void amdgpu_driver_postclose_kms(struct drm_device *dev,
->  =09=09=09=09 struct drm_file *file_priv);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index 1353ffd08988..783c1e284a22 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -34,7 +34,6 @@
->  #include <drm/drm_pciids.h>
->  #include <linux/module.h>
->  #include <linux/pm_runtime.h>
-> -#include <linux/vga_switcheroo.h>
->  #include <drm/drm_probe_helper.h>
->  #include <linux/mmu_notifier.h>
->  #include <linux/suspend.h>
-> @@ -2785,7 +2784,6 @@ static const struct drm_driver amdgpu_kms_driver =
-=3D {
->  =09    DRIVER_SYNCOBJ_TIMELINE,
->  =09.open =3D amdgpu_driver_open_kms,
->  =09.postclose =3D amdgpu_driver_postclose_kms,
-> -=09.lastclose =3D amdgpu_driver_lastclose_kms,
->  =09.ioctls =3D amdgpu_ioctls_kms,
->  =09.num_ioctls =3D ARRAY_SIZE(amdgpu_ioctls_kms),
->  =09.dumb_create =3D amdgpu_mode_dumb_create,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_kms.c
-> index 7aa7e52ca784..a37be02fb2fc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -34,7 +34,6 @@
->  #include "amdgpu_vce.h"
->  #include "atom.h"
-> =20
-> -#include <linux/vga_switcheroo.h>
->  #include <linux/slab.h>
->  #include <linux/uaccess.h>
->  #include <linux/pci.h>
-> @@ -1104,18 +1103,6 @@ int amdgpu_info_ioctl(struct drm_device *dev, void=
- *data, struct drm_file *filp)
->  /*
->   * Outdated mess for old drm with Xorg being in charge (void function no=
-w).
->   */
-> -/**
-> - * amdgpu_driver_lastclose_kms - drm callback for last close
-> - *
-> - * @dev: drm dev pointer
-> - *
-> - * Switch vga_switcheroo state after last close (all asics).
-> - */
-> -void amdgpu_driver_lastclose_kms(struct drm_device *dev)
-> -{
-> -=09drm_fb_helper_lastclose(dev);
-> -=09vga_switcheroo_process_delayed_switch();
-> -}
-> =20
->  /**
->   * amdgpu_driver_open_kms - drm callback for open
-> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-> index a51ff8cee049..314c309db9a3 100644
-> --- a/drivers/gpu/drm/drm_file.c
-> +++ b/drivers/gpu/drm/drm_file.c
-> @@ -38,6 +38,7 @@
->  #include <linux/pci.h>
->  #include <linux/poll.h>
->  #include <linux/slab.h>
-> +#include <linux/vga_switcheroo.h>
-> =20
->  #include <drm/drm_client.h>
->  #include <drm/drm_drv.h>
-> @@ -460,6 +461,8 @@ void drm_lastclose(struct drm_device * dev)
->  =09=09drm_legacy_dev_reinit(dev);
-> =20
->  =09drm_client_dev_restore(dev);
-> +
-> +=09vga_switcheroo_process_delayed_switch();
->  }
-> =20
->  /**
-> diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i9=
-15_driver.c
-> index 33e231b120c1..bf6ad8620970 100644
-> --- a/drivers/gpu/drm/i915/i915_driver.c
-> +++ b/drivers/gpu/drm/i915/i915_driver.c
-> @@ -29,6 +29,7 @@
-> =20
->  #include <linux/acpi.h>
->  #include <linux/device.h>
-> +#include <linux/fb.h> /* for FBINFO_STATE_ */
->  #include <linux/module.h>
->  #include <linux/oom.h>
->  #include <linux/pci.h>
-> @@ -37,7 +38,6 @@
->  #include <linux/pnp.h>
->  #include <linux/slab.h>
->  #include <linux/string_helpers.h>
-> -#include <linux/vga_switcheroo.h>
->  #include <linux/vt.h>
-> =20
->  #include <drm/drm_aperture.h>
-> @@ -1057,27 +1057,6 @@ static int i915_driver_open(struct drm_device *dev=
-, struct drm_file *file)
->  =09return 0;
->  }
-> =20
-> -/**
-> - * i915_driver_lastclose - clean up after all DRM clients have exited
-> - * @dev: DRM device
-> - *
-> - * Take care of cleaning up after all DRM clients have exited.  In the
-> - * mode setting case, we want to restore the kernel's initial mode (just
-> - * in case the last client left us in a bad state).
-> - *
-> - * Additionally, in the non-mode setting case, we'll tear down the GTT
-> - * and DMA structures, since the kernel won't be using them, and clea
-> - * up any GEM state.
-> - */
-> -static void i915_driver_lastclose(struct drm_device *dev)
-> -{
-> -=09struct drm_i915_private *i915 =3D to_i915(dev);
-> -
-> -=09intel_fbdev_restore_mode(dev);
-> -
-> -=09vga_switcheroo_process_delayed_switch();
-> -}
-> -
->  static void i915_driver_postclose(struct drm_device *dev, struct drm_fil=
-e *file)
->  {
->  =09struct drm_i915_file_private *file_priv =3D file->driver_priv;
-> @@ -1921,7 +1900,7 @@ static const struct drm_driver i915_drm_driver =3D =
-{
->  =09    DRIVER_SYNCOBJ_TIMELINE,
->  =09.release =3D i915_driver_release,
->  =09.open =3D i915_driver_open,
-> -=09.lastclose =3D i915_driver_lastclose,
-> +=09.lastclose =3D intel_fbdev_restore_mode,
->  =09.postclose =3D i915_driver_postclose,
-> =20
->  =09.prime_handle_to_fd =3D drm_gem_prime_handle_to_fd,
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouv=
-eau/nouveau_drm.c
-> index 80f154b6adab..c3bd2a1d3d2e 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-> @@ -1230,7 +1230,6 @@ driver_stub =3D {
-> =20
->  =09.open =3D nouveau_drm_open,
->  =09.postclose =3D nouveau_drm_postclose,
-> -=09.lastclose =3D nouveau_vga_lastclose,
-> =20
->  #if defined(CONFIG_DEBUG_FS)
->  =09.debugfs_init =3D nouveau_drm_debugfs_init,
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_vga.c b/drivers/gpu/drm/nouv=
-eau/nouveau_vga.c
-> index 789393b94291..fc125e2247f7 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_vga.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_vga.c
-> @@ -126,10 +126,3 @@ nouveau_vga_fini(struct nouveau_drm *drm)
->  =09if (runtime && nouveau_is_v1_dsm() && !nouveau_is_optimus())
->  =09=09vga_switcheroo_fini_domain_pm_ops(drm->dev->dev);
->  }
-> -
-> -
-> -void
-> -nouveau_vga_lastclose(struct drm_device *dev)
-> -{
-> -=09vga_switcheroo_process_delayed_switch();
-> -}
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_vga.h b/drivers/gpu/drm/nouv=
-eau/nouveau_vga.h
-> index 951a83f984dd..63be415d2a44 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_vga.h
-> +++ b/drivers/gpu/drm/nouveau/nouveau_vga.h
-> @@ -4,6 +4,5 @@
-> =20
->  void nouveau_vga_init(struct nouveau_drm *);
->  void nouveau_vga_fini(struct nouveau_drm *);
-> -void nouveau_vga_lastclose(struct drm_device *dev);
-> =20
->  #endif
-> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon=
-/radeon_drv.c
-> index 6cbe1ab81aba..dbf85e1f0061 100644
-> --- a/drivers/gpu/drm/radeon/radeon_drv.c
-> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
-> @@ -597,7 +597,7 @@ static const struct drm_driver kms_driver =3D {
->  =09.load =3D radeon_driver_load_kms,
->  =09.open =3D radeon_driver_open_kms,
->  =09.postclose =3D radeon_driver_postclose_kms,
-> -=09.lastclose =3D radeon_driver_lastclose_kms,
-> +=09.lastclose =3D drm_fb_helper_lastclose,
->  =09.unload =3D radeon_driver_unload_kms,
->  =09.ioctls =3D radeon_ioctls_kms,
->  =09.num_ioctls =3D ARRAY_SIZE(radeon_ioctls_kms),
-> diff --git a/drivers/gpu/drm/radeon/radeon_drv.h b/drivers/gpu/drm/radeon=
-/radeon_drv.h
-> index ac7970919c4d..2ffe0975ee54 100644
-> --- a/drivers/gpu/drm/radeon/radeon_drv.h
-> +++ b/drivers/gpu/drm/radeon/radeon_drv.h
-> @@ -120,7 +120,6 @@ long radeon_drm_ioctl(struct file *filp,
-> =20
->  int radeon_driver_load_kms(struct drm_device *dev, unsigned long flags);
->  void radeon_driver_unload_kms(struct drm_device *dev);
-> -void radeon_driver_lastclose_kms(struct drm_device *dev);
->  int radeon_driver_open_kms(struct drm_device *dev, struct drm_file *file=
-_priv);
->  void radeon_driver_postclose_kms(struct drm_device *dev,
->  =09=09=09=09 struct drm_file *file_priv);
-> diff --git a/drivers/gpu/drm/radeon/radeon_kms.c b/drivers/gpu/drm/radeon=
-/radeon_kms.c
-> index 965161b8565b..e0214cf1b43b 100644
-> --- a/drivers/gpu/drm/radeon/radeon_kms.c
-> +++ b/drivers/gpu/drm/radeon/radeon_kms.c
-> @@ -32,7 +32,6 @@
->  #include <linux/uaccess.h>
->  #include <linux/vga_switcheroo.h>
-> =20
-> -#include <drm/drm_fb_helper.h>
->  #include <drm/drm_file.h>
->  #include <drm/drm_ioctl.h>
->  #include <drm/radeon_drm.h>
-> @@ -622,23 +621,6 @@ int radeon_info_ioctl(struct drm_device *dev, void *=
-data, struct drm_file *filp)
->  =09return 0;
->  }
-> =20
-> -
-> -/*
-> - * Outdated mess for old drm with Xorg being in charge (void function no=
-w).
-> - */
-> -/**
-> - * radeon_driver_lastclose_kms - drm callback for last close
-> - *
-> - * @dev: drm dev pointer
-> - *
-> - * Switch vga_switcheroo state after last close (all asics).
-> - */
-> -void radeon_driver_lastclose_kms(struct drm_device *dev)
-> -{
-> -=09drm_fb_helper_lastclose(dev);
-> -=09vga_switcheroo_process_delayed_switch();
-> -}
-> -
->  /**
->   * radeon_driver_open_kms - drm callback for open
->   *
-> diff --git a/drivers/gpu/vga/vga_switcheroo.c b/drivers/gpu/vga/vga_switc=
-heroo.c
-> index 365e6ddbe90f..6a198cb80c12 100644
-> --- a/drivers/gpu/vga/vga_switcheroo.c
-> +++ b/drivers/gpu/vga/vga_switcheroo.c
-> @@ -926,8 +926,8 @@ static void vga_switcheroo_debugfs_init(struct vgasr_=
-priv *priv)
->  /**
->   * vga_switcheroo_process_delayed_switch() - helper for delayed switchin=
-g
->   *
-> - * Process a delayed switch if one is pending. DRM drivers should call t=
-his
-> - * from their ->lastclose callback.
-> + * Process a delayed switch if one is pending. DRM automatically calls t=
-his
-> + * at the end of its lastclose function.
->   *
->   * Return: 0 on success. -EINVAL if no delayed switch is pending, if the=
- client
->   * has unregistered in the meantime or if there are other clients blocki=
-ng the
-
---=20
-Cheers,
- Lyude Paul (she/her)
- Software Engineer at Red Hat
-
+SGkgUGljY29saSwNCg0KSSBhZ3JlZSB3aXRoIEFsZXgncyBwb2ludCwgdXNpbmcgcmluZy0+c2No
+ZWQubmFtZSBmb3Igc3VjaCBjaGVjayBpcyBub3QgYSBnb29kIHdheS4gQlRXLCBjYW4geW91IHBs
+ZWFzZSBhdHRhY2ggYSBmdWxsIGRtZXNnIGxvbmcgaW4gYmFkIGNhc2UgdG8gaGVscCBtZSB1bmRl
+cnN0YW5kIG1vcmU/DQoNClJlZ2FyZHMsDQpHdWNodW4NCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdl
+LS0tLS0NCkZyb206IEFsZXggRGV1Y2hlciA8YWxleGRldWNoZXJAZ21haWwuY29tPiANClNlbnQ6
+IFR1ZXNkYXksIEphbnVhcnkgMzEsIDIwMjMgNjozMCBBTQ0KVG86IEd1aWxoZXJtZSBHLiBQaWNj
+b2xpIDxncGljY29saUBpZ2FsaWEuY29tPg0KQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnOyBrZXJuZWxAZ3BpY2NvbGkubmV0OyBDaGVuLCBHdWNodW4gPEd1Y2h1bi5DaGVuQGFtZC5j
+b20+OyBQYW4sIFhpbmh1aSA8WGluaHVpLlBhbkBhbWQuY29tPjsgZHJpLWRldmVsQGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZzsgVHVpa292LCBMdWJlbiA8THViZW4uVHVpa292QGFtZC5jb20+OyBMaW1v
+bmNpZWxsbywgTWFyaW8gPE1hcmlvLkxpbW9uY2llbGxvQGFtZC5jb20+OyBrZXJuZWwtZGV2QGln
+YWxpYS5jb207IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47
+IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+DQpTdWJqZWN0OiBS
+ZTogW1BBVENIXSBkcm0vYW1kZ3B1L2ZlbmNlOiBGaXggb29wcyBkdWUgdG8gbm9uLW1hdGNoaW5n
+IGRybV9zY2hlZCBpbml0L2ZpbmkNCg0KT24gTW9uLCBKYW4gMzAsIDIwMjMgYXQgNDo1MSBQTSBH
+dWlsaGVybWUgRy4gUGljY29saSA8Z3BpY2NvbGlAaWdhbGlhLmNvbT4gd3JvdGU6DQo+DQo+ICsg
+THViZW4NCj4NCj4gKHNvcnJ5LCBtaXNzZWQgdGhhdCBpbiB0aGUgZmlyc3Qgc3VibWlzc2lvbiku
+DQo+DQo+IE9uIDMwLzAxLzIwMjMgMTg6NDUsIEd1aWxoZXJtZSBHLiBQaWNjb2xpIHdyb3RlOg0K
+PiA+IEN1cnJlbnRseSBhbWRncHUgY2FsbHMgZHJtX3NjaGVkX2ZpbmkoKSBmcm9tIHRoZSBmZW5j
+ZSBkcml2ZXIgc3cgDQo+ID4gZmluaSByb3V0aW5lIC0gc3VjaCBmdW5jdGlvbiBpcyBleHBlY3Rl
+ZCB0byBiZSBjYWxsZWQgb25seSBhZnRlciB0aGUgDQo+ID4gcmVzcGVjdGl2ZSBpbml0IGZ1bmN0
+aW9uIC0gZHJtX3NjaGVkX2luaXQoKSAtIHdhcyBleGVjdXRlZCBzdWNjZXNzZnVsbHkuDQo+ID4N
+Cj4gPiBIYXBwZW5zIHRoYXQgd2UgZmFjZWQgYSBkcml2ZXIgcHJvYmUgZmFpbHVyZSBpbiB0aGUg
+U3RlYW0gRGVjayANCj4gPiByZWNlbnRseSwgYW5kIHRoZSBmdW5jdGlvbiBkcm1fc2NoZWRfZmlu
+aSgpIHdhcyBjYWxsZWQgZXZlbiB3aXRob3V0IA0KPiA+IGl0cyBjb3VudGVyLXBhcnQgaGFkIGJl
+ZW4gcHJldmlvdXNseSBjYWxsZWQsIGNhdXNpbmcgdGhlIGZvbGxvd2luZyBvb3BzOg0KPiA+DQo+
+ID4gYW1kZ3B1OiBwcm9iZSBvZiAwMDAwOjA0OjAwLjAgZmFpbGVkIHdpdGggZXJyb3IgLTExMA0K
+PiA+IEJVRzoga2VybmVsIE5VTEwgcG9pbnRlciBkZXJlZmVyZW5jZSwgYWRkcmVzczogMDAwMDAw
+MDAwMDAwMDA5MCBQR0QgDQo+ID4gMCBQNEQgMA0KPiA+IE9vcHM6IDAwMDIgWyMxXSBQUkVFTVBU
+IFNNUCBOT1BUSQ0KPiA+IENQVTogMCBQSUQ6IDYwOSBDb21tOiBzeXN0ZW1kLXVkZXZkIE5vdCB0
+YWludGVkIDYuMi4wLXJjMy1ncGljY29saSANCj4gPiAjMzM4IEhhcmR3YXJlIG5hbWU6IFZhbHZl
+IEp1cGl0ZXIvSnVwaXRlciwgQklPUyBGN0EwMTEzIDExLzA0LzIwMjINCj4gPiBSSVA6IDAwMTA6
+ZHJtX3NjaGVkX2ZpbmkrMHg4NC8weGEwIFtncHVfc2NoZWRdIFsuLi5dIENhbGwgVHJhY2U6DQo+
+ID4gIDxUQVNLPg0KPiA+ICBhbWRncHVfZmVuY2VfZHJpdmVyX3N3X2ZpbmkrMHhjOC8weGQwIFth
+bWRncHVdDQo+ID4gIGFtZGdwdV9kZXZpY2VfZmluaV9zdysweDJiLzB4M2IwIFthbWRncHVdDQo+
+ID4gIGFtZGdwdV9kcml2ZXJfcmVsZWFzZV9rbXMrMHgxNi8weDMwIFthbWRncHVdDQo+ID4gIGRl
+dm1fZHJtX2Rldl9pbml0X3JlbGVhc2UrMHg0OS8weDcwDQo+ID4gIFsuLi5dDQo+ID4NCj4gPiBU
+byBwcmV2ZW50IHRoYXQsIGNoZWNrIGlmIHRoZSBkcm1fc2NoZWQgd2FzIHByb3Blcmx5IGluaXRp
+YWxpemVkIGZvciANCj4gPiBhIGdpdmVuIHJpbmcgYmVmb3JlIGNhbGxpbmcgaXRzIGZpbmkgY291
+bnRlci1wYXJ0Lg0KPiA+DQo+ID4gTm90aWNlIGlkZWFsbHkgd2UnZCB1c2Ugc2NoZWQucmVhZHkg
+Zm9yIHRoYXQ7IHN1Y2ggZmllbGQgaXMgc2V0IGFzIA0KPiA+IHRoZSBsYXRlc3QgdGhpbmcgb24g
+ZHJtX3NjaGVkX2luaXQoKS4gQnV0IGFtZGdwdSBzZWVtcyB0byAib3ZlcnJpZGUiIA0KPiA+IHRo
+ZSBtZWFuaW5nIG9mIHN1Y2ggZmllbGQgLSBpbiB0aGUgYWJvdmUgb29wcyBmb3IgZXhhbXBsZSwg
+aXQgd2FzIGEgDQo+ID4gR0ZYIHJpbmcgY2F1c2luZyB0aGUgY3Jhc2gsIGFuZCB0aGUgc2NoZWQu
+cmVhZHkgZmllbGQgd2FzIHNldCB0byANCj4gPiB0cnVlIGluIHRoZSByaW5nIGluaXQgcm91dGlu
+ZSwgcmVnYXJkbGVzcyBvZiB0aGUgc3RhdGUgb2YgdGhlIERSTSBzY2hlZHVsZXIuIEhlbmNlLCB3
+ZSBlbmRlZC11cCB1c2luZyBhbm90aGVyIHNjaGVkIGZpZWxkLg0KPiA+PiA+IEZpeGVzOiAwNjdm
+NDRjOGI0NTkgKCJkcm0vYW1kZ3B1OiBhdm9pZCBvdmVyLWhhbmRsZSBvZiBmZW5jZSANCj4gPj4g
+PiBkcml2ZXIgZmluaSBpbiBzMyB0ZXN0ICh2MikiKQ0KPiA+IENjOiBBbmRyZXkgR3JvZHpvdnNr
+eSA8YW5kcmV5Lmdyb2R6b3Zza3lAYW1kLmNvbT4NCj4gPiBDYzogR3VjaHVuIENoZW4gPGd1Y2h1
+bi5jaGVuQGFtZC5jb20+DQo+ID4gQ2M6IE1hcmlvIExpbW9uY2llbGxvIDxtYXJpby5saW1vbmNp
+ZWxsb0BhbWQuY29tPg0KPiA+IFNpZ25lZC1vZmYtYnk6IEd1aWxoZXJtZSBHLiBQaWNjb2xpIDxn
+cGljY29saUBpZ2FsaWEuY29tPg0KPiA+IC0tLQ0KPiA+DQo+ID4NCj4gPiBIaSBmb2xrcywgZmly
+c3Qgb2YgYWxsIHRoYW5rcyBpbiBhZHZhbmNlIGZvciByZXZpZXdzIC8gY29tbWVudHMhDQo+ID4g
+Tm90aWNlIHRoYXQgSSd2ZSB1c2VkIHRoZSBGaXhlcyB0YWcgbW9yZSBpbiB0aGUgc2Vuc2UgdG8g
+YnJpbmcgaXQgdG8gDQo+ID4gc3RhYmxlLCBJIGRpZG4ndCBmaW5kIGEgZ29vZCBwYXRjaCBjYW5k
+aWRhdGUgdGhhdCBhZGRlZCB0aGUgY2FsbCB0byANCj4gPiBkcm1fc2NoZWRfZmluaSgpLCB3YXMg
+cmVhY2hpbmcgd2F5IHRvbyBvbGQgY29tbWl0cy4uLnNvDQo+ID4gMDY3ZjQ0YzhiNDU5IHNlZW1z
+IGEgZ29vZCBjYW5kaWRhdGUgLSBvciBtYXliZSBub3Q/DQo+ID4NCj4gPiBOb3csIHdpdGggcmVn
+YXJkcyBzY2hlZC5yZWFkeSwgc3BlbnQgYSBiaXQgb2YgdGltZSB0byBmaWd1cmUgd2hhdCANCj4g
+PiB3YXMgaGFwcGVuaW5nLi4ud291bGQgYmUgZmVhc2libGUgbWF5YmUgdG8gc3RvcCB1c2luZyB0
+aGF0IHRvIG1hcmsgDQo+ID4gc29tZSBraW5kIHJpbmcgc3RhdHVzPyBJIHRoaW5rIGl0IHNob3Vs
+ZCBiZSBwb3NzaWJsZSB0byBhZGQgYSBmbGFnIA0KPiA+IHRvIHRoZSByaW5nIHN0cnVjdHVyZSBm
+b3IgdGhhdCwgYW5kIGZyZWUgc2NoZWQucmVhZHkgZnJvbSBiZWluZyANCj4gPiBtYW5pcHVsYXRl
+IGJ5IHRoZSBhbWRncHUgZHJpdmVyLCB3aGF0J3MgeW91ciB0aG91Z2h0cyBvbiB0aGF0Pw0KDQpJ
+dCdzIGJlZW4gYSB3aGlsZSwgYnV0IElJUkMsIHdlIHVzZWQgdG8gaGF2ZSBhIHJpbmctPnJlYWR5
+IGZpZWxkIGluIHRoZSBkcml2ZXIgd2hpY2ggYXQgc29tZSBwb2ludCBnb3QgbWlncmF0ZWQgb3V0
+IG9mIHRoZSBkcml2ZXIgaW50byB0aGUgR1BVIHNjaGVkdWxlciBhbmQgdGhlIGRyaXZlciBzaWRl
+IGNvZGUgbmV2ZXIgZ290IGNsZWFuZWQgdXAuICBJIHRoaW5rIHdlIHNob3VsZCBwcm9iYWJseSBq
+dXN0IGRyb3AgdGhlIGRyaXZlciBtZXNzaW5nIHdpdGggdGhhdCBmaWVsZCBhbmQgbGVhdmUgaXQg
+dXAgdG8gdGhlIGRybSBzY2hlZHVsZXIuDQoNCkFsZXgNCg0KDQo+ID4NCj4gPiBJIGNvdWxkIHRy
+eSBteXNlbGYsIGJ1dCBmaXJzdCBvZiBjb3Vyc2UgSSdkIGxpa2UgdG8gcmFpc2UgdGhlIA0KPiA+
+ICJ0ZW1wZXJhdHVyZSIgb24gdGhpcyB0b3BpYyBhbmQgY2hlY2sgaWYgc29tZWJvZHkgaXMgYWxy
+ZWFkeSB3b3JraW5nIA0KPiA+IG9uIHRoYXQuDQo+ID4NCj4gPiBDaGVlcnMsDQo+ID4NCj4gPiBH
+dWlsaGVybWUNCj4gPg0KPiA+DQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9mZW5jZS5jIHwgOCArKysrKysrLQ0KPiA+ICAxIGZpbGUgY2hhbmdlZCwgNyBpbnNlcnRpb25z
+KCspLCAxIGRlbGV0aW9uKC0pDQo+ID4NCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMgDQo+ID4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZmVuY2UuYw0KPiA+IGluZGV4IDAwNDQ0MjAzMjIwZC4uZTE1NGViODI0MWZi
+IDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5j
+ZS5jDQo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMN
+Cj4gPiBAQCAtNjE4LDcgKzYxOCwxMyBAQCB2b2lkIGFtZGdwdV9mZW5jZV9kcml2ZXJfc3dfZmlu
+aShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4gPiAgICAgICAgICAgICAgIGlmICghcmlu
+ZyB8fCAhcmluZy0+ZmVuY2VfZHJ2LmluaXRpYWxpemVkKQ0KPiA+ICAgICAgICAgICAgICAgICAg
+ICAgICBjb250aW51ZTsNCj4gPg0KPiA+IC0gICAgICAgICAgICAgaWYgKCFyaW5nLT5ub19zY2hl
+ZHVsZXIpDQo+ID4gKyAgICAgICAgICAgICAvKg0KPiA+ICsgICAgICAgICAgICAgICogTm90aWNl
+IHdlIGNoZWNrIGZvciBzY2hlZC5uYW1lIHNpbmNlIHRoZXJlJ3Mgc29tZQ0KPiA+ICsgICAgICAg
+ICAgICAgICogb3ZlcnJpZGUgb24gdGhlIG1lYW5pbmcgb2Ygc2NoZWQucmVhZHkgYnkgYW1kZ3B1
+Lg0KPiA+ICsgICAgICAgICAgICAgICogVGhlIG5hdHVyYWwgY2hlY2sgd291bGQgYmUgc2NoZWQu
+cmVhZHksIHdoaWNoIGlzDQo+ID4gKyAgICAgICAgICAgICAgKiBzZXQgYXMgZHJtX3NjaGVkX2lu
+aXQoKSBmaW5pc2hlcy4uLg0KPiA+ICsgICAgICAgICAgICAgICovDQo+ID4gKyAgICAgICAgICAg
+ICBpZiAoIXJpbmctPm5vX3NjaGVkdWxlciAmJiByaW5nLT5zY2hlZC5uYW1lKQ0KPiA+ICAgICAg
+ICAgICAgICAgICAgICAgICBkcm1fc2NoZWRfZmluaSgmcmluZy0+c2NoZWQpOw0KPiA+DQo+ID4g
+ICAgICAgICAgICAgICBmb3IgKGogPSAwOyBqIDw9IHJpbmctPmZlbmNlX2Rydi5udW1fZmVuY2Vz
+X21hc2s7ICsraikNCg==
