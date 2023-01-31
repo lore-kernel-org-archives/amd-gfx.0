@@ -4,90 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E416DC636CC
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Jan 2023 18:13:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39BDEC636CC
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Jan 2023 18:44:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8712C10E377;
-	Tue, 31 Jan 2023 18:13:59 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2068.outbound.protection.outlook.com [40.107.244.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27FA810E377
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Jan 2023 18:13:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n0j3lw5+ZmqKHzth+n3prznAfIyLQbfmHJv999ydS2BWqsIVqptXuHZZcJGwRDdRmMXGmLYJsmuHrhtYZTc1tAbOuXZS4AUfkIs0ZizGzFG79FE8l85WngDAr1yKUG7XNsshzVksH1gma2PpthtG16HFJBaRcpI8RXyiNBsTq+Zbx4q2gyppun4Gsv96Bu52yNNPjmYC8zDvTesV4f3aK/rBkW2vUXFnpQMwhnVbjfSOm8Z5jxWeNLupb0GByHpIBQf8sRWhml4FEq7AZevu9b5lhge8QtGi+/DehbQELfrmTa1z9ijcRa4DJyPTfpNUNYg6+t655XAEmonnylT7Nw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TBKfmY80pBe/ycQL+saIXQItSw4A/TpI0X7UMQEfJyU=;
- b=W0/Ir0YU7F6IhUMOZ0j2o/w+SELNh8f4XA0kMiAPqW7Zrk6arvBgU0M1zA06KCAI7tVRlM3RHIdCzFme+Do67bZ/EUMbkBTuM/M2CZSmNwvD552cyG6Bdskewm7WY4Z1RCL8fyql3fi1UYFtwnf/SsuWjZqqoBgZOc2RiAFA+Ufye0E5+CAfYboLh37Y/8IKQEdUfNhsWkFpcqAtbM/rb7U1Ui1j5WgYdeLWjXqCKpCjT198kqW+Lzj0PU/fRQ+6Yjjx+RqbrEaoPCHODzZi1mod3RFqw4Tmw6xh8bW8cq53GvCnXj1UBi0UaMQXdr03/XZHx+2ekF9oxLg0l63O8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TBKfmY80pBe/ycQL+saIXQItSw4A/TpI0X7UMQEfJyU=;
- b=UxiiYjIIPGZCait+q7N47L9VgA0Q+Gu3GGSM8ZtSfNeHKPIp0HVMuvsQbIAYM6Id2jnLQm7QwFlmZpE23mHiglcmrmXaUitVzXosW3dRKtrht/nzjl4l6q4Wqv3Hipf0GldrWRwB0pVJchohdO958m+DxlaoWCDez1XBuGZtkn4=
-Received: from MW4PR04CA0364.namprd04.prod.outlook.com (2603:10b6:303:81::9)
- by SA3PR12MB7832.namprd12.prod.outlook.com (2603:10b6:806:31f::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.38; Tue, 31 Jan
- 2023 18:13:53 +0000
-Received: from CO1NAM11FT089.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:81:cafe::18) by MW4PR04CA0364.outlook.office365.com
- (2603:10b6:303:81::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.38 via Frontend
- Transport; Tue, 31 Jan 2023 18:13:53 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT089.mail.protection.outlook.com (10.13.175.179) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6043.23 via Frontend Transport; Tue, 31 Jan 2023 18:13:52 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 31 Jan
- 2023 12:13:50 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 5/5] Revert "drm/amd/display: disable S/G display on DCN 3.1.4"
-Date: Tue, 31 Jan 2023 13:13:26 -0500
-Message-ID: <20230131181326.3507396-5-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230131181326.3507396-1-alexander.deucher@amd.com>
-References: <20230131181326.3507396-1-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D43FF10E04C;
+	Tue, 31 Jan 2023 18:44:56 +0000 (UTC)
+Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
+ [IPv6:2001:4860:4864:20::31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CB6310E04C;
+ Tue, 31 Jan 2023 18:44:55 +0000 (UTC)
+Received: by mail-oa1-x31.google.com with SMTP id
+ 586e51a60fabf-163ba2b7c38so8737087fac.4; 
+ Tue, 31 Jan 2023 10:44:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=iv1Igjerq6NXEZLA2i08sz9J8DRiao6paFj75uy5Ivg=;
+ b=nXNS0qByg621bOH1SiyZOEyXqYqIdi5MuV7jNd0OizbaQvE8QbkteAW/U8F2h/bbHG
+ 4eMa/kY5Coam/8Ba9jBPB5RVcDE8YijngSMgRSjtPvl6hUPIKElNCyqRBSxJQULJH9cC
+ vSsC0QchGvAB7/bytdN0y+BduSPFiuDNpdYvpKj5wHyVcQOdROvKH/Lu6Q/fCja+rEh4
+ jBXptht5e7xWxA/6CiLIC1dO/YU3koodi3nMM13CrBj6s9rKN5u31jdxxJmWk9nTNzwf
+ sa2XFkfSyD/5H0GAQuYVKpE7FKQoTJz980HcaO6cwhn4eaTRbLFQCEkB0IqnIwPw4hlT
+ hRtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=iv1Igjerq6NXEZLA2i08sz9J8DRiao6paFj75uy5Ivg=;
+ b=aFNVZvBh5bK7PLTl/LXXKVNf+qYRgIHt0rbU9ZK0c7wjVAyMVwnXLJpA0+6Kl9mWQj
+ RlsjWl7zqPCb/LXfPSUBuKQl1jZ0EhWbPICP47Z5dGfp7CtO0M/BLACYF+MJozh0dSxf
+ z3LqJjoQ9jRGUgJY8jHMzb/sNLp55RLjxtohHVpnKjGdR16ZfxfV1iBtt39t5ZsWD4zy
+ byU8Sauc67MPGT/naG8aj3GEyHJ1BQ4l6qj6n7mlPD/JMibX786SdazZuJpwomth9Bfg
+ Ef3j9JxrGrCkoXeaeXip9TL/GttJI1OF+g0r8AyFGY1PG133D3Mn15rMsXsLzZmgqiqt
+ I8GA==
+X-Gm-Message-State: AO0yUKV/LHDALDof0qmergUe9r4f0ijWi1NnfCF1EYuruBKPathcJ0WM
+ c9NNKdh/lbhvaVmhhlsa87pG2EwI6NwIZdGVOTU=
+X-Google-Smtp-Source: AK7set+b0GS9OkNpYOemUv+yehiU9m0eLVzhJDa0AXvtAgYIfg5j1nUCRHpxSWEbX0PE/0b/t8jZPILSQG4MmDlPbys=
+X-Received: by 2002:a05:6870:b522:b0:163:8cc6:86a with SMTP id
+ v34-20020a056870b52200b001638cc6086amr1654513oap.46.1675190694268; Tue, 31
+ Jan 2023 10:44:54 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT089:EE_|SA3PR12MB7832:EE_
-X-MS-Office365-Filtering-Correlation-Id: e9f13895-6891-45a3-14a5-08db03b6e8df
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OPEz4Kr86+O1z7rLq/NsD4SBQg7YTw1LN6zE5/3LL9MC9PsMDmedt5gX0dwBJ34Gqaii/cGMvS3dTcepgofIlQSFIwD8EQJhiUX0IC0xEu2iigk5ZWxN0K3sfc+i0zVANLJ8N6pUiY2zy6WFQbVyyFP/pJ4k/bY6dZyqmm37MARc+XWBzbHfidAhqfGvaoGmUlxt+s6IY5mVAF8vhtjHgEwOeQrqkXrcCcJ1cn2vzVTSw9BB7dZZqtDaNoHfGwZJ/E6JqcABuUShD4UJ9ipI7aZCKVK+UiCPBpLT9dhzaR3U7bJMlxwc32yD2TdrSHAk2Aldz2rJ9HfcBKzCP0aKxe2Cpy7419FiserCsMfecVoLfR4Q8CsNlO9q96QNewQGIcyLDsPnBC3gd5cOrAbP+QMcEqB1Zi4atLMdDuYIYQ8LIdeF/Ctp93yf5hdIhTJTF1M5pd45v2+GQWsT2ujYIZxgEDWkU4jS6xhySVJTpY3286eJX/8WZkeevHSwt6yDk/oxZwsCdqolq74ry+xgZNgq3WrmTCClaq7ux/6saTGDsBHa0nS08ujDvRKDYwG/jeTHKn65iDtJsfUEsWim1wiPfHqFhRHNED6yPF3E/+NOKl14OxZswV+CvKEsBNM9OWXzXEdibKtUHLKz2/dT0VyZtTRtK/ar+bAvAA7bvKH2wkpDU0i95PW31PgRWW7Q7F94ruQa10EZ20fa7gnaBPeYTXQRaY9sJbwYL8OEbIk=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(346002)(136003)(376002)(39860400002)(451199018)(40470700004)(46966006)(36840700001)(36756003)(86362001)(40460700003)(70206006)(47076005)(82310400005)(426003)(336012)(41300700001)(6666004)(478600001)(1076003)(316002)(26005)(5660300002)(7696005)(2616005)(186003)(16526019)(8936002)(81166007)(4326008)(40480700001)(356005)(70586007)(6916009)(36860700001)(4744005)(8676002)(82740400003)(2906002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2023 18:13:52.6734 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9f13895-6891-45a3-14a5-08db03b6e8df
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT089.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7832
+References: <20230130214504.1305042-1-gpiccoli@igalia.com>
+ <ac604d40-ef87-7147-b1ee-3620e68b3268@igalia.com>
+ <CADnq5_NEyGNXpo3mZ=WR5Me8b9r24aq0MmMZ6GsvBRoBmNVGGQ@mail.gmail.com>
+ <DM5PR12MB24693E815CAB63FE2DE06E4CF1D09@DM5PR12MB2469.namprd12.prod.outlook.com>
+ <DM5PR12MB24696F955FF95A7AB00E1956F1D09@DM5PR12MB2469.namprd12.prod.outlook.com>
+ <984ee981-2906-0eaf-ccec-9f80975cb136@amd.com>
+ <DM5PR12MB246930987580ACA15EA44C2BF1D09@DM5PR12MB2469.namprd12.prod.outlook.com>
+ <6a5bea62-b711-6f2e-b366-a1083bc7327f@igalia.com>
+ <CADnq5_OdBJiDa9Y2s6orJu7Ez0Lkx37xceHhfDCDnKNKdvpT7g@mail.gmail.com>
+ <94f48675-54be-6d88-8940-86c90ebf1e1c@igalia.com>
+In-Reply-To: <94f48675-54be-6d88-8940-86c90ebf1e1c@igalia.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 31 Jan 2023 13:44:42 -0500
+Message-ID: <CADnq5_NsUzN5eBaxhobgJS3FBZfuJ7o-prS2ZeDvfbahUWiy4g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/fence: Fix oops due to non-matching drm_sched
+ init/fini
+To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,32 +74,74 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "kernel@gpiccoli.net" <kernel@gpiccoli.net>, "Chen,
+ Guchun" <Guchun.Chen@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Tuikov,
+ Luben" <Luben.Tuikov@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "kernel-dev@igalia.com" <kernel-dev@igalia.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, "Limonciello,
+ Mario" <Mario.Limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit 9aa15370819294beb7eb67c9dcbf654d79ff8790.
+On Tue, Jan 31, 2023 at 1:23 PM Guilherme G. Piccoli
+<gpiccoli@igalia.com> wrote:
+>
+> On 31/01/2023 14:52, Alex Deucher wrote:
+> > [...]
+> >> (b) We can't use sched.ready, which would make sense...but amdgpu
+> >> overrides its meaning, the driver manipulates this value for its own
+> >> purposes of tracking ring init, or something like that.
+> >>
+> >> This is the tangential topic: what should we do here? My understanding
+> >> of Alex's message is that we could have a "ready" field in the ring
+> >> structure and stop messing with sched.ready - does it make sense Alex?
+> >
+> > Yes, I think so.  The tricky part will be figuring out which current
+> > sched.ready checks are checking for the scheduler being ready vs.
+> > whether the ring itself is ready.
+> >
+>
+> Thanks, makes sense!
+>
+> $ grep -nr "sched.ready" drivers/gpu/drm/amd/ | wc -l
+> 83
+>
+> Maybe not super tough, I hope heh
+>
+> >>
+> >> Guchun / Christian, does it also make sense for you?
+> >>
+> >>
+> >> Regarding (a), I could re-submit having s/sched.name/sched.ops, no
+> >> biggies, I tested both to be fair, before sending...I just chose name
+> >> but any field that is proper initialized on drm_sched_init() would work.
+> >
+> > Yeah, I think ops is fine.  You could even use sched.ready after we
+> > clean up the use of that in the driver.  There are already a bunch of
+> > places where we check sched.ready to check if the scheduler really is
+> > ready.
+>
+> Hmm..unfortunately, doesn't work. This was a case in which sched.ready
+> was set to true in the ring init routine, but scheduler wasn't properly
+> initialized. So, a different key for comparison is required..I'll
+> re-submit with sched.ops.
+>
+> After a potential rework of the driver to get rid of sched.ready
+> manipulation, then it could be fixed to properly use this flag...makes
+> sense to you?
 
-This is fixed now so we can re-enable S/G display on DCN
-3.1.4.
+Yeah, sounds good.
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
- 1 file changed, 1 insertion(+)
+Thanks!
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 1f5b9c485dda..3f3b24a22567 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1549,6 +1549,7 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
- 				init_data.flags.gpu_vm_support = true;
- 			break;
- 		case IP_VERSION(3, 0, 1):
-+		case IP_VERSION(3, 1, 4):
- 		case IP_VERSION(3, 1, 6):
- 			init_data.flags.gpu_vm_support = true;
- 			break;
--- 
-2.39.1
+Alex
 
+>
+> Tnx again for the prompt review!
+> Cheers,
+>
+>
+> Guilherme
