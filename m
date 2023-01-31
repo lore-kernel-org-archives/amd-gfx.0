@@ -4,47 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39BDEC636CC
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Jan 2023 18:44:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E4F5C636CC
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Jan 2023 18:45:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D43FF10E04C;
-	Tue, 31 Jan 2023 18:44:56 +0000 (UTC)
-Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
- [IPv6:2001:4860:4864:20::31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CB6310E04C;
- Tue, 31 Jan 2023 18:44:55 +0000 (UTC)
-Received: by mail-oa1-x31.google.com with SMTP id
- 586e51a60fabf-163ba2b7c38so8737087fac.4; 
- Tue, 31 Jan 2023 10:44:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=iv1Igjerq6NXEZLA2i08sz9J8DRiao6paFj75uy5Ivg=;
- b=nXNS0qByg621bOH1SiyZOEyXqYqIdi5MuV7jNd0OizbaQvE8QbkteAW/U8F2h/bbHG
- 4eMa/kY5Coam/8Ba9jBPB5RVcDE8YijngSMgRSjtPvl6hUPIKElNCyqRBSxJQULJH9cC
- vSsC0QchGvAB7/bytdN0y+BduSPFiuDNpdYvpKj5wHyVcQOdROvKH/Lu6Q/fCja+rEh4
- jBXptht5e7xWxA/6CiLIC1dO/YU3koodi3nMM13CrBj6s9rKN5u31jdxxJmWk9nTNzwf
- sa2XFkfSyD/5H0GAQuYVKpE7FKQoTJz980HcaO6cwhn4eaTRbLFQCEkB0IqnIwPw4hlT
- hRtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=iv1Igjerq6NXEZLA2i08sz9J8DRiao6paFj75uy5Ivg=;
- b=aFNVZvBh5bK7PLTl/LXXKVNf+qYRgIHt0rbU9ZK0c7wjVAyMVwnXLJpA0+6Kl9mWQj
- RlsjWl7zqPCb/LXfPSUBuKQl1jZ0EhWbPICP47Z5dGfp7CtO0M/BLACYF+MJozh0dSxf
- z3LqJjoQ9jRGUgJY8jHMzb/sNLp55RLjxtohHVpnKjGdR16ZfxfV1iBtt39t5ZsWD4zy
- byU8Sauc67MPGT/naG8aj3GEyHJ1BQ4l6qj6n7mlPD/JMibX786SdazZuJpwomth9Bfg
- Ef3j9JxrGrCkoXeaeXip9TL/GttJI1OF+g0r8AyFGY1PG133D3Mn15rMsXsLzZmgqiqt
- I8GA==
-X-Gm-Message-State: AO0yUKV/LHDALDof0qmergUe9r4f0ijWi1NnfCF1EYuruBKPathcJ0WM
- c9NNKdh/lbhvaVmhhlsa87pG2EwI6NwIZdGVOTU=
-X-Google-Smtp-Source: AK7set+b0GS9OkNpYOemUv+yehiU9m0eLVzhJDa0AXvtAgYIfg5j1nUCRHpxSWEbX0PE/0b/t8jZPILSQG4MmDlPbys=
-X-Received: by 2002:a05:6870:b522:b0:163:8cc6:86a with SMTP id
- v34-20020a056870b52200b001638cc6086amr1654513oap.46.1675190694268; Tue, 31
- Jan 2023 10:44:54 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2EBE10E380;
+	Tue, 31 Jan 2023 18:44:58 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE72410E37A;
+ Tue, 31 Jan 2023 18:23:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=l/rgvxGWnSIZxhDHA+PyLokEZEN7lUSjVRJmpoECKkU=; b=lUSTTmdbQWoWZwzGj1mvEpNaQt
+ XhFhBiRXyEuUqewMvBHAeBS8OdSrxwb9VMj5UsRUI6QEsPj7W4MstfFRVQO6UqJ786jOslJmdLPZl
+ jd7bqP43hfyaYpOhdQpXuF6+wrYFXfHFoRGSSckgzg9KdQ7/XNaGFAs1leyj4ir2ONE1Z7BglO5CG
+ 8lEs2dZesj9oi0cGEF7cH+fmXUBNKUjFN/MRg+3Wcicwgo7tfQSzjtM6xWhsRlQ/ARludP+rkijGZ
+ p+snt7g9VyQ3Ml3rLah+kd7jqCnMuMeL5ZJWUOwyZoYE9HIO99kA7seWb4xV3n3c5KsVZRog2e6M2
+ q3rWg/kA==;
+Received: from [187.10.60.187] (helo=[192.168.1.60])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1pMvHm-005h7w-E1; Tue, 31 Jan 2023 19:23:18 +0100
+Message-ID: <94f48675-54be-6d88-8940-86c90ebf1e1c@igalia.com>
+Date: Tue, 31 Jan 2023 15:22:51 -0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH] drm/amdgpu/fence: Fix oops due to non-matching drm_sched
+ init/fini
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>
 References: <20230130214504.1305042-1-gpiccoli@igalia.com>
  <ac604d40-ef87-7147-b1ee-3620e68b3268@igalia.com>
  <CADnq5_NEyGNXpo3mZ=WR5Me8b9r24aq0MmMZ6GsvBRoBmNVGGQ@mail.gmail.com>
@@ -54,15 +47,11 @@ References: <20230130214504.1305042-1-gpiccoli@igalia.com>
  <DM5PR12MB246930987580ACA15EA44C2BF1D09@DM5PR12MB2469.namprd12.prod.outlook.com>
  <6a5bea62-b711-6f2e-b366-a1083bc7327f@igalia.com>
  <CADnq5_OdBJiDa9Y2s6orJu7Ez0Lkx37xceHhfDCDnKNKdvpT7g@mail.gmail.com>
- <94f48675-54be-6d88-8940-86c90ebf1e1c@igalia.com>
-In-Reply-To: <94f48675-54be-6d88-8940-86c90ebf1e1c@igalia.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 31 Jan 2023 13:44:42 -0500
-Message-ID: <CADnq5_NsUzN5eBaxhobgJS3FBZfuJ7o-prS2ZeDvfbahUWiy4g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/fence: Fix oops due to non-matching drm_sched
- init/fini
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
+From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+In-Reply-To: <CADnq5_OdBJiDa9Y2s6orJu7Ez0Lkx37xceHhfDCDnKNKdvpT7g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Tue, 31 Jan 2023 18:44:57 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,62 +75,52 @@ Cc: "kernel@gpiccoli.net" <kernel@gpiccoli.net>, "Chen,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jan 31, 2023 at 1:23 PM Guilherme G. Piccoli
-<gpiccoli@igalia.com> wrote:
->
-> On 31/01/2023 14:52, Alex Deucher wrote:
-> > [...]
-> >> (b) We can't use sched.ready, which would make sense...but amdgpu
-> >> overrides its meaning, the driver manipulates this value for its own
-> >> purposes of tracking ring init, or something like that.
-> >>
-> >> This is the tangential topic: what should we do here? My understanding
-> >> of Alex's message is that we could have a "ready" field in the ring
-> >> structure and stop messing with sched.ready - does it make sense Alex?
-> >
-> > Yes, I think so.  The tricky part will be figuring out which current
-> > sched.ready checks are checking for the scheduler being ready vs.
-> > whether the ring itself is ready.
-> >
->
-> Thanks, makes sense!
->
-> $ grep -nr "sched.ready" drivers/gpu/drm/amd/ | wc -l
-> 83
->
-> Maybe not super tough, I hope heh
->
-> >>
-> >> Guchun / Christian, does it also make sense for you?
-> >>
-> >>
-> >> Regarding (a), I could re-submit having s/sched.name/sched.ops, no
-> >> biggies, I tested both to be fair, before sending...I just chose name
-> >> but any field that is proper initialized on drm_sched_init() would work.
-> >
-> > Yeah, I think ops is fine.  You could even use sched.ready after we
-> > clean up the use of that in the driver.  There are already a bunch of
-> > places where we check sched.ready to check if the scheduler really is
-> > ready.
->
-> Hmm..unfortunately, doesn't work. This was a case in which sched.ready
-> was set to true in the ring init routine, but scheduler wasn't properly
-> initialized. So, a different key for comparison is required..I'll
-> re-submit with sched.ops.
->
-> After a potential rework of the driver to get rid of sched.ready
-> manipulation, then it could be fixed to properly use this flag...makes
-> sense to you?
+On 31/01/2023 14:52, Alex Deucher wrote:
+> [...]
+>> (b) We can't use sched.ready, which would make sense...but amdgpu
+>> overrides its meaning, the driver manipulates this value for its own
+>> purposes of tracking ring init, or something like that.
+>>
+>> This is the tangential topic: what should we do here? My understanding
+>> of Alex's message is that we could have a "ready" field in the ring
+>> structure and stop messing with sched.ready - does it make sense Alex?
+> 
+> Yes, I think so.  The tricky part will be figuring out which current
+> sched.ready checks are checking for the scheduler being ready vs.
+> whether the ring itself is ready.
+> 
 
-Yeah, sounds good.
+Thanks, makes sense!
 
-Thanks!
+$ grep -nr "sched.ready" drivers/gpu/drm/amd/ | wc -l
+83
 
-Alex
+Maybe not super tough, I hope heh
 
->
-> Tnx again for the prompt review!
-> Cheers,
->
->
-> Guilherme
+>>
+>> Guchun / Christian, does it also make sense for you?
+>>
+>>
+>> Regarding (a), I could re-submit having s/sched.name/sched.ops, no
+>> biggies, I tested both to be fair, before sending...I just chose name
+>> but any field that is proper initialized on drm_sched_init() would work.
+> 
+> Yeah, I think ops is fine.  You could even use sched.ready after we
+> clean up the use of that in the driver.  There are already a bunch of
+> places where we check sched.ready to check if the scheduler really is
+> ready.
+
+Hmm..unfortunately, doesn't work. This was a case in which sched.ready
+was set to true in the ring init routine, but scheduler wasn't properly
+initialized. So, a different key for comparison is required..I'll
+re-submit with sched.ops.
+
+After a potential rework of the driver to get rid of sched.ready
+manipulation, then it could be fixed to properly use this flag...makes
+sense to you?
+
+Tnx again for the prompt review!
+Cheers,
+
+
+Guilherme
