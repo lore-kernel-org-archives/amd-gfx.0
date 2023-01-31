@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AD3EC636CC
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Jan 2023 17:22:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3802C38142
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Jan 2023 17:26:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8327A10E2A3;
-	Tue, 31 Jan 2023 17:22:33 +0000 (UTC)
-Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
- [IPv6:2001:4860:4864:20::31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D06810E158;
- Tue, 31 Jan 2023 17:22:31 +0000 (UTC)
-Received: by mail-oa1-x31.google.com with SMTP id
- 586e51a60fabf-15085b8a2f7so20252395fac.2; 
- Tue, 31 Jan 2023 09:22:31 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 151EF10E2A4;
+	Tue, 31 Jan 2023 17:26:14 +0000 (UTC)
+Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
+ [IPv6:2001:4860:4864:20::36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79C4210E2A2;
+ Tue, 31 Jan 2023 17:26:12 +0000 (UTC)
+Received: by mail-oa1-x36.google.com with SMTP id
+ 586e51a60fabf-15f97c478a8so20208960fac.13; 
+ Tue, 31 Jan 2023 09:26:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=jJ4ivKCSSjC/nsEprnt+8Zq1TU7NBjHqzheuppe5Hlc=;
- b=aubPHj9Bqdk7dreN5BitMQndcJvpdoL/53VtmiC4laWRWmkd1Yb7Bnxfw+uMEMJhJh
- 9ADBdMjJKGhCV6HuPnQID9W4steAnGR8UVEq6U7ewy3gSnAvSAeUWACXvwI4oV2rJ5to
- S5sxFbTMLLw2ASIQDFRgwEi3pS1QZA0z9+yjp7KNZNURvy4lJGBxChLjLYRbl2StshA9
- tnVZplvBEGTSjJ7DglZc+sOkeAcwkMlULANmxMZzWjlWRdtW68WHxGcaQ2TCErxxwonX
- AE5m1o71AkIr47TRynvJ7W7KU91zvit13a6YYwB6L92aBzYyBu9arVX1mn8+MtjYtq4e
- qEKA==
+ bh=19XlM6vQlrRG/tAO+RG0hvy7NP8GgPSV7Vc5xXhEV9g=;
+ b=WlVQJ/K8loZAXH45yqntKGX0H/5aW1suoUWAzz33YUNuwsZRRwllZNwYXs2QZshQ3f
+ AZQTD+yNnnWgH2VnsR1nMYh4UnNKBDNHu5sfN8lw5xb4W0uZzfRPki+cLEReYAxEgXc+
+ UsG0Q0TrdKq/9I33XqT0p5mp9rtjHY0Ky4dO6pN/2GT2xoDKmqwJnmj5kj7OWaYVbAP1
+ PTmOjlJ9O2NsIBv1JGDzMYZvY5oPACEEjHg89q+EKGn1ju4I5AdcmQQWJdGBA4h7gpcs
+ ky0B4uIyDjbujarXub9m8nlSck+AFK13sgE798asnD8nnfDYl9kHYvq2StJHNVAxAFVQ
+ 3SqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=jJ4ivKCSSjC/nsEprnt+8Zq1TU7NBjHqzheuppe5Hlc=;
- b=LUGfykCyK1zPQfMRtzY8g8BH7IKUC6n3UWA8llledOaz+CrsvxRqY+AAT611+WgPgZ
- AwS8w/cOMZFPJzPziptOBcs+u85b2SvuwcYf5r3TNpHB9o/2bI2Kl3q55Fd2DydM7m4x
- BufUN1ihX3DH5NPICDABHU+nVa8z+kdsWTN5o7UpoX2b82CmpFejaqA6Fz6WDsilaZJ9
- LhHiGu7CI83iOqQe6/wf/MZppNCip4zmtTDLG885v6aVBIL1dP3ZUtZ4omrZrFfF/3L+
- 7yznXBcuv8byaxayQ3zwBH/pyS1ceQ0gm90j/qIrTXaOg5Klaxv9AxpAjUbIrfEYzrnd
- TxSw==
-X-Gm-Message-State: AO0yUKU2JIRWPHBR6H9bcgFYFUsrcpYHWUz7VnJ5YbRwEVQP4ZRYJqm7
- BMh6FbmHfT4gfAR5OJLKwM6iBlLIwXXzlz9t/pQquLVk
-X-Google-Smtp-Source: AK7set/L5JhayGONTYLQxHrTfP9o0V2pHohgI/C0z5ya1GYvsguIk4c3xqh5rQSPnSuia4QPomH3wrYxML1a5IHYTQo=
-X-Received: by 2002:a05:6870:b522:b0:163:8cc6:86a with SMTP id
- v34-20020a056870b52200b001638cc6086amr1618651oap.46.1675185750411; Tue, 31
- Jan 2023 09:22:30 -0800 (PST)
+ bh=19XlM6vQlrRG/tAO+RG0hvy7NP8GgPSV7Vc5xXhEV9g=;
+ b=oGtrudCU4Cz3AKXdf4YTgqfkhHlyQIhidQ5S6EHznCL701Fmmlq9GYkdhI1ped57Av
+ SMC068MiND6DHs+3jA+xll751ADGcbPVQSI8PPlDNfmVyP/kjs7YNTA1kaE4cBYDkyjn
+ rMTrjpCHPQGX0TSCz739vVpNxekd70hqltX/IDf3QLPiHh5iKRMwrGgIz1UN4pUZcrNz
+ esQmu74tJj+aJsBk9tTsK6+nrdWJDXYBj5V+LkPoRGgGtqpggHfblER6eJiNePq4jHyI
+ RVF0MmuA6CwADV+uCt1LlksADqsAYZhbs5OqccxcQPacFtDvMctsxghrgP68FcZCYLi9
+ zO6w==
+X-Gm-Message-State: AO0yUKUEDEVWz6CoOAl/sVuZfBYo91X8kpG6uqjg6WChh1clWQX9Ldut
+ ajsT1DotxwY/Elxga5U0DslqWh/CiOs0HarHv1U=
+X-Google-Smtp-Source: AK7set8JFgznhBzrsVyvK5RG+2JrP4SehOv2Igw4EY1huJelCOaC//bda/AzEdvN+H9EmpQxjFRWouMcU/OE3UXHAhY=
+X-Received: by 2002:a05:6870:580e:b0:163:a303:fe2f with SMTP id
+ r14-20020a056870580e00b00163a303fe2fmr967125oap.96.1675185971638; Tue, 31 Jan
+ 2023 09:26:11 -0800 (PST)
 MIME-Version: 1.0
-References: <20230126204935.819030-1-trix@redhat.com>
-In-Reply-To: <20230126204935.819030-1-trix@redhat.com>
+References: <20230130195607.1297694-1-gpiccoli@igalia.com>
+ <ffbb892d-e374-d706-ebb6-f8367f300c7b@amd.com>
+In-Reply-To: <ffbb892d-e374-d706-ebb6-f8367f300c7b@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 31 Jan 2023 12:22:18 -0500
-Message-ID: <CADnq5_NKPO3gEST2oqp9bB77y2iFHtvnNzKnnT8dSVTAEzY=bw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: reduce else-if to else in
- dcn32_calculate_dlg_params()
-To: Tom Rix <trix@redhat.com>
+Date: Tue, 31 Jan 2023 12:25:59 -0500
+Message-ID: <CADnq5_N+dSp19FQcYn0ZXfo2CgMmZM+YFMNd-+74jEZskRLdaA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Trivial swizzle-related code clean-ups
+To: Harry Wentland <harry.wentland@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,13 +65,15 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dillon.Varone@amd.com, rdunlap@infradead.org, amd-gfx@lists.freedesktop.org,
- sunpeng.li@amd.com, airlied@gmail.com, Xinhui.Pan@amd.com,
- Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Nevenko.Stupar@amd.com, Alvin.Lee2@amd.com,
- daniel@ffwll.ch, george.shen@amd.com, alexander.deucher@amd.com,
- David.Galiffi@amd.com, jun.lei@amd.com, harry.wentland@amd.com,
- christian.koenig@amd.com
+Cc: Xinhui.Pan@amd.com, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Swapnil Patel <Swapnil.Patel@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ kernel@gpiccoli.net, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>, amd-gfx@lists.freedesktop.org,
+ Melissa Wen <mwen@igalia.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Mark Broadworth <mark.broadworth@amd.com>,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com,
+ Sung Joon Kim <Sungjoon.Kim@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
@@ -79,40 +81,96 @@ Applied.  Thanks!
 
 Alex
 
-On Thu, Jan 26, 2023 at 3:50 PM Tom Rix <trix@redhat.com> wrote:
+On Tue, Jan 31, 2023 at 9:40 AM Harry Wentland <harry.wentland@amd.com> wrote:
 >
-> cppcheck reports
-> drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c:1403:76: style:
->   Expression is always true because 'else if' condition is opposite to previous condition at line 1396. [multiCondition]
->    } else if (context->res_ctx.pipe_ctx[i].stream->mall_stream_config.type == SUBVP_PHANTOM) {
->                                                                            ^
-> drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c:1396:69: note: first condition
->    if (context->res_ctx.pipe_ctx[i].stream->mall_stream_config.type != SUBVP_PHANTOM) {
->                                                                     ^
-> drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c:1403:76: note: else if condition is opposite to first condition
->    } else if (context->res_ctx.pipe_ctx[i].stream->mall_stream_config.type == SUBVP_PHANTOM) {
+> On 1/30/23 14:56, Guilherme G. Piccoli wrote:
+> > This is a very trivial code clean-up related to commit 5468c36d6285
+> > ("drm/amd/display: Filter Invalid 420 Modes for HDMI TMDS"). This commit
+> > added a validation on driver probe to prevent invalid TMDS modes, but one
+> > of the fake properties (swizzle) ended-up causing a warning on driver
+> > probe; was reported here: https://gitlab.freedesktop.org/drm/amd/-/issues/2264.
+> >
+> > It was fixed by commit 105a8b8698e2 ("drm/amd/display: patch cases with
+> > unknown plane state to prevent warning"), but the validation code had
+> > a double variable assignment, which we hereby remove. Also, the fix relies
+> > in the dcn2{0,1}patch_unknown_plane_state() callbacks, so while at it we
+> > took the opportunity to perform a small code clean-up in such routines.
+> >
+> > Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> > Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+> > Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
+> > Cc: Harry Wentland <harry.wentland@amd.com>
+> > Cc: Leo Li <sunpeng.li@amd.com>
+> > Cc: Mark Broadworth <mark.broadworth@amd.com>
+> > Cc: Melissa Wen <mwen@igalia.com>
+> > Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> > Cc: Sung Joon Kim <Sungjoon.Kim@amd.com>
+> > Cc: Swapnil Patel <Swapnil.Patel@amd.com>
+> > Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
 >
-> It is not necessary to explicitly the check != condition, an else is simplier.
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 >
-> Fixes: 238debcaebe4 ("drm/amd/display: Use DML for MALL SS and Subvp allocation calculations")
-> Signed-off-by: Tom Rix <trix@redhat.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Harry
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-> index 0dc1a03999b6..c96cbd88e20d 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-> @@ -1400,7 +1400,7 @@ static void dcn32_calculate_dlg_params(struct dc *dc, struct dc_state *context,
->                                         /* SS PSR On: all active surfaces part of streams not supporting PSR stored in MALL */
->                                         context->bw_ctx.bw.dcn.mall_ss_psr_active_size_bytes += context->res_ctx.pipe_ctx[i].surface_size_in_mall_bytes;
->                                 }
-> -                       } else if (context->res_ctx.pipe_ctx[i].stream->mall_stream_config.type == SUBVP_PHANTOM) {
-> +                       } else {
->                                 /* SUBVP: phantom surfaces only stored in MALL */
->                                 context->bw_ctx.bw.dcn.mall_subvp_size_bytes += context->res_ctx.pipe_ctx[i].surface_size_in_mall_bytes;
->                         }
-> --
-> 2.26.3
+> > ---
+> >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c     | 1 -
+> >  drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 8 ++------
+> >  drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c | 6 ++----
+> >  3 files changed, 4 insertions(+), 11 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > index 86a2f7f58550..e71e94663d14 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > @@ -6336,7 +6336,6 @@ static enum dc_status dm_validate_stream_and_context(struct dc *dc,
+> >       dc_plane_state->plane_size.surface_size.width  = stream->src.width;
+> >       dc_plane_state->plane_size.chroma_size.height  = stream->src.height;
+> >       dc_plane_state->plane_size.chroma_size.width   = stream->src.width;
+> > -     dc_plane_state->tiling_info.gfx9.swizzle =  DC_SW_UNKNOWN;
+> >       dc_plane_state->format = SURFACE_PIXEL_FORMAT_GRPH_ARGB8888;
+> >       dc_plane_state->tiling_info.gfx9.swizzle = DC_SW_UNKNOWN;
+> >       dc_plane_state->rotation = ROTATION_ANGLE_0;
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+> > index 531f405d2554..3af24ef9cb2d 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+> > @@ -2225,14 +2225,10 @@ enum dc_status dcn20_patch_unknown_plane_state(struct dc_plane_state *plane_stat
+> >       enum surface_pixel_format surf_pix_format = plane_state->format;
+> >       unsigned int bpp = resource_pixel_format_to_bpp(surf_pix_format);
+> >
+> > -     enum swizzle_mode_values swizzle = DC_SW_LINEAR;
+> > -
+> > +     plane_state->tiling_info.gfx9.swizzle = DC_SW_64KB_S;
+> >       if (bpp == 64)
+> > -             swizzle = DC_SW_64KB_D;
+> > -     else
+> > -             swizzle = DC_SW_64KB_S;
+> > +             plane_state->tiling_info.gfx9.swizzle = DC_SW_64KB_D;
+> >
+> > -     plane_state->tiling_info.gfx9.swizzle = swizzle;
+> >       return DC_OK;
+> >  }
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+> > index fbcf0afeae0d..8f9244fe5c86 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+> > @@ -1393,15 +1393,13 @@ static uint32_t read_pipe_fuses(struct dc_context *ctx)
+> >
+> >  static enum dc_status dcn21_patch_unknown_plane_state(struct dc_plane_state *plane_state)
+> >  {
+> > -     enum dc_status result = DC_OK;
+> > -
+> >       if (plane_state->ctx->dc->debug.disable_dcc == DCC_ENABLE) {
+> >               plane_state->dcc.enable = 1;
+> >               /* align to our worst case block width */
+> >               plane_state->dcc.meta_pitch = ((plane_state->src_rect.width + 1023) / 1024) * 1024;
+> >       }
+> > -     result = dcn20_patch_unknown_plane_state(plane_state);
+> > -     return result;
+> > +
+> > +     return dcn20_patch_unknown_plane_state(plane_state);
+> >  }
+> >
+> >  static const struct resource_funcs dcn21_res_pool_funcs = {
 >
