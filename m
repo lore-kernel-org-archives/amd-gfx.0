@@ -4,115 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0EF3C38142
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Feb 2023 17:02:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFECFC05027
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Feb 2023 18:16:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83C1310E447;
-	Wed,  1 Feb 2023 17:02:53 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2077.outbound.protection.outlook.com [40.107.243.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5DAF10E431;
- Wed,  1 Feb 2023 17:02:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cmRU23R+M+U1mzaFjhR0IevJNX2v+eMjEevNuNLgEYoS46YBbiwEgcWVLSla4gcP/4WIGp1q306ZI1ODyH4gWGfJPng1PLIqV7kNlPyWzwb1rXx1pfUXSftNmqof00IqVKUTxYMb68FyufWdV6BWER7AO+51MAacrzc02u3ronuD/n6RdGxsVrc/q714y6xX+VlDBoHzgWI8RiCm9ie7TatJxarf+pef7pbewbTCmx++KEhBw9mn5RKkbRU+N+8NXwStv8ICskO7NvwKGk1Ambl4Rq0iwjEyGcBpCOY54FsfhwrJLc/t1l1d3e/4ruyZYHqHxMniz3FSh2W27ciHxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=D45jxXzUa0CFgnc69ApuBOzPa1VotH60+OM95qT4RZw=;
- b=NCDnF5ep6fn4EjNb6uToSCMDTo6CBDthp2gKF2ogG5HDqfeEfTbaFVnCRhn0vmDjjiEB9azIC7ucD3deLDsS/xCmq+6qApXnRXV8nyWFditrxUpS0zi57v/xGmxkMrKqkyZI/I0SDVEhgT/dtP5QbnPIMV8wY36oBq+HKYjXOEmpYDwYQMzJ2nRXbJsDMKcWMhIYZYMsiAHCWwoBdF30TF1BmcT0hOpBNYoYQd+vs++6I6KVKgzxbGr81+MLxd1fekAkVIt17/r3ZPVHq1R0ZeyGyA/g9Dyo9QCCV1hmiWMUOXy+6an5aYp8Q8gt+UM3BLMmdCkiLYLWoSxhVKFQbQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=D45jxXzUa0CFgnc69ApuBOzPa1VotH60+OM95qT4RZw=;
- b=SmgfpbXNZ487DcyhU3EDUsBeN9tR+b5bPOahFXGqvNHDIBVMBGj16C3poNEy9HHpvbkIJzjgIA5h7JO7ujduKJPv7nSv+vTvoDrD7oJ/OcnAv6k0yei9NdJh5G+ry2oeJ+HSE4dNiqWP9s8iK1shWwnf5nxydSBnOmb7NGqG8rk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
- DS0PR12MB6632.namprd12.prod.outlook.com (2603:10b6:8:d0::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6064.25; Wed, 1 Feb 2023 17:02:50 +0000
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::4df2:b32a:e628:c57e]) by DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::4df2:b32a:e628:c57e%7]) with mapi id 15.20.6043.023; Wed, 1 Feb 2023
- 17:02:50 +0000
-Message-ID: <b5c0a547-1f43-10c5-efc6-e6ff6ed140f2@amd.com>
-Date: Wed, 1 Feb 2023 12:02:47 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH v2] drm/amdgpu/fence: Fix oops due to non-matching
- drm_sched init/fini
-Content-Language: en-CA
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>, amd-gfx@lists.freedesktop.org
-References: <20230201164814.1353383-1-gpiccoli@igalia.com>
-From: Luben Tuikov <luben.tuikov@amd.com>
-In-Reply-To: <20230201164814.1353383-1-gpiccoli@igalia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT1PR01CA0075.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2d::14) To DM6PR12MB3370.namprd12.prod.outlook.com
- (2603:10b6:5:38::25)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82BDD10E43B;
+	Wed,  1 Feb 2023 18:16:40 +0000 (UTC)
+Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
+ [IPv6:2001:4860:4864:20::2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDB2B10E43B
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Feb 2023 18:16:38 +0000 (UTC)
+Received: by mail-oa1-x2e.google.com with SMTP id
+ 586e51a60fabf-1636eae256cso20331616fac.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 01 Feb 2023 10:16:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Rmpn0bwyxfzucO979Sx7Kx4N36KQpvw5EIddfi1K1O4=;
+ b=f45VHdZu/Lj0Y/tUcOowAf/SXMXDRie58wQ7V/5WG/GynGcZmAFcgK/ZUHaR8LiMZQ
+ o/KjWY9hTfa5yEeCa060pJ9Y74lM45WJZsFRtAb+WDzpmGQVUbtE45DRg+bTdKn71pP+
+ QhsiBmSv5+kVxQOt1CkeMZ5J4MAwKkJ3Mo+zXpr/8YgG6thbvuyk4KpE8zvuowUfEcdl
+ GBUk5NAlBz9Vc7Jn//KE34zfoYPGLSvge92GsTuk95WFrw8FceR+05TUeex4Zoyb3AFv
+ QW/H0cYx+q8x8OhqbGk2NH7Wh9K7qLM77qbbJi39HeXKOIVCNhmp0z6ySJbe5FIF4sZA
+ 7/Og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Rmpn0bwyxfzucO979Sx7Kx4N36KQpvw5EIddfi1K1O4=;
+ b=M/OV3wc068rCKoOwJg5clRB3lXBzt9msHzGQrHPMaSLUX1zTKQ00UlCQOLIpFnk8WK
+ bd9wHT8CDKmgq3hUc2CH4O/xjK0R5tneaw/M421CLijZTbBoRuY3R0DSqTzWY/AF26Mm
+ aMtUnNalE5q4qeXAPjWymxC8SJ35eQnQvDMkNcrhTtxO0XO/fddp8CO7MMsWgQgrX/VW
+ Vd4NH6ODRf7M/EJl3gHw21U9B7IZWKw5AJC3EgYClFN00qcoteIYO6jfCI/Vi3mUwMVA
+ hTi+TKy+lWSBNMsiZktmpKZ7APsJzijQ+mUmEJy6tZubOvnWrWJpXdCyV61qvANPu88V
+ E37g==
+X-Gm-Message-State: AO0yUKV5Xbh/DIBFUpkRKPSyISYDeEaUlCT9pg7+VX3gZ8j2goPrdGxR
+ ELEZN5AtOByGzyc9JnoHlZ7Vqa1hBa1EdjzFPjpvsHFMsnE=
+X-Google-Smtp-Source: AK7set934bh2HRwDIXinlpenM0+8S3UFLxXZzyjBHMyk+36Ai3sUE1H27BIvDjxVNJcKaS4gKHj4xAe8BLiCNibKtCQ=
+X-Received: by 2002:a05:6870:b524:b0:163:8cc6:86a with SMTP id
+ v36-20020a056870b52400b001638cc6086amr364892oap.46.1675275398114; Wed, 01 Feb
+ 2023 10:16:38 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|DS0PR12MB6632:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1b1dc91b-0577-43a8-017b-08db0476265d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: HmtGD9JN6mQ6gO/7Br5xF8y1VWG7IQzsfliKXof6Hbpzh3/1nABYHL1EKwfIRWpyRVY5wIpT/Tz7ig+LYatt94b2YZzgUVzQRcRRxZKjW5Sthty3RcoDWQnHP1ULnx5cSp5vsOiQxwSggo6tXT9M6MH/HIsHg1ELCCQA9uKKZjEbz+CqgFzEO6nUv5btcyONeEnNH82TI1BUFWJaagVVGlR4Qn+echcoNnorcPHKRAdca8iLKfmkjivD4UPclqv0S1Z4QPrMVZFF/VpLYL8FV3sWgqh1UAj+VHSDWNwPA3YrPZx/arYinkJd5Grwkj8lN4b39Vg65zh8Y23CENclG6zZL/gdbfQML7cQmTXDISwOL6LbESNk2OyRgWTO1q69DXBmxxSWgm/WoekXtId1KH+aOvAW8RASQyXLfxO3eIugO2x74qL6/VmeVQtlm9gEE3C0Ts4FaKtTDe47gVPNYnnHqYnhCo3DdN96Eo3h2Yoz38o0M9AktXazKMTGuVQNtoBMk/etStg7G+vGhKs/R/DJYeScBKA6iX6qkJL1L5cBWILpsAaiK6vzxJ5ggKlPVnA0tcydFXGRKtBkkHXB97Z4dsZcimDMSYlRGvSOr78yyDbjoeR1Vi6pcskx/yc3ty1t7u1csPYkb+B+jZXSuc97BXgIr07y+NBajtKoU8H3soGRfxNtmCIGj2wkEczI2LGBKCqve9WU3VhMmwoYqZPngLR3dJ69IBqH1gBdgE//K1IpyzWaNgUp6tLgmvuOH9zJhL0xYz7aFVj6bN9f7A==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(136003)(346002)(366004)(376002)(39860400002)(396003)(451199018)(31696002)(31686004)(36756003)(86362001)(44832011)(5660300002)(2906002)(38100700002)(478600001)(4326008)(8676002)(54906003)(316002)(41300700001)(66476007)(66946007)(66556008)(66574015)(8936002)(83380400001)(55236004)(186003)(53546011)(6506007)(6666004)(26005)(6512007)(6486002)(2616005)(66899018)(966005)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dHBtTUJzS2MzK0puNHJFYUR3MHMyVGFrRUJJZm5iSTkzNHdxNmN2QjRNOHNo?=
- =?utf-8?B?UHNZQktrTWJEYlhQTHUxTWNOYkhlTkZNVVFyUjJtcDhya2xYcWtCQzlzUG8w?=
- =?utf-8?B?MHN6MUdRRzhDb0pKeWd4dTNIK1VMKzZjd3NZRENnVHl1NDRraktjcVY0MnVD?=
- =?utf-8?B?ZFNGcGtHQlV3b1o3MnVTL3pyZjE3S3hBajFycVN3U0ZiUXFvR3hEVVRuYzJ4?=
- =?utf-8?B?U1RiU09iUWRyMHVKTXZPTWJQTFpCK0xGNXZYN0F6L3BUNmJXQmI1c1hDZGZU?=
- =?utf-8?B?eW04bWx1RVNtK3lGcS9ZSUhOZXBHMi9MbUJCa3BmcDNGUU55ZTlPNmN4T0pm?=
- =?utf-8?B?dWRUek5Ya1FOK2w0Q2dWNjhhZFptSTZtTzVTbCt5R01PREUveER1SjRLRHIx?=
- =?utf-8?B?Wll2TlN6bzlsdExyRlhod2UrRUpjek1OdDdrWXk1b3RiOXJWWTRJRFJTcDJz?=
- =?utf-8?B?N3Y0TUluWnlzaTZ1eGxVcnlaS0tCTzNOVkdKdTlhZTBmNVIzK2JGKzZGSDdJ?=
- =?utf-8?B?MmNGUGNaMThVbklkWmh3R1BsS0FEM0dxWEJVdituOElXcncvSlcrK0l3WDlV?=
- =?utf-8?B?NFhrTmt4bmFZcXhnelZ4RkZ0NXluTGlhbnpyNXJxR0RmY2xwT25JZE9rbDdz?=
- =?utf-8?B?L09KcGYzVnBCT0RIMUVkUmNQV0RjL1ZMVEg4UkRhaWpSam9hQkY1Z2VwQlB2?=
- =?utf-8?B?QTRBQ1hIVkpJNE82NTFyT0R5UEVKVXVCZWpzcXBzMVJxYWJWS3dhTVlZZUkz?=
- =?utf-8?B?ZlVUZHVPOFhScDk2bklWWkNtTkNBTFdCYThpTzc4QjFEZnFOL1VvQmd6YWxr?=
- =?utf-8?B?b3RKRUZwY3N4VDdYdkpDTnJOMnhXWkVXdGtjODk0d3BRL3E1TzhZV0RNZFI5?=
- =?utf-8?B?TTFHSVQwZTJHM3ZyV0I0ejBaSTVwMm5jQWFmVHc5dWVqVXFaVUl0b0JiRlZO?=
- =?utf-8?B?b3I5THpFWGNQMm40czdGZ0xCT1Z5d3ltckdJK0pvTnlvR1lxdnRHLys3QmdT?=
- =?utf-8?B?UDZreXAyZjBuaUxVbUVRdFRQKzBYekJDaG5zMEhodEx3TkcreFl1bHRxYjM4?=
- =?utf-8?B?Mm1WbWpvR0pBS0t6d09XQWJreTkwcjVTcVpia2VGRVBUcjhkc2p4QS9lWHhw?=
- =?utf-8?B?TEpCZVhvZVdjd0VtVmpmd1VSdTQ3YUhaWUlsdGFSZSswUVMwclRRTWdseEY2?=
- =?utf-8?B?RVhnN1JkY0RpT2FoVmVJbzRoVHRxdXhjQllKeklkMmlrQS9iazBXandGN2U3?=
- =?utf-8?B?aGVLUUtSUENQOTAxRTBHRFhyQUwyK2gxZUVRWFpFZHJ3YnFzSEg4SHZBSG8v?=
- =?utf-8?B?c1FPemdPUmE0R1N0VFZJZHNJODRrd0JzMHdYVnRIc0creTFrcUNUT3dDUjJZ?=
- =?utf-8?B?aUkvMTZvbWhvUkNjUlg4ZUtha09BRm1Rc1RHUDVJcmZ4Q0NCZFNwdlRjVGpZ?=
- =?utf-8?B?Rng2TUM4aWVSV2pFb3Z2Q0k2OFBFQlRqa0RoaUMvZDNOdEZIaXlHT3dLTkxU?=
- =?utf-8?B?TS8yZmQwVTl3bHpFNXg4R0tHbEZTQndSRjhaQkVuQUhiU0FkMkFTaXhlQ0pl?=
- =?utf-8?B?N0F4N3R1TU1wUUlaQnBpaDVxdXljVktLZHhPVHNQM0VtalUxcldUMDZNREx3?=
- =?utf-8?B?SHR4c2kzdURNUHZZZHQ0eFdKUkU4cHJmemlhcGZzNTVHWENTeVduemxOS3dZ?=
- =?utf-8?B?MXZjc1NCeWYvQzNMemhtLzRacENuYmh1WjdxNUZGUHVlSUVNeDZXVHMwMlh1?=
- =?utf-8?B?ME1zajZlWWp0TlpOa0l5WHpQVGFRamx5elg3dDZLUXpmeVN1eGJOSzc1Z3c0?=
- =?utf-8?B?V3hvNW83TWM4MVJxak8venp1SGpDSW9pa3NaeGVHOUdDamdwQkRYTkducCtZ?=
- =?utf-8?B?a0w4bmw0QWRWWm9PYUxINVpadW91YXlFdkdkNXFFdHMwL3N0dEN0MWdyUmxt?=
- =?utf-8?B?LzVMZzdIN3c4RVZhajJ4RStLcXJqeGNRZytwQk56N1RYR1VFN0Q3UmJUVWpU?=
- =?utf-8?B?cXAyN3FtS2RJMysvODh6dDloNndJYzdzVGk3QlBTbVZIWEU4Q0o2VWY2aWlo?=
- =?utf-8?B?Vkc5ZHU3RE1YUHh3TXpFbDVNRFFDcDNPMW9jc0dkSkJNcy9Ud2hBbGVhRUhq?=
- =?utf-8?Q?xS4KMVlHPPdzCb4KMR9GMyyrG?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b1dc91b-0577-43a8-017b-08db0476265d
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2023 17:02:50.1369 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QngHpU06sd18eqsKDMFRIiUXFXFXvOAYsrjAhYO9yvhOlmQTIqVd/FtpHGApiDNr
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6632
+References: <CAAxE2A73GBHFYxYc4Q8h5=ohd5Qsp9E_750U_Xkc+Q9Y4GnvyA@mail.gmail.com>
+In-Reply-To: <CAAxE2A73GBHFYxYc4Q8h5=ohd5Qsp9E_750U_Xkc+Q9Y4GnvyA@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 1 Feb 2023 13:16:26 -0500
+Message-ID: <CADnq5_MqzoEOk9NdGa8+ieZxkhLVBWDnJGpAr7komHinJ0bOOw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: add more fields into device info, caches
+ sizes, etc.
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,81 +67,28 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel@gpiccoli.net, Guchun Chen <guchun.chen@amd.com>, Xinhui.Pan@amd.com,
- dri-devel@lists.freedesktop.org, Mario Limonciello <mario.limonciello@amd.com>,
- kernel-dev@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
+Looks good to me.  WIth a link the mesa MR which uses these, the patch is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Regards,
-Luben
+For TA_CNTL2, an alternative would be to add this register to the
+AMDGPU_INFO_READ_MMR_REG and just cache it in the KGD if you think we
+may need other fields from it in the future.
 
-On 2023-02-01 11:48, Guilherme G. Piccoli wrote:
-> Currently amdgpu calls drm_sched_fini() from the fence driver sw fini
-> routine - such function is expected to be called only after the
-> respective init function - drm_sched_init() - was executed successfully.
->
-> Happens that we faced a driver probe failure in the Steam Deck
-> recently, and the function drm_sched_fini() was called even without
-> its counter-part had been previously called, causing the following oops:
->
-> amdgpu: probe of 0000:04:00.0 failed with error -110
-> BUG: kernel NULL pointer dereference, address: 0000000000000090
-> PGD 0 P4D 0
-> Oops: 0002 [#1] PREEMPT SMP NOPTI
-> CPU: 0 PID: 609 Comm: systemd-udevd Not tainted 6.2.0-rc3-gpiccoli #338
-> Hardware name: Valve Jupiter/Jupiter, BIOS F7A0113 11/04/2022
-> RIP: 0010:drm_sched_fini+0x84/0xa0 [gpu_sched]
-> [...]
-> Call Trace:
->  <TASK>
->  amdgpu_fence_driver_sw_fini+0xc8/0xd0 [amdgpu]
->  amdgpu_device_fini_sw+0x2b/0x3b0 [amdgpu]
->  amdgpu_driver_release_kms+0x16/0x30 [amdgpu]
->  devm_drm_dev_init_release+0x49/0x70
->  [...]
->
-> To prevent that, check if the drm_sched was properly initialized for a
-> given ring before calling its fini counter-part.
->
-> Notice ideally we'd use sched.ready for that; such field is set as the latest
-> thing on drm_sched_init(). But amdgpu seems to "override" the meaning of such
-> field - in the above oops for example, it was a GFX ring causing the crash, and
-> the sched.ready field was set to true in the ring init routine, regardless of
-> the state of the DRM scheduler. Hence, we ended-up using sched.ops as per
-> Christian's suggestion [0].
->
-> [0] https://lore.kernel.org/amd-gfx/984ee981-2906-0eaf-ccec-9f80975cb136@amd.com/
->
-> Fixes: 067f44c8b459 ("drm/amdgpu: avoid over-handle of fence driver fini in s3 test (v2)")
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Cc: Guchun Chen <guchun.chen@amd.com>
-> Cc: Luben Tuikov <luben.tuikov@amd.com>
-> Cc: Mario Limonciello <mario.limonciello@amd.com>
-> Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> index 00444203220d..3b962cb680a6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> @@ -618,7 +618,13 @@ void amdgpu_fence_driver_sw_fini(struct amdgpu_device *adev)
->  		if (!ring || !ring->fence_drv.initialized)
->  			continue;
->  
-> -		if (!ring->no_scheduler)
-> +		/*
-> +		 * Notice we check for sched.ops since there's some
-> +		 * override on the meaning of sched.ready by amdgpu.
-> +		 * The natural check would be sched.ready, which is
-> +		 * set as drm_sched_init() finishes...
-> +		 */
-> +		if (!ring->no_scheduler && ring->sched.ops)
->  			drm_sched_fini(&ring->sched);
->  
->  		for (j = 0; j <= ring->fence_drv.num_fences_mask; ++j)
+Alex
 
+On Mon, Jan 30, 2023 at 12:57 AM Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com> w=
+rote:
+>
+> AMDGPU_IDS_FLAGS_CONFORMANT_TRUNC_COORD: important for conformance on gfx=
+11
+> Other fields are exposed from IP discovery.
+> enabled_rb_pipes_mask_hi is added for future chips, currently 0.
+>
+> The patch is attached.
+>
+> Thanks,
+> Marek
