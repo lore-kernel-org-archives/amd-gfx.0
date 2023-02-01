@@ -4,41 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16436C05027
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Feb 2023 16:55:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2103CC38142
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Feb 2023 16:55:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7895510E42B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC8F810E444;
 	Wed,  1 Feb 2023 16:55:45 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B580610E181;
- Wed,  1 Feb 2023 16:48:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9F9C10E18D;
+ Wed,  1 Feb 2023 16:53:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-Id:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=zi8EsWtKNKNpDwGPJ8TEJ+gAgZj0idQ4gMzEDL664kM=; b=qNfANPVUkP2fitBuN5AzCOEM6K
- h3I4a5bKlX2coz/eEn5y0YN6DiJiHw6AuvxsWJwPJI1K9CjkR77tf/uK6OnuwaWpnKWFxACmXeEhf
- 8mJU4T6JdSBzhkSmnPgcETTSE/LsiWE0559cSzqt4Ks53WwsIq4nK6FIdzG2kGjQP6SjqKkrxRnyG
- bUa/FSne60XE2yHS3pyqgj+Rmh/vK3Z54Wi/fRNvqch62iDbleyAW2/WBR16X9Vk0QVRQqVu29R/7
- dxOjQv7lLKQW59F+5YpySXrgPDECllQSMjiZTsTKDUB/+DGKBIxdzgk59oUUG3zyIMyPRM8FLG3BA
- AAmx7qoQ==;
-Received: from [187.10.60.187] (helo=localhost)
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=OITP1I6H+zo4Bt+dgUjPEOIxUPOIlD+1eS8Lgl3f+30=; b=oy0k0LH2gOOXKcO2U0/S5fMUl/
+ glCRwk8k6wwA6jio+Wt7usNyW+CaUqjj7FSeUoAKl6L7ZW5eu4PJTAh//BoNAEaPwC7M1kdE2O6mr
+ iWgERuRyTiYadFZHBKIFAZgSXdLY9smvrR3V4GoiXdY7Z7xuV01m1HthDPLiMmWeZcWEB1ijKcR/A
+ bRkUc1Hc8jyHnkbc5Q4n9GxYbOqd3tq1x7NBnus/AyMQDl7Jvtisf9+T6+x9ZdRyNt/E7ufmIVO05
+ x/oZfzXWtcXKDsVk2z/hk9TZaakyCry/jy2bfhFqRokzB+uwGFDjfwN+oUxzBAqWbXQ4f9OYs7blD
+ D/X3HN8g==;
+Received: from [187.10.60.187] (helo=[192.168.1.60])
  by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1pNGHb-006Vbw-Vt; Wed, 01 Feb 2023 17:48:29 +0100
-From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v2] drm/amdgpu/fence: Fix oops due to non-matching drm_sched
- init/fini
-Date: Wed,  1 Feb 2023 13:48:14 -0300
-Message-Id: <20230201164814.1353383-1-gpiccoli@igalia.com>
-X-Mailer: git-send-email 2.39.0
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1pNGMq-006Vmp-76; Wed, 01 Feb 2023 17:53:52 +0100
+Message-ID: <f7c6a511-4112-6177-29d9-3e431839e6ac@igalia.com>
+Date: Wed, 1 Feb 2023 13:53:44 -0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH] drm/amdgpu/fence: Fix oops due to non-matching drm_sched
+ init/fini
+Content-Language: en-US
+To: "Chen, Guchun" <Guchun.Chen@amd.com>, Luben Tuikov
+ <luben.tuikov@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?=
+ <christian.koenig@amd.com>, Alex Deucher <alexdeucher@gmail.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+References: <20230130214504.1305042-1-gpiccoli@igalia.com>
+ <ac604d40-ef87-7147-b1ee-3620e68b3268@igalia.com>
+ <CADnq5_NEyGNXpo3mZ=WR5Me8b9r24aq0MmMZ6GsvBRoBmNVGGQ@mail.gmail.com>
+ <DM5PR12MB24693E815CAB63FE2DE06E4CF1D09@DM5PR12MB2469.namprd12.prod.outlook.com>
+ <DM5PR12MB24696F955FF95A7AB00E1956F1D09@DM5PR12MB2469.namprd12.prod.outlook.com>
+ <984ee981-2906-0eaf-ccec-9f80975cb136@amd.com>
+ <DM5PR12MB246930987580ACA15EA44C2BF1D09@DM5PR12MB2469.namprd12.prod.outlook.com>
+ <52dbfde8-8865-6b30-c32f-33cff2c87fcc@gmail.com>
+ <CADnq5_NLHqXxqcVMJRgxmc8cJfu6N0HML=cfETvijimimtoWbQ@mail.gmail.com>
+ <8caaabda-25d3-61bb-a541-f81f851115c0@amd.com>
+ <8701ac2b-8ac9-a477-8d18-e2bc334ad201@amd.com>
+From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+In-Reply-To: <8701ac2b-8ac9-a477-8d18-e2bc334ad201@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Wed, 01 Feb 2023 16:55:43 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,79 +68,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel@gpiccoli.net, Guchun Chen <guchun.chen@amd.com>, Xinhui.Pan@amd.com,
- dri-devel@lists.freedesktop.org, "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
- Luben Tuikov <luben.tuikov@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>, kernel-dev@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: "kernel@gpiccoli.net" <kernel@gpiccoli.net>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "kernel-dev@igalia.com" <kernel-dev@igalia.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Limonciello,
+ Mario" <Mario.Limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Currently amdgpu calls drm_sched_fini() from the fence driver sw fini
-routine - such function is expected to be called only after the
-respective init function - drm_sched_init() - was executed successfully.
+On 01/02/2023 13:21, Luben Tuikov wrote:
+> Hi Guilherme,
+> 
+> Since setting sched->ready to false, seems to be taking place in, directly amdgpu_ring_fini()
+> and in amdgpu_fence_driver_sw_fini() indirectly as that function calls drm_sched_fini()
+> which sets it to false, we seem to have two competing policies of,
+> "set ready to false to show that _fini() was called, and set to false to disable IB submissions".
+> 
+> To that effect, your patch is generally correct, as it would be the case of an early failure
+> and unroll from (indirectly) amdgpu_device_init_schedulers().
+> 
+> Please resubmit your patch but using .ops as Christian suggested, as .name is sufficient,
+> but .ops is necessary.
+> 
+> On a side-note: in the future we should probably discern between
+> "this ring has an initialized and working scheduler" (looking up at DRM), from
+> "this ring can take on IBs to send them down to the hardware" (looking down at hardware).
+> Sched->ready seems to be overloaded with these disparate states, and this is why you need
+> to use .ops to guard calling drm_sched_fini().
+> 
+> Regards,
+> Luben
 
-Happens that we faced a driver probe failure in the Steam Deck
-recently, and the function drm_sched_fini() was called even without
-its counter-part had been previously called, causing the following oops:
+Thanks a lot Luben, makes perfect sense!
 
-amdgpu: probe of 0000:04:00.0 failed with error -110
-BUG: kernel NULL pointer dereference, address: 0000000000000090
-PGD 0 P4D 0
-Oops: 0002 [#1] PREEMPT SMP NOPTI
-CPU: 0 PID: 609 Comm: systemd-udevd Not tainted 6.2.0-rc3-gpiccoli #338
-Hardware name: Valve Jupiter/Jupiter, BIOS F7A0113 11/04/2022
-RIP: 0010:drm_sched_fini+0x84/0xa0 [gpu_sched]
-[...]
-Call Trace:
- <TASK>
- amdgpu_fence_driver_sw_fini+0xc8/0xd0 [amdgpu]
- amdgpu_device_fini_sw+0x2b/0x3b0 [amdgpu]
- amdgpu_driver_release_kms+0x16/0x30 [amdgpu]
- devm_drm_dev_init_release+0x49/0x70
- [...]
+Also, thanks for everyone that provided feedback here, very interesting
+discussion.
 
-To prevent that, check if the drm_sched was properly initialized for a
-given ring before calling its fini counter-part.
+Submitted V2:
+https://lore.kernel.org/dri-devel/20230201164814.1353383-1-gpiccoli@igalia.com/
+Cheers,
 
-Notice ideally we'd use sched.ready for that; such field is set as the latest
-thing on drm_sched_init(). But amdgpu seems to "override" the meaning of such
-field - in the above oops for example, it was a GFX ring causing the crash, and
-the sched.ready field was set to true in the ring init routine, regardless of
-the state of the DRM scheduler. Hence, we ended-up using sched.ops as per
-Christian's suggestion [0].
 
-[0] https://lore.kernel.org/amd-gfx/984ee981-2906-0eaf-ccec-9f80975cb136@amd.com/
-
-Fixes: 067f44c8b459 ("drm/amdgpu: avoid over-handle of fence driver fini in s3 test (v2)")
-Suggested-by: Christian König <christian.koenig@amd.com>
-Cc: Guchun Chen <guchun.chen@amd.com>
-Cc: Luben Tuikov <luben.tuikov@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-index 00444203220d..3b962cb680a6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-@@ -618,7 +618,13 @@ void amdgpu_fence_driver_sw_fini(struct amdgpu_device *adev)
- 		if (!ring || !ring->fence_drv.initialized)
- 			continue;
- 
--		if (!ring->no_scheduler)
-+		/*
-+		 * Notice we check for sched.ops since there's some
-+		 * override on the meaning of sched.ready by amdgpu.
-+		 * The natural check would be sched.ready, which is
-+		 * set as drm_sched_init() finishes...
-+		 */
-+		if (!ring->no_scheduler && ring->sched.ops)
- 			drm_sched_fini(&ring->sched);
- 
- 		for (j = 0; j <= ring->fence_drv.num_fences_mask; ++j)
--- 
-2.39.0
-
+Guilherme
