@@ -4,59 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2103CC38142
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Feb 2023 16:55:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0EF3C38142
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Feb 2023 17:02:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC8F810E444;
-	Wed,  1 Feb 2023 16:55:45 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9F9C10E18D;
- Wed,  1 Feb 2023 16:53:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=OITP1I6H+zo4Bt+dgUjPEOIxUPOIlD+1eS8Lgl3f+30=; b=oy0k0LH2gOOXKcO2U0/S5fMUl/
- glCRwk8k6wwA6jio+Wt7usNyW+CaUqjj7FSeUoAKl6L7ZW5eu4PJTAh//BoNAEaPwC7M1kdE2O6mr
- iWgERuRyTiYadFZHBKIFAZgSXdLY9smvrR3V4GoiXdY7Z7xuV01m1HthDPLiMmWeZcWEB1ijKcR/A
- bRkUc1Hc8jyHnkbc5Q4n9GxYbOqd3tq1x7NBnus/AyMQDl7Jvtisf9+T6+x9ZdRyNt/E7ufmIVO05
- x/oZfzXWtcXKDsVk2z/hk9TZaakyCry/jy2bfhFqRokzB+uwGFDjfwN+oUxzBAqWbXQ4f9OYs7blD
- D/X3HN8g==;
-Received: from [187.10.60.187] (helo=[192.168.1.60])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1pNGMq-006Vmp-76; Wed, 01 Feb 2023 17:53:52 +0100
-Message-ID: <f7c6a511-4112-6177-29d9-3e431839e6ac@igalia.com>
-Date: Wed, 1 Feb 2023 13:53:44 -0300
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83C1310E447;
+	Wed,  1 Feb 2023 17:02:53 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2077.outbound.protection.outlook.com [40.107.243.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5DAF10E431;
+ Wed,  1 Feb 2023 17:02:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cmRU23R+M+U1mzaFjhR0IevJNX2v+eMjEevNuNLgEYoS46YBbiwEgcWVLSla4gcP/4WIGp1q306ZI1ODyH4gWGfJPng1PLIqV7kNlPyWzwb1rXx1pfUXSftNmqof00IqVKUTxYMb68FyufWdV6BWER7AO+51MAacrzc02u3ronuD/n6RdGxsVrc/q714y6xX+VlDBoHzgWI8RiCm9ie7TatJxarf+pef7pbewbTCmx++KEhBw9mn5RKkbRU+N+8NXwStv8ICskO7NvwKGk1Ambl4Rq0iwjEyGcBpCOY54FsfhwrJLc/t1l1d3e/4ruyZYHqHxMniz3FSh2W27ciHxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=D45jxXzUa0CFgnc69ApuBOzPa1VotH60+OM95qT4RZw=;
+ b=NCDnF5ep6fn4EjNb6uToSCMDTo6CBDthp2gKF2ogG5HDqfeEfTbaFVnCRhn0vmDjjiEB9azIC7ucD3deLDsS/xCmq+6qApXnRXV8nyWFditrxUpS0zi57v/xGmxkMrKqkyZI/I0SDVEhgT/dtP5QbnPIMV8wY36oBq+HKYjXOEmpYDwYQMzJ2nRXbJsDMKcWMhIYZYMsiAHCWwoBdF30TF1BmcT0hOpBNYoYQd+vs++6I6KVKgzxbGr81+MLxd1fekAkVIt17/r3ZPVHq1R0ZeyGyA/g9Dyo9QCCV1hmiWMUOXy+6an5aYp8Q8gt+UM3BLMmdCkiLYLWoSxhVKFQbQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=D45jxXzUa0CFgnc69ApuBOzPa1VotH60+OM95qT4RZw=;
+ b=SmgfpbXNZ487DcyhU3EDUsBeN9tR+b5bPOahFXGqvNHDIBVMBGj16C3poNEy9HHpvbkIJzjgIA5h7JO7ujduKJPv7nSv+vTvoDrD7oJ/OcnAv6k0yei9NdJh5G+ry2oeJ+HSE4dNiqWP9s8iK1shWwnf5nxydSBnOmb7NGqG8rk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
+ DS0PR12MB6632.namprd12.prod.outlook.com (2603:10b6:8:d0::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6064.25; Wed, 1 Feb 2023 17:02:50 +0000
+Received: from DM6PR12MB3370.namprd12.prod.outlook.com
+ ([fe80::4df2:b32a:e628:c57e]) by DM6PR12MB3370.namprd12.prod.outlook.com
+ ([fe80::4df2:b32a:e628:c57e%7]) with mapi id 15.20.6043.023; Wed, 1 Feb 2023
+ 17:02:50 +0000
+Message-ID: <b5c0a547-1f43-10c5-efc6-e6ff6ed140f2@amd.com>
+Date: Wed, 1 Feb 2023 12:02:47 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.1
-Subject: Re: [PATCH] drm/amdgpu/fence: Fix oops due to non-matching drm_sched
- init/fini
-Content-Language: en-US
-To: "Chen, Guchun" <Guchun.Chen@amd.com>, Luben Tuikov
- <luben.tuikov@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?=
- <christian.koenig@amd.com>, Alex Deucher <alexdeucher@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-References: <20230130214504.1305042-1-gpiccoli@igalia.com>
- <ac604d40-ef87-7147-b1ee-3620e68b3268@igalia.com>
- <CADnq5_NEyGNXpo3mZ=WR5Me8b9r24aq0MmMZ6GsvBRoBmNVGGQ@mail.gmail.com>
- <DM5PR12MB24693E815CAB63FE2DE06E4CF1D09@DM5PR12MB2469.namprd12.prod.outlook.com>
- <DM5PR12MB24696F955FF95A7AB00E1956F1D09@DM5PR12MB2469.namprd12.prod.outlook.com>
- <984ee981-2906-0eaf-ccec-9f80975cb136@amd.com>
- <DM5PR12MB246930987580ACA15EA44C2BF1D09@DM5PR12MB2469.namprd12.prod.outlook.com>
- <52dbfde8-8865-6b30-c32f-33cff2c87fcc@gmail.com>
- <CADnq5_NLHqXxqcVMJRgxmc8cJfu6N0HML=cfETvijimimtoWbQ@mail.gmail.com>
- <8caaabda-25d3-61bb-a541-f81f851115c0@amd.com>
- <8701ac2b-8ac9-a477-8d18-e2bc334ad201@amd.com>
-From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-In-Reply-To: <8701ac2b-8ac9-a477-8d18-e2bc334ad201@amd.com>
+Subject: Re: [PATCH v2] drm/amdgpu/fence: Fix oops due to non-matching
+ drm_sched init/fini
+Content-Language: en-CA
+To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>, amd-gfx@lists.freedesktop.org
+References: <20230201164814.1353383-1-gpiccoli@igalia.com>
+From: Luben Tuikov <luben.tuikov@amd.com>
+In-Reply-To: <20230201164814.1353383-1-gpiccoli@igalia.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Wed, 01 Feb 2023 16:55:43 +0000
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT1PR01CA0075.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2d::14) To DM6PR12MB3370.namprd12.prod.outlook.com
+ (2603:10b6:5:38::25)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|DS0PR12MB6632:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1b1dc91b-0577-43a8-017b-08db0476265d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: HmtGD9JN6mQ6gO/7Br5xF8y1VWG7IQzsfliKXof6Hbpzh3/1nABYHL1EKwfIRWpyRVY5wIpT/Tz7ig+LYatt94b2YZzgUVzQRcRRxZKjW5Sthty3RcoDWQnHP1ULnx5cSp5vsOiQxwSggo6tXT9M6MH/HIsHg1ELCCQA9uKKZjEbz+CqgFzEO6nUv5btcyONeEnNH82TI1BUFWJaagVVGlR4Qn+echcoNnorcPHKRAdca8iLKfmkjivD4UPclqv0S1Z4QPrMVZFF/VpLYL8FV3sWgqh1UAj+VHSDWNwPA3YrPZx/arYinkJd5Grwkj8lN4b39Vg65zh8Y23CENclG6zZL/gdbfQML7cQmTXDISwOL6LbESNk2OyRgWTO1q69DXBmxxSWgm/WoekXtId1KH+aOvAW8RASQyXLfxO3eIugO2x74qL6/VmeVQtlm9gEE3C0Ts4FaKtTDe47gVPNYnnHqYnhCo3DdN96Eo3h2Yoz38o0M9AktXazKMTGuVQNtoBMk/etStg7G+vGhKs/R/DJYeScBKA6iX6qkJL1L5cBWILpsAaiK6vzxJ5ggKlPVnA0tcydFXGRKtBkkHXB97Z4dsZcimDMSYlRGvSOr78yyDbjoeR1Vi6pcskx/yc3ty1t7u1csPYkb+B+jZXSuc97BXgIr07y+NBajtKoU8H3soGRfxNtmCIGj2wkEczI2LGBKCqve9WU3VhMmwoYqZPngLR3dJ69IBqH1gBdgE//K1IpyzWaNgUp6tLgmvuOH9zJhL0xYz7aFVj6bN9f7A==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(136003)(346002)(366004)(376002)(39860400002)(396003)(451199018)(31696002)(31686004)(36756003)(86362001)(44832011)(5660300002)(2906002)(38100700002)(478600001)(4326008)(8676002)(54906003)(316002)(41300700001)(66476007)(66946007)(66556008)(66574015)(8936002)(83380400001)(55236004)(186003)(53546011)(6506007)(6666004)(26005)(6512007)(6486002)(2616005)(66899018)(966005)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dHBtTUJzS2MzK0puNHJFYUR3MHMyVGFrRUJJZm5iSTkzNHdxNmN2QjRNOHNo?=
+ =?utf-8?B?UHNZQktrTWJEYlhQTHUxTWNOYkhlTkZNVVFyUjJtcDhya2xYcWtCQzlzUG8w?=
+ =?utf-8?B?MHN6MUdRRzhDb0pKeWd4dTNIK1VMKzZjd3NZRENnVHl1NDRraktjcVY0MnVD?=
+ =?utf-8?B?ZFNGcGtHQlV3b1o3MnVTL3pyZjE3S3hBajFycVN3U0ZiUXFvR3hEVVRuYzJ4?=
+ =?utf-8?B?U1RiU09iUWRyMHVKTXZPTWJQTFpCK0xGNXZYN0F6L3BUNmJXQmI1c1hDZGZU?=
+ =?utf-8?B?eW04bWx1RVNtK3lGcS9ZSUhOZXBHMi9MbUJCa3BmcDNGUU55ZTlPNmN4T0pm?=
+ =?utf-8?B?dWRUek5Ya1FOK2w0Q2dWNjhhZFptSTZtTzVTbCt5R01PREUveER1SjRLRHIx?=
+ =?utf-8?B?Wll2TlN6bzlsdExyRlhod2UrRUpjek1OdDdrWXk1b3RiOXJWWTRJRFJTcDJz?=
+ =?utf-8?B?N3Y0TUluWnlzaTZ1eGxVcnlaS0tCTzNOVkdKdTlhZTBmNVIzK2JGKzZGSDdJ?=
+ =?utf-8?B?MmNGUGNaMThVbklkWmh3R1BsS0FEM0dxWEJVdituOElXcncvSlcrK0l3WDlV?=
+ =?utf-8?B?NFhrTmt4bmFZcXhnelZ4RkZ0NXluTGlhbnpyNXJxR0RmY2xwT25JZE9rbDdz?=
+ =?utf-8?B?L09KcGYzVnBCT0RIMUVkUmNQV0RjL1ZMVEg4UkRhaWpSam9hQkY1Z2VwQlB2?=
+ =?utf-8?B?QTRBQ1hIVkpJNE82NTFyT0R5UEVKVXVCZWpzcXBzMVJxYWJWS3dhTVlZZUkz?=
+ =?utf-8?B?ZlVUZHVPOFhScDk2bklWWkNtTkNBTFdCYThpTzc4QjFEZnFOL1VvQmd6YWxr?=
+ =?utf-8?B?b3RKRUZwY3N4VDdYdkpDTnJOMnhXWkVXdGtjODk0d3BRL3E1TzhZV0RNZFI5?=
+ =?utf-8?B?TTFHSVQwZTJHM3ZyV0I0ejBaSTVwMm5jQWFmVHc5dWVqVXFaVUl0b0JiRlZO?=
+ =?utf-8?B?b3I5THpFWGNQMm40czdGZ0xCT1Z5d3ltckdJK0pvTnlvR1lxdnRHLys3QmdT?=
+ =?utf-8?B?UDZreXAyZjBuaUxVbUVRdFRQKzBYekJDaG5zMEhodEx3TkcreFl1bHRxYjM4?=
+ =?utf-8?B?Mm1WbWpvR0pBS0t6d09XQWJreTkwcjVTcVpia2VGRVBUcjhkc2p4QS9lWHhw?=
+ =?utf-8?B?TEpCZVhvZVdjd0VtVmpmd1VSdTQ3YUhaWUlsdGFSZSswUVMwclRRTWdseEY2?=
+ =?utf-8?B?RVhnN1JkY0RpT2FoVmVJbzRoVHRxdXhjQllKeklkMmlrQS9iazBXandGN2U3?=
+ =?utf-8?B?aGVLUUtSUENQOTAxRTBHRFhyQUwyK2gxZUVRWFpFZHJ3YnFzSEg4SHZBSG8v?=
+ =?utf-8?B?c1FPemdPUmE0R1N0VFZJZHNJODRrd0JzMHdYVnRIc0creTFrcUNUT3dDUjJZ?=
+ =?utf-8?B?aUkvMTZvbWhvUkNjUlg4ZUtha09BRm1Rc1RHUDVJcmZ4Q0NCZFNwdlRjVGpZ?=
+ =?utf-8?B?Rng2TUM4aWVSV2pFb3Z2Q0k2OFBFQlRqa0RoaUMvZDNOdEZIaXlHT3dLTkxU?=
+ =?utf-8?B?TS8yZmQwVTl3bHpFNXg4R0tHbEZTQndSRjhaQkVuQUhiU0FkMkFTaXhlQ0pl?=
+ =?utf-8?B?N0F4N3R1TU1wUUlaQnBpaDVxdXljVktLZHhPVHNQM0VtalUxcldUMDZNREx3?=
+ =?utf-8?B?SHR4c2kzdURNUHZZZHQ0eFdKUkU4cHJmemlhcGZzNTVHWENTeVduemxOS3dZ?=
+ =?utf-8?B?MXZjc1NCeWYvQzNMemhtLzRacENuYmh1WjdxNUZGUHVlSUVNeDZXVHMwMlh1?=
+ =?utf-8?B?ME1zajZlWWp0TlpOa0l5WHpQVGFRamx5elg3dDZLUXpmeVN1eGJOSzc1Z3c0?=
+ =?utf-8?B?V3hvNW83TWM4MVJxak8venp1SGpDSW9pa3NaeGVHOUdDamdwQkRYTkducCtZ?=
+ =?utf-8?B?a0w4bmw0QWRWWm9PYUxINVpadW91YXlFdkdkNXFFdHMwL3N0dEN0MWdyUmxt?=
+ =?utf-8?B?LzVMZzdIN3c4RVZhajJ4RStLcXJqeGNRZytwQk56N1RYR1VFN0Q3UmJUVWpU?=
+ =?utf-8?B?cXAyN3FtS2RJMysvODh6dDloNndJYzdzVGk3QlBTbVZIWEU4Q0o2VWY2aWlo?=
+ =?utf-8?B?Vkc5ZHU3RE1YUHh3TXpFbDVNRFFDcDNPMW9jc0dkSkJNcy9Ud2hBbGVhRUhq?=
+ =?utf-8?Q?xS4KMVlHPPdzCb4KMR9GMyyrG?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b1dc91b-0577-43a8-017b-08db0476265d
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2023 17:02:50.1369 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QngHpU06sd18eqsKDMFRIiUXFXFXvOAYsrjAhYO9yvhOlmQTIqVd/FtpHGApiDNr
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6632
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,47 +124,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "kernel@gpiccoli.net" <kernel@gpiccoli.net>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "kernel-dev@igalia.com" <kernel-dev@igalia.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Limonciello,
- Mario" <Mario.Limonciello@amd.com>
+Cc: kernel@gpiccoli.net, Guchun Chen <guchun.chen@amd.com>, Xinhui.Pan@amd.com,
+ dri-devel@lists.freedesktop.org, Mario Limonciello <mario.limonciello@amd.com>,
+ kernel-dev@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 01/02/2023 13:21, Luben Tuikov wrote:
-> Hi Guilherme,
-> 
-> Since setting sched->ready to false, seems to be taking place in, directly amdgpu_ring_fini()
-> and in amdgpu_fence_driver_sw_fini() indirectly as that function calls drm_sched_fini()
-> which sets it to false, we seem to have two competing policies of,
-> "set ready to false to show that _fini() was called, and set to false to disable IB submissions".
-> 
-> To that effect, your patch is generally correct, as it would be the case of an early failure
-> and unroll from (indirectly) amdgpu_device_init_schedulers().
-> 
-> Please resubmit your patch but using .ops as Christian suggested, as .name is sufficient,
-> but .ops is necessary.
-> 
-> On a side-note: in the future we should probably discern between
-> "this ring has an initialized and working scheduler" (looking up at DRM), from
-> "this ring can take on IBs to send them down to the hardware" (looking down at hardware).
-> Sched->ready seems to be overloaded with these disparate states, and this is why you need
-> to use .ops to guard calling drm_sched_fini().
-> 
-> Regards,
-> Luben
+Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
 
-Thanks a lot Luben, makes perfect sense!
+Regards,
+Luben
 
-Also, thanks for everyone that provided feedback here, very interesting
-discussion.
+On 2023-02-01 11:48, Guilherme G. Piccoli wrote:
+> Currently amdgpu calls drm_sched_fini() from the fence driver sw fini
+> routine - such function is expected to be called only after the
+> respective init function - drm_sched_init() - was executed successfully.
+>
+> Happens that we faced a driver probe failure in the Steam Deck
+> recently, and the function drm_sched_fini() was called even without
+> its counter-part had been previously called, causing the following oops:
+>
+> amdgpu: probe of 0000:04:00.0 failed with error -110
+> BUG: kernel NULL pointer dereference, address: 0000000000000090
+> PGD 0 P4D 0
+> Oops: 0002 [#1] PREEMPT SMP NOPTI
+> CPU: 0 PID: 609 Comm: systemd-udevd Not tainted 6.2.0-rc3-gpiccoli #338
+> Hardware name: Valve Jupiter/Jupiter, BIOS F7A0113 11/04/2022
+> RIP: 0010:drm_sched_fini+0x84/0xa0 [gpu_sched]
+> [...]
+> Call Trace:
+>  <TASK>
+>  amdgpu_fence_driver_sw_fini+0xc8/0xd0 [amdgpu]
+>  amdgpu_device_fini_sw+0x2b/0x3b0 [amdgpu]
+>  amdgpu_driver_release_kms+0x16/0x30 [amdgpu]
+>  devm_drm_dev_init_release+0x49/0x70
+>  [...]
+>
+> To prevent that, check if the drm_sched was properly initialized for a
+> given ring before calling its fini counter-part.
+>
+> Notice ideally we'd use sched.ready for that; such field is set as the latest
+> thing on drm_sched_init(). But amdgpu seems to "override" the meaning of such
+> field - in the above oops for example, it was a GFX ring causing the crash, and
+> the sched.ready field was set to true in the ring init routine, regardless of
+> the state of the DRM scheduler. Hence, we ended-up using sched.ops as per
+> Christian's suggestion [0].
+>
+> [0] https://lore.kernel.org/amd-gfx/984ee981-2906-0eaf-ccec-9f80975cb136@amd.com/
+>
+> Fixes: 067f44c8b459 ("drm/amdgpu: avoid over-handle of fence driver fini in s3 test (v2)")
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> Cc: Guchun Chen <guchun.chen@amd.com>
+> Cc: Luben Tuikov <luben.tuikov@amd.com>
+> Cc: Mario Limonciello <mario.limonciello@amd.com>
+> Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> index 00444203220d..3b962cb680a6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> @@ -618,7 +618,13 @@ void amdgpu_fence_driver_sw_fini(struct amdgpu_device *adev)
+>  		if (!ring || !ring->fence_drv.initialized)
+>  			continue;
+>  
+> -		if (!ring->no_scheduler)
+> +		/*
+> +		 * Notice we check for sched.ops since there's some
+> +		 * override on the meaning of sched.ready by amdgpu.
+> +		 * The natural check would be sched.ready, which is
+> +		 * set as drm_sched_init() finishes...
+> +		 */
+> +		if (!ring->no_scheduler && ring->sched.ops)
+>  			drm_sched_fini(&ring->sched);
+>  
+>  		for (j = 0; j <= ring->fence_drv.num_fences_mask; ++j)
 
-Submitted V2:
-https://lore.kernel.org/dri-devel/20230201164814.1353383-1-gpiccoli@igalia.com/
-Cheers,
-
-
-Guilherme
