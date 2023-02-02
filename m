@@ -4,110 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FB3CC05027
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Feb 2023 03:02:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95C07C636CD
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Feb 2023 03:02:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 257E910E2D6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E0FC10E2D7;
 	Thu,  2 Feb 2023 03:02:03 +0000 (UTC)
-Received: from APC01-PSA-obe.outbound.protection.outlook.com
- (mail-psaapc01on20702.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:feae::702])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A742410E2D6
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Feb 2023 02:59:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DU7gUFgkMJDkBY2ZpMxKbdKHtWCvyVw1wFkO0mSqVxSHcPd7Avka6hz87s4kvO+c49XchoJg+cFSJ7gHEDdqiHWHuQ1i2HBkzhjA5OYqRt5YK3vq1OjVLNXyuXIAfSb5g4ihj86BQefvCQ37CNaKnLDKdAIu01xXcRTFDWjKR8ib5F/2zA+/wKkpOzyozqH4k1ZlW7yI2ko9KS+DAy8bCHtMysyjubiNMCxBRlOmoLmy3JdupcvHrIW3kKL/8Ji0I3TETsU1iGrp0/XgZBFRcQT0wND9wnn4ybV8UkbkyCLG23MlayJ1Q6k3qvvMlIUXmRLAvzQ7AoW2TonMpsYksw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NwmYgmsvrXVf/ye8fcTFO0/kkTAM3I7aGPkv3SAs1w0=;
- b=Va9tgY7wUexHhx9/AMa6K+vgMusZCr5AgtAcufStaHuul9IZbmbbZGcZx0gKHxUNK+0A5Soy57Xpd2XGWNRHE8krYT6buEm2oAOtw5sJZmrMuvFSHGIIWRQXqKshnCx7pQa3G5sR/SWMdnb6NpHm9F2jwcjQpgigjfsd8ufNqRxibfBVEyz0d1umVtNk8EUxIO4g8A7+FqqKFdYZaWrdxN1YPHP5bwKxT9SUKSbmpY0kMnP7AkDhXLv5szCx/s7aG7AKc39ycG6U8s+auEeQdBQalUYUlTSjfQLZsXHeN4/8R38j708k8H/+bgf+c2+YY0Up49lddittl9q4GQt69A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NwmYgmsvrXVf/ye8fcTFO0/kkTAM3I7aGPkv3SAs1w0=;
- b=zjdz91GTH3Zv9l0lUjneMtU2oZ/q4WWLy3kTC4u66qJ12lglC3WQlQWF3i0LRm1TFW+HJ8xnpTOdOtGj1NZlRl5FkoyytPrZDkbtW5iE9jV4EzTR9BAn/UORYawFjBeqqEOAVD2YlPJZUuVNHGPOae7BmVsLYsb3aIkQ1tSzS0xJXgWAlPaOTP3UvtMcZqJrnIApa5V/LaGXff4K0//fcf6kxLcStVFcgy3HaQso0xxqo3a7bUKg0c2etgnUtUmUT6y6CG7BS/9ukervD8LBIEOCQzbw36IiynII3SZQdP5K2jUcWPK9FUVld6aBXUWDYnz7IW+wwX1T8C49x03Vgg==
-Received: from TY2PR06MB3213.apcprd06.prod.outlook.com (2603:1096:404:97::16)
- by SI2PR06MB3929.apcprd06.prod.outlook.com (2603:1096:4:f9::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.7; Thu, 2 Feb
- 2023 02:59:19 +0000
-Received: from TY2PR06MB3213.apcprd06.prod.outlook.com
- ([fe80::b113:70f9:7dc9:543f]) by TY2PR06MB3213.apcprd06.prod.outlook.com
- ([fe80::b113:70f9:7dc9:543f%7]) with mapi id 15.20.6064.022; Thu, 2 Feb 2023
- 02:59:19 +0000
-From: Neal Liu <neal_liu@aspeedtech.com>
-To: Andrew Jeffery <andrew@aj.id.au>
-Subject: RE: [linux-next:master] BUILD REGRESSION
- 66eee64b235411d512bed4d672c2d00683239daf
-Thread-Topic: [linux-next:master] BUILD REGRESSION
- 66eee64b235411d512bed4d672c2d00683239daf
-Thread-Index: AQHZNqLYPleILitAVkyvMXcyMi0fNa669sTw
-Date: Thu, 2 Feb 2023 02:59:18 +0000
-Message-ID: <TY2PR06MB321334CFD4ED1BD4AF97965380D69@TY2PR06MB3213.apcprd06.prod.outlook.com>
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
+ [64.147.123.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A41410E088
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Feb 2023 01:08:18 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id B62BD3200A7A;
+ Wed,  1 Feb 2023 20:08:14 -0500 (EST)
+Received: from imap50 ([10.202.2.100])
+ by compute6.internal (MEProxy); Wed, 01 Feb 2023 20:08:15 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to; s=fm2; t=1675300094; x=1675386494; bh=393xPKJKfY
+ /8d1G07ko6nYGhFyfE4P61UQ4EPe1PY0w=; b=DGpYVDqYZoAir7gS/jBBw7RMQe
+ MWS+ar1T1io/UJfQBy+Gig54QMqc6BFeTXAZeb4JXMVmVDGNdDRUEZ7NLq/rjskn
+ UaQLoepSVu44fZhSAgrIBQ7Bp60u4RR94kM4YBjazEPBdZgjfJzQY9f3YMUgLMiZ
+ kvb5umEAFmogtCLw1Yw/bamxfFQY+UG6jTFp+TTQBuJyDyZkMgpExHkKD/nbFUgj
+ Mx7Nbky/hQMvWgBtOgi9c0n96fhy/9RBy3sxuP+YQhSCER5qKBWEVR8hv3at5CP1
+ 6/cPA6k3eiFaaMTKMcC1tm05MfKS639sxmxBCN622efS87YIoejQB/vK6pxQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+ :feedback-id:from:from:in-reply-to:in-reply-to:message-id
+ :mime-version:references:reply-to:sender:subject:subject:to:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm3; t=1675300094; x=1675386494; bh=393xPKJKfY/8d1G07ko6nYGhFyfE
+ 4P61UQ4EPe1PY0w=; b=JxfzcEDWHIN6iT/UW/DKNncolyHFNGsUoobadPvAiNBx
+ 4jUTq3HDzq0H1uHud5xlo1KHDjJFlKGA1Cz00rxctqcpd3ZTIXHwb4Skss/ujDp2
+ +b0qpjOnNlnhuMbzLLtA9l1at0yy9RdAL7W1W9TgpiV6A/fjTfuTlxpvS1krvEj8
+ IHQRAtdDEntR/XBxMBSJiAACHR7q9laCn2sZ1ql8wuvrzKR5raDqbC2aZqYnZ6PB
+ e6mSXx4S5uBW5fbxqT6YdAG6jtZXKKOcqArVsVGfxxAHnY3j7PRS0guWAsEGTSqz
+ w2MGzfM4/hRs7CNKxbeU/cYn2omGWGWoQDXyqV8YwA==
+X-ME-Sender: <xms:_QzbY-WTlRjVicya1zrlXA1b12oygeUMtzMLZlK4K-_NZq89jz7KJQ>
+ <xme:_QzbY6nSoQ8uQatMd5fJScpCenw_AZ1BeyfFRU5WmrwpeeNawkEeQd2DZLEv06InB
+ 52C-pJWMeMGjzSkYw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudefjedgfeefucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepofgfggfkjghffffhvfevufgtsehttdertderredtnecuhfhrohhmpedftehn
+ ughrvgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucggtf
+ frrghtthgvrhhnpeelgfejleeuleefvdefieetgfeghedutdfftdekgeekhfdvueegfedv
+ feegveeiueenucffohhmrghinhepkhgvrhhnvghlrdhorhhgpdhgihhthhhusgdrtghomh
+ enucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgu
+ rhgvfiesrghjrdhiugdrrghu
+X-ME-Proxy: <xmx:_QzbYybgVsSI2-T2X1ZgHkWom-ZjJ1v15qYY7_HdsQs785vD4Jf0cw>
+ <xmx:_QzbY1UAS4J6T6menWKwt-VloKmyO0X-guJrpDvJS_dT72S7IX8aew>
+ <xmx:_QzbY4lG2xwwSfADF-4IXcqUXr1X_si0uI0_Zqe-iLI9ns3muBGfAA>
+ <xmx:_gzbYxeNtPB-IcBuKujXA1mLxFWMTf35Xmw_Bw75jV6QTvLOl7gM7A>
+Feedback-ID: idfb84289:Fastmail
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 4DE401700090; Wed,  1 Feb 2023 20:08:13 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.9.0-alpha0-107-g82c3c54364-fm-20230131.002-g82c3c543
+Mime-Version: 1.0
+Message-Id: <76f4dea0-9a39-4238-a213-0167477f5d54@app.fastmail.com>
+In-Reply-To: <63da97b5.3V1HSQEat507LFIr%lkp@intel.com>
 References: <63da97b5.3V1HSQEat507LFIr%lkp@intel.com>
- <76f4dea0-9a39-4238-a213-0167477f5d54@app.fastmail.com>
-In-Reply-To: <76f4dea0-9a39-4238-a213-0167477f5d54@app.fastmail.com>
-Accept-Language: en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY2PR06MB3213:EE_|SI2PR06MB3929:EE_
-x-ms-office365-filtering-correlation-id: 0000665a-9487-4af9-31d1-08db04c97a6c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: BKb/ldn1nm1OAwkJG1HF270esNNM7v92acGqv7wuSpZHAd2NtqCjUneNWbyPOoVEE7l/CfVix4kpFhjsdZUYMw0BxCqkcvbnaiiJY3Vq92r3RffwV/8r8wEjVeOcs+3wf/+8/U/imFn0UhlGrzUzsMGQFOD8gwSOrxHJYwXbFzk+KB6dM6Ehct5VjH3ypj9T2ICr8+oAqgUDRJ4pcJ8Wx6mXn6OzrGT6ck6RtUZYPT0XMKcqOHrdPjc2Q8U4q5tPfHyg8dMEG9nU7iDEadup0BZYynv5OWxCnwE5zYCf97BWz8hNnWVHMg6Za5ya411L8JD6IYc+0OyFJ2btp+iiAHJA9J1RqFvRPtuG5YrooLZZEpC018mKFSpYor1xd9d1CEzvSuXA6Oj9XFoNSSsBz+mmbfqRYdZGQhR053c3GuN6DdGTsuUBDDFLBuYeZRAVWsQEjwAQ6vCbNyLAJYdHHPvdrOPkck/Q6HewWlgindNTeajNXYQLwSoN2aCgnnUuO7M1RuMz4lxDPxHeZWq/653ltHLjLA6/YeMrdLrvy02ycEpH1kzPdCDjyRzOEa1ndIFFclmjlz9Rko5p0TMVSmNZaX21zTqWmEFT0J5lHOu20QcO4T8jHba/Ey/2uCNio+gfe9ugF8tB8itlAJYqqipMDlKt2txKDZwx/DSatVxmXdLJKO+2RvNtmBpaqmLcWGnugd03Mw55K3VgDnGatPcqtQuRiV8KMppU+PiVDVg=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TY2PR06MB3213.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(136003)(346002)(376002)(396003)(39850400004)(366004)(451199018)(6916009)(8676002)(4326008)(41300700001)(64756008)(66446008)(66556008)(66946007)(66476007)(76116006)(86362001)(38070700005)(54906003)(8936002)(38100700002)(5660300002)(122000001)(7416002)(52536014)(33656002)(316002)(55016003)(9686003)(26005)(71200400001)(186003)(7696005)(2906002)(966005)(83380400001)(478600001)(6506007);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ElUlFQ0BxtxBRmDV5JTfD1Yp/0OgzJIB1GxO0twWmXi+D82QwQ1wpiuurf3y?=
- =?us-ascii?Q?Pc5b2kgVDI0oVuvs6CEvgn7hqsDMTSC4xU5wGUB7YPWzG+xJhMrPtzDsbWTC?=
- =?us-ascii?Q?yCGjQ8Vu90sGEs7I2T/f0INspMZZWviH2AS27HNZtPtz7Zn7ex2bgnFRJ1TB?=
- =?us-ascii?Q?lvZO49JsU/BGUeq453+mk17NLB+F97FsE4L2FXf7mk+7uHQW6z3Ef8oD7Bdb?=
- =?us-ascii?Q?QpAh0m+V3IeVN/HBPv0Wvy3kLJiwKFVlN0HeweUSB5pBRwlAgpdhKQxWMQGm?=
- =?us-ascii?Q?/8R+Q1VUcl/+CuBt6rXrPg3THhtOoC2GFemU3BSQ/rJCo5eQFQB0iGWVO5by?=
- =?us-ascii?Q?DLXbjx+LqWDDMLg2MHa4nstjmJreDpo4B/3Pl79QdjL/TmfvOeEHAbNv56jz?=
- =?us-ascii?Q?3DMoKpOMWeffgjOPrOzYlXzE8SbHFHf9pAowEuvNVjvHwKrHGgXnKAEhDNHj?=
- =?us-ascii?Q?YeGE9VwEki9P44nTkpz8+xOLIm7IEy5t1uulZhDGBMRkCfZkRHiwqzoXBsfY?=
- =?us-ascii?Q?AVKGXPPsjNPRl/agfccuid9X/Dt5k+1VLYqlYKDyrGzi7nrkZz0/dn6DduHS?=
- =?us-ascii?Q?FBmHKEgJofTrrtPekwg1iPw+kwvXr/Bbian0zkMvKkfaClf4mCzuVMHiDg5S?=
- =?us-ascii?Q?P4JObLzkqxIgQchXq7+oDD5zLKSNehXGSQ+avDbws4S3zvyhwg/QlsnGVS0Z?=
- =?us-ascii?Q?c4JSmzPJDmIIBfDuaHMLjf1nPVKvDUTSnQUgoSkxNw6Bq4crJAE6Hk86vTTx?=
- =?us-ascii?Q?JguY04ozKr6KuqJ3KqajDoj7gQZlDeV2tDhXvevaBl0ECtz8PEz1GaJaiF3W?=
- =?us-ascii?Q?pf5sFMudFH2kgpQBqOvAZ7aWcB9kIpkDA/406yUI+kFp1rpLwqaoTztQ0MEw?=
- =?us-ascii?Q?jozUmq5DNG3ADAUnMV3JBEFTrkkAUiRAguBMp4FuhRqfMkn9J9vYdww7MZDT?=
- =?us-ascii?Q?hTueL2Mnz1GZSPd1tCpX9pUQdf/DCXpLGMnUeU1NaMeOOzpj1Z4+PWcZH04Z?=
- =?us-ascii?Q?J6vqsx2tfvgzCgoz6LyfSn9yI/qz86XOgpabKghDnjUQ8jo5f55kwL02Ppm6?=
- =?us-ascii?Q?yBVdbyDVfvOmTZav2t4Ue8lH/mSLgstylxZW+GTUG8ZfFvYg6msdhOMsJ+ZB?=
- =?us-ascii?Q?hw30U1hPsqkm2brR7a6GSt+tpuL7MTLIw3SY19yPi1oEo0fNVb01wOXAY7CV?=
- =?us-ascii?Q?d+ehLh+XS+2oD8Z3TrYbGnJZnbA/ve05ZGdgzwrIj+KiFK6o9tyJx3dYXTzq?=
- =?us-ascii?Q?eOFec54oIcQsdp6NdIFal8b1kyo7kpoPhyc1EGEvLjK/0+n/Il8f2BuNuSix?=
- =?us-ascii?Q?EsGahXMmYR4DPfY8J5LtkSMig0ECxriuwkEbbDzO3/g4plK2KdPAcjf9RChO?=
- =?us-ascii?Q?K0sCfrzCmQqm8SdIpPIHk2o4p6ophqjbIiGfiisf9CiVVLatzDCebPZrMgeP?=
- =?us-ascii?Q?ozKdP4XqxF/3K31B8QuDyYNdIjEoxp5ggGKbZ5tPiKp1fQCKm+WWJ3jekr6r?=
- =?us-ascii?Q?1ZAg/1hvC8KH1So8GHKBCKrfmqWYH9MQmlVVfKGbh0EO+LnlDIcaCA0lHtQY?=
- =?us-ascii?Q?bvQmhs/ue8o93QAceZtCQt4KSbhLaW9V4UA1ZPry?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-OriginatorOrg: aspeedtech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY2PR06MB3213.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0000665a-9487-4af9-31d1-08db04c97a6c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Feb 2023 02:59:19.1437 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Zi3FHqtDe6U3xsU9SGyghQmZl5G1QkFgVNgiBJgiosg03YiIbL4vAZtIRQdTTM4CbmblJjjWH635XwZsdReyPw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI2PR06MB3929
+Date: Thu, 02 Feb 2023 11:37:20 +1030
+From: "Andrew Jeffery" <andrew@aj.id.au>
+To: "Neal Liu" <neal_liu@aspeedtech.com>
+Subject: Re: [linux-next:master] BUILD REGRESSION
+ 66eee64b235411d512bed4d672c2d00683239daf
+Content-Type: text/plain
 X-Mailman-Approved-At: Thu, 02 Feb 2023 03:02:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -120,53 +83,120 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- kbuild test robot <lkp@intel.com>,
- "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "kvmarm@lists.cs.columbia.edu" <kvmarm@lists.cs.columbia.edu>,
- Linux Memory Management List <linux-mm@kvack.org>,
- "kvmarm@lists.linux.dev" <kvmarm@lists.linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>,
- "linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-trace-kernel@vger.kernel.org" <linux-trace-kernel@vger.kernel.org>
+Cc: devicetree@vger.kernel.org, kbuild test robot <lkp@intel.com>,
+ linux-aspeed@lists.ozlabs.org, linux-arm-msm@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, kvmarm@lists.cs.columbia.edu,
+ Linux Memory Management List <linux-mm@kvack.org>, kvmarm@lists.linux.dev,
+ Andrew Morton <akpm@linux-foundation.org>, linux-riscv@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-trace-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> Hi Neal,
->=20
-> On Thu, 2 Feb 2023, at 03:17, kernel test robot wrote:
-> > tree/branch:
-> > https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-> > master
-> > branch HEAD: 66eee64b235411d512bed4d672c2d00683239daf  Add
-> linux-next
-> > specific files for 20230201
-> >
-> >
-> > Unverified Error/Warning (likely false positive, please contact us if
-> > interested):
-> >
-> > drivers/crypto/aspeed/aspeed-acry.c:295:37: sparse: sparse: incorrect
-> > type in assignment (different base types)
-> > drivers/crypto/aspeed/aspeed-acry.c:305:28: sparse: sparse: cast
-> > removes address space '__iomem' of expression
-> > drivers/crypto/aspeed/aspeed-acry.c:606:24: sparse: sparse: symbol
-> > 'aspeed_acry_akcipher_algs' was not declared. Should it be static?
->=20
-> Can you please look into these issues with the ACRY driver?
->=20
-> Cheers,
->=20
-> Andrew
+Hi Neal,
 
-I just send patch to fix the first 2 warnings, and the last one warning is =
-already fixed by another patch.
-[PATCH-next] crypto: aspeed: fix type warnings
-https://patchwork.ozlabs.org/project/linux-aspeed/patch/20230119014859.1900=
-136-1-yangyingliang@huawei.com/
-Thanks
+On Thu, 2 Feb 2023, at 03:17, kernel test robot wrote:
+> tree/branch: 
+> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git 
+> master
+> branch HEAD: 66eee64b235411d512bed4d672c2d00683239daf  Add linux-next 
+> specific files for 20230201
+>
+>
+> Unverified Error/Warning (likely false positive, please contact us if 
+> interested):
+>
+> drivers/crypto/aspeed/aspeed-acry.c:295:37: sparse: sparse: incorrect 
+> type in assignment (different base types)
+> drivers/crypto/aspeed/aspeed-acry.c:305:28: sparse: sparse: cast 
+> removes address space '__iomem' of expression
+> drivers/crypto/aspeed/aspeed-acry.c:606:24: sparse: sparse: symbol 
+> 'aspeed_acry_akcipher_algs' was not declared. Should it be static?
 
--Neal
+Can you please look into these issues with the ACRY driver?
+
+Cheers,
+
+Andrew
+
+>
+> elapsed time: 722m
+>
+> configs tested: 69
+> configs skipped: 2
+>
+> gcc tested configs:
+> x86_64                          rhel-8.3-func
+> x86_64                    rhel-8.3-kselftests
+> ia64                             allmodconfig
+> x86_64                            allnoconfig
+> um                             i386_defconfig
+> um                           x86_64_defconfig
+> arc                                 defconfig
+> i386                                defconfig
+> x86_64                              defconfig
+> alpha                               defconfig
+> arm                                 defconfig
+> mips                             allyesconfig
+> x86_64                           rhel-8.3-syz
+> x86_64               randconfig-a001-20230130
+> x86_64                         rhel-8.3-kunit
+> x86_64               randconfig-a003-20230130
+> x86_64                           rhel-8.3-bpf
+> powerpc                           allnoconfig
+> x86_64               randconfig-a004-20230130
+> x86_64                               rhel-8.3
+> x86_64               randconfig-a002-20230130
+> powerpc                          allmodconfig
+> sh                               allmodconfig
+> x86_64               randconfig-a006-20230130
+> x86_64                           allyesconfig
+> i386                          randconfig-a001
+> x86_64                           rhel-8.3-kvm
+> i386                          randconfig-a003
+> x86_64               randconfig-a005-20230130
+> arm64                            allyesconfig
+> i386                             allyesconfig
+> i386                          randconfig-a005
+> arc                  randconfig-r043-20230129
+> i386                          randconfig-c001
+> arm                              allyesconfig
+> s390                                defconfig
+> s390                             allmodconfig
+> arm                  randconfig-r046-20230129
+> arm                  randconfig-r046-20230130
+> s390                             allyesconfig
+> arc                  randconfig-r043-20230130
+> m68k                             allyesconfig
+> m68k                             allmodconfig
+> alpha                            allyesconfig
+> arc                              allyesconfig
+>
+> clang tested configs:
+> x86_64                          rhel-8.3-rust
+> x86_64               randconfig-a012-20230130
+> x86_64               randconfig-a013-20230130
+> x86_64               randconfig-a011-20230130
+> x86_64               randconfig-a014-20230130
+> i386                 randconfig-a013-20230130
+> i386                          randconfig-a002
+> i386                 randconfig-a012-20230130
+> i386                 randconfig-a014-20230130
+> i386                          randconfig-a004
+> x86_64               randconfig-a015-20230130
+> i386                 randconfig-a015-20230130
+> x86_64               randconfig-a016-20230130
+> i386                 randconfig-a011-20230130
+> hexagon              randconfig-r041-20230129
+> i386                 randconfig-a016-20230130
+> riscv                randconfig-r042-20230129
+> i386                          randconfig-a006
+> riscv                randconfig-r042-20230130
+> hexagon              randconfig-r045-20230130
+> hexagon              randconfig-r041-20230130
+> hexagon              randconfig-r045-20230129
+> s390                 randconfig-r044-20230129
+> s390                 randconfig-r044-20230130
+>
+> -- 
+> 0-DAY CI Kernel Test Service
+> https://github.com/intel/lkp-tests
