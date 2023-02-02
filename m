@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2EF9C64EC3
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Feb 2023 04:23:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C722AC61DA4
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Feb 2023 07:51:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED48F10E2EA;
-	Thu,  2 Feb 2023 04:23:42 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2054.outbound.protection.outlook.com [40.107.237.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0544410E2E2;
- Thu,  2 Feb 2023 04:23:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3988D10E02F;
+	Thu,  2 Feb 2023 07:51:40 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2088.outbound.protection.outlook.com [40.107.92.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E540110E02F
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Feb 2023 07:51:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eWPmPsB79+xMe+ez6JG1fzE2ZXRkAXeAJv3mxHZH+RrKEG0ea2PmOI+FjKCJafvcJ86Hfk50dFNurj5fpu8c+0VevvUDm4WxKFnRuyTg+w8FA9bmZVcUKhWKu3sgH6e5E1juBOMMVcGgJ8Zk61hOz5Y3jEISjZudSkAbh907pBSdksGWVTos2cWJvxenc0HsoYct3gZ2qmwzGnW49K9JW/ELblG8989oZ6Pa9Vwhujg9/23YBTj25c+D+Xhp0SZ549i78Btxis1Ehi3ex/J4gc6dFJPOm+SuXMoiZ3Covpz6fUSCehvsPDOacbtYKlMOWy4ZSccKGgXLTcf+tS0nXg==
+ b=QjQ6OrRbiRd5zIpnB5wAJrq2eRl5FprQn2DiuXUPofjRzRmusb/fWAB9ecGRxhvNg7HZ3BU6k86k/XrG5fJjPKUI2jVFHWzLMPWEOcqvLOOYS61kvivt/Th7bnwQ2su+278rrOcahSc/F66oDqqQtfvdoEJ4v5xKrtWTRYninr/Pv3jQ1ZzL9ErMK7t3pINwEGLFWlKslNV690zpU6WPsNW3mMhlZ+y811TcA7xVH+S8oCT7tz2a3XawbxbI7mWbyVWwMcMRiW4G9P5hEYMjyYh8j3G1vjQdrmsL0XFTkMdMjIXft4UDiKuOxzuxPWiJGw4dTkK6HRCDPLNiCaZYWw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XQsOChVutCGo3ALseh/a6B+xfUCjiOAqm85l2EKhtmQ=;
- b=jlDATlc+27Q1IXYEst/n6NpoRw6u1/VxKUHissPjR+4Cwp2Nv34PFi7om++b2Tjp+upcARwKMaDcYA5lYncXMXOwY/+Pt6xwixarDQRbeZS1V18kurjQjBSWJJBqkAz5foGAH322Bf7B/ScRm/8mjIufecQ+DtvDY1QkCwyvdx1bpFjhT3aL9Mfw5lwxYvuDPUicdnWuLf78vs3WbaUqvPdNgc8KOJHPOs7WbybJn5ToQV4V5DmyxVcGjUZlh5D4tXL7JEwPGpAP1vXcwYkGgbyl+PUJvX7HZLbFGiEW0t7WoyYxGg21hs0PIgWO/QDZyG1j2MaZPY0UGnvuKnCSQA==
+ bh=N7gSIoR0nMuuMbnKQcw2pfpv6lWPyIj12OveNPtgbu0=;
+ b=H2l5nIYjRijKGBt4siGHdZ3BQFl38wKQuEQg0Rh2VWpbp0RbhVkZG6QlMQBg2vq6gcYRW4Ww8TKqBJr40j8oWvNohhqgUSIHvm1u5WuEcY63LTa1ng1CymkuqzBHxycjD0vZBD4MUhBwBHWXhU9yzIAgIx0uPvNYlqr1qlay8nga5hkWhzF/n/PnBoQflM4DjvO9Jgrv7Xv8a0UU2xKS34ORP2lQb4SEsQqAj43o/I5aIYxkzkpg9ftRtdK2cxFLypqsnXTei/snlpz5Cd1V7Qlefk7Okqu2MHRyxxcdlbr7bjyQfv/O4TdNa2noAUpH8gCbGJA7U8rTkHEFpdJnQg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XQsOChVutCGo3ALseh/a6B+xfUCjiOAqm85l2EKhtmQ=;
- b=gC2j7QzhPERTKDvHOW6lSiXLhZxRCt7Vjr+VFm9UVKKl+in3noGgqttgh33dtsaj+awjQnKyEnJgzh57Ru23tTR4A8LzITAJK+S00Ssr3pwSoxikL0Fppsaq58g579OibK25BfdiIX/WPEWHQ4sU/CSZq2AwXWQCtDWi3NZzRxw=
-Received: from DM6PR21CA0018.namprd21.prod.outlook.com (2603:10b6:5:174::28)
- by DM4PR12MB6278.namprd12.prod.outlook.com (2603:10b6:8:a4::15) with
+ bh=N7gSIoR0nMuuMbnKQcw2pfpv6lWPyIj12OveNPtgbu0=;
+ b=FmI5ViOSN2dQxgEBIUSV9D8MtRfjZ9zSTG20e6cYRzNwb38iM/oj7kQCuIjBQbI9FFaSxdkcTUGlCn/7MGeAXHQbLz5y3AWtxaD9oeXrjr3xpJwEdFMrOgp5G1gP95Hw7RWYIn/NRTV5zIV+zDYz/sHvhl1qlLyphlRAzozsOxs=
+Received: from CY5PR04CA0015.namprd04.prod.outlook.com (2603:10b6:930:1e::9)
+ by PH7PR12MB7987.namprd12.prod.outlook.com (2603:10b6:510:27c::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.24; Thu, 2 Feb
- 2023 04:23:36 +0000
-Received: from DS1PEPF0000E642.namprd02.prod.outlook.com
- (2603:10b6:5:174:cafe::eb) by DM6PR21CA0018.outlook.office365.com
- (2603:10b6:5:174::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.6 via Frontend
- Transport; Thu, 2 Feb 2023 04:23:36 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.27; Thu, 2 Feb
+ 2023 07:51:35 +0000
+Received: from CY4PEPF0000C985.namprd02.prod.outlook.com
+ (2603:10b6:930:1e:cafe::62) by CY5PR04CA0015.outlook.office365.com
+ (2603:10b6:930:1e::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.28 via Frontend
+ Transport; Thu, 2 Feb 2023 07:51:35 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,48 +45,51 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF0000E642.mail.protection.outlook.com (10.167.17.198) with Microsoft
+ CY4PEPF0000C985.mail.protection.outlook.com (10.167.241.201) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6064.17 via Frontend Transport; Thu, 2 Feb 2023 04:23:35 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.6064.17 via Frontend Transport; Thu, 2 Feb 2023 07:51:35 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 1 Feb
- 2023 22:23:34 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
-Subject: [pull] amdgpu drm-fixes-6.2
-Date: Wed, 1 Feb 2023 23:23:09 -0500
-Message-ID: <20230202042309.24144-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.39.1
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 2 Feb
+ 2023 01:51:34 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 2 Feb
+ 2023 01:51:13 -0600
+Received: from kenneth-mlse-vm.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via
+ Frontend Transport; Thu, 2 Feb 2023 01:51:13 -0600
+From: Kenneth Feng <kenneth.feng@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/amdgpu: enable athub cg on gc 11.0.3
+Date: Thu, 2 Feb 2023 15:51:06 +0800
+Message-ID: <20230202075106.2274628-1-kenneth.feng@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0000E642:EE_|DM4PR12MB6278:EE_
-X-MS-Office365-Filtering-Correlation-Id: c9323e93-f539-4276-b0e7-08db04d54082
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000C985:EE_|PH7PR12MB7987:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5df5aba0-da61-4815-74e4-08db04f24ecd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /t7fFPKIGHICx11rwkBS0qKuop7GeXDOP9w/Y+f42C7iIMUoRGKdb9//2VH03ZUujFZu2wIXvXa/KaETstlkGSjTnzIBMpOfSsEstS29VReMZMU0QoBw3GEVBKbym3pJVc1RN7Z59HibUW594ccFUJHKzMOskeDrToxb0mlOrfzZlPtlbRp4+jMFEUrki8odF4eHllH/bgzOHpduv9KGG0ty6/AsBTCogjeQv0lJFPdEtlEIQJLKOBwK6ua9GzaiGP6AHoOz1e9Z8waSORpjbwUGoznIK3Ctws6ekc2PTBffRmjgFSJmQg3oc5Jaa/DfTBGLLWXLE6nijjld+a5LeCTKJDVh5xxLyRs5i3vqOLt3up5qOoHpSfqY6877pfYbK9XmxERifkQYZejBZEyM9Bqfy+SAS6cSXzOLMuBCWs6C+syZpW41Yn2iFGi4mZH4j4Fxx++RqxnyoiOIAX+3bw7O1cmNYH80Pam3Bes8Jb++NZ8FKW4RY2dPhqAB7/iZNybtNgXVV2JlkT4lAtaBMlnRAjFK1AAcD4ZoB8nMi9wjRjwBHhwqGX1ZHz6qHDuXABI0YxmyXKwzW2yhlWYs3EH3P45XKTVvpgEPiOBAjUgEuB+A0Fc5wJOsH+lpuGBbzaFVdy2rT6W3v+Fy5X8vabTiwxMI0+KyrlGVjgOSkig5xLFVB80DggRVl1ofnBAE
+X-Microsoft-Antispam-Message-Info: HGcku7QJgOjPrFj22z2wyvxw8ZtrEaxGGGGIjKy4sypFrryinxDiY20wC2v4sMQQtT4tuqyerT72BVeAly9j6+FdsS42zqRpCEmRpD/BB5wkJ6QrOXjp7eKscXFtJ3f6tQjl9XgV85YHfObUYZe0C39Ulra4rGJNGssVIDBpPEpqjZPMHPk3kvyAn8dPNHcRkcj6lrbWqlGiw1XWbKljh44bK2c3EaO2xNEv2qQj4dCSFH+ZOC1vWkmG3AvETK2G7NTe9uD5nh+W7xgwo0ZQmC30JuC/3/wvyVefp6AecpFhWPACforNCvSFZ54N5NEUeycWZtMyQX2PuKkRYg/NdfBKwICTSLKZdl3QUdgVbzI65t/ksHa4jVX0h2Gva9sy1r7MUPzt2MEwPSScXPSZYyRxNGn97wGeSAGAOiimiIQF/FJiRH58RH9pCQ8KAe4ir5gKR5TfAb6PERFMdt3eZU1Q3o5kcZdJ0zL7rTwGh037wI5MOEtyNly36P5efgdiY3AZHLecXIZiZa4zJDReKoORCxxBkqef4vwZybAKC4aIYA6E8IAJ1sKIj2t37LgflABv9v7vG287H59AEyEFI/7Q5964SvUjs2Yb8EZazUziYbUIk2rqVlBHHSpdb+q5UD4MgpwnOxdTzKfREjeEE7vW3iGKS1ssnjRLbyhyHR3hkZTpd88ARSW38R2s0eQfClsC+/9M+O6c+j9BcKaoCnHg6XCGyTMCMYUohADaQpE=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(346002)(396003)(136003)(39860400002)(376002)(451199018)(46966006)(40470700004)(36840700001)(8936002)(5660300002)(41300700001)(40480700001)(82310400005)(86362001)(36756003)(81166007)(36860700001)(356005)(40460700003)(82740400003)(2906002)(966005)(2616005)(478600001)(336012)(7696005)(1076003)(186003)(26005)(16526019)(6666004)(70206006)(47076005)(8676002)(4326008)(70586007)(316002)(83380400001)(110136005)(426003)(36900700001);
+ SFS:(13230025)(4636009)(376002)(39860400002)(396003)(136003)(346002)(451199018)(40470700004)(36840700001)(46966006)(356005)(81166007)(40480700001)(47076005)(426003)(83380400001)(336012)(2616005)(82740400003)(36860700001)(40460700003)(6916009)(70586007)(70206006)(44832011)(4326008)(8676002)(4744005)(86362001)(5660300002)(2906002)(41300700001)(8936002)(7696005)(478600001)(6666004)(82310400005)(1076003)(316002)(186003)(26005)(36756003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Feb 2023 04:23:35.9127 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c9323e93-f539-4276-b0e7-08db04d54082
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Feb 2023 07:51:35.2647 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5df5aba0-da61-4815-74e4-08db04f24ecd
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000E642.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C985.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6278
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7987
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,74 +101,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Kenneth Feng <kenneth.feng@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+enable athub cg on gc 11.0.3
 
-Fixes for 6.2.
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/soc21.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-The following changes since commit 6d796c50f84ca79f1722bb131799e5a5710c4700:
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+index 2ea0b9142868..0615fdbf0a64 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc21.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+@@ -677,7 +677,9 @@ static int soc21_common_early_init(void *handle)
+ 			AMD_CG_SUPPORT_GFX_CGCG |
+ 			AMD_CG_SUPPORT_GFX_CGLS |
+ 			AMD_CG_SUPPORT_REPEATER_FGCG |
+-			AMD_CG_SUPPORT_GFX_MGCG;
++			AMD_CG_SUPPORT_GFX_MGCG |
++			AMD_CG_SUPPORT_ATHUB_MGCG |
++			AMD_CG_SUPPORT_ATHUB_LS;
+ 		adev->pg_flags = AMD_PG_SUPPORT_VCN |
+ 			AMD_PG_SUPPORT_VCN_DPG |
+ 			AMD_PG_SUPPORT_JPEG;
+-- 
+2.25.1
 
-  Linux 6.2-rc6 (2023-01-29 13:59:43 -0800)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.2-2023-02-01
-
-for you to fetch changes up to 6fc547a5a2ef5ce05b16924106663ab92f8f87a7:
-
-  drm/amd/display: Properly handle additional cases where DCN is not supported (2023-02-01 22:45:51 -0500)
-
-----------------------------------------------------------------
-amd-drm-fixes-6.2-2023-02-01:
-
-amdgpu:
-- GC11 fixes
-- DCN 3.1.4 fixes
-- NBIO 4.3 fix
-- DCN 3.2 fixes
-- Properly handle additional cases where DCN is not supported
-- SMU13 fixes
-
-----------------------------------------------------------------
-Alex Deucher (1):
-      drm/amd/display: Properly handle additional cases where DCN is not supported
-
-Daniel Miess (2):
-      drm/amd/display: Add missing brackets in calculation
-      drm/amd/display: Adjust downscaling limits for dcn314
-
-Evan Quan (1):
-      drm/amdgpu: enable HDP SD for gfx 11.0.3
-
-George Shen (1):
-      drm/amd/display: Unassign does_plane_fit_in_mall function from dcn3.2
-
-Graham Sider (1):
-      drm/amdgpu: update wave data type to 3 for gfx11
-
-Mario Limonciello (1):
-      drm/amd: Fix initialization for nbio 4.3.0
-
-Nicholas Kazlauskas (1):
-      drm/amd/display: Reset DMUB mailbox SW state after HW reset
-
-Tim Huang (1):
-      drm/amd/pm: drop unneeded dpm features disablement for SMU 13.0.4/11
-
-Yiqing Yao (1):
-      drm/amdgpu: Enable vclk dclk node for gc11.0.3
-
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c                     |  4 ++--
- drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c                     |  8 +++++++-
- drivers/gpu/drm/amd/amdgpu/soc21.c                         |  3 ++-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c          | 11 +++++++++++
- drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c    |  5 +++--
- drivers/gpu/drm/amd/display/dc/dcn32/dcn32_init.c          |  2 +-
- .../drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c   |  2 +-
- drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c            | 12 ++++++++++++
- drivers/gpu/drm/amd/pm/amdgpu_pm.c                         |  6 ++++--
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c                  | 14 ++++++++++++++
- 10 files changed, 57 insertions(+), 10 deletions(-)
