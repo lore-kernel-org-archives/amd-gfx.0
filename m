@@ -4,76 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7E84C61DA4
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Feb 2023 08:13:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DACBC61DA4
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Feb 2023 09:54:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60DED10E03A;
-	Thu,  2 Feb 2023 08:13:08 +0000 (UTC)
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B016C10E1D0
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Feb 2023 05:19:06 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailout.west.internal (Postfix) with ESMTP id 14D823200907;
- Thu,  2 Feb 2023 00:19:03 -0500 (EST)
-Received: from imap50 ([10.202.2.100])
- by compute6.internal (MEProxy); Thu, 02 Feb 2023 00:19:04 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm2; t=1675315142; x=1675401542; bh=qlB8J5fcQ9
- pWFGZPh4fvEz5uOnYTgBjr7dz+WP8j5yc=; b=Dkrt63HtIe6vqployzDjAFGg6L
- YWsfnUolSV9YToK6J0XcZpBbyRMwKffcs6c6PspuyKxA5FDVZmhNC2zBMyZ19tqQ
- uazskdwpzP7acDAdBylGVWotvR+xame+DNvgfuxdPWtKW9iG9xgFMNIvPD0gKMpR
- fko2tgLTCHv4SFzLW2yH1j4HY4lXQVILhYGFaKF7Gf7Ia9tY1GYYygJJq5jHJ4zJ
- eDsbHKRKRaHPRFTjWHp7o7eKDOAV+ThsTX4FTc92LnvCtG1G0uiGNjqgqDphaLDj
- GfjlCuQtpqb9VScZ/fmse+7Yp9t6atvCYqGf/1OpOKgktIpRZOtnO/BD2T3A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
- :feedback-id:from:from:in-reply-to:in-reply-to:message-id
- :mime-version:references:reply-to:sender:subject:subject:to:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; t=1675315142; x=1675401542; bh=qlB8J5fcQ9pWFGZPh4fvEz5uOnYT
- gBjr7dz+WP8j5yc=; b=Brz+nTBfPhT7mfU2URl1sQT+Gn+skyv9wCEli/6Rgu+6
- EVU+zWfliZW6k4izI6Hl26mlHhCVnivLV+ld+4PdePm1D97vISJwK97lXhtm5h/J
- UCCSQJT+MpZezEylekW2/7qbrEkbDiXbLbL6Y6HHB/QJZ+AJZQfV2m2OYDrSrdTt
- ZELV3Nwd5h9ldz6t/7wmo0sr/3TAEM32x0ts3uYHppxdLeAnyOn4AF/42B2ObMRh
- RFBIreOxwdAv8MnrCVONw2iZYwt6UPZPgc+meIu4tWHWtVqO39jzlcfDxHyS4vsc
- yJAs9i7HGv/jgY27K0Fx4xBcdJJrXd8jHdNP4wxnng==
-X-ME-Sender: <xms:xkfbY3GLvG03Yvc7lDMoY4m0yFTOUpnLTq4PeyavsBv49HJYZ20eSA>
- <xme:xkfbY0UBsfDzpqQACwkLaAGnxZsw3tAGOVfopqDnA6jXhm87o69vG3P3luH-qyrxo
- -JuMHpc9-cUH8bC8w>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudefjedgkeehucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepofgfggfkjghffffhvfevufgtsehttdertderredtnecuhfhrohhmpedftehn
- ughrvgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucggtf
- frrghtthgvrhhnpeeujedvleduveetfffhlefhtdfgfedvteffhefhtedtheeffefggeei
- fedvheehhfenucffohhmrghinhepkhgvrhhnvghlrdhorhhgpdhoiihlrggsshdrohhrgh
- enucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgu
- rhgvfiesrghjrdhiugdrrghu
-X-ME-Proxy: <xmx:xkfbY5LgfXvw1p-Z0x93AFPz6dQvAP8X_Mg835dKllBOCGvaYO0WQw>
- <xmx:xkfbY1E215NRPYIJpqDp6dXQF6PmZZIBKleovQk9FN5piRGEm3v2LA>
- <xmx:xkfbY9WqXtrtEDIk8nPnHLUzZf_JjSCOfvCOp8DrJj4iYtUWashmbg>
- <xmx:xkfbY2OcSQi637wFrBWuNAma7rjwfzhtm43HxYrfBxju2yj6GU2CkA>
-Feedback-ID: idfb84289:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 413C81700089; Thu,  2 Feb 2023 00:19:02 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.9.0-alpha0-107-g82c3c54364-fm-20230131.002-g82c3c543
-Mime-Version: 1.0
-Message-Id: <8f165a30-4adc-4a39-a467-4cd3d466e850@app.fastmail.com>
-In-Reply-To: <TY2PR06MB321334CFD4ED1BD4AF97965380D69@TY2PR06MB3213.apcprd06.prod.outlook.com>
-References: <63da97b5.3V1HSQEat507LFIr%lkp@intel.com>
- <76f4dea0-9a39-4238-a213-0167477f5d54@app.fastmail.com>
- <TY2PR06MB321334CFD4ED1BD4AF97965380D69@TY2PR06MB3213.apcprd06.prod.outlook.com>
-Date: Thu, 02 Feb 2023 15:48:35 +1030
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "Neal Liu" <neal_liu@aspeedtech.com>
-Subject: Re: [linux-next:master] BUILD REGRESSION
- 66eee64b235411d512bed4d672c2d00683239daf
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA17410E4B5;
+	Thu,  2 Feb 2023 09:54:47 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2040.outbound.protection.outlook.com [40.107.223.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 899FA10E4B5
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Feb 2023 09:54:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=aLdKwQ17FOTMz5CQOZrzRwWSeurB+XcTNRxYnd7/lDCFHfvsvfgKdB/lA/PrXoTj9KbdiaVNFPbMtWxmNPM0MzvBWEkm1YzVdC7HY9ny4i8jObhQn3tOqNYlq+cj8LPt5k1s0T3bhziF8e0sjNmL7xAMBqHm4H4i7mBOghieO9xEdownPxA3AUizl7IWv4Ty2HjbjgX/H3pAGg5K0fsDSfOQK3Xs3PCbSOFTlWjqXz2HVFfMyihPfUbvhVDbU/YN0MrI94y/y/L0b4wCcsvInCm87AmBsCt0QZR91AF7G6EgshWkSgRKrShg3WvtBtlGUEBIjP4h3KeyJWfJdoSeWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Wp7h8jabjdmjxRagoV1eWzrwV870N12TufAA1Us5rB0=;
+ b=VUWAT0PmJU2FFBHjw6LBQFGiMMElc50pVbF9BEZzMsV7baJVKzIMC76LwmQ9sct2cpsP7yIOrap8HigzAOSWdk7ApWSzU3Wmr/df5W66+Fyyxgff1cK64xN75l9zAS1oov9GcIXZGksWb4yvyHkBxkuv42TdmQgE9EJZzlA3GFaoZ4HioGbs87YmtXTOzXgagvRYBE5Xc1w156tDMiOSRAYFn0XYZq3QY6Uq70IqT+53wr+K3bN48EGYEhoIJclfFVS6Qdn7PnnFuOaaBA92s5PPqvPq29M07j8YVVONztIt+XjgNFK70auhnJ+QxjmY064TTDGgxYcZgEcu1cDA7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Wp7h8jabjdmjxRagoV1eWzrwV870N12TufAA1Us5rB0=;
+ b=v6tNMeEP2VWv9JNkW7blCboXH0p4MOUvfjtQ3bjZxP+Y0+z1r1axmEmTxfJ61/CLv9XsykrAIPbOnfp07rTmV4XoiJlccySXDq3uYtgfr8AFEYeIhhDWkG5Eg1vPNvnrOebz7ltyZYfjEHve7Hw2sIoBE0Gnlu3eL90lwwv+CB0=
+Received: from MW4PR04CA0383.namprd04.prod.outlook.com (2603:10b6:303:81::28)
+ by DS0PR12MB8503.namprd12.prod.outlook.com (2603:10b6:8:15a::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.25; Thu, 2 Feb
+ 2023 09:54:40 +0000
+Received: from CO1NAM11FT046.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:81:cafe::82) by MW4PR04CA0383.outlook.office365.com
+ (2603:10b6:303:81::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.28 via Frontend
+ Transport; Thu, 2 Feb 2023 09:54:40 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT046.mail.protection.outlook.com (10.13.174.203) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6064.25 via Frontend Transport; Thu, 2 Feb 2023 09:54:40 +0000
+Received: from jackfedora30.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 2 Feb
+ 2023 03:54:37 -0600
+From: Jack Xiao <Jack.Xiao@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Alexander.Deucher@amd.com>,
+ <Christian.Koenig@amd.com>
+Subject: [PATCH] drm/amdgpu: only WARN freeing buffers when DMA is unavailable
+Date: Thu, 2 Feb 2023 17:54:16 +0800
+Message-ID: <20230202095416.4039818-1-Jack.Xiao@amd.com>
+X-Mailer: git-send-email 2.37.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Mailman-Approved-At: Thu, 02 Feb 2023 08:13:07 +0000
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT046:EE_|DS0PR12MB8503:EE_
+X-MS-Office365-Filtering-Correlation-Id: 22f43a02-4624-4474-bd2b-08db0503807d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ep6x/gxa2TSEiw8djN5DZ6jCKY6zQwy/UB66MgCfDyFQrzbJBwEF3/IRhprxTgx449g/lJPT0Qlpm8f6G0lmcaGO35zlzu31CSQxIXQ6AAJnxC/WGlfwc5JYspBpQNFtMBoXryC/eYA/cv+ruA7Djg8s3ZjCUUPrw3IKhtMLURzlgJVN3Cf1/0GPd7RBucnoDRWkW3k0uU+zRy0ff/vLURGlfYW5fDLqkUcQTpKiJ7igFRl6NxkDIF8Ybe3coLTXf+ULzudb3Smowlq2RXH95036dkMOr2uUkVHNxXc59hAR3lZDO5Tq81OzoJJtbtQY2PG4K7rztyvBXzzEPhOl1Ja9vl9PSBVSnRxhfoelDkRTYw4meUKLVkxFCKiSJ8wWC/rWFDKc2SLOwLQjPtsGoMLPGvL5zSDSEXCFPS91rJXXGfPwLy3TWUKiSE4JC4vsNjURjoG63VkpmjdJazbmepsM53aHXCTnsi7YOxkWPQlnW4d3GN+sGBeCFo6c0JkazZZJdZEg97OVvHE1NhhOb9ayV3RnnIbNQ2EYy2hT7EF8qBWGBYty25ACrbaVEEdt2QhwNCxNstEdwMFHoe5W+o8tVEJsZeAlvEea8MOK6KBBJfEgsFHBgylzpZKPfXwUrczqFyH0JV2aToMinfvcnfS8pyOfsMtlI9LZ6nvxCoN6brvNXpq6tq00aa8ZueiyX0aOembNAaqP+PPKWQzGZ0N12+rHw/oTtanwGmJKVece+NjuO3p2ednEs2g8cZyX
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(39860400002)(346002)(136003)(376002)(396003)(451199018)(36840700001)(40470700004)(46966006)(83380400001)(26005)(7696005)(40460700003)(4744005)(36756003)(82740400003)(81166007)(86362001)(40480700001)(2616005)(36860700001)(186003)(356005)(82310400005)(336012)(426003)(16526019)(47076005)(478600001)(1076003)(316002)(6666004)(6636002)(110136005)(70586007)(41300700001)(5660300002)(4326008)(70206006)(8936002)(2906002)(8676002)(36900700001)(2101003);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Feb 2023 09:54:40.0259 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22f43a02-4624-4474-bd2b-08db0503807d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT046.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8503
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,62 +98,31 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- kbuild test robot <lkp@intel.com>,
- "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "kvmarm@lists.cs.columbia.edu" <kvmarm@lists.cs.columbia.edu>,
- Linux Memory Management List <linux-mm@kvack.org>,
- "kvmarm@lists.linux.dev" <kvmarm@lists.linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>,
- "linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-trace-kernel@vger.kernel.org" <linux-trace-kernel@vger.kernel.org>
+Cc: Jack Xiao <Jack.Xiao@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Reduce waringings, only warn when DMA is unavailable.
 
+Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-On Thu, 2 Feb 2023, at 13:29, Neal Liu wrote:
->> Hi Neal,
->> 
->> On Thu, 2 Feb 2023, at 03:17, kernel test robot wrote:
->> > tree/branch:
->> > https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
->> > master
->> > branch HEAD: 66eee64b235411d512bed4d672c2d00683239daf  Add
->> linux-next
->> > specific files for 20230201
->> >
->> >
->> > Unverified Error/Warning (likely false positive, please contact us if
->> > interested):
->> >
->> > drivers/crypto/aspeed/aspeed-acry.c:295:37: sparse: sparse: incorrect
->> > type in assignment (different base types)
->> > drivers/crypto/aspeed/aspeed-acry.c:305:28: sparse: sparse: cast
->> > removes address space '__iomem' of expression
->> > drivers/crypto/aspeed/aspeed-acry.c:606:24: sparse: sparse: symbol
->> > 'aspeed_acry_akcipher_algs' was not declared. Should it be static?
->> 
->> Can you please look into these issues with the ACRY driver?
->> 
->> Cheers,
->> 
->> Andrew
->
-> I just send patch to fix the first 2 warnings,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 2d237f3d3a2e..e3e3764ea697 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -422,7 +422,8 @@ void amdgpu_bo_free_kernel(struct amdgpu_bo **bo, u64 *gpu_addr,
+ 	if (*bo == NULL)
+ 		return;
+ 
+-	WARN_ON(amdgpu_ttm_adev((*bo)->tbo.bdev)->in_suspend);
++	WARN_ON(amdgpu_ttm_adev((*bo)->tbo.bdev)->in_suspend &&
++		!amdgpu_ttm_adev((*bo)->tbo.bdev)->ip_blocks[AMD_IP_BLOCK_TYPE_SDMA].status.hw);
+ 
+ 	if (likely(amdgpu_bo_reserve(*bo, true) == 0)) {
+ 		if (cpu_addr)
+-- 
+2.37.3
 
-Thanks.
-
-> and the last one warning 
-> is already fixed by another patch.
-> [PATCH-next] crypto: aspeed: fix type warnings
-> https://patchwork.ozlabs.org/project/linux-aspeed/patch/20230119014859.1900136-1-yangyingliang@huawei.com/
-> Thanks
->
-
-Great!
-
-Andrew
