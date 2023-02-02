@@ -4,110 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E95C4C05027
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Feb 2023 11:43:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B05A8C61DA4
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Feb 2023 11:58:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7070810E163;
-	Thu,  2 Feb 2023 11:43:33 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20629.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5b::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7B0910E163
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Feb 2023 11:43:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FC0710E1DA;
+	Thu,  2 Feb 2023 11:58:32 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2060e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe59::60e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF44210E1DA;
+ Thu,  2 Feb 2023 11:58:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YoplEbjlxYD62bS9J9tSFD7EpNK6uB1CtRivZO57F1iZwsl+I7U1cMNOyTFJ1yhM51EjA5Kx0NNxjrAL4va1H4MVKJVy8YA8qkKZ+xiW5mGfBgHHNf/fMlPk4Z76NL6WiA7/dhgqdmoATpddjRZ7/s4W8F1g4HpI3rcZ3fx214YUGUj/duN5LKBPfPoriE7s820/e0m4sq86MCVx/TjyXLZMCKBheredrjv5kUHcIgamy4juj5guWm1txDTjP7ENn2MjnVcQzokYDg//uMS3qE8kGk01E3Y+b+JhjqG/3dwC5DxKMTn5+9SlnU4Ll3DUwaLsQUABiaG9c847Kg+XKg==
+ b=lhkbFLluPnoKNk5AXztlwwoVvmunCMck2qmmeiR1qCP9Oo1O2bWO1Ownlo09JR+MwDI0wNI9f1mpYQoLvtGp4tqsHxQiV8uMqUk7ycfLDlqdM6PxZ5+e5giLv9CPSP2fYwWEiLf9xjJxcIRq1FY9KfZ2Z5wpq4nx8nlZfFSy9auO/l4MB1y3XvR59leRWq9NlQs44RTzFsrJ5ocERuzSJsr+YAtAW9GazExmWSocvgl/KbSYLatWyJjNCBJ3wQD5Z/m5f1mKm3hVd4Xmnh3XPlAHVcklcnVnH/zg4WfvGaT8JZdDfhHDgOMCnWX+gOYIElvkbsvUl3bpLLXq+nO19g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RmrHhCJxoByFMpqUI0RMrYRYtKbWlwuiAyzpJNJswhw=;
- b=CO5mj+HGQZGybDsumFRkK6N6gVANBZMLdtkTgnwkRX8fYXWFUZPsc4CZETxEylFsFMvwxsQ0fH1kKj3Traz9c3OBOsMfNkq953ySLm+K6eArtid4wP+3ShWyXkAAJrWsEb0qYXW1CbkMnC5vemvgCyE+P7Zhc41s3DS+iqdZ4F5zvVfCy6NOVcQ5hM9jyqb5RmG9jofHUI1oFco8yg9q7JDuR1r6larbXkkSozKOeDIpjYjRUlErhVvFWGud3k1vp6EsvzRZrqu4jCid8g2vyh8TKkUc5eGUtunRzLHJXvAp/hppBasuFOvHBZjBWKF8f+8Ocb3E6b0V7Z4ia+1Ihw==
+ bh=hJrGvopLET90ZMTEK7T+ASCSaKRiIhGAZkr5ldfj4Jg=;
+ b=Crs4AQWBNqyIJ0fHYyMIIKkXYOfrYNqlPjcfsDfyngcdK3W0c4aaslFSG+2iJn6QHiRrFQ7hew9bwVqz1zlPt4U+7AHR7qPPMFXBZfQQq9Tc938aGLrc5fGBWau27vRwSfvK7Ez1aoK80hOYXbax2xjBJ5BKFfgal5wSkpIWGDrjw/gmijcb91BUOotk0E9nbCHTZvhRLwIRPpnt8ZtIHRrE3UvE8daE+dVaQp2uk9nsGGnzJcGr3p4LxYBCT+xQS92bnstPYfSCWYPPrE3fc4I5XHu056y7e0lmIcMPApGS1ZA/OYIVh57kb6elAUZ6U+nCXp0FhRU5wS/H0G2P5A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RmrHhCJxoByFMpqUI0RMrYRYtKbWlwuiAyzpJNJswhw=;
- b=1X5u6NKpql81esDVgpBm1ZzKrNXHUDb+TWELYImAwvRfichQntaa8b30AdU50qddlwrYFln7dPgtjmQ0xIZE1B86vUKmv5U6O3jmvtS8nmMU6HxK10nrEglVJX78w1187Nzm3m0GhfU9BLaGBgjBSg7NSn8mvILCZCNUqywyxTY=
+ bh=hJrGvopLET90ZMTEK7T+ASCSaKRiIhGAZkr5ldfj4Jg=;
+ b=cDSp4Q35PTBkwPxXOZ9FlFHVwTTspo0cAIv3dgzEHTPnoVu+iNoBiNgQ9RoAcxSoGrCcTytIPj8drjY0okwD7JdB0y8i/5n18lTsyjMhmd9SNBM35ZtTSvt5RItrTTXABu8DF33F0eM3ZJ5LQ/ljFZv34Q1cWzH3SPGXGAm24jg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BYAPR12MB3589.namprd12.prod.outlook.com (2603:10b6:a03:df::29)
- by SN7PR12MB8146.namprd12.prod.outlook.com (2603:10b6:806:323::10)
+ by BL1PR12MB5160.namprd12.prod.outlook.com (2603:10b6:208:311::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.38; Thu, 2 Feb
- 2023 11:43:28 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.24; Thu, 2 Feb
+ 2023 11:58:24 +0000
 Received: from BYAPR12MB3589.namprd12.prod.outlook.com
  ([fe80::500a:d02f:5ceb:4221]) by BYAPR12MB3589.namprd12.prod.outlook.com
  ([fe80::500a:d02f:5ceb:4221%7]) with mapi id 15.20.6043.030; Thu, 2 Feb 2023
- 11:43:28 +0000
-From: "Koenig, Christian" <Christian.Koenig@amd.com>
-To: "Xiao, Jack" <Jack.Xiao@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
-Subject: AW: [PATCH] drm/amdgpu: only WARN freeing buffers when DMA is
- unavailable
-Thread-Topic: [PATCH] drm/amdgpu: only WARN freeing buffers when DMA is
- unavailable
-Thread-Index: AQHZNuxfM4airT3AskKWHuymsm9hN667iOcr
-Date: Thu, 2 Feb 2023 11:43:27 +0000
-Message-ID: <BYAPR12MB35899E39061894E55AC07FE383D69@BYAPR12MB3589.namprd12.prod.outlook.com>
-References: <20230202095416.4039818-1-Jack.Xiao@amd.com>
-In-Reply-To: <20230202095416.4039818-1-Jack.Xiao@amd.com>
-Accept-Language: de-DE, en-US
-Content-Language: de-DE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BYAPR12MB3589:EE_|SN7PR12MB8146:EE_
-x-ms-office365-filtering-correlation-id: 36532fda-9e5b-42af-b38c-08db0512b350
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: GJaaE51bE5s/ZKTwTqQvr8DXiSx0oemHw11h0IDoTovTaW+FYLJaJfnml4PQv2LgmUHiM76a+YGqNAkZisKskTiupw6z72/1c0wP5rPhVUFbOfmdNdJcue4WESQolXsuajU8h+MNy1UCswfHNB/AvH1xkE/HTmDu7r14nxSMvnfLV4WRHtjBvpyAwj9Kxk4hc4EZV+VY7kM5XeibSFLeECIfgixK3vwIDGSi+HiZCRKVG43UKybwmJY+U4z/mUeoM48PVfA2/qAr664W3HNavouAlltr7dXNtb6KrXkhrbxQB6JRJ9RcgAcPvszswoSD6J9RRHHU4yrrEDxrfjMI3jVvsFsRJgupFewWu7JsG9IFZ5GCx4gDkjrdwsCWUy0fRxhmDDb/RVOcfJWEB296NqtsR0YKwIB2DeYR70Wgx03d9RPOFFBi1w1TBv1rrP4s22iTMwbVwoTtdVjsVFjt9l0VSbSUngw0db6d8mGtxTT9BLo1S6Wwpluo0M42znox7KE13npPKxBzimBxrIk9AMZimMa2TBZNFmRQ5XiuHaDX9TsulZcoEwE6RohbmQO7MRFb4wBNwEzRIp5NpsiB1fJxKlLtanPnwLSEuavKIH198jZb+E3AXxxzvAnCu04+0pqN2FxHsT7dIvaiq6lWpe503naZcJQVcR+nSwx1YX9SDkcns7HZRXqzKbTbBdKhKJvhOb/ZMDBEhOZKss4q5g==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB3589.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(376002)(346002)(366004)(39860400002)(136003)(451199018)(8936002)(52536014)(316002)(6506007)(71200400001)(478600001)(122000001)(86362001)(38070700005)(7696005)(38100700002)(186003)(6636002)(33656002)(55016003)(26005)(5660300002)(9686003)(110136005)(2906002)(64756008)(8676002)(66556008)(66446008)(66476007)(66946007)(41300700001)(83380400001)(76116006)(91956017);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Glc14GwjWot+9OI90QjVaolg9CpN3IScX3SL0KKAta4NC7onh2Z7fuOm7oEp?=
- =?us-ascii?Q?WJXPZ4PNSknjV7kKjI4aOQD7UGnoSuTy94ZzthXzh7EMwDVFoSlz/D2mileB?=
- =?us-ascii?Q?2zNeVKeDwwNr010eR4GSRaubKzdeLbdmh7buMcm+B2N0LLaYuw7/ZhTWe0qY?=
- =?us-ascii?Q?c1Lf/46s4vjrd81RfddHN5aHFwq5WXpalYkkcdr1dvT9NK6nWtIuF+FlclIr?=
- =?us-ascii?Q?hYa3QbPstapbWgBqiTPYeh8suamXvwsZn4adoWtDgdIqdw+70ox51HBv+ztf?=
- =?us-ascii?Q?GY4aVCB2f3cpjijbCe0KK3W9qDqfP03s4cVvwFvTgNduwxTzRSSSbSsLSsIY?=
- =?us-ascii?Q?egOW4lwqu0lCT4afBfsfAXP7Gzfr+N2zvdRO7P7TfI+U8nNlOD4zs9vhWKgH?=
- =?us-ascii?Q?uv25UZEabUpwwE1INA0YB0J1Zf88+Yuo9uDAGgB3l6g/7f/4PGwwAorbV/AK?=
- =?us-ascii?Q?OOzNDneI/bsOQBYFSrC8qoS3zmH0HsiwUyb1DunukX98ci4nAP9aV8iRpzIk?=
- =?us-ascii?Q?sEuAVwtuTstE6b8BfjBOXx9bn8Y5E5N+mpYPpXCkrrNf24HEtBU1ry/v7Hfk?=
- =?us-ascii?Q?ztfO0+WpJ8yqwtX2dYUn9wXBawnp2QKCCrgURaIfGe1ZNjoxDMUMvFQ5l82W?=
- =?us-ascii?Q?CHsKzY8b6bPx2vCpGkSvcN/YuGXOMfWaJJ7IDke5nT0xv2iGcuAfhiUr+Id7?=
- =?us-ascii?Q?OCFN4pYi1vQLv2Oofnjc+d10k+YLTTr8NwfuiOQ2oZsb5GdXPp5StM5QLQ2V?=
- =?us-ascii?Q?otjQV3EFNO3g3MynGab8TPm3lvhKuVvVqwIxoYfcQr3E9Stogsx4xKL9wsLp?=
- =?us-ascii?Q?gHdCdyMhnawk5VQ0Y28E5U26R0pILcGQ1FF1Cu3bsueNDCE9Yb8lPdqhQarG?=
- =?us-ascii?Q?S3zBmQJLK7bBKUBfir2mKB5dx9inFA9xgcsihtPjY3yrb5UcH2uVRjO/71Ly?=
- =?us-ascii?Q?eRZNgTtK+N1dqP1DrdtGg7RDKmZ/VKnhAAOLubBPW/bYBIUDwtkmjkHhqbeq?=
- =?us-ascii?Q?UoyToqHrTYzktF9RvFi8xqm6pWyWqMnk+aM5nh+Uh1LR86fhQzGeQk9mhPtX?=
- =?us-ascii?Q?oNKYXa+hSPB6+YiObF2BcsMrBQycmvfvR85tWKZ6onWOSLGownX91lj1v3RF?=
- =?us-ascii?Q?CoGQkPw/nP29fu7eF24JAQ2lw5PxkZTgqxlafzXc+aHhSsHLXO6CsY+1/d7Y?=
- =?us-ascii?Q?4WnxC4AhPftRw+nA2QIJww+ySqYGS4e3b/o4fHeS6h3HY7mUFnIqh+6FSUZh?=
- =?us-ascii?Q?IvzPBMnJwoYJ3q68O7hIpKkwEfgIClkl7CCw/BihgCN35J52LcdvtzsnerHD?=
- =?us-ascii?Q?eOIpEwkR6FXVx97bBWhMoC3Dy94iioPVBbGRDOuF7hrJI92E+ra/G6tnpAOm?=
- =?us-ascii?Q?PI1ZDWHFm2uVclmNUV/w1JJHARKp01/d606zsMWoD1eElB3JML+Kh64rY82M?=
- =?us-ascii?Q?VrIx7V++wFZHLX8gSkxwj3GLY8zY1P+kgwKx+DyLTTlvhTDYypiWJDz3Cfih?=
- =?us-ascii?Q?2dHImfVC6+ek2LeqZmG6klas8uC4PYagxHbP8e3gbnXMvq0t7EgTh7E4DzOQ?=
- =?us-ascii?Q?hReY6sDKMGcMCH7V1Y0=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BYAPR12MB35899E39061894E55AC07FE383D69BYAPR12MB3589namp_"
+ 11:58:24 +0000
+Message-ID: <cd0e2994-f85f-d837-609f-7056d5fb7231@amd.com>
+Date: Thu, 2 Feb 2023 12:58:15 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH v2] drm/amdgpu/fence: Fix oops due to non-matching
+ drm_sched init/fini
+Content-Language: en-US
+To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>, amd-gfx@lists.freedesktop.org
+References: <20230201164814.1353383-1-gpiccoli@igalia.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20230201164814.1353383-1-gpiccoli@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0133.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:94::20) To BYAPR12MB3589.namprd12.prod.outlook.com
+ (2603:10b6:a03:df::29)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3589:EE_|BL1PR12MB5160:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0fe8ef19-1593-4d55-e74b-08db0514c956
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: PqwxX2mRsrR7dpvdelULHQI8LLA3uyP9VorkpuPh0zl2Fz473r7WxQLzWgJkUkbrYqqIUC4sEHkCyqYuwrbAw1cF1+T1yPQFEeN6mP8C41wYF3X5cNBgWpyiPqRggG6uS3FT2r18XnYIRChBIjChu41WWres7duIdiJhT9Wp4N6vqBarZMA/fmOGuobPPalOBjuvOo4Aldlxo/zwWkNMG9DPI6wy5+Tyt5yYLI1TjL/sAkC+m0PfuIQPIJquIx91L/qtMzrJV/ZfVxBdOlScitSRcEdrgzTOOL2OexIsnuB8gmrcKt838g0gaJEgvA2rtHqn4st/r/jgaZQ508gjwatJ+WKUhm3GJUTA7h9N8zPc45LtKbOdWoT5Mlw6GF0Vooli3zNB1sOeABWMA3qU5KQ1tEGZ4sfl3Rpmf6c8LHZLJrJKL51to0Ikdndeh5yr0EXASqV98npEekqHd4w33/jQiD57bZC18CCQML+KSPF5wWeTr/1IRRhtCIJAmKl0ogyAGydlw2BOOz+ynoDWphfBhhrmSxims7JCV/YQrEmfUah3V/06xWKc9F9hDmjh2e8dccr2PIFHQer+Gdyo/hLfFG7wwouqJZ/ovattAlPWWjr/jUHjwQZW3FqHSAGNlog05RdW2Ze1SvNGVEmREhM3Hd7yChSi22EPpT8BCPdhMcMvgb+nuN+Er0ZvDJjuAbblGX6NbTqwDOnvaLTpXMDIO5KIZ6C+d5kJuOrgjljRW3wS+2s68p3Q0Rh/BptopZaGS/ExXMYwzpFzd8bGTA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB3589.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(39860400002)(366004)(396003)(376002)(136003)(346002)(451199018)(5660300002)(6506007)(26005)(6512007)(6486002)(36756003)(186003)(6666004)(38100700002)(2616005)(316002)(966005)(54906003)(31696002)(478600001)(66899018)(66476007)(31686004)(66556008)(83380400001)(2906002)(86362001)(4326008)(66946007)(8936002)(66574015)(8676002)(41300700001)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bGpSeDM3SUZveC8zSW1INWdYbmsrZHJBc1Y2NlUrQUswa1ZFakhubUNmUTFL?=
+ =?utf-8?B?OUNQVElQVFFSQ2J1TmhCTlZRTkQyUHZzM0Zkb0ZER2RNNDhkQXU1YWoxcDkr?=
+ =?utf-8?B?elpoTzJSZFBOLzkwYUxFaUVOMnU1aFM5NFh4ajB4eEJwKzVnK21tcHlkQXJz?=
+ =?utf-8?B?VzZJOWc0czNhckd0RENSMWthemdTSVo0a1ZHTmFNTS9IRGpiazRXV3JvRmZV?=
+ =?utf-8?B?N1RLa1JkclBFMzZIWHcyY2dFa3VkL1FBWTJpVVNzRlNUT29UcEtrQU1EWWQ2?=
+ =?utf-8?B?RlRYRndyNGNxS0I2N0ZmSmJDS1pXMEZwckdaODA4aDFSTFcvOVBVU3V2aStt?=
+ =?utf-8?B?TngySmp2a2J5S3ZOckN1R09VaWo1V1RHaExRVElkRTUramtpMGZVSGZkZDNN?=
+ =?utf-8?B?bU9FczM4dFdYNysyRFFoVmMyc3drTmtCZ0pOMmtXdTFGbzd1OXlqdXZjL0hn?=
+ =?utf-8?B?MlpyeSs5eElCTG45WHlDbWE3SDdFSlUxU1kzRUVTeUtTMWpUdTE3ajJwUjZQ?=
+ =?utf-8?B?dWNuZUZOTzdNODcyQWFuL3BJYjhGSjlVNUVyd05CWU1aUlBvY1EvTHRNS1RJ?=
+ =?utf-8?B?RlNGT2xPSUt2d2dhNGhqTzA3WWxNbGtCWWxhUENGbVpObVc1R01iOGhBOU9F?=
+ =?utf-8?B?RWJHUUlFdDJNNkx2N05zVG11L1hzMnphVHlWU0R4cksvOExYWThsdStSSzY0?=
+ =?utf-8?B?TFo2dFJRY1JtQ2doSVFrelBFWTlieERLSzQ5NUpQenBsVU4rSWlpOVJ0YUEy?=
+ =?utf-8?B?VXRReEZvQzk1Qm9YekFkN2VXZlpsL24xeFZCR1E4cTNlbkRmbk5VSVQ4Zm1X?=
+ =?utf-8?B?b2NpY3I5Y2ZEUVNvOWFOTFNocHFpYlBSZVFsVjhaRlN2K1Y0NGJPaklhRHJH?=
+ =?utf-8?B?ZWxuQ1NNalpXM2pObmQ1Umk2Z29SVG5TVWorY3ZOQmViZTJFdVJpSWNQUDAw?=
+ =?utf-8?B?amJwUUgvdE4wRlk3SXdqVHZjWTRFSloreWtHTmNJMGUrMU1WOER4TkFWL3RH?=
+ =?utf-8?B?YnVRd3JqbzFVbGk4dXQ1Q3k0RGVhZlNoNHBuWUhCMXhSR1dzeENreDNsUVlX?=
+ =?utf-8?B?emRBci9WdDU2SWN3V1dFT0dHd2NzOFovenJkR24yK3owaUN3VG16SmRzd2dP?=
+ =?utf-8?B?ZUcyQytNRG1KQWZVUncrWGdydUtndTI3Z0JncUdLZEp6YUc3K05XT1RuRU8v?=
+ =?utf-8?B?L0xIQjEwM0prTDdyOUVESy94SHo5R0pwQk12TUpjRjFTWk9pWTlwR2RDNDl0?=
+ =?utf-8?B?Y0ZuQ0M0dVBFdHVOTUoxMDVxY1QzMUNnb0RRRlpHc0YzdnF0d1VFcDRySjFq?=
+ =?utf-8?B?N3lxOWlaNDJ6bWU1K1IwQUJscFkvRWlEbjROUFlqbDA5ZW5FWVRXUTRUM1Ju?=
+ =?utf-8?B?VVJjNVpIUEFzazF2aURRQ21keHkyMU1NVUxFOGMvWm5yZTNNbGNNZzBucmlK?=
+ =?utf-8?B?WXhrSUs2L20rZWgwRUVmUDZ1OTRyNDUxQUVaSGFMdEtFL0Z1R2VvMUtxZDRL?=
+ =?utf-8?B?Z0dEQ2ludmhQbUlZMC83alJsSTZUZUhHUEduQTJQTXovR0VlamRFK0FhYTFY?=
+ =?utf-8?B?UjFjYUUyNU91SjVGNS9wNmhla3hBME1YeUo3NVJCVFFGZEI5MC9FVi9QVjRs?=
+ =?utf-8?B?cm5LcGhVeDduZ3Q4dHowOHdQci9qdTkybGNReFVrZEZpWjdIRGw5MjArTU9S?=
+ =?utf-8?B?QVhlMUJvVFI3ZHc4N0JUQXZIOENidnVRYWpIQWVmbm9Ta3Bobkh1M0JsZ3Bk?=
+ =?utf-8?B?Q0lMRVVGQ0gxMmVFUlRjazJRNXcyb0hybTg2bVVoMk1TQ2wzT2ZNY0RXN0o1?=
+ =?utf-8?B?bVhwTmsxbTJDOWJlNmxHaGtxblZmQXFFcytnQkNGOC9xdTJ3TXJvSG90RU9l?=
+ =?utf-8?B?T2tVYlJ2M3V6OHVEaXR5SVJtQzE2WnRZTWh3bG4wUUlla0FxaTlsSWNzZ0ND?=
+ =?utf-8?B?UXdjVnBoQkZuTkd5N1ZSekZvYW1yT0dEdXRYMjhlMythSUN2RGRDSVRsNGZ5?=
+ =?utf-8?B?Tk9wem84bFhOTksxamFqUDJ5YkZWSi80NHdtSllucVF6b1VuNTBXalljanpS?=
+ =?utf-8?B?eDVpT3JPMWtVTWZYYmdlZ2o0VW4zcVdNUnUvRkJhOXNWZXFOanVSRDByM3Nk?=
+ =?utf-8?Q?fp2myAs1V4eu651PdlQcpDWhW?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0fe8ef19-1593-4d55-e74b-08db0514c956
 X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3589.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 36532fda-9e5b-42af-b38c-08db0512b350
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Feb 2023 11:43:27.8549 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: oEb25tNMQbsms7dEvMtEflml/zSNxAuHoxU2idB8luHHckrdqETsEIkEPLcoT2F/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8146
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Feb 2023 11:58:24.1269 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7VgPaQ9KMtGHkTRiH+MPQLPMlzQGR5SygJaeHYNrMopnmmY1QnHeLCP0xmqxmoft
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5160
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,130 +125,89 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: kernel@gpiccoli.net, Guchun Chen <guchun.chen@amd.com>, Xinhui.Pan@amd.com,
+ dri-devel@lists.freedesktop.org, Luben Tuikov <luben.tuikov@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, kernel-dev@igalia.com,
+ alexander.deucher@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BYAPR12MB35899E39061894E55AC07FE383D69BYAPR12MB3589namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Am 01.02.23 um 17:48 schrieb Guilherme G. Piccoli:
+> Currently amdgpu calls drm_sched_fini() from the fence driver sw fini
+> routine - such function is expected to be called only after the
+> respective init function - drm_sched_init() - was executed successfully.
+>
+> Happens that we faced a driver probe failure in the Steam Deck
+> recently, and the function drm_sched_fini() was called even without
+> its counter-part had been previously called, causing the following oops:
+>
+> amdgpu: probe of 0000:04:00.0 failed with error -110
+> BUG: kernel NULL pointer dereference, address: 0000000000000090
+> PGD 0 P4D 0
+> Oops: 0002 [#1] PREEMPT SMP NOPTI
+> CPU: 0 PID: 609 Comm: systemd-udevd Not tainted 6.2.0-rc3-gpiccoli #338
+> Hardware name: Valve Jupiter/Jupiter, BIOS F7A0113 11/04/2022
+> RIP: 0010:drm_sched_fini+0x84/0xa0 [gpu_sched]
+> [...]
+> Call Trace:
+>   <TASK>
+>   amdgpu_fence_driver_sw_fini+0xc8/0xd0 [amdgpu]
+>   amdgpu_device_fini_sw+0x2b/0x3b0 [amdgpu]
+>   amdgpu_driver_release_kms+0x16/0x30 [amdgpu]
+>   devm_drm_dev_init_release+0x49/0x70
+>   [...]
+>
+> To prevent that, check if the drm_sched was properly initialized for a
+> given ring before calling its fini counter-part.
+>
+> Notice ideally we'd use sched.ready for that; such field is set as the latest
+> thing on drm_sched_init(). But amdgpu seems to "override" the meaning of such
+> field - in the above oops for example, it was a GFX ring causing the crash, and
+> the sched.ready field was set to true in the ring init routine, regardless of
+> the state of the DRM scheduler. Hence, we ended-up using sched.ops as per
+> Christian's suggestion [0].
+>
+> [0] https://lore.kernel.org/amd-gfx/984ee981-2906-0eaf-ccec-9f80975cb136@amd.com/
+>
+> Fixes: 067f44c8b459 ("drm/amdgpu: avoid over-handle of fence driver fini in s3 test (v2)")
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> Cc: Guchun Chen <guchun.chen@amd.com>
+> Cc: Luben Tuikov <luben.tuikov@amd.com>
+> Cc: Mario Limonciello <mario.limonciello@amd.com>
+> Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 8 +++++++-
+>   1 file changed, 7 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> index 00444203220d..3b962cb680a6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> @@ -618,7 +618,13 @@ void amdgpu_fence_driver_sw_fini(struct amdgpu_device *adev)
+>   		if (!ring || !ring->fence_drv.initialized)
+>   			continue;
+>   
+> -		if (!ring->no_scheduler)
+> +		/*
+> +		 * Notice we check for sched.ops since there's some
+> +		 * override on the meaning of sched.ready by amdgpu.
+> +		 * The natural check would be sched.ready, which is
+> +		 * set as drm_sched_init() finishes...
+> +		 */
+> +		if (!ring->no_scheduler && ring->sched.ops)
+>   			drm_sched_fini(&ring->sched);
 
-Big NAK to this! This warning is not related in any way to the hw state.
+I think we should drop the check for no_scheduler here and just call 
+drm_sched_fini() when the scheduler instance was initialized before.
 
-It's simply illegal to free up memory during suspend.
+Background is that I've found a couple of places where we potentially 
+set no_scheduler to false after the scheduler was already initialized.
+
+This is then probably leading to a memory leak or worth.
 
 Regards,
 Christian.
 
-________________________________
-Von: Xiao, Jack <Jack.Xiao@amd.com>
-Gesendet: Donnerstag, 2. Februar 2023 10:54
-An: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Deucher,=
- Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig=
-@amd.com>
-Cc: Xiao, Jack <Jack.Xiao@amd.com>
-Betreff: [PATCH] drm/amdgpu: only WARN freeing buffers when DMA is unavaila=
-ble
+>   
+>   		for (j = 0; j <= ring->fence_drv.num_fences_mask; ++j)
 
-Reduce waringings, only warn when DMA is unavailable.
-
-Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_object.c
-index 2d237f3d3a2e..e3e3764ea697 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -422,7 +422,8 @@ void amdgpu_bo_free_kernel(struct amdgpu_bo **bo, u64 *=
-gpu_addr,
-         if (*bo =3D=3D NULL)
-                 return;
-
--       WARN_ON(amdgpu_ttm_adev((*bo)->tbo.bdev)->in_suspend);
-+       WARN_ON(amdgpu_ttm_adev((*bo)->tbo.bdev)->in_suspend &&
-+               !amdgpu_ttm_adev((*bo)->tbo.bdev)->ip_blocks[AMD_IP_BLOCK_T=
-YPE_SDMA].status.hw);
-
-         if (likely(amdgpu_bo_reserve(*bo, true) =3D=3D 0)) {
-                 if (cpu_addr)
---
-2.37.3
-
-
---_000_BYAPR12MB35899E39061894E55AC07FE383D69BYAPR12MB3589namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-</head>
-<body>
-<div>Big NAK to this! This warning is not related in any way to the hw stat=
-e.</div>
-<div><br>
-</div>
-<div>It's simply illegal to free up memory during suspend.</div>
-<div><br>
-</div>
-<div>Regards,</div>
-<div>Christian.</div>
-<br>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>Von:</b> Xiao, Jack &lt;Jack.Xi=
-ao@amd.com&gt;<br>
-<b>Gesendet:</b> Donnerstag, 2. Februar 2023 10:54<br>
-<b>An:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Christia=
-n &lt;Christian.Koenig@amd.com&gt;<br>
-<b>Cc:</b> Xiao, Jack &lt;Jack.Xiao@amd.com&gt;<br>
-<b>Betreff:</b> [PATCH] drm/amdgpu: only WARN freeing buffers when DMA is u=
-navailable</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Reduce waringings, only warn when DMA is unavailab=
-le.<br>
-<br>
-Signed-off-by: Jack Xiao &lt;Jack.Xiao@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 ++-<br>
-&nbsp;1 file changed, 2 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_object.c<br>
-index 2d237f3d3a2e..e3e3764ea697 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-@@ -422,7 +422,8 @@ void amdgpu_bo_free_kernel(struct amdgpu_bo **bo, u64 *=
-gpu_addr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (*bo =3D=3D NULL)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WARN_ON(amdgpu_ttm_adev((*bo)-&gt;tbo=
-.bdev)-&gt;in_suspend);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WARN_ON(amdgpu_ttm_adev((*bo)-&gt;tbo=
-.bdev)-&gt;in_suspend &amp;&amp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; !amdgpu_ttm_adev((*bo)-&gt;tbo.bdev)-&gt;ip_blocks[AMD_IP_BLOCK_=
-TYPE_SDMA].status.hw);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (likely(amdgpu_bo_reser=
-ve(*bo, true) =3D=3D 0)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (cpu_addr)<br>
--- <br>
-2.37.3<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BYAPR12MB35899E39061894E55AC07FE383D69BYAPR12MB3589namp_--
