@@ -4,119 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27E50C05027
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Feb 2023 18:28:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19BCBC61DA4
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Feb 2023 18:36:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12B6510E852;
-	Fri,  3 Feb 2023 18:28:28 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2046.outbound.protection.outlook.com [40.107.96.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F6B210E025;
- Fri,  3 Feb 2023 18:28:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=j2rNx8a7bNpyYsX9jM7gYIM5vyc4ISuvCBPSDPQzdxPGvzAvUQ4Drkhm3KaapO2dKXHRlFhXQvjgPVRqq05OA0A1RkV2GkDEoLt40FDa4dSCWySpwmU1Wt4uxDOhT4QpKMdp/FIyACU0PD1913of7j4JLsylybTVE5u32KSHFdNG2FKkSWsdFFygZnAaYNvVJS+r6q/SzTmwPvjp5jezP4B/hTeFGTEi4W6PlQLL4WsPROzwFcl0nVuhDzDHx9VG/+hzCVsvb7kz/dw75M+PSX4WU0dGKV5grzenkmdxV7t2QGSbcabAAPwy/lGK51ZJWfE/joSk7Nf33+lacp0RPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+0zXJP62l71w7TMYRjJ3IMuGAGrgTRu+ZgeUISnw9SU=;
- b=RogUGMR06jn8iTInxPjzoN/5o0aoXhF1Z8HCxbEz8cs658qYdFBVVuZ8OyXX1MO6elUI6gGv/7HQybqXcSOvenp+ik3pRnh/RGeVK/PeBJIPQi8KclKxzRzuu6sf1zh4ZA2LANY8ZFVZOCQwoPr6eA+lxGUQ2j5Qt4eTdxWhMLWahUFacziKI6uSda27Oiqke0F3m5V5cZRuaGMb/G95alogeoly4V37uiuedw+eLlKe8vyP1n+Af0orZe1fgFBW7F8RRhgiV4x6SNRdlkYlN04x4eJAns/OTT5FKZgq+8UfNpFwiLlIXUEkgqv3N4AHKyxjunyoWw7VzFo/9ZFX5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+0zXJP62l71w7TMYRjJ3IMuGAGrgTRu+ZgeUISnw9SU=;
- b=seiJJetr/XAKAyPJ/4q2vus4GalL6fNOGJ+4hZxumjeqBVBCKb5BYY4TDThZ2BNxMZfNv/dSnGChoI548nEVwzxX/CBeSoOIBUlX9+dmUOe+NucpeVAthD2KVeEeu5qnXBVhbvZZGrUzmDllkglNcbzxvM9nvAD/zA8Hf/mby/M=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM8PR12MB5431.namprd12.prod.outlook.com (2603:10b6:8:34::8) by
- DM8PR12MB5415.namprd12.prod.outlook.com (2603:10b6:8:25::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6064.27; Fri, 3 Feb 2023 18:28:23 +0000
-Received: from DM8PR12MB5431.namprd12.prod.outlook.com
- ([fe80::b63d:60d7:923a:4ee9]) by DM8PR12MB5431.namprd12.prod.outlook.com
- ([fe80::b63d:60d7:923a:4ee9%5]) with mapi id 15.20.6064.031; Fri, 3 Feb 2023
- 18:28:23 +0000
-Message-ID: <f9633729-2db0-3bf1-311d-f03bd04d47a6@amd.com>
-Date: Fri, 3 Feb 2023 13:28:20 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH 3/3] drm/connector: Deprecate split for BT.2020 in
- drm_colorspace enum
-Content-Language: en-US
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-References: <20230203020744.30745-1-joshua@froggi.es>
- <20230203020744.30745-3-joshua@froggi.es> <Y9zkef5FjtZ7guVS@intel.com>
- <CA+hFU4ymiOg06MQeKLcn5MSrR=BZnOLODdZCFvGUdWqt_ha61A@mail.gmail.com>
- <0fc18aec-0703-55f4-f635-d09d345e8dc0@amd.com> <Y90l+DY0rSaMvN1U@intel.com>
- <758e5cf6-53e0-567c-c760-5b773bc7a11c@amd.com> <Y90vrEa3/1RbaGOV@intel.com>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <Y90vrEa3/1RbaGOV@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0123.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:d5::26) To DM8PR12MB5431.namprd12.prod.outlook.com
- (2603:10b6:8:34::8)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83A6C10E862;
+	Fri,  3 Feb 2023 18:36:40 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1146310E862
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Feb 2023 18:36:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1675449399; x=1706985399;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=sBr4gbtJ0rHs80U4nER/Ux24bKez/zclcRpEf7y7Qs8=;
+ b=BtYgaxRY6rtpRz/1nYs6HPj+kjiuQV4kV6w4nk2lM4cpF0yrXAbT4wal
+ VGW3Sk1yU4FQQ79XdzlBGTFiN0oPIbEviX2SdSh/7xmAVkUZNu/LyZ1fc
+ nHScHSCvG8yUxwCJgLTvFbFXIH8nBiyDSxC3ahbFE3MfVTUYrYoY80ddf
+ wxAllBrkshFBbjt+LR05sKDEZls5/zaypM6RuE5j7CeyGGFkfodzR0l56
+ ZqR40n1c9JI1H3Ql3Og1tmiCAxjyoWUAFpaVZe2Y2wwtFYFaUjKtL9QMk
+ Xg8L4lPp+mcp/Kaf8vuXNZQ2UmZpHGXJkFCN9ngzeX/NbPwYf7FgqVgEh w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10610"; a="391212835"
+X-IronPort-AV: E=Sophos;i="5.97,271,1669104000"; d="scan'208";a="391212835"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Feb 2023 10:36:15 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10610"; a="667731283"
+X-IronPort-AV: E=Sophos;i="5.97,271,1669104000"; d="scan'208";a="667731283"
+Received: from lkp-server01.sh.intel.com (HELO 4455601a8d94) ([10.239.97.150])
+ by fmsmga007.fm.intel.com with ESMTP; 03 Feb 2023 10:36:12 -0800
+Received: from kbuild by 4455601a8d94 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pO0uy-0000hV-07;
+ Fri, 03 Feb 2023 18:36:12 +0000
+Date: Sat, 04 Feb 2023 02:35:52 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 4fafd96910add124586b549ad005dcd179de8a18
+Message-ID: <63dd5408.DXu9FfX9ZxM1BSRX%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM8PR12MB5431:EE_|DM8PR12MB5415:EE_
-X-MS-Office365-Filtering-Correlation-Id: e8b0c2c8-550d-4b96-b5f8-08db06146f0b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DJqOxNQpfd1A8vZd58uZarXRgZO6S33Hrj+TUxjzI+orfuGmt/qmXwQKTLUX84WxtCnhsDdxdZRBZrw8iUfjHLpq1ehrGaVW5QLg9Yn1DkFWmfbk25AjiipqwJnnEz1A5NXMEGbiJX4lMYESmoD9q2BnFOKzVogWfthsJHLU+oqfG1ihsHBcivG53Vf3a/pu2iU6mXa1csbPkHNRmLTz2wHOTePZcxhkVfFQaQm+HcAueLCZqt18HDiEoOmRpwsXGSZjmU/mOT1d968ZZXpRgK2v95gJ5KHCyMgP5tXhptSkE/ZjRfMAHPHHCLu9LgcDAk/H3R7SyGv0gYfdPgZv1OMOiCpQhWVPd25psr8mDYoVtdaIN+ms/p2BF/8R/qg5Z/3DCwGMAgfczrUpT2ZpMVPL5zfRNyGCkPPTTWp7MGNggFih8Zewns/+DcC91p0S6Wz+xvHxMhqto4uikUYjoa0Mh+b4p7n5pVxTgW44Ps59YKCVF4eF36aJqVUe1+HY6EgDjbu0uPucQvSu2vdv9KvptjyfftdvMnz4RlWsTnKm+f+ToPKfxAU7qjoDu6buypWyhTNYcBfgwodLIZ0cW9cE58lnQNp6sMvkBxFo+esROr1xMY77xltQ5CCdbuKsTR6XZxFaVO5aDq9ra6CdOUvFCz3nYyCfeu8uQHzcyWHxRmaUuAx6S5kWFRF6Iaplvn4jHEw+FSJ5nHBhihUGqHkNQKYNHeQDrfsADMC7U80=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM8PR12MB5431.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(136003)(376002)(346002)(366004)(396003)(39860400002)(451199018)(31696002)(38100700002)(86362001)(36756003)(8676002)(66946007)(66476007)(66556008)(6916009)(6486002)(44832011)(54906003)(316002)(8936002)(4326008)(5660300002)(478600001)(41300700001)(2906002)(6506007)(26005)(6512007)(53546011)(83380400001)(2616005)(186003)(31686004)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZDBQeVZYNTg3TGhJZnI3WUorMWNMQWtCQXFMdmhmQkxNd052NGpqMkdKVHpQ?=
- =?utf-8?B?cWkzV1dsRlNTZ0MxZkVhWFFZY2JGUTYwTTZvNHAvNldjem9NOEhZMU9UU2Zz?=
- =?utf-8?B?RzZ6ckRXUm5QYWhLUjhaQmh0VzlaUEg1VXc0WXIwd29FeDNudVhsYmJGdlkz?=
- =?utf-8?B?VCt2RXlMZGxwWHNCaUhOdWRWam85Uy9seG0zTGVPL094SmtxdWNOSWdxSENN?=
- =?utf-8?B?dGgxemhnOG1zT3cyajZ5aEY5aElkYXF2ZERLck1td2E0RnVWTU4zR2RRUXY1?=
- =?utf-8?B?eldYdzhCKzJ4RHg0aWVBWWlpd3hiRk1kanFCWWdDZEJPU2NmSmNNWExoek41?=
- =?utf-8?B?c0R2Umh3OERvNy9rYkt5KzNmRGpRRHpwMThiSEdNc0NHU0hGTEEwcVA5S09U?=
- =?utf-8?B?d29IOHlOdW10SGpMNnN0ZW1LRnYxS2NlYlplZ3JqN1MvU25wZGowVVFHYW9N?=
- =?utf-8?B?L2lDbGVYdmpzTDlrNFN4SXFTZGF6Y3YrcFZYUm5GbGxCZWc3YnV3QzlQVjhh?=
- =?utf-8?B?WDRzRkhQVTlqK3RhOFNRVm9wSGkybEd3SEtVOXVPNE84OHBnc2VvbGd4SEhD?=
- =?utf-8?B?c2hHeW9nZENkRUlNc3lNeUdCTDVieStkbkE4U2lCaU5mWkg2NEVzNlhseWVr?=
- =?utf-8?B?MWZNamVNN1ZZbFdQMkNqazFYL055b2JXc1h0RkVTbE82SkJVUnNsODM5S0tZ?=
- =?utf-8?B?a1dmY0dUYVdUWnV0NitpZnREeUhjM2dXeVFZM05MbDFKTmQ2UGpEUGtVayts?=
- =?utf-8?B?V25Ha1A0K3dUS1kvVXZVM0J4RlkzZzRhN212Z2lPUFJ1NUJjcEhKVGxTQ0k4?=
- =?utf-8?B?SmdXbFo1ZGx2aHVUVDZ2a0F1T21kdEpNWTRCN2ZxSkUyTkdVcXdjV0FyVm90?=
- =?utf-8?B?TVpUSDh3ZlJ3MEp1MGQ0dWxZWm9kOWQwazBSTytGRXJaUEE2YWxENFlDSWJB?=
- =?utf-8?B?dENEQ0FVRXFTVWU1bmszNjZndHZ2S1dWME5QSnBMWlFyWXI1cysvWlNKKzlY?=
- =?utf-8?B?STZ1TU5ERTJxRVZUNjFESjNUSXJHNDB0MTFjRURhZEE2dmpTVzhtN2phNWtt?=
- =?utf-8?B?Sk1QYjdJM2ZrVVJ5NndYQlVody9wQ081SHhYTTVVSHhEa0JGU1IvNythWnpN?=
- =?utf-8?B?eTJxcDdBM24wbW9CajdocW5KVUZ0MjlIcjNmbzNoUVVXejNSVEVxdUVxTk1Z?=
- =?utf-8?B?dU9zVEhIaXo4SDRYYWRDQ3ZvVURaUWFhSyt4RkY2YkUwM25GTXI1bndURjgv?=
- =?utf-8?B?MGFIaE5ZR0VHb1NRL2ZCVkt4ZHUxQWJCMkpSMDNRRFF4Wm0ybEtXcmc4RkdU?=
- =?utf-8?B?RktSNFVCUURZY09DUy8rTVliTER0VVlTeFVrWUdrOEI3UVBuRHZXampRR3Zx?=
- =?utf-8?B?VzA3ODF0QlJQa2FxUDl4QzRYUkp5T2ZBejkyQ3l6UFNyaGpFb2F5M0lBUDho?=
- =?utf-8?B?ZHBmdUk0RHJ2emg5R1hoTWVUSFVwMklGTXBOMkI1RHlpSmIrOVpoaElTVEln?=
- =?utf-8?B?VTZuckd0aGpxbXNscDdGVFpiSm5sZ1Vhanhpb1ZRLzZSbGpoNmVIV0tYWUZ0?=
- =?utf-8?B?blorWVFRZzY4OUVYR05pbkZiTFZseXNnczVpbHNVQ0p3UGRxSjJHSCtJSU9j?=
- =?utf-8?B?WklJM3h2S1crcXBYT2dXaHZhVGlLN2YveDZmdlBEMVpZQkw1ZHFhZngrSGwr?=
- =?utf-8?B?QjZWYUd1elg1YWF0M0Z5V29BdWVScVl6NXZUbTZsT29wWG5Fb2x1ZEoyNUc2?=
- =?utf-8?B?Q0hhSzZ3ZXpER1NUNDg1WTJQZDlYUGh6T3paUEFzb3Nxa1Y4UUh6bDR6eG1j?=
- =?utf-8?B?VTkzakR2SkVQVnB3aDhLRTUyb3FSeHhRdWdyYzFOVlR0TGNsZ1RUMko2elRq?=
- =?utf-8?B?RHVvbkh1NkZ1YmVSeE1kUnBPcStROW9JSXpxQldTL2NIbGgvVytndlI3ZGQz?=
- =?utf-8?B?bTV1NlFMcjhlcjcrSWFDRWIwN2lCMDBNcE5qUS96RHBVVVlRZ0NSUHdHa1dw?=
- =?utf-8?B?R1ZMZUxMOFI3dzhKa2Q5WDlVODFCd1VrL1hxdnQrWkkzemcyeTErSnhIcEJD?=
- =?utf-8?B?UW5Cb2lrZVVaMmNvRVFvUUNoNDJwSVRidHdlcXRvQkVwei9IZEFKS2V0a0lM?=
- =?utf-8?Q?94rrDAhm5cH61+O2tA4bY0VLJ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8b0c2c8-550d-4b96-b5f8-08db06146f0b
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR12MB5431.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Feb 2023 18:28:23.6770 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 21rwEw1eFsGRYGPPy2HXFBNG1P9n30k0aMPo/9yQVgg7lMsdAzAOWDtbkJbaqCdZDHYah6GW7YR4FXsrtEC1Xg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5415
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,127 +58,166 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>, dri-devel@lists.freedesktop.org,
- Pekka Paalanen <ppaalanen@gmail.com>, Uma Shankar <uma.shankar@intel.com>,
- amd-gfx@lists.freedesktop.org, Joshua Ashton <joshua@froggi.es>,
- Vitaly.Prosyak@amd.com
+Cc: linux-mips@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Linux Memory Management List <linux-mm@kvack.org>, kvmarm@lists.linux.dev,
+ kvmarm@lists.cs.columbia.edu, linux-arm-kernel@lists.infradead.org,
+ linux-trace-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 4fafd96910add124586b549ad005dcd179de8a18  Add linux-next specific files for 20230203
 
+Error/Warning reports:
 
-On 2/3/23 11:00, Ville Syrjälä wrote:
-> On Fri, Feb 03, 2023 at 10:24:52AM -0500, Harry Wentland wrote:
->>
->>
->> On 2/3/23 10:19, Ville Syrjälä wrote:
->>> On Fri, Feb 03, 2023 at 09:39:42AM -0500, Harry Wentland wrote:
->>>>
->>>>
->>>> On 2/3/23 07:59, Sebastian Wick wrote:
->>>>> On Fri, Feb 3, 2023 at 11:40 AM Ville Syrjälä
->>>>> <ville.syrjala@linux.intel.com> wrote:
->>>>>>
->>>>>> On Fri, Feb 03, 2023 at 02:07:44AM +0000, Joshua Ashton wrote:
->>>>>>> Userspace has no way of controlling or knowing the pixel encoding
->>>>>>> currently, so there is no way for it to ever get the right values here.
->>>>>>
->>>>>> That applies to a lot of the other values as well (they are
->>>>>> explicitly RGB or YCC). The idea was that this property sets the
->>>>>> infoframe/MSA/SDP value exactly, and other properties should be
->>>>>> added to for use userspace to control the pixel encoding/colorspace
->>>>>> conversion(if desired, or userspace just makes sure to
->>>>>> directly feed in correct kind of data).
->>>>>
->>>>> I'm all for getting userspace control over pixel encoding but even
->>>>> then the kernel always knows which pixel encoding is selected and
->>>>> which InfoFrame has to be sent. Is there a reason why userspace would
->>>>> want to control the variant explicitly to the wrong value?
->>>>>
->>>>
->>>> I've asked this before but haven't seen an answer: Is there an existing
->>>> upstream userspace project that makes use of this property (other than
->>>> what Joshua is working on in gamescope right now)? That would help us
->>>> understand the intent better.
->>>
->>> The intent was to control the infoframe colorimetry bits,
->>> nothing more. No idea what real userspace there was, if any.
->>>
->>>>
->>>> I don't think giving userspace explicit control over the exact infoframe
->>>> values is the right thing to do.
->>>
->>> Only userspace knows what kind of data it's stuffing into
->>> the pixels (and/or how it configures the csc units/etc.) to
->>> generate them.
->>>
->>
->> Yes, but userspace doesn't control or know whether we drive
->> RGB or YCbCr on the wire. In fact, in some cases our driver
->> needs to fallback to YCbCr420 for bandwidth reasons. There
->> is currently no way for userspace to know that and I don't
->> think it makes sense.
-> 
-> People want that control as well for whatever reason. We've
-> been asked to allow YCbCr 4:4:4 output many times.
-> 
-> The automagic 4:2:0 fallback I think is rather fundementally
-> incompatible with fancy color management. How would we even
-> know whether to use eg. BT.2020 vs. BT.709 matrix? In i915
-> that stuff is just always BT.709 limited range, no questions
-> asked.
-> 
+https://lore.kernel.org/oe-kbuild-all/202301301801.y5O08tQx-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202301302110.mEtNwkBD-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202301310939.TAgCOEZb-lkp@intel.com
 
-We use what we're telling the display, i.e., the value in the
-colorspace property. That way we know whether to use a BT.2020
-or BT.709 matrix.
+Error/Warning: (recently discovered and may have been fixed)
 
-I don't see how it's fundamentally incompatible with fancy
-color management stuff.
+ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/fsl-edma.ko] undefined!
+ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/idma64.ko] undefined!
+FAILED: load BTF from vmlinux: No data available
+arch/arm64/kvm/arm.c:2206: warning: expecting prototype for Initialize Hyp(). Prototype was for kvm_arm_init() instead
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/accessories/link_dp_trace.c:148:6: warning: no previous prototype for 'link_dp_trace_set_edp_power_timestamp' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/accessories/link_dp_trace.c:158:10: warning: no previous prototype for 'link_dp_trace_get_edp_poweron_timestamp' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/accessories/link_dp_trace.c:163:10: warning: no previous prototype for 'link_dp_trace_get_edp_poweroff_timestamp' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:1295:32: warning: variable 'result_write_min_hblank' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:279:42: warning: variable 'ds_port' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_training.c:1585:38: warning: variable 'result' set but not used [-Wunused-but-set-variable]
+ftrace-ops.c:(.init.text+0x2c3): undefined reference to `__udivdi3'
+libbpf: failed to find '.BTF' ELF section in vmlinux
 
-If we start forbidding drivers from falling back to YCbCr
-(whether 4:4:4 or 4:2:0) we will break existing behavior on
-amdgpu and will see bug reports.
+Unverified Error/Warning (likely false positive, please contact us if interested):
 
-> So I think if userspace wants real color management it's
-> going to have to set up the whole pipeline. And for that
-> we need at least one new property to control the RGB->YCbCr
-> conversion (or to explicitly avoid it).
-> 
-> And given that the proposed patch just swept all the
-> non-BT.2020 issues under the rug makes me think no
-> one has actually come up with any kind of consistent
-> plan for anything else really.
-> 
+drivers/clk/ingenic/jz4760-cgu.c:80 jz4760_cgu_calc_m_n_od() error: uninitialized symbol 'od'.
 
-Does anyone actually use the non-BT.2020 colorspace stuff?
+Error/Warning ids grouped by kconfigs:
 
-Harry
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arc-randconfig-r003-20230202
+|   |-- FAILED:load-BTF-from-vmlinux:No-data-available
+|   `-- libbpf:failed-to-find-.BTF-ELF-section-in-vmlinux
+|-- arm-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arm64-allyesconfig
+|   |-- arch-arm64-kvm-arm.c:warning:expecting-prototype-for-Initialize-Hyp().-Prototype-was-for-kvm_arm_init()-instead
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- i386-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|   `-- ftrace-ops.c:(.init.text):undefined-reference-to-__udivdi3
+|-- i386-randconfig-m021
+|   `-- kernel-trace-trace_events_synth.c-trace_event_raw_event_synth()-warn:inconsistent-indenting
+|-- ia64-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- ia64-randconfig-r026-20230202
 
->>
->> Userspace needs full control of framebuffer pixel formats,
->> as well as control over DEGAMMA, GAMMA, CTM color operations.
->> It also needs to be able to select whether to drive the panel
->> as sRGB or BT.2020/PQ but it doesn't make sense for it to
->> control the pixel encoding on the wire (RGB vs YCbCr).
->>
->>> I really don't want a repeat of the disaster of the
->>> 'Broadcast RGB' which has coupled together the infoframe 
->>> and automagic conversion stuff. And I think this one would
->>> be about 100x worse given this property has something
->>> to do with actual colorspaces as well.
->>>  
->>
->> I'm unaware of this disaster. Could you elaborate?
-> 
-> The property now controls both the infoframe stuff (and
-> whatever super vague stuff DP has for it in MSA) and 
-> full->limited range compression in the display pipeline. 
-> And as a result  there is no way to eg. allow already 
-> limited range input, which is what some people wanted.
-> 
-> And naturally it's all made a lot more terrible by all
-> the displays that fail to implement the spec correctly,
-> but that's another topic.
-> 
+elapsed time: 920m
 
+configs tested: 62
+configs skipped: 2
+
+gcc tested configs:
+x86_64                            allnoconfig
+um                           x86_64_defconfig
+um                             i386_defconfig
+arc                                 defconfig
+s390                             allmodconfig
+alpha                               defconfig
+s390                                defconfig
+s390                             allyesconfig
+i386                          randconfig-a001
+i386                          randconfig-a003
+powerpc                          allmodconfig
+i386                          randconfig-a005
+powerpc                           allnoconfig
+i386                                defconfig
+x86_64                              defconfig
+arm                                 defconfig
+x86_64                        randconfig-a013
+x86_64                               rhel-8.3
+x86_64                        randconfig-a011
+x86_64                          rhel-8.3-func
+x86_64                    rhel-8.3-kselftests
+x86_64                        randconfig-a015
+x86_64                        randconfig-a004
+i386                             allyesconfig
+x86_64                        randconfig-a002
+i386                          randconfig-a014
+ia64                             allmodconfig
+arm64                            allyesconfig
+i386                          randconfig-a012
+arm                              allyesconfig
+x86_64                           allyesconfig
+i386                          randconfig-a016
+x86_64                        randconfig-a006
+riscv                randconfig-r042-20230202
+s390                 randconfig-r044-20230202
+arc                  randconfig-r043-20230202
+x86_64                           rhel-8.3-syz
+x86_64                         rhel-8.3-kunit
+x86_64                           rhel-8.3-kvm
+x86_64                           rhel-8.3-bpf
+alpha                            allyesconfig
+arc                              allyesconfig
+m68k                             allyesconfig
+sh                               allmodconfig
+mips                             allyesconfig
+m68k                             allmodconfig
+
+clang tested configs:
+x86_64                          rhel-8.3-rust
+i386                          randconfig-a002
+i386                          randconfig-a004
+i386                          randconfig-a006
+x86_64                        randconfig-a012
+x86_64                        randconfig-a014
+i386                          randconfig-a013
+x86_64                        randconfig-a016
+x86_64                        randconfig-a001
+arm                  randconfig-r046-20230202
+x86_64                        randconfig-a003
+hexagon              randconfig-r045-20230202
+hexagon              randconfig-r041-20230202
+i386                          randconfig-a015
+x86_64                        randconfig-a005
+i386                          randconfig-a011
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
