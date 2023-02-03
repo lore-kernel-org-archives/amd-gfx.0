@@ -4,67 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEBAAC61DA4
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Feb 2023 13:18:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52ADCC05027
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Feb 2023 13:20:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D04A10E793;
-	Fri,  3 Feb 2023 13:18:06 +0000 (UTC)
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FB4810E793
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Feb 2023 13:18:03 +0000 (UTC)
-Received: by mail-ej1-x632.google.com with SMTP id mf7so15250444ejc.6
- for <amd-gfx@lists.freedesktop.org>; Fri, 03 Feb 2023 05:18:03 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B715D10E799;
+	Fri,  3 Feb 2023 13:20:05 +0000 (UTC)
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [IPv6:2a00:1450:4864:20::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E05510E797
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Feb 2023 13:20:02 +0000 (UTC)
+Received: by mail-ej1-x62e.google.com with SMTP id me3so15247931ejb.7
+ for <amd-gfx@lists.freedesktop.org>; Fri, 03 Feb 2023 05:20:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=c/VvD9hB9Epdbh3wMnBinhxophhuXywj9GjVcfoTRsk=;
- b=FvvplfwO1Lvk2iXP8gPFBxM625H0wFI8mSbbLWofqUI464Kdi6lfxy4thkK0b/9x6U
- viYVA+1XlSRFz2LXicj94F8CYMZIH0jlABpbiVUXiaf54evfkB1gGmJga3qv3qQRSO2Z
- K2t000vB94T3M3q1YKodH6XAfG0/jp5Rzy0OqnJPSa2lRkzQzQLSrssRNeZEx3urQvnX
- ZZBQ1EXn/2ZakRWwOHl6/9VuhX69OPZNSOpkIarMz8QW6au46Vbb9d2qRVAFKaAnP4tE
- j1DKhNjJNRybOO35GWqJA6BtZqIQU6G8tLXgxyW1WDZ0m3Dog2UP0gMeKYxhKpijKptV
- cS7g==
+ h=in-reply-to:from:references:to:content-language:subject:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=ABEFePbgEezpbtkHqVsgVQfs3w+dG4wbt4xQA6VGoWU=;
+ b=NFOoyuV3tCiqJE9VgbdfynuYzDqlVXgnH1RrsCV7oA3PZjBCnqutZIMX4Cy4/eoKD5
+ uxaQKD2d0Fdr0eIlMtvEoE5h8VntUSZToeuTzI5iy8qEfDp0LDkekyeV2WOj+6Dq23wG
+ wHQrllK6G7QHYSjDdpTi07fjkMNyFKRnDIs9Bmf4g/oFDG+89MR4sBZjGfq538jvhePU
+ EMAzRknVJNHWWxUhP44rKaq6lcU/3o/jvqVU5qyj0tFR6RxH5TN8AbFBCPG3Wq5RYno/
+ jmVAKiL4zLCg0fG7dIaYChpmI9jxSl99yBv/c1xh7gKMqxNFYMitrPem6hRemRvtDN4X
+ aZeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=c/VvD9hB9Epdbh3wMnBinhxophhuXywj9GjVcfoTRsk=;
- b=d+nUHFa5sFtKerUbWND1jbo3107G1KgtT0FnEcBZuI4vfk+MGRVXWPfZkEr3642lp6
- WGkiG03VUb5G9gkazlf9gRAlo92xSHC4u2N3EEoAo+fC0AhFgIgB48JtMxJ9SBbH2HGU
- Ph9GAehMjG2mlAUsB1DfDitw5XOpyQMI0XK5K3fRD9z6yqD73ocp5Xf45szrerzxs8r4
- x0j+JSZ5H0TWUpbOzF4MCX28ZKOhX5RTE+PQE5sXOIxGkwCa2Jiu36Z+342voOntB1pZ
- Hkr3ZTyuFSVny/2zaYWJFrIlPuwh2gQ/Ho3xEEtTx60MiEM2Me2lUObxUpnQ2+UCBfCo
- ctRw==
-X-Gm-Message-State: AO0yUKWhGJ4mbIibuw6ND/9shYQuBPbIM/h8oePLtjTfPaM6KJ3EzFof
- q74DpE77M4m3n5Ir1Pcevx0=
-X-Google-Smtp-Source: AK7set9Aht0AW/c/Im5mM7j2TDO8ZTdfn93Kq0aJi4A3hbQK9cHmTpuEzW8rsg3ALJUA1hc2NU7D7w==
-X-Received: by 2002:a17:906:1711:b0:87b:cdab:988e with SMTP id
- c17-20020a170906171100b0087bcdab988emr8523698eje.21.1675430281868; 
- Fri, 03 Feb 2023 05:18:01 -0800 (PST)
+ h=in-reply-to:from:references:to:content-language:subject:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=ABEFePbgEezpbtkHqVsgVQfs3w+dG4wbt4xQA6VGoWU=;
+ b=c5vphYyTnQqhOPaE7f8z0+k3Vo7sj/Y8na6VrOoxdNv75BOUAyNhbGQ8IwL5d63WFo
+ xNCAgaY5kDfp4ZqSPmu2qThOcPcZc6OnQkQqqGXfXmesncvehjSVjo+L1VVAR0pip4Np
+ 0Ugfjk8aGBhpUQFi6pRKPfD6T3vBN6lk5P8aV6AjdRTkEhuBzH2mVWJK179DDLHuzoUa
+ NyIH+5FF5M119VhGZOzvQXReaZa1kNb3Xz04aqkLJYCtHXAhc1yv0rV8WHZ+ClWVjy54
+ ECkDQanCnOzsrJKqSupXFzW51vVJC5dCCbY6qYApT68PScO6CvlVoYllhHpqMEKx0rS/
+ NEsA==
+X-Gm-Message-State: AO0yUKWBm8RdAEytU4Ao5I1kn9mDvNjNSQ0HL5Lx8fxsyHHaCKN3QgPx
+ 6QsDCcTY3/4dYvfOGgJFVbg=
+X-Google-Smtp-Source: AK7set8EqMwFrPMklHNXJY0Xj40tuvk1mC5rrW1tTBazHoOwiU7i//xWi0HOHl401K6ysU0G7kvWDA==
+X-Received: by 2002:a17:906:7141:b0:877:7157:9358 with SMTP id
+ z1-20020a170906714100b0087771579358mr1904881ejj.10.1675430401514; 
+ Fri, 03 Feb 2023 05:20:01 -0800 (PST)
 Received: from ?IPV6:2a02:908:1256:79a0:e69f:4344:5e2b:198b?
  ([2a02:908:1256:79a0:e69f:4344:5e2b:198b])
  by smtp.gmail.com with ESMTPSA id
- cd11-20020a170906b34b00b008720c458bd4sm1382581ejb.3.2023.02.03.05.18.00
+ m9-20020a170906580900b00877ec3b9b8bsm1359068ejq.153.2023.02.03.05.20.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 Feb 2023 05:18:01 -0800 (PST)
-Message-ID: <7a1b9b2c-3f5c-ebee-530a-55075f61ee82@gmail.com>
-Date: Fri, 3 Feb 2023 14:18:00 +0100
+ Fri, 03 Feb 2023 05:20:00 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------NsKfu8AAjyG0Pgl6qn0W808n"
+Message-ID: <a4d8d310-c2e0-f2e5-74e8-fe8a5c34501e@gmail.com>
+Date: Fri, 3 Feb 2023 14:19:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
-Subject: Re: [PATCH] drm/amd: fix memory leak in amdgpu_cs_sync_rings
+Subject: Re: [PATCH] drm/amdgpu: only WARN freeing buffers when DMA is
+ unavailable
 Content-Language: en-US
-To: Bert Karwatzki <spasswolf@web.de>, Alex Deucher <alexdeucher@gmail.com>
-References: <905de6ced5f1798deb21a523910a05cf9ff691bc.camel@web.de>
- <CADnq5_N97JdMT_yk-X+RgMuO_=P3FNaYFN7URvNc38icGkjxWQ@mail.gmail.com>
- <3b590ba0f11d24b8c6c39c3d38250129c1116af4.camel@web.de>
+To: "Xiao, Jack" <Jack.Xiao@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+References: <20230202095416.4039818-1-Jack.Xiao@amd.com>
+ <BYAPR12MB35899E39061894E55AC07FE383D69@BYAPR12MB3589.namprd12.prod.outlook.com>
+ <MW3PR12MB4458B37F3A4E9AF91F35279FEFD79@MW3PR12MB4458.namprd12.prod.outlook.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <3b590ba0f11d24b8c6c39c3d38250129c1116af4.camel@web.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <MW3PR12MB4458B37F3A4E9AF91F35279FEFD79@MW3PR12MB4458.namprd12.prod.outlook.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,56 +79,276 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 02.02.23 um 20:02 schrieb Bert Karwatzki:
-> I hope I got it right this time:
-> Here is the fix for
-> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2360
->
->  From 6e064c9565ef0da890f3fcb2a4f6a8cd44a12fdb Mon Sep 17 00:00:00 2001
-> From: Bert Karwatzki <spasswolf@web.de>
-> Date: Thu, 2 Feb 2023 19:50:27 +0100
-> Subject: [PATCH] Fix memory leak in amdgpu_cs_sync_rings.
->
-> Signed-off-by: Bert Karwatzki <spasswolf@web.de>
+This is a multi-part message in MIME format.
+--------------NsKfu8AAjyG0Pgl6qn0W808n
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Well this patch header is not properly formated, but I think Alex can 
-fix this when he picks it up. If not I will take care of this next week.
+Nope, that is not related to any hw state.
 
-Reviewed-by: Christian König <christian.koenig@amd.com> on the code change.
+It's simply not allowed to free up resources during suspend since those 
+can't be acquired again during resume.
 
-Thanks,
+We had a couple of cases now where this was wrong. If you get a warning 
+from that please fix the code which tried to free something during 
+suspend instead.
+
+Regards,
 Christian.
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 5 ++++-
->   1 file changed, 4 insertions(+), 1 deletion(-)
+Am 03.02.23 um 07:04 schrieb Xiao, Jack:
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> index 0f4cb41078c1..08eced097bd8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -1222,10 +1222,13 @@ static int amdgpu_cs_sync_rings(struct
-> amdgpu_cs_parser *p)
->   		 * next job actually sees the results from the
-> previous one
->   		 * before we start executing on the same scheduler
-> ring.
->   		 */
-> -		if (!s_fence || s_fence->sched != sched)
-> +		if (!s_fence || s_fence->sched != sched) {
-> +			dma_fence_put(fence);
->   			continue;
-> +		}
->   
->   		r = amdgpu_sync_fence(&p->gang_leader->explicit_sync,
-> fence);
-> +		dma_fence_put(fence);
->   		if (r)
->   			return r;
->   	}
+> [AMD Official Use Only - General]
+>
+> >> It's simply illegal to free up memory during suspend.
+>
+> Why? In my understanding, the limit was caused by DMA shutdown.
+>
+> Regards,
+>
+> Jack
+>
+> *From:* Koenig, Christian <Christian.Koenig@amd.com>
+> *Sent:* Thursday, February 2, 2023 7:43 PM
+> *To:* Xiao, Jack <Jack.Xiao@amd.com>; amd-gfx@lists.freedesktop.org; 
+> Deucher, Alexander <Alexander.Deucher@amd.com>
+> *Subject:* AW: [PATCH] drm/amdgpu: only WARN freeing buffers when DMA 
+> is unavailable
+>
+> Big NAK to this! This warning is not related in any way to the hw state.
+>
+> It's simply illegal to free up memory during suspend.
+>
+> Regards,
+>
+> Christian.
+>
+> ------------------------------------------------------------------------
+>
+> *Von:*Xiao, Jack <Jack.Xiao@amd.com>
+> *Gesendet:* Donnerstag, 2. Februar 2023 10:54
+> *An:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; 
+> Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian 
+> <Christian.Koenig@amd.com>
+> *Cc:* Xiao, Jack <Jack.Xiao@amd.com>
+> *Betreff:* [PATCH] drm/amdgpu: only WARN freeing buffers when DMA is 
+> unavailable
+>
+> Reduce waringings, only warn when DMA is unavailable.
+>
+> Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> index 2d237f3d3a2e..e3e3764ea697 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -422,7 +422,8 @@ void amdgpu_bo_free_kernel(struct amdgpu_bo **bo, 
+> u64 *gpu_addr,
+>          if (*bo == NULL)
+>                  return;
+>
+> - WARN_ON(amdgpu_ttm_adev((*bo)->tbo.bdev)->in_suspend);
+> + WARN_ON(amdgpu_ttm_adev((*bo)->tbo.bdev)->in_suspend &&
+> + 
+> !amdgpu_ttm_adev((*bo)->tbo.bdev)->ip_blocks[AMD_IP_BLOCK_TYPE_SDMA].status.hw);
+>
+>          if (likely(amdgpu_bo_reserve(*bo, true) == 0)) {
+>                  if (cpu_addr)
+> -- 
+> 2.37.3
+>
 
+--------------NsKfu8AAjyG0Pgl6qn0W808n
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    Nope, that is not related to any hw state.<br>
+    <br>
+    It's simply not allowed to free up resources during suspend since
+    those can't be acquired again during resume.<br>
+    <br>
+    We had a couple of cases now where this was wrong. If you get a
+    warning from that please fix the code which tried to free something
+    during suspend instead.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <div class="moz-cite-prefix">Am 03.02.23 um 07:04 schrieb Xiao,
+      Jack:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:MW3PR12MB4458B37F3A4E9AF91F35279FEFD79@MW3PR12MB4458.namprd12.prod.outlook.com">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="Generator" content="Microsoft Word 15 (filtered
+        medium)">
+      <!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]-->
+      <style>@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}p.msipheaderdf3d92d6, li.msipheaderdf3d92d6, div.msipheaderdf3d92d6
+	{mso-style-name:msipheaderdf3d92d6;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}div.WordSection1
+	{page:WordSection1;}</style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext="edit" spidmax="1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext="edit">
+<o:idmap v:ext="edit" data="1" />
+</o:shapelayout></xml><![endif]-->
+      <div class="WordSection1">
+        <p class="msipheaderdf3d92d6" style="margin:0in"><span
+style="font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD
+            Official Use Only - General]</span><o:p></o:p></p>
+        <p class="MsoNormal"><o:p> </o:p></p>
+        <p class="MsoNormal">&gt;&gt; It's simply illegal to free up
+          memory during suspend.<o:p></o:p></p>
+        <p class="MsoNormal">Why? In my understanding, the limit was
+          caused by DMA shutdown.<o:p></o:p></p>
+        <p class="MsoNormal"><o:p> </o:p></p>
+        <p class="MsoNormal">Regards,<o:p></o:p></p>
+        <p class="MsoNormal">Jack<o:p></o:p></p>
+        <p class="MsoNormal"><o:p> </o:p></p>
+        <div>
+          <div style="border:none;border-top:solid #E1E1E1
+            1.0pt;padding:3.0pt 0in 0in 0in">
+            <p class="MsoNormal"><b>From:</b> Koenig, Christian
+              <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a> <br>
+              <b>Sent:</b> Thursday, February 2, 2023 7:43 PM<br>
+              <b>To:</b> Xiao, Jack <a class="moz-txt-link-rfc2396E" href="mailto:Jack.Xiao@amd.com">&lt;Jack.Xiao@amd.com&gt;</a>;
+              <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>; Deucher, Alexander
+              <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a><br>
+              <b>Subject:</b> AW: [PATCH] drm/amdgpu: only WARN freeing
+              buffers when DMA is unavailable<o:p></o:p></p>
+          </div>
+        </div>
+        <p class="MsoNormal"><o:p> </o:p></p>
+        <div>
+          <p class="MsoNormal">Big NAK to this! This warning is not
+            related in any way to the hw state.<o:p></o:p></p>
+        </div>
+        <div>
+          <p class="MsoNormal"><o:p> </o:p></p>
+        </div>
+        <div>
+          <p class="MsoNormal">It's simply illegal to free up memory
+            during suspend.<o:p></o:p></p>
+        </div>
+        <div>
+          <p class="MsoNormal"><o:p> </o:p></p>
+        </div>
+        <div>
+          <p class="MsoNormal">Regards,<o:p></o:p></p>
+        </div>
+        <div>
+          <p class="MsoNormal">Christian.<o:p></o:p></p>
+        </div>
+        <p class="MsoNormal"><o:p> </o:p></p>
+        <div class="MsoNormal" style="text-align:center" align="center">
+          <hr width="98%" size="2" align="center">
+        </div>
+        <div id="divRplyFwdMsg">
+          <p class="MsoNormal"><b><span style="color:black">Von:</span></b><span
+              style="color:black"> Xiao, Jack &lt;<a
+                href="mailto:Jack.Xiao@amd.com" moz-do-not-send="true"
+                class="moz-txt-link-freetext">Jack.Xiao@amd.com</a>&gt;<br>
+              <b>Gesendet:</b> Donnerstag, 2. Februar 2023 10:54<br>
+              <b>An:</b> <a href="mailto:amd-gfx@lists.freedesktop.org"
+                moz-do-not-send="true" class="moz-txt-link-freetext">amd-gfx@lists.freedesktop.org</a>
+              &lt;<a href="mailto:amd-gfx@lists.freedesktop.org"
+                moz-do-not-send="true" class="moz-txt-link-freetext">amd-gfx@lists.freedesktop.org</a>&gt;;
+              Deucher, Alexander &lt;<a
+                href="mailto:Alexander.Deucher@amd.com"
+                moz-do-not-send="true" class="moz-txt-link-freetext">Alexander.Deucher@amd.com</a>&gt;;
+              Koenig, Christian &lt;<a
+                href="mailto:Christian.Koenig@amd.com"
+                moz-do-not-send="true" class="moz-txt-link-freetext">Christian.Koenig@amd.com</a>&gt;<br>
+              <b>Cc:</b> Xiao, Jack &lt;<a
+                href="mailto:Jack.Xiao@amd.com" moz-do-not-send="true"
+                class="moz-txt-link-freetext">Jack.Xiao@amd.com</a>&gt;<br>
+              <b>Betreff:</b> [PATCH] drm/amdgpu: only WARN freeing
+              buffers when DMA is unavailable</span>
+            <o:p></o:p></p>
+          <div>
+            <p class="MsoNormal"> <o:p></o:p></p>
+          </div>
+        </div>
+        <div>
+          <div>
+            <p class="MsoNormal" style="margin-bottom:12.0pt">Reduce
+              waringings, only warn when DMA is unavailable.<br>
+              <br>
+              Signed-off-by: Jack Xiao &lt;<a
+                href="mailto:Jack.Xiao@amd.com" moz-do-not-send="true"
+                class="moz-txt-link-freetext">Jack.Xiao@amd.com</a>&gt;<br>
+              ---<br>
+               drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 ++-<br>
+               1 file changed, 2 insertions(+), 1 deletion(-)<br>
+              <br>
+              diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+              b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+              index 2d237f3d3a2e..e3e3764ea697 100644<br>
+              --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+              +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+              @@ -422,7 +422,8 @@ void amdgpu_bo_free_kernel(struct
+              amdgpu_bo **bo, u64 *gpu_addr,<br>
+                       if (*bo == NULL)<br>
+                               return;<br>
+               <br>
+              -      
+              WARN_ON(amdgpu_ttm_adev((*bo)-&gt;tbo.bdev)-&gt;in_suspend);<br>
+              +      
+              WARN_ON(amdgpu_ttm_adev((*bo)-&gt;tbo.bdev)-&gt;in_suspend
+              &amp;&amp;<br>
+              +              
+!amdgpu_ttm_adev((*bo)-&gt;tbo.bdev)-&gt;ip_blocks[AMD_IP_BLOCK_TYPE_SDMA].status.hw);<br>
+               <br>
+                       if (likely(amdgpu_bo_reserve(*bo, true) == 0)) {<br>
+                               if (cpu_addr)<br>
+              -- <br>
+              2.37.3<o:p></o:p></p>
+          </div>
+        </div>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------NsKfu8AAjyG0Pgl6qn0W808n--
