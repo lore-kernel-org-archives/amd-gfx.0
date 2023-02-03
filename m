@@ -4,89 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B10CDC05027
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Feb 2023 15:42:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE61EC61DA4
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Feb 2023 16:00:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2957F10E7FE;
-	Fri,  3 Feb 2023 15:42:49 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2079.outbound.protection.outlook.com [40.107.220.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E189210E7ED;
- Fri,  3 Feb 2023 15:42:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SCQpj3Edwr9bMFTyytw+kMo9vmTlVSDl87YTmhCn06PTFl5s7hfGXf7Toe/esNI0l01VePITHCqWIPJUIkYY2pm6hvK5QzOgiR0VTNy0J7NebYLEhflS4xomCmZkyHX0yqRS7olnCFT9y1jzisdyxPm8MIdnjfloyeVDvq2huR44aJXlAwdvm6MeAMBNTcbQBtqEBKwLHSko6wQB0TiCMC8PkY2JrQfJPgaduDNpzM54KDis+NVilLGIqEaupve8NOq1PCd49gAuiqBWD6vh4YjTKZgJ6rOliwhDZwfvqpzmErGWaFJ34uYHdXNYqxB5xSVVv82AdxNDXNRHuS6jSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/tvFa4UZ7EKWdjweqjLTZaHO+/AlD/06jwsCf1pmbrk=;
- b=BEGYuImRNSd8+PZhRTWnupHyn3Q0ridia0o2+EqVFALBrqCryDqdUOgWSPX4nfqZHGtVeVCZpW7CzkIqPSx4sLx9M9ZVd6FfCprEFdb048w79HnOwFF6blFiuRfZRVgbCx/s7uQIw8p+sjFReRmlCaw3nmWZmAlVIM3BvmW7jUCojrMuCgUXMgBdZEZLQ+BPpEgq9BbuRd8eSMLjQqi/Mc8RkRCAQaNHVcOsmVVe6Sum/SY4g7mIpdDdqOGnUqNw+Vra0NsHKSBgw8aAf60z5i9TuxkLXahN1gy4wWpwd1yiOU0qQZu0wu3APnrsqammxQDYx45x0HJAPNG8zhTj3g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/tvFa4UZ7EKWdjweqjLTZaHO+/AlD/06jwsCf1pmbrk=;
- b=qxFLEcBUm3rzoIlNpYFwE3jY1oCoyr+0Ufk+JTBmNt6b7Wz0F/SnuiLEUvSlh8ogrlLz/hadwv1b6Mola/DUFHjJ8huJ4pQOjz5yhLjXS8MamYI6t22yWXTtFhsm4Xv/pUoIpnSSi2KEWz9svhFOIZRTJzPPgZuiv02VD+G42xU=
-Received: from MW4PR04CA0119.namprd04.prod.outlook.com (2603:10b6:303:83::34)
- by SN7PR12MB7418.namprd12.prod.outlook.com (2603:10b6:806:2a5::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.27; Fri, 3 Feb
- 2023 15:42:44 +0000
-Received: from CO1NAM11FT019.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:83:cafe::67) by MW4PR04CA0119.outlook.office365.com
- (2603:10b6:303:83::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.31 via Frontend
- Transport; Fri, 3 Feb 2023 15:42:44 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT019.mail.protection.outlook.com (10.13.175.57) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6064.31 via Frontend Transport; Fri, 3 Feb 2023 15:42:43 +0000
-Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 3 Feb
- 2023 09:42:41 -0600
-From: Hamza Mahfooz <hamza.mahfooz@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/display: fix read errors pertaining to
- dp_lttpr_status_show()
-Date: Fri, 3 Feb 2023 10:43:26 -0500
-Message-ID: <20230203154326.76121-1-hamza.mahfooz@amd.com>
-X-Mailer: git-send-email 2.39.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A52210E807;
+	Fri,  3 Feb 2023 16:00:53 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A67F010E085;
+ Fri,  3 Feb 2023 16:00:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1675440050; x=1706976050;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=82KG1W+noO7vidZ5em8torqKTFdQdYhKm1AJNnwOAqw=;
+ b=kJCSPc5/YGKjjK6K+hdwDZUzaRd1PT1B6w7DyRRz0JAtF8DvMdszholE
+ jek0YXa0/cgb+QvER8rKRI4SJwbkNveed+qeZZIeZzdEHbxcQn72YSNKH
+ 2Uj5ZzOwHfHuaU6lFpwiY2l18q/FUOtu5ns5IvmLAxq0D7Il2ezbKyySx
+ d3qnkrz10JGt7BcMgJrzWrjpANif3oO/1LPRZr/ikdoDRoZZh0SNlYD1f
+ B6YVHBDpNpvk4MQAXb5mSJflqqX6d4VQgRwDQnNCth9PNWb0hThw+d1g6
+ ba7SC29WvZGCpdBNeRKIndXKOip3GPUSviYAzFr0WsHllZ4j8sWze4dqV A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10610"; a="393368992"
+X-IronPort-AV: E=Sophos;i="5.97,270,1669104000"; d="scan'208";a="393368992"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Feb 2023 08:00:49 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10610"; a="696199490"
+X-IronPort-AV: E=Sophos;i="5.97,270,1669104000"; d="scan'208";a="696199490"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.55])
+ by orsmga008.jf.intel.com with SMTP; 03 Feb 2023 08:00:45 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 03 Feb 2023 18:00:44 +0200
+Date: Fri, 3 Feb 2023 18:00:44 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Subject: Re: [PATCH 3/3] drm/connector: Deprecate split for BT.2020 in
+ drm_colorspace enum
+Message-ID: <Y90vrEa3/1RbaGOV@intel.com>
+References: <20230203020744.30745-1-joshua@froggi.es>
+ <20230203020744.30745-3-joshua@froggi.es>
+ <Y9zkef5FjtZ7guVS@intel.com>
+ <CA+hFU4ymiOg06MQeKLcn5MSrR=BZnOLODdZCFvGUdWqt_ha61A@mail.gmail.com>
+ <0fc18aec-0703-55f4-f635-d09d345e8dc0@amd.com>
+ <Y90l+DY0rSaMvN1U@intel.com>
+ <758e5cf6-53e0-567c-c760-5b773bc7a11c@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT019:EE_|SN7PR12MB7418:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5d7ed046-9756-454d-2a42-08db05fd4a96
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /vL15wKUZzlXCUOdPVE8XOVQK9t719ZTGMMAgYOBXKiNlHaFG2WEVHCdc8VRQe3EPbG5h8oVWGZiBk0JSkvWiqJucj124n9OMMe45U/Vu9vxYXgBlxMiZbel01qSVewEuB8mAGda+pVwUA3ylj/7NUlKfY17+XR9Kt/R9IWJFN0ZmoE3CNdIfgP/hsMjh3tX9fsUmZYajPTG6lCjgeXBFyTkxEeVXdmb1ibS0r+FEQJ9ASSXsz0u7xwv7wOntFIli2MhPfAjBLap+9Vs8kzuu7sucg5mctZqTErCx5N0yMVuML1oiApZDoNJnI/vcYCzJpGjINMzGmRB0TGcLcbdduopvVZdgs8h2Dwfdt19URy/WenKE/ej7ztFQgdEtTRVuW+M9ubsS+LYLKUDXA+0qB3ar5hGIOZ5BYPE3QNVkaMXRRcNVNemfWzBiKmULRZ7nwgd8fX5kQ3gXuQ+z5+Q4oKN0toJcoJsWo+lMkNAzH5+cUaXF7EgRL7CSLRxRfDydl17zgPl1ia49+gReesRiLU8NOB18hw1BFXOXoiOu13TfHYq621UPhYBIIU58hfd498xsn6gtR6BVdPU7i2Ov5A0T2L6cUYKHZKsHvjHhyG9advU50JvLvWTRwQ2wHXRHcHuqnLpJVmKdM4Q1oSXOjfBxumABfun0kRI+DA4ZkgsFsVLkW22nwE7V1qV7B7bWXfWjAYqKoivA+siV4cy64iL/W45cKCbA1xpzsM/ACgVap8PmSyua4lGGNFdYJxcv0uqgrbX6C31T2tVBkNZoA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(376002)(346002)(396003)(136003)(39860400002)(451199018)(46966006)(36840700001)(40470700004)(82740400003)(426003)(44832011)(40460700003)(8936002)(1076003)(478600001)(336012)(2616005)(83380400001)(186003)(6916009)(26005)(16526019)(70586007)(4326008)(316002)(41300700001)(5660300002)(8676002)(2906002)(70206006)(54906003)(86362001)(6666004)(36756003)(40480700001)(47076005)(82310400005)(356005)(36860700001)(81166007)(36900700001)(16060500005);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Feb 2023 15:42:43.7714 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d7ed046-9756-454d-2a42-08db05fd4a96
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT019.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7418
+In-Reply-To: <758e5cf6-53e0-567c-c760-5b773bc7a11c@amd.com>
+X-Patchwork-Hint: comment
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,134 +66,109 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Liu <HaoPing.Liu@amd.com>,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Leo Li <sunpeng.li@amd.com>,
- David Airlie <airlied@gmail.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Wenjing Liu <wenjing.liu@amd.com>,
- hersen wu <hersenxs.wu@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Wayne Lin <Wayne.Lin@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Bhanuprakash Modem <bhanuprakash.modem@intel.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+Cc: Sebastian Wick <sebastian.wick@redhat.com>, dri-devel@lists.freedesktop.org,
+ Pekka Paalanen <ppaalanen@gmail.com>, Uma Shankar <uma.shankar@intel.com>,
+ amd-gfx@lists.freedesktop.org, Joshua Ashton <joshua@froggi.es>,
+ Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Currently, it is likely that we will read the relevant LTTPR caps after
-link training has completed (which can cause garbage data to be read),
-however according to the DP 2.0 spec that should be done before link
-training has commenced. So, instead of reading the registers on demand,
-use the values provided to us by DC.
+On Fri, Feb 03, 2023 at 10:24:52AM -0500, Harry Wentland wrote:
+> 
+> 
+> On 2/3/23 10:19, Ville Syrjälä wrote:
+> > On Fri, Feb 03, 2023 at 09:39:42AM -0500, Harry Wentland wrote:
+> >>
+> >>
+> >> On 2/3/23 07:59, Sebastian Wick wrote:
+> >>> On Fri, Feb 3, 2023 at 11:40 AM Ville Syrjälä
+> >>> <ville.syrjala@linux.intel.com> wrote:
+> >>>>
+> >>>> On Fri, Feb 03, 2023 at 02:07:44AM +0000, Joshua Ashton wrote:
+> >>>>> Userspace has no way of controlling or knowing the pixel encoding
+> >>>>> currently, so there is no way for it to ever get the right values here.
+> >>>>
+> >>>> That applies to a lot of the other values as well (they are
+> >>>> explicitly RGB or YCC). The idea was that this property sets the
+> >>>> infoframe/MSA/SDP value exactly, and other properties should be
+> >>>> added to for use userspace to control the pixel encoding/colorspace
+> >>>> conversion(if desired, or userspace just makes sure to
+> >>>> directly feed in correct kind of data).
+> >>>
+> >>> I'm all for getting userspace control over pixel encoding but even
+> >>> then the kernel always knows which pixel encoding is selected and
+> >>> which InfoFrame has to be sent. Is there a reason why userspace would
+> >>> want to control the variant explicitly to the wrong value?
+> >>>
+> >>
+> >> I've asked this before but haven't seen an answer: Is there an existing
+> >> upstream userspace project that makes use of this property (other than
+> >> what Joshua is working on in gamescope right now)? That would help us
+> >> understand the intent better.
+> > 
+> > The intent was to control the infoframe colorimetry bits,
+> > nothing more. No idea what real userspace there was, if any.
+> > 
+> >>
+> >> I don't think giving userspace explicit control over the exact infoframe
+> >> values is the right thing to do.
+> > 
+> > Only userspace knows what kind of data it's stuffing into
+> > the pixels (and/or how it configures the csc units/etc.) to
+> > generate them.
+> > 
+> 
+> Yes, but userspace doesn't control or know whether we drive
+> RGB or YCbCr on the wire. In fact, in some cases our driver
+> needs to fallback to YCbCr420 for bandwidth reasons. There
+> is currently no way for userspace to know that and I don't
+> think it makes sense.
 
-Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
----
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 72 ++++++-------------
- 1 file changed, 22 insertions(+), 50 deletions(-)
+People want that control as well for whatever reason. We've
+been asked to allow YCbCr 4:4:4 output many times.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index e783082a4eef..cbc241596c1f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -36,6 +36,7 @@
- #include "dsc.h"
- #include "link_hwss.h"
- #include "dc/dc_dmub_srv.h"
-+#include "link/protocols/link_dp_capability.h"
- 
- #ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
- #include "amdgpu_dm_psr.h"
-@@ -418,67 +419,38 @@ static ssize_t dp_phy_settings_read(struct file *f, char __user *buf,
- 	return result;
- }
- 
--static int dp_lttpr_status_show(struct seq_file *m, void *d)
-+static int dp_lttpr_status_show(struct seq_file *m, void *unused)
- {
--	char *data;
--	struct amdgpu_dm_connector *connector = file_inode(m->file)->i_private;
--	struct dc_link *link = connector->dc_link;
--	uint32_t read_size = 1;
--	uint8_t repeater_count = 0;
-+	struct drm_connector *connector = m->private;
-+	struct amdgpu_dm_connector *aconnector =
-+		to_amdgpu_dm_connector(connector);
-+	struct dc_lttpr_caps caps = aconnector->dc_link->dpcd_caps.lttpr_caps;
- 
--	data = kzalloc(read_size, GFP_KERNEL);
--	if (!data)
--		return 0;
-+	if (connector->status != connector_status_connected)
-+		return -ENODEV;
- 
--	dm_helpers_dp_read_dpcd(link->ctx, link, 0xF0002, data, read_size);
-+	seq_printf(m, "phy repeater count: %u (raw: 0x%x)\n",
-+		   dp_parse_lttpr_repeater_count(caps.phy_repeater_cnt),
-+		   caps.phy_repeater_cnt);
- 
--	switch ((uint8_t)*data) {
--	case 0x80:
--		repeater_count = 1;
--		break;
--	case 0x40:
--		repeater_count = 2;
--		break;
--	case 0x20:
--		repeater_count = 3;
--		break;
--	case 0x10:
--		repeater_count = 4;
--		break;
--	case 0x8:
--		repeater_count = 5;
--		break;
--	case 0x4:
--		repeater_count = 6;
--		break;
--	case 0x2:
--		repeater_count = 7;
-+	seq_puts(m, "phy repeater mode: ");
-+
-+	switch (caps.mode) {
-+	case DP_PHY_REPEATER_MODE_TRANSPARENT:
-+		seq_puts(m, "transparent");
- 		break;
--	case 0x1:
--		repeater_count = 8;
-+	case DP_PHY_REPEATER_MODE_NON_TRANSPARENT:
-+		seq_puts(m, "non-transparent");
- 		break;
--	case 0x0:
--		repeater_count = 0;
-+	case 0x00:
-+		seq_puts(m, "non lttpr");
- 		break;
- 	default:
--		repeater_count = (uint8_t)*data;
-+		seq_printf(m, "read error (raw: 0x%x)", caps.mode);
- 		break;
- 	}
- 
--	seq_printf(m, "phy repeater count: %d\n", repeater_count);
--
--	dm_helpers_dp_read_dpcd(link->ctx, link, 0xF0003, data, read_size);
--
--	if ((uint8_t)*data == 0x55)
--		seq_printf(m, "phy repeater mode: transparent\n");
--	else if ((uint8_t)*data == 0xAA)
--		seq_printf(m, "phy repeater mode: non-transparent\n");
--	else if ((uint8_t)*data == 0x00)
--		seq_printf(m, "phy repeater mode: non lttpr\n");
--	else
--		seq_printf(m, "phy repeater mode: read error\n");
--
--	kfree(data);
-+	seq_puts(m, "\n");
- 	return 0;
- }
- 
+The automagic 4:2:0 fallback I think is rather fundementally
+incompatible with fancy color management. How would we even
+know whether to use eg. BT.2020 vs. BT.709 matrix? In i915
+that stuff is just always BT.709 limited range, no questions
+asked.
+
+So I think if userspace wants real color management it's
+going to have to set up the whole pipeline. And for that
+we need at least one new property to control the RGB->YCbCr
+conversion (or to explicitly avoid it).
+
+And given that the proposed patch just swept all the
+non-BT.2020 issues under the rug makes me think no
+one has actually come up with any kind of consistent
+plan for anything else really.
+
+> 
+> Userspace needs full control of framebuffer pixel formats,
+> as well as control over DEGAMMA, GAMMA, CTM color operations.
+> It also needs to be able to select whether to drive the panel
+> as sRGB or BT.2020/PQ but it doesn't make sense for it to
+> control the pixel encoding on the wire (RGB vs YCbCr).
+> 
+> > I really don't want a repeat of the disaster of the
+> > 'Broadcast RGB' which has coupled together the infoframe 
+> > and automagic conversion stuff. And I think this one would
+> > be about 100x worse given this property has something
+> > to do with actual colorspaces as well.
+> >  
+> 
+> I'm unaware of this disaster. Could you elaborate?
+
+The property now controls both the infoframe stuff (and
+whatever super vague stuff DP has for it in MSA) and 
+full->limited range compression in the display pipeline. 
+And as a result  there is no way to eg. allow already 
+limited range input, which is what some people wanted.
+
+And naturally it's all made a lot more terrible by all
+the displays that fail to implement the spec correctly,
+but that's another topic.
+
 -- 
-2.39.1
-
+Ville Syrjälä
+Intel
