@@ -4,49 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19BCBC61DA4
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Feb 2023 18:36:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C448DC05027
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Feb 2023 18:57:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83A6C10E862;
-	Fri,  3 Feb 2023 18:36:40 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1146310E862
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Feb 2023 18:36:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A5F010E877;
+	Fri,  3 Feb 2023 18:57:02 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 471CD10E877;
+ Fri,  3 Feb 2023 18:57:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675449399; x=1706985399;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=sBr4gbtJ0rHs80U4nER/Ux24bKez/zclcRpEf7y7Qs8=;
- b=BtYgaxRY6rtpRz/1nYs6HPj+kjiuQV4kV6w4nk2lM4cpF0yrXAbT4wal
- VGW3Sk1yU4FQQ79XdzlBGTFiN0oPIbEviX2SdSh/7xmAVkUZNu/LyZ1fc
- nHScHSCvG8yUxwCJgLTvFbFXIH8nBiyDSxC3ahbFE3MfVTUYrYoY80ddf
- wxAllBrkshFBbjt+LR05sKDEZls5/zaypM6RuE5j7CeyGGFkfodzR0l56
- ZqR40n1c9JI1H3Ql3Og1tmiCAxjyoWUAFpaVZe2Y2wwtFYFaUjKtL9QMk
- Xg8L4lPp+mcp/Kaf8vuXNZQ2UmZpHGXJkFCN9ngzeX/NbPwYf7FgqVgEh w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10610"; a="391212835"
-X-IronPort-AV: E=Sophos;i="5.97,271,1669104000"; d="scan'208";a="391212835"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Feb 2023 10:36:15 -0800
+ t=1675450620; x=1706986620;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=eRayIQQ9PcTdVkpmImCmxuOKiRNqC8W2g9Xoa24X27Q=;
+ b=IJ9TQmL4FONki/pG+Vbiy76XQd7Ih734/AP4e1vfstBpoIZrhkfHfdYb
+ ur23Qz7+cDmK96PSA6gqLPMQNXlOEsfUb1pZ9C0YOk8L4xOExkyOcoi35
+ iu3XQh285OfTsCGZfcZmTTVcSVDaiMB7PbS+F9cqi/rQXXcMdQhhcCn5f
+ OzQKMsuO9C5/hwso0av4PeWqShsbggYsJ9yjDHwZ5jx5oZupUZxTghe02
+ 6QN787UH6xX8Q97SusGvDe7dK/s1H1+0IkWKenPVAeiY4CPLJtak95Jd6
+ 6ZHwE4e3zt1RM0BAPI6h1zguWUBaE3bzUVNwHaD3VzumQ9NG9D7N8Q2f4 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10610"; a="316822754"
+X-IronPort-AV: E=Sophos;i="5.97,271,1669104000"; d="scan'208";a="316822754"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Feb 2023 10:56:59 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10610"; a="667731283"
-X-IronPort-AV: E=Sophos;i="5.97,271,1669104000"; d="scan'208";a="667731283"
-Received: from lkp-server01.sh.intel.com (HELO 4455601a8d94) ([10.239.97.150])
- by fmsmga007.fm.intel.com with ESMTP; 03 Feb 2023 10:36:12 -0800
-Received: from kbuild by 4455601a8d94 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pO0uy-0000hV-07;
- Fri, 03 Feb 2023 18:36:12 +0000
-Date: Sat, 04 Feb 2023 02:35:52 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 4fafd96910add124586b549ad005dcd179de8a18
-Message-ID: <63dd5408.DXu9FfX9ZxM1BSRX%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+X-IronPort-AV: E=McAfee;i="6500,9779,10610"; a="839700190"
+X-IronPort-AV: E=Sophos;i="5.97,271,1669104000"; d="scan'208";a="839700190"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.55])
+ by orsmga005.jf.intel.com with SMTP; 03 Feb 2023 10:56:55 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 03 Feb 2023 20:56:55 +0200
+Date: Fri, 3 Feb 2023 20:56:55 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Subject: Re: [PATCH 3/3] drm/connector: Deprecate split for BT.2020 in
+ drm_colorspace enum
+Message-ID: <Y91Y98jyOimabC3O@intel.com>
+References: <20230203020744.30745-1-joshua@froggi.es>
+ <20230203020744.30745-3-joshua@froggi.es>
+ <Y9zkef5FjtZ7guVS@intel.com>
+ <CA+hFU4ymiOg06MQeKLcn5MSrR=BZnOLODdZCFvGUdWqt_ha61A@mail.gmail.com>
+ <0fc18aec-0703-55f4-f635-d09d345e8dc0@amd.com>
+ <Y90l+DY0rSaMvN1U@intel.com>
+ <758e5cf6-53e0-567c-c760-5b773bc7a11c@amd.com>
+ <Y90vrEa3/1RbaGOV@intel.com>
+ <f9633729-2db0-3bf1-311d-f03bd04d47a6@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <f9633729-2db0-3bf1-311d-f03bd04d47a6@amd.com>
+X-Patchwork-Hint: comment
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,166 +68,119 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-mips@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Linux Memory Management List <linux-mm@kvack.org>, kvmarm@lists.linux.dev,
- kvmarm@lists.cs.columbia.edu, linux-arm-kernel@lists.infradead.org,
- linux-trace-kernel@vger.kernel.org
+Cc: Sebastian Wick <sebastian.wick@redhat.com>, dri-devel@lists.freedesktop.org,
+ Pekka Paalanen <ppaalanen@gmail.com>, Uma Shankar <uma.shankar@intel.com>,
+ amd-gfx@lists.freedesktop.org, Joshua Ashton <joshua@froggi.es>,
+ Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 4fafd96910add124586b549ad005dcd179de8a18  Add linux-next specific files for 20230203
+On Fri, Feb 03, 2023 at 01:28:20PM -0500, Harry Wentland wrote:
+> 
+> 
+> On 2/3/23 11:00, Ville Syrjälä wrote:
+> > On Fri, Feb 03, 2023 at 10:24:52AM -0500, Harry Wentland wrote:
+> >>
+> >>
+> >> On 2/3/23 10:19, Ville Syrjälä wrote:
+> >>> On Fri, Feb 03, 2023 at 09:39:42AM -0500, Harry Wentland wrote:
+> >>>>
+> >>>>
+> >>>> On 2/3/23 07:59, Sebastian Wick wrote:
+> >>>>> On Fri, Feb 3, 2023 at 11:40 AM Ville Syrjälä
+> >>>>> <ville.syrjala@linux.intel.com> wrote:
+> >>>>>>
+> >>>>>> On Fri, Feb 03, 2023 at 02:07:44AM +0000, Joshua Ashton wrote:
+> >>>>>>> Userspace has no way of controlling or knowing the pixel encoding
+> >>>>>>> currently, so there is no way for it to ever get the right values here.
+> >>>>>>
+> >>>>>> That applies to a lot of the other values as well (they are
+> >>>>>> explicitly RGB or YCC). The idea was that this property sets the
+> >>>>>> infoframe/MSA/SDP value exactly, and other properties should be
+> >>>>>> added to for use userspace to control the pixel encoding/colorspace
+> >>>>>> conversion(if desired, or userspace just makes sure to
+> >>>>>> directly feed in correct kind of data).
+> >>>>>
+> >>>>> I'm all for getting userspace control over pixel encoding but even
+> >>>>> then the kernel always knows which pixel encoding is selected and
+> >>>>> which InfoFrame has to be sent. Is there a reason why userspace would
+> >>>>> want to control the variant explicitly to the wrong value?
+> >>>>>
+> >>>>
+> >>>> I've asked this before but haven't seen an answer: Is there an existing
+> >>>> upstream userspace project that makes use of this property (other than
+> >>>> what Joshua is working on in gamescope right now)? That would help us
+> >>>> understand the intent better.
+> >>>
+> >>> The intent was to control the infoframe colorimetry bits,
+> >>> nothing more. No idea what real userspace there was, if any.
+> >>>
+> >>>>
+> >>>> I don't think giving userspace explicit control over the exact infoframe
+> >>>> values is the right thing to do.
+> >>>
+> >>> Only userspace knows what kind of data it's stuffing into
+> >>> the pixels (and/or how it configures the csc units/etc.) to
+> >>> generate them.
+> >>>
+> >>
+> >> Yes, but userspace doesn't control or know whether we drive
+> >> RGB or YCbCr on the wire. In fact, in some cases our driver
+> >> needs to fallback to YCbCr420 for bandwidth reasons. There
+> >> is currently no way for userspace to know that and I don't
+> >> think it makes sense.
+> > 
+> > People want that control as well for whatever reason. We've
+> > been asked to allow YCbCr 4:4:4 output many times.
+> > 
+> > The automagic 4:2:0 fallback I think is rather fundementally
+> > incompatible with fancy color management. How would we even
+> > know whether to use eg. BT.2020 vs. BT.709 matrix? In i915
+> > that stuff is just always BT.709 limited range, no questions
+> > asked.
+> > 
+> 
+> We use what we're telling the display, i.e., the value in the
+> colorspace property. That way we know whether to use a BT.2020
+> or BT.709 matrix.
 
-Error/Warning reports:
+And given how these things have gone in the past I think
+that is likey to bite someone at in the future. Also not
+what this property was meant to do nor does on any other
+driver AFAIK.
 
-https://lore.kernel.org/oe-kbuild-all/202301301801.y5O08tQx-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202301302110.mEtNwkBD-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202301310939.TAgCOEZb-lkp@intel.com
+> I don't see how it's fundamentally incompatible with fancy
+> color management stuff.
+> 
+> If we start forbidding drivers from falling back to YCbCr
+> (whether 4:4:4 or 4:2:0) we will break existing behavior on
+> amdgpu and will see bug reports.
 
-Error/Warning: (recently discovered and may have been fixed)
+The compositors could deal with that if/when they start doing
+the full color management stuff. The current stuff only really
+works when the kernel is allowed to do whatever it wants.
 
-ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/fsl-edma.ko] undefined!
-ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/idma64.ko] undefined!
-FAILED: load BTF from vmlinux: No data available
-arch/arm64/kvm/arm.c:2206: warning: expecting prototype for Initialize Hyp(). Prototype was for kvm_arm_init() instead
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/accessories/link_dp_trace.c:148:6: warning: no previous prototype for 'link_dp_trace_set_edp_power_timestamp' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/accessories/link_dp_trace.c:158:10: warning: no previous prototype for 'link_dp_trace_get_edp_poweron_timestamp' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/accessories/link_dp_trace.c:163:10: warning: no previous prototype for 'link_dp_trace_get_edp_poweroff_timestamp' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:1295:32: warning: variable 'result_write_min_hblank' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:279:42: warning: variable 'ds_port' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_training.c:1585:38: warning: variable 'result' set but not used [-Wunused-but-set-variable]
-ftrace-ops.c:(.init.text+0x2c3): undefined reference to `__udivdi3'
-libbpf: failed to find '.BTF' ELF section in vmlinux
+> 
+> > So I think if userspace wants real color management it's
+> > going to have to set up the whole pipeline. And for that
+> > we need at least one new property to control the RGB->YCbCr
+> > conversion (or to explicitly avoid it).
+> > 
+> > And given that the proposed patch just swept all the
+> > non-BT.2020 issues under the rug makes me think no
+> > one has actually come up with any kind of consistent
+> > plan for anything else really.
+> > 
+> 
+> Does anyone actually use the non-BT.2020 colorspace stuff?
 
-Unverified Error/Warning (likely false positive, please contact us if interested):
+No idea if anyone is using any of it. It's a bit hard to do
+right now outside the full passthrough case since we have no
+properties to control how the hardware will convert stuff.
 
-drivers/clk/ingenic/jz4760-cgu.c:80 jz4760_cgu_calc_m_n_od() error: uninitialized symbol 'od'.
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- arc-randconfig-r003-20230202
-|   |-- FAILED:load-BTF-from-vmlinux:No-data-available
-|   `-- libbpf:failed-to-find-.BTF-ELF-section-in-vmlinux
-|-- arm-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- arm64-allyesconfig
-|   |-- arch-arm64-kvm-arm.c:warning:expecting-prototype-for-Initialize-Hyp().-Prototype-was-for-kvm_arm_init()-instead
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- i386-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
-|   `-- ftrace-ops.c:(.init.text):undefined-reference-to-__udivdi3
-|-- i386-randconfig-m021
-|   `-- kernel-trace-trace_events_synth.c-trace_event_raw_event_synth()-warn:inconsistent-indenting
-|-- ia64-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- ia64-randconfig-r026-20230202
-
-elapsed time: 920m
-
-configs tested: 62
-configs skipped: 2
-
-gcc tested configs:
-x86_64                            allnoconfig
-um                           x86_64_defconfig
-um                             i386_defconfig
-arc                                 defconfig
-s390                             allmodconfig
-alpha                               defconfig
-s390                                defconfig
-s390                             allyesconfig
-i386                          randconfig-a001
-i386                          randconfig-a003
-powerpc                          allmodconfig
-i386                          randconfig-a005
-powerpc                           allnoconfig
-i386                                defconfig
-x86_64                              defconfig
-arm                                 defconfig
-x86_64                        randconfig-a013
-x86_64                               rhel-8.3
-x86_64                        randconfig-a011
-x86_64                          rhel-8.3-func
-x86_64                    rhel-8.3-kselftests
-x86_64                        randconfig-a015
-x86_64                        randconfig-a004
-i386                             allyesconfig
-x86_64                        randconfig-a002
-i386                          randconfig-a014
-ia64                             allmodconfig
-arm64                            allyesconfig
-i386                          randconfig-a012
-arm                              allyesconfig
-x86_64                           allyesconfig
-i386                          randconfig-a016
-x86_64                        randconfig-a006
-riscv                randconfig-r042-20230202
-s390                 randconfig-r044-20230202
-arc                  randconfig-r043-20230202
-x86_64                           rhel-8.3-syz
-x86_64                         rhel-8.3-kunit
-x86_64                           rhel-8.3-kvm
-x86_64                           rhel-8.3-bpf
-alpha                            allyesconfig
-arc                              allyesconfig
-m68k                             allyesconfig
-sh                               allmodconfig
-mips                             allyesconfig
-m68k                             allmodconfig
-
-clang tested configs:
-x86_64                          rhel-8.3-rust
-i386                          randconfig-a002
-i386                          randconfig-a004
-i386                          randconfig-a006
-x86_64                        randconfig-a012
-x86_64                        randconfig-a014
-i386                          randconfig-a013
-x86_64                        randconfig-a016
-x86_64                        randconfig-a001
-arm                  randconfig-r046-20230202
-x86_64                        randconfig-a003
-hexagon              randconfig-r045-20230202
-hexagon              randconfig-r041-20230202
-i386                          randconfig-a015
-x86_64                        randconfig-a005
-i386                          randconfig-a011
+Anyways, sounds like what you're basically proposing is
+getting rid of this property and starting from scratch.
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+Ville Syrjälä
+Intel
