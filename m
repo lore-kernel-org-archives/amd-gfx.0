@@ -4,47 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1D18C05027
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Feb 2023 15:09:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64FFDC61DA4
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Feb 2023 15:19:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E60C310E7C0;
-	Fri,  3 Feb 2023 15:09:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91C1B10E068;
+	Fri,  3 Feb 2023 15:19:29 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 248A810E7C0;
- Fri,  3 Feb 2023 15:09:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C00A010E062;
+ Fri,  3 Feb 2023 15:19:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675436956; x=1706972956;
+ t=1675437565; x=1706973565;
  h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=dDXulvyNwPtFpDiJ7+TPE2SX8thC6ozOW4bx2sfpBpc=;
- b=Ciu7wSa2Z6x0XuOyXdGE7pwiufgFxPMsk4+RcFuJwhC5oe9zlFYiuRDP
- BnN54HMdkt3PuRG3MmVnAnmpR2V+y51KbAr0c2eBmAdS5rP+mOS2djIYH
- rWl4G02jCrm835lLGBekJT/Cm57o6DRUHy5B9jqDYX22BtZhU7CTMmA3r
- 9IOAqj1VC1Qrw+TSx3ELecoPaLjq6E4QPLEYUvJnM5mNmFqqY6gyzHiQ6
- KoxX+eBHWluOus5enAWwxQ2sLEaO8p5Vc1UEySoAx8xhl26wBormLv6VJ
- EkFCFUu4uJag6pGhUKrk1yF0HmdTnUVwc+YqpvckRQcJtkVs/ZkjRUiEi g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10610"; a="330897762"
-X-IronPort-AV: E=Sophos;i="5.97,270,1669104000"; d="scan'208";a="330897762"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=tAOMbRZmmJ3rMMMObzZAoRtgrqrK26ke7m1XtXA3K1g=;
+ b=lN+1jD6CU7MaGWdMC6TVU6B+keezNlmwfnasyeik9hOoAQnN7jttgTe1
+ TJy1J2qnsrp5pA9Itv1fwh92yelEXbOCt2bRDyurFrdV2vnICkZI3wGrG
+ XL+nxw7otzzbSeUbup9W5EsFhznXevrJlr38m3QEHGal9fVtuuAiFEob6
+ Q9xgHE8RF+CgtDxCF9yRCfOyh1LyhRBPPTUZJo0whV7o4AZmNGmG/x7OR
+ au5CBigTxEDSPz7kNyqC3rn0gfoPscd6yRGGL12fbvlB06vAQqB9+6f7g
+ +z6mcFRNgjKP23/UKWsQKoRjxsT4mTqXfFJqcYFVWm5GdCXjCFc1x3UiD Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10610"; a="330899562"
+X-IronPort-AV: E=Sophos;i="5.97,270,1669104000"; d="scan'208";a="330899562"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Feb 2023 07:08:38 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10610"; a="729289575"
-X-IronPort-AV: E=Sophos;i="5.97,270,1669104000"; d="scan'208";a="729289575"
-Received: from joe-255.igk.intel.com (HELO localhost) ([10.91.220.57])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Feb 2023 07:08:35 -0800
-Date: Fri, 3 Feb 2023 16:08:34 +0100
-From: Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>
-To: Jani Nikula <jani.nikula@intel.com>
-Subject: Re: [PATCH v3 00/19] fix DRM_USE_DYNAMIC_DEBUG regression
-Message-ID: <20230203150834.GA2751526@linux.intel.com>
-References: <20230125203743.564009-1-jim.cromie@gmail.com>
- <87a61v14ad.fsf@intel.com>
+ 03 Feb 2023 07:19:25 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10610"; a="696185509"
+X-IronPort-AV: E=Sophos;i="5.97,270,1669104000"; d="scan'208";a="696185509"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.55])
+ by orsmga008.jf.intel.com with SMTP; 03 Feb 2023 07:19:21 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 03 Feb 2023 17:19:20 +0200
+Date: Fri, 3 Feb 2023 17:19:20 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Subject: Re: [PATCH 3/3] drm/connector: Deprecate split for BT.2020 in
+ drm_colorspace enum
+Message-ID: <Y90l+DY0rSaMvN1U@intel.com>
+References: <20230203020744.30745-1-joshua@froggi.es>
+ <20230203020744.30745-3-joshua@froggi.es>
+ <Y9zkef5FjtZ7guVS@intel.com>
+ <CA+hFU4ymiOg06MQeKLcn5MSrR=BZnOLODdZCFvGUdWqt_ha61A@mail.gmail.com>
+ <0fc18aec-0703-55f4-f635-d09d345e8dc0@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <87a61v14ad.fsf@intel.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <0fc18aec-0703-55f4-f635-d09d345e8dc0@amd.com>
+X-Patchwork-Hint: comment
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,43 +64,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jim Cromie <jim.cromie@gmail.com>, daniel.vetter@ffwll.ch,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, seanpaul@chromium.org,
- dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Greg KH <gregkh@linuxfoundation.org>, intel-gvt-dev@lists.freedesktop.org
+Cc: Sebastian Wick <sebastian.wick@redhat.com>, dri-devel@lists.freedesktop.org,
+ Pekka Paalanen <ppaalanen@gmail.com>, Uma Shankar <uma.shankar@intel.com>,
+ amd-gfx@lists.freedesktop.org, Joshua Ashton <joshua@froggi.es>,
+ Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 03, 2023 at 11:34:02AM +0200, Jani Nikula wrote:
-> On Wed, 25 Jan 2023, Jim Cromie <jim.cromie@gmail.com> wrote:
-> > Hi everyone,
-> >
-> > In v6.1 DRM_USE_DYNAMIC_DEBUG=y has a regression enabling drm.debug in
-> > drivers at modprobe.
+On Fri, Feb 03, 2023 at 09:39:42AM -0500, Harry Wentland wrote:
 > 
-> I realize we haven't actually addressed the regression in any way yet,
-> and any distro enabling DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE will have
-> DRM_USE_DYNAMIC_DEBUG=y by default, and we're hitting the issue with
-> trying to gather logs from users on v6.1 or later. It hampers debugging
-> pretty badly.
 > 
-> I appreciate the effort in fixing the problem properly here, but we'll
-> need a fix that we can backport to stable kernels.
+> On 2/3/23 07:59, Sebastian Wick wrote:
+> > On Fri, Feb 3, 2023 at 11:40 AM Ville Syrjälä
+> > <ville.syrjala@linux.intel.com> wrote:
+> >>
+> >> On Fri, Feb 03, 2023 at 02:07:44AM +0000, Joshua Ashton wrote:
+> >>> Userspace has no way of controlling or knowing the pixel encoding
+> >>> currently, so there is no way for it to ever get the right values here.
+> >>
+> >> That applies to a lot of the other values as well (they are
+> >> explicitly RGB or YCC). The idea was that this property sets the
+> >> infoframe/MSA/SDP value exactly, and other properties should be
+> >> added to for use userspace to control the pixel encoding/colorspace
+> >> conversion(if desired, or userspace just makes sure to
+> >> directly feed in correct kind of data).
+> > 
+> > I'm all for getting userspace control over pixel encoding but even
+> > then the kernel always knows which pixel encoding is selected and
+> > which InfoFrame has to be sent. Is there a reason why userspace would
+> > want to control the variant explicitly to the wrong value?
+> > 
 > 
-> Maybe just Ville's idea of
-> 
->  config DRM_USE_DYNAMIC_DEBUG
->         bool "use dynamic debug to implement drm.debug"
-> -       default y
-> +       default n
-> +       depends on BROKEN
->         depends on DRM
->         depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
-> 
-> but we'll need that as a patch and merged and backported ASAP.
+> I've asked this before but haven't seen an answer: Is there an existing
+> upstream userspace project that makes use of this property (other than
+> what Joshua is working on in gamescope right now)? That would help us
+> understand the intent better.
 
-+1 for this
+The intent was to control the infoframe colorimetry bits,
+nothing more. No idea what real userspace there was, if any.
 
-Regards
-Stanislaw
+> 
+> I don't think giving userspace explicit control over the exact infoframe
+> values is the right thing to do.
+
+Only userspace knows what kind of data it's stuffing into
+the pixels (and/or how it configures the csc units/etc.) to
+generate them.
+
+I really don't want a repeat of the disaster of the
+'Broadcast RGB' which has coupled together the infoframe 
+and automagic conversion stuff. And I think this one would
+be about 100x worse given this property has something
+to do with actual colorspaces as well.
+ 
+-- 
+Ville Syrjälä
+Intel
