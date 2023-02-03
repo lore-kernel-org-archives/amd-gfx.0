@@ -4,59 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9966C61DA4
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Feb 2023 17:05:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0188BC61DA4
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Feb 2023 18:10:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8887710E7F5;
-	Fri,  3 Feb 2023 17:05:37 +0000 (UTC)
-Received: from mout.web.de (mout.web.de [212.227.15.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FC6A10E7F5
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Feb 2023 16:53:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de; s=s29768273;
- t=1675443212; bh=vEirr8Rre0LvMnF/AWtvcOSyrfRMsFe2mH4N/XoW3Jo=;
- h=X-UI-Sender-Class:Subject:From:To:Cc:Date:In-Reply-To:References;
- b=gPGwhr92GWgAPMqQY3d29bs7ivOPObwZmYPIhpKU237XyfbMTLZtS+x6UJ7oJ77m+
- BLvBP7fO/V1ZQ8BjXjIVeDaPLS3fbeY3GJDUXzCjkBW5DBPLLu3zecqzQg2WboHxFV
- g4BV/gemTsLqc+Ohb27KCW5qFXUW37qr+yqufL1WMYgAdMCJ2MF/RuYprFlB4WJaUk
- S5cTyZZNKFrMGWbqOqHDGfdLodtrJiykLpIVjaDzmbclyTPmOTliFYuKbeL8Mme9HJ
- 0+xuUJF5chM8utWFnEzGxGzMidM8EcqGReGJx8wkUBm+u0X9PXf7dzWYfsvdmIYZhW
- RnBt/0W9O5A/g==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from [192.168.0.101] ([176.198.191.160]) by smtp.web.de (mrweb006
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1MgRMB-1ohTd50VPL-00hsSf; Fri, 03
- Feb 2023 17:53:32 +0100
-Message-ID: <799644ff4daab0ac75f571870db2950c091300d7.camel@web.de>
-Subject: Re: [PATCH] drm/amd: fix memory leak in amdgpu_cs_sync_rings
-From: Bert Karwatzki <spasswolf@web.de>
-To: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 03 Feb 2023 17:53:31 +0100
-In-Reply-To: <CADnq5_N97JdMT_yk-X+RgMuO_=P3FNaYFN7URvNc38icGkjxWQ@mail.gmail.com>
-References: <905de6ced5f1798deb21a523910a05cf9ff691bc.camel@web.de>
- <CADnq5_N97JdMT_yk-X+RgMuO_=P3FNaYFN7URvNc38icGkjxWQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.46.3-1 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5889D10E831;
+	Fri,  3 Feb 2023 18:10:08 +0000 (UTC)
+Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
+ [IPv6:2607:f8b0:4864:20::102e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79A9310E826;
+ Fri,  3 Feb 2023 18:10:05 +0000 (UTC)
+Received: by mail-pj1-x102e.google.com with SMTP id pj3so5822151pjb.1;
+ Fri, 03 Feb 2023 10:10:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=r5+HyZZkLn8+n5fuCOVi9nu571nQyiN1Ygrcau8PLEk=;
+ b=a1MkaNEeAtcvEJ9895D61d43lQFcjsudn433Wiie0xMo9FkD3s7FAxClEzLtxy2jOq
+ Z3ZcTliDKgaBsSPJhkCdoOfGjSFBXkFipLWtC4n95a5TjJ+jTDwPAUVV2MEVPH/woDDI
+ RYtl7ARCWsvfu5iKCiJHitQkpC8cAaD5ThdfO2OmIm8ln20d7im0M+q8dG3cpd/2cRFR
+ 2VXlDmheoSH5mR6xtbebkXHFnSxoahFh8cQFlVIDV+KPfbMGQVyxGxqVD2qqfmpOpPb0
+ YUOg4r/7ANRP1gv4dxky8VRx5ZCKtjpbLoAQvDzDN70sAuHdFp/NTOe7pOodQZHPzhV1
+ zA/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=r5+HyZZkLn8+n5fuCOVi9nu571nQyiN1Ygrcau8PLEk=;
+ b=NhFwVnd9xTwztmK287xyv0X/K6jvAXr7Ii9iffy0/Tntd+6vGM6Gwd01pWoqRS3tOF
+ LJFEoJ81C++PAp5kkkjldFKPRcL6iW2MPXro9PrIZ9lWjcEDOW8B4YKGnZDsAMAnTLBP
+ r3LQBtL4KtP1fxxwcgdVT9o6nHucr6FyhmQMsRRjiVO/pDGXe1bAOGRDcbb5kIT1E+mm
+ 9j3JfbfxwOATZHE3Sa7dJz/9gmN/uMnbUxn7gmL1hb2UWTBNtoAFtbW/A2CXh5xvLsTj
+ DuTFMkX2F8cK4mE1IhPIR2mXWX3HaIQ9m/5ISk7Pdcv+LvX3YI6qiohwatbGXz5cRWQA
+ 05OQ==
+X-Gm-Message-State: AO0yUKX60yE0vlw3xCeef0nCkWEH6rWmCYceAhnICo1tj71dHBM8Jz5X
+ n575uhSilOUBBZSZGd7N2EOp5kR3gT0=
+X-Google-Smtp-Source: AK7set9kjKw4bvpRlqxlWp2E23HKmG2lAnWx3morXcsXW2PNBcbS7sHvlkyWfiC9Lmg3tjVjxWhw4A==
+X-Received: by 2002:a05:6a20:d38f:b0:bb:b22a:d7ae with SMTP id
+ iq15-20020a056a20d38f00b000bbb22ad7aemr5568838pzb.2.1675447804615; 
+ Fri, 03 Feb 2023 10:10:04 -0800 (PST)
+Received: from localhost ([2a00:79e1:abd:4a00:2703:3c72:eb1a:cffd])
+ by smtp.gmail.com with ESMTPSA id
+ d131-20020a621d89000000b0059393d46228sm2178385pfd.144.2023.02.03.10.10.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Feb 2023 10:10:03 -0800 (PST)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: Fix potential race processing vm->freed
+Date: Fri,  3 Feb 2023 10:10:03 -0800
+Message-Id: <20230203181005.4129175-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:2KglpHx+F3nvQIg31JEXM7OsPHLMaKXaSMZsu9aRYBAGnkrzCSY
- Km1dGAYSflnKQp2p9qWOwQClSugZbujY4Q3hIUrv5tJfOPHFDSmbaa0Gy2xG0A8Jgdi/AA0
- R2HPm0VtKCuinody0BjGZQf28fObXqfqARZSEXuvMHicyGY7qr+1i7E032Gu6RwyODpgw8u
- eHlHeFoxL4gttMptfbPcw==
-UI-OutboundReport: notjunk:1;M01:P0:f/YtJCZxJ9I=;aXiv+ZVffkbj8kVgGl7SJkA8/jH
- rwOgxSQEcsGdrrbrRbHaK5Lrzb5AM5ab5FHmuRagolNM8UZ8vKYun0UYWAmZHLOLdrLaWjw9/
- cXg5qmB+yaCaaP3dcJjbJKBaCATt1ZTY73nyFR2Ixq4Mn8KkLmtd2Q4YhaOpfa9KnCOB0gPK8
- nByPyIpx3aVQDZWXX3tLwPlMW8f825OlqJdElWwnjx8ZZDvLHLgGHJSZn75KEBbclauDd4Oaw
- tbK9ABPQDNwWdRQPrN+uCaAQloqjTA8krK22g3jChIpaCCRGR7dQR4/b0QrsmFvvKtxcRUDmc
- hv83VepZac7ttG0q4N27wlcxndgOLHwdf0lBiE8OvIWLA0djhEdUYlIa2NR5CKY0/2sjxc5wG
- JTf2sA2SKdVntma8tYIpHP04l/H3aTWsn9yctmVqbqcBHaWFwOvGPp4c9IuomzliZolFzKuGU
- VDXLW+s/SV2ivSq7Xl0YVmxRFrBIqPY637aXpbMhyIUhCDPTKHX7t9usxBzaLT5wmhcA1JjIG
- ZcSFJKb4riB236CXlCS0Xhet7iFuDpo9PqK4wDPHLXGSHYRrjfnnzrGRuRjynp7ex5GCNAIqC
- y+Fb1wlFzUZ9S18PGDVTY5qSV6b60Fs9kjhewQlwk1HhgItWZcQrqkocRo3Udlja0xyFXSu8g
- 71EnbVQo39SaFQo7FSRfgL06qe5KCFzBx9pCuL2RSG0lJt5cD9CunYalViZ2ZfZmicausSADb
- w7tUTcf3mlARCBGnZazVwo01qMIcM5OSisypPUT/rwEKhCAGM/bYuSqC0bDPE12Z6Ykye2ZNg
- itSVjcFgj5Ib+QgDiGnSDywWi/+q9NB+7EGDXXTkP7j8Fav7I/MWb5znhjuu2mktcaq6CeW3E
- gkDMOSopiwX+SZ7u26Yy4aE3F3+tFZjVgEJpAPI6Tl8JTVG1dNjunk2QcwKQYXXSrKBXV+Any
- xcDGzin43ofMlnoWcsZxLbnrqgs=
-X-Mailman-Approved-At: Fri, 03 Feb 2023 17:05:35 +0000
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,36 +67,108 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>, Philip Yang <Philip.Yang@amd.com>,
+ Jammy Zhou <Jammy.Zhou@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, open list <linux-kernel@vger.kernel.org>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ Qiang Yu <qiang.yu@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-SGVyZSBpcyB0aGUgZml4IGZvciAoc2VuZCBhZ2FpbiB0byB0ZXN0IGlmIEkgY2FuIGdldCBpdCBy
-aWdodCB3aXRoCkV2b2x1dGlvbikKQnVnOiBodHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcv
-ZHJtL2FtZC8tL2lzc3Vlcy8yMzYwCgpGcm9tIDZlMDY0Yzk1NjVlZjBkYTg5MGYzZmNiMmE0ZjZh
-OGNkNDRhMTJmZGIgTW9uIFNlcCAxNyAwMDowMDowMCAyMDAxCkZyb206IEJlcnQgS2Fyd2F0emtp
-IDxzcGFzc3dvbGZAd2ViLmRlPgpEYXRlOiBUaHUsIDIgRmViIDIwMjMgMTk6NTA6MjcgKzAxMDAK
-U3ViamVjdDogW1BBVENIXSBGaXggbWVtb3J5IGxlYWsgaW4gYW1kZ3B1X2NzX3N5bmNfcmluZ3Mu
-CgpTaWduZWQtb2ZmLWJ5OiBCZXJ0IEthcndhdHpraSA8c3Bhc3N3b2xmQHdlYi5kZT4KLS0tCsKg
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMgfCA1ICsrKystCsKgMSBmaWxl
-IGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCmIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2NzLmMKaW5kZXggMGY0Y2I0MTA3OGMxLi4wOGVjZWQwOTdiZDggMTAw
-NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCkBAIC0xMjIyLDEwICsxMjIyLDEz
-IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2NzX3N5bmNfcmluZ3Moc3RydWN0CmFtZGdwdV9jc19wYXJz
-ZXIgKnApCsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICogbmV4dCBqb2IgYWN0dWFs
-bHkgc2VlcyB0aGUgcmVzdWx0cyBmcm9tIHRoZQpwcmV2aW91cyBvbmUKwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgKiBiZWZvcmUgd2Ugc3RhcnQgZXhlY3V0aW5nIG9uIHRoZSBzYW1l
-IHNjaGVkdWxlcgpyaW5nLgrCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAqLwotwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgaWYgKCFzX2ZlbmNlIHx8IHNfZmVuY2UtPnNjaGVk
-ICE9IHNjaGVkKQorwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgaWYgKCFzX2ZlbmNlIHx8
-IHNfZmVuY2UtPnNjaGVkICE9IHNjaGVkKSB7CivCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgZG1hX2ZlbmNlX3B1dChmZW5jZSk7CsKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGNvbnRpbnVlOworwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgfQrCoArCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHIgPSBh
-bWRncHVfc3luY19mZW5jZSgmcC0+Z2FuZ19sZWFkZXItPmV4cGxpY2l0X3N5bmMsCmZlbmNlKTsK
-K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGRtYV9mZW5jZV9wdXQoZmVuY2UpOwrCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGlmIChyKQrCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqByZXR1cm4gcjsKwqDCoMKgwqDCoMKgwqDCoH0KCg==
+From: Rob Clark <robdclark@chromium.org>
+
+If userspace calls the AMDGPU_CS ioctl from multiple threads, because
+the vm is global to the drm_file, you can end up with multiple threads
+racing in amdgpu_vm_clear_freed().  So the freed list should be
+protected with the status_lock, similar to other vm lists.
+
+Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 33 ++++++++++++++++++++++----
+ 1 file changed, 29 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index b9441ab457ea..aeed7bc1512f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1240,10 +1240,19 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+ 	struct amdgpu_bo_va_mapping *mapping;
+ 	uint64_t init_pte_value = 0;
+ 	struct dma_fence *f = NULL;
++	struct list_head freed;
+ 	int r;
+ 
+-	while (!list_empty(&vm->freed)) {
+-		mapping = list_first_entry(&vm->freed,
++	/*
++	 * Move the contents of the VM's freed list to a local list
++	 * that we can iterate without racing against other threads:
++	 */
++	spin_lock(&vm->status_lock);
++	list_replace_init(&vm->freed, &freed);
++	spin_unlock(&vm->status_lock);
++
++	while (!list_empty(&freed)) {
++		mapping = list_first_entry(&freed,
+ 			struct amdgpu_bo_va_mapping, list);
+ 		list_del(&mapping->list);
+ 
+@@ -1258,6 +1267,15 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+ 		amdgpu_vm_free_mapping(adev, vm, mapping, f);
+ 		if (r) {
+ 			dma_fence_put(f);
++
++			/*
++			 * Move any unprocessed mappings back to the freed
++			 * list:
++			 */
++			spin_lock(&vm->status_lock);
++			list_splice_tail(&freed, &vm->freed);
++			spin_unlock(&vm->status_lock);
++
+ 			return r;
+ 		}
+ 	}
+@@ -1583,11 +1601,14 @@ int amdgpu_vm_bo_unmap(struct amdgpu_device *adev,
+ 	mapping->bo_va = NULL;
+ 	trace_amdgpu_vm_bo_unmap(bo_va, mapping);
+ 
+-	if (valid)
++	if (valid) {
++		spin_lock(&vm->status_lock);
+ 		list_add(&mapping->list, &vm->freed);
+-	else
++		spin_unlock(&vm->status_lock);
++	} else {
+ 		amdgpu_vm_free_mapping(adev, vm, mapping,
+ 				       bo_va->last_pt_update);
++	}
+ 
+ 	return 0;
+ }
+@@ -1671,7 +1692,9 @@ int amdgpu_vm_bo_clear_mappings(struct amdgpu_device *adev,
+ 		    tmp->last = eaddr;
+ 
+ 		tmp->bo_va = NULL;
++		spin_lock(&vm->status_lock);
+ 		list_add(&tmp->list, &vm->freed);
++		spin_unlock(&vm->status_lock);
+ 		trace_amdgpu_vm_bo_unmap(NULL, tmp);
+ 	}
+ 
+@@ -1788,7 +1811,9 @@ void amdgpu_vm_bo_del(struct amdgpu_device *adev,
+ 		amdgpu_vm_it_remove(mapping, &vm->va);
+ 		mapping->bo_va = NULL;
+ 		trace_amdgpu_vm_bo_unmap(bo_va, mapping);
++		spin_lock(&vm->status_lock);
+ 		list_add(&mapping->list, &vm->freed);
++		spin_unlock(&vm->status_lock);
+ 	}
+ 	list_for_each_entry_safe(mapping, next, &bo_va->invalids, list) {
+ 		list_del(&mapping->list);
+-- 
+2.38.1
 
