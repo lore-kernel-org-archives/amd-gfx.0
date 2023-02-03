@@ -4,60 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD98DC05027
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Feb 2023 19:25:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C360C05027
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Feb 2023 19:29:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B83810E033;
-	Fri,  3 Feb 2023 19:25:46 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 195B410E033;
- Fri,  3 Feb 2023 19:25:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675452344; x=1706988344;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=48/TeZZIf3lR1zvQk+Hx+3xbQc2zd0LU/D5tolFEXD0=;
- b=ZLaN7YwmGmNV+BP9JcYsfV/IRrxdsNt4h9IXAGH3TwxOHBptysChqcIr
- L/9eVe0KUYTsHSO/zYmfy23B4MTcLyZO/xJZZct7pv/H2mHstYPHA82lX
- zLh1v3dAZvL1TfLbEYp8UPlOAlQ52y1JYc3DFKtnRge6kB1VV6GO8/xJ2
- aO9OJmwmdxslMGOsqvmx1rLmxXSYNtnJy4p2Qo/COBmbTsfjPaUxwCUJ2
- v3s9MZdR90lvJFhNk85wYmatF4jxzEp/93bCAHfKq+eArYactLa+a6XpQ
- Jo4n+R0VBXsge/zmJvft9S1ZaxvYb7mGhZwPSfziY3x4qm4+2BDCWfS2K g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10610"; a="309168550"
-X-IronPort-AV: E=Sophos;i="5.97,271,1669104000"; d="scan'208";a="309168550"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Feb 2023 11:25:43 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10610"; a="698181381"
-X-IronPort-AV: E=Sophos;i="5.97,271,1669104000"; d="scan'208";a="698181381"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.55])
- by orsmga001.jf.intel.com with SMTP; 03 Feb 2023 11:25:39 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 03 Feb 2023 21:25:38 +0200
-Date: Fri, 3 Feb 2023 21:25:38 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [PATCH 3/3] drm/connector: Deprecate split for BT.2020 in
- drm_colorspace enum
-Message-ID: <Y91fsmgAx65koWI5@intel.com>
-References: <20230203020744.30745-1-joshua@froggi.es>
- <20230203020744.30745-3-joshua@froggi.es>
- <Y9zkef5FjtZ7guVS@intel.com>
- <CA+hFU4ymiOg06MQeKLcn5MSrR=BZnOLODdZCFvGUdWqt_ha61A@mail.gmail.com>
- <0fc18aec-0703-55f4-f635-d09d345e8dc0@amd.com>
- <Y90l+DY0rSaMvN1U@intel.com>
- <758e5cf6-53e0-567c-c760-5b773bc7a11c@amd.com>
- <Y90vrEa3/1RbaGOV@intel.com>
- <f9633729-2db0-3bf1-311d-f03bd04d47a6@amd.com>
- <Y91Y98jyOimabC3O@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6C4C10E8B5;
+	Fri,  3 Feb 2023 19:29:12 +0000 (UTC)
+Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
+ [IPv6:2607:f8b0:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 712BA10E8B5
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Feb 2023 19:29:11 +0000 (UTC)
+Received: by mail-oi1-x232.google.com with SMTP id s124so5054236oif.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 03 Feb 2023 11:29:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=+c2rC4WoITAWTmSebzf+VuW/gWLKWQQ+GJlxiA10cbA=;
+ b=I8QW7uqVGR1aQUErleXOSL2jnOPQgMSXW2stfKF5DbDsqCFcIQBtckgM58GlCGUpq/
+ 7kfHWRV8/78k41gUrG/A0RKgIxV5lZuTYTU/6Op3V/ZRzQZgW/wnmFQanhKa7PdAzsMO
+ 5RMjlRMM+6XVy8rY6xUFh+R3emZMRkOCutno4vp8w7O4PHiUJs7/g1bBPeZYHyproQKj
+ sXzikPMN4Xr5HxRGDEGqLD8+BXRV0Van72Ip1esU8wxTycSFdZuefJtrujXB2nPsfKfB
+ zpA+Ios5l6tHjch4IiXM/N4rPaTXZzrjOFwzDDvJDhrHO5RhD3NWoPxJSxIB2NnRk9Xb
+ 9S+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=+c2rC4WoITAWTmSebzf+VuW/gWLKWQQ+GJlxiA10cbA=;
+ b=zDtZtIpvxPpOYPfZR6YWWfi9Kd7Ho3JtHwZK+whoo0gHS5IvGdvSs4ft0z07/VXGiY
+ yjDw5pPfxgG0F3Cs0FAxHc60iL9EWNh+dDmbSAVowO03BDgqanLthO/Gq/p3R5sLbTHu
+ Jv9Q5CMXV/XjuxLZ5LMx4/sjtC+Bh2mOT7fpINdE33tCVZARsU5foI8fqYloY3UIeKPD
+ WbQbF3/Me3jgofHECIZA/jfn3OVrby23jeAPQrfPMQjaLlek6WmPc7StuUYjI/+6boDA
+ d/3SGCMVxzKSfTcnO07XDHVP+znGee2pfHV3fEZgo/VW93zlVtxeB7tu3qe+/u5zUcRc
+ gSmA==
+X-Gm-Message-State: AO0yUKVmvdviwg8CZwOWtBONPnhfh6gT+2G0MxYCOJim7n/sh1/Cv7kW
+ P5z5X9pahUNCRL42JinUBIRCtI2t8vOuSfgQ2opqQPXZ87k=
+X-Google-Smtp-Source: AK7set9a4VXnFaGTvfUwzDBo1uxWfTf+T4erdCu1iO4+DAfMYEOhsR0cdkxz0Hnd1c8qpEnqlEDEfK7MMAj3e1kcpEI=
+X-Received: by 2002:aca:e1c2:0:b0:35b:d93f:cbc4 with SMTP id
+ y185-20020acae1c2000000b0035bd93fcbc4mr463745oig.96.1675452550561; Fri, 03
+ Feb 2023 11:29:10 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <Y91Y98jyOimabC3O@intel.com>
-X-Patchwork-Hint: comment
+References: <905de6ced5f1798deb21a523910a05cf9ff691bc.camel@web.de>
+ <CADnq5_N97JdMT_yk-X+RgMuO_=P3FNaYFN7URvNc38icGkjxWQ@mail.gmail.com>
+ <799644ff4daab0ac75f571870db2950c091300d7.camel@web.de>
+In-Reply-To: <799644ff4daab0ac75f571870db2950c091300d7.camel@web.de>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 3 Feb 2023 14:28:59 -0500
+Message-ID: <CADnq5_Nk4PW6JZzfB10HP8xKqgk_fAwZQKNSEA5TUoEpBUCYhQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd: fix memory leak in amdgpu_cs_sync_rings
+To: Bert Karwatzki <spasswolf@web.de>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,144 +65,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>, amd-gfx@lists.freedesktop.org,
- Pekka Paalanen <ppaalanen@gmail.com>, Uma Shankar <uma.shankar@intel.com>,
- dri-devel@lists.freedesktop.org, Joshua Ashton <joshua@froggi.es>,
- Vitaly.Prosyak@amd.com
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 03, 2023 at 08:56:55PM +0200, Ville Syrjälä wrote:
-> On Fri, Feb 03, 2023 at 01:28:20PM -0500, Harry Wentland wrote:
-> > 
-> > 
-> > On 2/3/23 11:00, Ville Syrjälä wrote:
-> > > On Fri, Feb 03, 2023 at 10:24:52AM -0500, Harry Wentland wrote:
-> > >>
-> > >>
-> > >> On 2/3/23 10:19, Ville Syrjälä wrote:
-> > >>> On Fri, Feb 03, 2023 at 09:39:42AM -0500, Harry Wentland wrote:
-> > >>>>
-> > >>>>
-> > >>>> On 2/3/23 07:59, Sebastian Wick wrote:
-> > >>>>> On Fri, Feb 3, 2023 at 11:40 AM Ville Syrjälä
-> > >>>>> <ville.syrjala@linux.intel.com> wrote:
-> > >>>>>>
-> > >>>>>> On Fri, Feb 03, 2023 at 02:07:44AM +0000, Joshua Ashton wrote:
-> > >>>>>>> Userspace has no way of controlling or knowing the pixel encoding
-> > >>>>>>> currently, so there is no way for it to ever get the right values here.
-> > >>>>>>
-> > >>>>>> That applies to a lot of the other values as well (they are
-> > >>>>>> explicitly RGB or YCC). The idea was that this property sets the
-> > >>>>>> infoframe/MSA/SDP value exactly, and other properties should be
-> > >>>>>> added to for use userspace to control the pixel encoding/colorspace
-> > >>>>>> conversion(if desired, or userspace just makes sure to
-> > >>>>>> directly feed in correct kind of data).
-> > >>>>>
-> > >>>>> I'm all for getting userspace control over pixel encoding but even
-> > >>>>> then the kernel always knows which pixel encoding is selected and
-> > >>>>> which InfoFrame has to be sent. Is there a reason why userspace would
-> > >>>>> want to control the variant explicitly to the wrong value?
-> > >>>>>
-> > >>>>
-> > >>>> I've asked this before but haven't seen an answer: Is there an existing
-> > >>>> upstream userspace project that makes use of this property (other than
-> > >>>> what Joshua is working on in gamescope right now)? That would help us
-> > >>>> understand the intent better.
-> > >>>
-> > >>> The intent was to control the infoframe colorimetry bits,
-> > >>> nothing more. No idea what real userspace there was, if any.
-> > >>>
-> > >>>>
-> > >>>> I don't think giving userspace explicit control over the exact infoframe
-> > >>>> values is the right thing to do.
-> > >>>
-> > >>> Only userspace knows what kind of data it's stuffing into
-> > >>> the pixels (and/or how it configures the csc units/etc.) to
-> > >>> generate them.
-> > >>>
-> > >>
-> > >> Yes, but userspace doesn't control or know whether we drive
-> > >> RGB or YCbCr on the wire. In fact, in some cases our driver
-> > >> needs to fallback to YCbCr420 for bandwidth reasons. There
-> > >> is currently no way for userspace to know that and I don't
-> > >> think it makes sense.
-> > > 
-> > > People want that control as well for whatever reason. We've
-> > > been asked to allow YCbCr 4:4:4 output many times.
-> > > 
-> > > The automagic 4:2:0 fallback I think is rather fundementally
-> > > incompatible with fancy color management. How would we even
-> > > know whether to use eg. BT.2020 vs. BT.709 matrix? In i915
-> > > that stuff is just always BT.709 limited range, no questions
-> > > asked.
-> > > 
-> > 
-> > We use what we're telling the display, i.e., the value in the
-> > colorspace property. That way we know whether to use a BT.2020
-> > or BT.709 matrix.
-> 
-> And given how these things have gone in the past I think
-> that is likey to bite someone at in the future. Also not
-> what this property was meant to do nor does on any other
-> driver AFAIK.
-> 
-> > I don't see how it's fundamentally incompatible with fancy
-> > color management stuff.
-> > 
-> > If we start forbidding drivers from falling back to YCbCr
-> > (whether 4:4:4 or 4:2:0) we will break existing behavior on
-> > amdgpu and will see bug reports.
-> 
-> The compositors could deal with that if/when they start doing
-> the full color management stuff. The current stuff only really
-> works when the kernel is allowed to do whatever it wants.
-> 
-> > 
-> > > So I think if userspace wants real color management it's
-> > > going to have to set up the whole pipeline. And for that
-> > > we need at least one new property to control the RGB->YCbCr
-> > > conversion (or to explicitly avoid it).
-> > > 
-> > > And given that the proposed patch just swept all the
-> > > non-BT.2020 issues under the rug makes me think no
-> > > one has actually come up with any kind of consistent
-> > > plan for anything else really.
-> > > 
-> > 
-> > Does anyone actually use the non-BT.2020 colorspace stuff?
-> 
-> No idea if anyone is using any of it. It's a bit hard to do
-> right now outside the full passthrough case since we have no
-> properties to control how the hardware will convert stuff.
-> 
-> Anyways, sounds like what you're basically proposing is
-> getting rid of this property and starting from scratch.
+Applied.  Thanks.  I forgot to add it to the commit when I pushed it,
+but for posterity,
 
-Hmm. I guess one option would be to add that property to
-control the output encoding, but include a few extra
-"automagic" values to it which would retain the kernel's
-freedom to select whether to do the RGB->YCbCr conversion
-or not.
+Fixes: 3bd68b32c911 ("drm/amdgpu: fix pipeline sync v2:)
 
-enum output_encoding {
-	auto rgb=default/nodata,ycbcr=bt601
-	auto rgb=default/nodata,ycbcr=bt709
-	auto rgb=bt2020,ycbcr=bt2020
-	passthrough
-	rgb->ycbcr bt601,
-	rgb->ycbcr bt709,
-	rgb->ycbcr bt2020,
-}
+Alex
 
-and then if you leave the colorspae property to "default"
-the kernel will pick the "right" value based on the
-output_encoding prop.
-
-That would leave all the weird stuff in the colorspace
-property alone and thus would still allow someone to
-do more than just the basic stuff explicitly.
-
--- 
-Ville Syrjälä
-Intel
+On Fri, Feb 3, 2023 at 11:53 AM Bert Karwatzki <spasswolf@web.de> wrote:
+>
+> Here is the fix for (send again to test if I can get it right with
+> Evolution)
+> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2360
+>
+> From 6e064c9565ef0da890f3fcb2a4f6a8cd44a12fdb Mon Sep 17 00:00:00 2001
+> From: Bert Karwatzki <spasswolf@web.de>
+> Date: Thu, 2 Feb 2023 19:50:27 +0100
+> Subject: [PATCH] Fix memory leak in amdgpu_cs_sync_rings.
+>
+> Signed-off-by: Bert Karwatzki <spasswolf@web.de>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> index 0f4cb41078c1..08eced097bd8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -1222,10 +1222,13 @@ static int amdgpu_cs_sync_rings(struct
+> amdgpu_cs_parser *p)
+>                  * next job actually sees the results from the
+> previous one
+>                  * before we start executing on the same scheduler
+> ring.
+>                  */
+> -               if (!s_fence || s_fence->sched != sched)
+> +               if (!s_fence || s_fence->sched != sched) {
+> +                       dma_fence_put(fence);
+>                         continue;
+> +               }
+>
+>                 r = amdgpu_sync_fence(&p->gang_leader->explicit_sync,
+> fence);
+> +               dma_fence_put(fence);
+>                 if (r)
+>                         return r;
+>         }
+>
