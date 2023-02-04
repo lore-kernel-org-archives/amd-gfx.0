@@ -4,117 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EE14C05027
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Feb 2023 22:26:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4E4FC636D3
+	for <amd-gfx@archiver.kernel.org>; Sat,  4 Feb 2023 06:09:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B27DF10E11B;
-	Fri,  3 Feb 2023 22:26:51 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20615.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5a::615])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE4DF10E11B
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Feb 2023 22:26:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Jc3nmykD+A2HMHsMSb9RR5MG01riGyaSf3LamJ8aTiBIStIGQ8/InZaZDfGSimm3S45qy/cE2bYC8zca8Sbn12uImVN9BHLpqh2UgO3bb2627BYZ0ZkevHb8MGz78lzCFDZdYb/7UB12h3MpudbMudjI+dp1OVq9JxGlZGRLBU/Iub/DLGu0odoDA9UA+4LUnIWovL485upOmPcnU0gN5cfXXwUH9Uwf9oxZ1hk+EGZ99KV6zwA84IJhtPTj+VgxjqZvCOeKPRjdpUjfawk6CXW1ib/WbyFL4q+L3u0Z8CA72u21UDgSKCKx4l4KvFQQFgxbQIvqaGZJn+xydRFmmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZHdkU4OfI8b2wbNX7nGD6KoTlTkbZbBboZ/QaAtpSgQ=;
- b=ECQM10j3Tune4y6VxAuwNb8oGj2Ax1Pf3eB3kmvewy45MaSQLnp+jKCqw6rxHjI57ugtF1VqC4a2m3nN0E33jp9NYc07x3cy5daPmI4VLTQrrIuoNxhBck8zHYWcW6Vlw+TUkaQJwhQOvwvaDspUnUFFU2aLZ38ApjgX/sF2dKFnovCrkil967oxINwcvGw4J6NpEPGohBaghFGNihqsWF+OkJDIszwR4rbtdrAJCeoq3ZFVIduok5fLDu8r03ws4sl38MPWXNhT2Ckifjmg8Uahh/W1zyxh7w3+SXFSknKDh6/0/Efiysdbifmz9RN9+UrtT2MiMbkgSOpsNWnSww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZHdkU4OfI8b2wbNX7nGD6KoTlTkbZbBboZ/QaAtpSgQ=;
- b=sbOwNbcV9o0lVebcWi6M/EqFJQk2zMi+nB9HntKjNRlLg9u9zXbHm7aMZY7Dax0nEYkyAFecgPamRH3MzY8VJnxF1wWjwYrK+7EJvycmiBaOmfAvbDXOltnmdXbqOGPeSPvSZtNkGPC18okPvnlQ+ye/WQjssHwFJ/JhsK3Q3o4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
- by IA1PR12MB7493.namprd12.prod.outlook.com (2603:10b6:208:41b::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.36; Fri, 3 Feb
- 2023 22:26:48 +0000
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::ae3c:5792:8b56:6367]) by MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::ae3c:5792:8b56:6367%7]) with mapi id 15.20.6064.027; Fri, 3 Feb 2023
- 22:26:47 +0000
-Message-ID: <95ac9ea3-47c8-744c-7fd7-ddc54b19926f@amd.com>
-Date: Fri, 3 Feb 2023 23:26:40 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH 1/8] drm/amdgpu: UAPI for user queue management
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <20230203215409.2021-1-shashank.sharma@amd.com>
- <20230203215409.2021-2-shashank.sharma@amd.com>
- <CADnq5_MSMivTzo0k+wJj+bGpsQZ3HEDVt5XqzjGdBiv08fFWCQ@mail.gmail.com>
-Content-Language: en-US
-From: Shashank Sharma <shashank.sharma@amd.com>
-In-Reply-To: <CADnq5_MSMivTzo0k+wJj+bGpsQZ3HEDVt5XqzjGdBiv08fFWCQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0046.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:92::20) To MW4PR12MB5667.namprd12.prod.outlook.com
- (2603:10b6:303:18a::10)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C9BA10E985;
+	Sat,  4 Feb 2023 06:09:50 +0000 (UTC)
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9398F10E0BA
+ for <amd-gfx@lists.freedesktop.org>; Sat,  4 Feb 2023 06:09:48 +0000 (UTC)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ bh13-20020a05600c3d0d00b003dff6cd8b7eso83882wmb.5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 03 Feb 2023 22:09:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=froggi.es; s=google;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=W66RnPr8JIOCxTmk17xRzi5pC7iGA+sDw7TDAFUhQto=;
+ b=CD+0hzlMTdkEJ4vCmE4FnN3eYKFC1HKqGQPSEHT74IDFqwmJP7MhBh7EkzEiNmNXnW
+ NArTzdf1BUSSiZWkY3TOH5Vp2TE6edBi+razrWrVpgrYAHNIYJPR8o5qlyKd7t9kzEFL
+ rcAh4ii+juRDk5+fxJo3dsYvCjayNyVIgMzx4TsfIMxMGBIHDXJMTDvfoA0QVSIkim/w
+ o+esAx8K98YtnnDuaofOT6BVRXsvVVDtltkG5bQPqCJef59NFoxPnUQOvg/8t+g/HiyT
+ 0gMIKA2ASe9KpI+RALTDRTQ1YSKSLzTFdTAixlfTJo9VGHBKeqQPKGiuGcn9ur2tWkSd
+ nWjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=W66RnPr8JIOCxTmk17xRzi5pC7iGA+sDw7TDAFUhQto=;
+ b=6ADcDaAlY7ETsxUUGO83Ng96dmqL1eCH/dpBv1vCOla6r7FUWIdF6oeqaJ8tGP2EAu
+ JJuVjWg8gcNZe1Moueg7JNV47oO+kZ6rGCM+64oFwNv26JFhrJ/C6iRW4u2w878esXcR
+ qJYuZUX7/GMmFGItQkEVjGvXUK3pXK3Q6fbDVath0nA06FXqYRdBChHEusd4C3ayj6zu
+ 4FWWw5YqIrPkrrIu8+34BASI077PM4ExDu4ivzx6nJPhj8kDrToTtxVMuMa42NHU3h6U
+ fv2ulrJiYDmvHMo8IFIIXBoutH++J4QKI2ZknlOVzZb5lULXKgq/q+lDdJxVJeupZLXc
+ RN+w==
+X-Gm-Message-State: AO0yUKUJHFW1S5p+DxQzjcg9+n7NODZCF7t473c6HFmCBHXFf57chuVW
+ BUbz4P3VY/epWm8FQhgmYkPtFQ==
+X-Google-Smtp-Source: AK7set8d0J7JTyt8kwfZddTmA5h+tz3k3sUqFes4exIhg1x675pADS8q0NFIXv3i+UB0bC2NEiVNoQ==
+X-Received: by 2002:a05:600c:3b9d:b0:3df:de27:4191 with SMTP id
+ n29-20020a05600c3b9d00b003dfde274191mr8011323wms.16.1675490986935; 
+ Fri, 03 Feb 2023 22:09:46 -0800 (PST)
+Received: from [192.168.0.89]
+ (darl-09-b2-v4wan-165404-cust288.vm5.cable.virginm.net. [86.17.61.33])
+ by smtp.gmail.com with ESMTPSA id
+ n29-20020a05600c181d00b003db06224953sm4367323wmp.41.2023.02.03.22.09.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 03 Feb 2023 22:09:46 -0800 (PST)
+Message-ID: <a3d46b3a-ebd5-e02c-3db4-783f2a34b36c@froggi.es>
+Date: Sat, 4 Feb 2023 06:09:45 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB5667:EE_|IA1PR12MB7493:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3b89ff9d-4715-4654-58e4-08db0635bc86
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1ECR3p493s9eCeRcSFXtjqnXd3Pbar30EywJKAFNWaTWUm5WachVZnae4OMU7W8MqWi8P6PGfnb5QH3mnh1Hmm7W4X7uSHpkktbFIsMmy6T3mD9eJxNDMtXu7Fe9F+vdAWhQ98K1MCdVe3ych4hH/ogxlQ/nhg0oopRb7WIEC1saV62fZaFXgWOslH8zNf0/4in4kEhnIhb3mmR11Dp/8yHFo/wVtnyrvTuroC9F8EABwaCPs0h0pHWTy9O5ifI5LsrLZVqUliTc9xk5NSto8moYEjm3e0gqq/8SaZbAjIIul/+HhVT+Y8dg+d0U6vq5ia13ZGybsfqrZlTG8UELbwxYuOQ0qF8w5SBQtRKoSSxx/V58yEWd/1CsNB8u213zCo5vzIhi8j3bFPOdzr5mloTdOCulTosrq/dMR0LafQxLBEMy6n1NxxEvyxM8mxi5x00zR1vkcYDLR3DsPxYDIMhwnhdwVsAqYhNS/pqTCUgr+Cycg56KI2YO6D2F5VGNAAQfgrK5goox+CczyWBFL6JDG3eRA/j1XzYoarb+8aH2v0ILgaYTXfij88hbqdpN0HMaOEk3+nS44tpP5x1VFP1vVw6a8g/PgQk46h733ggnEd3x65I9+7+GN/IaknL67ZmnR5MZnBuBsmAsHoPuMbC53QcazcgMO1bWLSOt/n0ylg6uhEAuzrKP5qTMCvcTVQpP5F1s0FrLTh1qhJKplGYtyy6KURdqMU2tEADOHco=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(39860400002)(366004)(376002)(346002)(136003)(396003)(451199018)(4326008)(44832011)(6666004)(2616005)(316002)(6506007)(66946007)(66556008)(31696002)(53546011)(86362001)(2906002)(83380400001)(38100700002)(8676002)(5660300002)(66476007)(41300700001)(478600001)(8936002)(36756003)(186003)(6512007)(26005)(6916009)(31686004)(6486002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SDNMOGNkVmtJemsvWnUwdFB4Z0R5KzdsaDBzaUNFa0JnZFhvMzFKcGZmYkl1?=
- =?utf-8?B?dXZORkRmdERocXNxc3I4SU93ZitNckJzY2FpMWF1d3I3d2sybGlBVXA1VGdZ?=
- =?utf-8?B?R2ZGenhOZmg1dE5rZHkxOUd0STBvc1dQampBUU80SThBaTBST0NwTEJFVVBO?=
- =?utf-8?B?NmhwMWdiSmNIek5rbzc3MDRZSjF2NnNDNmZoN1QvNzV2SlF0Smt1bHg3cmY3?=
- =?utf-8?B?bUpzQUlBbmVvNXNKemFSb2gwTTZZcVVYWEFIZm92NjVwd0ZMM1pEbXB4L3NK?=
- =?utf-8?B?QUl3ejljK0ZYblZZWmpvSTFyNzNCREJ4WmRUTU9lMWRNVzBNcXNDM1paSXRr?=
- =?utf-8?B?V3hETk9EbVpWbTFIK1cyT3RyUWxLbzRHNGx1Z1dnUDJzS0NhRnBRdVhId0ZC?=
- =?utf-8?B?MFY0YUZ2OVdQYVRub3dlOWIyWEpPZnAwTFc5cExJWjJ3VkZPUHFvR1E5bGh4?=
- =?utf-8?B?SDZobWZlTWZYWWI2NExXSTA3UWNiRDFzSUpGR1NNb1NPZU5xUHBjYSt3UWVq?=
- =?utf-8?B?Q25wb1Vkb2RLTy9qOE9xZmo4L0h6YndHUE1OVis0SHN3Rm5OZGM3Yk0ySTAz?=
- =?utf-8?B?dE5IaFVIRThSZkJzNUY4WmNJTk02RDhvdFBLOUhJd2FHeHpCOW5YNW5pVG5K?=
- =?utf-8?B?RTk2Z3NmdjVTMmd0ZjQyUXZ0WUJKOHU2T2JMTGVZdDVOYnp0UUtpV21PRnNm?=
- =?utf-8?B?QVVqcFNnUHJ5UDRoUzMrSkx1L1hxTDNFd2FrL2tjcjd4V2wweWwyNVM0OGUy?=
- =?utf-8?B?eUk5MVhScU02MENJQVQ2MjRObzFBeXl4Y2w5OXFSdmFKSCtvbmxFdU13YjBw?=
- =?utf-8?B?U2NlVk11WU1xemJnaDRMaUZ0Q2srQ3B4SksyNWF0dU5KM3cyVEpaUTA3WnBC?=
- =?utf-8?B?djdqVjJOeWNyWS8zalpNdnhhUEgyaDdVTXJkVFlvc1JqVCtrVWx0T2VzKzM3?=
- =?utf-8?B?ZUZCUlNxaTBFbFpGSkc1d1VET2ttMjBQUW4xdXBObkhCSmZjRnFSTkRNbEVZ?=
- =?utf-8?B?Y3JJN2dxS1EzTjY0Y1RIREowVnliMC94a082bnNEMndmcmRrNWd5d3FKbm9B?=
- =?utf-8?B?MGJubmxxTUl6OGZ0NWFXOG1XOUhtUUxUVDNycnRMTlhBWGIwYkh4YUtCUExR?=
- =?utf-8?B?TWhNZjcwZXI0TEpmcDNCN2tmQ0ZVL054SGtrQ25NMVZSakRqRG85Rmg4enZJ?=
- =?utf-8?B?SDcwV0tYK0dPRDZTQ25sUENMNnJVOWdKdjZTTzMySVQ4TjNYbmFBU0FNNkhl?=
- =?utf-8?B?ckxOVlhLWEZwQ1dVbURnYzNuVW9YU0YxY1l0bTRDbEhEM1ZoSGxWL3k5YnMr?=
- =?utf-8?B?MFJidkpDUFFkUDRhSUQrNUVlbXdROHp5aFI5WVkyNnhxc0VXNnluZzZFVlln?=
- =?utf-8?B?aEpEZGtOeWN4VnRrUUtXYzFBWm44NzhWT0xXc2JBM21BZkhmcndQWkg0VW1L?=
- =?utf-8?B?MFZXTDFKUlhvdHV3YUtzRStwOTMyTlRwaWV6STNmWkZTeDJrM0IvN0ZIQ200?=
- =?utf-8?B?eCsxNExEZVlwSUdReDExUmxDeTRyeG1RV2wwTDR4YXpqbTF4Znp2UUpkZW5P?=
- =?utf-8?B?Q3FnelZRVzVGb3dQQzZDM3pQSDlKWnltNUJkbld0UXhRSHRVbWhVVzk4NUg0?=
- =?utf-8?B?QVl2dXFTRWNhdjlEZnlWUnlkRkN2VitiZzMveERxZFk3ZjNUQnNvdHNZN0RD?=
- =?utf-8?B?ZStaQld4VHBXVG9JSm9tK2NVMFM1QUtNMEltMXdnNWV1SjdVTW1nc3c3elB2?=
- =?utf-8?B?RElhTmJtNVVROHp2K0JtbktKd2xCMklrK0dLdGJFZWNxOFNtT0o4VXQzS2RQ?=
- =?utf-8?B?YkVsOE5VQ3pJbklobmFzR0Fmc2c1OURhWTBiVDdackRSWUNBZGsyZVNSd2xy?=
- =?utf-8?B?TlpaT1VzRk5uUERRTk9mRVBkVklNM1B3TWh3REJIcFFJR1VMdDJjWWV0WkJi?=
- =?utf-8?B?b0FYdDFCcVBUTnVMY3Z1TXA3MnNSdHVxeC9ySTR5MUV5cVBwNDZVdlV2WmJr?=
- =?utf-8?B?Rk8wODZTOFRST1pHMUpRa1I1NHNiQUt3STE0bWtKR3MxZENGREhsZ0UzTTlI?=
- =?utf-8?B?VjJVdE5tczJWdCtGaklwdzVFOXFWZVZEeWxtc1lCWE1RN29DU2VrVXN3SnEy?=
- =?utf-8?Q?vfqgfMFsSD/R/S92xy0lx1IcI?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3b89ff9d-4715-4654-58e4-08db0635bc86
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Feb 2023 22:26:47.1823 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jf0ZaO36IpJJPOjwG0GEWOaxpudfsZVm0cdprEGMy6vDNbWmyqc0bViqWgUruAx+KA7Ti8F5Sz+d6lcrx1ptWA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7493
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH 3/3] drm/connector: Deprecate split for BT.2020 in
+ drm_colorspace enum
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Harry Wentland <harry.wentland@amd.com>
+References: <20230203020744.30745-3-joshua@froggi.es>
+ <Y9zkef5FjtZ7guVS@intel.com>
+ <CA+hFU4ymiOg06MQeKLcn5MSrR=BZnOLODdZCFvGUdWqt_ha61A@mail.gmail.com>
+ <0fc18aec-0703-55f4-f635-d09d345e8dc0@amd.com> <Y90l+DY0rSaMvN1U@intel.com>
+ <758e5cf6-53e0-567c-c760-5b773bc7a11c@amd.com> <Y90vrEa3/1RbaGOV@intel.com>
+ <f9633729-2db0-3bf1-311d-f03bd04d47a6@amd.com> <Y91Y98jyOimabC3O@intel.com>
+ <Y91fsmgAx65koWI5@intel.com> <Y91hyNAplv4nuW5Y@intel.com>
+Content-Language: en-US
+From: Joshua Ashton <joshua@froggi.es>
+In-Reply-To: <Y91hyNAplv4nuW5Y@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,125 +83,194 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
- amd-gfx@lists.freedesktop.org
+Cc: Sebastian Wick <sebastian.wick@redhat.com>, amd-gfx@lists.freedesktop.org,
+ Pekka Paalanen <ppaalanen@gmail.com>, Uma Shankar <uma.shankar@intel.com>,
+ dri-devel@lists.freedesktop.org, Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hey Alex,
 
-On 03/02/2023 23:07, Alex Deucher wrote:
-> On Fri, Feb 3, 2023 at 4:54 PM Shashank Sharma <shashank.sharma@amd.com> wrote:
->> From: Alex Deucher <alexander.deucher@amd.com>
->>
->> This patch intorduces new UAPI/IOCTL for usermode graphics
->> queue. The userspace app will fill this structure and request
->> the graphics driver to add a graphics work queue for it. The
->> output of this UAPI is a queue id.
->>
->> This UAPI maps the queue into GPU, so the graphics app can start
->> submitting work to the queue as soon as the call returns.
->>
->> Cc: Alex Deucher <alexander.deucher@amd.com>
->> Cc: Christian Koenig <christian.koenig@amd.com>
->> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
->> ---
->>   include/uapi/drm/amdgpu_drm.h | 53 +++++++++++++++++++++++++++++++++++
->>   1 file changed, 53 insertions(+)
->>
->> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
->> index 4038abe8505a..6c5235d107b3 100644
->> --- a/include/uapi/drm/amdgpu_drm.h
->> +++ b/include/uapi/drm/amdgpu_drm.h
->> @@ -54,6 +54,7 @@ extern "C" {
->>   #define DRM_AMDGPU_VM                  0x13
->>   #define DRM_AMDGPU_FENCE_TO_HANDLE     0x14
->>   #define DRM_AMDGPU_SCHED               0x15
->> +#define DRM_AMDGPU_USERQ               0x16
->>
->>   #define DRM_IOCTL_AMDGPU_GEM_CREATE    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
->>   #define DRM_IOCTL_AMDGPU_GEM_MMAP      DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
->> @@ -71,6 +72,7 @@ extern "C" {
->>   #define DRM_IOCTL_AMDGPU_VM            DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_VM, union drm_amdgpu_vm)
->>   #define DRM_IOCTL_AMDGPU_FENCE_TO_HANDLE DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_FENCE_TO_HANDLE, union drm_amdgpu_fence_to_handle)
->>   #define DRM_IOCTL_AMDGPU_SCHED         DRM_IOW(DRM_COMMAND_BASE + DRM_AMDGPU_SCHED, union drm_amdgpu_sched)
->> +#define DRM_IOCTL_AMDGPU_USERQ         DRM_IOW(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ, union drm_amdgpu_userq)
->>
->>   /**
->>    * DOC: memory domains
->> @@ -302,6 +304,57 @@ union drm_amdgpu_ctx {
->>          union drm_amdgpu_ctx_out out;
->>   };
->>
->> +/* user queue IOCTL */
->> +#define AMDGPU_USERQ_OP_CREATE 1
->> +#define AMDGPU_USERQ_OP_FREE   2
->> +
->> +#define AMDGPU_USERQ_MQD_FLAGS_SECURE  (1 << 0)
->> +#define AMDGPU_USERQ_MQD_FLAGS_AQL     (1 << 1)
->> +
->> +struct drm_amdgpu_userq_mqd {
->> +       /** Flags: AMDGPU_USERQ_MQD_FLAGS_* */
->> +       __u32   flags;
->> +       /** IP type: AMDGPU_HW_IP_* */
->> +       __u32   ip_type;
->> +       /** GEM object handle */
->> +       __u32   doorbell_handle;
->> +       /** Doorbell offset in dwords */
->> +       __u32   doorbell_offset;
-> Since doorbells are 64 bit, maybe this offset should be in qwords.
 
-Can you please help to cross check this information ? All the existing 
-kernel doorbell calculations are keeping doorbells size as sizeof(u32)
+On 2/3/23 19:34, Ville Syrjälä wrote:
+> On Fri, Feb 03, 2023 at 09:25:38PM +0200, Ville Syrjälä wrote:
+>> On Fri, Feb 03, 2023 at 08:56:55PM +0200, Ville Syrjälä wrote:
+>>> On Fri, Feb 03, 2023 at 01:28:20PM -0500, Harry Wentland wrote:
+>>>>
+>>>>
+>>>> On 2/3/23 11:00, Ville Syrjälä wrote:
+>>>>> On Fri, Feb 03, 2023 at 10:24:52AM -0500, Harry Wentland wrote:
+>>>>>>
+>>>>>>
+>>>>>> On 2/3/23 10:19, Ville Syrjälä wrote:
+>>>>>>> On Fri, Feb 03, 2023 at 09:39:42AM -0500, Harry Wentland wrote:
+>>>>>>>>
+>>>>>>>>
+>>>>>>>> On 2/3/23 07:59, Sebastian Wick wrote:
+>>>>>>>>> On Fri, Feb 3, 2023 at 11:40 AM Ville Syrjälä
+>>>>>>>>> <ville.syrjala@linux.intel.com> wrote:
+>>>>>>>>>>
+>>>>>>>>>> On Fri, Feb 03, 2023 at 02:07:44AM +0000, Joshua Ashton wrote:
+>>>>>>>>>>> Userspace has no way of controlling or knowing the pixel encoding
+>>>>>>>>>>> currently, so there is no way for it to ever get the right values here.
+>>>>>>>>>>
+>>>>>>>>>> That applies to a lot of the other values as well (they are
+>>>>>>>>>> explicitly RGB or YCC). The idea was that this property sets the
+>>>>>>>>>> infoframe/MSA/SDP value exactly, and other properties should be
+>>>>>>>>>> added to for use userspace to control the pixel encoding/colorspace
+>>>>>>>>>> conversion(if desired, or userspace just makes sure to
+>>>>>>>>>> directly feed in correct kind of data).
+>>>>>>>>>
+>>>>>>>>> I'm all for getting userspace control over pixel encoding but even
+>>>>>>>>> then the kernel always knows which pixel encoding is selected and
+>>>>>>>>> which InfoFrame has to be sent. Is there a reason why userspace would
+>>>>>>>>> want to control the variant explicitly to the wrong value?
+>>>>>>>>>
+>>>>>>>>
+>>>>>>>> I've asked this before but haven't seen an answer: Is there an existing
+>>>>>>>> upstream userspace project that makes use of this property (other than
+>>>>>>>> what Joshua is working on in gamescope right now)? That would help us
+>>>>>>>> understand the intent better.
+>>>>>>>
+>>>>>>> The intent was to control the infoframe colorimetry bits,
+>>>>>>> nothing more. No idea what real userspace there was, if any.
 
->
->> +       /** GPU virtual address of the queue */
->> +       __u64   queue_va;
->> +       /** Size of the queue in bytes */
->> +       __u64   queue_size;
->> +       /** GPU virtual address of the rptr */
->> +       __u64   rptr_va;
->> +       /** GPU virtual address of the wptr */
->> +       __u64   wptr_va;
->> +};
->> +
->> +struct drm_amdgpu_userq_in {
->> +       /** AMDGPU_USERQ_OP_* */
->> +       __u32   op;
->> +       /** Flags */
->> +       __u32   flags;
->> +       /** Queue handle to associate the queue free call with,
->> +        * unused for queue create calls */
->> +       __u32   queue_id;
->> +       __u32   pad;
->> +       /** Queue descriptor */
->> +       struct drm_amdgpu_userq_mqd mqd;
->> +};
->> +
->> +struct drm_amdgpu_userq_out {
->> +       /** Queue handle */
->> +       __u32   q_id;
-> Maybe this should be queue_id to match the input.
+Controlling the infoframe alone isn't useful at all unless you can 
+guarantee the wire encoding, which we cannot do.
 
-Agree.
+>>>>>>>
+>>>>>>>>
+>>>>>>>> I don't think giving userspace explicit control over the exact infoframe
+>>>>>>>> values is the right thing to do.
 
-- Shashank
++1
 
-> Alex
->
->> +       /** Flags */
->> +       __u32   flags;
->> +};
->> +
->> +union drm_amdgpu_userq {
->> +       struct drm_amdgpu_userq_in in;
->> +       struct drm_amdgpu_userq_out out;
->> +};
->> +
->>   /* vm ioctl */
->>   #define AMDGPU_VM_OP_RESERVE_VMID      1
->>   #define AMDGPU_VM_OP_UNRESERVE_VMID    2
->> --
->> 2.34.1
+>>>>>>>
+>>>>>>> Only userspace knows what kind of data it's stuffing into
+>>>>>>> the pixels (and/or how it configures the csc units/etc.) to
+>>>>>>> generate them.
+>>>>>>>
+>>>>>>
+>>>>>> Yes, but userspace doesn't control or know whether we drive
+>>>>>> RGB or YCbCr on the wire. In fact, in some cases our driver
+>>>>>> needs to fallback to YCbCr420 for bandwidth reasons. There
+>>>>>> is currently no way for userspace to know that and I don't
+>>>>>> think it makes sense.
+>>>>>
+>>>>> People want that control as well for whatever reason. We've
+>>>>> been asked to allow YCbCr 4:4:4 output many times.
+>>>>>
+>>>>> The automagic 4:2:0 fallback I think is rather fundementally
+>>>>> incompatible with fancy color management. How would we even
+>>>>> know whether to use eg. BT.2020 vs. BT.709 matrix? In i915
+>>>>> that stuff is just always BT.709 limited range, no questions
+>>>>> asked.
+
+That's what the Colorspace property *should* be determining here.
+That's what we have it set up to do in SteamOS/my tree right now.
+
+>>>>>
+>>>>
+>>>> We use what we're telling the display, i.e., the value in the
+>>>> colorspace property. That way we know whether to use a BT.2020
+>>>> or BT.709 matrix.
+>>>
+>>> And given how these things have gone in the past I think
+>>> that is likey to bite someone at in the future. Also not
+>>> what this property was meant to do nor does on any other
+>>> driver AFAIK.
+>>>
+>>>> I don't see how it's fundamentally incompatible with fancy
+>>>> color management stuff.
+>>>>
+>>>> If we start forbidding drivers from falling back to YCbCr
+>>>> (whether 4:4:4 or 4:2:0) we will break existing behavior on
+>>>> amdgpu and will see bug reports.
+>>>
+>>> The compositors could deal with that if/when they start doing
+>>> the full color management stuff. The current stuff only really
+>>> works when the kernel is allowed to do whatever it wants.
+>>>
+>>>>
+>>>>> So I think if userspace wants real color management it's
+>>>>> going to have to set up the whole pipeline. And for that
+>>>>> we need at least one new property to control the RGB->YCbCr
+>>>>> conversion (or to explicitly avoid it).
+
+I mentioned this in my commit description, we absolutely should offer 
+fine control here eventually.
+
+I don't think we need to solve that problem here though.
+
+>>>>>
+>>>>> And given that the proposed patch just swept all the
+>>>>> non-BT.2020 issues under the rug makes me think no
+>>>>> one has actually come up with any kind of consistent
+>>>>> plan for anything else really.
+>>>>>
+>>>>
+>>>> Does anyone actually use the non-BT.2020 colorspace stuff?
+>>>
+>>> No idea if anyone is using any of it. It's a bit hard to do
+>>> right now outside the full passthrough case since we have no
+>>> properties to control how the hardware will convert stuff.
+
+No, every userspace knows that encoding of the output buffer before 
+going to the wire format is RGB.
+
+It's the only way you can have planes alpha-blend, or mix and match RGB 
+and NV12, etc.
+
+>>>
+>>> Anyways, sounds like what you're basically proposing is
+>>> getting rid of this property and starting from scratch.
 >>
+>> Hmm. I guess one option would be to add that property to
+>> control the output encoding, but include a few extra
+>> "automagic" values to it which would retain the kernel's
+>> freedom to select whether to do the RGB->YCbCr conversion
+>> or not.
+>>
+>> enum output_encoding {
+>> 	auto rgb=default/nodata,ycbcr=bt601
+>> 	auto rgb=default/nodata,ycbcr=bt709
+>> 	auto rgb=bt2020,ycbcr=bt2020
+>> 	passthrough,
+>> 	rgb->ycbcr bt601,
+>> 	rgb->ycbcr bt709,
+>> 	rgb->ycbcr bt2020,
+>> }
+> 
+> In fact there should perhaps be a lot more of the explicit
+> options to get all subsamlings and quantizations ranges
+> coverted. That might actually be really nice for an igt
+> to get more full test coverage.
+> 
+The choice of encoding of the pixel on the wire should be unrelated to 
+the overall output colorspace from the userspace side -- but how the 
+display engine converts the output to that wire format *is* dependent on 
+the colorspace.
+eg. picking a rec.709 ctc vs a rec.2020 ctc matrix.
+
+I see you are proposing a "passthrough" but that wouldn't work at all as 
+you still need to at know if you are RGB or YCbCr for the infoframe and 
+to perform chroma subsampling in the display engine.
+
+I perused the initial patches that added this property, and it seems 
+there were no IGT tests or userspace implementation, so I am not 
+entirely sure why it was committed in the first place.
+
+Nobody can safely use Colorspace because of this problem right now.
+
+If nobody is using this property, perhaps we could just get a fresh 
+start, and either re-purpose it with new enum values, or obsolete it and 
+make a new property.
+If we do this, let's start with the absolute bare minimum, such as:
+"Default/Rec.709 (sRGB), BT.2020"
+and then grow as we need, making sure we have the full circle from 
+userspace->output complete and working for each new value we add.
+
+Please don't take this as me saying we shouldn't add all these other 
+options like opRGB, etc, I just want us to progress to a solid base for 
+expanding further here, which we really don't have right now.
+
+- Joshie 🐸✨
