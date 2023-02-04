@@ -4,74 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4E4FC636D3
-	for <amd-gfx@archiver.kernel.org>; Sat,  4 Feb 2023 06:09:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E2F3C636CC
+	for <amd-gfx@archiver.kernel.org>; Sat,  4 Feb 2023 09:07:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C9BA10E985;
-	Sat,  4 Feb 2023 06:09:50 +0000 (UTC)
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [IPv6:2a00:1450:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9398F10E0BA
- for <amd-gfx@lists.freedesktop.org>; Sat,  4 Feb 2023 06:09:48 +0000 (UTC)
-Received: by mail-wm1-x32c.google.com with SMTP id
- bh13-20020a05600c3d0d00b003dff6cd8b7eso83882wmb.5
- for <amd-gfx@lists.freedesktop.org>; Fri, 03 Feb 2023 22:09:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=froggi.es; s=google;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=W66RnPr8JIOCxTmk17xRzi5pC7iGA+sDw7TDAFUhQto=;
- b=CD+0hzlMTdkEJ4vCmE4FnN3eYKFC1HKqGQPSEHT74IDFqwmJP7MhBh7EkzEiNmNXnW
- NArTzdf1BUSSiZWkY3TOH5Vp2TE6edBi+razrWrVpgrYAHNIYJPR8o5qlyKd7t9kzEFL
- rcAh4ii+juRDk5+fxJo3dsYvCjayNyVIgMzx4TsfIMxMGBIHDXJMTDvfoA0QVSIkim/w
- o+esAx8K98YtnnDuaofOT6BVRXsvVVDtltkG5bQPqCJef59NFoxPnUQOvg/8t+g/HiyT
- 0gMIKA2ASe9KpI+RALTDRTQ1YSKSLzTFdTAixlfTJo9VGHBKeqQPKGiuGcn9ur2tWkSd
- nWjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=W66RnPr8JIOCxTmk17xRzi5pC7iGA+sDw7TDAFUhQto=;
- b=6ADcDaAlY7ETsxUUGO83Ng96dmqL1eCH/dpBv1vCOla6r7FUWIdF6oeqaJ8tGP2EAu
- JJuVjWg8gcNZe1Moueg7JNV47oO+kZ6rGCM+64oFwNv26JFhrJ/C6iRW4u2w878esXcR
- qJYuZUX7/GMmFGItQkEVjGvXUK3pXK3Q6fbDVath0nA06FXqYRdBChHEusd4C3ayj6zu
- 4FWWw5YqIrPkrrIu8+34BASI077PM4ExDu4ivzx6nJPhj8kDrToTtxVMuMa42NHU3h6U
- fv2ulrJiYDmvHMo8IFIIXBoutH++J4QKI2ZknlOVzZb5lULXKgq/q+lDdJxVJeupZLXc
- RN+w==
-X-Gm-Message-State: AO0yUKUJHFW1S5p+DxQzjcg9+n7NODZCF7t473c6HFmCBHXFf57chuVW
- BUbz4P3VY/epWm8FQhgmYkPtFQ==
-X-Google-Smtp-Source: AK7set8d0J7JTyt8kwfZddTmA5h+tz3k3sUqFes4exIhg1x675pADS8q0NFIXv3i+UB0bC2NEiVNoQ==
-X-Received: by 2002:a05:600c:3b9d:b0:3df:de27:4191 with SMTP id
- n29-20020a05600c3b9d00b003dfde274191mr8011323wms.16.1675490986935; 
- Fri, 03 Feb 2023 22:09:46 -0800 (PST)
-Received: from [192.168.0.89]
- (darl-09-b2-v4wan-165404-cust288.vm5.cable.virginm.net. [86.17.61.33])
- by smtp.gmail.com with ESMTPSA id
- n29-20020a05600c181d00b003db06224953sm4367323wmp.41.2023.02.03.22.09.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 Feb 2023 22:09:46 -0800 (PST)
-Message-ID: <a3d46b3a-ebd5-e02c-3db4-783f2a34b36c@froggi.es>
-Date: Sat, 4 Feb 2023 06:09:45 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0ADA10E0C5;
+	Sat,  4 Feb 2023 09:07:43 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A464910E0C5;
+ Sat,  4 Feb 2023 09:07:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1675501662; x=1707037662;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=Vh1rn/GElzkmw4J+3sdswSnKFPEU6wulsbnU0427utc=;
+ b=QKYsmyVZuLb/ckPdGKN2iogRIx2GIHQn7r9FzqsQtBFfQz7d+cAOQQBR
+ sGEWGe4uHHAWSms8fMr3VGy9dag/6YUwCtH/HFfgfoLrYk3ue9jOIPciy
+ ruIPlp2iNNiW/IWqLAVrCmQfErIXktJqf6ZYiXHvTdoC5lPYNB5ouFDbZ
+ d10E9U+UH7FZ7ghKRJUelq2RFjIWU0yChJu+Bmw0T5NQT1jGjNjWq7c/F
+ gU6WDsEQzulSF4W2EEAC4M2IUIFCCRtuTGfs2FvHEptPBTZR3mXa0Wj6/
+ roMjzNWsOeRt1Z+XrnzmJUVd3Wg/jsz+WESIhY7BQnel8HbbK6/fNYQOu A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10610"; a="393524875"
+X-IronPort-AV: E=Sophos;i="5.97,272,1669104000"; d="scan'208";a="393524875"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Feb 2023 01:07:41 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10610"; a="698343878"
+X-IronPort-AV: E=Sophos;i="5.97,272,1669104000"; d="scan'208";a="698343878"
+Received: from lkp-server01.sh.intel.com (HELO 4455601a8d94) ([10.239.97.150])
+ by orsmga001.jf.intel.com with ESMTP; 04 Feb 2023 01:07:38 -0800
+Received: from kbuild by 4455601a8d94 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pOEWH-0001BS-32;
+ Sat, 04 Feb 2023 09:07:37 +0000
+Date: Sat, 4 Feb 2023 17:06:46 +0800
+From: kernel test robot <lkp@intel.com>
+To: Joshua Ashton <joshua@froggi.es>, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 1/3] drm/connector: Convert DRM_MODE_COLORIMETRY to enum
+Message-ID: <202302041649.Dswc7gNr-lkp@intel.com>
+References: <20230203020744.30745-1-joshua@froggi.es>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH 3/3] drm/connector: Deprecate split for BT.2020 in
- drm_colorspace enum
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Harry Wentland <harry.wentland@amd.com>
-References: <20230203020744.30745-3-joshua@froggi.es>
- <Y9zkef5FjtZ7guVS@intel.com>
- <CA+hFU4ymiOg06MQeKLcn5MSrR=BZnOLODdZCFvGUdWqt_ha61A@mail.gmail.com>
- <0fc18aec-0703-55f4-f635-d09d345e8dc0@amd.com> <Y90l+DY0rSaMvN1U@intel.com>
- <758e5cf6-53e0-567c-c760-5b773bc7a11c@amd.com> <Y90vrEa3/1RbaGOV@intel.com>
- <f9633729-2db0-3bf1-311d-f03bd04d47a6@amd.com> <Y91Y98jyOimabC3O@intel.com>
- <Y91fsmgAx65koWI5@intel.com> <Y91hyNAplv4nuW5Y@intel.com>
-Content-Language: en-US
-From: Joshua Ashton <joshua@froggi.es>
-In-Reply-To: <Y91hyNAplv4nuW5Y@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230203020744.30745-1-joshua@froggi.es>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,192 +60,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Sebastian Wick <sebastian.wick@redhat.com>, amd-gfx@lists.freedesktop.org,
  Pekka Paalanen <ppaalanen@gmail.com>, Uma Shankar <uma.shankar@intel.com>,
- dri-devel@lists.freedesktop.org, Vitaly.Prosyak@amd.com
+ Vitaly.Prosyak@amd.com, oe-kbuild-all@lists.linux.dev,
+ Joshua Ashton <joshua@froggi.es>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Joshua,
+
+I love your patch! Yet something to improve:
+
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on drm/drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes linus/master v6.2-rc6 next-20230203]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Joshua-Ashton/drm-connector-Add-enum-documentation-to-drm_colorspace/20230203-100927
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/20230203020744.30745-1-joshua%40froggi.es
+patch subject: [PATCH 1/3] drm/connector: Convert DRM_MODE_COLORIMETRY to enum
+config: arc-randconfig-r034-20230204 (https://download.01.org/0day-ci/archive/20230204/202302041649.Dswc7gNr-lkp@intel.com/config)
+compiler: arc-elf-gcc (GCC) 12.1.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/146e4b57c07c6b478f24bb7cf2603ab123dcb6f2
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Joshua-Ashton/drm-connector-Add-enum-documentation-to-drm_colorspace/20230203-100927
+        git checkout 146e4b57c07c6b478f24bb7cf2603ab123dcb6f2
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arc olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arc SHELL=/bin/bash drivers/gpu/drm/display/
+
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+
+All errors (new ones prefixed by >>):
+
+>> drivers/gpu/drm/display/drm_hdmi_helper.c:108:10: error: 'DRM_MODE_COLORIMETRY_NO_DATA' undeclared here (not in a function); did you mean 'DRM_MODE_COLORIMETRY_OPRGB'?
+     108 |         [DRM_MODE_COLORIMETRY_NO_DATA] = HDMI_COLORIMETRY_NO_DATA,
+         |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         |          DRM_MODE_COLORIMETRY_OPRGB
+>> drivers/gpu/drm/display/drm_hdmi_helper.c:108:10: error: array index in initializer not of integer type
+   drivers/gpu/drm/display/drm_hdmi_helper.c:108:10: note: (near initialization for 'hdmi_colorimetry_val')
 
 
-On 2/3/23 19:34, Ville Syrjälä wrote:
-> On Fri, Feb 03, 2023 at 09:25:38PM +0200, Ville Syrjälä wrote:
->> On Fri, Feb 03, 2023 at 08:56:55PM +0200, Ville Syrjälä wrote:
->>> On Fri, Feb 03, 2023 at 01:28:20PM -0500, Harry Wentland wrote:
->>>>
->>>>
->>>> On 2/3/23 11:00, Ville Syrjälä wrote:
->>>>> On Fri, Feb 03, 2023 at 10:24:52AM -0500, Harry Wentland wrote:
->>>>>>
->>>>>>
->>>>>> On 2/3/23 10:19, Ville Syrjälä wrote:
->>>>>>> On Fri, Feb 03, 2023 at 09:39:42AM -0500, Harry Wentland wrote:
->>>>>>>>
->>>>>>>>
->>>>>>>> On 2/3/23 07:59, Sebastian Wick wrote:
->>>>>>>>> On Fri, Feb 3, 2023 at 11:40 AM Ville Syrjälä
->>>>>>>>> <ville.syrjala@linux.intel.com> wrote:
->>>>>>>>>>
->>>>>>>>>> On Fri, Feb 03, 2023 at 02:07:44AM +0000, Joshua Ashton wrote:
->>>>>>>>>>> Userspace has no way of controlling or knowing the pixel encoding
->>>>>>>>>>> currently, so there is no way for it to ever get the right values here.
->>>>>>>>>>
->>>>>>>>>> That applies to a lot of the other values as well (they are
->>>>>>>>>> explicitly RGB or YCC). The idea was that this property sets the
->>>>>>>>>> infoframe/MSA/SDP value exactly, and other properties should be
->>>>>>>>>> added to for use userspace to control the pixel encoding/colorspace
->>>>>>>>>> conversion(if desired, or userspace just makes sure to
->>>>>>>>>> directly feed in correct kind of data).
->>>>>>>>>
->>>>>>>>> I'm all for getting userspace control over pixel encoding but even
->>>>>>>>> then the kernel always knows which pixel encoding is selected and
->>>>>>>>> which InfoFrame has to be sent. Is there a reason why userspace would
->>>>>>>>> want to control the variant explicitly to the wrong value?
->>>>>>>>>
->>>>>>>>
->>>>>>>> I've asked this before but haven't seen an answer: Is there an existing
->>>>>>>> upstream userspace project that makes use of this property (other than
->>>>>>>> what Joshua is working on in gamescope right now)? That would help us
->>>>>>>> understand the intent better.
->>>>>>>
->>>>>>> The intent was to control the infoframe colorimetry bits,
->>>>>>> nothing more. No idea what real userspace there was, if any.
+vim +108 drivers/gpu/drm/display/drm_hdmi_helper.c
 
-Controlling the infoframe alone isn't useful at all unless you can 
-guarantee the wire encoding, which we cannot do.
+4fc8cb47fcfdc9 Thomas Zimmermann 2022-04-21  106  
+4fc8cb47fcfdc9 Thomas Zimmermann 2022-04-21  107  static const u32 hdmi_colorimetry_val[] = {
+4fc8cb47fcfdc9 Thomas Zimmermann 2022-04-21 @108  	[DRM_MODE_COLORIMETRY_NO_DATA] = HDMI_COLORIMETRY_NO_DATA,
+4fc8cb47fcfdc9 Thomas Zimmermann 2022-04-21  109  	[DRM_MODE_COLORIMETRY_SMPTE_170M_YCC] = HDMI_COLORIMETRY_SMPTE_170M_YCC,
+4fc8cb47fcfdc9 Thomas Zimmermann 2022-04-21  110  	[DRM_MODE_COLORIMETRY_BT709_YCC] = HDMI_COLORIMETRY_BT709_YCC,
+4fc8cb47fcfdc9 Thomas Zimmermann 2022-04-21  111  	[DRM_MODE_COLORIMETRY_XVYCC_601] = HDMI_COLORIMETRY_XVYCC_601,
+4fc8cb47fcfdc9 Thomas Zimmermann 2022-04-21  112  	[DRM_MODE_COLORIMETRY_XVYCC_709] = HDMI_COLORIMETRY_XVYCC_709,
+4fc8cb47fcfdc9 Thomas Zimmermann 2022-04-21  113  	[DRM_MODE_COLORIMETRY_SYCC_601] = HDMI_COLORIMETRY_SYCC_601,
+4fc8cb47fcfdc9 Thomas Zimmermann 2022-04-21  114  	[DRM_MODE_COLORIMETRY_OPYCC_601] = HDMI_COLORIMETRY_OPYCC_601,
+4fc8cb47fcfdc9 Thomas Zimmermann 2022-04-21  115  	[DRM_MODE_COLORIMETRY_OPRGB] = HDMI_COLORIMETRY_OPRGB,
+4fc8cb47fcfdc9 Thomas Zimmermann 2022-04-21  116  	[DRM_MODE_COLORIMETRY_BT2020_CYCC] = HDMI_COLORIMETRY_BT2020_CYCC,
+4fc8cb47fcfdc9 Thomas Zimmermann 2022-04-21  117  	[DRM_MODE_COLORIMETRY_BT2020_RGB] = HDMI_COLORIMETRY_BT2020_RGB,
+4fc8cb47fcfdc9 Thomas Zimmermann 2022-04-21  118  	[DRM_MODE_COLORIMETRY_BT2020_YCC] = HDMI_COLORIMETRY_BT2020_YCC,
+4fc8cb47fcfdc9 Thomas Zimmermann 2022-04-21  119  };
+4fc8cb47fcfdc9 Thomas Zimmermann 2022-04-21  120  
 
->>>>>>>
->>>>>>>>
->>>>>>>> I don't think giving userspace explicit control over the exact infoframe
->>>>>>>> values is the right thing to do.
-
-+1
-
->>>>>>>
->>>>>>> Only userspace knows what kind of data it's stuffing into
->>>>>>> the pixels (and/or how it configures the csc units/etc.) to
->>>>>>> generate them.
->>>>>>>
->>>>>>
->>>>>> Yes, but userspace doesn't control or know whether we drive
->>>>>> RGB or YCbCr on the wire. In fact, in some cases our driver
->>>>>> needs to fallback to YCbCr420 for bandwidth reasons. There
->>>>>> is currently no way for userspace to know that and I don't
->>>>>> think it makes sense.
->>>>>
->>>>> People want that control as well for whatever reason. We've
->>>>> been asked to allow YCbCr 4:4:4 output many times.
->>>>>
->>>>> The automagic 4:2:0 fallback I think is rather fundementally
->>>>> incompatible with fancy color management. How would we even
->>>>> know whether to use eg. BT.2020 vs. BT.709 matrix? In i915
->>>>> that stuff is just always BT.709 limited range, no questions
->>>>> asked.
-
-That's what the Colorspace property *should* be determining here.
-That's what we have it set up to do in SteamOS/my tree right now.
-
->>>>>
->>>>
->>>> We use what we're telling the display, i.e., the value in the
->>>> colorspace property. That way we know whether to use a BT.2020
->>>> or BT.709 matrix.
->>>
->>> And given how these things have gone in the past I think
->>> that is likey to bite someone at in the future. Also not
->>> what this property was meant to do nor does on any other
->>> driver AFAIK.
->>>
->>>> I don't see how it's fundamentally incompatible with fancy
->>>> color management stuff.
->>>>
->>>> If we start forbidding drivers from falling back to YCbCr
->>>> (whether 4:4:4 or 4:2:0) we will break existing behavior on
->>>> amdgpu and will see bug reports.
->>>
->>> The compositors could deal with that if/when they start doing
->>> the full color management stuff. The current stuff only really
->>> works when the kernel is allowed to do whatever it wants.
->>>
->>>>
->>>>> So I think if userspace wants real color management it's
->>>>> going to have to set up the whole pipeline. And for that
->>>>> we need at least one new property to control the RGB->YCbCr
->>>>> conversion (or to explicitly avoid it).
-
-I mentioned this in my commit description, we absolutely should offer 
-fine control here eventually.
-
-I don't think we need to solve that problem here though.
-
->>>>>
->>>>> And given that the proposed patch just swept all the
->>>>> non-BT.2020 issues under the rug makes me think no
->>>>> one has actually come up with any kind of consistent
->>>>> plan for anything else really.
->>>>>
->>>>
->>>> Does anyone actually use the non-BT.2020 colorspace stuff?
->>>
->>> No idea if anyone is using any of it. It's a bit hard to do
->>> right now outside the full passthrough case since we have no
->>> properties to control how the hardware will convert stuff.
-
-No, every userspace knows that encoding of the output buffer before 
-going to the wire format is RGB.
-
-It's the only way you can have planes alpha-blend, or mix and match RGB 
-and NV12, etc.
-
->>>
->>> Anyways, sounds like what you're basically proposing is
->>> getting rid of this property and starting from scratch.
->>
->> Hmm. I guess one option would be to add that property to
->> control the output encoding, but include a few extra
->> "automagic" values to it which would retain the kernel's
->> freedom to select whether to do the RGB->YCbCr conversion
->> or not.
->>
->> enum output_encoding {
->> 	auto rgb=default/nodata,ycbcr=bt601
->> 	auto rgb=default/nodata,ycbcr=bt709
->> 	auto rgb=bt2020,ycbcr=bt2020
->> 	passthrough,
->> 	rgb->ycbcr bt601,
->> 	rgb->ycbcr bt709,
->> 	rgb->ycbcr bt2020,
->> }
-> 
-> In fact there should perhaps be a lot more of the explicit
-> options to get all subsamlings and quantizations ranges
-> coverted. That might actually be really nice for an igt
-> to get more full test coverage.
-> 
-The choice of encoding of the pixel on the wire should be unrelated to 
-the overall output colorspace from the userspace side -- but how the 
-display engine converts the output to that wire format *is* dependent on 
-the colorspace.
-eg. picking a rec.709 ctc vs a rec.2020 ctc matrix.
-
-I see you are proposing a "passthrough" but that wouldn't work at all as 
-you still need to at know if you are RGB or YCbCr for the infoframe and 
-to perform chroma subsampling in the display engine.
-
-I perused the initial patches that added this property, and it seems 
-there were no IGT tests or userspace implementation, so I am not 
-entirely sure why it was committed in the first place.
-
-Nobody can safely use Colorspace because of this problem right now.
-
-If nobody is using this property, perhaps we could just get a fresh 
-start, and either re-purpose it with new enum values, or obsolete it and 
-make a new property.
-If we do this, let's start with the absolute bare minimum, such as:
-"Default/Rec.709 (sRGB), BT.2020"
-and then grow as we need, making sure we have the full circle from 
-userspace->output complete and working for each new value we add.
-
-Please don't take this as me saying we shouldn't add all these other 
-options like opRGB, etc, I just want us to progress to a solid base for 
-expanding further here, which we really don't have right now.
-
-- Joshie 🐸✨
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
