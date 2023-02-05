@@ -4,50 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7772CC61DA4
-	for <amd-gfx@archiver.kernel.org>; Sat,  4 Feb 2023 16:06:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC7E3C636D3
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Feb 2023 14:17:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB5A910E20F;
-	Sat,  4 Feb 2023 16:06:58 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B1E110E20F;
- Sat,  4 Feb 2023 16:06:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675526817; x=1707062817;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=DJc0Kv1Vbl707vvGKV9anSubFAjspXEBh2+TkxEX7wI=;
- b=RQNYx0GBsN23+7u/0k0p4mOP9E/KeZbBSqEkfrIPzmcdhYl7DlU5Tkm6
- y3MdemxQk58DvzNmssHyEmOBDlvpkBigM4nGX9JnVz0emczkhkUx+P0tb
- ON5xaKjrTPHhpXg1yz7RRLCilijfTxB4VBvkgpwN8oysQTLFbKU5kn+LA
- X1uASf3y22WXUbburEuJ70UGIZ0+MnkZgdaoebQg/pxgErw8VbUs0yeML
- tIbmDeZdrVRNW4eKQcOrJUuYzprrPaWgUI9kvjor2Edr8ku+8G7oaV9xL
- W3qXqv6eUQKxcwuOrlLnn8khpX+52SxwYP/cJ6MmXybqQr0DsT8se+slt A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10611"; a="415170760"
-X-IronPort-AV: E=Sophos;i="5.97,272,1669104000"; d="scan'208";a="415170760"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Feb 2023 08:06:56 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10611"; a="696437839"
-X-IronPort-AV: E=Sophos;i="5.97,272,1669104000"; d="scan'208";a="696437839"
-Received: from lkp-server01.sh.intel.com (HELO 4455601a8d94) ([10.239.97.150])
- by orsmga008.jf.intel.com with ESMTP; 04 Feb 2023 08:06:54 -0800
-Received: from kbuild by 4455601a8d94 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pOL3w-0001Pq-2F;
- Sat, 04 Feb 2023 16:06:48 +0000
-Date: Sun, 5 Feb 2023 00:06:26 +0800
-From: kernel test robot <lkp@intel.com>
-To: Joshua Ashton <joshua@froggi.es>, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 3/3] drm/connector: Deprecate split for BT.2020 in
- drm_colorspace enum
-Message-ID: <202302042311.2hOSoYKi-lkp@intel.com>
-References: <20230203020744.30745-3-joshua@froggi.es>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A995E10E075;
+	Sun,  5 Feb 2023 14:17:12 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BA9810E02D;
+ Sun,  5 Feb 2023 14:17:10 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A97DF6066C;
+ Sun,  5 Feb 2023 14:17:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E78B9C433EF;
+ Sun,  5 Feb 2023 14:17:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1675606629;
+ bh=M0+y7XWD/m0EVxjYT3JybIANfeo5w8h14kAjh4ctWQ8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=lPJnp59FgPLTFCfThv4JCMOovnM68JhEEhvzXhtMs9K+pTOfEfCC8AjSzqqNahYvx
+ BO9UQHnK27Se6jP8q8wJ+8KfEEslUmzZjQRliaAAx6REP4HtkUUYZF0SWoJZOurKWK
+ 2eesgp3zRgOwEBIDwYzTCpPp3ahCAWC7IpJpqV4MSULca3RfSDRAw0C9BjL0/OJIQP
+ bJe0hm7FP+M84/iKCaiqLiBF4jAKxOfFMLcWJtV2cGzENihBxK+Mk/yVNEJrniaVSt
+ kFSE6/9XLx0DgZ9uA1TYJk5VFDgnLAmZEzDLMMd2Y0B75N9tV1f2SKttS8JOUphmgu
+ PZYMDsiXSMq+g==
+Date: Sun, 5 Feb 2023 09:17:07 -0500
+From: Sasha Levin <sashal@kernel.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH AUTOSEL 5.15 12/12] amdgpu: fix build on non-DCN platforms.
+Message-ID: <Y9+6Y/4SDJ2//I+n@sashalap>
+References: <20230131150030.1250104-1-sashal@kernel.org>
+ <20230131150030.1250104-12-sashal@kernel.org>
+ <CADnq5_M=WvEf6N9my2cjX1=aQdweKfrshyU+Q8Ohuo5=DBtf+w@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <20230203020744.30745-3-joshua@froggi.es>
+In-Reply-To: <CADnq5_M=WvEf6N9my2cjX1=aQdweKfrshyU+Q8Ohuo5=DBtf+w@mail.gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,43 +52,31 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>, amd-gfx@lists.freedesktop.org,
- Pekka Paalanen <ppaalanen@gmail.com>, Uma Shankar <uma.shankar@intel.com>,
- Vitaly.Prosyak@amd.com, oe-kbuild-all@lists.linux.dev,
- Joshua Ashton <joshua@froggi.es>
+Cc: stylon.wang@amd.com, sunpeng.li@amd.com, dri-devel@lists.freedesktop.org,
+ Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, roman.li@amd.com, Jerry.Zuo@amd.com,
+ aurabindo.pillai@amd.com, amd-gfx@lists.freedesktop.org,
+ alexander.deucher@amd.com, Dave Airlie <airlied@redhat.com>,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Joshua,
+On Tue, Jan 31, 2023 at 03:29:04PM -0500, Alex Deucher wrote:
+>On Tue, Jan 31, 2023 at 10:01 AM Sasha Levin <sashal@kernel.org> wrote:
+>>
+>> From: Dave Airlie <airlied@redhat.com>
+>>
+>> [ Upstream commit f439a959dcfb6b39d6fd4b85ca1110a1d1de1587 ]
+>>
+>> This fixes the build here locally on my 32-bit arm build.
+>>
+>> Signed-off-by: Dave Airlie <airlied@redhat.com>
+>> Signed-off-by: Sasha Levin <sashal@kernel.org>
+>
+>This patch is only applicable to kernel 6.1 and newer.
 
-Thank you for the patch! Perhaps something to improve:
-
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on drm/drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes linus/master v6.2-rc6 next-20230203]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Joshua-Ashton/drm-connector-Add-enum-documentation-to-drm_colorspace/20230203-100927
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20230203020744.30745-3-joshua%40froggi.es
-patch subject: [PATCH 3/3] drm/connector: Deprecate split for BT.2020 in drm_colorspace enum
-reproduce:
-        # https://github.com/intel-lab-lkp/linux/commit/14174503e23d2174ba6089fb4090778513cd202b
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Joshua-Ashton/drm-connector-Add-enum-documentation-to-drm_colorspace/20230203-100927
-        git checkout 14174503e23d2174ba6089fb4090778513cd202b
-        make menuconfig
-        # enable CONFIG_COMPILE_TEST, CONFIG_WARN_MISSING_DOCUMENTS, CONFIG_WARN_ABI_ERRORS
-        make htmldocs
-
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-
-All warnings (new ones prefixed by >>):
-
->> Documentation/gpu/drm-kms:417: ./include/drm/drm_connector.h:479: WARNING: Definition list ends without a blank line; unexpected unindent.
+Ack, I'll drop it on older kernels, thanks!
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+Thanks,
+Sasha
