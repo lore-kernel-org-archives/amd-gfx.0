@@ -4,116 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 070F3C05027
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Feb 2023 11:21:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B372EC05027
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Feb 2023 11:22:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 896FC10E2B8;
-	Mon,  6 Feb 2023 11:21:52 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2071.outbound.protection.outlook.com [40.107.92.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7811010E2B8
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Feb 2023 11:21:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3328010E385;
+	Mon,  6 Feb 2023 11:22:50 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20604.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5a::604])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01F6210E37F
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Feb 2023 11:22:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Oz7TdYIpq6zPmQKn4O1JY/bFg57+OjiThRf9OJyMuRl8pGCgu2GEtZtmeOOZXQ2NeU/3+M5F1uVQusFxmk4JPp3WGgQps/xuM99V1X3bYT8o88uEA/C08+GNbOUblK+dz6bvruigoxDUBXCpP5p0Njm92IDBuAlG/Ir49cEsRrXf91HyQaKt55QnyMzsEXAYiKkXJP5jPQiAz4a6RcMTStiEcIunOWhpwLlepeSxilBKD3wQpwDLzTmmuqywAgXP595ekU64njr9lB6QeJIGH8NRHwUzf3kZCSr+PsL7v+uo9GIhpwQtkDSVWaOas4F9QeIfzdZAYBdLWBW4+Ap1xQ==
+ b=UzroPZejn1L+g+JZxtddrWs4egdwWP4ntZ/3RgKbtIkPKebFN8RNgtSKJik8CD/50GvNxiydsnwdP5FvSWHwz2bXd+zaKua2gKI38HINS4KSmHhLXI0uT4iitOKB+XVKhgGVGLBntVCWUzVaoIWA+MRA5Ttjl+Pad6NmXVsfy5ooU/LL/INlg+bgi1fwZdCvgLSpqAWaDvD/gefaIPGyZX4sWPl2/fDYMouCTHd4AJHUnypCF9efMY4waCOgWiIl84OQDXj8Ao8nVBPN6fqeRLQjuhJb/d1hfXL0AvDD9PKZnvT7EjjAOq1HUt1csswb/W94d3OfNTZAVarUeotLgw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zb2R8Bj7b3suXpb+0lqKAhj0lwJOAbyawoYw/4eDWjw=;
- b=RSK4GrfcwSTZGw65mJgVMPdryGVB6mlfJPoKbEJy413hxXlo6VtoRMmP3CLfTSXSZDU8+ykVzpywOMBZb4g6UKkOdVEYV1N+J32n/DBukLs3LJbJnD53bIYI20EpySDYZGUAnD1nbnSl0UPwx9VC8VYJm2VstmQ/ABZ5+iacw/mdlExBQz52Xp7CHMBK8kfIYH9A1XkhB+4r+Rp++0l1/bSl6zJvO7W4GVWGZpmwXEF17DjP7B9rRIF+B2V1lXA5fvGxBSpj2Z2jPFMNA9vk3IJJxwAC1+FvfJ6hlne6X9M2ooNOth4jorDNE7GdR453RaHuKDhfAJdsf3innhuA+Q==
+ bh=BgRtVgweeHIQsL79Koy0GkVijsNOYBi6+FAj2NqMcqI=;
+ b=Fr1uG5yH0hy3FFa64h5JzjNYF1xartrk55JwT9RUc2MsBubo6Ddj+MPL3keVhDZXI0He+U/Qah1l508ly2yWLYbJPF26U4vQDxCjpW0n4M95j3K7y6D2Pfp/5J9mIgX4h26ZJ1h0e7Xkj5317rAGDry6YFePltk5JLxwTpytSIpJUcdArBOxVQVwtP/mt7IuM+xlRxJx1k9d+hEMkUIw6NWrEavVrPeWr0AxC7XW7BS8QLbF8GBXxzO2RpTNSX+jnw0qcOYrlYWnqhefBh5t3+xn2Y+Tgo3jUMyw/2LZfAYgJcOqbDTWktHGmvYICwjrp/d692Xxk1tHfg5xtWSRKQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zb2R8Bj7b3suXpb+0lqKAhj0lwJOAbyawoYw/4eDWjw=;
- b=wcjqGS5znsUvg9ZiZGqn7Xooq+mAL3MrzmGQTfqkYmLsQvS4NQlxdGgefrycjU9mRrqVcGatqfCk6eqZywcna+KifNhOg3vnVL4cOfDPWQuPwE4JwHF7Z2JFWsojc//AT2uAYIqFwjgsIM3SvCVh7fYLjzzTnVdSx1T9TQCZvS4=
+ bh=BgRtVgweeHIQsL79Koy0GkVijsNOYBi6+FAj2NqMcqI=;
+ b=hPgBIK5kzzpBYfyqhKhVaYMES6+osvBIw5b6rebzYJ0jkVBfTetDUdgpICPM5zQYgSTyub65KaLZqB96kwUwnvB2xsgqAe/kDNe3LVryRWXTpHike0SSVuOvlqezY8jh1CHq9c3RsBToIDrVZm8yYstjA9NpU50WIbjUgfHOIkM=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by DS7PR12MB6144.namprd12.prod.outlook.com (2603:10b6:8:98::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6064.34; Mon, 6 Feb 2023 11:21:46 +0000
+ by CH2PR12MB4858.namprd12.prod.outlook.com (2603:10b6:610:67::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.32; Mon, 6 Feb
+ 2023 11:22:45 +0000
 Received: from BN8PR12MB3587.namprd12.prod.outlook.com
  ([fe80::2e4f:4041:28be:ba7a]) by BN8PR12MB3587.namprd12.prod.outlook.com
  ([fe80::2e4f:4041:28be:ba7a%6]) with mapi id 15.20.6064.032; Mon, 6 Feb 2023
- 11:21:46 +0000
-Message-ID: <7602a127-362f-beff-acc9-936df5b46c92@amd.com>
-Date: Mon, 6 Feb 2023 12:21:42 +0100
+ 11:22:45 +0000
+Message-ID: <441e81fd-8c52-382a-bf4b-99f061e37a4c@amd.com>
+Date: Mon, 6 Feb 2023 12:22:40 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
-Subject: Re: [PATCH 04/13] drm/amdgpu: replace aper_base_kaddr with
- vram_aper_base_kaddr
+Subject: Re: [PATCH 06/13] drm/amdgpu: rename gmc.aper_base/size
 Content-Language: en-US
 To: Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20230203190836.1987-1-shashank.sharma@amd.com>
- <20230203190836.1987-5-shashank.sharma@amd.com>
+ <20230203190836.1987-7-shashank.sharma@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230203190836.1987-5-shashank.sharma@amd.com>
+In-Reply-To: <20230203190836.1987-7-shashank.sharma@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0087.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9b::6) To BN8PR12MB3587.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR2P281CA0083.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9b::7) To BN8PR12MB3587.namprd12.prod.outlook.com
  (2603:10b6:408:43::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|DS7PR12MB6144:EE_
-X-MS-Office365-Filtering-Correlation-Id: 04fe6ac2-84d1-4052-b726-08db08345549
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|CH2PR12MB4858:EE_
+X-MS-Office365-Filtering-Correlation-Id: 19609906-2937-44d9-b120-08db0834787f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IRlQ95NdayyAO4cF65XQEQpwEbbvtNur9ngke2TkJZeUliQNiK0Ud8QQjDRsEPdj5r7LGg0W6zaRW40mdK24jsf08uzzXObsqufPCWjQgZKuVmJUW6LVzWWQJzV2x6MOLd7XVX4Q7D1JFULiXzWbxEqwsGQKZu4HLQ/+8ZylF+Ww8JIm4EhuxjPW6cAdREzA22nqYpZEKQAhpt/Nzj011v1S9pC6+n2XEuGsCe6CPoCrWrwzAMlzR/fxfyuSV18BIMj7R6cW8Bo5Ex4lKNQiJL/dnCUed+PHwm6NAmMr3NNO/z/YlHX+a36DuyCGcdx/WBsbF2yA65zWwsBtixUEuyLkPSsDDkFtQ3PbmorCGFB997RevTcfQdFGfEfeEFRi0tFRJ4Y7ZqsQZavLHvo0IrKnieFHW8Dd2FeK21nvjm9+6hPj8sRLuF/DMHAaPdOQWoT0+Fe7M6be/hL2Lgt2057Rl4scPx//XWEGMIqVo5gop4FoUFoc+Qh7jNpomd8+MBWhwplbTgL/0fc577w8k9ZNIJLU886vzQgRD5mY2TuqM1g14qko9QWus5+XMgHrqH78Aokj9ulfdWJmbdnj69g1sgRrl9+kRzxYxXKZZBzCBheQhnXsbh+47ZvWQh5P1BZO5dgzyVt/l3XYEdGwhRJhd+hYWDiJtIa2Mj5tU059G3EKJM+HyMeEK8VW5pp1TDWW3D9Quhqpnr6g/uhgMPlQH9hKWIgr/uKqWXyt/RM=
+X-Microsoft-Antispam-Message-Info: LTFIq6J6mw34t0ZhzuIIp4YdcDaHhNFbn7R7lrjWaKkj/N1TwS1sXlAn8fT1Thw3vDHZzq63s2xnsjMdaiqbTSRXp4erdoSqCDSb/wjf26v0vypTlTyiXDbAzBjK14e/sIWgLhgkyegi4qnQBuFvIxE2iv4ug4ILP6U6sTPO/sget+ALK0S2jtIHa/M72I4GeFm1tgssefNzm13hLvYbeZtcFpj9VH6ed/jEzjs0Gm9+0IQM0S75rU/YYYoydy07yhOiCnIQ4QfyKgO2nvlj7T0G7jNZk4ijSMNt34SWiaQpFkwPC2q4A2p6utZIslMdVxldYLFUXfIps4/yahLrhXKL75goMbwDDmzaTTFhnluFoMteSdKKPlN7yot3zTWWggqvpzQ7dxcDbhaF4tlRFJYGsYfEWH8weoHbEE7H34aoCrk6jDyliSkGdgEHXJ9e/WQvx1MOxyFtzLONtnCdxl4x+bZSqp1JIUj/emWVg9DveNf+Wlg8qq27JUypU3UnOulQRXgvey1ieMALQyqaaA45cT48ZfNWybrlcItYkZ2r/WQeiWP7mVySKViJlkg7UIvf+yhRGsMJgq1o7VCridW6fGxjQfaYa59/z02fHZMzqbtpn7cB7t2o5oHg1q6MtGHzIq/JvDLCjczfsqTEb6EGr9MKI/AJCOzqNi/Q4uEvEjvYQ1MG5GE/l0tVXkQk3LzD9py5edQfr/4J+a4lH8TLGC24EMAQkYBDZ0YMRJE=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(366004)(39860400002)(136003)(376002)(346002)(451199018)(36756003)(316002)(6666004)(6506007)(8676002)(6486002)(5660300002)(66476007)(66556008)(2906002)(66946007)(41300700001)(4326008)(8936002)(26005)(6512007)(31696002)(38100700002)(86362001)(66574015)(478600001)(83380400001)(186003)(2616005)(31686004)(43740500002)(45980500001);
+ SFS:(13230025)(4636009)(396003)(366004)(39860400002)(346002)(376002)(136003)(451199018)(83380400001)(478600001)(6486002)(186003)(38100700002)(8936002)(26005)(6506007)(41300700001)(36756003)(6512007)(2616005)(66476007)(66946007)(316002)(66574015)(86362001)(31696002)(66556008)(4326008)(8676002)(6666004)(2906002)(31686004)(30864003)(5660300002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MmZRWlhMWFFLSUR4Q0EzdlU0Smd2dTcydWdQRll2aXJqTU1JMWV6UWo3bzlk?=
- =?utf-8?B?WDBIbksvTlYyWTkxTURlT1dyS0hobTlLa3A5SnpWYi84b1k5M1NRUXZJRUpl?=
- =?utf-8?B?VmlzQ0lLRU1zUG5ia2E4dk1yeGh0Q3AzWFNTb1BvTUd1TE5PRExKMGE0MUJW?=
- =?utf-8?B?R2xtWTk0QnY2R0Q2dENFT3dOcTdaM3pJeFl2TlBva0l1UGVLQTZ1RTZUNFBQ?=
- =?utf-8?B?ZkJudzZMWnIxOFJQaUhoVGtNVnRlWWQ2V0ZiZmFVWUJnMm9PWHdIRWpYZzJj?=
- =?utf-8?B?MGw2SllzMzJxa2NLdFdSdmxManQ4QU85a2haZGFhZ0Zrd1dLR3hGQ3dENitO?=
- =?utf-8?B?MTlYYnc4dG5UVDIrZ1I4cCtTWGxJZkVOZWUwN2tWTFhvU3dPRC81Y1ZuMGEx?=
- =?utf-8?B?RjJuM2UyYXdHRFJwWENVN3N5WHh3UzZnc05BY05RQi82MENIVXMvTTRBL1RL?=
- =?utf-8?B?cE56OTR1TjVQWkg1SUUxNmRUdFJiUjZoZHlFZjB2d2s5Z0R1bXY5NFo0SHQ1?=
- =?utf-8?B?bnRYY2NMVVNiNVhPTkJ3TThsR2UwZm9oVnVtRW9ZNUNYQVRibFY1U1ltVjFi?=
- =?utf-8?B?K3l5cWFkRUJiSVZEQ0lwR3BHOWx2dXA4VnAwams5Q0tPTFI1TmVzZ2x5VnZR?=
- =?utf-8?B?V0c4ZndSZ3MxTjBza2hzeGVtODh1OG9pVFhoMlU1RWtOcnl5U1VtVTBtemtq?=
- =?utf-8?B?N3VBTlozY3YwN3lDT3cwNkdOUlo3ekhmRStPSXNyejUzOGF1UTl3NzY0Uk1I?=
- =?utf-8?B?RlVyYURsaytvdWVXUVk3Q1gycFZ6alBXaGdFUWd1SHJrSWZCN0M1Zk1Ibnkr?=
- =?utf-8?B?RjFMWWpCRDFockNkVTdQMk5QRXJFZkFVMWFNRFB4L0hibzM1OGhXS0wzMnI1?=
- =?utf-8?B?UEZkTGJqNjlWcGJLL0R5S1JwZkVYd1VUWDJtYXRBN2FVNE9oc2NiUlZZd29X?=
- =?utf-8?B?dVE3c3B6L0N5SzJpWHBaZGlaSzRwcll6OFhNVUlxTXNuZlRtb1VTL2dNZWJN?=
- =?utf-8?B?THBuYlhrKzhCSzNrdEg1cFc5TzdTMi81T3JLVUczWFpGYVR3a2p0cGJsbUlD?=
- =?utf-8?B?U3YyYkhMMkJaUjRGNitPcjZ2ODg0S3B4dWpUSndSYklJTWUzZHRvbGcwVE12?=
- =?utf-8?B?SnpRYlR5Z3htUVBUM2UrNzZlMUdMRjRTZ2UyT3YwZ3FsZnhjVjN4c0x2RURI?=
- =?utf-8?B?U1MxSEZMM0d6U0tOQlZJQXZINkJXb0FGbTBVSkdhRjk5TjllcG5TZWRQRDJr?=
- =?utf-8?B?Mkl5amxCb2p2RmdQb25qYUVocDQrbm9OTnd6MHRkTzQxQ3ZlS2FiY1Z2eUVw?=
- =?utf-8?B?dlB4MHlQMnVxWFNLczNkOER2bU1ucVZiTFp0aEloMEZvcmNsNUFIWWQzd1RX?=
- =?utf-8?B?eS9BVENVdndxNm40cUNvUll3QXFvcyswTnNMaWYrY1pWeCtmU2hScFNlWUMw?=
- =?utf-8?B?M3RHL1FXd1lKaFNBNXVEZElUSGxxblRtMjg1clVpbXhBZlpndXR6K0VOREh0?=
- =?utf-8?B?K25URTY1R3Y5akhaMTF6ZWgrUnNSamJCVXY5STBBUlM5Tk1KSmlOOEx6SGI0?=
- =?utf-8?B?eWNlMzBwRUw1czJqdXJIYUxMNHVRMCtLRzJLdzhOQnRVZ05aeW15ZFpUMUsr?=
- =?utf-8?B?KytMQ1FhU09jY1hNaFlFa1l4S1I3cHd6c3B5OS95R2ZNSi9lN21hK2g2RTVC?=
- =?utf-8?B?NWlURTVrUmtMRnIrd25ldU1ncXV6VlBKRmcrek8vNHUvRElSMGdHVmtVdEVF?=
- =?utf-8?B?RzVpenY3VmlRSmcvWGlyTEl1QW8wMVhGbDlMM0RBYnBpeFczeGFaVkhoaWdq?=
- =?utf-8?B?ZGNiRmpoeUE5Tk41UEdkTlkwK0Z0dlJ5N3VxbzJROXZ1RUxFclRnWmxQd1B2?=
- =?utf-8?B?M3Zlb0xpSUgrS3JGNW9GUzJjaGlHQThQYXlYMG1xYlRIQW1Mc1orZWU3enQ1?=
- =?utf-8?B?TUNpODg2ekFDNnRJMW1MT0JCdVFlbFlDaHB2Z1VFQmVscWhWSFllWGZ1YXpB?=
- =?utf-8?B?RkJBdHJuVFMvcVI0N0tGamprbFE0c2N5ZlE2SHQwRUNtWEJhRlNzWkR5V3pB?=
- =?utf-8?B?NkRtQ0wrMEdMcGpZaW9DdjdsYm5wdEd4Z0Z3djAyWXJPSkhqeENabXU2cGk5?=
- =?utf-8?Q?DJPwVx9RyUaZ7FTYzYPBQTd5c?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V1hwQ25QZy9OZ1RGL0xYS2hncC9FNmhpc3RmSU5SbFdMSWR1OVgyNkZ1azNF?=
+ =?utf-8?B?Z0NqV2d3WitLU0JzOTZMRjd1bU96eFZqMVhXTnpJQmtGTGNKenRLRHdPYWhp?=
+ =?utf-8?B?RFlZQS9rTCtzQWhtS2tmTlhYN0JlclRiVDgvSVFnWVdXN2NBKzE2WEVOTjVp?=
+ =?utf-8?B?c1JQWlVFV2FmQUNyaERZTy9rNnlWNUwxTnFHM1lHSUMrdnJmMjZCTFJuOExN?=
+ =?utf-8?B?WGxpSVlsd0pQM2F0YkJhLy9YTnJsa1pkcjZ1dmFJN3lNVU5DWVBuWC9iRlZM?=
+ =?utf-8?B?Um1UWmlDbzVjYlVuMHcyYjNYblFjRTlKcDVtTUNFMEtlalNIWjQ4MGhOcTQ3?=
+ =?utf-8?B?OTFqazByZGRKaVdFeFVDcTIwMlRWUEhOeThjQXpGOGFhTmdsMzhoVTVRYndt?=
+ =?utf-8?B?aVY1QjJ3YXgrMTZwZ3hTbTJKUjAzenB2bElhS2ViVXRwMXJsdGRmRGNkRzFh?=
+ =?utf-8?B?NWdUQUlBWjBpUGZocTN6TzhmSHhXQ2tYbVpmdG42ZWN3VmJtY0duM1JreXNr?=
+ =?utf-8?B?dzNzS0JBckliTDd0Y3E4aGFnbXAwaFYxM3YwTHdOY0JrUkZYWDJRenU2TFd6?=
+ =?utf-8?B?NHU0bUUxUHIwb1gvY1R5MWdoQlNxRkRsYTVMRy9wbVRPUzJKZktsWXpTMTRk?=
+ =?utf-8?B?enM5ZzlqNnlIcE4wMGw2U011cXFIR1AxVVBtV0VXWGN3cFNnVW16ZnQzbDVI?=
+ =?utf-8?B?elQwVEdZQjJNNEluSDZOblIvNWxyQ2FuMkw3akVNcVNKdFVTKzYxUkdJZUhK?=
+ =?utf-8?B?eHV3Uy9LTGN2UVZEMEFnb0NnUFcyR2ErTDBSYVFlc2owRHZZWnFoR0djN1py?=
+ =?utf-8?B?UVVXaGppRWQwN2diZTN0OTNtNWYvOXMrcDRxUTMwQ1JsSTBTa3pIcGJ0cFNo?=
+ =?utf-8?B?MVVmdDZOczV4SlZPem5ERTNMN3VCYStaYm5uTFV0RjVoZXNDTGU4UU9BSVhs?=
+ =?utf-8?B?cXNhcTQvMnE5QUpyMDV4VGNhWFl2Tk1hQlIyMzZJWmlORStjRStIM0pudVpk?=
+ =?utf-8?B?NXhMc2FhUHpVbFpyeWJYT1orMlNENGxNbHZKZXpBanVHdjNxUVFaZ2tlUGNL?=
+ =?utf-8?B?RVNhVitoemZNNzFFTGM2NFNaTHp1WUMyaHZoMUpkZkVicExPcDJ5VDNSQ2hB?=
+ =?utf-8?B?VStyRElqRENxVE5lL20vUEZDV0tXdlNpc1YyU0pGMTFLUHNjY1Z4cFhiSzE1?=
+ =?utf-8?B?Mkx3MXN1aU0xODZJUmNYdmdvbURQTmtnUFRDTEVHTUtHclpGQXRVQldmaHhZ?=
+ =?utf-8?B?dVpXZjRLUnBSSm1ZTXZwNDFDSklLcWdIYUUrS3N0RjRoSzI5THF2cVZZazlz?=
+ =?utf-8?B?eThQelBFVUNtd3U4UUx2cnJFVDV1WGNXRTJPaXo3REcySVJPZTJJT2ZqMFBq?=
+ =?utf-8?B?a2tXd3NCRjlQL0FiNEJpano4STNGUXhleVlGbGQ2NlpjUFpCUk5XYVhSeTZU?=
+ =?utf-8?B?OUQ2aUxOWFRxS01GN1FBazd0QXRKZmZSWDdiTGNORFlwZmg2M0NQdHNId2hX?=
+ =?utf-8?B?VmRLSXA4RXhpbmZieGpaQVhxSS9XcWpOYUJtdnkyZVN3d0p3RXNSeUNaOGp6?=
+ =?utf-8?B?VkhRSS8rVmR6WU5UejVjb1FaOVRiUU9Bd1BEcDNVYkUwdzVkWkIyRXlvRHls?=
+ =?utf-8?B?cC9Jb0EwVHErTm9obXF0c0JSam9FaFArcVJwSEdmeFdtU2ttNXcwRzBFK2V4?=
+ =?utf-8?B?cVZYbVZTd1h5Znc0RXhkRFdXMmN2ZGVtZHFQSGdIclhrSUZqNVdFajRTdnpF?=
+ =?utf-8?B?R1ZUVHNMWXVlSlZZaVQ0QW1lUVhPNFZ6aDE3UHFkMlRzZERnNVJ6amwyQUpt?=
+ =?utf-8?B?NjFMckovaDNDZGRRSVV1a25NbXZUOGFoSWw4UUlXQUdnVGRhaXE0UWNkcE8y?=
+ =?utf-8?B?SjdBNWplYU5wWGJMaldZQzlPRGhqOGcyLzdXRE04T1E4ZHR2YUR5anMvaWt6?=
+ =?utf-8?B?SGZ5YnIvUzVQMnNoMzJrc1RTcXN2SjFiYnRkYXZHNGd6OEtGZ3RYbThRZkxD?=
+ =?utf-8?B?SUtJNVRKcnlYdU9XaDhyMnZxM0JJOUM0ZEZ2MzB5elk5VnFmRkZCQ1BhS3po?=
+ =?utf-8?B?NnZnQW9zTTNHL1BQVURKV2IxenlXSnpYV1hWN3ZEWHJiMDFIa0JaRVFEZXFS?=
+ =?utf-8?Q?yauh5xYu5duoQ77eQ/bXo/cPm?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 04fe6ac2-84d1-4052-b726-08db08345549
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19609906-2937-44d9-b120-08db0834787f
 X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2023 11:21:46.7148 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2023 11:22:45.7106 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /2RRw9KxdazyXag3IOzNdasoNz7BUzpFTwiOB4Q02YWmC4XgktMxRFMqrR5q9lxd
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6144
+X-MS-Exchange-CrossTenant-UserPrincipalName: CbcbbYkUcQh02IqTMo5qaxLROkZaNdILVXq9rgQnpy1XEJLWpaYG0cvtyeMzCscH
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4858
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,179 +132,373 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Am 03.02.23 um 20:08 schrieb Shashank Sharma:
 > From: Alex Deucher <alexander.deucher@amd.com>
 >
-> To differentiate it from the doorbell BAR.
+> This patch renames aper_base and aper_size parameters (in adev->gmc),
+> to vram_aper_base and vram_aper_size, to differentiate it from the
+> doorbell BAR.
 >
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
 
 Acked-by: Christian König <christian.koenig@amd.com>
 
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 +++++-----
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 14 +++++++-------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h    |  2 +-
->   drivers/gpu/drm/amd/amdgpu/psp_v11_0.c     | 10 +++++-----
->   drivers/gpu/drm/amd/amdgpu/psp_v13_0.c     | 10 +++++-----
->   5 files changed, 23 insertions(+), 23 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c  |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_bar_mgr.c |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  6 +++---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c     |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h     |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c  | 12 ++++++------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     |  8 ++++----
+>   drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c      | 10 +++++-----
+>   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c      | 10 +++++-----
+>   drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c       |  6 +++---
+>   drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c       | 12 ++++++------
+>   drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c       | 10 +++++-----
+>   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c       | 10 +++++-----
+>   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c    |  4 ++--
+>   14 files changed, 49 insertions(+), 49 deletions(-)
 >
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> index f99d4873bf22..58689b2a2d1c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> @@ -438,7 +438,7 @@ void amdgpu_amdkfd_get_local_mem_info(struct amdgpu_device *adev,
+>   	mem_info->vram_width = adev->gmc.vram_width;
+>   
+>   	pr_debug("Address base: %pap public 0x%llx private 0x%llx\n",
+> -			&adev->gmc.aper_base,
+> +			&adev->gmc.vram_aper_base,
+>   			mem_info->local_mem_size_public,
+>   			mem_info->local_mem_size_private);
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bar_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bar_mgr.c
+> index 0e0f212bd71c..3257da5c3a66 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bar_mgr.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bar_mgr.c
+> @@ -701,7 +701,7 @@ int amdgpu_bar_mgr_alloc_sgt(struct amdgpu_device *adev,
+>   	 */
+>   	amdgpu_res_first(res, offset, length, &cursor);
+>   	for_each_sgtable_sg((*sgt), sg, i) {
+> -		phys_addr_t phys = cursor.start + adev->gmc.aper_base;
+> +		phys_addr_t phys = cursor.start + adev->gmc.vram_aper_base;
+>   		size_t size = cursor.size;
+>   		dma_addr_t addr;
+>   
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 2f28a8c02f64..0b6a394e109b 100644
+> index 0b6a394e109b..45588b7919fe 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -354,12 +354,12 @@ size_t amdgpu_device_aper_access(struct amdgpu_device *adev, loff_t pos,
->   	size_t count = 0;
->   	uint64_t last;
->   
-> -	if (!adev->mman.aper_base_kaddr)
-> +	if (!adev->mman.vram_aper_base_kaddr)
->   		return 0;
->   
->   	last = min(pos + size, adev->gmc.visible_vram_size);
->   	if (last > pos) {
-> -		addr = adev->mman.aper_base_kaddr + pos;
-> +		addr = adev->mman.vram_aper_base_kaddr + pos;
->   		count = last - pos;
->   
->   		if (write) {
-> @@ -3954,9 +3954,9 @@ static void amdgpu_device_unmap_mmio(struct amdgpu_device *adev)
->   
->   	iounmap(adev->rmmio);
->   	adev->rmmio = NULL;
-> -	if (adev->mman.aper_base_kaddr)
-> -		iounmap(adev->mman.aper_base_kaddr);
-> -	adev->mman.aper_base_kaddr = NULL;
-> +	if (adev->mman.vram_aper_base_kaddr)
-> +		iounmap(adev->mman.vram_aper_base_kaddr);
-> +	adev->mman.vram_aper_base_kaddr = NULL;
->   
+> @@ -3961,7 +3961,7 @@ static void amdgpu_device_unmap_mmio(struct amdgpu_device *adev)
 >   	/* Memory manager related */
 >   	if (!adev->gmc.xgmi.connected_to_cpu) {
+>   		arch_phys_wc_del(adev->gmc.vram_mtrr);
+> -		arch_io_free_memtype_wc(adev->gmc.aper_base, adev->gmc.aper_size);
+> +		arch_io_free_memtype_wc(adev->gmc.vram_aper_base, adev->gmc.vram_aper_size);
+>   	}
+>   }
+>   
+> @@ -5562,14 +5562,14 @@ bool amdgpu_device_is_peer_accessible(struct amdgpu_device *adev,
+>   	uint64_t address_mask = peer_adev->dev->dma_mask ?
+>   		~*peer_adev->dev->dma_mask : ~((1ULL << 32) - 1);
+>   	resource_size_t aper_limit =
+> -		adev->gmc.aper_base + adev->gmc.aper_size - 1;
+> +		adev->gmc.vram_aper_base + adev->gmc.vram_aper_size - 1;
+>   	bool p2p_access =
+>   		!adev->gmc.xgmi.connected_to_cpu &&
+>   		!(pci_p2pdma_distance(adev->pdev, peer_adev->dev, false) < 0);
+>   
+>   	return pcie_p2p && p2p_access && (adev->gmc.visible_vram_size &&
+>   		adev->gmc.real_vram_size == adev->gmc.visible_vram_size &&
+> -		!(adev->gmc.aper_base & address_mask ||
+> +		!(adev->gmc.vram_aper_base & address_mask ||
+>   		  aper_limit & address_mask));
+>   #else
+>   	return false;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> index 02a4c93673ce..c7e64e234de6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -775,7 +775,7 @@ uint64_t amdgpu_gmc_vram_pa(struct amdgpu_device *adev, struct amdgpu_bo *bo)
+>    */
+>   uint64_t amdgpu_gmc_vram_cpu_pa(struct amdgpu_device *adev, struct amdgpu_bo *bo)
+>   {
+> -	return amdgpu_bo_gpu_offset(bo) - adev->gmc.vram_start + adev->gmc.aper_base;
+> +	return amdgpu_bo_gpu_offset(bo) - adev->gmc.vram_start + adev->gmc.vram_aper_base;
+>   }
+>   
+>   int amdgpu_gmc_vram_checking(struct amdgpu_device *adev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> index 0305b660cd17..bb7076ecbf01 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+> @@ -167,8 +167,8 @@ struct amdgpu_gmc {
+>   	 * gart/vram_start/end field as the later is from
+>   	 * GPU's view and aper_base is from CPU's view.
+>   	 */
+> -	resource_size_t		aper_size;
+> -	resource_size_t		aper_base;
+> +	resource_size_t		vram_aper_size;
+> +	resource_size_t		vram_aper_base;
+>   	/* for some chips with <= 32MB we need to lie
+>   	 * about vram size near mc fb location */
+>   	u64			mc_vram_size;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> index ca85d64a72c2..887fc53a7d16 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -1046,8 +1046,8 @@ int amdgpu_bo_init(struct amdgpu_device *adev)
+>   	/* On A+A platform, VRAM can be mapped as WB */
+>   	if (!adev->gmc.xgmi.connected_to_cpu) {
+>   		/* reserve PAT memory space to WC for VRAM */
+> -		int r = arch_io_reserve_memtype_wc(adev->gmc.aper_base,
+> -				adev->gmc.aper_size);
+> +		int r = arch_io_reserve_memtype_wc(adev->gmc.vram_aper_base,
+> +				adev->gmc.vram_aper_size);
+>   
+>   		if (r) {
+>   			DRM_ERROR("Unable to set WC memtype for the aperture base\n");
+> @@ -1055,13 +1055,13 @@ int amdgpu_bo_init(struct amdgpu_device *adev)
+>   		}
+>   
+>   		/* Add an MTRR for the VRAM */
+> -		adev->gmc.vram_mtrr = arch_phys_wc_add(adev->gmc.aper_base,
+> -				adev->gmc.aper_size);
+> +		adev->gmc.vram_mtrr = arch_phys_wc_add(adev->gmc.vram_aper_base,
+> +				adev->gmc.vram_aper_size);
+>   	}
+>   
+>   	DRM_INFO("Detected VRAM RAM=%lluM, BAR=%lluM\n",
+>   		 adev->gmc.mc_vram_size >> 20,
+> -		 (unsigned long long)adev->gmc.aper_size >> 20);
+> +		 (unsigned long long)adev->gmc.vram_aper_size >> 20);
+>   	DRM_INFO("RAM width %dbits %s\n",
+>   		 adev->gmc.vram_width, amdgpu_vram_names[adev->gmc.vram_type]);
+>   	return amdgpu_ttm_init(adev);
+> @@ -1083,7 +1083,7 @@ void amdgpu_bo_fini(struct amdgpu_device *adev)
+>   
+>   		if (!adev->gmc.xgmi.connected_to_cpu) {
+>   			arch_phys_wc_del(adev->gmc.vram_mtrr);
+> -			arch_io_free_memtype_wc(adev->gmc.aper_base, adev->gmc.aper_size);
+> +			arch_io_free_memtype_wc(adev->gmc.vram_aper_base, adev->gmc.vram_aper_size);
+>   		}
+>   		drm_dev_exit(idx);
+>   	}
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 668826653591..196ba62ef721 100644
+> index 196ba62ef721..bb2230d14ea6 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -578,9 +578,9 @@ static int amdgpu_ttm_io_mem_reserve(struct ttm_device *bdev,
->   		if ((mem->bus.offset + bus_size) > adev->gmc.visible_vram_size)
->   			return -EINVAL;
->   
-> -		if (adev->mman.aper_base_kaddr &&
-> +		if (adev->mman.vram_aper_base_kaddr &&
->   		    mem->placement & TTM_PL_FLAG_CONTIGUOUS)
-> -			mem->bus.addr = (u8 *)adev->mman.aper_base_kaddr +
-> +			mem->bus.addr = (u8 *)adev->mman.vram_aper_base_kaddr +
+> @@ -583,7 +583,7 @@ static int amdgpu_ttm_io_mem_reserve(struct ttm_device *bdev,
+>   			mem->bus.addr = (u8 *)adev->mman.vram_aper_base_kaddr +
 >   					mem->bus.offset;
 >   
->   		mem->bus.offset += adev->gmc.aper_base;
+> -		mem->bus.offset += adev->gmc.aper_base;
+> +		mem->bus.offset += adev->gmc.vram_aper_base;
+>   		mem->bus.is_iomem = true;
+>   		break;
+>   	default:
+> @@ -600,7 +600,7 @@ static unsigned long amdgpu_ttm_io_mem_pfn(struct ttm_buffer_object *bo,
+>   
+>   	amdgpu_res_first(bo->resource, (u64)page_offset << PAGE_SHIFT, 0,
+>   			 &cursor);
+> -	return (adev->gmc.aper_base + cursor.start) >> PAGE_SHIFT;
+> +	return (adev->gmc.vram_aper_base + cursor.start) >> PAGE_SHIFT;
+>   }
+>   
+>   /**
 > @@ -1752,12 +1752,12 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
 >   #ifdef CONFIG_64BIT
 >   #ifdef CONFIG_X86
 >   	if (adev->gmc.xgmi.connected_to_cpu)
-> -		adev->mman.aper_base_kaddr = ioremap_cache(adev->gmc.aper_base,
-> +		adev->mman.vram_aper_base_kaddr = ioremap_cache(adev->gmc.aper_base,
+> -		adev->mman.vram_aper_base_kaddr = ioremap_cache(adev->gmc.aper_base,
+> +		adev->mman.vram_aper_base_kaddr = ioremap_cache(adev->gmc.vram_aper_base,
 >   				adev->gmc.visible_vram_size);
 >   
 >   	else
 >   #endif
-> -		adev->mman.aper_base_kaddr = ioremap_wc(adev->gmc.aper_base,
-> +		adev->mman.vram_aper_base_kaddr = ioremap_wc(adev->gmc.aper_base,
+> -		adev->mman.vram_aper_base_kaddr = ioremap_wc(adev->gmc.aper_base,
+> +		adev->mman.vram_aper_base_kaddr = ioremap_wc(adev->gmc.vram_aper_base,
 >   				adev->gmc.visible_vram_size);
 >   #endif
 >   
-> @@ -1904,9 +1904,9 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
->   
->   	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
->   
-> -		if (adev->mman.aper_base_kaddr)
-> -			iounmap(adev->mman.aper_base_kaddr);
-> -		adev->mman.aper_base_kaddr = NULL;
-> +		if (adev->mman.vram_aper_base_kaddr)
-> +			iounmap(adev->mman.vram_aper_base_kaddr);
-> +		adev->mman.vram_aper_base_kaddr = NULL;
->   
->   		drm_dev_exit(idx);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> index 21e46817d82d..b2e4f4f06bdb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+> @@ -825,18 +825,18 @@ static int gmc_v10_0_mc_init(struct amdgpu_device *adev)
+>   		if (r)
+>   			return r;
 >   	}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> index 1061447befc6..020ebba5a51a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> @@ -50,7 +50,7 @@ struct amdgpu_gtt_mgr {
->   struct amdgpu_mman {
->   	struct ttm_device		bdev;
->   	bool				initialized;
-> -	void __iomem			*aper_base_kaddr;
-> +	void __iomem			*vram_aper_base_kaddr;
+> -	adev->gmc.aper_base = pci_resource_start(adev->pdev, 0);
+> -	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
+> +	adev->gmc.vram_aper_base = pci_resource_start(adev->pdev, 0);
+> +	adev->gmc.vram_aper_size = pci_resource_len(adev->pdev, 0);
 >   
->   	/* buffer handling */
->   	const struct amdgpu_buffer_funcs	*buffer_funcs;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> index bd3e3e23a939..f39d4f593a2f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> @@ -611,10 +611,10 @@ static int psp_v11_0_memory_training(struct psp_context *psp, uint32_t ops)
->   		 */
->   		sz = GDDR6_MEM_TRAINING_ENCROACHED_SIZE;
+>   #ifdef CONFIG_X86_64
+>   	if ((adev->flags & AMD_IS_APU) && !amdgpu_passthrough(adev)) {
+> -		adev->gmc.aper_base = adev->gfxhub.funcs->get_mc_fb_offset(adev);
+> -		adev->gmc.aper_size = adev->gmc.real_vram_size;
+> +		adev->gmc.vram_aper_base = adev->gfxhub.funcs->get_mc_fb_offset(adev);
+> +		adev->gmc.vram_aper_size = adev->gmc.real_vram_size;
+>   	}
+>   #endif
 >   
-> -		if (adev->gmc.visible_vram_size < sz || !adev->mman.aper_base_kaddr) {
-> -			DRM_ERROR("visible_vram_size %llx or aper_base_kaddr %p is not initialized.\n",
-> +		if (adev->gmc.visible_vram_size < sz || !adev->mman.vram_aper_base_kaddr) {
-> +			DRM_ERROR("visible_vram_size %llx or vram_aper_base_kaddr %p is not initialized.\n",
->   				  adev->gmc.visible_vram_size,
-> -				  adev->mman.aper_base_kaddr);
-> +				  adev->mman.vram_aper_base_kaddr);
->   			return -EINVAL;
->   		}
+>   	/* In case the PCI BAR is larger than the actual amount of vram */
+> -	adev->gmc.visible_vram_size = adev->gmc.aper_size;
+> +	adev->gmc.visible_vram_size = adev->gmc.vram_aper_size;
+>   	if (adev->gmc.visible_vram_size > adev->gmc.real_vram_size)
+>   		adev->gmc.visible_vram_size = adev->gmc.real_vram_size;
 >   
-> @@ -625,7 +625,7 @@ static int psp_v11_0_memory_training(struct psp_context *psp, uint32_t ops)
->   		}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> index 4326078689cd..f993ce264c3f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> @@ -692,17 +692,17 @@ static int gmc_v11_0_mc_init(struct amdgpu_device *adev)
+>   		if (r)
+>   			return r;
+>   	}
+> -	adev->gmc.aper_base = pci_resource_start(adev->pdev, 0);
+> -	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
+> +	adev->gmc.vram_aper_base = pci_resource_start(adev->pdev, 0);
+> +	adev->gmc.vram_aper_size = pci_resource_len(adev->pdev, 0);
 >   
->   		if (drm_dev_enter(adev_to_drm(adev), &idx)) {
-> -			memcpy_fromio(buf, adev->mman.aper_base_kaddr, sz);
-> +			memcpy_fromio(buf, adev->mman.vram_aper_base_kaddr, sz);
->   			ret = psp_v11_0_memory_training_send_msg(psp, PSP_BL__DRAM_LONG_TRAIN);
->   			if (ret) {
->   				DRM_ERROR("Send long training msg failed.\n");
-> @@ -634,7 +634,7 @@ static int psp_v11_0_memory_training(struct psp_context *psp, uint32_t ops)
->   				return ret;
->   			}
+>   #ifdef CONFIG_X86_64
+>   	if ((adev->flags & AMD_IS_APU) && !amdgpu_passthrough(adev)) {
+> -		adev->gmc.aper_base = adev->mmhub.funcs->get_mc_fb_offset(adev);
+> -		adev->gmc.aper_size = adev->gmc.real_vram_size;
+> +		adev->gmc.vram_aper_base = adev->mmhub.funcs->get_mc_fb_offset(adev);
+> +		adev->gmc.vram_aper_size = adev->gmc.real_vram_size;
+>   	}
+>   #endif
+>   	/* In case the PCI BAR is larger than the actual amount of vram */
+> -	adev->gmc.visible_vram_size = adev->gmc.aper_size;
+> +	adev->gmc.visible_vram_size = adev->gmc.vram_aper_size;
+>   	if (adev->gmc.visible_vram_size > adev->gmc.real_vram_size)
+>   		adev->gmc.visible_vram_size = adev->gmc.real_vram_size;
 >   
-> -			memcpy_toio(adev->mman.aper_base_kaddr, buf, sz);
-> +			memcpy_toio(adev->mman.vram_aper_base_kaddr, buf, sz);
->   			adev->hdp.funcs->flush_hdp(adev, NULL);
->   			vfree(buf);
->   			drm_dev_exit(idx);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-> index e6a26a7e5e5e..9605c0971c11 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-> @@ -510,10 +510,10 @@ static int psp_v13_0_memory_training(struct psp_context *psp, uint32_t ops)
->   		 */
->   		sz = GDDR6_MEM_TRAINING_ENCROACHED_SIZE;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+> index ec291d28edff..cd159309e9e5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+> @@ -324,9 +324,9 @@ static int gmc_v6_0_mc_init(struct amdgpu_device *adev)
+>   		if (r)
+>   			return r;
+>   	}
+> -	adev->gmc.aper_base = pci_resource_start(adev->pdev, 0);
+> -	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
+> -	adev->gmc.visible_vram_size = adev->gmc.aper_size;
+> +	adev->gmc.vram_aper_base = pci_resource_start(adev->pdev, 0);
+> +	adev->gmc.vram_aper_size = pci_resource_len(adev->pdev, 0);
+> +	adev->gmc.visible_vram_size = adev->gmc.vram_aper_size;
 >   
-> -		if (adev->gmc.visible_vram_size < sz || !adev->mman.aper_base_kaddr) {
-> -			dev_err(adev->dev, "visible_vram_size %llx or aper_base_kaddr %p is not initialized.\n",
-> +		if (adev->gmc.visible_vram_size < sz || !adev->mman.vram_aper_base_kaddr) {
-> +			dev_err(adev->dev, "visible_vram_size %llx or vram_aper_base_kaddr %p is not initialized.\n",
->   				  adev->gmc.visible_vram_size,
-> -				  adev->mman.aper_base_kaddr);
-> +				  adev->mman.vram_aper_base_kaddr);
->   			return -EINVAL;
->   		}
+>   	/* set the gart size */
+>   	if (amdgpu_gart_size == -1) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> index 979da6f510e8..8ee9731a0c8c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> @@ -377,20 +377,20 @@ static int gmc_v7_0_mc_init(struct amdgpu_device *adev)
+>   		if (r)
+>   			return r;
+>   	}
+> -	adev->gmc.aper_base = pci_resource_start(adev->pdev, 0);
+> -	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
+> +	adev->gmc.vram_aper_base = pci_resource_start(adev->pdev, 0);
+> +	adev->gmc.vram_aper_size = pci_resource_len(adev->pdev, 0);
 >   
-> @@ -524,7 +524,7 @@ static int psp_v13_0_memory_training(struct psp_context *psp, uint32_t ops)
->   		}
+>   #ifdef CONFIG_X86_64
+>   	if ((adev->flags & AMD_IS_APU) &&
+> -	    adev->gmc.real_vram_size > adev->gmc.aper_size &&
+> +	    adev->gmc.real_vram_size > adev->gmc.vram_aper_size &&
+>   	    !amdgpu_passthrough(adev)) {
+> -		adev->gmc.aper_base = ((u64)RREG32(mmMC_VM_FB_OFFSET)) << 22;
+> -		adev->gmc.aper_size = adev->gmc.real_vram_size;
+> +		adev->gmc.vram_aper_base = ((u64)RREG32(mmMC_VM_FB_OFFSET)) << 22;
+> +		adev->gmc.vram_aper_size = adev->gmc.real_vram_size;
+>   	}
+>   #endif
 >   
->   		if (drm_dev_enter(adev_to_drm(adev), &idx)) {
-> -			memcpy_fromio(buf, adev->mman.aper_base_kaddr, sz);
-> +			memcpy_fromio(buf, adev->mman.vram_aper_base_kaddr, sz);
->   			ret = psp_v13_0_memory_training_send_msg(psp, PSP_BL__DRAM_LONG_TRAIN);
->   			if (ret) {
->   				DRM_ERROR("Send long training msg failed.\n");
-> @@ -533,7 +533,7 @@ static int psp_v13_0_memory_training(struct psp_context *psp, uint32_t ops)
->   				return ret;
->   			}
+>   	/* In case the PCI BAR is larger than the actual amount of vram */
+> -	adev->gmc.visible_vram_size = adev->gmc.aper_size;
+> +	adev->gmc.visible_vram_size = adev->gmc.vram_aper_size;
+>   	if (adev->gmc.visible_vram_size > adev->gmc.real_vram_size)
+>   		adev->gmc.visible_vram_size = adev->gmc.real_vram_size;
 >   
-> -			memcpy_toio(adev->mman.aper_base_kaddr, buf, sz);
-> +			memcpy_toio(adev->mman.vram_aper_base_kaddr, buf, sz);
->   			adev->hdp.funcs->flush_hdp(adev, NULL);
->   			vfree(buf);
->   			drm_dev_exit(idx);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> index 382dde1ce74c..259d797358f1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> @@ -577,18 +577,18 @@ static int gmc_v8_0_mc_init(struct amdgpu_device *adev)
+>   		if (r)
+>   			return r;
+>   	}
+> -	adev->gmc.aper_base = pci_resource_start(adev->pdev, 0);
+> -	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
+> +	adev->gmc.vram_aper_base = pci_resource_start(adev->pdev, 0);
+> +	adev->gmc.vram_aper_size = pci_resource_len(adev->pdev, 0);
+>   
+>   #ifdef CONFIG_X86_64
+>   	if ((adev->flags & AMD_IS_APU) && !amdgpu_passthrough(adev)) {
+> -		adev->gmc.aper_base = ((u64)RREG32(mmMC_VM_FB_OFFSET)) << 22;
+> -		adev->gmc.aper_size = adev->gmc.real_vram_size;
+> +		adev->gmc.vram_aper_base = ((u64)RREG32(mmMC_VM_FB_OFFSET)) << 22;
+> +		adev->gmc.vram_aper_size = adev->gmc.real_vram_size;
+>   	}
+>   #endif
+>   
+>   	/* In case the PCI BAR is larger than the actual amount of vram */
+> -	adev->gmc.visible_vram_size = adev->gmc.aper_size;
+> +	adev->gmc.visible_vram_size = adev->gmc.vram_aper_size;
+>   	if (adev->gmc.visible_vram_size > adev->gmc.real_vram_size)
+>   		adev->gmc.visible_vram_size = adev->gmc.real_vram_size;
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> index 08d6cf79fb15..a7074995d97e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -1509,8 +1509,8 @@ static int gmc_v9_0_mc_init(struct amdgpu_device *adev)
+>   		if (r)
+>   			return r;
+>   	}
+> -	adev->gmc.aper_base = pci_resource_start(adev->pdev, 0);
+> -	adev->gmc.aper_size = pci_resource_len(adev->pdev, 0);
+> +	adev->gmc.vram_aper_base = pci_resource_start(adev->pdev, 0);
+> +	adev->gmc.vram_aper_size = pci_resource_len(adev->pdev, 0);
+>   
+>   #ifdef CONFIG_X86_64
+>   	/*
+> @@ -1528,16 +1528,16 @@ static int gmc_v9_0_mc_init(struct amdgpu_device *adev)
+>   	if (((adev->flags & AMD_IS_APU) && !amdgpu_passthrough(adev)) ||
+>   	    (adev->gmc.xgmi.supported &&
+>   	     adev->gmc.xgmi.connected_to_cpu)) {
+> -		adev->gmc.aper_base =
+> +		adev->gmc.vram_aper_base =
+>   			adev->gfxhub.funcs->get_mc_fb_offset(adev) +
+>   			adev->gmc.xgmi.physical_node_id *
+>   			adev->gmc.xgmi.node_segment_size;
+> -		adev->gmc.aper_size = adev->gmc.real_vram_size;
+> +		adev->gmc.vram_aper_size = adev->gmc.real_vram_size;
+>   	}
+>   
+>   #endif
+>   	/* In case the PCI BAR is larger than the actual amount of vram */
+> -	adev->gmc.visible_vram_size = adev->gmc.aper_size;
+> +	adev->gmc.visible_vram_size = adev->gmc.vram_aper_size;
+>   	if (adev->gmc.visible_vram_size > adev->gmc.real_vram_size)
+>   		adev->gmc.visible_vram_size = adev->gmc.real_vram_size;
+>   
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> index 10048ce16aea..c86c6705b470 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> @@ -1002,8 +1002,8 @@ int svm_migrate_init(struct amdgpu_device *adev)
+>   	 */
+>   	size = ALIGN(adev->gmc.real_vram_size, 2ULL << 20);
+>   	if (adev->gmc.xgmi.connected_to_cpu) {
+> -		pgmap->range.start = adev->gmc.aper_base;
+> -		pgmap->range.end = adev->gmc.aper_base + adev->gmc.aper_size - 1;
+> +		pgmap->range.start = adev->gmc.vram_aper_base;
+> +		pgmap->range.end = adev->gmc.vram_aper_base + adev->gmc.vram_aper_size - 1;
+>   		pgmap->type = MEMORY_DEVICE_COHERENT;
+>   	} else {
+>   		res = devm_request_free_mem_region(adev->dev, &iomem_resource, size);
 
