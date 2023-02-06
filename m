@@ -4,65 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E0EDC61DA4
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Feb 2023 09:05:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E81C0C61DA4
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Feb 2023 09:47:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2ADC810E165;
-	Mon,  6 Feb 2023 09:05:27 +0000 (UTC)
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F245010E165
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Feb 2023 09:05:25 +0000 (UTC)
-Received: by mail-wr1-x42e.google.com with SMTP id k13so2241480wrh.8
- for <amd-gfx@lists.freedesktop.org>; Mon, 06 Feb 2023 01:05:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=1J0JUS1qL9f3qLMn0MlBLAV2XA1i/PE4jSoGrKMow6Q=;
- b=HkFupsagGjFcwVUuzj9Jdev2TdJiXHkupmWZuvpJf7ahnrxk4c6M85+/RM0QHr2+am
- HnbFfY9F/N0oLGeTMiH+zhxm4TuTC8Ftiu/wyds15gaV104w41evRCTknnAtFkevFs4G
- 6MNCY8DlHea9tddfnxgxBYBleYCUfuM+7T/tLd85aPiC90VqVtJoXY/AOhlxcdZMeSex
- +9H6YLqgIupNJzVo9xfdoTMNEpfiIY+YRkXlkJikY0AseIeGIFCpqcRjc6ISnpzMiPH2
- nd+I++64QTd+IFYrXaHVn35EQtaLa/QW7F/wGFtyFTSgYvd1FkAg8lek63wlTPphXAT9
- 13bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=1J0JUS1qL9f3qLMn0MlBLAV2XA1i/PE4jSoGrKMow6Q=;
- b=dTM8mu8NgCF7/zOmJ+5DLRtaPOb8Aqfac4CyN+53bIyIto3Q9Uw77G8akquJGGOyMx
- bICH/+RQh3ECqKlglEmItSN/MfYU+RCty7/Wi8wpYFvQUPIaTaFABjgLHN1nwX4cP5sS
- s2OWwtCO8nX/way2NWkfBjuO/Y8rRh3YTRLDLHN1QS7g+gY2ksUFE1GFRcXfaQT+kDZG
- 3uI7Qo7NAII/6JWFzPW7nzDYzD34H4TERUprk/lU7H3CQMR/c59J7yf7CcskvDDyDI+a
- KvyLy9BZs+gIlbLU+24h6UHj6gW8TypavIAYMw9K4uOzEFvK3dQkGkVU2Z7ODb2I6cs4
- 7IEQ==
-X-Gm-Message-State: AO0yUKV9r9upvPQpEDbj2kwgFlOacMBWgoFsabrrP4HzcOiTAKSN95tZ
- TlRZrXq7Dl7L9D9WZFug82k=
-X-Google-Smtp-Source: AK7set9HMZRt8m6DIkQC/uJxaZmX0NbcbIs0qA0k47d/om9RfPy0JxqpVPqxPhR3XD5XmWptZehq7Q==
-X-Received: by 2002:a05:6000:1ce:b0:2bf:bf32:70c with SMTP id
- t14-20020a05600001ce00b002bfbf32070cmr14839172wrx.47.1675674324535; 
- Mon, 06 Feb 2023 01:05:24 -0800 (PST)
-Received: from [192.168.178.21] (p5b0ea2e7.dip0.t-ipconnect.de.
- [91.14.162.231]) by smtp.gmail.com with ESMTPSA id
- k10-20020a5d6e8a000000b002bdda9856b5sm8336379wrz.50.2023.02.06.01.05.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Feb 2023 01:05:24 -0800 (PST)
-Message-ID: <3c2f16a9-64f2-9124-afc4-43af37fb82fa@gmail.com>
-Date: Mon, 6 Feb 2023 10:05:22 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69BBF10E34A;
+	Mon,  6 Feb 2023 09:47:51 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 985E710E34A;
+ Mon,  6 Feb 2023 09:47:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1675676869; x=1707212869;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=PLpTmQKz7FwE7Jo1cFuNVsyIBXxXdNCCxyQKsDeWLlw=;
+ b=abGXL7jkafSaFXTAJFF3XqIYAnhGMVBqY7SkHP4QqytFhIn/NV9ny+2V
+ sOpgZEtExL22x5BVPaPUk/rgtTFt61MZCUju7jLG8k9Xhvv6DipFU68tA
+ eCMnv85OHF/idU644cWG4mJUKlIwKP3KurOlBtIMKv7LQK9m0qo2DsphN
+ AXPteLfn1XqPkJbLNkwlaIqqDm29QQhicKOl5R0igT0Z3bwnYLp0JdXlw
+ cioLNtQh/N9Vd9G6mTMQ/Clq5Lkd/Ji87p8PoB/bEFfC3/j/WEZLjRjt8
+ 8duQNlMArF0tBM/ezOGkUIz65urEXXEkDzJUgfpAxmygvX0vU3waFxlwo g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10612"; a="308811077"
+X-IronPort-AV: E=Sophos;i="5.97,276,1669104000"; d="scan'208";a="308811077"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Feb 2023 01:47:49 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10612"; a="729954951"
+X-IronPort-AV: E=Sophos;i="5.97,276,1669104000"; d="scan'208";a="729954951"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.55])
+ by fmsmga008.fm.intel.com with SMTP; 06 Feb 2023 01:47:45 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Mon, 06 Feb 2023 11:47:44 +0200
+Date: Mon, 6 Feb 2023 11:47:44 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Joshua Ashton <joshua@froggi.es>
+Subject: Re: [PATCH 3/3] drm/connector: Deprecate split for BT.2020 in
+ drm_colorspace enum
+Message-ID: <Y+DMwPu6IMVHsmpD@intel.com>
+References: <CA+hFU4ymiOg06MQeKLcn5MSrR=BZnOLODdZCFvGUdWqt_ha61A@mail.gmail.com>
+ <0fc18aec-0703-55f4-f635-d09d345e8dc0@amd.com>
+ <Y90l+DY0rSaMvN1U@intel.com>
+ <758e5cf6-53e0-567c-c760-5b773bc7a11c@amd.com>
+ <Y90vrEa3/1RbaGOV@intel.com>
+ <f9633729-2db0-3bf1-311d-f03bd04d47a6@amd.com>
+ <Y91Y98jyOimabC3O@intel.com> <Y91fsmgAx65koWI5@intel.com>
+ <Y91hyNAplv4nuW5Y@intel.com>
+ <a3d46b3a-ebd5-e02c-3db4-783f2a34b36c@froggi.es>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH] drm/amdgpu: expose more memory stats in fdinfo
-Content-Language: en-US
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
-References: <CAAxE2A6Y=++EP8vqzqjGQ3kfh2=JC7PKGoyJvfw9pFVL2UcNJg@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CAAxE2A6Y=++EP8vqzqjGQ3kfh2=JC7PKGoyJvfw9pFVL2UcNJg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <a3d46b3a-ebd5-e02c-3db4-783f2a34b36c@froggi.es>
+X-Patchwork-Hint: comment
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,36 +68,222 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Sebastian Wick <sebastian.wick@redhat.com>, amd-gfx@lists.freedesktop.org,
+ Pekka Paalanen <ppaalanen@gmail.com>, Uma Shankar <uma.shankar@intel.com>,
+ dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Just two nit picks:
+On Sat, Feb 04, 2023 at 06:09:45AM +0000, Joshua Ashton wrote:
+> 
+> 
+> On 2/3/23 19:34, Ville Syrjälä wrote:
+> > On Fri, Feb 03, 2023 at 09:25:38PM +0200, Ville Syrjälä wrote:
+> >> On Fri, Feb 03, 2023 at 08:56:55PM +0200, Ville Syrjälä wrote:
+> >>> On Fri, Feb 03, 2023 at 01:28:20PM -0500, Harry Wentland wrote:
+> >>>>
+> >>>>
+> >>>> On 2/3/23 11:00, Ville Syrjälä wrote:
+> >>>>> On Fri, Feb 03, 2023 at 10:24:52AM -0500, Harry Wentland wrote:
+> >>>>>>
+> >>>>>>
+> >>>>>> On 2/3/23 10:19, Ville Syrjälä wrote:
+> >>>>>>> On Fri, Feb 03, 2023 at 09:39:42AM -0500, Harry Wentland wrote:
+> >>>>>>>>
+> >>>>>>>>
+> >>>>>>>> On 2/3/23 07:59, Sebastian Wick wrote:
+> >>>>>>>>> On Fri, Feb 3, 2023 at 11:40 AM Ville Syrjälä
+> >>>>>>>>> <ville.syrjala@linux.intel.com> wrote:
+> >>>>>>>>>>
+> >>>>>>>>>> On Fri, Feb 03, 2023 at 02:07:44AM +0000, Joshua Ashton wrote:
+> >>>>>>>>>>> Userspace has no way of controlling or knowing the pixel encoding
+> >>>>>>>>>>> currently, so there is no way for it to ever get the right values here.
+> >>>>>>>>>>
+> >>>>>>>>>> That applies to a lot of the other values as well (they are
+> >>>>>>>>>> explicitly RGB or YCC). The idea was that this property sets the
+> >>>>>>>>>> infoframe/MSA/SDP value exactly, and other properties should be
+> >>>>>>>>>> added to for use userspace to control the pixel encoding/colorspace
+> >>>>>>>>>> conversion(if desired, or userspace just makes sure to
+> >>>>>>>>>> directly feed in correct kind of data).
+> >>>>>>>>>
+> >>>>>>>>> I'm all for getting userspace control over pixel encoding but even
+> >>>>>>>>> then the kernel always knows which pixel encoding is selected and
+> >>>>>>>>> which InfoFrame has to be sent. Is there a reason why userspace would
+> >>>>>>>>> want to control the variant explicitly to the wrong value?
+> >>>>>>>>>
+> >>>>>>>>
+> >>>>>>>> I've asked this before but haven't seen an answer: Is there an existing
+> >>>>>>>> upstream userspace project that makes use of this property (other than
+> >>>>>>>> what Joshua is working on in gamescope right now)? That would help us
+> >>>>>>>> understand the intent better.
+> >>>>>>>
+> >>>>>>> The intent was to control the infoframe colorimetry bits,
+> >>>>>>> nothing more. No idea what real userspace there was, if any.
+> 
+> Controlling the infoframe alone isn't useful at all unless you can 
+> guarantee the wire encoding, which we cannot do.
+> 
+> >>>>>>>
+> >>>>>>>>
+> >>>>>>>> I don't think giving userspace explicit control over the exact infoframe
+> >>>>>>>> values is the right thing to do.
+> 
+> +1
+> 
+> >>>>>>>
+> >>>>>>> Only userspace knows what kind of data it's stuffing into
+> >>>>>>> the pixels (and/or how it configures the csc units/etc.) to
+> >>>>>>> generate them.
+> >>>>>>>
+> >>>>>>
+> >>>>>> Yes, but userspace doesn't control or know whether we drive
+> >>>>>> RGB or YCbCr on the wire. In fact, in some cases our driver
+> >>>>>> needs to fallback to YCbCr420 for bandwidth reasons. There
+> >>>>>> is currently no way for userspace to know that and I don't
+> >>>>>> think it makes sense.
+> >>>>>
+> >>>>> People want that control as well for whatever reason. We've
+> >>>>> been asked to allow YCbCr 4:4:4 output many times.
+> >>>>>
+> >>>>> The automagic 4:2:0 fallback I think is rather fundementally
+> >>>>> incompatible with fancy color management. How would we even
+> >>>>> know whether to use eg. BT.2020 vs. BT.709 matrix? In i915
+> >>>>> that stuff is just always BT.709 limited range, no questions
+> >>>>> asked.
+> 
+> That's what the Colorspace property *should* be determining here.
+> That's what we have it set up to do in SteamOS/my tree right now.
+> 
+> >>>>>
+> >>>>
+> >>>> We use what we're telling the display, i.e., the value in the
+> >>>> colorspace property. That way we know whether to use a BT.2020
+> >>>> or BT.709 matrix.
+> >>>
+> >>> And given how these things have gone in the past I think
+> >>> that is likey to bite someone at in the future. Also not
+> >>> what this property was meant to do nor does on any other
+> >>> driver AFAIK.
+> >>>
+> >>>> I don't see how it's fundamentally incompatible with fancy
+> >>>> color management stuff.
+> >>>>
+> >>>> If we start forbidding drivers from falling back to YCbCr
+> >>>> (whether 4:4:4 or 4:2:0) we will break existing behavior on
+> >>>> amdgpu and will see bug reports.
+> >>>
+> >>> The compositors could deal with that if/when they start doing
+> >>> the full color management stuff. The current stuff only really
+> >>> works when the kernel is allowed to do whatever it wants.
+> >>>
+> >>>>
+> >>>>> So I think if userspace wants real color management it's
+> >>>>> going to have to set up the whole pipeline. And for that
+> >>>>> we need at least one new property to control the RGB->YCbCr
+> >>>>> conversion (or to explicitly avoid it).
+> 
+> I mentioned this in my commit description, we absolutely should offer 
+> fine control here eventually.
+> 
+> I don't think we need to solve that problem here though.
+> 
+> >>>>>
+> >>>>> And given that the proposed patch just swept all the
+> >>>>> non-BT.2020 issues under the rug makes me think no
+> >>>>> one has actually come up with any kind of consistent
+> >>>>> plan for anything else really.
+> >>>>>
+> >>>>
+> >>>> Does anyone actually use the non-BT.2020 colorspace stuff?
+> >>>
+> >>> No idea if anyone is using any of it. It's a bit hard to do
+> >>> right now outside the full passthrough case since we have no
+> >>> properties to control how the hardware will convert stuff.
+> 
+> No, every userspace knows that encoding of the output buffer before 
+> going to the wire format is RGB.
+> 
+> It's the only way you can have planes alpha-blend, or mix and match RGB 
+> and NV12, etc.
+> 
+> >>>
+> >>> Anyways, sounds like what you're basically proposing is
+> >>> getting rid of this property and starting from scratch.
+> >>
+> >> Hmm. I guess one option would be to add that property to
+> >> control the output encoding, but include a few extra
+> >> "automagic" values to it which would retain the kernel's
+> >> freedom to select whether to do the RGB->YCbCr conversion
+> >> or not.
+> >>
+> >> enum output_encoding {
+> >> 	auto rgb=default/nodata,ycbcr=bt601
+> >> 	auto rgb=default/nodata,ycbcr=bt709
+> >> 	auto rgb=bt2020,ycbcr=bt2020
+> >> 	passthrough,
+> >> 	rgb->ycbcr bt601,
+> >> 	rgb->ycbcr bt709,
+> >> 	rgb->ycbcr bt2020,
+> >> }
+> > 
+> > In fact there should perhaps be a lot more of the explicit
+> > options to get all subsamlings and quantizations ranges
+> > coverted. That might actually be really nice for an igt
+> > to get more full test coverage.
+> > 
+> The choice of encoding of the pixel on the wire should be unrelated to 
+> the overall output colorspace from the userspace side -- but how the 
+> display engine converts the output to that wire format *is* dependent on 
+> the colorspace.
+> eg. picking a rec.709 ctc vs a rec.2020 ctc matrix.
+> 
+> I see you are proposing a "passthrough" but that wouldn't work at all as 
+> you still need to at know if you are RGB or YCbCr for the infoframe and 
+> to perform chroma subsampling in the display engine.
 
-+    seq_printf(m, "drm-evicted-visible-vram:\t%llu KiB\n",
-+           stats.evicted_visible_vram/1024UL);
+The passthrough (and other knobs after it) were meant for 
+explicit control, which means they wouldn't affect infoframes.
 
-For the values not standardized for all DRM drivers we might want to use 
-amd as prefix here instead of drm.
+But probably we should have seprate properties for explicit
+control of each knob vs. some kind of easier to use property.
+And I suppose we can still leave the explicit control stuff
+for later (apart from the one property we already have).
 
-+    uint64_t requested_gtt;        /* how much userspace asked for */
+> 
+> I perused the initial patches that added this property, and it seems 
+> there were no IGT tests or userspace implementation, so I am not 
+> entirely sure why it was committed in the first place.
 
-We used to have automated checkers complaining about comments after members.
+I presume at least the kodi HDR stuff uses ths. There may
+have also been some chromeos stuff going on. Can't recall
+anymore.
 
-Kerneldoc complicent comments look like this:
+As for IGT, there's nothing we can really test since we 
+have no way to get the inforframes/etc. back from the sink.
+Hence nothing beyond the normal kms_property sanity checks
+really makes sense.
 
-                 /* @timestamp replaced by @rcu on dma_fence_release() */
-                 struct rcu_head rcu;
+> 
+> Nobody can safely use Colorspace because of this problem right now.
+> 
+> If nobody is using this property, perhaps we could just get a fresh 
+> start, and either re-purpose it with new enum values, or obsolete it and 
+> make a new property.
+> If we do this, let's start with the absolute bare minimum, such as:
+> "Default/Rec.709 (sRGB), BT.2020"
+> and then grow as we need, making sure we have the full circle from 
+> userspace->output complete and working for each new value we add.
 
-Apart from that looks good to me.
+Yeah, I think a fresh property is what we want.
 
-Regards,
-Christian.
+> 
+> Please don't take this as me saying we shouldn't add all these other 
+> options like opRGB, etc, I just want us to progress to a solid base for 
+> expanding further here, which we really don't have right now.
+> 
+> - Joshie 🐸✨
 
-Am 30.01.23 um 07:56 schrieb Marek Olšák:
-> Hi,
->
-> This will be used for performance investigations. The patch is attached.
->
-> Thanks,
-> Marek
-
+-- 
+Ville Syrjälä
+Intel
