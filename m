@@ -4,59 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F09D5C636D4
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Feb 2023 16:30:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E958C05027
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Feb 2023 16:30:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51B5E10E40B;
-	Mon,  6 Feb 2023 16:30:24 +0000 (UTC)
-Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
- [IPv6:2001:4860:4864:20::32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 491F710E40B
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Feb 2023 16:30:22 +0000 (UTC)
-Received: by mail-oa1-x32.google.com with SMTP id
- 586e51a60fabf-16a27344a17so6383828fac.4
- for <amd-gfx@lists.freedesktop.org>; Mon, 06 Feb 2023 08:30:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=uGgBD+fRIPT6GMwuQsq3uggiIEmseaUMqxHVVV0kVSg=;
- b=P8rV+naST7smIC4BXO6SJ/yIfNNKvzmeyjMrhvnDxUzjqp5jzJulAixIym/UUinRN6
- bfmyNd1S4Chxm040/P4ABMSWe+D/glP7e7aJBj3BGfOJ65qQVK/QBE3XGpNGZ2gdNVOA
- O8Bz7aMT01Fsxb4cAC7J+nytjVX5JfuUUvrb/2ThI0vOnQeMC3AMDoiy//rr7LO01LSt
- 1G7kC6ctA4yf0qBOjNpsNAgJog7A5HLvhZ4DIIJCLG5UJpLhQOc32POH0zRjtiOLZNPk
- rqI8b4g9l8JoGk14GlUiL7vWHr1RRFnTraA7cw63SZRBtDS0wuc5m+r0nJClS/d75/p8
- oVuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=uGgBD+fRIPT6GMwuQsq3uggiIEmseaUMqxHVVV0kVSg=;
- b=ZJMN1mgS7zD5HbBJWoXlL2oD3SDvZAOMMg2EoNECrNaq27A3/SPKvuENd+wwAs4kWL
- k8yYeYuImA01tcUDwBt33DW3Eg2HSbBonPI7KpdmVJijygddVQd+JhCUsws3zD1kxIVf
- I6OsFELcVNYjvhLNP7bVXMUwtm4k+ESala1cIB166oj6Z+sB22Iwk08Xagtc2eTP3Ba+
- PeSy8iHpuy71K3fvbyeQSXukrLY0qoVCsXc/X/jX2J1n5/coAmPqU7oGg91cH8PHGhce
- XYeyekXCFfXw2ikhHZDgoaNLGv1lVHFbV8Uz7HRGBFKj25G+gKsGqAtSu+qovLr/U6ug
- GklQ==
-X-Gm-Message-State: AO0yUKXeIoao1Tcsl6g1qBoeC+NPOI4RCy9gVmMhQlpfy628fCmqXvC+
- w3w7vOCzrY5dNaYOeRi2c7OwKXAzMHIp5PO+x3eGEC1U
-X-Google-Smtp-Source: AK7set8nCkrXwFktlKQey46fw1kUb2HJUotG3TA6VyYoqyoRVq8Nul3iB+iu77XJSeVevsAyYIPuT7C2AfaCkBllh4w=
-X-Received: by 2002:a05:6870:891f:b0:163:8cc6:86a with SMTP id
- i31-20020a056870891f00b001638cc6086amr2143526oao.46.1675701021351; Mon, 06
- Feb 2023 08:30:21 -0800 (PST)
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C4F210E16E;
+	Mon,  6 Feb 2023 16:30:35 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC54810E16E
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Feb 2023 16:30:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hcK5bzji/3fTzH6W5+huKVdumS3DZ9w3lSiGbjD1jMlTZa8Rs7pJfHHs7HF7TgQ4qo5abxCTGgZOIxuJLMxeGFx3V5SXNbqtFCxU+1XBmgdrNJ65LxNBYH+B54uAYJL+LV2DUUahPLFD1PtlxW8uA96KwnMkDO1VcyHarx2rukgXRj9VJhJFZb/HKcqx+t+RtCp14vzE/X8mSIiJkHdjwFbShblA2Oaw3Q2qAe0XKeZOmDTezq1U9AWZVJ5eiloaCFhPUjJE4z453CQBP9GzibStCy9Dx5+FfB8S96BOJwe3yprXTp+7mOx5Rx31RHNpqReb7S0xMaCQa+VwbP+iuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=67xUMAJ0Bi6jdBtQmBcfqcyFWE/T9I5GO0yAZG865OI=;
+ b=IkfR4DtDAqlj+UmlYrIVtYyy70fdy44XfrZeGl7Z3v8nMCuVhZ2zvnSSkDo0XQ9mACBInAoHSLwvgfpsKyMTSWnlKz18nBd7puHA1cfP/QDV3k2qXfD6H3f1K8aItiB+1srCQnk8Jv90B3EscpFJdAqT8+yGBYnL+VgTjWDnatWgYO/KSMqkSJXzXVquNHeOtrdsS7jt2SYLtVqttNO5SPY5j+FpiYrOaFWpL6Fq2PrIKEkMd9fDzE9UNzGTY8C8XtVC5DjRlxgT/vVmQ6o//hxN8DrCt+jKi6t56xeMFvCLv7uRAsqpWYgiVKha4KC1r6v+0fC06RZlsLEWSDcjCQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=67xUMAJ0Bi6jdBtQmBcfqcyFWE/T9I5GO0yAZG865OI=;
+ b=BZaSnyz9OyKgyGHrAVuOMNf2He9cM5amhiZ2JkNJM20kzYuXfhmvwmCO0QY+HDa0q1mxKokKIRful06pz+Kf3gHMkyz480zURHxY04joKUGVc8MiKw9gWCfdoLbec/tKWry11s0d36TDbbKogXahjKPrzbsSnNxgfdpb5VcH2Yg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by CH3PR12MB7546.namprd12.prod.outlook.com (2603:10b6:610:149::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.34; Mon, 6 Feb
+ 2023 16:30:31 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::2e4f:4041:28be:ba7a]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::2e4f:4041:28be:ba7a%6]) with mapi id 15.20.6064.032; Mon, 6 Feb 2023
+ 16:30:31 +0000
+Message-ID: <423becc1-5bdd-a50c-16b7-cffb66cb833f@amd.com>
+Date: Mon, 6 Feb 2023 17:30:23 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH 10/13] drm/amdgpu: doorbell support in get_memory functions
+Content-Language: en-US
+To: Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20230203190836.1987-1-shashank.sharma@amd.com>
- <20230203190836.1987-10-shashank.sharma@amd.com>
- <ba704ad1-b4e4-e376-ee93-dc9b9e4e97a2@amd.com>
-In-Reply-To: <ba704ad1-b4e4-e376-ee93-dc9b9e4e97a2@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 6 Feb 2023 11:30:09 -0500
-Message-ID: <CADnq5_PFapb1a19ceYA2ACewm8Y0VQ3aOy8NBdDdvpNg5ZVa_A@mail.gmail.com>
-Subject: Re: [PATCH 09/13] drm/amdgpu: accommodate DOMAIN/PL_DOORBELL
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ <20230203190836.1987-13-shashank.sharma@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20230203190836.1987-13-shashank.sharma@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0042.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:92::15) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|CH3PR12MB7546:EE_
+X-MS-Office365-Filtering-Correlation-Id: 40467fb1-63d7-4090-de04-08db085f7686
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 14kVd3jz7oFy1icRp14TiEeLHKTZN9khY131yooKGvYzHlBRolCPEvmGSB5+cEuXfLht0I7324xcA+JPnxjV0gbszlCOe4NSVEAUQIXs6X/09/JUPFQZz6l/61ZcvWGH+2I8P7LZQqY9C89tjMWGKhRf7jOKxa1WQ/qdSF6E7/xmwSup+9Mg4j5iTTKAJq3Xt5wAs5RnbJ7DmzgUjkBr4JDfuDrDY6PWmbJEJIGzfyOUUu3D3eOMCsXw0KoEYxRe1PKQcrgF5Cgz7duk+/tdlhQMr6HHZfmx90XcJ7suyiiUZDZJ1BdggS07bB3yrzgn1YU7Ig+HPtb+ej3UFBCPN+Pe1yeWTeIzRIE/gXeURbeSsTkJ2A1rAHOk/eWm4aRBHbZnqYmIQ9fa2fuPOUdIHxXKnBMj9aOGG+sA9sujqX0FY7/RiTkzuKrDZfUVdHWcChWPftVEFAxdFnaeb+OjBqxhOW/stIqb0cw+zH9yit3c23E8UpKI6X8R1xoqQdUw+1svlLcsj26Tk/oprKXEawzjQ3nIKus74pkygeAw6jT7FL3dm45dCwnt4q+JpXz1NUCS521gXETsy3hwBo33pmH0DY4NvtejTPDm5qFGpqfdexnoFsCY1hh3dNJt9ctbEtrz/jifWD/uFFAqtxJlbPkD74rAnVyEDDSxi0YBtgbkXITLNB9QKPF9Vf/FEMqKeSYPXIx8mVeCSCOaZ7gppfxRAP+v6L3sb462VkRV+ZI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(346002)(396003)(39860400002)(376002)(366004)(136003)(451199018)(8936002)(4326008)(6512007)(8676002)(31686004)(41300700001)(66476007)(66556008)(66946007)(186003)(5660300002)(6506007)(2906002)(478600001)(6486002)(36756003)(316002)(31696002)(86362001)(83380400001)(2616005)(6666004)(38100700002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a2UyZnN1L2NNZG5TZFJyQmNaSTVWU2JDVTcxNFkvRU5ra3RNZGJ3OS9kOHBo?=
+ =?utf-8?B?SlNGL1YxeXlpOHI0MFZvQThaS0pSaVhDTjBGQVk1SC9QRUhpT2ZYMU5qckRZ?=
+ =?utf-8?B?RkNGZmk1b2ZTQ214K05ZZ2k3OENKcWpqWWo2blp6NU9jNVplZUVYWndDb2V4?=
+ =?utf-8?B?RFhJS00zbjV3UDlpZjVqNVRxcUxReXhPS0ZlT3NkbVl0TWNsc1BtdjNsTWpP?=
+ =?utf-8?B?Z3pJVEMzMStCODA0RSs1ajJYNmlCY01mYWpuOVlwL1ZYZ240azA2NmlUb1ZX?=
+ =?utf-8?B?Tk0wVDRQd2F3ajNmSDlUSFpTaXM1cjE3RURpNkROSnZWWmRFMjlLbUxXY2xm?=
+ =?utf-8?B?N0tFYVliRGlkNW83TWdSd01YL3pvYXE3OUUveFVFRi9mMnZiMCs5aUxlcGts?=
+ =?utf-8?B?Rk53VThRUTh0aHFZYnQzS2lMMDlxald0ZXhTVXBmRG9LWnFIRm5sdTZGQVZ5?=
+ =?utf-8?B?dFJXYndtWkYvOXlhS0R0b3FFU1l2OE1tUHhCMisrT2FGZG5kNlNCbERMa3dY?=
+ =?utf-8?B?UXpvT1lCY2lZZUFRcGMzOWMrUk54YkNpS1VPVTBza1UybzZ1ajU2dUZJdHR6?=
+ =?utf-8?B?aDB5NGJWcDVkMmp1OVM1UGpkNkh5QmE0WFJvTVZNeFc4bW9kdFlYNHZwaEcx?=
+ =?utf-8?B?dFk0VVdKUVpEZDFMZnRZZkN5ekVFVGU0T1VENElvTTdRUS9jVVVQNThveWlw?=
+ =?utf-8?B?VVVtT2lTcnkwVmtraWJzQzNKMkxodVBQQkpacjkvVmk4U0xhVUFGWWEyZm9s?=
+ =?utf-8?B?OElPamQ5YXduVG1VcUJiNFcyUUc1Z2dYUDJkaXRvVGh0ZmNyb3hoblozb1U3?=
+ =?utf-8?B?S0ZYQUY1RVVpWG9wc0E5dDAwd0xxL2E0dDBpTnhqMEtmTHlGV2dWM2JJb04z?=
+ =?utf-8?B?K1pjMllrU2E4TnJnVmhpcUpkekN0WERBZ1VmWHRaTGpxaXkwaGJzc1ZuZ3hY?=
+ =?utf-8?B?YmtFb0VFSXV6cFZBQlNSOTlnaERYT25DVzd1Nk9uVncvWGJ5NlVobmpCRWlx?=
+ =?utf-8?B?Z1dQSHRBUXZJS3huN2Z6MHVpTXBJUzhJM1hydkQrSlFScFkzUGpQQnZtMzly?=
+ =?utf-8?B?K0tpTEw2aUErK1RmUklZYVdxY1FHWmxDcHV1S0ZaQTMrQWNnZ1RkR2N5V2kv?=
+ =?utf-8?B?SGtpRDBvL1hkR21YeFBNWVh2Z3hsLzEyOWV0YlF5blU0UDVuTmZPV0E2Y0lv?=
+ =?utf-8?B?UjNGbnExdzM4dzRUanVzNmFiNjc0dUYvblljV21iNlpXOUZwaU5Ca01yZWZ1?=
+ =?utf-8?B?Z1RSTDZ5cWlNekVCYUtJK0p5SWswQTh5NzB1VU4xb3UrSFd0VUlTZWV1b3Bm?=
+ =?utf-8?B?c1c5eDhBL2RKdUNubUJma01VRGxwZ2E2MnlJVmtsWEU1cnlqTGlYSVg0N2xw?=
+ =?utf-8?B?dEUrZ1JDNmhnUEU5WjZrQ0JrNExMYlM5aVdGakRzYW5NNWZwcjdKTFRHeWZo?=
+ =?utf-8?B?bDhTNDMvLzcvcExTeXRaWmFDeXo2cnd2aUZwWklRTzM1ZmNtYmtRaTc1cW9v?=
+ =?utf-8?B?aTVTN1dyVk84UFcyQlF0ZEF6Q3R2alVVWkFadVhPSXdkdmJyV2xzb2NxUTBz?=
+ =?utf-8?B?RkVXRzcwUWhTMnBYN1dickFTNXRQNVErc01wZnAvR0dkbTdGRnVXenNjeE9E?=
+ =?utf-8?B?K0srd3JDbnR6dGdWWmZzUTNqSDc4eG5zZUdveEtZQUFSTkFhWUcvcjFYWVh0?=
+ =?utf-8?B?YWw2YmlHU2E3YTRab3F1eFlLLzRSMGFRVzNCM0FTbnJXRmpVTmQvV3p5TThB?=
+ =?utf-8?B?R0JDbWQ2V3RwakU1WEFUb3hFSHBOcHlUamo0S0VmWG41SnFGcDc4MjFyc3N5?=
+ =?utf-8?B?clJuWWV4cjVNQnNRK1FJei9iUlVhMEJIZzI1ZmJCWUdreFh6Uk9JQ09zcVJa?=
+ =?utf-8?B?TDVCdDZIMGt2eXpTc1gxMlJXOGJURjF5ODNwZWwyY3NoZWY5ZEtGVlZZando?=
+ =?utf-8?B?VmFxTXZYbWRabVR2bWFLTkZ4QVorN1hFOGFBdGNCWEpHb3d5dVJ0Y2tseFlY?=
+ =?utf-8?B?UmVtUGVWdnpzUDVob3E1TDhwc2ZhaU0xekhITEk0TEdtUXN4Y0oxMHZscVh5?=
+ =?utf-8?B?VWxmTXk2T3ZzWXRCNEJUSis3UTF3Vy9WaURrLzlRa3pUdHZ4L0w1RHQ2OWZT?=
+ =?utf-8?B?eGk4Ui8vN1JkOHZ5czhpWUprb0N5Z1JpU2xzdVBoa0QzWGVTWVpHRU0xRmJ1?=
+ =?utf-8?Q?wJIvOILnhG1mHmkxzY+cGdJgJ/mMKMXTkfmIxa4bnjW1?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 40467fb1-63d7-4090-de04-08db085f7686
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2023 16:30:30.9334 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uWcrzVpULBeXTziahqIUBCLiQF+wVHVhE+iT/WZ7TYLSw1mpXSoIpEXzLXrof6C1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7546
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,304 +125,174 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- Shashank Sharma <shashank.sharma@amd.com>
+Cc: alexander.deucher@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Feb 6, 2023 at 6:30 AM Christian K=C3=B6nig <christian.koenig@amd.c=
-om> wrote:
+Am 03.02.23 um 20:08 schrieb Shashank Sharma:
+> From: Alex Deucher <alexander.deucher@amd.com>
 >
-> Am 03.02.23 um 20:08 schrieb Shashank Sharma:
-> > From: Alex Deucher <alexander.deucher@amd.com>
-> >
-> > This patch adds changes to accommodate the new GEM/TTM domain
-> > for doorbell memory.
-> >
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu.h         |  1 +
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_bar_mgr.c | 19 ++++++++++------
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |  3 ++-
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c  | 24 ++++++++++++++++++++=
--
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h  |  2 +-
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     | 17 ++++++++++++++-
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h     |  3 ++-
-> >   7 files changed, 58 insertions(+), 11 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu.h
-> > index e3e2e6e3b485..e1c1a360614e 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > @@ -974,6 +974,7 @@ struct amdgpu_device {
-> >       atomic64_t vram_pin_size;
-> >       atomic64_t visible_pin_size;
-> >       atomic64_t gart_pin_size;
-> > +     atomic64_t doorbell_pin_size;
->
-> Please drop that, the amount of pinned doorbells is not needed as far as
-> I can see.
->
-> >
-> >       /* soc15 register offset based on ip, instance and  segment */
-> >       uint32_t                *reg_offset[MAX_HWIP][HWIP_MAX_INSTANCE];
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bar_mgr.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_bar_mgr.c
-> > index 0656e5bb4f05..43a3137019b1 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bar_mgr.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bar_mgr.c
-> > @@ -659,15 +659,17 @@ static void amdgpu_bar_mgr_del(struct ttm_resourc=
-e_manager *man,
-> >    * @dev: the other device
-> >    * @dir: dma direction
-> >    * @sgt: resulting sg table
-> > + * @mem_type: memory type
-> >    *
-> >    * Allocate and fill a sg table from a VRAM allocation.
-> >    */
-> >   int amdgpu_bar_mgr_alloc_sgt(struct amdgpu_device *adev,
-> > -                           struct ttm_resource *res,
-> > -                           u64 offset, u64 length,
-> > -                           struct device *dev,
-> > -                           enum dma_data_direction dir,
-> > -                           struct sg_table **sgt)
-> > +                          struct ttm_resource *res,
-> > +                          u64 offset, u64 length,
-> > +                          struct device *dev,
-> > +                          enum dma_data_direction dir,
-> > +                          struct sg_table **sgt,
-> > +                          u32 mem_type)
->
-> And again that doesn't make any sense at all.
->
-> For now we don't want to export doorbells through DMA-buf.
->
-> >   {
-> >       struct amdgpu_res_cursor cursor;
-> >       struct scatterlist *sg;
-> > @@ -701,10 +703,15 @@ int amdgpu_bar_mgr_alloc_sgt(struct amdgpu_device=
- *adev,
-> >        */
-> >       amdgpu_res_first(res, offset, length, &cursor);
-> >       for_each_sgtable_sg((*sgt), sg, i) {
-> > -             phys_addr_t phys =3D cursor.start + adev->gmc.vram_aper_b=
-ase;
-> > +             phys_addr_t phys =3D cursor.start;
-> >               size_t size =3D cursor.size;
-> >               dma_addr_t addr;
-> >
-> > +             if (mem_type =3D=3D TTM_PL_VRAM)
-> > +                     phys +=3D adev->gmc.vram_aper_base;
-> > +             else
-> > +                     phys +=3D adev->gmc.doorbell_aper_base;
-> > +
-> >               addr =3D dma_map_resource(dev, phys, size, dir,
-> >                                       DMA_ATTR_SKIP_CPU_SYNC);
-> >               r =3D dma_mapping_error(dev, addr);
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_dma_buf.c
-> > index c48ccde281c3..c645bdc49f34 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> > @@ -179,9 +179,10 @@ static struct sg_table *amdgpu_dma_buf_map(struct =
-dma_buf_attachment *attach,
-> >               break;
-> >
-> >       case TTM_PL_VRAM:
-> > +     case AMDGPU_PL_DOORBELL:
-> >               r =3D amdgpu_bar_mgr_alloc_sgt(adev, bo->tbo.resource, 0,
-> >                                            bo->tbo.base.size, attach->d=
-ev,
-> > -                                          dir, &sgt);
-> > +                                          dir, &sgt, bo->tbo.resource-=
->mem_type);
-> >               if (r)
-> >                       return ERR_PTR(r);
-> >               break;
->
-> That stuff can be dropped as well as far as I can see.
->
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_object.c
-> > index 887fc53a7d16..b2cfd46c459b 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> > @@ -147,6 +147,18 @@ void amdgpu_bo_placement_from_domain(struct amdgpu=
-_bo *abo, u32 domain)
-> >               c++;
-> >       }
-> >
-> > +     if (domain & AMDGPU_GEM_DOMAIN_DOORBELL) {
-> > +             places[c].fpfn =3D 0;
-> > +             places[c].lpfn =3D 0;
-> > +             places[c].mem_type =3D AMDGPU_PL_DOORBELL;
-> > +             places[c].flags =3D 0;
-> > +             places[c].flags |=3D TTM_PL_FLAG_TOPDOWN;
-> > +
-> > +             if (flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS)
-> > +                     places[c].flags |=3D TTM_PL_FLAG_CONTIGUOUS;
-> > +             c++;
-> > +     }
-> > +
-> >       if (domain & AMDGPU_GEM_DOMAIN_GTT) {
-> >               places[c].fpfn =3D 0;
-> >               places[c].lpfn =3D 0;
-> > @@ -464,6 +476,13 @@ static bool amdgpu_bo_validate_size(struct amdgpu_=
-device *adev,
-> >               if (man && size < man->size)
-> >                       return true;
-> >               goto fail;
-> > +     } else if (domain & AMDGPU_GEM_DOMAIN_DOORBELL) {
-> > +             man =3D ttm_manager_type(&adev->mman.bdev, AMDGPU_PL_DOOR=
-BELL);
-> > +
-> > +             if (size < man->size)
-> > +                     return true;
-> > +             else
-> > +                     goto fail;
->
-> Do we ever want userspace to allocate more than one doorbell page at a ti=
-me?
+> This patch adds section for doorbell memory in memory status
+> reporting functions like vm/bo_get_memory.
 
-One 4k page would support 512 64 bit doorbells and hence 512 user
-queues.  That seems like a reasonable queue limit.
+Marek reworked this just recently to pass around a structure. You should 
+probably rebase the code when that patch lands.
 
-Alex
+Apart from that looks good to me.
+
+Christian.
 
 >
-> >       }
-> >
-> >       /* TODO add more domains checks, such as AMDGPU_GEM_DOMAIN_CPU */
-> > @@ -962,8 +981,9 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, =
-u32 domain,
-> >                            &adev->visible_pin_size);
-> >       } else if (domain =3D=3D AMDGPU_GEM_DOMAIN_GTT) {
-> >               atomic64_add(amdgpu_bo_size(bo), &adev->gart_pin_size);
-> > +     } else if (domain =3D=3D AMDGPU_GEM_DOMAIN_DOORBELL) {
-> > +             atomic64_add(amdgpu_bo_size(bo), &adev->doorbell_pin_size=
-);
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c |  4 ++--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |  9 ++++++++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  3 ++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c     | 15 ++++++++-------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h     |  3 ++-
+>   5 files changed, 22 insertions(+), 12 deletions(-)
 >
-> Can be dropped.
->
-> >       }
-> > -
-> >   error:
-> >       return r;
-> >   }
-> > @@ -1013,6 +1033,8 @@ void amdgpu_bo_unpin(struct amdgpu_bo *bo)
-> >                            &adev->visible_pin_size);
-> >       } else if (bo->tbo.resource->mem_type =3D=3D TTM_PL_TT) {
-> >               atomic64_sub(amdgpu_bo_size(bo), &adev->gart_pin_size);
-> > +     } else if (bo->tbo.resource->mem_type =3D=3D AMDGPU_PL_DOORBELL) =
-{
-> > +             atomic64_sub(amdgpu_bo_size(bo), &adev->doorbell_pin_size=
-);
->
-> Dito.
->
-> >       }
-> >   }
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_object.h
-> > index 93207badf83f..082f451d26f4 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> > @@ -326,7 +326,7 @@ int amdgpu_bo_sync_wait(struct amdgpu_bo *bo, void =
-*owner, bool intr);
-> >   u64 amdgpu_bo_gpu_offset(struct amdgpu_bo *bo);
-> >   u64 amdgpu_bo_gpu_offset_no_check(struct amdgpu_bo *bo);
-> >   void amdgpu_bo_get_memory(struct amdgpu_bo *bo, uint64_t *vram_mem,
-> > -                             uint64_t *gtt_mem, uint64_t *cpu_mem);
-> > +                       uint64_t *gtt_mem, uint64_t *cpu_mem);
-> >   void amdgpu_bo_add_to_shadow_list(struct amdgpu_bo_vm *vmbo);
-> >   int amdgpu_bo_restore_shadow(struct amdgpu_bo *shadow,
-> >                            struct dma_fence **fence);
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_ttm.c
-> > index bb2230d14ea6..71eff2f195a7 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> > @@ -128,6 +128,7 @@ static void amdgpu_evict_flags(struct ttm_buffer_ob=
-ject *bo,
-> >       case AMDGPU_PL_GDS:
-> >       case AMDGPU_PL_GWS:
-> >       case AMDGPU_PL_OA:
-> > +     case AMDGPU_PL_DOORBELL:
-> >               placement->num_placement =3D 0;
-> >               placement->num_busy_placement =3D 0;
-> >               return;
-> > @@ -500,9 +501,11 @@ static int amdgpu_bo_move(struct ttm_buffer_object=
- *bo, bool evict,
-> >       if (old_mem->mem_type =3D=3D AMDGPU_PL_GDS ||
-> >           old_mem->mem_type =3D=3D AMDGPU_PL_GWS ||
-> >           old_mem->mem_type =3D=3D AMDGPU_PL_OA ||
-> > +         old_mem->mem_type =3D=3D AMDGPU_PL_DOORBELL ||
-> >           new_mem->mem_type =3D=3D AMDGPU_PL_GDS ||
-> >           new_mem->mem_type =3D=3D AMDGPU_PL_GWS ||
-> > -         new_mem->mem_type =3D=3D AMDGPU_PL_OA) {
-> > +         new_mem->mem_type =3D=3D AMDGPU_PL_OA ||
-> > +         new_mem->mem_type =3D=3D AMDGPU_PL_DOORBELL) {
-> >               /* Nothing to save here */
-> >               ttm_bo_move_null(bo, new_mem);
-> >               goto out;
-> > @@ -586,6 +589,17 @@ static int amdgpu_ttm_io_mem_reserve(struct ttm_de=
-vice *bdev,
-> >               mem->bus.offset +=3D adev->gmc.vram_aper_base;
-> >               mem->bus.is_iomem =3D true;
-> >               break;
-> > +     case AMDGPU_PL_DOORBELL:
-> > +             mem->bus.offset =3D mem->start << PAGE_SHIFT;
->
-> That here won't work if we ever allow allocating more than one page for
-> a doorbell.
->
-> > +
-> > +             if (adev->mman.doorbell_aper_base_kaddr &&
-> > +                 mem->placement & TTM_PL_FLAG_CONTIGUOUS)
-> > +                     mem->bus.addr =3D (u8 *)adev->mman.doorbell_aper_=
-base_kaddr +
-> > +                                     mem->bus.offset;
->
-> This doesn't make any sense at all. TTM_PL_FLAG_CONTIGUOUS should
-> probably be completely ignored for doorbells.
->
-> Regards,
-> Christian.
->
-> > +
-> > +             mem->bus.offset +=3D adev->gmc.doorbell_aper_base;
-> > +             mem->bus.is_iomem =3D true;
-> > +             break;
-> >       default:
-> >               return -EINVAL;
-> >       }
-> > @@ -1267,6 +1281,7 @@ uint64_t amdgpu_ttm_tt_pde_flags(struct ttm_tt *t=
-tm, struct ttm_resource *mem)
-> >               flags |=3D AMDGPU_PTE_VALID;
-> >
-> >       if (mem && (mem->mem_type =3D=3D TTM_PL_TT ||
-> > +                 mem->mem_type =3D=3D AMDGPU_PL_DOORBELL ||
-> >                   mem->mem_type =3D=3D AMDGPU_PL_PREEMPT)) {
-> >               flags |=3D AMDGPU_PTE_SYSTEM;
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_ttm.h
-> > index 243deb1ffc54..9971665d7d99 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> > @@ -124,7 +124,8 @@ int amdgpu_bar_mgr_alloc_sgt(struct amdgpu_device *=
-adev,
-> >                            u64 offset, u64 size,
-> >                            struct device *dev,
-> >                            enum dma_data_direction dir,
-> > -                          struct sg_table **sgt);
-> > +                          struct sg_table **sgt,
-> > +                          u32 mem_type);
-> >   void amdgpu_bar_mgr_free_sgt(struct device *dev,
-> >                            enum dma_data_direction dir,
-> >                            struct sg_table *sgt);
->
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> index 99a7855ab1bc..202df09ba5de 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> @@ -60,7 +60,7 @@ void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
+>   	struct amdgpu_fpriv *fpriv = file->driver_priv;
+>   	struct amdgpu_vm *vm = &fpriv->vm;
+>   
+> -	uint64_t vram_mem = 0, gtt_mem = 0, cpu_mem = 0;
+> +	uint64_t vram_mem = 0, gtt_mem = 0, cpu_mem = 0, doorbell_mem = 0;
+>   	ktime_t usage[AMDGPU_HW_IP_NUM];
+>   	uint32_t bus, dev, fn, domain;
+>   	unsigned int hw_ip;
+> @@ -75,7 +75,7 @@ void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
+>   	if (ret)
+>   		return;
+>   
+> -	amdgpu_vm_get_memory(vm, &vram_mem, &gtt_mem, &cpu_mem);
+> +	amdgpu_vm_get_memory(vm, &vram_mem, &gtt_mem, &cpu_mem, &doorbell_mem);
+>   	amdgpu_bo_unreserve(vm->root.bo);
+>   
+>   	amdgpu_ctx_mgr_usage(&fpriv->ctx_mgr, usage);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> index b2cfd46c459b..ef1f3106bc69 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -1288,7 +1288,8 @@ void amdgpu_bo_move_notify(struct ttm_buffer_object *bo,
+>   }
+>   
+>   void amdgpu_bo_get_memory(struct amdgpu_bo *bo, uint64_t *vram_mem,
+> -				uint64_t *gtt_mem, uint64_t *cpu_mem)
+> +			  uint64_t *gtt_mem, uint64_t *cpu_mem,
+> +			  uint64_t *doorbell_mem)
+>   {
+>   	unsigned int domain;
+>   
+> @@ -1300,6 +1301,9 @@ void amdgpu_bo_get_memory(struct amdgpu_bo *bo, uint64_t *vram_mem,
+>   	case AMDGPU_GEM_DOMAIN_GTT:
+>   		*gtt_mem += amdgpu_bo_size(bo);
+>   		break;
+> +	case AMDGPU_GEM_DOMAIN_DOORBELL:
+> +		*doorbell_mem += amdgpu_bo_size(bo);
+> +		break;
+>   	case AMDGPU_GEM_DOMAIN_CPU:
+>   	default:
+>   		*cpu_mem += amdgpu_bo_size(bo);
+> @@ -1578,6 +1582,9 @@ u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *m)
+>   	case AMDGPU_GEM_DOMAIN_GTT:
+>   		placement = " GTT";
+>   		break;
+> +	case AMDGPU_GEM_DOMAIN_DOORBELL:
+> +		placement = "DOOR";
+> +		break;
+>   	case AMDGPU_GEM_DOMAIN_CPU:
+>   	default:
+>   		placement = " CPU";
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> index 082f451d26f4..bf9759758f0d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> @@ -326,7 +326,8 @@ int amdgpu_bo_sync_wait(struct amdgpu_bo *bo, void *owner, bool intr);
+>   u64 amdgpu_bo_gpu_offset(struct amdgpu_bo *bo);
+>   u64 amdgpu_bo_gpu_offset_no_check(struct amdgpu_bo *bo);
+>   void amdgpu_bo_get_memory(struct amdgpu_bo *bo, uint64_t *vram_mem,
+> -			  uint64_t *gtt_mem, uint64_t *cpu_mem);
+> +			  uint64_t *gtt_mem, uint64_t *cpu_mem,
+> +			  uint64_t *doorbell_mem);
+>   void amdgpu_bo_add_to_shadow_list(struct amdgpu_bo_vm *vmbo);
+>   int amdgpu_bo_restore_shadow(struct amdgpu_bo *shadow,
+>   			     struct dma_fence **fence);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index dc379dc22c77..1561d138945b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -918,7 +918,8 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   }
+>   
+>   void amdgpu_vm_get_memory(struct amdgpu_vm *vm, uint64_t *vram_mem,
+> -				uint64_t *gtt_mem, uint64_t *cpu_mem)
+> +			  uint64_t *gtt_mem, uint64_t *cpu_mem,
+> +			  uint64_t *doorbell_mem)
+>   {
+>   	struct amdgpu_bo_va *bo_va, *tmp;
+>   
+> @@ -927,37 +928,37 @@ void amdgpu_vm_get_memory(struct amdgpu_vm *vm, uint64_t *vram_mem,
+>   		if (!bo_va->base.bo)
+>   			continue;
+>   		amdgpu_bo_get_memory(bo_va->base.bo, vram_mem,
+> -				gtt_mem, cpu_mem);
+> +				     gtt_mem, cpu_mem, doorbell_mem);
+>   	}
+>   	list_for_each_entry_safe(bo_va, tmp, &vm->evicted, base.vm_status) {
+>   		if (!bo_va->base.bo)
+>   			continue;
+>   		amdgpu_bo_get_memory(bo_va->base.bo, vram_mem,
+> -				gtt_mem, cpu_mem);
+> +				     gtt_mem, cpu_mem, doorbell_mem);
+>   	}
+>   	list_for_each_entry_safe(bo_va, tmp, &vm->relocated, base.vm_status) {
+>   		if (!bo_va->base.bo)
+>   			continue;
+>   		amdgpu_bo_get_memory(bo_va->base.bo, vram_mem,
+> -				gtt_mem, cpu_mem);
+> +				     gtt_mem, cpu_mem, doorbell_mem);
+>   	}
+>   	list_for_each_entry_safe(bo_va, tmp, &vm->moved, base.vm_status) {
+>   		if (!bo_va->base.bo)
+>   			continue;
+>   		amdgpu_bo_get_memory(bo_va->base.bo, vram_mem,
+> -				gtt_mem, cpu_mem);
+> +				     gtt_mem, cpu_mem, doorbell_mem);
+>   	}
+>   	list_for_each_entry_safe(bo_va, tmp, &vm->invalidated, base.vm_status) {
+>   		if (!bo_va->base.bo)
+>   			continue;
+>   		amdgpu_bo_get_memory(bo_va->base.bo, vram_mem,
+> -				gtt_mem, cpu_mem);
+> +				     gtt_mem, cpu_mem, doorbell_mem);
+>   	}
+>   	list_for_each_entry_safe(bo_va, tmp, &vm->done, base.vm_status) {
+>   		if (!bo_va->base.bo)
+>   			continue;
+>   		amdgpu_bo_get_memory(bo_va->base.bo, vram_mem,
+> -				gtt_mem, cpu_mem);
+> +				     gtt_mem, cpu_mem, doorbell_mem);
+>   	}
+>   	spin_unlock(&vm->status_lock);
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index 094bb4807303..b8ac7d311c8b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -458,7 +458,8 @@ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm);
+>   void amdgpu_vm_move_to_lru_tail(struct amdgpu_device *adev,
+>   				struct amdgpu_vm *vm);
+>   void amdgpu_vm_get_memory(struct amdgpu_vm *vm, uint64_t *vram_mem,
+> -				uint64_t *gtt_mem, uint64_t *cpu_mem);
+> +			  uint64_t *gtt_mem, uint64_t *cpu_mem,
+> +			  uint64_t *doorbell_mem);
+>   
+>   int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   		       struct amdgpu_bo_vm *vmbo, bool immediate);
+
