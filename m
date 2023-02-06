@@ -4,49 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 340CCC636D3
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Feb 2023 17:34:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A21EEC636D3
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Feb 2023 18:22:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9E4510E9FC;
-	Mon,  6 Feb 2023 17:34:16 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97B3D10E431;
- Mon,  6 Feb 2023 17:34:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675704852; x=1707240852;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=E6FtT1y0csBMH/T1ALlQnJ2NG23R3sXvASuze+beOxk=;
- b=ghOa+fsj74GWxDO+TunyD3eX7C1+LJBI2olXdXRpk3+Irjbw/4ZM59cy
- XREfYYjJ6L104lTGjAMvrZF3jMpqm2AbNATPBTZVIAZLR1JaEPfta1c6x
- Hd8vUlcBQdFimgmo7W1yLhRgb3l04PZyIqN43QrCyTEdZCiBAMLJfywoD
- HMhH2Oo7jH5eun8mFhT+nimaC6wdOiAkBKUXISMyMup3smrpKIHSeJj+V
- cfdSiMOk0esYj8bD8QEGgfnyh5UefLrrI1COL4L/jbAVfN0/4E8ZBX2jR
- PpR/jRQzCpWTN0BFIQMs9CFEsF0B+M8oGJj58MgpXc9TK27dVjKZD2Bn/ A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="393863234"
-X-IronPort-AV: E=Sophos;i="5.97,276,1669104000"; d="scan'208";a="393863234"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Feb 2023 09:34:11 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="644114477"
-X-IronPort-AV: E=Sophos;i="5.97,276,1669104000"; d="scan'208";a="644114477"
-Received: from lkp-server01.sh.intel.com (HELO 4455601a8d94) ([10.239.97.150])
- by orsmga006.jf.intel.com with ESMTP; 06 Feb 2023 09:34:07 -0800
-Received: from kbuild by 4455601a8d94 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pP5NX-0002hc-0q;
- Mon, 06 Feb 2023 17:34:07 +0000
-Date: Tue, 07 Feb 2023 01:33:21 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 129af770823407ee115a56c69a04b440fd2fbe61
-Message-ID: <63e139e1.J5AHO6vmxaALh7xv%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id B388610E438;
+	Mon,  6 Feb 2023 18:22:12 +0000 (UTC)
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
+ [IPv6:2001:4860:4864:20::2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80EA810E42F;
+ Mon,  6 Feb 2023 18:22:10 +0000 (UTC)
+Received: by mail-oa1-x2a.google.com with SMTP id
+ 586e51a60fabf-1685cf2003aso16126184fac.12; 
+ Mon, 06 Feb 2023 10:22:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=J7e8GU9xSC1sP5VIpcopkgOF82v0TP3oKnk/11tSpP0=;
+ b=AxUKFec2/yYtc34aAbMml1uUi5rUZKsLvPJ2ut79kAsHZukakfQ2QvJ4YlaLZfv1w5
+ GYzWohONUwHzSHZsJbCcEnGhoh3XuETMS/NZAl/+UX8sTKmjPvckY5YwZ9d0Ev2aC2/d
+ yTXh08vGy9qkZOpMMV6Io04TNM0WmbMlbJDWqp1zKqADOj/L73JCIsixB8Jy065pL22x
+ Fs3M1H/pTeDYNSxVn5Vcw5a1jOU6dwVSzBD4HkPxpIMfYrWthtwFITtsrwIsG8DT5TUP
+ Daxeh9L0koy5qiT5VvUslmHGC3/Z87PQT5pxCi+3swjMGAglkJVyChi/RcOySXaCuymx
+ 5iRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=J7e8GU9xSC1sP5VIpcopkgOF82v0TP3oKnk/11tSpP0=;
+ b=Gb90hM5fzFP6QDCjPmUsJyliwUmvUTFCXz7HRPWx35ZVKgiEqcnOdCKm7FJUuXG9eU
+ 2bDTeN7Su8j0GnMVwqdPa0BmaDMOZZqsDP+ZS0AOklOmILcVKjQqxY+4hObBfDl7ZrEy
+ IVnBpW3HgaF7Eb2zEOJ9YSlH2lLdAkWbuJKq7DaZ2wywnXuCJNCXS854FnxUrUQYjB1W
+ mpRHilZL1hCZlFRpyeTbldh4lf+5sk9jxdePS0eavnHugkoVjlRNAgv8BISbfH7IZlE/
+ I7K3lgNXC/xoBO+f0PhJYkzgoef6JPlnV6vhsQeSTesZj4cr3Bn7bjA98uAG7Rv5Xfs1
+ pgHQ==
+X-Gm-Message-State: AO0yUKWHhtudhoIh/mn70CaRMzDoS1qJxxGIXbzIAMKbZ8zqVy5M4eNp
+ ksc3lSksjnaO10skQKZ/cvMH85uC0EWeHUbSyDo=
+X-Google-Smtp-Source: AK7set+yVVcaiUCUBgcMs3+pTWuTLaezK5+rSwnpMO/PfEL4Ya6vQe1iIoTXlqJW135Qgr9ym4Rue46r4whDjVkDRvM=
+X-Received: by 2002:a05:6870:14c8:b0:163:999e:6460 with SMTP id
+ l8-20020a05687014c800b00163999e6460mr57502oab.38.1675707729560; Mon, 06 Feb
+ 2023 10:22:09 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+References: <20230203181005.4129175-1-robdclark@gmail.com>
+ <2d5fc6f8-2247-8a8b-1174-eccdc2b08064@amd.com>
+ <CAF6AEGtAqE-h06zgCzjr+R-WWj0ELfyKkD8KHZUYeo6cjS1ceQ@mail.gmail.com>
+ <c6c9b6af-f832-3cc3-2d03-29d5f7aaddef@amd.com>
+In-Reply-To: <c6c9b6af-f832-3cc3-2d03-29d5f7aaddef@amd.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Mon, 6 Feb 2023 10:21:58 -0800
+Message-ID: <CAF6AEGuxsYQo5yHhXkJHagM4Wiq0XCughPfSFxyTWZPorp5mgw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix potential race processing vm->freed
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,186 +69,160 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org,
- Linux Memory Management List <linux-mm@kvack.org>, kvmarm@lists.linux.dev,
- linux-riscv@lists.infradead.org, kvmarm@lists.cs.columbia.edu,
- linux-arm-kernel@lists.infradead.org, linux-trace-kernel@vger.kernel.org
+Cc: Rob Clark <robdclark@chromium.org>, Philip Yang <Philip.Yang@amd.com>,
+ Jammy Zhou <Jammy.Zhou@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, open list <linux-kernel@vger.kernel.org>,
+ dri-devel@lists.freedesktop.org, Qiang Yu <qiang.yu@amd.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 129af770823407ee115a56c69a04b440fd2fbe61  Add linux-next specific files for 20230206
+On Mon, Feb 6, 2023 at 8:05 AM Christian K=C3=B6nig <christian.koenig@amd.c=
+om> wrote:
+>
+> Am 06.02.23 um 16:52 schrieb Rob Clark:
+> > On Mon, Feb 6, 2023 at 2:15 AM Christian K=C3=B6nig <christian.koenig@a=
+md.com> wrote:
+> >> Am 03.02.23 um 19:10 schrieb Rob Clark:
+> >>> From: Rob Clark <robdclark@chromium.org>
+> >>>
+> >>> If userspace calls the AMDGPU_CS ioctl from multiple threads, because
+> >>> the vm is global to the drm_file, you can end up with multiple thread=
+s
+> >>> racing in amdgpu_vm_clear_freed().  So the freed list should be
+> >>> protected with the status_lock, similar to other vm lists.
+> >> Well this is nonsense. To process the freed list the VM root PD lock
+> >> must be held anyway.
+> >>
+> >> If we have a call path where this isn't true then we have a major bug =
+at
+> >> a different place here.
+> > I'm not super familiar w/ the amdgpu cs parser stuff, but the only
+> > thing that I'm seeing that protects things is the bo_list_mutex and it
+> > isn't clear to me that this is 1:1 with the vm (it looks like it is
+> > not).
+>
+> Do you have a backtrace?
+>
+> Take a look at the reservation object of vm->root.bo. This should always
+> be locked first before doing *anything* in a CS.
+>
+> If that isn't the case we have a much worse problem.
 
-Error/Warning reports:
+In this case, maybe an dma_resv_assert_held() would be a good idea?
 
-https://lore.kernel.org/oe-kbuild-all/202301230743.Xnut0Zvc-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202301300743.bp7Dpazv-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202301301801.y5O08tQx-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202301302110.mEtNwkBD-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202302011836.kA3BxqdY-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202302061911.C7xvHX9v-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202302062223.7F7gv80M-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202302062224.ByzeTXh1-lkp@intel.com
+BR,
+-R
 
-Error/Warning: (recently discovered and may have been fixed)
-
-Documentation/riscv/uabi.rst:24: WARNING: Enumerated list ends without a blank line; unexpected unindent.
-ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/fsl-edma.ko] undefined!
-ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/idma64.ko] undefined!
-FAILED: load BTF from vmlinux: No data available
-arch/arm64/kvm/arm.c:2207: warning: expecting prototype for Initialize Hyp(). Prototype was for kvm_arm_init() instead
-drivers/clk/qcom/gcc-sa8775p.c:313:32: warning: unused variable 'gcc_parent_map_10' [-Wunused-const-variable]
-drivers/clk/qcom/gcc-sa8775p.c:318:37: warning: unused variable 'gcc_parent_data_10' [-Wunused-const-variable]
-drivers/clk/qcom/gcc-sa8775p.c:333:32: warning: unused variable 'gcc_parent_map_12' [-Wunused-const-variable]
-drivers/clk/qcom/gcc-sa8775p.c:338:37: warning: unused variable 'gcc_parent_data_12' [-Wunused-const-variable]
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.h:62:10: fatal error: mod_info_packet.h: No such file or directory
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn31/dcn31_hubbub.c:1011:6: warning: no previous prototype for 'hubbub31_init' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_hubbub.c:948:6: warning: no previous prototype for 'hubbub32_init' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_hubp.c:158:6: warning: no previous prototype for 'hubp32_init' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource_helpers.c:62:18: warning: variable 'cursor_bpp' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/accessories/link_dp_trace.c:148:6: warning: no previous prototype for 'link_dp_trace_set_edp_power_timestamp' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/accessories/link_dp_trace.c:158:10: warning: no previous prototype for 'link_dp_trace_get_edp_poweron_timestamp' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/accessories/link_dp_trace.c:163:10: warning: no previous prototype for 'link_dp_trace_get_edp_poweroff_timestamp' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:1295:32: warning: variable 'result_write_min_hblank' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:279:42: warning: variable 'ds_port' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_training.c:1585:38: warning: variable 'result' set but not used [-Wunused-but-set-variable]
-libbpf: failed to find '.BTF' ELF section in vmlinux
-
-Unverified Error/Warning (likely false positive, please contact us if interested):
-
-drivers/thermal/qcom/tsens-v0_1.c:106:40: sparse: sparse: symbol 'tsens_9607_nvmem' was not declared. Should it be static?
-drivers/thermal/qcom/tsens-v0_1.c:26:40: sparse: sparse: symbol 'tsens_8916_nvmem' was not declared. Should it be static?
-drivers/thermal/qcom/tsens-v0_1.c:42:40: sparse: sparse: symbol 'tsens_8939_nvmem' was not declared. Should it be static?
-drivers/thermal/qcom/tsens-v0_1.c:62:40: sparse: sparse: symbol 'tsens_8974_nvmem' was not declared. Should it be static?
-drivers/thermal/qcom/tsens-v0_1.c:84:40: sparse: sparse: symbol 'tsens_8974_backup_nvmem' was not declared. Should it be static?
-drivers/thermal/qcom/tsens-v1.c:24:40: sparse: sparse: symbol 'tsens_qcs404_nvmem' was not declared. Should it be static?
-drivers/thermal/qcom/tsens-v1.c:45:40: sparse: sparse: symbol 'tsens_8976_nvmem' was not declared. Should it be static?
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-randconfig-r022-20230205
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.h:fatal-error:mod_info_packet.h:No-such-file-or-directory
-|-- alpha-randconfig-s042-20230204
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.h:fatal-error:mod_info_packet.h:No-such-file-or-directory
-|-- arm64-allyesconfig
-|   |-- arch-arm64-kvm-arm.c:warning:expecting-prototype-for-Initialize-Hyp().-Prototype-was-for-kvm_arm_init()-instead
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn31-dcn31_hubbub.c:warning:no-previous-prototype-for-hubbub31_init
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_hubbub.c:warning:no-previous-prototype-for-hubbub32_init
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_hubp.c:warning:no-previous-prototype-for-hubp32_init
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- arm64-buildonly-randconfig-r006-20230205
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|-- arm64-randconfig-c023-20230205
-|   `-- arch-arm64-kvm-arm.c:warning:expecting-prototype-for-Initialize-Hyp().-Prototype-was-for-kvm_arm_init()-instead
-|-- arm64-randconfig-r011-20230206
-|   |-- arch-arm64-kvm-arm.c:warning:expecting-prototype-for-Initialize-Hyp().-Prototype-was-for-kvm_arm_init()-instead
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn31-dcn31_hubbub.c:warning:no-previous-prototype-for-hubbub31_init
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_hubbub.c:warning:no-previous-prototype-for-hubbub32_init
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_hubp.c:warning:no-previous-prototype-for-hubp32_init
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_resource_helpers.c:warning:variable-cursor_bpp-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|-- arm64-randconfig-s041-20230206
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.h:fatal-error:mod_info_packet.h:No-such-file-or-directory
-|   |-- drivers-thermal-qcom-tsens-v0_1.c:sparse:sparse:symbol-tsens_8916_nvmem-was-not-declared.-Should-it-be-static
-|   |-- drivers-thermal-qcom-tsens-v0_1.c:sparse:sparse:symbol-tsens_8939_nvmem-was-not-declared.-Should-it-be-static
-|   |-- drivers-thermal-qcom-tsens-v0_1.c:sparse:sparse:symbol-tsens_8974_backup_nvmem-was-not-declared.-Should-it-be-static
-|   |-- drivers-thermal-qcom-tsens-v0_1.c:sparse:sparse:symbol-tsens_8974_nvmem-was-not-declared.-Should-it-be-static
-|   |-- drivers-thermal-qcom-tsens-v0_1.c:sparse:sparse:symbol-tsens_9607_nvmem-was-not-declared.-Should-it-be-static
-|   |-- drivers-thermal-qcom-tsens-v1.c:sparse:sparse:symbol-tsens_8976_nvmem-was-not-declared.-Should-it-be-static
-|   `-- drivers-thermal-qcom-tsens-v1.c:sparse:sparse:symbol-tsens_qcs404_nvmem-was-not-declared.-Should-it-be-static
-|-- i386-randconfig-m021
-|   `-- kernel-trace-trace_events_synth.c-trace_event_raw_event_synth()-warn:inconsistent-indenting
-|-- i386-randconfig-s001
-|   `-- drivers-gpu-drm-i915-gem-i915_gem_ttm.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-vm_fault_t-assigned-usertype-ret-got-int
-|-- i386-randconfig-s002
-|   `-- drivers-gpu-drm-i915-gem-i915_gem_ttm.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-vm_fault_t-assigned-usertype-ret-got-int
-|-- ia64-allmodconfig
-clang_recent_errors
-`-- riscv-randconfig-r003-20230204
-    |-- drivers-clk-qcom-gcc-sa8775p.c:warning:unused-variable-gcc_parent_data_10
-    |-- drivers-clk-qcom-gcc-sa8775p.c:warning:unused-variable-gcc_parent_data_12
-    |-- drivers-clk-qcom-gcc-sa8775p.c:warning:unused-variable-gcc_parent_map_10
-    `-- drivers-clk-qcom-gcc-sa8775p.c:warning:unused-variable-gcc_parent_map_12
-
-elapsed time: 721m
-
-configs tested: 55
-configs skipped: 28
-
-gcc tested configs:
-powerpc                           allnoconfig
-i386                 randconfig-a011-20230206
-i386                 randconfig-a014-20230206
-x86_64                              defconfig
-i386                 randconfig-a012-20230206
-i386                 randconfig-a013-20230206
-i386                 randconfig-a015-20230206
-i386                 randconfig-a016-20230206
-x86_64               randconfig-a013-20230206
-x86_64               randconfig-a011-20230206
-x86_64                               rhel-8.3
-x86_64                            allnoconfig
-x86_64               randconfig-a012-20230206
-x86_64               randconfig-a015-20230206
-x86_64                           allyesconfig
-x86_64               randconfig-a016-20230206
-x86_64               randconfig-a014-20230206
-sh                               allmodconfig
-mips                             allyesconfig
-s390                 randconfig-r044-20230206
-arc                  randconfig-r043-20230205
-arm                  randconfig-r046-20230205
-powerpc                          allmodconfig
-mips                  maltasmvp_eva_defconfig
-riscv                randconfig-r042-20230206
-mips                    maltaup_xpa_defconfig
-arm                           sunxi_defconfig
-arm                           tegra_defconfig
-arc                  randconfig-r043-20230206
-sh                 kfr2r09-romimage_defconfig
-m68k                           virt_defconfig
-arm64                            allyesconfig
-
-clang tested configs:
-x86_64               randconfig-a001-20230206
-x86_64               randconfig-a005-20230206
-x86_64               randconfig-a002-20230206
-i386                 randconfig-a002-20230206
-x86_64               randconfig-a004-20230206
-i386                 randconfig-a004-20230206
-x86_64               randconfig-a003-20230206
-i386                 randconfig-a003-20230206
-i386                 randconfig-a001-20230206
-hexagon              randconfig-r041-20230205
-x86_64               randconfig-a006-20230206
-riscv                randconfig-r042-20230205
-i386                 randconfig-a005-20230206
-hexagon              randconfig-r045-20230206
-hexagon              randconfig-r041-20230206
-i386                 randconfig-a006-20230206
-arm                  randconfig-r046-20230206
-s390                 randconfig-r044-20230205
-hexagon              randconfig-r045-20230205
-powerpc                      acadia_defconfig
-mips                          rm200_defconfig
-arm                          sp7021_defconfig
-x86_64                        randconfig-k001
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+> > (I cc'd you on the bug report, jfyi)
+>
+> I unfortunately only get a permission denied when I try to access that on=
+e.
+>
+> Regards,
+> Christian.
+>
+> >
+> > BR,
+> > -R
+> >
+> >> Regards,
+> >> Christian.
+> >>
+> >>> Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
+> >>> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> >>> ---
+> >>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 33 ++++++++++++++++++++++=
+----
+> >>>    1 file changed, 29 insertions(+), 4 deletions(-)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_vm.c
+> >>> index b9441ab457ea..aeed7bc1512f 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> >>> @@ -1240,10 +1240,19 @@ int amdgpu_vm_clear_freed(struct amdgpu_devic=
+e *adev,
+> >>>        struct amdgpu_bo_va_mapping *mapping;
+> >>>        uint64_t init_pte_value =3D 0;
+> >>>        struct dma_fence *f =3D NULL;
+> >>> +     struct list_head freed;
+> >>>        int r;
+> >>>
+> >>> -     while (!list_empty(&vm->freed)) {
+> >>> -             mapping =3D list_first_entry(&vm->freed,
+> >>> +     /*
+> >>> +      * Move the contents of the VM's freed list to a local list
+> >>> +      * that we can iterate without racing against other threads:
+> >>> +      */
+> >>> +     spin_lock(&vm->status_lock);
+> >>> +     list_replace_init(&vm->freed, &freed);
+> >>> +     spin_unlock(&vm->status_lock);
+> >>> +
+> >>> +     while (!list_empty(&freed)) {
+> >>> +             mapping =3D list_first_entry(&freed,
+> >>>                        struct amdgpu_bo_va_mapping, list);
+> >>>                list_del(&mapping->list);
+> >>>
+> >>> @@ -1258,6 +1267,15 @@ int amdgpu_vm_clear_freed(struct amdgpu_device=
+ *adev,
+> >>>                amdgpu_vm_free_mapping(adev, vm, mapping, f);
+> >>>                if (r) {
+> >>>                        dma_fence_put(f);
+> >>> +
+> >>> +                     /*
+> >>> +                      * Move any unprocessed mappings back to the fr=
+eed
+> >>> +                      * list:
+> >>> +                      */
+> >>> +                     spin_lock(&vm->status_lock);
+> >>> +                     list_splice_tail(&freed, &vm->freed);
+> >>> +                     spin_unlock(&vm->status_lock);
+> >>> +
+> >>>                        return r;
+> >>>                }
+> >>>        }
+> >>> @@ -1583,11 +1601,14 @@ int amdgpu_vm_bo_unmap(struct amdgpu_device *=
+adev,
+> >>>        mapping->bo_va =3D NULL;
+> >>>        trace_amdgpu_vm_bo_unmap(bo_va, mapping);
+> >>>
+> >>> -     if (valid)
+> >>> +     if (valid) {
+> >>> +             spin_lock(&vm->status_lock);
+> >>>                list_add(&mapping->list, &vm->freed);
+> >>> -     else
+> >>> +             spin_unlock(&vm->status_lock);
+> >>> +     } else {
+> >>>                amdgpu_vm_free_mapping(adev, vm, mapping,
+> >>>                                       bo_va->last_pt_update);
+> >>> +     }
+> >>>
+> >>>        return 0;
+> >>>    }
+> >>> @@ -1671,7 +1692,9 @@ int amdgpu_vm_bo_clear_mappings(struct amdgpu_d=
+evice *adev,
+> >>>                    tmp->last =3D eaddr;
+> >>>
+> >>>                tmp->bo_va =3D NULL;
+> >>> +             spin_lock(&vm->status_lock);
+> >>>                list_add(&tmp->list, &vm->freed);
+> >>> +             spin_unlock(&vm->status_lock);
+> >>>                trace_amdgpu_vm_bo_unmap(NULL, tmp);
+> >>>        }
+> >>>
+> >>> @@ -1788,7 +1811,9 @@ void amdgpu_vm_bo_del(struct amdgpu_device *ade=
+v,
+> >>>                amdgpu_vm_it_remove(mapping, &vm->va);
+> >>>                mapping->bo_va =3D NULL;
+> >>>                trace_amdgpu_vm_bo_unmap(bo_va, mapping);
+> >>> +             spin_lock(&vm->status_lock);
+> >>>                list_add(&mapping->list, &vm->freed);
+> >>> +             spin_unlock(&vm->status_lock);
+> >>>        }
+> >>>        list_for_each_entry_safe(mapping, next, &bo_va->invalids, list=
+) {
+> >>>                list_del(&mapping->list);
+>
