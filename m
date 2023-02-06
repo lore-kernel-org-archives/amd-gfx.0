@@ -4,59 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E81C0C61DA4
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Feb 2023 09:47:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DEF1C05027
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Feb 2023 10:15:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69BBF10E34A;
-	Mon,  6 Feb 2023 09:47:51 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 985E710E34A;
- Mon,  6 Feb 2023 09:47:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675676869; x=1707212869;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=PLpTmQKz7FwE7Jo1cFuNVsyIBXxXdNCCxyQKsDeWLlw=;
- b=abGXL7jkafSaFXTAJFF3XqIYAnhGMVBqY7SkHP4QqytFhIn/NV9ny+2V
- sOpgZEtExL22x5BVPaPUk/rgtTFt61MZCUju7jLG8k9Xhvv6DipFU68tA
- eCMnv85OHF/idU644cWG4mJUKlIwKP3KurOlBtIMKv7LQK9m0qo2DsphN
- AXPteLfn1XqPkJbLNkwlaIqqDm29QQhicKOl5R0igT0Z3bwnYLp0JdXlw
- cioLNtQh/N9Vd9G6mTMQ/Clq5Lkd/Ji87p8PoB/bEFfC3/j/WEZLjRjt8
- 8duQNlMArF0tBM/ezOGkUIz65urEXXEkDzJUgfpAxmygvX0vU3waFxlwo g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10612"; a="308811077"
-X-IronPort-AV: E=Sophos;i="5.97,276,1669104000"; d="scan'208";a="308811077"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Feb 2023 01:47:49 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10612"; a="729954951"
-X-IronPort-AV: E=Sophos;i="5.97,276,1669104000"; d="scan'208";a="729954951"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.55])
- by fmsmga008.fm.intel.com with SMTP; 06 Feb 2023 01:47:45 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 06 Feb 2023 11:47:44 +0200
-Date: Mon, 6 Feb 2023 11:47:44 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Joshua Ashton <joshua@froggi.es>
-Subject: Re: [PATCH 3/3] drm/connector: Deprecate split for BT.2020 in
- drm_colorspace enum
-Message-ID: <Y+DMwPu6IMVHsmpD@intel.com>
-References: <CA+hFU4ymiOg06MQeKLcn5MSrR=BZnOLODdZCFvGUdWqt_ha61A@mail.gmail.com>
- <0fc18aec-0703-55f4-f635-d09d345e8dc0@amd.com>
- <Y90l+DY0rSaMvN1U@intel.com>
- <758e5cf6-53e0-567c-c760-5b773bc7a11c@amd.com>
- <Y90vrEa3/1RbaGOV@intel.com>
- <f9633729-2db0-3bf1-311d-f03bd04d47a6@amd.com>
- <Y91Y98jyOimabC3O@intel.com> <Y91fsmgAx65koWI5@intel.com>
- <Y91hyNAplv4nuW5Y@intel.com>
- <a3d46b3a-ebd5-e02c-3db4-783f2a34b36c@froggi.es>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60E2A10E180;
+	Mon,  6 Feb 2023 10:15:09 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20626.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5b::626])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7172F10E17A;
+ Mon,  6 Feb 2023 10:15:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RK+13CUko+LcExvZWVqPUr0Gjd0SB5vvAfweSLrRAc7mwqKQWfsr+1YeB1D+MX9JaVBiwyZVdP/3cwYo+4D5h563+4X5I5w6I4zORv5fcIdjDtKEenFVuXX0YPtInLzH5c+Wo1bIO5HCEQuAqkY9AsX5vfnzc5781JSNHZ7ISVK3D4oOXyM3WGQ2jzwPUynWi2hFVbrpbrRYNA34sry7sBZ5bzVSf8HWw4cgzYWQIzt0jen0Plas/RUtyeaQtLyMMxU5532H5QhcaCW5KE4fyv9XLNoNy1E0LU2A5pWesUMrbfUkKodu7wEUt425wGwUwul+qDpBbsimOs27HbFawA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KlQosZJpb9/aNSVY1/+NOqsHh7n5TmsSm15/6p4LFMk=;
+ b=XyH8r2Q5neuOpqVMUrd9aAmX93yMflUInHlW8UyjbtfenSPEX0n7cUCVzi+288WOe+5/+N8XKBUk6TzvY7WpBKJIAYEKvp9WhBQlKTODRFuLOqCoL+SFupG1oM9cJB340/QQ6QlIsiTo8nU9tB+ejsJ3B31rSJ2/kridz2WFyUaV9V6Q0yDP4DD372FmGetUikegfusJeTkoNbMoE31As49ZdW+zfDsyuAveFKhVEWjy/v6x9QXFxK6eplV/C+eeUdOAfhu0vdxqkY7nWVuDmbZ/R2DlFUD5hfD5aoiWS5hASCX0+6pNulV3UJv3K8bZtsPY11Xq1ydpbVltnG8fyA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KlQosZJpb9/aNSVY1/+NOqsHh7n5TmsSm15/6p4LFMk=;
+ b=5RVBcrRsGplPBAxU4dHOzRRRjkT5TYpu3XUMamISxZjY7s2FwapSgfSJyGuJ8HJfVJ1aMbqeRFpVjF7JDt+nz6owMZfiu6V3Tt7W39Qn0jBI9MOtFmkZQX5iM7wypcnriw6V/t3AIVVay02rK1WGtm/N/fKG5oRaWie0VPJgmZk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by CH2PR12MB4166.namprd12.prod.outlook.com (2603:10b6:610:78::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.34; Mon, 6 Feb
+ 2023 10:15:01 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::2e4f:4041:28be:ba7a]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::2e4f:4041:28be:ba7a%6]) with mapi id 15.20.6064.032; Mon, 6 Feb 2023
+ 10:15:01 +0000
+Message-ID: <2d5fc6f8-2247-8a8b-1174-eccdc2b08064@amd.com>
+Date: Mon, 6 Feb 2023 11:14:49 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH] drm/amdgpu: Fix potential race processing vm->freed
+Content-Language: en-US
+To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
+References: <20230203181005.4129175-1-robdclark@gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20230203181005.4129175-1-robdclark@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0041.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4a::17) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <a3d46b3a-ebd5-e02c-3db4-783f2a34b36c@froggi.es>
-X-Patchwork-Hint: comment
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|CH2PR12MB4166:EE_
+X-MS-Office365-Filtering-Correlation-Id: a1ee179e-4afc-4e03-e7b2-08db082b0217
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: kyNrxe+93bAkQS8byEZa12p50OJ7mZ4QJyTzBBjcDAAibtEbH3qlOTudkA8R4C+d7FIacrnCjXwuXVuIL4nUc5N1hyNcVI8brjo4Tiw29oUkloAM79YET2ddtXUqrcJIkj3+BfAJJeNLctmnynzRicESq/Op/lzSBskXjiwOQmiuhFxBNPDC5L6oqX60gzfYjpxtsB7XyRBFrJNBJRRJUxVm2B9VFF+CP2GFQaeWrGEkiep7evD1681owNPn0jQAgGFYg58mF8ns+Hmm2sTTecYyZtZLn79O3/3NQGn8f23FITZNI0YzPPtxP0nZiSYFxi8xpulooaiGZDyMNGIdt5PLBIzdftsyyirtm1GsJuKNLxW6KTi53fb6rBoOrxipUisMIGJEpOB8/SZjlOg0cuo9z3agjCNBJHXgHGg2LOpT677nq+shaiB5Elw9w+JN58xcJRHlMIdrNsQ6yQ+i0mpx/yhWB+e0rxb2rs1ORBogQA6INxp3f2sMl/m4ZCJRZQy7+H7w9lzhymlQSbUlQgam4FFXLbEjB1Fcn0chfdViNY1+D6fVp3PuSkbwtlnp6OmfFQ3OyI9wfxQ3pRhTNpnDOAYJCikQVp05Osr+XQZbgWwSD+/9Lol2DOIBZ9kVSAYZNJ8xUd+q7jib85QfiCwEcMXvs/kJ1dqiIL4gm8uUXDA9DpZk0IZTxj2e0P3Z4J8dRg5WZMck3Xeh52sicaoQmOX5jwsBp/CtQoSgsNc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(366004)(39860400002)(136003)(376002)(346002)(396003)(451199018)(478600001)(316002)(54906003)(6506007)(6666004)(2616005)(6512007)(26005)(186003)(31686004)(31696002)(36756003)(6486002)(5660300002)(86362001)(38100700002)(83380400001)(66946007)(4326008)(8676002)(2906002)(8936002)(66556008)(41300700001)(66476007)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SURsWlVYRHFDQ2lKUXJlTkZ4cmhJSy8zQklmWkk1ZDRWSm5EQVRBODE4blkw?=
+ =?utf-8?B?OEtyREx6U0lTOXhzbEllRkthUXh3V0xJS0xiU0Nyc1pWZU80MkhYeURuN0pE?=
+ =?utf-8?B?ZjVPNlQwdXdGQUZFTFp2ak02Z2NwdStjUjFQSW1yZXA1UG1PMG5xNVJ0K05o?=
+ =?utf-8?B?eTZBSVNJOFRWYUNLS2l3anVncWY5RHJtRld3VlJwM0VRcGozSWRqREpLTE9m?=
+ =?utf-8?B?bUFkQnFKMkxEVitmdnFMUno5N1EyQlhJbnh4VjlqZkt5VlV6MkJTQ2NyZnhD?=
+ =?utf-8?B?N29BTXNNWEVaNXI1TGRsMlAzMTNyMHNIVlFoREUrZWV2dEFmM1BMU0sxRGls?=
+ =?utf-8?B?NmhnZzcreGJGZFZCNVR3R2VCQkQrQWhrQU05bHcyOE9rQUVOQUlDMmhsZVRG?=
+ =?utf-8?B?NTNycjhCV0JEaStRYXZlZ3RkL3pneEFKdTYyVFc4WnJ4QlEzdjZFcU4wMzll?=
+ =?utf-8?B?c3FsUHpWT0pjam5KZmVwRWJNazZlOWpaVE5FNm50ZTEyUTFhRFgrTTg3MHlH?=
+ =?utf-8?B?a2w4THFYVVVDOGZ1YldPZitXR1F5QisyMWc5VTEyWGg4b3dVUFQxRU4waDBB?=
+ =?utf-8?B?S251dHJickVueDRZdmdGcnZFOWFEZnJHc0tSNDRQTDRxaTMzenRqcHlnSzd3?=
+ =?utf-8?B?UU1TckM3Rjk2QWs3elRSVDBrWllKb3o4WHZCeEdoYnFackVBMEk3NGNjQlBi?=
+ =?utf-8?B?SDgxbmhqL2tvMDcrOXVBWkVNR2pyZDM2bU9Eb0hxODlRWjNWU3FNQ1JtRnhl?=
+ =?utf-8?B?YStibDlmSjZjdEd2aUJ4RGZMY2R6V3NOcSs4emc2RWI5eXRYc0JZNVRJU24y?=
+ =?utf-8?B?eGtsNFJFT0VINmV6eEE1VEVXeHlud0x6UkZzdHFtV21OUEpEb3lFUUFPTko2?=
+ =?utf-8?B?VWNoT2RTYlIvai9WclRMUDVHVm5iQmsvR05Hc3RqQ3JjMyttVzJMWDNnSnBH?=
+ =?utf-8?B?dWpnVVE3ZU00VlQyWXA2TTN0bzRrQXd1K0tMVWpFVDlIWXpvemgxYmZOem9j?=
+ =?utf-8?B?Zll0NFhXOUlKakVRZlhqWGwvTUhyQlMvKzJldTJDRGJZTE03RENzbFhGMHpq?=
+ =?utf-8?B?dys5dm52eGZPL3M2SFhCUG1QQ0ZQRHZCQ0t4RVRsajVrQXFRY1I0bGNkVnhR?=
+ =?utf-8?B?MGl3bDVKNzJUUVpCeUIwQWplc0dVTEtDTVQyQm84RGFxOTAvTFNHNGpUYndm?=
+ =?utf-8?B?Uy90NDI3SUdOSUcxYk5rUjIwSWVwWS9PWkhSakd3WUhaRUZLczNPelc1cEE3?=
+ =?utf-8?B?d0FTMFlSei9HMkJBK1RxelVuMEJxTjMzTjVqN3I3aDMxNzVHdjZSSjU5Rlkv?=
+ =?utf-8?B?NThLc1UvMTBJYzNKWk51aVhJNnRKYXovT1JKK3dtN2diT3ZiOThtTjNsU0Nh?=
+ =?utf-8?B?azdqZkQyNUZtVnVXSlVrMG5ZN2I4cGQxZEYvTkkyd3pNRHFzZG0yeDkwOHYv?=
+ =?utf-8?B?d2Zxa2dldlZEcFl6Zy9ReVlVM09IcWpXK0NaTjJaZ0lGV293RE8vZEsyZm44?=
+ =?utf-8?B?cUt0UWE2WFk3Rjd4VTJlNmpnSVBhQTZVOExoSFArbXM0WUtVK04rQUg0UlFr?=
+ =?utf-8?B?OE9ndURyQnRoVUxYZkVjcjBIbDRUR0lMeklMc0lWcDZnODVieDc0VEZmY0Mz?=
+ =?utf-8?B?WUJnL3pZcjI4VzNnTktiWUtneVM2VkpOeEV0aFRVL28wbEQvcmVtd2RVSENi?=
+ =?utf-8?B?MDBobnIyVlE2WFRrS0FIRW54QjRxMEZuSlZIck1EU3VEL2cwSWd4dW80K3hh?=
+ =?utf-8?B?alp3dlhnSElJenN6SUw0enJBWlROSVpxamJkUXp2anF1UXQ0Umg1V01aNGt3?=
+ =?utf-8?B?ZzhMRlhQcnRBbVRBN2I5TkFYbnJ0NEp3aUZEeS84eDJZY2lWaDJ2TzNWcTAv?=
+ =?utf-8?B?WW9tcGV4SENzMjU4bmtMYnJtam5sTmZrVW1kZWRXQ2JaNm41ZWptSFRiLzBZ?=
+ =?utf-8?B?TFdoUEppaitkRVRscEpOZmpPWVM5NGRVSUpINDdlcVV1YVduMkhyNkFzeXAr?=
+ =?utf-8?B?S0F6akFXTVg3MmRxL09mb0djMUk1bkhPL0w3SURCVjJvZSs5VTdiTklTQjd4?=
+ =?utf-8?B?L1Vyay9IT29pM2pidUZwa0dmeG41aWJ4TmdjRlNtM0xuMDBNNDhrYVREblYv?=
+ =?utf-8?Q?ZbOvzQEYKoKCAaPTp15u3mDzQ?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a1ee179e-4afc-4e03-e7b2-08db082b0217
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2023 10:15:01.6981 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ncMfRGA3MjLy6Gp/fAtGQMt39x1Hfpmx85WdVeSNYgjMcwiMsVRJtnQ2PapJ9GnO
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4166
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,222 +124,116 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>, amd-gfx@lists.freedesktop.org,
- Pekka Paalanen <ppaalanen@gmail.com>, Uma Shankar <uma.shankar@intel.com>,
- dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Vitaly.Prosyak@amd.com
+Cc: Rob Clark <robdclark@chromium.org>, Philip Yang <Philip.Yang@amd.com>,
+ Jammy Zhou <Jammy.Zhou@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, open list <linux-kernel@vger.kernel.org>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ Qiang Yu <qiang.yu@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Feb 04, 2023 at 06:09:45AM +0000, Joshua Ashton wrote:
-> 
-> 
-> On 2/3/23 19:34, Ville Syrjälä wrote:
-> > On Fri, Feb 03, 2023 at 09:25:38PM +0200, Ville Syrjälä wrote:
-> >> On Fri, Feb 03, 2023 at 08:56:55PM +0200, Ville Syrjälä wrote:
-> >>> On Fri, Feb 03, 2023 at 01:28:20PM -0500, Harry Wentland wrote:
-> >>>>
-> >>>>
-> >>>> On 2/3/23 11:00, Ville Syrjälä wrote:
-> >>>>> On Fri, Feb 03, 2023 at 10:24:52AM -0500, Harry Wentland wrote:
-> >>>>>>
-> >>>>>>
-> >>>>>> On 2/3/23 10:19, Ville Syrjälä wrote:
-> >>>>>>> On Fri, Feb 03, 2023 at 09:39:42AM -0500, Harry Wentland wrote:
-> >>>>>>>>
-> >>>>>>>>
-> >>>>>>>> On 2/3/23 07:59, Sebastian Wick wrote:
-> >>>>>>>>> On Fri, Feb 3, 2023 at 11:40 AM Ville Syrjälä
-> >>>>>>>>> <ville.syrjala@linux.intel.com> wrote:
-> >>>>>>>>>>
-> >>>>>>>>>> On Fri, Feb 03, 2023 at 02:07:44AM +0000, Joshua Ashton wrote:
-> >>>>>>>>>>> Userspace has no way of controlling or knowing the pixel encoding
-> >>>>>>>>>>> currently, so there is no way for it to ever get the right values here.
-> >>>>>>>>>>
-> >>>>>>>>>> That applies to a lot of the other values as well (they are
-> >>>>>>>>>> explicitly RGB or YCC). The idea was that this property sets the
-> >>>>>>>>>> infoframe/MSA/SDP value exactly, and other properties should be
-> >>>>>>>>>> added to for use userspace to control the pixel encoding/colorspace
-> >>>>>>>>>> conversion(if desired, or userspace just makes sure to
-> >>>>>>>>>> directly feed in correct kind of data).
-> >>>>>>>>>
-> >>>>>>>>> I'm all for getting userspace control over pixel encoding but even
-> >>>>>>>>> then the kernel always knows which pixel encoding is selected and
-> >>>>>>>>> which InfoFrame has to be sent. Is there a reason why userspace would
-> >>>>>>>>> want to control the variant explicitly to the wrong value?
-> >>>>>>>>>
-> >>>>>>>>
-> >>>>>>>> I've asked this before but haven't seen an answer: Is there an existing
-> >>>>>>>> upstream userspace project that makes use of this property (other than
-> >>>>>>>> what Joshua is working on in gamescope right now)? That would help us
-> >>>>>>>> understand the intent better.
-> >>>>>>>
-> >>>>>>> The intent was to control the infoframe colorimetry bits,
-> >>>>>>> nothing more. No idea what real userspace there was, if any.
-> 
-> Controlling the infoframe alone isn't useful at all unless you can 
-> guarantee the wire encoding, which we cannot do.
-> 
-> >>>>>>>
-> >>>>>>>>
-> >>>>>>>> I don't think giving userspace explicit control over the exact infoframe
-> >>>>>>>> values is the right thing to do.
-> 
-> +1
-> 
-> >>>>>>>
-> >>>>>>> Only userspace knows what kind of data it's stuffing into
-> >>>>>>> the pixels (and/or how it configures the csc units/etc.) to
-> >>>>>>> generate them.
-> >>>>>>>
-> >>>>>>
-> >>>>>> Yes, but userspace doesn't control or know whether we drive
-> >>>>>> RGB or YCbCr on the wire. In fact, in some cases our driver
-> >>>>>> needs to fallback to YCbCr420 for bandwidth reasons. There
-> >>>>>> is currently no way for userspace to know that and I don't
-> >>>>>> think it makes sense.
-> >>>>>
-> >>>>> People want that control as well for whatever reason. We've
-> >>>>> been asked to allow YCbCr 4:4:4 output many times.
-> >>>>>
-> >>>>> The automagic 4:2:0 fallback I think is rather fundementally
-> >>>>> incompatible with fancy color management. How would we even
-> >>>>> know whether to use eg. BT.2020 vs. BT.709 matrix? In i915
-> >>>>> that stuff is just always BT.709 limited range, no questions
-> >>>>> asked.
-> 
-> That's what the Colorspace property *should* be determining here.
-> That's what we have it set up to do in SteamOS/my tree right now.
-> 
-> >>>>>
-> >>>>
-> >>>> We use what we're telling the display, i.e., the value in the
-> >>>> colorspace property. That way we know whether to use a BT.2020
-> >>>> or BT.709 matrix.
-> >>>
-> >>> And given how these things have gone in the past I think
-> >>> that is likey to bite someone at in the future. Also not
-> >>> what this property was meant to do nor does on any other
-> >>> driver AFAIK.
-> >>>
-> >>>> I don't see how it's fundamentally incompatible with fancy
-> >>>> color management stuff.
-> >>>>
-> >>>> If we start forbidding drivers from falling back to YCbCr
-> >>>> (whether 4:4:4 or 4:2:0) we will break existing behavior on
-> >>>> amdgpu and will see bug reports.
-> >>>
-> >>> The compositors could deal with that if/when they start doing
-> >>> the full color management stuff. The current stuff only really
-> >>> works when the kernel is allowed to do whatever it wants.
-> >>>
-> >>>>
-> >>>>> So I think if userspace wants real color management it's
-> >>>>> going to have to set up the whole pipeline. And for that
-> >>>>> we need at least one new property to control the RGB->YCbCr
-> >>>>> conversion (or to explicitly avoid it).
-> 
-> I mentioned this in my commit description, we absolutely should offer 
-> fine control here eventually.
-> 
-> I don't think we need to solve that problem here though.
-> 
-> >>>>>
-> >>>>> And given that the proposed patch just swept all the
-> >>>>> non-BT.2020 issues under the rug makes me think no
-> >>>>> one has actually come up with any kind of consistent
-> >>>>> plan for anything else really.
-> >>>>>
-> >>>>
-> >>>> Does anyone actually use the non-BT.2020 colorspace stuff?
-> >>>
-> >>> No idea if anyone is using any of it. It's a bit hard to do
-> >>> right now outside the full passthrough case since we have no
-> >>> properties to control how the hardware will convert stuff.
-> 
-> No, every userspace knows that encoding of the output buffer before 
-> going to the wire format is RGB.
-> 
-> It's the only way you can have planes alpha-blend, or mix and match RGB 
-> and NV12, etc.
-> 
-> >>>
-> >>> Anyways, sounds like what you're basically proposing is
-> >>> getting rid of this property and starting from scratch.
-> >>
-> >> Hmm. I guess one option would be to add that property to
-> >> control the output encoding, but include a few extra
-> >> "automagic" values to it which would retain the kernel's
-> >> freedom to select whether to do the RGB->YCbCr conversion
-> >> or not.
-> >>
-> >> enum output_encoding {
-> >> 	auto rgb=default/nodata,ycbcr=bt601
-> >> 	auto rgb=default/nodata,ycbcr=bt709
-> >> 	auto rgb=bt2020,ycbcr=bt2020
-> >> 	passthrough,
-> >> 	rgb->ycbcr bt601,
-> >> 	rgb->ycbcr bt709,
-> >> 	rgb->ycbcr bt2020,
-> >> }
-> > 
-> > In fact there should perhaps be a lot more of the explicit
-> > options to get all subsamlings and quantizations ranges
-> > coverted. That might actually be really nice for an igt
-> > to get more full test coverage.
-> > 
-> The choice of encoding of the pixel on the wire should be unrelated to 
-> the overall output colorspace from the userspace side -- but how the 
-> display engine converts the output to that wire format *is* dependent on 
-> the colorspace.
-> eg. picking a rec.709 ctc vs a rec.2020 ctc matrix.
-> 
-> I see you are proposing a "passthrough" but that wouldn't work at all as 
-> you still need to at know if you are RGB or YCbCr for the infoframe and 
-> to perform chroma subsampling in the display engine.
+Am 03.02.23 um 19:10 schrieb Rob Clark:
+> From: Rob Clark <robdclark@chromium.org>
+>
+> If userspace calls the AMDGPU_CS ioctl from multiple threads, because
+> the vm is global to the drm_file, you can end up with multiple threads
+> racing in amdgpu_vm_clear_freed().  So the freed list should be
+> protected with the status_lock, similar to other vm lists.
 
-The passthrough (and other knobs after it) were meant for 
-explicit control, which means they wouldn't affect infoframes.
+Well this is nonsense. To process the freed list the VM root PD lock 
+must be held anyway.
 
-But probably we should have seprate properties for explicit
-control of each knob vs. some kind of easier to use property.
-And I suppose we can still leave the explicit control stuff
-for later (apart from the one property we already have).
+If we have a call path where this isn't true then we have a major bug at 
+a different place here.
 
-> 
-> I perused the initial patches that added this property, and it seems 
-> there were no IGT tests or userspace implementation, so I am not 
-> entirely sure why it was committed in the first place.
+Regards,
+Christian.
 
-I presume at least the kodi HDR stuff uses ths. There may
-have also been some chromeos stuff going on. Can't recall
-anymore.
+>
+> Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 33 ++++++++++++++++++++++----
+>   1 file changed, 29 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index b9441ab457ea..aeed7bc1512f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -1240,10 +1240,19 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+>   	struct amdgpu_bo_va_mapping *mapping;
+>   	uint64_t init_pte_value = 0;
+>   	struct dma_fence *f = NULL;
+> +	struct list_head freed;
+>   	int r;
+>   
+> -	while (!list_empty(&vm->freed)) {
+> -		mapping = list_first_entry(&vm->freed,
+> +	/*
+> +	 * Move the contents of the VM's freed list to a local list
+> +	 * that we can iterate without racing against other threads:
+> +	 */
+> +	spin_lock(&vm->status_lock);
+> +	list_replace_init(&vm->freed, &freed);
+> +	spin_unlock(&vm->status_lock);
+> +
+> +	while (!list_empty(&freed)) {
+> +		mapping = list_first_entry(&freed,
+>   			struct amdgpu_bo_va_mapping, list);
+>   		list_del(&mapping->list);
+>   
+> @@ -1258,6 +1267,15 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+>   		amdgpu_vm_free_mapping(adev, vm, mapping, f);
+>   		if (r) {
+>   			dma_fence_put(f);
+> +
+> +			/*
+> +			 * Move any unprocessed mappings back to the freed
+> +			 * list:
+> +			 */
+> +			spin_lock(&vm->status_lock);
+> +			list_splice_tail(&freed, &vm->freed);
+> +			spin_unlock(&vm->status_lock);
+> +
+>   			return r;
+>   		}
+>   	}
+> @@ -1583,11 +1601,14 @@ int amdgpu_vm_bo_unmap(struct amdgpu_device *adev,
+>   	mapping->bo_va = NULL;
+>   	trace_amdgpu_vm_bo_unmap(bo_va, mapping);
+>   
+> -	if (valid)
+> +	if (valid) {
+> +		spin_lock(&vm->status_lock);
+>   		list_add(&mapping->list, &vm->freed);
+> -	else
+> +		spin_unlock(&vm->status_lock);
+> +	} else {
+>   		amdgpu_vm_free_mapping(adev, vm, mapping,
+>   				       bo_va->last_pt_update);
+> +	}
+>   
+>   	return 0;
+>   }
+> @@ -1671,7 +1692,9 @@ int amdgpu_vm_bo_clear_mappings(struct amdgpu_device *adev,
+>   		    tmp->last = eaddr;
+>   
+>   		tmp->bo_va = NULL;
+> +		spin_lock(&vm->status_lock);
+>   		list_add(&tmp->list, &vm->freed);
+> +		spin_unlock(&vm->status_lock);
+>   		trace_amdgpu_vm_bo_unmap(NULL, tmp);
+>   	}
+>   
+> @@ -1788,7 +1811,9 @@ void amdgpu_vm_bo_del(struct amdgpu_device *adev,
+>   		amdgpu_vm_it_remove(mapping, &vm->va);
+>   		mapping->bo_va = NULL;
+>   		trace_amdgpu_vm_bo_unmap(bo_va, mapping);
+> +		spin_lock(&vm->status_lock);
+>   		list_add(&mapping->list, &vm->freed);
+> +		spin_unlock(&vm->status_lock);
+>   	}
+>   	list_for_each_entry_safe(mapping, next, &bo_va->invalids, list) {
+>   		list_del(&mapping->list);
 
-As for IGT, there's nothing we can really test since we 
-have no way to get the inforframes/etc. back from the sink.
-Hence nothing beyond the normal kms_property sanity checks
-really makes sense.
-
-> 
-> Nobody can safely use Colorspace because of this problem right now.
-> 
-> If nobody is using this property, perhaps we could just get a fresh 
-> start, and either re-purpose it with new enum values, or obsolete it and 
-> make a new property.
-> If we do this, let's start with the absolute bare minimum, such as:
-> "Default/Rec.709 (sRGB), BT.2020"
-> and then grow as we need, making sure we have the full circle from 
-> userspace->output complete and working for each new value we add.
-
-Yeah, I think a fresh property is what we want.
-
-> 
-> Please don't take this as me saying we shouldn't add all these other 
-> options like opRGB, etc, I just want us to progress to a solid base for 
-> expanding further here, which we really don't have right now.
-> 
-> - Joshie 🐸✨
-
--- 
-Ville Syrjälä
-Intel
