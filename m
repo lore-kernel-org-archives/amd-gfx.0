@@ -4,56 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A69C9C05027
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Feb 2023 20:24:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62C17C05027
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Feb 2023 20:26:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11F6A10EA41;
-	Mon,  6 Feb 2023 20:24:55 +0000 (UTC)
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93FC510EA3F;
- Mon,  6 Feb 2023 20:24:52 +0000 (UTC)
-Received: by mail-ot1-x335.google.com with SMTP id
- n25-20020a9d7119000000b0068bd8c1e836so3556161otj.3; 
- Mon, 06 Feb 2023 12:24:52 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0072F10EA47;
+	Mon,  6 Feb 2023 20:26:50 +0000 (UTC)
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
+ [IPv6:2607:f8b0:4864:20::22f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DA7510EA47
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Feb 2023 20:26:48 +0000 (UTC)
+Received: by mail-oi1-x22f.google.com with SMTP id bd6so1809742oib.6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 06 Feb 2023 12:26:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=ii3QWaTSpWqp8nAIBHYKbEzhocMIY28k394B8Gv37po=;
- b=EIsiXELTDJZsBHSzEz0zei/PUThrVQSlx0895jVSVUXzJ9Ee0VIVViPE29DCHdJQ1I
- ueoaQxqXV4qHNWNBu6FhGAPMC3i3SsTdk3p9nY7zcUAizG7Zh539bk3rjJFuAQgf02Md
- wbmyC2j/iNPuVdMqHG0w81geTiflP2FO6+dW+rWN02ZYRuI5dNYXZ2Beh9tTg+cQ/8WW
- YdfESXCvyBZsWyQjfB+IzEXp15yDOnJvxBaTsuFYjWTVTu8xYibijEZXh2y29ujyQfSa
- zhVo3saNVNroFTdkrlh+zFCkNITKmkjN1PJ6hl65Vt4RHbE6RDMPKlPrY09T/jeT7Hdh
- Zc4w==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dYWAc5YnSQeIKbO6g/UZVz1Fvj5dC6iIc06j4sDIuz0=;
+ b=LdsU0NeJTEdw/XDUi0KX128+MgxpQ0+WFYiRjyUflZmmAa6uc/wA9raiiingHmPaj+
+ JpIgf8VxbM+2MA1knWNmL/TSDQ/UNxQ43kH6Cii/pHW+sT9BykedvxZJhiGQ3cm419Fd
+ U+fmNCI7vKjo8kTXwBVY8kA7PCW4MrRn6hEgJEno1O1sWADeFI8t/CWCqO17Kr2dSCg1
+ 5OkWIxUh4ifJ4sxIi9wqZZROL0g8DGtAYAGG4P9/VrMbUPcm8IxkB2VHv43d2loztafm
+ mU/Z3MsUkCyqcnHFTabH50XNILAdk3/oVb22Yi1YsCLEiXP9Z39PvgVZlC12sCAnr189
+ YIgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ii3QWaTSpWqp8nAIBHYKbEzhocMIY28k394B8Gv37po=;
- b=Fk+NJVCe3U2Btqq2GRmztwfSPsC8D3pXrWwwfAt3l4+KIroLSuPuUpwudhQc3CCVV/
- WClWFzf8B1HeoXv4+F7cFi+uC7DoKFtACccbdDQVhjg0vPL3qT48ytPyqtP05xpc7Ivy
- 6tUXRaGbN+toISbvGGyjqAgMGap1IofIzgwKgzcz/wa50yUIBeWeALPalO63cWdF+4U6
- eBLK8t/N98NLFC+kdZ96nTUxRRLBrHlXWxQpEnZHCYhVnjHZIoC6UpuqKG4Uqh+aNSMD
- ka+nd+dH2f98vHmyDmT6sI/xGF3giNJXgDShZQgWwDLSlscuKbCH4CBV55D6qBP0/0Iy
- omWQ==
-X-Gm-Message-State: AO0yUKUABwaL6xctpT02G31/LgEpaNV6VCHXibspUv3tj/xO8qbF/O+h
- 1FL90xnem90XJtIUrE0dTK6zhBpz3ztltjpZ7Nk=
-X-Google-Smtp-Source: AK7set9oYVPJvXFFlrdhnRzD5XmmpUtCk86aL0C9pwbKJGoLMv/n+wmWY4auI9t864Gv+GlUtukuDRtHa2bkjtuBMD4=
-X-Received: by 2002:a05:6830:22e1:b0:686:413a:59ae with SMTP id
- t1-20020a05683022e100b00686413a59aemr40628otc.120.1675715091814; Mon, 06 Feb
- 2023 12:24:51 -0800 (PST)
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=dYWAc5YnSQeIKbO6g/UZVz1Fvj5dC6iIc06j4sDIuz0=;
+ b=JnJJzn5cGLrJV9luQg+Cc2fbDVyntCvqam2vQ51AL/A1ygAJu/MT2VXxMC2PR8nXaG
+ CUrnvi4/SRDfUhyJb1UKKAbPqVDLfBlaHQWTUIVoHUA5GmtEm4YPuQGrrtu9S6GzOqf5
+ /HOUg9DCC0EM7M/8+YTYNFgDzjpWN+PP2aAKmSA95uTw4o8Jif7pWOtZj/HSi/A53CNn
+ zyDs81LV9+eS6EgWZ+ahGFngzsgEe5xR18gqbjeRIyK1aG+MbgWhkiKjB91WAJRiDiHK
+ 6nzIpt1mUkhsfatTXN7liZQKTNmVUfE6bWDAp66Y6jNNHTDSQqPPk3vYnd2HzhcPOCBM
+ JKKg==
+X-Gm-Message-State: AO0yUKVsDQbYEOHGi06VgXXL6pcfu5rWTIJvEfDA0KaoCd/4wm4Ow4vH
+ 0/lXX7Eko/qaAQOpGNFvczZJUfo/l7vp85n6EX9Mg0Uh
+X-Google-Smtp-Source: AK7set/aJ8saEGoMOBdj1CJtfWiWyruAnVxVClRp9Xes9i82kKFKqHTeYBZyP5V8MyWrX2JdIXJRdzST6S515SqjRas=
+X-Received: by 2002:aca:654d:0:b0:35b:d93f:cbc4 with SMTP id
+ j13-20020aca654d000000b0035bd93fcbc4mr72632oiw.96.1675715207434; Mon, 06 Feb
+ 2023 12:26:47 -0800 (PST)
 MIME-Version: 1.0
-References: <20230206193620.69550-1-arnd@kernel.org>
-In-Reply-To: <20230206193620.69550-1-arnd@kernel.org>
+References: <20230202162103.5811-1-friedrich.vock@gmx.de>
+ <44330b41-b7a9-d82e-2614-e9fd291e356f@amd.com>
+In-Reply-To: <44330b41-b7a9-d82e-2614-e9fd291e356f@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 6 Feb 2023 15:24:39 -0500
-Message-ID: <CADnq5_OAZ2-sKs8Cr3=t3SjMT9NoGBFRbh2Jtzpy60x_5xsKCQ@mail.gmail.com>
-Subject: Re: [PATCH] [SUBMITTED 20210927] [RESEND^2] drm/amdgpu: fix enum
- odm_combine_mode mismatch
-To: Arnd Bergmann <arnd@kernel.org>
+Date: Mon, 6 Feb 2023 15:26:36 -0500
+Message-ID: <CADnq5_M--J7ERZqLML3SL56zj14RkSe7YVnDwv22nHtjyZJ1RQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Use the TGID for trace_amdgpu_vm_update_ptes
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,162 +66,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Aric Cyr <aric.cyr@amd.com>, Arnd Bergmann <arnd@arndb.de>,
- Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
- Nevenko Stupar <Nevenko.Stupar@amd.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Yang Li <yang.lee@linux.alibaba.com>, Jun Lei <Jun.Lei@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Pavle Kotarac <Pavle.Kotarac@amd.com>
+Cc: Alex Deucher <Alexander.Deucher@amd.com>,
+ Friedrich Vock <friedrich.vock@gmx.de>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Feb 6, 2023 at 2:36 PM Arnd Bergmann <arnd@kernel.org> wrote:
->
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> A conversion from 'bool' to 'enum odm_combine_mode' was incomplete,
-> and gcc warns about this with many instances of
->
-> display/dc/dml/dcn20/display_mode_vba_20.c:3899:44: warning: implicit conversion from 'enum <anonymous>' to 'enum
-> odm_combine_mode' [-Wenum-conversion]
->  3899 |     locals->ODMCombineEnablePerState[i][k] = false;
->
-> Change the ones that we get a warning for, using the same numerical
-> values to leave the behavior unchanged.
->
-> Fixes: 5fc11598166d ("drm/amd/display: expand dml structs")
-> Link: https://lore.kernel.org/all/20201026210039.3884312-3-arnd@kernel.org/
-> Link: https://lore.kernel.org/all/20210927100659.1431744-1-arnd@kernel.org/
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
-> I sent this in 2020 and in 2021, but never got a reply and the warning
-> is still there.
-
-Applied.  Sorry for the delay.
+Applied.  Thanks!
 
 Alex
 
-> ---
->  .../amd/display/dc/dml/dcn20/display_mode_vba_20.c   |  8 ++++----
->  .../amd/display/dc/dml/dcn20/display_mode_vba_20v2.c | 10 +++++-----
->  .../amd/display/dc/dml/dcn21/display_mode_vba_21.c   | 12 ++++++------
->  3 files changed, 15 insertions(+), 15 deletions(-)
+On Mon, Feb 6, 2023 at 3:35 AM Christian K=C3=B6nig <christian.koenig@amd.c=
+om> wrote:
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
-> index f34bc3c8da41..69c41e3e3ba2 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
-> @@ -3901,14 +3901,14 @@ void dml20_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
->                                         mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine = mode_lib->vba.PixelClock[k] / 2
->                                                         * (1 + mode_lib->vba.DISPCLKDPPCLKDSCCLKDownSpreading / 100.0);
 >
-> -                               locals->ODMCombineEnablePerState[i][k] = false;
-> +                               locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_disabled;
->                                 mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithoutODMCombine;
->                                 if (mode_lib->vba.ODMCapability) {
->                                         if (locals->PlaneRequiredDISPCLKWithoutODMCombine > mode_lib->vba.MaxDispclkRoundedDownToDFSGranularity) {
-> -                                               locals->ODMCombineEnablePerState[i][k] = true;
-> +                                               locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
->                                                 mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
->                                         } else if (locals->HActive[k] > DCN20_MAX_420_IMAGE_WIDTH && locals->OutputFormat[k] == dm_420) {
-> -                                               locals->ODMCombineEnablePerState[i][k] = true;
-> +                                               locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
->                                                 mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
->                                         }
->                                 }
-> @@ -3961,7 +3961,7 @@ void dml20_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
->                                 locals->RequiredDISPCLK[i][j] = 0.0;
->                                 locals->DISPCLK_DPPCLK_Support[i][j] = true;
->                                 for (k = 0; k <= mode_lib->vba.NumberOfActivePlanes - 1; k++) {
-> -                                       locals->ODMCombineEnablePerState[i][k] = false;
-> +                                       locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_disabled;
->                                         if (locals->SwathWidthYSingleDPP[k] <= locals->MaximumSwathWidth[k]) {
->                                                 locals->NoOfDPP[i][j][k] = 1;
->                                                 locals->RequiredDPPCLK[i][j][k] = locals->MinDPPCLKUsingSingleDPP[k]
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
-> index 366138df0fe2..f475a0ae946c 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
-> @@ -4012,17 +4012,17 @@ void dml20v2_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode
->                                         mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine = mode_lib->vba.PixelClock[k] / 2
->                                                         * (1 + mode_lib->vba.DISPCLKDPPCLKDSCCLKDownSpreading / 100.0);
 >
-> -                               locals->ODMCombineEnablePerState[i][k] = false;
-> +                               locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_disabled;
->                                 mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithoutODMCombine;
->                                 if (mode_lib->vba.ODMCapability) {
->                                         if (locals->PlaneRequiredDISPCLKWithoutODMCombine > MaxMaxDispclkRoundedDown) {
-> -                                               locals->ODMCombineEnablePerState[i][k] = true;
-> +                                               locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
->                                                 mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
->                                         } else if (locals->DSCEnabled[k] && (locals->HActive[k] > DCN20_MAX_DSC_IMAGE_WIDTH)) {
-> -                                               locals->ODMCombineEnablePerState[i][k] = true;
-> +                                               locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
->                                                 mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
->                                         } else if (locals->HActive[k] > DCN20_MAX_420_IMAGE_WIDTH && locals->OutputFormat[k] == dm_420) {
-> -                                               locals->ODMCombineEnablePerState[i][k] = true;
-> +                                               locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
->                                                 mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
->                                         }
->                                 }
-> @@ -4075,7 +4075,7 @@ void dml20v2_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode
->                                 locals->RequiredDISPCLK[i][j] = 0.0;
->                                 locals->DISPCLK_DPPCLK_Support[i][j] = true;
->                                 for (k = 0; k <= mode_lib->vba.NumberOfActivePlanes - 1; k++) {
-> -                                       locals->ODMCombineEnablePerState[i][k] = false;
-> +                                       locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_disabled;
->                                         if (locals->SwathWidthYSingleDPP[k] <= locals->MaximumSwathWidth[k]) {
->                                                 locals->NoOfDPP[i][j][k] = 1;
->                                                 locals->RequiredDPPCLK[i][j][k] = locals->MinDPPCLKUsingSingleDPP[k]
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
-> index eeb4d3441e1d..3a896d0172a9 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
-> @@ -4106,17 +4106,17 @@ void dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
->                                         mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine = mode_lib->vba.PixelClock[k] / 2
->                                                         * (1 + mode_lib->vba.DISPCLKDPPCLKDSCCLKDownSpreading / 100.0);
+> Am 02.02.23 um 17:21 schrieb Friedrich Vock:
+> > The pid field corresponds to the result of gettid() in userspace.
+> > However, userspace cannot reliably attribute PTE events to processes
+> > with just the thread id. This patch allows userspace to easily
+> > attribute PTE update events to specific processes by comparing this
+> > field with the result of getpid().
+> >
+> > For attributing events to specific threads, the thread id is also
+> > contained in the common fields of each trace event.
+> >
+> > Signed-off-by: Friedrich Vock <friedrich.vock@gmx.de>
 >
-> -                               locals->ODMCombineEnablePerState[i][k] = false;
-> +                               locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_disabled;
->                                 mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithoutODMCombine;
->                                 if (mode_lib->vba.ODMCapability) {
->                                         if (locals->PlaneRequiredDISPCLKWithoutODMCombine > MaxMaxDispclkRoundedDown) {
-> -                                               locals->ODMCombineEnablePerState[i][k] = true;
-> +                                               locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
->                                                 mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
->                                         } else if (locals->DSCEnabled[k] && (locals->HActive[k] > DCN21_MAX_DSC_IMAGE_WIDTH)) {
-> -                                               locals->ODMCombineEnablePerState[i][k] = true;
-> +                                               locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
->                                                 mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
->                                         } else if (locals->HActive[k] > DCN21_MAX_420_IMAGE_WIDTH && locals->OutputFormat[k] == dm_420) {
-> -                                               locals->ODMCombineEnablePerState[i][k] = true;
-> +                                               locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
->                                                 mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
->                                         }
->                                 }
-> @@ -4169,7 +4169,7 @@ void dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
->                                 locals->RequiredDISPCLK[i][j] = 0.0;
->                                 locals->DISPCLK_DPPCLK_Support[i][j] = true;
->                                 for (k = 0; k <= mode_lib->vba.NumberOfActivePlanes - 1; k++) {
-> -                                       locals->ODMCombineEnablePerState[i][k] = false;
-> +                                       locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_disabled;
->                                         if (locals->SwathWidthYSingleDPP[k] <= locals->MaximumSwathWidth[k]) {
->                                                 locals->NoOfDPP[i][j][k] = 1;
->                                                 locals->RequiredDPPCLK[i][j][k] = locals->MinDPPCLKUsingSingleDPP[k]
-> @@ -5234,7 +5234,7 @@ void dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
->                         mode_lib->vba.ODMCombineEnabled[k] =
->                                         locals->ODMCombineEnablePerState[mode_lib->vba.VoltageLevel][k];
->                 } else {
-> -                       mode_lib->vba.ODMCombineEnabled[k] = false;
-> +                       mode_lib->vba.ODMCombineEnabled[k] = dm_odm_combine_mode_disabled;
->                 }
->                 mode_lib->vba.DSCEnabled[k] =
->                                 locals->RequiresDSC[mode_lib->vba.VoltageLevel][k];
-> --
-> 2.39.0
+> Ah, yes that makes more sense. Reviewed-by: Christian K=C3=B6nig
+> <christian.koenig@amd.com>
+>
+> Alex do you pick this up or should I take care of it?
+>
+> Thanks,
+> Christian.
+>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_vm_pt.c
+> > index b5f3bba851db..01e42bdd8e4e 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> > @@ -974,7 +974,7 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_p=
+arams *params,
+> >                       trace_amdgpu_vm_update_ptes(params, frag_start, u=
+pd_end,
+> >                                                   min(nptes, 32u), dst,=
+ incr,
+> >                                                   upd_flags,
+> > -                                                 vm->task_info.pid,
+> > +                                                 vm->task_info.tgid,
+> >                                                   vm->immediate.fence_c=
+ontext);
+> >                       amdgpu_vm_pte_update_flags(params, to_amdgpu_bo_v=
+m(pt),
+> >                                                  cursor.level, pe_start=
+, dst,
+> > --
+> > 2.39.1
+> >
 >
