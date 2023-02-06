@@ -4,131 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32414C61DA4
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Feb 2023 08:28:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E826DC61DA4
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Feb 2023 08:35:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C42F10E300;
-	Mon,  6 Feb 2023 08:28:11 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20616.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eaa::616])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A63910E128
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Feb 2023 08:28:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 795C010E30E;
+	Mon,  6 Feb 2023 08:35:52 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2056.outbound.protection.outlook.com [40.107.93.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B562D10E30E
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Feb 2023 08:35:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lSNFcrNLWp6aROQMvdnLfDDE8iJwdNrgOnUZW8H0OD8jXx3ov8QJde5VqgB32KL4LgETxxt+enywFP9oQze9RUyszzEUuz44MtJdjSG+RQ+4iG0WcmHEXn5SxeKHaWRIdyXiBA7Y/aCKSBCUGCt7yEnhBEx+t8vfH/5kY6G8vjT08liwkmLM2kkp4mW91GTUVlk+uv9mwX3uPXJXto9LF7EUT4+pBFFNs4vut0c6WPvjLhE1tYCqmNYVKWjrNYc0WA7z2vQWyPJiubMsCWvyARlc8aZGsYMMu0b0AgJbF6cHWJ+hZDjEfm3spQyQvOFZ0IRoHKJwnTCta7Y27oFtpw==
+ b=PiZNvkObipOCz+p2DEKZhUyJII15HWNH1Sieu4K9baoh2Wn7KR+rdSEOqOIZUJyO5k1gFCurKe0qeOB7s4ezW9NWPGaqNblWKv7RmylO6on13UcJRybUNTBs8BEx02Qsi+ZMCTTAqQ7nLxx9DPoRi53vuixtCxcn/W6l2AqvqxLlZCSMJrWPDZKaU1TuJtUEwycxnS4p+Wlp83i89o57V5dmpJwbNaD+nz+YSfS4fEUP/x2NoePg5QayfnsXUJQORl5UyK36Zgwuc0CTaHepnO+dr6HTcDz9M/8BDLOXi55MkG1Awzy4AO4GuUVf79Hz+Tg7kypeATYOJOlY7uNzPw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j2/AMXY73M1992OsrVJipFFL5oYktXql2rJMXU36rOI=;
- b=HCl8oTDMZByUD+thGZKe2EH5g2hS2fB9CeeQYCAK+BO9VoyIhPOGVyQckOJNlnqiAUg/ir0wkqZPSGq7Wz16MmYvT8QuIttr3BEWRoe2Eh1haKUMRerGa+tZz9PRIxbDsE0Q5TUXk7QwrrpMxgZYU6DZaGOkhaBQfMuUOhHyBQs+t+lQ0Dr6eGXCVfBUTPDT3m5yzJyVterCtgA7biOjVifBsHUy5btwQQU4omygl/WMlhnxHP5I8j0VB39NLcBELrL8LIWFN6/7cB67Rwd0/mnox62F8EVZLQlHBpp/puHFnTKCPNDDljG7oAMK61ANgCzTMLqT0pqSUkR8m+KbhA==
+ bh=/0csbB5SD95NkTjC60YQDjx+/vwoWl3fKmNCErSpaE4=;
+ b=KsEc5xbjO66YuX7AAj3CAkYwtPupbO1nsKSs82p39IakVOPDw/FycDMN5/TtSGH6J4PucAarIEMFfzOKY3wT8Td868sRYth+D+loeZg5C5M5L4FsvgrYii/amhbJm6CMRO13M8XkB1KtF9VtXJj3J5Ym8vzTwHP8k7nB4uqiGUNexy3MtSZwW6vHsJB6v5Zw8hqw9uRRFRqiHCD+YWPiPTSbPTlPvDAIRLpBUZPztgiVNjQ/xoXrp1zthlY2vwe9UnisRJi+q3kCEoasWFBKRrFLa3m5YvbmxhBQ781GRKsDp/pNtXdOMfQKHWNPDt8okubUePTWOUhPkKdUCG+y7Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j2/AMXY73M1992OsrVJipFFL5oYktXql2rJMXU36rOI=;
- b=DLj+0Hd+5zocS+ZoqP4WQOp48b9QPDAh+e15J1LJF+jrGZ10TlE0P9kAZ51R8zxmac39RQFwOQZx3OvdMgoB/W+/RYjvKDureXfDQZgrpco+ZrfdyzjXhwtmSEF2MXcsfkynv0BBpa8+7WibxelfquHq76o8VV3mjFNgNh7V0QM=
-Received: from MW3PR12MB4458.namprd12.prod.outlook.com (2603:10b6:303:5d::10)
- by BY5PR12MB4886.namprd12.prod.outlook.com (2603:10b6:a03:1c5::17)
+ bh=/0csbB5SD95NkTjC60YQDjx+/vwoWl3fKmNCErSpaE4=;
+ b=oYUfdbfJfrZHservqSkeXeM1u3wFQwgYWugCodVAL+qY+tquD+OCjo3VfDb65bK3YOcwKbVShB7d8skEa18duoHhdGPePTCrO3Ka4/g3dyCW9WMi9fNqs/r4J2I1QNBL5pYRsWp+ljcfG/jnlbfGKTNCDstWIw5+/M6hVZzz5tE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by PH0PR12MB5498.namprd12.prod.outlook.com (2603:10b6:510:d6::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.34; Mon, 6 Feb
- 2023 08:28:05 +0000
-Received: from MW3PR12MB4458.namprd12.prod.outlook.com
- ([fe80::bac5:385f:b991:c9c0]) by MW3PR12MB4458.namprd12.prod.outlook.com
- ([fe80::bac5:385f:b991:c9c0%4]) with mapi id 15.20.6064.032; Mon, 6 Feb 2023
- 08:28:05 +0000
-From: "Xiao, Jack" <Jack.Xiao@amd.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>,
- =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: only WARN freeing buffers when DMA is
- unavailable
-Thread-Topic: [PATCH] drm/amdgpu: only WARN freeing buffers when DMA is
- unavailable
-Thread-Index: AQHZNuxfg8FNVol4pke6J9qzLuANM667iUeAgAExmRCAAHu1gIAES/RQgAATLwCAAAHxgA==
-Date: Mon, 6 Feb 2023 08:28:05 +0000
-Message-ID: <MW3PR12MB4458C18F7080280760953EACEFDA9@MW3PR12MB4458.namprd12.prod.outlook.com>
-References: <20230202095416.4039818-1-Jack.Xiao@amd.com>
- <BYAPR12MB35899E39061894E55AC07FE383D69@BYAPR12MB3589.namprd12.prod.outlook.com>
- <MW3PR12MB4458B37F3A4E9AF91F35279FEFD79@MW3PR12MB4458.namprd12.prod.outlook.com>
- <a4d8d310-c2e0-f2e5-74e8-fe8a5c34501e@gmail.com>
- <MW3PR12MB4458263C5E9B1071F7831EF7EFDA9@MW3PR12MB4458.namprd12.prod.outlook.com>
- <9ac594eb-9b59-02e1-fc7f-a745e28ff201@amd.com>
-In-Reply-To: <9ac594eb-9b59-02e1-fc7f-a745e28ff201@amd.com>
-Accept-Language: en-001, zh-CN, en-US
+ 2023 08:35:47 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::2e4f:4041:28be:ba7a]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::2e4f:4041:28be:ba7a%6]) with mapi id 15.20.6064.032; Mon, 6 Feb 2023
+ 08:35:47 +0000
+Message-ID: <44330b41-b7a9-d82e-2614-e9fd291e356f@amd.com>
+Date: Mon, 6 Feb 2023 09:35:41 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH] drm/amdgpu: Use the TGID for trace_amdgpu_vm_update_ptes
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-02-06T08:28:02Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=adad6312-bef2-444d-a06a-1e5fadbddc33;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2023-02-06T08:28:02Z
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: 8c593388-f974-47b5-bfd6-018a66771821
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW3PR12MB4458:EE_|BY5PR12MB4886:EE_
-x-ms-office365-filtering-correlation-id: 5139bc97-1577-4f17-8e54-08db081c11f2
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 3TmRxYu0N8ER6AJXTmTOPUZm1pY0iRgiB0cq4N/ERd5AMPyfoTfNJXtST+yaGQpdCxn7eU30b5MsZBm4G+H9FK4m0vUf0l7I6gbXPy1MGkYcP+qxLLqMqO+1LpRjk/uCJb6m/oPLgdGFvRhAOjHEySPphnsf/eIAERe5F9knpho0TGk4mY/uH11hsnPBXZuhP2j5rhCQMcVAHaoWREZnGy8fIuRGfRVIrZsxlyiXdqz1cGwHmt0ovwjq7A945/xnkLBQfAMEv8F6tY1Zq47LKVmsZkZaLU7WwVm/pTpAXMf6qJx+rPobiKPv1lWbMEZeoo1DHLwcgGdNFbAyPpLOw3Jbb2hLdE6MUHBKrtBDTNNr03BqkfI3e5RAosKQuz3C+GKX7NAgO8IUztQuxvVGqunC0ugleuHlsz+Zeg49sJPh+wf3Na5EWLVl90sOttVyB3KEYYHljj7vjBOhUL1HXHIc62GmG/grui3NgO3VcPZKifaEyxr7V2564oFkwBk5hsZbwgl778ENp91i1lW4wymVHDo5JlXp/2cKB4XEmphzXbcYcfqHP4/BPQEuBTt0qVMy6nSywQKi/c5MrlwRFEwewiU1GyqLBpm6j0P5rtYNOwlUlTdA/9ZW43FWkNZ+o6zw1jvCVopE/LvC6DurrVoNY5TvXATbFROBdfnkL+HVcJvQ1JzH+xNd7Qk2kihGH1A4A1U2c28fjNsjzph8WQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW3PR12MB4458.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(39860400002)(136003)(366004)(346002)(396003)(376002)(451199018)(71200400001)(7696005)(478600001)(316002)(6636002)(110136005)(53546011)(6506007)(5660300002)(52536014)(186003)(9686003)(26005)(33656002)(86362001)(38100700002)(122000001)(66574015)(55016003)(38070700005)(83380400001)(76116006)(66946007)(2906002)(8676002)(8936002)(41300700001)(66446008)(66556008)(64756008)(66476007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?rIkLYLeinrUTkL5Vouv151QLtp28q4906V/wp4uL81m8sJY9snXxo9z7UN?=
- =?iso-8859-1?Q?yTj9KvFlOoR89FMh8X4sA8XOQPCDexkLTT+xd+QQkWa6Uk0m+y6D9jlXtB?=
- =?iso-8859-1?Q?zMcI3Du3808IzgZBJGoLMJPg1DemBesTRd/T69rmQwYHW41CNpbcua+2o/?=
- =?iso-8859-1?Q?JViX4GgiMxsPwKrvp6AD/Nyg03Lz1znezFyKgRwUduRQ/WB0AjbHdUSPTw?=
- =?iso-8859-1?Q?6sUu/Ivs+EW5sJHOCwS+EslMxTSv/Yks/lzR0PBG+LYQD1PcKaE4p+AcCy?=
- =?iso-8859-1?Q?Q++EUkHSZwFvDRGMdMXJt0yvK1JEbXQI3PMixQKmq2bH4ekXorG1506/Us?=
- =?iso-8859-1?Q?wkiSc+LWM90EdVQqxQt3VZvJQ9mi0edGNEqnGa8vQhBE05qOOncxN9BPcw?=
- =?iso-8859-1?Q?rWMt/ToYSCFkveTyF5QzDUbgMWuaFTRj/KpopDuEe4m/VOpmbcaXZ7E2Q2?=
- =?iso-8859-1?Q?lWKiK3mAsVGSyxD8Yz29ShyP8AlQpy9eLsQQPN+q0QIpFkCIFCky6KR2UJ?=
- =?iso-8859-1?Q?2qkR4XEnUA+gIs2JV+qNoG9InHkfwom2bZPQNn+Avgc3+u1zhsZsuaJAyM?=
- =?iso-8859-1?Q?JsmcURol8kzt1P5NZXsYmhFGDusRYfMHdC0SzLDf3dqzNjZsTgk4G7LEuZ?=
- =?iso-8859-1?Q?47izQ157Vq9x3UHGmLs0rpdHm1LQTK9gXJSc/0nSGy429Alw2C2ceX4fyx?=
- =?iso-8859-1?Q?eozD97d40doGmKe+kO+wySlOBfFoLk/l5ERCLa3dWUhWb31GuY7LPL/209?=
- =?iso-8859-1?Q?mMcFwoFIOGt+UZGxkmffna8KpUAdILNoHrRmxpcQcnUY7P9JAWheRBhic+?=
- =?iso-8859-1?Q?94O0Onyz1EbLjR92Y4eToEiFSGrfhEiaNat5OK469a7+A0Ks00zn7QjDes?=
- =?iso-8859-1?Q?KlnsMwkgiE9TvSNll9jx7I+0xk+cgjkl9rM6anUrHPjWZ6c4K/IKYJ/WzT?=
- =?iso-8859-1?Q?8J9fGem1ruXRakgDCPUw+5YTlRtA1vMY4QkkskF0E2/tYtlliGDV5DjY5Q?=
- =?iso-8859-1?Q?Q23yztBT2IZcL/fvPMST67bx0wgCxYGwmnio2slarXyHXvb0bsan94DnQb?=
- =?iso-8859-1?Q?ErIDBq3ceaVlP2WjrhS5p5BV6kEoKolhGw1Dw+22PDxO+doTN8NR/uQmYa?=
- =?iso-8859-1?Q?f9Pp8nQwvvkmtarTKfE59IKhNJ2kAj13vGA8KZrql5oqw8QGzDzT4jmLCn?=
- =?iso-8859-1?Q?0U6mXkrERVlQ6b3/MqUDJyiFve2BLfpCQxqQcA6/iwC2ruFBpuMAofRgyo?=
- =?iso-8859-1?Q?8+GfXuaeDofWITXarCc18yrhKnSyV6E6pRVD88QfqGloYtzDZh9uZtii+U?=
- =?iso-8859-1?Q?x6rnOTZ3DeMoqemO/foEi0+8Br/hkruCyKwold5G2trDAG5jQOIspZmbz2?=
- =?iso-8859-1?Q?6AdJSgQqrFExN2/gJL26BDeY+LaQL/wFNIRrZme538SsHYnpK6tRZvE9T8?=
- =?iso-8859-1?Q?9SfBFYMSO+fFtdZyKzWH1Dozcd9v8Fdr/1slJnLelyLyC5vqWCCqmX8nE0?=
- =?iso-8859-1?Q?6gJdPqpMlCTuDT0z8shCH63qc1T2ZMgCPZ9rdE7Cd2KtXfF5J11a/dqP/c?=
- =?iso-8859-1?Q?g6uSvv+ny7nVFlOzIaxG6E1S4bBjIgdRCIQ9Y3jP+0F/QvcXBwSz6tTRIz?=
- =?iso-8859-1?Q?YSMeWO5dXlpqQ=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_MW3PR12MB4458C18F7080280760953EACEFDA9MW3PR12MB4458namp_"
+To: Friedrich Vock <friedrich.vock@gmx.de>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <Alexander.Deucher@amd.com>
+References: <20230202162103.5811-1-friedrich.vock@gmx.de>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20230202162103.5811-1-friedrich.vock@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0137.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:95::11) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|PH0PR12MB5498:EE_
+X-MS-Office365-Filtering-Correlation-Id: fcc1ab30-94f1-4aff-22f8-08db081d2508
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: PBZYQ5r331V1EfwJ7UqnhzaF7Nwn2FD5vDn/iiDeoApXD0jqzshDc/HwWpMPZ1bXTjawZtV3wduQUCMvCrMAfwC0uLieK4YsChaY1B8lEL0q0bUbmxnIFo6AmnxXB4Udjm00R3RMPJLQXvz90JjqcjXIZTVwhQAa/0Mb9x8gRlhiNMFgBA7S4ssnkYXW4PZpjf+Y16n9W1nDlJuxXnuVAbl+iqmpNpVTB/Cxa+JGcCmfgI+OQ34nCdeIH8LWJsfWAAviQa4ssbw8IovIK9HERj0avbaWsH+4+GygTQe6vgKcxEdpNVGFNzIlfE+jfkF/HuQN5GhecPrCzD6cdRqXcEXH5pBHHyJN2HzNgSiIvXGzfGmFuZxS7546ttwug79jHzTtcfqpVTFFLK09U/hq7cCnkUU01Ya6OfAAW4TrsnVuzGpUGzLTRTWDkQ8SOpPsAPLhCE6NprJ0NZba3LTrYQLTV5Mm+L66TlD1eBy8894gG8F1A96YLndbZchSKfgu9mmBrVK2jXeimtdvq+IlAclaM0tgqR9PjtZgq4mH36Lb2g5sWACQQr7mGfi3sz4jy33pzjheKvrFPpGaHIaKxQuf0mfznaJ1sq8Tp1N3NzH1dsXE/al7Ps6EnYZ72zwwZWxx+tE1LCmxxf5RmbK9xPvyUZjT4+MMq0kdmxMXyE/6seTTpcZ6u34Ti3szEQxGkvSNXqwaF0epzDcUW0M0DDHDDzplfwiSDMnutALhv8Q=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(376002)(39860400002)(136003)(346002)(396003)(366004)(451199018)(31686004)(36756003)(31696002)(38100700002)(86362001)(26005)(6512007)(2616005)(66574015)(186003)(478600001)(83380400001)(6486002)(6506007)(8676002)(6636002)(110136005)(6666004)(316002)(66946007)(41300700001)(8936002)(5660300002)(66476007)(66556008)(2906002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y1QwSGc3QW9hMC9VeXExWWdYMWQxMGlXV01na21xTHBLOURzTTlWZ3p6dUk4?=
+ =?utf-8?B?THpIM1cvWXhHVDJOdlBqNWo2UUZVeHNZMzBVVzJIM2FLMk9NYTlQbkVTSVNx?=
+ =?utf-8?B?V1N1dVJmVnhMT0FLcmNUOTl4TGlqOG5Fb01YYXhuVVhDdjcvUkkyRkpwTnk2?=
+ =?utf-8?B?Um8wMEU1TTA0aWgxWU82cFgxMFdiWHdMSS9GOFdYS0orUlJqb2g5K0I2K3h3?=
+ =?utf-8?B?WjQ1b0I0NmhPeFB1L2xSbEtiaVIwZWhUVjRkbTJVS1Erak5QNGhseEVWbTVz?=
+ =?utf-8?B?Q1Z5cDlreGFMQ0lkVHZqT0d1dVBaenJrZGFpM1dsUS9tbU5Ua0k3VjhLSkp1?=
+ =?utf-8?B?YVhEckJIU1dHRy9yRW4vSDRWRHRDdmM0Q21UUkd1bGQ0eC9wYkYrS3IzeVRq?=
+ =?utf-8?B?aDBMZDJ3ZEVPc3RLSlRNNzZIOU9YZEpRNEp0dUlzbjRLSitiZFB1UkNoM2J4?=
+ =?utf-8?B?RkpKNlFkZTM0MHhtOVBhVXJ1enFpVytBOUdOamV4NkxXUlNGeWhWOWpLWEp3?=
+ =?utf-8?B?YUdZWXZUV1JqKzdLc2luR3gwdzZiblcxWlIwNjJoTC9hblpoUjZNTG5XRDcx?=
+ =?utf-8?B?Z0c2d2wwZVVIMWp1ZDJoeTBCeHlGdmozRmt2MmlFWHZhRVZxVnVLU1Q3elEz?=
+ =?utf-8?B?SFg1VG5NODgwS2pGVnNSWEEwNDJMa2pFUGpmS2JzSWJlMGs5K1Q2M2VRK28y?=
+ =?utf-8?B?N2gyVllLK3FMWDkvU1pocVNtbHdzKzc4WXpyRnpRWjBjZ3FHaHd2WWsrQ3NW?=
+ =?utf-8?B?eWUwTTZGakl2eDR0VVNXa3ZsVGpCVVM4Ri9vNmp5SXRjSUZGa0hlUzd5ZEg5?=
+ =?utf-8?B?dlBZNkZhYjQ2a3JYUXhUNmtRdDFUclFNVjNaZERZY1ovbFBtUElaZWdSalFX?=
+ =?utf-8?B?UElCZGV5NjdvNDkvQno0Qkx5eFZIQmxRVDlrdDNhamZiSmlhbytVQ0NUTHJC?=
+ =?utf-8?B?K2RjTks3R25abjlOV3pxUWRrdWtaRlptd0Y2cEVtVnZubHpVaEU0WHZ2T29n?=
+ =?utf-8?B?TXJyYWtLeERTOGFpNGgrZlVRYXF4eG15V1c5VmFtL2JUSUFIRGk1STJvSXJM?=
+ =?utf-8?B?RjBya0Q2N1RaM0hLek13NDJudDFINU1KYnRxbHBOUE94eU1TNDRUV2dtQkFl?=
+ =?utf-8?B?R0kxanZWT00rZDdmN1ZpRGE0QjhuMUhrU3lxMEREaE54cGpkUWhVZTRnL01Q?=
+ =?utf-8?B?MUhLeVE5QnV1WHRyMDVHY3p3L1lEK0hMRGVVMGxQaVozZ2k1R3ZvZXlSWE5P?=
+ =?utf-8?B?K2Y1V3d3UjZkRzlyTnBCZ3pEQXg0dnZOTEY1M1E5ZldiMFg1ZUFCTG5DMVpM?=
+ =?utf-8?B?VXUxNVBDdis2VTZLQ09GUC82K2hYTEVuZmtmcnEydmh2TGxqL3Nob0IxcDNB?=
+ =?utf-8?B?aG14b1grR1kraFNCRFkyNWMxNVF3bmRKaGJIU05qdkk1TTcxMjVyUkw1NHV6?=
+ =?utf-8?B?S2ZoNVhFYW5NN3REaDhEbDJCcUF3Y1lUYW9DdGQwWVB4cndHQS9zbExERFk5?=
+ =?utf-8?B?VVp4Wm9saHE3Zmo3T2l2SFlKQndjeWgxTEFLZ3pKWEswWFRESHh4cFNNc1Ri?=
+ =?utf-8?B?QUlvRnVaTUt3b1NBS1Y3NkY3eE9ad2pNeFdQWUN2RG9aTVBnZTludWk0RDd3?=
+ =?utf-8?B?RGdZNU92WjJieFB0M0twMTZ2UEhuZE01dGF2U1RqbTNuOWJmQmVHRyt5T3U3?=
+ =?utf-8?B?TTdkWFZ6T0h1QmtzWjQxMUR6OTJHdXRHclM2N3VUKzFwR0hTOGMrbkFEUXpy?=
+ =?utf-8?B?NzZlbjF6K1pMNTFrN25ub2RuL21jRnJCVi9rSVBXdnJnZzltYWZYSitNSGpE?=
+ =?utf-8?B?WFdaWUZHMnVhRmFvWnBlRkxxN2lNRG8rWDBZRDBpRXorWkhMNGwzYk1XeEZX?=
+ =?utf-8?B?dVpFYVN5RzdrS1lndTJEQXZPL1JIajFzUGV4UHFCWWZyR3RERVRUT2VvRXNZ?=
+ =?utf-8?B?UEgyVURnbi9ka3ZxSjZxS09BaUVIUldhYm91NTJoZzUzaVJySjhpcnNxdE1Z?=
+ =?utf-8?B?cmVLSVB4S2x3bU0xclIydXJxK2M5WEtBZ09XZ1dxaUpTc1VzUU50amJ4TDlj?=
+ =?utf-8?B?aWxkUklZallkOWcrVzAyUmJzallqNzFlVnR3WEpmUS9vckVydngwVi9xNWFq?=
+ =?utf-8?Q?77/6EXuP0q7NEr79UL+6w8l4t?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fcc1ab30-94f1-4aff-22f8-08db081d2508
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW3PR12MB4458.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5139bc97-1577-4f17-8e54-08db081c11f2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Feb 2023 08:28:05.5959 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 5Bn8xSzZ192+NVn8QT6ORO9VjRCp2lN6SVSPPM7ei9jSSaM7eW2IyXZWot3boQAX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4886
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2023 08:35:47.4077 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: c2HgXoMvUYF0hFrk8qz0ZCIE1NaRcQEJvtL1rBDdR0jSxXI7VW6rxPa164mcu+sG
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5498
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,462 +127,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_MW3PR12MB4458C18F7080280760953EACEFDA9MW3PR12MB4458namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
 
-[AMD Official Use Only - General]
 
-                              >> >> It's simply not allowed to free up reso=
-urces during suspend since those can't be acquired again during resume.
-                              >> The in_suspend flag is set at the beginnin=
-g of suspend and unset at the end of resume. It can't filter the case you m=
-entioned.
+Am 02.02.23 um 17:21 schrieb Friedrich Vock:
+> The pid field corresponds to the result of gettid() in userspace.
+> However, userspace cannot reliably attribute PTE events to processes
+> with just the thread id. This patch allows userspace to easily
+> attribute PTE update events to specific processes by comparing this
+> field with the result of getpid().
+>
+> For attributing events to specific threads, the thread id is also
+> contained in the common fields of each trace event.
+>
+> Signed-off-by: Friedrich Vock <friedrich.vock@gmx.de>
 
-               Why not? This is exactly what it should do.
+Ah, yes that makes more sense. Reviewed-by: Christian König 
+<christian.koenig@amd.com>
 
-[Jack] If freeing up resources during resume, it should not hit the issue y=
-ou described. But only checking in_suspend flag would take these cases as w=
-arning.
-
-Regards,
-Jack
-
-From: Koenig, Christian <Christian.Koenig@amd.com>
-Sent: Monday, February 6, 2023 4:06 PM
-To: Xiao, Jack <Jack.Xiao@amd.com>; Christian K=F6nig <ckoenig.leichtzumerk=
-en@gmail.com>; amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander=
-.Deucher@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: only WARN freeing buffers when DMA is unav=
-ailable
-
-Am 06.02.23 um 08:23 schrieb Xiao, Jack:
-
-[AMD Official Use Only - General]
-
->> Nope, that is not related to any hw state.
-
-can use other flag.
-
->> It's simply not allowed to free up resources during suspend since those =
-can't be acquired again during resume.
-The in_suspend flag is set at the beginning of suspend and unset at the end=
- of resume. It can't filter the case you mentioned.
-
-Why not? This is exactly what it should do.
-
-Do you know the root cause of these cases hitting the issue? So that we can=
- get an exact point to warn the freeing up behavior.
-
-Well the root cause are programming errors. See between suspending and resu=
-ming you should not allocate nor free memory.
-
-Otherwise we can run into trouble. And this check here is one part of that,=
- we should probably add another warning during allocation of memory. But th=
-is here is certainly correct.
-
-Regards,
-Christian.
-
+Alex do you pick this up or should I take care of it?
 
 Thanks,
-Jack
-
-From: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com><mailto:ckoenig.l=
-eichtzumerken@gmail.com>
-Sent: Friday, February 3, 2023 9:20 PM
-To: Xiao, Jack <Jack.Xiao@amd.com><mailto:Jack.Xiao@amd.com>; Koenig, Chris=
-tian <Christian.Koenig@amd.com><mailto:Christian.Koenig@amd.com>; amd-gfx@l=
-ists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>; Deucher, Alexan=
-der <Alexander.Deucher@amd.com><mailto:Alexander.Deucher@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: only WARN freeing buffers when DMA is unav=
-ailable
-
-Nope, that is not related to any hw state.
-
-It's simply not allowed to free up resources during suspend since those can=
-'t be acquired again during resume.
-
-We had a couple of cases now where this was wrong. If you get a warning fro=
-m that please fix the code which tried to free something during suspend ins=
-tead.
-
-Regards,
-Christian.
-Am 03.02.23 um 07:04 schrieb Xiao, Jack:
-
-[AMD Official Use Only - General]
-
->> It's simply illegal to free up memory during suspend.
-Why? In my understanding, the limit was caused by DMA shutdown.
-
-Regards,
-Jack
-
-From: Koenig, Christian <Christian.Koenig@amd.com><mailto:Christian.Koenig@=
-amd.com>
-Sent: Thursday, February 2, 2023 7:43 PM
-To: Xiao, Jack <Jack.Xiao@amd.com><mailto:Jack.Xiao@amd.com>; amd-gfx@lists=
-.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>; Deucher, Alexander =
-<Alexander.Deucher@amd.com><mailto:Alexander.Deucher@amd.com>
-Subject: AW: [PATCH] drm/amdgpu: only WARN freeing buffers when DMA is unav=
-ailable
-
-Big NAK to this! This warning is not related in any way to the hw state.
-
-It's simply illegal to free up memory during suspend.
-
-Regards,
 Christian.
 
-________________________________
-Von: Xiao, Jack <Jack.Xiao@amd.com<mailto:Jack.Xiao@amd.com>>
-Gesendet: Donnerstag, 2. Februar 2023 10:54
-An: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
-d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>; Deucher=
-, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@amd.com>>; =
-Koenig, Christian <Christian.Koenig@amd.com<mailto:Christian.Koenig@amd.com=
->>
-Cc: Xiao, Jack <Jack.Xiao@amd.com<mailto:Jack.Xiao@amd.com>>
-Betreff: [PATCH] drm/amdgpu: only WARN freeing buffers when DMA is unavaila=
-ble
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> index b5f3bba851db..01e42bdd8e4e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> @@ -974,7 +974,7 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
+>   			trace_amdgpu_vm_update_ptes(params, frag_start, upd_end,
+>   						    min(nptes, 32u), dst, incr,
+>   						    upd_flags,
+> -						    vm->task_info.pid,
+> +						    vm->task_info.tgid,
+>   						    vm->immediate.fence_context);
+>   			amdgpu_vm_pte_update_flags(params, to_amdgpu_bo_vm(pt),
+>   						   cursor.level, pe_start, dst,
+> --
+> 2.39.1
+>
 
-Reduce waringings, only warn when DMA is unavailable.
-
-Signed-off-by: Jack Xiao <Jack.Xiao@amd.com<mailto:Jack.Xiao@amd.com>>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_object.c
-index 2d237f3d3a2e..e3e3764ea697 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -422,7 +422,8 @@ void amdgpu_bo_free_kernel(struct amdgpu_bo **bo, u64 *=
-gpu_addr,
-         if (*bo =3D=3D NULL)
-                 return;
-
--       WARN_ON(amdgpu_ttm_adev((*bo)->tbo.bdev)->in_suspend);
-+       WARN_ON(amdgpu_ttm_adev((*bo)->tbo.bdev)->in_suspend &&
-+               !amdgpu_ttm_adev((*bo)->tbo.bdev)->ip_blocks[AMD_IP_BLOCK_T=
-YPE_SDMA].status.hw);
-
-         if (likely(amdgpu_bo_reserve(*bo, true) =3D=3D 0)) {
-                 if (cpu_addr)
---
-2.37.3
-
-
-
---_000_MW3PR12MB4458C18F7080280760953EACEFDA9MW3PR12MB4458namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-p.msipheaderdf3d92d6, li.msipheaderdf3d92d6, div.msipheaderdf3d92d6
-	{mso-style-name:msipheaderdf3d92d6;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle19
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"purple" style=3D"word-wrap:b=
-reak-word">
-<div class=3D"WordSection1">
-<p class=3D"msipheaderdf3d92d6" style=3D"margin:0in"><span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD Officia=
-l Use Only - General]</span><o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &=
-gt;&gt; &gt;&gt; It's simply not allowed to free up resources during suspen=
-d since those can't be acquired again during resume.<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt; The in_suspend flag is =
-set at the beginning of suspend and unset at the end of resume. It can&#821=
-7;t filter the case you mentioned.<o:p></o:p></p>
-<p class=3D"MsoNormal"><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; Why not? This is exactly what it should do.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">[Jack] If freeing up resources during resume, it sho=
-uld not hit the issue you described. But only checking in_suspend flag woul=
-d take these cases as warning.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
-<p class=3D"MsoNormal">Jack<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Koenig, Christian &lt;Christian.Koenig@=
-amd.com&gt; <br>
-<b>Sent:</b> Monday, February 6, 2023 4:06 PM<br>
-<b>To:</b> Xiao, Jack &lt;Jack.Xiao@amd.com&gt;; Christian K=F6nig &lt;ckoe=
-nig.leichtzumerken@gmail.com&gt;; amd-gfx@lists.freedesktop.org; Deucher, A=
-lexander &lt;Alexander.Deucher@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: only WARN freeing buffers when DMA =
-is unavailable<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">Am 06.02.23 um 08:23 =
-schrieb Xiao, Jack:<o:p></o:p></p>
-<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
-<p class=3D"msipheaderdf3d92d6" style=3D"margin:0in"><span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD Officia=
-l Use Only - General]</span><o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-<p class=3D"MsoNormal">&gt;&gt; Nope, that is not related to any hw state.<=
-o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-<p class=3D"MsoNormal">can use other flag.<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">&gt;&gt; It's simply =
-not allowed to free up resources during suspend since those can't be acquir=
-ed again during resume.<o:p></o:p></p>
-<p class=3D"MsoNormal">The in_suspend flag is set at the beginning of suspe=
-nd and unset at the end of resume. It can&#8217;t filter the case you menti=
-oned.<o:p></o:p></p>
-</blockquote>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><br>
-Why not? This is exactly what it should do.<br>
-<br>
-<o:p></o:p></p>
-<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
-<p class=3D"MsoNormal">Do you know the root cause of these cases hitting th=
-e issue? So that we can get an exact point to warn the freeing up behavior.=
-<o:p></o:p></p>
-</blockquote>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><br>
-Well the root cause are programming errors. See between suspending and resu=
-ming you should not allocate nor free memory.<br>
-<br>
-Otherwise we can run into trouble. And this check here is one part of that,=
- we should probably add another warning during allocation of memory. But th=
-is here is certainly correct.<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-<o:p></o:p></p>
-<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
-<p class=3D"MsoNormal">Jack<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Christian K=F6nig <a href=3D"mailto:cko=
-enig.leichtzumerken@gmail.com">
-&lt;ckoenig.leichtzumerken@gmail.com&gt;</a> <br>
-<b>Sent:</b> Friday, February 3, 2023 9:20 PM<br>
-<b>To:</b> Xiao, Jack <a href=3D"mailto:Jack.Xiao@amd.com">&lt;Jack.Xiao@am=
-d.com&gt;</a>; Koenig, Christian
-<a href=3D"mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt=
-;</a>; <a href=3D"mailto:amd-gfx@lists.freedesktop.org">
-amd-gfx@lists.freedesktop.org</a>; Deucher, Alexander <a href=3D"mailto:Ale=
-xander.Deucher@amd.com">
-&lt;Alexander.Deucher@amd.com&gt;</a><br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: only WARN freeing buffers when DMA =
-is unavailable<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">Nope, that is not rel=
-ated to any hw state.<br>
-<br>
-It's simply not allowed to free up resources during suspend since those can=
-'t be acquired again during resume.<br>
-<br>
-We had a couple of cases now where this was wrong. If you get a warning fro=
-m that please fix the code which tried to free something during suspend ins=
-tead.<br>
-<br>
-Regards,<br>
-Christian.<o:p></o:p></p>
-<div>
-<p class=3D"MsoNormal">Am 03.02.23 um 07:04 schrieb Xiao, Jack:<o:p></o:p><=
-/p>
-</div>
-<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
-<p class=3D"msipheaderdf3d92d6" style=3D"margin:0in"><span style=3D"font-si=
-ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD Officia=
-l Use Only - General]</span><o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-<p class=3D"MsoNormal">&gt;&gt; It's simply illegal to free up memory durin=
-g suspend.<o:p></o:p></p>
-<p class=3D"MsoNormal">Why? In my understanding, the limit was caused by DM=
-A shutdown.<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
-<p class=3D"MsoNormal">Jack<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Koenig, Christian <a href=3D"mailto:Chr=
-istian.Koenig@amd.com">
-&lt;Christian.Koenig@amd.com&gt;</a> <br>
-<b>Sent:</b> Thursday, February 2, 2023 7:43 PM<br>
-<b>To:</b> Xiao, Jack <a href=3D"mailto:Jack.Xiao@amd.com">&lt;Jack.Xiao@am=
-d.com&gt;</a>;
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a>; Deucher, Alexander
-<a href=3D"mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&=
-gt;</a><br>
-<b>Subject:</b> AW: [PATCH] drm/amdgpu: only WARN freeing buffers when DMA =
-is unavailable<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-<div>
-<p class=3D"MsoNormal">Big NAK to this! This warning is not related in any =
-way to the hw state.<o:p></o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal">It's simply illegal to free up memory during suspend=
-.<o:p></o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Christian.<o:p></o:p></p>
-</div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"color:black">Von:</span></b><span =
-style=3D"color:black"> Xiao, Jack &lt;<a href=3D"mailto:Jack.Xiao@amd.com">=
-Jack.Xiao@amd.com</a>&gt;<br>
-<b>Gesendet:</b> Donnerstag, 2. Februar 2023 10:54<br>
-<b>An:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
-reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd=
--gfx@lists.freedesktop.org</a>&gt;; Deucher, Alexander &lt;<a href=3D"mailt=
-o:Alexander.Deucher@amd.com">Alexander.Deucher@amd.com</a>&gt;;
- Koenig, Christian &lt;<a href=3D"mailto:Christian.Koenig@amd.com">Christia=
-n.Koenig@amd.com</a>&gt;<br>
-<b>Cc:</b> Xiao, Jack &lt;<a href=3D"mailto:Jack.Xiao@amd.com">Jack.Xiao@am=
-d.com</a>&gt;<br>
-<b>Betreff:</b> [PATCH] drm/amdgpu: only WARN freeing buffers when DMA is u=
-navailable</span>
-<o:p></o:p></p>
-<div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">Reduce waringings, on=
-ly warn when DMA is unavailable.<br>
-<br>
-Signed-off-by: Jack Xiao &lt;<a href=3D"mailto:Jack.Xiao@amd.com">Jack.Xiao=
-@amd.com</a>&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 ++-<br>
-&nbsp;1 file changed, 2 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_object.c<br>
-index 2d237f3d3a2e..e3e3764ea697 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-@@ -422,7 +422,8 @@ void amdgpu_bo_free_kernel(struct amdgpu_bo **bo, u64 *=
-gpu_addr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (*bo =3D=3D NULL)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WARN_ON(amdgpu_ttm_adev((*bo)-&gt;tbo=
-.bdev)-&gt;in_suspend);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WARN_ON(amdgpu_ttm_adev((*bo)-&gt;tbo=
-.bdev)-&gt;in_suspend &amp;&amp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; !amdgpu_ttm_adev((*bo)-&gt;tbo.bdev)-&gt;ip_blocks[AMD_IP_BLOCK_=
-TYPE_SDMA].status.hw);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (likely(amdgpu_bo_reser=
-ve(*bo, true) =3D=3D 0)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (cpu_addr)<br>
--- <br>
-2.37.3<o:p></o:p></p>
-</div>
-</div>
-</blockquote>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-</blockquote>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-</body>
-</html>
-
---_000_MW3PR12MB4458C18F7080280760953EACEFDA9MW3PR12MB4458namp_--
