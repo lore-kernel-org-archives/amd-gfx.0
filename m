@@ -4,88 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CA46C636D3
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Feb 2023 02:49:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBD7DC05027
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Feb 2023 03:00:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1360610E177;
-	Tue,  7 Feb 2023 02:49:23 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2058.outbound.protection.outlook.com [40.107.244.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8933210E088
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Feb 2023 02:49:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kUGtOofla21YUm/MLXoOpgUXGZV/T/SxFy3yMge4Q4NZyJ4TqtpX8T8Yi+6HUfHwqkU/01/JiV54V1J9iUrCEMMQtFnu9zA5cbsTsPHmPOZMsegnmFmVrFjLF32gAGdP9eNA7p6gOXScUeSPYHosmGReK+CnvM+tHQSHPF0SS/G90nCmE4InB7/SDCK3ExxdJjd8rFo8fwOqaZUvl0e57/flOIM49F3XGi8RFLbTzJh/iv3en3N8DKZ3hNoog2F41oZq4wmlXaDD5BQ5iZMcwu2+nMsNGyq0J8GsNwT4q2GZYlx+5S4wSdwelTW4Q23SlUs4XoSO1rXg95rje4AeCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R8+7k/BWXcJT6N7yv/3y87KhiA5yqF1G1cnv0/vt/1I=;
- b=g3aPTtMEWX/THsaUhVUfQ/botnR0N3CwG/bW2Q0j38/vza8JkF1C1/fSaXWlaSvwXs8YKPuIMHLAt8juyOfgjYjB1ZujQiXWYPfDkvqIwVXRoJx/Gmafkqhh73GQt+Mzo2Yg4XZdDzRUIVldScnMlPvbd4T1AvEiSZ0nYCLPEgJx/3Wg1ux2JtbtUlTljL77xBq9jy+OysER5mdQZbCqglmeyHWHkb5LlwhrJ94wFh6kS9nIMWiQdsyGHtquWpbyilOcDDny0GyglwfgUHzixxYnFw1M4fU8oROSB7xjpTZKmUhUyRa404YWTxBZiY+oagEVYxPrJNf/KIUsSQ1/KA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R8+7k/BWXcJT6N7yv/3y87KhiA5yqF1G1cnv0/vt/1I=;
- b=WoMfqu2CXjp1B6BxeDckYjdarOaq+HIMnQ2diWs8kJ2h0y8NcojphAVBQRzlKGIoRTBo/UmRYIIIAA7ZUrRNPIyjRMyASnzN3WkAcqEClNn0WbZShel7ltauo9c+SHXAgDMudWP25V2v+Cgn/Q7WkLerxmkV+1Uwbsu5mzsgIxo=
-Received: from MW4PR04CA0042.namprd04.prod.outlook.com (2603:10b6:303:6a::17)
- by IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.29; Tue, 7 Feb
- 2023 02:49:17 +0000
-Received: from CO1NAM11FT094.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:6a:cafe::43) by MW4PR04CA0042.outlook.office365.com
- (2603:10b6:303:6a::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.34 via Frontend
- Transport; Tue, 7 Feb 2023 02:49:16 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT094.mail.protection.outlook.com (10.13.174.161) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6064.35 via Frontend Transport; Tue, 7 Feb 2023 02:49:16 +0000
-Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 6 Feb
- 2023 20:49:14 -0600
-From: Evan Quan <evan.quan@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/2] drm/amd/pm: bump SMU 13.0.0 driver_if header version
-Date: Tue, 7 Feb 2023 10:48:54 +0800
-Message-ID: <20230207024855.1589467-1-evan.quan@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A16010E1CB;
+	Tue,  7 Feb 2023 03:00:11 +0000 (UTC)
+Received: from mail-4325.protonmail.ch (mail-4325.protonmail.ch [185.70.43.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A75110E138
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Feb 2023 22:48:14 +0000 (UTC)
+Date: Mon, 06 Feb 2023 22:48:06 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+ s=protonmail3; t=1675723692; x=1675982892;
+ bh=NNxsv7LNVkYVwuCc8YpJqi6KhqDnVHT3qMDNOdRv03E=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=wDvmpajKWydnZIvK07ypLArT//YhOC3ifyxg4m1uFQEtYGjYNqlgYztjnubcJAXmv
+ Bw/Au4V1YBJKAX+x65DqHcpuR8Ob8n9g4yoKCmE1qxyWIzuJhy3ytxPynRVeS1Lijn
+ oSywJ3pDBHpgoE+949k8u7ncHNT6dwaqDriG7aRFyxA/8s5GvPhqbX+UyKpj+4wNzV
+ 5eBqIR4qDbMcYNWpOOe6QcWA1AHaQRv0W/8o9RP/AFoACLFOgTAbP0HludhWs4/i0k
+ KA6Vh43H/RdlacKcFiAckyF04Kani99cVGWdHj8vXf+fsUZegtS9108ipT8RVA5Cz7
+ EqLTq+HpwcTJA==
+To: Alex Deucher <alexdeucher@gmail.com>
+From: sfrcorne <sfrcorne@protonmail.com>
+Subject: Re: gpu_metrics does not provide 'current_gfxclk', 'current_uclk',
+ 'average_cpu_power' & 'temperature_core' on AMD Ryzen 7000 CPU
+Message-ID: <IGhLMOrDFqjKG7Ct93T4NCqIKeGLdSNO9Q5p3CkgzBVK15kInfRfGdv4aFCRJO3TmR2shr_bqjxYmlAgI3BojoM0F9q24Jv82FLmm2fvpp0=@protonmail.com>
+In-Reply-To: <CADnq5_O__w5jkOoUALv96hybKP8qJs-=wcQAhcxy5kbiBg_vCw@mail.gmail.com>
+References: <rEMJPv8L9uDl7PSSJ_OtbkCcM9ABocJ_Mk8DuSUQpaB2fPEPNB6EBBo7XLlCKqsfF5bCz5jvr9CFt1pVzb37_KZBldUNBMcf2-2B3xDNVN0=@protonmail.com>
+ <CADnq5_O__w5jkOoUALv96hybKP8qJs-=wcQAhcxy5kbiBg_vCw@mail.gmail.com>
+Feedback-ID: 66916551:user:proton
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT094:EE_|IA0PR12MB8374:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba8df4a1-b088-4af3-d8d9-08db08b5e745
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4Io/Im12Hq8uvQhOwtBq0mlipZ1o0VI+t1vHZEkLE8+cY3HXvmKaEHzOvrYeRzCcPgTYS8UD9e3cF35gos6v/J94o5vuTHLXLNzSRUOVbMoeZFduopMPmiEICfVgbYg6CN65W2+3hzyNN3X7Hthb1sj202J1vT/lsQ7TqK/5t2iaT/9PT9zpx8+esdeNZJ/EsMWSfl/vOW1SMF7xdRy7nyDg1NIUyotRckbF56nPf+HkDNAuv3DoTfhyMxTA19yBJdCByEk3MyDqHEnq7FI5lpCN7PHs7BWjwiGszZFHD3QKrmpdtrdQRlp2x7L1U34HKsN3NVDdWy8W/FgzvN0svHnYqISNZ68R+GY7GCsA6SgUVyh5aJYf5hrzg/Kqqh0fUcuQABiawkXvt4D9e/53alcROUhPrfVOYSK6RW2+kNRJ0Ys7sGF9bMH83mAlyR58IKvrFuYatk2CxXDdkCm952cwlyclKeRNdkb11J4DlB1d239cWCC4F6PkT45bd7uv4SDCHPZt5trLx5UvnfOlAzVz4ceed2RXuhRM5MjyTeBgdEaxfGhxmHheVyMvIwylm+cqUVZhC79QjW2KV2iRlNLkRgkhYfFcY45uig8/A7gxYHOtFLSIC5fbbuaKJ8JJZ9crsvlUCauG+DrHGu1AVpNkv/1Z1PEiDHEuXNSnBh/zKhJkwJwMTL63TaAqmc3AZYjIP/D4Ku8yENdsw1wtvZqHx0X69sCQoo18nF2E5eY=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(39860400002)(136003)(346002)(396003)(376002)(451199018)(36840700001)(40470700004)(46966006)(316002)(7696005)(82310400005)(81166007)(54906003)(478600001)(356005)(8676002)(82740400003)(4326008)(70586007)(41300700001)(70206006)(16526019)(44832011)(186003)(26005)(6916009)(6666004)(36860700001)(5660300002)(86362001)(1076003)(40460700003)(2616005)(8936002)(36756003)(83380400001)(2906002)(40480700001)(336012)(426003)(47076005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2023 02:49:16.3868 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba8df4a1-b088-4af3-d8d9-08db08b5e745
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT094.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8374
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Tue, 07 Feb 2023 03:00:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,57 +49,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Evan Quan <evan.quan@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This can suppress the warning caused by version mismatch.
+Dear Alex,
 
-Signed-off-by: Evan Quan <evan.quan@amd.com>
-Change-Id: I5e62de359015ac93b2dfd6a257584a5e6d38e1f8
----
- .../drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h   | 5 +++--
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h                 | 2 +-
- 2 files changed, 4 insertions(+), 3 deletions(-)
+First of all, thank you for your response. Personally, I use a Ryzen 5 7600=
+X however people with a Ryzen 9 7900X are also reporting this issue. The re=
+levant bug report in Mangohud can be found here: "https://github.com/flight=
+lessmango/MangoHud/issues/868".
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h
-index d6b964cf73bd..4bc7aee4d44f 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h
-@@ -123,7 +123,8 @@
- 									(1 << FEATURE_DS_FCLK_BIT) | \
- 									(1 << FEATURE_DS_LCLK_BIT) | \
- 									(1 << FEATURE_DS_DCFCLK_BIT) | \
--									(1 << FEATURE_DS_UCLK_BIT))
-+									(1 << FEATURE_DS_UCLK_BIT) | \
-+									(1ULL << FEATURE_DS_VCN_BIT))
- 
- //For use with feature control messages
- typedef enum {
-@@ -522,9 +523,9 @@ typedef enum  {
-   TEMP_HOTSPOT_M,
-   TEMP_MEM,
-   TEMP_VR_GFX,
--  TEMP_VR_SOC,
-   TEMP_VR_MEM0,
-   TEMP_VR_MEM1,
-+  TEMP_VR_SOC,
-   TEMP_VR_U,
-   TEMP_LIQUID0,
-   TEMP_LIQUID1,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-index 913d3a8d7e2f..40adc4fa808a 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-@@ -28,7 +28,7 @@
- #define SMU13_DRIVER_IF_VERSION_INV 0xFFFFFFFF
- #define SMU13_DRIVER_IF_VERSION_YELLOW_CARP 0x04
- #define SMU13_DRIVER_IF_VERSION_ALDE 0x08
--#define SMU13_DRIVER_IF_VERSION_SMU_V13_0_0_0 0x34
-+#define SMU13_DRIVER_IF_VERSION_SMU_V13_0_0_0 0x37
- #define SMU13_DRIVER_IF_VERSION_SMU_V13_0_4 0x07
- #define SMU13_DRIVER_IF_VERSION_SMU_V13_0_5 0x04
- #define SMU13_DRIVER_IF_VERSION_SMU_V13_0_0_10 0x32
--- 
-2.34.1
+I looked around a bit in both the Mangohud source code and the Linux kernel=
+ source code.
 
+(Mangohud source): From what I understand, Mangohud looks for a file "/sys/=
+class/drm/card*/device/gpu_metrics". If this file exists (and it does exist=
+s on my machine), it tries to read this file and extract the relevant GPU d=
+ata (and in case of an APU also the CPU data) from it (these are the values=
+ I was talking about in my previous mail). When the file "/sys/class/drm/ca=
+rd*/device/gpu_metrics" exists, it will not use the data provided by hwmon =
+(/sys/class/hwmon/hwmon*/*).
+
+(Linux kernel): The gpu_metrics file contains different data, depending on =
+what version is used. All valid versions can be found in the source code: "=
+https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/amd/include/=
+kgd_pp_interface.h#L725". For my CPU/APU the 'gpu_metrics_v2_1' structure i=
+s used (I tested this by reading the gpu_metrics file myself). Furthermore,=
+ I think that for my case, this structure is set by the function "https://e=
+lixir.bootlin.com/linux/latest/source/drivers/gpu/drm/amd/pm/swsmu/smu13/sm=
+u_v13_0_5_ppt.c#L459" but I am not completely sure about this.
+
+Lastly, I am not familiar with umr. I assume that you are referring to "htt=
+ps://gitlab.freedesktop.org/tomstdenis/umr"? If I find some time this weeke=
+nd, then I will look into this some more.
+
+Kind regards,
+sfrcorne
+
+------- Original Message -------
+On Monday, February 6th, 2023 at 22:22, Alex Deucher <alexdeucher@gmail.com=
+> wrote:
+
+> On Mon, Feb 6, 2023 at 9:22 AM sfrcorne sfrcorne@protonmail.com wrote:
+>=20
+> > Hello,
+> >=20
+> > I hope this is the correct place to ask my question. I was not sure if =
+I should have opened a new issue on Gitlab or send an email here, since I d=
+on't know know whether this is a bug or intended behaviour.
+> >=20
+> > The question is about the new AMD Ryzen 7000 CPU's. These new CPU's hav=
+e an iGPU and consequently provide a gpu_metrics file for monitoring the GP=
+U/CPU (APU?). This file is used by programs like Mangohud, that try to read=
+ (among other values) the following 4 values:
+> > - current_gfxclk
+> > - current_uclk
+> > - average_cpu_power
+> > - temperature_core
+> > However it appears that on AMD Ryzen 7000 CPU's these 4 values are not =
+provided/updated in the gpu_metrics file. Other values like 'average_core_p=
+ower', 'temperature_l3' and the other 'current_<x>clk' are also not provide=
+d/updated but these are not used by Mangohud at the moment.
+> >=20
+> > Is this intentional or a bug? And will this be fix and/or will support =
+for these 4 values be added in the future?
+>=20
+>=20
+> What specific CPU/APU is this? I don't recall off hand how mangohud
+> queries this stuff, but you can take a look at the hwmon interfaces
+> exposed by the driver or if you want the whole metrics table, you can
+> use umr to fetch and decode it via the kernel interface. That will
+> allow you to verify that the firmware is producing the proper data.
+>=20
+> Alex
