@@ -4,58 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31B86C61DA4
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Feb 2023 14:22:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AB15C05027
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Feb 2023 14:22:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96E2910E3DD;
-	Mon,  6 Feb 2023 14:22:36 +0000 (UTC)
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95AE210E06B
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Feb 2023 14:20:47 +0000 (UTC)
-Received: by mail-wm1-x332.google.com with SMTP id
- c4-20020a1c3504000000b003d9e2f72093so10901044wma.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 06 Feb 2023 06:20:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=oz3yUN8JKjMb8lpX6PlvmO+h18eeXhtEP5GK2mCNaiA=;
- b=ftGEyUkgrvQhcg8/WE49kCbjcKG/LW12KjAsSGiUaXWUsAMMsRQrRlswfQbTxts6jt
- y4mlwON6fKjb8vdJuuUINsuFEBYz9zRfpjBoLB9LuyP897xu0lNIZ8vw3G28v01EI9Ky
- Y2adWy4yZAatdh7C/XSbZt2a1GP5GgZIyv4u0dgTi82lhYozWHrSDBdAxAYv85q0mi6S
- 5JbrmcQqsqO0wIkFPm6jrKE8FIQpZp2qmF/QVvzcBxjV5Ez/EUpIglr3BLQClBoEZKQ7
- ylEQ7jCz1RdPOpX909i39Mfcr65Hjq1VyctJkKo5U3bTXnsKFhWHLluHtN1lIuhD607i
- sNlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=oz3yUN8JKjMb8lpX6PlvmO+h18eeXhtEP5GK2mCNaiA=;
- b=vSp21xm65HN/DNnNIS2uvjjaY9LO+YjN6vr4UXccwJ3jMhFwQ/zCrr9X7N7X6K+twb
- 91O2ROYbQMMGuJpsTO7C1f485kovL30TphodICfvyCCg9qgI3oaD0a5vZWnVhl5Uv1Ad
- C2IHhVCus5jO2bPF/9RoyzXLP/2nlQvzKk/zozuV6z2B+yhGnW6n7+lrf7kzONooc+F3
- lRUlqkfH5wOMLgXUfpU6TAummXZ9scRyUZygOIM+KRq5fX8GViRkGas70Llk0Dpdc+7d
- 5MgkqErZzFY8T9TDFuHlebML8NXG+pmozhcIQGUT4nQQNhgTNrEylnF67+iGieWpYCeK
- gq+w==
-X-Gm-Message-State: AO0yUKXo6CzdDZ9t7uijAqDTpIX0BGmlrwF+Mt8EqNEbJpHO42iJRLrl
- YhQkClOPr6Bd8DNpjzZXgshIvTxBX0M=
-X-Google-Smtp-Source: AK7set9ByajIKRalKICrUP4Sp0gSLlyArjtwYmTekkIML1sPaazPuVoRTyrUkHndHFWAqwmpZEcWaA==
-X-Received: by 2002:a7b:cc12:0:b0:3df:1673:90b6 with SMTP id
- f18-20020a7bcc12000000b003df167390b6mr17743701wmh.39.1675693246136; 
- Mon, 06 Feb 2023 06:20:46 -0800 (PST)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- v9-20020a05600c470900b003dfe549da4fsm11477901wmo.18.2023.02.06.06.20.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Feb 2023 06:20:45 -0800 (PST)
-Date: Mon, 6 Feb 2023 17:20:41 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Dillon.Varone@amd.com
-Subject: [bug report] drm/amd/display: Disable MALL SS and messages for PSR
- supported configs
-Message-ID: <Y+EMucnHeyZgPJY3@kili>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0788E10E06B;
+	Mon,  6 Feb 2023 14:22:37 +0000 (UTC)
+X-Greylist: delayed 493 seconds by postgrey-1.36 at gabe;
+ Mon, 06 Feb 2023 00:21:56 UTC
+Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B81310E0C6
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Feb 2023 00:21:56 +0000 (UTC)
+Date: Mon, 06 Feb 2023 00:13:35 +0000
+Authentication-Results: mail-4321.protonmail.ch;
+ dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com
+ header.b="FGDGmD2w"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+ s=protonmail3; t=1675642421; x=1675901621;
+ bh=JUjpGQ3jAWNA3LtqrG4oDcyrXN2Wa8euqLm+LEtGtes=;
+ h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=FGDGmD2wrkMgguQqwHUk8sdQKqvGIIoEeNBKBTwMk9Y5mgsdbuY6kVTKJ68M9XD7E
+ rspREFeUlTerCk48ZCSp08n92vSwlorYWiYiH7RjPa28qQlZ8Swe29qhQARHxIgmN3
+ XrV5AlOQnuaKW5qcLdIOHBSXX70BF+WPGH7NIik31aWjs1TztZxkBuMpLan3tB7c0B
+ CsWGLqeIk4nG+E4GKUWfTygmcleDHjssfb9/Yt4AKZKsruxTuFTwO6sLuwr5xV3RJH
+ ak8xS1XbeqNVMOsZD7imnYYvTEFY5dyGHwiIUgA9jWBcOOnUsAffZK+zwbZlDADpe5
+ mujYHKLfPaYhg==
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+From: sfrcorne <sfrcorne@protonmail.com>
+Subject: gpu_metrics does not provide 'current_gfxclk', 'current_uclk',
+ 'average_cpu_power' & 'temperature_core' on AMD Ryzen 7000 CPU
+Message-ID: <rEMJPv8L9uDl7PSSJ_OtbkCcM9ABocJ_Mk8DuSUQpaB2fPEPNB6EBBo7XLlCKqsfF5bCz5jvr9CFt1pVzb37_KZBldUNBMcf2-2B3xDNVN0=@protonmail.com>
+Feedback-ID: 66916551:user:proton
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: multipart/alternative;
+ boundary="b1_T1gcPdqPn9euonyEpujN0F1ygA9pqZebJMfT7Fn28wE"
 X-Mailman-Approved-At: Mon, 06 Feb 2023 14:22:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,40 +50,92 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Dillon Varone,
+This is a multi-part message in MIME format.
 
-This is a semi-automatic email about new static checker warnings.
+--b1_T1gcPdqPn9euonyEpujN0F1ygA9pqZebJMfT7Fn28wE
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
 
-The patch 0bed85e48af1: "drm/amd/display: Disable MALL SS and
-messages for PSR supported configs" from Jan 4, 2023, leads to the
-following Smatch complaint:
+SGVsbG8sCgpJIGhvcGUgdGhpcyBpcyB0aGUgY29ycmVjdCBwbGFjZSB0byBhc2sgbXkgcXVlc3Rp
+b24uIEkgd2FzIG5vdCBzdXJlIGlmIEkgc2hvdWxkIGhhdmUgb3BlbmVkIGEgbmV3IGlzc3VlIG9u
+IEdpdGxhYiBvciBzZW5kIGFuIGVtYWlsIGhlcmUsIHNpbmNlIEkgZG9uJ3Qga25vdyBrbm93IHdo
+ZXRoZXIgdGhpcyBpcyBhIGJ1ZyBvciBpbnRlbmRlZCBiZWhhdmlvdXIuCgpUaGUgcXVlc3Rpb24g
+aXMgYWJvdXQgdGhlIG5ldyBBTUQgUnl6ZW4gNzAwMCBDUFUncy4gVGhlc2UgbmV3IENQVSdzIGhh
+dmUgYW4gaUdQVSBhbmQgY29uc2VxdWVudGx5IHByb3ZpZGUgYSBncHVfbWV0cmljcyBmaWxlIGZv
+ciBtb25pdG9yaW5nIHRoZSBHUFUvQ1BVIChBUFU/KS4gVGhpcyBmaWxlIGlzIHVzZWQgYnkgcHJv
+Z3JhbXMgbGlrZSBNYW5nb2h1ZCwgdGhhdCB0cnkgdG8gcmVhZCAoYW1vbmcgb3RoZXIgdmFsdWVz
+KSB0aGUgZm9sbG93aW5nIDQgdmFsdWVzOgotIGN1cnJlbnRfZ2Z4Y2xrCi0gY3VycmVudF91Y2xr
+Ci0gYXZlcmFnZV9jcHVfcG93ZXIKLSB0ZW1wZXJhdHVyZV9jb3JlCgpIb3dldmVyIGl0IGFwcGVh
+cnMgdGhhdCBvbiBBTUQgUnl6ZW4gNzAwMCBDUFUncyB0aGVzZSA0IHZhbHVlcyBhcmUgbm90IHBy
+b3ZpZGVkL3VwZGF0ZWQgaW4gdGhlIGdwdV9tZXRyaWNzIGZpbGUuIE90aGVyIHZhbHVlcyBsaWtl
+ICdhdmVyYWdlX2NvcmVfcG93ZXInLCAndGVtcGVyYXR1cmVfbDMnIGFuZCB0aGUgb3RoZXIgJ2N1
+cnJlbnRfPHg+Y2xrJyBhcmUgYWxzbyBub3QgcHJvdmlkZWQvdXBkYXRlZCBidXQgdGhlc2UgYXJl
+IG5vdCB1c2VkIGJ5IE1hbmdvaHVkIGF0IHRoZSBtb21lbnQuCgpJcyB0aGlzIGludGVudGlvbmFs
+IG9yIGEgYnVnPyBBbmQgd2lsbCB0aGlzIGJlIGZpeCBhbmQvb3Igd2lsbCBzdXBwb3J0IGZvciB0
+aGVzZSA0IHZhbHVlcyBiZSBhZGRlZCBpbiB0aGUgZnV0dXJlPwoKS2luZCBSZWdhcmRzLApzZnJj
+b3JuZQ==
 
-    drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_hwseq.c:257 dcn32_apply_idle_power_optimizations()
-    warn: variable dereferenced before check 'dc->current_state' (see line 249)
+--b1_T1gcPdqPn9euonyEpujN0F1ygA9pqZebJMfT7Fn28wE
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_hwseq.c
-   248	
-   249		for (i = 0; i < dc->current_state->stream_count; i++) {
-                                ^^^^^^^^^^^^^^^^^^^
-Patch adds unchecked dereference
+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsOyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiBy
+Z2IoMCwgMCwgMCk7Ij5IZWxsbyw8L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWw7
+IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsiPjxicj48L2Rpdj48ZGl2IHN0
+eWxlPSJmb250LWZhbWlseTogQXJpYWw7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAw
+LCAwKTsiPkkgaG9wZSB0aGlzIGlzIHRoZSBjb3JyZWN0IHBsYWNlIHRvIGFzayBteSBxdWVzdGlv
+bi4gSSB3YXMgbm90IHN1cmUgaWYgSSBzaG91bGQgaGF2ZSBvcGVuZWQgYSBuZXcgaXNzdWUgb24g
+R2l0bGFiIG9yIHNlbmQgYW4gZW1haWwgaGVyZSwgc2luY2UgSSBkb24ndCBrbm93IGtub3cgd2hl
+dGhlciB0aGlzIGlzIGEgYnVnIG9yIGludGVuZGVkIGJlaGF2aW91ci48L2Rpdj48ZGl2IHN0eWxl
+PSJmb250LWZhbWlseTogQXJpYWw7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAw
+KTsiPjxicj48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWw7IGZvbnQtc2l6ZTog
+MTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsiPlRoZSBxdWVzdGlvbiBpcyBhYm91dCB0aGUgbmV3
+IEFNRCBSeXplbiA3MDAwIENQVSdzLiBUaGVzZSBuZXcgQ1BVJ3MgaGF2ZSBhbiBpR1BVIGFuZCA8
+c3Bhbj48c3BhbiBkYXRhLWRvYmlkPSJoZHciPmNvbnNlcXVlbnRseSBwcm92aWRlIGEgZ3B1X21l
+dHJpY3MgZmlsZSBmb3IgbW9uaXRvcmluZyB0aGUgR1BVL0NQVSAoQVBVPykuIFRoaXMgZmlsZSBp
+cyB1c2VkIGJ5IHByb2dyYW1zIGxpa2UgTWFuZ29odWQsIHRoYXQgdHJ5IHRvIHJlYWQgKGFtb25n
+IG90aGVyIHZhbHVlcykgdGhlIGZvbGxvd2luZyA0IHZhbHVlczo8L3NwYW4+PC9zcGFuPjwvZGl2
+PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiBBcmlhbDsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjog
+cmdiKDAsIDAsIDApOyI+PHNwYW4+PHNwYW4gZGF0YS1kb2JpZD0iaGR3Ij4mbmJzcDstPHNwYW4+
+IGN1cnJlbnRfZ2Z4Y2xrPC9zcGFuPjwvc3Bhbj48L3NwYW4+PC9kaXY+PGRpdiBzdHlsZT0iZm9u
+dC1mYW1pbHk6IEFyaWFsOyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7Ij48
+c3Bhbj48c3BhbiBkYXRhLWRvYmlkPSJoZHciPjxzcGFuPiZuYnNwOy0gY3VycmVudF91Y2xrPC9z
+cGFuPjwvc3Bhbj48L3NwYW4+PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsOyBm
+b250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7Ij48c3Bhbj48c3BhbiBkYXRhLWRv
+YmlkPSJoZHciPjxzcGFuPiZuYnNwOy0gYXZlcmFnZV9jcHVfcG93ZXI8L3NwYW4+PC9zcGFuPjwv
+c3Bhbj48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWw7IGZvbnQtc2l6ZTogMTRw
+eDsgY29sb3I6IHJnYigwLCAwLCAwKTsiPjxzcGFuPjxzcGFuIGRhdGEtZG9iaWQ9ImhkdyI+PHNw
+YW4+Jm5ic3A7LSB0ZW1wZXJhdHVyZV9jb3JlPC9zcGFuPjxicj48L3NwYW4+PC9zcGFuPjwvZGl2
+PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiBBcmlhbDsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjog
+cmdiKDAsIDAsIDApOyI+PHNwYW4+PHNwYW4gZGF0YS1kb2JpZD0iaGR3Ij5Ib3dldmVyIGl0IGFw
+cGVhcnMgdGhhdCBvbiBBTUQgUnl6ZW4gNzAwMCBDUFUncyB0aGVzZSA0IHZhbHVlcyBhcmUgbm90
+IDxzcGFuPnByb3ZpZGU8L3NwYW4+ZC91cGRhdGVkIGluIHRoZSA8c3Bhbj5ncHVfbWV0cmljczwv
+c3Bhbj4gZmlsZS4gT3RoZXIgdmFsdWVzIGxpa2UgJzxzcGFuPjxzcGFuIGRhdGEtZG9iaWQ9Imhk
+dyI+PHNwYW4+YXZlcmFnZV9jb3JlX3Bvd2VyPC9zcGFuPjwvc3Bhbj48L3NwYW4+JywgJzxzcGFu
+PjxzcGFuIGRhdGEtZG9iaWQ9ImhkdyI+PHNwYW4+dGVtcGVyYXR1cmVfbDM8L3NwYW4+PC9zcGFu
+Pjwvc3Bhbj4nIGFuZCB0aGUgb3RoZXIgJzxzcGFuPjxzcGFuIGRhdGEtZG9iaWQ9ImhkdyI+PHNw
+YW4+Y3VycmVudF8mbHQ7eCZndDtjbGs8L3NwYW4+PC9zcGFuPjwvc3Bhbj4nIGFyZSBhbHNvIG5v
+dCA8c3Bhbj48c3BhbiBkYXRhLWRvYmlkPSJoZHciPjxzcGFuPnByb3ZpZGU8L3NwYW4+ZC91cGRh
+dGVkPC9zcGFuPjwvc3Bhbj4gYnV0IHRoZXNlIGFyZSBub3QgdXNlZCBieSBNYW5nb2h1ZCBhdCB0
+aGUgbW9tZW50Ljxicj48L3NwYW4+PC9zcGFuPjwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5
+OiBBcmlhbDsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAsIDAsIDApOyI+PHNwYW4+PHNw
+YW4gZGF0YS1kb2JpZD0iaGR3Ij48YnI+PC9zcGFuPjwvc3Bhbj48L2Rpdj48ZGl2IHN0eWxlPSJm
+b250LWZhbWlseTogQXJpYWw7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsi
+PjxzcGFuPjxzcGFuIGRhdGEtZG9iaWQ9ImhkdyI+SXMgdGhpcyBpbnRlbnRpb25hbCBvciBhIGJ1
+Zz8gQW5kIHdpbGwgdGhpcyBiZSBmaXggYW5kL29yIHdpbGwgc3VwcG9ydCBmb3IgdGhlc2UgNCB2
+YWx1ZXMgYmUgYWRkZWQgaW4gdGhlIGZ1dHVyZT88YnI+PC9zcGFuPjwvc3Bhbj48L2Rpdj48ZGl2
+IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWw7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigw
+LCAwLCAwKTsiPjxzcGFuPjxzcGFuIGRhdGEtZG9iaWQ9ImhkdyI+PGJyPjwvc3Bhbj48L3NwYW4+
+PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsOyBmb250LXNpemU6IDE0cHg7IGNv
+bG9yOiByZ2IoMCwgMCwgMCk7Ij48c3Bhbj48c3BhbiBkYXRhLWRvYmlkPSJoZHciPjxzcGFuPktp
+bmQgUmVnYXJkcyw8L3NwYW4+PC9zcGFuPjwvc3Bhbj48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZh
+bWlseTogQXJpYWw7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsiPjxzcGFu
+PjxzcGFuIGRhdGEtZG9iaWQ9ImhkdyI+PHNwYW4+c2ZyY29ybmU8YnI+PC9zcGFuPjwvc3Bhbj48
+L3NwYW4+PC9kaXY+
 
-   250			/* MALL SS messaging is not supported with PSR at this time */
-   251			if (dc->current_state->streams[i] != NULL &&
-   252					dc->current_state->streams[i]->link->psr_settings.psr_version != DC_PSR_VERSION_UNSUPPORTED)
-   253				return false;
-   254		}
-   255	
-   256		if (enable) {
-   257			if (dc->current_state) {
-                        ^^^^^^^^^^^^^^^^^^^^^^^^
-Checked too late.
 
-   258	
-   259				/* 1. Check no memory request case for CAB.
+--b1_T1gcPdqPn9euonyEpujN0F1ygA9pqZebJMfT7Fn28wE--
 
-regards,
-dan carpenter
