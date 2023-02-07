@@ -4,115 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61082C636CC
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Feb 2023 20:48:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 923F2C636CD
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Feb 2023 23:15:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D742A10E5EC;
-	Tue,  7 Feb 2023 20:48:07 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2055.outbound.protection.outlook.com [40.107.223.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 033C610E5EC
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Feb 2023 20:48:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UcHS9VnWcs+rMTMDND6gNJU0+n///6aFB6w1KHQqt8MbauYaFtRDFcJpm/+QTyZ5NA3zgM9gMjrMDCfuYf9KsByJWxrkNMgaX8jsadF4j1wOMsQdj1uY/rU2I5Ulc+Q6uSwLOz76sgIP8pDcnCqO8Z+Cd9Ot6fwmDNBPki23McEdRXUIPO1Sdu5pSnRZYqFpkXJXZxyGyEsUFQ4J4EaMLy1NvdiiztIWIJv0xwaUy7mnbOsh8bgjmG701Pq/RavNLMVxfjyyuJ2ysbYjS8hVnoPK7Jkvy7LygpCsI9jeoNZvp/T8CMnV+jhmc0tVZuB9BDiBIzwP7wf9Oj+2IZ2JBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pdB1VXfj2vR8OhZCIjOid6BhguQ0S0TK8uDVS/pfb64=;
- b=FqcOU6z0kxZh+QeAQNETPiRa3lhf/vy59Uyar9ntU2mb1LSy59Rc4BLuH/PhRdYsaWrI4T/XYx1qQQB0gV6HROMZ007CkrpjlpWAGt1rvXprd8zkFqO1/mq0Qbb3HiM73nuVEIz9fXaFnMGVZ7lIWAaQSi/kwOOaT1Pz31EOHN2vML2GNqAJ7Z4W/JzGvEfNgw7fjeBBiybqNILrv7Smr7wG5Ol3dbVOES1lxrwv1P/lH4WqqyTdJSvqu6clX8rbAmy/BaapLV0QDBW45JviAHwWqWxelDHN2IMYM4okmfZnEFy3BF5Lh98UKn4xKKJcC8GNRHPlwof1lrGZcVNQuw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pdB1VXfj2vR8OhZCIjOid6BhguQ0S0TK8uDVS/pfb64=;
- b=uW/8iVevy+mCT8duXPlXr7IeQ6VqHx4X/7CYOLUh11K+aHNuTGsOL6JPZ30VeFWmQ+UgEVQRB0qLC5wkEd7/2v8FnvwcjkqcuqSiQQ/VTjWPlDzMP+clMQJOnWguG3XsCQSiE9KFeS8JRcFOxOGzpAQkVmb1NpdCg2qvBi8LGyw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by PH7PR12MB7872.namprd12.prod.outlook.com (2603:10b6:510:27c::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.34; Tue, 7 Feb
- 2023 20:48:02 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::e6ea:9231:6d39:93da]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::e6ea:9231:6d39:93da%5]) with mapi id 15.20.6064.036; Tue, 7 Feb 2023
- 20:48:02 +0000
-Message-ID: <3c62317d-7ef8-9f5d-4ca3-1b1bb9d56b14@amd.com>
-Date: Tue, 7 Feb 2023 15:48:00 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH] drm/amdkfd: Prevent user space using both svm and kfd api
- to register same user buffer
-Content-Language: en-US
-To: "Xiaogang.Chen" <xiaogang.chen@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230207203504.879056-1-xiaogang.chen@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <20230207203504.879056-1-xiaogang.chen@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT3PR01CA0131.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:83::7) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF1D410E62F;
+	Tue,  7 Feb 2023 23:15:16 +0000 (UTC)
+X-Greylist: delayed 169084 seconds by postgrey-1.36 at gabe;
+ Tue, 07 Feb 2023 23:11:51 UTC
+Received: from mail-0201.mail-europe.com (mail-0201.mail-europe.com
+ [51.77.79.158])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C76410E61F
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Feb 2023 23:11:51 +0000 (UTC)
+Date: Tue, 07 Feb 2023 23:11:34 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+ s=protonmail3; t=1675811505; x=1676070705;
+ bh=+HbacWPFHmrwOnbl0xQufEMC03mf9Xkf0woiYfSB2yA=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=WY/wGWoYH6YkFwJuoPXXgYzYnqV9o3MpAYE1ejGaW277bSTriRe9aUmuITpgvdcAM
+ mH9BRPFEVZG1A43lrPToMziZ+K7bhMlPoY3097m7BenjQwh2l3u6eqfVoRiEArFNAj
+ MPgqscs41F61twT0+rMFRWWk7nKfFkI10JDVxn1koavjM8vWj5rV2gWL43wClc7gaT
+ O8LlKjKieAGTP2zh8s7mP6AFs3gUG5bL8XeCReIvI8YDHOrKeXyinwSSiF9/iEGuDt
+ SnLWYhMVdWOSPhviTG+G2howpy3QiI2AvzFZojXdBwJgbaM5IkfeFzcNiIJbLiDzIg
+ g9gWoOQx92tuQ==
+To: Alex Deucher <alexdeucher@gmail.com>
+From: sfrcorne <sfrcorne@protonmail.com>
+Subject: Re: gpu_metrics does not provide 'current_gfxclk', 'current_uclk',
+ 'average_cpu_power' & 'temperature_core' on AMD Ryzen 7000 CPU
+Message-ID: <T3dXX2ti9l895_q6SONxY1unYapI-VyHGYp4BC0JMGWkjJQWpZS6J-Ufzpv6BxzPJ5IiwEDBRanmre0zRnElpkAWrI0pD7RkPoezxpSDiPY=@protonmail.com>
+In-Reply-To: <CADnq5_OUwsNzGJA1Hmj9okyhC3BkfTkEw==V88mv_uAApZgo3Q@mail.gmail.com>
+References: <rEMJPv8L9uDl7PSSJ_OtbkCcM9ABocJ_Mk8DuSUQpaB2fPEPNB6EBBo7XLlCKqsfF5bCz5jvr9CFt1pVzb37_KZBldUNBMcf2-2B3xDNVN0=@protonmail.com>
+ <CADnq5_O__w5jkOoUALv96hybKP8qJs-=wcQAhcxy5kbiBg_vCw@mail.gmail.com>
+ <IGhLMOrDFqjKG7Ct93T4NCqIKeGLdSNO9Q5p3CkgzBVK15kInfRfGdv4aFCRJO3TmR2shr_bqjxYmlAgI3BojoM0F9q24Jv82FLmm2fvpp0=@protonmail.com>
+ <CADnq5_OUwsNzGJA1Hmj9okyhC3BkfTkEw==V88mv_uAApZgo3Q@mail.gmail.com>
+Feedback-ID: 66916551:user:proton
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|PH7PR12MB7872:EE_
-X-MS-Office365-Filtering-Correlation-Id: b5e71695-a357-4e9d-5319-08db094c9aef
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Kbn7Zv8aNvs8jsZbr5BAdjtMzn4NmGqgbaISjPMYkMZfFIT6F4n9poe/u6Xthdrimb8vqWg6nPR2m38h04GHozdIzXu0r9Y9b9lcUN8qki5kkBFXcyLIH6UbjGJx/HQeJdDPBLRYoxz36jtWXPxL3WAo59h3xQyyoIaM48Z45YK0MfHih0uscIAMShOwsTa+j79/X1GF1xotC6Hovgh/S9dOHlu49Vj2pL4vFNpdmjYaXVKmrM0Uli5HBAGQ/8Xkzf9ciTpe9B0LmRxD8EPXGNdh9eB+jkD9G41c2UiawgVf9ivTkOemDQbZvBnZCJRHwctnDUkNLj4ldbBZMvW8PjXlv9l5mAtEu9LcR4OlEk2HMp8J4iJHtwAyt2wVMGmwFhXfghFlYQLX7NBkXkvlnMPIDkggq+xF/zuHPhb1+s55+HbH3DOd/S2SfgJnh6PLvkf66M5SLExS1qi9ddoZ5zlEp6XdiZ3e24L3TI8HU/YPaWj5pBBFVJIBcjfdGBKjXg1GVcktCrdcyKeeDuVOtny1++a6r2NKSTX38N/gzYcaNHQC0Up6nP6m9Yd7Bg07UJJLBWf8tTC6DKe3m7NDvgisnfCp3Te1Rhbz8qLIJX6PQmib/xStaT62h4amCC/ztHaQVOosCXuejHR3F2TOQim5H83+DCjdybiqMK6yLA/kv1hW3tE65EV6r9iSA3KCFtl7wwKqtR7mu0OBak0srSTRKwTVj5UtbbkJIzY6Nu0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(346002)(396003)(376002)(366004)(39860400002)(136003)(451199018)(31686004)(36756003)(86362001)(38100700002)(26005)(2616005)(6486002)(186003)(6512007)(41300700001)(83380400001)(66946007)(478600001)(6506007)(8676002)(44832011)(31696002)(316002)(8936002)(5660300002)(2906002)(66556008)(66476007)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NVV4TnBoRmJaeDNVRzM3cVlFZkQzYnh3RmQraE1FYnYxayt2VXViVEU3WG9J?=
- =?utf-8?B?YmlGZTRFWSs2eDNXdXdpdFRNd0JjZ0NuU3FpQUNvZU9OZnNob2hXZ01kLy9Y?=
- =?utf-8?B?RWRXblk4ZlJlUjJkWGlFakY3ei9hWmJOclNhZGsrbTRzcXlmNVlBOHFMbzl3?=
- =?utf-8?B?ZzdKY0xHRDgxR2g4TG9mVmZLYzJaQUh3QWU5b0d4dlRhV0ZFT2VhNUMvMlBC?=
- =?utf-8?B?OEhhd2JsNGcxN3YyODlMUnQvY0pxV0poZVZTbjcvdnFuRDZHVkxodnpjb05E?=
- =?utf-8?B?QWZlYTcvQitZell1WW15V2lNdElmcmtmR3BWWWRvbkt1c1F1UllsNTI1Vitu?=
- =?utf-8?B?eHNxcWZmWHdLaFN6VFFmRUVKd05wdVlGOGRsbzNqTnJhejJhSVUyWWN3K2No?=
- =?utf-8?B?cFZQVE95VVg3eXlPSXV2alBTOTZidnhtVkJLaFZ3cldxNGNGSDFWRklOZU4x?=
- =?utf-8?B?MiswV3R0bHZKRWdmQ0I5QmpFTTNZc1lzSjR1L2xrT2xUdFN5WnZpNVVMQURV?=
- =?utf-8?B?U25hVFZ5YVA0bGlIdGlTMWFJZkRoZTR1WUZXODh6Nm1rTElMTmFjODFsbGky?=
- =?utf-8?B?ZHlON3BuaXk1dzI4YVp3NlpJTGpZeFhrZkx3U1V0d0VuWXhKbFFXVEZCQmxv?=
- =?utf-8?B?VVZmWFFKQ1Yzc3o1d2xIRC9neVQ4MG1UdGE0YUhwRDF6TVFzMmZiS2liZ3hZ?=
- =?utf-8?B?K2Z6bWhzVzFvQkZqcy9vTEN1QjJIL2syYVRDcUNvbWdCT0tjZGRud2s4bGVy?=
- =?utf-8?B?dWc4ZUNwUHBtTnNXR253b3VnUHQ1YmVoNWxpdFB2S3VzeEs1VjZYTmN6VE4y?=
- =?utf-8?B?V0lZME54cGxURlh6UWw5V3E3UHdPaWRNUlhFRytIdEVWMVUwaTRaa0U0cm4x?=
- =?utf-8?B?cGk0aFdyNFFuekVyakFLQ2lNVnIzM3NndC9acWhUM25tZUtlNnM4SnRrK3Ja?=
- =?utf-8?B?SVlSU2J0b2VOWGdMK2dyNEJkcjYxRG01RXA4OVduMVd5WVNWd1FoaS9kODBI?=
- =?utf-8?B?OVdaNTliQUZ3OGN6YzdmNG0rUWdVUUFucUFuZ3hXM3BZTzA3N1d1NHg0a3lI?=
- =?utf-8?B?dHE3MVRRRVA0aks0NmNBRGlGS0o2RDlKcmUyNWFQYUY4aVI0RDRiY3BDMVBx?=
- =?utf-8?B?aFA1ekhCUTdDVURPYXVWSkxHMnAzSzhVNDVOckYwNG5tVXo0OUE2UVhzMUZH?=
- =?utf-8?B?OVhWcGtSbmJBcVVTRlM2aXhLeE9QTkpKQzExaWduS1FQRCswMlZXazNMOFla?=
- =?utf-8?B?dkR5L2Y0ZnBtb0t5QUxYS3piYkFTM3VsQnZIaVphd2JjczgvNnJ6alhjWTJU?=
- =?utf-8?B?ZHUyS2FaaVJYSkJBaFBhRnU4SmhCQXFNUWxmTXN2Q1ltaG9jUGVKZ3NIbmpN?=
- =?utf-8?B?UDQ2QWVHMHc2VFdVMHNaUllDK0JTaVdScFE4UzVnRUtRbWFXZ0ZWa3ljYTRl?=
- =?utf-8?B?NDZpd0xTNkUrbmNyNmFJMHJjMWVPZm9XeFR4clhGV0Y2ZjQ4dnFUT2t1OVN2?=
- =?utf-8?B?cUdwZ3o2UytDaHB5Q01FVmlJMmt3dnB2TWcvREFkQlZIQUR2T1o0NmUrQ1lu?=
- =?utf-8?B?OXlmTEsxK2dSYzVEUG1obVlwNVkzQmh0VjZOQVc5Z2FJRWRDdUJFMzdxRWRN?=
- =?utf-8?B?WnBhYnVwcVNYTnlVMzArWUdQYi90dTVsaGhKOVZUZ0lpUkpjdjZHNjFxM0NP?=
- =?utf-8?B?bkFLaStrdnhPZ0lIblZDdXVaSHUyRkNsZnl1MU9Dd2NIaC9VK2RaMGY1TVNz?=
- =?utf-8?B?Vjc3SjFjNEhBNXNPUWZsc3dZU1VsMitRbEttU1JiZ1VTYmR3bzZWMTJxMGs5?=
- =?utf-8?B?c0dVaFdLb1FVbUZoOHZzaWFtdG0xajVMS3JPd1FPcmZmbUUzWHNwbmlNbmlO?=
- =?utf-8?B?K1RhUGM5K2lGMnlwOWdqSEVNS09yZWFPMGVwM0ZIL1ZOVHAxcy8yNnpZMkE2?=
- =?utf-8?B?WWhwUTNTZ2psMTZ5ejJkZmJzK01TVjR1UCtuU3liQlVDdkNIaExsRG9DMkZH?=
- =?utf-8?B?V2RBd3Z2T2Fld2kwK2xkdkJnbHZsUWtFSHh0a2tqTk4wcm41dTh4NUZLZU5U?=
- =?utf-8?B?czdURGVJYTdycGZwWU0yWHVJWjVqOEZGZm1KSzM5bXZGQlhCTGZqNEh4ZzhT?=
- =?utf-8?Q?XeVDkqSU3ZQ8SanwPwfziW+4L?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5e71695-a357-4e9d-5319-08db094c9aef
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2023 20:48:02.5691 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ceOcImf+6ngXEIvNrgSxGby3ouPYeRKsGDkWBctiLm6J4dsgtcFkXzwkNLVBEkFav9j+xFzei94yQDoGy+/hOg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7872
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Tue, 07 Feb 2023 23:15:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,66 +54,123 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Dear Alex,
 
-Am 2023-02-07 um 15:35 schrieb Xiaogang.Chen:
-> From: Xiaogang Chen <xiaogang.chen@amd.com>
->
-> When xnack is on user space can use svm page restore to set a vm range without
-> setup it first, then use regular api to register. Currently kfd api and svm are
-> not interoperable. We already have check on that, but for user buffer the mapping
-> address is not same as buffer cpu virtual address. Add checking on that to
-> avoid error propagate to hmm.
->
-> Signed-off-by: Xiaogang Chen <Xiaogang.Chen@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 17 +++++++++++++++++
->   1 file changed, 17 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index f79b8e964140..cb7acb0b9b52 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -1065,6 +1065,23 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
->   		mutex_unlock(&p->svms.lock);
->   		return -EADDRINUSE;
->   	}
-> +
-> +	/* When register user buffer check if it has been registered by svm by
-> +	 * buffer cpu virtual address.
-> +	 */
-> +	if (flags & KFD_IOC_ALLOC_MEM_FLAGS_USERPTR) {
-> +
-> +		if (interval_tree_iter_first(&p->svms.objects,
-> +				untagged_addr(args->mmap_offset) >> PAGE_SHIFT,
-> +				(untagged_addr(args->mmap_offset) + args->size - 1) >> PAGE_SHIFT)) {
+If current_gfxclk is not supported for my CPU, then using average_gfxclk_fr=
+equency instead is indeed the best solution in my opinion. I will try to ge=
+t a fix merged for my CPU in Mangohud.
 
-Instead of nesting two if-blocks, you can write this as a single 
-if-block like
+On a side note: you mentioned that unsupported fields would be 0 but I don'=
+t think this is correct. In the Linux kernel/driver there is a line of code=
+ that first set all values to 0xFF by a memset() and then populates the sup=
+ported fields.
 
-	if ((flags & KFD_IOC_ALLOC_MEM_FLAGS_USERPTR) &&
-	    interval_tree_iter_first(&p->svms.objects,
-				     untagged_addr(args->mmap_offset) >> PAGE_SHIFT,
-				     (untagged_addr(args->mmap_offset)  + args->size - 1) >> PAGE_SHIFT) {
+see "https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/amd/pm/=
+swsmu/smu_cmn.c#L999": memset(header, 0xFF, structure_size);
 
-I'm also not sure untagged_addr is needed here. If it is, we're missing 
-it in a bunch of other places too. Most notably, we don't untag pointers 
-anywhere in the SVM API.
+The value of the unsupported uint16_t fields thus should be 0xFFFF (or 6553=
+5 in decimal). This is also what I get when reading the gpu_metrics file. I=
+ just wanted to mention this in case someone reads this in the Archive.
 
-Regards,
-   Felix
+Anyway, thank you for your help!
+
+Kind regards,
+sfrcorne
+
+------- Original Message -------
+On Tuesday, February 7th, 2023 at 05:05, Alex Deucher <alexdeucher@gmail.co=
+m> wrote:
 
 
-> +
-> +			pr_err("User Buffer Address: 0x%llx already allocated by SVM\n",
-> +				untagged_addr(args->mmap_offset));
-> +			mutex_unlock(&p->svms.lock);
-> +			return -EADDRINUSE;
-> +		}
-> +
-> +	}
->   	mutex_unlock(&p->svms.lock);
->   #endif
->   	mutex_lock(&p->mutex);
+> On Mon, Feb 6, 2023 at 5:48 PM sfrcorne sfrcorne@protonmail.com wrote:
+>=20
+> > Dear Alex,
+> >=20
+> > First of all, thank you for your response. Personally, I use a Ryzen 5 =
+7600X however people with a Ryzen 9 7900X are also reporting this issue. Th=
+e relevant bug report in Mangohud can be found here: "https://github.com/fl=
+ightlessmango/MangoHud/issues/868".
+> >=20
+> > I looked around a bit in both the Mangohud source code and the Linux ke=
+rnel source code.
+> >=20
+> > (Mangohud source): From what I understand, Mangohud looks for a file "/=
+sys/class/drm/card*/device/gpu_metrics". If this file exists (and it does e=
+xists on my machine), it tries to read this file and extract the relevant G=
+PU data (and in case of an APU also the CPU data) from it (these are the va=
+lues I was talking about in my previous mail). When the file "/sys/class/dr=
+m/card*/device/gpu_metrics" exists, it will not use the data provided by hw=
+mon (/sys/class/hwmon/hwmon*/*).
+> >=20
+> > (Linux kernel): The gpu_metrics file contains different data, depending=
+ on what version is used. All valid versions can be found in the source cod=
+e: "https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/amd/incl=
+ude/kgd_pp_interface.h#L725". For my CPU/APU the 'gpu_metrics_v2_1' structu=
+re is used (I tested this by reading the gpu_metrics file myself). Furtherm=
+ore, I think that for my case, this structure is set by the function "https=
+://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/amd/pm/swsmu/smu1=
+3/smu_v13_0_5_ppt.c#L459" but I am not completely sure about this.
+>=20
+>=20
+> The metrics provided by the SMU firmware varies from asic to asic.
+> For things that are not supported by the metrics table for a
+> particular asic, those fields would be 0. You can see what metrics
+> are supported for your asic in smu_v13_0_5_get_gpu_metrics() as that
+> function populates the supported fields from the firmware to the
+> common structure. current_gfxclk is not supported in your asic, but
+> average_gfxclk_frequency is. So you'd want to use whichever field is
+> available for a particular asic in Mangohud.
+>=20
+> > Lastly, I am not familiar with umr. I assume that you are referring to =
+"https://gitlab.freedesktop.org/tomstdenis/umr"? If I find some time this w=
+eekend, then I will look into this some more.
+>=20
+>=20
+> Yes, that is the right link. umr uses the same interface as mangohud,
+> so you should see the same data.
+>=20
+> Alex
+>=20
+> > Kind regards,
+> > sfrcorne
+> >=20
+> > ------- Original Message -------
+> > On Monday, February 6th, 2023 at 22:22, Alex Deucher alexdeucher@gmail.=
+com wrote:
+> >=20
+> > > On Mon, Feb 6, 2023 at 9:22 AM sfrcorne sfrcorne@protonmail.com wrote=
+:
+> > >=20
+> > > > Hello,
+> > > >=20
+> > > > I hope this is the correct place to ask my question. I was not sure=
+ if I should have opened a new issue on Gitlab or send an email here, since=
+ I don't know know whether this is a bug or intended behaviour.
+> > > >=20
+> > > > The question is about the new AMD Ryzen 7000 CPU's. These new CPU's=
+ have an iGPU and consequently provide a gpu_metrics file for monitoring th=
+e GPU/CPU (APU?). This file is used by programs like Mangohud, that try to =
+read (among other values) the following 4 values:
+> > > > - current_gfxclk
+> > > > - current_uclk
+> > > > - average_cpu_power
+> > > > - temperature_core
+> > > > However it appears that on AMD Ryzen 7000 CPU's these 4 values are =
+not provided/updated in the gpu_metrics file. Other values like 'average_co=
+re_power', 'temperature_l3' and the other 'current_<x>clk' are also not pro=
+vided/updated but these are not used by Mangohud at the moment.
+> > > >=20
+> > > > Is this intentional or a bug? And will this be fix and/or will supp=
+ort for these 4 values be added in the future?
+> > >=20
+> > > What specific CPU/APU is this? I don't recall off hand how mangohud
+> > > queries this stuff, but you can take a look at the hwmon interfaces
+> > > exposed by the driver or if you want the whole metrics table, you can
+> > > use umr to fetch and decode it via the kernel interface. That will
+> > > allow you to verify that the firmware is producing the proper data.
+> > >=20
+> > > Alex
