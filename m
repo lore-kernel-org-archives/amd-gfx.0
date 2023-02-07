@@ -4,54 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A00FBC636CD
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Feb 2023 04:36:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B232C636D4
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Feb 2023 07:03:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3B6B10E2D7;
-	Tue,  7 Feb 2023 04:36:52 +0000 (UTC)
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D01D810E2D7
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Feb 2023 04:36:51 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id bd6so2670160oib.6
- for <amd-gfx@lists.freedesktop.org>; Mon, 06 Feb 2023 20:36:51 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70B7510E1D0;
+	Tue,  7 Feb 2023 07:03:24 +0000 (UTC)
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [IPv6:2a00:1450:4864:20::334])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1008710E1D0
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Feb 2023 07:03:22 +0000 (UTC)
+Received: by mail-wm1-x334.google.com with SMTP id
+ bg5-20020a05600c3c8500b003e00c739ce4so1993853wmb.5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 06 Feb 2023 23:03:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=vJqSX127DJPkZDvXxxr2YVLWo+6Awtq8G2+nnX0y4YY=;
- b=mghiWiUwqXxGjw6zu6KK43pvi3WzHDV2nnOEcMHzMXkePNeybRXxwNEXu0e7muH/X5
- AZPd0l6yAVwt81EmNBAEMNYvVW87KFTN8rw4jSzjMrQ4zYIOxy7hdZtXr0yp/BoT4LWi
- oK5zA1/4z1jWhyqWtrv4guqxEc8ZLX8HMzjhPcOOS5qEBW4sO6wWP0wzHYPbXNeA4iTj
- wnAfxaX8bFEpqQASLQwb9Ovt9bDlQxz63ELCj4DpZ7GoZyHReaf41/Ii2cHOx2HZTpq+
- BcHFb01DwffEZE5MW5GxZ4b2LyKbordGurXNBCyVOpr+WJ1HC4IPjBi3yviCveDEAKLC
- M8lw==
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=YJjs14SAmMvaZin7zj0PaF0an715D1mcQeiiain7At4=;
+ b=Mk/0j6yt+AIMVj1kdHJhDXRckUuXvKXVYroNDtJ1Xca18CNV36wvTOLmQ4nHqmmO71
+ 35sbujsUYKJZwiu+D/gUPWTGkebfNunquiEgAc95UlX1JQhiCLFIAcbZeCA2vqEK7+EP
+ UvDyYJ8WWNprrWagDHxeRqcLH8ThpdBLGSaKdnCJ0OCCqoMGPkiI7876yW5jxLOdFv32
+ TxwPhP7UJMx2434f9QoxIyRpb9G/LZwwFVX9UWjHCmUA+zg9bOAbt+tDTQvs/LNpmNpB
+ pkc7TdeNXeqrLvV46C3TlB9WWgKb6eCpHv2uEG0AhlmBBsLI5NmZB1HhLIJ0R4jjHdVi
+ 9E6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=vJqSX127DJPkZDvXxxr2YVLWo+6Awtq8G2+nnX0y4YY=;
- b=h9u6QnSKUHV4Yz6PzVUvwrv8YL7yITVsvMOM3C6CCt1ECJIBbatC9JVWa0wYzx4Inz
- 3mPSBdU7xvhjXFDn0FJ2zBfXvn+FN4KVfveA6sObWvSS5VupQ6X4zI29ccata0hxAUt4
- vnGQV4AKu9oqueGxNtnIP2owDr1WTS0A1xd5iYRtaF16KK6QOXjCEuEar4GTfcGtKB6u
- vjuM0P/BrJdvQw7VWqgiAoC/sID83s3/4i5ozucQjIMsAoN8QNAYQNxzfcwuU400HUgm
- TGTr2mWnz7Lk5UKTLpCWQDMqFikujTP9oe4DAbeajrVRTITo2++PKQmW099c8uilc9kv
- ddMQ==
-X-Gm-Message-State: AO0yUKWe1LMeIMx9cbRj8T20TpE8TDD56UCjXdojsBzIZf+0xcnbdqjx
- xp1sct3Vk6eYUF008DJGcX9+iGhgq9j05bj46hEXS/D9
-X-Google-Smtp-Source: AK7set+kzYIT8LmXroms8l4t+DES/UsRKyQDhZzfFuC7EuKdW2alSPMwWg2LYlVORF0cL42GvCWqT0xbmGS8amRh7r8=
-X-Received: by 2002:a05:6808:6242:b0:378:4edd:a89c with SMTP id
- dt2-20020a056808624200b003784edda89cmr1412778oib.46.1675744611035; Mon, 06
- Feb 2023 20:36:51 -0800 (PST)
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=YJjs14SAmMvaZin7zj0PaF0an715D1mcQeiiain7At4=;
+ b=V11oztnQLp2HYVD06+PiGQgR1YtJfp/OpFOlo/scWhmyQrDcfY2kjXm+XtGlW36WAe
+ fi1K9rN+GXm6tezNpbvgvyo5uX1k/ucDq9ofER/ePP8YOSTzVpBLpiFqEgkQjlsySJup
+ /16LMpa1foN3xRasS49biILGMygSbN/w3rHJ0qyCAHpgihCrhzlsPdVeOeM98KQWUHH9
+ IQjOqsjTA+7/C2oXZjVV/Ha/JezUVNwgqMp5nO3JPWc0R0TY7BzbbZCZ6Sy7Xwnq+C68
+ qV2mcm+Rs14MtXOewaURxlaPo6YJr/NrXBIp+p+iMOAx7WoumAaIxaq88uqRF8rAwrra
+ t8tA==
+X-Gm-Message-State: AO0yUKVijS6WTP00xWaJb5BkTp9NrUgMjpyUXaFP5SZH2EC34oGzH6fa
+ 6dTU5qeEQHOH41zSH/AZFzY=
+X-Google-Smtp-Source: AK7set/V3idCrNOJLVAzWovHYqvUliLYdPyO2aQmlhM+sMJyVWd7HdsU5ACxYpmFbSc4n4v1UMiMtQ==
+X-Received: by 2002:a05:600c:4d21:b0:3dc:561a:79e7 with SMTP id
+ u33-20020a05600c4d2100b003dc561a79e7mr2103896wmp.2.1675753400230; 
+ Mon, 06 Feb 2023 23:03:20 -0800 (PST)
+Received: from [192.168.178.21] (p5b0ea2e7.dip0.t-ipconnect.de.
+ [91.14.162.231]) by smtp.gmail.com with ESMTPSA id
+ c12-20020a5d4ccc000000b002bddac15b3dsm10364909wrt.33.2023.02.06.23.03.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 06 Feb 2023 23:03:19 -0800 (PST)
+Message-ID: <bb992153-fa99-7b50-a188-e49a8d673439@gmail.com>
+Date: Tue, 7 Feb 2023 08:03:18 +0100
 MIME-Version: 1.0
-References: <CQBXN5LYZ99S.333O6ZIGOX2JS@mcoffin-dev-tower>
-In-Reply-To: <CQBXN5LYZ99S.333O6ZIGOX2JS@mcoffin-dev-tower>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 6 Feb 2023 23:36:39 -0500
-Message-ID: <CADnq5_NWHPQSSF0M1GsL=nPrGdYJ8+4mHD23260q2caPKwE-7g@mail.gmail.com>
-Subject: Re: Indexing of FeatureCtrlMask for SMU13 OverDrive
-To: Matt Coffin <mcoffin13@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH 1/8] drm/amdgpu: UAPI for user queue management
+To: Alex Deucher <alexdeucher@gmail.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+References: <20230203215409.2021-1-shashank.sharma@amd.com>
+ <20230203215409.2021-2-shashank.sharma@amd.com>
+ <CADnq5_MSMivTzo0k+wJj+bGpsQZ3HEDVt5XqzjGdBiv08fFWCQ@mail.gmail.com>
+ <95ac9ea3-47c8-744c-7fd7-ddc54b19926f@amd.com>
+ <CADnq5_M9q0R=d=KU8P4oVOCY0Gw97Uhzy6Mrg0GgxeROGn6xrQ@mail.gmail.com>
+ <afce1a57-8007-5d1b-0715-9756d7d07153@amd.com>
+ <CADnq5_P8UJYvnH_kWcPY2hfnhU3Ppo-3RoQAU5Ohf1T841kvzQ@mail.gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CADnq5_P8UJYvnH_kWcPY2hfnhU3Ppo-3RoQAU5Ohf1T841kvzQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,117 +81,161 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Quan, Evan" <Evan.Quan@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ Shashank Sharma <shashank.sharma@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Feb 6, 2023 at 8:17 PM Matt Coffin <mcoffin13@gmail.com> wrote:
+Am 06.02.23 um 22:03 schrieb Alex Deucher:
+> On Mon, Feb 6, 2023 at 12:01 PM Christian König
+> <christian.koenig@amd.com> wrote:
+>> Am 06.02.23 um 17:56 schrieb Alex Deucher:
+>>> On Fri, Feb 3, 2023 at 5:26 PM Shashank Sharma <shashank.sharma@amd.com> wrote:
+>>>> Hey Alex,
+>>>>
+>>>> On 03/02/2023 23:07, Alex Deucher wrote:
+>>>>> On Fri, Feb 3, 2023 at 4:54 PM Shashank Sharma <shashank.sharma@amd.com> wrote:
+>>>>>> From: Alex Deucher <alexander.deucher@amd.com>
+>>>>>>
+>>>>>> This patch intorduces new UAPI/IOCTL for usermode graphics
+>>>>>> queue. The userspace app will fill this structure and request
+>>>>>> the graphics driver to add a graphics work queue for it. The
+>>>>>> output of this UAPI is a queue id.
+>>>>>>
+>>>>>> This UAPI maps the queue into GPU, so the graphics app can start
+>>>>>> submitting work to the queue as soon as the call returns.
+>>>>>>
+>>>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>>>>> Cc: Christian Koenig <christian.koenig@amd.com>
+>>>>>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>>>>>> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+>>>>>> ---
+>>>>>>     include/uapi/drm/amdgpu_drm.h | 53 +++++++++++++++++++++++++++++++++++
+>>>>>>     1 file changed, 53 insertions(+)
+>>>>>>
+>>>>>> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+>>>>>> index 4038abe8505a..6c5235d107b3 100644
+>>>>>> --- a/include/uapi/drm/amdgpu_drm.h
+>>>>>> +++ b/include/uapi/drm/amdgpu_drm.h
+>>>>>> @@ -54,6 +54,7 @@ extern "C" {
+>>>>>>     #define DRM_AMDGPU_VM                  0x13
+>>>>>>     #define DRM_AMDGPU_FENCE_TO_HANDLE     0x14
+>>>>>>     #define DRM_AMDGPU_SCHED               0x15
+>>>>>> +#define DRM_AMDGPU_USERQ               0x16
+>>>>>>
+>>>>>>     #define DRM_IOCTL_AMDGPU_GEM_CREATE    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+>>>>>>     #define DRM_IOCTL_AMDGPU_GEM_MMAP      DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+>>>>>> @@ -71,6 +72,7 @@ extern "C" {
+>>>>>>     #define DRM_IOCTL_AMDGPU_VM            DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_VM, union drm_amdgpu_vm)
+>>>>>>     #define DRM_IOCTL_AMDGPU_FENCE_TO_HANDLE DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_FENCE_TO_HANDLE, union drm_amdgpu_fence_to_handle)
+>>>>>>     #define DRM_IOCTL_AMDGPU_SCHED         DRM_IOW(DRM_COMMAND_BASE + DRM_AMDGPU_SCHED, union drm_amdgpu_sched)
+>>>>>> +#define DRM_IOCTL_AMDGPU_USERQ         DRM_IOW(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ, union drm_amdgpu_userq)
+>>>>>>
+>>>>>>     /**
+>>>>>>      * DOC: memory domains
+>>>>>> @@ -302,6 +304,57 @@ union drm_amdgpu_ctx {
+>>>>>>            union drm_amdgpu_ctx_out out;
+>>>>>>     };
+>>>>>>
+>>>>>> +/* user queue IOCTL */
+>>>>>> +#define AMDGPU_USERQ_OP_CREATE 1
+>>>>>> +#define AMDGPU_USERQ_OP_FREE   2
+>>>>>> +
+>>>>>> +#define AMDGPU_USERQ_MQD_FLAGS_SECURE  (1 << 0)
+>>>>>> +#define AMDGPU_USERQ_MQD_FLAGS_AQL     (1 << 1)
+>>>>>> +
+>>>>>> +struct drm_amdgpu_userq_mqd {
+>>>>>> +       /** Flags: AMDGPU_USERQ_MQD_FLAGS_* */
+>>>>>> +       __u32   flags;
+>>>>>> +       /** IP type: AMDGPU_HW_IP_* */
+>>>>>> +       __u32   ip_type;
+>>>>>> +       /** GEM object handle */
+>>>>>> +       __u32   doorbell_handle;
+>>>>>> +       /** Doorbell offset in dwords */
+>>>>>> +       __u32   doorbell_offset;
+>>>>> Since doorbells are 64 bit, maybe this offset should be in qwords.
+>>>> Can you please help to cross check this information ? All the existing
+>>>> kernel doorbell calculations are keeping doorbells size as sizeof(u32)
+>>> Doorbells on pre-vega hardware are 32 bits so that is where that comes
+>>> from, but from vega onward most doorbells are 64 bit.  I think some
+>>> versions of VCN may still use 32 bit doorbells.  Internally in the
+>>> kernel driver we just use two slots for newer hardware, but for the
+>>> UAPI, I think we can just stick with 64 bit slots to avoid confusion.
+>>> Even if an engine only uses a 32 bit one, I don't know that there is
+>>> much value to trying to support variable doorbell sizes.
+>> I think we can stick with using __u32 because this is *not* the size of
+>> the doorbell entries.
+>>
+>> Instead this is the offset into the BO where to find the doorbell for
+>> this queue (which then in turn is 64bits wide).
+>>
+>> Since we will probably never have more than 4GiB doorbells we should be
+>> pretty save to use 32bits here.
+> Yes, the offset would still be 32 bits, but the units would be qwords.  E.g.,
 >
-> Hello again,
+> +       /** Doorbell offset in qwords */
+> +       __u32   doorbell_offset;
 >
-> I've been working on OverDrive support for smu13, as you probably
-> already know. In that endeavor, it also contains the following:
->
-> 1. I've come up with a few patterns that I think will reduce the
-> amount of boilerplate and SMU-specific code required to do
-> implement these interfaces in the future.
-> 2. Since the old pp_od_clk_voltage sysfs interface is inadequate for
-> usage in setting values other than a few indexed clock/voltage settings,
-> I'll likely be sending a proposed "generic" interface, where OD settings
-> are exposed to userspace by ASIC-specific indexed identifiers.
->
-> But, those are beside the point, for now.
->
-> While picking through the existing headers, the information in
-> smu_v13_0_0_pptable.h seems to not quite be in line with what I'm seeing
-> coming from the card, so I'm instead focusing mainly on
-> smu13_driver_if_v13_0_0.h.
->
-> In the two OverDrive-related structs, OverDriveTable_t and
-> OverDriveLimits_t, the FeatureCtrlMask member seems to be controlling
-> which of the "features" of OverDrive would actually be in use. As of
-> yet, I haven't been able to find an index of what the bits in here
-> actually mean. Is there any way you could help me out with that?
+> That way you couldn't accidently specify an overlapping doorbell.
 
-I can ask tomorrow.  That said, we are working on OD support and
-should have patches available soon.
+Ah, so you only wanted to fix the comment. That was absolutely not clear 
+from the discussion.
 
-Alex
-
-
+Christian.
 
 >
-> My best guess thus far is that they are by each element of the
-> OverDriveTable_t struct, but that's only just a guess.
+> Alex
 >
-> For reference, here are the values I'm seeing present in each at boot
-> time.
->
-> Since FeatureCtrlMask is 0b11111001101, the current theory is that the
-> "unsupported" features would be VddGfxVmax, GfxclkFmin, GfxclkFmax. Does
-> that line up with what we'd be expecting for this ASIC?
->
-> Thanks in advance for any information you can provide. I really
-> appreciate the work that you all do.
->
-> Thanks,
-> Matt
->
-> OverDriveLimits:
->         FeatureCtrlMask: [0x000007cd, 0x000007cd]
->         VoltageOffsetPerZoneBoundary: [-450, 0]
->         VddGfxVmax: [0, 0]
->         IdlePwrSavingFeaturesCtrl: [0x00, 0x00]
->         RuntimePwrSavingFeaturesCtrl: [0x00, 0x00]
->         GfxclkFmin: [500, 5000]
->         GfxclkFmax: [500, 5000]
->         UclkFmin: [97, 1500]
->         UclkFmax: [97, 1500]
->         Ppt: [-10, 15], Tdc: [-10, 0]
->         FanLinearPwmPoints: [23, 100]
->         FanLinearTempPoints: [25, 100]
->         FanMinimumPwm: [23, 100]
->         AcousticTargetRpmThreshold: [500, 3200]
->         AcousticLimitRpmThreshold: [500, 3200]
->         FanTargetTemperature: [25, 105]
->         FanZeroRpmEnable: [0, 1]
->         FanZeroRpmStopTemp: [25, 100]
->         FanMode: [0, 1]
->         MaxOpTemp: [50, 110]
-> OverDriveTable:
->         FeatureCtrlMask: 0x00000000
->         VoltageOffsetPerZoneBoundary[0]: 0
->         VoltageOffsetPerZoneBoundary[1]: 0
->         VoltageOffsetPerZoneBoundary[2]: 0
->         VoltageOffsetPerZoneBoundary[3]: 0
->         VoltageOffsetPerZoneBoundary[4]: 0
->         VoltageOffsetPerZoneBoundary[5]: 0
->         VddGfxVmax: 1150
->         IdlePwrSavingFeaturesCtrl: 0x00
->         RuntimePwrSavingFeaturesCtrl: 0x00
->         GfxclkFmin: 500
->         GfxclkFmax: 2890
->         UclkFmin: 97
->         UclkFmax: 1249
->         Ppt: 0
->         Tdc: 0
->         FanLinearPwmPoints[0]: 0
->         FanLinearPwmPoints[1]: 0
->         FanLinearPwmPoints[2]: 0
->         FanLinearPwmPoints[3]: 0
->         FanLinearPwmPoints[4]: 0
->         FanLinearPwmPoints[5]: 0
->         FanLinearTempPoints[0]: 0
->         FanLinearTempPoints[1]: 0
->         FanLinearTempPoints[2]: 0
->         FanLinearTempPoints[3]: 0
->         FanLinearTempPoints[4]: 0
->         FanLinearTempPoints[5]: 0
->         FanMinimumPwm: 35
->         AcousticTargetRpmThreshold: 1250
->         AcousticLimitRpmThreshold: 1500
->         FanTargetTemperature: 94
->         FanZeroRpmEnable: 1
->         FanZeroRpmStopTemp: 55
->         FanMode: 0
->         MaxOpTemp: 110
+>> Christian.
+>>
+>>> Alex
+>>>
+>>>>>> +       /** GPU virtual address of the queue */
+>>>>>> +       __u64   queue_va;
+>>>>>> +       /** Size of the queue in bytes */
+>>>>>> +       __u64   queue_size;
+>>>>>> +       /** GPU virtual address of the rptr */
+>>>>>> +       __u64   rptr_va;
+>>>>>> +       /** GPU virtual address of the wptr */
+>>>>>> +       __u64   wptr_va;
+>>>>>> +};
+>>>>>> +
+>>>>>> +struct drm_amdgpu_userq_in {
+>>>>>> +       /** AMDGPU_USERQ_OP_* */
+>>>>>> +       __u32   op;
+>>>>>> +       /** Flags */
+>>>>>> +       __u32   flags;
+>>>>>> +       /** Queue handle to associate the queue free call with,
+>>>>>> +        * unused for queue create calls */
+>>>>>> +       __u32   queue_id;
+>>>>>> +       __u32   pad;
+>>>>>> +       /** Queue descriptor */
+>>>>>> +       struct drm_amdgpu_userq_mqd mqd;
+>>>>>> +};
+>>>>>> +
+>>>>>> +struct drm_amdgpu_userq_out {
+>>>>>> +       /** Queue handle */
+>>>>>> +       __u32   q_id;
+>>>>> Maybe this should be queue_id to match the input.
+>>>> Agree.
+>>>>
+>>>> - Shashank
+>>>>
+>>>>> Alex
+>>>>>
+>>>>>> +       /** Flags */
+>>>>>> +       __u32   flags;
+>>>>>> +};
+>>>>>> +
+>>>>>> +union drm_amdgpu_userq {
+>>>>>> +       struct drm_amdgpu_userq_in in;
+>>>>>> +       struct drm_amdgpu_userq_out out;
+>>>>>> +};
+>>>>>> +
+>>>>>>     /* vm ioctl */
+>>>>>>     #define AMDGPU_VM_OP_RESERVE_VMID      1
+>>>>>>     #define AMDGPU_VM_OP_UNRESERVE_VMID    2
+>>>>>> --
+>>>>>> 2.34.1
+>>>>>>
+
