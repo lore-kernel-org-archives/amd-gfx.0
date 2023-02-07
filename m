@@ -4,64 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC166C636CC
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Feb 2023 13:32:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8255FC636CD
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Feb 2023 14:07:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EB9C10E508;
-	Tue,  7 Feb 2023 13:32:39 +0000 (UTC)
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5971910E4DD
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Feb 2023 13:32:37 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id a2so13287393wrd.6
- for <amd-gfx@lists.freedesktop.org>; Tue, 07 Feb 2023 05:32:37 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF848892E4;
+	Tue,  7 Feb 2023 14:07:45 +0000 (UTC)
+Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
+ [IPv6:2001:4860:4864:20::31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA0FC892E4
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Feb 2023 14:07:43 +0000 (UTC)
+Received: by mail-oa1-x31.google.com with SMTP id
+ 586e51a60fabf-1636eae256cso19202914fac.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 07 Feb 2023 06:07:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=N8XKzEE+OnQ74waAEBuW1Ct3BIzUWHfBgY4nCdW9d3k=;
- b=B3qUZLpsMyB3bRlgT3U0TaSAAZPWkh0m0fOFxqoAkv3q6FyFlwUeY2uMyRHhRffmDx
- ipY6TzGugoxazF+i/JMiCeh0p1S9TT94LVJkAm0c8WFkwilvyeDfVL/E56CcYbn6gN1Q
- Y2Pp6JQ308nrabLTZXND0VU96LMfAo9IZDvgzir6jgTAubn+xNNArcUHgFiSQP9GSXv4
- pK3n9nog3hau0bXtPU7H6wGzmHjhbXQFiR5FGscpHj/+Q9kEIHEoA/DtRApLRf5sNKjb
- mwRjPHz240+LwRWSFNM96SAsfGfuRRTw9BgUHJmzyOwSrQXZ8Kh+5tOkANITVZuCcM86
- JHtg==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=7qSoBpYRr4iKfRF5SgbMs6/mds6N1gfwIeeajFOQlAw=;
+ b=C4YGMJkvJE8WfCNME3W9amx0ywtjhi2MthqRXkFSxPOsBax4hNLmX8u4nlOsmWtzl1
+ 8A1msrQsehGKCysnD668b4zZscNK6e5LKvoSD0+xKYAvINNMXsXGZrysffLGK7YzG0pL
+ pfsD/dEvCUCf51l0ZattI/jeO1nwKUj1vF36C5Q3NAmb+sJ5sjrynuImSPpzNNsToa38
+ CHwPaL8f9cHQcB7mdxFuWf5GoxrXKogf/af1KNXQOEgD4f5eiXCSqPUjq6kLu4oZ55ET
+ fOUfqXMaX1u760WfK03BnNBVU/K68HtIfxoDw2MH7+doTu2KB/Nu/sjkv2VLPYQjO94z
+ dFcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=N8XKzEE+OnQ74waAEBuW1Ct3BIzUWHfBgY4nCdW9d3k=;
- b=BDBJyuUhTCerEKuEQAeCCYvvBFzkk0tG/Of5PT0lOegMlkkbvwBEeYKQM1Sz551DuQ
- CXa3OBabKkacUDnrPf8/pxPybVj5MC4wTgdCdBvv77+wqi/1F24Mm4Hc7btig7xztNQA
- F1CwdLHfAcpCwheqeJG7P3uVt64f0jk+3WU6PUcdNge1KnGWq2BJeQCmObvHEksgRFYF
- 0s9BP54Xke8h8HJvq7RPKh19I4eQMip43d2Ru5V5kv4rRlIHMaf5UfB3O25vvHXVt7l3
- Llu8yG9uRxB/PiFi8OlFSQb4vlE30Ke5cxY32rg4ie9czZCie5PWkq4rxklP/PHj5NMq
- f/lw==
-X-Gm-Message-State: AO0yUKUI4yO65oQt4CLjB0pNTWAhbWkWp3vKc9CkAWkYrZOWNhW/7eBS
- 72xxLRQcG/wfxchkUtNswp0=
-X-Google-Smtp-Source: AK7set80tGLdWORbDAJm24AShwUp3ytjJjMVv3bbNB0Cy7jqIwsmScrVuS/Qg4xhU0+vwxVm3ExKjw==
-X-Received: by 2002:adf:de91:0:b0:2bf:9468:340 with SMTP id
- w17-20020adfde91000000b002bf94680340mr2464260wrl.19.1675776755800; 
- Tue, 07 Feb 2023 05:32:35 -0800 (PST)
-Received: from [192.168.178.21] (p5b0ea2e7.dip0.t-ipconnect.de.
- [91.14.162.231]) by smtp.gmail.com with ESMTPSA id
- p12-20020a5d48cc000000b00241fab5a296sm11148752wrs.40.2023.02.07.05.32.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Feb 2023 05:32:35 -0800 (PST)
-Message-ID: <4a7ddd44-9c20-ee9f-c373-a7cccb8490d0@gmail.com>
-Date: Tue, 7 Feb 2023 14:32:34 +0100
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=7qSoBpYRr4iKfRF5SgbMs6/mds6N1gfwIeeajFOQlAw=;
+ b=k0JRufmQ2GXKxSF63biNtcY+wtAgghD5nsAAlT93IPwGNbQ8XwRRVLs+Odul4cg2Ft
+ vd000wDOT5Xho1vAC1oqsieYSwitkqP+aZWxU9xd1z5d2K4eNJyoGEoUgMBcgoCcuKm1
+ uzAPlRPL/zcNKyGQGvWeJi8eZ6mSomSEUe1n58us2loMtkvl7OQTd7Xzl+/hJccHxBsq
+ TnYY5pS0ibml3rLnvQlNm5348/rWl4KLcR0KEjx8XAcIUmWhssAyJNxvXiB6Bl1l4OZn
+ dn2C68Rn/w/JjGz+5IWWlCcb+N0f0EXaS9zNVRIZZ6lNEYGGnSmK4vo9wxppZyC5vNX+
+ yIbQ==
+X-Gm-Message-State: AO0yUKXpF8yaI3fPqLpbf0O3xgNEHIhezzHKFcji9qmWYZvO09FTR57L
+ /odX8JcKqHFXcmeAzyof8K9fG3yxCUqVHXo/8MI=
+X-Google-Smtp-Source: AK7set+ohldm7WvXA4thwonAxTVoCv5cs9aeTXP2OP8eqHoROe8QrtjeChIYDPsO2ymq5vKISTLc4RviiYExqJ11w44=
+X-Received: by 2002:a05:6870:ac0d:b0:163:a303:fe2f with SMTP id
+ kw13-20020a056870ac0d00b00163a303fe2fmr460088oab.96.1675778862603; Tue, 07
+ Feb 2023 06:07:42 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH 1/5] drm/amd/display: disable S/G display on DCN 2.1.0
-Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230131181326.3507396-1-alexander.deucher@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20230131181326.3507396-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20230203215409.2021-1-shashank.sharma@amd.com>
+ <20230203215409.2021-2-shashank.sharma@amd.com>
+ <CADnq5_MSMivTzo0k+wJj+bGpsQZ3HEDVt5XqzjGdBiv08fFWCQ@mail.gmail.com>
+ <95ac9ea3-47c8-744c-7fd7-ddc54b19926f@amd.com>
+ <CADnq5_M9q0R=d=KU8P4oVOCY0Gw97Uhzy6Mrg0GgxeROGn6xrQ@mail.gmail.com>
+ <afce1a57-8007-5d1b-0715-9756d7d07153@amd.com>
+ <CADnq5_P8UJYvnH_kWcPY2hfnhU3Ppo-3RoQAU5Ohf1T841kvzQ@mail.gmail.com>
+ <bb992153-fa99-7b50-a188-e49a8d673439@gmail.com>
+ <e5762028-238e-f317-8ba7-9c284d7a80af@amd.com>
+In-Reply-To: <e5762028-238e-f317-8ba7-9c284d7a80af@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 7 Feb 2023 09:07:31 -0500
+Message-ID: <CADnq5_ORm-=seDMuV8Z=c7K+zPypbvu=huzPmHSe1A44m_cTyQ@mail.gmail.com>
+Subject: Re: [PATCH 1/8] drm/amdgpu: UAPI for user queue management
+To: Shashank Sharma <shashank.sharma@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,39 +74,212 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: yifan1.zhang@amd.com, roman.li@amd.com
+Cc: alexander.deucher@amd.com,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If it's not already committed Reviewed-by: Christian König 
-<christian.koenig@amd.com>.
-
-Sorry for the vacation delay, I'm still catching up on mails.
-
-Christian.
-
-Am 31.01.23 um 19:13 schrieb Alex Deucher:
-> Causes flickering or white screens in some configurations.
-> Disable it for now until we can fix the issue.
+On Tue, Feb 7, 2023 at 2:38 AM Shashank Sharma <shashank.sharma@amd.com> wr=
+ote:
 >
-> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2352
-> Cc: roman.li@amd.com
-> Cc: yifan1.zhang@amd.com
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 -
->   1 file changed, 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 3a40c6dec3d2..2e4040f1a357 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -1534,7 +1534,6 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
->   			    (adev->apu_flags & AMD_APU_IS_PICASSO))
->   				init_data.flags.gpu_vm_support = true;
->   			break;
-> -		case IP_VERSION(2, 1, 0):
->   		case IP_VERSION(3, 0, 1):
->   		case IP_VERSION(3, 1, 2):
->   		case IP_VERSION(3, 1, 3):
+> On 07/02/2023 08:03, Christian K=C3=B6nig wrote:
+> > Am 06.02.23 um 22:03 schrieb Alex Deucher:
+> >> On Mon, Feb 6, 2023 at 12:01 PM Christian K=C3=B6nig
+> >> <christian.koenig@amd.com> wrote:
+> >>> Am 06.02.23 um 17:56 schrieb Alex Deucher:
+> >>>> On Fri, Feb 3, 2023 at 5:26 PM Shashank Sharma
+> >>>> <shashank.sharma@amd.com> wrote:
+> >>>>> Hey Alex,
+> >>>>>
+> >>>>> On 03/02/2023 23:07, Alex Deucher wrote:
+> >>>>>> On Fri, Feb 3, 2023 at 4:54 PM Shashank Sharma
+> >>>>>> <shashank.sharma@amd.com> wrote:
+> >>>>>>> From: Alex Deucher <alexander.deucher@amd.com>
+> >>>>>>>
+> >>>>>>> This patch intorduces new UAPI/IOCTL for usermode graphics
+> >>>>>>> queue. The userspace app will fill this structure and request
+> >>>>>>> the graphics driver to add a graphics work queue for it. The
+> >>>>>>> output of this UAPI is a queue id.
+> >>>>>>>
+> >>>>>>> This UAPI maps the queue into GPU, so the graphics app can start
+> >>>>>>> submitting work to the queue as soon as the call returns.
+> >>>>>>>
+> >>>>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+> >>>>>>> Cc: Christian Koenig <christian.koenig@amd.com>
+> >>>>>>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> >>>>>>> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+> >>>>>>> ---
+> >>>>>>>     include/uapi/drm/amdgpu_drm.h | 53
+> >>>>>>> +++++++++++++++++++++++++++++++++++
+> >>>>>>>     1 file changed, 53 insertions(+)
+> >>>>>>>
+> >>>>>>> diff --git a/include/uapi/drm/amdgpu_drm.h
+> >>>>>>> b/include/uapi/drm/amdgpu_drm.h
+> >>>>>>> index 4038abe8505a..6c5235d107b3 100644
+> >>>>>>> --- a/include/uapi/drm/amdgpu_drm.h
+> >>>>>>> +++ b/include/uapi/drm/amdgpu_drm.h
+> >>>>>>> @@ -54,6 +54,7 @@ extern "C" {
+> >>>>>>>     #define DRM_AMDGPU_VM                  0x13
+> >>>>>>>     #define DRM_AMDGPU_FENCE_TO_HANDLE     0x14
+> >>>>>>>     #define DRM_AMDGPU_SCHED               0x15
+> >>>>>>> +#define DRM_AMDGPU_USERQ               0x16
+> >>>>>>>
+> >>>>>>>     #define DRM_IOCTL_AMDGPU_GEM_CREATE
+> >>>>>>> DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union
+> >>>>>>> drm_amdgpu_gem_create)
+> >>>>>>>     #define DRM_IOCTL_AMDGPU_GEM_MMAP DRM_IOWR(DRM_COMMAND_BASE
+> >>>>>>> + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+> >>>>>>> @@ -71,6 +72,7 @@ extern "C" {
+> >>>>>>>     #define DRM_IOCTL_AMDGPU_VM DRM_IOWR(DRM_COMMAND_BASE +
+> >>>>>>> DRM_AMDGPU_VM, union drm_amdgpu_vm)
+> >>>>>>>     #define DRM_IOCTL_AMDGPU_FENCE_TO_HANDLE
+> >>>>>>> DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_FENCE_TO_HANDLE, union
+> >>>>>>> drm_amdgpu_fence_to_handle)
+> >>>>>>>     #define DRM_IOCTL_AMDGPU_SCHED DRM_IOW(DRM_COMMAND_BASE +
+> >>>>>>> DRM_AMDGPU_SCHED, union drm_amdgpu_sched)
+> >>>>>>> +#define DRM_IOCTL_AMDGPU_USERQ DRM_IOW(DRM_COMMAND_BASE +
+> >>>>>>> DRM_AMDGPU_USERQ, union drm_amdgpu_userq)
+> >>>>>>>
+> >>>>>>>     /**
+> >>>>>>>      * DOC: memory domains
+> >>>>>>> @@ -302,6 +304,57 @@ union drm_amdgpu_ctx {
+> >>>>>>>            union drm_amdgpu_ctx_out out;
+> >>>>>>>     };
+> >>>>>>>
+> >>>>>>> +/* user queue IOCTL */
+> >>>>>>> +#define AMDGPU_USERQ_OP_CREATE 1
+> >>>>>>> +#define AMDGPU_USERQ_OP_FREE   2
+> >>>>>>> +
+> >>>>>>> +#define AMDGPU_USERQ_MQD_FLAGS_SECURE  (1 << 0)
+> >>>>>>> +#define AMDGPU_USERQ_MQD_FLAGS_AQL     (1 << 1)
+> >>>>>>> +
+> >>>>>>> +struct drm_amdgpu_userq_mqd {
+> >>>>>>> +       /** Flags: AMDGPU_USERQ_MQD_FLAGS_* */
+> >>>>>>> +       __u32   flags;
+> >>>>>>> +       /** IP type: AMDGPU_HW_IP_* */
+> >>>>>>> +       __u32   ip_type;
+> >>>>>>> +       /** GEM object handle */
+> >>>>>>> +       __u32   doorbell_handle;
+> >>>>>>> +       /** Doorbell offset in dwords */
+> >>>>>>> +       __u32   doorbell_offset;
+> >>>>>> Since doorbells are 64 bit, maybe this offset should be in qwords.
+> >>>>> Can you please help to cross check this information ? All the
+> >>>>> existing
+> >>>>> kernel doorbell calculations are keeping doorbells size as
+> >>>>> sizeof(u32)
+> >>>> Doorbells on pre-vega hardware are 32 bits so that is where that com=
+es
+> >>>> from, but from vega onward most doorbells are 64 bit.  I think some
+> >>>> versions of VCN may still use 32 bit doorbells.  Internally in the
+> >>>> kernel driver we just use two slots for newer hardware, but for the
+> >>>> UAPI, I think we can just stick with 64 bit slots to avoid confusion=
+.
+> >>>> Even if an engine only uses a 32 bit one, I don't know that there is
+> >>>> much value to trying to support variable doorbell sizes.
+> >>> I think we can stick with using __u32 because this is *not* the size =
+of
+> >>> the doorbell entries.
+> >>>
+> >>> Instead this is the offset into the BO where to find the doorbell for
+> >>> this queue (which then in turn is 64bits wide).
+> >>>
+> >>> Since we will probably never have more than 4GiB doorbells we should =
+be
+> >>> pretty save to use 32bits here.
+> >> Yes, the offset would still be 32 bits, but the units would be
+> >> qwords.  E.g.,
+> >>
+> >> +       /** Doorbell offset in qwords */
+> >> +       __u32   doorbell_offset;
+> >>
+> >> That way you couldn't accidently specify an overlapping doorbell.
+> >
+> > Ah, so you only wanted to fix the comment. That was absolutely not
+> > clear from the discussion.
+>
+> If I understand this correctly, the offset of the doorbell in the BO is
+> still is 32-bit, but its width (size in bytes) is 64 bits. Am I getting
+> that right ?
 
+Right.  Each doorbell is 64 bits (8 bytes) so this value would
+basically be an index into the doorbell bo.  Having it be a 64 bit
+index rather than a 32 bit index would avoid the possibility of users
+specifying overlapping doorbells.  E.g.,
+offset in bytes
+0 - doorbell
+4 - doorbell
+Would be incorrect, while
+offset in bytes
+0 - doorbell
+8 - doorbell
+Would be correct.
+
+I.e., u64 doorbell_page[512] vs u32 doorbell_page[1024]
+
+Alex
+
+>
+> - Shashank
+>
+> >
+> > Christian.
+> >
+> >>
+> >> Alex
+> >>
+> >>> Christian.
+> >>>
+> >>>> Alex
+> >>>>
+> >>>>>>> +       /** GPU virtual address of the queue */
+> >>>>>>> +       __u64   queue_va;
+> >>>>>>> +       /** Size of the queue in bytes */
+> >>>>>>> +       __u64   queue_size;
+> >>>>>>> +       /** GPU virtual address of the rptr */
+> >>>>>>> +       __u64   rptr_va;
+> >>>>>>> +       /** GPU virtual address of the wptr */
+> >>>>>>> +       __u64   wptr_va;
+> >>>>>>> +};
+> >>>>>>> +
+> >>>>>>> +struct drm_amdgpu_userq_in {
+> >>>>>>> +       /** AMDGPU_USERQ_OP_* */
+> >>>>>>> +       __u32   op;
+> >>>>>>> +       /** Flags */
+> >>>>>>> +       __u32   flags;
+> >>>>>>> +       /** Queue handle to associate the queue free call with,
+> >>>>>>> +        * unused for queue create calls */
+> >>>>>>> +       __u32   queue_id;
+> >>>>>>> +       __u32   pad;
+> >>>>>>> +       /** Queue descriptor */
+> >>>>>>> +       struct drm_amdgpu_userq_mqd mqd;
+> >>>>>>> +};
+> >>>>>>> +
+> >>>>>>> +struct drm_amdgpu_userq_out {
+> >>>>>>> +       /** Queue handle */
+> >>>>>>> +       __u32   q_id;
+> >>>>>> Maybe this should be queue_id to match the input.
+> >>>>> Agree.
+> >>>>>
+> >>>>> - Shashank
+> >>>>>
+> >>>>>> Alex
+> >>>>>>
+> >>>>>>> +       /** Flags */
+> >>>>>>> +       __u32   flags;
+> >>>>>>> +};
+> >>>>>>> +
+> >>>>>>> +union drm_amdgpu_userq {
+> >>>>>>> +       struct drm_amdgpu_userq_in in;
+> >>>>>>> +       struct drm_amdgpu_userq_out out;
+> >>>>>>> +};
+> >>>>>>> +
+> >>>>>>>     /* vm ioctl */
+> >>>>>>>     #define AMDGPU_VM_OP_RESERVE_VMID      1
+> >>>>>>>     #define AMDGPU_VM_OP_UNRESERVE_VMID    2
+> >>>>>>> --
+> >>>>>>> 2.34.1
+> >>>>>>>
+> >
