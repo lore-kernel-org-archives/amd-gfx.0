@@ -4,61 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D007C636CC
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Feb 2023 17:57:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 452ACC636D3
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Feb 2023 18:18:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 043B810E5BB;
-	Tue,  7 Feb 2023 17:57:44 +0000 (UTC)
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8A1510E58A
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Feb 2023 17:57:40 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id j21so13334473oie.4
- for <amd-gfx@lists.freedesktop.org>; Tue, 07 Feb 2023 09:57:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=/ccT9odU6CQGkp6tINzGAmVOwC9/1jVdp/Dm1HjJ/lM=;
- b=VXFy7gELM5Nq06Op3q5ZwKKna8fgZSBGlgDzdW7o1RM6PHDGwewsXu8C+lVdutZn5M
- jBY/M490/MqrKbL5CUIm+CfHUtFkWqA7bZl31NbxoDEJ/WUU345P711pgbB2VsfoABL8
- G9JJm4dBn0fmV1G990OhPu3izUCwezgzHkKy84jmFLSBCF/rkjEVeHp4REyJKRIQltKg
- E0H4eRl2CD77d/NUiCikFJGse4lePdWZd0sfWUrTFcP97eacXTnHQ7VklyOISc182pp1
- s3In2xrOQ2xQKaku2Efaoq46FmQheyGrjBcg6zGspNghpYQlzBns4SRA8iLyiPlA2gpR
- p1xA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=/ccT9odU6CQGkp6tINzGAmVOwC9/1jVdp/Dm1HjJ/lM=;
- b=MFWN29/uFeCGIzhLz/6Ulq9lZJI/Dq3MFbh8dMePU2HOcDazukpGvQXypcODbcBQmy
- qb9HtUl2HSip3aDnIE6a/G1k3oQ6QOs/DibcafYsbDE1ygFyUUtitFKbrq2ca3+VUQKx
- lMLj05asRZQRFSYNKTCpBgUFbOdmWJwVTPDZNSezjKx1kLHusz8YW2ritc0jXerHZspG
- iT5KndmOW8EgdK2/1/Vko5rvcaiPBBuaP+y6bxahSfyvcwR+Jv3GVZqLloCl/ZOFClfr
- vTN6oishtzp4NbUUvXm7lxrp1b3uES/6MavSxrrj/Azo+AJL2refqsqQfO5LMt1uzB3y
- +Elg==
-X-Gm-Message-State: AO0yUKVJLnC/hepRGXtSl45oJBDy7im1TpxoEYl9nCUY2eLgqzo0fv5r
- Txwj8lOzg5vRriNuERK8Zxky2xs5UNMVtidWDQU=
-X-Google-Smtp-Source: AK7set9xOrv04I86TF9Yycb/dkGXU9nTw8q3ScaQuHxsJJ2CuYvUMBRtxIgMlZX9eBrGifmTsRsCfAaTgyVwSUTyTDc=
-X-Received: by 2002:aca:654d:0:b0:35b:d93f:cbc4 with SMTP id
- j13-20020aca654d000000b0035bd93fcbc4mr410762oiw.96.1675792659754; Tue, 07 Feb
- 2023 09:57:39 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B378B10E592;
+	Tue,  7 Feb 2023 18:18:41 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52E7E10E1CF;
+ Tue,  7 Feb 2023 18:18:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1675793920; x=1707329920;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=zwoDr1wPKNYQiCl8mRwM1UPgx4ddKwyU+8/uwG8BezI=;
+ b=IMrex6LsE0FeMYBlODeNT3NK1N2VkGahtQrw+TjKBHINJ/lB22wGf3UB
+ tEUTX4AKFcHgx/FC7B3sDUyHKZgx0moXZrHrSfSU6sEXtZI+gCLFUzygi
+ 6hpxtBErbUssUa5+rdj234SIBO8nVCtv7RSabvj53ANzlUZADbtxz1fXg
+ 3THmyEQh+Px9kxeCOHmnlBcfVT0PzZ3Z+YGKL7qhFufWSHS0GfdAw8YA5
+ rZkz4Ghl5tF0sH9kRmsce76jEBsVBfdWxK7Ru3L8TIEkx0zLy79J+ub4S
+ 4d09X7kiM0Led2mQbnTpuLH4G7AJY3toYTVfV8qhW9KxVIPJwal9yUpi5 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10614"; a="391983050"
+X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="391983050"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Feb 2023 10:18:29 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10614"; a="730547125"
+X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="730547125"
+Received: from lkp-server01.sh.intel.com (HELO 4455601a8d94) ([10.239.97.150])
+ by fmsmga008.fm.intel.com with ESMTP; 07 Feb 2023 10:18:26 -0800
+Received: from kbuild by 4455601a8d94 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pPSXx-0003li-1E;
+ Tue, 07 Feb 2023 18:18:25 +0000
+Date: Wed, 08 Feb 2023 02:18:24 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 49a8133221c71b935f36a7c340c0271c2a9ee2db
+Message-ID: <63e295f0.u1bD0VjqG0iQsm1w%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-References: <20230203215409.2021-1-shashank.sharma@amd.com>
- <20230203215409.2021-5-shashank.sharma@amd.com>
- <CADnq5_M8wnDZUEvDVA_CdyE0sxgg0FragSbO19LjhRE_XMJ-OA@mail.gmail.com>
- <d6e62077-7c6e-1fb4-8abe-275ccdf72003@amd.com>
- <CADnq5_OGOeFLnJyspTYvoOyKv1E=3Tp6uUweCF_JYFRFftuphw@mail.gmail.com>
- <48c0d13f-7ccc-1f05-2a0a-e20bdb1e1fb5@amd.com>
- <CADnq5_P2o2r589ojnFa2mtSeviRvN-gZH96gpyn_FavfRsCBGg@mail.gmail.com>
- <a2f7bc74-736f-252f-8f9c-328466bf8cb1@amd.com>
-In-Reply-To: <a2f7bc74-736f-252f-8f9c-328466bf8cb1@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 7 Feb 2023 12:57:27 -0500
-Message-ID: <CADnq5_PhjV8354-yJ5s8ZW2dsTJdZu1oZBBsTibqyq7NF=s2wg@mail.gmail.com>
-Subject: Re: [PATCH 4/8] drm/amdgpu: Add V11 graphics MQD functions
-To: Shashank Sharma <shashank.sharma@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,427 +58,225 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, Arvind Yadav <arvind.yadav@amd.com>,
- Shashank Sharma <contactshashanksharma@gmail.com>, christian.koenig@amd.com,
- amd-gfx@lists.freedesktop.org
+Cc: alsa-devel@alsa-project.org, kvm@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-usb@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Linux Memory Management List <linux-mm@kvack.org>, kvmarm@lists.linux.dev,
+ linux-riscv@lists.infradead.org, linux-trace-kernel@vger.kernel.org,
+ kvmarm@lists.cs.columbia.edu, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 7, 2023 at 12:14 PM Shashank Sharma <shashank.sharma@amd.com> wrote:
->
->
-> On 07/02/2023 17:54, Alex Deucher wrote:
-> > On Tue, Feb 7, 2023 at 11:37 AM Shashank Sharma <shashank.sharma@amd.com> wrote:
-> >>
-> >> On 07/02/2023 17:05, Alex Deucher wrote:
-> >>> On Tue, Feb 7, 2023 at 10:43 AM Shashank Sharma <shashank.sharma@amd.com> wrote:
-> >>>> On 07/02/2023 16:17, Alex Deucher wrote:
-> >>>>> On Fri, Feb 3, 2023 at 4:55 PM Shashank Sharma <shashank.sharma@amd.com> wrote:
-> >>>>>> From: Shashank Sharma <contactshashanksharma@gmail.com>
-> >>>>>>
-> >>>>>> MQD describes the properies of a user queue to the HW, and allows it to
-> >>>>>> accurately configure the queue while mapping it in GPU HW. This patch
-> >>>>>> adds:
-> >>>>>> - A new header file which contains the userqueue MQD definition for
-> >>>>>>      V11 graphics engine.
-> >>>>>> - A new function which fills it with userqueue data and prepares MQD
-> >>>>>> - A function which sets-up the MQD function ptrs in the generic userqueue
-> >>>>>>      creation code.
-> >>>>>>
-> >>>>>> V1: Addressed review comments from RFC patch series
-> >>>>>>        - Reuse the existing MQD structure instead of creating a new one
-> >>>>>>        - MQD format and creation can be IP specific, keep it like that
-> >>>>>>
-> >>>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
-> >>>>>> Cc: Christian Koenig <christian.koenig@amd.com>
-> >>>>>> Signed-off-by: Arvind Yadav <arvind.yadav@amd.com>
-> >>>>>> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
-> >>>>>> ---
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/Makefile           |   1 +
-> >>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c |  28 ++++
-> >>>>>>     .../amd/amdgpu/amdgpu_userqueue_mqd_gfx_v11.c | 132 ++++++++++++++++++
-> >>>>>>     drivers/gpu/drm/amd/include/v11_structs.h     |  16 +--
-> >>>>>>     4 files changed, 169 insertions(+), 8 deletions(-)
-> >>>>>>     create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue_mqd_gfx_v11.c
-> >>>>>>
-> >>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-> >>>>>> index 764801cc8203..6ae9d5792791 100644
-> >>>>>> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
-> >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-> >>>>>> @@ -212,6 +212,7 @@ amdgpu-y += amdgpu_amdkfd.o
-> >>>>>>
-> >>>>>>     # add usermode queue
-> >>>>>>     amdgpu-y += amdgpu_userqueue.o
-> >>>>>> +amdgpu-y += amdgpu_userqueue_mqd_gfx_v11.o
-> >>>>>>
-> >>>>>>     ifneq ($(CONFIG_HSA_AMD),)
-> >>>>>>     AMDKFD_PATH := ../amdkfd
-> >>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> >>>>>> index 625c2fe1e84a..9f3490a91776 100644
-> >>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> >>>>>> @@ -202,13 +202,41 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
-> >>>>>>         return r;
-> >>>>>>     }
-> >>>>>>
-> >>>>>> +extern const struct amdgpu_userq_mqd_funcs userq_gfx_v11_mqd_funcs;
-> >>>>>> +
-> >>>>>> +static int
-> >>>>>> +amdgpu_userqueue_setup_mqd_funcs(struct amdgpu_userq_mgr *uq_mgr)
-> >>>>>> +{
-> >>>>>> +    int maj;
-> >>>>>> +    struct amdgpu_device *adev = uq_mgr->adev;
-> >>>>>> +    uint32_t version = adev->ip_versions[GC_HWIP][0];
-> >>>>>> +
-> >>>>>> +    maj = IP_VERSION_MAJ(version);
-> >>>>>> +    if (maj == 11) {
-> >>>>>> +        uq_mgr->userq_mqd_funcs = &userq_gfx_v11_mqd_funcs;
-> >>>>>> +    } else {
-> >>>>>> +        DRM_WARN("This IP doesn't support usermode queues\n");
-> >>>>>> +        return -EINVAL;
-> >>>>>> +    }
-> >>>>>> +
-> >>>>> I think it would be cleaner to just store these callbacks in adev.
-> >>>>> Maybe something like adev->user_queue_funcs[AMDGPU_HW_IP_NUM].  Then
-> >>>>> in early_init for each IP, we can register the callbacks.  When the
-> >>>>> user goes to create a new user_queue, we can check check to see if the
-> >>>>> function pointer is NULL or not for the queue type:
-> >>>>>
-> >>>>> if (!adev->user_queue_funcs[ip_type])
-> >>>>>      return -EINVAL
-> >>>>>
-> >>>>> r = adev->user_queue_funcs[ip_type]->create_queue();
-> >>>> Sounds like a good idea, we can do this.
-> >>>>
-> >>>>> Actually, there is already an mqd manager interface (adev->mqds[]).
-> >>>>> Maybe you can leverage that interface.
-> >>>> Yep, I saw that and initially even tried to work on that interface
-> >>>> itself, and then realized that it doesn't allow us to pass some
-> >>>>
-> >>>> additional parameters (like queue->vm, various BOs like proc_ctx_bo,
-> >>>> gang_ctx_bo's and so on). All of these are required in the MQD
-> >>>>
-> >>>> and we will need them to be added into MQD. I even thought of expanding
-> >>>> this structure with additional parameters, but I felt like
-> >>>>
-> >>>> it defeats the purpose of this MQD properties. But if you feel strongly
-> >>>> about that, we can work around it.
-> >>> I think it would be cleaner to just add whatever additional mqd
-> >>> properties you need to amdgpu_mqd_prop, and then you can share
-> >>> gfx_v11_0_gfx_mqd_init() and gfx_v11_0_compute_mqd_init()  for GFX and
-> >>> sdma_v6_0_mqd_init() for SDMA.  That way if we make changes to the MQD
-> >>> configuration, we only have to change one function.
-> >>>
-> >>> Alex
-> >> Noted,
-> >>
-> >> We might have to add some additional fptrs for .prepare_map() and
-> >> .prepare_unmap(). in the mqd funcs.
-> >>
-> >> These are the required to prepare data for MES HW queue mapping.
-> > OK.  I think we could start with just using the existing init_mqd
-> > callbacks from your create/destroy queue functions for now.
-> Ok,
-> > That
-> > said, do we need the prepare_(un)map callbacks?  I think just
-> > create/destory callbacks should be fine.  In the create callback, we
-> > can init the mqd and map it, then in destroy, we can unmap and free.
->
-> If you observe the kernel MES framework, it expects the data to be fed
-> in a particular format, in form of queue_properties, and
->
-> creates the map_queue_packet using those. So we need to re-arrange the
-> data we have in MQD or drm_mqd_in in format
->
-> of properties, which is being done in prepare_map/unmap. Now, as the MQD
-> is IP specific, we will need this
->
-> function to be IP specific as well, so I added a new fptr callback.
->
->
-> So the idea here is, IP specific stuff like:
->
-> - preparing the MQD
->
-> - preparing the properties for map_queue_packet
->
-> - preparing the context BOs
->
-> is being done in IP specific functions in amdgpu_vxx_userqueue.c
->
->
-> and
->
-> - initializing the queue
->
-> - handling the IOCTL
->
-> - adding/mapping the queue to MES
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 49a8133221c71b935f36a7c340c0271c2a9ee2db  Add linux-next specific files for 20230207
 
-This seems weird to me.  Why have this in the asic independent code?
-I was thinking the IOCTL would mostly just be a wrapper around IP
-specific callbacks for create and destroy.  The callback would take a
-generic mqd struct as a parameter, that was basically just a
-passthrough from the IOCTL mqd struct.
+Error/Warning reports:
 
-struct amdgpu_user_queue_mqd {
-    u32 flags;
-    struct amdgpu_bo doorbell_bo;
-    u32 doorbell_offset;
-    struct amdgpu_bo queue_bo;
-    struct amdgpu_bo rptr_bo;
-    struct amdgpu_bo wptr_bo;
-    u64 queue_gpu_va;
-    u64 rptr_gpu_va;
-    u64 wptr_gpu_va;
-    int gang;
-    ...
-};
+https://lore.kernel.org/oe-kbuild-all/202301230743.Xnut0Zvc-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202301300743.bp7Dpazv-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202301301801.y5O08tQx-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202301302110.mEtNwkBD-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202301310939.TAgCOEZb-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202302011836.kA3BxqdY-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202302061911.C7xvHX9v-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202302062224.ByzeTXh1-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202302072055.odjDVd5V-lkp@intel.com
 
-Then something like:
+Error/Warning: (recently discovered and may have been fixed)
 
-static int gfx_v11_0_create_gfx_user_queue(struct amdgpu_device *adev,
-struct amdgpu_user_queue_mqd *user_mqd)
-{
-    struct gfx_v11_mqd mqd;
+Documentation/riscv/uabi.rst:24: WARNING: Enumerated list ends without a blank line; unexpected unindent.
+ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/fsl-edma.ko] undefined!
+ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/idma64.ko] undefined!
+FAILED: load BTF from vmlinux: No data available
+arch/arm64/kvm/arm.c:2207: warning: expecting prototype for Initialize Hyp(). Prototype was for kvm_arm_init() instead
+drivers/clk/qcom/gcc-sa8775p.c:313:32: warning: unused variable 'gcc_parent_map_10' [-Wunused-const-variable]
+drivers/clk/qcom/gcc-sa8775p.c:318:37: warning: unused variable 'gcc_parent_data_10' [-Wunused-const-variable]
+drivers/clk/qcom/gcc-sa8775p.c:333:32: warning: unused variable 'gcc_parent_map_12' [-Wunused-const-variable]
+drivers/clk/qcom/gcc-sa8775p.c:338:37: warning: unused variable 'gcc_parent_data_12' [-Wunused-const-variable]
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.h:62:10: fatal error: mod_info_packet.h: No such file or directory
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn31/dcn31_hubbub.c:1011:6: warning: no previous prototype for 'hubbub31_init' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_hubbub.c:948:6: warning: no previous prototype for 'hubbub32_init' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_hubp.c:158:6: warning: no previous prototype for 'hubp32_init' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource_helpers.c:62:18: warning: variable 'cursor_bpp' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/accessories/link_dp_trace.c:148:6: warning: no previous prototype for 'link_dp_trace_set_edp_power_timestamp' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/accessories/link_dp_trace.c:158:10: warning: no previous prototype for 'link_dp_trace_get_edp_poweron_timestamp' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/accessories/link_dp_trace.c:163:10: warning: no previous prototype for 'link_dp_trace_get_edp_poweroff_timestamp' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:1295:32: warning: variable 'result_write_min_hblank' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:279:42: warning: variable 'ds_port' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_training.c:1585:38: warning: variable 'result' set but not used [-Wunused-but-set-variable]
+ftrace-ops.c:(.init.text+0x2c3): undefined reference to `__udivdi3'
+libbpf: failed to find '.BTF' ELF section in vmlinux
 
-    mqd = kmalloc(size_of(struct gfx_v11_mqd mqd));
-    ...
-    // allocate any meta data, ctx buffers, etc.
-    mqd->ctx_bo = amdgpu_bo_create();
-    ...
-    // populate the IP specific mqd with the generic stuff
-    mqd->mqd_gpu_addr = user_mqd->queue_gpu_va;
-    ...
-    // init mqd
-    r = adev->mqds[AMDGPU_HW_IP_GFX].init_mqd();
-    // add gang, or increase ref count
-    r = amdgpu_mes_add_gang();
-    // map mqd
-    r = amdgpu_mes_add_ring();
-}
+Unverified Error/Warning (likely false positive, please contact us if interested):
 
-static int gfx_v11_0_destroy_gfx_user_queue(struct amdgpu_device
-*adev, struct amdgpu_user_queue_mqd *user_mqd)
-{
-    // unmap mqd
-    amdgpu_mes_remove_ring();
-    // drop reference to the gang
-    amdgpu_mes_remove_gang();
+drivers/media/i2c/max9286.c:802 max9286_s_stream() error: buffer overflow 'priv->fmt' 4 <= 32
+drivers/thermal/qcom/tsens-v0_1.c:106:40: sparse: sparse: symbol 'tsens_9607_nvmem' was not declared. Should it be static?
+drivers/thermal/qcom/tsens-v0_1.c:26:40: sparse: sparse: symbol 'tsens_8916_nvmem' was not declared. Should it be static?
+drivers/thermal/qcom/tsens-v0_1.c:42:40: sparse: sparse: symbol 'tsens_8939_nvmem' was not declared. Should it be static?
+drivers/thermal/qcom/tsens-v0_1.c:62:40: sparse: sparse: symbol 'tsens_8974_nvmem' was not declared. Should it be static?
+drivers/thermal/qcom/tsens-v0_1.c:84:40: sparse: sparse: symbol 'tsens_8974_backup_nvmem' was not declared. Should it be static?
+drivers/thermal/qcom/tsens-v1.c:24:40: sparse: sparse: symbol 'tsens_qcs404_nvmem' was not declared. Should it be static?
+drivers/thermal/qcom/tsens-v1.c:45:40: sparse: sparse: symbol 'tsens_8976_nvmem' was not declared. Should it be static?
+drivers/usb/gadget/composite.c:2082:33: sparse: sparse: restricted __le16 degrades to integer
+sound/firewire/amdtp-stream.c:1187 process_rx_packets() error: uninitialized symbol 'curr_cycle_time'.
 
-    // free any meta data, ctx buffers, etc.
-    amdgpu_bo_unref(mqd->ctx_bo);
-   kfree(mqd);
-}
+Error/Warning ids grouped by kconfigs:
 
->
-> - any bookkeeping
->
-> is being done from the IP independent amdgpu_userqueue.c functions.
->
-> - Shashank
-> > Alex
-> >
-> >
-> > Alex
-> >
-> >> - Shashank
-> >>
-> >>>>>> +    return 0;
-> >>>>>> +}
-> >>>>>> +
-> >>>>>>     int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct amdgpu_device *adev)
-> >>>>>>     {
-> >>>>>> +    int r;
-> >>>>>> +
-> >>>>>>         mutex_init(&userq_mgr->userq_mutex);
-> >>>>>>         idr_init_base(&userq_mgr->userq_idr, 1);
-> >>>>>>         INIT_LIST_HEAD(&userq_mgr->userq_list);
-> >>>>>>         userq_mgr->adev = adev;
-> >>>>>>
-> >>>>>> +    r = amdgpu_userqueue_setup_mqd_funcs(userq_mgr);
-> >>>>>> +    if (r) {
-> >>>>>> +        DRM_ERROR("Failed to setup MQD functions for usermode queue\n");
-> >>>>>> +        return r;
-> >>>>>> +    }
-> >>>>>> +
-> >>>>>>         return 0;
-> >>>>>>     }
-> >>>>>>
-> >>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue_mqd_gfx_v11.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue_mqd_gfx_v11.c
-> >>>>>> new file mode 100644
-> >>>>>> index 000000000000..57889729d635
-> >>>>>> --- /dev/null
-> >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue_mqd_gfx_v11.c
-> >>>>>> @@ -0,0 +1,132 @@
-> >>>>>> +/*
-> >>>>>> + * Copyright 2022 Advanced Micro Devices, Inc.
-> >>>>>> + *
-> >>>>>> + * Permission is hereby granted, free of charge, to any person obtaining a
-> >>>>>> + * copy of this software and associated documentation files (the "Software"),
-> >>>>>> + * to deal in the Software without restriction, including without limitation
-> >>>>>> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> >>>>>> + * and/or sell copies of the Software, and to permit persons to whom the
-> >>>>>> + * Software is furnished to do so, subject to the following conditions:
-> >>>>>> + *
-> >>>>>> + * The above copyright notice and this permission notice shall be included in
-> >>>>>> + * all copies or substantial portions of the Software.
-> >>>>>> + *
-> >>>>>> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> >>>>>> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> >>>>>> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> >>>>>> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> >>>>>> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> >>>>>> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> >>>>>> + * OTHER DEALINGS IN THE SOFTWARE.
-> >>>>>> + *
-> >>>>>> + */
-> >>>>>> +#include "amdgpu.h"
-> >>>>>> +#include "amdgpu_userqueue.h"
-> >>>>>> +#include "v11_structs.h"
-> >>>>>> +#include "amdgpu_mes.h"
-> >>>>>> +#include "gc/gc_11_0_0_offset.h"
-> >>>>>> +#include "gc/gc_11_0_0_sh_mask.h"
-> >>>>>> +
-> >>>>>> +static int
-> >>>>>> +amdgpu_userq_gfx_v11_mqd_create(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_queue *queue)
-> >>>>>> +{
-> >>>>>> +    uint32_t tmp, rb_bufsz;
-> >>>>>> +    uint64_t hqd_gpu_addr, wb_gpu_addr;
-> >>>>>> +    struct v11_gfx_mqd *mqd = queue->mqd_cpu_ptr;
-> >>>>>> +    struct amdgpu_device *adev = uq_mgr->adev;
-> >>>>>> +
-> >>>>>> +    /* set up gfx hqd wptr */
-> >>>>>> +    mqd->cp_gfx_hqd_wptr = 0;
-> >>>>>> +    mqd->cp_gfx_hqd_wptr_hi = 0;
-> >>>>>> +
-> >>>>>> +    /* set the pointer to the MQD */
-> >>>>>> +    mqd->cp_mqd_base_addr = queue->mqd_gpu_addr & 0xfffffffc;
-> >>>>>> +    mqd->cp_mqd_base_addr_hi = upper_32_bits(queue->mqd_gpu_addr);
-> >>>>>> +
-> >>>>>> +    /* set up mqd control */
-> >>>>>> +    tmp = RREG32_SOC15(GC, 0, regCP_GFX_MQD_CONTROL);
-> >>>>>> +    tmp = REG_SET_FIELD(tmp, CP_GFX_MQD_CONTROL, VMID, 0);
-> >>>>>> +    tmp = REG_SET_FIELD(tmp, CP_GFX_MQD_CONTROL, PRIV_STATE, 1);
-> >>>>>> +    tmp = REG_SET_FIELD(tmp, CP_GFX_MQD_CONTROL, CACHE_POLICY, 0);
-> >>>>>> +    mqd->cp_gfx_mqd_control = tmp;
-> >>>>>> +
-> >>>>>> +    /* set up gfx_hqd_vimd with 0x0 to indicate the ring buffer's vmid */
-> >>>>>> +    tmp = RREG32_SOC15(GC, 0, regCP_GFX_HQD_VMID);
-> >>>>>> +    tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_VMID, VMID, 0);
-> >>>>>> +    mqd->cp_gfx_hqd_vmid = 0;
-> >>>>>> +
-> >>>>>> +    /* set up default queue priority level
-> >>>>>> +    * 0x0 = low priority, 0x1 = high priority */
-> >>>>>> +    tmp = RREG32_SOC15(GC, 0, regCP_GFX_HQD_QUEUE_PRIORITY);
-> >>>>>> +    tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_QUEUE_PRIORITY, PRIORITY_LEVEL, 0);
-> >>>>>> +    mqd->cp_gfx_hqd_queue_priority = tmp;
-> >>>>>> +
-> >>>>>> +    /* set up time quantum */
-> >>>>>> +    tmp = RREG32_SOC15(GC, 0, regCP_GFX_HQD_QUANTUM);
-> >>>>>> +    tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_QUANTUM, QUANTUM_EN, 1);
-> >>>>>> +    mqd->cp_gfx_hqd_quantum = tmp;
-> >>>>>> +
-> >>>>>> +    /* set up gfx hqd base. this is similar as CP_RB_BASE */
-> >>>>>> +    hqd_gpu_addr = queue->queue_gpu_addr >> 8;
-> >>>>>> +    mqd->cp_gfx_hqd_base = hqd_gpu_addr;
-> >>>>>> +    mqd->cp_gfx_hqd_base_hi = upper_32_bits(hqd_gpu_addr);
-> >>>>>> +
-> >>>>>> +    /* set up hqd_rptr_addr/_hi, similar as CP_RB_RPTR */
-> >>>>>> +    wb_gpu_addr = queue->rptr_gpu_addr;
-> >>>>>> +    mqd->cp_gfx_hqd_rptr_addr = wb_gpu_addr & 0xfffffffc;
-> >>>>>> +    mqd->cp_gfx_hqd_rptr_addr_hi =
-> >>>>>> +    upper_32_bits(wb_gpu_addr) & 0xffff;
-> >>>>>> +
-> >>>>>> +    /* set up rb_wptr_poll addr */
-> >>>>>> +    wb_gpu_addr = queue->wptr_gpu_addr;
-> >>>>>> +    mqd->cp_rb_wptr_poll_addr_lo = wb_gpu_addr & 0xfffffffc;
-> >>>>>> +    mqd->cp_rb_wptr_poll_addr_hi = upper_32_bits(wb_gpu_addr) & 0xffff;
-> >>>>>> +
-> >>>>>> +    /* set up the gfx_hqd_control, similar as CP_RB0_CNTL */
-> >>>>>> +    rb_bufsz = order_base_2(queue->queue_size / 4) - 1;
-> >>>>>> +    tmp = RREG32_SOC15(GC, 0, regCP_GFX_HQD_CNTL);
-> >>>>>> +    tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_CNTL, RB_BUFSZ, rb_bufsz);
-> >>>>>> +    tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_CNTL, RB_BLKSZ, rb_bufsz - 2);
-> >>>>>> +#ifdef __BIG_ENDIAN
-> >>>>>> +    tmp = REG_SET_FIELD(tmp, CP_GFX_HQD_CNTL, BUF_SWAP, 1);
-> >>>>>> +#endif
-> >>>>>> +    mqd->cp_gfx_hqd_cntl = tmp;
-> >>>>>> +
-> >>>>>> +    /* set up cp_doorbell_control */
-> >>>>>> +    tmp = RREG32_SOC15(GC, 0, regCP_RB_DOORBELL_CONTROL);
-> >>>>>> +    if (queue->use_doorbell) {
-> >>>>>> +        tmp = REG_SET_FIELD(tmp, CP_RB_DOORBELL_CONTROL,
-> >>>>>> +                    DOORBELL_OFFSET, queue->doorbell_index);
-> >>>>>> +        tmp = REG_SET_FIELD(tmp, CP_RB_DOORBELL_CONTROL,
-> >>>>>> +                    DOORBELL_EN, 1);
-> >>>>>> +    } else {
-> >>>>>> +        tmp = REG_SET_FIELD(tmp, CP_RB_DOORBELL_CONTROL,
-> >>>>>> +                    DOORBELL_EN, 0);
-> >>>>>> +    }
-> >>>>>> +    mqd->cp_rb_doorbell_control = tmp;
-> >>>>>> +
-> >>>>>> +    /* reset read and write pointers, similar to CP_RB0_WPTR/_RPTR */
-> >>>>>> +    mqd->cp_gfx_hqd_rptr = RREG32_SOC15(GC, 0, regCP_GFX_HQD_RPTR);
-> >>>>>> +
-> >>>>>> +    /* activate the queue */
-> >>>>>> +    mqd->cp_gfx_hqd_active = 1;
-> >>>>>> +
-> >>>>> Can you use gfx_v11_0_gfx_mqd_init() and gfx_v11_0_compute_mqd_init()
-> >>>>> directly or leverage adev->mqds[]?
-> >>>> Let us try this out and come back.
-> >>>>
-> >>>> - Shashank
-> >>>>
-> >>>>
-> >>>>> Alex
-> >>>>>
-> >>>>>> +    return 0;
-> >>>>>> +}
-> >>>>>> +
-> >>>>>> +static void
-> >>>>>> +amdgpu_userq_gfx_v11_mqd_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_queue *queue)
-> >>>>>> +{
-> >>>>>> +
-> >>>>>> +}
-> >>>>>> +
-> >>>>>> +static int amdgpu_userq_gfx_v11_mqd_size(struct amdgpu_userq_mgr *uq_mgr)
-> >>>>>> +{
-> >>>>>> +    return sizeof(struct v11_gfx_mqd);
-> >>>>>> +}
-> >>>>>> +
-> >>>>>> +const struct amdgpu_userq_mqd_funcs userq_gfx_v11_mqd_funcs = {
-> >>>>>> +    .mqd_size = amdgpu_userq_gfx_v11_mqd_size,
-> >>>>>> +    .mqd_create = amdgpu_userq_gfx_v11_mqd_create,
-> >>>>>> +    .mqd_destroy = amdgpu_userq_gfx_v11_mqd_destroy,
-> >>>>>> +};
-> >>>>>> diff --git a/drivers/gpu/drm/amd/include/v11_structs.h b/drivers/gpu/drm/amd/include/v11_structs.h
-> >>>>>> index b8ff7456ae0b..f8008270f813 100644
-> >>>>>> --- a/drivers/gpu/drm/amd/include/v11_structs.h
-> >>>>>> +++ b/drivers/gpu/drm/amd/include/v11_structs.h
-> >>>>>> @@ -25,14 +25,14 @@
-> >>>>>>     #define V11_STRUCTS_H_
-> >>>>>>
-> >>>>>>     struct v11_gfx_mqd {
-> >>>>>> -       uint32_t reserved_0; // offset: 0  (0x0)
-> >>>>>> -       uint32_t reserved_1; // offset: 1  (0x1)
-> >>>>>> -       uint32_t reserved_2; // offset: 2  (0x2)
-> >>>>>> -       uint32_t reserved_3; // offset: 3  (0x3)
-> >>>>>> -       uint32_t reserved_4; // offset: 4  (0x4)
-> >>>>>> -       uint32_t reserved_5; // offset: 5  (0x5)
-> >>>>>> -       uint32_t reserved_6; // offset: 6  (0x6)
-> >>>>>> -       uint32_t reserved_7; // offset: 7  (0x7)
-> >>>>>> +       uint32_t shadow_base_lo; // offset: 0  (0x0)
-> >>>>>> +       uint32_t shadow_base_hi; // offset: 1  (0x1)
-> >>>>>> +       uint32_t gds_bkup_base_lo; // offset: 2  (0x2)
-> >>>>>> +       uint32_t gds_bkup_base_hi; // offset: 3  (0x3)
-> >>>>>> +       uint32_t fw_work_area_base_lo; // offset: 4  (0x4)
-> >>>>>> +       uint32_t fw_work_area_base_hi; // offset: 5  (0x5)
-> >>>>>> +       uint32_t shadow_initialized; // offset: 6  (0x6)
-> >>>>>> +       uint32_t ib_vmid; // offset: 7  (0x7)
-> >>>>>>            uint32_t reserved_8; // offset: 8  (0x8)
-> >>>>>>            uint32_t reserved_9; // offset: 9  (0x9)
-> >>>>>>            uint32_t reserved_10; // offset: 10  (0xA)
-> >>>>>> --
-> >>>>>> 2.34.1
-> >>>>>>
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arm-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arm64-allyesconfig
+|   |-- arch-arm64-kvm-arm.c:warning:expecting-prototype-for-Initialize-Hyp().-Prototype-was-for-kvm_arm_init()-instead
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn31-dcn31_hubbub.c:warning:no-previous-prototype-for-hubbub31_init
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_hubbub.c:warning:no-previous-prototype-for-hubbub32_init
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_hubp.c:warning:no-previous-prototype-for-hubp32_init
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_resource_helpers.c:warning:variable-cursor_bpp-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arm64-randconfig-c023-20230205
+|   `-- arch-arm64-kvm-arm.c:warning:expecting-prototype-for-Initialize-Hyp().-Prototype-was-for-kvm_arm_init()-instead
+|-- arm64-randconfig-s042-20230205
+|   |-- arch-arm64-kvm-arm.c:warning:expecting-prototype-for-Initialize-Hyp().-Prototype-was-for-kvm_arm_init()-instead
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn31-dcn31_hubbub.c:warning:no-previous-prototype-for-hubbub31_init
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_hubbub.c:warning:no-previous-prototype-for-hubbub32_init
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_hubp.c:warning:no-previous-prototype-for-hubp32_init
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_resource_helpers.c:warning:variable-cursor_bpp-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   |-- drivers-thermal-qcom-tsens-v0_1.c:sparse:sparse:symbol-tsens_8916_nvmem-was-not-declared.-Should-it-be-static
+|   |-- drivers-thermal-qcom-tsens-v0_1.c:sparse:sparse:symbol-tsens_8939_nvmem-was-not-declared.-Should-it-be-static
+|   |-- drivers-thermal-qcom-tsens-v0_1.c:sparse:sparse:symbol-tsens_8974_backup_nvmem-was-not-declared.-Should-it-be-static
+|   |-- drivers-thermal-qcom-tsens-v0_1.c:sparse:sparse:symbol-tsens_8974_nvmem-was-not-declared.-Should-it-be-static
+clang_recent_errors
+`-- riscv-randconfig-r003-20230204
+    |-- drivers-clk-qcom-gcc-sa8775p.c:warning:unused-variable-gcc_parent_data_10
+    |-- drivers-clk-qcom-gcc-sa8775p.c:warning:unused-variable-gcc_parent_data_12
+    |-- drivers-clk-qcom-gcc-sa8775p.c:warning:unused-variable-gcc_parent_map_10
+    `-- drivers-clk-qcom-gcc-sa8775p.c:warning:unused-variable-gcc_parent_map_12
+
+elapsed time: 726m
+
+configs tested: 87
+configs skipped: 3
+
+gcc tested configs:
+x86_64                            allnoconfig
+x86_64                          rhel-8.3-func
+x86_64                    rhel-8.3-kselftests
+um                             i386_defconfig
+i386                                defconfig
+um                           x86_64_defconfig
+powerpc                           allnoconfig
+x86_64                              defconfig
+arc                                 defconfig
+s390                             allmodconfig
+i386                 randconfig-a011-20230206
+sh                               allmodconfig
+i386                             allyesconfig
+x86_64               randconfig-a014-20230206
+x86_64                               rhel-8.3
+alpha                               defconfig
+ia64                             allmodconfig
+mips                             allyesconfig
+x86_64                           rhel-8.3-bpf
+m68k                             allyesconfig
+x86_64                           rhel-8.3-syz
+m68k                             allmodconfig
+x86_64                         rhel-8.3-kunit
+arc                              allyesconfig
+x86_64               randconfig-a013-20230206
+powerpc                          allmodconfig
+x86_64                           rhel-8.3-kvm
+i386                 randconfig-a014-20230206
+x86_64               randconfig-a011-20230206
+i386                 randconfig-a012-20230206
+i386                 randconfig-a016-20230206
+alpha                            allyesconfig
+sh                          rsk7203_defconfig
+arm                                 defconfig
+s390                                defconfig
+x86_64               randconfig-a015-20230206
+s390                             allyesconfig
+m68k                          amiga_defconfig
+x86_64               randconfig-a012-20230206
+x86_64                           allyesconfig
+i386                 randconfig-a013-20230206
+xtensa                           alldefconfig
+i386                 randconfig-a015-20230206
+x86_64               randconfig-a016-20230206
+s390                 randconfig-r044-20230206
+arc                  randconfig-r043-20230205
+arm64                            allyesconfig
+arm                  randconfig-r046-20230205
+arc                  randconfig-r043-20230206
+arm                              allyesconfig
+riscv                randconfig-r042-20230206
+arm                            mps2_defconfig
+arm                           h3600_defconfig
+m68k                       bvme6000_defconfig
+sh                            hp6xx_defconfig
+powerpc                      tqm8xx_defconfig
+sh                        sh7785lcr_defconfig
+sh                          urquell_defconfig
+arm                         nhk8815_defconfig
+powerpc                     rainier_defconfig
+arm                         axm55xx_defconfig
+powerpc                       maple_defconfig
+sh                           se7705_defconfig
+i386                          randconfig-c001
+
+clang tested configs:
+x86_64                          rhel-8.3-rust
+x86_64               randconfig-a001-20230206
+x86_64               randconfig-a005-20230206
+x86_64               randconfig-a002-20230206
+x86_64               randconfig-a004-20230206
+x86_64               randconfig-a003-20230206
+hexagon              randconfig-r041-20230205
+x86_64               randconfig-a006-20230206
+arm                         mv78xx0_defconfig
+riscv                randconfig-r042-20230205
+hexagon              randconfig-r045-20230206
+i386                 randconfig-a005-20230206
+hexagon              randconfig-r041-20230206
+i386                 randconfig-a004-20230206
+i386                 randconfig-a003-20230206
+i386                 randconfig-a001-20230206
+i386                 randconfig-a002-20230206
+arm                  randconfig-r046-20230206
+s390                 randconfig-r044-20230205
+hexagon              randconfig-r045-20230205
+i386                 randconfig-a006-20230206
+powerpc                 mpc8315_rdb_defconfig
+x86_64                        randconfig-k001
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
