@@ -4,92 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC672C05027
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Feb 2023 09:02:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6521FC636CC
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Feb 2023 09:18:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A3C710E710;
-	Wed,  8 Feb 2023 09:02:50 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2065.outbound.protection.outlook.com [40.107.223.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71C6610E704;
- Wed,  8 Feb 2023 09:02:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Kpq4dZfipFN9kKrQlQ9jHXSMSNXzuZ67V77XKt5GmWyasgmpLEQqOQCM63OGFT1NYyalsi7dSZScWq8XMuWAcuz+7VRErWRniPuAlHL+lmbBBggOY+E7FRb1A3QUOJz+Mj2rKBdOOmCIVcOVDsP0vEtHSJiVQLV0KphV3dbT8764LShx7F6inViLeNSMr93J9gngdD3q94r9NqseCxXmRM6LBRQDWFX7ksIHADsLtI+yPaOZEl4nqvH06GVHFesp+Bu11j9CySM599bnHp5lUprHgvt6ajhfZyuNQIH3T62LFwnF4fo/Q2h5A7tiC85q7BXoowgwmtbjj3QglNGdhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PounKTCxxcDXcHnibE8aa5/1nd3RV4pXYqzTUawbRkA=;
- b=M4udm7FjNd/8qXrTED/PLb2CiY1X4OD8vgTH9/CbU92pACLEbZlxD6tB8Hucd/y6Kpuo81CDaSpKUpEI7UT4IKmP+lKOjSp7eFACMwvLp6sXh/u+WxOhcI3mmtA9RqQH/y9veE20Ry+tXvSPiumZ9B2o+UajvDaYjnFEHkHoFavOaEU7KdwGo7qDO4tzg/ejdeWb2mvWvrL59HufSh//5bbVPKP7GCZ2kK3nLnMfCUCFzcbq67NLpamj+SMqoTwPboMFVH/4w9UUcxta6WVJd48qXPxRkkhBtLVuqmpVgv9nbMYnKZvwVvfRBPuT/ipXYTzjkAyfDuy8pxX5hOve/w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PounKTCxxcDXcHnibE8aa5/1nd3RV4pXYqzTUawbRkA=;
- b=auEfLfmTMcUKmn/4rPzhYHifzTJYCbbBmYTeC7+MRcDdcxFiSjUokiwgbs9ax2JRWflyqq7PlrsknLrRj+hdgKMxhyTMlYzwzImgd1hcwmjtriQzHxUb81aYkhHXEsRAYG6vOIJRlCK1IwIFT1pylg9ZJrdttrwuWN3Nok/7sqk=
-Received: from BN9PR03CA0356.namprd03.prod.outlook.com (2603:10b6:408:f6::31)
- by CH2PR12MB4279.namprd12.prod.outlook.com (2603:10b6:610:af::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.17; Wed, 8 Feb
- 2023 09:02:41 +0000
-Received: from BN8NAM11FT015.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:f6:cafe::e3) by BN9PR03CA0356.outlook.office365.com
- (2603:10b6:408:f6::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.17 via Frontend
- Transport; Wed, 8 Feb 2023 09:02:40 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT015.mail.protection.outlook.com (10.13.176.90) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6086.17 via Frontend Transport; Wed, 8 Feb 2023 09:02:40 +0000
-Received: from amar-X570-AORUS-ELITE.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.34; Wed, 8 Feb 2023 03:02:14 -0600
-From: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>, <nouveau@lists.freedesktop.org>,
- <linux-graphics-maintainer@vmware.com>
-Subject: [PATCH 6/6] drm/amdgpu: Cleanup the GDS, GWS and OA allocations
-Date: Wed, 8 Feb 2023 14:31:06 +0530
-Message-ID: <20230208090106.9659-6-Amaranath.Somalapuram@amd.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20230208090106.9659-1-Amaranath.Somalapuram@amd.com>
-References: <20230208090106.9659-1-Amaranath.Somalapuram@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DB8910E718;
+	Wed,  8 Feb 2023 09:18:51 +0000 (UTC)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D34AF10E186;
+ Wed,  8 Feb 2023 09:18:48 +0000 (UTC)
+Received: by mail-ej1-x636.google.com with SMTP id ud5so49635849ejc.4;
+ Wed, 08 Feb 2023 01:18:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=P7r18L9TJxzF6s0ATKVBHcJp6sFYaizl7MrVlQkLGrM=;
+ b=VW+7CiaamZ4XzRfyKDUWIdW9MRJ8FkBSKxC4CXR81PDhaF/ReqUiy83ZDiBAIHNzVa
+ Pz77cUqDNm775h9CZK/XbXXhdDkLO71MyYelERXPj2qoyR84yBNPWQydAs3X+BMnEXs9
+ OhNisBfaUpXCLPKqjTCoJWxOSLM/DvatNPsL/L3vy7rqTyBMe2EqmMnKnaAUYNe/wK4o
+ 4Rg6dg8Ubcxwf2AhpuGNCibB9F6NqaLGYswSGpMFRlUOPCJxhBHeH8McWKHKWRxyZHwD
+ t2myF2lLGKSk7aFr5Ux4ZNY50pGEu+bmIjKeH3DzwHbbpHi4Dz2rG4hqVqOKwae/cr+b
+ uiGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=P7r18L9TJxzF6s0ATKVBHcJp6sFYaizl7MrVlQkLGrM=;
+ b=Cir3fIjcq70YCfEHgTdovbBwEsjgPk82oUvRwIYp27u18EFZ/zRpoCLtTZU+bagkpW
+ wrOe9+olWP8hrTeVVbsajYiJ0Vv1Lpr7FcRwoz6ZTz1mhjoNmBOhb7mWaDCDBK/hjW9l
+ Ryn9zZoHue26WuML6IIj+GqW0fodYx8vJxWadx/XYxXw5zIPCAg6TN2jbmOf98QXJG/v
+ XSNQYm8MkHwX/G8DzJ/fAGTnyO5y3XbmTGBbXdBXk6CO+169MdrAr5vRoWwX4+kXHt0w
+ ClbeFmaD8vD7AkNqcdBj6vm5riLRlYMG8nUD43y1DAAAgyEWAPYSHramlG8t/VKqOD1f
+ zV4A==
+X-Gm-Message-State: AO0yUKX/i8WT10yd3XPN+EAUjBW3EfnJTTMvnE+/Xso1xEzj/lFmB3PE
+ YzCB9rKDq0qzREgH0J8L3o0=
+X-Google-Smtp-Source: AK7set/5TptkYLfwuevF7JxbjkA5RZ4rqAUPQ6og6PVv5ZglusIkjlbrsrNYxpWnxqsThjCe9ELPkw==
+X-Received: by 2002:a17:907:20cb:b0:87f:89f2:c012 with SMTP id
+ qq11-20020a17090720cb00b0087f89f2c012mr7380474ejb.24.1675847927319; 
+ Wed, 08 Feb 2023 01:18:47 -0800 (PST)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ c15-20020a170906340f00b008778f177fbesm8173948ejb.11.2023.02.08.01.18.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Feb 2023 01:18:46 -0800 (PST)
+Date: Wed, 8 Feb 2023 11:18:42 +0200
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Subject: Re: [PATCH 3/3] drm/connector: Deprecate split for BT.2020 in
+ drm_colorspace enum
+Message-ID: <20230208111842.4d7aacb2@eldfell>
+In-Reply-To: <Y90UC43KouMRh8I2@intel.com>
+References: <20230203020744.30745-1-joshua@froggi.es>
+ <20230203020744.30745-3-joshua@froggi.es>
+ <Y9zkef5FjtZ7guVS@intel.com>
+ <CA+hFU4ymiOg06MQeKLcn5MSrR=BZnOLODdZCFvGUdWqt_ha61A@mail.gmail.com>
+ <Y90NkvVabh+ue9hF@intel.com>
+ <CA+hFU4xR_8=w=z=Jqs3sujTvnXfEQJVHAMFW-X4-55POF=Bu9g@mail.gmail.com>
+ <Y90UC43KouMRh8I2@intel.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT015:EE_|CH2PR12MB4279:EE_
-X-MS-Office365-Filtering-Correlation-Id: a6773894-61ed-48b4-d20b-08db09b33bc4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TFEawHphQX7RCC/8iYhv5PURzONbUi+0qZ6L1OI4/jTT8H3kZhF5IqArs3C5zQvHv7sicVC5o/2BWw9zAg4+tqH53iOxE3AA/KgLRkiQISsXPS4BnlcMl7ecpzvkp07neP7RqSM0VaBY27s/ZxYV5tK4Td9UwOzuUuogwmSk3VI37ee5xnXirZoM88hsfp84wn2HB7CYb0jSIjesMXlhkqfgtB75RKTF7/Yij6TovfTO6N7DyMRbHxVyJoYqTy5E7UO9wQeqw9klKhiEplE01InExzzSA/J4QC4WaLv0nkVPck+qMZNlpjWynuDnrzsGjcTlcio3W/26qtgM1ZxPrKAIWnmkajl0ORaNzDloMEgw0C9IiNiBqcFVo+ctIlDtFxw5SaZn7ZPx9C1kBhpoq6u1xwxCFdRZ/f5PM5mV7BSUrs3DpHzEHkggz/pguRzWf1xQg6vAr2PJK64I/a1C0OOQqWb3QEFx6GVkxoZsVafR38uGhF0cbqiJe4FVuRc0bTr3XZCaVoY7vVLA5Du6nUrZvXF+8Q9KzXEbUpLqWCXUu7zAlGw2pLOxtG4fYX6G3+95YV2W4bR40dAiIAPnyj9zgSaephIqg0L36TRmNgPz0DLj1YXlCLLgiuIkFL39XFHrJnOGU5FYLcVniivtPKFktlrVUQlN3HwQRogF8X0lkwML801DRZskXmKbM/eE9uRwag+MKo49fzO/PO4G+spPMLbWohNuyIJQnBKtyGQ=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(39860400002)(376002)(346002)(396003)(136003)(451199018)(40470700004)(46966006)(36840700001)(26005)(186003)(1076003)(2906002)(6666004)(36756003)(16526019)(5660300002)(478600001)(356005)(81166007)(82310400005)(8936002)(82740400003)(41300700001)(7696005)(40480700001)(2616005)(47076005)(8676002)(36860700001)(336012)(70586007)(70206006)(4326008)(83380400001)(426003)(86362001)(54906003)(110136005)(40460700003)(316002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2023 09:02:40.9138 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6773894-61ed-48b4-d20b-08db09b33bc4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT015.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4279
+Content-Type: multipart/signed; boundary="Sig_/erYYEaO25KIoo8mj+jLWaHG";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,82 +75,121 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: shashank.sharma@amd.com, arunpravin.paneerselvam@amd.com,
- Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>, arvind.yadav@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: Sebastian Wick <sebastian.wick@redhat.com>, amd-gfx@lists.freedesktop.org,
+ Uma Shankar <uma.shankar@intel.com>, dri-devel@lists.freedesktop.org,
+ Joshua Ashton <joshua@froggi.es>, Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Change the size of GDS, GWS and OA from pages to bytes.
-The initialized gds_size, gws_size and oa_size in bytes,
-remove PAGE_SHIFT in amdgpu_ttm_init_on_chip().
-:
-Signed-off-by: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    | 12 ++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |  3 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |  3 +--
- 3 files changed, 8 insertions(+), 10 deletions(-)
+--Sig_/erYYEaO25KIoo8mj+jLWaHG
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index c3d9d75143f4..4641b25956fd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -142,16 +142,16 @@ void amdgpu_job_set_resources(struct amdgpu_job *job, struct amdgpu_bo *gds,
- 			      struct amdgpu_bo *gws, struct amdgpu_bo *oa)
- {
- 	if (gds) {
--		job->gds_base = amdgpu_bo_gpu_offset(gds) >> PAGE_SHIFT;
--		job->gds_size = amdgpu_bo_size(gds) >> PAGE_SHIFT;
-+		job->gds_base = amdgpu_bo_gpu_offset(gds);
-+		job->gds_size = amdgpu_bo_size(gds);
- 	}
- 	if (gws) {
--		job->gws_base = amdgpu_bo_gpu_offset(gws) >> PAGE_SHIFT;
--		job->gws_size = amdgpu_bo_size(gws) >> PAGE_SHIFT;
-+		job->gws_base = amdgpu_bo_gpu_offset(gws);
-+		job->gws_size = amdgpu_bo_size(gws);
- 	}
- 	if (oa) {
--		job->oa_base = amdgpu_bo_gpu_offset(oa) >> PAGE_SHIFT;
--		job->oa_size = amdgpu_bo_size(oa) >> PAGE_SHIFT;
-+		job->oa_base = amdgpu_bo_gpu_offset(oa);
-+		job->oa_size = amdgpu_bo_size(oa);
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index f5d5eee09cea..9285037d6d88 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -541,12 +541,11 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
- 	if (bp->domain & (AMDGPU_GEM_DOMAIN_GWS | AMDGPU_GEM_DOMAIN_OA)) {
- 		/* GWS and OA don't need any alignment. */
- 		page_align = bp->byte_align;
--		size <<= PAGE_SHIFT;
- 
- 	} else if (bp->domain & AMDGPU_GEM_DOMAIN_GDS) {
- 		/* Both size and alignment must be a multiple of 4. */
- 		page_align = ALIGN(bp->byte_align, 4);
--		size = ALIGN(size, 4) << PAGE_SHIFT;
-+		size = ALIGN(size, 4);
- 	} else {
- 		/* Memory should be aligned at least to a page size. */
- 		page_align = ALIGN(bp->byte_align, PAGE_SIZE) >> PAGE_SHIFT;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index f0dabdfd3780..a8e444a31d8f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -77,8 +77,7 @@ static int amdgpu_ttm_init_on_chip(struct amdgpu_device *adev,
- 				    unsigned int type,
- 				    uint64_t size)
- {
--	return ttm_range_man_init(&adev->mman.bdev, type,
--				  false, size << PAGE_SHIFT);
-+	return ttm_range_man_init(&adev->mman.bdev, type, false, size);
- }
- 
- /**
--- 
-2.32.0
+On Fri, 3 Feb 2023 16:02:51 +0200
+Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com> wrote:
 
+> On Fri, Feb 03, 2023 at 02:52:50PM +0100, Sebastian Wick wrote:
+> > On Fri, Feb 3, 2023 at 2:35 PM Ville Syrj=C3=A4l=C3=A4
+> > <ville.syrjala@linux.intel.com> wrote: =20
+> > >
+> > > On Fri, Feb 03, 2023 at 01:59:07PM +0100, Sebastian Wick wrote: =20
+> > > > On Fri, Feb 3, 2023 at 11:40 AM Ville Syrj=C3=A4l=C3=A4
+> > > > <ville.syrjala@linux.intel.com> wrote: =20
+> > > > >
+> > > > > On Fri, Feb 03, 2023 at 02:07:44AM +0000, Joshua Ashton wrote: =20
+> > > > > > Userspace has no way of controlling or knowing the pixel encodi=
+ng
+> > > > > > currently, so there is no way for it to ever get the right valu=
+es here. =20
+> > > > >
+> > > > > That applies to a lot of the other values as well (they are
+> > > > > explicitly RGB or YCC). The idea was that this property sets the
+> > > > > infoframe/MSA/SDP value exactly, and other properties should be
+> > > > > added to for use userspace to control the pixel encoding/colorspa=
+ce
+> > > > > conversion(if desired, or userspace just makes sure to
+> > > > > directly feed in correct kind of data). =20
+> > > >
+> > > > I'm all for getting userspace control over pixel encoding but even
+> > > > then the kernel always knows which pixel encoding is selected and
+> > > > which InfoFrame has to be sent. Is there a reason why userspace wou=
+ld
+> > > > want to control the variant explicitly to the wrong value? =20
+> > >
+> > > What do you mean wrong value? Userspace sets it based on what
+> > > kind of data it has generated (or asked the display hardware
+> > > to generate if/when we get explicit control over that part). =20
+> >=20
+> > Wrong in the sense of sending the YCC variant when the pixel encoding
+> > is RGB for example.
+> >=20
+> > Maybe I'm missing something here but my assumption is that the kernel
+> > always has to know the pixel encoding anyway. The color pipeline also
+> > assumes that the pixel values are RGB. User space might be able to
+> > generate YCC content but for subsampling etc the pixel encoding still
+> > has to be explicitly set. =20
+>=20
+> The kernel doesn't really know much atm. In theory you can just
+> configure the thing to do a straight passthough and put anything you
+> want into your pixels.
+
+But it's impossible to use a YCbCr framebuffer and have that *not*
+converted to RGB for the KMS color pipeline even if userspace wanted it
+to be strictly pass-through, only to be converted again to YCbCr for
+the cable, is it not?
+
+Even more so with 4:2:0.
+
+How could it be possible to stop the driver from doing those two
+YUV-to-RGB and RGB-to-YCbCr conversions at the beginning and at the end
+of the KMS color pipeline?
+
+=46rom uAPI point of view:
+
+"Colorspace" currently defines (or does it? see my patch 2 review) the
+colorimetry and the color model encoding. If a driver chooses the cable
+encoding independently, the "Colorspace" color model encoding is often
+wrong. If we have another KMS property to choose the cable encoding,
+then it is possible to still set "Colorspace" to disagree with the
+actual cable encoding. What's the use of that possibility to configure
+things wrong?
+
+
+Thanks,
+pq
+
+>=20
+> >=20
+> > So with the kernel always knowing exactly what pixel encoding is sent,
+> > why do we need those variants? I just don't see why this is necessary.
+> >  =20
+> > >
+> > > --
+> > > Ville Syrj=C3=A4l=C3=A4
+> > > Intel
+> > > =20
+>=20
+
+
+--Sig_/erYYEaO25KIoo8mj+jLWaHG
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmPjaPMACgkQI1/ltBGq
+qqc2SQ//RHkU4zBPB71M/CPgwnOHYWlLay2FLD2C47i7YX23RQZa8Ccuw/YZaGtF
+a/FKgl5u6QlkjkqQXyAsHqtKSGvgA00ONmS9iniJcr+9RuelezEY2yjS8jAh/VSy
+ztDGBWxkpq8jtd7d08L9i7Ux6nFipvy5GInEaZsWknwJuOOpTFzkUvEqm/Q/4pLk
+erKG9ieFyqN/Yc+bMO5e6wSLy9ZMM9hifErmSZwICHLBBUy3HKOc5eujH0amOnVh
+TC/fMlPaQIEtaLM/l4BEjwaq1MyBUdZiiEEeDsAC2UuybdehVhOmDWskMopQ0wI6
+Xzk5oEjleK6iPY55DOnfXtlYoZ1nlrzd59hUnHWFvtu6FZl4ag0oBh0cMSku6+19
+4JwC8LHdJ3EOqGHgQjyu3BjzSoveV+IHsU4eTvcEJwnk589qKjkYz9zyp0LCskRG
+tFAuMjiJj5LcgXa+9/Urd+a+CFBjbpTZajY3gUhH5YDAWc++GX2SqZuwFL8xqGkV
+kfwcVw6m4OKiepPNzxmxVV46MG5/UvegFgLIFPvtVy71qjKxJh9sCPKqzSEv9p+8
+1VODdT847FWK3hjiSsRH8q4UfyAOp1SzmlvKMxp5pgS6zSAQG4uT5Ts0lUHsA3FU
++2NLOQbnVsgxXozBiDqYFaYf7UtE5cP4P9uFf8d/+mUOSODtacE=
+=tgJp
+-----END PGP SIGNATURE-----
+
+--Sig_/erYYEaO25KIoo8mj+jLWaHG--
