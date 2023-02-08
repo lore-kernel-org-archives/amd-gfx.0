@@ -4,88 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6C60C636CC
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Feb 2023 07:26:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0264FC636CC
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Feb 2023 08:29:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38A0D10E6A4;
-	Wed,  8 Feb 2023 07:26:17 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2066.outbound.protection.outlook.com [40.107.93.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89CFF10E69C
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Feb 2023 07:26:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VPGfOCAXJosdspm9t4/QRlGeuCCFydVIT4z+ZY/fic8KXiYP7MD/xi0zZPnPepLXj4SjTAgb2YU5KoeRIT2HxgtsEJIJN5ZNYLCR3sbtM/l61FV+txMZU+QGWWt8f8jNv5zyC96wO3DuGBATfwbfnk7CG+cffifh6CWkCGaVrq+Exj/7Pd81zjyxgWtFay0BuVoAkOh+Qyt7JfskNMbowe9iapw02+lAjWgmrjQay5Is0wzqYkfKZn6WgUvd7+8Gsw0H5wbrms09CBJTZildPa/hBrWASWVGPo8M0rAIpbSXPSRPU21ovOMhaZT13PwQdH9BXNrOvIw7NXvl6g5Cgw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fV73Y5snOOpjw4Vh1H/KB+fqagyW/Km6cR/LapE+1j0=;
- b=OS+jG/jGrnBOAjuM09QxE6mu66TWMet0AEtVJml8q5xstHcAd5W0F3/HMKqoEvrEktxYHuKEL3nHPLswc3SGCfJtAMpZtYpZ5UCG4XDgAL+w/5uPrA2UEc+0wCEK24INLQOHuYzhMZbMYiEAjj87fOL9CpJJww2nsrjuhIvDa2RmsvcrZ2XwXA+d7QlmvVIJgWuCXOAFr721sxz0k0Ni4Y7miY7jKUuAQJeRb4itdWUz3YE5p5z5Vbf+C02iZgKG0c75c+LA6frujnOyJkZL5z4XOd4fnZQ9F7ZurPZSoOeNK7w7ErR9ep98tae8YLcybS6YHKjpX3mUn9qBum4Fjw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fV73Y5snOOpjw4Vh1H/KB+fqagyW/Km6cR/LapE+1j0=;
- b=AOCfz/+HOUA8f/3t9wMaIaKmh6LxaS/VLy3cEpenh3xVZ0gbFoUQlLJxk3h1lCVtuSeTPjdWTmOxa0AVGv27ezEbatwxwOuCRBHojWu8fs0hPeJA7yCkkIvM+ebbRwK/DPSsexbYheZm2q17sWVd7Dw048q58C9tZCZbVB99kwo=
-Received: from BN9PR03CA0170.namprd03.prod.outlook.com (2603:10b6:408:f4::25)
- by BL3PR12MB6596.namprd12.prod.outlook.com (2603:10b6:208:38f::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.17; Wed, 8 Feb
- 2023 07:26:12 +0000
-Received: from BN8NAM11FT032.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:f4:cafe::b5) by BN9PR03CA0170.outlook.office365.com
- (2603:10b6:408:f4::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.36 via Frontend
- Transport; Wed, 8 Feb 2023 07:26:12 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT032.mail.protection.outlook.com (10.13.177.88) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6086.17 via Frontend Transport; Wed, 8 Feb 2023 07:26:11 +0000
-Received: from majun-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 8 Feb
- 2023 01:26:07 -0600
-From: Ma Jun <Jun.Ma2@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: Fix the warning info when unload or remove amdgpu
-Date: Wed, 8 Feb 2023 15:25:19 +0800
-Message-ID: <20230208072519.2412564-1-Jun.Ma2@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DC1310E045;
+	Wed,  8 Feb 2023 08:29:38 +0000 (UTC)
+Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com
+ [IPv6:2a00:1450:4864:20::541])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0579310E045;
+ Wed,  8 Feb 2023 08:29:36 +0000 (UTC)
+Received: by mail-ed1-x541.google.com with SMTP id v13so19312138eda.11;
+ Wed, 08 Feb 2023 00:29:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=h+04ABnlNpC3bHW15AazW9EfJJlIZrr/WtCNp0hj+Zw=;
+ b=hbfswE4tIUDvtJ9IDp50qEnd5X6LDmAnr7iEU53dIyz9Ri78uEJSTAUYnKikRoXvzd
+ fCfRmep2+BiaiPHk4XY+sd5jTRWvTM41V7VgvoKamboTkn4CvCfxPuFcxHL2D10AclyD
+ wS/RJ0YAv0XGDBIbsulncFIPfW2VSu8Yi67w77av/P8bZ2TfLmny+HEF9q28gHVFTg3N
+ FUIxVP8X9rrgTPKFx9GfRqXGEoSfnCivt4Sy5ZvsMRbPvgtivVe/UhD/BSBPHKMyYzlY
+ 6h1gvpdSNEZ4CRk04HU7ePW/VGe3wiqSmXhHu2bxrylX7OVTY3XI4ES+gmm5eEL6XVyu
+ YV7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=h+04ABnlNpC3bHW15AazW9EfJJlIZrr/WtCNp0hj+Zw=;
+ b=snG7aVRuRFproleXkKjQUgj7f3PQ6rZtIAgowmf6IeIEBFi6ANQMKLzXH7e73wGNX/
+ L8kB+h/zdKD6qjUhkE1K32EHqYY2n0VLJv72PGqdK9daWoB19ySGUehNYKQ/DKfgVDik
+ 2cj6nRv4KKWmXaK+gwHcPBfYcybmrMZuTJNqYLOWFRvnKB0giZSGc/bGJCxS483JuoZT
+ y3K4B87r0Fd1UdaQn91Uc2h03ILtNwgqK9i7XShW0v6zMvLLDImFSIJ/3BrnPlgejFEF
+ 4xOZounjm6XLniW3TFPAhThYoxJ8Sw6C4vP1Zbp5GmGJwzLwxD76UW3Rxf4EXRFZ/QsE
+ zvYA==
+X-Gm-Message-State: AO0yUKWjZbJLQBdKQl+nqPp7iHrvqblshxKhi6SOoXKlryXVB/tugI7x
+ meb0RdlAXQuVwZ1EPiuVJU8=
+X-Google-Smtp-Source: AK7set/aWsimcpuVUbevXJW7F1oIY7vMrQUtR8JMkHhZDygJaAACJkY4/E5nZOORmdFyN7MPXRieXw==
+X-Received: by 2002:a50:8a8f:0:b0:4aa:da7c:4c5c with SMTP id
+ j15-20020a508a8f000000b004aada7c4c5cmr3636426edj.34.1675844975251; 
+ Wed, 08 Feb 2023 00:29:35 -0800 (PST)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ k3-20020a056402048300b00499b6b50419sm7478460edv.11.2023.02.08.00.29.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Feb 2023 00:29:34 -0800 (PST)
+Date: Wed, 8 Feb 2023 10:29:23 +0200
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Joshua Ashton <joshua@froggi.es>
+Subject: Re: [PATCH 1/3] drm/connector: Convert DRM_MODE_COLORIMETRY to enum
+Message-ID: <20230208102923.7a3000b6@eldfell>
+In-Reply-To: <20230203020744.30745-1-joshua@froggi.es>
+References: <20230203020744.30745-1-joshua@froggi.es>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT032:EE_|BL3PR12MB6596:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5c0d39af-d243-4474-237f-08db09a5c14d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CWALQd/YqpHTyJrLq2v5ns2qSN8stx8rdvrUbWoBAfrTVId6FvJKszDg4Nr9/OFr3EQA04+KObFJHz7yYnn8fDQRAN2wXCV44TrEwHd04oxJ45OJPFY962MzNVQrHBXVrExkXYpTVRIFyFywYuC6YoDv/DrdX6H8bcYTZj48GZFTHGFAYzau5lrk7XkO2HT8k+25u0R8IsVC2TtIj9ZFvzDhjYnWR+fGvfoH1gusKL0SnBW3T6IYEsW+VxAm8lzr1Vg5M7J2DsXRd5bbLgHh5cYtXtjMlRy8YQL/sDBHEtgFBaj1ipkHacIXIzJAbu8vRCkPp+mODkb17Ne1mPfsndg0G0x3Bzx6VDtAiV7CYoFbbas2eq0/JOrqY2NxfC8mFgv6JqzgvQzRP+ajVETVY18RlpD87Cmto4Dms1vaO+k4QFYcVVpX19SK/7OIfLyuhSez994ZV1rMRT7WGqDbBVsK8pJW3wKU6Hf8tlCeTJKZ74Pj7/2ZbFfVxZbuRmwBHlAKBCtDcmhwYNlcbSdqQ/Tf3I+iM9PRywakqAv9i1HbNZB7609p18XbYXePIF8+cmG4X95dY3E+D1Egz+kX0jaZ9Ai1lIEaiI0VI30esei7+cYKbl7rpjYO7tS1FQS9kRIpsSXFIHEBc/+9/nj11aDoiEWLnUJO9J0ZljREsu6I2VdSi8APmfp8dAR8H9kjBXAB/R3okcBx2B/Ir3antHtQlmyDS4ihqjUhl82WUtFhaP/n+4yWAr1RoXvLIdxU
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(346002)(376002)(396003)(136003)(39860400002)(451199018)(46966006)(36840700001)(40470700004)(82310400005)(83380400001)(2906002)(8936002)(4326008)(6636002)(54906003)(5660300002)(40460700003)(36756003)(47076005)(426003)(41300700001)(70206006)(70586007)(8676002)(40480700001)(86362001)(336012)(316002)(110136005)(356005)(26005)(186003)(16526019)(2616005)(7696005)(478600001)(1076003)(6666004)(82740400003)(36860700001)(81166007)(36900700001)(2101003);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2023 07:26:11.9900 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5c0d39af-d243-4474-237f-08db09a5c14d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT032.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6596
+Content-Type: multipart/signed; boundary="Sig_/h._UZWDmd9PSveMVK1MCNFY";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,50 +68,168 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ma Jun <Jun.Ma2@amd.com>
+Cc: Sebastian Wick <sebastian.wick@redhat.com>, amd-gfx@lists.freedesktop.org,
+ Simon Ser <contact@emersion.fr>, dri-devel@lists.freedesktop.org,
+ Uma Shankar <uma.shankar@intel.com>, Vitaly.Prosyak@amd.com,
+ Harry Wentland <harry.wentland@amd.com>,
+ Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Checking INVOKE_CMD  to fix the below warning info when
-unload or remove amdgpu driver
+--Sig_/h._UZWDmd9PSveMVK1MCNFY
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-[  319.489809] Call Trace:
-[  319.489810]  <TASK>
-[  319.489812]  psp_ta_unload+0x9a/0xd0 [amdgpu]
-[  319.489926]  ? smu_smc_hw_cleanup+0x2f6/0x360 [amdgpu]
-[  319.490072]  psp_hw_fini+0xea/0x170 [amdgpu]
-[  319.490231]  amdgpu_device_fini_hw+0x2fc/0x413 [amdgpu]
-[  319.490398]  ? blocking_notifier_chain_unregister+0x56/0xb0
-[  319.490401]  amdgpu_driver_unload_kms+0x51/0x60 [amdgpu]
-[  319.490493]  amdgpu_pci_remove+0x5a/0x140 [amdgpu]
-[  319.490583]  ? __pm_runtime_resume+0x60/0x90
-[  319.490586]  pci_device_remove+0x3b/0xb0
-[  319.490588]  __device_release_driver+0x1a8/0x2a0
-[  319.490591]  driver_detach+0xf3/0x140
-[  319.490593]  bus_remove_driver+0x6c/0xf0
-[  319.490595]  driver_unregister+0x31/0x60
-[  319.490597]  pci_unregister_driver+0x40/0x90
-[  319.490599]  amdgpu_exit+0x15/0x44e [amdgpu]
+On Fri,  3 Feb 2023 02:07:42 +0000
+Joshua Ashton <joshua@froggi.es> wrote:
 
-Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+> From: Harry Wentland <harry.wentland@amd.com>
+>=20
+> This allows us to use strongly typed arguments.
+>=20
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> Reviewed-by: Simon Ser <contact@emersion.fr>
+>=20
+> Cc: Pekka Paalanen <ppaalanen@gmail.com>
+> Cc: Sebastian Wick <sebastian.wick@redhat.com>
+> Cc: Vitaly.Prosyak@amd.com
+> Cc: Uma Shankar <uma.shankar@intel.com>
+> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> Cc: Joshua Ashton <joshua@froggi.es>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: amd-gfx@lists.freedesktop.org
+> ---
+>  include/drm/display/drm_dp.h |  2 +-
+>  include/drm/drm_connector.h  | 48 ++++++++++++++++++------------------
+>  2 files changed, 25 insertions(+), 25 deletions(-)
+>=20
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 466054719842..5fb919cd9330 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -620,7 +620,8 @@ psp_cmd_submit_buf(struct psp_context *psp,
- 	 */
- 	if (!dev_entered)
- 		WARN_ON(psp->cmd_buf_mem->cmd_id != GFX_CMD_ID_LOAD_ASD &&
--			psp->cmd_buf_mem->cmd_id != GFX_CMD_ID_UNLOAD_TA);
-+			psp->cmd_buf_mem->cmd_id != GFX_CMD_ID_UNLOAD_TA &&
-+			psp->cmd_buf_mem->cmd_id != GFX_CMD_ID_INVOKE_CMD);
- 
- 	memset(psp->cmd_buf_mem, 0, PSP_CMD_BUFFER_SIZE);
- 
--- 
-2.25.1
+Hi,
 
+the code changes I can actually see here look good, but the test bot
+found something else to fix. I feel the disappearance of
+DRM_MODE_COLORIMETRY_NO_DATA could use an explanation in the commit
+message.
+
+I can only guess that NO_DATA comes from HDMI or DP spec or some such
+to indicate undefined or something. However, the API here repurposes
+that code point for "driver picks whatever".
+
+I suppose it's kernel style to not write out the enum values when the C
+standard rules produce the right values, but personally I think that is
+hard to review and prone to accidental breakage if someone goes to add
+a new value in the middle. Assuming these values are supposed to match
+with a spec. I have no idea if they are.
+
+
+Thanks,
+pq
+
+> diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
+> index ed10e6b6f99d..28899a03245c 100644
+> --- a/include/drm/display/drm_dp.h
+> +++ b/include/drm/display/drm_dp.h
+> @@ -1623,7 +1623,7 @@ enum dp_pixelformat {
+>   *
+>   * This enum is used to indicate DP VSC SDP Colorimetry formats.
+>   * It is based on DP 1.4 spec [Table 2-117: VSC SDP Payload for DB16 thr=
+ough
+> - * DB18] and a name of enum member follows DRM_MODE_COLORIMETRY definiti=
+on.
+> + * DB18] and a name of enum member follows &enum drm_colorimetry definit=
+ion.
+>   *
+>   * @DP_COLORIMETRY_DEFAULT: sRGB (IEC 61966-2-1) or
+>   *                          ITU-R BT.601 colorimetry format
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index 4d830fc55a3d..edef65388c29 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -371,29 +371,29 @@ enum drm_privacy_screen_status {
+>   * a colorspace property which will be created and exposed to
+>   * userspace.
+>   */
+> -
+> -/* For Default case, driver will set the colorspace */
+> -#define DRM_MODE_COLORIMETRY_DEFAULT			0
+> -/* CEA 861 Normal Colorimetry options */
+> -#define DRM_MODE_COLORIMETRY_NO_DATA			0
+> -#define DRM_MODE_COLORIMETRY_SMPTE_170M_YCC		1
+> -#define DRM_MODE_COLORIMETRY_BT709_YCC			2
+> -/* CEA 861 Extended Colorimetry Options */
+> -#define DRM_MODE_COLORIMETRY_XVYCC_601			3
+> -#define DRM_MODE_COLORIMETRY_XVYCC_709			4
+> -#define DRM_MODE_COLORIMETRY_SYCC_601			5
+> -#define DRM_MODE_COLORIMETRY_OPYCC_601			6
+> -#define DRM_MODE_COLORIMETRY_OPRGB			7
+> -#define DRM_MODE_COLORIMETRY_BT2020_CYCC		8
+> -#define DRM_MODE_COLORIMETRY_BT2020_RGB			9
+> -#define DRM_MODE_COLORIMETRY_BT2020_YCC			10
+> -/* Additional Colorimetry extension added as part of CTA 861.G */
+> -#define DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65		11
+> -#define DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER		12
+> -/* Additional Colorimetry Options added for DP 1.4a VSC Colorimetry Form=
+at */
+> -#define DRM_MODE_COLORIMETRY_RGB_WIDE_FIXED		13
+> -#define DRM_MODE_COLORIMETRY_RGB_WIDE_FLOAT		14
+> -#define DRM_MODE_COLORIMETRY_BT601_YCC			15
+> +enum drm_colorspace {
+> +	/* For Default case, driver will set the colorspace */
+> +	DRM_MODE_COLORIMETRY_DEFAULT,
+> +	/* CEA 861 Normal Colorimetry options */
+> +	DRM_MODE_COLORIMETRY_SMPTE_170M_YCC,
+> +	DRM_MODE_COLORIMETRY_BT709_YCC,
+> +	/* CEA 861 Extended Colorimetry Options */
+> +	DRM_MODE_COLORIMETRY_XVYCC_601,
+> +	DRM_MODE_COLORIMETRY_XVYCC_709,
+> +	DRM_MODE_COLORIMETRY_SYCC_601,
+> +	DRM_MODE_COLORIMETRY_OPYCC_601,
+> +	DRM_MODE_COLORIMETRY_OPRGB,
+> +	DRM_MODE_COLORIMETRY_BT2020_CYCC,
+> +	DRM_MODE_COLORIMETRY_BT2020_RGB,
+> +	DRM_MODE_COLORIMETRY_BT2020_YCC,
+> +	/* Additional Colorimetry extension added as part of CTA 861.G */
+> +	DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65,
+> +	DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER,
+> +	/* Additional Colorimetry Options added for DP 1.4a VSC Colorimetry For=
+mat */
+> +	DRM_MODE_COLORIMETRY_RGB_WIDE_FIXED,
+> +	DRM_MODE_COLORIMETRY_RGB_WIDE_FLOAT,
+> +	DRM_MODE_COLORIMETRY_BT601_YCC,
+> +};
+> =20
+>  /**
+>   * enum drm_bus_flags - bus_flags info for &drm_display_info
+> @@ -826,7 +826,7 @@ struct drm_connector_state {
+>  	 * colorspace change on Sink. This is most commonly used to switch
+>  	 * to wider color gamuts like BT2020.
+>  	 */
+> -	u32 colorspace;
+> +	enum drm_colorspace colorspace;
+> =20
+>  	/**
+>  	 * @writeback_job: Writeback job for writeback connectors
+
+
+--Sig_/h._UZWDmd9PSveMVK1MCNFY
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmPjXWMACgkQI1/ltBGq
+qqe1kRAAnvcWEx/6TdVz2dQ7iP5g7S+CMad4fGSWnuEaIoeVuNL5cquWZQ2rf4UX
+JDCjTWps6xVr0erME+02+sEpubFjmlkSqACu5vugXjha7Z0wBhHlYqHz0AYBBLfe
+g37lKT1ECKO1lKn2jpA5tjwVPRWrNQlnc38LHq8k3ouLY0yVb6TUxOSN6F8TiqHI
+cQMmcG8P9sNx7fltHmlKwQDd2DJw7pvFFfOV3nFy8/dVwjXHoVDWCKAjB113Ckpw
+v3E4Sa2UM0Js+WR/rojLUNv8R+2WtR5ZeNCBEoiRxT2v6gYsUiQvu6h63FDzTg8Y
+XVwXL0NhVp1T1Obc9CDl4+prcBGpgGBvRdGcfCHyFiDGBwWiFfTNjITNI8UmUGtp
+/R+t0m8mn2va3tp0Ks1XiPqsfPmOFX2wT4BPkZQuE+mXS/bJGBeD8zPLDIzIypF8
+YYgSYNCMVKK1pxMHIkPovMvLjZuVaq+4Bt5A4gn42EXSmFGqiUMcDh6bRmPaV28z
+evNR9LBw4gSJSwWgn/vfleNdtCdStoaqRdKfL/UObPsIH5HuxX4cteGshchZgPnw
+PWAr9jDRf+t+G8qxGgj+wI5n4dmoGgyh8i6CBx+HcUBwykecykyIHgEp3+GnJO3p
+zv/0IzdzW6l5TURLMz4hhX2UNVgUVOVw7J8Lsixc78aRSSL0RSI=
+=g+m7
+-----END PGP SIGNATURE-----
+
+--Sig_/h._UZWDmd9PSveMVK1MCNFY--
