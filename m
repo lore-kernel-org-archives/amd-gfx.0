@@ -4,117 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2D7BC636CC
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Feb 2023 04:29:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 000A2C05027
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Feb 2023 07:24:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 831F610E052;
-	Wed,  8 Feb 2023 04:29:16 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2070.outbound.protection.outlook.com [40.107.243.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C14810E052
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Feb 2023 04:29:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E9C010E69E;
+	Wed,  8 Feb 2023 07:24:45 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20603.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e88::603])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB12D10E1F9
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Feb 2023 07:24:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DVj2LUYn2aPKXdqEv7ZfOGduPUTWPGznHWhAUAllxPfnrv8PU0/j1TZBV7ab3ZtV7rMBqgCtl2aOw3nojRNsTMtmdrPkDBjk0s6fgn4swU90dWx/HcU8z57U0xrhZxjbMx8DbGipUDG4kksbKIy9xdVly8Z5hLeDiK/Ssx+syqhUc2XiwhIDbA2G8pUfAMw0WnlkrksRmuV2iJJEwD3/dVLA6nYI3VOu805/vHeIduosiHzL7pagk+PKXmTrZpAk4GvG0Jp49NODkV0Nz/6HkBioLiHXM0LD2YlUTG7cQ6suuOZU8NKzdgaWJXkslvN8HUKIVH7VTUWt4gLIYOy0+g==
+ b=Tqdpx+VTfAuE0fk7xu8kv/89NywlmE6O0ZTD65Kj839Y/8n/LzCTdoUKgcgEGOSLqC+z9vXiInrykQEfmIhUEzwSxQEisd2HcI+30GUZh58fvZ/9qk2l5OwobB2K63WVojlzd2F6gZTTOWHIxGimmjR9T9HPJfpbuYMCFu56x0gNts0Wi/DacSsIcDSM8/hzFi7hHTJuHcClFAiEAbLSwo80RsCsC4UgqOzSpkTDgYgiOCEyKK7BbPo+JXJq1VIl+VgdEDYf4dTq5hU7eOEfipIk2eQ31ovxbEE2GQqeYbiavRyGg/HK7pD1nKqJzbd2Qejb3zIxvA4VXb3kqvwzfg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=97CiBFGTzv9I4A3oMMp9cOxuiDB8ZHN76gn1eZxg5FA=;
- b=RoVghmZM3tSV+2m08ylrQnOKyZv51owWuvAfxuG7/SEkIiGHoaeX1feaXwngMdCsH3NPv8rcGMtGWNDhjMS/Bb7FWWciI+qmo5O8yXwY/nBeMfBebaicetbch++wi5PPQiCbo54LVsn0ZBOpQJamxG8OM3sJBr/pcaZO3EFkPBbzgCqhyktSv/97oHPBpLMOo95zIUMu2j6gwKF7z94s5Rms4x5TX8sLZ8qgQgym0p8bR1VanPJjs5/LzCtJNFgnxM28lhleHL4bA2UiVPGUX19tLP2sCwpCpwGIK2ZVcrVcmbZwYMRDdd9yikB4eg7cE/ApMR+M+5/3Y7gPNOkE6g==
+ bh=SllOu65PVCXWPBaHizS4hDcqWs4iWu/uJW7YS3nSyio=;
+ b=g/7Ah0BbktIe7hAaDqsNIME9Xalj353P1d0wEjpwEaTJ/EO97q+om99IS4D2MuOvBU1hfFhu5h19UsooM4p8BhNH8kXHEW1+H2JTptRHTSRiLnNQiDwiiurkIN/qR9fA0Y1n6Z0PA9VRL6DtQoCq2uZz3hPL5z8PYO5g/JemAu0fZ+Iwh5cUx1nXVboX6siDz7V6vyGzKg0XV1zfZWTPvw3pfHCzkWb3NUzParMbu9Y+1KCs2Y+/k+yw35zZNV8jwxeZ0KgT8eBRlkw9k24L5CwYw19cFYLPrN2y2lgD502BJTqYsvy0xesw9rECZgnzRqnnZw6LaFODCCZxHGtsDA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=97CiBFGTzv9I4A3oMMp9cOxuiDB8ZHN76gn1eZxg5FA=;
- b=MLko7jdTxxAylJwhXtVsOIdyvAgN1wyxnz2yTYTKAPEIBPdlstZhixZ9knrnm+nX9gUxxGq2qoDB74I9wS0Zo2c1JxiDxWVr7KsWqKA8nfjd4c6+id0aI7qXi3Bwbg5Sj2BCUVBahqdJo3vEfR5+CrZ9Bea1k+H6dJVDe6u69QQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by MW4PR12MB6921.namprd12.prod.outlook.com (2603:10b6:303:208::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.32; Wed, 8 Feb
- 2023 04:29:11 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::e6ea:9231:6d39:93da]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::e6ea:9231:6d39:93da%5]) with mapi id 15.20.6064.036; Wed, 8 Feb 2023
- 04:29:10 +0000
-Message-ID: <dd133e14-55ad-b240-1c78-27632fac6716@amd.com>
-Date: Tue, 7 Feb 2023 23:29:08 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH] drm/amdkfd: Prevent user space using both svm and kfd api
- to register same user buffer
+ bh=SllOu65PVCXWPBaHizS4hDcqWs4iWu/uJW7YS3nSyio=;
+ b=YsosNZZGSRVkjo4pL2N2wTiDjdvwJLp5FTqWSYTaPncjYTJb6DotAwHXtOa8Jy9Y9WYAJHt2iPJVZvnHbhKGgs0Ndutan4rJ/CD7SAZcV/i1oWknebOvdgeZwtJeNLI7rkj4G89J/IuDGvSm7rTUToiijpgiuqGmvhPHcJOjx7I=
+Received: from DM4PR12MB5294.namprd12.prod.outlook.com (2603:10b6:5:39e::15)
+ by IA1PR12MB7685.namprd12.prod.outlook.com (2603:10b6:208:423::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.36; Wed, 8 Feb
+ 2023 07:24:40 +0000
+Received: from DM4PR12MB5294.namprd12.prod.outlook.com
+ ([fe80::9f2c:ea32:ce3f:8e3f]) by DM4PR12MB5294.namprd12.prod.outlook.com
+ ([fe80::9f2c:ea32:ce3f:8e3f%3]) with mapi id 15.20.6086.017; Wed, 8 Feb 2023
+ 07:24:40 +0000
+From: "Yin, Tianci (Rico)" <Tianci.Yin@amd.com>
+To: "Wentland, Harry" <Harry.Wentland@amd.com>, "Mahfooz, Hamza"
+ <Hamza.Mahfooz@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amd/display: Align num_crtc to max_streams
+Thread-Topic: [PATCH] drm/amd/display: Align num_crtc to max_streams
+Thread-Index: AQHZOqmLwZa5fBc1kU2dh4hTxSQxRa7Dcu2AgAAZaICAAALbAIAAG0cAgAD6EOw=
+Date: Wed, 8 Feb 2023 07:24:39 +0000
+Message-ID: <DM4PR12MB52941358E6107112E350A6C195D89@DM4PR12MB5294.namprd12.prod.outlook.com>
+References: <20230207040524.4020763-1-tianci.yin@amd.com>
+ <8d9869ff-a674-fef6-5422-db444ec2d125@amd.com>
+ <25a2f7fb-f701-fd32-a37d-4222b6242a11@amd.com>
+ <803fd250-a96e-96ad-f1f7-4f867e7b74fd@amd.com>
+ <4f49d41f-2bd6-af90-f469-01df9cc43317@amd.com>
+In-Reply-To: <4f49d41f-2bd6-af90-f469-01df9cc43317@amd.com>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
-To: "Chen, Xiaogang" <xiaogang.chen@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230207203504.879056-1-xiaogang.chen@amd.com>
- <3c62317d-7ef8-9f5d-4ca3-1b1bb9d56b14@amd.com>
- <d0043f07-183b-f6ca-c97b-faf45cde3ce8@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <d0043f07-183b-f6ca-c97b-faf45cde3ce8@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0181.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:110::8) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|MW4PR12MB6921:EE_
-X-MS-Office365-Filtering-Correlation-Id: 389481c5-2e60-44da-2230-08db098d0681
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: WRi1uG0Iphi4srd4x9oD3vmotGYfUlc/tsSLptTPaFJcYbVj1ENKiumg8HSG6uJb5pCquVO8fwz3ctT+4INv9raBRI9w0qto6M7y7RiuHzwA3IKhgyQtqrT2h/cjtpzhrarPzVd+02lWfAr+zLXOnd/rO9QN6fBMU4vO9HFRMHClH1j9pNU/j/TvUgcB4jY1JIQBYasZ0FB7uC+n0J7qt9Vxi+TTPaK/YQ3+Pvq0DC8wm0HIP1e7Oo7iBLeNvZUgc9Fxo4/73fH5mvzXZpiLJJvpEec4pfrx1FB91UGJY/Bg1TmMxtFo99rZlWBQ+tcHDGNxSAaHYbrZgzm7Bpw/ur50qo91RP1gNXjJXBtYtYqDmS6oz32EFtCaE0iMqr9Hg81sDv32IDRQDcrIaiBuBr1oE3CERHp8DuQwaF7DNPVw9C60Jy69TMY5FKCo1a30JvSfQ0aFl0NbbSgbm4hWMAS8NuJOIPfO/XjrBjcSIofjfZus7x8+cN+p81GolNrcW/qRCdp4poYbcp1ojDq3MIP+Vje390uXMjln36XG3YmFjvV+X3qhCEpAT6/GTPrjOrm4wGEm9/mZBFbbaqwd4c6ejliwFQxIDgQztKq8x58jmkSCGS7OriHjxeGm/9yOtWno2jOmRdRirqulBncAhgumZBNqqEhKMI9CMbosVTH1/tql9gLQtXT1uLysgtbmWz9H6Z2BC0BcwfBSGiYn1TsRticPH5grxui5Gn3MAhI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(39860400002)(346002)(366004)(396003)(136003)(376002)(451199018)(2906002)(31696002)(44832011)(5660300002)(38100700002)(6486002)(478600001)(31686004)(6506007)(53546011)(186003)(83380400001)(26005)(6512007)(36756003)(86362001)(41300700001)(66476007)(66556008)(8936002)(66946007)(316002)(2616005)(8676002)(43740500002)(45980500001);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-02-08T07:24:41.012Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB5294:EE_|IA1PR12MB7685:EE_
+x-ms-office365-filtering-correlation-id: c727d693-5f26-4347-7048-08db09a58a6c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: qm/mOIYGJ429WRZvVRY3OlDDlgx49rV7ITF+seiysmSfBWHnJ73nGUuDpv5rD5F5y8Dp5EOC98HdrM6Mejp61+Ig+1dLRLVnva2PPFXmkzZw4QeRt6TfPa1bSKEupygnWbLbN/IOBshwdEGRM6BUPtFBx3Y2Sd9THtMl5HtFdkeNkJeCzbPoCw5VRmG7/8sANVpIdUqc0g4xd2OLAJsAbVHElNjjz0mkiiLXzTbtJZhDnsoxCNsiox0l6ddLPp8P+U8xGv2oGMBF8eXrFEDVuybYdnDWC9jQEAP92Zuluy0Sph7BCctBtzYcpvQoQdFoRPIqGrSjg45WNnEfKK3YDotdpAtymQTexd6gcsWJrIEVJCpuT8UNvKpW1y51gBqOm4guX9dDJmfmB/fNa5u59AFcO7euCvu8GQ4JHSe+1OPCpuVTd0QSxXxUcQUdKBdJAtVxxFdj9YhoAWf3kE2Td7EmS0CY5pzqvO2I3Qi10O3sZ2nP1+m6CE2IAaKH9woouh83IAN6SLSQti4Jrogl2XNty9+y9+NGxOx7hihDwWa4lQtN/AGbZOyeBTAIznR59T38WL6bzYAgiSpDNaPI5BZWsRacpQ4H/VprFOPi2C7GRkdF0aFF/hwtsK8LmfEuxmkGId1eG8pHcygiyGuyY+R2ldhZh9xbLpR5lylZu6WhNNc2KvUMZbwnvlm2Q8Cwrl7cVTaJ/qWVlRrTkelidg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5294.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(346002)(136003)(39860400002)(396003)(366004)(376002)(451199018)(5660300002)(6506007)(86362001)(19627405001)(53546011)(38070700005)(9686003)(26005)(186003)(8936002)(2906002)(8676002)(66946007)(64756008)(66446008)(66556008)(66476007)(4326008)(76116006)(91956017)(122000001)(38100700002)(41300700001)(316002)(55016003)(52536014)(478600001)(71200400001)(7696005)(54906003)(110136005)(33656002)(83380400001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NmhDTXoxQmZkR3RKSlNXdDNUNjhsaE5HQ0YxcGVpK1RXZldyR1Mrd1R0Uzls?=
- =?utf-8?B?NU15aHRrcENVdWNJYkxMSXQ3WFdTOExTaHV6UlRBTW1ya3JLV1RLYTdvNmRz?=
- =?utf-8?B?UVA4cGF6V29JWUVwQmNsRVZkaG5FUzlDM05OeE1pUE00eUo4N0FxaE95azBP?=
- =?utf-8?B?UGN3QnFZK044ZTlzL1NWZnNLRUNhQjJHaEIyaVN3bWRobFRQRXNvTndiUk9J?=
- =?utf-8?B?cDY5NTU0a1cyRzNZNnM4RTRZVk9PLy9ML3N0SEdzZmtsZUpSQUN6ZklEdGVm?=
- =?utf-8?B?OGhUWWtleFdGeDdZVzg2WnNTeHZmSVJOZzdxdnhCTndxbXVUTnVjSkdKdENp?=
- =?utf-8?B?NHJjcHdqNXM2azZzZGRaSnlWeUQ2c1FPZjVsaG9EeWNwUEhtQzFZVTJ1eE5T?=
- =?utf-8?B?TWdvc2ZnVkNuTDl3N2RIMmVWeTE3d0FydXIvY2NVN1JVeWt1TUpMZE93UUtY?=
- =?utf-8?B?alVnc1JtYmtHNjkxaTJ1RC81RERCVnZaOHgxNU9TNlJGemlnK2NOUVJFSytH?=
- =?utf-8?B?c1FxM0pQeDI4QXdXWkJIcDJmYS9idWYyd3FRL2FyQmRsY1piMm1qYkV5R29n?=
- =?utf-8?B?SWx0c2JTWk1zQTVIM2VHMS9wWU9QOFU0QUp2YXBHTHNTbysxaFF0TGtzcDF6?=
- =?utf-8?B?QUx2UklDdXc3SkZmSkpQbmg2NjBlUkgvRVZPM1MvelUzVXNDZG5YRjdYSmtx?=
- =?utf-8?B?UXp0aElYVGt0VGxFdUpOWkdsd28vVVNPQzRTczlsbkY0UENzQUV1dkFoeWtl?=
- =?utf-8?B?bzRodHU0QU1qZjNFVFQrckhFMGRmeEZFYXpKTWxidmtoK3I5di8vWGtaZDI3?=
- =?utf-8?B?azRneS95SUFxZVdTTWpSeW45SVVtb2ZSRkNwTkZ1aHhoQkFpRk9PWEhTczIz?=
- =?utf-8?B?VWg1Y0d6M2dRZnI2dml1RFllUnlleVZrRithSUFQZE1UcUF0RHUrQUpNYm9Z?=
- =?utf-8?B?bzU5d3R4ekVaelBEeEJkUG9PcHlYWWVGWU44SDBBVVloV2IzelpMWHp6dGdj?=
- =?utf-8?B?cE1ibkMwcDBmcms4SFBQS3NHblJNSmZsNjBrc1VKUm9EUWNMVkNmMk5WbHZ1?=
- =?utf-8?B?LzBxaVBnNTNJSmhyeVY5cFJWWSsrcE4wYmJYRmJ6a3JVNUo2VXBmL2h3R1hk?=
- =?utf-8?B?OXVxSUNobTAvR2tua3IyUkNkbmJEYXJxVG1idnBZVWROZU9UL2lQQmdrUFRj?=
- =?utf-8?B?M1o3MC9YdnBjZmdVWnNRdkpIR1VCYmxacmxsOGdrdXZpUE5KL09rUVdqOWRh?=
- =?utf-8?B?Rlo3aWpQNUFWbnY4UktRSDhmOTVKcGhhaU9wbUx1bDFPMk94dXdmcm1RV1Vn?=
- =?utf-8?B?RTFkZmRnb1Y4VGM4YW5wYTdKVC92QUZka2ZVUEw0ZTFGUE93MTFzWk5hcDVK?=
- =?utf-8?B?aUlDWVhuNnJhcFAyeGpKZkNCOEZIdHFHaGVjd3JuQjhZWDhGNS9MaytiTklO?=
- =?utf-8?B?U3doMWFoRzRtNzZzYmFNakFkS00zWExEMHljV3cxK2s3YmJUelRvNU5ULzRo?=
- =?utf-8?B?Y0pGSnpwWWN0a09Wbmd5N1NPUnNMZXYxM2ZDZDBTWW9yVm13RVJlN3p2dTd5?=
- =?utf-8?B?N1pLR2hpUUhaTXpGNk9oRVlqT1hDaUlBZkNmenlQeXJlb05RS0d1T1pvNVlr?=
- =?utf-8?B?L1ZqdUozYlU4V0s1ZXhrSXZmSGVnbjQ3WURsclNiczRBdDJ2VTVLWXdVYlJL?=
- =?utf-8?B?eHpYUzN0OWd1bEUvNEt0RlFKakFLUjIrTE0zb01DWVBtdjh6TmVNbEpIU25D?=
- =?utf-8?B?a1dJbGFCc1FtM0pTVkhocTZtditqS1doTXQvbE14MFF5MjJXN0VtOHlFd055?=
- =?utf-8?B?dWlKNWpQRktiWXZ6K3d4TVo1eHdjeWlkZm5vSnpKTHNYN3FHU3kxOGlFMldH?=
- =?utf-8?B?Nzh4Wmd2VXU3SDcrajJiUkxWei8vS3ZmNHhmNkhObS9DMDl6RTZnQUxTZmds?=
- =?utf-8?B?YitBYXNjWG9sQ2RpeVZkU0FVTFk1STVEM2xMdTJVUWE4SzdBSHpWR3crRlph?=
- =?utf-8?B?OTVkR09JR1hkZnlHVkVwQlVzQlo5RDVVenFaU1FNenZyaTQ5R21HZndSa08x?=
- =?utf-8?B?b2hqMTRQSkZkU3F5YVM0L1V2NkV3T1hSblFsR3kvenpRL1VNaHVtN1EwTENm?=
- =?utf-8?Q?3EtjduGGodYoZc7YVawYXLskq?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?BfAJwheFLNBtGsyoxTKjrqiCgCv2I652J66FuZlK+ji3tnulW6IbbvjQFZrv?=
+ =?us-ascii?Q?8L/vm0tyAblrnwJAbhIxZTto/mInUXu7REgNvb3N6y0s1KaQcEwNibmp7JU3?=
+ =?us-ascii?Q?wtSbCVikqmb5V25XKwrQ+7ZHAw/ZG7/bY7df0RAyQWbboBA+rH0qKVemh0hJ?=
+ =?us-ascii?Q?EWHZ1K/zyxm4+hGhqiKTnlez3IL2EMUSUIqeDwYNCNqwHJxVyqX6I/ZqaK1P?=
+ =?us-ascii?Q?sGadZxYLypP7o6tQUC+HnaZSjI4Ce9dDb8jSUp60nBaayV4TV7NNbaJyvMm7?=
+ =?us-ascii?Q?PRmmQTdSXnrQCVS92zWhkv03wF/bxWz0haHY4inrZOV0VVL24ACqZ77fMz4R?=
+ =?us-ascii?Q?9o1i53UTqXMSelRMnJnDVEdTzQzUkAbOKG05LuPncFIgw/7lmfhhMI77Yzvv?=
+ =?us-ascii?Q?Ixor+fzYypbVOdkGGFBT+arMsQd82XSgwoDj4u+RSuhk9x4WPIL73jyvwP4x?=
+ =?us-ascii?Q?ynacDYkbpZMcUVjiOC39AmT5bmetw/8iHCNycfJb6+5nGQyVc/Fabm1D8VvO?=
+ =?us-ascii?Q?PC+1IK8AWDXuiwmrq6o2nAaEje/DJwDMB4/7NgBATaIpQyzlYy2Se/xtcfg3?=
+ =?us-ascii?Q?J7zzdYYazQ3Ed0GTvtNjvruersYrVbdgtvUdQDIiBlEBDa7OZqDkEgGBywB4?=
+ =?us-ascii?Q?Cv2IlhK5GzE6prWNsRR/Hj0i7cyWHMGrrC9V5CJ6/MiCzszlMPDD0TOFf8wj?=
+ =?us-ascii?Q?OS6ZnEVQK4FaAD2YYcyzlfxvRsML6jRJ8I41fEKQSEn27jfussommj+wpaLA?=
+ =?us-ascii?Q?WYNkaMKIC2UaJqGSTGd6coGO2gawcfLm1cdT1ZU8B+2KkCYWv3C//66hr8uE?=
+ =?us-ascii?Q?or0rioSSekBA0NqLMghu5D+9ubJvD6rev+bhR87kajE1MO36eDGIOAnm4Te6?=
+ =?us-ascii?Q?oinjf5WcBFU7hft5G7JW6DrYNjNTwjle/Jwt5RWZ5jydZjoKuf2nO4aRJ5Vy?=
+ =?us-ascii?Q?oUG2tA5Oeam00+aFK484lpUTKQVRhzqQMszEapcLgY/9TjeP4sUvLJeaG9Yz?=
+ =?us-ascii?Q?4OsarBTgCihaYFey2n5lBQLTDipAjKGX3b9PSg9zF01G2ys5JkCuPq6V4qop?=
+ =?us-ascii?Q?Un1mpqRPM4sPaodU8eQoA61xxGFUnx9mX6kpw7n/hr8mN0mlreAu2B4E3Mub?=
+ =?us-ascii?Q?8Qn1i3oXxrcMND+8QKz/r9agjXjFbCgYpXhAXrnZUA5CQl9ySEYEPYePqo/T?=
+ =?us-ascii?Q?4shJ8SUcaI21/4gka8Mm+VTKtLjg2ECi8SBu5Dcn0QsO1TWUnwmHeDhn6r2h?=
+ =?us-ascii?Q?x12e5/s04++LtbSDoQb9wBEDrcXlVL1pIfPVS3SC+5MttkYvx+IzkJdq6wra?=
+ =?us-ascii?Q?re/BD8q9FK5t0HMmt8u12CKVm1boOFukWvpAz3ntYUyjc4xH1PffGUmXRiff?=
+ =?us-ascii?Q?CXYvD/ZuOJqg8iTl5jqyy6sksjizYSc35ZmqCWnC9//5dV03hMRtb73z/vDf?=
+ =?us-ascii?Q?k0GIsK0OaF3ix/Vuvnu/wQdJ76GVdGpQ9LYaN6L4b3sYXexzB1w8zWy7oD4c?=
+ =?us-ascii?Q?hksndYHiuavN5engnlUoQyjaTdHxgcjJ6Fd2S3Z0eK61rPlds7lvAx8VFVFA?=
+ =?us-ascii?Q?Y8yIHf2/FP6/xLyBMUg=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_DM4PR12MB52941358E6107112E350A6C195D89DM4PR12MB5294namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 389481c5-2e60-44da-2230-08db098d0681
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2023 04:29:10.8784 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LD79sOz3LzMrdeP3aQ+1zHZOx/gRxy3AU/Cx+HxKE/Kl0DcR6AsOy0VVN1CNfTD+0+HIHN6Nt7ai05M7l2Lneg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6921
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5294.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c727d693-5f26-4347-7048-08db09a58a6c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Feb 2023 07:24:39.9360 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9xnj/A89O5Iiz+3ZllXa/vGuuiqy/5esoqHsyhtn55ts9QL0hF/DYg5sYcsZhQzP581GxhRYMszKR7JNV7MWHA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7685
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,97 +127,333 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Wang, Yu \(Charlie\)" <Yu.Wang4@amd.com>, "Pillai,
+ Aurabindo" <Aurabindo.Pillai@amd.com>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 2023-02-07 um 18:36 schrieb Chen, Xiaogang:
->
-> On 2/7/2023 2:48 PM, Felix Kuehling wrote:
->>
->> Am 2023-02-07 um 15:35 schrieb Xiaogang.Chen:
->>> From: Xiaogang Chen <xiaogang.chen@amd.com>
->>>
->>> When xnack is on user space can use svm page restore to set a vm 
->>> range without
->>> setup it first, then use regular api to register. Currently kfd api 
->>> and svm are
->>> not interoperable. We already have check on that, but for user 
->>> buffer the mapping
->>> address is not same as buffer cpu virtual address. Add checking on 
->>> that to
->>> avoid error propagate to hmm.
->>>
->>> Signed-off-by: Xiaogang Chen <Xiaogang.Chen@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 17 +++++++++++++++++
->>>   1 file changed, 17 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c 
->>> b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->>> index f79b8e964140..cb7acb0b9b52 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->>> @@ -1065,6 +1065,23 @@ static int 
->>> kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
->>>           mutex_unlock(&p->svms.lock);
->>>           return -EADDRINUSE;
->>>       }
->>> +
->>> +    /* When register user buffer check if it has been registered by 
->>> svm by
->>> +     * buffer cpu virtual address.
->>> +     */
->>> +    if (flags & KFD_IOC_ALLOC_MEM_FLAGS_USERPTR) {
->>> +
->>> +        if (interval_tree_iter_first(&p->svms.objects,
->>> +                untagged_addr(args->mmap_offset) >> PAGE_SHIFT,
->>> +                (untagged_addr(args->mmap_offset) + args->size - 1) 
->>> >> PAGE_SHIFT)) {
->>
->> Instead of nesting two if-blocks, you can write this as a single 
->> if-block like
->>
->>     if ((flags & KFD_IOC_ALLOC_MEM_FLAGS_USERPTR) &&
->>         interval_tree_iter_first(&p->svms.objects,
->>                      untagged_addr(args->mmap_offset) >> PAGE_SHIFT,
->>                      (untagged_addr(args->mmap_offset)  + args->size 
->> - 1) >> PAGE_SHIFT) {
->>
->> I'm also not sure untagged_addr is needed here. If it is, we're 
->> missing it in a bunch of other places too. Most notably, we don't 
->> untag pointers anywhere in the SVM API.
-> memory virtual address tagging is architecture dependent. Ex: if 
-> virtual address is 48bits and use 64bits pointer, people can use 
-> additional bits for different purpose. From kernel source tree seems 
-> only arm64 and sparc define untagged_addr that are not noop. For other 
-> architectures it is defined as noop. I think we want have it if run on 
-> different architecture cpu.
+--_000_DM4PR12MB52941358E6107112E350A6C195D89DM4PR12MB5294namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Fair enough. But it has to be consistent. If the SVM code fills the 
-interval tree with tagged addresses, we can't look for untagged 
-addresses here. Given that the SVM code currently uses (potentially) 
-tagged addresses, we should not use untagged addresses here. A proper 
-fix for untagging addresses in the SVM code would be needed as a 
-separate commit.
+[AMD Official Use Only - General]
+
+Thank you very much Harry and Hamza.
+
+You are right,  adev->mode_info.num_crtc has already been updated, the vari=
+ables that really need updating are
+adev->mode_info.num_crtc, adev->vline0_irq.num_types, adev->vupdate_irq.num=
+_types and adev->pageflip_irq.num_types.
+
+I have made a new patch with title "drm/amd/display: fix dm irq error messa=
+ge in gpu recover", please help to review.
 
 Regards,
-   Felix
+Rico
+________________________________
+From: Wentland, Harry <Harry.Wentland@amd.com>
+Sent: Wednesday, February 8, 2023 0:19
+To: Mahfooz, Hamza <Hamza.Mahfooz@amd.com>; Yin, Tianci (Rico) <Tianci.Yin@=
+amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Wang, Yu (Charlie) <Yu.Wang4@amd.com>; Siqueira, Rodrigo <Rodrigo.Sique=
+ira@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd.com>
+Subject: Re: [PATCH] drm/amd/display: Align num_crtc to max_streams
 
 
+
+On 2/7/23 09:41, Hamza Mahfooz wrote:
+>
+> On 2/7/23 09:31, Harry Wentland wrote:
 >>
->> Regards,
->>   Felix
 >>
+>> On 2/7/23 08:00, Hamza Mahfooz wrote:
+>>>
+>>> On 2/6/23 23:05, Tianci Yin wrote:
+>>>> From: tiancyin <tianci.yin@amd.com>
+>>>>
+>>>> [Why]
+>>>> Display pipe might be harvested on some SKUs, that cause the
+>>>> adev->mode_info.num_crtc mismatch with the usable crtc number,
+>>>> then below error dmesgs observed after GPU recover.
+>>>>
+>>>>     *ERROR* amdgpu_dm_set_crtc_irq_state: crtc is NULL at id :3
+>>>>     *ERROR* amdgpu_dm_set_crtc_irq_state: crtc is NULL at id :3
+>>>>     *ERROR* amdgpu_dm_set_crtc_irq_state: crtc is NULL at id :3
+>>>>     *ERROR* amdgpu_dm_set_pflip_irq_state: crtc is NULL at id :3
+>>>>     *ERROR* amdgpu_dm_set_pflip_irq_state: crtc is NULL at id :3
+>>>>     *ERROR* amdgpu_dm_set_pflip_irq_state: crtc is NULL at id :3
+>>>>     *ERROR* amdgpu_dm_set_pflip_irq_state: crtc is NULL at id :3
+>>>>     *ERROR* amdgpu_dm_set_vupdate_irq_state: crtc is NULL at id :3
+>>>>     *ERROR* amdgpu_dm_set_vupdate_irq_state: crtc is NULL at id :3
+>>>>     *ERROR* amdgpu_dm_set_vupdate_irq_state: crtc is NULL at id :3
+>>>>
+>>>> [How]
+>>>> The max_streams is limited number after pipe fuse, align num_crtc
+>>>> to max_streams to eliminate the error logs.
+>>>>
+>>>> Signed-off-by: tiancyin <tianci.yin@amd.com>
+>>>> ---
+>>>>    drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +++
+>>>>    1 file changed, 3 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drive=
+rs/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>>> index b31cfda30ff9..87ec2574cc09 100644
+>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>>>> @@ -4285,6 +4285,9 @@ static int amdgpu_dm_initialize_drm_device(struc=
+t amdgpu_device *adev)
+>>>>            break;
+>>>>        }
+>>>>    +    /* Adjust the crtc number according to the DCN pipe fuse. */
+>>>> +    adev->mode_info.num_crtc =3D dm->dc->caps.max_streams;
+>>>
+>>> This would introduce array-out-bounds issues, since there are arrays of
+>>> size AMDGPU_MAX_CRTCS that use num_crtc as a bounds check.
 >>
->>> +
->>> +            pr_err("User Buffer Address: 0x%llx already allocated 
->>> by SVM\n",
->>> +                untagged_addr(args->mmap_offset));
->>> +            mutex_unlock(&p->svms.lock);
->>> +            return -EADDRINUSE;
->>> +        }
->>> +
->>> +    }
->>>       mutex_unlock(&p->svms.lock);
->>>   #endif
->>>       mutex_lock(&p->mutex);
+>>  From what I can tell max_streams is always <=3D AMDGPU_MAX_CRTCS (6),
+>> though we're not checking. Maybe it'd be good to check and print a
+>> DRM_ERROR here if that's ever not the case (e.g., if we ever add
+>> any new ASIC that has more streams).
+>
+> I have had UBSAN warns before commit d633b7a25fbe ("drm/amd/display: fix
+> possible buffer overflow relating to secure display") was applied, so it
+> seems to already be the case, maybe due to virtual streams.
+>
+
+Interesting.
+
+On closer look I'm not sure why this patch is needed. We already
+do exactly what this patch does at the beginning of
+amdgpu_dm_initialize_drm_device:
+
+>        dm->display_indexes_num =3D dm->dc->caps.max_streams;
+>        /* Update the actual used number of crtc */
+>        adev->mode_info.num_crtc =3D adev->dm.display_indexes_num;
+
+Harry
+
+>>
+>> Harry
+>>
+>>>
+>>>> +
+>>>>        for (i =3D 0; i < dm->dc->caps.max_streams; i++)
+>>>>            if (amdgpu_dm_crtc_init(dm, mode_info->planes[i], i)) {
+>>>>                DRM_ERROR("KMS: Failed to initialize crtc\n");
+>>>
+>>
+>
+
+
+--_000_DM4PR12MB52941358E6107112E350A6C195D89DM4PR12MB5294namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only - General]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class=
+=3D"elementToProof">
+Thank you very much Harry and Hamza.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class=
+=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class=
+=3D"elementToProof ContentPasted0 ContentPasted1 ContentPasted2 ContentPast=
+ed3 ContentPasted4">
+You are right,&nbsp; adev-&gt;mode_info.num_crtc has already been updated, =
+the variables that really need updating are</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class=
+=3D"elementToProof ContentPasted0 ContentPasted1 ContentPasted2 ContentPast=
+ed3 ContentPasted4">
+adev-&gt;mode_info.num_crtc, adev-&gt;vline0_irq.num_types, adev-&gt;vupdat=
+e_irq.num_types and adev-&gt;pageflip_irq.num_types.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class=
+=3D"elementToProof ContentPasted0 ContentPasted1 ContentPasted2 ContentPast=
+ed3 ContentPasted4">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class=
+=3D"elementToProof ContentPasted0 ContentPasted1 ContentPasted2 ContentPast=
+ed3 ContentPasted4 ContentPasted5">
+I have made a new patch with title &quot;drm/amd/display: fix dm irq error =
+message in gpu recover&quot;, please help to review.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class=
+=3D"elementToProof ContentPasted0 ContentPasted1 ContentPasted2 ContentPast=
+ed3 ContentPasted4 ContentPasted5">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class=
+=3D"elementToProof ContentPasted0 ContentPasted1 ContentPasted2 ContentPast=
+ed3 ContentPasted4 ContentPasted5">
+Regards,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class=
+=3D"elementToProof ContentPasted0 ContentPasted1 ContentPasted2 ContentPast=
+ed3 ContentPasted4 ContentPasted5">
+Rico</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Wentland, Harry &lt;H=
+arry.Wentland@amd.com&gt;<br>
+<b>Sent:</b> Wednesday, February 8, 2023 0:19<br>
+<b>To:</b> Mahfooz, Hamza &lt;Hamza.Mahfooz@amd.com&gt;; Yin, Tianci (Rico)=
+ &lt;Tianci.Yin@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@list=
+s.freedesktop.org&gt;<br>
+<b>Cc:</b> Wang, Yu (Charlie) &lt;Yu.Wang4@amd.com&gt;; Siqueira, Rodrigo &=
+lt;Rodrigo.Siqueira@amd.com&gt;; Pillai, Aurabindo &lt;Aurabindo.Pillai@amd=
+.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/display: Align num_crtc to max_streams<=
+/font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText"><br>
+<br>
+On 2/7/23 09:41, Hamza Mahfooz wrote:<br>
+&gt; <br>
+&gt; On 2/7/23 09:31, Harry Wentland wrote:<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; On 2/7/23 08:00, Hamza Mahfooz wrote:<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; On 2/6/23 23:05, Tianci Yin wrote:<br>
+&gt;&gt;&gt;&gt; From: tiancyin &lt;tianci.yin@amd.com&gt;<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; [Why]<br>
+&gt;&gt;&gt;&gt; Display pipe might be harvested on some SKUs, that cause t=
+he<br>
+&gt;&gt;&gt;&gt; adev-&gt;mode_info.num_crtc mismatch with the usable crtc =
+number,<br>
+&gt;&gt;&gt;&gt; then below error dmesgs observed after GPU recover.<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; &nbsp;&nbsp;&nbsp; *ERROR* amdgpu_dm_set_crtc_irq_state: c=
+rtc is NULL at id :3<br>
+&gt;&gt;&gt;&gt; &nbsp;&nbsp;&nbsp; *ERROR* amdgpu_dm_set_crtc_irq_state: c=
+rtc is NULL at id :3<br>
+&gt;&gt;&gt;&gt; &nbsp;&nbsp;&nbsp; *ERROR* amdgpu_dm_set_crtc_irq_state: c=
+rtc is NULL at id :3<br>
+&gt;&gt;&gt;&gt; &nbsp;&nbsp;&nbsp; *ERROR* amdgpu_dm_set_pflip_irq_state: =
+crtc is NULL at id :3<br>
+&gt;&gt;&gt;&gt; &nbsp;&nbsp;&nbsp; *ERROR* amdgpu_dm_set_pflip_irq_state: =
+crtc is NULL at id :3<br>
+&gt;&gt;&gt;&gt; &nbsp;&nbsp;&nbsp; *ERROR* amdgpu_dm_set_pflip_irq_state: =
+crtc is NULL at id :3<br>
+&gt;&gt;&gt;&gt; &nbsp;&nbsp;&nbsp; *ERROR* amdgpu_dm_set_pflip_irq_state: =
+crtc is NULL at id :3<br>
+&gt;&gt;&gt;&gt; &nbsp;&nbsp;&nbsp; *ERROR* amdgpu_dm_set_vupdate_irq_state=
+: crtc is NULL at id :3<br>
+&gt;&gt;&gt;&gt; &nbsp;&nbsp;&nbsp; *ERROR* amdgpu_dm_set_vupdate_irq_state=
+: crtc is NULL at id :3<br>
+&gt;&gt;&gt;&gt; &nbsp;&nbsp;&nbsp; *ERROR* amdgpu_dm_set_vupdate_irq_state=
+: crtc is NULL at id :3<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; [How]<br>
+&gt;&gt;&gt;&gt; The max_streams is limited number after pipe fuse, align n=
+um_crtc<br>
+&gt;&gt;&gt;&gt; to max_streams to eliminate the error logs.<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; Signed-off-by: tiancyin &lt;tianci.yin@amd.com&gt;<br>
+&gt;&gt;&gt;&gt; ---<br>
+&gt;&gt;&gt;&gt; &nbsp;&nbsp; drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_=
+dm.c | 3 +++<br>
+&gt;&gt;&gt;&gt; &nbsp;&nbsp; 1 file changed, 3 insertions(+)<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_=
+dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+&gt;&gt;&gt;&gt; index b31cfda30ff9..87ec2574cc09 100644<br>
+&gt;&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br=
+>
+&gt;&gt;&gt;&gt; +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br=
+>
+&gt;&gt;&gt;&gt; @@ -4285,6 +4285,9 @@ static int amdgpu_dm_initialize_drm_=
+device(struct amdgpu_device *adev)<br>
+&gt;&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; break;<br>
+&gt;&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt;&gt;&gt; &nbsp;&nbsp; +&nbsp;&nbsp;&nbsp; /* Adjust the crtc number=
+ according to the DCN pipe fuse. */<br>
+&gt;&gt;&gt;&gt; +&nbsp;&nbsp;&nbsp; adev-&gt;mode_info.num_crtc =3D dm-&gt=
+;dc-&gt;caps.max_streams;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; This would introduce array-out-bounds issues, since there are =
+arrays of<br>
+&gt;&gt;&gt; size AMDGPU_MAX_CRTCS that use num_crtc as a bounds check.<br>
+&gt;&gt;<br>
+&gt;&gt; &nbsp;From what I can tell max_streams is always &lt;=3D AMDGPU_MA=
+X_CRTCS (6),<br>
+&gt;&gt; though we're not checking. Maybe it'd be good to check and print a=
+<br>
+&gt;&gt; DRM_ERROR here if that's ever not the case (e.g., if we ever add<b=
+r>
+&gt;&gt; any new ASIC that has more streams).<br>
+&gt; <br>
+&gt; I have had UBSAN warns before commit d633b7a25fbe (&quot;drm/amd/displ=
+ay: fix<br>
+&gt; possible buffer overflow relating to secure display&quot;) was applied=
+, so it<br>
+&gt; seems to already be the case, maybe due to virtual streams.<br>
+&gt; <br>
+<br>
+Interesting.<br>
+<br>
+On closer look I'm not sure why this patch is needed. We already<br>
+do exactly what this patch does at the beginning of<br>
+amdgpu_dm_initialize_drm_device:<br>
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dm-&gt;display_indexes_num =
+=3D dm-&gt;dc-&gt;caps.max_streams;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Update the actual used nu=
+mber of crtc */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mode_info.num_crtc =
+=3D adev-&gt;dm.display_indexes_num;<br>
+<br>
+Harry<br>
+<br>
+&gt;&gt;<br>
+&gt;&gt; Harry<br>
+&gt;&gt;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; +<br>
+&gt;&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; =
+dm-&gt;dc-&gt;caps.max_streams; i++)<br>
+&gt;&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; if (amdgpu_dm_crtc_init(dm, mode_info-&gt;planes[i], i)) {<br>
+&gt;&gt;&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;KMS: Failed to initialize crtc\n=
+&quot;);<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;<br>
+&gt; <br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_DM4PR12MB52941358E6107112E350A6C195D89DM4PR12MB5294namp_--
