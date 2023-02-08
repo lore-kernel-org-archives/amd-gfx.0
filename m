@@ -4,54 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31785C05027
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Feb 2023 14:27:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B7A4C636CC
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Feb 2023 14:49:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE11110E793;
-	Wed,  8 Feb 2023 14:27:08 +0000 (UTC)
-Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
- [IPv6:2607:f8b0:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAEB210E793
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Feb 2023 14:27:07 +0000 (UTC)
-Received: by mail-oi1-x236.google.com with SMTP id bd6so6612370oib.6
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Feb 2023 06:27:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=21o+YQOfHINSR7K/UMHgSkPWDb915ld6L1Sa3XQ8rTA=;
- b=ms7M3t53dMZQZL7Vl3z3EEM/I0OPgj9rbB22qrsLjnXV5rYVzJgKtbDY4CTo+urr2h
- Ef36HTxo1XU/DMgt7LbzlUBt0avB1wTjoPJt2E58hHCVKqQS7tTWNCghv8RXPVVYycF9
- 0LZdSA51ez5mhIfz2Y5QmMvA9tqP//f3Nk0SUXiaHdpiZVWPsby7Van4pOMuOMxKHL1l
- DxJh3PrRLLNywsP+zAfSb1pbwHj8uDVOAGKH6Nuo6b9i9PTO6A7TbnK0izwkUFE+CP9D
- 2mewyE68PdYvI15fXlN4cDO/XgE7HTQ3DX+M6ysGjgnxF27rDumWGPBDHes/LXhnzsCS
- Hg8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=21o+YQOfHINSR7K/UMHgSkPWDb915ld6L1Sa3XQ8rTA=;
- b=XgJZj+XTo6eabNwrcODgG+PGTTHvpXdWelHUpwijMIbzoSTtQi11eNMPMxeN/3gVIq
- TWh3t4DggDLc08YfK2IWQHShNfwA/rPs712/j92fmTO7EOVpeHVd3Vep3kEl/drnKKpD
- j/YeAzkqq+gVt66+JmBl7zlOf+Tj5Gm9fWcOX7JPxSnjshxXc6IRdb4nga3QXcnyXJp+
- Z0vfAy+52oztfDXzUCniaBKwOiPnRQYFCJnmcyvhrP9ZEwBWOCucjlhF3Zd+vawt2D5h
- DzitS27PmOhM8JGAHLCLbfsA8zFK4MNf172tfVBaU9meODtRmcN6t3Dke3KAl0AQVgP9
- +pWw==
-X-Gm-Message-State: AO0yUKVgZbJHmCthlHoV/cWSZCvNF1ez//sfdBHtN7+x9+zFjoU+m2BG
- pfbiWiZuASrWhhnwM+B+jQxAotsKwJJveCl1ma+IV2H9
-X-Google-Smtp-Source: AK7set9mNiyA4qH3JLkBAqA7VK4vm9/eWnuAbFW2Y+1tM/oIafomNtmHDO6aVFt7s1qATNZlSSzM20p+fNxX4ubnYPY=
-X-Received: by 2002:aca:3dd4:0:b0:378:4edd:a89c with SMTP id
- k203-20020aca3dd4000000b003784edda89cmr238117oia.46.1675866425606; Wed, 08
- Feb 2023 06:27:05 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0C0E10E7A2;
+	Wed,  8 Feb 2023 14:49:50 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 797C710E799;
+ Wed,  8 Feb 2023 14:49:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1675867787; x=1707403787;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=UQXWo6TjDdebzIpdk/+ZIVkUr+YHexlGBDjSbMSM9rM=;
+ b=Nyj6Ah0jmxv66Vfj5/+rkCHkfbvQy74A70VFEIyozfMQI1wdaZDrOKiP
+ 9JXwZPC7V+N/9h4Qj8131JmwzdxhijGWHsC9MncPKR0eO9XCwxRcEYua+
+ fReClb+F9HnQncEJ6YMhwR8KBO3ggSb+xGGajcvmxMltwiwdS287GVcml
+ zuVnjUpVpzhWXdn96D/3SXo8iN00aJIruhlc06ae15rT5mhLtgJEJcq6o
+ UV20XWDPF+CRE4rmkXhqkr2s1KRYQvHL/VwSGCIfqLVvwuWGWao76nhqu
+ 2LkCqDimUr5BDVajVnRTFQLkISAGArWkD4OlLALgKFJrXCWy8JxDRiA6O w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10615"; a="394404949"
+X-IronPort-AV: E=Sophos;i="5.97,281,1669104000"; d="scan'208";a="394404949"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2023 06:49:35 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10615"; a="730882821"
+X-IronPort-AV: E=Sophos;i="5.97,281,1669104000"; d="scan'208";a="730882821"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.55])
+ by fmsmga008.fm.intel.com with SMTP; 08 Feb 2023 06:49:32 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 08 Feb 2023 16:49:31 +0200
+Date: Wed, 8 Feb 2023 16:49:31 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Pekka Paalanen <ppaalanen@gmail.com>
+Subject: Re: [PATCH 3/3] drm/connector: Deprecate split for BT.2020 in
+ drm_colorspace enum
+Message-ID: <Y+O2e8ZOp2EjAJI/@intel.com>
+References: <20230203020744.30745-1-joshua@froggi.es>
+ <20230203020744.30745-3-joshua@froggi.es>
+ <Y9zkef5FjtZ7guVS@intel.com>
+ <CA+hFU4ymiOg06MQeKLcn5MSrR=BZnOLODdZCFvGUdWqt_ha61A@mail.gmail.com>
+ <Y90NkvVabh+ue9hF@intel.com>
+ <CA+hFU4xR_8=w=z=Jqs3sujTvnXfEQJVHAMFW-X4-55POF=Bu9g@mail.gmail.com>
+ <Y90UC43KouMRh8I2@intel.com> <20230208111842.4d7aacb2@eldfell>
 MIME-Version: 1.0
-References: <20230208072539.4150546-1-tianci.yin@amd.com>
-In-Reply-To: <20230208072539.4150546-1-tianci.yin@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 8 Feb 2023 09:26:53 -0500
-Message-ID: <CADnq5_OERUOt8okNf+=UjL+zAMWzwsFaWaaZTbGaarSH0mv74Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: fix dm irq error message in gpu recover
-To: Tianci Yin <tianci.yin@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230208111842.4d7aacb2@eldfell>
+X-Patchwork-Hint: comment
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,67 +66,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Yu Wang <Yu.Wang4@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Sebastian Wick <sebastian.wick@redhat.com>, amd-gfx@lists.freedesktop.org,
+ Uma Shankar <uma.shankar@intel.com>, dri-devel@lists.freedesktop.org,
+ Joshua Ashton <joshua@froggi.es>, Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Feb 8, 2023 at 2:26 AM Tianci Yin <tianci.yin@amd.com> wrote:
->
-> From: tiancyin <tianci.yin@amd.com>
->
-> [Why]
-> Variable adev->crtc_irq.num_types was initialized as the value of
-> adev->mode_info.num_crtc at early_init stage, later at hw_init stage,
-> the num_crtc changed due to the display pipe harvest on some SKUs,
-> but the num_types was not updated accordingly, that cause below error
-> in gpu recover.
->
->   *ERROR* amdgpu_dm_set_crtc_irq_state: crtc is NULL at id :3
->   *ERROR* amdgpu_dm_set_crtc_irq_state: crtc is NULL at id :3
->   *ERROR* amdgpu_dm_set_crtc_irq_state: crtc is NULL at id :3
->   *ERROR* amdgpu_dm_set_pflip_irq_state: crtc is NULL at id :3
->   *ERROR* amdgpu_dm_set_pflip_irq_state: crtc is NULL at id :3
->   *ERROR* amdgpu_dm_set_pflip_irq_state: crtc is NULL at id :3
->   *ERROR* amdgpu_dm_set_pflip_irq_state: crtc is NULL at id :3
->   *ERROR* amdgpu_dm_set_vupdate_irq_state: crtc is NULL at id :3
->   *ERROR* amdgpu_dm_set_vupdate_irq_state: crtc is NULL at id :3
->   *ERROR* amdgpu_dm_set_vupdate_irq_state: crtc is NULL at id :3
->
-> [How]
-> Defer the initialization of num_types to eliminate the error logs.
->
-> Signed-off-by: tiancyin <tianci.yin@amd.com>
+On Wed, Feb 08, 2023 at 11:18:42AM +0200, Pekka Paalanen wrote:
+> On Fri, 3 Feb 2023 16:02:51 +0200
+> Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
+> 
+> > On Fri, Feb 03, 2023 at 02:52:50PM +0100, Sebastian Wick wrote:
+> > > On Fri, Feb 3, 2023 at 2:35 PM Ville Syrjälä
+> > > <ville.syrjala@linux.intel.com> wrote:  
+> > > >
+> > > > On Fri, Feb 03, 2023 at 01:59:07PM +0100, Sebastian Wick wrote:  
+> > > > > On Fri, Feb 3, 2023 at 11:40 AM Ville Syrjälä
+> > > > > <ville.syrjala@linux.intel.com> wrote:  
+> > > > > >
+> > > > > > On Fri, Feb 03, 2023 at 02:07:44AM +0000, Joshua Ashton wrote:  
+> > > > > > > Userspace has no way of controlling or knowing the pixel encoding
+> > > > > > > currently, so there is no way for it to ever get the right values here.  
+> > > > > >
+> > > > > > That applies to a lot of the other values as well (they are
+> > > > > > explicitly RGB or YCC). The idea was that this property sets the
+> > > > > > infoframe/MSA/SDP value exactly, and other properties should be
+> > > > > > added to for use userspace to control the pixel encoding/colorspace
+> > > > > > conversion(if desired, or userspace just makes sure to
+> > > > > > directly feed in correct kind of data).  
+> > > > >
+> > > > > I'm all for getting userspace control over pixel encoding but even
+> > > > > then the kernel always knows which pixel encoding is selected and
+> > > > > which InfoFrame has to be sent. Is there a reason why userspace would
+> > > > > want to control the variant explicitly to the wrong value?  
+> > > >
+> > > > What do you mean wrong value? Userspace sets it based on what
+> > > > kind of data it has generated (or asked the display hardware
+> > > > to generate if/when we get explicit control over that part).  
+> > > 
+> > > Wrong in the sense of sending the YCC variant when the pixel encoding
+> > > is RGB for example.
+> > > 
+> > > Maybe I'm missing something here but my assumption is that the kernel
+> > > always has to know the pixel encoding anyway. The color pipeline also
+> > > assumes that the pixel values are RGB. User space might be able to
+> > > generate YCC content but for subsampling etc the pixel encoding still
+> > > has to be explicitly set.  
+> > 
+> > The kernel doesn't really know much atm. In theory you can just
+> > configure the thing to do a straight passthough and put anything you
+> > want into your pixels.
+> 
+> But it's impossible to use a YCbCr framebuffer and have that *not*
+> converted to RGB for the KMS color pipeline even if userspace wanted it
+> to be strictly pass-through, only to be converted again to YCbCr for
+> the cable, is it not?
+> 
+> Even more so with 4:2:0.
+> 
+> How could it be possible to stop the driver from doing those two
+> YUV-to-RGB and RGB-to-YCbCr conversions at the beginning and at the end
+> of the KMS color pipeline?
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+You can stop the conversion at the start of the pipeline by
+using a "RGB" framebuffer. At the end of the pipe it's not
+possible with the current props.
 
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index b31cfda30ff9..506699c0d316 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -4226,6 +4226,8 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
->         /* Update the actual used number of crtc */
->         adev->mode_info.num_crtc = adev->dm.display_indexes_num;
->
-> +       amdgpu_dm_set_irq_funcs(adev);
-> +
->         link_cnt = dm->dc->caps.max_links;
->         if (amdgpu_dm_mode_config_init(dm->adev)) {
->                 DRM_ERROR("DM: Failed to initialize mode config\n");
-> @@ -4714,8 +4716,6 @@ static int dm_early_init(void *handle)
->                 break;
->         }
->
-> -       amdgpu_dm_set_irq_funcs(adev);
-> -
->         if (adev->mode_info.funcs == NULL)
->                 adev->mode_info.funcs = &dm_display_funcs;
->
-> --
-> 2.34.1
->
+-- 
+Ville Syrjälä
+Intel
