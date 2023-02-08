@@ -4,61 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47E58C636CC
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Feb 2023 09:30:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F591C636D3
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Feb 2023 09:55:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96BA110E724;
-	Wed,  8 Feb 2023 09:30:49 +0000 (UTC)
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 528BB10E722;
- Wed,  8 Feb 2023 09:30:47 +0000 (UTC)
-Received: by mail-ej1-x62c.google.com with SMTP id dr8so49601513ejc.12;
- Wed, 08 Feb 2023 01:30:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=0Q56cl7nbi6SYOA0h021d5Rnp5QFQpdom+ye/L9v3MQ=;
- b=Wom6MA9IjWDSm5qWG04yHxve1kBebOuo0Vy7eI3DlhnjUQwagP/TEIH8OFYzFmJSG2
- w/jlqq77wgud9Z4KdVgUcya2ydIAPVIfSdLgEFUPnDIXUsharH2evS14x2HXuhZnVi4J
- rxs7vm4CXLLNgpLAE11C4pW6CWGTxMwkrTbVgWaV/cpleVQlgWsE2rwYgs44reyHQpbs
- LYUOx5glSE/DQBT5103gHXG75a1i1ayIXbaurUHVvPJVrLTgegrr/PJe42UxcuJl6lNI
- ocvolBINXN+Mljz8p97oiqjTYO6pkO4Vv0aDOS03Gn26u7GRINMEQVuZz0jdLbyxZR1w
- 6Pfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=0Q56cl7nbi6SYOA0h021d5Rnp5QFQpdom+ye/L9v3MQ=;
- b=bGqAteoLvzNCCN29uO6RUOsvqHbgRrLIVtoVcqlNLbTfzJyQGCmBtTuTRCLMb3kcB3
- XCbcGFRc3Fl/RTgSScHang4v3xuxLqtK28+lvCUxyLbV+tMKBfWIY7W8RpMv91wNVSIP
- FoScWxokXsCXSxQ+CAf1M1PD+BG0FH8USPZn9J2lTO+YjZwRYqJzWdEKsBowA7iwvKQ+
- vOed89o2tCHE6S/xUVxOjK/eWh83jdtZQNVKWS5VzMpRhkgKE5VL5cV4d9MZRKz7lxFG
- QIQup3gHoREEzS8FCkCG0Gwmxs70uaIbFssHX1ysrul+qZGp+huyUc9EWKgu9Qc4/yRP
- JLhw==
-X-Gm-Message-State: AO0yUKW1Y4mFD7HU3VLaFJywwNMy0iEd9lqxoakg1EbN8n1ssCK4NMDH
- dbqlTA6s2Qhix5tgksWayQc=
-X-Google-Smtp-Source: AK7set+FjmKalXK/aZP8ePtU3z6uRKQdnZILpGx1CEEcYg2oBu4la4Llt2f5o5WEmesDzwWP1TI7Tw==
-X-Received: by 2002:a17:906:3950:b0:887:3c7e:5df with SMTP id
- g16-20020a170906395000b008873c7e05dfmr7690471eje.73.1675848645689; 
- Wed, 08 Feb 2023 01:30:45 -0800 (PST)
-Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- c12-20020a170906154c00b0088c224bf5b5sm8137920ejd.148.2023.02.08.01.30.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Feb 2023 01:30:45 -0800 (PST)
-Date: Wed, 8 Feb 2023 11:30:41 +0200
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Joshua Ashton <joshua@froggi.es>
-Subject: Re: [PATCH 3/3] drm/connector: Deprecate split for BT.2020 in
- drm_colorspace enum
-Message-ID: <20230208113041.70691449@eldfell>
-In-Reply-To: <20230203020744.30745-3-joshua@froggi.es>
-References: <20230203020744.30745-1-joshua@froggi.es>
- <20230203020744.30745-3-joshua@froggi.es>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B802710E728;
+	Wed,  8 Feb 2023 09:55:23 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2070.outbound.protection.outlook.com [40.107.102.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2961E10E728
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Feb 2023 09:55:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KdEWzEGjHuplIYH/Tk2XcBcO1HDA03sxznAS4P2hAoQkNSxiUkrDD3hb61L8AuicFkjLCEfOUcROZOJv6PS4BABVvHoO3uKliu1SKFziTkMHaJTYUvRQ0MGsxAASydfVp53NjXYAJRn6aCUGimtQuYtARNDNJdLS7eQzAzqfEQOCUEtUvcntmyAMlh3PYRbPgZgkVuOUn1dLh8KbJFNWDWMEf7cDTeqh8g/+IKvcrjh05+8OTAGSNKQwwFZf5ZV7cMwvNl6LvLafMX6Y0fG436GHAM3H4PClkpZxQZig2jsAg/Uoa+PnTCFeFSsS+6ZnbKOg6sPznSKmJOuRs13OVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=B3jqGAItsgBYbICWCGlJjWeU3+gn1fL6OYO/KFtIJcQ=;
+ b=lPT7Pt17Dn2ZEX3f+YHTgLvPmupJU/ENI5qrdKO4KNupCJGT7hOJgQ38jUpkevmXfZNz8qvM93NM/L/DAPmJPuD1+dSWswbCQA2QesA8nWgWIVNQbqp40uR1aGb6cjRpdtp9+nrZOXN3Ijm37XStbVFptSy2cMw+0AQFgLZUt5HoWiv/4KVY9f3oa+0njYziv6i0Gu6DxpCBX/KDvgXEywjRa2YQupc/KmbCd/ymgdWJ5cS5g4DWFzt9R3PFSTNsL5mB4ZcAR1lIFGwocFxgYUFtYi3Fo+18JFNf6k8WmOTWRZpgmEqmb34gisU53slxqHBs3THclD6DgnSL+ViZ1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=B3jqGAItsgBYbICWCGlJjWeU3+gn1fL6OYO/KFtIJcQ=;
+ b=3aoMMwELERc7T3ets8KMlrSirSnOFCY0mJSE8EgWqNesklr8Kw/k5tXxGBHj3I0ZbeuBNkr9aAVW3Y04r3Crk/nbfNKEs/IhXUouGUFV9v5zrvhJjVtPJfgcusD4LJJsFNNfpkShyKF2Qfs+JOiu7e8N+wht6cGx0HqtsC24q38=
+Received: from DS7PR05CA0084.namprd05.prod.outlook.com (2603:10b6:8:57::25) by
+ SN7PR12MB7023.namprd12.prod.outlook.com (2603:10b6:806:260::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.17; Wed, 8 Feb
+ 2023 09:55:20 +0000
+Received: from DM6NAM11FT005.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:57:cafe::36) by DS7PR05CA0084.outlook.office365.com
+ (2603:10b6:8:57::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.17 via Frontend
+ Transport; Wed, 8 Feb 2023 09:55:20 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT005.mail.protection.outlook.com (10.13.172.238) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6086.17 via Frontend Transport; Wed, 8 Feb 2023 09:55:19 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 8 Feb
+ 2023 03:55:19 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 8 Feb
+ 2023 03:55:19 -0600
+Received: from yzha-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
+ via Frontend Transport; Wed, 8 Feb 2023 03:55:17 -0600
+From: Yifan Zha <Yifan.Zha@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Alexander.Deucher@amd.com>,
+ <Hawking.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: Revert programming GRBM_GFX_* in RLCG interface
+ to support GFX9
+Date: Wed, 8 Feb 2023 17:54:51 +0800
+Message-ID: <20230208095450.1000441-1-Yifan.Zha@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/p1VnlJ5eibTtKqCOo=3USvg";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT005:EE_|SN7PR12MB7023:EE_
+X-MS-Office365-Filtering-Correlation-Id: bcc28f9d-ff9a-4517-dea0-08db09ba96b8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: HFwNHvzSfkchGpCnbiCdqEaPxnUlutjeblzLoI3YIoyHmR8tF5jV9f0lIk1tNNxInXQUtzvYaxKSUa3k9Jxk6P4t3C/shQQGmuqleL2LUvxKd1QIKLIp5C4z7s4+lC4xQyMBDCHvEWCCkn1bTKQs1/X8nKLcUsJy8/m4FDwhqnP+6PFtPvQmbh6VZFdDiejXbMdtbcKiAteBvWbdxruFXV96JGiYfNJfL8fSlWXYlbItU68O5ZO0i6LVJNKQmiL0GvcOWBB9DeARfmnlKLV6S5teyEmYCHObQowhdi4PAzk3yPiu6cJnKSgCfC01Z62I9B2De1D9w2ednWGc/hgUt9Zd/4y7VBowfnvtAeGG2Be1acNFhtC8ZTxaVb4ZafRobTgOmp+VY9bN0vhmki4raJmF/ihp1IsdBilzo8zKl6YxQ/5znNEr1YeMLINTC1Hp0oriblNtV4viyVFhB+4Xbkhg86NWGtNv4dgznjQlmnXItTxP3wiLw/NsQSBFdJDoPDT3RmY6Fm0clcxdQs5Jv2WlIChKDY+7FU8BfUMqVTN9mReEM7+70GRJ1aQcdbn4q6168jK3TjQeZzTaHi+0dT7NurKaQX+eZhof41cFuC22hg6zU57l7r35vthSNBHhRKRYJfcJ8lkjLU/vNThVOBl0gzARkYKoU5+50hOQeuJJqYGKv13zqKu81yWcDJt+dZAMSfAT1ucHJxZw8gjr5ylXF+WMQiqXqi4gtgHHE89QiiIjNQKXwCbnd7iH79F3
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(39860400002)(376002)(136003)(396003)(346002)(451199018)(40470700004)(46966006)(36840700001)(26005)(186003)(1076003)(2906002)(6666004)(36756003)(5660300002)(478600001)(356005)(81166007)(8936002)(41300700001)(82740400003)(40480700001)(7696005)(2616005)(82310400005)(47076005)(8676002)(36860700001)(336012)(4326008)(70586007)(70206006)(83380400001)(6636002)(426003)(86362001)(54906003)(110136005)(40460700003)(316002)(2101003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2023 09:55:19.9384 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bcc28f9d-ff9a-4517-dea0-08db09ba96b8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT005.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7023
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,243 +103,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Uma Shankar <uma.shankar@intel.com>,
- Vitaly.Prosyak@amd.com,
- Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Horace.Chen@amd.com, Yifan Zha <Yifan.Zha@amd.com>, haijun.chang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/p1VnlJ5eibTtKqCOo=3USvg
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+[Why]
+Regression of commit a291321cce8e("drm/amdgpu: Remove writing GRBM_GFX_CNTL in RLCG interface under SRIOV") on GFX9.
+According to GFX9 VF using different method to access GC registers including MMIO(direct) and RLCG(indirect),
+removing GRBM_GFX_* writing would make PIPE/ME/VM/QUEUE selection chaos leading to some OCL benchmark failure.
 
-On Fri,  3 Feb 2023 02:07:44 +0000
-Joshua Ashton <joshua@froggi.es> wrote:
+For example,
+using RLCG interface to program GRBM_GFX_CNTL/INDEX for selecting MEC(actually the value is only in scratch2/3),
+then using MMIO directly program a MEC register in VF driver.
+The register programming are invalid due to GC switched to incorrect ME.
 
-> Userspace has no way of controlling or knowing the pixel encoding
-> currently, so there is no way for it to ever get the right values here.
->=20
-> When we do add pixel_encoding control from userspace,we can pick the
-> right value for the colorimetry packet based on the
-> pixel_encoding + the colorspace.
->=20
-> Let's deprecate these values, and have one BT.2020 colorspace entry
-> that userspace can use.
->=20
-> Note: _CYCC was effectively 'removed' by this change, but that was not
-> possible to be taken advantage of anyway, as there is currently no
-> pixel_encoding control so it would not be possible to output
-> linear YCbCr.
->=20
-> Signed-off-by: Joshua Ashton <joshua@froggi.es>
->=20
-> Cc: Pekka Paalanen <ppaalanen@gmail.com>
-> Cc: Sebastian Wick <sebastian.wick@redhat.com>
-> Cc: Vitaly.Prosyak@amd.com
-> Cc: Uma Shankar <uma.shankar@intel.com>
-> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-> Cc: Joshua Ashton <joshua@froggi.es>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: amd-gfx@lists.freedesktop.org
-> ---
->  drivers/gpu/drm/display/drm_hdmi_helper.c |  9 ++++-----
->  drivers/gpu/drm/drm_connector.c           | 12 ++++++------
->  drivers/gpu/drm/i915/display/intel_dp.c   | 20 +++++++++-----------
->  include/drm/drm_connector.h               | 19 ++++++++++---------
->  4 files changed, 29 insertions(+), 31 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/display/drm_hdmi_helper.c b/drivers/gpu/drm/=
-display/drm_hdmi_helper.c
-> index 0264abe55278..c85860600395 100644
-> --- a/drivers/gpu/drm/display/drm_hdmi_helper.c
-> +++ b/drivers/gpu/drm/display/drm_hdmi_helper.c
-> @@ -99,8 +99,7 @@ EXPORT_SYMBOL(drm_hdmi_infoframe_set_hdr_metadata);
->  #define HDMI_COLORIMETRY_OPYCC_601		(C(3) | EC(3) | ACE(0))
->  #define HDMI_COLORIMETRY_OPRGB			(C(3) | EC(4) | ACE(0))
->  #define HDMI_COLORIMETRY_BT2020_CYCC		(C(3) | EC(5) | ACE(0))
-> -#define HDMI_COLORIMETRY_BT2020_RGB		(C(3) | EC(6) | ACE(0))
-> -#define HDMI_COLORIMETRY_BT2020_YCC		(C(3) | EC(6) | ACE(0))
-> +#define HDMI_COLORIMETRY_BT2020			(C(3) | EC(6) | ACE(0))
->  #define HDMI_COLORIMETRY_DCI_P3_RGB_D65		(C(3) | EC(7) | ACE(0))
->  #define HDMI_COLORIMETRY_DCI_P3_RGB_THEATER	(C(3) | EC(7) | ACE(1))
-> =20
-> @@ -113,9 +112,9 @@ static const u32 hdmi_colorimetry_val[] =3D {
->  	[DRM_MODE_COLORIMETRY_SYCC_601] =3D HDMI_COLORIMETRY_SYCC_601,
->  	[DRM_MODE_COLORIMETRY_OPYCC_601] =3D HDMI_COLORIMETRY_OPYCC_601,
->  	[DRM_MODE_COLORIMETRY_OPRGB] =3D HDMI_COLORIMETRY_OPRGB,
-> -	[DRM_MODE_COLORIMETRY_BT2020_CYCC] =3D HDMI_COLORIMETRY_BT2020_CYCC,
-> -	[DRM_MODE_COLORIMETRY_BT2020_RGB] =3D HDMI_COLORIMETRY_BT2020_RGB,
-> -	[DRM_MODE_COLORIMETRY_BT2020_YCC] =3D HDMI_COLORIMETRY_BT2020_YCC,
-> +	[DRM_MODE_COLORIMETRY_BT2020_DEPRECATED_1] =3D HDMI_COLORIMETRY_BT2020,
-> +	[DRM_MODE_COLORIMETRY_BT2020_DEPRECATED_2] =3D HDMI_COLORIMETRY_BT2020,
-> +	[DRM_MODE_COLORIMETRY_BT2020] =3D HDMI_COLORIMETRY_BT2020,
->  };
-> =20
->  #undef C
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
-tor.c
-> index 61c29ce74b03..58699ab15a6a 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -1029,11 +1029,11 @@ static const struct drm_prop_enum_list hdmi_color=
-spaces[] =3D {
->  	/* Colorimetry based on IEC 61966-2-5 */
->  	{ DRM_MODE_COLORIMETRY_OPRGB, "opRGB" },
->  	/* Colorimetry based on ITU-R BT.2020 */
-> -	{ DRM_MODE_COLORIMETRY_BT2020_CYCC, "BT2020_CYCC" },
-> +	{ DRM_MODE_COLORIMETRY_BT2020_DEPRECATED_1, "BT2020_DEPRECATED_1" },
->  	/* Colorimetry based on ITU-R BT.2020 */
-> -	{ DRM_MODE_COLORIMETRY_BT2020_RGB, "BT2020_RGB" },
-> +	{ DRM_MODE_COLORIMETRY_BT2020_DEPRECATED_2, "BT2020_DEPRECATED_2" },
->  	/* Colorimetry based on ITU-R BT.2020 */
-> -	{ DRM_MODE_COLORIMETRY_BT2020_YCC, "BT2020_YCC" },
-> +	{ DRM_MODE_COLORIMETRY_BT2020, "BT2020" },
->  	/* Added as part of Additional Colorimetry Extension in 861.G */
->  	{ DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65, "DCI-P3_RGB_D65" },
->  	{ DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER, "DCI-P3_RGB_Theater" },
-> @@ -1054,7 +1054,7 @@ static const struct drm_prop_enum_list dp_colorspac=
-es[] =3D {
->  	/* Colorimetry based on SMPTE RP 431-2 */
->  	{ DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65, "DCI-P3_RGB_D65" },
->  	/* Colorimetry based on ITU-R BT.2020 */
-> -	{ DRM_MODE_COLORIMETRY_BT2020_RGB, "BT2020_RGB" },
-> +	{ DRM_MODE_COLORIMETRY_BT2020, "BT2020" },
->  	{ DRM_MODE_COLORIMETRY_BT601_YCC, "BT601_YCC" },
->  	{ DRM_MODE_COLORIMETRY_BT709_YCC, "BT709_YCC" },
->  	/* Standard Definition Colorimetry based on IEC 61966-2-4 */
-> @@ -1066,9 +1066,9 @@ static const struct drm_prop_enum_list dp_colorspac=
-es[] =3D {
->  	/* Colorimetry based on IEC 61966-2-5 [33] */
->  	{ DRM_MODE_COLORIMETRY_OPYCC_601, "opYCC_601" },
->  	/* Colorimetry based on ITU-R BT.2020 */
-> -	{ DRM_MODE_COLORIMETRY_BT2020_CYCC, "BT2020_CYCC" },
-> +	{ DRM_MODE_COLORIMETRY_BT2020_DEPRECATED_1, "BT2020_DEPRECATED_1" },
->  	/* Colorimetry based on ITU-R BT.2020 */
-> -	{ DRM_MODE_COLORIMETRY_BT2020_YCC, "BT2020_YCC" },
-> +	{ DRM_MODE_COLORIMETRY_BT2020_DEPRECATED_2, "BT2020_DEPRECATED_2" },
->  };
+[How]
+With checking RLCG accessing flag, keep writing GRBM_GFX_* as a legacy way.
+But it is still skipped on GFX10+ to avoid violation occurrence.
 
-Hi,
+Signed-off-by: Yifan Zha <Yifan.Zha@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-do these not rename the old uAPI strings?
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index ca5a1d026f5a..f2e2cbaa7fde 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -983,9 +983,13 @@ static u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_device *adev, u32 offset, u32 v
+ 	if (offset == reg_access_ctrl->grbm_cntl) {
+ 		/* if the target reg offset is grbm_cntl, write to scratch_reg2 */
+ 		writel(v, scratch_reg2);
++		if (flag == AMDGPU_RLCG_GC_WRITE_LEGACY)
++			writel(v, ((void __iomem *)adev->rmmio) + (offset * 4));
+ 	} else if (offset == reg_access_ctrl->grbm_idx) {
+ 		/* if the target reg offset is grbm_idx, write to scratch_reg3 */
+ 		writel(v, scratch_reg3);
++		if (flag == AMDGPU_RLCG_GC_WRITE_LEGACY)
++			writel(v, ((void __iomem *)adev->rmmio) + (offset * 4));
+ 	} else {
+ 		/*
+ 		 * SCRATCH_REG0 	= read/write value
+-- 
+2.25.1
 
-Shouldn't the old strings be kept? It's much easier to scream "kernel
-regression" when the expected string is no longer found than a subtle
-change in behaviour that might not even be a change. ;-)
-
-If there is not going to be a difference in behaviour, the enum could
-expose e.g. all of "BT2020_RGB", "BT2020_CYCC" and "BT2020_YCC" as the
-same integer value. If old userspace exists, it would not notice any
-difference.
-
-I mean, the *strings* are the uAPI, not the integers, right?
-
-
-Thanks,
-pq
-
-> =20
->  /**
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
-15/display/intel_dp.c
-> index c9be61d2348e..1aa5dedeec7b 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -1763,14 +1763,12 @@ static void intel_dp_compute_vsc_colorimetry(cons=
-t struct intel_crtc_state *crtc
->  	case DRM_MODE_COLORIMETRY_OPYCC_601:
->  		vsc->colorimetry =3D DP_COLORIMETRY_OPYCC_601;
->  		break;
-> -	case DRM_MODE_COLORIMETRY_BT2020_CYCC:
-> -		vsc->colorimetry =3D DP_COLORIMETRY_BT2020_CYCC;
-> -		break;
-> -	case DRM_MODE_COLORIMETRY_BT2020_RGB:
-> -		vsc->colorimetry =3D DP_COLORIMETRY_BT2020_RGB;
-> -		break;
-> -	case DRM_MODE_COLORIMETRY_BT2020_YCC:
-> -		vsc->colorimetry =3D DP_COLORIMETRY_BT2020_YCC;
-> +	case DRM_MODE_COLORIMETRY_BT2020_DEPRECATED_1:
-> +	case DRM_MODE_COLORIMETRY_BT2020_DEPRECATED_2:
-> +	case DRM_MODE_COLORIMETRY_BT2020:
-> +		vsc->colorimetry =3D vsc->pixelformat =3D=3D DP_PIXELFORMAT_RGB
-> +			? DP_COLORIMETRY_BT2020_RGB
-> +			: DP_COLORIMETRY_BT2020_YCC;
->  		break;
->  	case DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65:
->  	case DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER:
-> @@ -3043,9 +3041,9 @@ intel_dp_needs_vsc_sdp(const struct intel_crtc_stat=
-e *crtc_state,
->  	switch (conn_state->colorspace) {
->  	case DRM_MODE_COLORIMETRY_SYCC_601:
->  	case DRM_MODE_COLORIMETRY_OPYCC_601:
-> -	case DRM_MODE_COLORIMETRY_BT2020_YCC:
-> -	case DRM_MODE_COLORIMETRY_BT2020_RGB:
-> -	case DRM_MODE_COLORIMETRY_BT2020_CYCC:
-> +	case DRM_MODE_COLORIMETRY_BT2020_DEPRECATED_1:
-> +	case DRM_MODE_COLORIMETRY_BT2020_DEPRECATED_2:
-> +	case DRM_MODE_COLORIMETRY_BT2020:
->  		return true;
->  	default:
->  		break;
-> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> index eb4cc9076e16..42a3cf43168c 100644
-> --- a/include/drm/drm_connector.h
-> +++ b/include/drm/drm_connector.h
-> @@ -390,12 +390,13 @@ enum drm_privacy_screen_status {
->   *   opYCC601 colorimetry format
->   * @DRM_MODE_COLORIMETRY_OPRGB:
->   *   opRGB colorimetry format
-> - * @DRM_MODE_COLORIMETRY_BT2020_CYCC:
-> - *   ITU-R BT.2020 Y'c C'bc C'rc (linear) colorimetry format
-> - * @DRM_MODE_COLORIMETRY_BT2020_RGB:
-> - *   ITU-R BT.2020 R' G' B' colorimetry format
-> - * @DRM_MODE_COLORIMETRY_BT2020_YCC:
-> - *   ITU-R BT.2020 Y' C'b C'r colorimetry format
-> + * @DRM_MODE_COLORIMETRY_BT2020_DEPRECATED_1:
-> + * @DRM_MODE_COLORIMETRY_BT2020_DEPRECATED_2:
-> + * @DRM_MODE_COLORIMETRY_BT2020:
-> + *   ITU-R BT.2020 [R' G' B'] or
-> + * 	 ITU-R BT.2020 [Y' C'b C'r] or
-> + *   ITU-R BT.2020 [Y'c C'bc C'rc] (linear)
-> + *   colorimetry format
->   * @DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65:
->   *   DCI-P3 (SMPTE RP 431-2) colorimetry format
->   * @DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER:
-> @@ -420,9 +421,9 @@ enum drm_colorspace {
->  	DRM_MODE_COLORIMETRY_SYCC_601,
->  	DRM_MODE_COLORIMETRY_OPYCC_601,
->  	DRM_MODE_COLORIMETRY_OPRGB,
-> -	DRM_MODE_COLORIMETRY_BT2020_CYCC,
-> -	DRM_MODE_COLORIMETRY_BT2020_RGB,
-> -	DRM_MODE_COLORIMETRY_BT2020_YCC,
-> +	DRM_MODE_COLORIMETRY_BT2020_DEPRECATED_1,
-> +	DRM_MODE_COLORIMETRY_BT2020_DEPRECATED_2,
-> +	DRM_MODE_COLORIMETRY_BT2020,
->  	/* Additional Colorimetry extension added as part of CTA 861.G */
->  	DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65,
->  	DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER,
-
-
---Sig_/p1VnlJ5eibTtKqCOo=3USvg
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmPja8EACgkQI1/ltBGq
-qqdOGQ//ZMiFOjj55v10Nb469J2VghA9I+cfqC/yKhYtdmM+8ECbmQJw6YtiZ0QJ
-0FxbJvaROGZb3ekanltvKP7OPRxeI/3+GuZLdA0vhHeX2CkVu9scAs7VoKtBWbLD
-N6QFNgcFhCmBoaACcbqcP/CGwVtw0X5L3QT1jxzkYVyFXbn8VTAj3wskq1leWIXC
-7sC6CShAtsw0Qom1yZw0rllUxvO7yLNJ1nsaGQLcneNvy+rwu2IQoB4nYq0Z5zbz
-YBsZPAhMs18oURYHj+w1ofaQDrdSx2Koe9om7mSsYYk0e+5STa7sWsNRC7MWtTxh
-XtlKL+o5QI8A7NRbfJzRwUFzfE/n+ZWHSSbYcc9c6e8Qlz/fiaFrRY5JA5lRQeAV
-t18meA1tDJa8Clg1dyfCrwgy1On7liPtyGenXLi89O9eXEd68oxLWiC5M1SXGOEY
-iAIBP/p93Lks9ut1qBhvBZZ8uSg1Ys2c6bSHExwEZbfmzBMHPIGVPAGhze8QsS2D
-faYZWR7aY/qFGyx4Q+BWQO/S7n5j4DfIpaMLmA2kC/0QypyeoAw10TGhK/x3X8Cs
-1Hny+ml/2UzxILZ2CLutD0xSYuedD/l2B9WPuc4XAqebjgaE6NjgZU2tj0rzP5AV
-E3pEJuPVDY/jqJLDnjqI32b7Rv4GvIOMvszbNiAkhD+jy+VOum8=
-=6boW
------END PGP SIGNATURE-----
-
---Sig_/p1VnlJ5eibTtKqCOo=3USvg--
