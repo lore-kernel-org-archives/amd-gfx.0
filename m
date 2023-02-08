@@ -4,54 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A756C636D7
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Feb 2023 14:13:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31785C05027
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Feb 2023 14:27:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6685810E792;
-	Wed,  8 Feb 2023 14:13:26 +0000 (UTC)
-Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
- [IPv6:2607:f8b0:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8EBF10E78D
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Feb 2023 14:13:23 +0000 (UTC)
-Received: by mail-oi1-x232.google.com with SMTP id 20so14784275oix.5
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Feb 2023 06:13:23 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE11110E793;
+	Wed,  8 Feb 2023 14:27:08 +0000 (UTC)
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [IPv6:2607:f8b0:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAEB210E793
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Feb 2023 14:27:07 +0000 (UTC)
+Received: by mail-oi1-x236.google.com with SMTP id bd6so6612370oib.6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Feb 2023 06:27:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=XEc+YMR/q8WGAbLGzsbCZhNQMPY6ljT9TBFsDFMVWOM=;
- b=oaSGYBWk5ZPYNKGs8VG7hQd9wrwq/MJ0ZQqnojRWq6pUeJEHmNjoxqaPttBdsirNYO
- B8LgAdvqAxQ+PYd6yNJC9eFU7EtmwVB4nxGRu/bMPiB0bDaJRhCKYcglhbGOhJ6anoXb
- LDebA6KAaSH6jZztmfGzjRc70A2CYVTHoT8rfD1CeXBciMVhCV89q6PSFP7da9xgqI3z
- R9hos7AieCW6lavD+UQbnRefuSxVwd5fO8UhadEUPTFvBkFZYzXsju23YMINanVPKOrT
- I1TFaEiPf4XDIo9Xn47Hs/ezxujt2nQfy+C4w+gj0s24bU0iCMQhVSVRaI5/OzcAT8ml
- 4tGg==
+ bh=21o+YQOfHINSR7K/UMHgSkPWDb915ld6L1Sa3XQ8rTA=;
+ b=ms7M3t53dMZQZL7Vl3z3EEM/I0OPgj9rbB22qrsLjnXV5rYVzJgKtbDY4CTo+urr2h
+ Ef36HTxo1XU/DMgt7LbzlUBt0avB1wTjoPJt2E58hHCVKqQS7tTWNCghv8RXPVVYycF9
+ 0LZdSA51ez5mhIfz2Y5QmMvA9tqP//f3Nk0SUXiaHdpiZVWPsby7Van4pOMuOMxKHL1l
+ DxJh3PrRLLNywsP+zAfSb1pbwHj8uDVOAGKH6Nuo6b9i9PTO6A7TbnK0izwkUFE+CP9D
+ 2mewyE68PdYvI15fXlN4cDO/XgE7HTQ3DX+M6ysGjgnxF27rDumWGPBDHes/LXhnzsCS
+ Hg8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=XEc+YMR/q8WGAbLGzsbCZhNQMPY6ljT9TBFsDFMVWOM=;
- b=Zt2LMzk3Z8rYkByN+W0M41kKLsahS0uEOZD8nlo77W6bfwm2S9K1AhlEyIQ+OyeCaK
- pF86X3BVF57Bc3dUPJMOzJbIAo4mMVJcjcQ47XXkhTEW2ndy5BS4F5kZVZkDn91HL3vb
- 5wFEXT9QqdClpvhNdftkNcbFTOp1XPvzmhNR46EP3cPzjyeD9POnJTm7Aq+eEufAOlim
- 1k1edc0HWDLsyr0/3+KliJEJdjFFvegALxhinMTr83bDcamE0TkkqPlna4dUpYUrTQSe
- gAczE8zkevTlKNeAn5Ooj0VfkmE1r6ABFhY5U7GPc6L3Li44V24H47TkWkDcBjbyOmyz
- 1FYw==
-X-Gm-Message-State: AO0yUKVG9R+O4yp9Loynu8r/tVlBqNa65ihH49+/isagUCJ1zGlJRA/Q
- hZO0NJd35bZ7cQQtECX2pt9SLU7bOkDQOXrqjyY=
-X-Google-Smtp-Source: AK7set+3oUVtdylN+oASAAcWPCXM5+Yd8DRLdOCMdSXtpKkY1W6ex+EK9IDd1cNwpUKYB7TNdB4GgvvfInezQsQpEV8=
+ bh=21o+YQOfHINSR7K/UMHgSkPWDb915ld6L1Sa3XQ8rTA=;
+ b=XgJZj+XTo6eabNwrcODgG+PGTTHvpXdWelHUpwijMIbzoSTtQi11eNMPMxeN/3gVIq
+ TWh3t4DggDLc08YfK2IWQHShNfwA/rPs712/j92fmTO7EOVpeHVd3Vep3kEl/drnKKpD
+ j/YeAzkqq+gVt66+JmBl7zlOf+Tj5Gm9fWcOX7JPxSnjshxXc6IRdb4nga3QXcnyXJp+
+ Z0vfAy+52oztfDXzUCniaBKwOiPnRQYFCJnmcyvhrP9ZEwBWOCucjlhF3Zd+vawt2D5h
+ DzitS27PmOhM8JGAHLCLbfsA8zFK4MNf172tfVBaU9meODtRmcN6t3Dke3KAl0AQVgP9
+ +pWw==
+X-Gm-Message-State: AO0yUKVgZbJHmCthlHoV/cWSZCvNF1ez//sfdBHtN7+x9+zFjoU+m2BG
+ pfbiWiZuASrWhhnwM+B+jQxAotsKwJJveCl1ma+IV2H9
+X-Google-Smtp-Source: AK7set9mNiyA4qH3JLkBAqA7VK4vm9/eWnuAbFW2Y+1tM/oIafomNtmHDO6aVFt7s1qATNZlSSzM20p+fNxX4ubnYPY=
 X-Received: by 2002:aca:3dd4:0:b0:378:4edd:a89c with SMTP id
- k203-20020aca3dd4000000b003784edda89cmr234957oia.46.1675865601597; Wed, 08
- Feb 2023 06:13:21 -0800 (PST)
+ k203-20020aca3dd4000000b003784edda89cmr238117oia.46.1675866425606; Wed, 08
+ Feb 2023 06:27:05 -0800 (PST)
 MIME-Version: 1.0
-References: <20230208072519.2412564-1-Jun.Ma2@amd.com>
-In-Reply-To: <20230208072519.2412564-1-Jun.Ma2@amd.com>
+References: <20230208072539.4150546-1-tianci.yin@amd.com>
+In-Reply-To: <20230208072539.4150546-1-tianci.yin@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 8 Feb 2023 09:13:10 -0500
-Message-ID: <CADnq5_PVOebmN49JzthxjMBudR=eXb42iw8k9-8Gwub-aA5d3w@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix the warning info when unload or remove
- amdgpu
-To: Ma Jun <Jun.Ma2@amd.com>
+Date: Wed, 8 Feb 2023 09:26:53 -0500
+Message-ID: <CADnq5_OERUOt8okNf+=UjL+zAMWzwsFaWaaZTbGaarSH0mv74Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: fix dm irq error message in gpu recover
+To: Tianci Yin <tianci.yin@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,55 +63,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
+Cc: Yu Wang <Yu.Wang4@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Feb 8, 2023 at 2:26 AM Ma Jun <Jun.Ma2@amd.com> wrote:
+On Wed, Feb 8, 2023 at 2:26 AM Tianci Yin <tianci.yin@amd.com> wrote:
 >
-> Checking INVOKE_CMD  to fix the below warning info when
-> unload or remove amdgpu driver
+> From: tiancyin <tianci.yin@amd.com>
 >
-> [  319.489809] Call Trace:
-> [  319.489810]  <TASK>
-> [  319.489812]  psp_ta_unload+0x9a/0xd0 [amdgpu]
-> [  319.489926]  ? smu_smc_hw_cleanup+0x2f6/0x360 [amdgpu]
-> [  319.490072]  psp_hw_fini+0xea/0x170 [amdgpu]
-> [  319.490231]  amdgpu_device_fini_hw+0x2fc/0x413 [amdgpu]
-> [  319.490398]  ? blocking_notifier_chain_unregister+0x56/0xb0
-> [  319.490401]  amdgpu_driver_unload_kms+0x51/0x60 [amdgpu]
-> [  319.490493]  amdgpu_pci_remove+0x5a/0x140 [amdgpu]
-> [  319.490583]  ? __pm_runtime_resume+0x60/0x90
-> [  319.490586]  pci_device_remove+0x3b/0xb0
-> [  319.490588]  __device_release_driver+0x1a8/0x2a0
-> [  319.490591]  driver_detach+0xf3/0x140
-> [  319.490593]  bus_remove_driver+0x6c/0xf0
-> [  319.490595]  driver_unregister+0x31/0x60
-> [  319.490597]  pci_unregister_driver+0x40/0x90
-> [  319.490599]  amdgpu_exit+0x15/0x44e [amdgpu]
+> [Why]
+> Variable adev->crtc_irq.num_types was initialized as the value of
+> adev->mode_info.num_crtc at early_init stage, later at hw_init stage,
+> the num_crtc changed due to the display pipe harvest on some SKUs,
+> but the num_types was not updated accordingly, that cause below error
+> in gpu recover.
 >
-> Signed-off-by: Ma Jun <Jun.Ma2@amd.com>
+>   *ERROR* amdgpu_dm_set_crtc_irq_state: crtc is NULL at id :3
+>   *ERROR* amdgpu_dm_set_crtc_irq_state: crtc is NULL at id :3
+>   *ERROR* amdgpu_dm_set_crtc_irq_state: crtc is NULL at id :3
+>   *ERROR* amdgpu_dm_set_pflip_irq_state: crtc is NULL at id :3
+>   *ERROR* amdgpu_dm_set_pflip_irq_state: crtc is NULL at id :3
+>   *ERROR* amdgpu_dm_set_pflip_irq_state: crtc is NULL at id :3
+>   *ERROR* amdgpu_dm_set_pflip_irq_state: crtc is NULL at id :3
+>   *ERROR* amdgpu_dm_set_vupdate_irq_state: crtc is NULL at id :3
+>   *ERROR* amdgpu_dm_set_vupdate_irq_state: crtc is NULL at id :3
+>   *ERROR* amdgpu_dm_set_vupdate_irq_state: crtc is NULL at id :3
+>
+> [How]
+> Defer the initialization of num_types to eliminate the error logs.
+>
+> Signed-off-by: tiancyin <tianci.yin@amd.com>
 
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> index 466054719842..5fb919cd9330 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -620,7 +620,8 @@ psp_cmd_submit_buf(struct psp_context *psp,
->          */
->         if (!dev_entered)
->                 WARN_ON(psp->cmd_buf_mem->cmd_id != GFX_CMD_ID_LOAD_ASD &&
-> -                       psp->cmd_buf_mem->cmd_id != GFX_CMD_ID_UNLOAD_TA);
-> +                       psp->cmd_buf_mem->cmd_id != GFX_CMD_ID_UNLOAD_TA &&
-> +                       psp->cmd_buf_mem->cmd_id != GFX_CMD_ID_INVOKE_CMD);
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index b31cfda30ff9..506699c0d316 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -4226,6 +4226,8 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
+>         /* Update the actual used number of crtc */
+>         adev->mode_info.num_crtc = adev->dm.display_indexes_num;
 >
->         memset(psp->cmd_buf_mem, 0, PSP_CMD_BUFFER_SIZE);
+> +       amdgpu_dm_set_irq_funcs(adev);
+> +
+>         link_cnt = dm->dc->caps.max_links;
+>         if (amdgpu_dm_mode_config_init(dm->adev)) {
+>                 DRM_ERROR("DM: Failed to initialize mode config\n");
+> @@ -4714,8 +4716,6 @@ static int dm_early_init(void *handle)
+>                 break;
+>         }
+>
+> -       amdgpu_dm_set_irq_funcs(adev);
+> -
+>         if (adev->mode_info.funcs == NULL)
+>                 adev->mode_info.funcs = &dm_display_funcs;
 >
 > --
-> 2.25.1
+> 2.34.1
 >
