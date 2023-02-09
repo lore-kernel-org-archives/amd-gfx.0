@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A06CC61DA4
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Feb 2023 14:32:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6865C05027
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Feb 2023 14:36:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECCC510EB03;
-	Thu,  9 Feb 2023 14:32:38 +0000 (UTC)
-Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
- [IPv6:2001:4860:4864:20::36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59A3F10EB03;
- Thu,  9 Feb 2023 14:32:37 +0000 (UTC)
-Received: by mail-oa1-x36.google.com with SMTP id
- 586e51a60fabf-16aaa20f516so2780668fac.1; 
- Thu, 09 Feb 2023 06:32:37 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BB9C10EB14;
+	Thu,  9 Feb 2023 14:35:56 +0000 (UTC)
+Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
+ [IPv6:2607:f8b0:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AD5B10EB0F;
+ Thu,  9 Feb 2023 14:35:53 +0000 (UTC)
+Received: by mail-oi1-x230.google.com with SMTP id 20so1789873oix.5;
+ Thu, 09 Feb 2023 06:35:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=LKj6y9Z9IvpBl0jxMUlOB98r+8XwPKm+/9oH/+jgH+A=;
- b=IVDPMcPlukIfsCfo145XvWKWae7B04hhyFiWBRq9J+K6aWc+cyQh85M/m5/2zmAOkG
- OLC6Akt28l95cibrdjMYdYpex34u9PyPw4TtJYy6lRygGxsbG/0fHcpAcqGSWPn2fItQ
- o6YAsZ5sN2//jS4bMg3QZCXoVBPxwTDUm8li0L8cnTe1HwtznWrpTAHf1n/rP6T6X2H2
- ef7xbl41/mFGCXsWpeYqU71AlU2DziUXhGYDNYmaBlVSMfJLYarlVBxIKo234lYN0quM
- dZTsMBjur/UststIY4hWvDhvCiny5o1ZnHoGxB6HqtSf6Sju9GssX040shZAwThUkyVt
- 5ufA==
+ bh=sp03I73N+r+twL5ugYnXLYJHbMgUcy+BtwmbrfyskRA=;
+ b=pk2zh5SKB0jC3nyw5hEQMgnCtR1FzWaM40IWi6fTOOzWWWDF1KEMm8BKLaF++pBFNP
+ LISFddbkBGt9pkiEX0zlHCkysLhP+vszdT3pE68qkI/nihnVTWYwwJpKaxdjhRp2CLoV
+ hmRmhAc0oWHyLq4KSG2cYKAsxoZ0DGLJe5wVv8celkMvhfKOpkP1PfJW7PPfB9+9+uP4
+ ycFwzTH3d6vQVrraGr7hcY4+ddve3ztW8K/x+lLZoH7QegRjFncz6U8ug2RBt6NR7pOO
+ LW8z8m6jay2uXfa1lIrvzXJAaqska39DGFurLQA2fTzT0vtpW77xAXGfdjRQ5yEMVsVK
+ udAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=LKj6y9Z9IvpBl0jxMUlOB98r+8XwPKm+/9oH/+jgH+A=;
- b=S/3em0blcSr//Sn7mMCUV6/28UMZI0iG5gTn3TUj1FIlfYW90GSctxH8iVnX+1WJMo
- itPfz7eUc4KNmkVDHtKW5hnl4idtaVlrzq7Hq9i3SQX+nFmS+zlaWGTuoBvdza4BWseY
- fA+KR6cco5uowTDZ48OE0Flv6xaCZlRmSaMsckLqw0dpNRs+yW9n/x1Mmu8Sx5I+q7xm
- GL4Yf0xEniDpXDNbLxiuSFI+fZ+VyDL8RixdWvmEQV7OzhMUy63/zee3lmXkzlR1TNei
- 9bQk/WJsbxQIjPbFTicPcz5nS52lQZv0rge7GMFmI9mpqaxt9qU7uRy1kjnq6aRj3zMM
- k91g==
-X-Gm-Message-State: AO0yUKWooKBBw1mgfAiAo5qmGWfowrtO1HSJRYj0uG8szX9A9ulx+tbd
- STwkc8VxPDXhiSrDQ6rX/MrwgionYQ4WBNkhRHY=
-X-Google-Smtp-Source: AK7set+3USxeqX4PBZMGHOkvS2plp2YCQOH/qwTDyDN1wGmHqvN/vX1MIptJN9ZicpG4pHKkIqnl3xdCoWzhtmkbTaw=
-X-Received: by 2002:a05:6871:29c:b0:163:8cc6:86a with SMTP id
- i28-20020a056871029c00b001638cc6086amr1084007oae.46.1675953156618; Thu, 09
- Feb 2023 06:32:36 -0800 (PST)
+ bh=sp03I73N+r+twL5ugYnXLYJHbMgUcy+BtwmbrfyskRA=;
+ b=aDzK/DwtS5zP7eG/36XVZrySMBBNTUufO8sS0PdhW55djof9XfVBOwDP78VQdcMm/y
+ 8cIpPPFsO/FNZyjRQSIYIFvhdpLWWlh6GmGldPVL3H80VzdZWET3ipIy+0kIn/WSQeFz
+ oIHhcNe7fVsf0paeWlBBel6k+b8MM1A0tpzmhGsWzDq9i/xJrjP30N25QDmkQvJuR3HN
+ hKHtWpfYZEyF+f67aRwqvAZLP5OleougEMs2pgOvOZhl+PgeE6Y+UZvMg2wBF7m0BiZB
+ D7JLwgVPythaq9yY9MMUNzCggiBLuigHqfBBVUAlUQuRwxNucOeaLKJ1827Zp0DCVhkC
+ kzew==
+X-Gm-Message-State: AO0yUKVDkg/iou2aEFd9DKmywT5eD1whOZLG7p+v22lOOldwiObNMByz
+ KDa6Hg8F5QiW3yWo5XiI7XKXrHOgHlIch6f2Yyo=
+X-Google-Smtp-Source: AK7set8WUzFR+9A6rkN9lf35+zMlZ5Ra7EmUoSFmZH1NreHw2xOKi29aBn57YpXN8BAKmHuLuXls8iBeXTO3FjkqpBs=
+X-Received: by 2002:aca:c108:0:b0:35b:d93f:cbc4 with SMTP id
+ r8-20020acac108000000b0035bd93fcbc4mr575101oif.96.1675953352898; Thu, 09 Feb
+ 2023 06:35:52 -0800 (PST)
 MIME-Version: 1.0
-References: <202302091847543326041@zte.com.cn>
-In-Reply-To: <202302091847543326041@zte.com.cn>
+References: <20230209125330.1433481-1-colin.i.king@gmail.com>
+In-Reply-To: <20230209125330.1433481-1-colin.i.king@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 9 Feb 2023 09:32:25 -0500
-Message-ID: <CADnq5_MLTxWSVwdd9=WuV63HLRHqfYqos-Myn6VLdSM5Q0FymQ@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd/display: remove duplicate include header
-To: ye.xingchen@zte.com.cn
+Date: Thu, 9 Feb 2023 09:35:41 -0500
+Message-ID: <CADnq5_Pju2QxoR2QEhWf_p9EcKnuF+SkqaKJ7i7adxBktJBBAw@mail.gmail.com>
+Subject: Re: [PATCH][next] drm/amd/display: Fix spelling mistakes of function
+ name in error message
+To: Colin Ian King <colin.i.king@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,10 +64,13 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, wenjing.liu@amd.com, qingqing.zhuo@amd.com,
- xinhui.pan@amd.com, rodrigo.siqueira@amd.com, linux-kernel@vger.kernel.org,
+Cc: kernel-janitors@vger.kernel.org, Leo Li <sunpeng.li@amd.com>,
+ David Airlie <airlied@gmail.com>, Xinhui.Pan@amd.com,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- george.shen@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
@@ -75,30 +78,39 @@ Applied.  Thanks!
 
 Alex
 
-On Thu, Feb 9, 2023 at 5:48 AM <ye.xingchen@zte.com.cn> wrote:
+On Thu, Feb 9, 2023 at 7:53 AM Colin Ian King <colin.i.king@gmail.com> wrote:
 >
-> From: Ye Xingchen <ye.xingchen@zte.com.cn>
+> The function name is being reported as dc_link_contruct when it is
+> actually dc_link_construct_phy. Fix this by using %s and the __func__
+> for the function name.
 >
-> link_hwss.h is included more than once in link_dpms.c .
->
-> Signed-off-by: Ye Xingchen <ye.xingchen@zte.com.cn>
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 > ---
-> v1 -> v2
-> Fix the U+00A0 non-breaking space in the subject line.
->  drivers/gpu/drm/amd/display/dc/link/link_dpms.c | 1 -
->  1 file changed, 1 deletion(-)
+>  drivers/gpu/drm/amd/display/dc/link/link_factory.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> index 9cdfa7f7dc77..0c26b3589608 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> @@ -51,7 +51,6 @@
->  #include "link_enc_cfg.h"
->  #include "resource.h"
->  #include "dsc.h"
-> -#include "link_hwss.h"
->  #include "dccg.h"
->  #include "clk_mgr.h"
->  #include "atomfirmware.h"
+> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_factory.c b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
+> index 13a766273755..3fc93fc593fb 100644
+> --- a/drivers/gpu/drm/amd/display/dc/link/link_factory.c
+> +++ b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
+> @@ -452,7 +452,7 @@ static bool dc_link_construct_phy(struct dc_link *link,
+>         link->psr_settings.psr_vtotal_control_support = false;
+>         link->psr_settings.psr_version = DC_PSR_VERSION_UNSUPPORTED;
+>
+> -       DC_LOG_DC("BIOS object table - dc_link_contruct finished successfully.\n");
+> +       DC_LOG_DC("BIOS object table - %s finished successfully.\n", __func__);
+>         return true;
+>  device_tag_fail:
+>         link->link_enc->funcs->destroy(&link->link_enc);
+> @@ -469,7 +469,7 @@ static bool dc_link_construct_phy(struct dc_link *link,
+>                 link->hpd_gpio = NULL;
+>         }
+>
+> -       DC_LOG_DC("BIOS object table - dc_link_contruct failed.\n");
+> +       DC_LOG_DC("BIOS object table - %s failed.\n", __func__);
+>         return false;
+>  }
+>
 > --
-> 2.25.1
+> 2.30.2
+>
