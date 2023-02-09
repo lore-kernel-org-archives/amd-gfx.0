@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CC2DC636D4
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Feb 2023 11:17:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 210DAC05027
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Feb 2023 11:18:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DC3110E9B3;
-	Thu,  9 Feb 2023 11:17:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1C7210E9BD;
+	Thu,  9 Feb 2023 11:18:33 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A038A10E9AF;
- Thu,  9 Feb 2023 11:17:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07BEC10E9BB;
+ Thu,  9 Feb 2023 11:18:31 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2B02161A33;
- Thu,  9 Feb 2023 11:17:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59CCBC433D2;
- Thu,  9 Feb 2023 11:17:23 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 87E2A619C2;
+ Thu,  9 Feb 2023 11:18:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57137C433EF;
+ Thu,  9 Feb 2023 11:18:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1675941445;
- bh=gVh6vKcD3veQO8dD/zvVPFaBQ6I3xHyzxSFt5Ew0QQ0=;
+ s=k20201202; t=1675941510;
+ bh=zAo9TsQC68xc/QJJVVGTWGZL66ew9q/aKXOvgD9g8hs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=nm91bZHIQXMkdSs0UUnqYJTd4aAsp4y2mrAbO1FMMm3/mI6HsyGpUPrnCr8iOS3L1
- nZAkoaIum9f77oTMXD31822zostzHF7pN7x8YUMbrlYUeErpMWp13UsYXYBBKsmicN
- vB64zG+4ZRNPh2HWRQGZgeQqfDwciGnVh6dzo3TljSwzv0d+AX1CpFdAv7mPP60hYb
- /qvvtVnaW4W9t+HP3d366T0Z0KH/w19fBSxf6i704BCOuxsA4WAs2ikm5yEnjbIL6C
- eWY0OwSxyi88Ev6Db0Y+RkZUkv34dQzKMWJik+CIgxIdrbu5GC2tXOvV4zv7XMV0cJ
- mOietlAk5LyLg==
+ b=m4pcIqao5Dx+2Fm9YF/woLrodtrmyS8ImqXSn9P3GorLlUuCj52nZAsWhtnW4anQb
+ CbBaTI4i2AqAurrWnHi/hSttaPsPyBlQwd73ox6r4Nq+J1+C/rcp2YapQxgIF3OTKz
+ 96qPTmMlPEdBTO9pM/W9Dn9i1Lbz3Zn62O/DDQbrQSlMRAlOfGa52BocD/P7zWQCas
+ usktHiDpg2aCJEDm1RvBhTj5qD+KKckw5xpm5buelRz2OWDGMEiDxAjRbsHnINTXrZ
+ N6mxYFG4X26clQFdHV9T90moCzTfLHrbWC3j+T1eVMWqttbih4+W/j2HirQ/37D8uK
+ tJWsSszaiZfkA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 35/38] drm/amd/display: Properly handle additional
- cases where DCN is not supported
-Date: Thu,  9 Feb 2023 06:14:54 -0500
-Message-Id: <20230209111459.1891941-35-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 16/17] drm/amd/display: Properly handle
+ additional cases where DCN is not supported
+Date: Thu,  9 Feb 2023 06:17:28 -0500
+Message-Id: <20230209111731.1892569-16-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230209111459.1891941-1-sashal@kernel.org>
-References: <20230209111459.1891941-1-sashal@kernel.org>
+In-Reply-To: <20230209111731.1892569-1-sashal@kernel.org>
+References: <20230209111731.1892569-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -85,10 +85,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 11 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 85bd1f18259c7..c92aaf5c36ef5 100644
+index a2d9e0af06544..1f7f424331e40 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4512,6 +4512,17 @@ DEVICE_ATTR_WO(s3_debug);
+@@ -4428,6 +4428,17 @@ DEVICE_ATTR_WO(s3_debug);
  static int dm_early_init(void *handle)
  {
  	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
