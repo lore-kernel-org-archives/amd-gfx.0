@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D329C05027
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Feb 2023 10:08:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47591C61DA4
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Feb 2023 11:16:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7F8610E992;
-	Thu,  9 Feb 2023 10:08:37 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D84E10E992;
- Thu,  9 Feb 2023 10:08:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675937316; x=1707473316;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=3kM3qVc9Ez61uoBGV4OFIyd2qWSgV9wfm15bdDjlPiw=;
- b=AfjR7GHMyXBTo1PQWnBoF+uIKch2QyC8UsYw4Lp6jn//svQnZobL4Y/v
- UbJsO6Fe7EYdBVjhGRs52lpp8FoHbscTQ3uvwPHkaCFya94Srv77BAhZI
- 3W1pCxtcgJe1gF6jxM6YbOaB2aytofVOL6oMkHH3NDOCscuabZ6Z8jX9q
- dlJpbR/00aWalPIIXVkdu0vdxJo5TYUP+ruva9iBJTzFRnuTt+aRKFBr8
- Hrvi2TzkIdgaGdd/LBVJYwET7zRuiYjsmZoPGlnODl1uU2SfKQ3X7OoYw
- /2bDc8T5/Dsv/cwZFtOY8CeUJSsCsQ27LkRrSuCUh06a0mwU24IR2Qu/t Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10615"; a="331355008"
-X-IronPort-AV: E=Sophos;i="5.97,283,1669104000"; d="scan'208";a="331355008"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Feb 2023 02:08:35 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10615"; a="697970307"
-X-IronPort-AV: E=Sophos;i="5.97,283,1669104000"; d="scan'208";a="697970307"
-Received: from grizzo-mobl.ger.corp.intel.com (HELO localhost) ([10.252.38.7])
- by orsmga008-auth.jf.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Feb 2023 02:08:31 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: ye.xingchen@zte.com.cn, alexander.deucher@amd.com
-Subject: Re: [PATCH] drm/amdgpu/display: remove duplicate include header
- =?utf-8?Q?in=C2=A0link=5Fdpms=2Ec?=
-In-Reply-To: <202302091511222329971@zte.com.cn>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <202302091511222329971@zte.com.cn>
-Date: Thu, 09 Feb 2023 12:08:28 +0200
-Message-ID: <877cwrxiar.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7CB710E997;
+	Thu,  9 Feb 2023 11:16:55 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 949DA10E98A;
+ Thu,  9 Feb 2023 11:16:52 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 3D5F0B82109;
+ Thu,  9 Feb 2023 11:16:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7D7CC433A1;
+ Thu,  9 Feb 2023 11:16:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1675941410;
+ bh=VloG9acZa/PwwsJWfuSKaf8CoTxyQm2FyMJ/VwbdQes=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=MbbZuzuG89+6OEDWDFFn7gt+vGLSCLT0eQifN2/5VyfZymLrUrvGesxAgviPMLdtE
+ ThuALioPyLaGkKgyeiCbjI9zvOvOQOUk4jFLMjAWsjFtI8p6G8EjG8l3Xi6zi0uhO7
+ GmwmXwu1ezVBpz1rdiIglqK0e0PocDDAA8Rb6SiOIhaXH/aFyi/XEleDjDuLkqaDMG
+ EgB1Yh1FHg3qaCgb4y0GoUpFr7JM1is8rAHK/tDpHNUgNIBXnxA8/boJlKdX/eyIUq
+ +OahqmlCkT4kED0xgwlN8fU6hu1Ah/cy19g/1HHsPr28ynrZxamWcF/S2zEZHqTGyP
+ ce69ZvqlmAcdg==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.1 29/38] drm/amd/display: Add missing brackets in
+ calculation
+Date: Thu,  9 Feb 2023 06:14:48 -0500
+Message-Id: <20230209111459.1891941-29-sashal@kernel.org>
+X-Mailer: git-send-email 2.39.0
+In-Reply-To: <20230209111459.1891941-1-sashal@kernel.org>
+References: <20230209111459.1891941-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,41 +55,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, wenjing.liu@amd.com, qingqing.zhuo@amd.com,
- xinhui.pan@amd.com, rodrigo.siqueira@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- george.shen@amd.com, christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Daniel Miess <Daniel.Miess@amd.com>,
+ Charlene.Liu@amd.com, Alex Hung <alex.hung@amd.com>, airlied@gmail.com,
+ Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, nathan@kernel.org,
+ sunpeng.li@amd.com, Daniel Wheeler <daniel.wheeler@amd.com>,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, harry.wentland@amd.com,
+ nicholas.kazlauskas@amd.com, Pavle.Kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 09 Feb 2023, <ye.xingchen@zte.com.cn> wrote:
-> From: Ye Xingchen <ye.xingchen@zte.com.cn>
->
-> link_hwss.h is included more than once.
+From: Daniel Miess <Daniel.Miess@amd.com>
 
-You've got U+00A0 non-breaking space in the subject line.
+[ Upstream commit ea062fd28f922cb118bfb33229f405b81aff7781 ]
 
-BR,
-Jani.
+[Why]
+Brackets missing in the calculation for MIN_DST_Y_NEXT_START
 
->
-> Signed-off-by: Ye Xingchen <ye.xingchen@zte.com.cn>
-> ---
->  drivers/gpu/drm/amd/display/dc/link/link_dpms.c | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> index 9cdfa7f7dc77..0c26b3589608 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> @@ -51,7 +51,6 @@
->  #include "link_enc_cfg.h"
->  #include "resource.h"
->  #include "dsc.h"
-> -#include "link_hwss.h"
->  #include "dccg.h"
->  #include "clk_mgr.h"
->  #include "atomfirmware.h"
+[How]
+Add missing brackets for this calculation
 
+Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Acked-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Daniel Miess <Daniel.Miess@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c    | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
+index 0d12fd079cd61..3afd3c80e6da8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
+@@ -3184,7 +3184,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+ 		} else {
+ 			v->MIN_DST_Y_NEXT_START[k] = v->VTotal[k] - v->VFrontPorch[k] + v->VTotal[k] - v->VActive[k] - v->VStartup[k];
+ 		}
+-		v->MIN_DST_Y_NEXT_START[k] += dml_floor(4.0 * v->TSetup[k] / (double)v->HTotal[k] / v->PixelClock[k], 1.0) / 4.0;
++		v->MIN_DST_Y_NEXT_START[k] += dml_floor(4.0 * v->TSetup[k] / ((double)v->HTotal[k] / v->PixelClock[k]), 1.0) / 4.0;
+ 		if (((v->VUpdateOffsetPix[k] + v->VUpdateWidthPix[k] + v->VReadyOffsetPix[k]) / v->HTotal[k])
+ 				<= (isInterlaceTiming ?
+ 						dml_floor((v->VTotal[k] - v->VActive[k] - v->VFrontPorch[k] - v->VStartup[k]) / 2.0, 1.0) :
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.39.0
+
