@@ -4,81 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F84BC636D7
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Feb 2023 20:24:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7CD1C636D4
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Feb 2023 20:47:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F1B510EDFD;
-	Fri, 10 Feb 2023 20:24:37 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B6BA10E154
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Feb 2023 20:15:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1676060154;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ZNFnqY613h9bvaBLnYI52rKBZZmmgHMm3e/efaUU+qs=;
- b=NTPvqipsjgFUBFuXLcsQ0SoHzmudeBBuIpUdzg8qeiyH3Z3KFUQZaHHO+OfwOkTID4NRm0
- SNiuYpPR5JIUyBvXGATGJPTLCdOXmMZ3YUo8OepZhOrsgo+IN4bYlYCbmcL8CmH6ozAQ2s
- g0LvWwpl9XAnP3SD2NCShUVzp+SbCbo=
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
- [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-495-VvHpIlZlM46vePzj7V1WeA-1; Fri, 10 Feb 2023 15:15:53 -0500
-X-MC-Unique: VvHpIlZlM46vePzj7V1WeA-1
-Received: by mail-ej1-f69.google.com with SMTP id
- l18-20020a1709067d5200b008af415fdd80so3568765ejp.21
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Feb 2023 12:15:53 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ZNFnqY613h9bvaBLnYI52rKBZZmmgHMm3e/efaUU+qs=;
- b=vCk8qUlkb/syuhUlLi029FFvDL/NqdpmVprikKeZImFtKtuXdQKS+JDUmbHwxzenWf
- 8E2IpqqewKUfqSE1TqGi8YgB1DfekcMam0o17SZtwbgcMAhRomNMd5naw2ZaoZdaBe/h
- uOfQN04LBfLHqHxN04LgjBb7C1RbX4IRY9zAPkud4+nIKVKaAdlCN2mFw1NhIcuOCebb
- ihFI3RDFd17m5K5pblN2xuKNFkv/G6sc4WSZEaITFQp0ShK5wCMK2F/zzi0+xIFcflcl
- bU5dPr2ymgyHdy69JuR2kkXKk2XYbe87G0SR3lRYC8fibJ9hTtdt7dImdwjYmq+bBMo3
- h+Iw==
-X-Gm-Message-State: AO0yUKXtfInL3b+il92Qej34VYuTye9r/dj6U1U88yx6jTH7gPF4INNd
- kEVI/AJw6wX5s9jszQvqCatr92xemZ4DxOOKAV8xNu4Zzkcr6PgCyYU2/46vloa7Q9RT3HsQD8g
- iy8/kOAEX4uAXWeOd9o1afz+6Ag==
-X-Received: by 2002:a17:906:a102:b0:878:5e84:e1da with SMTP id
- t2-20020a170906a10200b008785e84e1damr19986648ejy.27.1676060152361; 
- Fri, 10 Feb 2023 12:15:52 -0800 (PST)
-X-Google-Smtp-Source: AK7set83CY0lAZ6vzuP/e62ituWkImwtPZspb5CjMytMYB/Xmhp1TOSi84e/LdQpynGJdXlN84G9Aw==
-X-Received: by 2002:a17:906:a102:b0:878:5e84:e1da with SMTP id
- t2-20020a170906a10200b008785e84e1damr19986636ejy.27.1676060152166; 
- Fri, 10 Feb 2023 12:15:52 -0800 (PST)
-Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec?
- (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
- by smtp.gmail.com with ESMTPSA id
- m10-20020a170906580a00b0086f4b8f9e42sm2813890ejq.65.2023.02.10.12.15.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 10 Feb 2023 12:15:51 -0800 (PST)
-Message-ID: <3e6c6cba-ad53-d380-a028-840fb19dbfcb@redhat.com>
-Date: Fri, 10 Feb 2023 21:15:50 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D24610E29C;
+	Fri, 10 Feb 2023 20:47:34 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2050.outbound.protection.outlook.com [40.107.237.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAECF10E29C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Feb 2023 20:47:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UbnfpYzslGei2SY/a2rNDfnIAIosJ79YZjy+q5UxsTqL6jtX6sgJnzKWgqhrrAREtGf3bawOJut8KoLTtDsJzNf9kY0sfWXYjWwBW3jQtvSUyA47Dt6UenZxnOR7sgfdm8WcTxmZLu7ooxu1+jATzzPMhJxy8Q1e30GXh27ox/uRj1/T/GQJpA98d20OeXn7Sh4zXeEpuy6LYtrUlMso+HiLE1N+D9E3MSKY+v8/Op/aX/w7MEeaukp4yyg7U7chnNktHYNpRfL2b8LNk7S/OtZikOw75VRaaLcU2KxLKeuJrlGwxGLwfxYTGtS1kTZLy3EwGF5y5PxGMOrIANH0SQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=w36DTLVf+uEBUtOVCdZ+Vmrm0TtALU/snWAY+VRdVOo=;
+ b=QK2sGYzwJCSCLJV/oquRpkvbRTMMQKaTzNJxgA3XNrXAa0JqVevu1vR+xuhp4xskt5u/Chw6C/z5nb3GL/K8wYYDB8PGEHTzRISNesuEJ+LZ0Ifxfd9BALU1g6Ymap5cTt0YTwfl926gfpFwINUueFU74MRjEljdN4HO6FRqrj7cXggpI+N2IpsTqzSZRxELg1MSJfp43fic/+3adQOdV4kLabcEysc2Q2ddVJ0yqj3kjIobrf3lJJZ73vhZ3FIAyZ844DAEQDulDSWy0Nd3fKoJVqQOQDyZ9p4QdGZ7Aht8f5lyFhQ4N3AA0asFDGUFfgIktM18Hi+H+/LpGiNjvQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w36DTLVf+uEBUtOVCdZ+Vmrm0TtALU/snWAY+VRdVOo=;
+ b=H9n1SRqD3cv7vZbzV3bTX67XO6pAQESkhsSyDSwsLIiadqDJjLaPpt+z93jKdbH8X6rU1heZmDnj0rYbkv0J8njxJr9OWCT34lcDeUJ5pjd1frWCDz2uaFf+sy+HBOopxeEg3wqRKxhxBBQyRa0Qn8ANxJJHvHkAw81mmhkTRV4=
+Received: from MW4PR03CA0272.namprd03.prod.outlook.com (2603:10b6:303:b5::7)
+ by SN7PR12MB8060.namprd12.prod.outlook.com (2603:10b6:806:343::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.21; Fri, 10 Feb
+ 2023 20:47:30 +0000
+Received: from CO1NAM11FT093.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b5:cafe::5e) by MW4PR03CA0272.outlook.office365.com
+ (2603:10b6:303:b5::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.19 via Frontend
+ Transport; Fri, 10 Feb 2023 20:47:30 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT093.mail.protection.outlook.com (10.13.175.59) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6086.21 via Frontend Transport; Fri, 10 Feb 2023 20:47:29 +0000
+Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 10 Feb
+ 2023 14:47:28 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd: Don't allow s0ix on APUs older than Raven
+Date: Fri, 10 Feb 2023 14:47:16 -0600
+Message-ID: <20230210204716.12849-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [RFC PATCH 7/9] apple-gmux: add sysfs interface
-To: Orlando Chamberlain <orlandoch.dev@gmail.com>,
- platform-driver-x86@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
-References: <20230210044826.9834-1-orlandoch.dev@gmail.com>
- <20230210044826.9834-8-orlandoch.dev@gmail.com>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <20230210044826.9834-8-orlandoch.dev@gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US, nl
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Fri, 10 Feb 2023 20:24:35 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT093:EE_|SN7PR12MB8060:EE_
+X-MS-Office365-Filtering-Correlation-Id: 530a0abe-5f7e-40e9-185a-08db0ba806dc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ScUitKONx31WJQRR2OonfyZ8mr3DdQyLEfW8PvI9YIZ81Go75GT3DsHqd14gAgeZsC4Vr6hGb4iWL6SGQTe3B1RAcvvI5O9aUqyYkYxYCulpPWp98fBAHtt1gpo6M7XIRoxbPraLC6ieiFx2KCYW8XMwpJG1US18bSVztSLodJsMGc+TJs5Wdv52RWUJaspZfH/fOX2a4xvzjQoFa4oxPBvryK1ctQ8b4YKl5Y7Qlj9qwwKPe7mIJHADWfgx4jvO5lsUXV99hM/+G0c6E4qZ4jbzeIl2M2gp+McxHQoy2tz76v0Mhps2vKKo0ugbmUuKI+tiao/+Cakc5Vu3yTqWvIvBuOJLJh7TAQVkUoErQnhdBg8fIihb9AiNEV6v3YWFj6kJfLJnl1SBUADndiVKu47D73gMMGNBm1kbFXWBYHKgxyW7B8ZgGpxtl83qTWb8G6QJ8c8JTvl8pzNsvCOuCtVAsVPev/tbkL8T2GtowvEJ3h6m7gaTHZaeU50SDQ/j7sQioumkZX6uKT9eoRy5WI9LHxfkcNb0oNa+AnbltFvSNONf4Z8l/p8w+/sj7g7cODK78V3F2RJNfv94GvarmY4o6WrsgSMR4CJe62tNWlZYhpnNkBNfjQE1+Q5Wzk6rKFo6tie3+TY0w74E2XY5qEJcDP+aOmQ8zY84mtt/2tu67Ww4x7x7qWpoDDRQySJaDYzm2zF6ElSDP/hyQUPZ6wi6y1a3wTmI3McfuBMl7tblmR32XQjTuYk7bg/YIBNJ
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(39860400002)(346002)(136003)(376002)(396003)(451199018)(36840700001)(40470700004)(46966006)(40480700001)(356005)(40460700003)(86362001)(82310400005)(36756003)(426003)(47076005)(70206006)(83380400001)(54906003)(70586007)(1076003)(6666004)(82740400003)(16526019)(7696005)(186003)(26005)(316002)(336012)(478600001)(2616005)(81166007)(2906002)(5660300002)(8936002)(41300700001)(8676002)(6916009)(4326008)(36860700001)(44832011)(32563001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2023 20:47:29.8837 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 530a0abe-5f7e-40e9-185a-08db0ba806dc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT093.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8060
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,227 +97,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Rander Wang <rander.wang@intel.com>, YiPeng Chai <YiPeng.Chai@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- David Airlie <airlied@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Evan Quan <evan.quan@amd.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Yong Zhi <yong.zhi@intel.com>, Aun-Ali Zaidi <admin@kodeit.net>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Bokun Zhang <Bokun.Zhang@amd.com>, Mark Gross <markgross@kernel.org>,
- Kerem Karabay <kekrby@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Jack Xiao <Jack.Xiao@amd.com>, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
- Takashi Iwai <tiwai@suse.com>, Aditya Garg <gargaditya08@live.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?= <amadeuszx.slawinski@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Alexander Deucher <Alexander.Deucher@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+APUs before Raven didn't support s0ix.  As we just relieved some
+of the safety checks for s0ix to improve power consumption on
+APUs that support it but that are missing BIOS support a new
+blind spot was introduced that a user could "try" to run s0ix.
 
-On 2/10/23 05:48, Orlando Chamberlain wrote:
-> Allow reading gmux ports from userspace. When the unsafe module
-> parameter allow_user_writes is true, writing 1 byte
-> values is also allowed.
-> 
-> For example:
-> 
-> cd /sys/bus/acpi/devices/APP000B:00/physical_node/
-> echo 4 > gmux_selected_port
-> cat gmux_selected_port_data | xxd -p
-> 
-> Will show the gmux version information (00000005 in this case)
+Plug this hole so that if users try to run s0ix on anything older
+than Raven it will just skip suspend of the GPU.
 
-Please use debugfs for this and as part of the conversion
-drop the #ifdef-s (debugfs has stubs for when not enabled)
-and drop all the error checking of creating the files, debugfs
-is deliberately designed to not have any error checking in
-the setup / teardown code.
+Fixes: cf488dcd0ab7 ("drm/amd: Allow s0ix without BIOS support")
+Suggested-by: Alexander Deucher <Alexander.Deucher@amd.com>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 3 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  | 5 ++++-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
 
-This also removes the need for the allow_user_writes parameter
-replacing it with the new kernel lockdown mechanism. debugfs
-will automatically block access to writable files when
-the kernel is in lockdown mode.
-
-Regards,
-
-Hans
-
-
-
-
-> Signed-off-by: Orlando Chamberlain <orlandoch.dev@gmail.com>
-> ---
->  drivers/platform/x86/apple-gmux.c | 129 ++++++++++++++++++++++++++++++
->  1 file changed, 129 insertions(+)
-> 
-> diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/apple-gmux.c
-> index c38d6ef0c15a..756059d48393 100644
-> --- a/drivers/platform/x86/apple-gmux.c
-> +++ b/drivers/platform/x86/apple-gmux.c
-> @@ -66,6 +66,11 @@ struct apple_gmux_data {
->  	enum vga_switcheroo_client_id switch_state_external;
->  	enum vga_switcheroo_state power_state;
->  	struct completion powerchange_done;
-> +
-> +#ifdef CONFIG_SYSFS
-> +	/* sysfs data */
-> +	int selected_port;
-> +#endif /* CONFIG_SYSFS */
->  };
->  
->  static struct apple_gmux_data *apple_gmux_data;
-> @@ -651,6 +656,121 @@ static void gmux_notify_handler(acpi_handle device, u32 value, void *context)
->  		complete(&gmux_data->powerchange_done);
->  }
->  
-> +/**
-> + * DOC: Sysfs Interface
-> + *
-> + * gmux ports can be read from userspace as a sysfs interface. For example:
-> + *
-> + * # echo 4 > /sys/bus/acpi/devices/APP000B:00/physical_node/gmux_selected_port
-> + * # cat /sys/bus/acpi/devices/APP000B:00/physical_node/gmux_selected_port_data | xxd -p
-> + * 00000005
-> + *
-> + * Reads 4 bytes from port 4 (GMUX_PORT_VERSION_MAJOR).
-> + *
-> + * Single byte writes are also supported, however this must be enabled with the
-> + * unsafe allow_user_writes module parameter.
-> + *
-> + */
-> +
-> +#ifdef CONFIG_SYSFS
-> +
-> +static bool allow_user_writes;
-> +module_param_unsafe(allow_user_writes, bool, 0);
-> +MODULE_PARM_DESC(allow_user_writes, "Allow userspace to write to gmux ports (default: false) (bool)");
-> +
-> +static ssize_t gmux_selected_port_store(struct device *dev,
-> +		struct device_attribute *attr, const char *sysfsbuf, size_t count)
-> +{
-> +	struct apple_gmux_data *gmux_data = dev_get_drvdata(dev);
-> +	u8 port;
-> +
-> +	if (kstrtou8(sysfsbuf, 10, &port) < 0)
-> +		return -EINVAL;
-> +
-> +	/* On pio gmux's, make sure the user doesn't access too high of a port. */
-> +	if ((gmux_data->config == &apple_gmux_pio) &&
-> +		port > (gmux_data->iolen - 4))
-> +		return -EINVAL;
-> +
-> +	gmux_data->selected_port = port;
-> +	return count;
-> +}
-> +
-> +static ssize_t gmux_selected_port_show(struct device *dev,
-> +		struct device_attribute *attr, char *sysfsbuf)
-> +{
-> +	struct apple_gmux_data *gmux_data = dev_get_drvdata(dev);
-> +
-> +	return sysfs_emit(sysfsbuf, "%d\n", gmux_data->selected_port);
-> +}
-> +
-> +DEVICE_ATTR_RW(gmux_selected_port);
-> +
-> +static ssize_t gmux_selected_port_data_store(struct device *dev,
-> +		struct device_attribute *attr, const char *sysfsbuf, size_t count)
-> +{
-> +	struct apple_gmux_data *gmux_data = dev_get_drvdata(dev);
-> +
-> +	if (count == 1)
-> +		gmux_write8(gmux_data, gmux_data->selected_port, *sysfsbuf);
-> +	else
-> +		return -EINVAL;
-> +
-> +	return count;
-> +}
-> +
-> +static ssize_t gmux_selected_port_data_show(struct device *dev,
-> +		struct device_attribute *attr, char *sysfsbuf)
-> +{
-> +	struct apple_gmux_data *gmux_data = dev_get_drvdata(dev);
-> +	u32 data;
-> +
-> +	data = gmux_read32(gmux_data, gmux_data->selected_port);
-> +	memcpy(sysfsbuf, &data, sizeof(data));
-> +
-> +	return sizeof(data);
-> +}
-> +
-> +struct device_attribute dev_attr_gmux_selected_port_data_rw = __ATTR_RW(gmux_selected_port_data);
-> +struct device_attribute dev_attr_gmux_selected_port_data_ro = __ATTR_RO(gmux_selected_port_data);
-> +
-> +static int gmux_init_sysfs(struct pnp_dev *pnp)
-> +{
-> +	int ret;
-> +
-> +	ret = device_create_file(&pnp->dev, &dev_attr_gmux_selected_port);
-> +	if (ret)
-> +		return ret;
-> +	if (allow_user_writes)
-> +		ret = device_create_file(&pnp->dev, &dev_attr_gmux_selected_port_data_rw);
-> +	else
-> +		ret = device_create_file(&pnp->dev, &dev_attr_gmux_selected_port_data_ro);
-> +	if (ret)
-> +		device_remove_file(&pnp->dev, &dev_attr_gmux_selected_port);
-> +	return ret;
-> +}
-> +
-> +static void gmux_fini_sysfs(struct pnp_dev *pnp)
-> +{
-> +	device_remove_file(&pnp->dev, &dev_attr_gmux_selected_port);
-> +	if (allow_user_writes)
-> +		device_remove_file(&pnp->dev, &dev_attr_gmux_selected_port_data_rw);
-> +	else
-> +		device_remove_file(&pnp->dev, &dev_attr_gmux_selected_port_data_ro);
-> +}
-> +
-> +#else
-> +
-> +static int gmux_init_sysfs(struct pnp_dev *pnp)
-> +{
-> +	return 0;
-> +}
-> +static void gmux_fini_sysfs(struct pnp_dev *pnp)
-> +{
-> +}
-> +
-> +#endif /* CONFIG_SYSFS */
-> +
->  static int gmux_suspend(struct device *dev)
->  {
->  	struct pnp_dev *pnp = to_pnp_dev(dev);
-> @@ -846,8 +966,16 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
->  		goto err_register_handler;
->  	}
->  
-> +	ret = gmux_init_sysfs(pnp);
-> +	if (ret) {
-> +		pr_err("Failed to register gmux sysfs entries\n");
-> +		goto err_sysfs;
-> +	}
-> +
->  	return 0;
->  
-> +err_sysfs:
-> +	vga_switcheroo_unregister_handler();
->  err_register_handler:
->  	gmux_disable_interrupts(gmux_data);
->  	apple_gmux_data = NULL;
-> @@ -877,6 +1005,7 @@ static void gmux_remove(struct pnp_dev *pnp)
->  {
->  	struct apple_gmux_data *gmux_data = pnp_get_drvdata(pnp);
->  
-> +	gmux_fini_sysfs(pnp);
->  	vga_switcheroo_unregister_handler();
->  	gmux_disable_interrupts(gmux_data);
->  	if (gmux_data->gpe >= 0) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+index fa7375b97fd47..25e902077caf6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+@@ -1073,6 +1073,9 @@ bool amdgpu_acpi_is_s0ix_active(struct amdgpu_device *adev)
+ 	    (pm_suspend_target_state != PM_SUSPEND_TO_IDLE))
+ 		return false;
+ 
++	if (adev->asic_type < CHIP_RAVEN)
++		return false;
++
+ 	/*
+ 	 * If ACPI_FADT_LOW_POWER_S0 is not set in the FADT, it is generally
+ 	 * risky to do any special firmware-related preparations for entering
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 6c2fe50b528e0..98f8d9873cd84 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2414,7 +2414,7 @@ static int amdgpu_pmops_suspend(struct device *dev)
+ 
+ 	if (amdgpu_acpi_is_s0ix_active(adev))
+ 		adev->in_s0ix = true;
+-	else
++	else if (amdgpu_acpi_is_s3_active(adev))
+ 		adev->in_s3 = true;
+ 	return amdgpu_device_suspend(drm_dev, true);
+ }
+@@ -2436,6 +2436,9 @@ static int amdgpu_pmops_resume(struct device *dev)
+ 	struct amdgpu_device *adev = drm_to_adev(drm_dev);
+ 	int r;
+ 
++	if (!adev->in_s0ix && !adev->in_s3)
++		return 0;
++
+ 	/* Avoids registers access if device is physically gone */
+ 	if (!pci_device_is_present(adev->pdev))
+ 		adev->no_hw_access = true;
+-- 
+2.25.1
 
