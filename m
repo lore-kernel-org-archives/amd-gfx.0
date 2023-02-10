@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73262C05027
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Feb 2023 16:22:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A3F0C05027
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Feb 2023 16:30:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7310C10ED80;
-	Fri, 10 Feb 2023 16:22:54 +0000 (UTC)
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
- [IPv6:2001:4860:4864:20::2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42D3010ED77;
- Fri, 10 Feb 2023 16:22:51 +0000 (UTC)
-Received: by mail-oa1-x2f.google.com with SMTP id
- 586e51a60fabf-16dcb07b805so745208fac.0; 
- Fri, 10 Feb 2023 08:22:51 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE53610E119;
+	Fri, 10 Feb 2023 16:30:51 +0000 (UTC)
+Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
+ [IPv6:2607:f8b0:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6D7910E119
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Feb 2023 16:30:50 +0000 (UTC)
+Received: by mail-ot1-x329.google.com with SMTP id
+ j6-20020a9d7686000000b0068d4ba9d141so1680642otl.6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Feb 2023 08:30:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=zcvhD+W01cKPWtjRgVJx47Hu+OFKg9Xbqk1oO6EqrmQ=;
- b=lMPccPrUHXBPGQ57J6Ii1/N9Om/nJ97Wpn8HS0VowTIo8Cp+eHDe2euRHsdx2elh47
- AgCUeHjqSm/NFGCVJ6XPrptR40qCdQYz8IOuabhvuFqV6jcQjJRZOebW01wQpcjpDb7X
- vtklF/NR7bwJd3S260OcUoA8yMw0VEx/wKinxyUTbzCyn0PzeTp3J+Zc2W+a/X4XEaSk
- Ol7pu9Y3kiYtfkP+01ZzePRu42e9QiDp737V5Y46XFg9xeveournuLnGWM8tpXZQXF7d
- UJ75wKskPswrfaI2LtQqkiXIHVvfGy2hmwdly1UAtTxpnpuSgvsPXOy11am2OqoVGbVd
- YWTw==
+ bh=1xKJgqTES4Y1ubN8XM2HsQqVacGZvGadNY3UmBuYxPI=;
+ b=N7MueVuzk4rFLlVoqheOJtlOEaKS4el0qRQF8Kt6tiaU7d1m2fmbz73mjwqlNou2PX
+ NsESlEYoZV1aHGYBrqAnmItwLcmM4SPI5P3+cAUVTJ4cUx3DovW3kR+QZ6JixZWF1h5Y
+ 3tqVjZP67sIS3bTwI3Mm/PsTU43HathH3gQC6YoPs65ANwshepMsSj+tnonxqGd0h1Wn
+ 3Zoh7O/s6s/vQaCrM0uJ1mVrhPEeJ+9CEg76SQGVCg098vgpDBYOYBlNwXpdWTnOBlZy
+ D8uXwbFkNWVJ4qgu32qjnNNr3OJPGzbLkfEdeEgo50WGHrRk8wGY101RFJTqWBbGxO9b
+ mzGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=zcvhD+W01cKPWtjRgVJx47Hu+OFKg9Xbqk1oO6EqrmQ=;
- b=DcUE2owSUB5UqHtsUjTb324r+NX+b3ySHoF5RQQc/aS1b0A9v7mIjvBwtQJ5rW2W+b
- RyZI7KLczcn74Jg6O8rTV52OHvkFT4KjORHISedGkxGYJQDv24ZO2s8paI1EzXoFKx5T
- wyVjoJrNGydVjjkM/jYzrW6h12zj6y0OBDvLAFNW2ot+zyHBm6ApdUdW3c1fHXR2wxpO
- ODebzubzlhR1zc7OsfOqRXkjPbHETyUjELc5OAjI3Ogc5z6tU2+eW2hxi688cnx8khg9
- 5Uvv1FFayQuF8cxulkm8LpCAtytTHkSnDepxr2ABO6SX/fZzfye/a2peQ8m0obUdCD4O
- tQoA==
-X-Gm-Message-State: AO0yUKWb/7pzKMIfo2mwjZ6CKVtP/1DZ6uRftKcXoSsrJYo4wgIL9RWT
- mDpxAyiYaWH90HeaWUa9wuyubmgdU/kaUkbp5Oc=
-X-Google-Smtp-Source: AK7set9+mUrJgSH/PZ3V8KVvQa9VlzOFWaL5J6cYtruJ4ukPDlH5Ydb5brCfGV3F6EfrDI1hQ2G1yvZFLUpxXvGaQww=
-X-Received: by 2002:a05:6870:ac09:b0:16d:bc33:b941 with SMTP id
- kw9-20020a056870ac0900b0016dbc33b941mr278599oab.46.1676046170503; Fri, 10 Feb
- 2023 08:22:50 -0800 (PST)
+ bh=1xKJgqTES4Y1ubN8XM2HsQqVacGZvGadNY3UmBuYxPI=;
+ b=NW+JsI+ab1hPZEgmdMdHaqqWMP/ZcLCDmDFMscG4LG3a645+w4CvTAQcNOV6f3A9mS
+ E5PYCMWcJCXmgYETTBiM8SAD77F0aZSmXBlRHCbmEcrzsiUkGanYNhcPh/A4eeJsbx+h
+ qR+pWayZhiJar/q85nkSVzeNz3+5Bu7FxzC0ST10EZKu4cToZ2WmuAqbWP97+vKAmVaN
+ WET5AaY6KPgr0a2FZL457aHM1DKDGR3pXLAE3jeP7s3AFVdUAl4Y5xn5l8/wRpcPmMvj
+ EimWhHD9ueRAUzZboAqwkk5QYFqYcxrKKDD6LVOyMveZ/6+j/NV1XwCY/Zx77fMVXyde
+ rJqg==
+X-Gm-Message-State: AO0yUKU13p13oIHhLXfRAJj7EjzpHJAHSDn7q0/sKQA7FsJ/LHnupxvq
+ cJbZWXN4HLxPh7yIvyT9trwQE2pTooaAtYgp1nA=
+X-Google-Smtp-Source: AK7set97QTJ9hS1PDImhYsFB6nhTFb+J1wBuLYTOuOx3+Li3oqFhAlOgOrvhW6466NNQ3h1jIhydK/eY9ajBbegLszU=
+X-Received: by 2002:a9d:6f13:0:b0:68d:b51a:5cde with SMTP id
+ n19-20020a9d6f13000000b0068db51a5cdemr1044182otq.62.1676046649983; Fri, 10
+ Feb 2023 08:30:49 -0800 (PST)
 MIME-Version: 1.0
-References: <0779deb4-7eea-e1b2-2394-7e5dd5e30d3f@infradead.org>
-In-Reply-To: <0779deb4-7eea-e1b2-2394-7e5dd5e30d3f@infradead.org>
+References: <20230210044826.9834-1-orlandoch.dev@gmail.com>
+In-Reply-To: <20230210044826.9834-1-orlandoch.dev@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 10 Feb 2023 11:22:39 -0500
-Message-ID: <CADnq5_Mj-QqsRr8RyB67Pm+wBSVSd7iK1Joa59M9=HW0V3FVQw@mail.gmail.com>
-Subject: Re: error: 'const struct dc_dsc_config' has no member named 'is_frl'
-To: Randy Dunlap <rdunlap@infradead.org>
+Date: Fri, 10 Feb 2023 11:30:38 -0500
+Message-ID: <CADnq5_PK7=64SW8O+Hed1h7UWfxVZSpNOwx-paUSJhpCdK7i5A@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/9] apple-gmux: support MMIO gmux type on T2 Macs
+To: Orlando Chamberlain <orlandoch.dev@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,38 +64,188 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Alex Deucher <Alexander.Deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: alsa-devel@alsa-project.org,
+ Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
+ Rander Wang <rander.wang@intel.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ YiPeng Chai <YiPeng.Chai@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ David Airlie <airlied@gmail.com>, Evan Quan <evan.quan@amd.com>,
+ Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ amd-gfx@lists.freedesktop.org, Yong Zhi <yong.zhi@intel.com>,
+ Aun-Ali Zaidi <admin@kodeit.net>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Bokun Zhang <Bokun.Zhang@amd.com>, Mark Gross <markgross@kernel.org>,
+ Hans de Goede <hdegoede@redhat.com>, Jaroslav Kysela <perex@perex.cz>,
+ Kerem Karabay <kekrby@gmail.com>, platform-driver-x86@vger.kernel.org,
+ Jack Xiao <Jack.Xiao@amd.com>, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ Aditya Garg <gargaditya08@live.com>, Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?B?QW1hZGV1c3ogU8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 9, 2023 at 11:38 PM Randy Dunlap <rdunlap@infradead.org> wrote:
+On Fri, Feb 10, 2023 at 3:04 AM Orlando Chamberlain
+<orlandoch.dev@gmail.com> wrote:
 >
-> Hi,
+> Hi All,
 >
-> The 'is_frl' struct field is conditional:
+> This patch series adds support for the MMIO based gmux present on these
+> Dual GPU Apple T2 Macs: MacBookPro15,1, MacBookPro15,3, MacBookPro16,1,
+> MacBookPro16,4 (although amdgpu isn't working on MacBookPro16,4 [1]).
 >
-> #if defined(CONFIG_DRM_AMD_DC_DCN)
->         bool is_frl; /* indicate if DSC is applied based on HDMI FRL sink's capability */
-> #endif
+> It's only been tested by people on T2 Macs with MMIO based gmux's using
+> t2linux [2] kernels, but some changes may impact older port io and indexed
+> gmux's so testing, especially on those older Macbooks, would be
+> appreciated.
 >
-> so code that uses it should be careful, otherwise build errors may happen:
+> # 1-2:
 >
-> ../drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_validation.c: In function 'dp_active_dongle_validate_timing':
-> ../drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_validation.c:126:66: error: 'const struct dc_dsc_config' has no member named 'is_frl'
->   126 |                         if (timing->flags.DSC && !timing->dsc_cfg.is_frl)
->       |
+> refactor code to make it easier to add the 3rd gmux type.
 >
-> Seen on arch=um and arch=riscv (RV64).
+> # 3:
+>
+> has a slight change in how the switch state is read, I don't
+> expect this to cause issues for older models (but still, please test if
+> you have one!)
+>
+> # 4:
+>
+> implements a system to support more than 2 gmux types
+>
+> # 5:
+>
+> start using the gmux's GMSP acpi method when handling interrupts. This
+> is needed for the MMIO gmux's, and its present in the acpi tables of some
+> indexed gmux's I could find so hopefully enabling this for all models
+> will be fine, but if not it can be only used on MMIO gmux's.
+>
+> # 6:
+>
+> Adds support for the MMIO based gmux on T2 macs.
+>
+> # 7:
+>
+> Add a sysfs interface to apple-gmux so data from ports can be read
+> from userspace, and written to if the user enables an unsafe kernel
+> parameter.
+>
+> This can be used for more easily researching what unknown ports do,
+> and switching gpus when vga_switcheroo isn't ready (e.g. when one gpu
+> is bound to vfio-pci and in use by a Windows VM, I can use this to
+> switch my internal display between Linux and Windows easily).
+>
+> # 8-9:
+>
+> These patches make amdgpu and snd_hda_intel register with vga_switcheroo
+> on Macbooks. I would like advice from the AMD folks on how they want
+> this to work, so that both PX and apple-gmux laptops work properly.
+>
+> For radeon and nouveau we just register for every non-thunderbolt
+> device, but this was changed for AMD cards in commit 3840c5bcc245
+> ("drm/amdgpu: disentangle runtime pm and vga_switcheroo") and commit
+> 586bc4aab878 ("ALSA: hda/hdmi - fix vgaswitcheroo detection for AMD").
+>
+> This meant that only gpu's with PX register. Commit #8 makes amdgpu
+> register for all non-thinderbolt cards, and commit #9 makes snd_hda_intel
+> register for all amd cards with the PWRD (mentioned below) acpi method.
+> An alternative would be using apple-gmux-detect(), but that won't work
+> after apple-gmux has probed and claimed its memory resources.
+>
+> # Issues:
+>
+> 1. Switching gpus at runtime has the same issue as indexed gmux's: the
+> inactive gpu can't probe the DDC lines for eDP [3]
+>
+> 2. Powering on the amdgpu with vga_switcheroo doesn't work well. I'm
+> told on the MacBookPro15,1 it works sometimes, and adding delays helps,
+> but on my MacBookPro16,1 I haven't been able to get it to work at all:
+>
+> snd_hda_intel 0000:03:00.1: Disabling via vga_switcheroo
+> snd_hda_intel 0000:03:00.1: Cannot lock devices!
+> amdgpu: switched off
+> amdgpu: switched on
+> amdgpu 0000:03:00.0:
+>         Unable to change power state from D3hot to D0, device inaccessible
+> amdgpu 0000:03:00.0:
+>         Unable to change power state from D3cold to D0, device inaccessible
+> [drm] PCIE GART of 512M enabled (table at 0x00000080FEE00000).
+> [drm] PSP is resuming...
+> [drm:psp_hw_start [amdgpu]] *ERROR* PSP create ring failed!
+> [drm:psp_resume [amdgpu]] *ERROR* PSP resume failed
+> [drm:amdgpu_device_fw_loading [amdgpu]]
+>         *ERROR* resume of IP block <psp> failed -62
+> amdgpu 0000:03:00.0: amdgpu: amdgpu_device_ip_resume failed (-62).
+> snd_hda_intel 0000:03:00.1: Enabling via vga_switcheroo
+> snd_hda_intel 0000:03:00.1:
+>         Unable to change power state from D3cold to D0, device inaccessible
+> snd_hda_intel 0000:03:00.1: CORB reset timeout#2, CORBRP = 65535
+> snd_hda_codec_hdmi hdaudioC0D0: Unable to sync register 0x2f0d00. -5
+>
+> There are some acpi methods (PWRD, PWG1 [4, 5]) that macOS calls when
+> changing the amdgpu's power state, but we don't use them and that could be
+> a cause. Additionally unlike previous generation Macbooks which work
 
-We got a fix from Arnd earlier in the week:
-https://gitlab.freedesktop.org/agd5f/linux/-/commit/474876bac2333fcc41b10db61571219e2f990a8a
+That is likely the cause.  On non-Mac platforms, the power is
+controlled via the PX ACPI interface (for old platforms) or standard
+ACPI power resources on more recent platforms.  This is handled by the
+ACPI core on these platforms (i.e., D3cold).
+
+> better, on MacBookPro16,1 the gpu is located behind 2 pci bridges:
+>
+> 01:00.0 PCI bridge: Advanced Micro Devices, Inc. [AMD/ATI]
+>         Navi 10 XL Upstream Port of PCI Express Switch (rev 43)
+> 02:00.0 PCI bridge: Advanced Micro Devices, Inc. [AMD/ATI]
+>         Navi 10 XL Downstream Port of PCI Express Switch
+> 03:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI]
+>         Navi 14 [Radeon RX 5500/5500M / Pro 5500M] (rev 43)
+> 03:00.1 Audio device: Advanced Micro Devices, Inc. [AMD/ATI]
+>         Navi 10 HDMI Audio
+>
+> Upon attempting to power on the gpu with vga_switcheroo, all these
+> devices except 01:00.0 have their config space in `lspci -x` filled with
+> 0xff. `echo 1 > /sys/bus/pci/rescan` fixes that and the dmesg errors about
+> changing power state, but "PSP create ring failed" still happens, and
+> the gpu doesn't resume properly.
+
+All of those devices are part of the dGPU itself.  When the power is
+cut to the dGPU, all of those devices will lose power.  If you are
+reading all 1's from the PCI config space for any of those devices,
+that is a good sign that the power is off to the GPU.
 
 Alex
 
 >
+> [1]: https://lore.kernel.org/all/3AFB9142-2BD0-46F9-AEA9-C9C5D13E68E6@live.com/
+> [2]: https://t2linux.org
+> [3]: https://lore.kernel.org/all/9eed8ede6f15a254ad578e783b050e1c585d5a15.1439288957.git.lukas@wunner.de/
+> [4]: https://gist.github.com/Redecorating/6c7136b7a4ac7ce3b77d8e41740dd87b
+> [5]: https://lore.kernel.org/all/20120710160555.GA31562@srcf.ucam.org/
+>
+> Kerem Karabay (1):
+>   drm/amdgpu: register a vga_switcheroo client for all GPUs that are not
+>     thunderbolt attached
+>
+> Orlando Chamberlain (8):
+>   apple-gmux: use cpu_to_be32 instead of manual reorder
+>   apple-gmux: consolidate version reading
+>   apple-gmux: use first bit to check switch state
+>   apple-gmux: refactor gmux types
+>   apple-gmux: Use GMSP acpi method for interrupt clear
+>   apple-gmux: support MMIO gmux on T2 Macs
+>   apple-gmux: add sysfs interface
+>   hda/hdmi: Register with vga_switcheroo on Dual GPU Macbooks
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  18 +-
+>  drivers/platform/x86/apple-gmux.c          | 416 +++++++++++++++++----
+>  include/linux/apple-gmux.h                 |  50 ++-
+>  sound/pci/hda/hda_intel.c                  |  19 +-
+>  4 files changed, 409 insertions(+), 94 deletions(-)
+>
 > --
-> ~Randy
+> 2.39.1
+>
