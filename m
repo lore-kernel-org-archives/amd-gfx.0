@@ -4,60 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1B93C636CC
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Feb 2023 06:35:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FDB8C636CC
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Feb 2023 06:35:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E389410E11C;
-	Sat, 11 Feb 2023 06:35:07 +0000 (UTC)
-Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com
- [IPv6:2607:f8b0:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7975910E00D
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Feb 2023 23:37:11 +0000 (UTC)
-Received: by mail-pf1-x42d.google.com with SMTP id 16so4551325pfo.8
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Feb 2023 15:37:11 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3178510E146;
+	Sat, 11 Feb 2023 06:35:08 +0000 (UTC)
+Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
+ [IPv6:2607:f8b0:4864:20::1033])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CFBF10E00D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Feb 2023 23:40:50 +0000 (UTC)
+Received: by mail-pj1-x1033.google.com with SMTP id
+ n20-20020a17090aab9400b00229ca6a4636so11812125pjq.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Feb 2023 15:40:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:subject:cc:to:from:date:from:to:cc:subject:date
  :message-id:reply-to;
- bh=kWl59Xq4HhZJNA/74ztn8Fz0mUv6Fs/PnU96YJviPtI=;
- b=eWV0M6rGtsHugvA38QqBpUL6jZ4y3mJzobxzFGiKGdTQNp2DYSntYK8fNimGGqSQG3
- v1URcOI0nGZ1/5TGJU4dqMNN0DJxIJ0uM4RokG2TRfHGuj5xlO84qXVGFdSjO+O54Geg
- 7GsOk6Yj8pJaVWTcJG1de4lfsJ3gH1OShZrBNpbODHTlSWXeMhbmu3f65mM1QZYVFCIv
- 4hvVqBnxmKH6VZ+tNP3BQHxQ0KIlFS7H1alY+jmoagEd/KhnLzqQ0toWliT5JA9sK9sa
- yQjxaTUBmPu4eclYjhf0zO5B1fdePRn/78QzQnXl3qUDNnYPDxsp/AtjsBh4MZEVPZro
- QMpw==
+ bh=9KMeQbkxBbzvMD3Sl9ck9O0fqetDFlWitYcAkilER14=;
+ b=j3g6xSgVBMl0RZce22/nXAuvomW+22He2oG4WlKF/IoWovVhjhoh6RVxB/uq5zvv1S
+ NPll0tfzJQ8pKVI65peoO8wkgDNUOeTm6AeD3bPG34tiFpzuezzkO12kXYPrx/Lp6bpH
+ eGgIuvlrTGePFLSrn6VSg/tVhHF8iMC1RqdI4MpZK51kTQaEeBuG7Zf1RyYGUI3/tOtE
+ Oqzz86pqPUd5qPVL+c3xyibkH6mku6T07VH6ftJMGs8sZyabRd1vswbr6v/YNg97EnmA
+ guqxfIWivO0wuZX+VsIsU+NxsIr3wFBkgOVtYW2dCTI+1K+cexblV9WhhXg3MQ5vj2an
+ 9CKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=kWl59Xq4HhZJNA/74ztn8Fz0mUv6Fs/PnU96YJviPtI=;
- b=3CIm70w1NDiUxIXn1pdAZq6m++CAqyu7aC8No/8AELg0f6XznwUBcRxFuxPyJh2y1d
- 0ROrGdcWTw8FLHtlm+gu2HDB8CKcawbw7LsNFZ33bqtunKd9pawIWKuC05/nxT2hy07/
- +5EHAjzuTdGrLFa/v7LIo+U9rmUwkmwdqHtYSuojJrvLQSMW63wQuVz7HJijk1wpaQvu
- Xdb+HRPXlEGRiBbxI4DR1fqLciddI0MTkKkO0E/JlANzLezX8VQp84c6HFVT3j8i1ReP
- myA2pQxCrMSf7PVuHegDiq3BVY3hZAz9pyBDbsRDMaD7jj2o3XjUBW7TiefVvzpXZqtb
- fMPQ==
-X-Gm-Message-State: AO0yUKVFYUg2w0pHeT/BcwC8f1F2V+maAocEdfDf1A/oS0lupiUQnnnr
- tRfLx/m2+AP1MyggjBzKgPg=
-X-Google-Smtp-Source: AK7set8/KTxG0Ml6oxWb6/Y9VAH38w4uk9BRJXkFZ7hYp7F15/mhAqCM06D1a5AHUz8YnhSy937ZjA==
-X-Received: by 2002:aa7:93c2:0:b0:5a8:4459:384d with SMTP id
- y2-20020aa793c2000000b005a84459384dmr8724287pff.3.1676072231023; 
- Fri, 10 Feb 2023 15:37:11 -0800 (PST)
+ bh=9KMeQbkxBbzvMD3Sl9ck9O0fqetDFlWitYcAkilER14=;
+ b=NhfGCGoBzuHslT3YZnIYyEXR85V2SNHQ9y9KB2llbjgz7BV48Go0lnpugaQSs2o25f
+ FhE0+xK0emqvZEKrRCC6DD7p8x5E+tMYxvQCxwsULMwQwPnGV8VvGVsH5mEhs8p7igGa
+ 8v/fWTu+ECRq1/nv6PmzrbSaqiFHk362+4qCxFDRzZGCu+/gHjYbckDzQEXzA0PyovNa
+ Zn+iR1siNQ7b/FRhl27ByVOe1rBy3NgsX0DGLUfGueDdTrWVgFFWUpRmrs16U/TYFN2C
+ XCn0alF4kzGjzkVXcVyU2BhIdGZ+UmVGGFk3jVmm9fJa8zE6Qih3bML9F8UYr0qmOU7s
+ 56Cw==
+X-Gm-Message-State: AO0yUKXen5NDKGbIYZPjGjjjFlIqbCjWABhIyWvDrVuuNVBTyZiGtprs
+ KkbrOAlXhFnQAnr45pXgTlM=
+X-Google-Smtp-Source: AK7set+XBtj9eG/9r0dI6pCHyKxazkKCt2l/VJcnsuyMP5CelIxVLs3Lz67wacQ3226zSyl2840Xzw==
+X-Received: by 2002:a17:90b:4d8a:b0:22c:4bc:2126 with SMTP id
+ oj10-20020a17090b4d8a00b0022c04bc2126mr17815825pjb.45.1676072450148; 
+ Fri, 10 Feb 2023 15:40:50 -0800 (PST)
 Received: from redecorated-mbp ([202.53.32.211])
  by smtp.gmail.com with ESMTPSA id
- f16-20020aa782d0000000b00587fda4a260sm3776296pfn.9.2023.02.10.15.37.02
+ k6-20020a17090a4c8600b002339195a47bsm2070583pjh.53.2023.02.10.15.40.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Feb 2023 15:37:10 -0800 (PST)
-Date: Sat, 11 Feb 2023 10:36:57 +1100
+ Fri, 10 Feb 2023 15:40:49 -0800 (PST)
+Date: Sat, 11 Feb 2023 10:40:34 +1100
 From: Orlando Chamberlain <orlandoch.dev@gmail.com>
 To: Hans de Goede <hdegoede@redhat.com>
-Subject: Re: [RFC PATCH 2/9] apple-gmux: consolidate version reading
-Message-ID: <20230211103657.53108b64@redecorated-mbp>
-In-Reply-To: <f4992ffa-68db-7f8c-b92d-a0e1348a7839@redhat.com>
+Subject: Re: [RFC PATCH 5/9] apple-gmux: Use GMSP acpi method for interrupt
+ clear
+Message-ID: <20230211104034.53e6f8ac@redecorated-mbp>
+In-Reply-To: <ee952253-9ee4-aa81-fefa-609cbf6e1e2b@redhat.com>
 References: <20230210044826.9834-1-orlandoch.dev@gmail.com>
- <20230210044826.9834-3-orlandoch.dev@gmail.com>
- <f4992ffa-68db-7f8c-b92d-a0e1348a7839@redhat.com>
+ <20230210044826.9834-6-orlandoch.dev@gmail.com>
+ <ee952253-9ee4-aa81-fefa-609cbf6e1e2b@redhat.com>
 X-Mailer: Claws Mail 4.1.0 (GTK 3.24.35; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -98,104 +100,87 @@ Cc: alsa-devel@alsa-project.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 10 Feb 2023 20:41:19 +0100
+On Fri, 10 Feb 2023 20:43:58 +0100
 Hans de Goede <hdegoede@redhat.com> wrote:
 
 > Hi,
 > 
 > On 2/10/23 05:48, Orlando Chamberlain wrote:
-> > Read gmux version in one go as 32 bits on both indexed and classic
-> > gmux's.
+> > This is needed for interrupts to be cleared correctly on MMIO based
+> > gmux's. It is untested if this helps/hinders other gmux types, but I
+> > have seen the GMSP method in the acpi tables of a MacBook with an
+> > indexed gmux.
 > > 
-> > Classic gmux's used to read the version as
+> > If this turns out to break support for older gmux's, this can
+> > instead be only done on MMIO gmux's.
 > > 
-> > major = inb(base + 0x4);
-> > minor = inb(base + 0x5);
-> > release = inb(base + 0x6);
-> > 
-> > but this can instead be done the same way as indexed gmux's with
-> > gmux_read32(), so the same version reading code is used for classic
-> > and indexed gmux's (as well as mmio gmux's that will be added to
-> > this driver).
+> > There is also a "GMLV" acpi method, and the "GMSP" method can be
+> > called with 1 as its argument, but the purposes of these aren't
+> > known and they don't seem to be needed.
 > > 
 > > Signed-off-by: Orlando Chamberlain <orlandoch.dev@gmail.com>
 > > ---
-> >  drivers/platform/x86/apple-gmux.c | 14 ++++++--------
-> >  include/linux/apple-gmux.h        |  6 +-----
-> >  2 files changed, 7 insertions(+), 13 deletions(-)
+> >  drivers/platform/x86/apple-gmux.c | 26 +++++++++++++++++++++++++-
+> >  1 file changed, 25 insertions(+), 1 deletion(-)
 > > 
 > > diff --git a/drivers/platform/x86/apple-gmux.c
 > > b/drivers/platform/x86/apple-gmux.c index
-> > e8cb084cb81f..67628104f31a 100644 ---
+> > 760434a527c1..c605f036ea0b 100644 ---
 > > a/drivers/platform/x86/apple-gmux.c +++
-> > b/drivers/platform/x86/apple-gmux.c @@ -580,15 +580,13 @@ static
-> > int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
-> > if (indexed) { mutex_init(&gmux_data->index_lock);
-> >  		gmux_data->indexed = true;
-> > -		version = gmux_read32(gmux_data,
-> > GMUX_PORT_VERSION_MAJOR);
-> > -		ver_major = (version >> 24) & 0xff;
-> > -		ver_minor = (version >> 16) & 0xff;
-> > -		ver_release = (version >> 8) & 0xff;
-> > -	} else {
-> > -		ver_major = gmux_read8(gmux_data,
-> > GMUX_PORT_VERSION_MAJOR);
-> > -		ver_minor = gmux_read8(gmux_data,
-> > GMUX_PORT_VERSION_MINOR);
-> > -		ver_release = gmux_read8(gmux_data,
-> > GMUX_PORT_VERSION_RELEASE); }
+> > b/drivers/platform/x86/apple-gmux.c @@ -494,8 +494,29 @@ static
+> > const struct apple_gmux_config apple_gmux_index = {
+> >   * MCP79, on all following generations it's GPIO pin 6 of the
+> > Intel PCH.
+> >   * The GPE merely signals that an interrupt occurred, the actual
+> > type of event
+> >   * is identified by reading a gmux register.
+> > + *
+> > + * On MMIO gmux's, we also need to call the acpi method GMSP to
+> > properly clear
+> > + * interrupts. TODO: Do other types need this? Does this break
+> > other types? */
+> >  
+> > +static int gmux_call_acpi_gmsp(struct apple_gmux_data *gmux_data,
+> > int arg) +{
+> > +	acpi_status status = AE_OK;
+> > +	union acpi_object arg0 = { ACPI_TYPE_INTEGER };
+> > +	struct acpi_object_list arg_list = { 1, &arg0 };
 > > +
-> > +	version = gmux_read32(gmux_data, GMUX_PORT_VERSION_MAJOR);
-> > +	ver_major = (version >> 24) & 0xff;
-> > +	ver_minor = (version >> 16) & 0xff;
-> > +	ver_release = (version >> 8) & 0xff;
+> > +	arg0.integer.value = arg;
 > > +
-> >  	pr_info("Found gmux version %d.%d.%d [%s]\n", ver_major,
-> > ver_minor, ver_release, (gmux_data->indexed ? "indexed" :
-> > "classic")); 
+> > +	status = acpi_evaluate_object(gmux_data->dhandle, "GMSP",
+> > &arg_list, NULL);
+> > +	if (ACPI_FAILURE(status)) {
+> > +		pr_err("GMSP call failed: %s\n",
+> > +		       acpi_format_exception(status));
+> > +		return -ENODEV;
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+> > +
+> >  static inline void gmux_disable_interrupts(struct apple_gmux_data
+> > *gmux_data) {
+> >  	gmux_write8(gmux_data, GMUX_PORT_INTERRUPT_ENABLE,
+> > @@ -519,7 +540,10 @@ static void gmux_clear_interrupts(struct
+> > apple_gmux_data *gmux_data) 
+> >  	/* to clear interrupts write back current status */
+> >  	status = gmux_interrupt_get_status(gmux_data);
+> > -	gmux_write8(gmux_data, GMUX_PORT_INTERRUPT_STATUS, status);
+> > +	if (status) {
+> > +		gmux_write8(gmux_data, GMUX_PORT_INTERRUPT_STATUS,
+> > status);
+> > +		gmux_call_acpi_gmsp(gmux_data, 0);  
 > 
-> The problem with this is that there is nothing (no known register)
-> at address base + 7 and now you are reading from address base + 7
-> here where before the code was not, we have no idea how the hw
-> will respond to this.  This should be pretty innocent but still ...
+> Ugh no, please don't go around calling random ACPI methods from
+> untested firmware revisions / device models.
+> 
+> ACPI code (even Apple's I have learned) tends to be full of bugs. If
+> we did not need to call GMSP before then please lets keep not calling
+> it on the older models. Just because it is there does not mean that
+> calling it is useful, it might even be harmful.
 
-That makes sense, hopefully someone will be able to test it.
-
-> 
-> > diff --git a/include/linux/apple-gmux.h b/include/linux/apple-gmux.h
-> > index 1f68b49bcd68..eb2caee04abd 100644
-> > --- a/include/linux/apple-gmux.h
-> > +++ b/include/linux/apple-gmux.h
-> > @@ -67,7 +67,6 @@ static inline bool apple_gmux_is_indexed(unsigned
-> > long iostart) */
-> >  static inline bool apple_gmux_detect(struct pnp_dev *pnp_dev, bool
-> > *indexed_ret) {
-> > -	u8 ver_major, ver_minor, ver_release;
-> >  	struct device *dev = NULL;
-> >  	struct acpi_device *adev;
-> >  	struct resource *res;
-> > @@ -95,10 +94,7 @@ static inline bool apple_gmux_detect(struct
-> > pnp_dev *pnp_dev, bool *indexed_ret)
-> >  	 * Invalid version information may indicate either that
-> > the gmux
-> >  	 * device isn't present or that it's a new one that uses
-> > indexed io. */
-> > -	ver_major = inb(res->start + GMUX_PORT_VERSION_MAJOR);
-> > -	ver_minor = inb(res->start + GMUX_PORT_VERSION_MINOR);
-> > -	ver_release = inb(res->start + GMUX_PORT_VERSION_RELEASE);
-> > -	if (ver_major == 0xff && ver_minor == 0xff && ver_release
-> > == 0xff) {
-> > +	if (!(~inl(res->start + GMUX_PORT_VERSION_MAJOR))) {  
-> 
-> Assuming we can get this tested well enough that I'm ok with the
-> change in general please write this as:
-> 
-> 	if (inl(res->start + GMUX_PORT_VERSION_MAJOR) == 0xffffffff) {
-> 
-> Which I believe is what you are trying to achieve here ?
-
-Yes that is a neater way of doing what I was trying to do, I'll use
-that in v2.
+I'll make it only use this ACPI method on MMIO gmux's in v2 then.
 
 > 
 > Regards,
@@ -204,8 +189,13 @@ that in v2.
 > 
 > 
 > 
-> >  		indexed = apple_gmux_is_indexed(res->start);
-> >  		if (!indexed)
-> >  			goto out;  
+> 
+> 
+> 
+> > +	}
+> >  }
+> >  
+> >  static void gmux_notify_handler(acpi_handle device, u32 value,
+> > void *context)  
 > 
 
