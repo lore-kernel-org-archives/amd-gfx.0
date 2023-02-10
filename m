@@ -4,89 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1E7AC05027
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Feb 2023 08:45:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2653AC636CD
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Feb 2023 09:29:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54F4610ECA2;
-	Fri, 10 Feb 2023 08:45:56 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2044.outbound.protection.outlook.com [40.107.93.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3685D10ECA2
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Feb 2023 08:45:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nGkdCGIHO/5HlBOZWMnAr+YYjAXaZx/RWykbjVWRymADWHZTG2ruSUMWEbViCHXaDBY0DN9Y50WRdCsPBMcvtCcm685ynyd7mg5R3R89P94p36h34Ev2oRVU0sz+6Lyc8JFE5PdxnUMcyMIv1nfO998OjxFCmvJ6fcj4EW4VsGyFH4Cj4HiJ0oec4SS3pGURBvlvCj4s+i55tGzmbqXxgH5dFn46+D2pyZEQAQyYZZowa/JAq6gPaMGF/UnqdH/TYzj+Zlyc2NTLmwupE+TlZAAddyXgNQFOf7A0xUhW6aHNO+vB1vM1AeHGdtkv1Go0f1G1b+uKL4I6ZmpwHx+sGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IGS+SmXiR9xbCR7yoJGhXxO/hKN8DBaOjR8mISROG1g=;
- b=WqLfhcywP8Wis6gjUeeNIcpJztQDc+AJpzkkZYwGwLUa3vAFYYwdCicpudGukiOVD3rJYHnuz5m3Yflr6dKQsMIN8+8TeGpxMXDdJDgBeUEnGKDzpLJLXcoTHVGdonmJeqQd1Zslpb18c2iZpcmocrpCKR+UCXV5xVxlFXNdxJlY3zA+Axej7OM59d3bA1KeMmEAeyP0k9kMN+TmLhBWcVBtmYtgkg6f/dUmzeGxjmaMklPH5RBai+YxRXtZ23Q1vFawlY7OiNz9FGJycC/JGqi81sQ1K15cPRtRdicBLVmkfrkiZZqF+HquBN+wWbAOaKE4CBh1NsHeGAB2cn0OuA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IGS+SmXiR9xbCR7yoJGhXxO/hKN8DBaOjR8mISROG1g=;
- b=4vo83OS9kyz1PKhVEMo5xb2OxtU7ZSc7s2yzMEIwm+nH17ZtaSCr/3Glv1u5L4bEOwOLByd5dQBWS22zic3ogOZClPhbhP1a+XltHYz4lNevbmIdpLz/AgPUQy6JkXt38IdOwnyUaT3XIwCP+h9sEl2NUSw8YiUGY7+nHjXDkuI=
-Received: from MW4PR04CA0289.namprd04.prod.outlook.com (2603:10b6:303:89::24)
- by SJ0PR12MB5405.namprd12.prod.outlook.com (2603:10b6:a03:3af::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.21; Fri, 10 Feb
- 2023 08:45:53 +0000
-Received: from CO1NAM11FT116.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:89:cafe::af) by MW4PR04CA0289.outlook.office365.com
- (2603:10b6:303:89::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.20 via Frontend
- Transport; Fri, 10 Feb 2023 08:45:52 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT116.mail.protection.outlook.com (10.13.174.243) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6086.21 via Frontend Transport; Fri, 10 Feb 2023 08:45:52 +0000
-Received: from taozhou1u2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 10 Feb
- 2023 02:45:50 -0600
-From: Tao Zhou <tao.zhou1@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <hawking.zhang@amd.com>,
- <stanley.yang@amd.com>, <yipeng.chai@amd.com>, <candice.li@amd.com>
-Subject: [PATCH] drm/amdgpu: don't increase UMC RAS UE count if no new bad page
-Date: Fri, 10 Feb 2023 16:45:29 +0800
-Message-ID: <20230210084529.9695-1-tao.zhou1@amd.com>
-X-Mailer: git-send-email 2.35.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 879F010ECA9;
+	Fri, 10 Feb 2023 09:29:02 +0000 (UTC)
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [IPv6:2a00:1450:4864:20::530])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAE0D10ECA9;
+ Fri, 10 Feb 2023 09:29:00 +0000 (UTC)
+Received: by mail-ed1-x530.google.com with SMTP id v13so4177508eda.11;
+ Fri, 10 Feb 2023 01:29:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=quSm//05FZ3Mf9A/c2P/iuYXdFqqPPvKrzDAlH3a5KU=;
+ b=dBnuK0XtO7w5PrEf6S6TkewZVeXYTeXZR3yffGIYIEWxzaW/RKQpMijpfYoeDrKwwu
+ zjMD7nonnqsA8emXCtCdKeRNEDh7a5dnsrv6/xwxuAUrvr8c0MdBLCLMkeGwIog70RTM
+ 0MukrRyADavjXcOSpz7ApvImg/GrIW8+AUfL9sFIh9TJtGMbJv45jX7hmA+p2WSkzuej
+ zkICaRAsxBD25j8mwSQq2o+cXzWDusvVyQm+ivI0Sw/h64dx3WxvM0twCHt53R3X0p+N
+ NdAYHqDR4YeYFjTVhEP2R9yoTAyQPxABIa3X8ggnafSNZNoklK4gf0WCHjL1qpsTZhVp
+ U/Qg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=quSm//05FZ3Mf9A/c2P/iuYXdFqqPPvKrzDAlH3a5KU=;
+ b=jaHvlq1LR3jXm9umWuJWubdCOQXvlmc6RedcDMXrqPNi1fEMAgVU3AjuVvEhfeWGqq
+ aY/6yTP24mNyEyJLWdZCjk8kQbaF69XWLJlQbhE5uJVfqMtX8284D1mxCxVz5rohrv78
+ mETypx56kRtMX1TBxMlFZmvchi/GQE9m2rLZhhrm3NPnA1HfMufM0SDsQCxmY3Vh+AdS
+ 8xnND8OO9C2MuhkVVEymRWAUKCro7+yevhDbRdlh2SeAiuTt7cOFTf/SPqB2P7eD9t9n
+ pwtQoAiwZfYTxkIWzmnp0IV2MJO5E9swj8wBbPcKeqjMoxQu/p163R8/hgzy7pN4Yckt
+ RFVA==
+X-Gm-Message-State: AO0yUKWCjoM2hZsDFMNWLTUoYWPnJeiR90McUdq8KqtoneunNXx7BAEK
+ xK46fZWYyF2FMfRd4QsrR6A=
+X-Google-Smtp-Source: AK7set8knvmIDgWtIWrwPk5/r3Lp+idUW9r1Ux0lkcWrdIcjPATJjH2zkAO7BwWQLV1L0SBrEGD5dQ==
+X-Received: by 2002:a50:c34d:0:b0:4ab:4a90:c087 with SMTP id
+ q13-20020a50c34d000000b004ab4a90c087mr1211469edb.9.1676021338910; 
+ Fri, 10 Feb 2023 01:28:58 -0800 (PST)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ o8-20020a50c908000000b004a2666397casm1855714edh.63.2023.02.10.01.28.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Feb 2023 01:28:58 -0800 (PST)
+Date: Fri, 10 Feb 2023 11:28:46 +0200
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Melissa Wen <mwen@igalia.com>
+Subject: Re: [RFC PATCH v2 00/18] Add DRM CRTC 3D LUT interface
+Message-ID: <20230210112846.2103eb00@eldfell>
+In-Reply-To: <20230209142702.7w4mqed6zqtk5m6g@mail.igalia.com>
+References: <20230109143846.1966301-1-mwen@igalia.com>
+ <20230109153809.mmjm22oa2gkwe3sf@mail.igalia.com>
+ <20230131110735.60f8ff04@eldfell>
+ <20230209142702.7w4mqed6zqtk5m6g@mail.igalia.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT116:EE_|SJ0PR12MB5405:EE_
-X-MS-Office365-Filtering-Correlation-Id: a22a8787-a09a-4a88-ae2e-08db0b43377c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Xcfikf+XseOOpd+00q1AXdgegqEjh9vVb9HxFOKi4GdCyh40Br0MHo0256N7btvUXUCZPdHBVUBMttVrQRcWrtBf8GD05/Qfh1ObM2j0lfYVo7SbaBdlG2pETrM/YMsZmLeOWcgLdtpQQeuBu5Pyee5hkHjLI9vRuP2u90f1nzpuDu8xYpWfYhWF+bxgts06/qM/icxLx1TszDmg2tW7Founc3EmzoYRvNozv5nqJU/jp/HHAmtxN6huD3UR2pfbVmv/hqf44i2MXrCnf1pbmWwTKcktcwBjxQohc+ejA3RANdP0SOMK1TyARTv7gIYl8ca6f5DpqkzUiSmAcAxvhpcTkoZmMkFqPi31MWy6V0OwHCIJ67Fsm6b5GL5GEDnk0XoA3JQmBREv3mOm7RL1Fic57z1bnWjxDLtyyxpbRCeV63kCgj/cPN8mDvtgJUCapRA/8KVqWY7A5WBHBD3pxS0wBlPfer/ELSBMZEx26KU60Vpew1gyz88Ox20zm0WAC5CdGA0uu8AJD1wAm7nE96Maj8c7Yek98woB9BouPSted4gjHTf7FQXBnHvr7ySE2kp5M2TXWjRNY9tjhYZ32axlU5HY/ncsfL4AQze33uWUwCN6Wg/z4ajRErG2cszplA9Mn+XIAOWKEO+dyK33vkKes4Lpye7p+BBD1ZtwwFon7v4X4fKFhNvKt7X26D25w0voRO/Px1ucOAGX3K16RpOA9WUimUr6Q6hEY+hdTiw=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(376002)(39860400002)(346002)(136003)(451199018)(46966006)(40470700004)(36840700001)(36756003)(86362001)(356005)(40460700003)(4326008)(8676002)(8936002)(70206006)(41300700001)(70586007)(110136005)(5660300002)(6636002)(316002)(2906002)(82310400005)(7696005)(83380400001)(36860700001)(40480700001)(82740400003)(81166007)(26005)(186003)(1076003)(6666004)(16526019)(478600001)(47076005)(2616005)(426003)(336012)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2023 08:45:52.2658 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a22a8787-a09a-4a88-ae2e-08db0b43377c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT116.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5405
+Content-Type: multipart/signed; boundary="Sig_/ukeGZyqCbDHSISHb4uTrpEQ";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,71 +71,356 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tao Zhou <tao.zhou1@amd.com>
+Cc: dri-devel@lists.freedesktop.org, airlied@gmail.com,
+ ville.syrjala@linux.intel.com, laurent.pinchart+renesas@ideasonboard.com,
+ Shashank Sharma <shashank.sharma@amd.com>, Rodrigo.Siqueira@amd.com,
+ amd-gfx@lists.freedesktop.org, alex.hung@amd.com, harry.wentland@amd.com,
+ tzimmermann@suse.de, sunpeng.li@amd.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, seanpaul@chromium.org, daniel@ffwll.ch,
+ bhawanpreet.lakha@amd.com, sungjoon.kim@amd.com, contact@emersion.fr,
+ Xinhui.Pan@amd.com, christian.koenig@amd.com, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, nicholas.kazlauskas@amd.com,
+ Joshua Ashton <joshua@froggi.es>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If a UMC bad page is reserved but not freed by an application, the
-application may trigger uncorrectable error repeatly by accessing the page.
+--Sig_/ukeGZyqCbDHSISHb4uTrpEQ
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 9 ++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c | 6 +++++-
- 2 files changed, 13 insertions(+), 2 deletions(-)
+On Thu, 9 Feb 2023 13:27:02 -0100
+Melissa Wen <mwen@igalia.com> wrote:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index e85c4689ce2c..eafe01a24349 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -2049,7 +2049,7 @@ int amdgpu_ras_add_bad_pages(struct amdgpu_device *adev,
- {
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
- 	struct ras_err_handler_data *data;
--	int ret = 0;
-+	int ret = 0, old_cnt;
- 	uint32_t i;
- 
- 	if (!con || !con->eh_data || !bps || pages <= 0)
-@@ -2060,6 +2060,8 @@ int amdgpu_ras_add_bad_pages(struct amdgpu_device *adev,
- 	if (!data)
- 		goto out;
- 
-+	old_cnt = data->count;
-+
- 	for (i = 0; i < pages; i++) {
- 		if (amdgpu_ras_check_bad_page_unlock(con,
- 			bps[i].retired_page << AMDGPU_GPU_PAGE_SHIFT))
-@@ -2079,6 +2081,11 @@ int amdgpu_ras_add_bad_pages(struct amdgpu_device *adev,
- 		data->count++;
- 		data->space_left--;
- 	}
-+
-+	/* all pages have been reserved before, no new bad page */
-+	if (old_cnt == data->count)
-+		ret = -EEXIST;
-+
- out:
- 	mutex_unlock(&con->recovery_lock);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-index 1c7fcb4f2380..772c431e4065 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-@@ -145,8 +145,12 @@ static int amdgpu_umc_do_page_retirement(struct amdgpu_device *adev,
- 
- 		if ((amdgpu_bad_page_threshold != 0) &&
- 			err_data->err_addr_cnt) {
--			amdgpu_ras_add_bad_pages(adev, err_data->err_addr,
-+			ret = amdgpu_ras_add_bad_pages(adev, err_data->err_addr,
- 						err_data->err_addr_cnt);
-+			/* if no new bad page is found, no need to increase ue count */
-+			if (ret == -EEXIST)
-+				err_data->ue_count = 0;
-+
- 			amdgpu_ras_save_bad_pages(adev);
- 
- 			amdgpu_dpm_send_hbm_bad_pages_num(adev, con->eeprom_control.ras_num_recs);
--- 
-2.35.1
+> On 01/31, Pekka Paalanen wrote:
+> > On Mon, 9 Jan 2023 14:38:09 -0100
+> > Melissa Wen <mwen@igalia.com> wrote:
+> >  =20
+> > > On 01/09, Melissa Wen wrote: =20
+> > > > Hi,
+> > > >=20
+> > > > After collecting comments in different places, here is a second ver=
+sion
+> > > > of the work on adding DRM CRTC 3D LUT support to the current DRM co=
+lor
+> > > > mgmt interface. In comparison to previous proposals [1][2][3], here=
+ we
+> > > > add 3D LUT before gamma 1D LUT, but also a shaper 1D LUT before 3D =
+LUT,
+> > > > that means the following DRM CRTC color correction pipeline:
+> > > >=20
+> > > > Blend -> Degamma 1D LUT -> CTM -> Shaper 1D LUT -> 3D LUT -> Gamma =
+1D LUT =20
+> >=20
+> > Hi Melissa,
+> >=20
+> > that makes sense to me, for CRTCs. It would be really good to have that
+> > as a diagram in the KMS UAPI documentation.
+> >  =20
+>=20
+> Hi Pekka,
+>=20
+> Thanks for your feedbacks and your time reviewing this proposal.
 
+No problem, and sorry it took so long!
+
+I'm just finishing the catch-up with everything that happened during
+winter holidays.
+
+> > If someone wants to add a 3D LUT to KMS planes as well, then I'm not
+> > sure if it should be this order or swapped. I will probably have an
+> > opinion about that once Weston is fully HDR capable and has been tried
+> > in the wild for a while with the HDR color operations fine-tuned based
+> > on community feedback. IOW, not for a long time. The YUV to RGB
+> > conversion factors in there as well.
+> >  =20
+> I see, this is also the reason I reuse here Alex Hung's proposal for
+> pre-blending API. I'll work on better documentation.
+>=20
+> >  =20
+> > > >=20
+> > > > and we also add a DRM CRTC LUT3D_MODE property, based on Alex Hung
+> > > > proposal for pre-blending 3D LUT [4] (Thanks!), instead of just a
+> > > > LUT3D_SIZE, that allows userspace to use different supported settin=
+gs of
+> > > > 3D LUT, fitting VA-API and new color API better. In this sense, I
+> > > > adjusted the pre-blending proposal for post-blending usage.
+> > > >=20
+> > > > Patches 1-6 targets the addition of shaper LUT and 3D LUT propertie=
+s to
+> > > > the current DRM CRTC color mgmt pipeline. Patch 6 can be considered=
+ an
+> > > > extra/optional patch to define a default value for LUT3D_MODE, insp=
+ired
+> > > > by what we do for the plane blend mode property (pre-multiplied).
+> > > >=20
+> > > > Patches 7-18 targets AMD display code to enable shaper and 3D LUT u=
+sage
+> > > > on DCN 301 (our HW case). Patches 7-9 performs code cleanups on cur=
+rent
+> > > > AMD DM colors code, patch 10 updates AMD stream in case of user 3D =
+LUT
+> > > > changes, patch 11/12 rework AMD MPC 3D LUT resource handling by con=
+text
+> > > > for DCN 301 (easily extendible to other DCN families). Finally, from
+> > > > 13-18, we wire up SHAPER LUT, LUT3D and LUT3D MODE to AMD display
+> > > > driver, exposing modes supported by HW and programming user shaper =
+and
+> > > > 3D LUT accordingly.
+> > > >=20
+> > > > Our target userspace is Gamescope/SteamOS.
+> > > >=20
+> > > > Basic IGT tests were based on [5][6] and are available here (in-pro=
+gress):
+> > > > https://gitlab.freedesktop.org/mwen/igt-gpu-tools/-/commits/crtc-lu=
+t3d-api
+> > > >=20
+> > > > [1] https://lore.kernel.org/all/20201221015730.28333-1-laurent.pinc=
+hart+renesas@ideasonboard.com/
+> > > > [2] https://github.com/vsyrjala/linux/commit/4d28e8ddf2a076f30f9e5b=
+dc17cbb4656fe23e69
+> > > > [3] https://lore.kernel.org/amd-gfx/20220619223104.667413-1-mwen@ig=
+alia.com/
+> > > > [4] https://lore.kernel.org/dri-devel/20221004211451.1475215-1-alex=
+.hung@amd.com/
+> > > > [5] https://patchwork.freedesktop.org/series/90165/
+> > > > [6] https://patchwork.freedesktop.org/series/109402/
+> > > > [VA_API] http://intel.github.io/libva/structVAProcFilterParameterBu=
+ffer3DLUT.html
+> > > > [KMS_pipe_API] https://gitlab.freedesktop.org/pq/color-and-hdr/-/is=
+sues/11
+> > > >=20
+> > > > Let me know your thoughts.   =20
+> > >=20
+> > > +Simon Ser, +Pekka Paalanen who might also be interested in this seri=
+es. =20
+> >=20
+> > Unfortunately I don't have the patch emails to reply to, so here's a
+> > messy bunch of comments. I'll concentrate on the UAPI design as always.=
+ =20
+>=20
+> Sorry, the patchset is here: https://lore.kernel.org/dri-devel/2023010914=
+3846.1966301-1-mwen@igalia.com/
+> In the next version, I won't forget cc'ing you at first.
+> >=20
+> > +/*
+> > + * struct drm_mode_lut3d_mode - 3D LUT mode information.
+> > + * @lut_size: number of valid points on every dimension of 3D LUT.
+> > + * @lut_stride: number of points on every dimension of 3D LUT.
+> > + * @bit_depth: number of bits of RGB. If color_mode defines entries wi=
+th higher
+> > + *             bit_depth the least significant bits will be truncated.
+> > + * @color_format: fourcc values, ex. DRM_FORMAT_XRGB16161616 or DRM_FO=
+RMAT_XBGR16161616.
+> > + * @flags: flags for hardware-sepcific features
+> > + */
+> > +struct drm_mode_lut3d_mode {
+> > +	__u16 lut_size;
+> > +	__u16 lut_stride[3];
+> > +	__u16 bit_depth;
+> > +	__u32 color_format;
+> > +	__u32 flags;
+> > +};
+> >=20
+> > Why is lut_stride an array of 3, but lut_size is not? =20
+>=20
+> It cames from VA-API:
+> https://intel.github.io/libva/structVAProcFilterParameterBuffer3DLUT.html=
+#a682756be15d09327ba725b74a863cbcc
+>=20
+> In short, the reason is that lut_size is the valid points and is
+> the same for every dimensions, but lut_stride may vary.
+
+Ok, so lut_size is what I would have guessed it to be. Just needs to be
+doc'd - pretty much all my questions are lack of docs.
+
+I see that lut_stride is supposed to be in points, and not bytes. That
+is surprising. Are you sure it's good?
+
+> >=20
+> > What is the color_mode the comment is referring to? =20
+>=20
+> It refers to FB color_mode/bpp. I'm not using it in post-blending 3D LUT
+> implementation (should I?), it cames from pre-blending use case.  Maybe
+> the main issue here is if reusing the pre-blending 3D LUT mode struct is
+> a good approach or better create a specific for post-blending.
+
+Sorry, I have no idea what FB color_mode is. I do not recall any such
+thing in the KMS uAPI.
+
+
+> >=20
+> > What is "number of bits of RGB"? Input precision? Output precision?
+> > Integer or floating point? =20
+>=20
+> It's the bit depth of the 3D LUT values, the same for every channels. In
+> the AMD case, it's supports 10-bit and 12-bit, for example.
+
+Ok. So e.g. r5g6b5 is not a possible 3D LUT element type on any
+hardware ever?
+
+What exactly is the truncation the comment refers to?
+
+It sounds like if input has higher precision than the LUT elements,
+then "truncation" occurs. I can kind of see that, but I also think it
+is a false characterisation. The LUT input precision affects the
+precision of LUT indexing and the precision of interpolation between
+the LUT elements. I would not expect those two precisions to be
+truncated to the LUT element precision (but they could be truncated to
+something else hardware specific). Instead, I do expect the
+interpolation result to be truncated to the LUT output precision, which
+probably is the same as the LUT element precision, but not necessarily.
+
+Maybe the comment about truncation should simply be removed? The result
+is obvious if we know the LUT input, element, and output precision, and
+what exactly happens with the indexing and interpolation is probably
+good enough to be left hardware-specific if it is difficult to describe
+in generic terms across different hardware.
+
+> >=20
+> > Flags cannot be hardware specific, because it makes the whole KMS UAPI
+> > hardware specific. That won't work. You have to have driver-agnostic
+> > definitions for all possible flags.
+> >=20
+> > Why is this the whole first patch? There is no documentation for the
+> > UAPI on how this struct works, so I cannot review this. Explaining just
+> > the individual fields is not enough to understand it. Is this something
+> > the kernel fills in and is read-only to userspace? Is userspace filling
+> > this in? =20
+>=20
+> I see. I'll work on explaining/documenting it better.
+> >=20
+> >=20
+> > + * =E2=80=9CLUT3D=E2=80=9D:
+> > + *	Blob property to set the 3D LUT mapping pixel data after the color
+> > + *	transformation matrix and before gamma 1D lut correction. The
+> > + *	data is interpreted as an array of &struct drm_color_lut elements.
+> > + *	Hardware might choose not to use the full precision of the LUT
+> > + *	elements.
+> > + *
+> > + *	Setting this to NULL (blob property value set to 0) means a the out=
+put
+> > + *	color is identical to the input color. This is generally the driver
+> > + *	boot-up state too. Drivers can access this blob through
+> > + *	&drm_crtc_state.gamma_lut.
+> > + *
+> >=20
+> > You need to define how the 1-D array of drm_color_lut elements blob
+> > will be interpreted as a 3-D array for the 3D LUT, and how the
+> > dimensions match to the R, G and B channels. It's a bit like the
+> > question about row-major or column-major storage for matrices, except
+> > more complicated and not in those words. =20
+>=20
+> ack
+> >=20
+> > + * =E2=80=9CLUT3D_MODE=E2=80=9D:
+> > + *	Enum property to give the mode of the 3D lookup table to be set on =
+the
+> > + *	LUT3D property. A mode specifies size, stride, bit depth and color
+> > + *	format and depends on the underlying hardware). If drivers support
+> > + *	multiple 3D LUT modes, they should be declared in a array of
+> > + *	drm_color_lut3d_mode and they will be advertised as an enum.
+> >=20
+> > How does that work exactly? I didn't get it. I could guess, but having
+> > to guess on API is bad. =20
+>=20
+> The driver advertises all supported modes (each combination of values)
+> in a array as a enum, userspace can check all accepted modes and set the
+> one that fits the user 3D LUT settings. I think it's possible to get the
+> idea from this IGT test:
+> https://gitlab.freedesktop.org/mwen/igt-gpu-tools/-/commit/8771f444c3dcd1=
+26d7590d5a9b1b0db9706bbf6e#ed5dbc960ac210e3fbacd2361fe0270709767aaa_205_205
+> >=20
+
+You lost me at "an array as an enum".
+
+I understand there is a blob containing an array of struct
+drm_mode_lut3d_mode. What I don't understand is that you say LUT3D_MODE
+is an enum property. Where does the blob come from, then? What property
+provides the blob?
+
+Am I correct in guessing that the values of LUT3D_MODE enum property
+are indices into the array in the blob, and that userspace will set it?
+That sounds good to me, if it's the integer value of the enum. But enum
+values also need string names, because that is how the values are
+usually recognized, so what name strings will be used?
+
+In that code example, I cannot see any connection between the array of
+drm_mode_lut3d_mode entries, the 'name' string, and the actual data
+generated for the LUT. They must all connect somehow, but it just
+doesn't seem to be in the code. It is just hardcoding mode_lut3d[0],
+and the data generator never sees even that - it gets the lut size, but
+none of the other parameters. I cannot see that working across multiple
+drivers.
+
+Why is it setting a linear shaper LUT explicitly instead of unsetting
+it? I mean this preparation:
+
+shaper_linear =3D generate_table(data->shaper_lut_size, 1.0);
+
+"Linear" actually means "identity", right? That's what people usually
+write when they mean identity.
+
+Surely it's not actually a constant curve? That would make the whole
+test useless for proving the 3D LUT works.
+
+
+> >=20
+> > +	/**
+> > +	 * @lut3d:
+> > +	 *
+> > +	 * 3D Lookup table for converting pixel data. Position where it takes
+> > +	 * place depends on hw design, after @ctm or @gamma_lut. See
+> > +	 * drm_crtc_enable_color_mgmt(). The blob (if not NULL) is an array of
+> > +	 * &struct drm_color_lut.
+> > +	 */
+> > +	struct drm_property_blob *lut3d;
+> >=20
+> > I do not like the wording of "depends on hw design", and it is used in
+> > very many places here. The KMS UAPI semantics cannot vary based on
+> > hardware. Your cover letter defines the order in the color pipeline, so
+> > I don't understand how this here can depend on hw.
+> >=20
+> > What can depend on hardware is which KMS UAPI properties are exposed,
+> > and how you map a property to a hardware unit (which can even change
+> > based on the exact pipeline configuration as long as the results are as
+> > the UAPI doc defines). But this comment here is talking about the UAPI
+> > properties, not hw elements.
+> >  =20
+>=20
+> You are right! My initial idea was to explain that it's possible for
+> other vendors color pipeline to fit this pipeline internally, if they
+> need a 1D LUT before the 3D LUT, but not the 1D LUT in the end.
+>=20
+> >=20
+> > I'm happy that the 3D LUT interface is being developed, but as you can
+> > see from my questions, the UAPI documentation is practically missing. I
+> > would have no idea how to use this as is. =20
+>=20
+> Thank you again for your valuable comments. I'll address your comments
+> in a next version by better explaining all these points.
+
+Thank you for working on this!
+pq
+
+--Sig_/ukeGZyqCbDHSISHb4uTrpEQ
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmPmDk4ACgkQI1/ltBGq
+qqdFVA//dbJauvGEvNiPC9TiQjhWLJc782S+3M1u/KXbcB1zVZHKimqrqWHv5qa2
+F3oCo/LvEbtZ5D6R8Yiys8LJfRkwjE2DWCIDxVdZ9mMOEiKFu72iNteZgnbi31Ba
+7du06h8UIJSFLn0IAb1fNGNtrUVH+q3QKiNaaPYoTX6QIBlwei9ZdQPT3o+Gisux
+I0E0QcWWflLIEYJ8hMJPfXqgw+5kCDyH0o8VdmuelLJkkAov5gnlllQBN4ri/pW3
+dAg/uwR5zppuyj/n4OIWmI20voRG8cn5hQOrmO6D4d3ekgJsPui2fvY0SiN+4eYT
+IljB0pAD9F29ekvYTEeBo1J2+SvaBNJOqzn80hsfHgJx0ROZB42PkFN2rjNLZ09Z
+44/TY+ASDEdo3VvlTbkj2j9C1qJKrcCbh9wtBZ3t2vSD5RwV6vUkONx91UhX/jIX
+XenlZa4pjbnLoQ42q1KW1DwhcKW6gMBWNFRRBa1zGJ1Lns4q9YBehPk3383k8i3s
+0L+m7LiZpr/HxVA6+t1ZaY0CM25Q9i7QOHaK3QGUtzgyw08v2QueLzv2F4kNRjaD
+sX0qJGGcypAxTAdFIwaySkDkotH4juuHMQEkP9FS40a0Jzmg7HAjp+cgKbfUYRgP
+gpz4TR7SdEiYiFuJey4/uItm9fDADs/PGPHWP1nJ2iyDHpOF52I=
+=GQzS
+-----END PGP SIGNATURE-----
+
+--Sig_/ukeGZyqCbDHSISHb4uTrpEQ--
