@@ -4,120 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A468C636D7
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Feb 2023 19:37:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 324D8C636D4
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Feb 2023 19:45:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A39810EDEE;
-	Fri, 10 Feb 2023 19:37:05 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2087.outbound.protection.outlook.com [40.107.95.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E88A410EDDF;
- Fri, 10 Feb 2023 19:37:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BS4zUoVh02A3392qZKiocPeX6wRsocq3E3gS3Hvk82MmUEM24lQ0wKiU9TlwfugUR7WTeqxIzD8+LzdCfCf+7JmW7IRyMfhAGJOG1NQXhkTvy73/AZ2tR1/YfTnpmv/rnhL0jzDGOW/QW2bEvYEJvrRA5QcUVr6JQrgponz8aHkWfVBRy8vojMZA5x0dDFykB1TeMQW7u1vmF8EhP9pNdktaBbovfqYLb+g1kz1mu1PsmWzO1bhWzGV5PQVm/dyYQt4Ewwi+KMxZ/Lwbo4fiYfI18PKRxGMqSzZqdrO6YNWjpqvi9n/+6bKxsscjV8neswuc2dJok7WnDqyYzvsVdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0cnVrRSW3rGsG32a7JWOiWWsAlct/31s8DgvaGvI1rk=;
- b=l545VmsbuZquYOfphaTOpGYYvzD1ld1o7q76pPIdEF+M30Je5Tj61kJnufzc2hiEwm3YOMFWoXiuQsSE/c1USge3gkdP/OAA+57kRiBZVvlg5utImiRNQYR447IRmuKWLefMHp/yL9u9PHHoNzPzSs4Q/f1me7Aianill2fyyPPzciVhaSqbwVBppg2zMiDnaMZfTHO18oOLkjaEd9peBXaWF7+zalTXuUWZyxcbC/hSxqtzAEnUbO/3bMX/Qqb1hj9TFzM2rEzAXUTgNvMdMfbtJWFWHhMeIjgSG1bZdzyo0qDbeHd2OM0HXAuNaZf0oRkBo+DOsvooR5QkzkpowA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0cnVrRSW3rGsG32a7JWOiWWsAlct/31s8DgvaGvI1rk=;
- b=YXp/4R77GgzoGy3oCmcbjHnvQXZ8LkMv2BLpMDNdeRfo61yr7EQoUD24sEXtTQsmhIVhuAs5IkPnYMOZIfTkz/i19C9jGQwQ6yDqw94cw9RRVB5sajQcJitWqxjAZQBrR4gXcaFwTgLMkM+aLYIDDtaXvsHW9/J2gl8QC/2awFs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by SJ0PR12MB6711.namprd12.prod.outlook.com (2603:10b6:a03:44d::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.21; Fri, 10 Feb
- 2023 19:37:00 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::aa28:9378:593:868a]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::aa28:9378:593:868a%8]) with mapi id 15.20.6086.021; Fri, 10 Feb 2023
- 19:37:00 +0000
-Message-ID: <49a3244a-1416-12c4-9dfa-661cf5b5d569@amd.com>
-Date: Fri, 10 Feb 2023 14:36:56 -0500
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE13E10EDF0;
+	Fri, 10 Feb 2023 19:45:01 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7859896EC
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Feb 2023 19:41:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1676058085;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=lrfOu3qaR69ccH7DuaoAFvxzQf97CmjDnDorDQCgmI4=;
+ b=FWJvDZwuFqFXgJypApKMEai6lzQuVxlc+MLRGqK/WA6HP97LlofS58KqaWGdbApy7UH7i7
+ w5IWPwU9ClKbSOi/OiMwfHtZA9dq9xQcpX+Oe2YYm90jzGleQEDDTWlPxcBsugovnodt3L
+ QE2LqCJIXfVcUreZ2bI5TtLkvHPy1zo=
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
+ [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-580-sZ3ZxV1rNdChhhafCQmUvQ-1; Fri, 10 Feb 2023 14:41:22 -0500
+X-MC-Unique: sZ3ZxV1rNdChhhafCQmUvQ-1
+Received: by mail-ed1-f71.google.com with SMTP id
+ eq22-20020a056402299600b004ab4da4a530so1415123edb.8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Feb 2023 11:41:22 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=lrfOu3qaR69ccH7DuaoAFvxzQf97CmjDnDorDQCgmI4=;
+ b=NpGegGbJC/ekUz9DH71F39VzUo2+BJYiipsOxmjaK4CnQ0dWIBbgjnzYQDwOcBz9SI
+ ugoO7Z9hmbidCi+rk6V4ROA6L6Zdm9yQKVqlJnVpdZlFkcRg06Aj/Vv4Mtg11cXVPaJx
+ NmgLU6LUS5cQKpOt9kyXGi/7O/jhGIsgbhhdcgkMzVojTdfY85p+2LbGIDzSsagaK6eW
+ wVGmBb7Kth1PYZbsn0+GNoJb2Ka1rf2H3hy0fY47YmkYZpVZQfTcGUyQYqjHzXzEJlV1
+ AYSNB2ILzPFEBLdTR1KqxtEYF/0m7mryHQLxa6Y5T5AaX9FvM7zObcpl6Ijvho9nCjrw
+ XrKg==
+X-Gm-Message-State: AO0yUKXcqk/7oYaupUMPKOBFOL3de5pu4snyPzzHi2/jtpBTWKsu3jDP
+ 1g18C9Hip7LXuwadV4ZR5L8hG2hQfasyNPGC16lbRGsnrnK5FXej+wJNz51y1vD//J+2uTXUKPW
+ 4QCLwKiZnKW+wIdoE9XckTZq99w==
+X-Received: by 2002:a17:907:9484:b0:878:509f:798c with SMTP id
+ dm4-20020a170907948400b00878509f798cmr20702893ejc.4.1676058081364; 
+ Fri, 10 Feb 2023 11:41:21 -0800 (PST)
+X-Google-Smtp-Source: AK7set8TTPRmaKf4d7r24Su7XzcDrt+64y6chZ0ujIOQt9F+tOX9hkZWuSzrrt1tNe/19CqcVroqsA==
+X-Received: by 2002:a17:907:9484:b0:878:509f:798c with SMTP id
+ dm4-20020a170907948400b00878509f798cmr20702858ejc.4.1676058081200; 
+ Fri, 10 Feb 2023 11:41:21 -0800 (PST)
+Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec?
+ (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
+ by smtp.gmail.com with ESMTPSA id
+ b12-20020a170906150c00b00888d593ce76sm2789667ejd.72.2023.02.10.11.41.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 10 Feb 2023 11:41:20 -0800 (PST)
+Message-ID: <f4992ffa-68db-7f8c-b92d-a0e1348a7839@redhat.com>
+Date: Fri, 10 Feb 2023 20:41:19 +0100
+MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
-Subject: Re: [PATCH] drm/amd/display: Remove duplicate/repeating expressions
-Content-Language: en-US
-To: Deepak R Varma <drv@mailo.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <Y+YVy7RaxnXokJ3l@ubun2204.myguest.virtualbox.org>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <Y+YVy7RaxnXokJ3l@ubun2204.myguest.virtualbox.org>
+Subject: Re: [RFC PATCH 2/9] apple-gmux: consolidate version reading
+To: Orlando Chamberlain <orlandoch.dev@gmail.com>,
+ platform-driver-x86@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+References: <20230210044826.9834-1-orlandoch.dev@gmail.com>
+ <20230210044826.9834-3-orlandoch.dev@gmail.com>
+From: Hans de Goede <hdegoede@redhat.com>
+In-Reply-To: <20230210044826.9834-3-orlandoch.dev@gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US, nl
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0309.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10e::27) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|SJ0PR12MB6711:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe8e3f35-3bd8-4f59-557c-08db0b9e2daf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ihX/UOdpAEEfYcNkOhGrrWDb/stmLGWlXjhc7DuBcc0eK9WYUTrlebkU1WtyXb0dEU3IoNPVgSxdjygytBDBB+ZEAR3dqxtf7Y15qh1JmMxXBplCN02S4Y3djBsshvmhYaEOjxVSKkNisQUqXcml5+e+IuclK6rmUzKRdiPs+S8gHnK/6rj6g+TtLrq8LwIg/YraNcEvrPPVRgJcMcY5uQfRSZVjAMjNHLcw5QxTu4YP8iiubPOKbY0leYjnlndsv+diPy3hOwUykJ9IO9uDjcCw5NJ2VhejsWudAQK9rWrYabHK2LxKIgMHKLI1H8UpWkPAssbZbCgSpD1qGMLezTVv7DuR5WLqacc8BeEq1bhSbXrV/gibWDOKyBl92GRJT7Gc/0z3vVPIuJ9IdrQzx/KxkNVc/QzvDZXZKPjxATU/0bqsl+EfMm/QV8QuJKMVQ2ET2PVbrLaU+l13LARYG58T/P5G9M4ClIpCFeY9gBOCpyte98Da2XZQpFhFvH9OW/3dbxTfJ6Ozx2lgzZXLluL2jJINL9udbB4cyhb6tkIzQRoy6XQCwfZEqYJrj50F0C4jkcfX0mkQdmw+VnBlkj0x3uXwbXs7YtTY+PLTDRDviC4zitkh/jpEb3Yv5ve3XreRJ/oRvWQdzWCh6husX7k8BMpF1gqFbZfbq7G0s2TfqK7o2VomB2YSkN+j/MsuDY3CwK/YPyoGX49256LNljYynNP3zqEAArXoB33mKw8aEKhL/GOTunPx9y2O5QJ9
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(376002)(39860400002)(366004)(136003)(396003)(346002)(451199018)(31686004)(316002)(2906002)(110136005)(54906003)(44832011)(5660300002)(8676002)(66556008)(66476007)(66946007)(8936002)(36756003)(4326008)(41300700001)(6666004)(6506007)(83380400001)(53546011)(6486002)(2616005)(478600001)(31696002)(86362001)(186003)(26005)(38100700002)(921005)(6512007)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QU10enpwOG5CY0RNUnQxOUtjYlE2TjNyRXJYeE1IUXhPWXdxV3VMaHh0ZDFl?=
- =?utf-8?B?SmJRbzVHakxjVkEyN05Rc2xxWURHUGR2MHJDbUE2QldtaWV0WHBQaWhnSDhy?=
- =?utf-8?B?QUpzdlhXTGV4Mmp3a2xKckozc1pFTGROaWUvdWNSdjlLWm52bGNMZnFiOU1y?=
- =?utf-8?B?T3RTZ25xb1hKNzBiOENtdGJINXRWWnQ5QTZYOGhQQ0tFb2hMNGVQc1d0QVpJ?=
- =?utf-8?B?bEdKb21YZS93ZGh3RTU2Z2VoQkJYbFp5dkhpQWpjcDJTVDZJV21RQ1Qwb2ZK?=
- =?utf-8?B?bWVWRnlFVUhpWER5TXVpRnBNaXg0SjN4eGw5TUNiUGtiUG9oeE9oYXdGaE92?=
- =?utf-8?B?cmk0dnJvTjAycFE1MW4zNmhLVURDOVUxbWN0OWdFN29kdDdNai9tNExwY05u?=
- =?utf-8?B?S2xnbkRKMG5LQmprZS9qUzFGb0c3YnBHWVl4WXlrV25lN2gzWERRK1dZakRj?=
- =?utf-8?B?WkNBTGlCMnNIbTh0aU5KQXltaXVROUdQSlJ4OXdDWldUODVscGEzOVFMUEFD?=
- =?utf-8?B?SlZRRSttVjFTVXhWSnl1NERuVE03WXh6Y0lZT2RNczVNeE9rTmFtVlRQdWFR?=
- =?utf-8?B?TlptRVRiNmZ3eDVKb2RZZ1A2Y0J0MnZzL28wSmc4QXdNRnZFT0RWOFlIaS8w?=
- =?utf-8?B?YTVlU2pFOWczc0J5a0ZaTmw5aks2MkxqVEJHelh0YlJXaDBkNUluVEtkNnFL?=
- =?utf-8?B?UTQ4Myt3RFQ1YXcyVGdRRk11Y3daTFkxWTVMeG5lZXU4SHE4MC9WOHNZd1BJ?=
- =?utf-8?B?UHhnZThGZ3J2QUhvenFnQUZvb1dXM1VCWWRpb1NiaUw0ZlVrNXVlQ0wvQU5y?=
- =?utf-8?B?Sm1YcHVkSDBCV2FRS3RBZnF4MTRMODNXd2x1cGVoTW50cmJNQVRsalg1TU1B?=
- =?utf-8?B?U1kvWkxiOFh1MUxKcnFSbnNIMlF3aXUzbnk3czFFOGRXcExqc2thM1gwLzNR?=
- =?utf-8?B?YVZvTTErcnNlbFVXVTAyd0dic2I2WG4zUGJlRERPKy9UQlFFNFNESEd4c2lo?=
- =?utf-8?B?bEUrSTVSRmhiaGcyQTB3Z3dkVExYWk10Q2dVMTZKMUFJVWwzcWlMNlVvbnhT?=
- =?utf-8?B?Y1B0Q1JTbWVDV3lLWXR5OGhQdUNtR2E4Skl4MHhhT3FTcVFhT0lSSHJrUDRJ?=
- =?utf-8?B?TGQvZ2JhYjVad0JYQVhVdXhNZWdUOUtEOWdPQ1hqdTRnTEM1cTZENmJMQnlD?=
- =?utf-8?B?K2hoOUpwaVFuKzRWVFM5UE85ZjNHZkRiY1JhYWZvL3hVaVBlc1h3ZExNS09Q?=
- =?utf-8?B?U1Y0MzJvQTMzalU5VUdOdmFTSDZCQkY0QWtBaHJqbmNiZXlGNXpNclpiTzdi?=
- =?utf-8?B?NVpyTWY1Rk0wNXNrejRRdUplK0VtNDgyeGJ6RHR1VlBzRko0NWQxdmxWa2VY?=
- =?utf-8?B?d0hlWHBYZTFqWSs2Tit1NllUZ2FhQ0hNRkZFaW9YYUpOdXFycHVyYkYzZGx0?=
- =?utf-8?B?S0FPTk1oYWZkMDVUN1Q1M2NuRWRQcURLMzhQNFFjYU9Cd1MrRit2ZitCL0M3?=
- =?utf-8?B?WkFMTEhBQ1JONUFWTzY2c0ltS1ZtUW1PeTdKc2dzbU5RY0RXODJMRHpZM2tT?=
- =?utf-8?B?Yzk0dnYyU2thUklVYmp6azRPaWswSElDdnU0eTlFeEtlYld4MjIxTHZ6ZUZ4?=
- =?utf-8?B?Nm1INWhpbEo3ZzlvamdRYlovV1RBME0yQTh6RkVROTFDQXc5SHdncEczSXhn?=
- =?utf-8?B?RFZkZGN3OWFXOFZ1bDhiNFEySTRJaXJGc1R5TVdRM1ZpTzUyWVoxZHhFYTh5?=
- =?utf-8?B?b1JuUlgybWl1MzdTdUxaRzZ6WXEzYlRkKzVqV1pFSXRtZ2JlbFdKZEZ2TnpW?=
- =?utf-8?B?Snp4UUJIbDFTMjhOVGpyR09rZ3BwWHhDZDhGdDVwUjlUTjh2U25nRlAzcE5G?=
- =?utf-8?B?WGtJQTVmckJITm9LWGQ5b0JCeVl4N29BeHdPQVo2dlVvdFhzUFJGTVhZby9T?=
- =?utf-8?B?b0dLK1RDeFRxWFlBTjZtSmhWQWUyOUdJZCs3Nlk2K3Y2WWsybU9zS2JKTWFO?=
- =?utf-8?B?UlliaUptZTV2dWt3WU84dE4zQjk5RWY2anFXUVlsT3FHZTlhWm05WGNSdEU2?=
- =?utf-8?B?ZVJtZDBVd29EMUZxUSs4VW0vMHBjM0gxU2N4RENaaXRRYzZIamkrZDVILzht?=
- =?utf-8?Q?iOPFwT7D9NDCF9EY74DTUWvz0?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe8e3f35-3bd8-4f59-557c-08db0b9e2daf
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2023 19:37:00.6322 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2/1o44RoFqMhoaFWFuqrCx48bS+aMnCQYh8BrR9rWp/zTStjEILy5jYw4q9zq2yAxqHWqMXMpDGnXo7rtgWeHg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6711
+X-Mailman-Approved-At: Fri, 10 Feb 2023 19:45:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,46 +90,119 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Praveen Kumar <kumarpraveen@linux.microsoft.com>,
- Saurabh Singh Sengar <ssengar@microsoft.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Rander Wang <rander.wang@intel.com>, YiPeng Chai <YiPeng.Chai@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Evan Quan <evan.quan@amd.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Yong Zhi <yong.zhi@intel.com>, Aun-Ali Zaidi <admin@kodeit.net>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Bokun Zhang <Bokun.Zhang@amd.com>, Mark Gross <markgross@kernel.org>,
+ Kerem Karabay <kekrby@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Jack Xiao <Jack.Xiao@amd.com>, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
+ Takashi Iwai <tiwai@suse.com>, Aditya Garg <gargaditya08@live.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?= <amadeuszx.slawinski@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2/10/23 05:00, Deepak R Varma wrote:
-> Remove duplicate or repeating expressions in the if condition
-> evaluation. Issue identified using doubletest.cocci Coccinelle semantic
-> patch.
+Hi,
+
+On 2/10/23 05:48, Orlando Chamberlain wrote:
+> Read gmux version in one go as 32 bits on both indexed and classic
+> gmux's.
 > 
-> Signed-off-by: Deepak R Varma <drv@mailo.com>
-
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-
-Harry
-
+> Classic gmux's used to read the version as
+> 
+> major = inb(base + 0x4);
+> minor = inb(base + 0x5);
+> release = inb(base + 0x6);
+> 
+> but this can instead be done the same way as indexed gmux's with
+> gmux_read32(), so the same version reading code is used for classic
+> and indexed gmux's (as well as mmio gmux's that will be added to this
+> driver).
+> 
+> Signed-off-by: Orlando Chamberlain <orlandoch.dev@gmail.com>
 > ---
->  .../gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c    | 4 +---
->  1 file changed, 1 insertion(+), 3 deletions(-)
+>  drivers/platform/x86/apple-gmux.c | 14 ++++++--------
+>  include/linux/apple-gmux.h        |  6 +-----
+>  2 files changed, 7 insertions(+), 13 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-> index 4b8f5fa0f0ad..ae89760d887d 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-> @@ -2335,8 +2335,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+> diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/apple-gmux.c
+> index e8cb084cb81f..67628104f31a 100644
+> --- a/drivers/platform/x86/apple-gmux.c
+> +++ b/drivers/platform/x86/apple-gmux.c
+> @@ -580,15 +580,13 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
+>  	if (indexed) {
+>  		mutex_init(&gmux_data->index_lock);
+>  		gmux_data->indexed = true;
+> -		version = gmux_read32(gmux_data, GMUX_PORT_VERSION_MAJOR);
+> -		ver_major = (version >> 24) & 0xff;
+> -		ver_minor = (version >> 16) & 0xff;
+> -		ver_release = (version >> 8) & 0xff;
+> -	} else {
+> -		ver_major = gmux_read8(gmux_data, GMUX_PORT_VERSION_MAJOR);
+> -		ver_minor = gmux_read8(gmux_data, GMUX_PORT_VERSION_MINOR);
+> -		ver_release = gmux_read8(gmux_data, GMUX_PORT_VERSION_RELEASE);
+>  	}
+> +
+> +	version = gmux_read32(gmux_data, GMUX_PORT_VERSION_MAJOR);
+> +	ver_major = (version >> 24) & 0xff;
+> +	ver_minor = (version >> 16) & 0xff;
+> +	ver_release = (version >> 8) & 0xff;
+> +
+>  	pr_info("Found gmux version %d.%d.%d [%s]\n", ver_major, ver_minor,
+>  		ver_release, (gmux_data->indexed ? "indexed" : "classic"));
 >  
->  			if (mode_lib->vba.DSCEnable[k] && mode_lib->vba.ForcedOutputLinkBPP[k] != 0)
->  				mode_lib->vba.DSCOnlyIfNecessaryWithBPP = true;
-> -			if ((mode_lib->vba.DSCEnable[k] || mode_lib->vba.DSCEnable[k])
-> -					&& mode_lib->vba.OutputFormat[k] == dm_n422
-> +			if (mode_lib->vba.DSCEnable[k] && mode_lib->vba.OutputFormat[k] == dm_n422
->  					&& !mode_lib->vba.DSC422NativeSupport)
->  				mode_lib->vba.DSC422NativeNotSupported = true;
->  
-> @@ -3639,7 +3638,6 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
->  			if (mode_lib->vba.SourcePixelFormat[k] != dm_444_64
->  					&& mode_lib->vba.SourcePixelFormat[k] != dm_444_32
->  					&& mode_lib->vba.SourcePixelFormat[k] != dm_444_16
-> -					&& mode_lib->vba.SourcePixelFormat[k] != dm_444_16
->  					&& mode_lib->vba.SourcePixelFormat[k] != dm_444_8
->  					&& mode_lib->vba.SourcePixelFormat[k] != dm_rgbe) {
->  				if (mode_lib->vba.ViewportWidthChroma[k] > mode_lib->vba.SurfaceWidthC[k]
+
+The problem with this is that there is nothing (no known register)
+at address base + 7 and now you are reading from address base + 7
+here where before the code was not, we have no idea how the hw
+will respond to this.  This should be pretty innocent but still ...
+
+> diff --git a/include/linux/apple-gmux.h b/include/linux/apple-gmux.h
+> index 1f68b49bcd68..eb2caee04abd 100644
+> --- a/include/linux/apple-gmux.h
+> +++ b/include/linux/apple-gmux.h
+> @@ -67,7 +67,6 @@ static inline bool apple_gmux_is_indexed(unsigned long iostart)
+>   */
+>  static inline bool apple_gmux_detect(struct pnp_dev *pnp_dev, bool *indexed_ret)
+>  {
+> -	u8 ver_major, ver_minor, ver_release;
+>  	struct device *dev = NULL;
+>  	struct acpi_device *adev;
+>  	struct resource *res;
+> @@ -95,10 +94,7 @@ static inline bool apple_gmux_detect(struct pnp_dev *pnp_dev, bool *indexed_ret)
+>  	 * Invalid version information may indicate either that the gmux
+>  	 * device isn't present or that it's a new one that uses indexed io.
+>  	 */
+> -	ver_major = inb(res->start + GMUX_PORT_VERSION_MAJOR);
+> -	ver_minor = inb(res->start + GMUX_PORT_VERSION_MINOR);
+> -	ver_release = inb(res->start + GMUX_PORT_VERSION_RELEASE);
+> -	if (ver_major == 0xff && ver_minor == 0xff && ver_release == 0xff) {
+> +	if (!(~inl(res->start + GMUX_PORT_VERSION_MAJOR))) {
+
+Assuming we can get this tested well enough that I'm ok with the change in general
+please write this as:
+
+	if (inl(res->start + GMUX_PORT_VERSION_MAJOR) == 0xffffffff) {
+
+Which I believe is what you are trying to achieve here ?
+
+Regards,
+
+Hans
+
+
+
+>  		indexed = apple_gmux_is_indexed(res->start);
+>  		if (!indexed)
+>  			goto out;
 
