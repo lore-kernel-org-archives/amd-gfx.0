@@ -4,113 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98752C05027
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Feb 2023 06:44:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72EF8C636CD
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Feb 2023 08:04:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC24910E111;
-	Fri, 10 Feb 2023 06:44:03 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2066.outbound.protection.outlook.com [40.107.237.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00A0610E111
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Feb 2023 06:44:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WsTFMiBdaWzMEdIMThF8psJFERUaA83WZwG1ob/YeWFLY/JK37kMMioRWfHXpN4b60QNIST2/J5nwMi47oN05htkUyZ5eEwBDQgmGBQo5ych6WjqLHVBNzvxoLewFWZoaxNmq1XAgJylm1nOFgPr6BWfTKdgJqZMDF4+u4VwcAljPdgapp21zHfGR2ST8cBFdRu6d5f8TZYuOtqoyXn0VR5EWFcUs+39X1RnrIFwDFjF6XWv0pOsAIJu8I+xZq+OXaMvjnKEi9RipV8N9jdvCP2ZdwIe+gYz+fR2gSL7dTeq49cily6O+6lYRBg+bDSaj86IecRWVwCcLFAkS1PkPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HLOgfDOQ5BYXwS29VCJ4t+eVh6Z8Mg6an3F3c5OVviA=;
- b=Rvv+bY79hFfbNrqXpRIzKdP9a6DFnWFjxI9OnEFCtLHOKJDX6Sqffk4Jpim8ZTEBwcmR03aggApnVdJeh9XsJyL78yApwxOAoHoKxlEXOY6JUD6p1f3C2EdufotKIn/UqvBUHnMr7TAy9uqvoYmKvU1FT2FlEhFact0QXE1PIrLqwSNOI8IN+piLmk6Sy/nUo6ZJTPFXcX9ethaJpSSaYyk8Btl0Ke0ylA+KOh4D8a9ey5h/Uv0vqyE7URb7IGOVFdYQGRfheB/NjSd5Fg+KOieDNGa7BPy1ILGrMV9ViqJ+mmfbE61ibpDhSz3rdLlqitZLLS8HpMIkWgLfmgiOvw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HLOgfDOQ5BYXwS29VCJ4t+eVh6Z8Mg6an3F3c5OVviA=;
- b=4iz+jFedbx3rMpKSY2RnBw8UCxXftYeCf1mfdNm3YeIjjhHVyZua8Zx5tvb0lG64ZF1E0irROliiqD1YVhe9J5TyNOH/ldMjDYdeN/YookB5JfXr2WM4MC0ywmGfGNGJsqtt93Km5YwyXkBVZvdqKceEFMdwS7p9LKFbufbscu8=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- CY8PR12MB7363.namprd12.prod.outlook.com (2603:10b6:930:51::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6086.21; Fri, 10 Feb 2023 06:44:00 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::5dc8:98e2:7b6e:a9db]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::5dc8:98e2:7b6e:a9db%5]) with mapi id 15.20.6086.017; Fri, 10 Feb 2023
- 06:44:00 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "Feng, Kenneth" <Kenneth.Feng@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd/amdgpu: implement mode2 reset on smu_v13_0_10
-Thread-Topic: [PATCH] drm/amd/amdgpu: implement mode2 reset on smu_v13_0_10
-Thread-Index: AQHZPQ6CmTFYfQ28yEK2geqhhUfYLq7HuxSQ
-Date: Fri, 10 Feb 2023 06:43:59 +0000
-Message-ID: <DM6PR12MB26196E48B6F1FD0164CAC28DE4DE9@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20230210051350.87747-1-kenneth.feng@amd.com>
-In-Reply-To: <20230210051350.87747-1-kenneth.feng@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-02-10T06:43:56Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=11aeb157-d2c1-4813-a185-568a19b2cf19;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB2619:EE_|CY8PR12MB7363:EE_
-x-ms-office365-filtering-correlation-id: 701deac5-deff-4bd3-dbcb-08db0b3230dc
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: gJ5xNMv8TeNC8gU6rpRmTpmXyXsir+1Vd/mPPmFiYW9Ls9qNv0gyKD7w2ZhOzKTi+Drih6yNN3BpnzhQMsf41Ly/XwBUhpRaZ7oQy6bfXo3CCOKBmKLafzMOm2k+uxX56tg3Qz6xO2DO0AfmmB0wEtAk6npiuU0WfIlclzGLWf4yGU9z5+vY/Yl49RxThGNoZpmLIuIycrTMymlaeMOPciFBdDA6xMhlyW7Sca07zGYpV2feXhQe0vNJG0ywyveJE8OkFX+uaIzy88ttKh8zBKBhZyShC29EgjAT5gu4pNQDDnE0pFmOHK0j0GjhaNkIxM3SXRg++FyVP+3rnfKMukOqfXhMZ/Dhctrq8lvFgC1C9ZeCuj4r3/V3qwq8mcNhxYDyKp7p7aOMzjuLSkYJNFOMp3WO/98hhF8yepiss2PTpeLA5EN/2WRtA1vcxnBrxuVlS7yb8XxnvjFtSh1dx8tPW6kgb+8/hht1MPUw8DhsU3LhB36gLpEZyC+h0xWogCNyruTSGux94bndrbkME34oCa+nk/VR3B+aBC92xEBWItEuZpUCAyjBXg7roOhNYodW26YR9pvKWBAxSgo7v47p8TYqbo75tNmqAO9oJudnaPU1ZQa6EtofIyN4AEpUAwxSHIO5VTZFx5dTPDAcGl5Df+XVk3+wOsZnl4HRKdU1w+eg8f7GhqznVVw4+WMfZZSw8YwbqC7ylwDmao53ug==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(346002)(376002)(136003)(39860400002)(396003)(366004)(451199018)(66899018)(2906002)(86362001)(38100700002)(122000001)(71200400001)(7696005)(186003)(6506007)(9686003)(53546011)(26005)(33656002)(38070700005)(55016003)(66556008)(66946007)(76116006)(66476007)(66446008)(83380400001)(64756008)(19627235002)(316002)(110136005)(41300700001)(4326008)(8676002)(478600001)(52536014)(8936002)(5660300002)(579004)(559001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?lo6uRadBaw1HmQEOe85S88INYa44eQEbGdZpTIT22g1x/se9YUEoXZeyZT6O?=
- =?us-ascii?Q?a6KVZGsgxrAnNiarn0ZZVyL/SYFsVuIxEhGIfVSo81z+qYjuVP3CsAfXDmxa?=
- =?us-ascii?Q?9GN0k6sv5HI/JqH3FDh4jWcXkLyMgi60A8D9q4AuIe8z7mIfXOZ87E8bTNuu?=
- =?us-ascii?Q?yg8f8mCCgEayxO7/q+8essMPjcuET5y5rJDEBUVWXt1uaU5T3qeFCv8Nz5R/?=
- =?us-ascii?Q?VEsvFhhlNK2ruaERPceZPZcy/BJ9i3zlnGCnScipnH+VLAXteHhtsMH9up46?=
- =?us-ascii?Q?e3E/LccZ9Tps7BGPtBKH2B95cpmU85LTZ9uMMxBjpLzlZ4zVzLLcNbjO6Rx9?=
- =?us-ascii?Q?YWTd9ROJgmSap4dwuq8byt9Oo0VPryvx6j5rIcSbA/+uvsXZ7MgRUnh5sO1e?=
- =?us-ascii?Q?uhdS69Jr5NSBIOGT4B43kkbdYB6pPxKPqYylFZ9XEIGWNwhqZFMvrJ3Wj1WG?=
- =?us-ascii?Q?YKjQ5EUH134YBWn/DrW+0FtxOcV0Kx9yZKQtvc1Bw1kh81c/tTXc9pvW/RWX?=
- =?us-ascii?Q?CHM5u1OQBUT0u5NguUnYNct7Cl7vEcA0T6mIVA9rK4uyLfE/o1U7Ya5NMatQ?=
- =?us-ascii?Q?EofZFAZwinrDm1SXOgclPxq5W1ckic4XXqva8yQENhQ6ysyRsO7M2PWfvSB8?=
- =?us-ascii?Q?5TwlSAAbLD2EIaNVVWQeMfQGBHNC+baVQ+o0MHUHCvNFLZZn1irZGEKxPeH0?=
- =?us-ascii?Q?SwlHyzUHRRW6NLLOMnxi4aXpUOryPFXiZFjSbdKoQKyd30CWPO1YacarNu8e?=
- =?us-ascii?Q?6+yc/bo65/KtEYaIwQwOtw8hBvgyJVhUEvS1slrV4l9ARoiI1nqbM9mjgz+1?=
- =?us-ascii?Q?0Ata/6YYAMFiO45G0gVi3s4Tkrp/M78/5O732TubMxnfhARcq2eUfDjq0nC5?=
- =?us-ascii?Q?UafOX4TpodVxl7YlGScj+Q15E8rG7JRUnGVJwbvG65yLsdqO/x2Jc7K/zKNO?=
- =?us-ascii?Q?9Qcmm2WPbcyUn7ZdJGfCS/lHOno49umtqGQCafGLAAe8cx6zJAmNeGZid3tM?=
- =?us-ascii?Q?ExHvRvjKja4J2w35g5zLab29Lgzq9pdxg8P4n9IEi6Ou8jA5KM5VduVd75kq?=
- =?us-ascii?Q?Y73xmv+f0HhJ6ke+j04lFjhi+e6BnxgAx+prELEnFmBZ3tyOxjziieIDhv5B?=
- =?us-ascii?Q?WEA9gwZ5WsR8oxVQfLVdBwcZL3XRyBDuqw6N99++CLiCaCNaOUSJaoOTomsP?=
- =?us-ascii?Q?97ie98eTa8aCM7fnGxNKZIm+GwR0GE1a3/39D+GhwA8HKwwJsOYq5gRmFvVj?=
- =?us-ascii?Q?rSDpmB1D1gnh4laNCiZGlQoCY5e+6ST5EqPvlaM0MkgPZY6WGnFfU6FZS2Py?=
- =?us-ascii?Q?rl5dd1fTPeAQohFVC0FnwV9k+oqkO0jpAUzeqfv98380Do7r+OT+4Ub3Bs3Q?=
- =?us-ascii?Q?H2YFTrsS/hCtexilOSQZpdsn1on0cVM2iT7JET27S9w1/eecrORCcjGPThOt?=
- =?us-ascii?Q?xkCtyD4kOLhtsbIaVfVCRSkgDsz4hFknkI0q2UH4ERm92WTPXv3m/PqxHUYf?=
- =?us-ascii?Q?y0GfyNkwno0ukwLz6J3G0fcOSP4KhZ4aumalALtH9+Vo1UdoQkd2MhAG6ljC?=
- =?us-ascii?Q?OwC8os6a5wB8qLhUe1M=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE24A10EC7A;
+	Fri, 10 Feb 2023 08:04:05 +0000 (UTC)
+Received: from mail-pg1-x533.google.com (mail-pg1-x533.google.com
+ [IPv6:2607:f8b0:4864:20::533])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62B3010EC55
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Feb 2023 04:50:58 +0000 (UTC)
+Received: by mail-pg1-x533.google.com with SMTP id a23so2950376pga.13
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Feb 2023 20:50:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=csEKku7VeftqKMa/oZ1aoU6u0+L74zJO0Dt8b/66dVA=;
+ b=bSSBBpxuvLfNjDZVjz2+AmmgvNUi2UbO+qebR9jIEeWWG+ugnaK53p6mQpKFqVYTgh
+ iuXQ4Y9y0HhXStihsMX1+bZmICz5JbJdj3Y5RDYwvHd0Fvm4BpohBTo0+84VXZE3pNkJ
+ nHj3jMdQ2ECfz5zkBQU+zZ3Ou5aDNBg3gocOMdRkFgPV5bhYgSG4gvzu93r5S6Dh3JOb
+ tLAJgLetD5xYT4Q8PSDp7jNYdLB5EoV7IW4Gq2iVdsp9WjCgK5g+crXN5OaIjS/YWKOv
+ swXVeyoRy+mQbFKKCf26aGILb+pL93OyQTh9/2z5UaawmtNzWkhbwVdkID9qJ/kh2j6p
+ N03Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=csEKku7VeftqKMa/oZ1aoU6u0+L74zJO0Dt8b/66dVA=;
+ b=IPbFpwZhjM5Y6M9elhQMf7txU6XlBW6IfeBmRmT9URUdcbGzwx+7EuVZcfzIbGbgv7
+ fN7kBPV/xnjVorGEt2V8xq2WMTPbOCpbU9DH/tETvC9FqhGyHuh1xcYfH5o1G2lqQJU8
+ oKZKiNQYknUkgCeiIGlP8yq5JobQu2aIF6rCELg/KUoN7YIgcUreDJZ9dunHG5SSm02F
+ QlYplCHx4KyKJB5ZabpYQrCBYBtg8GjntTcJrzkBzA9hCwGQOuyt8P9oJydN60K10GyJ
+ /gC9dXBeHqJy3JhN49+S3JvStgJ0+nNeQoZhBu6FUhyapQLq/xtqCEMIyLJdmBeuGuJ3
+ jWcQ==
+X-Gm-Message-State: AO0yUKXxo8qgHhQwSahrbuWRebOYfrtTjmDPD67/2psOQFTLVOR3utGa
+ vu4H+not2mG16bO7nn1ik60=
+X-Google-Smtp-Source: AK7set+6nR3PdC+bLUM0mRD3ICNqYx6AqEbULf57vUUimaqPU/GNepSkLhGvqGxzIrfzk/FsdYaw+w==
+X-Received: by 2002:a62:2782:0:b0:5a8:16b7:ce6e with SMTP id
+ n124-20020a622782000000b005a816b7ce6emr2853223pfn.10.1676004657775; 
+ Thu, 09 Feb 2023 20:50:57 -0800 (PST)
+Received: from localhost.localdomain ([202.53.32.211])
+ by smtp.gmail.com with ESMTPSA id
+ t13-20020a62ea0d000000b0057fec210d33sm2269218pfh.152.2023.02.09.20.50.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Feb 2023 20:50:57 -0800 (PST)
+From: Orlando Chamberlain <orlandoch.dev@gmail.com>
+To: platform-driver-x86@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+Subject: [RFC PATCH 6/9] apple-gmux: support MMIO gmux on T2 Macs
+Date: Fri, 10 Feb 2023 15:48:23 +1100
+Message-Id: <20230210044826.9834-7-orlandoch.dev@gmail.com>
+X-Mailer: git-send-email 2.39.1
+In-Reply-To: <20230210044826.9834-1-orlandoch.dev@gmail.com>
+References: <20230210044826.9834-1-orlandoch.dev@gmail.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 701deac5-deff-4bd3-dbcb-08db0b3230dc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Feb 2023 06:43:59.8951 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: efcjn0VDxKchIPTcC4NJxwYfJjlCunBIWwynN88zZkcqllK1MUSgpe8iTMM+uB92
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7363
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Fri, 10 Feb 2023 08:04:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,709 +72,343 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Rander Wang <rander.wang@intel.com>, YiPeng Chai <YiPeng.Chai@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Evan Quan <evan.quan@amd.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Yong Zhi <yong.zhi@intel.com>, Aun-Ali Zaidi <admin@kodeit.net>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Bokun Zhang <Bokun.Zhang@amd.com>,
+ Orlando Chamberlain <orlandoch.dev@gmail.com>,
+ Mark Gross <markgross@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
+ Kerem Karabay <kekrby@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Jack Xiao <Jack.Xiao@amd.com>, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
+ Takashi Iwai <tiwai@suse.com>, Aditya Garg <gargaditya08@live.com>,
+ Daniel Vetter <daniel@ffwll.ch>, =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+In some newer dual gpu MacBooks, gmux is controlled by the T2 security
+chip, and acessed with MMIO. Add support for these gmux controllers
 
+Interestingly, the ACPI table only allocates 8 bytes for GMUX, but we
+actually need 16, and as such we request 16 with request_mem_region.
 
+Reading and writing from ports:
+    16 bytes from 0xfe0b0200 are used. 0x0 to 0x4 are where data
+    to read appears, and where data to write goes. Writing to 0xe
+    sets the gmux port being accessed, and writing to 0xf sends commands.
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> Kenneth Feng
-> Sent: Friday, February 10, 2023 1:14 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Feng, Kenneth <Kenneth.Feng@amd.com>
-> Subject: [PATCH] drm/amd/amdgpu: implement mode2 reset on
-> smu_v13_0_10
->=20
-> implement mode2 reset on smu_v13_0_10
->=20
-> Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c     |   7 +
->  drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c     | 303
-> ++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.h     |  32 ++
->  .../gpu/drm/amd/include/kgd_pp_interface.h    |   1 +
->  drivers/gpu/drm/amd/pm/amdgpu_dpm.c           |  18 ++
->  drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |   1 +
->  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  18 ++
->  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |   1 +
->  .../pm/swsmu/inc/pmfw_if/smu_v13_0_0_ppsmc.h  |   1 +
->  drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h  |   3 +-
->  .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  |  27 ++
->  12 files changed, 412 insertions(+), 2 deletions(-)
->  create mode 100644 drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
->  create mode 100644 drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.h
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile
-> b/drivers/gpu/drm/amd/amdgpu/Makefile
-> index 24d8a03091b9..a7a0e385298d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
-> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-> @@ -80,7 +80,7 @@ amdgpu-y +=3D \
->  	vi.o mxgpu_vi.o nbio_v6_1.o soc15.o emu_soc.o mxgpu_ai.o
-> nbio_v7_0.o vega10_reg_init.o \
->  	vega20_reg_init.o nbio_v7_4.o nbio_v2_3.o nv.o arct_reg_init.o
-> mxgpu_nv.o \
->  	nbio_v7_2.o hdp_v4_0.o hdp_v5_0.o aldebaran_reg_init.o
-> aldebaran.o soc21.o \
-> -	sienna_cichlid.o nbio_v4_3.o hdp_v6_0.o nbio_v7_7.o hdp_v5_2.o
-> lsdma_v6_0.o
-> +	sienna_cichlid.o smu_v13_0_10.o nbio_v4_3.o hdp_v6_0.o
-> nbio_v7_7.o hdp_v5_2.o lsdma_v6_0.o
->=20
->  # add DF block
->  amdgpu-y +=3D \
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> index f778466bb9db..6437ead87e5f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> @@ -24,6 +24,7 @@
->  #include "amdgpu_reset.h"
->  #include "aldebaran.h"
->  #include "sienna_cichlid.h"
-> +#include "smu_v13_0_10.h"
->=20
->  int amdgpu_reset_add_handler(struct amdgpu_reset_control *reset_ctl,
->  			     struct amdgpu_reset_handler *handler)
-> @@ -44,6 +45,9 @@ int amdgpu_reset_init(struct amdgpu_device *adev)
->  	case IP_VERSION(11, 0, 7):
->  		ret =3D sienna_cichlid_reset_init(adev);
->  		break;
-> +	case IP_VERSION(13, 0, 10):
-> +		ret =3D smu_v13_0_10_reset_init(adev);
-> +		break;
->  	default:
->  		break;
->  	}
-> @@ -62,6 +66,9 @@ int amdgpu_reset_fini(struct amdgpu_device *adev)
->  	case IP_VERSION(11, 0, 7):
->  		ret =3D sienna_cichlid_reset_fini(adev);
->  		break;
-> +	case IP_VERSION(13, 0, 10):
-> +		ret =3D smu_v13_0_10_reset_fini(adev);
-> +		break;
->  	default:
->  		break;
->  	}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
-> b/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
-> new file mode 100644
-> index 000000000000..ae29620b1ea4
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
-> @@ -0,0 +1,303 @@
-> +/*
-> + * Copyright 2023 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining=
- a
-> + * copy of this software and associated documentation files (the
-> "Software"),
-> + * to deal in the Software without restriction, including without limita=
-tion
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
-se,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be includ=
-ed in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-> EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-> MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO
-> EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
-> DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-> OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
-> THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +
-> +#include "smu_v13_0_10.h"
-> +#include "amdgpu_reset.h"
-> +#include "amdgpu_dpm.h"
-> +#include "amdgpu_job.h"
-> +#include "amdgpu_ring.h"
-> +#include "amdgpu_ras.h"
-> +#include "amdgpu_psp.h"
-> +
-> +static bool smu_v13_0_10_is_mode2_default(struct amdgpu_reset_control
-> *reset_ctl)
-> +{
-> +	struct amdgpu_device *adev =3D (struct amdgpu_device *)reset_ctl-
-> >handle;
-> +	if (adev->pm.fw_version >=3D 0x00502005 && !amdgpu_sriov_vf(adev))
-> +		return true;
-> +
-> +	return false;
-> +}
-> +
-> +static struct amdgpu_reset_handler *
-> +smu_v13_0_10_get_reset_handler(struct amdgpu_reset_control
-> *reset_ctl,
-> +			    struct amdgpu_reset_context *reset_context)
-> +{
-> +	struct amdgpu_reset_handler *handler;
-> +	struct amdgpu_device *adev =3D (struct amdgpu_device *)reset_ctl-
-> >handle;
-> +
-> +	if (reset_context->method !=3D AMD_RESET_METHOD_NONE) {
-> +		list_for_each_entry(handler, &reset_ctl->reset_handlers,
-> +				     handler_list) {
-> +			if (handler->reset_method =3D=3D reset_context-
-> >method)
-> +				return handler;
-> +		}
-> +	}
-> +
-> +	if (smu_v13_0_10_is_mode2_default(reset_ctl) &&
-> +		amdgpu_asic_reset_method(adev) =3D=3D
-> AMD_RESET_METHOD_MODE2) {
-> +		list_for_each_entry (handler, &reset_ctl->reset_handlers,
-> +				     handler_list) {
-> +			if (handler->reset_method =3D=3D
-> AMD_RESET_METHOD_MODE2)
-> +				return handler;
-> +		}
-> +	}
-> +
-> +	return NULL;
-> +}
-> +
-> +static int smu_v13_0_10_mode2_suspend_ip(struct amdgpu_device *adev)
-> +{
-> +	int r, i;
-> +
-> +	amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
-> +	amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
-> +
-> +	for (i =3D adev->num_ip_blocks - 1; i >=3D 0; i--) {
-> +		if (!(adev->ip_blocks[i].version->type =3D=3D
-> +			      AMD_IP_BLOCK_TYPE_GFX ||
-> +		      adev->ip_blocks[i].version->type =3D=3D
-> +			      AMD_IP_BLOCK_TYPE_SDMA ||
-> +		      adev->ip_blocks[i].version->type =3D=3D
-> +			      AMD_IP_BLOCK_TYPE_MES))
-> +			continue;
-> +
-> +		r =3D adev->ip_blocks[i].version->funcs->suspend(adev);
-> +
-> +		if (r) {
-> +			dev_err(adev->dev,
-> +				"suspend of IP block <%s> failed %d\n",
-> +				adev->ip_blocks[i].version->funcs->name, r);
-> +			return r;
-> +		}
-> +		adev->ip_blocks[i].status.hw =3D false;
-> +	}
-> +
-> +	return r;
-> +}
-> +
-> +static int
-> +smu_v13_0_10_mode2_prepare_hwcontext(struct amdgpu_reset_control
-> *reset_ctl,
-> +				  struct amdgpu_reset_context
-> *reset_context)
-> +{
-> +	int r =3D 0;
-> +	struct amdgpu_device *adev =3D (struct amdgpu_device *)reset_ctl-
-> >handle;
-> +
-> +	if (!amdgpu_sriov_vf(adev))
-> +		r =3D smu_v13_0_10_mode2_suspend_ip(adev);
-> +
-> +	return r;
-> +}
-> +
-> +static int smu_v13_0_10_mode2_reset(struct amdgpu_device *adev)
-> +{
-> +	return amdgpu_dpm_mode2_reset(adev);
-> +}
-> +
-> +static void smu_v13_0_10_async_reset(struct work_struct *work)
-> +{
-> +	struct amdgpu_reset_handler *handler;
-> +	struct amdgpu_reset_control *reset_ctl =3D
-> +		container_of(work, struct amdgpu_reset_control,
-> reset_work);
-> +	struct amdgpu_device *adev =3D (struct amdgpu_device *)reset_ctl-
-> >handle;
-> +
-> +	list_for_each_entry(handler, &reset_ctl->reset_handlers,
-> +			     handler_list) {
-> +		if (handler->reset_method =3D=3D reset_ctl->active_reset) {
-> +			dev_dbg(adev->dev, "Resetting device\n");
-> +			handler->do_reset(adev);
-> +			break;
-> +		}
-> +	}
-> +}
-> +static int
-> +smu_v13_0_10_mode2_perform_reset(struct amdgpu_reset_control
-> *reset_ctl,
-> +			      struct amdgpu_reset_context *reset_context)
-> +{
-> +	struct amdgpu_device *adev =3D (struct amdgpu_device *)reset_ctl-
-> >handle;
-> +	int r;
-> +
-> +	r =3D smu_v13_0_10_mode2_reset(adev);
-> +	if (r) {
-> +		dev_err(adev->dev,
-> +			"ASIC reset failed with error, %d ", r);
-> +	}
-> +	return r;
-> +}
-> +
-> +static int smu_v13_0_10_mode2_restore_ip(struct amdgpu_device *adev)
-> +{
-> +	int i, r;
-> +	struct psp_context *psp =3D &adev->psp;
-> +	struct amdgpu_firmware_info *ucode;
-> +	struct amdgpu_firmware_info *ucode_list[2];
-> +	int ucode_count =3D 0;
-> +
-> +	for (i =3D 0; i < adev->firmware.max_ucodes; i++) {
-> +		ucode =3D &adev->firmware.ucode[i];
-> +
-> +		switch (ucode->ucode_id) {
-> +		case AMDGPU_UCODE_ID_IMU_I:
-> +		case AMDGPU_UCODE_ID_IMU_D:
-> +			ucode_list[ucode_count++] =3D ucode;
-> +			break;
-> +		default:
-> +			break;
-> +		}
-> +	}
-> +
-> +	r =3D psp_load_fw_list(psp, ucode_list, ucode_count);
-> +	if (r) {
-> +		dev_err(adev->dev, "IMU ucode load failed after mode2
-> reset\n");
-> +		return r;
-> +	}
-> +
-> +	r =3D psp_rlc_autoload_start(psp);
-> +	if (r) {
-> +		DRM_ERROR("Failed to start rlc autoload after mode2
-> reset\n");
-> +		return r;
-> +	}
-> +
-> +	amdgpu_dpm_enable_gfx_features(adev);
-> +
-> +	for (i =3D 0; i < adev->num_ip_blocks; i++) {
-> +		if (!(adev->ip_blocks[i].version->type =3D=3D
-> +			      AMD_IP_BLOCK_TYPE_GFX ||
-> +		      adev->ip_blocks[i].version->type =3D=3D
-> +			      AMD_IP_BLOCK_TYPE_MES ||
-> +		      adev->ip_blocks[i].version->type =3D=3D
-> +			      AMD_IP_BLOCK_TYPE_SDMA))
-> +			continue;
-> +		r =3D adev->ip_blocks[i].version->funcs->resume(adev);
-> +		if (r) {
-> +			dev_err(adev->dev,
-> +				"resume of IP block <%s> failed %d\n",
-> +				adev->ip_blocks[i].version->funcs->name, r);
-> +			return r;
-> +		}
-> +
-> +		adev->ip_blocks[i].status.hw =3D true;
-> +	}
-> +
-> +	for (i =3D 0; i < adev->num_ip_blocks; i++) {
-> +		if (!(adev->ip_blocks[i].version->type =3D=3D
-> +			      AMD_IP_BLOCK_TYPE_GFX ||
-> +		      adev->ip_blocks[i].version->type =3D=3D
-> +			      AMD_IP_BLOCK_TYPE_MES ||
-> +		      adev->ip_blocks[i].version->type =3D=3D
-> +			      AMD_IP_BLOCK_TYPE_SDMA))
-> +			continue;
-> +
-> +		if (adev->ip_blocks[i].version->funcs->late_init) {
-> +			r =3D adev->ip_blocks[i].version->funcs->late_init(
-> +				(void *)adev);
-> +			if (r) {
-> +				dev_err(adev->dev,
-> +					"late_init of IP block <%s> failed %d
-> after reset\n",
-> +					adev->ip_blocks[i].version->funcs-
-> >name,
-> +					r);
-> +				return r;
-> +			}
-> +		}
-> +		adev->ip_blocks[i].status.late_initialized =3D true;
-> +	}
-> +
-> +	amdgpu_device_set_cg_state(adev, AMD_CG_STATE_GATE);
-> +	amdgpu_device_set_pg_state(adev, AMD_PG_STATE_GATE);
-> +
-> +	return r;
-> +}
-> +
-> +static int
-> +smu_v13_0_10_mode2_restore_hwcontext(struct amdgpu_reset_control
-> *reset_ctl,
-> +				  struct amdgpu_reset_context
-> *reset_context)
-> +{
-> +	int r;
-> +	struct amdgpu_device *tmp_adev =3D (struct amdgpu_device
-> *)reset_ctl->handle;
-> +
-> +	dev_info(tmp_adev->dev,
-> +			"GPU reset succeeded, trying to resume\n");
-> +	r =3D smu_v13_0_10_mode2_restore_ip(tmp_adev);
-> +	if (r)
-> +		goto end;
-> +
-> +	amdgpu_register_gpu_instance(tmp_adev);
-> +
-> +	/* Resume RAS */
-> +	amdgpu_ras_resume(tmp_adev);
-> +
-> +	amdgpu_irq_gpu_reset_resume_helper(tmp_adev);
-> +
-> +	r =3D amdgpu_ib_ring_tests(tmp_adev);
-> +	if (r) {
-> +		dev_err(tmp_adev->dev,
-> +			"ib ring test failed (%d).\n", r);
-> +		r =3D -EAGAIN;
-> +		goto end;
-> +	}
-> +
-> +end:
-> +	if (r)
-> +		return -EAGAIN;
-> +	else
-> +		return r;
-> +}
-> +
-> +static struct amdgpu_reset_handler smu_v13_0_10_mode2_handler =3D {
-> +	.reset_method		=3D AMD_RESET_METHOD_MODE2,
-> +	.prepare_env		=3D NULL,
-> +	.prepare_hwcontext	=3D
-> smu_v13_0_10_mode2_prepare_hwcontext,
-> +	.perform_reset		=3D
-> smu_v13_0_10_mode2_perform_reset,
-> +	.restore_hwcontext	=3D
-> smu_v13_0_10_mode2_restore_hwcontext,
-> +	.restore_env		=3D NULL,
-> +	.do_reset		=3D smu_v13_0_10_mode2_reset,
-> +};
-> +
-> +int smu_v13_0_10_reset_init(struct amdgpu_device *adev)
-> +{
-> +	struct amdgpu_reset_control *reset_ctl;
-> +
-> +	reset_ctl =3D kzalloc(sizeof(*reset_ctl), GFP_KERNEL);
-> +	if (!reset_ctl)
-> +		return -ENOMEM;
-> +
-> +	reset_ctl->handle =3D adev;
-> +	reset_ctl->async_reset =3D smu_v13_0_10_async_reset;
-> +	reset_ctl->active_reset =3D AMD_RESET_METHOD_NONE;
-> +	reset_ctl->get_reset_handler =3D smu_v13_0_10_get_reset_handler;
-> +
-> +	INIT_LIST_HEAD(&reset_ctl->reset_handlers);
-> +	INIT_WORK(&reset_ctl->reset_work, reset_ctl->async_reset);
-> +	/* Only mode2 is handled through reset control now */
-> +	amdgpu_reset_add_handler(reset_ctl,
-> &smu_v13_0_10_mode2_handler);
-> +
-> +	adev->reset_cntl =3D reset_ctl;
-> +
-> +	return 0;
-> +}
-> +
-> +int smu_v13_0_10_reset_fini(struct amdgpu_device *adev)
-> +{
-> +	kfree(adev->reset_cntl);
-> +	adev->reset_cntl =3D NULL;
-> +	return 0;
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.h
-> b/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.h
-> new file mode 100644
-> index 000000000000..e0cb72a0eec6
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.h
-> @@ -0,0 +1,32 @@
-> +/*
-> + * Copyright 2023 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining=
- a
-> + * copy of this software and associated documentation files (the
-> "Software"),
-> + * to deal in the Software without restriction, including without limita=
-tion
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
-se,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be includ=
-ed in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-> EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-> MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO
-> EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
-> DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-> OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
-> THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +
-> +#ifndef __SMU_V13_0_10_H__
-> +#define __SMU_V13_0_10_H__
-> +
-> +#include "amdgpu.h"
-> +
-> +int smu_v13_0_10_reset_init(struct amdgpu_device *adev);
-> +int smu_v13_0_10_reset_fini(struct amdgpu_device *adev);
-> +
-> +#endif
-> diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> index d68bd7c1aa04..e485a643bb99 100644
-> --- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> +++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> @@ -398,6 +398,7 @@ struct amd_pm_funcs {
->  	int (*get_ppfeature_status)(void *handle, char *buf);
->  	int (*set_ppfeature_status)(void *handle, uint64_t
-> ppfeature_masks);
->  	int (*asic_reset_mode_2)(void *handle);
-> +	int (*asic_reset_enable_gfx_features)(void *handle);
->  	int (*set_df_cstate)(void *handle, enum pp_df_cstate state);
->  	int (*set_xgmi_pstate)(void *handle, uint32_t pstate);
->  	ssize_t (*get_gpu_metrics)(void *handle, void **table);
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> index 751d01495195..f0068df2d073 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> @@ -250,6 +250,24 @@ int amdgpu_dpm_mode2_reset(struct
-> amdgpu_device *adev)
->  	return ret;
->  }
->=20
-> +int amdgpu_dpm_enable_gfx_features(struct amdgpu_device *adev)
-> +{
-> +	const struct amd_pm_funcs *pp_funcs =3D adev->powerplay.pp_funcs;
-> +	void *pp_handle =3D adev->powerplay.pp_handle;
-> +	int ret =3D 0;
-> +
-> +	if (!pp_funcs || !pp_funcs->asic_reset_enable_gfx_features)
-> +		return -ENOENT;
-> +
-> +	mutex_lock(&adev->pm.mutex);
-> +
-> +	ret =3D pp_funcs->asic_reset_enable_gfx_features(pp_handle);
-> +
-> +	mutex_unlock(&adev->pm.mutex);
-> +
-> +	return ret;
-> +}
-> +
->  int amdgpu_dpm_baco_reset(struct amdgpu_device *adev)
->  {
->  	const struct amd_pm_funcs *pp_funcs =3D adev->powerplay.pp_funcs;
-> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> index 485522cb0238..ff2ebf786bb0 100644
-> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> @@ -387,6 +387,7 @@ int amdgpu_dpm_switch_power_profile(struct
-> amdgpu_device *adev,
->  int amdgpu_dpm_baco_reset(struct amdgpu_device *adev);
->=20
->  int amdgpu_dpm_mode2_reset(struct amdgpu_device *adev);
-> +int amdgpu_dpm_enable_gfx_features(struct amdgpu_device *adev);
->=20
->  bool amdgpu_dpm_is_baco_supported(struct amdgpu_device *adev);
->  bool amdgpu_dpm_is_maco_supported(struct amdgpu_device *adev);
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> index f08698493502..0fe926bdc18a 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -2874,6 +2874,23 @@ static int smu_mode2_reset(void *handle)
->  	return ret;
->  }
->=20
-> +static int smu_enable_gfx_features(void *handle)
-> +{
-> +	struct smu_context *smu =3D handle;
-> +	int ret =3D 0;
-> +
-> +	if (!smu->pm_enabled)
-> +		return -EOPNOTSUPP;
-> +
-> +	if (smu->ppt_funcs->enable_gfx_features)
-> +		ret =3D smu->ppt_funcs->enable_gfx_features(smu);
-> +
-> +	if (ret)
-> +		dev_err(smu->adev->dev, "enable gfx features failed!\n");
-> +
-> +	return ret;
-> +}
-> +
->  static int smu_get_max_sustainable_clocks_by_dc(void *handle,
->  						struct
-> pp_smu_nv_clock_table *max_clocks)
->  {
-> @@ -3059,6 +3076,7 @@ static const struct amd_pm_funcs
-> swsmu_pm_funcs =3D {
->  	.get_ppfeature_status             =3D smu_sys_get_pp_feature_mask,
->  	.set_ppfeature_status             =3D smu_sys_set_pp_feature_mask,
->  	.asic_reset_mode_2                =3D smu_mode2_reset,
-> +	.asic_reset_enable_gfx_features   =3D smu_enable_gfx_features,
->  	.set_df_cstate                    =3D smu_set_df_cstate,
->  	.set_xgmi_pstate                  =3D smu_set_xgmi_pstate,
->  	.get_gpu_metrics                  =3D smu_sys_get_gpu_metrics,
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> index f5f0b2f3c610..1f65048a5c33 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> @@ -1202,6 +1202,7 @@ struct pptable_funcs {
->  	 * IPs reset varies by asic.
->  	 */
->  	int (*mode2_reset)(struct smu_context *smu);
-> +	int (*enable_gfx_features)(struct smu_context *smu);
-[Quan, Evan] Might better to add some descriptions for the new API as for o=
-ther APIs.
-Either way the patch is acked-by: Evan Quan <evan.quan@amd.com>
->=20
->  	/**
->  	 * @get_dpm_ultimate_freq: Get the hard frequency range of a
-> clock
-> diff --git
-> a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_0_ppsmc.h
-> b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_0_ppsmc.h
-> index 8b8266890a10..10cff75b44d5 100644
-> ---
-> a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_0_ppsmc.h
-> +++
-> b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_0_ppsmc.h
-> @@ -94,6 +94,7 @@
->  //Resets
->  #define PPSMC_MSG_PrepareMp1ForUnload            0x2E
->  #define PPSMC_MSG_Mode1Reset                     0x2F
-> +#define PPSMC_MSG_Mode2Reset					 0x4F
->=20
->  //Set SystemVirtual DramAddrHigh
->  #define PPSMC_MSG_SetSystemVirtualDramAddrHigh   0x30
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-> b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-> index 4180c71d930f..96f6c2db955b 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-> @@ -242,7 +242,8 @@
->  	__SMU_DUMMY_MAP(LogGfxOffResidency),			\
->  	__SMU_DUMMY_MAP(SetNumBadMemoryPagesRetired),
-> 	\
->=20
-> 	__SMU_DUMMY_MAP(SetBadMemoryPagesRetiredFlagsPerChann
-> el), \
-> -	__SMU_DUMMY_MAP(AllowGpo),
-> +	__SMU_DUMMY_MAP(AllowGpo),	\
-> +	__SMU_DUMMY_MAP(Mode2Reset),
->=20
->  #undef __SMU_DUMMY_MAP
->  #define __SMU_DUMMY_MAP(type)	SMU_MSG_##type
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> index 8b06a673e77c..44dd88bb3935 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> @@ -138,6 +138,7 @@ static struct cmn2asic_msg_mapping
-> smu_v13_0_0_message_map[SMU_MSG_MAX_COUNT] =3D
->  	MSG_MAP(GetPptLimit,
-> 	PPSMC_MSG_GetPptLimit,                 0),
->  	MSG_MAP(NotifyPowerSource,
-> 	PPSMC_MSG_NotifyPowerSource,           0),
->  	MSG_MAP(Mode1Reset,
-> 	PPSMC_MSG_Mode1Reset,                  0),
-> +	MSG_MAP(Mode2Reset,
-> 	PPSMC_MSG_Mode2Reset,	       		   0),
->  	MSG_MAP(PrepareMp1ForUnload,
-> 	PPSMC_MSG_PrepareMp1ForUnload,         0),
->  	MSG_MAP(DFCstateControl,
-> 	PPSMC_MSG_SetExternalClientDfCstateAllow, 0),
->  	MSG_MAP(ArmD3,				PPSMC_MSG_ArmD3,
-> 0),
-> @@ -1957,6 +1958,30 @@ static int smu_v13_0_0_mode1_reset(struct
-> smu_context *smu)
->  	return ret;
->  }
->=20
-> +static int smu_v13_0_0_mode2_reset(struct smu_context *smu)
-> +{
-> +	int ret;
-> +	struct amdgpu_device *adev =3D smu->adev;
-> +
-> +	if (adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(13, 0, 10))
-> +		ret =3D smu_cmn_send_smc_msg(smu,
-> SMU_MSG_Mode2Reset, NULL);
-> +	else
-> +		return -EOPNOTSUPP;
-> +
-> +	return ret;
-> +}
-> +
-> +static int smu_v13_0_0_enable_gfx_features(struct smu_context *smu)
-> +{
-> +	struct amdgpu_device *adev =3D smu->adev;
-> +
-> +	if (adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(13, 0, 10))
-> +		return smu_cmn_send_smc_msg_with_param(smu,
-> SMU_MSG_EnableAllSmuFeatures,
-> +
-> 	   FEATURE_PWR_GFX, NULL);
-> +	else
-> +		return -EOPNOTSUPP;
-> +}
-> +
->  static void smu_v13_0_0_set_smu_mailbox_registers(struct smu_context
-> *smu)
->  {
->  	struct amdgpu_device *adev =3D smu->adev;
-> @@ -2073,6 +2098,8 @@ static const struct pptable_funcs
-> smu_v13_0_0_ppt_funcs =3D {
->  	.baco_exit =3D smu_v13_0_0_baco_exit,
->  	.mode1_reset_is_support =3D
-> smu_v13_0_0_is_mode1_reset_supported,
->  	.mode1_reset =3D smu_v13_0_0_mode1_reset,
-> +	.mode2_reset =3D smu_v13_0_0_mode2_reset,
-> +	.enable_gfx_features =3D smu_v13_0_0_enable_gfx_features,
->  	.set_mp1_state =3D smu_v13_0_0_set_mp1_state,
->  	.set_df_cstate =3D smu_v13_0_0_set_df_cstate,
->  	.send_hbm_bad_pages_num =3D
-> smu_v13_0_0_smu_send_bad_mem_page_num,
-> --
-> 2.25.1
+    These commands are 0x40 & data_length for write, and data_length for
+    read, where data_length is 1, 2 or 4. Once byte base+0xf is 0, the
+    command is done.
+
+Interrupts:
+    Clearing interrupts on T2 macs seems different to older models,
+    0 has to be written for them to stop, but this isn't what macOS
+    does and further investigation may be needed.
+
+Issues:
+    As with other retina models, we can't switch DDC lines so
+    switching at runtime doesn't work if the inactive gpu driver
+    already disabled eDP due to it not being connected when that
+    driver loaded.
+
+    Additionally, turning on the dgpu back on T2 macs doesn't work,
+    and it fails in amdgpu's code for bringing the gpu back online.
+
+Signed-off-by: Orlando Chamberlain <orlandoch.dev@gmail.com>
+---
+ drivers/platform/x86/apple-gmux.c | 134 ++++++++++++++++++++++++++++--
+ include/linux/apple-gmux.h        |  34 +++++---
+ 2 files changed, 149 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/apple-gmux.c
+index c605f036ea0b..c38d6ef0c15a 100644
+--- a/drivers/platform/x86/apple-gmux.c
++++ b/drivers/platform/x86/apple-gmux.c
+@@ -28,15 +28,17 @@
+  * DOC: Overview
+  *
+  * gmux is a microcontroller built into the MacBook Pro to support dual GPUs:
+- * A `Lattice XP2`_ on pre-retinas, a `Renesas R4F2113`_ on retinas.
++ * A `Lattice XP2`_ on pre-retinas, a `Renesas R4F2113`_ on pre-T2 retinas.
++ * The chip used on T2 Macs is not known.
+  *
+  * (The MacPro6,1 2013 also has a gmux, however it is unclear why since it has
+  * dual GPUs but no built-in display.)
+  *
+  * gmux is connected to the LPC bus of the southbridge. Its I/O ports are
+  * accessed differently depending on the microcontroller: Driver functions
+- * to access a pre-retina gmux are infixed ``_pio_``, those for a retina gmux
+- * are infixed ``_index_``.
++ * to access a pre-retina gmux are infixed ``_pio_``, those for a pre-T2
++ * retina gmux are infixed ``_index_``, and those on T2 Macs are infixed
++ * with ``_mmio_``.
+  *
+  * .. _Lattice XP2:
+  *     http://www.latticesemi.com/en/Products/FPGAandCPLD/LatticeXP2.aspx
+@@ -47,6 +49,7 @@
+ struct apple_gmux_config;
+ 
+ struct apple_gmux_data {
++	u8 *__iomem iomem_base;
+ 	unsigned long iostart;
+ 	unsigned long iolen;
+ 	const struct apple_gmux_config *config;
+@@ -193,6 +196,79 @@ static void gmux_index_write32(struct apple_gmux_data *gmux_data, int port,
+ 	mutex_unlock(&gmux_data->index_lock);
+ }
+ 
++static int gmux_mmio_wait(struct apple_gmux_data *gmux_data)
++{
++	int i = 200;
++	u8 gwr = ioread8(gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
++
++	while (i && gwr) {
++		gwr = ioread8(gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
++		udelay(100);
++		i--;
++	}
++
++	return !!i;
++}
++
++static u8 gmux_mmio_read8(struct apple_gmux_data *gmux_data, int port)
++{
++	u8 val;
++
++	mutex_lock(&gmux_data->index_lock);
++	gmux_mmio_wait(gmux_data);
++	iowrite8((port & 0xff), gmux_data->iomem_base + GMUX_MMIO_PORT_SELECT);
++	iowrite8(GMUX_MMIO_READ | sizeof(val),
++		gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
++	gmux_mmio_wait(gmux_data);
++	val = ioread8(gmux_data->iomem_base);
++	mutex_unlock(&gmux_data->index_lock);
++
++	return val;
++}
++
++static void gmux_mmio_write8(struct apple_gmux_data *gmux_data, int port,
++			      u8 val)
++{
++	mutex_lock(&gmux_data->index_lock);
++	gmux_mmio_wait(gmux_data);
++	iowrite8(val, gmux_data->iomem_base);
++
++	iowrite8(port & 0xff, gmux_data->iomem_base + GMUX_MMIO_PORT_SELECT);
++	iowrite8(GMUX_MMIO_WRITE | sizeof(val),
++		gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
++
++	gmux_mmio_wait(gmux_data);
++	mutex_unlock(&gmux_data->index_lock);
++}
++
++static u32 gmux_mmio_read32(struct apple_gmux_data *gmux_data, int port)
++{
++	u32 val;
++
++	mutex_lock(&gmux_data->index_lock);
++	gmux_mmio_wait(gmux_data);
++	iowrite8((port & 0xff), gmux_data->iomem_base + GMUX_MMIO_PORT_SELECT);
++	iowrite8(GMUX_MMIO_READ | sizeof(val),
++		gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
++	gmux_mmio_wait(gmux_data);
++	val = be32_to_cpu(ioread32(gmux_data->iomem_base));
++	mutex_unlock(&gmux_data->index_lock);
++
++	return val;
++}
++
++static void gmux_mmio_write32(struct apple_gmux_data *gmux_data, int port,
++			       u32 val)
++{
++	mutex_lock(&gmux_data->index_lock);
++	iowrite32(cpu_to_be32(val), gmux_data->iomem_base);
++	iowrite8(port & 0xff, gmux_data->iomem_base + GMUX_MMIO_PORT_SELECT);
++	iowrite8(GMUX_MMIO_WRITE | sizeof(val),
++		gmux_data->iomem_base + GMUX_MMIO_COMMAND_SEND);
++	gmux_mmio_wait(gmux_data);
++	mutex_unlock(&gmux_data->index_lock);
++}
++
+ static u8 gmux_read8(struct apple_gmux_data *gmux_data, int port)
+ {
+ 	return gmux_data->config->read8(gmux_data, port);
+@@ -486,6 +562,18 @@ static const struct apple_gmux_config apple_gmux_index = {
+ 	.name = "indexed"
+ };
+ 
++static const struct apple_gmux_config apple_gmux_mmio = {
++	.read8 = &gmux_mmio_read8,
++	.write8 = &gmux_mmio_write8,
++	.read32 = &gmux_mmio_read32,
++	.write32 = &gmux_mmio_write32,
++	.gmux_handler = &gmux_handler_no_ddc,
++	.handler_flags = VGA_SWITCHEROO_NEEDS_EDP_CONFIG,
++	.resource_type = IORESOURCE_MEM,
++	.name = "T2"
++};
++
++
+ /**
+  * DOC: Interrupt
+  *
+@@ -538,7 +626,7 @@ static void gmux_clear_interrupts(struct apple_gmux_data *gmux_data)
+ {
+ 	u8 status;
+ 
+-	/* to clear interrupts write back current status */
++	/* to clear interrupts write back current status. */
+ 	status = gmux_interrupt_get_status(gmux_data);
+ 	if (status) {
+ 		gmux_write8(gmux_data, GMUX_PORT_INTERRUPT_STATUS, status);
+@@ -616,6 +704,25 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
+ 	pnp_set_drvdata(pnp, gmux_data);
+ 
+ 	switch (type) {
++	case APPLE_GMUX_TYPE_MMIO:
++		gmux_data->config = &apple_gmux_mmio;
++		mutex_init(&gmux_data->index_lock);
++
++		res = pnp_get_resource(pnp, IORESOURCE_MEM, 0);
++		gmux_data->iostart = res->start;
++		/* Although the ACPI table only allocates 8 bytes, we need 16. */
++		gmux_data->iolen = 16;
++		if (!request_mem_region(gmux_data->iostart, gmux_data->iolen,
++					"Apple gmux")) {
++			pr_err("gmux I/O already in use\n");
++			goto err_free;
++		}
++		gmux_data->iomem_base = ioremap(gmux_data->iostart, gmux_data->iolen);
++		if (!gmux_data->iomem_base) {
++			pr_err("couldn't remap gmux mmio region");
++			goto err_release;
++		}
++		goto get_version;
+ 	case APPLE_GMUX_TYPE_INDEXED:
+ 		gmux_data->config = &apple_gmux_index;
+ 		mutex_init(&gmux_data->index_lock);
+@@ -635,6 +742,7 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
+ 		goto err_free;
+ 	}
+ 
++get_version:
+ 	version = gmux_read32(gmux_data, GMUX_PORT_VERSION_MAJOR);
+ 	ver_major = (version >> 24) & 0xff;
+ 	ver_minor = (version >> 16) & 0xff;
+@@ -660,7 +768,7 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
+ 					 gmux_data, &gmux_bl_ops, &props);
+ 	if (IS_ERR(bdev)) {
+ 		ret = PTR_ERR(bdev);
+-		goto err_release;
++		goto err_unmap;
+ 	}
+ 
+ 	gmux_data->bdev = bdev;
+@@ -727,7 +835,7 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
+ 	/*
+ 	 * Retina MacBook Pros cannot switch the panel's AUX separately
+ 	 * and need eDP pre-calibration. They are distinguishable from
+-	 * pre-retinas by having an "indexed" gmux.
++	 * pre-retinas by having an "indexed" or "T2" gmux.
+ 	 *
+ 	 * Pre-retina MacBook Pros can switch the panel's DDC separately.
+ 	 */
+@@ -752,8 +860,14 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
+ 					   &gmux_notify_handler);
+ err_notify:
+ 	backlight_device_unregister(bdev);
++err_unmap:
++	if (gmux_data->iomem_base)
++		iounmap(gmux_data->iomem_base);
+ err_release:
+-	release_region(gmux_data->iostart, gmux_data->iolen);
++	if (gmux_data->config->resource_type == IORESOURCE_MEM)
++		release_mem_region(gmux_data->iostart, gmux_data->iolen);
++	else
++		release_region(gmux_data->iostart, gmux_data->iolen);
+ err_free:
+ 	kfree(gmux_data);
+ 	return ret;
+@@ -774,7 +888,11 @@ static void gmux_remove(struct pnp_dev *pnp)
+ 
+ 	backlight_device_unregister(gmux_data->bdev);
+ 
+-	release_region(gmux_data->iostart, gmux_data->iolen);
++	if (gmux_data->iomem_base) {
++		iounmap(gmux_data->iomem_base);
++		release_mem_region(gmux_data->iostart, gmux_data->iolen);
++	} else
++		release_region(gmux_data->iostart, gmux_data->iolen);
+ 	apple_gmux_data = NULL;
+ 	kfree(gmux_data);
+ 
+diff --git a/include/linux/apple-gmux.h b/include/linux/apple-gmux.h
+index 25c1de4a716e..55b18f0f320d 100644
+--- a/include/linux/apple-gmux.h
++++ b/include/linux/apple-gmux.h
+@@ -34,11 +34,18 @@
+ #define GMUX_PORT_READ			0xd0
+ #define GMUX_PORT_WRITE			0xd4
+ 
++#define GMUX_MMIO_PORT_SELECT		0x0e
++#define GMUX_MMIO_COMMAND_SEND		0x0f
++
++#define GMUX_MMIO_READ			0x00
++#define GMUX_MMIO_WRITE			0x40
++
+ #define GMUX_MIN_IO_LEN			(GMUX_PORT_BRIGHTNESS + 4)
+ 
+ enum apple_gmux_type {
+ 	APPLE_GMUX_TYPE_PIO,
+-	APPLE_GMUX_TYPE_INDEXED
++	APPLE_GMUX_TYPE_INDEXED,
++	APPLE_GMUX_TYPE_MMIO
+ };
+ 
+ #if IS_ENABLED(CONFIG_APPLE_GMUX)
+@@ -92,16 +99,21 @@ static inline bool apple_gmux_detect(struct pnp_dev *pnp_dev, enum apple_gmux_ty
+ 	}
+ 
+ 	res = pnp_get_resource(pnp_dev, IORESOURCE_IO, 0);
+-	if (!res || resource_size(res) < GMUX_MIN_IO_LEN)
+-		goto out;
+-
+-	/*
+-	 * Invalid version information may indicate either that the gmux
+-	 * device isn't present or that it's a new one that uses indexed io.
+-	 */
+-	if (!(~inl(res->start + GMUX_PORT_VERSION_MAJOR))) {
+-		if (apple_gmux_is_indexed(res->start))
+-			type = APPLE_GMUX_TYPE_INDEXED;
++	if (res && resource_size(res) >= GMUX_MIN_IO_LEN) {
++		/*
++		 * Invalid version information may indicate either that the gmux
++		 * device isn't present or that it's a new one that uses indexed io.
++		 */
++		if (!(~inl(res->start + GMUX_PORT_VERSION_MAJOR))) {
++			if (apple_gmux_is_indexed(res->start))
++				type = APPLE_GMUX_TYPE_INDEXED;
++			else
++				goto out;
++		}
++	} else {
++		res = pnp_get_resource(pnp_dev, IORESOURCE_MEM, 0);
++		if (res)
++			type = APPLE_GMUX_TYPE_MMIO;
+ 		else
+ 			goto out;
+ 	}
+-- 
+2.39.1
+
