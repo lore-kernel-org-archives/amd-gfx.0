@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 339E5C636D3
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Feb 2023 08:04:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08E16C636CD
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Feb 2023 08:04:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F240F10EC8B;
-	Fri, 10 Feb 2023 08:04:07 +0000 (UTC)
-Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
- [IPv6:2607:f8b0:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05B9D10EC55
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Feb 2023 04:50:28 +0000 (UTC)
-Received: by mail-pf1-x430.google.com with SMTP id n2so2772140pfo.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 09 Feb 2023 20:50:28 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DA2D10EC86;
+	Fri, 10 Feb 2023 08:04:08 +0000 (UTC)
+Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
+ [IPv6:2607:f8b0:4864:20::42b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C68C10EC5C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Feb 2023 04:50:09 +0000 (UTC)
+Received: by mail-pf1-x42b.google.com with SMTP id s20so2769545pfe.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Feb 2023 20:50:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=zqShi3EgLDtgztLIgW/MuPsWv2vSLPgVWXrp/LobXww=;
- b=Om+u/6VnAJG9TE8AtmP7qvhlFAe++DibsHxfnKB/uw1rT0M0wwXXptoFr0Xv+20ydo
- eakNNTYlCCk2g+ALxRE6kmjCfzNbNOYJFbMBHqWvHvIm2k/uZfv6KIo0xugx3nQig2py
- J1no3BHk6c8ezYo6oWs4KfkhLQOu7YRb0G1aFzEpM6YreNPESvbQ4vwbkdQg1ll66Mfa
- qmCJAD9lIdQ09n5BrE3kzDSLu8s0jx5ZJ2hqM233WpFqKrLUDc8SXFgEQ8iWwYwFo7zR
- SkcsIvSD7qiSPHhO2o5OR47wO55x0ECXZiVlRFfBnNKUyj1V+gZQOOhi2rAshPHtOKDE
- yP0g==
+ bh=5mAzAHTdZsC5IqNul3xJsl6wPXmAHfKwZ27VCzKXGF4=;
+ b=JVtiloj7yRa4BQFYW86RmJebSQYTmr6ulQWbaNdE813YnQNwxXxigdeqKGwJ547OA9
+ iKneGqYybribFvactjWAxLOC1FFyHyE+vrJN9XEm4Abm2yHTeo6rcn+1OgEhy5wP98gZ
+ +ThcUd3YSIgv/n1tSUkAQD0bQGEO9epBP65UtYfzB4TDt5HkYEHAUsO9ybZHG+TDzu0u
+ hqJKP33cLtrVl0eYH6Qi6HmbIoL1D0nmoU8eLgaP0zLDynkeKmwUzTLzZaRDN3rU0PL/
+ En5vvM6GmtpTk46YMQcS55SP+xFg1xh1ZcTgKWrbYfmIOMTZVYpC6OIy+kKwcbJ4fUCF
+ NfGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=zqShi3EgLDtgztLIgW/MuPsWv2vSLPgVWXrp/LobXww=;
- b=l/7SdRGyT1WLdts6F42nApka5teDhLLgSNhdxUNKgpVGvZx37Ym3kVQxkJD1Q04Vdz
- qYqwFZBv8ba+a7YK6xg3+l+8Dd6QZLJaEUr9L+cHsEV7cwMSbSUOyhUtkb9oPe3++3B9
- L72LcRCVsOYyuVrGZARZZGSsrv9OESxteMhJJkulnA3nG6LRsfO18xH+u69GW5aSiYth
- wnNEqroTt3/0MTDFfpkWx+8lj8ygal90zkI+WvyZZDy3Oq+cQWxCDRSUi+Tu9PwbRcYC
- EKAIDNkT9WdJZaS1LBL3sTHkY8juzveSmdpQutmSR7R6vlRvW3Lb3RZTYzjeIbF5ws3k
- y5lQ==
-X-Gm-Message-State: AO0yUKViwfG4TarQWnvlDRBNz8rtYlAE6G1p9VXpoLEe4pAdjHER8Vyg
- SWk6kgOXPWkYxsYi60yXe9I=
-X-Google-Smtp-Source: AK7set//ZS0OEdNcYuTp0DRJ59S0YHaU7AVoVK7clC6F+urpcBjbK1/I7g8ZJg3rnX+smO5B0TtQfg==
-X-Received: by 2002:a62:6458:0:b0:5a8:6bb7:5fc5 with SMTP id
- y85-20020a626458000000b005a86bb75fc5mr1170747pfb.19.1676004628485; 
- Thu, 09 Feb 2023 20:50:28 -0800 (PST)
+ bh=5mAzAHTdZsC5IqNul3xJsl6wPXmAHfKwZ27VCzKXGF4=;
+ b=6tsr6IURWZLjG9ZIewJGj1MtbY7X8T9Kjqn12xC306DFwUhbvM7NuamHoz7DCTK26F
+ Yz6IPVPyMNt9fy7DDILeqI5+2Gff05DP67jHnmLByGkJZLkwZWbmk6H9QIaPtAJ8nB/g
+ CjO1Q5rUhcAw/cumbalttESTcWJ96vkcghPnSF+vSi+OJqj5xsLC93wm/LMn4tyxRTqY
+ dq7Yb/59OoyGSskPXDjEr+MpgtjWGVAcI19BtXakPCJuTIFcgCYkcBCnJyTKW4IoFs0R
+ T1XKd80jXyfButIueQIeHA2UKWup/ajLxMZsHqeTNdj8Ym2OA8qeAOD81EQpK/JC6XVh
+ 6s5g==
+X-Gm-Message-State: AO0yUKWIzpPv0KJAnhn0+I/4mPzO4Ouorn1/sfim/JjusMMpCvFucGws
+ sZLhYvD7RpTY5Gk63q5GUKg=
+X-Google-Smtp-Source: AK7set8TKp+XoOdzFSSniCiSLofONjJNjijxRgei3TQG94xGgDFfQ+8mh0QAUiI4aSA+indqTsT/jA==
+X-Received: by 2002:a62:1c13:0:b0:593:2289:f01c with SMTP id
+ c19-20020a621c13000000b005932289f01cmr11514678pfc.25.1676004609052; 
+ Thu, 09 Feb 2023 20:50:09 -0800 (PST)
 Received: from localhost.localdomain ([202.53.32.211])
  by smtp.gmail.com with ESMTPSA id
- t13-20020a62ea0d000000b0057fec210d33sm2269218pfh.152.2023.02.09.20.50.19
+ t13-20020a62ea0d000000b0057fec210d33sm2269218pfh.152.2023.02.09.20.49.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Feb 2023 20:50:28 -0800 (PST)
+ Thu, 09 Feb 2023 20:50:08 -0800 (PST)
 From: Orlando Chamberlain <orlandoch.dev@gmail.com>
 To: platform-driver-x86@vger.kernel.org, amd-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
-Subject: [RFC PATCH 3/9] apple-gmux: use first bit to check switch state
-Date: Fri, 10 Feb 2023 15:48:20 +1100
-Message-Id: <20230210044826.9834-4-orlandoch.dev@gmail.com>
+Subject: [RFC PATCH 1/9] apple-gmux: use cpu_to_be32 instead of manual reorder
+Date: Fri, 10 Feb 2023 15:48:18 +1100
+Message-Id: <20230210044826.9834-2-orlandoch.dev@gmail.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230210044826.9834-1-orlandoch.dev@gmail.com>
 References: <20230210044826.9834-1-orlandoch.dev@gmail.com>
@@ -96,39 +96,51 @@ Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On T2 Macs with MMIO gmux, when GMUX_PORT_SWITCH_DISPLAY is read, it can
-have values of 2, 3, 4, and 5. Odd values correspond to the discrete gpu,
-and even values correspond to the integrated gpu. The current logic is
-that only 2 corresponds to IGD, but this doesn't work for T2 Macs.
-Instead, check the first bit to determine the connected gpu.
-
-As T2 Macs with gmux only can switch the internal display, it is
-untested if this change (or a similar change) would be applicable
-to GMUX_PORT_SWITCH_DDC and GMUX_PORT_SWITCH_EXTERNAL.
+Currently it manually flips the byte order, but we can instead use
+cpu_to_be32(val) for this.
 
 Signed-off-by: Orlando Chamberlain <orlandoch.dev@gmail.com>
 ---
- drivers/platform/x86/apple-gmux.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/platform/x86/apple-gmux.c | 18 ++----------------
+ 1 file changed, 2 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/apple-gmux.c
-index 67628104f31a..6109f4c2867c 100644
+index 9333f82cfa8a..e8cb084cb81f 100644
 --- a/drivers/platform/x86/apple-gmux.c
 +++ b/drivers/platform/x86/apple-gmux.c
-@@ -332,10 +332,10 @@ static void gmux_read_switch_state(struct apple_gmux_data *gmux_data)
- 	else
- 		gmux_data->switch_state_ddc = VGA_SWITCHEROO_DIS;
+@@ -94,13 +94,7 @@ static u32 gmux_pio_read32(struct apple_gmux_data *gmux_data, int port)
+ static void gmux_pio_write32(struct apple_gmux_data *gmux_data, int port,
+ 			     u32 val)
+ {
+-	int i;
+-	u8 tmpval;
+-
+-	for (i = 0; i < 4; i++) {
+-		tmpval = (val >> (i * 8)) & 0xff;
+-		outb(tmpval, gmux_data->iostart + port + i);
+-	}
++	outl(cpu_to_be32(val), gmux_data->iostart + port);
+ }
  
--	if (gmux_read8(gmux_data, GMUX_PORT_SWITCH_DISPLAY) == 2)
--		gmux_data->switch_state_display = VGA_SWITCHEROO_IGD;
--	else
-+	if (gmux_read8(gmux_data, GMUX_PORT_SWITCH_DISPLAY) & 1)
- 		gmux_data->switch_state_display = VGA_SWITCHEROO_DIS;
-+	else
-+		gmux_data->switch_state_display = VGA_SWITCHEROO_IGD;
- 
- 	if (gmux_read8(gmux_data, GMUX_PORT_SWITCH_EXTERNAL) == 2)
- 		gmux_data->switch_state_external = VGA_SWITCHEROO_IGD;
+ static int gmux_index_wait_ready(struct apple_gmux_data *gmux_data)
+@@ -177,16 +171,8 @@ static u32 gmux_index_read32(struct apple_gmux_data *gmux_data, int port)
+ static void gmux_index_write32(struct apple_gmux_data *gmux_data, int port,
+ 			       u32 val)
+ {
+-	int i;
+-	u8 tmpval;
+-
+ 	mutex_lock(&gmux_data->index_lock);
+-
+-	for (i = 0; i < 4; i++) {
+-		tmpval = (val >> (i * 8)) & 0xff;
+-		outb(tmpval, gmux_data->iostart + GMUX_PORT_VALUE + i);
+-	}
+-
++	outl(cpu_to_be32(val), gmux_data->iostart + GMUX_PORT_VALUE);
+ 	gmux_index_wait_ready(gmux_data);
+ 	outb(port & 0xff, gmux_data->iostart + GMUX_PORT_WRITE);
+ 	gmux_index_wait_complete(gmux_data);
 -- 
 2.39.1
 
