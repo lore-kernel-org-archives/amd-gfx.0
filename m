@@ -4,56 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 258C3C636D4
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Feb 2023 06:35:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 093E2C636CC
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Feb 2023 19:24:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 951BC10E25D;
-	Sat, 11 Feb 2023 06:35:09 +0000 (UTC)
-Received: from eu-smtp-delivery-151.mimecast.com
- (eu-smtp-delivery-151.mimecast.com [185.58.85.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF95C10E2A8
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Feb 2023 22:52:47 +0000 (UTC)
-Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
- relay.mimecast.com with ESMTP with both STARTTLS and AUTH (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- uk-mta-322-_dDriQfgMmGpxT3zQV6kYQ-1; Fri, 10 Feb 2023 22:52:43 +0000
-X-MC-Unique: _dDriQfgMmGpxT3zQV6kYQ-1
-Received: from AcuMS.Aculab.com (10.202.163.6) by AcuMS.aculab.com
- (10.202.163.6) with Microsoft SMTP Server (TLS) id 15.0.1497.45; Fri, 10 Feb
- 2023 22:52:41 +0000
-Received: from AcuMS.Aculab.com ([::1]) by AcuMS.aculab.com ([::1]) with mapi
- id 15.00.1497.045; Fri, 10 Feb 2023 22:52:41 +0000
-From: David Laight <David.Laight@ACULAB.COM>
-To: 'Hans de Goede' <hdegoede@redhat.com>, Orlando Chamberlain
- <orlandoch.dev@gmail.com>, "platform-driver-x86@vger.kernel.org"
- <platform-driver-x86@vger.kernel.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "alsa-devel@alsa-project.org"
- <alsa-devel@alsa-project.org>
-Subject: RE: [RFC PATCH 1/9] apple-gmux: use cpu_to_be32 instead of manual
- reorder
-Thread-Topic: [RFC PATCH 1/9] apple-gmux: use cpu_to_be32 instead of manual
- reorder
-Thread-Index: AQHZPYayA1ivfjGBOEq1WtvynnRGNq7IyMig
-Date: Fri, 10 Feb 2023 22:52:41 +0000
-Message-ID: <6d733fa367e24462bf679b59e790ba4b@AcuMS.aculab.com>
-References: <20230210044826.9834-1-orlandoch.dev@gmail.com>
- <20230210044826.9834-2-orlandoch.dev@gmail.com>
- <3af65b5e-1f52-79f6-4130-03901ce76d2f@redhat.com>
- <990b254c-b55f-539d-d6b5-fa4499078527@redhat.com>
-In-Reply-To: <990b254c-b55f-539d-d6b5-fa4499078527@redhat.com>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.202.205.107]
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F6A110E360;
+	Sat, 11 Feb 2023 19:24:37 +0000 (UTC)
+Received: from mail-vk1-xa2a.google.com (mail-vk1-xa2a.google.com
+ [IPv6:2607:f8b0:4864:20::a2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E844910E11A;
+ Sat, 11 Feb 2023 19:24:34 +0000 (UTC)
+Received: by mail-vk1-xa2a.google.com with SMTP id b81so4366222vkf.1;
+ Sat, 11 Feb 2023 11:24:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1676143474;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=UxlJ1ylLIbukjk1rqvmj0yN/uchUwg9M7RlTwLyGWuY=;
+ b=GkOee6yuha8KCFlJkb58KhoIf1WvDhoQGtKv5bfk3o8tsTw+l/AsWr+2V/5JogWj5S
+ e+tne2hDNFv1lpCplUyRYJ8XvXJT/A86j9C6i4RrCLDhYDzUH1pdJxgLHNZVq73aui39
+ 5rcNE3u8qrpeAfy17RxKjgbVwdyWKa+QtwOz4hidJv8eZzgjnKhWEyvMMx14AqZH4Nq4
+ TG8+24y9MmfpA6DBbd/7StK3VZjcYSfq4ZkK0A81/+Jg014d+TErR5x9m4vwOP0lQK2R
+ C0H5Kz2iqI0dL1Yq2gcKuiAF8/iGmlIS/Vl6F/BWWqtKm9JR3f9wyanfKxR5l86KD4+I
+ fzXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1676143474;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=UxlJ1ylLIbukjk1rqvmj0yN/uchUwg9M7RlTwLyGWuY=;
+ b=Q57PO+OnV7MMnnQaLlOY2UrbrpONIb4At7LlrrJct1F7C7t2euXx4vOIMh0gWBivd3
+ Ah/ZKl4vKUTjRnNgu4VQqivPPUgzDWjsqwzprKApqNakNkkXK0v6pPjp40lwAAsd3+QN
+ YhLTpfJf0i7RwNTofIAFLq3tKQ/a/6ZBNDM7GeQbcsDx5CjXRP9cVtB6Jn93WG1bB2ea
+ 5jvqj3YSIxlhgIk/ogdJxlIrRLOylKAri67sbgmrSvnmvxqbvndXPa0JyQ6Ijkwc9mdV
+ SMLM4K3CYfprUGQ+68/3sCuCWBrGnxNsouGDASRzJ2O/xcAeTsQTca3H4WdRzAqsQCOa
+ uYyw==
+X-Gm-Message-State: AO0yUKV3CC3jN4LmeLx+MERdEKMtZ/TGZXEIRmZ/T8t5TEknXBbtny8k
+ 9g+pij2MU7s+GYNU1X4WsyYIlu91kjclbtt1HjE=
+X-Google-Smtp-Source: AK7set+VxozcaMiBwzTBA/oB2AIISrAuQ7Bedp9xn0ogNT61aLcgqppS9XrHSr2WISoF0Ecv104SL7WHbg5llfrzjs4=
+X-Received: by 2002:a1f:1444:0:b0:400:db9c:7a9f with SMTP id
+ 65-20020a1f1444000000b00400db9c7a9fmr3680755vku.6.1676143473964; Sat, 11 Feb
+ 2023 11:24:33 -0800 (PST)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: aculab.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
-X-Mailman-Approved-At: Sat, 11 Feb 2023 06:35:05 +0000
+References: <20230125203743.564009-1-jim.cromie@gmail.com>
+ <20230125203743.564009-15-jim.cromie@gmail.com>
+In-Reply-To: <20230125203743.564009-15-jim.cromie@gmail.com>
+From: jim.cromie@gmail.com
+Date: Sat, 11 Feb 2023 12:24:07 -0700
+Message-ID: <CAJfuBxw+g6w9_p2ym-hpCQNbr01crRMK_aYb4oV4j_BhoPwQjw@mail.gmail.com>
+Subject: Re: [PATCH v3 14/19] drm_print: fix stale macro-name in comment
+To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,66 +67,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, Lijo
- Lazar <lijo.lazar@amd.com>, Rander Wang <rander.wang@intel.com>,
- YiPeng Chai <YiPeng.Chai@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- David Airlie <airlied@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, Evan
- Quan <evan.quan@amd.com>, Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Yong Zhi <yong.zhi@intel.com>, Aun-Ali Zaidi <admin@kodeit.net>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Bokun Zhang <Bokun.Zhang@amd.com>, Mark Gross <markgross@kernel.org>,
- Kerem Karabay <kekrby@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Jack Xiao <Jack.Xiao@amd.com>, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Somalapuram
- Amaranath <Amaranath.Somalapuram@amd.com>, Takashi Iwai <tiwai@suse.com>,
- Aditya Garg <gargaditya08@live.com>, Daniel Vetter <daniel@ffwll.ch>,
- =?utf-8?B?QW1hZGV1c3ogU8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: jani.nikula@intel.com, daniel.vetter@ffwll.ch, robdclark@gmail.com,
+ seanpaul@chromium.org, ville.syrjala@linux.intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogSGFucyBkZSBHb2VkZQ0KPiBTZW50OiAxMCBGZWJydWFyeSAyMDIzIDE5OjMzDQo+IA0K
-PiBIaSwNCj4gDQo+IE9uIDIvMTAvMjMgMjA6MDksIEhhbnMgZGUgR29lZGUgd3JvdGU6DQo+ID4g
-SGksDQo+ID4NCj4gPiBPbiAyLzEwLzIzIDA1OjQ4LCBPcmxhbmRvIENoYW1iZXJsYWluIHdyb3Rl
-Og0KPiA+PiBDdXJyZW50bHkgaXQgbWFudWFsbHkgZmxpcHMgdGhlIGJ5dGUgb3JkZXIsIGJ1dCB3
-ZSBjYW4gaW5zdGVhZCB1c2UNCj4gPj4gY3B1X3RvX2JlMzIodmFsKSBmb3IgdGhpcy4NCj4gPj4N
-Cj4gPj4gU2lnbmVkLW9mZi1ieTogT3JsYW5kbyBDaGFtYmVybGFpbiA8b3JsYW5kb2NoLmRldkBn
-bWFpbC5jb20+DQo+ID4+IC0tLQ0KPiA+PiAgZHJpdmVycy9wbGF0Zm9ybS94ODYvYXBwbGUtZ211
-eC5jIHwgMTggKystLS0tLS0tLS0tLS0tLS0tDQo+ID4+ICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNl
-cnRpb25zKCspLCAxNiBkZWxldGlvbnMoLSkNCj4gPj4NCj4gPj4gZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvcGxhdGZvcm0veDg2L2FwcGxlLWdtdXguYyBiL2RyaXZlcnMvcGxhdGZvcm0veDg2L2FwcGxl
-LWdtdXguYw0KPiA+PiBpbmRleCA5MzMzZjgyY2ZhOGEuLmU4Y2IwODRjYjgxZiAxMDA2NDQNCj4g
-Pj4gLS0tIGEvZHJpdmVycy9wbGF0Zm9ybS94ODYvYXBwbGUtZ211eC5jDQo+ID4+ICsrKyBiL2Ry
-aXZlcnMvcGxhdGZvcm0veDg2L2FwcGxlLWdtdXguYw0KPiA+PiBAQCAtOTQsMTMgKzk0LDcgQEAg
-c3RhdGljIHUzMiBnbXV4X3Bpb19yZWFkMzIoc3RydWN0IGFwcGxlX2dtdXhfZGF0YSAqZ211eF9k
-YXRhLCBpbnQgcG9ydCkNCj4gPj4gIHN0YXRpYyB2b2lkIGdtdXhfcGlvX3dyaXRlMzIoc3RydWN0
-IGFwcGxlX2dtdXhfZGF0YSAqZ211eF9kYXRhLCBpbnQgcG9ydCwNCj4gPj4gIAkJCSAgICAgdTMy
-IHZhbCkNCj4gPj4gIHsNCj4gPj4gLQlpbnQgaTsNCj4gPj4gLQl1OCB0bXB2YWw7DQo+ID4+IC0N
-Cj4gPj4gLQlmb3IgKGkgPSAwOyBpIDwgNDsgaSsrKSB7DQo+ID4+IC0JCXRtcHZhbCA9ICh2YWwg
-Pj4gKGkgKiA4KSkgJiAweGZmOw0KPiA+PiAtCQlvdXRiKHRtcHZhbCwgZ211eF9kYXRhLT5pb3N0
-YXJ0ICsgcG9ydCArIGkpOw0KPiA+PiAtCX0NCj4gPj4gKwlvdXRsKGNwdV90b19iZTMyKHZhbCks
-IGdtdXhfZGF0YS0+aW9zdGFydCArIHBvcnQpOw0KPiA+PiAgfQ0KPiA+Pg0KPiA+PiAgc3RhdGlj
-IGludCBnbXV4X2luZGV4X3dhaXRfcmVhZHkoc3RydWN0IGFwcGxlX2dtdXhfZGF0YSAqZ211eF9k
-YXRhKQ0KPiA+DQo+ID4gVGhlIGlvcG9ydCAvIGluZGV4ZWQtaW9wb3J0IGFjY2Vzc2VkIGFwcGxl
-X2dtdXgtZXMgbGlrZWx5IGFyZSAocGFydCBvZj8pDQo+ID4gTFBDIGJ1cyBkZXZpY2VzIC4gTG9v
-a2luZyBhdCB0aGUgYnVzIGxldmVsIHlvdSBhcmUgbm93IGNoYW5naW5nIDQgaW8NCj4gPiBhY2Nl
-c3NlcyB3aXRoIGEgc2l6ZSBvZiAxIGJ5dGUsIHRvIDEgMzIgYml0IGlvLWFjY2Vzcy4NCj4gDQo+
-IENvcnJlY3Rpb24gdG8gbXlzZWxmLCByZS1yZWFkaW5nIHRoZSBMUEMgc3BlY2lmaWNhdGlvbiwg
-dGhlbg0KPiBpZiBJJ20gcmlnaHQgYW5kIHRoaXMgaXMgYSBMUEMgZGV2aWNlIHRoZW4gYWxsIElP
-IGluL291dCBhY2Nlc3Nlcw0KPiBhcmUgYWx3YXlzIDEgYnl0ZSBhY2Nlc3Nlcy4gU2luY2UgdGhl
-IExQQyBidXMgb25seSBzdXBwb3J0cyAxNiAvIDMyDQo+IGJpdCBhY2Nlc3NlcyBmb3IgRE1BIGN5
-Y2xlcy4NCj4gDQo+IFNvIHByZXN1bWFibHkgdGhlIG91dGwoKSB3b3VsZCBnZXQgc3BsaXQgaW50
-byA0IHNlcGFyYXRlIDggYml0DQo+IChwb3J0KSBJTyBhY2Nlc3Nlcy4NCg0KSSB3b25kZXIgaWYg
-dGhlcmUgaXMgc29tZXRoaW5nIG9ic2N1cmUgYW5kIHRoZSBvcmRlciBvZiB0aGUNCjQgYnl0ZXMg
-d3JpdGVzIG1hdHRlcnM/DQoNCkluIGFueSBjYXNlIHdyaXRpbmcgYXM6DQoJeHh4eCBpb3N0YXJ0
-ID0gZ211eF9kYXRhLT5pb3N0YXJ0ICsgcG9ydDsNCg0KCW91dGIodmFsLCBpb3N0YXJ0KTsNCglv
-dXRiKHZhbCA+PiA4LCBpb3N0YXJ0ICsgMSk7DQoJb3V0Yih2YWwgPj4gMTYsIGlvc3RhcnQgKyAy
-KTsNCglvdXRiKHZhbCA+PiAyNCwgaW9jdGFydCArIDMpOw0KYWxtb3N0IGNlcnRhaW5seSBnZW5l
-cmF0ZXMgYmV0dGVyIGNvZGUuDQoNCglEYXZpZA0KDQotDQpSZWdpc3RlcmVkIEFkZHJlc3MgTGFr
-ZXNpZGUsIEJyYW1sZXkgUm9hZCwgTW91bnQgRmFybSwgTWlsdG9uIEtleW5lcywgTUsxIDFQVCwg
-VUsNClJlZ2lzdHJhdGlvbiBObzogMTM5NzM4NiAoV2FsZXMpDQo=
+On Wed, Jan 25, 2023 at 1:38 PM Jim Cromie <jim.cromie@gmail.com> wrote:
+>
+> Cited commit uses stale macro name, fix this, and explain better.
 
+
+
+
+So this patch is somehow drawing an 'F' flag from patchwork,
+but theres no hint of what went wrong.
+(I have seen a merge conflict, probably not that).
+
+https://patchwork.freedesktop.org/series/113361/
+
+https://patchwork.freedesktop.org/patch/520460/?series=113361&rev=1
+
+Without this resolved, I cant see BAT results or the more exhaustive tests.
+
+
+
+
+
+>
+> When DRM_USE_DYNAMIC_DEBUG=y, DYNDBG_CLASSMAP_DEFINE() maps DRM_UT_*
+> onto BITs in drm.debug.  This still uses enum drm_debug_category, but
+> it is somewhat indirect, with the ordered set of DRM_UT_* enum-vals.
+> This requires that the macro args: DRM_UT_* list must be kept in sync
+> and in order.
+>
+> Fixes: f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> ---
+> . emphasize ABI non-change despite enum val change - Jani Nikula
+> . reorder to back of patchset to follow API name changes.
+> ---
+>  include/drm/drm_print.h | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+> index 6a27e8f26770..7695ba31b3a4 100644
+> --- a/include/drm/drm_print.h
+> +++ b/include/drm/drm_print.h
+> @@ -276,7 +276,10 @@ static inline struct drm_printer drm_err_printer(const char *prefix)
+>   *
+>   */
+>  enum drm_debug_category {
+> -       /* These names must match those in DYNAMIC_DEBUG_CLASSBITS */
+> +       /*
+> +        * Keep DYNDBG_CLASSMAP_DEFINE args in sync with changes here,
+> +        * the enum-values define BIT()s in drm.debug, so are ABI.
+> +        */
+>         /**
+>          * @DRM_UT_CORE: Used in the generic drm code: drm_ioctl.c, drm_mm.c,
+>          * drm_memory.c, ...
+> --
+> 2.39.1
+>
