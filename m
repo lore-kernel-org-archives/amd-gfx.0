@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05639C636D4
-	for <amd-gfx@archiver.kernel.org>; Sun, 12 Feb 2023 17:00:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 866F5C05027
+	for <amd-gfx@archiver.kernel.org>; Sun, 12 Feb 2023 17:00:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E24C10E2EB;
-	Sun, 12 Feb 2023 17:00:45 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2048.outbound.protection.outlook.com [40.107.237.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D07910E2E7
- for <amd-gfx@lists.freedesktop.org>; Sun, 12 Feb 2023 17:00:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69D1E10E2EF;
+	Sun, 12 Feb 2023 17:00:46 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2052.outbound.protection.outlook.com [40.107.244.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0817D88FAE
+ for <amd-gfx@lists.freedesktop.org>; Sun, 12 Feb 2023 17:00:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bVm42A7Xmk2RNbSukhJs+Jn3BOpZHVpNGOSvdZyEU2gAPFSn/8ZlfPEly7QKa+A/oeq5TyDvWYlg64SlAYkczMIDnJL/Unw/yKiMr1W2PWIP6NBc9clx5RC32J/3Pf1SH2bGdlocW0+NEtKg6MCFI4amVWDJVH9GIKdNlY6SszuqPF/N6+xyJX2KeqnFKfpPOC7xOqTJ5lNGfc/fiSJBxk6F9gV6zCiCs5rUvFXXZ8lbZGSpkrJIRvZzg2fn9uZBefjSoClQc28txFKRZx7jxz/RNYRsGy9kcJw8v2JHcisjjqRkY/7gBzYcTIpCKpjSQSYw5iMXsL/laY8JIMnWbQ==
+ b=YCT90bV9LCreXBEU+m9rSFbL4R+vGGlNtLGr17NL6l9iGOAKHPBWYhEutQQVpKjjUjU5zcuMPxmCVhnx0zcZVGSDIsKHczwoR2cZJPme0IQu36mONCTEO4zeilp1sGlBskrKAz5+XglQypitSQqXXirWHjbj4gLo/UM45ftLNE0QOABUD4VB+LGzDK5u2qTBFndcOMh82hdqtlwHnrtR60V53IsAjUsiUbIWwg2/UYo8HP6qZZd9vKlkz9knIsQQZ0ORsY8p2uBy+a+wYYGbyVMJpudsP6ukUgqW3NyTSOT2+15yuIwsTlqABQbmrR3Gg2L8L7kRWOK/sgT/mIlqWw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CrbFyu9yzfFyKcDQGYU/WDIEK9rEUNDR4la6hyYoxtE=;
- b=JpUohSAQWnCzRKv+JtrtZR7f0V2ReUnTKvycucSdDAv2Ftkr5suOs17VMW8oky0ogEHYh4cTx5VeBbnBj61foO2p4B7NMYrLKEdAszpJDIls8wTV18e1uGmdEaBDMirXmD0czj2MU2GBOBfZowxogHXAI0KtgPByrmvUC7ncpn2l98P+v/EoIRHU73Kg/wpZsS2+v3pwKT3NBT5ODfzJD54YYI3tI5zaA1vv5WUb3CGaI+JH8B0dmyh1z0jCrAgQX4nvyanxmzWGt3aYDGBh1wGwaNR20JtP/KHHbK/mz45/9lcupmrQE1tVQWgWjLzf4Sl7CxtNy/4Un0lznubr6Q==
+ bh=xrGpF3izru5rQk10D+isfW4CwvbDevK0bK3g32cGWOg=;
+ b=dUt4ZoS0C+1kTLueffqQgOeo7knISX3gutLs3DnKV70LTH4atC73EAYX2eqUNLr4GJuXNjf7Jn3FEC8cPXU/7JxciQmPtEj02Hv5pwj51sUprd/yteaOdGqQMn7XS3tYKdi3VOK0Kx508Y0EprCL5cpJH8ala9LC2UCjVxj5wdZBp+QPY4Z/nY1O7gKdhPUY5GZxwYtO9QijAjhUEzwPv3mbijG07fMDFSEqKDitVEQhEoLrLpNNuefbpxj/K4Q24G7QdWOMbRd/fFjXMsOtiPuTpxmfRzXkkYJ2EUCZXGGtYlqcodqW6aTXrbY0UQneAQ0h29+uu90rqZD4WGqUsA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CrbFyu9yzfFyKcDQGYU/WDIEK9rEUNDR4la6hyYoxtE=;
- b=AcCbiADe1WZJTX80lizDpOlg1tvZjES61rm0xcunEO+lp1y3IcfPriHSF1485TgDdrf/DRKe+1O/JxrJjL6F2HJcirkEevL0IO0Abjnl5Lf++qa4dJ7XQf61BwMDEtnwWaemaF80I0Wt9UWedA4kz9LHqgGHVVcxIGvvv7CisHM=
-Received: from DS7P222CA0002.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::30) by
- PH0PR12MB5606.namprd12.prod.outlook.com (2603:10b6:510:141::16) with
+ bh=xrGpF3izru5rQk10D+isfW4CwvbDevK0bK3g32cGWOg=;
+ b=c+kbpmWC+VOsoAnwKJgb1LdRL/BCC/mk7Mze65e26oFvzKLnjFWUzuWzfrSRxbea2qt/kW0VoNFWt11MIUdKke67q7xlDH8qklRmn7bYlXYZJYZpiinao9W+VmK/UIdPvtVQu5vc/d/5REsLBmadqA+HrLIMSHiRSXs/0i4EUUE=
+Received: from DM6PR06CA0081.namprd06.prod.outlook.com (2603:10b6:5:336::14)
+ by IA0PR12MB8253.namprd12.prod.outlook.com (2603:10b6:208:402::5) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.22; Sun, 12 Feb
- 2023 17:00:38 +0000
-Received: from DM6NAM11FT057.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:2e:cafe::ff) by DS7P222CA0002.outlook.office365.com
- (2603:10b6:8:2e::30) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 17:00:39 +0000
+Received: from DM6NAM11FT111.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:336:cafe::54) by DM6PR06CA0081.outlook.office365.com
+ (2603:10b6:5:336::14) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.23 via Frontend
- Transport; Sun, 12 Feb 2023 17:00:37 +0000
+ Transport; Sun, 12 Feb 2023 17:00:39 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,23 +45,23 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT057.mail.protection.outlook.com (10.13.172.252) with Microsoft SMTP
+ DM6NAM11FT111.mail.protection.outlook.com (10.13.173.26) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6086.23 via Frontend Transport; Sun, 12 Feb 2023 17:00:37 +0000
+ 15.20.6086.23 via Frontend Transport; Sun, 12 Feb 2023 17:00:39 +0000
 Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Sun, 12 Feb
- 2023 11:00:37 -0600
+ 2023 11:00:39 -0600
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB06.amd.com
  (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Sun, 12 Feb
- 2023 11:00:36 -0600
+ 2023 11:00:38 -0600
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 06/22] drm/amd/display: do not set RX back to SST mode for non
- 0 mst stream count
-Date: Sun, 12 Feb 2023 11:59:39 -0500
-Message-ID: <20230212165955.1993601-7-qingqing.zhuo@amd.com>
+Subject: [PATCH 08/22] drm/amd/display: enable DPG when disabling plane for
+ phantom pipe
+Date: Sun, 12 Feb 2023 11:59:41 -0500
+Message-ID: <20230212165955.1993601-9-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230212165955.1993601-1-qingqing.zhuo@amd.com>
 References: <20230212165955.1993601-1-qingqing.zhuo@amd.com>
@@ -73,26 +73,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB06.amd.com
  (10.181.40.147)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT057:EE_|PH0PR12MB5606:EE_
-X-MS-Office365-Filtering-Correlation-Id: ef034c3e-669a-4df1-8240-08db0d1aaa38
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT111:EE_|IA0PR12MB8253:EE_
+X-MS-Office365-Filtering-Correlation-Id: e277b55f-ee5e-4cc6-fad4-08db0d1aab34
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6vrwJT7IM2cJGKjYcDN156W7rK+/GrdpjPu5qxnigcIovxJdSeUJFFKyGnL4MGWknACoiwT40TBunfBg/RsR0DTwgt+S4iSqOsWG2JzxV4RmdoT3LMWCi1D3/rMYwEsuh1aQlp75ZlVzRnd3EsoXCqJwLFPtqzMoCnHADSAq+35CtMKvPFoes1cZEg/ex8mw+PQhVF3bVCKTF0z76TmXKjZCOPHIm1jaayYNNUzaVf0v8w8EUKJJdt8yisVF9HOmQR4SUkXc3eFSzKiYoCCMsHZthdPhjDuTTWWRaRhVLoR40o+HIYvAq61SxxSIEXUR2BjGB8Py0MPKN4IS+4DgeoQqNhjwv7N/4AoBPZglpzYgIQWS1dPg7FROfh+OnfEZ83SiiW8vgLM2XcbZ3ucmIwcjj/XMeeJ76Y4j//nlOkVXlCXmcP+p8Vesz7kj+2G8tTnUKp9R4ZOrd7M75+8LeQbik9cpZDPigpUW6MpII4rnqQvq0KXuN3NUYFLrTwjT5eap6xV3bq1XGEKG5ToNSoGjfm2wxVwnDNuWy0pxpYm/j6UpuYyzcyvH+BsXYLfbMFUc7IL8ikOjMY01T+8TTVA/9MvSCu+Jiw/0LYLANNNuFe7dXhJywfjmapZibymsP0NAP9E8oLKXGEsbQDf5RmG3no5tocHUPRDex2qaH7b57bNxogVPsFhPn1YXHn78SZ2XtP0LKakT+RP5o0veg9zBHbtjUmziecTd5T4xpYM=
+X-Microsoft-Antispam-Message-Info: 4cVlS/AudmEhKKYOOO+8eie1oL6Doi2DbRUey7PR1wCUVtmP0wGSw3poVjxlVJAm0luo3wc/s0ZPqRAh60slSNrDFC+EpArgvrq5GrEy0zIc0HZCi6wWWvUijtdcld8h72fADsjhGAtYeUfN0Q/tjNwqWTupCPLs1qBhDhWuku6wk2SG9ICg4Hx1K9ufJ4RHcCnX4loHleOxEQwNlFl+RtVjNAHTsBr92Mec9UrpdBsvjM4krH/OIvoZ27lwPKPawf9eIU9nI1IQYFh40briwKD2LOfN1fDgX1Wzsp9U0j0Pv31CEM9NvmpNIAZsR37+DO1QwjBPAGw9w0FT/bRBPys3qKmAU1Wc/Kl1PMZowc1OzLBYwbv0r0zxnTeAtYNuahwbZfp2j0DoJSKpH1FhpNyndC2XW2oXIG1ildpWT3/bgklP0txwhzuC4meicPi9ReHK2VlJ03JleFK5Qigb5kgyuwfTm/b503VFYDr2O0uIBwX7o+VJsiXXM4ilXhp5ZhAVj8aWEpW3UncSLcV9oUtH/EkYaEVmSoef3VAunlmqaCCZkG7M/r69hlGaeslU0nozcrtGOsXBErqjTboiOUqPF/gAgKZsho8cazDGchED90GEVezsnG2lXMaCvbjKoqtci09+ye4nzCyR/Njvea3vfAo/Zxl0xBb4AmbJhUPlbelxCfIpjz2q6F32ATDdbbl3e1Y7X7dUyaJhZ+g4O2QCjISCDkIp4l4S8abdtck=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(136003)(376002)(396003)(39860400002)(346002)(451199018)(46966006)(40470700004)(36840700001)(82310400005)(86362001)(44832011)(186003)(26005)(5660300002)(16526019)(47076005)(426003)(40460700003)(83380400001)(82740400003)(81166007)(36860700001)(36756003)(2616005)(2906002)(356005)(336012)(40480700001)(8676002)(4326008)(6916009)(70586007)(70206006)(478600001)(54906003)(316002)(8936002)(1076003)(66899018)(41300700001)(36900700001);
+ SFS:(13230025)(4636009)(136003)(376002)(39860400002)(346002)(396003)(451199018)(46966006)(40470700004)(36840700001)(40460700003)(81166007)(82740400003)(41300700001)(40480700001)(36756003)(86362001)(356005)(82310400005)(6666004)(8676002)(4326008)(70206006)(6916009)(70586007)(16526019)(8936002)(5660300002)(186003)(1076003)(54906003)(26005)(478600001)(316002)(36860700001)(2906002)(2616005)(44832011)(336012)(83380400001)(47076005)(426003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Feb 2023 17:00:37.8416 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef034c3e-669a-4df1-8240-08db0d1aaa38
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Feb 2023 17:00:39.4962 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e277b55f-ee5e-4cc6-fad4-08db0d1aab34
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT057.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT111.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5606
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8253
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,136 +106,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
  qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Samson Tam <Samson.Tam@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
+ Samson Tam <samson.tam@amd.com>, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, Alvin Lee <Alvin.Lee2@amd.com>, wayne.lin@amd.com,
  Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wenjing Liu <wenjing.liu@amd.com>
+From: Samson Tam <samson.tam@amd.com>
 
-[why]
-a recent regression has caused us to mistakenly switch RX back to SST mode
-when there are remaining mst stream enabled to the link. We are missing
-a condition check for stream count before setting RX back to SST mode.
+[Why]
+In disable_dangling_plane, for phantom pipes, we enable OTG so
+disable programming gets the double buffer update.  But this
+causes an underflow to occur.
 
-[how]
-Add stream count check condition back and do some further refactor so the
-logic is easier to understand to prevent future coding error in this sequence.
+[How]
+Enable DPG prior to enabling OTG.
 
-Reviewed-by: Samson Tam <Samson.Tam@amd.com>
+Reviewed-by: Alvin Lee <Alvin.Lee2@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Samson Tam <samson.tam@amd.com>
 ---
- .../gpu/drm/amd/display/dc/link/link_dpms.c   | 51 +++++++++----------
- .../display/dc/link/protocols/link_dp_phy.c   | 11 ----
- .../display/dc/link/protocols/link_dp_phy.h   |  4 --
- 3 files changed, 25 insertions(+), 41 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 47 +++++++++++++++++++++++-
+ 1 file changed, 46 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-index 9cdfa7f7dc77..22538b4f529b 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-@@ -1783,37 +1783,36 @@ enum dc_status link_increase_mst_payload(struct pipe_ctx *pipe_ctx, uint32_t bw_
- 	return DC_OK;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 1c218c526650..510661d303e8 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -74,6 +74,8 @@
+ 
+ #include "dc_trace.h"
+ 
++#include "hw_sequencer_private.h"
++
+ #include "dce/dmub_outbox.h"
+ 
+ #define CTX \
+@@ -1057,6 +1059,44 @@ static void apply_ctx_interdependent_lock(struct dc *dc, struct dc_state *contex
+ 	}
  }
  
--static void disable_link(struct dc_link *link, const struct link_resource *link_res,
-+static void disable_link_dp(struct dc_link *link,
-+		const struct link_resource *link_res,
- 		enum signal_type signal)
- {
--	/*
--	 * TODO: implement call for dp_set_hw_test_pattern
--	 * it is needed for compliance testing
--	 */
-+	struct dc_link_settings link_settings = link->cur_link_settings;
- 
--	/* Here we need to specify that encoder output settings
--	 * need to be calculated as for the set mode,
--	 * it will lead to querying dynamic link capabilities
--	 * which should be done before enable output
--	 */
-+	if (signal == SIGNAL_TYPE_DISPLAY_PORT_MST &&
-+			link->mst_stream_alloc_table.stream_count > 0)
-+		/* disable MST link only when last vc payload is deallocated */
-+		return;
- 
-+	dp_disable_link_phy(link, link_res, signal);
++static void phantom_pipe_blank(
++		struct dc *dc,
++		struct timing_generator *tg,
++		int width,
++		int height)
++{
++	struct dce_hwseq *hws = dc->hwseq;
++	enum dc_color_space color_space;
++	struct tg_color black_color = {0};
++	struct output_pixel_processor *opp = NULL;
++	uint32_t num_opps, opp_id_src0, opp_id_src1;
++	uint32_t otg_active_width, otg_active_height;
 +
-+	if (signal == SIGNAL_TYPE_DISPLAY_PORT_MST)
-+		/* set the sink to SST mode after disabling the link */
-+		enable_mst_on_sink(link, false);
++	/* program opp dpg blank color */
++	color_space = COLOR_SPACE_SRGB;
++	color_space_to_black_color(dc, color_space, &black_color);
 +
-+	if (link_dp_get_encoding_format(&link_settings) ==
-+			DP_8b_10b_ENCODING) {
-+		dp_set_fec_enable(link, false);
-+		dp_set_fec_ready(link, link_res, false);
-+	}
++	otg_active_width = width;
++	otg_active_height = height;
++
++	/* get the OPTC source */
++	tg->funcs->get_optc_source(tg, &num_opps, &opp_id_src0, &opp_id_src1);
++	ASSERT(opp_id_src0 < dc->res_pool->res_cap->num_opp);
++	opp = dc->res_pool->opps[opp_id_src0];
++
++	opp->funcs->opp_set_disp_pattern_generator(
++			opp,
++			CONTROLLER_DP_TEST_PATTERN_SOLID_COLOR,
++			CONTROLLER_DP_COLOR_SPACE_UDEFINED,
++			COLOR_DEPTH_UNDEFINED,
++			&black_color,
++			otg_active_width,
++			otg_active_height,
++			0);
++
++	hws->funcs.wait_for_blank_complete(opp);
 +}
 +
-+static void disable_link(struct dc_link *link,
-+		const struct link_resource *link_res,
-+		enum signal_type signal)
-+{
- 	if (dc_is_dp_signal(signal)) {
--		/* SST DP, eDP */
--		struct dc_link_settings link_settings = link->cur_link_settings;
--		if (dc_is_dp_sst_signal(signal)) {
--			dp_disable_link_phy(link, link_res, signal);
--		} else {
--			dp_disable_link_phy_mst(link, link_res, signal);
--			/* set the sink to SST mode after disabling the link */
--			enable_mst_on_sink(link, false);
--		}
--		if (dc_is_dp_sst_signal(signal) ||
--				link->mst_stream_alloc_table.stream_count == 0) {
--			if (link_dp_get_encoding_format(&link_settings) == DP_8b_10b_ENCODING) {
--				dp_set_fec_enable(link, false);
--				dp_set_fec_ready(link, link_res, false);
--			}
--		}
-+		disable_link_dp(link, link_res, signal);
- 	} else if (signal != SIGNAL_TYPE_VIRTUAL) {
- 		link->dc->hwss.disable_link_output(link, link_res, signal);
- 	}
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-index ea3873dae3ad..cd9fb8126bcf 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-@@ -85,17 +85,6 @@ void dp_disable_link_phy(struct dc_link *link,
- 		dc->clk_mgr->funcs->notify_link_rate_change(dc->clk_mgr, link);
- }
- 
--void dp_disable_link_phy_mst(struct dc_link *link,
--		const struct link_resource *link_res,
--		enum signal_type signal)
--{
--	/* MST disable link only when no stream use the link */
--	if (link->mst_stream_alloc_table.stream_count > 0)
--		return;
--
--	dp_disable_link_phy(link, link_res, signal);
--}
--
- static inline bool is_immediate_downstream(struct dc_link *link, uint32_t offset)
+ static void disable_dangling_plane(struct dc *dc, struct dc_state *context)
  {
- 	return (dp_parse_lttpr_repeater_count(link->dpcd_caps.lttpr_caps.phy_repeater_cnt) ==
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.h b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.h
-index 6ce0b7958d51..dba1f29df319 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.h
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.h
-@@ -38,10 +38,6 @@ void dp_disable_link_phy(struct dc_link *link,
- 		const struct link_resource *link_res,
- 		enum signal_type signal);
- 
--void dp_disable_link_phy_mst(struct dc_link *link,
--		const struct link_resource *link_res,
--		enum signal_type signal);
--
- void dp_set_hw_lane_settings(
- 		struct dc_link *link,
- 		const struct link_resource *link_res,
+ 	int i, j;
+@@ -1115,8 +1155,13 @@ static void disable_dangling_plane(struct dc *dc, struct dc_state *context)
+ 			 * again for different use.
+ 			 */
+ 			if (old_stream->mall_stream_config.type == SUBVP_PHANTOM) {
+-				if (tg->funcs->enable_crtc)
++				if (tg->funcs->enable_crtc) {
++					int main_pipe_width, main_pipe_height;
++					main_pipe_width = old_stream->mall_stream_config.paired_stream->dst.width;
++					main_pipe_height = old_stream->mall_stream_config.paired_stream->dst.height;
++					phantom_pipe_blank(dc, tg, main_pipe_width, main_pipe_height);
+ 					tg->funcs->enable_crtc(tg);
++				}
+ 			}
+ 			dc_rem_all_planes_for_stream(dc, old_stream, dangling_context);
+ 			disable_all_writeback_pipes_for_stream(dc, old_stream, dangling_context);
 -- 
 2.25.1
 
