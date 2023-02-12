@@ -4,58 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 093E2C636CC
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Feb 2023 19:24:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1C9EC05027
+	for <amd-gfx@archiver.kernel.org>; Sun, 12 Feb 2023 17:00:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F6A110E360;
-	Sat, 11 Feb 2023 19:24:37 +0000 (UTC)
-Received: from mail-vk1-xa2a.google.com (mail-vk1-xa2a.google.com
- [IPv6:2607:f8b0:4864:20::a2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E844910E11A;
- Sat, 11 Feb 2023 19:24:34 +0000 (UTC)
-Received: by mail-vk1-xa2a.google.com with SMTP id b81so4366222vkf.1;
- Sat, 11 Feb 2023 11:24:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1676143474;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=UxlJ1ylLIbukjk1rqvmj0yN/uchUwg9M7RlTwLyGWuY=;
- b=GkOee6yuha8KCFlJkb58KhoIf1WvDhoQGtKv5bfk3o8tsTw+l/AsWr+2V/5JogWj5S
- e+tne2hDNFv1lpCplUyRYJ8XvXJT/A86j9C6i4RrCLDhYDzUH1pdJxgLHNZVq73aui39
- 5rcNE3u8qrpeAfy17RxKjgbVwdyWKa+QtwOz4hidJv8eZzgjnKhWEyvMMx14AqZH4Nq4
- TG8+24y9MmfpA6DBbd/7StK3VZjcYSfq4ZkK0A81/+Jg014d+TErR5x9m4vwOP0lQK2R
- C0H5Kz2iqI0dL1Yq2gcKuiAF8/iGmlIS/Vl6F/BWWqtKm9JR3f9wyanfKxR5l86KD4+I
- fzXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1676143474;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=UxlJ1ylLIbukjk1rqvmj0yN/uchUwg9M7RlTwLyGWuY=;
- b=Q57PO+OnV7MMnnQaLlOY2UrbrpONIb4At7LlrrJct1F7C7t2euXx4vOIMh0gWBivd3
- Ah/ZKl4vKUTjRnNgu4VQqivPPUgzDWjsqwzprKApqNakNkkXK0v6pPjp40lwAAsd3+QN
- YhLTpfJf0i7RwNTofIAFLq3tKQ/a/6ZBNDM7GeQbcsDx5CjXRP9cVtB6Jn93WG1bB2ea
- 5jvqj3YSIxlhgIk/ogdJxlIrRLOylKAri67sbgmrSvnmvxqbvndXPa0JyQ6Ijkwc9mdV
- SMLM4K3CYfprUGQ+68/3sCuCWBrGnxNsouGDASRzJ2O/xcAeTsQTca3H4WdRzAqsQCOa
- uYyw==
-X-Gm-Message-State: AO0yUKV3CC3jN4LmeLx+MERdEKMtZ/TGZXEIRmZ/T8t5TEknXBbtny8k
- 9g+pij2MU7s+GYNU1X4WsyYIlu91kjclbtt1HjE=
-X-Google-Smtp-Source: AK7set+VxozcaMiBwzTBA/oB2AIISrAuQ7Bedp9xn0ogNT61aLcgqppS9XrHSr2WISoF0Ecv104SL7WHbg5llfrzjs4=
-X-Received: by 2002:a1f:1444:0:b0:400:db9c:7a9f with SMTP id
- 65-20020a1f1444000000b00400db9c7a9fmr3680755vku.6.1676143473964; Sat, 11 Feb
- 2023 11:24:33 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C322510E1E3;
+	Sun, 12 Feb 2023 17:00:39 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2062.outbound.protection.outlook.com [40.107.102.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A17710E1E3
+ for <amd-gfx@lists.freedesktop.org>; Sun, 12 Feb 2023 17:00:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FzqnF1Ddtm+hfM+z8Vlnu8JaTezwcESW0ZO+XBvPfO5Q8VdUEOehLVko1YuLXC4N5knvBwL0+IxxiAt3XB1g9FvqkeDz/JBlLRWf7LUbIndD+zUTYVGJ9AG/+WhMOz1G3y2ZK0V8OfyZwHH4kRu7dEaLPceTDedC3UAC5ZqFb2vxMmO4VLKjWuLuB2fHGGZJDrIoHuPJR0D6JZGr/k8j4c9Z02QYYoCbo6zT6hgcS/laniwJc4b5OjV+H96xvlmpyIQNIjYDufMns5grPGeOrMkvb5gRkUganeKV9Zwfnl1rQNmTAWRXwhIz/WSe122ECQv317RBbiMGJkW+k4WYMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=V913vkMUqtAWUB9qXWZKmZT63hKBWil9F7Qth3NhdzM=;
+ b=UJlcDaHTv7N64C3PctCbhxSf8j3yTf5KHszfjxiuuKEe9wX3enNAt/7fm/9IqBVhTMf5Mjc5fUin0i6n5laBVI63T3YjxO+ZBBa60IuPx1CAt/ziuiUaMQtNcXCGrm1lUS9PPxUDtV+9KedSyLj4g3VY4KN96DqkrFr0KYTUhKEE1piPgr0bmcgPJBeygW1hVvwPgrfTYnJhT/j5iTnzl8H33GhBW4Xv1jLixA61bBYkKQRw2WtkVgL6s2N29HdVHq/1PWyUX2oO656dcQcCWuO7ndV96/xgGtlBZpKXX4P60vwhKmE2FHaMT5d9zix3tQHOq+EkKmOaqN+fOUnv8w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=V913vkMUqtAWUB9qXWZKmZT63hKBWil9F7Qth3NhdzM=;
+ b=kIKU28tcKyofS2hPwCO8sLtaNaGV6s+YY3pLBU84padxZzzgKaodvnIUE+xH+0Y0YvuOv/dNkZz6Wctg43OD5W1diSmw/AZ8tkKWOZAlP2xwfs0StZe8uNB4m4t44mesJvHjtygO/z1ZUyJqYwM/cxHjxjEYBDP5YjmFAHW1Aaw=
+Received: from DS7PR05CA0012.namprd05.prod.outlook.com (2603:10b6:5:3b9::17)
+ by SJ1PR12MB6099.namprd12.prod.outlook.com (2603:10b6:a03:45e::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.19; Sun, 12 Feb
+ 2023 17:00:32 +0000
+Received: from DM6NAM11FT030.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b9:cafe::61) by DS7PR05CA0012.outlook.office365.com
+ (2603:10b6:5:3b9::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.9 via Frontend
+ Transport; Sun, 12 Feb 2023 17:00:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT030.mail.protection.outlook.com (10.13.172.146) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6086.23 via Frontend Transport; Sun, 12 Feb 2023 17:00:32 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Sun, 12 Feb
+ 2023 11:00:31 -0600
+Received: from localhost.localdomain (10.180.168.240) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Sun, 12 Feb
+ 2023 11:00:30 -0600
+From: Qingqing Zhuo <qingqing.zhuo@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 00/22] DC Patches Feb 13, 2023
+Date: Sun, 12 Feb 2023 11:59:33 -0500
+Message-ID: <20230212165955.1993601-1-qingqing.zhuo@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20230125203743.564009-1-jim.cromie@gmail.com>
- <20230125203743.564009-15-jim.cromie@gmail.com>
-In-Reply-To: <20230125203743.564009-15-jim.cromie@gmail.com>
-From: jim.cromie@gmail.com
-Date: Sat, 11 Feb 2023 12:24:07 -0700
-Message-ID: <CAJfuBxw+g6w9_p2ym-hpCQNbr01crRMK_aYb4oV4j_BhoPwQjw@mail.gmail.com>
-Subject: Re: [PATCH v3 14/19] drm_print: fix stale macro-name in comment
-To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB06.amd.com
+ (10.181.40.147)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT030:EE_|SJ1PR12MB6099:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3100075c-e9ac-40e9-8893-08db0d1aa6f9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: T3ad3nYx+eC35a5+XFZB2qy60VQuw+qUR3BGTwpUS93aR53s68f8oLSzRcMenG3KJHAJYsff7dMs03yspb3jNyVyRgTSI4WytzfARhZ6ep0UrkrVA17Fz6yZQMs9flxDel76CZ+QOVdhKcnk5Ehr/mo00R6B0YQSufyBen2OwEtnFjKlor9w+v2pjPvyGfTGQqa6zkuWe437hLS4kG4qKWmsHrZW7WKCSTY0ZnEObRwARGC2pHaitZSCWNtTclCwXw6D2dO8e0nVNPC+Ai2QhntHKe1SaqQyMy4EYmOP7BS1cJpjH9+OjivADEZrieepJ8TdecGql2JX6TEWwEjnr7SQsYzwHg+nYwwM22/+i7RyTRyTwtDp7Ix6rq1JIJgwIj/qzGCOY7T29qys/OTr7f5GP5mvSMS39jO/CEpZvyffW4iZH7G0sGIHHoA7sS6C9MRwaJbLUmIpktZuirdqYubDsDSNJQqppFGLMBwuu5xLh75Vz9LKOYC5+x4/Y8ETCo/WH4e1vrApvVWVu6KtsDoqlF0xk3fgDw6CO4UdTVYT4VTZw5i7cxIrbAiQHxCxAYaU4GZXr1+rJX2KJpv6UQvE34c0UVpGkdvfd3FOoLN01aQHwTs5mb0YjXMyroHmg6oVAmWueRf5s4/m9LxuM+ZfqfeurDEMjuOt23UOF80eXrMkSYovokLRjgTAM0dKjQEhyTT1rBxARLWNs6eQnRvF9CPnVXIb/9b3JV+kh74=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(376002)(136003)(346002)(396003)(39860400002)(451199018)(40470700004)(46966006)(36840700001)(66899018)(316002)(356005)(81166007)(36756003)(82740400003)(82310400005)(86362001)(26005)(36860700001)(2616005)(426003)(47076005)(336012)(1076003)(186003)(478600001)(16526019)(83380400001)(8936002)(41300700001)(5660300002)(44832011)(54906003)(2906002)(70206006)(4326008)(40480700001)(6916009)(8676002)(40460700003)(70586007)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Feb 2023 17:00:32.1770 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3100075c-e9ac-40e9-8893-08db0d1aa6f9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT030.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6099
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,64 +101,129 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, daniel.vetter@ffwll.ch, robdclark@gmail.com,
- seanpaul@chromium.org, ville.syrjala@linux.intel.com
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ solomon.chiu@amd.com, Daniel Wheeler <daniel.wheeler@amd.com>,
+ Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
+ agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 25, 2023 at 1:38 PM Jim Cromie <jim.cromie@gmail.com> wrote:
->
-> Cited commit uses stale macro name, fix this, and explain better.
+This DC patchset brings improvements in multiple areas. In summary, we highlight:
+- Move domain power control to DMCUB for DCN314
+- Enable P-state validation check for DCN314
+- Add support for multiple overlay planes
+- Fixes in prefetch, k1 k2 divider programming and more
+- Code cleanup
+
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
 
 
+Alvin Lee (2):
+  drm/amd/display: Set max vratio for prefetch to 7.9 for YUV420 MPO
+  drm/amd/display: Fix prefetch vratio check
 
+Aric Cyr (1):
+  drm/amd/display: Promote DAL to 3.2.223
 
-So this patch is somehow drawing an 'F' flag from patchwork,
-but theres no hint of what went wrong.
-(I have seen a merge conflict, probably not that).
+Aurabindo Pillai (1):
+  drm/amd/display: fix k1 k2 divider programming for phantom streams
 
-https://patchwork.freedesktop.org/series/113361/
+Ayush Gupta (1):
+  drm/amd/display: temporary fix for page faulting
 
-https://patchwork.freedesktop.org/patch/520460/?series=113361&rev=1
+Bhawanpreet Lakha (1):
+  drm/amd/display: Add support for multiple overlay planes
 
-Without this resolved, I cant see BAT results or the more exhaustive tests.
+Charlene Liu (1):
+  drm/amd/display: add NULL pointer check
 
+Daniel Miess (1):
+  Revert "drm/amd/display: Correct bw_params population"
 
+Leo (Hanghong) Ma (1):
+  drm/amd/display: Fix FreeSync active bit issue
 
+Mustapha Ghaddar (1):
+  drm/amd/display: upstream link_dp_dpia_bw.c
 
+Nasir Osman (2):
+  drm/amd/display: Remove stutter only configurations
+  drm/amd/display: Disable unbounded request mode during rotation
 
->
-> When DRM_USE_DYNAMIC_DEBUG=y, DYNDBG_CLASSMAP_DEFINE() maps DRM_UT_*
-> onto BITs in drm.debug.  This still uses enum drm_debug_category, but
-> it is somewhat indirect, with the ordered set of DRM_UT_* enum-vals.
-> This requires that the macro args: DRM_UT_* list must be kept in sync
-> and in order.
->
-> Fixes: f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
-> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-> ---
-> . emphasize ABI non-change despite enum val change - Jani Nikula
-> . reorder to back of patchset to follow API name changes.
-> ---
->  include/drm/drm_print.h | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-> index 6a27e8f26770..7695ba31b3a4 100644
-> --- a/include/drm/drm_print.h
-> +++ b/include/drm/drm_print.h
-> @@ -276,7 +276,10 @@ static inline struct drm_printer drm_err_printer(const char *prefix)
->   *
->   */
->  enum drm_debug_category {
-> -       /* These names must match those in DYNAMIC_DEBUG_CLASSBITS */
-> +       /*
-> +        * Keep DYNDBG_CLASSMAP_DEFINE args in sync with changes here,
-> +        * the enum-values define BIT()s in drm.debug, so are ABI.
-> +        */
->         /**
->          * @DRM_UT_CORE: Used in the generic drm code: drm_ioctl.c, drm_mm.c,
->          * drm_memory.c, ...
-> --
-> 2.39.1
->
+Nicholas Kazlauskas (4):
+  drm/amd/display: Move DCN314 DOMAIN power control to DMCUB
+  drm/amd/display: Enable P-state validation checks for DCN314
+  drm/amd/display: Update Z8 SR exit/enter latencies
+  drm/amd/display: Disable HUBP/DPP PG on DCN314 for now
+
+Samson Tam (1):
+  drm/amd/display: enable DPG when disabling plane for phantom pipe
+
+Tom Chung (1):
+  drm/amd/display: Fix video glitch while drag window in PSR-SU
+
+Wenjing Liu (4):
+  drm/amd/display: do not set RX back to SST mode for non 0 mst stream
+    count
+  drm/amd/display: Extract temp drm mst deallocation wa into its own
+    function
+  drm/amd/display: on dp link lost event toggle dpms for master pipe
+    only
+  drm/amd/display: move public dc link function implementation to
+    dc_link_exports
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  83 +++-
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  22 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.h   |   1 +
+ drivers/gpu/drm/amd/display/dc/Makefile       |   2 +-
+ .../dc/clk_mgr/dcn314/dcn314_clk_mgr.c        |  31 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  47 +-
+ .../drm/amd/display/dc/core/dc_link_exports.c | 103 +++++
+ drivers/gpu/drm/amd/display/dc/dc.h           | 211 +++++----
+ drivers/gpu/drm/amd/display/dc/dc_ddc_types.h |   3 +
+ drivers/gpu/drm/amd/display/dc/dc_dp_types.h  | 136 ++++++
+ drivers/gpu/drm/amd/display/dc/dc_link.h      |  60 +--
+ drivers/gpu/drm/amd/display/dc/dc_types.h     | 109 ++---
+ .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |  16 +-
+ .../drm/amd/display/dc/dcn30/dcn30_resource.c |  16 +-
+ .../drm/amd/display/dc/dcn30/dcn30_resource.h |   3 +-
+ .../drm/amd/display/dc/dcn31/dcn31_resource.c |   2 +-
+ .../drm/amd/display/dc/dcn314/dcn314_hwseq.c  |  24 +
+ .../drm/amd/display/dc/dcn314/dcn314_hwseq.h  |   2 +
+ .../drm/amd/display/dc/dcn314/dcn314_init.c   |   2 +-
+ .../amd/display/dc/dcn314/dcn314_resource.c   |  61 ++-
+ .../amd/display/dc/dcn314/dcn314_resource.h   |   4 +
+ .../drm/amd/display/dc/dcn32/dcn32_hwseq.c    |   4 +-
+ .../drm/amd/display/dc/dcn32/dcn32_resource.h |   2 +
+ .../drm/amd/display/dc/dml/dcn30/dcn30_fpu.c  |   2 +-
+ .../amd/display/dc/dml/dcn314/dcn314_fpu.c    |   7 +-
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |  32 ++
+ .../dc/dml/dcn32/display_mode_vba_32.c        |  17 +-
+ .../dc/dml/dcn32/display_mode_vba_32.h        |   3 +-
+ .../dc/dml/dcn32/display_mode_vba_util_32.c   |  31 +-
+ .../dc/dml/dcn32/display_mode_vba_util_32.h   |   5 +-
+ .../amd/display/dc/dml/display_mode_structs.h |   1 +
+ .../drm/amd/display/dc/dml/display_mode_vba.c |   1 +
+ .../drm/amd/display/dc/dml/display_mode_vba.h |   1 +
+ drivers/gpu/drm/amd/display/dc/inc/link.h     |  18 +
+ .../display/dc/link/accessories/link_dp_cts.c |  45 +-
+ .../drm/amd/display/dc/link/link_detection.c  |  51 +--
+ .../gpu/drm/amd/display/dc/link/link_dpms.c   | 220 ++++++++--
+ .../gpu/drm/amd/display/dc/link/link_dpms.h   |   5 +
+ .../drm/amd/display/dc/link/link_resource.c   |  41 +-
+ .../drm/amd/display/dc/link/link_resource.h   |   2 +
+ .../drm/amd/display/dc/link/link_validation.c |  14 +-
+ .../dc/link/protocols/link_dp_dpia_bw.c       | 413 ++++++++++++++++++
+ .../dc/link/protocols/link_dp_dpia_bw.h       |  29 --
+ .../dc/link/protocols/link_dp_irq_handler.c   |  46 +-
+ .../display/dc/link/protocols/link_dp_phy.c   |  11 -
+ .../display/dc/link/protocols/link_dp_phy.h   |   4 -
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  27 +-
+ .../amd/display/modules/freesync/freesync.c   |  12 +-
+ 48 files changed, 1471 insertions(+), 511 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
+
+-- 
+2.25.1
+
