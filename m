@@ -4,55 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9868C6379F
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Feb 2023 16:16:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89180C636D4
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Feb 2023 17:37:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30F6210E615;
-	Mon, 13 Feb 2023 16:16:27 +0000 (UTC)
-Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
- [IPv6:2607:f8b0:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D151F10E60A;
- Mon, 13 Feb 2023 16:16:24 +0000 (UTC)
-Received: by mail-oi1-x236.google.com with SMTP id bj22so10606901oib.11;
- Mon, 13 Feb 2023 08:16:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=3+M7WtemNip/UJvGhOQX8hNfkWUyxL/twEyAekdKObY=;
- b=FS0X5VFg/YFXbL6u6zZoIt3SzuxfTpvN95kD2y5SzyJnr1o4689pb+wARuSrUhiH1O
- G3AkvOikpY9FK1242nbEWxw+tEJIntXD6sGZ0SeXAwvdtJ8VPGNIrn/IE7fBmnH/v2zD
- 3nDiLWmBhCap7k5kXMyWCgoFKmWPjpzEIML0mgWCRdtHBU6e6YogxJZw5eDyQdPieVEK
- ynBx5MpB99ZmjGLgpOdR1OijMaCs7ac3zMWwPPzdPMG5FjdVnx2taim7juH0eDvTBmy2
- Yt2k7mUkkGcm+VUf+0L3ySTW8p4OLIwb1obdiIPXDTPIZa+5CJbo7Quc3d5IEacZuIgC
- Y5QA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=3+M7WtemNip/UJvGhOQX8hNfkWUyxL/twEyAekdKObY=;
- b=v1jwJBKDJ9G8aetRcaI3Est/cb0F6AevWA5N+pPUDssQcxa4Dkoq4528DnkwzpUArD
- ETDDtUpC+5n0o3A80KQPxX1A5ASnlnm+VKK0BZapgRLfnBoM12ZZs/BGXDZPulsu6iFE
- gktfiEWnKcJ/O87Z8sBTCauoXENhJFbxC9/CS9D/V5qx6451/kshmmnyqXxvuY1nR+k6
- tiWlSVU6oZJTAvJ3LENzwiO62re8x+uS3IcWVR/KDxf4P8tTngqNPGKpgqqQHYeL6MO4
- 74ysfNGU2RrwcW8ilM1e1/uUJj/qol0OWpozwCFW1VZZLK2lFaqgfptW5Ou6HYbm3RKJ
- CkPA==
-X-Gm-Message-State: AO0yUKWqIRCR6OiFYXsfwBNZjSXZjED6ZRQDXkTNA3dJyiI3Xao44NE4
- Y3rT7SNCthvJnmcERQCX7uoJq0waFr80gwTJR7U=
-X-Google-Smtp-Source: AK7set/69DU7Esqov48oCY93FnjRw6qc7JKs9WQo+x54lEtrHwEU+0tqMbfjGKFPZ7t7V1t1018RdoZ6dgu9fHInmLU=
-X-Received: by 2002:aca:3dd4:0:b0:378:4edd:a89c with SMTP id
- k203-20020aca3dd4000000b003784edda89cmr2010642oia.46.1676304984022; Mon, 13
- Feb 2023 08:16:24 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D2E110E638;
+	Mon, 13 Feb 2023 17:37:00 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CECD210E206;
+ Mon, 13 Feb 2023 17:36:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1676309818; x=1707845818;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=1hviPUsKTFpKeIzlgNJpSRgq3s8rv3mTWjkdP5IlzXM=;
+ b=nAxiWEqhNSHAeQ2Pm8hbSVUI7XHd1Iccvo6kD4JmQ8O/wHYPzNC0QNEz
+ Zo9alpCInnAvZ+oTqhbtti1JW5p7ABppEMBq+A7mHnVS1sMkm5uYiFeuY
+ C6nxma0MJSRBiqQgVAP7AWuqpIApIexe3ENYjWhBRomfpGRhIJt6RCT9a
+ ojmMN4ELdP1WQLtl/GBDbI8/C4ad0IZOdZVDVBGH0FD8skTCX0jOiC3BY
+ Po9ysFeIqQjUdD+aB0ZCrIMYddOpFfUVdK+y1aXujz3UjY8GNX5wDeYtk
+ 0oDrvQNr3cdxf9q4clDquAfNYWyC0QjIrslaprNzuQmGY7Df5EEqBXJcj w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10620"; a="332256589"
+X-IronPort-AV: E=Sophos;i="5.97,294,1669104000"; d="scan'208";a="332256589"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Feb 2023 09:36:32 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10620"; a="662255406"
+X-IronPort-AV: E=Sophos;i="5.97,294,1669104000"; d="scan'208";a="662255406"
+Received: from lkp-server01.sh.intel.com (HELO 4455601a8d94) ([10.239.97.150])
+ by orsmga007.jf.intel.com with ESMTP; 13 Feb 2023 09:36:29 -0800
+Received: from kbuild by 4455601a8d94 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pRcke-0007ub-2n;
+ Mon, 13 Feb 2023 17:36:28 +0000
+Date: Tue, 14 Feb 2023 01:36:19 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 09e41676e35ab06e4bce8870ea3bf1f191c3cb90
+Message-ID: <63ea7513.AYS2egZUfdd43B7s%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-References: <20230210024343.26220-1-jiapeng.chong@linux.alibaba.com>
-In-Reply-To: <20230210024343.26220-1-jiapeng.chong@linux.alibaba.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 13 Feb 2023 11:16:12 -0500
-Message-ID: <CADnq5_O_byNv=MVKQSL8hCXy-ENtLo31vq5zdmrE_dKZwif=nA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Remove the unused variable
- pre_connection_type
-To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,47 +58,221 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- christian.koenig@amd.com
+Cc: linux-doc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-usb@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ linux-serial@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-trace-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 09e41676e35ab06e4bce8870ea3bf1f191c3cb90  Add linux-next specific files for 20230213
 
-On Thu, Feb 9, 2023 at 9:44 PM Jiapeng Chong
-<jiapeng.chong@linux.alibaba.com> wrote:
->
-> Variable pre_connection_type is not effectively used, so delete it.
->
-> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=4031
-> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/link/link_detection.c | 2 --
->  1 file changed, 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> index 63e75c392031..d224a44c4cc8 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> @@ -886,7 +886,6 @@ static bool detect_link_and_local_sink(struct dc_link *link,
->         struct dc_sink *prev_sink = NULL;
->         struct dpcd_caps prev_dpcd_caps;
->         enum dc_connection_type new_connection_type = dc_connection_none;
-> -       enum dc_connection_type pre_connection_type = dc_connection_none;
->         const uint32_t post_oui_delay = 30; // 30ms
->
->         DC_LOGGER_INIT(link->ctx->logger);
-> @@ -923,7 +922,6 @@ static bool detect_link_and_local_sink(struct dc_link *link,
->
->         link_disconnect_sink(link);
->         if (new_connection_type != dc_connection_none) {
-> -               pre_connection_type = link->type;
->                 link->type = new_connection_type;
->                 link->link_state_valid = false;
->
-> --
-> 2.20.1.7.g153144c
->
+Error/Warning reports:
+
+https://lore.kernel.org/oe-kbuild-all/202301300743.bp7Dpazv-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202301302110.mEtNwkBD-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202302061911.C7xvHX9v-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202302062224.ByzeTXh1-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202302092211.54EYDhYH-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202302111601.jtY4lKrA-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202302112104.g75cGHZd-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202302131438.5tUJP2Sy-lkp@intel.com
+
+Error/Warning: (recently discovered and may have been fixed)
+
+Documentation/riscv/uabi.rst:24: WARNING: Enumerated list ends without a blank line; unexpected unindent.
+Documentation/sphinx/templates/kernel-toc.html: 1:36 Invalid token: #}
+ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/fsl-edma.ko] undefined!
+ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/idma64.ko] undefined!
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_optc.c:294:6: warning: no previous prototype for 'optc3_wait_drr_doublebuffer_pending_clear' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn31/dcn31_hubbub.c:1011:6: warning: no previous prototype for 'hubbub31_init' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_hubbub.c:948:6: warning: no previous prototype for 'hubbub32_init' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_hubp.c:158:6: warning: no previous prototype for 'hubp32_init' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource_helpers.c:62:18: warning: variable 'cursor_bpp' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:1296:32: warning: variable 'result_write_min_hblank' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:280:42: warning: variable 'ds_port' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_training.c:1586:38: warning: variable 'result' set but not used [-Wunused-but-set-variable]
+ftrace-ops.c:(.init.text+0x2c3): undefined reference to `__udivdi3'
+
+Unverified Error/Warning (likely false positive, please contact us if interested):
+
+drivers/firmware/arm_scmi/bus.c:128:18-22: ERROR: reference preceded by free on line 102
+drivers/tty/serial/8250/8250_dfl.c:63 dfl_uart_get_params() error: uninitialized symbol 'clk_freq'.
+drivers/tty/serial/8250/8250_dfl.c:69 dfl_uart_get_params() error: uninitialized symbol 'fifo_len'.
+drivers/tty/serial/8250/8250_dfl.c:90 dfl_uart_get_params() error: uninitialized symbol 'reg_layout'.
+drivers/usb/gadget/composite.c:2082:33: sparse: sparse: restricted __le16 degrades to integer
+drivers/usb/gadget/function/uvc_configfs.c:545 uvcg_default_output_b_source_id_store() warn: inconsistent returns 'su_mutex'.
+pahole: .tmp_vmlinux.btf: No such file or directory
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arm-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arm-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arm64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn31-dcn31_hubbub.c:warning:no-previous-prototype-for-hubbub31_init
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_hubbub.c:warning:no-previous-prototype-for-hubbub32_init
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_hubp.c:warning:no-previous-prototype-for-hubp32_init
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_resource_helpers.c:warning:variable-cursor_bpp-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- arm64-randconfig-r003-20230212
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn31-dcn31_hubbub.c:warning:no-previous-prototype-for-hubbub31_init
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_hubbub.c:warning:no-previous-prototype-for-hubbub32_init
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_hubp.c:warning:no-previous-prototype-for-hubp32_init
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_resource_helpers.c:warning:variable-cursor_bpp-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|-- csky-randconfig-r006-20230213
+|   `-- pahole:.tmp_vmlinux.btf:No-such-file-or-directory
+|-- csky-randconfig-r021-20230213
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- i386-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn31-dcn31_hubbub.c:warning:no-previous-prototype-for-hubbub31_init
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_hubbub.c:warning:no-previous-prototype-for-hubbub32_init
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_hubp.c:warning:no-previous-prototype-for-hubp32_init
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_resource_helpers.c:warning:variable-cursor_bpp-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|   `-- ftrace-ops.c:(.init.text):undefined-reference-to-__udivdi3
+|-- i386-randconfig-m021
+clang_recent_errors
+`-- riscv-randconfig-r036-20230213
+    |-- ld.lld:error:vmlinux.a(init-main.o):(function-rcu_lock_acquire:.text):relocation-R_RISCV_HI20-out-of-range:is-not-in-references-.Ltmp0
+    `-- ld.lld:error:vmlinux.a(init-main.o):(function-rcu_lock_release:.text):relocation-R_RISCV_HI20-out-of-range:is-not-in-references-.Ltmp1
+
+elapsed time: 727m
+
+configs tested: 100
+configs skipped: 7
+
+gcc tested configs:
+alpha                            allyesconfig
+alpha                               defconfig
+arc                              allyesconfig
+arc                                 defconfig
+arc                         haps_hs_defconfig
+arc                  randconfig-r043-20230212
+arc                  randconfig-r043-20230213
+arm                              allmodconfig
+arm                              allyesconfig
+arm                         assabet_defconfig
+arm                                 defconfig
+arm                  randconfig-r046-20230212
+arm64                            allyesconfig
+arm64                               defconfig
+csky                                defconfig
+i386                             allyesconfig
+i386                              debian-10.3
+i386                                defconfig
+i386                 randconfig-a011-20230213
+i386                 randconfig-a012-20230213
+i386                 randconfig-a013-20230213
+i386                 randconfig-a014-20230213
+i386                 randconfig-a015-20230213
+i386                 randconfig-a016-20230213
+i386                          randconfig-c001
+ia64                             allmodconfig
+ia64                                defconfig
+loongarch                        allmodconfig
+loongarch                         allnoconfig
+loongarch                           defconfig
+m68k                             allmodconfig
+m68k                             allyesconfig
+m68k                         apollo_defconfig
+m68k                          atari_defconfig
+m68k                                defconfig
+mips                             allmodconfig
+mips                             allyesconfig
+mips                         cobalt_defconfig
+mips                            gpr_defconfig
+nios2                               defconfig
+parisc                              defconfig
+parisc64                            defconfig
+powerpc                          allmodconfig
+powerpc                           allnoconfig
+powerpc                      tqm8xx_defconfig
+riscv                            allmodconfig
+riscv                             allnoconfig
+riscv                               defconfig
+riscv                randconfig-r042-20230213
+riscv                          rv32_defconfig
+s390                             allmodconfig
+s390                             allyesconfig
+s390                                defconfig
+s390                 randconfig-r044-20230213
+sh                               allmodconfig
+sh                         microdev_defconfig
+sh                          polaris_defconfig
+sh                           se7722_defconfig
+sh                   secureedge5410_defconfig
+sparc                               defconfig
+um                             i386_defconfig
+um                           x86_64_defconfig
+x86_64                            allnoconfig
+x86_64                           allyesconfig
+x86_64                              defconfig
+x86_64                                  kexec
+x86_64               randconfig-a011-20230213
+x86_64               randconfig-a012-20230213
+x86_64               randconfig-a013-20230213
+x86_64               randconfig-a014-20230213
+x86_64               randconfig-a015-20230213
+x86_64               randconfig-a016-20230213
+x86_64                               rhel-8.3
+
+clang tested configs:
+arm                          moxart_defconfig
+arm                        neponset_defconfig
+arm                       netwinder_defconfig
+arm                  randconfig-r046-20230213
+hexagon              randconfig-r041-20230212
+hexagon              randconfig-r041-20230213
+hexagon              randconfig-r045-20230212
+hexagon              randconfig-r045-20230213
+i386                 randconfig-a001-20230213
+i386                 randconfig-a002-20230213
+i386                 randconfig-a003-20230213
+i386                 randconfig-a004-20230213
+i386                 randconfig-a005-20230213
+i386                 randconfig-a006-20230213
+mips                        maltaup_defconfig
+mips                   sb1250_swarm_defconfig
+powerpc                    ge_imp3a_defconfig
+powerpc                 mpc836x_rdk_defconfig
+riscv                randconfig-r042-20230212
+s390                             alldefconfig
+s390                 randconfig-r044-20230212
+x86_64               randconfig-a001-20230213
+x86_64               randconfig-a002-20230213
+x86_64               randconfig-a003-20230213
+x86_64               randconfig-a004-20230213
+x86_64               randconfig-a005-20230213
+x86_64               randconfig-a006-20230213
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
