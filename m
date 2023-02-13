@@ -4,64 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B497C636D4
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Feb 2023 09:01:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F6C8C636D4
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Feb 2023 10:58:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9761D10E4EE;
-	Mon, 13 Feb 2023 09:01:46 +0000 (UTC)
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CECA610E4EB;
- Mon, 13 Feb 2023 09:01:44 +0000 (UTC)
-Received: by mail-ed1-x536.google.com with SMTP id s11so4115679edd.10;
- Mon, 13 Feb 2023 01:01:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=8Rmg6q5x8L2nqNAc0jBob7FrLg4BJ9y9ZXa5oP8eOkk=;
- b=JEVnTmJMO621oYT5TeJoPmYVlM54ThiReiB3Q+rwLkz5T+gheeCVcq7OkpVcw2K5lp
- KJIkQPknJ4EHB2pmD+pTVweU3uBHChIXpDQLReIyqS1Rb4BQ3peKmo6qR0Rjhe6nQHgJ
- FeGUdzdXpG+KgtQ6inRFSp35MtMAx+g5O+McCgM9YLJBuO02fMsenRUi1w5XSX42C4PX
- qLUjnbEM7cX50c7MzjLEzsHLpccgKv6DvLrUtF427Ib/OHRYpdVdH3LcjrcAKJRdJy5p
- vKKNaXdgZDriLnMg+M86ABZeBhsevWlW5hWYbkhKC95dm60Rhbgm4FF0/tSmDTy9gV3z
- 8pmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=8Rmg6q5x8L2nqNAc0jBob7FrLg4BJ9y9ZXa5oP8eOkk=;
- b=Pookq6RK6rcOvtjn+ayzQyhMy3RGIh98iZQqiXXHSXPu73kVnjS5U7HP849bO4zTD2
- ZI9aegWjyzpdAoEvCArOh3PLObARgpiDktXSWjRq7glwzpzbyI3k/AAPvxr9XEqA3yg8
- EG7KaGzL+m0gXiMRUdhlQKcskFoZaMwKXfXDv3Ltf+WGgrVZO7Z9PD7LFxp4vkDDt4nT
- PLL6uy2nGMV5aiCpcDGhLcSJLwy7/0xthCD2UdT8vhLCYAOJPMBGwV9trVGa2EnUlsZM
- DNZTm48H/ke4AKvWZ88w/wJNcE4+EGAVqZH/q+i/qeccDx2qIWMYlIhyuilRy+DhgG5e
- XOfg==
-X-Gm-Message-State: AO0yUKUNtho3CFoWNH9hdy4BP+irJK0LtAMVkKKKyhD/pZM4JBd+8nXM
- B5WqbVwaVlYqH+4tnsw6RQ4=
-X-Google-Smtp-Source: AK7set/k9pFOxrFdROU6BHqx9B5Y+fsjdAWFwA+BuSYgyam5jnXJIeRgmkpbQ9oy3wFI+tIZffg4Wg==
-X-Received: by 2002:a50:874a:0:b0:4ab:f6c:1a47 with SMTP id
- 10-20020a50874a000000b004ab0f6c1a47mr17994312edv.31.1676278903147; 
- Mon, 13 Feb 2023 01:01:43 -0800 (PST)
-Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- q22-20020a056402033600b004ab1f97ca2csm1549779edw.60.2023.02.13.01.01.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Feb 2023 01:01:42 -0800 (PST)
-Date: Mon, 13 Feb 2023 11:01:31 +0200
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [RFC PATCH v2 00/18] Add DRM CRTC 3D LUT interface
-Message-ID: <20230213110131.43434089@eldfell>
-In-Reply-To: <7878175f-b81d-5ad3-bc84-3a95b3add301@amd.com>
-References: <20230109143846.1966301-1-mwen@igalia.com>
- <20230109153809.mmjm22oa2gkwe3sf@mail.igalia.com>
- <20230131110735.60f8ff04@eldfell>
- <20230209142702.7w4mqed6zqtk5m6g@mail.igalia.com>
- <20230210112846.2103eb00@eldfell>
- <7878175f-b81d-5ad3-bc84-3a95b3add301@amd.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B59C410E1F6;
+	Mon, 13 Feb 2023 10:58:41 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on20626.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8c::626])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C96B10E1F6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Feb 2023 10:58:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gMMEgGt7LHO5MUIIDACuJsdZO7dWYOBsyrgt+kyB0YIeDLdwvGS1Ws3luzI/OP9H8nYQMtDX35N9DhhwXVfReSbQC+NIZCt3+hnUaWmmvMep/A+nit1in5wkHdaNidXLmrkpIdQ+wpbiHRiwrbRbapY9RiShms2Dpf6a7/38hV6uS+XYXNgNKrqJQRloplJ30l4L5VtMOWwVI6HreHmbTgAy00s0LWHFRNO9/MmkeiFI5eXeCDxeItROF8OGMzW43oIiebzH/uB0HSHpUoJaLaOOb7q2jTjxNabupGZaGcoVZ4paiQFw3pu9VoIjg3KmYfbRvjqMQs1Vr6PQPD71xw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=l3oDpdiZHL224fzcI0cdPNCpukiviFtSk6D9UWNKjdg=;
+ b=KeYl/74W0u9D796OKQk4sYieC75olcP2CSpVGdhqnL5IOLnVrRhz3b6eVEsyLYQZM+F1qOttL+AXk/ASF9di7XjF+BBGAO7HdYkmiEOh5jvi1mMpZ5v8G408/eGGMsU4G6U1Tj9y+hZZ+940cDa+jZiaWoTNEpv2FrylP/IiOmwnJ9Ue06cBwoxh/QLDoh/5DKCNCJk2YDYTGT+fhHcaztkao9KIrO8WhGBq3TSbQULg38yhlbkuEDGnhuqZyATNOM5UvXmLx1SMIFYnqY5Qt446chllWF+WdwoMNN6GR4+yT3+Dy532AKznv9ClpYCp8nwALhXospgOmPOaYBqnwg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l3oDpdiZHL224fzcI0cdPNCpukiviFtSk6D9UWNKjdg=;
+ b=ohNy93Eot/RkDTBJSKEt46AORNjBKlDNly8N7QrOCBEFfPr98iNRuK0UFzLHxqzmEH6g4oBx/NgDLdIMKHdb6eB3iLaF0/bLB0qvdRoshXax5KHDlprcs5X3KkR3JY47J/FEcj8BWKs0InYONwMU4I++9eS4IuBRCEYpJHyk0aI=
+Received: from MW4PR04CA0096.namprd04.prod.outlook.com (2603:10b6:303:83::11)
+ by DS0PR12MB7770.namprd12.prod.outlook.com (2603:10b6:8:138::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.23; Mon, 13 Feb
+ 2023 10:58:39 +0000
+Received: from CO1NAM11FT048.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:83:cafe::ae) by MW4PR04CA0096.outlook.office365.com
+ (2603:10b6:303:83::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.24 via Frontend
+ Transport; Mon, 13 Feb 2023 10:58:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT048.mail.protection.outlook.com (10.13.175.148) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6086.22 via Frontend Transport; Mon, 13 Feb 2023 10:58:38 +0000
+Received: from jackfedora30.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 13 Feb
+ 2023 04:58:37 -0600
+From: Jack Xiao <Jack.Xiao@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/amdgpu: fix warining during suspend
+Date: Mon, 13 Feb 2023 18:52:24 +0800
+Message-ID: <20230213105224.55662-1-Jack.Xiao@amd.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/477JHY3P2Fg.ZiRfHfLRHE2";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT048:EE_|DS0PR12MB7770:EE_
+X-MS-Office365-Filtering-Correlation-Id: d1112505-a06f-4215-3e78-08db0db1433b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: rSYkPeo/IyU2huYjbh2NbYJZMmnkgj6Fr0onkoWabM9quJC1NIEty3pNuUkTeg/mPpMzPK0AVzlmENAVpoYtDazF2fghJ/K3TFUE4QeKTBdiGyg8xpLpnyjJ1O20ptQRA/96+LSqpQKjHx0OQNjn0ffPvdZj8+IuC28CVkkqfCor88sUo0DaTRSpF7oAMA247ME2axf58Qkn/q54j+Ut5CSWvlkULo+n2OYklRm4J5tl6ZR9v1ls3XBMK5U4EmqirIN2dpaZn3HCGq9/eH+xbPJNmJG3zu7RoPC7Pk8dIFL+4ofu6/Lg9KKoguLx2RZLkeq6wHyhhYgKNYB1F1sPI9foUIHQolW+AIYEUfoPBWKNTNS6LNvJXNYLQSDlF1nMOBFOj3Yb1CsXgk8lYHSrGMmAy/MHbxflsDXlM4G23hJm3lnIzowSDih78fB953nLXcwR2wkRXtcB/Ee1tRkxehdSVyMh+8Yw0sz8OqgUzOnLPRTJt6PKSXGED7C9WFq96+jKFXnS1aLfWFjOIZ3rpWtlQ5tyV7G3WAGPyWDYz+4FNdNQyWl63mooIFLHp0CIsNxCvW5keP2uKlEPBXjY4iFSr+6SOng2PRgFYJQ2wUu2lXh+XuFdbUjcL5MCl9tiruirPC0FogjZCJtkXB1FByv4CQ5y/NIgu1j0a2SblE7jFCWbFp1Zo8BWBrJcV2+7l6YvJdp7z6y7fSKHg9b0Jl387abdlgE6E4z0aOjHQ8jMAOtuMOnp9orKT62sb+s/5I6yh7S4IvmZXOEwnhGe/Q==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(346002)(39860400002)(376002)(396003)(136003)(451199018)(40470700004)(46966006)(36840700001)(36860700001)(316002)(83380400001)(40480700001)(40460700003)(4326008)(6916009)(70586007)(70206006)(2616005)(336012)(47076005)(36756003)(426003)(8936002)(8676002)(7696005)(356005)(2906002)(82740400003)(966005)(15650500001)(478600001)(86362001)(5660300002)(6666004)(54906003)(16526019)(41300700001)(82310400005)(26005)(186003)(81166007)(1076003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Feb 2023 10:58:38.9979 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1112505-a06f-4215-3e78-08db0db1433b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT048.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7770
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,159 +98,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, airlied@gmail.com,
- ville.syrjala@linux.intel.com, laurent.pinchart+renesas@ideasonboard.com,
- Shashank Sharma <shashank.sharma@amd.com>, Rodrigo.Siqueira@amd.com,
- amd-gfx@lists.freedesktop.org, alex.hung@amd.com, tzimmermann@suse.de,
- sunpeng.li@amd.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- Melissa Wen <mwen@igalia.com>, seanpaul@chromium.org, daniel@ffwll.ch,
- bhawanpreet.lakha@amd.com, sungjoon.kim@amd.com, contact@emersion.fr,
- Xinhui.Pan@amd.com, christian.koenig@amd.com, kernel-dev@igalia.com,
- alexander.deucher@amd.com, nicholas.kazlauskas@amd.com,
- Joshua Ashton <joshua@froggi.es>
+Cc: Jack Xiao <Jack.Xiao@amd.com>, jfalempe@redhat.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/477JHY3P2Fg.ZiRfHfLRHE2
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Freeing memory was warned during suspend.
+Move the self test out of suspend.
 
-On Fri, 10 Feb 2023 14:47:50 -0500
-Harry Wentland <harry.wentland@amd.com> wrote:
+Link: https://bugzilla.redhat.com/show_bug.cgi?id=2151825
+Cc: jfalempe@redhat.com
+Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c     | 2 +-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-> On 2/10/23 04:28, Pekka Paalanen wrote:
-> > On Thu, 9 Feb 2023 13:27:02 -0100
-> > Melissa Wen <mwen@igalia.com> wrote:
-> >  =20
-> >> On 01/31, Pekka Paalanen wrote: =20
-> >>> On Mon, 9 Jan 2023 14:38:09 -0100
-> >>> Melissa Wen <mwen@igalia.com> wrote:
-> >>>    =20
-> >>>> On 01/09, Melissa Wen wrote:   =20
-> >>>>> Hi,
-> >>>>>
-> >>>>> After collecting comments in different places, here is a second ver=
-sion
-> >>>>> of the work on adding DRM CRTC 3D LUT support to the current DRM co=
-lor
-> >>>>> mgmt interface. In comparison to previous proposals [1][2][3], here=
- we
-> >>>>> add 3D LUT before gamma 1D LUT, but also a shaper 1D LUT before 3D =
-LUT,
-> >>>>> that means the following DRM CRTC color correction pipeline:
-> >>>>>
-> >>>>> Blend -> Degamma 1D LUT -> CTM -> Shaper 1D LUT -> 3D LUT -> Gamma =
-1D LUT   =20
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index a10b627c8357..3842e7e62eda 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4270,6 +4270,9 @@ int amdgpu_device_resume(struct drm_device *dev, bool fbcon)
+ 	}
+ 	adev->in_suspend = false;
+ 
++	if (adev->enable_mes)
++		amdgpu_mes_self_test(adev);
++
+ 	if (amdgpu_acpi_smart_shift_update(dev, AMDGPU_SS_DEV_D0))
+ 		DRM_WARN("smart shift update failed\n");
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+index 62cdd2113135..5826eac270d7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+@@ -1284,7 +1284,7 @@ static int mes_v11_0_late_init(void *handle)
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
+ 	/* it's only intended for use in mes_self_test case, not for s0ix and reset */
+-	if (!amdgpu_in_reset(adev) && !adev->in_s0ix &&
++	if (!amdgpu_in_reset(adev) && !adev->in_s0ix && !adev->in_suspend &&
+ 	    (adev->ip_versions[GC_HWIP][0] != IP_VERSION(11, 0, 3)))
+ 		amdgpu_mes_self_test(adev);
+ 
+-- 
+2.37.3
 
-...
-
-> >>> +/*
-> >>> + * struct drm_mode_lut3d_mode - 3D LUT mode information.
-> >>> + * @lut_size: number of valid points on every dimension of 3D LUT.
-> >>> + * @lut_stride: number of points on every dimension of 3D LUT.
-> >>> + * @bit_depth: number of bits of RGB. If color_mode defines entries =
-with higher
-> >>> + *             bit_depth the least significant bits will be truncate=
-d.
-> >>> + * @color_format: fourcc values, ex. DRM_FORMAT_XRGB16161616 or DRM_=
-FORMAT_XBGR16161616.
-> >>> + * @flags: flags for hardware-sepcific features
-> >>> + */
-> >>> +struct drm_mode_lut3d_mode {
-> >>> +	__u16 lut_size;
-> >>> +	__u16 lut_stride[3];
-> >>> +	__u16 bit_depth;
-> >>> +	__u32 color_format;
-> >>> +	__u32 flags;
-> >>> +};
-
-...
-
-> >>> What is "number of bits of RGB"? Input precision? Output precision?
-> >>> Integer or floating point?   =20
-> >>
-> >> It's the bit depth of the 3D LUT values, the same for every channels. =
-In
-> >> the AMD case, it's supports 10-bit and 12-bit, for example. =20
-> >=20
-> > Ok. So e.g. r5g6b5 is not a possible 3D LUT element type on any
-> > hardware ever?
-> >  =20
->=20
-> I haven't had a chance to go through all patches yet but if this is
-> modeled after Alex Hung's work this should be covered by color_format.
-> The idea is that color_format takes a FOURCC value and defines the
-> format of the entries in the 3DLUT blob.
->=20
-> The bit_depth describes the actual bit depth that the HW supports.
-> E.g., color_format could be DRM_FORMAT_XRGB16161616 but HW might only
-> support 12-bit precision. In that case the least significant bits get
-> truncated.
->=20
-> One could define the bit_depth per color, but I'm not sure that'll be
-> necessary.
-
-Exactly. I just have no idea how sure we should be about that.
-
-> > What exactly is the truncation the comment refers to?
-> >=20
-> > It sounds like if input has higher precision than the LUT elements,
-> > then "truncation" occurs. I can kind of see that, but I also think it
-> > is a false characterisation. The LUT input precision affects the
-> > precision of LUT indexing and the precision of interpolation between
-> > the LUT elements. I would not expect those two precisions to be
-> > truncated to the LUT element precision (but they could be truncated to
-> > something else hardware specific). Instead, I do expect the
-> > interpolation result to be truncated to the LUT output precision, which
-> > probably is the same as the LUT element precision, but not necessarily.
-> >=20
-> > Maybe the comment about truncation should simply be removed? The result
-> > is obvious if we know the LUT input, element, and output precision, and
-> > what exactly happens with the indexing and interpolation is probably
-> > good enough to be left hardware-specific if it is difficult to describe
-> > in generic terms across different hardware.
-> >  =20
->=20
-> Maybe it makes sense to just drop the bit_depth field.
-
-Well, it's really interesting information for userspace, but maybe it
-should have a more holistic design. Precision is a factor, when
-userspace considers whether it can use KMS hardware for a conversion or
-not. Unfortunately, none of the existing KMS color pipeline elements
-have any information on precision IIRC, so there is more to be fixed.
-
-The interesting thing is the minimum guaranteed precision of each
-element and the connections between them. It might be different for
-pass-through vs. not. Another interesting thing is the usable value
-range.
-
-This is probably a complex problem, so there should be no need to solve
-it before a 3D LUT interface can land, given old elements already have
-the issue.
-
-
-Thanks,
-pq
-
---Sig_/477JHY3P2Fg.ZiRfHfLRHE2
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmPp/GsACgkQI1/ltBGq
-qqd8CQ/+IKHJyfKiEtk4NbR1wk0m20wce/R/KZjDpvg686nB1z0kyWEijUlC0ffy
-VWSUJ4+wIpjBYBNs69rk9SkunG4bCw7qLUBmBFkXWj/ZWZeLy7EWSfjJE31XKJZP
-xcRZSJ7g/oxBS2AgNSDIAEUc4z+ZNrHUP0sxMPT+1oWeWv8up3TxfHdxF7VF+zC5
-sf95UT/bg6i2TZx2Fy+SANtXpux7wOwBgyOlyIntUnKePn9rCsjRm9agVp04ojHa
-+8Io9r7zXYpPifE+XsYqrzGOhN5vvbZvx0P+s2hS05o4zyuCdxBNSSSeNHbqtxnZ
-RS2qCIhB1kVyzEtDnfcq5gKolJ3TnNrD64M1G3WrDQhh7jfBWdDYjip8WDTs4UH8
-+6WyXvcoKZWkHaHs137EH7sFjFNCI9cSmhUB3Ja1NkPvQ7KylkraLViqoyS22ny3
-Z/WRuZHXIVvE4jXicOHSZUtIfOr48TdB6SGFPtEVIqe8GNHfBu2bxA4e6MBnpKVn
-uvxWLSu1tzz3FPKTKVsbfemsQksoiDK+1MIpmvcLO7HTaQG0dJCB7Hb1Ney8O/yR
-5k6rVQ/hLDKuHO0jVR3Oe+vya8CpUgzheW+PhRxSowTwWfX0USdbbSEVU9aH7XDX
-DRkXs+GZkYsB5CHq7lq6cUSi6tJvS2bmlXR5wc8uLranN0nUP8E=
-=Wfmj
------END PGP SIGNATURE-----
-
---Sig_/477JHY3P2Fg.ZiRfHfLRHE2--
