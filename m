@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53C6FC636CC
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Feb 2023 19:45:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4DF4C636D4
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Feb 2023 20:49:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8E5F10E6E7;
-	Mon, 13 Feb 2023 19:45:58 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8B9710E6E7;
- Mon, 13 Feb 2023 19:45:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=neTN80ugdoOBvH47UG9wXtgo//bxQecO1FUya+Miv4M=; b=dAkVU79pU/hSypqmsCQJGXHMIb
- kbtVpVR9KH0TfoKkm293Cuo35OknKcT8iFa+Nnth2aRSVCMsRzh0l03yNrs/ZDyVO4M0nda2QpoYt
- ZPn3fOX7Kt99CH3oypyMfyM+PhUDUF3dkNZ5PbhZScE/zWF+4y/FCE2Bup2cfezYczPQcSAoVF3Xq
- gA/xoH7yAJUOqoTLQAPKsx7x69Qf2t5u4esg7EGVhYM/BA3DDxIZs5sP0QbiEALCexIFzL4TkmapA
- +IsBnihIZ/qBdJUM6Ce13UWT0DN9aJz0rtUWIxtst2EtQvM1Y5AiMNavTBeFYKvSst2dvZpDroMZw
- QZ80DSAQ==;
-Received: from [38.44.66.31] (helo=mail.igalia.com)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1pRelq-0011Qt-3k; Mon, 13 Feb 2023 20:45:50 +0100
-Date: Mon, 13 Feb 2023 18:45:40 -0100
-From: Melissa Wen <mwen@igalia.com>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Subject: Re: [RFC PATCH v2 00/18] Add DRM CRTC 3D LUT interface
-Message-ID: <20230213194540.zo36uq27akdjvljv@mail.igalia.com>
-References: <20230109143846.1966301-1-mwen@igalia.com>
- <20230109153809.mmjm22oa2gkwe3sf@mail.igalia.com>
- <20230131110735.60f8ff04@eldfell>
- <20230209142702.7w4mqed6zqtk5m6g@mail.igalia.com>
- <20230210112846.2103eb00@eldfell>
- <7878175f-b81d-5ad3-bc84-3a95b3add301@amd.com>
- <20230213110131.43434089@eldfell> <Y+o0++waAb83mXbU@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 322DE10E713;
+	Mon, 13 Feb 2023 20:49:52 +0000 (UTC)
+Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7207110E713;
+ Mon, 13 Feb 2023 20:49:50 +0000 (UTC)
+Received: from mx0.riseup.net (mx0-pn.riseup.net [10.0.1.42])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
+ client-signature RSA-PSS (2048 bits) client-digest SHA256)
+ (Client CN "mx0.riseup.net", Issuer "R3" (not verified))
+ by mx1.riseup.net (Postfix) with ESMTPS id 4PFxKp11kxzDrt1;
+ Mon, 13 Feb 2023 20:49:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
+ t=1676321390; bh=wZ2k6D1sf+LAhw4sQy5FBqNVX/9/c++77YoxwTZ/l74=;
+ h=From:To:Cc:Subject:Date:From;
+ b=NiOI0dUKmW9qxTAQBFZ3KnDSwEBmU5aVk+uUw+r9sjcxp1RdlvXo7KVexYHihKIbk
+ Vr29XkSSZWvdTOFHiIXKlZWnVVfGxRv6xNx3+I9+SoZA/8AwbJplnoJmZQg66zZ0zd
+ rHs1O3Dcjd//hQwHuoPdySxpIR6R39az2i2wiwFs=
+Received: from fews2.riseup.net (fews2-pn.riseup.net [10.0.1.84])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
+ client-signature RSA-PSS (2048 bits) client-digest SHA256)
+ (Client CN "mail.riseup.net", Issuer "R3" (not verified))
+ by mx0.riseup.net (Postfix) with ESMTPS id 4PFxKn1Zs2z9ssg;
+ Mon, 13 Feb 2023 20:49:49 +0000 (UTC)
+X-Riseup-User-ID: B6C2F566C47B4AEFE85B775391F6C3F1DED2A77D0E80149B80AD474C46AEA140
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ by fews2.riseup.net (Postfix) with ESMTPSA id 4PFxKd1Jpjz1yNK;
+ Mon, 13 Feb 2023 20:49:40 +0000 (UTC)
+From: Arthur Grillo <arthurgrillo@riseup.net>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH 00/10] Resolve warnings from AMDGPU
+Date: Mon, 13 Feb 2023 17:49:13 -0300
+Message-Id: <20230213204923.111948-1-arthurgrillo@riseup.net>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="f6kqgpdxr4n4ywn2"
-Content-Disposition: inline
-In-Reply-To: <Y+o0++waAb83mXbU@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,212 +56,75 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, airlied@gmail.com,
- laurent.pinchart+renesas@ideasonboard.com,
- Shashank Sharma <shashank.sharma@amd.com>, Rodrigo.Siqueira@amd.com,
- amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
- Harry Wentland <harry.wentland@amd.com>, daniel@ffwll.ch, alex.hung@amd.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- Pekka Paalanen <ppaalanen@gmail.com>, seanpaul@chromium.org,
- bhawanpreet.lakha@amd.com, sungjoon.kim@amd.com, tzimmermann@suse.de,
- Xinhui.Pan@amd.com, nicholas.kazlauskas@amd.com, kernel-dev@igalia.com,
- contact@emersion.fr, alexander.deucher@amd.com, christian.koenig@amd.com,
- Joshua Ashton <joshua@froggi.es>
+Cc: sunpeng.li@amd.com, tales.aparecida@gmail.com, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, Arthur Grillo <arthurgrillo@riseup.net>,
+ mairacanal@riseup.net, daniel@ffwll.ch, harry.wentland@amd.com,
+ alexander.deucher@amd.com, andrealmeid@riseup.net, airlied@gmail.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi,
 
---f6kqgpdxr4n4ywn2
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This series resolve some of the warnings that appear when compiling AMDGPU
+with W=1.
 
-On 02/13, Ville Syrj=E4l=E4 wrote:
-> On Mon, Feb 13, 2023 at 11:01:31AM +0200, Pekka Paalanen wrote:
-> > On Fri, 10 Feb 2023 14:47:50 -0500
-> > Harry Wentland <harry.wentland@amd.com> wrote:
-> >=20
-> > > On 2/10/23 04:28, Pekka Paalanen wrote:
-> > > > On Thu, 9 Feb 2023 13:27:02 -0100
-> > > > Melissa Wen <mwen@igalia.com> wrote:
-> > > >  =20
-> > > >> On 01/31, Pekka Paalanen wrote: =20
-> > > >>> On Mon, 9 Jan 2023 14:38:09 -0100
-> > > >>> Melissa Wen <mwen@igalia.com> wrote:
-> > > >>>    =20
-> > > >>>> On 01/09, Melissa Wen wrote:   =20
-> > > >>>>> Hi,
-> > > >>>>>
-> > > >>>>> After collecting comments in different places, here is a second=
- version
-> > > >>>>> of the work on adding DRM CRTC 3D LUT support to the current DR=
-M color
-> > > >>>>> mgmt interface. In comparison to previous proposals [1][2][3], =
-here we
-> > > >>>>> add 3D LUT before gamma 1D LUT, but also a shaper 1D LUT before=
- 3D LUT,
-> > > >>>>> that means the following DRM CRTC color correction pipeline:
-> > > >>>>>
-> > > >>>>> Blend -> Degamma 1D LUT -> CTM -> Shaper 1D LUT -> 3D LUT -> Ga=
-mma 1D LUT   =20
-> >=20
-> > ...
-> >=20
-> > > >>> +/*
-> > > >>> + * struct drm_mode_lut3d_mode - 3D LUT mode information.
-> > > >>> + * @lut_size: number of valid points on every dimension of 3D LU=
-T.
-> > > >>> + * @lut_stride: number of points on every dimension of 3D LUT.
-> > > >>> + * @bit_depth: number of bits of RGB. If color_mode defines entr=
-ies with higher
-> > > >>> + *             bit_depth the least significant bits will be trun=
-cated.
-> > > >>> + * @color_format: fourcc values, ex. DRM_FORMAT_XRGB16161616 or =
-DRM_FORMAT_XBGR16161616.
-> > > >>> + * @flags: flags for hardware-sepcific features
-> > > >>> + */
-> > > >>> +struct drm_mode_lut3d_mode {
-> > > >>> +	__u16 lut_size;
-> > > >>> +	__u16 lut_stride[3];
-> > > >>> +	__u16 bit_depth;
-> > > >>> +	__u32 color_format;
-> > > >>> +	__u32 flags;
-> > > >>> +};
-> >=20
-> > ...
-> >=20
-> > > >>> What is "number of bits of RGB"? Input precision? Output precisio=
-n?
-> > > >>> Integer or floating point?   =20
-> > > >>
-> > > >> It's the bit depth of the 3D LUT values, the same for every channe=
-ls. In
-> > > >> the AMD case, it's supports 10-bit and 12-bit, for example. =20
-> > > >=20
-> > > > Ok. So e.g. r5g6b5 is not a possible 3D LUT element type on any
-> > > > hardware ever?
-> > > >  =20
-> > >=20
-> > > I haven't had a chance to go through all patches yet but if this is
-> > > modeled after Alex Hung's work this should be covered by color_format.
-> > > The idea is that color_format takes a FOURCC value and defines the
-> > > format of the entries in the 3DLUT blob.
-> > >=20
-> > > The bit_depth describes the actual bit depth that the HW supports.
-> > > E.g., color_format could be DRM_FORMAT_XRGB16161616 but HW might only
-> > > support 12-bit precision. In that case the least significant bits get
-> > > truncated.
-> > >=20
-> > > One could define the bit_depth per color, but I'm not sure that'll be
-> > > necessary.
-> >=20
-> > Exactly. I just have no idea how sure we should be about that.
-> >=20
-> > > > What exactly is the truncation the comment refers to?
-> > > >=20
-> > > > It sounds like if input has higher precision than the LUT elements,
-> > > > then "truncation" occurs. I can kind of see that, but I also think =
-it
-> > > > is a false characterisation. The LUT input precision affects the
-> > > > precision of LUT indexing and the precision of interpolation between
-> > > > the LUT elements. I would not expect those two precisions to be
-> > > > truncated to the LUT element precision (but they could be truncated=
- to
-> > > > something else hardware specific). Instead, I do expect the
-> > > > interpolation result to be truncated to the LUT output precision, w=
-hich
-> > > > probably is the same as the LUT element precision, but not necessar=
-ily.
-> > > >=20
-> > > > Maybe the comment about truncation should simply be removed? The re=
-sult
-> > > > is obvious if we know the LUT input, element, and output precision,=
- and
-> > > > what exactly happens with the indexing and interpolation is probably
-> > > > good enough to be left hardware-specific if it is difficult to desc=
-ribe
-> > > > in generic terms across different hardware.
-> > > >  =20
-> > >=20
-> > > Maybe it makes sense to just drop the bit_depth field.
-> >=20
-> > Well, it's really interesting information for userspace, but maybe it
-> > should have a more holistic design. Precision is a factor, when
-> > userspace considers whether it can use KMS hardware for a conversion or
-> > not. Unfortunately, none of the existing KMS color pipeline elements
-> > have any information on precision IIRC, so there is more to be fixed.
-> >=20
-> > The interesting thing is the minimum guaranteed precision of each
-> > element and the connections between them. It might be different for
-> > pass-through vs. not. Another interesting thing is the usable value
-> > range.
-> >=20
-> > This is probably a complex problem, so there should be no need to solve
-> > it before a 3D LUT interface can land, given old elements already have
-> > the issue.
->=20
-> Yeah, I think all the precision stuff is all better handled by
-> eg. the proposed GAMMA_MODE property or something similar.
-> It's going to be needed for 1D LUTs as well. 1D LUTs would
-> also need it to expose diffrent LUT sizes with different
-> precision tradeoffs.
->=20
-> As for the 3D LUT blob, I don't think the blob needs any=20
-> strides/etc. either. I had none of that for my i915 version:
-> https://github.com/vsyrjala/linux/commits/3dlut
-> Just the LUT entries + blob size is sufficient. At least
-> for cube shaped LUTs. Dunno if anyone would have a need
-> for something else?
+Each patch is focused in a specific warning.
 
-I only use lut_size and bit_depth for programming a CRTC 3D LUT in this
-proposal, so far GAMMA_MODE also would fit. But don't know for
-pre-blending 3D LUT.
+This is my First Patch for the GSoC Project Idea about increasing code
+coverage of the DRM code[1].
 
->=20
-> The two things the are absolutely needed:
-> - Position of the LUT in the pipeline. We've already
->   seen at least two variants of this IIRC, so we'll
->   likely need to define a unique property for each tap
->   point.
+Thanks for reviewing!
 
-IIRC, I'd say three, since in rcar-du the 3D LUT is before the gamma
-LUT, but there isn't a shaper 1D LUT before 3D LUT.  I'd like to know
-how the gamma LUT pre-3D LUT acts on intel pipeline. If it's, in the
-end, somehow similar to a shaper LUT.
+Best regards,
+Arthur Grillo
 
-I mean, if we don't name the LUTs after CTM, we could fit something
-similar in terms of dimensions, as:
+[1]: https://www.x.org/wiki/DRMcoverage2023/#firstpatch
 
--> CTM -> 1D LUT -> 3D LUT -> 1D LUT
+---
 
-> - The order the elements are stored in the blob. I didn't
->   check if all the already known hw (amdgpu, i915, rcar-du,
->   were there also others?) would agree on this or not.
->   If yes, maybe just follow the hw order for all those,
->   and if not, then I guess flip a few coins.
->=20
-> --=20
-> Ville Syrj=E4l=E4
-> Intel
+Arthur Grillo (10):
+  drm/amd/display: Turn global functions into static
+  drm/amd/display: Add function prototypes to headers
+  drm/amd/amdgpu: Add function prototypes to headers
+  drm/amd/display: Add previously missing includes
+  drm/amd/display: Fix excess arguments on kernel-doc
+  drm/amd/display: Fix implicit enum conversion
+  drm/amd/amdgpu: Deal with possible fail allocation
+  drm/amd/display: Remove unused local variables
+  drm/amd/display: Make variables declaration inside ifdef guard
+  drm/amd/display: Remove unused local variables and function
 
---f6kqgpdxr4n4ywn2
-Content-Type: application/pgp-signature; name="signature.asc"
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c       |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h     |  1 +
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        | 15 ++++---
+ .../dc/clk_mgr/dcn315/dcn315_clk_mgr.c        |  2 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  2 +-
+ .../drm/amd/display/dc/dcn10/dcn10_dpp_dscl.c |  2 +-
+ .../amd/display/dc/dcn10/dcn10_link_encoder.c |  3 --
+ .../drm/amd/display/dc/dcn201/dcn201_dpp.c    |  7 ----
+ .../drm/amd/display/dc/dcn201/dcn201_hwseq.c  |  2 -
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_afmt.c |  2 -
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c |  4 --
+ .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    |  3 --
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_apg.c  | 41 -------------------
+ .../drm/amd/display/dc/dcn31/dcn31_hubbub.h   |  2 +
+ .../drm/amd/display/dc/dcn32/dcn32_hubbub.h   |  2 +
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_hubp.h |  2 +
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_init.c |  1 +
+ .../drm/amd/display/dc/dcn32/dcn32_resource.c |  5 +--
+ .../display/dc/dcn32/dcn32_resource_helpers.c |  4 --
+ .../dc/dml/dcn20/display_mode_vba_20.c        |  9 ++--
+ .../dc/dml/dcn20/display_mode_vba_20v2.c      | 10 ++---
+ .../dc/dml/dcn21/display_mode_vba_21.c        | 12 +++---
+ .../dc/dml/dcn31/display_mode_vba_31.c        |  4 ++
+ .../dc/dml/dcn31/display_rq_dlg_calc_31.c     |  2 -
+ .../dc/dml/dcn314/display_mode_vba_314.c      |  4 ++
+ .../dc/irq/dcn201/irq_service_dcn201.c        |  2 +-
+ .../dc/link/accessories/link_dp_trace.c       |  1 +
+ .../dc/link/protocols/link_dp_capability.c    |  4 --
+ 28 files changed, 47 insertions(+), 103 deletions(-)
 
------BEGIN PGP SIGNATURE-----
+-- 
+2.39.1
 
-iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmPqk18ACgkQwqF3j0dL
-ehypnRAAnXtOeJWGVpsz1WBV0/A+L7Q3gMgFHRcSRHTCHLSKp7dwlS1oSImpxytQ
-86A+01yTLXO9bNCxcma4tcD692epVD7w3zNfYk+MoPhGFqoF7o/JkvR7bmAQ207F
-XOg4kLxZhY2y7h+84wdLkBmszfoEPvJHLWJ1JZ2cyyipz9I13MunhLb69KGAy9aQ
-62eqQDnDzxJ/TOTXzTBfeCys4Y42tipzOryXtftsOICquXgGDsdW8k+wbHUuNwBy
-/dW7EedoeKkir30NKpXrzuBlH4CaEUP4ugfHDhONeEDD2U7SI1HZtJyZlyaYq/CY
-uj70I8aSlQwwH4w7O2qmANk77zldLff5lOb71KWy+0x//0p2VPuUq2lBFCNWZiiL
-26wuYiZ7ikxFMShPFS4+ORH5ScsaNI4KePak0eh+tZ4v/1/h9Y7XWG/HdmrTBmri
-Hqm4JePwwMEt2zDrzMwHC1mqH9VRF2eUJ9pDusxUFyFlN3w2OzfPvTWr/dsNJbnk
-FZnXvinH/GF9elJBt1xoJ4CmH5p//WRX9rZSaxu6jazWyH9DvUNRRDinFyGqLFN6
-X8oZHqaiX40Z0kP2mw4qr942+m8/RNhVYKkW4MmT27gnHVCgI4+3vQBTLW1sbEJX
-Vkri6hsIymNICAWpKM3jmmDGZ+f/+QXemw9SjE2O3rIJxRymekE=
-=LnZy
------END PGP SIGNATURE-----
-
---f6kqgpdxr4n4ywn2--
