@@ -4,89 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68C8CC636D4
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Feb 2023 15:51:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB0ACC636D4
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Feb 2023 15:59:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3C9E10E606;
-	Mon, 13 Feb 2023 15:51:45 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2054.outbound.protection.outlook.com [40.107.244.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B4C910E613
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Feb 2023 15:51:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EAbuf37OJTp+iIOF9U0ZBQUMjnTodRC+BlmVmEMShJmt8kPKEbaDwUnlTQ/Ux+/xJYp8EodbmVGyd1ycAcxHvyEYQJITP3fe1Wwk2riWddaeGcVrQ5XmE6C0XHNJ+bcnmocrVZvA89+9yVm9pzTYe3lej0UdblnOqJlgSXcstMuYqDO9fyWDuWDzDXZv0w8dZJaaZnPcn8DPXOHmqh5ZcNpUrFa3N18ShNQwoCTPWqK7hN+awYwx31LHXg8vtB181Vb1smDahTc/b1PhNxgex6hdLmzZzsF7BJPVwCL6mHwHQCZ3JDrIoGj3wipxzog9ge8Uy10nl43HrZeBgCKa1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6a23G1h9sRJte9on4JY9ZIVx+0MN++tE1xPhTiXqTE4=;
- b=hX8ZYHFCB8+ee20k2Vcp3PG8wOM4wbXw9+0vC0QLrRyoSIRdvwtCLO3fkyLNLj5Z+I/CJewXfmbW5lYT7ey45qkMJ2kl/doNAUYPUnM1qAxPmT9wvGBaAJKdGz6LtKGccjNcIum+1je/RievvV1ZbQ7GL287OZPRCHC1uqv+20NzegB8G6EZ30Srn3XsGjeqKASi+U9WK1CXeAeA7sCVND9d7KBKHbqhWb0UfxFdTT9zW03cYzQxLnpoHMkWL1DswYgwMGEBWHNvlINBe+jq2aH9QCSwztdQRSE460uhxS5xiv+QCjme+OB1bGHuwwE5rzdDhQiIfa1kucOrbY377w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6a23G1h9sRJte9on4JY9ZIVx+0MN++tE1xPhTiXqTE4=;
- b=rbZ9tPexrSx02y7nXnA2xjwV/Z3M+Ek5428uL2yH9jWVlICbOGEpriPudKJJlOSpZ82sw+MdUcOwi/di5Z6FtgmEzoh5yOjdD13id0+Jc+GzeHPWAOkiZhr6R19w0DCrXZhzKtYrPszQ1qkpFoHbyjA3i2T2WoSvSF94AnlBfSo=
-Received: from MW2PR16CA0066.namprd16.prod.outlook.com (2603:10b6:907:1::43)
- by SA1PR12MB6869.namprd12.prod.outlook.com (2603:10b6:806:25d::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.23; Mon, 13 Feb
- 2023 15:51:41 +0000
-Received: from CO1NAM11FT103.eop-nam11.prod.protection.outlook.com
- (2603:10b6:907:1:cafe::db) by MW2PR16CA0066.outlook.office365.com
- (2603:10b6:907:1::43) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.24 via Frontend
- Transport; Mon, 13 Feb 2023 15:51:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT103.mail.protection.outlook.com (10.13.174.252) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6086.23 via Frontend Transport; Mon, 13 Feb 2023 15:51:41 +0000
-Received: from thonkpad.localhost (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 13 Feb
- 2023 09:51:40 -0600
-From: <sunpeng.li@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/display: Fail atomic_check early on normalize_zpos
- error
-Date: Mon, 13 Feb 2023 10:51:26 -0500
-Message-ID: <20230213155126.29435-1-sunpeng.li@amd.com>
-X-Mailer: git-send-email 2.39.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BC9210E608;
+	Mon, 13 Feb 2023 15:59:42 +0000 (UTC)
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [IPv6:2a00:1450:4864:20::52a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 997C210E607
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Feb 2023 15:59:40 +0000 (UTC)
+Received: by mail-ed1-x52a.google.com with SMTP id w3so6564402edc.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Feb 2023 07:59:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=dZSRouyO+SY7BvXm4fN1RSJ8QGC1KtOeQco4s1LlpZk=;
+ b=Qcp80AKAB5nOHmxQpG3UKQiVpZARLqQ6HA+aBhY74y0qyXERohEHFwG5LmKVoAd2H1
+ Dz3lkl+j38Tr5oYjYWpLJKcLUadAEm1ACwAij8I60oZT6umH6Qqb2tkU6P7tzMbRG0Qp
+ ciz2HHIAGoEEY/ns/upJ5c3spXm8d0kzZ/jYluKNrGtmIj2Kkgq+lRgzdjEq+UeB26Ir
+ kRXeC5hCi3WMWtZHiR0qUZIy7OBtiWr+JjG9Os3qnsoxoQVXxvGMpkNhh03Z72FoajFl
+ p+hqgzeKqrvzb3SybJhUiGi1USO0M3iKGH3Dworr4kGEw3v9HatWlEaffM+vqgSS+zxS
+ yEaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=dZSRouyO+SY7BvXm4fN1RSJ8QGC1KtOeQco4s1LlpZk=;
+ b=LbNiiLm3M2y8zAwHo4lSgmorXSmYVNZxmY0L3N6hvEv3ZoV9wtToXeL53ZsyW4TcyF
+ jg6nqtupzj6Sbek+m1EENAhMUvlQ5AxeXLIVmS+gG+xva0/T3wvw0b+nRxt8/UbpzvCl
+ d3iHb+lMSWF5ZDP1XXwzIvkpVG5PdVLapOVQcXUgJgvLVNQzWK0ImmEG7B6A2KA6Dowg
+ lz10izPAqmQLCLTW+yqAdRBjkzGMFP2hz7TJpZgn3Ojijv86h4hNCd+BuynR3wSYJ0qv
+ 9keURqjScPl8kT7Y4CwyPmLvPtRVH9c2UiRWvzAFgQCYqXn9CR6KfnREGKLDllBMTGbY
+ g9uA==
+X-Gm-Message-State: AO0yUKUiZSMp6STERpCkSZ70HOJRc3MDbIy+mjxM1f7e7bx8SjP/xzUo
+ Mn6EAQkPm7ZvT7FgadkzY8Q=
+X-Google-Smtp-Source: AK7set+C+NK3eXJn2J3D3p3UugUjJ/qLBaPQVmIBNjrGlrl0qu5BxFSKGsEtRIOqt4FN9AAVXmGuFQ==
+X-Received: by 2002:a50:8753:0:b0:4ab:1006:d3d3 with SMTP id
+ 19-20020a508753000000b004ab1006d3d3mr8592758edv.6.1676303979111; 
+ Mon, 13 Feb 2023 07:59:39 -0800 (PST)
+Received: from ?IPV6:2a02:908:1256:79a0:4eda:88e9:8264:7fc7?
+ ([2a02:908:1256:79a0:4eda:88e9:8264:7fc7])
+ by smtp.gmail.com with ESMTPSA id
+ b30-20020a50ccde000000b004acb890553fsm3801767edj.26.2023.02.13.07.59.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 13 Feb 2023 07:59:38 -0800 (PST)
+Message-ID: <ca637671-9472-fc70-6743-7e1cd990ef18@gmail.com>
+Date: Mon, 13 Feb 2023 16:59:37 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH] drm/amd/amdgpu: fix warining during suspend
+Content-Language: en-US
+To: Jack Xiao <Jack.Xiao@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230213105224.55662-1-Jack.Xiao@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20230213105224.55662-1-Jack.Xiao@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT103:EE_|SA1PR12MB6869:EE_
-X-MS-Office365-Filtering-Correlation-Id: 941d8e85-c232-4d66-9eb4-08db0dda3304
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IdYjAart3rB2KcJS2prEYCJqlNiREhekOYZcig7dXSBRiCoo6QEXK31ibEErioXvsTP5+FMYtnClaHGkWszyIZoAWAxn1PmaDKEZcMq2TR1efG8WEA/NAcHvnX2BfEzbbVu1ED4j/FhJ5bUDdRux3P16/u7zojURo7dmH+Ez5yRSleVy2WbDjHwo1SLQJlVfBah+zCbCcQdDam6hn+rZ3Vo3LuB7UOh1MNgBtfWEr6OsgrUWTugHiPowyJP88StltGweYon2id+PllODDulJCSkAtma/Ky0iAHNyFQYRYdnOuCXrVk2tTTADTjziZ1gjPdZn5cxhrVnlQx8utFi59BqIay4eQblfzMxo9x/BPed43/0vSDpJdX97+Bpo+dJpTTj5VIl2fHbJXuNsWg+vrSjYOwY6vBGhfdCNNBR4Ge7k6yRDZZQ6HxbbuFKaPbpcPTCysY/zpI6aRMpKZKDFkH4B/IXG555CmdxrDYcOqDRrXaaUk86RCN5TMqszEOQVplPMpvzWll34xyGW1z5w1GOg8zsbC+yGRi2vDy1rkVS2J7K6vXsHkBkqozt41lA/Cdb7OPCO7wv6AbxHDyjXBgj7IPc3zdbDHWZRQqlbaDe+zhzzvDlwQtBVAQcRzhhetLYlUQ2uWOmFJ2qBEBn3nyinSBD7EFcOYQ6nQDTAI/wsLlplvVFrosNUDRe7KGfX0mi61IDUP3MuSAjrO2z0US7ThmQt0f+N3UNIXpdbOQ0eSrw1IFGyk0/QegQ7HGgBarjfq5kRLyGC5E+eieNSjqvWXBaaYd/yjwhecZuWBa8=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(376002)(136003)(346002)(39860400002)(396003)(451199018)(36840700001)(40470700004)(46966006)(26005)(54906003)(16526019)(1076003)(186003)(478600001)(8936002)(6666004)(41300700001)(2906002)(2876002)(5660300002)(316002)(70586007)(8676002)(70206006)(82740400003)(82310400005)(81166007)(4326008)(36756003)(40480700001)(86362001)(47076005)(40460700003)(6916009)(426003)(2616005)(356005)(336012)(36860700001)(83380400001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Feb 2023 15:51:41.1623 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 941d8e85-c232-4d66-9eb4-08db0dda3304
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT103.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6869
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,47 +74,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo.Siqueira@amd.com,
- stable@vger.kernel.org, hamza.mahfooz@amd.com,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>, harry.wentland@amd.com
+Cc: jfalempe@redhat.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Leo Li <sunpeng.li@amd.com>
+Am 13.02.23 um 11:52 schrieb Jack Xiao:
+> Freeing memory was warned during suspend.
+> Move the self test out of suspend.
+>
+> Link: https://bugzilla.redhat.com/show_bug.cgi?id=2151825
+> Cc: jfalempe@redhat.com
+> Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
 
-[Why]
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-drm_atomic_normalize_zpos() can return an error code when there's
-modeset lock contention. This was being ignored.
-
-[How]
-
-Bail out of atomic check if normalize_zpos() returns an error.
-
-Fixes: b261509952bc ("drm/amd/display: Fix double cursor on non-video RGB MPO")
-Signed-off-by: Leo Li <sunpeng.li@amd.com>
-Tested-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index c10982f841f98..cb2a57503000d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -9889,7 +9889,11 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
- 	 * `dcn10_can_pipe_disable_cursor`). By now, all modified planes are in
- 	 * atomic state, so call drm helper to normalize zpos.
- 	 */
--	drm_atomic_normalize_zpos(dev, state);
-+	ret = drm_atomic_normalize_zpos(dev, state);
-+	if (ret) {
-+		drm_dbg(dev, "drm_atomic_normalize_zpos() failed\n");
-+		goto fail;
-+	}
- 
- 	/* Remove exiting planes if they are modified */
- 	for_each_oldnew_plane_in_state_reverse(state, plane, old_plane_state, new_plane_state, i) {
--- 
-2.39.1
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
+>   drivers/gpu/drm/amd/amdgpu/mes_v11_0.c     | 2 +-
+>   2 files changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index a10b627c8357..3842e7e62eda 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -4270,6 +4270,9 @@ int amdgpu_device_resume(struct drm_device *dev, bool fbcon)
+>   	}
+>   	adev->in_suspend = false;
+>   
+> +	if (adev->enable_mes)
+> +		amdgpu_mes_self_test(adev);
+> +
+>   	if (amdgpu_acpi_smart_shift_update(dev, AMDGPU_SS_DEV_D0))
+>   		DRM_WARN("smart shift update failed\n");
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> index 62cdd2113135..5826eac270d7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> @@ -1284,7 +1284,7 @@ static int mes_v11_0_late_init(void *handle)
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+>   
+>   	/* it's only intended for use in mes_self_test case, not for s0ix and reset */
+> -	if (!amdgpu_in_reset(adev) && !adev->in_s0ix &&
+> +	if (!amdgpu_in_reset(adev) && !adev->in_s0ix && !adev->in_suspend &&
+>   	    (adev->ip_versions[GC_HWIP][0] != IP_VERSION(11, 0, 3)))
+>   		amdgpu_mes_self_test(adev);
+>   
 
