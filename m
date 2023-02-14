@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E016FC05027
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 16:15:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A6CAC61DA4
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 16:15:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D20110E90D;
-	Tue, 14 Feb 2023 16:15:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02EEC10E91A;
+	Tue, 14 Feb 2023 16:15:51 +0000 (UTC)
 Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2051.outbound.protection.outlook.com [40.107.212.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DD4B10E90D
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 16:15:47 +0000 (UTC)
+ (mail-bn1nam02on2048.outbound.protection.outlook.com [40.107.212.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE53110E91A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 16:15:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EqBEqjYOVCySUsNodkd7nH5gdtXj1d6LCyzIwup7AJYwa4Jv9RtrItuWqYA9qL92ojl+kGmiO9f/Cn9HMFy+ohTiJzPelaIVpuWaoC0gW3eFQhrzAaeAuPS8cm+r5Z6w2OXibYh3Jrt0hCfJgGoXqSW7N4OZO9uwCimXeNOjEOR91/Y2xinmGNK2jRcxmNPZshriqYFL9Oog8cP/ePm56KKycLe/X/IN65cGFEW7ysJVG49et78FeqffY4Pp5ODdWO5uteL+q/vzkK9Mn1wHnIf8mEuDMSZOunprMIyHQB86KHhrGiRU73fZrXyPqMf7HEiJNahKdBZPl6XOgPpBrw==
+ b=Woxwb1RTHbLubY10QpwqEcjitOsleUjn3faV9t4RV6+x6UiSQlnk+AP0Us/BS3KOF7VpWNQUaqL/M1BYP36Df8btzPcGUDer7egzdcy9A0GtKTjVfLUSKePcHJnlonkRAfOxz0w3Y5Qq3MRSn/GORcdWIPt4yZb/c+HVcMao5AuNEokz2b7OfCDOaX5Kvy9obQqYM7Aqyt0ioO6ypYHTKa6rL9pe0AlPDAqftloujMld9+4PatmGLFFObHXXiCNBVKY4yrtJoQBw/ikIbA6TMAAga0xPsVB51eLKOH/l1I6PepBrVT4FkbUJWcT1OHACF00qdAmJQueTOEx2JgwKSA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dYcG4bkQoGV8Ho/oZKDpw/woA8IA2LzA2Z0egCPeyXw=;
- b=c6ZcL6rpF/JwQA6bqWMrtgDOzlTNnui0UeWZunuKMPai45V4go+m07yPh9DbYmjQMcv+jagOYXEIaV1MIH423j1Scy1mGT9Cq2OktIkVWzr3a2464mJ1LGjLf7G7y0F2czwbgSg8GGGPAE6EJj7ndkIZmV9Qmll0qiwN5eCufOrH6ZjMKbIbB0XRXbIDvq6WsbezbKGBw+c7crJrP82ImUZCZSj1SQTPURFHrECDJS/qW7Q43AdQCX3nVi2ChzUSY5DV9pyPlNvoLoBYL9ZF5/t37Npei2389o2PcQVgB8PgayhErlNZYdV46WPed+OQvFL2NhJtTK+l+o1Um1rCdw==
+ bh=rUGRnQJH/bGkZ8LlnlYikQzI2j8DqwORGbZZxaYoq0U=;
+ b=eIMg5ou6+JHTOh7Af5roSLnzAd5QQxAfyHNgbQy0ZNQuM62ZaGsWW6ND0E5UiYLoogNppjcFzswc0n+c0UYc62FS5irznmHyAN8eVRfPgzUr9BFchVn/7Gl8oIUn1lt6s7QJXGNqH15RX4iDpy/U9drB1hpM9/5ZOqEx4EBAQ+31892z3T7/5E4+7Ltx780zFlBZwazvARHsCZQH4RbP7choqYsnyu832c+w9RRdbmOlyETZGuoq9vZ5akt0ZXWNsxGQ+UjYH39b1C009VnVW33stc70jUdNQULlO6RTRyyUw5C1laNmLBjva4RG19YaKqmgilACCKYYsPPjS6gZGA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dYcG4bkQoGV8Ho/oZKDpw/woA8IA2LzA2Z0egCPeyXw=;
- b=qgo6tkM2yHj0dTgwqu5aZTAzYDxYvOM2vIUq+oLKgyJ0uzOdiDS5nHlYjKNplPQFJWiQ7D8s6ov0pF5ixIvB+o2CNAfF65t1SxBoWdPRMXttemwuxMtADXpL1eF4+MjjgJKN5hSbl93NkOVdLZyZxfn/KAdxwO23XXataNecFdo=
-Received: from MW4P223CA0017.NAMP223.PROD.OUTLOOK.COM (2603:10b6:303:80::22)
- by SN7PR12MB6929.namprd12.prod.outlook.com (2603:10b6:806:263::11) with
+ bh=rUGRnQJH/bGkZ8LlnlYikQzI2j8DqwORGbZZxaYoq0U=;
+ b=aT4x+lLNyecPs2FXWGDE7l+ov3fs1Cy7xCALKGTFOqJWgYx1EGNfVijN6sbf2zjvLcKD7bqj2FTkbcY/Cy8LVBKPN+fixjIs8OaqIU8EGVFf0JlwGSDG4p69BunB8g293VerDMqTkWl6BOpR2b6dIvKVX9ewnLgcQDYrMJMd2uU=
+Received: from MW4PR03CA0302.namprd03.prod.outlook.com (2603:10b6:303:dd::7)
+ by MN2PR12MB4374.namprd12.prod.outlook.com (2603:10b6:208:266::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.26; Tue, 14 Feb
- 2023 16:15:45 +0000
-Received: from CO1NAM11FT114.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:80:cafe::f5) by MW4P223CA0017.outlook.office365.com
- (2603:10b6:303:80::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.26 via Frontend
- Transport; Tue, 14 Feb 2023 16:15:44 +0000
+ 2023 16:15:46 +0000
+Received: from CO1NAM11FT115.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:dd:cafe::eb) by MW4PR03CA0302.outlook.office365.com
+ (2603:10b6:303:dd::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.24 via Frontend
+ Transport; Tue, 14 Feb 2023 16:15:46 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT114.mail.protection.outlook.com (10.13.174.103) with Microsoft SMTP
+ CO1NAM11FT115.mail.protection.outlook.com (10.13.174.211) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6086.24 via Frontend Transport; Tue, 14 Feb 2023 16:15:44 +0000
+ 15.20.6086.26 via Frontend Transport; Tue, 14 Feb 2023 16:15:46 +0000
 Received: from MUN-L-SHSHARMA.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 14 Feb
- 2023 10:15:42 -0600
+ 2023 10:15:44 -0600
 From: Shashank Sharma <shashank.sharma@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2 0/8] Re-design doorbell framework for usermode queues
-Date: Tue, 14 Feb 2023 17:15:02 +0100
-Message-ID: <20230214161510.2153-1-shashank.sharma@amd.com>
+Subject: [PATCH v2 1/8] drm/amdgpu: add UAPI for allocating doorbell memory
+Date: Tue, 14 Feb 2023 17:15:03 +0100
+Message-ID: <20230214161510.2153-2-shashank.sharma@amd.com>
 X-Mailer: git-send-email 2.38.0.windows.1
+In-Reply-To: <20230214161510.2153-1-shashank.sharma@amd.com>
+References: <20230214161510.2153-1-shashank.sharma@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT114:EE_|SN7PR12MB6929:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6f44e0e4-a421-42c3-65e4-08db0ea6b9d7
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT115:EE_|MN2PR12MB4374:EE_
+X-MS-Office365-Filtering-Correlation-Id: 80d2bc7e-1acc-4b5f-55c3-08db0ea6bab5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: twGlpXkbzsOT3aU8eyHY7DNNWQ5eKED9lrCL3baoF7E6Chg4rejQE/98IrzDJKewLiSDRRKz7uQvYzbAh0CZd4PBmY/CknfcqEsCSE4YdDTu8+HDQqWQkozyCaVvIVbyy5AbaQ0In6VPLQ3f6yY8h+XszXxTxtMbI25YvdNuMbecZeojr0OfABvtIfVH1AuQY4vOjDTIVh9hTpblaD83vwFiRnUv6EXL/nXhHobY937SnLlI2nbz4y/JDHMqqV5RGYUzFffi52qfry6Hh7WOSzuXHQ1c/hMKI2uC+HmVlkIjUWUVtxiMQ6opPPgPvWG/41FHPjw3lcFakUf7nE5ZYIOy7y83gObOfPneHWfOZC5Xv9blvqLrm2K0FDbWdvdId6X4dkTebASkdhjyqRmooiEvqxKCBiP5fPy0+4sgXIvSQ+O+mvWrTv9Q5u9SLmBmIZbov7GMmJQsdm9bvTaZeQyy/7GcBbA3r7S3iTW7EnUpnNTvNEcAFwE6bzfeL/L+kjnfLMuYn/5j6D6QFygCTaVRqLseIZsIlqMZG2zQrBKwXFgU5oCJuAaaJT+RwSTtph+/F3fo4zWSVGnZ5jD4CGxitjbrhNyvFj5hgGwqVCWv3cKKXfDZckYo2lgGGtTgFvqvwnmXj561lyFFsu5xwi+69n9yVDoJcoEtpf6rjIkf5CTzUQixvbTGCfvAnFUd
+X-Microsoft-Antispam-Message-Info: 3kDIhwOdxk+60bMH2nEXFSd5UEtLC8T1DP52yovgcjBtGqjKr7WDFYbuG250L1Ntur69zvmwhVtmnJCibp8ruxQlnqdPq+UrfGXkrJPiF+5p3SUU+RGuEa7puDe9I7G/aOvVxaBeOFfO/i/Ph5+Jg+olW+dEMRQRxhqwPR9n0jkVbR1+VJw+aeSaIbYyJP47fQmBFg7Kb5bZ7av/D6QyVA28gHGfj7eNm8XU1Y5jtaVs01ztL8I+0cfN0fPEf11mTc+ajsS8e8QKqgFNMbr+l68YtFeH9sqf9N2n/dqFUAkEN8fpt3I7tuoCEu2Kzpj9vjuwbzyVzFr4NevRAjGH6Xyc73SdilrHts/sBD28n24/G0OgJcacwynuSLytRduCPL2SltlA1y1FL/9zx9HDISR6GWeEgKZ+sWEmL2XNnuIjPYILzVA5zz3YYkWgwpE8eestI8Q0IVeQKXph8rplcx8ykJ3/kkjNkUALW4kxiYXKiHloF3sC0M6oEKxceUwuTD+t+gL7AILvh0KEDhr9dJ7uuCZRrb2ezHT1YrymZuRE3UaiSD1kdMYRQ6IzyK9qq/Ria2mXExkM5DT/iAQX8D8rbq6gRLgtZYAA3FS92aXEW6XHlX+Io94gI1KSN+ImdFyhNRrleh1DbZ/zxuwBe69dqPydHn/d3eP8l1wiQLuIFhSRTAdPmHPRafNMzqOnZa/iSVr0KngU1zw8byTTrzWxbeOxkG6v/d5RL7Y0vkQ=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(136003)(376002)(39860400002)(346002)(451199018)(36840700001)(40470700004)(46966006)(83380400001)(54906003)(36756003)(86362001)(82310400005)(186003)(26005)(1076003)(426003)(47076005)(7696005)(40480700001)(40460700003)(16526019)(2906002)(70586007)(44832011)(70206006)(4326008)(8936002)(36860700001)(8676002)(6916009)(41300700001)(2616005)(966005)(478600001)(336012)(5660300002)(6666004)(81166007)(82740400003)(356005)(316002)(36900700001);
+ SFS:(13230025)(4636009)(346002)(39860400002)(376002)(396003)(136003)(451199018)(40470700004)(46966006)(36840700001)(1076003)(186003)(5660300002)(26005)(44832011)(41300700001)(16526019)(6666004)(81166007)(40480700001)(356005)(86362001)(82310400005)(82740400003)(36860700001)(36756003)(8936002)(2906002)(83380400001)(426003)(40460700003)(2616005)(47076005)(336012)(316002)(54906003)(7696005)(478600001)(4326008)(6916009)(8676002)(70206006)(70586007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2023 16:15:44.6599 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6f44e0e4-a421-42c3-65e4-08db0ea6b9d7
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2023 16:15:46.1300 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 80d2bc7e-1acc-4b5f-55c3-08db0ea6bab5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT114.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT115.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6929
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4374
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,73 +99,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com,
- Shashank Sharma <contactshashanksharma@gmail.com>, christian.koenig@amd.com,
- Arvind.Yadav@amd.com, shashank.sharma@amd.com
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Arvind.Yadav@amd.com,
+ shashank.sharma@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Shashank Sharma <contactshashanksharma@gmail.com>
+From: Alex Deucher <alexander.deucher@amd.com>
 
-This patch series re-designs the current doorbell handling of the AMDGPU
-driver and prepares it for Usermode queues. The fundamental changes are:
+This patch adds flags for a new gem domain AMDGPU_GEM_DOMAIN_DOORBELL
+in the UAPI layer.
 
-- Introduce and accommodate a new GEM domain for doorbells.
-- Prepare the AMDGPU ttm backend for handling doorbell memory.
-- Create a doorbell BO for kernel-level doorbell opertations.
-- Rename, move and re-arrange some existing structures.
+V2: Drop 'memory' from description (Christian)
 
-The idea is that a usermode app can directly allocate a page from
-the doorbell bar and use it's offsets for different usermode queues.
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian Koenig <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ include/uapi/drm/amdgpu_drm.h | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-Corresponding libdrm changes (just addition of this new flag):
-https://gitlab.freedesktop.org/mesa/drm/-/merge_requests/286
-
-Alex Deucher (6):
-  drm/amdgpu: add UAPI for allocating doorbell memory
-  drm/amdgpu: replace aper_base_kaddr with vram_aper_base_kaddr
-  drm/amdgpu: rename gmc.aper_base/size
-  drm/amdgpu: rename doorbell variables
-  drm/amdgpu: accommodate DOMAIN/PL_DOORBELL
-  drm/amdgpu: get doorbell memory
-
-Shashank Sharma (2):
-  drm/amdgpu: create doorbell kernel object
-  drm/amdgpu: start using kernel doorbell bo
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c   | 13 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c   | 67 +++++++++-----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h |  6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c   |  4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c      |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h      |  4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c      |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c   | 32 +++++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.h   |  3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      | 51 ++++++++++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h      | 11 +++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c       | 15 +++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h       |  3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c |  2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c        |  2 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c       | 10 +--
- drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c       | 10 +--
- drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c        |  6 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c        | 12 ++--
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c        | 10 +--
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c        | 10 +--
- drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c       |  4 +-
- drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c       |  4 +-
- drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c       |  4 +-
- drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c       |  4 +-
- drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c       |  4 +-
- drivers/gpu/drm/amd/amdgpu/nbio_v7_7.c       |  4 +-
- drivers/gpu/drm/amd/amdgpu/psp_v11_0.c       | 10 +--
- drivers/gpu/drm/amd/amdgpu/psp_v13_0.c       | 10 +--
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c     |  4 +-
- include/uapi/drm/amdgpu_drm.h                |  7 +-
- 31 files changed, 193 insertions(+), 137 deletions(-)
-
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 4038abe8505a..cc5d551abda5 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -94,6 +94,9 @@ extern "C" {
+  *
+  * %AMDGPU_GEM_DOMAIN_OA	Ordered append, used by 3D or Compute engines
+  * for appending data.
++ *
++ * %AMDGPU_GEM_DOMAIN_DOORBELL	Doorbell. It is an MMIO region for
++ * signalling user mode queues.
+  */
+ #define AMDGPU_GEM_DOMAIN_CPU		0x1
+ #define AMDGPU_GEM_DOMAIN_GTT		0x2
+@@ -101,12 +104,14 @@ extern "C" {
+ #define AMDGPU_GEM_DOMAIN_GDS		0x8
+ #define AMDGPU_GEM_DOMAIN_GWS		0x10
+ #define AMDGPU_GEM_DOMAIN_OA		0x20
++#define AMDGPU_GEM_DOMAIN_DOORBELL	0x40
+ #define AMDGPU_GEM_DOMAIN_MASK		(AMDGPU_GEM_DOMAIN_CPU | \
+ 					 AMDGPU_GEM_DOMAIN_GTT | \
+ 					 AMDGPU_GEM_DOMAIN_VRAM | \
+ 					 AMDGPU_GEM_DOMAIN_GDS | \
+ 					 AMDGPU_GEM_DOMAIN_GWS | \
+-					 AMDGPU_GEM_DOMAIN_OA)
++					 AMDGPU_GEM_DOMAIN_OA | \
++					 AMDGPU_GEM_DOMAIN_DOORBELL)
+ 
+ /* Flag that CPU access will be required for the case of VRAM domain */
+ #define AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED	(1 << 0)
 -- 
 2.34.1
 
