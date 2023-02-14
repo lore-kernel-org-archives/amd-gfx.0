@@ -4,55 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FBBDC05027
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 17:39:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A816AC61DA4
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 17:39:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9210010E0ED;
-	Tue, 14 Feb 2023 17:39:39 +0000 (UTC)
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BAD310E0ED;
- Tue, 14 Feb 2023 17:39:37 +0000 (UTC)
-Received: by mail-oi1-x231.google.com with SMTP id bx13so13573426oib.13;
- Tue, 14 Feb 2023 09:39:37 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3381410E248;
+	Tue, 14 Feb 2023 17:39:55 +0000 (UTC)
+Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
+ [IPv6:2001:4860:4864:20::2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BC6710E238
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 17:39:54 +0000 (UTC)
+Received: by mail-oa1-x2e.google.com with SMTP id
+ 586e51a60fabf-16e2c22c3baso3437626fac.8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 09:39:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=ZFFMcODzFR4+yM9tm6tOX9VuK4ZVp3Utj5wx4NaZaMk=;
- b=gw44pMMxp5ODEfpnpMhTBLzOxZtOLSvvGmUBADdGBmV6tRdYzHqjzcsZdbPGS/87Hk
- NDB0KKheYwF5xNDenpMuw2mER6AEu7keGMgJEWto2C19I30AJ+eLsoRQqRL2iaC/91rL
- kxmOY0CR7ORBNhi/kuan6+7WtJXMAVcS/zH5QypHSDMTdAHP+aUkUwnsCBszkaStOlwW
- 5yfUDIuhrneQkHGsLxiiI308Vwi6xiVfb7l5fMeaPVFZVaoKdIyOcB6RQbP4XOc4MxJe
- RRoPRg5EwZFjN25Zs055SbA/fJAHgfAPPd+duu04W3KxhFKo9bY8XACY+3B3IDQdvoSS
- YbWQ==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=5TF520PpzqGkBQLmYWM01onQmUaA7umrS/wgQXd5TH4=;
+ b=OOF9uh2wbRZdUTFZRbB3y9g8vBhoEeMrENhf5vNveaudTFO94bS3hGN6dwjph7TJ7N
+ mnJ56b7w+Kbjz/MFaXBZJKQG2gcUNwsj75yNve3OCiKUJ83FbQ8kEVSe3Re7Xzm+BBlj
+ zBdlWnDWH+cRPowNqpOqURnX+scoLwt/jbZLGibeLQMx7Iuqg47JiOFtNaRdE3ihQPyE
+ PooGSxnYwKsA8mAkx+xxZJdo5AH25xbLfYnsS5uWdm9bk6MtpH2hVnXrJpccjGyX2AyW
+ MlJ9aLR3EBOhdVrAg2N1787NqXJ2Z41DkdbXTWYi+9ljTdjMtCd4gHmVK1lAThCm+F0J
+ 3zmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ZFFMcODzFR4+yM9tm6tOX9VuK4ZVp3Utj5wx4NaZaMk=;
- b=P6bK3+Pa4JLMX3EvIk2FanBmHxSCZI4yFmHh3FWPaGc4cQHhYYNzDAxVH6VEZD0Ya4
- Sqp1igkIHXII41wBPuwR/gBTTJd8ZeYr/RJype6hEGaBYDakvrUFi3GBuSUsb5GT/tVF
- 0DS52ABoTPPgiHMyaiTUzzrd0HXLe6zxCclZMh52yG8JaPhdn+OnMA71XxS6bqwXjS0G
- 3rD0O462AKrXZ/ayulyVKck2CXS/gdUiIMfUXL26cmrEHzx9nvP2/tUayd1l8ki1/2Nb
- eH/4x+m33Ql/4kiiUzmU3cfD0ygWtwVS2q6YwgU9tArmaYR4mLbet2c2+N9AFx8TAFkr
- 3NJQ==
-X-Gm-Message-State: AO0yUKXn0Umlb72oqkc3eZq+HD5uXsAE13lHzxBDpBdQC4xWr2Ryjvaw
- 0+7KVB8vaEk8aHHABKOAMxUMrsxzC0NFFNzmA2Q=
-X-Google-Smtp-Source: AK7set8/rNX6eScQImS8fwmDlfo6Tfrkdl4BoyhCpYhTswk4X3g0BwPsoY9iZXQUreI88xhvgFBNiFcRbTCC7dMrqFc=
-X-Received: by 2002:a05:6808:a10:b0:35b:d93f:cbc4 with SMTP id
- n16-20020a0568080a1000b0035bd93fcbc4mr23447oij.96.1676396376636; Tue, 14 Feb
- 2023 09:39:36 -0800 (PST)
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=5TF520PpzqGkBQLmYWM01onQmUaA7umrS/wgQXd5TH4=;
+ b=1KGmtzCTdwOpM4V4Be35kakbWXoxhxvC34N1Xt7/mP1PeuowTDFZA+F3MbWdVsllnN
+ ECBs9M6vWSGGKEVs7K+rzxV7FrSgmeSShrixw1j0ZEPRLEOCtILXacPqIon9kMnccaAz
+ +Y3flqGP5GDYVFQHFfKFooeUg+WwYcvW9ZnRZZR08Y71t2CQEJ6gV3mhez+hNmE/5aGq
+ pISvwt17ojgaTHq8ArcVvF/iQ4r/2D0x8g5BELqzbt3/NtGQNAZcDB1fWqJIGKtkgElc
+ h84z5S3e7g+0xhzncyRl7TeFv6dDl5Ns17fMEbKeiHMTod46Q686BR11olOMBRxhn08W
+ YlvQ==
+X-Gm-Message-State: AO0yUKUwvWgxW+rfEDbLfE7LNqgTuGIT8HBeAxZ3Hpkt3Trtflw1zQMN
+ Stfjt5gBrLknnYcn5a9epZ+eQTesB1+CGWOv88sqMOm+
+X-Google-Smtp-Source: AK7set8ffUbjrQ5jpXt76RYC8HoeyKn8UDSHEUccjBdbOOY4YpyfswTEwj8hkdQ3afxizySh9bKZKx0Ppxfk57Zm8wA=
+X-Received: by 2002:a05:6870:c154:b0:16e:2d40:daf5 with SMTP id
+ g20-20020a056870c15400b0016e2d40daf5mr40346oad.96.1676396393353; Tue, 14 Feb
+ 2023 09:39:53 -0800 (PST)
 MIME-Version: 1.0
-References: <20230213204923.111948-1-arthurgrillo@riseup.net>
- <20230213204923.111948-2-arthurgrillo@riseup.net>
-In-Reply-To: <20230213204923.111948-2-arthurgrillo@riseup.net>
+References: <20230214121406.97750-1-mwen@igalia.com>
+ <75defc22-3b18-262e-5917-c42ab8ee3c28@gmail.com>
+In-Reply-To: <75defc22-3b18-262e-5917-c42ab8ee3c28@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 14 Feb 2023 12:39:25 -0500
-Message-ID: <CADnq5_MNyA9HF-YKUqRO8W9GFJh8KFWt0v=TGA1T++93PMcE1Q@mail.gmail.com>
-Subject: Re: [PATCH 01/10] drm/amd/display: Turn global functions into static
-To: Arthur Grillo <arthurgrillo@riseup.net>
+Date: Tue, 14 Feb 2023 12:39:42 -0500
+Message-ID: <CADnq5_MqkGL1+cu7WjF7fGqY0b7RKLr3bJ08gTEHiJwPs_-oZw@mail.gmail.com>
+Subject: Re: [PATCH 0/6] Trivial code cleanup around color resources
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,56 +67,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, tales.aparecida@gmail.com, Xinhui.Pan@amd.com,
- Rodrigo.Siqueira@amd.com, dri-devel@lists.freedesktop.org,
- mairacanal@riseup.net, amd-gfx@lists.freedesktop.org, daniel@ffwll.ch,
- alexander.deucher@amd.com, airlied@gmail.com, andrealmeid@riseup.net,
- harry.wentland@amd.com, christian.koenig@amd.com
+Cc: sunpeng.li@amd.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
+ amd-gfx@lists.freedesktop.org, Melissa Wen <mwen@igalia.com>,
+ kernel-dev@igalia.com, alexander.deucher@amd.com, harry.wentland@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Feb 13, 2023 at 3:49 PM Arthur Grillo <arthurgrillo@riseup.net> wrote:
->
-> Turn global functions that are only used locally into static ones. This
-> reduces the number of -Wmissing-prototypes warnings.
->
-> Signed-off-by: Arthur Grillo <arthurgrillo@riseup.net>
-
-The first hunk was already fixed, but I applied the second hunk.
+Applied.  Thanks!
 
 Alex
 
-> ---
->  drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c | 2 +-
->  drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
+On Tue, Feb 14, 2023 at 7:48 AM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-> index 8c368bcc8e7e..a737782b2840 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-> @@ -87,7 +87,7 @@ static int dcn315_get_active_display_cnt_wa(
->         return display_count;
->  }
+> Am 14.02.23 um 13:14 schrieb Melissa Wen:
+> > Hi,
+> >
+> > Sorry for the noise, but while I've been working on wiring 3D LUT
+> > support to AMD display driver [1] I found some annoying code style
+> > issues in the shared-code part. So I'm just sending what I've been
+> > cleaning to better examine the code.
+> >
+> > Most seem trivial, except the last one "remove unused
+> > _calculate_degamma_curve" since this could just be a matter of missing
+> > parts. If so, happy to remove the patch and include a comment describin=
+g
+> > the situation (or the potential usage of it).
 >
-> -bool should_disable_otg(struct pipe_ctx *pipe)
-> +static bool should_disable_otg(struct pipe_ctx *pipe)
->  {
->         bool ret = true;
+> The display stack is not my field of expertise, but those cleanups are
+> so obvious that I think I can safely give my Reviewed-by: Christian
+> K=C3=B6nig <christian.koenig@amd.com> for the entire series.
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c b/drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c
-> index 27dc8c9955f4..3c7cb3dc046b 100644
-> --- a/drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c
-> +++ b/drivers/gpu/drm/amd/display/dc/irq/dcn201/irq_service_dcn201.c
-> @@ -37,7 +37,7 @@
->  #include "soc15_hw_ip.h"
->  #include "ivsrcid/dcn/irqsrcs_dcn_1_0.h"
+> Thanks,
+> Christian.
 >
-> -enum dc_irq_source to_dal_irq_source_dcn201(
-> +static enum dc_irq_source to_dal_irq_source_dcn201(
->                 struct irq_service *irq_service,
->                 uint32_t src_id,
->                 uint32_t ext_id)
-> --
-> 2.39.1
+> >
+> > Thanks,
+> >
+> > Melissa
+> >
+> > [1] https://lore.kernel.org/dri-devel/20230109143846.1966301-1-mwen@iga=
+lia.com/
+> >
+> > Melissa Wen (6):
+> >    drm/amd/display: ident braces in dcn30_acquire_post_bldn_3dlut
+> >      correctly
+> >    drm/amd/display: clean code-style issues in dcn30_set_mpc_shaper_3dl=
+ut
+> >    drm/amd/display: camel case cleanup in color_gamma file
+> >    drm/amd/display: unset initial value for tf since it's never used
+> >    drm/amd/display: remove unused func declaration from resource header=
+s
+> >    drm/amd/display: remove unused _calculate_degamma_curve function
+> >
+> >   .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    |  37 ++---
+> >   .../drm/amd/display/dc/dcn30/dcn30_resource.c |   2 +-
+> >   drivers/gpu/drm/amd/display/dc/inc/resource.h |   4 -
+> >   .../amd/display/modules/color/color_gamma.c   | 140 ++++-------------=
+-
+> >   .../amd/display/modules/color/color_gamma.h   |   3 -
+> >   5 files changed, 48 insertions(+), 138 deletions(-)
+> >
 >
