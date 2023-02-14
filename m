@@ -4,41 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38000C64ED8
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 12:14:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E917FC61DA4
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 12:48:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2411710E8B5;
-	Tue, 14 Feb 2023 12:14:19 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96A6A10E8B1
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 12:14:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=HRjyoFpu7GFAe6CAKmDRcmxaj/ejcuirGwxv1Ez2c/s=; b=B1n2A2q6UyfUwztrpI+0BeRuRV
- TCJWB5u7vVRRck5mv0yTQ0cpUYWvehbSQh9J+g/Ta90ni86Pp05FgCxlkVdSRY5sdWO3o+YFoTg2Y
- QL7AAf6qhb3mhT40UcIPsNcblZkPPffefWWmNDwuRx9zg4uhfI+PWIh+IgHl5lWKwhoPTVcDOYVn5
- m8rfVXLp1quYRqk13qViJZUaBT/ZYE5aicvyjfTs3PRHD4Ah8XwQRRPSiRIr9z+Zj7avP5gejK/DO
- RzjnVQiUq8h3JobFvKl378LZ5TPlUaCTFI2orOHvnbub17H38UQLf7tVZjrfcbzhr0lP2VQtWql0S
- zb4gIyzQ==;
-Received: from [38.44.66.31] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1pRuCJ-0022pF-CT; Tue, 14 Feb 2023 13:14:11 +0100
-From: Melissa Wen <mwen@igalia.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 4/6] drm/amd/display: unset initial value for tf since it's
- never used
-Date: Tue, 14 Feb 2023 11:14:04 -0100
-Message-Id: <20230214121406.97750-5-mwen@igalia.com>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230214121406.97750-1-mwen@igalia.com>
-References: <20230214121406.97750-1-mwen@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DC3F10E0DA;
+	Tue, 14 Feb 2023 12:48:49 +0000 (UTC)
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AF6F10E0DA
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 12:48:47 +0000 (UTC)
+Received: by mail-wr1-x436.google.com with SMTP id by3so14202387wrb.10
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 04:48:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=ynWFsuN10LTcQ5w1SbtSKS8QX5tSJTLF/ql04cbEBCg=;
+ b=ATxWZefcbCaUQbI4t6VU/6ikBR3ZzS6XQklUgBG4sypT1iB65oon1S0usqUEnQvJLD
+ 5MhWnz9biMDou4u8L0vpW6g5w37abyDSfwGprEnw+Gr/pPMpibuwSe95mPfq0e35AKVL
+ hdpvZibRv2y3DMALBzxex7McJubGPsXD5T49KZz27afYn8/uPQQdD1PdlEuritzCFREp
+ covFua6g70uYcTrzMkPbSX3B9zfY9T4FTzX9EAf5IdZAfGVgYwYthlfD3cwZbf9MoavX
+ ljzAtWDl7nvAPuST57XyCSbWyujpxxaMtOT+XL91HZzHDzJdNL2R8rcakw5fhjTPmR+o
+ nPFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ynWFsuN10LTcQ5w1SbtSKS8QX5tSJTLF/ql04cbEBCg=;
+ b=z2l4mljDcEO8HhunNckp6n1LfeFUtbj4agdpayqUPMYxrQNicTPhXGI+QGAnCh+M44
+ F/HTeUc2GFbdRdnKmCdunlKyavLZ+sfoDTiVTod9g3j5qESW4ktkT3plCc12QJqEYv2g
+ VoCuQRUT0u8qVE4HLZQ93OmpxJWvR8ke7eZnj5PZrc/fwkTom9n3vd3bP4oCb8HVgPig
+ z1MXt6MtJgCUwK69+l9RCe/Q7+/VmT1ukASdC/iRiNLyTCa9aK70OBx8HjLUH1cJfCzc
+ KlVUVve0j8uTGsWaqfVOQ17t9lma4SqCrucsLcSaPVrUvKZraz+DcQYfUlEy6cMml7hX
+ wlkA==
+X-Gm-Message-State: AO0yUKUmEdtY5D28MNNPZ0iAtqemZGodCFs5GCewU784S44kCojWgqzt
+ TMryc0Zo0KYWnWHgu6MMEAg=
+X-Google-Smtp-Source: AK7set+6D/xGNyAdgThsHNzjql3Xmot8prZwdj6dTaC1V26CCJSmMpS998Ftwp9AuE7r8ZCbEFHxbA==
+X-Received: by 2002:adf:fe43:0:b0:2c5:4d35:5260 with SMTP id
+ m3-20020adffe43000000b002c54d355260mr1604867wrs.16.1676378926059; 
+ Tue, 14 Feb 2023 04:48:46 -0800 (PST)
+Received: from [192.168.178.21] (p5b0ea2e7.dip0.t-ipconnect.de.
+ [91.14.162.231]) by smtp.gmail.com with ESMTPSA id
+ r3-20020a5d6943000000b002c551ae8cc1sm7883909wrw.67.2023.02.14.04.48.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 14 Feb 2023 04:48:45 -0800 (PST)
+Message-ID: <75defc22-3b18-262e-5917-c42ab8ee3c28@gmail.com>
+Date: Tue, 14 Feb 2023 13:48:44 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH 0/6] Trivial code cleanup around color resources
+Content-Language: en-US
+To: Melissa Wen <mwen@igalia.com>, amd-gfx@lists.freedesktop.org
+References: <20230214121406.97750-1-mwen@igalia.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20230214121406.97750-1-mwen@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,38 +79,47 @@ Cc: sunpeng.li@amd.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In mod_color_calculate_{degamma/regamma}_params(), a tf variable is
-initialized as TRANSFER_FUNCTION_SRGB but tf is only used after tf =
-input->tf, therefore, better to just remove this initial value and avoid
-misleading interpretations.
+Am 14.02.23 um 13:14 schrieb Melissa Wen:
+> Hi,
+>
+> Sorry for the noise, but while I've been working on wiring 3D LUT
+> support to AMD display driver [1] I found some annoying code style
+> issues in the shared-code part. So I'm just sending what I've been
+> cleaning to better examine the code.
+>
+> Most seem trivial, except the last one "remove unused
+> _calculate_degamma_curve" since this could just be a matter of missing
+> parts. If so, happy to remove the patch and include a comment describing
+> the situation (or the potential usage of it).
 
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- drivers/gpu/drm/amd/display/modules/color/color_gamma.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+The display stack is not my field of expertise, but those cleanups are 
+so obvious that I think I can safely give my Reviewed-by: Christian 
+König <christian.koenig@amd.com> for the entire series.
 
-diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-index fdb20dfc70c9..6e606b11286a 100644
---- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-+++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-@@ -1883,7 +1883,7 @@ bool mod_color_calculate_degamma_params(struct dc_color_caps *dc_caps,
- 	struct pwl_float_data_ex *curve = NULL;
- 	struct gamma_pixel *axis_x = NULL;
- 	struct pixel_gamma_point *coeff = NULL;
--	enum dc_transfer_func_predefined tf = TRANSFER_FUNCTION_SRGB;
-+	enum dc_transfer_func_predefined tf;
- 	uint32_t i;
- 	bool ret = false;
- 
-@@ -2125,7 +2125,7 @@ bool mod_color_calculate_regamma_params(struct dc_transfer_func *output_tf,
- 	struct pwl_float_data_ex *rgb_regamma = NULL;
- 	struct gamma_pixel *axis_x = NULL;
- 	struct pixel_gamma_point *coeff = NULL;
--	enum dc_transfer_func_predefined tf = TRANSFER_FUNCTION_SRGB;
-+	enum dc_transfer_func_predefined tf;
- 	bool do_clamping = true;
- 	bool ret = false;
- 
--- 
-2.39.0
+Thanks,
+Christian.
+
+>
+> Thanks,
+>
+> Melissa
+>
+> [1] https://lore.kernel.org/dri-devel/20230109143846.1966301-1-mwen@igalia.com/
+>
+> Melissa Wen (6):
+>    drm/amd/display: ident braces in dcn30_acquire_post_bldn_3dlut
+>      correctly
+>    drm/amd/display: clean code-style issues in dcn30_set_mpc_shaper_3dlut
+>    drm/amd/display: camel case cleanup in color_gamma file
+>    drm/amd/display: unset initial value for tf since it's never used
+>    drm/amd/display: remove unused func declaration from resource headers
+>    drm/amd/display: remove unused _calculate_degamma_curve function
+>
+>   .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    |  37 ++---
+>   .../drm/amd/display/dc/dcn30/dcn30_resource.c |   2 +-
+>   drivers/gpu/drm/amd/display/dc/inc/resource.h |   4 -
+>   .../amd/display/modules/color/color_gamma.c   | 140 ++++--------------
+>   .../amd/display/modules/color/color_gamma.h   |   3 -
+>   5 files changed, 48 insertions(+), 138 deletions(-)
+>
 
