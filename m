@@ -4,116 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68F65C61DA4
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 18:35:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A82C6C61DA4
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 18:40:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 002BF10E266;
-	Tue, 14 Feb 2023 18:35:18 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2083.outbound.protection.outlook.com [40.107.237.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8C6710E266
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 18:35:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 765E410E0F8;
+	Tue, 14 Feb 2023 18:40:52 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2077.outbound.protection.outlook.com [40.107.94.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4553310E260
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 18:40:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KFgocPlCjmrXKI8dElZcgIRHMRl4trdmiPBt+kdP34mIl2+DugKcSI013qhrfrzc1sE7fgkcnuYIIHM/h61E0sQuUaXi5XVI4hB+xM4LQR1ZUzh4FjI/0NcWdm7nNTwzIcyiJeA9HKdx6o91SeyUMV5etTlwqLdbO5lAImIoHsawMJAa3IAC5QIqIfPxjqWHjOJFHem7qP+gErivsCf1NuYLRRDmtdqDP9xCDAA6PjNGeVL5XjYfnNJ+SIruXiW5DIPRFiN3juGpmDXmaZ/z+5gxmPRmgkIZyxEpjen4tD4t29cxAs0QY/dLUdqNWz8BY79LR5bmx2OogNHvp+uB5A==
+ b=Y3//qwpr331P8Qzo5yvheszrLPSFbIOUoyJhx1J9nt7Sox0TpuFzLR45Gq8qD0ZhrsNNjGatahNpn5L1FeZ5LE3I5wxEfSlySLdu57hf87t0fJDxQ5qBty3qbHcFIlsHnlEAnarjBSe48j4PKBVZh8Kd6jF4ItYg3FeGk6+t3x0Ci7w2PrQpHDkzwr7pQfYUlKEuIccjF4k1RXlLaYYAOoCP1w0bK1vuOoSrngE9ppuaunclkfQxQT3ATQhgJBsd+jTzGuG1peZ3ZO+3qRT1UT0GMXfjKez/asU2OF/PoMp3dDLwtfcGxIo92rxxDIWVbAIESl4u1Ov82UzENwNG7g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zBgRO8zcv1y0boigahFkwY1Fz8SUrH0xB2R5+qTXLmg=;
- b=bQXbd/LHJ1h1bJW4GJWfcFjJFF8b08KLiGBfTBfzPB15H6RFk17Vjcm1qXfga0t/6J+DCLgeraZ7VkfL0tqCEwCo9J48D4muHFahMD6Lxi2WhSXxvszPucJHZZ+k3OBxvQqR/w4ZHq3iqZHx4G051No+PMVlmebc/7wUtTa1Pz3vjHXHBWVcZh3b25de3fMd+QqHSSEhBTuPIs0xGCis6c5YmUr196+1msd5EfkafQUj+6nlxoGxjlcZkQS2Nu2Cx4jLnXzKtfARoPFLKy8XM5qdhv7sQuRHRGy3xoDjRw4DDVUygwl57Z/0gcIWqL3at93mcL+aB3JKaR0NCoMYHg==
+ bh=siXyfuF8+9ToAZP1OwcoWNXceL1EeXpyn5rcXi3kaTY=;
+ b=HxjZI+OGYY9yVkIBuO8wVIXxllTW2trFxUOCPr33XIJwrn3U1upoavV11CMIJvPrbCIOc5NLSJvYaW9wfrDUMjwhHTX+5zgIhf1OUycwcN/Fqe7pvN68imb8Cu/jzR+RpIKXaOnDLY+Slfb5mQaPGwttP+/G+RUrV0snzgknph6x3558Woi4CFpMnOKBW46jki+jW4IPNrxDrWIEirwQ79ntChKdTdAVz4OrrCrf/wwleJXgyykgW1CHgUpEecNVvREo2bnJiEMXhHSYEt91IZ2NRZE5gFmeg+3qfB+Mrf/PJzRlfR/xH0fXE7KkMXwNcUfRgFsuSg0gpfwKZBNlmw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zBgRO8zcv1y0boigahFkwY1Fz8SUrH0xB2R5+qTXLmg=;
- b=4wIrqm3XKQUSy10wFef14FgTBJLCryPQMFbMVJX2f+APTtw0HImm8XRWoFgFV7mQrUvb7Py8DSIB8eBGSmE7/fACxZfcKRoSxcXJBw62iiBxW5DJHEMWvSsPWqLxaE1tffQzt3wxBY3th3uLMqSx7pIeUN2bMK6VHnTXqPXU9pw=
+ bh=siXyfuF8+9ToAZP1OwcoWNXceL1EeXpyn5rcXi3kaTY=;
+ b=My5OUtJDduZeIVtveY94FiEmBHTEuqW0eMHIdFLbIPNmmZNrr7ENfsqVRQGdvZDgs4ZiY8vNeUiw6GrXULhWF9fkBsjuQPyTWNUNzjWFC8wIME6kspDgRgGHjprO4ExvlYqUOZ2gKGFilvTrGTJva//A3h4PgaiNgCJITT6terI=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by SA1PR12MB8643.namprd12.prod.outlook.com (2603:10b6:806:387::7)
- with Microsoft SMTP Server (version=TLS1_2,
+ by DM6PR12MB4514.namprd12.prod.outlook.com (2603:10b6:5:2a7::21) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.26; Tue, 14 Feb
- 2023 18:35:15 +0000
+ 2023 18:40:48 +0000
 Received: from BN8PR12MB3587.namprd12.prod.outlook.com
  ([fe80::2e4f:4041:28be:ba7a]) by BN8PR12MB3587.namprd12.prod.outlook.com
  ([fe80::2e4f:4041:28be:ba7a%6]) with mapi id 15.20.6086.026; Tue, 14 Feb 2023
- 18:35:15 +0000
-Message-ID: <4d5dee60-537d-745d-9bc9-1246f50427fe@amd.com>
-Date: Tue, 14 Feb 2023 19:35:09 +0100
+ 18:40:48 +0000
+Message-ID: <d890c9c9-5cc7-365a-df23-f2c16a85bac9@amd.com>
+Date: Tue, 14 Feb 2023 19:40:43 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
-Subject: Re: [PATCH v2 7/8] drm/amdgpu: create doorbell kernel object
+Subject: Re: [PATCH v2 8/8] drm/amdgpu: start using kernel doorbell bo
 Content-Language: en-US
 To: Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20230214161510.2153-1-shashank.sharma@amd.com>
- <20230214161510.2153-8-shashank.sharma@amd.com>
+ <20230214161510.2153-9-shashank.sharma@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230214161510.2153-8-shashank.sharma@amd.com>
+In-Reply-To: <20230214161510.2153-9-shashank.sharma@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0110.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a3::7) To BN8PR12MB3587.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0157.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a2::13) To BN8PR12MB3587.namprd12.prod.outlook.com
  (2603:10b6:408:43::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|SA1PR12MB8643:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba845a05-4729-4313-9de4-08db0eba36c3
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|DM6PR12MB4514:EE_
+X-MS-Office365-Filtering-Correlation-Id: 941e3afa-4202-4b15-5284-08db0ebafd51
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: YoyA8730c1fdxh4xPDodb+/P5ja2fDs/iwC4fP7eM5fgopVhyZwYrEDdxRDmkrtwEv5iMCycdWA0sDtnwFPLia64h12LgRF4wuKHW9fDduBxezz0ryxV5mHIj7lrMS6ger27w9Isuc58u9rNGfO/TlrFRWfFY5eXSeRhwqkqIxvguhv4OUXTH6gD8XFG4O2Ey8BdVcJ4knLuaBzKRBvHJTWti3V4f7BNYzIcKVM/SA6EgTU+O82L2lW2ZOjZxDQNklsVLnVwuijCEsPnHlAJu9ll+ZmTI8v9S8rMUfl0xJQGEC+JGNlc8VikGR4CAV1V9eL36oG/yYz+Z2PC3qzwCaPuxNqHA2O/zNoBetubQ5v7pZvUKFCbBdTzA/M83Uq+kYPlBvO/WRuCNy9jb7yuZ+LHS/0pFYl8tl7Rb9RaN4386500n993MWHRY7kNw6C0aJ/tgTpKkha6Npd4ZsG6c5eNnBqdxsZc8BAxAmNHg6q4qM0f65Ap98AFo6RFCi+cyL+io3WMlFr5nOwFB5/OWUeW2Szybrnm1QOvG+M4Mp+8cru72D+/zgDjYixL79ls4Fg5LJK3YwpVc7i/4jkwBNxLU/Pwzg4OV7NjdYVJG/lh6qrN1qil2BsvTkJjpIyidAKzT5jbPtNrDM7LPWqn3oO449YIs0k7F3KguJrY6lS4LqRyO27jfiCBvV2Fhwhr5hkOeFLGjfJw0OfPvh5rpP02+D1sKwxOA9gkUF5T5Ww=
+X-Microsoft-Antispam-Message-Info: UKfAwU26zpqqKgj+V4ttSR45zskqSkSEPtw1GKeUDxbQgclad0DAsH3YqZBBSeF/qPWf+LC8H548cmPJF2r4iql6v8u9Sdfvqca4L01IEGz13Ptudl9EODdk2hnfafTCRrmulZwp5H3yS3lrNBDgmSX7auvBbXbYomdiWni12nPsvDsDWf67t/zZoIRsLRg0okQ3XUgHBA5narlhvuMKvbM/QU/VcZuhRQCQWh8XbqHZFPco0VGRa4DOVAnwErmtnX2cFTkGuv7WZthwEzsP7lePPH5L40iwOWPk2SNkFqW8dlSQk2EjTW2iIp9IkkD3/8HiJanEYYd+WLVcYg0e6cXb4TX26uCgEA1tLizW4WL0/tHWtdBMTnHH3rDyJSJA93l8XxpMZlj2R2fg9shWWVGhoUfidyBohcCbfHQrGwJR8cN9nvKBarPgrM34PhFApkn8wXnJycRyYwVfmbexnP+fjBTS4sjGSvtoKKpdPOZHnECjWtikI2kdqcwjkM1z/wohmk1RFWAaBAgQAXXqTIkDgS/09Vyz0826g3yno1QdM7sgWvGEBrm6hC+TwzqXqXcV81gty1ZiqONKJtOVmVgSGsLjR5aXGOUAH+nCa2C9LYFjXlN10n8BknFI6Sr7fcY40pVOHOIaHmdbdvlhwB2tpzqWwF89tKQ7T0Kvcy3QBFvy/b1T2NKbEJJjcmmzOyGn9I/4CN99UX7YNGXiNr9gGfdrvAqOmdQZDOpLqU8=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(376002)(346002)(396003)(136003)(366004)(39860400002)(451199018)(31686004)(4326008)(66476007)(66946007)(66556008)(8676002)(5660300002)(8936002)(41300700001)(38100700002)(6666004)(36756003)(2616005)(6512007)(186003)(6506007)(478600001)(6486002)(86362001)(31696002)(83380400001)(316002)(2906002)(43740500002)(45980500001);
+ SFS:(13230025)(4636009)(366004)(396003)(136003)(346002)(39860400002)(376002)(451199018)(6506007)(6666004)(6486002)(83380400001)(6512007)(478600001)(2616005)(31686004)(316002)(4326008)(8676002)(38100700002)(41300700001)(8936002)(66556008)(66476007)(5660300002)(66946007)(2906002)(36756003)(31696002)(186003)(86362001)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ajRadjhZblVvMndxZ2ZnMUFpSkNXVCtqeU5QVmNGTTRMZk84aUU3TmJHazBZ?=
- =?utf-8?B?dFhuQzdGRlMyT2daNnREakxIdWtYcGh6RmZhWGRGQzBNVHd6d0Y4L2hPWE1t?=
- =?utf-8?B?RnI2UzNEbk1kVXlLc2tvQjBpN2xYOWRjbVdIdGlkNVd3VjFTbVoyUG9SUmlI?=
- =?utf-8?B?Z2ovRmdLN3k2OTFoTFgxQUp5ZC9JWVd1RFdRd3IzNWpqTTI2Z0JMTDhLbzFs?=
- =?utf-8?B?SHNwOG5HNkdyUlFaMnNwb2JNVDEzOXB0YitialFOd2VYSk5nZXVCVjJadEdk?=
- =?utf-8?B?ZEFYZEtKMjAxN1Z4TTl2czAvOVV4eHowc09lWFhsaTdNNG5tdGdBUk1MbnVq?=
- =?utf-8?B?bzlkL0hsTGxPN0dUb25LVTQ3SGtaREtyWjhqM05VVmZzZElZQ3lMZlhva1BP?=
- =?utf-8?B?REtGQ1VqVkFIUGM4TnZib3pKYzJFek4zUG9kaGlmcnVVbU9sWFR0WTgxWnFh?=
- =?utf-8?B?UU5ZdkJJMG9BRE96Wk4vR0Nya1dCNnc2N3gzZUMvQnhOb3ZEOWNiZHlycmV1?=
- =?utf-8?B?THA3clh0a0hKYUVGazgzTGdERzlaK3B4bGFYYWJ2WWUwZ09wMVRlbkpXNGk5?=
- =?utf-8?B?R2hxc3FXUWJDTEo4QkUzODdUQlh4NXh1VWxqSHFpZnhIbnE0RmExdHBPUEdS?=
- =?utf-8?B?bGR1VzBTUDliVGtiazJNMWNmMVQ4OVVGTmpZNW9XdWpTQkVMYUtVUGZCbERi?=
- =?utf-8?B?Nys5bG1Gc0Zqd1BPQ3R3RkMyTytnUy9mbmZBN0xWeURPQUZ1MUtFemlWUGNn?=
- =?utf-8?B?NFpRZkhnOEIxRjdhWFhPWnVVdnorVElueXNNRWF0RVZVOVgxdDVKeXh2OWor?=
- =?utf-8?B?T0tvekp0R1Yvc01QaktxdU9KRTJtOVB4WDBER3lhQy95S3hDRWtVbHhtRitn?=
- =?utf-8?B?QWRLSTBJbnExS0g3cjB0MERjRU9rajVNOTdxdGp6QW9tKytXYWhXSEEyR01v?=
- =?utf-8?B?VHNhU3BTb0FaVC9wTVVmVTYrTDNNK1ZZNHFwTkdDV2IxcUEwVVNIeFJRUjN6?=
- =?utf-8?B?SjBxUHd6Sy83QVVROUtnTFZaS1VMeWxwVTkrU3o1TUZuMU9jaHNMQmdwUzNy?=
- =?utf-8?B?a01Pb0NyVXhEK1lsa2ZMSGE0cXZSSDg3UHpCY1pFUDVJK0dWYjFnWW1WM0ZL?=
- =?utf-8?B?OHppY1MvZFVRNXNZSFNwbGg3NnJNNVAyU2tVNE56MzRYOEhCc2ExMm9lSTJD?=
- =?utf-8?B?Y0w3VFVPMERlVW52TjhWSDY0cnJKM0N2aE5kRGRDQ0FsME40UVhRNTcrcEJ6?=
- =?utf-8?B?REpwYXRDZzRPRWthYlkyOUhFUHlFb2p4c1kxaTNSNUNkMUIwZm9UQzZjcUFT?=
- =?utf-8?B?YkVVNzZjMDluc0loRzZ3dzl3VmZHMkk2azJ0ZkxHQ01OUkpXVVlqUkgxalZh?=
- =?utf-8?B?clI5UitpTUNqa3poK1E0b1hiVDBkNFpFeVpGQWU1VDlYZzU5UVQyTzM1ejhp?=
- =?utf-8?B?a1hqVStrU1pOV25DN1Q5MndUMHJUOVZIZE1NdzNLVGpiSE9ha3NVRWlSTFgr?=
- =?utf-8?B?UDhpMEdBUVhoa1l1V3VGZW9RYi9ZbzZ5MGtGSzJ1SytaVTZBME5EYmNZNTRx?=
- =?utf-8?B?d2JQbE11ZlZUblV3NTg3cHUzZnlxV1VFbVZtc0NycG9FUHMvZkcwNW8raFMr?=
- =?utf-8?B?Y3JzV3Z6NWVoSFEvaG5LblN5MTdMQjJqUjdCa1ZnRVJaYXBLZExuOXpYaFhp?=
- =?utf-8?B?WFM5cHJXL01JaXFzalNNdkx2UjQwUEE0MVo2bXZVbFdKbWFUOVkrYjdMcHJM?=
- =?utf-8?B?YS85WTgrSjhDeFZITFVTdzA4ZnhMY0xoVFpWUmh3SU1jM3Fnc1dxNDVoZldM?=
- =?utf-8?B?cTg4MVg1NFA2WndKMXN2aTFuZDdtMnlyUjFqN0lxUFdPQkRqV0FPUkJiV1BD?=
- =?utf-8?B?UGNFb0FoaWtKVVVaenZmTkhJV3l1bU1KNUwyaXkyZHd2WXBkRUM1alNnYkpo?=
- =?utf-8?B?cmRYSkZCcjdCVjhWYnhuMWk2VXp6M2NTaGVmOHR5V213VHNDOWxsK1NXZTYz?=
- =?utf-8?B?K2ErMUtnVTRlUUs1QjNFenZrUGJDclNxSCtqR1R3aWxhK2Z1Y2JaeXBTOXdV?=
- =?utf-8?B?TjJXM3paSTRXT1hycWxxbG1IWmp5T0JZb3V2bzdPTTNZckI1M0x1WUROenM4?=
- =?utf-8?B?S2Y0Z05Ua3dSWnZ0enZuMTBRaGx6dmFCLzBjV1ZKZ2xnTGl4MUhyamRkV05J?=
- =?utf-8?Q?EW5FBTuCh81SHhrgEoVKWtvO98YR7MYX3WulZsSJ/19V?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QkFTWlFYWktxaVEzRDY2SGVhYXNReVpXWDIrM1Q2NExqMmJpYjZYNENZK3JH?=
+ =?utf-8?B?REFCWU0wNW9VZTRUN2V1ME9mMkVRTDN0bDFpSGdHOGpjNzVXa3NEUHVpamtu?=
+ =?utf-8?B?cFRZL1dxQ25yYU82N1lNdjMrcm9RVXZMUktXT3BJU2oyL254b3dHVmpLMzVu?=
+ =?utf-8?B?R3lwTGlpOVJPZCtNYzA1WUt3VFI4am0wQnMrQ2FvSENaWC8vQytuUDlLOUtO?=
+ =?utf-8?B?d0YrUnlvZDBQR2ZtcGhLMGY4NUxBTTIySE9LNTlSOEpWQW8zb3k4dFU2RlRy?=
+ =?utf-8?B?V1p0UEtpS3BNWXY3SURPcTJuY0pWaXdkUEw4eWNHLysrQmMweTI3TXBXNE55?=
+ =?utf-8?B?TG5IdkNiNDJsc2xPRWVpOFlNY2JYY3BndndtK1BFbHRvNGVtRTIwQlJRYmRs?=
+ =?utf-8?B?aFc2U1F1ajI0ZGxPQzFkMWRWeDFNcmxqQWd3eGEyT3gxbnc1RDFlUGV3OVdr?=
+ =?utf-8?B?cXRwUUZTZ3pGZ3ZQVmhVQUFVK2UyZ3FQNWhjazR2YTNPZWJYNVRkZUFiUkkv?=
+ =?utf-8?B?Y0xPc0ZHKzBLZmltdWYrQVh3eTc2bWFCbWFBSkowV1hoMUMrenhxeC9IVE9K?=
+ =?utf-8?B?R3p2dDFnTXk5TE5qR09kSXF4OGIvbXhGZ0FFcmJjS04wMzhHYzhIR0RESE13?=
+ =?utf-8?B?c3RrS0pYdmRhdDNJTlFJbEF1aDVsOWZYZmQxYk5WSThQZVZKZE9ULzFDZk41?=
+ =?utf-8?B?NVgvZWljQzRaRkNRNG9maHc1Sk9jQUhyMTBuSE9kNVNubGdGSUducUEyVC9u?=
+ =?utf-8?B?eDVsMUp4WFRmOFczWTMrekNFd1ZwNUsrSDROMHowZ1hFU2h5MkRhZ3JTTUxE?=
+ =?utf-8?B?d2NKd2JHSXYrVmhKOXJBblJqakpESi90UDRLMm5wY2xDMWJXclZEOXZocU1p?=
+ =?utf-8?B?UGpsdTA0L2VpQk8rejNNSHVjenNIRWp1clQrcFVURnlMTUhPQUg4cWE5WWd5?=
+ =?utf-8?B?b1kxbFVBWHJSWGxYSDhCRGp4VGp6U1BvcXlrQWhJOWJnQmVHdEZnQjdxZ3JT?=
+ =?utf-8?B?QVVSUDVXTGYxZVlZYnVwVjhkNVoyM2NWVjFTdG44TmgybkViUHhiQ2JmRktB?=
+ =?utf-8?B?Yllqc3YxY1F0V3V5TkVVQ2ViMFNzMzZIRHR6eUl5Z2dkNjBCNVVSSklXdHJJ?=
+ =?utf-8?B?TUdCcWVLYklrTUFtcHVFU0ZPTEk3OEZtaHRYTERQUjdtYkNhbm9sZm9mNmVJ?=
+ =?utf-8?B?VmJPY0YwRDZUVUJtMlpxQUxMS1ZOOGFGSGhTaUdDenljTnVpM09SUCtVd1dU?=
+ =?utf-8?B?cGlMdG9lcnBTbmV5UUxNaU9hZ0Z2ck0xMXJuallYYUF3WkYyWURISWR5bmM1?=
+ =?utf-8?B?SUsxTVFlTkM0VU0wYXBmM3VkYU9MMlJia25FMk5HYkFXNFhyY3VaWGZVaTdN?=
+ =?utf-8?B?azJIVjlKTHJBTysrVkpiTW9oQmlJNU1BYnVkdVJ5cG03aWxXaVZibG50Q2Mz?=
+ =?utf-8?B?dVVlbjZoYmE2ZnJ2SWJaaTZieWNuaGZBVDFVTmprU1lNZWVyNVZyVjZhbXB2?=
+ =?utf-8?B?ajZyelVXVFNhMGFBemt6Z0dJZkdncWtJNC9xS2JJNVpRbUJ6NmtlcWY5VTZh?=
+ =?utf-8?B?dVdTNXpmbXpMbVBYMGh0Nk5JNDFOaTZEM1VWWHVPZXM2Y01kTHFCakhUcGh5?=
+ =?utf-8?B?WS9JOVdpTGF0MXllUDZYZjE1dTJBZHFuZU5YUUVScVd5V2ltbThqTTlOT2RG?=
+ =?utf-8?B?WVltalhrTm1JMWdIWm1lWUcvNDBtK3dmeUMxaFFBSHVuSTBzNFVHY1JmS0FX?=
+ =?utf-8?B?Z0VHd0ZVNWFPS2k3VWZWTUErKzZPaXJmUXhFTzlJMzI3blJRaXo0L0NBWFUz?=
+ =?utf-8?B?U1gxTG9WRlNCY01LdGw2ZXFRT3dPV2FUenB2QzdCay9IeDRVMG9pbm1BKzBW?=
+ =?utf-8?B?OGpNVUxxbkZmNkwrdURkUVFGZm9JMktXUTNPZUhFa092andSRXM0WWVoQzBs?=
+ =?utf-8?B?L05scnRzR0swaHJvVjdvTy8vMTFlWmJiM0htOHJXWnVnVlV0Y0dMc3gzVTl0?=
+ =?utf-8?B?a3BpV0d3cUdzdFF4MWZuQ3d4VE4rLzM3ZnRYZWMzaHhETUt5Z0RjUFNmVVhE?=
+ =?utf-8?B?QjdzcFVwdjc0VGlpUDFjS3VVSk1FZGlNTzREUlk1NkZQUFBkQ0lvWEdoNFBX?=
+ =?utf-8?B?SmpwanFEMnlsVjlnK3VhTlJNcDVhVXJPK09qMHZmb2NPdjk0cE1DTGJNcUZm?=
+ =?utf-8?Q?yFtictFWM187HdrWeYMB1o29XHaZQwahsN/BlqwJI5P1?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba845a05-4729-4313-9de4-08db0eba36c3
+X-MS-Exchange-CrossTenant-Network-Message-Id: 941e3afa-4202-4b15-5284-08db0ebafd51
 X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2023 18:35:15.1677 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2023 18:40:48.1603 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oI1i0met8se9Ld5CVenZUFTk+0KD+hKavWkHz+lAjhAFuNfMwQCjjncknqQ9PzGm
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8643
+X-MS-Exchange-CrossTenant-UserPrincipalName: Kn4TJpHeTAl57+vASTW3nBU05E66Um51Gwr7T7nRuWQhghowqel38ddsq3bZ5VJZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4514
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,101 +134,154 @@ Am 14.02.23 um 17:15 schrieb Shashank Sharma:
 > From: Shashank Sharma <contactshashanksharma@gmail.com>
 >
 > This patch does the following:
-> - Initializes TTM range management for domain DOORBELL.
-> - Introduces a kernel bo for doorbell management in form of mman.doorbell_kernel_bo.
->    This bo holds the kernel doorbell space now.
-> - Removes ioremapping of doorbell-kernel memory, as its not required now.
 >
-> V2:
-> - Addressed review comments from Christian:
->      - do not use kernel_create_at(0), use kernel_create() instead.
->      - do not use ttm_resource_manager, use range_manager instead.
->      - do not ioremap doorbell, TTM will do that.
-> - Split one big patch into 2
+> - Adds new variables like mman.doorbell_bo_size/gpu_addr/cpu_addr.
+>    The cpu_addr ptr will be used now for doorbell read/write from
+>    doorbell BAR.
+> - Adjusts the existing code to use kernel doorbell BO's size and its
+>    cpu_address.
 >
 > Cc: Alex Deucher <alexander.deucher@amd.com>
 > Cc: Christian Koenig <christian.koenig@amd.com>
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+
+Maybe squash this one together with the previous patch.
+
+But see below.
+
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 22 ++++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h |  7 +++++++
->   2 files changed, 29 insertions(+)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c   |  5 ++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c   | 33 +++++++++-----------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h |  1 -
+>   3 files changed, 16 insertions(+), 23 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index e9dc24191fc8..086e83c17c0f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -1879,12 +1879,32 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
->   		return r;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> index 0493c64e9d0a..87f486f522ae 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> @@ -109,11 +109,10 @@ static void amdgpu_doorbell_get_kfd_info(struct amdgpu_device *adev,
+>   		*aperture_base = adev->doorbell.doorbell_aper_base;
+>   		*aperture_size = 0;
+>   		*start_offset = 0;
+> -	} else if (adev->doorbell.doorbell_aper_size > adev->doorbell.num_doorbells *
+> -						sizeof(u32)) {
+> +	} else if (adev->doorbell.doorbell_aper_size > adev->mman.doorbell_kernel_bo_size) {
+>   		*aperture_base = adev->doorbell.doorbell_aper_base;
+>   		*aperture_size = adev->doorbell.doorbell_aper_size;
+> -		*start_offset = adev->doorbell.num_doorbells * sizeof(u32);
+> +		*start_offset = adev->mman.doorbell_kernel_bo_size;
+>   	} else {
+>   		*aperture_base = 0;
+>   		*aperture_size = 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 43c1b67c2778..fde199434579 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -596,8 +596,8 @@ u32 amdgpu_mm_rdoorbell(struct amdgpu_device *adev, u32 index)
+>   	if (amdgpu_device_skip_hw_access(adev))
+>   		return 0;
+>   
+> -	if (index < adev->doorbell.num_doorbells) {
+> -		return readl(adev->mman.doorbell_aper_base_kaddr + index);
+> +	if (index < adev->mman.num_kernel_doorbells) {
+> +		return readl(adev->mman.doorbell_cpu_addr + index);
+>   	} else {
+>   		DRM_ERROR("reading beyond doorbell aperture: 0x%08x!\n", index);
+>   		return 0;
+> @@ -619,8 +619,8 @@ void amdgpu_mm_wdoorbell(struct amdgpu_device *adev, u32 index, u32 v)
+>   	if (amdgpu_device_skip_hw_access(adev))
+>   		return;
+>   
+> -	if (index < adev->doorbell.num_doorbells) {
+> -		writel(v, adev->mman.doorbell_aper_base_kaddr + index);
+> +	if (index < adev->mman.num_kernel_doorbells) {
+> +		writel(v, adev->mman.doorbell_cpu_addr + index);
+>   	} else {
+>   		DRM_ERROR("writing beyond doorbell aperture: 0x%08x!\n", index);
+>   	}
+> @@ -640,8 +640,8 @@ u64 amdgpu_mm_rdoorbell64(struct amdgpu_device *adev, u32 index)
+>   	if (amdgpu_device_skip_hw_access(adev))
+>   		return 0;
+>   
+> -	if (index < adev->doorbell.num_doorbells) {
+> -		return atomic64_read((atomic64_t *)(adev->mman.doorbell_aper_base_kaddr + index));
+> +	if (index < adev->mman.num_kernel_doorbells) {
+> +		return atomic64_read((atomic64_t *)(adev->mman.doorbell_cpu_addr + index));
+>   	} else {
+>   		DRM_ERROR("reading beyond doorbell aperture: 0x%08x!\n", index);
+>   		return 0;
+> @@ -663,8 +663,8 @@ void amdgpu_mm_wdoorbell64(struct amdgpu_device *adev, u32 index, u64 v)
+>   	if (amdgpu_device_skip_hw_access(adev))
+>   		return;
+>   
+> -	if (index < adev->doorbell.num_doorbells) {
+> -		atomic64_set((atomic64_t *)(adev->mman.doorbell_aper_base_kaddr + index), v);
+> +	if (index < adev->mman.num_kernel_doorbells) {
+> +		atomic64_set((atomic64_t *)(adev->mman.doorbell_cpu_addr + index), v);
+>   	} else {
+>   		DRM_ERROR("writing beyond doorbell aperture: 0x%08x!\n", index);
+>   	}
+> @@ -1037,7 +1037,7 @@ static int amdgpu_device_doorbell_init(struct amdgpu_device *adev)
+>   	if (adev->asic_type < CHIP_BONAIRE) {
+>   		adev->doorbell.doorbell_aper_base = 0;
+>   		adev->doorbell.doorbell_aper_size = 0;
+> -		adev->doorbell.num_doorbells = 0;
+> +		adev->mman.num_kernel_doorbells = 0;
+>   		adev->mman.doorbell_aper_base_kaddr = NULL;
+>   		return 0;
+>   	}
+> @@ -1052,13 +1052,13 @@ static int amdgpu_device_doorbell_init(struct amdgpu_device *adev)
+>   	adev->doorbell.doorbell_aper_size = pci_resource_len(adev->pdev, 2);
+>   
+>   	if (adev->enable_mes) {
+> -		adev->doorbell.num_doorbells =
+> +		adev->mman.num_kernel_doorbells =
+>   			adev->doorbell.doorbell_aper_size / sizeof(u32);
+>   	} else {
+> -		adev->doorbell.num_doorbells =
+> +		adev->mman.num_kernel_doorbells =
+>   			min_t(u32, adev->doorbell.doorbell_aper_size / sizeof(u32),
+>   			      adev->doorbell_index.max_assignment+1);
+> -		if (adev->doorbell.num_doorbells == 0)
+> +		if (adev->mman.num_kernel_doorbells == 0)
+>   			return -EINVAL;
+>   
+>   		/* For Vega, reserve and map two pages on doorbell BAR since SDMA
+> @@ -1068,15 +1068,10 @@ static int amdgpu_device_doorbell_init(struct amdgpu_device *adev)
+>   		 * the max num_doorbells should + 1 page (0x400 in dword)
+>   		 */
+>   		if (adev->asic_type >= CHIP_VEGA10)
+> -			adev->doorbell.num_doorbells += 0x400;
+> +			adev->mman.num_kernel_doorbells += 0x400;
 >   	}
 >   
-> +	r = amdgpu_ttm_init_on_chip(adev, AMDGPU_PL_DOORBELL, adev->doorbell.doorbell_aper_size);
-> +	if (r) {
-> +		DRM_ERROR("Failed initializing oa heap.\n");
-> +		return r;
-> +	}
-> +
->   	if (amdgpu_bo_create_kernel(adev, PAGE_SIZE, PAGE_SIZE,
->   				AMDGPU_GEM_DOMAIN_GTT,
->   				&adev->mman.sdma_access_bo, NULL,
->   				&adev->mman.sdma_access_ptr))
->   		DRM_WARN("Debug VRAM access will use slowpath MM access\n");
->   
-> +	/* Create a doorbell BO for kernel usages */
-> +	r = amdgpu_bo_create_kernel(adev,
-> +				    adev->mman.doorbell_kernel_bo_size,
-> +				    PAGE_SIZE,
-> +				    AMDGPU_GEM_DOMAIN_DOORBELL,
-> +				    &adev->mman.doorbell_kernel_bo,
-> +				    &adev->mman.doorbell_gpu_addr,
-> +				    (void **)&adev->mman.doorbell_cpu_addr);
-> +
-> +	if (r) {
-> +		DRM_ERROR("Failed to create doorbell BO, err=%d\n", r);
-> +		return r;
-> +	}
-> +
+> -	adev->mman.doorbell_aper_base_kaddr = ioremap(adev->doorbell.doorbell_aper_base,
+> -						      adev->doorbell.num_doorbells *
+> -						      sizeof(u32));
+> -	if (adev->mman.doorbell_aper_base_kaddr == NULL)
+> -		return -ENOMEM;
+> -
+> +	adev->mman.doorbell_kernel_bo_size = adev->mman.num_kernel_doorbells * sizeof(u32);
 
-I would even move this before the SDMA VRAM buffer since the later is 
-only nice to have while the doorbell is mandatory to have.
+I would just keep the kernel_bo_size around and make the 
+num_kernel_doorbells a local variable.
+
+Christian.
 
 >   	return 0;
 >   }
 >   
-> @@ -1908,6 +1928,8 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
->   				      NULL, NULL);
->   	amdgpu_bo_free_kernel(&adev->mman.sdma_access_bo, NULL,
->   					&adev->mman.sdma_access_ptr);
-> +	amdgpu_bo_free_kernel(&adev->mman.doorbell_kernel_bo,
-> +			      NULL, (void **)&adev->mman.doorbell_cpu_addr);
->   	amdgpu_ttm_fw_reserve_vram_fini(adev);
->   	amdgpu_ttm_drv_reserve_vram_fini(adev);
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> index 9cf5d8419965..50748ff1dd3c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> @@ -97,6 +97,13 @@ struct amdgpu_mman {
->   	/* PAGE_SIZE'd BO for process memory r/w over SDMA. */
->   	struct amdgpu_bo	*sdma_access_bo;
->   	void			*sdma_access_ptr;
-> +
-> +	/* doorbells reserved for the kernel driver */
-> +	u32			num_kernel_doorbells;	/* Number of doorbells actually reserved for kernel */
-> +	uint64_t		doorbell_kernel_bo_size;
-
-That looks like duplicated information. We should only keep either the 
-number of kernel doorbells or the kernel doorbell bo size around, not both.
-
-And BTW please no comment after structure members.
-
-Christian.
-
-> +	uint64_t		doorbell_gpu_addr;
-> +	struct amdgpu_bo	*doorbell_kernel_bo;
-> +	u32			*doorbell_cpu_addr;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
+> index 526b6b4a86dd..7bdff4f926ad 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
+> @@ -28,7 +28,6 @@ struct amdgpu_doorbell {
+>   	/* doorbell mmio */
+>   	resource_size_t		doorbell_aper_base;
+>   	resource_size_t		doorbell_aper_size;
+> -	u32			num_doorbells;	/* Number of doorbells actually reserved for amdgpu. */
 >   };
 >   
->   struct amdgpu_copy_mem {
+>   /* Reserved doorbells for amdgpu (including multimedia).
 
