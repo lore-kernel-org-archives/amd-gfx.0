@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F13EC6379F
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 12:14:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10A72C61DA4
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 12:14:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C384110E1E2;
-	Tue, 14 Feb 2023 12:14:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 276E410E8AB;
+	Tue, 14 Feb 2023 12:14:18 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7716C10E89D
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 12:14:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2505010E89C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 12:14:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,22 +19,22 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=8DSoxSqkKqUbKO1/ORrdwwxc3Lx4jnHZYHTAPvzg7VY=; b=f+YuEReuWxUIYcFvpURBouyOp7
- 13Qs+oPIjf803D05z+Ge4QqVQHI+9/2Ej6mc4WdGShPG7dz0Pue9qd9cZASdHubMm+NRB+zyoHt0T
- EylJIR3eLFtKrSd3NHWGz0nRBOvrnGmFCAnGJNOq4KCKfQM7U5XwJu6x6hqTDwd7nmSFgYsorRA2z
- 4FjGJWVT1ugiEfUV4ArydfqnREoEBohz8oQlrQIyqLhHJlSz/E45bEIs5MNSkqRDQO2vEuoygWjSF
- KHF6XNBx5tmXlF2ICd5UP3TNVOST2o20yLz0qu4TPwz5v/Or4DLIqS4dCcuuWh+JapPv3DONyM4cK
- f6ckiNmw==;
+ bh=eYSpjz7o38JdMJjHK2uieOmBHCjJl4/xRnrpLSURMcU=; b=eAx5m6zmV1XEb1hgp3aygmo08r
+ 8j1BtrKW/rWPyFQYCoeIuxnC0ro8htQ21UTP2yF//k1+v+MEwcGGDRxXuXrm88jR5pWjM7gWGnvyF
+ iOmBscyXYny+b94IjQLa7vBu+Of9jr1ak9PFhrtCoqbmdevle68EaAVPaYypXXqUfkFz/e0n6v7G+
+ RLzu+3ZW098Fo+CAR2InrzIzBPqeijw8KqtuF6ZPIq6GxkyIDmcjE64QYFxxZdsK4P5WeATbmJ4ph
+ PJ08AxxK0HD5taI8l70VSqf1LWiI7Qrgg3fqqfLELd4DB6cgtjzBuVwN8LC3NqEdPDL/d4nZC3dQM
+ cKhnvCjQ==;
 Received: from [38.44.66.31] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1pRuCK-0022pF-62; Tue, 14 Feb 2023 13:14:12 +0100
+ id 1pRuCH-0022pF-Om; Tue, 14 Feb 2023 13:14:09 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 5/6] drm/amd/display: remove unused func declaration from
- resource headers
-Date: Tue, 14 Feb 2023 11:14:05 -0100
-Message-Id: <20230214121406.97750-6-mwen@igalia.com>
+Subject: [PATCH 2/6] drm/amd/display: clean code-style issues in
+ dcn30_set_mpc_shaper_3dlut
+Date: Tue, 14 Feb 2023 11:14:02 -0100
+Message-Id: <20230214121406.97750-3-mwen@igalia.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230214121406.97750-1-mwen@igalia.com>
 References: <20230214121406.97750-1-mwen@igalia.com>
@@ -57,30 +57,87 @@ Cc: sunpeng.li@amd.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The function resource_validate_ctx_update_pointer_after_copy() is
-declared in resource.h but never defined, therefore, remove its
-declaration from headers.
+This function has many conditions and all code style issues (identation,
+missing braces, etc.) make reading it really annoying.
 
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/display/dc/inc/resource.h | 4 ----
- 1 file changed, 4 deletions(-)
+ .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    | 37 ++++++++++---------
+ 1 file changed, 19 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/resource.h b/drivers/gpu/drm/amd/display/dc/inc/resource.h
-index 4ab029e3326d..fa6da93caa88 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/resource.h
-@@ -165,10 +165,6 @@ bool resource_validate_attach_surfaces(
- 		struct dc_state *context,
- 		const struct resource_pool *pool);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+index 9ce86f288130..df787fcf8e86 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+@@ -90,8 +90,8 @@ bool dcn30_set_blend_lut(
+ 	return result;
+ }
  
--void resource_validate_ctx_update_pointer_after_copy(
--		const struct dc_state *src_ctx,
--		struct dc_state *dst_ctx);
+-static bool dcn30_set_mpc_shaper_3dlut(
+-	struct pipe_ctx *pipe_ctx, const struct dc_stream_state *stream)
++static bool dcn30_set_mpc_shaper_3dlut(struct pipe_ctx *pipe_ctx,
++				       const struct dc_stream_state *stream)
+ {
+ 	struct dpp *dpp_base = pipe_ctx->plane_res.dpp;
+ 	int mpcc_id = pipe_ctx->plane_res.hubp->inst;
+@@ -103,19 +103,18 @@ static bool dcn30_set_mpc_shaper_3dlut(
+ 	const struct pwl_params *shaper_lut = NULL;
+ 	//get the shaper lut params
+ 	if (stream->func_shaper) {
+-		if (stream->func_shaper->type == TF_TYPE_HWPWL)
++		if (stream->func_shaper->type == TF_TYPE_HWPWL) {
+ 			shaper_lut = &stream->func_shaper->pwl;
+-		else if (stream->func_shaper->type == TF_TYPE_DISTRIBUTED_POINTS) {
+-			cm_helper_translate_curve_to_hw_format(
+-					stream->func_shaper,
+-					&dpp_base->shaper_params, true);
++		} else if (stream->func_shaper->type == TF_TYPE_DISTRIBUTED_POINTS) {
++			cm_helper_translate_curve_to_hw_format(stream->func_shaper,
++							       &dpp_base->shaper_params, true);
+ 			shaper_lut = &dpp_base->shaper_params;
+ 		}
+ 	}
+ 
+ 	if (stream->lut3d_func &&
+-		stream->lut3d_func->state.bits.initialized == 1 &&
+-		stream->lut3d_func->state.bits.rmu_idx_valid == 1) {
++	    stream->lut3d_func->state.bits.initialized == 1 &&
++	    stream->lut3d_func->state.bits.rmu_idx_valid == 1) {
+ 		if (stream->lut3d_func->state.bits.rmu_mux_num == 0)
+ 			mpcc_id_projected = stream->lut3d_func->state.bits.mpc_rmu0_mux;
+ 		else if (stream->lut3d_func->state.bits.rmu_mux_num == 1)
+@@ -124,20 +123,22 @@ static bool dcn30_set_mpc_shaper_3dlut(
+ 			mpcc_id_projected = stream->lut3d_func->state.bits.mpc_rmu2_mux;
+ 		if (mpcc_id_projected != mpcc_id)
+ 			BREAK_TO_DEBUGGER();
+-		/*find the reason why logical layer assigned a differant mpcc_id into acquire_post_bldn_3dlut*/
++		/* find the reason why logical layer assigned a different
++		 * mpcc_id into acquire_post_bldn_3dlut
++		 */
+ 		acquired_rmu = mpc->funcs->acquire_rmu(mpc, mpcc_id,
+-				stream->lut3d_func->state.bits.rmu_mux_num);
++						       stream->lut3d_func->state.bits.rmu_mux_num);
+ 		if (acquired_rmu != stream->lut3d_func->state.bits.rmu_mux_num)
+ 			BREAK_TO_DEBUGGER();
+-		result = mpc->funcs->program_3dlut(mpc,
+-								&stream->lut3d_func->lut_3d,
+-								stream->lut3d_func->state.bits.rmu_mux_num);
++
++		result = mpc->funcs->program_3dlut(mpc, &stream->lut3d_func->lut_3d,
++						   stream->lut3d_func->state.bits.rmu_mux_num);
+ 		result = mpc->funcs->program_shaper(mpc, shaper_lut,
+-				stream->lut3d_func->state.bits.rmu_mux_num);
+-	} else
+-		/*loop through the available mux and release the requested mpcc_id*/
++						    stream->lut3d_func->state.bits.rmu_mux_num);
++	} else {
++		// loop through the available mux and release the requested mpcc_id
+ 		mpc->funcs->release_rmu(mpc, mpcc_id);
 -
- enum dc_status resource_map_clock_resources(
- 		const struct dc *dc,
- 		struct dc_state *context,
++	}
+ 
+ 	return result;
+ }
 -- 
 2.39.0
 
