@@ -4,47 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D904C61DA4
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 11:42:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAE9FC05027
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 12:14:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1D2E10E0D7;
-	Tue, 14 Feb 2023 11:42:33 +0000 (UTC)
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A494310E066;
- Tue, 14 Feb 2023 11:42:31 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4PGK7l6xN0z9sS1;
- Tue, 14 Feb 2023 12:42:27 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1676374947;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=bpxBXi/C0ESDbbBrRbwGSesIMfbtRruhtAnq66OD38k=;
- b=h8nrwUfPISMDZA5ONGRgTSVZ7zVlhAfPKpIMFcRZs/dsPoP499zVefTB2n5PgBG0P9A2J3
- gxOGfXs7Vvonpe+Fro3aIgOcEQibTgGgzQtWU5hnzoWwYAs2BAWeqoD6ChMQepNoiwASqK
- vshlXMrfvqPRRBwoGVuD/V5t5DYRinPA/ke0pYve/AirGF40JfQkmmd/pMrs1hOUqu2b71
- VcUWGUzFB+9LFRWG9X9440sebIzOWe2gQFk7xdng0yIeAT+OzBn5oQ7ok1n9H3fbizJowE
- DTivE1OsDdek7EgW+c9hLOBiQOtStqRhH0iIYe9QdeT3J/acSSoqUgug0IBkug==
-Message-ID: <a3e4887b-ee5f-f41c-621c-d3f057528f9f@mailbox.org>
-Date: Tue, 14 Feb 2023 12:42:25 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 308AF10E89C;
+	Tue, 14 Feb 2023 12:14:13 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F4F910E1E2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 12:14:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:
+ Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=/8WpW9qqUNe5Bx9eTqe2HtzMtFblgZfFKhTN4vhbqAA=; b=We5uX76S3cb0KlaQfkmTmB+KB5
+ tAFVM1D8YfJqvQDFszRIFzX0HV4/EzRuLAk27YXhm2IxAUo/e75Eiwox7CHKCs3QQjoa6XtGV4Xpu
+ 3MItvEOfGpF/vAHtB08FYcAV+YMMb8/bb9Juh99O+ztHRRHUUC3XC1FQt31+uBNdhii681s/sNEUy
+ vzbrvGXQGNQddWNdcLSKC+hAaMmyUar2grzWPsVzL6IKDzI2h++PdN3lwSm3el3O6bBr1R6UbnbNu
+ qre63vijEiB5iyxqAor6wC9QhZkujuWkURQfo2z4UAmv9XgWFsT6q1BYMl6KtgRQzq8POuxClhFA8
+ DBZPAiTw==;
+Received: from [38.44.66.31] (helo=killbill.home)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1pRuCG-0022pF-5N; Tue, 14 Feb 2023 13:14:08 +0100
+From: Melissa Wen <mwen@igalia.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 0/6] Trivial code cleanup around color resources
+Date: Tue, 14 Feb 2023 11:14:00 -0100
+Message-Id: <20230214121406.97750-1-mwen@igalia.com>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-Subject: Re: [PATCH 06/10] drm/amd/display: Fix implicit enum conversion
-To: Arthur Grillo <arthurgrillo@riseup.net>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20230213204923.111948-1-arthurgrillo@riseup.net>
- <20230213204923.111948-7-arthurgrillo@riseup.net>
-Content-Language: en-CA
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
-In-Reply-To: <20230213204923.111948-7-arthurgrillo@riseup.net>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: egsu9frrzwd99krj16ynoeuffhtrbcw8
-X-MBO-RS-ID: 4c36c591adb6f2225ad
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,41 +48,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, tales.aparecida@gmail.com, Xinhui.Pan@amd.com,
- Rodrigo.Siqueira@amd.com, mairacanal@riseup.net, daniel@ffwll.ch,
- alexander.deucher@amd.com, airlied@gmail.com, andrealmeid@riseup.net,
- harry.wentland@amd.com, christian.koenig@amd.com
+Cc: sunpeng.li@amd.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
+ kernel-dev@igalia.com, alexander.deucher@amd.com, harry.wentland@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2/13/23 21:49, Arthur Grillo wrote:
-> Make implicit enum conversion to avoid -Wenum-conversion warning, such
-> as:
-> 
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn21/display_mode_vba_21.c:4109:88: warning: implicit conversion from ‘enum <anonymous>’ to ‘enum odm_combine_mode’ [-Wenum-conversion]
->  4109 |                                                 locals->ODMCombineEnablePerState[i][k] = true;
->       |                                                                                        ^
-> 
-> [...]
-> 
-> @@ -3897,14 +3898,14 @@ void dml20_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
->  					mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine = mode_lib->vba.PixelClock[k] / 2
->  							* (1 + mode_lib->vba.DISPCLKDPPCLKDSCCLKDownSpreading / 100.0);
->  
-> -				locals->ODMCombineEnablePerState[i][k] = false;
-> +				locals->ODMCombineEnablePerState[i][k] = (enum odm_combine_mode)false;
+Hi,
 
-dm_odm_combine_mode_disabled would seem clearer than (enum odm_combine_mode)false.
+Sorry for the noise, but while I've been working on wiring 3D LUT
+support to AMD display driver [1] I found some annoying code style
+issues in the shared-code part. So I'm just sending what I've been
+cleaning to better examine the code.
 
+Most seem trivial, except the last one "remove unused
+_calculate_degamma_curve" since this could just be a matter of missing
+parts. If so, happy to remove the patch and include a comment describing
+the situation (or the potential usage of it).
 
-> -						locals->ODMCombineEnablePerState[i][k] = true;
-> +						locals->ODMCombineEnablePerState[i][k] = (enum odm_combine_mode)true;
+Thanks,
 
-I'm not sure which enum value (enum odm_combine_mode)true will be converted to, probably dm_odm_combine_mode_2to1? Is that really appropriate everywhere true is used? If so, again 
-dm_odm_combine_mode_2to1 would seem clearer.
+Melissa
 
+[1] https://lore.kernel.org/dri-devel/20230109143846.1966301-1-mwen@igalia.com/
+
+Melissa Wen (6):
+  drm/amd/display: ident braces in dcn30_acquire_post_bldn_3dlut
+    correctly
+  drm/amd/display: clean code-style issues in dcn30_set_mpc_shaper_3dlut
+  drm/amd/display: camel case cleanup in color_gamma file
+  drm/amd/display: unset initial value for tf since it's never used
+  drm/amd/display: remove unused func declaration from resource headers
+  drm/amd/display: remove unused _calculate_degamma_curve function
+
+ .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    |  37 ++---
+ .../drm/amd/display/dc/dcn30/dcn30_resource.c |   2 +-
+ drivers/gpu/drm/amd/display/dc/inc/resource.h |   4 -
+ .../amd/display/modules/color/color_gamma.c   | 140 ++++--------------
+ .../amd/display/modules/color/color_gamma.h   |   3 -
+ 5 files changed, 48 insertions(+), 138 deletions(-)
 
 -- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
+2.39.0
 
