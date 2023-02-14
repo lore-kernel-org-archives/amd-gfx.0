@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3ED08C6379F
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 12:14:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38000C64ED8
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 12:14:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8249A10E8AD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2411710E8B5;
 	Tue, 14 Feb 2023 12:14:19 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46F6710E8AD
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 12:14:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96A6A10E8B1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 12:14:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,22 +19,22 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=kbn5zqUciJHutZ48knDotdoIrC0XOwEHbm7VZUjlILk=; b=H7kmNe+F0aDgHCuQpv3sG2NT2m
- E8cL0dUlEYUxaTbZzFOC4AwzTVUE2eExwhJBCRa8+Rcb8TvhDyfZDmClVz0mDRXQhWtY8JaN4U6gS
- SYxqc0HNjwknIGAf3Fu9+0X8mNT3KiJRovIIryVMpU678y58YO6j9BEm1XLuw2DZTOT/nLQ4P8b39
- sfK2y3JEDEXsfzycG9EDEHftD0tnp7X1mesrF3p4hCTXxt5XbepCn4ir5SQuOgxbziezEH1ybw7EA
- apL1dKad5xKqMG13IKiycCrlg/i1WYQsior9V5OCve6hWCg2rU1MQ8XyKUiFGaj4TZJc1+gW6hcKl
- e3cYrSRg==;
+ bh=HRjyoFpu7GFAe6CAKmDRcmxaj/ejcuirGwxv1Ez2c/s=; b=B1n2A2q6UyfUwztrpI+0BeRuRV
+ TCJWB5u7vVRRck5mv0yTQ0cpUYWvehbSQh9J+g/Ta90ni86Pp05FgCxlkVdSRY5sdWO3o+YFoTg2Y
+ QL7AAf6qhb3mhT40UcIPsNcblZkPPffefWWmNDwuRx9zg4uhfI+PWIh+IgHl5lWKwhoPTVcDOYVn5
+ m8rfVXLp1quYRqk13qViJZUaBT/ZYE5aicvyjfTs3PRHD4Ah8XwQRRPSiRIr9z+Zj7avP5gejK/DO
+ RzjnVQiUq8h3JobFvKl378LZ5TPlUaCTFI2orOHvnbub17H38UQLf7tVZjrfcbzhr0lP2VQtWql0S
+ zb4gIyzQ==;
 Received: from [38.44.66.31] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1pRuCK-0022pF-W5; Tue, 14 Feb 2023 13:14:13 +0100
+ id 1pRuCJ-0022pF-CT; Tue, 14 Feb 2023 13:14:11 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 6/6] drm/amd/display: remove unused _calculate_degamma_curve
- function
-Date: Tue, 14 Feb 2023 11:14:06 -0100
-Message-Id: <20230214121406.97750-7-mwen@igalia.com>
+Subject: [PATCH 4/6] drm/amd/display: unset initial value for tf since it's
+ never used
+Date: Tue, 14 Feb 2023 11:14:04 -0100
+Message-Id: <20230214121406.97750-5-mwen@igalia.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230214121406.97750-1-mwen@igalia.com>
 References: <20230214121406.97750-1-mwen@igalia.com>
@@ -57,122 +57,38 @@ Cc: sunpeng.li@amd.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We don't use this function anywhere, therefore, remove it.
+In mod_color_calculate_{degamma/regamma}_params(), a tf variable is
+initialized as TRANSFER_FUNCTION_SRGB but tf is only used after tf =
+input->tf, therefore, better to just remove this initial value and avoid
+misleading interpretations.
 
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- .../amd/display/modules/color/color_gamma.c   | 86 -------------------
- .../amd/display/modules/color/color_gamma.h   |  3 -
- 2 files changed, 89 deletions(-)
+ drivers/gpu/drm/amd/display/modules/color/color_gamma.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-index 6e606b11286a..67a062af3ab0 100644
+index fdb20dfc70c9..6e606b11286a 100644
 --- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
 +++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-@@ -2217,89 +2217,3 @@ bool mod_color_calculate_regamma_params(struct dc_transfer_func *output_tf,
- rgb_user_alloc_fail:
- 	return ret;
- }
--
--bool  mod_color_calculate_degamma_curve(enum dc_transfer_func_predefined trans,
--				struct dc_transfer_func_distributed_points *points)
--{
--	uint32_t i;
--	bool ret = false;
--	struct pwl_float_data_ex *rgb_degamma = NULL;
--
--	if (trans == TRANSFER_FUNCTION_UNITY ||
--		trans == TRANSFER_FUNCTION_LINEAR) {
--
--		for (i = 0; i <= MAX_HW_POINTS ; i++) {
--			points->red[i]    = coordinates_x[i].x;
--			points->green[i]  = coordinates_x[i].x;
--			points->blue[i]   = coordinates_x[i].x;
--		}
--		ret = true;
--	} else if (trans == TRANSFER_FUNCTION_PQ) {
--		rgb_degamma = kvcalloc(MAX_HW_POINTS + _EXTRA_POINTS,
--				       sizeof(*rgb_degamma),
--				       GFP_KERNEL);
--		if (!rgb_degamma)
--			goto rgb_degamma_alloc_fail;
--
--
--		build_de_pq(rgb_degamma,
--				MAX_HW_POINTS,
--				coordinates_x);
--		for (i = 0; i <= MAX_HW_POINTS ; i++) {
--			points->red[i]    = rgb_degamma[i].r;
--			points->green[i]  = rgb_degamma[i].g;
--			points->blue[i]   = rgb_degamma[i].b;
--		}
--		ret = true;
--
--		kvfree(rgb_degamma);
--	} else if (trans == TRANSFER_FUNCTION_SRGB ||
--		trans == TRANSFER_FUNCTION_BT709 ||
--		trans == TRANSFER_FUNCTION_GAMMA22 ||
--		trans == TRANSFER_FUNCTION_GAMMA24 ||
--		trans == TRANSFER_FUNCTION_GAMMA26) {
--		rgb_degamma = kvcalloc(MAX_HW_POINTS + _EXTRA_POINTS,
--				       sizeof(*rgb_degamma),
--				       GFP_KERNEL);
--		if (!rgb_degamma)
--			goto rgb_degamma_alloc_fail;
--
--		build_degamma(rgb_degamma,
--				MAX_HW_POINTS,
--				coordinates_x,
--				trans);
--		for (i = 0; i <= MAX_HW_POINTS ; i++) {
--			points->red[i]    = rgb_degamma[i].r;
--			points->green[i]  = rgb_degamma[i].g;
--			points->blue[i]   = rgb_degamma[i].b;
--		}
--		ret = true;
--
--		kvfree(rgb_degamma);
--	} else if (trans == TRANSFER_FUNCTION_HLG) {
--		rgb_degamma = kvcalloc(MAX_HW_POINTS + _EXTRA_POINTS,
--				       sizeof(*rgb_degamma),
--				       GFP_KERNEL);
--		if (!rgb_degamma)
--			goto rgb_degamma_alloc_fail;
--
--		build_hlg_degamma(rgb_degamma,
--				MAX_HW_POINTS,
--				coordinates_x,
--				80, 1000);
--		for (i = 0; i <= MAX_HW_POINTS ; i++) {
--			points->red[i]    = rgb_degamma[i].r;
--			points->green[i]  = rgb_degamma[i].g;
--			points->blue[i]   = rgb_degamma[i].b;
--		}
--		ret = true;
--		kvfree(rgb_degamma);
--	}
--	points->end_exponent = 0;
--	points->x_point_at_y1_red = 1;
--	points->x_point_at_y1_green = 1;
--	points->x_point_at_y1_blue = 1;
--
--rgb_degamma_alloc_fail:
--	return ret;
--}
-diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.h b/drivers/gpu/drm/amd/display/modules/color/color_gamma.h
-index 2893abf48208..ee5c466613de 100644
---- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.h
-+++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.h
-@@ -115,9 +115,6 @@ bool mod_color_calculate_degamma_params(struct dc_color_caps *dc_caps,
- 		struct dc_transfer_func *output_tf,
- 		const struct dc_gamma *ramp, bool mapUserRamp);
+@@ -1883,7 +1883,7 @@ bool mod_color_calculate_degamma_params(struct dc_color_caps *dc_caps,
+ 	struct pwl_float_data_ex *curve = NULL;
+ 	struct gamma_pixel *axis_x = NULL;
+ 	struct pixel_gamma_point *coeff = NULL;
+-	enum dc_transfer_func_predefined tf = TRANSFER_FUNCTION_SRGB;
++	enum dc_transfer_func_predefined tf;
+ 	uint32_t i;
+ 	bool ret = false;
  
--bool mod_color_calculate_degamma_curve(enum dc_transfer_func_predefined trans,
--				struct dc_transfer_func_distributed_points *points);
--
- bool calculate_user_regamma_coeff(struct dc_transfer_func *output_tf,
- 		const struct regamma_lut *regamma,
- 		struct calculate_buffer *cal_buffer,
+@@ -2125,7 +2125,7 @@ bool mod_color_calculate_regamma_params(struct dc_transfer_func *output_tf,
+ 	struct pwl_float_data_ex *rgb_regamma = NULL;
+ 	struct gamma_pixel *axis_x = NULL;
+ 	struct pixel_gamma_point *coeff = NULL;
+-	enum dc_transfer_func_predefined tf = TRANSFER_FUNCTION_SRGB;
++	enum dc_transfer_func_predefined tf;
+ 	bool do_clamping = true;
+ 	bool ret = false;
+ 
 -- 
 2.39.0
 
