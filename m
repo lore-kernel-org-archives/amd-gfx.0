@@ -4,66 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 395C8C64EC7
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 07:43:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEACDC61DA4
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 07:54:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F85E10E7FF;
-	Tue, 14 Feb 2023 07:42:48 +0000 (UTC)
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB01810E7F5;
- Tue, 14 Feb 2023 07:42:45 +0000 (UTC)
-Received: by mail-wr1-x42f.google.com with SMTP id h16so14635417wrz.12;
- Mon, 13 Feb 2023 23:42:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Vl6QLM1x3isIEMOBDRsDa+IoAX7OAxWOBdYcY3HFanc=;
- b=YzkGvnMNhBvPwrFQcHJlLJkipX1rYm3r0s7ONVNKJAruvG+loNznwD1v9vn7+MRO2q
- iJuiPSzr/5LFOk7+K/l+UlEBRGJYRowR33wmIzj4r9yvtE5nFBWbiNCKhtkfY4NQ/beA
- B3k/Y6gKJ0phlNkUn3k0GMV7/Bn739nyLQ5E6cvpa98BMwMiXlk3BwWhucC6/nYg443O
- 0Yzaari823siCmILTvO/hmhXLtNjl3AF9c9m8+kbfID81LS4k2QsCESNc5IpZ6EX8lj9
- yjKCXXt7cc9dxH+CVOBoOe3ueT9Vk6WuCvJinVEfAybI/sEvlZOs8Y1uPSlOT7ZDUGnO
- vG5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Vl6QLM1x3isIEMOBDRsDa+IoAX7OAxWOBdYcY3HFanc=;
- b=w9h7ia+pX4rTIvJmvCd1CkgeVrHWyhRsJHYmCy5R/C6Pdf3OqhP9YjbFeYFeeuaeYM
- WaNRNpO/3aW2HiWcRUaovdIpmD8e/HHNxJ9tF9HpEThD+f5ESZ5bmULfu+o1UkxuaKE3
- X52AgZ3eKj+GTh4c/pGeLJkQ2cCsmacxPEeptW61TeFu9BcC+VZJwjh07n/LjyGNN5nG
- FMv6BpXARRbGXfBzCMUAr/Zow0zJp2PBaRVp/C4vC8OfYDMUD+SXPaUNtasvR3D21O3o
- EJ7E0YpnKwWe5gmwgBkKBltvjPL8c3AcmGT+rR4r4DpWo69DlL+yPZwzDVlTnemEOoX7
- 7TXQ==
-X-Gm-Message-State: AO0yUKUFbao1YUmN9NUtXA6r2kQwGbFY4eIy1yCgbCJGLXSNm37CWASP
- Wacc77v6TVAW44EhWjJF5BBlS3arwtQ=
-X-Google-Smtp-Source: AK7set9pCgs5Mzg5mu14quXqpimkxQ1vvVRrR3EgnRAncBzkiA63MkdHUwqQiRRKut9sPY51WIhb/Q==
-X-Received: by 2002:a5d:5407:0:b0:2c3:db9e:4aff with SMTP id
- g7-20020a5d5407000000b002c3db9e4affmr1174399wrv.45.1676360563958; 
- Mon, 13 Feb 2023 23:42:43 -0800 (PST)
-Received: from able.fritz.box (p5b0ea2e7.dip0.t-ipconnect.de. [91.14.162.231])
- by smtp.gmail.com with ESMTPSA id
- e14-20020a5d65ce000000b002c561805a4csm1679855wrw.45.2023.02.13.23.42.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Feb 2023 23:42:43 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH 3/3] drm/ttm: Change the meaning of the fields in the
- drm_mm_nodes structure from pfn to bytes v2
-Date: Tue, 14 Feb 2023 08:42:38 +0100
-Message-Id: <20230214074238.65865-4-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230214074238.65865-1-christian.koenig@amd.com>
-References: <20230214074238.65865-1-christian.koenig@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50B9210E7FD;
+	Tue, 14 Feb 2023 07:54:42 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20615.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e89::615])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4725410E7FD
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 07:54:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=a4pufLsPkLnURuwbJlPh8p8cDTUsdX2X9FMeCNB3FoNXU7FMcnjpBn7NigJeceG6o/lbh1w1LbahKLfEiaS4FY2WgJ9IYJ1VYv0e8V5PVzC7pwN9KZanPoZp41ZX+lwuHWJI6JscPSTKjmcZmIcBNaz2S+LgjhKK/Jkpdq1hTdFhoiVA5qowUJxIrVk//AVTQA9z+1IcVEYqRYxlm96SMFm31kXdju+SBpfRG+sRKSfe4snYAbnsSvP3DPcykhrxuQUred1LtGdFp7dEcDyaPJUVvwiNYVlG7QgYtV+nzVYMSolC7uX4OR7fMvq9kuZLqxtos828OrJ5bod2IcbVzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gZtYqA3B8qcjHpFQ4W6xT6b4xrVULMe/w/J1eTSvsQ4=;
+ b=EUlHMlgbbU4ITkW27RmOBTItSS2ziSp+zas6M6a3bLMCD70zzRG+7lYAv21Ku/bgMlW7d8fS9YIhu5dTZrypgxO1vutiwmDoD0zXBNBNdIKMKf+OCCqOPbOMCfAM0S4t5KHQTZ5qS1HrAUCbDugC14bOzVqF6jCQ+xVKi0TYunpvO6dw8vo7qkYvgao4gkIy1WgEx8NzUMTJsePCUJs8SKGISY370mkHijyIg5fj5vpEDB60NIMG5DfS0vb4XIBlZXD2E2yGYt6maaCUdbMIlFzvMqAL4F0dBXgmq9xNZLuSFKrHs2vGvuO86uE2jtEHW8qg+5CTr77Fh+4vAmPDVQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gZtYqA3B8qcjHpFQ4W6xT6b4xrVULMe/w/J1eTSvsQ4=;
+ b=X1EJ2sOpxkKS0SODjBQI/X8Cf0WFgNyIUiDRFbdGzt+qs+6C6jpN7UBb/BDSNq5L5bAVr6JaDXFKztu/FzAMfrC67jVWe8IsTyKC5YXbauuSnV7B283hTvIoKry408p+sit+sLNR29GBTWDIEU4Nvsjwz+QqGr6HkHE8MlLto74=
+Received: from DM6PR08CA0062.namprd08.prod.outlook.com (2603:10b6:5:1e0::36)
+ by SJ2PR12MB8691.namprd12.prod.outlook.com (2603:10b6:a03:541::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.24; Tue, 14 Feb
+ 2023 07:54:36 +0000
+Received: from DS1PEPF0000E640.namprd02.prod.outlook.com
+ (2603:10b6:5:1e0:cafe::b7) by DM6PR08CA0062.outlook.office365.com
+ (2603:10b6:5:1e0::36) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.26 via Frontend
+ Transport; Tue, 14 Feb 2023 07:54:36 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF0000E640.mail.protection.outlook.com (10.167.17.202) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6111.8 via Frontend Transport; Tue, 14 Feb 2023 07:54:35 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 14 Feb
+ 2023 01:54:35 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 13 Feb
+ 2023 23:54:35 -0800
+Received: from vads-PC.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Tue, 14 Feb 2023 01:54:33 -0600
+From: kunliu13 <Kun.Liu2@amd.com>
+To: <Mario.Limonciello@amd.com>, <Richardqi.Liang@amd.com>,
+ <Perry.Yuan@amd.com>, <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amdgpu: added a sysfs interface for thermal throttling
+Date: Tue, 14 Feb 2023 15:54:27 +0800
+Message-ID: <20230214075427.31127-1-Kun.Liu2@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF0000E640:EE_|SJ2PR12MB8691:EE_
+X-MS-Office365-Filtering-Correlation-Id: 79b2462d-4ef7-473f-e2c5-08db0e60b769
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: nJ5QEaA9OJmMyOCWhNbWjb8KD9J0+JzkRX6KnIFDOBKpPAwXsmdhFTv5m6XeczxZHw8TjbjwTUCupNprcQ+17uZ+UmX14sVzFs2MojKXKnNVtedYFUSGSGalZBLMCbz2oBr5whAEUuaYOWiDd3nt8Ylgyp+ErwIUfiu8omvFz6Ngl3ozRwD0Yr8QkKe4khlynBNvzsDZuYAx3PqA6WIBw19dT1FjPhTOAmdkUpe1fbnZBpqnKgmlPOb5k9eQ7p0VpclgvKMKy5GfCepXyUYComhiaHYJYtwDlZmeD7mQ03WTv1ZXK9QKeG3FjyX5Uib8hcqDX73iZq4kLA6SQWgO7wYwWyYIBhyV7zLDdgfu+vpaHyxh+78CyykGLe7xv/TFeGXwhHGjixFFYZ0nr1SDlxQzzXUBA0osxEZOwXMfv8fDMiMEc6Whsslo0gSK0tP5pAMj45kgz6V3cx2pZ5sxeLZ3p4YDP2LvElhPhqPACuB0Fm1tsg7PhHBHEMqR7W4j+n8RxrwASULBV7PvMv+jrR3mNsCdn9wBDfeaVjlo7eIGwSKgESvvaLnfqRjdiiKOT9u6HUzTOvX3GzjyBiWlFAUq/N5LaSUU7uDcL9dGiD1SwXSE88iafHZN5ebetDxPCq+Tsqm+2cKnylYG3MccKBW7cQKexlXJWVtC8dNf3si3TyjK5i9bUEaBFNlH83VN62ir/z6C7eThDo6n7mDHP7egPTzRJmRO2DSCwK/GytODlGbwv9VL5Lq13qmwVX2jU5aPcU7vEhiqyWnub95MuAhCTQjLzM5ccBKoUsZjjPM=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(396003)(346002)(376002)(39860400002)(136003)(451199018)(40470700004)(46966006)(36840700001)(316002)(478600001)(6666004)(2616005)(86362001)(110136005)(82310400005)(54906003)(40460700003)(2906002)(70206006)(4326008)(8676002)(36860700001)(5660300002)(41300700001)(36756003)(426003)(1076003)(186003)(26005)(336012)(7696005)(47076005)(40480700001)(82740400003)(8936002)(70586007)(356005)(81166007)(83380400001)(43062005)(16060500005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2023 07:54:35.9095 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79b2462d-4ef7-473f-e2c5-08db0e60b769
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000E640.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8691
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,178 +103,251 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Amaranath.Somalapuram@amd.com
+Cc: Alexander.Deucher@amd.com, Evan.Quan@amd.com, Xiaojian.Du@amd.com,
+ kunliu13 <Kun.Liu2@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
+added a sysfs interface for thermal throttling, then userspace can get/update thermal limit
 
-Change the ttm_range_man_alloc() allocation from pages to size in bytes.
-Fix the dependent drm_mm_nodes start and size from pages to bytes.
+Jira ID: SWDEV-354511
+Signed-off-by: Kun Liu <Kun.Liu2@amd.com>
 
-v2 (chk): Change the drm_mm_node usage in amdgpu as well. re-order the
-          patch to be independent of the resource->start change.
-
-Signed-off-by: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Christian König <christian.koenig@amd.com>
+Change-Id: I9948cb8966b731d2d74d7aad87cbcdc840dd34c8
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c    | 15 ++++++++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h |  8 ++++----
- drivers/gpu/drm/i915/i915_scatterlist.c        |  6 +++---
- drivers/gpu/drm/ttm/ttm_range_manager.c        | 17 ++++++++---------
- 4 files changed, 23 insertions(+), 23 deletions(-)
+ .../gpu/drm/amd/include/kgd_pp_interface.h    |  2 +
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c           | 28 +++++++
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c            | 76 +++++++++++++++++++
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  3 +
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 24 ++++++
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h | 12 +++
+ 6 files changed, 145 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-index 44367f03316f..c90423cd1292 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-@@ -116,7 +116,6 @@ static int amdgpu_gtt_mgr_new(struct ttm_resource_manager *man,
- 			      struct ttm_resource **res)
- {
- 	struct amdgpu_gtt_mgr *mgr = to_gtt_mgr(man);
--	uint32_t num_pages = PFN_UP(tbo->base.size);
- 	struct ttm_range_mgr_node *node;
- 	int r;
- 
-@@ -134,17 +133,19 @@ static int amdgpu_gtt_mgr_new(struct ttm_resource_manager *man,
- 	if (place->lpfn) {
- 		spin_lock(&mgr->lock);
- 		r = drm_mm_insert_node_in_range(&mgr->mm, &node->mm_nodes[0],
--						num_pages, tbo->page_alignment,
--						0, place->fpfn, place->lpfn,
-+						tbo->base.size,
-+						tbo->page_alignment << PAGE_SHIFT, 0,
-+						place->fpfn << PAGE_SHIFT,
-+						place->lpfn << PAGE_SHIFT,
- 						DRM_MM_INSERT_BEST);
- 		spin_unlock(&mgr->lock);
- 		if (unlikely(r))
- 			goto err_free;
- 
--		node->base.start = node->mm_nodes[0].start;
-+		node->base.start = node->mm_nodes[0].start >> PAGE_SHIFT;
- 	} else {
- 		node->mm_nodes[0].start = 0;
--		node->mm_nodes[0].size = PFN_UP(node->base.size);
-+		node->mm_nodes[0].size = node->base.size;
- 		node->base.start = AMDGPU_BO_INVALID_OFFSET;
- 	}
- 
-@@ -285,8 +286,8 @@ int amdgpu_gtt_mgr_init(struct amdgpu_device *adev, uint64_t gtt_size)
- 
- 	ttm_resource_manager_init(man, &adev->mman.bdev, gtt_size);
- 
--	start = AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GTT_NUM_TRANSFER_WINDOWS;
--	size = (adev->gmc.gart_size >> PAGE_SHIFT) - start;
-+	start = (AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GTT_NUM_TRANSFER_WINDOWS) << PAGE_SHIFT;
-+	size = adev->gmc.gart_size - start;
- 	drm_mm_init(&mgr->mm, start, size);
- 	spin_lock_init(&mgr->lock);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h
-index 5c4f93ee0c57..5c78f0b09351 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h
-@@ -94,8 +94,8 @@ static inline void amdgpu_res_first(struct ttm_resource *res,
- 		while (start >= node->size << PAGE_SHIFT)
- 			start -= node++->size << PAGE_SHIFT;
- 
--		cur->start = (node->start << PAGE_SHIFT) + start;
--		cur->size = min((node->size << PAGE_SHIFT) - start, size);
-+		cur->start = node->start + start;
-+		cur->size = min(node->size - start, size);
- 		cur->remaining = size;
- 		cur->node = node;
- 		break;
-@@ -155,8 +155,8 @@ static inline void amdgpu_res_next(struct amdgpu_res_cursor *cur, uint64_t size)
- 		node = cur->node;
- 
- 		cur->node = ++node;
--		cur->start = node->start << PAGE_SHIFT;
--		cur->size = min(node->size << PAGE_SHIFT, cur->remaining);
-+		cur->start = node->start;
-+		cur->size = min(node->size, cur->remaining);
- 		break;
- 	default:
- 		return;
-diff --git a/drivers/gpu/drm/i915/i915_scatterlist.c b/drivers/gpu/drm/i915/i915_scatterlist.c
-index 756289e43dff..7defda1219d0 100644
---- a/drivers/gpu/drm/i915/i915_scatterlist.c
-+++ b/drivers/gpu/drm/i915/i915_scatterlist.c
-@@ -94,7 +94,7 @@ struct i915_refct_sgt *i915_rsgt_from_mm_node(const struct drm_mm_node *node,
- 	if (!rsgt)
- 		return ERR_PTR(-ENOMEM);
- 
--	i915_refct_sgt_init(rsgt, node->size << PAGE_SHIFT);
-+	i915_refct_sgt_init(rsgt, node->size);
- 	st = &rsgt->table;
- 	/* restricted by sg_alloc_table */
- 	if (WARN_ON(overflows_type(DIV_ROUND_UP_ULL(node->size, segment_pages),
-@@ -110,8 +110,8 @@ struct i915_refct_sgt *i915_rsgt_from_mm_node(const struct drm_mm_node *node,
- 	sg = st->sgl;
- 	st->nents = 0;
- 	prev_end = (resource_size_t)-1;
--	block_size = node->size << PAGE_SHIFT;
--	offset = node->start << PAGE_SHIFT;
-+	block_size = node->size;
-+	offset = node->start;
- 
- 	while (block_size) {
- 		u64 len;
-diff --git a/drivers/gpu/drm/ttm/ttm_range_manager.c b/drivers/gpu/drm/ttm/ttm_range_manager.c
-index 62fddcc59f02..9da6054f2955 100644
---- a/drivers/gpu/drm/ttm/ttm_range_manager.c
-+++ b/drivers/gpu/drm/ttm/ttm_range_manager.c
-@@ -83,9 +83,10 @@ static int ttm_range_man_alloc(struct ttm_resource_manager *man,
- 
- 	spin_lock(&rman->lock);
- 	ret = drm_mm_insert_node_in_range(mm, &node->mm_nodes[0],
--					  PFN_UP(node->base.size),
--					  bo->page_alignment, 0,
--					  place->fpfn, lpfn, mode);
-+					  node->base.size,
-+					  bo->page_alignment << PAGE_SHIFT, 0,
-+					  place->fpfn << PAGE_SHIFT,
-+					  lpfn << PAGE_SHIFT, mode);
- 	spin_unlock(&rman->lock);
- 
- 	if (unlikely(ret)) {
-@@ -94,7 +95,7 @@ static int ttm_range_man_alloc(struct ttm_resource_manager *man,
- 		return ret;
- 	}
- 
--	node->base.start = node->mm_nodes[0].start;
-+	node->base.start = node->mm_nodes[0].start >> PAGE_SHIFT;
- 	*res = &node->base;
- 	return 0;
+diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+index f3d64c78f..8394464ea 100644
+--- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+@@ -331,6 +331,8 @@ struct amd_pm_funcs {
+ 	int (*get_mclk_od)(void *handle);
+ 	int (*set_mclk_od)(void *handle, uint32_t value);
+ 	int (*read_sensor)(void *handle, int idx, void *value, int *size);
++	int (*get_apu_thermal_limit)(void *handle, uint32_t *limit);
++	int (*set_apu_thermal_limit)(void *handle, uint32_t limit);
+ 	enum amd_dpm_forced_level (*get_performance_level)(void *handle);
+ 	enum amd_pm_state_type (*get_current_power_state)(void *handle);
+ 	int (*get_fan_speed_rpm)(void *handle, uint32_t *rpm);
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+index 1b300c569..d9a9cf189 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+@@ -438,6 +438,34 @@ int amdgpu_dpm_read_sensor(struct amdgpu_device *adev, enum amd_pp_sensors senso
+ 	return ret;
  }
-@@ -119,11 +120,10 @@ static bool ttm_range_man_intersects(struct ttm_resource_manager *man,
- 				     size_t size)
+ 
++int amdgpu_dpm_get_apu_thermal_limit(struct amdgpu_device *adev, uint32_t *limit)
++{
++	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
++	int ret = -EINVAL;
++
++	if (pp_funcs && pp_funcs->get_apu_thermal_limit) {
++		mutex_lock(&adev->pm.mutex);
++		ret = pp_funcs->get_apu_thermal_limit(adev->powerplay.pp_handle, limit);
++		mutex_unlock(&adev->pm.mutex);
++	}
++
++	return ret;
++}
++
++int amdgpu_dpm_set_apu_thermal_limit(struct amdgpu_device *adev, uint32_t limit)
++{
++	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
++	int ret = -EINVAL;
++
++	if (pp_funcs && pp_funcs->set_apu_thermal_limit) {
++		mutex_lock(&adev->pm.mutex);
++		ret = pp_funcs->set_apu_thermal_limit(adev->powerplay.pp_handle, limit);
++		mutex_unlock(&adev->pm.mutex);
++	}
++
++	return ret;
++}
++
+ void amdgpu_dpm_compute_clocks(struct amdgpu_device *adev)
  {
- 	struct drm_mm_node *node = &to_ttm_range_mgr_node(res)->mm_nodes[0];
--	u32 num_pages = PFN_UP(size);
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 236657eec..99b249e55 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -1685,6 +1685,81 @@ static ssize_t amdgpu_set_thermal_throttling_logging(struct device *dev,
+ 	return count;
+ }
  
- 	/* Don't evict BOs outside of the requested placement range */
--	if (place->fpfn >= (node->start + num_pages) ||
--	    (place->lpfn && place->lpfn <= node->start))
-+	if ((place->fpfn << PAGE_SHIFT) >= (node->start + size) ||
-+	    (place->lpfn && (place->lpfn << PAGE_SHIFT) <= node->start))
- 		return false;
++/**
++ * DOC: apu_thermal_cap
++ *
++ * The amdgpu driver provides a sysfs API for retrieving/updating thermal
++ * limit temperature in millidegrees Celsius
++ *
++ * Reading back the file shows you core limit value
++ *
++ * Writing an integer to the file, sets a new thermal limit. The value
++ * should be between 0 and 100. If the value is less than 0 or greater
++ * than 100, then the write request will be ignored.
++ */
++static ssize_t amdgpu_get_apu_thermal_cap(struct device *dev,
++				     struct device_attribute *attr,
++				     char *buf)
++{
++	int ret, size = 0;
++	u32 limit;
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++
++	ret = pm_runtime_get_sync(ddev->dev);
++	if (ret < 0) {
++		pm_runtime_put_autosuspend(ddev->dev);
++		return size;
++	}
++
++	ret = amdgpu_dpm_get_apu_thermal_limit(adev, &limit);
++	if (!ret)
++		size = sysfs_emit(buf, "%u\n", limit);
++	else
++		size = sysfs_emit(buf, "failed to get thermal limit\n");
++
++	pm_runtime_mark_last_busy(ddev->dev);
++	pm_runtime_put_autosuspend(ddev->dev);
++
++	return size;
++}
++
++static ssize_t amdgpu_set_apu_thermal_cap(struct device *dev,
++				     struct device_attribute *attr,
++				     const char *buf,
++				     size_t count)
++{
++	int ret;
++	u32 value;
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++
++	ret = kstrtou32(buf, 10, &value);
++	if (ret)
++		return ret;
++
++	if (value < 0 || value > 100) {
++		dev_err(dev, "Invalid argument !\n");
++		return count;
++	}
++
++	ret = pm_runtime_get_sync(ddev->dev);
++	if (ret < 0) {
++		pm_runtime_put_autosuspend(ddev->dev);
++		return ret;
++	}
++
++	ret = amdgpu_dpm_set_apu_thermal_limit(adev, value);
++	if (ret)
++		dev_err(dev, "failed to update thermal limit\n");
++
++	pm_runtime_mark_last_busy(ddev->dev);
++	pm_runtime_put_autosuspend(ddev->dev);
++
++	return count;
++}
++
++
+ /**
+  * DOC: gpu_metrics
+  *
+@@ -1937,6 +2012,7 @@ static struct amdgpu_device_attr amdgpu_device_attrs[] = {
+ 	AMDGPU_DEVICE_ATTR_RW(pp_features,				ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
+ 	AMDGPU_DEVICE_ATTR_RO(unique_id,				ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
+ 	AMDGPU_DEVICE_ATTR_RW(thermal_throttling_logging,		ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
++	AMDGPU_DEVICE_ATTR_RW(apu_thermal_cap,			ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
+ 	AMDGPU_DEVICE_ATTR_RO(gpu_metrics,				ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
+ 	AMDGPU_DEVICE_ATTR_RO(smartshift_apu_power,			ATTR_FLAG_BASIC,
+ 			      .attr_update = ss_power_attr_update),
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+index cb5b9df78..0cc379ea1 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+@@ -369,6 +369,9 @@ struct amdgpu_pm {
+ int amdgpu_dpm_read_sensor(struct amdgpu_device *adev, enum amd_pp_sensors sensor,
+ 			   void *data, uint32_t *size);
  
- 	return true;
-@@ -135,10 +135,9 @@ static bool ttm_range_man_compatible(struct ttm_resource_manager *man,
- 				     size_t size)
++int amdgpu_dpm_get_apu_thermal_limit(struct amdgpu_device *adev, uint32_t *limit);
++int amdgpu_dpm_set_apu_thermal_limit(struct amdgpu_device *adev, uint32_t limit);
++
+ int amdgpu_dpm_set_powergating_by_smu(struct amdgpu_device *adev,
+ 				      uint32_t block_type, bool gate);
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 2fa79f892..b612fb6bd 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -2514,6 +2514,28 @@ static int smu_read_sensor(void *handle,
+ 	return ret;
+ }
+ 
++static int smu_get_apu_thermal_limit(void *handle, uint32_t *limit)
++{
++	int ret = -EINVAL;
++	struct smu_context *smu = handle;
++
++	if (smu->ppt_funcs && smu->ppt_funcs->get_apu_thermal_limit)
++		ret = smu->ppt_funcs->get_apu_thermal_limit(smu, limit);
++
++	return ret;
++}
++
++static int smu_set_apu_thermal_limit(void *handle, uint32_t limit)
++{
++	int ret = -EINVAL;
++	struct smu_context *smu = handle;
++
++	if (smu->ppt_funcs && smu->ppt_funcs->set_apu_thermal_limit)
++		ret = smu->ppt_funcs->set_apu_thermal_limit(smu, limit);
++
++	return ret;
++}
++
+ static int smu_get_power_profile_mode(void *handle, char *buf)
  {
- 	struct drm_mm_node *node = &to_ttm_range_mgr_node(res)->mm_nodes[0];
--	u32 num_pages = PFN_UP(size);
+ 	struct smu_context *smu = handle;
+@@ -2998,6 +3020,8 @@ static const struct amd_pm_funcs swsmu_pm_funcs = {
+ 	.emit_clock_levels       = smu_emit_ppclk_levels,
+ 	.force_performance_level = smu_force_performance_level,
+ 	.read_sensor             = smu_read_sensor,
++	.get_apu_thermal_limit       = smu_get_apu_thermal_limit,
++	.set_apu_thermal_limit       = smu_set_apu_thermal_limit,
+ 	.get_performance_level   = smu_get_performance_level,
+ 	.get_current_power_state = smu_get_current_power_state,
+ 	.get_fan_speed_rpm       = smu_get_fan_speed_rpm,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+index 3bc4128a2..378d3df4d 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+@@ -721,6 +721,18 @@ struct pptable_funcs {
+ 	int (*read_sensor)(struct smu_context *smu, enum amd_pp_sensors sensor,
+ 			   void *data, uint32_t *size);
  
- 	if (node->start < place->fpfn ||
--	    (place->lpfn && (node->start + num_pages) > place->lpfn))
-+	    (place->lpfn && (node->start + size) > place->lpfn << PAGE_SHIFT))
- 		return false;
- 
- 	return true;
++	/**
++	 * @get_apu_thermal_limit: get apu core limit from smu
++	 * &limit: current limit temperature in millidegrees Celsius
++	 */
++	int (*get_apu_thermal_limit)(struct smu_context *smu, uint32_t *limit);
++
++	/**
++	 * @set_apu_thermal_limit: update all controllers with new limit
++	 * &limit: limit temperature to be setted, in millidegrees Celsius
++	 */
++	int (*set_apu_thermal_limit)(struct smu_context *smu, uint32_t limit);
++
+ 	/**
+ 	 * @pre_display_config_changed: Prepare GPU for a display configuration
+ 	 *                              change.
 -- 
-2.34.1
+2.25.1
 
