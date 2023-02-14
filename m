@@ -4,117 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90881C05027
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 19:28:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3448AC05027
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 19:45:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B3DE10E97B;
-	Tue, 14 Feb 2023 19:28:48 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2073.outbound.protection.outlook.com [40.107.244.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6F7510E97F
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 19:28:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ntJ9oxm8MzIK10LpGKPD4tC2vJwg7bhKetfDCowTd7OGdiY1EIJbLtLtrkRtUj3aaQWgftdkEkLq1qWs9QWmmROO/KoTRYSvpdEOPtViwoFMXtf8YZpgyjrIlX3Ac8onGgteVA+jScYF9NJbNbvj5JIftb/0GhjmWlAuCAlKtngIWyzZM9aUYawsWTSMCa/N3TNIlAIZF+0iGQ7g2gF+tiVvS+yYxWgk0G5S6rMgmpn4HkP858lWkQhY7q6Byzhz6Oy2mESe6fvkXGM/I7XvjyXP+TpiX4i6JqzObgXtbFGmt7R01E0+smRY0AwpFkVb0EWev3Ktta6BuhIXtZhkKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Xf7TOlJM8KyMzXJKXb8uAtHdoZVs4RbTKXKv1YSpaes=;
- b=K1BzIPhQqbz0+K2w0x6l4vPF8BllG66zd3sEFCkBbdnlRD/DucSTuOITVeRdL3nG2Ikjwzmnz54gXIa49BHohEwUOiD9OeTzIb0cCtber6msEGkUe7iORUfCTagDjF44endjwtVkO+RRxektnv2xjxwZ3T82pFLOcVstetoIRERM6s98Fc3x1WI38SWFcRtkv9HCZe8gxoDyjGBNJsIODVKnNGF1yb1xJUL3qdV+tw2Ifi0ZhP8T58XEeX3QU2W+RFMHu357h9V2LcobXJnTVLOjX8V0QWrgGdQsPtJTzJIA/SnCVSE9jxg1Fhr2+WlbNOB7IVbnvzWw0LOKbB6k5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xf7TOlJM8KyMzXJKXb8uAtHdoZVs4RbTKXKv1YSpaes=;
- b=ThaQQXUhf74Q1VtI7kqIaIi9WMrNIY7NpEWfn1+/9l/3OsnGI6/4F52O5PwF1vmKSGQk3gamBhqBCI82I+H6OoNiOc40NEkE8E7nlsj3N6BurUN/LE2VrBpzP+dMwqBl1X7M6CyKGlVUpPhO/bRtG5s6rsO5CojSGpuic2w46Bs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
- by CH0PR12MB5060.namprd12.prod.outlook.com (2603:10b6:610:e3::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.26; Tue, 14 Feb
- 2023 19:28:44 +0000
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::d1c8:8b04:20ba:9d6f]) by MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::d1c8:8b04:20ba:9d6f%4]) with mapi id 15.20.6086.024; Tue, 14 Feb 2023
- 19:28:44 +0000
-Message-ID: <ae796f69-28bb-4e45-700b-39a13b69bcf7@amd.com>
-Date: Tue, 14 Feb 2023 20:28:38 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH v2 8/8] drm/amdgpu: start using kernel doorbell bo
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20230214161510.2153-1-shashank.sharma@amd.com>
- <20230214161510.2153-9-shashank.sharma@amd.com>
- <d890c9c9-5cc7-365a-df23-f2c16a85bac9@amd.com>
-From: Shashank Sharma <shashank.sharma@amd.com>
-In-Reply-To: <d890c9c9-5cc7-365a-df23-f2c16a85bac9@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0135.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9e::19) To MW4PR12MB5667.namprd12.prod.outlook.com
- (2603:10b6:303:18a::10)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC7A310E0A2;
+	Tue, 14 Feb 2023 19:45:19 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18C2410E275
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 19:45:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1676403916;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=sezo+rk7XdltEWsRunMgz/c6NhnfCSCilp6aU9kLSGw=;
+ b=J5+IC7CM3WsiDTaLdEoqDB1rCIGFva3bJgJM3iiMLThxlo1cG9J5Fo0CDBEGYmnTlJWOtT
+ 0alByoOZBJ0tNeGaNK6MXeprDxzoK+8YanGsKN/o1CUZbbxacSFYWXdCV7u++VtaT2d2Q7
+ 8GxJvGWZxiqpbLKOBkTOXSsILtFNmR8=
+Received: from mail-lj1-f198.google.com (mail-lj1-f198.google.com
+ [209.85.208.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-553-9OiefiHUNJe1Hruvmh3ejw-1; Tue, 14 Feb 2023 14:45:14 -0500
+X-MC-Unique: 9OiefiHUNJe1Hruvmh3ejw-1
+Received: by mail-lj1-f198.google.com with SMTP id
+ l1-20020a2e9081000000b0028b97d2c493so4191858ljg.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 11:45:14 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=sezo+rk7XdltEWsRunMgz/c6NhnfCSCilp6aU9kLSGw=;
+ b=WW3hArkuTQ/Jp9belNDNKeLNfHEfNPsp18l8i9ybCJBIRo6YENXUxcrNVIL9tdVTn6
+ CV6Ump1JrN3davRmzZbIXcN51YZoylKYqbUBC/w3aOpbqGXXXic3FfsoxoT3yaMqdg3+
+ x5zYTtWrVlufvU6IC4sWh1/VCsyj8w+ZjbMuHa/e3e2nMhJwWPcTYQJFYEWz3uRPqOGb
+ HrRGVUYkwLqtR9Xe8EM2G4eHM13Oq/tNEAnUgpjlHYXvRd5hu7PUDHErhwjyiETfdFDk
+ T1Y8iZbuCQxz4wQZWIHNQgzKu/fcR530/IbSwO24OM+j/CMXwUYQZrS6wK/7waBW66b2
+ xt+A==
+X-Gm-Message-State: AO0yUKWl1OzCGv1nrA6/FUm0ivzveEh3OiIKwZczrv2lQ4W8/SsWtI4k
+ VKlUygAu47Ugj78CvOjqQZhJGGyPfU90wfTQK7gW3QQj+/ScoczBXYEVr1i42Ztts1Yps9IqHw1
+ DKO+LGxmYfiCBZJYwHTvBpBsWh+HgjfXuBpVfMOfv7Q==
+X-Received: by 2002:a2e:82c7:0:b0:293:34f2:1e47 with SMTP id
+ n7-20020a2e82c7000000b0029334f21e47mr551400ljh.1.1676403913238; 
+ Tue, 14 Feb 2023 11:45:13 -0800 (PST)
+X-Google-Smtp-Source: AK7set8oyCEmZGta3yRuNAf/hmdf/iOjkxmwzucFy1Z1H4cf11WNby761dWM5A1pjKlWDEd7Kd/d+TbDuH0rrmXU+qY=
+X-Received: by 2002:a2e:82c7:0:b0:293:34f2:1e47 with SMTP id
+ n7-20020a2e82c7000000b0029334f21e47mr551389ljh.1.1676403912794; Tue, 14 Feb
+ 2023 11:45:12 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB5667:EE_|CH0PR12MB5060:EE_
-X-MS-Office365-Filtering-Correlation-Id: 75dd5f24-e90b-40ee-f3c4-08db0ec1afc6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wy4DIpaAKg2OOJcCCxbnnLbeRqvCmCps+o+J2JbhXEJ7rF5Rx+uskOaXpD/uYG/cEPvxI6Qi3I/jgmpUdmEGnjIPMJerYYIarwjYqcIaiWxnyLfG9QLMevjJ3Mk0mfAf4287/9L/FQTY6I0LiJcVFxcR92w+EYKJ9R49WNCMd9VFeT36qCSoeeSC8g5LRT1o1EZrukXIVRe+0rbJ7ejEzL5sU4DYNmipTs2c1KpwEn3gPD26pJg27IO1j0ClgXWri0lzXyl5yFed0rJ4XdMdsU+/GFF0H94UbHO0SQocEmjSRkEVnEGvQHwxjtQp8X+cHJzxBVUe/wwemetLm8N+67hBkbPfYYH9sP1CXSty9H+g3qWQOoEs+bC+d9Qp6tz79IXdM1kybhgHku7w7sjl9d9yZLXq+spiLSnSeNZsR/EFpjYKWrBo93D54ccX+7FbM7ENDnJUxMOOVAOq6ucEgR2549hj1EmviPrEeKbkShyruRjDGUjlpntP5Te3AZLtVey2irWl/dg2DBLp/rf2aqUZHOZvlNhdXclOCrEgXHwegHSkNMlR0o4eRBFk6e0w9CLhIQRivsVWdmOGOLY/TyzO8Je/Q5KRorzIxvZLIq+fK85sFFrQTDRa6gA9YXE+/iKFE0NWuWC924mZ3myJ8EiENBi89tyDFV5kBXVTS2tNkko40E09cYYHDoLljMHQxvW7pRtn7TBDvnr4i+KmWXtPUx70E9tINkOoTJhWZbw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(376002)(346002)(136003)(396003)(366004)(39860400002)(451199018)(36756003)(31696002)(86362001)(186003)(26005)(66574015)(83380400001)(316002)(6512007)(478600001)(2616005)(6666004)(31686004)(6486002)(6506007)(53546011)(44832011)(2906002)(8676002)(41300700001)(66476007)(66946007)(66556008)(5660300002)(4326008)(38100700002)(8936002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d0JNZ3ZqMEFUY2NCcFIvYVMrVWx4WG5rNlkvVjBQWDlkSFphRUsxWEFlU3NG?=
- =?utf-8?B?Z3FFNHh6YkNSS1Q0UkZ4aHZBRFp2YnQ0UWtUQzh4OStuYXB6UkFlbTY1dVM2?=
- =?utf-8?B?ZGY3b0NjWThuYnlHQUsvbXBVZ01YUmVPMlFmbjI3bmJjUTR5WlZ1WXlqeWtv?=
- =?utf-8?B?NVBaNURPa1F2TEJVaXc2S3FUYkhyTnR4dG03U2J0ZzJFa01HWmZDNThTZVRI?=
- =?utf-8?B?UXJhdCt6ZG5weXBKaU9vSWFkdEl0eEVlTEFCTnd4Y1VSZTRyRTdnMGVHSldj?=
- =?utf-8?B?RlBxNENqZHB1WkVnSjZrdVBVa0tVbkhyKzRXUzZpMFowVVhLaWdMTDVzS3hJ?=
- =?utf-8?B?eXlnK0NITGlkVStNVUxHYm8vMFhPd1BqbmRUblpwV3pLNGRUMVpOdEpmNk5m?=
- =?utf-8?B?V0hUWDVZeUZnMEE4S0pxbURmSjdkOTEzYWFkdWxEOEZqaHEzMDRFclNsZWs2?=
- =?utf-8?B?VE1lOGZUaWIxUW1ibWNFd0FlMlVYY0k1bjN3UHE5cmY2bG55VlZVdTNzWDBy?=
- =?utf-8?B?ZTZNN25QVTFOR0RvTFlmU0tVUFlzMjZyR1FwcEVkY0JYTU9oSVhqaUtnMEFl?=
- =?utf-8?B?b3ZEVEtVSWFKRmk3VVVHNHl4Y1BDSFkyY0FjZVJJZ0FYUElCYVdVbm9iUWJO?=
- =?utf-8?B?S0xtOWNFTGNPUUFHZG44dElKWlk5TEo3dEUzWEFGZVhVdkFJY2RldWovbWg2?=
- =?utf-8?B?WGRGMXQyVVdkcVVUdXhzN3lrYmQwenpvRGZwNGI5VHltV0cvTEFZS0RrVkkr?=
- =?utf-8?B?MXNVZjNHRjY4Tzl5OWt1UU9WSnU5VTBBQ1ZmS1JjcnBGQUx0UVlqUnU5TjBs?=
- =?utf-8?B?Q1ArcXVpb0xPMXBCQWdOeGwvY3V1K3BtbEsyKzBQcXFCTklIZkM0WE44dnNU?=
- =?utf-8?B?TDE1S1NHZWZPYUIvNFNKY2hCK1dvRHQ1N1I3aUJZS29sK2dkWXhrVGhSY3J6?=
- =?utf-8?B?NDlGM2pmNFR5b3NGZGVqeFRYUUVkYkwyRno1OFFMSm5rMU5pN0t4SjhiV0x4?=
- =?utf-8?B?ckJzemJmUEFyY2J5RWxmMER0eGMzR2hEWTJ0dmE0aW9PNUZVa0NCVGYyeHhO?=
- =?utf-8?B?MGo0dERWNlNPYWNCWkxCUi9RTlExQ0Q5V1FCdjdjT1hJVWYrRzVHV2pKM0VH?=
- =?utf-8?B?ZGF2RVNlNklkdzNvZDE1WGdlODUxUHFTQXlnNjF2QURLdS9kWTA5VmZHUFU1?=
- =?utf-8?B?SXp5My9YeVoyWTNSWTVIWjlSaURzeHNkU2gwdE1ncFJrM0tOOVhIT2FJclRI?=
- =?utf-8?B?d2l4cnc1MlNGVFAvTnZLenQrakxjWFBVTWxBZkVadWpJUTJ0YjBndEJ3WkFH?=
- =?utf-8?B?TVhJVFhRVzhncmhwZkNhZXEyN1pVRXRCeHU5VjZteWZCeFFFbHMvaEw3RWFL?=
- =?utf-8?B?QVlVSXFJb21qRk04cnNsWkFzYmd6SEp0dzRDdFVtb1pBa01VZklGb0dEeDg2?=
- =?utf-8?B?cDhyR0J6Y0U0cjN5TTFaNW8wUHp6ZW10S08yL2NSZEY0RHl4T1g5WFRmWHRo?=
- =?utf-8?B?RE9Xd3ZDbjIrVmRuenkxRDV2cjNkREFJY3Vod0hBaGpVU2x2NVZnRWI5UCt2?=
- =?utf-8?B?bkpHeEdBSDdzM0w1SDJpeUsrWFdmVnIyejJGK2Z0VTJ2VzduMzI2eGxVa1p6?=
- =?utf-8?B?eXNyeWpiemxxOHFCcVZubitJUElVay81NkFTQTZncGVveURpZ3BSTEJJa3Jw?=
- =?utf-8?B?a2R2d0NQQ255cXhHRlI1THY4UTJsRmRqdS9MbGowSXYyZDZnK1pjdExjOEo5?=
- =?utf-8?B?RDliNEZCd0Y3L2s3cThMWGhxOXNiT25hcjJLUGtjRkdSOGRLeGErRGxzbk9G?=
- =?utf-8?B?UVgvVFZZR3FyT3hWNy9ZL3RrL3FLRk50L281MnkySGZDUnNnVWl6ektwWlYx?=
- =?utf-8?B?R0pHUjhzS0RUNlo4d3RtYm1iTFpBNTZHWlJpNkROMGxIcURyaVF0T0U1cXcx?=
- =?utf-8?B?dk5xWW9ncFdLVytaM21mcUpES3FPNWk3RC9MN3VNTVM3ZWt2d0pUWUVsZHdG?=
- =?utf-8?B?ZlQzenpJUlZYdXd6WDZQNWFsT3p0VzZlVU5rbjZrZTViQktzN2tuZGVpS2R0?=
- =?utf-8?B?c0ZmengrQVBKOUU0TFUxOUlCdlBrbEdOMmlBUzRYemc2bXVCZmh4VUJ6VHo0?=
- =?utf-8?Q?lPRVN+EBWCZzNfa282U+qFc/L?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 75dd5f24-e90b-40ee-f3c4-08db0ec1afc6
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2023 19:28:44.6240 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ggqo9ZAXnG5nvb8sbP341xf14mIgTe18QGLWN/yOhtgcL3OnkD7kIfXvfrPRp3/ACmMEwAI2RliBGDtgc3J9RA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5060
+References: <20230203020744.30745-1-joshua@froggi.es>
+ <20230203020744.30745-3-joshua@froggi.es>
+ <Y9zkef5FjtZ7guVS@intel.com>
+ <CA+hFU4ymiOg06MQeKLcn5MSrR=BZnOLODdZCFvGUdWqt_ha61A@mail.gmail.com>
+ <0fc18aec-0703-55f4-f635-d09d345e8dc0@amd.com> <Y90l+DY0rSaMvN1U@intel.com>
+ <758e5cf6-53e0-567c-c760-5b773bc7a11c@amd.com> <Y90vrEa3/1RbaGOV@intel.com>
+ <CA+hFU4wuM_xHniFyRT+jouQ3k_S3UJsRpAtd1Lgx9UVLtrqZrQ@mail.gmail.com>
+ <98d1d22a-1c29-5271-1eaf-89c962eb9678@amd.com>
+In-Reply-To: <98d1d22a-1c29-5271-1eaf-89c962eb9678@amd.com>
+From: Sebastian Wick <sebastian.wick@redhat.com>
+Date: Tue, 14 Feb 2023 20:45:00 +0100
+Message-ID: <CA+hFU4y=N3bR-vXXeLP0xTe0-HJPgF_GTbKrb3A9St-z2LignQ@mail.gmail.com>
+Subject: Re: [PATCH 3/3] drm/connector: Deprecate split for BT.2020 in
+ drm_colorspace enum
+To: Harry Wentland <harry.wentland@amd.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,194 +84,265 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com,
- Shashank Sharma <contactshashanksharma@gmail.com>, Arvind.Yadav@amd.com
+Cc: dri-devel@lists.freedesktop.org,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Pekka Paalanen <ppaalanen@gmail.com>, Uma Shankar <uma.shankar@intel.com>,
+ amd-gfx@lists.freedesktop.org, Joshua Ashton <joshua@froggi.es>,
+ Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 14/02/2023 19:40, Christian König wrote:
-> Am 14.02.23 um 17:15 schrieb Shashank Sharma:
->> From: Shashank Sharma <contactshashanksharma@gmail.com>
->>
->> This patch does the following:
->>
->> - Adds new variables like mman.doorbell_bo_size/gpu_addr/cpu_addr.
->>    The cpu_addr ptr will be used now for doorbell read/write from
->>    doorbell BAR.
->> - Adjusts the existing code to use kernel doorbell BO's size and its
->>    cpu_address.
->>
->> Cc: Alex Deucher <alexander.deucher@amd.com>
->> Cc: Christian Koenig <christian.koenig@amd.com>
->> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+On Tue, Feb 14, 2023 at 5:57 PM Harry Wentland <harry.wentland@amd.com> wro=
+te:
 >
-> Maybe squash this one together with the previous patch.
-
-I just split it from the last patch in this series, thought it was too 
-scattered and might not be
-
-easy to review :D
-
-
 >
-> But see below.
 >
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c   |  5 ++-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c   | 33 +++++++++-----------
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h |  1 -
->>   3 files changed, 16 insertions(+), 23 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
->> index 0493c64e9d0a..87f486f522ae 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
->> @@ -109,11 +109,10 @@ static void amdgpu_doorbell_get_kfd_info(struct 
->> amdgpu_device *adev,
->>           *aperture_base = adev->doorbell.doorbell_aper_base;
->>           *aperture_size = 0;
->>           *start_offset = 0;
->> -    } else if (adev->doorbell.doorbell_aper_size > 
->> adev->doorbell.num_doorbells *
->> -                        sizeof(u32)) {
->> +    } else if (adev->doorbell.doorbell_aper_size > 
->> adev->mman.doorbell_kernel_bo_size) {
->>           *aperture_base = adev->doorbell.doorbell_aper_base;
->>           *aperture_size = adev->doorbell.doorbell_aper_size;
->> -        *start_offset = adev->doorbell.num_doorbells * sizeof(u32);
->> +        *start_offset = adev->mman.doorbell_kernel_bo_size;
->>       } else {
->>           *aperture_base = 0;
->>           *aperture_size = 0;
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> index 43c1b67c2778..fde199434579 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> @@ -596,8 +596,8 @@ u32 amdgpu_mm_rdoorbell(struct amdgpu_device 
->> *adev, u32 index)
->>       if (amdgpu_device_skip_hw_access(adev))
->>           return 0;
->>   -    if (index < adev->doorbell.num_doorbells) {
->> -        return readl(adev->mman.doorbell_aper_base_kaddr + index);
->> +    if (index < adev->mman.num_kernel_doorbells) {
->> +        return readl(adev->mman.doorbell_cpu_addr + index);
->>       } else {
->>           DRM_ERROR("reading beyond doorbell aperture: 0x%08x!\n", 
->> index);
->>           return 0;
->> @@ -619,8 +619,8 @@ void amdgpu_mm_wdoorbell(struct amdgpu_device 
->> *adev, u32 index, u32 v)
->>       if (amdgpu_device_skip_hw_access(adev))
->>           return;
->>   -    if (index < adev->doorbell.num_doorbells) {
->> -        writel(v, adev->mman.doorbell_aper_base_kaddr + index);
->> +    if (index < adev->mman.num_kernel_doorbells) {
->> +        writel(v, adev->mman.doorbell_cpu_addr + index);
->>       } else {
->>           DRM_ERROR("writing beyond doorbell aperture: 0x%08x!\n", 
->> index);
->>       }
->> @@ -640,8 +640,8 @@ u64 amdgpu_mm_rdoorbell64(struct amdgpu_device 
->> *adev, u32 index)
->>       if (amdgpu_device_skip_hw_access(adev))
->>           return 0;
->>   -    if (index < adev->doorbell.num_doorbells) {
->> -        return atomic64_read((atomic64_t 
->> *)(adev->mman.doorbell_aper_base_kaddr + index));
->> +    if (index < adev->mman.num_kernel_doorbells) {
->> +        return atomic64_read((atomic64_t 
->> *)(adev->mman.doorbell_cpu_addr + index));
->>       } else {
->>           DRM_ERROR("reading beyond doorbell aperture: 0x%08x!\n", 
->> index);
->>           return 0;
->> @@ -663,8 +663,8 @@ void amdgpu_mm_wdoorbell64(struct amdgpu_device 
->> *adev, u32 index, u64 v)
->>       if (amdgpu_device_skip_hw_access(adev))
->>           return;
->>   -    if (index < adev->doorbell.num_doorbells) {
->> -        atomic64_set((atomic64_t 
->> *)(adev->mman.doorbell_aper_base_kaddr + index), v);
->> +    if (index < adev->mman.num_kernel_doorbells) {
->> +        atomic64_set((atomic64_t *)(adev->mman.doorbell_cpu_addr + 
->> index), v);
->>       } else {
->>           DRM_ERROR("writing beyond doorbell aperture: 0x%08x!\n", 
->> index);
->>       }
->> @@ -1037,7 +1037,7 @@ static int amdgpu_device_doorbell_init(struct 
->> amdgpu_device *adev)
->>       if (adev->asic_type < CHIP_BONAIRE) {
->>           adev->doorbell.doorbell_aper_base = 0;
->>           adev->doorbell.doorbell_aper_size = 0;
->> -        adev->doorbell.num_doorbells = 0;
->> +        adev->mman.num_kernel_doorbells = 0;
->>           adev->mman.doorbell_aper_base_kaddr = NULL;
->>           return 0;
->>       }
->> @@ -1052,13 +1052,13 @@ static int amdgpu_device_doorbell_init(struct 
->> amdgpu_device *adev)
->>       adev->doorbell.doorbell_aper_size = 
->> pci_resource_len(adev->pdev, 2);
->>         if (adev->enable_mes) {
->> -        adev->doorbell.num_doorbells =
->> +        adev->mman.num_kernel_doorbells =
->>               adev->doorbell.doorbell_aper_size / sizeof(u32);
->>       } else {
->> -        adev->doorbell.num_doorbells =
->> +        adev->mman.num_kernel_doorbells =
->>               min_t(u32, adev->doorbell.doorbell_aper_size / 
->> sizeof(u32),
->>                     adev->doorbell_index.max_assignment+1);
->> -        if (adev->doorbell.num_doorbells == 0)
->> +        if (adev->mman.num_kernel_doorbells == 0)
->>               return -EINVAL;
->>             /* For Vega, reserve and map two pages on doorbell BAR 
->> since SDMA
->> @@ -1068,15 +1068,10 @@ static int amdgpu_device_doorbell_init(struct 
->> amdgpu_device *adev)
->>            * the max num_doorbells should + 1 page (0x400 in dword)
->>            */
->>           if (adev->asic_type >= CHIP_VEGA10)
->> -            adev->doorbell.num_doorbells += 0x400;
->> +            adev->mman.num_kernel_doorbells += 0x400;
->>       }
->>   -    adev->mman.doorbell_aper_base_kaddr = 
->> ioremap(adev->doorbell.doorbell_aper_base,
->> -                              adev->doorbell.num_doorbells *
->> -                              sizeof(u32));
->> -    if (adev->mman.doorbell_aper_base_kaddr == NULL)
->> -        return -ENOMEM;
->> -
->> +    adev->mman.doorbell_kernel_bo_size = 
->> adev->mman.num_kernel_doorbells * sizeof(u32);
+> On 2/14/23 10:49, Sebastian Wick wrote:
+> > On Fri, Feb 3, 2023 at 5:00 PM Ville Syrj=C3=A4l=C3=A4
+> > <ville.syrjala@linux.intel.com> wrote:
+> >>
+> >> On Fri, Feb 03, 2023 at 10:24:52AM -0500, Harry Wentland wrote:
+> >>>
+> >>>
+> >>> On 2/3/23 10:19, Ville Syrj=C3=A4l=C3=A4 wrote:
+> >>>> On Fri, Feb 03, 2023 at 09:39:42AM -0500, Harry Wentland wrote:
+> >>>>>
+> >>>>>
+> >>>>> On 2/3/23 07:59, Sebastian Wick wrote:
+> >>>>>> On Fri, Feb 3, 2023 at 11:40 AM Ville Syrj=C3=A4l=C3=A4
+> >>>>>> <ville.syrjala@linux.intel.com> wrote:
+> >>>>>>>
+> >>>>>>> On Fri, Feb 03, 2023 at 02:07:44AM +0000, Joshua Ashton wrote:
+> >>>>>>>> Userspace has no way of controlling or knowing the pixel encodin=
+g
+> >>>>>>>> currently, so there is no way for it to ever get the right value=
+s here.
+> >>>>>>>
+> >>>>>>> That applies to a lot of the other values as well (they are
+> >>>>>>> explicitly RGB or YCC). The idea was that this property sets the
+> >>>>>>> infoframe/MSA/SDP value exactly, and other properties should be
+> >>>>>>> added to for use userspace to control the pixel encoding/colorspa=
+ce
+> >>>>>>> conversion(if desired, or userspace just makes sure to
+> >>>>>>> directly feed in correct kind of data).
+> >>>>>>
+> >>>>>> I'm all for getting userspace control over pixel encoding but even
+> >>>>>> then the kernel always knows which pixel encoding is selected and
+> >>>>>> which InfoFrame has to be sent. Is there a reason why userspace wo=
+uld
+> >>>>>> want to control the variant explicitly to the wrong value?
+> >>>>>>
+> >>>>>
+> >>>>> I've asked this before but haven't seen an answer: Is there an exis=
+ting
+> >>>>> upstream userspace project that makes use of this property (other t=
+han
+> >>>>> what Joshua is working on in gamescope right now)? That would help =
+us
+> >>>>> understand the intent better.
+> >>>>
+> >>>> The intent was to control the infoframe colorimetry bits,
+> >>>> nothing more. No idea what real userspace there was, if any.
+> >>>>
+> >>>>>
+> >>>>> I don't think giving userspace explicit control over the exact info=
+frame
+> >>>>> values is the right thing to do.
+> >>>>
+> >>>> Only userspace knows what kind of data it's stuffing into
+> >>>> the pixels (and/or how it configures the csc units/etc.) to
+> >>>> generate them.
+> >>>>
+> >>>
+> >>> Yes, but userspace doesn't control or know whether we drive
+> >>> RGB or YCbCr on the wire. In fact, in some cases our driver
+> >>> needs to fallback to YCbCr420 for bandwidth reasons. There
+> >>> is currently no way for userspace to know that and I don't
+> >>> think it makes sense.
+> >>
+> >> People want that control as well for whatever reason. We've
+> >> been asked to allow YCbCr 4:4:4 output many times.
+> >
+> > I don't really think it's a question of if we want it but rather how
+> > we get there. Harry is completely right that if we would make the
+> > subsampling controllable by user space instead of the kernel handling
+> > it magically, user space which does not adapt to the new control won't
+> > be able to light up some modes which worked before.
+> >
 >
-> I would just keep the kernel_bo_size around and make the 
-> num_kernel_doorbells a local variable.
+> Thanks for continuing this discussion and touching on the model of how
+> we get to where we want to go.
 >
-Noted,
+> > This is obviously a problem and not one we can easily fix. We would
+> > need a new cap for user space to signal "I know that I can control
+> > bpc, subsampling and compression to lower the bandwidth and light up
+> > modes which otherwise fail". That cap would also remove all the
+> > properties which require kernel magic to work (that's also what I
+> > proposed for my KMS color pipeline API).
+> >
+> > We all want to expose more of the scanout capability and give user
+> > space more control but I don't think an incremental approach works
+> > here and we would all do better if we accept that the current API
+> > requires kernel magic to work and has a few implicit assumptions baked
+> > in.
+> >
+> > With all that being said, I think the right decision here is to
+> >
+> > 1. Ignore subsampling for now
+> > 2. Let the kernel select YCC or RGB on the cable
+> > 3. Let the kernel figure out the conversion between RGB and YCC based
+> > on the color space selected
+> > 4. Let the kernel send the correct infoframe based on the selected
+> > color space and cable encoding
+> > 5. Only expose color spaces for which the kernel can do the conversion
+> > and send the infoframe
+>
+> I agree. We don't want to break or change existing behavior (that is
+> used by userspace) and this will get us far without breaking things.
+>
+> > 6. Work on the new API which is hidden behind a cap
+> >
+>
+> I assume you mean something like
+> https://gitlab.freedesktop.org/pq/color-and-hdr/-/issues/11
 
-- Shashank
+Something like that, yes. The main point being a cap which removes a
+lot of properties and sets new expectations between user space and
+kernel. The actual API is not that important.
 
-> Christian.
+> Above you say that you don't think an incremental approach works
+> here. Can you elaborate?
+
+Backwards compatibility is really hard. If we add another property to
+control e.g. the color range infoframe which doesn't magically convert
+colors, we now have to define how it interacts with the existing
+property. We also have to figure out how a user space which doesn't
+know about the new property behaves when another client has set that
+property. If any property which currently might change the pixel
+values is used, we can't expose the entire color pipeline because the
+kernel might have to use some element in it to achieve its magic
+conversion. So essentially you already have this hard device between
+"old" and "new" and you can't use the new stuff incrementally.
+
+> From what I've seen recently I am inclined to favor an incremental
+> approach more. The reason is that any API, or portion thereof, is
+> useless unless it's enabled full stack. When it isn't it becomes
+> dead code quickly, or never really works because we overlooked
+> one thing. The colorspace debacle shows how even something as
+> simple as extra enum values in KMS APIs shouldn't be added unless
+> someone in a canonical upstream project actually uses them. I
+> would argue that such a canonical upstream project actually has
+> to be a production environment and not something like Weston.
+
+I agree that it's very easy to design something that doesn't work in
+the real world but weston is a real production environment. Even a new
+project can be a real production environment imo. The goals here are
+not entirely undefined: we have color transformations and we want to
+offload them.
+
+> I could see us getting to a fully new color pipeline API but
+> the only way to do that is with a development model that supports
+> it. While upstream needs to be our ultimate goal, a good way
+> to bring in new APIs and ensure a full-stack implementation is
+> to develop them in a downstream production kernel, alongside
+> userspace that makes use of it. Once the implementation is
+> proven in the downstream repos it can then go upstream. This
+> brings new challenges, though, as things don't get wide
+> testing and get out of sync with upstream quickly. The
+> alternative is the incremental approach.
+
+I also agree pretty much with everything here. My current idea is that
+we would add support for the new API in a downstream kernel for at
+least VKMS (one real driver probably makes sense as well) while in
+parallel developing a user space library for color conversions. That
+library might be a rewrite of libplacebo, which in its current form
+does all the color conversions we want to do but wasn't designed to
+allow for offloading. One of the developers expressed interest in
+rewriting the library in rust which would be a good opportunity to
+also take offloading into account.
+
+No doubt all of that will take a significant amount of effort and time
+but we can still get HDR working in the old model without offloading
+and just sRGB and PQ/Rec2020 code paths.
+
+> We should look at this from a use-case angle, similar to what
+> the gamescope guys are doing. Small steps, like:
+> 1) Add HDR10 output (PQ, BT.2020) to the display
+> 2) Add ability to do sRGB linear blending
+> 3) Add ability to do sRGB and PQ linear blending
+> 4) Post-blending 3D LUT
+> 5) Pre-blending 3D LUT
+
+Sure, having a target in sight is a good idea.
+
+> At each stage the whole stack needs to work together in production.
 >
->>       return 0;
->>   }
->>   diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
->> index 526b6b4a86dd..7bdff4f926ad 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
->> @@ -28,7 +28,6 @@ struct amdgpu_doorbell {
->>       /* doorbell mmio */
->>       resource_size_t        doorbell_aper_base;
->>       resource_size_t        doorbell_aper_size;
->> -    u32            num_doorbells;    /* Number of doorbells actually 
->> reserved for amdgpu. */
->>   };
->>     /* Reserved doorbells for amdgpu (including multimedia).
+> If we go to a new color pipeline programming model it might
+> make sense to enable this as an "experimental" API that is
+> under development. I don't know if we've ever done that in
+> DRM/KMS. One way to do this might be with a new CONFIG option
+> that only exposes the new color pipeline API when enabled and
+> defaults to off, alongside a client cap for clients that
+> are advertising a desire to use the (experimental) API.
+
+Yeah, that's a bit tricky. I also don't know how upstream would like
+this approach. Not even sure who to talk to.
+
+> If we have that we could then look at porting all existing
+> use-cases over and verifying them (including IGT tests) before
+> moving on to HDR and wide-gamut use-cases. It's a large
+> undertaking and while I'm not opposed to it I don't know
+> if there are enough people willing to invest a large amount
+> of effort to make this happen.
 >
+> Harry
+>
+> >> The automagic 4:2:0 fallback I think is rather fundementally
+> >> incompatible with fancy color management. How would we even
+> >> know whether to use eg. BT.2020 vs. BT.709 matrix? In i915
+> >> that stuff is just always BT.709 limited range, no questions
+> >> asked.
+> >>
+> >> So I think if userspace wants real color management it's
+> >> going to have to set up the whole pipeline. And for that
+> >> we need at least one new property to control the RGB->YCbCr
+> >> conversion (or to explicitly avoid it).
+> >>
+> >> And given that the proposed patch just swept all the
+> >> non-BT.2020 issues under the rug makes me think no
+> >> one has actually come up with any kind of consistent
+> >> plan for anything else really.
+> >>
+> >>>
+> >>> Userspace needs full control of framebuffer pixel formats,
+> >>> as well as control over DEGAMMA, GAMMA, CTM color operations.
+> >>> It also needs to be able to select whether to drive the panel
+> >>> as sRGB or BT.2020/PQ but it doesn't make sense for it to
+> >>> control the pixel encoding on the wire (RGB vs YCbCr).
+> >>>
+> >>>> I really don't want a repeat of the disaster of the
+> >>>> 'Broadcast RGB' which has coupled together the infoframe
+> >>>> and automagic conversion stuff. And I think this one would
+> >>>> be about 100x worse given this property has something
+> >>>> to do with actual colorspaces as well.
+> >>>>
+> >>>
+> >>> I'm unaware of this disaster. Could you elaborate?
+> >>
+> >> The property now controls both the infoframe stuff (and
+> >> whatever super vague stuff DP has for it in MSA) and
+> >> full->limited range compression in the display pipeline.
+> >> And as a result  there is no way to eg. allow already
+> >> limited range input, which is what some people wanted.
+> >>
+> >> And naturally it's all made a lot more terrible by all
+> >> the displays that fail to implement the spec correctly,
+> >> but that's another topic.
+> >>
+> >> --
+> >> Ville Syrj=C3=A4l=C3=A4
+> >> Intel
+> >>
+> >
+>
+
