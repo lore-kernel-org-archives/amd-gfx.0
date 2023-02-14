@@ -4,73 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B067AC61DA4
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 15:49:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E016FC05027
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 16:15:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5892910E906;
-	Tue, 14 Feb 2023 15:49:38 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3859310E906
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 15:49:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1676389775;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=MR8cRaV4hzh8Hs+6FhOVU0l7I7C0xQGATnrWDzUluwU=;
- b=aoL0tQtEqQy3BQ7SUUu4ZOSdsPWrtIYOBTl0EW/1ckF1kOgGZCwaRNsgq1js7mo3YqlSi/
- kVZ82V/bN96o9Zi8+Ooi1ALxnI8SbbuVuvqelsOG5+YuaN5gQoV9V//AdLIfaD+FqCNhGU
- 627oPXLyBcmsqVF/HvedD79kJK0oang=
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-92-PIu3DAyiNzaM9_Izl_UCRQ-1; Tue, 14 Feb 2023 10:49:33 -0500
-X-MC-Unique: PIu3DAyiNzaM9_Izl_UCRQ-1
-Received: by mail-pg1-f197.google.com with SMTP id
- n33-20020a635c61000000b004fb4f0424f3so5512266pgm.14
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 07:49:33 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=MR8cRaV4hzh8Hs+6FhOVU0l7I7C0xQGATnrWDzUluwU=;
- b=CyIhphioomRLUtQjJhxS4El8v/I20S8euE6RSHsqIRrYyivaUFwB5F7wMzRxqLcf8X
- L7jcp6dppTO4zMczyYXgyDpSZoyI9BXa0vuz/3KTR9dhMy6kmM3aPVDh66abwxd4oesM
- 9RfT0zhbXvAvO4TEyNunoBmGTqeL3Gt0S9PFi46OGbCuk9ovGTVf+IcVP+5sg5+widvS
- v41pFs6TInGG0MID19s19ZDa+hoZzqebYkBownGUmJatv9c34dTQDFhXYWABw3Vo6SKO
- 1OPdl91BU8gf4FjrGB8oELZRXAJH91pqflaqRA7Xwh8/bbeFQFQtPNToVfRoQ83PT9c1
- C0Kg==
-X-Gm-Message-State: AO0yUKVpvUCe86e0x59ouRjJKwe7evMGMVflMiSIYdHWvU2Smd0SJ6vm
- eHIdS55nwIVwQfH8wdDOyXqrwZUmApCyzKRohzfkUuPHW7+8zYXfOwpf81UEzQl8ODwFWWu7OmA
- G82vAKrPErm/uK+4BOvbCKwwRy0lsFbICsMYmlpyjqA==
-X-Received: by 2002:a17:903:2695:b0:199:2b80:4d3c with SMTP id
- jf21-20020a170903269500b001992b804d3cmr853693plb.31.1676389772770; 
- Tue, 14 Feb 2023 07:49:32 -0800 (PST)
-X-Google-Smtp-Source: AK7set/aTyTqpV20bIc7D+CbXkg1ahwPVjcSzTH2lC73cxC8F8fuLEyJvlPZLr2up+FSVbOGM7j8OeUjaIHT2jfymjg=
-X-Received: by 2002:a17:903:2695:b0:199:2b80:4d3c with SMTP id
- jf21-20020a170903269500b001992b804d3cmr853682plb.31.1676389772437; Tue, 14
- Feb 2023 07:49:32 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D20110E90D;
+	Tue, 14 Feb 2023 16:15:48 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2051.outbound.protection.outlook.com [40.107.212.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DD4B10E90D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 16:15:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EqBEqjYOVCySUsNodkd7nH5gdtXj1d6LCyzIwup7AJYwa4Jv9RtrItuWqYA9qL92ojl+kGmiO9f/Cn9HMFy+ohTiJzPelaIVpuWaoC0gW3eFQhrzAaeAuPS8cm+r5Z6w2OXibYh3Jrt0hCfJgGoXqSW7N4OZO9uwCimXeNOjEOR91/Y2xinmGNK2jRcxmNPZshriqYFL9Oog8cP/ePm56KKycLe/X/IN65cGFEW7ysJVG49et78FeqffY4Pp5ODdWO5uteL+q/vzkK9Mn1wHnIf8mEuDMSZOunprMIyHQB86KHhrGiRU73fZrXyPqMf7HEiJNahKdBZPl6XOgPpBrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dYcG4bkQoGV8Ho/oZKDpw/woA8IA2LzA2Z0egCPeyXw=;
+ b=c6ZcL6rpF/JwQA6bqWMrtgDOzlTNnui0UeWZunuKMPai45V4go+m07yPh9DbYmjQMcv+jagOYXEIaV1MIH423j1Scy1mGT9Cq2OktIkVWzr3a2464mJ1LGjLf7G7y0F2czwbgSg8GGGPAE6EJj7ndkIZmV9Qmll0qiwN5eCufOrH6ZjMKbIbB0XRXbIDvq6WsbezbKGBw+c7crJrP82ImUZCZSj1SQTPURFHrECDJS/qW7Q43AdQCX3nVi2ChzUSY5DV9pyPlNvoLoBYL9ZF5/t37Npei2389o2PcQVgB8PgayhErlNZYdV46WPed+OQvFL2NhJtTK+l+o1Um1rCdw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dYcG4bkQoGV8Ho/oZKDpw/woA8IA2LzA2Z0egCPeyXw=;
+ b=qgo6tkM2yHj0dTgwqu5aZTAzYDxYvOM2vIUq+oLKgyJ0uzOdiDS5nHlYjKNplPQFJWiQ7D8s6ov0pF5ixIvB+o2CNAfF65t1SxBoWdPRMXttemwuxMtADXpL1eF4+MjjgJKN5hSbl93NkOVdLZyZxfn/KAdxwO23XXataNecFdo=
+Received: from MW4P223CA0017.NAMP223.PROD.OUTLOOK.COM (2603:10b6:303:80::22)
+ by SN7PR12MB6929.namprd12.prod.outlook.com (2603:10b6:806:263::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.26; Tue, 14 Feb
+ 2023 16:15:45 +0000
+Received: from CO1NAM11FT114.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:80:cafe::f5) by MW4P223CA0017.outlook.office365.com
+ (2603:10b6:303:80::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.26 via Frontend
+ Transport; Tue, 14 Feb 2023 16:15:44 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT114.mail.protection.outlook.com (10.13.174.103) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6086.24 via Frontend Transport; Tue, 14 Feb 2023 16:15:44 +0000
+Received: from MUN-L-SHSHARMA.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 14 Feb
+ 2023 10:15:42 -0600
+From: Shashank Sharma <shashank.sharma@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2 0/8] Re-design doorbell framework for usermode queues
+Date: Tue, 14 Feb 2023 17:15:02 +0100
+Message-ID: <20230214161510.2153-1-shashank.sharma@amd.com>
+X-Mailer: git-send-email 2.38.0.windows.1
 MIME-Version: 1.0
-References: <20230203020744.30745-1-joshua@froggi.es>
- <20230203020744.30745-3-joshua@froggi.es>
- <Y9zkef5FjtZ7guVS@intel.com>
- <CA+hFU4ymiOg06MQeKLcn5MSrR=BZnOLODdZCFvGUdWqt_ha61A@mail.gmail.com>
- <0fc18aec-0703-55f4-f635-d09d345e8dc0@amd.com> <Y90l+DY0rSaMvN1U@intel.com>
- <758e5cf6-53e0-567c-c760-5b773bc7a11c@amd.com> <Y90vrEa3/1RbaGOV@intel.com>
-In-Reply-To: <Y90vrEa3/1RbaGOV@intel.com>
-From: Sebastian Wick <sebastian.wick@redhat.com>
-Date: Tue, 14 Feb 2023 16:49:18 +0100
-Message-ID: <CA+hFU4wuM_xHniFyRT+jouQ3k_S3UJsRpAtd1Lgx9UVLtrqZrQ@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/connector: Deprecate split for BT.2020 in
- drm_colorspace enum
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT114:EE_|SN7PR12MB6929:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6f44e0e4-a421-42c3-65e4-08db0ea6b9d7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: twGlpXkbzsOT3aU8eyHY7DNNWQ5eKED9lrCL3baoF7E6Chg4rejQE/98IrzDJKewLiSDRRKz7uQvYzbAh0CZd4PBmY/CknfcqEsCSE4YdDTu8+HDQqWQkozyCaVvIVbyy5AbaQ0In6VPLQ3f6yY8h+XszXxTxtMbI25YvdNuMbecZeojr0OfABvtIfVH1AuQY4vOjDTIVh9hTpblaD83vwFiRnUv6EXL/nXhHobY937SnLlI2nbz4y/JDHMqqV5RGYUzFffi52qfry6Hh7WOSzuXHQ1c/hMKI2uC+HmVlkIjUWUVtxiMQ6opPPgPvWG/41FHPjw3lcFakUf7nE5ZYIOy7y83gObOfPneHWfOZC5Xv9blvqLrm2K0FDbWdvdId6X4dkTebASkdhjyqRmooiEvqxKCBiP5fPy0+4sgXIvSQ+O+mvWrTv9Q5u9SLmBmIZbov7GMmJQsdm9bvTaZeQyy/7GcBbA3r7S3iTW7EnUpnNTvNEcAFwE6bzfeL/L+kjnfLMuYn/5j6D6QFygCTaVRqLseIZsIlqMZG2zQrBKwXFgU5oCJuAaaJT+RwSTtph+/F3fo4zWSVGnZ5jD4CGxitjbrhNyvFj5hgGwqVCWv3cKKXfDZckYo2lgGGtTgFvqvwnmXj561lyFFsu5xwi+69n9yVDoJcoEtpf6rjIkf5CTzUQixvbTGCfvAnFUd
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(396003)(136003)(376002)(39860400002)(346002)(451199018)(36840700001)(40470700004)(46966006)(83380400001)(54906003)(36756003)(86362001)(82310400005)(186003)(26005)(1076003)(426003)(47076005)(7696005)(40480700001)(40460700003)(16526019)(2906002)(70586007)(44832011)(70206006)(4326008)(8936002)(36860700001)(8676002)(6916009)(41300700001)(2616005)(966005)(478600001)(336012)(5660300002)(6666004)(81166007)(82740400003)(356005)(316002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2023 16:15:44.6599 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6f44e0e4-a421-42c3-65e4-08db0ea6b9d7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT114.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6929
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,152 +97,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, Pekka Paalanen <ppaalanen@gmail.com>,
- Uma Shankar <uma.shankar@intel.com>, amd-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>, Joshua Ashton <joshua@froggi.es>,
- Vitaly.Prosyak@amd.com
+Cc: alexander.deucher@amd.com,
+ Shashank Sharma <contactshashanksharma@gmail.com>, christian.koenig@amd.com,
+ Arvind.Yadav@amd.com, shashank.sharma@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 3, 2023 at 5:00 PM Ville Syrj=C3=A4l=C3=A4
-<ville.syrjala@linux.intel.com> wrote:
->
-> On Fri, Feb 03, 2023 at 10:24:52AM -0500, Harry Wentland wrote:
-> >
-> >
-> > On 2/3/23 10:19, Ville Syrj=C3=A4l=C3=A4 wrote:
-> > > On Fri, Feb 03, 2023 at 09:39:42AM -0500, Harry Wentland wrote:
-> > >>
-> > >>
-> > >> On 2/3/23 07:59, Sebastian Wick wrote:
-> > >>> On Fri, Feb 3, 2023 at 11:40 AM Ville Syrj=C3=A4l=C3=A4
-> > >>> <ville.syrjala@linux.intel.com> wrote:
-> > >>>>
-> > >>>> On Fri, Feb 03, 2023 at 02:07:44AM +0000, Joshua Ashton wrote:
-> > >>>>> Userspace has no way of controlling or knowing the pixel encoding
-> > >>>>> currently, so there is no way for it to ever get the right values=
- here.
-> > >>>>
-> > >>>> That applies to a lot of the other values as well (they are
-> > >>>> explicitly RGB or YCC). The idea was that this property sets the
-> > >>>> infoframe/MSA/SDP value exactly, and other properties should be
-> > >>>> added to for use userspace to control the pixel encoding/colorspac=
-e
-> > >>>> conversion(if desired, or userspace just makes sure to
-> > >>>> directly feed in correct kind of data).
-> > >>>
-> > >>> I'm all for getting userspace control over pixel encoding but even
-> > >>> then the kernel always knows which pixel encoding is selected and
-> > >>> which InfoFrame has to be sent. Is there a reason why userspace wou=
-ld
-> > >>> want to control the variant explicitly to the wrong value?
-> > >>>
-> > >>
-> > >> I've asked this before but haven't seen an answer: Is there an exist=
-ing
-> > >> upstream userspace project that makes use of this property (other th=
-an
-> > >> what Joshua is working on in gamescope right now)? That would help u=
-s
-> > >> understand the intent better.
-> > >
-> > > The intent was to control the infoframe colorimetry bits,
-> > > nothing more. No idea what real userspace there was, if any.
-> > >
-> > >>
-> > >> I don't think giving userspace explicit control over the exact infof=
-rame
-> > >> values is the right thing to do.
-> > >
-> > > Only userspace knows what kind of data it's stuffing into
-> > > the pixels (and/or how it configures the csc units/etc.) to
-> > > generate them.
-> > >
-> >
-> > Yes, but userspace doesn't control or know whether we drive
-> > RGB or YCbCr on the wire. In fact, in some cases our driver
-> > needs to fallback to YCbCr420 for bandwidth reasons. There
-> > is currently no way for userspace to know that and I don't
-> > think it makes sense.
->
-> People want that control as well for whatever reason. We've
-> been asked to allow YCbCr 4:4:4 output many times.
+From: Shashank Sharma <contactshashanksharma@gmail.com>
 
-I don't really think it's a question of if we want it but rather how
-we get there. Harry is completely right that if we would make the
-subsampling controllable by user space instead of the kernel handling
-it magically, user space which does not adapt to the new control won't
-be able to light up some modes which worked before.
+This patch series re-designs the current doorbell handling of the AMDGPU
+driver and prepares it for Usermode queues. The fundamental changes are:
 
-This is obviously a problem and not one we can easily fix. We would
-need a new cap for user space to signal "I know that I can control
-bpc, subsampling and compression to lower the bandwidth and light up
-modes which otherwise fail". That cap would also remove all the
-properties which require kernel magic to work (that's also what I
-proposed for my KMS color pipeline API).
+- Introduce and accommodate a new GEM domain for doorbells.
+- Prepare the AMDGPU ttm backend for handling doorbell memory.
+- Create a doorbell BO for kernel-level doorbell opertations.
+- Rename, move and re-arrange some existing structures.
 
-We all want to expose more of the scanout capability and give user
-space more control but I don't think an incremental approach works
-here and we would all do better if we accept that the current API
-requires kernel magic to work and has a few implicit assumptions baked
-in.
+The idea is that a usermode app can directly allocate a page from
+the doorbell bar and use it's offsets for different usermode queues.
 
-With all that being said, I think the right decision here is to
+Corresponding libdrm changes (just addition of this new flag):
+https://gitlab.freedesktop.org/mesa/drm/-/merge_requests/286
 
-1. Ignore subsampling for now
-2. Let the kernel select YCC or RGB on the cable
-3. Let the kernel figure out the conversion between RGB and YCC based
-on the color space selected
-4. Let the kernel send the correct infoframe based on the selected
-color space and cable encoding
-5. Only expose color spaces for which the kernel can do the conversion
-and send the infoframe
-6. Work on the new API which is hidden behind a cap
+Alex Deucher (6):
+  drm/amdgpu: add UAPI for allocating doorbell memory
+  drm/amdgpu: replace aper_base_kaddr with vram_aper_base_kaddr
+  drm/amdgpu: rename gmc.aper_base/size
+  drm/amdgpu: rename doorbell variables
+  drm/amdgpu: accommodate DOMAIN/PL_DOORBELL
+  drm/amdgpu: get doorbell memory
 
-> The automagic 4:2:0 fallback I think is rather fundementally
-> incompatible with fancy color management. How would we even
-> know whether to use eg. BT.2020 vs. BT.709 matrix? In i915
-> that stuff is just always BT.709 limited range, no questions
-> asked.
->
-> So I think if userspace wants real color management it's
-> going to have to set up the whole pipeline. And for that
-> we need at least one new property to control the RGB->YCbCr
-> conversion (or to explicitly avoid it).
->
-> And given that the proposed patch just swept all the
-> non-BT.2020 issues under the rug makes me think no
-> one has actually come up with any kind of consistent
-> plan for anything else really.
->
-> >
-> > Userspace needs full control of framebuffer pixel formats,
-> > as well as control over DEGAMMA, GAMMA, CTM color operations.
-> > It also needs to be able to select whether to drive the panel
-> > as sRGB or BT.2020/PQ but it doesn't make sense for it to
-> > control the pixel encoding on the wire (RGB vs YCbCr).
-> >
-> > > I really don't want a repeat of the disaster of the
-> > > 'Broadcast RGB' which has coupled together the infoframe
-> > > and automagic conversion stuff. And I think this one would
-> > > be about 100x worse given this property has something
-> > > to do with actual colorspaces as well.
-> > >
-> >
-> > I'm unaware of this disaster. Could you elaborate?
->
-> The property now controls both the infoframe stuff (and
-> whatever super vague stuff DP has for it in MSA) and
-> full->limited range compression in the display pipeline.
-> And as a result  there is no way to eg. allow already
-> limited range input, which is what some people wanted.
->
-> And naturally it's all made a lot more terrible by all
-> the displays that fail to implement the spec correctly,
-> but that's another topic.
->
-> --
-> Ville Syrj=C3=A4l=C3=A4
-> Intel
->
+Shashank Sharma (2):
+  drm/amdgpu: create doorbell kernel object
+  drm/amdgpu: start using kernel doorbell bo
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c   | 13 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c   | 67 +++++++++-----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h |  6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c   |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h      |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c   | 32 +++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h   |  3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      | 51 ++++++++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h      | 11 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c       | 15 +++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h       |  3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c        |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c       | 10 +--
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c       | 10 +--
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c        |  6 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c        | 12 ++--
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c        | 10 +--
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c        | 10 +--
+ drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c       |  4 +-
+ drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c       |  4 +-
+ drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c       |  4 +-
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c       |  4 +-
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c       |  4 +-
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_7.c       |  4 +-
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c       | 10 +--
+ drivers/gpu/drm/amd/amdgpu/psp_v13_0.c       | 10 +--
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c     |  4 +-
+ include/uapi/drm/amdgpu_drm.h                |  7 +-
+ 31 files changed, 193 insertions(+), 137 deletions(-)
+
+-- 
+2.34.1
 
