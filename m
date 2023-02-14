@@ -4,37 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAE9FC05027
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 12:14:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FAE8C64ED6
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 12:14:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 308AF10E89C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF04310E8A6;
 	Tue, 14 Feb 2023 12:14:13 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F4F910E1E2
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 12:14:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35F2610E1E2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 12:14:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:
- Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=/8WpW9qqUNe5Bx9eTqe2HtzMtFblgZfFKhTN4vhbqAA=; b=We5uX76S3cb0KlaQfkmTmB+KB5
- tAFVM1D8YfJqvQDFszRIFzX0HV4/EzRuLAk27YXhm2IxAUo/e75Eiwox7CHKCs3QQjoa6XtGV4Xpu
- 3MItvEOfGpF/vAHtB08FYcAV+YMMb8/bb9Juh99O+ztHRRHUUC3XC1FQt31+uBNdhii681s/sNEUy
- vzbrvGXQGNQddWNdcLSKC+hAaMmyUar2grzWPsVzL6IKDzI2h++PdN3lwSm3el3O6bBr1R6UbnbNu
- qre63vijEiB5iyxqAor6wC9QhZkujuWkURQfo2z4UAmv9XgWFsT6q1BYMl6KtgRQzq8POuxClhFA8
- DBZPAiTw==;
+ bh=VXNuM2Q0JHGOXpY0JQ2FsN4bpU/a23X4yQRVwHk5wkU=; b=dVX6QhbV6Pr9mJSLyqFDpQ0ogy
+ H331QqlPPE2/dudiGbmw1oQVOdvtXdd37ccR3Mc3idGV/bTX9B6SGiYGlCuxL48XvUVbzuc8Ad7OU
+ u6XZ0xHb92BJfua4aX9sRs2d5kdE22UYDGzMAzQXnTiQDs3l9OyhanoEE0ho+WOd/d7n7OEXAk7qK
+ iePzZ64Ek3hpf64MsiX7EHNBVtt+3RyDd6B9p1JaNzCE7eo1ra+KHF7ALfLhLNltL2YolIAgK4Xpy
+ k4xKN52K0z/vIN+REz+NThHkt63Z18qDj9c5DYhKB/bws9evkp2lycBoukFe6nsopoRSeZpTVk9LR
+ wLsLX9Qw==;
 Received: from [38.44.66.31] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1pRuCG-0022pF-5N; Tue, 14 Feb 2023 13:14:08 +0100
+ id 1pRuCG-0022pF-VF; Tue, 14 Feb 2023 13:14:09 +0100
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 0/6] Trivial code cleanup around color resources
-Date: Tue, 14 Feb 2023 11:14:00 -0100
-Message-Id: <20230214121406.97750-1-mwen@igalia.com>
+Subject: [PATCH 1/6] drm/amd/display: ident braces in
+ dcn30_acquire_post_bldn_3dlut correctly
+Date: Tue, 14 Feb 2023 11:14:01 -0100
+Message-Id: <20230214121406.97750-2-mwen@igalia.com>
 X-Mailer: git-send-email 2.39.0
+In-Reply-To: <20230214121406.97750-1-mwen@igalia.com>
+References: <20230214121406.97750-1-mwen@igalia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -54,40 +57,25 @@ Cc: sunpeng.li@amd.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Signed-off-by: Melissa Wen <mwen@igalia.com>
+---
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Sorry for the noise, but while I've been working on wiring 3D LUT
-support to AMD display driver [1] I found some annoying code style
-issues in the shared-code part. So I'm just sending what I've been
-cleaning to better examine the code.
-
-Most seem trivial, except the last one "remove unused
-_calculate_degamma_curve" since this could just be a matter of missing
-parts. If so, happy to remove the patch and include a comment describing
-the situation (or the potential usage of it).
-
-Thanks,
-
-Melissa
-
-[1] https://lore.kernel.org/dri-devel/20230109143846.1966301-1-mwen@igalia.com/
-
-Melissa Wen (6):
-  drm/amd/display: ident braces in dcn30_acquire_post_bldn_3dlut
-    correctly
-  drm/amd/display: clean code-style issues in dcn30_set_mpc_shaper_3dlut
-  drm/amd/display: camel case cleanup in color_gamma file
-  drm/amd/display: unset initial value for tf since it's never used
-  drm/amd/display: remove unused func declaration from resource headers
-  drm/amd/display: remove unused _calculate_degamma_curve function
-
- .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    |  37 ++---
- .../drm/amd/display/dc/dcn30/dcn30_resource.c |   2 +-
- drivers/gpu/drm/amd/display/dc/inc/resource.h |   4 -
- .../amd/display/modules/color/color_gamma.c   | 140 ++++--------------
- .../amd/display/modules/color/color_gamma.h   |   3 -
- 5 files changed, 48 insertions(+), 138 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+index feb4bb491525..60bb5634b6e2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+@@ -1477,8 +1477,8 @@ bool dcn30_acquire_post_bldn_3dlut(
+ 				state->bits.mpc_rmu2_mux = mpcc_id;
+ 			ret = true;
+ 			break;
+-			}
+ 		}
++	}
+ 	return ret;
+ }
+ 
 -- 
 2.39.0
 
