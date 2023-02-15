@@ -4,55 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 860BEC636D4
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Feb 2023 04:24:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 312C5C636D4
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Feb 2023 04:29:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C72210E670;
-	Wed, 15 Feb 2023 04:24:50 +0000 (UTC)
-Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
- [IPv6:2607:f8b0:4864:20::336])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26C5A10E670;
- Wed, 15 Feb 2023 04:24:49 +0000 (UTC)
-Received: by mail-ot1-x336.google.com with SMTP id
- y11-20020a05683009cb00b0068dbf908574so5322787ott.8; 
- Tue, 14 Feb 2023 20:24:49 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EFA010EA0E;
+	Wed, 15 Feb 2023 04:29:31 +0000 (UTC)
+Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
+ [IPv6:2607:f8b0:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6339E10EA0E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Feb 2023 04:29:30 +0000 (UTC)
+Received: by mail-ot1-x32b.google.com with SMTP id
+ bv2-20020a0568300d8200b0068dc615ee44so5321489otb.10
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 20:29:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=qvKOU4avZmIzyYVOQhc+tG6rthx234MXp5OMVmckZE4=;
- b=eqTQxYMDRwfuhuWV1ksdh9A4ydfNEzp9bKF5eyEZzsG3hUWaZwHsDP7efqyQBqkjD9
- wVdSZKokaZmPnLw1U2uc9MBuUWt8j++nL8CM1GnsfE8f0EfESfYSEY2Tjyp0D17gDTdr
- IKPiN/AomHuqD5c9FBwVO3IIk4BUdrznl1sEvjM9BwzpX8Io/b11CX7hy4Er+LaKpQma
- ZJmrg9KZUeYQwELBCju4G/OTfNNpvSUQrW7i3wTCYr7g7KqAeDwCjjU+KjgRnoY4+njX
- 3CHArQQQ26+b0z1HDtdKsmwDld3mJP2eSNneaznZSB4wYv+FJe/juLuUGHxCrV350r00
- LMEQ==
+ bh=F63U0ccHgp039e/zBAB3Aozzw1Qp7fWEiTZ+8KrSCTc=;
+ b=ETxViDZQKyevvesWQ2B6uHiXXXg6fjqZQyYPdClcAf06cEPgTQXsXI2b/OCPk7ll8u
+ IQxzRVm2QreCUsJDbvHaejSIC4XzKaB7dBIvTMjNdhvRo3itE3bsamy2wzlakbTGwXUb
+ su6ckolgunkRqJgNngSzMesr5QfPyzR7DGD+izht9epC7sfj7uBRgQgyYy/B4VO0b14y
+ CByL2tHvRcZ4mIBwCkHI/af0IV15dm8l16382MfW5E6hdypRtSsVEAMb/QUGRPgdaWc7
+ 3z0Q5Gt7Rb7aIW90J8tRF5/orijfUld1BWeuQ82EiRlrSGUdmK35i0rAHR6bOETUK3Oo
+ bj6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=qvKOU4avZmIzyYVOQhc+tG6rthx234MXp5OMVmckZE4=;
- b=Sbd5U3lvcDg0T0JYebg6IEUKYxKQKZTH1RE/AZ6030f4RYaDZ7xfRZljua9ZuonPCf
- J0Zo3XDDxUadpCORdKtQibOtybIUEcK+3DHzXRRDFlsBpGIh2Co+rDgtNkYMoyRD5eOo
- KeGXmAt7V90AqatZdpZxDwv0FVvaPqoTs8wxN7I+0KcmKN8cBoc2G4BOY9tGnIMpe5pT
- up4fZ+AEU8xDD5qnOUgH2eFqeIs+II4QrY/iOZFTUZytmyuQRRWEgWxfK7/0Jq03/GTh
- lYftvu7ETUUfo2NwRqGb1DEuT2cgtPXZGgVG7RejMw993aty8cuWcsyK17z4qtUr8ykT
- dPqA==
-X-Gm-Message-State: AO0yUKXwuCLwLAhOaHPB4OmBpjCMnwvBQb9v5cuBbSDM2PLKHa/KtmZm
- XUA13FHFi2J+KLGMCCQyglLd88D16boQwrJwC6Q=
-X-Google-Smtp-Source: AK7set/nmdEuYU4bOBmZL00qZ5LjEiIikomugFMgVVCc/KYC3xw9K5W7h/Co7ljZmIYYraSFevN21vtJ1EiVpWa46PM=
-X-Received: by 2002:a05:6830:18e8:b0:68d:4133:fd26 with SMTP id
- d8-20020a05683018e800b0068d4133fd26mr29701otf.56.1676435088248; Tue, 14 Feb
- 2023 20:24:48 -0800 (PST)
+ bh=F63U0ccHgp039e/zBAB3Aozzw1Qp7fWEiTZ+8KrSCTc=;
+ b=NZQXNkvxj4WwlMSi8mGl1/xfkYr+Jjqm8sbOeeWuOmOfZaJj/Y0DKUbpW2l7RS1kk/
+ jkLujnt08WJClllnEisVXeJqdL+yo9p3A/ZFpKRXlTAs9gi9kyX3DaCd4yTSLzrJU2lP
+ 8PCuzclpWS4FL2lucAWaNjt8nlwMpEkNDmjFdrolTYNI+JUfrPFHoU2uRw/Sog2hZGxB
+ 1Rq8a0hy+YaoY4klXH8gvTV6cb9xqVOMcybcH75BhfpuVMO7tA4Ryx/e5+a/WMeglLxJ
+ rgMjZXkCyxMaEY1zYXba5zgNLw/W1C+C9sJo9qxtLE33CWnzKOg40OqHeZpczWHGnZBX
+ 8REA==
+X-Gm-Message-State: AO0yUKV8aSy00GunVPmy/xBQbiwyDhNoh5lQ5ZKxUOp4Ez1xB2/JS/Q2
+ pp0mfSATmQ2sGksrU/m/oEGJtB7NOQqaORfNQAUYju1y
+X-Google-Smtp-Source: AK7set8IiM/uhjwOsQCyCVZ45hb6RfdWMtReXxQ1RVoQtSerRVRHyN/4IVdl7Szvsx5nIf5VAYyGk5CUHA9+5SwM42o=
+X-Received: by 2002:a05:6830:556:b0:68b:ac60:ebbf with SMTP id
+ l22-20020a056830055600b0068bac60ebbfmr44513otb.6.1676435369680; Tue, 14 Feb
+ 2023 20:29:29 -0800 (PST)
 MIME-Version: 1.0
-References: <Y+YVy7RaxnXokJ3l@ubun2204.myguest.virtualbox.org>
- <49a3244a-1416-12c4-9dfa-661cf5b5d569@amd.com>
-In-Reply-To: <49a3244a-1416-12c4-9dfa-661cf5b5d569@amd.com>
+References: <20230214064944.54993-1-jsg@jsg.id.au>
+In-Reply-To: <20230214064944.54993-1-jsg@jsg.id.au>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 14 Feb 2023 23:24:36 -0500
-Message-ID: <CADnq5_M5JeSU4WwkbWM55HKPtaxsjkJ29JScdWq=OgHkBfNdEw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Remove duplicate/repeating expressions
-To: Harry Wentland <harry.wentland@amd.com>
+Date: Tue, 14 Feb 2023 23:29:18 -0500
+Message-ID: <CADnq5_PBdc5MoiMBM+yiOO8N9Pic02EiHbx8qG6WxRwuN4tUTw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: avoid unaligned access warnings
+To: Jonathan Gray <jsg@jsg.id.au>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,59 +64,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Saurabh Singh Sengar <ssengar@microsoft.com>,
- Deepak R Varma <drv@mailo.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Leo Li <sunpeng.li@amd.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Praveen Kumar <kumarpraveen@linux.microsoft.com>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: sunpeng.li@amd.com, harry.wentland@amd.com, Rodrigo.Siqueira@amd.com,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-Alex
-
-On Fri, Feb 10, 2023 at 2:37 PM Harry Wentland <harry.wentland@amd.com> wrote:
+On Tue, Feb 14, 2023 at 1:56 AM Jonathan Gray <jsg@jsg.id.au> wrote:
 >
-> On 2/10/23 05:00, Deepak R Varma wrote:
-> > Remove duplicate or repeating expressions in the if condition
-> > evaluation. Issue identified using doubletest.cocci Coccinelle semantic
-> > patch.
-> >
-> > Signed-off-by: Deepak R Varma <drv@mailo.com>
+> When building on OpenBSD/arm64 with clang 15, unaligned access
+> warnings are seen when a union is embedded inside a packed struct.
 >
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> drm/amd/display/dmub/inc/dmub_cmd.h:941:18: error: field
+>   cursor_copy_src within 'struct dmub_rb_cmd_mall' is less aligned than
+>   'union dmub_addr' and is usually due to 'struct dmub_rb_cmd_mall'
+>   being packed, which can lead to unaligned accesses
+>   [-Werror,-Wunaligned-access]
+>         union dmub_addr cursor_copy_src; /**< Cursor copy address */
+>                         ^
+> drm/amd/display/dmub/inc/dmub_cmd.h:942:18: error: field cursor_copy_dst
+>   within 'struct dmub_rb_cmd_mall' is less aligned than
+>   'union dmub_addr' and is usually due to 'struct dmub_rb_cmd_mall'
+>   being packed, which can lead to unaligned accesses
+>   [-Werror,-Wunaligned-access]
+>         union dmub_addr cursor_copy_dst; /**< Cursor copy destination */
+>                         ^
 >
-> Harry
+> Add pragma pack around dmub_addr to avoid this.
 >
-> > ---
-> >  .../gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c    | 4 +---
-> >  1 file changed, 1 insertion(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-> > index 4b8f5fa0f0ad..ae89760d887d 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-> > @@ -2335,8 +2335,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
-> >
-> >                       if (mode_lib->vba.DSCEnable[k] && mode_lib->vba.ForcedOutputLinkBPP[k] != 0)
-> >                               mode_lib->vba.DSCOnlyIfNecessaryWithBPP = true;
-> > -                     if ((mode_lib->vba.DSCEnable[k] || mode_lib->vba.DSCEnable[k])
-> > -                                     && mode_lib->vba.OutputFormat[k] == dm_n422
-> > +                     if (mode_lib->vba.DSCEnable[k] && mode_lib->vba.OutputFormat[k] == dm_n422
-> >                                       && !mode_lib->vba.DSC422NativeSupport)
-> >                               mode_lib->vba.DSC422NativeNotSupported = true;
-> >
-> > @@ -3639,7 +3638,6 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
-> >                       if (mode_lib->vba.SourcePixelFormat[k] != dm_444_64
-> >                                       && mode_lib->vba.SourcePixelFormat[k] != dm_444_32
-> >                                       && mode_lib->vba.SourcePixelFormat[k] != dm_444_16
-> > -                                     && mode_lib->vba.SourcePixelFormat[k] != dm_444_16
-> >                                       && mode_lib->vba.SourcePixelFormat[k] != dm_444_8
-> >                                       && mode_lib->vba.SourcePixelFormat[k] != dm_rgbe) {
-> >                               if (mode_lib->vba.ViewportWidthChroma[k] > mode_lib->vba.SurfaceWidthC[k]
+> Signed-off-by: Jonathan Gray <jsg@jsg.id.au>
+> ---
+>  drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+> index 33907feefebb..dc92d06572a3 100644
+> --- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+> +++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+> @@ -162,6 +162,7 @@ extern "C" {
+>  #define dmub_udelay(microseconds) udelay(microseconds)
+>  #endif
+>
+> +#pragma pack(push, 1)
+>  /**
+>   * union dmub_addr - DMUB physical/virtual 64-bit address.
+>   */
+> @@ -172,6 +173,7 @@ union dmub_addr {
+>         } u; /*<< Low/high bit access */
+>         uint64_t quad_part; /*<< 64 bit address */
+>  };
+> +#pragma pack(pop)
+>
+>  /**
+>   * Dirty rect definition.
+> --
+> 2.39.1
 >
