@@ -4,59 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87362C636D4
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Feb 2023 10:35:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEC5EC636D4
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Feb 2023 10:44:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E308010EA96;
-	Wed, 15 Feb 2023 10:35:23 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0487710EA91;
- Wed, 15 Feb 2023 10:35:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1676457321; x=1707993321;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=I3zjOzp2OCm6DEdwWuHabSUwtBY9qBsr2AkTtLJdMck=;
- b=AUUzl2Qj39v1KmthOyYsR2/d+C0znPdidSIHq9WOtOHAepqh68xmhOwr
- adFVj3ET/9HfopQyh7MtDbLkxdKhCaNk9YFCErKSgA4rBSPP1XyhHP72o
- 9yjlVH9nA7NNuzxYUa+jUAKUrrR0jC0h9aRJdwWeTxoEWrjUtN76b7NTp
- 0Ura0SGIZpLjfLPRT4JSN1wKtsSBku4MR/qXrSTyZCr4c3biDk4vQYWoN
- EGu5QFYi/woHwp2G+O3Gc6Iq5xbGE0bMmf0E5tGBWPqk0uvmvgB6Mx2H6
- kawQZbqekrhh7539Ndvs4vdIEIm9rQF06boF5Db3xAc9ll5ZdKXx+4Dn0 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10621"; a="329113039"
-X-IronPort-AV: E=Sophos;i="5.97,299,1669104000"; d="scan'208";a="329113039"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Feb 2023 02:33:06 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10621"; a="699909316"
-X-IronPort-AV: E=Sophos;i="5.97,299,1669104000"; d="scan'208";a="699909316"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.55])
- by orsmga008.jf.intel.com with SMTP; 15 Feb 2023 02:33:02 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 15 Feb 2023 12:33:01 +0200
-Date: Wed, 15 Feb 2023 12:33:01 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Pekka Paalanen <ppaalanen@gmail.com>
-Subject: Re: [PATCH 3/3] drm/connector: Deprecate split for BT.2020 in
- drm_colorspace enum
-Message-ID: <Y+y03W0GWUxSucBW@intel.com>
-References: <CA+hFU4ymiOg06MQeKLcn5MSrR=BZnOLODdZCFvGUdWqt_ha61A@mail.gmail.com>
- <0fc18aec-0703-55f4-f635-d09d345e8dc0@amd.com>
- <Y90l+DY0rSaMvN1U@intel.com>
- <758e5cf6-53e0-567c-c760-5b773bc7a11c@amd.com>
- <Y90vrEa3/1RbaGOV@intel.com>
- <CA+hFU4wuM_xHniFyRT+jouQ3k_S3UJsRpAtd1Lgx9UVLtrqZrQ@mail.gmail.com>
- <98d1d22a-1c29-5271-1eaf-89c962eb9678@amd.com>
- <CA+hFU4y=N3bR-vXXeLP0xTe0-HJPgF_GTbKrb3A9St-z2LignQ@mail.gmail.com>
- <Y+vqu3qGUQayTjd+@intel.com> <20230215120125.59b5965c@eldfell>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AD9810EA95;
+	Wed, 15 Feb 2023 10:44:10 +0000 (UTC)
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B152010EA95
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Feb 2023 10:44:07 +0000 (UTC)
+Received: by mail-ej1-x630.google.com with SMTP id lf10so15232779ejc.5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Feb 2023 02:44:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=1y6bxHp5/mqDfH+dT/xv9I0mBRHx1AaaniegqoUUvqA=;
+ b=hgwTgld42RJHXoPinT2D3yiz7kgAnYMt93erRIQn4hNFLv8VBt/CRDTT/OzToqSGdX
+ h/6dCGa0PWftLJcONPAAj5Lxorvuh0u26YH0YM22oXhOFzSe48eR0f9jTrBdmBODNsWO
+ edm0ynAf70vGuzUaBw3Ym/ZnawENrBg9Y7FT6XwFo/GU+bMlWjMV6TvrriVsVaQtbxNr
+ k7JVGByv7YLrrwmGk6iIAh7n4DnI+rMBf297tI/gDydUD7HZ6DkfYPHY8XV1pmObxbrB
+ bH2SXzYKDraloYMEhpKgV0QWJjSKhUOepXhP4T4f+q96Pirv7YQ/qf/7P1SehecahQ3a
+ MOYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=1y6bxHp5/mqDfH+dT/xv9I0mBRHx1AaaniegqoUUvqA=;
+ b=274ST2Qd2B08tzh04FE6pXCYe35UhZbZdDhkuojbhvEIWwBbukvRkbBwPMeYqXrDtR
+ +9x8LAuLJJYZLBTGuC03cNqndZKR+65IKg5GPskEhdDj7YZrlR0zpUlZ0N8Q0E68Bpr2
+ YHfejReclFhkXY7nMa6C3wzTXmEXD/n7K8hrr2NxNI/9zREJNyM8fYBdyHIOWd8/9sjw
+ ej7942M6di296yEFvYQjztvCzGDI+WlHi08u2yAltHFnHIHesaFjjV6Xcx5BWbaYF5ja
+ usTuZkUNUMRnlqZVbutmZV/17zzGoEjZu04UcS+oBnDBnUE2Lj2tv/eYV6j8PnhD8Zz9
+ ky8w==
+X-Gm-Message-State: AO0yUKVWiC/5lpuEHYdzPMneC8HTpaUhcnq9OpLOwlZ4bfQljYEh/MyT
+ gfzGPLmdVdgGz5BoEmSVqY7jJ1lAM255/A==
+X-Google-Smtp-Source: AK7set88pkXAw+wx/g5v6rUa0LwNNVdWolWqt0oI2eF/nIUqSxIQzmKG/3AXPcDF0hpLI8OghKiTQg==
+X-Received: by 2002:a17:906:edb9:b0:8b1:304e:58a7 with SMTP id
+ sa25-20020a170906edb900b008b1304e58a7mr2175037ejb.56.1676457846208; 
+ Wed, 15 Feb 2023 02:44:06 -0800 (PST)
+Received: from ?IPV6:2a02:908:1256:79a0:b2c6:be33:f616:fc78?
+ ([2a02:908:1256:79a0:b2c6:be33:f616:fc78])
+ by smtp.gmail.com with ESMTPSA id
+ e19-20020a170906749300b0088f8abd3214sm9631406ejl.92.2023.02.15.02.44.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Feb 2023 02:44:05 -0800 (PST)
+Message-ID: <62ca76cc-a553-21c2-9538-03cefb7b02ac@gmail.com>
+Date: Wed, 15 Feb 2023 11:44:04 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230215120125.59b5965c@eldfell>
-X-Patchwork-Hint: comment
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH 1/2] drm/amdgpu: optimize VRAM allocation when using drm
+ buddy
+Content-Language: en-US
+To: "Xiao, Shane" <shane.xiao@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Paneer Selvam, Arunpravin" <Arunpravin.PaneerSelvam@amd.com>
+References: <20230214111851.2525197-1-shane.xiao@amd.com>
+ <ca40db72-6c04-e3cd-38f9-3254f37c850a@amd.com>
+ <DM4PR12MB526136D00F81419EEFCE47579DA29@DM4PR12MB5261.namprd12.prod.outlook.com>
+ <0a5fd1ae-45b0-96bb-5160-a34b57fc6a2a@amd.com>
+ <DM4PR12MB52616659C39CB1242A4AD8B89DA39@DM4PR12MB5261.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <DM4PR12MB52616659C39CB1242A4AD8B89DA39@DM4PR12MB5261.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,76 +81,122 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>, dri-devel@lists.freedesktop.org,
- Uma Shankar <uma.shankar@intel.com>, amd-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>, Joshua Ashton <joshua@froggi.es>,
- Vitaly.Prosyak@amd.com
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Feb 15, 2023 at 12:01:25PM +0200, Pekka Paalanen wrote:
-> On Tue, 14 Feb 2023 22:10:35 +0200
-> Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
-> 
-> > On Tue, Feb 14, 2023 at 08:45:00PM +0100, Sebastian Wick wrote:
-> 
-> ...
-> 
-> > > We also have to figure out how a user space which doesn't
-> > > know about the new property behaves when another client has set that
-> > > property. If any property which currently might change the pixel
-> > > values is used, we can't expose the entire color pipeline because the
-> > > kernel might have to use some element in it to achieve its magic
-> > > conversion. So essentially you already have this hard device between
-> > > "old" and "new" and you can't use the new stuff incrementally.  
-> > 
-> > That problem exists with any new property. Old userspace and new
-> > userspace may interact badly enought that nothing works right.
-> > In that sense I think these props might even be pretty mundane
-> > as the worst you might get from setting the infoframe wrong is
-> > perhaps wrong colors on your display.
-> > 
-> > To solve that particular problem there has been talk (for years)
-> > about some kind of "reset all" knob to make sure everything is
-> > at a safe default value. I have a feeling there was even some
-> > kind of semi-real proposal in recent times, but maybe I imgained
-> > it?
-> 
-> I've been talking about that too, but I think it all collapsed into
-> "let's just fix all KMS apps to always set all KMS properties" which
-> results in patches like
-> https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/952
+Am 15.02.23 um 03:51 schrieb Xiao, Shane:
+> For public review
+>> -----Original Message-----
+>> From: Koenig, Christian <Christian.Koenig@amd.com>
+>> Sent: Wednesday, February 15, 2023 3:02 AM
+>> To: Xiao, Shane <shane.xiao@amd.com>; Paneer Selvam, Arunpravin
+>> <Arunpravin.PaneerSelvam@amd.com>
+>> Subject: Re: [PATCH 1/2] drm/amdgpu: optimize VRAM allocation when using
+>> drm buddy
+>>
+>> Am 14.02.23 um 15:53 schrieb Xiao, Shane:
+>>>> -----Original Message-----
+>>>> From: Koenig, Christian <Christian.Koenig@amd.com>
+>>>> Sent: Tuesday, February 14, 2023 8:41 PM
+>>>> To: Xiao, Shane <shane.xiao@amd.com>; brahma_sw_dev
+>>>> <brahma_sw_dev@amd.com>
+>>>> Cc: Paneer Selvam, Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+>>>> Subject: Re: [PATCH 1/2] drm/amdgpu: optimize VRAM allocation when
+>>>> using drm buddy
+>>>>
+>>>> Am 14.02.23 um 12:18 schrieb Shane Xiao:
+>>>>> Since the VRAM manager changed from drm mm to drm buddy. It's not
+>>>>> necessary to allocate 2MB aligned VRAM for more than 2MB unaligned
+>>>>> size, and then do trim. This method improves the allocation
+>>>>> efficiency and reduces memory fragmentation.
+>>>> Well that is a trade off.
+>>>>
+>>>> Allocating the BO as one contiguous chunk and then trimming is
+>>>> beneficial because if we then later need it contiguous we don't need
+>>>> to re-allocate and copy. This can be needed to display something for
+>> example.
+> Hi Christian,
+>
+> This case means that you allocate BO that is unnecessary to be continuous at first time,
+> and latter the BO should be continuous. I'm not familiar with display. Could you give me
+> a few more specific examples ?
 
-That requires some knowledge about the property in question to
-pick the value. I think for some prop types (enums at least)
-we could guarantee that the first value is always the safe default,
-but for eg. range properties there is no way to know. So doing
-that fully blind is not possible atm.
+On most generations DCE/DCN hardware needs the buffer contiguous to be 
+able to scanout from it.
 
-I guess one option might be to include a "reset value" in the
-props somehow, and just have everyclient set all unknown props
-to that. But there are of course other options too (reset
-flag to atomic ioctl, etc.).
+Only newer APUs can use S/G to scanout from system memory pages.
 
-> 
-> It does not seem to be a serious enough problem for anyone to put in
-> the work. And why would it be, when you can easily fix it in your own
-> project like that Weston example. The Weston example is not even
-> representative, because I did it before I saw any real problems.
-> 
-> Other musings have been in the direction that maybe logind (since it
-> opens DRM devices for you) should save the full KMS state on the very
-> first open after a reboot, and then KMS applications can ask logind
-> what the boot-up state was. This is a variation of "save all KMS state
-> from the moment you launch, and use that as the base if you ever let
-> something else touch KMS in between".
-> 
-> You also never see the problem to begin with, if you never let
-> something else touch KMS in between, so that already makes the problem
-> rare outside of the tiny set of compositor developers.
+>>> Yes, I agree that one contiguous chunk may get beneficial sometimes.
+>>> But as far as I know, you cannot guarantee that amdgpu_vram_mgr_new
+>> can get one contiguous chunk  if you don't set TTM_PL_FLAG_CONTIGUOUS
+>> flags.
+>>> For example, if you want to allocate 4M+4K BO, it will allocate one 4M block
+>> + one 2M block which is unnecessary to be continuous, then 2M block will be
+>> trimmed.
+>>
+>> Oh, that's indeed not something which should happen. Sounds more like a
+>> bug fix then.
+> Yes, I think this case should not be happened.
+> Actually, I'm not sure that why the allocated BO should be aligned with pages_per_block, which is set to 2MB by default.
+> Does this help improve performance when allocating 2M or above BO?
+>  From my point of view, the TLB may be one of reason of this. But I'm not sure about this.
 
-Yeah, it's a pretty rare problem so not much interest I guess.
+Yes, we try to use allocations which are as contiguous as much as 
+possible for better TLB usage.
 
--- 
-Ville Syrjälä
-Intel
+Especially for some compute use cases this can make a >20% performance 
+difference.
+
+Regards,
+Christian.
+
+>
+> Best Regards,
+> Shane
+>
+>>>> On the other hand I completely agree allocating big and then trimming
+>>>> creates more fragmentation than necessary.
+>>>>
+>>>> Do you have some test case which can show the difference?
+>>> I have use rocrtst to show the difference.
+>>> The attachment is shown that after applying this patch, the order < 9 total
+>> vram size decrease from 99MB to 43MB.
+>>> And the latter has more higher order block memory.
+>> Arun can you take a look? That problem here sounds important.
+>>
+>> Thanks,
+>> Christian.
+>>
+>>>> BTW: No need to discuss that on the internal mailing list, please use
+>>>> the public one instead.
+>>>>
+>>> I will send it to public. Thank you for your remind.
+>>>
+>>> Best Regards,
+>>> Shane
+>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
+>>>>> Signed-off-by: Shane Xiao <shane.xiao@amd.com>
+>>>>> ---
+>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 2 +-
+>>>>>     1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>>> index 75c80c557b6e..3fea58f9427c 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>>> @@ -453,7 +453,7 @@ static int amdgpu_vram_mgr_new(struct
+>>>> ttm_resource_manager *man,
+>>>>>     		/* Limit maximum size to 2GiB due to SG table limitations */
+>>>>>     		size = min(remaining_size, 2ULL << 30);
+>>>>>
+>>>>> -		if (size >= (u64)pages_per_block << PAGE_SHIFT)
+>>>>> +		if (!(size % ((u64)pages_per_block << PAGE_SHIFT)))
+>>>>>     			min_block_size = (u64)pages_per_block <<
+>>>> PAGE_SHIFT;
+>>>>>     		cur_size = size;
+
