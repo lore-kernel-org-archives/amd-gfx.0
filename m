@@ -4,60 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F41B2C61DA4
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 21:27:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FB8DC05027
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Feb 2023 02:51:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C0DD10E9AE;
-	Tue, 14 Feb 2023 21:27:46 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD50D10E9A8;
- Tue, 14 Feb 2023 21:27:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1676410063; x=1707946063;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=Es17lZKi4F5npKc8SHTYecRXwGUn2kBOD1vdiMI5RY0=;
- b=Gf13hVZHMg7xJkIZeAiV3h6ho46U08tQPPrAv8YH3oKq8PFvmGdvgsDS
- jf/6oGXazsHAFqWi3VVpgUl7r9I94zCGO7WzNhLjqe5q2UlgiaQIuhcku
- 2d8E4LUyrYWzZMk+de0A9t7ogG7sSvq3bFRqre6eGxcx0rXBrKKvdHuZ8
- ad2FIAaCSGhVieLl0qlHWOY1iDN1lw0HNYBWrYOM1qX3AV8DVx+ceMLQ6
- v5vQYRj+QizyIZn2tZrGNivfNzvFY8HqBv4TOH+OX0PkUzaVj11wGJEEw
- /siW4a/Q2NkaQiT83hX/9jWp5wkoPCW+I/7H/C7doNFL5Mib5D7bowPog g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10621"; a="331273643"
-X-IronPort-AV: E=Sophos;i="5.97,297,1669104000"; d="scan'208";a="331273643"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2023 13:27:43 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10621"; a="701776779"
-X-IronPort-AV: E=Sophos;i="5.97,297,1669104000"; d="scan'208";a="701776779"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.55])
- by orsmga001.jf.intel.com with SMTP; 14 Feb 2023 13:27:39 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 14 Feb 2023 23:27:38 +0200
-Date: Tue, 14 Feb 2023 23:27:38 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Sebastian Wick <sebastian.wick@redhat.com>
-Subject: Re: [PATCH 3/3] drm/connector: Deprecate split for BT.2020 in
- drm_colorspace enum
-Message-ID: <Y+v8yv9OqC2JlX8s@intel.com>
-References: <CA+hFU4ymiOg06MQeKLcn5MSrR=BZnOLODdZCFvGUdWqt_ha61A@mail.gmail.com>
- <0fc18aec-0703-55f4-f635-d09d345e8dc0@amd.com>
- <Y90l+DY0rSaMvN1U@intel.com>
- <758e5cf6-53e0-567c-c760-5b773bc7a11c@amd.com>
- <Y90vrEa3/1RbaGOV@intel.com>
- <CA+hFU4wuM_xHniFyRT+jouQ3k_S3UJsRpAtd1Lgx9UVLtrqZrQ@mail.gmail.com>
- <98d1d22a-1c29-5271-1eaf-89c962eb9678@amd.com>
- <CA+hFU4y=N3bR-vXXeLP0xTe0-HJPgF_GTbKrb3A9St-z2LignQ@mail.gmail.com>
- <Y+vqu3qGUQayTjd+@intel.com>
- <CA+hFU4wpXfvCsiHrz=f8VCg3x9Ve--4OujwLq5jmGyAGwZy+jQ@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3BE210E03E;
+	Wed, 15 Feb 2023 02:51:07 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2053.outbound.protection.outlook.com [40.107.220.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F19910E03E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Feb 2023 02:51:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Fhr49ddtLTel2MYOgwrwp3mnVJm6dOsPA+yeUoX4eREODe6MOhV1LlCMexNVYZJz0yApLwIfR0VB0MG9uaeHPJVgUqSBYQ7WPbtZK8sFzVlImh/VnXYgCxT7xqvggpyVMdKNHCAQ2Ign7Z0ZxQDZzvTqkTA1C6p+GwVNEwtrh//V6Rjwneb56l3Wu5zWLLaC1/Z350vW+d3NqlhgLCpTbrd8kV4rSHhWLDFSM0p40uSNHY60WvtJ5AtKnGP2j09J/nKB0oVcK38Oh3Pb+NC0EiHSnkSiw8YDfS0xh3pxH9ahaUEK+RXYC2TxtG8dlL9lkUcFrX0uWfkqmGiv7ayuhg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=N1txDqZxSFVbhZgwE0qUKCikdeoRCSMIufciCLN7Gz0=;
+ b=UvkhCaKfUg9Gy6gGVjtPh2Ns7gcfiGv6IxNw//d8q9vVgnxu311j59E2DV3fQYtdLZWq57UFLHpg+tpjHGOD/ysDNTRQfd/8QtYU/qJ1oSK5PT3mT11HdozqCReRxIOjRp23bbQlkjRsX/c6vyKRFwi4cVtFSo1emql2Jb0Ol0h+Fg2c86QHCvtKlvxQaeSyRQaFCzfsr3DmMmVWXoRnTjdIbrKU6QmOpfatoulDWTpGIlBpk6po0dabPSyISnstdVCxmHnYWsQFYhO8PnhGCG24AfB4BBQD+anUL7MWFtekdo3E0nobCms5c49F8YPEKkoWwMpG+o17SjFV0QqkeQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=N1txDqZxSFVbhZgwE0qUKCikdeoRCSMIufciCLN7Gz0=;
+ b=PsBvC0t8FGLFMRj6JehmFHpad2zTIunKXctN98LBNEjbM87TUGwkHvOuMF/hMqLbIHAvQf9kFFyFeufq7SnY3AAnE6RdKQ/S+MKcTOxzziQn1nqC6/XWeiCvV22iBN+NK+Ore2XecO6lWWbgT6nqohGPt0Q49SdsiLNXKThk4RQ=
+Received: from DM4PR12MB5261.namprd12.prod.outlook.com (2603:10b6:5:398::22)
+ by PH7PR12MB7354.namprd12.prod.outlook.com (2603:10b6:510:20d::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.24; Wed, 15 Feb
+ 2023 02:51:02 +0000
+Received: from DM4PR12MB5261.namprd12.prod.outlook.com
+ ([fe80::66d:8790:631b:f03]) by DM4PR12MB5261.namprd12.prod.outlook.com
+ ([fe80::66d:8790:631b:f03%5]) with mapi id 15.20.6086.026; Wed, 15 Feb 2023
+ 02:51:02 +0000
+From: "Xiao, Shane" <shane.xiao@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Paneer Selvam,
+ Arunpravin" <Arunpravin.PaneerSelvam@amd.com>
+Subject: RE: [PATCH 1/2] drm/amdgpu: optimize VRAM allocation when using drm
+ buddy
+Thread-Topic: [PATCH 1/2] drm/amdgpu: optimize VRAM allocation when using drm
+ buddy
+Thread-Index: AQHZQGYt6UtYU+TqfkGPLAP/umhypK7OYmkAgAAYTNCAAFJDgIAAeHgA
+Date: Wed, 15 Feb 2023 02:51:02 +0000
+Message-ID: <DM4PR12MB52616659C39CB1242A4AD8B89DA39@DM4PR12MB5261.namprd12.prod.outlook.com>
+References: <20230214111851.2525197-1-shane.xiao@amd.com>
+ <ca40db72-6c04-e3cd-38f9-3254f37c850a@amd.com>
+ <DM4PR12MB526136D00F81419EEFCE47579DA29@DM4PR12MB5261.namprd12.prod.outlook.com>
+ <0a5fd1ae-45b0-96bb-5160-a34b57fc6a2a@amd.com>
+In-Reply-To: <0a5fd1ae-45b0-96bb-5160-a34b57fc6a2a@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB5261:EE_|PH7PR12MB7354:EE_
+x-ms-office365-filtering-correlation-id: 97d3dd72-803e-4b6c-9a12-08db0eff79de
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 68WAHbq1FHOE7281ywaF65OCOXEOGY2qHcEv1Tgt4/ghT3r7TTeonzhMQHIOKiNpKUzr7NG1yiaJKGbQZ6V5x5VsPAnfrSWDYH9HbJTykK6nChcqr/qBOzEGDmuOJiy94sn0eOCGDfE4fmJPW+Hqw0KqHhdkYx/iYQlgcxv5J7KpE/6KHwDzsix2jyB7NMimbZ+2MxynOxZdFNZrIL2aRmRvarq1SHhn4yLX6G3Cr9/TPXWXTGmx3XWcTyAjtMHYgtgvQOh7a8KH2wPqQW2+TasnnvrPsmiGLlvVj9bjr7wfNf7vqGWZEHHD1JlVk1AklQAYMQaSHrV/HsBFz3dOgn4PiTXaDfBdMMvLiBj7+GXsENzInLXL2U/ZNusEbSJSR2o7AmqNQ/S2NBS2QftqmiFiH4YUysog21+XBZKyJ9u4npcb4T69Sf7X8u9ooQDcYbB71Hny2USZAXEFz6gt1ZNYbULilKdX0anDbKIZXwKGiUxBCrIXisf75z1cg+MJuXA1QffqhN5mHeNh6Uk80laN2IGk00ENGFkph6AOST1Ebs3LHZ8w2ACC0zEOoGGVhBkJW41DCms2odj8/3zyZi958z2PdZyALjrkJqBqqp+R3FkjZp4aO0JOqkHUBY46rNd8nC29g4eMGcIxsGsuSsMRZQ1bTysF3419pyJJxOMnZk5gEGsCaiIV+lo1MvWCMZWWCsyOQR1fzcjMDIIk+g==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5261.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(396003)(376002)(39860400002)(366004)(346002)(136003)(451199018)(71200400001)(478600001)(55016003)(122000001)(83380400001)(53546011)(9686003)(6506007)(26005)(186003)(2906002)(6636002)(33656002)(316002)(110136005)(41300700001)(5660300002)(66946007)(52536014)(8936002)(4326008)(64756008)(66476007)(66446008)(7696005)(76116006)(66556008)(8676002)(38100700002)(86362001)(38070700005);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?eEJ3Q0M0aEpiTDlGSkZ2TUpHMW1FTzNUMVU4S1htYXlZVE8zd2kxTlY3czhH?=
+ =?utf-8?B?SzdmclpOcEVkWnRLQjkvNzh3NEhoYTdGcG5XTXY2RlBOb2tVOW42MHJoMFpF?=
+ =?utf-8?B?cXk2SXhiL05iYmltS0diR2pkcFJCbXF1b1JDMTZKRFQwMHluNTBBazZHZlp2?=
+ =?utf-8?B?MlNFZzR0ZXpYWnBoVWFCSSt2eXVmbTJMZE0yUHN3ZDZ5RlkrZjNZMWFNZ29l?=
+ =?utf-8?B?a1JjR3Yxb1JGdkxONlppWWNGVy9yU2NvemF5SUd3UURha1lRbE5mZXNQVTFO?=
+ =?utf-8?B?SjJIMlR3SzE5ZGNpaEk4YkIzTDVNZG5vekF5MGhma01Gd0Eva1RmSDFZbHRY?=
+ =?utf-8?B?dHBsSWVPc0toeWxkTzNBb1ZaMG1PUGlVVGx2bVYwV0dNRWhxSmJPenErajhz?=
+ =?utf-8?B?Syt5bWcyZGRIZUs5RUN5US9TUFNVOC9kNUQ5ejBBZERjNDR4Q2syejNZUTZV?=
+ =?utf-8?B?L29MK1VuVWczMzkrenJXa01pT1hOU1l1WmlBb0ppSUl0Z3ZrS2lwVTlwSEVq?=
+ =?utf-8?B?MUowWGdZdVpQZDUxR0VPL29raXkxbW90eDdyOWk3VGxKUFI0Skg0b3dnRllI?=
+ =?utf-8?B?RGhFdHRLSUpmdzJUMzdxeWtzRGphUG1zc1N4OHM0UmxGQjV1dmNxQldZc1RO?=
+ =?utf-8?B?MmNJRVpiUEljZUh1aDJmNFd1dnpZQmRiOG9SS08rNmpyZzNsVW01Z2RReTJo?=
+ =?utf-8?B?cW9PaE9LM2lrU1h4TXFFUEpVdDAwTDFXdk5KaEhVcko5c2UwMVZ1NnB5T3c2?=
+ =?utf-8?B?cHgwdU1sTHVubmJ4eVZ2U3Z0bHJEYkVUNkJIWGdHVnpKK0l1WEVHS1lSZUc2?=
+ =?utf-8?B?MWk1em9UYXRJMkRGWlF2SkY4S0loZHZoQ2J1RER0S2phbXVWRkRHYlJjU3Y5?=
+ =?utf-8?B?VW9JeSthVmY0REFraHRWQ1I2ZWJBcUVkS1gxVFE2TWZ6S3o2RCtvK0RheGgx?=
+ =?utf-8?B?MG1LMkhpOUc4TnRRaXJ1N2pQUTFsYWpCaUpsWnJpR3F1dUpuMko4czhxTGRR?=
+ =?utf-8?B?QlBiSDBMT2UyOHE2TEZ2NlBwZCtST0diZWR0VEdnS3E5MnZIdUM3WFlUdHJD?=
+ =?utf-8?B?aFEyWTQyaDJxNGVQaUowMjBMTXlLK3E5QzZVWGJ5NmNEVklpWVlVQXpSZXBr?=
+ =?utf-8?B?NWxmamNXbm1nNmY5RTdoZlFPeUxsUHBpK3dSNVVEUHAyOHVPaHJHR3VsZndi?=
+ =?utf-8?B?a0tCdDlDVkNEY0RMbkp1dnY4Y3FxRExqLzBZb1Irck92cU5OZmxTSVlqL1FB?=
+ =?utf-8?B?aU5Jd0VZR1VFSFpDTllDdnZDNU1OQ0E1U1IrVHBsVXVkNUtpR2JHQUFHd0RK?=
+ =?utf-8?B?a09STFJEcE91UDdOd0RoTmhZK2JRSGpnSlBoeXg3MEJ4NGxRMnFseE9IckFy?=
+ =?utf-8?B?eHMwQ0wxSXRyY3dUSzI4eTFpNTQ5MG5DL2xkU0JpTmk4b2hLbm1vY0ZBYU1K?=
+ =?utf-8?B?SDMvUDNVNG9laEhXTmRGaDVlaFYxQnUrck9wWFNkTDJuaXpUYzNwTDFESHk0?=
+ =?utf-8?B?ZTg4T1J3em5RdCtRdExpZzJlNDNkaVRQVlRERVZwOUVFMVNZa0ZVMm1LaHJk?=
+ =?utf-8?B?Mlc4a2FvTU5ZZjVCQnByYy9YQWtPeXdOaFlkY09UQ01nYkNVUkhLdXpURzNz?=
+ =?utf-8?B?MXRyOHU5Rk1RTmwxREorUmVsVnVGdUd5V3dqU1hZcjlSQXYzR05qbzEvMnVB?=
+ =?utf-8?B?S0VweUlBTE5zaHludEQ3OWd2eEhCN2VXbkZJWXd4VGlEbFJJWDBWOFV6TFZs?=
+ =?utf-8?B?MTMzSHY1MHN4cFRQblNZcS9VWitxOVQ0WTU3cDNoUUp1Q0lqbkZKSFVlNUJl?=
+ =?utf-8?B?TU1wT1doc3Z5SVIyQlZwQUgxR05hK2Y3aUNzUlhkZ2tVVTYyZGdSSVgyQlFG?=
+ =?utf-8?B?S1BqMUtrNWxOMnloUWRZWHBEWk9oeVZ3MThkVnBRanZmck1oaU5WVFB3bjR4?=
+ =?utf-8?B?WTJ0NmNBMzhuV0FLQlZEMnVSVG1LOUhLc2txNm1xcXk3UnlWSjJ5RTBUQURU?=
+ =?utf-8?B?UVZvdkE3djBTUHd2elZYbWlmb29YSHhEYkxKS0FQa2IvVDVWVVZUQjhmOXJq?=
+ =?utf-8?B?UFlmQWMzTnh1VHEyeEk1VTNlTUtWcTRPSFdRMkNHWGFRMytKa0tXaVN1cllp?=
+ =?utf-8?Q?wqFGOhPPMaeNpuqfy/KbymVEV?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CA+hFU4wpXfvCsiHrz=f8VCg3x9Ve--4OujwLq5jmGyAGwZy+jQ@mail.gmail.com>
-X-Patchwork-Hint: comment
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5261.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 97d3dd72-803e-4b6c-9a12-08db0eff79de
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Feb 2023 02:51:02.6669 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: SDDq6ErrftOb8EefLWuq5jWV3cZoE4n81fo5fip973DtyHy2sjpJAKP9HlFkDv0eXMeaqCv5c8MnDGi2XpcIEQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7354
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,207 +129,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, Pekka Paalanen <ppaalanen@gmail.com>,
- Uma Shankar <uma.shankar@intel.com>, amd-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>, Joshua Ashton <joshua@froggi.es>,
- Vitaly.Prosyak@amd.com
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 14, 2023 at 10:18:49PM +0100, Sebastian Wick wrote:
-> On Tue, Feb 14, 2023 at 9:10 PM Ville Syrjälä
-> <ville.syrjala@linux.intel.com> wrote:
-> >
-> > On Tue, Feb 14, 2023 at 08:45:00PM +0100, Sebastian Wick wrote:
-> > > On Tue, Feb 14, 2023 at 5:57 PM Harry Wentland <harry.wentland@amd.com> wrote:
-> > > >
-> > > >
-> > > >
-> > > > On 2/14/23 10:49, Sebastian Wick wrote:
-> > > > > On Fri, Feb 3, 2023 at 5:00 PM Ville Syrjälä
-> > > > > <ville.syrjala@linux.intel.com> wrote:
-> > > > >>
-> > > > >> On Fri, Feb 03, 2023 at 10:24:52AM -0500, Harry Wentland wrote:
-> > > > >>>
-> > > > >>>
-> > > > >>> On 2/3/23 10:19, Ville Syrjälä wrote:
-> > > > >>>> On Fri, Feb 03, 2023 at 09:39:42AM -0500, Harry Wentland wrote:
-> > > > >>>>>
-> > > > >>>>>
-> > > > >>>>> On 2/3/23 07:59, Sebastian Wick wrote:
-> > > > >>>>>> On Fri, Feb 3, 2023 at 11:40 AM Ville Syrjälä
-> > > > >>>>>> <ville.syrjala@linux.intel.com> wrote:
-> > > > >>>>>>>
-> > > > >>>>>>> On Fri, Feb 03, 2023 at 02:07:44AM +0000, Joshua Ashton wrote:
-> > > > >>>>>>>> Userspace has no way of controlling or knowing the pixel encoding
-> > > > >>>>>>>> currently, so there is no way for it to ever get the right values here.
-> > > > >>>>>>>
-> > > > >>>>>>> That applies to a lot of the other values as well (they are
-> > > > >>>>>>> explicitly RGB or YCC). The idea was that this property sets the
-> > > > >>>>>>> infoframe/MSA/SDP value exactly, and other properties should be
-> > > > >>>>>>> added to for use userspace to control the pixel encoding/colorspace
-> > > > >>>>>>> conversion(if desired, or userspace just makes sure to
-> > > > >>>>>>> directly feed in correct kind of data).
-> > > > >>>>>>
-> > > > >>>>>> I'm all for getting userspace control over pixel encoding but even
-> > > > >>>>>> then the kernel always knows which pixel encoding is selected and
-> > > > >>>>>> which InfoFrame has to be sent. Is there a reason why userspace would
-> > > > >>>>>> want to control the variant explicitly to the wrong value?
-> > > > >>>>>>
-> > > > >>>>>
-> > > > >>>>> I've asked this before but haven't seen an answer: Is there an existing
-> > > > >>>>> upstream userspace project that makes use of this property (other than
-> > > > >>>>> what Joshua is working on in gamescope right now)? That would help us
-> > > > >>>>> understand the intent better.
-> > > > >>>>
-> > > > >>>> The intent was to control the infoframe colorimetry bits,
-> > > > >>>> nothing more. No idea what real userspace there was, if any.
-> > > > >>>>
-> > > > >>>>>
-> > > > >>>>> I don't think giving userspace explicit control over the exact infoframe
-> > > > >>>>> values is the right thing to do.
-> > > > >>>>
-> > > > >>>> Only userspace knows what kind of data it's stuffing into
-> > > > >>>> the pixels (and/or how it configures the csc units/etc.) to
-> > > > >>>> generate them.
-> > > > >>>>
-> > > > >>>
-> > > > >>> Yes, but userspace doesn't control or know whether we drive
-> > > > >>> RGB or YCbCr on the wire. In fact, in some cases our driver
-> > > > >>> needs to fallback to YCbCr420 for bandwidth reasons. There
-> > > > >>> is currently no way for userspace to know that and I don't
-> > > > >>> think it makes sense.
-> > > > >>
-> > > > >> People want that control as well for whatever reason. We've
-> > > > >> been asked to allow YCbCr 4:4:4 output many times.
-> > > > >
-> > > > > I don't really think it's a question of if we want it but rather how
-> > > > > we get there. Harry is completely right that if we would make the
-> > > > > subsampling controllable by user space instead of the kernel handling
-> > > > > it magically, user space which does not adapt to the new control won't
-> > > > > be able to light up some modes which worked before.
-> > > > >
-> > > >
-> > > > Thanks for continuing this discussion and touching on the model of how
-> > > > we get to where we want to go.
-> > > >
-> > > > > This is obviously a problem and not one we can easily fix. We would
-> > > > > need a new cap for user space to signal "I know that I can control
-> > > > > bpc, subsampling and compression to lower the bandwidth and light up
-> > > > > modes which otherwise fail". That cap would also remove all the
-> > > > > properties which require kernel magic to work (that's also what I
-> > > > > proposed for my KMS color pipeline API).
-> > > > >
-> > > > > We all want to expose more of the scanout capability and give user
-> > > > > space more control but I don't think an incremental approach works
-> > > > > here and we would all do better if we accept that the current API
-> > > > > requires kernel magic to work and has a few implicit assumptions baked
-> > > > > in.
-> > > > >
-> > > > > With all that being said, I think the right decision here is to
-> > > > >
-> > > > > 1. Ignore subsampling for now
-> > > > > 2. Let the kernel select YCC or RGB on the cable
-> > > > > 3. Let the kernel figure out the conversion between RGB and YCC based
-> > > > > on the color space selected
-> > > > > 4. Let the kernel send the correct infoframe based on the selected
-> > > > > color space and cable encoding
-> > > > > 5. Only expose color spaces for which the kernel can do the conversion
-> > > > > and send the infoframe
-> > > >
-> > > > I agree. We don't want to break or change existing behavior (that is
-> > > > used by userspace) and this will get us far without breaking things.
-> > > >
-> > > > > 6. Work on the new API which is hidden behind a cap
-> > > > >
-> > > >
-> > > > I assume you mean something like
-> > > > https://gitlab.freedesktop.org/pq/color-and-hdr/-/issues/11
-> > >
-> > > Something like that, yes. The main point being a cap which removes a
-> > > lot of properties and sets new expectations between user space and
-> > > kernel. The actual API is not that important.
-> > >
-> > > > Above you say that you don't think an incremental approach works
-> > > > here. Can you elaborate?
-> > >
-> > > Backwards compatibility is really hard. If we add another property to
-> > > control e.g. the color range infoframe which doesn't magically convert
-> > > colors, we now have to define how it interacts with the existing
-> > > property.
-> >
-> > I think that's easy. The old prop simply override the
-> > infoframe/etc. stuff. Pretty sure that's how we have it
-> > implemented in i915 since the start.
-> >
-> > And if you set it wrong it's you own fault.
-> 
-> We need the "old" property to control both the conversion and the
-> infoframe and we need the "new" property to control only the
-> infoframe.
-
-Wait what? The old property only controls the infoframe.
-The new property (last I looked) was supposed to do more.
-Or did that plan change already when I wasn't paying attention.
-
-> So if we don't want to old property to to any conversion we
-> now also need a new value for the old property which disables the
-> property. So why not just go for a cap and remove the property
-> altogether?
-> 
-> And again, as long as user space doesn't have complete control over
-> the entire pipeline we can't use the property which only sets the
-> infoframe anyway so you can't even have an incremental approach here.
-> 
-> Let's turn the question around: what do we gain by keeping all the
-> properties and implicit assumptions in the current API around? They
-> make everything more complex so what's the benefit?
-> 
-> I also want to be able to clearly document all the requirements of
-> user space and the guarantees from the kernel in the new API which we
-> can't do when we just incrementally change some properties here and
-> there. The documentation right now is basically a joke and almost
-> nothing has been defined properly and when things work, they work by
-> accident. Purely from a documentation and usability POV the
-> incremental approach is already going to be horrible IMO.
-> 
-> >
-> > > We also have to figure out how a user space which doesn't
-> > > know about the new property behaves when another client has set that
-> > > property. If any property which currently might change the pixel
-> > > values is used, we can't expose the entire color pipeline because the
-> > > kernel might have to use some element in it to achieve its magic
-> > > conversion. So essentially you already have this hard device between
-> > > "old" and "new" and you can't use the new stuff incrementally.
-> >
-> > That problem exists with any new property. Old userspace and new
-> > userspace may interact badly enought that nothing works right.
-> > In that sense I think these props might even be pretty mundane
-> > as the worst you might get from setting the infoframe wrong is
-> > perhaps wrong colors on your display.
-> >
-> > To solve that particular problem there has been talk (for years)
-> > about some kind of "reset all" knob to make sure everything is
-> > at a safe default value. I have a feeling there was even some
-> > kind of semi-real proposal in recent times, but maybe I imgained
-> > it?
-> 
-> I'm one of the people who argued for this but met only resistance. It
-> sure would be nice to have but also doesn't help with a lot of the
-> issues.
-> 
-> > Right now I guess what you do is either just reboot, or muck
-> > around with modetest to manually reset properties.
-> >
-> > I have occasionally abused this btw, to set some prop with
-> > modetest and then run some real userspace that doesn't even
-> > know about said property. Easy way to test stuff :P
-> >
-> > --
-> > Ville Syrjälä
-> > Intel
-> >
-
--- 
-Ville Syrjälä
-Intel
+DQpGb3IgcHVibGljIHJldmlldw0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZy
+b206IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+DQo+IFNlbnQ6
+IFdlZG5lc2RheSwgRmVicnVhcnkgMTUsIDIwMjMgMzowMiBBTQ0KPiBUbzogWGlhbywgU2hhbmUg
+PHNoYW5lLnhpYW9AYW1kLmNvbT47IFBhbmVlciBTZWx2YW0sIEFydW5wcmF2aW4NCj4gPEFydW5w
+cmF2aW4uUGFuZWVyU2VsdmFtQGFtZC5jb20+DQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMS8yXSBk
+cm0vYW1kZ3B1OiBvcHRpbWl6ZSBWUkFNIGFsbG9jYXRpb24gd2hlbiB1c2luZw0KPiBkcm0gYnVk
+ZHkNCj4gDQo+IEFtIDE0LjAyLjIzIHVtIDE1OjUzIHNjaHJpZWIgWGlhbywgU2hhbmU6DQo+ID4+
+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+ID4+IEZyb206IEtvZW5pZywgQ2hyaXN0aWFu
+IDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+DQo+ID4+IFNlbnQ6IFR1ZXNkYXksIEZlYnJ1YXJ5
+IDE0LCAyMDIzIDg6NDEgUE0NCj4gPj4gVG86IFhpYW8sIFNoYW5lIDxzaGFuZS54aWFvQGFtZC5j
+b20+OyBicmFobWFfc3dfZGV2DQo+ID4+IDxicmFobWFfc3dfZGV2QGFtZC5jb20+DQo+ID4+IENj
+OiBQYW5lZXIgU2VsdmFtLCBBcnVucHJhdmluIDxBcnVucHJhdmluLlBhbmVlclNlbHZhbUBhbWQu
+Y29tPg0KPiA+PiBTdWJqZWN0OiBSZTogW1BBVENIIDEvMl0gZHJtL2FtZGdwdTogb3B0aW1pemUg
+VlJBTSBhbGxvY2F0aW9uIHdoZW4NCj4gPj4gdXNpbmcgZHJtIGJ1ZGR5DQo+ID4+DQo+ID4+IEFt
+IDE0LjAyLjIzIHVtIDEyOjE4IHNjaHJpZWIgU2hhbmUgWGlhbzoNCj4gPj4+IFNpbmNlIHRoZSBW
+UkFNIG1hbmFnZXIgY2hhbmdlZCBmcm9tIGRybSBtbSB0byBkcm0gYnVkZHkuIEl0J3Mgbm90DQo+
+ID4+PiBuZWNlc3NhcnkgdG8gYWxsb2NhdGUgMk1CIGFsaWduZWQgVlJBTSBmb3IgbW9yZSB0aGFu
+IDJNQiB1bmFsaWduZWQNCj4gPj4+IHNpemUsIGFuZCB0aGVuIGRvIHRyaW0uIFRoaXMgbWV0aG9k
+IGltcHJvdmVzIHRoZSBhbGxvY2F0aW9uDQo+ID4+PiBlZmZpY2llbmN5IGFuZCByZWR1Y2VzIG1l
+bW9yeSBmcmFnbWVudGF0aW9uLg0KPiA+PiBXZWxsIHRoYXQgaXMgYSB0cmFkZSBvZmYuDQo+ID4+
+DQo+ID4+IEFsbG9jYXRpbmcgdGhlIEJPIGFzIG9uZSBjb250aWd1b3VzIGNodW5rIGFuZCB0aGVu
+IHRyaW1taW5nIGlzDQo+ID4+IGJlbmVmaWNpYWwgYmVjYXVzZSBpZiB3ZSB0aGVuIGxhdGVyIG5l
+ZWQgaXQgY29udGlndW91cyB3ZSBkb24ndCBuZWVkDQo+ID4+IHRvIHJlLWFsbG9jYXRlIGFuZCBj
+b3B5LiBUaGlzIGNhbiBiZSBuZWVkZWQgdG8gZGlzcGxheSBzb21ldGhpbmcgZm9yDQo+IGV4YW1w
+bGUuDQoNCkhpIENocmlzdGlhbiwNCg0KVGhpcyBjYXNlIG1lYW5zIHRoYXQgeW91IGFsbG9jYXRl
+IEJPIHRoYXQgaXMgdW5uZWNlc3NhcnkgdG8gYmUgY29udGludW91cyBhdCBmaXJzdCB0aW1lLA0K
+YW5kIGxhdHRlciB0aGUgQk8gc2hvdWxkIGJlIGNvbnRpbnVvdXMuIEknbSBub3QgZmFtaWxpYXIg
+d2l0aCBkaXNwbGF5LiBDb3VsZCB5b3UgZ2l2ZSBtZSANCmEgZmV3IG1vcmUgc3BlY2lmaWMgZXhh
+bXBsZXMgPw0KICAgDQoNCj4gPiBZZXMsIEkgYWdyZWUgdGhhdCBvbmUgY29udGlndW91cyBjaHVu
+ayBtYXkgZ2V0IGJlbmVmaWNpYWwgc29tZXRpbWVzLg0KPiA+IEJ1dCBhcyBmYXIgYXMgSSBrbm93
+LCB5b3UgY2Fubm90IGd1YXJhbnRlZSB0aGF0IGFtZGdwdV92cmFtX21ncl9uZXcNCj4gY2FuIGdl
+dCBvbmUgY29udGlndW91cyBjaHVuayAgaWYgeW91IGRvbid0IHNldCBUVE1fUExfRkxBR19DT05U
+SUdVT1VTDQo+IGZsYWdzLg0KPiA+IEZvciBleGFtcGxlLCBpZiB5b3Ugd2FudCB0byBhbGxvY2F0
+ZSA0TSs0SyBCTywgaXQgd2lsbCBhbGxvY2F0ZSBvbmUgNE0gYmxvY2sNCj4gKyBvbmUgMk0gYmxv
+Y2sgd2hpY2ggaXMgdW5uZWNlc3NhcnkgdG8gYmUgY29udGludW91cywgdGhlbiAyTSBibG9jayB3
+aWxsIGJlDQo+IHRyaW1tZWQuDQo+IA0KPiBPaCwgdGhhdCdzIGluZGVlZCBub3Qgc29tZXRoaW5n
+IHdoaWNoIHNob3VsZCBoYXBwZW4uIFNvdW5kcyBtb3JlIGxpa2UgYQ0KPiBidWcgZml4IHRoZW4u
+DQoNClllcywgSSB0aGluayB0aGlzIGNhc2Ugc2hvdWxkIG5vdCBiZSBoYXBwZW5lZC4gDQpBY3R1
+YWxseSwgSSdtIG5vdCBzdXJlIHRoYXQgd2h5IHRoZSBhbGxvY2F0ZWQgQk8gc2hvdWxkIGJlIGFs
+aWduZWQgd2l0aCBwYWdlc19wZXJfYmxvY2ssIHdoaWNoIGlzIHNldCB0byAyTUIgYnkgZGVmYXVs
+dC4NCkRvZXMgdGhpcyBoZWxwIGltcHJvdmUgcGVyZm9ybWFuY2Ugd2hlbiBhbGxvY2F0aW5nIDJN
+IG9yIGFib3ZlIEJPPw0KRnJvbSBteSBwb2ludCBvZiB2aWV3LCB0aGUgVExCIG1heSBiZSBvbmUg
+b2YgcmVhc29uIG9mIHRoaXMuIEJ1dCBJJ20gbm90IHN1cmUgYWJvdXQgdGhpcy4NCg0KQmVzdCBS
+ZWdhcmRzLA0KU2hhbmUgDQoNCj4gDQo+ID4NCj4gPj4gT24gdGhlIG90aGVyIGhhbmQgSSBjb21w
+bGV0ZWx5IGFncmVlIGFsbG9jYXRpbmcgYmlnIGFuZCB0aGVuIHRyaW1taW5nDQo+ID4+IGNyZWF0
+ZXMgbW9yZSBmcmFnbWVudGF0aW9uIHRoYW4gbmVjZXNzYXJ5Lg0KPiA+Pg0KPiA+PiBEbyB5b3Ug
+aGF2ZSBzb21lIHRlc3QgY2FzZSB3aGljaCBjYW4gc2hvdyB0aGUgZGlmZmVyZW5jZT8NCj4gPiBJ
+IGhhdmUgdXNlIHJvY3J0c3QgdG8gc2hvdyB0aGUgZGlmZmVyZW5jZS4NCj4gPiBUaGUgYXR0YWNo
+bWVudCBpcyBzaG93biB0aGF0IGFmdGVyIGFwcGx5aW5nIHRoaXMgcGF0Y2gsIHRoZSBvcmRlciA8
+IDkgdG90YWwNCj4gdnJhbSBzaXplIGRlY3JlYXNlIGZyb20gOTlNQiB0byA0M01CLg0KPiA+IEFu
+ZCB0aGUgbGF0dGVyIGhhcyBtb3JlIGhpZ2hlciBvcmRlciBibG9jayBtZW1vcnkuDQo+IA0KPiBB
+cnVuIGNhbiB5b3UgdGFrZSBhIGxvb2s/IFRoYXQgcHJvYmxlbSBoZXJlIHNvdW5kcyBpbXBvcnRh
+bnQuDQo+IA0KPiBUaGFua3MsDQo+IENocmlzdGlhbi4NCj4gDQo+ID4NCj4gPj4gQlRXOiBObyBu
+ZWVkIHRvIGRpc2N1c3MgdGhhdCBvbiB0aGUgaW50ZXJuYWwgbWFpbGluZyBsaXN0LCBwbGVhc2Ug
+dXNlDQo+ID4+IHRoZSBwdWJsaWMgb25lIGluc3RlYWQuDQo+ID4+DQo+ID4gSSB3aWxsIHNlbmQg
+aXQgdG8gcHVibGljLiBUaGFuayB5b3UgZm9yIHlvdXIgcmVtaW5kLg0KPiA+DQo+ID4gQmVzdCBS
+ZWdhcmRzLA0KPiA+IFNoYW5lDQo+ID4NCj4gPj4gUmVnYXJkcywNCj4gPj4gQ2hyaXN0aWFuLg0K
+PiA+Pg0KPiA+Pj4gU2lnbmVkLW9mZi1ieTogU2hhbmUgWGlhbyA8c2hhbmUueGlhb0BhbWQuY29t
+Pg0KPiA+Pj4gLS0tDQo+ID4+PiAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+dnJhbV9tZ3IuYyB8IDIgKy0NCj4gPj4+ICAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigr
+KSwgMSBkZWxldGlvbigtKQ0KPiA+Pj4NCj4gPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfdnJhbV9tZ3IuYw0KPiA+Pj4gYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfdnJhbV9tZ3IuYw0KPiA+Pj4gaW5kZXggNzVjODBjNTU3YjZlLi4z
+ZmVhNThmOTQyN2MgMTAwNjQ0DQo+ID4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfdnJhbV9tZ3IuYw0KPiA+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X3ZyYW1fbWdyLmMNCj4gPj4+IEBAIC00NTMsNyArNDUzLDcgQEAgc3RhdGljIGlu
+dCBhbWRncHVfdnJhbV9tZ3JfbmV3KHN0cnVjdA0KPiA+PiB0dG1fcmVzb3VyY2VfbWFuYWdlciAq
+bWFuLA0KPiA+Pj4gICAgCQkvKiBMaW1pdCBtYXhpbXVtIHNpemUgdG8gMkdpQiBkdWUgdG8gU0cg
+dGFibGUgbGltaXRhdGlvbnMgKi8NCj4gPj4+ICAgIAkJc2l6ZSA9IG1pbihyZW1haW5pbmdfc2l6
+ZSwgMlVMTCA8PCAzMCk7DQo+ID4+Pg0KPiA+Pj4gLQkJaWYgKHNpemUgPj0gKHU2NClwYWdlc19w
+ZXJfYmxvY2sgPDwgUEFHRV9TSElGVCkNCj4gPj4+ICsJCWlmICghKHNpemUgJSAoKHU2NClwYWdl
+c19wZXJfYmxvY2sgPDwgUEFHRV9TSElGVCkpKQ0KPiA+Pj4gICAgCQkJbWluX2Jsb2NrX3NpemUg
+PSAodTY0KXBhZ2VzX3Blcl9ibG9jayA8PA0KPiA+PiBQQUdFX1NISUZUOw0KPiA+Pj4gICAgCQlj
+dXJfc2l6ZSA9IHNpemU7DQoNCg==
