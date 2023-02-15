@@ -4,72 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEC5EC636D4
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Feb 2023 10:44:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F83FC636CC
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Feb 2023 11:46:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AD9810EA95;
-	Wed, 15 Feb 2023 10:44:10 +0000 (UTC)
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [IPv6:2a00:1450:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B152010EA95
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Feb 2023 10:44:07 +0000 (UTC)
-Received: by mail-ej1-x630.google.com with SMTP id lf10so15232779ejc.5
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Feb 2023 02:44:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=1y6bxHp5/mqDfH+dT/xv9I0mBRHx1AaaniegqoUUvqA=;
- b=hgwTgld42RJHXoPinT2D3yiz7kgAnYMt93erRIQn4hNFLv8VBt/CRDTT/OzToqSGdX
- h/6dCGa0PWftLJcONPAAj5Lxorvuh0u26YH0YM22oXhOFzSe48eR0f9jTrBdmBODNsWO
- edm0ynAf70vGuzUaBw3Ym/ZnawENrBg9Y7FT6XwFo/GU+bMlWjMV6TvrriVsVaQtbxNr
- k7JVGByv7YLrrwmGk6iIAh7n4DnI+rMBf297tI/gDydUD7HZ6DkfYPHY8XV1pmObxbrB
- bH2SXzYKDraloYMEhpKgV0QWJjSKhUOepXhP4T4f+q96Pirv7YQ/qf/7P1SehecahQ3a
- MOYA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D2B710E1E8;
+	Wed, 15 Feb 2023 11:46:53 +0000 (UTC)
+Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
+ [IPv6:2607:f8b0:4864:20::82e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 815CB10E115
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Feb 2023 11:46:51 +0000 (UTC)
+Received: by mail-qt1-x82e.google.com with SMTP id w3so21365774qts.7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Feb 2023 03:46:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fooishbar-org.20210112.gappssmtp.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=hViB0MKP1vfMl/LEpFk2hq1vBGh/G3kgc7krlo/nwlc=;
+ b=FPDydcBBqOHwhnzPaAy+lNUtokCPRSIgDfOeX2lVceoOhF6C1++h0KuG2t0xNJnI5i
+ B+6a9hzNen8VFxg7QROtM36J6c5NsQek3SuJJ/7JtVmTk3SP13nXx9awHPdeTlyLJvot
+ 2LDyeexzU7NxvlVbG0YDsU6DRRnHiUzEX5df975JzMQp5KL/fU6VwStfAvnGpXUtuYOK
+ Z5Lc/OYRluCwvwNjbm4Pjxuuu5iVNqtl0oLf8eCRHCGYHkHSvG1NZskAzSkGGGK1BvIZ
+ w1DM/CjnYZsbA58r6ap6je/AUbuVxAaSNZPKfMQA6BlQUiK5yWNNyfmWZuSD6G9+JeOu
+ wSSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=1y6bxHp5/mqDfH+dT/xv9I0mBRHx1AaaniegqoUUvqA=;
- b=274ST2Qd2B08tzh04FE6pXCYe35UhZbZdDhkuojbhvEIWwBbukvRkbBwPMeYqXrDtR
- +9x8LAuLJJYZLBTGuC03cNqndZKR+65IKg5GPskEhdDj7YZrlR0zpUlZ0N8Q0E68Bpr2
- YHfejReclFhkXY7nMa6C3wzTXmEXD/n7K8hrr2NxNI/9zREJNyM8fYBdyHIOWd8/9sjw
- ej7942M6di296yEFvYQjztvCzGDI+WlHi08u2yAltHFnHIHesaFjjV6Xcx5BWbaYF5ja
- usTuZkUNUMRnlqZVbutmZV/17zzGoEjZu04UcS+oBnDBnUE2Lj2tv/eYV6j8PnhD8Zz9
- ky8w==
-X-Gm-Message-State: AO0yUKVWiC/5lpuEHYdzPMneC8HTpaUhcnq9OpLOwlZ4bfQljYEh/MyT
- gfzGPLmdVdgGz5BoEmSVqY7jJ1lAM255/A==
-X-Google-Smtp-Source: AK7set88pkXAw+wx/g5v6rUa0LwNNVdWolWqt0oI2eF/nIUqSxIQzmKG/3AXPcDF0hpLI8OghKiTQg==
-X-Received: by 2002:a17:906:edb9:b0:8b1:304e:58a7 with SMTP id
- sa25-20020a170906edb900b008b1304e58a7mr2175037ejb.56.1676457846208; 
- Wed, 15 Feb 2023 02:44:06 -0800 (PST)
-Received: from ?IPV6:2a02:908:1256:79a0:b2c6:be33:f616:fc78?
- ([2a02:908:1256:79a0:b2c6:be33:f616:fc78])
- by smtp.gmail.com with ESMTPSA id
- e19-20020a170906749300b0088f8abd3214sm9631406ejl.92.2023.02.15.02.44.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Feb 2023 02:44:05 -0800 (PST)
-Message-ID: <62ca76cc-a553-21c2-9538-03cefb7b02ac@gmail.com>
-Date: Wed, 15 Feb 2023 11:44:04 +0100
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=hViB0MKP1vfMl/LEpFk2hq1vBGh/G3kgc7krlo/nwlc=;
+ b=hGeW4bYvFiKlW0iRVlsJ67cJaghax84DpeVLE9aCfJr/8XoSQPqKI2BRCM35VHMjK5
+ wYjOemdzRcNLKhAPy/IxXQ7XN3WZZJnk9OUjd5f/cId4yNNxtmTUjWCAlya6WQ99UX/5
+ hLVqaWjhm0RW+tBXNZKhtC54VVSDnJmAa/xNgX3Ez0WAtwVk8CpZjeDJTbdiEOK53GMA
+ sqAdTk/36Rgv7qga9CkZBa+WKQtJzFui7r8R/igIJ4usyjLj8ieEu2FeKi9NITPK1B1X
+ moH+sU/fgkz/Z8tNYX1TmsUi9UMeEWjxHyfP6HiVr3O0RbzDbX/X0LA24x1AsaOmLNxt
+ QCKg==
+X-Gm-Message-State: AO0yUKVCX1F0Bf7eBTz+pf0KqmYhaRt7HALxCpIZ/7ZmBm1wq9U3YfYP
+ eyrY38bzvIpaeqg350l6WtiVcbSq34gK9ICnJxHoIA==
+X-Google-Smtp-Source: AK7set8fQ/ejAY5fIptsiJOLZh+HpV+mXCEqmG36uCqpYGSmoV0Vsx0u1l0EzFr+wq4qMDDYzB4hPQN81Oq/7nTKVIk=
+X-Received: by 2002:ac8:7d03:0:b0:3ba:2848:ea6f with SMTP id
+ g3-20020ac87d03000000b003ba2848ea6fmr222069qtb.338.1676461610429; Wed, 15 Feb
+ 2023 03:46:50 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH 1/2] drm/amdgpu: optimize VRAM allocation when using drm
- buddy
-Content-Language: en-US
-To: "Xiao, Shane" <shane.xiao@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Paneer Selvam, Arunpravin" <Arunpravin.PaneerSelvam@amd.com>
-References: <20230214111851.2525197-1-shane.xiao@amd.com>
- <ca40db72-6c04-e3cd-38f9-3254f37c850a@amd.com>
- <DM4PR12MB526136D00F81419EEFCE47579DA29@DM4PR12MB5261.namprd12.prod.outlook.com>
- <0a5fd1ae-45b0-96bb-5160-a34b57fc6a2a@amd.com>
- <DM4PR12MB52616659C39CB1242A4AD8B89DA39@DM4PR12MB5261.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <DM4PR12MB52616659C39CB1242A4AD8B89DA39@DM4PR12MB5261.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20230203020744.30745-1-joshua@froggi.es>
+ <20230203020744.30745-3-joshua@froggi.es>
+ <Y9zkef5FjtZ7guVS@intel.com>
+ <CA+hFU4ymiOg06MQeKLcn5MSrR=BZnOLODdZCFvGUdWqt_ha61A@mail.gmail.com>
+ <0fc18aec-0703-55f4-f635-d09d345e8dc0@amd.com> <Y90l+DY0rSaMvN1U@intel.com>
+ <758e5cf6-53e0-567c-c760-5b773bc7a11c@amd.com> <Y90vrEa3/1RbaGOV@intel.com>
+ <CA+hFU4wuM_xHniFyRT+jouQ3k_S3UJsRpAtd1Lgx9UVLtrqZrQ@mail.gmail.com>
+ <98d1d22a-1c29-5271-1eaf-89c962eb9678@amd.com>
+In-Reply-To: <98d1d22a-1c29-5271-1eaf-89c962eb9678@amd.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Wed, 15 Feb 2023 11:46:39 +0000
+Message-ID: <CAPj87rP0E17Z8beoDi_c+RdcpyZnCXTrxFkQSJUi0qN2GNoq+w@mail.gmail.com>
+Subject: Re: [PATCH 3/3] drm/connector: Deprecate split for BT.2020 in
+ drm_colorspace enum
+To: Harry Wentland <harry.wentland@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,122 +72,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Sebastian Wick <sebastian.wick@redhat.com>, amd-gfx@lists.freedesktop.org,
+ Pekka Paalanen <ppaalanen@gmail.com>, Uma Shankar <uma.shankar@intel.com>,
+ dri-devel@lists.freedesktop.org, Joshua Ashton <joshua@froggi.es>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 15.02.23 um 03:51 schrieb Xiao, Shane:
-> For public review
->> -----Original Message-----
->> From: Koenig, Christian <Christian.Koenig@amd.com>
->> Sent: Wednesday, February 15, 2023 3:02 AM
->> To: Xiao, Shane <shane.xiao@amd.com>; Paneer Selvam, Arunpravin
->> <Arunpravin.PaneerSelvam@amd.com>
->> Subject: Re: [PATCH 1/2] drm/amdgpu: optimize VRAM allocation when using
->> drm buddy
->>
->> Am 14.02.23 um 15:53 schrieb Xiao, Shane:
->>>> -----Original Message-----
->>>> From: Koenig, Christian <Christian.Koenig@amd.com>
->>>> Sent: Tuesday, February 14, 2023 8:41 PM
->>>> To: Xiao, Shane <shane.xiao@amd.com>; brahma_sw_dev
->>>> <brahma_sw_dev@amd.com>
->>>> Cc: Paneer Selvam, Arunpravin <Arunpravin.PaneerSelvam@amd.com>
->>>> Subject: Re: [PATCH 1/2] drm/amdgpu: optimize VRAM allocation when
->>>> using drm buddy
->>>>
->>>> Am 14.02.23 um 12:18 schrieb Shane Xiao:
->>>>> Since the VRAM manager changed from drm mm to drm buddy. It's not
->>>>> necessary to allocate 2MB aligned VRAM for more than 2MB unaligned
->>>>> size, and then do trim. This method improves the allocation
->>>>> efficiency and reduces memory fragmentation.
->>>> Well that is a trade off.
->>>>
->>>> Allocating the BO as one contiguous chunk and then trimming is
->>>> beneficial because if we then later need it contiguous we don't need
->>>> to re-allocate and copy. This can be needed to display something for
->> example.
-> Hi Christian,
+Hi,
+
+On Tue, 14 Feb 2023 at 16:57, Harry Wentland <harry.wentland@amd.com> wrote:
+> On 2/14/23 10:49, Sebastian Wick wrote:
+> From what I've seen recently I am inclined to favor an incremental
+> approach more. The reason is that any API, or portion thereof, is
+> useless unless it's enabled full stack. When it isn't it becomes
+> dead code quickly, or never really works because we overlooked
+> one thing. The colorspace debacle shows how even something as
+> simple as extra enum values in KMS APIs shouldn't be added unless
+> someone in a canonical upstream project actually uses them. I
+> would argue that such a canonical upstream project actually has
+> to be a production environment and not something like Weston.
+
+Just to chime in as well that it is a real production environment;
+it's probably actually shipped the most of any compositor by a long
+way. It doesn't have much place on the desktop, but it does live in
+planes, trains, automobiles, digital signage, kiosks, STBs/TVs, and
+about a billion other places you might not have expected.
+
+Probably the main factor that joins all these together - apart from
+not having much desktop-style click-and-drag reconfigurable UI - is
+that we need to use the hardware pipeline as efficiently as possible,
+because either we don't have the memory bandwidth to burn like
+desktops, or we need to minimise it for power/thermal reasons.
+
+Given that, we don't really want to paint ourselves into a corner with
+incremental solutions that mean we can't do fully efficient things
+later. We're also somewhat undermanned, and we've been using our
+effort to try to make sure that the full solution - including full
+colour-managed pathways for things like movie and TV post-prod
+composition, design, etc - is possible at some point through the full
+Wayland ecosystem at some point. The X11 experience was so horribly
+botched that it wasn't really possible without a complete professional
+setup, and that's something I personally don't want to see. However
+...
+
+> I could see us getting to a fully new color pipeline API but
+> the only way to do that is with a development model that supports
+> it. While upstream needs to be our ultimate goal, a good way
+> to bring in new APIs and ensure a full-stack implementation is
+> to develop them in a downstream production kernel, alongside
+> userspace that makes use of it. Once the implementation is
+> proven in the downstream repos it can then go upstream. This
+> brings new challenges, though, as things don't get wide
+> testing and get out of sync with upstream quickly. The
+> alternative is the incremental approach.
 >
-> This case means that you allocate BO that is unnecessary to be continuous at first time,
-> and latter the BO should be continuous. I'm not familiar with display. Could you give me
-> a few more specific examples ?
-
-On most generations DCE/DCN hardware needs the buffer contiguous to be 
-able to scanout from it.
-
-Only newer APUs can use S/G to scanout from system memory pages.
-
->>> Yes, I agree that one contiguous chunk may get beneficial sometimes.
->>> But as far as I know, you cannot guarantee that amdgpu_vram_mgr_new
->> can get one contiguous chunk  if you don't set TTM_PL_FLAG_CONTIGUOUS
->> flags.
->>> For example, if you want to allocate 4M+4K BO, it will allocate one 4M block
->> + one 2M block which is unnecessary to be continuous, then 2M block will be
->> trimmed.
->>
->> Oh, that's indeed not something which should happen. Sounds more like a
->> bug fix then.
-> Yes, I think this case should not be happened.
-> Actually, I'm not sure that why the allocated BO should be aligned with pages_per_block, which is set to 2MB by default.
-> Does this help improve performance when allocating 2M or above BO?
->  From my point of view, the TLB may be one of reason of this. But I'm not sure about this.
-
-Yes, we try to use allocations which are as contiguous as much as 
-possible for better TLB usage.
-
-Especially for some compute use cases this can make a >20% performance 
-difference.
-
-Regards,
-Christian.
-
+> We should look at this from a use-case angle, similar to what
+> the gamescope guys are doing. Small steps, like:
+> 1) Add HDR10 output (PQ, BT.2020) to the display
+> 2) Add ability to do sRGB linear blending
+> 3) Add ability to do sRGB and PQ linear blending
+> 4) Post-blending 3D LUT
+> 5) Pre-blending 3D LUT
 >
-> Best Regards,
-> Shane
->
->>>> On the other hand I completely agree allocating big and then trimming
->>>> creates more fragmentation than necessary.
->>>>
->>>> Do you have some test case which can show the difference?
->>> I have use rocrtst to show the difference.
->>> The attachment is shown that after applying this patch, the order < 9 total
->> vram size decrease from 99MB to 43MB.
->>> And the latter has more higher order block memory.
->> Arun can you take a look? That problem here sounds important.
->>
->> Thanks,
->> Christian.
->>
->>>> BTW: No need to discuss that on the internal mailing list, please use
->>>> the public one instead.
->>>>
->>> I will send it to public. Thank you for your remind.
->>>
->>> Best Regards,
->>> Shane
->>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>> Signed-off-by: Shane Xiao <shane.xiao@amd.com>
->>>>> ---
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 2 +-
->>>>>     1 file changed, 1 insertion(+), 1 deletion(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>>> index 75c80c557b6e..3fea58f9427c 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>>> @@ -453,7 +453,7 @@ static int amdgpu_vram_mgr_new(struct
->>>> ttm_resource_manager *man,
->>>>>     		/* Limit maximum size to 2GiB due to SG table limitations */
->>>>>     		size = min(remaining_size, 2ULL << 30);
->>>>>
->>>>> -		if (size >= (u64)pages_per_block << PAGE_SHIFT)
->>>>> +		if (!(size % ((u64)pages_per_block << PAGE_SHIFT)))
->>>>>     			min_block_size = (u64)pages_per_block <<
->>>> PAGE_SHIFT;
->>>>>     		cur_size = size;
+> At each stage the whole stack needs to work together in production.
 
+Personally, I do think at this stage we probably have enough of an
+understanding to be able to work with an intermediate solution. We
+just need to think hard about what that intermediate solution is -
+making sure that we don't end up in the same tangle of impossible
+semantics like the old 'broadcast RGB' / colorspace / HDR properties
+which were never thought through - so that it is something we can
+build on rather than something we have to work around. But it would be
+really good to make HDR10/HDR10+ media and HDR games work on HDR
+displays, yeah.
+
+Cheers,
+Daniel
