@@ -4,117 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3813C636CC
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 06:59:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F84EC61DA4
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 07:09:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1A7610E2BA;
-	Thu, 16 Feb 2023 06:58:57 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D732910E010;
- Thu, 16 Feb 2023 06:58:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BEB510E010;
+	Thu, 16 Feb 2023 07:09:25 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2062.outbound.protection.outlook.com [40.107.95.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2147510E010
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Feb 2023 07:09:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RgQ3dStbuqA3MyHPiSK9lgXyHpToH26LxqUJEAcMrDlMm1W/lMdIdVxZAQku+9aBfqzFnuzPx9cf5d4XSKvCT7Sv+FAg3AbHzHCPoYA0afUJEdUjWs3OktENCOK8FP3crZrrdZDJ44u6Vdaj1d2DWF44a5TV8kQM8zsCETJ8H4c85ycRjAMQvENKBSvBwS19UIIsv6bjsQrW5d2aWZkLI0uxG8kZZ9HaEAXOMwk/vhNM5d2MaeJ27H79tkW8aGI8a6lgqJHxgzWtN7EfAVybh+Zsz0Uuwi18EVv62c2KorZJ61JlIVFXR6wV+mhKQeRtY+wjuv4vDYzt/OxC2umxig==
+ b=XXF8wachpvQmDk0SWB1UaMrX9WlX4tNMPfyiO9JAggFTQulQpniW4wq8jC/1J9BSx7w+tZs56mdxt7bpQnOyARaFQj19bBqdyIomchgzP/zq7S/G0LdpQLgKjLOJ1s07q6b9UshArcjjiCsoZdLxAev8zdnAFWtkGj1RTceziQIrSW5vFZJUks/b1+gUQqiL3Fhg/s+udyfgZrzhhe6L0L1OxHqvUZFXYRwhs6ZKWfjuUAvTa/AvbH/BUs+t/ebuSsQ0kZhyzQLLfFYfbFsz2b2Rkym3sNpDIyEXJws40YMaTFVkDdzfL23p/aR2aUEoDWhUqa6mBbvrW20H2AP0cw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lGlC97RgIXSWT2N/hqrSClBkyPGbRVbLnd7D58br+RM=;
- b=C0WorjvSeW153L8dSMTo+On/5pdHZlRQCWGvYUSpfLwfO20GH5bYx6etLpZsHp8UaB9x70D46LOvj5hiQgT/hMUE8oV3yak5yva+tJbLYlhSE1vpzSMlwH1KCdUIE6Q9FPAytw857fwbG1UUYXvaOcMGtuJWYDJxnKTuc+ktNYY1zV0FenhrGs0k8q5coHs/qsHvBdZADDNtV//vZcSVzw2VQmleBEjhahZttwzPLPUolwBvzcBznlIr1lTipke/gQ21Wuc/NIjnloRvtjpEIKKNvluU9leYGfH2D6ntHtGTPGA9BlgZSD7u6NBjWExCXRpXjC6K2VdGCpkgbSWLPQ==
+ bh=tNQJD5HB45PTt4kD6Hq9AK8lFse0ksjQTDcZPeWrSrU=;
+ b=OOAJcIgoYWJPVOvj+GiWGyVvtGg51RhegF6IenSlIoc0+2PusgR3G5TiBvfxldlOLpiwfsinmqePsCmw8Znv8xncgOpFB0EoriAy0GmUz8VMi8RSSOvrogGwG+3+ZJu5r8u7MXC8KUKdsHw2tVPHJ2rfZcU+p/ce1LooPTJJxk3VXRUQC3Kh0SdLxFf3JvGVY7ru2EAw2H3ZgKP1A0YLpLgSxLXBCo862SQSg3zBm8P+ZvmRJnAiz0Dnl7YjDrWigq+6XHZyStShMizeg4f6Lngh4mrkLYTRFMHO+g8703vpNRL5GhCGzXfBQ2LjFWRofA/CvXUqFk/pbffvDOhOMA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lGlC97RgIXSWT2N/hqrSClBkyPGbRVbLnd7D58br+RM=;
- b=12a0sBqGTZcb9HjxWOBDbxxO1SVtw95K6XuJW19/eHKfS18XwAPE7h7ztKi4eDpqeMwYH9ariz8t9ZZ2IQMsBGTTYE7n66k1rDZZvnMEoqg8+Hy8TX0jqE7/C8Zydds6U7i2DETXdYw+IQXmehFVC9CC03RoUaVjprpazTm1QAk=
+ bh=tNQJD5HB45PTt4kD6Hq9AK8lFse0ksjQTDcZPeWrSrU=;
+ b=MEmiJ59ScWt4FOhQ9d3GnRONT9GAqs/PSZwK9z2d1c2Y15l/J7XBX/Nb9bqIEJoY1sWFoYpRyO+AtxvQNYxR+60gNIPnt12pVT8TnpyQTBUiNVKQvst3iSkeX/RqLi1pFnx63GBJSRSoLc1WOyY3nQV2ns8+ynJmNpS5B3rUuVc=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by MW3PR12MB4540.namprd12.prod.outlook.com (2603:10b6:303:52::12)
+ by BY5PR12MB4179.namprd12.prod.outlook.com (2603:10b6:a03:211::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.26; Thu, 16 Feb
- 2023 06:58:53 +0000
+ 2023 07:09:21 +0000
 Received: from BN8PR12MB3587.namprd12.prod.outlook.com
  ([fe80::2e4f:4041:28be:ba7a]) by BN8PR12MB3587.namprd12.prod.outlook.com
  ([fe80::2e4f:4041:28be:ba7a%6]) with mapi id 15.20.6111.013; Thu, 16 Feb 2023
- 06:58:53 +0000
-Message-ID: <ba5c8e8d-2418-aca0-59b0-721d08af452c@amd.com>
-Date: Thu, 16 Feb 2023 07:58:48 +0100
+ 07:09:21 +0000
+Message-ID: <ee42c89e-746b-a142-173f-c4d4ba847859@amd.com>
+Date: Thu, 16 Feb 2023 08:09:15 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
-Subject: Re: [PATCH] drm/amdgpu: make kobj_type structures constant
+Subject: Re: [PATCH 1/2] drm/amdgpu: optimize VRAM allocation when using drm
+ buddy
 Content-Language: en-US
-To: =?UTF-8?Q?Thomas_Wei=c3=9fschuh?= <linux@weissschuh.net>,
- Alex Deucher <alexander.deucher@amd.com>, "Pan, Xinhui"
- <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-References: <20230216-kobj_type-amdgpu-v1-1-b382ab606dc7@weissschuh.net>
+To: "Xiao, Shane" <shane.xiao@amd.com>,
+ "Kuehling, Felix" <Felix.Kuehling@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ "Paneer Selvam, Arunpravin" <Arunpravin.PaneerSelvam@amd.com>
+References: <20230214111851.2525197-1-shane.xiao@amd.com>
+ <ca40db72-6c04-e3cd-38f9-3254f37c850a@amd.com>
+ <DM4PR12MB526136D00F81419EEFCE47579DA29@DM4PR12MB5261.namprd12.prod.outlook.com>
+ <0a5fd1ae-45b0-96bb-5160-a34b57fc6a2a@amd.com>
+ <DM4PR12MB52616659C39CB1242A4AD8B89DA39@DM4PR12MB5261.namprd12.prod.outlook.com>
+ <62ca76cc-a553-21c2-9538-03cefb7b02ac@gmail.com>
+ <46fd3add-e02e-9a88-f672-3ef09da1aced@amd.com>
+ <DM4PR12MB5261B9EFFEFB88A558B7E3C39DA09@DM4PR12MB5261.namprd12.prod.outlook.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230216-kobj_type-amdgpu-v1-1-b382ab606dc7@weissschuh.net>
+In-Reply-To: <DM4PR12MB5261B9EFFEFB88A558B7E3C39DA09@DM4PR12MB5261.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0044.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:92::18) To BN8PR12MB3587.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0099.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a1::16) To BN8PR12MB3587.namprd12.prod.outlook.com
  (2603:10b6:408:43::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|MW3PR12MB4540:EE_
-X-MS-Office365-Filtering-Correlation-Id: 28c8376c-cf38-4be0-2828-08db0feb43a7
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|BY5PR12MB4179:EE_
+X-MS-Office365-Filtering-Correlation-Id: 06cef2b3-a34f-4ac8-abb8-08db0fecb9fd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vop2Vt3Q7z4YUnePptsbIIKPvySR5XepuCp1TfGs8tajNY/UVrik4guU1W1/vmXNyRivc8nWpI8QkH/AJWhP+pD1e5MaK8i1sFnb+aeLQBnhcFa5Yc3WOgysqZFMjkqM9Uj8akAIfv0Z8301E1bWmeVRKfBBZrGnHNewkXy4NGPRcqdw8pdHjZox0moQuEF6Xpff4kYQwiLDGKSiX90GfMa13xqvcOJ/ipS23/vsjlh/N7bEz0Z7sImT8iO0ewDUIxQnK75P9+SSgvnWRJ7U7KWe/7bjpy4G/IdpWHbu7j8UX23MPvcUCe1auwtdjgJb9yLbNY29XrKT3VZwG5xIcS++LtkHlb5cDo/i5DibWEp/8Om8PuE58Kbqj/yo+KIK4+PNvnOI22vOEndn/+E6bV9dLyQUIVFJ+SUY9O1USILInoHljmt6MhW2DSN25dvMHaPmg+7e8AblaQ5FtIiMlC5GiBn2XVJgJakxbGGjFqSbu2v4vJQOfC8VUUH1OeTC/mut9dhnEO/vkntj1bB/LLOPjb0WUGsM6zfGeByTP3lUu0vlPNVE8BaOpcM5xMELUTNTZEeMx0aJCac20CFqsReI9PaZfQt4ktdqdOobw8Vl9LbZmfKba8RHao2C3OOyVZhR0EFbs6YTAKqlkfOxaw5SW6zHpPNxWfh7IYH9nkmy9PZ5h5U+pG0tOemmUf90WHlA2FNQTqrWctQAqoX5U+gBTFx+ZHgYaCAcclhxNSs=
+X-Microsoft-Antispam-Message-Info: cDsVEFGh1ciiQfLYRlb8Nu1n36d/EDMfQXoXUWvF5KQT+IztDJsvTRlSRoz+BUi05jQYYSzvEL0aPvacAkWj9R4meFKYG6uuml9EO4hBGfwB7dT5W+KmdrtlryRBEilYrB5zgHz/U7fy6IEKbJO7SxBQ9UDddPczeu7h7qdyBBNbdMZ2gzL6FBmcYXLTROfZHLbDu6F8ycWYdWCvfZ0nQKm4+zzxlzREjYZZl8T7/jv++gPTEBPRec6aObtBj5JTb9ZdOwyC025KdPtJjsDAh5sJ+zcRhr0owa0s5NCVqmTqnG9ZpsBUp2S/Yhnz6fZrlxEvuGAOLNQam86ytJUhBAqHIY7BQzvlfk1rO2soP+pXcbwiODk9BDRpNG5JBQaTnyivOuuatbXanagxxe8GV0BChzv+ZhWsnPcGAEd3l0g1gh8t03q6oFmqAI8mweiaKA5znWsCjQqAiQEqwO8aav7+DaHDiNgLl2Omjg80tR0tyYshiHsu2Joh8bo/OxoCIzCUIO059T0gft21altUaVBJC/WN7RPI0PgyxqoAX8Mez45pseKJqCpKw22pRNRcT1/YvqScK3qBXPvgd+FNkaHtusaE8kY7P16EKNVC44kqVaIEed+jOBk2QMuMgJtGfZ2EFrrBYsYPINPpr9+6JkDflBYLxv1PRVK9uHB+ZI7kf3ct5WxdaguRBQWDo1TjM8AWD18AIrJOznl2nsdGHN1RTjegaD9Voi+ks1/guM0=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(136003)(346002)(396003)(376002)(39860400002)(366004)(451199018)(5660300002)(8936002)(8676002)(41300700001)(2906002)(66476007)(4326008)(66556008)(66946007)(316002)(110136005)(31686004)(6512007)(6666004)(186003)(478600001)(6486002)(6506007)(26005)(36756003)(2616005)(83380400001)(38100700002)(86362001)(31696002)(43740500002)(45980500001);
+ SFS:(13230025)(4636009)(366004)(376002)(396003)(39860400002)(136003)(346002)(451199018)(31686004)(2616005)(66574015)(36756003)(31696002)(2906002)(86362001)(5660300002)(41300700001)(8936002)(38100700002)(66476007)(66946007)(66556008)(8676002)(6486002)(110136005)(478600001)(19627235002)(83380400001)(4326008)(316002)(6636002)(6666004)(6506007)(53546011)(186003)(6512007)(26005)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T1B2ZUNXZ244eDJjSGFLajcrcW9xTmtLOFlwTXlVWUFWL2NCL2owb3VnT3Vv?=
- =?utf-8?B?SEIzNkRhL0RWNzk5QmRURkFGUVYwZExuSG8zYjgvMGdrWnlBQ0RSYzVLV3dW?=
- =?utf-8?B?MTdYTi9uWG9qVWEwOHZsM2dmSHAvdFlSV3YyTUJPV0xOdk9DMng2ZGZtd1pO?=
- =?utf-8?B?cUYxWnYxL21aeWt3YkNpYnl5SmUzZ1A5bG11cGtQeVZOamZvaDJVbkV3Q2dN?=
- =?utf-8?B?cytrMVpyZHNIbHRuT1JJaDBnV0ZqOFVaUC94Qk1jQXQyWlFTbVBqMHp3UjV6?=
- =?utf-8?B?OXRmQWdvTFdZb0JnMGJZQ0FudGcvTm9YSDlMWHpYNDB0eEFockUyTXhFM0RX?=
- =?utf-8?B?QmF2UG9EUzk3cEU2aTNDekt3eDdEUnBOZGYxWHF3TjR4M3FMZFF5djR3ZGIy?=
- =?utf-8?B?L051SU54eWd1K3ArbTNxLzQ0eC9nUi9LUGtXY2hSK0lRazRPMDlpdXFrN25z?=
- =?utf-8?B?OTM1VWNMMzA1RURDMmQ4ZXUyUEVuZnVRRzU5bWg0ajkwc3hXdmFwTzNmL2dX?=
- =?utf-8?B?bzdjNSszdVJIWGJSbU9rQnR1UktoVDZxamcvbW5zcHNjT01nSkU5YkZlM1dz?=
- =?utf-8?B?cGNON1VOQlkxRGM3Qlk3bDhVWGk0V3A3djh2NEVuaGYyaTFzOWx6Wk5YNWRq?=
- =?utf-8?B?SDdPQ1B2SW1zNDJPbEthVlJ1ak0wNWEwYzVHbXl5WU1MYnR3dmVoWDhjTnpI?=
- =?utf-8?B?aTVCdGZack9PM00vV1JIaVE4aGlpb2p0cXIxc1NCZU1lK1k1WmVKUWgvbjAr?=
- =?utf-8?B?aGF4SG5LU0NMQWtkcnFTMWZpTkZtOFVKaXJOSEtyNFliditnYXEvNkZCWTZu?=
- =?utf-8?B?Y3FnTjNrTVpleVpFb1dmYWpKYWhHWTdGYlB0MERPMXpFR21Obm81NkpBRVpN?=
- =?utf-8?B?Y0M5UityYjAyNjgxWHp4dGIxTU9BSlZiYWdBT0F2RGU3ZXcwVmJ1TER4Tm84?=
- =?utf-8?B?VldTODhxdGRsMnRNazBWdXNhTFJRWWlZbEZBRlBObE9tV0ZDaHVjaEQ5K1BV?=
- =?utf-8?B?L045TGQrZXg0blNEOE5xeittYlZaandMVUVScHFmS2piWXBVNmVvZ0FtZkZ5?=
- =?utf-8?B?TTVtem1nU3BNaXh4TTBtcTRsUlVkU2dPYmswN0o1Q1MxVXU4bkhadDhDY0xJ?=
- =?utf-8?B?WXdPUjV0OFpweTRhRXBMYUZsRWtpSzU5bHBxbUpveUtqTlRyYUdqZVlMamZj?=
- =?utf-8?B?RXo0a3NmUXViaDk3MmlpWXhTU2tyaGxQSkxWbHR0T2k4aVp6bXNpWXMrV1Zu?=
- =?utf-8?B?Yk9OQTBmOVlUeXhtQjg3SGJpYjlseGp0dkw1RzhYVlFmdzk3d0M1VktJUE1J?=
- =?utf-8?B?Q3ZMNUdkWWNDTm9ISU5lWC95azMzTVRDZ2l0NUg5Z25KTUgyN2x3UkRNYU1p?=
- =?utf-8?B?Kzk4eUloaDZ0aDRhaWpCeWFuQitwakpuMldSc20yWjNnWkM1a3V4L2hyOEdV?=
- =?utf-8?B?RVBCcjdvNXEvd2w5M2ZKZHBjdjk3L3lEcWN3a0ZPb2VITEhibFkxSjN0VzJ4?=
- =?utf-8?B?OE1SLzNDMHlHb3F6NWs1UndGVGJWMys5cmpVSzFkQ0hHYlNMb29wMHozLzRy?=
- =?utf-8?B?eGp0WGJEaHdrSnFGS2RuVWdLS1k1Z1ZDT0hLV2Q5TVBGMHk0R2tCOU5PTFVF?=
- =?utf-8?B?WHpHS2FISmJOMjV3ZnR0cFkydWRNeU9ZRkhEak92aEFBckd0RXEvamorbVVW?=
- =?utf-8?B?QWJ2ODdkWkg1NG1xTk1VOXRON2Rzd2M3ZkpKZEJENVErdGZxeTBLM3hWRUE3?=
- =?utf-8?B?UDBnMlZ5SU5PaytBb083TDk1TnhqdCs3Qy8xeVZxaUNkMkNQS1RmQWpaRWZG?=
- =?utf-8?B?VDRiQjdUenBINXo0cTRsbmpOeTEzUGRrK3BBdGJseDRVVkZQQldSQWk0bGcr?=
- =?utf-8?B?aGl1dnRrUkk3UHhxcWdUVU5ISXlITGErT2tpM2tOKzYvejBLaWlnUUJJVFgz?=
- =?utf-8?B?ejZMbzZMQU1mMFduWWhkMUZsMEtHeEs0amI0UlY5SER3VjI2bCtBbmhJRVM2?=
- =?utf-8?B?aElWb1FaSUJwWUZDQ3J5WVFpdHpGQlBySklnQ2pxSnFMSllMVHJjZTd0N3Va?=
- =?utf-8?B?a0FVUmN0dlpQMno4VlY2OU54SDNTRTdNQ0dRNEU4TVNCMUFCd2lsSlhlTnFB?=
- =?utf-8?Q?W/GxBDreDHAJIKtbcdc8RYjU1?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L2YwU01VVTh6VE1xM1dJdnlCOHRwbkJnbEZhTjBNM21QMmplU0RhUWFKejlS?=
+ =?utf-8?B?b2JoYmhZbWZ5czhKVCtJQ1IzVFFsQzM1ZERra3lKaE1JOWNmTlljY3lYaVpP?=
+ =?utf-8?B?S3ZrZy9uTzVQMnVJQmEzMUo2MnpOU2hvbWcrMi9Sb2RSdHVEM3pYc2tZK2Nw?=
+ =?utf-8?B?cElvU2VzT25TZ0lleStUU2E2ODFlMS84QVZVM09EeXptNVgrOTdaV3Y0dkNn?=
+ =?utf-8?B?V2MwbktsRitUVnU5UlRpa3ljM1lJU2lnVmhVK1NkejVSMnlIb3lpZXdyMGF2?=
+ =?utf-8?B?L2tkUy9yaEZKZk1GY1hUK2MrUHl2SkJXYlRFTVdEQUdhWUlYRDVRM2h0NTAz?=
+ =?utf-8?B?RWVaNzIxWXhVNmhTUHNScVRENDFrcWNxeDI3Q0RTQUwrYTlFbjZZem9SYzhI?=
+ =?utf-8?B?NTUvaXFGMVBFbFBQdnVyQXdKWUlIbGpJV3JLUTNtQVBBK3BDRVZ4bHJWcmdS?=
+ =?utf-8?B?R0M0Qkp4Y1dXbWFqbUZ6ZFN4N1dud0VvNHV3d0UxZ0pGNS8ySkgvWUlXMXNL?=
+ =?utf-8?B?ZTdpUDdHdThMNDd1NTVJTG9qTFlQVmdPNGRjMVhiZ0tMSDE0YnBCTGtkbXkr?=
+ =?utf-8?B?WndEUXlnZFFyWGUrOGl0T0NVSW1aS1NPZUV4TzQ2VitscElhYkJLLzYydGsr?=
+ =?utf-8?B?R29xaHQwNys3cW1WcU9UQkxTZzVGK3htMFRpOWJYRGNnQzBtbVE4NVBjbFp0?=
+ =?utf-8?B?U29HdGZnQk5VaWJCYzFoQnJVVGhONkQ3RUZYdytGMkF1OWNCcWsyNFVIUGpH?=
+ =?utf-8?B?NXA1ZnlwSlpRdHM2SFRJRXlhQ3RlVjRYbVBwc0Q5ZUlabmJZVFVXaHlnRmkz?=
+ =?utf-8?B?QXpLdFM2bnNqQ2V4RlJwaXdtSmd4OHVMNFVLYUNWYTFXU2pSRXRlVTdpYkh2?=
+ =?utf-8?B?MjNnRUp3ZktBTUpJZi8rN0pNTEc3YTZLSlBhb2ZZMnlVSUduUHhaYTFwZUE4?=
+ =?utf-8?B?Uy9taVZCNllqWkJPMXRJcjYxUXVrVnc0MTcyMTd3YlQyRkFYZmRBSGljNWdl?=
+ =?utf-8?B?NGtyTEFBZEZZMGRyVTRyamhhMXMvdWV5dFNxMTlGTkZxTzJidUlhcGpnWDhO?=
+ =?utf-8?B?L3cvWnpJY2FlcTQ2N1krSEJLWXZadnlBQ29FTXd1WEs1K09OdVpEdmFCVEFR?=
+ =?utf-8?B?U3B4U3VkZmxBU3dHdmk0dEEvVEVoUVZzaEZtREdsaVFqWVpsbXhNd3JaTGRS?=
+ =?utf-8?B?a1ZhMUN4a1d0c25BU09qNTNES3dUVGg0NVhMblF4Q1lPd3cvaUkrMlpBMGNF?=
+ =?utf-8?B?RmxtcnIxVWY0Q1l6Rk5WMjI5dmllaEFOVFMxOUNBUHBaMmw1N0c4bHVyS1J3?=
+ =?utf-8?B?TEk2WXJDRWpiNVppM2pPNzZyb2gvYTNqZldyb1VJc1k5SWpwc1NwZGN6REJY?=
+ =?utf-8?B?U21rV3NIZ2FQMldkQUVTTjdZeTlQMTZpV3NQZFF6clZkVWJhaFZpNFYvUXo1?=
+ =?utf-8?B?T01LR1diRHp2Vlh4R2FOY3hTUFREV3NyMjdhakpQTldaNDM1dUJKNzVxWk11?=
+ =?utf-8?B?T2lOWGgxVXBjZDdUdmIrcEJNNW1QUVlMNDcrNndOVWlLSlFKVWIvRWxsb3NV?=
+ =?utf-8?B?eVpzU1RHdDlzaEQ3dTVGMVBRb3Bqd1hYTkR5U0JvbGZ3VWtPYlJlK3crODNn?=
+ =?utf-8?B?NzhtTUxoN2xUSUllVm9VWTRzd1NuQzlHRVh1N004TjhMM2tMSjBmNWpJUWtT?=
+ =?utf-8?B?aDQzazc0NkZUYjlpSk9zbHdZSXlWK0pNNHlsSVFSc2FnQTJhcmpteklEU1Av?=
+ =?utf-8?B?ZEVpWnJMdGZDSnF4NEtTREx3VHNpd1hjVzB6azQ2bkhKRWZDWWNUempnQW9I?=
+ =?utf-8?B?Qm92dmpDTjUyWWJpdDlndXo4cHBaUWp3Sm5QVFRndkRnNS9NWXJGcEUvUDk5?=
+ =?utf-8?B?Wkx2Zk1IbktlWUo3YWJMZ0gwekxqMVV2MkdkNmNZd3R4bzUvM29uN0hPTEVM?=
+ =?utf-8?B?cEIzZmNKK0t0d1FVMUtRelBMMFZsOEtBbjMrVldpUlVNcjJzOFdDaGNhNXNN?=
+ =?utf-8?B?cWw0czhGWGU1Q1pBaGdTNnBFdHhFY0tvRXVOM09qRncvUVJ6NCs1N1pIWml2?=
+ =?utf-8?B?UGc0dG5PMldEMTF2QlFvYzFIOFZwUXB0bm5rZG5rbXlnNjBMSEpUNm80c3hJ?=
+ =?utf-8?Q?kBwc2mhsKwKDu/s9vDLYuUTJK?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 28c8376c-cf38-4be0-2828-08db0feb43a7
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06cef2b3-a34f-4ac8-abb8-08db0fecb9fd
 X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2023 06:58:53.2003 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2023 07:09:21.2665 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7cg5gzUAZnjWy6wUXOlCUYZIytw5uEkxVqIRFV20gUdacA1ZA6dZBzxekTy/tTE5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4540
+X-MS-Exchange-CrossTenant-UserPrincipalName: GHvvoa+dc1yoQAQn1f3S8m8yb3oHEaP3GWoMW1xRhB2o7fBAaSDc4yfk6gin9BO8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4179
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,88 +134,184 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 16.02.23 um 02:07 schrieb Thomas Weißschuh:
-> Since commit ee6d3dd4ed48 ("driver core: make kobj_type constant.")
-> the driver core allows the usage of const struct kobj_type.
+Am 16.02.23 um 07:48 schrieb Xiao, Shane:
+>> -----Original Message-----
+>> From: Kuehling, Felix <Felix.Kuehling@amd.com>
+>> Sent: Thursday, February 16, 2023 6:19 AM
+>> To: Christian König <ckoenig.leichtzumerken@gmail.com>; Xiao, Shane
+>> <shane.xiao@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>;
+>> Paneer Selvam, Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+>> Cc: amd-gfx@lists.freedesktop.org
+>> Subject: Re: [PATCH 1/2] drm/amdgpu: optimize VRAM allocation when using
+>> drm buddy
+>>
+>>
+>> Am 2023-02-15 um 05:44 schrieb Christian König:
+>>> Am 15.02.23 um 03:51 schrieb Xiao, Shane:
+>>>> For public review
+>>>>> -----Original Message-----
+>>>>> From: Koenig, Christian <Christian.Koenig@amd.com>
+>>>>> Sent: Wednesday, February 15, 2023 3:02 AM
+>>>>> To: Xiao, Shane <shane.xiao@amd.com>; Paneer Selvam, Arunpravin
+>>>>> <Arunpravin.PaneerSelvam@amd.com>
+>>>>> Subject: Re: [PATCH 1/2] drm/amdgpu: optimize VRAM allocation when
+>>>>> using drm buddy
+>>>>>
+>>>>> Am 14.02.23 um 15:53 schrieb Xiao, Shane:
+>>>>>>> -----Original Message-----
+>>>>>>> From: Koenig, Christian <Christian.Koenig@amd.com>
+>>>>>>> Sent: Tuesday, February 14, 2023 8:41 PM
+>>>>>>> To: Xiao, Shane <shane.xiao@amd.com>; brahma_sw_dev
+>>>>>>> <brahma_sw_dev@amd.com>
+>>>>>>> Cc: Paneer Selvam, Arunpravin
+>> <Arunpravin.PaneerSelvam@amd.com>
+>>>>>>> Subject: Re: [PATCH 1/2] drm/amdgpu: optimize VRAM allocation
+>> when
+>>>>>>> using drm buddy
+>>>>>>>
+>>>>>>> Am 14.02.23 um 12:18 schrieb Shane Xiao:
+>>>>>>>> Since the VRAM manager changed from drm mm to drm buddy. It's
+>> not
+>>>>>>>> necessary to allocate 2MB aligned VRAM for more than 2MB
+>>>>>>>> unaligned size, and then do trim. This method improves the
+>>>>>>>> allocation efficiency and reduces memory fragmentation.
+>>>>>>> Well that is a trade off.
+>>>>>>>
+>>>>>>> Allocating the BO as one contiguous chunk and then trimming is
+>>>>>>> beneficial because if we then later need it contiguous we don't
+>>>>>>> need to re-allocate and copy. This can be needed to display
+>>>>>>> something for
+>>>>> example.
+>>>> Hi Christian,
+>>>>
+>>>> This case means that you allocate BO that is unnecessary to be
+>>>> continuous at first time, and latter the BO should be continuous. I'm
+>>>> not familiar with display. Could you give me a few more specific
+>>>> examples ?
+>>> On most generations DCE/DCN hardware needs the buffer contiguous to
+>> be
+>>> able to scanout from it.
+>>>
+>>> Only newer APUs can use S/G to scanout from system memory pages.
+>>>
+>>>>>> Yes, I agree that one contiguous chunk may get beneficial sometimes.
+>>>>>> But as far as I know, you cannot guarantee that
+>> amdgpu_vram_mgr_new
+>>>>> can get one contiguous chunk  if you don't set
+>>>>> TTM_PL_FLAG_CONTIGUOUS flags.
+>>>>>> For example, if you want to allocate 4M+4K BO, it will allocate one
+>>>>>> 4M block
+>>>>> + one 2M block which is unnecessary to be continuous, then 2M block
+>>>>> will be
+>>>>> trimmed.
+>>>>>
+>>>>> Oh, that's indeed not something which should happen. Sounds more
+>>>>> like a bug fix then.
+>>>> Yes, I think this case should not be happened.
+>>>> Actually, I'm not sure that why the allocated BO should be aligned
+>>>> with pages_per_block, which is set to 2MB by default.
+>>>> Does this help improve performance when allocating 2M or above BO?
+>>>>   From my point of view, the TLB may be one of reason of this. But I'm
+>>>> not sure about this.
+>>> Yes, we try to use allocations which are as contiguous as much as
+>>> possible for better TLB usage.
+>>>
+>>> Especially for some compute use cases this can make a >20% performance
+>>> difference.
+>> We actually found that >2MB virtual address alignment was hurting
+>> performance due to cache line aliasing. So we can't take advantage of  >2MB
+>> pages in our page tables.
+>>
+>> Regards,
+>>     Felix
+> Yes, if we want to take advantage of 2M TLB usage, we should keep virtual address aligned.
 >
-> Take advantage of this to constify the structure definitions to prevent
-> modification at runtime.
->
-> Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+> As you have mentioned that cache line aliasing issue, I'm confused about this.
+> If 2MB aligned VA get the right PA from TLB or page table and the cache line addressing mode is not changed,
+> the cache line aliasing issue should not happen here.
+> Is there something wrong with my understanding? Or maybe there are some backgrounds that I didn't know.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+The problem is with virtual address alignments > 2MiB (or whatever the 
+big cache line size is).
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 10 +++++-----
->   drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c      |  2 +-
->   2 files changed, 6 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> index 1bbd56029a4f..8e04952e5144 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -704,7 +704,7 @@ static void ip_hw_instance_release(struct kobject *kobj)
->   	kfree(ip_hw_instance);
->   }
+Let's assume an example where you have a lot of buffer each 66MiB in 
+size. When you align those to 2MiB in the virtual address space you end 
+up with
+
+64MiB..2MiB..62MiB..4MiB..60MiB... etc...
+
+In your address space. In this configuration each 2MiB cache line is 
+equally used.
+
+But if you align the buffers to say the next power of two (128MiB) you 
+end up like this:
+
+64MiB..2MiB..62MiB hole..64MiB..2MiB..62MiB hole... etc....
+
+In this case the first 2MiB cache line of each buffer is used twice as 
+much as all the other cache lines. This can hurt performance very badly.
+
+Regards,
+Christian.
+
+> Best Regards,
+> Shane
 >   
-> -static struct kobj_type ip_hw_instance_ktype = {
-> +static const struct kobj_type ip_hw_instance_ktype = {
->   	.release = ip_hw_instance_release,
->   	.sysfs_ops = &ip_hw_instance_sysfs_ops,
->   	.default_groups = ip_hw_instance_groups,
-> @@ -723,7 +723,7 @@ static void ip_hw_id_release(struct kobject *kobj)
->   	kfree(ip_hw_id);
->   }
->   
-> -static struct kobj_type ip_hw_id_ktype = {
-> +static const struct kobj_type ip_hw_id_ktype = {
->   	.release = ip_hw_id_release,
->   	.sysfs_ops = &kobj_sysfs_ops,
->   };
-> @@ -786,18 +786,18 @@ static const struct sysfs_ops ip_die_entry_sysfs_ops = {
->   	.show = ip_die_entry_attr_show,
->   };
->   
-> -static struct kobj_type ip_die_entry_ktype = {
-> +static const struct kobj_type ip_die_entry_ktype = {
->   	.release = ip_die_entry_release,
->   	.sysfs_ops = &ip_die_entry_sysfs_ops,
->   	.default_groups = ip_die_entry_groups,
->   };
->   
-> -static struct kobj_type die_kobj_ktype = {
-> +static const struct kobj_type die_kobj_ktype = {
->   	.release = die_kobj_release,
->   	.sysfs_ops = &kobj_sysfs_ops,
->   };
->   
-> -static struct kobj_type ip_discovery_ktype = {
-> +static const struct kobj_type ip_discovery_ktype = {
->   	.release = ip_disc_release,
->   	.sysfs_ops = &kobj_sysfs_ops,
->   };
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> index 4b9e7b050ccd..6d13ce6ec9cc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> @@ -228,7 +228,7 @@ static const struct sysfs_ops amdgpu_xgmi_hive_ops = {
->   	.show = amdgpu_xgmi_show_attrs,
->   };
->   
-> -struct kobj_type amdgpu_xgmi_hive_type = {
-> +static const struct kobj_type amdgpu_xgmi_hive_type = {
->   	.release = amdgpu_xgmi_hive_release,
->   	.sysfs_ops = &amdgpu_xgmi_hive_ops,
->   	.default_groups = amdgpu_xgmi_hive_groups,
->
-> ---
-> base-commit: 033c40a89f55525139fd5b6342281b09b97d05bf
-> change-id: 20230216-kobj_type-amdgpu-4d3f0e1e05d4
->
-> Best regards,
+>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>> Best Regards,
+>>>> Shane
+>>>>
+>>>>>>> On the other hand I completely agree allocating big and then
+>>>>>>> trimming creates more fragmentation than necessary.
+>>>>>>>
+>>>>>>> Do you have some test case which can show the difference?
+>>>>>> I have use rocrtst to show the difference.
+>>>>>> The attachment is shown that after applying this patch, the order <
+>>>>>> 9 total
+>>>>> vram size decrease from 99MB to 43MB.
+>>>>>> And the latter has more higher order block memory.
+>>>>> Arun can you take a look? That problem here sounds important.
+>>>>>
+>>>>> Thanks,
+>>>>> Christian.
+>>>>>
+>>>>>>> BTW: No need to discuss that on the internal mailing list, please
+>>>>>>> use the public one instead.
+>>>>>>>
+>>>>>> I will send it to public. Thank you for your remind.
+>>>>>>
+>>>>>> Best Regards,
+>>>>>> Shane
+>>>>>>
+>>>>>>> Regards,
+>>>>>>> Christian.
+>>>>>>>
+>>>>>>>> Signed-off-by: Shane Xiao <shane.xiao@amd.com>
+>>>>>>>> ---
+>>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 2 +-
+>>>>>>>>      1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>>>>>
+>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>>>>>> index 75c80c557b6e..3fea58f9427c 100644
+>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>>>>>> @@ -453,7 +453,7 @@ static int amdgpu_vram_mgr_new(struct
+>>>>>>> ttm_resource_manager *man,
+>>>>>>>>              /* Limit maximum size to 2GiB due to SG table
+>>>>>>>> limitations */
+>>>>>>>>              size = min(remaining_size, 2ULL << 30);
+>>>>>>>>
+>>>>>>>> -        if (size >= (u64)pages_per_block << PAGE_SHIFT)
+>>>>>>>> +        if (!(size % ((u64)pages_per_block << PAGE_SHIFT)))
+>>>>>>>>                  min_block_size = (u64)pages_per_block <<
+>>>>>>> PAGE_SHIFT;
+>>>>>>>>              cur_size = size;
 
