@@ -4,116 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AEE4C61DA4
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 21:23:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17256C636D7
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 23:45:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E1A610E38A;
-	Thu, 16 Feb 2023 21:22:55 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2054.outbound.protection.outlook.com [40.107.223.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0037110E386;
- Thu, 16 Feb 2023 21:22:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C8AC10E39B;
+	Thu, 16 Feb 2023 23:44:58 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2089.outbound.protection.outlook.com [40.107.237.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6592A10E390;
+ Thu, 16 Feb 2023 23:44:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PTEZ7VglcRpY6wldy8VRQPRi5AINMqcqBswMzcSm7dOpeoTrSISiPpUhNyyt+JLye3AjwIxt14K6Bvg1ZeeS9Fh23Ts8E80mdi5uJ+DIVIOQ01xmdRiumpopnPBpaTA+OfPW42lfhRqMKouD/4gRUOND5rK9suDlchujhj9Cr+XC9hXTpdHoTNcIW3Y8gdFmvNWyOVaBAOppICHeo7KaSxTvLBX585CfBgdxL20/jVG5XMorJhszUsSMZQ7gR8RI0iW+J/owq109kac9wvHOgJ1XeWYRQvGsZC+JFMkyO4Gs4F1szkwXPCFIiDfjDitdkFUhFnfM0FFJoIhgbkEw4w==
+ b=Wh5WeTfadghgHWHm8QnkFXypxRlbgvT83wrby7tSt1z9dppaopV8XcpoTA52kKwz8pXupwUDm4K5PEk2V6UrCm97K9nE1bPnGiPs8mEiLKgfU1HDh7FGx0nG6g1j7DYJLyaXtw5YQoma125s3fbiD7p2/10FYehmwq+zFhttd4k3Ml6wuFGwGs+Y4j7poHgm8pc0NfskcAk7llofo7YyqoORt2rq3VSDG8q+AZBqymmSVAyKpughJDKnlQ6B6GjmG3lJl2SKu63tU8dJqwBhjqxchX9AI6NxMCHBbCaLmtPt62df6wPteIv8cwTBAx2cEaHYOXv0Koc2dBhkpl4Gjg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xk1unmOly2tnF8A2zBx1+1LDmLYyY5d5CnU+FNYjNis=;
- b=Y7FjWZWwH9jcOYl87SsdWaKeGcupwXHxe7LRnuZo5vHdQn/Ag6aCyRfiWO0qfFG8+4//328qwpmXtFq/RSQO3rvi/DZ45OzeLj0IryWK5bOuLo8r66Hsia5CBZCRd30oO4OrMBZZrluTT8m88vW6lDaNMoLi9h/GQSHE0N5k866+jGLgeM+n/O5EPXOx4+HG3OUMa74YSoWnOet6vq2ttQI92y5DV+Qy/SumKgLxIGWyDVYjOpDd3+A+U8gAFZaESSa6Zf5JPgWfFfnPt7HxcLLXbe4mgLUhAWdkjl0hVPCie6tZANnCh01fv7HoZhRPuFN3y+uEyKhE6ZplQGYtoA==
+ bh=GDxNfFqddn6doptEGqee7i6OPH3p3s5G/+Sq8oHLGeo=;
+ b=eNfvKpfIZMuCwKmd/UPODWPcAiIKFs/KDm8vUU2wd+OKnp/rWQagKhh+MXLdSr9efMplOc+oVRFqpFHjygUeGIVewAZ1xQzdbwRwfGJ2jD3+uoSb/SoQLNfWEWRbJOF0/oa9T9HaHAj5Qwxp872IvBpw+jU9IfzuIxqsM7BlpMvs6v7hp7dIDL3XaHdpysczlV4AkAfdb4Cf8t8xugRxQPbB4lFIN7ankCZBSfw5BUVIJwM1eMDuQR3uRa3MOjObi3eyKSBTEJCMSZYfGmSlOs6PtKQrE+J9j7yhzQxiA/U2uPidxUz+dJGz5Y29deecevAhb9Aq2t2K9ilx/B90Ew==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xk1unmOly2tnF8A2zBx1+1LDmLYyY5d5CnU+FNYjNis=;
- b=qMEnGd9wos3xY6OXVRKzyQuFy6dki3TPNp7A2WV0YG1de1Z8cgAqXZ+VpoWsh00RZ1yNoMZB2WzjxyiT/qpIPgF1ikZaMoaMXoenrLIqIDB9ThJmvjrDQN5/PilZloYcfDbsYy3ZRU8AqAfL3tvtJiDMYYjiTTiPAxGkWkK42dg=
+ bh=GDxNfFqddn6doptEGqee7i6OPH3p3s5G/+Sq8oHLGeo=;
+ b=vjpK26cRb4/eQRkqfkzEYe01KF50ri7VL96JGwFLzu6YYotTZ+yy58Yp7wqlf3xzaY3YOILh1NsPEDR3etH4XgKSF6eUfq153r4XSeUiYVaZp3h2BEERGd0eH3w4wQsdxMvPYsKt7QaNq9MGUcbbGUeW6I4TPMwcit/F9uDoRcw=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by CH3PR12MB8583.namprd12.prod.outlook.com (2603:10b6:610:15f::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.13; Thu, 16 Feb
- 2023 21:22:49 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::aa28:9378:593:868a]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::aa28:9378:593:868a%8]) with mapi id 15.20.6111.013; Thu, 16 Feb 2023
- 21:22:49 +0000
-Message-ID: <fcce9fd0-ab33-8417-1e10-f4faf5e6d6a6@amd.com>
-Date: Thu, 16 Feb 2023 16:22:44 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.2
-Subject: Re: [PATCH 2/3] drm/connector: Add enum documentation to
- drm_colorspace
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by SN7PR12MB7955.namprd12.prod.outlook.com (2603:10b6:806:34d::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.24; Thu, 16 Feb
+ 2023 23:44:53 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::e6ea:9231:6d39:93da]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::e6ea:9231:6d39:93da%4]) with mapi id 15.20.6111.013; Thu, 16 Feb 2023
+ 23:44:52 +0000
+Message-ID: <bcadb2e8-247c-1a3e-c5ef-801dbbcc3286@amd.com>
+Date: Thu, 16 Feb 2023 17:24:08 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH 02/32] drm/amdkfd: display debug capabilities
 Content-Language: en-US
-To: Pekka Paalanen <ppaalanen@gmail.com>, Joshua Ashton <joshua@froggi.es>
-References: <20230203020744.30745-1-joshua@froggi.es>
- <20230203020744.30745-2-joshua@froggi.es> <20230208105621.392fb2cc@eldfell>
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20230208105621.392fb2cc@eldfell>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR01CA0088.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:3::24) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+To: Jonathan Kim <jonathan.kim@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20230125195401.4183544-1-jonathan.kim@amd.com>
+ <20230125195401.4183544-3-jonathan.kim@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <20230125195401.4183544-3-jonathan.kim@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQXPR0101CA0036.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c00:15::49) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|CH3PR12MB8583:EE_
-X-MS-Office365-Filtering-Correlation-Id: c9f324fb-c747-4d82-8c4f-08db1063f461
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|SN7PR12MB7955:EE_
+X-MS-Office365-Filtering-Correlation-Id: d6ceb14e-0ff0-4876-18d2-08db1077ccda
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: MNkP4ZnYjLKYsT1AWjh9n3W4Zd1Z6KHJ0O3KIqiNlzBmVVRfx8sRDNWw17I9KuHIuJEoq1VK8rnmei/ZvIqZuFqkQMPxlUyKlKBTt9sYyUeYjgJN6U4eW+VT1Jt+Svnl6QGGqMHEAmgP3gfMdyg087fbes6H4AaQ6bcQS1rkd9tOqNwiJUVGA3hCDkDdT0EbLWBr6vIDUxmoVEy9DAhib+fOZ1IbZoqZoiM26z2NUIR4biY+YkvTc5npF9SgM7P+LzBCCxyy/SyKQx/8VW12RWn/gEwj3md+leoBT9WnpqpCEPwvuaKiLIIPhJmTA4OTqyGyzKzztykrC86nUTaOwHKPB0sOtA8cBuhgqZpv6OQ63tnwnBRR56vIBBIvuHS5NFB7wqb/Tj7dGJ14fsbLvEv0NWp8eL93N+Ys4tWoQWHTyH7q9QtIhtoHdI8o88hHEHowYduboEAKsTQb9MpONGv8pgBWyTIQd+xevzGOgAA87mNCemA+k5VhFVzuA3trYVsy9qoHAiVl+78YFaKYoj91YoDCSvXxoUvSt14H55K5h8VjMYAUSlFnYkq6KuT3nYXVKSziXFHq3VBdDT/WAz/UUUjpolZw9pj9YOsHrbgBrLy8I2mQe4WC/QHHikcunwA5ornBwFQtq1/v+itiRTkZgIIm90+CMXOvrlmfdKqfexZoT2kEwyTUcw4R8Nz6b1MYyVPJjvHKzl/3Xuy1GQ==
+X-Microsoft-Antispam-Message-Info: RNf9H57ENi+4E++h9RxU3NKVgUWbBXWU5pvoJ7GSICODV/f/nKuHM876QeQ5UBRfXBb3jkIzn+l8mjmixdAmmAiwzQT3zbKBvtOASsZIKAB+FKxOXtOsdO5Om/8QkKQMpIycbpVkMFHSxdO/+KdfByFdTxD0+4JHL35vSWCKvmzGoGVrP5XcS0/C0xIJQqPxBegUJKfqQnllpvD5kP6sQg39edscADapfLmoNPOLgd/A7Gp7/3FOZLNnQvnIf/B8Vt4dhI39trrOklZMZ4RzJ26aUIeIqbCRmE32tm6x4uRobO0oRViBsPvgbB0f7pFxLYNtcJnswgLrYeYrBg3lxUwUE/7GG0LI3GnwOhWtN59FCEah82/82IPg17gVDxvkQSKW0Zbw6MaA4WbJM9xXB1wbipBL/d/QwhDHjRT8utXO66Myu6yZi2ts006nV6u8n/G0TtDW9WqEFJumUuk46ClV72zOvdtxWOlp6NQkEnebN4nRkpvXn6rADsq4mph9fxsJhzXBq5ylVrQMRWvAZVXyJNycmc0V81d+xOPE0XcLq+FZU8q1zxogJCLXkhFYtZqjHi3CK4W65J3QG43mPNpixO9Tdg2NTggVy0ja/jxX60VubLu7RzZmS3jWrUq0cg60yEuB3WHWukHtXYgIKW+aUcCgA61ZooekQnFjiWxvP+FWFzEiKnv7pO/t+5eZN/UP9kvuXYfrA7C/UvYxDeneCQ3a233TLYzLN+pMMzU=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(136003)(366004)(376002)(39860400002)(346002)(451199018)(36756003)(86362001)(31696002)(38100700002)(44832011)(5660300002)(66946007)(8676002)(2906002)(66556008)(66476007)(4326008)(8936002)(2616005)(26005)(6512007)(186003)(53546011)(66574015)(83380400001)(110136005)(316002)(6506007)(54906003)(6666004)(966005)(6486002)(478600001)(41300700001)(31686004)(66899018)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(39860400002)(396003)(346002)(366004)(376002)(136003)(451199018)(31686004)(8936002)(2906002)(41300700001)(36756003)(31696002)(5660300002)(44832011)(86362001)(83380400001)(38100700002)(8676002)(478600001)(6486002)(450100002)(26005)(6512007)(186003)(66946007)(66556008)(316002)(66476007)(53546011)(6506007)(2616005)(6666004)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dllDUGlmTXlLNlhFcTVUYk9lUWljenl1dWJMK0lGQUxGSnRwcW9TeE42MWF2?=
- =?utf-8?B?eDEwVy9nODBQUHoxZjF4N05IRWhmN3h6d3Y4cWV0bTh4MjNMOElhdUxhTE01?=
- =?utf-8?B?M3JVby9xZ2UrMzJrSnVacWU0THpWVlNjcmlhUlcreEdQbk50MHdWRlpFS1VO?=
- =?utf-8?B?SS9hLzlPa1BVZUdpTjBkZDFQUXl3Q1BDd3ZoSklVMmVXUHVkU080WFZOdElJ?=
- =?utf-8?B?NjhHVUpMUkd0ZUtKSXVZN05PdW1QT1lxam1DdDR0ejV4a3YxWEt2ZEFaT2Zx?=
- =?utf-8?B?c0Nja21XMEhkblhoV0NQQlFMZVR5RXNKQmd0a29YUkd1S2dsaGhmZ1hjTytQ?=
- =?utf-8?B?cVdrQlFUTytJUGQ1R1R3M2x4QXZMQTFXdHNqc1hqODh3V1BoWHhaZmR6Um85?=
- =?utf-8?B?QjRWWXBQY1BCV2hiTE5jSWdnWnhaajRRVDd3TkU5NmpreGRHSEdodmttN0l1?=
- =?utf-8?B?d3V3a0RncUptc0NxZlhZQkhodGRiVXUzYzRzWEt5UGNMVUdxd0RoVUlGbDli?=
- =?utf-8?B?ZlRkSkphWWM5SC8wb2dkdmN1L2x0aUZGYzdxcGhzNFdCV1M2dC9RWDlRcWZN?=
- =?utf-8?B?QlNORGp2cUI3eHZuQXhSOVdtSHB0ZXNZUGx6b0FSRnRMUEswSFVFKzYvTHV6?=
- =?utf-8?B?T2dsVDAybzlSUnZOL21TbWxGb2k2TmI3MmNSYUlEbEtma3NFOUNKa3luYngw?=
- =?utf-8?B?eWphK290eFVUdXQ0YWxIeHE2dUVodDA3aHVKaXNmU0Y1M0hvcDhteStvUWli?=
- =?utf-8?B?N3pzZXpQM3hkWm1WOW10bVJwbFFqT0pJU2QvME11ekJDajhNUlNrM2xsVUZz?=
- =?utf-8?B?YVoyRmNIZ0lRNzhaOGdtbXFLd1k0MG55ZTFWVDVha1k3K1lVLzdwaDFQT2kv?=
- =?utf-8?B?anZKQ01XSXhMeGh4SDN1VThlTjE5dVZYZnFpSUFoU2NmMEgrM3dXWjNuMG14?=
- =?utf-8?B?OFpMaTZRekJCenhabllJeWVpOHd3MGw0KzBLSDE5VFJjWVIxMmxSTHd0cXdi?=
- =?utf-8?B?b01qT1FRVmMvOTNPeFZRb0EyT0VYQy92b2c3UGswYWJHQVFNUmJ5MUZjdjZT?=
- =?utf-8?B?MnVlY1NlczdGc3BKRm9KL0RDdU4vZGVhNVZqU2J2aTZMbGgvYW0vUGRib3NB?=
- =?utf-8?B?KzllRWJBQk9sTTRGSHhkejBBaWIwY3U1bG1zUHNwU2JlWm5ZOW1rd0JLdEw5?=
- =?utf-8?B?ZGpTMEVaSE4welIwOWUxTlp4M2dzTGpyQzBFMjNjODh4SXFmenhleXBRRk50?=
- =?utf-8?B?SC9OT1dlN21kZ0NMM3hQT3JYZXY5QmZZMERXL3VRUTE5Z0FiSjByaVFtWXpP?=
- =?utf-8?B?blFLdERzeVhsZzRObkt3R1k0V3VYRCt4Z3RZeGFpM0x2QTZDVDhXdk5ab3JC?=
- =?utf-8?B?K3BmQjJXaUVVZWt5QkFTVURicTBkbVZHUWZNdDUveE1nSnB0Z1VDZkpjK0ZV?=
- =?utf-8?B?RmpCQXlzT1FGS3ZqSWc4d3hCVG1FWk5FSkx6RHl5Skd0N21YWE9kbUREMUZN?=
- =?utf-8?B?REdCZk52NUdxbHpFdUFXVnR2VkJNTk5BMEZnSkdMSzRKOEJwN3pTSCs2NUtZ?=
- =?utf-8?B?R3Jiek03Mnh5YkE0MGc1TU83d0JIREpXdHJVVEJRczFWaFNyN2JCcDFuczRM?=
- =?utf-8?B?WmxaZkxQei9DbzNCTTM3QUFLYktYODBVUzBzZXMwRlRxMXR0aklLKzZMVXlq?=
- =?utf-8?B?TURqNFBjZVhQbTMrS0grdEFPekR1bnBtN3BBTzhyYUVWRFVQME9OU1pxNTZX?=
- =?utf-8?B?bTNLQTI5c2t2eTl4Q0xCdzNLZmRVZGRDblZ1UE44KzZ2OURieGtPa3J1VnM4?=
- =?utf-8?B?QVd0S0VQeFBySjdQSVVCK1lzZ2NRTTRObjd0a3NySmU1MUdybGdDUkZnRUZC?=
- =?utf-8?B?amVkdEtUNVYzeUFlZHBnKzA5OHRzV1JvVHNyUDNwcG1ObEt4K0hSaitZNVdF?=
- =?utf-8?B?SVJaK0lvNWI1ZlB4aVpjUTFiNW0yWW4vTmFWYXZJQlRsYUJvK042b0ZjZkdy?=
- =?utf-8?B?ZjN5dy9Pc1BpbHJDQkxncTJUZDVBZnBsMTFnYUdmT0JTS0kwVk9rYnNZSDND?=
- =?utf-8?B?L25MbmNEVkxQUTA1bFJZSUFTS3phOGNkdk1Oa1NDbmw5WHdSOFBiR2pXNkdN?=
- =?utf-8?Q?sWgl7EwG+nphcqsgc4o7xr8e6?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OUJQWTR1R0Z2L3J0TDFHL2pyTG9IWjZiOVF1Z3cvczVjdFVWYnhxMmh2a1g0?=
+ =?utf-8?B?VzRQNHFNbUV1VUFiMWpqbkRVNldDZzFoeFVpSGpaL2ZWek5Ga1lOc1R4NW1u?=
+ =?utf-8?B?S0N3blNDS3FFdVdYM002eStOdTU3R003eDZiTnk2U09sTUpkOFM1MWxEQzg3?=
+ =?utf-8?B?K3NwSlo5ZFpCUkJUQ3draXNDRi9FckZlZDJ4NFFWenhZelg5Ym5YdEJGWFF5?=
+ =?utf-8?B?MGlvbVg4c1pDRUZXazJxVGxRUnBlOHAwWHlvcDNtbXZ6MkF0YmpSRURSalh6?=
+ =?utf-8?B?Rk5jYWMvMnhScVpGbTRia3I2cGhrcjE4Y1o4VGFCRW9nbHJSc1hsMDNGUTEr?=
+ =?utf-8?B?ZW5peCswOEh2eVhGYldUREJGTDlLQTVST0pFeit6V2dNNVBPSXVGNTZwdVA3?=
+ =?utf-8?B?Wk51aVViM1BCUDFiYXFselNBbjZPUmxPbEVKOS9nRVhLUjE2Q0tDL0JGenJv?=
+ =?utf-8?B?OStBNkhQUURMRXJIQlQybmljK1ZoZTl2Z2VKNXk5MERBVlplMFJ0cGRmclI0?=
+ =?utf-8?B?VWNqalNBcW1ldlNaVVBxcWRqWlZIbFhHWXlXWWNGYkRSMENBOXNtdnJnSmxJ?=
+ =?utf-8?B?VHM2eC84YXhmbUdwSTFEUkJRL1ZuaVRkZ09Pa2crTEFyc1V0eHZWK2dKU1hq?=
+ =?utf-8?B?c3crd1hTOTNYVUJHcWxUKzVaOHFHMG5keE9aU3pLdnB5MTdwT0xwV3BSQnpw?=
+ =?utf-8?B?Z2xkVWR1VGhXbE9LUG1kMS9JelFEbTJRNWdVU3pXWFNyekNUVmxWM09jZ0FY?=
+ =?utf-8?B?ZDhSb2RLdHh0KzBZbzlCVmFyZ2xSZ2dRRXZ0UDZSUFJYc3VrNEVlQkZMUWQ0?=
+ =?utf-8?B?cVc2ZjlRN25OdzZYNzFrOHlQMEdGbTcxVnViWVg5SkltbXFYZFBpcTBJYmhL?=
+ =?utf-8?B?UEIyU3BSRVZiV0NTL0lUUE40cVdpQTZTYTl1RS8vcjlUbjNsQmo1cmZ1dGdy?=
+ =?utf-8?B?SGRLTXhNQXRnUWJSSjRPeEJiNVEyNXNPUjl3ZDN3Y1UwYlZYbjFDMkxDaXI4?=
+ =?utf-8?B?NkU3aWVRZUExMWRmL1JTdFlpbTJvdEVBNFBudFFkVnM1bXljb0wwbFR1cE5a?=
+ =?utf-8?B?TzR1Y20zVU5OR3l4em5Dekx1NmhsUVlLYmFHL1hVMzdpVzkwMEhxaDNReWRl?=
+ =?utf-8?B?UVEweGF2MmtBTndXYXN1OHlKRnB2WEdkeXdvQy80OEd0M1l1ZER0bnloMyti?=
+ =?utf-8?B?R3drelVOekc5YzBIR2NYNTdtV3Y2T3hvSENNM3VGQWVYLzJiLzJwWFc0Szhh?=
+ =?utf-8?B?R2I5MURUNXhIbkMrWVdWWVorV0pCaFd2b2RnWlByZEhjRWNLUEE3UXQ1cHRV?=
+ =?utf-8?B?WW5vTWpiaWxRMklPNFVxWjE0YkJGYVBSWU9XWXJKcXdPMURiV094NFBMdk1H?=
+ =?utf-8?B?S0IvUkZJMGNlWWVZWnVDY3hCekNMeGwySzNXZFRKKzYwUFZGVk56RDlITUtM?=
+ =?utf-8?B?ek5FUkc2b2UxMW5IUi9tazdZUEZjck43N1dFTVVuN3V6OFJJK3YyTGlEcWFJ?=
+ =?utf-8?B?L3RzTmJ4T1dMYlhFMFNEYmhmS1lxWEpxU3hJZ0hnZTZPbEFiU3BUdE1sWnI4?=
+ =?utf-8?B?WWVacDVvMWJBVDQzUHQzVk9lbCs2Y2ZSUkVnb1gxUEVhODZNNGlObDZ6M3BT?=
+ =?utf-8?B?U201UEYyd0FNRER4aFZaQmVDd09INnY5ZlRVY0YrTmx5ZnowTHBBNnFiemU4?=
+ =?utf-8?B?cGZYSXpVamJhR1Ird2NvTEJFVkxHbFlEbDU3bkxEWXh5cTJSN1l4dDFpZDBM?=
+ =?utf-8?B?Z2NqV3l1L0VTQWVWVmpCZUFqZ0dueDV0cHlIU2crYW9mRUhhNldVVnl6bmdu?=
+ =?utf-8?B?NDV0OVEyb1lFYXpzenplQXp0anVWMGhpaXhxTHBZanpqeTlJTjlIRU1qYUxo?=
+ =?utf-8?B?UWxzZkhubWQrV0dsb3pjcTdVOUNLWWZvMC9MR2NlcGJzd2hreGVSNzBQRmgy?=
+ =?utf-8?B?clhMcmM5YkcwVE9FZVJuenUrY3B4d28yUU5OSWw5d0dBQUtIdzlqKzloQ0JP?=
+ =?utf-8?B?c3JibnRQUTJzNTEvVlFKaFU3dmZVaWVMaFFrRUlXTFNLRko4eEQybTNvNWR1?=
+ =?utf-8?B?NUZQdlFEOEg5SVpGci9wY3dwWk91dHJyOVBKNmZVMEpNVXZxY0tndWZKaHZN?=
+ =?utf-8?Q?UxkiYfDrxOlg4eKlBUmRKKdBT?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c9f324fb-c747-4d82-8c4f-08db1063f461
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6ceb14e-0ff0-4876-18d2-08db1077ccda
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2023 21:22:49.2772 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2023 23:44:52.8929 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: umPvUeol7igtmxEVO7dJ8oszQeeOxtLGT3siWEAtBVhwD+s/J3BX47mRl3G+hMz07lDVxq++iBjeQzEGHzbT+g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8583
+X-MS-Exchange-CrossTenant-UserPrincipalName: Dx0SyolPMfaEABSATmhZAnir2fZCTMykP4cQGS1k6nSr66UVbFlD1xIbCdA+00M3bVh+kQbgR/PYbyCUy4siTw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7955
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,185 +125,217 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>, amd-gfx@lists.freedesktop.org,
- Uma Shankar <uma.shankar@intel.com>, dri-devel@lists.freedesktop.org,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
+On 2023-01-25 14:53, Jonathan Kim wrote:
+> Expose debug capabilities in the KFD topology node's HSA capabilities and
+> debug properties flags.
+>
+> Ensure correct capabilities are exposed based on firmware support.
+>
+> Flag definitions can be referenced in uapi/linux/kfd_sysfs.h.
+>
+> v2: v1 was reviewed but re-requesting review for the following.
+> - remove asic family code name comments in firmware support checking
+> - add gfx11 requirements in fw support checks and debug props and caps
+>
+> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
 
-On 2/8/23 03:56, Pekka Paalanen wrote:
-> On Fri,  3 Feb 2023 02:07:43 +0000
-> Joshua Ashton <joshua@froggi.es> wrote:
-> 
->> To match the other enums, and add more information about these values.
->>
->> Signed-off-by: Joshua Ashton <joshua@froggi.es>
->>
->> Cc: Pekka Paalanen <ppaalanen@gmail.com>
->> Cc: Sebastian Wick <sebastian.wick@redhat.com>
->> Cc: Vitaly.Prosyak@amd.com
->> Cc: Uma Shankar <uma.shankar@intel.com>
->> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
->> Cc: Joshua Ashton <joshua@froggi.es>
->> Cc: dri-devel@lists.freedesktop.org
->> Cc: amd-gfx@lists.freedesktop.org
->> ---
->>  include/drm/drm_connector.h | 41 +++++++++++++++++++++++++++++++++++--
->>  1 file changed, 39 insertions(+), 2 deletions(-)
-> 
-> Hi Joshua,
-> 
-> sorry for pushing you into a rabbit hole a bit. :-)
-> 
->>
->> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
->> index edef65388c29..eb4cc9076e16 100644
->> --- a/include/drm/drm_connector.h
->> +++ b/include/drm/drm_connector.h
->> @@ -363,13 +363,50 @@ enum drm_privacy_screen_status {
->>  	PRIVACY_SCREEN_ENABLED_LOCKED,
->>  };
->>  
->> -/*
->> - * This is a consolidated colorimetry list supported by HDMI and
->> +/**
->> + * enum drm_colorspace - color space
-> 
-> Documenting this enum is really nice. What would be even better if
-> there was similar documentation in the UAPI doc of "Colorspace" under
-> https://www.kernel.org/doc/html/latest/gpu/drm-kms.html#standard-connector-properties
-> listing the strings that userspace must use/expect and what they refer
-> to.
-> 
-> 
->> + *
->> + * This enum is a consolidated colorimetry list supported by HDMI and
->>   * DP protocol standard. The respective connectors will register
->>   * a property with the subset of this list (supported by that
->>   * respective protocol). Userspace will set the colorspace through
->>   * a colorspace property which will be created and exposed to
-> 
-> Could this refer to "Colorspace" property explicitly instead of some
-> unmentioned property?
-> 
->>   * userspace.
->> + *
->> + * @DRM_MODE_COLORIMETRY_DEFAULT:
->> + *   sRGB (IEC 61966-2-1) or
->> + *   ITU-R BT.601 colorimetry format
-> 
-> Is this what the "driver will set the colorspace" comment actually
-> means? If so, I think the comment "driver will set the colorspace"
-> could be better or replaced with "not from any standard" or "undefined".
-> 
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
-It's sRGB when RGB encoding is used and BT.601 for YCbCr.
 
-> sRGB and BT.601 have different primaries. There are actually two
-> different cases of BT.601 primaries: the 525 line and 625 line. How
-> does that work? Are the drivers really choosing anything, or will they
-> just send "undefined" to the sink, and then the sink does whatever it
-> does?
-> 
-> Or is this *only* about the RGB-to-YCbCr conversion matrix and not
-> about colorimetry at all?
-> 
-> If it's only about the conversion matrix (MatrixCoefficients in CICP
-> (H.273) terms), then which ones of the below also define only the
-> MatrixCoefficients but no colorimetry?
-> 
->> + * @DRM_MODE_COLORIMETRY_SMPTE_170M_YCC:
->> + *   SMPTE ST 170M colorimetry format
->> + * @DRM_MODE_COLORIMETRY_BT709_YCC:
->> + *   ITU-R BT.709 colorimetry format
->> + * @DRM_MODE_COLORIMETRY_XVYCC_601:
->> + *   xvYCC601 colorimetry format
->> + * @DRM_MODE_COLORIMETRY_XVYCC_709:
->> + *   xvYCC709 colorimetry format
->> + * @DRM_MODE_COLORIMETRY_SYCC_601:
->> + *   sYCC601 colorimetry format
->> + * @DRM_MODE_COLORIMETRY_OPYCC_601:
->> + *   opYCC601 colorimetry format
->> + * @DRM_MODE_COLORIMETRY_OPRGB:
->> + *   opRGB colorimetry format
->> + * @DRM_MODE_COLORIMETRY_BT2020_CYCC:
->> + *   ITU-R BT.2020 Y'c C'bc C'rc (linear) colorimetry format
-> 
-> Is this one known as the constant luminance variant which requires
-> KMS/driver/hardware knowing also the transfer characteristic function?
-> 
-
-Constant luminance as defined in BT.2020. Table 4 and 5
-of the spec talk about it.
-
-> Is there perhaps an assumed TF here, since there is no KMS property to
-> set a TF? Oh, maybe all of these imply the respective TF from the spec?
-> 
-> I suspect the "linear" should read as "constant luminance".
-> 
->> + * @DRM_MODE_COLORIMETRY_BT2020_RGB:
->> + *   ITU-R BT.2020 R' G' B' colorimetry format
->> + * @DRM_MODE_COLORIMETRY_BT2020_YCC:
->> + *   ITU-R BT.2020 Y' C'b C'r colorimetry format
-> 
-> ...compared to this one known as the non-constant luminance variant,
-> i.e. "the simple RGB-to-YCbCr conversion"?
-> 
-
-Agreed.
-
-The CTA-681 spec actually treats these as the same value
-and for DP the R'G'G' (for RGB encoded signals) and the
-Y'C'bC'r version (for YCbCr encoded signals) don't share
-an actual value but you can't use the R'G'B' for YCbCr
-and vice versa.
-
-Rolling both into one seems to be the most reasonable thing
-to do and doesn't clash with the spec. We can even combine
-it later with a new "encoding" property where userspace can
-provide a suggested encoding (or use the default, driver-selected
-one).
-
->> + * @DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65:
->> + *   DCI-P3 (SMPTE RP 431-2) colorimetry format
->> + * @DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER:
->> + *   DCI-P3 (SMPTE RP 431-2) colorimetry format
-> 
-> These two can't both be the same, right? That is, the description is
-> missing something.
-
-P3 D65 vs P3 DCI
-
-> 
->> + * @DRM_MODE_COLORIMETRY_RGB_WIDE_FIXED:
->> + *   RGB wide gamut fixed point colorimetry format
-> 
-> Is this one scRGB too?
-
-The spec doesn't seem to mention. -_-
-
-In another place it annotates this with (XR8, XR10, XR12),
-but I'm not sure if those are defined anywhere.
-
-Harry
-
-> 
->> + * @DRM_MODE_COLORIMETRY_RGB_WIDE_FLOAT:
->> + *   RGB wide gamut floating point
->> + *   (scRGB (IEC 61966-2-2)) colorimetry format
->> + * @DRM_MODE_COLORIMETRY_BT601_YCC:
->> + *   ITU-R BT.609 colorimetry format
-> 
-> Typo: BT.609
-> 
-> Which one of the two BT.601?
-> 
->>   */
->>  enum drm_colorspace {
->>  	/* For Default case, driver will set the colorspace */
-> 
-> Thanks,
-> pq
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 101 ++++++++++++++++++++--
+>   drivers/gpu/drm/amd/amdkfd/kfd_topology.h |   6 ++
+>   include/uapi/linux/kfd_sysfs.h            |  15 ++++
+>   3 files changed, 117 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> index 3fdaba56be6f..647a14142da9 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> @@ -551,6 +551,8 @@ static ssize_t node_show(struct kobject *kobj, struct attribute *attr,
+>   				      dev->gpu->mec_fw_version);
+>   		sysfs_show_32bit_prop(buffer, offs, "capability",
+>   				      dev->node_props.capability);
+> +		sysfs_show_64bit_prop(buffer, offs, "debug_prop",
+> +				      dev->node_props.debug_prop);
+>   		sysfs_show_32bit_prop(buffer, offs, "sdma_fw_version",
+>   				      dev->gpu->sdma_fw_version);
+>   		sysfs_show_64bit_prop(buffer, offs, "unique_id",
+> @@ -1865,6 +1867,97 @@ static int kfd_topology_add_device_locked(struct kfd_dev *gpu, uint32_t gpu_id,
+>   	return res;
+>   }
+>   
+> +static void kfd_topology_set_dbg_firmware_support(struct kfd_topology_device *dev)
+> +{
+> +	bool firmware_supported = true;
+> +
+> +	if (KFD_GC_VERSION(dev->gpu) >= IP_VERSION(11, 0, 0) &&
+> +			KFD_GC_VERSION(dev->gpu) < IP_VERSION(12, 0, 0)) {
+> +		firmware_supported =
+> +			(dev->gpu->adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) >= 9;
+> +		goto out;
+> +	}
+> +
+> +	/*
+> +	 * Note: Any unlisted devices here are assumed to support exception handling.
+> +	 * Add additional checks here as needed.
+> +	 */
+> +	switch (KFD_GC_VERSION(dev->gpu)) {
+> +	case IP_VERSION(9, 0, 1):
+> +		firmware_supported = dev->gpu->mec_fw_version >= 459 + 32768;
+> +		break;
+> +	case IP_VERSION(9, 1, 0):
+> +	case IP_VERSION(9, 2, 1):
+> +	case IP_VERSION(9, 2, 2):
+> +	case IP_VERSION(9, 3, 0):
+> +	case IP_VERSION(9, 4, 0):
+> +		firmware_supported = dev->gpu->mec_fw_version >= 459;
+> +		break;
+> +	case IP_VERSION(9, 4, 1):
+> +		firmware_supported = dev->gpu->mec_fw_version >= 60;
+> +		break;
+> +	case IP_VERSION(9, 4, 2):
+> +		firmware_supported = dev->gpu->mec_fw_version >= 51;
+> +		break;
+> +	case IP_VERSION(10, 1, 10):
+> +	case IP_VERSION(10, 1, 2):
+> +	case IP_VERSION(10, 1, 1):
+> +		firmware_supported = dev->gpu->mec_fw_version >= 144;
+> +		break;
+> +	case IP_VERSION(10, 3, 0):
+> +	case IP_VERSION(10, 3, 2):
+> +	case IP_VERSION(10, 3, 1):
+> +	case IP_VERSION(10, 3, 4):
+> +	case IP_VERSION(10, 3, 5):
+> +		firmware_supported = dev->gpu->mec_fw_version >= 89;
+> +		break;
+> +	case IP_VERSION(10, 1, 3):
+> +	case IP_VERSION(10, 3, 3):
+> +		firmware_supported = false;
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +
+> +out:
+> +	if (firmware_supported)
+> +		dev->node_props.capability |= HSA_CAP_TRAP_DEBUG_FIRMWARE_SUPPORTED;
+> +}
+> +
+> +static void kfd_topology_set_capabilities(struct kfd_topology_device *dev)
+> +{
+> +	dev->node_props.capability |= ((HSA_CAP_DOORBELL_TYPE_2_0 <<
+> +				HSA_CAP_DOORBELL_TYPE_TOTALBITS_SHIFT) &
+> +				HSA_CAP_DOORBELL_TYPE_TOTALBITS_MASK);
+> +
+> +	dev->node_props.capability |= HSA_CAP_TRAP_DEBUG_SUPPORT |
+> +			HSA_CAP_TRAP_DEBUG_WAVE_LAUNCH_TRAP_OVERRIDE_SUPPORTED |
+> +			HSA_CAP_TRAP_DEBUG_WAVE_LAUNCH_MODE_SUPPORTED;
+> +
+> +	if (KFD_GC_VERSION(dev->gpu) < IP_VERSION(10, 0, 0)) {
+> +		dev->node_props.debug_prop |= HSA_DBG_WATCH_ADDR_MASK_LO_BIT_GFX9 |
+> +						HSA_DBG_WATCH_ADDR_MASK_HI_BIT;
+> +
+> +		if (KFD_GC_VERSION(dev->gpu) < IP_VERSION(9, 4, 2))
+> +			dev->node_props.debug_prop |=
+> +				HSA_DBG_DISPATCH_INFO_ALWAYS_VALID;
+> +		else
+> +			dev->node_props.capability |=
+> +				HSA_CAP_TRAP_DEBUG_PRECISE_MEMORY_OPERATIONS_SUPPORTED;
+> +	} else {
+> +		dev->node_props.debug_prop |= HSA_DBG_WATCH_ADDR_MASK_LO_BIT_GFX10 |
+> +					HSA_DBG_WATCH_ADDR_MASK_HI_BIT;
+> +
+> +		if (KFD_GC_VERSION(dev->gpu) < IP_VERSION(11, 0, 0))
+> +			dev->node_props.debug_prop |= HSA_DBG_DISPATCH_INFO_ALWAYS_VALID;
+> +		else
+> +			dev->node_props.capability |=
+> +				HSA_CAP_TRAP_DEBUG_PRECISE_MEMORY_OPERATIONS_SUPPORTED;
+> +	}
+> +
+> +	kfd_topology_set_dbg_firmware_support(dev);
+> +}
+> +
+>   int kfd_topology_add_device(struct kfd_dev *gpu)
+>   {
+>   	uint32_t gpu_id;
+> @@ -1966,13 +2059,11 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
+>   			HSA_CAP_DOORBELL_TYPE_TOTALBITS_MASK);
+>   		break;
+>   	default:
+> -		if (KFD_GC_VERSION(dev->gpu) >= IP_VERSION(9, 0, 1))
+> -			dev->node_props.capability |= ((HSA_CAP_DOORBELL_TYPE_2_0 <<
+> -				HSA_CAP_DOORBELL_TYPE_TOTALBITS_SHIFT) &
+> -				HSA_CAP_DOORBELL_TYPE_TOTALBITS_MASK);
+> -		else
+> +		if (KFD_GC_VERSION(dev->gpu) < IP_VERSION(9, 0, 1))
+>   			WARN(1, "Unexpected ASIC family %u",
+>   			     dev->gpu->adev->asic_type);
+> +		else
+> +			kfd_topology_set_capabilities(dev);
+>   	}
+>   
+>   	/*
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+> index fca30d00a9bb..53b9b7bf52ee 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+> @@ -31,6 +31,11 @@
+>   
+>   #define KFD_TOPOLOGY_PUBLIC_NAME_SIZE 32
+>   
+> +#define HSA_DBG_WATCH_ADDR_MASK_LO_BIT_GFX9	6
+> +#define HSA_DBG_WATCH_ADDR_MASK_LO_BIT_GFX10	7
+> +#define HSA_DBG_WATCH_ADDR_MASK_HI_BIT  \
+> +			(29 << HSA_DBG_WATCH_ADDR_MASK_HI_BIT_SHIFT)
+> +
+>   struct kfd_node_properties {
+>   	uint64_t hive_id;
+>   	uint32_t cpu_cores_count;
+> @@ -42,6 +47,7 @@ struct kfd_node_properties {
+>   	uint32_t cpu_core_id_base;
+>   	uint32_t simd_id_base;
+>   	uint32_t capability;
+> +	uint64_t debug_prop;
+>   	uint32_t max_waves_per_simd;
+>   	uint32_t lds_size_in_kb;
+>   	uint32_t gds_size_in_kb;
+> diff --git a/include/uapi/linux/kfd_sysfs.h b/include/uapi/linux/kfd_sysfs.h
+> index 3e330f368917..a51b7331e0b4 100644
+> --- a/include/uapi/linux/kfd_sysfs.h
+> +++ b/include/uapi/linux/kfd_sysfs.h
+> @@ -43,6 +43,11 @@
+>   #define HSA_CAP_DOORBELL_TYPE_2_0		0x2
+>   #define HSA_CAP_AQL_QUEUE_DOUBLE_MAP		0x00004000
+>   
+> +#define HSA_CAP_TRAP_DEBUG_SUPPORT              0x00008000
+> +#define HSA_CAP_TRAP_DEBUG_WAVE_LAUNCH_TRAP_OVERRIDE_SUPPORTED  0x00010000
+> +#define HSA_CAP_TRAP_DEBUG_WAVE_LAUNCH_MODE_SUPPORTED           0x00020000
+> +#define HSA_CAP_TRAP_DEBUG_PRECISE_MEMORY_OPERATIONS_SUPPORTED  0x00040000
+> +
+>   /* Old buggy user mode depends on this being 0 */
+>   #define HSA_CAP_RESERVED_WAS_SRAM_EDCSUPPORTED	0x00080000
+>   
+> @@ -53,8 +58,18 @@
+>   #define HSA_CAP_SRAM_EDCSUPPORTED		0x04000000
+>   #define HSA_CAP_SVMAPI_SUPPORTED		0x08000000
+>   #define HSA_CAP_FLAGS_COHERENTHOSTACCESS	0x10000000
+> +#define HSA_CAP_TRAP_DEBUG_FIRMWARE_SUPPORTED   0x20000000
+>   #define HSA_CAP_RESERVED			0xe00f8000
+>   
+> +/* debug_prop bits in node properties */
+> +#define HSA_DBG_WATCH_ADDR_MASK_LO_BIT_MASK     0x0000000f
+> +#define HSA_DBG_WATCH_ADDR_MASK_LO_BIT_SHIFT    0
+> +#define HSA_DBG_WATCH_ADDR_MASK_HI_BIT_MASK     0x000003f0
+> +#define HSA_DBG_WATCH_ADDR_MASK_HI_BIT_SHIFT    4
+> +#define HSA_DBG_DISPATCH_INFO_ALWAYS_VALID      0x00000400
+> +#define HSA_DBG_WATCHPOINTS_EXCLUSIVE           0x00000800
+> +#define HSA_DBG_RESERVED                0xfffffffffffff000ull
+> +
+>   /* Heap types in memory properties */
+>   #define HSA_MEM_HEAP_TYPE_SYSTEM	0
+>   #define HSA_MEM_HEAP_TYPE_FB_PUBLIC	1
