@@ -4,115 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D83D8C636CC
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 07:23:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17DD4C61DA4
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 07:24:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18AAB10E2B6;
-	Thu, 16 Feb 2023 07:23:35 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2068.outbound.protection.outlook.com [40.107.96.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C5C010E2B6
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Feb 2023 07:23:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FB9810E32D;
+	Thu, 16 Feb 2023 07:24:17 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1DD610E32D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Feb 2023 07:24:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=D48S49dLEKB1/xJnjLs90MzCt9lotAm1T2HAOiJwekzG0Vu2pqyuj919xeJeG0kaA6J1/o98bXn7VrdgPnyWw1U/uo9DTTT4WMdqGWABS/Zao1p4Ov+YFEmT7JqSs2W0vPdiXQ9N0bW16Di9zkuEc6hra4jfJtGn9F9YM/iBrkHIuNC+w9FscGN41fKgjAscoeby8ceN0KkGyCeI0r65df+UflX5mGntIfx6g3aYA1v8ppH8myZAMc9yo2K1p00DC+Ke/cMh7pCjT68Ez+Fm0Wnl/0ci8RQiwV1FoN16+7qbA8T1fwUu4aDomehtc31ET4eF0QDGBydAc4Bicz4k9A==
+ b=BT7ZD/sY/a6uvne/6vvXyo8f99lgsSopllIJB+Oqp5B+mDAU8cEyaDqomLgK7fS3q0DEizSBBkkqZTBSXyf8IpwyZJrn5cfAvgfFDrmTnwcejtPdhlR7CGdRNs+jKafT8UEEuotFAelaohQluC6q0CjKOa+stIIDuYM7xhy5PQy2IUj8jGfPWj4tlwd5yICvnAlo5nwUEHMcYuF1g5cw9a6vtDAqWqdYalrpkZrjz/KmIVH1KOq16JXz2jEfVRaIp3zekSQkxJtlmqZrCy4+uubqx0UbuNjXmyZkfZUDzhqkdrHj5eDS4W/sPduyS+F5sF2erM9yZ50RqCX1W+dGLQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Oqez54G/fSuy2OuMjTVqFdBNHQoLOAJYXDndYuUJY5s=;
- b=WLo8Ka+Asyd+TOC4cELz/o73hpksifgThijXl+VO+00VIj/yDzTZrNRjEoSL4m/wMhU2WiTLmY+DrZXpAAUA9HvKyBAxAo+Oh0C371SHXJcG0AFAAOZCxlnJ6VnfBmvS+FdzWg7Ef+FKjpzv7zCt/UTVxdtQthwDMog499/JDXtDgdSHR6m4alOeyUJrXSrayKbLYIm1xpJ1/m6YJdhqRSPUbGiJpn1OtxoQVXglUXpVL9WhAM5J7fQqmBSsXoQlIHEoWW3YjdBSpztjaBPE+rGb4CARQ5yyRneQmPBKnwUbdHESz2U3nA62wgQLH4M4FCyJaYc4kNeE2yZhZFHMIg==
+ bh=hqfwrAIQTCl+UGC2+h2u+E/vcMXManIyi/m4jquqt8s=;
+ b=NifdzS5tGAV3n5xP9gPGXyxjsjWMEJojA3SZao9FZ38eS1b1LeQWOUcQTSgEbqJUN9ukZp76bFpJkZkSfYlPKyiejlQ5kTUHd78SFA+Xz7kB5bEuwkR+dVl4FF6Df+0NK9Nx4ZzuLE0GSvJNshWq9lGh8t2Az9vGkEkf3HAVuNv8scc+a2AMNupm9+Cn32xmRNIBfLQhDTcU72TsNbMaBz2Z2Ce9hmaf/rQbq6C/WTnV8ekQcwVl1+13rQ+FJBMakCwLk0pZ//2pcTFRfjU26cC04FlDMkAJje2MbHVm6Fx0dihzRbiKKCtOtRFFm26xQusOIDdBD0+BHGC0nAvPKw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Oqez54G/fSuy2OuMjTVqFdBNHQoLOAJYXDndYuUJY5s=;
- b=N8Y+ow8QLmW+kf+sv9VUMQn2QbMKzIwjiS++A/icRaDfCN49oJLLxyV/qWnWsPEcY8vxT5rVB5Ce/GG4EBsY71fYJ0nuvr822wX2kNVkTC0aHGuQjYIZREg0Wyc4F40BjZ16f2Z8UiGajtrkHWVlEqWRR5GYkOodctaE4evMJyg=
+ bh=hqfwrAIQTCl+UGC2+h2u+E/vcMXManIyi/m4jquqt8s=;
+ b=YWW/t/fPHkLeQCWWbbzYybB95j7WR+8bGPaNIN4sgE+5Dv0Qc+H5PJLjxsyKl2RB+RfgQH92ittjdG0u3Yv0XQxST9qmAYnMUdE7E3MI/l4QSubqH4oWI7a2vRhoWSef/hlfNzjWrAygWVToJSHJ+dXsYOgtDJRkXnzQwMCMkpo=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by DM6PR12MB4579.namprd12.prod.outlook.com (2603:10b6:5:2ac::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.12; Thu, 16 Feb
- 2023 07:23:30 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::2e4f:4041:28be:ba7a]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::2e4f:4041:28be:ba7a%6]) with mapi id 15.20.6111.013; Thu, 16 Feb 2023
- 07:23:30 +0000
-Message-ID: <e4d4b06d-b51f-b78b-612c-870f9ec1f937@amd.com>
-Date: Thu, 16 Feb 2023 08:23:25 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH v2 3/9] drm/amdgpu: add new IOCTL for usermode queue
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
+ by MN0PR12MB5977.namprd12.prod.outlook.com (2603:10b6:208:37c::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.24; Thu, 16 Feb
+ 2023 07:24:11 +0000
+Received: from MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::e6e:20a4:1236:aa42]) by MN2PR12MB4342.namprd12.prod.outlook.com
+ ([fe80::e6e:20a4:1236:aa42%8]) with mapi id 15.20.6111.013; Thu, 16 Feb 2023
+ 07:24:11 +0000
+Message-ID: <c57f334a-e056-f124-768c-8c1cb15b0617@amd.com>
+Date: Thu, 16 Feb 2023 12:54:01 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+Subject: Re: [PATCH 1/2] drm/amdgpu: optimize VRAM allocation when using drm
+ buddy
 Content-Language: en-US
-To: Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230215184356.2205-1-shashank.sharma@amd.com>
- <20230215184356.2205-4-shashank.sharma@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230215184356.2205-4-shashank.sharma@amd.com>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "Xiao, Shane" <shane.xiao@amd.com>, "Kuehling, Felix"
+ <Felix.Kuehling@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?=
+ <ckoenig.leichtzumerken@gmail.com>
+References: <20230214111851.2525197-1-shane.xiao@amd.com>
+ <ca40db72-6c04-e3cd-38f9-3254f37c850a@amd.com>
+ <DM4PR12MB526136D00F81419EEFCE47579DA29@DM4PR12MB5261.namprd12.prod.outlook.com>
+ <0a5fd1ae-45b0-96bb-5160-a34b57fc6a2a@amd.com>
+ <DM4PR12MB52616659C39CB1242A4AD8B89DA39@DM4PR12MB5261.namprd12.prod.outlook.com>
+ <62ca76cc-a553-21c2-9538-03cefb7b02ac@gmail.com>
+ <46fd3add-e02e-9a88-f672-3ef09da1aced@amd.com>
+ <DM4PR12MB5261B9EFFEFB88A558B7E3C39DA09@DM4PR12MB5261.namprd12.prod.outlook.com>
+ <ee42c89e-746b-a142-173f-c4d4ba847859@amd.com>
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <ee42c89e-746b-a142-173f-c4d4ba847859@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0098.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a1::14) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN3PR01CA0002.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:95::22) To MN2PR12MB4342.namprd12.prod.outlook.com
+ (2603:10b6:208:264::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|DM6PR12MB4579:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1ebae810-54e8-4ed4-b18e-08db0feeb436
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4342:EE_|MN0PR12MB5977:EE_
+X-MS-Office365-Filtering-Correlation-Id: cf5e748e-f5be-4ba5-509e-08db0feecc99
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Ouwe9/Y0E+9ApShdERYC3O1eLAaLkbNnSMv3qAM6iVobZ0SwQF2pDat4GtuWoRV4qEapiZ2x+QmDnS14/n9L82XE8RdTimSVRpja1ahAXTiq0UV0OiKKN75Wb3eZ94lAFYcnvJpVt0B2BF8CjoAAFPeRfNyWrOSZ8+FZT3l8TESFlC/KXXU35dIySzb3xTvAYwqT6VMaStZWF7Vwfv2UEHtAbxkSZiqcOlzNPoMw5X7Gwt9taH852ngoGmDl8U0yg09NnxNqccYVAbLNB72tkERhmDsnxTV2MkbrWTz8KLC3qRFBiZXRnRXt8z6CIMDGVIdO6ScXCa/yJ3ob5HeYjcDw38+L1C5honqmCDMJ+5CQ4xM45jOEe7r4KwKQPRWXUJ0rpRuyD67zZgPXSGRnAGRjtrCbyhyTyrm6kpUvtsFJhppUASbaSLIjWr2qqDV7dZa4K1qmdvHbhfZ2Esr5OlwiRD5T7E8Xxt4P0COf9SF1zet/rn8E/f7eJ9oisL9TiJ5ekXVnP1IbEaMRlSUJbTmm3jvTQf4+VsUn+r915eIpm7CAm4fQYjR53EXBr73Kk3Ikf3rRj+6xIzHw8qHJidP1iS7Ok6A5d6cpaeMey8vulNiSi1cI0wsGBEy2yIFQ6qJKdazPyYY7D6e4xWdY0o1dIT8kb3Cokox8wL5NJl1thjjPUdUqQj1FXSrM4C8Y8ZA9fyMq16D7LUqwMeuMWlzc7d53iltLeOYsJlEZHHs=
+X-Microsoft-Antispam-Message-Info: tDNgkKfXZo/iUFqexuZZtSvKa2+o99n8eZZq4OTTF6Imd8JyZmYhKCqNhypEJv4XHXrqV3KB2TdAxUChOA/ZgFJt/BzlnwHQqAH4uONbF2m/pCxakCC8IwvbjSWwwP2CQrfEpQA8ZEcIm1qopLydjIjNnC1J1fuZWrczvkFGVZOCj7HEmwQxY6yrBTv2hdiYgOgoBitfJm5hpQzyUyA9gp+5jiaw4ePu8GfWgSUxSJkWgrv4AvuI1WaXBswVZA77ZJJf5N0oKAse3e+CzK+Ds2NvZFU0OBM5JBLMZL3XDyd/qe5KFUxOhCOmxKg4vOZLHexZJYw5xqkyREykrE7rgCvuo83YdLj7apjaiTE4MLKY7aC+PVBCs9ZwIsJ7r42VIVhqDaRE7QJyTpBtROHTg8I5wX9anq0pmz0h9V3X1PbdXBbQbi1TWEDczjnh5+afUJBWvDriSdqBPQhU8AlKDnKZEi4OAr/QlTfUvtNgdxZV3bJ9JIE1KoGXQE+awvUoVfzxgxH1A3B8qOD6gmskqYPJt6V8Le2f7W+RBg3ExapI7CuAr0nNzdMoJ+LoMOa8sPSoUm0Dd2PrVkz3/HMTmrG8qjrKYW3gv87vto+GszACDWf5fUTjK0MhdlERPn6GxcElzK0mU4PO1PRhaoJZ2W7L3PcMu8erhhSJljcoNdZo1es+lY44J14p3iWLZcdbIPCoe3R3W59U4C5eD85gsXWvJptQCaed8a02HUsHpiM=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(376002)(136003)(39860400002)(366004)(346002)(396003)(451199018)(66476007)(83380400001)(31686004)(66556008)(8676002)(4326008)(41300700001)(38100700002)(8936002)(316002)(66946007)(54906003)(6486002)(5660300002)(2616005)(36756003)(86362001)(6666004)(31696002)(2906002)(6512007)(186003)(26005)(478600001)(6506007)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(346002)(376002)(136003)(39860400002)(396003)(366004)(451199018)(31696002)(36756003)(66556008)(66946007)(478600001)(31686004)(66476007)(4326008)(8676002)(6486002)(38100700002)(2906002)(86362001)(6506007)(316002)(186003)(26005)(53546011)(5660300002)(6666004)(41300700001)(110136005)(8936002)(2616005)(6512007)(66574015)(83380400001)(19627235002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NE1GRnBOYkFMb2JzaC84dTNnL2lCUG5FOGJaTW1aK0RRVjJQNDlEZ2xVN04z?=
- =?utf-8?B?OFQveldybTZXRGtqdDh3YnBUT2g0S0JHM3lSM2JxaTBsWElTZllQZSsreXlr?=
- =?utf-8?B?NVB3Q0p6Q2VKczY5TVVKVGp0N3RCMU1uZ09YN1dUNW9CTFRWbkV4NVdZYWNw?=
- =?utf-8?B?MFlaV0c3UXJBaC9GTFRlRGN3LzdXcnNZTU11ZmNlK3VVWXpEMWNIdTM1ejZX?=
- =?utf-8?B?UEl1VXJiOU9WSXJ5RmNqSGlXNm5tZXZpMkZMNDNQeGlTTmFkbXd2VmdVS1lu?=
- =?utf-8?B?V1pPZFg4RkJXMEN1WUZUQndXY1ZZemNOQ01NZVJYSUFxSGZzYlVXWXNNZnJh?=
- =?utf-8?B?NzJ1R2xXWENMWUFYTnhtK1NVY2VtNUFDQ3ZiZXNuYjBXVmRXbTFwbjdBOGk1?=
- =?utf-8?B?cUF2SGxrbnc0VncwcEtDNVYreVJhZllDdHAvdys3eW1lLzlCU0FBRG5yY2lZ?=
- =?utf-8?B?a1cwZ1k1ZWFUbjBSTCtGZW5YeHdnREdPV2NrOUc0N1FlZ2kyQXBTa3VZb1pN?=
- =?utf-8?B?cVMydFJJUWZPL0xDcGIvbnp4N3VwdXdpSzcvU096bldHc00reTJ3OGhyaUlD?=
- =?utf-8?B?S0dqemhLdXM2TjBteitZMGoxVmJUdktPWk0wVG9meVdmRitGMXRERlduSlh0?=
- =?utf-8?B?d2ZTaEtrS1FXckV5UHJKajRzVk9xbnhwVWJtUVVucXZuMDNocGhZbFFQR3hD?=
- =?utf-8?B?K2VVZXFZQ05YVmdNd1dLem5tSkdQMXpWYUs1bGhBY2ZvTjVlZk1RR25Bc1Jx?=
- =?utf-8?B?aTQ5RWlmZUY4OGZGWmFEMTFxTXZCajFvTG1wTm5jdUt2LzJBNDRTYlZhYzNM?=
- =?utf-8?B?YXcvMkQxSzlYLzBwOUR4Vy96R2wwWlM4YWplQ1dnZ093dTNzTW5aUHl4U3lq?=
- =?utf-8?B?MzlBQk9uYnNIOTczZkpMNVR0ZUFoZGZBMVZiU0cwVFZET0pUQnkrNHRTNkwv?=
- =?utf-8?B?N0JsdE1sWjFiZU9XS1g2Ujk4cHBhNlg2d2lNdldYekp2a2NTWXgzZUlBQnY2?=
- =?utf-8?B?TlptVmwvVWh6UHg4TlFFMk5NaUNwTjVVQUlkeHRhZnlnZXYwUmVLQk5GWGFy?=
- =?utf-8?B?YTFmWkhUaVVhY05FQVFmczREYW4xWFBPNndLZ1ZpSFRZT0xSUVQ1cXpSRjNN?=
- =?utf-8?B?clJhOTJWN1duaUQybWEwTktpWVNFOCtSVnNKL1JlU0RSdWViRDRIVWY0Z3RU?=
- =?utf-8?B?RmtmZHdaVEg3MmVEbVVaak93Wk5KVmdBeW1RZG1DYWxtVG16UTJKRlVtNVZr?=
- =?utf-8?B?TE1hY1dMYWhFUUdtcnY4YUI0WEhFZHhmWTh1Y0h6TEE1TDVFTmszaVJYVmxQ?=
- =?utf-8?B?UWp5Zk5VcXV2RzlOT04vcXRCYlp6dWRQMEhoNlJvUFF2NVByclFTSk5GR1lm?=
- =?utf-8?B?TkRjMStTTVpLRHJvRXJXRFk1ZGl5T0hqYUY4dkloR0VXZ2NjYzcrS0NGVm5X?=
- =?utf-8?B?ek9pTDZvM0xpKzVERVgwNVJqMUtqSXNycEo4TkovNnYyMGh4Vk40dUJpWFNH?=
- =?utf-8?B?Z0dmeG1CTHk3dkVsNkVyaFlZMm1zNmNkVlNiR0VJQ21FTjI0YlhTQzhCKy9z?=
- =?utf-8?B?WmJsVzIrYklVbkc2RllEVkV5S0ZRZUliMkdPSWJ4RDFlZ0JSTmpCaU9CdlBH?=
- =?utf-8?B?VDJ2azRJL3NKMEJhd1lFZ2g2RlA1Ylp5bGNPQzZNVmxwZU1ja2RmZko3b2gw?=
- =?utf-8?B?c1ZOd253WTAzemphMzFZNGVSYzJDTUw5U3d0SkRhVHFQMTVIeHFCWWpmVzNQ?=
- =?utf-8?B?N2JDSmV0SkQ0N1FvWDdFZXArVGFTVVNOTzVWK1JZVnN1am5wUG1PWmF6WU5k?=
- =?utf-8?B?S2JRSU4vbWgrU200SGxGdGFYYkdLNGhvSzhveS9mV2Y4dGNCanBOVk1QZFlX?=
- =?utf-8?B?anZlcyt0bGl3WFFPM1Z4bWpqTU1UOE5SenlxU1lCcFZEY0VTZDlpYnUydmFp?=
- =?utf-8?B?Z3FmMklUbElma1JyZG96MzZWYTFqQkw2c1R5Zm04WVN4SkxWVVErc0VxODRT?=
- =?utf-8?B?bDB4eXVpMnNvSkMwVnhxVGNPaXFNaDI3eDVoL1M4NnJDR3VhVUNicXhmTWw4?=
- =?utf-8?B?S21XOHJSUGtucDVUbEdUdnpxQ1JiSm00MWRGY0J4OUZSaUpHYXhqRmUyNGRB?=
- =?utf-8?Q?oNQ+kwBfhOkNPJF+8EdkxyLH6?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VzV1RTd1SGsySGpmY1ZtS3ZWYmVCVWdUREkxTnNSM3lrT3ROQ0hlZUN6YTJL?=
+ =?utf-8?B?NVJibEl3cS85OE5nM2ZUdlNJSFZJQ09qRDhPL2t0WDhuT3g5bnI0M0tPMzFE?=
+ =?utf-8?B?UFVOMXdjZytCbDJTN2NvdFE5azhRN2EzdUFkOTFBU0x6cWJmbGZFNFZiNFIr?=
+ =?utf-8?B?Ukg4UEpFMXBwOURtamJoUVc5VS9DM2tkb3FOZ3RFdm9YY2Y2aUJ0bkpmWUlp?=
+ =?utf-8?B?MWorekQ2ZUdZU0YvL00vVFZNTHp1OVJ4U0IrR0E4N2YzSVV1N3VRN0lCd2hq?=
+ =?utf-8?B?Q2hZQWFtSEhuUVc0WW1kMGdwRzh5dlRNV1NlaUFtZVJXNEZjUWl3ME4yeGdO?=
+ =?utf-8?B?TzhpdXlpQXNuR2JKYmM5VUV1anRKRU9CUWtoVU13MW5PakVGL01CTktMb2V6?=
+ =?utf-8?B?aE5SRjFKR21mbHdLTGxzSGpiQW8zRHdGRWY4RGltVWJ5R0pubzYyNVVvaXQz?=
+ =?utf-8?B?L1U0L2UyQ2JWd0FrQ2I0eXl1TWljYnlReGhpTDdLaHlQSFZTMmFJUmZTdlZF?=
+ =?utf-8?B?Y2pyQlFUSy9aT0xYT2pkMk11cVVsTjNaQS95RFVqNE1SVE5CSVFoQnE5RWt5?=
+ =?utf-8?B?d0dFUnNMZFVWbUlPdG5TdXlrK1Avd0hjVS9tU0MybjZxR0JnblkvT1Q3d0FU?=
+ =?utf-8?B?dWw4TXUvdUIzdDNMK2RNWWoySmlnZ2ZjYmgrNENrQXdwU3V6NFNsMG4vakMx?=
+ =?utf-8?B?dk5XVU0vOEEyT0V6N1B6djFaSTZESGQ0Tk5NZk9MaUVYYUl0c1ZRS28rUzlq?=
+ =?utf-8?B?MXRENkFmeEIxNysrc3I0OHY4SDVReXZYYmxYNHRQSXQyd2ROclZ5RFdTUVlP?=
+ =?utf-8?B?R1FQY0FPSWkxQW51UUVydjZzYVN3Wnl6TDlGd1BuWkRXaWhPYmgxQlBPaFRp?=
+ =?utf-8?B?TW1GVi9kZFpCQVh6ZURRWndnN2RPTEVSOWZ4OWxDMnR6c1F3b0xZZ24wR0tQ?=
+ =?utf-8?B?WGhYUFV2WVFVWmViLzYrWHN2UmUrMW9xc2JZbVVsRVZudm9KbWtQZy9XM0ZZ?=
+ =?utf-8?B?WU1NWVhDVEY5RjU2SERIdzZhcUkxTllRakdDS2FuUmxWalo0bXdkRkJRaENs?=
+ =?utf-8?B?ZkVNNkhwRkFiUFpSVU5FMForOWRpLzZLek0yQ25wMHh0SjVrWkRtUGlWZnVq?=
+ =?utf-8?B?c2c0Z1pwOG9SVkdjVngxbW5DTURTMHJqRmh4Wkw3QklRYWN0cEZYY041S0VB?=
+ =?utf-8?B?UCtuQVhKWStKN25YbmJKWUk2QmZ2RTdWZjhxYkxNRWNPc2tGbkVsVjNmMk0v?=
+ =?utf-8?B?UlhCcGNpSGtOWE9QK1RQNmJOVi9pdFA3NE8wTmZoTUk4NXIrb056T3Yxbmpo?=
+ =?utf-8?B?SjhURlVVZW10WUdvWjZFa01HbENQSjh2ZFRybWlRTXh1TEpnQmlSRzRqYjBO?=
+ =?utf-8?B?MlN1YWxxSHcyR0xlbmlqRVRiWXUwMkZIU3lTbHpGbUZzRHpZdkJxRVgrbjRO?=
+ =?utf-8?B?Qk91aVowcW4vVC85RndDOVhqdE9qblc4ZmZmYlppd2FlYVlWMWJ0aU42U2lX?=
+ =?utf-8?B?dElDSHgxaStjMTZZL2dhRDhrN3VTMHlrQ3Myc0tnQ0I0VDdPYkpUd25hdk5K?=
+ =?utf-8?B?NThDYkZEY3BVLzdjdEtwWHE4VmFjdXIzalNWOWQ3MTlra3l5RWJQN2tnREIv?=
+ =?utf-8?B?aEhvMUltRDlaREdEclpTbVIreUFsSlFZTkhueUJOMkNPQm5xY2p2WnU0WTQv?=
+ =?utf-8?B?Uzd6ZkwzL3BwWnNpOGU2REh1dktsdEhGcklrODMvRTdleFNxUFNxVVA4TWVa?=
+ =?utf-8?B?TjY0d0ZCOWp0SEpzRVhHelh5WEc3UE9DcW1LMHlRZGo1TmtwRFJLVGd5R0VF?=
+ =?utf-8?B?dTZkWHJkaXh3ZW1ZNFNXcjN4OFp0QkZsWU5hM1F0Y0QzRDd5VWorMldOT2po?=
+ =?utf-8?B?ZnJaVjZNTEVTOVp6bTRPcGkzeld1OUdIU0RjNmZOb2JPZ0hGaTRHWU5IQ3Bp?=
+ =?utf-8?B?VVFtSXJmdlpWNkRxNzRGeDZuSEpJK1c0R1cxTG50S1RwT2JjUHZrekVTdWtE?=
+ =?utf-8?B?b3RET1Z1b2NpQ1FyTGpVUHgvZVd0ejJOMk9JZEhTT0lpUk85RHArVzd5ZWk0?=
+ =?utf-8?B?UmMvY3RhL0o1WXZpQmoyWjlzZlF2c0pTWEV6dlB3Q0JXKzVEZDQ1QnVER09D?=
+ =?utf-8?Q?+Z+k9QLDYSEkzXiexkoTF/1Pr?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ebae810-54e8-4ed4-b18e-08db0feeb436
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cf5e748e-f5be-4ba5-509e-08db0feecc99
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2023 07:23:30.5829 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2023 07:24:11.5726 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9L4EshZTDm0+wF+2AedjbaY2cAV6s/Gvaehto3n7bOmbEhgTRjj2Wrm3tfvNfxbH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4579
+X-MS-Exchange-CrossTenant-UserPrincipalName: eNYAi0E667NOFSZEA2LXSw+WqPQQSDGnRy/0hlpVeZPTYbBdbXvo7FsxpDJhdiZQ7O68jecx+qdSj9y5Tlbzlg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5977
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,202 +135,196 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Shashank Sharma <contactshashanksharma@gmail.com>, Arvind.Yadav@amd.com
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 15.02.23 um 19:43 schrieb Shashank Sharma:
-> From: Shashank Sharma <contactshashanksharma@gmail.com>
->
-> This patch adds:
-> - A new IOCTL function to create and destroy
-> - A new structure to keep all the user queue data in one place.
-> - A function to generate unique index for the queue.
->
-> V1: Worked on review comments from RFC patch series:
->    - Alex: Keep a list of queues, instead of single queue per process.
->    - Christian: Use the queue manager instead of global ptrs,
->             Don't keep the queue structure in amdgpu_ctx
->
-> V2: Worked on review comments:
->   - Christian:
->     - Formatting of text
->     - There is no need for queuing of userqueues, with idr in place
->   - Alex:
->     - Remove use_doorbell, its unnecessary
->     - Reuse amdgpu_mqd_props for saving mqd fields
->
->   - Code formatting and re-arrangement
->
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Signed-off-by: Shashank Sharma <contactshashanksharma@gmail.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   1 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 114 ++++++++++++++++++
->   .../gpu/drm/amd/include/amdgpu_userqueue.h    |   2 +
->   3 files changed, 117 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 2d6bcfd727c8..229976a2d0e7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2749,6 +2749,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
->   	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_VA, amdgpu_gem_va_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
->   	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_OP, amdgpu_gem_op_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
->   	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_USERPTR, amdgpu_gem_userptr_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
-> +	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ, amdgpu_userq_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
->   };
->   
->   static const struct drm_driver amdgpu_kms_driver = {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> index 13e1eebc1cb6..ecf31d86f3de 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> @@ -22,6 +22,120 @@
->    */
->   
->   #include "amdgpu.h"
-> +#include "amdgpu_vm.h"
-> +#include "amdgpu_userqueue.h"
-> +
-> +static inline int
-> +amdgpu_userqueue_index(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_queue *queue)
-> +{
-> +    return idr_alloc(&uq_mgr->userq_idr, queue, 1, AMDGPU_MAX_USERQ, GFP_KERNEL);
-> +}
-> +
-> +static inline void
-> +amdgpu_userqueue_free_index(struct amdgpu_userq_mgr *uq_mgr, int queue_id)
-> +{
-> +    idr_remove(&uq_mgr->userq_idr, queue_id);
-> +}
-> +
-> +static struct amdgpu_usermode_queue *
-> +amdgpu_userqueue_find(struct amdgpu_userq_mgr *uq_mgr, int qid)
-> +{
-> +    return idr_find(&uq_mgr->userq_idr, qid);
-> +}
-> +
-> +static int amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq *args)
-> +{
-> +    struct amdgpu_usermode_queue *queue;
-> +    struct amdgpu_fpriv *fpriv = filp->driver_priv;
-> +    struct amdgpu_userq_mgr *uq_mgr = &fpriv->userq_mgr;
-> +    struct drm_amdgpu_userq_mqd *mqd_in = &args->in.mqd;
-> +    int r;
-> +
-> +    /* Do we have support userqueues for this IP ? */
-> +    if (!uq_mgr->userq_funcs[mqd_in->ip_type]) {
-> +        DRM_ERROR("GFX User queues not supported for this IP: %d\n", mqd_in->ip_type);
-> +        return -EINVAL;
-> +    }
-> +
-> +    queue = kzalloc(sizeof(struct amdgpu_usermode_queue), GFP_KERNEL);
-> +    if (!queue) {
-> +        DRM_ERROR("Failed to allocate memory for queue\n");
-> +        return -ENOMEM;
-> +    }
-> +
-> +    mutex_lock(&uq_mgr->userq_mutex);
-> +    queue->userq_prop.wptr_gpu_addr = mqd_in->wptr_va;
-> +    queue->userq_prop.rptr_gpu_addr = mqd_in->rptr_va;
-> +    queue->userq_prop.queue_size = mqd_in->queue_size;
-> +    queue->userq_prop.hqd_base_gpu_addr = mqd_in->queue_va;
-> +    queue->userq_prop.queue_size = mqd_in->queue_size;
-> +
-> +    queue->doorbell_handle = mqd_in->doorbell_handle;
-> +    queue->queue_type = mqd_in->ip_type;
-> +    queue->flags = mqd_in->flags;
-> +    queue->vm = &fpriv->vm;
-> +    queue->shadow_ctx_gpu_addr = mqd_in->shadow_va;
+This patch seems to pass the rocm memory stress test case.
+Reviewed-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 
-> +    queue->queue_id = amdgpu_userqueue_index(uq_mgr, queue);
-> +    if (queue->queue_id < 0) {
-> +        DRM_ERROR("Failed to allocate a queue id\n");
-> +        r = queue->queue_id;
-> +        goto free_queue;
-> +    }
-
-Don't keep the assigned id inside the queue structure. This is only used 
-as handle between userspace and kernel and not useful inside the kernel 
-otherwise.
-
-This prevents people from using it in hw communication.
-
-Apart from that this looks good to me,
-Christian.
-
-> +
-> +    args->out.queue_id = queue->queue_id;
-> +    args->out.flags = 0;
-> +    mutex_unlock(&uq_mgr->userq_mutex);
-> +    return 0;
-> +
-> +free_queue:
-> +    mutex_unlock(&uq_mgr->userq_mutex);
-> +    kfree(queue);
-> +    return r;
-> +}
-> +
-> +static void amdgpu_userqueue_destroy(struct drm_file *filp, int queue_id)
-> +{
-> +    struct amdgpu_fpriv *fpriv = filp->driver_priv;
-> +    struct amdgpu_userq_mgr *uq_mgr = &fpriv->userq_mgr;
-> +    struct amdgpu_usermode_queue *queue;
-> +
-> +    queue = amdgpu_userqueue_find(uq_mgr, queue_id);
-> +    if (!queue) {
-> +        DRM_DEBUG_DRIVER("Invalid queue id to destroy\n");
-> +        return;
-> +    }
-> +
-> +    mutex_lock(&uq_mgr->userq_mutex);
-> +    amdgpu_userqueue_free_index(uq_mgr, queue->queue_id);
-> +    mutex_unlock(&uq_mgr->userq_mutex);
-> +    kfree(queue);
-> +}
-> +
-> +int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
-> +		       struct drm_file *filp)
-> +{
-> +    union drm_amdgpu_userq *args = data;
-> +    int r = 0;
-> +
-> +    switch (args->in.op) {
-> +    case AMDGPU_USERQ_OP_CREATE:
-> +        r = amdgpu_userqueue_create(filp, args);
-> +        if (r)
-> +            DRM_ERROR("Failed to create usermode queue\n");
-> +        break;
-> +
-> +    case AMDGPU_USERQ_OP_FREE:
-> +        amdgpu_userqueue_destroy(filp, args->in.queue_id);
-> +        break;
-> +
-> +    default:
-> +        DRM_ERROR("Invalid user queue op specified: %d\n", args->in.op);
-> +        return -EINVAL;
-> +    }
-> +
-> +    return r;
-> +}
-> +
->   
->   int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct amdgpu_device *adev)
->   {
-> diff --git a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
-> index 7eeb8c9e6575..7625a862b1fc 100644
-> --- a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
-> +++ b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
-> @@ -42,6 +42,8 @@ struct amdgpu_userq_funcs {
->   	void (*mqd_destroy)(struct amdgpu_userq_mgr *, struct amdgpu_usermode_queue *);
->   };
->   
-> +int amdgpu_userq_ioctl(struct drm_device *dev, void *data, struct drm_file *filp);
-> +
->   int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct amdgpu_device *adev);
->   
->   void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr);
+On 2/16/2023 12:39 PM, Christian König wrote:
+> Am 16.02.23 um 07:48 schrieb Xiao, Shane:
+>>> -----Original Message-----
+>>> From: Kuehling, Felix <Felix.Kuehling@amd.com>
+>>> Sent: Thursday, February 16, 2023 6:19 AM
+>>> To: Christian König <ckoenig.leichtzumerken@gmail.com>; Xiao, Shane
+>>> <shane.xiao@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>;
+>>> Paneer Selvam, Arunpravin <Arunpravin.PaneerSelvam@amd.com>
+>>> Cc: amd-gfx@lists.freedesktop.org
+>>> Subject: Re: [PATCH 1/2] drm/amdgpu: optimize VRAM allocation when 
+>>> using
+>>> drm buddy
+>>>
+>>>
+>>> Am 2023-02-15 um 05:44 schrieb Christian König:
+>>>> Am 15.02.23 um 03:51 schrieb Xiao, Shane:
+>>>>> For public review
+>>>>>> -----Original Message-----
+>>>>>> From: Koenig, Christian <Christian.Koenig@amd.com>
+>>>>>> Sent: Wednesday, February 15, 2023 3:02 AM
+>>>>>> To: Xiao, Shane <shane.xiao@amd.com>; Paneer Selvam, Arunpravin
+>>>>>> <Arunpravin.PaneerSelvam@amd.com>
+>>>>>> Subject: Re: [PATCH 1/2] drm/amdgpu: optimize VRAM allocation when
+>>>>>> using drm buddy
+>>>>>>
+>>>>>> Am 14.02.23 um 15:53 schrieb Xiao, Shane:
+>>>>>>>> -----Original Message-----
+>>>>>>>> From: Koenig, Christian <Christian.Koenig@amd.com>
+>>>>>>>> Sent: Tuesday, February 14, 2023 8:41 PM
+>>>>>>>> To: Xiao, Shane <shane.xiao@amd.com>; brahma_sw_dev
+>>>>>>>> <brahma_sw_dev@amd.com>
+>>>>>>>> Cc: Paneer Selvam, Arunpravin
+>>> <Arunpravin.PaneerSelvam@amd.com>
+>>>>>>>> Subject: Re: [PATCH 1/2] drm/amdgpu: optimize VRAM allocation
+>>> when
+>>>>>>>> using drm buddy
+>>>>>>>>
+>>>>>>>> Am 14.02.23 um 12:18 schrieb Shane Xiao:
+>>>>>>>>> Since the VRAM manager changed from drm mm to drm buddy. It's
+>>> not
+>>>>>>>>> necessary to allocate 2MB aligned VRAM for more than 2MB
+>>>>>>>>> unaligned size, and then do trim. This method improves the
+>>>>>>>>> allocation efficiency and reduces memory fragmentation.
+>>>>>>>> Well that is a trade off.
+>>>>>>>>
+>>>>>>>> Allocating the BO as one contiguous chunk and then trimming is
+>>>>>>>> beneficial because if we then later need it contiguous we don't
+>>>>>>>> need to re-allocate and copy. This can be needed to display
+>>>>>>>> something for
+>>>>>> example.
+>>>>> Hi Christian,
+>>>>>
+>>>>> This case means that you allocate BO that is unnecessary to be
+>>>>> continuous at first time, and latter the BO should be continuous. I'm
+>>>>> not familiar with display. Could you give me a few more specific
+>>>>> examples ?
+>>>> On most generations DCE/DCN hardware needs the buffer contiguous to
+>>> be
+>>>> able to scanout from it.
+>>>>
+>>>> Only newer APUs can use S/G to scanout from system memory pages.
+>>>>
+>>>>>>> Yes, I agree that one contiguous chunk may get beneficial 
+>>>>>>> sometimes.
+>>>>>>> But as far as I know, you cannot guarantee that
+>>> amdgpu_vram_mgr_new
+>>>>>> can get one contiguous chunk  if you don't set
+>>>>>> TTM_PL_FLAG_CONTIGUOUS flags.
+>>>>>>> For example, if you want to allocate 4M+4K BO, it will allocate one
+>>>>>>> 4M block
+>>>>>> + one 2M block which is unnecessary to be continuous, then 2M block
+>>>>>> will be
+>>>>>> trimmed.
+>>>>>>
+>>>>>> Oh, that's indeed not something which should happen. Sounds more
+>>>>>> like a bug fix then.
+>>>>> Yes, I think this case should not be happened.
+>>>>> Actually, I'm not sure that why the allocated BO should be aligned
+>>>>> with pages_per_block, which is set to 2MB by default.
+>>>>> Does this help improve performance when allocating 2M or above BO?
+>>>>>   From my point of view, the TLB may be one of reason of this. But 
+>>>>> I'm
+>>>>> not sure about this.
+>>>> Yes, we try to use allocations which are as contiguous as much as
+>>>> possible for better TLB usage.
+>>>>
+>>>> Especially for some compute use cases this can make a >20% performance
+>>>> difference.
+>>> We actually found that >2MB virtual address alignment was hurting
+>>> performance due to cache line aliasing. So we can't take advantage 
+>>> of  >2MB
+>>> pages in our page tables.
+>>>
+>>> Regards,
+>>>     Felix
+>> Yes, if we want to take advantage of 2M TLB usage, we should keep 
+>> virtual address aligned.
+>>
+>> As you have mentioned that cache line aliasing issue, I'm confused 
+>> about this.
+>> If 2MB aligned VA get the right PA from TLB or page table and the 
+>> cache line addressing mode is not changed,
+>> the cache line aliasing issue should not happen here.
+>> Is there something wrong with my understanding? Or maybe there are 
+>> some backgrounds that I didn't know.
+>
+> The problem is with virtual address alignments > 2MiB (or whatever the 
+> big cache line size is).
+>
+> Let's assume an example where you have a lot of buffer each 66MiB in 
+> size. When you align those to 2MiB in the virtual address space you 
+> end up with
+>
+> 64MiB..2MiB..62MiB..4MiB..60MiB... etc...
+>
+> In your address space. In this configuration each 2MiB cache line is 
+> equally used.
+>
+> But if you align the buffers to say the next power of two (128MiB) you 
+> end up like this:
+>
+> 64MiB..2MiB..62MiB hole..64MiB..2MiB..62MiB hole... etc....
+>
+> In this case the first 2MiB cache line of each buffer is used twice as 
+> much as all the other cache lines. This can hurt performance very badly.
+>
+> Regards,
+> Christian.
+>
+>> Best Regards,
+>> Shane
+>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
+>>>>> Best Regards,
+>>>>> Shane
+>>>>>
+>>>>>>>> On the other hand I completely agree allocating big and then
+>>>>>>>> trimming creates more fragmentation than necessary.
+>>>>>>>>
+>>>>>>>> Do you have some test case which can show the difference?
+>>>>>>> I have use rocrtst to show the difference.
+>>>>>>> The attachment is shown that after applying this patch, the order <
+>>>>>>> 9 total
+>>>>>> vram size decrease from 99MB to 43MB.
+>>>>>>> And the latter has more higher order block memory.
+>>>>>> Arun can you take a look? That problem here sounds important.
+>>>>>>
+>>>>>> Thanks,
+>>>>>> Christian.
+>>>>>>
+>>>>>>>> BTW: No need to discuss that on the internal mailing list, please
+>>>>>>>> use the public one instead.
+>>>>>>>>
+>>>>>>> I will send it to public. Thank you for your remind.
+>>>>>>>
+>>>>>>> Best Regards,
+>>>>>>> Shane
+>>>>>>>
+>>>>>>>> Regards,
+>>>>>>>> Christian.
+>>>>>>>>
+>>>>>>>>> Signed-off-by: Shane Xiao <shane.xiao@amd.com>
+>>>>>>>>> ---
+>>>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 2 +-
+>>>>>>>>>      1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>>>>>>
+>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>>>>>>> index 75c80c557b6e..3fea58f9427c 100644
+>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>>>>>>> @@ -453,7 +453,7 @@ static int amdgpu_vram_mgr_new(struct
+>>>>>>>> ttm_resource_manager *man,
+>>>>>>>>>              /* Limit maximum size to 2GiB due to SG table
+>>>>>>>>> limitations */
+>>>>>>>>>              size = min(remaining_size, 2ULL << 30);
+>>>>>>>>>
+>>>>>>>>> -        if (size >= (u64)pages_per_block << PAGE_SHIFT)
+>>>>>>>>> +        if (!(size % ((u64)pages_per_block << PAGE_SHIFT)))
+>>>>>>>>>                  min_block_size = (u64)pages_per_block <<
+>>>>>>>> PAGE_SHIFT;
+>>>>>>>>>              cur_size = size;
+>
 
