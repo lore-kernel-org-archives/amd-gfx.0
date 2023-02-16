@@ -4,59 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABEFAC636CC
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 20:12:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AEE4C61DA4
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 21:23:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9001D10E371;
-	Thu, 16 Feb 2023 20:11:58 +0000 (UTC)
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E23F10E199
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Feb 2023 20:11:56 +0000 (UTC)
-Received: by mail-wr1-x42c.google.com with SMTP id m10so2968595wrn.4
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Feb 2023 12:11:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=KmsCXE1cc+kjYkXP7Av8+g/i6Xiae0+2FF4SyY/8c1Y=;
- b=Z9/TpqTt2w1EyzDy+hgxyZZdv0XE+fU06DflDuxaxXsm04CxinixVlqeu8znsQttuk
- GIO1OONphJIuGmb3iSZ7CEdUen26WffWPdu6dgO16g8fJa2l6FIn6aiVDuHrA9kpO/9o
- P8y7zjNCb1eyevJNupis21d6YvG64TQOomKOQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=KmsCXE1cc+kjYkXP7Av8+g/i6Xiae0+2FF4SyY/8c1Y=;
- b=KzV641VZswXrzAqBQoHxf1FOou84PAXcYWwGQLBP2TF9mmUQUA3SureIwJUWmDdwMi
- 6DE1rulBrdyORh5efGPwvok6rP1PmmWZX+kr5Xp4pQhMtWohvUExeBtm/xQTmIndhBvl
- dmwlRSnba8vWBopcBHQvgrsNw2vZ1XOG+0DNXctZypHGEvvpBlnySwbkSOelVaaEheea
- Zj1stBmbBvlxVWmjavFtLsOVXDlOjPzZ5NPjgoMyiI4tv1u4/eoVTt1RjZhD2NS1OHRO
- kceCNmMxUhZtK6YfD7c5TLOTVjSL61CeSsn/XC74IfNji2vnkqIMTi6Wz5yS/BQQJUFJ
- JBnQ==
-X-Gm-Message-State: AO0yUKWsAuNh3VdBab8/lIi7yLR1C+O1xNZw8Gk2up46+0PzW3LsZosv
- e/IoEdCtE2lGmozfY4lzm8BrTA==
-X-Google-Smtp-Source: AK7set9SaGzBuaVjPNmI5K6tL/a+m6AYcw8bkZU23dWsn9A1+haGPZXOjfFCDUkIWccpGoPjBGtWGQ==
-X-Received: by 2002:adf:fd92:0:b0:2c5:60e2:ed68 with SMTP id
- d18-20020adffd92000000b002c560e2ed68mr4742497wrr.0.1676578314980; 
- Thu, 16 Feb 2023 12:11:54 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- h9-20020a5d6e09000000b002c56af32e8csm2365195wrz.35.2023.02.16.12.11.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Feb 2023 12:11:54 -0800 (PST)
-Date: Thu, 16 Feb 2023 21:11:52 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH] drm/fb-helper: Remove drm_fb_helper_unprepare() from
- drm_fb_helper_fini()
-Message-ID: <Y+6OCAJ9wyE1PfAw@phenom.ffwll.local>
-References: <20230216140620.17699-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E1A610E38A;
+	Thu, 16 Feb 2023 21:22:55 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2054.outbound.protection.outlook.com [40.107.223.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0037110E386;
+ Thu, 16 Feb 2023 21:22:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PTEZ7VglcRpY6wldy8VRQPRi5AINMqcqBswMzcSm7dOpeoTrSISiPpUhNyyt+JLye3AjwIxt14K6Bvg1ZeeS9Fh23Ts8E80mdi5uJ+DIVIOQ01xmdRiumpopnPBpaTA+OfPW42lfhRqMKouD/4gRUOND5rK9suDlchujhj9Cr+XC9hXTpdHoTNcIW3Y8gdFmvNWyOVaBAOppICHeo7KaSxTvLBX585CfBgdxL20/jVG5XMorJhszUsSMZQ7gR8RI0iW+J/owq109kac9wvHOgJ1XeWYRQvGsZC+JFMkyO4Gs4F1szkwXPCFIiDfjDitdkFUhFnfM0FFJoIhgbkEw4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xk1unmOly2tnF8A2zBx1+1LDmLYyY5d5CnU+FNYjNis=;
+ b=Y7FjWZWwH9jcOYl87SsdWaKeGcupwXHxe7LRnuZo5vHdQn/Ag6aCyRfiWO0qfFG8+4//328qwpmXtFq/RSQO3rvi/DZ45OzeLj0IryWK5bOuLo8r66Hsia5CBZCRd30oO4OrMBZZrluTT8m88vW6lDaNMoLi9h/GQSHE0N5k866+jGLgeM+n/O5EPXOx4+HG3OUMa74YSoWnOet6vq2ttQI92y5DV+Qy/SumKgLxIGWyDVYjOpDd3+A+U8gAFZaESSa6Zf5JPgWfFfnPt7HxcLLXbe4mgLUhAWdkjl0hVPCie6tZANnCh01fv7HoZhRPuFN3y+uEyKhE6ZplQGYtoA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xk1unmOly2tnF8A2zBx1+1LDmLYyY5d5CnU+FNYjNis=;
+ b=qMEnGd9wos3xY6OXVRKzyQuFy6dki3TPNp7A2WV0YG1de1Z8cgAqXZ+VpoWsh00RZ1yNoMZB2WzjxyiT/qpIPgF1ikZaMoaMXoenrLIqIDB9ThJmvjrDQN5/PilZloYcfDbsYy3ZRU8AqAfL3tvtJiDMYYjiTTiPAxGkWkK42dg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by CH3PR12MB8583.namprd12.prod.outlook.com (2603:10b6:610:15f::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.13; Thu, 16 Feb
+ 2023 21:22:49 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::aa28:9378:593:868a]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::aa28:9378:593:868a%8]) with mapi id 15.20.6111.013; Thu, 16 Feb 2023
+ 21:22:49 +0000
+Message-ID: <fcce9fd0-ab33-8417-1e10-f4faf5e6d6a6@amd.com>
+Date: Thu, 16 Feb 2023 16:22:44 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.2
+Subject: Re: [PATCH 2/3] drm/connector: Add enum documentation to
+ drm_colorspace
+Content-Language: en-US
+To: Pekka Paalanen <ppaalanen@gmail.com>, Joshua Ashton <joshua@froggi.es>
+References: <20230203020744.30745-1-joshua@froggi.es>
+ <20230203020744.30745-2-joshua@froggi.es> <20230208105621.392fb2cc@eldfell>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20230208105621.392fb2cc@eldfell>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR01CA0088.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:3::24) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230216140620.17699-1-tzimmermann@suse.de>
-X-Operating-System: Linux phenom 5.19.0-2-amd64 
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|CH3PR12MB8583:EE_
+X-MS-Office365-Filtering-Correlation-Id: c9f324fb-c747-4d82-8c4f-08db1063f461
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: MNkP4ZnYjLKYsT1AWjh9n3W4Zd1Z6KHJ0O3KIqiNlzBmVVRfx8sRDNWw17I9KuHIuJEoq1VK8rnmei/ZvIqZuFqkQMPxlUyKlKBTt9sYyUeYjgJN6U4eW+VT1Jt+Svnl6QGGqMHEAmgP3gfMdyg087fbes6H4AaQ6bcQS1rkd9tOqNwiJUVGA3hCDkDdT0EbLWBr6vIDUxmoVEy9DAhib+fOZ1IbZoqZoiM26z2NUIR4biY+YkvTc5npF9SgM7P+LzBCCxyy/SyKQx/8VW12RWn/gEwj3md+leoBT9WnpqpCEPwvuaKiLIIPhJmTA4OTqyGyzKzztykrC86nUTaOwHKPB0sOtA8cBuhgqZpv6OQ63tnwnBRR56vIBBIvuHS5NFB7wqb/Tj7dGJ14fsbLvEv0NWp8eL93N+Ys4tWoQWHTyH7q9QtIhtoHdI8o88hHEHowYduboEAKsTQb9MpONGv8pgBWyTIQd+xevzGOgAA87mNCemA+k5VhFVzuA3trYVsy9qoHAiVl+78YFaKYoj91YoDCSvXxoUvSt14H55K5h8VjMYAUSlFnYkq6KuT3nYXVKSziXFHq3VBdDT/WAz/UUUjpolZw9pj9YOsHrbgBrLy8I2mQe4WC/QHHikcunwA5ornBwFQtq1/v+itiRTkZgIIm90+CMXOvrlmfdKqfexZoT2kEwyTUcw4R8Nz6b1MYyVPJjvHKzl/3Xuy1GQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(396003)(136003)(366004)(376002)(39860400002)(346002)(451199018)(36756003)(86362001)(31696002)(38100700002)(44832011)(5660300002)(66946007)(8676002)(2906002)(66556008)(66476007)(4326008)(8936002)(2616005)(26005)(6512007)(186003)(53546011)(66574015)(83380400001)(110136005)(316002)(6506007)(54906003)(6666004)(966005)(6486002)(478600001)(41300700001)(31686004)(66899018)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dllDUGlmTXlLNlhFcTVUYk9lUWljenl1dWJMK0lGQUxGSnRwcW9TeE42MWF2?=
+ =?utf-8?B?eDEwVy9nODBQUHoxZjF4N05IRWhmN3h6d3Y4cWV0bTh4MjNMOElhdUxhTE01?=
+ =?utf-8?B?M3JVby9xZ2UrMzJrSnVacWU0THpWVlNjcmlhUlcreEdQbk50MHdWRlpFS1VO?=
+ =?utf-8?B?SS9hLzlPa1BVZUdpTjBkZDFQUXl3Q1BDd3ZoSklVMmVXUHVkU080WFZOdElJ?=
+ =?utf-8?B?NjhHVUpMUkd0ZUtKSXVZN05PdW1QT1lxam1DdDR0ejV4a3YxWEt2ZEFaT2Zx?=
+ =?utf-8?B?c0Nja21XMEhkblhoV0NQQlFMZVR5RXNKQmd0a29YUkd1S2dsaGhmZ1hjTytQ?=
+ =?utf-8?B?cVdrQlFUTytJUGQ1R1R3M2x4QXZMQTFXdHNqc1hqODh3V1BoWHhaZmR6Um85?=
+ =?utf-8?B?QjRWWXBQY1BCV2hiTE5jSWdnWnhaajRRVDd3TkU5NmpreGRHSEdodmttN0l1?=
+ =?utf-8?B?d3V3a0RncUptc0NxZlhZQkhodGRiVXUzYzRzWEt5UGNMVUdxd0RoVUlGbDli?=
+ =?utf-8?B?ZlRkSkphWWM5SC8wb2dkdmN1L2x0aUZGYzdxcGhzNFdCV1M2dC9RWDlRcWZN?=
+ =?utf-8?B?QlNORGp2cUI3eHZuQXhSOVdtSHB0ZXNZUGx6b0FSRnRMUEswSFVFKzYvTHV6?=
+ =?utf-8?B?T2dsVDAybzlSUnZOL21TbWxGb2k2TmI3MmNSYUlEbEtma3NFOUNKa3luYngw?=
+ =?utf-8?B?eWphK290eFVUdXQ0YWxIeHE2dUVodDA3aHVKaXNmU0Y1M0hvcDhteStvUWli?=
+ =?utf-8?B?N3pzZXpQM3hkWm1WOW10bVJwbFFqT0pJU2QvME11ekJDajhNUlNrM2xsVUZz?=
+ =?utf-8?B?YVoyRmNIZ0lRNzhaOGdtbXFLd1k0MG55ZTFWVDVha1k3K1lVLzdwaDFQT2kv?=
+ =?utf-8?B?anZKQ01XSXhMeGh4SDN1VThlTjE5dVZYZnFpSUFoU2NmMEgrM3dXWjNuMG14?=
+ =?utf-8?B?OFpMaTZRekJCenhabllJeWVpOHd3MGw0KzBLSDE5VFJjWVIxMmxSTHd0cXdi?=
+ =?utf-8?B?b01qT1FRVmMvOTNPeFZRb0EyT0VYQy92b2c3UGswYWJHQVFNUmJ5MUZjdjZT?=
+ =?utf-8?B?MnVlY1NlczdGc3BKRm9KL0RDdU4vZGVhNVZqU2J2aTZMbGgvYW0vUGRib3NB?=
+ =?utf-8?B?KzllRWJBQk9sTTRGSHhkejBBaWIwY3U1bG1zUHNwU2JlWm5ZOW1rd0JLdEw5?=
+ =?utf-8?B?ZGpTMEVaSE4welIwOWUxTlp4M2dzTGpyQzBFMjNjODh4SXFmenhleXBRRk50?=
+ =?utf-8?B?SC9OT1dlN21kZ0NMM3hQT3JYZXY5QmZZMERXL3VRUTE5Z0FiSjByaVFtWXpP?=
+ =?utf-8?B?blFLdERzeVhsZzRObkt3R1k0V3VYRCt4Z3RZeGFpM0x2QTZDVDhXdk5ab3JC?=
+ =?utf-8?B?K3BmQjJXaUVVZWt5QkFTVURicTBkbVZHUWZNdDUveE1nSnB0Z1VDZkpjK0ZV?=
+ =?utf-8?B?RmpCQXlzT1FGS3ZqSWc4d3hCVG1FWk5FSkx6RHl5Skd0N21YWE9kbUREMUZN?=
+ =?utf-8?B?REdCZk52NUdxbHpFdUFXVnR2VkJNTk5BMEZnSkdMSzRKOEJwN3pTSCs2NUtZ?=
+ =?utf-8?B?R3Jiek03Mnh5YkE0MGc1TU83d0JIREpXdHJVVEJRczFWaFNyN2JCcDFuczRM?=
+ =?utf-8?B?WmxaZkxQei9DbzNCTTM3QUFLYktYODBVUzBzZXMwRlRxMXR0aklLKzZMVXlq?=
+ =?utf-8?B?TURqNFBjZVhQbTMrS0grdEFPekR1bnBtN3BBTzhyYUVWRFVQME9OU1pxNTZX?=
+ =?utf-8?B?bTNLQTI5c2t2eTl4Q0xCdzNLZmRVZGRDblZ1UE44KzZ2OURieGtPa3J1VnM4?=
+ =?utf-8?B?QVd0S0VQeFBySjdQSVVCK1lzZ2NRTTRObjd0a3NySmU1MUdybGdDUkZnRUZC?=
+ =?utf-8?B?amVkdEtUNVYzeUFlZHBnKzA5OHRzV1JvVHNyUDNwcG1ObEt4K0hSaitZNVdF?=
+ =?utf-8?B?SVJaK0lvNWI1ZlB4aVpjUTFiNW0yWW4vTmFWYXZJQlRsYUJvK042b0ZjZkdy?=
+ =?utf-8?B?ZjN5dy9Pc1BpbHJDQkxncTJUZDVBZnBsMTFnYUdmT0JTS0kwVk9rYnNZSDND?=
+ =?utf-8?B?L25MbmNEVkxQUTA1bFJZSUFTS3phOGNkdk1Oa1NDbmw5WHdSOFBiR2pXNkdN?=
+ =?utf-8?Q?sWgl7EwG+nphcqsgc4o7xr8e6?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c9f324fb-c747-4d82-8c4f-08db1063f461
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2023 21:22:49.2772 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: umPvUeol7igtmxEVO7dJ8oszQeeOxtLGT3siWEAtBVhwD+s/J3BX47mRl3G+hMz07lDVxq++iBjeQzEGHzbT+g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8583
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,258 +125,185 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: freedreno@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, maarten.lankhorst@linux.intel.com,
- javierm@redhat.com, mripard@kernel.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, linux-tegra@vger.kernel.org, airlied@gmail.com,
- linux-arm-kernel@lists.infradead.org
+Cc: Sebastian Wick <sebastian.wick@redhat.com>, amd-gfx@lists.freedesktop.org,
+ Uma Shankar <uma.shankar@intel.com>, dri-devel@lists.freedesktop.org,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 16, 2023 at 03:06:20PM +0100, Thomas Zimmermann wrote:
-> Move drm_fb_helper_unprepare() from drm_fb_helper_fini() into the
-> calling fbdev implementation. Avoids a possible stale mutex with
-> generic fbdev code.
+
+
+On 2/8/23 03:56, Pekka Paalanen wrote:
+> On Fri,  3 Feb 2023 02:07:43 +0000
+> Joshua Ashton <joshua@froggi.es> wrote:
 > 
-> As indicated by its name, drm_fb_helper_prepare() prepares struct
-> drm_fb_helper before setting up the fbdev support with a call to
-> drm_fb_helper_init(). In legacy fbdev emulation, this happens next
-> to each other. If successful, drm_fb_helper_fini() later tear down
-> the fbdev device and also unprepare via drm_fb_helper_unprepare().
+>> To match the other enums, and add more information about these values.
+>>
+>> Signed-off-by: Joshua Ashton <joshua@froggi.es>
+>>
+>> Cc: Pekka Paalanen <ppaalanen@gmail.com>
+>> Cc: Sebastian Wick <sebastian.wick@redhat.com>
+>> Cc: Vitaly.Prosyak@amd.com
+>> Cc: Uma Shankar <uma.shankar@intel.com>
+>> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+>> Cc: Joshua Ashton <joshua@froggi.es>
+>> Cc: dri-devel@lists.freedesktop.org
+>> Cc: amd-gfx@lists.freedesktop.org
+>> ---
+>>  include/drm/drm_connector.h | 41 +++++++++++++++++++++++++++++++++++--
+>>  1 file changed, 39 insertions(+), 2 deletions(-)
 > 
-> Generic fbdev emulation prepares struct drm_fb_helper immediately
-> after allocating the instance. It only calls drm_fb_helper_init()
-> as part of processing a hotplug event. If the hotplug-handling fails,
-> it runs drm_fb_helper_fini(). This unprepares the fb-helper instance
-> and the next hotplug event runs on stale data.
+> Hi Joshua,
 > 
-> Solve this by moving drm_fb_helper_unprepare() from drm_fb_helper_fini()
-> into the fbdev implementations. Call it right before freeing the
-> fb-helper instance.
+> sorry for pushing you into a rabbit hole a bit. :-)
 > 
-> Fixes: 4825797c36da ("drm/fb-helper: Introduce drm_fb_helper_unprepare()")
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Javier Martinez Canillas <javierm@redhat.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> Cc: dri-devel@lists.freedesktop.org
+>>
+>> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+>> index edef65388c29..eb4cc9076e16 100644
+>> --- a/include/drm/drm_connector.h
+>> +++ b/include/drm/drm_connector.h
+>> @@ -363,13 +363,50 @@ enum drm_privacy_screen_status {
+>>  	PRIVACY_SCREEN_ENABLED_LOCKED,
+>>  };
+>>  
+>> -/*
+>> - * This is a consolidated colorimetry list supported by HDMI and
+>> +/**
+>> + * enum drm_colorspace - color space
 > 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-This reminds me of an old patch I just recently stumbled over again:
-
-https://lore.kernel.org/dri-devel/Y3St2VHJ7jEmcNFw@phenom.ffwll.local/
-
-Should I resurrect that one maybe and send it out? I think that also ties
-a bit into your story here.
-
-> ---
->  drivers/gpu/drm/armada/armada_fbdev.c      | 3 +++
->  drivers/gpu/drm/drm_fb_helper.c            | 2 --
->  drivers/gpu/drm/drm_fbdev_generic.c        | 2 ++
->  drivers/gpu/drm/exynos/exynos_drm_fbdev.c  | 3 ++-
->  drivers/gpu/drm/gma500/framebuffer.c       | 2 ++
->  drivers/gpu/drm/i915/display/intel_fbdev.c | 1 +
->  drivers/gpu/drm/msm/msm_fbdev.c            | 2 ++
->  drivers/gpu/drm/omapdrm/omap_fbdev.c       | 2 ++
->  drivers/gpu/drm/radeon/radeon_fb.c         | 2 ++
->  drivers/gpu/drm/tegra/fb.c                 | 1 +
->  10 files changed, 17 insertions(+), 3 deletions(-)
+> Documenting this enum is really nice. What would be even better if
+> there was similar documentation in the UAPI doc of "Colorspace" under
+> https://www.kernel.org/doc/html/latest/gpu/drm-kms.html#standard-connector-properties
+> listing the strings that userspace must use/expect and what they refer
+> to.
 > 
-> diff --git a/drivers/gpu/drm/armada/armada_fbdev.c b/drivers/gpu/drm/armada/armada_fbdev.c
-> index 07e410c62b7a..0e44f53e9fa4 100644
-> --- a/drivers/gpu/drm/armada/armada_fbdev.c
-> +++ b/drivers/gpu/drm/armada/armada_fbdev.c
-> @@ -147,6 +147,7 @@ int armada_fbdev_init(struct drm_device *dev)
->   err_fb_setup:
->  	drm_fb_helper_fini(fbh);
->   err_fb_helper:
-> +	drm_fb_helper_unprepare(fbh);
->  	priv->fbdev = NULL;
->  	return ret;
->  }
-> @@ -164,6 +165,8 @@ void armada_fbdev_fini(struct drm_device *dev)
->  		if (fbh->fb)
->  			fbh->fb->funcs->destroy(fbh->fb);
->  
-> +		drm_fb_helper_unprepare(fbh);
-> +
->  		priv->fbdev = NULL;
->  	}
->  }
-> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-> index 28c428e9c530..a39998047f8a 100644
-> --- a/drivers/gpu/drm/drm_fb_helper.c
-> +++ b/drivers/gpu/drm/drm_fb_helper.c
-> @@ -590,8 +590,6 @@ void drm_fb_helper_fini(struct drm_fb_helper *fb_helper)
-
-I think it would be good to update the kerneldoc of _init() and _fini()
-here to mention each another like we usually do with these pairs. Same
-with prepare/unprepare() although the latter rerfences _prepare() already.
-
->  	}
->  	mutex_unlock(&kernel_fb_helper_lock);
->  
-> -	drm_fb_helper_unprepare(fb_helper);
-> -
->  	if (!fb_helper->client.funcs)
->  		drm_client_release(&fb_helper->client);
->  }
-> diff --git a/drivers/gpu/drm/drm_fbdev_generic.c b/drivers/gpu/drm/drm_fbdev_generic.c
-> index 365f80717fa1..4d6325e91565 100644
-> --- a/drivers/gpu/drm/drm_fbdev_generic.c
-> +++ b/drivers/gpu/drm/drm_fbdev_generic.c
-> @@ -65,6 +65,8 @@ static void drm_fbdev_fb_destroy(struct fb_info *info)
->  
->  	drm_client_framebuffer_delete(fb_helper->buffer);
->  	drm_client_release(&fb_helper->client);
-> +
-> +	drm_fb_helper_unprepare(fb_helper);
->  	kfree(fb_helper);
->  }
->  
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
-> index b89e33af8da8..4929ffe5a09a 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
-> @@ -183,8 +183,8 @@ int exynos_drm_fbdev_init(struct drm_device *dev)
->  
->  err_setup:
->  	drm_fb_helper_fini(helper);
-> -
->  err_init:
-> +	drm_fb_helper_unprepare(helper);
->  	private->fb_helper = NULL;
->  	kfree(fbdev);
->  
-> @@ -219,6 +219,7 @@ void exynos_drm_fbdev_fini(struct drm_device *dev)
->  	fbdev = to_exynos_fbdev(private->fb_helper);
->  
->  	exynos_drm_fbdev_destroy(dev, private->fb_helper);
-> +	drm_fb_helper_unprepare(private->fb_helper);
->  	kfree(fbdev);
->  	private->fb_helper = NULL;
->  }
-> diff --git a/drivers/gpu/drm/gma500/framebuffer.c b/drivers/gpu/drm/gma500/framebuffer.c
-> index 1f04c07ee180..f471e0cb7298 100644
-> --- a/drivers/gpu/drm/gma500/framebuffer.c
-> +++ b/drivers/gpu/drm/gma500/framebuffer.c
-> @@ -427,6 +427,7 @@ int psb_fbdev_init(struct drm_device *dev)
->  fini:
->  	drm_fb_helper_fini(fb_helper);
->  free:
-> +	drm_fb_helper_unprepare(fb_helper);
->  	kfree(fb_helper);
->  	return ret;
->  }
-> @@ -439,6 +440,7 @@ static void psb_fbdev_fini(struct drm_device *dev)
->  		return;
->  
->  	psb_fbdev_destroy(dev, dev_priv->fb_helper);
-> +	drm_fb_helper_unprepare(dev_priv->fb_helper);
->  	kfree(dev_priv->fb_helper);
->  	dev_priv->fb_helper = NULL;
->  }
-> diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
-> index 6113d7627d45..98029059f701 100644
-> --- a/drivers/gpu/drm/i915/display/intel_fbdev.c
-> +++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
-> @@ -352,6 +352,7 @@ static void intel_fbdev_destroy(struct intel_fbdev *ifbdev)
->  	if (ifbdev->fb)
->  		drm_framebuffer_remove(&ifbdev->fb->base);
->  
-> +	drm_fb_helper_unprepare(&ifbdev->helper);
->  	kfree(ifbdev);
->  }
->  
-> diff --git a/drivers/gpu/drm/msm/msm_fbdev.c b/drivers/gpu/drm/msm/msm_fbdev.c
-> index 915b213f3a5c..c804e5ba682a 100644
-> --- a/drivers/gpu/drm/msm/msm_fbdev.c
-> +++ b/drivers/gpu/drm/msm/msm_fbdev.c
-> @@ -170,6 +170,7 @@ struct drm_fb_helper *msm_fbdev_init(struct drm_device *dev)
->  fini:
->  	drm_fb_helper_fini(helper);
->  fail:
-> +	drm_fb_helper_unprepare(helper);
->  	kfree(fbdev);
->  	return NULL;
->  }
-> @@ -196,6 +197,7 @@ void msm_fbdev_free(struct drm_device *dev)
->  		drm_framebuffer_remove(fbdev->fb);
->  	}
->  
-> +	drm_fb_helper_unprepare(helper);
->  	kfree(fbdev);
->  
->  	priv->fbdev = NULL;
-> diff --git a/drivers/gpu/drm/omapdrm/omap_fbdev.c b/drivers/gpu/drm/omapdrm/omap_fbdev.c
-> index fc5f52d567c6..84429728347f 100644
-> --- a/drivers/gpu/drm/omapdrm/omap_fbdev.c
-> +++ b/drivers/gpu/drm/omapdrm/omap_fbdev.c
-> @@ -256,6 +256,7 @@ void omap_fbdev_init(struct drm_device *dev)
->  fini:
->  	drm_fb_helper_fini(helper);
->  fail:
-> +	drm_fb_helper_unprepare(helper);
->  	kfree(fbdev);
->  
->  	dev_warn(dev->dev, "omap_fbdev_init failed\n");
-> @@ -286,6 +287,7 @@ void omap_fbdev_fini(struct drm_device *dev)
->  	if (fbdev->fb)
->  		drm_framebuffer_remove(fbdev->fb);
->  
-> +	drm_fb_helper_unprepare(helper);
->  	kfree(fbdev);
->  
->  	priv->fbdev = NULL;
-> diff --git a/drivers/gpu/drm/radeon/radeon_fb.c b/drivers/gpu/drm/radeon/radeon_fb.c
-> index 6e5eed0e157c..c4807f0c43bc 100644
-> --- a/drivers/gpu/drm/radeon/radeon_fb.c
-> +++ b/drivers/gpu/drm/radeon/radeon_fb.c
-> @@ -367,6 +367,7 @@ int radeon_fbdev_init(struct radeon_device *rdev)
->  fini:
->  	drm_fb_helper_fini(&rfbdev->helper);
->  free:
-> +	drm_fb_helper_unprepare(&rfbdev->helper);
->  	kfree(rfbdev);
->  	return ret;
->  }
-> @@ -377,6 +378,7 @@ void radeon_fbdev_fini(struct radeon_device *rdev)
->  		return;
->  
->  	radeon_fbdev_destroy(rdev->ddev, rdev->mode_info.rfbdev);
-> +	drm_fb_helper_unprepare(&rdev->mode_info.rfbdev->helper);
->  	kfree(rdev->mode_info.rfbdev);
->  	rdev->mode_info.rfbdev = NULL;
->  }
-> diff --git a/drivers/gpu/drm/tegra/fb.c b/drivers/gpu/drm/tegra/fb.c
-> index 153c39c32c71..bfebe2786d61 100644
-> --- a/drivers/gpu/drm/tegra/fb.c
-> +++ b/drivers/gpu/drm/tegra/fb.c
-> @@ -315,6 +315,7 @@ static struct tegra_fbdev *tegra_fbdev_create(struct drm_device *drm)
->  
->  static void tegra_fbdev_free(struct tegra_fbdev *fbdev)
->  {
-> +	drm_fb_helper_unprepare(&fbdev->base);
-
-Ok this one tegra change was a bit tricky, drivers really should just use
-drmm_/devm_ for everything :-)
-
-With the kerneldoc augmented:
-
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-
->  	kfree(fbdev);
->  }
->  
-> -- 
-> 2.39.1
+> 
+>> + *
+>> + * This enum is a consolidated colorimetry list supported by HDMI and
+>>   * DP protocol standard. The respective connectors will register
+>>   * a property with the subset of this list (supported by that
+>>   * respective protocol). Userspace will set the colorspace through
+>>   * a colorspace property which will be created and exposed to
+> 
+> Could this refer to "Colorspace" property explicitly instead of some
+> unmentioned property?
+> 
+>>   * userspace.
+>> + *
+>> + * @DRM_MODE_COLORIMETRY_DEFAULT:
+>> + *   sRGB (IEC 61966-2-1) or
+>> + *   ITU-R BT.601 colorimetry format
+> 
+> Is this what the "driver will set the colorspace" comment actually
+> means? If so, I think the comment "driver will set the colorspace"
+> could be better or replaced with "not from any standard" or "undefined".
 > 
 
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+It's sRGB when RGB encoding is used and BT.601 for YCbCr.
+
+> sRGB and BT.601 have different primaries. There are actually two
+> different cases of BT.601 primaries: the 525 line and 625 line. How
+> does that work? Are the drivers really choosing anything, or will they
+> just send "undefined" to the sink, and then the sink does whatever it
+> does?
+> 
+> Or is this *only* about the RGB-to-YCbCr conversion matrix and not
+> about colorimetry at all?
+> 
+> If it's only about the conversion matrix (MatrixCoefficients in CICP
+> (H.273) terms), then which ones of the below also define only the
+> MatrixCoefficients but no colorimetry?
+> 
+>> + * @DRM_MODE_COLORIMETRY_SMPTE_170M_YCC:
+>> + *   SMPTE ST 170M colorimetry format
+>> + * @DRM_MODE_COLORIMETRY_BT709_YCC:
+>> + *   ITU-R BT.709 colorimetry format
+>> + * @DRM_MODE_COLORIMETRY_XVYCC_601:
+>> + *   xvYCC601 colorimetry format
+>> + * @DRM_MODE_COLORIMETRY_XVYCC_709:
+>> + *   xvYCC709 colorimetry format
+>> + * @DRM_MODE_COLORIMETRY_SYCC_601:
+>> + *   sYCC601 colorimetry format
+>> + * @DRM_MODE_COLORIMETRY_OPYCC_601:
+>> + *   opYCC601 colorimetry format
+>> + * @DRM_MODE_COLORIMETRY_OPRGB:
+>> + *   opRGB colorimetry format
+>> + * @DRM_MODE_COLORIMETRY_BT2020_CYCC:
+>> + *   ITU-R BT.2020 Y'c C'bc C'rc (linear) colorimetry format
+> 
+> Is this one known as the constant luminance variant which requires
+> KMS/driver/hardware knowing also the transfer characteristic function?
+> 
+
+Constant luminance as defined in BT.2020. Table 4 and 5
+of the spec talk about it.
+
+> Is there perhaps an assumed TF here, since there is no KMS property to
+> set a TF? Oh, maybe all of these imply the respective TF from the spec?
+> 
+> I suspect the "linear" should read as "constant luminance".
+> 
+>> + * @DRM_MODE_COLORIMETRY_BT2020_RGB:
+>> + *   ITU-R BT.2020 R' G' B' colorimetry format
+>> + * @DRM_MODE_COLORIMETRY_BT2020_YCC:
+>> + *   ITU-R BT.2020 Y' C'b C'r colorimetry format
+> 
+> ...compared to this one known as the non-constant luminance variant,
+> i.e. "the simple RGB-to-YCbCr conversion"?
+> 
+
+Agreed.
+
+The CTA-681 spec actually treats these as the same value
+and for DP the R'G'G' (for RGB encoded signals) and the
+Y'C'bC'r version (for YCbCr encoded signals) don't share
+an actual value but you can't use the R'G'B' for YCbCr
+and vice versa.
+
+Rolling both into one seems to be the most reasonable thing
+to do and doesn't clash with the spec. We can even combine
+it later with a new "encoding" property where userspace can
+provide a suggested encoding (or use the default, driver-selected
+one).
+
+>> + * @DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65:
+>> + *   DCI-P3 (SMPTE RP 431-2) colorimetry format
+>> + * @DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER:
+>> + *   DCI-P3 (SMPTE RP 431-2) colorimetry format
+> 
+> These two can't both be the same, right? That is, the description is
+> missing something.
+
+P3 D65 vs P3 DCI
+
+> 
+>> + * @DRM_MODE_COLORIMETRY_RGB_WIDE_FIXED:
+>> + *   RGB wide gamut fixed point colorimetry format
+> 
+> Is this one scRGB too?
+
+The spec doesn't seem to mention. -_-
+
+In another place it annotates this with (XR8, XR10, XR12),
+but I'm not sure if those are defined anywhere.
+
+Harry
+
+> 
+>> + * @DRM_MODE_COLORIMETRY_RGB_WIDE_FLOAT:
+>> + *   RGB wide gamut floating point
+>> + *   (scRGB (IEC 61966-2-2)) colorimetry format
+>> + * @DRM_MODE_COLORIMETRY_BT601_YCC:
+>> + *   ITU-R BT.609 colorimetry format
+> 
+> Typo: BT.609
+> 
+> Which one of the two BT.601?
+> 
+>>   */
+>>  enum drm_colorspace {
+>>  	/* For Default case, driver will set the colorspace */
+> 
+> Thanks,
+> pq
