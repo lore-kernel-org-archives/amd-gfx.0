@@ -4,90 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E2CFC61DA4
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 07:57:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C9C9C636CC
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 10:11:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAA6210E10F;
-	Thu, 16 Feb 2023 07:57:47 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2040.outbound.protection.outlook.com [40.107.244.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A435E10E10F
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Feb 2023 07:57:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NLwRTE+V2NM0i67S4oemVN4DE6PDAnlA48Npg/O7TI7smcWiiavY7mw5/NE+KRvLFfvFgmR7Klo98kyl8zFd+XNKFxAMUuhQEp7OML7DVF2J6ea775E+v/LIY+vrME+RB6/3XZGi5HDWUYilD/5h1iNTJ8EWSvjEepABztYcfryj0lYCY0AK//8xK3pSxd1pL9J8+oADw/wO4VoZN9xdVS41K5ftvI/u09EvfRSoYprsM4lNKhxMox1+TKqo2hmRzOvck8QXJ0RdEIrgPwrSux6j3XVnX55K7PBLrMuInN0KUNy5YXBGBkPGCTYVdiRmNMotE6G5qWenVNlWVPw38Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u+fuBx+RiUZUrCe0YplZbetvoPwy4ADIwiORl86nA58=;
- b=CjIe/sW1kauazAMSUxdAzGV9xDWxOAE+ixRuoNtydRTIAwTtrh6xGFec+94U1gIhwM/MmQWApRxe+mL99yVPaPAS9pOSQEhcViYw0NL4pdtSvB3Xofhk888N/X83ZPWJFWnAijWOkoad1JiF3cXM+Oeu6mUfTy4SIpIqfbE182WFHNDzxx4KZWdNdOP6PtLr/aOZjGesu/E9alq2iKLk7FAOc0EO2MikbNXreU8JAaDuhKtBLzEb6TyKrStKhhIOqI6CixB/lNIXPZKtIek479aSB3OH68bf1sM2iPjCleHOJDGbknpduQ/EW0BM19qUrIBcavFjWiEnumTd2H7ISw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u+fuBx+RiUZUrCe0YplZbetvoPwy4ADIwiORl86nA58=;
- b=tBwKYLTpWKVqCdJxgdVaKNGS6ofOGa+Shr/zQZfOAo0HThZX/uC5qZ4hHJpArko93kHc2c3pCFAb4yDqIvzesuyzhWRHb/5t8zk+Mo2akDpeFKX/K9XmhQp5wfgvifAGjUnQvVLI7EE/jPx84DEBV1qTXX+7b20loPosh+wsqGk=
-Received: from BN9PR03CA0463.namprd03.prod.outlook.com (2603:10b6:408:139::18)
- by IA0PR12MB7650.namprd12.prod.outlook.com (2603:10b6:208:436::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.26; Thu, 16 Feb
- 2023 07:57:43 +0000
-Received: from BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:139:cafe::73) by BN9PR03CA0463.outlook.office365.com
- (2603:10b6:408:139::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.13 via Frontend
- Transport; Thu, 16 Feb 2023 07:57:43 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT012.mail.protection.outlook.com (10.13.177.55) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6111.13 via Frontend Transport; Thu, 16 Feb 2023 07:57:43 +0000
-Received: from taozhou1u2.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 16 Feb
- 2023 01:57:41 -0600
-From: Tao Zhou <tao.zhou1@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <hawking.zhang@amd.com>,
- <stanley.yang@amd.com>, <yipeng.chai@amd.com>, <candice.li@amd.com>,
- <lijo.lazar@amd.com>
-Subject: [PATCH] drm/amdgpu: don't increase UMC RAS UE count if no new bad page
-Date: Thu, 16 Feb 2023 15:57:31 +0800
-Message-ID: <20230216075731.21355-1-tao.zhou1@amd.com>
-X-Mailer: git-send-email 2.35.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A2AF10ECE0;
+	Thu, 16 Feb 2023 10:11:26 +0000 (UTC)
+Received: from mout.web.de (mout.web.de [212.227.15.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A64610E733
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Feb 2023 09:46:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de; s=s29768273;
+ t=1676540785; i=spasswolf@web.de;
+ bh=CBCQamnoohYQJAg4KfZxKlXm6Y38I0LwGbwUe+WeapQ=;
+ h=X-UI-Sender-Class:Subject:From:To:Date;
+ b=SfD1J7BE0el+HqXvqkvDqwEkkjggSR7N4rSwm4Ngso3Y/2z/iqrJKBegvZWC0lhI2
+ Aw3Jx7287NkWNdJWJCweE7uX9L2H9X7+kzmgNo1oVoJQpKcOtR1h3ao9hBwn+U2YOg
+ u7EVIoHQgC5SO1lxhogRJBzCZJHdK2hSqKEbjfv12rrTnpIzLIxci6d1GrzsddChtG
+ gdNawQSetVsIJq3jkVzmCUkA2iRtwNIFJpnkcoXOIcwaVrxwEMeguo8y32w1vSNFjP
+ QOLEZyGxSnihGM7+V2vu8F3QAeXVY0cOkRJewd9oDzQLEaOdyn7coxFyEsqBct5cag
+ 9fZwPE+nE9e+w==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.0.101] ([176.198.191.160]) by smtp.web.de (mrweb005
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1Mgzeb-1ou3q80i7x-00hLc0 for
+ <amd-gfx@lists.freedesktop.org>; Thu, 16 Feb 2023 10:46:25 +0100
+Message-ID: <5dfb45ae90725c63232e063852e761ac11e6bce3.camel@web.de>
+Subject: [PATCH] drm/amd: use drm_kms_helper_poll_fini in
+ amdgpu_device_suspend to avoid warning
+From: Bert Karwatzki <spasswolf@web.de>
+To: amd-gfx@lists.freedesktop.org
+Date: Thu, 16 Feb 2023 10:46:24 +0100
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4-1 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT012:EE_|IA0PR12MB7650:EE_
-X-MS-Office365-Filtering-Correlation-Id: ecc129e1-8370-4ff9-9d5a-08db0ff37c1a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /VcLwvS26j47U2HVpqEmy3KGQZneqLLC1aG1FR5LZWcvyHsUjGjvIl7ieXfOQ3I0abHihsRPoESr+QBRzyCmeqP1Wkw7DYcuXVY8DyT5CtSAxbxSaXnOwIw7nLylP8kpTeDtekdQXQjK8exm1eRUpzZ8plixzcifrwTsdm0mkd9qvAUtDCyXQvIRxS7z6tPZpu8ZgZ6ZpglcprqGyFRXog98Dz3yx505PP4x75jFqaoewiGoT5oUrAl4ppL15EITaZN4sgJqQoG81VhKOzzWJAUSqfAh03DWjih9ZGeV9g1ozp5u703kRYr+2eTZjFa/E/91pHdD6PiKX3f7+4LjGntfuBbL8FWa4jYt9P1P82nv15mooMunQecOn/83wesBqralEkOuio2gGUrPGuciSu/UdvSm/aAPINocnZIKKiAhevch4TdpusAr+WzmqVj9zGSX1blRcmGYQd1j1+Ju7FEMs2QVTVBLPKiBBt1nwt68r+x7ZnTHlAmlD6mfFl21AbBmCwCAIWIYUvFvEfL8dloWmhuPMz7bbci0LNSHBJzidzEyZT7s+3PDGMrUEqkGQPfOJW5UT5wko3eAOZEmecOSITsFW+dZePDtyArNKrS7lrxNphLHV4GnWGCaJgh3apYrWYNCa4B6mwefiGxQAX/+BXf2o3hDSm3BgiUOaDdz4kcDfmlA/Oc2DHIBRobRYLdeLQjww3vFuK2YHpx/06grvDmkxNLdWjfRFMX0sJE=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(346002)(136003)(39860400002)(396003)(376002)(451199018)(36840700001)(46966006)(40470700004)(26005)(186003)(16526019)(1076003)(2616005)(40460700003)(2906002)(356005)(4326008)(41300700001)(70206006)(82310400005)(8676002)(86362001)(70586007)(36860700001)(5660300002)(8936002)(7696005)(82740400003)(47076005)(478600001)(426003)(336012)(81166007)(6666004)(110136005)(316002)(36756003)(6636002)(83380400001)(40480700001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2023 07:57:43.6333 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ecc129e1-8370-4ff9-9d5a-08db0ff37c1a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7650
+X-Provags-ID: V03:K1:kXLslh8xBMcf2IzMYdG+9FTi7W3vNl/7CXfgxmjjUK9B4ycb/FH
+ W1SroRVppLdrgWwFGP9kx+LF8xvcbg7Xj/f96REBENWKqbiHZmfVtlr+/iAXGjfJpWs/bZO
+ eyAtLqFIz2JaW2+5nC0UZD/fyF4rVsC69liGcOlp1qLR+5i4G4xXRKcXXPH7n0Xiqh+NqiX
+ xeq8DUxrTZZSGg7TIrHuw==
+UI-OutboundReport: notjunk:1;M01:P0:UTegYW+jq6s=;fXqf6Ner50sQ4gD1fVzOjSLqn1d
+ qfdN8AA7CVBU/d2F4mXdFygQ4GchayBFj9PGQtSyEEBh2t8OySJgL331t2KXdwrvonal6R4RO
+ 5dZsMzL9a5CsvqjHsaVcphIwCAVmprwEfFioMYLXaE0seYSJ/fWiF0yQnwtU0sl57dy0SMhWU
+ xgyVLTa/ZisnX/9Tm96oU6l4HBW6XuICJ8dOW/dQctcRxLw/X+9AIRhloPmeU8w7JiUsvjuBF
+ tW+Lq2GckxDE/VSpzKnxgZrh7X8AqOAzrmm7kxMdQ/B5w2VBpFov8JfpM70h+RjBEoBLLb2Uw
+ 10jMJR6hSjlQBx4cVp0+4MANMAfTvuJSAbwKQ8X8nwGsO/8y+u3LjD81N4w9zGHlpMBmNrWzf
+ WEykTPsHCt+K85UUHbQHxGMp6npWueG4JFs2I/agOKjpoA+V34yMLryhTDZI8TAgGYBeA0nI2
+ e6/+F5TSu5kzludlDkXUsxgTt5qXbDxLoGZvRlvU/SP2dvTctVty2zldATvFvFlmxBkNKOqhU
+ VWuYz2m1fq6lfa6zRkJse2yEzow3TxNirbXA0yexNY86THAD//G+uAMyqSCmx8mb/crSYBBhN
+ O5eEEKOceCedIOcY8PfiQJbplqyeA/r/PzxMRayZWFxYLFMqrq0DfGUHihZqJZAGWimMCrWZy
+ 6B5zmmmbgvKeEC3f4glS1RjM5Jm2MpTAMEPzeO+BM3CyhIh1MxiNV+wuHmZFzsEa/7iTZZwh2
+ TgsNjiCfq+GzFq+qyZtmGR6HWNRFpAlu+lqc5I7A3yFPdZz2gh9HGq3V0nMyZtdLcvbeK+Yfe
+ HQBbCUN/amLKvuHV9ya0LZgBZlpg/gHM3OuYa6XE/3Ljd7vFSFqtCn3TfySInMNQhFTYqYjcz
+ czOVcU+SXjWKI9qaixyfOwK63c/Wyp0X4xc56wH/6CFwYc5WhYNRO9fVQBWfWO/CnGCSYw5mt
+ b0sP8Q==
+X-Mailman-Approved-At: Thu, 16 Feb 2023 10:11:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,85 +67,75 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tao Zhou <tao.zhou1@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If a UMC bad page is reserved but not freed by an application, the
-application may trigger uncorrectable error repeatly by accessing the page.
+When drm_kms_helper_poll_disable is used in amdgpu_device_suspend
+without drm_kms_helper_poll_init having been called it causes a warning
+in __flush_work:
+https://gitlab.freedesktop.org/drm/amd/-/issues/2411
+To avoid this one can use drm_kms_helper_poll_fini instead:
 
-v2: add specific function to do the check.
 
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+From 51cba3ae1e9f557cca8e37eb43b9b9310d0d504d Mon Sep 17 00:00:00 2001
+From: Bert Karwatzki <spasswolf@web.de>
+Date: Thu, 16 Feb 2023 10:34:11 +0100
+Subject: [PATCH] Use drm_kms_helper_poll_fini instead of
+ drm_kms_helper_poll_disable in amdgpu_device.c to avoid a warning from
+ __flush_work.
+
+Signed-off-by: Bert Karwatzki <spasswolf@web.de>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 24 ++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c |  4 ++++
- 3 files changed, 30 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+ drivers/gpu/drm/drm_probe_helper.c         | 7 ++++---
+ 2 files changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 6e543558386d..5214034e1b16 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -2115,6 +2115,30 @@ int amdgpu_ras_save_bad_pages(struct amdgpu_device *adev)
- 	return 0;
- }
- 
-+/* Return false if all pages have been reserved before, no new bad page
-+ * is found, otherwise return true.
-+ * Note: the function should be called between amdgpu_ras_add_bad_pages
-+ * and amdgpu_ras_save_bad_pages.
-+ */
-+bool amdgpu_ras_new_bad_page_is_added(struct amdgpu_device *adev)
-+{
-+	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
-+	struct ras_err_handler_data *data;
-+	struct amdgpu_ras_eeprom_control *control;
-+	int save_count;
-+
-+	if (!con || !con->eh_data)
-+		return false;
-+
-+	mutex_lock(&con->recovery_lock);
-+	control = &con->eeprom_control;
-+	data = con->eh_data;
-+	save_count = data->count - control->ras_num_recs;
-+	mutex_unlock(&con->recovery_lock);
-+
-+	return (save_count ? true : false);
-+}
-+
- /*
-  * read error record array in eeprom and reserve enough space for
-  * storing new bad pages
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-index f2ad999993f6..606b75c36848 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -549,6 +549,8 @@ int amdgpu_ras_add_bad_pages(struct amdgpu_device *adev,
- 
- int amdgpu_ras_save_bad_pages(struct amdgpu_device *adev);
- 
-+bool amdgpu_ras_new_bad_page_is_added(struct amdgpu_device *adev);
-+
- static inline enum ta_ras_block
- amdgpu_ras_block_to_ta(enum amdgpu_ras_block block) {
- 	switch (block) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-index 1c7fcb4f2380..1146e65c22be 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-@@ -147,6 +147,10 @@ static int amdgpu_umc_do_page_retirement(struct amdgpu_device *adev,
- 			err_data->err_addr_cnt) {
- 			amdgpu_ras_add_bad_pages(adev, err_data->err_addr,
- 						err_data->err_addr_cnt);
-+			/* if no new bad page is found, no need to increase ue count */
-+			if (!amdgpu_ras_new_bad_page_is_added(adev))
-+				err_data->ue_count = 0;
-+
- 			amdgpu_ras_save_bad_pages(adev);
- 
- 			amdgpu_dpm_send_hbm_bad_pages_num(adev, con->eeprom_control.ras_num_recs);
--- 
-2.35.1
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index b325f7039e0e..dc9e9868a84b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4145,7 +4145,7 @@ int amdgpu_device_suspend(struct drm_device *dev,
+bool fbcon)
+ 	if (amdgpu_acpi_smart_shift_update(dev, AMDGPU_SS_DEV_D3))
+ 		DRM_WARN("smart shift update failed\n");
+=20
+-	drm_kms_helper_poll_disable(dev);
++	drm_kms_helper_poll_fini(dev);
+=20
+ 	if (fbcon)
+ 		drm_fb_helper_set_suspend_unlocked(adev_to_drm(adev)-
+>fb_helper, true);
+diff --git a/drivers/gpu/drm/drm_probe_helper.c
+b/drivers/gpu/drm/drm_probe_helper.c
+index 8127be134c39..105d00d5ebf3 100644
+--- a/drivers/gpu/drm/drm_probe_helper.c
++++ b/drivers/gpu/drm/drm_probe_helper.c
+@@ -842,9 +842,10 @@ EXPORT_SYMBOL(drm_kms_helper_is_poll_worker);
+  *
+  * This function disables the output polling work.
+  *
+- * Drivers can call this helper from their device suspend
+implementation. It is
+- * not an error to call this even when output polling isn't enabled or
+already
+- * disabled. Polling is re-enabled by calling
+drm_kms_helper_poll_enable().
++ * Drivers can call this helper from their device suspend
+implementation. If it
++ * is not known if drm_kms_helper_poll_init has been called before the
+driver
++ * should use drm_kms_helper_poll_fini_instead.
++ * Polling is re-enabled by calling drm_kms_helper_poll_enable().
+  *
+  * Note that calls to enable and disable polling must be strictly
+ordered, which
+  * is automatically the case when they're only call from
+suspend/resume
+--=20
+2.39.1
+
+
+
+Bert Karwatzki
 
