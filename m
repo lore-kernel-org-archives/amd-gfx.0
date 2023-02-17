@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DECE8C64ED8
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Feb 2023 16:39:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 397B0C636D6
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Feb 2023 18:15:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B56010E086;
-	Fri, 17 Feb 2023 16:39:36 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89EDF10F08B;
- Fri, 17 Feb 2023 16:39:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1676651973; x=1708187973;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=wB8bS9gaVZyffaJg0ZFoYa1F5bIUV9IsyIRY37Ib0Ic=;
- b=c1DEMFQADbHCH0A30Vd2Be20JeLpAC5k2zN58iwz6YdouRorviwEylvt
- y3PQdfEVGtry1bGwEHlNlqR+B5+lhlTRDD/QL/rQQgJJkikIXcL7xD7bc
- TRhaDS8YAN7PDv2ydOSlP8Z1JNAUcpL4wz4b3Su4yNTCqi9i8EiG4lePk
- Jp3TEhvSFsfJaCplGWRN9omV79gR8T7QMAZd9PCbhavo+USGcJlkL4Mlo
- 48a3CoCwB/nb8iHedttAvEMf74uhtWhw0e8ijDCTPCrLCZOxlgwDXyeV5
- ssRaYykliY7aS/IRhzq/sQUBzekdz3KlXtGH32VAPsS6kVVCXixWpAxZB A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10624"; a="418248079"
-X-IronPort-AV: E=Sophos;i="5.97,306,1669104000"; d="scan'208";a="418248079"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Feb 2023 08:39:31 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10624"; a="620438581"
-X-IronPort-AV: E=Sophos;i="5.97,306,1669104000"; d="scan'208";a="620438581"
-Received: from lkp-server01.sh.intel.com (HELO 4455601a8d94) ([10.239.97.150])
- by orsmga003.jf.intel.com with ESMTP; 17 Feb 2023 08:39:28 -0800
-Received: from kbuild by 4455601a8d94 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pT3lf-000BeE-14;
- Fri, 17 Feb 2023 16:39:27 +0000
-Date: Sat, 18 Feb 2023 00:39:18 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- c068f40300a0eaa34f7105d137a5560b86951aa9
-Message-ID: <63efadb6.cR48xA1nWh81uK+0%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id B824B10E1E1;
+	Fri, 17 Feb 2023 18:15:16 +0000 (UTC)
+Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91A2210E1E1;
+ Fri, 17 Feb 2023 18:15:15 +0000 (UTC)
+Received: from mx0.riseup.net (mx0-pn.riseup.net [10.0.1.42])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
+ client-signature RSA-PSS (2048 bits) client-digest SHA256)
+ (Client CN "mx0.riseup.net", Issuer "R3" (not verified))
+ by mx1.riseup.net (Postfix) with ESMTPS id 4PJKjb21VmzDsR3;
+ Fri, 17 Feb 2023 18:15:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
+ t=1676657715; bh=3Wo6xy7NEbWHTHuqYQjrcT3/4QZgys+hJ1rIpSEad14=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=ipH+uSmQ3t3RyTM23FXzcKinL9c1Z8lrds96kmrX6qNZkD9vcvjLL33pgalJyNy15
+ 0YyjetrH71V0wolFFuZtc75XeMqiK086aHs4LHbZ91Wxk1zgt6RjR2SvzKhhv0gY92
+ 5j3uEv0zxsDlOqBlqJzLVVKEcGSDxgBFTVbOGNgs=
+Received: from fews2.riseup.net (fews2-pn.riseup.net [10.0.1.84])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
+ client-signature RSA-PSS (2048 bits) client-digest SHA256)
+ (Client CN "mail.riseup.net", Issuer "R3" (not verified))
+ by mx0.riseup.net (Postfix) with ESMTPS id 4PJKjZ2PF8z9s3x;
+ Fri, 17 Feb 2023 18:15:14 +0000 (UTC)
+X-Riseup-User-ID: C3431D1EC870691AF88B37F4A6199F519408507BBCE71EE0DCEE78C709DAAD8C
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ by fews2.riseup.net (Postfix) with ESMTPSA id 4PJKjR1mmZz1y8Z;
+ Fri, 17 Feb 2023 18:15:07 +0000 (UTC)
+From: Arthur Grillo <arthurgrillo@riseup.net>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH v2 1/3] drm/amd/display: Fix implicit enum conversion
+Date: Fri, 17 Feb 2023 15:14:07 -0300
+Message-Id: <20230217181409.218008-2-arthurgrillo@riseup.net>
+In-Reply-To: <20230217181409.218008-1-arthurgrillo@riseup.net>
+References: <20230217181409.218008-1-arthurgrillo@riseup.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,242 +58,154 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arch@vger.kernel.org, linux-doc@vger.kernel.org,
- netdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-usb@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-mips@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- linux-serial@vger.kernel.org, ntfs3@lists.linux.dev
+Cc: sunpeng.li@amd.com, tales.aparecida@gmail.com, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, Arthur Grillo <arthurgrillo@riseup.net>,
+ mairacanal@riseup.net, daniel@ffwll.ch, harry.wentland@amd.com,
+ alexander.deucher@amd.com, andrealmeid@riseup.net, airlied@gmail.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: c068f40300a0eaa34f7105d137a5560b86951aa9  Add linux-next specific files for 20230217
+Make implicit enum conversion to avoid -Wenum-conversion warning, such
+as:
 
-Error/Warning reports:
+drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn21/display_mode_vba_21.c:4109:88: warning: implicit conversion from ‘enum <anonymous>’ to ‘enum odm_combine_mode’ [-Wenum-conversion]
+ 4109 |                                                 locals->ODMCombineEnablePerState[i][k] = true;
+      |                                                                                        ^
 
-https://lore.kernel.org/oe-kbuild-all/202302062224.ByzeTXh1-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202302092211.54EYDhYH-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202302111601.jtY4lKrA-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202302112104.g75cGHZd-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202302161117.pNuySGWi-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202302170355.Ljqlzucu-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202302172104.q3ddwzqu-lkp@intel.com
+Signed-off-by: Arthur Grillo <arthurgrillo@riseup.net>
+---
+ .../amd/display/dc/dml/dcn20/display_mode_vba_20.c   |  9 +++++----
+ .../amd/display/dc/dml/dcn20/display_mode_vba_20v2.c | 11 ++++++-----
+ .../amd/display/dc/dml/dcn21/display_mode_vba_21.c   | 12 ++++++------
+ 3 files changed, 17 insertions(+), 15 deletions(-)
 
-Error/Warning: (recently discovered and may have been fixed)
-
-Documentation/sphinx/templates/kernel-toc.html: 1:36 Invalid token: #}
-ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/fsl-edma.ko] undefined!
-ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/idma64.ko] undefined!
-arch/mips/kernel/vpe.c:643:35: error: no member named 'mod_mem' in 'struct module'
-arch/mips/kernel/vpe.c:643:41: error: 'struct module' has no member named 'mod_mem'
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_optc.c:294:6: warning: no previous prototype for 'optc3_wait_drr_doublebuffer_pending_clear' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource_helpers.c:62:18: warning: variable 'cursor_bpp' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_detection.c:1199: warning: expecting prototype for dc_link_detect_connection_type(). Prototype was for link_detect_connection_type() instead
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:1292:32: warning: variable 'result_write_min_hblank' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_training.c:1586:38: warning: variable 'result' set but not used [-Wunused-but-set-variable]
-drivers/net/ethernet/sfc/ef100_nic.c:1128:21: warning: unused variable 'net_dev' [-Wunused-variable]
-drivers/net/ethernet/sfc/ef100_nic.c:1170:9: warning: variable 'rc' is uninitialized when used here [-Wuninitialized]
-drivers/net/ethernet/sfc/efx_devlink.c:185:17: error: expected declaration or statement at end of input
-drivers/net/ethernet/sfc/efx_devlink.c:185:23: error: expected ';' at end of input
-drivers/net/ethernet/sfc/efx_devlink.c:522:2: error: unterminated argument list invoking macro "memset"
-include/linux/build_bug.h:78:41: error: static assertion failed: "SKB_WITH_OVERHEAD(TEST_XDP_FRAME_SIZE - XDP_PACKET_HEADROOM) == TEST_MAX_PKT_SIZE"
-
-Unverified Error/Warning (likely false positive, please contact us if interested):
-
-drivers/tty/serial/8250/8250_dfl.c:63 dfl_uart_get_params() error: uninitialized symbol 'clk_freq'.
-drivers/tty/serial/8250/8250_dfl.c:69 dfl_uart_get_params() error: uninitialized symbol 'fifo_len'.
-drivers/tty/serial/8250/8250_dfl.c:90 dfl_uart_get_params() error: uninitialized symbol 'reg_layout'.
-drivers/usb/gadget/composite.c:2082:33: sparse: sparse: restricted __le16 degrades to integer
-drivers/virtio/virtio_ring.c:1585 virtqueue_add_packed_vring() error: uninitialized symbol 'prev'.
-drivers/virtio/virtio_ring.c:1593 virtqueue_add_packed_vring() error: uninitialized symbol 'head_flags'.
-drivers/virtio/virtio_ring.c:697 virtqueue_add_split_vring() error: uninitialized symbol 'prev'.
-fs/ntfs3/super.c:1351 ntfs_fill_super() warn: passing a valid pointer to 'PTR_ERR'
-net/mac80211/mlme.c:7124 ieee80211_setup_assoc_link() warn: variable dereferenced before check 'elem' (see line 7122)
-net/mac80211/rx.c:2947 __ieee80211_rx_h_amsdu() error: we previously assumed 'rx->sta' could be null (see line 2933)
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_detection.c:warning:expecting-prototype-for-dc_link_detect_connection_type().-Prototype-was-for-link_detect_connection_type()-instead
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- alpha-randconfig-c041-20230212
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_detection.c:warning:expecting-prototype-for-dc_link_detect_connection_type().-Prototype-was-for-link_detect_connection_type()-instead
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_detection.c:warning:expecting-prototype-for-dc_link_detect_connection_type().-Prototype-was-for-link_detect_connection_type()-instead
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- arm-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_detection.c:warning:expecting-prototype-for-dc_link_detect_connection_type().-Prototype-was-for-link_detect_connection_type()-instead
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- arm-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_detection.c:warning:expecting-prototype-for-dc_link_detect_connection_type().-Prototype-was-for-link_detect_connection_type()-instead
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- arm64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_resource_helpers.c:warning:variable-cursor_bpp-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_detection.c:warning:expecting-prototype-for-dc_link_detect_connection_type().-Prototype-was-for-link_detect_connection_type()-instead
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- arm64-randconfig-r031-20230212
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_resource_helpers.c:warning:variable-cursor_bpp-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_detection.c:warning:expecting-prototype-for-dc_link_detect_connection_type().-Prototype-was-for-link_detect_connection_type()-instead
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- i386-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_resource_helpers.c:warning:variable-cursor_bpp-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_detection.c:warning:expecting-prototype-for-dc_link_detect_connection_type().-Prototype-was-for-link_detect_connection_type()-instead
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- i386-randconfig-m021
-|   |-- drivers-virtio-virtio_ring.c-virtqueue_add_packed_vring()-error:uninitialized-symbol-head_flags-.
-|   |-- drivers-virtio-virtio_ring.c-virtqueue_add_packed_vring()-error:uninitialized-symbol-prev-.
-|   `-- drivers-virtio-virtio_ring.c-virtqueue_add_split_vring()-error:uninitialized-symbol-prev-.
-|-- i386-randconfig-s001
-|   |-- drivers-gpu-drm-i915-gem-i915_gem_ttm.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-vm_fault_t-assigned-usertype-ret-got-int
-|   `-- drivers-usb-gadget-composite.c:sparse:sparse:restricted-__le16-degrades-to-integer
-|-- i386-randconfig-s002
-|   `-- drivers-gpu-drm-i915-gem-i915_gem_ttm.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-vm_fault_t-assigned-usertype-ret-got-int
-|-- i386-randconfig-s003
-|   `-- drivers-usb-gadget-composite.c:sparse:sparse:restricted-__le16-degrades-to-integer
-|-- ia64-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_detection.c:warning:expecting-prototype-for-dc_link_detect_connection_type().-Prototype-was-for-link_detect_connection_type()-instead
-clang_recent_errors
-|-- i386-randconfig-a015
-|   |-- drivers-net-ethernet-sfc-ef100_nic.c:warning:unused-variable-net_dev
-|   `-- drivers-net-ethernet-sfc-ef100_nic.c:warning:variable-rc-is-uninitialized-when-used-here
-`-- mips-maltaaprp_defconfig
-    `-- arch-mips-kernel-vpe.c:error:no-member-named-mod_mem-in-struct-module
-
-elapsed time: 727m
-
-configs tested: 112
-configs skipped: 5
-
-gcc tested configs:
-alpha                            allyesconfig
-alpha                               defconfig
-arc                              allyesconfig
-arc                          axs101_defconfig
-arc                                 defconfig
-arc                  randconfig-r043-20230217
-arm                              allmodconfig
-arm                              allyesconfig
-arm                         at91_dt_defconfig
-arm                                 defconfig
-arm                            hisi_defconfig
-arm                       multi_v4t_defconfig
-arm                  randconfig-c002-20230217
-arm64                            alldefconfig
-arm64                            allyesconfig
-arm64                               defconfig
-csky                                defconfig
-i386                             allyesconfig
-i386                              debian-10.3
-i386                         debian-10.3-func
-i386                   debian-10.3-kselftests
-i386                        debian-10.3-kunit
-i386                          debian-10.3-kvm
-i386                                defconfig
-i386                          randconfig-a001
-i386                          randconfig-a003
-i386                          randconfig-a005
-i386                 randconfig-a011-20230213
-i386                 randconfig-a012-20230213
-i386                 randconfig-a013-20230213
-i386                 randconfig-a014-20230213
-i386                 randconfig-a015-20230213
-i386                 randconfig-a016-20230213
-ia64                             allmodconfig
-ia64                                defconfig
-loongarch                        allmodconfig
-loongarch                         allnoconfig
-loongarch                           defconfig
-m68k                             allmodconfig
-m68k                         amcore_defconfig
-m68k                         apollo_defconfig
-m68k                                defconfig
-m68k                        stmark2_defconfig
-m68k                           virt_defconfig
-mips                             allmodconfig
-mips                             allyesconfig
-mips                           xway_defconfig
-nios2                               defconfig
-openrisc                    or1ksim_defconfig
-parisc                              defconfig
-parisc64                            defconfig
-powerpc                          allmodconfig
-powerpc                           allnoconfig
-powerpc                      cm5200_defconfig
-powerpc                mpc7448_hpc2_defconfig
-riscv                            allmodconfig
-riscv                             allnoconfig
-riscv                               defconfig
-riscv             nommu_k210_sdcard_defconfig
-riscv                randconfig-r042-20230217
-riscv                          rv32_defconfig
-s390                             allmodconfig
-s390                             allyesconfig
-s390                                defconfig
-s390                 randconfig-r044-20230217
-sh                               allmodconfig
-sh                           se7619_defconfig
-sh                           se7751_defconfig
-sh                        sh7757lcr_defconfig
-sh                  sh7785lcr_32bit_defconfig
-sparc                               defconfig
-sparc64                             defconfig
-um                             i386_defconfig
-um                           x86_64_defconfig
-x86_64                            allnoconfig
-x86_64                           allyesconfig
-x86_64                              defconfig
-x86_64                                  kexec
-x86_64               randconfig-a011-20230213
-x86_64               randconfig-a012-20230213
-x86_64               randconfig-a013-20230213
-x86_64               randconfig-a014-20230213
-x86_64               randconfig-a015-20230213
-x86_64               randconfig-a016-20230213
-x86_64                               rhel-8.3
-xtensa                       common_defconfig
-
-clang tested configs:
-arm                         bcm2835_defconfig
-arm                           omap1_defconfig
-arm                          pxa168_defconfig
-arm                  randconfig-r046-20230217
-hexagon              randconfig-r041-20230217
-hexagon              randconfig-r045-20230217
-i386                          randconfig-a002
-i386                          randconfig-a004
-i386                          randconfig-a006
-mips                          malta_defconfig
-mips                      maltaaprp_defconfig
-mips                           mtx1_defconfig
-mips                       rbtx49xx_defconfig
-powerpc                 mpc8313_rdb_defconfig
-powerpc               mpc834x_itxgp_defconfig
-powerpc                      walnut_defconfig
-powerpc                 xes_mpc85xx_defconfig
-riscv                            alldefconfig
-x86_64               randconfig-a001-20230213
-x86_64               randconfig-a002-20230213
-x86_64               randconfig-a003-20230213
-x86_64               randconfig-a004-20230213
-x86_64               randconfig-a005-20230213
-x86_64               randconfig-a006-20230213
-x86_64                        randconfig-k001
-x86_64                          rhel-8.3-rust
-
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
+index d3b5b6fedf04..1b47249f01d8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
+@@ -26,6 +26,7 @@
+ #include "../display_mode_lib.h"
+ #include "display_mode_vba_20.h"
+ #include "../dml_inline_defs.h"
++#include "dml/display_mode_enums.h"
+ 
+ /*
+  * NOTE:
+@@ -3897,14 +3898,14 @@ void dml20_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 					mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine = mode_lib->vba.PixelClock[k] / 2
+ 							* (1 + mode_lib->vba.DISPCLKDPPCLKDSCCLKDownSpreading / 100.0);
+ 
+-				locals->ODMCombineEnablePerState[i][k] = false;
++				locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_disabled;
+ 				mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithoutODMCombine;
+ 				if (mode_lib->vba.ODMCapability) {
+ 					if (locals->PlaneRequiredDISPCLKWithoutODMCombine > mode_lib->vba.MaxDispclkRoundedDownToDFSGranularity) {
+-						locals->ODMCombineEnablePerState[i][k] = true;
++						locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+ 						mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+ 					} else if (locals->HActive[k] > DCN20_MAX_420_IMAGE_WIDTH && locals->OutputFormat[k] == dm_420) {
+-						locals->ODMCombineEnablePerState[i][k] = true;
++						locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+ 						mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+ 					}
+ 				}
+@@ -3957,7 +3958,7 @@ void dml20_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 				locals->RequiredDISPCLK[i][j] = 0.0;
+ 				locals->DISPCLK_DPPCLK_Support[i][j] = true;
+ 				for (k = 0; k <= mode_lib->vba.NumberOfActivePlanes - 1; k++) {
+-					locals->ODMCombineEnablePerState[i][k] = false;
++					locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_disabled;
+ 					if (locals->SwathWidthYSingleDPP[k] <= locals->MaximumSwathWidth[k]) {
+ 						locals->NoOfDPP[i][j][k] = 1;
+ 						locals->RequiredDPPCLK[i][j][k] = locals->MinDPPCLKUsingSingleDPP[k]
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
+index edd098c7eb92..4781bf82eec6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
+@@ -26,6 +26,7 @@
+ #include "../display_mode_lib.h"
+ #include "display_mode_vba_20v2.h"
+ #include "../dml_inline_defs.h"
++#include "dml/display_mode_enums.h"
+ 
+ /*
+  * NOTE:
+@@ -4008,17 +4009,17 @@ void dml20v2_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode
+ 					mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine = mode_lib->vba.PixelClock[k] / 2
+ 							* (1 + mode_lib->vba.DISPCLKDPPCLKDSCCLKDownSpreading / 100.0);
+ 
+-				locals->ODMCombineEnablePerState[i][k] = false;
++				locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_disabled;
+ 				mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithoutODMCombine;
+ 				if (mode_lib->vba.ODMCapability) {
+ 					if (locals->PlaneRequiredDISPCLKWithoutODMCombine > MaxMaxDispclkRoundedDown) {
+-						locals->ODMCombineEnablePerState[i][k] = true;
++						locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+ 						mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+ 					} else if (locals->DSCEnabled[k] && (locals->HActive[k] > DCN20_MAX_DSC_IMAGE_WIDTH)) {
+-						locals->ODMCombineEnablePerState[i][k] = true;
++						locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+ 						mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+ 					} else if (locals->HActive[k] > DCN20_MAX_420_IMAGE_WIDTH && locals->OutputFormat[k] == dm_420) {
+-						locals->ODMCombineEnablePerState[i][k] = true;
++						locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+ 						mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+ 					}
+ 				}
+@@ -4071,7 +4072,7 @@ void dml20v2_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode
+ 				locals->RequiredDISPCLK[i][j] = 0.0;
+ 				locals->DISPCLK_DPPCLK_Support[i][j] = true;
+ 				for (k = 0; k <= mode_lib->vba.NumberOfActivePlanes - 1; k++) {
+-					locals->ODMCombineEnablePerState[i][k] = false;
++					locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_disabled;
+ 					if (locals->SwathWidthYSingleDPP[k] <= locals->MaximumSwathWidth[k]) {
+ 						locals->NoOfDPP[i][j][k] = 1;
+ 						locals->RequiredDPPCLK[i][j][k] = locals->MinDPPCLKUsingSingleDPP[k]
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
+index 1d84ae50311d..b7c2844d0cbe 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
+@@ -4102,17 +4102,17 @@ void dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 					mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine = mode_lib->vba.PixelClock[k] / 2
+ 							* (1 + mode_lib->vba.DISPCLKDPPCLKDSCCLKDownSpreading / 100.0);
+ 
+-				locals->ODMCombineEnablePerState[i][k] = false;
++				locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_disabled;
+ 				mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithoutODMCombine;
+ 				if (mode_lib->vba.ODMCapability) {
+ 					if (locals->PlaneRequiredDISPCLKWithoutODMCombine > MaxMaxDispclkRoundedDown) {
+-						locals->ODMCombineEnablePerState[i][k] = true;
++						locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+ 						mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+ 					} else if (locals->DSCEnabled[k] && (locals->HActive[k] > DCN21_MAX_DSC_IMAGE_WIDTH)) {
+-						locals->ODMCombineEnablePerState[i][k] = true;
++						locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+ 						mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+ 					} else if (locals->HActive[k] > DCN21_MAX_420_IMAGE_WIDTH && locals->OutputFormat[k] == dm_420) {
+-						locals->ODMCombineEnablePerState[i][k] = true;
++						locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_2to1;
+ 						mode_lib->vba.PlaneRequiredDISPCLK = mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+ 					}
+ 				}
+@@ -4165,7 +4165,7 @@ void dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 				locals->RequiredDISPCLK[i][j] = 0.0;
+ 				locals->DISPCLK_DPPCLK_Support[i][j] = true;
+ 				for (k = 0; k <= mode_lib->vba.NumberOfActivePlanes - 1; k++) {
+-					locals->ODMCombineEnablePerState[i][k] = false;
++					locals->ODMCombineEnablePerState[i][k] = dm_odm_combine_mode_disabled;
+ 					if (locals->SwathWidthYSingleDPP[k] <= locals->MaximumSwathWidth[k]) {
+ 						locals->NoOfDPP[i][j][k] = 1;
+ 						locals->RequiredDPPCLK[i][j][k] = locals->MinDPPCLKUsingSingleDPP[k]
+@@ -5230,7 +5230,7 @@ void dml21_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 			mode_lib->vba.ODMCombineEnabled[k] =
+ 					locals->ODMCombineEnablePerState[mode_lib->vba.VoltageLevel][k];
+ 		} else {
+-			mode_lib->vba.ODMCombineEnabled[k] = false;
++			mode_lib->vba.ODMCombineEnabled[k] = dm_odm_combine_mode_disabled;
+ 		}
+ 		mode_lib->vba.DSCEnabled[k] =
+ 				locals->RequiresDSC[mode_lib->vba.VoltageLevel][k];
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+2.39.2
+
