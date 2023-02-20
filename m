@@ -4,107 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45380C05027
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Feb 2023 01:09:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB3C5C05027
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Feb 2023 01:10:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB05810E096;
-	Mon, 20 Feb 2023 01:09:53 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2056.outbound.protection.outlook.com [40.107.100.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FB0A10E096
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Feb 2023 01:09:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 499E410E10C;
+	Mon, 20 Feb 2023 01:10:21 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2065.outbound.protection.outlook.com [40.107.223.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D744810E10C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Feb 2023 01:10:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZTJ4Rbsiz3McOWm5+lWuICVPyQdjHSv1Alu1C+Aa8NmWcxT4kbXwtppBtCS2v+m3CqnPvxCBbd234onQog8B7gCGm/GVKH7dvmREG+V8UnzbWDoUf3vBPYTOO/aR2Hmk9M4Tu9FpvbIO7Ciy4hv2o+wTB6crkOhIxaTZksfd+0RhKBhv9iAZv1K/st9f7nOF5KR6O+YnvZY/Y1S8zzVGvAHNH919N4Mzv2U9Stz/kdjIEAeGPVD7Rsvpb4HBHD/3UfqSk7XL9Gwpj4WQcUDD3TQXqOHyejwrS1CpCBtVe5VoSkgcji6MdxGk7MAkyW+oWMUpXwweuKQR0jew0nColA==
+ b=XNJwDsDfj5MvHInUsYusK6UphyGPjWDsjG0KoAjw+SZ/YFDigut+4KPplUQAqH8TpcwXmByHUe5VtxJSFEMNbQF1i/SdQiirGpBu3b2Ls+enqpbgHbZ7rH76Oie58q/YVtkKqDDa686AIV5k+Zr4uMq+cqWWhv6cr9HpQ+hZW2WGPyGbAhIMzy4ulaGm8n0sH7Jb9LxBDhkL4X59wvw5zhto7RRAkSBlx+a2MSokaYh9DbQAGqDAZnuIp+1mFYbHq2K8v7S+8B4et2ycqAUpE0eOutqCIxeadMwl3DLElV8Dmt4nbfhm5eDlsTDFL3X2insLTkmHRE0hReD8UBB9DA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E2rcD2ADBMXM3hlP8FF/inVDskCym1P0HKLREUnXDTQ=;
- b=J2YTg6bYFuzykyFuvhmVvv26a4STA2vEsx2u42o6No5qhk5Zxwq5fWC/dX+k+bK8xzIX7Zlh4QAwo/6RAjDI7IVNDKCAZNlO2AGmm96vLzXfqLRfiocppMYnoic/r3MWep/7LutjDE/kF/R47aJjYjck6O0wxdmdKipfFvaEDUYR7fLDSlmyOy2opkMyA5HbzH/gSQ8G5hB1akhSjYFu3GewfBJKu3K4+gWXKZKGJEMVCULhntokaLnrxSFX5f3bCCoL108sp5j9PLy/bZe1L2DCxfkf+gJdlHOU9+Y9nC2kDncl/sdU0FSadjHuiAEEngJo/ibej24PCPaE1BGA3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=9Vapg28BfnhM0DkcjLvmqG9Vg/+DcMG+XkpKudse3AA=;
+ b=U3fNoi485ynm/cK/kFCrqtr1wDASYanh8UGh0E7Hj/bgiE6kicgdPHH55SP/8Za2DSMbjLc1lXoU2BFR2lNwXZG5Vw8mPGJ1KQu76HicadfPMuAmWcPAByWpEvHhJPfo/R+btHwZv6tDt86Ci0RdvWNZnCS8ea+MOE5P7JwMFa2bp1uWzhsNQeksErmx8zlfjBWLIm5hmEm2dwUibuACVDh8/vLGs53UQRKhswnb/ZqvFcffJMwKdLjnE4wD4VBvdtFrNPmr0m8n7/qITkY0iOPSgPZwlsqz2xMVyeKqT1aIsA1U6AMQZ+NScbNdItpbw1S0y/TECb9gZTE2URC2bg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E2rcD2ADBMXM3hlP8FF/inVDskCym1P0HKLREUnXDTQ=;
- b=nYLFwRIgJL4F+Q25qdcyT/7fUj08htW32teIJUmMIUXL+1LOShS1xAa6COTO85OC49ogaodr8E4khBWmbmNctj423C2/Kpx/HBS3Lx/hhUoW0+tTCqqs/6s4107xpLBGwVrOsHRhM7F3NkGPx92eQjDplWO9+/P5YSu/0q8ByxA=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by PH8PR12MB7254.namprd12.prod.outlook.com (2603:10b6:510:225::18)
+ bh=9Vapg28BfnhM0DkcjLvmqG9Vg/+DcMG+XkpKudse3AA=;
+ b=gBMqp8Oyu5nJ4gK2oNMm70sq55fVL3J8Y2xGk5KHUqgteAOnS1JrnleMFRb6ZL97V3EYwqIuw8UN9tNa7TgYiZTc4Fdx1XqHp3Qur8qjI2fMHk/Xt4zKaHiZJB/O+gjJvBodHIriV8TmucHcDzZLpC+wfl2qqZd1SVX6mNO9+qU=
+Received: from MW4PR04CA0207.namprd04.prod.outlook.com (2603:10b6:303:86::32)
+ by PH7PR12MB7913.namprd12.prod.outlook.com (2603:10b6:510:27b::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.19; Mon, 20 Feb
- 2023 01:09:48 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::ffe7:2ff1:c01d:6070]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::ffe7:2ff1:c01d:6070%8]) with mapi id 15.20.6111.019; Mon, 20 Feb 2023
- 01:09:48 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Xu,
- Feifei" <Feifei.Xu@amd.com>, "Gao, Likun" <Likun.Gao@amd.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: fix incorrect active rb bitmap for gfx11
-Thread-Topic: [PATCH] drm/amdgpu: fix incorrect active rb bitmap for gfx11
-Thread-Index: AQHZRCwhNbs6GljOwkKj4J6ijqqUHK7XB2yQ
-Date: Mon, 20 Feb 2023 01:09:48 +0000
-Message-ID: <BN9PR12MB52571EEA0B9EA31141A7DB97FCA49@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20230219063328.13184-1-Hawking.Zhang@amd.com>
-In-Reply-To: <20230219063328.13184-1-Hawking.Zhang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|PH8PR12MB7254:EE_
-x-ms-office365-filtering-correlation-id: e2d3b2ea-a307-481f-bde7-08db12df295a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: buY6he4aia/ns7pEHiE/kV2+Bu8b3yIDpPq3YIhlftkDjol+q15QfDWQU7xolRZhD9ph9iJwzboeRtlyzHzvEg++98wmYWq82e2RvFzEgR6eIKVl+2efZ7cAdcMqUpYe3ei0t1oD1pfU5Ospu7BdUOzZa2+pRrsQSahq2s/vda8VPLrKQaZqIP+tF4UKG+gnlC3lMy7uiA64mfyran/6Z52cN+iFqRatLTaT7QNPBXckzs8n3ZHEFgOdzxzvLB5dZioRrWV4z3Cl7XaODNDI4AAZlt5iRYaNDgb511fhEj+1S6LjnoS/a3h2t8YEEqsypdGCArceWCsPM2AVv9F8spUH3w2n9ZPFJlDrk7Wzon3CLYw1FIKffEbR/2VvdQy8fi8AEAZ9CpySqkLBx3Vayw0LfJ6pxaxydDoH1+sN8d5EpJ0roPtgOMHbZOz3S0aosiEKz2XLHxqkkzCkQLE18S6v88EDtkBs4uPoAmmegTyisEE90mHrvicaRfX31LiYUbfagGXUUzFqh+Ec40xGGfl/Qsyb3hETaanE0gft/eNC2xJx1iGZzARxQV8z8d+qA8SPRp29yNjj0746FhetDuqdXPdMhucD+LixhK/LsRhvTy2QWkJ/Nroc0U9HdsT6Mln7e1Lv/CeyrT9tua5Tu9lD4UACpLYCpw6xuPhe0dPcUbQK+Jm0ddADLJKPjOhh9P8Tx10SyFT6WMYAgXamKA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(136003)(396003)(366004)(346002)(39860400002)(376002)(451199018)(83380400001)(38100700002)(5660300002)(8936002)(2906002)(110136005)(122000001)(55016003)(33656002)(86362001)(38070700005)(478600001)(53546011)(6506007)(7696005)(26005)(76116006)(66476007)(66446008)(64756008)(66946007)(66556008)(71200400001)(52536014)(9686003)(186003)(6636002)(8676002)(316002)(41300700001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ZW3gLojIdrLQzqMimUPGCIsEziSqOhZl795l/lJvppa7A/tfluBYlqD+nHoL?=
- =?us-ascii?Q?tasfc97tUvb971EHZVr1yAI15iQnVsmAu/nvhfBaR7akyoJKpVSa1P4bCJD2?=
- =?us-ascii?Q?/5+3M6/FkDrdoflDNz90bSWu8GJVdToeChrBuyx6DOtEyKOtN3IQYFCrz5DI?=
- =?us-ascii?Q?i1lw70jL7bY+Dyz9P56IjqtbkGrsw2y5GQ7mFwdeKQ7vnQBhXvQW0mDSdJzy?=
- =?us-ascii?Q?FdNyS7q3KEZmNzKqPwhoQhZ9N7dXs5v8cvOeAQWH6Ky6v0X2yghbCZiPuQGp?=
- =?us-ascii?Q?195Icy0qj3KeHS7yxZrS7r6x4Vywcp91Rg8ShIFqUrT/ST+KM42S1nbCnR/t?=
- =?us-ascii?Q?Fkh6sRl1SzINkl2vi5GPRgKTWm3jTjEZ/A2tAkobPuLYcUw7657SbYLBuZwt?=
- =?us-ascii?Q?3wrYKbljSXwl3RqucTBrNBu+ScWr3lQE9dAoQA1wWzLjKyBNXL2vnhuDdx5v?=
- =?us-ascii?Q?T1gl5HGyy+Hwh89cu8y5GrAfyVRUOXu5fpqr2+8fM2tW+gkxEp0BLknSy0rx?=
- =?us-ascii?Q?cCoe2y7d7P8s6n3KztTKT6wHMtdStOIkAElXOO/MleeAyht9C2JMY0Zfa/p0?=
- =?us-ascii?Q?SiGWrKrWQvz8aM1fDrl3l2g4RSI4KVRrcSSKoqKPNiWHXdsktMAftFQF3eSC?=
- =?us-ascii?Q?46hzyH5GB3IYFAXMJD+DkQf1/RShRgFi3qfaSqPBlQcQES44navtf+k1+OU0?=
- =?us-ascii?Q?+mqTkpvMchINYfj724zVP2oQp6dEEUo7mkxEsOjNVe43G9x3bmFSs6jGkO5F?=
- =?us-ascii?Q?9DMU9YYi8ZjZo5hvCu41va3hBR1Qjj8qn1jaYFhc61wi+vUS603vUFB0jQd3?=
- =?us-ascii?Q?q0rjEjLjHxaY3BnxlOg9PeX1arg+FlIJ6J05PHiKgMYGcOfQrylaY5/I1cC1?=
- =?us-ascii?Q?tsmJuU16yZR3TwZ/+BoYHcmuzRxjo1cLvwzbI8daYBJTJlO6SJ1Nyo+BEiMX?=
- =?us-ascii?Q?EmoFmBo3zuFc0Xm1VjG75ScKUwpHIrNgK1hZYm8Ymk218sos+t/o8+dFeHy4?=
- =?us-ascii?Q?X1eA7xxPGIbnWpPuCW5Un47Y7ZIvTguKfR1doaDHmuWXgvK771T/ryQprUu7?=
- =?us-ascii?Q?Nu86I/Ha5CG/UodYxo6501WqtGpQ5NP4wK2s747ITnFVdd75s9vB1sIVuzJM?=
- =?us-ascii?Q?fwfHoI/LccQ84oQubpcWzgsT/jPQtAl8t604VWds1Xq1qeqUql4v6IvYKHOw?=
- =?us-ascii?Q?eUglKKIiNQ7kJ2XRbvV71vKV6RU7btcueK4VkzUmG0lNCGdLN0Rk22hgGM0E?=
- =?us-ascii?Q?DM8UkCWd83jDgaex0IbG+SCIqQRgCLgWrTsOevrDDHMyylY3YpbTgxOUbkaT?=
- =?us-ascii?Q?KgaHgp4uu5uT+mZpdwJOHR/PKYkWLlURsmurkc1TCSdEUZPf+xu0z4U05Fvj?=
- =?us-ascii?Q?JoJGR5w92nRbh8F0ZYZ0i/Lii492a2C8VxwHneBe8PE63tFWX5bVj3skubPH?=
- =?us-ascii?Q?kYAbuYPeX8iF+N4Dg1fEL43KGhtxrMKI2gHdzkzceZZpRtJRVRnGfRM2qgzZ?=
- =?us-ascii?Q?NbO66rW6WRw+RViN2l5wm8mJ7cznEM42kTXhvqqns5OHBuSVEFpheJu6zvZM?=
- =?us-ascii?Q?AuwBRjLEV2rbADeOkFoxqin7pOzUTPt2TC3+lpSg?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.18; Mon, 20 Feb
+ 2023 01:10:14 +0000
+Received: from CO1NAM11FT057.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:86:cafe::bf) by MW4PR04CA0207.outlook.office365.com
+ (2603:10b6:303:86::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.19 via Frontend
+ Transport; Mon, 20 Feb 2023 01:10:14 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT057.mail.protection.outlook.com (10.13.174.205) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6111.19 via Frontend Transport; Mon, 20 Feb 2023 01:10:13 +0000
+Received: from hawzhang-System-Product-Master.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.34; Sun, 19 Feb 2023 19:10:07 -0600
+From: Hawking Zhang <Hawking.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, Feifei Xu <Feifei.Xu@amd.com>, Likun Gao
+ <Likun.Gao@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: fix incorrect active rb bitmap for gfx11
+Date: Mon, 20 Feb 2023 09:08:40 +0800
+Message-ID: <20230220010840.17333-1-Hawking.Zhang@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT057:EE_|PH7PR12MB7913:EE_
+X-MS-Office365-Filtering-Correlation-Id: 775dd650-99c2-4813-51c5-08db12df3856
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: D5EJ6dCDKFlRLRMzCvv9kMxnS6cMutdv/OPSmy5Vvplz3ggHsZRRmIH/PrgpxJUHZ7WueAjjJgv5taw6JwrJ4Qv2XFZN8i89fskn0iGZaOPRieeny/Fv7INavBaH3nkMdcmNovYqpTCDbffHiQ5wajjrlN+91ATAk0mstWHLv+3J1xBPg4v1fKD39iLyANWeOYF66txYEop3L1xoym5Htopz2Xd7IBup/ybaXMTo3OkyLajPf+jDogg/8G7ILYEa7Ue987q2TrwSn0iDaF8C0qjX5cMKXhBIuOjKcwJy2cLfNUouPCg/G0HBmPLlHLvbRS4XrkBqPd2j6NORx5nrQplpfvD73I9lvnu7FvFGUKczPFCj8HJgNtwli76AtqYI4IbcYRH0uo0XRqOxNCg8Lqcpc5HNIuimqJDO2JedCc74CuIwrDkK3d5HdpgaOlNe/Y6XOXlW2bFybmQ7Znnvupdrap+XoD1WIVJStMyOkXYiyIx2hGJGtcgqyy7TVAEjA2eDutN347A61IOGzvdFP03ko4BhAKz3c28iqHu6rUAYMin/H/FHumqGtc/vVoZS/kiZyEVZSxD5MlE16a6vrKSLYW0htlmd3Z6jd9/y5xJJT7o/niKy+8znCPVIBjfQKJ13x5b3h0fDYSmx50qVRKT1HImJN7vA3PjRkzumwk5aBPi8Sq5ETEj0T7Wu3k+txGEy/+7PcXpDtoHU5agNQvVDr0Vfqe0Zzk+jydiT2EU=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(396003)(39860400002)(346002)(136003)(376002)(451199018)(40470700004)(46966006)(36840700001)(83380400001)(426003)(478600001)(47076005)(316002)(6636002)(36756003)(110136005)(2906002)(82310400005)(86362001)(82740400003)(81166007)(356005)(36860700001)(70586007)(70206006)(40460700003)(40480700001)(4326008)(8676002)(8936002)(5660300002)(41300700001)(6666004)(7696005)(2616005)(26005)(186003)(16526019)(1076003)(336012)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e2d3b2ea-a307-481f-bde7-08db12df295a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Feb 2023 01:09:48.3564 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Vlk7LJC3ueVTvoJaj77J/lZ7Eh9/uP7N/IngCr5+FJQ4MNdLwqh7Xp6vQDORdIf3LNCi+SgXAB1RwOHU/oEN9A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7254
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Feb 2023 01:10:13.3526 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 775dd650-99c2-4813-51c5-08db12df3856
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT057.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7913
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,135 +97,124 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Please ignore this one. Some code needs to be optimized. I'll send out anot=
-her one for the review.
-
-Regards,
-Hawking
-
------Original Message-----
-From: Zhang, Hawking <Hawking.Zhang@amd.com>=20
-Sent: Sunday, February 19, 2023 14:33
-To: amd-gfx@lists.freedesktop.org; Xu, Feifei <Feifei.Xu@amd.com>; Gao, Lik=
-un <Likun.Gao@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: fix incorrect active rb bitmap for gfx11
-
-GFX v11 changes RB_BACKEND_DISABLE related registers from per SA to global =
-ones. The approach to query active rb bitmap needs to be changed accordingl=
-y. Query per SE setting returns wrong active RB bitmap especially in the ca=
-se when some of SA are disabled. With the new approach, driver will generat=
-e the active rb bitmap based on active SA bitmap and global active RB bitma=
-p.
+GFX v11 changes RB_BACKEND_DISABLE related registers
+from per SA to global ones. The approach to query active
+rb bitmap needs to be changed accordingly. Query per
+SE setting returns wrong active RB bitmap especially
+in the case when some of SA are disabled. With the new
+approach, driver will generate the active rb bitmap
+based on active SA bitmap and global active RB bitmap.
 
 Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 75 +++++++++++++++++---------
- 1 file changed, 49 insertions(+), 26 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 78 +++++++++++++++++---------
+ 1 file changed, 52 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v11_0.c
-index e7e5a2c31896..87a6cdac3d45 100644
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index e7e5a2c31896..7b7f01b304cb 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -1503,44 +1503,67 @@ static void gfx_v11_0_select_se_sh(struct amdgpu_de=
-vice *adev, u32 se_num,
- 	WREG32_SOC15(GC, 0, regGRBM_GFX_INDEX, data);  }
-=20
+@@ -1503,44 +1503,70 @@ static void gfx_v11_0_select_se_sh(struct amdgpu_device *adev, u32 se_num,
+ 	WREG32_SOC15(GC, 0, regGRBM_GFX_INDEX, data);
+ }
+ 
 -static u32 gfx_v11_0_get_rb_active_bitmap(struct amdgpu_device *adev)
 +static u32 gfx_v11_0_get_sa_active_bitmap(struct amdgpu_device *adev)
  {
 -	u32 data, mask;
 +	u32 gc_disabled_sa_mask, gc_user_disabled_sa_mask, sa_mask;
 +
-+	gc_disabled_sa_mask =3D RREG32_SOC15(GC, 0, regCC_GC_SA_UNIT_DISABLE);
-+	gc_disabled_sa_mask =3D REG_GET_FIELD(gc_disabled_sa_mask,
++	gc_disabled_sa_mask = RREG32_SOC15(GC, 0, regCC_GC_SA_UNIT_DISABLE);
++	gc_disabled_sa_mask = REG_GET_FIELD(gc_disabled_sa_mask,
 +					   CC_GC_SA_UNIT_DISABLE,
 +					   SA_DISABLE);
-+	gc_user_disabled_sa_mask =3D RREG32_SOC15(GC, 0, regGC_USER_SA_UNIT_DISAB=
-LE);
-+	gc_user_disabled_sa_mask =3D REG_GET_FIELD(gc_user_disabled_sa_mask,
++	gc_user_disabled_sa_mask = RREG32_SOC15(GC, 0, regGC_USER_SA_UNIT_DISABLE);
++	gc_user_disabled_sa_mask = REG_GET_FIELD(gc_user_disabled_sa_mask,
 +						 GC_USER_SA_UNIT_DISABLE,
 +						 SA_DISABLE);
-+	sa_mask =3D amdgpu_gfx_create_bitmask(adev->gfx.config.max_sh_per_se *
++	sa_mask = amdgpu_gfx_create_bitmask(adev->gfx.config.max_sh_per_se *
 +					    adev->gfx.config.max_shader_engines);
-=20
--	data =3D RREG32_SOC15(GC, 0, regCC_RB_BACKEND_DISABLE);
--	data |=3D RREG32_SOC15(GC, 0, regGC_USER_RB_BACKEND_DISABLE);
-+	return sa_mask & (~(gc_disabled_sa_mask | gc_user_disabled_sa_mask));=20
+ 
+-	data = RREG32_SOC15(GC, 0, regCC_RB_BACKEND_DISABLE);
+-	data |= RREG32_SOC15(GC, 0, regGC_USER_RB_BACKEND_DISABLE);
++	return sa_mask & (~(gc_disabled_sa_mask | gc_user_disabled_sa_mask));
 +}
-=20
--	data &=3D CC_RB_BACKEND_DISABLE__BACKEND_DISABLE_MASK;
--	data >>=3D GC_USER_RB_BACKEND_DISABLE__BACKEND_DISABLE__SHIFT;
-+static u32 gfx_v11_0_get_rb_active_bitmap(struct amdgpu_device *adev) {
+ 
+-	data &= CC_RB_BACKEND_DISABLE__BACKEND_DISABLE_MASK;
+-	data >>= GC_USER_RB_BACKEND_DISABLE__BACKEND_DISABLE__SHIFT;
++static u32 gfx_v11_0_get_rb_active_bitmap(struct amdgpu_device *adev)
++{
 +	u32 gc_disabled_rb_mask, gc_user_disabled_rb_mask;
 +	u32 rb_mask;
-=20
--	mask =3D amdgpu_gfx_create_bitmask(adev->gfx.config.max_backends_per_se /
+ 
+-	mask = amdgpu_gfx_create_bitmask(adev->gfx.config.max_backends_per_se /
 -					 adev->gfx.config.max_sh_per_se);
-+	gc_disabled_rb_mask =3D RREG32_SOC15(GC, 0, regCC_RB_BACKEND_DISABLE);
-+	gc_disabled_rb_mask =3D REG_GET_FIELD(gc_disabled_rb_mask,
++	gc_disabled_rb_mask = RREG32_SOC15(GC, 0, regCC_RB_BACKEND_DISABLE);
++	gc_disabled_rb_mask = REG_GET_FIELD(gc_disabled_rb_mask,
 +					    CC_RB_BACKEND_DISABLE,
 +					    BACKEND_DISABLE);
-+	gc_user_disabled_rb_mask =3D RREG32_SOC15(GC, 0, regGC_USER_RB_BACKEND_DI=
-SABLE);
-+	gc_user_disabled_rb_mask =3D REG_GET_FIELD(gc_user_disabled_rb_mask,
++	gc_user_disabled_rb_mask = RREG32_SOC15(GC, 0, regGC_USER_RB_BACKEND_DISABLE);
++	gc_user_disabled_rb_mask = REG_GET_FIELD(gc_user_disabled_rb_mask,
 +						 GC_USER_RB_BACKEND_DISABLE,
 +						 BACKEND_DISABLE);
-+	rb_mask =3D amdgpu_gfx_create_bitmask(adev->gfx.config.max_backends_per_s=
-e *
++	rb_mask = amdgpu_gfx_create_bitmask(adev->gfx.config.max_backends_per_se *
 +					    adev->gfx.config.max_shader_engines);
-=20
+ 
 -	return (~data) & mask;
 +	return rb_mask & (~(gc_disabled_rb_mask | gc_user_disabled_rb_mask));
  }
-=20
- static void gfx_v11_0_setup_rb(struct amdgpu_device *adev)  {
+ 
+ static void gfx_v11_0_setup_rb(struct amdgpu_device *adev)
+ {
 -	int i, j;
 -	u32 data;
--	u32 active_rbs =3D 0;
--	u32 rb_bitmap_width_per_sh =3D adev->gfx.config.max_backends_per_se /
+-	u32 active_rbs = 0;
+-	u32 rb_bitmap_width_per_sh = adev->gfx.config.max_backends_per_se /
 -					adev->gfx.config.max_sh_per_se;
-+	u32 active_rb_bitmap =3D 0;
++	u32 rb_bitmap_width_per_sa;
 +	u32 max_sa;
 +	u32 active_sa_bitmap;
 +	u32 global_active_rb_bitmap;
++	u32 active_rb_bitmap = 0;
 +	u32 i;
-=20
+ 
 -	mutex_lock(&adev->grbm_idx_mutex);
--	for (i =3D 0; i < adev->gfx.config.max_shader_engines; i++) {
--		for (j =3D 0; j < adev->gfx.config.max_sh_per_se; j++) {
+-	for (i = 0; i < adev->gfx.config.max_shader_engines; i++) {
+-		for (j = 0; j < adev->gfx.config.max_sh_per_se; j++) {
 -			gfx_v11_0_select_se_sh(adev, i, j, 0xffffffff);
--			data =3D gfx_v11_0_get_rb_active_bitmap(adev);
--			active_rbs |=3D data << ((i * adev->gfx.config.max_sh_per_se + j) *
+-			data = gfx_v11_0_get_rb_active_bitmap(adev);
+-			active_rbs |= data << ((i * adev->gfx.config.max_sh_per_se + j) *
 -					       rb_bitmap_width_per_sh);
 -		}
 +	/* query sa bitmap from SA_UNIT_DISABLE registers */
-+	active_sa_bitmap =3D gfx_v11_0_get_sa_active_bitmap(adev);
++	active_sa_bitmap = gfx_v11_0_get_sa_active_bitmap(adev);
 +	/* query rb bitmap from RB_BACKEND_DISABLE registers */
-+	global_active_rb_bitmap =3D gfx_v11_0_get_rb_active_bitmap(adev);
++	global_active_rb_bitmap = gfx_v11_0_get_rb_active_bitmap(adev);
 +
 +	/* generate active rb bitmap according to active sa bitmap */
-+	max_sa =3D adev->gfx.config.max_shader_engines *
++	max_sa = adev->gfx.config.max_shader_engines *
 +		 adev->gfx.config.max_sh_per_se;
-+	for (i =3D 0; i < max_sa; i++) {
++	rb_bitmap_width_per_sa = adev->gfx.config.max_backends_per_se /
++				 adev->gfx.config.max_sh_per_se;
++	for (i = 0; i < max_sa; i++) {
 +		if (active_sa_bitmap & (1 << i))
-+			active_rb_bitmap |=3D 0x3 << (i * 2);
++			active_rb_bitmap |= (0x3 << (i * rb_bitmap_width_per_sa));
  	}
 -	gfx_v11_0_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
 -	mutex_unlock(&adev->grbm_idx_mutex);
-=20
--	adev->gfx.config.backend_enable_mask =3D active_rbs;
--	adev->gfx.config.num_rbs =3D hweight32(active_rbs);
-+	active_rb_bitmap |=3D global_active_rb_bitmap;
-+	adev->gfx.config.backend_enable_mask =3D active_rb_bitmap;
-+	adev->gfx.config.num_rbs =3D hweight32(active_rb_bitmap);
+ 
+-	adev->gfx.config.backend_enable_mask = active_rbs;
+-	adev->gfx.config.num_rbs = hweight32(active_rbs);
++	active_rb_bitmap |= global_active_rb_bitmap;
++	adev->gfx.config.backend_enable_mask = active_rb_bitmap;
++	adev->gfx.config.num_rbs = hweight32(active_rb_bitmap);
  }
-=20
+ 
  #define DEFAULT_SH_MEM_BASES	(0x6000)
---
+-- 
 2.17.1
 
