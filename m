@@ -4,117 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 673FBC636CC
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Feb 2023 08:11:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1AEAC05027
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Feb 2023 09:56:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DDA110E111;
-	Mon, 20 Feb 2023 08:11:29 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2060a.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eab::60a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D5F410E05B;
- Mon, 20 Feb 2023 08:11:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jYSUmCkWcH9A9GID5z63NUerjZf9T6tNDPh8HY6y8Bu+1kD3M9nrhGiBrKLSUXIZoh/uo7IdWpBXhzlcKRhQlrys+f7okgYn4DiX19tBskpHQ+l+2sSJQ+N3MvJ1wLEhaqMg2bdAxGDBpJfeWUsFnJbTBWeFIE0X9TtBOvf25Laf5GEO6tfpZhWaG4poPS/YbMNmI3JbPUXi8qsYOXsb+q++MRGsvuVWMPhYPILp5DZYEVM6i9SzURIA6aYJz56rhVOC9U6LR2X7wJOKmqCuLC8EJ+PN8Br3jMLk3nmUnnP8b8RSKUiv8CdZHGNLTgqMi13hXbL/0oLum22xeXyaKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0nBVyfxyzrZk/CZxuEUNGQTOLkWFVD0NDAdZoxwnFII=;
- b=oKq6PvLmqhQlvRE+Pb4vI/LvvsjufSuIpLHVm6SkW9wwIAHuOp103dDdFuPCA4Ycu+pfWnNNRyZfQk0vo3zjWYaU6KRexIXVe1hR/3wNLO5S0Yer1FMCYfE1bGdDjgsQ9eg48IGFEmWm/buCT6B79AFG2EhTAeORa53QdZSOvYSAyxPsoyQgI8EFBEkYVc/BmDHHcVtt4MeHrPj/h/EZCurrYehYmB2BykzrKkWLf0A3fWKsG/MsE5qqFi0oHTgDlUKKIYSpNaF7QUcWazUrUl1yLubmcTzucj4aJM2lIF12J2Rva5h3MzHTt81MooIYaCU2V7YcM5Ixcn0LXbNkTg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0nBVyfxyzrZk/CZxuEUNGQTOLkWFVD0NDAdZoxwnFII=;
- b=BWRIa6RFq4eZema73P6UBzL9gF9tdU8wdmFrkWFGX8YQH+q44Ci1VY06Ic7tWLIWx9k3SVHFfmPTYG22P44GQVRNKGvwUgmIE6Xdn/rTa9I+B+guIOhf14Ie+hiVvCvdpzMUlVRH8okLOkyUITrjRBNOwUonu465Xc+U50NRi+w=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by IA0PR12MB7603.namprd12.prod.outlook.com (2603:10b6:208:439::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.19; Mon, 20 Feb
- 2023 08:11:25 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::2e4f:4041:28be:ba7a]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::2e4f:4041:28be:ba7a%6]) with mapi id 15.20.6111.019; Mon, 20 Feb 2023
- 08:11:25 +0000
-Message-ID: <3e289d99-eae5-c5be-aff1-2e95b89a406b@amd.com>
-Date: Mon, 20 Feb 2023 09:11:18 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE06F10E63C;
+	Mon, 20 Feb 2023 09:56:01 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 684B510E63A;
+ Mon, 20 Feb 2023 09:55:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1676886958; x=1708422958;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=wDFkjevp61dV43G7+TahUKAznUR6LwjLaZx5HdJVsCg=;
+ b=KCAt56PaoSFuBcCJGb+AgIN4zK+QJ7rQsEnRlauzzqakGlIR9M6uVDJ3
+ KhBfinp69tT/pEmq9z6wXyhjEV8f7YzCLsYy+D+I82I2eoTWwr5CVx2/+
+ KCRt2Rj30zje7/rf3Ip0X9pg+Dy+6Ezozs83SRNgbKzvRe/Axa+4NycCT
+ sj9N5YaA1FkNqjlnWeOkvduBRIPV471y1tw3Ne4PultuewOnQwdwYf5RE
+ D0rCulb/lhhae2KqK08FSY+kNdJcO+38NJjW2udsc+xErG5WucsK/9Mxb
+ S1A9OkBquVyBxgdGjLQsnqPPkNcUJOWTXGCzY91Jba2FFCh/15NtJS/SN g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10626"; a="359829112"
+X-IronPort-AV: E=Sophos;i="5.97,312,1669104000"; d="scan'208";a="359829112"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Feb 2023 01:55:57 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10626"; a="701612197"
+X-IronPort-AV: E=Sophos;i="5.97,312,1669104000"; d="scan'208";a="701612197"
+Received: from mochoamo-mobl.ger.corp.intel.com (HELO [10.213.211.126])
+ ([10.213.211.126])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Feb 2023 01:55:52 -0800
+Message-ID: <767620c4-385f-c0e8-dcb1-513ef4402ad0@linux.intel.com>
+Date: Mon, 20 Feb 2023 09:55:50 +0000
+MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH v2 0/3] Resolve warnings from AMDGPU
+ Thunderbird/102.8.0
+Subject: Re: [PATCH] drm/gem: Expose the buffer object handle to userspace last
 Content-Language: en-US
-To: Arthur Grillo <arthurgrillo@riseup.net>, amd-gfx@lists.freedesktop.org,
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
  dri-devel@lists.freedesktop.org
-References: <20230217181409.218008-1-arthurgrillo@riseup.net>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230217181409.218008-1-arthurgrillo@riseup.net>
+References: <20230214125050.1205394-1-tvrtko.ursulin@linux.intel.com>
+ <f1256a51-5c4d-ab44-3867-931f7d2c0695@amd.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <f1256a51-5c4d-ab44-3867-931f7d2c0695@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0001.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1d::10) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|IA0PR12MB7603:EE_
-X-MS-Office365-Filtering-Correlation-Id: b41c7d7d-c60e-4616-e081-08db131a0f01
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: HqBEKRN+OUgY3N/AFD1IFauUZIjfUpQTNAHEwCQNWJhqoDc07sZXcJCtDIrUeZa0izfUL1C9jRnP6LuATO7FKI4F0tIl16nT0iHLaKCxtiHvdtuHhI+lNIb+DO4UvaIOOQlQ0qihdpqEiDk7RbtG37kNP+gQwkpMuqWZg8/LExmR65bXyiHQXSa+ZfNGjSCrmifprjHjMgUuGOALEJRTj2tCfG2syyHejiG6QpdJ0pp4xNjIzt0k42ni4NJsdVNpHjFBEmU5iNa/+UnbaSteeOzzosbz6yGMEbldIC8Wvj1JhOYMSa9LSVf8nraQHnzB/bTX0c3PMGYvAhqCARY9tqgPb39nHNilMP4WIMWCxzWQY7lt6Nicx61L8q8MUFIvBLLkNB1qeISKxNfCxjC4KExCi2HfeIvbu9sNl1qTJBffOOxNsZoN3XpVgetujtCbKcFhClqswcX2sOe7Nnl1GPDJoUcb/j4AJdr4M8563c+goqYYSI7gTNHYQdmKV5Uq1XmMdHwHkpT1/uA5bhz2qPsHapT58sUNGByI42Rq2468m5zNI0L9GY2o7PH92c4lFfRYnd7oD4Nq1zF+NbURFy8fs9A3ndUDL/edi3NAfmqfexhWDKtiZaO432XwNAYiWcsnwzSzVDCnugB9EHChMwxo7vI3XsFA4zKh6Fj8srlUoeERH3TgGlxP9vTZ+xGVRpc9/WBees0H8kASN7G4Ac+ywfDmzQhT8XSYxAoQ2oY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(366004)(376002)(346002)(396003)(39860400002)(136003)(451199018)(31686004)(8676002)(66946007)(4326008)(66476007)(316002)(6486002)(966005)(66556008)(41300700001)(8936002)(5660300002)(36756003)(31696002)(86362001)(478600001)(186003)(6512007)(38100700002)(6666004)(6506007)(66574015)(2616005)(2906002)(83380400001)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SldFa2xxaENDRmpmMlF2b1FxN0dSa1VXUjhEaWtSMGhqcHlkcGdZZUluZzJS?=
- =?utf-8?B?ZnRBemcvMHRyRkR2Mmt5aG1BK25HNStKcE9PK0VTaDBKLzZuYStFUndBOFFD?=
- =?utf-8?B?Z01pKzZieUtXZWIwaUl2czVwZUoyYTJzenp5ZkpSMzdBcTA4dm04NVM1SG4x?=
- =?utf-8?B?NHBkYi9FRUdVeFNPZTZBUFJPRnluZmFzQURxYTd6VmxsMjZnQ3JQZWlreXd4?=
- =?utf-8?B?eVJ0cHY5SWJPNXdVVEk1VG15NEZEanMwVzJsdElyTThqM1haRFdtQWMraW9L?=
- =?utf-8?B?S2xHNDBodDFCUHcycWkrU0VTMFppYTBXVXFVMFNKLzhTTXN5d01nOU1yK0Jz?=
- =?utf-8?B?cTNLTUc4MXIxS3ZQQ3A3MXY0WHlHbGhXZ3d1Q0x3Wmxha3RMNTllN25mbFJh?=
- =?utf-8?B?anpHWE04QVp3NmRBbTVLZHpEc1JSMkQrblRlNHRycFFScVlhNVMvUzNKenpU?=
- =?utf-8?B?WXN3ZHIxd3hZaHUxbjRmellYZCs2c0M3bVZUY2lFR0NSdXhrNG1GMFc1QWZO?=
- =?utf-8?B?TEZDL2x5ZzJGRUlodG80NUxEZmlMOUx0bHNpZ0NNYW9wYys1ak9tb0lmaTIr?=
- =?utf-8?B?emFob3daS2tJRmRzbkY0M200NEV3ZnRHQTd0RUVZSHNxSkxoSm9vd3IvcHZm?=
- =?utf-8?B?bC9oZFVuWHpKWXdIYXFXcFFLdjJVRnZKSE1sUDBTWFBuZUhxOWZnWVFnbWpr?=
- =?utf-8?B?VWYvc0xQK2l1M1d1RjArWUtPOVRLemt1Wjkyc1Y3Z1VkVjF4SUMyQm9HNlhH?=
- =?utf-8?B?VEZnWEg1KzVrSmQ5dWFLcUJSNk90TERNaXNFVUFlSExwcDR4RU5lYTBUNUM2?=
- =?utf-8?B?b3hSd3NyQVhONXVmcGpnK3JTcno4dWtpaEVDa1g1dGRMNUo2TlNqYmpZM0NO?=
- =?utf-8?B?RGVzTmIvMWxndXVzZFE4R29JMHVXZWZVTnhvd1BtNmczTHVUQVdkS2xrRUFY?=
- =?utf-8?B?eElKSjBsdmpjeHRlNWV3UzBuMjhndGk0NDdESUZlU0VOTElWUUZGNEFsS04r?=
- =?utf-8?B?Rm1LaWNSbHkxcUIrYnVBYWh2U01BUWZPd2VHUlMrZDArNUVCaFI2bnN3NUNM?=
- =?utf-8?B?cWZ0MVZPZW42aDA2YmxZQWtLcE0zWE4rMXpuNEZWTlR1bUR3TXZUbUJYNlB6?=
- =?utf-8?B?TE9UVGNhYmQwa1pIeW5ydDREVnYxWlRvQUZ6UVJlY1RaTHk2MENZcFpRNmlR?=
- =?utf-8?B?REtMdy9vNGtUdk1MNkNjRUROdWtXSlNNU2ZCc1l4SjBIYjZVc1dPSFVlUEJp?=
- =?utf-8?B?bFpSNG8zc0pnZDJUQ1RPZWpFa24rOHllaWJic2MySllyQUcwamVESkI2ek41?=
- =?utf-8?B?YnZKSDZXR21nQUpWUTBBbmJzTUxFeWZLM3BTcDVraThjQWpsc3FKQjFnN05v?=
- =?utf-8?B?ODdxaXc5QWxYVVJOaUR6anBvRVNpWVppbGswYk5aWlJ4dWJ0d0hNOG55dFNJ?=
- =?utf-8?B?RHpJcHcvMGNuTnRZQWorcllFNi9Ta0s5UXN2NHZqM0MraEluM1VJTGU3L21y?=
- =?utf-8?B?Y3BvRWMvaFIzTWxEc0MzQkJtUVhMZnhvQ1hZRGRmTVBvVmVqQ2cxQ094UlFB?=
- =?utf-8?B?WUJ6SHlsTG9hbUgzejM4WEVLMlpTWEtyblA3Y1E5U1BSLzRqaGxRMktJRlli?=
- =?utf-8?B?TzZvaitzNEZVYUR1Z3h4Zzl4b2w2Tmx0WFpHejBMbEFrWG1URGI5YVh4ZE5Z?=
- =?utf-8?B?ckhodHJuRDN0SVl5WU90MFdFV29sNjgyZmdRNnltbHVudHZlaWt4NmNaUUdO?=
- =?utf-8?B?c2plMlBOdSt2anFqN2tSb3ZRU0FlOHU0ejV2dzVTRUlpblFOeEhWblYzKzBG?=
- =?utf-8?B?RmFlZVh5WDRLZkdwTmxGM01aMi9UTjJSbk9IWVVCbGNTQUpIaVRJc1FPakRS?=
- =?utf-8?B?cE1qRndndEpDcExjS2IySE01RENOMHhUTytlVTVUeUF4ODdJR2Z0WnljWW04?=
- =?utf-8?B?RnVZUnRaOHUzM21QOEYxdVlTT0lYU3lYY2drZTM2WTk0U04zb3RaRGt6cnRB?=
- =?utf-8?B?aHpObFg2WjN1RGpuNnZ2cVdZckI5R2xwVE9MbnFoSjBFL0hmY2JBNjVUMFRY?=
- =?utf-8?B?RFVmeWFzQ3h4ZUh2VlRjNkFydzdpdGIvMXpQSFF5anYzYjVMbkR1K0RHelFJ?=
- =?utf-8?B?WmJOUDk4YUNaVks0K0JCUVB0Y0o0MWQ0anhaM015U2JHN09wR1hTTlYwWnRE?=
- =?utf-8?Q?kZX/HQe7IylnEpTiR9qvonjw84lIl+QIGTWs+v+ancJ/?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b41c7d7d-c60e-4616-e081-08db131a0f01
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Feb 2023 08:11:24.7884 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QgKXxfdxN0MvgYzXsQ7QcCq/wxkc9LBXxKHM+A5OS+8aaYyX+AgV3S7WyXC6Aztl
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7603
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,61 +62,188 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, tales.aparecida@gmail.com, Xinhui.Pan@amd.com,
- Rodrigo.Siqueira@amd.com, mairacanal@riseup.net, daniel@ffwll.ch,
- harry.wentland@amd.com, alexander.deucher@amd.com, andrealmeid@riseup.net,
- airlied@gmail.com
+Cc: Rob Clark <robdclark@chromium.org>, lima@lists.freedesktop.org,
+ Tvrtko Ursulin <tvrtko.ursulin@intel.com>, nouveau@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
+ =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
+ Ben Skeggs <bskeggs@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
+ David Herrmann <dh.herrmann@gmail.com>, spice-devel@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org, David Airlie <airlied@gmail.com>,
+ Zack Rusin <zackr@vmware.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Acked-by: Christian König <christian.koenig@amd.com> for the whole series.
 
-Am 17.02.23 um 19:14 schrieb Arthur Grillo:
-> Hi,
->
-> This series resolve some of the warnings that appear when compiling AMDGPU
-> with W=1.
->
-> Each patch is focused in a specific warning.
->
-> This is my First Patch for the GSoC Project Idea about increasing code
-> coverage of the DRM code[1].
->
-> Thanks for reviewing!
->
-> Best regards,
-> Arthur Grillo
->
-> [1]: https://www.x.org/wiki/DRMcoverage2023/#firstpatch
->
-> ---
->
-> v1 -> v2: https://lore.kernel.org/all/20230213204923.111948-1-arthurgrillo@riseup.net/
->
-> - Use dm_odm_combine_mode_disabled dm_odm_combine_mode_2to1 instead of an enum casting
-> - Maintain register read
->
-> ---
->
-> Arthur Grillo (3):
->    drm/amd/display: Fix implicit enum conversion
->    drm/amd/display: Remove unused local variables
->    drm/amd/display: Remove unused local variables and function
->
->   .../amd/display/dc/dcn10/dcn10_link_encoder.c |  3 +-
->   .../drm/amd/display/dc/dcn201/dcn201_dpp.c    |  7 ----
->   .../drm/amd/display/dc/dcn201/dcn201_hwseq.c  |  2 -
->   .../gpu/drm/amd/display/dc/dcn30/dcn30_afmt.c |  2 -
->   .../gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c |  4 --
->   .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    |  3 --
->   .../gpu/drm/amd/display/dc/dcn31/dcn31_apg.c  | 41 -------------------
->   .../drm/amd/display/dc/dcn32/dcn32_resource.c |  5 +--
->   .../display/dc/dcn32/dcn32_resource_helpers.c |  4 --
->   .../dc/dml/dcn20/display_mode_vba_20.c        |  9 ++--
->   .../dc/dml/dcn20/display_mode_vba_20v2.c      | 11 ++---
->   .../dc/dml/dcn21/display_mode_vba_21.c        | 12 +++---
->   .../dc/dml/dcn31/display_rq_dlg_calc_31.c     |  2 -
->   .../dc/link/protocols/link_dp_capability.c    |  4 --
->   14 files changed, 19 insertions(+), 90 deletions(-)
->
+Hi,
 
+On 14/02/2023 13:59, Christian König wrote:
+> Am 14.02.23 um 13:50 schrieb Tvrtko Ursulin:
+>> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+>>
+>> Currently drm_gem_handle_create_tail exposes the handle to userspace
+>> before the buffer object constructions is complete. This allowing
+>> of working against a partially constructed object, which may also be in
+>> the process of having its creation fail, can have a range of negative
+>> outcomes.
+>>
+>> A lot of those will depend on what the individual drivers are doing in
+>> their obj->funcs->open() callbacks, and also with a common failure mode
+>> being -ENOMEM from drm_vma_node_allow.
+>>
+>> We can make sure none of this can happen by allocating a handle last,
+>> although with a downside that more of the function now runs under the
+>> dev->object_name_lock.
+>>
+>> Looking into the individual drivers open() hooks, we have
+>> amdgpu_gem_object_open which seems like it could have a potential 
+>> security
+>> issue without this change.
+>>
+>> A couple drivers like qxl_gem_object_open and vmw_gem_object_open
+>> implement no-op hooks so no impact for them.
+>>
+>> A bunch of other require a deeper look by individual owners to asses for
+>> impact. Those are lima_gem_object_open, nouveau_gem_object_open,
+>> panfrost_gem_open, radeon_gem_object_open and virtio_gpu_gem_object_open.
+>>
+>> Putting aside the risk assesment of the above, some common scenarios to
+>> think about are along these lines:
+>>
+>> 1)
+>> Userspace closes a handle by speculatively "guessing" it from a second
+>> thread.
+>>
+>> This results in an unreachable buffer object so, a memory leak.
+>>
+>> 2)
+>> Same as 1), but object is in the process of getting closed (failed
+>> creation).
+>>
+>> The second thread is then able to re-cycle the handle and idr_remove 
+>> would
+>> in the first thread would then remove the handle it does not own from the
+>> idr.
+>>
+>> 3)
+>> Going back to the earlier per driver problem space - individual impact
+>> assesment of allowing a second thread to access and operate on a 
+>> partially
+>> constructed handle / object. (Can something crash? Leak information?)
+>>
+>> In terms of identifying when the problem started I will tag some patches
+>> as references, but not all, if even any, of them actually point to a
+>> broken state. I am just identifying points at which more opportunity for
+>> issues to arise was added.
+> 
+> Yes I've looked into this once as well, but couldn't completely solve it 
+> for some reason.
+> 
+> Give me a day or two to get this tested and all the logic swapped back 
+> into my head again.
+
+Managed to recollect what the problem with earlier attempts was?
+
+Regards,
+
+Tvrtko
+
+> Christian.
+> 
+>>
+>> References: 304eda32920b ("drm/gem: add hooks to notify driver when 
+>> object handle is created/destroyed")
+>> References: ca481c9b2a3a ("drm/gem: implement vma access management")
+>> References: b39b5394fabc ("drm/gem: Add drm_gem_object_funcs")
+>> Cc: dri-devel@lists.freedesktop.org
+>> Cc: Rob Clark <robdclark@chromium.org>
+>> Cc: Ben Skeggs <bskeggs@redhat.com>
+>> Cc: David Herrmann <dh.herrmann@gmail.com>
+>> Cc: Noralf Trønnes <noralf@tronnes.org>
+>> Cc: David Airlie <airlied@gmail.com>
+>> Cc: Daniel Vetter <daniel@ffwll.ch>
+>> Cc: amd-gfx@lists.freedesktop.org
+>> Cc: lima@lists.freedesktop.org
+>> Cc: nouveau@lists.freedesktop.org
+>> Cc: Steven Price <steven.price@arm.com>
+>> Cc: virtualization@lists.linux-foundation.org
+>> Cc: spice-devel@lists.freedesktop.org
+>> Cc: Zack Rusin <zackr@vmware.com>
+>> ---
+>>   drivers/gpu/drm/drm_gem.c | 48 +++++++++++++++++++--------------------
+>>   1 file changed, 24 insertions(+), 24 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+>> index aa15c52ae182..e3d897bca0f2 100644
+>> --- a/drivers/gpu/drm/drm_gem.c
+>> +++ b/drivers/gpu/drm/drm_gem.c
+>> @@ -356,52 +356,52 @@ drm_gem_handle_create_tail(struct drm_file 
+>> *file_priv,
+>>                  u32 *handlep)
+>>   {
+>>       struct drm_device *dev = obj->dev;
+>> -    u32 handle;
+>>       int ret;
+>>       WARN_ON(!mutex_is_locked(&dev->object_name_lock));
+>>       if (obj->handle_count++ == 0)
+>>           drm_gem_object_get(obj);
+>> +    ret = drm_vma_node_allow(&obj->vma_node, file_priv);
+>> +    if (ret)
+>> +        goto err_put;
+>> +
+>> +    if (obj->funcs->open) {
+>> +        ret = obj->funcs->open(obj, file_priv);
+>> +        if (ret)
+>> +            goto err_revoke;
+>> +    }
+>> +
+>>       /*
+>> -     * Get the user-visible handle using idr.  Preload and perform
+>> -     * allocation under our spinlock.
+>> +     * Get the user-visible handle using idr as the _last_ step.
+>> +     * Preload and perform allocation under our spinlock.
+>>        */
+>>       idr_preload(GFP_KERNEL);
+>>       spin_lock(&file_priv->table_lock);
+>> -
+>>       ret = idr_alloc(&file_priv->object_idr, obj, 1, 0, GFP_NOWAIT);
+>> -
+>>       spin_unlock(&file_priv->table_lock);
+>>       idr_preload_end();
+>> -    mutex_unlock(&dev->object_name_lock);
+>>       if (ret < 0)
+>> -        goto err_unref;
+>> -
+>> -    handle = ret;
+>> +        goto err_close;
+>> -    ret = drm_vma_node_allow(&obj->vma_node, file_priv);
+>> -    if (ret)
+>> -        goto err_remove;
+>> +    mutex_unlock(&dev->object_name_lock);
+>> -    if (obj->funcs->open) {
+>> -        ret = obj->funcs->open(obj, file_priv);
+>> -        if (ret)
+>> -            goto err_revoke;
+>> -    }
+>> +    *handlep = ret;
+>> -    *handlep = handle;
+>>       return 0;
+>> +err_close:
+>> +    if (obj->funcs->close)
+>> +        obj->funcs->close(obj, file_priv);
+>>   err_revoke:
+>>       drm_vma_node_revoke(&obj->vma_node, file_priv);
+>> -err_remove:
+>> -    spin_lock(&file_priv->table_lock);
+>> -    idr_remove(&file_priv->object_idr, handle);
+>> -    spin_unlock(&file_priv->table_lock);
+>> -err_unref:
+>> -    drm_gem_object_handle_put_unlocked(obj);
+>> +err_put:
+>> +    if (--obj->handle_count == 0)
+>> +        drm_gem_object_put(obj);
+>> +
+>> +    mutex_unlock(&dev->object_name_lock);
+>> +
+>>       return ret;
+>>   }
+> 
