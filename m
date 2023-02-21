@@ -4,120 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E23D6C636D7
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Feb 2023 14:30:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32753C61DA3
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Feb 2023 14:41:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66F6610E0AB;
-	Tue, 21 Feb 2023 14:30:51 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2088.outbound.protection.outlook.com [40.107.244.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89DEC10E0AB
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Feb 2023 14:30:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAC0510E2C7;
+	Tue, 21 Feb 2023 14:41:09 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2065.outbound.protection.outlook.com [40.107.237.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C79910E2C7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Feb 2023 14:41:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Lp0Eo3a7gQOAdlZCKfx5+uK+MEIWVDikuzNoYm3R/A2CO+LwJjk7WtjvtPQ6tfn4Ab1FNHxBTmXB6+kroBLNsc4PG4kHIB6Yn2skMf74UOjK3bkb3CHbJ7QcwCKQ7XxaPDP1KorCcHlocITTAoPMKj59jAZVEQdYSKve5iAcu4Y3ulMHZRPP/nswIjzM7WDzIcRMhp045DGTobwjiJyBssPInbgMpm3q79aSa7pT84VjyhMgZI3QaTbmdYJ9pqI55prBoA3PMfyJmbmjsjo8L1e80UDT9rdvhwA9brX6Pj7/uvFiVnCVpIVVYGlaS/wwa9nKZMkgi9RTcyPqQWlc+A==
+ b=I7L+/r8dwlul+mPvsS7RvGEnkVrQfb7MQPyab6X7LsDe21mB9I7/shX0UrhlvBCAl6VUU4Kcm1egqfvMoVH/4sJpqZuUKM2h8OXmTMYo5NNDcd5+48yI82kWzJkvssoKSC09t+ZOOftinpNkpuQwCSPs28Mv9c3+IoC9pTE43AXVf+ZvpxvX/mZspFPdcWX/5tAI67QOCBFHglw336HeN6/PGQCk1vmJL/P9uSDmrtLDNLN1+fkc42kMmfn0VXJBVANQZDTIgbYowqiyu7Oy83rL+i1FA+BCNodQX5fUKxdE6oqUeG/Vrh/tRmeAzjDBkdwjcZe1hXoaogfPM9sLbg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jCVMVvoseKDnVz9qZ8PC3xFA1fksCjNJ6NRQCd/71pk=;
- b=ZhW87bE6x178SLKviZJbGJPaqVkU2m0rSTYHpu7LqMBFphKa5rjJzfi03mPtJC3bQNmcM75rwiW+cL+Z05gxnOorxk8EUyWjXvTVsRS7Z4L2a1Q8HLMkAqpSOo7fp0DMx3RfKZv+498oyfQ+6M3aClQVPqUYuf2SolFbqJ6birquTVpMdBDeKi19jnyAGe8mSPjKRYKfSxnc/bE/xnLslvRyThkiaQIO2dgmWvmFJ4cBdh6aGvnrZBy95hdslLaDyf8a7sgouJNCplzGm53tDcCQXh0+JBBr2Zek9hnB0RfmKoaiSNHx1XDM98DJinN3JekMO2erKx9BMiT88H0IbA==
+ bh=tivnInh5goLz5S3HKG0wWHH+ECuEmQerww+jAkw3K6E=;
+ b=IZsvNpLj+YqrXITElJ8gtzVyUcN06TR8VyWcmxElRBU/5c3cvA+nBvrhXHWtgWrry7ZbPWBJHv+NDUM/ns1u+AEI5QfNtdfZsWa2e4wXOxNVhzKgpcSPXhrLAW4u04wVBShbOCCvkXfzibRPL8HJXMPn9ECEPIYsL7FixCZAzBldaVdjOER0krOH9rggSsXx2iUsEw+6nDWg8D1UkDkHQIGCL5goZigHgqNX+qnpJAUxQrpHGj0DLU7rPu2Q0I5QwTqpew919Sx9HGVzDiWMEoHvw8e87DUp8Dc2mOQZgIOehHrfCs5MCZ8JJF0EQpakO/3YdnVnydRVRL0leuCF9w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jCVMVvoseKDnVz9qZ8PC3xFA1fksCjNJ6NRQCd/71pk=;
- b=xZhu55Dk5hJygcWv3fE+th+ABOjVlsaMF8zf/zLHGO/9aqImd+7x8qo6oscrrOBRczeF2hrAfycw0Rb5hPnfBSFI/FQHenKyVaMMU2ELjVJxyyP+shIROEO1rBUuJAMnfzyELfJdGWTwwqqY+CtdvZZbxE7ZpuztpkKuk9JmdbE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by PH0PR12MB5401.namprd12.prod.outlook.com (2603:10b6:510:d4::13)
+ bh=tivnInh5goLz5S3HKG0wWHH+ECuEmQerww+jAkw3K6E=;
+ b=iTuLwf3nkQj4i7dRWj/0IApxt7UIoG5x2v7wpFANi69BEUm2x+7+FTbyA00XTVw4BsBhgdCuOAa6TZ5lbYg19UEz1UW8WxnnL0uaKrhQEjJ2MVpUTklK17xeQzA51LRhPRtxj5ZoAgbZG0fPNGN4p8hE5Ro5e5obfXTzb3fIXxw=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by BL1PR12MB5946.namprd12.prod.outlook.com (2603:10b6:208:399::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.21; Tue, 21 Feb
- 2023 14:30:46 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::a59e:bafb:f202:313c]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::a59e:bafb:f202:313c%7]) with mapi id 15.20.6111.019; Tue, 21 Feb 2023
- 14:30:46 +0000
-Message-ID: <8a3ba569-6544-b0a6-aa2c-aac74ee7d850@amd.com>
-Date: Tue, 21 Feb 2023 08:30:45 -0600
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH 3/3] drm/amd: Don't always set s3 for dGPUs in all sleep
- modes
-To: "Lazar, Lijo" <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230220201618.25962-1-mario.limonciello@amd.com>
- <20230220201618.25962-4-mario.limonciello@amd.com>
- <ebeab4bf-4394-0638-1ab5-697e1bc24a27@amd.com>
- <41674c0f-9c63-fc9e-9d3f-0b777924a7e1@amd.com>
- <20120c9b-8f4f-dbd9-2bef-527b044f32da@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.20; Tue, 21 Feb
+ 2023 14:41:05 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::5cbd:2c52:1e96:dd41]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::5cbd:2c52:1e96:dd41%5]) with mapi id 15.20.6111.021; Tue, 21 Feb 2023
+ 14:41:05 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Chen, Guchun" <Guchun.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Zhang, Hawking" <Hawking.Zhang@amd.com>,
+ "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>, "Feng,
+ Kenneth" <Kenneth.Feng@amd.com>
+Subject: Re: [PATCH] drm/amd/pm: downgrade log level upon SMU IF version
+ mismatch
+Thread-Topic: [PATCH] drm/amd/pm: downgrade log level upon SMU IF version
+ mismatch
+Thread-Index: AQHZRa7/sg1TYNrqukO3kl9pu8g8HK7ZeZ5p
+Date: Tue, 21 Feb 2023 14:41:05 +0000
+Message-ID: <BL1PR12MB5144D92A91D4B673EB145191F7A59@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20230221044241.4167588-1-guchun.chen@amd.com>
+In-Reply-To: <20230221044241.4167588-1-guchun.chen@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: "Limonciello, Mario" <mario.limonciello@amd.com>
-In-Reply-To: <20120c9b-8f4f-dbd9-2bef-527b044f32da@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH2PR18CA0020.namprd18.prod.outlook.com
- (2603:10b6:610:4f::30) To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|PH0PR12MB5401:EE_
-X-MS-Office365-Filtering-Correlation-Id: f0d4a5d2-bf00-411d-128a-08db1418386b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: yuqYQ1lWFbq5eD8Ytnz/oCU+mFUq3H49X0p+uvUqeRbRZKcEt+8eKSvtoySAkIzulLSIMi1hdGzPK2WVsxSu4jqRFQkdP59ZEIOLa6VmK4bLNAI5vsKhuiphpDUg469ult6C4qP6JRQxDahwfOTM2aK0sYLxEQ3zsHGtFWh2uFC+3+BQNZFhAnlIgsWGeyTz7Kg4KCRkK77VVgaTpRjM2QaXY7RiFAbjXixm4x958a2guOWWpE4OnJVmqAP7LQBQ/EzGfro3OiOII4vRdjik3F2kpwWm2Fh2u8BHqvwH6+TFCD4lE42oAujvDRgbPawBYIT1VyNkK6yboKRMM2WRyUCS/qmF/t2yR/t6VpQqtyAHAwBiugS8x/nizFIsRGvOeTelYkcvzPCFYL26qUunMkzBUPeUnYIRMEfKUpjV8TZnx0CNMlB2lEn+0hq3WPFyHH5e5XzvPK8lemhvFt/cqSqkQc9BXzO9BSu5yG94hG80KmdUG+Pijszk+ZBu8j1yT/5L1nuRVTk9/dgFhCOO6/I1IBQxR94ywA3SUlagoyjz28O4Oh50LeZovmwSOxtsz6pu+Oyhhfbk7jD4jrOsLGhgK3lZwdSNwZwZYvkb7ngJlN6ztaJVxr/U0hRZ1ERAKY0n7yyNMsSwk59xGa55tI1uAJADohSI5ahg0ZfIDaoinerjABYrF6uqCTAKIgXY
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(136003)(376002)(366004)(346002)(39860400002)(451199018)(83380400001)(31696002)(86362001)(36756003)(38100700002)(2906002)(8936002)(41300700001)(5660300002)(53546011)(6512007)(186003)(6506007)(2616005)(4326008)(316002)(8676002)(66556008)(966005)(6486002)(66476007)(478600001)(66946007)(31686004)(43740500002)(45980500001);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-02-21T14:41:04.844Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|BL1PR12MB5946:EE_
+x-ms-office365-filtering-correlation-id: 24882068-b0d9-4a9b-871d-08db1419a99d
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: kpNbw1so+VujtfZTe6M/RtFp6fkV/0ulgFM3y69ChloTLsXRJrGtHvwJpQZE8cuwH/VtCF+PLGBCFJklIYYBtn32CRWNmGUlCNRAqSLPTs9yFq6gBDpTCVf8+6Z190MtDBH2i0yh97AJUfNERZl4xDzp0ZPVC2nNcEeXTLO4okgReOLszXcl8YPB3LH9yZEa0Xt6EXsemLvNNo6nF3g+7WQs0Zctc6H1oebDTSa8F0jsuSCSSDGxqpmZdTnHEvJuiZII9//k/MRmbqVaGbmY5xHPEfDQXh8vXNDlcJWgrraGlNt+TciIkYj0b8PsX/v4BhhutP6fM3qiWHRTlIAW39AEnXd2ZzChdd7f1sU87t6zmO+DMJdlHUeVndzzlWBldjAa+J84SGI/V8lMBLH3cuISAhp9HD64hJrLY9iSa5zxAASk3j9/AGuzRUjo/nXBbGc2Mbw9D4I92X58o98N6Ma7PGjAV5U/vH0OLa/h0XKbdtdbCUeHuK2M18XRxm9R7XeX/va1uMhnlJMlEwYl7FCQZMneDG0UaR11A4L31xjjOoo8R8WptTwPjzkQwxJnmXLzUGmQPIbxQOMVaq09Vn4VM6+z3JxW1MtVcadAsdms2zPCamMmkI9/oj+NS7kcLbhK+U3Iq/SuWK/jlnjFlhpfJmFPLKPjcZTsSGnTZGViIkG/oFTnPJB9EtR8Tu/RsKzQdJW+BSRb655+tMinO55+3KqiFoLR0idw4zBgF6M=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(396003)(136003)(366004)(346002)(376002)(39860400002)(451199018)(38100700002)(2906002)(186003)(26005)(41300700001)(9686003)(38070700005)(6506007)(122000001)(921005)(19627405001)(53546011)(5660300002)(8936002)(52536014)(33656002)(316002)(66556008)(66476007)(71200400001)(86362001)(66946007)(76116006)(64756008)(8676002)(55016003)(478600001)(7696005)(66446008)(83380400001)(6636002)(110136005);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R0dzb3pNcmFNYlhMRFZ2KzM1RjFRTFJpcFdSbmUxZkxHTXBDUzhjek4vUHlL?=
- =?utf-8?B?Y3pva2ttSndBYzVMOEw0RnVFV090SlR4SnZUVFA0SkxINkVqY1lRbVBBN0pv?=
- =?utf-8?B?M0twMG1UTlB1dU5tMXhNektHTkpPRkV3bnNVaHNOVTRncVlpTUpLYnFiM2U2?=
- =?utf-8?B?UW1MS1k2YkowL1FldXpUcWpkQ2pYUWtJTk9GaHRoWGRROVEvOG9kMnJFWm5s?=
- =?utf-8?B?Ris5UDI4TEpwVkFtNXBPTmI4K0JFWDlSNUZoZ1BFeDloOUxIMXdzZ29GbVMy?=
- =?utf-8?B?a2h2ZHhhT0lIVEN5N0xFYlpNRWdOMGlreStvOVQyODdXOHozN29FaWVIbFAr?=
- =?utf-8?B?UjE5TVNhanBUSUJyUVlYWllONVNYMUdhZzhXMitiOGxHRVE2UDQxODlhMWpp?=
- =?utf-8?B?VlQ0QktSanV1SDlLeDFySnNYcit2L05zcG1WYVArVmVtQjBkQ1BkTVh3aUE0?=
- =?utf-8?B?SzBlWXdqSlZwSFNOSHA3M1B6bWoxUGpWSnBmMk8zRUxRT1B1SmFvTG9tTmw3?=
- =?utf-8?B?UVRtZFlaTzhhZU4wc1JJRnhxRlQvSGVNcFBCTFVjWWhOQjFobVZCS1hOdk03?=
- =?utf-8?B?RjZlenBvb3gxSkFyZzlIVG43cGl0M21GQytqZnNxV0dkS0lPVmd0UTgwd2hz?=
- =?utf-8?B?SENrdE1peVNsODJGd0NHaDIvUnpZVWs5T210MWlwUTBrSzZEN1RLTW83Q2dF?=
- =?utf-8?B?dXRZVkFXVjJicloyUi94RkthYWdNRitUbHhlT0tLN0hmSVlWaldyL0ZyRTBh?=
- =?utf-8?B?bFdiVjNrbnZOQVBFaXZCR1YxYVRudjdtZkVsY3pBeDRsQ3MzclVJUlJsV2lh?=
- =?utf-8?B?TU9FRW9DSWErQThBL0pSejhGSHZhd0xpclAybUJSVVovMWlDZ2tEOURjR011?=
- =?utf-8?B?TlI2WDFUS0pKNmFTVVNyRWZjTGpVY21pQk1YQTRiaTBabFN1TjQrRUpqNXBI?=
- =?utf-8?B?NittR3FPVERJQmtwL2JMUGxWZUxWMGpidlNSQ2UyN3V5bHlVMVB3dFZSaWVN?=
- =?utf-8?B?ZmtKZ3QvdVVaVzlNZzhXdmx3L3N0YmJjcmwwZjQyMFRLQ0RmbGdXWnFUMC96?=
- =?utf-8?B?U201SW9EMVBNNGc1c3hyYnNIblAwNzQ4Mjc1YVR5T1I5YVpOdTdhWHlnU0Vh?=
- =?utf-8?B?MklwWFNpZWdVYkdkS09jOGhHMllSdXMrVzdzUXU0dGRXMHhXZncyR1U2Q3Mx?=
- =?utf-8?B?RkhsKzBuSXVOQ0h3WGFSMEE2V2l0b25YbXNhSDVab3NZVGVIVlY2akg1b28z?=
- =?utf-8?B?dHBoT0VaZUpyNmEyeEdqbVV5TzIxWGlldWNnZVdEdi9jUU0xWjgyV1RvaUNo?=
- =?utf-8?B?aXV2ZlVFMlRramUzejNsMk1oazZjc2kxVTNBUEN3aVc5MVo3cXh3Nmw5dG1v?=
- =?utf-8?B?Q3dobXZ0RDlIQ29hYnZBdUlmekJHTk9ENzFhNmV1NkwvWlRjTkc0OEljRUxR?=
- =?utf-8?B?dDlQK3FHMTVTSUFob0NSR2hhM3JvdU5QaURzNlNKR3BNbnRnL1M2bjByUmVu?=
- =?utf-8?B?QzB5aHhsYlB5Wm1WbVpQSEl3ZkhMOTlLNTJpQzhHYmkrcVNpZmpBSVRpQ1Np?=
- =?utf-8?B?cHhBV2svQXFNaTlVUi9MT1RIVDU1cW1zUC9SSEk2d2dyRzY3RWJ4MWJJeWJv?=
- =?utf-8?B?Mi93eUxRTkhGRGVlZGlsa2g1UEI5Y1MyRUtrc2xIUmdDbERjTVFkWHZaZWlk?=
- =?utf-8?B?MmRuKzErRUZjN3Q5cDJocDVmU0FFQmJ3VkFrT1JtVkdPd01NWTQ3aHpKa0ZY?=
- =?utf-8?B?cWcydmxOclUzYmhic3hhMzMzamdJMXFEc1JmTk1HY3FwcTRhY21iRml1bGZV?=
- =?utf-8?B?OUczS1dyV0RoaFpER0tpUUJHbXRNUGZkL1lXTzVCOCtkVzFSdGxSaHBITVlu?=
- =?utf-8?B?cUVtNTNUZW9JWEhJS21CTkgreXpQL0dZWnZUL1I1TmpiLzVoUEViU3Z3WnQz?=
- =?utf-8?B?TklUTkJiTlIxVUh6Z1R6UmY5eC90ZzBzSjgyYmZ1bE1qcGlHd3RORzhoc2pU?=
- =?utf-8?B?MktpRlNMTjk1SXdkT1lFSGRRZVBXRjFTckg1NUt3TFdaeVZqNFRyRVR6TTVm?=
- =?utf-8?B?WCs0em1LckJPVDlTL0FaQlFTbjhoVmg0RlQ2eUdJRUxxV043MDVMMVVjMno0?=
- =?utf-8?B?a2hyeFlOcUVIVVJ3Nm1XaGI4Z1JLVkVjOXJHYkVCc2poZG5DaHUvRHQ1d1kv?=
- =?utf-8?Q?A2Z8to4bLRKiW+AeTYJ6Acj9PmXPQRyoyb2s+Jx79BJO?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?v0vg8UIySvACj1InKhZbo3olUISUm22cVJUwSwFYNIbfgkkxjBIbMZkCCPyY?=
+ =?us-ascii?Q?FbRaDLATloyoaVlwMHdfmlEYs2xIJLQ+F///Kbda+7B6zC8lut6mrmisxh6P?=
+ =?us-ascii?Q?CeGKOQfFuRcjbuaI0hbx9t/tZ5HeorYzGZbCoGmBKYGJgKNJh3ppCgjnUfaU?=
+ =?us-ascii?Q?OSVQtyzx6Zxge4hkB3Iu+LpCQoje/XNOJnDpsWZgHcJb8dNGaJwlayYo8o2I?=
+ =?us-ascii?Q?K+n+qrywJbgVnKczzzfNQVaP0mho+RSjK0QC7JFLvD6mkhkyX0OaV7JQ+HMV?=
+ =?us-ascii?Q?iQ1yj3wVIJEwwnL+Ro02hUPi/PAHlxM6uxxctsAyjLmetu+d21MsYUrqvzeT?=
+ =?us-ascii?Q?a6ObQ5BdR+wnetYf4WSnFDt8IxXzl/DM1akYoYnnLhy+BxcdQNWahvSHiKYG?=
+ =?us-ascii?Q?4w628dxu5xOEwoctbfj288KxqgX4spgWHkhWUFsyQxugTZ6Juxepjcq4mGYb?=
+ =?us-ascii?Q?8r76h8695r+dspKPevQH8/DwxP8jYyDpdO70eUFsadnn3808bDaSelZt//SV?=
+ =?us-ascii?Q?58bccSabz9C7q2gbWwiLefDKViNVGA/Ht1ee7TtN+7HL7nm7M9wtqS3gfE9I?=
+ =?us-ascii?Q?NdcNbhnCeVWAnZOGPN36/WHnAklM1Oratgnp+X8oBog9+unOyEA+SoGcNOe7?=
+ =?us-ascii?Q?SFi4OAAbRGVGa7KMbc2Lc3p3NgUa9k3M+UF/IxlWf+1GHHSTX43itYesiLuG?=
+ =?us-ascii?Q?MPxKPQPr19flWE5+foE5M5Bh5Y8UAbJ68zrdo/7apQjsAJmXtmOeR2VyVBkQ?=
+ =?us-ascii?Q?jAyzjvEJLnKNUd2RN915jRatutJYw+C2E2eqS4c6w7i6q40fbyzFP6Eahete?=
+ =?us-ascii?Q?8muX1lSbYtBHBp3h+b08olE6PJR7JRxoCEIBmYRl7kAnV/fOIk9rGXOIt9Cs?=
+ =?us-ascii?Q?g8d/cw6zbEvKRMUr4tqRAOftsG9ydx66oZeUwNXcfOdD2NB+7FNblKriEgFy?=
+ =?us-ascii?Q?HyXbLeOMHvizaEgbacJLcmCsHCXdFvNSZ4bNZ6zaJ6woYlgMeyjXJUmETN8H?=
+ =?us-ascii?Q?oqIHIw0eSTiuwc3/FLbXwAuWfzsQky12m5LEEeXoj6/PFpt8YzKXuN6nxFyd?=
+ =?us-ascii?Q?V1PMPa7clHFv1peExu5SDv/yspdGMPDOFZ4RsS9dNm70TXrjBDhLX+KoQgSb?=
+ =?us-ascii?Q?5lkjz31TPhMkO7fO4036dKWAthFT1CpQB4UEm4ya5NA83hCMTF0cgS2DyHDH?=
+ =?us-ascii?Q?C/k9KlKNHB0rMSkfO7ujuuD77igzgwNsAEn3nuPJCPU9sLjmw8wffS0spXq9?=
+ =?us-ascii?Q?FGRYef5SPYEqM9Wz1YQ5NIFOyRspPvXSon3FsD19OTQTBH8t4ORYlKD5gngK?=
+ =?us-ascii?Q?Yo9ufQbaNkUUM/METRyUH705gqOaT1E/Ijxe1DS3aI03HLdw+XbrisJsCzAa?=
+ =?us-ascii?Q?qeXkYt7w3/r9/5XBjzzfAHwr9ly7RwFSdeGZedVhEElBUGS6IUttreFRQROC?=
+ =?us-ascii?Q?O+wV7JKHrxBhr9SVlRVoZadRufOoJPRUHjwgjp13LBw1s5N7yJMK5bnLlo5b?=
+ =?us-ascii?Q?NDje2lLPj3jKmOUdrPLN4cUYjeeH1T52FSfIC9uMvcFFABfpSZFfr4YtVunw?=
+ =?us-ascii?Q?D+jjUo4TjAesRbMmJ8o=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB5144D92A91D4B673EB145191F7A59BL1PR12MB5144namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f0d4a5d2-bf00-411d-128a-08db1418386b
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2023 14:30:46.2931 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pq3S1eDMcMubK0oUujwq790Klr8z8apuEXc0QfAvw3ny+bfymOKu2DJgRAu2iyIYlYgECNhp2ABrUBS3uIqu3w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5401
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 24882068-b0d9-4a9b-871d-08db1419a99d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Feb 2023 14:41:05.4999 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: jgpo5d5dC1czszlGqA5W74T7Lzqu3s88dIO6C/9/WwAm6dxdKsCTmE9LlNZ7FHvZwIS3Y1GVzyB/Am/96U5QUg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5946
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,76 +125,316 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Peter Kopec <pekopec@redhat.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2/21/2023 07:34, Lazar, Lijo wrote:
-> 
-> 
-> On 2/21/2023 6:57 PM, Mario Limonciello wrote:
->> On 2/21/23 07:25, Lazar, Lijo wrote:
->>>
->>>
->>> On 2/21/2023 1:46 AM, Mario Limonciello wrote:
->>>> dGPUs that will be using BACO or BOCO shouldn't be put into S3
->>>> when the system is being put into s2idle.
->>>>
->>>> Cc: Peter Kopec <pekopec@redhat.com>
->>>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->>>> ---
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 9 +++++++--
->>>>   1 file changed, 7 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c 
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
->>>> index 25e902077caf..5c69116bc883 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
->>>> @@ -1038,8 +1038,13 @@ void amdgpu_acpi_detect(void)
->>>>    */
->>>>   bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev)
->>>>   {
->>>> -    return !(adev->flags & AMD_IS_APU) ||
->>>> -        (pm_suspend_target_state == PM_SUSPEND_MEM);
->>>> +    if (pm_suspend_target_state == PM_SUSPEND_MEM)
->>>> +        return true;
->>>> +    if (adev->flags & AMD_IS_APU)
->>>> +        return false;
->>>
->>> What is the expected path of APUs which don't support S2idle?
->>
->> They should staying powered on and not running any suspend code.
->> Since they don't support BACO or BOCO I expect the call to enter 
->> autosuspend to be a no-op for them.
->>
->> This was shown to improve power consumption for such cases (a reporter 
->> actually measured it).
-> To clarify on this - someone tried s2idle on an APU which doesn't 
-> support it (no FW S0ix support/PMC driver support) and the power 
-> consumption is better for the APU. Is it because the peripherals went 
-> idle now, but in earlier path APU prevented S2idle entry altogether?
-> 
+--_000_BL1PR12MB5144D92A91D4B673EB145191F7A59BL1PR12MB5144namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-I double checked and realize I misspoke - it's not that they don't run 
-any suspend code, but they handle the s0ix flow even even without 
-underlying hardware support.
+[AMD Official Use Only - General]
 
-https://gitlab.freedesktop.org/agd5f/linux/-/commit/9cdb69924f545fdc3086bc8b085dad8146057141
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Guchun C=
+hen <guchun.chen@amd.com>
+Sent: Monday, February 20, 2023 11:42 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Deucher,=
+ Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.c=
+om>; Lazar, Lijo <Lijo.Lazar@amd.com>; Quan, Evan <Evan.Quan@amd.com>; Feng=
+, Kenneth <Kenneth.Feng@amd.com>
+Cc: Chen, Guchun <Guchun.Chen@amd.com>
+Subject: [PATCH] drm/amd/pm: downgrade log level upon SMU IF version mismat=
+ch
 
-So the path for them doesn't change in this series.
+SMU IF version mismatch as a warning message exists widely
+after asic production, however, due to this log level setting,
+such mismatch warning will be caught by automation test like
+IGT and reported as a fake error after checking. As such mismatch
+does not break anything, to reduce confusion, downgrade it from
+dev_warn to dev_info.
 
-> Thanks,
-> Lijo
-> 
->>>
->>> Thanks,
->>> Lijo
->>>
->>>> +    return !amdgpu_device_supports_baco(&adev->ddev) &&
->>>> +        !amdgpu_device_supports_boco(&adev->ddev);
->>>> +
->>>>   }
->>>>   /**
->>
+Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 4 ++--
+ drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c | 4 ++--
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c | 4 ++--
+ 3 files changed, 6 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/d=
+rm/amd/pm/swsmu/smu11/smu_v11_0.c
+index 6492d69e2e60..e1ef88ee1ed3 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+@@ -256,7 +256,7 @@ int smu_v11_0_check_fw_version(struct smu_context *smu)
+          * to be backward compatible.
+          * 2. New fw usually brings some optimizations. But that's visible
+          * only on the paired driver.
+-        * Considering above, we just leave user a warning message instead
++        * Considering above, we just leave user a verbal message instead
+          * of halt driver loading.
+          */
+         if (if_version !=3D smu->smc_driver_if_version) {
+@@ -264,7 +264,7 @@ int smu_v11_0_check_fw_version(struct smu_context *smu)
+                         "smu fw program =3D %d, version =3D 0x%08x (%d.%d.=
+%d)\n",
+                         smu->smc_driver_if_version, if_version,
+                         smu_program, smu_version, smu_major, smu_minor, sm=
+u_debug);
+-               dev_warn(smu->adev->dev, "SMU driver if version not matched=
+\n");
++               dev_info(smu->adev->dev, "SMU driver if version not matched=
+\n");
+         }
+
+         return ret;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c b/drivers/gpu/d=
+rm/amd/pm/swsmu/smu12/smu_v12_0.c
+index 56a02bc60cee..c788aa7a99a9 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c
+@@ -93,7 +93,7 @@ int smu_v12_0_check_fw_version(struct smu_context *smu)
+          * to be backward compatible.
+          * 2. New fw usually brings some optimizations. But that's visible
+          * only on the paired driver.
+-        * Considering above, we just leave user a warning message instead
++        * Considering above, we just leave user a verbal message instead
+          * of halt driver loading.
+          */
+         if (if_version !=3D smu->smc_driver_if_version) {
+@@ -101,7 +101,7 @@ int smu_v12_0_check_fw_version(struct smu_context *smu)
+                         "smu fw program =3D %d, smu fw version =3D 0x%08x =
+(%d.%d.%d)\n",
+                         smu->smc_driver_if_version, if_version,
+                         smu_program, smu_version, smu_major, smu_minor, sm=
+u_debug);
+-               dev_warn(smu->adev->dev, "SMU driver if version not matched=
+\n");
++               dev_info(smu->adev->dev, "SMU driver if version not matched=
+\n");
+         }
+
+         return ret;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/d=
+rm/amd/pm/swsmu/smu13/smu_v13_0.c
+index 78945e79dbee..25f336829840 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+@@ -311,7 +311,7 @@ int smu_v13_0_check_fw_version(struct smu_context *smu)
+          * to be backward compatible.
+          * 2. New fw usually brings some optimizations. But that's visible
+          * only on the paired driver.
+-        * Considering above, we just leave user a warning message instead
++        * Considering above, we just leave user a verbal message instead
+          * of halt driver loading.
+          */
+         if (if_version !=3D smu->smc_driver_if_version) {
+@@ -319,7 +319,7 @@ int smu_v13_0_check_fw_version(struct smu_context *smu)
+                          "smu fw program =3D %d, smu fw version =3D 0x%08x=
+ (%d.%d.%d)\n",
+                          smu->smc_driver_if_version, if_version,
+                          smu_program, smu_version, smu_major, smu_minor, s=
+mu_debug);
+-               dev_warn(adev->dev, "SMU driver if version not matched\n");
++               dev_info(adev->dev, "SMU driver if version not matched\n");
+         }
+
+         return ret;
+--
+2.25.1
+
+
+--_000_BL1PR12MB5144D92A91D4B673EB145191F7A59BL1PR12MB5144namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
+gn=3D"Left">
+[AMD Official Use Only - General]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" class=
+=3D"elementToProof">
+Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Guchun Chen &lt;guchun.chen@a=
+md.com&gt;<br>
+<b>Sent:</b> Monday, February 20, 2023 11:42 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Zhang, Hawking &=
+lt;Hawking.Zhang@amd.com&gt;; Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; Quan,=
+ Evan &lt;Evan.Quan@amd.com&gt;; Feng, Kenneth &lt;Kenneth.Feng@amd.com&gt;=
+<br>
+<b>Cc:</b> Chen, Guchun &lt;Guchun.Chen@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amd/pm: downgrade log level upon SMU IF version=
+ mismatch</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">SMU IF version mismatch as a warning message exist=
+s widely<br>
+after asic production, however, due to this log level setting,<br>
+such mismatch warning will be caught by automation test like<br>
+IGT and reported as a fake error after checking. As such mismatch<br>
+does not break anything, to reduce confusion, downgrade it from<br>
+dev_warn to dev_info.<br>
+<br>
+Signed-off-by: Guchun Chen &lt;guchun.chen@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 4 ++--<br>
+&nbsp;drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c | 4 ++--<br>
+&nbsp;drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c | 4 ++--<br>
+&nbsp;3 files changed, 6 insertions(+), 6 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/d=
+rm/amd/pm/swsmu/smu11/smu_v11_0.c<br>
+index 6492d69e2e60..e1ef88ee1ed3 100644<br>
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c<br>
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c<br>
+@@ -256,7 +256,7 @@ int smu_v11_0_check_fw_version(struct smu_context *smu)=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * to be backward com=
+patible.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * 2. New fw usually =
+brings some optimizations. But that's visible<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * only on the paired=
+ driver.<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Considering above, we just le=
+ave user a warning message instead<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Considering above, we just le=
+ave user a verbal message instead<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * of halt driver loa=
+ding.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (if_version !=3D smu-&g=
+t;smc_driver_if_version) {<br>
+@@ -264,7 +264,7 @@ int smu_v11_0_check_fw_version(struct smu_context *smu)=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot=
+;smu fw program =3D %d, version =3D 0x%08x (%d.%d.%d)\n&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&=
+gt;smc_driver_if_version, if_version,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_p=
+rogram, smu_version, smu_major, smu_minor, smu_debug);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; dev_warn(smu-&gt;adev-&gt;dev, &quot;SMU driver if version not m=
+atched\n&quot;);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; dev_info(smu-&gt;adev-&gt;dev, &quot;SMU driver if version not m=
+atched\n&quot;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c b/drivers/gpu/d=
+rm/amd/pm/swsmu/smu12/smu_v12_0.c<br>
+index 56a02bc60cee..c788aa7a99a9 100644<br>
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c<br>
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c<br>
+@@ -93,7 +93,7 @@ int smu_v12_0_check_fw_version(struct smu_context *smu)<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * to be backward com=
+patible.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * 2. New fw usually =
+brings some optimizations. But that's visible<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * only on the paired=
+ driver.<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Considering above, we just le=
+ave user a warning message instead<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Considering above, we just le=
+ave user a verbal message instead<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * of halt driver loa=
+ding.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (if_version !=3D smu-&g=
+t;smc_driver_if_version) {<br>
+@@ -101,7 +101,7 @@ int smu_v12_0_check_fw_version(struct smu_context *smu)=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot=
+;smu fw program =3D %d, smu fw version =3D 0x%08x (%d.%d.%d)\n&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&=
+gt;smc_driver_if_version, if_version,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_p=
+rogram, smu_version, smu_major, smu_minor, smu_debug);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; dev_warn(smu-&gt;adev-&gt;dev, &quot;SMU driver if version not m=
+atched\n&quot;);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; dev_info(smu-&gt;adev-&gt;dev, &quot;SMU driver if version not m=
+atched\n&quot;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/d=
+rm/amd/pm/swsmu/smu13/smu_v13_0.c<br>
+index 78945e79dbee..25f336829840 100644<br>
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c<br>
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c<br>
+@@ -311,7 +311,7 @@ int smu_v13_0_check_fw_version(struct smu_context *smu)=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * to be backward com=
+patible.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * 2. New fw usually =
+brings some optimizations. But that's visible<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * only on the paired=
+ driver.<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Considering above, we just le=
+ave user a warning message instead<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Considering above, we just le=
+ave user a verbal message instead<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * of halt driver loa=
+ding.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (if_version !=3D smu-&g=
+t;smc_driver_if_version) {<br>
+@@ -319,7 +319,7 @@ int smu_v13_0_check_fw_version(struct smu_context *smu)=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ &quot;smu fw program =3D %d, smu fw version =3D 0x%08x (%d.%d.%d)\n&quot;,=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ smu-&gt;smc_driver_if_version, if_version,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ smu_program, smu_version, smu_major, smu_minor, smu_debug);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; dev_warn(adev-&gt;dev, &quot;SMU driver if version not matched\n=
+&quot;);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; dev_info(adev-&gt;dev, &quot;SMU driver if version not matched\n=
+&quot;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+-- <br>
+2.25.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_BL1PR12MB5144D92A91D4B673EB145191F7A59BL1PR12MB5144namp_--
