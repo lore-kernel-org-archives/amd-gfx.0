@@ -4,39 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58C56C61DA4
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Feb 2023 13:34:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 532A4C677F1
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Feb 2023 13:34:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C928110E995;
-	Wed, 22 Feb 2023 13:34:15 +0000 (UTC)
-X-Greylist: delayed 347 seconds by postgrey-1.36 at gabe;
- Wed, 22 Feb 2023 03:11:19 UTC
-Received: from out-32.mta0.migadu.com (out-32.mta0.migadu.com
- [IPv6:2001:41d0:1004:224b::20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF6E410E1AE
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Feb 2023 03:11:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1B2D10E9A0;
+	Wed, 22 Feb 2023 13:34:18 +0000 (UTC)
+Received: from smtp.smtpout.orange.fr (smtp-24.smtpout.orange.fr
+ [80.12.242.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FFF010E803
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Feb 2023 19:17:38 +0000 (UTC)
+Received: from [192.168.1.18] ([86.243.2.178]) by smtp.orange.fr with ESMTPA
+ id UY8spK3kX0GfyUY8tpaEcn; Tue, 21 Feb 2023 20:17:36 +0100
+X-ME-Helo: [192.168.1.18]
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Tue, 21 Feb 2023 20:17:36 +0100
+X-ME-IP: 86.243.2.178
+Message-ID: <c16136b3-d6d6-392e-7d58-cd81bcf426f6@wanadoo.fr>
+Date: Tue, 21 Feb 2023 20:17:34 +0100
 MIME-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1677035129;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=0XpiP3a7eswa+uhx2R0D1ryJ7VB+IJ+c2OKlL9Hke/I=;
- b=AoVTzoe2nwXiexTmppdlb8Phygr7AwPiE6zHQjdi7MRMyosesjM2wrRamP3V1be28LVW63
- GmdL0wiEHotDlGAiuWHg++/1+ktYZip7/MkqWbi0kR15djXhtdPdpMY5irZkqe7C1tv6wX
- 5Tp2mWsE0uCPXQGPVAB6U0zwsSyNuOk=
-Date: Wed, 22 Feb 2023 03:05:29 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: qu.huang@linux.dev
-Message-ID: <ea5b997309825b21e406f9bad2ce8779@linux.dev>
-Subject: [PATCH v2] drm/amdkfd: Fix an illegal memory access
-To: Felix.Kuehling@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch
-X-Migadu-Flow: FLOW_OUT
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH] drm/amdkfd: Fix an illegal memory access
+To: qu.huang@linux.dev
+References: <eb49be7c44ae95c4d18e66b59874ef1c@linux.dev>
+ <48e5eae7-4848-3aa2-2cb4-5c7ba32a9848@amd.com>
+Content-Language: fr
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+In-Reply-To: <48e5eae7-4848-3aa2-2cb4-5c7ba32a9848@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 22 Feb 2023 13:34:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -49,52 +45,104 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: qu.huang@linux.dev, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Felix.Kuehling@amd.com, Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, alexander.deucher@amd.com, airlied@gmail.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In the kfd_wait_on_events() function, the kfd_event_waiter structure is=
-=0Aallocated by alloc_event_waiters(), but the event field of the waiter=
-=0Astructure is not initialized; When copy_from_user() fails in the=0Akfd=
-_wait_on_events() function, it will enter exception handling to=0Arelease=
- the previously allocated memory of the waiter structure;=0ADue to the ev=
-ent field of the waiters structure being accessed=0Ain the free_waiters()=
- function, this results in illegal memory access=0Aand system crash, here=
- is the crash log:=0A=0Alocalhost kernel: RIP: 0010:native_queued_spin_lo=
-ck_slowpath+0x185/0x1e0=0Alocalhost kernel: RSP: 0018:ffffaa53c362bd60 EF=
-LAGS: 00010082=0Alocalhost kernel: RAX: ff3d3d6bff4007cb RBX: 00000000000=
-00282 RCX: 00000000002c0000=0Alocalhost kernel: RDX: ffff9e855eeacb80 RSI=
-: 000000000000279c RDI: ffffe7088f6a21d0=0Alocalhost kernel: RBP: ffffe70=
-88f6a21d0 R08: 00000000002c0000 R09: ffffaa53c362be64=0Alocalhost kernel:=
- R10: ffffaa53c362bbd8 R11: 0000000000000001 R12: 0000000000000002=0Aloca=
-lhost kernel: R13: ffff9e7ead15d600 R14: 0000000000000000 R15: ffff9e7ead=
-15d698=0Alocalhost kernel: FS:  0000152a3d111700(0000) GS:ffff9e855ee8000=
-0(0000) knlGS:0000000000000000=0Alocalhost kernel: CS:  0010 DS: 0000 ES:=
- 0000 CR0: 0000000080050033=0Alocalhost kernel: CR2: 0000152938000010 CR3=
-: 000000044d7a4000 CR4: 00000000003506e0=0Alocalhost kernel: Call Trace:=
-=0Alocalhost kernel: _raw_spin_lock_irqsave+0x30/0x40=0Alocalhost kernel:=
- remove_wait_queue+0x12/0x50=0Alocalhost kernel: kfd_wait_on_events+0x1b6=
-/0x490 [hydcu]=0Alocalhost kernel: ? ftrace_graph_caller+0xa0/0xa0=0Aloca=
-lhost kernel: kfd_ioctl+0x38c/0x4a0 [hydcu]=0Alocalhost kernel: ? kfd_ioc=
-tl_set_trap_handler+0x70/0x70 [hydcu]=0Alocalhost kernel: ? kfd_ioctl_cre=
-ate_queue+0x5a0/0x5a0 [hydcu]=0Alocalhost kernel: ? ftrace_graph_caller+0=
-xa0/0xa0=0Alocalhost kernel: __x64_sys_ioctl+0x8e/0xd0=0Alocalhost kernel=
-: ? syscall_trace_enter.isra.18+0x143/0x1b0=0Alocalhost kernel: do_syscal=
-l_64+0x33/0x80=0Alocalhost kernel: entry_SYSCALL_64_after_hwframe+0x44/0x=
-a9=0Alocalhost kernel: RIP: 0033:0x152a4dff68d7=0A=0AChanges since v1:=0A=
-  * Allocate the waiter structure using kzalloc, removing the initializat=
-ion of activated;=0A  * '(event_waiters) &&' in the 'for' loop has also b=
-een removed.=0A=0ASigned-off-by: Qu Huang <qu.huang@linux.dev>=0A---=0A d=
-rivers/gpu/drm/amd/amdkfd/kfd_events.c | 5 ++---=0A 1 file changed, 2 ins=
-ertions(+), 3 deletions(-)=0A=0Adiff --git a/drivers/gpu/drm/amd/amdkfd/k=
-fd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c=0Aindex 729d26d..bb=
-54f6c 100644=0A--- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c=0A+++ b/driv=
-ers/gpu/drm/amd/amdkfd/kfd_events.c=0A@@ -780,13 +780,12 @@ static struct=
- kfd_event_waiter *alloc_event_waiters(uint32_t num_events)=0A=0A 	event_=
-waiters =3D kmalloc_array(num_events,=0A 					sizeof(struct kfd_event_wai=
-ter),=0A-					GFP_KERNEL);=0A+					GFP_KERNEL | __GFP_ZERO);=0A 	if (!eve=
-nt_waiters)=0A 		return NULL;=0A=0A-	for (i =3D 0; (event_waiters) && (i =
-< num_events) ; i++) {=0A+	for (i =3D 0; i < num_events; i++) {=0A 		init=
-_wait(&event_waiters[i].wait);=0A-		event_waiters[i].activated =3D false;=
-=0A 	}=0A=0A 	return event_waiters;=0A--=0A1.8.3.1
+Le 21/02/2023 à 17:26, Felix Kuehling a écrit :
+> 
+> On 2023-02-21 06:35, qu.huang-fxUVXftIFDnyG1zEObXtfA@public.gmane.org 
+> wrote:
+>> From: Qu Huang <qu.huang-fxUVXftIFDnyG1zEObXtfA@public.gmane.org>
+>>
+>> In the kfd_wait_on_events() function, the kfd_event_waiter structure is
+>> allocated by alloc_event_waiters(), but the event field of the waiter
+>> structure is not initialized; When copy_from_user() fails in the
+>> kfd_wait_on_events() function, it will enter exception handling to
+>> release the previously allocated memory of the waiter structure;
+>> Due to the event field of the waiters structure being accessed
+>> in the free_waiters() function, this results in illegal memory access
+>> and system crash, here is the crash log:
+>>
+>> localhost kernel: RIP: 0010:native_queued_spin_lock_slowpath+0x185/0x1e0
+>> localhost kernel: RSP: 0018:ffffaa53c362bd60 EFLAGS: 00010082
+>> localhost kernel: RAX: ff3d3d6bff4007cb RBX: 0000000000000282 RCX: 
+>> 00000000002c0000
+>> localhost kernel: RDX: ffff9e855eeacb80 RSI: 000000000000279c RDI: 
+>> ffffe7088f6a21d0
+>> localhost kernel: RBP: ffffe7088f6a21d0 R08: 00000000002c0000 R09: 
+>> ffffaa53c362be64
+>> localhost kernel: R10: ffffaa53c362bbd8 R11: 0000000000000001 R12: 
+>> 0000000000000002
+>> localhost kernel: R13: ffff9e7ead15d600 R14: 0000000000000000 R15: 
+>> ffff9e7ead15d698
+>> localhost kernel: FS:  0000152a3d111700(0000) 
+>> GS:ffff9e855ee80000(0000) knlGS:0000000000000000
+>> localhost kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>> localhost kernel: CR2: 0000152938000010 CR3: 000000044d7a4000 CR4: 
+>> 00000000003506e0
+>> localhost kernel: Call Trace:
+>> localhost kernel: _raw_spin_lock_irqsave+0x30/0x40
+>> localhost kernel: remove_wait_queue+0x12/0x50
+>> localhost kernel: kfd_wait_on_events+0x1b6/0x490 [hydcu]
+>> localhost kernel: ? ftrace_graph_caller+0xa0/0xa0
+>> localhost kernel: kfd_ioctl+0x38c/0x4a0 [hydcu]
+>> localhost kernel: ? kfd_ioctl_set_trap_handler+0x70/0x70 [hydcu]
+>> localhost kernel: ? kfd_ioctl_create_queue+0x5a0/0x5a0 [hydcu]
+>> localhost kernel: ? ftrace_graph_caller+0xa0/0xa0
+>> localhost kernel: __x64_sys_ioctl+0x8e/0xd0
+>> localhost kernel: ? syscall_trace_enter.isra.18+0x143/0x1b0
+>> localhost kernel: do_syscall_64+0x33/0x80
+>> localhost kernel: entry_SYSCALL_64_after_hwframe+0x44/0xa9
+>> localhost kernel: RIP: 0033:0x152a4dff68d7
+>>
+>> Signed-off-by: Qu Huang 
+>> <qu.huang-fxUVXftIFDnyG1zEObXtfA@public.gmane.org>
+>> ---
+>>   drivers/gpu/drm/amd/amdkfd/kfd_events.c | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c 
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+>> index 729d26d..e5faaad 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+>> @@ -787,6 +787,7 @@ static struct kfd_event_waiter 
+>> *alloc_event_waiters(uint32_t num_events)
+>>       for (i = 0; (event_waiters) && (i < num_events) ; i++) {
+>>           init_wait(&event_waiters[i].wait);
+>>           event_waiters[i].activated = false;
+>> +        event_waiters[i].event = NULL;
+> 
+> Thank you for catching this. We're often lazy about initializing things 
+> to NULL or 0 because most of our data structures are allocated with 
+> kzalloc or similar. I'm not sure why we're not doing this here. If we 
+> allocated event_waiters with kcalloc, we could also remove the 
+> initialization of activated. I think that would be the cleaner and safer 
+> solution.
+
+Hi,
+
+I think that the '(event_waiters) &&' in the 'for' can also be removed.
+'event_waiters' is already NULL tested a few lines above
+
+
+Just my 2c.
+
+CJ
+
+> 
+> Regards,
+>    Felix
+> 
+> 
+>>       }
+>>
+>>       return event_waiters;
+>> -- 
+>> 1.8.3.1
+> 
+
