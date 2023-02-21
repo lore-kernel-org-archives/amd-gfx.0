@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 328D2C64EC7
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Feb 2023 20:16:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 668E3C61DA3
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Feb 2023 04:43:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F1E310E297;
-	Mon, 20 Feb 2023 20:16:56 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDDA710E297
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Feb 2023 20:16:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF2EE10E147;
+	Tue, 21 Feb 2023 04:43:05 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2043.outbound.protection.outlook.com [40.107.244.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18A1810E147
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Feb 2023 04:43:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MJlKeEuo1FcU7rJnHdQLggvBqpKy+SkYy0QyFcSh9btgM46Q1TC+aCJKVgC3gpqTWQDqoXrGiS3nw6SjICxHXECqQFxmAJG/iSnJztUR3sRMtx/VCY+QWGJWZvZj2OvjB/0zGrFkhH0Z2fuwDwOf/rSox5hjD4sCRsfiC2B+3HhgGzjmmatnbGtzaE7F8cYPV/K/ifApU+1/gcarDfQ6ZyYEGVZ9I2ouTXXwaxEAZoy/V3ud++le8PyK63AM69QlrI3FI7S/5dYnIyXzWvdIHG/bPoWLKsHtnqIv/FIwJ9o6tzvdK5JfQ5v07mJgA1ZsVB5ClMEuroUSiLSS76HG9Q==
+ b=DHeHNbQQ9xx5KPKFvTzKed85rMoMMID62+Cjp3VTvI/mN/BfLIFZAZg8D/6x0u6qO/BKMuOaXY1siaMeZpam3LXUdlUb/131DPdBYckogsXYWWAXjPn7joS+dcAbOnU2tE7Xx9qT+9TgeyfZZEXitadZuSK9+fJwQPtV0eihmvwRpGQToQbcekJLFCpJlZQQOYUOQNHaD62g/2LLyV0RBpUEL0eqyBT0H9la/Myyku5LHs9XaHc8jaSy+JiS8llbS7Zmc9wnzW1B/PxxtNnl+j+7c55NouEDcfnhSvZS08Eg3zoxwrL6lJ9Uxc7cxB+2zXjONx2hkEVWWcgifcCvvA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YlRfQBa4He5YHVPp5nUgfPq6VOlBxYHzD6qgi87BtJo=;
- b=g3lfr5t1fz3BvNA2QdLcwb/anylS3ZsSaRMbGsZ9svgdMnFyxAVkhy/CF4KrHCYeaCxx9GbroNSzFSNsRt965WlGhrzElLBMD4xyqoNURUjCQiULhmvokXOwwogvDfwB4dwWIPX6PBkCpdXD0kfay7UyR/DYR2kmIgqcfKYvabus4gULbK5wHckivGeK2ulBhWah/UHGo8B8XzxnEb52Q/l46CmWB06ZxGa0MmGV+zcPaagPO3AHt4NDTaXlsspblSagfuaVo1+SktJD3cqugwvZrUqcH0t/vMJIjiQfRK5ljVTs2ScNq8J/AX8v47TIEskZYYkhccUFeSr15PB+gw==
+ bh=cdgVBLvjWgY2fUwfkAYgnHAK/rPKkkKP225hGQ2+HyI=;
+ b=O2bIGH8QtB2rr93PbwwLKaMxaNHQkvQRpAoUBPWbb7OZIm27a6Kb4EW4A1tN/zGynGYpgek08kFiIDUKPQRHSmCcvOQwrNdFIlFgGGFtQVJ6UlX5gBG3gxgFJkcev+uk6AWB85itXBXPU1ypd4Kk1qxZcc8kXqMHOINNnu4pCFklsT63zVx8CK2aKk9ylOnioKZVxiMu4hNONynEkwI0AH0a+H2liv/nlKrBofD5DtW2OT8Swagrpuhp3wTD0Y2j4mJBx/bm1maPFWV1GDvYc8txLJ2+NklaSSWtj21jSshhr1UzUnfhnRMjmJoJ/lJCwQFgCxheeipdtPD13Wc/Ng==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YlRfQBa4He5YHVPp5nUgfPq6VOlBxYHzD6qgi87BtJo=;
- b=cMy4YE08E1ia7ANbQurCgbAStWzQ+244kCLvF8CG+hOIO8rDWYDedMwg8Pau5vGqKCxkEbT3LcjYx9RfANeiFB8Ubq6yKixMP91BFc0rCBbt5YRVUjDFhYB2JGNIbZphiQQu4UaT1ND5tYcx3mnqB7/+fJhHxzPRuHDFS7UVAxI=
-Received: from MW4PR04CA0076.namprd04.prod.outlook.com (2603:10b6:303:6b::21)
- by BL1PR12MB5779.namprd12.prod.outlook.com (2603:10b6:208:392::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.20; Mon, 20 Feb
- 2023 20:16:48 +0000
-Received: from CO1NAM11FT015.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:6b:cafe::e7) by MW4PR04CA0076.outlook.office365.com
- (2603:10b6:303:6b::21) with Microsoft SMTP Server (version=TLS1_2,
+ bh=cdgVBLvjWgY2fUwfkAYgnHAK/rPKkkKP225hGQ2+HyI=;
+ b=EZKkiLASMBiNqpspP+9j4VgAJbArEKpm1l6Te+eTRVObyK6t0MzCz+p2FJYCZwZH3ZOBIOstEJ7g7upIuKI2i1LZfuZD44yfu1LmRUecfYtPH+zo2YUODNMnkqD6J0A9NUV6DMhQOVuAOz4lvMOnVysSF5msDD3S7ye7wIy/aCE=
+Received: from DM6PR06CA0091.namprd06.prod.outlook.com (2603:10b6:5:336::24)
+ by IA0PR12MB7750.namprd12.prod.outlook.com (2603:10b6:208:431::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.20; Tue, 21 Feb
+ 2023 04:43:01 +0000
+Received: from DM6NAM11FT110.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:336:cafe::b2) by DM6PR06CA0091.outlook.office365.com
+ (2603:10b6:5:336::24) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.20 via Frontend
- Transport; Mon, 20 Feb 2023 20:16:47 +0000
+ Transport; Tue, 21 Feb 2023 04:43:01 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,49 +45,49 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT015.mail.protection.outlook.com (10.13.175.130) with Microsoft SMTP
+ DM6NAM11FT110.mail.protection.outlook.com (10.13.173.205) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6134.17 via Frontend Transport; Mon, 20 Feb 2023 20:16:47 +0000
-Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 20 Feb
- 2023 14:16:43 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 3/3] drm/amd: Don't always set s3 for dGPUs in all sleep modes
-Date: Mon, 20 Feb 2023 14:16:18 -0600
-Message-ID: <20230220201618.25962-4-mario.limonciello@amd.com>
+ 15.20.6134.17 via Frontend Transport; Tue, 21 Feb 2023 04:43:00 +0000
+Received: from guchchen-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.34; Mon, 20 Feb 2023 22:42:58 -0600
+From: Guchun Chen <guchun.chen@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>,
+ <hawking.zhang@amd.com>, <lijo.lazar@amd.com>, <evan.quan@amd.com>,
+ <kenneth.feng@amd.com>
+Subject: [PATCH] drm/amd/pm: downgrade log level upon SMU IF version mismatch
+Date: Tue, 21 Feb 2023 12:42:41 +0800
+Message-ID: <20230221044241.4167588-1-guchun.chen@amd.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230220201618.25962-1-mario.limonciello@amd.com>
-References: <20230220201618.25962-1-mario.limonciello@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT015:EE_|BL1PR12MB5779:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba0dcc43-8ac6-4a45-4925-08db137f64ee
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT110:EE_|IA0PR12MB7750:EE_
+X-MS-Office365-Filtering-Correlation-Id: b1bfc6f3-e0c2-45c2-9f83-08db13c61cad
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OKlo2uMdkztXJi5/vnMPZrqMGlMf0Mead01kbI2Bc2Ac+WSp5ahxA+a0L46blkTgGBAT9xIWBwcnarPnMrF5u5VVFUc/2RFBli1TWaaH7SbRLFdsXe/rPxPjXiJrHsideNRRvHcki+H4oPc8b2h1n4EHvUscMAM/PjiQdb/OAVzA3L+s0Ie5AJAZFd0r5oSF7DQ/mqT39JHkzItQYQe6fh+qC8ym/qWiyPrVTUc0XO2luhTlechssr8xLVc0n5yRYtVtd7Iw6gzNnssexg6eQJ+Ed5o53EBRi0Hci/vj0nuRE1jc8c0yhERqqxsXuYDcb1+12N43u5aTeAhl70v1uk03uyNsYj0QHLYlSVmqWtUAJwwDy/JcnvrSjbMAIg2GzQiviHgvXVf7t7w4tv8AwojAk9xBZd8uS3DI6j2Pvepp3/ippH/XkWgtk2jEezVx/dUzJSZpCsJGqrBcT1IqlWkrquPfzpiNM5fTQuYLr3P0Wh9C251ZDSGb0wOvkgRDQL4kf6fG49JO9FGgiX6WhINRf6sDoj7rp8eQRVV5tZPZJIpdB8WQ+zXw4AzbPWx1ZZC3Lzquz9zrpm7sAwCPT8gPmMBScSSwSTlUbkNmYM0xgKmqLfHlCiaUr9qb3SYDXAKKUf8ODoMMFFh5Oq1q8mia4Wx+bUFRcri60LfVjyWi1v9iMzXmSqjlQsSeIyAEjnJj+dFyIyUKUcDpUywnMiSP08/W9OK+5XxG73NbF1Y=
+X-Microsoft-Antispam-Message-Info: +Xs/tjZ7L/kIvvKWffl0BOv53xQF0yeRCOI/geqUUbkR5WRyM53V1zXFr3tK6OF2hMmDGgOaNlTOahZ6yKWyKrvTNF/folyw/nt5Ly8Cy2ZWKUahHQGNDlM6C0Vpsl3JaaFnrl1L0N7v9021otpxjL4q5c+COJ51PPBsjLEWfMPEki8mUTmcLAPNjyMELvafGYCw7U96YdIDneUZCZLzgF5a+gq8t9bREpRYmfE7xtMcQF26AhqCEaf9t1+L2D4PDhfDKjs6+DcsJafs45eFaME0lYFDALwqiRm8ve0ZBQ6Q5swnMoSZdjhR6ixBPxWE64cQgvHFpLFATtp10e4XPNqlGRK2zEr9pGxrjJi3jFB1fFfWAUxneTxH7F6oPbOvPdYZiRuSmYFBffUTDgUYmt9lN9ZVIUyzCvMuh3bpWrAAU4Y174Ww1t6W7ALQ1f+2L3iM9hSg81fRSzTQ25D1UjpID6WAH2A9avOaTwXvsKy+dHNWDY9EzhfcozrJMHEmpHntlWlx6Oa0hS/ZXNjfdn3rqotHCX6TC56Atm5JygqxRcBLcW4ojhx9qP3QImInwYfkCbZ7VnnTbDaPjiGvcbLqRWZuZpPuVxAjCEBQAmJLK0cWx0/Kj0rm1JPv36eCt8Ew2GO4GZtBhJH2+RWMV38IBbCJ38M6aOqRqUzC+tvqacF6cBpasqbH0yZ1UtbuUV7vbBnFk47W+w8Yg6OvqkLCQM9f2mJ2iTRNw6mqrN1DEefZanh4VOpcewUA+bxw
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(39860400002)(346002)(136003)(376002)(396003)(451199018)(36840700001)(40470700004)(46966006)(2906002)(26005)(186003)(41300700001)(356005)(16526019)(82740400003)(4744005)(1076003)(6666004)(44832011)(81166007)(2616005)(5660300002)(8936002)(36860700001)(40460700003)(316002)(86362001)(70206006)(70586007)(8676002)(4326008)(6916009)(336012)(82310400005)(7696005)(478600001)(426003)(47076005)(40480700001)(83380400001)(54906003)(36756003)(36900700001);
+ SFS:(13230025)(4636009)(39860400002)(346002)(376002)(136003)(396003)(451199018)(36840700001)(40470700004)(46966006)(16526019)(82740400003)(186003)(26005)(2906002)(41300700001)(356005)(81166007)(44832011)(1076003)(6666004)(5660300002)(2616005)(36860700001)(8936002)(478600001)(316002)(40460700003)(70206006)(70586007)(8676002)(336012)(86362001)(4326008)(82310400005)(7696005)(426003)(47076005)(40480700001)(36756003)(83380400001)(110136005)(6636002)(2101003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Feb 2023 20:16:47.6607 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba0dcc43-8ac6-4a45-4925-08db137f64ee
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2023 04:43:00.7868 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b1bfc6f3-e0c2-45c2-9f83-08db13c61cad
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT015.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT110.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5779
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7750
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,40 +99,90 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Peter Kopec <pekopec@redhat.com>,
- Mario Limonciello <mario.limonciello@amd.com>
+Cc: Guchun Chen <guchun.chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-dGPUs that will be using BACO or BOCO shouldn't be put into S3
-when the system is being put into s2idle.
+SMU IF version mismatch as a warning message exists widely
+after asic production, however, due to this log level setting,
+such mismatch warning will be caught by automation test like
+IGT and reported as a fake error after checking. As such mismatch
+does not break anything, to reduce confusion, downgrade it from
+dev_warn to dev_info.
 
-Cc: Peter Kopec <pekopec@redhat.com>
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Signed-off-by: Guchun Chen <guchun.chen@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 4 ++--
+ drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c | 4 ++--
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c | 4 ++--
+ 3 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-index 25e902077caf..5c69116bc883 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-@@ -1038,8 +1038,13 @@ void amdgpu_acpi_detect(void)
-  */
- bool amdgpu_acpi_is_s3_active(struct amdgpu_device *adev)
- {
--	return !(adev->flags & AMD_IS_APU) ||
--		(pm_suspend_target_state == PM_SUSPEND_MEM);
-+	if (pm_suspend_target_state == PM_SUSPEND_MEM)
-+		return true;
-+	if (adev->flags & AMD_IS_APU)
-+		return false;
-+	return !amdgpu_device_supports_baco(&adev->ddev) &&
-+		!amdgpu_device_supports_boco(&adev->ddev);
-+
- }
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+index 6492d69e2e60..e1ef88ee1ed3 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+@@ -256,7 +256,7 @@ int smu_v11_0_check_fw_version(struct smu_context *smu)
+ 	 * to be backward compatible.
+ 	 * 2. New fw usually brings some optimizations. But that's visible
+ 	 * only on the paired driver.
+-	 * Considering above, we just leave user a warning message instead
++	 * Considering above, we just leave user a verbal message instead
+ 	 * of halt driver loading.
+ 	 */
+ 	if (if_version != smu->smc_driver_if_version) {
+@@ -264,7 +264,7 @@ int smu_v11_0_check_fw_version(struct smu_context *smu)
+ 			"smu fw program = %d, version = 0x%08x (%d.%d.%d)\n",
+ 			smu->smc_driver_if_version, if_version,
+ 			smu_program, smu_version, smu_major, smu_minor, smu_debug);
+-		dev_warn(smu->adev->dev, "SMU driver if version not matched\n");
++		dev_info(smu->adev->dev, "SMU driver if version not matched\n");
+ 	}
  
- /**
+ 	return ret;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c
+index 56a02bc60cee..c788aa7a99a9 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c
+@@ -93,7 +93,7 @@ int smu_v12_0_check_fw_version(struct smu_context *smu)
+ 	 * to be backward compatible.
+ 	 * 2. New fw usually brings some optimizations. But that's visible
+ 	 * only on the paired driver.
+-	 * Considering above, we just leave user a warning message instead
++	 * Considering above, we just leave user a verbal message instead
+ 	 * of halt driver loading.
+ 	 */
+ 	if (if_version != smu->smc_driver_if_version) {
+@@ -101,7 +101,7 @@ int smu_v12_0_check_fw_version(struct smu_context *smu)
+ 			"smu fw program = %d, smu fw version = 0x%08x (%d.%d.%d)\n",
+ 			smu->smc_driver_if_version, if_version,
+ 			smu_program, smu_version, smu_major, smu_minor, smu_debug);
+-		dev_warn(smu->adev->dev, "SMU driver if version not matched\n");
++		dev_info(smu->adev->dev, "SMU driver if version not matched\n");
+ 	}
+ 
+ 	return ret;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+index 78945e79dbee..25f336829840 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+@@ -311,7 +311,7 @@ int smu_v13_0_check_fw_version(struct smu_context *smu)
+ 	 * to be backward compatible.
+ 	 * 2. New fw usually brings some optimizations. But that's visible
+ 	 * only on the paired driver.
+-	 * Considering above, we just leave user a warning message instead
++	 * Considering above, we just leave user a verbal message instead
+ 	 * of halt driver loading.
+ 	 */
+ 	if (if_version != smu->smc_driver_if_version) {
+@@ -319,7 +319,7 @@ int smu_v13_0_check_fw_version(struct smu_context *smu)
+ 			 "smu fw program = %d, smu fw version = 0x%08x (%d.%d.%d)\n",
+ 			 smu->smc_driver_if_version, if_version,
+ 			 smu_program, smu_version, smu_major, smu_minor, smu_debug);
+-		dev_warn(adev->dev, "SMU driver if version not matched\n");
++		dev_info(adev->dev, "SMU driver if version not matched\n");
+ 	}
+ 
+ 	return ret;
 -- 
-2.34.1
+2.25.1
 
