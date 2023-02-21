@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFEFBC677F1
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Feb 2023 07:51:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE326C64ED9
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Feb 2023 07:51:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7D7510E0D4;
-	Tue, 21 Feb 2023 07:51:51 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20620.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5b::620])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10E1810E0D4
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Feb 2023 07:51:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3980610E010;
+	Tue, 21 Feb 2023 07:51:50 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2052.outbound.protection.outlook.com [40.107.92.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8F3B10E010
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Feb 2023 07:51:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SBidFG3ghKO++HUVX0nllZIox9ghsr82+cJaJBfZ69rR7T+n9ykbllu3VQhBsnPxqcED0+AOGDkO2SC7qPuXWadObQsg4svdFm4CYNFLcdmqCZ4gMPScrMhQaZd2sUcAkCbQ5ejAAkC+ZIyc9sq0fvGzd3jPGxVSPVsNw0j7zJvoEn1q3AjIu/lM47eV1LjZqGjT0cJopQiJfMyuQhWbcsLBiC3AWHzxq3g3SQDJGwgtKdLsqgyUJGxwiCWdbuoIZ5kuOIGOUzOJhiFTVF763KvqW8A8VtmZxzKScn5vvNgZ47PTtsAYShfGckDv2v65+K1lJO57AN4zr4FMeDm6DA==
+ b=crO/AtqrwrdOyr3cnlv3OEPy2bO7z7nVr8Xub+LzHavfAsuBVns2sax4ag3RTyzYZBXjUP9/QtOo5GMuA6Mt9gK0T0SMHiW9S0i+Rs8qdfv73h+Wib/L+zTu6X4rSHKGWLMHFToz6ty3UmsVvPqmSoxteWav3uDy5iSVs0BHl1RggUgAWUySCn8+SxXxdlh9QbNoaa1M9mc2AeU+eaHp8pdlWS/giUdUToCAXTIXj+KNPoy2pAdITFNwuZJnWR5captnsvZRooCaJtn4jUB95yORF9ApN9LsKrAxTdYMRCpMA6JBIkZKDB57GivOHG9E1kGBEvkk1XujG72K+65XsA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N7KE2p1B5JQJ44MKvLVDvAIBdLoJ3JmeUi/2MKW7i/U=;
- b=KjxA2irJf668wIs2azQmi1J4+kS1vIpUtzoSdP/bF13Cx3U1c39ejdni+lfOkHUSckAM3HwGsIKsym/QYHR0m+XXY9tNhpXFgyJitneNAnSV0fnDZ977e3cS6YmpKhuUxhIbtgdOXEZd72YmgLswSXZJEJaNNT+C3e8CmVkzxxyD8m+FlOxnHEz4sPET1xq3yXkXRxAV9Dv9xMqc4hJnwBXY5s/Ko1fyFjCMrpMnP3d8AT0eqFq0rA9hWTjM0MQrb9KbIRmJeDf25KJ2DCSu5fHDmm7H057qvc+/X5+XCnWJmzr3BUS9YGaH7nT/cymxqMEayTkERd43O8nA2wgQPg==
+ bh=/c6gtA1bkDTs3L0H2ph274HYbJAelUL4LJBgw5RgVBw=;
+ b=UcPux9dxLQ7ZoYy8zD8Ni41/6NzKfKCwxSAKZv3joQKFoU5ZyF8XLrzvaTmsLH0mwEm3cbxk3ip93BfzaTF8K3MaZ9tL4vjpEo7JavyDrP1SKSZXYhugGjichNYCDG9mk7mXT1/H36OcpyYSlJD2Idl7inQTzQNmTKzdk83eIiuS++PFWpeAuiZpPJ01i6bGPsb6vB/P4NaVYMbxz8SepN3cLO1nkZkkylwbwiaKBFCQYekAxLAQpmpPrvmANhSUPcSEdzJ57qnUCxAu3Zjyk2e8xoM2CBvSgjBzgUZIuj3S76DPAIynNR0Xx+yh8KyZxAwB4iglR3NnG4uQa/8Txg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N7KE2p1B5JQJ44MKvLVDvAIBdLoJ3JmeUi/2MKW7i/U=;
- b=uXXB2iEHNrYkWIOHblMkh/YU9qlKpTIViDCUTsue569YVTEqhNiY3/Y8qjEY8+04Y72UiG/w9iJi5EvwY+wKckU2UaY24PCVWwlJ8+icRtVXb+i3lj2NASZBKRvoQiZr1AiuxaxEPPiJ56abozL2eFvT9+tN7qNvb9peeGOnKhs=
-Received: from BN0PR02CA0014.namprd02.prod.outlook.com (2603:10b6:408:e4::19)
- by MW6PR12MB8759.namprd12.prod.outlook.com (2603:10b6:303:243::13)
+ bh=/c6gtA1bkDTs3L0H2ph274HYbJAelUL4LJBgw5RgVBw=;
+ b=SfV4jBHJJlR6l0uyOAS8lwmSa1iVjxqHlsERnoSBwwJPhwMR8Hob1ujCGDnKKk4vInE2p9buFUDqdSeqGboEmhp/OY8NzMwgOovSPBDPVSnaYlM9iC3EAgWH2IOqbDzoQHYceWVahF9GzHNnw7QQD6bjAI7tITBLXd67LzmjhvU=
+Received: from BN0PR02CA0027.namprd02.prod.outlook.com (2603:10b6:408:e4::32)
+ by SN7PR12MB8102.namprd12.prod.outlook.com (2603:10b6:806:359::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.19; Tue, 21 Feb
- 2023 07:51:44 +0000
+ 2023 07:51:45 +0000
 Received: from BN8NAM11FT038.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e4:cafe::24) by BN0PR02CA0014.outlook.office365.com
- (2603:10b6:408:e4::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.20 via Frontend
- Transport; Tue, 21 Feb 2023 07:51:44 +0000
+ (2603:10b6:408:e4:cafe::86) by BN0PR02CA0027.outlook.office365.com
+ (2603:10b6:408:e4::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.21 via Frontend
+ Transport; Tue, 21 Feb 2023 07:51:45 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,18 +47,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT038.mail.protection.outlook.com (10.13.176.246) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6111.20 via Frontend Transport; Tue, 21 Feb 2023 07:51:43 +0000
+ 15.20.6111.20 via Frontend Transport; Tue, 21 Feb 2023 07:51:45 +0000
 Received: from equan-buildpc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 21 Feb
- 2023 01:51:42 -0600
+ 2023 01:51:43 -0600
 From: Evan Quan <evan.quan@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/2] drm/amd/pm: correct the baco state setting for ArmD3
- scenario
-Date: Tue, 21 Feb 2023 15:51:22 +0800
-Message-ID: <20230221075123.1831895-1-evan.quan@amd.com>
+Subject: [PATCH 2/2] drm/amd/pm: no pptable resetup on runpm exiting
+Date: Tue, 21 Feb 2023 15:51:23 +0800
+Message-ID: <20230221075123.1831895-2-evan.quan@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230221075123.1831895-1-evan.quan@amd.com>
+References: <20230221075123.1831895-1-evan.quan@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT038:EE_|MW6PR12MB8759:EE_
-X-MS-Office365-Filtering-Correlation-Id: bfeeb7d7-21f3-4d19-5ddc-08db13e079c1
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT038:EE_|SN7PR12MB8102:EE_
+X-MS-Office365-Filtering-Correlation-Id: 91ad342c-2ff4-40d9-88c2-08db13e07ab4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RRgLmdj6XExWQHQZZ8xS4PNbU00gWcHixT8wfrOiouT3zKvAP49auy9ecODLoc8hLM2CTKA1dxluJtuoCIt3hBWaiOIcHqJsWcSdqpPzBgf1W8WljGT4RZZmauqGJHMbuuIRVIG5k6jEp8gniZ+lDKC6VI8LO2GKSqf6tKej8oiluKK1kvkQ2GMLVSGisjQqa09yThQqMi5LARte8IB+a51w/ZUEgZLgpAtYvncyZYvw7YE+PGfOKLLnznKx2neQOInMR0J+DCwz+T2O71fNFnWvgOzeNgdEzWaqI1HacamJccGzuqJFJaW7PHKaRYkzdfNCjg+mUtbonK5cG5DWwWOcxMKf1i2iiolM7ahdHY1Zxl4lDJTsC619z08yLVLqpqi1BJ2MZrrWu5Z3qjdn/Crb5Q9gpjNZgGHZck/uMf3or9TqvD2maQHX+RDv48cpw0jFyukvolW8KFcbdtP6nLzZTntYfH7noKNq4epVRq1PO/NDRlX8n5X3q7uHN8u+ItL/hDDpeBPOlY1gN/3WTXeQzXQwGz/DrIAotzpA6xaR5OdffIQJK6ZH3IYrcNnDBUgBmEo26dUI2gGGTvv2EebRDnTrVzQgqDOXNwsRaooXbBzXN8jl2YuOiPjKTRWMxZTLO5YnoMHHEu/b4dUZZrRMegAc4vGE6vwFd0dz9aRFapf1pIo84p43baSJoRQO0+552atGG6W8GeVJpT3H7vibHu+ogP8+OiEz2HA7QWU=
+X-Microsoft-Antispam-Message-Info: 20l6nyLF2tEH4TXqehx+9rSMkOc5bBNnBpxN6jA8nTghXFcPtizFkbULmF1bYP/InsOUM0cNDa4NLAYror1kVE3Y6vlKkTFjxSOjGpoSe4s8SiJqItmT+uiwaRAk5wPxeoN4kK5AFZfxWG8VNDpvVfwEaM5GwVifVQEitej52LofqjDlqtV9psdpmjyEceXsRe7WLIZV3Wh7QGjOPWtLOYUZV71LkS3PiwUwFlNfB9Up1ckWmeHE8v0ZgojHIfUfupxjKJhfUdPeIv1DdOtVWNo1DLI70Y2PNZRuVACt8Rg2QiCHBntXTcqzRZwyCrh+1FybuIaUgEc5fAMwafZmsBctUF+giDZfcu5skY2mCkDFiRWgiK/C1daOGQSGwcBLG8pMogEuzqPqU59v4/rT4zgtSUjxOkhxtpv4AsEy8eEkFTLb7e0JShlEX8koTjzKjtREkYFrryNgF+EAtiEknLl27Cinq0Oi1b34COxvO+9tmZKSMNz3U13GPgEBBNYQDtNC6t6vg/hlp+p2V+fqQCX2Wiv+yinVo1YjT+5T6ZtD3AyZVumSNkpaEnN2V2Cy41tma7momc7i6irXjN0t+mmfXtETvvmUqOw2sDQa1JCqUG8kxVBseAT9d8f44iE4ILNYlPncMyNyrxGw4iSm1ZljyHy8RhdT9wbeJJ6TOlFEW86cm08khKZ2yKG2ZZ5/riCCREgt5Pudn99hcBpSbx1krATW0KGfoIWWgsu/xss=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(136003)(346002)(376002)(396003)(39860400002)(451199018)(36840700001)(40470700004)(46966006)(5660300002)(44832011)(86362001)(82740400003)(82310400005)(2906002)(36860700001)(81166007)(40460700003)(356005)(336012)(7696005)(16526019)(47076005)(478600001)(426003)(26005)(40480700001)(186003)(36756003)(2616005)(316002)(54906003)(70586007)(70206006)(6916009)(1076003)(41300700001)(6666004)(4326008)(83380400001)(8936002)(8676002)(36900700001);
+ SFS:(13230025)(4636009)(39860400002)(396003)(376002)(346002)(136003)(451199018)(36840700001)(40470700004)(46966006)(54906003)(316002)(83380400001)(8936002)(2616005)(70586007)(41300700001)(70206006)(6666004)(4326008)(8676002)(6916009)(1076003)(26005)(47076005)(40480700001)(40460700003)(16526019)(186003)(7696005)(426003)(336012)(478600001)(36756003)(356005)(82310400005)(86362001)(82740400003)(2906002)(44832011)(5660300002)(81166007)(36860700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2023 07:51:43.8906 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bfeeb7d7-21f3-4d19-5ddc-08db13e079c1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2023 07:51:45.4842 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 91ad342c-2ff4-40d9-88c2-08db13e07ab4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT038.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8759
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8102
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,46 +103,42 @@ Cc: Alexander.Deucher@amd.com, Evan Quan <evan.quan@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The check for baco support relies on the correct baco state.
+It is assumed the pptable used before runpm is same as
+the one used afterwards. Thus, we can reuse the stored
+copy and do not need to resetup the pptable again.
 
 Signed-off-by: Evan Quan <evan.quan@amd.com>
-Change-Id: I9dd15958c213eb83abdb8b7d858eff0d2d364b4e
+Change-Id: Ib6d61f8e8cb58df45d9e24725b0672239b3ff653
 ---
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    | 21 +++++++++++++++----
- 1 file changed, 17 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-index f4927ada5c07..1984b01514bd 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-@@ -2217,10 +2217,23 @@ int smu_v13_0_gfx_ulv_control(struct smu_context *smu,
- int smu_v13_0_baco_set_armd3_sequence(struct smu_context *smu,
- 				      enum smu_baco_seq baco_seq)
- {
--	return smu_cmn_send_smc_msg_with_param(smu,
--					       SMU_MSG_ArmD3,
--					       baco_seq,
--					       NULL);
-+	struct smu_baco_context *smu_baco = &smu->smu_baco;
-+	int ret;
-+
-+	ret = smu_cmn_send_smc_msg_with_param(smu,
-+					      SMU_MSG_ArmD3,
-+					      baco_seq,
-+					      NULL);
-+	if (ret)
-+		return ret;
-+
-+	if ((baco_seq == BACO_SEQ_BAMACO) ||
-+	    (baco_seq == BACO_SEQ_BACO))
-+		smu_baco->state = SMU_BACO_STATE_ENTER;
-+	else
-+		smu_baco->state = SMU_BACO_STATE_EXIT;
-+
-+	return 0;
- }
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index ff806a2e804f..bb25f14f0733 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -1220,10 +1220,17 @@ static int smu_smc_hw_setup(struct smu_context *smu)
+ 		return ret;
+ 	}
  
- bool smu_v13_0_baco_is_support(struct smu_context *smu)
+-	ret = smu_setup_pptable(smu);
+-	if (ret) {
+-		dev_err(adev->dev, "Failed to setup pptable!\n");
+-		return ret;
++	/*
++	 * It is assumed the pptable used before runpm is same as
++	 * the one used afterwards. Thus, we can reuse the stored
++	 * copy and do not need to resetup the pptable again.
++	 */
++	if (!adev->in_runpm) {
++		ret = smu_setup_pptable(smu);
++		if (ret) {
++			dev_err(adev->dev, "Failed to setup pptable!\n");
++			return ret;
++		}
+ 	}
+ 
+ 	/* smu_dump_pptable(smu); */
 -- 
 2.34.1
 
