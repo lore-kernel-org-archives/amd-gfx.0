@@ -4,116 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39F95C636D6
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Feb 2023 03:31:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 105B2C64EC4
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Feb 2023 04:34:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4502C10E39E;
-	Wed, 22 Feb 2023 03:31:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6428F10E1A3;
+	Wed, 22 Feb 2023 04:34:31 +0000 (UTC)
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2062d.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eab::62d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04C2410E195;
- Wed, 22 Feb 2023 03:30:56 +0000 (UTC)
+ (mail-co1nam11on2050.outbound.protection.outlook.com [40.107.220.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E71A010E1A3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Feb 2023 04:34:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mqh3SBV+oWw+L9ANr9o5EKEUwDYvQlHrm2uWGv3C6rve38+L7wpQee6uJLXkFtVGv4XqRmsKcHJmugBttDWkjDVzcyaVBTFBbcIPHnGrkUpEV7NdLd0798d2AdRVKacY7A/dSV825h8VT1/eQ9aQ/FTNfD39hxV91aWNbyisbx068Ei83ROXervqRJAJQOjxxOLRPBWOI6rngUgIswpcTb1mIWs+gHbMhujP77EIIkXNkuykI+VKBOZidCyUNq92QaB3UY2qy5ZzEhqS3xWxRZld34NuipVLO4hNEvSpV9IJuW9GrgQ1/rt8amO/s0nQTEgzRdQzvFxtcNyFEvdeig==
+ b=Js98bGHXHSUPssDm9os8unZ2vqAIIjDFyFDnbvZirVUjiiJT3qyHlXJj/Q9GSnYPhKUxFNWvEssRLfqIghU3wYthhqU7ANaQTe1RDQ9NQccwPBPSMSGJeJAynSctcF+xWA3M1DSdc7hqTHGs6S54NKmJvVwUczRaXR1rnSPcwkRlIAiJ+Bmn9GDR8CxFASIqrNV9ha2rGiLzTquRPJlZ6cImpihbFKsr242iW2h/rIO3o2pTxrEnmyGTfg3LuxAfYCywpKHeMOY/j6tTUtj+TvBThxRQegje2mWTZGNjdAAnO2fvou6fqbLG4zXVQIfJ24jhPb3D/El3Jlw8ifRyyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DtVIca4aVGubJFnwGaMoyvp7Hwfd/xdHzo2YM4Z1qOI=;
- b=ZCwGZSFCFxdgE9dsNXS9F6nhcTnWXGNFQYko67J3BbP99B7pc9gq+/5MhfaRTmSSrnXKV4OU7rSdMdBNU6BNo2NkUtKagAztfS2sdOta2v8hV9G6Z62JOAkYQoMo6avYUgaNKtfJooobNvsaQeyrWcNxkr580QKH/f2wCmJjRb2N6YLFeMiDc1hZ6PUsnzKD9mKBS6CKDxs50X+h4mKLQzrlQ2z9hB+RJubxejMdOcqzCH3k4m22pueyrJYFOYwhSppW7EgkqGck80UMN0vHxDYahJmbvFqbYojpfJOA9wr+P+xqiz4ZjdIiHDotPOiM85GalEK/vrBBxKcQqcLqaQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=OZAV85cF71GcAhshwXQG3622pSFzw3hY6HOvqBOWO18=;
+ b=hZZbGjcDWEryssktyau4TGsVNYtltG1zyvIE1LFoc6zsRXSD7KD8XnTtqIa0ebYaE0NJgo36Z1rdX162cMtgoS0NIlFd3jqfkPOY6b0TAXUfXr2XUq8nfOq+oXbU0aNPPYbl2YEfBwl5AQbVj4ghleDopdTCYZsohFH5a8Z2HuKpUhSiAOqkyn/PHSp1Icm/q8D1qxcNE4ZrK8folS+KqpkYH4W9J0u7ShzVg9g8Vf5QS+D9e3aRa5zJJpXvdxKDsCtEOqrpwrj+4TmUogU4OHGZpwivi2EO4p5STNWghLnYAz/Thc7ct7FYFOfTOd8lr/TvrdYBHYci7F3C+1ySsQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DtVIca4aVGubJFnwGaMoyvp7Hwfd/xdHzo2YM4Z1qOI=;
- b=hJ73aL86ThjRYxe/nVXjdOG4jGSDMjsEkO6w8zrCxSMODVVHxArDYijaYtHLs5DeSONstHcGkXIsgGIuJSAQSXMLM4FlmEB2NXbGZNI5IMEDcZ7yDfpSGehg9SyE62qVdj8qYSybN7lFFjJPRD352Y2BGqHaj8pFXLqlj29OIhM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DS7PR12MB8419.namprd12.prod.outlook.com (2603:10b6:8:e9::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.19; Wed, 22 Feb
- 2023 03:30:54 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::e6ea:9231:6d39:93da]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::e6ea:9231:6d39:93da%5]) with mapi id 15.20.6111.021; Wed, 22 Feb 2023
- 03:30:54 +0000
-Message-ID: <5e2a1bf0-5a21-a4e8-22b7-8345049335a3@amd.com>
-Date: Tue, 21 Feb 2023 22:30:51 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH v2] drm/amdkfd: Fix an illegal memory access
-To: qu.huang@linux.dev, alexander.deucher@amd.com, christian.koenig@amd.com,
- Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch
-References: <ea5b997309825b21e406f9bad2ce8779@linux.dev>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <ea5b997309825b21e406f9bad2ce8779@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0294.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10e::18) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ bh=OZAV85cF71GcAhshwXQG3622pSFzw3hY6HOvqBOWO18=;
+ b=DK8qZb0wvhly0MaJi2k9GlZkiXitDZEwisSDF2lLljFIogyq3YF+aaEprWpxFip6byxBesoqDKek6NfV81/1uOPq03FG4VSzw63NbZtmyXB1RYVQnIoibSJWaZwNTaE6J67Lh3IOLPvxzlS9NhZIIRrWDBU8tFn0mp1cqhp5Jw8=
+Received: from DS7PR05CA0084.namprd05.prod.outlook.com (2603:10b6:8:57::25) by
+ PH0PR12MB8100.namprd12.prod.outlook.com (2603:10b6:510:29b::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6111.21; Wed, 22 Feb 2023 04:34:26 +0000
+Received: from DS1PEPF0000B079.namprd05.prod.outlook.com
+ (2603:10b6:8:57:cafe::b7) by DS7PR05CA0084.outlook.office365.com
+ (2603:10b6:8:57::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.18 via Frontend
+ Transport; Wed, 22 Feb 2023 04:34:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF0000B079.mail.protection.outlook.com (10.167.17.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6134.14 via Frontend Transport; Wed, 22 Feb 2023 04:34:26 +0000
+Received: from canli.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 21 Feb
+ 2023 22:34:24 -0600
+From: Candice Li <candice.li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amdgpu: Add convert_error_address function for umc
+ v8_10
+Date: Wed, 22 Feb 2023 12:34:09 +0800
+Message-ID: <20230222043409.25411-1-candice.li@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DS7PR12MB8419:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7efb0f33-bb27-4b46-da5b-08db14853418
+X-MS-TrafficTypeDiagnostic: DS1PEPF0000B079:EE_|PH0PR12MB8100:EE_
+X-MS-Office365-Filtering-Correlation-Id: a9d069cf-4bb9-4ea0-9bb2-08db148e1446
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2A0h6GrCLPmYnE/GcLZmkul0sA7rHMnZjEvFp8Pkjcj1kvSg5rFFDe5WFX0Uk2NP5qNKDqlLnBN0otA93iy4Csij4CQwD3brJFpDf6MlysHnampk+V/EWdsusiu54aplooGRbqvSHlwozIMZJ091XxFNgTe31OhK8+hSR2Nl2ymTQj2e4hsR9iI5TqGEAd5As+FWuYokopOvo7kzWFy05QwqO4ImrMAu2H81/2m4Vut2rZGwzhRJIumDQJpvfuXTLcpAGkFZbPYQ/tfodYzwBPDYVcVRTZZgZ/cQLGAGiIN2opvRJXpZxGoxZWzojdTHisyBW8kDB3mHwdRxstkC0XE9nDiNeg8tSGWoIfNHibbrQF4PZJBPqhQQseMAdZJ+KQv31hfTnKo23tatnhD0wn25kr6nKRzQ8lb5BgrTfSF2gqYMxCOzijeL+wfZtWaVTijlYMsTlUL1S7JzjYGA+ElPXgrfGT4jkcNR0qJXTYryW2dFEDiXFOtV/kfDB42x++3b9vpx5XHdoD5lHh4HBt9sWZHMPy+VNVbPlAhs0Pg/8qLpLe/oSwq0sFvC6OdfMYrW0yKmBM3sJngSm6gRgPQ4Yl47G8IGRBOMUnLg9C4ddbb9qsM0u5L5d4C0MG8KyrBAfR5UmCCoP0uIRm56gySjyNtuixxpsJ901ETNuowmQ+jzIYu+/PquicQTzOTkWoc27YQUrko8Sb+R6rYNO0HIIIRS44boF5OcvI5IZcY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(39860400002)(136003)(346002)(366004)(396003)(376002)(451199018)(31686004)(186003)(6486002)(26005)(4326008)(66946007)(66556008)(8676002)(66476007)(5660300002)(36756003)(8936002)(83380400001)(6512007)(2616005)(6666004)(6506007)(478600001)(41300700001)(316002)(38100700002)(86362001)(31696002)(44832011)(2906002)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: XVt66M9B+c52KtWGzWuiXGUyeHO/n81v1d0NsDJT1KP8dLZovdWxuk+V+hXRuxxN8gHPDbYSBRp3t4kCJVh4XhnQ2CfmGAc+qZCuQfrhh6NXLZ4z/ucmihcrh+jQhmZL2wvcVH4mmi72Qxv5h7DZeAMspYuYGDns673XuAyJW4f0FGph0PvOxJ4SCFHDVk20cKqzTZdXFAkcQd/xnUUr/SCAnsuROCpqI/TVibunQt89zmLqYqiNEA9vy8u85a2QIh7JA8RMh5TOnkpwAtCnBalmttVu93cl8LlDO1wPbYFFZDqVY3/rIKJcG4jFrACIZlF3iF1o8/pv2mZJYGv2HOJovzIxY+71c+cJwKEf04qMyvT0uVBShufx9tBI2mT+6R9UZwr0wk5/GQbxFfrqhltCB8Q6pcP893rFWd3VDpjHGR4beUidoUaD+VOtwJ1YEhjBkeIbKEOLZm34LRzt4yw/dCdryweAPxFTeWZC7PDUMa6hffIKqwGRyClg/lxwPTfntgdyedMAzNzBJhR6SbApY0OyF34STfwN2MBdy6LTg60qgJ9jM+ZjAdfdg5pMTbRWQIOsZJs0qRPL3FvoU7+2ESn5qhveCUeaRM6NE4e5FMszoxY2bLjLsMrWWJl8IHZp94i6OTrtl684ppZHWQUnHVbfTqiIPIFk+8FKT8Ygyym/GocWc6/Gek0h3eYD4wQKCMoJVEaDJTzaqxm9c97ALrMzNcRv12LLbIWNhxQ=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(346002)(396003)(136003)(376002)(39860400002)(451199018)(40470700004)(46966006)(36840700001)(8936002)(41300700001)(2906002)(44832011)(4326008)(6916009)(8676002)(70586007)(70206006)(5660300002)(316002)(478600001)(36756003)(186003)(40460700003)(1076003)(6666004)(26005)(2616005)(16526019)(47076005)(7696005)(426003)(36860700001)(336012)(40480700001)(83380400001)(81166007)(356005)(86362001)(82310400005)(82740400003)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N0MvZU15SWJtNFM5dEQ1QW1SUVYvVmZiUjNRTVZnWXBxblZsak51UldQdm83?=
- =?utf-8?B?djBoZnNqN3lXOFZWVUZYM1llZFJzZmIxUHJqdllCWWIwM0hka29WYjRDeDBN?=
- =?utf-8?B?Y3BZWW5DWmZuVytNbU40MVpwbFJSYW8xYXFiNTBuZlBTZGE1QXFnM09pdVM3?=
- =?utf-8?B?QVZEamNUczJUMWwwTkFYS0ZCc1MzRFhJNG16Q3dpb1dXMWRCekpBZTRnZnlM?=
- =?utf-8?B?bEI2VFVCNFFwWTNneU1GZG5LQ3RYL21ub3dYWHNRbFJHejF1RWhwcVhoYmRQ?=
- =?utf-8?B?MnpKZXB5WDNYK3VBUHFNZGV1NGFIL1FXbXZYOGRvUENlaTVibHVtaW1xbjRE?=
- =?utf-8?B?bVlqdm5RY1JXVHVpMmxGYnVnYmJ4WitEazBoczhmSG82UzZGaVJUN2QzVGds?=
- =?utf-8?B?MFlqZEtpa3VCaGI1TXdOMi93MEZUV0Z4dXpkTjNZLzZXcmZhbkpRbWt2ekxB?=
- =?utf-8?B?bmFwUzBmejdCQysrT1FJeFRyc3JmN2lrZUJkcFI1U2FucTU1cUxLQVVUMWtK?=
- =?utf-8?B?ZWRDVmpyV29hTDRBRTF1ZS8rZXl2VFRLSkJjd2ZVVzNlcE5xK0c0NXMyOGZC?=
- =?utf-8?B?WmpxWml2UDZCTXhIUEhjb3VlTFlzTFNFNU1RdDltdGgzUkhpQ3Q4eFR1RXNq?=
- =?utf-8?B?Y0p6cnZVekxZNCtNWGZIakVKdUV3NjhreTNNTlo3Y1RINVlFam1ROTJhREVT?=
- =?utf-8?B?MzMyMmFlL3VxNDhJYVpaYmE5TDI1NkkvMWxCWjJXQzBYQ2VyQU1pdXBRTndG?=
- =?utf-8?B?VUJ0N1RWZW9kQ3BGemUyN3FLdENzem1TcmZBZEJhT2ZnbWxUV3VzUG1SYXpy?=
- =?utf-8?B?bFE0TzRaVks0OFFUZVNpZ3VqUmZYeXdUc0FhZUlHTWo0ZG5PTThTRlVtS3ZS?=
- =?utf-8?B?L1lpYS9XRjJzeU4xQStIV3c0T3VQZG13cVhrcEtaZEVJZDEzdUNpVkxOcXBP?=
- =?utf-8?B?R3I3QTBOSmV1RXdsaTM5cGNsSVl0SzUzN3c3QWN5ZlZjSWRzK0p4by9sdmlS?=
- =?utf-8?B?b01QVTVvaklmd2RlTjc0V0E4OWYvTFQxbHV4cHhQMklIaWVFZmxEQ045RkpK?=
- =?utf-8?B?NGxsVHViaDJZKzlJZ2szRHN4eW5iVldlQlZPaFg4K3BqUUUzT0xCM0hPSmhR?=
- =?utf-8?B?WXd3L2lBdkVzTFI2NFJVK3RrcHZUdVJzd2lnR2NTS0FxdXllVmtIVlFTY1ps?=
- =?utf-8?B?UWtQT0JqaGV5UlBvZ3hLZ2ZCVERqakFvTTRCRkgxMDhWWFhFVUVKSld0V3Ev?=
- =?utf-8?B?UlQ5OXYyQjFWSEpkamVmVjBWanQ0b3ZLaDZPZWlnRTA1d09aRVNWOTFHei96?=
- =?utf-8?B?RE9oN1Bla1M3c3JzV1lDL1ZJMi9QeU9FVW1lT2Y3Z2VUVmEzTzd3MGJlSFIx?=
- =?utf-8?B?UWhyWWJKeDhXTDF3b3phUzYxbkVzM2RQQytLUEFFeElnQ0dIb2ovSW1RN2xh?=
- =?utf-8?B?SVF2MWFINHRwcndFQnVIVmFWUHVwWlF2REJsdldFaTRHMmoyMWQ3UTRRdWQr?=
- =?utf-8?B?ZHB2ektuNktqVUFIczQzZjQveW4zOG1Xbm9uVUJzWEpoSmJsL0FhZS9CVzVK?=
- =?utf-8?B?UXp0Y2VTUjBpbnNqNmI5aFpkOE9tT2ZubFRxMWRpcTJRbnA2N0pZQ21PaFh4?=
- =?utf-8?B?MG0wTVg1QXgrV1VjTHRGMG45ZzN4Njd6bVdXQnFNRmVvYlpqaXZNbjF3OFl0?=
- =?utf-8?B?NTRvMGU4dVF6eEVleFBzb1dsbWp3ZkJJaTlPb3lrSk4zWEwxWVJtTStDQ0JE?=
- =?utf-8?B?aEh6Y2R6ZGJGMG5QYW5oTDZOZXdndGx1UVFwS2N0M1ByRnh3MnR1VDRaNGR4?=
- =?utf-8?B?TlBjRHk4M2VUVjl1OW9idVh5OGpaUTF6Wk5lYUcwT3l4dHhLSnByNkFZN09o?=
- =?utf-8?B?UWlLUkZaaThCQkdMQ1hKQU5BdFhQOXBBSjZEOUp4UVhLeG84WTJ5RXZFRUZO?=
- =?utf-8?B?YThmRE1LQW8raWJEbkNuMVFrdUIwem5UMDg0Q2lqaHk1U1hNajhRd3ZhRStD?=
- =?utf-8?B?TWllNXRNUTgzSkN2Z0tlNEhoR2IveFhGUVI5R3Exem1RMEMwakZ6UFhOeDM2?=
- =?utf-8?B?RS9NVW9Pb3NBbEl2bk96ZnI0OGVBeW1Wck41a0xBeC9SOTJjMFZWNmYwcEZF?=
- =?utf-8?Q?C+36xCYufyKNluLghZmKMf4Ov?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7efb0f33-bb27-4b46-da5b-08db14853418
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2023 03:30:54.1870 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2023 04:34:26.0359 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9d069cf-4bb9-4ea0-9bb2-08db148e1446
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xu9+Bgv7Fz4TMTANvX6KEYCUCMmJLf7Gp0r2Yy1sCj0tu4aWB1rPzPj1OCwtxV3FYyXzCjVENaj+CcbIcIpnoQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8419
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000B079.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8100
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,86 +98,123 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: Candice Li <candice.li@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Add convert_error_address for umc v8_10.
 
-Am 2023-02-21 um 22:05 schrieb qu.huang@linux.dev:
-> In the kfd_wait_on_events() function, the kfd_event_waiter structure is
-> allocated by alloc_event_waiters(), but the event field of the waiter
-> structure is not initialized; When copy_from_user() fails in the
-> kfd_wait_on_events() function, it will enter exception handling to
-> release the previously allocated memory of the waiter structure;
-> Due to the event field of the waiters structure being accessed
-> in the free_waiters() function, this results in illegal memory access
-> and system crash, here is the crash log:
->
-> localhost kernel: RIP: 0010:native_queued_spin_lock_slowpath+0x185/0x1e0
-> localhost kernel: RSP: 0018:ffffaa53c362bd60 EFLAGS: 00010082
-> localhost kernel: RAX: ff3d3d6bff4007cb RBX: 0000000000000282 RCX: 00000000002c0000
-> localhost kernel: RDX: ffff9e855eeacb80 RSI: 000000000000279c RDI: ffffe7088f6a21d0
-> localhost kernel: RBP: ffffe7088f6a21d0 R08: 00000000002c0000 R09: ffffaa53c362be64
-> localhost kernel: R10: ffffaa53c362bbd8 R11: 0000000000000001 R12: 0000000000000002
-> localhost kernel: R13: ffff9e7ead15d600 R14: 0000000000000000 R15: ffff9e7ead15d698
-> localhost kernel: FS:  0000152a3d111700(0000) GS:ffff9e855ee80000(0000) knlGS:0000000000000000
-> localhost kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> localhost kernel: CR2: 0000152938000010 CR3: 000000044d7a4000 CR4: 00000000003506e0
-> localhost kernel: Call Trace:
-> localhost kernel: _raw_spin_lock_irqsave+0x30/0x40
-> localhost kernel: remove_wait_queue+0x12/0x50
-> localhost kernel: kfd_wait_on_events+0x1b6/0x490 [hydcu]
-> localhost kernel: ? ftrace_graph_caller+0xa0/0xa0
-> localhost kernel: kfd_ioctl+0x38c/0x4a0 [hydcu]
-> localhost kernel: ? kfd_ioctl_set_trap_handler+0x70/0x70 [hydcu]
-> localhost kernel: ? kfd_ioctl_create_queue+0x5a0/0x5a0 [hydcu]
-> localhost kernel: ? ftrace_graph_caller+0xa0/0xa0
-> localhost kernel: __x64_sys_ioctl+0x8e/0xd0
-> localhost kernel: ? syscall_trace_enter.isra.18+0x143/0x1b0
-> localhost kernel: do_syscall_64+0x33/0x80
-> localhost kernel: entry_SYSCALL_64_after_hwframe+0x44/0xa9
-> localhost kernel: RIP: 0033:0x152a4dff68d7
->
-> Changes since v1:
->    * Allocate the waiter structure using kzalloc, removing the initialization of activated;
->    * '(event_waiters) &&' in the 'for' loop has also been removed.
->
-> Signed-off-by: Qu Huang <qu.huang@linux.dev>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_events.c | 5 ++---
->   1 file changed, 2 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> index 729d26d..bb54f6c 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> @@ -780,13 +780,12 @@ static struct kfd_event_waiter *alloc_event_waiters(uint32_t num_events)
->
->   	event_waiters = kmalloc_array(num_events,
->   					sizeof(struct kfd_event_waiter),
-> -					GFP_KERNEL);
-> +					GFP_KERNEL | __GFP_ZERO);
+Signed-off-by: Candice Li <candice.li@amd.com>
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/umc_v8_10.c | 73 +++++++++++++++-----------
+ 1 file changed, 42 insertions(+), 31 deletions(-)
 
-This is basically the same as kcalloc. Why not just use that? No need to 
-send another patch. I'll fix it up on my end and apply the patch to 
-amd-staging-drm-next.
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v8_10.c b/drivers/gpu/drm/amd/amdgpu/umc_v8_10.c
+index da394bc06bbaaf..293ba39c8a2fda 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v8_10.c
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v8_10.c
+@@ -209,6 +209,45 @@ static int umc_v8_10_swizzle_mode_na_to_pa(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
++void umc_v8_10_convert_error_address(struct amdgpu_device *adev,
++				    struct ras_err_data *err_data, uint64_t err_addr,
++				    uint32_t ch_inst, uint32_t umc_inst,
++				    uint32_t node_inst, uint64_t mc_umc_status)
++{
++	uint64_t na_err_addr_base;
++	uint64_t na_err_addr, retired_page_addr;
++	uint32_t channel_index, addr_lsb, col = 0;
++	int ret = 0;
++
++	channel_index =
++		adev->umc.channel_idx_tbl[node_inst * adev->umc.umc_inst_num *
++					adev->umc.channel_inst_num +
++					umc_inst * adev->umc.channel_inst_num +
++					ch_inst];
++
++	/* the lowest lsb bits should be ignored */
++	addr_lsb = REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, AddrLsb);
++	err_addr &= ~((0x1ULL << addr_lsb) - 1);
++	na_err_addr_base = err_addr & ~(0x3ULL << UMC_V8_10_NA_C5_BIT);
++
++	/* loop for all possibilities of [C6 C5] in normal address. */
++	for (col = 0; col < UMC_V8_10_NA_COL_2BITS_POWER_OF_2_NUM; col++) {
++		na_err_addr = na_err_addr_base | (col << UMC_V8_10_NA_C5_BIT);
++
++		/* Mapping normal error address to retired soc physical address. */
++		ret = umc_v8_10_swizzle_mode_na_to_pa(adev, channel_index,
++						na_err_addr, &retired_page_addr);
++		if (ret) {
++			dev_err(adev->dev, "Failed to map pa from umc na.\n");
++			break;
++		}
++		dev_info(adev->dev, "Error Address(PA): 0x%llx\n",
++			retired_page_addr);
++		amdgpu_umc_fill_error_record(err_data, na_err_addr,
++				retired_page_addr, channel_index, umc_inst);
++	}
++}
++
+ static void umc_v8_10_query_error_address(struct amdgpu_device *adev,
+ 					 struct ras_err_data *err_data,
+ 					 uint32_t umc_reg_offset,
+@@ -218,10 +257,7 @@ static void umc_v8_10_query_error_address(struct amdgpu_device *adev,
+ {
+ 	uint64_t mc_umc_status_addr;
+ 	uint64_t mc_umc_status, err_addr;
+-	uint64_t mc_umc_addrt0, na_err_addr_base;
+-	uint64_t na_err_addr, retired_page_addr;
+-	uint32_t channel_index, addr_lsb, col = 0;
+-	int ret = 0;
++	uint64_t mc_umc_addrt0;
+ 
+ 	mc_umc_status_addr =
+ 		SOC15_REG_OFFSET(UMC, 0, regMCA_UMC_UMC0_MCUMC_STATUST0);
+@@ -236,12 +272,6 @@ static void umc_v8_10_query_error_address(struct amdgpu_device *adev,
+ 		return;
+ 	}
+ 
+-	channel_index =
+-		adev->umc.channel_idx_tbl[node_inst * adev->umc.umc_inst_num *
+-					adev->umc.channel_inst_num +
+-					umc_inst * adev->umc.channel_inst_num +
+-					ch_inst];
+-
+ 	/* calculate error address if ue error is detected */
+ 	if (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Val) == 1 &&
+ 	    REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, AddrV) == 1 &&
+@@ -251,27 +281,8 @@ static void umc_v8_10_query_error_address(struct amdgpu_device *adev,
+ 		err_addr = RREG64_PCIE((mc_umc_addrt0 + umc_reg_offset) * 4);
+ 		err_addr = REG_GET_FIELD(err_addr, MCA_UMC_UMC0_MCUMC_ADDRT0, ErrorAddr);
+ 
+-		/* the lowest lsb bits should be ignored */
+-		addr_lsb = REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, AddrLsb);
+-		err_addr &= ~((0x1ULL << addr_lsb) - 1);
+-		na_err_addr_base = err_addr & ~(0x3ULL << UMC_V8_10_NA_C5_BIT);
+-
+-		/* loop for all possibilities of [C6 C5] in normal address. */
+-		for (col = 0; col < UMC_V8_10_NA_COL_2BITS_POWER_OF_2_NUM; col++) {
+-			na_err_addr = na_err_addr_base | (col << UMC_V8_10_NA_C5_BIT);
+-
+-			/* Mapping normal error address to retired soc physical address. */
+-			ret = umc_v8_10_swizzle_mode_na_to_pa(adev, channel_index,
+-							na_err_addr, &retired_page_addr);
+-			if (ret) {
+-				dev_err(adev->dev, "Failed to map pa from umc na.\n");
+-				break;
+-			}
+-			dev_info(adev->dev, "Error Address(PA): 0x%llx\n",
+-				retired_page_addr);
+-			amdgpu_umc_fill_error_record(err_data, na_err_addr,
+-					retired_page_addr, channel_index, umc_inst);
+-		}
++		umc_v8_10_convert_error_address(adev, err_data, err_addr,
++					ch_inst, umc_inst, node_inst, mc_umc_status);
+ 	}
+ 
+ 	/* clear umc status */
+-- 
+2.17.1
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-
-Thanks,
-   Felix
-
-
->   	if (!event_waiters)
->   		return NULL;
->
-> -	for (i = 0; (event_waiters) && (i < num_events) ; i++) {
-> +	for (i = 0; i < num_events; i++) {
->   		init_wait(&event_waiters[i].wait);
-> -		event_waiters[i].activated = false;
->   	}
->
->   	return event_waiters;
-> --
-> 1.8.3.1
