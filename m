@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F26CC61DA4
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Feb 2023 06:41:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30CB3C61DA4
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Feb 2023 06:42:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1515410E3C1;
-	Wed, 22 Feb 2023 06:41:54 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2046.outbound.protection.outlook.com [40.107.92.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9BE610E3C1
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Feb 2023 06:41:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B432010E3F2;
+	Wed, 22 Feb 2023 06:42:00 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2069.outbound.protection.outlook.com [40.107.244.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5295810E3F2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Feb 2023 06:41:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=M/0iUI41AFE258YIGEFVtCHtdfrwkynFXkfj+uaGGO9DSOcbkW1uq4qgWldCgR0zaUhOlvxxyEBLPEeLvj6FQoxTTyIQXckikLlhgY4HUdYrJmb8KcyVKg6G2+Ikiihyg0qSxSrMoQaELC5ViOp6pQZ7zGW3X73RzB8BWmNcaxNoEzdU+gOVPOl+pRalPV9C7VOgcmcgd1ybUoWrbBACOZ0V6kZ+JDQHhKVr9IRUbpNE5cgs0BNzLj75JEUoeDgExUeqIq+bHtiq0k3LkRHw6Q7WSGvTzGlwVdCa6W+na9IZqBrcXaiyhnbvnPAGgCssHeVb1kfbtraHdfsIwHkLmg==
+ b=njk0klAhRH0IwnDj/D8jYYMgevqfuLAWh8HCpJC3XNHZ1t3nozDCCWOSX+0zq86iHYmNhZM0mwqC8TomR65WzHKHgqVf7AaPo/sUSLOzYLVEX5/KMK1jMe8sp0QBX5TrrgAky+Or+EgULI4uQIvqZ8Crl1BIs4cn5lFFQ8iH+2RinJMRVtg4Lznfk/VE+f3aPae5xMOsIUnLEJ64bCa/epClusD2qE3nzMVcjwQaGexnNejt5LId2ODI0bHkGiLBg0Kbsjrb3vu8cz8YEQrQ24etoV963Vhir28XEKH9DS+QAbq5+VjlJnYY8AmxUnciLvxsNXq/n4pjHX64LaUEGg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T6b4aczAQjVJabVGYNpsw18/3ZMogGlGmtGzOLQiKSo=;
- b=JJjzme48zSZQpaUC8dDc8081aT41RkpZAjwQtWewsZzzA9yhkqy8MISsUwItWjjGBEQCsDsdW8y5OWgQbW563twZKJRDj07hixTZrQjb/9KLPc8RG2wFhD0wEQC2cmuPZru3XAwBFctZPIPvI4Cp4y5QImk5QPnsD6kSAxoCUvgta/LhOSsTzm8EbO8UipA/w26dzZ0B5WpDkI+dpyyB5858ec+yjOAa1WTk5S4qUdgODdxJfeJrdMUpecKP+jEtS6mA2HoDlwjAtjhfgIGhX2CIB28GcDVGiECF8Heu7rnvNQKzBsGqEi1E/4PjaidtSBPzkbEKnqcXr2h+XQf/4g==
+ bh=GoRBaxIFKowHIfhjrAm7fHRMqX0V8f2Sb+unuT0ZOck=;
+ b=U4xPAYnMjDjD8fL1X/UM6hcezzzIvhKJSzOqAeRCuJ+UbnGnIEn2npXjXzQ6Lis6Pcjz4L3YUAwNK/17lHF+m9vSF9r5dDOwRTMLR00qkA47H2MrAgOZCq9dcqCTjtMdN/OT3hHEJNVC9Aohbnr27I7l7ck/nqfmtO+6rdSG7HkzEd+WERqTC+JNVJmx7BYvWI1MCsJSL8K3asy1ZEA7LlMwsigXtcHt/5sKdizreIGA1ulVgSUmK3LRDWe+id5cdkPZL4+Yt1NcNVnql+EzeLfaL/Xzt6CfcNK8WdYV9YEyLYziPfrdb+bf2uQaQlOnek0gVC8GmrzxbrY3FOQUbg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T6b4aczAQjVJabVGYNpsw18/3ZMogGlGmtGzOLQiKSo=;
- b=EpdiH6fnwkZxkAFBKiX500wgiPpq7vC7pHZ+E5hVsTIHAwOTmOikYRDm+uEEEbR6/JRE8sE3/6VvZENZ5eE2UN0EiHySuWLLKvCUJmiKRkMtL3Hc6PsGXkBB/MreGlaxZJklZ3NsdxGFb9hDxmKo75WJKYr4tYIRZ+5PkfWM4j8=
-Received: from DM6PR07CA0097.namprd07.prod.outlook.com (2603:10b6:5:337::30)
- by SJ1PR12MB6028.namprd12.prod.outlook.com (2603:10b6:a03:489::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.19; Wed, 22 Feb
- 2023 06:41:49 +0000
-Received: from DM6NAM11FT020.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:337:cafe::1a) by DM6PR07CA0097.outlook.office365.com
- (2603:10b6:5:337::30) with Microsoft SMTP Server (version=TLS1_2,
+ bh=GoRBaxIFKowHIfhjrAm7fHRMqX0V8f2Sb+unuT0ZOck=;
+ b=be3jY9r8W1TOPGqZFpnC+1A4lzPwRfZIFTTTQFIvdyW/taoC6K9bqpfT9HYHNINK6v4HlDStrlVTqvsit3z+UieAPDkO5CspUqb9glXcaa+h8ugq4iQ9v1pIeqxk8w3pcJ6uPEHnZGQMcjHf3orkSNQc6ezs8GblafdlhxQ2N6k=
+Received: from DM6PR01CA0009.prod.exchangelabs.com (2603:10b6:5:296::14) by
+ CH0PR12MB5123.namprd12.prod.outlook.com (2603:10b6:610:be::12) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6134.19; Wed, 22 Feb 2023 06:41:56 +0000
+Received: from DM6NAM11FT049.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:296:cafe::82) by DM6PR01CA0009.outlook.office365.com
+ (2603:10b6:5:296::14) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.19 via Frontend
- Transport; Wed, 22 Feb 2023 06:41:49 +0000
+ Transport; Wed, 22 Feb 2023 06:41:56 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +44,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT020.mail.protection.outlook.com (10.13.172.224) with Microsoft SMTP
+ DM6NAM11FT049.mail.protection.outlook.com (10.13.172.188) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6134.19 via Frontend Transport; Wed, 22 Feb 2023 06:41:49 +0000
+ 15.20.6134.19 via Frontend Transport; Wed, 22 Feb 2023 06:41:56 +0000
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 22 Feb
- 2023 00:41:42 -0600
+ 2023 00:41:49 -0600
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 06/20] drm/amd/display: Allocation at stream Enable
-Date: Wed, 22 Feb 2023 01:40:27 -0500
-Message-ID: <20230222064041.2824-7-qingqing.zhuo@amd.com>
+Subject: [PATCH 07/20] drm/amd/display: dcn32/321 dsc_pg_control not executed
+ properly
+Date: Wed, 22 Feb 2023 01:40:28 -0500
+Message-ID: <20230222064041.2824-8-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230222064041.2824-1-qingqing.zhuo@amd.com>
 References: <20230222064041.2824-1-qingqing.zhuo@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT020:EE_|SJ1PR12MB6028:EE_
-X-MS-Office365-Filtering-Correlation-Id: 33d671a1-932a-4842-466f-08db149fe014
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT049:EE_|CH0PR12MB5123:EE_
+X-MS-Office365-Filtering-Correlation-Id: cfc61ef5-f5f1-4e3d-d3f0-08db149fe442
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: gy1QVHVnitV9xAZI7lo6CK/Cj4krRMlTU/WrWR3YVkpd5rY9QB2r8xFqAeWrV0dyZSTyfQ8nxqJbditDIk6q23GLyy/I45duWlM/3BfgToTFcNCNLBiCUEUZmjbTrDf8TAmIZ1sCPxx8IP1Fmghq4AXOhspLq4v2THxgP3+KYsYEPHT1gL98rVA1jFD8SI5/Hj6OIoFiOpJVD2xnw7wvpRVKP6whXZz2QBezAXX8nTtuVeATWSGFJtQTzkkw8CqLzxQHkaYU6DF9LVPERx9xnFILqso6tqcxZLdIklbCPtwpKeAVqrUmqikfFM+aFiWyY8hHDuHF6U9/+pfzxgX6yoO3N4h/T5u7Ful/OjxUgNbFyVBj5iOvs8y/F+eYTLQO0Cgfn9IqG7J7/CKv0cyansG2xwMHZUnO1auRImR1tZ2dbwwfEUlWYD1QS8qMosOvNQbxq8Obw9Koee8uN6Fdi0m8nJPPHm3+Se6DUpVql2th1YvanW471UkIbH0ongLxLrccNFnStLuXq0oj6POKfghW2jGTZ3kG8rw9RHseuMTLOhytJg0TNz6TPG22GcXQzyJJ1tEdMETpmtIb/Egxrbh7DGtlvnhD/Yc9Qa1/NOSdzD4TirPShiq9YtsUK8Dzh0GQCt4vzLNa6xBklEWnT4UKiWwDMmnE6sMS131BFWdvnjGMkgAg2OxbbfW/GglMXEiHTjsm5APpKmNxKFQIWaiJX3xSVZJdsz9uYxVllqc=
+X-Microsoft-Antispam-Message-Info: vY85XzdXJpeFhT+vi0g0rEXAjYA1KY3wC58P1UuY6BVUvxOWRQhtlGDxqmp+QN5sqjoWC5KLIhr5cYZBRNt2rkBy8VMbulmqGJh3g2BR1qlOWq1R/b7bFKijtNxfc+zcfrIDTRPZ/V4nnqbAogfPop09ZdQkvbCTiXdpklQtPVHQaSeKYNd8PRUpCgnO0VOSoZW66OU+vy2+V4GEde8CXjKUiW6qRsaFqORBHLvC6RwBfSqjke9lyqQQpWk+GM9lKrMUgE6bMqaShJuIYUhFKgN2PsbyNk9GyelUHTOwrILbJTxXt14aDEbUWfMsSBP8Zg591Al9neDAXXDoS3QHesCEKHZ7U2t96y+YJa0LL7nWf4rpuxdS+lUfetI0BOlXCQ3Q274A9RQtzI89WrG5+m1DX5OZlSYUhEOEXLzcdnQFSSoiyjngqvQPyTdy9JwLat02HQ9h1cDT1BK1NzFGcwR2wyOy3FgsZM79fbR4Ly5AWYZZWHQkuBPfryUnDnkiFkhJe64OsTC7FrLXlz/8X4w7f32LQa4J940EFCbEMtG7Si/OstwQML/Z6CkRlW5JW5caks15+X9ef2uY4OWj12MCRWTYbfU2ZH1oQBehD5QTRDmd4ZFYX+N6oe7K2KWIt681AXx++wRWrZXXhkyOdR5SG5yZK+rNPMhcyDeI2aA58ZX5HfNWn+F/TLsLRkgPtF2Q+OJ1TzpmRXtN9LcY79ZOkvdd1jLbPTD5FPQwAiI=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(376002)(346002)(396003)(39860400002)(136003)(451199018)(46966006)(36840700001)(40470700004)(47076005)(426003)(40460700003)(66574015)(36756003)(478600001)(336012)(86362001)(44832011)(82310400005)(81166007)(82740400003)(2906002)(356005)(36860700001)(54906003)(316002)(41300700001)(5660300002)(70206006)(83380400001)(4326008)(8676002)(40480700001)(70586007)(8936002)(16526019)(186003)(2616005)(1076003)(66899018)(6916009)(6666004)(26005)(36900700001);
+ SFS:(13230025)(4636009)(346002)(39860400002)(376002)(136003)(396003)(451199018)(46966006)(40470700004)(36840700001)(82310400005)(36860700001)(1076003)(47076005)(426003)(83380400001)(36756003)(40460700003)(356005)(316002)(82740400003)(81166007)(54906003)(2616005)(40480700001)(478600001)(16526019)(6666004)(186003)(26005)(336012)(8936002)(2906002)(5660300002)(6916009)(41300700001)(4326008)(8676002)(44832011)(70586007)(86362001)(70206006)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2023 06:41:49.4056 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33d671a1-932a-4842-466f-08db149fe014
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2023 06:41:56.4060 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cfc61ef5-f5f1-4e3d-d3f0-08db149fe442
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT020.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT049.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6028
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5123
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,151 +101,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
  qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Wenjing Liu <Wenjing.Liu@amd.com>, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
- Mustapha Ghaddar <mghaddar@amd.com>, Bhawanpreet.Lakha@amd.com,
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+ Hersen Wu <hersenxs.wu@amd.com>, wayne.lin@amd.com,
+ Nevenko Stupar <Nevenko.Stupar@amd.com>, Bhawanpreet.Lakha@amd.com,
  agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Mustapha Ghaddar <mghaddar@amd.com>
+From: Hersen Wu <hersenxs.wu@amd.com>
 
-[WHY & HOW]
-After we allocate BW at plug, we will de-alloc
-and allocate only what stream needs at
-stream_enable()
+[why]
+during boot up or resume from s3, hw default value of
+domain_power_forceon is 1. when program domain_power_gate
+to 1 to power down hw block, hw will not change to power
+off due to domain_power_forceon = 1.
 
-[HOW]
-Introduce bw allocation check at link_enable()
-for DPIA links
+[how]
+enable_power_gating_plane(true) should be executed to set
+domain_power_forceon to 0 before dsc_pg_control.
+dsc_pg_control is already called by dcn3x_init_hw-->
+init_pipes--> dsc_pg_control. no need be programmed with
+dcn3x_init_hw one more time.
+to trigger dchub, dsc block power state change, need
+program dc_ip_request_cntl to notify hw block.
 
-Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
+Reviewed-by: Nevenko Stupar <Nevenko.Stupar@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Signed-off-by: Mustapha Ghaddar <mghaddar@amd.com>
+Signed-off-by: Hersen Wu <hersenxs.wu@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc_link.h      |  2 ++
- .../gpu/drm/amd/display/dc/link/link_dpms.c   | 11 +++++--
- .../dc/link/protocols/link_dp_dpia_bw.c       | 33 ++++++++++++++++++-
- .../dc/link/protocols/link_dp_dpia_bw.h       | 14 +++++++-
- 4 files changed, 56 insertions(+), 4 deletions(-)
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |  9 +++++++++
+ .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    |  5 -----
+ .../drm/amd/display/dc/dcn32/dcn32_hwseq.c    | 19 +++++++++++++------
+ 3 files changed, 22 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h b/drivers/gpu/drm/amd/display/dc/dc_link.h
-index cecd807f5ed8..bfe0f6877d9e 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_link.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
-@@ -293,6 +293,8 @@ struct dc_link {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+index b83873a3a534..8b5181f3d13a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+@@ -190,10 +190,15 @@ void dcn20_enable_power_gating_plane(
+ 	bool enable)
+ {
+ 	bool force_on = true; /* disable power gating */
++	uint32_t org_ip_request_cntl = 0;
  
- 	struct dc_panel_config panel_config;
- 	struct phy_state phy_state;
-+	// BW ALLOCATON USB4 ONLY
-+	struct dc_dpia_bw_alloc dpia_bw_alloc_config;
- };
+ 	if (enable)
+ 		force_on = false;
  
++	REG_GET(DC_IP_REQUEST_CNTL, IP_REQUEST_EN, &org_ip_request_cntl);
++	if (org_ip_request_cntl == 0)
++		REG_SET(DC_IP_REQUEST_CNTL, 0, IP_REQUEST_EN, 1);
++
+ 	/* DCHUBP0/1/2/3/4/5 */
+ 	REG_UPDATE(DOMAIN0_PG_CONFIG, DOMAIN0_POWER_FORCEON, force_on);
+ 	REG_UPDATE(DOMAIN2_PG_CONFIG, DOMAIN2_POWER_FORCEON, force_on);
+@@ -224,6 +229,10 @@ void dcn20_enable_power_gating_plane(
+ 		REG_UPDATE(DOMAIN20_PG_CONFIG, DOMAIN20_POWER_FORCEON, force_on);
+ 	if (REG(DOMAIN21_PG_CONFIG))
+ 		REG_UPDATE(DOMAIN21_PG_CONFIG, DOMAIN21_POWER_FORCEON, force_on);
++
++	if (org_ip_request_cntl == 0)
++		REG_SET(DC_IP_REQUEST_CNTL, 0, IP_REQUEST_EN, 0);
++
+ }
  
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-index 180c92a9f117..a1214e5606dd 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-@@ -46,6 +46,7 @@
- #include "protocols/link_dp_capability.h"
- #include "protocols/link_dp_training.h"
- #include "protocols/link_edp_panel_control.h"
-+#include "protocols/link_dp_dpia_bw.h"
- 
- #include "dm_helpers.h"
- #include "link_enc_cfg.h"
-@@ -2044,11 +2045,17 @@ static enum dc_status enable_link_dp(struct dc_state *state,
+ void dcn20_dccg_init(struct dce_hwseq *hws)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+index 3b4d4d68359b..0f7de972c80a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+@@ -534,11 +534,6 @@ void dcn30_init_hw(struct dc *dc)
  		}
  	}
  
--	/* Train with fallback when enabling DPIA link. Conventional links are
-+	/*
-+	 * If the link is DP-over-USB4 do the following:
-+	 * - Train with fallback when enabling DPIA link. Conventional links are
- 	 * trained with fallback during sink detection.
-+	 * - Allocate only what the stream needs for bw in Gbps. Inform the CM
-+	 * in case stream needs more or less bw from what has been allocated
-+	 * earlier at plug time.
- 	 */
--	if (link->ep_type == DISPLAY_ENDPOINT_USB4_DPIA)
-+	if (link->ep_type == DISPLAY_ENDPOINT_USB4_DPIA) {
- 		do_fallback = true;
-+	}
+-	/* Power gate DSCs */
+-	for (i = 0; i < res_pool->res_cap->num_dsc; i++)
+-		if (hws->funcs.dsc_pg_control != NULL)
+-			hws->funcs.dsc_pg_control(hws, res_pool->dscs[i]->inst, false);
+-
+ 	/* we want to turn off all dp displays before doing detection */
+ 	link_blank_all_dp_displays(dc);
  
- 	/*
- 	 * Temporary w/a to get DP2.0 link rates to work with SST.
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c
-index fcb82bb855ed..9d3df69fc340 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c
-@@ -246,7 +246,7 @@ static bool get_cm_response_ready_flag(struct dc_link *link)
- // ------------------------------------------------------------------
- //					PUBLIC FUNCTIONS
- // ------------------------------------------------------------------
--bool set_dptx_usb4_bw_alloc_support(struct dc_link *link)
-+bool link_dp_dpia_set_dptx_usb4_bw_alloc_support(struct dc_link *link)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+index 16f892125b6f..f667f2a6f686 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+@@ -131,10 +131,15 @@ void dcn32_enable_power_gating_plane(
+ 	bool enable)
  {
- 	bool ret = false;
- 	uint8_t response = 0,
-@@ -439,3 +439,34 @@ int dc_link_dp_dpia_handle_usb4_bandwidth_allocation_for_link(struct dc_link *li
- out:
- 	return ret;
- }
-+int link_dp_dpia_allocate_usb4_bandwidth_for_stream(struct dc_link *link, int req_bw)
-+{
-+	int ret = 0;
-+	uint8_t timeout = 10;
-+
-+	if (!get_bw_alloc_proceed_flag(link))
-+		goto out;
-+
-+	/*
-+	 * Sometimes stream uses same timing parameters as the already
-+	 * allocated max sink bw so no need to re-alloc
-+	 */
-+	if (req_bw != link->dpia_bw_alloc_config.sink_allocated_bw) {
-+		dc_link_set_usb4_req_bw_req(link, req_bw);
-+		do {
-+			if (!timeout > 0)
-+				timeout--;
-+			else
-+				break;
-+			udelay(10 * 1000);
-+		} while (!get_cm_response_ready_flag(link));
-+
-+		if (!timeout)
-+			ret = 0;// ERROR TIMEOUT waiting for response for allocating bw
-+		else if (link->dpia_bw_alloc_config.sink_allocated_bw > 0)
-+			ret = get_host_router_total_bw(link, HOST_ROUTER_BW_ALLOCATED);
-+	}
-+
-+out:
-+	return ret;
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.h b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.h
-index c2c3049adcd1..46d141a1366f 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.h
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.h
-@@ -42,6 +42,18 @@ enum bw_type {
-  *
-  * return: SUCCESS or FAILURE
-  */
--bool set_dptx_usb4_bw_alloc_support(struct dc_link *link);
-+bool link_dp_dpia_set_dptx_usb4_bw_alloc_support(struct dc_link *link);
-+
-+/*
-+ * Allocates only what the stream needs for bw, so if:
-+ * If (stream_req_bw < or > already_allocated_bw_at_HPD)
-+ * => Deallocate Max Bw & then allocate only what the stream needs
-+ *
-+ * @link: pointer to the dc_link struct instance
-+ * @req_bw: Bw requested by the stream
-+ *
-+ * return: allocated bw else return 0
-+ */
-+int link_dp_dpia_allocate_usb4_bandwidth_for_stream(struct dc_link *link, int req_bw);
+ 	bool force_on = true; /* disable power gating */
++	uint32_t org_ip_request_cntl = 0;
  
- #endif /* DC_INC_LINK_DP_DPIA_BW_H_ */
+ 	if (enable)
+ 		force_on = false;
+ 
++	REG_GET(DC_IP_REQUEST_CNTL, IP_REQUEST_EN, &org_ip_request_cntl);
++	if (org_ip_request_cntl == 0)
++		REG_SET(DC_IP_REQUEST_CNTL, 0, IP_REQUEST_EN, 1);
++
+ 	/* DCHUBP0/1/2/3 */
+ 	REG_UPDATE(DOMAIN0_PG_CONFIG, DOMAIN_POWER_FORCEON, force_on);
+ 	REG_UPDATE(DOMAIN1_PG_CONFIG, DOMAIN_POWER_FORCEON, force_on);
+@@ -146,6 +151,9 @@ void dcn32_enable_power_gating_plane(
+ 	REG_UPDATE(DOMAIN17_PG_CONFIG, DOMAIN_POWER_FORCEON, force_on);
+ 	REG_UPDATE(DOMAIN18_PG_CONFIG, DOMAIN_POWER_FORCEON, force_on);
+ 	REG_UPDATE(DOMAIN19_PG_CONFIG, DOMAIN_POWER_FORCEON, force_on);
++
++	if (org_ip_request_cntl == 0)
++		REG_SET(DC_IP_REQUEST_CNTL, 0, IP_REQUEST_EN, 0);
+ }
+ 
+ void dcn32_hubp_pg_control(struct dce_hwseq *hws, unsigned int hubp_inst, bool power_on)
+@@ -786,10 +794,11 @@ void dcn32_init_hw(struct dc *dc)
+ 		}
+ 	}
+ 
+-	/* Power gate DSCs */
+-	for (i = 0; i < res_pool->res_cap->num_dsc; i++)
+-		if (hws->funcs.dsc_pg_control != NULL)
+-			hws->funcs.dsc_pg_control(hws, res_pool->dscs[i]->inst, false);
++	/* enable_power_gating_plane before dsc_pg_control because
++	 * FORCEON = 1 with hw default value on bootup, resume from s3
++	 */
++	if (hws->funcs.enable_power_gating_plane)
++		hws->funcs.enable_power_gating_plane(dc->hwseq, true);
+ 
+ 	/* we want to turn off all dp displays before doing detection */
+ 	link_blank_all_dp_displays(dc);
+@@ -886,8 +895,6 @@ void dcn32_init_hw(struct dc *dc)
+ 
+ 		REG_UPDATE(DCFCLK_CNTL, DCFCLK_GATE_DIS, 0);
+ 	}
+-	if (hws->funcs.enable_power_gating_plane)
+-		hws->funcs.enable_power_gating_plane(dc->hwseq, true);
+ 
+ 	if (!dcb->funcs->is_accelerated_mode(dcb) && dc->res_pool->hubbub->funcs->init_watermarks)
+ 		dc->res_pool->hubbub->funcs->init_watermarks(dc->res_pool->hubbub);
 -- 
 2.34.1
 
