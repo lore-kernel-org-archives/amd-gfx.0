@@ -4,65 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10246C636D7
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Feb 2023 06:47:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2D27C636D7
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Feb 2023 07:12:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65A6510E034;
-	Thu, 23 Feb 2023 06:47:54 +0000 (UTC)
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E132610E034
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Feb 2023 06:47:51 +0000 (UTC)
-Received: by mail-wr1-x434.google.com with SMTP id bo30so9237942wrb.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Feb 2023 22:47:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=kVpAYmpm0HsiTbq/m08zzodUpsJ5l7wE3CgbpE7ZaOU=;
- b=Met3ym7mlbDAY2Ii1GdhBVgcJ8UN5l7a22adZAk/V/F6B8ag7sakeqXLtkA22XYF4N
- ASFzno9rbz4XEcmxil02SM3nbnXSMv0PW2y7x3kT4+MBRhjl1JNi9GZ3iiQ14njkPHt1
- q4FmEp0xFLqGo5KQE7lA5Qgobtxb0ts6AtKLa1BHWPQNRtEx3pow+a/QHw/ImGJXJzbi
- 7/gMYMXThACzad2n+BU27hkGREgIdjoqwPNON1zq9MBKnUVeqmABMoZXA3p5lA9FeXv9
- W1U7Ibd0BfLCG8Lprf4nwe2EQ997G8IxX6lTBiqQvqUfw4UTLa86VT+edwrRejCmPLlU
- iIdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=kVpAYmpm0HsiTbq/m08zzodUpsJ5l7wE3CgbpE7ZaOU=;
- b=AsqRzzY9IFhixJQKY6B2JPNz8ySu+zG54QmmnmCBIdCau/pk+rD12UUlaylSuRlx8V
- y0UVHvwgz+ChURL9+NvAw/aevwVLuErpH3B47pEOZeDAdJY0ikEu/W0sQ/PElgp/AxvD
- a/er4uGocrcYIJ68NrkZtnofhO6CCEeJHI5faBatDxHm9vlUoTZoolYA5grOxBqbaNS9
- p/6hChKN0xpxgOxdGJdIWmPCgXx9ek3WUeIlcAGPhrH7mTZ+lVGT+p2y7hoMMUb9B7aj
- kb86xuiVXFy+DQnCUvbz/ajePT98AnZQwBYJ8UYrdfj/4uRCOhszL8Dc14ItEUG6/mqI
- Li5w==
-X-Gm-Message-State: AO0yUKVBwPu7ZD4b0i4swseosgOqdeIZHocUSoqqWrK8R2KaKaiNBd8T
- TAjcmsP7msQTuA1tVYFVVNI=
-X-Google-Smtp-Source: AK7set9LqntXcEyMBjV8wkNRr0OWNSBCoN2A2hnpzLOqHag7k5Zs9kJ0ioY/FlGwgqP/lR4VxZoIrw==
-X-Received: by 2002:adf:f0c3:0:b0:2c7:144a:3ac1 with SMTP id
- x3-20020adff0c3000000b002c7144a3ac1mr465758wro.14.1677134870075; 
- Wed, 22 Feb 2023 22:47:50 -0800 (PST)
-Received: from [192.168.178.21] (p5b0ea2e7.dip0.t-ipconnect.de.
- [91.14.162.231]) by smtp.gmail.com with ESMTPSA id
- d18-20020a5d6452000000b002c54f4d0f71sm10555542wrw.38.2023.02.22.22.47.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Feb 2023 22:47:49 -0800 (PST)
-Message-ID: <b1de9e63-5194-4ca5-e033-25674e2b7d92@gmail.com>
-Date: Thu, 23 Feb 2023 07:47:48 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AEE910EAC4;
+	Thu, 23 Feb 2023 07:12:51 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2069.outbound.protection.outlook.com [40.107.93.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 885BB10EAC4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Feb 2023 07:12:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cbAGibcHXQv1HfrXi6mQpzykGjQyq9naarW+WIvX31ZwrbWq+t/AFIZtaTozo0Yqow2v5Q1VUzUSxIdKDP59JTnoOGeKhI7vZViPpc9RQPR1b/b3NgSiKoRJ2cmZ+B7Bp5mTnJ9AQZPOpNBGhNVe1lNq8ediBX1jzcEZAIyCmrWIq+IHkzPmDmuo/Wim3zrPtZe7XfPk/hZR6DzPrIqWFCF8R8PHo81EhCHM7P6fFXJDBSehZuQVbdnh0gE4DI7NW26HPdimfkPii4VGwE4RVXmepxAcsgNHVbtlVn4gylOClKdPiNCV7jL9uQVLyHgb4z75sE+oLsWLbj05QAGoTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YSDGtZjaJ4nUigT6Kb44F/DAs8Fvv9hAejxCNx82ZQE=;
+ b=YhDzVDqqUW7X2W+oUS8SFBXQRmhvHVDwiI/HwQzRw+ubMl0pDws+Dg34GZi6kiisYNUgjfA4yD4VgICw0cS+St3FbLMOVGOuaKtFoClcz+ZFDpxqeK0Wo2rOYeji4DXc0XQnwo/ffHGtosltpaEXX06OXb5bTJReQyp7gOZs+lF0S74i/06eUmL0vU/SdLkuEdA3OiU6V6Bm7terT1wtAqc64aH5lg6dHZe9KfsSjd8uqvc8m2V0HhFiiv35PG5oyGpg0YtHFyhA/7Te2u2fb88vjCfTsX3L1ASwwVBgNfj+FbG/88CVk/GR/C5f5II+eajmtUvAcmDczMjquPlB8g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YSDGtZjaJ4nUigT6Kb44F/DAs8Fvv9hAejxCNx82ZQE=;
+ b=aAjudc2SqgusHZxo1+GNn7cqfPhc56+mHjwB4DtAjDwtb8elUgC41ex6fSnfTnS8a17zCmCwhPJ+UkrXd4U16a/rNzlE+Tnq8c3atrII2ykcRHYV+heaVdqWMGBonMQogCj9WsYCOEzCFEla44bNviQLaUDZJZaNPRMKE9NdFg0=
+Received: from MW4PR03CA0357.namprd03.prod.outlook.com (2603:10b6:303:dc::32)
+ by MW4PR12MB7381.namprd12.prod.outlook.com (2603:10b6:303:219::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.19; Thu, 23 Feb
+ 2023 07:12:48 +0000
+Received: from CO1NAM11FT100.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:dc:cafe::c4) by MW4PR03CA0357.outlook.office365.com
+ (2603:10b6:303:dc::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.21 via Frontend
+ Transport; Thu, 23 Feb 2023 07:12:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT100.mail.protection.outlook.com (10.13.175.133) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6134.19 via Frontend Transport; Thu, 23 Feb 2023 07:12:48 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 23 Feb
+ 2023 01:12:47 -0600
+Received: from bob-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Thu, 23 Feb 2023 01:12:45 -0600
+From: bobzhou <bob.zhou@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Guchun.Chen@amd.com>,
+ <Flora.Cui@amd.com>, <Yuliang.Shi@amd.com>, <majun@amd.com>
+Subject: [PATCH] drm/amdgpu/vcn: fix compilation issue with legacy gcc
+Date: Thu, 23 Feb 2023 15:12:44 +0800
+Message-ID: <20230223071244.5025-1-bob.zhou@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH] drm/amdgpu: support more AV1 encoding requests
-Content-Language: en-US
-To: "David (Ming Qiang) Wu" <David.Wu3@amd.com>,
- amd-gfx@lists.freedesktop.org, Christian.Koenig@amd.com
-References: <20230222231131.191619-1-David.Wu3@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20230222231131.191619-1-David.Wu3@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT100:EE_|MW4PR12MB7381:EE_
+X-MS-Office365-Filtering-Correlation-Id: 08cf7cf3-b8e7-4758-76bc-08db156d5e85
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: hMdtqWr7F28mwELw29TAuErI/xy+j68WfuHjUmsnMjjfEftpw/QOhQfM+m7dt1UbmrY/3tTv6gkmkRF87Gq0p6k4y0t5fPMrW11goKvBha79Fxnmn5E231pw4UK00hMAjIulST7JhpAD4y4VpgdKVUdPuWO0cT7SlaWDCPOZq/TIpSZdHNMQFyhfKgPbUMzJ0rmZMbGupHSw7J095tm4WjFEgaF+ph/uSkqltOOvBSp7+3lHZyh/3lynYN79mx81MHobfj3ThPVSKMV5aPf+igbo90RNp5TQ0K9ciRYTLyw/ZCVD/5AdM+WMP2LFUWzliQJrE4vvrS84JlPngJjIzP+4SNn5gzVnvWbw9RbR62wM/eFQmqLhg+Ajfv3HgqzAdRqtGUP/iVZVTAPqD6kS+mnl3Op1ggv18dZ69bTsgaYMLG/VYMqdJtOcCUPBYNpBmef3y4QroRd7lY/guBrb1Yz0CnKJ3FsrD2iogAnRQcrUFNb2LiZaPEOQn270JPMfw/XGocJcgtRvEeGeLELlarJIItotgCdVTEO4BTQg+wqcdFYN1oFeU+4t27NcymPtRLLRDWHkaBaRorUNEjEaZgnERaKQ+oQll+ExHKyrp25wmpTVXk9pCmsOe0amPLF8OvJf2mrv9vYptCuezwlDB+H7Qw8mjXvUUxSzsEHePcXQQpG6eYJyxxARv4Rw9+sHT50kSCenHLpvEzcxPkKZSUbwxUmQAOjjBolOgL+ad63cA31b6p4Gu3sNsQK3pYKYhpwrbpO7YhgvJCkAprLxog==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(396003)(136003)(39860400002)(376002)(346002)(451199018)(36840700001)(40470700004)(46966006)(316002)(6636002)(2616005)(8936002)(36860700001)(40480700001)(2906002)(82740400003)(81166007)(356005)(26005)(1076003)(82310400005)(186003)(36756003)(478600001)(110136005)(7696005)(83380400001)(40460700003)(336012)(47076005)(426003)(86362001)(41300700001)(70206006)(70586007)(4326008)(8676002)(5660300002)(43062005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2023 07:12:48.2918 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 08cf7cf3-b8e7-4758-76bc-08db156d5e85
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT100.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7381
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,157 +98,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, ruijing.dong@amd.com, leo.liu@amd.com
+Cc: bobzhou <bob.zhou@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 23.02.23 um 00:11 schrieb David (Ming Qiang) Wu:
-> Ensuring accurate IB package searching and covers
-> more corners for AV1 encoding requests.
+This patch is used to fix following compilation issue with legacy gcc
+error: ‘for’ loop initial declarations are only allowed in C99 mode
+	for (int i = 0; i < adev->vcn.num_vcn_inst; ++i) {
 
-That at least looks much cleaner now. Do we already have the Mesa 
-patches ready which use this?
+Signed-off-by: bobzhou <bob.zhou@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Regards,
-Christian.
-
->
-> Signed-off-by: David (Ming Qiang) Wu <David.Wu3@amd.com>
-> Reviewed-by: Ruijing Dong <ruijing.dong@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 81 +++++++++++++++++++++++++--
->   1 file changed, 75 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> index 22a41766a8c7..8235ff3820ed 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> @@ -1726,6 +1726,7 @@ static int vcn_v4_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
->   
->   #define RADEON_VCN_ENGINE_TYPE_ENCODE			(0x00000002)
->   #define RADEON_VCN_ENGINE_TYPE_DECODE			(0x00000003)
-> +#define RADEON_VCN_ENGINE_TYPE_ENCODE_QUEUE		(0x00000004)
->   
->   #define RADEON_VCN_ENGINE_INFO				(0x30000001)
->   #define RADEON_VCN_ENGINE_INFO_MAX_OFFSET		16
-> @@ -1733,21 +1734,86 @@ static int vcn_v4_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
->   #define RENCODE_ENCODE_STANDARD_AV1			2
->   #define RENCODE_IB_PARAM_SESSION_INIT			0x00000003
->   #define RENCODE_IB_PARAM_SESSION_INIT_MAX_OFFSET	64
-> +#define RENCODE_IB_ENC_QUE_INSTRUCTION			(0x32000001)
-> +#define RENCODE_IB_ENC_QUE_INSTRUCTION_MAX_OFFSET	64
->   
->   /* return the offset in ib if id is found, -1 otherwise
->    * to speed up the searching we only search upto max_offset
->    */
-> -static int vcn_v4_0_enc_find_ib_param(struct amdgpu_ib *ib, uint32_t id, int max_offset)
-> +static int vcn_v4_0_enc_find_ib_param(uint32_t *ptr, int size, uint32_t id, int max_offset)
->   {
->   	int i;
->   
-> -	for (i = 0; i < ib->length_dw && i < max_offset && ib->ptr[i] >= 8; i += ib->ptr[i]/4) {
-> -		if (ib->ptr[i + 1] == id)
-> +	for (i = 0; i < size && i < max_offset && ptr[i] >= 8; i += ptr[i] / 4) {
-> +		if (ptr[i + 1] == id)
->   			return i;
->   	}
->   	return -1;
->   }
->   
-> +static int vcn_v4_0_enc_queue_msg(struct amdgpu_cs_parser *p,
-> +				  struct amdgpu_job *job,
-> +				  struct amdgpu_ib *ib)
-> +{
-> +	struct ttm_operation_ctx ctx = { false, false };
-> +	struct amdgpu_bo_va_mapping *map;
-> +	struct amdgpu_bo *bo;
-> +	uint64_t start, end;
-> +	int i;
-> +	void *ptr;
-> +	int r;
-> +	int data_size = 0;
-> +	uint64_t addr;
-> +	uint32_t *msg;
-> +
-> +	i = vcn_v4_0_enc_find_ib_param(ib->ptr, ib->length_dw, RENCODE_IB_ENC_QUE_INSTRUCTION,
-> +		RENCODE_IB_ENC_QUE_INSTRUCTION_MAX_OFFSET);
-> +	if (i >= 0) {
-> +		addr = ((uint64_t)ib->ptr[i + 3]) << 32 | ib->ptr[i + 2];
-> +		data_size = ib->ptr[i + 4];
-> +	}
-> +
-> +	if (!data_size) /* did not find */
-> +		return 0;
-> +
-> +	addr &= AMDGPU_GMC_HOLE_MASK;
-> +	r = amdgpu_cs_find_mapping(p, addr, &bo, &map);
-> +	if (r) {
-> +		DRM_ERROR("Can't find BO for addr 0x%08llx\n", addr);
-> +		return r;
-> +	}
-> +
-> +	start = map->start * AMDGPU_GPU_PAGE_SIZE;
-> +	end = (map->last + 1) * AMDGPU_GPU_PAGE_SIZE;
-> +	if (addr & 0x7) {
-> +		DRM_ERROR("VCN messages must be 8 byte aligned!\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	bo->flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
-> +	amdgpu_bo_placement_from_domain(bo, bo->allowed_domains);
-> +	r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
-> +	if (r) {
-> +		DRM_ERROR("Failed validating the VCN message BO (%d)!\n", r);
-> +		return r;
-> +	}
-> +
-> +	r = amdgpu_bo_kmap(bo, &ptr);
-> +	if (r) {
-> +		DRM_ERROR("Failed mapping the VCN message (%d)!\n", r);
-> +		return r;
-> +	}
-> +
-> +	msg = ptr + addr - start; /* IB with SESSION_INIT */
-> +	i = vcn_v4_0_enc_find_ib_param(msg, data_size, RENCODE_IB_PARAM_SESSION_INIT,
-> +		RENCODE_IB_PARAM_SESSION_INIT_MAX_OFFSET);
-> +	if (i >= 0 && msg[i + 2] == RENCODE_ENCODE_STANDARD_AV1)
-> +		r = vcn_v4_0_limit_sched(p, job);
-> +
-> +	amdgpu_bo_kunmap(bo);
-> +	return r;
-> +}
-> +
->   static int vcn_v4_0_ring_patch_cs_in_place(struct amdgpu_cs_parser *p,
->   					   struct amdgpu_job *job,
->   					   struct amdgpu_ib *ib)
-> @@ -1763,12 +1829,13 @@ static int vcn_v4_0_ring_patch_cs_in_place(struct amdgpu_cs_parser *p,
->   		return 0;
->   
->   	/* RADEON_VCN_ENGINE_INFO is at the top of ib block */
-> -	idx = vcn_v4_0_enc_find_ib_param(ib, RADEON_VCN_ENGINE_INFO,
-> +	idx = vcn_v4_0_enc_find_ib_param(ib->ptr, ib->length_dw, RADEON_VCN_ENGINE_INFO,
->   			RADEON_VCN_ENGINE_INFO_MAX_OFFSET);
->   	if (idx < 0) /* engine info is missing */
->   		return 0;
->   
->   	val = amdgpu_ib_get_value(ib, idx + 2); /* RADEON_VCN_ENGINE_TYPE */
-> +
->   	if (val == RADEON_VCN_ENGINE_TYPE_DECODE) {
->   		decode_buffer = (struct amdgpu_vcn_decode_buffer *)&ib->ptr[idx + 6];
->   
-> @@ -1779,10 +1846,12 @@ static int vcn_v4_0_ring_patch_cs_in_place(struct amdgpu_cs_parser *p,
->   			decode_buffer->msg_buffer_address_lo;
->   		return vcn_v4_0_dec_msg(p, job, addr);
->   	} else if (val == RADEON_VCN_ENGINE_TYPE_ENCODE) {
-> -		idx = vcn_v4_0_enc_find_ib_param(ib, RENCODE_IB_PARAM_SESSION_INIT,
-> -			RENCODE_IB_PARAM_SESSION_INIT_MAX_OFFSET);
-> +		idx = vcn_v4_0_enc_find_ib_param(ib->ptr, ib->length_dw,
-> +			RENCODE_IB_PARAM_SESSION_INIT, RENCODE_IB_PARAM_SESSION_INIT_MAX_OFFSET);
->   		if (idx >= 0 && ib->ptr[idx + 2] == RENCODE_ENCODE_STANDARD_AV1)
->   			return vcn_v4_0_limit_sched(p, job);
-> +	} else if (val == RADEON_VCN_ENGINE_TYPE_ENCODE_QUEUE) {
-> +		return vcn_v4_0_enc_queue_msg(p, job, ib);
->   	}
->   	return 0;
->   }
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+index 213b43670f23..2331383490ff 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+@@ -79,10 +79,11 @@ static int vcn_v4_0_early_init(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	struct amdgpu_ring *ring;
++	int i;
+ 
+ 	if (amdgpu_sriov_vf(adev)) {
+ 		adev->vcn.harvest_config = VCN_HARVEST_MMSCH;
+-		for (int i = 0; i < adev->vcn.num_vcn_inst; ++i) {
++		for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
+ 			ring = &adev->vcn.inst[i].ring_enc[0];
+ 			if (amdgpu_vcn_is_disabled_vcn(adev, VCN_ENCODE_RING, i)) {
+ 				adev->vcn.harvest_config |= 1 << i;
+-- 
+2.34.1
 
