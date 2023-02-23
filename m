@@ -4,55 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E773C636D6
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Feb 2023 18:47:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30E09C61DA4
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Feb 2023 21:12:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A30E510E04B;
-	Thu, 23 Feb 2023 18:47:16 +0000 (UTC)
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [IPv6:2a00:1450:4864:20::52d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90EEF10E04B
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Feb 2023 18:47:15 +0000 (UTC)
-Received: by mail-ed1-x52d.google.com with SMTP id h16so45881494edz.10
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Feb 2023 10:47:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=ncWYTDfS5jKy4YdpmzIlFRjfav7mmhqePPN0sZQPIYo=;
- b=WxSInEJbnlkDaU54+VQeXjUAa04ua0aNaUKzBf5eSuCuRBuGCSwuPTrBl4ejS6sj2r
- p8QL17oxPRAQvj6P+hSijVBQZ8yxYMfKe8jFi3l7DNH5yxxen4XNhMbNJ0SLgX8lRkwX
- v+Ni4s+bHLbb4xKvumKOqu0iGOo5hMf5KyFEHFn1c9V/PCGSfQ+6C2JM04O+Bp1p6g2o
- oWAt78ywATjZgw7hcjGd1dMdxefvcpN0QElJWkGvFsaxVqnHWH4FUnuYpcdsaVmhE6Wy
- C0AyXkO/08hpS9fiu0pCeY1TQbcQygwM6Jw/pW6fW9BVsfXj0I2en5i5t0tjGrE6QxXO
- 0DHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ncWYTDfS5jKy4YdpmzIlFRjfav7mmhqePPN0sZQPIYo=;
- b=zwswnUKlrMCbEUWT7cOc1ZVcd1472frAgs41RSRlm/eYWhEsAXNd8HRIvWFfQ6y0qU
- UGy7i9R1vkV5GyLTxMV49/oL3EPCVwmmXi4/j+IQBMR7v21au01jZS8auJt/3Q13ou9X
- fe8ohEX8VROgznyueYovNsBAh1Fb/luGdzpr3q9WWnrEgmSgryLxRzKJvYMAgFFHpUo2
- oayKsfWbDQraBEq8Bp1lfKOirzglRxp+rdfkUlgw68KqanmUQAQwrIAA/Z0NIXJyrVlD
- 1WgUBeK+3uViEu8kTT8OJpStmmTTif0keRi3F/7F7rJHf5fdCF2byrbzwZaT9ts5LMsV
- 55nA==
-X-Gm-Message-State: AO0yUKX3vAWbfX0piFyXwBcETk1HCOPyh4TthmFXDm99nWy6WVSphUl0
- f38wf9ts8aDydpfxtX4WN4XS5Kl/IXKSEPrBRII=
-X-Google-Smtp-Source: AK7set+DIWDLweTZKXUBKQ3ftx58/IY+SOzuB5ZoOaLM97SvLjPr9EcVJeU1YCsWeXy4993WivTnBpkIvoOn9uLTXhM=
-X-Received: by 2002:a50:d64b:0:b0:4ae:e5d8:f9ab with SMTP id
- c11-20020a50d64b000000b004aee5d8f9abmr5652293edj.6.1677178033747; Thu, 23 Feb
- 2023 10:47:13 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8FE910E29D;
+	Thu, 23 Feb 2023 21:12:43 +0000 (UTC)
+Received: from mout.web.de (mout.web.de [212.227.17.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2ADEF10E214
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Feb 2023 20:51:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de; s=s29768273;
+ t=1677185495; i=spasswolf@web.de;
+ bh=cP3d9Scl/DXJ8hbh7nQH+qR9GpIyxCJTHk9POEwONMU=;
+ h=X-UI-Sender-Class:Subject:From:To:Date;
+ b=T3iznCdJ7wVxZCjJaEVF62sqgTM/0d7ImF/F/XqPKIRWMh2LgaI8QXhZ5yq0+QuSj
+ SzQnjsvLw0+pmxwLEKmDX8NUlmxxqa0ZbD/2+B2RQys6zxSH1ddI6c4hwaiccBN7sp
+ fz4cWA5t6pDIYu+o+kMgC0gWbiclPKQWRc8HqJruj9BJ31spTeMVKhGzXXZ0u8Raup
+ KoxVjQCCovCAofsYZriVPS33Qw8nfGdC2oxvBVZExWgf472oCwQU8nxoxVvkcZbU4r
+ opkXv2GILqmkGJzrKq5PD+FJ6TZR6DMD2fgcK7qWRGIJFlkUT/TugsNXfMXakc7Hrm
+ g5Vt1WgHL+pVw==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.0.101] ([176.198.191.160]) by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MhWor-1oqioO081r-00eVuk for
+ <amd-gfx@lists.freedesktop.org>; Thu, 23 Feb 2023 21:51:35 +0100
+Message-ID: <002235887cbe5ee00240b568223fdb3bb3a25c53.camel@web.de>
+Subject: Re: [PATCH] drm/amd: use drm_kms_helper_poll_fini in
+ amdgpu_device_suspend to avoid warning
+From: Bert Karwatzki <spasswolf@web.de>
+To: amd-gfx@lists.freedesktop.org
+Date: Thu, 23 Feb 2023 21:51:34 +0100
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4-1 
 MIME-Version: 1.0
-References: <CAAxE2A6Y=++EP8vqzqjGQ3kfh2=JC7PKGoyJvfw9pFVL2UcNJg@mail.gmail.com>
- <3c2f16a9-64f2-9124-afc4-43af37fb82fa@gmail.com>
-In-Reply-To: <3c2f16a9-64f2-9124-afc4-43af37fb82fa@gmail.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Thu, 23 Feb 2023 13:46:37 -0500
-Message-ID: <CAAxE2A54Z_ghZFFBb+s-0kx4z-st=XyLXb1fVHkfw2z=ROTC-A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: expose more memory stats in fdinfo
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: multipart/mixed; boundary="000000000000ed4c9a05f5627063"
+X-Provags-ID: V03:K1:0O2pPpNSAXZH7/HW2kz2SvQYBMsW1fCUvf6zoQ9rp5ALpMVB4PL
+ /eBMQFHjWUvS7aEkc4oQge3TMpwR7zkTXdm7h7byTXQAZmeh3YyZplQ1fU4ZZxUjthPSboV
+ kUiohK5Z17sFCe7zZTV+H2UGp8Ds9DCzEA+7LoB6y0pzqs94OR5/vjM7G0XWOEeE+Bp9tKM
+ +nAhl44F0kpGFp6FSBeOw==
+UI-OutboundReport: notjunk:1;M01:P0:as8f1q2r4HU=;XD+BqMgw67qeDP9OlPNPjNUeip+
+ V6gMyE4pmVBh23DTW9hCSm2T1Zmr5Q2NB80IYUehjzGU2iGtIw5WMCRCC6ORNBzxNAQpqvkiE
+ yUZAS+3yD5o4uhxW8yEI3iCfT4zmbRmpGBETJIQ5D7KyNZQsclWfyGKplRb3kT22j0qeB6qdb
+ GRA02y4iFOb7rxmdX80P8VD4uTNXpODsB890+50272gfJYBpe/38EmL+O1iUbG02Xts8R+yzh
+ uPZyR52Y9pvueJEbTdZTBG4l3iIH1zI3fBG7rwtSo5XLXB79UyAPNTTn5ZadhPL0IimkdOd5K
+ N9fM9HDCG+nm2l0ttc4SmiwC1d1mKm+pFTQwuPxP28eulZCCaS3Ja0bJVeIVg/OugEQduaB41
+ wVq4p8GbGx7a537KDAFEVxt6lo4exTJoIWxwn/LGKk9yntUrSqlnrcY+o3Wg/E1X3oMunzjCV
+ Tut7ix6hTy9Xpak4+Aag2OWb2sl9wGEQUoxYBVQczA/A82YlTYvP2mLyHLrGVCmRLv86fCwOn
+ 7kMvYYEBdrTtvkWRz/7NSeNbSb3uiB7KHDbBarw4jbRoaQ8+yfU4mV4yH4a04XNeW+k2GiaNi
+ tspcLtnH77O+exgfgqdF+m1zz/suRHcWXjn2dqlu4PHyxUEiPoEJel8oQ6H1mhdqRtPv8pgr9
+ iLouZ1PG0kgvFWN/KAPCvcNi4Z0DkBm4nCroibWA4yjzCVLyDY5CUnpkHHIYM/YZOL4EVct2w
+ 8JvbhtoMHOuJkaxi0Q4FzTHh5rTkqE5EY4JvS2qd68PWFOfioSowUQJzkFLWI4hJhsuz4iFzw
+ fAtsVbvY7RVFl/iTetfNFoCPNpGC5AD1tgNLuFwIv/vd9qEL42dtOJ2gOARLMJXq2KCXY8AVs
+ rR8VgcmdxMvCQh5o0LIrI8k6p13vgB1kH70YOjOKvIMPV+gl9Ocz6iDdmBokCNrj6/bO6NO8R
+ wBXKO+tbEGE18a02+IMVE8oW11k=
+X-Mailman-Approved-At: Thu, 23 Feb 2023 21:12:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,287 +67,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000ed4c9a05f5627063
-Content-Type: multipart/alternative; boundary="000000000000ed4c9805f5627061"
+When drm_kms_helper_poll_disable is used in amdgpu_device_suspend
+without drm_kms_helper_poll_init having been called it causes a warning
+in __flush_work:
+https://gitlab.freedesktop.org/drm/amd/-/issues/2411
+To avoid this one can use drm_kms_helper_poll_fini instead:
+Send a second time because Evolution seems to have garbled the first
+patch.=20
 
---000000000000ed4c9805f5627061
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From 51cba3ae1e9f557cca8e37eb43b9b9310d0d504d Mon Sep 17 00:00:00 2001
+From: Bert Karwatzki <spasswolf@web.de>
+Date: Thu, 16 Feb 2023 10:34:11 +0100
+Subject: [PATCH] Use drm_kms_helper_poll_fini instead of
+=C2=A0drm_kms_helper_poll_disable in amdgpu_device.c to avoid a warning fro=
+m
+=C2=A0__flush_work.
 
-Updated patch attached.
+Signed-off-by: Bert Karwatzki <spasswolf@web.de>
+---
+=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+=C2=A0drivers/gpu/drm/drm_probe_helper.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 | 7 ++++---
+=C2=A02 files changed, 5 insertions(+), 4 deletions(-)
 
-Marek
-
-On Mon, Feb 6, 2023 at 4:05 AM Christian K=C3=B6nig <
-ckoenig.leichtzumerken@gmail.com> wrote:
-
-> Just two nit picks:
->
-> +    seq_printf(m, "drm-evicted-visible-vram:\t%llu KiB\n",
-> +           stats.evicted_visible_vram/1024UL);
->
-> For the values not standardized for all DRM drivers we might want to use
-> amd as prefix here instead of drm.
->
-> +    uint64_t requested_gtt;        /* how much userspace asked for */
->
-> We used to have automated checkers complaining about comments after
-> members.
->
-> Kerneldoc complicent comments look like this:
->
->                  /* @timestamp replaced by @rcu on dma_fence_release() */
->                  struct rcu_head rcu;
->
-> Apart from that looks good to me.
->
-> Regards,
-> Christian.
->
-> Am 30.01.23 um 07:56 schrieb Marek Ol=C5=A1=C3=A1k:
-> > Hi,
-> >
-> > This will be used for performance investigations. The patch is attached=
-.
-> >
-> > Thanks,
-> > Marek
->
->
-
---000000000000ed4c9805f5627061
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Updated patch attached.</div><div><br></div><div>Mare=
-k<br></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"g=
-mail_attr">On Mon, Feb 6, 2023 at 4:05 AM Christian K=C3=B6nig &lt;<a href=
-=3D"mailto:ckoenig.leichtzumerken@gmail.com">ckoenig.leichtzumerken@gmail.c=
-om</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margi=
-n:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex=
-">Just two nit picks:<br>
-<br>
-+=C2=A0=C2=A0=C2=A0 seq_printf(m, &quot;drm-evicted-visible-vram:\t%llu KiB=
-\n&quot;,<br>
-+=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0 stats.evicted_visible_v=
-ram/1024UL);<br>
-<br>
-For the values not standardized for all DRM drivers we might want to use <b=
-r>
-amd as prefix here instead of drm.<br>
-<br>
-+=C2=A0=C2=A0 =C2=A0uint64_t requested_gtt;=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =
-=C2=A0/* how much userspace asked for */<br>
-<br>
-We used to have automated checkers complaining about comments after members=
-.<br>
-<br>
-Kerneldoc complicent comments look like this:<br>
-<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index b325f7039e0e..dc9e9868a84b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4145,7 +4145,7 @@ int amdgpu_device_suspend(struct drm_device *dev,
+bool fbcon)
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0if (amdgpu_acpi_smart_shift=
+_update(dev, AMDGPU_SS_DEV_D3))
 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 /* @timestamp replaced by @rcu on dma_fence_release()=
- */<br>
+=A0=C2=A0=C2=A0=C2=A0DRM_WARN("smart shift update failed\n");
+=C2=A0
+-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0drm_kms_helper_poll_disable(dev)=
+;
++=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0drm_kms_helper_poll_fini(dev);
+=C2=A0
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0if (fbcon)
 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 struct rcu_head rcu;<br>
-<br>
-Apart from that looks good to me.<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-Am 30.01.23 um 07:56 schrieb Marek Ol=C5=A1=C3=A1k:<br>
-&gt; Hi,<br>
-&gt;<br>
-&gt; This will be used for performance investigations. The patch is attache=
-d.<br>
-&gt;<br>
-&gt; Thanks,<br>
-&gt; Marek<br>
-<br>
-</blockquote></div>
+=A0=C2=A0=C2=A0=C2=A0drm_fb_helper_set_suspend_unlocked(adev_to_drm(adev)-
+> fb_helper, true);
+diff --git a/drivers/gpu/drm/drm_probe_helper.c
+b/drivers/gpu/drm/drm_probe_helper.c
+index 8127be134c39..105d00d5ebf3 100644
+--- a/drivers/gpu/drm/drm_probe_helper.c
++++ b/drivers/gpu/drm/drm_probe_helper.c
+@@ -842,9 +842,10 @@ EXPORT_SYMBOL(drm_kms_helper_is_poll_worker);
+=C2=A0 *
+=C2=A0 * This function disables the output polling work.
+=C2=A0 *
+- * Drivers can call this helper from their device suspend
+implementation. It is
+- * not an error to call this even when output polling isn't enabled or
+already
+- * disabled. Polling is re-enabled by calling
+drm_kms_helper_poll_enable().
++ * Drivers can call this helper from their device suspend
+implementation. If it
++ * is not known if drm_kms_helper_poll_init has been called before the
+driver
++ * should use drm_kms_helper_poll_fini_instead.
++ * Polling is re-enabled by calling drm_kms_helper_poll_enable().
+=C2=A0 *
+=C2=A0 * Note that calls to enable and disable polling must be strictly
+ordered, which
+=C2=A0 * is automatically the case when they're only call from
+suspend/resume
 
---000000000000ed4c9805f5627061--
 
---000000000000ed4c9a05f5627063
-Content-Type: text/x-patch; charset="UTF-8"; 
-	name="0001-drm-amdgpu-expose-more-memory-stats-in-fdinfo.patch"
-Content-Disposition: attachment; 
-	filename="0001-drm-amdgpu-expose-more-memory-stats-in-fdinfo.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_lehggzep0>
-X-Attachment-Id: f_lehggzep0
 
-RnJvbSAzOTcxYWI2MjliMTdlMTUzNDNlZTQyOGQzMmMzNDIyZjQ0YzkxNWJjIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiA9P1VURi04P3E/TWFyZWs9MjBPbD1DNT1BMT1DMz1BMWs/PSA8
-bWFyZWsub2xzYWtAYW1kLmNvbT4KRGF0ZTogTW9uLCAzMCBKYW4gMjAyMyAwMTo1Mjo0MCAtMDUw
-MApTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWRncHU6IGV4cG9zZSBtb3JlIG1lbW9yeSBzdGF0cyBp
-biBmZGluZm8KTUlNRS1WZXJzaW9uOiAxLjAKQ29udGVudC1UeXBlOiB0ZXh0L3BsYWluOyBjaGFy
-c2V0PVVURi04CkNvbnRlbnQtVHJhbnNmZXItRW5jb2Rpbmc6IDhiaXQKClRoaXMgd2lsbCBiZSB1
-c2VkIGZvciBwZXJmb3JtYW5jZSBpbnZlc3RpZ2F0aW9ucy4KClNpZ25lZC1vZmYtYnk6IE1hcmVr
-IE9sxaHDoWsgPG1hcmVrLm9sc2FrQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2ZkaW5mby5jIHwgMjQgKysrKysrKysrKysrKysrLS0tLQogZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jIHwgMjcgKysrKysrKysrKysrKysrKysr
-LS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5oIHwgMjUgKysr
-KysrKysrKysrKysrKysrLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5j
-ICAgICB8IDIzICsrKysrKysrLS0tLS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3ZtLmggICAgIHwgIDUgKystLQogNSBmaWxlcyBjaGFuZ2VkLCA3NiBpbnNlcnRpb25z
-KCspLCAyOCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfZmRpbmZvLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-ZmRpbmZvLmMKaW5kZXggOTlhNzg1NWFiMWJjLi5jNTcyNTJmMDA0ZTggMTAwNjQ0Ci0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZGluZm8uYworKysgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmRpbmZvLmMKQEAgLTYwLDEyICs2MCwxMyBAQCB2b2lk
-IGFtZGdwdV9zaG93X2ZkaW5mbyhzdHJ1Y3Qgc2VxX2ZpbGUgKm0sIHN0cnVjdCBmaWxlICpmKQog
-CXN0cnVjdCBhbWRncHVfZnByaXYgKmZwcml2ID0gZmlsZS0+ZHJpdmVyX3ByaXY7CiAJc3RydWN0
-IGFtZGdwdV92bSAqdm0gPSAmZnByaXYtPnZtOwogCi0JdWludDY0X3QgdnJhbV9tZW0gPSAwLCBn
-dHRfbWVtID0gMCwgY3B1X21lbSA9IDA7CisJc3RydWN0IGFtZGdwdV9tZW1fc3RhdHMgc3RhdHM7
-CiAJa3RpbWVfdCB1c2FnZVtBTURHUFVfSFdfSVBfTlVNXTsKIAl1aW50MzJfdCBidXMsIGRldiwg
-Zm4sIGRvbWFpbjsKIAl1bnNpZ25lZCBpbnQgaHdfaXA7CiAJaW50IHJldDsKIAorCW1lbXNldCgm
-c3RhdHMsIDAsIHNpemVvZihzdGF0cykpOwogCWJ1cyA9IGFkZXYtPnBkZXYtPmJ1cy0+bnVtYmVy
-OwogCWRvbWFpbiA9IHBjaV9kb21haW5fbnIoYWRldi0+cGRldi0+YnVzKTsKIAlkZXYgPSBQQ0lf
-U0xPVChhZGV2LT5wZGV2LT5kZXZmbik7CkBAIC03NSw3ICs3Niw3IEBAIHZvaWQgYW1kZ3B1X3No
-b3dfZmRpbmZvKHN0cnVjdCBzZXFfZmlsZSAqbSwgc3RydWN0IGZpbGUgKmYpCiAJaWYgKHJldCkK
-IAkJcmV0dXJuOwogCi0JYW1kZ3B1X3ZtX2dldF9tZW1vcnkodm0sICZ2cmFtX21lbSwgJmd0dF9t
-ZW0sICZjcHVfbWVtKTsKKwlhbWRncHVfdm1fZ2V0X21lbW9yeSh2bSwgJnN0YXRzKTsKIAlhbWRn
-cHVfYm9fdW5yZXNlcnZlKHZtLT5yb290LmJvKTsKIAogCWFtZGdwdV9jdHhfbWdyX3VzYWdlKCZm
-cHJpdi0+Y3R4X21nciwgdXNhZ2UpOwpAQCAtOTAsOSArOTEsMjIgQEAgdm9pZCBhbWRncHVfc2hv
-d19mZGluZm8oc3RydWN0IHNlcV9maWxlICptLCBzdHJ1Y3QgZmlsZSAqZikKIAlzZXFfcHJpbnRm
-KG0sICJkcm0tZHJpdmVyOlx0JXNcbiIsIGZpbGUtPm1pbm9yLT5kZXYtPmRyaXZlci0+bmFtZSk7
-CiAJc2VxX3ByaW50ZihtLCAiZHJtLXBkZXY6XHQlMDR4OiUwMng6JTAyeC4lZFxuIiwgZG9tYWlu
-LCBidXMsIGRldiwgZm4pOwogCXNlcV9wcmludGYobSwgImRybS1jbGllbnQtaWQ6XHQlTHVcbiIs
-IHZtLT5pbW1lZGlhdGUuZmVuY2VfY29udGV4dCk7Ci0Jc2VxX3ByaW50ZihtLCAiZHJtLW1lbW9y
-eS12cmFtOlx0JWxsdSBLaUJcbiIsIHZyYW1fbWVtLzEwMjRVTCk7Ci0Jc2VxX3ByaW50ZihtLCAi
-ZHJtLW1lbW9yeS1ndHQ6IFx0JWxsdSBLaUJcbiIsIGd0dF9tZW0vMTAyNFVMKTsKLQlzZXFfcHJp
-bnRmKG0sICJkcm0tbWVtb3J5LWNwdTogXHQlbGx1IEtpQlxuIiwgY3B1X21lbS8xMDI0VUwpOwor
-CXNlcV9wcmludGYobSwgImRybS1tZW1vcnktdnJhbTpcdCVsbHUgS2lCXG4iLCBzdGF0cy52cmFt
-LzEwMjRVTCk7CisJc2VxX3ByaW50ZihtLCAiZHJtLW1lbW9yeS1ndHQ6IFx0JWxsdSBLaUJcbiIs
-IHN0YXRzLmd0dC8xMDI0VUwpOworCXNlcV9wcmludGYobSwgImRybS1tZW1vcnktY3B1OiBcdCVs
-bHUgS2lCXG4iLCBzdGF0cy5jcHUvMTAyNFVMKTsKKwlzZXFfcHJpbnRmKG0sICJhbWQtbWVtb3J5
-LXZpc2libGUtdnJhbTpcdCVsbHUgS2lCXG4iLAorCQkgICBzdGF0cy52aXNpYmxlX3ZyYW0vMTAy
-NFVMKTsKKwlzZXFfcHJpbnRmKG0sICJhbWQtZXZpY3RlZC12cmFtOlx0JWxsdSBLaUJcbiIsCisJ
-CSAgIHN0YXRzLmV2aWN0ZWRfdnJhbS8xMDI0VUwpOworCXNlcV9wcmludGYobSwgImFtZC1ldmlj
-dGVkLXZpc2libGUtdnJhbTpcdCVsbHUgS2lCXG4iLAorCQkgICBzdGF0cy5ldmljdGVkX3Zpc2li
-bGVfdnJhbS8xMDI0VUwpOworCXNlcV9wcmludGYobSwgImFtZC1yZXF1ZXN0ZWQtdnJhbTpcdCVs
-bHUgS2lCXG4iLAorCQkgICBzdGF0cy5yZXF1ZXN0ZWRfdnJhbS8xMDI0VUwpOworCXNlcV9wcmlu
-dGYobSwgImFtZC1yZXF1ZXN0ZWQtdmlzaWJsZS12cmFtOlx0JWxsdSBLaUJcbiIsCisJCSAgIHN0
-YXRzLnJlcXVlc3RlZF92aXNpYmxlX3ZyYW0vMTAyNFVMKTsKKwlzZXFfcHJpbnRmKG0sICJhbWQt
-cmVxdWVzdGVkLWd0dDpcdCVsbHUgS2lCXG4iLAorCQkgICBzdGF0cy5yZXF1ZXN0ZWRfZ3R0LzEw
-MjRVTCk7CisKIAlmb3IgKGh3X2lwID0gMDsgaHdfaXAgPCBBTURHUFVfSFdfSVBfTlVNOyArK2h3
-X2lwKSB7CiAJCWlmICghdXNhZ2VbaHdfaXBdKQogCQkJY29udGludWU7CmRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMKaW5kZXggMWMzZTY0NzQwMGJkLi4yNjgxZTM1
-ODJmNzUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmpl
-Y3QuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMKQEAg
-LTEyNjQsMjQgKzEyNjQsNDEgQEAgdm9pZCBhbWRncHVfYm9fbW92ZV9ub3RpZnkoc3RydWN0IHR0
-bV9idWZmZXJfb2JqZWN0ICpibywKIAl0cmFjZV9hbWRncHVfYm9fbW92ZShhYm8sIG5ld19tZW0t
-Pm1lbV90eXBlLCBvbGRfbWVtLT5tZW1fdHlwZSk7CiB9CiAKLXZvaWQgYW1kZ3B1X2JvX2dldF9t
-ZW1vcnkoc3RydWN0IGFtZGdwdV9ibyAqYm8sIHVpbnQ2NF90ICp2cmFtX21lbSwKLQkJCQl1aW50
-NjRfdCAqZ3R0X21lbSwgdWludDY0X3QgKmNwdV9tZW0pCit2b2lkIGFtZGdwdV9ib19nZXRfbWVt
-b3J5KHN0cnVjdCBhbWRncHVfYm8gKmJvLAorCQkJICBzdHJ1Y3QgYW1kZ3B1X21lbV9zdGF0cyAq
-c3RhdHMpCiB7CiAJdW5zaWduZWQgaW50IGRvbWFpbjsKKwl1aW50NjRfdCBzaXplID0gYW1kZ3B1
-X2JvX3NpemUoYm8pOwogCiAJZG9tYWluID0gYW1kZ3B1X21lbV90eXBlX3RvX2RvbWFpbihiby0+
-dGJvLnJlc291cmNlLT5tZW1fdHlwZSk7CiAJc3dpdGNoIChkb21haW4pIHsKIAljYXNlIEFNREdQ
-VV9HRU1fRE9NQUlOX1ZSQU06Ci0JCSp2cmFtX21lbSArPSBhbWRncHVfYm9fc2l6ZShibyk7CisJ
-CXN0YXRzLT52cmFtICs9IHNpemU7CisJCWlmIChhbWRncHVfYm9faW5fY3B1X3Zpc2libGVfdnJh
-bShibykpCisJCQlzdGF0cy0+dmlzaWJsZV92cmFtICs9IHNpemU7CiAJCWJyZWFrOwogCWNhc2Ug
-QU1ER1BVX0dFTV9ET01BSU5fR1RUOgotCQkqZ3R0X21lbSArPSBhbWRncHVfYm9fc2l6ZShibyk7
-CisJCXN0YXRzLT5ndHQgKz0gc2l6ZTsKIAkJYnJlYWs7CiAJY2FzZSBBTURHUFVfR0VNX0RPTUFJ
-Tl9DUFU6CiAJZGVmYXVsdDoKLQkJKmNwdV9tZW0gKz0gYW1kZ3B1X2JvX3NpemUoYm8pOworCQlz
-dGF0cy0+Y3B1ICs9IHNpemU7CiAJCWJyZWFrOwogCX0KKworCWlmIChiby0+cHJlZmVycmVkX2Rv
-bWFpbnMgJiBBTURHUFVfR0VNX0RPTUFJTl9WUkFNKSB7CisJCXN0YXRzLT5yZXF1ZXN0ZWRfdnJh
-bSArPSBzaXplOworCQlpZiAoYm8tPmZsYWdzICYgQU1ER1BVX0dFTV9DUkVBVEVfQ1BVX0FDQ0VT
-U19SRVFVSVJFRCkKKwkJCXN0YXRzLT5yZXF1ZXN0ZWRfdmlzaWJsZV92cmFtICs9IHNpemU7CisK
-KwkJaWYgKGRvbWFpbiAhPSBBTURHUFVfR0VNX0RPTUFJTl9WUkFNKSB7CisJCQlzdGF0cy0+ZXZp
-Y3RlZF92cmFtICs9IHNpemU7CisJCQlpZiAoYm8tPmZsYWdzICYgQU1ER1BVX0dFTV9DUkVBVEVf
-Q1BVX0FDQ0VTU19SRVFVSVJFRCkKKwkJCQlzdGF0cy0+ZXZpY3RlZF92aXNpYmxlX3ZyYW0gKz0g
-c2l6ZTsKKwkJfQorCX0gZWxzZSBpZiAoYm8tPnByZWZlcnJlZF9kb21haW5zICYgQU1ER1BVX0dF
-TV9ET01BSU5fR1RUKSB7CisJCXN0YXRzLT5yZXF1ZXN0ZWRfZ3R0ICs9IHNpemU7CisJfQogfQog
-CiAvKioKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmpl
-Y3QuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuaAppbmRleCA5
-MzIwN2JhZGY4M2YuLjhmZGZhNzM5YTRmMiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X29iamVjdC5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9vYmplY3QuaApAQCAtMTI2LDYgKzEyNiwyNyBAQCBzdHJ1Y3QgYW1kZ3B1X2JvX3Zt
-IHsKIAlzdHJ1Y3QgYW1kZ3B1X3ZtX2JvX2Jhc2UgICAgICAgIGVudHJpZXNbXTsKIH07CiAKK3N0
-cnVjdCBhbWRncHVfbWVtX3N0YXRzIHsKKwkvKiBjdXJyZW50IFZSQU0gdXNhZ2UsIGluY2x1ZGVz
-IHZpc2libGUgVlJBTSAqLworCXVpbnQ2NF90IHZyYW07CisJLyogY3VycmVudCB2aXNpYmxlIFZS
-QU0gdXNhZ2UgKi8KKwl1aW50NjRfdCB2aXNpYmxlX3ZyYW07CisJLyogY3VycmVudCBHVFQgdXNh
-Z2UgKi8KKwl1aW50NjRfdCBndHQ7CisJLyogY3VycmVudCBzeXN0ZW0gbWVtb3J5IHVzYWdlICov
-CisJdWludDY0X3QgY3B1OworCS8qIHN1bSBvZiBldmljdGVkIGJ1ZmZlcnMsIGluY2x1ZGVzIHZp
-c2libGUgVlJBTSAqLworCXVpbnQ2NF90IGV2aWN0ZWRfdnJhbTsKKwkvKiBzdW0gb2YgZXZpY3Rl
-ZCBidWZmZXJzIGR1ZSB0byBDUFUgYWNjZXNzICovCisJdWludDY0X3QgZXZpY3RlZF92aXNpYmxl
-X3ZyYW07CisJLyogaG93IG11Y2ggdXNlcnNwYWNlIGFza2VkIGZvciwgaW5jbHVkZXMgdmlzLlZS
-QU0gKi8KKwl1aW50NjRfdCByZXF1ZXN0ZWRfdnJhbTsKKwkvKiBob3cgbXVjaCB1c2Vyc3BhY2Ug
-YXNrZWQgZm9yICovCisJdWludDY0X3QgcmVxdWVzdGVkX3Zpc2libGVfdnJhbTsKKwkvKiBob3cg
-bXVjaCB1c2Vyc3BhY2UgYXNrZWQgZm9yICovCisJdWludDY0X3QgcmVxdWVzdGVkX2d0dDsKK307
-CisKIHN0YXRpYyBpbmxpbmUgc3RydWN0IGFtZGdwdV9ibyAqdHRtX3RvX2FtZGdwdV9ibyhzdHJ1
-Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKnRibykKIHsKIAlyZXR1cm4gY29udGFpbmVyX29mKHRibywg
-c3RydWN0IGFtZGdwdV9ibywgdGJvKTsKQEAgLTMyNSw4ICszNDYsOCBAQCBpbnQgYW1kZ3B1X2Jv
-X3N5bmNfd2FpdF9yZXN2KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgZG1hX3Jl
-c3YgKnJlc3YsCiBpbnQgYW1kZ3B1X2JvX3N5bmNfd2FpdChzdHJ1Y3QgYW1kZ3B1X2JvICpibywg
-dm9pZCAqb3duZXIsIGJvb2wgaW50cik7CiB1NjQgYW1kZ3B1X2JvX2dwdV9vZmZzZXQoc3RydWN0
-IGFtZGdwdV9ibyAqYm8pOwogdTY0IGFtZGdwdV9ib19ncHVfb2Zmc2V0X25vX2NoZWNrKHN0cnVj
-dCBhbWRncHVfYm8gKmJvKTsKLXZvaWQgYW1kZ3B1X2JvX2dldF9tZW1vcnkoc3RydWN0IGFtZGdw
-dV9ibyAqYm8sIHVpbnQ2NF90ICp2cmFtX21lbSwKLQkJCQl1aW50NjRfdCAqZ3R0X21lbSwgdWlu
-dDY0X3QgKmNwdV9tZW0pOwordm9pZCBhbWRncHVfYm9fZ2V0X21lbW9yeShzdHJ1Y3QgYW1kZ3B1
-X2JvICpibywKKwkJCSAgc3RydWN0IGFtZGdwdV9tZW1fc3RhdHMgKnN0YXRzKTsKIHZvaWQgYW1k
-Z3B1X2JvX2FkZF90b19zaGFkb3dfbGlzdChzdHJ1Y3QgYW1kZ3B1X2JvX3ZtICp2bWJvKTsKIGlu
-dCBhbWRncHVfYm9fcmVzdG9yZV9zaGFkb3coc3RydWN0IGFtZGdwdV9ibyAqc2hhZG93LAogCQkJ
-ICAgICBzdHJ1Y3QgZG1hX2ZlbmNlICoqZmVuY2UpOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfdm0uYwppbmRleCBkYzM3OWRjMjJjNzcuLjc1OGMzZTE0ZjlhOCAxMDA2NDQKLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKQEAgLTkxNyw4ICs5MTcsOCBAQCBpbnQgYW1kZ3B1
-X3ZtX3VwZGF0ZV9yYW5nZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0IGFtZGdw
-dV92bSAqdm0sCiAJcmV0dXJuIHI7CiB9CiAKLXZvaWQgYW1kZ3B1X3ZtX2dldF9tZW1vcnkoc3Ry
-dWN0IGFtZGdwdV92bSAqdm0sIHVpbnQ2NF90ICp2cmFtX21lbSwKLQkJCQl1aW50NjRfdCAqZ3R0
-X21lbSwgdWludDY0X3QgKmNwdV9tZW0pCit2b2lkIGFtZGdwdV92bV9nZXRfbWVtb3J5KHN0cnVj
-dCBhbWRncHVfdm0gKnZtLAorCQkJICBzdHJ1Y3QgYW1kZ3B1X21lbV9zdGF0cyAqc3RhdHMpCiB7
-CiAJc3RydWN0IGFtZGdwdV9ib192YSAqYm9fdmEsICp0bXA7CiAKQEAgLTkyNiw0MSArOTI2LDM2
-IEBAIHZvaWQgYW1kZ3B1X3ZtX2dldF9tZW1vcnkoc3RydWN0IGFtZGdwdV92bSAqdm0sIHVpbnQ2
-NF90ICp2cmFtX21lbSwKIAlsaXN0X2Zvcl9lYWNoX2VudHJ5X3NhZmUoYm9fdmEsIHRtcCwgJnZt
-LT5pZGxlLCBiYXNlLnZtX3N0YXR1cykgewogCQlpZiAoIWJvX3ZhLT5iYXNlLmJvKQogCQkJY29u
-dGludWU7Ci0JCWFtZGdwdV9ib19nZXRfbWVtb3J5KGJvX3ZhLT5iYXNlLmJvLCB2cmFtX21lbSwK
-LQkJCQlndHRfbWVtLCBjcHVfbWVtKTsKKwkJYW1kZ3B1X2JvX2dldF9tZW1vcnkoYm9fdmEtPmJh
-c2UuYm8sIHN0YXRzKTsKIAl9CiAJbGlzdF9mb3JfZWFjaF9lbnRyeV9zYWZlKGJvX3ZhLCB0bXAs
-ICZ2bS0+ZXZpY3RlZCwgYmFzZS52bV9zdGF0dXMpIHsKIAkJaWYgKCFib192YS0+YmFzZS5ibykK
-IAkJCWNvbnRpbnVlOwotCQlhbWRncHVfYm9fZ2V0X21lbW9yeShib192YS0+YmFzZS5ibywgdnJh
-bV9tZW0sCi0JCQkJZ3R0X21lbSwgY3B1X21lbSk7CisJCWFtZGdwdV9ib19nZXRfbWVtb3J5KGJv
-X3ZhLT5iYXNlLmJvLCBzdGF0cyk7CiAJfQogCWxpc3RfZm9yX2VhY2hfZW50cnlfc2FmZShib192
-YSwgdG1wLCAmdm0tPnJlbG9jYXRlZCwgYmFzZS52bV9zdGF0dXMpIHsKIAkJaWYgKCFib192YS0+
-YmFzZS5ibykKIAkJCWNvbnRpbnVlOwotCQlhbWRncHVfYm9fZ2V0X21lbW9yeShib192YS0+YmFz
-ZS5ibywgdnJhbV9tZW0sCi0JCQkJZ3R0X21lbSwgY3B1X21lbSk7CisJCWFtZGdwdV9ib19nZXRf
-bWVtb3J5KGJvX3ZhLT5iYXNlLmJvLCBzdGF0cyk7CiAJfQogCWxpc3RfZm9yX2VhY2hfZW50cnlf
-c2FmZShib192YSwgdG1wLCAmdm0tPm1vdmVkLCBiYXNlLnZtX3N0YXR1cykgewogCQlpZiAoIWJv
-X3ZhLT5iYXNlLmJvKQogCQkJY29udGludWU7Ci0JCWFtZGdwdV9ib19nZXRfbWVtb3J5KGJvX3Zh
-LT5iYXNlLmJvLCB2cmFtX21lbSwKLQkJCQlndHRfbWVtLCBjcHVfbWVtKTsKKwkJYW1kZ3B1X2Jv
-X2dldF9tZW1vcnkoYm9fdmEtPmJhc2UuYm8sIHN0YXRzKTsKIAl9CiAJbGlzdF9mb3JfZWFjaF9l
-bnRyeV9zYWZlKGJvX3ZhLCB0bXAsICZ2bS0+aW52YWxpZGF0ZWQsIGJhc2Uudm1fc3RhdHVzKSB7
-CiAJCWlmICghYm9fdmEtPmJhc2UuYm8pCiAJCQljb250aW51ZTsKLQkJYW1kZ3B1X2JvX2dldF9t
-ZW1vcnkoYm9fdmEtPmJhc2UuYm8sIHZyYW1fbWVtLAotCQkJCWd0dF9tZW0sIGNwdV9tZW0pOwor
-CQlhbWRncHVfYm9fZ2V0X21lbW9yeShib192YS0+YmFzZS5ibywgc3RhdHMpOwogCX0KIAlsaXN0
-X2Zvcl9lYWNoX2VudHJ5X3NhZmUoYm9fdmEsIHRtcCwgJnZtLT5kb25lLCBiYXNlLnZtX3N0YXR1
-cykgewogCQlpZiAoIWJvX3ZhLT5iYXNlLmJvKQogCQkJY29udGludWU7Ci0JCWFtZGdwdV9ib19n
-ZXRfbWVtb3J5KGJvX3ZhLT5iYXNlLmJvLCB2cmFtX21lbSwKLQkJCQlndHRfbWVtLCBjcHVfbWVt
-KTsKKwkJYW1kZ3B1X2JvX2dldF9tZW1vcnkoYm9fdmEtPmJhc2UuYm8sIHN0YXRzKTsKIAl9CiAJ
-c3Bpbl91bmxvY2soJnZtLT5zdGF0dXNfbG9jayk7CiB9CisKIC8qKgogICogYW1kZ3B1X3ZtX2Jv
-X3VwZGF0ZSAtIHVwZGF0ZSBhbGwgQk8gbWFwcGluZ3MgaW4gdGhlIHZtIHBhZ2UgdGFibGUKICAq
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaCBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oCmluZGV4IDA5NGJiNDgwNzMwMy4u
-OGFlNDVhMDg5NmNkIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfdm0uaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaApAQCAt
-NDAsNiArNDAsNyBAQCBzdHJ1Y3QgYW1kZ3B1X2JvX3ZhOwogc3RydWN0IGFtZGdwdV9qb2I7CiBz
-dHJ1Y3QgYW1kZ3B1X2JvX2xpc3RfZW50cnk7CiBzdHJ1Y3QgYW1kZ3B1X2JvX3ZtOworc3RydWN0
-IGFtZGdwdV9tZW1fc3RhdHM7CiAKIC8qCiAgKiBHUFVWTSBoYW5kbGluZwpAQCAtNDU3LDggKzQ1
-OCw4IEBAIHZvaWQgYW1kZ3B1X3ZtX3NldF90YXNrX2luZm8oc3RydWN0IGFtZGdwdV92bSAqdm0p
-OwogCiB2b2lkIGFtZGdwdV92bV9tb3ZlX3RvX2xydV90YWlsKHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2LAogCQkJCXN0cnVjdCBhbWRncHVfdm0gKnZtKTsKLXZvaWQgYW1kZ3B1X3ZtX2dldF9t
-ZW1vcnkoc3RydWN0IGFtZGdwdV92bSAqdm0sIHVpbnQ2NF90ICp2cmFtX21lbSwKLQkJCQl1aW50
-NjRfdCAqZ3R0X21lbSwgdWludDY0X3QgKmNwdV9tZW0pOwordm9pZCBhbWRncHVfdm1fZ2V0X21l
-bW9yeShzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSwKKwkJCSAgc3RydWN0IGFtZGdwdV9tZW1fc3RhdHMg
-KnN0YXRzKTsKIAogaW50IGFtZGdwdV92bV9wdF9jbGVhcihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
-YWRldiwgc3RydWN0IGFtZGdwdV92bSAqdm0sCiAJCSAgICAgICBzdHJ1Y3QgYW1kZ3B1X2JvX3Zt
-ICp2bWJvLCBib29sIGltbWVkaWF0ZSk7Ci0tIAoyLjI1LjEKCg==
---000000000000ed4c9a05f5627063--
