@@ -4,126 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2746EC61DA4
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Feb 2023 15:19:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D116C64ED8
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Feb 2023 17:09:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8981488FAE;
-	Thu, 23 Feb 2023 15:19:03 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2061b.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eaa::61b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5348588FAE
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Feb 2023 15:19:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lUWZIoSA7VHcsGZ1y7W190LutZrrh6A5mL0Io8gfvnVBAG1AEBunZkU0eRtvBhWFZ4b9D4TRlOIuf7HvpcoOZRPDxiJPyCAoxJF5qyno/fHhspwBsGxcOQCEjoLiKJroXznwZ/8De3YCtlE3MJHzpIY0RxErlyEjX7AEiMiAQ9WR3OCk2zY+HrW6cDCteczFqDTk2NFa++WulWJ2+z9omnbG/x24XYhieAsZFaWM+kysYqClFGEolElquKE4p+z+hLjNnPlX6u3T5up5YbayUBuy6CJ49AEi0IUiYVBXKhGCw3JXMqZlPtjb1zsZ7yGczSWcfrc2496187KF0nxP/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V7D4zOZJU0Vaz99lYkJ7lQXc8R5+ryi2KPbh8t+79Bk=;
- b=Uu1TVx65wYk/csWe3d3Up2vjLB4oO59H+FJoydss3fmpQ/zh6Hu0I2sgSTOpwoss+6vMtorsh5xntC1WOdjI6AgiSq/TxLcoVkjUqcXYgQWDalIx7dohojbQydANTjryvvcfke2ELaLbELejokO8mTff6IfAMj8/Tv3FhtNNW0WWibS+9PzxCrl0yMXpBWVdboUbymYAiwLsA3esI18/etJIqHu0kz0RzVC64PA5aFBsyZsq/DFzC2xHJGOXu2Qj1qqcTcTKvuW0rl3vmEjrfmSCIBeejEUbywRJFN02W07XE5vDRgCc+HOJ529O4NzzLw6xKrQqK2gSO/5WyXB2Kw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V7D4zOZJU0Vaz99lYkJ7lQXc8R5+ryi2KPbh8t+79Bk=;
- b=gtJWCIAWv583Flz6Zolt/sh5wUTu02COsJOtS2urhONPB0IWjeThgJ6P8sc4rzctV+JV1mUeOnpXGE4chbZun8r+CHDZ3E/e1vT0U8Mzbj7YOEZnmNkpe52AgNKAsCk2GBtF4r1EuQ/YtOV5Iaw+dTV5uRH81P4dZ6ukHkauyGA=
-Received: from SJ1PR12MB6194.namprd12.prod.outlook.com (2603:10b6:a03:458::12)
- by SA1PR12MB8742.namprd12.prod.outlook.com (2603:10b6:806:373::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.21; Thu, 23 Feb
- 2023 15:18:58 +0000
-Received: from SJ1PR12MB6194.namprd12.prod.outlook.com
- ([fe80::a703:5705:8752:195]) by SJ1PR12MB6194.namprd12.prod.outlook.com
- ([fe80::a703:5705:8752:195%3]) with mapi id 15.20.6134.021; Thu, 23 Feb 2023
- 15:18:58 +0000
-From: "Dong, Ruijing" <Ruijing.Dong@amd.com>
-To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken@gmail.com>,
- "Wu, David" <David.Wu3@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Koenig, Christian"
- <Christian.Koenig@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: support more AV1 encoding requests
-Thread-Topic: [PATCH] drm/amdgpu: support more AV1 encoding requests
-Thread-Index: AQHZRxMOnVyhcXg+VU6CIW/7iYrVba7cF1UAgACOdYA=
-Date: Thu, 23 Feb 2023 15:18:58 +0000
-Message-ID: <SJ1PR12MB61949A2DE67BD5A817CBC33395AB9@SJ1PR12MB6194.namprd12.prod.outlook.com>
-References: <20230222231131.191619-1-David.Wu3@amd.com>
- <b1de9e63-5194-4ca5-e033-25674e2b7d92@gmail.com>
-In-Reply-To: <b1de9e63-5194-4ca5-e033-25674e2b7d92@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=d338bf0f-fc2a-4fb2-9c00-010089cfa3bc;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-02-23T15:17:40Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ1PR12MB6194:EE_|SA1PR12MB8742:EE_
-x-ms-office365-filtering-correlation-id: a76f48f2-4c7d-4428-18cd-08db15b14958
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: z+75Z77F9nbm980J2Y2E8b+x541uWp8Ct2TzuekSqTbCNdFCF85TU6nbt7O2GbPXWRgbU3CPLlTZIM3hwx92P1umjsFNc9i13jthxzgD3UV2DqTudAC/HB9z1LJenlhSOBg/clLoQg5VrMkwvBDW9sCIoPNm6eMYO2mufU3gbk3s3S7i4dsOeYD30M1pXahfssT0uDEKcyTI8ZE2XL+eqcb9+FiMIxsp7Np0maxIZWtT6pbhdl6N5gkTtK45/KJe7QoatEyNiQckK1/u++seBgDe+6ZRITM9exoZ+t1VWFZEfRpZgbN5WaRn57TjVQvQbr1CF4uUeGfZQ/rKdDzghnOXPxtEXsLuMwrykGkbnIFfGPeDAvQQB9PpcfG4dQkE4vMg7hbUJlxmvX3FE+2PiBPkTF7VqNTGIzHNDwHpgZ9r+XTuL/9Mqc1oIDDwYzL2nBMgGH8uRVqrdIHwhpLGkk3eNZFbGI23J6vQpyvxiNi84vIpdQc9t9X6ekCgE9/WxnzNYNSAy4eP1+niFFwuydSShggMdYIszoQof5EozWZUvDUFPv0p/fjj4tCpH0YMMgU5ZfeZGeW4jJXjOJ1wD8uZpTdK0fGgWb3Jbry5Qm0FbOp/ax9HYELeruv0EGijaSQY28tz7miK4YwYhByOUyAchWjj+zsjVIX/vhxcqh3hUoVRdlsq+73SaviWj4bg4Q/usHDzT6PbO7e18St5iQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ1PR12MB6194.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(346002)(376002)(366004)(136003)(39860400002)(396003)(451199018)(41300700001)(83380400001)(5660300002)(478600001)(9686003)(186003)(8936002)(52536014)(86362001)(38100700002)(26005)(110136005)(6636002)(54906003)(8676002)(4326008)(38070700005)(55016003)(76116006)(66946007)(6506007)(66574015)(53546011)(33656002)(316002)(122000001)(66556008)(66476007)(66446008)(64756008)(71200400001)(2906002)(7696005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?WW5wdnRNSnhoZGhsMlZxRGE0TmpIRHF6bmpZTUVVTkoyVENPc0RLbzMyQzJO?=
- =?utf-8?B?aEZnbzEvaW9MeGRKZndQdjQyNHNDQW1RUUUrd3hlYWNXZERTZzNTZmFNYjBI?=
- =?utf-8?B?Vjh2OXp1aFV1UTB2TWxHbVcwTFFHb2ZNa3EyTjRsN0FBcWxOaDBSblMvamJ0?=
- =?utf-8?B?Q3IzVWVzcmdBdGdSOGRiSGRzUzFsbkRXVmpOb3JRa0N6bis4azNtc2oyZkJO?=
- =?utf-8?B?YWRjVTlEblVETGRqQXJMdEszQWZMU3VRUWVvZ09BVVVvc1llaHNra3ZKam54?=
- =?utf-8?B?N0JGREZDTVB0aVdzZUZDa1UwVXN1YUEvWDBJTGpSbUFJMkplZUp0cVcrYUxz?=
- =?utf-8?B?dEtiN1JtRHo2eEpGL3ludVozVDdxOHluYzlDWVNmNkdoYnlROVBsZ05xa0Jx?=
- =?utf-8?B?V2xRVmNaZlJ4WjBlYzdzVGtxRUtuVDZrckJuYlZjTEhVM2FUZG5qK1BMVEVV?=
- =?utf-8?B?bzB4NjJGS1NoS3VxRDdQMFU4TlZHYzZEZ3lpNGtpY0JwbzNSa3h4S21pUm9Y?=
- =?utf-8?B?U0NsUUhnT2p0aitFQ09mUHR2TFhqMVJVMVY3NTN4alA5Z1J5SXRNR3JwZzlE?=
- =?utf-8?B?QWJIKzUxd2c1M2N5dW9zMVlhYklNWVp2QzhlWXRaeXJjdEVlaHBKa0h1UFdJ?=
- =?utf-8?B?M3Bxck1qOEdya09lL1QyOXZLbmc3cWIwcGRlZHpLU3JHWmVWNWRNaGZFMTJH?=
- =?utf-8?B?a0RRSjlBQ1BOL2FRSFRLN3kwZnV6MU1zbFRWY1NCc2pLUTc1YUJvVFlMWThW?=
- =?utf-8?B?bjMvQzNYclRPTzdTVkNJNWN2MGVkMXdEQ0ozdUtFdjcvMVBkUmJwL1RkaDJY?=
- =?utf-8?B?MWVpaW1CMnV5emtKdnF0MmNJdUdIQTN5QXJ4Wm16d2RITUJUUEl6ajdyWWlH?=
- =?utf-8?B?NjA3TzlwL2NLSFFWZCtXQlJHOWRjTDRPOERJQWw1SlFkTjR3dmJlSWJleTh0?=
- =?utf-8?B?SWg5Z3ppS0tYR3FqUjJVT2E3OWVla3A2TmltblFZZWdTT3ZTd3FNcnE5eTNF?=
- =?utf-8?B?SjJqMzE1QWs1NzE3QTBndk40Z3dUbHE4VGZqeWhLQm4zbnNyODlaMytuQWdv?=
- =?utf-8?B?UDZZL0hqUmlRYjFxSlZrL0xxQm9MYmJuekxJNUNKSHB3Z2Q2UndBU1FqblY0?=
- =?utf-8?B?SURjSFdPRDZyY3p6SGpzTzNrYnZ1L1lsMnB6VkRqaktvem1obG1aSEY0cGJ3?=
- =?utf-8?B?c3E5Z2EzQ2xhRHcvTTZsb1M0VEhjVWVGS3FLNlNhL05aOUM4SWgwTVZ2Nk1h?=
- =?utf-8?B?U0tCZmRtRmMzSG1SNEVTTjlYcnJaZ205d1hUMlZBYmwyS0RZYTdYVlpxak1u?=
- =?utf-8?B?cnJqMzdscGxjT1c2bklxUzBDWjFrYTRoVVFueVVzaFF2NE5VSEYrUzJTMDRj?=
- =?utf-8?B?dFF3a2wwNmdxOUJRZHRMSHhlOWxuSWFYeE14N3pDZHNUNGlRenJ0Zi8yYVVs?=
- =?utf-8?B?eU5WZ0pnMVFtTFZZU1U5Z2g0VzY1MDQwcUdIci81bXdSK0R2anZHUExGSjRh?=
- =?utf-8?B?T0JBelJwV3BiK0ZlWEVVQ1FmVms4a2E3eU9INExneDVVdHpKVUFQSHA4bkxi?=
- =?utf-8?B?LzN5YVNIZk02NkVnQ3BSV3J6cDhTdldiT0lXOFp2aE5EcE44TEFxY0lpOWNJ?=
- =?utf-8?B?YWsxUWIrcU1nN0JwNE5jSEliQXlXVzM0Nm1iakZGSnZRbGtMNHBFSlFQdzl0?=
- =?utf-8?B?T1dyemJFYUxrd0lKNUx0M2Z1WTZsTzlvckVyK3N5VmEzM2ZVV0dSV3F3Z1Yr?=
- =?utf-8?B?UjYzdEVLb3hYV1R2R2xWaHlaVDVwNTg5Rk43bGtpM3JCWGRkZGNwUkpPN3Jp?=
- =?utf-8?B?ekFXeFkrMGt5ZmRpZmYycjJhRXhGeUs3V3REVnVlYlIyYjQ5eXVDMThSZUF2?=
- =?utf-8?B?QStiQlhqMFZEdUlZTEVLZVRuNU9OaWNhbWE4ZlB1ellyR3pkQzl3blhwWnM0?=
- =?utf-8?B?M2ZZNllMSkZHZ2lmQUt1elNlTzRJMStTaWpXUnk2VUlQcnNuMVdRRWlYazNY?=
- =?utf-8?B?dnBkTGxKR1NoUkZScSs1Z1Vuc2MwVVRMT1JuaFdzYkpHRlBNdW5XdHIvTjNC?=
- =?utf-8?B?UzdRS2VkQkFLUHlJNnc4aWxsRmd4aXpnK2tHNDR0VnNQdHZzOTJKSFFQL2J4?=
- =?utf-8?Q?Tc1I=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C64A10E500;
+	Thu, 23 Feb 2023 17:09:51 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7A5A10E4FB
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Feb 2023 17:09:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1677172189; x=1708708189;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=uZsYu//o7m51kHOM8iSC/Qz0oOs0gBx9PpsbCPaYJos=;
+ b=j/xqCdFn4rCy+1VeMzhLjbGvGdIK7VTqHRGUtQCIj9yGNdz00Pmc5XnC
+ dD/UTTGTVHsCSB4B4zdYGVExeU/xWktcNfsJXEBODHFl53J0WgT8EikhT
+ SVdxqIuyPlAD3dqCnx8V2DWgqK1A04tckVcO69NNN2JgE5UzWsIPq3OnG
+ GgsN/Uzrn/SSZmZxjwuV6L4YUpnksEzg1fXhy1DWNdR1Bl3UyHEUzTm3o
+ 3vahUhibwXArIF1dOaMbd8TwP71Erdd9kLABk/p26zYefBv2O2/Lj5Kgj
+ ZdlsVyjddObpj0M+OVfAbf1xZXHlbYgR6Qh7hoSIJPl6OVyL8U+1Cw/Qi A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10630"; a="313642671"
+X-IronPort-AV: E=Sophos;i="5.97,322,1669104000"; d="scan'208";a="313642671"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2023 09:06:12 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10630"; a="781990827"
+X-IronPort-AV: E=Sophos;i="5.97,322,1669104000"; d="scan'208";a="781990827"
+Received: from lkp-server01.sh.intel.com (HELO 3895f5c55ead) ([10.239.97.150])
+ by fmsmga002.fm.intel.com with ESMTP; 23 Feb 2023 09:06:10 -0800
+Received: from kbuild by 3895f5c55ead with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pVF2n-0001XF-3A;
+ Thu, 23 Feb 2023 17:06:09 +0000
+Date: Fri, 24 Feb 2023 01:05:51 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 0222aa9800b25ff171d6dcabcabcd5c42c6ffc3f
+Message-ID: <63f79cef.+lopEDpcV/+lG1i2%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR12MB6194.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a76f48f2-4c7d-4428-18cd-08db15b14958
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Feb 2023 15:18:58.6337 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: KHniyh/o6m0X1CVuWfA9rV58gSw0u3BuHo5t037VW9jgHNE6yasNUdx+LBbTA5Vb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8742
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,133 +58,176 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Liu,
- Leo" <Leo.Liu@amd.com>
+Cc: linux-arch@vger.kernel.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNClRoYW5rcyBDaHJpc3RpYW4sDQoN
-ClRoaXMgaXMganVzdCB0byBjb3ZlciBwb3NzaWJsZSB2YWxpZCB3YXlzIGluIGtlcm5lbCBhcyBh
-IHByZXBhcmF0aW9uLCBhdjEgZW5jb2RpbmcgaW4gTWVzYSBpcyBzdGlsbCB1bmRlciBkZXZlbG9w
-aW5nLg0KDQpUaGFua3MsDQpSdWlqaW5nDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpG
-cm9tOiBDaHJpc3RpYW4gS8O2bmlnIDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4N
-ClNlbnQ6IFRodXJzZGF5LCBGZWJydWFyeSAyMywgMjAyMyAxOjQ4IEFNDQpUbzogV3UsIERhdmlk
-IDxEYXZpZC5XdTNAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBLb2Vu
-aWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KQ2M6IERldWNoZXIsIEFs
-ZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IERvbmcsIFJ1aWppbmcgPFJ1aWpp
-bmcuRG9uZ0BhbWQuY29tPjsgTGl1LCBMZW8gPExlby5MaXVAYW1kLmNvbT4NClN1YmplY3Q6IFJl
-OiBbUEFUQ0hdIGRybS9hbWRncHU6IHN1cHBvcnQgbW9yZSBBVjEgZW5jb2RpbmcgcmVxdWVzdHMN
-Cg0KQW0gMjMuMDIuMjMgdW0gMDA6MTEgc2NocmllYiBEYXZpZCAoTWluZyBRaWFuZykgV3U6DQo+
-IEVuc3VyaW5nIGFjY3VyYXRlIElCIHBhY2thZ2Ugc2VhcmNoaW5nIGFuZCBjb3ZlcnMgbW9yZSBj
-b3JuZXJzIGZvciBBVjENCj4gZW5jb2RpbmcgcmVxdWVzdHMuDQoNClRoYXQgYXQgbGVhc3QgbG9v
-a3MgbXVjaCBjbGVhbmVyIG5vdy4gRG8gd2UgYWxyZWFkeSBoYXZlIHRoZSBNZXNhIHBhdGNoZXMg
-cmVhZHkgd2hpY2ggdXNlIHRoaXM/DQoNClJlZ2FyZHMsDQpDaHJpc3RpYW4uDQoNCj4NCj4gU2ln
-bmVkLW9mZi1ieTogRGF2aWQgKE1pbmcgUWlhbmcpIFd1IDxEYXZpZC5XdTNAYW1kLmNvbT4NCj4g
-UmV2aWV3ZWQtYnk6IFJ1aWppbmcgRG9uZyA8cnVpamluZy5kb25nQGFtZC5jb20+DQo+IC0tLQ0K
-PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92NF8wLmMgfCA4MSArKysrKysrKysr
-KysrKysrKysrKysrKysrLS0NCj4gICAxIGZpbGUgY2hhbmdlZCwgNzUgaW5zZXJ0aW9ucygrKSwg
-NiBkZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L3Zjbl92NF8wLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjRfMC5j
-DQo+IGluZGV4IDIyYTQxNzY2YThjNy4uODIzNWZmMzgyMGVkIDEwMDY0NA0KPiAtLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjRfMC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L3Zjbl92NF8wLmMNCj4gQEAgLTE3MjYsNiArMTcyNiw3IEBAIHN0YXRpYyBp
-bnQgdmNuX3Y0XzBfZGVjX21zZyhzdHJ1Y3QNCj4gYW1kZ3B1X2NzX3BhcnNlciAqcCwgc3RydWN0
-IGFtZGdwdV9qb2IgKmpvYiwNCj4NCj4gICAjZGVmaW5lIFJBREVPTl9WQ05fRU5HSU5FX1RZUEVf
-RU5DT0RFICAgICAgICAgICAgICAgICAgICAgICAoMHgwMDAwMDAwMikNCj4gICAjZGVmaW5lIFJB
-REVPTl9WQ05fRU5HSU5FX1RZUEVfREVDT0RFICAgICAgICAgICAgICAgICAgICAgICAoMHgwMDAw
-MDAwMykNCj4gKyNkZWZpbmUgUkFERU9OX1ZDTl9FTkdJTkVfVFlQRV9FTkNPREVfUVVFVUUgICAg
-ICAgICAgKDB4MDAwMDAwMDQpDQo+DQo+ICAgI2RlZmluZSBSQURFT05fVkNOX0VOR0lORV9JTkZP
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDB4MzAwMDAwMDEpDQo+ICAgI2RlZmluZSBS
-QURFT05fVkNOX0VOR0lORV9JTkZPX01BWF9PRkZTRVQgICAgICAgICAgIDE2DQo+IEBAIC0xNzMz
-LDIxICsxNzM0LDg2IEBAIHN0YXRpYyBpbnQgdmNuX3Y0XzBfZGVjX21zZyhzdHJ1Y3QgYW1kZ3B1
-X2NzX3BhcnNlciAqcCwgc3RydWN0IGFtZGdwdV9qb2IgKmpvYiwNCj4gICAjZGVmaW5lIFJFTkNP
-REVfRU5DT0RFX1NUQU5EQVJEX0FWMSAgICAgICAgICAgICAgICAgMg0KPiAgICNkZWZpbmUgUkVO
-Q09ERV9JQl9QQVJBTV9TRVNTSU9OX0lOSVQgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMDAw
-MDMNCj4gICAjZGVmaW5lIFJFTkNPREVfSUJfUEFSQU1fU0VTU0lPTl9JTklUX01BWF9PRkZTRVQg
-ICAgNjQNCj4gKyNkZWZpbmUgUkVOQ09ERV9JQl9FTkNfUVVFX0lOU1RSVUNUSU9OICAgICAgICAg
-ICAgICAgICAgICAgICAoMHgzMjAwMDAwMSkNCj4gKyNkZWZpbmUgUkVOQ09ERV9JQl9FTkNfUVVF
-X0lOU1RSVUNUSU9OX01BWF9PRkZTRVQgICAgNjQNCj4NCj4gICAvKiByZXR1cm4gdGhlIG9mZnNl
-dCBpbiBpYiBpZiBpZCBpcyBmb3VuZCwgLTEgb3RoZXJ3aXNlDQo+ICAgICogdG8gc3BlZWQgdXAg
-dGhlIHNlYXJjaGluZyB3ZSBvbmx5IHNlYXJjaCB1cHRvIG1heF9vZmZzZXQNCj4gICAgKi8NCj4g
-LXN0YXRpYyBpbnQgdmNuX3Y0XzBfZW5jX2ZpbmRfaWJfcGFyYW0oc3RydWN0IGFtZGdwdV9pYiAq
-aWIsIHVpbnQzMl90DQo+IGlkLCBpbnQgbWF4X29mZnNldCkNCj4gK3N0YXRpYyBpbnQgdmNuX3Y0
-XzBfZW5jX2ZpbmRfaWJfcGFyYW0odWludDMyX3QgKnB0ciwgaW50IHNpemUsDQo+ICt1aW50MzJf
-dCBpZCwgaW50IG1heF9vZmZzZXQpDQo+ICAgew0KPiAgICAgICBpbnQgaTsNCj4NCj4gLSAgICAg
-Zm9yIChpID0gMDsgaSA8IGliLT5sZW5ndGhfZHcgJiYgaSA8IG1heF9vZmZzZXQgJiYgaWItPnB0
-cltpXSA+PSA4OyBpICs9IGliLT5wdHJbaV0vNCkgew0KPiAtICAgICAgICAgICAgIGlmIChpYi0+
-cHRyW2kgKyAxXSA9PSBpZCkNCj4gKyAgICAgZm9yIChpID0gMDsgaSA8IHNpemUgJiYgaSA8IG1h
-eF9vZmZzZXQgJiYgcHRyW2ldID49IDg7IGkgKz0gcHRyW2ldIC8gNCkgew0KPiArICAgICAgICAg
-ICAgIGlmIChwdHJbaSArIDFdID09IGlkKQ0KPiAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJu
-IGk7DQo+ICAgICAgIH0NCj4gICAgICAgcmV0dXJuIC0xOw0KPiAgIH0NCj4NCj4gK3N0YXRpYyBp
-bnQgdmNuX3Y0XzBfZW5jX3F1ZXVlX21zZyhzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCwNCj4g
-KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgYW1kZ3B1X2pvYiAqam9iLA0K
-PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBhbWRncHVfaWIgKmliKQ0K
-PiArew0KPiArICAgICBzdHJ1Y3QgdHRtX29wZXJhdGlvbl9jdHggY3R4ID0geyBmYWxzZSwgZmFs
-c2UgfTsNCj4gKyAgICAgc3RydWN0IGFtZGdwdV9ib192YV9tYXBwaW5nICptYXA7DQo+ICsgICAg
-IHN0cnVjdCBhbWRncHVfYm8gKmJvOw0KPiArICAgICB1aW50NjRfdCBzdGFydCwgZW5kOw0KPiAr
-ICAgICBpbnQgaTsNCj4gKyAgICAgdm9pZCAqcHRyOw0KPiArICAgICBpbnQgcjsNCj4gKyAgICAg
-aW50IGRhdGFfc2l6ZSA9IDA7DQo+ICsgICAgIHVpbnQ2NF90IGFkZHI7DQo+ICsgICAgIHVpbnQz
-Ml90ICptc2c7DQo+ICsNCj4gKyAgICAgaSA9IHZjbl92NF8wX2VuY19maW5kX2liX3BhcmFtKGli
-LT5wdHIsIGliLT5sZW5ndGhfZHcsIFJFTkNPREVfSUJfRU5DX1FVRV9JTlNUUlVDVElPTiwNCj4g
-KyAgICAgICAgICAgICBSRU5DT0RFX0lCX0VOQ19RVUVfSU5TVFJVQ1RJT05fTUFYX09GRlNFVCk7
-DQo+ICsgICAgIGlmIChpID49IDApIHsNCj4gKyAgICAgICAgICAgICBhZGRyID0gKCh1aW50NjRf
-dClpYi0+cHRyW2kgKyAzXSkgPDwgMzIgfCBpYi0+cHRyW2kgKyAyXTsNCj4gKyAgICAgICAgICAg
-ICBkYXRhX3NpemUgPSBpYi0+cHRyW2kgKyA0XTsNCj4gKyAgICAgfQ0KPiArDQo+ICsgICAgIGlm
-ICghZGF0YV9zaXplKSAvKiBkaWQgbm90IGZpbmQgKi8NCj4gKyAgICAgICAgICAgICByZXR1cm4g
-MDsNCj4gKw0KPiArICAgICBhZGRyICY9IEFNREdQVV9HTUNfSE9MRV9NQVNLOw0KPiArICAgICBy
-ID0gYW1kZ3B1X2NzX2ZpbmRfbWFwcGluZyhwLCBhZGRyLCAmYm8sICZtYXApOw0KPiArICAgICBp
-ZiAocikgew0KPiArICAgICAgICAgICAgIERSTV9FUlJPUigiQ2FuJ3QgZmluZCBCTyBmb3IgYWRk
-ciAweCUwOGxseFxuIiwgYWRkcik7DQo+ICsgICAgICAgICAgICAgcmV0dXJuIHI7DQo+ICsgICAg
-IH0NCj4gKw0KPiArICAgICBzdGFydCA9IG1hcC0+c3RhcnQgKiBBTURHUFVfR1BVX1BBR0VfU0la
-RTsNCj4gKyAgICAgZW5kID0gKG1hcC0+bGFzdCArIDEpICogQU1ER1BVX0dQVV9QQUdFX1NJWkU7
-DQo+ICsgICAgIGlmIChhZGRyICYgMHg3KSB7DQo+ICsgICAgICAgICAgICAgRFJNX0VSUk9SKCJW
-Q04gbWVzc2FnZXMgbXVzdCBiZSA4IGJ5dGUgYWxpZ25lZCFcbiIpOw0KPiArICAgICAgICAgICAg
-IHJldHVybiAtRUlOVkFMOw0KPiArICAgICB9DQo+ICsNCj4gKyAgICAgYm8tPmZsYWdzIHw9IEFN
-REdQVV9HRU1fQ1JFQVRFX0NQVV9BQ0NFU1NfUkVRVUlSRUQ7DQo+ICsgICAgIGFtZGdwdV9ib19w
-bGFjZW1lbnRfZnJvbV9kb21haW4oYm8sIGJvLT5hbGxvd2VkX2RvbWFpbnMpOw0KPiArICAgICBy
-ID0gdHRtX2JvX3ZhbGlkYXRlKCZiby0+dGJvLCAmYm8tPnBsYWNlbWVudCwgJmN0eCk7DQo+ICsg
-ICAgIGlmIChyKSB7DQo+ICsgICAgICAgICAgICAgRFJNX0VSUk9SKCJGYWlsZWQgdmFsaWRhdGlu
-ZyB0aGUgVkNOIG1lc3NhZ2UgQk8gKCVkKSFcbiIsIHIpOw0KPiArICAgICAgICAgICAgIHJldHVy
-biByOw0KPiArICAgICB9DQo+ICsNCj4gKyAgICAgciA9IGFtZGdwdV9ib19rbWFwKGJvLCAmcHRy
-KTsNCj4gKyAgICAgaWYgKHIpIHsNCj4gKyAgICAgICAgICAgICBEUk1fRVJST1IoIkZhaWxlZCBt
-YXBwaW5nIHRoZSBWQ04gbWVzc2FnZSAoJWQpIVxuIiwgcik7DQo+ICsgICAgICAgICAgICAgcmV0
-dXJuIHI7DQo+ICsgICAgIH0NCj4gKw0KPiArICAgICBtc2cgPSBwdHIgKyBhZGRyIC0gc3RhcnQ7
-IC8qIElCIHdpdGggU0VTU0lPTl9JTklUICovDQo+ICsgICAgIGkgPSB2Y25fdjRfMF9lbmNfZmlu
-ZF9pYl9wYXJhbShtc2csIGRhdGFfc2l6ZSwgUkVOQ09ERV9JQl9QQVJBTV9TRVNTSU9OX0lOSVQs
-DQo+ICsgICAgICAgICAgICAgUkVOQ09ERV9JQl9QQVJBTV9TRVNTSU9OX0lOSVRfTUFYX09GRlNF
-VCk7DQo+ICsgICAgIGlmIChpID49IDAgJiYgbXNnW2kgKyAyXSA9PSBSRU5DT0RFX0VOQ09ERV9T
-VEFOREFSRF9BVjEpDQo+ICsgICAgICAgICAgICAgciA9IHZjbl92NF8wX2xpbWl0X3NjaGVkKHAs
-IGpvYik7DQo+ICsNCj4gKyAgICAgYW1kZ3B1X2JvX2t1bm1hcChibyk7DQo+ICsgICAgIHJldHVy
-biByOw0KPiArfQ0KPiArDQo+ICAgc3RhdGljIGludCB2Y25fdjRfMF9yaW5nX3BhdGNoX2NzX2lu
-X3BsYWNlKHN0cnVjdCBhbWRncHVfY3NfcGFyc2VyICpwLA0KPiAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBhbWRncHVfam9iICpqb2IsDQo+ICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGFtZGdwdV9pYiAqaWIpDQo+
-IEBAIC0xNzYzLDEyICsxODI5LDEzIEBAIHN0YXRpYyBpbnQgdmNuX3Y0XzBfcmluZ19wYXRjaF9j
-c19pbl9wbGFjZShzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCwNCj4gICAgICAgICAgICAgICBy
-ZXR1cm4gMDsNCj4NCj4gICAgICAgLyogUkFERU9OX1ZDTl9FTkdJTkVfSU5GTyBpcyBhdCB0aGUg
-dG9wIG9mIGliIGJsb2NrICovDQo+IC0gICAgIGlkeCA9IHZjbl92NF8wX2VuY19maW5kX2liX3Bh
-cmFtKGliLCBSQURFT05fVkNOX0VOR0lORV9JTkZPLA0KPiArICAgICBpZHggPSB2Y25fdjRfMF9l
-bmNfZmluZF9pYl9wYXJhbShpYi0+cHRyLCBpYi0+bGVuZ3RoX2R3LA0KPiArUkFERU9OX1ZDTl9F
-TkdJTkVfSU5GTywNCj4gICAgICAgICAgICAgICAgICAgICAgIFJBREVPTl9WQ05fRU5HSU5FX0lO
-Rk9fTUFYX09GRlNFVCk7DQo+ICAgICAgIGlmIChpZHggPCAwKSAvKiBlbmdpbmUgaW5mbyBpcyBt
-aXNzaW5nICovDQo+ICAgICAgICAgICAgICAgcmV0dXJuIDA7DQo+DQo+ICAgICAgIHZhbCA9IGFt
-ZGdwdV9pYl9nZXRfdmFsdWUoaWIsIGlkeCArIDIpOyAvKiBSQURFT05fVkNOX0VOR0lORV9UWVBF
-DQo+ICovDQo+ICsNCj4gICAgICAgaWYgKHZhbCA9PSBSQURFT05fVkNOX0VOR0lORV9UWVBFX0RF
-Q09ERSkgew0KPiAgICAgICAgICAgICAgIGRlY29kZV9idWZmZXIgPSAoc3RydWN0IGFtZGdwdV92
-Y25fZGVjb2RlX2J1ZmZlciAqKSZpYi0+cHRyW2lkeCArDQo+IDZdOw0KPg0KPiBAQCAtMTc3OSwx
-MCArMTg0NiwxMiBAQCBzdGF0aWMgaW50IHZjbl92NF8wX3JpbmdfcGF0Y2hfY3NfaW5fcGxhY2Uo
-c3RydWN0IGFtZGdwdV9jc19wYXJzZXIgKnAsDQo+ICAgICAgICAgICAgICAgICAgICAgICBkZWNv
-ZGVfYnVmZmVyLT5tc2dfYnVmZmVyX2FkZHJlc3NfbG87DQo+ICAgICAgICAgICAgICAgcmV0dXJu
-IHZjbl92NF8wX2RlY19tc2cocCwgam9iLCBhZGRyKTsNCj4gICAgICAgfSBlbHNlIGlmICh2YWwg
-PT0gUkFERU9OX1ZDTl9FTkdJTkVfVFlQRV9FTkNPREUpIHsNCj4gLSAgICAgICAgICAgICBpZHgg
-PSB2Y25fdjRfMF9lbmNfZmluZF9pYl9wYXJhbShpYiwgUkVOQ09ERV9JQl9QQVJBTV9TRVNTSU9O
-X0lOSVQsDQo+IC0gICAgICAgICAgICAgICAgICAgICBSRU5DT0RFX0lCX1BBUkFNX1NFU1NJT05f
-SU5JVF9NQVhfT0ZGU0VUKTsNCj4gKyAgICAgICAgICAgICBpZHggPSB2Y25fdjRfMF9lbmNfZmlu
-ZF9pYl9wYXJhbShpYi0+cHRyLCBpYi0+bGVuZ3RoX2R3LA0KPiArICAgICAgICAgICAgICAgICAg
-ICAgUkVOQ09ERV9JQl9QQVJBTV9TRVNTSU9OX0lOSVQsDQo+ICtSRU5DT0RFX0lCX1BBUkFNX1NF
-U1NJT05fSU5JVF9NQVhfT0ZGU0VUKTsNCj4gICAgICAgICAgICAgICBpZiAoaWR4ID49IDAgJiYg
-aWItPnB0cltpZHggKyAyXSA9PSBSRU5DT0RFX0VOQ09ERV9TVEFOREFSRF9BVjEpDQo+ICAgICAg
-ICAgICAgICAgICAgICAgICByZXR1cm4gdmNuX3Y0XzBfbGltaXRfc2NoZWQocCwgam9iKTsNCj4g
-KyAgICAgfSBlbHNlIGlmICh2YWwgPT0gUkFERU9OX1ZDTl9FTkdJTkVfVFlQRV9FTkNPREVfUVVF
-VUUpIHsNCj4gKyAgICAgICAgICAgICByZXR1cm4gdmNuX3Y0XzBfZW5jX3F1ZXVlX21zZyhwLCBq
-b2IsIGliKTsNCj4gICAgICAgfQ0KPiAgICAgICByZXR1cm4gMDsNCj4gICB9DQoNCg==
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 0222aa9800b25ff171d6dcabcabcd5c42c6ffc3f  Add linux-next specific files for 20230223
+
+Error/Warning reports:
+
+https://lore.kernel.org/oe-kbuild-all/202302062224.ByzeTXh1-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202302111601.jtY4lKrA-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202302210350.lynWcL4t-lkp@intel.com
+
+Error/Warning: (recently discovered and may have been fixed)
+
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_optc.c:294:6: warning: no previous prototype for 'optc3_wait_drr_doublebuffer_pending_clear' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource_helpers.c:62:18: warning: variable 'cursor_bpp' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_detection.c:1199: warning: expecting prototype for dc_link_detect_connection_type(). Prototype was for link_detect_connection_type() instead
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:1292:32: warning: variable 'result_write_min_hblank' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_training.c:1586:38: warning: variable 'result' set but not used [-Wunused-but-set-variable]
+include/asm-generic/div64.h:238:36: error: passing argument 1 of '__div64_32' from incompatible pointer type [-Werror=incompatible-pointer-types]
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_detection.c:warning:expecting-prototype-for-dc_link_detect_connection_type().-Prototype-was-for-link_detect_connection_type()-instead
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- alpha-randconfig-r002-20230222
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_detection.c:warning:expecting-prototype-for-dc_link_detect_connection_type().-Prototype-was-for-link_detect_connection_type()-instead
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|-- arc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_detection.c:warning:expecting-prototype-for-dc_link_detect_connection_type().-Prototype-was-for-link_detect_connection_type()-instead
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|   `-- include-asm-generic-div64.h:error:passing-argument-of-__div64_32-from-incompatible-pointer-type
+|-- arm-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_detection.c:warning:expecting-prototype-for-dc_link_detect_connection_type().-Prototype-was-for-link_detect_connection_type()-instead
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|   `-- include-asm-generic-div64.h:error:passing-argument-of-__div64_32-from-incompatible-pointer-type
+|-- arm-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_detection.c:warning:expecting-prototype-for-dc_link_detect_connection_type().-Prototype-was-for-link_detect_connection_type()-instead
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|   `-- include-asm-generic-div64.h:error:passing-argument-of-__div64_32-from-incompatible-pointer-type
+|-- arm64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_resource_helpers.c:warning:variable-cursor_bpp-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_detection.c:warning:expecting-prototype-for-dc_link_detect_connection_type().-Prototype-was-for-link_detect_connection_type()-instead
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- i386-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn32-dcn32_resource_helpers.c:warning:variable-cursor_bpp-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_detection.c:warning:expecting-prototype-for-dc_link_detect_connection_type().-Prototype-was-for-link_detect_connection_type()-instead
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- ia64-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_detection.c:warning:expecting-prototype-for-dc_link_detect_connection_type().-Prototype-was-for-link_detect_connection_type()-instead
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- loongarch-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_detection.c:warning:expecting-prototype-for-dc_link_detect_connection_type().-Prototype-was-for-link_detect_connection_type()-instead
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- loongarch-defconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_detection.c:warning:expecting-prototype-for-dc_link_detect_connection_type().-Prototype-was-for-link_detect_connection_type()-instead
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|-- mips-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_detection.c:warning:expecting-prototype-for-dc_link_detect_connection_type().-Prototype-was-for-link_detect_connection_type()-instead
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
+|-- mips-allyesconfig
+
+elapsed time: 721m
+
+configs tested: 82
+configs skipped: 4
+
+gcc tested configs:
+alpha                            allyesconfig
+alpha                               defconfig
+arc                              allyesconfig
+arc                                 defconfig
+arc                         haps_hs_defconfig
+arc                     nsimosci_hs_defconfig
+arm                              allmodconfig
+arm                              allyesconfig
+arm                                 defconfig
+arm                        multi_v7_defconfig
+arm                        realview_defconfig
+arm64                            allyesconfig
+arm64                               defconfig
+csky                                defconfig
+i386                             allyesconfig
+i386                              debian-10.3
+i386                                defconfig
+i386                          randconfig-a001
+i386                          randconfig-a003
+i386                          randconfig-a005
+ia64                             allmodconfig
+ia64                                defconfig
+loongarch                        allmodconfig
+loongarch                         allnoconfig
+loongarch                           defconfig
+m68k                             allmodconfig
+m68k                                defconfig
+m68k                        m5407c3_defconfig
+m68k                        stmark2_defconfig
+mips                             allmodconfig
+mips                             allyesconfig
+mips                 decstation_r4k_defconfig
+nios2                               defconfig
+parisc                              defconfig
+parisc                generic-32bit_defconfig
+parisc64                            defconfig
+powerpc                          allmodconfig
+powerpc                           allnoconfig
+powerpc                      bamboo_defconfig
+powerpc                      cm5200_defconfig
+powerpc                 mpc837x_mds_defconfig
+powerpc                     rainier_defconfig
+riscv                            allmodconfig
+riscv                             allnoconfig
+riscv                               defconfig
+riscv                          rv32_defconfig
+s390                             allmodconfig
+s390                             allyesconfig
+s390                                defconfig
+sh                               allmodconfig
+sh                         apsh4a3a_defconfig
+sh                           se7619_defconfig
+sh                   sh7724_generic_defconfig
+sh                  sh7785lcr_32bit_defconfig
+sparc                               defconfig
+um                             i386_defconfig
+um                           x86_64_defconfig
+x86_64                            allnoconfig
+x86_64                           allyesconfig
+x86_64                              defconfig
+x86_64                                  kexec
+x86_64                        randconfig-a002
+x86_64                        randconfig-a004
+x86_64                        randconfig-a006
+x86_64                        randconfig-a011
+x86_64                        randconfig-a013
+x86_64                        randconfig-a015
+x86_64                               rhel-8.3
+
+clang tested configs:
+arm                                 defconfig
+arm                         mv78xx0_defconfig
+arm                           sama7_defconfig
+i386                          randconfig-a002
+i386                          randconfig-a004
+i386                          randconfig-a006
+powerpc                          g5_defconfig
+powerpc                  mpc866_ads_defconfig
+powerpc                     powernv_defconfig
+x86_64                        randconfig-a001
+x86_64                        randconfig-a003
+x86_64                        randconfig-a005
+x86_64                        randconfig-a012
+x86_64                        randconfig-a014
+x86_64                        randconfig-a016
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
