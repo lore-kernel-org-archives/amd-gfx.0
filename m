@@ -4,56 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CECDDC636D6
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Feb 2023 14:38:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB06BC636D6
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Feb 2023 14:38:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAFEA10E4F1;
-	Thu, 23 Feb 2023 14:38:13 +0000 (UTC)
-Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
- [IPv6:2001:4860:4864:20::36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 634F110E4EF;
- Thu, 23 Feb 2023 14:38:11 +0000 (UTC)
-Received: by mail-oa1-x36.google.com with SMTP id
- 586e51a60fabf-1720600a5f0so15727313fac.11; 
- Thu, 23 Feb 2023 06:38:11 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7022310E4F0;
+	Thu, 23 Feb 2023 14:38:48 +0000 (UTC)
+Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com
+ [IPv6:2001:4860:4864:20::29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 983CA10E4F0;
+ Thu, 23 Feb 2023 14:38:46 +0000 (UTC)
+Received: by mail-oa1-x29.google.com with SMTP id
+ 586e51a60fabf-17264e9b575so6579769fac.9; 
+ Thu, 23 Feb 2023 06:38:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=CsSicO1zPmBU0FIakNf++WMt7oEBKFgPGXwwUeJqiaw=;
- b=fUs6R6s90O/SZNsfREvFOuwZQ9kXdmBCZOhKPt0j6evP1pP6J3OcMZXh74Nb3rHN38
- og2E0DykXoAqhTdm7Zu2+tkzUNNPOpS73Gl1BxQhkOAsIZjhod/F/IT7nd4ZgvhX+V97
- OE+McZcKgbSlFxWpCOJxWocKGTZvnjr91qx8LNUu3+NQcQtYDvP1BXk/VRzK4WXjGrIE
- 9yG37DzXzt/kPbL/BdyFnMLKgOQ3PD2eNaNT0Sub0+aV4gHx0Bq9i/sVtkKcFkArNXRG
- h95OPr0i/2PnlV3Mn9k41PMIE3zF0EhB/C/1g8oChnUtuTgah0dXI6PpDfp+/BtIAP8y
- upNQ==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=89NsqED1qF/po/TfxBNhjGb/jmRTrx5vpNyDKSLECZo=;
+ b=nugu40U/fOag+rkXZn2YUuoTYJqJRiRuCYQg6KWSgX3z6NyJZaPj0S5vywrlIqhbnd
+ d6usVAPisI/85pqpaRLofv9SX36rBae78b19JSa8FMG79ZsU4nO1OtT+ob3/hv8YeuI/
+ xzYoiRQYrffO2j66iZhcqBEJgjuvDcrgcC56heEyUcesHAsqKXc65Oo1RcSqcpuEwXnu
+ 5oO1170mpOn+IwNjtkSSBKyMtMt4pONokRreuQM7J1Ekc2wYN7l7H262kDQQz44SU7le
+ Lbwklslo6gREViMLAw/eU29qOLcI/RBujv3PcujGr9t9cklZhLfrjkZKajYKUvkDZg14
+ jg9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=CsSicO1zPmBU0FIakNf++WMt7oEBKFgPGXwwUeJqiaw=;
- b=yLCu87MkpMRn+gTcYcIRk0Uaa3cq88JFaTLneVlWfmeb9mBWy4Ks/mVqePnBY8TLEy
- lbA0o+JhJsESYR4ZcMFZv9cXxLgKZ4NyXq4z3JbAeKJ2Uxxwn+Is4hOhBunOYvpjQa4k
- BZXUPdkLqYHzsKrpSSXq/tVhEQQ6DJLYo9Y8yROB2v14YXcOhb44V0/ICHB8GGFrxlSW
- Z57K6UvLW8ZZ5gj/U3kjRlsjMOQ6XaOHIpmeIdSktdO9rBQTGcR7i2rtjMpH3RMHSFJB
- 3SAPv0TNgwbuqSpI8cEA8EmB/dBkDJTQXfAb8pcHtL14Wx/HHRClO4J28eb+WYRaUoJr
- dqRw==
-X-Gm-Message-State: AO0yUKXLh6ALxzdNeUgDGZ5sNRT4JsOQJxBdWxZC8lx5IU6izn4tsFVf
- kgNAKPz89BLdS5jVGewUp3vl/RIHdW4BTkU5+18KISfk
-X-Google-Smtp-Source: AK7set+rXEMRnqlE2dERDDYfaDarF181L2Wh1w3CqCqtCq1yE9QvrmpnE+R2D44p5g3s0qoxiu0IxYJd6k0i+b3z0H8=
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=89NsqED1qF/po/TfxBNhjGb/jmRTrx5vpNyDKSLECZo=;
+ b=V0QMTZBtc+/XcVQgfzt4VOSFsz2Xwya06qiaM/4BvqQUVAw/78ytMRs/PP1ges1uJ7
+ MFIslWfKEaLO/H8LEtoVB6KlzzDa9q0Bas68UsUm6aqVld+aea8nvjyYWMvswr4APO+5
+ Fei0o/MBODcA58Fy6SLp6SqK8ixS6d8uLRuzPpE+V9BxgLwPN30glxQa4TJjtm6VTh5r
+ WPLPJS/rHCAoOI49HrbYT/EfoXugWD4cr8rtA9HR9Ys8GLYLbwwxg7TH62w4oQRAeiKd
+ fptwDgPOMSNbpJC0fRtk5fcTe7JrZFBPTMEiTn5IStn4sNbkRWnoWa67iz7BeY7LvWo0
+ ezqw==
+X-Gm-Message-State: AO0yUKWvA15b4OPITMUjmh7docgOgeueywoUSBgU4cxxvrPnzCMWUja/
+ Fsk+mEHxxgraD98dqX1RcyTIxMeD6GzuPdIHyto=
+X-Google-Smtp-Source: AK7set+KLT2r3rBnZPapukBmtA/EjG5tO3KzBKTBeiIuotbag24KGdSOJM9a9xWivFfnMxaCddrYo7zKyJPEgzz5YOM=
 X-Received: by 2002:a05:6871:6a0:b0:172:3bf5:2855 with SMTP id
- l32-20020a05687106a000b001723bf52855mr1127445oao.96.1677163090580; Thu, 23
- Feb 2023 06:38:10 -0800 (PST)
+ l32-20020a05687106a000b001723bf52855mr1127648oao.96.1677163125808; Thu, 23
+ Feb 2023 06:38:45 -0800 (PST)
 MIME-Version: 1.0
 References: <20230217181409.218008-1-arthurgrillo@riseup.net>
- <20230217181409.218008-3-arthurgrillo@riseup.net>
-In-Reply-To: <20230217181409.218008-3-arthurgrillo@riseup.net>
+ <20230217181409.218008-2-arthurgrillo@riseup.net>
+In-Reply-To: <20230217181409.218008-2-arthurgrillo@riseup.net>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 23 Feb 2023 09:37:59 -0500
-Message-ID: <CADnq5_NTy8shFO1_cg8hMN_QDy2KVs=1X+X_gQ=pJhOB+XXKVA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/3] drm/amd/display: Remove unused local variables
+Date: Thu, 23 Feb 2023 09:38:33 -0500
+Message-ID: <CADnq5_PP4O4HuZ5GDhRx9m5BV1W7X77f6ciNqXj4k_m3VHeVFg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] drm/amd/display: Fix implicit enum conversion
 To: Arthur Grillo <arthurgrillo@riseup.net>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,244 +74,239 @@ Cc: sunpeng.li@amd.com, tales.aparecida@gmail.com, Xinhui.Pan@amd.com,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks.
+This patch doesn't apply.  Please make sure you are using drm-next or
+linux-next.
 
-On Fri, Feb 17, 2023 at 1:15 PM Arthur Grillo <arthurgrillo@riseup.net> wrote:
+Alex
+
+On Fri, Feb 17, 2023 at 1:15 PM Arthur Grillo <arthurgrillo@riseup.net> wro=
+te:
 >
-> Remove local variables that were just set but were never used. This
-> decrease the number of -Wunused-but-set-variable warnings.
+> Make implicit enum conversion to avoid -Wenum-conversion warning, such
+> as:
+>
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn21/display_mode_vba_21.c:=
+4109:88: warning: implicit conversion from =E2=80=98enum <anonymous>=E2=80=
+=99 to =E2=80=98enum odm_combine_mode=E2=80=99 [-Wenum-conversion]
+>  4109 |                                                 locals->ODMCombin=
+eEnablePerState[i][k] =3D true;
+>       |                                                                  =
+                      ^
 >
 > Signed-off-by: Arthur Grillo <arthurgrillo@riseup.net>
 > ---
->  drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c  | 3 +--
->  drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c         | 7 -------
->  drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c       | 2 --
->  drivers/gpu/drm/amd/display/dc/dcn30/dcn30_afmt.c          | 2 --
->  drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c          | 4 ----
->  drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c         | 3 ---
->  drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c      | 5 +----
->  .../gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c  | 4 ----
->  .../drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.c  | 2 --
->  .../drm/amd/display/dc/link/protocols/link_dp_capability.c | 4 ----
->  10 files changed, 2 insertions(+), 34 deletions(-)
+>  .../amd/display/dc/dml/dcn20/display_mode_vba_20.c   |  9 +++++----
+>  .../amd/display/dc/dml/dcn20/display_mode_vba_20v2.c | 11 ++++++-----
+>  .../amd/display/dc/dml/dcn21/display_mode_vba_21.c   | 12 ++++++------
+>  3 files changed, 17 insertions(+), 15 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c
-> index c4287147b853..ee08b545aaea 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c
-> @@ -1219,7 +1219,6 @@ void dcn10_link_encoder_update_mst_stream_allocation_table(
->         const struct link_mst_stream_allocation_table *table)
->  {
->         struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
-> -       uint32_t value0 = 0;
->         uint32_t value1 = 0;
->         uint32_t value2 = 0;
->         uint32_t slots = 0;
-> @@ -1321,7 +1320,7 @@ void dcn10_link_encoder_update_mst_stream_allocation_table(
->         do {
->                 udelay(10);
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20=
+.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
+> index d3b5b6fedf04..1b47249f01d8 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20.c
+> @@ -26,6 +26,7 @@
+>  #include "../display_mode_lib.h"
+>  #include "display_mode_vba_20.h"
+>  #include "../dml_inline_defs.h"
+> +#include "dml/display_mode_enums.h"
 >
-> -               value0 = REG_READ(DP_MSE_SAT_UPDATE);
-> +               REG_READ(DP_MSE_SAT_UPDATE);
+>  /*
+>   * NOTE:
+> @@ -3897,14 +3898,14 @@ void dml20_ModeSupportAndSystemConfigurationFull(=
+struct display_mode_lib *mode_l
+>                                         mode_lib->vba.PlaneRequiredDISPCL=
+KWithODMCombine =3D mode_lib->vba.PixelClock[k] / 2
+>                                                         * (1 + mode_lib->=
+vba.DISPCLKDPPCLKDSCCLKDownSpreading / 100.0);
 >
->                 REG_GET(DP_MSE_SAT_UPDATE,
->                                 DP_MSE_SAT_UPDATE, &value1);
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c
-> index f50ab961bc17..a7268027a472 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c
-> @@ -185,13 +185,6 @@ static bool dpp201_get_optimal_number_of_taps(
->                 struct scaler_data *scl_data,
->                 const struct scaling_taps *in_taps)
->  {
-> -       uint32_t pixel_width;
-> -
-> -       if (scl_data->viewport.width > scl_data->recout.width)
-> -               pixel_width = scl_data->recout.width;
-> -       else
-> -               pixel_width = scl_data->viewport.width;
-> -
->         if (scl_data->viewport.width  != scl_data->h_active &&
->                 scl_data->viewport.height != scl_data->v_active &&
->                 dpp->caps->dscl_data_proc_format == DSCL_DATA_PRCESSING_FIXED_FORMAT &&
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c
-> index 61bcfa03c4e7..1aeb04fbd89d 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c
-> @@ -541,8 +541,6 @@ void dcn201_pipe_control_lock(
->         bool lock)
->  {
->         struct dce_hwseq *hws = dc->hwseq;
-> -       struct hubp *hubp = NULL;
-> -       hubp = dc->res_pool->hubps[pipe->pipe_idx];
->         /* use TG master update lock to lock everything on the TG
->          * therefore only top pipe need to lock
->          */
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_afmt.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_afmt.c
-> index 95528e5ef89e..55e388c4c98b 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_afmt.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_afmt.c
-> @@ -123,7 +123,6 @@ void afmt3_se_audio_setup(
->  {
->         struct dcn30_afmt *afmt3 = DCN30_AFMT_FROM_AFMT(afmt);
+> -                               locals->ODMCombineEnablePerState[i][k] =
+=3D false;
+> +                               locals->ODMCombineEnablePerState[i][k] =
+=3D dm_odm_combine_mode_disabled;
+>                                 mode_lib->vba.PlaneRequiredDISPCLK =3D mo=
+de_lib->vba.PlaneRequiredDISPCLKWithoutODMCombine;
+>                                 if (mode_lib->vba.ODMCapability) {
+>                                         if (locals->PlaneRequiredDISPCLKW=
+ithoutODMCombine > mode_lib->vba.MaxDispclkRoundedDownToDFSGranularity) {
+> -                                               locals->ODMCombineEnableP=
+erState[i][k] =3D true;
+> +                                               locals->ODMCombineEnableP=
+erState[i][k] =3D dm_odm_combine_mode_2to1;
+>                                                 mode_lib->vba.PlaneRequir=
+edDISPCLK =3D mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+>                                         } else if (locals->HActive[k] > D=
+CN20_MAX_420_IMAGE_WIDTH && locals->OutputFormat[k] =3D=3D dm_420) {
+> -                                               locals->ODMCombineEnableP=
+erState[i][k] =3D true;
+> +                                               locals->ODMCombineEnableP=
+erState[i][k] =3D dm_odm_combine_mode_2to1;
+>                                                 mode_lib->vba.PlaneRequir=
+edDISPCLK =3D mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+>                                         }
+>                                 }
+> @@ -3957,7 +3958,7 @@ void dml20_ModeSupportAndSystemConfigurationFull(st=
+ruct display_mode_lib *mode_l
+>                                 locals->RequiredDISPCLK[i][j] =3D 0.0;
+>                                 locals->DISPCLK_DPPCLK_Support[i][j] =3D =
+true;
+>                                 for (k =3D 0; k <=3D mode_lib->vba.Number=
+OfActivePlanes - 1; k++) {
+> -                                       locals->ODMCombineEnablePerState[=
+i][k] =3D false;
+> +                                       locals->ODMCombineEnablePerState[=
+i][k] =3D dm_odm_combine_mode_disabled;
+>                                         if (locals->SwathWidthYSingleDPP[=
+k] <=3D locals->MaximumSwathWidth[k]) {
+>                                                 locals->NoOfDPP[i][j][k] =
+=3D 1;
+>                                                 locals->RequiredDPPCLK[i]=
+[j][k] =3D locals->MinDPPCLKUsingSingleDPP[k]
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20=
+v2.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
+> index edd098c7eb92..4781bf82eec6 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/display_mode_vba_20v2.c
+> @@ -26,6 +26,7 @@
+>  #include "../display_mode_lib.h"
+>  #include "display_mode_vba_20v2.h"
+>  #include "../dml_inline_defs.h"
+> +#include "dml/display_mode_enums.h"
 >
-> -       uint32_t speakers = 0;
->         uint32_t channels = 0;
+>  /*
+>   * NOTE:
+> @@ -4008,17 +4009,17 @@ void dml20v2_ModeSupportAndSystemConfigurationFul=
+l(struct display_mode_lib *mode
+>                                         mode_lib->vba.PlaneRequiredDISPCL=
+KWithODMCombine =3D mode_lib->vba.PixelClock[k] / 2
+>                                                         * (1 + mode_lib->=
+vba.DISPCLKDPPCLKDSCCLKDownSpreading / 100.0);
 >
->         ASSERT(audio_info);
-> @@ -131,7 +130,6 @@ void afmt3_se_audio_setup(
->         if (audio_info == NULL)
->                 return;
+> -                               locals->ODMCombineEnablePerState[i][k] =
+=3D false;
+> +                               locals->ODMCombineEnablePerState[i][k] =
+=3D dm_odm_combine_mode_disabled;
+>                                 mode_lib->vba.PlaneRequiredDISPCLK =3D mo=
+de_lib->vba.PlaneRequiredDISPCLKWithoutODMCombine;
+>                                 if (mode_lib->vba.ODMCapability) {
+>                                         if (locals->PlaneRequiredDISPCLKW=
+ithoutODMCombine > MaxMaxDispclkRoundedDown) {
+> -                                               locals->ODMCombineEnableP=
+erState[i][k] =3D true;
+> +                                               locals->ODMCombineEnableP=
+erState[i][k] =3D dm_odm_combine_mode_2to1;
+>                                                 mode_lib->vba.PlaneRequir=
+edDISPCLK =3D mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+>                                         } else if (locals->DSCEnabled[k] =
+&& (locals->HActive[k] > DCN20_MAX_DSC_IMAGE_WIDTH)) {
+> -                                               locals->ODMCombineEnableP=
+erState[i][k] =3D true;
+> +                                               locals->ODMCombineEnableP=
+erState[i][k] =3D dm_odm_combine_mode_2to1;
+>                                                 mode_lib->vba.PlaneRequir=
+edDISPCLK =3D mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+>                                         } else if (locals->HActive[k] > D=
+CN20_MAX_420_IMAGE_WIDTH && locals->OutputFormat[k] =3D=3D dm_420) {
+> -                                               locals->ODMCombineEnableP=
+erState[i][k] =3D true;
+> +                                               locals->ODMCombineEnableP=
+erState[i][k] =3D dm_odm_combine_mode_2to1;
+>                                                 mode_lib->vba.PlaneRequir=
+edDISPCLK =3D mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+>                                         }
+>                                 }
+> @@ -4071,7 +4072,7 @@ void dml20v2_ModeSupportAndSystemConfigurationFull(=
+struct display_mode_lib *mode
+>                                 locals->RequiredDISPCLK[i][j] =3D 0.0;
+>                                 locals->DISPCLK_DPPCLK_Support[i][j] =3D =
+true;
+>                                 for (k =3D 0; k <=3D mode_lib->vba.Number=
+OfActivePlanes - 1; k++) {
+> -                                       locals->ODMCombineEnablePerState[=
+i][k] =3D false;
+> +                                       locals->ODMCombineEnablePerState[=
+i][k] =3D dm_odm_combine_mode_disabled;
+>                                         if (locals->SwathWidthYSingleDPP[=
+k] <=3D locals->MaximumSwathWidth[k]) {
+>                                                 locals->NoOfDPP[i][j][k] =
+=3D 1;
+>                                                 locals->RequiredDPPCLK[i]=
+[j][k] =3D locals->MinDPPCLKUsingSingleDPP[k]
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21=
+.c b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
+> index 1d84ae50311d..b7c2844d0cbe 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
+> @@ -4102,17 +4102,17 @@ void dml21_ModeSupportAndSystemConfigurationFull(=
+struct display_mode_lib *mode_l
+>                                         mode_lib->vba.PlaneRequiredDISPCL=
+KWithODMCombine =3D mode_lib->vba.PixelClock[k] / 2
+>                                                         * (1 + mode_lib->=
+vba.DISPCLKDPPCLKDSCCLKDownSpreading / 100.0);
 >
-> -       speakers = audio_info->flags.info.ALLSPEAKERS;
->         channels = speakers_to_channels(audio_info->flags.speaker_flags).all;
->
->         /* setup the audio stream source select (audio -> dig mapping) */
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
-> index dc3e8df706b3..e46bbe7ddcc9 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
-> @@ -47,13 +47,9 @@ void hubp3_set_vm_system_aperture_settings(struct hubp *hubp,
->  {
->         struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
->
-> -       PHYSICAL_ADDRESS_LOC mc_vm_apt_default;
->         PHYSICAL_ADDRESS_LOC mc_vm_apt_low;
->         PHYSICAL_ADDRESS_LOC mc_vm_apt_high;
->
-> -       // The format of default addr is 48:12 of the 48 bit addr
-> -       mc_vm_apt_default.quad_part = apt->sys_default.quad_part >> 12;
-> -
->         // The format of high/low are 48:18 of the 48 bit addr
->         mc_vm_apt_low.quad_part = apt->sys_low.quad_part >> 18;
->         mc_vm_apt_high.quad_part = apt->sys_high.quad_part >> 18;
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-> index 444f9fad3de6..1d848d14508b 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-> @@ -322,13 +322,10 @@ void dcn30_enable_writeback(
->  {
->         struct dwbc *dwb;
->         struct mcif_wb *mcif_wb;
-> -       struct timing_generator *optc;
->
->         dwb = dc->res_pool->dwbc[wb_info->dwb_pipe_inst];
->         mcif_wb = dc->res_pool->mcif_wb[wb_info->dwb_pipe_inst];
->
-> -       /* set the OPTC source mux */
-> -       optc = dc->res_pool->timing_generators[dwb->otg_inst];
->         DC_LOG_DWB("%s dwb_pipe_inst = %d, mpcc_inst = %d",\
->                 __func__, wb_info->dwb_pipe_inst,\
->                 wb_info->mpcc_inst);
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-> index 74e50c09bb62..e997bb98b43d 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-> @@ -1611,7 +1611,6 @@ bool dcn32_acquire_post_bldn_3dlut(
->                 struct dc_transfer_func **shaper)
->  {
->         bool ret = false;
-> -       union dc_3dlut_state *state;
->
->         ASSERT(*lut == NULL && *shaper == NULL);
->         *lut = NULL;
-> @@ -1620,7 +1619,6 @@ bool dcn32_acquire_post_bldn_3dlut(
->         if (!res_ctx->is_mpc_3dlut_acquired[mpcc_id]) {
->                 *lut = pool->mpc_lut[mpcc_id];
->                 *shaper = pool->mpc_shaper[mpcc_id];
-> -               state = &pool->mpc_lut[mpcc_id]->state;
->                 res_ctx->is_mpc_3dlut_acquired[mpcc_id] = true;
->                 ret = true;
->         }
-> @@ -1913,7 +1911,6 @@ int dcn32_populate_dml_pipes_from_context(
->         struct resource_context *res_ctx = &context->res_ctx;
->         struct pipe_ctx *pipe;
->         bool subvp_in_use = false;
-> -       uint8_t is_pipe_split_expected[MAX_PIPES] = {0};
->         struct dc_crtc_timing *timing;
->
->         dcn20_populate_dml_pipes_from_context(dc, context, pipes, fast_validate);
-> @@ -2002,7 +1999,7 @@ int dcn32_populate_dml_pipes_from_context(
+> -                               locals->ODMCombineEnablePerState[i][k] =
+=3D false;
+> +                               locals->ODMCombineEnablePerState[i][k] =
+=3D dm_odm_combine_mode_disabled;
+>                                 mode_lib->vba.PlaneRequiredDISPCLK =3D mo=
+de_lib->vba.PlaneRequiredDISPCLKWithoutODMCombine;
+>                                 if (mode_lib->vba.ODMCapability) {
+>                                         if (locals->PlaneRequiredDISPCLKW=
+ithoutODMCombine > MaxMaxDispclkRoundedDown) {
+> -                                               locals->ODMCombineEnableP=
+erState[i][k] =3D true;
+> +                                               locals->ODMCombineEnableP=
+erState[i][k] =3D dm_odm_combine_mode_2to1;
+>                                                 mode_lib->vba.PlaneRequir=
+edDISPCLK =3D mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+>                                         } else if (locals->DSCEnabled[k] =
+&& (locals->HActive[k] > DCN21_MAX_DSC_IMAGE_WIDTH)) {
+> -                                               locals->ODMCombineEnableP=
+erState[i][k] =3D true;
+> +                                               locals->ODMCombineEnableP=
+erState[i][k] =3D dm_odm_combine_mode_2to1;
+>                                                 mode_lib->vba.PlaneRequir=
+edDISPCLK =3D mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+>                                         } else if (locals->HActive[k] > D=
+CN21_MAX_420_IMAGE_WIDTH && locals->OutputFormat[k] =3D=3D dm_420) {
+> -                                               locals->ODMCombineEnableP=
+erState[i][k] =3D true;
+> +                                               locals->ODMCombineEnableP=
+erState[i][k] =3D dm_odm_combine_mode_2to1;
+>                                                 mode_lib->vba.PlaneRequir=
+edDISPCLK =3D mode_lib->vba.PlaneRequiredDISPCLKWithODMCombine;
+>                                         }
+>                                 }
+> @@ -4165,7 +4165,7 @@ void dml21_ModeSupportAndSystemConfigurationFull(st=
+ruct display_mode_lib *mode_l
+>                                 locals->RequiredDISPCLK[i][j] =3D 0.0;
+>                                 locals->DISPCLK_DPPCLK_Support[i][j] =3D =
+true;
+>                                 for (k =3D 0; k <=3D mode_lib->vba.Number=
+OfActivePlanes - 1; k++) {
+> -                                       locals->ODMCombineEnablePerState[=
+i][k] =3D false;
+> +                                       locals->ODMCombineEnablePerState[=
+i][k] =3D dm_odm_combine_mode_disabled;
+>                                         if (locals->SwathWidthYSingleDPP[=
+k] <=3D locals->MaximumSwathWidth[k]) {
+>                                                 locals->NoOfDPP[i][j][k] =
+=3D 1;
+>                                                 locals->RequiredDPPCLK[i]=
+[j][k] =3D locals->MinDPPCLKUsingSingleDPP[k]
+> @@ -5230,7 +5230,7 @@ void dml21_ModeSupportAndSystemConfigurationFull(st=
+ruct display_mode_lib *mode_l
+>                         mode_lib->vba.ODMCombineEnabled[k] =3D
+>                                         locals->ODMCombineEnablePerState[=
+mode_lib->vba.VoltageLevel][k];
+>                 } else {
+> -                       mode_lib->vba.ODMCombineEnabled[k] =3D false;
+> +                       mode_lib->vba.ODMCombineEnabled[k] =3D dm_odm_com=
+bine_mode_disabled;
 >                 }
->
->                 DC_FP_START();
-> -               is_pipe_split_expected[i] = dcn32_predict_pipe_split(context, &pipes[pipe_cnt]);
-> +               dcn32_predict_pipe_split(context, &pipes[pipe_cnt]);
->                 DC_FP_END();
->
->                 pipe_cnt++;
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-> index 3a2d7bcc4b6d..a616cf078cf4 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-> @@ -59,25 +59,21 @@ uint32_t dcn32_helper_calculate_mall_bytes_for_cursor(
->  {
->         struct hubp *hubp = pipe_ctx->plane_res.hubp;
->         uint32_t cursor_size = hubp->curs_attr.pitch * hubp->curs_attr.height;
-> -       uint32_t cursor_bpp = 4;
->         uint32_t cursor_mall_size_bytes = 0;
->
->         switch (pipe_ctx->stream->cursor_attributes.color_format) {
->         case CURSOR_MODE_MONO:
->                 cursor_size /= 2;
-> -               cursor_bpp = 4;
->                 break;
->         case CURSOR_MODE_COLOR_1BIT_AND:
->         case CURSOR_MODE_COLOR_PRE_MULTIPLIED_ALPHA:
->         case CURSOR_MODE_COLOR_UN_PRE_MULTIPLIED_ALPHA:
->                 cursor_size *= 4;
-> -               cursor_bpp = 4;
->                 break;
->
->         case CURSOR_MODE_COLOR_64BIT_FP_PRE_MULTIPLIED:
->         case CURSOR_MODE_COLOR_64BIT_FP_UN_PRE_MULTIPLIED:
->                 cursor_size *= 8;
-> -               cursor_bpp = 8;
->                 break;
->         }
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.c
-> index 35d10b4d018b..2244e4fb8c96 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_rq_dlg_calc_31.c
-> @@ -902,7 +902,6 @@ static void dml_rq_dlg_get_dlg_params(
->         double hratio_c;
->         double vratio_l;
->         double vratio_c;
-> -       bool scl_enable;
->
->         unsigned int swath_width_ub_l;
->         unsigned int dpte_groups_per_row_ub_l;
-> @@ -1020,7 +1019,6 @@ static void dml_rq_dlg_get_dlg_params(
->         hratio_c = scl->hscl_ratio_c;
->         vratio_l = scl->vscl_ratio;
->         vratio_c = scl->vscl_ratio_c;
-> -       scl_enable = scl->scl_enable;
->
->         swath_width_ub_l = rq_dlg_param->rq_l.swath_width_ub;
->         dpte_groups_per_row_ub_l = rq_dlg_param->rq_l.dpte_groups_per_row_ub;
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-> index 138e5684c7fd..1c2ce08bdece 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-> @@ -276,7 +276,6 @@ static void dp_wa_power_up_0010FA(struct dc_link *link, uint8_t *dpcd_data,
->                 int length)
->  {
->         int retry = 0;
-> -       union dp_downstream_port_present ds_port = { 0 };
->
->         if (!link->dpcd_caps.dpcd_rev.raw) {
->                 do {
-> @@ -289,9 +288,6 @@ static void dp_wa_power_up_0010FA(struct dc_link *link, uint8_t *dpcd_data,
->                 } while (retry++ < 4 && !link->dpcd_caps.dpcd_rev.raw);
->         }
->
-> -       ds_port.byte = dpcd_data[DP_DOWNSTREAMPORT_PRESENT -
-> -                                DP_DPCD_REV];
-> -
->         if (link->dpcd_caps.dongle_type == DISPLAY_DONGLE_DP_VGA_CONVERTER) {
->                 switch (link->dpcd_caps.branch_dev_id) {
->                 /* 0010FA active dongles (DP-VGA, DP-DLDVI converters) power down
+>                 mode_lib->vba.DSCEnabled[k] =3D
+>                                 locals->RequiresDSC[mode_lib->vba.Voltage=
+Level][k];
 > --
 > 2.39.2
 >
