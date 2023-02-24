@@ -4,108 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DA63C61DA3
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Feb 2023 05:58:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCFACC64ED8
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Feb 2023 07:14:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DEDB10E02C;
-	Fri, 24 Feb 2023 05:58:44 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2055.outbound.protection.outlook.com [40.107.212.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B62DB10E02C
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Feb 2023 05:58:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q1pmy3UJWdBk0mg3JSkRdBmuGZIAnX14zQPLVouI2ItrYKLka2qPf9CEGlI0qqoSxL1iNFvMrLTBZjQvPhp5XZKFK25IHOv3IYzbB1NglKVBzpJ8Ozn5yGPLXRfNfWGGinM9ls2eiyd11bqPlVVxapDp3DmTsGERYzb3aXikWsZ41/VPbnb0W4kDqBJ3BMUqL2aqqQeYWfQecaSd+2jao0Xk+CyoXz3h/K9dODCoTsWlu92yRqu7xVJ0SGy5hMpw7Cd2IsQg2wMh/aztgZKVcAVQ9zqTtkjqQdU8hoQGulOO57YRaUaGp5SzU0msPGsTtgIbhvRA4hs+am4Iw4349A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CMcuKvlFaKVwC5vw90dnrkAup7QwKd7JZieNJYeZMjI=;
- b=UmiNmBsIHiArtpwlPLou4656bcDLYtokc+Jp3yLc8zXatytLBw+wunPOfnjWw0mzWlc3aWh2bIlovt0TuROacflflwFt/+Qdvf+gUmubmO47KZbaOhnSuI3w4d4MAwK0rLM0GhizajMv9LMia1S4DcsF4h50aNAqVJnAZ9CK6OstncFgnL57Pic9tX8BKlseVgtCqScxB4VG2x3AeOnm6Jjo8rr59KwzEBxBVtGyDkOyKWkfrZ1RRdZ108Q1VjkATLT9DbgOH5+hXBOrfadTlwd06NRLsTH3JeU10px7+oZX1fq2i8MdflIysgeaIV0quYSbFl4dW6dnmwdF/bJTBQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CMcuKvlFaKVwC5vw90dnrkAup7QwKd7JZieNJYeZMjI=;
- b=fiDYMiWoDrvlkh67gF527xo5htHT9N6MRh24e3GHUhKJ1pkRyerc38uQSROT6Fe+qJwKIieO6Kfpib0mK8LJeNwmh5VsEWJ7DciAKmZ+d+QaEij2Zf2j1n3UQHTmhfz85VgWXuRLlp3aMuxDPeXimu2vOXzqN0VNKZZ5ZaA7Kzw=
-Received: from DM5PR12MB1770.namprd12.prod.outlook.com (2603:10b6:3:108::22)
- by IA1PR12MB8556.namprd12.prod.outlook.com (2603:10b6:208:452::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.21; Fri, 24 Feb
- 2023 05:58:38 +0000
-Received: from DM5PR12MB1770.namprd12.prod.outlook.com
- ([fe80::e52b:f6b6:5b71:cd92]) by DM5PR12MB1770.namprd12.prod.outlook.com
- ([fe80::e52b:f6b6:5b71:cd92%9]) with mapi id 15.20.6134.024; Fri, 24 Feb 2023
- 05:58:38 +0000
-From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-To: "Li, Candice" <Candice.Li@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: Make umc_v8_10_convert_error_address static
- and remove unused variable
-Thread-Topic: [PATCH] drm/amdgpu: Make umc_v8_10_convert_error_address static
- and remove unused variable
-Thread-Index: AQHZSAgNKosUVbXQA0OQAZuYok/9Qq7dmfNg
-Date: Fri, 24 Feb 2023 05:58:37 +0000
-Message-ID: <DM5PR12MB1770BD1FC6ECF9BC0B46068AB0A89@DM5PR12MB1770.namprd12.prod.outlook.com>
-References: <20230224042507.30533-1-candice.li@amd.com>
-In-Reply-To: <20230224042507.30533-1-candice.li@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM5PR12MB1770:EE_|IA1PR12MB8556:EE_
-x-ms-office365-filtering-correlation-id: 4cb2f737-9deb-42d5-f6d1-08db162c2c49
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 2txuAvmQVDAMzz8MDEqCO528/b4nAUoyXIIKMWkr5oCaDqsM8JY/drvpw7Af8n2JNWD0pZ1CA5RmuemEEW1r4dKwWY+UmNxByp8RCyV9SHBgYZODjeaPltY+qROcV3Fhf1NGyX2a0I/z93M+IGJeZnp/CEyZsgKGAHFi5EBV3nlWHCriFjvqzxZxnxj0dC0rO7jR0LJfgFDyojxRFgI87p8TX9bX8yhkyz6oa5cgzj+93J292RMkq/siw9wIkdT2ch9lAzmV4M7xZDWnfh+mADcdo3f6JSTlkDZx6cjhsLJ2Z8A48iKboQw4UzCGt+m/LdQepeksaO4igLS072eQOAf9IHNSqpp8VI4ZU/NJ5kKhFCK8lkAy3blRcbkiA+D5b5K1ix75JmY7hJtU1WF88+aDlKZak7gUZ7VOPlKAT9fDrIFDQUcuq+IKkwxqrJVJjgJOMmcuhYHIykJgXQbnCOLL9EaVKDMXGlsaBZK8Ut2EhmeGKwNYBOh85tCjHFnCMne5o23h1EyNwS7pl4pFqAk2F5hAf3xRodlM4KvhQGMwcepKFlFREQGN8RW4BBSOq62U0GchpURbljyAN0RRDVeCsoCNzPGF6V2wpc3r2Q0mGfoiYf49T3AvXURLtzyZdf6oiRVgbAr/dw2CHJyQsMAnEoFXDsVEr7Sv1CniIIQJtw7H/3j+L04ysGT6j/LTnL+RUmOsq2ZJxIMYMuBCGQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB1770.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(376002)(366004)(136003)(346002)(39860400002)(396003)(451199018)(26005)(9686003)(186003)(66556008)(38070700005)(71200400001)(122000001)(38100700002)(7696005)(33656002)(76116006)(53546011)(66946007)(64756008)(55016003)(86362001)(66476007)(66446008)(8676002)(4326008)(5660300002)(83380400001)(478600001)(2906002)(41300700001)(6506007)(52536014)(316002)(110136005)(8936002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?gv3Nz3kZFB7F4DhYsC4vdXLasgMwotvcov1C4zVC7Y1UlbmM0mwbd6NCxOxY?=
- =?us-ascii?Q?nO9GH/l7mg5Pb8AUu6m+C8zJcf4s8gn+xE+n+k6k+wWe3uYPFVjJ5dj7jdn5?=
- =?us-ascii?Q?qHEB3vn0Qus52aMp1MUf0Qp3gKFFxyf8UioeORJY/hHy6A6LgTLzOqQV9rQo?=
- =?us-ascii?Q?/TSQF52zSMM7qnMjdxjag4pm7KOY4+j9X5TpH3E1+QVJ6NYDnJqH/izCo6xh?=
- =?us-ascii?Q?IAC2+r0TF7U2x7sG5aR1w9rppkMKG7HeZy+7c6J9Q3ZqZAvM747zoLzI3CYt?=
- =?us-ascii?Q?B52TLyGTVs1GWvFZ/3lSPF3xbAiMx2j3nuKNcQJco0IdsETnPXHMK5PFrH1/?=
- =?us-ascii?Q?jGdLRkhIcUs3eApF+FeS+41LkEF+B4RnzNUQb7mnEdT/BGk7Hckl3L8GKJ6f?=
- =?us-ascii?Q?rprgsY3vqmT1tx8RJWghj8PqeE+9AzVkQBXIUuw3uQDXG3b4WIG8MbuMx4DQ?=
- =?us-ascii?Q?JqoCIXUt8XP3knQlS2tGHKgS8JlDdSS8ZdOd8kn29fOcEm54KxFsiZVbOcg3?=
- =?us-ascii?Q?oomz0wjTtIATj4k5T/yQe/C5+VloBc1uJxDZ5NGjuvGKIwrhRlit2MBbCVPa?=
- =?us-ascii?Q?ZJBOprmxJTcbt2zzPS130fBWIB/hhhBNhTPBY5zDHZO2DCtpKrLEUENd+/Xa?=
- =?us-ascii?Q?Hu7NZb/tSwL9+ZbvnlOozMHlT2ISaG9OOs481M7V0qPPjJa4q6SJJPAxG2iM?=
- =?us-ascii?Q?M8+JJzGDhobuJAQmEUjQArSqKPcHiGT2gsWbpZ1o9GdZoQ9TiP4zXzbYUz4J?=
- =?us-ascii?Q?Fco8G8yG85TO9X0UYEzmsfErDXk0HkOOt6RnT6hsarcc9It10+V/5QVg102S?=
- =?us-ascii?Q?Bi/f9HjKK7lBBUkKDmiYNDJTWg0sPsuQ5l+1I2EiadmuI/B8G7sRxAS9xT2G?=
- =?us-ascii?Q?nCxzN1CDi3G45hTQOUENS8/Sybtbr7oaMWHInuMzzHeC5hix7HE22YE4ptM1?=
- =?us-ascii?Q?D8j7P+VEFKtuNx+v49v63YDVB/wcygGviZQooz+sPawbQgrFWE2cSInrPVvI?=
- =?us-ascii?Q?vI3tT7g6lfMXPBAXqowcaYJYg/wrz2eaEztfOVpzNmCuuHcnn6jBqSzmyrlb?=
- =?us-ascii?Q?5Pqcql0ub/raGe8nqThV40OgZotK5aNlY2fY6cnXBX5RMQhk9tA5ZA4QOiTm?=
- =?us-ascii?Q?FqNWNe08Oo++is6eQulezrxUdzxiA6stpheDM7m9s0Il4vU93SvPx3q/Qgcg?=
- =?us-ascii?Q?EdpRE8KDbJk/B6oTMBPrWDOcakOTrEI6f/s5RvXhmSmVxb0eFBx/kccAKwXA?=
- =?us-ascii?Q?e+EyhxiD7tJC1yq3WeTBEGJwzr9lwtt8gftcPuGBpWNbv+FT76WBGgmvcJRQ?=
- =?us-ascii?Q?7lFYOncZyU8n0czsXjPHar7i7b4NwfW80x3g2gd4nyJUdSAtodNpYPtDAqzU?=
- =?us-ascii?Q?1V7iiyH21xAmCsL8KyqXTq0aE22LdeIWts/KGKZUTCPn5vnxA1vSIxAPF1vU?=
- =?us-ascii?Q?+Nj5dOb2l5JwqMRIedWCiXsE/6f49sLMkKz38Tix+ZAZqldh8Ee+hpchPFFq?=
- =?us-ascii?Q?xspvNm08Iz3WI2Pc0jioYW8S5fti+0JbkGrclDMlccCPKIZgENt73GmwyjHj?=
- =?us-ascii?Q?lrhVqX8W1y6xAP98g1Y=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDFD610E081;
+	Fri, 24 Feb 2023 07:13:59 +0000 (UTC)
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C3B310E080;
+ Fri, 24 Feb 2023 07:13:57 +0000 (UTC)
+Received: by mail-ed1-x52e.google.com with SMTP id da10so52456282edb.3;
+ Thu, 23 Feb 2023 23:13:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=wsjqPSfnm3Ygi4Io01Tn1OMFABOCofeh5v8NtS11/2E=;
+ b=MS6F7AAs7jHnE7fpitncvB/tOyt/BH+4OtiAQ++pmhoXc2Nrd8nWNcTi7MnStOK66S
+ WFLwNPExELXJzfDlVroEcr7AC38mvcygnpohlB1vvoVnYFT1cnPePrurC9kmQvZ6jRbE
+ f+WUHihlJCB8j0BMVSFrotHfvFg8wDU/vkosbsDczhGBHywYoie4AvwvNdf+imyjHkZ0
+ F+s3LkYobHyl/PMjIa7aveSXSItDHgza2C+CGJ0iBNwd5082/Yjq+Xnjqv3247//PeJb
+ Wk9oL+1ioxEVSAF22/WF/Ln1Em1cQfCik/7T8ismTBmGWtaA2N+CTj22bhbt0YZe9+no
+ h2BA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=wsjqPSfnm3Ygi4Io01Tn1OMFABOCofeh5v8NtS11/2E=;
+ b=YGpOAIwtFak5Cc3YtkZU5hAnyXrMCkQ4WZj+EmSkVTcOalA7x97tTytIqPPhBAdQtD
+ CqZLXWvtCYeOWREbMQXxSNR6qd6fQJ4OnSAaK7Usf6jxhCFYSmhdQR6jSFEk1/I7DE5j
+ Le1JNPi89Pc5ip7MOZRkegwOgKRTr9tWikLyxAun+vdjX7x8Wnetl2Czh6zqfVE6Lc+l
+ 55n1Yx/0vfa6KGe+0ks5E3Z8WcglDG7VU7NGI7fvj/OZaGv02NmkZzf0aeuvIC/H193+
+ FrILpwUIsiNTG3XoU3tHcfDBqXlwsKcLcoKayzXHceoqF2ud8f7XzsqkY4ui+vAUoQDt
+ gVfA==
+X-Gm-Message-State: AO0yUKUAvGe+kpWrYQE1PP2RyK3/iNN3If/nkHflQa3J+ZCX8RKPVpGw
+ 4PTD8lcubdBQ/5f2dHqJvL+8LmcXOSOWEQ==
+X-Google-Smtp-Source: AK7set9KADS+TjTlENdlakaJIRZvUPjmQJ37PpokD1mzD+mepSGXCw+VINEwWPzHUm07ZarqHDYmbA==
+X-Received: by 2002:a17:907:961c:b0:8f1:dfa5:8117 with SMTP id
+ gb28-20020a170907961c00b008f1dfa58117mr4046581ejc.51.1677222835683; 
+ Thu, 23 Feb 2023 23:13:55 -0800 (PST)
+Received: from ?IPV6:2a02:908:1256:79a0:35e:38c6:dafc:5dd2?
+ ([2a02:908:1256:79a0:35e:38c6:dafc:5dd2])
+ by smtp.gmail.com with ESMTPSA id
+ dv4-20020a170906b80400b008b904cb2bcdsm8504505ejb.11.2023.02.23.23.13.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 23 Feb 2023 23:13:54 -0800 (PST)
+Message-ID: <a99e6def-68be-3f2b-4e01-ac26cdb80f49@gmail.com>
+Date: Fri, 24 Feb 2023 08:13:52 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1770.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4cb2f737-9deb-42d5-f6d1-08db162c2c49
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Feb 2023 05:58:38.0161 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ogQ/bDV5de/TupHOwEiJ9As4pN1j3PQkgrmktgHx78jvYe8+W6Zqz5oWcdazGH3U
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8556
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: amdgpu didn't start with pci=nocrs parameter, get error "Fatal
+ error during GPU init"
+Content-Language: en-US
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+References: <CABXGCsMbqw2qzWSCDfp3cNrYVJ1oxLv8Aixfm_Dt91x1cvFX4w@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CABXGCsMbqw2qzWSCDfp3cNrYVJ1oxLv8Aixfm_Dt91x1cvFX4w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,82 +79,85 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Li, Candice" <Candice.Li@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Hi Mikhail,
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Candic=
-e
-> Li
-> Sent: Friday, February 24, 2023 12:25 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Li, Candice <Candice.Li@amd.com>
-> Subject: [PATCH] drm/amdgpu: Make umc_v8_10_convert_error_address static
-> and remove unused variable
->=20
-> Fixes following warnings:
-> warning: no previous prototype for 'umc_v8_10_convert_error_address'
-> warning: variable 'channel_index' set but not used
->=20
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: Candice Li <candice.li@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/umc_v8_10.c | 15 +++++----------
->  1 file changed, 5 insertions(+), 10 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v8_10.c
-> b/drivers/gpu/drm/amd/amdgpu/umc_v8_10.c
-> index 66158219f791cb..fb55e8cb9967ad 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/umc_v8_10.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/umc_v8_10.c
-> @@ -209,10 +209,10 @@ static int umc_v8_10_swizzle_mode_na_to_pa(struct
-> amdgpu_device *adev,
->  	return 0;
->  }
->=20
-> -void umc_v8_10_convert_error_address(struct amdgpu_device *adev,
-> -				    struct ras_err_data *err_data, uint64_t
-> err_addr,
-> -				    uint32_t ch_inst, uint32_t umc_inst,
-> -				    uint32_t node_inst, uint64_t mc_umc_status)
-> +static void umc_v8_10_convert_error_address(struct amdgpu_device *adev,
-> +					    struct ras_err_data *err_data,
-> uint64_t err_addr,
-> +					    uint32_t ch_inst, uint32_t umc_inst,
-> +					    uint32_t node_inst, uint64_t
-> mc_umc_status)
->  {
->  	uint64_t na_err_addr_base;
->  	uint64_t na_err_addr, retired_page_addr; @@ -434,7 +434,7 @@ static
-> void umc_v8_10_ecc_info_query_error_address(struct amdgpu_device *adev,
->  					uint32_t umc_inst,
->  					uint32_t node_inst)
->  {
-> -	uint32_t eccinfo_table_idx, channel_index;
-> +	uint32_t eccinfo_table_idx;
->  	uint64_t mc_umc_status, err_addr;
->=20
->  	struct amdgpu_ras *ras =3D amdgpu_ras_get_context(adev); @@ -443,11
-> +443,6 @@ static void umc_v8_10_ecc_info_query_error_address(struct
-> amdgpu_device *adev,
->  				  adev->umc.channel_inst_num +
->  				  umc_inst * adev->umc.channel_inst_num +
->  				  ch_inst;
-> -	channel_index =3D
-> -		adev->umc.channel_idx_tbl[node_inst * adev-
-> >umc.umc_inst_num *
-> -						  adev->umc.channel_inst_num
-> +
-> -						  umc_inst * adev-
-> >umc.channel_inst_num +
-> -						  ch_inst];
->=20
->  	mc_umc_status =3D ras-
-> >umc_ecc.ecc[eccinfo_table_idx].mca_umc_status;
->=20
-> --
-> 2.17.1
+this is pretty clearly a problem with the system and/or it's BIOS and 
+not the GPU hw or the driver.
+
+The option pci=nocrs makes the kernel ignore additional resource windows 
+the BIOS reports through ACPI. This then most likely leads to problems 
+with amdgpu because it can't bring up its PCIe resources any more.
+
+The output of "sudo lspci -vvvv -s $BUSID_OF_AMDGPU" might help 
+understand the problem, but I strongly suggest to try a BIOS update first.
+
+Regards,
+Christian.
+
+Am 24.02.23 um 00:40 schrieb Mikhail Gavrilov:
+> Hi,
+> I have a laptop ASUS ROG Strix G15 Advantage Edition G513QY-HQ007. But
+> it is impossible to use without AC power because the system losts nvme
+> when I disconnect the power adapter.
+>
+> Messages from kernel log when it happens:
+> nvme nvme0: controller is down; will reset: CSTS=0xffffffff, PCI_STATUS=0x10
+> nvme nvme0: Does your device have a faulty power saving mode enabled?
+> nvme nvme0: Try "nvme_core.default_ps_max_latency_us=0 pcie_aspm=off"
+> and report a bug
+>
+> I tried to use recommended parameters
+> (nvme_core.default_ps_max_latency_us=0 and pcie_aspm=off) to resolve
+> this issue, but without successed.
+>
+> In the linux-nvme mail list the last advice was to try the "pci=nocrs"
+> parameter.
+>
+> But with this parameter the amdgpu driver refuses to work and makes
+> the system unbootable. I can solve the problem with the booting system
+> by blacklisting the driver but it is not a good solution, because I
+> don't wanna lose the GPU.
+>
+> Why amdgpu not work with "pci=nocrs" ?
+> And is it possible to solve this incompatibility?
+> It is very important because when I boot the system without amdgpu
+> driver with "pci=nocrs" nvme is not losts when I disconnect the power
+> adapter. So "pci=nocrs" really helps.
+>
+> Below that I see in kernel log when adds "pci=nocrs" parameter:
+>
+> amdgpu 0000:03:00.0: amdgpu: Fetched VBIOS from ATRM
+> amdgpu: ATOM BIOS: SWBRT77321.001
+> [drm] VCN(0) decode is enabled in VM mode
+> [drm] VCN(0) encode is enabled in VM mode
+> [drm] JPEG decode is enabled in VM mode
+> Console: switching to colour dummy device 80x25
+> amdgpu 0000:03:00.0: amdgpu: Trusted Memory Zone (TMZ) feature
+> disabled as experimental (default)
+> [drm] GPU posting now...
+> [drm] vm size is 262144 GB, 4 levels, block size is 9-bit, fragment
+> size is 9-bit
+> amdgpu 0000:03:00.0: amdgpu: VRAM: 12272M 0x0000008000000000 -
+> 0x00000082FEFFFFFF (12272M used)
+> amdgpu 0000:03:00.0: amdgpu: GART: 512M 0x0000000000000000 - 0x000000001FFFFFFF
+> amdgpu 0000:03:00.0: amdgpu: AGP: 267894784M 0x0000008400000000 -
+> 0x0000FFFFFFFFFFFF
+> [drm] Detected VRAM RAM=12272M, BAR=16384M
+> [drm] RAM width 192bits GDDR6
+> [drm] amdgpu: 12272M of VRAM memory ready
+> [drm] amdgpu: 31774M of GTT memory ready.
+> amdgpu 0000:03:00.0: amdgpu: (-14) failed to allocate kernel bo
+> [drm] Debug VRAM access will use slowpath MM access
+> amdgpu 0000:03:00.0: amdgpu: Failed to DMA MAP the dummy page
+> [drm:amdgpu_device_init [amdgpu]] *ERROR* sw_init of IP block
+> <gmc_v10_0> failed -12
+> amdgpu 0000:03:00.0: amdgpu: amdgpu_device_ip_init failed
+> amdgpu 0000:03:00.0: amdgpu: Fatal error during GPU init
+> amdgpu 0000:03:00.0: amdgpu: amdgpu: finishing device.
+>
+> Of course a full system log is also attached.
+>
 
