@@ -4,135 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CACC8C61DA3
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Feb 2023 15:19:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA11DC61DA4
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Feb 2023 15:31:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1411B10EC53;
-	Fri, 24 Feb 2023 15:19:13 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2062c.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5a::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D689E10EC48;
- Fri, 24 Feb 2023 15:19:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lImvHofE3c5BWMyw1vnKYS1kghM3GnDDBO/6yvt9ZzvyEyr3nUD7iXep1wyza6OB97ixt31Kd/Jjo25Uwflc8ITV/weCwwBKst1XV4Y3lmiiZpeOUKJdUohj5am7SMz7DwtqMRci2ybJdNjyeHBYXPJPDOBSosrZKXVnvZWAPTBzAL7vfUHEZeKaQ/L6DmQygf5ri1GwtyZfFbvv7tHgwULgdeeiagIHgKgrSiGY8v3CafT8oJ31GQ65GIC45gImyl+lBtkGejrDf3QsrpgpqjAP8I6622PFClPVIZDmh9eS8f3VuwGcFKX2zIpki1Mdp+ISjoirdgIcbq93kjAwVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wsjqPSfnm3Ygi4Io01Tn1OMFABOCofeh5v8NtS11/2E=;
- b=VCtAIxNdya0AiMhozyGYPRdPL1OtsGyicOfwPUEkQqasvbs4AFAwvoGAiXtEwX+JJ+1kxEUnK7XTWOGo+ROVI9lGNfSaaN3tNVKQawbmqpVVW2nzP2AdZf1szT9h92AmbhybL6RgTAwxhhn24cwS1F4fPSDFTAgHG07d4vxRE+3ZsQ5zCJugbJUcxNvcDPSPdsLhXbAjUEXhpnxnUv4g3uSWQYga9QiKDxVmJ69ed3dhx/EoQIZjrmASE4ixozOU19+iZkCPHKyfdU79pLOU5pkMZnZFyLR7IsZyh9x86CMIc2ra/5LyPiRFTHXKRAJGeH17XmbAhlpaMUvlhMvUIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wsjqPSfnm3Ygi4Io01Tn1OMFABOCofeh5v8NtS11/2E=;
- b=oQ/0YCsJx18U6FHhuqF1+00z84f580UHIAXAiEAt3c93FTlI4XlEZmoY20UdKeH9u4WSTz8sLhVbELWZUrofSfR2fGRdaxelnaSUlyRQkckk9iBWwbhPVZzOc6UvYzDWz3UyBfsZihctFgV9+sieJBOZLnfKCIi77Rx2XR3k87o=
-Received: from PH0PR12MB5434.namprd12.prod.outlook.com (2603:10b6:510:d5::8)
- by IA1PR12MB8190.namprd12.prod.outlook.com (2603:10b6:208:3f2::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.21; Fri, 24 Feb
- 2023 15:19:08 +0000
-Received: from PH0PR12MB5434.namprd12.prod.outlook.com
- ([fe80::d292:d108:c1b0:41ea]) by PH0PR12MB5434.namprd12.prod.outlook.com
- ([fe80::d292:d108:c1b0:41ea%9]) with mapi id 15.20.6134.021; Fri, 24 Feb 2023
- 15:19:07 +0000
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by MN2PR12MB4127.namprd12.prod.outlook.com (2603:10b6:208:1d1::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.24; Fri, 24 Feb
- 2023 07:12:28 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::2e4f:4041:28be:ba7a]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::2e4f:4041:28be:ba7a%6]) with mapi id 15.20.6134.021; Fri, 24 Feb 2023
- 07:12:28 +0000
-Message-ID: <57e38bdd-8369-adb7-f095-26652d4ad8d5@amd.com>
-Date: Fri, 24 Feb 2023 08:12:22 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2300010EC60;
+	Fri, 24 Feb 2023 15:31:21 +0000 (UTC)
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [IPv6:2a00:1450:4864:20::52b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BEBD10EC5E;
+ Fri, 24 Feb 2023 15:31:19 +0000 (UTC)
+Received: by mail-ed1-x52b.google.com with SMTP id ee7so41090540edb.2;
+ Fri, 24 Feb 2023 07:31:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=lXDQNIM/Va5EbMCqI6+twpMlGTvVzrjYt3Y8rxjXvhc=;
+ b=k7gFTmYC+ABoHltWR2NEkYtc1geTbiJvcsxrpqNO9+4AnRtUAwY9FJ7otdEH2Lgmbt
+ B9TLcWr7ykyWx6c2P2qaYG1WleTmDrHCFXJWeXsfMYChkIYKI0CIMq578nM2X/RHluov
+ cuJx6+7U+ihZhQwy/cHucxEn7BlqiFS4v64JR5txHUgYnzPxycO2QCE4YP5JLQhcrYpE
+ tOpIXWuS+cY1Vl3hSGrSVHbFcbIQ2a2tUR2sOVLSnlElhmxFT5VbNJiYM9B9jLItuXOc
+ XhWBzOBbo7hdCnesbPtPkKSeVlLP+bqehV8/AURLAriQUjFIM8r0g415Y6Q5xV1euseg
+ 4FSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=lXDQNIM/Va5EbMCqI6+twpMlGTvVzrjYt3Y8rxjXvhc=;
+ b=h8HD7JWfonKx+gUegjuKWFDy2rg1LwUEHYYE96S2bpHqzi4/zHauhFY7SpTqpB2XSZ
+ c6+3FRkkY5oYjrpz0wh8kDjWsJAfCbCCLjRVBrZ0Ofzmup1nwXb2jOva5YoR6q7+J7i9
+ vs4tnTDXuOXdQhzJkUmkqwN4C53oFxQEeCIEBBiAZecxmZfAOgDzhW5eZF2oAm7uLqkp
+ 0glxfbd1ejJQwpL6k5vYb5dY/LdB9V9NCJ0Ogh2RDdvpYSkmFUMnWHn+uqs7KfB6827v
+ yYG97GrlP93Hm0efANoWvVHUo1GIS1gkGjfRf4ddxH+yUvVi0ty2vHW0Eamu7u2yEI+m
+ 6PuA==
+X-Gm-Message-State: AO0yUKW8OPyE4ATw9p1tBmnHuR2gt2F+Jlb6bwC6SLHEjXbAmYXhEIrl
+ MIGATMHLAdG6grzd8eBWqHY=
+X-Google-Smtp-Source: AK7set/MKaJGPdjkKPadkhDa0B/8nzJlv8JjG6pemMfD0ziDkBPvv1z5vm4FT/dauGmY0+hC4WJS0A==
+X-Received: by 2002:a17:907:97c3:b0:8af:ef00:b853 with SMTP id
+ js3-20020a17090797c300b008afef00b853mr30655341ejc.73.1677252677946; 
+ Fri, 24 Feb 2023 07:31:17 -0800 (PST)
+Received: from ?IPV6:2a02:908:1256:79a0:35e:38c6:dafc:5dd2?
+ ([2a02:908:1256:79a0:35e:38c6:dafc:5dd2])
+ by smtp.gmail.com with ESMTPSA id
+ m8-20020a170906234800b008ee95ccfe06sm1915030eja.119.2023.02.24.07.31.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 24 Feb 2023 07:31:17 -0800 (PST)
+Message-ID: <90b1c9f8-1674-e9ec-e6d8-2fa1967439b3@gmail.com>
+Date: Fri, 24 Feb 2023 16:31:16 +0100
+MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
-Subject: Keyword Review - Re: amdgpu didn't start with pci=nocrs parameter,
- get error "Fatal error during GPU init"
+Subject: Re: amdgpu didn't start with pci=nocrs parameter, get error "Fatal
+ error during GPU init"
 Content-Language: en-US
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Linux List Kernel Mailing <linux-kernel@vger.kernel.org>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 References: <CABXGCsMbqw2qzWSCDfp3cNrYVJ1oxLv8Aixfm_Dt91x1cvFX4w@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CABXGCsMbqw2qzWSCDfp3cNrYVJ1oxLv8Aixfm_Dt91x1cvFX4w@mail.gmail.com>
+ <a99e6def-68be-3f2b-4e01-ac26cdb80f49@gmail.com>
+ <CABXGCsM7JPxtQm6B7vk+ZcXfphgQm=ArJZKiDUdbk9hujyRtmg@mail.gmail.com>
+ <43016018-4d0a-94dc-ce93-b4bff2dce71c@gmail.com>
+In-Reply-To: <43016018-4d0a-94dc-ce93-b4bff2dce71c@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0138.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:96::7) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|MN2PR12MB4127:EE_|IA1PR12MB8190:EE_
-X-MS-Office365-Filtering-Correlation-Id: 97a91925-96f9-4ea4-8cec-08db16367c40
-X-Moderation-Data: 2/24/2023 3:19:06 PM
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: v8382IwWZc95aD1RLQiwrDRfWIVY5nI12Bg1L8N2q7uJ1wiB+pbBL0rZTuI/VQGHtVe57xWRMGTOQP4ucDWUlBNwN1Aq8McI0/xDAwF3teG9Z6umcnRJ0g0T8tnaO2qFsN6tG29qqZI5xWCVkOOZ2mV6navzKseXHnk5jW6KwRoJm4FZ5kYephqSzHWr5IaVy0hxxTFiOftGzX+F9Vp9Q4C9OcjMaCX/zZ9RA6cehMiXAisFuOXxuSgfklbyS+JXEBQlUPcsxYzZZYECriHSTwk6QrrVt1BF9dW8iZg/YVWlsGWdSkPtEj7QSr8lAO27cHPUqWfk3St9ML0qGuazD6jCqY5ZTB6kj1kNJ9fsx0G9meFEFsCC3wt+UhiUhp/YRDGtKUMBCIrzj2EwWUeGYOlyCKhlLb5IWreDU5hEExmx6kopKlMs0A0f2JyUgzXSWlCeKxRJkQ967nm80h6c9LNHQGjlskmgm5z8ValBlBI8ljqOaFpB0V0DePXNAGG9gJ/sSqTRGpjtj22rBYTj0EEX7y4Q+ZhUQQv1EkR4rrmrR/G/N54N5o5RSE2+/ZXCNga2r+sP1ItgZev5cs4m50Q9SwYv3m7AMkhILK8tFiNvp+I9alvVjDWdjdtq5CeIgyqeDRqNM5hcHwkxQLq6mqhb5NkATGAh0v+oSYfnxZwfVeJ6Oi3/dpmnv7JlmEFYo8R5CGkkv8a6XWbWOs309BEDlrSN8U1LnjsfpO0uUxA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR12MB5434.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(366004)(376002)(396003)(346002)(39860400002)(136003)(451199018)(478600001)(5660300002)(2906002)(2616005)(38100700002)(6636002)(83380400001)(110136005)(6486002)(316002)(36756003)(186003)(6506007)(6512007)(6666004)(8936002)(41300700001)(31696002)(8676002)(86362001)(66476007)(66556008)(66946007)(31686004)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S081U3Vxak53M0l0bHhKN253VVlrYUIwVkNpOTJQSzNTLzF5NFM1czZCVUpK?=
- =?utf-8?B?UDhVK1hzdkxWazlqRERvUTd2OTZ1OTZPZEJWYW1tT3pBbXFwQnRHcE9kY2xX?=
- =?utf-8?B?TVJ0T0o3Q2xENnQvajV1Z0QySzhPSGlFK0ZsZENhMU11bERFZ21wRmNFTlQ4?=
- =?utf-8?B?Qnp6WFcxNDJTRnM4aXNJTGVwdVNOSEdqNmxIMWNTVStCWnJXY1ZkYUN1SFZS?=
- =?utf-8?B?dXQyQnljbmxzZDBvMzlQTzFuamJlSHd0Y21GQUJNSWJIRHZYV0xZMFIxZzFM?=
- =?utf-8?B?SXpoNnRDR0pJVzlrQ0kxbWU2TXpjL01JeHB6d3c4UlBIY3EyU1V0ZWJMRktK?=
- =?utf-8?B?RGN6dHJpd0VqTzBGMDVvOFRyZUxmZ1o2RVVIN0IwVmJPODEwOFBkZ0p4QWF3?=
- =?utf-8?B?ZEdaYnJEbWUveENuSW1wZUM2amhYdmg5NjA3dWJTQUY4bnBHVFVFNTVNVmpE?=
- =?utf-8?B?QjdqYXB0bUFjUkRIcXBPam83MUxROE5GYVpmVC9ZZ3d1dVh4NjFDZXV0T1Fx?=
- =?utf-8?B?NER6T0FjTHpCdmRIWXk4WDVrTGVZblBYSUo4MllCaDNJNXRqWlZ1Vklyd24r?=
- =?utf-8?B?QTVlVXRmTW1EQ2VBWm9CbGZCYVlJRWYwNFpUZGROTWlnT2gxK0JCcU5hNEts?=
- =?utf-8?B?d0JUbXo2WjdYWlJjeFFQS2JaZ25ZOVU1UUFtbWdXa2I1REdzSllSdDlnUWRQ?=
- =?utf-8?B?ZzAxNTh5anZkYmkzdm5MVUFKQWFaOGtCU3JUaGZzWXgyTnlpcm8vMmpSNUFB?=
- =?utf-8?B?cTcxMWViUlRscGorY0J5TUZGK25iMFVXTzR5M0lZZ3ZZM3JJdlc1SnJRTzk3?=
- =?utf-8?B?My8wNXVINkU5K3FBbXNMaUhDdmdYOFNHc1VIQ2VOcVVnVTdUNGdqampEL09J?=
- =?utf-8?B?YVhUV0dEVXoyeEgvSDc1NWthdkZ4Qi9CbUc3ejUrc0o1Uk43ckx1TUhlWW5v?=
- =?utf-8?B?VzluVmZKaE5ZTHk5OXBBRDhKRDBQVUcrb21VM0V5QStjWGJqZFR6VWZ5NkFP?=
- =?utf-8?B?S0VVbDJha2pJK254RTR5cUNPOVA0UEE2cEhqNVRXVzByM2xJd2NDQW1oT1B0?=
- =?utf-8?B?czRTMnhXN3FWZW5YZjRKek50enIrMUxndkNTNnB1TXBaZVlYblJuMTB6Wm5q?=
- =?utf-8?B?RDlwak1IKzNJV0dwMy8zWEtDeVN5ZllJMHBwZDljVjdwMCsxY291UFZuVEEw?=
- =?utf-8?B?VENRbW9CTW9BckpiU3ArUlFlS2IzUHB0TWQ2Q0ExN29sZC96VERwNC9maWx5?=
- =?utf-8?B?Yy9uVmdQQjVwOHc2TjI5eVFkbGJGWXczclVETUFtVWZENkI0RUc2WkZRd3Nk?=
- =?utf-8?B?TG9QMFlWa1ZJSHphVlRVVkNzeitqbXZpNFhTL1ZnM0prY001SVdTM2hDVk93?=
- =?utf-8?B?cWx1TUcwZlpWWHhFbUdFa1ZVc21JMmRBVVpGSG5VMksxQTk2Y0h2aFBKUGVy?=
- =?utf-8?B?dlVKWHFKMG05QUtWcHpyZjdrK3lxSVYxQlpKVFF0aXRsNmpVSCtXMThaVjZw?=
- =?utf-8?B?Q3JRL1VkZXZnbW91a3k0WTFCVjg4L01KZ3dZR0JCdnR4WVJNQ1J0bXhDc1lh?=
- =?utf-8?B?cWhndEJ2M2RFRWdkWTBaN2V5MVQzSWxpMUZKRlp3R2REcDkwZElEOXl6aEF2?=
- =?utf-8?B?dFAydXFEa2xVcnoveFhCTHI2ZEtCc0pDMnZsblV2aWNReDFlUkd0OUhkNSs0?=
- =?utf-8?B?UWhZVjBrSWljVThPYWgvNHJlVHN5bVdLcHZ1eEdUK0VWeXM2ZmlQb2xWd2lN?=
- =?utf-8?B?RFZBYXlYMXpiLzEvRkQ3VzBIOE9SS3RYV3pXYzIvZEFjSllXMFF2bjJoMkZz?=
- =?utf-8?B?dlI0Uzh1ZjhwOGM3Y0s5cG5KbDNHM0JiYXU0T25iaFdBZXpQTUFhZ0tndEEv?=
- =?utf-8?B?WGRETEdjWU9SajhoWk1uNHNMWit4aS9zMmFzQnZmZUIzYjhKbFRzQ1hLdE1V?=
- =?utf-8?B?enpCbUdpQXIxYlZZZGgzSDRhSkZ2MmFLQmxJeWg4MUVHd3ZiVldoU25sbTk3?=
- =?utf-8?B?WmNLZTVrYTRvWnBuOVhXQytBaW5nam96dzZmcnNZTVI3V1krT3QxSVhHVkNH?=
- =?utf-8?B?ZDFCOTVzSDFrQmtMdWlSQ0tUbm1PNjRlSGlPRS9NZmNDQ1JMYlI4VFpSZUpM?=
- =?utf-8?B?QUZ0dm1aaUdSQkJXU3NrTmdsb3VNR09uQy91YzN3U2NVTE1PamxJNjBNU0M5?=
- =?utf-8?B?ZFkzM0hCM1NJWWROSjM1MDkwUTJYcld5K1dFYThST2h2YVA0YVlXUkFPNXZS?=
- =?utf-8?B?VVFGOFNoL2NjRWV2RzRzNGE4ZTZTOUtUNC8xSG9ZblBZNWw5RE43bzltdmNP?=
- =?utf-8?B?RHgxaVFwNkpUUnFGSTlxRXliMUNsRHRLc0U0Q01UTFkvaUR2b3VveEd3NEhn?=
- =?utf-8?Q?DB2o8w3a0dTZvtwXT+2clRGvQDu90WPa2RCskwzLqtQsQ?=
-X-MS-Exchange-AntiSpam-MessageData-1: kKeTFWWn1FRYt1VjJztwB1xahn/kgUUXh8JVaEU5462aTq9T8zFFlK+F
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 97a91925-96f9-4ea4-8cec-08db16367c40
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: spN+QuPmfvOx1JPKpEoFHuHgXLEphW5qK8vBfZUw19dY7N3SJvbcm1Pgs1UXfJSec8jSuMgcQmvY7JMESTw5VXL922N/JQztC6zfEvi+lJZDnNpUWpynjwyQFuXniTTwdR/7ldry69p3OaLT4FkZ/IrID2P/5/K3PRVY7YqnwuiDaYKBBrOTsj9fNKTLbTYEmzTvcGqWuamWeJ7Jtm4vfQCUOA6nNdM292RuStB0Pbw=
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2023 15:19:07.4098 (UTC)
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8190
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,85 +78,108 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Mikhail,
+Am 24.02.23 um 13:29 schrieb Christian König:
+> Am 24.02.23 um 09:38 schrieb Mikhail Gavrilov:
+>> On Fri, Feb 24, 2023 at 12:13 PM Christian König
+>> <ckoenig.leichtzumerken@gmail.com> wrote:
+>>> Hi Mikhail,
+>>>
+>>> this is pretty clearly a problem with the system and/or it's BIOS and
+>>> not the GPU hw or the driver.
+>>>
+>>> The option pci=nocrs makes the kernel ignore additional resource 
+>>> windows
+>>> the BIOS reports through ACPI. This then most likely leads to problems
+>>> with amdgpu because it can't bring up its PCIe resources any more.
+>>>
+>>> The output of "sudo lspci -vvvv -s $BUSID_OF_AMDGPU" might help
+>>> understand the problem
+>> I attach both lspci for pci=nocrs and without pci=nocrs.
+>>
+>> The differences for Cezanne Radeon Vega Series:
+>> with pci=nocrs:
+>> Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr-
+>> Stepping- SERR- FastB2B- DisINTx-
+>> Interrupt: pin A routed to IRQ 255
+>> Region 4: I/O ports at e000 [disabled] [size=256]
+>> Capabilities: [c0] MSI-X: Enable- Count=4 Masked-
+>>
+>> Without pci=nocrs:
+>> Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr-
+>> Stepping- SERR- FastB2B- DisINTx+
+>> Interrupt: pin A routed to IRQ 44
+>> Region 4: I/O ports at e000 [size=256]
+>> Capabilities: [c0] MSI-X: Enable+ Count=4 Masked-
+>>
+>>
+>> The differences for Navi 22 Radeon 6800M:
+>> with pci=nocrs:
+>> Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr-
+>> Stepping- SERR- FastB2B- DisINTx-
+>> Interrupt: pin A routed to IRQ 255
+>> Region 0: Memory at f800000000 (64-bit, prefetchable) [disabled] 
+>> [size=16G]
+>> Region 2: Memory at fc00000000 (64-bit, prefetchable) [disabled] 
+>> [size=256M]
+>> Region 5: Memory at fca00000 (32-bit, non-prefetchable) [disabled] 
+>> [size=1M]
+>
+> Well that explains it. When the PCI subsystem has to disable the BARs 
+> of the GPU we can't access it any more.
+>
+> The only thing we could do is to make sure that the driver at least 
+> fails gracefully.
+>
+> Do you still have network access to the box when amdgpu fails to load 
+> and could grab whatevery is in dmesg?
 
-this is pretty clearly a problem with the system and/or it's BIOS and 
-not the GPU hw or the driver.
+Sorry I totally missed that you attached the full dmesg to your original 
+mail.
 
-The option pci=nocrs makes the kernel ignore additional resource windows 
-the BIOS reports through ACPI. This then most likely leads to problems 
-with amdgpu because it can't bring up its PCIe resources any more.
+Yeah, the driver did fail gracefully. But then X doesn't come up and 
+then gdm just dies.
 
-The output of "sudo lspci -vvvv -s $BUSID_OF_AMDGPU" might help 
-understand the problem, but I strongly suggest to try a BIOS update first.
+Sorry there is really nothing we can do here, maybe ping somebody with 
+more ACPI background for help.
 
 Regards,
 Christian.
 
-Am 24.02.23 um 00:40 schrieb Mikhail Gavrilov:
-> Hi,
-> I have a laptop ASUS ROG Strix G15 Advantage Edition G513QY-HQ007. But
-> it is impossible to use without AC power because the system losts nvme
-> when I disconnect the power adapter.
 >
-> Messages from kernel log when it happens:
-> nvme nvme0: controller is down; will reset: CSTS=0xffffffff, PCI_STATUS=0x10
-> nvme nvme0: Does your device have a faulty power saving mode enabled?
-> nvme nvme0: Try "nvme_core.default_ps_max_latency_us=0 pcie_aspm=off"
-> and report a bug
+> Thanks,
+> Christian.
 >
-> I tried to use recommended parameters
-> (nvme_core.default_ps_max_latency_us=0 and pcie_aspm=off) to resolve
-> this issue, but without successed.
->
-> In the linux-nvme mail list the last advice was to try the "pci=nocrs"
-> parameter.
->
-> But with this parameter the amdgpu driver refuses to work and makes
-> the system unbootable. I can solve the problem with the booting system
-> by blacklisting the driver but it is not a good solution, because I
-> don't wanna lose the GPU.
->
-> Why amdgpu not work with "pci=nocrs" ?
-> And is it possible to solve this incompatibility?
-> It is very important because when I boot the system without amdgpu
-> driver with "pci=nocrs" nvme is not losts when I disconnect the power
-> adapter. So "pci=nocrs" really helps.
->
-> Below that I see in kernel log when adds "pci=nocrs" parameter:
->
-> amdgpu 0000:03:00.0: amdgpu: Fetched VBIOS from ATRM
-> amdgpu: ATOM BIOS: SWBRT77321.001
-> [drm] VCN(0) decode is enabled in VM mode
-> [drm] VCN(0) encode is enabled in VM mode
-> [drm] JPEG decode is enabled in VM mode
-> Console: switching to colour dummy device 80x25
-> amdgpu 0000:03:00.0: amdgpu: Trusted Memory Zone (TMZ) feature
-> disabled as experimental (default)
-> [drm] GPU posting now...
-> [drm] vm size is 262144 GB, 4 levels, block size is 9-bit, fragment
-> size is 9-bit
-> amdgpu 0000:03:00.0: amdgpu: VRAM: 12272M 0x0000008000000000 -
-> 0x00000082FEFFFFFF (12272M used)
-> amdgpu 0000:03:00.0: amdgpu: GART: 512M 0x0000000000000000 - 0x000000001FFFFFFF
-> amdgpu 0000:03:00.0: amdgpu: AGP: 267894784M 0x0000008400000000 -
-> 0x0000FFFFFFFFFFFF
-> [drm] Detected VRAM RAM=12272M, BAR=16384M
-> [drm] RAM width 192bits GDDR6
-> [drm] amdgpu: 12272M of VRAM memory ready
-> [drm] amdgpu: 31774M of GTT memory ready.
-> amdgpu 0000:03:00.0: amdgpu: (-14) failed to allocate kernel bo
-> [drm] Debug VRAM access will use slowpath MM access
-> amdgpu 0000:03:00.0: amdgpu: Failed to DMA MAP the dummy page
-> [drm:amdgpu_device_init [amdgpu]] *ERROR* sw_init of IP block
-> <gmc_v10_0> failed -12
-> amdgpu 0000:03:00.0: amdgpu: amdgpu_device_ip_init failed
-> amdgpu 0000:03:00.0: amdgpu: Fatal error during GPU init
-> amdgpu 0000:03:00.0: amdgpu: amdgpu: finishing device.
->
-> Of course a full system log is also attached.
+>> AtomicOpsCtl: ReqEn-
+>> Capabilities: [a0] MSI: Enable- Count=1/1 Maskable- 64bit+
+>> Address: 0000000000000000  Data: 0000
+>>
+>> Without pci=nocrs:
+>> Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr-
+>> Stepping- SERR- FastB2B- DisINTx+
+>> Latency: 0, Cache Line Size: 64 bytes
+>> Interrupt: pin A routed to IRQ 103
+>> Region 0: Memory at f800000000 (64-bit, prefetchable) [size=16G]
+>> Region 2: Memory at fc00000000 (64-bit, prefetchable) [size=256M]
+>> Region 5: Memory at fca00000 (32-bit, non-prefetchable) [size=1M]
+>> AtomicOpsCtl: ReqEn+
+>> Capabilities: [a0] MSI: Enable+ Count=1/1 Maskable- 64bit+
+>> Address: 00000000fee00000  Data: 0000
+>>
+>>> but I strongly suggest to try a BIOS update first.
+>> This is the first thing that was done. And I am afraid no more BIOS 
+>> updates.
+>> https://rog.asus.com/laptops/rog-strix/2021-rog-strix-g15-advantage-edition-series/helpdesk_bios/ 
+>>
+>>
+>> I also have experience in dealing with manufacturers' tech support.
+>> Usually it ends with "we do not provide drivers for Linux".
+>>
 >
 
