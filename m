@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6DA6C64ED6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F5AFC64ED8
 	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 09:57:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BABB10E3A3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EA9110E3A1;
 	Mon, 27 Feb 2023 09:57:33 +0000 (UTC)
-X-Greylist: delayed 739 seconds by postgrey-1.36 at gabe;
- Mon, 27 Feb 2023 07:56:46 UTC
-Received: from smtpbg150.qq.com (smtpbg150.qq.com [18.132.163.193])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E5BF10E350;
- Mon, 27 Feb 2023 07:56:46 +0000 (UTC)
-X-QQ-mid: bizesmtp89t1677483605t3p8ysbx
-Received: from localhost.localdomain ( [58.240.82.166])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Mon, 27 Feb 2023 15:39:57 +0800 (CST)
-X-QQ-SSF: 0040000000200070C000B00A0000000
-X-QQ-FEAT: 3GqwhZhMvTvfQjpR/B2tBV5yWXh5qI9xpTn1g/xB6K4m9QHxfp3TKCpkbOi8u
- SX5oUZA8JPczDI7eBe50wCktPsgIy1DvR6QkcJz8aadvplJS9cG3FdSW4H9Aszizw9J8jyx
- s2nfL1FENw50Bg44lyJOzCnosxyJ/cbCNojhlE4wCQSdjqrFTeyOJnZ9cag+w2jDY+8NN9K
- Do2eaGpNa70chPZuBddq2qdshf62XTDae70QLL6kbfih0XFnnBFBAubjZ2xKHXdtWNT2Mr7
- XHs2720dKbvcEZqugi94t0x+/Gnh/QRM1p1InHydsKA5KZBY4HrKRhRD8EuyMguxfNDPguV
- pgOrrGW0l8Q0ANch2M1QkXI4fLqARvZboCI0p6vfu8cROaBM9KH9NxY9zL11G0wXEtlKGZC
- awVGfvFsflY=
-X-QQ-GoodBg: 2
-From: Yuanzhi Wang <wangyuanzhi@uniontech.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, mario.limonciello@amd.com,
- Bokun.Zhang@amd.com, tzimmermann@suse.de, hdegoede@redhat.com,
- jingyuwang_vip@163.com, rafael.j.wysocki@intel.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+X-Greylist: delayed 460 seconds by postgrey-1.36 at gabe;
+ Sun, 26 Feb 2023 14:19:15 UTC
+Received: from forward105j.mail.yandex.net (forward105j.mail.yandex.net
+ [5.45.198.248])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6D7F10E0E6;
+ Sun, 26 Feb 2023 14:19:15 +0000 (UTC)
+Received: from iva2-656890eaceb5.qloud-c.yandex.net
+ (iva2-656890eaceb5.qloud-c.yandex.net
+ [IPv6:2a02:6b8:c0c:6902:0:640:6568:90ea])
+ by forward105j.mail.yandex.net (Yandex) with ESMTP id AD4604EC894E;
+ Sun, 26 Feb 2023 17:11:26 +0300 (MSK)
+Received: by iva2-656890eaceb5.qloud-c.yandex.net (smtp/Yandex) with ESMTPSA
+ id tATvDFdaca61-3BIj2fmR; Sun, 26 Feb 2023 17:11:25 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lach.pw; s=mail;
+ t=1677420686; bh=WCeZwLUOEBKexfa/7u2+rQMXS0gvx0CaGysSJoeK89Q=;
+ h=Message-Id:Date:In-Reply-To:Cc:Subject:References:To:From;
+ b=XB+45PhK8q59oOnfG2pxmN0+6rYNEUdPO4jgO5jZKH8wbkpiNICukBKb01jjQOb7r
+ wnoKOvNmZFrZusvgfuKJMonK5nQF6q7Q7658XWAdPKJOsp2YdaO07CT+nEfhX0FjVV
+ 1ybZR9if96vPutvx8UI9fCwa/QvfPrQ9dLEK8LiM=
+Authentication-Results: iva2-656890eaceb5.qloud-c.yandex.net;
+ dkim=pass header.i=@lach.pw
+From: Yaroslav Bolyukin <iam@lach.pw>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH] amdgpu: add a filter condition when set brightness
-Date: Mon, 27 Feb 2023 15:39:53 +0800
-Message-Id: <20230227073953.326-1-wangyuanzhi@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+Subject: [PATCH v3 1/2] drm/edid: parse DRM VESA dsc bpp target
+Date: Sun, 26 Feb 2023 15:10:50 +0100
+Message-Id: <20230226141051.21767-2-iam@lach.pw>
+X-Mailer: git-send-email 2.39.1
+In-Reply-To: <20230226141051.21767-1-iam@lach.pw>
+References: <20230226141051.21767-1-iam@lach.pw>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybglogicsvr:qybglogicsvr2
 X-Mailman-Approved-At: Mon, 27 Feb 2023 09:57:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,47 +54,137 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Yuanzhi Wang <wangyuanzhi@uniontech.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Leo Li <sunpeng.li@amd.com>,
+ David Airlie <airlied@gmail.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Maxime Ripard <mripard@kernel.org>, Jani Nikula <jani.nikula@intel.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Yaroslav Bolyukin <iam@lach.pw>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When the laptop is plugged into AC or DC power supply,
-the brightness obtained ACPI may be smaller than current
-brightness.As a result the screen becomes dark，this is
-not what people want.
+As per DisplayID v2.0 Errata E9 spec "DSC pass-through timing support"
+VESA vendor-specific data block may contain target DSC bits per pixel
+fields
 
-Signed-off-by: Yuanzhi Wang <wangyuanzhi@uniontech.com>
+Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_edid.c  | 38 +++++++++++++++++++++++++------------
+ include/drm/drm_connector.h |  6 ++++++
+ include/drm/drm_displayid.h |  4 ++++
+ 3 files changed, 36 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-index d4196fcb85a0..93f1567028c5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-@@ -406,6 +406,7 @@ static int amdgpu_atif_handler(struct amdgpu_device *adev,
- {
- 	struct amdgpu_atif *atif = &amdgpu_acpi_priv.atif;
- 	int count;
-+	int old_brightness;
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 3d0a4da661bc..aa88ac82cbe0 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -6338,7 +6338,7 @@ static void drm_parse_vesa_mso_data(struct drm_connector *connector,
+ 	if (oui(vesa->oui[0], vesa->oui[1], vesa->oui[2]) != VESA_IEEE_OUI)
+ 		return;
  
- 	DRM_DEBUG_DRIVER("event, device_class = %s, type = %#x\n",
- 			event->device_class, event->type);
-@@ -443,7 +444,13 @@ static int amdgpu_atif_handler(struct amdgpu_device *adev,
- 				 * hardwired to post BACKLIGHT_UPDATE_SYSFS.
- 				 * It probably should accept 'reason' parameter.
- 				 */
--				backlight_device_set_brightness(atif->bd, req.backlight_level);
-+				old_brightness = backlight_get_brightness(atif->bd);
-+				if (old_brightness > req.backlight_level)
-+					DRM_WARN("old brightness %d is greater than ACPI brightness
-+						%d\n", old_brightness, req.backlight_level);
-+				else
-+					backlight_device_set_brightness(atif->bd,
-+						req.backlight_level);
- 			}
- 		}
+-	if (sizeof(*vesa) != sizeof(*block) + block->num_bytes) {
++	if (block->num_bytes < 5) {
+ 		drm_dbg_kms(connector->dev,
+ 			    "[CONNECTOR:%d:%s] Unexpected VESA vendor block size\n",
+ 			    connector->base.id, connector->name);
+@@ -6361,24 +6361,37 @@ static void drm_parse_vesa_mso_data(struct drm_connector *connector,
+ 		break;
+ 	}
  
+-	if (!info->mso_stream_count) {
+-		info->mso_pixel_overlap = 0;
+-		return;
+-	}
++	info->mso_pixel_overlap = 0;
++
++	if (info->mso_stream_count) {
++		info->mso_pixel_overlap = FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, vesa->mso);
++
++		if (info->mso_pixel_overlap > 8) {
++			drm_dbg_kms(connector->dev,
++				    "[CONNECTOR:%d:%s] Reserved MSO pixel overlap value %u\n",
++				    connector->base.id, connector->name,
++				    info->mso_pixel_overlap);
++			info->mso_pixel_overlap = 8;
++		}
+ 
+-	info->mso_pixel_overlap = FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, vesa->mso);
+-	if (info->mso_pixel_overlap > 8) {
+ 		drm_dbg_kms(connector->dev,
+-			    "[CONNECTOR:%d:%s] Reserved MSO pixel overlap value %u\n",
++			    "[CONNECTOR:%d:%s] MSO stream count %u, pixel overlap %u\n",
+ 			    connector->base.id, connector->name,
+-			    info->mso_pixel_overlap);
+-		info->mso_pixel_overlap = 8;
++			    info->mso_stream_count, info->mso_pixel_overlap);
++	}
++
++	if (block->num_bytes < 7) {
++		/* DSC bpp is optional */
++		return;
+ 	}
+ 
++	info->dp_dsc_bpp = FIELD_GET(DISPLAYID_VESA_DSC_BPP_INT, vesa->dsc_bpp_int) * 16
++		+ FIELD_GET(DISPLAYID_VESA_DSC_BPP_FRACT, vesa->dsc_bpp_fract);
++
+ 	drm_dbg_kms(connector->dev,
+-		    "[CONNECTOR:%d:%s] MSO stream count %u, pixel overlap %u\n",
++		    "[CONNECTOR:%d:%s] DSC bits per pixel %u\n",
+ 		    connector->base.id, connector->name,
+-		    info->mso_stream_count, info->mso_pixel_overlap);
++		    info->dp_dsc_bpp);
+ }
+ 
+ static void drm_update_mso(struct drm_connector *connector,
+@@ -6425,6 +6438,7 @@ static void drm_reset_display_info(struct drm_connector *connector)
+ 	info->mso_stream_count = 0;
+ 	info->mso_pixel_overlap = 0;
+ 	info->max_dsc_bpp = 0;
++	info->dp_dsc_bpp = 0;
+ 
+ 	kfree(info->vics);
+ 	info->vics = NULL;
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 7b5048516185..1d01e0146a7f 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -719,6 +719,12 @@ struct drm_display_info {
+ 	 */
+ 	u32 max_dsc_bpp;
+ 
++	/**
++	 * @dp_dsc_bpp: DP Display-Stream-Compression (DSC) timing's target
++	 * DST bits per pixel in 6.4 fixed point format. 0 means undefined
++	 */
++	u16 dp_dsc_bpp;
++
+ 	/**
+ 	 * @vics: Array of vics_len VICs. Internal to EDID parsing.
+ 	 */
+diff --git a/include/drm/drm_displayid.h b/include/drm/drm_displayid.h
+index 49649eb8447e..0fc3afbd1675 100644
+--- a/include/drm/drm_displayid.h
++++ b/include/drm/drm_displayid.h
+@@ -131,12 +131,16 @@ struct displayid_detailed_timing_block {
+ 
+ #define DISPLAYID_VESA_MSO_OVERLAP	GENMASK(3, 0)
+ #define DISPLAYID_VESA_MSO_MODE		GENMASK(6, 5)
++#define DISPLAYID_VESA_DSC_BPP_INT	GENMASK(5, 0)
++#define DISPLAYID_VESA_DSC_BPP_FRACT	GENMASK(3, 0)
+ 
+ struct displayid_vesa_vendor_specific_block {
+ 	struct displayid_block base;
+ 	u8 oui[3];
+ 	u8 data_structure_type;
+ 	u8 mso;
++	u8 dsc_bpp_int;
++	u8 dsc_bpp_fract;
+ } __packed;
+ 
+ /* DisplayID iteration */
 -- 
-2.20.1
+2.39.1
 
