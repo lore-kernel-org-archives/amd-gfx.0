@@ -4,38 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5AF8C64ED6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84918C64ED8
 	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 09:57:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2046F10E3A4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04D5E10E39A;
 	Mon, 27 Feb 2023 09:57:36 +0000 (UTC)
-Received: from forward105j.mail.yandex.net (forward105j.mail.yandex.net
- [5.45.198.248])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C09DE10E0E6;
- Sun, 26 Feb 2023 14:19:16 +0000 (UTC)
+X-Greylist: delayed 381 seconds by postgrey-1.36 at gabe;
+ Sun, 26 Feb 2023 14:17:54 UTC
+Received: from forward108j.mail.yandex.net (forward108j.mail.yandex.net
+ [IPv6:2a02:6b8:0:801:2::253])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3A9610E0FE;
+ Sun, 26 Feb 2023 14:17:54 +0000 (UTC)
 Received: from iva2-656890eaceb5.qloud-c.yandex.net
  (iva2-656890eaceb5.qloud-c.yandex.net
  [IPv6:2a02:6b8:c0c:6902:0:640:6568:90ea])
- by forward105j.mail.yandex.net (Yandex) with ESMTP id E15C54EC884D;
- Sun, 26 Feb 2023 17:11:14 +0300 (MSK)
+ by forward108j.mail.yandex.net (Yandex) with ESMTP id 9464E3F215F8;
+ Sun, 26 Feb 2023 17:11:30 +0300 (MSK)
 Received: by iva2-656890eaceb5.qloud-c.yandex.net (smtp/Yandex) with ESMTPSA
- id tATvDFdaca61-J9iv9dTu; Sun, 26 Feb 2023 17:11:13 +0300
+ id tATvDFdaca61-K1oQtVIF; Sun, 26 Feb 2023 17:11:29 +0300
 X-Yandex-Fwd: 1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lach.pw; s=mail;
- t=1677420673; bh=tAhynSMDZaX+iE0zy9k7GywiZkOsJcg+z8IRMMvTpoY=;
- h=Message-Id:Date:Cc:Subject:To:From;
- b=TR1CW72vBYYFefZkrQMYOD+4ie7UrqgZUN7ogmOXv2lTkyg7MNIhcqr5SQ3d5LUAg
- JMbaDFI29RSQ7d4BFUoqQYEIjrJ8cVobYe3F4KRLGmHI06RsVAkkAHemJeNq+UMMRg
- kgoQowo48Otam6wrTvxWqqayZJBvwuK9JHdmdaAI=
+ t=1677420689; bh=4OZH6E6CsjLO+EJW2LJh4x68QtAphhfAjHOaUhriUQw=;
+ h=Message-Id:Date:In-Reply-To:Cc:Subject:References:To:From;
+ b=Bq3mjqWKGG+aRyBMIRQvvUaXlBGNUVmOPd8PZxlOY0f9q6/WR31LtRUUC+RQiItZz
+ QtSyWfRrAkIEKLUUazGYZrh33mLGeEDa//HuYKeKJbDJTxqYwMRyEziFQUflQPOcnZ
+ AjWKdn8iZ52hvgtxSGykBxWP8KX1W2UicVhgz+0Y=
 Authentication-Results: iva2-656890eaceb5.qloud-c.yandex.net;
  dkim=pass header.i=@lach.pw
 From: Yaroslav Bolyukin <iam@lach.pw>
 To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v3] drm/edid DSC pass-through timing support
-Date: Sun, 26 Feb 2023 15:10:49 +0100
-Message-Id: <20230226141051.21767-1-iam@lach.pw>
+Subject: [PATCH v3 2/2] drm/amd: use fixed dsc bits-per-pixel from edid
+Date: Sun, 26 Feb 2023 15:10:51 +0100
+Message-Id: <20230226141051.21767-3-iam@lach.pw>
 X-Mailer: git-send-email 2.39.1
+In-Reply-To: <20230226141051.21767-1-iam@lach.pw>
+References: <20230226141051.21767-1-iam@lach.pw>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 27 Feb 2023 09:57:31 +0000
@@ -54,7 +58,8 @@ Cc: Thomas Zimmermann <tzimmermann@suse.de>, Leo Li <sunpeng.li@amd.com>,
  David Airlie <airlied@gmail.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
  Maxime Ripard <mripard@kernel.org>, Jani Nikula <jani.nikula@intel.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Wayne Lin <Wayne.Lin@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Harry Wentland <harry.wentland@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -62,43 +67,57 @@ Cc: Thomas Zimmermann <tzimmermann@suse.de>, Leo Li <sunpeng.li@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VESA DisplayID spec allows the device to force its DSC bits per pixel
-value.
+VESA vendor header from DisplayID spec may contain fixed bit per pixel
+rate, it should be respected by drm driver
 
-For example, the HTC Vive Pro 2 VR headset uses this value in
-high-resolution modes (3680x1836@90-120, 4896x2448@90-120), and when the
-kernel doesn't respect this parameter, the garbage is displayed on HMD
-instead.
+Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
+Reviewed-by: Wayne Lin <Wayne.Lin@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 2 ++
+ drivers/gpu/drm/amd/display/dc/core/dc_stream.c           | 2 ++
+ drivers/gpu/drm/amd/display/dc/dc_types.h                 | 3 +++
+ 3 files changed, 7 insertions(+)
 
-I am unaware of any other hardware using this value; however, multiple
-users have tested this patch on the Vive Pro 2, and it is known to work and
-not break anything else.
-
-Regarding driver support - I have looked at amdgpu and Nvidia's
-open-gpu-kernel-modules, and both seem to have some indication for this
-value; however, in Linux, it is unused in both. 
-
-Amdgpu integration was trivial, so I implemented it in the second patch;
-other kernel drivers still need the support of this value, and I don't have
-the necessary hardware to implement and test the handling of this value on
-them.
-
-BR,
-Yaroslav
-
-Yaroslav Bolyukin (2):
-  drm/edid: parse DRM VESA dsc bpp target
-  drm/amd: use fixed dsc bits-per-pixel from edid
-
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  2 +
- .../gpu/drm/amd/display/dc/core/dc_stream.c   |  2 +
- drivers/gpu/drm/amd/display/dc/dc_types.h     |  3 ++
- drivers/gpu/drm/drm_edid.c                    | 42 ++++++++++++-------
- include/drm/drm_connector.h                   |  6 +++
- include/drm/drm_displayid.h                   |  4 ++
- 6 files changed, 45 insertions(+), 14 deletions(-)
-
-
-base-commit: a48bba98380cb0b43dcd01d276c7efc282e3c33f
---
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 6fdc2027c2b4..dba720d5df4c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -89,6 +89,8 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+ 
+ 	edid_caps->edid_hdmi = connector->display_info.is_hdmi;
+ 
++	edid_caps->dsc_fixed_bits_per_pixel_x16 = connector->display_info.dp_dsc_bpp;
++
+ 	sad_count = drm_edid_to_sad((struct edid *) edid->raw_edid, &sads);
+ 	if (sad_count <= 0)
+ 		return result;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+index 72b261ad9587..a82362417379 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+@@ -103,6 +103,8 @@ static bool dc_stream_construct(struct dc_stream_state *stream,
+ 
+ 	/* EDID CAP translation for HDMI 2.0 */
+ 	stream->timing.flags.LTE_340MCSC_SCRAMBLE = dc_sink_data->edid_caps.lte_340mcsc_scramble;
++	stream->timing.dsc_fixed_bits_per_pixel_x16 =
++		dc_sink_data->edid_caps.dsc_fixed_bits_per_pixel_x16;
+ 
+ 	memset(&stream->timing.dsc_cfg, 0, sizeof(stream->timing.dsc_cfg));
+ 	stream->timing.dsc_cfg.num_slices_h = 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
+index 27d0242d6cbd..22fedf4c7547 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
+@@ -228,6 +228,9 @@ struct dc_edid_caps {
+ 	bool edid_hdmi;
+ 	bool hdr_supported;
+ 
++	/* DisplayPort caps */
++	uint32_t dsc_fixed_bits_per_pixel_x16;
++
+ 	struct dc_panel_patch panel_patch;
+ };
+ 
+-- 
 2.39.1
+
