@@ -4,42 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DDFCC6FA8E
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 02:11:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AC0BC6FA8E
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 02:11:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E8FC10E340;
-	Mon, 27 Feb 2023 02:11:20 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1506010E340;
- Mon, 27 Feb 2023 02:11:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36D1B10E0CB;
+	Mon, 27 Feb 2023 02:11:36 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1706F10E0CB;
+ Mon, 27 Feb 2023 02:11:35 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id C0C5BB80D23;
- Mon, 27 Feb 2023 02:11:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E02FC4339E;
- Mon, 27 Feb 2023 02:11:14 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 92A0B60D42;
+ Mon, 27 Feb 2023 02:11:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3B8CC4339C;
+ Mon, 27 Feb 2023 02:11:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1677463875;
- bh=5WVs5+EfP0a5RRxpnfnDoJuNkKH5ecrDzGJYw3vmcmQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Z+n6kYa1cz1UKPY9wlYh7xqATkoEkGwuX0Zc7CXeRsNPpp/JJRbI0Ig0H0hDedmdN
- EKIcJ+7GIndmEmBlUx6F/ieUzzBwrl51FXknGF+Yfx9j6LLSRVixpazrL83PH0kadb
- UpfE8qb6T8UzTv1TQVwcwJN6IAScqI+11KHKM55p45mhdvjgWg1MecbIl6ANDKD4XN
- Z0GnQ8rpdWz3d1iIMrEYXWBrbjZHLXrlI/YKexZkxV+kNZdRgo+OOirn3OgWImTqDY
- XxSU4IP2UPlXTqEJ3TUJrQiT68QtLEwhqY9lryW3tyUTbmmt0Z00ndUN3pEmt4yobZ
- gNfbl1fsixstg==
+ s=k20201202; t=1677463894;
+ bh=PzlYbTiEMX6pefYeUQfl69WRLnb10aZ+WjgrHa2YE6E=;
+ h=From:To:Cc:Subject:Date:From;
+ b=gzzJi9DL2c7mrBKaHz5a8tbJfnGsKiTT2rpjJOz+/VcW0K0ZantNSz/uuN9hOWv9o
+ mXP6u3k86gxmbsDUL8OXYXLlTs7L5hL1IJnj6HEVsiAM5sO2udpw3sxxo6J6UMq3wx
+ NJMgPfFhOVHETweccEvFAZJg+C2C9u8EfQmpQcqn868bdvWrPArd8SteK9Hy1XimBR
+ mZJ9ZSakgdk2Dzd7iKbpzh94okia7nOp5bxUvZ6JizVAjMIiuFlohYvSbGkEAMhGgM
+ V4oyH5EQsJt98g2aWNJV/KLy+0a1uPULC+TLCsem7o+yPG0zkuVkmL9QqBX96ANLK4
+ FcRbscsBP081Q==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 02/10] drm/radeon: free iio for atombios when
+Subject: [PATCH AUTOSEL 4.14 1/9] drm/radeon: free iio for atombios when
  driver shutdown
-Date: Sun, 26 Feb 2023 21:10:59 -0500
-Message-Id: <20230227021110.1053474-2-sashal@kernel.org>
+Date: Sun, 26 Feb 2023 21:11:23 -0500
+Message-Id: <20230227021131.1053662-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230227021110.1053474-1-sashal@kernel.org>
-References: <20230227021110.1053474-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -104,10 +101,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index cc1c07963116c..bcca0dd67fd15 100644
+index 906547b229a9a..e0fe21e7378b6 100644
 --- a/drivers/gpu/drm/radeon/radeon_device.c
 +++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -1015,6 +1015,7 @@ void radeon_atombios_fini(struct radeon_device *rdev)
+@@ -1045,6 +1045,7 @@ void radeon_atombios_fini(struct radeon_device *rdev)
  {
  	if (rdev->mode_info.atom_context) {
  		kfree(rdev->mode_info.atom_context->scratch);
