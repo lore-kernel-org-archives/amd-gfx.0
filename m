@@ -4,67 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3895C64ED6
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 21:10:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D31E4C64ED6
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 23:09:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71B0A10E3F9;
-	Mon, 27 Feb 2023 21:10:42 +0000 (UTC)
-Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
- [IPv6:2607:f8b0:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5EEB10E3F9
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Feb 2023 21:10:41 +0000 (UTC)
-Received: by mail-ot1-x329.google.com with SMTP id
- q11-20020a056830440b00b00693c1a62101so4390770otv.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Feb 2023 13:10:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=nzB4B651yBbTWduJaLCOrrpNwdhijZe8j9DInpuawks=;
- b=nleA+eri6iggRfX+PYs3WR7DvFSAJgdCYUWKkepfXRYfdLcTFJWQhTWCTsBvEzDMbC
- euuxPoDg3QLkPOF9J1qFRIH+QKMmMREAhq0XQeRg0EvxXegmZI3YUoK2ZIkt/QDYbiHm
- x+FNe1LsOEy5p1y1LR06b+sH/LKXhpsbTPV8MYfqBKWvaCRvFzjEzelT5CjVg5g5yccK
- USi6APQ4zHtoJaKr0A5vKrC+K6X68dIvFnnZ0lDzKxDJ5cML4tJrwgtiRj1RP5MnQF8H
- GD+9kmavH5IyFsP3gsxhSqEseUQwAplb/w6XHbwaRmjyJvOnZE01PHZkYUqmayfXQSfG
- 9+LQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=nzB4B651yBbTWduJaLCOrrpNwdhijZe8j9DInpuawks=;
- b=mWAYYE9ZHvl3ttvzZx7P1vWPXiM9PpJzLQ+ZTHAxfWtZ4N0zHdA1AWrC2cXpJ8XLz/
- oFaOLMG49fOz1/nkWawbz33tE5Vf6xKqyLkhGZGaDeDnilLHCtdDTyGGQCIMOCOVZt69
- MTGsaCtQrUoCOHybXEJ16WsWfF3oR4XQz3jEM3pXxXp1YeG0rLMScNiSwPmWK6TTFY3e
- 5SgIrF/08alvYvtNwO5wRWfmNK0rkg0FE6ZWR0Svw8ztJ3MEbAaCLZQ+lAQ2YKAuZrIG
- agROLZ/CDEH+S4vLmIw0PTbaP6cD2DCRVy1/gaXqnQ3SabqK3QmVNK4E7axlph6N/fj4
- euPw==
-X-Gm-Message-State: AO0yUKWiFisunRFp7tCMl/lUMJ9+V2iXuIo77EB287AQTmIESnA0fuCp
- j4karxig6/DygMnuuD7PaPeEA65QtnXtkNIL2SQ=
-X-Google-Smtp-Source: AK7set9NjWa1zw07LswiL52ZHeII2Ih7H7v7VMc/u+rijtJWqdisatwyZ4JLDP0dVwIcy7uXkL5aqU+VF2z6DffMbFA=
-X-Received: by 2002:a9d:6012:0:b0:690:e6eb:d8a9 with SMTP id
- h18-20020a9d6012000000b00690e6ebd8a9mr136163otj.6.1677532240824; Mon, 27 Feb
- 2023 13:10:40 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B76610E225;
+	Mon, 27 Feb 2023 23:09:57 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2063.outbound.protection.outlook.com [40.107.244.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A1B510E1F1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Feb 2023 23:09:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=A3lWUUPOq3tIZwIfq4XfxV+KBexH2XmXEJSx1KaSUR11bHkE8niPEZmyYet3nr0MP2WEaB6+grmp22mJgDZ9oC2McOlxnwP3lH0HsjqwQ8p/BQF95FfpklIPzsribkjw6gWA5UCAnaz33J7hf8Ud8tnKZTZ629+JGXn+9WW0PdYFUsdwlZjOZ+kpQcWtniIbDXUm05pGF4+KWFZ9HZord/pv3jjWVq7f/N9+JuJqvsUCDMsi8IUySvpAp7gEOuCBLx66IRuH2pBOCeV7ke+v5AhWwuoK312dp2KLwqMHe9fkAczZwjVOrDE3pbfmcADAP+3OyFdJZtIQ7zlNVDcdQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zsjajFqMAKmNUDaujeM4kUFVugPFpnE7hg6QVQ3aakM=;
+ b=nJhRd+uJ55CeMJiE4PUQl1Gq+cunwXo5fhxLGTLO4p8K0p33yxfxJf1rfAqprpOnGx7OaVSWHlEF699u3brfTK9FDR+/wMPbHA5ic4U2tpC9CerIy3N/ZBIGYwUHibaiuYypSH9naluvhgh/h+gBN9ymxAzjaGqvDTttpiMdNYdOWBrTFqXfZc2veB1CYeswBJZxEjnJLCAt1mTG1t+kqc6cEz2YsjKPsRuEt4UgaYmwWFH1QHgHYA/DHyqG+u6kYhAuGZIQdZdx+rsgeZ18PvrouHuyZWZvmWw0rKgpgRBsIXcGMrsYGXWcE1pZ5x7do9+71RpgF0drfKvwmtD7FQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zsjajFqMAKmNUDaujeM4kUFVugPFpnE7hg6QVQ3aakM=;
+ b=2E4MC7tXQpgCz2l0t4hpeSsx4J1VIs6tB+HqNwcm48szg7SfVxzkjHwdN7fbMDiEG9uQPslFeSLKETn5kKOsu15jYCOK+annbTo8FReJsc0gbFwIozk22aUzZs212WBV7G0LBqE/nc0hAX2Tz8pGLsFKKcvylVz0JSmttv2Yzts=
+Received: from BN9PR03CA0280.namprd03.prod.outlook.com (2603:10b6:408:f5::15)
+ by IA1PR12MB8408.namprd12.prod.outlook.com (2603:10b6:208:3db::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.27; Mon, 27 Feb
+ 2023 23:09:53 +0000
+Received: from BL02EPF00010206.namprd05.prod.outlook.com
+ (2603:10b6:408:f5:cafe::85) by BN9PR03CA0280.outlook.office365.com
+ (2603:10b6:408:f5::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.29 via Frontend
+ Transport; Mon, 27 Feb 2023 23:09:53 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF00010206.mail.protection.outlook.com (10.167.241.196) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6156.12 via Frontend Transport; Mon, 27 Feb 2023 23:09:52 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 27 Feb
+ 2023 17:09:52 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 27 Feb
+ 2023 17:09:52 -0600
+Received: from Xiaogang-ROCM-Dev.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
+ via Frontend Transport; Mon, 27 Feb 2023 17:09:46 -0600
+From: Xiaogang.Chen <xiaogang.chen@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdkfd: Cal vram offset in page for each
+ svm_migrate_copy_to_vram
+Date: Mon, 27 Feb 2023 17:07:12 -0600
+Message-ID: <20230227230712.1145501-1-xiaogang.chen@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <CABXGCsM7jMMomy_=oNN236LfLJzMJbcNR=YWWJ74TgNO_16PWQ@mail.gmail.com>
- <CADnq5_PUCRGZoUu3RHrbD6+Dr_RHWdqkJKDBD2cWenWhQQiyKw@mail.gmail.com>
- <CABXGCsO-GLzahLgNtbzsM-HiPk7cZvHu56ckSMLD7XeUvf28hw@mail.gmail.com>
- <CADnq5_NMuc=moNDgL1bx9riUtkfuPvj4sLM-i3Qmf-rtAHV+=Q@mail.gmail.com>
- <c79dcbb5-5c8c-2620-1b92-15b643fb5530@amd.com>
- <CABXGCsMkAoWJaX4k+7e3G9wxfd0=5eDnD6y8hWJ5XCq=5gEZiQ@mail.gmail.com>
- <CADnq5_NcE7MEa1cYF5C2jvH86Wj3g4CUYuHJWo+8ZHKOLbJKgw@mail.gmail.com>
- <CABXGCsO+Gce6dFJAguJC7qN5C=oF2e+Q2=qobvEuBzn4VqrpGQ@mail.gmail.com>
-In-Reply-To: <CABXGCsO+Gce6dFJAguJC7qN5C=oF2e+Q2=qobvEuBzn4VqrpGQ@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 27 Feb 2023 16:10:29 -0500
-Message-ID: <CADnq5_OttKLY6j3e8uiSCJ6qiif97oNhVJkGVRP4v42Y1vZgAw@mail.gmail.com>
-Subject: Re: [bug][vaapi][h264] The commit
- 7cbe08a930a132d84b4cf79953b00b074ec7a2a7
- on certain video files leads to problems with VAAPI hardware decoding.
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>, 
- "Kuehling, Felix" <Felix.Kuehling@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF00010206:EE_|IA1PR12MB8408:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9e6bde5c-780c-40db-17b1-08db1917bbd2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: g0y73KiTG7W/YLU/LxVyKmqlTQh/LThNNJZteSSiU5iN7E0VEOGBQP2WyHM370+9ZUnUsqtfl3Jb3lWF+A9Ti+ZQutOc2voivKW+y2cjYz433/ofFLdigswHfruh+q70HndoxQft9vJ8xFcj1OhQQwFjn9v3AsQUitBdWnpcGeCAMqTy8E+/x36W10f60SvT6h0kId3ovfZ90BxnW9UFWI7VFspFQYOGJkR/tYfkoaG9519xmFWP1H1CnzGIWJEN9pX1jufgwXsV+5H/d4uF8NJGsJ6bTgsLUbmlV2JqRSY0rUi3V7IKVxqWKKYRj8d80xwM53a1Rk4KBMUsnrDWNIkgWGtgjR/B8f5gk2qZY8Q41/B3nR2FbKwY/QsG5NhF0dRbDLOmMAiCIV06TyEhanqV9lPz67mvfRR+94ugN7Mz/AkCLi1vFuf1s2fA84Cd5YTRcxlAYcTCkeEshqxPgcZ6Uj+Nw/RGvWAoQMsfibbUzbwoIM6pJzQ++85eLB+88dbuy7ZWRTkhrp2quL4jm0lgNKUBE+bDP2DOfeu0IWHgkAL00j5uKWAQnYDhHRWV1VKtyKEByRlQlKGNeHiVyIjdZfLiuKiA4/pmu0g+P9HXOoJDzBbjbG86epvCDDgk7FqMq4z4BCuo2Ua7U2ChuWYq5USLKtNbVX3ddAmwyOXIKqWwdNBRQWsGK5difcgIi46HERYyCHo0AevWcuTWKPNRKygRu0Vcv+Q6/aqOQSM=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(396003)(39860400002)(376002)(136003)(346002)(451199018)(36840700001)(40470700004)(46966006)(40460700003)(186003)(81166007)(82740400003)(83380400001)(316002)(356005)(6916009)(70206006)(4326008)(8676002)(41300700001)(5660300002)(336012)(2906002)(8936002)(36860700001)(426003)(70586007)(1076003)(40480700001)(6666004)(7696005)(26005)(478600001)(47076005)(2616005)(86362001)(54906003)(82310400005)(36756003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2023 23:09:52.8639 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e6bde5c-780c-40db-17b1-08db1917bbd2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00010206.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8408
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,175 +102,105 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Chen, Guchun" <guchun.chen@amd.com>, Thong Thai <thong.thai@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <alexander.deucher@amd.com>, James.Zhu@amd.com,
- Leo Liu <leo.liu@amd.com>
+Cc: Xiaogang Chen <Xiaogang.Chen@amd.com>, philip.yang@amd.com,
+ felix.kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-+ Felix
+From: Xiaogang Chen <xiaogang.chen@amd.com>
 
+svm_migrate_ram_to_vram migrate a prange from sys ram to vram. The prange may
+cross multiple vma. Need remember current dst vram offset in page for each migration.
 
-On Fri, Feb 17, 2023 at 4:50 PM Mikhail Gavrilov
-<mikhail.v.gavrilov@gmail.com> wrote:
->
-> On Fri, Feb 17, 2023 at 8:30 PM Alex Deucher <alexdeucher@gmail.com> wrot=
-e:
-> >
-> > On Fri, Feb 17, 2023 at 1:10 AM Mikhail Gavrilov
-> > <mikhail.v.gavrilov@gmail.com> wrote:
-> > >
-> > > On Fri, Dec 9, 2022 at 7:37 PM Leo Liu <leo.liu@amd.com> wrote:
-> > > >
-> > > > Please try the latest AMDGPU driver:
-> > > >
-> > > > https://gitlab.freedesktop.org/agd5f/linux/-/commits/amd-staging-dr=
-m-next/
-> > > >
-> > >
-> > > Sorry Leo, I miss your message.
-> > > This issue is still actual for 6.2-rc8.
-> > >
-> > > In my first message I was mistaken.
-> > >
-> > > > Before kernel 5.16 this only led to an artifact in the form of
-> > > > a green bar at the top of the screen, then starting from 5.17
-> > > > the GPU began to freeze.
-> > >
-> > > The real behaviour before 5.18:
-> > > - vlc could plays video with small artifacts in the form of a green
-> > > bar on top of the video
-> > > - after playing video process vlc correctly exiting
-> > >
-> > > On 5.18 this behaviour changed:
-> > > - vlc show black screen instead of playing video
-> > > - after playing the process not exiting
-> > > - if I tries kill vlc process with 'kill -9' vlc became zombi process
-> > > and many other processes start hangs (in kernel log appears follow
-> > > lines after 2 minutes)
-> > >
-> > > INFO: task vlc:sh8:5248 blocked for more than 122 seconds.
-> > >       Tainted: G        W    L   --------  ---  5.18.0-60.fc37.x86_64=
-+debug #1
-> > > "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this mess=
-age.
-> > > task:vlc:sh8         state:D stack:13616 pid: 5248 ppid:  1934 flags:=
-0x00004006
-> > > Call Trace:
-> > >  <TASK>
-> > >  __schedule+0x492/0x1650
-> > >  ? _raw_spin_unlock_irqrestore+0x40/0x60
-> > >  ? debug_check_no_obj_freed+0x12d/0x250
-> > >  schedule+0x4e/0xb0
-> > >  schedule_timeout+0xe1/0x120
-> > >  ? lock_release+0x215/0x460
-> > >  ? trace_hardirqs_on+0x1a/0xf0
-> > >  ? _raw_spin_unlock_irqrestore+0x40/0x60
-> > >  dma_fence_default_wait+0x197/0x240
-> > >  ? __bpf_trace_dma_fence+0x10/0x10
-> > >  dma_fence_wait_timeout+0x229/0x260
-> > >  drm_sched_entity_fini+0x101/0x270 [gpu_sched]
-> > >  amdgpu_vm_fini+0x2b5/0x460 [amdgpu]
-> > >  ? idr_destroy+0x70/0xb0
-> > >  ? mutex_destroy+0x1e/0x50
-> > >  amdgpu_driver_postclose_kms+0x1ec/0x2c0 [amdgpu]
-> > >  drm_file_free.part.0+0x20d/0x260
-> > >  drm_release+0x6a/0x120
-> > >  __fput+0xab/0x270
-> > >  task_work_run+0x5c/0xa0
-> > >  do_exit+0x394/0xc40
-> > >  ? rcu_read_lock_sched_held+0x10/0x70
-> > >  do_group_exit+0x33/0xb0
-> > >  get_signal+0xbbc/0xbc0
-> > >  arch_do_signal_or_restart+0x30/0x770
-> > >  ? do_futex+0xfd/0x190
-> > >  ? __x64_sys_futex+0x63/0x190
-> > >  exit_to_user_mode_prepare+0x172/0x270
-> > >  syscall_exit_to_user_mode+0x16/0x50
-> > >  do_syscall_64+0x67/0x80
-> > >  ? do_syscall_64+0x67/0x80
-> > >  ? rcu_read_lock_sched_held+0x10/0x70
-> > >  ? trace_hardirqs_on_prepare+0x5e/0x110
-> > >  ? do_syscall_64+0x67/0x80
-> > >  ? rcu_read_lock_sched_held+0x10/0x70
-> > >  entry_SYSCALL_64_after_hwframe+0x44/0xae
-> > > RIP: 0033:0x7f82c2364529
-> > > RSP: 002b:00007f8210ff8c00 EFLAGS: 00000246 ORIG_RAX: 00000000000000c=
-a
-> > > RAX: fffffffffffffe00 RBX: 0000000000000000 RCX: 00007f82c2364529
-> > > RDX: 0000000000000000 RSI: 0000000000000189 RDI: 00007f823022542c
-> > > RBP: 00007f8210ff8c30 R08: 0000000000000000 R09: 00000000ffffffff
-> > > R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-> > > R13: 0000000000000000 R14: 0000000000000001 R15: 00007f823022542c
-> > >  </TASK>
-> > > INFO: lockdep is turned off.
-> > >
-> > > I bisected this issue and problematic commit is
-> > >
-> > > =E2=9D=AF git bisect bad
-> > > 5f3854f1f4e211f494018160b348a1c16e58013f is the first bad commit
-> > > commit 5f3854f1f4e211f494018160b348a1c16e58013f
-> > > Author: Alex Deucher <alexander.deucher@amd.com>
-> > > Date:   Thu Mar 24 18:04:00 2022 -0400
-> > >
-> > >     drm/amdgpu: add more cases to noretry=3D1
-> > >
-> > >     Port current list from amd-staging-drm-next.
-> > >
-> > >     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > >
-> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 3 +++
-> > >  1 file changed, 3 insertions(+)
-> > >
-> > > Unfortunately I couldn't simply revert this commit on 6.2-rc8 for
-> > > checking, because it leads to conflicts.
-> > >
-> > > Alex, you as author of this commit could help me with it?
-> >
-> > append amdgpu.noretry=3D0 to the kernel command line in grub.
->
-> Thanks, I checked the "amdgpu.noretry=3D0" and after the page fault
-> occurs vlc could play video with little artifacts.
->
-> So I have some questions:
->
-> 1. Why retrys was disabled by default if it really stills needed for
-> recoverable page faults? As Christian answered me before here:
-> https://lore.kernel.org/all/f253ff1f-3c5c-c785-1272-e4fe69a366ec@amd.com/=
-T/#m73a0a6eb7b2531eacf24fd498e8d2eec675f05a6
->
+Signed-off-by: Xiaogang Chen <Xiaogang.Chen@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
 
-You don't actually want retry page faults, because for gfx apps,
-nothing is going to page in the missing pages.  The retry stuff is for
-demand paging type scenarios and only certain GPUs (GFX9-based)
-actually support the necessary semantics to make this work.  Even then
-it would only be useful in APIs which support demand paging.  Right
-now GFX APIs don't really do this.
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+index 1c625433ff30..60664e0cbc1c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -294,7 +294,7 @@ static unsigned long svm_migrate_unsuccessful_pages(struct migrate_vma *migrate)
+ static int
+ svm_migrate_copy_to_vram(struct amdgpu_device *adev, struct svm_range *prange,
+ 			 struct migrate_vma *migrate, struct dma_fence **mfence,
+-			 dma_addr_t *scratch)
++			 dma_addr_t *scratch, uint64_t *cur_dst)
+ {
+ 	uint64_t npages = migrate->npages;
+ 	struct device *dev = adev->dev;
+@@ -304,8 +304,8 @@ svm_migrate_copy_to_vram(struct amdgpu_device *adev, struct svm_range *prange,
+ 	uint64_t i, j;
+ 	int r;
+ 
+-	pr_debug("svms 0x%p [0x%lx 0x%lx]\n", prange->svms, prange->start,
+-		 prange->last);
++	pr_debug("svms 0x%p [0x%lx 0x%lx 0x%lx]\n", prange->svms, prange->start,
++		 prange->last, *cur_dst);
+ 
+ 	src = scratch;
+ 	dst = (uint64_t *)(scratch + npages);
+@@ -316,7 +316,7 @@ svm_migrate_copy_to_vram(struct amdgpu_device *adev, struct svm_range *prange,
+ 		goto out;
+ 	}
+ 
+-	amdgpu_res_first(prange->ttm_res, prange->offset << PAGE_SHIFT,
++	amdgpu_res_first(prange->ttm_res, *cur_dst << PAGE_SHIFT,
+ 			 npages << PAGE_SHIFT, &cursor);
+ 	for (i = j = 0; i < npages; i++) {
+ 		struct page *spage;
+@@ -381,6 +381,7 @@ svm_migrate_copy_to_vram(struct amdgpu_device *adev, struct svm_range *prange,
+ 			migrate->dst[i] = 0;
+ 		}
+ 	}
++	*cur_dst = *cur_dst + i;
+ 
+ #ifdef DEBUG_FORCE_MIXED_DOMAINS
+ 	for (i = 0, j = 0; i < npages; i += 4, j++) {
+@@ -403,7 +404,7 @@ svm_migrate_copy_to_vram(struct amdgpu_device *adev, struct svm_range *prange,
+ static long
+ svm_migrate_vma_to_vram(struct amdgpu_device *adev, struct svm_range *prange,
+ 			struct vm_area_struct *vma, uint64_t start,
+-			uint64_t end, uint32_t trigger)
++			uint64_t end, uint32_t trigger, uint64_t *cur_dst)
+ {
+ 	struct kfd_process *p = container_of(prange->svms, struct kfd_process, svms);
+ 	uint64_t npages = (end - start) >> PAGE_SHIFT;
+@@ -456,7 +457,7 @@ svm_migrate_vma_to_vram(struct amdgpu_device *adev, struct svm_range *prange,
+ 	else
+ 		pr_debug("0x%lx pages migrated\n", cpages);
+ 
+-	r = svm_migrate_copy_to_vram(adev, prange, &migrate, &mfence, scratch);
++	r = svm_migrate_copy_to_vram(adev, prange, &migrate, &mfence, scratch, cur_dst);
+ 	migrate_vma_pages(&migrate);
+ 
+ 	pr_debug("successful/cpages/npages 0x%lx/0x%lx/0x%lx\n",
+@@ -504,6 +505,7 @@ svm_migrate_ram_to_vram(struct svm_range *prange, uint32_t best_loc,
+ 	unsigned long addr, start, end;
+ 	struct vm_area_struct *vma;
+ 	struct amdgpu_device *adev;
++	uint64_t cur_dst;
+ 	unsigned long cpages = 0;
+ 	long r = 0;
+ 
+@@ -524,6 +526,7 @@ svm_migrate_ram_to_vram(struct svm_range *prange, uint32_t best_loc,
+ 
+ 	start = prange->start << PAGE_SHIFT;
+ 	end = (prange->last + 1) << PAGE_SHIFT;
++	cur_dst = prange->offset;
+ 
+ 	for (addr = start; addr < end;) {
+ 		unsigned long next;
+@@ -533,7 +536,7 @@ svm_migrate_ram_to_vram(struct svm_range *prange, uint32_t best_loc,
+ 			break;
+ 
+ 		next = min(vma->vm_end, end);
+-		r = svm_migrate_vma_to_vram(adev, prange, vma, addr, next, trigger);
++		r = svm_migrate_vma_to_vram(adev, prange, vma, addr, next, trigger, &cur_dst);
+ 		if (r < 0) {
+ 			pr_debug("failed %ld to migrate\n", r);
+ 			break;
+-- 
+2.25.1
 
-> The page faults (Not to be confused with kernel panic) it's absolutely
-> normal phenomenon for a buggy userspace. And if it "normal" I wold
-> prefer what is not had affect on system reliability. But as we can see
-> it leads to appears zombie processes with follow hang.
->
-
-If you don't retry the fault, the kernel reports the fault, but the
-engine should continue.  Reads will return 0 and writes will be
-dropped.  So it shouldn't hang unless the page fault causes some
-deadlock in the engine itself (e.g., due to the bogus data returned).
-
-> 2.If recoverable page faults is not an option, is it possible to
-> somehow fix this issue or not?
-
-I think this is probably a bug in mesa somewhere where the UMD has the
-alignment wrong somewhere or some dependency between GFX and VCN is
-not completing because of the page fault.
-
->
-> P.S. I also see page faults in other scenarios (for example when
-> playing in "Division 2" or "The Callisto Protocol". I attached my
-> kernel log for show it) but it not leads to zombie processes.
-
-Right, that is the expected behavior when the fault is non-fatal.
-
-Alex
