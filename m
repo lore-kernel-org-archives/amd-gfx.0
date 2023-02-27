@@ -4,38 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED0CAC6FA8E
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 02:01:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81C82C64ED6
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 02:01:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D8AB10E182;
-	Mon, 27 Feb 2023 02:01:41 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4817310E182;
- Mon, 27 Feb 2023 02:01:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11F4C10E185;
+	Mon, 27 Feb 2023 02:01:43 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B983610E182;
+ Mon, 27 Feb 2023 02:01:40 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 32A0DCE0F30;
- Mon, 27 Feb 2023 02:01:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B5E1C4339C;
- Mon, 27 Feb 2023 02:01:33 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 402FC60C32;
+ Mon, 27 Feb 2023 02:01:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6238C4339C;
+ Mon, 27 Feb 2023 02:01:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1677463294;
- bh=cuwUQq4t0PAZd+AHW6xxkgN3JZ2oVR6x5nMbGhdrHRk=;
+ s=k20201202; t=1677463300;
+ bh=Ikco7Thhh8K6W/4hrM2WIUukC4nBOz97oM872JFtFSU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=GlNXQqRs/elkRny4gJpv73vPllzFXLFb84R58SmHJOyMUfkUPnulS6ZU6dzLjSJKT
- JvWY1AnwBSHp6Rdr8NRXBRB+CHs5NigLva+XEvKULYXxzAY/WwHPup2/oR3VbhyM/w
- FoB4u+stuKmMZkgObPHc+X/AlluZgJacZnDVkAPDGmGodcTZTJFggeOy0N/JgEGvGi
- 49iYfGbl2e6nNOT23vN+dIsKN7HMFsqEzwcgm5VloimtJz5Emkzfh9kEBWcZTUGGS2
- VRHFgEH6IMQB9s0v8iPI9Pn/1+nkMgLd9eDlKFrm9Qg0AKWlbXXnNhkmYId2ePOt8i
- NvW0xfELnZB9w==
+ b=ThIiGMwM54319feeuCx0iE9MBfCKZi5UXcK3IsYr47y7OYqazR4XBgweyjOdxPF0Y
+ H5Fc+0XLaaBuyOh4jId6GAqd0/NnZWjLOoJOXNrJ7Lv4MJLwLcyNDtZYP9IpblyvFi
+ V9KfqLc5SU3Z3ViiQuOb801Mxujfkkc5p6bZt1x13dVvNw32IuHdpNcgvoiFW0zO1o
+ hUYcypKpHwKwbNGf6m1Zzw7KoILOHaF4p26WT5KM8FA8LY3ZI08a75QUGq//G39jja
+ pSJH9pwZ7UQ3WW/B+f5UjhztSWEJ+sL9xHHCYwK1kw334Rkl7HMPMAfusy4KsNb1LU
+ 5iAFGN9G2qqLg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.2 10/60] drm/radeon: free iio for atombios when
- driver shutdown
-Date: Sun, 26 Feb 2023 20:59:55 -0500
-Message-Id: <20230227020045.1045105-10-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.2 12/60] drm/amdkfd: Page aligned memory reserve size
+Date: Sun, 26 Feb 2023 20:59:57 -0500
+Message-Id: <20230227020045.1045105-12-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230227020045.1045105-1-sashal@kernel.org>
 References: <20230227020045.1045105-1-sashal@kernel.org>
@@ -54,66 +53,118 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Liwei Song <liwei.song@windriver.com>,
- Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
+Cc: Sasha Levin <sashal@kernel.org>, Philip Yang <Philip.Yang@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, Xinhui.Pan@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
  christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Liwei Song <liwei.song@windriver.com>
+From: Philip Yang <Philip.Yang@amd.com>
 
-[ Upstream commit 4773fadedca918faec443daaca5e4ea1c0ced144 ]
+[ Upstream commit 0c2dece8fb541ab07b68c3312a1065fa9c927a81 ]
 
-Fix below kmemleak when unload radeon driver:
+Use page aligned size to reserve memory usage because page aligned TTM
+BO size is used to unreserve memory usage, otherwise no page aligned
+size causes memory usage accounting unbalanced.
 
-unreferenced object 0xffff9f8608ede200 (size 512):
-  comm "systemd-udevd", pid 326, jiffies 4294682822 (age 716.338s)
-  hex dump (first 32 bytes):
-    00 00 00 00 c4 aa ec aa 14 ab 00 00 00 00 00 00  ................
-    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-  backtrace:
-    [<0000000062fadebe>] kmem_cache_alloc_trace+0x2f1/0x500
-    [<00000000b6883cea>] atom_parse+0x117/0x230 [radeon]
-    [<00000000158c23fd>] radeon_atombios_init+0xab/0x170 [radeon]
-    [<00000000683f672e>] si_init+0x57/0x750 [radeon]
-    [<00000000566cc31f>] radeon_device_init+0x559/0x9c0 [radeon]
-    [<0000000046efabb3>] radeon_driver_load_kms+0xc1/0x1a0 [radeon]
-    [<00000000b5155064>] drm_dev_register+0xdd/0x1d0
-    [<0000000045fec835>] radeon_pci_probe+0xbd/0x100 [radeon]
-    [<00000000e69ecca3>] pci_device_probe+0xe1/0x160
-    [<0000000019484b76>] really_probe.part.0+0xc1/0x2c0
-    [<000000003f2649da>] __driver_probe_device+0x96/0x130
-    [<00000000231c5bb1>] driver_probe_device+0x24/0xf0
-    [<0000000000a42377>] __driver_attach+0x77/0x190
-    [<00000000d7574da6>] bus_for_each_dev+0x7f/0xd0
-    [<00000000633166d2>] driver_attach+0x1e/0x30
-    [<00000000313b05b8>] bus_add_driver+0x12c/0x1e0
+Change vram_used definition type to int64_t to be able to trigger
+WARN_ONCE(adev && adev->kfd.vram_used < 0, "..."), to help debug the
+accounting issue with warning and backtrace.
 
-iio was allocated in atom_index_iio() called by atom_parse(),
-but it doesn't got released when the dirver is shutdown.
-Fix this kmemleak by free it in radeon_atombios_fini().
-
-Signed-off-by: Liwei Song <liwei.song@windriver.com>
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/radeon/radeon_device.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 12 +++++++-----
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c         |  9 +++++++--
+ 3 files changed, 15 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index 6344454a77217..4f9729b4a8119 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -1023,6 +1023,7 @@ void radeon_atombios_fini(struct radeon_device *rdev)
- {
- 	if (rdev->mode_info.atom_context) {
- 		kfree(rdev->mode_info.atom_context->scratch);
-+		kfree(rdev->mode_info.atom_context->iio);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index 0040deaf8a83a..90a5254ec1387 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -97,7 +97,7 @@ struct amdgpu_amdkfd_fence {
+ 
+ struct amdgpu_kfd_dev {
+ 	struct kfd_dev *dev;
+-	uint64_t vram_used;
++	int64_t vram_used;
+ 	uint64_t vram_used_aligned;
+ 	bool init_complete;
+ 	struct work_struct reset_work;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 3b5c53712d319..05b884fe0a927 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -1612,6 +1612,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+ 	struct amdgpu_bo *bo;
+ 	struct drm_gem_object *gobj = NULL;
+ 	u32 domain, alloc_domain;
++	uint64_t aligned_size;
+ 	u64 alloc_flags;
+ 	int ret;
+ 
+@@ -1667,22 +1668,23 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+ 	 * the memory.
+ 	 */
+ 	if ((*mem)->aql_queue)
+-		size = size >> 1;
++		size >>= 1;
++	aligned_size = PAGE_ALIGN(size);
+ 
+ 	(*mem)->alloc_flags = flags;
+ 
+ 	amdgpu_sync_create(&(*mem)->sync);
+ 
+-	ret = amdgpu_amdkfd_reserve_mem_limit(adev, size, flags);
++	ret = amdgpu_amdkfd_reserve_mem_limit(adev, aligned_size, flags);
+ 	if (ret) {
+ 		pr_debug("Insufficient memory\n");
+ 		goto err_reserve_limit;
  	}
- 	kfree(rdev->mode_info.atom_context);
- 	rdev->mode_info.atom_context = NULL;
+ 
+ 	pr_debug("\tcreate BO VA 0x%llx size 0x%llx domain %s\n",
+-			va, size, domain_string(alloc_domain));
++			va, (*mem)->aql_queue ? size << 1 : size, domain_string(alloc_domain));
+ 
+-	ret = amdgpu_gem_object_create(adev, size, 1, alloc_domain, alloc_flags,
++	ret = amdgpu_gem_object_create(adev, aligned_size, 1, alloc_domain, alloc_flags,
+ 				       bo_type, NULL, &gobj);
+ 	if (ret) {
+ 		pr_debug("Failed to create BO on domain %s. ret %d\n",
+@@ -1739,7 +1741,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+ 	/* Don't unreserve system mem limit twice */
+ 	goto err_reserve_limit;
+ err_bo_create:
+-	amdgpu_amdkfd_unreserve_mem_limit(adev, size, flags);
++	amdgpu_amdkfd_unreserve_mem_limit(adev, aligned_size, flags);
+ err_reserve_limit:
+ 	mutex_destroy(&(*mem)->lock);
+ 	if (gobj)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 6d291aa6386bd..f79b8e964140e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1127,8 +1127,13 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
+ 	}
+ 
+ 	/* Update the VRAM usage count */
+-	if (flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM)
+-		WRITE_ONCE(pdd->vram_usage, pdd->vram_usage + args->size);
++	if (flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
++		uint64_t size = args->size;
++
++		if (flags & KFD_IOC_ALLOC_MEM_FLAGS_AQL_QUEUE_MEM)
++			size >>= 1;
++		WRITE_ONCE(pdd->vram_usage, pdd->vram_usage + PAGE_ALIGN(size));
++	}
+ 
+ 	mutex_unlock(&p->mutex);
+ 
 -- 
 2.39.0
 
