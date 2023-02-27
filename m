@@ -4,44 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84918C64ED8
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 09:57:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 120A5C7EE2D
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 09:57:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04D5E10E39A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41B9610E3A6;
 	Mon, 27 Feb 2023 09:57:36 +0000 (UTC)
-X-Greylist: delayed 381 seconds by postgrey-1.36 at gabe;
- Sun, 26 Feb 2023 14:17:54 UTC
-Received: from forward108j.mail.yandex.net (forward108j.mail.yandex.net
- [IPv6:2a02:6b8:0:801:2::253])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3A9610E0FE;
- Sun, 26 Feb 2023 14:17:54 +0000 (UTC)
-Received: from iva2-656890eaceb5.qloud-c.yandex.net
- (iva2-656890eaceb5.qloud-c.yandex.net
- [IPv6:2a02:6b8:c0c:6902:0:640:6568:90ea])
- by forward108j.mail.yandex.net (Yandex) with ESMTP id 9464E3F215F8;
- Sun, 26 Feb 2023 17:11:30 +0300 (MSK)
-Received: by iva2-656890eaceb5.qloud-c.yandex.net (smtp/Yandex) with ESMTPSA
- id tATvDFdaca61-K1oQtVIF; Sun, 26 Feb 2023 17:11:29 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lach.pw; s=mail;
- t=1677420689; bh=4OZH6E6CsjLO+EJW2LJh4x68QtAphhfAjHOaUhriUQw=;
- h=Message-Id:Date:In-Reply-To:Cc:Subject:References:To:From;
- b=Bq3mjqWKGG+aRyBMIRQvvUaXlBGNUVmOPd8PZxlOY0f9q6/WR31LtRUUC+RQiItZz
- QtSyWfRrAkIEKLUUazGYZrh33mLGeEDa//HuYKeKJbDJTxqYwMRyEziFQUflQPOcnZ
- AjWKdn8iZ52hvgtxSGykBxWP8KX1W2UicVhgz+0Y=
-Authentication-Results: iva2-656890eaceb5.qloud-c.yandex.net;
- dkim=pass header.i=@lach.pw
-From: Yaroslav Bolyukin <iam@lach.pw>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/2] drm/amd: use fixed dsc bits-per-pixel from edid
-Date: Sun, 26 Feb 2023 15:10:51 +0100
-Message-Id: <20230226141051.21767-3-iam@lach.pw>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230226141051.21767-1-iam@lach.pw>
-References: <20230226141051.21767-1-iam@lach.pw>
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5ACC10E0EF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Feb 2023 07:12:21 +0000 (UTC)
+Received: by mail-wr1-x435.google.com with SMTP id r7so5069424wrz.6
+ for <amd-gfx@lists.freedesktop.org>; Sun, 26 Feb 2023 23:12:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=oyeg5wP42IWBECtz7xqXMlTgUnHhR/85mRaNmVQW2Ls=;
+ b=F5CvI9/LYnbqJtmDeJqmvrF3xrxJEFOycgowdmuGjcFdBzk21YLSTIrhXUTydn8geg
+ PiA955VCXC+ftrGO6UOdixA3lw20EdiXgbZ4JqoYEVVOeDaDMw6y+cMTR3RTNjQppayh
+ Y9Wq2Zy6xDIIREKgVQtloQkxamFe9IB4KZpMOwSIF6e3K3YJdPm5/M6ANlcgBY+6B6PG
+ M4r7Th8kJB6Q04QEah1raqctSYQhUxDaB5Bvh1+qXQNVbirz5D0rZ5jvzu9n9jdMnHcO
+ INQDaVgWNWLFWFQYP2s4TrASnh54G50k+pZHDgkDtfpjw9LItNCwMYN2G/3AaZDnOvuq
+ r03Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=oyeg5wP42IWBECtz7xqXMlTgUnHhR/85mRaNmVQW2Ls=;
+ b=HACkflyoa682impr6mepaDHWtJwciQxFact1OGkFHnZ7+crmEiPZhm5GEkWHJVDDum
+ hTddpfZnY3qNRqNdl7APrwekAPPAJE64I++DYGkv6Y5PaJ66cEb7I32odbuLK8je5baz
+ wdhsV8uPka9Ah2rfLAO08ePpI7gKPSv/FE92QB0Mo30tXz4TH9bwkBjk9EGotkpnSz8L
+ PXK1PIggDJ5pwRcYGypdSUzimHSpCT+LAmJ00FzMeg1iAbAIdS/tKtKbgn76NdLOEE3e
+ BYC48hhg4hNvaVMUKcEs+aIED7BOJV6FR0I/8U5oeFGLSRKt0QLIe//CPdKUHbuIB5wC
+ bqmw==
+X-Gm-Message-State: AO0yUKXh4Sz1Q6gxk/GRMKNI6X1EjjR4uAZIzdZ7SjJ3k7CtLUKlj8cH
+ rfJogvGtVZy1qE3di7dnp0M=
+X-Google-Smtp-Source: AK7set87N1youREmQwxO6+eyumctKwvn8O/d2IWNgToVGwYeD7gFXj/mLxH+SNAyaJpv/V6YJQeOzw==
+X-Received: by 2002:a05:6000:10e:b0:2cc:26be:8aad with SMTP id
+ o14-20020a056000010e00b002cc26be8aadmr614248wrx.45.1677481940082; 
+ Sun, 26 Feb 2023 23:12:20 -0800 (PST)
+Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
+ t3-20020a5d6903000000b002c56af32e8csm6260829wru.35.2023.02.26.23.12.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 26 Feb 2023 23:12:19 -0800 (PST)
+Date: Mon, 27 Feb 2023 10:12:07 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: sancchen@amd.com
+Subject: [bug report] drm/amd/display: Various logs added
+Message-ID: <Y/xXx2KXpxI2WoF8@kili>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Mailman-Approved-At: Mon, 27 Feb 2023 09:57:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,70 +66,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, Leo Li <sunpeng.li@amd.com>,
- David Airlie <airlied@gmail.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Maxime Ripard <mripard@kernel.org>, Jani Nikula <jani.nikula@intel.com>,
- Daniel Vetter <daniel@ffwll.ch>, Wayne Lin <Wayne.Lin@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Yaroslav Bolyukin <iam@lach.pw>
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VESA vendor header from DisplayID spec may contain fixed bit per pixel
-rate, it should be respected by drm driver
+Hello Leo Chen,
 
-Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
-Reviewed-by: Wayne Lin <Wayne.Lin@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 2 ++
- drivers/gpu/drm/amd/display/dc/core/dc_stream.c           | 2 ++
- drivers/gpu/drm/amd/display/dc/dc_types.h                 | 3 +++
- 3 files changed, 7 insertions(+)
+This is a semi-automatic email about new static checker warnings.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 6fdc2027c2b4..dba720d5df4c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -89,6 +89,8 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
- 
- 	edid_caps->edid_hdmi = connector->display_info.is_hdmi;
- 
-+	edid_caps->dsc_fixed_bits_per_pixel_x16 = connector->display_info.dp_dsc_bpp;
-+
- 	sad_count = drm_edid_to_sad((struct edid *) edid->raw_edid, &sads);
- 	if (sad_count <= 0)
- 		return result;
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-index 72b261ad9587..a82362417379 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-@@ -103,6 +103,8 @@ static bool dc_stream_construct(struct dc_stream_state *stream,
- 
- 	/* EDID CAP translation for HDMI 2.0 */
- 	stream->timing.flags.LTE_340MCSC_SCRAMBLE = dc_sink_data->edid_caps.lte_340mcsc_scramble;
-+	stream->timing.dsc_fixed_bits_per_pixel_x16 =
-+		dc_sink_data->edid_caps.dsc_fixed_bits_per_pixel_x16;
- 
- 	memset(&stream->timing.dsc_cfg, 0, sizeof(stream->timing.dsc_cfg));
- 	stream->timing.dsc_cfg.num_slices_h = 0;
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
-index 27d0242d6cbd..22fedf4c7547 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
-@@ -228,6 +228,9 @@ struct dc_edid_caps {
- 	bool edid_hdmi;
- 	bool hdr_supported;
- 
-+	/* DisplayPort caps */
-+	uint32_t dsc_fixed_bits_per_pixel_x16;
-+
- 	struct dc_panel_patch panel_patch;
- };
- 
--- 
-2.39.1
+The patch 7ef414375fcc: "drm/amd/display: Various logs added" from 
+Aug 29, 2022, leads to the following Smatch complaint:
 
+    ./drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c:1862 get_firmware_info_v3_2()
+    warn: variable dereferenced before check 'smu_info_v3_2' (see line 1861)
+
+./drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+  1860								DATA_TABLES(smu_info));
+  1861			DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_2->gpuclk_ss_percentage);
+                                                                                          ^^^^^^^^^^^^^^^
+Log adds a crash.
+
+  1862			if (!smu_info_v3_2)
+                             ^^^^^^^^^^^^^
+Too late.
+
+  1863				return BP_RESULT_BADBIOSTABLE;
+  1864	
+
+regards,
+dan carpenter
