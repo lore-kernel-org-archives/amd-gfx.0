@@ -4,92 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D12BC7EE2F
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 02:14:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3C2CC6FA8E
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 02:33:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8836A10E176;
-	Mon, 27 Feb 2023 02:14:09 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2053.outbound.protection.outlook.com [40.107.212.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 086AB10E176
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Feb 2023 02:14:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 537F310E138;
+	Mon, 27 Feb 2023 02:33:08 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2043.outbound.protection.outlook.com [40.107.220.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF85C10E138
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Feb 2023 02:33:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=J2C6K5wt/zt8yozEVy7iVCG52SGVk/joRuGrVXKT/4dph7tR32hx6aZAhpwj0MTGEHeh4N9TYR55TcaGkBtccD+KqBxH/063N6EGQg+HK3ExBYbTqc5Km58appNPmibjahxjFdb8a6pqjmsX4zRkOWI9xDMBFGBee7h3fs6hBMlXlMH5fiJhpCummuTCcI+DjEDFPyl1Zn0pIB7iWRvRQZgSYUxoaO6C/ZbgScehce+9d7scJdXPk4GzPjwA1FLhiwqc956HzJz3hvvSmSqhYAfZhLCZgR87tWEIwEepRgK30lO+u7fXoMaiWhtENfS63Sdml+CpWNLKomlCV2OQMw==
+ b=e5yLvfNFlInPjJ0bG4N2+O08FCzrikftjwefjThYpbUCIWvFVKHhtt5NjX3nbIpGB5WgybtiUU7/zlcMPl/PbjodGqrNgvZPOoTtVIWiIX6gHrVzo1m3oxzOLhQfeluBx7ASzqWQo/jchm4pLhyvQpZ3LsZ765acfRwgiIke2AvtJ11/t57rPlk69bwgoz+dwKj+/h+UOgkmmo2RMvmCBAzTNxS0HfKVH+lYXZTkpvHA4YPZzuiB2h+b2ATAg1uDceQ78C2p0zTx0rlLgHkKmkHBEZAwexZekgS75wmjbFweYIgPcbduyz+EqEOrZvIapfslejRxdLVbA1Ti4v9mcg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y+Xs6fNMmqkAqDB7HWjQBI/i/Fv/n3RwoyW5uoXyiLU=;
- b=gJUuE8KagTPk/YHt5VEIPGD/pI4wTMprHj+Oq2XulIPsqF9YsNw7NPDDJaC4p6z+WjvqpGuuII5mv1Sza20aeJkb2JtY9nP1hhFJXyBM6pweHwKZ9atYyy6ZfKoElQS4Ztf3a8Ablejj14aBevDBkkMqJc/UHTQvdgiqK+o8BBVqgp2I0OVnh7+s6lfjFpvx9FDXAnyF13rX07SCHAMRAQLG4Yi5cw5tOgVc6rEbQl6vEiQVJQikgsRFPB3gtO4swWiVvcuMaONq4V9rXR8//h00nw83jOyQ1mlgUzTDmPK5tlQ5v9+lqONUkX4tjcrGno+ZvoyZDA8Y3cg5jyE3MQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=NYz9sG0WkEdHQ9hUcWgzpPa9MYYXe9Ia7aCeQt2BM04=;
+ b=b0HCN6U0ACS9Vk2I1deZcl/n6vP8CtFyhAM5mA+Iy6rpj8f2xu9wNMv/XWPhdJgV1pPS24Enzqz2R8OKjW9zIOh02aoCEqWuNoPrOZ1JfEDLfMexq9CwEc61KjawLkr1VYWDW74lP/DgKcBLicuBOeZsr8+XF/5WoH+rheA+OIHoJVP+tKfyyYlGQCSRzEwAv7S8aRGQYWiywYDfcAfcsccyD+qtAx77k6p9kJvsipHJEH74Js0aKoZmx/xlHAeagxqE40kTPL1LhoDHt6pvMvmVsoZeNzwo7F6Pe8fuU74DxPxoMl8Bc4rkm447Wj/sMfNqWFUh09GCsp5rfgAiQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y+Xs6fNMmqkAqDB7HWjQBI/i/Fv/n3RwoyW5uoXyiLU=;
- b=U7naQFsdQiKLaT2FplAagwONEU4EXYgaWFhOmJ66kLwc/YmwJ+slSu/GSzBC62gpZgU/W6z+3V7biOVQKTqNDsHyxBEwUNeRAPmvkPoAF2zu2wSFVQqj1NFOanpmd2x6v42YtTMau0Rn6cEgD5JcXzsIMdwyEXyH36v8D8KVooM=
-Received: from CY8PR12CA0007.namprd12.prod.outlook.com (2603:10b6:930:4e::9)
- by SA0PR12MB4575.namprd12.prod.outlook.com (2603:10b6:806:73::19) with
+ bh=NYz9sG0WkEdHQ9hUcWgzpPa9MYYXe9Ia7aCeQt2BM04=;
+ b=EAJjEhAJYAs3Rbi6MuqivatTEqiGXaTAEiWbBxnaG8pCadL4E6WPfLidZj3EsnZKxxKHYPFp0kx1OsWvU2QSaOfNZDsMGsON9E2RcDFP1rGYASYmvz1mPKRp4jZT/9pxlN/J2plwN4oGphVSHtccugAZ3UxrGWtKVMy1rdGhwEM=
+Received: from DM5PR12MB2469.namprd12.prod.outlook.com (2603:10b6:4:af::38) by
+ BL3PR12MB6545.namprd12.prod.outlook.com (2603:10b6:208:38c::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.26; Mon, 27 Feb
- 2023 02:14:04 +0000
-Received: from CY4PEPF0000C96B.namprd02.prod.outlook.com
- (2603:10b6:930:4e:cafe::b3) by CY8PR12CA0007.outlook.office365.com
- (2603:10b6:930:4e::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.28 via Frontend
- Transport; Mon, 27 Feb 2023 02:14:04 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000C96B.mail.protection.outlook.com (10.167.241.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6156.12 via Frontend Transport; Mon, 27 Feb 2023 02:14:04 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Sun, 26 Feb
- 2023 20:14:04 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Sun, 26 Feb
- 2023 18:14:03 -0800
-Received: from hongkzha-test-pc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via
- Frontend Transport; Sun, 26 Feb 2023 20:13:57 -0600
-From: Horatio Zhang <Hongkun.Zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: fix ttm_bo calltrace warning in psp_hw_fini
-Date: Mon, 27 Feb 2023 10:13:56 +0800
-Message-ID: <20230227021356.881572-1-Hongkun.Zhang@amd.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000C96B:EE_|SA0PR12MB4575:EE_
-X-MS-Office365-Filtering-Correlation-Id: 311a419d-f09d-472e-a57c-08db18684cce
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TGWDwisOZp57awUn7i/VWgNCpVybuDtrEeAVQTLY5lcLm9+SeP72dPypd9c5q1orKJrpIX4cY13pSXIfbud+3YzFk1PVmJZ9WPArb4GJa7nqzHy/8NisRMc0jVVPbcmceeXd/Y+rM0zHDXC+Wwtm9jhGLndV5f523APtyZXcQXqoYX8zpLf2Y59i7mgZcGY9viXaatd9j/jKv/5Eyn+OIEWZJKIKx5Jg6s7pqyIlir0LI4sWhfMYE8IgizERTG0ZO2x/9mOgZJXRpmhG/bK/3ptVFaqfA4lvstub0HvNo1IZ9FohdTlLtSn74iYtfpPez9GahHXyHcBXLzdK6VOKcWHHH4OgtQOOVXH/uFfRucu9kzV2Qy03MkQG8v97RmSUmTLYa32cWMluWpvtWl8xzVaHphA3uAvHXAzqsBmP9jwuJfAsM25J+N7llOKDYqCfjPxyxpTftldTZzxf5HmyHS2nxpTi8UxLkSjLZJaXB5PLnJ/a/D2QTLuNLzxaUHAaa2hK+j0UbZHmmEkKneJvzoOBcFj0CNdV9QQG2EaORIPg3vbEr1HhU9bRD9RlA5F0WgE4lWuHX1EC8YZN+dur/KwMCwpEZLrvvkW/5eW+4oVZaQqzdGw2DyPRd7DCnq8syxMGJyrkDLr3iBFF5lt+tpB9fdftWMuwHbCqrPAxMCnOZIwwNf2CjAqvd79XcowoLioHytA0SjfTYHQSDFDuHTjoEg8h7fpbvLRvYIhA1M0=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(346002)(396003)(376002)(136003)(39860400002)(451199018)(40470700004)(36840700001)(46966006)(82740400003)(2906002)(316002)(478600001)(83380400001)(36756003)(5660300002)(40460700003)(86362001)(8936002)(40480700001)(8676002)(4326008)(356005)(6916009)(70206006)(70586007)(81166007)(54906003)(41300700001)(36860700001)(336012)(82310400005)(2616005)(47076005)(426003)(186003)(26005)(1076003)(7696005)(36900700001);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.25; Mon, 27 Feb
+ 2023 02:33:05 +0000
+Received: from DM5PR12MB2469.namprd12.prod.outlook.com
+ ([fe80::5ca6:3a18:d6ee:c103]) by DM5PR12MB2469.namprd12.prod.outlook.com
+ ([fe80::5ca6:3a18:d6ee:c103%7]) with mapi id 15.20.6111.019; Mon, 27 Feb 2023
+ 02:33:04 +0000
+From: "Chen, Guchun" <Guchun.Chen@amd.com>
+To: "Zhang, Horatio" <Hongkun.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: fix ttm_bo calltrace warning in psp_hw_fini
+Thread-Topic: [PATCH] drm/amdgpu: fix ttm_bo calltrace warning in psp_hw_fini
+Thread-Index: AQHZSlErA0wY+krKFUKjXZz7a/p+na7iEvFA
+Date: Mon, 27 Feb 2023 02:33:04 +0000
+Message-ID: <DM5PR12MB2469DC9ADEC6F91F473449D5F1AF9@DM5PR12MB2469.namprd12.prod.outlook.com>
+References: <20230227021356.881572-1-Hongkun.Zhang@amd.com>
+In-Reply-To: <20230227021356.881572-1-Hongkun.Zhang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM5PR12MB2469:EE_|BL3PR12MB6545:EE_
+x-ms-office365-filtering-correlation-id: f387391d-4a68-4bf2-b947-08db186af439
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 4kizWgPNqPXQESt4jXNqd5io1BEAFx/4/Bli+RXa4SJhzw/ctE6/nqYrNZtfUROu+YkKboSfIY38R8VbSXBM710TWR2GdzS3ccqIoUREQScfHazwYdEJ/Y699SmdWFD9AJxjXhPeN41IZ+YAaMuHmpqkZeGMi32Rs0pg+I26BPOAhBpbRmD3dWHNE0I8yOFnaF/nbKGWqzTwA2rWobtjMIWNVZhy6SgukfvfxXkMGWrlp2pk0bg11wQ+kV4h0GsmVmqT6dlmb10UVX2ByzETEYha8j1uwXNgeIIMx9qlR6L3k5nwUT6+UHz4zqOJWRtd1ykbt+Z/3LMfUB1hA2eBpSTn6LPMgul4sCJMBwm+NpngQbqZGHcrPH3eAVl6hwa8V7p8nzy9Zqp0tb7Tx3FmLML5Yx2Zm8AYw/tada/KjIrWTGafA+m0H0jLRXDOdj4R1TKeH8nd3ZHYI26iBPD/IH96Z9Z2UOAUT+zS5LlA6zU92tAFz0Jzh42JBqTTSuLTlGtZ+u7q+tOPQb0DdpDZgAjpb+j1AyfiantRHfHTd5QsRwcW6M0A47P8m+yfh0AHdnorP17rB+Em4smIksO8SGlLqmQkDea+2kAjuJWzax2nfHBIj+yxVl/5nfcUJPG17ftOWi1eNwQwKT6qiuu1Cx0VpnAM70gK1Ad6ZsxcA7eGppXEDB4se0zn9Xxfkyw5KOphoyM/uEEsmTW8Nra64g==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB2469.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(396003)(136003)(366004)(346002)(39860400002)(376002)(451199018)(71200400001)(110136005)(478600001)(7696005)(66476007)(66446008)(64756008)(66946007)(4326008)(8676002)(76116006)(66556008)(41300700001)(52536014)(8936002)(55016003)(33656002)(86362001)(38070700005)(26005)(6506007)(186003)(53546011)(9686003)(38100700002)(122000001)(2906002)(316002)(54906003)(5660300002)(83380400001);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?foDctE7NgbUdLMKDfC0SItDnSEkrQ6yKHJELED9WW/zZzjJ41W2AhfWz2Zfa?=
+ =?us-ascii?Q?52hEKGwO7se9/eRRuFQakpvQ00kPKoUlwXswoHFgaITbb4hAwhzufNyLfE3D?=
+ =?us-ascii?Q?Viq7eDs/ADEuioA09GkfusWRhFHkn3u2s5gBzrEawi/CuUQuwGivyYGj/9yh?=
+ =?us-ascii?Q?+HoO++BANEiYy10nhAHDngkp3/l+9ZKFEDnyKpjeawb8Vu3XZa03o6s5O7sx?=
+ =?us-ascii?Q?FKPNBQFn/jPx6adB0neg9vA/DXYiV00puaeLJRNr8OHL45uT3nT8bPZfNGj4?=
+ =?us-ascii?Q?NeltE2tzvSpW57/dDNxV0QJeGeWOJT7zo4Qw86iHOUuAFt69u2zpjF31A3Hi?=
+ =?us-ascii?Q?2d54a1kfDhm+aW+btRo4/roebtuex5mHDQtIS+UkAEwEVY8QqK4KnwnKwy9s?=
+ =?us-ascii?Q?0sdO5P76c4/Apz7XbVEcvl8+bXY/HGfIPSHrPsW5U+5IaYduYfKtJBdUbw5X?=
+ =?us-ascii?Q?UmNHn90sLwMv2Xv3Q7M6Y8fsLiYP9y07LQu/JqLpZJ7VxdVjQ7qv8qsfnAVj?=
+ =?us-ascii?Q?7oep2A+PHAUCZ/j9HI/KOEfwenwA0l8SDk7UTTtav2B45GM1Qh0rnbikWcYG?=
+ =?us-ascii?Q?Whhk2m68aWTUTTfRU3Nfqk5+tox3ylbbAFiNJkRCHqPzFilujLe7rZ7ttRIx?=
+ =?us-ascii?Q?lJplXp6/rQiS2DO8zrEaPI8o28CMKP21kjCJMuwSz9Kc21pZ3oCYaQXozEI2?=
+ =?us-ascii?Q?fHhXB4OZuj/fdny0XZanMk6POUtrnogD+edkRCsO+PC+BooIPXMeJwmgkkw1?=
+ =?us-ascii?Q?iKlyi3pa8Sszq8jH0g90XhbNXCLN1VdltWd6J/I+oJg6IRlWtO5xc4x5gQ0E?=
+ =?us-ascii?Q?unNinRB5csTxzDo+qkk82GT3Me/WBx13jr/PJ6Xg8MEKPctMw1zT9tFVPVhV?=
+ =?us-ascii?Q?sxFLzznKsqVwLlu7PieLWFgaGj2RcBZCrr4CBzT5VajIewzczbgxwsGG4QKt?=
+ =?us-ascii?Q?lsf0DMdrPNoj1uDYr+W50JtxoZqCqkgo9IFO5X1s8nL4A8B/XrhQpvP3g8M7?=
+ =?us-ascii?Q?3tTXW/GUvmWT3lGE5k3ifzrtSXarDhFFYUTJVNx2lsDMdn6HehwXOWQHOeYB?=
+ =?us-ascii?Q?KhX2wAjzrFDxXBUg6QVAdmjx2QKSLfpudbFxksunKdWScMCyjHSIeFeb0E3R?=
+ =?us-ascii?Q?Yi82OJsdEHAsd4a6H9Vs+JjAo+7EVAzRBaDmRo8jwKrzOnKPi9QdZmMaeFNM?=
+ =?us-ascii?Q?+rVprwDIGeR46R6f/IeJSre/16eAqrPEz+XRlbqf2KWcVipr/i2pBgQ0yL1U?=
+ =?us-ascii?Q?XvhDateaD+non8SUq1An9zt1w00h4melFHvmZzHFrnXRdG9izrPKkiaVs12Q?=
+ =?us-ascii?Q?RbTyKqUARiPPUPL8cNPK7qYlHjMcjmM4lj8zBT9my9lIUXBlvWART8rb1Kh5?=
+ =?us-ascii?Q?VkZFlAV9aRBIJPmEtLLO3VHYr0aCwQYJ2ShSxm1XzTuYUU2UPFU/5APNRXTv?=
+ =?us-ascii?Q?q9jowwRJDi1SLOUZhOz6Ddogd3wndljt/rC0GdBpuIjgfXw0ngcAWalrV5O3?=
+ =?us-ascii?Q?U4ZBU79lbHUOAcIMY4LeUYoD1uFBWrWrk2rFCX7SSI4jk9spz54C6/s172ah?=
+ =?us-ascii?Q?MPiSNipaT4GxGF21ZzuS+WTY5jVtG0hdIXQD3UD8?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2023 02:14:04.6240 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 311a419d-f09d-472e-a57c-08db18684cce
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C96B.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4575
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2469.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f387391d-4a68-4bf2-b947-08db186af439
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Feb 2023 02:33:04.5924 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: tud387MaPh3bR9h1y42QwD0F95dJ9a450W123eNWLQyJN4eQgYL5pNvkIX5SsUrT4kuKbukJUvCBslvw+hyepQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6545
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,34 +115,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: longlyao <Longlong.Yao@amd.com>, feifei.xu@amd.com,
- Horatio Zhang <Hongkun.Zhang@amd.com>, Guchun.Chen@amd.com
+Cc: "Yao, Longlong" <Longlong.Yao@amd.com>, "Xu, Feifei" <Feifei.Xu@amd.com>,
+ "Zhang, Horatio" <Hongkun.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The call trace occurs when the amdgpu is removed after
-the mode1 reset. During mode1 reset, from suspend to resume,
-there is no need to reinitialize the ta firmware buffer
-which caused the bo pin_count increase redundantly.
+Reviewed-by: Guchun Chen <guchun.chen@amd.com>
+
+Regards,
+Guchun
+
+-----Original Message-----
+From: Horatio Zhang <Hongkun.Zhang@amd.com>=20
+Sent: Monday, February 27, 2023 10:14 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Chen, Guchun <Guchun.Chen@amd.com>; Xu, Feifei <Feifei.Xu@amd.com>; Yao=
+, Longlong <Longlong.Yao@amd.com>; Zhang, Horatio <Hongkun.Zhang@amd.com>; =
+Yao, Longlong <Longlong.Yao@amd.com>
+Subject: [PATCH] drm/amdgpu: fix ttm_bo calltrace warning in psp_hw_fini
+
+The call trace occurs when the amdgpu is removed after the mode1 reset. Dur=
+ing mode1 reset, from suspend to resume, there is no need to reinitialize t=
+he ta firmware buffer which caused the bo pin_count increase redundantly.
 
 [  489.885525] Call Trace:
 [  489.885525]  <TASK>
-[  489.885526]  amdttm_bo_put+0x34/0x50 [amdttm]
-[  489.885529]  amdgpu_bo_free_kernel+0xe8/0x130 [amdgpu]
-[  489.885620]  psp_free_shared_bufs+0xb7/0x150 [amdgpu]
-[  489.885720]  psp_hw_fini+0xce/0x170 [amdgpu]
-[  489.885815]  amdgpu_device_fini_hw+0x2ff/0x413 [amdgpu]
-[  489.885960]  ? blocking_notifier_chain_unregister+0x56/0xb0
-[  489.885962]  amdgpu_driver_unload_kms+0x51/0x60 [amdgpu]
-[  489.886049]  amdgpu_pci_remove+0x5a/0x140 [amdgpu]
-[  489.886132]  ? __pm_runtime_resume+0x60/0x90
-[  489.886134]  pci_device_remove+0x3e/0xb0
-[  489.886135]  __device_release_driver+0x1ab/0x2a0
-[  489.886137]  driver_detach+0xf3/0x140
-[  489.886138]  bus_remove_driver+0x6c/0xf0
-[  489.886140]  driver_unregister+0x31/0x60
-[  489.886141]  pci_unregister_driver+0x40/0x90
-[  489.886142]  amdgpu_exit+0x15/0x451 [amdgpu]
+[  489.885526]  amdttm_bo_put+0x34/0x50 [amdttm] [  489.885529]  amdgpu_bo_=
+free_kernel+0xe8/0x130 [amdgpu] [  489.885620]  psp_free_shared_bufs+0xb7/0=
+x150 [amdgpu] [  489.885720]  psp_hw_fini+0xce/0x170 [amdgpu] [  489.885815=
+]  amdgpu_device_fini_hw+0x2ff/0x413 [amdgpu] [  489.885960]  ? blocking_no=
+tifier_chain_unregister+0x56/0xb0
+[  489.885962]  amdgpu_driver_unload_kms+0x51/0x60 [amdgpu] [  489.886049] =
+ amdgpu_pci_remove+0x5a/0x140 [amdgpu] [  489.886132]  ? __pm_runtime_resum=
+e+0x60/0x90 [  489.886134]  pci_device_remove+0x3e/0xb0 [  489.886135]  __d=
+evice_release_driver+0x1ab/0x2a0
+[  489.886137]  driver_detach+0xf3/0x140 [  489.886138]  bus_remove_driver+=
+0x6c/0xf0 [  489.886140]  driver_unregister+0x31/0x60 [  489.886141]  pci_u=
+nregister_driver+0x40/0x90 [  489.886142]  amdgpu_exit+0x15/0x451 [amdgpu]
 
 Signed-off-by: Horatio Zhang <Hongkun.Zhang@amd.com>
 Signed-off-by: longlyao <Longlong.Yao@amd.com>
@@ -136,37 +159,47 @@ Signed-off-by: longlyao <Longlong.Yao@amd.com>
  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_psp.c
 index 15e601f09648..28fe6d941054 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -1683,7 +1683,7 @@ static int psp_hdcp_initialize(struct psp_context *psp)
- 	psp->hdcp_context.context.mem_context.shared_mem_size = PSP_HDCP_SHARED_MEM_SIZE;
- 	psp->hdcp_context.context.ta_load_type = GFX_CMD_ID_LOAD_TA;
- 
+@@ -1683,7 +1683,7 @@ static int psp_hdcp_initialize(struct psp_context *ps=
+p)
+ 	psp->hdcp_context.context.mem_context.shared_mem_size =3D PSP_HDCP_SHARED=
+_MEM_SIZE;
+ 	psp->hdcp_context.context.ta_load_type =3D GFX_CMD_ID_LOAD_TA;
+=20
 -	if (!psp->hdcp_context.context.initialized) {
 +	if (!psp->hdcp_context.context.mem_context.shared_buf) {
- 		ret = psp_ta_init_shared_buf(psp, &psp->hdcp_context.context.mem_context);
+ 		ret =3D psp_ta_init_shared_buf(psp, &psp->hdcp_context.context.mem_conte=
+xt);
  		if (ret)
  			return ret;
-@@ -1750,7 +1750,7 @@ static int psp_dtm_initialize(struct psp_context *psp)
- 	psp->dtm_context.context.mem_context.shared_mem_size = PSP_DTM_SHARED_MEM_SIZE;
- 	psp->dtm_context.context.ta_load_type = GFX_CMD_ID_LOAD_TA;
- 
+@@ -1750,7 +1750,7 @@ static int psp_dtm_initialize(struct psp_context *psp=
+)
+ 	psp->dtm_context.context.mem_context.shared_mem_size =3D PSP_DTM_SHARED_M=
+EM_SIZE;
+ 	psp->dtm_context.context.ta_load_type =3D GFX_CMD_ID_LOAD_TA;
+=20
 -	if (!psp->dtm_context.context.initialized) {
 +	if (!psp->dtm_context.context.mem_context.shared_buf) {
- 		ret = psp_ta_init_shared_buf(psp, &psp->dtm_context.context.mem_context);
+ 		ret =3D psp_ta_init_shared_buf(psp, &psp->dtm_context.context.mem_contex=
+t);
  		if (ret)
  			return ret;
-@@ -1818,7 +1818,7 @@ static int psp_rap_initialize(struct psp_context *psp)
- 	psp->rap_context.context.mem_context.shared_mem_size = PSP_RAP_SHARED_MEM_SIZE;
- 	psp->rap_context.context.ta_load_type = GFX_CMD_ID_LOAD_TA;
- 
+@@ -1818,7 +1818,7 @@ static int psp_rap_initialize(struct psp_context *psp=
+)
+ 	psp->rap_context.context.mem_context.shared_mem_size =3D PSP_RAP_SHARED_M=
+EM_SIZE;
+ 	psp->rap_context.context.ta_load_type =3D GFX_CMD_ID_LOAD_TA;
+=20
 -	if (!psp->rap_context.context.initialized) {
 +	if (!psp->rap_context.context.mem_context.shared_buf) {
- 		ret = psp_ta_init_shared_buf(psp, &psp->rap_context.context.mem_context);
+ 		ret =3D psp_ta_init_shared_buf(psp, &psp->rap_context.context.mem_contex=
+t);
  		if (ret)
  			return ret;
--- 
+--
 2.34.1
 
