@@ -4,38 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47D7EC7EE31
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 02:01:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBAE7C64ED6
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 02:01:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64CDD10E19B;
-	Mon, 27 Feb 2023 02:01:45 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCE2610E185;
- Mon, 27 Feb 2023 02:01:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D46B10E18D;
+	Mon, 27 Feb 2023 02:01:57 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E42710E18D;
+ Mon, 27 Feb 2023 02:01:55 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 88A68B80CA9;
- Mon, 27 Feb 2023 02:01:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4010C433EF;
- Mon, 27 Feb 2023 02:01:36 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8D21660CFB;
+ Mon, 27 Feb 2023 02:01:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 938F8C433D2;
+ Mon, 27 Feb 2023 02:01:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1677463298;
- bh=cxKiHHz+PL9jilHqQUdXCDX19Vv6GDNjP8Lw7k0QEBI=;
+ s=k20201202; t=1677463313;
+ bh=/9xRDoTl8EOuVDUs9YI3qUBRsXQqIDDYeDIWbUCBRrc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=S16LLh1oqHU+7UrPxAkcI2LPkdzVki4fmGgP2X1dbjbWxdzfvuD3QrpR2h8BVomdR
- bmtj7ZtP+I2azueRgnNF1oWL0cFsuAtddNPFZt2yKeWdQQDbdUiTqiI5Tc6kvc8k43
- omgXiDXx5e0KGyEfDXBhSng1AuNh+rtkGCqL3ATNEcQe8Dm33EmKjVgPG9iFp7zWPS
- Nqa6pfIkKUVEsYbV+atVAF4ro2UKB05YOt6Kl/oaolgm7E5Mlz27EXzI4hLOaenxD/
- 1yPf//lYUeSyaTUFlttFAN8JsDK9OfNYvrPVKycATVjbxwvwWwVZLlBif5V/kCTJWO
- 1vPuRz7bIxCrw==
+ b=hggldq/z90lVR/kTDAHmwkOfh4iB8FUmYjnqPD5FqUCgZndyMu501svFaFuLPnZVY
+ HbqCl1UNQU2kuCE0LvLvBrCTZZPs7xlVJyJB6kAelnCPPrP/XwLxHDuvdIb8gH1w3V
+ MpSg0AY/NGbTL2Dr5n4esVwSc9CnVvFuB4G11HLQo3nvxIf/AuXxCFXrVitqq4W7wA
+ rvS4nobwg4EKmu6BebFmzWqIWy+fG/lGokyDS2M0MI39D/EoVljVMQ2sUUKXmOdb4U
+ URMIwLiw2MqqhIZ8+PLIGUgWo2ZRLX4TsKy8+RkyNXVHaxy/kzfDshAmR2iXy6eNT8
+ Hysd4jjswWlZw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.2 11/60] drm/amd: Avoid BUG() for case of SRIOV
- missing IP version
-Date: Sun, 26 Feb 2023 20:59:56 -0500
-Message-Id: <20230227020045.1045105-11-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.2 15/60] drm/amd: Avoid ASSERT for some message
+ failures
+Date: Sun, 26 Feb 2023 21:00:00 -0500
+Message-Id: <20230227020045.1045105-15-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230227020045.1045105-1-sashal@kernel.org>
 References: <20230227020045.1045105-1-sashal@kernel.org>
@@ -54,43 +55,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Xinhui.Pan@amd.com, guchun.chen@amd.com,
- dri-devel@lists.freedesktop.org, Lijo Lazar <lijo.lazar@amd.com>,
- amd-gfx@lists.freedesktop.org, Mario Limonciello <mario.limonciello@amd.com>,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, Likun.Gao@amd.com,
- candice.li@amd.com, airlied@gmail.com, christian.koenig@amd.com,
- Hawking.Zhang@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, sunpeng.li@amd.com, airlied@gmail.com,
+ dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, amd-gfx@lists.freedesktop.org, nicholas.kazlauskas@amd.com,
+ SyedSaaem.Rizvi@amd.com, Mario Limonciello <mario.limonciello@amd.com>,
+ daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Mario Limonciello <mario.limonciello@amd.com>
 
-[ Upstream commit 93fec4f8c158584065134b4d45e875499bf517c8 ]
+[ Upstream commit 3e5019ee67760cd61b2a5fd605e1289c2f92d983 ]
 
-No need to crash the kernel.  AMDGPU will now fail to probe.
+On DCN314 when resuming from s0i3 an ASSERT is shown indicating that
+`VBIOSSMC_MSG_SetHardMinDcfclkByFreq` returned `VBIOSSMC_Result_Failed`.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+This isn't a driver bug; it's a BIOS/configuration bug. To make this
+easier to triage, add an explicit warning when this issue happens.
+
+This matches the behavior utilized for failures with
+`VBIOSSMC_MSG_TransferTableDram2Smu` configuration.
+
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 7a2fc920739bb..ba092072308fa 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -380,7 +380,7 @@ static int psp_init_sriov_microcode(struct psp_context *psp)
- 		adev->virt.autoload_ucode_id = AMDGPU_UCODE_ID_CP_MES1_DATA;
- 		break;
- 	default:
--		BUG();
-+		ret = -EINVAL;
- 		break;
- 	}
- 	return ret;
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c
+index f47cfe6b42bd2..0765334f08259 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c
+@@ -146,6 +146,9 @@ static int dcn314_smu_send_msg_with_param(struct clk_mgr_internal *clk_mgr,
+ 		if (msg_id == VBIOSSMC_MSG_TransferTableDram2Smu &&
+ 		    param == TABLE_WATERMARKS)
+ 			DC_LOG_WARNING("Watermarks table not configured properly by SMU");
++		else if (msg_id == VBIOSSMC_MSG_SetHardMinDcfclkByFreq ||
++			 msg_id == VBIOSSMC_MSG_SetMinDeepSleepDcfclk)
++			DC_LOG_WARNING("DCFCLK_DPM is not enabled by BIOS");
+ 		else
+ 			ASSERT(0);
+ 		REG_WRITE(MP1_SMN_C2PMSG_91, VBIOSSMC_Result_OK);
 -- 
 2.39.0
 
