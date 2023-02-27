@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4C99C7EE30
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 02:05:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CE97C6FA8E
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 02:05:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BBFE10E2D3;
-	Mon, 27 Feb 2023 02:05:47 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF3EB10E2B7;
- Mon, 27 Feb 2023 02:05:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66A9610E2DD;
+	Mon, 27 Feb 2023 02:05:51 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84FE410E2DD;
+ Mon, 27 Feb 2023 02:05:48 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id A0F5CB80CA7;
- Mon, 27 Feb 2023 02:05:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7906CC433EF;
- Mon, 27 Feb 2023 02:05:40 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 103A360CFB;
+ Mon, 27 Feb 2023 02:05:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63A98C43443;
+ Mon, 27 Feb 2023 02:05:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1677463542;
- bh=3oJe9ZFHRxrJlsZBgZlKAG3xSb8P8ndY3G4IeDVQAkc=;
+ s=k20201202; t=1677463547;
+ bh=0VCysylFJaJFT41C5zz6K7CDeXge3t0X62kW0QHBkQQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=bK4HzRTyOwXPX2SpU/SDZe6BW0CHepLJvmdpNtqYft0jCDL/9Fcbr8ksTj2mjJwvX
- mSxgk2ZjhDP6HFOfc280HzGqR4hiCO5+POn+F3ro0vVfgkGrRh1jHBIBr55gSu7rvU
- LliVNKBfVGHsVwQgTDbxIe7bKyrx/tegTrNmaf8UmucDFod18XOFjg5R+M8kRFjnQH
- svDFRAqHS+on5z+/qDFNhrcoSWqmXNBVauhf2pAFALNni9O6sXjgtGuOUpGIqFBxFe
- HkscNpstj9XRcKkLgd5tHkJojGn1mzJuRg6vFcai7n4pzHdJew58WRjZbuX09YXT80
- 01DaSV3DJtP6w==
+ b=qQC99UjChpPhgcYkmFoKxPaBXxvf7NduKsqVT75r8F8tkk9QUXRifvciKvxbZJG33
+ WijWDKg76PZ8I6t3UGOpugqOvDmn96jh7G7apWoY/Shw5Ls8fVoo1O3B0tlV9GSoly
+ Ek2jaES/QfAuDzocpzgqDU1xliRcoTC5idKlBL355Hcx5trL1wR2T47Z7BPHiPKy9u
+ NjqTJ6BJKvn558Kh1xjG0wtaof+o46aRkpYpTggIqZNmqxw4g0iFK7VES5TyK4Yg+2
+ rkHs2kDxmD3mZ6g/0pispm8t7PW/eGcycfRQ1G1gRaAUJCj5cxW09q9+/ju7z18Wsj
+ Yk5EouJjDiHTQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 09/58] drm/amd/display: Defer DIG FIFO disable
- after VID stream enable
-Date: Sun, 26 Feb 2023 21:04:07 -0500
-Message-Id: <20230227020457.1048737-9-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 11/58] drm/amd: Avoid BUG() for case of SRIOV
+ missing IP version
+Date: Sun, 26 Feb 2023 21:04:09 -0500
+Message-Id: <20230227020457.1048737-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230227020457.1048737-1-sashal@kernel.org>
 References: <20230227020457.1048737-1-sashal@kernel.org>
@@ -55,60 +55,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Charlene.Liu@amd.com, sunpeng.li@amd.com,
- airlied@gmail.com, sancchen@amd.com, Xinhui.Pan@amd.com,
- Rodrigo.Siqueira@amd.com, Syed Hassan <Syed.Hassan@amd.com>,
- amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, wenjing.liu@amd.com,
- Daniel Wheeler <daniel.wheeler@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
- harry.wentland@amd.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, Xinhui.Pan@amd.com, guchun.chen@amd.com,
+ dri-devel@lists.freedesktop.org, Lijo Lazar <lijo.lazar@amd.com>,
+ amd-gfx@lists.freedesktop.org, Mario Limonciello <mario.limonciello@amd.com>,
+ daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, Likun.Gao@amd.com,
+ candice.li@amd.com, airlied@gmail.com, christian.koenig@amd.com,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
 
-[ Upstream commit 2d90a1c054831338d57b39aec4d273cf3e867590 ]
+[ Upstream commit 93fec4f8c158584065134b4d45e875499bf517c8 ]
 
-[Why]
-On some monitors we see a brief flash of corruption during the
-monitor disable sequence caused by FIFO being disabled in the middle
-of an active DP stream.
+No need to crash the kernel.  AMDGPU will now fail to probe.
 
-[How]
-Wait until DP vid stream is disabled before turning off the FIFO.
-
-The FIFO reset on DP unblank should take care of clearing any FIFO
-error, if any.
-
-Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Reviewed-by: Syed Hassan <Syed.Hassan@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../drm/amd/display/dc/dcn314/dcn314_dio_stream_encoder.c   | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_dio_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_dio_stream_encoder.c
-index 38842f938bed0..0926db0183383 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_dio_stream_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_dio_stream_encoder.c
-@@ -278,10 +278,10 @@ static void enc314_stream_encoder_dp_blank(
- 	struct dc_link *link,
- 	struct stream_encoder *enc)
- {
--	/* New to DCN314 - disable the FIFO before VID stream disable. */
--	enc314_disable_fifo(enc);
--
- 	enc1_stream_encoder_dp_blank(link, enc);
-+
-+	/* Disable FIFO after the DP vid stream is disabled to avoid corruption. */
-+	enc314_disable_fifo(enc);
- }
- 
- static void enc314_stream_encoder_dp_unblank(
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 712dd72f3ccf2..087147f09933a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -354,7 +354,7 @@ static int psp_init_sriov_microcode(struct psp_context *psp)
+ 		adev->virt.autoload_ucode_id = AMDGPU_UCODE_ID_CP_MES1_DATA;
+ 		break;
+ 	default:
+-		BUG();
++		ret = -EINVAL;
+ 		break;
+ 	}
+ 	return ret;
 -- 
 2.39.0
 
