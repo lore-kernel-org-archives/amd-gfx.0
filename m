@@ -4,54 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 270CDC64ED8
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 13:44:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77F10C64ED6
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 13:58:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C5E410E23A;
-	Mon, 27 Feb 2023 13:44:51 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E518110E1D0;
- Mon, 27 Feb 2023 13:44:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBDF310E20D;
+	Mon, 27 Feb 2023 13:58:04 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E940C10E20D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Feb 2023 13:58:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677505487; x=1709041487;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=7msrzgjWYVf6Tlhokxp8pkIAtikCgkjHo/2h8nTwrmY=;
- b=hidPYAQseUJuoK23oI25XEY7z51A7lUOeS8HY0fsMtsuKQPvccIdth7X
- 6z1BnjjyTIC22FpQGhcK0024E/z+yoocC3rpDYCHAMKz7JykQQvhPGDxC
- ZD4T03juB8AyVFiRJsNOv7Ad6k3zFhD4C4nTmB+Y+cvl9yAjReM3lerL7
- 0QYDMYMpCWlQ3aD14LP5Jj8ttnxKM2h7SHM+FO1BLku9obsG6rfHTuC5A
- zDZos+S9Wj64fCLiCzCLeO7E1cv2vqTiA+JZicw4ccY+fTbIu0lrBmx2Q
- 7qoMn26PVCbOHytZ1q1ndYnJHNl456fpCtfGI8qnOeH3jHg1L4P7gh3xJ Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="396410920"
-X-IronPort-AV: E=Sophos;i="5.97,332,1669104000"; d="scan'208";a="396410920"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2023 05:44:47 -0800
+ t=1677506282; x=1709042282;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=LyjZENe9a58xVacAUqqOV7tjA6jkVjLtJKW3Hpgpaoo=;
+ b=ixoxlW4B/uwlp4BH/WC3KSP7q9VzkXra5TMwdGgvGxvNVY5bt8Z31BtG
+ iKeWiSdFEIfQWlJvPLsnNjAWclA079WX6XpN5kfXG9XeNr9wlJjCL2Vxv
+ 0ohgCtUbURulRfR2Omwm9f4tyCI4LT0BxG19fD2kIpVIJkhPeay8+iNEr
+ u/LuM5dUDKya9AL7vI3KA9KhbuDCiPa/LnPYU9azZtvaw8gld0KMKCVsR
+ wwUGj9kCx5hY+sWm84A2hppq4hv8sjU+lLMTLqlXGbl66bPWRoLl/ixlC
+ HR70kFwufLatN2C1jQM+Q69dmuB/9/rUD5oCMEDE+4rLOuJyYHD+8ADm/ A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="361419432"
+X-IronPort-AV: E=Sophos;i="5.98,332,1673942400"; d="scan'208";a="361419432"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Feb 2023 05:57:46 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="783383473"
-X-IronPort-AV: E=Sophos;i="5.98,332,1673942400"; d="scan'208";a="783383473"
+X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="797641398"
+X-IronPort-AV: E=Sophos;i="5.98,332,1673942400"; d="scan'208";a="797641398"
 Received: from lkp-server01.sh.intel.com (HELO 3895f5c55ead) ([10.239.97.150])
- by fmsmga002.fm.intel.com with ESMTP; 27 Feb 2023 05:44:43 -0800
+ by orsmga004.jf.intel.com with ESMTP; 27 Feb 2023 05:57:44 -0800
 Received: from kbuild by 3895f5c55ead with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pWdo2-0004SM-1t;
- Mon, 27 Feb 2023 13:44:42 +0000
-Date: Mon, 27 Feb 2023 21:44:21 +0800
+ (envelope-from <lkp@intel.com>) id 1pWe0d-0004TT-11;
+ Mon, 27 Feb 2023 13:57:43 +0000
+Date: Mon, 27 Feb 2023 21:57:08 +0800
 From: kernel test robot <lkp@intel.com>
-To: Yuanzhi Wang <wangyuanzhi@uniontech.com>, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, mario.limonciello@amd.com, Bokun.Zhang@amd.com,
- tzimmermann@suse.de, hdegoede@redhat.com, jingyuwang_vip@163.com,
- rafael.j.wysocki@intel.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] amdgpu: add a filter condition when set brightness
-Message-ID: <202302272122.p3DfX4S8-lkp@intel.com>
-References: <20230227073953.326-1-wangyuanzhi@uniontech.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 7f7a8831520f12a3cf894b0627641fad33971221
+Message-ID: <63fcb6b4.yGpADaCT3Jus/Y+Z%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230227073953.326-1-wangyuanzhi@uniontech.com>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,92 +58,260 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Yuanzhi Wang <wangyuanzhi@uniontech.com>, oe-kbuild-all@lists.linux.dev
+Cc: linux-arch@vger.kernel.org,
+ Linux Memory Management List <linux-mm@kvack.org>, linux-usb@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Yuanzhi,
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 7f7a8831520f12a3cf894b0627641fad33971221  Add linux-next specific files for 20230227
 
-Thank you for the patch! Yet something to improve:
+Error/Warning reports:
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on linus/master v6.2 next-20230227]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+https://lore.kernel.org/oe-kbuild-all/202302111601.jtY4lKrA-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202302170355.Ljqlzucu-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202302210350.lynWcL4t-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202302242257.4W4myB9z-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202302262324.Xemtp2Zk-lkp@intel.com
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Yuanzhi-Wang/amdgpu-add-a-filter-condition-when-set-brightness/20230227-154108
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20230227073953.326-1-wangyuanzhi%40uniontech.com
-patch subject: [PATCH] amdgpu: add a filter condition when set brightness
-config: loongarch-randconfig-r036-20230226 (https://download.01.org/0day-ci/archive/20230227/202302272122.p3DfX4S8-lkp@intel.com/config)
-compiler: loongarch64-linux-gcc (GCC) 12.1.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/95d9579e31d0b601aa1422cf767ca5138d3efcee
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Yuanzhi-Wang/amdgpu-add-a-filter-condition-when-set-brightness/20230227-154108
-        git checkout 95d9579e31d0b601aa1422cf767ca5138d3efcee
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=loongarch olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=loongarch SHELL=/bin/bash drivers/gpu/
+Error/Warning: (recently discovered and may have been fixed)
 
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Link: https://lore.kernel.org/oe-kbuild-all/202302272122.p3DfX4S8-lkp@intel.com/
+FAILED: load BTF from vmlinux: No data available
+drivers/block/zram/zram_drv.c:1234:23: error: incompatible pointer types passing 'atomic_long_t *' (aka 'atomic_t *') to parameter of type 'const atomic64_t *' [-Werror,-Wincompatible-pointer-types]
+drivers/block/zram/zram_drv.c:1234:44: error: passing argument 1 of 'atomic64_read' from incompatible pointer type [-Werror=incompatible-pointer-types]
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_optc.c:294:6: warning: no previous prototype for 'optc3_wait_drr_doublebuffer_pending_clear' [-Wmissing-prototypes]
+idma64.c:(.text+0x145a): undefined reference to `devm_platform_ioremap_resource'
+idma64.c:(.text+0xacc): undefined reference to `devm_platform_ioremap_resource'
+include/asm-generic/div64.h:238:36: error: passing argument 1 of '__div64_32' from incompatible pointer type [-Werror=incompatible-pointer-types]
 
-All errors (new ones prefixed by >>):
+Unverified Error/Warning (likely false positive, please contact us if interested):
 
-   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c: In function 'amdgpu_atif_handler':
-   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:449:50: warning: missing terminating " character
-     449 |                                         DRM_WARN("old brightness %d is greater than ACPI brightness
-         |                                                  ^
-   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:450:53: warning: missing terminating " character
-     450 |                                                 %d\n", old_brightness, req.backlight_level);
-         |                                                     ^
->> cc1: error: unterminated argument list invoking macro "DRM_WARN"
->> drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:449:41: error: 'DRM_WARN' undeclared (first use in this function)
-     449 |                                         DRM_WARN("old brightness %d is greater than ACPI brightness
-         |                                         ^~~~~~~~
-   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:449:41: note: each undeclared identifier is reported only once for each function it appears in
->> drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:449:49: error: expected ';' at end of input
-     449 |                                         DRM_WARN("old brightness %d is greater than ACPI brightness
-         |                                                 ^
-         |                                                 ;
-   ......
-   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:448:33: note: '-Wmisleading-indentation' is disabled from this point onwards, since column-tracking was disabled due to the size of the code/headers
-     448 |                                 if (old_brightness > req.backlight_level)
-         |                                 ^~
-   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:448:33: note: adding '-flarge-source-files' will allow for more column-tracking support, at the expense of compilation time and memory
->> drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:449:41: error: expected declaration or statement at end of input
-     449 |                                         DRM_WARN("old brightness %d is greater than ACPI brightness
-         |                                         ^~~~~~~~
->> drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:449:41: error: expected declaration or statement at end of input
->> drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:449:41: error: expected declaration or statement at end of input
->> drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:449:41: error: expected declaration or statement at end of input
-   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c: At top level:
-   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:404:12: warning: 'amdgpu_atif_handler' defined but not used [-Wunused-function]
-     404 | static int amdgpu_atif_handler(struct amdgpu_device *adev,
-         |            ^~~~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:308:12: warning: 'amdgpu_atif_query_backlight_caps' defined but not used [-Wunused-function]
-     308 | static int amdgpu_atif_query_backlight_caps(struct amdgpu_atif *atif)
-         |            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:240:12: warning: 'amdgpu_atif_get_notification_params' defined but not used [-Wunused-function]
-     240 | static int amdgpu_atif_get_notification_params(struct amdgpu_atif *atif)
-         |            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:195:12: warning: 'amdgpu_atif_verify_interface' defined but not used [-Wunused-function]
-     195 | static int amdgpu_atif_verify_interface(struct amdgpu_atif *atif)
-         |            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   In file included from drivers/gpu/drm/amd/amdgpu/../display/dc/dc_types.h:36,
-                    from drivers/gpu/drm/amd/amdgpu/../display/dc/dm_services_types.h:30,
-                    from drivers/gpu/drm/amd/amdgpu/../include/dm_pp_interface.h:26,
-                    from drivers/gpu/drm/amd/amdgpu/amdgpu.h:64,
-                    from drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c:35:
-   drivers/gpu/drm/amd/amdgpu/../display/dc/dc_hdmi_types.h:53:22: warning: 'dp_hdmi_dongle_signature_str' defined but not used [-Wunused-const-variable=]
-      53 | static const uint8_t dp_hdmi_dongle_signature_str[] = "DP-HDMI ADAPTOR";
-         |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+drivers/usb/gadget/composite.c:2082:33: sparse: sparse: restricted __le16 degrades to integer
+mm/page_alloc.c:257:1: sparse: sparse: symbol 'check_pages_enabled' was not declared. Should it be static?
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-randconfig-s031-20230226
+|   |-- drivers-usb-gadget-composite.c:sparse:sparse:restricted-__le16-degrades-to-integer
+|   `-- mm-page_alloc.c:sparse:sparse:symbol-check_pages_enabled-was-not-declared.-Should-it-be-static
+|-- arc-allyesconfig
+|   |-- drivers-block-zram-zram_drv.c:error:passing-argument-of-atomic64_read-from-incompatible-pointer-type
+|   `-- include-asm-generic-div64.h:error:passing-argument-of-__div64_32-from-incompatible-pointer-type
+|-- arm-allmodconfig
+|   |-- drivers-block-zram-zram_drv.c:error:passing-argument-of-atomic64_read-from-incompatible-pointer-type
+|   `-- include-asm-generic-div64.h:error:passing-argument-of-__div64_32-from-incompatible-pointer-type
+|-- arm-allyesconfig
+|   |-- drivers-block-zram-zram_drv.c:error:passing-argument-of-atomic64_read-from-incompatible-pointer-type
+|   `-- include-asm-generic-div64.h:error:passing-argument-of-__div64_32-from-incompatible-pointer-type
+|-- arm64-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
+|-- csky-allmodconfig
+|   |-- drivers-block-zram-zram_drv.c:error:passing-argument-of-atomic64_read-from-incompatible-pointer-type
+|   `-- include-asm-generic-div64.h:error:passing-argument-of-__div64_32-from-incompatible-pointer-type
+|-- csky-randconfig-r001-20230226
+|   `-- drivers-block-zram-zram_drv.c:error:passing-argument-of-atomic64_read-from-incompatible-pointer-type
+|-- i386-allyesconfig
+|   |-- drivers-block-zram-zram_drv.c:error:passing-argument-of-atomic64_read-from-incompatible-pointer-type
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
+|-- m68k-allmodconfig
+|   `-- drivers-block-zram-zram_drv.c:error:passing-argument-of-atomic64_read-from-incompatible-pointer-type
+|-- m68k-defconfig
+|   `-- drivers-block-zram-zram_drv.c:error:passing-argument-of-atomic64_read-from-incompatible-pointer-type
+|-- m68k-hp300_defconfig
+|   `-- drivers-block-zram-zram_drv.c:error:passing-argument-of-atomic64_read-from-incompatible-pointer-type
+|-- m68k-mvme16x_defconfig
+|   `-- drivers-block-zram-zram_drv.c:error:passing-argument-of-atomic64_read-from-incompatible-pointer-type
+|-- microblaze-randconfig-c043-20230226
+|   `-- drivers-block-zram-zram_drv.c:error:passing-argument-of-atomic64_read-from-incompatible-pointer-type
+|-- mips-allmodconfig
+|   `-- drivers-block-zram-zram_drv.c:error:passing-argument-of-atomic64_read-from-incompatible-pointer-type
+|-- mips-allyesconfig
+|   `-- drivers-block-zram-zram_drv.c:error:passing-argument-of-atomic64_read-from-incompatible-pointer-type
+|-- nios2-randconfig-s032-20230226
+|   `-- mm-page_alloc.c:sparse:sparse:symbol-check_pages_enabled-was-not-declared.-Should-it-be-static
+|-- nios2-randconfig-s053-20230226
+|   |-- drivers-usb-gadget-composite.c:sparse:sparse:restricted-__le16-degrades-to-integer
+|   |-- include-asm-generic-cmpxchg-local.h:sparse:sparse:cast-truncates-bits-from-constant-value-(-becomes-)
+|   |-- include-asm-generic-cmpxchg-local.h:sparse:sparse:cast-truncates-bits-from-constant-value-(aaa31337-becomes-)
+|   `-- mm-page_alloc.c:sparse:sparse:symbol-check_pages_enabled-was-not-declared.-Should-it-be-static
+|-- openrisc-randconfig-r002-20230227
+|   `-- drivers-block-zram-zram_drv.c:error:passing-argument-of-atomic64_read-from-incompatible-pointer-type
+|-- parisc-randconfig-s052-20230226
+|   |-- FAILED:load-BTF-from-vmlinux:No-data-available
+|   |-- drivers-usb-gadget-composite.c:sparse:sparse:restricted-__le16-degrades-to-integer
+|   `-- mm-page_alloc.c:sparse:sparse:symbol-check_pages_enabled-was-not-declared.-Should-it-be-static
+|-- powerpc-allmodconfig
+clang_recent_errors
+|-- hexagon-randconfig-r032-20230227
+|   `-- drivers-block-zram-zram_drv.c:error:incompatible-pointer-types-passing-atomic_long_t-(aka-atomic_t-)-to-parameter-of-type-const-atomic64_t-Werror-Wincompatible-pointer-types
+|-- hexagon-randconfig-r041-20230226
+|   `-- drivers-block-zram-zram_drv.c:error:incompatible-pointer-types-passing-atomic_long_t-(aka-atomic_t-)-to-parameter-of-type-const-atomic64_t-Werror-Wincompatible-pointer-types
+|-- hexagon-randconfig-r045-20230226
+|   `-- drivers-block-zram-zram_drv.c:error:incompatible-pointer-types-passing-atomic_long_t-(aka-atomic_t-)-to-parameter-of-type-const-atomic64_t-Werror-Wincompatible-pointer-types
+|-- i386-randconfig-a005-20230227
+|   `-- drivers-block-zram-zram_drv.c:error:incompatible-pointer-types-passing-atomic_long_t-(aka-atomic_t-)-to-parameter-of-type-const-atomic64_t-Werror-Wincompatible-pointer-types
+|-- powerpc-mpc8560_ads_defconfig
+|   `-- error:unknown-target-CPU
+|-- powerpc-ppa8548_defconfig
+|   `-- error:unknown-target-CPU
+|-- powerpc-socrates_defconfig
+|   `-- error:unknown-target-CPU
+`-- powerpc-tqm8540_defconfig
+    `-- error:unknown-target-CPU
+
+elapsed time: 724m
+
+configs tested: 145
+configs skipped: 11
+
+tested configs:
+alpha                            allyesconfig   gcc  
+alpha        buildonly-randconfig-r005-20230227   gcc  
+alpha                               defconfig   gcc  
+alpha                randconfig-r035-20230226   gcc  
+arc                               allnoconfig   gcc  
+arc                              allyesconfig   gcc  
+arc          buildonly-randconfig-r003-20230226   gcc  
+arc                                 defconfig   gcc  
+arc                  randconfig-r032-20230226   gcc  
+arc                  randconfig-r034-20230226   gcc  
+arc                  randconfig-r043-20230226   gcc  
+arc                  randconfig-r043-20230227   gcc  
+arm                     am200epdkit_defconfig   clang
+arm                           h3600_defconfig   gcc  
+arm                  randconfig-r036-20230226   clang
+arm                  randconfig-r046-20230226   gcc  
+arm                  randconfig-r046-20230227   clang
+arm                           tegra_defconfig   gcc  
+arm64                            allyesconfig   gcc  
+arm64        buildonly-randconfig-r006-20230226   gcc  
+arm64                               defconfig   gcc  
+csky                                defconfig   gcc  
+csky                 randconfig-r001-20230226   gcc  
+csky                 randconfig-r004-20230227   gcc  
+csky                 randconfig-r011-20230227   gcc  
+hexagon              randconfig-r013-20230226   clang
+hexagon              randconfig-r015-20230226   clang
+hexagon              randconfig-r032-20230227   clang
+hexagon              randconfig-r041-20230226   clang
+hexagon              randconfig-r041-20230227   clang
+hexagon              randconfig-r045-20230226   clang
+hexagon              randconfig-r045-20230227   clang
+i386                             allyesconfig   gcc  
+i386                              debian-10.3   gcc  
+i386                                defconfig   gcc  
+i386                 randconfig-a001-20230227   clang
+i386                 randconfig-a002-20230227   clang
+i386                 randconfig-a003-20230227   clang
+i386                 randconfig-a004-20230227   clang
+i386                 randconfig-a005-20230227   clang
+i386                 randconfig-a006-20230227   clang
+i386                 randconfig-a011-20230227   gcc  
+i386                 randconfig-a012-20230227   gcc  
+i386                 randconfig-a013-20230227   gcc  
+i386                 randconfig-a014-20230227   gcc  
+i386                 randconfig-a015-20230227   gcc  
+i386                 randconfig-a016-20230227   gcc  
+i386                 randconfig-r034-20230227   clang
+ia64                             allmodconfig   gcc  
+ia64         buildonly-randconfig-r002-20230227   gcc  
+ia64                                defconfig   gcc  
+ia64                 randconfig-r036-20230227   gcc  
+loongarch                        allmodconfig   gcc  
+loongarch                         allnoconfig   gcc  
+loongarch                           defconfig   gcc  
+loongarch            randconfig-r002-20230226   gcc  
+loongarch            randconfig-r003-20230226   gcc  
+loongarch            randconfig-r005-20230227   gcc  
+loongarch            randconfig-r011-20230226   gcc  
+m68k                             allmodconfig   gcc  
+m68k         buildonly-randconfig-r004-20230227   gcc  
+m68k                                defconfig   gcc  
+m68k                          hp300_defconfig   gcc  
+m68k                        mvme16x_defconfig   gcc  
+m68k                 randconfig-r004-20230226   gcc  
+m68k                 randconfig-r013-20230227   gcc  
+m68k                 randconfig-r016-20230227   gcc  
+mips                             allmodconfig   gcc  
+mips                             allyesconfig   gcc  
+mips         buildonly-randconfig-r005-20230226   clang
+mips                  cavium_octeon_defconfig   clang
+mips                           ip28_defconfig   clang
+mips                    maltaup_xpa_defconfig   gcc  
+mips                 randconfig-r014-20230227   clang
+mips                          rm200_defconfig   clang
+nios2                               defconfig   gcc  
+nios2                randconfig-r001-20230227   gcc  
+openrisc             randconfig-r002-20230227   gcc  
+openrisc             randconfig-r031-20230226   gcc  
+openrisc             randconfig-r031-20230227   gcc  
+parisc       buildonly-randconfig-r004-20230226   gcc  
+parisc                              defconfig   gcc  
+parisc                generic-32bit_defconfig   gcc  
+parisc               randconfig-r015-20230227   gcc  
+parisc               randconfig-r035-20230227   gcc  
+parisc64                            defconfig   gcc  
+powerpc                          allmodconfig   gcc  
+powerpc                           allnoconfig   gcc  
+powerpc      buildonly-randconfig-r001-20230227   gcc  
+powerpc      buildonly-randconfig-r003-20230227   gcc  
+powerpc                      cm5200_defconfig   gcc  
+powerpc                        icon_defconfig   clang
+powerpc                   microwatt_defconfig   clang
+powerpc                 mpc8560_ads_defconfig   clang
+powerpc                     ppa8548_defconfig   clang
+powerpc                    socrates_defconfig   clang
+powerpc                     tqm8540_defconfig   clang
+riscv                            allmodconfig   gcc  
+riscv                             allnoconfig   gcc  
+riscv                               defconfig   gcc  
+riscv             nommu_k210_sdcard_defconfig   gcc  
+riscv                randconfig-r003-20230227   clang
+riscv                randconfig-r006-20230226   gcc  
+riscv                randconfig-r006-20230227   clang
+riscv                randconfig-r042-20230226   clang
+riscv                randconfig-r042-20230227   gcc  
+riscv                          rv32_defconfig   gcc  
+s390                             allmodconfig   gcc  
+s390                             allyesconfig   gcc  
+s390                                defconfig   gcc  
+s390                 randconfig-r044-20230226   clang
+s390                 randconfig-r044-20230227   gcc  
+sh                               allmodconfig   gcc  
+sh                                  defconfig   gcc  
+sh                        edosk7760_defconfig   gcc  
+sh                          r7785rp_defconfig   gcc  
+sh                   randconfig-r005-20230226   gcc  
+sh                   randconfig-r012-20230226   gcc  
+sh                          rsk7269_defconfig   gcc  
+sh                          sdk7780_defconfig   gcc  
+sparc                               defconfig   gcc  
+sparc                randconfig-r016-20230226   gcc  
+sparc                       sparc64_defconfig   gcc  
+um                             i386_defconfig   gcc  
+um                           x86_64_defconfig   gcc  
+x86_64                            allnoconfig   gcc  
+x86_64                           allyesconfig   gcc  
+x86_64                              defconfig   gcc  
+x86_64                                  kexec   gcc  
+x86_64               randconfig-a001-20230227   clang
+x86_64               randconfig-a002-20230227   clang
+x86_64               randconfig-a003-20230227   clang
+x86_64               randconfig-a004-20230227   clang
+x86_64               randconfig-a005-20230227   clang
+x86_64               randconfig-a006-20230227   clang
+x86_64               randconfig-a011-20230227   gcc  
+x86_64               randconfig-a012-20230227   gcc  
+x86_64               randconfig-a013-20230227   gcc  
+x86_64               randconfig-a014-20230227   gcc  
+x86_64               randconfig-a015-20230227   gcc  
+x86_64               randconfig-a016-20230227   gcc  
+x86_64                               rhel-8.3   gcc  
+xtensa       buildonly-randconfig-r006-20230227   gcc  
+xtensa               randconfig-r033-20230226   gcc  
+xtensa               randconfig-r033-20230227   gcc  
 
 -- 
 0-DAY CI Kernel Test Service
