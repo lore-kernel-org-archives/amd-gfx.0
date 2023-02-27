@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C05AC7EE23
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 02:08:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C331C6FA8E
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 02:08:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 277F610E31A;
-	Mon, 27 Feb 2023 02:08:33 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F70310E31A;
- Mon, 27 Feb 2023 02:08:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBF9110E321;
+	Mon, 27 Feb 2023 02:08:44 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B53B810E321;
+ Mon, 27 Feb 2023 02:08:43 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2CAD060DB4;
- Mon, 27 Feb 2023 02:08:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65FAFC433EF;
- Mon, 27 Feb 2023 02:08:28 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 5C798B80CB3;
+ Mon, 27 Feb 2023 02:08:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E588FC433D2;
+ Mon, 27 Feb 2023 02:08:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1677463710;
- bh=nRnMrqT7K6CLFB3J4zShaT3eHPeMrkNxZjzeMmqR5iM=;
+ s=k20201202; t=1677463721;
+ bh=5+PkTz5bTYiYgMDUzUeJpa2HZx1ob0963tY5ioT566Y=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MsxpKkbF+fRX2a5NIWST99gcUa4XWyI3YUCl9ujYtDRJ+3Sk8gQlZDGuCVe/VpZAp
- QXV7ydm4wJj2vnBAeuI5DvJmpE5Vn7cVcS5OXcfcKJUul0yBUuXyL7/l9sXEr9CvXP
- MNtH6wKLdHcZu96n0so6uPPoPbFxbPoKs//xNvvwMotD35LhVnTHlrVpTgaAXJEkyi
- h6xyMW11Yf5qR3c0m2jKLeTdTgK/BCV5W8Ps0MO0euQtLkxdGPkvuzZFzPjFeBvyMm
- wcltKAl3kbVnlrUVktQfzAeLbr+0mITJwKYuSfWUVjf7BRHB5tJvmfd+znZ2A/fISK
- c0JqsOG0mWnzg==
+ b=IyEslEcyb+mfKAYC98Znc3i08G/ybWR+0Ssf46gqfav+XoYVMbBsAm3RdijO5MVAh
+ abJfWsXbJlan+p9aWAEzDoSPDMm/m7N49Y4OFEFl1tR7dWDffRJ+unwEY95LSHIGCl
+ E1xcwU/I4PY4yY/gX2wx1eBXJWAkqgMKuzLyQAlgU19ogEAUzvvSIpfSOzebzMnPt4
+ Vm5mjkvbCrAg0KffYAiLuZPGIaoGNFYZtltKkFFAcsQgbsiZcilh6pfY1f6u1nJmjE
+ Vly2HJ7D8LmWx6hcBUGzmyi/5uhc1v+eB/dZa4rEsLtPbbIzJdIY1W7gKRJdEB0ubI
+ D2MDna4RzW3XQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 50/58] drm/amd/display: Enable P-state validation
- checks for DCN314
-Date: Sun, 26 Feb 2023 21:04:48 -0500
-Message-Id: <20230227020457.1048737-50-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 52/58] drm/amd/display: Disable HUBP/DPP PG on
+ DCN314 for now
+Date: Sun, 26 Feb 2023 21:04:50 -0500
+Message-Id: <20230227020457.1048737-52-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230227020457.1048737-1-sashal@kernel.org>
 References: <20230227020457.1048737-1-sashal@kernel.org>
@@ -58,25 +58,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Cc: Sasha Levin <sashal@kernel.org>, Charlene.Liu@amd.com,
  Hansen Dsouza <hansen.dsouza@amd.com>, Daniel.Miess@amd.com,
  sunpeng.li@amd.com, airlied@gmail.com, Qingqing Zhuo <qingqing.zhuo@amd.com>,
- Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, mwen@igalia.com,
- alex.hung@amd.com, Daniel Wheeler <daniel.wheeler@amd.com>,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, harry.wentland@amd.com,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, sancchen@amd.com
+ Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com, mwen@igalia.com, alex.hung@amd.com,
+ Daniel Wheeler <daniel.wheeler@amd.com>, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, gabe.teeger@amd.com,
+ harry.wentland@amd.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ sancchen@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-[ Upstream commit 37d184b548db0f64d4a878960b2c6988b38a3e7e ]
+[ Upstream commit b7c67f72408b11b922f23f06c7df0f6743a2e89d ]
 
 [Why]
-To align with DCN31 behavior. This helps avoid p-state hangs in
-the case where underflow does occur.
+The DMCUB implementation required to workaround corruption is
+not currently stable and may cause intermittent corruption or hangs.
 
 [How]
-Flip the bit to true.
+Disable PG until the sequence is stable.
 
 Reviewed-by: Hansen Dsouza <hansen.dsouza@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
@@ -85,22 +85,22 @@ Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
-index c80c8c8f51e97..5985ce8df4e08 100644
+index 5985ce8df4e08..9918bccd6defb 100644
 --- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
 +++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
-@@ -897,7 +897,7 @@ static const struct dc_debug_options debug_defaults_drv = {
- 	.max_downscale_src_width = 4096,/*upto true 4k*/
- 	.disable_pplib_wm_range = false,
- 	.scl_reset_length10 = true,
--	.sanity_checks = false,
-+	.sanity_checks = true,
- 	.underflow_assert_delay_us = 0xFFFFFFFF,
- 	.dwb_fi_phase = -1, // -1 = disable,
- 	.dmub_command_table = true,
+@@ -888,6 +888,8 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 	.force_abm_enable = false,
+ 	.timing_trace = false,
+ 	.clock_trace = true,
++	.disable_dpp_power_gate = true,
++	.disable_hubp_power_gate = true,
+ 	.disable_pplib_clock_request = false,
+ 	.pipe_split_policy = MPC_SPLIT_DYNAMIC,
+ 	.force_single_disp_pipe_split = false,
 -- 
 2.39.0
 
