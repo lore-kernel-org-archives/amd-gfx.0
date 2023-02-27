@@ -4,56 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 120A5C7EE2D
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 09:57:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7EAAC64ED6
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 09:57:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41B9610E3A6;
-	Mon, 27 Feb 2023 09:57:36 +0000 (UTC)
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5ACC10E0EF
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Feb 2023 07:12:21 +0000 (UTC)
-Received: by mail-wr1-x435.google.com with SMTP id r7so5069424wrz.6
- for <amd-gfx@lists.freedesktop.org>; Sun, 26 Feb 2023 23:12:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=oyeg5wP42IWBECtz7xqXMlTgUnHhR/85mRaNmVQW2Ls=;
- b=F5CvI9/LYnbqJtmDeJqmvrF3xrxJEFOycgowdmuGjcFdBzk21YLSTIrhXUTydn8geg
- PiA955VCXC+ftrGO6UOdixA3lw20EdiXgbZ4JqoYEVVOeDaDMw6y+cMTR3RTNjQppayh
- Y9Wq2Zy6xDIIREKgVQtloQkxamFe9IB4KZpMOwSIF6e3K3YJdPm5/M6ANlcgBY+6B6PG
- M4r7Th8kJB6Q04QEah1raqctSYQhUxDaB5Bvh1+qXQNVbirz5D0rZ5jvzu9n9jdMnHcO
- INQDaVgWNWLFWFQYP2s4TrASnh54G50k+pZHDgkDtfpjw9LItNCwMYN2G/3AaZDnOvuq
- r03Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=oyeg5wP42IWBECtz7xqXMlTgUnHhR/85mRaNmVQW2Ls=;
- b=HACkflyoa682impr6mepaDHWtJwciQxFact1OGkFHnZ7+crmEiPZhm5GEkWHJVDDum
- hTddpfZnY3qNRqNdl7APrwekAPPAJE64I++DYGkv6Y5PaJ66cEb7I32odbuLK8je5baz
- wdhsV8uPka9Ah2rfLAO08ePpI7gKPSv/FE92QB0Mo30tXz4TH9bwkBjk9EGotkpnSz8L
- PXK1PIggDJ5pwRcYGypdSUzimHSpCT+LAmJ00FzMeg1iAbAIdS/tKtKbgn76NdLOEE3e
- BYC48hhg4hNvaVMUKcEs+aIED7BOJV6FR0I/8U5oeFGLSRKt0QLIe//CPdKUHbuIB5wC
- bqmw==
-X-Gm-Message-State: AO0yUKXh4Sz1Q6gxk/GRMKNI6X1EjjR4uAZIzdZ7SjJ3k7CtLUKlj8cH
- rfJogvGtVZy1qE3di7dnp0M=
-X-Google-Smtp-Source: AK7set87N1youREmQwxO6+eyumctKwvn8O/d2IWNgToVGwYeD7gFXj/mLxH+SNAyaJpv/V6YJQeOzw==
-X-Received: by 2002:a05:6000:10e:b0:2cc:26be:8aad with SMTP id
- o14-20020a056000010e00b002cc26be8aadmr614248wrx.45.1677481940082; 
- Sun, 26 Feb 2023 23:12:20 -0800 (PST)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- t3-20020a5d6903000000b002c56af32e8csm6260829wru.35.2023.02.26.23.12.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 26 Feb 2023 23:12:19 -0800 (PST)
-Date: Mon, 27 Feb 2023 10:12:07 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: sancchen@amd.com
-Subject: [bug report] drm/amd/display: Various logs added
-Message-ID: <Y/xXx2KXpxI2WoF8@kili>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47DDE10E3A7;
+	Mon, 27 Feb 2023 09:57:42 +0000 (UTC)
+Received: from out30-132.freemail.mail.aliyun.com
+ (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4513510E319;
+ Mon, 27 Feb 2023 02:07:49 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R491e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018045176;
+ MF=jiapeng.chong@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
+ TI=SMTPD_---0VcVCSC._1677463663; 
+Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
+ fp:SMTPD_---0VcVCSC._1677463663) by smtp.aliyun-inc.com;
+ Mon, 27 Feb 2023 10:07:45 +0800
+From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+To: alexander.deucher@amd.com
+Subject: [PATCH] drm/amdgpu: make umc_v8_10_convert_error_address static
+Date: Mon, 27 Feb 2023 10:07:31 +0800
+Message-Id: <20230227020731.114822-1-jiapeng.chong@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 27 Feb 2023 09:57:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,32 +40,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, Xinhui.Pan@amd.com,
+ Abaci Robot <abaci@linux.alibaba.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, airlied@gmail.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Leo Chen,
+This symbol is not used outside of umc_v8_10.c, so marks it static.
 
-This is a semi-automatic email about new static checker warnings.
+drivers/gpu/drm/amd/amdgpu/umc_v8_10.c:212:6: warning: no previous prototype for function 'umc_v8_10_convert_error_address'.
 
-The patch 7ef414375fcc: "drm/amd/display: Various logs added" from 
-Aug 29, 2022, leads to the following Smatch complaint:
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=4230
+Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+---
+ drivers/gpu/drm/amd/amdgpu/umc_v8_10.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-    ./drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c:1862 get_firmware_info_v3_2()
-    warn: variable dereferenced before check 'smu_info_v3_2' (see line 1861)
+diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v8_10.c b/drivers/gpu/drm/amd/amdgpu/umc_v8_10.c
+index 66158219f791..048ab4202e9f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/umc_v8_10.c
++++ b/drivers/gpu/drm/amd/amdgpu/umc_v8_10.c
+@@ -209,7 +209,7 @@ static int umc_v8_10_swizzle_mode_na_to_pa(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
+-void umc_v8_10_convert_error_address(struct amdgpu_device *adev,
++static void umc_v8_10_convert_error_address(struct amdgpu_device *adev,
+ 				    struct ras_err_data *err_data, uint64_t err_addr,
+ 				    uint32_t ch_inst, uint32_t umc_inst,
+ 				    uint32_t node_inst, uint64_t mc_umc_status)
+-- 
+2.20.1.7.g153144c
 
-./drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-  1860								DATA_TABLES(smu_info));
-  1861			DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_2->gpuclk_ss_percentage);
-                                                                                          ^^^^^^^^^^^^^^^
-Log adds a crash.
-
-  1862			if (!smu_info_v3_2)
-                             ^^^^^^^^^^^^^
-Too late.
-
-  1863				return BP_RESULT_BADBIOSTABLE;
-  1864	
-
-regards,
-dan carpenter
