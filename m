@@ -4,37 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55CB4C64ED6
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 02:05:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B551EC6FA8E
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 02:06:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2BE510E2EE;
-	Mon, 27 Feb 2023 02:05:55 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 741F610E2E3;
- Mon, 27 Feb 2023 02:05:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECAFA10E2FF;
+	Mon, 27 Feb 2023 02:06:06 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADBF710E2F3;
+ Mon, 27 Feb 2023 02:06:03 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 0A777B80CBE;
- Mon, 27 Feb 2023 02:05:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AB71C433D2;
- Mon, 27 Feb 2023 02:05:48 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 38EF360DBA;
+ Mon, 27 Feb 2023 02:06:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27360C4339B;
+ Mon, 27 Feb 2023 02:06:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1677463549;
- bh=cHd/x9+Mf9sE2UqjfhYjvJwRESfJJlkSntrFB1rrzmE=;
+ s=k20201202; t=1677463562;
+ bh=iZkBiJhWbPVE5XCtUNYSr1AQ3fgrW+1lcbf0WIblXFc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=qHYum6DqiujV4EIXiU/pBovxf6a4IfC5TDxegvAngCsLxKsS3Rl+pyl2UPS+gTNNX
- nBYacpZ9yIbhafLbpIHuI5qd8gprwVqYqDK2C276kSKIKQD+eWQawGDc1K0Ap8D1xx
- gUK8vLjQltZU3efoCjiRI5vxdNVCufQ+1ifonisiU7rDOeLv3r5Y9gcdN5jVCKBFX1
- wY6dpNwekU24Ya9I+Yro1rwuKjHzqF1TRQx1CAjs1yqPcpV9Yy0Y94odCV9QmcWTbE
- 7OrM3bdLZjA2XVg49Ep2j6BV2PaqyPF7otD+P3z/Hvy49CNt/KfHoUdvDyE5h8ORVa
- XdeZYi6WAQFzQ==
+ b=dBDYiESEIOxv7waa/5HsJjECKTvvL/jOtWpEdVBB8RWzqyn6O57d+4kE92DXvxjfx
+ 7t5RBL8Afh5QiRun9YOE2/n1WYkjMAsB/TYSE8jMsqP7uzPBh+nx7KfqFMAZj3qhtU
+ ki6CQd0R6Aig83sHsdKSwOrJL3787BNvu3e+s62BQ1awpwEqWBQW+DQ1x8QjPDdqpL
+ utumq1PlQ0GaYufneAI/wKBihHQc2TOc+zhqmoNjIAjLBaPeqcmWmLkAryylR8IDRo
+ SG5ZBqrKCaj4Fcc8JfaKJYzGTpfEjiiO/ukYXxdO67cPKPBiAVprZAPnQ/J4kw+XUQ
+ rM/jmJdPy6Lzg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 12/58] drm/amdkfd: Page aligned memory reserve size
-Date: Sun, 26 Feb 2023 21:04:10 -0500
-Message-Id: <20230227020457.1048737-12-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 15/58] drm/amd: Avoid ASSERT for some message
+ failures
+Date: Sun, 26 Feb 2023 21:04:13 -0500
+Message-Id: <20230227020457.1048737-15-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230227020457.1048737-1-sashal@kernel.org>
 References: <20230227020457.1048737-1-sashal@kernel.org>
@@ -53,118 +55,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Philip Yang <Philip.Yang@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Xinhui.Pan@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
- christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, Charlene.Liu@amd.com, sunpeng.li@amd.com,
+ airlied@gmail.com, dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, amd-gfx@lists.freedesktop.org,
+ nicholas.kazlauskas@amd.com, SyedSaaem.Rizvi@amd.com,
+ Mario Limonciello <mario.limonciello@amd.com>, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Philip Yang <Philip.Yang@amd.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
 
-[ Upstream commit 0c2dece8fb541ab07b68c3312a1065fa9c927a81 ]
+[ Upstream commit 3e5019ee67760cd61b2a5fd605e1289c2f92d983 ]
 
-Use page aligned size to reserve memory usage because page aligned TTM
-BO size is used to unreserve memory usage, otherwise no page aligned
-size causes memory usage accounting unbalanced.
+On DCN314 when resuming from s0i3 an ASSERT is shown indicating that
+`VBIOSSMC_MSG_SetHardMinDcfclkByFreq` returned `VBIOSSMC_Result_Failed`.
 
-Change vram_used definition type to int64_t to be able to trigger
-WARN_ONCE(adev && adev->kfd.vram_used < 0, "..."), to help debug the
-accounting issue with warning and backtrace.
+This isn't a driver bug; it's a BIOS/configuration bug. To make this
+easier to triage, add an explicit warning when this issue happens.
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+This matches the behavior utilized for failures with
+`VBIOSSMC_MSG_TransferTableDram2Smu` configuration.
+
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h       |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 12 +++++++-----
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c         |  9 +++++++--
- 3 files changed, 15 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 30f145dc8724e..dbc842590b253 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -95,7 +95,7 @@ struct amdgpu_amdkfd_fence {
- 
- struct amdgpu_kfd_dev {
- 	struct kfd_dev *dev;
--	uint64_t vram_used;
-+	int64_t vram_used;
- 	uint64_t vram_used_aligned;
- 	bool init_complete;
- 	struct work_struct reset_work;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 404c839683b1c..da01c1424b4ad 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -1653,6 +1653,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
- 	struct amdgpu_bo *bo;
- 	struct drm_gem_object *gobj = NULL;
- 	u32 domain, alloc_domain;
-+	uint64_t aligned_size;
- 	u64 alloc_flags;
- 	int ret;
- 
-@@ -1703,22 +1704,23 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
- 	 * the memory.
- 	 */
- 	if ((*mem)->aql_queue)
--		size = size >> 1;
-+		size >>= 1;
-+	aligned_size = PAGE_ALIGN(size);
- 
- 	(*mem)->alloc_flags = flags;
- 
- 	amdgpu_sync_create(&(*mem)->sync);
- 
--	ret = amdgpu_amdkfd_reserve_mem_limit(adev, size, flags);
-+	ret = amdgpu_amdkfd_reserve_mem_limit(adev, aligned_size, flags);
- 	if (ret) {
- 		pr_debug("Insufficient memory\n");
- 		goto err_reserve_limit;
- 	}
- 
- 	pr_debug("\tcreate BO VA 0x%llx size 0x%llx domain %s\n",
--			va, size, domain_string(alloc_domain));
-+			va, (*mem)->aql_queue ? size << 1 : size, domain_string(alloc_domain));
- 
--	ret = amdgpu_gem_object_create(adev, size, 1, alloc_domain, alloc_flags,
-+	ret = amdgpu_gem_object_create(adev, aligned_size, 1, alloc_domain, alloc_flags,
- 				       bo_type, NULL, &gobj);
- 	if (ret) {
- 		pr_debug("Failed to create BO on domain %s. ret %d\n",
-@@ -1775,7 +1777,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
- 	/* Don't unreserve system mem limit twice */
- 	goto err_reserve_limit;
- err_bo_create:
--	amdgpu_amdkfd_unreserve_mem_limit(adev, size, flags);
-+	amdgpu_amdkfd_unreserve_mem_limit(adev, aligned_size, flags);
- err_reserve_limit:
- 	mutex_destroy(&(*mem)->lock);
- 	if (gobj)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 6d291aa6386bd..f79b8e964140e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1127,8 +1127,13 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
- 	}
- 
- 	/* Update the VRAM usage count */
--	if (flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM)
--		WRITE_ONCE(pdd->vram_usage, pdd->vram_usage + args->size);
-+	if (flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
-+		uint64_t size = args->size;
-+
-+		if (flags & KFD_IOC_ALLOC_MEM_FLAGS_AQL_QUEUE_MEM)
-+			size >>= 1;
-+		WRITE_ONCE(pdd->vram_usage, pdd->vram_usage + PAGE_ALIGN(size));
-+	}
- 
- 	mutex_unlock(&p->mutex);
- 
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c
+index 2db595672a469..aa264c600408d 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c
+@@ -146,6 +146,9 @@ static int dcn314_smu_send_msg_with_param(struct clk_mgr_internal *clk_mgr,
+ 		if (msg_id == VBIOSSMC_MSG_TransferTableDram2Smu &&
+ 		    param == TABLE_WATERMARKS)
+ 			DC_LOG_WARNING("Watermarks table not configured properly by SMU");
++		else if (msg_id == VBIOSSMC_MSG_SetHardMinDcfclkByFreq ||
++			 msg_id == VBIOSSMC_MSG_SetMinDeepSleepDcfclk)
++			DC_LOG_WARNING("DCFCLK_DPM is not enabled by BIOS");
+ 		else
+ 			ASSERT(0);
+ 		REG_WRITE(MP1_SMN_C2PMSG_91, VBIOSSMC_Result_OK);
 -- 
 2.39.0
 
