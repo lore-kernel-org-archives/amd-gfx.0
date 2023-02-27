@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B606C64ED6
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 02:09:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AA6AC64ED6
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 02:10:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1774A10E32D;
-	Mon, 27 Feb 2023 02:09:25 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2B1210E332;
- Mon, 27 Feb 2023 02:09:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 557CE10E339;
+	Mon, 27 Feb 2023 02:10:04 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1BDA10E336;
+ Mon, 27 Feb 2023 02:10:01 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 77F1460D38;
- Mon, 27 Feb 2023 02:09:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A56BC433EF;
- Mon, 27 Feb 2023 02:09:20 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2FBD660CF9;
+ Mon, 27 Feb 2023 02:10:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1D70C433EF;
+ Mon, 27 Feb 2023 02:09:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1677463762;
- bh=XgGRSJncKgK34kgFjt3EXwQp/2mDoKvUU4usqzeY/eg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=LeuO8lBf1PqE2xfD9Tl781hER643oCcnxg/VK6YnP9I1CtjL15VixhbjPptqriD0o
- TAWgEfrx+WMm4x4PS3KAAGDc6BV3SV975zod8zzVF75vzQZLNUAEsHG/270arynDnx
- mhcElg6mbZ8EhVvJNKej5uAlXQ4HqyPmTZq6mstCY/sziawE41P50puzxs6URm1ohC
- dPWNzvu2EGilCTNzrAt4s/cT4F0U33Lxbpxn7mEvTm4XEax/itsPi0uVHloOkYKYut
- AZRYLV4kvD117Do8gPdUQZY9Bj/Nqmc95VERw1bGa2/LA/kfZbUuNU+La23XPEYLpB
- l7Guy0nGImL7A==
+ s=k20201202; t=1677463800;
+ bh=2KRm2l3JY2uKj7HESanxZ1bGdswzim8PwgzKABcw6e4=;
+ h=From:To:Cc:Subject:Date:From;
+ b=bzDdlNS4XK8HD024fngc73IQmtqqLjfL/6rP8SaKy9D3AseSv6zXYuNgoUIbhdaPE
+ zPmZaudfentez7GuLr+EJfTI7MSLIMbDIAb9HmC80FvburLiy1M4MWIawvPA79Iuf0
+ PJ8s2yF9JttjFNPFCdiWvsa81bBr0jQxeY+BmhiQJ5i/fvsthmKU9wuIr9XPvEpWhW
+ 7/a6aRcm3Qif4rhpLZ8QvhR8GVYV5bqnVVoJNUOlYFby7rCmzK7wlTm5vHzlT0+PlM
+ gSs+Ita1NNDoGnNY6loCuoxcl1YHh0eO8Tx/xOOIbAcfRVeZQDjxCQm22U58ydM5jR
+ S/U/tchWMptbA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 09/25] drm: amd: display: Fix memory leakage
-Date: Sun, 26 Feb 2023 21:08:32 -0500
-Message-Id: <20230227020855.1051605-9-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 01/19] drm/amd/display: Fix potential null-deref
+ in dm_resume
+Date: Sun, 26 Feb 2023 21:09:36 -0500
+Message-Id: <20230227020957.1052252-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230227020855.1051605-1-sashal@kernel.org>
-References: <20230227020855.1051605-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -53,42 +53,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, HaoPing.Liu@amd.com, Dillon.Varone@amd.com,
- Konstantin Meskhidze <konstantin.meskhidze@huawei.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- sunpeng.li@amd.com, airlied@gmail.com, qingqing.zhuo@amd.com,
- Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, samson.tam@amd.com,
- aurabindo.pillai@amd.com, Alvin.Lee2@amd.com, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, Jun.Lei@amd.com,
- harry.wentland@amd.com, christian.koenig@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, stylon.wang@amd.com, Xinhui.Pan@amd.com,
+ kernel test robot <lkp@intel.com>, sunpeng.li@amd.com, airlied@gmail.com,
+ Wayne Lin <Wayne.Lin@amd.com>, Rodrigo.Siqueira@amd.com,
+ Roman Li <roman.li@amd.com>, amd-gfx@lists.freedesktop.org,
+ aurabindo.pillai@amd.com, hersenxs.wu@amd.com, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, Jasdeep Dhillon <jdhillon@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, harry.wentland@amd.com,
+ christian.koenig@amd.com, Dan Carpenter <dan.carpenter@oracle.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Konstantin Meskhidze <konstantin.meskhidze@huawei.com>
+From: Roman Li <roman.li@amd.com>
 
-[ Upstream commit 6b8701be1f66064ca72733c5f6e13748cdbf8397 ]
+[ Upstream commit 7a7175a2cd84b7874bebbf8e59f134557a34161b ]
 
-This commit fixes memory leakage in dc_construct_ctx() function.
+[Why]
+Fixing smatch error:
+dm_resume() error: we previously assumed 'aconnector->dc_link' could be null
 
-Signed-off-by: Konstantin Meskhidze <konstantin.meskhidze@huawei.com>
+[How]
+Check if dc_link null at the beginning of the loop,
+so further checks can be dropped.
+
+Reported-by: kernel test robot <lkp@intel.com>
+Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+
+Reviewed-by: Wayne Lin <Wayne.Lin@amd.com>
+Acked-by: Jasdeep Dhillon <jdhillon@amd.com>
+Signed-off-by: Roman Li <roman.li@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 6c9378208127d..eca882438f6ef 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -771,6 +771,7 @@ static bool dc_construct_ctx(struct dc *dc,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index fbe15f4b75fd5..dbdf0e210522c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2051,12 +2051,14 @@ static int dm_resume(void *handle)
+ 	drm_for_each_connector_iter(connector, &iter) {
+ 		aconnector = to_amdgpu_dm_connector(connector);
  
- 	dc_ctx->perf_trace = dc_perf_trace_create();
- 	if (!dc_ctx->perf_trace) {
-+		kfree(dc_ctx);
- 		ASSERT_CRITICAL(false);
- 		return false;
- 	}
++		if (!aconnector->dc_link)
++			continue;
++
+ 		/*
+ 		 * this is the case when traversing through already created
+ 		 * MST connectors, should be skipped
+ 		 */
+-		if (aconnector->dc_link &&
+-		    aconnector->dc_link->type == dc_connection_mst_branch)
++		if (aconnector->dc_link->type == dc_connection_mst_branch)
+ 			continue;
+ 
+ 		mutex_lock(&aconnector->hpd_lock);
 -- 
 2.39.0
 
