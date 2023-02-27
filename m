@@ -4,38 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8415DC6FA8E
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 02:09:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CFD4C6FA8E
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 02:09:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C37310E328;
-	Mon, 27 Feb 2023 02:09:09 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58DEA10E326;
- Mon, 27 Feb 2023 02:09:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF0D310E32A;
+	Mon, 27 Feb 2023 02:09:15 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4A2C10E32A;
+ Mon, 27 Feb 2023 02:09:13 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id BFC3960DB6;
- Mon, 27 Feb 2023 02:09:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D236C433EF;
- Mon, 27 Feb 2023 02:09:03 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 33DCB60DC6;
+ Mon, 27 Feb 2023 02:09:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2200C433EF;
+ Mon, 27 Feb 2023 02:09:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1677463745;
- bh=YVuj1t6VKWFAH41UqMeidaZUSpdBhp8oxL3SpS3WuK0=;
+ s=k20201202; t=1677463753;
+ bh=rQxYrJD3g4LgoxFVKeR+kXDNSUDuXB1g06cX4FsxdZ4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Y0VUJfMiaJkGnoBHy1MBoHeuslauBeXgIbRI23I2TydCTL9mxaAEjEyK1urvQPi9K
- pFuxGGpgQMMAkKtMYbjEpnx29rGT2wuhOfhuw6h3sFHT2dIL7BEka8A4Gtn0O4rtzd
- x8nnmTh/Ij/zzi1BpsRtL4K7BIPmWjkhfxdNqlgyu1hNGSZFQMlOtv7uz3EMflqMzN
- hLH5BbWabmwMBwMlkQnuXhZPFglmUO9LTlNrFFNOxtxrrFw0PM3TGn/OmNa7kwnsZ7
- LvDrIUT+NpZ6gT9m2yRpxl58h/5/A7uQHunxyPCjzFFIDxWA4MFwzRwjaOUTq+nitv
- U8CChmfoYyWDQ==
+ b=D/I2AbLU68c6Z/yO/5rJUrBzMGtmlHeLJJfkiP7vuaBT7C3mBXV6bbyl09Uw0j2ZP
+ pQKmYYksBXMgNSGTiic4XNkYpwSXj8sQiypmK4Y7KIGIWpoA1sLQoFeMUM7Hc4KXAQ
+ 00KQ4aK/R4x4HTM91B/5W6dTdQCGWZIyhQnRlgJYDkRftPQxU2M+WQOH9c1ZPvy5Lr
+ JEvf0HhfpMUimdzTRWZ7NrJ8aECC8yhFsIlXfHAjj98NvAa+79rsl9ymr8o59zyLBG
+ rhiDspgy4KT23VyuZLI+FXj8WeJ/DlZJKeGOeAyR2kA+EOv1qyvSAmdP+tn086Z6s9
+ zVcK2QkL0as4g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 02/25] drm/amd/display: Fix potential null-deref
- in dm_resume
-Date: Sun, 26 Feb 2023 21:08:25 -0500
-Message-Id: <20230227020855.1051605-2-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 06/25] drm/radeon: free iio for atombios when
+ driver shutdown
+Date: Sun, 26 Feb 2023 21:08:29 -0500
+Message-Id: <20230227020855.1051605-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230227020855.1051605-1-sashal@kernel.org>
 References: <20230227020855.1051605-1-sashal@kernel.org>
@@ -54,62 +55,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, stylon.wang@amd.com, Xinhui.Pan@amd.com,
- kernel test robot <lkp@intel.com>, sunpeng.li@amd.com, airlied@gmail.com,
- Wayne Lin <Wayne.Lin@amd.com>, Rodrigo.Siqueira@amd.com,
- Roman Li <roman.li@amd.com>, amd-gfx@lists.freedesktop.org,
- aurabindo.pillai@amd.com, hersenxs.wu@amd.com, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, Jasdeep Dhillon <jdhillon@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, harry.wentland@amd.com,
- christian.koenig@amd.com, Dan Carpenter <dan.carpenter@oracle.com>
+Cc: Sasha Levin <sashal@kernel.org>, Liwei Song <liwei.song@windriver.com>,
+ Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Roman Li <roman.li@amd.com>
+From: Liwei Song <liwei.song@windriver.com>
 
-[ Upstream commit 7a7175a2cd84b7874bebbf8e59f134557a34161b ]
+[ Upstream commit 4773fadedca918faec443daaca5e4ea1c0ced144 ]
 
-[Why]
-Fixing smatch error:
-dm_resume() error: we previously assumed 'aconnector->dc_link' could be null
+Fix below kmemleak when unload radeon driver:
 
-[How]
-Check if dc_link null at the beginning of the loop,
-so further checks can be dropped.
+unreferenced object 0xffff9f8608ede200 (size 512):
+  comm "systemd-udevd", pid 326, jiffies 4294682822 (age 716.338s)
+  hex dump (first 32 bytes):
+    00 00 00 00 c4 aa ec aa 14 ab 00 00 00 00 00 00  ................
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+  backtrace:
+    [<0000000062fadebe>] kmem_cache_alloc_trace+0x2f1/0x500
+    [<00000000b6883cea>] atom_parse+0x117/0x230 [radeon]
+    [<00000000158c23fd>] radeon_atombios_init+0xab/0x170 [radeon]
+    [<00000000683f672e>] si_init+0x57/0x750 [radeon]
+    [<00000000566cc31f>] radeon_device_init+0x559/0x9c0 [radeon]
+    [<0000000046efabb3>] radeon_driver_load_kms+0xc1/0x1a0 [radeon]
+    [<00000000b5155064>] drm_dev_register+0xdd/0x1d0
+    [<0000000045fec835>] radeon_pci_probe+0xbd/0x100 [radeon]
+    [<00000000e69ecca3>] pci_device_probe+0xe1/0x160
+    [<0000000019484b76>] really_probe.part.0+0xc1/0x2c0
+    [<000000003f2649da>] __driver_probe_device+0x96/0x130
+    [<00000000231c5bb1>] driver_probe_device+0x24/0xf0
+    [<0000000000a42377>] __driver_attach+0x77/0x190
+    [<00000000d7574da6>] bus_for_each_dev+0x7f/0xd0
+    [<00000000633166d2>] driver_attach+0x1e/0x30
+    [<00000000313b05b8>] bus_add_driver+0x12c/0x1e0
 
-Reported-by: kernel test robot <lkp@intel.com>
-Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+iio was allocated in atom_index_iio() called by atom_parse(),
+but it doesn't got released when the dirver is shutdown.
+Fix this kmemleak by free it in radeon_atombios_fini().
 
-Reviewed-by: Wayne Lin <Wayne.Lin@amd.com>
-Acked-by: Jasdeep Dhillon <jdhillon@amd.com>
-Signed-off-by: Roman Li <roman.li@amd.com>
+Signed-off-by: Liwei Song <liwei.song@windriver.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/radeon/radeon_device.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index b4293b5a82526..68c98e30fee71 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2687,12 +2687,14 @@ static int dm_resume(void *handle)
- 	drm_for_each_connector_iter(connector, &iter) {
- 		aconnector = to_amdgpu_dm_connector(connector);
- 
-+		if (!aconnector->dc_link)
-+			continue;
-+
- 		/*
- 		 * this is the case when traversing through already created
- 		 * MST connectors, should be skipped
- 		 */
--		if (aconnector->dc_link &&
--		    aconnector->dc_link->type == dc_connection_mst_branch)
-+		if (aconnector->dc_link->type == dc_connection_mst_branch)
- 			continue;
- 
- 		mutex_lock(&aconnector->hpd_lock);
+diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
+index 92905ebb7b459..1c005e0ddd388 100644
+--- a/drivers/gpu/drm/radeon/radeon_device.c
++++ b/drivers/gpu/drm/radeon/radeon_device.c
+@@ -1022,6 +1022,7 @@ void radeon_atombios_fini(struct radeon_device *rdev)
+ {
+ 	if (rdev->mode_info.atom_context) {
+ 		kfree(rdev->mode_info.atom_context->scratch);
++		kfree(rdev->mode_info.atom_context->iio);
+ 	}
+ 	kfree(rdev->mode_info.atom_context);
+ 	rdev->mode_info.atom_context = NULL;
 -- 
 2.39.0
 
