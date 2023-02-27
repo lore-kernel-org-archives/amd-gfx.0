@@ -4,119 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22DD0C64ED8
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 16:31:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00A70C64ED6
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 17:00:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9834010E10D;
-	Mon, 27 Feb 2023 16:31:08 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2080.outbound.protection.outlook.com [40.107.244.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3538F10E10D
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Feb 2023 16:31:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17D2E10E438;
+	Mon, 27 Feb 2023 17:00:11 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2062.outbound.protection.outlook.com [40.107.94.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7632D10E1C4;
+ Mon, 27 Feb 2023 17:00:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Kbwz77Vxmnj6++8W3O9HclCNTJkpziJNCsbCe1SGr39j/Dr8ZaXILIX07XBRlccmHFXsbWozxIVlKRMJGz2nD34hhve6wHn5QUx9kZ6QIHgqVt7MxrJHQRtx+Oj1qJLkiuRGZkD6qBgTk1ZM+FFclOzTbkusLnRZAKL7dNw/5Cc5JTimMB2J7XCLbBNMe53Bnk7RpL6FqcjDA/xxB7Aku4uaT/zfvu8oKuOMuIp0avZDatLoZgfqcW8AtBv7RsxRD7vJKnpfYHpbon2F7Vm5sLGEnM6/Xovg/9r5meN+cM0qNIb+f7T/ixA6fLvPHzeT9OSvDjJcBTZYOGGi/NACkA==
+ b=YaJ0vf3F8nfVesbQG93B41WWPaSqkht49L8HAyxaCGxqoHrISlTGjNOiTaxaropD0Dihaw7oXPUtGn1uXw/cuYSg4JzPZqhikz+8iooMQsV9vyASGHQNL7J2o7vvHAXbwT+AUGwxz7f9gM0JvgZRNbWkdmUixGf08/d98h6Se/+wmdyZ2TjYvm63J7U5EN2fmvWmyvFmzNnpA7qB+CEPjKCicjtKQGeF4h/PO57DK/xdyVUDk4iw3+5Jtwj7CUhxL3qMcwkWizY1tOtruzfSdB+X3u7uJ7d10v+lZwr0g7I3PT/3P7Q7+h9PlnFsPcs9aX6YQ2AzzfLMANR39BR+OA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VxK68Jo5t80+ESDLwXcU4WCMvJRwolI10Amqow/Cw4c=;
- b=LLyhDWrhCgDO74tTaYQ2BJ3XbHHVJnNuUXoHq7pU4gdevfucXLTLmXBeyQkVZzdGOoVoqN+4Vj5dO9+Aq2DfQFVBfP1+A96YAMDyo/E0n8rjUx5hUKPIPfnDy4rBB2QDy4saP+vf/z3UFjT5Qvh8xWGSJR6jZMPbGNf0X9wcR0Q1I9IDkXEzdehtzH+if82bFFy/UEGketFLIjyRlBpALVu4Xa+nvITitB0lypoAUpBCMdOjnZCbCYBSl2dSPwYU8T9A92O5+8dGvjT5LVCQnEtqGZ8LtYh0w6u6RJZ+5cAqwNgHNDT040TntnSiQvyjNnlL4kTjVsBK06aK28U7Hg==
+ bh=Gn4CBK+FIIW6nZCNi38R9uxfr/ltjIpRX8UerbeKUPY=;
+ b=G1TC2kZALKIMiguctHyBEtz4QlvuK+9qEQ94m86ddpEeaz7G00OHUAQm9fz6fT42n1R7sI0DUd3eb9br6wlWp5+ZGy6+go05y8fOwf2XUa0hFnwLzOAivCPGd2VHNJbhNq2yRZAxNims+aFzXaLUUOMJcZRCGnAFHAtq6C9AZeYqNg2tW2T3OkYLOjg/hS+iZPQUJA7L+0liA94dUU6bPtbopquPrhm0WbtA6RW05Q07gnfrkNO5SZ8G1v+8mYvmBtIPXZ0bCAZbKwT2Q1J7tgOqYOhK+GSL9fmmYQs9JA67BXbLkaxsSAWbf8wgzt0Vny1KCHeuMhIToTRrN+7o4g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VxK68Jo5t80+ESDLwXcU4WCMvJRwolI10Amqow/Cw4c=;
- b=k8C9UlOVFfl1nvJaOKsCYA97nSK8yV7zkRf0nr+DzOvh4ktX0DsiJGFkOktrMfN9p62NKwGJez1SAPLrIe43ed/WedNO+5txguol4OGTYLESVJ2rOD9QxHWqIKoWmDF41Vr74cfMLfcpgOEpwy4b2xmYrrDw3mWOAJLGIZmfP+8=
+ bh=Gn4CBK+FIIW6nZCNi38R9uxfr/ltjIpRX8UerbeKUPY=;
+ b=wbl7yuO4T7e7FDJeolD09QUFCtbHM6b/kfK+t7tMmvICLWt46e9JzaeZ74K4sQS2T5yBZx4x0JL74bx+b66/i1lXndZcyJtP0/2NDX35apRB12VJdVIdooeLU9bfouocooeDyWqeGZO75il9E/7WCChaJv3JmydYPvoB2qDh/NI=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by CH2PR12MB4953.namprd12.prod.outlook.com (2603:10b6:610:36::8) with
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by DM4PR12MB7718.namprd12.prod.outlook.com (2603:10b6:8:102::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.29; Mon, 27 Feb
- 2023 16:31:05 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::e6ea:9231:6d39:93da]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::e6ea:9231:6d39:93da%4]) with mapi id 15.20.6134.028; Mon, 27 Feb 2023
- 16:31:05 +0000
-Message-ID: <e34f3127-f34b-2763-8ac2-503d0458cbf6@amd.com>
-Date: Mon, 27 Feb 2023 11:31:02 -0500
+ 2023 17:00:06 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::aa28:9378:593:868a]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::aa28:9378:593:868a%8]) with mapi id 15.20.6134.029; Mon, 27 Feb 2023
+ 17:00:06 +0000
+Message-ID: <bed5e04a-a0e3-fb80-d75e-cdcd85efe7ab@amd.com>
+Date: Mon, 27 Feb 2023 12:00:00 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH 2/2] drm/amdgpu: Synchronize after mapping into a compute
- VM
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v3 1/2] drm/edid: parse DRM VESA dsc bpp target
 Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx@lists.freedesktop.org
-References: <20230224233647.847647-1-Felix.Kuehling@amd.com>
- <20230224233647.847647-2-Felix.Kuehling@amd.com>
- <7c921833-884a-0034-7ede-6bd44fd40750@gmail.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <7c921833-884a-0034-7ede-6bd44fd40750@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQXPR0101CA0062.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00:14::39) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+To: Yaroslav Bolyukin <iam@lach.pw>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20230226141051.21767-1-iam@lach.pw>
+ <20230226141051.21767-2-iam@lach.pw>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20230226141051.21767-2-iam@lach.pw>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT1PR01CA0156.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2f::35) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CH2PR12MB4953:EE_
-X-MS-Office365-Filtering-Correlation-Id: c552f005-f7d7-4397-c16b-08db18e005a0
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|DM4PR12MB7718:EE_
+X-MS-Office365-Filtering-Correlation-Id: 811f98ec-4041-47cb-eb62-08db18e41352
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ZhZ0Lks51wQwXoRHVPvDYbmxCVjV51F8Oba+7u2zuhBStEDpDiYXK3xYL2xWpzMQrA9EHxmhKzlSspz3Op1zIEEwVQF+IYEbo1HW4sVBEyUyDh86S1GgKhPE4zJ4nDvo+F4hDSShNj9LH2gosQJCvgPR1R6dlFLfMEcdLqJWtsc0NsVS4s4rca5txQyb7DTdJ8bgpPrnsPdnF+t1+pSkZueFZgpmHBXQIQCSwnmZNmarIWOPX2Viqej4o9y7vg226ExinW4KARt0k+HB28By55D7qce35GIYBCcu1vI5gmUFMV9GYlOToifGo/n0NWs+wNfa61uf3WVkgkNy4VzxpiDk3ARJ575oyMFG80CFbKD8XxUP/9pcup7+o69b8lGIs/S7M3q7kkYm5grEbkt1486kUZhhQj0NG11/M/3ZspE99TOP+AJIfun7hcd9g1s0liZGKij6QyJemEMbjfgI/biWVeVrnjVLchH2+giLMj7mm1Uyv2JCChMPdjCMbp6x1SqY1KtMJlvc/cAciNUMXtLa3Zw2tIQ/yaiZ4eWG01+9Ip5j6/gAgBJtzZBeIPLj7A23ZYw8Ncoes2+BX2CAC+nIHtwW0QHVNbKkZQC7YX2nnA2Zb/SOlDn+2xuWrtoXKPyqRfvA1FNGpY/v7ompiIvtusN9NizfE/OpfwI8+8GnRob/WYcv5Vu1VaKk2dqeeB3C7hAHaMBBpjxFxL+ystBn5TeBG8+9/LUN/yKUlGw=
+X-Microsoft-Antispam-Message-Info: wc0UCkiUdFsiZP2oLelnlA8Fg5yM2OB6c468+Sjj4YfZD29g7swaRjaR+F45C98pEAICJEfxa8ec4Hymaxvve/tjBcQSKmpaedMd3fdhuxMufL+J0JIBo4GrhiwGGBLhcuGkK2K4olIMyH0A+3DQMNauIe5G7EjbUZB38yQzJ4b9bpfMjj9ZtMHVQFxTO2n8i3cTw8D0A2Qm9BbrCEorknhvhDlAtj9trQ23cmAxljxXRAUvGJlI7EZPSrKdh3VcMrlZ3zv4vVZanGKDn9hmrQf9kQbKWW2cbWB9lAskFOETg/nPufD88QYR68xzVqH/Ix8AAfAQaiThGg2fVWYyZdy7xq8e0p0w4ReYh6e+wc8EkE9moINLpa9WthUi0sObBgbN+o6jispsqgErbxtUcrT7Gz/PuXvk6W7BVNq9y66Gggc1g479oGFTlbtAwVyYJHM/+LVxE3gj7cgkXzQssM6T2aiweJaxPtCYafOeQ7YOUcKzyLEnxliRyoqn1N7ByFrszMt7rSX/U9c9/K4TT1Re9lHfbRItz4gRE0ltX5kyonswXIZlPWX73ZIz2K0J3G23AbQomGXVZTUNWd6sXcTHkrBRHDTuWTf3mfVanCRsk68XbDHDnVDW5Y832vKIZ6SMc9eZIfycX1tI5/4oddzl8IFEydcnOq8f04qS6ooZ0XCkUQQm9UvzdvqeEQZWAQu2f3CbSx8TYzjx+fs22HsZIxGBEAM42riUfNLRCss=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(346002)(376002)(366004)(136003)(39860400002)(396003)(451199018)(2906002)(31686004)(44832011)(5660300002)(8936002)(36756003)(36916002)(66946007)(41300700001)(66476007)(31696002)(86362001)(6486002)(4326008)(8676002)(66556008)(478600001)(6512007)(316002)(38100700002)(6506007)(53546011)(26005)(186003)(2616005)(6666004)(66574015)(83380400001)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(39860400002)(136003)(376002)(346002)(366004)(396003)(451199018)(36756003)(316002)(54906003)(86362001)(478600001)(6486002)(8936002)(7416002)(2906002)(44832011)(66556008)(66946007)(8676002)(66476007)(4326008)(41300700001)(5660300002)(31696002)(38100700002)(6506007)(186003)(2616005)(26005)(6666004)(53546011)(83380400001)(6512007)(31686004)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MVBjdUFYTXM1T3UvT1ZWTVo1aHE4QVhXb201OVo3NjhMRmJvOEkzQndOS0VW?=
- =?utf-8?B?WGtMeW85TTFjUVc5L3pJY0psSUVEcDlBdVFRRHoxWExXZHFTdEljc1grZTlN?=
- =?utf-8?B?VEkydmtzeFRVeGV0WDFjbEtyMW1LLzVjNWVYSjk3OVhCLzJnZEJlaDJ4VXY5?=
- =?utf-8?B?bjVmQnhDS1VRK08rdytEVVZKallIQkhJTTJQUUJUaDROVUVIQTE1bWFKWjRl?=
- =?utf-8?B?Ry8zNmIwaThkcnZBU2xwWG1aUE5idGM3U1IyZGwwSDE0NWViRU9SekVyWjJD?=
- =?utf-8?B?SGpGSE4xRlpScWEwSUtVcXZoN2tjM0FUTFQ3Rm5mRk1LenlRengzbzV2VmpL?=
- =?utf-8?B?OVpMNXFzS293cnJ5eGxzaERKU2FZbnNpRVJaV1JMOVNvYVFESkUwOFhEZFJz?=
- =?utf-8?B?UGRQY24zM1A0SXlTQmVMT0pMZHQ1NTRKY3YweFVaY3BxUStNenUwMFFCYW9z?=
- =?utf-8?B?Nm5xRmdleUhyTTNCeEpWbFpXSGVjcngxMWVLcUNCTVY1WWp2MUVaMU5naS9m?=
- =?utf-8?B?RXVCU0dQbzdwY2FaTlVQcWpqMjlxUHZTbU5LejRQdmVDMk1tMU9rdDNTTkFM?=
- =?utf-8?B?Z0J5Z3ZYb25keHVFSnNESXVRVDlEaXcyUjhkeHNwNEdESzl0MnlSd1l0dkxM?=
- =?utf-8?B?dG9YMllrWGN1eEhQbXVwWWFtWHRjWjF1TTc1OWo4Z3I3RVNGQkZ6L0kyT0to?=
- =?utf-8?B?dWc4dnl3bzN5akwxdmxMdXNWL0pMbEJCcGZGSWViTnhhbHovQjM2TFBRYkRz?=
- =?utf-8?B?UjFrcEZQRThQZnQ5bWdMQ0ZndnhPV1A3THdaVlk0cUtWb1ZCT3drQ1JhdHNE?=
- =?utf-8?B?ZkpaVU55TmlCdVJoYk5WV2h0ckNFbTBYUUZqY3JyMFJsOWxwdHlDdHJPSCtR?=
- =?utf-8?B?UkdKSjJIcTdta3Uwc3MyRFo3U0pjMjlDa3pJYStsbDlrZWtLcldEeVZYN05j?=
- =?utf-8?B?S01rSVJOWGtUK0NCVUs2dmNjUldmRU1JV1hxZHg0OXhmY3hoVTNXbVFvbkdY?=
- =?utf-8?B?bGFBNTdocFpCYjNCd3pIb3hvQWNrd2tWenpwUWR4UXNrTWZQQnhXM0x4NXdm?=
- =?utf-8?B?WnMzOEN1V2ZEa2tKbFVCcmo4aUIzMHZBU3ZnenAwbVYrTHJDbS9YYnNkbGdq?=
- =?utf-8?B?WnlENzZsYjY0K1gvbDd6U0JwY0ZzWHJEUUZxRWVIYTdKV2FWVzdGUFQyNjg1?=
- =?utf-8?B?bEkrVkFyL3BHSlRKSzg2Y1RkaFlmMFdER1U2VGE3VE1nRkswVWtnZVZUMTVJ?=
- =?utf-8?B?UUZDYkpDOUNVUkZyWkVXLzQzYlhCbUZCaHBNUHdzWm5LOUNjL0o4YVhHbmJE?=
- =?utf-8?B?akVybUZCSXNwL3JRVEk3RVhIYzJVS2FrT3ZxS01qeFZRNmtUc0ZGVVRweFJH?=
- =?utf-8?B?L2lxWDV4cTNJS0pld1hna3dWQTdnZEo3UkV6NEdRckYwV2YxMnNjRWwzMHBs?=
- =?utf-8?B?Sk83a1ZFK3l1Uk4vdWVqOEs5dnhwZ1RKeHloZXUxcHFGUEhrY0dQb25qb1ZG?=
- =?utf-8?B?N1hhckZYUzJjdUQySE9pc2JUQ0F5eEhiWjRBRWp1NEJwdWZ0ZmRFc2c1dFBp?=
- =?utf-8?B?dmdrUG9MdmJzREZXcm1tVWpTSVlHVi9sdHVHb1llZWh2ZHh4aTd6cml6YzI5?=
- =?utf-8?B?Ni9PaEVYVnZaK1NyNjE2NkYyTjZhSzd5WThMc0RQR3B6eDFFb2VTakNyNE4z?=
- =?utf-8?B?Vm1senE1dHlvQ29nbkRrWkJDTFZPTEJCY3Rod0JQSTh3b1llMEFxRGRoeGRP?=
- =?utf-8?B?TlZEN3kyQUVtd2NaSUNKbFpjT1Btb3Y4cDhTMFhaQ1ZHTWpnUnpuNUFDY3d4?=
- =?utf-8?B?WlgvcUtGZjkvVUl6UVR0UlVWanEzelROMnNyMVJFSzNJMndLT2krR2xxaVhm?=
- =?utf-8?B?VlRGaE5zTmFmQ3NKbk5XeUtrTUVuSzlzdklmcTRyRE1ZN1dDSVZlaG9yRkZN?=
- =?utf-8?B?RjZIc1c5Rml1blZrZDIvblF4aDZFUVlqUlBSUjB6M0ZPMmZYRUg0UXRkL1VL?=
- =?utf-8?B?RDVjb2pQS0J6ZUdzbDZleUNodStXYlJlR3RxQTBicFVDSDN0V0pSOStxQlVN?=
- =?utf-8?B?a2JwNHZBd3dWYTV2WDY0b0kwaWhNVDNKaFI2M1loOWpDOHI5aTNYdzRaQytv?=
- =?utf-8?Q?/AVGy0Q9q71DmIFxvEfuo0USc?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aVVITGNMbUp1c3RWSUQ2dC9iWjhXaUtMTVhYK3FOR2t3dnIyQiszK0swRmpX?=
+ =?utf-8?B?bEJPWVdyMWkwZHhBUG16Sk50cVphTUVZenhIUGplSmVJTk9qZzJLQW9scUZj?=
+ =?utf-8?B?RFQ0eE5uNzUxVmU2WFZsczZObVA5ZGgzc2RlU21odUVFRmhlTE5HMjl4VHE5?=
+ =?utf-8?B?L1JBTWdnZ3BiMnNCSU56VTJGcHJGTUxKM0RJV1pKbFYzZEV0ZlJNMzB1VjhU?=
+ =?utf-8?B?MnpVZStCRWRVR015UkViRFBPcXdvTkVicFhpUEh6SmJUdU5Vc1c5Qlp0K2dp?=
+ =?utf-8?B?aUlwZlIxUlBqcUQ1WGFiVFIzZHBQVlRQYVlDREswcWovT1BXaUI2RU5VbUJt?=
+ =?utf-8?B?TXR3bXlSbEQ4NVNNOUw2N1V3SmF3ZitDMG5VVDhpNEQwNVlEZ1hCcUZOc3Q0?=
+ =?utf-8?B?QW1aSDE2MHhSS2llOWM4KzJTTi8rMXk4cllsaWx0NkNlZTlCU0dvZzRTZlJE?=
+ =?utf-8?B?QUd2TTVTdFQ1S2hUUUlWTndYS1RZSHFnWW5CdlByelFEQmxsZlFLelU1SnJB?=
+ =?utf-8?B?UklOMzl2REJqeHcrR0U4T201UFczc0ZwR1g4blkzTjFJRzc1ZVJFYUNpRWRC?=
+ =?utf-8?B?dkpxemw3dHFLS0RDYWlLOGNXd2UwVk9CcGhXTVJDK251bnpYUklEd3E1MTVh?=
+ =?utf-8?B?OFZZOTVEWk95UlJudEhYaTBMNmhYb28yV2tqTk9TT2FTdGV6SmxUa0hPZ1Yr?=
+ =?utf-8?B?bHRnekFKc2xIZ1kzcVVXNVZYVWZ3QnBOS0JrZTd5dzdyeHpPamhOMXh6RmJO?=
+ =?utf-8?B?c0xLcGdQNVkxWENKWkxLOTRtczdtVm1GaGthVS96TU9zTHc2SjRHMmxOdHh5?=
+ =?utf-8?B?RlhTbk5jVmczdzN4UUFWNVdqa25XazBwSFFXcWliQ2xCRk05Ui9NNitaQkZC?=
+ =?utf-8?B?dkJWa1FJNDR3dkd2UXZiTk1DR0Z4YmI4TkF3MlN2Z0VuT1NRdUs0ZmFYRE1i?=
+ =?utf-8?B?UTBod3E5V0d5bmZacFA5MFJIM0o2Vko5R0tuV3Q2ODQ2TFZRTTVlUlY4WnJr?=
+ =?utf-8?B?S3lEYlBDRmJtWXZoaXpZcVcxRWxpbGpLQVBDRU1adjJDWTAycXhQRkxNU0Rp?=
+ =?utf-8?B?R1hBTmlHS2l4VnozZEVQVGNkdjF2a0VKRDJYSTdWVkJXNGxNcmtOejYwMFhu?=
+ =?utf-8?B?L0x4R1RBNm1hWUtJRHB5b0RJdDFHTWV2TnNHOGxSVXM5SXBGbU1XU0Z6NEZF?=
+ =?utf-8?B?RnozNkFMbktwU1pUNnRuZ2ZLdnMzMEpVUlhrS2Y0b1pvZVNERW9oeEVEQW1s?=
+ =?utf-8?B?K2s5L21BZ3ZzT0F5cldJelc2N0ZOb3NIOFJhN2kxQ3kydjBXL1NyYkNPTmJL?=
+ =?utf-8?B?c1FxelhEM0FUS2lMRTk0bER3U2FXWFBnSmtVYzZiVmkwVkZkOVQ4TkxZWmN5?=
+ =?utf-8?B?NXNoOVk4WnVwaFBnQldNb3h4WTAvQk51WGY3T3k5d0tMNmJzNUcwM1BBSmJC?=
+ =?utf-8?B?YXRhU0dpazdoeW9lK0ZhalRhTy9na0d5QW4yaGRiQUpHcGpYZjdxOG14SWVJ?=
+ =?utf-8?B?OEVSU296MjNPbUNkbEJzczNaNjdacU1XaUVmeXBoQ0REekFUcXBuSldNd2tB?=
+ =?utf-8?B?K3JybFlRMEFEQjY3YkN5a29mWkFMek02VU0zZVRHQk1kWGpuaXRJcDJRNWlW?=
+ =?utf-8?B?KytLZ2d2aEczbDhCZm9oR1dGejV4MWhqMXdtNkh2VnlxbnlQZ21xVE80Yysw?=
+ =?utf-8?B?Y3Q3L1lla1JyTTRQQzdkdS8zR0Zneldxanp4SVd6Q3Z5YkFHMnRobjAyMEtT?=
+ =?utf-8?B?eVlvbGpEUjFWQXkyNDE4ZUZhcm9UaVU0R0FYSldlTWFIcW9wQkNjREZZdFlR?=
+ =?utf-8?B?a0JoeTM2RnhmUDhBTWM4MEh0MUJvbnUwRWJad0hKRVhFUjZEbkJsQUp3MzJi?=
+ =?utf-8?B?M2w1ODRRdHhkRWhmRUNGbUdRYlFWQ0dUc3NpWUkyUGdjNmxBZ3hQRS9uMXF4?=
+ =?utf-8?B?MXQvQ2U2emh1M0VQRk8zY2JKTDdBaDlyR0xpbTBTRGhLVDJ3MVdIbE9oUDJC?=
+ =?utf-8?B?STF2SWtCKzhzZCtmUTNnazhNbHk5V2NnT3ZOSnh4Q0ZoSkU0Sm93QnNhSXVp?=
+ =?utf-8?B?VkdnN3c2dDJ3ZG5GenJSZHJGNUI4NmJWUzZEUFZBRXJ0RFFwVG9CN0tDb2tM?=
+ =?utf-8?Q?2H8v6UpyiMkfZbYuj0P7maTKt?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c552f005-f7d7-4397-c16b-08db18e005a0
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 811f98ec-4041-47cb-eb62-08db18e41352
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2023 16:31:05.0482 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2023 17:00:06.1211 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kxASaJIRSz4E6Ric1nzE/FVXLE4mE/uo8Ou+3CNx2rJKHV/xh03RPZC7uhlzAmufLMmYoXSLMYJDgzX6zxL+ww==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4953
+X-MS-Exchange-CrossTenant-UserPrincipalName: cvFB9Lj5RwwPRe1RzRl6OlkeQioHZvddIRZxHAxkLBFCoL5nh/2No0hjggHCAvYFunIfU7Lw/177bUi4J4UkVw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7718
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,84 +125,147 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ramesh.errabolu@amd.com, christian.koenig@amd.com
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Leo Li <sunpeng.li@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Maxime Ripard <mripard@kernel.org>, "Liu, Wenjing" <Wenjing.Liu@amd.com>,
+ Jani Nikula <jani.nikula@intel.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2023-02-27 04:42, Christian König wrote:
-> Am 25.02.23 um 00:36 schrieb Felix Kuehling:
->> Compute VMs use user mode queues for command submission. They cannot use
->> a CS ioctl to synchronize with pending PTE updates and flush TLBs. Do
->> this synchronization in amdgpu_gem_va_ioctl for compute VMs.
->>
->> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 16 ++++++++++++++--
->>   1 file changed, 14 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> index 6936cd63df42..7de5057c40ec 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> @@ -601,7 +601,7 @@ int amdgpu_gem_metadata_ioctl(struct drm_device 
->> *dev, void *data,
->>   static void amdgpu_gem_va_update_vm(struct amdgpu_device *adev,
->>                       struct amdgpu_vm *vm,
->>                       struct amdgpu_bo_va *bo_va,
->> -                    uint32_t operation)
->> +                    uint32_t operation, uint32_t flags)
->>   {
->>       int r;
->>   @@ -620,6 +620,18 @@ static void amdgpu_gem_va_update_vm(struct 
->> amdgpu_device *adev,
->>       }
->>         r = amdgpu_vm_update_pdes(adev, vm, false);
->> +    if (r)
->> +        goto error;
->> +
->> +    if (vm->is_compute_context) {
->> +        if (bo_va->last_pt_update)
->> +            r = dma_fence_wait(bo_va->last_pt_update, true);
->> +        if (!r && vm->last_update)
->> +            r = dma_fence_wait(vm->last_update, true);
->> +        if (!r)
->> +            r = amdgpu_amdkfd_flush_tlb(adev, vm,
->> +                TLB_FLUSH_LEGACY);
->> +    }
->
-> Mhm, that's not really something we can do here. The GEM VA IOCTL is 
-> supposed to be async and never block.
->
-> Can we do that on the KFD side in some IOCTL instead?
-
-Not really. There is no existing KFD ioctl I would call after GEM_VA. 
-The whole point was to use GEM ioctls to manages virtual address 
-mappings for KFD and avoid adding more KFD ioctls that duplicate similar 
-functionality.
-
-If you wanted to tie it into the existing amdgpu memory manager, I guess 
-we'd need a dummy command submission that does the synchronization and 
-TLB flush and the wait for the fence from that.
-
-Regards,
-   Felix
 
 
->
-> Regards,
-> Christian.
->
->>     error:
->>       if (r && r != -ERESTARTSYS)
->> @@ -789,7 +801,7 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, 
->> void *data,
->>       }
->>       if (!r && !(args->flags & AMDGPU_VM_DELAY_UPDATE) && 
->> !amdgpu_vm_debug)
->>           amdgpu_gem_va_update_vm(adev, &fpriv->vm, bo_va,
->> -                    args->operation);
->> +                    args->operation, args->flags);
->>     error_backoff:
->>       ttm_eu_backoff_reservation(&ticket, &list);
->
+On 2/26/23 09:10, Yaroslav Bolyukin wrote:
+> As per DisplayID v2.0 Errata E9 spec "DSC pass-through timing support"
+> VESA vendor-specific data block may contain target DSC bits per pixel
+> fields
+> 
+
+According to the errata this should only apply to VII timings. The way
+it is currently implemented will make it apply to everything which is
+not what we want.
+
+Can we add this field to drm_mode_info instead of drm_display_info and
+set it inside drm_mode_displayid_detailed when parsing a type_7 timing?
+
+Harry
+
+
+> Signed-off-by: Yaroslav Bolyukin <iam@lach.pw>
+> ---
+>  drivers/gpu/drm/drm_edid.c  | 38 +++++++++++++++++++++++++------------
+>  include/drm/drm_connector.h |  6 ++++++
+>  include/drm/drm_displayid.h |  4 ++++
+>  3 files changed, 36 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> index 3d0a4da661bc..aa88ac82cbe0 100644
+> --- a/drivers/gpu/drm/drm_edid.c
+> +++ b/drivers/gpu/drm/drm_edid.c
+> @@ -6338,7 +6338,7 @@ static void drm_parse_vesa_mso_data(struct drm_connector *connector,
+>  	if (oui(vesa->oui[0], vesa->oui[1], vesa->oui[2]) != VESA_IEEE_OUI)
+>  		return;
+>  
+> -	if (sizeof(*vesa) != sizeof(*block) + block->num_bytes) {
+> +	if (block->num_bytes < 5) {
+>  		drm_dbg_kms(connector->dev,
+>  			    "[CONNECTOR:%d:%s] Unexpected VESA vendor block size\n",
+>  			    connector->base.id, connector->name);
+> @@ -6361,24 +6361,37 @@ static void drm_parse_vesa_mso_data(struct drm_connector *connector,
+>  		break;
+>  	}
+>  
+> -	if (!info->mso_stream_count) {
+> -		info->mso_pixel_overlap = 0;
+> -		return;
+> -	}
+> +	info->mso_pixel_overlap = 0;
+> +
+> +	if (info->mso_stream_count) {
+> +		info->mso_pixel_overlap = FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, vesa->mso);
+> +
+> +		if (info->mso_pixel_overlap > 8) {
+> +			drm_dbg_kms(connector->dev,
+> +				    "[CONNECTOR:%d:%s] Reserved MSO pixel overlap value %u\n",
+> +				    connector->base.id, connector->name,
+> +				    info->mso_pixel_overlap);
+> +			info->mso_pixel_overlap = 8;
+> +		}
+>  
+> -	info->mso_pixel_overlap = FIELD_GET(DISPLAYID_VESA_MSO_OVERLAP, vesa->mso);
+> -	if (info->mso_pixel_overlap > 8) {
+>  		drm_dbg_kms(connector->dev,
+> -			    "[CONNECTOR:%d:%s] Reserved MSO pixel overlap value %u\n",
+> +			    "[CONNECTOR:%d:%s] MSO stream count %u, pixel overlap %u\n",
+>  			    connector->base.id, connector->name,
+> -			    info->mso_pixel_overlap);
+> -		info->mso_pixel_overlap = 8;
+> +			    info->mso_stream_count, info->mso_pixel_overlap);
+> +	}
+> +
+> +	if (block->num_bytes < 7) {
+> +		/* DSC bpp is optional */
+> +		return;
+>  	}
+>  
+> +	info->dp_dsc_bpp = FIELD_GET(DISPLAYID_VESA_DSC_BPP_INT, vesa->dsc_bpp_int) * 16
+> +		+ FIELD_GET(DISPLAYID_VESA_DSC_BPP_FRACT, vesa->dsc_bpp_fract);
+> +
+>  	drm_dbg_kms(connector->dev,
+> -		    "[CONNECTOR:%d:%s] MSO stream count %u, pixel overlap %u\n",
+> +		    "[CONNECTOR:%d:%s] DSC bits per pixel %u\n",
+>  		    connector->base.id, connector->name,
+> -		    info->mso_stream_count, info->mso_pixel_overlap);
+> +		    info->dp_dsc_bpp);
+>  }
+>  
+>  static void drm_update_mso(struct drm_connector *connector,
+> @@ -6425,6 +6438,7 @@ static void drm_reset_display_info(struct drm_connector *connector)
+>  	info->mso_stream_count = 0;
+>  	info->mso_pixel_overlap = 0;
+>  	info->max_dsc_bpp = 0;
+> +	info->dp_dsc_bpp = 0;
+>  
+>  	kfree(info->vics);
+>  	info->vics = NULL;
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index 7b5048516185..1d01e0146a7f 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -719,6 +719,12 @@ struct drm_display_info {
+>  	 */
+>  	u32 max_dsc_bpp;
+>  
+> +	/**
+> +	 * @dp_dsc_bpp: DP Display-Stream-Compression (DSC) timing's target
+> +	 * DST bits per pixel in 6.4 fixed point format. 0 means undefined
+> +	 */
+> +	u16 dp_dsc_bpp;
+> +
+>  	/**
+>  	 * @vics: Array of vics_len VICs. Internal to EDID parsing.
+>  	 */
+> diff --git a/include/drm/drm_displayid.h b/include/drm/drm_displayid.h
+> index 49649eb8447e..0fc3afbd1675 100644
+> --- a/include/drm/drm_displayid.h
+> +++ b/include/drm/drm_displayid.h
+> @@ -131,12 +131,16 @@ struct displayid_detailed_timing_block {
+>  
+>  #define DISPLAYID_VESA_MSO_OVERLAP	GENMASK(3, 0)
+>  #define DISPLAYID_VESA_MSO_MODE		GENMASK(6, 5)
+> +#define DISPLAYID_VESA_DSC_BPP_INT	GENMASK(5, 0)
+> +#define DISPLAYID_VESA_DSC_BPP_FRACT	GENMASK(3, 0)
+>  
+>  struct displayid_vesa_vendor_specific_block {
+>  	struct displayid_block base;
+>  	u8 oui[3];
+>  	u8 data_structure_type;
+>  	u8 mso;
+> +	u8 dsc_bpp_int;
+> +	u8 dsc_bpp_fract;
+>  } __packed;
+>  
+>  /* DisplayID iteration */
+
