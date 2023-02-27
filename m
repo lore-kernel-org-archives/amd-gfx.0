@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D756C7EE23
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 02:06:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D02CC64ED6
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 02:07:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 057B110E30E;
-	Mon, 27 Feb 2023 02:06:57 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 793AC10E30E;
- Mon, 27 Feb 2023 02:06:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A357F10E313;
+	Mon, 27 Feb 2023 02:07:21 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A53B610E30B;
+ Mon, 27 Feb 2023 02:07:19 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 7F80FCE0F27;
- Mon, 27 Feb 2023 02:06:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02A9FC4339B;
- Mon, 27 Feb 2023 02:06:48 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id F366D60C87;
+ Mon, 27 Feb 2023 02:07:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DB6DC433EF;
+ Mon, 27 Feb 2023 02:07:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1677463610;
- bh=NdN166Culp60wILc1C7dFFLT6XE1dlj3cQL/FIUyu84=;
+ s=k20201202; t=1677463638;
+ bh=nocuhMww8UcxKAaVyFes4zBJJmA4s/Mu+iSRj0fV154=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=EAXVUJu1KlBNwTAod3ZfdilUs8mwOw2mgSOix79m8K42QAlteAsg0orT/17yxUbKm
- vHiV7G38SROfpU6reF1iLR/h88fmKZudaofL6vv9QEY7E9JQd6Kh96kqwVzmQ5zMiu
- EJkE/SI23UyH15PKw9B40nQ8YzEjThYts0MR2sNi+j01VmErW68LlFJM8hw+W7SYiY
- 5cI9uJQ394NWxFtzgq3oqpwJA7fZUkjUfybRMBR3KUCNQTFqPp2BeHpAmKOIy7DBTb
- iGQT5eui2DLPfwXwonygMOjsTSXXU469nTCpdwJkLsxBVBHwbRZmNdt0jQ6hE5KwAc
- IGmfyxQpjs0dg==
+ b=JmkFR0Kd/CifXf6+CAdnE8j9Qrx9cU5T+u4V0HZRkiK+ZIHXcVC/wfiNotHSw9elL
+ ePtvNKk1ZjhibydcdkiJNzcZXwSpVzXo1T2leWg0guKiFHrVWkgzLEhRVBJVS7sOG/
+ bdklf4TWISDekUNAYjPObMUEaihmM0fBx4HvVTBkoPxwxi3AenJOEkvAZc1w844zdG
+ LFnPkytaX629nmlswJNbT3e5rbV8QRIyNxWqvnNBP26I4RBButWNFUtTD4YvvU8Z5o
+ bnzbQloSAECCa1GCdWVtFEnPgdd+16uSg7VyXB22OZzAC0zRF/jIwtDTso9+UIqAML
+ Ddp42F5sUr5yA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 28/58] drm/amd/display: Set hvm_enabled flag for
- S/G mode
-Date: Sun, 26 Feb 2023 21:04:26 -0500
-Message-Id: <20230227020457.1048737-28-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 37/58] Revert "drm/amdgpu: TA unload messages are
+ not actually sent to psp when amdgpu is uninstalled"
+Date: Sun, 26 Feb 2023 21:04:35 -0500
+Message-Id: <20230227020457.1048737-37-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230227020457.1048737-1-sashal@kernel.org>
 References: <20230227020457.1048737-1-sashal@kernel.org>
@@ -54,52 +54,82 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Liu <HaoPing.Liu@amd.com>, Sasha Levin <sashal@kernel.org>,
- stylon.wang@amd.com, sunpeng.li@amd.com, airlied@gmail.com, Xinhui.Pan@amd.com,
- Rodrigo.Siqueira@amd.com, Roman Li <roman.li@amd.com>,
- amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
- Daniel Wheeler <daniel.wheeler@amd.com>, aurabindo.pillai@amd.com,
- hersenxs.wu@amd.com, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
- Alex Deucher <alexander.deucher@amd.com>, harry.wentland@amd.com,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, andrey.grodzovsky@amd.com,
+ Jack.Xiao@amd.com, lijo.lazar@amd.com, dri-devel@lists.freedesktop.org,
+ guchun.chen@amd.com, Amaranath.Somalapuram@amd.com, Bokun.Zhang@amd.com,
+ mario.limonciello@amd.com, Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org,
+ mdaenzer@redhat.com, YiPeng.Chai@amd.com,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, kai.heng.feng@canonical.com,
+ evan.quan@amd.com, airlied@gmail.com, christian.koenig@amd.com,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Roman Li <roman.li@amd.com>
+From: Vitaly Prosyak <vitaly.prosyak@amd.com>
 
-[ Upstream commit 40e9f3f067bc6fb47b878f8ba0a9cc7b93abbf49 ]
+[ Upstream commit 39934d3ed5725c5e3570ed1b67f612f1ea60ce03 ]
 
-[Why]
-After enabling S/G on dcn314 a screen corruption may be observed.
-HostVM flag should be set in S/G mode to be included in DML calculations.
+This reverts commit fac53471d0ea9693d314aa2df08d62b2e7e3a0f8.
+The following change: move the drm_dev_unplug call after
+amdgpu_driver_unload_kms in amdgpu_pci_remove. The reason is
+the following: amdgpu_pci_remove calls drm_dev_unregister
+and it should be called first to ensure userspace can't access the
+device instance anymore. If we call drm_dev_unplug after
+amdgpu_driver_unload_kms then we observe IGT PCI software unplug
+test failure (kernel hung) for all ASICs. This is how this
+regression was found.
 
-[How]
-In S/G mode gpu_vm_support flag is set.
-Use its value to init is_hvm_enabled.
+After this revert, the following commands do work not, but it would
+be fixed in the next commit:
+ - sudo modprobe -r amdgpu
+ - sudo modprobe amdgpu
 
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
-Acked-by: Alan Liu <HaoPing.Liu@amd.com>
-Signed-off-by: Roman Li <roman.li@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+Reviewed-by Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 4 ++--
+ 2 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 6028e332e35d9..ed74cc7403980 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1248,7 +1248,7 @@ static void mmhub_read_system_context(struct amdgpu_device *adev, struct dc_phy_
- 	pa_config->gart_config.page_table_end_addr = page_table_end.quad_part << 12;
- 	pa_config->gart_config.page_table_base_addr = page_table_base.quad_part;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index a21b3f66fd708..824b0b356b3ce 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4012,7 +4012,8 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
  
--	pa_config->is_hvm_enabled = 0;
-+	pa_config->is_hvm_enabled = adev->mode_info.gpu_vm_support;
+ 	amdgpu_gart_dummy_page_fini(adev);
+ 
+-	amdgpu_device_unmap_mmio(adev);
++	if (drm_dev_is_unplugged(adev_to_drm(adev)))
++		amdgpu_device_unmap_mmio(adev);
  
  }
  
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 2e5d78b6635c4..dfbeef2c4a9e2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2226,6 +2226,8 @@ amdgpu_pci_remove(struct pci_dev *pdev)
+ 	struct drm_device *dev = pci_get_drvdata(pdev);
+ 	struct amdgpu_device *adev = drm_to_adev(dev);
+ 
++	drm_dev_unplug(dev);
++
+ 	if (adev->pm.rpm_mode != AMDGPU_RUNPM_NONE) {
+ 		pm_runtime_get_sync(dev->dev);
+ 		pm_runtime_forbid(dev->dev);
+@@ -2265,8 +2267,6 @@ amdgpu_pci_remove(struct pci_dev *pdev)
+ 
+ 	amdgpu_driver_unload_kms(dev);
+ 
+-	drm_dev_unplug(dev);
+-
+ 	/*
+ 	 * Flush any in flight DMA operations from device.
+ 	 * Clear the Bus Master Enable bit and then wait on the PCIe Device
 -- 
 2.39.0
 
