@@ -4,61 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C184C64ED6
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Feb 2023 10:02:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6554BC64EC7
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Feb 2023 12:43:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79ABB10E675;
-	Tue, 28 Feb 2023 10:02:10 +0000 (UTC)
-Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com
- [IPv6:2a00:1450:4864:20::141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AFE210E672;
- Tue, 28 Feb 2023 10:02:07 +0000 (UTC)
-Received: by mail-lf1-x141.google.com with SMTP id f41so12335182lfv.13;
- Tue, 28 Feb 2023 02:02:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1677578525;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=G8hhzXkZOya5l1+2gQHv4ogw/z8WojXSIvbDiC05eoE=;
- b=MYWMJTBduZDw1oZjUVYJ/Gx62kZCfsAKH+pKZl72VmRybCPdz8c0+c9XuI5HU9LyZI
- 8p4sLulTSpLvCL640MexO1H6khHPs8ZopBAOP21RNCQnlrIeOaDao3tfZQioSYCNidbg
- 8222/93iiHba5q6Xn2rjD7CGiR8fBhzT/LzQzpwu4uIItCYV8Sti9Ku74AHCsyv3U+UK
- HMeu3cDOgIEyBVc76U/MeNHo7pHdBhmfXkCIeFZxWpyXvAeauEC0tOBfdsxyGOfYRtfm
- FdrbdfKTYql8RVT1XtprfNgPZ/ECufwQzmc8kRYmiACgPkeHQqphN5YQr/d4LSOZISOm
- I8pg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFD5E10E4CA;
+	Tue, 28 Feb 2023 12:43:09 +0000 (UTC)
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [IPv6:2a00:1450:4864:20::531])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 578EE10E4CA;
+ Tue, 28 Feb 2023 12:43:07 +0000 (UTC)
+Received: by mail-ed1-x531.google.com with SMTP id cy6so39349771edb.5;
+ Tue, 28 Feb 2023 04:43:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=nJVEIhPKLgTn+f8VRs4bEIhn760RPkrg51g9quDiRIM=;
+ b=KpZe4kRNteu5U7jRkBjLAJrNgdsosHyBUOuWkSDOiYhDSEZemMAlXs2A+5/nOeRwbc
+ gHZLzrN99Fd9HyEHt51MNyySoE7+SZURVC7mJ8oOiNQnn6aBoziCZBV1fNWH8AtOmD8s
+ eFb2FIrOIQriuUuE67S8xs1yVBfkjpVYCd2VsZeMprVlawBTMKdJphmhGMR9gTDUTHei
+ OzB2SE8gxRX9HYbWukfQrEapjCVClDWL2hNQyRubzjNahdqBpmK33OvtOCffI/8jQl2q
+ +dbrlazx2m8MBhSDeAgQfTlTJPRaUOzUzdcC7JsWgV8kn3SF1k3sGsZm8kJ2RIXhLppT
+ q07Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1677578525;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=G8hhzXkZOya5l1+2gQHv4ogw/z8WojXSIvbDiC05eoE=;
- b=HCfr+S/HiwxyVHwLpLLr5T8QXkw89Prji6fZrc0syk0f3IDXceP3YgO/THWlMF54e2
- dZwEsHWSrgSAkYYJNcMsHip8wpQ7eoyPzopMYMXnRpSZl8h9P1DjY+Y99toztHcQIAHo
- zjoWi8IOROqocVZnltGK35+67WpRLeCILnVEEAP1P89GDF3Lza9Wk1zpajg9U8cWxrbm
- YW3PgdkkhOYxlErZr10XUgvbtSfa5CchRkoOOHUnRiefNSwYdx4d1Fp+zOMwF/UfJxoJ
- a5BGMqa3kPSXji/PByTHfyEhueYKvUr5MVqGKcxFNdI8b6LZa0yQPImY3XSN3WaPYh5j
- LVjQ==
-X-Gm-Message-State: AO0yUKX/xWdp8eEcJzAdtCwc6cNlF2y3RiAVk7zitFmZ5BXwWf4j6nPG
- MDMlQUgHZlICj45pcGwU//8=
-X-Google-Smtp-Source: AK7set9kOzDNcpy7n8owlmf75WwP/agrXt+BlAo3GZFtShfHQENo9cFf98g4cf/XBAOfbuqCzIOskw==
-X-Received: by 2002:ac2:5119:0:b0:4db:405f:d5c0 with SMTP id
- q25-20020ac25119000000b004db405fd5c0mr472382lfb.48.1677578525436; 
- Tue, 28 Feb 2023 02:02:05 -0800 (PST)
-Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- q2-20020ac25a02000000b004dd6c325311sm1253952lfn.248.2023.02.28.02.02.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Feb 2023 02:02:04 -0800 (PST)
-Date: Tue, 28 Feb 2023 12:02:01 +0200
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: =?UTF-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>
-Subject: Re: [PATCH v2 1/1] drm/doc: Document DRM device reset expectations
-Message-ID: <20230228120201.7b20519a@eldfell>
-In-Reply-To: <20230227204000.56787-2-andrealmeid@igalia.com>
-References: <20230227204000.56787-1-andrealmeid@igalia.com>
- <20230227204000.56787-2-andrealmeid@igalia.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=nJVEIhPKLgTn+f8VRs4bEIhn760RPkrg51g9quDiRIM=;
+ b=Vp8rN/Tmb1/eu3HKc1q1TbTInXbpZJlBQz5nPANzsHAaYZ09J7AC9kLs+5bTmj6mYl
+ R3tV01ghq1cunudL550SaEdKgbFLlkQqn5cpnarlEAD6GH5vjLSiurJZ30u92bOt2Yup
+ iDMiS3yuaEC0vFKMk7uPM6rxNKoGh1CXiMksnUXET6EtJWyU3tumThRXtPwwv06GtS51
+ WhBeHevvWt9OrPR7VwjaNs+YOlBQs24Y2qMM+RfEL4c2MVME816f4/uXxCa/9vU/YNop
+ O7k8mU9CmHqZvuDxTBpJ2Cab6Ant7FrnmceDT/Gri4LogOBzaRap+2JVtdCLoA8LvJmc
+ RwFg==
+X-Gm-Message-State: AO0yUKVbpUTrYMTbthpV2zGdwjIrZXGinwhJgpFwRAQ/w/9iky455cE0
+ skCR+9+OIIP+JAF+k6+RFyA=
+X-Google-Smtp-Source: AK7set/OhVedFmU/CFmt9qtLTMgyTFaxY8xIf1FUKl3A+f66bTfFrn3M6y8ruONLxxA3A6be+MD9yw==
+X-Received: by 2002:a17:906:b851:b0:872:b17a:9b59 with SMTP id
+ ga17-20020a170906b85100b00872b17a9b59mr2493027ejb.38.1677588185729; 
+ Tue, 28 Feb 2023 04:43:05 -0800 (PST)
+Received: from [192.168.178.21] (p5b0ea2e7.dip0.t-ipconnect.de.
+ [91.14.162.231]) by smtp.gmail.com with ESMTPSA id
+ h23-20020a50cdd7000000b004af64086a0esm4371314edj.35.2023.02.28.04.43.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 28 Feb 2023 04:43:05 -0800 (PST)
+Message-ID: <5cbba992-c4ce-01c1-2691-ed65ce66aad5@gmail.com>
+Date: Tue, 28 Feb 2023 13:43:01 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/WWSRvI8mNtp3sX1sMaJYoVm";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: amdgpu didn't start with pci=nocrs parameter, get error "Fatal
+ error during GPU init"
+Content-Language: en-US
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+References: <CABXGCsMbqw2qzWSCDfp3cNrYVJ1oxLv8Aixfm_Dt91x1cvFX4w@mail.gmail.com>
+ <a99e6def-68be-3f2b-4e01-ac26cdb80f49@gmail.com>
+ <CABXGCsM7JPxtQm6B7vk+ZcXfphgQm=ArJZKiDUdbk9hujyRtmg@mail.gmail.com>
+ <43016018-4d0a-94dc-ce93-b4bff2dce71c@gmail.com>
+ <90b1c9f8-1674-e9ec-e6d8-2fa1967439b3@gmail.com>
+ <CABXGCsN2NutEmi==JBDD5G2Bj=DJ6vm87_Cbubycz-WowUOh5w@mail.gmail.com>
+ <e2975d53-840c-a104-8b2d-c302f502c894@gmail.com>
+ <CABXGCsOJkF=c4B+oQm7cuEO7Fr_oknmH2iB6e6OCzmFy=KYtAw@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CABXGCsOJkF=c4B+oQm7cuEO7Fr_oknmH2iB6e6OCzmFy=KYtAw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,195 +81,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com, Daniel Vetter <daniel@ffwll.ch>,
- Marek =?UTF-8?B?T2zFocOhaw==?= <maraeo@gmail.com>,
- Simon Ser <contact@emersion.fr>, amaranath.somalapuram@amd.com,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, Rob
- Clark <robdclark@gmail.com>, Daniel
- Stone <daniel@fooishbar.org>, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, alexander.deucher@amd.com,
- contactshashanksharma@gmail.com, Dave Airlie <airlied@gmail.com>,
- christian.koenig@amd.com
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/WWSRvI8mNtp3sX1sMaJYoVm
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Am 28.02.23 um 10:52 schrieb Mikhail Gavrilov:
+> On Mon, Feb 27, 2023 at 3:22 PM Christian König
+>> Unfortunately yes. We could clean that up a bit more so that you don't
+>> run into a BUG() assertion, but what essentially happens here is that we
+>> completely fail to talk to the hardware.
+>>
+>> In this situation we can't even re-enable vesa or text console any more.
+>>
+> Then I don't understand why when amdgpu is blacklisted via
+> modprobe.blacklist=amdgpu then I see graphics and could login into
+> GNOME. Yes without hardware acceleration, but it is better than non
+> working graphics. It means there is some other driver (I assume this
+> is "video") which can successfully talk to the AMD hardware in
+> conditions where amdgpu cannot do this.
 
-On Mon, 27 Feb 2023 15:40:00 -0500
-Andr=C3=A9 Almeida <andrealmeid@igalia.com> wrote:
+The point is it doesn't need to talk to the amdgpu hardware. What it 
+does is that it talks to the good old VGA/VESA emulation and that just 
+happens to be still enabled by the BIOS/GRUB.
 
-> Create a section that specifies how to deal with DRM device resets for
-> kernel and userspace drivers.
->=20
-> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
-> ---
->  Documentation/gpu/drm-uapi.rst | 51 ++++++++++++++++++++++++++++++++++
->  1 file changed, 51 insertions(+)
->=20
-> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.=
-rst
-> index 65fb3036a580..3d6c3ed392ea 100644
-> --- a/Documentation/gpu/drm-uapi.rst
-> +++ b/Documentation/gpu/drm-uapi.rst
-> @@ -285,6 +285,57 @@ for GPU1 and GPU2 from different vendors, and a thir=
-d handler for
->  mmapped regular files. Threads cause additional pain with signal
->  handling as well.
-> =20
-> +Device reset
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +The GPU stack is really complex and is prone to errors, from hardware bu=
-gs,
-> +faulty applications and everything in the many layers in between. To rec=
-over
-> +from this kind of state, sometimes is needed to reset the GPU. Unproper =
-handling
-> +of GPU resets can lead to an unstable userspace. This section describes =
-what's
-> +the expected behaviour from DRM drivers to do in those situations, from =
-usermode
-> +drivers and compositors as well. The end goal is to have a seamless expe=
-rience
-> +as possible, either the stack being able to recover itself or resetting =
-to a new
-> +stable state.
-> +
-> +Robustness
-> +----------
-> +
-> +First of all, application robust APIs, when available, should be used. T=
-his
-> +allows the application to correctly recover and continue to run after a =
-reset.
-> +Apps that doesn't use this should be promptly killed when the kernel dri=
-ver
-> +detects that it's in broken state. Specifically guidelines for some APIs:
+And that VGA/VESA emulation doesn't need any BAR or whatever to keep the 
+hw running in the state where it was initialized before the kernel 
+started. The kernel just grabs the addresses where it needs to write the 
+display data and keeps going with that.
 
-Hi,
+But when a hw specific driver wants to load this is the first thing 
+which gets disabled because we need to load new firmware. And with the 
+BARs disabled this can't be re-enabled without rebooting the system.
 
-the "kill" wording is still here. It feels too harsh to me, like I say
-in my comments below, but let's see what others think.
+> My suggestion is that if
+> amdgpu fails to talk to the hardware, then let another suitable driver
+> do it. I attached a system log when I apply "pci=nocrs" with
+> "modprobe.blacklist=amdgpu" for showing that graphics work right in
+> this case.
+> To do this, does the Linux module loading mechanism need to be refined?
 
-Even the device hot-unplug guide above this does not call for killing
-anything and is prepared for userspace to keep going indefinitely if
-userspace is broken enough.
+That's actually working as expected. The real problem is that the BIOS 
+on that system is so broken that we can't access the hw correctly.
 
-> +
-> +- OpenGL: KMD signals the abortion of submitted commands and the UMD sho=
-uld then
-> +  react accordingly and abort the application.
+What we could to do is to check the BARs very early on and refuse to 
+load when they are disable. The problem with this approach is that there 
+are systems where it is normal that the BARs are disable until the 
+driver loads and get enabled during the hardware initialization process.
 
-No, not abort. Just return failures and make sure no API call will
-block indefinitely.
+What you might want to look into is to find a quirk for the BIOS to 
+properly enable the nvme controller.
 
-> +
-> +- Vulkan: Assumes that every app is able to deal with ``VK_ERROR_DEVICE_=
-LOST``.
-> +  If it doesn't do it right, it's considered a broken application and UM=
-D will
-> +  deal with it, aborting it.
+Regards,
+Christian.
 
-Is it even possible to detect if an app does it right?
-
-What if the app does do it right, but not before it attempts to hammer
-a few more jobs in?
-
-> +
-> +Kernel mode driver
-> +------------------
-> +
-> +The KMD must be able to detect that something is wrong with the applicat=
-ion
-> +and that a reset is needed to take place to recover the device (e.g. an =
-endless
-> +wait). It needs to properly track the context that is broken and mark it=
- as
-> +dead, so any other syscalls to that context should be further rejected. =
-The
-> +other contexts should be preserved when possible, avoid crashing the res=
-t of
-> +userspace. KMD can ban a file descriptor that keeps causing resets, as i=
-t's
-> +likely in a broken loop.
-
-If userspace is in a broken loop repeatedly causing GPU reset, would it
-keep using the same (render node) fd? To me it would be more likely to
-close the fd and open a new one, then crash again. Robust or not, the
-gfx library API would probably require tearing everything down and
-starting from scratch. In fact, only robust apps would likely exhibit
-this behaviour, and non-robust just get stuck or quit themselves.
-
-I suppose in e.g. EGL, it is possible to just create a new context
-instead of a new EGLDisplay, so both re-using and not using the old fd
-are possible.
-
-The process identity would usually remain, I believe, except in cases
-like Chromium with its separate rendering processes, but then, would
-you really want to ban whole Chromium in that case...
-
-> +
-
-Another thing for the kernel mode driver maybe worth mentioning is that
-the driver could also pretend a hot-unplug if the GPU crash is so bad
-that everything is at risk being lost or corrupted.
-
-> +User mode driver
-> +----------------
-> +
-> +During a reset, UMD should be aware that rejected syscalls indicates tha=
-t the
-> +context is broken and for robust apps the recovery should happen for the
-> +context. Non-robust apps must be terminated.
-
-I think the termination thing probably needs to be much more nuanced,
-and also interact with the repeat-offender policy.
-
-Repeat-offender policy could be implemented in userspace too,
-especially if userspace keeps using the same device fd which is likely
-hidden by the gfx API.
-
-> +
-> +Compositors
-> +-----------
-> +
-> +Compositors should be robust as well to properly deal with its errors.
-
-What is the worth of this note? To me as a compositor developer it is
-obvious.
-
-
-Thanks,
-pq
-
-> +
-> +
->  .. _drm_driver_ioctl:
-> =20
->  IOCTL Support on Device Nodes
-
-
---Sig_/WWSRvI8mNtp3sX1sMaJYoVm
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmP90RkACgkQI1/ltBGq
-qqcuAw//VeEiTkS/jsh5b8dSbIL6C2WakLcErXAtEo65dLIwOdyxueFIAIRzM14K
-9SRGg34hvSfmug/0Kqo/0FugRwMfhVxhJ147fZIioQl/VNqEIfHqb480hc7COSG3
-BW+FARtBM9k3ZA885aD7pV///+VnxjKCs+0D8gCj7o8jt/SzNGFAAEbB1RohC7kN
-9/3kbT7l2K2oIxgEI1uqt5AD4cfLOHO8aR+omS8QBi9q77kjii+XWlwGclmo4tzq
-W+HTY9esbbMBLDDIXgc3T2fiC0uWmyK+CWzKD1B6whfkDm+nH5sDxmdfuMAxan3T
-Hf7YFgQLRI1WwJ0xQupzrJG+znjJW5M6TpaGh72dFyncCYwB1M8lNVXkzr5QKfWX
-ieu2pI8b8iakYlAuBrStO4pQwShK7h5LIXXXJR7R2hhX53pbJ5yPGJZNSYr5mGw7
-/PWgbmTW1LkUBzpJauKwEBn8v7aWy4A/ZoJM6/hBGAoy4CoUAsx//kRVaw8LjWQN
-feQ1SDEOB8xlQPevx6/1nv7Sv3toZhzkVIpXf7r2guXLD0q5HZYa5PY/7EVT5Xsh
-6xqBMZK7blgAXWqKS0eb90bM1iLRKpfHstOni6p65ec4zPZX1UemX+3VMUEPKlxO
-dxTNRj6q4IFz7kgEMwY/gMaceHGbHJqxc32WrbiQ9crQ0LEHsaM=
-=J8hB
------END PGP SIGNATURE-----
-
---Sig_/WWSRvI8mNtp3sX1sMaJYoVm--
