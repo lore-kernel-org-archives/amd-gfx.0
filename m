@@ -4,46 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90E1AC64ED6
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Feb 2023 15:26:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62D14C64EC7
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Feb 2023 16:05:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC4E210E4E0;
-	Tue, 28 Feb 2023 15:26:15 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C870710E4D7;
- Tue, 28 Feb 2023 15:26:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=1P/CMXGxj7MEFBYHfYR2YHpsJNtdZiBmYO9UykBmZlA=; b=UO+MTwYv4g3zQjHRMxzwhJWZ2F
- JgotM50lxIgku/bqWfBvxLYcrA0JVt8HtYEsE+WXPRbf0FLok+MK2V+OyDB7DzHy88zT/US+PfURC
- 55G3ZCBcC1pEJmyjOcwovleaht7EtAKutwVq9JHA1y5reFcxEfLetZdXEg32pD0yj1vGtLMrjegoN
- qkHAeotfkEfsRA4f0dO3xHdxUh1TeD11UH5PCKeKOdlLXK/2ZwcQ1t28CRpqdZvBofuF7/09mHgJY
- WdnyI9KKEtTa5/FLalO3gNGm+zRwZa8fjtLUOHpry9WhLAsldob7ciPyiRySliBpQkUTY2RJNem+4
- hkCBjVzA==;
-Received: from [181.199.58.72] (helo=[192.168.100.46])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1pX1rl-000NRm-2P; Tue, 28 Feb 2023 16:26:09 +0100
-Message-ID: <0d38d76f-77b4-ec14-fbc3-9c7eee6ce58b@igalia.com>
-Date: Tue, 28 Feb 2023 10:26:04 -0500
+	by gabe.freedesktop.org (Postfix) with ESMTP id C99C010E4E7;
+	Tue, 28 Feb 2023 16:05:31 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7293910E02E;
+ Tue, 28 Feb 2023 16:05:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1677600329; x=1709136329;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=7WTR5cEOx6pl83EELbuiP04ozprfCWKL6VhuLuedDOs=;
+ b=N0ivWqRCJ0XvbH1vyTGofIYPI0/TjaMtkmxEecK6iQmbRU2Jt3dQSIrw
+ /2fdz2UGHcv1ytI1Ct7lYbSrDIswNHKYyaZRyBwIIVsMNrqxr+ROXxpaq
+ cjtDENphZs8/I9GwWT9CC4MAXjzXxttQT5yxb9MZ6I267fmc0cOkcMW6E
+ Aab1tgU2E8ZEGEP3RRRPyaQAWbnSB+5UmiNdDdlLJHqlZIxXWKguUzSVb
+ CF6gtn5qG7NyUL4YmEggctsZsnOiELWJAcdSKUgOjjsqLH8+yVUAfRhdV
+ HIOvI+4ipiTp9x9z+/xpsaInM9DR8Pe8sIo48iPl3+XfXZs9cbmUGiX0Z w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10635"; a="313847281"
+X-IronPort-AV: E=Sophos;i="5.98,222,1673942400"; d="scan'208";a="313847281"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Feb 2023 08:04:42 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10635"; a="1003269224"
+X-IronPort-AV: E=Sophos;i="5.98,222,1673942400"; d="scan'208";a="1003269224"
+Received: from lkp-server01.sh.intel.com (HELO 3895f5c55ead) ([10.239.97.150])
+ by fmsmga005.fm.intel.com with ESMTP; 28 Feb 2023 08:04:40 -0800
+Received: from kbuild by 3895f5c55ead with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pX2T1-0005VM-2m;
+ Tue, 28 Feb 2023 16:04:39 +0000
+Date: Wed, 1 Mar 2023 00:03:57 +0800
+From: kernel test robot <lkp@intel.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 8/9] drm/qxl: switch to using drm_exec
+Message-ID: <202302282339.welAynWc-lkp@intel.com>
+References: <20230228083406.1720795-9-christian.koenig@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH v2 1/1] drm/doc: Document DRM device reset expectations
-Content-Language: en-US
-To: Pekka Paalanen <ppaalanen@gmail.com>
-References: <20230227204000.56787-1-andrealmeid@igalia.com>
- <20230227204000.56787-2-andrealmeid@igalia.com>
- <20230228120201.7b20519a@eldfell>
-From: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
-In-Reply-To: <20230228120201.7b20519a@eldfell>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230228083406.1720795-9-christian.koenig@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,169 +59,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com, Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- Simon Ser <contact@emersion.fr>, amaranath.somalapuram@amd.com,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Rob Clark <robdclark@gmail.com>, Daniel Stone <daniel@fooishbar.org>,
- dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
- alexander.deucher@amd.com, contactshashanksharma@gmail.com,
- Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com
+Cc: arunpravin.paneerselvam@amd.com, dakr@redhat.com,
+ oe-kbuild-all@lists.linux.dev
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Pekka,
+Hi Christian,
 
-Thank you for your feedback,
+I love your patch! Yet something to improve:
 
-On 2/28/23 05:02, Pekka Paalanen wrote:
-> On Mon, 27 Feb 2023 15:40:00 -0500
-> André Almeida <andrealmeid@igalia.com> wrote:
->
->> Create a section that specifies how to deal with DRM device resets for
->> kernel and userspace drivers.
->>
->> Signed-off-by: André Almeida <andrealmeid@igalia.com>
->> ---
->>   Documentation/gpu/drm-uapi.rst | 51 ++++++++++++++++++++++++++++++++++
->>   1 file changed, 51 insertions(+)
->>
->> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
->> index 65fb3036a580..3d6c3ed392ea 100644
->> --- a/Documentation/gpu/drm-uapi.rst
->> +++ b/Documentation/gpu/drm-uapi.rst
->> @@ -285,6 +285,57 @@ for GPU1 and GPU2 from different vendors, and a third handler for
->>   mmapped regular files. Threads cause additional pain with signal
->>   handling as well.
->>   
->> +Device reset
->> +============
->> +
->> +The GPU stack is really complex and is prone to errors, from hardware bugs,
->> +faulty applications and everything in the many layers in between. To recover
->> +from this kind of state, sometimes is needed to reset the GPU. Unproper handling
->> +of GPU resets can lead to an unstable userspace. This section describes what's
->> +the expected behaviour from DRM drivers to do in those situations, from usermode
->> +drivers and compositors as well. The end goal is to have a seamless experience
->> +as possible, either the stack being able to recover itself or resetting to a new
->> +stable state.
->> +
->> +Robustness
->> +----------
->> +
->> +First of all, application robust APIs, when available, should be used. This
->> +allows the application to correctly recover and continue to run after a reset.
->> +Apps that doesn't use this should be promptly killed when the kernel driver
->> +detects that it's in broken state. Specifically guidelines for some APIs:
-> Hi,
->
-> the "kill" wording is still here. It feels too harsh to me, like I say
-> in my comments below, but let's see what others think.
->
-> Even the device hot-unplug guide above this does not call for killing
-> anything and is prepared for userspace to keep going indefinitely if
-> userspace is broken enough.
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on drm/drm-next drm-intel/for-linux-next linus/master next-20230228]
+[cannot apply to drm-exynos/exynos-drm-next drm-intel/for-linux-next-fixes v6.2]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-If I understood correctly, you don't think that neither KMD or UMD 
-should terminate apps that hangs the GPU, right? Should those apps run 
-indefinitely until the user decides to do something about it?
+url:    https://github.com/intel-lab-lkp/linux/commits/Christian-K-nig/drm-add-drm_exec-selftests/20230228-173404
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/20230228083406.1720795-9-christian.koenig%40amd.com
+patch subject: [PATCH 8/9] drm/qxl: switch to using drm_exec
+config: i386-randconfig-a014-20230227 (https://download.01.org/0day-ci/archive/20230228/202302282339.welAynWc-lkp@intel.com/config)
+compiler: gcc-11 (Debian 11.3.0-8) 11.3.0
+reproduce (this is a W=1 build):
+        # https://github.com/intel-lab-lkp/linux/commit/435d2421797eb683d27984c9a823b48704069df9
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Christian-K-nig/drm-add-drm_exec-selftests/20230228-173404
+        git checkout 435d2421797eb683d27984c9a823b48704069df9
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        make W=1 O=build_dir ARCH=i386 olddefconfig
+        make W=1 O=build_dir ARCH=i386 SHELL=/bin/bash
 
-At least on Intel GPUs, if I run an OpenGL infinite loop the app will be 
-terminated in a few moments, and the rest of userspace is preserved. 
-There's an app that just do that if you want to have a look on how it 
-works: https://gitlab.freedesktop.org/andrealmeid/gpu-timeout
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Link: https://lore.kernel.org/oe-kbuild-all/202302282339.welAynWc-lkp@intel.com/
 
->
->> +
->> +- OpenGL: KMD signals the abortion of submitted commands and the UMD should then
->> +  react accordingly and abort the application.
-> No, not abort. Just return failures and make sure no API call will
-> block indefinitely.
->
->> +
->> +- Vulkan: Assumes that every app is able to deal with ``VK_ERROR_DEVICE_LOST``.
->> +  If it doesn't do it right, it's considered a broken application and UMD will
->> +  deal with it, aborting it.
-> Is it even possible to detect if an app does it right?
->
-> What if the app does do it right, but not before it attempts to hammer
-> a few more jobs in?
+All errors (new ones prefixed by >>, old ones prefixed by <<):
 
-I think what I meant was
+>> ERROR: modpost: "drm_exec_init" [drivers/gpu/drm/qxl/qxl.ko] undefined!
+>> ERROR: modpost: "drm_exec_prepare_obj" [drivers/gpu/drm/qxl/qxl.ko] undefined!
+>> ERROR: modpost: "drm_exec_cleanup" [drivers/gpu/drm/qxl/qxl.ko] undefined!
+>> ERROR: modpost: "drm_exec_fini" [drivers/gpu/drm/qxl/qxl.ko] undefined!
 
-+ If it doesn't support VK_ERROR_DEVICE_LOST, it's considered a broken 
-app [...]
-
-In the sense that if it doesn't support this, it is impossible for the 
-app to recovery gracefully from a reset so it's considered broken
-
->> +
->> +Kernel mode driver
->> +------------------
->> +
->> +The KMD must be able to detect that something is wrong with the application
->> +and that a reset is needed to take place to recover the device (e.g. an endless
->> +wait). It needs to properly track the context that is broken and mark it as
->> +dead, so any other syscalls to that context should be further rejected. The
->> +other contexts should be preserved when possible, avoid crashing the rest of
->> +userspace. KMD can ban a file descriptor that keeps causing resets, as it's
->> +likely in a broken loop.
-> If userspace is in a broken loop repeatedly causing GPU reset, would it
-> keep using the same (render node) fd? To me it would be more likely to
-> close the fd and open a new one, then crash again. Robust or not, the
-> gfx library API would probably require tearing everything down and
-> starting from scratch. In fact, only robust apps would likely exhibit
-> this behaviour, and non-robust just get stuck or quit themselves.
->
-> I suppose in e.g. EGL, it is possible to just create a new context
-> instead of a new EGLDisplay, so both re-using and not using the old fd
-> are possible.
->
-> The process identity would usually remain, I believe, except in cases
-> like Chromium with its separate rendering processes, but then, would
-> you really want to ban whole Chromium in that case...
->
-Right, so userspace is the right place to implement the repeat-offender 
-policy, as you noted below.
-
->> +
-> Another thing for the kernel mode driver maybe worth mentioning is that
-> the driver could also pretend a hot-unplug if the GPU crash is so bad
-> that everything is at risk being lost or corrupted.
-
-Ack, I'll add that
-
->
->> +User mode driver
->> +----------------
->> +
->> +During a reset, UMD should be aware that rejected syscalls indicates that the
->> +context is broken and for robust apps the recovery should happen for the
->> +context. Non-robust apps must be terminated.
-> I think the termination thing probably needs to be much more nuanced,
-> and also interact with the repeat-offender policy.
->
-> Repeat-offender policy could be implemented in userspace too,
-> especially if userspace keeps using the same device fd which is likely
-> hidden by the gfx API.
->
->> +
->> +Compositors
->> +-----------
->> +
->> +Compositors should be robust as well to properly deal with its errors.
-> What is the worth of this note? To me as a compositor developer it is
-> obvious.
-
-As it is it doesn't says much indeed, I think Christian suggestion adds 
-something more meaningful to this part.
-
->
-> Thanks,
-> pq
->
->> +
->> +
->>   .. _drm_driver_ioctl:
->>   
->>   IOCTL Support on Device Nodes
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
