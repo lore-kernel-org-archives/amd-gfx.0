@@ -4,49 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 348DFC64EC7
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Feb 2023 14:20:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90E1AC64ED6
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Feb 2023 15:26:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7CDE10E200;
-	Tue, 28 Feb 2023 14:20:05 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FF1E10E200
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Feb 2023 14:20:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677594004; x=1709130004;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=HpSQ1PizI63SLWLdOXUaQfPsd5UJVmxUZhcPqhd00Go=;
- b=D2Gc87tE2btok2GVtFmJ/Qt9b5kKhSKknnaAmbUinYOtN6P8RkUz1cAe
- yUButSKVIBnziIMWeQVSWzmfiWIB1IvSkPgeO+VV4j4vRMTT9Z+ZBhgEl
- gdrGq2Pa3p03okUhgFgpucCLRxsomjvvBdI0wbafu1x0303uaw0UDUx6p
- aAG+KSFlEfopOTfmeCrb6+Mao2jCCNFA1XPvc89DTSGqlmbGPyQpGW15f
- GS9Bj35FvGLLiL23My/f18Fw9RilMO4cu6dzYf7DzfKwaleTeRl/TlBMp
- 3NZ0pDVznEBkhJHv+rKTf9yYce0/RpNvzqlucvAnKcRMZOXgnb72Wm2N7 w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10635"; a="398922796"
-X-IronPort-AV: E=Sophos;i="5.98,222,1673942400"; d="scan'208";a="398922796"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2023 06:19:41 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10635"; a="763185348"
-X-IronPort-AV: E=Sophos;i="5.98,222,1673942400"; d="scan'208";a="763185348"
-Received: from lkp-server01.sh.intel.com (HELO 3895f5c55ead) ([10.239.97.150])
- by FMSMGA003.fm.intel.com with ESMTP; 28 Feb 2023 06:19:37 -0800
-Received: from kbuild by 3895f5c55ead with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pX0pM-0005S7-0g;
- Tue, 28 Feb 2023 14:19:36 +0000
-Date: Tue, 28 Feb 2023 22:18:50 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 058f4df42121baadbb8a980c06011e912784dbd2
-Message-ID: <63fe0d4a.ELRnTR/tsOu56isL%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC4E210E4E0;
+	Tue, 28 Feb 2023 15:26:15 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C870710E4D7;
+ Tue, 28 Feb 2023 15:26:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=1P/CMXGxj7MEFBYHfYR2YHpsJNtdZiBmYO9UykBmZlA=; b=UO+MTwYv4g3zQjHRMxzwhJWZ2F
+ JgotM50lxIgku/bqWfBvxLYcrA0JVt8HtYEsE+WXPRbf0FLok+MK2V+OyDB7DzHy88zT/US+PfURC
+ 55G3ZCBcC1pEJmyjOcwovleaht7EtAKutwVq9JHA1y5reFcxEfLetZdXEg32pD0yj1vGtLMrjegoN
+ qkHAeotfkEfsRA4f0dO3xHdxUh1TeD11UH5PCKeKOdlLXK/2ZwcQ1t28CRpqdZvBofuF7/09mHgJY
+ WdnyI9KKEtTa5/FLalO3gNGm+zRwZa8fjtLUOHpry9WhLAsldob7ciPyiRySliBpQkUTY2RJNem+4
+ hkCBjVzA==;
+Received: from [181.199.58.72] (helo=[192.168.100.46])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1pX1rl-000NRm-2P; Tue, 28 Feb 2023 16:26:09 +0100
+Message-ID: <0d38d76f-77b4-ec14-fbc3-9c7eee6ce58b@igalia.com>
+Date: Tue, 28 Feb 2023 10:26:04 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v2 1/1] drm/doc: Document DRM device reset expectations
+Content-Language: en-US
+To: Pekka Paalanen <ppaalanen@gmail.com>
+References: <20230227204000.56787-1-andrealmeid@igalia.com>
+ <20230227204000.56787-2-andrealmeid@igalia.com>
+ <20230228120201.7b20519a@eldfell>
+From: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <20230228120201.7b20519a@eldfell>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,266 +55,169 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arch@vger.kernel.org, linux-watchdog@vger.kernel.org,
- linux-parisc@vger.kernel.org,
- Linux Memory Management List <linux-mm@kvack.org>, linux-usb@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-bluetooth@vger.kernel.org,
- asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Cc: pierre-eric.pelloux-prayer@amd.com, Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
+ Simon Ser <contact@emersion.fr>, amaranath.somalapuram@amd.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Rob Clark <robdclark@gmail.com>, Daniel Stone <daniel@fooishbar.org>,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, contactshashanksharma@gmail.com,
+ Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 058f4df42121baadbb8a980c06011e912784dbd2  Add linux-next specific files for 20230228
+Hi Pekka,
 
-Error/Warning reports:
+Thank you for your feedback,
 
-https://lore.kernel.org/oe-kbuild-all/202302111601.jtY4lKrA-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202302170355.Ljqlzucu-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202302210350.lynWcL4t-lkp@intel.com
+On 2/28/23 05:02, Pekka Paalanen wrote:
+> On Mon, 27 Feb 2023 15:40:00 -0500
+> André Almeida <andrealmeid@igalia.com> wrote:
+>
+>> Create a section that specifies how to deal with DRM device resets for
+>> kernel and userspace drivers.
+>>
+>> Signed-off-by: André Almeida <andrealmeid@igalia.com>
+>> ---
+>>   Documentation/gpu/drm-uapi.rst | 51 ++++++++++++++++++++++++++++++++++
+>>   1 file changed, 51 insertions(+)
+>>
+>> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
+>> index 65fb3036a580..3d6c3ed392ea 100644
+>> --- a/Documentation/gpu/drm-uapi.rst
+>> +++ b/Documentation/gpu/drm-uapi.rst
+>> @@ -285,6 +285,57 @@ for GPU1 and GPU2 from different vendors, and a third handler for
+>>   mmapped regular files. Threads cause additional pain with signal
+>>   handling as well.
+>>   
+>> +Device reset
+>> +============
+>> +
+>> +The GPU stack is really complex and is prone to errors, from hardware bugs,
+>> +faulty applications and everything in the many layers in between. To recover
+>> +from this kind of state, sometimes is needed to reset the GPU. Unproper handling
+>> +of GPU resets can lead to an unstable userspace. This section describes what's
+>> +the expected behaviour from DRM drivers to do in those situations, from usermode
+>> +drivers and compositors as well. The end goal is to have a seamless experience
+>> +as possible, either the stack being able to recover itself or resetting to a new
+>> +stable state.
+>> +
+>> +Robustness
+>> +----------
+>> +
+>> +First of all, application robust APIs, when available, should be used. This
+>> +allows the application to correctly recover and continue to run after a reset.
+>> +Apps that doesn't use this should be promptly killed when the kernel driver
+>> +detects that it's in broken state. Specifically guidelines for some APIs:
+> Hi,
+>
+> the "kill" wording is still here. It feels too harsh to me, like I say
+> in my comments below, but let's see what others think.
+>
+> Even the device hot-unplug guide above this does not call for killing
+> anything and is prepared for userspace to keep going indefinitely if
+> userspace is broken enough.
 
-Error/Warning: (recently discovered and may have been fixed)
+If I understood correctly, you don't think that neither KMD or UMD 
+should terminate apps that hangs the GPU, right? Should those apps run 
+indefinitely until the user decides to do something about it?
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_optc.c:294:6: warning: no previous prototype for 'optc3_wait_drr_doublebuffer_pending_clear' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/umc_v8_10.c:212:6: warning: no previous prototype for 'umc_v8_10_convert_error_address' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/umc_v8_10.c:212:6: warning: no previous prototype for function 'umc_v8_10_convert_error_address' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/umc_v8_10.c:437:37: warning: variable 'channel_index' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c:81:29: warning: variable 'ring' set but not used [-Wunused-but-set-variable]
-include/asm-generic/div64.h:238:36: error: passing argument 1 of '__div64_32' from incompatible pointer type [-Werror=incompatible-pointer-types]
+At least on Intel GPUs, if I run an OpenGL infinite loop the app will be 
+terminated in a few moments, and the rest of userspace is preserved. 
+There's an app that just do that if you want to have a look on how it 
+works: https://gitlab.freedesktop.org/andrealmeid/gpu-timeout
 
-Unverified Error/Warning (likely false positive, please contact us if interested):
+>
+>> +
+>> +- OpenGL: KMD signals the abortion of submitted commands and the UMD should then
+>> +  react accordingly and abort the application.
+> No, not abort. Just return failures and make sure no API call will
+> block indefinitely.
+>
+>> +
+>> +- Vulkan: Assumes that every app is able to deal with ``VK_ERROR_DEVICE_LOST``.
+>> +  If it doesn't do it right, it's considered a broken application and UMD will
+>> +  deal with it, aborting it.
+> Is it even possible to detect if an app does it right?
+>
+> What if the app does do it right, but not before it attempts to hammer
+> a few more jobs in?
 
-arch/parisc/mm/fault.c:427 do_page_fault() error: uninitialized symbol 'msg'.
-drivers/iommu/apple-dart.c:1281:1: sparse: sparse: symbol 'apple_dart_pm_ops' was not declared. Should it be static?
-drivers/usb/gadget/composite.c:2082:33: sparse: sparse: restricted __le16 degrades to integer
-drivers/watchdog/imx2_wdt.c:442:22: sparse: sparse: symbol 'imx_wdt' was not declared. Should it be static?
-drivers/watchdog/imx2_wdt.c:446:22: sparse: sparse: symbol 'imx_wdt_legacy' was not declared. Should it be static?
-net/bluetooth/hci_sync.c:2403 hci_pause_addr_resolution() warn: missing error code? 'err'
+I think what I meant was
 
-Error/Warning ids grouped by kconfigs:
++ If it doesn't support VK_ERROR_DEVICE_LOST, it's considered a broken 
+app [...]
 
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-umc_v8_10.c:warning:no-previous-prototype-for-umc_v8_10_convert_error_address
-|   |-- drivers-gpu-drm-amd-amdgpu-umc_v8_10.c:warning:variable-channel_index-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-vcn_v4_0.c:warning:variable-ring-set-but-not-used
-|-- alpha-randconfig-c041-20230226
-|   |-- drivers-gpu-drm-amd-amdgpu-umc_v8_10.c:warning:no-previous-prototype-for-umc_v8_10_convert_error_address
-|   |-- drivers-gpu-drm-amd-amdgpu-umc_v8_10.c:warning:variable-channel_index-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-vcn_v4_0.c:warning:variable-ring-set-but-not-used
-|-- alpha-randconfig-c043-20230226
-|   |-- drivers-gpu-drm-amd-amdgpu-umc_v8_10.c:warning:no-previous-prototype-for-umc_v8_10_convert_error_address
-|   |-- drivers-gpu-drm-amd-amdgpu-umc_v8_10.c:warning:variable-channel_index-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-vcn_v4_0.c:warning:variable-ring-set-but-not-used
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-umc_v8_10.c:warning:no-previous-prototype-for-umc_v8_10_convert_error_address
-|   |-- drivers-gpu-drm-amd-amdgpu-umc_v8_10.c:warning:variable-channel_index-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-vcn_v4_0.c:warning:variable-ring-set-but-not-used
-|   `-- include-asm-generic-div64.h:error:passing-argument-of-__div64_32-from-incompatible-pointer-type
-|-- arc-randconfig-r033-20230226
-|   |-- drivers-gpu-drm-amd-amdgpu-umc_v8_10.c:warning:no-previous-prototype-for-umc_v8_10_convert_error_address
-|   |-- drivers-gpu-drm-amd-amdgpu-umc_v8_10.c:warning:variable-channel_index-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-vcn_v4_0.c:warning:variable-ring-set-but-not-used
-|-- arm-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-umc_v8_10.c:warning:no-previous-prototype-for-umc_v8_10_convert_error_address
-|   |-- drivers-gpu-drm-amd-amdgpu-umc_v8_10.c:warning:variable-channel_index-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-vcn_v4_0.c:warning:variable-ring-set-but-not-used
-|   `-- include-asm-generic-div64.h:error:passing-argument-of-__div64_32-from-incompatible-pointer-type
-|-- arm-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-umc_v8_10.c:warning:no-previous-prototype-for-umc_v8_10_convert_error_address
-|   |-- drivers-gpu-drm-amd-amdgpu-umc_v8_10.c:warning:variable-channel_index-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-vcn_v4_0.c:warning:variable-ring-set-but-not-used
-|   `-- include-asm-generic-div64.h:error:passing-argument-of-__div64_32-from-incompatible-pointer-type
-|-- arm-randconfig-s041-20230226
-|   |-- drivers-gpu-drm-amd-amdgpu-umc_v8_10.c:warning:no-previous-prototype-for-umc_v8_10_convert_error_address
-|   |-- drivers-gpu-drm-amd-amdgpu-umc_v8_10.c:warning:variable-channel_index-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-vcn_v4_0.c:warning:variable-ring-set-but-not-used
-|-- arm64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
-|   |-- drivers-gpu-drm-amd-amdgpu-umc_v8_10.c:warning:no-previous-prototype-for-umc_v8_10_convert_error_address
-|   |-- drivers-gpu-drm-amd-amdgpu-umc_v8_10.c:warning:variable-channel_index-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-vcn_v4_0.c:warning:variable-ring-set-but-not-used
-|-- i386-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
-|   |-- drivers-gpu-drm-amd-amdgpu-umc_v8_10.c:warning:no-previous-prototype-for-umc_v8_10_convert_error_address
-|   |-- drivers-gpu-drm-amd-amdgpu-umc_v8_10.c:warning:variable-channel_index-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-vcn_v4_0.c:warning:variable-ring-set-but-not-used
-|-- i386-randconfig-s001
-|   `-- drivers-usb-gadget-composite.c:sparse:sparse:restricted-__le16-degrades-to-integer
-|-- i386-randconfig-s003
-|   `-- drivers-usb-gadget-composite.c:sparse:sparse:restricted-__le16-degrades-to-integer
-|-- ia64-allmodconfig
-clang_recent_errors
-`-- arm64-randconfig-r012-20230226
-    `-- drivers-gpu-drm-amd-amdgpu-umc_v8_10.c:warning:no-previous-prototype-for-function-umc_v8_10_convert_error_address
+In the sense that if it doesn't support this, it is impossible for the 
+app to recovery gracefully from a reset so it's considered broken
 
-elapsed time: 729m
+>> +
+>> +Kernel mode driver
+>> +------------------
+>> +
+>> +The KMD must be able to detect that something is wrong with the application
+>> +and that a reset is needed to take place to recover the device (e.g. an endless
+>> +wait). It needs to properly track the context that is broken and mark it as
+>> +dead, so any other syscalls to that context should be further rejected. The
+>> +other contexts should be preserved when possible, avoid crashing the rest of
+>> +userspace. KMD can ban a file descriptor that keeps causing resets, as it's
+>> +likely in a broken loop.
+> If userspace is in a broken loop repeatedly causing GPU reset, would it
+> keep using the same (render node) fd? To me it would be more likely to
+> close the fd and open a new one, then crash again. Robust or not, the
+> gfx library API would probably require tearing everything down and
+> starting from scratch. In fact, only robust apps would likely exhibit
+> this behaviour, and non-robust just get stuck or quit themselves.
+>
+> I suppose in e.g. EGL, it is possible to just create a new context
+> instead of a new EGLDisplay, so both re-using and not using the old fd
+> are possible.
+>
+> The process identity would usually remain, I believe, except in cases
+> like Chromium with its separate rendering processes, but then, would
+> you really want to ban whole Chromium in that case...
+>
+Right, so userspace is the right place to implement the repeat-offender 
+policy, as you noted below.
 
-configs tested: 161
-configs skipped: 11
+>> +
+> Another thing for the kernel mode driver maybe worth mentioning is that
+> the driver could also pretend a hot-unplug if the GPU crash is so bad
+> that everything is at risk being lost or corrupted.
 
-tested configs:
-alpha                            alldefconfig   gcc  
-alpha                            allyesconfig   gcc  
-alpha                               defconfig   gcc  
-arc                              allyesconfig   gcc  
-arc          buildonly-randconfig-r003-20230226   gcc  
-arc                                 defconfig   gcc  
-arc                 nsimosci_hs_smp_defconfig   gcc  
-arc                  randconfig-r004-20230226   gcc  
-arc                  randconfig-r004-20230227   gcc  
-arc                  randconfig-r021-20230226   gcc  
-arc                  randconfig-r033-20230226   gcc  
-arc                  randconfig-r034-20230226   gcc  
-arc                  randconfig-r035-20230226   gcc  
-arc                  randconfig-r043-20230226   gcc  
-arc                  randconfig-r043-20230227   gcc  
-arm                              allmodconfig   gcc  
-arm                              allyesconfig   gcc  
-arm          buildonly-randconfig-r005-20230226   gcc  
-arm          buildonly-randconfig-r005-20230227   clang
-arm                                 defconfig   gcc  
-arm                          ep93xx_defconfig   clang
-arm                         lpc18xx_defconfig   gcc  
-arm                        mvebu_v5_defconfig   clang
-arm                       omap2plus_defconfig   gcc  
-arm                  randconfig-r031-20230227   gcc  
-arm                  randconfig-r046-20230226   gcc  
-arm                  randconfig-r046-20230227   clang
-arm                           sama7_defconfig   clang
-arm                        spear3xx_defconfig   clang
-arm                           stm32_defconfig   gcc  
-arm                       versatile_defconfig   clang
-arm64                            allyesconfig   gcc  
-arm64                               defconfig   gcc  
-arm64                randconfig-r003-20230227   clang
-arm64                randconfig-r012-20230226   clang
-arm64                randconfig-r024-20230226   clang
-csky         buildonly-randconfig-r001-20230226   gcc  
-csky         buildonly-randconfig-r004-20230226   gcc  
-csky                                defconfig   gcc  
-csky                 randconfig-r022-20230227   gcc  
-csky                 randconfig-r035-20230227   gcc  
-hexagon              randconfig-r002-20230226   clang
-hexagon              randconfig-r014-20230226   clang
-hexagon              randconfig-r016-20230226   clang
-hexagon              randconfig-r021-20230226   clang
-hexagon              randconfig-r022-20230226   clang
-hexagon              randconfig-r041-20230226   clang
-hexagon              randconfig-r041-20230227   clang
-hexagon              randconfig-r045-20230227   clang
-i386                             allyesconfig   gcc  
-i386                              debian-10.3   gcc  
-i386                                defconfig   gcc  
-i386                 randconfig-a001-20230227   clang
-i386                 randconfig-a002-20230227   clang
-i386                 randconfig-a003-20230227   clang
-i386                 randconfig-a004-20230227   clang
-i386                 randconfig-a005-20230227   clang
-i386                 randconfig-a006-20230227   clang
-i386                 randconfig-a011-20230227   gcc  
-i386                 randconfig-a012-20230227   gcc  
-i386                 randconfig-a013-20230227   gcc  
-i386                 randconfig-a014-20230227   gcc  
-i386                 randconfig-a015-20230227   gcc  
-i386                 randconfig-a016-20230227   gcc  
-i386                          randconfig-c001   gcc  
-i386                 randconfig-r033-20230227   clang
-ia64                             allmodconfig   gcc  
-ia64                                defconfig   gcc  
-ia64                 randconfig-r006-20230227   gcc  
-ia64                 randconfig-r024-20230227   gcc  
-loongarch                        allmodconfig   gcc  
-loongarch                         allnoconfig   gcc  
-loongarch                           defconfig   gcc  
-loongarch            randconfig-r023-20230227   gcc  
-m68k                             allmodconfig   gcc  
-m68k                                defconfig   gcc  
-m68k                        mvme147_defconfig   gcc  
-m68k                 randconfig-r005-20230227   gcc  
-m68k                 randconfig-r011-20230226   gcc  
-mips                             allmodconfig   gcc  
-mips                             allyesconfig   gcc  
-mips                         cobalt_defconfig   gcc  
-mips                           gcw0_defconfig   gcc  
-mips                           ip22_defconfig   clang
-mips                      loongson3_defconfig   gcc  
-mips                        qi_lb60_defconfig   clang
-mips                 randconfig-r001-20230227   gcc  
-mips                 randconfig-r015-20230226   gcc  
-mips                 randconfig-r032-20230227   gcc  
-mips                           rs90_defconfig   clang
-mips                         rt305x_defconfig   gcc  
-nios2                            allyesconfig   gcc  
-nios2                               defconfig   gcc  
-nios2                randconfig-r026-20230226   gcc  
-nios2                randconfig-r032-20230226   gcc  
-openrisc     buildonly-randconfig-r002-20230227   gcc  
-openrisc             randconfig-r036-20230226   gcc  
-parisc                              defconfig   gcc  
-parisc               randconfig-r022-20230226   gcc  
-parisc64                            defconfig   gcc  
-powerpc                          allmodconfig   gcc  
-powerpc                           allnoconfig   gcc  
-powerpc      buildonly-randconfig-r004-20230227   gcc  
-powerpc                      pasemi_defconfig   gcc  
-powerpc              randconfig-r023-20230226   clang
-powerpc              randconfig-r025-20230227   gcc  
-powerpc                    sam440ep_defconfig   gcc  
-riscv                            allmodconfig   gcc  
-riscv                             allnoconfig   gcc  
-riscv                               defconfig   gcc  
-riscv                randconfig-r031-20230226   gcc  
-riscv                randconfig-r042-20230226   clang
-riscv                randconfig-r042-20230227   gcc  
-riscv                          rv32_defconfig   gcc  
-s390                             allmodconfig   gcc  
-s390                             allyesconfig   gcc  
-s390                                defconfig   gcc  
-s390                 randconfig-r005-20230226   gcc  
-s390                 randconfig-r026-20230227   gcc  
-s390                 randconfig-r044-20230226   clang
-s390                 randconfig-r044-20230227   gcc  
-sh                               allmodconfig   gcc  
-sh                 kfr2r09-romimage_defconfig   gcc  
-sh                   randconfig-r025-20230226   gcc  
-sh                   randconfig-r036-20230227   gcc  
-sh                            shmin_defconfig   gcc  
-sparc        buildonly-randconfig-r001-20230227   gcc  
-sparc        buildonly-randconfig-r006-20230227   gcc  
-sparc                               defconfig   gcc  
-sparc                randconfig-r006-20230226   gcc  
-sparc                randconfig-r025-20230226   gcc  
-sparc64              randconfig-r003-20230226   gcc  
-um                             i386_defconfig   gcc  
-um                           x86_64_defconfig   gcc  
-x86_64                            allnoconfig   gcc  
-x86_64                           allyesconfig   gcc  
-x86_64                              defconfig   gcc  
-x86_64                                  kexec   gcc  
-x86_64               randconfig-a001-20230227   clang
-x86_64               randconfig-a002-20230227   clang
-x86_64               randconfig-a003-20230227   clang
-x86_64               randconfig-a004-20230227   clang
-x86_64               randconfig-a005-20230227   clang
-x86_64               randconfig-a006-20230227   clang
-x86_64               randconfig-a011-20230227   gcc  
-x86_64               randconfig-a012-20230227   gcc  
-x86_64               randconfig-a013-20230227   gcc  
-x86_64               randconfig-a014-20230227   gcc  
-x86_64               randconfig-a015-20230227   gcc  
-x86_64               randconfig-a016-20230227   gcc  
-x86_64                        randconfig-k001   clang
-x86_64                           rhel-8.3-bpf   gcc  
-x86_64                          rhel-8.3-func   gcc  
-x86_64                    rhel-8.3-kselftests   gcc  
-x86_64                         rhel-8.3-kunit   gcc  
-x86_64                           rhel-8.3-kvm   gcc  
-x86_64                          rhel-8.3-rust   clang
-x86_64                           rhel-8.3-syz   gcc  
-x86_64                               rhel-8.3   gcc  
-xtensa       buildonly-randconfig-r006-20230226   gcc  
-xtensa               randconfig-r001-20230226   gcc  
+Ack, I'll add that
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+>
+>> +User mode driver
+>> +----------------
+>> +
+>> +During a reset, UMD should be aware that rejected syscalls indicates that the
+>> +context is broken and for robust apps the recovery should happen for the
+>> +context. Non-robust apps must be terminated.
+> I think the termination thing probably needs to be much more nuanced,
+> and also interact with the repeat-offender policy.
+>
+> Repeat-offender policy could be implemented in userspace too,
+> especially if userspace keeps using the same device fd which is likely
+> hidden by the gfx API.
+>
+>> +
+>> +Compositors
+>> +-----------
+>> +
+>> +Compositors should be robust as well to properly deal with its errors.
+> What is the worth of this note? To me as a compositor developer it is
+> obvious.
+
+As it is it doesn't says much indeed, I think Christian suggestion adds 
+something more meaningful to this part.
+
+>
+> Thanks,
+> pq
+>
+>> +
+>> +
+>>   .. _drm_driver_ioctl:
+>>   
+>>   IOCTL Support on Device Nodes
