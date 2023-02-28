@@ -4,50 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BC71C64ED6
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Feb 2023 16:45:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A651C64EC7
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Feb 2023 17:21:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1666510E6B2;
-	Tue, 28 Feb 2023 16:45:46 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B93510E6AE;
- Tue, 28 Feb 2023 16:45:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677602744; x=1709138744;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=Ll+g8W+BPsRQwYjoOrbS9PwPYnVqpEtunNHrBOzRBd4=;
- b=Lo+Pm3B8Tzxtht0m0IZ9YS4PeLVq2wYHHBz7Sp024iMnVXGqAofoue4r
- wwS1SDK7OBp5Yjx8yZMbixdzApsyh48Am1rC5qEafTeYf666qhMtBZKV7
- uvlwhNJOUkkT9ZUUfsIz1r2CPqmEhje1wiuRuUnhlFl61EAK3cZwxQd6Z
- LBo3qli/jE85cH906VB3YOpMF5uSNkyD9hxxoZvRB5geoUIA8+m2NnLXx
- kF+eK/TjWax/vKvvRZfmxmlAmecNEbbTDuAkJL75aE9nVgcNeJEaJ7BFZ
- dPzqn+4l6jsGOaOVyGdOU/VgsKEp0rHbpA91O0UV9OWk12R9raJ5WkqLb g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10635"; a="313857949"
-X-IronPort-AV: E=Sophos;i="5.98,222,1673942400"; d="scan'208";a="313857949"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2023 08:45:43 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10635"; a="817138303"
-X-IronPort-AV: E=Sophos;i="5.98,222,1673942400"; d="scan'208";a="817138303"
-Received: from lkp-server01.sh.intel.com (HELO 3895f5c55ead) ([10.239.97.150])
- by fmsmga001.fm.intel.com with ESMTP; 28 Feb 2023 08:45:42 -0800
-Received: from kbuild by 3895f5c55ead with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pX36j-0005X3-12;
- Tue, 28 Feb 2023 16:45:41 +0000
-Date: Wed, 1 Mar 2023 00:45:14 +0800
-From: kernel test robot <lkp@intel.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 7/9] drm/radeon: switch over to drm_exec
-Message-ID: <202303010052.xJCf8UMu-lkp@intel.com>
-References: <20230228083406.1720795-8-christian.koenig@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBF8210E4EB;
+	Tue, 28 Feb 2023 17:21:09 +0000 (UTC)
+Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
+ [IPv6:2001:4860:4864:20::33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9753310E4E3;
+ Tue, 28 Feb 2023 17:21:07 +0000 (UTC)
+Received: by mail-oa1-x33.google.com with SMTP id
+ 586e51a60fabf-172a623ad9aso11584920fac.13; 
+ Tue, 28 Feb 2023 09:21:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=q7x7oHut5DL2b1slktWg4ykcN8IGiByTWSwYr9fSdOk=;
+ b=W1aPmSSXbMzPCaSAecaI772FQHgFMTqPnezT3cYUHA92WRfdFX76nNqomSs4mqmMSN
+ xEBafiMXUr1i+RRk5CdEnwSVGApdZtwngzfMp3Ey8aNQ5SEAAP12etDcyGBnhdPalK2K
+ jOrjH1vB86N+OQSbRRCDmY+dR3CZMmZXvtm/FMF2p3abisKQfN8j5Xvu1CyrlT4JunZ5
+ 2O1OVqBDgJOSDKhNkvDbMZbMRbjdySP0nUq8gdt6gQ4F6peTek4ZADfQeHr1iUfQeEA8
+ 9iBJHVDvVlFkxhWDD/qFocnQ01yYG/jyJS6WT36ZM8hU6nzte/Mu+/k/Z7Jn//pFCvmv
+ WBog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=q7x7oHut5DL2b1slktWg4ykcN8IGiByTWSwYr9fSdOk=;
+ b=CK1el0xKydKDfs54YVoEmmRLcWQBzfVBLxg6K6qeSNMHLUbvt4lEWaPALhUSrLSqc2
+ lb2lp2PR1q+O6HyGYTuHrJFDp81Lc1SWTPfhrhxW91Nyu38U02SYqR2NMpeSqd1pay1G
+ BwEkNaE2DHo3D4/6NnR7U36Pekpkyp6SBBG1xg/5OG6LtdOCBqngmV2IpQBaYiCzG9dW
+ JsxYBNpK58fov+E3bxAyQqcz77v2qn6U3fdpPlhrRypGh3Xjh8TgE1edCavPceguMpkr
+ yYwNVevRzGDlsadjp6Kgq4+PcpdnXZdpdIs1SA5z4pZ00UAMnsNvB4LyOG/ZCpmo0MH4
+ Ejnw==
+X-Gm-Message-State: AO0yUKVzj7uSYZk8dirwsMm2OB/7p6TSRl4bDNZlAjCeaxbzR8+a/qY5
+ ibAwhcJsTbEl497vS3g1x3pLKVtg7NE+V3f8CIA=
+X-Google-Smtp-Source: AK7set/bb7R3q9nnU4uxrhjM46d5ADy7wq7B9UAVuFkbqBjqpPYOXMZIiragVo2wEaTsUqMgS+GpaShQpsfnJB7UTGk=
+X-Received: by 2002:a05:6871:6a9e:b0:16e:873e:b06b with SMTP id
+ zf30-20020a0568716a9e00b0016e873eb06bmr763908oab.3.1677604866849; Tue, 28 Feb
+ 2023 09:21:06 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230228083406.1720795-8-christian.koenig@amd.com>
+References: <20230227204000.56787-1-andrealmeid@igalia.com>
+ <20230227204000.56787-2-andrealmeid@igalia.com>
+In-Reply-To: <20230227204000.56787-2-andrealmeid@igalia.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Tue, 28 Feb 2023 09:20:55 -0800
+Message-ID: <CAF6AEGvpJTHLQdQRBZXpc0Tpuo1zgt3A-L_2TGBc+imuzuzf-w@mail.gmail.com>
+Subject: Re: [PATCH v2 1/1] drm/doc: Document DRM device reset expectations
+To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,73 +67,144 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: arunpravin.paneerselvam@amd.com, dakr@redhat.com,
- oe-kbuild-all@lists.linux.dev
+Cc: Rob Clark <robdclark@chromium.org>, pierre-eric.pelloux-prayer@amd.com,
+ Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
+ Simon Ser <contact@emersion.fr>, amaranath.somalapuram@amd.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Pekka Paalanen <ppaalanen@gmail.com>, Daniel Stone <daniel@fooishbar.org>,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, contactshashanksharma@gmail.com,
+ Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Christian,
+On Mon, Feb 27, 2023 at 12:40 PM Andr=C3=A9 Almeida <andrealmeid@igalia.com=
+> wrote:
+>
+> Create a section that specifies how to deal with DRM device resets for
+> kernel and userspace drivers.
+>
+> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
+> ---
+>  Documentation/gpu/drm-uapi.rst | 51 ++++++++++++++++++++++++++++++++++
+>  1 file changed, 51 insertions(+)
+>
+> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.=
+rst
+> index 65fb3036a580..3d6c3ed392ea 100644
+> --- a/Documentation/gpu/drm-uapi.rst
+> +++ b/Documentation/gpu/drm-uapi.rst
+> @@ -285,6 +285,57 @@ for GPU1 and GPU2 from different vendors, and a thir=
+d handler for
+>  mmapped regular files. Threads cause additional pain with signal
+>  handling as well.
+>
+> +Device reset
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +The GPU stack is really complex and is prone to errors, from hardware bu=
+gs,
+> +faulty applications and everything in the many layers in between. To rec=
+over
+> +from this kind of state, sometimes is needed to reset the GPU. Unproper =
+handling
+> +of GPU resets can lead to an unstable userspace. This section describes =
+what's
+> +the expected behaviour from DRM drivers to do in those situations, from =
+usermode
+> +drivers and compositors as well. The end goal is to have a seamless expe=
+rience
+> +as possible, either the stack being able to recover itself or resetting =
+to a new
+> +stable state.
+> +
+> +Robustness
+> +----------
+> +
+> +First of all, application robust APIs, when available, should be used. T=
+his
+> +allows the application to correctly recover and continue to run after a =
+reset.
+> +Apps that doesn't use this should be promptly killed when the kernel dri=
+ver
+> +detects that it's in broken state. Specifically guidelines for some APIs=
+:
+> +
+> +- OpenGL: KMD signals the abortion of submitted commands and the UMD sho=
+uld then
+> +  react accordingly and abort the application.
 
-I love your patch! Yet something to improve:
+I disagree.. what would be the point of GL_EXT_robustness
+glGetGraphicsResetStatusEXT() if we are going to abort the application
+before it has a chance to call this?
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on drm/drm-next drm-intel/for-linux-next linus/master next-20230228]
-[cannot apply to drm-exynos/exynos-drm-next drm-intel/for-linux-next-fixes v6.2]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Also, this would break the deqp-egl robustness tests because they
+would start crashing ;-)
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Christian-K-nig/drm-add-drm_exec-selftests/20230228-173404
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20230228083406.1720795-8-christian.koenig%40amd.com
-patch subject: [PATCH 7/9] drm/radeon: switch over to drm_exec
-config: openrisc-randconfig-r016-20230226 (https://download.01.org/0day-ci/archive/20230301/202303010052.xJCf8UMu-lkp@intel.com/config)
-compiler: or1k-linux-gcc (GCC) 12.1.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/93b3fd6c23deae79357cfb6bc0a7fcb07ed819f9
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Christian-K-nig/drm-add-drm_exec-selftests/20230228-173404
-        git checkout 93b3fd6c23deae79357cfb6bc0a7fcb07ed819f9
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=openrisc olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=openrisc SHELL=/bin/bash
+> +
+> +- Vulkan: Assumes that every app is able to deal with ``VK_ERROR_DEVICE_=
+LOST``.
+> +  If it doesn't do it right, it's considered a broken application and UM=
+D will
+> +  deal with it, aborting it.
+> +
+> +Kernel mode driver
+> +------------------
+> +
+> +The KMD must be able to detect that something is wrong with the applicat=
+ion
+> +and that a reset is needed to take place to recover the device (e.g. an =
+endless
+> +wait). It needs to properly track the context that is broken and mark it=
+ as
+> +dead, so any other syscalls to that context should be further rejected. =
+The
+> +other contexts should be preserved when possible, avoid crashing the res=
+t of
+> +userspace. KMD can ban a file descriptor that keeps causing resets, as i=
+t's
+> +likely in a broken loop.
 
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Link: https://lore.kernel.org/oe-kbuild-all/202303010052.xJCf8UMu-lkp@intel.com/
+syscalls to the context?  Like the one querying the reset status?  :-P
 
-All errors (new ones prefixed by >>):
+In general I don't think the KMD should block syscalls.  _Maybe_ there
+could be some threshold at which point we start blocking things, but I
+think that would still cause problems with deqp-egl.
 
-   or1k-linux-ld: drivers/gpu/drm/radeon/radeon_object.o: in function `radeon_bo_list_validate':
->> radeon_object.c:(.text+0xf10): undefined reference to `drm_exec_cleanup'
-   radeon_object.c:(.text+0xf10): relocation truncated to fit: R_OR1K_INSN_REL_26 against undefined symbol `drm_exec_cleanup'
->> or1k-linux-ld: radeon_object.c:(.text+0xf9c): undefined reference to `drm_exec_prepare_obj'
-   radeon_object.c:(.text+0xf9c): relocation truncated to fit: R_OR1K_INSN_REL_26 against undefined symbol `drm_exec_prepare_obj'
-   or1k-linux-ld: drivers/gpu/drm/radeon/radeon_gem.o: in function `radeon_gem_va_update_vm':
->> radeon_gem.c:(.text+0x218): undefined reference to `drm_exec_init'
-   radeon_gem.c:(.text+0x218): relocation truncated to fit: R_OR1K_INSN_REL_26 against undefined symbol `drm_exec_init'
->> or1k-linux-ld: radeon_gem.c:(.text+0x228): undefined reference to `drm_exec_cleanup'
-   radeon_gem.c:(.text+0x228): relocation truncated to fit: R_OR1K_INSN_REL_26 against undefined symbol `drm_exec_cleanup'
->> or1k-linux-ld: radeon_gem.c:(.text+0x27c): undefined reference to `drm_exec_fini'
-   radeon_gem.c:(.text+0x27c): relocation truncated to fit: R_OR1K_INSN_REL_26 against undefined symbol `drm_exec_fini'
->> or1k-linux-ld: radeon_gem.c:(.text+0x2b8): undefined reference to `drm_exec_prepare_obj'
-   radeon_gem.c:(.text+0x2b8): relocation truncated to fit: R_OR1K_INSN_REL_26 against undefined symbol `drm_exec_prepare_obj'
-   or1k-linux-ld: radeon_gem.c:(.text+0x360): undefined reference to `drm_exec_prepare_obj'
-   radeon_gem.c:(.text+0x360): relocation truncated to fit: R_OR1K_INSN_REL_26 against undefined symbol `drm_exec_prepare_obj'
-   or1k-linux-ld: radeon_gem.c:(.text+0x3bc): undefined reference to `drm_exec_fini'
-   radeon_gem.c:(.text+0x3bc): relocation truncated to fit: R_OR1K_INSN_REL_26 against undefined symbol `drm_exec_fini'
-   or1k-linux-ld: radeon_gem.c:(.text+0x41c): undefined reference to `drm_exec_fini'
-   radeon_gem.c:(.text+0x41c): relocation truncated to fit: R_OR1K_INSN_REL_26 against undefined symbol `drm_exec_fini'
-   or1k-linux-ld: drivers/gpu/drm/radeon/radeon_cs.o: in function `radeon_cs_parser_fini':
->> radeon_cs.c:(.text+0xf98): undefined reference to `drm_exec_fini'
-   radeon_cs.c:(.text+0xf98): relocation truncated to fit: R_OR1K_INSN_REL_26 against undefined symbol `drm_exec_fini'
-   or1k-linux-ld: drivers/gpu/drm/radeon/radeon_cs.o: in function `radeon_cs_parser_init':
->> radeon_cs.c:(.text+0x119c): undefined reference to `drm_exec_init'
-   radeon_cs.c:(.text+0x119c): additional relocation overflows omitted from the output
+What we should perhaps do is encourage drivers to implement
+devcoredump support for logging/reporting GPU crashes.  This would
+have the benefit that distro error reporting could be standardized.
+And hopefully some actionable bug reports come out of it.
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+And maybe we could standardize UABI for reporting crashes so a
+compositor has a chance to realize an app is crashing and take action.
+(But again, how does the compositor know that this isn't intentional,
+it would be kinda inconvenient if the compositor kept killing my deqp
+runs.)  But for all the rest, nak
+
+BR,
+-R
+
+
+> +
+> +User mode driver
+> +----------------
+> +
+> +During a reset, UMD should be aware that rejected syscalls indicates tha=
+t the
+> +context is broken and for robust apps the recovery should happen for the
+> +context. Non-robust apps must be terminated.
+> +
+> +Compositors
+> +-----------
+> +
+> +Compositors should be robust as well to properly deal with its errors.
+> +
+> +
+>  .. _drm_driver_ioctl:
+>
+>  IOCTL Support on Device Nodes
+> --
+> 2.39.2
+>
