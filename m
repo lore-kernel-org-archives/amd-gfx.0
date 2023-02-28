@@ -4,58 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A651C64EC7
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Feb 2023 17:21:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE4A7C64ED6
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Feb 2023 19:11:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBF8210E4EB;
-	Tue, 28 Feb 2023 17:21:09 +0000 (UTC)
-Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
- [IPv6:2001:4860:4864:20::33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9753310E4E3;
- Tue, 28 Feb 2023 17:21:07 +0000 (UTC)
-Received: by mail-oa1-x33.google.com with SMTP id
- 586e51a60fabf-172a623ad9aso11584920fac.13; 
- Tue, 28 Feb 2023 09:21:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=q7x7oHut5DL2b1slktWg4ykcN8IGiByTWSwYr9fSdOk=;
- b=W1aPmSSXbMzPCaSAecaI772FQHgFMTqPnezT3cYUHA92WRfdFX76nNqomSs4mqmMSN
- xEBafiMXUr1i+RRk5CdEnwSVGApdZtwngzfMp3Ey8aNQ5SEAAP12etDcyGBnhdPalK2K
- jOrjH1vB86N+OQSbRRCDmY+dR3CZMmZXvtm/FMF2p3abisKQfN8j5Xvu1CyrlT4JunZ5
- 2O1OVqBDgJOSDKhNkvDbMZbMRbjdySP0nUq8gdt6gQ4F6peTek4ZADfQeHr1iUfQeEA8
- 9iBJHVDvVlFkxhWDD/qFocnQ01yYG/jyJS6WT36ZM8hU6nzte/Mu+/k/Z7Jn//pFCvmv
- WBog==
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6B2F10E077;
+	Tue, 28 Feb 2023 19:11:47 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6345F10E056
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Feb 2023 19:11:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1677611504;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Kw3rBiRvARwBpX586ASNbibzu933ritNAVE4xT8Eu1U=;
+ b=HrFoH8tyoUoaVY9G4TQ6NBLLCzxZ1BgWAPyTEUlizpE0zCUjiqcYjonrvX5pvZ/pmgL0Ps
+ 3eONdNXoe7oRsUDsmYX50sd4eI3TDq7XjGkKxM058Q0mxxrr0uKSn80ULlhvZhSsXbQ2fn
+ dmUiTW6oTqqBJ7LqhrsTsYMP0Gw5x+k=
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
+ [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-161-akbaG-2KOVOUOM9vQkiRjA-1; Tue, 28 Feb 2023 14:11:42 -0500
+X-MC-Unique: akbaG-2KOVOUOM9vQkiRjA-1
+Received: by mail-ed1-f69.google.com with SMTP id
+ p36-20020a056402502400b004bb926a3d54so184874eda.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Feb 2023 11:11:42 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=q7x7oHut5DL2b1slktWg4ykcN8IGiByTWSwYr9fSdOk=;
- b=CK1el0xKydKDfs54YVoEmmRLcWQBzfVBLxg6K6qeSNMHLUbvt4lEWaPALhUSrLSqc2
- lb2lp2PR1q+O6HyGYTuHrJFDp81Lc1SWTPfhrhxW91Nyu38U02SYqR2NMpeSqd1pay1G
- BwEkNaE2DHo3D4/6NnR7U36Pekpkyp6SBBG1xg/5OG6LtdOCBqngmV2IpQBaYiCzG9dW
- JsxYBNpK58fov+E3bxAyQqcz77v2qn6U3fdpPlhrRypGh3Xjh8TgE1edCavPceguMpkr
- yYwNVevRzGDlsadjp6Kgq4+PcpdnXZdpdIs1SA5z4pZ00UAMnsNvB4LyOG/ZCpmo0MH4
- Ejnw==
-X-Gm-Message-State: AO0yUKVzj7uSYZk8dirwsMm2OB/7p6TSRl4bDNZlAjCeaxbzR8+a/qY5
- ibAwhcJsTbEl497vS3g1x3pLKVtg7NE+V3f8CIA=
-X-Google-Smtp-Source: AK7set/bb7R3q9nnU4uxrhjM46d5ADy7wq7B9UAVuFkbqBjqpPYOXMZIiragVo2wEaTsUqMgS+GpaShQpsfnJB7UTGk=
-X-Received: by 2002:a05:6871:6a9e:b0:16e:873e:b06b with SMTP id
- zf30-20020a0568716a9e00b0016e873eb06bmr763908oab.3.1677604866849; Tue, 28 Feb
- 2023 09:21:06 -0800 (PST)
+ h=content-transfer-encoding:in-reply-to:organization:from:references
+ :cc:to:content-language:subject:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Kw3rBiRvARwBpX586ASNbibzu933ritNAVE4xT8Eu1U=;
+ b=AI+t1fjtI1wzUN5uvh8NANdupQ9nu7B0M60vkrvImsmZAHFzimBZ3Tvha+R25lwdHL
+ Akf4ZlVy5co5VjWJZjtjw41YcvUa70g3+rdT8fDLK9MTv1dSTaSdVMwQstf3rtuzhqgQ
+ ONdTLGwqTNL6FuCND5BTcrWdooVVgPj9drgvfZSC3id/+1Tr344uXMJ8jEJwiwvKp3p2
+ YCbrRbOqyEYba+oC4qwb2k4YvJbJKcbXMWnkiuAYp0PCuzmDwhA62xkqgKfQ0hrW6p0j
+ mnczRoHx2Xn7ke3x/Zw8XjQK2c74oViwWCJgvHauGDhcntqpdj0pixQpspYsah95mwT3
+ aJdA==
+X-Gm-Message-State: AO0yUKVCGCbAa5PjsKyEj95yoTni4hZzRK7Ho1Qm6K8J7dbxe5m6heCh
+ FelGA4syh8C1Pg0ZT3AtaVyN2ZgHFPUIiPLEQFikwkSFs8Mb5DScae/pYZgLsDy+pXmTnmCfG0Y
+ hu0ZOWLvkkZEejhnGw/SIxZ1Bew==
+X-Received: by 2002:aa7:d3cd:0:b0:4ad:7c7c:a70d with SMTP id
+ o13-20020aa7d3cd000000b004ad7c7ca70dmr4672353edr.19.1677611501659; 
+ Tue, 28 Feb 2023 11:11:41 -0800 (PST)
+X-Google-Smtp-Source: AK7set/2s2J8IG7DW6HDV/vn0LK7vpDxbvPNMbEpk1J7E0PWf78W/ZVjRrQIYszfZ+XmFFm7wnj26Q==
+X-Received: by 2002:aa7:d3cd:0:b0:4ad:7c7c:a70d with SMTP id
+ o13-20020aa7d3cd000000b004ad7c7ca70dmr4672321edr.19.1677611501261; 
+ Tue, 28 Feb 2023 11:11:41 -0800 (PST)
+Received: from ?IPV6:2a02:810d:4b3f:de78:642:1aff:fe31:a15c?
+ ([2a02:810d:4b3f:de78:642:1aff:fe31:a15c])
+ by smtp.gmail.com with ESMTPSA id
+ vs3-20020a170907138300b008c06de45e75sm4832720ejb.107.2023.02.28.11.11.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 28 Feb 2023 11:11:40 -0800 (PST)
+Message-ID: <280bfe28-ee00-e765-b00e-0d3294dc6ef3@redhat.com>
+Date: Tue, 28 Feb 2023 20:11:39 +0100
 MIME-Version: 1.0
-References: <20230227204000.56787-1-andrealmeid@igalia.com>
- <20230227204000.56787-2-andrealmeid@igalia.com>
-In-Reply-To: <20230227204000.56787-2-andrealmeid@igalia.com>
-From: Rob Clark <robdclark@gmail.com>
-Date: Tue, 28 Feb 2023 09:20:55 -0800
-Message-ID: <CAF6AEGvpJTHLQdQRBZXpc0Tpuo1zgt3A-L_2TGBc+imuzuzf-w@mail.gmail.com>
-Subject: Re: [PATCH v2 1/1] drm/doc: Document DRM device reset expectations
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: Common DRM execution context v3
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+References: <20230228083406.1720795-1-christian.koenig@amd.com>
+From: Danilo Krummrich <dakr@redhat.com>
+Organization: RedHat
+In-Reply-To: <20230228083406.1720795-1-christian.koenig@amd.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,144 +87,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, pierre-eric.pelloux-prayer@amd.com,
- Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- Simon Ser <contact@emersion.fr>, amaranath.somalapuram@amd.com,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Pekka Paalanen <ppaalanen@gmail.com>, Daniel Stone <daniel@fooishbar.org>,
- dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
- alexander.deucher@amd.com, contactshashanksharma@gmail.com,
- Dave Airlie <airlied@gmail.com>, christian.koenig@amd.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ arunpravin.paneerselvam@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Feb 27, 2023 at 12:40 PM Andr=C3=A9 Almeida <andrealmeid@igalia.com=
-> wrote:
->
-> Create a section that specifies how to deal with DRM device resets for
-> kernel and userspace drivers.
->
-> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
-> ---
->  Documentation/gpu/drm-uapi.rst | 51 ++++++++++++++++++++++++++++++++++
->  1 file changed, 51 insertions(+)
->
-> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.=
-rst
-> index 65fb3036a580..3d6c3ed392ea 100644
-> --- a/Documentation/gpu/drm-uapi.rst
-> +++ b/Documentation/gpu/drm-uapi.rst
-> @@ -285,6 +285,57 @@ for GPU1 and GPU2 from different vendors, and a thir=
-d handler for
->  mmapped regular files. Threads cause additional pain with signal
->  handling as well.
->
-> +Device reset
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +The GPU stack is really complex and is prone to errors, from hardware bu=
-gs,
-> +faulty applications and everything in the many layers in between. To rec=
-over
-> +from this kind of state, sometimes is needed to reset the GPU. Unproper =
-handling
-> +of GPU resets can lead to an unstable userspace. This section describes =
-what's
-> +the expected behaviour from DRM drivers to do in those situations, from =
-usermode
-> +drivers and compositors as well. The end goal is to have a seamless expe=
-rience
-> +as possible, either the stack being able to recover itself or resetting =
-to a new
-> +stable state.
-> +
-> +Robustness
-> +----------
-> +
-> +First of all, application robust APIs, when available, should be used. T=
-his
-> +allows the application to correctly recover and continue to run after a =
-reset.
-> +Apps that doesn't use this should be promptly killed when the kernel dri=
-ver
-> +detects that it's in broken state. Specifically guidelines for some APIs=
-:
-> +
-> +- OpenGL: KMD signals the abortion of submitted commands and the UMD sho=
-uld then
-> +  react accordingly and abort the application.
+Hi Christian,
 
-I disagree.. what would be the point of GL_EXT_robustness
-glGetGraphicsResetStatusEXT() if we are going to abort the application
-before it has a chance to call this?
+On 2/28/23 09:33, Christian König wrote:
+> Hi guys,
+> 
+> thrid round for those patches. They have been in my queue for nearly a
+> year now because I couldn't find much time to push into this.
+> 
+> Danilo wants to use this for his GPU VAs tracker work and Arun needs it
+> for hist secure semaphore work, so we should probably get it reviewed
+> now.
 
-Also, this would break the deqp-egl robustness tests because they
-would start crashing ;-)
+Thanks for the follow up on this series - very much appreciated!
 
-> +
-> +- Vulkan: Assumes that every app is able to deal with ``VK_ERROR_DEVICE_=
-LOST``.
-> +  If it doesn't do it right, it's considered a broken application and UM=
-D will
-> +  deal with it, aborting it.
-> +
-> +Kernel mode driver
-> +------------------
-> +
-> +The KMD must be able to detect that something is wrong with the applicat=
-ion
-> +and that a reset is needed to take place to recover the device (e.g. an =
-endless
-> +wait). It needs to properly track the context that is broken and mark it=
- as
-> +dead, so any other syscalls to that context should be further rejected. =
-The
-> +other contexts should be preserved when possible, avoid crashing the res=
-t of
-> +userspace. KMD can ban a file descriptor that keeps causing resets, as i=
-t's
-> +likely in a broken loop.
+- Danilo
 
-syscalls to the context?  Like the one querying the reset status?  :-P
+> 
+> Compared to the last version I've fixed one memory leak found by Danilo
+> and removed the support for duplicate tracking. Only radeon really needs
+> that and we can trivially handle it differently there.
+> 
+> Please review and/or comment,
+> Christian.
+> 
+> 
 
-In general I don't think the KMD should block syscalls.  _Maybe_ there
-could be some threshold at which point we start blocking things, but I
-think that would still cause problems with deqp-egl.
-
-What we should perhaps do is encourage drivers to implement
-devcoredump support for logging/reporting GPU crashes.  This would
-have the benefit that distro error reporting could be standardized.
-And hopefully some actionable bug reports come out of it.
-
-And maybe we could standardize UABI for reporting crashes so a
-compositor has a chance to realize an app is crashing and take action.
-(But again, how does the compositor know that this isn't intentional,
-it would be kinda inconvenient if the compositor kept killing my deqp
-runs.)  But for all the rest, nak
-
-BR,
--R
-
-
-> +
-> +User mode driver
-> +----------------
-> +
-> +During a reset, UMD should be aware that rejected syscalls indicates tha=
-t the
-> +context is broken and for robust apps the recovery should happen for the
-> +context. Non-robust apps must be terminated.
-> +
-> +Compositors
-> +-----------
-> +
-> +Compositors should be robust as well to properly deal with its errors.
-> +
-> +
->  .. _drm_driver_ioctl:
->
->  IOCTL Support on Device Nodes
-> --
-> 2.39.2
->
