@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D584EC64EC7
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Feb 2023 08:34:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7794DC7EE30
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Feb 2023 08:34:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4C8E10E64D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F254F10E4B6;
 	Tue, 28 Feb 2023 08:34:26 +0000 (UTC)
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [IPv6:2a00:1450:4864:20::534])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A079C10E641;
- Tue, 28 Feb 2023 08:34:15 +0000 (UTC)
-Received: by mail-ed1-x534.google.com with SMTP id eg37so36387657edb.12;
- Tue, 28 Feb 2023 00:34:15 -0800 (PST)
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E58E310E5E0;
+ Tue, 28 Feb 2023 08:34:20 +0000 (UTC)
+Received: by mail-ed1-x535.google.com with SMTP id cy6so36575710edb.5;
+ Tue, 28 Feb 2023 00:34:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=+7mi95YwcJWHbZuY10t5rp9JU/rAQHm+Y4I/jOyv4Qg=;
- b=UxST0pCL2g5/1JoCdsj2gYJ91cHarOqJHCHAoNILh8uO8DcQDhMHC6/uW6n1BwG/qY
- 3/6gDN5GXSp6zeBX8gYhL4yed23kHivTJaBJVDhvLBmMndTu0hOjvLVOenrwc1ZCwk/a
- qZVXJMWW3FCZ1cJlaDaj4uEhW923fE+gdaz5eznjCcZA9Zrh80VMOV8aJ7MPmUDLCYjr
- 9Rn6P2aFb2D2lG6eKjoyPii5bjbTwxDDNc9AblUGOgtQkbC8pUjAquzqdYJiSLsKGobb
- IWy739dvcs18qmgQGE6Fnq5THncKANAceomavPfnW3XJaJnfVi76uI5eaDGkB4OO1fwZ
- rKkg==
+ bh=c/hmbm/q0nSKNbqQpgu9nQ6qdhK2VpCsSoq4ps+Ylow=;
+ b=AGht0Vd60zzLNPAlw4Ol2WZFE57+NhYsd01ieaAnwKAqQ6oxwvmzTEpa81oe5tnL8W
+ cYXfGuYierW3h46C/s3Cn8qkRDVmkZ9EQ91IObTjnnq+pubENHcF8bJTbyALPpSIvMnr
+ Ms9F6DygwhyMHLfa+WtaybQvkmg03PRcpLBKW5jCNju/SvsTHLXNhJ9dOG+UApCwqcJK
+ XrYfuEKnMlYj/ZIi9B4tDxKVBxXshT43q7mDvrYocNCOnTnovevoWBl6Ru3QBFBeMswN
+ zpQft/DxtcszyDmrPjwxn8ztekyrIhH4Fm/UTocCF/wpmc48FaufeF1LMTz+RU3zjVgk
+ DEdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=+7mi95YwcJWHbZuY10t5rp9JU/rAQHm+Y4I/jOyv4Qg=;
- b=Krd12w0V+0XyIuWhX+/rvpDU0k35tLQ9KFzXwSc85H6jO0qX5eUngOs74bNqSHKhQD
- P4k9LJO/0Ma3EwhfTgvP8wMhEe+R8SOrw2UCUYYS++yYPAkKbq6+j2XaQQnsqXOI0Rd5
- zn1PmxMG6ft46U6KBFjek/fh9xZaUpbgxGtSN8FGbN4FnE7I3wCbuD/lUn53GmFh0dG+
- C0GJO3MTc/pBzHp0fvgJZ7z13LiZWVXJ7DbWETF6/2ebC8JEYKeKBDZiKxto3yBmfJpc
- Ti9gpHQgBDww2V7Mr5ZFMWjqUeUSZM5Df5lGUAOS9VAAHb1V9G0W4yjFchr+XoYbydM8
- NXMg==
-X-Gm-Message-State: AO0yUKWJOXGIMPXS9IaXOqbjtvXtAvM9WKVEcgX6T+h4bk/9ULXV8mcV
- jO1T6sg5VcI3j329mFxaa5o0Ko5kHgs=
-X-Google-Smtp-Source: AK7set8SXpelyhWX7xenOfJenxE6twwqSjAFV2mv66gx9WfUH20NgntoYeYdUtKAdJKv9aBr/29h5A==
-X-Received: by 2002:a17:906:39ca:b0:87f:89f2:c012 with SMTP id
- i10-20020a17090639ca00b0087f89f2c012mr1564169eje.24.1677573255156; 
- Tue, 28 Feb 2023 00:34:15 -0800 (PST)
+ bh=c/hmbm/q0nSKNbqQpgu9nQ6qdhK2VpCsSoq4ps+Ylow=;
+ b=sSRQJeyLEJBxfamIip0Zi1xGZzYB9WFZs12bI3o/7xk80B+cTaFWpzAZ+vQUnoqZLn
+ cDDpfoX1SdC1FMXcURA1sj1bWlwCAU2Pyc5yRPbO0SwV86rubya2Sktz0RaaNU/MYhaM
+ ekOQrl/AXHx1jfqLblXWsUOg9vNsXocNu1WjhXDXA408aGN3zCJFfP9DpVpRLQQb3w+P
+ 9nYwtOJYcbN4pRVHrmGMPY0TzMT/LMK9Yu5ssMt94XAhS2bUy7pR1OxR9A41qb5sFs2O
+ BuRLYrQt2eJz9X48kFYGhCb6Anix9co76ef2z3EjVnynR9PYMSzyZourSWql6JK4r6/P
+ xnCA==
+X-Gm-Message-State: AO0yUKXFO1ktc2OcXvET7xXGGyP1Z4EetG/ZruhGyQ1DGqkn+aR1S5gN
+ VQvGWjkH3ED6zwYh2oHVemIzsGBvzvY=
+X-Google-Smtp-Source: AK7set/UdJyyW1j1CKa7Ky3v16AMCR3iXoSK1ncaOrr2yq59k1y3rfpOA1wLHCC4BXmjC04gToAbWA==
+X-Received: by 2002:a17:906:430b:b0:8af:370a:c1f8 with SMTP id
+ j11-20020a170906430b00b008af370ac1f8mr1528509ejm.23.1677573260541; 
+ Tue, 28 Feb 2023 00:34:20 -0800 (PST)
 Received: from able.fritz.box (p5b0ea2e7.dip0.t-ipconnect.de. [91.14.162.231])
  by smtp.gmail.com with ESMTPSA id
- ss17-20020a170907039100b008cf6f8798e1sm4296969ejb.54.2023.02.28.00.34.14
+ ss17-20020a170907039100b008cf6f8798e1sm4296969ejb.54.2023.02.28.00.34.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Feb 2023 00:34:14 -0800 (PST)
+ Tue, 28 Feb 2023 00:34:20 -0800 (PST)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH 5/9] drm/amdgpu: use drm_exec for MES testing
-Date: Tue, 28 Feb 2023 09:34:02 +0100
-Message-Id: <20230228083406.1720795-6-christian.koenig@amd.com>
+Subject: [PATCH 9/9] drm: move ttm_execbuf_util into vmwgfx
+Date: Tue, 28 Feb 2023 09:34:06 +0100
+Message-Id: <20230228083406.1720795-10-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230228083406.1720795-1-christian.koenig@amd.com>
 References: <20230228083406.1720795-1-christian.koenig@amd.com>
@@ -78,175 +78,104 @@ Cc: dakr@redhat.com, arunpravin.paneerselvam@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Start using the new component here as well.
+VMWGFX is the only remaining user of this and should probably moved over
+to drm_exec when it starts using GEM as well.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 86 +++++++++++--------------
- 1 file changed, 39 insertions(+), 47 deletions(-)
+ drivers/gpu/drm/ttm/Makefile                               | 4 ++--
+ drivers/gpu/drm/vmwgfx/Makefile                            | 2 +-
+ drivers/gpu/drm/{ttm => vmwgfx}/ttm_execbuf_util.c         | 7 ++++++-
+ .../drm/ttm => drivers/gpu/drm/vmwgfx}/ttm_execbuf_util.h  | 0
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.h                        | 2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_validation.h                 | 2 +-
+ 6 files changed, 11 insertions(+), 6 deletions(-)
+ rename drivers/gpu/drm/{ttm => vmwgfx}/ttm_execbuf_util.c (97%)
+ rename {include/drm/ttm => drivers/gpu/drm/vmwgfx}/ttm_execbuf_util.h (100%)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index 82e27bd4f038..95292a65fd25 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -22,6 +22,7 @@
-  */
+diff --git a/drivers/gpu/drm/ttm/Makefile b/drivers/gpu/drm/ttm/Makefile
+index f906b22959cf..b05a8477d0d0 100644
+--- a/drivers/gpu/drm/ttm/Makefile
++++ b/drivers/gpu/drm/ttm/Makefile
+@@ -3,8 +3,8 @@
+ # Makefile for the drm device driver.  This driver provides support for the
  
- #include <linux/firmware.h>
-+#include <drm/drm_exec.h>
+ ttm-y := ttm_tt.o ttm_bo.o ttm_bo_util.o ttm_bo_vm.o ttm_module.o \
+-	ttm_execbuf_util.o ttm_range_manager.o ttm_resource.o ttm_pool.o \
+-	ttm_device.o ttm_sys_manager.o
++	ttm_range_manager.o ttm_resource.o ttm_pool.o ttm_device.o \
++	ttm_sys_manager.o
+ ttm-$(CONFIG_AGP) += ttm_agp_backend.o
  
- #include "amdgpu_mes.h"
- #include "amdgpu.h"
-@@ -1126,34 +1127,29 @@ int amdgpu_mes_ctx_map_meta_data(struct amdgpu_device *adev,
- 				 struct amdgpu_mes_ctx_data *ctx_data)
- {
- 	struct amdgpu_bo_va *bo_va;
--	struct ww_acquire_ctx ticket;
--	struct list_head list;
--	struct amdgpu_bo_list_entry pd;
--	struct ttm_validate_buffer csa_tv;
- 	struct amdgpu_sync sync;
-+	struct drm_exec exec;
- 	int r;
+ obj-$(CONFIG_DRM_TTM) += ttm.o
+diff --git a/drivers/gpu/drm/vmwgfx/Makefile b/drivers/gpu/drm/vmwgfx/Makefile
+index e94479d9cd5b..e30e10e25c53 100644
+--- a/drivers/gpu/drm/vmwgfx/Makefile
++++ b/drivers/gpu/drm/vmwgfx/Makefile
+@@ -1,6 +1,6 @@
+ # SPDX-License-Identifier: GPL-2.0
+ vmwgfx-y := vmwgfx_execbuf.o vmwgfx_gmr.o vmwgfx_kms.o vmwgfx_drv.o \
+-	    vmwgfx_ioctl.o vmwgfx_resource.o vmwgfx_ttm_buffer.o \
++	    vmwgfx_ioctl.o vmwgfx_resource.o vmwgfx_ttm_buffer.o ttm_execbuf_util.o \
+ 	    vmwgfx_cmd.o vmwgfx_irq.o vmwgfx_ldu.o \
+ 	    vmwgfx_overlay.o vmwgfx_gmrid_manager.o vmwgfx_fence.o \
+ 	    vmwgfx_bo.o vmwgfx_scrn.o vmwgfx_context.o \
+diff --git a/drivers/gpu/drm/ttm/ttm_execbuf_util.c b/drivers/gpu/drm/vmwgfx/ttm_execbuf_util.c
+similarity index 97%
+rename from drivers/gpu/drm/ttm/ttm_execbuf_util.c
+rename to drivers/gpu/drm/vmwgfx/ttm_execbuf_util.c
+index f1c60fa80c2d..5e4e28899acd 100644
+--- a/drivers/gpu/drm/ttm/ttm_execbuf_util.c
++++ b/drivers/gpu/drm/vmwgfx/ttm_execbuf_util.c
+@@ -26,8 +26,13 @@
+  *
+  **************************************************************************/
  
- 	amdgpu_sync_create(&sync);
--	INIT_LIST_HEAD(&list);
--	INIT_LIST_HEAD(&csa_tv.head);
- 
--	csa_tv.bo = &ctx_data->meta_data_obj->tbo;
--	csa_tv.num_shared = 1;
--
--	list_add(&csa_tv.head, &list);
--	amdgpu_vm_get_pd_bo(vm, &list, &pd);
--
--	r = ttm_eu_reserve_buffers(&ticket, &list, true, NULL);
--	if (r) {
--		DRM_ERROR("failed to reserve meta data BO: err=%d\n", r);
--		return r;
-+	drm_exec_init(&exec, false);
-+	drm_exec_while_not_all_locked(&exec) {
-+		r = drm_exec_prepare_obj(&exec,
-+					 &ctx_data->meta_data_obj->tbo.base,
-+					 0);
-+		if (likely(!r))
-+			r = amdgpu_vm_lock_pd(vm, &exec);
-+		drm_exec_continue_on_contention(&exec);
-+                if (unlikely(r))
-+			goto error_fini_exec;
- 	}
- 
- 	bo_va = amdgpu_vm_bo_add(adev, vm, ctx_data->meta_data_obj);
- 	if (!bo_va) {
--		ttm_eu_backoff_reservation(&ticket, &list);
- 		DRM_ERROR("failed to create bo_va for meta data BO\n");
--		return -ENOMEM;
-+		r = -ENOMEM;
-+		goto error_fini_exec;
- 	}
- 
- 	r = amdgpu_vm_bo_map(adev, bo_va, ctx_data->meta_data_gpu_addr, 0,
-@@ -1163,33 +1159,35 @@ int amdgpu_mes_ctx_map_meta_data(struct amdgpu_device *adev,
- 
- 	if (r) {
- 		DRM_ERROR("failed to do bo_map on meta data, err=%d\n", r);
--		goto error;
-+		goto error_del_bo_va;
- 	}
- 
- 	r = amdgpu_vm_bo_update(adev, bo_va, false);
- 	if (r) {
- 		DRM_ERROR("failed to do vm_bo_update on meta data\n");
--		goto error;
-+		goto error_del_bo_va;
- 	}
- 	amdgpu_sync_fence(&sync, bo_va->last_pt_update);
- 
- 	r = amdgpu_vm_update_pdes(adev, vm, false);
- 	if (r) {
- 		DRM_ERROR("failed to update pdes on meta data\n");
--		goto error;
-+		goto error_del_bo_va;
- 	}
- 	amdgpu_sync_fence(&sync, vm->last_update);
- 
- 	amdgpu_sync_wait(&sync, false);
--	ttm_eu_backoff_reservation(&ticket, &list);
-+	drm_exec_fini(&exec);
- 
- 	amdgpu_sync_free(&sync);
- 	ctx_data->meta_data_va = bo_va;
- 	return 0;
- 
--error:
-+error_del_bo_va:
- 	amdgpu_vm_bo_del(adev, bo_va);
--	ttm_eu_backoff_reservation(&ticket, &list);
+-#include <drm/ttm/ttm_execbuf_util.h>
+ #include <drm/ttm/ttm_bo.h>
++#include <drm/ttm/ttm_placement.h>
++#include <linux/wait.h>
++#include <linux/sched.h>
++#include <linux/module.h>
 +
-+error_fini_exec:
-+	drm_exec_fini(&exec);
- 	amdgpu_sync_free(&sync);
- 	return r;
- }
-@@ -1200,34 +1198,28 @@ int amdgpu_mes_ctx_unmap_meta_data(struct amdgpu_device *adev,
- 	struct amdgpu_bo_va *bo_va = ctx_data->meta_data_va;
- 	struct amdgpu_bo *bo = ctx_data->meta_data_obj;
- 	struct amdgpu_vm *vm = bo_va->base.vm;
--	struct amdgpu_bo_list_entry vm_pd;
--	struct list_head list, duplicates;
--	struct dma_fence *fence = NULL;
--	struct ttm_validate_buffer tv;
--	struct ww_acquire_ctx ticket;
--	long r = 0;
--
--	INIT_LIST_HEAD(&list);
--	INIT_LIST_HEAD(&duplicates);
--
--	tv.bo = &bo->tbo;
--	tv.num_shared = 2;
--	list_add(&tv.head, &list);
--
--	amdgpu_vm_get_pd_bo(vm, &list, &vm_pd);
--
--	r = ttm_eu_reserve_buffers(&ticket, &list, false, &duplicates);
--	if (r) {
--		dev_err(adev->dev, "leaking bo va because "
--			"we fail to reserve bo (%ld)\n", r);
--		return r;
-+	struct dma_fence *fence;
-+	struct drm_exec exec;
-+	long r;
-+
-+	drm_exec_init(&exec, false);
-+	drm_exec_while_not_all_locked(&exec) {
-+		r = drm_exec_prepare_obj(&exec,
-+					 &ctx_data->meta_data_obj->tbo.base,
-+					 0);
-+		if (likely(!r))
-+			r = amdgpu_vm_lock_pd(vm, &exec);
-+		drm_exec_continue_on_contention(&exec);
-+                if (unlikely(r))
-+			goto out_unlock;
- 	}
++#include "ttm_execbuf_util.h"
  
- 	amdgpu_vm_bo_del(adev, bo_va);
- 	if (!amdgpu_vm_ready(vm))
- 		goto out_unlock;
+ static void ttm_eu_backoff_reservation_reverse(struct list_head *list,
+ 					      struct ttm_validate_buffer *entry)
+diff --git a/include/drm/ttm/ttm_execbuf_util.h b/drivers/gpu/drm/vmwgfx/ttm_execbuf_util.h
+similarity index 100%
+rename from include/drm/ttm/ttm_execbuf_util.h
+rename to drivers/gpu/drm/vmwgfx/ttm_execbuf_util.h
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
+index fb8f0c0642c0..49e3dd8c04ec 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
+@@ -37,11 +37,11 @@
+ #include <drm/drm_file.h>
+ #include <drm/drm_rect.h>
  
--	r = dma_resv_get_singleton(bo->tbo.base.resv, DMA_RESV_USAGE_BOOKKEEP, &fence);
-+	r = dma_resv_get_singleton(bo->tbo.base.resv, DMA_RESV_USAGE_BOOKKEEP,
-+				   &fence);
- 	if (r)
- 		goto out_unlock;
- 	if (fence) {
-@@ -1246,7 +1238,7 @@ int amdgpu_mes_ctx_unmap_meta_data(struct amdgpu_device *adev,
- out_unlock:
- 	if (unlikely(r < 0))
- 		dev_err(adev->dev, "failed to clear page tables (%ld)\n", r);
--	ttm_eu_backoff_reservation(&ticket, &list);
-+	drm_exec_fini(&exec);
+-#include <drm/ttm/ttm_execbuf_util.h>
+ #include <drm/ttm/ttm_tt.h>
+ #include <drm/ttm/ttm_placement.h>
+ #include <drm/ttm/ttm_bo.h>
  
- 	return r;
- }
++#include "ttm_execbuf_util.h"
+ #include "ttm_object.h"
+ 
+ #include "vmwgfx_fence.h"
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_validation.h b/drivers/gpu/drm/vmwgfx/vmwgfx_validation.h
+index 240ee0c4ebfd..927fc8afdbfe 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_validation.h
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_validation.h
+@@ -32,7 +32,7 @@
+ #include <linux/hashtable.h>
+ #include <linux/ww_mutex.h>
+ 
+-#include <drm/ttm/ttm_execbuf_util.h>
++#include "ttm_execbuf_util.h"
+ 
+ #define VMW_RES_DIRTY_NONE 0
+ #define VMW_RES_DIRTY_SET BIT(0)
 -- 
 2.34.1
 
