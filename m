@@ -4,56 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BEFCC6FA8E
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Mar 2023 17:38:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E5B2C6FA8E
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Mar 2023 18:16:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 967E510E14D;
-	Thu,  2 Mar 2023 17:38:54 +0000 (UTC)
-Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
- [IPv6:2001:4860:4864:20::34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEC3F10E14D
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Mar 2023 17:38:52 +0000 (UTC)
-Received: by mail-oa1-x34.google.com with SMTP id
- 586e51a60fabf-17638494edbso175461fac.10
- for <amd-gfx@lists.freedesktop.org>; Thu, 02 Mar 2023 09:38:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1677778732;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=dPJNPrl+JGFvRrUPliIvuT8oDr1GYP0gmogQcqrDqXk=;
- b=MHpVuM53usV507FsBa3xVKKcMOeC0f/jPspJV/U99QB+MjeN7OD13KY1u5aEZXrQMF
- QkFxMXfWtXDwyrhc+ykOB8gMjQNBTs8QDgX85Axpbok38YLRkKQrD40751CE4t4YExJb
- PBlb/dWMJ8hsSz/9CPBfUuRWULsL5eGINGi/xRwNtJiZYyrcSwzh5zJlMauPsoUx2UAv
- hHJVPTvnsQk7P7M+r1TPcUdMyIEBg69x6XFvx1lpPoY1ka3eMHlqoRbSjcOjQRneLBbO
- Ld6LT7Gm5IOaICOhVSGFWOEvPekEJnm3JN5TFMlulT8CK3YsBTPlNdVzqnXAuMN/sqq1
- yVlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1677778732;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=dPJNPrl+JGFvRrUPliIvuT8oDr1GYP0gmogQcqrDqXk=;
- b=7lSnqF0lfQ11eP3fxfH1/HZ1wMfzgh0oRfRu7sLmoYBvrBVYXcXDyzDqWuEIRzQ/DY
- Zctn53/Z/YHNOg1lDZokMWSX5EHd+7we19TdgE/uqfbbQKJFQeVWr862Uiinsev1h2DM
- 7BMU02qZdeVoselX0FqZkFtSZz71UOk0PmcF9RAQiqKV8LEfeNrHfrt2osfGU4VBTXZ1
- 8fnSbDE6dbgqWys59Nnlz+J9irMGI/2r3dLK++czL0WSP0hlJgHD9kSPz9c1kLcrng6l
- 7Sivsk0EECks4GhGqWW3rPEGiwAx6E1sHykRBOCfvstFNSXnPAp3iUdspGHxU5oUh9qf
- u35A==
-X-Gm-Message-State: AO0yUKWFY1zS+seDSIWQCIlwV5rozeil01B+b9OjpRrKyDJp3rJlixLh
- X0Pv8NgOrttuGJO5JZBWHplY+Hv3Dy9VpUMTxo3mdEq1
-X-Google-Smtp-Source: AK7set8Rq4WXDR2/lG8qLHV5+O022bmTXZBsxhfwed2gNte/wDc8daDz4x89LPsKHfvowD4Ioj2bfoUb4nqSNGF16Xs=
-X-Received: by 2002:a05:6870:b7b2:b0:16e:2f74:e5c1 with SMTP id
- ed50-20020a056870b7b200b0016e2f74e5c1mr2606309oab.8.1677778731812; Thu, 02
- Mar 2023 09:38:51 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B39A10E133;
+	Thu,  2 Mar 2023 18:16:14 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20600.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eae::600])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0EE010E133
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Mar 2023 18:16:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KJi5qyKbX4b7ls43VCKsP6Sy2Cia/rA5CqpSADVuje7Pg+Bu1BF5a1pDY83POBRcveMPi7RUFz1bRzoB/PYD91FdywNPRpLZV0kOE2ukomITuahbUaPRkrGK7AJp8bdQ1wyzMirXWYX4t87XbWo3GoSGg0bTHXNi3CXbtVhjFW1bdv+Y7houRXziIBaTUeGhmHyrQkFDbTw6KP/tMJCbVY/gT6hA9OiWKKEzr7mAG/WaqCQxTcPmBOomtunwicuxtQVjP7nS9UjQBM7dAUvyldU3SI1XDZ6lZfus1J/mCk3pUtMHlbmOOZqzI8TpVDphZpd0ctj0cQ4hY8hiqMvDyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eapQV0LFBc5iid6fqVHrLK0RC37CitC4TewDwlamSDc=;
+ b=M0+W28vY1S1cUNhahinlhj7HJ4gNCIwy0xmTOvkhFDq/zI7tBE8FF31yAtBxJsp5RfpdXxBBRGgnEdeqIpLHdvDX8CLVzZFq9O9h+xFbafGiOAHO9iMUIsPNF7BfyG+zpqa/MGT+KWn5cdRG0C1xzbWRwb+c0ZnB9jg90gbJ//wEEF0o/esIapsREdpLjodzsLhDSM3d95E5+5JugkpPx/jT2cy2i9RWWlpK6X58fXUqXKzC6G5gryklG6zfnQZsinOGBxg/0mkSCt2sqC1P9z7MxrIfWjQaWAaH0HtR36pgKGBctGHCztG0Whd0TzbOHwCBR7NgE/8VdD02wlRLkA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eapQV0LFBc5iid6fqVHrLK0RC37CitC4TewDwlamSDc=;
+ b=RUdEp96PpDkRZMs/Oej/4GwPBwdKE6odBtqbsi1XXgwaLa40PSttBk30gmNQCe2AIAZe2t8L0ewlqG0Bj3SuVGyzkhr8LUY8e+Cb9SPY7xhd5grcfa3bU3GDt2b/ieQ0eJcnsk61Ouv3hr0qW3z4fWGBdQENEms3se2HO7TSd9w=
+Received: from DM6PR06CA0010.namprd06.prod.outlook.com (2603:10b6:5:120::23)
+ by DS7PR12MB6309.namprd12.prod.outlook.com (2603:10b6:8:96::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.30; Thu, 2 Mar
+ 2023 18:16:10 +0000
+Received: from DS1PEPF0000E64A.namprd02.prod.outlook.com
+ (2603:10b6:5:120:cafe::e6) by DM6PR06CA0010.outlook.office365.com
+ (2603:10b6:5:120::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.30 via Frontend
+ Transport; Thu, 2 Mar 2023 18:16:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF0000E64A.mail.protection.outlook.com (10.167.18.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6156.12 via Frontend Transport; Thu, 2 Mar 2023 18:16:10 +0000
+Received: from Devmachine.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 2 Mar
+ 2023 12:16:09 -0600
+From: Gang Ba <gaba@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: avoid restore process run into dead loop.
+Date: Thu, 2 Mar 2023 13:15:55 -0500
+Message-ID: <20230302181555.10796-1-gaba@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20230302172731.721-1-mario.limonciello@amd.com>
-In-Reply-To: <20230302172731.721-1-mario.limonciello@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 2 Mar 2023 12:38:40 -0500
-Message-ID: <CADnq5_OxyERXZ01rcGRWomsZkcQ_WmBqBf1EjS5kduo9b4PQOQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: Fix initialization mistake for NBIO 7.3.0
-To: Mario Limonciello <mario.limonciello@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF0000E64A:EE_|DS7PR12MB6309:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2359739c-eb8e-4018-5865-08db1b4a3319
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: cRYUF2Zm5yRU6eM1nyeEDra+U3OPvOU2DrtydiMmRwhaYxPyE2UKtUlGGU+5Ehc6JjHdwRYm2oy+ohCLC1pN6RLiCH1zI5wHmMnPckn3IRgy2CLIK4RJHLbTvObzBzRHWrvxQhr4fhvk5xdqBXOfNO9MCI/95gEui3d6wDgfQlULjDCvxDxe6B/6muiMcpz5mJpxlUWxPzL2WglV7XcJTH3GXqxOoMIWP8R9G2HgkODu+cLXXIczUqsGmKUm8I389GZiupXivlXrf6giWz0OrMTYD2OLYSSeOjYgxjWj8RzCr4HjXqMCfkCOw+U7HD/l3GEkCyi1++iufKjhrLN3mfi0Ic3ddjC9Ac5WO582lJTvikCuAcEF18rC+zsOpPmOPeSbnpSGMJt+v5AZg/H66pkfIlrLtlerWCvMVkxZpVHOQJTmh/zaTMx2w9gDZkZPrP44e8N5j1Gz3eGYG51oYj/00AdvyEoS0o2RBI/Jaimc+OKUGTf1QYE77jSSCIz2DWDPIWCGbcymHv+JSoLUvSGBsTksZau5AsjR56jO30Ff1Tklc9+wcRofEeZSZB3u17wspvc459eVEjaqkxi03jw6/4CtMa8X5QHQWPp3wK2etTMAIb3pxpozAPG3qohpXOjlrGlw0QG5QiCJ6O30WnalEWN8dhrb4Hrty7T7AQ9O+XtCGXKO22zBbgOXETVsZZF08/nVBf7jq7ByQCHBtraPlUN3EzFd3oq7U8htTGw=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(39860400002)(396003)(376002)(136003)(346002)(451199018)(46966006)(36840700001)(40470700004)(356005)(70586007)(70206006)(82740400003)(36756003)(47076005)(478600001)(40480700001)(40460700003)(7696005)(316002)(6666004)(186003)(26005)(1076003)(2906002)(2616005)(336012)(16526019)(426003)(82310400005)(41300700001)(36860700001)(8936002)(5660300002)(81166007)(8676002)(4326008)(6916009)(83380400001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Mar 2023 18:16:10.1104 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2359739c-eb8e-4018-5865-08db1b4a3319
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000E64A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6309
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,65 +98,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Glanzmann <thomas@glanzmann.de>, amd-gfx@lists.freedesktop.org,
- Basavaraj Natikar <Basavaraj.Natikar@amd.com>
+Cc: Felix.Kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 2, 2023 at 12:28 PM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
-> The same strapping initialization issue that happened on NBIO 7.5.1
-> appears to be happening on NBIO 7.3.0.
-> Apply the same fix to 7.3.0 as well.
->
-> Note: This workaround relies upon the integrated GPU being enabled
-> in BIOS. If the integrated GPU is disabled in BIOS a different
-> workaround will be required.
->
-> Reported-by: Thomas Glanzmann <thomas@glanzmann.de>
-> Cc: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
-> Link: https://lore.kernel.org/linux-usb/Y%2Fz9GdHjPyF2rNG3@glanzmann.de/T/#u
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+In restore process worker, pinned BO cause update PTE fail, then
+the function re-schedule the restore_work. This will generate dead loop.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Gang Ba <gaba@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c | 14 +++++++++-----
->  1 file changed, 9 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
-> index 4b0d563c6522c..4ef1fa4603c8e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
-> @@ -382,11 +382,6 @@ static void nbio_v7_2_init_registers(struct amdgpu_device *adev)
->                 if (def != data)
->                         WREG32_PCIE_PORT(SOC15_REG_OFFSET(NBIO, 0, regBIF1_PCIE_MST_CTRL_3), data);
->                 break;
-> -       case IP_VERSION(7, 5, 1):
-> -               data = RREG32_SOC15(NBIO, 0, regRCC_DEV2_EPF0_STRAP2);
-> -               data &= ~RCC_DEV2_EPF0_STRAP2__STRAP_NO_SOFT_RESET_DEV2_F0_MASK;
-> -               WREG32_SOC15(NBIO, 0, regRCC_DEV2_EPF0_STRAP2, data);
-> -               fallthrough;
->         default:
->                 def = data = RREG32_PCIE_PORT(SOC15_REG_OFFSET(NBIO, 0, regPCIE_CONFIG_CNTL));
->                 data = REG_SET_FIELD(data, PCIE_CONFIG_CNTL,
-> @@ -399,6 +394,15 @@ static void nbio_v7_2_init_registers(struct amdgpu_device *adev)
->                 break;
->         }
->
-> +       switch (adev->ip_versions[NBIO_HWIP][0]) {
-> +       case IP_VERSION(7, 3, 0):
-> +       case IP_VERSION(7, 5, 1):
-> +               data = RREG32_SOC15(NBIO, 0, regRCC_DEV2_EPF0_STRAP2);
-> +               data &= ~RCC_DEV2_EPF0_STRAP2__STRAP_NO_SOFT_RESET_DEV2_F0_MASK;
-> +               WREG32_SOC15(NBIO, 0, regRCC_DEV2_EPF0_STRAP2, data);
-> +               break;
-> +       }
-> +
->         if (amdgpu_sriov_vf(adev))
->                 adev->rmmio_remap.reg_offset = SOC15_REG_OFFSET(NBIO, 0,
->                         regBIF_BX_PF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
-> --
-> 2.25.1
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 4b46b936a804..a38be83e486e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -2586,7 +2586,7 @@ int amdgpu_amdkfd_gpuvm_export_ipc_obj(struct amdgpu_device *adev, void *vm,
+ 	struct dma_buf *dmabuf;
+ 	int r;
+ 
+-	if (!adev|| !vm || !mem)
++	if (!adev || !vm || !mem)
+ 		return -EINVAL;
+ 
+ 	mutex_lock(&mem->lock);
+@@ -3170,6 +3170,9 @@ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *info, struct dma_fence **ef)
+ 			if (!attachment->is_mapped)
+ 				continue;
+ 
++			if (attachment->bo_va->base.bo->tbo.pin_count)
++				continue;
++
+ 			kfd_mem_dmaunmap_attachment(mem, attachment);
+ 			ret = update_gpuvm_pte(mem, attachment, &sync_obj);
+ 			if (ret) {
+-- 
+2.34.1
+
