@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29AF3C678D4
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Mar 2023 14:56:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C74F6C7EE2D
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Mar 2023 15:39:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95F0710E640;
-	Fri,  3 Mar 2023 14:56:05 +0000 (UTC)
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1EDF10E637;
- Fri,  3 Mar 2023 14:56:02 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4PSrdC1nvVz9sWm;
- Fri,  3 Mar 2023 15:55:59 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1677855359;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=DvYXQYOVZsp7/up4g6uoyddDLFi4Xaa5+N19yUjNy+c=;
- b=rhvaHeefq1ll4FIJsng9qb9+TyX0DtvDO1OEWtjAILyx+LAFwpMmRjsbBoueDh0gOPi7n0
- I8vK8cQrnvFJE/5Do0/b/kz/kFXhPaykAg9yJZIzQHkbu79hcnycJqq8yoFyg77MvEBPp7
- N72BfpFfis8f4fIkRYb5dfctAmb2N9kRoUygLwXfoqALC7fnc/7cyZCWeLA3CgrtOV+Hsn
- zTbD/m0jQVeDXNMAzdLCC5DBx1XTp60K2kxhdDhuzGbCV5QRgTPlo/W9cmINfqUYO6h39B
- xlAtfYgGqfc1k9pjB2kQqMMKadhs9ZfniK1B9n7Fc0mmb101DLHXwyrSX3Qkzw==
-Message-ID: <da7e9be8-4a80-7166-d6f8-20f3acf8bf9c@mailbox.org>
-Date: Fri, 3 Mar 2023 15:55:56 +0100
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id D211210E6C4;
+	Fri,  3 Mar 2023 15:39:19 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE28210E6BE;
+ Fri,  3 Mar 2023 15:39:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1677857957; x=1709393957;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=PsLUt0hhdShhtqMCwP0MEZHkvWgjYOP7Rv4o2wUr3Dw=;
+ b=CyyWU1r+LlqhNxKEekjbL6EM7dGmMucH7uKULqHrDuQ3GuSdcA4HhiPB
+ SUQ2O4IxlbMnmIvvyFagFFEUreKUPHyqVtsbQFmsZckb0BMeFyOEM5LHy
+ iswjgvX4WBK/xkWKMocqIHuzA8GS3Z/fQqf1oEZgvamnRO9Yyj9sIovIe
+ +JS//rErl6kSsxb7gBPXbhTDCv6QugD0AtLIDIhdNHojl2eAwt77ktCg1
+ T8GIGucc69t9C5hpXlYBAXnGYKeZaK9A1VQbS+MzPQgBTA4mXZBUtqGpJ
+ /2RowhY/VhcrgnbuSfJRGK9K6/PT36q0oKV5lfs2hY2dl7xw3cxXKsSvp Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10638"; a="332552244"
+X-IronPort-AV: E=Sophos;i="5.98,231,1673942400"; d="scan'208";a="332552244"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Mar 2023 07:39:17 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10638"; a="785294950"
+X-IronPort-AV: E=Sophos;i="5.98,231,1673942400"; d="scan'208";a="785294950"
+Received: from joe-255.igk.intel.com (HELO localhost) ([10.91.220.57])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Mar 2023 07:39:14 -0800
+Date: Fri, 3 Mar 2023 16:39:13 +0100
+From: Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>
+To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>
 Subject: Re: [PATCH] Change the meaning of the fields in the ttm_place
  structure from pfn to bytes
-To: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-graphics-maintainer@vmware.com
+Message-ID: <20230303153913.GH3963532@linux.intel.com>
 References: <20230303071659.1213074-1-Amaranath.Somalapuram@amd.com>
-Content-Language: en-CA
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
-In-Reply-To: <20230303071659.1213074-1-Amaranath.Somalapuram@amd.com>
-Content-Type: text/plain; charset=UTF-8
+ <da7e9be8-4a80-7166-d6f8-20f3acf8bf9c@mailbox.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: o14rz3dkf4t9hit9trfzw9gcrhfbtkqk
-X-MBO-RS-ID: 9e9a7b30180685b8231
+In-Reply-To: <da7e9be8-4a80-7166-d6f8-20f3acf8bf9c@mailbox.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,48 +58,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, arunpravin.paneerselvam@amd.com,
- christian.koenig@amd.com, arvind.yadav@amd.com, shashank.sharma@amd.com
+Cc: shashank.sharma@amd.com, arvind.yadav@amd.com,
+ arunpravin.paneerselvam@amd.com, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org,
+ Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
+ amd-gfx@lists.freedesktop.org, linux-graphics-maintainer@vmware.com,
+ dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 3/3/23 08:16, Somalapuram Amaranath wrote:
-> Change the ttm_place structure member fpfn, lpfn, mem_type to
-> res_start, res_end, res_type.
-> Change the unsigned to u64.
-> Fix the dependence in all the DRM drivers and
-> clean up PAGE_SHIFT operation.
+On Fri, Mar 03, 2023 at 03:55:56PM +0100, Michel Dänzer wrote:
+> On 3/3/23 08:16, Somalapuram Amaranath wrote:
+> > Change the ttm_place structure member fpfn, lpfn, mem_type to
+> > res_start, res_end, res_type.
+> > Change the unsigned to u64.
+> > Fix the dependence in all the DRM drivers and
+> > clean up PAGE_SHIFT operation.
+> > 
+> > Signed-off-by: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
+> > 
+> > [...]
+> > 
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+> > index 44367f03316f..5b5104e724e3 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+> > @@ -131,11 +131,12 @@ static int amdgpu_gtt_mgr_new(struct ttm_resource_manager *man,
+> >  		goto err_free;
+> >  	}
+> >  
+> > -	if (place->lpfn) {
+> > +	if (place->res_end) {
+> >  		spin_lock(&mgr->lock);
+> >  		r = drm_mm_insert_node_in_range(&mgr->mm, &node->mm_nodes[0],
+> > -						num_pages, tbo->page_alignment,
+> > -						0, place->fpfn, place->lpfn,
+> > +						num_pages, tbo->page_alignment,	0,
+> > +						place->res_start << PAGE_SHIFT,
+> > +						place->res_end << PAGE_SHIFT,
+> >  						DRM_MM_INSERT_BEST);
 > 
-> Signed-off-by: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
+> This should be >> or no shift instead of <<, shouldn't it? Multiplying a value in bytes by the page size doesn't make sense.
 > 
-> [...]
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-> index 44367f03316f..5b5104e724e3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-> @@ -131,11 +131,12 @@ static int amdgpu_gtt_mgr_new(struct ttm_resource_manager *man,
->  		goto err_free;
->  	}
->  
-> -	if (place->lpfn) {
-> +	if (place->res_end) {
->  		spin_lock(&mgr->lock);
->  		r = drm_mm_insert_node_in_range(&mgr->mm, &node->mm_nodes[0],
-> -						num_pages, tbo->page_alignment,
-> -						0, place->fpfn, place->lpfn,
-> +						num_pages, tbo->page_alignment,	0,
-> +						place->res_start << PAGE_SHIFT,
-> +						place->res_end << PAGE_SHIFT,
->  						DRM_MM_INSERT_BEST);
+> I didn't check the rest of the patch in detail, but it's easy introduce subtle regressions with this kind of change. It'll require a lot of review & testing scrutiny.
 
-This should be >> or no shift instead of <<, shouldn't it? Multiplying a value in bytes by the page size doesn't make sense.
+Also good justification. The changelog says only what is done, nothing about why the change is needed.
 
-
-I didn't check the rest of the patch in detail, but it's easy introduce subtle regressions with this kind of change. It'll require a lot of review & testing scrutiny.
-
-
--- 
-Earthling Michel DÃ¤nzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
-
+Regards
+Stanislaw
