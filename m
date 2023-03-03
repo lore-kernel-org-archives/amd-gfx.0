@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA2E8C7EE2D
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Mar 2023 15:50:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37025C64EC4
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Mar 2023 15:51:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E36810E6E1;
-	Fri,  3 Mar 2023 15:50:59 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2044.outbound.protection.outlook.com [40.107.223.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74CD910E6E0
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Mar 2023 15:50:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C186B10E6E0;
+	Fri,  3 Mar 2023 15:51:14 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C331210E6E0
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Mar 2023 15:51:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GFf0W3gu2Hm+Li8vR8qhRK72iHMp2SMPe79IOHrxhzdchBzst7P0qg+rKvusKuK6v5a43Ej5IaiUdkPAVgME164IQ9zTKDNwCMTfxmKX1ya+p5uQRf94pugUfqTch2/mNli2+s6LKkt15WHqcytmvTLpn79eDhxgTPUoVk/r/pOl3cIRdUZoTbmootpKOSHPo5OOYn2Wb90Id4+qzXu+ncptHf5x4ue2fxiCdOqMJY1JMwqPLYC5pddFA188RBdB4apn64lALemtiB0HbfiJL9jpiL4IhpeckwlE/Nwa2MND1gxyUKhkjMObz19zs7ghOJU/KIYF/e5RYsSklFw90g==
+ b=klOqAiRRYC7Rhg+Lw1L050dMfNXURdUyk4uMHAWm7ANbsllT+MuQAgDKCNi+57MSSOc5S7gsnUoKNeo/i3EE1UOd+m0FrY3ipBl5pOQ4rYw0lnHPXPFVuhA4OcF8toIck4MorYS2pX6h4JIRm0IxpF7xgPmFFQGV3QfVA4COdVoZQUA9WYGua7YKnAxsuVmiSc3JJKjrLT+Ll948ns9H0wECOZswrZto3JqCSTDQuFkPhQfRj/eeqaGa7EBSuzGb2eP7pNkpxXOqwpq+KnqLA3/wzE0zHX6Weef+uxTpZ0TzIwmIE6f4i9jY9L3w+vfnAG/ZFzCUoAPD/dTz4jxtCw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NNragl0e8MKTkIxn9TDK6r6qWIGvcjtvVXi3C1hBfAk=;
- b=eJtsi/sDQsiJ3nk64G45bJhtsywNWNAgMsizmWHelM+Hyvsw61hDM2P0hBwgkHlPaz8noOIQrpC0+JTK15SPWjCTx8Is1HoUoGABBzqqV6kzBeXwa+MUSCUGzYKXnhKX35ZGEV07A9Mv2rFhu/exVXQy2oLip5CMr2YJVfvGI2T2DQlowUKukrS3iryuk5uVRULkazfhgAJu7TgahWr6WuSoKlCDEx5sMlxIdOPy+cYCxoFttEWqvchQ1silHHY+KvjQMqkcvI6ZWagKs0V0/LAnkROPvdu1gJzk8ddLuqPgoCOpQ63OJuY8T/BkAcrkBe8yTn6PQvV0QyJZLFoMXQ==
+ bh=Mpgw7HkOFWshoRFQsGPJQMIXPCs6Ux0HAokWUkDEgKQ=;
+ b=L8/acTMMfq3DKm00yztzBSOUlW5abHz5kB8kixWEN4IxYA/yaiAMY168ZOqG7+v3Tj5JgzwkIHEZblk6A9R5ngIQfc3dumibl9Z2JXZvVxwFG5WHlt4KaCDXHXeYRVMP7zwnaXQKp0LN7B1S+rxambc29lRM/3KzP8LJNzbLxpNdyDuhAqTpXgnaTD6eh25YJBtNNKQgl+S3e10j7OtdCtlJJyfyQ7+xlURB8viEcyHHdbELKgNyCakiPIYT4waYFoyx11qzejJCyG4xDyn+E3Ocn+EsgJNE7mXTbb3pWk0YNeLcwfmrBJFwEwGDkXjaKD+KnyuQE34TtwsogJMJPw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NNragl0e8MKTkIxn9TDK6r6qWIGvcjtvVXi3C1hBfAk=;
- b=a7gVEehcx1Zi8+NTLch+4HVQVO/aG99wkLA6fGd/HDzHhO04BA0bI7KnKymMS0E4wW9KnQUB0a0TwaS2SGpA2PL9xUJ/bFgCEK7qfJYAx0O+6ttAuuu5pUOyWYwUapRo+XpK4KbQZAGrd/h1C5zspwTeM6qqYytu0F6YJsw2Jpg=
-Received: from DM5PR07CA0084.namprd07.prod.outlook.com (2603:10b6:4:ad::49) by
- DM4PR12MB5748.namprd12.prod.outlook.com (2603:10b6:8:5f::19) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6156.19; Fri, 3 Mar 2023 15:50:55 +0000
-Received: from DS1PEPF0000E62F.namprd02.prod.outlook.com
- (2603:10b6:4:ad:cafe::cd) by DM5PR07CA0084.outlook.office365.com
- (2603:10b6:4:ad::49) with Microsoft SMTP Server (version=TLS1_2,
+ bh=Mpgw7HkOFWshoRFQsGPJQMIXPCs6Ux0HAokWUkDEgKQ=;
+ b=wcoalYSOOaZoWQfbZhoNHonmleeZDHQOqIEoGboVQLGfQfkd6zugoshL85jfhqCHpYxTEH/+7H5Xi7YPgpLQPdWhs0ZjqliE2wdEYW/8WbrMRpiHwb4PH5xbrmX3UV+HWvHuNR/7hHYXVyYQzpgYfHBqOBb3bJ7J5aVopIp83kM=
+Received: from DS7PR03CA0321.namprd03.prod.outlook.com (2603:10b6:8:2b::6) by
+ MN2PR12MB4254.namprd12.prod.outlook.com (2603:10b6:208:1d0::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.19; Fri, 3 Mar
+ 2023 15:51:10 +0000
+Received: from DS1PEPF0000E635.namprd02.prod.outlook.com
+ (2603:10b6:8:2b:cafe::6c) by DS7PR03CA0321.outlook.office365.com
+ (2603:10b6:8:2b::6) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.22 via Frontend
- Transport; Fri, 3 Mar 2023 15:50:55 +0000
+ Transport; Fri, 3 Mar 2023 15:51:10 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF0000E62F.mail.protection.outlook.com (10.167.17.133) with Microsoft
+ DS1PEPF0000E635.mail.protection.outlook.com (10.167.17.139) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6156.12 via Frontend Transport; Fri, 3 Mar 2023 15:50:55 +0000
+ 15.20.6156.12 via Frontend Transport; Fri, 3 Mar 2023 15:51:09 +0000
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 3 Mar
- 2023 09:50:40 -0600
+ 2023 09:50:55 -0600
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 23/33] drm/amd/display: Update to correct min FCLK when
- construction BB
-Date: Fri, 3 Mar 2023 10:40:12 -0500
-Message-ID: <20230303154022.2667-24-qingqing.zhuo@amd.com>
+Subject: [PATCH 24/33] drm/amd/display: Pass the right info to
+ drm_dp_remove_payload
+Date: Fri, 3 Mar 2023 10:40:13 -0500
+Message-ID: <20230303154022.2667-25-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230303154022.2667-1-qingqing.zhuo@amd.com>
 References: <20230303154022.2667-1-qingqing.zhuo@amd.com>
@@ -69,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0000E62F:EE_|DM4PR12MB5748:EE_
-X-MS-Office365-Filtering-Correlation-Id: a5b5cb9c-18a3-477e-a148-08db1bff12eb
+X-MS-TrafficTypeDiagnostic: DS1PEPF0000E635:EE_|MN2PR12MB4254:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6c014da7-f3ee-49e5-e52b-08db1bff1bc6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: igmfvWDuh9rHjy/jb6C4m8hnrPZ0prXQjceKe7R4FFo9ZYvgpImAsG78+tO7JdehoQJgx9uyH/F9hYzkTQ2ejdAN65iP8d85l+gQaCP4rHta/6S0618WCcMMmyKX14n/muOw/4BC8aqzXm9vWYoAhZpCF5nCEQcTTEXUgg8krQtF3B4G6wDuhgKwpN9RBX6BRZhJ0Kssak9knepTdnZin9qnt01NeUDUYaYzBXqCL2PKdcqew1pYUUQAvKq6UOPl7Q6j3E9bHFCZq0kSxdPGH5NppGZjr+O+HTAKrNykl0hizssg6fgOLVMdBcJ6HgmQdGTb0nhlxq9x9t8WdL0/l0hjjWUvXEXCxUf+LevPI0IN6AbXjcGfL9sn+3qcFjNtQbokIPmxe6zXjq6IMyQfbMalrA8kwhUwTByOmUYagk5cxQq3qTGbbBRmeIsk1SY2W8VLWLJ9bu8g7Ou19O03tl00SNOG8HHIPFIyzXJnjcG5WUW1TI4xp0RsdfslYHN/3L8wHbgRyENHbjH6wq/yoXkUoKTycjuaAT9gt562qPQfSSXLrIrvEKUKR6B1u8EG7wlMjcgTFSvP3AY+dVwWGzcOvfb87xSUhjGFXmkBiIsY12zB9skG1u23uha0RtrruPJdg55kWdsZlx77OEiTxLQB9NgsOR3sCiMby4Ww02wCgMXzobI/7l0XPHyG5y4LK9pDeZrofXgQVc0JeMXJnX9Mog/hPzSuE2w44af/5iw=
+X-Microsoft-Antispam-Message-Info: pg4VhWvUwIFPcUYLN6TV2JPaSCXbMsqtja6pXbvqW31SREeVjJ1MgggWtfajroP8nMJ/ZA1eQyeybDtPWpgBCBE6UZAuR6IMfUHBdHAZCKDNDTTjbIQnTxh+RACGx30cwq7FkqsZZrEhK9sySxYmvH579UgAQNTb2WnMP62ttwhHw68pfoQqB0DppvqRC8PiBA4t/5m4donn8Lvm7H1aOYaFhQ8KveZr2hh+8W2OcIf0Clvsj1NUrqsAxpkI2duNYHIWF92kek66r7bbJQfoluLUCe7SAT+xgUzZ5ax3HWxGM4cks4NaFYWm1h4vBeqmkpTKR9GKpmqlNP2uwHAlMhs5BgTddwEOcwXxnWSNnJVZivwrABbHqKJSCM5m8uee4H47gHJ0OktLInamsSKxkKtqbFNVHZ4EHXQNvhDg5Mj5zIpE/XR43WYBnwjG6bdHNSOdHjq+kryMV0gruPW4kvmLzXB/EZ0dFA6D/PnHV0pWk0QNBNi1b4RXgOw1xejcGt7gLvy8Go1jZ2KayhTnTOO3cUQSsdAPLsmH2AZSK1e4YZV6cboljiU/GPFNzJ2mib/EoIm7Dtj4u7C8Z3O6xuLDoIWrvGZFxr+5pfN/jLmZtFJ89wFsrmgj4KoKkDZ1KrRWWhZLi3kMsiWjdXptyzyydG7Lz0tUzWViXSgAW5zwxLVPUzbvhYo6jnPw07XESAIi7Lve8YNMk1s/H8XKUBfhdinUszfxlGvj5xsCNwE=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230025)(4636009)(396003)(136003)(39860400002)(346002)(376002)(451199018)(40470700004)(46966006)(36840700001)(83380400001)(426003)(36860700001)(6666004)(47076005)(36756003)(40460700003)(478600001)(8936002)(82740400003)(81166007)(86362001)(82310400005)(356005)(40480700001)(5660300002)(44832011)(186003)(2616005)(16526019)(336012)(1076003)(26005)(8676002)(2906002)(6916009)(54906003)(70586007)(70206006)(316002)(41300700001)(4326008)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2023 15:50:55.0318 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a5b5cb9c-18a3-477e-a148-08db1bff12eb
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2023 15:51:09.8906 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6c014da7-f3ee-49e5-e52b-08db1bff1bc6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000E62F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000E635.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5748
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4254
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,150 +102,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
  qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, Alvin Lee <Alvin.Lee2@amd.com>,
- wayne.lin@amd.com, Jun Lei <Jun.Lei@amd.com>, Bhawanpreet.Lakha@amd.com,
+ solomon.chiu@amd.com, Jerry Zuo <Jerry.Zuo@amd.com>, Aurabindo.Pillai@amd.com,
+ Wayne Lin <Wayne.Lin@amd.com>, Bhawanpreet.Lakha@amd.com,
  agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <Alvin.Lee2@amd.com>
+From: Wayne Lin <Wayne.Lin@amd.com>
 
-[Description]
-- For min FCLK, choose the min of 300Mhz and PMFW requirement
-- Also only apply min DET check in DML for non-UR cases
+[Why & How]
+drm_dp_remove_payload() interface was changed. Correct amdgpu dm code
+to pass the right parameter to the drm helper function.
 
-Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+Reviewed-by: Jerry Zuo <Jerry.Zuo@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
+Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c        | 5 +++--
- .../gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c  | 6 ++++--
- .../drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c | 6 +++++-
- .../drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h | 3 ++-
- drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c      | 5 +++--
- 5 files changed, 17 insertions(+), 8 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 57 ++++++++++++++++---
+ 1 file changed, 50 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-index e47828e3b6d5..077674be452b 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-@@ -2315,6 +2315,9 @@ static int build_synthetic_soc_states(struct clk_bw_params *bw_params,
- 			num_dcfclk_dpms++;
- 	}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 1be04c613deb..8d598b322e5b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -177,6 +177,40 @@ void dm_helpers_dp_update_branch_info(
+ 	const struct dc_link *link)
+ {}
  
-+	if (num_dcfclk_dpms > 0 && bw_params->clk_table.entries[0].fclk_mhz > min_fclk_mhz)
-+		min_fclk_mhz = bw_params->clk_table.entries[0].fclk_mhz;
++static void dm_helpers_construct_old_payload(
++			struct dc_link *link,
++			int pbn_per_slot,
++			struct drm_dp_mst_atomic_payload *new_payload,
++			struct drm_dp_mst_atomic_payload *old_payload)
++{
++	struct link_mst_stream_allocation_table current_link_table =
++									link->mst_stream_alloc_table;
++	struct link_mst_stream_allocation *dc_alloc;
++	int i;
 +
- 	if (!max_dcfclk_mhz || !max_dispclk_mhz || !max_dtbclk_mhz)
- 		return -1;
- 
-@@ -2423,7 +2426,6 @@ static int build_synthetic_soc_states(struct clk_bw_params *bw_params,
- 		for (i = *num_entries - 1; i >= 0 ; i--) {
- 			if (table[i].fabricclk_mhz < min_fclk_mhz) {
- 				table[i].fabricclk_mhz = min_fclk_mhz;
--				break;
- 			}
- 		}
- 	}
-@@ -2432,7 +2434,6 @@ static int build_synthetic_soc_states(struct clk_bw_params *bw_params,
- 	for (i = *num_entries - 1; i >= 0 ; i--) {
- 		if (table[i].dcfclk_mhz < min_dcfclk_mhz) {
- 			table[i].dcfclk_mhz = min_dcfclk_mhz;
--			break;
- 		}
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-index f2499811e269..f74730c2abbd 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
-@@ -689,7 +689,8 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
- 						mode_lib->vba.PixelClock,
- 						mode_lib->vba.VRatio,
- 						mode_lib->vba.VRatioChroma,
--						mode_lib->vba.UsesMALLForPStateChange);
-+						mode_lib->vba.UsesMALLForPStateChange,
-+						mode_lib->vba.UseUnboundedRequesting);
- 
- 	for (k = 0; k < mode_lib->vba.NumberOfActiveSurfaces; ++k) {
- 		v->MaxVStartupLines[k] = ((mode_lib->vba.Interlace[k] &&
-@@ -3215,7 +3216,8 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
- 					mode_lib->vba.PixelClock,
- 					mode_lib->vba.VRatio,
- 					mode_lib->vba.VRatioChroma,
--					mode_lib->vba.UsesMALLForPStateChange);
-+					mode_lib->vba.UsesMALLForPStateChange,
-+					mode_lib->vba.UseUnboundedRequesting);
- 
- 			v->dummy_vars.dml32_ModeSupportAndSystemConfigurationFull.VMDataOnlyReturnBWPerState = dml32_get_return_bw_mbps_vm_only(&mode_lib->vba.soc, i,
- 					mode_lib->vba.DCFCLKState[i][j], mode_lib->vba.FabricClockPerState[i],
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-index d1000aa4c481..61cc4904ade4 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-@@ -6271,7 +6271,8 @@ bool dml32_CalculateDETSwathFillLatencyHiding(unsigned int NumberOfActiveSurface
- 		double	PixelClock[],
- 		double	VRatioY[],
- 		double	VRatioC[],
--		enum dm_use_mall_for_pstate_change_mode UsesMALLForPStateChange[])
-+		enum dm_use_mall_for_pstate_change_mode UsesMALLForPStateChange[],
-+		enum unbounded_requesting_policy UseUnboundedRequesting)
++	*old_payload = *new_payload;
++
++	/* Set correct time_slots/PBN of old payload.
++	 * other fields (delete & dsc_enabled) in
++	 * struct drm_dp_mst_atomic_payload are don't care fields
++	 * while calling drm_dp_remove_payload()
++	 */
++	for (i = 0; i < current_link_table.stream_count; i++) {
++		dc_alloc =
++			&current_link_table.stream_allocations[i];
++
++		if (dc_alloc->vcp_id == new_payload->vcpi) {
++			old_payload->time_slots = dc_alloc->slot_count;
++			old_payload->pbn = dc_alloc->slot_count * pbn_per_slot;
++			break;
++		}
++	}
++
++	/* make sure there is an old payload*/
++	ASSERT(i != current_link_table.stream_count);
++
++}
++
+ /*
+  * Writes payload allocation table in immediate downstream device.
+  */
+@@ -188,7 +222,7 @@ bool dm_helpers_dp_mst_write_payload_allocation_table(
  {
- 	int k;
- 	double SwathSizeAllSurfaces = 0;
-@@ -6283,6 +6284,9 @@ bool dml32_CalculateDETSwathFillLatencyHiding(unsigned int NumberOfActiveSurface
- 	double SwathSizePerSurfaceC[DC__NUM_DPP__MAX];
- 	bool NotEnoughDETSwathFillLatencyHiding = false;
+ 	struct amdgpu_dm_connector *aconnector;
+ 	struct drm_dp_mst_topology_state *mst_state;
+-	struct drm_dp_mst_atomic_payload *payload;
++	struct drm_dp_mst_atomic_payload *target_payload, *new_payload, old_payload;
+ 	struct drm_dp_mst_topology_mgr *mst_mgr;
  
-+	if (UseUnboundedRequesting == dm_unbounded_requesting)
-+		return false;
+ 	aconnector = (struct amdgpu_dm_connector *)stream->dm_stream_context;
+@@ -204,17 +238,26 @@ bool dm_helpers_dp_mst_write_payload_allocation_table(
+ 	mst_state = to_drm_dp_mst_topology_state(mst_mgr->base.state);
+ 
+ 	/* It's OK for this to fail */
+-	payload = drm_atomic_get_mst_payload_state(mst_state, aconnector->mst_output_port);
+-	if (enable)
+-		drm_dp_add_payload_part1(mst_mgr, mst_state, payload);
+-	else
+-		drm_dp_remove_payload(mst_mgr, mst_state, payload, payload);
++	new_payload = drm_atomic_get_mst_payload_state(mst_state, aconnector->mst_output_port);
 +
- 	/* calculate sum of single swath size for all pipes in bytes */
- 	for (k = 0; k < NumberOfActiveSurfaces; k++) {
- 		SwathSizePerSurfaceY[k] = SwathHeightY[k] * SwathWidthY[k] * BytePerPixelInDETY[k] * NumOfDPP[k];
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
-index 9ba792c633a5..592d174df6c6 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.h
-@@ -1163,6 +1163,7 @@ bool dml32_CalculateDETSwathFillLatencyHiding(unsigned int NumberOfActiveSurface
- 		double	PixelClock[],
- 		double	VRatioY[],
- 		double	VRatioC[],
--		enum dm_use_mall_for_pstate_change_mode UsesMALLForPStateChange[]);
-+		enum dm_use_mall_for_pstate_change_mode UsesMALLForPStateChange[],
-+		enum unbounded_requesting_policy UseUnboundedRequesting);
- 
- #endif
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c
-index b80cef70fa60..57b9bd896678 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c
-@@ -294,6 +294,9 @@ static int build_synthetic_soc_states(struct clk_bw_params *bw_params,
- 			num_dcfclk_dpms++;
- 	}
- 
-+	if (num_dcfclk_dpms > 0 && bw_params->clk_table.entries[0].fclk_mhz > min_fclk_mhz)
-+		min_fclk_mhz = bw_params->clk_table.entries[0].fclk_mhz;
++	if (enable) {
++		target_payload = new_payload;
 +
- 	if (!max_dcfclk_mhz || !max_dispclk_mhz || !max_dtbclk_mhz)
- 		return -1;
++		drm_dp_add_payload_part1(mst_mgr, mst_state, new_payload);
++	} else {
++		/* construct old payload by VCPI*/
++		dm_helpers_construct_old_payload(stream->link, mst_state->pbn_div,
++						new_payload, &old_payload);
++		target_payload = &old_payload;
++
++		drm_dp_remove_payload(mst_mgr, mst_state, &old_payload, new_payload);
++	}
  
-@@ -402,7 +405,6 @@ static int build_synthetic_soc_states(struct clk_bw_params *bw_params,
- 		for (i = *num_entries - 1; i >= 0 ; i--) {
- 			if (table[i].fabricclk_mhz < min_fclk_mhz) {
- 				table[i].fabricclk_mhz = min_fclk_mhz;
--				break;
- 			}
- 		}
- 	}
-@@ -411,7 +413,6 @@ static int build_synthetic_soc_states(struct clk_bw_params *bw_params,
- 	for (i = *num_entries - 1; i >= 0 ; i--) {
- 		if (table[i].dcfclk_mhz < min_dcfclk_mhz) {
- 			table[i].dcfclk_mhz = min_dcfclk_mhz;
--			break;
- 		}
- 	}
+ 	/* mst_mgr->->payloads are VC payload notify MST branch using DPCD or
+ 	 * AUX message. The sequence is slot 1-63 allocated sequence for each
+ 	 * stream. AMD ASIC stream slot allocation should follow the same
+ 	 * sequence. copy DRM MST allocation to dc */
+-	fill_dc_mst_payload_table_from_drm(stream->link, enable, payload, proposed_table);
++	fill_dc_mst_payload_table_from_drm(stream->link, enable, target_payload, proposed_table);
  
+ 	return true;
+ }
 -- 
 2.34.1
 
