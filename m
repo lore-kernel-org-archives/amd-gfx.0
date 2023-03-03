@@ -4,62 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DE4AC64EC4
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Mar 2023 14:16:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CF70C678D4
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Mar 2023 14:16:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B75210E5F2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A58CD10E5F5;
 	Fri,  3 Mar 2023 14:16:36 +0000 (UTC)
-Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com
- [IPv6:2607:f8b0:4864:20::1032])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DBEF10E10F;
- Fri,  3 Mar 2023 11:35:49 +0000 (UTC)
-Received: by mail-pj1-x1032.google.com with SMTP id
- y15-20020a17090aa40f00b00237ad8ee3a0so1972589pjp.2; 
- Fri, 03 Mar 2023 03:35:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1677843348;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=29OzWpxyOz2YKbe7gk+wlUnvCGzWDi9lW+7/pophrnY=;
- b=UXsv+zvJpY9npxxDaimqGLy6Jst1fhPTP8qDTyYqL5k8VsJK6RCu/FDuoLjqaptlTW
- vDQ56LfI4SzRu6KWj0WwhuIzvIbcKRYeNV5ySrzG77VGflvocShjGwEdarhNyUfEY0IY
- 1WCjtxBYwmHAqHTua6ekv1ho1Kp1OYTgvIoFqT3ZL8XbvQkMbJ4GH5x7SAvtVl40nXnT
- vHp19aimeOozvuCJWppH6cyyPsiBdUK2GXCNE0UcSjKAvz1AMPxVyvHJ5+GGH/q+3Z3/
- sWF/lvIXxsdXSFukVTCVzW6i3xuUqlGrXDas780jw30i675/Vl6yrknmAZmKhJPgUuCR
- Ib5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1677843348;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=29OzWpxyOz2YKbe7gk+wlUnvCGzWDi9lW+7/pophrnY=;
- b=77PWHyLu48bihbeCRhRqBI1aFN1+jgRRMUDY0trFlHSPQFPIWZx2VQqHYcFGKY73Xe
- q1IIKFdXRD5ePhzIB6SVl4OUOvcbBsRaCMAs6Ew5QMPojTxoQWMlXoqKNHb+d8+uGJRZ
- MoambjSm7/sCbGUrCba74RjMExvz5R9a6XW6k1V3iOQncYuJQciVBkj5mcKPyZJKBHT4
- 9+73QWpNCy/IVBARes8zet5scYVChS4fHBNNIHhQBT2nLe6l0Eezm07lK9DTSHWwTXVZ
- nEGoobibwNQyRuTJtvGc6/24Qcm580fCNOVxs9GYuyf8tFc7jTrN2aaqkXsdXDkc798u
- epJw==
-X-Gm-Message-State: AO0yUKUoEQstTRS4nhglqXVSVLGkQNOtzaVGaXRYjfNceqdyS09Oxqkm
- xahVM7sLuwNx5sbaBW0ebJLAU5TBqIQ=
-X-Google-Smtp-Source: AK7set++BCkVpQ27OESBIxlcacoRVz6Aj+XkJCD7OJ1vEPatpzdcaaEL/yM+9LCNECISm5A4drmRzw==
-X-Received: by 2002:a17:903:32cf:b0:19a:8e52:ce0 with SMTP id
- i15-20020a17090332cf00b0019a8e520ce0mr2187517plr.58.1677843348598; 
- Fri, 03 Mar 2023 03:35:48 -0800 (PST)
-Received: from localhost.localdomain (124-148-239-17.tpgi.com.au.
- [124.148.239.17]) by smtp.gmail.com with ESMTPSA id
- jz6-20020a170903430600b0019ab3308554sm1316798plb.85.2023.03.03.03.35.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Mar 2023 03:35:48 -0800 (PST)
-From: Orlando Chamberlain <orlandoch.dev@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v2 RESEND] drm/amdgpu: register a vga_switcheroo client for
- MacBooks with apple-gmux
-Date: Fri,  3 Mar 2023 22:34:25 +1100
-Message-Id: <20230303113423.3819-1-orlandoch.dev@gmail.com>
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4E0910E5CB;
+ Fri,  3 Mar 2023 12:03:04 +0000 (UTC)
+Received: from localhost.localdomain (unknown [182.179.171.187])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: usama.anjum)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 08B366602F6A;
+ Fri,  3 Mar 2023 12:02:55 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1677844983;
+ bh=Hi8NWUOMMhmWak92kY1THi2+V5As1Gogx3xi3UhkAYk=;
+ h=From:To:Cc:Subject:Date:From;
+ b=JGNkfj0R1zmjv3rck3W64LfaNpmhpZiJvB4SF6QxmIUFL6E894MBBQ9jLy7cLa0UZ
+ /WhSqN1k2/TX29VIffjcQeg+keZDXGN66tQtoHqU7Rdv1RWq1UmlUkcoCTKHjvuCqQ
+ EGBzKHC8GmC5getS+aJ7vEaKCdXIMA6jNRNXJQWgkOzKGOLzVqDv87zPXVDKcXNcHi
+ isDRmxTMhl25NtPlhcGviYxsFdMoj4GzFHp/zX+kPgS/J1FAZfh49fW7OwRhwA+UI+
+ wUp1z15IiQ/VpF21BNu5IjileBKwv60BjkKkS7nPhhXV9PYYgVV6z1mm1pHFmIAedG
+ 66fkI/Ppm0EGA==
+From: Muhammad Usama Anjum <usama.anjum@collabora.com>
+To: Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Kun Liu <Kun.Liu2@amd.com>
+Subject: [PATCH] drm/amdgpu: remove dead code
+Date: Fri,  3 Mar 2023 17:02:32 +0500
+Message-Id: <20230303120233.1878140-1-usama.anjum@collabora.com>
 X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 03 Mar 2023 14:16:34 +0000
+X-Mailman-Approved-At: Fri, 03 Mar 2023 14:16:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,91 +51,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Aun-Ali Zaidi <admin@kodeit.net>, Kerem Karabay <kekrby@gmail.com>,
- Pan Xinhui <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Aditya Garg <gargaditya08@live.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Evan Quan <evan.quan@amd.com>, David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Orlando Chamberlain <orlandoch.dev@gmail.com>
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ Muhammad Usama Anjum <usama.anjum@collabora.com>,
+ amd-gfx@lists.freedesktop.org, kernel@collabora.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Commit 3840c5bcc245 ("drm/amdgpu: disentangle runtime pm and
-vga_switcheroo") made amdgpu only register a vga_switcheroo client for
-GPU's with PX, however AMD GPUs in dual gpu Apple Macbooks do need to
-register, but don't have PX. Instead of AMD's PX, they use apple-gmux.
+The less than zero comparison of unsigned variable "value" is never
+true. Remove dead code.
 
-Use apple_gmux_detect() to identify these gpus, and
-pci_is_thunderbolt_attached() to ensure eGPUs connected to Dual GPU
-Macbooks don't register with vga_switcheroo.
-
-Fixes: 3840c5bcc245 ("drm/amdgpu: disentangle runtime pm and vga_switcheroo")
-Link: https://lore.kernel.org/amd-gfx/20230210044826.9834-10-orlandoch.dev@gmail.com/
-Signed-off-by: Orlando Chamberlain <orlandoch.dev@gmail.com>
+Fixes: c3ed0e72c872 ("drm/amdgpu: added a sysfs interface for thermal throttling")
+Signed-off-by: Muhammad Usama Anjum <usama.anjum@collabora.com>
 ---
-v1->v2: Use apple_gmux_detect()
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 21 ++++++++++++++++-----
- 1 file changed, 16 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 2f28a8c02f64..ef8b996f0622 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -35,6 +35,7 @@
- #include <linux/devcoredump.h>
- #include <generated/utsrelease.h>
- #include <linux/pci-p2pdma.h>
-+#include <linux/apple-gmux.h>
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index f212cae0353f..0ffe351c1a1d 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -1738,7 +1738,7 @@ static ssize_t amdgpu_set_apu_thermal_cap(struct device *dev,
+ 	if (ret)
+ 		return ret;
  
- #include <drm/drm_aperture.h>
- #include <drm/drm_atomic_helper.h>
-@@ -3919,12 +3920,15 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
- 		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode);
- 
--	if (amdgpu_device_supports_px(ddev)) {
--		px = true;
-+	px = amdgpu_device_supports_px(ddev);
-+
-+	if (px || (!pci_is_thunderbolt_attached(adev->pdev) &&
-+				apple_gmux_detect(NULL, NULL)))
- 		vga_switcheroo_register_client(adev->pdev,
- 					       &amdgpu_switcheroo_ops, px);
-+
-+	if (px)
- 		vga_switcheroo_init_domain_pm_ops(adev->dev, &adev->vga_pm_domain);
--	}
- 
- 	if (adev->gmc.xgmi.pending_reset)
- 		queue_delayed_work(system_wq, &mgpu_info.delayed_reset_work,
-@@ -4029,6 +4033,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
- void amdgpu_device_fini_sw(struct amdgpu_device *adev)
- {
- 	int idx;
-+	bool px;
- 
- 	amdgpu_fence_driver_sw_fini(adev);
- 	amdgpu_device_ip_fini(adev);
-@@ -4048,10 +4053,16 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
- 
- 	kfree(adev->bios);
- 	adev->bios = NULL;
--	if (amdgpu_device_supports_px(adev_to_drm(adev))) {
-+
-+	px = amdgpu_device_supports_px(adev_to_drm(adev));
-+
-+	if (px || (!pci_is_thunderbolt_attached(adev->pdev) &&
-+				apple_gmux_detect(NULL, NULL)))
- 		vga_switcheroo_unregister_client(adev->pdev);
-+
-+	if (px)
- 		vga_switcheroo_fini_domain_pm_ops(adev->dev);
--	}
-+
- 	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
- 		vga_client_unregister(adev->pdev);
- 
+-	if (value < 0 || value > 100) {
++	if (value > 100) {
+ 		dev_err(dev, "Invalid argument !\n");
+ 		return -EINVAL;
+ 	}
 -- 
-2.39.1
+2.39.2
 
