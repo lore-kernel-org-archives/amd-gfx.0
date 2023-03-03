@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DDE6C7EE32
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Mar 2023 21:11:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59D17C7EE30
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Mar 2023 21:11:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B270B10E75C;
-	Fri,  3 Mar 2023 21:11:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB85410E75D;
+	Fri,  3 Mar 2023 21:11:58 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2055.outbound.protection.outlook.com [40.107.223.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFFCC10E75C
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Mar 2023 21:11:55 +0000 (UTC)
+ (mail-dm6nam11on2043.outbound.protection.outlook.com [40.107.223.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E04810E75C
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Mar 2023 21:11:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=idFwoUkcPBA4WcGEZbQXBfd8TmJJWsiALezdaa9DqcMvTqr4bvEA50g9axIqdnA6N2dIwMQnhXPE6aiuLXQrvbMRWSe6OASH/KMYTjDo05YXzS3DkzCLOfBZF0wYjPWhw8iIosdIQLlew7MQeBEuMHPbaWH2i9uQ9sxVigQpCOuXaEsfMXMqgEWolhakBXdYf6JKgU14tOZio5eHzu0n3ae0gUpbMa/l+PtiLs8bB6DYcLwWTZiAPk/t7jDLgX8RwqeauAUHdvwe1xa/bKUhijDXTbKWzxc6K5N12tv5t/4FTcS0hCl9kyAxwaLdEv/wbLDVYBqLEvR+1zUeWTGc7A==
+ b=Py3w2FkJBzdehqi+VPjQxDaGCrYvRGjOfxWlfDRI3BBrHE18PnETfkzq12bqjrMfVzYNoxHDiWwigKTJjL0uwQVWqqqyzqudvc/VmrW4nR9GH5BkSAJN1XM5KHiPhb5cN16FQ3UPIvNCg0GeDxCuoFDWILcdx5kpJ6lMEAKOlFfldKftpzV2+Dj/uevqr8Wmx8dtjiYZxgPL+jB3NDPn6VcDT1eMb3gTVApKP/1DnhyGxtM2ibmc46nRRrgCoxwx0PD8/DnLvT3hbyaVVt6f7J6WCL2y8c/htl0MhUV4lz6ZApTTFFQpsck9bOu3RQpa5VNQ4S6zhZU/V2OdBXChdw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bRTioft79Z3qBzLdvE2B8S7XWKXOO12p7+0/d9b3WRI=;
- b=Gtd87JPSF98sqPLFnlLF2UEn4ROj3yo6W9Ld/hot9SoPRAFdbvrVw8VaBNPdyciAZWuJtQfiB7h5/Qe2SbjqNL5WYQFKLJylX1+Tyt1Y1qPc+YjMU5GcOfZHP4EsYdfqhHeIY+1pA4Q3GmeUzlSVnDFOn4Lbs9JyR4vZFvoYNBUII511/LnzSA1FIThvy1ZO0vvDQKa4/DITYvDZvrJAp3UFY4/XGzLuubGZEqzNtQyyqRyHxlYxFuBgllohXBAqCNI4p/3x3YlOKLxn5UNpM9dQkSHIwltzI1Jv4qngqWbbs2O9x2ekDObsdEw2vS7LcxymOcuGCoI2nsH4IK+lkw==
+ bh=B3yJxuzuQYEwPsydEue6bsIDt4epUw3xmhkI+p7TYH4=;
+ b=Z0VvTLqihvi53AmHuK8oJKOheWfGj6WvWFbJe3sSp5xIFgXvwVRTkgJsHm0loX8kEqreTUt3jUVXf51NarCo0D/JuvfF03tBCLUOwvFu66k+GJ+l/Y0pwz0ryBZ51pdZ+Foxb/uY9WifVwCX8iUW8gGsfyMeyTufc12xqglDdZmW5kAVQPyz49lwU4v5Do3zYlQ4dJUeuyJtawtdabaOKzgMJsRqewvZzMezdzKul2KFdjI1cpUMEfOyoEqhNtVqwwu1l+JT3b/b4/Eimlu0ZgB4oezBo6iXF+0juckCKveV95cn271sVPa4XOROeK7BI8pscKgGVXUX1VRVFcx5dg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bRTioft79Z3qBzLdvE2B8S7XWKXOO12p7+0/d9b3WRI=;
- b=EzqJf5HKxraeU680uSWKq9ZC31gLjbrAIhyRjMJwGeqp6Y9H8nHPLbx8dhhHygokaGYeC0MPZXGSyZpTY9lWgyVMqo3v/hTHoRDequhQpTdyNiNCxUX8fChHzEWWrZdbPa22pd7okx/ZBk3VswQCtnmF3AKBhW+ULPRfqhQiYU8=
-Received: from BL0PR01CA0009.prod.exchangelabs.com (2603:10b6:208:71::22) by
- CY8PR12MB8267.namprd12.prod.outlook.com (2603:10b6:930:7c::22) with Microsoft
+ bh=B3yJxuzuQYEwPsydEue6bsIDt4epUw3xmhkI+p7TYH4=;
+ b=oZtBA+fhm49cTKKFqYGWK7lrvQ3bibPH9L1KJZlovRDTZSlLj7NAyP0nB+qcwsNwQIOJgVne0cw3m9H6nbudP0e8U+8ngN+OIQA8gdPcNCys/USFbmMmzcTh0P5oPc/afwwvcXWYR+2CAzwTJJJSRSiAzUp7U5pP2Qtl4cIoAPM=
+Received: from BL0PR01CA0004.prod.exchangelabs.com (2603:10b6:208:71::17) by
+ DS0PR12MB7656.namprd12.prod.outlook.com (2603:10b6:8:11f::7) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6156.22; Fri, 3 Mar 2023 21:11:53 +0000
+ 15.20.6156.21; Fri, 3 Mar 2023 21:11:52 +0000
 Received: from BL02EPF00010207.namprd05.prod.outlook.com
- (2603:10b6:208:71:cafe::1c) by BL0PR01CA0009.outlook.office365.com
- (2603:10b6:208:71::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.21 via Frontend
+ (2603:10b6:208:71:cafe::7) by BL0PR01CA0004.outlook.office365.com
+ (2603:10b6:208:71::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.22 via Frontend
  Transport; Fri, 3 Mar 2023 21:11:52 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
@@ -46,19 +46,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BL02EPF00010207.mail.protection.outlook.com (10.167.241.197) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6156.16 via Frontend Transport; Fri, 3 Mar 2023 21:11:52 +0000
+ 15.20.6156.16 via Frontend Transport; Fri, 3 Mar 2023 21:11:51 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 3 Mar
- 2023 15:11:51 -0600
+ 2023 15:11:49 -0600
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/3] drm/amd/pm: Add PMFW headers for SMU 13.0.6
-Date: Fri, 3 Mar 2023 16:11:34 -0500
-Message-ID: <20230303211135.568607-2-alexander.deucher@amd.com>
+Subject: [PATCH 1/3] drm/amdgpu: add mp v13_0_6 ip headers
+Date: Fri, 3 Mar 2023 16:11:33 -0500
+Message-ID: <20230303211135.568607-1-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230303211135.568607-1-alexander.deucher@amd.com>
-References: <20230303211135.568607-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -67,26 +65,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00010207:EE_|CY8PR12MB8267:EE_
-X-MS-Office365-Filtering-Correlation-Id: 86a20008-e9df-4dd2-9c71-08db1c2be969
+X-MS-TrafficTypeDiagnostic: BL02EPF00010207:EE_|DS0PR12MB7656:EE_
+X-MS-Office365-Filtering-Correlation-Id: d34a74f5-c2fd-406d-f1fe-08db1c2be8dc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: htp2zVuziM3qxBrFIqdCHE6/VwIzlzBjhgDrFMGgRMJfgalgux3ZqhgWIyQuyW0GjD5ZeQTJlcyXP/D49jZD+86xQxEBVfmceY7v4CCh0SdvG9csj7oyL2jHWGHMbhWBYGmdjwUwsWKWdVij3vQU1FSJRMPTPTGQOXVfHRssBzTBxO0aAkje+hfq1uGMAXW/BrZ1ace87M5ZGIXnd0D9y6jlFHFMsUEn3F308isxdjq+rvHasOFUJ8GN9eW8A8gLzzTCv3/z8zbjn/2/+Cp6oQ4FWxDSTqh4pBqsfw6P+x8Lkj0JZ8xpXJf+yMw48MJeMXtZPWdn8wVBxmBqbvK9HOHmE/KAEkfiIgsHu0RZIjyTUWtjOapMr8WUOKQLxDlr0L3BEkMnHW8p8yHL01bMIpUf0zqvZzJ5RwueNlyBJ9SwiGkXBdLwT7dVMAaGUC6MESXu1EDHm3DHhaoyDHx4x86yRKPMQvkNmC7e0SG+mAuqXEjLyDt10Cj8ewvknTrj+17MeoVoUQfUR1Wn+jR7UdPrk1q8JFutPD1oBu0iKMik7LZoiVg/4My/Lpx7vn+sPFbkQZEnzBSttLM/WAYmcDYsp44oxfkuj934KxBLzoVzdD+NS8KLVPsYhJVYOjJGR0yx5e6/X512647oQFiz/jf4ss43Bakd5yzUEkkc7zBMLkCNK7YC7Ko8u/Ml5fFWDVd8OAtfzW6udr/ZRpF8/tb4K5uuI072nNv82WA9p6k=
+X-Microsoft-Antispam-Message-Info: 2xzD5p0hLDZR4hcfs1E++ddEjuc2eHENagqL8NH2A5dSa+mFfuTnw5fJbHVwIsB2Q7XZioy1d19OQjCnq64bSeGow+wBHpJ0+O38GmfLISeC3HDHwn+GXwG1rQa0yVNCvAZ72FZlxJzwpbkmxEisuBsAp/qqR8HUVHFSQPGbgIn7o/sNbXaGH2DRbjcaTSa6eVvL0t09I264g+OaUWSd4NyRpOsi57ykcj7LJA+UK875CJ18ZvEtZgvUabylOARigtO88Gd653DX+EfDu2fWzfx94NYjdLI65pbW27d+Kt42EgGDDmY5qBDmAyoXzCTHre9iQ/sIXsDzNO5P880wAkUbISBqKwLOIV3LYr2U10TnMZIcTDZBem8XCzBZvCrH8iTSWjwfmIa3o7u7/H3f+gPNLStepZXKNLzhUaOP7OuV366y9eWNkIrlnsWpCeyljFa6bfssQLG/8qYpCvF0tobmsw9LzJbEiXbnIrE+aboCu9Sm9Q7wB0dSv3lqkaydIVYDbXuLoLlaAl6S+ITCDFjiGsdR4b14nrrRaN5K47NF/cqdts+q6PgZGLuRLKRtLpKLlRpR0dz56Oh2um27r7t589VAwv5aYICrm6FyRQDrfUSYIL385JiJ6Z+CEhF4pkTINrtRVjcKlQdsM95YYpHJZKDmZ2Y6NGHmie4yBWG4xfgwfNba9IIhkOFmLYguc2mPGuNXWdhur73ysx4ZJ0cgNWSd9BNAQJaip3mfbTI=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(136003)(376002)(346002)(39860400002)(396003)(451199018)(36840700001)(40470700004)(46966006)(40460700003)(4326008)(8676002)(70206006)(6916009)(54906003)(19627235002)(83380400001)(8936002)(316002)(36860700001)(41300700001)(5660300002)(6666004)(2616005)(1076003)(70586007)(478600001)(16526019)(186003)(426003)(47076005)(26005)(336012)(40480700001)(7696005)(82310400005)(36756003)(82740400003)(30864003)(2906002)(81166007)(356005)(66899018)(86362001)(36900700001);
+ SFS:(13230025)(4636009)(396003)(39860400002)(346002)(376002)(136003)(451199018)(46966006)(40470700004)(36840700001)(478600001)(36860700001)(36756003)(40460700003)(426003)(1076003)(26005)(16526019)(186003)(47076005)(40480700001)(83380400001)(336012)(7696005)(2616005)(82740400003)(82310400005)(6666004)(81166007)(8936002)(30864003)(41300700001)(70586007)(70206006)(4326008)(8676002)(5660300002)(86362001)(6916009)(19627235002)(316002)(66899018)(356005)(2906002)(54906003)(36900700001)(579004)(559001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2023 21:11:52.7459 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 86a20008-e9df-4dd2-9c71-08db1c2be969
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2023 21:11:51.8084 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d34a74f5-c2fd-406d-f1fe-08db1c2be8dc
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00010207.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8267
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7656
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,39 +96,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+Cc: Alex Deucher <alexander.deucher@amd.com>, Le Ma <Le.Ma@amd.com>,
  Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Lijo Lazar <lijo.lazar@amd.com>
+From: Hawking Zhang <Hawking.Zhang@amd.com>
 
-Initial version of PMFW interface and message
-headers for SMU 13.0.6 support.
+Add mp v13_0_6 register offset and shift masks
+header files
 
-v2: squash in location fixes (Alex)
-v3: squash in updates (Alex)
+v2: update headers (Alex)
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Reviewed-by: Le Ma <Le.Ma@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../inc/pmfw_if/smu13_driver_if_v13_0_6.h     | 141 ++++++++++++
- .../pm/swsmu/inc/pmfw_if/smu_v13_0_6_pmfw.h   | 212 ++++++++++++++++++
- .../pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h  |  95 ++++++++
- 3 files changed, 448 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_6.h
- create mode 100644 drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_pmfw.h
- create mode 100644 drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h
+ .../include/asic_reg/mp/mp_13_0_6_offset.h    | 456 ++++++++++++
+ .../include/asic_reg/mp/mp_13_0_6_sh_mask.h   | 674 ++++++++++++++++++
+ 2 files changed, 1130 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_6_offset.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_6_sh_mask.h
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_6.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_6.h
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_6_offset.h b/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_6_offset.h
 new file mode 100644
-index 000000000000..be596777cd2c
+index 000000000000..f04fa95a770c
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_6.h
-@@ -0,0 +1,141 @@
++++ b/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_6_offset.h
+@@ -0,0 +1,456 @@
 +/*
-+ * Copyright 2021 Advanced Micro Devices, Inc.
++ * Copyright 2022 Advanced Micro Devices, Inc.
 + *
 + * Permission is hereby granted, free of charge, to any person obtaining a
 + * copy of this software and associated documentation files (the "Software"),
@@ -151,133 +146,448 @@ index 000000000000..be596777cd2c
 + * OTHER DEALINGS IN THE SOFTWARE.
 + *
 + */
-+#ifndef SMU_13_0_6_DRIVER_IF_H
-+#define SMU_13_0_6_DRIVER_IF_H
++#ifndef _mp_13_0_6_OFFSET_HEADER
++#define _mp_13_0_6_OFFSET_HEADER
 +
-+// *** IMPORTANT ***
-+// PMFW TEAM: Always increment the interface version if
-+// anything is changed in this file
-+#define SMU13_0_6_DRIVER_IF_VERSION 0x08042022
 +
-+//I2C Interface
-+#define NUM_I2C_CONTROLLERS                8
-+#define I2C_CONTROLLER_ENABLED             1
-+#define I2C_CONTROLLER_DISABLED            0
 +
-+#define MAX_SW_I2C_COMMANDS                24
++// addressBlock: aid_mp_SmuMp0_SmnDec
++// base address: 0x0
++#define regMP0_SMN_C2PMSG_32                                                                            0x0060
++#define regMP0_SMN_C2PMSG_32_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_33                                                                            0x0061
++#define regMP0_SMN_C2PMSG_33_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_34                                                                            0x0062
++#define regMP0_SMN_C2PMSG_34_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_35                                                                            0x0063
++#define regMP0_SMN_C2PMSG_35_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_36                                                                            0x0064
++#define regMP0_SMN_C2PMSG_36_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_37                                                                            0x0065
++#define regMP0_SMN_C2PMSG_37_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_38                                                                            0x0066
++#define regMP0_SMN_C2PMSG_38_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_39                                                                            0x0067
++#define regMP0_SMN_C2PMSG_39_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_40                                                                            0x0068
++#define regMP0_SMN_C2PMSG_40_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_41                                                                            0x0069
++#define regMP0_SMN_C2PMSG_41_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_42                                                                            0x006a
++#define regMP0_SMN_C2PMSG_42_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_43                                                                            0x006b
++#define regMP0_SMN_C2PMSG_43_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_44                                                                            0x006c
++#define regMP0_SMN_C2PMSG_44_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_45                                                                            0x006d
++#define regMP0_SMN_C2PMSG_45_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_46                                                                            0x006e
++#define regMP0_SMN_C2PMSG_46_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_47                                                                            0x006f
++#define regMP0_SMN_C2PMSG_47_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_48                                                                            0x0070
++#define regMP0_SMN_C2PMSG_48_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_49                                                                            0x0071
++#define regMP0_SMN_C2PMSG_49_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_50                                                                            0x0072
++#define regMP0_SMN_C2PMSG_50_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_51                                                                            0x0073
++#define regMP0_SMN_C2PMSG_51_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_52                                                                            0x0074
++#define regMP0_SMN_C2PMSG_52_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_53                                                                            0x0075
++#define regMP0_SMN_C2PMSG_53_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_54                                                                            0x0076
++#define regMP0_SMN_C2PMSG_54_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_55                                                                            0x0077
++#define regMP0_SMN_C2PMSG_55_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_56                                                                            0x0078
++#define regMP0_SMN_C2PMSG_56_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_57                                                                            0x0079
++#define regMP0_SMN_C2PMSG_57_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_58                                                                            0x007a
++#define regMP0_SMN_C2PMSG_58_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_59                                                                            0x007b
++#define regMP0_SMN_C2PMSG_59_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_60                                                                            0x007c
++#define regMP0_SMN_C2PMSG_60_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_61                                                                            0x007d
++#define regMP0_SMN_C2PMSG_61_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_62                                                                            0x007e
++#define regMP0_SMN_C2PMSG_62_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_63                                                                            0x007f
++#define regMP0_SMN_C2PMSG_63_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_64                                                                            0x0080
++#define regMP0_SMN_C2PMSG_64_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_65                                                                            0x0081
++#define regMP0_SMN_C2PMSG_65_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_66                                                                            0x0082
++#define regMP0_SMN_C2PMSG_66_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_67                                                                            0x0083
++#define regMP0_SMN_C2PMSG_67_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_68                                                                            0x0084
++#define regMP0_SMN_C2PMSG_68_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_69                                                                            0x0085
++#define regMP0_SMN_C2PMSG_69_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_70                                                                            0x0086
++#define regMP0_SMN_C2PMSG_70_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_71                                                                            0x0087
++#define regMP0_SMN_C2PMSG_71_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_72                                                                            0x0088
++#define regMP0_SMN_C2PMSG_72_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_73                                                                            0x0089
++#define regMP0_SMN_C2PMSG_73_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_74                                                                            0x008a
++#define regMP0_SMN_C2PMSG_74_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_75                                                                            0x008b
++#define regMP0_SMN_C2PMSG_75_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_76                                                                            0x008c
++#define regMP0_SMN_C2PMSG_76_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_77                                                                            0x008d
++#define regMP0_SMN_C2PMSG_77_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_78                                                                            0x008e
++#define regMP0_SMN_C2PMSG_78_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_79                                                                            0x008f
++#define regMP0_SMN_C2PMSG_79_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_80                                                                            0x0090
++#define regMP0_SMN_C2PMSG_80_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_81                                                                            0x0091
++#define regMP0_SMN_C2PMSG_81_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_82                                                                            0x0092
++#define regMP0_SMN_C2PMSG_82_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_83                                                                            0x0093
++#define regMP0_SMN_C2PMSG_83_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_84                                                                            0x0094
++#define regMP0_SMN_C2PMSG_84_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_85                                                                            0x0095
++#define regMP0_SMN_C2PMSG_85_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_86                                                                            0x0096
++#define regMP0_SMN_C2PMSG_86_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_87                                                                            0x0097
++#define regMP0_SMN_C2PMSG_87_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_88                                                                            0x0098
++#define regMP0_SMN_C2PMSG_88_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_89                                                                            0x0099
++#define regMP0_SMN_C2PMSG_89_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_90                                                                            0x009a
++#define regMP0_SMN_C2PMSG_90_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_91                                                                            0x009b
++#define regMP0_SMN_C2PMSG_91_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_92                                                                            0x009c
++#define regMP0_SMN_C2PMSG_92_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_93                                                                            0x009d
++#define regMP0_SMN_C2PMSG_93_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_94                                                                            0x009e
++#define regMP0_SMN_C2PMSG_94_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_95                                                                            0x009f
++#define regMP0_SMN_C2PMSG_95_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_96                                                                            0x00a0
++#define regMP0_SMN_C2PMSG_96_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_97                                                                            0x00a1
++#define regMP0_SMN_C2PMSG_97_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_98                                                                            0x00a2
++#define regMP0_SMN_C2PMSG_98_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_99                                                                            0x00a3
++#define regMP0_SMN_C2PMSG_99_BASE_IDX                                                                   0
++#define regMP0_SMN_C2PMSG_100                                                                           0x00a4
++#define regMP0_SMN_C2PMSG_100_BASE_IDX                                                                  0
++#define regMP0_SMN_C2PMSG_101                                                                           0x00a5
++#define regMP0_SMN_C2PMSG_101_BASE_IDX                                                                  0
++#define regMP0_SMN_C2PMSG_102                                                                           0x00a6
++#define regMP0_SMN_C2PMSG_102_BASE_IDX                                                                  0
++#define regMP0_SMN_C2PMSG_103                                                                           0x00a7
++#define regMP0_SMN_C2PMSG_103_BASE_IDX                                                                  0
++#define regMP0_SMN_IH_CREDIT                                                                            0x00c1
++#define regMP0_SMN_IH_CREDIT_BASE_IDX                                                                   0
++#define regMP0_SMN_IH_SW_INT                                                                            0x00c2
++#define regMP0_SMN_IH_SW_INT_BASE_IDX                                                                   0
++#define regMP0_SMN_IH_SW_INT_CTRL                                                                       0x00c3
++#define regMP0_SMN_IH_SW_INT_CTRL_BASE_IDX                                                              0
 +
-+typedef enum {
-+  I2C_CONTROLLER_PORT_0, //CKSVII2C0
-+  I2C_CONTROLLER_PORT_1, //CKSVII2C1
-+  I2C_CONTROLLER_PORT_COUNT,
-+} I2cControllerPort_e;
 +
-+typedef enum {
-+  UNSUPPORTED_1,              //50  Kbits/s not supported anymore!
-+  I2C_SPEED_STANDARD_100K,    //100 Kbits/s
-+  I2C_SPEED_FAST_400K,        //400 Kbits/s
-+  I2C_SPEED_FAST_PLUS_1M,     //1   Mbits/s (in fast mode)
-+  UNSUPPORTED_2,              //1   Mbits/s (in high speed mode)  not supported anymore!
-+  UNSUPPORTED_3,              //2.3 Mbits/s  not supported anymore!
-+  I2C_SPEED_COUNT,
-+} I2cSpeed_e;
++// addressBlock: aid_mp_SmuMp1_SmnDec
++// base address: 0x0
++#define regMP1_SMN_C2PMSG_32                                                                            0x0260
++#define regMP1_SMN_C2PMSG_32_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_33                                                                            0x0261
++#define regMP1_SMN_C2PMSG_33_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_34                                                                            0x0262
++#define regMP1_SMN_C2PMSG_34_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_35                                                                            0x0263
++#define regMP1_SMN_C2PMSG_35_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_36                                                                            0x0264
++#define regMP1_SMN_C2PMSG_36_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_37                                                                            0x0265
++#define regMP1_SMN_C2PMSG_37_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_38                                                                            0x0266
++#define regMP1_SMN_C2PMSG_38_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_39                                                                            0x0267
++#define regMP1_SMN_C2PMSG_39_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_40                                                                            0x0268
++#define regMP1_SMN_C2PMSG_40_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_41                                                                            0x0269
++#define regMP1_SMN_C2PMSG_41_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_42                                                                            0x026a
++#define regMP1_SMN_C2PMSG_42_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_43                                                                            0x026b
++#define regMP1_SMN_C2PMSG_43_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_44                                                                            0x026c
++#define regMP1_SMN_C2PMSG_44_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_45                                                                            0x026d
++#define regMP1_SMN_C2PMSG_45_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_46                                                                            0x026e
++#define regMP1_SMN_C2PMSG_46_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_47                                                                            0x026f
++#define regMP1_SMN_C2PMSG_47_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_48                                                                            0x0270
++#define regMP1_SMN_C2PMSG_48_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_49                                                                            0x0271
++#define regMP1_SMN_C2PMSG_49_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_50                                                                            0x0272
++#define regMP1_SMN_C2PMSG_50_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_51                                                                            0x0273
++#define regMP1_SMN_C2PMSG_51_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_52                                                                            0x0274
++#define regMP1_SMN_C2PMSG_52_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_53                                                                            0x0275
++#define regMP1_SMN_C2PMSG_53_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_54                                                                            0x0276
++#define regMP1_SMN_C2PMSG_54_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_55                                                                            0x0277
++#define regMP1_SMN_C2PMSG_55_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_56                                                                            0x0278
++#define regMP1_SMN_C2PMSG_56_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_57                                                                            0x0279
++#define regMP1_SMN_C2PMSG_57_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_58                                                                            0x027a
++#define regMP1_SMN_C2PMSG_58_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_59                                                                            0x027b
++#define regMP1_SMN_C2PMSG_59_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_60                                                                            0x027c
++#define regMP1_SMN_C2PMSG_60_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_61                                                                            0x027d
++#define regMP1_SMN_C2PMSG_61_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_62                                                                            0x027e
++#define regMP1_SMN_C2PMSG_62_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_63                                                                            0x027f
++#define regMP1_SMN_C2PMSG_63_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_64                                                                            0x0280
++#define regMP1_SMN_C2PMSG_64_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_65                                                                            0x0281
++#define regMP1_SMN_C2PMSG_65_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_66                                                                            0x0282
++#define regMP1_SMN_C2PMSG_66_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_67                                                                            0x0283
++#define regMP1_SMN_C2PMSG_67_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_68                                                                            0x0284
++#define regMP1_SMN_C2PMSG_68_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_69                                                                            0x0285
++#define regMP1_SMN_C2PMSG_69_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_70                                                                            0x0286
++#define regMP1_SMN_C2PMSG_70_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_71                                                                            0x0287
++#define regMP1_SMN_C2PMSG_71_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_72                                                                            0x0288
++#define regMP1_SMN_C2PMSG_72_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_73                                                                            0x0289
++#define regMP1_SMN_C2PMSG_73_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_74                                                                            0x028a
++#define regMP1_SMN_C2PMSG_74_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_75                                                                            0x028b
++#define regMP1_SMN_C2PMSG_75_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_76                                                                            0x028c
++#define regMP1_SMN_C2PMSG_76_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_77                                                                            0x028d
++#define regMP1_SMN_C2PMSG_77_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_78                                                                            0x028e
++#define regMP1_SMN_C2PMSG_78_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_79                                                                            0x028f
++#define regMP1_SMN_C2PMSG_79_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_80                                                                            0x0290
++#define regMP1_SMN_C2PMSG_80_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_81                                                                            0x0291
++#define regMP1_SMN_C2PMSG_81_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_82                                                                            0x0292
++#define regMP1_SMN_C2PMSG_82_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_83                                                                            0x0293
++#define regMP1_SMN_C2PMSG_83_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_84                                                                            0x0294
++#define regMP1_SMN_C2PMSG_84_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_85                                                                            0x0295
++#define regMP1_SMN_C2PMSG_85_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_86                                                                            0x0296
++#define regMP1_SMN_C2PMSG_86_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_87                                                                            0x0297
++#define regMP1_SMN_C2PMSG_87_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_88                                                                            0x0298
++#define regMP1_SMN_C2PMSG_88_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_89                                                                            0x0299
++#define regMP1_SMN_C2PMSG_89_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_90                                                                            0x029a
++#define regMP1_SMN_C2PMSG_90_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_91                                                                            0x029b
++#define regMP1_SMN_C2PMSG_91_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_92                                                                            0x029c
++#define regMP1_SMN_C2PMSG_92_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_93                                                                            0x029d
++#define regMP1_SMN_C2PMSG_93_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_94                                                                            0x029e
++#define regMP1_SMN_C2PMSG_94_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_95                                                                            0x029f
++#define regMP1_SMN_C2PMSG_95_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_96                                                                            0x02a0
++#define regMP1_SMN_C2PMSG_96_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_97                                                                            0x02a1
++#define regMP1_SMN_C2PMSG_97_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_98                                                                            0x02a2
++#define regMP1_SMN_C2PMSG_98_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_99                                                                            0x02a3
++#define regMP1_SMN_C2PMSG_99_BASE_IDX                                                                   0
++#define regMP1_SMN_C2PMSG_100                                                                           0x02a4
++#define regMP1_SMN_C2PMSG_100_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_101                                                                           0x02a5
++#define regMP1_SMN_C2PMSG_101_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_102                                                                           0x02a6
++#define regMP1_SMN_C2PMSG_102_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_103                                                                           0x02a7
++#define regMP1_SMN_C2PMSG_103_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_104                                                                           0x02a8
++#define regMP1_SMN_C2PMSG_104_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_105                                                                           0x02a9
++#define regMP1_SMN_C2PMSG_105_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_106                                                                           0x02aa
++#define regMP1_SMN_C2PMSG_106_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_107                                                                           0x02ab
++#define regMP1_SMN_C2PMSG_107_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_108                                                                           0x02ac
++#define regMP1_SMN_C2PMSG_108_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_109                                                                           0x02ad
++#define regMP1_SMN_C2PMSG_109_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_110                                                                           0x02ae
++#define regMP1_SMN_C2PMSG_110_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_111                                                                           0x02af
++#define regMP1_SMN_C2PMSG_111_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_112                                                                           0x02b0
++#define regMP1_SMN_C2PMSG_112_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_113                                                                           0x02b1
++#define regMP1_SMN_C2PMSG_113_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_114                                                                           0x02b2
++#define regMP1_SMN_C2PMSG_114_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_115                                                                           0x02b3
++#define regMP1_SMN_C2PMSG_115_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_116                                                                           0x02b4
++#define regMP1_SMN_C2PMSG_116_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_117                                                                           0x02b5
++#define regMP1_SMN_C2PMSG_117_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_118                                                                           0x02b6
++#define regMP1_SMN_C2PMSG_118_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_119                                                                           0x02b7
++#define regMP1_SMN_C2PMSG_119_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_120                                                                           0x02b8
++#define regMP1_SMN_C2PMSG_120_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_121                                                                           0x02b9
++#define regMP1_SMN_C2PMSG_121_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_122                                                                           0x02ba
++#define regMP1_SMN_C2PMSG_122_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_123                                                                           0x02bb
++#define regMP1_SMN_C2PMSG_123_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_124                                                                           0x02bc
++#define regMP1_SMN_C2PMSG_124_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_125                                                                           0x02bd
++#define regMP1_SMN_C2PMSG_125_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_126                                                                           0x02be
++#define regMP1_SMN_C2PMSG_126_BASE_IDX                                                                  0
++#define regMP1_SMN_C2PMSG_127                                                                           0x02bf
++#define regMP1_SMN_C2PMSG_127_BASE_IDX                                                                  0
++#define regMP1_SMN_IH_CREDIT                                                                            0x02c1
++#define regMP1_SMN_IH_CREDIT_BASE_IDX                                                                   0
++#define regMP1_SMN_IH_SW_INT                                                                            0x02c2
++#define regMP1_SMN_IH_SW_INT_BASE_IDX                                                                   0
++#define regMP1_SMN_IH_SW_INT_CTRL                                                                       0x02c3
++#define regMP1_SMN_IH_SW_INT_CTRL_BASE_IDX                                                              0
++#define regMP1_SMN_FPS_CNT                                                                              0x02c4
++#define regMP1_SMN_FPS_CNT_BASE_IDX                                                                     0
++#define regMP1_SMN_PUB_CTRL                                                                             0x02c5
++#define regMP1_SMN_PUB_CTRL_BASE_IDX                                                                    0
++#define regMP1_SMN_EXT_SCRATCH0                                                                         0x0340
++#define regMP1_SMN_EXT_SCRATCH0_BASE_IDX                                                                0
++#define regMP1_SMN_EXT_SCRATCH1                                                                         0x0341
++#define regMP1_SMN_EXT_SCRATCH1_BASE_IDX                                                                0
++#define regMP1_SMN_EXT_SCRATCH2                                                                         0x0342
++#define regMP1_SMN_EXT_SCRATCH2_BASE_IDX                                                                0
++#define regMP1_SMN_EXT_SCRATCH3                                                                         0x0343
++#define regMP1_SMN_EXT_SCRATCH3_BASE_IDX                                                                0
++#define regMP1_SMN_EXT_SCRATCH4                                                                         0x0344
++#define regMP1_SMN_EXT_SCRATCH4_BASE_IDX                                                                0
++#define regMP1_SMN_EXT_SCRATCH5                                                                         0x0345
++#define regMP1_SMN_EXT_SCRATCH5_BASE_IDX                                                                0
++#define regMP1_SMN_EXT_SCRATCH6                                                                         0x0346
++#define regMP1_SMN_EXT_SCRATCH6_BASE_IDX                                                                0
++#define regMP1_SMN_EXT_SCRATCH7                                                                         0x0347
++#define regMP1_SMN_EXT_SCRATCH7_BASE_IDX                                                                0
++#define regMP1_SMN_EXT_SCRATCH8                                                                         0x0348
++#define regMP1_SMN_EXT_SCRATCH8_BASE_IDX                                                                0
++#define regMP1_SMN_EXT_SCRATCH10                                                                        0x034a
++#define regMP1_SMN_EXT_SCRATCH10_BASE_IDX                                                               0
++#define regMP1_SMN_EXT_SCRATCH11                                                                        0x034b
++#define regMP1_SMN_EXT_SCRATCH11_BASE_IDX                                                               0
++#define regMP1_SMN_EXT_SCRATCH12                                                                        0x034c
++#define regMP1_SMN_EXT_SCRATCH12_BASE_IDX                                                               0
++#define regMP1_SMN_EXT_SCRATCH13                                                                        0x034d
++#define regMP1_SMN_EXT_SCRATCH13_BASE_IDX                                                               0
++#define regMP1_SMN_EXT_SCRATCH14                                                                        0x034e
++#define regMP1_SMN_EXT_SCRATCH14_BASE_IDX                                                               0
++#define regMP1_SMN_EXT_SCRATCH15                                                                        0x034f
++#define regMP1_SMN_EXT_SCRATCH15_BASE_IDX                                                               0
++#define regMP1_SMN_EXT_SCRATCH16                                                                        0x0350
++#define regMP1_SMN_EXT_SCRATCH16_BASE_IDX                                                               0
++#define regMP1_SMN_EXT_SCRATCH17                                                                        0x0351
++#define regMP1_SMN_EXT_SCRATCH17_BASE_IDX                                                               0
++#define regMP1_SMN_EXT_SCRATCH18                                                                        0x0352
++#define regMP1_SMN_EXT_SCRATCH18_BASE_IDX                                                               0
++#define regMP1_SMN_EXT_SCRATCH19                                                                        0x0353
++#define regMP1_SMN_EXT_SCRATCH19_BASE_IDX                                                               0
++#define regMP1_SMN_EXT_SCRATCH20                                                                        0x0354
++#define regMP1_SMN_EXT_SCRATCH20_BASE_IDX                                                               0
++#define regMP1_SMN_EXT_SCRATCH21                                                                        0x0355
++#define regMP1_SMN_EXT_SCRATCH21_BASE_IDX                                                               0
++#define regMP1_SMN_EXT_SCRATCH22                                                                        0x0356
++#define regMP1_SMN_EXT_SCRATCH22_BASE_IDX                                                               0
++#define regMP1_SMN_EXT_SCRATCH23                                                                        0x0357
++#define regMP1_SMN_EXT_SCRATCH23_BASE_IDX                                                               0
++#define regMP1_SMN_EXT_SCRATCH24                                                                        0x0358
++#define regMP1_SMN_EXT_SCRATCH24_BASE_IDX                                                               0
++#define regMP1_SMN_EXT_SCRATCH25                                                                        0x0359
++#define regMP1_SMN_EXT_SCRATCH25_BASE_IDX                                                               0
++#define regMP1_SMN_EXT_SCRATCH26                                                                        0x035a
++#define regMP1_SMN_EXT_SCRATCH26_BASE_IDX                                                               0
++#define regMP1_SMN_EXT_SCRATCH27                                                                        0x035b
++#define regMP1_SMN_EXT_SCRATCH27_BASE_IDX                                                               0
++#define regMP1_SMN_EXT_SCRATCH28                                                                        0x035c
++#define regMP1_SMN_EXT_SCRATCH28_BASE_IDX                                                               0
++#define regMP1_SMN_EXT_SCRATCH29                                                                        0x035d
++#define regMP1_SMN_EXT_SCRATCH29_BASE_IDX                                                               0
++#define regMP1_SMN_EXT_SCRATCH30                                                                        0x035e
++#define regMP1_SMN_EXT_SCRATCH30_BASE_IDX                                                               0
++#define regMP1_SMN_EXT_SCRATCH31                                                                        0x035f
++#define regMP1_SMN_EXT_SCRATCH31_BASE_IDX                                                               0
 +
-+typedef enum {
-+  I2C_CMD_READ,
-+  I2C_CMD_WRITE,
-+  I2C_CMD_COUNT,
-+} I2cCmdType_e;
 +
-+#define CMDCONFIG_STOP_BIT             0
-+#define CMDCONFIG_RESTART_BIT          1
-+#define CMDCONFIG_READWRITE_BIT        2 //bit should be 0 for read, 1 for write
++// addressBlock: aid_mp_SmuMp1Pub_CruDec
++// base address: 0x0
++#define regMP1_FIRMWARE_FLAGS                                                                           0xbee00a
++#define regMP1_FIRMWARE_FLAGS_BASE_IDX                                                                  0
 +
-+#define CMDCONFIG_STOP_MASK           (1 << CMDCONFIG_STOP_BIT)
-+#define CMDCONFIG_RESTART_MASK        (1 << CMDCONFIG_RESTART_BIT)
-+#define CMDCONFIG_READWRITE_MASK      (1 << CMDCONFIG_READWRITE_BIT)
-+
-+typedef struct {
-+  uint8_t ReadWriteData;  //Return data for read. Data to send for write
-+  uint8_t CmdConfig; //Includes whether associated command should have a stop or restart command, and is a read or write
-+} SwI2cCmd_t; //SW I2C Command Table
-+
-+typedef struct {
-+  uint8_t    I2CcontrollerPort; //CKSVII2C0(0) or //CKSVII2C1(1)
-+  uint8_t    I2CSpeed;          //Use I2cSpeed_e to indicate speed to select
-+  uint8_t    SlaveAddress;      //Slave address of device
-+  uint8_t    NumCmds;           //Number of commands
-+  SwI2cCmd_t SwI2cCmds[MAX_SW_I2C_COMMANDS];
-+} SwI2cRequest_t; // SW I2C Request Table
-+
-+typedef struct {
-+  SwI2cRequest_t SwI2cRequest;
-+  uint32_t       Spare[8];
-+  uint32_t       MmHubPadding[8]; // SMU internal use
-+} SwI2cRequestExternal_t;
-+
-+typedef enum {
-+  PPCLK_VCLK,
-+  PPCLK_DCLK,
-+  PPCLK_SOCCLK,
-+  PPCLK_UCLK,
-+  PPCLK_FCLK,
-+  PPCLK_LCLK,
-+  PPCLK_COUNT,
-+} PPCLK_e;
-+
-+typedef enum {
-+  GPIO_INT_POLARITY_ACTIVE_LOW,
-+  GPIO_INT_POLARITY_ACTIVE_HIGH,
-+} GpioIntPolarity_e;
-+
-+//TODO confirm if this is used in SMU_13_0_6 PPSMC_MSG_SetUclkDpmMode
-+typedef enum {
-+  UCLK_DPM_MODE_BANDWIDTH,
-+  UCLK_DPM_MODE_LATENCY,
-+} UCLK_DPM_MODE_e;
-+
-+typedef struct {
-+  //0-26 SOC, 27-29 SOCIO
-+  uint16_t avgPsmCount[30];
-+  uint16_t minPsmCount[30];
-+  float    avgPsmVoltage[30];
-+  float    minPsmVoltage[30];
-+} AvfsDebugTableAid_t;
-+
-+typedef struct {
-+  //0-27 GFX, 28-29 SOC
-+  uint16_t avgPsmCount[30];
-+  uint16_t minPsmCount[30];
-+  float    avgPsmVoltage[30];
-+  float    minPsmVoltage[30];
-+} AvfsDebugTableXcd_t;
-+
-+// These defines are used with the following messages:
-+// SMC_MSG_TransferTableDram2Smu
-+// SMC_MSG_TransferTableSmu2Dram
-+// #define TABLE_PPTABLE                 0
-+// #define TABLE_AVFS_PSM_DEBUG          1
-+// #define TABLE_AVFS_FUSE_OVERRIDE      2
-+// #define TABLE_PMSTATUSLOG             3
-+// #define TABLE_SMU_METRICS             4
-+// #define TABLE_DRIVER_SMU_CONFIG       5
-+// #define TABLE_I2C_COMMANDS            6
-+// #define TABLE_COUNT                   7
-+
-+// // Table transfer status
-+// #define TABLE_TRANSFER_OK         0x0
-+// #define TABLE_TRANSFER_FAILED     0xFF
-+// #define TABLE_TRANSFER_PENDING    0xAB
 +
 +#endif
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_pmfw.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_pmfw.h
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_6_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_6_sh_mask.h
 new file mode 100644
-index 000000000000..bdccbb4a6276
+index 000000000000..780d9824d5ed
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_pmfw.h
-@@ -0,0 +1,212 @@
++++ b/drivers/gpu/drm/amd/include/asic_reg/mp/mp_13_0_6_sh_mask.h
+@@ -0,0 +1,674 @@
 +/*
-+ * Copyright 2021 Advanced Micro Devices, Inc.
++ * Copyright 2022 Advanced Micro Devices, Inc.
 + *
 + * Permission is hereby granted, free of charge, to any person obtaining a
 + * copy of this software and associated documentation files (the "Software"),
@@ -298,295 +608,656 @@ index 000000000000..bdccbb4a6276
 + * OTHER DEALINGS IN THE SOFTWARE.
 + *
 + */
-+#ifndef SMU_13_0_6_PMFW_H
-+#define SMU_13_0_6_PMFW_H
++#ifndef _mp_13_0_6_SH_MASK_HEADER
++#define _mp_13_0_6_SH_MASK_HEADER
 +
-+#define NUM_VCLK_DPM_LEVELS   4
-+#define NUM_DCLK_DPM_LEVELS   4
-+#define NUM_SOCCLK_DPM_LEVELS 4
-+#define NUM_LCLK_DPM_LEVELS   4
-+#define NUM_UCLK_DPM_LEVELS   4
-+#define NUM_FCLK_DPM_LEVELS   4
-+#define NUM_XGMI_DPM_LEVELS   2
-+#define NUM_CXL_BITRATES      4
-+#define NUM_PCIE_BITRATES     4
-+#define NUM_XGMI_BITRATES     4
-+#define NUM_XGMI_WIDTHS       3
 +
-+typedef enum {
-+/*0*/   FEATURE_DATA_CALCULATION            = 0,
-+/*1*/   FEATURE_DPM_CCLK                    = 1,
-+/*2*/   FEATURE_DPM_FCLK                    = 2,
-+/*3*/   FEATURE_DPM_GFXCLK                  = 3,
-+/*4*/   FEATURE_DPM_LCLK                    = 4,
-+/*5*/   FEATURE_DPM_SOCCLK                  = 5,
-+/*6*/   FEATURE_DPM_UCLK                    = 6,
-+/*7*/   FEATURE_DPM_VCN                     = 7,
-+/*8*/   FEATURE_DPM_XGMI                    = 8,
-+/*9*/   FEATURE_DS_FCLK                     = 9,
-+/*10*/  FEATURE_DS_GFXCLK                   = 10,
-+/*11*/  FEATURE_DS_LCLK                     = 11,
-+/*12*/  FEATURE_DS_MP0CLK                   = 12,
-+/*13*/  FEATURE_DS_MP1CLK                   = 13,
-+/*14*/  FEATURE_DS_MPIOCLK                  = 14,
-+/*15*/  FEATURE_DS_SOCCLK                   = 15,
-+/*16*/  FEATURE_DS_VCN                      = 16,
-+/*17*/  FEATURE_APCC_DFLL                   = 17,
-+/*18*/  FEATURE_APCC_PLUS                   = 18,
-+/*19*/  FEATURE_DF_CSTATE                   = 19,
-+/*20*/  FEATURE_CC6                         = 20,
-+/*21*/  FEATURE_PC6                         = 21,
-+/*22*/  FEATURE_CPPC                        = 22,
-+/*23*/  FEATURE_PPT                         = 23,
-+/*24*/  FEATURE_TDC                         = 24,
-+/*25*/  FEATURE_THERMAL                     = 25,
-+/*26*/  FEATURE_SOC_PCC                     = 26,
-+/*27*/  FEATURE_CCD_PCC                     = 27,
-+/*28*/  FEATURE_CCD_EDC                     = 28,
-+/*29*/  FEATURE_PROCHOT                     = 29,
-+/*30*/  FEATURE_DVO_CCLK                    = 30,
-+/*31*/  FEATURE_FDD_AID_HBM                 = 31,
-+/*32*/  FEATURE_FDD_AID_SOC                 = 32,
-+/*33*/  FEATURE_FDD_XCD_EDC                 = 33,
-+/*34*/  FEATURE_FDD_XCD_XVMIN               = 34,
-+/*35*/  FEATURE_FW_CTF                      = 35,
-+/*36*/  FEATURE_GFXOFF                      = 36,
-+/*37*/  FEATURE_SMU_CG                      = 37,
-+/*38*/  FEATURE_PSI7                        = 38,
-+/*39*/  FEATURE_CSTATE_BOOST                = 39,
-+/*40*/  FEATURE_XGMI_PER_LINK_PWR_DOWN      = 40,
-+/*41*/  FEATURE_CXL_QOS                     = 41,
-+/*42*/  FEATURE_SOC_DC_RTC                  = 42,
-+/*43*/  FEATURE_GFX_DC_RTC                  = 43,
++// addressBlock: aid_mp_SmuMp0_SmnDec
++//MP0_SMN_C2PMSG_32
++#define MP0_SMN_C2PMSG_32__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_32__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_33
++#define MP0_SMN_C2PMSG_33__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_33__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_34
++#define MP0_SMN_C2PMSG_34__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_34__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_35
++#define MP0_SMN_C2PMSG_35__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_35__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_36
++#define MP0_SMN_C2PMSG_36__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_36__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_37
++#define MP0_SMN_C2PMSG_37__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_37__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_38
++#define MP0_SMN_C2PMSG_38__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_38__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_39
++#define MP0_SMN_C2PMSG_39__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_39__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_40
++#define MP0_SMN_C2PMSG_40__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_40__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_41
++#define MP0_SMN_C2PMSG_41__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_41__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_42
++#define MP0_SMN_C2PMSG_42__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_42__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_43
++#define MP0_SMN_C2PMSG_43__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_43__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_44
++#define MP0_SMN_C2PMSG_44__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_44__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_45
++#define MP0_SMN_C2PMSG_45__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_45__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_46
++#define MP0_SMN_C2PMSG_46__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_46__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_47
++#define MP0_SMN_C2PMSG_47__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_47__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_48
++#define MP0_SMN_C2PMSG_48__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_48__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_49
++#define MP0_SMN_C2PMSG_49__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_49__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_50
++#define MP0_SMN_C2PMSG_50__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_50__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_51
++#define MP0_SMN_C2PMSG_51__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_51__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_52
++#define MP0_SMN_C2PMSG_52__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_52__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_53
++#define MP0_SMN_C2PMSG_53__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_53__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_54
++#define MP0_SMN_C2PMSG_54__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_54__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_55
++#define MP0_SMN_C2PMSG_55__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_55__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_56
++#define MP0_SMN_C2PMSG_56__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_56__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_57
++#define MP0_SMN_C2PMSG_57__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_57__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_58
++#define MP0_SMN_C2PMSG_58__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_58__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_59
++#define MP0_SMN_C2PMSG_59__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_59__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_60
++#define MP0_SMN_C2PMSG_60__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_60__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_61
++#define MP0_SMN_C2PMSG_61__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_61__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_62
++#define MP0_SMN_C2PMSG_62__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_62__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_63
++#define MP0_SMN_C2PMSG_63__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_63__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_64
++#define MP0_SMN_C2PMSG_64__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_64__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_65
++#define MP0_SMN_C2PMSG_65__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_65__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_66
++#define MP0_SMN_C2PMSG_66__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_66__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_67
++#define MP0_SMN_C2PMSG_67__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_67__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_68
++#define MP0_SMN_C2PMSG_68__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_68__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_69
++#define MP0_SMN_C2PMSG_69__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_69__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_70
++#define MP0_SMN_C2PMSG_70__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_70__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_71
++#define MP0_SMN_C2PMSG_71__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_71__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_72
++#define MP0_SMN_C2PMSG_72__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_72__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_73
++#define MP0_SMN_C2PMSG_73__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_73__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_74
++#define MP0_SMN_C2PMSG_74__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_74__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_75
++#define MP0_SMN_C2PMSG_75__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_75__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_76
++#define MP0_SMN_C2PMSG_76__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_76__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_77
++#define MP0_SMN_C2PMSG_77__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_77__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_78
++#define MP0_SMN_C2PMSG_78__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_78__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_79
++#define MP0_SMN_C2PMSG_79__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_79__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_80
++#define MP0_SMN_C2PMSG_80__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_80__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_81
++#define MP0_SMN_C2PMSG_81__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_81__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_82
++#define MP0_SMN_C2PMSG_82__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_82__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_83
++#define MP0_SMN_C2PMSG_83__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_83__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_84
++#define MP0_SMN_C2PMSG_84__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_84__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_85
++#define MP0_SMN_C2PMSG_85__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_85__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_86
++#define MP0_SMN_C2PMSG_86__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_86__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_87
++#define MP0_SMN_C2PMSG_87__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_87__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_88
++#define MP0_SMN_C2PMSG_88__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_88__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_89
++#define MP0_SMN_C2PMSG_89__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_89__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_90
++#define MP0_SMN_C2PMSG_90__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_90__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_91
++#define MP0_SMN_C2PMSG_91__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_91__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_92
++#define MP0_SMN_C2PMSG_92__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_92__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_93
++#define MP0_SMN_C2PMSG_93__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_93__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_94
++#define MP0_SMN_C2PMSG_94__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_94__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_95
++#define MP0_SMN_C2PMSG_95__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_95__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_96
++#define MP0_SMN_C2PMSG_96__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_96__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_97
++#define MP0_SMN_C2PMSG_97__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_97__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_98
++#define MP0_SMN_C2PMSG_98__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_98__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_99
++#define MP0_SMN_C2PMSG_99__CONTENT__SHIFT                                                                     0x0
++#define MP0_SMN_C2PMSG_99__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP0_SMN_C2PMSG_100
++#define MP0_SMN_C2PMSG_100__CONTENT__SHIFT                                                                    0x0
++#define MP0_SMN_C2PMSG_100__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP0_SMN_C2PMSG_101
++#define MP0_SMN_C2PMSG_101__CONTENT__SHIFT                                                                    0x0
++#define MP0_SMN_C2PMSG_101__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP0_SMN_C2PMSG_102
++#define MP0_SMN_C2PMSG_102__CONTENT__SHIFT                                                                    0x0
++#define MP0_SMN_C2PMSG_102__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP0_SMN_C2PMSG_103
++#define MP0_SMN_C2PMSG_103__CONTENT__SHIFT                                                                    0x0
++#define MP0_SMN_C2PMSG_103__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP0_SMN_IH_CREDIT
++#define MP0_SMN_IH_CREDIT__CREDIT_VALUE__SHIFT                                                                0x0
++#define MP0_SMN_IH_CREDIT__CLIENT_ID__SHIFT                                                                   0x10
++#define MP0_SMN_IH_CREDIT__CREDIT_VALUE_MASK                                                                  0x00000003L
++#define MP0_SMN_IH_CREDIT__CLIENT_ID_MASK                                                                     0x00FF0000L
++//MP0_SMN_IH_SW_INT
++#define MP0_SMN_IH_SW_INT__ID__SHIFT                                                                          0x0
++#define MP0_SMN_IH_SW_INT__VALID__SHIFT                                                                       0x8
++#define MP0_SMN_IH_SW_INT__ID_MASK                                                                            0x000000FFL
++#define MP0_SMN_IH_SW_INT__VALID_MASK                                                                         0x00000100L
++//MP0_SMN_IH_SW_INT_CTRL
++#define MP0_SMN_IH_SW_INT_CTRL__INT_MASK__SHIFT                                                               0x0
++#define MP0_SMN_IH_SW_INT_CTRL__INT_ACK__SHIFT                                                                0x8
++#define MP0_SMN_IH_SW_INT_CTRL__INT_MASK_MASK                                                                 0x00000001L
++#define MP0_SMN_IH_SW_INT_CTRL__INT_ACK_MASK                                                                  0x00000100L
 +
-+/*44*/  NUM_FEATURES                        = 44
-+} FEATURE_LIST_e;
 +
-+//enum for MPIO PCIe gen speed msgs
-+typedef enum {
-+  PCIE_LINK_SPEED_INDEX_TABLE_GEN1,
-+  PCIE_LINK_SPEED_INDEX_TABLE_GEN2,
-+  PCIE_LINK_SPEED_INDEX_TABLE_GEN3,
-+  PCIE_LINK_SPEED_INDEX_TABLE_GEN4,
-+  PCIE_LINK_SPEED_INDEX_TABLE_GEN4_ESM,
-+  PCIE_LINK_SPEED_INDEX_TABLE_GEN5,
-+  PCIE_LINK_SPEED_INDEX_TABLE_COUNT
-+} PCIE_LINK_SPEED_INDEX_TABLE_e;
++// addressBlock: aid_mp_SmuMp1_SmnDec
++//MP1_SMN_C2PMSG_32
++#define MP1_SMN_C2PMSG_32__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_32__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_33
++#define MP1_SMN_C2PMSG_33__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_33__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_34
++#define MP1_SMN_C2PMSG_34__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_34__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_35
++#define MP1_SMN_C2PMSG_35__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_35__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_36
++#define MP1_SMN_C2PMSG_36__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_36__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_37
++#define MP1_SMN_C2PMSG_37__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_37__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_38
++#define MP1_SMN_C2PMSG_38__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_38__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_39
++#define MP1_SMN_C2PMSG_39__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_39__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_40
++#define MP1_SMN_C2PMSG_40__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_40__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_41
++#define MP1_SMN_C2PMSG_41__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_41__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_42
++#define MP1_SMN_C2PMSG_42__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_42__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_43
++#define MP1_SMN_C2PMSG_43__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_43__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_44
++#define MP1_SMN_C2PMSG_44__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_44__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_45
++#define MP1_SMN_C2PMSG_45__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_45__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_46
++#define MP1_SMN_C2PMSG_46__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_46__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_47
++#define MP1_SMN_C2PMSG_47__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_47__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_48
++#define MP1_SMN_C2PMSG_48__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_48__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_49
++#define MP1_SMN_C2PMSG_49__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_49__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_50
++#define MP1_SMN_C2PMSG_50__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_50__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_51
++#define MP1_SMN_C2PMSG_51__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_51__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_52
++#define MP1_SMN_C2PMSG_52__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_52__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_53
++#define MP1_SMN_C2PMSG_53__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_53__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_54
++#define MP1_SMN_C2PMSG_54__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_54__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_55
++#define MP1_SMN_C2PMSG_55__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_55__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_56
++#define MP1_SMN_C2PMSG_56__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_56__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_57
++#define MP1_SMN_C2PMSG_57__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_57__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_58
++#define MP1_SMN_C2PMSG_58__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_58__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_59
++#define MP1_SMN_C2PMSG_59__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_59__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_60
++#define MP1_SMN_C2PMSG_60__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_60__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_61
++#define MP1_SMN_C2PMSG_61__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_61__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_62
++#define MP1_SMN_C2PMSG_62__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_62__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_63
++#define MP1_SMN_C2PMSG_63__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_63__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_64
++#define MP1_SMN_C2PMSG_64__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_64__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_65
++#define MP1_SMN_C2PMSG_65__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_65__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_66
++#define MP1_SMN_C2PMSG_66__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_66__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_67
++#define MP1_SMN_C2PMSG_67__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_67__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_68
++#define MP1_SMN_C2PMSG_68__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_68__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_69
++#define MP1_SMN_C2PMSG_69__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_69__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_70
++#define MP1_SMN_C2PMSG_70__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_70__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_71
++#define MP1_SMN_C2PMSG_71__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_71__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_72
++#define MP1_SMN_C2PMSG_72__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_72__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_73
++#define MP1_SMN_C2PMSG_73__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_73__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_74
++#define MP1_SMN_C2PMSG_74__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_74__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_75
++#define MP1_SMN_C2PMSG_75__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_75__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_76
++#define MP1_SMN_C2PMSG_76__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_76__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_77
++#define MP1_SMN_C2PMSG_77__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_77__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_78
++#define MP1_SMN_C2PMSG_78__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_78__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_79
++#define MP1_SMN_C2PMSG_79__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_79__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_80
++#define MP1_SMN_C2PMSG_80__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_80__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_81
++#define MP1_SMN_C2PMSG_81__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_81__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_82
++#define MP1_SMN_C2PMSG_82__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_82__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_83
++#define MP1_SMN_C2PMSG_83__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_83__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_84
++#define MP1_SMN_C2PMSG_84__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_84__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_85
++#define MP1_SMN_C2PMSG_85__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_85__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_86
++#define MP1_SMN_C2PMSG_86__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_86__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_87
++#define MP1_SMN_C2PMSG_87__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_87__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_88
++#define MP1_SMN_C2PMSG_88__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_88__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_89
++#define MP1_SMN_C2PMSG_89__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_89__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_90
++#define MP1_SMN_C2PMSG_90__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_90__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_91
++#define MP1_SMN_C2PMSG_91__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_91__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_92
++#define MP1_SMN_C2PMSG_92__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_92__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_93
++#define MP1_SMN_C2PMSG_93__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_93__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_94
++#define MP1_SMN_C2PMSG_94__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_94__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_95
++#define MP1_SMN_C2PMSG_95__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_95__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_96
++#define MP1_SMN_C2PMSG_96__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_96__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_97
++#define MP1_SMN_C2PMSG_97__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_97__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_98
++#define MP1_SMN_C2PMSG_98__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_98__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_99
++#define MP1_SMN_C2PMSG_99__CONTENT__SHIFT                                                                     0x0
++#define MP1_SMN_C2PMSG_99__CONTENT_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_C2PMSG_100
++#define MP1_SMN_C2PMSG_100__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_100__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_101
++#define MP1_SMN_C2PMSG_101__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_101__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_102
++#define MP1_SMN_C2PMSG_102__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_102__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_103
++#define MP1_SMN_C2PMSG_103__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_103__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_104
++#define MP1_SMN_C2PMSG_104__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_104__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_105
++#define MP1_SMN_C2PMSG_105__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_105__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_106
++#define MP1_SMN_C2PMSG_106__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_106__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_107
++#define MP1_SMN_C2PMSG_107__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_107__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_108
++#define MP1_SMN_C2PMSG_108__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_108__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_109
++#define MP1_SMN_C2PMSG_109__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_109__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_110
++#define MP1_SMN_C2PMSG_110__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_110__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_111
++#define MP1_SMN_C2PMSG_111__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_111__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_112
++#define MP1_SMN_C2PMSG_112__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_112__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_113
++#define MP1_SMN_C2PMSG_113__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_113__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_114
++#define MP1_SMN_C2PMSG_114__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_114__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_115
++#define MP1_SMN_C2PMSG_115__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_115__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_116
++#define MP1_SMN_C2PMSG_116__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_116__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_117
++#define MP1_SMN_C2PMSG_117__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_117__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_118
++#define MP1_SMN_C2PMSG_118__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_118__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_119
++#define MP1_SMN_C2PMSG_119__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_119__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_120
++#define MP1_SMN_C2PMSG_120__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_120__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_121
++#define MP1_SMN_C2PMSG_121__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_121__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_122
++#define MP1_SMN_C2PMSG_122__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_122__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_123
++#define MP1_SMN_C2PMSG_123__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_123__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_124
++#define MP1_SMN_C2PMSG_124__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_124__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_125
++#define MP1_SMN_C2PMSG_125__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_125__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_126
++#define MP1_SMN_C2PMSG_126__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_126__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_C2PMSG_127
++#define MP1_SMN_C2PMSG_127__CONTENT__SHIFT                                                                    0x0
++#define MP1_SMN_C2PMSG_127__CONTENT_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_IH_CREDIT
++#define MP1_SMN_IH_CREDIT__CREDIT_VALUE__SHIFT                                                                0x0
++#define MP1_SMN_IH_CREDIT__CLIENT_ID__SHIFT                                                                   0x10
++#define MP1_SMN_IH_CREDIT__CREDIT_VALUE_MASK                                                                  0x00000003L
++#define MP1_SMN_IH_CREDIT__CLIENT_ID_MASK                                                                     0x00FF0000L
++//MP1_SMN_IH_SW_INT
++#define MP1_SMN_IH_SW_INT__ID__SHIFT                                                                          0x0
++#define MP1_SMN_IH_SW_INT__VALID__SHIFT                                                                       0x8
++#define MP1_SMN_IH_SW_INT__ID_MASK                                                                            0x000000FFL
++#define MP1_SMN_IH_SW_INT__VALID_MASK                                                                         0x00000100L
++//MP1_SMN_IH_SW_INT_CTRL
++#define MP1_SMN_IH_SW_INT_CTRL__INT_MASK__SHIFT                                                               0x0
++#define MP1_SMN_IH_SW_INT_CTRL__INT_ACK__SHIFT                                                                0x8
++#define MP1_SMN_IH_SW_INT_CTRL__INT_MASK_MASK                                                                 0x00000001L
++#define MP1_SMN_IH_SW_INT_CTRL__INT_ACK_MASK                                                                  0x00000100L
++//MP1_SMN_FPS_CNT
++#define MP1_SMN_FPS_CNT__COUNT__SHIFT                                                                         0x0
++#define MP1_SMN_FPS_CNT__COUNT_MASK                                                                           0xFFFFFFFFL
++//MP1_SMN_PUB_CTRL
++#define MP1_SMN_PUB_CTRL__LX3_RESET__SHIFT                                                                    0x0
++#define MP1_SMN_PUB_CTRL__LX3_RESET_MASK                                                                      0x00000001L
++//MP1_SMN_EXT_SCRATCH0
++#define MP1_SMN_EXT_SCRATCH0__DATA__SHIFT                                                                     0x0
++#define MP1_SMN_EXT_SCRATCH0__DATA_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH1
++#define MP1_SMN_EXT_SCRATCH1__DATA__SHIFT                                                                     0x0
++#define MP1_SMN_EXT_SCRATCH1__DATA_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH2
++#define MP1_SMN_EXT_SCRATCH2__DATA__SHIFT                                                                     0x0
++#define MP1_SMN_EXT_SCRATCH2__DATA_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH3
++#define MP1_SMN_EXT_SCRATCH3__DATA__SHIFT                                                                     0x0
++#define MP1_SMN_EXT_SCRATCH3__DATA_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH4
++#define MP1_SMN_EXT_SCRATCH4__DATA__SHIFT                                                                     0x0
++#define MP1_SMN_EXT_SCRATCH4__DATA_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH5
++#define MP1_SMN_EXT_SCRATCH5__DATA__SHIFT                                                                     0x0
++#define MP1_SMN_EXT_SCRATCH5__DATA_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH6
++#define MP1_SMN_EXT_SCRATCH6__DATA__SHIFT                                                                     0x0
++#define MP1_SMN_EXT_SCRATCH6__DATA_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH7
++#define MP1_SMN_EXT_SCRATCH7__DATA__SHIFT                                                                     0x0
++#define MP1_SMN_EXT_SCRATCH7__DATA_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH8
++#define MP1_SMN_EXT_SCRATCH8__DATA__SHIFT                                                                     0x0
++#define MP1_SMN_EXT_SCRATCH8__DATA_MASK                                                                       0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH10
++#define MP1_SMN_EXT_SCRATCH10__DATA__SHIFT                                                                    0x0
++#define MP1_SMN_EXT_SCRATCH10__DATA_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH11
++#define MP1_SMN_EXT_SCRATCH11__DATA__SHIFT                                                                    0x0
++#define MP1_SMN_EXT_SCRATCH11__DATA_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH12
++#define MP1_SMN_EXT_SCRATCH12__DATA__SHIFT                                                                    0x0
++#define MP1_SMN_EXT_SCRATCH12__DATA_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH13
++#define MP1_SMN_EXT_SCRATCH13__DATA__SHIFT                                                                    0x0
++#define MP1_SMN_EXT_SCRATCH13__DATA_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH14
++#define MP1_SMN_EXT_SCRATCH14__DATA__SHIFT                                                                    0x0
++#define MP1_SMN_EXT_SCRATCH14__DATA_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH15
++#define MP1_SMN_EXT_SCRATCH15__DATA__SHIFT                                                                    0x0
++#define MP1_SMN_EXT_SCRATCH15__DATA_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH16
++#define MP1_SMN_EXT_SCRATCH16__DATA__SHIFT                                                                    0x0
++#define MP1_SMN_EXT_SCRATCH16__DATA_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH17
++#define MP1_SMN_EXT_SCRATCH17__DATA__SHIFT                                                                    0x0
++#define MP1_SMN_EXT_SCRATCH17__DATA_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH18
++#define MP1_SMN_EXT_SCRATCH18__DATA__SHIFT                                                                    0x0
++#define MP1_SMN_EXT_SCRATCH18__DATA_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH19
++#define MP1_SMN_EXT_SCRATCH19__DATA__SHIFT                                                                    0x0
++#define MP1_SMN_EXT_SCRATCH19__DATA_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH20
++#define MP1_SMN_EXT_SCRATCH20__DATA__SHIFT                                                                    0x0
++#define MP1_SMN_EXT_SCRATCH20__DATA_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH21
++#define MP1_SMN_EXT_SCRATCH21__DATA__SHIFT                                                                    0x0
++#define MP1_SMN_EXT_SCRATCH21__DATA_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH22
++#define MP1_SMN_EXT_SCRATCH22__DATA__SHIFT                                                                    0x0
++#define MP1_SMN_EXT_SCRATCH22__DATA_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH23
++#define MP1_SMN_EXT_SCRATCH23__DATA__SHIFT                                                                    0x0
++#define MP1_SMN_EXT_SCRATCH23__DATA_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH24
++#define MP1_SMN_EXT_SCRATCH24__DATA__SHIFT                                                                    0x0
++#define MP1_SMN_EXT_SCRATCH24__DATA_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH25
++#define MP1_SMN_EXT_SCRATCH25__DATA__SHIFT                                                                    0x0
++#define MP1_SMN_EXT_SCRATCH25__DATA_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH26
++#define MP1_SMN_EXT_SCRATCH26__DATA__SHIFT                                                                    0x0
++#define MP1_SMN_EXT_SCRATCH26__DATA_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH27
++#define MP1_SMN_EXT_SCRATCH27__DATA__SHIFT                                                                    0x0
++#define MP1_SMN_EXT_SCRATCH27__DATA_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH28
++#define MP1_SMN_EXT_SCRATCH28__DATA__SHIFT                                                                    0x0
++#define MP1_SMN_EXT_SCRATCH28__DATA_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH29
++#define MP1_SMN_EXT_SCRATCH29__DATA__SHIFT                                                                    0x0
++#define MP1_SMN_EXT_SCRATCH29__DATA_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH30
++#define MP1_SMN_EXT_SCRATCH30__DATA__SHIFT                                                                    0x0
++#define MP1_SMN_EXT_SCRATCH30__DATA_MASK                                                                      0xFFFFFFFFL
++//MP1_SMN_EXT_SCRATCH31
++#define MP1_SMN_EXT_SCRATCH31__DATA__SHIFT                                                                    0x0
++#define MP1_SMN_EXT_SCRATCH31__DATA_MASK                                                                      0xFFFFFFFFL
 +
-+typedef enum {
-+  VOLTAGE_COLD_0,
-+  VOLTAGE_COLD_1,
-+  VOLTAGE_COLD_2,
-+  VOLTAGE_COLD_3,
-+  VOLTAGE_COLD_4,
-+  VOLTAGE_COLD_5,
-+  VOLTAGE_COLD_6,
-+  VOLTAGE_COLD_7,
-+  VOLTAGE_MID_0,
-+  VOLTAGE_MID_1,
-+  VOLTAGE_MID_2,
-+  VOLTAGE_MID_3,
-+  VOLTAGE_MID_4,
-+  VOLTAGE_MID_5,
-+  VOLTAGE_MID_6,
-+  VOLTAGE_MID_7,
-+  VOLTAGE_HOT_0,
-+  VOLTAGE_HOT_1,
-+  VOLTAGE_HOT_2,
-+  VOLTAGE_HOT_3,
-+  VOLTAGE_HOT_4,
-+  VOLTAGE_HOT_5,
-+  VOLTAGE_HOT_6,
-+  VOLTAGE_HOT_7,
-+  VOLTAGE_GUARDBAND_COUNT
-+} GFX_GUARDBAND_e;
 +
-+#define SMU_METRICS_TABLE_VERSION 0x1
++// addressBlock: aid_mp_SmuMp1Pub_CruDec
++//MP1_FIRMWARE_FLAGS
++#define MP1_FIRMWARE_FLAGS__INTERRUPTS_ENABLED__SHIFT                                                         0x0
++#define MP1_FIRMWARE_FLAGS__RESERVED__SHIFT                                                                   0x1
++#define MP1_FIRMWARE_FLAGS__INTERRUPTS_ENABLED_MASK                                                           0x00000001L
++#define MP1_FIRMWARE_FLAGS__RESERVED_MASK                                                                     0xFFFFFFFEL
 +
-+typedef struct {
-+  uint32_t AccumulationCounter;
-+
-+  //TEMPERATURE
-+  uint32_t MaxSocketTemperature;
-+  uint32_t MaxVrTemperature;
-+  uint32_t MaxHbmTemperature;
-+  uint64_t MaxSocketTemperatureAcc;
-+  uint64_t MaxVrTemperatureAcc;
-+  uint64_t MaxHbmTemperatureAcc;
-+
-+  //POWER
-+  uint32_t SocketPowerLimit;
-+  uint32_t MaxSocketPowerLimit;
-+  uint32_t SocketPower;
-+
-+  //ENERGY
-+  uint64_t Timestamp;
-+  uint64_t SocketEnergyAcc;
-+  uint64_t CcdEnergyAcc;
-+  uint64_t XcdEnergyAcc;
-+  uint64_t AidEnergyAcc;
-+  uint64_t HbmEnergyAcc;
-+
-+  //FREQUENCY
-+  uint32_t CclkFrequencyLimit;
-+  uint32_t GfxclkFrequencyLimit;
-+  uint32_t FclkFrequency;
-+  uint32_t UclkFrequency;
-+  uint32_t SocclkFrequency[4];
-+  uint32_t VclkFrequency[4];
-+  uint32_t DclkFrequency[4];
-+  uint32_t LclkFrequency[4];
-+  uint64_t GfxclkFrequencyAcc[8];
-+  uint64_t CclkFrequencyAcc[96];
-+
-+  //FREQUENCY RANGE
-+  uint32_t MaxCclkFrequency;
-+  uint32_t MinCclkFrequency;
-+  uint32_t MaxGfxclkFrequency;
-+  uint32_t MinGfxclkFrequency;
-+  uint32_t FclkFrequencyTable[4];
-+  uint32_t UclkFrequencyTable[4];
-+  uint32_t SocclkFrequencyTable[4];
-+  uint32_t VclkFrequencyTable[4];
-+  uint32_t DclkFrequencyTable[4];
-+  uint32_t LclkFrequencyTable[4];
-+  uint32_t MaxLclkDpmRange;
-+  uint32_t MinLclkDpmRange;
-+
-+  //XGMI
-+  uint32_t XgmiWidth;
-+  uint32_t XgmiBitrate;
-+  uint64_t XgmiReadBandwidthAcc[8];
-+  uint64_t XgmiWriteBandwidthAcc[8];
-+
-+  //ACTIVITY
-+  uint32_t SocketC0Residency;
-+  uint32_t SocketGfxBusy;
-+  uint32_t DramBandwidthUtilization;
-+  uint64_t SocketC0ResidencyAcc;
-+  uint64_t SocketGfxBusyAcc;
-+  uint64_t DramBandwidthAcc;
-+  uint32_t MaxDramBandwidth;
-+  uint64_t DramBandwidthUtilizationAcc;
-+  uint64_t PcieBandwidthAcc[4];
-+
-+  //THROTTLERS
-+  uint32_t ProchotResidencyAcc;
-+  uint32_t PptResidencyAcc;
-+  uint32_t SocketThmResidencyAcc;
-+  uint32_t VrThmResidencyAcc;
-+  uint32_t HbmThmResidencyAcc;
-+} MetricsTable_t;
-+
-+#define SMU_VF_METRICS_TABLE_VERSION 0x1
-+
-+typedef struct {
-+  uint32_t AccumulationCounter;
-+  uint32_t InstGfxclk_TargFreq;
-+  uint64_t AccGfxclk_TargFreq;
-+  uint64_t AccGfxRsmuDpm_Busy;
-+} VfMetricsTable_t;
-+
-+#endif
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h
-new file mode 100644
-index 000000000000..b838e8db395a
---- /dev/null
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h
-@@ -0,0 +1,95 @@
-+/*
-+ * Copyright 2021 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+#ifndef SMU_13_0_6_PPSMC_H
-+#define SMU_13_0_6_PPSMC_H
-+
-+// SMU Response Codes:
-+#define PPSMC_Result_OK                             0x1
-+#define PPSMC_Result_Failed                         0xFF
-+#define PPSMC_Result_UnknownCmd                     0xFE
-+#define PPSMC_Result_CmdRejectedPrereq              0xFD
-+#define PPSMC_Result_CmdRejectedBusy                0xFC
-+
-+// Message Definitions:
-+#define PPSMC_MSG_TestMessage                       0x1
-+#define PPSMC_MSG_GetSmuVersion                     0x2
-+#define PPSMC_MSG_GfxDriverReset                    0x3
-+#define PPSMC_MSG_GetDriverIfVersion                0x4
-+#define PPSMC_MSG_EnableAllSmuFeatures              0x5
-+#define PPSMC_MSG_DisableAllSmuFeatures             0x6
-+#define PPSMC_MSG_RequestI2cTransaction             0x7
-+#define PPSMC_MSG_GetMetricsVersion                 0x8
-+#define PPSMC_MSG_GetMetricsTable                   0x9
-+#define PPSMC_MSG_GetEccInfoTable                   0xA
-+#define PPSMC_MSG_GetEnabledSmuFeaturesLow          0xB
-+#define PPSMC_MSG_GetEnabledSmuFeaturesHigh         0xC
-+#define PPSMC_MSG_SetDriverDramAddrHigh             0xD
-+#define PPSMC_MSG_SetDriverDramAddrLow              0xE
-+#define PPSMC_MSG_SetToolsDramAddrHigh              0xF
-+#define PPSMC_MSG_SetToolsDramAddrLow               0x10
-+#define PPSMC_MSG_SetSystemVirtualDramAddrHigh      0x11
-+#define PPSMC_MSG_SetSystemVirtualDramAddrLow       0x12
-+#define PPSMC_MSG_SetSoftMinByFreq                  0x13
-+#define PPSMC_MSG_SetSoftMaxByFreq                  0x14
-+#define PPSMC_MSG_GetMinDpmFreq                     0x15
-+#define PPSMC_MSG_GetMaxDpmFreq                     0x16
-+#define PPSMC_MSG_GetDpmFreqByIndex                 0x17
-+#define PPSMC_MSG_SetPptLimit                       0x18
-+#define PPSMC_MSG_GetPptLimit                       0x19
-+#define PPSMC_MSG_DramLogSetDramAddrHigh            0x1A
-+#define PPSMC_MSG_DramLogSetDramAddrLow             0x1B
-+#define PPSMC_MSG_DramLogSetDramSize                0x1C
-+#define PPSMC_MSG_GetDebugData                      0x1D
-+#define PPSMC_MSG_HeavySBR                          0x1E
-+#define PPSMC_MSG_SetNumBadHbmPagesRetired          0x1F
-+#define PPSMC_MSG_DFCstateControl                   0x20
-+#define PPSMC_MSG_GetGmiPwrDnHyst                   0x21
-+#define PPSMC_MSG_SetGmiPwrDnHyst                   0x22
-+#define PPSMC_MSG_GmiPwrDnControl                   0x23
-+#define PPSMC_MSG_EnterGfxoff                       0x24
-+#define PPSMC_MSG_ExitGfxoff                        0x25
-+#define PPSMC_MSG_EnableDeterminism                 0x26
-+#define PPSMC_MSG_DisableDeterminism                0x27
-+#define PPSMC_MSG_DumpSTBtoDram                     0x28
-+#define PPSMC_MSG_STBtoDramLogSetDramAddrHigh       0x29
-+#define PPSMC_MSG_STBtoDramLogSetDramAddrLow        0x2A
-+#define PPSMC_MSG_STBtoDramLogSetDramSize           0x2B
-+#define PPSMC_MSG_SetSystemVirtualSTBtoDramAddrHigh 0x2C
-+#define PPSMC_MSG_SetSystemVirtualSTBtoDramAddrLow  0x2D
-+#define PPSMC_MSG_GfxDriverResetRecovery            0x2E
-+#define PPSMC_MSG_TriggerVFFLR                      0x2F
-+#define PPSMC_MSG_SetSoftMinGfxClk                  0x30
-+#define PPSMC_MSG_SetSoftMaxGfxClk                  0x31
-+#define PPSMC_MSG_GetMinGfxDpmFreq                  0x32
-+#define PPSMC_MSG_GetMaxGfxDpmFreq                  0x33
-+#define PPSMC_Message_Count                         0x34
-+
-+//PPSMC Reset Types for driver msg argument
-+#define PPSMC_RESET_TYPE_DRIVER_MODE_1_RESET        0x1
-+#define PPSMC_RESET_TYPE_DRIVER_MODE_2_RESET	      0x2
-+#define PPSMC_RESET_TYPE_DRIVER_MODE_3_RESET        0x3
-+
-+typedef uint32_t PPSMC_Result;
-+typedef uint32_t PPSMC_MSG;
 +
 +#endif
 -- 
