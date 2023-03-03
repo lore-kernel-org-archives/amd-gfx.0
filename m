@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40D02C64EC4
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Mar 2023 15:43:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE02DC7EE2D
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Mar 2023 15:44:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D019810E6C0;
-	Fri,  3 Mar 2023 15:43:56 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2064.outbound.protection.outlook.com [40.107.102.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A963710E6C0
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Mar 2023 15:43:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48EFC10E6C7;
+	Fri,  3 Mar 2023 15:44:11 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2067.outbound.protection.outlook.com [40.107.244.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8A2B10E6C7
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Mar 2023 15:44:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LCZjb/PE5QtcF1pZk45c7hyhhFsag+j1QOVVyfe0uPQjXIF+dhQrHrtecRMhH31mDBGHTk0ZVgb+BQ1GMNpN0+bIGzc6UW2cCyC8P0hGrpoDHKVrTq01sq1mGdGq/1oDcVSYFnfCGxlMU6GIwHdsDYvOoKCClIF6x0AS1i/OQh0DEpH/hhKwkhBhMZWZdvebpmIFzUNu7n7mgrwfnz9DAQHAIRmaczBkwRAWngbcHrvbSqcCZ7e4dr0JQ6EEUrbSsINmQNCgiPrIWBLoJBWx31wnu6f3QgT3Yh8dT7CisGV1OvHNSpiZrbN0ZVYKOWDze1+gQEK8Lvk49QptOSW8fA==
+ b=OP7QbjehBWjla3KiP/8O9NYCgx4Q21/siccAEF+bwpiDXXHJu/irwB6IjdNy+KqIcwadhcMQ8uLvtfckTfuYJl29vuK1SSWYrJQ9xaWJs1eWsNa8KI6VBRrQHuf86UEBm/C1uAmxCR+B1wYBNp3zmJjl9uMOEBx05wa0JhC9Q5kINtBOO+ZV5E+QRZTBkqFhyMjzWWEjrJULICBwQG6kurNjvTPsMSTJvBTK2rN3f1LD5zBpP8QVhE/iquNpwaXDp6yHWCVLpdmPX7P45joxr4pOY4z+xKld/AHqz/WehElIzBsM/86BelQCCBcouq7TJJQ2MdgyviZH3oOXDSDm8g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3H47P+IOkDkD4nc4bKl9hsJC/kyAFaDylwhGlvZpnwE=;
- b=klnlrgOf1uLwMZFMdSzONp8lcif2jbhGuUhkMc/bqhObx+uDTcNF57LVm0nEFP8o3ANHdwfqALdnlb1UG3A25Cpz+wrds8NCa0crTeExo6JCruR3+EculWAfRVx2N3ZecJwqw8h4YI++d9BZ7+Ksw3fh9N/T6SC0uKNtjknPUIHmp3cOfMI6jXvwF+LcMRd2sAwWyiAykMtK7NdaioY7/O5M8G/TgDIiKT89Ynznc0urlM2yioLdJFUXzp7Dq00Jlxcsk1QmtkPhyGSSLw6tY0d2youYhjkrFaF4AClDbuERKajncnFXGDTRCK1qUZiMGlKbmM+sCFZUGl2bbDmv3g==
+ bh=5mjCrUsDEu2vZ1OYZijEq6U/7W2OmS3Tb/8cJTnmK/g=;
+ b=e8ih/o2asUoVk9WWP6Nq3RU+vlbs7yGMlVHMcBaKrmEuCEaUGLWfhsmvAVNlCtXklLQcONk8RUzogsCxdbh9ahl+F/5SwTEzpFUgXW/6qhsnAUgRN/wKCf2v+wCydEcJbjcJK7kCsGoWrFYEfmgdFmrh0FxPpFI5BkOW19503nG1bcQ7NODsTN3/WEfQawdZ+8JVPPItA2MP0RD4H1n2LFA/JvPALv2IS+SRRWqhufdkhBn2aciuwHZ9WaUYFjmmAFZABxtFVPbavBzQEyTgGnU54xp+eGthq/X/G/WUmFA0VcMPp2MNKXiG7yiJKHYqPD6IT5uXJO3ocQMlnYh6jg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3H47P+IOkDkD4nc4bKl9hsJC/kyAFaDylwhGlvZpnwE=;
- b=2T1trp0/I1J05h7djFtEwZ8JVq1vsvRq8uRqEL1wlyTpM7KX014kXTzjCl7USjxvHMA8hd9Ti99AT23jE4gvrKKn+w9u+g3X7KGmpaefmgftSwyndZvi4rhOC1CVzsh6I5xi0MaS9rHJUJ7y+ozj1rt8o0rW5jnKLgPc3LOUbaM=
-Received: from MW4PR02CA0026.namprd02.prod.outlook.com (2603:10b6:303:16d::25)
- by DS7PR12MB5888.namprd12.prod.outlook.com (2603:10b6:8:7b::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.21; Fri, 3 Mar
- 2023 15:43:53 +0000
-Received: from CO1NAM11FT069.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:16d:cafe::23) by MW4PR02CA0026.outlook.office365.com
- (2603:10b6:303:16d::25) with Microsoft SMTP Server (version=TLS1_2,
+ bh=5mjCrUsDEu2vZ1OYZijEq6U/7W2OmS3Tb/8cJTnmK/g=;
+ b=EYr+RU4Mv0XAneOMNd8Z7ZKsoib4ryzxRukNEWco5BknHAdOFniw9Mx/e7VLLX0NvW4XrLgc6kW7Uks5Hyr/OhxuYehPnZObkSy60tsjIVE9nY0K2qQra2RLJDz+CFJSOn4WJysEqyIC1K6b/KB2+p2fAYQtlb99pawaJIxShfE=
+Received: from MW4PR04CA0115.namprd04.prod.outlook.com (2603:10b6:303:83::30)
+ by CH0PR12MB5300.namprd12.prod.outlook.com (2603:10b6:610:d7::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.22; Fri, 3 Mar
+ 2023 15:44:03 +0000
+Received: from CO1NAM11FT080.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:83:cafe::99) by MW4PR04CA0115.outlook.office365.com
+ (2603:10b6:303:83::30) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.22 via Frontend
- Transport; Fri, 3 Mar 2023 15:43:52 +0000
+ Transport; Fri, 3 Mar 2023 15:44:03 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT069.mail.protection.outlook.com (10.13.174.129) with Microsoft SMTP
+ CO1NAM11FT080.mail.protection.outlook.com (10.13.174.99) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6156.22 via Frontend Transport; Fri, 3 Mar 2023 15:43:52 +0000
+ 15.20.6156.22 via Frontend Transport; Fri, 3 Mar 2023 15:44:03 +0000
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 3 Mar
- 2023 09:43:42 -0600
+ 2023 09:43:52 -0600
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 00/33] DC Patches Mar 6th, 2023
-Date: Fri, 3 Mar 2023 10:39:49 -0500
-Message-ID: <20230303154022.2667-1-qingqing.zhuo@amd.com>
+Subject: [PATCH 01/33] drm/amd/display: Add height granularity limitation for
+ dsc slice height calculation
+Date: Fri, 3 Mar 2023 10:39:50 -0500
+Message-ID: <20230303154022.2667-2-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230303154022.2667-1-qingqing.zhuo@amd.com>
+References: <20230303154022.2667-1-qingqing.zhuo@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT069:EE_|DS7PR12MB5888:EE_
-X-MS-Office365-Filtering-Correlation-Id: 23d76c74-fb75-4ada-07ac-08db1bfe1750
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT080:EE_|CH0PR12MB5300:EE_
+X-MS-Office365-Filtering-Correlation-Id: a0765af1-59d4-4e0f-7b32-08db1bfe1d89
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: I0EV9lZkZnVx17pp5d98fjCy3VvdY20Az9E+EsnW0U/pi8ZhJztW5cTW70b1qDtrVwuhoC1VgnANvmmiWaSso5j1iKS5zbHU3tik+JZu7YVlKSNSvyyIYUiTIvCaYVI54PyCL+QMwx1liCSR509p7Qjep3yTPIU+7vri698Cn/DTyx88KlA5VdZ1WCYSJQp8rmzQT8ro1SuL0pxRICAhG2Dm7806xQN/LwHyo60+2eR2SRVvqRq8ke4Yvya9JcTPF9QBeoVcPTgEu/yZYPDAhoByov9AjYca0CCZI4Lhet6WgqNlQ1vbh8uKrh62gRI+jZr/RFF5Ta3wnIUXRjTSBustj4lyLCbagcHqGDiEHnSGQNdg9EouUmaFr95u+4J59TSrg/K+zWQRJjuWrUY6OxyTgE+3GnbCnozkYdzhQyhxAkayxjWmYXqDbf7Nq+tt4szfA3k5lnaTddOYzdCUssO5KUovaNMg9CZbehljNn2xVQB84oYJtG8Qwvpo31dydH5RVZ1LIVn+KwoT3O1HbJ83ra23QRiDpAUSLFRdp4aywnusq++HIBTEifqOAN2l2AfhmPWO3dXIUr73H9k/JZ3I3sQ+hg5RAtaNPXhQ1c0kldogXZ17oWFk8TXOmwlZ3rfRscjqNdGHmpeDf6+kNznyY2xJb5uMsUeRhk1hpVLl1/mBeQ3g2Y7XljURkhq70zBni12TWc+jd5VGc6ABcqIfS3iCqBOkBHhAhw3G7B4=
+X-Microsoft-Antispam-Message-Info: WRuVtn0qv61TsQDmis83U7HFApAnVRwZ22tiIX6tubonw5YEkbdH/fGHlSKej3316aR8tsiNbX0qLajnN75pPBiri/XPzJ21OS4dmHu0Zft95FS9Wg5/Yh1lzTFgXHbVfpHJWVZa4+E/PnZgodtpDrQNUXtt2xauZTK60Vez2gX5wME5zpt5OGH2Byk7RMRMPKpCFUI3WohOjQff7/1aqB97Z+DnJOxY/+1Zsy3BQj+Dzjh+RY8kqGLHQOxSIiYNKLMmBXZbn7DqahXsgeBYAcE0BVks25XGLePQHPLGxjk4qsPWScQDycQy4kljYcUtl98rG9H3OhaQOeavytOTOlkJ7SHNV1IKGtrYEWI7YpOIvLcrU1sTBYyi+Wk8aBLq1Z/wACX4bT1Y+JiCETyckTvI96VfbVHcdsjU/L0l/ai4OeHsI04LfHkvH7hYPYqeE+009sBQ8S3U1XvX6OZjr5wEsVwH7sUlu1AaE5wtlmkuUBAqJOOjp2TScxXs7jhMEhpw2kElm8d2tQA3xo5EpCkjK9BcGeX0/KtzyEotxP0OWIlWqMbErOpueZAfmnyx6tzBHy6d7GhwGEUFNxC1Gaf9Ci7SF0pXizHrMTwrx/f+DXV/JCuZbukrrXXQ1xH6Bi6mOh0DaOypkeQ/UbQX+XBW1qLfElW5VysBHZ4//ky4uhqnWZdBQ5QM2og/eeLR6xTg2GCCpogKVE9lj6Jt1o/O/uc9b4whijMH7777UgA=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(376002)(346002)(39860400002)(136003)(451199018)(36840700001)(40470700004)(46966006)(5660300002)(86362001)(8676002)(4326008)(6916009)(41300700001)(8936002)(70586007)(70206006)(356005)(316002)(2906002)(54906003)(44832011)(478600001)(82740400003)(82310400005)(81166007)(2616005)(1076003)(26005)(16526019)(426003)(47076005)(186003)(36756003)(36860700001)(40460700003)(336012)(83380400001)(40480700001)(36900700001);
+ SFS:(13230025)(4636009)(39860400002)(136003)(346002)(376002)(396003)(451199018)(36840700001)(46966006)(40470700004)(30864003)(2906002)(44832011)(5660300002)(41300700001)(8936002)(6916009)(4326008)(8676002)(83380400001)(82310400005)(70206006)(70586007)(54906003)(316002)(40460700003)(478600001)(26005)(1076003)(336012)(426003)(47076005)(2616005)(40480700001)(86362001)(16526019)(81166007)(82740400003)(36756003)(186003)(356005)(36860700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2023 15:43:52.8258 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 23d76c74-fb75-4ada-07ac-08db1bfe1750
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2023 15:44:03.2687 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a0765af1-59d4-4e0f-7b32-08db1bfe1d89
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT069.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT080.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5888
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5300
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,213 +100,282 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Daniel Wheeler <daniel.wheeler@amd.com>,
- Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: stylon.wang@amd.com, Mike Hsieh <Mike.Hsieh@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+ wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
+ Cruise Hung <Cruise.Hung@amd.com>, agustin.gutierrez@amd.com,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This DC patchset brings improvements in multiple areas. In summary, we highlight:
+From: Mike Hsieh <Mike.Hsieh@amd.com>
 
-1) Transitioning to the new DC commit sequence
+[WHY]
+eDP add new limitation for Y granularity for selected update feature.
+DSC does not include this limitation while calculating slice height.
 
-There is an extended effort to migrate to the new DC commit sequence
-that better adheres to the DCN hardware constraints. Most of the code
-was upstreamed already but not connected to amdgpu_dm, and in this new
-DC version, our DM finally started to use it for all ASICs. This should
-improve stability and enable us to improve how pipe split works.
+[HOW]
+Add new limitation while looking for DSC slice height.
 
-2) Drop old CONFIG_DRM_AMD_DC_DCN in favor of new CONFIG_DRM_AMD_DC_FP
-
-For historical reasons, we created CONFIG_DRM_AMD_DC_DCN to isolate
-FPU-related code to only be used for DCN. Over the years, we lost
-control over this guard, and it was spread in multiple areas. In this
-new DC version, there is an effort to remove all unnecessary
-CONFIG_DRM_AMD_DC_DCN and replace the others for CONFIG_DRM_AMD_DC_FP,
-which better describes which type of code this guard is intended for.
-
-Additionally, this patchset brings along the following:
-- Enable HostVM based on rIOMMU active
-- Keep PHY active for dp confi
-- Improves Z8
-- Update clock table
-- Code and directives clean up
-
-Cc: Daniel Wheeler <daniel.wheeler@amd.com>
-
+Reviewed-by: Cruise Hung <Cruise.Hung@amd.com>
+Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
+Signed-off-by: Mike Hsieh <Mike.Hsieh@amd.com>
 ---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 20 ++++++-----
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 16 +++++----
+ drivers/gpu/drm/amd/display/dc/dc_dsc.h       | 11 +++++--
+ drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c   | 33 ++++++++++++-------
+ 4 files changed, 52 insertions(+), 28 deletions(-)
 
-Agustin Gutierrez (1):
-  drm/amd/display: Keep PHY active for dp config
-
-Alvin Lee (3):
-  drm/amd/display: When blanking during init loop to find OPP index
-  drm/amd/display: Update to correct min FCLK when construction BB
-  drm/amd/display: Pass tg and hubp inst instead of pipe index for SubVP
-
-Aric Cyr (2):
-  drm/amd/display: 3.2.225
-  drm/amd/display: 3.2.226
-
-Chris Park (1):
-  drm/amd/display: Simplify register offsets
-
-Gabe Teeger (1):
-  drm/amd/display: Enable HostVM based on rIOMMU active
-
-Harry Wentland (8):
-  drm/amd/display: Drop CONFIG_DRM_AMD_DC_HDR
-  drm/amd/display: Fix no-DCN build
-  drm/amd/display: Drop CONFIG_DRM_AMD_DC_HDCP
-  drm/amd/display: call remove_stream_from_ctx from res_pool funcs
-  drm/amd/display: Build DSC without DCN config
-  drm/amd/display: Drop unnecessary DCN guards
-  drm/amd/display: Drop unnecessary DCN guards
-  drm/amd/display: Rename DCN config to FP
-
-Mike Hsieh (2):
-  drm/amd/display: Add height granularity limitation for dsc slice
-    height calculation
-  drm/amd/display: fix typo in dc_dsc_config_options structure
-
-Mustapha Ghaddar (1):
-  drm/amd/display: Unify DC logging for BW Alloc
-
-Nicholas Kazlauskas (2):
-  drm/amd/display: Add minimum Z8 residency debug option
-  drm/amd/display: Update minimum stutter residency for DCN314 Z8
-
-Rodrigo Siqueira (6):
-  drm/amd/display: Ensure vmin and vmax adjust for DCE
-  drm/amd/display: Drop dc_commit_state in favor of dc_commit_streams
-  drm/amd/display: Use dc_update_planes_and_stream
-  drm/amd/display: Use DC_LOG_DC in the trasform pixel function
-  drm/amd/display: Add wrapper to call planes and stream update
-  drm/amd/display: Ensure that planes are in the same order
-
-Wayne Lin (1):
-  drm/amd/display: Pass the right info to drm_dp_remove_payload
-
-Wenjing Liu (5):
-  drm/amd/display: move dc_link functions in accessories folder to
-    dc_link_exports
-  drm/amd/display: move dc_link functions in link root folder to
-    dc_link_exports
-  drm/amd/display: link link_dp_dpia_bw.o in makefile
-  drm/amd/display: move dc_link functions in protocols folder to
-    dc_link_exports
-  drm/amd/display: replace all dc_link function call in link with link
-    functions
-
- drivers/gpu/drm/amd/display/Kconfig           |  14 +-
- drivers/gpu/drm/amd/display/Makefile          |   4 -
- .../gpu/drm/amd/display/amdgpu_dm/Makefile    |   4 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 150 ++---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   4 -
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |  11 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  65 +-
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  39 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 129 ----
- drivers/gpu/drm/amd/display/dc/Makefile       |   7 +-
- .../drm/amd/display/dc/bios/bios_parser2.c    |   2 +-
- .../gpu/drm/amd/display/dc/clk_mgr/Makefile   |   2 +-
- .../gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c  |   8 +-
- .../amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c |   2 +-
- .../dc/clk_mgr/dcn314/dcn314_clk_mgr.c        |   5 +
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  90 +--
- .../drm/amd/display/dc/core/dc_link_exports.c | 294 ++++++++-
- .../gpu/drm/amd/display/dc/core/dc_resource.c |   8 +-
- .../drm/amd/display/dc/core/dc_vm_helper.c    |   2 -
- drivers/gpu/drm/amd/display/dc/dc.h           |  35 +-
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  10 +-
- drivers/gpu/drm/amd/display/dc/dc_dp_types.h  |  66 +-
- drivers/gpu/drm/amd/display/dc/dc_dsc.h       |  11 +-
- drivers/gpu/drm/amd/display/dc/dc_hw_types.h  |   2 +-
- drivers/gpu/drm/amd/display/dc/dc_link.h      | 579 ------------------
- drivers/gpu/drm/amd/display/dc/dc_types.h     |   6 -
- .../drm/amd/display/dc/dce/dce_clock_source.c |  27 +-
- .../drm/amd/display/dc/dce/dce_clock_source.h |   6 -
- .../drm/amd/display/dc/dce/dce_transform.c    |   5 +-
- .../display/dc/dce110/dce110_hw_sequencer.h   |   2 -
- .../gpu/drm/amd/display/dc/dcn10/dcn10_dwb.c  |   5 -
- .../gpu/drm/amd/display/dc/dcn10/dcn10_dwb.h  |   4 -
- .../display/dc/dcn10/dcn10_stream_encoder.c   |   3 +-
- .../amd/display/dc/dcn303/dcn303_resource.c   |   2 -
- .../display/dc/dcn31/dcn31_dio_link_encoder.c |   5 +-
- .../drm/amd/display/dc/dcn31/dcn31_hwseq.c    |   4 +-
- .../amd/display/dc/dcn314/dcn314_resource.c   |   1 +
- .../gpu/drm/amd/display/dc/dcn32/dcn32_dccg.h |  36 --
- .../dc/dcn32/dcn32_dio_stream_encoder.c       |   2 -
- .../dc/dcn32/dcn32_dio_stream_encoder.h       |  64 --
- .../drm/amd/display/dc/dcn32/dcn32_hubbub.h   |  62 --
- .../gpu/drm/amd/display/dc/dcn32/dcn32_hubp.h |   6 -
- .../drm/amd/display/dc/dcn32/dcn32_hwseq.c    |  83 +++
- .../drm/amd/display/dc/dcn32/dcn32_hwseq.h    |   4 +
- .../gpu/drm/amd/display/dc/dcn32/dcn32_init.c |   2 +-
- .../gpu/drm/amd/display/dc/dcn32/dcn32_optc.h |  71 ---
- drivers/gpu/drm/amd/display/dc/dml/Makefile   |   2 +-
- .../drm/amd/display/dc/dml/dcn20/dcn20_fpu.c  |   3 +-
- .../dc/dml/dcn30/display_mode_vba_30.c        |   2 -
- .../dc/dml/dcn30/display_rq_dlg_calc_30.c     |   3 -
- .../amd/display/dc/dml/dcn314/dcn314_fpu.c    |   4 +
- .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |   5 +-
- .../dc/dml/dcn32/display_mode_vba_32.c        |   6 +-
- .../dc/dml/dcn32/display_mode_vba_util_32.c   |   6 +-
- .../dc/dml/dcn32/display_mode_vba_util_32.h   |   3 +-
- .../amd/display/dc/dml/dcn321/dcn321_fpu.c    |   5 +-
- drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c   |  33 +-
- drivers/gpu/drm/amd/display/dc/dsc/rc_calc.c  |   2 +
- .../gpu/drm/amd/display/dc/hdcp/hdcp_msg.c    |   2 +-
- .../gpu/drm/amd/display/dc/inc/core_types.h   |   2 -
- drivers/gpu/drm/amd/display/dc/inc/hw/dwb.h   |   8 +-
- drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h  |   2 +-
- .../amd/display/dc/inc/hw/timing_generator.h  |   2 +-
- .../amd/display/dc/inc/hw_sequencer_private.h |   2 +-
- drivers/gpu/drm/amd/display/dc/inc/link.h     | 128 +++-
- drivers/gpu/drm/amd/display/dc/inc/resource.h |   2 +-
- drivers/gpu/drm/amd/display/dc/link/Makefile  |   2 +-
- .../display/dc/link/accessories/link_dp_cts.c |  47 +-
- .../display/dc/link/accessories/link_dp_cts.h |  19 +-
- .../dc/link/accessories/link_dp_trace.c       |  13 +-
- .../dc/link/accessories/link_dp_trace.h       |  12 +-
- .../drm/amd/display/dc/link/link_detection.c  |  16 +-
- .../drm/amd/display/dc/link/link_detection.h  |   6 +
- .../gpu/drm/amd/display/dc/link/link_dpms.c   |  20 +-
- .../drm/amd/display/dc/link/link_factory.c    |  84 ++-
- .../drm/amd/display/dc/link/link_resource.h   |   3 -
- .../drm/amd/display/dc/link/link_validation.c |   9 +-
- .../amd/display/dc/link/protocols/link_ddc.c  |  24 +-
- .../amd/display/dc/link/protocols/link_ddc.h  |   3 +
- .../dc/link/protocols/link_dp_capability.c    |  58 +-
- .../dc/link/protocols/link_dp_capability.h    |  19 +
- .../display/dc/link/protocols/link_dp_dpia.c  |   2 +-
- .../display/dc/link/protocols/link_dp_dpia.h  |   4 +-
- .../dc/link/protocols/link_dp_dpia_bw.c       |  97 ++-
- .../dc/link/protocols/link_dp_dpia_bw.h       |  26 +-
- .../dc/link/protocols/link_dp_irq_handler.c   |  30 +-
- .../dc/link/protocols/link_dp_irq_handler.h   |  12 +-
- .../display/dc/link/protocols/link_dp_phy.c   |  10 +-
- .../display/dc/link/protocols/link_dp_phy.h   |   8 +-
- .../dc/link/protocols/link_dp_training.c      |  17 +-
- .../dc/link/protocols/link_dp_training.h      |   3 +
- .../link/protocols/link_dp_training_auxless.c |   2 +-
- .../link/protocols/link_dp_training_auxless.h |   2 +-
- .../dc/link/protocols/link_dp_training_dpia.c |   4 +-
- .../dc/link/protocols/link_dp_training_dpia.h |   2 +-
- .../link/protocols/link_edp_panel_control.c   |  31 +-
- .../link/protocols/link_edp_panel_control.h   |  20 +
- .../amd/display/dc/link/protocols/link_hpd.c  |  14 +-
- .../amd/display/dc/link/protocols/link_hpd.h  |   4 +
- drivers/gpu/drm/amd/display/dc/os_types.h     |   4 +-
- .../{hdcp_types.h => hdcp_msg_types.h}        |   0
- .../drm/amd/display/modules/hdcp/hdcp_log.h   |   2 -
- .../amd/display/modules/power/power_helpers.c |   7 -
- 103 files changed, 1216 insertions(+), 1585 deletions(-)
- delete mode 100644 drivers/gpu/drm/amd/display/dc/dc_link.h
- rename drivers/gpu/drm/amd/display/include/{hdcp_types.h => hdcp_msg_types.h} (100%)
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 4217ebe6391b..553406ec24bf 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -5785,6 +5785,10 @@ static void apply_dsc_policy_for_edp(struct amdgpu_dm_connector *aconnector,
+ 	struct dc *dc = sink->ctx->dc;
+ 	struct dc_dsc_bw_range bw_range = {0};
+ 	struct dc_dsc_config dsc_cfg = {0};
++	struct dc_dsc_config_options dsc_options = {0};
++
++	dc_dsc_get_default_config_option(dc, &dsc_options);
++	dsc_options.max_target_bpp_limit_override_x16 = max_dsc_target_bpp_limit_override * 16;
+ 
+ 	verified_link_cap = dc_link_get_link_cap(stream->link);
+ 	link_bw_in_kbps = dc_link_bandwidth_kbps(stream->link, verified_link_cap);
+@@ -5807,8 +5811,7 @@ static void apply_dsc_policy_for_edp(struct amdgpu_dm_connector *aconnector,
+ 		if (bw_range.max_kbps < link_bw_in_kbps) {
+ 			if (dc_dsc_compute_config(dc->res_pool->dscs[0],
+ 					dsc_caps,
+-					dc->debug.dsc_min_slice_height_override,
+-					max_dsc_target_bpp_limit_override,
++					&dsc_options,
+ 					0,
+ 					&stream->timing,
+ 					&dsc_cfg)) {
+@@ -5822,8 +5825,7 @@ static void apply_dsc_policy_for_edp(struct amdgpu_dm_connector *aconnector,
+ 
+ 	if (dc_dsc_compute_config(dc->res_pool->dscs[0],
+ 				dsc_caps,
+-				dc->debug.dsc_min_slice_height_override,
+-				max_dsc_target_bpp_limit_override,
++				&dsc_options,
+ 				link_bw_in_kbps,
+ 				&stream->timing,
+ 				&dsc_cfg)) {
+@@ -5844,6 +5846,10 @@ static void apply_dsc_policy_for_stream(struct amdgpu_dm_connector *aconnector,
+ 	u32 dsc_max_supported_bw_in_kbps;
+ 	u32 max_dsc_target_bpp_limit_override =
+ 		drm_connector->display_info.max_dsc_bpp;
++	struct dc_dsc_config_options dsc_options = {0};
++
++	dc_dsc_get_default_config_option(dc, &dsc_options);
++	dsc_options.max_target_bpp_limit_override_x16 = max_dsc_target_bpp_limit_override * 16;
+ 
+ 	link_bandwidth_kbps = dc_link_bandwidth_kbps(aconnector->dc_link,
+ 							dc_link_get_link_cap(aconnector->dc_link));
+@@ -5862,8 +5868,7 @@ static void apply_dsc_policy_for_stream(struct amdgpu_dm_connector *aconnector,
+ 		if (sink->link->dpcd_caps.dongle_type == DISPLAY_DONGLE_NONE) {
+ 			if (dc_dsc_compute_config(aconnector->dc_link->ctx->dc->res_pool->dscs[0],
+ 						dsc_caps,
+-						aconnector->dc_link->ctx->dc->debug.dsc_min_slice_height_override,
+-						max_dsc_target_bpp_limit_override,
++						&dsc_options,
+ 						link_bandwidth_kbps,
+ 						&stream->timing,
+ 						&stream->timing.dsc_cfg)) {
+@@ -5880,8 +5885,7 @@ static void apply_dsc_policy_for_stream(struct amdgpu_dm_connector *aconnector,
+ 					dsc_max_supported_bw_in_kbps > 0)
+ 				if (dc_dsc_compute_config(aconnector->dc_link->ctx->dc->res_pool->dscs[0],
+ 						dsc_caps,
+-						aconnector->dc_link->ctx->dc->debug.dsc_min_slice_height_override,
+-						max_dsc_target_bpp_limit_override,
++						&dsc_options,
+ 						dsc_max_supported_bw_in_kbps,
+ 						&stream->timing,
+ 						&stream->timing.dsc_cfg)) {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index e25e1b2bf194..e10ed2935971 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -678,16 +678,19 @@ static void set_dsc_configs_from_fairness_vars(struct dsc_mst_fairness_params *p
+ {
+ 	struct drm_connector *drm_connector;
+ 	int i;
++	struct dc_dsc_config_options dsc_options = {0};
+ 
+ 	for (i = 0; i < count; i++) {
+ 		drm_connector = &params[i].aconnector->base;
+ 
++		dc_dsc_get_default_config_option(params[i].sink->ctx->dc, &dsc_options);
++		dsc_options.max_target_bpp_limit_override_x16 = drm_connector->display_info.max_dsc_bpp * 16;
++
+ 		memset(&params[i].timing->dsc_cfg, 0, sizeof(params[i].timing->dsc_cfg));
+ 		if (vars[i + k].dsc_enabled && dc_dsc_compute_config(
+ 					params[i].sink->ctx->dc->res_pool->dscs[0],
+ 					&params[i].sink->dsc_caps.dsc_dec_caps,
+-					params[i].sink->ctx->dc->debug.dsc_min_slice_height_override,
+-					drm_connector->display_info.max_dsc_bpp,
++					&dsc_options,
+ 					0,
+ 					params[i].timing,
+ 					&params[i].timing->dsc_cfg)) {
+@@ -730,15 +733,16 @@ static int bpp_x16_from_pbn(struct dsc_mst_fairness_params param, int pbn)
+ 	u64 kbps;
+ 
+ 	struct drm_connector *drm_connector = &param.aconnector->base;
+-	uint32_t max_dsc_target_bpp_limit_override =
+-		drm_connector->display_info.max_dsc_bpp;
++	struct dc_dsc_config_options dsc_options = {0};
++
++	dc_dsc_get_default_config_option(param.sink->ctx->dc, &dsc_options);
++	dsc_options.max_target_bpp_limit_override_x16 = drm_connector->display_info.max_dsc_bpp * 16;
+ 
+ 	kbps = div_u64((u64)pbn * 994 * 8 * 54, 64);
+ 	dc_dsc_compute_config(
+ 			param.sink->ctx->dc->res_pool->dscs[0],
+ 			&param.sink->dsc_caps.dsc_dec_caps,
+-			param.sink->ctx->dc->debug.dsc_min_slice_height_override,
+-			max_dsc_target_bpp_limit_override,
++			&dsc_options,
+ 			(int) kbps, param.timing, &dsc_config);
+ 
+ 	return dsc_config.bits_per_pixel;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dsc.h b/drivers/gpu/drm/amd/display/dc/dc_dsc.h
+index 684713b2cff7..81e62a630d78 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dsc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dsc.h
+@@ -54,6 +54,12 @@ struct dc_dsc_policy {
+ 	bool enable_dsc_when_not_needed;
+ };
+ 
++struct dc_dsc_config_options {
++	uint32_t dsc_min_slice_height_override;
++	uint32_t max_target_bpp_limit_override_x16;
++	uint32_t slight_height_granularity;
++};
++
+ bool dc_dsc_parse_dsc_dpcd(const struct dc *dc,
+ 		const uint8_t *dpcd_dsc_basic_data,
+ 		const uint8_t *dpcd_dsc_ext_data,
+@@ -71,8 +77,7 @@ bool dc_dsc_compute_bandwidth_range(
+ bool dc_dsc_compute_config(
+ 		const struct display_stream_compressor *dsc,
+ 		const struct dsc_dec_dpcd_caps *dsc_sink_caps,
+-		uint32_t dsc_min_slice_height_override,
+-		uint32_t max_target_bpp_limit_override,
++		const struct dc_dsc_config_options *options,
+ 		uint32_t target_bandwidth_kbps,
+ 		const struct dc_crtc_timing *timing,
+ 		struct dc_dsc_config *dsc_cfg);
+@@ -100,4 +105,6 @@ void dc_dsc_policy_set_enable_dsc_when_not_needed(bool enable);
+ 
+ void dc_dsc_policy_set_disable_dsc_stream_overhead(bool disable);
+ 
++void dc_dsc_get_default_config_option(const struct dc *dc, struct dc_dsc_config_options *options);
++
+ #endif
+diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+index d52cbc0e9b67..8b5663853efb 100644
+--- a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
++++ b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+@@ -79,8 +79,7 @@ static bool setup_dsc_config(
+ 		const struct dsc_enc_caps *dsc_enc_caps,
+ 		int target_bandwidth_kbps,
+ 		const struct dc_crtc_timing *timing,
+-		int min_slice_height_override,
+-		int max_dsc_target_bpp_limit_override_x16,
++		const struct dc_dsc_config_options *options,
+ 		struct dc_dsc_config *dsc_cfg);
+ 
+ static bool dsc_buff_block_size_from_dpcd(int dpcd_buff_block_size, int *buff_block_size)
+@@ -352,6 +351,11 @@ bool dc_dsc_compute_bandwidth_range(
+ 	struct dsc_enc_caps dsc_enc_caps;
+ 	struct dsc_enc_caps dsc_common_caps;
+ 	struct dc_dsc_config config;
++	struct dc_dsc_config_options options = {0};
++
++	options.dsc_min_slice_height_override = dsc_min_slice_height_override;
++	options.max_target_bpp_limit_override_x16 = max_bpp_x16;
++	options.slight_height_granularity = 1;
+ 
+ 	get_dsc_enc_caps(dsc, &dsc_enc_caps, timing->pix_clk_100hz);
+ 
+@@ -360,7 +364,7 @@ bool dc_dsc_compute_bandwidth_range(
+ 
+ 	if (is_dsc_possible)
+ 		is_dsc_possible = setup_dsc_config(dsc_sink_caps, &dsc_enc_caps, 0, timing,
+-				dsc_min_slice_height_override, max_bpp_x16, &config);
++				&options, &config);
+ 
+ 	if (is_dsc_possible)
+ 		is_dsc_possible = decide_dsc_bandwidth_range(min_bpp_x16, max_bpp_x16,
+@@ -740,8 +744,7 @@ static bool setup_dsc_config(
+ 		const struct dsc_enc_caps *dsc_enc_caps,
+ 		int target_bandwidth_kbps,
+ 		const struct dc_crtc_timing *timing,
+-		int min_slice_height_override,
+-		int max_dsc_target_bpp_limit_override_x16,
++		const struct dc_dsc_config_options *options,
+ 		struct dc_dsc_config *dsc_cfg)
+ {
+ 	struct dsc_enc_caps dsc_common_caps;
+@@ -760,7 +763,7 @@ static bool setup_dsc_config(
+ 
+ 	memset(dsc_cfg, 0, sizeof(struct dc_dsc_config));
+ 
+-	dc_dsc_get_policy_for_timing(timing, max_dsc_target_bpp_limit_override_x16, &policy);
++	dc_dsc_get_policy_for_timing(timing, options->max_target_bpp_limit_override_x16, &policy);
+ 	pic_width = timing->h_addressable + timing->h_border_left + timing->h_border_right;
+ 	pic_height = timing->v_addressable + timing->v_border_top + timing->v_border_bottom;
+ 
+@@ -909,12 +912,13 @@ static bool setup_dsc_config(
+ 
+ 	// Slice height (i.e. number of slices per column): start with policy and pick the first one that height is divisible by.
+ 	// For 4:2:0 make sure the slice height is divisible by 2 as well.
+-	if (min_slice_height_override == 0)
++	if (options->dsc_min_slice_height_override == 0)
+ 		slice_height = min(policy.min_slice_height, pic_height);
+ 	else
+-		slice_height = min(min_slice_height_override, pic_height);
++		slice_height = min((int)(options->dsc_min_slice_height_override), pic_height);
+ 
+ 	while (slice_height < pic_height && (pic_height % slice_height != 0 ||
++		slice_height % options->slight_height_granularity != 0 ||
+ 		(timing->pixel_encoding == PIXEL_ENCODING_YCBCR420 && slice_height % 2 != 0)))
+ 		slice_height++;
+ 
+@@ -958,8 +962,7 @@ static bool setup_dsc_config(
+ bool dc_dsc_compute_config(
+ 		const struct display_stream_compressor *dsc,
+ 		const struct dsc_dec_dpcd_caps *dsc_sink_caps,
+-		uint32_t dsc_min_slice_height_override,
+-		uint32_t max_target_bpp_limit_override,
++		const struct dc_dsc_config_options *options,
+ 		uint32_t target_bandwidth_kbps,
+ 		const struct dc_crtc_timing *timing,
+ 		struct dc_dsc_config *dsc_cfg)
+@@ -971,8 +974,7 @@ bool dc_dsc_compute_config(
+ 	is_dsc_possible = setup_dsc_config(dsc_sink_caps,
+ 		&dsc_enc_caps,
+ 		target_bandwidth_kbps,
+-		timing, dsc_min_slice_height_override,
+-		max_target_bpp_limit_override * 16, dsc_cfg);
++		timing, options, dsc_cfg);
+ 	return is_dsc_possible;
+ }
+ 
+@@ -1104,3 +1106,10 @@ void dc_dsc_policy_set_disable_dsc_stream_overhead(bool disable)
+ {
+ 	dsc_policy_disable_dsc_stream_overhead = disable;
+ }
++
++void dc_dsc_get_default_config_option(const struct dc *dc, struct dc_dsc_config_options *options)
++{
++	options->dsc_min_slice_height_override = dc->debug.dsc_min_slice_height_override;
++	options->max_target_bpp_limit_override_x16 = 0;
++	options->slight_height_granularity = 1;
++}
 -- 
 2.34.1
 
