@@ -4,120 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 810D7C64EC4
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Mar 2023 21:10:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DDE6C7EE32
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Mar 2023 21:11:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 455B310E75B;
-	Fri,  3 Mar 2023 21:10:16 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2057.outbound.protection.outlook.com [40.107.94.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A102910E757;
- Fri,  3 Mar 2023 21:10:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B270B10E75C;
+	Fri,  3 Mar 2023 21:11:57 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2055.outbound.protection.outlook.com [40.107.223.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFFCC10E75C
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Mar 2023 21:11:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SOaZrEujNWLcKYW531OkNCcntj3RAeOjv2Qr6mYn4/XesRBuwSwuVkf4QDgiGaffuboKqVxyiHUn+SxoTIvwyq3fi0uaS1fWCeOLujQ8I/1EojXqtJXnMgWABNoOBE0oyJMNFRqqfwC/d4LMsi+tNJKY/3fg0Mw2drvZjBgQGYSIiKbclDmjfZcfxiFJGf2Ngi3kWtC4bd9Y7xbjDogzC3AvxdQ94KMr+tUIkaB6Wry04hjxkifXoUZKgj/0LtM40E/l+Se1WGm9afKy/QUtvMb0nAGU/0lLhdCFAGadZf4UoTcwRX+sKdtslnOwnvLPYAugEYWJZISwis3/AzAi8Q==
+ b=idFwoUkcPBA4WcGEZbQXBfd8TmJJWsiALezdaa9DqcMvTqr4bvEA50g9axIqdnA6N2dIwMQnhXPE6aiuLXQrvbMRWSe6OASH/KMYTjDo05YXzS3DkzCLOfBZF0wYjPWhw8iIosdIQLlew7MQeBEuMHPbaWH2i9uQ9sxVigQpCOuXaEsfMXMqgEWolhakBXdYf6JKgU14tOZio5eHzu0n3ae0gUpbMa/l+PtiLs8bB6DYcLwWTZiAPk/t7jDLgX8RwqeauAUHdvwe1xa/bKUhijDXTbKWzxc6K5N12tv5t/4FTcS0hCl9kyAxwaLdEv/wbLDVYBqLEvR+1zUeWTGc7A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Lp5twSgeWCvLLfPZjGmpMyeCvyGyeyoQgYUw+WaTH30=;
- b=Fa5IXMUuRR7EV2aDXgzK9aWFiWMCEnecgq3PtDEubIOHF6RGXAeOtYl9I5p4o2r1VVHf905pOmoXiHSJDUo1Kt6wSOrQVY5iTyIfo4G8ZZv5/GCBdnJbc9qbH0j5Sx2utkMlorJjGa/69GU0p0a2UjbHWiK1R9/2gPsk/1+hBTTn7ju7CtWylS5cGufMAV+ktpq36g4xLHBrp3B9mm8G9rkoJzI57d3yvgF3l5s+TPP8ck4guTh2CHRJXP+i465M19vju4EaroFqOmUJYZCYZwzt1rNncyWETUEas3CAqeR0SO6Yl9Ui4hQOtRWBtCHK+EtAsZMAVRdf6Np6+q9yfA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=bRTioft79Z3qBzLdvE2B8S7XWKXOO12p7+0/d9b3WRI=;
+ b=Gtd87JPSF98sqPLFnlLF2UEn4ROj3yo6W9Ld/hot9SoPRAFdbvrVw8VaBNPdyciAZWuJtQfiB7h5/Qe2SbjqNL5WYQFKLJylX1+Tyt1Y1qPc+YjMU5GcOfZHP4EsYdfqhHeIY+1pA4Q3GmeUzlSVnDFOn4Lbs9JyR4vZFvoYNBUII511/LnzSA1FIThvy1ZO0vvDQKa4/DITYvDZvrJAp3UFY4/XGzLuubGZEqzNtQyyqRyHxlYxFuBgllohXBAqCNI4p/3x3YlOKLxn5UNpM9dQkSHIwltzI1Jv4qngqWbbs2O9x2ekDObsdEw2vS7LcxymOcuGCoI2nsH4IK+lkw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Lp5twSgeWCvLLfPZjGmpMyeCvyGyeyoQgYUw+WaTH30=;
- b=zgZcTsNt1bqPUUGZTg15svthK0fW3nhTsaUtN/obZST3MP6CCZkctXUMC65pnyDFL5R3bRjIUBXosomntEjXkirWcOMt1g2B8mn0JWTgiJtLqiL+Ct7SAXC/K7mNueKQ5eNhkY4bOBTLWtAku0tB1q5yym9pGodxyerj5PhFmBE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com (2603:10b6:8:a2::11) by
- DM6PR12MB4089.namprd12.prod.outlook.com (2603:10b6:5:213::19) with
- Microsoft
+ bh=bRTioft79Z3qBzLdvE2B8S7XWKXOO12p7+0/d9b3WRI=;
+ b=EzqJf5HKxraeU680uSWKq9ZC31gLjbrAIhyRjMJwGeqp6Y9H8nHPLbx8dhhHygokaGYeC0MPZXGSyZpTY9lWgyVMqo3v/hTHoRDequhQpTdyNiNCxUX8fChHzEWWrZdbPa22pd7okx/ZBk3VswQCtnmF3AKBhW+ULPRfqhQiYU8=
+Received: from BL0PR01CA0009.prod.exchangelabs.com (2603:10b6:208:71::22) by
+ CY8PR12MB8267.namprd12.prod.outlook.com (2603:10b6:930:7c::22) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6156.18; Fri, 3 Mar 2023 21:10:10 +0000
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::cdcb:a816:4bc3:a83f]) by DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::cdcb:a816:4bc3:a83f%9]) with mapi id 15.20.6156.022; Fri, 3 Mar 2023
- 21:10:10 +0000
-Message-ID: <b106b6ea-f1c3-1d47-6851-2e580b885c58@amd.com>
-Date: Fri, 3 Mar 2023 16:11:21 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH] drm/amd/display: Simplify same effect if/else blocks
-To: Deepak R Varma <drv@mailo.com>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <Y8POxreeC3EvOXhC@ubun2204.myguest.virtualbox.org>
-Content-Language: en-US
-From: Hamza Mahfooz <hamza.mahfooz@amd.com>
-In-Reply-To: <Y8POxreeC3EvOXhC@ubun2204.myguest.virtualbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQXPR0101CA0018.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00:15::31) To DM4PR12MB6280.namprd12.prod.outlook.com
- (2603:10b6:8:a2::11)
+ 15.20.6156.22; Fri, 3 Mar 2023 21:11:53 +0000
+Received: from BL02EPF00010207.namprd05.prod.outlook.com
+ (2603:10b6:208:71:cafe::1c) by BL0PR01CA0009.outlook.office365.com
+ (2603:10b6:208:71::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.21 via Frontend
+ Transport; Fri, 3 Mar 2023 21:11:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF00010207.mail.protection.outlook.com (10.167.241.197) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6156.16 via Frontend Transport; Fri, 3 Mar 2023 21:11:52 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 3 Mar
+ 2023 15:11:51 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 2/3] drm/amd/pm: Add PMFW headers for SMU 13.0.6
+Date: Fri, 3 Mar 2023 16:11:34 -0500
+Message-ID: <20230303211135.568607-2-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230303211135.568607-1-alexander.deucher@amd.com>
+References: <20230303211135.568607-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6280:EE_|DM6PR12MB4089:EE_
-X-MS-Office365-Filtering-Correlation-Id: 68e55f3f-e7ae-4c14-aab3-08db1c2babd6
+X-MS-TrafficTypeDiagnostic: BL02EPF00010207:EE_|CY8PR12MB8267:EE_
+X-MS-Office365-Filtering-Correlation-Id: 86a20008-e9df-4dd2-9c71-08db1c2be969
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TzyPXKrw4rfyevZlNjsvs/1VNKMpIJwB4t0MF+ajYmJ8LYicShJiyAAK42zLEedw6e/ww4jcq0Zt9fmJ6I5iEZ/89uhW1iPkY/Ur7SGDZexGOQwq7FgICqa6Y+f3efLblZWzYud7tlExb21FZtaiS90sDJnVIK8CcoIqBRFDM0PIqsASsibxlYEoCFnWcj7ua2ekAFezJbkrgAY8MdlmMWD8U7G5h0HwQqM3tij9SIqme0+TQVJwywM92qz4qU3pxz2NoEk2KtD5MLfQ88gF+OE4ln2IsvonthXsxdHKwj2rSf+UhtvZKszJgosrTijtyZqwLDGDa54ft0sEOipIlTvmvP7MXwYR5RYYgT5MwC/qGn+3VSeg6AmBJ1MLVtV2K8VMsIX6/2cA5c1U0m8a4PTK6Zw/s4Tc0MdR9c3/YWGilIXeF4VYb+2xDyqhFHdzt9+HIMxTEpY4cT3wB2oi9LE0iPH1Nu66JQRG+8RP3mKSofdTMDJTa3c2HL4VNXTZd6VPWRIcBZrLpwJBUeb8XZTi4+KhgI91O59qmrfQkW9tTwUAsgmOsRbGjLm7DtRHwFNMQLh+lQx26o7a9mzDGxj7yM+KrnZkptXJXBALm50Zm8iihvSWf2l7w6GGMIDrHznKxKC3nlg46d9rdoD7rjCjYsn7guUfys/uBUS9/7C9Mcp8yzLEjwlgXzUc14zmYwTpcszKSuWEFQe020gYp/AZ6CdVhlA2ISINrdcJ7yn2+1GUynbpaBrhShI6zY+G
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6280.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(39860400002)(396003)(136003)(366004)(346002)(376002)(451199018)(31686004)(66476007)(36756003)(38100700002)(478600001)(83380400001)(316002)(54906003)(110136005)(4326008)(8676002)(2616005)(6666004)(53546011)(6486002)(186003)(6512007)(26005)(66556008)(6506007)(2906002)(66946007)(5660300002)(44832011)(8936002)(86362001)(921005)(31696002)(41300700001)(45980500001)(43740500002);
+X-Microsoft-Antispam-Message-Info: htp2zVuziM3qxBrFIqdCHE6/VwIzlzBjhgDrFMGgRMJfgalgux3ZqhgWIyQuyW0GjD5ZeQTJlcyXP/D49jZD+86xQxEBVfmceY7v4CCh0SdvG9csj7oyL2jHWGHMbhWBYGmdjwUwsWKWdVij3vQU1FSJRMPTPTGQOXVfHRssBzTBxO0aAkje+hfq1uGMAXW/BrZ1ace87M5ZGIXnd0D9y6jlFHFMsUEn3F308isxdjq+rvHasOFUJ8GN9eW8A8gLzzTCv3/z8zbjn/2/+Cp6oQ4FWxDSTqh4pBqsfw6P+x8Lkj0JZ8xpXJf+yMw48MJeMXtZPWdn8wVBxmBqbvK9HOHmE/KAEkfiIgsHu0RZIjyTUWtjOapMr8WUOKQLxDlr0L3BEkMnHW8p8yHL01bMIpUf0zqvZzJ5RwueNlyBJ9SwiGkXBdLwT7dVMAaGUC6MESXu1EDHm3DHhaoyDHx4x86yRKPMQvkNmC7e0SG+mAuqXEjLyDt10Cj8ewvknTrj+17MeoVoUQfUR1Wn+jR7UdPrk1q8JFutPD1oBu0iKMik7LZoiVg/4My/Lpx7vn+sPFbkQZEnzBSttLM/WAYmcDYsp44oxfkuj934KxBLzoVzdD+NS8KLVPsYhJVYOjJGR0yx5e6/X512647oQFiz/jf4ss43Bakd5yzUEkkc7zBMLkCNK7YC7Ko8u/Ml5fFWDVd8OAtfzW6udr/ZRpF8/tb4K5uuI072nNv82WA9p6k=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(136003)(376002)(346002)(39860400002)(396003)(451199018)(36840700001)(40470700004)(46966006)(40460700003)(4326008)(8676002)(70206006)(6916009)(54906003)(19627235002)(83380400001)(8936002)(316002)(36860700001)(41300700001)(5660300002)(6666004)(2616005)(1076003)(70586007)(478600001)(16526019)(186003)(426003)(47076005)(26005)(336012)(40480700001)(7696005)(82310400005)(36756003)(82740400003)(30864003)(2906002)(81166007)(356005)(66899018)(86362001)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UEtxNThWRUIvUkZOd0RNd2VYdkFGWC96Mmk5Ky85S3J3MEFJdGYrZHRvZ2dH?=
- =?utf-8?B?SnNjeHpPNmJsT2NFTkNDUmVObkE2RXBad1pqSy9qekh2a2RtbVlTdjdGTjRW?=
- =?utf-8?B?OE1leXN4aU5GSlorY1VqZXJFaHJHTEp4L3FhRkpkRDhwYVJ3Qm8xTmFsdDBw?=
- =?utf-8?B?Y3RkUlh2VTRzUitxbW5Rc3ZTb2hKbHFibmVqKy8zTzFadXpiU1hiWkJWY295?=
- =?utf-8?B?WWV2WEtpUWc5eURLSE5TRVc2cG8reVE2S0pxalRqcFZCSk41QjQxRGgrRkUw?=
- =?utf-8?B?aGFmRHdTNUZ1aXZaMm5nSksySmN2YWU2cHBFUjBzS1BaTHF6VDVkT3VkVDU2?=
- =?utf-8?B?cFVDeE9uUEgwekhSYlg0ZWxvSkwzMGllL2tlTkJXQ29kSlJGRDBzWUdLNVl3?=
- =?utf-8?B?WHJhQjh5ek14NVZhdzdxU1JjYmVSRVZ1RHVYS3BjbUN0N3BjT3NQRmhNYVp6?=
- =?utf-8?B?SmRLVk0xWU81VnRQMld4ckVCQXJGQ0t1NkExOHNPSWlXa21NVmtMRFVTVG5s?=
- =?utf-8?B?SUVxU0lqajBnT3hoWHl0V0VQWlhmVlpmd2RVR1IyeExBZ0U0R3ZHTXkvbUp5?=
- =?utf-8?B?R2o0Y1FTdm96OXZZM0pVWHg4SHhxY2sxbnUyQU5BUG1Qc0xFS2I3UXdEbEdY?=
- =?utf-8?B?Z3pDUS9NUDJLMU5iVlVKcmltVmtKU015d0ZjSnNwOEJVVHBmK1pOOWdUSzdl?=
- =?utf-8?B?aU9hY1F0cXI4UnVyYmZWMlQxK2R6aFJRejFnbFpBcW1wdUx2UVk0SWVFL0tX?=
- =?utf-8?B?RUF3Q3dHOHlHQ2ZxbGcrOHNBcFRWQktjTmlBdzlqNmhpa1lOemx4MlpEaVdE?=
- =?utf-8?B?U0ZwRzVjUEFDU3lwcEtFZkx0NWlrRWdkd1M2cjI1WjgwQXdabzYvTkZVS01D?=
- =?utf-8?B?cExXa2V3QytUaEFLdXllTGhSaVM1Ui9YK0E5M3VQK2UyeXZQbVE5R09UUG90?=
- =?utf-8?B?OEhxcHN2VjJOdWY0Qy9LZENhTDhKblQ0Q1RmMHQ4SnlHRHY1c3kvRFpPMDJa?=
- =?utf-8?B?SlNJYTRRTFZsRXdhZFpyREZyOGhkVVJXZ1g0T0NXK2tVMUNlaTFCZHV0Zyt3?=
- =?utf-8?B?a0ZOQnN5bE1hRmJCZ1J0eUhnMWJaVVh5QzR1Smttb2FkWXlLSjV1Vm5kYzNT?=
- =?utf-8?B?TW5TU2hpZkVjazBpT0d2dUZVT0R2QTZPSDBZQm1uWTk5bUxVaUNQd1FCL0Ni?=
- =?utf-8?B?YUprWURicEtFbDVHbEFHWHczV3BUb2hIMGFVTGE5SU1OZHV1QVpOTEtwVmVV?=
- =?utf-8?B?L1dNS2FHQVZSVHg4QjJoQnJZN3JVMDdsU2JlMFVQN3ZNNGFqcW9Hd3RmQU51?=
- =?utf-8?B?R2VDY093T3pSQ0ZDb084RWNTbEdaUHNxb2tqZ0hTUFYycWMwbTl4OTYremVO?=
- =?utf-8?B?WkxDOUFRaGdpWmg4UlRrSUgxNWlmRHlud1p4WFM0MEdWczArRVhlMGs3bDVz?=
- =?utf-8?B?SkdaNFVnb2szQ3BoUnhQdVU3R1EvZ29hZGdTNFJFN3ZDMXpHSlF3eEZZUWc3?=
- =?utf-8?B?NDFZd0kreFFLT1laM2RZWWVabTBUNjF0QmJPeXpiaVBTQTVsVnNyUTgyMFdp?=
- =?utf-8?B?L2NVVkIraDA1ZzlBQmNDWmM5OWgyWXZYV1Q1RkdMazg5TitvL2t3MWlsOGNi?=
- =?utf-8?B?T0NWNHg1cG0xN3FKdGY4UUxJbGw5MHV3RFBGdmpuODV4UGRXNGlUbXlpZDF6?=
- =?utf-8?B?T0huYkNLQXhSL1o1YWEyZE80STZZQnA4MUpNZzd3Uy9scVdJWjhpd0RuS2FK?=
- =?utf-8?B?NjQvU0RwOG9vNjQ0MGYzazJKWmxGWkViYmVwZ1lyczdOelFjYUlWTDFESWlW?=
- =?utf-8?B?TDZMSVgxWVU4TnJBTndmRkg2QjJvWVU0KzJZd0JOWnc3c1FvakJUSkN5K2dz?=
- =?utf-8?B?Z3JnYWl1eVRlcVI0SE9lNEd0ak56Sy9VMlVKZHFhUWYyRkw5U2xSUHlaS0JO?=
- =?utf-8?B?TjIrd2thMHB1ZmEwMFYvVEc0M3gyM0xxMUVUdERReDdsRnlUUS9xcnlsVFIw?=
- =?utf-8?B?MUdDTU1YcGRNN0F0VWZWK0NRekZaR2lQM093UUlnUUN1cUtuR3VaNVF0WGZN?=
- =?utf-8?B?b0ZJTjlxRTNGcVJVNTk2VjIzTXpvQTVIMDllaUg4TmcvTzFKQ2ViUjhKaHNL?=
- =?utf-8?Q?Lx6z0tockf1Ljh3kLuyiNj04n?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68e55f3f-e7ae-4c14-aab3-08db1c2babd6
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6280.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2023 21:10:09.7544 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2023 21:11:52.7459 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86a20008-e9df-4dd2-9c71-08db1c2be969
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vUT3xNeE7px6LsECF8/KoCJc9OndWDnhyWcMBDhvxJXIG+qAhiE6i70EG30YNnRKK4s1pStpGk1WQpz482HuCQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4089
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00010207.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8267
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,53 +98,497 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Praveen Kumar <kumarpraveen@linux.microsoft.com>,
- Saurabh Singh Sengar <ssengar@microsoft.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 1/15/23 05:00, Deepak R Varma wrote:
-> The if / else block code has same effect irrespective of the logical
-> evaluation.  Hence, simply the implementation by removing the unnecessary
-> conditional evaluation. While at it, also fix the long line checkpatch
-> complaint. Issue identified using cond_no_effect.cocci Coccinelle
-> semantic patch script.
-> 
-> Signed-off-by: Deepak R Varma <drv@mailo.com>
+From: Lijo Lazar <lijo.lazar@amd.com>
 
-Applied, thanks!
+Initial version of PMFW interface and message
+headers for SMU 13.0.6 support.
 
-> ---
-> Please note: The proposed change is compile tested only. If there are any
-> inbuilt test cases that I should run for further verification, I will appreciate
-> guidance about it. Thank you.
-> 
->   drivers/gpu/drm/amd/display/dc/core/dc.c | 11 +++--------
->   1 file changed, 3 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> index 0cb8d1f934d1..776209e5d21f 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> @@ -3470,14 +3470,9 @@ static void commit_planes_for_stream(struct dc *dc,
->   		/* Since phantom pipe programming is moved to post_unlock_program_front_end,
->   		 * move the SubVP lock to after the phantom pipes have been setup
->   		 */
-> -		if (should_lock_all_pipes && dc->hwss.interdependent_update_lock) {
-> -			if (dc->hwss.subvp_pipe_control_lock)
-> -				dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes, NULL, subvp_prev_use);
-> -		} else {
-> -			if (dc->hwss.subvp_pipe_control_lock)
-> -				dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes, NULL, subvp_prev_use);
-> -		}
-> -
-> +		if (dc->hwss.subvp_pipe_control_lock)
-> +			dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes,
-> +							 NULL, subvp_prev_use);
->   		return;
->   	}
->   
+v2: squash in location fixes (Alex)
+v3: squash in updates (Alex)
 
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ .../inc/pmfw_if/smu13_driver_if_v13_0_6.h     | 141 ++++++++++++
+ .../pm/swsmu/inc/pmfw_if/smu_v13_0_6_pmfw.h   | 212 ++++++++++++++++++
+ .../pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h  |  95 ++++++++
+ 3 files changed, 448 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_6.h
+ create mode 100644 drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_pmfw.h
+ create mode 100644 drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_6.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_6.h
+new file mode 100644
+index 000000000000..be596777cd2c
+--- /dev/null
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_6.h
+@@ -0,0 +1,141 @@
++/*
++ * Copyright 2021 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++#ifndef SMU_13_0_6_DRIVER_IF_H
++#define SMU_13_0_6_DRIVER_IF_H
++
++// *** IMPORTANT ***
++// PMFW TEAM: Always increment the interface version if
++// anything is changed in this file
++#define SMU13_0_6_DRIVER_IF_VERSION 0x08042022
++
++//I2C Interface
++#define NUM_I2C_CONTROLLERS                8
++#define I2C_CONTROLLER_ENABLED             1
++#define I2C_CONTROLLER_DISABLED            0
++
++#define MAX_SW_I2C_COMMANDS                24
++
++typedef enum {
++  I2C_CONTROLLER_PORT_0, //CKSVII2C0
++  I2C_CONTROLLER_PORT_1, //CKSVII2C1
++  I2C_CONTROLLER_PORT_COUNT,
++} I2cControllerPort_e;
++
++typedef enum {
++  UNSUPPORTED_1,              //50  Kbits/s not supported anymore!
++  I2C_SPEED_STANDARD_100K,    //100 Kbits/s
++  I2C_SPEED_FAST_400K,        //400 Kbits/s
++  I2C_SPEED_FAST_PLUS_1M,     //1   Mbits/s (in fast mode)
++  UNSUPPORTED_2,              //1   Mbits/s (in high speed mode)  not supported anymore!
++  UNSUPPORTED_3,              //2.3 Mbits/s  not supported anymore!
++  I2C_SPEED_COUNT,
++} I2cSpeed_e;
++
++typedef enum {
++  I2C_CMD_READ,
++  I2C_CMD_WRITE,
++  I2C_CMD_COUNT,
++} I2cCmdType_e;
++
++#define CMDCONFIG_STOP_BIT             0
++#define CMDCONFIG_RESTART_BIT          1
++#define CMDCONFIG_READWRITE_BIT        2 //bit should be 0 for read, 1 for write
++
++#define CMDCONFIG_STOP_MASK           (1 << CMDCONFIG_STOP_BIT)
++#define CMDCONFIG_RESTART_MASK        (1 << CMDCONFIG_RESTART_BIT)
++#define CMDCONFIG_READWRITE_MASK      (1 << CMDCONFIG_READWRITE_BIT)
++
++typedef struct {
++  uint8_t ReadWriteData;  //Return data for read. Data to send for write
++  uint8_t CmdConfig; //Includes whether associated command should have a stop or restart command, and is a read or write
++} SwI2cCmd_t; //SW I2C Command Table
++
++typedef struct {
++  uint8_t    I2CcontrollerPort; //CKSVII2C0(0) or //CKSVII2C1(1)
++  uint8_t    I2CSpeed;          //Use I2cSpeed_e to indicate speed to select
++  uint8_t    SlaveAddress;      //Slave address of device
++  uint8_t    NumCmds;           //Number of commands
++  SwI2cCmd_t SwI2cCmds[MAX_SW_I2C_COMMANDS];
++} SwI2cRequest_t; // SW I2C Request Table
++
++typedef struct {
++  SwI2cRequest_t SwI2cRequest;
++  uint32_t       Spare[8];
++  uint32_t       MmHubPadding[8]; // SMU internal use
++} SwI2cRequestExternal_t;
++
++typedef enum {
++  PPCLK_VCLK,
++  PPCLK_DCLK,
++  PPCLK_SOCCLK,
++  PPCLK_UCLK,
++  PPCLK_FCLK,
++  PPCLK_LCLK,
++  PPCLK_COUNT,
++} PPCLK_e;
++
++typedef enum {
++  GPIO_INT_POLARITY_ACTIVE_LOW,
++  GPIO_INT_POLARITY_ACTIVE_HIGH,
++} GpioIntPolarity_e;
++
++//TODO confirm if this is used in SMU_13_0_6 PPSMC_MSG_SetUclkDpmMode
++typedef enum {
++  UCLK_DPM_MODE_BANDWIDTH,
++  UCLK_DPM_MODE_LATENCY,
++} UCLK_DPM_MODE_e;
++
++typedef struct {
++  //0-26 SOC, 27-29 SOCIO
++  uint16_t avgPsmCount[30];
++  uint16_t minPsmCount[30];
++  float    avgPsmVoltage[30];
++  float    minPsmVoltage[30];
++} AvfsDebugTableAid_t;
++
++typedef struct {
++  //0-27 GFX, 28-29 SOC
++  uint16_t avgPsmCount[30];
++  uint16_t minPsmCount[30];
++  float    avgPsmVoltage[30];
++  float    minPsmVoltage[30];
++} AvfsDebugTableXcd_t;
++
++// These defines are used with the following messages:
++// SMC_MSG_TransferTableDram2Smu
++// SMC_MSG_TransferTableSmu2Dram
++// #define TABLE_PPTABLE                 0
++// #define TABLE_AVFS_PSM_DEBUG          1
++// #define TABLE_AVFS_FUSE_OVERRIDE      2
++// #define TABLE_PMSTATUSLOG             3
++// #define TABLE_SMU_METRICS             4
++// #define TABLE_DRIVER_SMU_CONFIG       5
++// #define TABLE_I2C_COMMANDS            6
++// #define TABLE_COUNT                   7
++
++// // Table transfer status
++// #define TABLE_TRANSFER_OK         0x0
++// #define TABLE_TRANSFER_FAILED     0xFF
++// #define TABLE_TRANSFER_PENDING    0xAB
++
++#endif
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_pmfw.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_pmfw.h
+new file mode 100644
+index 000000000000..bdccbb4a6276
+--- /dev/null
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_pmfw.h
+@@ -0,0 +1,212 @@
++/*
++ * Copyright 2021 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++#ifndef SMU_13_0_6_PMFW_H
++#define SMU_13_0_6_PMFW_H
++
++#define NUM_VCLK_DPM_LEVELS   4
++#define NUM_DCLK_DPM_LEVELS   4
++#define NUM_SOCCLK_DPM_LEVELS 4
++#define NUM_LCLK_DPM_LEVELS   4
++#define NUM_UCLK_DPM_LEVELS   4
++#define NUM_FCLK_DPM_LEVELS   4
++#define NUM_XGMI_DPM_LEVELS   2
++#define NUM_CXL_BITRATES      4
++#define NUM_PCIE_BITRATES     4
++#define NUM_XGMI_BITRATES     4
++#define NUM_XGMI_WIDTHS       3
++
++typedef enum {
++/*0*/   FEATURE_DATA_CALCULATION            = 0,
++/*1*/   FEATURE_DPM_CCLK                    = 1,
++/*2*/   FEATURE_DPM_FCLK                    = 2,
++/*3*/   FEATURE_DPM_GFXCLK                  = 3,
++/*4*/   FEATURE_DPM_LCLK                    = 4,
++/*5*/   FEATURE_DPM_SOCCLK                  = 5,
++/*6*/   FEATURE_DPM_UCLK                    = 6,
++/*7*/   FEATURE_DPM_VCN                     = 7,
++/*8*/   FEATURE_DPM_XGMI                    = 8,
++/*9*/   FEATURE_DS_FCLK                     = 9,
++/*10*/  FEATURE_DS_GFXCLK                   = 10,
++/*11*/  FEATURE_DS_LCLK                     = 11,
++/*12*/  FEATURE_DS_MP0CLK                   = 12,
++/*13*/  FEATURE_DS_MP1CLK                   = 13,
++/*14*/  FEATURE_DS_MPIOCLK                  = 14,
++/*15*/  FEATURE_DS_SOCCLK                   = 15,
++/*16*/  FEATURE_DS_VCN                      = 16,
++/*17*/  FEATURE_APCC_DFLL                   = 17,
++/*18*/  FEATURE_APCC_PLUS                   = 18,
++/*19*/  FEATURE_DF_CSTATE                   = 19,
++/*20*/  FEATURE_CC6                         = 20,
++/*21*/  FEATURE_PC6                         = 21,
++/*22*/  FEATURE_CPPC                        = 22,
++/*23*/  FEATURE_PPT                         = 23,
++/*24*/  FEATURE_TDC                         = 24,
++/*25*/  FEATURE_THERMAL                     = 25,
++/*26*/  FEATURE_SOC_PCC                     = 26,
++/*27*/  FEATURE_CCD_PCC                     = 27,
++/*28*/  FEATURE_CCD_EDC                     = 28,
++/*29*/  FEATURE_PROCHOT                     = 29,
++/*30*/  FEATURE_DVO_CCLK                    = 30,
++/*31*/  FEATURE_FDD_AID_HBM                 = 31,
++/*32*/  FEATURE_FDD_AID_SOC                 = 32,
++/*33*/  FEATURE_FDD_XCD_EDC                 = 33,
++/*34*/  FEATURE_FDD_XCD_XVMIN               = 34,
++/*35*/  FEATURE_FW_CTF                      = 35,
++/*36*/  FEATURE_GFXOFF                      = 36,
++/*37*/  FEATURE_SMU_CG                      = 37,
++/*38*/  FEATURE_PSI7                        = 38,
++/*39*/  FEATURE_CSTATE_BOOST                = 39,
++/*40*/  FEATURE_XGMI_PER_LINK_PWR_DOWN      = 40,
++/*41*/  FEATURE_CXL_QOS                     = 41,
++/*42*/  FEATURE_SOC_DC_RTC                  = 42,
++/*43*/  FEATURE_GFX_DC_RTC                  = 43,
++
++/*44*/  NUM_FEATURES                        = 44
++} FEATURE_LIST_e;
++
++//enum for MPIO PCIe gen speed msgs
++typedef enum {
++  PCIE_LINK_SPEED_INDEX_TABLE_GEN1,
++  PCIE_LINK_SPEED_INDEX_TABLE_GEN2,
++  PCIE_LINK_SPEED_INDEX_TABLE_GEN3,
++  PCIE_LINK_SPEED_INDEX_TABLE_GEN4,
++  PCIE_LINK_SPEED_INDEX_TABLE_GEN4_ESM,
++  PCIE_LINK_SPEED_INDEX_TABLE_GEN5,
++  PCIE_LINK_SPEED_INDEX_TABLE_COUNT
++} PCIE_LINK_SPEED_INDEX_TABLE_e;
++
++typedef enum {
++  VOLTAGE_COLD_0,
++  VOLTAGE_COLD_1,
++  VOLTAGE_COLD_2,
++  VOLTAGE_COLD_3,
++  VOLTAGE_COLD_4,
++  VOLTAGE_COLD_5,
++  VOLTAGE_COLD_6,
++  VOLTAGE_COLD_7,
++  VOLTAGE_MID_0,
++  VOLTAGE_MID_1,
++  VOLTAGE_MID_2,
++  VOLTAGE_MID_3,
++  VOLTAGE_MID_4,
++  VOLTAGE_MID_5,
++  VOLTAGE_MID_6,
++  VOLTAGE_MID_7,
++  VOLTAGE_HOT_0,
++  VOLTAGE_HOT_1,
++  VOLTAGE_HOT_2,
++  VOLTAGE_HOT_3,
++  VOLTAGE_HOT_4,
++  VOLTAGE_HOT_5,
++  VOLTAGE_HOT_6,
++  VOLTAGE_HOT_7,
++  VOLTAGE_GUARDBAND_COUNT
++} GFX_GUARDBAND_e;
++
++#define SMU_METRICS_TABLE_VERSION 0x1
++
++typedef struct {
++  uint32_t AccumulationCounter;
++
++  //TEMPERATURE
++  uint32_t MaxSocketTemperature;
++  uint32_t MaxVrTemperature;
++  uint32_t MaxHbmTemperature;
++  uint64_t MaxSocketTemperatureAcc;
++  uint64_t MaxVrTemperatureAcc;
++  uint64_t MaxHbmTemperatureAcc;
++
++  //POWER
++  uint32_t SocketPowerLimit;
++  uint32_t MaxSocketPowerLimit;
++  uint32_t SocketPower;
++
++  //ENERGY
++  uint64_t Timestamp;
++  uint64_t SocketEnergyAcc;
++  uint64_t CcdEnergyAcc;
++  uint64_t XcdEnergyAcc;
++  uint64_t AidEnergyAcc;
++  uint64_t HbmEnergyAcc;
++
++  //FREQUENCY
++  uint32_t CclkFrequencyLimit;
++  uint32_t GfxclkFrequencyLimit;
++  uint32_t FclkFrequency;
++  uint32_t UclkFrequency;
++  uint32_t SocclkFrequency[4];
++  uint32_t VclkFrequency[4];
++  uint32_t DclkFrequency[4];
++  uint32_t LclkFrequency[4];
++  uint64_t GfxclkFrequencyAcc[8];
++  uint64_t CclkFrequencyAcc[96];
++
++  //FREQUENCY RANGE
++  uint32_t MaxCclkFrequency;
++  uint32_t MinCclkFrequency;
++  uint32_t MaxGfxclkFrequency;
++  uint32_t MinGfxclkFrequency;
++  uint32_t FclkFrequencyTable[4];
++  uint32_t UclkFrequencyTable[4];
++  uint32_t SocclkFrequencyTable[4];
++  uint32_t VclkFrequencyTable[4];
++  uint32_t DclkFrequencyTable[4];
++  uint32_t LclkFrequencyTable[4];
++  uint32_t MaxLclkDpmRange;
++  uint32_t MinLclkDpmRange;
++
++  //XGMI
++  uint32_t XgmiWidth;
++  uint32_t XgmiBitrate;
++  uint64_t XgmiReadBandwidthAcc[8];
++  uint64_t XgmiWriteBandwidthAcc[8];
++
++  //ACTIVITY
++  uint32_t SocketC0Residency;
++  uint32_t SocketGfxBusy;
++  uint32_t DramBandwidthUtilization;
++  uint64_t SocketC0ResidencyAcc;
++  uint64_t SocketGfxBusyAcc;
++  uint64_t DramBandwidthAcc;
++  uint32_t MaxDramBandwidth;
++  uint64_t DramBandwidthUtilizationAcc;
++  uint64_t PcieBandwidthAcc[4];
++
++  //THROTTLERS
++  uint32_t ProchotResidencyAcc;
++  uint32_t PptResidencyAcc;
++  uint32_t SocketThmResidencyAcc;
++  uint32_t VrThmResidencyAcc;
++  uint32_t HbmThmResidencyAcc;
++} MetricsTable_t;
++
++#define SMU_VF_METRICS_TABLE_VERSION 0x1
++
++typedef struct {
++  uint32_t AccumulationCounter;
++  uint32_t InstGfxclk_TargFreq;
++  uint64_t AccGfxclk_TargFreq;
++  uint64_t AccGfxRsmuDpm_Busy;
++} VfMetricsTable_t;
++
++#endif
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h
+new file mode 100644
+index 000000000000..b838e8db395a
+--- /dev/null
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h
+@@ -0,0 +1,95 @@
++/*
++ * Copyright 2021 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++#ifndef SMU_13_0_6_PPSMC_H
++#define SMU_13_0_6_PPSMC_H
++
++// SMU Response Codes:
++#define PPSMC_Result_OK                             0x1
++#define PPSMC_Result_Failed                         0xFF
++#define PPSMC_Result_UnknownCmd                     0xFE
++#define PPSMC_Result_CmdRejectedPrereq              0xFD
++#define PPSMC_Result_CmdRejectedBusy                0xFC
++
++// Message Definitions:
++#define PPSMC_MSG_TestMessage                       0x1
++#define PPSMC_MSG_GetSmuVersion                     0x2
++#define PPSMC_MSG_GfxDriverReset                    0x3
++#define PPSMC_MSG_GetDriverIfVersion                0x4
++#define PPSMC_MSG_EnableAllSmuFeatures              0x5
++#define PPSMC_MSG_DisableAllSmuFeatures             0x6
++#define PPSMC_MSG_RequestI2cTransaction             0x7
++#define PPSMC_MSG_GetMetricsVersion                 0x8
++#define PPSMC_MSG_GetMetricsTable                   0x9
++#define PPSMC_MSG_GetEccInfoTable                   0xA
++#define PPSMC_MSG_GetEnabledSmuFeaturesLow          0xB
++#define PPSMC_MSG_GetEnabledSmuFeaturesHigh         0xC
++#define PPSMC_MSG_SetDriverDramAddrHigh             0xD
++#define PPSMC_MSG_SetDriverDramAddrLow              0xE
++#define PPSMC_MSG_SetToolsDramAddrHigh              0xF
++#define PPSMC_MSG_SetToolsDramAddrLow               0x10
++#define PPSMC_MSG_SetSystemVirtualDramAddrHigh      0x11
++#define PPSMC_MSG_SetSystemVirtualDramAddrLow       0x12
++#define PPSMC_MSG_SetSoftMinByFreq                  0x13
++#define PPSMC_MSG_SetSoftMaxByFreq                  0x14
++#define PPSMC_MSG_GetMinDpmFreq                     0x15
++#define PPSMC_MSG_GetMaxDpmFreq                     0x16
++#define PPSMC_MSG_GetDpmFreqByIndex                 0x17
++#define PPSMC_MSG_SetPptLimit                       0x18
++#define PPSMC_MSG_GetPptLimit                       0x19
++#define PPSMC_MSG_DramLogSetDramAddrHigh            0x1A
++#define PPSMC_MSG_DramLogSetDramAddrLow             0x1B
++#define PPSMC_MSG_DramLogSetDramSize                0x1C
++#define PPSMC_MSG_GetDebugData                      0x1D
++#define PPSMC_MSG_HeavySBR                          0x1E
++#define PPSMC_MSG_SetNumBadHbmPagesRetired          0x1F
++#define PPSMC_MSG_DFCstateControl                   0x20
++#define PPSMC_MSG_GetGmiPwrDnHyst                   0x21
++#define PPSMC_MSG_SetGmiPwrDnHyst                   0x22
++#define PPSMC_MSG_GmiPwrDnControl                   0x23
++#define PPSMC_MSG_EnterGfxoff                       0x24
++#define PPSMC_MSG_ExitGfxoff                        0x25
++#define PPSMC_MSG_EnableDeterminism                 0x26
++#define PPSMC_MSG_DisableDeterminism                0x27
++#define PPSMC_MSG_DumpSTBtoDram                     0x28
++#define PPSMC_MSG_STBtoDramLogSetDramAddrHigh       0x29
++#define PPSMC_MSG_STBtoDramLogSetDramAddrLow        0x2A
++#define PPSMC_MSG_STBtoDramLogSetDramSize           0x2B
++#define PPSMC_MSG_SetSystemVirtualSTBtoDramAddrHigh 0x2C
++#define PPSMC_MSG_SetSystemVirtualSTBtoDramAddrLow  0x2D
++#define PPSMC_MSG_GfxDriverResetRecovery            0x2E
++#define PPSMC_MSG_TriggerVFFLR                      0x2F
++#define PPSMC_MSG_SetSoftMinGfxClk                  0x30
++#define PPSMC_MSG_SetSoftMaxGfxClk                  0x31
++#define PPSMC_MSG_GetMinGfxDpmFreq                  0x32
++#define PPSMC_MSG_GetMaxGfxDpmFreq                  0x33
++#define PPSMC_Message_Count                         0x34
++
++//PPSMC Reset Types for driver msg argument
++#define PPSMC_RESET_TYPE_DRIVER_MODE_1_RESET        0x1
++#define PPSMC_RESET_TYPE_DRIVER_MODE_2_RESET	      0x2
++#define PPSMC_RESET_TYPE_DRIVER_MODE_3_RESET        0x3
++
++typedef uint32_t PPSMC_Result;
++typedef uint32_t PPSMC_MSG;
++
++#endif
 -- 
-Hamza
+2.39.2
 
