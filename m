@@ -4,118 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 140B5C678D4
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Mar 2023 13:45:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC47EC64EC4
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Mar 2023 14:11:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE53E10E039;
-	Fri,  3 Mar 2023 13:45:40 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2061f.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5b::61f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA05010E039;
- Fri,  3 Mar 2023 13:45:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CAA810E5F6;
+	Fri,  3 Mar 2023 14:11:47 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2054.outbound.protection.outlook.com [40.107.220.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9791910E5EB;
+ Fri,  3 Mar 2023 14:11:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S2usaDF1SSVVSnRoNAoVtrqdduWp9GrjSdakvSjcoSsJxm+HgbO8u5jTT1AuS5CimJZUhFGQLu4oaMbBh5KOhAbVihFf+eaEBkO1zwqY565m57uQIWqsLb/zzuSwvGYYFACcEZ3cppWqsiixcDqS+tC5XJaU0wdbGAyq66ICLByaIyPfibTHLi49Ry1zBJXQJ5opYO1qzcVCJcHcwr2oNGL/8whbIRWAfPqd5i2CdnsXmaAFs2aLFz2/QfCUBqb0x+F+YI07YcUWuUmNOIJnj5L07h4WlUdr4A1ODhQduQ5aFIPfAfPkrhfRgf7GjXpj3wiuE7sohqmOryDE8+lXyg==
+ b=bkppTobpGNC82vSYjXaPcr8+3/CfRnpJwAx9s/Hc9m+SQg0RAq1JQlMxhI776M2DT01A2QLEjn5fKz/f7v5ysOV/504t7W0CmlckNg+QE1JOJ4RvlANUGOsDj06rJQdxpyLbR8rlXNlEPIfZ9+8/NUSdhoWBgUSkhEoUXlLL308MZSIoP9DQskPEWO4hjFZLScGbmSTDYFomPzU0vjIQmgUSH93yVDAHotzakN8A41pgKn175y/j0pr/uxwjvK45Fd8eAin7y4V0gXZOxE6+O4QbGDjJvfQmwGUISlsup6WznK9N0aHjByK8ifLKzDX+IJmAJNN9Gu3goqnDmT9zsQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lsS74yjKiZ6ZMtgmtT1Duk+mdt9RXZdP/EZxaH8BgQQ=;
- b=OkuVGSJecayL32AMVV6e8HU4MvxkYyWx4oFJdPeKg57hXiZHiVaeWqr27huP6uIc6zUo08NSPeTjvGNDFXHffEaCFREHAJNu8dSWMdXHz0kRm8nOkDgAm5G7khevkd803FucnZ9IWehO4JoUOtaqjMO6/Wc7LgryYSCWGrpmSiCcGtbJGRj0XX23ROy9bE5EAI5t2kwWc632taptqLISERi4g/L0TT+fqyv0uAhodukecwVSOHF5YWfa7d3o0oC/jq8odyyDyJHisaMcDuB9SwHuj7pofA94c4lHuSukBevW5YrLTJebmUAHXanTSww+GK2KngfF16jAhUBJVjMsrQ==
+ bh=mRv2QwsnakhUUDVgK7s2QQriSqW2pswMmXsEamU3Xvc=;
+ b=SlxG3hl07/Ta4sTXl9K3TP0+enUtQQXPyiDCC+GyB/ClpAbsw0kHQs6f9M8hPGKs2rooAHFrQ83pslowOUBRfwKLUCVXsjxWXbEpoZQ9Esw82Vl9nx9fTNl0iyPk960+df9DomYhXjVfSSJXYfMnXebJH/RFJzP4gO6AOAjNIgItRcz5mP7INQXJrneljvHZ2uGspEZa0RVcefZUCc+VKtA06PBmE0zlDuSmLKO3BCGf1ivwAMlFfFhA0FBOFNzYEksTdRIDQlB9cgZM1qc0JCGoqVTxCtUz1BsIZLUSM8NL41CANty9ZbIhJurVnzgvItdDLRbtgPvQ7ZAHFBW4hQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lsS74yjKiZ6ZMtgmtT1Duk+mdt9RXZdP/EZxaH8BgQQ=;
- b=R7MsAvSWXTwfMJk52JJHBtA949xEx+DWaezNSrTD/vTWHdOlG4Aru+2aEpeMIa6u6/H0/Zh+KnrSk9VodrVFMwB4vLEdrttDWNSAOPE2KVF4MyRmpgBSV4U7olD0wbyLOV2lA+ngbwf1+otxdLYEPTGmwnuApD6GyofOxUQ+mVg=
+ bh=mRv2QwsnakhUUDVgK7s2QQriSqW2pswMmXsEamU3Xvc=;
+ b=nEdn5LwlTlt4HHSkq+mWWeMn02TWOSCpqPd3wxI+f+jdx+X/vQGJM5nqIV8T1zzMiw2QWfoLST4dqt+7ZN6+WjL7QZ4+yqbC8jAxTR6QKiL7Qxdxf1PCSJAvgUEABg2Ow8V9V7KmT8EczNgMV5yuRcBzGXDRSolWuaVxeK7tLfY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
- PH8PR12MB6818.namprd12.prod.outlook.com (2603:10b6:510:1c9::11) with
+ IA1PR12MB6236.namprd12.prod.outlook.com (2603:10b6:208:3e4::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.30; Fri, 3 Mar
- 2023 13:45:35 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.17; Fri, 3 Mar
+ 2023 14:11:42 +0000
 Received: from DM6PR12MB3370.namprd12.prod.outlook.com
  ([fe80::e43d:5bd2:7a85:d0cf]) by DM6PR12MB3370.namprd12.prod.outlook.com
  ([fe80::e43d:5bd2:7a85:d0cf%4]) with mapi id 15.20.6156.018; Fri, 3 Mar 2023
- 13:45:35 +0000
-Message-ID: <5a98d48e-6121-06d3-523d-6e5b8e8ff2b7@amd.com>
-Date: Fri, 3 Mar 2023 08:45:33 -0500
+ 14:11:42 +0000
+Message-ID: <5b3e46a7-b5fe-43de-a271-fe4c1bab30bb@amd.com>
+Date: Fri, 3 Mar 2023 09:11:39 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH 1/9] drm: execution context for GEM buffers v3
 Content-Language: en-CA
-To: Danilo Krummrich <dakr@redhat.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 References: <20230228083406.1720795-1-christian.koenig@amd.com>
  <20230228083406.1720795-2-christian.koenig@amd.com>
- <873a0702-56be-6277-c86f-8bb73a4805fd@redhat.com>
 From: Luben Tuikov <luben.tuikov@amd.com>
-In-Reply-To: <873a0702-56be-6277-c86f-8bb73a4805fd@redhat.com>
+Subject: Re: [PATCH 1/9] drm: execution context for GEM buffers v3
+In-Reply-To: <20230228083406.1720795-2-christian.koenig@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0138.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:d5::8) To DM6PR12MB3370.namprd12.prod.outlook.com
+X-ClientProxiedBy: YT4PR01CA0150.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:ac::17) To DM6PR12MB3370.namprd12.prod.outlook.com
  (2603:10b6:5:38::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|PH8PR12MB6818:EE_
-X-MS-Office365-Filtering-Correlation-Id: b16cf025-72ee-4b93-c5f6-08db1bed90b1
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|IA1PR12MB6236:EE_
+X-MS-Office365-Filtering-Correlation-Id: b945b847-e8fb-438f-6991-08db1bf13660
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: fzvQwgAr9K8JvFxk93f9TVdETZ9OhajM7ZfwLKS2Kv95VUxr+nn2rKCi+bcN0+7BbcMsJ3NfjVoN6DvubBBEM1TSQG7DK6OCEQpMNfhT66kSdR2JI41S91yy0Pt90xKAEYL25jqyAfDU7jiG7JPJrhXfwsJjr538Ej60z8sFO7BX4eJNSpqlGtN+ItKkJv3c2R20SM+1318MRAc0wf6ON/vjeIRsHpO6TxTgMKUE+QXIOGAQqAP1qzDX91Oc04efuAddl4CS3eRgEy9eveMtVNxd+xXfxPh7P2OwqbvykRCmQ1U6bdzvVLKtvpUYfsUF+15RUR1WiJW4ru6jUWJEkn3GYioERbFyxTdOwBy4aSPG9bZ2Y8+oK8Ktgfc+P0uwXEGH/ABcj4HHiSREZwTotXVL9OwiAvDsNy+5l9UZ9XqdQMxtrl7qZ7EfU0deebTJazxMohrZtgBCguWZ7qaNuUFEhVmo6yLKVcozDvrDKU5xprtfEo04OEOYoOXUxSqtQItHV5yciC9SqbHxgHN1NZpEeoB//1Tn/KoJJgC8i0J/wgd49jDAOEv7TS06RE5oovxENGn+eBKD0vW5Et58/gEO8HmJMM0z6bqKEECTuryjXlHvmgHgt2pkNKGnQ+RfTAe8aF2Y7wyoNWUr+Ft9TdFjvKCmUc5YqNdNzlyay/444vhyJiM7Rzv39FyRIosUHCzv5S/ZqAXQCcQ7de7MYPFuoggDxqt2ziR5vKyCWTA=
+X-Microsoft-Antispam-Message-Info: tUz3YeAdZOVegMohknrx8Ls8zdlgbF/tk8rEW396nWzj3k0bZzeYe8roYjjXyJc0gahe4YK7P12vd7DDV6FdTn9d4tYMYiy9COH3pYR4dG6c00vKiRPKR4L4uuQDGvg1rS+VAzzH68VuKPYq7e4xSRMajh1N7trso7He62VMUVfRQNYgFHo9/qx7Pz5RQ08L0QKjADjK1y2TqWsEsx1TI/EvCt0nhPh0x6jEI0XrKog3tZGqQ3V4rD7+zpPN1lkMCFoZSiWAqs9dvjQoindtfMseoWeUiI6hz0RS5c21/BaKolqxq8VmMeDmYkiT55dJ1D4nmR4toK89MmOSF42+9q70axuyjDOvaAKHx0oIkCvndO4qGU7bFSg/GhxFnDuSX2+y9CL4TGqG/lnKbeIKphX9IxAQ5H8eh6JKo5iVyQMmotC68Axi4Vh1LomMRb/mWAWnnXd1eM9JA8Im/q2w0soH6IY3DdDAfY/07JeW5Iw25VTjWApfnf0aFZbmRNc0dbZGxWSPlXglfwd/DLQsj8NT78mcmAQ6fi/ICk/IB4w5S9mgtBmz3TrG5L4mWT2mncKIOjJdmp4D6g+K1gzrOresSi7uosZjWgrNA323h7BEhtXs5SS8vrAfKkyH5V59f8R/lc+l+i/HXY3kWheTNve8Jud7f2f1HHsNczv9bv35lO4C39OsR6R5Hzwzihx9raYCZcukHnTNsVgzg/Dh5RFMuKKcQmUJmWULIT5nnvU=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(366004)(376002)(136003)(39860400002)(346002)(451199018)(38100700002)(31696002)(66946007)(5660300002)(4326008)(86362001)(44832011)(66556008)(8676002)(8936002)(41300700001)(66476007)(36756003)(2906002)(4744005)(2616005)(6512007)(26005)(53546011)(6506007)(186003)(66574015)(55236004)(83380400001)(110136005)(6486002)(316002)(478600001)(31686004)(43740500002)(45980500001);
+ SFS:(13230025)(4636009)(346002)(39860400002)(376002)(136003)(396003)(366004)(451199018)(36756003)(6666004)(66574015)(6506007)(53546011)(55236004)(6512007)(26005)(6486002)(66476007)(2616005)(186003)(316002)(41300700001)(4326008)(66556008)(2906002)(8676002)(30864003)(44832011)(478600001)(5660300002)(8936002)(38100700002)(86362001)(31696002)(66946007)(31686004)(83380400001)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OHo2UzFEWTdudVJxTmc5T0l6ZU83cnpyRDg4eGtMQUErbXRPdndvQ1lwWlJW?=
- =?utf-8?B?M1M5RlExbjFQdzNpVnNCQUpTTWQ5c25HRzRjNllGaVFhUlNvOUI4bzdvTFlD?=
- =?utf-8?B?Ym9xNW96eUtqNTdtcDIwUE1JdVA1ZTh3V01KOVpwUVNvbXJScmd2aHZVM3ll?=
- =?utf-8?B?OGltL2FqMm9Td3BrYWwwOTBqMDUwZTlMbXlWTGJpOWZJd2NoN0tjOTRSRWFF?=
- =?utf-8?B?ZVp5RlBuWk93TTlpcW5JeFo0cjU5TE9IeitOTDQ3b21FeW5HdHFmTlJqQVQw?=
- =?utf-8?B?bENwVVF4b25KdlBlSnMrcnhvZXIxcmYzYXhEWXFNWVpzZTJLTENyL3NobWdJ?=
- =?utf-8?B?YllYRTR2SGxyeGJrWUdjWUpRVXFlVnZwbFFLbWhBbEVEVUk4UGRNVnNnYzJ3?=
- =?utf-8?B?THFDQmdpbjRBNzhaZndINHJtbURIQnpqT0YxWFhFTjZ4M3JZTGRiaGJwMUJa?=
- =?utf-8?B?NkhVck8vMFNCNGx5SFRCV2ZWSmQ4MWttWEY4cU1CNGRROEJMT0dPYUF5ZHdl?=
- =?utf-8?B?bS9Ec2pBVTR0VHNwdEtMc2xNRGFCSUNzWkNXclowWUVCb05EKytVZ0JYQjdJ?=
- =?utf-8?B?WmU1RGpEelUyTC9PU2h6S3BmRWw3c3J0SUpaMFdQUFVmVExxTlRQZGRsencz?=
- =?utf-8?B?YXYxY1ZIS2I3Y0dqeWdsK3dMbEZYdmd1Qk8xU1Y5cjY5VDZMRnY4RzhTSCt6?=
- =?utf-8?B?NG1xMCt1dXVkdUlMOXdKZnYrUHQ5Qkl6LzRxREdHWUhTUTh0dFpNUCt4d0hk?=
- =?utf-8?B?cjhkakk2UnF2M0xsUy9ZZi94a3dzeHNWamNPUFNkOTl6elFOK3NmaEQ1ZUdr?=
- =?utf-8?B?c2M4cEp4cFJpSmN3QWZJOGZsOEoyTkF3bFk4S2RmRnZvdnpjUjNCalB5SjRE?=
- =?utf-8?B?ckdtOWt1RFRMS3MwWHZwRTVhUGZjN25MalU4M00rbTNKQWJXR3VTWENsZCtX?=
- =?utf-8?B?M0hydGpjRTRVK0lnUmFic04yT2t5T1RZQzRsTWNidXBMblNjNk4rYlpHVnU4?=
- =?utf-8?B?Rnd2Qy8va2piSFFFZDdHTmJtajcyalVoKzdwVWl0Y29OaU5UWkw5clRSOHJo?=
- =?utf-8?B?SzdRcFozMlExRHlxaWVCaUozcVV0N3BRVFBTaE5DQXEraFZGQ201THJEcEh1?=
- =?utf-8?B?TDVGQ3J6SUpxNHc3bUo5WkhJOEx0MTdsckNQMUorS01LYTNzZHZVaWp2NUQv?=
- =?utf-8?B?L2V6dEV2WmhTOEZDam83aUw1aHhEc1NRSEo2YmZYM3piclE1UUYrRWxVOCt0?=
- =?utf-8?B?b0ErY1V2U2k5R01SamorZXU0b3Q1bFd0N0J6SGEvMm1zS3IwbnE1WEk4Tk5t?=
- =?utf-8?B?Q0UwVFBuTVMvSjV6bFBHWCs0bnkzZTRiODBSd2c1MjRWaGdaNHBXa1dRRlpN?=
- =?utf-8?B?ckNIL0FXQXdGczFIeGFnZjVueVFYRUlhUStnSkVVZDM5eUYvbEE1bGdRV0s4?=
- =?utf-8?B?eFIxNGU0Ui9iZ0dSQzFNalR1OE1yUkZUeHp0c1ltV2Z0emNTNXVzQU9SemxC?=
- =?utf-8?B?L01iSjlrV2ZDRXl6RXNyamlIeUVjdFc4RWVIaC93Nm9xbGJ3WkFUK285TzAw?=
- =?utf-8?B?cXBVallxMlFzcG9DMFBpU2tsdk1qSVR4Nzd4ZktYY01ETk9DYVZpdUhFQW9M?=
- =?utf-8?B?cVRFRUkzM1VyRitXNU9FN0NhYURzbnJjWXZQSGdPQVpVSy9GajNzeFMxWU9B?=
- =?utf-8?B?OEVqZjdVQUxwVkpBR0UwRUNia0NaSUREV0krcEhUcTU5K1J2N2JEQnNyQ1Bz?=
- =?utf-8?B?c0lyei9rektESHBsZDN0K0c5N3B0SHg4WjgzbFQ2MDdnV3cyUm5laFVsSUpP?=
- =?utf-8?B?b0NRRnZFSDV1Sy9UWi9qWU8rTEIxTHU2RE92azdiWElENCtWQVA5aW5MS1dJ?=
- =?utf-8?B?a3M4aFVoVGo0NjNZblE1bUt2V1ltY3JUVTRHeXZDNlZyTzFlTko2RnpsV3lt?=
- =?utf-8?B?bW9Od2xmZ3A2SThSRzViTU1JK3lzb3JrS1FMNnhER0l6QUQwdWJpUnRET2ZK?=
- =?utf-8?B?YkcrTEZYWW51eWJMR0JlQUVyWGF2OXgrYWg1Zlc3N0FzZnRuZ0VENVZWZ2ZI?=
- =?utf-8?B?Ulc4UWxoRDBnVk5kN0JxSmtxZkc4eE9OZHdWTTNqMm1naXFSbUhkdkQweVlZ?=
- =?utf-8?Q?+pTCH5TVs+KLN/I+Rv0AOY9ca?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a2d3eGhjZ3hZeEZUSVdFLzVnZnhnTGJaNTRNa1ROY1JvM0tVQ0xSQm1WS0FG?=
+ =?utf-8?B?VUcwMGh2VlQ1dUFJR3V3SzF4Ry9EWWN2ZmREYXVEVlhFYTI2aUdDSDNHb0Fx?=
+ =?utf-8?B?dU5ML29EcGpuT2U2UWhwNTdydlc2UFg3dUh2eGJhYjh6SzcwNU8xU3VJY2Y4?=
+ =?utf-8?B?NXJXQnhZZ0NGaStsbzlpanRQTXlrTjgrM0oxRURHbnFYVUkrOUtFYlg0Tllj?=
+ =?utf-8?B?cHJMcDk2VnNrVS9WVkVLM0lpdFB3ZXpycW1NYm9VY0VIRzVoWXgwRTNjNU1k?=
+ =?utf-8?B?dGlIU3N5VW0vM1NMTnBlV1RQZUJudVZadndNTXF4dzlXTE52eTN6UmJFaWdP?=
+ =?utf-8?B?N1pmNlNzbGtUQkJVSjNRenZhTHJybEZUVkxHbHVZU21KUWxsYVUvRXl2c29C?=
+ =?utf-8?B?cFd5eG4yRVBGVFNDTGZHMzZPbEVRUEcyUTdrbmtKOTFxZVpaVmIvSlJSTEFU?=
+ =?utf-8?B?TkdlWERzL2hqSmpISUh6OGpRdG1Pdm1ja2JFbHRkcTV2S05YRkNJRWxKTnlZ?=
+ =?utf-8?B?RUJWWk5hbVVXajRuSHBLQTdPTHg3bzVzSmVMdDFYRmlxaTRKcTlFRFo3SVFK?=
+ =?utf-8?B?L2pTYlF2Q1YvVEU2cDUwNGk4dFZnd2hsM3pldjlnb1A5b3A5T0JseHRHZ2gr?=
+ =?utf-8?B?T3dmc3JHRWhCVTBHcGJCWXRKSngrUXFJQkJKOE5uSHppSy9CYk5IK1BwV0dj?=
+ =?utf-8?B?a1huaHFSaXlTL3dnNWlBK0l6dUxLVUhHR3FKbHpCNTBpLy8ydFpCd3h5eWJO?=
+ =?utf-8?B?NFVTdVVIOEN6THdyVTExc0daSTlkaHFheXcvUk4rSFB0SEtyM2s4ZElZcGIy?=
+ =?utf-8?B?Znc5ekJ0dEZHRHgyVWp6UVpaODIrb0Npd3N5TUdpM3RnK29wMjBxbUI2THhI?=
+ =?utf-8?B?ZXNBWCtEaUlvY1QrS1NRaExXaTVodVRtTDlISjRJOWZiZTUvcUZ0ekJTTDR2?=
+ =?utf-8?B?ZnhTSGVqSFhmWGdDYUdYTFdLMHV4TkNTSXkyUWV2OG9OVGpEdXMvaDdaanV0?=
+ =?utf-8?B?cktQVjBNUVdqaUllY2pCUjZyWlRTSktTZW5XT1FBaFB1dmF2OHljUFgzMEdl?=
+ =?utf-8?B?MXBLcW0rRXY1MlhKdkJCRndrRVdFb3MrdUJpVzhBbGVuTVJLSC9QTFlKd012?=
+ =?utf-8?B?VGxRNXlCTTNDTElCckVOUTU4aUJVdzVhYlJqT05GL1pDaCswRnVsNXM2YlRu?=
+ =?utf-8?B?bU82UjZnLzJUdERsSUt0YTVINC9ZKzBlMHlQQWFJREdSQklKV0JvSjhCZUZt?=
+ =?utf-8?B?VDZCejZEdXQxbzlFTTlrdTh2aTQ1NXhiLzV4VXlpTFpsRFhtMUVsaGJhajlu?=
+ =?utf-8?B?ZHVxa3o3NDhkOGJId21CUy8vRldXMXVHWlhNYTRXZGJUVUlzUkQ0V0Z5MmRE?=
+ =?utf-8?B?MjlQRWZ0bGU2dmJCa25pZnpHRkVLTDc2MFRDQkNDRi80YmNtdjZTMGJNNnQw?=
+ =?utf-8?B?NmhnWVFaMmx5d1VISmNLUXE3NWZZWjVYRlFyR2o4OGdyRkVsZEprWW5GZnFk?=
+ =?utf-8?B?Y2NaeDhkRlkyYVdnR2k1dENCMXZQeCtBaXZyTXFvT2hjS242czNRME9BaHYx?=
+ =?utf-8?B?YytIK29JUEYxUksxNkdDcEpaem1iYlhNY3M3REpZUzJZQTJzN1gybWdIajhz?=
+ =?utf-8?B?c1RYVExpS3FZdjZDeTJwTmFtU1dIeXo0cGtDOVc5N0dmTzAzNExsQ2V0ZVZi?=
+ =?utf-8?B?a3Y2a1ZXcmRFWXhWcGRXZUtramdDR002N1BwQkJOSEc0ZjMzUkR5T2ZQdDlG?=
+ =?utf-8?B?OUtxbFBUeXFWRy9UTVY5YUp5d1l3UGpTQjVoZ3NGd2I1a1lyM2RWUnJidHBN?=
+ =?utf-8?B?bDBvdGI4YWI2MDZ1eHQ0VytlN3h2S2lnSi9qNHlTZk9SNGcvVHdGeDFYMHIz?=
+ =?utf-8?B?VFdoaGsxSG9yRTNVQ0EvQnEyZlZHU1JYOUFTcVg3emFKVXpWZ1pCSjUvSTc2?=
+ =?utf-8?B?TVJIUFZkcWlSVDVOVTM0ZHArWUFJOXh5SWZiK1gzUFJpb2tHWmQ5YWs0YXZG?=
+ =?utf-8?B?VEVac1VBOXU2L0xxTjhaQmlzaVlMQVR5WFZ2VkZpT0RYZWpWeWU3SXNlS2Ur?=
+ =?utf-8?B?OFQzUlVOZnllSHVqemxuL21TL0FTcDV6VnU2TlNwZWFLWWR3cmRPa2RhK0hn?=
+ =?utf-8?Q?bXkpB5U90jHGNYlqhctW/38lw?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b16cf025-72ee-4b93-c5f6-08db1bed90b1
+X-MS-Exchange-CrossTenant-Network-Message-Id: b945b847-e8fb-438f-6991-08db1bf13660
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2023 13:45:35.3544 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2023 14:11:41.8132 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Lkmfi429XH9fLSJ7JIyZBTCoSLfH3EIg7r49tMxc7CLujkh9vqcI0dhZoXnho2yp
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6818
+X-MS-Exchange-CrossTenant-UserPrincipalName: kv43/rRTwCuWC6g86KBDnpzKiH/MFMMWqlwlWsMAq/KYtUFfXW6y9SV1xQjgolbc
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6236
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,29 +125,414 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- arunpravin.paneerselvam@amd.com
+Cc: dakr@redhat.com, arunpravin.paneerselvam@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2023-02-28 14:13, Danilo Krummrich wrote:
-> On 2/28/23 09:33, Christian König wrote:
->> This adds the infrastructure for an execution context for GEM buffers
->> which is similar to the existinc TTMs execbuf util and intended to replace
+On 2023-02-28 03:33, Christian König wrote:
+> This adds the infrastructure for an execution context for GEM buffers
+> which is similar to the existinc TTMs execbuf util and intended to replace
+> it in the long term.
 > 
-> "existing"
+> The basic functionality is that we abstracts the necessary loop to lock
+> many different GEM buffers with automated deadlock and duplicate handling.
 > 
->> it in the long term.
->>
->> The basic functionality is that we abstracts the necessary loop to lock
->> many different GEM buffers with automated deadlock and duplicate handling.
->>
->> v2: drop xarray and use dynamic resized array instead, the locking
->>      overhead is unecessary and measureable.
+> v2: drop xarray and use dynamic resized array instead, the locking
+>     overhead is unecessary and measureable.
+> v3: drop duplicate tracking, radeon is really the only one needing that.
 > 
-> "unecessary", "measurable"
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> ---
+>  Documentation/gpu/drm-mm.rst |  12 ++
+>  drivers/gpu/drm/Kconfig      |   6 +
+>  drivers/gpu/drm/Makefile     |   2 +
+>  drivers/gpu/drm/drm_exec.c   | 249 +++++++++++++++++++++++++++++++++++
+>  include/drm/drm_exec.h       | 115 ++++++++++++++++
+>  5 files changed, 384 insertions(+)
+>  create mode 100644 drivers/gpu/drm/drm_exec.c
+>  create mode 100644 include/drm/drm_exec.h
+> 
+> diff --git a/Documentation/gpu/drm-mm.rst b/Documentation/gpu/drm-mm.rst
+> index a79fd3549ff8..a52e6f4117d6 100644
+> --- a/Documentation/gpu/drm-mm.rst
+> +++ b/Documentation/gpu/drm-mm.rst
+> @@ -493,6 +493,18 @@ DRM Sync Objects
+>  .. kernel-doc:: drivers/gpu/drm/drm_syncobj.c
+>     :export:
+>  
+> +DRM Execution context
+> +=====================
+> +
+> +.. kernel-doc:: drivers/gpu/drm/drm_exec.c
+> +   :doc: Overview
+> +
+> +.. kernel-doc:: include/drm/drm_exec.h
+> +   :internal:
+> +
+> +.. kernel-doc:: drivers/gpu/drm/drm_exec.c
+> +   :export:
+> +
+>  GPU Scheduler
+>  =============
+>  
+> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> index 17d252dc25e2..84a5fc28c48d 100644
+> --- a/drivers/gpu/drm/Kconfig
+> +++ b/drivers/gpu/drm/Kconfig
+> @@ -200,6 +200,12 @@ config DRM_TTM
+>  	  GPU memory types. Will be enabled automatically if a device driver
+>  	  uses it.
+>  
+> +config DRM_EXEC
+> +	tristate
+> +	depends on DRM
+> +	help
+> +	  Execution context for command submissions
+> +
+>  config DRM_BUDDY
+>  	tristate
+>  	depends on DRM
+> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+> index ab4460fcd63f..d40defbb0347 100644
+> --- a/drivers/gpu/drm/Makefile
+> +++ b/drivers/gpu/drm/Makefile
+> @@ -78,6 +78,8 @@ obj-$(CONFIG_DRM_PANEL_ORIENTATION_QUIRKS) += drm_panel_orientation_quirks.o
+>  #
+>  # Memory-management helpers
+>  #
+> +#
+> +obj-$(CONFIG_DRM_EXEC) += drm_exec.o
+>  
+>  obj-$(CONFIG_DRM_BUDDY) += drm_buddy.o
+>  
+> diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
+> new file mode 100644
+> index 000000000000..df546cc5a227
+> --- /dev/null
+> +++ b/drivers/gpu/drm/drm_exec.c
+> @@ -0,0 +1,249 @@
+> +/* SPDX-License-Identifier: GPL-2.0 OR MIT */
+> +
+> +#include <drm/drm_exec.h>
+> +#include <drm/drm_gem.h>
+> +#include <linux/dma-resv.h>
+> +
+> +/**
+> + * DOC: Overview
+> + *
+> + * This component mainly abstracts the retry loop necessary for locking
+> + * multiple GEM objects while preparing hardware operations (e.g. command
+> + * submissions, page table updates etc..).
+> + *
+> + * If a contention is detected while locking a GEM object the cleanup procedure
+> + * unlocks all previously locked GEM objects and locks the contended one first
+> + * before locking any further objects.
+> + *
+> + * After an object is locked fences slots can optionally be reserved on the
+> + * dma_resv object inside the GEM object.
+> + *
+> + * A typical usage pattern should look like this::
+> + *
+> + *	struct drm_gem_object *obj;
+> + *	struct drm_exec exec;
+> + *	unsigned long index;
+> + *	int ret;
+> + *
+> + *	drm_exec_init(&exec, true);
+> + *	drm_exec_while_not_all_locked(&exec) {
+> + *		ret = drm_exec_prepare_obj(&exec, boA, 1);
+> + *		drm_exec_continue_on_contention(&exec);
+> + *		if (ret)
+> + *			goto error;
+> + *
+> + *		ret = drm_exec_lock(&exec, boB, 1);
+> + *		drm_exec_continue_on_contention(&exec);
+> + *		if (ret)
+> + *			goto error;
+> + *	}
+> + *
+> + *	drm_exec_for_each_locked_object(&exec, index, obj) {
+> + *		dma_resv_add_fence(obj->resv, fence, DMA_RESV_USAGE_READ);
+> + *		...
+> + *	}
+> + *	drm_exec_fini(&exec);
 
-"unnecessary".
+Maybe add the error: label here to show how recovery is to be had.
+
+> + *
+> + * See struct dma_exec for more details.
+> + */
+> +
+> +/* Dummy value used to initially enter the retry loop */
+> +#define DRM_EXEC_DUMMY (void*)~0
+> +
+> +/* Unlock all objects and drop references */
+> +static void drm_exec_unlock_all(struct drm_exec *exec)
+> +{
+> +	struct drm_gem_object *obj;
+> +	unsigned long index;
+> +
+> +	drm_exec_for_each_locked_object(exec, index, obj) {
+> +		dma_resv_unlock(obj->resv);
+> +		drm_gem_object_put(obj);
+> +	}
+> +
+> +	if (exec->prelocked) {
+> +		dma_resv_unlock(exec->prelocked->resv);
+> +		drm_gem_object_put(exec->prelocked);
+> +		exec->prelocked = NULL;
+> +	}
+> +}
+> +
+> +/**
+> + * drm_exec_init - initialize a drm_exec object
+> + * @exec: the drm_exec object to initialize
+> + * @interruptible: if locks should be acquired interruptible
+> + *
+> + * Initialize the object and make sure that we can track locked and duplicate
+> + * objects.
+> + */
+> +void drm_exec_init(struct drm_exec *exec, bool interruptible)
+> +{
+> +	exec->interruptible = interruptible;
+> +	exec->objects = kmalloc(PAGE_SIZE, GFP_KERNEL);
+> +
+> +	/* If allocation here fails, just delay that till the first use */
+> +	exec->max_objects = exec->objects ? PAGE_SIZE / sizeof(void *) : 0;
+
+I didn't see a subsequent allocation for objects. Does it make
+sense to continue here if we weren't able to allocate? It seems
+that the "first use" is most likely immediately after drm_exec_init(),
+and if kmalloc() failed, perhaps things are only about to get worse.
+
+(Pet peeve :-) "till" --> "until".)
+
+> +	exec->num_objects = 0;
+> +	exec->contended = DRM_EXEC_DUMMY;
+> +	exec->prelocked = NULL;
+> +}
+> +EXPORT_SYMBOL(drm_exec_init);
+> +
+> +/**
+> + * drm_exec_fini - finalize a drm_exec object
+> + * @exec: the drm_exec object to finilize
+> + *
+> + * Unlock all locked objects, drop the references to objects and free all memory
+> + * used for tracking the state.
+> + */
+> +void drm_exec_fini(struct drm_exec *exec)
+> +{
+> +	drm_exec_unlock_all(exec);
+> +	kvfree(exec->objects);
+> +	if (exec->contended != DRM_EXEC_DUMMY) {
+> +		drm_gem_object_put(exec->contended);
+> +		ww_acquire_fini(&exec->ticket);
+> +	}
+> +}
+> +EXPORT_SYMBOL(drm_exec_fini);
+> +
+> +/**
+> + * drm_exec_cleanup - cleanup when contention is detected
+> + * @exec: the drm_exec object to cleanup
+> + *
+> + * Cleanup the current state and return true if we should stay inside the retry
+> + * loop, false if there wasn't any contention detected and we can keep the
+> + * objects locked.
+> + */
+> +bool drm_exec_cleanup(struct drm_exec *exec)
+> +{
+> +	if (likely(!exec->contended)) {
+> +		ww_acquire_done(&exec->ticket);
+> +		return false;
+> +	}
+> +
+> +	if (likely(exec->contended == DRM_EXEC_DUMMY)) {
+> +		exec->contended = NULL;
+> +		ww_acquire_init(&exec->ticket, &reservation_ww_class);
+> +		return true;
+> +	}
+> +
+> +	drm_exec_unlock_all(exec);
+> +	exec->num_objects = 0;
+> +	return true;
+> +}
+> +EXPORT_SYMBOL(drm_exec_cleanup);
+> +
+> +/* Track the locked object in the xa and reserve fences */
+> +static int drm_exec_obj_locked(struct drm_exec *exec,
+> +			       struct drm_gem_object *obj)
+> +{
+> +	if (unlikely(exec->num_objects == exec->max_objects)) {
+> +		size_t size = exec->max_objects * sizeof(void *);
+> +		void *tmp;
+> +
+> +		tmp = kvrealloc(exec->objects, size, size + PAGE_SIZE,
+> +				GFP_KERNEL);
+> +		if (!tmp)
+> +			return -ENOMEM;
+> +
+> +		exec->objects = tmp;
+> +		exec->max_objects += PAGE_SIZE / sizeof(void *);
+> +	}
+> +	drm_gem_object_get(obj);
+> +	exec->objects[exec->num_objects++] = obj;
+> +
+> +	return 0;
+> +}
+> +
+> +/* Make sure the contended object is locked first */
+> +static int drm_exec_lock_contended(struct drm_exec *exec)
+> +{
+> +	struct drm_gem_object *obj = exec->contended;
+> +	int ret;
+> +
+> +	if (likely(!obj))
+> +		return 0;
+> +
+> +	if (exec->interruptible) {
+> +		ret = dma_resv_lock_slow_interruptible(obj->resv,
+> +						       &exec->ticket);
+> +		if (unlikely(ret))
+> +			goto error_dropref;
+> +	} else {
+> +		dma_resv_lock_slow(obj->resv, &exec->ticket);
+> +	}
+> +
+> +	ret = drm_exec_obj_locked(exec, obj);
+> +	if (unlikely(ret)) {
+> +		dma_resv_unlock(obj->resv);
+> +		goto error_dropref;
+> +	}
+> +
+> +	swap(exec->prelocked, obj);
+> +
+> +error_dropref:
+> +	/* Always cleanup the contention so that error handling can kick in */
+> +	drm_gem_object_put(obj);
+> +	exec->contended = NULL;
+> +	return ret;
+> +}
+> +
+> +/**
+> + * drm_exec_prepare_obj - prepare a GEM object for use
+> + * @exec: the drm_exec object with the state
+> + * @obj: the GEM object to prepare
+> + * @num_fences: how many fences to reserve
+> + *
+> + * Prepare a GEM object for use by locking it and reserving fence slots. All
+> + * succesfully locked objects are put into the locked container. Duplicates
+> + * detected as well and automatically moved into the duplicates container.
+> + *
+> + * Returns: -EDEADLK if a contention is detected, -ENOMEM when memory
+> + * allocation failed and zero for success.
+> + */
+> +int drm_exec_prepare_obj(struct drm_exec *exec, struct drm_gem_object *obj,
+> +			 unsigned int num_fences)
+> +{
+> +	int ret;
+> +
+> +	ret = drm_exec_lock_contended(exec);
+> +	if (unlikely(ret))
+> +		return ret;
+> +
+> +	if (exec->prelocked == obj) {
+> +		drm_gem_object_put(exec->prelocked);
+> +		exec->prelocked = NULL;
+> +
+> +		return dma_resv_reserve_fences(obj->resv, num_fences);
+> +	}
+> +
+> +	if (exec->interruptible)
+> +		ret = dma_resv_lock_interruptible(obj->resv, &exec->ticket);
+> +	else
+> +		ret = dma_resv_lock(obj->resv, &exec->ticket);
+> +
+> +	if (unlikely(ret == -EDEADLK)) {
+> +		drm_gem_object_get(obj);
+> +		exec->contended = obj;
+> +		return -EDEADLK;
+> +	}
+> +
+> +	if (unlikely(ret))
+> +		return ret;
+> +
+> +	ret = drm_exec_obj_locked(exec, obj);
+> +	if (ret)
+> +		goto error_unlock;
+> +
+> +	/* Keep locked when reserving fences fails */
+> +	return dma_resv_reserve_fences(obj->resv, num_fences);
+> +
+> +error_unlock:
+> +	dma_resv_unlock(obj->resv);
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL(drm_exec_prepare_obj);
+> +
+> +MODULE_DESCRIPTION("DRM execution context");
+> +MODULE_LICENSE("Dual MIT/GPL");
+> diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
+> new file mode 100644
+> index 000000000000..65e518c01db3
+> --- /dev/null
+> +++ b/include/drm/drm_exec.h
+> @@ -0,0 +1,115 @@
+> +/* SPDX-License-Identifier: GPL-2.0 OR MIT */
+> +
+> +#ifndef __DRM_EXEC_H__
+> +#define __DRM_EXEC_H__
+> +
+> +#include <linux/ww_mutex.h>
+> +
+> +struct drm_gem_object;
+> +
+> +/**
+> + * struct drm_exec - Execution context
+> + */
+> +struct drm_exec {
+> +	/**
+> +	 * @interruptible: If locks should be taken interruptible
+> +	 */
+> +	bool			interruptible;
+> +
+> +	/**
+> +	 * @ticket: WW ticket used for acquiring locks
+> +	 */
+> +	struct ww_acquire_ctx	ticket;
+> +
+> +	/**
+> +	 * @num_objects: number of objects locked
+> +	 */
+> +	unsigned int		num_objects;
+
+"num_objects" may be confused with the size of "objects" array.
+Maybe "num_locked" would be clearer?
+
+> +
+> +	/**
+> +	 * @max_objects: maximum objects in array
+> +	 */
+> +	unsigned int		max_objects;
+> +
+> +	/**
+> +	 * @objects: array of the locked objects
+> +	 */
+> +	struct drm_gem_object	**objects;
+> +
+> +	/**
+> +	 * @contended: contended GEM object we backet of for
+> +	 */
+> +	struct drm_gem_object	*contended;
+
+Perhaps "backed off for" in the comment?
+
+> +
+> +	/**
+> +	 * @prelocked: already locked GEM object because of contention
+> +	 */
+> +	struct drm_gem_object *prelocked;
+
+Could this be a subset of the objects array as opposed to a single object?
 -- 
 Regards,
 Luben
