@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37025C64EC4
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Mar 2023 15:51:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38682C7EE2D
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Mar 2023 15:51:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C186B10E6E0;
-	Fri,  3 Mar 2023 15:51:14 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C331210E6E0
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Mar 2023 15:51:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBC7D10E6E2;
+	Fri,  3 Mar 2023 15:51:25 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2085.outbound.protection.outlook.com [40.107.92.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4983810E6E2
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Mar 2023 15:51:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=klOqAiRRYC7Rhg+Lw1L050dMfNXURdUyk4uMHAWm7ANbsllT+MuQAgDKCNi+57MSSOc5S7gsnUoKNeo/i3EE1UOd+m0FrY3ipBl5pOQ4rYw0lnHPXPFVuhA4OcF8toIck4MorYS2pX6h4JIRm0IxpF7xgPmFFQGV3QfVA4COdVoZQUA9WYGua7YKnAxsuVmiSc3JJKjrLT+Ll948ns9H0wECOZswrZto3JqCSTDQuFkPhQfRj/eeqaGa7EBSuzGb2eP7pNkpxXOqwpq+KnqLA3/wzE0zHX6Weef+uxTpZ0TzIwmIE6f4i9jY9L3w+vfnAG/ZFzCUoAPD/dTz4jxtCw==
+ b=MVipBflaEopQ6S29VQfzD5i2sPuVcYxTFXSZxGZn2vwX1L8wTDKMN4Vayy9UaWHx5m23I53dqYxokpzylcbGJQdcUVQhH/qLTDxS2nC2etiVwP/gGsyUKLqeOJ90SHh6ZPMnY4PPXdrg+AvL+vlybaSQbg4YtvBi2PsVnHGhIDqvapG5cay0TEagECM20STfqetcmWfQ3guLXeXiCrPhKE+7inMgKCnqnsb/tHV4XdTmwY6Ez7TNqwRFzyh4LTE7Zlm5WkJHV/NGaDvVvNENfyPqj7KjdgQc742VNEPlOXSwyqUlro9/7USfDhB1fz3DodspfgLdo34vMS/BFF1edw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Mpgw7HkOFWshoRFQsGPJQMIXPCs6Ux0HAokWUkDEgKQ=;
- b=L8/acTMMfq3DKm00yztzBSOUlW5abHz5kB8kixWEN4IxYA/yaiAMY168ZOqG7+v3Tj5JgzwkIHEZblk6A9R5ngIQfc3dumibl9Z2JXZvVxwFG5WHlt4KaCDXHXeYRVMP7zwnaXQKp0LN7B1S+rxambc29lRM/3KzP8LJNzbLxpNdyDuhAqTpXgnaTD6eh25YJBtNNKQgl+S3e10j7OtdCtlJJyfyQ7+xlURB8viEcyHHdbELKgNyCakiPIYT4waYFoyx11qzejJCyG4xDyn+E3Ocn+EsgJNE7mXTbb3pWk0YNeLcwfmrBJFwEwGDkXjaKD+KnyuQE34TtwsogJMJPw==
+ bh=5wRT9Xq6W1OiOcZOlAPdbph7x0snsQqKIgwLaiez1SM=;
+ b=hzsvaXmI70ok5I6sUGa9+Iwz4MsJV6PG9uK+2rMFwTYCLO6n6gn3GvbV/Ho1zadm5q925BNE1gPo/n/G33QNMXZukUtgfms3tFHYbb4VnMIQ2Lvpyo574fyYVx7wD7o+aiWA9SB7/bO2oRr0Ulh0JUd1noabnQex2XcK3y0/52UJD5789Ws0iPMVuoXCNDRlKhvtvIf/jiD+2zr1KGBHf/tkr9u8EkrxF8o6vE6Q5ALGNNrwi/U05e3AsX9SL1fuJc2hAxo4Exlw1+U0fkoO6HQ0RB+4UGSlMnO2FuA/jdmUx3dPU7rk2IE2rKG0kysEUbRalLd4vxQ3iNfFrEYd7A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Mpgw7HkOFWshoRFQsGPJQMIXPCs6Ux0HAokWUkDEgKQ=;
- b=wcoalYSOOaZoWQfbZhoNHonmleeZDHQOqIEoGboVQLGfQfkd6zugoshL85jfhqCHpYxTEH/+7H5Xi7YPgpLQPdWhs0ZjqliE2wdEYW/8WbrMRpiHwb4PH5xbrmX3UV+HWvHuNR/7hHYXVyYQzpgYfHBqOBb3bJ7J5aVopIp83kM=
-Received: from DS7PR03CA0321.namprd03.prod.outlook.com (2603:10b6:8:2b::6) by
- MN2PR12MB4254.namprd12.prod.outlook.com (2603:10b6:208:1d0::17) with
+ bh=5wRT9Xq6W1OiOcZOlAPdbph7x0snsQqKIgwLaiez1SM=;
+ b=fycMiAxP1RLAgOeMp0LjV5SocfqXBeAh0n8ZA//bKLJ3OLX1B9dJKdmDBS7ZiZ/9yUBduhXzZDuSgmr9/atYs7G35imnS5XE5cJiMzQYVqxzgabXaR0XlXXCk6P0n/iuidNZNcApmtZVOxpKUjfcTlM5JXVGnbkUEIlubKyNthQ=
+Received: from DM6PR02CA0052.namprd02.prod.outlook.com (2603:10b6:5:177::29)
+ by CH0PR12MB8530.namprd12.prod.outlook.com (2603:10b6:610:188::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.19; Fri, 3 Mar
- 2023 15:51:10 +0000
-Received: from DS1PEPF0000E635.namprd02.prod.outlook.com
- (2603:10b6:8:2b:cafe::6c) by DS7PR03CA0321.outlook.office365.com
- (2603:10b6:8:2b::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.18; Fri, 3 Mar
+ 2023 15:51:20 +0000
+Received: from DS1PEPF0000E631.namprd02.prod.outlook.com
+ (2603:10b6:5:177:cafe::14) by DM6PR02CA0052.outlook.office365.com
+ (2603:10b6:5:177::29) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.22 via Frontend
- Transport; Fri, 3 Mar 2023 15:51:10 +0000
+ Transport; Fri, 3 Mar 2023 15:51:19 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF0000E635.mail.protection.outlook.com (10.167.17.139) with Microsoft
+ DS1PEPF0000E631.mail.protection.outlook.com (10.167.17.135) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6156.12 via Frontend Transport; Fri, 3 Mar 2023 15:51:09 +0000
+ 15.20.6156.12 via Frontend Transport; Fri, 3 Mar 2023 15:51:19 +0000
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 3 Mar
- 2023 09:50:55 -0600
+ 2023 09:51:09 -0600
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 24/33] drm/amd/display: Pass the right info to
- drm_dp_remove_payload
-Date: Fri, 3 Mar 2023 10:40:13 -0500
-Message-ID: <20230303154022.2667-25-qingqing.zhuo@amd.com>
+Subject: [PATCH 25/33] drm/amd/display: Enable HostVM based on rIOMMU active
+Date: Fri, 3 Mar 2023 10:40:14 -0500
+Message-ID: <20230303154022.2667-26-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230303154022.2667-1-qingqing.zhuo@amd.com>
 References: <20230303154022.2667-1-qingqing.zhuo@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0000E635:EE_|MN2PR12MB4254:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6c014da7-f3ee-49e5-e52b-08db1bff1bc6
+X-MS-TrafficTypeDiagnostic: DS1PEPF0000E631:EE_|CH0PR12MB8530:EE_
+X-MS-Office365-Filtering-Correlation-Id: 17a64f91-a772-49c7-ea9d-08db1bff21b8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pg4VhWvUwIFPcUYLN6TV2JPaSCXbMsqtja6pXbvqW31SREeVjJ1MgggWtfajroP8nMJ/ZA1eQyeybDtPWpgBCBE6UZAuR6IMfUHBdHAZCKDNDTTjbIQnTxh+RACGx30cwq7FkqsZZrEhK9sySxYmvH579UgAQNTb2WnMP62ttwhHw68pfoQqB0DppvqRC8PiBA4t/5m4donn8Lvm7H1aOYaFhQ8KveZr2hh+8W2OcIf0Clvsj1NUrqsAxpkI2duNYHIWF92kek66r7bbJQfoluLUCe7SAT+xgUzZ5ax3HWxGM4cks4NaFYWm1h4vBeqmkpTKR9GKpmqlNP2uwHAlMhs5BgTddwEOcwXxnWSNnJVZivwrABbHqKJSCM5m8uee4H47gHJ0OktLInamsSKxkKtqbFNVHZ4EHXQNvhDg5Mj5zIpE/XR43WYBnwjG6bdHNSOdHjq+kryMV0gruPW4kvmLzXB/EZ0dFA6D/PnHV0pWk0QNBNi1b4RXgOw1xejcGt7gLvy8Go1jZ2KayhTnTOO3cUQSsdAPLsmH2AZSK1e4YZV6cboljiU/GPFNzJ2mib/EoIm7Dtj4u7C8Z3O6xuLDoIWrvGZFxr+5pfN/jLmZtFJ89wFsrmgj4KoKkDZ1KrRWWhZLi3kMsiWjdXptyzyydG7Lz0tUzWViXSgAW5zwxLVPUzbvhYo6jnPw07XESAIi7Lve8YNMk1s/H8XKUBfhdinUszfxlGvj5xsCNwE=
+X-Microsoft-Antispam-Message-Info: 5lo3hsaT+kUm1H9pqBawQptFQE6SbiL8Un0/xIefkZDABve6hADIPopjVPDCqDgGBY+uycI7YNNvfb3l8MGSozrb35ZTNsHqDctAQlHmKUCiTWUtiSPWaczjRUkxzIsGojKgwfow+HJH2ohukoP62CJj+RRnYgAGdYYcgRN9Bk7JDofMtKvKMSp3uL9XuN4gN9IQlpXgmJvf0e6job+FN2CnoNxvcP+IW76Zoh3GRpAPE1lydOejaZ0YcZDI+9XG79CNPrqECaOkWvr6xs34Fx5w+s7pKwLbamtG4q2MBzX00FCuepikDEq0D1B4liNpl1MXybmUzplQ1X4bHkMoamaUtdaqC5R44tolmX7fwV5NoSv4bVwkMMEEUPrHjY8vBZg5Na+F9aMOaxyq1QOmaTCXraUdZYKEn6EaoM1TIqseppWIAooBDdR9kWJsMg0Tdi1AzUwOQ8z+SQnhn9VNgrat/eRbkwO2Z5oRSnSa1vizZLU9yFalehN37Pc988jcziXiqXGyppWyMi+LTytWEsaBnMsxVD5qZWG1Q7u4SGNgLkmniYgGOFxCg/oxXlJtuWhjRQOzgI54BxzPTg5bOV5TcIDKsoEicBlEeOyxfuTbugwvUp/0ZZHQb92U0WlHP+JEf8iF2jusWyWd9tQgLmFbd8J68tnu5Tgm35T0+41Kk3k6R18FFi3QDf+OPpx4aZHaD/cXkbMgko5Vcpd7QztW1W6lrRt3lvWz9WP+E40=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(136003)(39860400002)(346002)(376002)(451199018)(40470700004)(46966006)(36840700001)(83380400001)(426003)(36860700001)(6666004)(47076005)(36756003)(40460700003)(478600001)(8936002)(82740400003)(81166007)(86362001)(82310400005)(356005)(40480700001)(5660300002)(44832011)(186003)(2616005)(16526019)(336012)(1076003)(26005)(8676002)(2906002)(6916009)(54906003)(70586007)(70206006)(316002)(41300700001)(4326008)(36900700001);
+ SFS:(13230025)(4636009)(346002)(396003)(136003)(39860400002)(376002)(451199018)(40470700004)(46966006)(36840700001)(36756003)(336012)(83380400001)(82310400005)(316002)(47076005)(478600001)(54906003)(40460700003)(356005)(426003)(16526019)(36860700001)(186003)(2616005)(1076003)(6666004)(8936002)(26005)(86362001)(41300700001)(2906002)(5660300002)(70586007)(44832011)(40480700001)(70206006)(8676002)(6916009)(81166007)(82740400003)(4326008)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2023 15:51:09.8906 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6c014da7-f3ee-49e5-e52b-08db1bff1bc6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2023 15:51:19.8496 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17a64f91-a772-49c7-ea9d-08db1bff21b8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000E635.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000E631.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4254
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8530
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,112 +101,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
  qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Jerry Zuo <Jerry.Zuo@amd.com>, Aurabindo.Pillai@amd.com,
- Wayne Lin <Wayne.Lin@amd.com>, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+ Gabe Teeger <gabe.teeger@amd.com>, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>, agustin.gutierrez@amd.com,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wayne Lin <Wayne.Lin@amd.com>
+From: Gabe Teeger <gabe.teeger@amd.com>
 
-[Why & How]
-drm_dp_remove_payload() interface was changed. Correct amdgpu dm code
-to pass the right parameter to the drm helper function.
+[Why]
+There is underflow and flickering occuring. The
+underflow stops when hostvm is forced to active.
+According to policy, hostvm should be enabled if riommu
+is active, but this is not taken into account when
+deciding whether to enable hostvm.
 
-Reviewed-by: Jerry Zuo <Jerry.Zuo@amd.com>
+[What]
+For DCN314, set hostvm to true if riommu is active.
+
+Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
+Signed-off-by: Gabe Teeger <gabe.teeger@amd.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 57 ++++++++++++++++---
- 1 file changed, 50 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 1be04c613deb..8d598b322e5b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -177,6 +177,40 @@ void dm_helpers_dp_update_branch_info(
- 	const struct dc_link *link)
- {}
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c
+index acda3e1babd4..c52b76610bd2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c
+@@ -308,6 +308,10 @@ int dcn314_populate_dml_pipes_from_context_fpu(struct dc *dc, struct dc_state *c
+ 				pipe->plane_state->src_rect.width < pipe->plane_state->dst_rect.width))
+ 			upscaled = true;
  
-+static void dm_helpers_construct_old_payload(
-+			struct dc_link *link,
-+			int pbn_per_slot,
-+			struct drm_dp_mst_atomic_payload *new_payload,
-+			struct drm_dp_mst_atomic_payload *old_payload)
-+{
-+	struct link_mst_stream_allocation_table current_link_table =
-+									link->mst_stream_alloc_table;
-+	struct link_mst_stream_allocation *dc_alloc;
-+	int i;
++		/* Apply HostVM policy - either based on hypervisor globally enabled, or rIOMMU active */
++		if (dc->debug.dml_hostvm_override == DML_HOSTVM_NO_OVERRIDE)
++			pipes[i].pipe.src.hostvm = dc->vm_pa_config.is_hvm_enabled || dc->res_pool->hubbub->riommu_active;
 +
-+	*old_payload = *new_payload;
-+
-+	/* Set correct time_slots/PBN of old payload.
-+	 * other fields (delete & dsc_enabled) in
-+	 * struct drm_dp_mst_atomic_payload are don't care fields
-+	 * while calling drm_dp_remove_payload()
-+	 */
-+	for (i = 0; i < current_link_table.stream_count; i++) {
-+		dc_alloc =
-+			&current_link_table.stream_allocations[i];
-+
-+		if (dc_alloc->vcp_id == new_payload->vcpi) {
-+			old_payload->time_slots = dc_alloc->slot_count;
-+			old_payload->pbn = dc_alloc->slot_count * pbn_per_slot;
-+			break;
-+		}
-+	}
-+
-+	/* make sure there is an old payload*/
-+	ASSERT(i != current_link_table.stream_count);
-+
-+}
-+
- /*
-  * Writes payload allocation table in immediate downstream device.
-  */
-@@ -188,7 +222,7 @@ bool dm_helpers_dp_mst_write_payload_allocation_table(
- {
- 	struct amdgpu_dm_connector *aconnector;
- 	struct drm_dp_mst_topology_state *mst_state;
--	struct drm_dp_mst_atomic_payload *payload;
-+	struct drm_dp_mst_atomic_payload *target_payload, *new_payload, old_payload;
- 	struct drm_dp_mst_topology_mgr *mst_mgr;
- 
- 	aconnector = (struct amdgpu_dm_connector *)stream->dm_stream_context;
-@@ -204,17 +238,26 @@ bool dm_helpers_dp_mst_write_payload_allocation_table(
- 	mst_state = to_drm_dp_mst_topology_state(mst_mgr->base.state);
- 
- 	/* It's OK for this to fail */
--	payload = drm_atomic_get_mst_payload_state(mst_state, aconnector->mst_output_port);
--	if (enable)
--		drm_dp_add_payload_part1(mst_mgr, mst_state, payload);
--	else
--		drm_dp_remove_payload(mst_mgr, mst_state, payload, payload);
-+	new_payload = drm_atomic_get_mst_payload_state(mst_state, aconnector->mst_output_port);
-+
-+	if (enable) {
-+		target_payload = new_payload;
-+
-+		drm_dp_add_payload_part1(mst_mgr, mst_state, new_payload);
-+	} else {
-+		/* construct old payload by VCPI*/
-+		dm_helpers_construct_old_payload(stream->link, mst_state->pbn_div,
-+						new_payload, &old_payload);
-+		target_payload = &old_payload;
-+
-+		drm_dp_remove_payload(mst_mgr, mst_state, &old_payload, new_payload);
-+	}
- 
- 	/* mst_mgr->->payloads are VC payload notify MST branch using DPCD or
- 	 * AUX message. The sequence is slot 1-63 allocated sequence for each
- 	 * stream. AMD ASIC stream slot allocation should follow the same
- 	 * sequence. copy DRM MST allocation to dc */
--	fill_dc_mst_payload_table_from_drm(stream->link, enable, payload, proposed_table);
-+	fill_dc_mst_payload_table_from_drm(stream->link, enable, target_payload, proposed_table);
- 
- 	return true;
- }
+ 		/*
+ 		 * Immediate flip can be set dynamically after enabling the plane.
+ 		 * We need to require support for immediate flip or underflow can be
 -- 
 2.34.1
 
