@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7272BC7EE2D
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Mar 2023 15:51:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A483CC7EE2D
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Mar 2023 15:51:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 179E910E6E4;
-	Fri,  3 Mar 2023 15:51:35 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33FF110E6E4
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Mar 2023 15:51:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4367E10E6E3;
+	Fri,  3 Mar 2023 15:51:45 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2055.outbound.protection.outlook.com [40.107.212.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 219C510E6E5
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Mar 2023 15:51:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bQyMuqulnyNTArLDzza38SmQwbs4s2rq6mQleAsIMNxg0PvBF+SqpqIgzhYtvvpVomBefgfs3yzBRLkCNR0yz1m3KVCDxLM/8F3AOlLeQQPlhd4DnXcprxTyZ2rA6L9lBHNE0+qqYOYtPKg3vA62cjxSl9Fwpm8XQAcDsHJ50C1yeVxzR0EtJ84IdNkY5l+JdjIVWdzfbQOIwpIJOu8b1AJdY2Wu5nPBpGebOlhOJJGRLay7hvEcNhngGjtzKOcNf0Qi9aK90JKsh3LCwDEVWnCas70npiIzxpcWh4bd4u+b1kOS2xXtjuwwHyOHLNUBGMr26Ydu42bt1jTJNHLTWw==
+ b=VO5XFcqz2z8GPnJVYH64y02QiK+OlAvNgvIqZbCePsSUjtXQ/WwQ6eTzFspL7MjL+6MbuvcahgohcX+lG2VDPuu4HaOytdJZq7/eHoKf8Cybx4HVtn8z1XrDJ8Ai+Wx9zwp5vjpcajWFacCismVHH03C2yE5PQyjvBCK20nrpLpX/u+nNzS4/Xs/fXBz4qbup0pxacQQjKukPdAM3IQ6HvYm5+Yqba216UJ25zgFvXuOPiyGi1YMdQMZU1fowXG84/cI5hflpI95iv0Bb5epG396DjE9Bm1tBIchiz/YMJU5W93pgZpwVfOh9McFVQ7xnWBhIM9DkDOelmxrfkNCpQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iI6TvfeiE42iEBtEtEftMJLLp2mTnE28KlvoQSMk2nU=;
- b=g/gQ84fCv05UR1xbYSlOAaL57LButkUhwv7WfV+qtj8nwksRyP8TEzDMCnGy3QGkv6f+Y7SI+Zmg61pHFOJQ1hhiVgscHb+LUdpMDjAiH2U9N6vzaVWLyn0C7EPqxTZmE8dfQ7YpP+BrAo/QHa2I/bq79gD54JIWPngmZh7ut0BmQXz1rs1RYlDv+ymtqKSlbl3AoFyhzW5z5sSEtCYQIEqyYmLez9fbDW9HlUrGo8Rh9I3xy260vP+EC9WP1PTgRVgLZfbB7P0PXX9RT3gIhMYkihr/sdphydNdMl/wpCbvmejyPY+4OR7lbtKyOvh6GvTbk4F6cHgZO1SfYhYupw==
+ bh=mUl9b9h6PX7xxPC5OSHCvc/pv+kliHJSB3HSdLiu6ss=;
+ b=eQypdzEnJbYXTN2u/o1FFRDrR31KwRhGtJ8TCNWzK0UY59JFHraTaJjgKaGjtQl+mML7cCwEFXZevp7YA0YZcu2ORITn3pEDvK4uy8RQSVDsntmTRerITL1VEI5DmTn5Hjk47/MtHpTYov9yZxn7bInO8oD9BGPqY4+kPok+OlqktBg4FnaVQdff+CB6adZAQeBUAJ96mVhiMo0En4TfwuDucW+oMo1x+Z7upFJ/gA763hWQrl/jpIyM9w1Oq2yiAzAZ7YCNvhfhRk97/lO8Cp21DKz0iaDY9kZyZ/oWuTK2fFPiwM7dw1CdlK5eJg5PFrt61m283cUHfL+eIOffWA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iI6TvfeiE42iEBtEtEftMJLLp2mTnE28KlvoQSMk2nU=;
- b=4vRqOiu8QXpGqpI4jMZc8cz+pK0kgg3yQSaqPwkj88+vyGMtQdEx9UN/lQx+CUbsC2MFsJ/KtBofxBdILp97kzYQcIa5p65AFFJGDLvsat07EhIUBhf5jko0BYwTWd41RauzXqfheQwvSfGFrnkO6R+56sAnsuUTLB9okDwE0p0=
-Received: from DS7PR03CA0281.namprd03.prod.outlook.com (2603:10b6:5:3ad::16)
- by BY1PR12MB8445.namprd12.prod.outlook.com (2603:10b6:a03:523::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.21; Fri, 3 Mar
- 2023 15:51:30 +0000
-Received: from DS1PEPF0000E630.namprd02.prod.outlook.com
- (2603:10b6:5:3ad:cafe::38) by DS7PR03CA0281.outlook.office365.com
- (2603:10b6:5:3ad::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.22 via Frontend
- Transport; Fri, 3 Mar 2023 15:51:30 +0000
+ bh=mUl9b9h6PX7xxPC5OSHCvc/pv+kliHJSB3HSdLiu6ss=;
+ b=Z+GNENDAJLsukM2QW7YUGps409PeFp86nbGLQYPplE1oFLFcQVyoDOfC+8dXtJ/AhLBMLGoHrWvY9C93O5XNXctMYPTp+74VP3kIFHJ62yhWNkqt2ZZmeIG6soT9QgJp9XwtnsVoSrExTWU1QDCm5lcsjznpAE2Fq+stgJpEOec=
+Received: from DS7PR03CA0330.namprd03.prod.outlook.com (2603:10b6:8:2b::22) by
+ DS7PR12MB6168.namprd12.prod.outlook.com (2603:10b6:8:97::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6156.19; Fri, 3 Mar 2023 15:51:38 +0000
+Received: from DS1PEPF0000E635.namprd02.prod.outlook.com
+ (2603:10b6:8:2b:cafe::16) by DS7PR03CA0330.outlook.office365.com
+ (2603:10b6:8:2b::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.21 via Frontend
+ Transport; Fri, 3 Mar 2023 15:51:38 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF0000E630.mail.protection.outlook.com (10.167.17.134) with Microsoft
+ DS1PEPF0000E635.mail.protection.outlook.com (10.167.17.139) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6156.12 via Frontend Transport; Fri, 3 Mar 2023 15:51:30 +0000
+ 15.20.6156.12 via Frontend Transport; Fri, 3 Mar 2023 15:51:38 +0000
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 3 Mar
- 2023 09:51:19 -0600
+ 2023 09:51:30 -0600
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 26/33] drm/amd/display: Pass tg and hubp inst instead of pipe
- index for SubVP
-Date: Fri, 3 Mar 2023 10:40:15 -0500
-Message-ID: <20230303154022.2667-27-qingqing.zhuo@amd.com>
+Subject: [PATCH 27/33] drm/amd/display: Ensure vmin and vmax adjust for DCE
+Date: Fri, 3 Mar 2023 10:40:16 -0500
+Message-ID: <20230303154022.2667-28-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230303154022.2667-1-qingqing.zhuo@amd.com>
 References: <20230303154022.2667-1-qingqing.zhuo@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0000E630:EE_|BY1PR12MB8445:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1b737133-0536-4101-151e-08db1bff27fd
+X-MS-TrafficTypeDiagnostic: DS1PEPF0000E635:EE_|DS7PR12MB6168:EE_
+X-MS-Office365-Filtering-Correlation-Id: 457c5745-7889-482f-20a7-08db1bff2cd9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qzAcPoF+kfToMOVfqp1DguP4Z3xadPDM8wUjqK+S4jQqY3niJtigOJsvfBiUuWD9DfcHZrgMUZHBudAQHuyNboc7ysrrGSX+ZscSj4LnQoq96QzZIompIV6H2cgV0OKRnlTOzEZEuVYRRqJH4YkfjOlWIqTC/M7Gkg3K1BukBtyAlyN25pFO6CrDVl3j7Gd00qxV591boq1roBO2uiNmxFPUbzgfPSE7TP1OYPvsaq6E2wSOaKwRcRso2vkulMVWdRt0Cr91v68UiwgeyRarvTJ+f/Pu0xqqhQCm8Cqq99Ypl1DVR2PPiQyw8qzOMHyba4a+NSwTDTc3GqrgdBno0ndmFK6OxBk2Uwr3yG8x9qQO/ISHrE8SGGcE1uh4OcFaZQVw/eS3yYHMTD8rCFuOtYVhsID3+9I40IVe2xBG4/8GuCwBmEM2abyMGKzYORu5qX1Qs6EEySllrEEml/UqVs2zCWJNFU+7/Zw5EIcdCApD710dUCrIkDHvZblxCQ9WxaDjsFjh2XNveHBXxb9zvTg+ibKVe0C8GjeJGkaE+YsPCtTs1SnNQSyuXfMcSM0Ip4uFaFxl+/VPOPdoN5qkIQUCR1zWR+As867XTTCU2AUTqOS3pQUWSTHBEVzDoqQDZxt7vQ9PmsxKdHh7U+PVSeWN/mKvyqpkw2Oqh+FkpBRuzHgv5mLt4BgN6Sz5GSkbx6mhVEFaw/nnwFzTTsr1UlQ+DAp7h9aNMKaJU9qJvAo=
+X-Microsoft-Antispam-Message-Info: 4dzWfqqcXK9k3N+IFdqqQVW/3Q5nX7S3laWe24FW0mfNdym/QDfmIz8hpEuERjlS0jTE5IqY3KkVTmCsW5MMrfcTdUtnIOZdLLXq7QWQ7I65mfiguHSMRbypuvC5msWnC2HUxgKZPFsCb6ea6xl53lLz8czRckfbh0mEqX/3rxpcWqQrS8GkxuJ9f/4Xbu7jTYPnwN0bdy20lwNxBJnDIdEHKcIauJFCP0FaouZj+LPLPxSV7NiAyXXuod/kJtir8OxZUecY/J0wpAGy0cPSi8MuR8B5W+4gV2/wK7cWO86np+9nxTieQWMxWnEr3QHuQOLCB6CxTWFFvD/7G0ncRnvt2c7aHBAOiYClssdhfkb4TuYJ/FaojuBduBCrTT5/+jaud4Urva0mEOcg3+ZCvtm4wiPtVMKVD9D4QfOuOvm4TF3YzoY9WwREPhGnw/m2Hlt5jj5K4CfgUGa76mOJ+u3MUrPHAFcWIVJluoxduHvHUKbjsoxK367rU4yskLnyeayIFSww9a3O8zTuazY4rxVMkOtZhlE3HJZvRXSVKDoDPG67jvUZnHFywaNr9XrPyy5GOdfKxbbyftloNYOwI24T1JgoIWisLoIqftwXr2duSCGFHHR499pyySCwMi7EtM0qFlMsjg6oN6AGx6ZL/1J/3ACphOGTuOoOFB1vLQy3iS0VmdlxKbAddEb4ZaMxu0vPJTqyoXP1rZ6omj9Fm/rylrhC3UiDZlSIDjU5Pik=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(136003)(39860400002)(376002)(396003)(346002)(451199018)(46966006)(40470700004)(36840700001)(478600001)(36860700001)(40460700003)(36756003)(426003)(1076003)(26005)(16526019)(186003)(47076005)(40480700001)(336012)(83380400001)(2616005)(82740400003)(6666004)(82310400005)(81166007)(8936002)(41300700001)(70586007)(70206006)(4326008)(8676002)(5660300002)(86362001)(6916009)(44832011)(316002)(356005)(2906002)(54906003)(36900700001);
+ SFS:(13230025)(4636009)(39860400002)(376002)(396003)(136003)(346002)(451199018)(46966006)(40470700004)(36840700001)(36756003)(40460700003)(6666004)(336012)(1076003)(2616005)(26005)(186003)(16526019)(6916009)(54906003)(41300700001)(4326008)(70586007)(2906002)(316002)(44832011)(8676002)(81166007)(8936002)(86362001)(5660300002)(356005)(82740400003)(40480700001)(82310400005)(478600001)(83380400001)(36860700001)(70206006)(426003)(47076005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2023 15:51:30.3783 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b737133-0536-4101-151e-08db1bff27fd
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2023 15:51:38.5313 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 457c5745-7889-482f-20a7-08db1bff2cd9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000E630.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000E635.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR12MB8445
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6168
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,107 +99,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, Alvin Lee <Alvin.Lee2@amd.com>,
- wayne.lin@amd.com, Jun Lei <Jun.Lei@amd.com>, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: stylon.wang@amd.com, Aric Cyr <Aric.Cyr@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+ wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <Alvin.Lee2@amd.com>
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 
-[Description]
-- For pipe harvesting cases, the pipe index does not necessarily
-  match up with the OTG instance, so pass index by OTG Instance instead
-- For pipe split cases pass HUBP instance, since the split index is
-  only used for HUBP programming
-- Also check for OPP ID when accessing opp for pipe harvesting cases
+[Why & How]
+In the commit 68d1085eb2 ("drm/amd/display: Do not update DRR while
+BW optimizations pending"), a modification was added to avoid adjusting
+DRR if optimized bandwidth is set. This change was only intended for
+DCN, but one part of the patch changed the code path for DCE devices and
+caused regressions to the kms_vrr test. To address this problem, this
+commit adds a modification in which dc_stream_adjust_vmin_vmax will be
+fully executed in DCE devices.
 
-Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+Fixes: 68d1085eb2 ("drm/amd/display: Do not update DRR while BW optimizations pending")
+
+Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c     | 30 +++++++++++++-------
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c |  8 +++---
- 2 files changed, 23 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index f9f051f1537d..7bbbe64185aa 100644
+index 7bbbe64185aa..9146c9667c7d 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -1079,6 +1079,7 @@ static void phantom_pipe_blank(
- 	struct output_pixel_processor *opp = NULL;
- 	uint32_t num_opps, opp_id_src0, opp_id_src1;
- 	uint32_t otg_active_width, otg_active_height;
-+	uint32_t i;
+@@ -404,8 +404,9 @@ bool dc_stream_adjust_vmin_vmax(struct dc *dc,
+ 	 * Don't adjust DRR while there's bandwidth optimizations pending to
+ 	 * avoid conflicting with firmware updates.
+ 	 */
+-	if (dc->optimized_required || dc->wm_optimized_required)
+-		return false;
++	if (dc->ctx->dce_version > DCE_VERSION_MAX)
++		if (dc->optimized_required || dc->wm_optimized_required)
++			return false;
  
- 	/* program opp dpg blank color */
- 	color_space = COLOR_SPACE_SRGB;
-@@ -1090,17 +1091,24 @@ static void phantom_pipe_blank(
- 	/* get the OPTC source */
- 	tg->funcs->get_optc_source(tg, &num_opps, &opp_id_src0, &opp_id_src1);
- 	ASSERT(opp_id_src0 < dc->res_pool->res_cap->num_opp);
--	opp = dc->res_pool->opps[opp_id_src0];
--
--	opp->funcs->opp_set_disp_pattern_generator(
--			opp,
--			CONTROLLER_DP_TEST_PATTERN_SOLID_COLOR,
--			CONTROLLER_DP_COLOR_SPACE_UDEFINED,
--			COLOR_DEPTH_UNDEFINED,
--			&black_color,
--			otg_active_width,
--			otg_active_height,
--			0);
-+
-+	for (i = 0; i < dc->res_pool->res_cap->num_opp; i++) {
-+		if (dc->res_pool->opps[i] != NULL && dc->res_pool->opps[i]->inst == opp_id_src0) {
-+			opp = dc->res_pool->opps[i];
-+			break;
-+		}
-+	}
-+
-+	if (opp && opp->funcs->opp_set_disp_pattern_generator)
-+		opp->funcs->opp_set_disp_pattern_generator(
-+				opp,
-+				CONTROLLER_DP_TEST_PATTERN_SOLID_COLOR,
-+				CONTROLLER_DP_COLOR_SPACE_UDEFINED,
-+				COLOR_DEPTH_UNDEFINED,
-+				&black_color,
-+				otg_active_width,
-+				otg_active_height,
-+				0);
- 
- 	if (tg->funcs->is_tg_enabled(tg))
- 		hws->funcs.wait_for_blank_complete(opp);
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-index 027f6ebe0496..b5c6501c28fc 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-@@ -637,7 +637,7 @@ static void populate_subvp_cmd_pipe_info(struct dc *dc,
- 	pipe_data->pipe_config.subvp_data.main_vblank_end =
- 			main_timing->v_total - main_timing->v_front_porch - main_timing->v_addressable;
- 	pipe_data->pipe_config.subvp_data.mall_region_lines = phantom_timing->v_addressable;
--	pipe_data->pipe_config.subvp_data.main_pipe_index = subvp_pipe->pipe_idx;
-+	pipe_data->pipe_config.subvp_data.main_pipe_index = subvp_pipe->stream_res.tg->inst;
- 	pipe_data->pipe_config.subvp_data.is_drr = subvp_pipe->stream->ignore_msa_timing_param;
- 
- 	/* Calculate the scaling factor from the src and dst height.
-@@ -679,11 +679,11 @@ static void populate_subvp_cmd_pipe_info(struct dc *dc,
- 		struct pipe_ctx *phantom_pipe = &context->res_ctx.pipe_ctx[j];
- 
- 		if (phantom_pipe->stream == subvp_pipe->stream->mall_stream_config.paired_stream) {
--			pipe_data->pipe_config.subvp_data.phantom_pipe_index = phantom_pipe->pipe_idx;
-+			pipe_data->pipe_config.subvp_data.phantom_pipe_index = phantom_pipe->stream_res.tg->inst;
- 			if (phantom_pipe->bottom_pipe) {
--				pipe_data->pipe_config.subvp_data.phantom_split_pipe_index = phantom_pipe->bottom_pipe->pipe_idx;
-+				pipe_data->pipe_config.subvp_data.phantom_split_pipe_index = phantom_pipe->bottom_pipe->plane_res.hubp->inst;
- 			} else if (phantom_pipe->next_odm_pipe) {
--				pipe_data->pipe_config.subvp_data.phantom_split_pipe_index = phantom_pipe->next_odm_pipe->pipe_idx;
-+				pipe_data->pipe_config.subvp_data.phantom_split_pipe_index = phantom_pipe->next_odm_pipe->plane_res.hubp->inst;
- 			} else {
- 				pipe_data->pipe_config.subvp_data.phantom_split_pipe_index = 0;
- 			}
+ 	stream->adjust.v_total_max = adjust->v_total_max;
+ 	stream->adjust.v_total_mid = adjust->v_total_mid;
 -- 
 2.34.1
 
