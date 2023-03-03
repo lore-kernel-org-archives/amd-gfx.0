@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13309C678D4
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Mar 2023 14:19:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29AF3C678D4
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Mar 2023 14:56:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70D9A10E5FB;
-	Fri,  3 Mar 2023 14:19:23 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE49D10E5EB;
- Fri,  3 Mar 2023 14:19:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677853161; x=1709389161;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=1wnEZkA3pxEN1ki3zirkYIIVEuxqXMawj7Ozlqv74lc=;
- b=i5tb+vBgnCOGZQXQyickKDLKU4e3SWXx3aFTaNcmiGyaexuwH5oMQt/P
- ncUhJj6GuO/mgS4hlUWxHvxKcRUsVdO+vn2+ROIqShRD3Q6eKKJIDRByl
- QmKhFAST00UffTXdCru6/NYQVLZynP2ZShrckGg48QNUqze4IOme3JUMK
- 2YdPoOwMRjt5As75CTWVs+oGHqnlTwji6y5iRv301rFb8QRAg6HF4N96O
- VK9FFXrkaY8OZAcTru94LSakn+yW5Xr+6zsH8tBI3gCaSG6lykYRvKt/Z
- 9LbDces6ccRlI35sClPgX9InBWQPQDZaCVCHDyaNkI25lbvsQjq3fHKXb w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10637"; a="336571865"
-X-IronPort-AV: E=Sophos;i="5.98,230,1673942400"; d="scan'208";a="336571865"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Mar 2023 06:19:21 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10637"; a="705656748"
-X-IronPort-AV: E=Sophos;i="5.98,230,1673942400"; d="scan'208";a="705656748"
-Received: from lkp-server01.sh.intel.com (HELO 776573491cc5) ([10.239.97.150])
- by orsmga008.jf.intel.com with ESMTP; 03 Mar 2023 06:19:16 -0800
-Received: from kbuild by 776573491cc5 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pY6Ff-0001TW-1H;
- Fri, 03 Mar 2023 14:19:15 +0000
-Date: Fri, 3 Mar 2023 22:18:41 +0800
-From: kernel test robot <lkp@intel.com>
-To: Marek Maslanka <mmaslanka@chromium.org>,
-	dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH] drm/amdgpu: Implement mmap of imported dma-bufs
-Message-ID: <202303032218.9kvEePUv-lkp@intel.com>
-References: <20230303110951.3777850-1-mmaslanka@chromium.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95F0710E640;
+	Fri,  3 Mar 2023 14:56:05 +0000 (UTC)
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1EDF10E637;
+ Fri,  3 Mar 2023 14:56:02 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4PSrdC1nvVz9sWm;
+ Fri,  3 Mar 2023 15:55:59 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1677855359;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=DvYXQYOVZsp7/up4g6uoyddDLFi4Xaa5+N19yUjNy+c=;
+ b=rhvaHeefq1ll4FIJsng9qb9+TyX0DtvDO1OEWtjAILyx+LAFwpMmRjsbBoueDh0gOPi7n0
+ I8vK8cQrnvFJE/5Do0/b/kz/kFXhPaykAg9yJZIzQHkbu79hcnycJqq8yoFyg77MvEBPp7
+ N72BfpFfis8f4fIkRYb5dfctAmb2N9kRoUygLwXfoqALC7fnc/7cyZCWeLA3CgrtOV+Hsn
+ zTbD/m0jQVeDXNMAzdLCC5DBx1XTp60K2kxhdDhuzGbCV5QRgTPlo/W9cmINfqUYO6h39B
+ xlAtfYgGqfc1k9pjB2kQqMMKadhs9ZfniK1B9n7Fc0mmb101DLHXwyrSX3Qkzw==
+Message-ID: <da7e9be8-4a80-7166-d6f8-20f3acf8bf9c@mailbox.org>
+Date: Fri, 3 Mar 2023 15:55:56 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230303110951.3777850-1-mmaslanka@chromium.org>
+Subject: Re: [PATCH] Change the meaning of the fields in the ttm_place
+ structure from pfn to bytes
+To: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-graphics-maintainer@vmware.com
+References: <20230303071659.1213074-1-Amaranath.Somalapuram@amd.com>
+Content-Language: en-CA
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
+In-Reply-To: <20230303071659.1213074-1-Amaranath.Somalapuram@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: o14rz3dkf4t9hit9trfzw9gcrhfbtkqk
+X-MBO-RS-ID: 9e9a7b30180685b8231
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,121 +58,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Luben Tuikov <luben.tuikov@amd.com>, Tong Liu01 <Tong.Liu01@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Guchun Chen <guchun.chen@amd.com>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- Dominik Behr <dbehr@chromium.org>, Felix Kuehling <Felix.Kuehling@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
- YiPeng Chai <YiPeng.Chai@amd.com>, Marek Maslanka <mm@semihalf.com>,
- Michel =?iso-8859-1?Q?D=E4nzer?= <mdaenzer@redhat.com>,
- Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Mario Limonciello <mario.limonciello@amd.com>, oe-kbuild-all@lists.linux.dev,
- Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: alexander.deucher@amd.com, arunpravin.paneerselvam@amd.com,
+ christian.koenig@amd.com, arvind.yadav@amd.com, shashank.sharma@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Marek,
+On 3/3/23 08:16, Somalapuram Amaranath wrote:
+> Change the ttm_place structure member fpfn, lpfn, mem_type to
+> res_start, res_end, res_type.
+> Change the unsigned to u64.
+> Fix the dependence in all the DRM drivers and
+> clean up PAGE_SHIFT operation.
+> 
+> Signed-off-by: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
+> 
+> [...]
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+> index 44367f03316f..5b5104e724e3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
+> @@ -131,11 +131,12 @@ static int amdgpu_gtt_mgr_new(struct ttm_resource_manager *man,
+>  		goto err_free;
+>  	}
+>  
+> -	if (place->lpfn) {
+> +	if (place->res_end) {
+>  		spin_lock(&mgr->lock);
+>  		r = drm_mm_insert_node_in_range(&mgr->mm, &node->mm_nodes[0],
+> -						num_pages, tbo->page_alignment,
+> -						0, place->fpfn, place->lpfn,
+> +						num_pages, tbo->page_alignment,	0,
+> +						place->res_start << PAGE_SHIFT,
+> +						place->res_end << PAGE_SHIFT,
+>  						DRM_MM_INSERT_BEST);
 
-Thank you for the patch! Perhaps something to improve:
-
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on drm/drm-next drm-intel/for-linux-next drm-tip/drm-tip linus/master next-20230303]
-[cannot apply to drm-intel/for-linux-next-fixes v6.2]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Marek-Maslanka/drm-amdgpu-Implement-mmap-of-imported-dma-bufs/20230303-191145
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20230303110951.3777850-1-mmaslanka%40chromium.org
-patch subject: [PATCH] drm/amdgpu: Implement mmap of imported dma-bufs
-config: sparc-allyesconfig (https://download.01.org/0day-ci/archive/20230303/202303032218.9kvEePUv-lkp@intel.com/config)
-compiler: sparc64-linux-gcc (GCC) 12.1.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/2916257baab842afa387781faf1b595b73249767
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Marek-Maslanka/drm-amdgpu-Implement-mmap-of-imported-dma-bufs/20230303-191145
-        git checkout 2916257baab842afa387781faf1b595b73249767
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=sparc olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=sparc SHELL=/bin/bash drivers/gpu/
-
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Link: https://lore.kernel.org/oe-kbuild-all/202303032218.9kvEePUv-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c: In function 'amdgpu_try_dma_buf_mmap':
->> drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c:286:27: warning: variable 'bo' set but not used [-Wunused-but-set-variable]
-     286 |         struct amdgpu_bo *bo = NULL;
-         |                           ^~
-   In file included from drivers/gpu/drm/amd/amdgpu/../display/dc/dc_types.h:36,
-                    from drivers/gpu/drm/amd/amdgpu/../display/dc/dm_services_types.h:30,
-                    from drivers/gpu/drm/amd/amdgpu/../include/dm_pp_interface.h:26,
-                    from drivers/gpu/drm/amd/amdgpu/amdgpu.h:64,
-                    from drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c:34:
-   drivers/gpu/drm/amd/amdgpu/../display/dc/dc_hdmi_types.h: At top level:
-   drivers/gpu/drm/amd/amdgpu/../display/dc/dc_hdmi_types.h:53:22: warning: 'dp_hdmi_dongle_signature_str' defined but not used [-Wunused-const-variable=]
-      53 | static const uint8_t dp_hdmi_dongle_signature_str[] = "DP-HDMI ADAPTOR";
-         |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This should be >> or no shift instead of <<, shouldn't it? Multiplying a value in bytes by the page size doesn't make sense.
 
 
-vim +/bo +286 drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+I didn't check the rest of the patch in detail, but it's easy introduce subtle regressions with this kind of change. It'll require a lot of review & testing scrutiny.
 
-   278	
-   279	int amdgpu_try_dma_buf_mmap(struct file *filp, struct vm_area_struct *vma)
-   280	{
-   281		struct drm_file *priv = filp->private_data;
-   282		struct drm_device *dev = priv->minor->dev;
-   283		struct amdgpu_device *adev = drm_to_adev(dev);
-   284		struct ttm_device *bdev = &adev->mman.bdev;
-   285		struct ttm_buffer_object *tbo = NULL;
- > 286		struct amdgpu_bo *bo = NULL;
-   287		struct drm_gem_object *obj = NULL;
-   288		struct drm_vma_offset_node *node;
-   289		int ret;
-   290	
-   291		if (drm_dev_is_unplugged(dev))
-   292			return -ENODEV;
-   293	
-   294		drm_vma_offset_lock_lookup(bdev->vma_manager);
-   295		node = drm_vma_offset_exact_lookup_locked(bdev->vma_manager,
-   296							  vma->vm_pgoff,
-   297							  vma_pages(vma));
-   298	
-   299		if (likely(node)) {
-   300			tbo = container_of(node, struct ttm_buffer_object,
-   301					   base.vma_node);
-   302			tbo = ttm_bo_get_unless_zero(tbo);
-   303		}
-   304		drm_vma_offset_unlock_lookup(bdev->vma_manager);
-   305	
-   306		if (!tbo)
-   307			return -EINVAL;
-   308	
-   309		bo = ttm_to_amdgpu_bo(tbo);
-   310		obj = &tbo->base;
-   311	
-   312		if (!obj->import_attach) {
-   313			ret = -EINVAL;
-   314			goto done;
-   315		}
-   316	
-   317		ret = dma_buf_mmap(obj->import_attach->dmabuf, vma, 0);
-   318	
-   319	done:
-   320		ttm_bo_put(tbo);
-   321		return ret;
-   322	}
-   323	
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
+
