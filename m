@@ -4,49 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1BF6C61DA3
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Mar 2023 23:47:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F03BC64EC4
+	for <amd-gfx@archiver.kernel.org>; Sat,  4 Mar 2023 14:22:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4ED3510E788;
-	Fri,  3 Mar 2023 23:47:34 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEC2210E788
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Mar 2023 23:47:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677887251; x=1709423251;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=PU07nuQaWNZxtnMFSIXOXAP+ifOpD0/dT6yWLSPpnpo=;
- b=FnPcbREe8Gjka6mFdWaR7jHn++ar6OMd0+GNXYZgJ+3zXd4iGYkqosO1
- ycWOTwvVi/StxHt1Hyg8Lr1O93RMpJcjvi+f2aIbYMcXQviY+1KKk8zaL
- sbXCiSbY/Utsh/ltdEDFH2MPLdKe+fA+pVatHQEbUdO2suCIJo59i1oe+
- vmtBbSSUr+2WByyAtXdfPl2AFcIyr2vJm1MwHkT2Ucitf0N71HbvjKt+g
- h14fln4Aax3gIf3G/mPgvbTSo+IAPQIU5ImOtzaxLg37fA/zBaajFfikg
- CqJLeyV4NM+hjERRDF8klkPeTv6bprpk0GtD1KQ0K87qlYmCBkva96kUn Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10638"; a="314844232"
-X-IronPort-AV: E=Sophos;i="5.98,232,1673942400"; d="scan'208";a="314844232"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Mar 2023 15:47:31 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10638"; a="739681028"
-X-IronPort-AV: E=Sophos;i="5.98,232,1673942400"; d="scan'208";a="739681028"
-Received: from lkp-server01.sh.intel.com (HELO 776573491cc5) ([10.239.97.150])
- by fmsmga008.fm.intel.com with ESMTP; 03 Mar 2023 15:47:29 -0800
-Received: from kbuild by 776573491cc5 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pYF7Y-0001jg-1n;
- Fri, 03 Mar 2023 23:47:28 +0000
-Date: Sat, 04 Mar 2023 07:46:51 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD SUCCESS WITH WARNING
- 1acf39ef8f1425cd105f630dc2c7c1d8fff27ed1
-Message-ID: <640286eb.B5GGXMVRNOx+ogeQ%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EE6510E046;
+	Sat,  4 Mar 2023 14:22:04 +0000 (UTC)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2E3C10E046
+ for <amd-gfx@lists.freedesktop.org>; Sat,  4 Mar 2023 14:22:02 +0000 (UTC)
+Received: by mail-lf1-x134.google.com with SMTP id d36so3979363lfv.8
+ for <amd-gfx@lists.freedesktop.org>; Sat, 04 Mar 2023 06:22:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1677939721;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=gP8y+ZGSB3tYy5lkcicAQOotbZtTMnefx+SEzepkXec=;
+ b=X9eMRKWtCGyT/OKF2IlOKpJc3PAx+sq5eMluJnaRKccLpkr4oC/azAUUykmPbO+zcV
+ xW/pS114kHBwN7eS119IAe7MEbUO2UNhiMVn+x2G1s+e9h4ZV/ZdJA/v59YapH+A9vMe
+ 6kkH+CPKclMEWwEBZawlbNAzbTi8kSOZvrqYuC9OOYP3WdCK8ng+dValMry1vJeu7otD
+ Axyj0cMO7XYsk6CC2wGhmMzWftZGL++kUrBytvl5CU/I/m6eb7FhMAZ5lOHFRX2Rnn5O
+ SMyYqkf3S1upXcycZ73dolHNZddLjsiHvEzsU1+yGbui5qB2haXCOjJbBbAfKY21QoF/
+ CkpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1677939721;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=gP8y+ZGSB3tYy5lkcicAQOotbZtTMnefx+SEzepkXec=;
+ b=LwON0Hp+H2HFsrEo3LBRbDSY4VBJ+UFtWTvQ0jP8rbSHmJbMgxohpbzv+NQxQFU0RD
+ Rzrr9MxXByi5VsMD50WScpTEtsQY/xlqwXcs29byNIAs8XD1OD/6WI4DYwW4rRsdqcno
+ xHY6pm/uVM2NsejMj0W1PK4dmSdQcrhV6xGArH445jRJeSX0BVvHvJKIJO6I7zzfaRsA
+ BBoGq9/H/1FKUIbZl81b9RFQ/Ces1+jHPqwPmAqWqCufqdQDxyMO8gIJhevbLYGyaY3y
+ E0tvSusoPufAEqgv14jgIjjmVBTZB3M4oApnQXh1toJe6F68y4oGOeYF3Me5XPTWEYLl
+ 5NaQ==
+X-Gm-Message-State: AO0yUKUPyJeATboZ2DZbaE4iujGTBYBgFzsTaDUo29bVXptG6Wq2ck12
+ qERoNBkfbw2lKbGGLgm35KeYzlrgG6s=
+X-Google-Smtp-Source: AK7set/CEFfZbimV2nC5jRyei8TYXbJTLGbhuzmq3XA1HdBppmxhgNvt5ueiF/zTEFC05H2G4aEMFQ==
+X-Received: by 2002:ac2:5a0f:0:b0:4dc:8192:c5e6 with SMTP id
+ q15-20020ac25a0f000000b004dc8192c5e6mr1558182lfn.13.1677939720983; 
+ Sat, 04 Mar 2023 06:22:00 -0800 (PST)
+Received: from localhost.localdomain (pc-201-96-67-156-static.strong-pc.com.
+ [156.67.96.201]) by smtp.gmail.com with ESMTPSA id
+ c14-20020ac2530e000000b004db51387ad6sm831261lfh.129.2023.03.04.06.22.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 04 Mar 2023 06:22:00 -0800 (PST)
+From: =?UTF-8?q?B=C5=82a=C5=BCej=20Szczygie=C5=82?= <mumei6102@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amd/pm: Fix sienna cichlid incorrect OD volage after
+ resume
+Date: Sat,  4 Mar 2023 15:20:35 +0100
+Message-Id: <20230304142035.37615-1-mumei6102@gmail.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,214 +70,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arch@vger.kernel.org,
- Linux Memory Management List <linux-mm@kvack.org>, linux-usb@vger.kernel.org,
- linux-watchdog@vger.kernel.org, amd-gfx@lists.freedesktop.org
+Cc: =?UTF-8?q?B=C5=82a=C5=BCej=20Szczygie=C5=82?= <mumei6102@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 1acf39ef8f1425cd105f630dc2c7c1d8fff27ed1  Add linux-next specific files for 20230303
+Always setup overdrive tables after resume. Preserve only some
+user-defined settings in user_overdrive_table if they're set.
 
-Warning reports:
+Signed-off-by: Błażej Szczygieł <mumei6102@gmail.com>
+---
+ .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 27 ++++++++++++-------
+ 1 file changed, 18 insertions(+), 9 deletions(-)
 
-https://lore.kernel.org/oe-kbuild-all/202302111601.jtY4lKrA-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202302170355.Ljqlzucu-lkp@intel.com
-
-Warning: (recently discovered and may have been fixed)
-
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_optc.c:294:6: warning: no previous prototype for 'optc3_wait_drr_doublebuffer_pending_clear' [-Wmissing-prototypes]
-
-Unverified Warning (likely false positive, please contact us if interested):
-
-drivers/usb/gadget/composite.c:2082:33: sparse: sparse: restricted __le16 degrades to integer
-drivers/watchdog/imx2_wdt.c:442:22: sparse: sparse: symbol 'imx_wdt' was not declared. Should it be static?
-drivers/watchdog/imx2_wdt.c:446:22: sparse: sparse: symbol 'imx_wdt_legacy' was not declared. Should it be static?
-
-Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- arm64-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
-|-- csky-randconfig-s043-20230302
-|   |-- include-asm-generic-cmpxchg-local.h:sparse:sparse:cast-truncates-bits-from-constant-value-(-becomes-)
-|   `-- include-asm-generic-cmpxchg-local.h:sparse:sparse:cast-truncates-bits-from-constant-value-(aaa31337-becomes-)
-|-- i386-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
-|-- i386-randconfig-s001
-|   `-- drivers-usb-gadget-composite.c:sparse:sparse:restricted-__le16-degrades-to-integer
-|-- i386-randconfig-s003
-|   `-- drivers-usb-gadget-composite.c:sparse:sparse:restricted-__le16-degrades-to-integer
-|-- openrisc-randconfig-s032-20230302
-|   `-- drivers-usb-gadget-composite.c:sparse:sparse:restricted-__le16-degrades-to-integer
-|-- powerpc-randconfig-s042-20230302
-|   |-- drivers-watchdog-imx2_wdt.c:sparse:sparse:symbol-imx_wdt-was-not-declared.-Should-it-be-static
-|   `-- drivers-watchdog-imx2_wdt.c:sparse:sparse:symbol-imx_wdt_legacy-was-not-declared.-Should-it-be-static
-|-- riscv-randconfig-s041-20230302
-|   |-- drivers-watchdog-imx2_wdt.c:sparse:sparse:symbol-imx_wdt-was-not-declared.-Should-it-be-static
-|   `-- drivers-watchdog-imx2_wdt.c:sparse:sparse:symbol-imx_wdt_legacy-was-not-declared.-Should-it-be-static
-|-- sparc-randconfig-s051-20230302
-|   `-- drivers-usb-gadget-composite.c:sparse:sparse:restricted-__le16-degrades-to-integer
-|-- x86_64-allnoconfig
-|   `-- Warning:Documentation-devicetree-bindings-usb-rockchip-dwc3.yaml-references-a-file-that-doesn-t-exist:Documentation-devicetree-bindings-phy-phy-rockchip-inno-usb2.yaml
-|-- x86_64-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
-`-- x86_64-randconfig-s021
-    `-- drivers-usb-gadget-composite.c:sparse:sparse:restricted-__le16-degrades-to-integer
-
-elapsed time: 1261m
-
-configs tested: 145
-configs skipped: 6
-
-tested configs:
-alpha                            allyesconfig   gcc  
-alpha                               defconfig   gcc  
-arc                              allyesconfig   gcc  
-arc                                 defconfig   gcc  
-arc                  randconfig-r003-20230302   gcc  
-arc                  randconfig-r031-20230302   gcc  
-arc                  randconfig-r043-20230302   gcc  
-arc                        vdk_hs38_defconfig   gcc  
-arm                              allmodconfig   gcc  
-arm                              allyesconfig   gcc  
-arm                                 defconfig   gcc  
-arm                       imx_v4_v5_defconfig   clang
-arm                           imxrt_defconfig   gcc  
-arm                      integrator_defconfig   gcc  
-arm                        neponset_defconfig   clang
-arm                  randconfig-c002-20230302   gcc  
-arm                  randconfig-r046-20230302   gcc  
-arm64                            allyesconfig   gcc  
-arm64                               defconfig   gcc  
-csky                             alldefconfig   gcc  
-csky         buildonly-randconfig-r002-20230302   gcc  
-csky                                defconfig   gcc  
-csky                 randconfig-r016-20230302   gcc  
-hexagon              randconfig-r011-20230302   clang
-hexagon              randconfig-r033-20230302   clang
-hexagon              randconfig-r041-20230302   clang
-hexagon              randconfig-r045-20230302   clang
-i386                             allyesconfig   clang
-i386                             allyesconfig   gcc  
-i386                         debian-10.3-func   gcc  
-i386                   debian-10.3-kselftests   gcc  
-i386                        debian-10.3-kunit   gcc  
-i386                          debian-10.3-kvm   gcc  
-i386                              debian-10.3   gcc  
-i386                                defconfig   gcc  
-i386                          randconfig-a001   gcc  
-i386                          randconfig-a002   clang
-i386                          randconfig-a003   gcc  
-i386                          randconfig-a004   clang
-i386                          randconfig-a005   gcc  
-i386                          randconfig-a006   clang
-i386                          randconfig-a011   clang
-i386                          randconfig-a012   gcc  
-i386                          randconfig-a013   clang
-i386                          randconfig-a014   gcc  
-i386                          randconfig-a015   clang
-i386                          randconfig-a016   gcc  
-i386                          randconfig-c001   gcc  
-ia64                             allmodconfig   gcc  
-ia64                                defconfig   gcc  
-ia64                 randconfig-r002-20230302   gcc  
-ia64                 randconfig-r023-20230302   gcc  
-ia64                          tiger_defconfig   gcc  
-loongarch                        allmodconfig   gcc  
-loongarch                         allnoconfig   gcc  
-loongarch                           defconfig   gcc  
-m68k                             allmodconfig   gcc  
-m68k         buildonly-randconfig-r004-20230302   gcc  
-m68k                                defconfig   gcc  
-m68k                 randconfig-r012-20230302   gcc  
-m68k                 randconfig-r022-20230302   gcc  
-m68k                 randconfig-r035-20230302   gcc  
-microblaze   buildonly-randconfig-r001-20230302   gcc  
-microblaze   buildonly-randconfig-r003-20230302   gcc  
-microblaze           randconfig-r005-20230302   gcc  
-microblaze           randconfig-r025-20230302   gcc  
-microblaze           randconfig-r026-20230302   gcc  
-mips                             allmodconfig   gcc  
-mips                             allyesconfig   gcc  
-mips                     decstation_defconfig   gcc  
-mips                       lemote2f_defconfig   clang
-mips                      maltasmvp_defconfig   gcc  
-mips                        qi_lb60_defconfig   clang
-mips                 randconfig-c004-20230302   clang
-mips                           rs90_defconfig   clang
-nios2                               defconfig   gcc  
-nios2                randconfig-r006-20230302   gcc  
-nios2                randconfig-r014-20230302   gcc  
-openrisc             randconfig-r004-20230302   gcc  
-parisc                           allyesconfig   gcc  
-parisc                              defconfig   gcc  
-parisc               randconfig-r015-20230302   gcc  
-parisc64                            defconfig   gcc  
-powerpc                          allmodconfig   gcc  
-powerpc                           allnoconfig   gcc  
-powerpc                        fsp2_defconfig   clang
-powerpc                 mpc832x_mds_defconfig   clang
-powerpc                      ppc44x_defconfig   clang
-powerpc                       ppc64_defconfig   gcc  
-powerpc              randconfig-c003-20230302   clang
-powerpc              randconfig-r034-20230302   gcc  
-powerpc                     tqm5200_defconfig   clang
-riscv                            allmodconfig   gcc  
-riscv                             allnoconfig   gcc  
-riscv                            allyesconfig   gcc  
-riscv                               defconfig   gcc  
-riscv                randconfig-r013-20230302   clang
-riscv                randconfig-r024-20230302   clang
-riscv                randconfig-r036-20230302   gcc  
-riscv                randconfig-r042-20230302   clang
-riscv                          rv32_defconfig   gcc  
-s390                             allmodconfig   gcc  
-s390                             allyesconfig   gcc  
-s390                                defconfig   gcc  
-s390                 randconfig-r044-20230302   clang
-sh                               allmodconfig   gcc  
-sh                                  defconfig   gcc  
-sh                ecovec24-romimage_defconfig   gcc  
-sh                             espt_defconfig   gcc  
-sh                   randconfig-r001-20230302   gcc  
-sh                   randconfig-r021-20230302   gcc  
-sh                          sdk7780_defconfig   gcc  
-sh                          sdk7786_defconfig   gcc  
-sh                   secureedge5410_defconfig   gcc  
-sparc                            allyesconfig   gcc  
-sparc                               defconfig   gcc  
-um                             i386_defconfig   gcc  
-um                           x86_64_defconfig   gcc  
-x86_64                            allnoconfig   gcc  
-x86_64                           allyesconfig   gcc  
-x86_64                              defconfig   gcc  
-x86_64                                  kexec   gcc  
-x86_64                        randconfig-a001   clang
-x86_64                        randconfig-a002   gcc  
-x86_64                        randconfig-a003   clang
-x86_64                        randconfig-a004   gcc  
-x86_64                        randconfig-a005   clang
-x86_64                        randconfig-a006   gcc  
-x86_64                        randconfig-a011   gcc  
-x86_64                        randconfig-a012   clang
-x86_64                        randconfig-a013   gcc  
-x86_64                        randconfig-a014   clang
-x86_64                        randconfig-a015   gcc  
-x86_64                        randconfig-a016   clang
-x86_64                        randconfig-c001   gcc  
-x86_64                        randconfig-k001   clang
-x86_64                           rhel-8.3-bpf   gcc  
-x86_64                          rhel-8.3-func   gcc  
-x86_64                    rhel-8.3-kselftests   gcc  
-x86_64                         rhel-8.3-kunit   gcc  
-x86_64                           rhel-8.3-kvm   gcc  
-x86_64                          rhel-8.3-rust   clang
-x86_64                           rhel-8.3-syz   gcc  
-x86_64                               rhel-8.3   gcc  
-xtensa                           allyesconfig   gcc  
-xtensa       buildonly-randconfig-r005-20230302   gcc  
-
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index 697e98a0a20a..e8780ea66067 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -2143,16 +2143,9 @@ static int sienna_cichlid_set_default_od_settings(struct smu_context *smu)
+ 		(OverDriveTable_t *)smu->smu_table.boot_overdrive_table;
+ 	OverDriveTable_t *user_od_table =
+ 		(OverDriveTable_t *)smu->smu_table.user_overdrive_table;
++	OverDriveTable_t user_od_table_bak;
+ 	int ret = 0;
+ 
+-	/*
+-	 * For S3/S4/Runpm resume, no need to setup those overdrive tables again as
+-	 *   - either they already have the default OD settings got during cold bootup
+-	 *   - or they have some user customized OD settings which cannot be overwritten
+-	 */
+-	if (smu->adev->in_suspend)
+-		return 0;
+-
+ 	ret = smu_cmn_update_table(smu, SMU_TABLE_OVERDRIVE,
+ 				   0, (void *)boot_od_table, false);
+ 	if (ret) {
+@@ -2163,7 +2156,23 @@ static int sienna_cichlid_set_default_od_settings(struct smu_context *smu)
+ 	sienna_cichlid_dump_od_table(smu, boot_od_table);
+ 
+ 	memcpy(od_table, boot_od_table, sizeof(OverDriveTable_t));
+-	memcpy(user_od_table, boot_od_table, sizeof(OverDriveTable_t));
++
++	/*
++	 * For S3/S4/Runpm resume, we need to setup those overdrive tables again,
++	 * but we have to preserve user defined values in "user_od_table".
++	 */
++	if (!smu->adev->in_suspend) {
++		memcpy(user_od_table, boot_od_table, sizeof(OverDriveTable_t));
++		smu->user_dpm_profile.user_od = false;
++	} else if (smu->user_dpm_profile.user_od) {
++		memcpy(&user_od_table_bak, user_od_table, sizeof(OverDriveTable_t));
++		memcpy(user_od_table, boot_od_table, sizeof(OverDriveTable_t));
++		user_od_table->GfxclkFmin = user_od_table_bak.GfxclkFmin;
++		user_od_table->GfxclkFmax = user_od_table_bak.GfxclkFmax;
++		user_od_table->UclkFmin = user_od_table_bak.UclkFmin;
++		user_od_table->UclkFmax = user_od_table_bak.UclkFmax;
++		user_od_table->VddGfxOffset = user_od_table_bak.VddGfxOffset;
++	}
+ 
+ 	return 0;
+ }
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+2.39.2
+
