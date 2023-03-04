@@ -4,58 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F03BC64EC4
-	for <amd-gfx@archiver.kernel.org>; Sat,  4 Mar 2023 14:22:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F3A7C678DB
+	for <amd-gfx@archiver.kernel.org>; Sat,  4 Mar 2023 23:45:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EE6510E046;
-	Sat,  4 Mar 2023 14:22:04 +0000 (UTC)
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2E3C10E046
- for <amd-gfx@lists.freedesktop.org>; Sat,  4 Mar 2023 14:22:02 +0000 (UTC)
-Received: by mail-lf1-x134.google.com with SMTP id d36so3979363lfv.8
- for <amd-gfx@lists.freedesktop.org>; Sat, 04 Mar 2023 06:22:02 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C96F310E05F;
+	Sat,  4 Mar 2023 23:45:28 +0000 (UTC)
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACCA810E05F
+ for <amd-gfx@lists.freedesktop.org>; Sat,  4 Mar 2023 23:45:26 +0000 (UTC)
+Received: by mail-lf1-x130.google.com with SMTP id i9so8180149lfc.6
+ for <amd-gfx@lists.freedesktop.org>; Sat, 04 Mar 2023 15:45:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1677939721;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=gP8y+ZGSB3tYy5lkcicAQOotbZtTMnefx+SEzepkXec=;
- b=X9eMRKWtCGyT/OKF2IlOKpJc3PAx+sq5eMluJnaRKccLpkr4oC/azAUUykmPbO+zcV
- xW/pS114kHBwN7eS119IAe7MEbUO2UNhiMVn+x2G1s+e9h4ZV/ZdJA/v59YapH+A9vMe
- 6kkH+CPKclMEWwEBZawlbNAzbTi8kSOZvrqYuC9OOYP3WdCK8ng+dValMry1vJeu7otD
- Axyj0cMO7XYsk6CC2wGhmMzWftZGL++kUrBytvl5CU/I/m6eb7FhMAZ5lOHFRX2Rnn5O
- SMyYqkf3S1upXcycZ73dolHNZddLjsiHvEzsU1+yGbui5qB2haXCOjJbBbAfKY21QoF/
- CkpQ==
+ d=gmail.com; s=20210112; t=1677973525;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3yLK0XTeDWpVK2ZzznVyMabq/y4vJTMP6Hb1/1uKVxw=;
+ b=Umb+r74g8oTnbaFXv4ed+mBTw14f7O/lBjKTGBIcxhC+8KmMptxp0WwV1cb3wYr/Yg
+ YTDFnmXWdMKBN75UrEQuU9nMGsABSzZI3Mll8xMq9LRDvTLpoPG9uRrSoYOzDO3CuN7k
+ WKaoFXJcVhLplPKW/RmeOA4B6xOXAV0TVkxGjfU8B/2rAx3YYqfxle9oSeedVs4KFecy
+ +oEBCgbOCaM6Bsgi+NaP3+Pk6FeW0oJ4BpPMe1J5fnnDez9mY48lWChytTdUoLOeK7f8
+ 4Co6qghbD5rfsHwCzxiRaO+roFGyEjm2v8oUepEo3igdWoO9A/N4k7t8ezgsCtpUJ0Lh
+ YxbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1677939721;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=gP8y+ZGSB3tYy5lkcicAQOotbZtTMnefx+SEzepkXec=;
- b=LwON0Hp+H2HFsrEo3LBRbDSY4VBJ+UFtWTvQ0jP8rbSHmJbMgxohpbzv+NQxQFU0RD
- Rzrr9MxXByi5VsMD50WScpTEtsQY/xlqwXcs29byNIAs8XD1OD/6WI4DYwW4rRsdqcno
- xHY6pm/uVM2NsejMj0W1PK4dmSdQcrhV6xGArH445jRJeSX0BVvHvJKIJO6I7zzfaRsA
- BBoGq9/H/1FKUIbZl81b9RFQ/Ces1+jHPqwPmAqWqCufqdQDxyMO8gIJhevbLYGyaY3y
- E0tvSusoPufAEqgv14jgIjjmVBTZB3M4oApnQXh1toJe6F68y4oGOeYF3Me5XPTWEYLl
- 5NaQ==
-X-Gm-Message-State: AO0yUKUPyJeATboZ2DZbaE4iujGTBYBgFzsTaDUo29bVXptG6Wq2ck12
- qERoNBkfbw2lKbGGLgm35KeYzlrgG6s=
-X-Google-Smtp-Source: AK7set/CEFfZbimV2nC5jRyei8TYXbJTLGbhuzmq3XA1HdBppmxhgNvt5ueiF/zTEFC05H2G4aEMFQ==
-X-Received: by 2002:ac2:5a0f:0:b0:4dc:8192:c5e6 with SMTP id
- q15-20020ac25a0f000000b004dc8192c5e6mr1558182lfn.13.1677939720983; 
- Sat, 04 Mar 2023 06:22:00 -0800 (PST)
+ d=1e100.net; s=20210112; t=1677973525;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=3yLK0XTeDWpVK2ZzznVyMabq/y4vJTMP6Hb1/1uKVxw=;
+ b=WhpNgP3ODY+xMprKEG4RSlqZWGVLsUM2R1wKNs7f+iiVbKnoNZ993CwuDAs6baQcMS
+ 9n0SvRuDTCjFS4pFV4UfH7aMMO/yZQikdppMt1Jik4G/TBukmtlywAoj6Gv9Tt/KFwhA
+ AT4/00ij+j0nBlKo3MO3ro4AOma8n0durlkrWxTjHL2IYtjKepBPl+AyBZvbGqUsQFC9
+ T5x7QUwRacsordcI+z4d2l1oG6GRoS1Npce/G7LmYeHBGdRqfF2MTHZ6xdK8k19r3KEM
+ Si7ji1HftQIgHdVnW4J3E8GUE9V68Ks6VYgdh3oTqjA/NaRtFKFMHjEIqJbxvY4xEgK8
+ cISg==
+X-Gm-Message-State: AO0yUKVCr72rQdJlIJqsf7skngXf1WliWoCUUrrgBLBnBHxULAk4EdcL
+ buVCIFV3QHEFiMoCnxqPBLjaMIJ49p8Emg==
+X-Google-Smtp-Source: AK7set8bRFTil2r6F4srMuI6MeM8mAoeIlvBQmcnGEHojywFV3c73JfJSDmedt+UTLtUKOwE6M5JRQ==
+X-Received: by 2002:ac2:533c:0:b0:4dd:9aec:e468 with SMTP id
+ f28-20020ac2533c000000b004dd9aece468mr1925684lfh.58.1677973524721; 
+ Sat, 04 Mar 2023 15:45:24 -0800 (PST)
 Received: from localhost.localdomain (pc-201-96-67-156-static.strong-pc.com.
  [156.67.96.201]) by smtp.gmail.com with ESMTPSA id
- c14-20020ac2530e000000b004db51387ad6sm831261lfh.129.2023.03.04.06.22.00
+ a12-20020ac2520c000000b004db4f2f08f7sm982756lfl.28.2023.03.04.15.45.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 04 Mar 2023 06:22:00 -0800 (PST)
+ Sat, 04 Mar 2023 15:45:24 -0800 (PST)
 From: =?UTF-8?q?B=C5=82a=C5=BCej=20Szczygie=C5=82?= <mumei6102@gmail.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amd/pm: Fix sienna cichlid incorrect OD volage after
+Subject: [PATCH v2] drm/amd/pm: Fix sienna cichlid incorrect OD volage after
  resume
-Date: Sat,  4 Mar 2023 15:20:35 +0100
-Message-Id: <20230304142035.37615-1-mumei6102@gmail.com>
+Date: Sun,  5 Mar 2023 00:44:31 +0100
+Message-Id: <20230304234431.29507-1-mumei6102@gmail.com>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230304142035.37615-1-mumei6102@gmail.com>
+References: <20230304142035.37615-1-mumei6102@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -77,13 +80,16 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Always setup overdrive tables after resume. Preserve only some
 user-defined settings in user_overdrive_table if they're set.
 
+Copy restored user_overdrive_table into od_table to get correct
+values.
+
 Signed-off-by: Błażej Szczygieł <mumei6102@gmail.com>
 ---
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 27 ++++++++++++-------
- 1 file changed, 18 insertions(+), 9 deletions(-)
+ .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 43 ++++++++++++++-----
+ 1 file changed, 33 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index 697e98a0a20a..e8780ea66067 100644
+index 697e98a0a20a..75f18681e984 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
 @@ -2143,16 +2143,9 @@ static int sienna_cichlid_set_default_od_settings(struct smu_context *smu)
@@ -129,6 +135,36 @@ index 697e98a0a20a..e8780ea66067 100644
  
  	return 0;
  }
+@@ -2373,6 +2382,20 @@ static int sienna_cichlid_od_edit_dpm_table(struct smu_context *smu,
+ 	return ret;
+ }
+ 
++static int sienna_cichlid_restore_user_od_settings(struct smu_context *smu)
++{
++	struct smu_table_context *table_context = &smu->smu_table;
++	OverDriveTable_t *od_table = table_context->overdrive_table;
++	OverDriveTable_t *user_od_table = table_context->user_overdrive_table;
++	int res;
++
++	res = smu_v11_0_restore_user_od_settings(smu);
++	if (res == 0)
++		memcpy(od_table, user_od_table, sizeof(OverDriveTable_t));
++
++	return res;
++}
++
+ static int sienna_cichlid_run_btc(struct smu_context *smu)
+ {
+ 	int res;
+@@ -4400,7 +4423,7 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
+ 	.set_soft_freq_limited_range = smu_v11_0_set_soft_freq_limited_range,
+ 	.set_default_od_settings = sienna_cichlid_set_default_od_settings,
+ 	.od_edit_dpm_table = sienna_cichlid_od_edit_dpm_table,
+-	.restore_user_od_settings = smu_v11_0_restore_user_od_settings,
++	.restore_user_od_settings = sienna_cichlid_restore_user_od_settings,
+ 	.run_btc = sienna_cichlid_run_btc,
+ 	.set_power_source = smu_v11_0_set_power_source,
+ 	.get_pp_feature_mask = smu_cmn_get_pp_feature_mask,
 -- 
 2.39.2
 
