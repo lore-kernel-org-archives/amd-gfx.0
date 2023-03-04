@@ -4,63 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBF2EC61DA4
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Mar 2023 08:28:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1280C6FD1A
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Mar 2023 08:28:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE53D10E151;
-	Mon,  6 Mar 2023 08:28:14 +0000 (UTC)
-Received: from mail-oo1-xc2c.google.com (mail-oo1-xc2c.google.com
- [IPv6:2607:f8b0:4864:20::c2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4147310E02B;
- Mon,  6 Mar 2023 02:24:40 +0000 (UTC)
-Received: by mail-oo1-xc2c.google.com with SMTP id
- o19-20020a056820041300b005259de79accso1328043oou.9; 
- Sun, 05 Mar 2023 18:24:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678069479;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=8eB/UF/tlnbbeXcEuRN7hzjSgFcNNFvN1jX/T+t9+LU=;
- b=WBZs6FLMVU1TdZ4/W6g84EtE99Lh48VXmrZqpDGEv5g+aQStqPVJIgsX++oyq9PvXr
- 1NfXSs0P2EXFaR5gWewLUFb9xDMrf5ld7YxJ/q0uER49ybdQ55CvTkTVDEt2VjPCK+Gv
- LNjbe2YaJI1hFwKdB+ynRLlwOrSWlZC9Yn8LC2vbQS79jB0g6Ll8cBnhCizmVYqn7Oko
- kd223JyMRMC9w6F1SWzwqCM3Yvz5tfdnGCOjY5CqcecnJDK2zm+PlWgqusI66q0ADWj1
- 0hPbbroAqmeEUAvYMEDTpABJAMGeUfGnCGKsStrF7lEbtqs6+s6/W53Y03P9zTUjxm6o
- LTrw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1822910E154;
+	Mon,  6 Mar 2023 08:28:15 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 629A110E1B5
+ for <amd-gfx@lists.freedesktop.org>; Sat,  4 Mar 2023 16:22:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1677946944;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=dmotLXem4e3x/uxYnezILl2DZNq6o+kU9ZnW6R95Pzc=;
+ b=fktkH2vqk0bEsc7tKIxe76DHQIBzc9bVVRmELnjL6UjY8pzJcvqKKMetsUh9j8dZ3Yo8PU
+ XiRmy9VIwo6GS4am0iDdxipDjokqgoOXg+qu+9ZtrFbc7MZErVm5lDXUTCsKRi6yhQ86bM
+ pnNrGoAUMgnDoJgWQEvGREl0Id+MYTQ=
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-110-9LZbKWtoMFSgCq-p3P1IFQ-1; Sat, 04 Mar 2023 11:22:22 -0500
+X-MC-Unique: 9LZbKWtoMFSgCq-p3P1IFQ-1
+Received: by mail-qt1-f198.google.com with SMTP id
+ c5-20020ac85185000000b003bfae3b8051so3135750qtn.0
+ for <amd-gfx@lists.freedesktop.org>; Sat, 04 Mar 2023 08:22:22 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678069479;
+ d=1e100.net; s=20210112; t=1677946942;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=8eB/UF/tlnbbeXcEuRN7hzjSgFcNNFvN1jX/T+t9+LU=;
- b=nOQ8kkbrSy7nIlJwgb7Pi3cI8zSS6Hmrn/1RwYn7M5kwscocpEwbvbfh1m90VlmbIh
- PjjIcPhrAM5bkykNMrADGNJS6/kzwzn4+n+fuLwD2rLySCD0RVPEAYR7L06fDPu64WVP
- 7JCTQc1bpJhkOq/CkLBosd/DexwFrdRYJWNXvOmyY52HtK6LEj5wmLcNm8sn0iniX1YR
- LEHeWRea9GoE1nKNjvNXNfeJjsDC+FnAjVO7QK85hc4K/XcYdjFQiSKXVqOHymJt/0m2
- /qHDGYEEH+pAGYOaONEYGQKyDCLbmEq7F/vHM4kawSVKl0h7VIRNtCeXeCLz9urah80f
- XkJg==
-X-Gm-Message-State: AO0yUKUdoNfS46LEV4AKTMuRQGbaGC6q9a07F1GRMW4TKyivODSx3tWg
- laG0TLswuZpsZctzxIODdM4=
-X-Google-Smtp-Source: AK7set9GAIBy44XY3fRiSMdEnYc7lHYuY37gI0ek4gAaxZ7X+6Kx7JIPTxXFJE0tPhHTrYqjK2lWkg==
-X-Received: by 2002:a4a:b149:0:b0:525:4e79:8715 with SMTP id
- e9-20020a4ab149000000b005254e798715mr4367199ooo.8.1678069479081; 
- Sun, 05 Mar 2023 18:24:39 -0800 (PST)
-Received: from localhost.localdomain ([2804:14c:63:8ae3:4d1f:9fc2:9fe6:c88e])
+ bh=dmotLXem4e3x/uxYnezILl2DZNq6o+kU9ZnW6R95Pzc=;
+ b=VuwIDakx4qFi2HESkltHXd12WwoiHo8qz8Q0e0fIp6wItRBXb/r+F5I4gA+QG6c6pf
+ NtGGhs/8KQnBE0/f9a5UNK3XUcrG5HRtwDmnccLmnPsUESSDeP1+/OPA0d4kMRJNgzh/
+ Yal1WV1aeQVWwd8XIfg/e2ZPdaTp6DBO12/6NLZZk9tGv5xYb3Z5Zyz9bZXSaPK2t6Jg
+ L7XFVPbClnGdtrhyGvDdhHtrnkPm5qUMiHx7m5JSN7dIW+v1TcguEH8X5i7NAZER5VbZ
+ 5mQktybvDiuzkdecNuizxD3t/rVf4LSmtBUqvDPMCuxJBQkacppNw1lE6YBDFkDAz3gd
+ wQKA==
+X-Gm-Message-State: AO0yUKV0J+9cVDqvHYcKiLnhrc6Huxi2JkBecG2/ToBObbKbbq7RYBWE
+ nwphK65jyokoPBscdPKDlN1aa6BBBNWUxpwgbODsVZG7nq5JY5usuvUmM8JX6wMSEAPo1/zjhoP
+ udSpQNmn9Mc3Pgv3ouK6U4UMLAQ==
+X-Received: by 2002:a05:6214:f09:b0:577:5b89:577e with SMTP id
+ gw9-20020a0562140f0900b005775b89577emr10603078qvb.32.1677946942372; 
+ Sat, 04 Mar 2023 08:22:22 -0800 (PST)
+X-Google-Smtp-Source: AK7set/JOVgua1W48N5/fE0WY936nqy/GjjBYTH7jYlDd1pCaIPB4j3tzfLMIQGDzqH29BsEliUTcQ==
+X-Received: by 2002:a05:6214:f09:b0:577:5b89:577e with SMTP id
+ gw9-20020a0562140f0900b005775b89577emr10603032qvb.32.1677946942084; 
+ Sat, 04 Mar 2023 08:22:22 -0800 (PST)
+Received: from dell-per740-01.7a2m.lab.eng.bos.redhat.com
+ (nat-pool-bos-t.redhat.com. [66.187.233.206])
  by smtp.gmail.com with ESMTPSA id
- k124-20020aca3d82000000b00383e12e20c5sm3491557oia.24.2023.03.05.18.24.35
+ s144-20020a374596000000b0073bb4312842sm3904539qka.128.2023.03.04.08.22.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 05 Mar 2023 18:24:38 -0800 (PST)
-From: David Tadokoro <davidbtadokoro@gmail.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, corbet@lwn.net,
- harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com
-Subject: [PATCH] drm/amd/display: add prefix to amdgpu_dm_plane.h functions
-Date: Sun,  5 Mar 2023 23:24:27 -0300
-Message-Id: <20230306022427.437022-1-davidbtadokoro@gmail.com>
-X-Mailer: git-send-email 2.39.2
+ Sat, 04 Mar 2023 08:22:21 -0800 (PST)
+From: Tom Rix <trix@redhat.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, alvin.lee2@amd.com, javierm@redhat.com,
+ hamza.mahfooz@amd.com, eric.bernstein@amd.com, roman.li@amd.com,
+ wenjing.liu@amd.com, praful.swarnakar@amd.com, tzimmermann@suse.de,
+ jiapeng.chong@linux.alibaba.com, Pavle.Kotarac@amd.com,
+ hansen.dsouza@amd.com, Charlene.Liu@amd.com, Josip.Pavic@amd.com,
+ Jun.Lei@amd.com, chiahsuan.chung@amd.com
+Subject: [PATCH] drm/amd/display: change several dcn20 variables
+ storage-class-specifier to static
+Date: Sat,  4 Mar 2023 11:22:13 -0500
+Message-Id: <20230304162213.1939515-1-trix@redhat.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 X-Mailman-Approved-At: Mon, 06 Mar 2023 08:28:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,236 +89,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, David Tadokoro <davidbtadokoro@usp.br>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-doc@vger.kernel.org
+Cc: Tom Rix <trix@redhat.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: David Tadokoro <davidbtadokoro@usp.br>
+smatch reports these similar problems in dcn20
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn20/dcn20_dsc.c:53:24:
+  warning: symbol 'dcn20_dsc_funcs' was not declared. Should it be static?
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn20/dcn20_dwb.c:304:25:
+  warning: symbol 'dcn20_dwbc_funcs' was not declared. Should it be static?
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn20/dcn20_mmhubbub.c:300:28:
+  warning: symbol 'dcn20_mmhubbub_funcs' was not declared. Should it be static?
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn20/dcn20_mpc.c:545:24:
+  warning: symbol 'dcn20_mpc_funcs' was not declared. Should it be static?
 
-The amdgpu_dm_plane.h functions didn't have names that indicated where
-they were declared.
+All of these are only used in their definition file, so they should be static
 
-To better filter results in debug tools like ftrace, prefix these
-functions with 'amdgpu_dm_plane_'.
-
-Note that we may want to make this same change in other files like
-amdgpu_dm_crtc.h.
-
-Signed-off-by: David Tadokoro <davidbtadokoro@usp.br>
+Signed-off-by: Tom Rix <trix@redhat.com>
 ---
- .../gpu/amdgpu/display/display-manager.rst    |  2 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 ++++++-------
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 20 +++++++++----------
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.h   | 12 +++++------
- 4 files changed, 24 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c      | 2 +-
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dwb.c      | 2 +-
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mmhubbub.c | 2 +-
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c      | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/gpu/amdgpu/display/display-manager.rst b/Documentation/gpu/amdgpu/display/display-manager.rst
-index b7abb18cfc82..be2651ecdd7f 100644
---- a/Documentation/gpu/amdgpu/display/display-manager.rst
-+++ b/Documentation/gpu/amdgpu/display/display-manager.rst
-@@ -173,7 +173,7 @@ The alpha blending equation is configured from DRM to DC interface by the
- following path:
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c
+index 42344aec60d6..5bd698cd6d20 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c
+@@ -50,7 +50,7 @@ static void dsc2_enable(struct display_stream_compressor *dsc, int opp_pipe);
+ static void dsc2_disable(struct display_stream_compressor *dsc);
+ static void dsc2_disconnect(struct display_stream_compressor *dsc);
  
- 1. When updating a :c:type:`drm_plane_state <drm_plane_state>`, DM calls
--   :c:type:`fill_blending_from_plane_state()` that maps
-+   :c:type:`amdgpu_dm_plane_fill_blending_from_plane_state()` that maps
-    :c:type:`drm_plane_state <drm_plane_state>` attributes to
-    :c:type:`dc_plane_info <dc_plane_info>` struct to be handled in the
-    OS-agnostic component (DC).
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 4217ebe6391b..f7111acd45cc 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2923,7 +2923,7 @@ const struct amdgpu_ip_block_version dm_ip_block =
+-const struct dsc_funcs dcn20_dsc_funcs = {
++static const struct dsc_funcs dcn20_dsc_funcs = {
+ 	.dsc_get_enc_caps = dsc2_get_enc_caps,
+ 	.dsc_read_state = dsc2_read_state,
+ 	.dsc_validate_stream = dsc2_validate_stream,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dwb.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dwb.c
+index f1490e97b6ce..f8667be57046 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dwb.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dwb.c
+@@ -301,7 +301,7 @@ void dwb2_set_scaler(struct dwbc *dwbc, struct dc_dwb_params *params)
  
- static const struct drm_mode_config_funcs amdgpu_dm_mode_funcs = {
- 	.fb_create = amdgpu_display_user_framebuffer_create,
--	.get_format_info = amd_get_format_info,
-+	.get_format_info = amdgpu_dm_plane_get_format_info,
- 	.output_poll_changed = drm_fb_helper_output_poll_changed,
- 	.atomic_check = amdgpu_dm_atomic_check,
- 	.atomic_commit = drm_atomic_helper_commit,
-@@ -4948,7 +4948,7 @@ fill_dc_plane_info_and_addr(struct amdgpu_device *adev,
- 	if (ret)
- 		return ret;
- 
--	ret = fill_plane_buffer_attributes(adev, afb, plane_info->format,
-+	ret = amdgpu_dm_plane_fill_plane_buffer_attributes(adev, afb, plane_info->format,
- 					   plane_info->rotation, tiling_flags,
- 					   &plane_info->tiling_info,
- 					   &plane_info->plane_size,
-@@ -4957,7 +4957,7 @@ fill_dc_plane_info_and_addr(struct amdgpu_device *adev,
- 	if (ret)
- 		return ret;
- 
--	fill_blending_from_plane_state(
-+	amdgpu_dm_plane_fill_blending_from_plane_state(
- 		plane_state, &plane_info->per_pixel_alpha, &plane_info->pre_multiplied_alpha,
- 		&plane_info->global_alpha, &plane_info->global_alpha_value);
- 
-@@ -4976,7 +4976,7 @@ static int fill_dc_plane_attributes(struct amdgpu_device *adev,
- 	int ret;
- 	bool force_disable_dcc = false;
- 
--	ret = fill_dc_scaling_info(adev, plane_state, &scaling_info);
-+	ret = amdgpu_dm_plane_fill_dc_scaling_info(adev, plane_state, &scaling_info);
- 	if (ret)
- 		return ret;
- 
-@@ -7882,7 +7882,7 @@ static void amdgpu_dm_commit_cursors(struct drm_atomic_state *state)
- 	 */
- 	for_each_old_plane_in_state(state, plane, old_plane_state, i)
- 		if (plane->type == DRM_PLANE_TYPE_CURSOR)
--			handle_cursor_update(plane, old_plane_state);
-+			amdgpu_dm_plane_handle_cursor_update(plane, old_plane_state);
  }
  
- static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
-@@ -7967,7 +7967,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 			bundle->surface_updates[planes_count].gamut_remap_matrix = &dc_plane->gamut_remap_matrix;
- 		}
- 
--		fill_dc_scaling_info(dm->adev, new_plane_state,
-+		amdgpu_dm_plane_fill_dc_scaling_info(dm->adev, new_plane_state,
- 				     &bundle->scaling_infos[planes_count]);
- 
- 		bundle->surface_updates[planes_count].scaling_info =
-@@ -9634,7 +9634,7 @@ static int dm_update_plane_state(struct dc *dc,
- 		if (!needs_reset)
- 			return 0;
- 
--		ret = dm_plane_helper_check_state(new_plane_state, new_crtc_state);
-+		ret = amdgpu_dm_plane_helper_check_state(new_plane_state, new_crtc_state);
- 		if (ret)
- 			return ret;
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 28fb1f02591a..dc23c788cdba 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -90,12 +90,12 @@ enum dm_micro_swizzle {
- 	MICRO_SWIZZLE_R = 3
- };
- 
--const struct drm_format_info *amd_get_format_info(const struct drm_mode_fb_cmd2 *cmd)
-+const struct drm_format_info *amdgpu_dm_plane_get_format_info(const struct drm_mode_fb_cmd2 *cmd)
- {
- 	return amdgpu_lookup_format_info(cmd->pixel_format, cmd->modifier[0]);
+-const struct dwbc_funcs dcn20_dwbc_funcs = {
++static const struct dwbc_funcs dcn20_dwbc_funcs = {
+ 	.get_caps		= dwb2_get_caps,
+ 	.enable			= dwb2_enable,
+ 	.disable		= dwb2_disable,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mmhubbub.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mmhubbub.c
+index ccd91792991b..259a98e4ee2c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mmhubbub.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mmhubbub.c
+@@ -297,7 +297,7 @@ void mcifwb2_dump_frame(struct mcif_wb *mcif_wb,
+ 	dump_info->size		= dest_height * (mcif_params->luma_pitch + mcif_params->chroma_pitch);
  }
  
--void fill_blending_from_plane_state(const struct drm_plane_state *plane_state,
-+void amdgpu_dm_plane_fill_blending_from_plane_state(const struct drm_plane_state *plane_state,
- 			       bool *per_pixel_alpha, bool *pre_multiplied_alpha,
- 			       bool *global_alpha, int *global_alpha_value)
- {
-@@ -759,7 +759,7 @@ static int attach_color_mgmt_properties(struct amdgpu_display_manager *dm, struc
- }
- #endif
- 
--int fill_plane_buffer_attributes(struct amdgpu_device *adev,
-+int amdgpu_dm_plane_fill_plane_buffer_attributes(struct amdgpu_device *adev,
- 			     const struct amdgpu_framebuffer *afb,
- 			     const enum surface_pixel_format format,
- 			     const enum dc_rotation_angle rotation,
-@@ -918,7 +918,7 @@ static int dm_plane_helper_prepare_fb(struct drm_plane *plane,
- 			dm_plane_state_new->dc_state;
- 		bool force_disable_dcc = !plane_state->dcc.enable;
- 
--		fill_plane_buffer_attributes(
-+		amdgpu_dm_plane_fill_plane_buffer_attributes(
- 			adev, afb, plane_state->format, plane_state->rotation,
- 			afb->tiling_flags,
- 			&plane_state->tiling_info, &plane_state->plane_size,
-@@ -999,7 +999,7 @@ static void get_min_max_dc_plane_scaling(struct drm_device *dev,
- 		*min_downscale = 1000;
+-const struct mcif_wb_funcs dcn20_mmhubbub_funcs = {
++static const struct mcif_wb_funcs dcn20_mmhubbub_funcs = {
+ 	.enable_mcif		= mmhubbub2_enable_mcif,
+ 	.disable_mcif		= mmhubbub2_disable_mcif,
+ 	.config_mcif_buf	= mmhubbub2_config_mcif_buf,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c
+index 116f67a0b989..5da6e44f284a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mpc.c
+@@ -542,7 +542,7 @@ static struct mpcc *mpc2_get_mpcc_for_dpp(struct mpc_tree *tree, int dpp_id)
+ 	return NULL;
  }
  
--int dm_plane_helper_check_state(struct drm_plane_state *state,
-+int amdgpu_dm_plane_helper_check_state(struct drm_plane_state *state,
- 				       struct drm_crtc_state *new_crtc_state)
- {
- 	struct drm_framebuffer *fb = state->fb;
-@@ -1053,7 +1053,7 @@ int dm_plane_helper_check_state(struct drm_plane_state *state,
- 		state, new_crtc_state, min_scale, max_scale, true, true);
- }
- 
--int fill_dc_scaling_info(struct amdgpu_device *adev,
-+int amdgpu_dm_plane_fill_dc_scaling_info(struct amdgpu_device *adev,
- 				const struct drm_plane_state *state,
- 				struct dc_scaling_info *scaling_info)
- {
-@@ -1161,11 +1161,11 @@ static int dm_plane_atomic_check(struct drm_plane *plane,
- 	if (!new_crtc_state)
- 		return -EINVAL;
- 
--	ret = dm_plane_helper_check_state(new_plane_state, new_crtc_state);
-+	ret = amdgpu_dm_plane_helper_check_state(new_plane_state, new_crtc_state);
- 	if (ret)
- 		return ret;
- 
--	ret = fill_dc_scaling_info(adev, new_plane_state, &scaling_info);
-+	ret = amdgpu_dm_plane_fill_dc_scaling_info(adev, new_plane_state, &scaling_info);
- 	if (ret)
- 		return ret;
- 
-@@ -1229,7 +1229,7 @@ static int get_cursor_position(struct drm_plane *plane, struct drm_crtc *crtc,
- 	return 0;
- }
- 
--void handle_cursor_update(struct drm_plane *plane,
-+void amdgpu_dm_plane_handle_cursor_update(struct drm_plane *plane,
- 				 struct drm_plane_state *old_plane_state)
- {
- 	struct amdgpu_device *adev = drm_to_adev(plane->dev);
-@@ -1314,7 +1314,7 @@ static void dm_plane_atomic_async_update(struct drm_plane *plane,
- 	plane->state->crtc_w = new_state->crtc_w;
- 	plane->state->crtc_h = new_state->crtc_h;
- 
--	handle_cursor_update(plane, old_state);
-+	amdgpu_dm_plane_handle_cursor_update(plane, old_state);
- }
- 
- static const struct drm_plane_helper_funcs dm_plane_helper_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-index a4bee8528a51..930f1572f898 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-@@ -29,17 +29,17 @@
- 
- #include "dc.h"
- 
--void handle_cursor_update(struct drm_plane *plane,
-+void amdgpu_dm_plane_handle_cursor_update(struct drm_plane *plane,
- 			  struct drm_plane_state *old_plane_state);
- 
--int fill_dc_scaling_info(struct amdgpu_device *adev,
-+int amdgpu_dm_plane_fill_dc_scaling_info(struct amdgpu_device *adev,
- 			 const struct drm_plane_state *state,
- 			 struct dc_scaling_info *scaling_info);
- 
--int dm_plane_helper_check_state(struct drm_plane_state *state,
-+int amdgpu_dm_plane_helper_check_state(struct drm_plane_state *state,
- 				struct drm_crtc_state *new_crtc_state);
- 
--int fill_plane_buffer_attributes(struct amdgpu_device *adev,
-+int amdgpu_dm_plane_fill_plane_buffer_attributes(struct amdgpu_device *adev,
- 				 const struct amdgpu_framebuffer *afb,
- 				 const enum surface_pixel_format format,
- 				 const enum dc_rotation_angle rotation,
-@@ -56,9 +56,9 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
- 			 unsigned long possible_crtcs,
- 			 const struct dc_plane_cap *plane_cap);
- 
--const struct drm_format_info *amd_get_format_info(const struct drm_mode_fb_cmd2 *cmd);
-+const struct drm_format_info *amdgpu_dm_plane_get_format_info(const struct drm_mode_fb_cmd2 *cmd);
- 
--void fill_blending_from_plane_state(const struct drm_plane_state *plane_state,
-+void amdgpu_dm_plane_fill_blending_from_plane_state(const struct drm_plane_state *plane_state,
- 				    bool *per_pixel_alpha, bool *pre_multiplied_alpha,
- 				    bool *global_alpha, int *global_alpha_value);
- 
+-const struct mpc_funcs dcn20_mpc_funcs = {
++static const struct mpc_funcs dcn20_mpc_funcs = {
+ 	.read_mpcc_state = mpc1_read_mpcc_state,
+ 	.insert_plane = mpc1_insert_plane,
+ 	.remove_mpcc = mpc1_remove_mpcc,
 -- 
-2.39.2
+2.27.0
 
