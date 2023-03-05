@@ -4,44 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88254C6FD1C
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Mar 2023 08:28:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D00E6C678D4
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Mar 2023 08:28:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D716710E187;
-	Mon,  6 Mar 2023 08:28:16 +0000 (UTC)
-X-Greylist: delayed 551 seconds by postgrey-1.36 at gabe;
- Mon, 06 Mar 2023 03:10:25 UTC
-Received: from mailbox.box.xen0n.name (mail.xen0n.name [115.28.160.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDD0810E0A1;
- Mon,  6 Mar 2023 03:10:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=xen0n.name; s=mail;
- t=1678071669; bh=EbH03jrrOzBLsi9CxIDaKXS+8fNPxunUKGjU5HqZpDY=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=kzYJX/GcEVnsGZdwKdSl7fJ4YVn4LuWDDyRUshDQmD96oNz4EkLA9xG0XECPRtV3j
- qTB2zNYuCgXnOZ9oHHdoZQ4efyBpvSs2hMq9dgPka0CkiMblBQ/XuNoSBCnGuy+2Fg
- zCMgwCQQ2UGz2PoLHOSGfvlKSvheBWQWMdJTbN5c=
-Received: from [100.100.57.122] (unknown [58.34.185.106])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by mailbox.box.xen0n.name (Postfix) with ESMTPSA id D4B89600A6;
- Mon,  6 Mar 2023 11:01:08 +0800 (CST)
-Message-ID: <37d1184d-bdbd-f20c-e9c8-285912e44eac@xen0n.name>
-Date: Mon, 6 Mar 2023 11:01:08 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id D73F510E181;
+	Mon,  6 Mar 2023 08:28:15 +0000 (UTC)
+Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D3AB10E013
+ for <amd-gfx@lists.freedesktop.org>; Sun,  5 Mar 2023 21:24:44 +0000 (UTC)
+Date: Sun, 05 Mar 2023 21:24:22 +0000
+Authentication-Results: mail-4321.protonmail.ch;
+ dkim=pass (2048-bit key) header.d=alshehhi.io header.i=@alshehhi.io
+ header.b="EpyuNiAL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alshehhi.io;
+ s=protonmail2; t=1678051477; x=1678310677;
+ bh=963jAu3q+hN/mhIrEkuTDfHfmGad9Bx1Amr9B/r2pqE=;
+ h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=EpyuNiAL6Nn9Dbvoo8S15v1cX/km+KXIVe6VZ9/olGfbW/bT5r3NynEae/Eex3204
+ M3OUtTid0dN1wGa/LqaA1oGgbX+mc/G0IKXY+elhMsGuCkPqq/YDVBXD4uCXPecWwL
+ DhwT4QSISpGA26k32AHw+X/Qo0j4XnqxMzpY3U5++J8b6GY0RnfHDt2Ut2DlcA36oN
+ r6Lah5KcNRomytPG90kiNOOysjkHjuM5vCRHXzqPUEHIBLVAL44yhZu4rFGiEcY1iJ
+ PRUhFSoV/C07Mkw5P/30u9wruAH3Y2DXkNwboLZotvAvB2w9aSCyhUE8BFjkS0/Mg/
+ 4X68HRqwAj+sQ==
+To: harry.wentland@amd.com
+From: Husain Alshehhi <husain@alshehhi.io>
+Subject: [PATCH] drivers/gpu: fix typo in comment
+Message-ID: <20230305212411.25727-1-husain@alshehhi.io>
+Feedback-ID: 31127354:user:proton
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.8.0
-Subject: Re: [PATCH] drm/amdgpu: Use uncached ioremap() for LoongArch
-Content-Language: en-US
-To: Huacai Chen <chenhuacai@kernel.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-References: <20230305052137.4030323-1-chenhuacai@loongson.cn>
- <8554af4a-5592-2102-7c8c-21f4dec3aff2@amd.com>
- <CAAhV-H45Hpuyqhxr5EMOZRgapp6hWmG8jYDykXDVjbs1bLt-Jw@mail.gmail.com>
-From: WANG Xuerui <kernel@xen0n.name>
-In-Reply-To: <CAAhV-H45Hpuyqhxr5EMOZRgapp6hWmG8jYDykXDVjbs1bLt-Jw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 06 Mar 2023 08:28:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,56 +47,106 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Xuefeng Li <lixuefeng@loongson.cn>, Huacai Chen <chenhuacai@loongson.cn>
+Cc: Husain Alshehhi <husain@alshehhi.io>, sunpeng.li@amd.com,
+ Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2023/3/6 10:49, Huacai Chen wrote:
-> Hi, Christian,
-> 
-> On Mon, Mar 6, 2023 at 12:40 AM Christian König
-> <christian.koenig@amd.com> wrote:
->>
->> Am 05.03.23 um 06:21 schrieb Huacai Chen:
->>> LoongArch maintains cache coherency in hardware, but its WUC attribute
->>> (Weak-ordered UnCached, which is similar to WC) is out of the scope of
->>> cache coherency machanism. This means WUC can only used for write-only
->>> memory regions. So use uncached ioremap() for LoongArch in the amdgpu
->>> driver.
->>
->> Well NAK. This is leaking platform dependencies into the driver code.
-> Then is it acceptable to let ioremap() depend on drm_arch_can_wc_memory()?
+Replace "isntance" with "instance".
 
-Note: he's likely meaning "is it acceptable to use 
-drm_arch_can_wc_memory() to decide between ioremap() and ioremap_wc()".
+Signed-off-by: Husain Alshehhi <husain@alshehhi.io>
+---
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h    | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-Although I doubt it's acceptable to you (driver) folks either, because 
-while drm_arch_can_wc_memory() does isolate platform details from driver 
-proper, it's still papering over platform PCIe violation in VRAM domain. 
-Still better than having platform defines though.
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/=
+drm/amd/display/dmub/inc/dmub_cmd.h
+index 007d6bdc3e39..734b34902fa7 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+@@ -1971,7 +1971,7 @@ struct dmub_cmd_psr_copy_settings_data {
+ =09uint8_t cmd_version;
+ =09/**
+ =09 * Panel Instance.
+-=09 * Panel isntance to identify which psr_state to use
++=09 * Panel instance to identify which psr_state to use
+ =09 * Currently the support is only for 0 or 1
+ =09 */
+ =09uint8_t panel_inst;
+@@ -2029,7 +2029,7 @@ struct dmub_cmd_psr_set_level_data {
+ =09uint8_t cmd_version;
+ =09/**
+ =09 * Panel Instance.
+-=09 * Panel isntance to identify which psr_state to use
++=09 * Panel instance to identify which psr_state to use
+ =09 * Currently the support is only for 0 or 1
+ =09 */
+ =09uint8_t panel_inst;
+@@ -2056,7 +2056,7 @@ struct dmub_rb_cmd_psr_enable_data {
+ =09uint8_t cmd_version;
+ =09/**
+ =09 * Panel Instance.
+-=09 * Panel isntance to identify which psr_state to use
++=09 * Panel instance to identify which psr_state to use
+ =09 * Currently the support is only for 0 or 1
+ =09 */
+ =09uint8_t panel_inst;
+@@ -2100,7 +2100,7 @@ struct dmub_cmd_psr_set_version_data {
+ =09uint8_t cmd_version;
+ =09/**
+ =09 * Panel Instance.
+-=09 * Panel isntance to identify which psr_state to use
++=09 * Panel instance to identify which psr_state to use
+ =09 * Currently the support is only for 0 or 1
+ =09 */
+ =09uint8_t panel_inst;
+@@ -2131,7 +2131,7 @@ struct dmub_cmd_psr_force_static_data {
+ =09uint8_t cmd_version;
+ =09/**
+ =09 * Panel Instance.
+-=09 * Panel isntance to identify which psr_state to use
++=09 * Panel instance to identify which psr_state to use
+ =09 * Currently the support is only for 0 or 1
+ =09 */
+ =09uint8_t panel_inst;
+@@ -2206,7 +2206,7 @@ struct dmub_cmd_update_dirty_rect_data {
+ =09uint8_t cmd_version;
+ =09/**
+ =09 * Panel Instance.
+-=09 * Panel isntance to identify which psr_state to use
++=09 * Panel instance to identify which psr_state to use
+ =09 * Currently the support is only for 0 or 1
+ =09 */
+ =09uint8_t panel_inst;
+@@ -2344,7 +2344,7 @@ struct dmub_cmd_update_cursor_payload0 {
+ =09uint8_t cmd_version;
+ =09/**
+ =09 * Panel Instance.
+-=09 * Panel isntance to identify which psr_state to use
++=09 * Panel instance to identify which psr_state to use
+ =09 * Currently the support is only for 0 or 1
+ =09 */
+ =09uint8_t panel_inst;
+@@ -2391,7 +2391,7 @@ struct dmub_cmd_psr_set_vtotal_data {
+ =09uint8_t cmd_version;
+ =09/**
+ =09 * Panel Instance.
+-=09 * Panel isntance to identify which psr_state to use
++=09 * Panel instance to identify which psr_state to use
+ =09 * Currently the support is only for 0 or 1
+ =09 */
+ =09uint8_t panel_inst;
+@@ -2429,7 +2429,7 @@ struct dmub_cmd_psr_set_power_opt_data {
+ =09uint8_t cmd_version;
+ =09/**
+ =09 * Panel Instance.
+-=09 * Panel isntance to identify which psr_state to use
++=09 * Panel instance to identify which psr_state to use
+ =09 * Currently the support is only for 0 or 1
+ =09 */
+ =09uint8_t panel_inst;
+--
+2.39.2
 
-Also making use of drm_arch_can_wc_memory might fix this fdo issue [1] 
-on aarch64 too (where I replied earlier). It seems people simply can't 
-stop inventing such micro-architectures sadly...
-
-[1]: https://gitlab.freedesktop.org/drm/amd/-/issues/2313
-
->>
->> When you have a limitation that ioremap_wc() can't guarantee read/write
->> ordering then that's pretty clearly a platform bug and you would need to
->> apply this workaround to all drivers using ioremap_wc() which isn't
->> really feasible.
->>
-
-I agree in this case perhaps all of ioremap_wc() usages would have to 
-degrade into ioremap() for correctness on such platforms. In which case 
-amdgpu wouldn't have to be individually called out / touched anyway. 
-Whether this is easily doable/upstreamable is another question though...
-
--- 
-WANG "xen0n" Xuerui
-
-Linux/LoongArch mailing list: https://lore.kernel.org/loongarch/
 
