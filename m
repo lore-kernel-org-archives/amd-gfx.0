@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C60DCC678D4
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Mar 2023 08:04:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E63A7C61DA4
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Mar 2023 08:04:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FE5610E081;
-	Mon,  6 Mar 2023 08:04:38 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2073.outbound.protection.outlook.com [40.107.220.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CD6510E081
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Mar 2023 08:04:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 520F310E101;
+	Mon,  6 Mar 2023 08:04:39 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2056.outbound.protection.outlook.com [40.107.223.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E477310E081
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Mar 2023 08:04:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nwWVf4g14ctfwQHo+8ZCfknV26E9qi7j0J0+PIYGWPYJAZKT8S98QeIgmO9fb2No8j9dKvW3/GmNt/4IvFQjl0yqt7o/m/6voIBbjClOYrJBSCgvdldTBZnXGYWsW+eIZfFuVsYeNPP31NKHyM0Va/Uc62fqMGaPAeVkzYYo5MwS3dfwHb0M6fsWgX62ENvQhjAJWWSBGN2NqLe/AoEy0hn/KjuslnCs9ottKKwuvUVDAx2+wfTHMo94QSEss9hzMpL0tuiY2qztZ0ix8+tFFbUInetUmOoQ3fnlxYpwU1zeFEccfjC+g7+EMO5E5FFogiDM4RGKym+mHM15ZYvh4Q==
+ b=D0cv7pXm/DPycCuRkOJ4ocKGr6PkoVOyhEKkNzXYf+Iv/8/Jf9K/m+79TKK2VX2mBFPWeMikPoNopP0iy8xnNCjT1CXYZzTwsRnIT5HsdXHUiXyG3vd4ESud1oQ3xYfZC8GvVsVAjbIEKgK7JcGGH29Oen6IB/+vma4jTyT+d3bwUhTukIEQ/oMnBHCSuNr6tJK9LyDX+BVYOESvsZPzv5H2ehkcqY1qkDJL8hyNr3qfEWtjpOlf0ES9ya8CjS4oJewbYWDFKrleQ6aXYdMmI1gWSKl8IqhBHguVeomWHY2hzZP6FFSr/DnklAMTVOsLgqzZ+JluHFB7C4/SXlcEqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i38/MVU0IYrBZrejMSQitEXM97HZbMDPmS/H7wiWBaI=;
- b=PfSZl9Ei7p6DzcjkxoKbmdYDF9ETe8cTFftTVOuvhdJt7QsDlwxnW3UjAwcBFkSke20PqPhdwctguoJ3Z64i/oyQ47qkxW/M3h0K04WB22aB15pPBUFZmFh58g1jmm88JC8iP1WHoZe4Bovpa+IfdqPgTdm8MxX3bqVx/L7ibI9mwo7m56ZQoWJzysp+AS+GQufyOkEZ94MPNSSMKtdDpK0y1d/rhTLdYaTQ2IZyx3g68x+mwrXsG9z/ZNrrGNiY81ONSe6CjaoRlU/XLle8qE6ao/geINJDkAaMC2DkB66n4VFRmxrnpb4Sy/TbezUts/ms36Y5d4XqzgPYYJm1cA==
+ bh=Lbna4doQyd/uOIqltOksBl+sNgCHDhZDNepitAD3xNg=;
+ b=Zb+vltEoDzDkflYNDyRVn4S+k5UeVBiRx5gEWcvSnLBqoZ72ZHGrKhFpxdJZEGYkkLlQl4x8RF0JwxzOuFg6vYQxvagkRbfwODGrjQl/k1aD4juazPtUCLOejDvkd0YW+1pkelVe1UpL+pa+wGB3KZMZXjREPk2DM+QzPzQCqfYAiXxTCwwSfsNDiYapl6Ncm97VAkaMfXQC2O59ydZWxrhECKSaapQg7iJh0OzO9F6L7ZJlm7ekFUbg9fdTDojVd+nG9X0w7GAOn0wYXZ0m/o8nGAs9r9tm4xzV5c0J4wkbBA5aW3EIwBwQ+r8rFKKcM011aiDdW/w/ncaGt6barA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i38/MVU0IYrBZrejMSQitEXM97HZbMDPmS/H7wiWBaI=;
- b=xwLIO9l3vaEbrdCKzJJT5gs1EiQ2OEssUfAPf5RFTa5qAwbcDVGiFqxxpoQMDXJoEzGnfNcvB/SBytgTYCCTYUtLni+gWEpNvVnWeMlEygrYFmGBZD/PQvahy6ihVGRL4O6DUeZ1iS3bZdt+zx/nfVL9jGfzTDKrqscXnXnN22k=
-Received: from DM6PR03CA0064.namprd03.prod.outlook.com (2603:10b6:5:100::41)
- by PH7PR12MB8828.namprd12.prod.outlook.com (2603:10b6:510:26b::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.28; Mon, 6 Mar
- 2023 08:04:33 +0000
-Received: from DM6NAM11FT029.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:100:cafe::cb) by DM6PR03CA0064.outlook.office365.com
- (2603:10b6:5:100::41) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.27 via Frontend
- Transport; Mon, 6 Mar 2023 08:04:33 +0000
+ bh=Lbna4doQyd/uOIqltOksBl+sNgCHDhZDNepitAD3xNg=;
+ b=1bKNuKUySrJqx92se23askqKh06Z63QoXo0tmctR17T9vkhZPkAFxxkowrLffo/iJqPuZouiqkXw8MFLc2ef2iMNGaCP6ESKiUnjkis1fWd9jbvgDthMrTjoMWzb9ocbwVdRrmKzZve7c6Akg0gXk64z0JxLjcsBrWrK+sCYvZU=
+Received: from DS7PR05CA0104.namprd05.prod.outlook.com (2603:10b6:8:56::16) by
+ CH0PR12MB5217.namprd12.prod.outlook.com (2603:10b6:610:d0::10) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6156.28; Mon, 6 Mar 2023 08:04:36 +0000
+Received: from DM6NAM11FT033.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:56:cafe::f8) by DS7PR05CA0104.outlook.office365.com
+ (2603:10b6:8:56::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.15 via Frontend
+ Transport; Mon, 6 Mar 2023 08:04:36 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT029.mail.protection.outlook.com (10.13.173.23) with Microsoft SMTP
+ DM6NAM11FT033.mail.protection.outlook.com (10.13.172.221) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.15 via Frontend Transport; Mon, 6 Mar 2023 08:04:33 +0000
+ 15.20.6178.15 via Frontend Transport; Mon, 6 Mar 2023 08:04:35 +0000
 Received: from hawzhang-System-Product-Master.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.34; Mon, 6 Mar 2023 02:04:31 -0600
+ 15.1.2375.34; Mon, 6 Mar 2023 02:04:34 -0600
 From: Hawking Zhang <Hawking.Zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, Likun Gao <Likun.Gao@amd.com>
-Subject: [PATCH 1/2] drm/amdgpu: Move to common indirect reg access helper
-Date: Mon, 6 Mar 2023 16:04:00 +0800
-Message-ID: <20230306080401.20501-1-Hawking.Zhang@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: Move to common helper to query soc rev_id
+Date: Mon, 6 Mar 2023 16:04:01 +0800
+Message-ID: <20230306080401.20501-2-Hawking.Zhang@amd.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20230306080401.20501-1-Hawking.Zhang@amd.com>
+References: <20230306080401.20501-1-Hawking.Zhang@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
@@ -65,26 +67,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT029:EE_|PH7PR12MB8828:EE_
-X-MS-Office365-Filtering-Correlation-Id: de1bc398-2bdc-416e-95d1-08db1e196bcb
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT033:EE_|CH0PR12MB5217:EE_
+X-MS-Office365-Filtering-Correlation-Id: c1a1e702-f145-4b7d-fdea-08db1e196d4a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: NyS722zGqYsaqNWLpjXVDk1GqWIRXXvGkzLQcKCxS0iGNdX7ovwwTMCraDSRPZz++3guPlSRQLFYLJx3JCY62Tk8dbdwnD21gHSmgBXusga+6+ud6FQz1glxCMNkFZwRObxHZH7rwM4kJ5o7R46bKv/iIG+3V9hGbjb4224k8kkfpixbx7H4aLTgqSj0Gz6IT6ays2XGL5qq29kPip8P59+A/CveTXVhBPmQfc6LHq1zWBpjaZjbdqxyhgld85ZgzrGS3PdCMDRGm3pqP8YREl+iG6m0EzhjilzUz8L5nFehy4Jcff4387gs6s1Y8alJej9TkbjdH+lx4JA6MQ2WGSGAhltwKrDiknR5wWjL/GizYp6e6xNKBK628llpc/3hz1TgVa4Vy4U3KeOUOY05xXqjA9DsnN5qrRASvrWAkH8BGSAaYKjDrSnyse5HRbFsXf6TqUH1Xr4o2DeUPFFY6Bkt4agFEjwIORYRBHFFnJ197M4UxG+WNdwqt0q65QxVJhlmJ4pG+XKpqxGv0Fn/f0IvnBbj3eGWqN8QaIQoFJP2Wz+v6Z7byUqbWBcvKnfzyWmOf7SfRERsBypbBXEb/QguTIJ5XtHgrLGF23noGq5XLPddP7GPJuTBRI2J1eDyMYdldToAFVlOBwT1mok0t6WL5UoJTW8DqNaJ9NqgEN/GEjs1bF8XpTnkdHNhx/NywwMyEbWqP/fFNbn8xDR+KN8eVOU3R+Vqudc8nmEsssM=
+X-Microsoft-Antispam-Message-Info: QOPa5UBxfX+ZBatITM9fvLm5sj/9HdXezQXRrntEa/th47poRIUUMMtP5JnGnzZxY0Vlb4dLea5md4XK6/mUFfBVLrWP+0W0qusW8EMygg6+llHDvKUiDIn6h2N+QSiVMdgeSMbKnPs0oOI3kD5A4pPvmWDOYz9ntVIY5nPPSt4Y7ha1tYDuEzcGTDJIME1qWDl9dffaT4qqyfiVfUCt1dfU6AqdH1/rQn7XqLcsBB9Gu/zy7UUeC/8bL9WKlxuF1JWX0v6iNiM48+72IIMeEoTmYYz/gbLiSVVnH9v9Sju1MPd/93bdoPDelLN5cSMloUTw7/6C/5D+rDCfO2OzF7D6M1Xu46iCHhb7j674ZGWdsmC4dTWsLAGEVXIAcR0vUgUwImPTVqDjazeOMVq4XAvFEQXaBV7j2kALKUdnJEkPZIE/fqC0yR/Ty1nWZH4WjiZ15/7j1cMgnlMZ5771exsQm9OXhOO7ubnmx3+BdifFg3kmllQOMuUcyNkSJLIirPOfAPjpclWC4fgrcnr/DPRy3nZhX5RNPYL0LepebFHIBCMAoojnGHTTnT92bfXTuMG3H3Wl9bda+mwS8oWfr+yuxG9pSFYgzGjy7TNXuhzV49xLMhOkjusGNAHMpJYBD4REmqxg/WkSDZLh+XkUKbshkLC2VS3HO2/vIXdmcipXjDpH2DqJ30oX+fV6J/rpwwlVj1UmYj49Kq6vSt+q0b5fTZV0kMd4aVCF6IZUsS8=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(136003)(346002)(39860400002)(396003)(376002)(451199018)(36840700001)(40470700004)(46966006)(40460700003)(16526019)(186003)(81166007)(356005)(8936002)(36860700001)(4326008)(8676002)(41300700001)(82740400003)(70586007)(5660300002)(70206006)(30864003)(2906002)(426003)(47076005)(7696005)(478600001)(6666004)(2616005)(1076003)(26005)(336012)(316002)(110136005)(6636002)(36756003)(40480700001)(82310400005)(86362001)(83380400001)(36900700001);
+ SFS:(13230025)(4636009)(136003)(39860400002)(396003)(376002)(346002)(451199018)(40470700004)(36840700001)(46966006)(40460700003)(16526019)(186003)(6666004)(81166007)(356005)(8936002)(36860700001)(8676002)(41300700001)(4326008)(82740400003)(2906002)(70586007)(70206006)(5660300002)(426003)(47076005)(7696005)(478600001)(2616005)(1076003)(26005)(336012)(316002)(110136005)(6636002)(36756003)(40480700001)(82310400005)(86362001)(83380400001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2023 08:04:33.3795 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: de1bc398-2bdc-416e-95d1-08db1e196bcb
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2023 08:04:35.8922 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1a1e702-f145-4b7d-fdea-08db1e196d4a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT029.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT033.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8828
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5217
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,332 +102,130 @@ Cc: Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace soc15, nv, soc21 specific callbacks with common
-one. so we don't need to duplicate code when introduce
+Replace soc15, nv, soc21 get_rev_id callback with common
+helper so we don't need to duplicate code when introduce
 new asics.
 
 Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  4 --
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 32 +++++++-------
- drivers/gpu/drm/amd/amdgpu/nv.c            | 49 ++--------------------
- drivers/gpu/drm/amd/amdgpu/soc15.c         | 49 ++--------------------
- drivers/gpu/drm/amd/amdgpu/soc21.c         | 48 ++-------------------
- 5 files changed, 30 insertions(+), 152 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 ++++++++++++
+ drivers/gpu/drm/amd/amdgpu/nv.c            |  7 +------
+ drivers/gpu/drm/amd/amdgpu/soc15.c         |  7 +------
+ drivers/gpu/drm/amd/amdgpu/soc21.c         |  7 +------
+ 5 files changed, 16 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 07e846510005..9387731afb8b 100644
+index 9387731afb8b..527795f921a9 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1142,16 +1142,12 @@ void amdgpu_mm_wreg8(struct amdgpu_device *adev, uint32_t offset, uint8_t value)
- uint8_t amdgpu_mm_rreg8(struct amdgpu_device *adev, uint32_t offset);
- 
- u32 amdgpu_device_indirect_rreg(struct amdgpu_device *adev,
--				u32 pcie_index, u32 pcie_data,
- 				u32 reg_addr);
- u64 amdgpu_device_indirect_rreg64(struct amdgpu_device *adev,
--				  u32 pcie_index, u32 pcie_data,
- 				  u32 reg_addr);
- void amdgpu_device_indirect_wreg(struct amdgpu_device *adev,
--				 u32 pcie_index, u32 pcie_data,
+@@ -1149,7 +1149,7 @@ void amdgpu_device_indirect_wreg(struct amdgpu_device *adev,
  				 u32 reg_addr, u32 reg_data);
  void amdgpu_device_indirect_wreg64(struct amdgpu_device *adev,
--				   u32 pcie_index, u32 pcie_data,
  				   u32 reg_addr, u64 reg_data);
- 
+-
++u32 amdgpu_device_get_rev_id(struct amdgpu_device *adev);
  bool amdgpu_device_asic_has_dc_support(enum amd_asic_type asic_type);
+ bool amdgpu_device_has_dc_support(struct amdgpu_device *adev);
+ 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 77e6c8bf7190..b1b815dc69b3 100644
+index b1b815dc69b3..13fa8a2709c9 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -676,20 +676,20 @@ void amdgpu_mm_wdoorbell64(struct amdgpu_device *adev, u32 index, u64 v)
-  * amdgpu_device_indirect_rreg - read an indirect register
-  *
-  * @adev: amdgpu_device pointer
-- * @pcie_index: mmio register offset
-- * @pcie_data: mmio register offset
-  * @reg_addr: indirect register address to read from
-  *
-  * Returns the value of indirect register @reg_addr
-  */
- u32 amdgpu_device_indirect_rreg(struct amdgpu_device *adev,
--				u32 pcie_index, u32 pcie_data,
- 				u32 reg_addr)
- {
--	unsigned long flags;
--	u32 r;
-+	unsigned long flags, pcie_index, pcie_data;
- 	void __iomem *pcie_index_offset;
- 	void __iomem *pcie_data_offset;
-+	u32 r;
-+
-+	pcie_index = adev->nbio.funcs->get_pcie_index_offset(adev);
-+	pcie_data = adev->nbio.funcs->get_pcie_data_offset(adev);
+@@ -807,6 +807,18 @@ void amdgpu_device_indirect_wreg64(struct amdgpu_device *adev,
+ 	spin_unlock_irqrestore(&adev->pcie_idx_lock, flags);
+ }
  
- 	spin_lock_irqsave(&adev->pcie_idx_lock, flags);
- 	pcie_index_offset = (void __iomem *)adev->rmmio + pcie_index * 4;
-@@ -707,20 +707,20 @@ u32 amdgpu_device_indirect_rreg(struct amdgpu_device *adev,
-  * amdgpu_device_indirect_rreg64 - read a 64bits indirect register
-  *
-  * @adev: amdgpu_device pointer
-- * @pcie_index: mmio register offset
-- * @pcie_data: mmio register offset
-  * @reg_addr: indirect register address to read from
-  *
-  * Returns the value of indirect register @reg_addr
-  */
- u64 amdgpu_device_indirect_rreg64(struct amdgpu_device *adev,
--				  u32 pcie_index, u32 pcie_data,
- 				  u32 reg_addr)
- {
--	unsigned long flags;
--	u64 r;
-+	unsigned long flags, pcie_index, pcie_data;
- 	void __iomem *pcie_index_offset;
- 	void __iomem *pcie_data_offset;
-+	u64 r;
++/**
++ * amdgpu_device_get_rev_id - query device rev_id
++ *
++ * @adev: amdgpu_device pointer
++ *
++ * Return device rev_id
++ */
++u32 amdgpu_device_get_rev_id(struct amdgpu_device *adev)
++{
++	return adev->nbio.funcs->get_rev_id(adev);
++}
 +
-+	pcie_index = adev->nbio.funcs->get_pcie_index_offset(adev);
-+	pcie_data = adev->nbio.funcs->get_pcie_data_offset(adev);
- 
- 	spin_lock_irqsave(&adev->pcie_idx_lock, flags);
- 	pcie_index_offset = (void __iomem *)adev->rmmio + pcie_index * 4;
-@@ -750,13 +750,15 @@ u64 amdgpu_device_indirect_rreg64(struct amdgpu_device *adev,
+ /**
+  * amdgpu_invalid_rreg - dummy reg read function
   *
-  */
- void amdgpu_device_indirect_wreg(struct amdgpu_device *adev,
--				 u32 pcie_index, u32 pcie_data,
- 				 u32 reg_addr, u32 reg_data)
- {
--	unsigned long flags;
-+	unsigned long flags, pcie_index, pcie_data;
- 	void __iomem *pcie_index_offset;
- 	void __iomem *pcie_data_offset;
- 
-+	pcie_index = adev->nbio.funcs->get_pcie_index_offset(adev);
-+	pcie_data = adev->nbio.funcs->get_pcie_data_offset(adev);
-+
- 	spin_lock_irqsave(&adev->pcie_idx_lock, flags);
- 	pcie_index_offset = (void __iomem *)adev->rmmio + pcie_index * 4;
- 	pcie_data_offset = (void __iomem *)adev->rmmio + pcie_data * 4;
-@@ -779,13 +781,15 @@ void amdgpu_device_indirect_wreg(struct amdgpu_device *adev,
-  *
-  */
- void amdgpu_device_indirect_wreg64(struct amdgpu_device *adev,
--				   u32 pcie_index, u32 pcie_data,
- 				   u32 reg_addr, u64 reg_data)
- {
--	unsigned long flags;
-+	unsigned long flags, pcie_index, pcie_data;
- 	void __iomem *pcie_index_offset;
- 	void __iomem *pcie_data_offset;
- 
-+	pcie_index = adev->nbio.funcs->get_pcie_index_offset(adev);
-+	pcie_data = adev->nbio.funcs->get_pcie_data_offset(adev);
-+
- 	spin_lock_irqsave(&adev->pcie_idx_lock, flags);
- 	pcie_index_offset = (void __iomem *)adev->rmmio + pcie_index * 4;
- 	pcie_data_offset = (void __iomem *)adev->rmmio + pcie_data * 4;
 diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index d972025f0d20..60c10132ed32 100644
+index 60c10132ed32..492a8b148227 100644
 --- a/drivers/gpu/drm/amd/amdgpu/nv.c
 +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -280,47 +280,6 @@ static int nv_query_video_codecs(struct amdgpu_device *adev, bool encode,
- 	}
+@@ -566,11 +566,6 @@ void nv_set_virt_ops(struct amdgpu_device *adev)
+ 	adev->virt.ops = &xgpu_nv_virt_ops;
  }
  
--/*
-- * Indirect registers accessor
-- */
--static u32 nv_pcie_rreg(struct amdgpu_device *adev, u32 reg)
+-static uint32_t nv_get_rev_id(struct amdgpu_device *adev)
 -{
--	unsigned long address, data;
--	address = adev->nbio.funcs->get_pcie_index_offset(adev);
--	data = adev->nbio.funcs->get_pcie_data_offset(adev);
--
--	return amdgpu_device_indirect_rreg(adev, address, data, reg);
+-	return adev->nbio.funcs->get_rev_id(adev);
 -}
 -
--static void nv_pcie_wreg(struct amdgpu_device *adev, u32 reg, u32 v)
--{
--	unsigned long address, data;
--
--	address = adev->nbio.funcs->get_pcie_index_offset(adev);
--	data = adev->nbio.funcs->get_pcie_data_offset(adev);
--
--	amdgpu_device_indirect_wreg(adev, address, data, reg, v);
--}
--
--static u64 nv_pcie_rreg64(struct amdgpu_device *adev, u32 reg)
--{
--	unsigned long address, data;
--	address = adev->nbio.funcs->get_pcie_index_offset(adev);
--	data = adev->nbio.funcs->get_pcie_data_offset(adev);
--
--	return amdgpu_device_indirect_rreg64(adev, address, data, reg);
--}
--
--static void nv_pcie_wreg64(struct amdgpu_device *adev, u32 reg, u64 v)
--{
--	unsigned long address, data;
--
--	address = adev->nbio.funcs->get_pcie_index_offset(adev);
--	data = adev->nbio.funcs->get_pcie_data_offset(adev);
--
--	amdgpu_device_indirect_wreg64(adev, address, data, reg, v);
--}
--
- static u32 nv_didt_rreg(struct amdgpu_device *adev, u32 reg)
+ static bool nv_need_full_reset(struct amdgpu_device *adev)
  {
- 	unsigned long flags, address, data;
-@@ -737,10 +696,10 @@ static int nv_common_early_init(void *handle)
- 	}
- 	adev->smc_rreg = NULL;
- 	adev->smc_wreg = NULL;
--	adev->pcie_rreg = &nv_pcie_rreg;
--	adev->pcie_wreg = &nv_pcie_wreg;
--	adev->pcie_rreg64 = &nv_pcie_rreg64;
--	adev->pcie_wreg64 = &nv_pcie_wreg64;
-+	adev->pcie_rreg = &amdgpu_device_indirect_rreg;
-+	adev->pcie_wreg = &amdgpu_device_indirect_wreg;
-+	adev->pcie_rreg64 = &amdgpu_device_indirect_rreg64;
-+	adev->pcie_wreg64 = &amdgpu_device_indirect_wreg64;
- 	adev->pciep_rreg = amdgpu_device_pcie_port_rreg;
- 	adev->pciep_wreg = amdgpu_device_pcie_port_wreg;
+ 	return true;
+@@ -712,7 +707,7 @@ static int nv_common_early_init(void *handle)
  
+ 	adev->asic_funcs = &nv_asic_funcs;
+ 
+-	adev->rev_id = nv_get_rev_id(adev);
++	adev->rev_id = amdgpu_device_get_rev_id(adev);
+ 	adev->external_rev_id = 0xff;
+ 	/* TODO: split the GC and PG flags based on the relevant IP version for which
+ 	 * they are relevant.
 diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index 7cd17dda32ce..6392d10e6eaf 100644
+index 6392d10e6eaf..2c37b49f5c00 100644
 --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
 +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -191,47 +191,6 @@ static int soc15_query_video_codecs(struct amdgpu_device *adev, bool encode,
- 	}
- }
+@@ -653,11 +653,6 @@ const struct amdgpu_ip_block_version vega10_common_ip_block =
+ 	.funcs = &soc15_common_ip_funcs,
+ };
  
--/*
-- * Indirect registers accessor
-- */
--static u32 soc15_pcie_rreg(struct amdgpu_device *adev, u32 reg)
+-static uint32_t soc15_get_rev_id(struct amdgpu_device *adev)
 -{
--	unsigned long address, data;
--	address = adev->nbio.funcs->get_pcie_index_offset(adev);
--	data = adev->nbio.funcs->get_pcie_data_offset(adev);
--
--	return amdgpu_device_indirect_rreg(adev, address, data, reg);
+-	return adev->nbio.funcs->get_rev_id(adev);
 -}
 -
--static void soc15_pcie_wreg(struct amdgpu_device *adev, u32 reg, u32 v)
--{
--	unsigned long address, data;
--
--	address = adev->nbio.funcs->get_pcie_index_offset(adev);
--	data = adev->nbio.funcs->get_pcie_data_offset(adev);
--
--	amdgpu_device_indirect_wreg(adev, address, data, reg, v);
--}
--
--static u64 soc15_pcie_rreg64(struct amdgpu_device *adev, u32 reg)
--{
--	unsigned long address, data;
--	address = adev->nbio.funcs->get_pcie_index_offset(adev);
--	data = adev->nbio.funcs->get_pcie_data_offset(adev);
--
--	return amdgpu_device_indirect_rreg64(adev, address, data, reg);
--}
--
--static void soc15_pcie_wreg64(struct amdgpu_device *adev, u32 reg, u64 v)
--{
--	unsigned long address, data;
--
--	address = adev->nbio.funcs->get_pcie_index_offset(adev);
--	data = adev->nbio.funcs->get_pcie_data_offset(adev);
--
--	amdgpu_device_indirect_wreg64(adev, address, data, reg, v);
--}
--
- static u32 soc15_uvd_ctx_rreg(struct amdgpu_device *adev, u32 reg)
+ static void soc15_reg_base_init(struct amdgpu_device *adev)
  {
- 	unsigned long flags, address, data;
-@@ -935,10 +894,10 @@ static int soc15_common_early_init(void *handle)
- 	}
- 	adev->smc_rreg = NULL;
- 	adev->smc_wreg = NULL;
--	adev->pcie_rreg = &soc15_pcie_rreg;
--	adev->pcie_wreg = &soc15_pcie_wreg;
--	adev->pcie_rreg64 = &soc15_pcie_rreg64;
--	adev->pcie_wreg64 = &soc15_pcie_wreg64;
-+	adev->pcie_rreg = &amdgpu_device_indirect_rreg;
-+	adev->pcie_wreg = &amdgpu_device_indirect_wreg;
-+	adev->pcie_rreg64 = &amdgpu_device_indirect_rreg64;
-+	adev->pcie_wreg64 = &amdgpu_device_indirect_wreg64;
- 	adev->uvd_ctx_rreg = &soc15_uvd_ctx_rreg;
- 	adev->uvd_ctx_wreg = &soc15_uvd_ctx_wreg;
- 	adev->didt_rreg = &soc15_didt_rreg;
+ 	/* Set IP register base before any HW register access */
+@@ -907,7 +902,7 @@ static int soc15_common_early_init(void *handle)
+ 	adev->se_cac_rreg = &soc15_se_cac_rreg;
+ 	adev->se_cac_wreg = &soc15_se_cac_wreg;
+ 
+-	adev->rev_id = soc15_get_rev_id(adev);
++	adev->rev_id = amdgpu_device_get_rev_id(adev);
+ 	adev->external_rev_id = 0xFF;
+ 	/* TODO: split the GC and PG flags based on the relevant IP version for which
+ 	 * they are relevant.
 diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-index 78bd598d286f..9d91e20a22bb 100644
+index 9d91e20a22bb..21e271877c4c 100644
 --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
 +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -127,46 +127,6 @@ static int soc21_query_video_codecs(struct amdgpu_device *adev, bool encode,
- 		return -EINVAL;
- 	}
- }
--/*
-- * Indirect registers accessor
-- */
--static u32 soc21_pcie_rreg(struct amdgpu_device *adev, u32 reg)
--{
--	unsigned long address, data;
--	address = adev->nbio.funcs->get_pcie_index_offset(adev);
--	data = adev->nbio.funcs->get_pcie_data_offset(adev);
--
--	return amdgpu_device_indirect_rreg(adev, address, data, reg);
--}
--
--static void soc21_pcie_wreg(struct amdgpu_device *adev, u32 reg, u32 v)
--{
--	unsigned long address, data;
--
--	address = adev->nbio.funcs->get_pcie_index_offset(adev);
--	data = adev->nbio.funcs->get_pcie_data_offset(adev);
--
--	amdgpu_device_indirect_wreg(adev, address, data, reg, v);
--}
--
--static u64 soc21_pcie_rreg64(struct amdgpu_device *adev, u32 reg)
--{
--	unsigned long address, data;
--	address = adev->nbio.funcs->get_pcie_index_offset(adev);
--	data = adev->nbio.funcs->get_pcie_data_offset(adev);
--
--	return amdgpu_device_indirect_rreg64(adev, address, data, reg);
--}
--
--static void soc21_pcie_wreg64(struct amdgpu_device *adev, u32 reg, u64 v)
--{
--	unsigned long address, data;
--
--	address = adev->nbio.funcs->get_pcie_index_offset(adev);
--	data = adev->nbio.funcs->get_pcie_data_offset(adev);
--
--	amdgpu_device_indirect_wreg64(adev, address, data, reg, v);
--}
+@@ -411,11 +411,6 @@ const struct amdgpu_ip_block_version soc21_common_ip_block =
+ 	.funcs = &soc21_common_ip_funcs,
+ };
  
- static u32 soc21_didt_rreg(struct amdgpu_device *adev, u32 reg)
+-static uint32_t soc21_get_rev_id(struct amdgpu_device *adev)
+-{
+-	return adev->nbio.funcs->get_rev_id(adev);
+-}
+-
+ static bool soc21_need_full_reset(struct amdgpu_device *adev)
  {
-@@ -581,10 +541,10 @@ static int soc21_common_early_init(void *handle)
- 	adev->rmmio_remap.bus_addr = adev->rmmio_base + MMIO_REG_HOLE_OFFSET;
- 	adev->smc_rreg = NULL;
- 	adev->smc_wreg = NULL;
--	adev->pcie_rreg = &soc21_pcie_rreg;
--	adev->pcie_wreg = &soc21_pcie_wreg;
--	adev->pcie_rreg64 = &soc21_pcie_rreg64;
--	adev->pcie_wreg64 = &soc21_pcie_wreg64;
-+	adev->pcie_rreg = &amdgpu_device_indirect_rreg;
-+	adev->pcie_wreg = &amdgpu_device_indirect_wreg;
-+	adev->pcie_rreg64 = &amdgpu_device_indirect_rreg64;
-+	adev->pcie_wreg64 = &amdgpu_device_indirect_wreg64;
- 	adev->pciep_rreg = amdgpu_device_pcie_port_rreg;
- 	adev->pciep_wreg = amdgpu_device_pcie_port_wreg;
+ 	switch (adev->ip_versions[GC_HWIP][0]) {
+@@ -557,7 +552,7 @@ static int soc21_common_early_init(void *handle)
  
+ 	adev->asic_funcs = &soc21_asic_funcs;
+ 
+-	adev->rev_id = soc21_get_rev_id(adev);
++	adev->rev_id = amdgpu_device_get_rev_id(adev);
+ 	adev->external_rev_id = 0xff;
+ 	switch (adev->ip_versions[GC_HWIP][0]) {
+ 	case IP_VERSION(11, 0, 0):
 -- 
 2.17.1
 
