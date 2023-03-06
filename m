@@ -4,88 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06EA0C64EC4
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Mar 2023 21:58:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 584EAC61DA4
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Mar 2023 22:27:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7590C10E260;
-	Mon,  6 Mar 2023 21:58:28 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2045.outbound.protection.outlook.com [40.107.244.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6744C10E260
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Mar 2023 21:58:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AYDQWBxhSyULHpBqQRZyuZz3wyzUxR13cQrDqaa18gEmubWAjzr89d7AoUrbO60ub0YLdYmC6uw2UBRRMHO6VuKN2E1lsLvUEm/ztg2bNrYvB73zCgEwT2osywFGCAVkBYxFhPPCUj0lN6OiaoggQZspCc8I6Lvf60/ZuDSX5XdlB3zGdoUTVA4aqqCunv2Sy1m9znVAV1kpKE+l+0Cr+YsYIwPVN+On++P7S+zY4WNQ8u3fm3ZSE+UTO6fSOhBsUgD+uMbwuKOVwD6NMQqNB6evdY5fSbWGneqKe4A3Hibq19tWuA4qiOueGzS/v0tM00LvrGnWCX+r3BGlel0JyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pE0mRP9iv+FrM+oqVKzSfRUqe/oNFBSg7ooFbp/cRNw=;
- b=dQmM+TY6RDJbQ2kCRx5+NVlfsya4X5QpG5PA26avPN5W0nQP3cOKmvhpzHWwgVFap5Kqrp2atZB7zVG9wYtgtPEgli/7mLq0rfSx/e3PZkfs6d5uDbPyzuJQJ3bWg6AaDAFybm3C/rjUBxWY/VAWVarN8Svj4HWtKj74tv+R38Lj2jPkOWIipyXvKcgD7lC+GdZktdpdg11mP8L3BqWYt7vusGSBvcI+fh3rzssZypgAd2qau/KKlLSWvcz1EGgtTsQndAKQ1VrTufONW0VcQAj5GjV+EaIPpRAcySI2og0/fkfcl2qsoYSOhwPwlkO+eMFiWDlO0Uv19lP2bqeWqw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pE0mRP9iv+FrM+oqVKzSfRUqe/oNFBSg7ooFbp/cRNw=;
- b=IvoVeMY0X75DVBwFSSSmBmY9KPCskQzzE8Lk2ri1/yCqiEeHVhZgJdbX6k18nAEj9KNJ17P7tcPuTcbfyGY2l6LwkwH5oGQaQ551BfzhnGlPR4SM5MY/CZP/cx2h/OS6gfmxxJkWs9x10vhrANQqgYttws7g4zJaxjuBZmPyoHs=
-Received: from MW4P220CA0022.NAMP220.PROD.OUTLOOK.COM (2603:10b6:303:115::27)
- by BN9PR12MB5193.namprd12.prod.outlook.com (2603:10b6:408:11a::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.28; Mon, 6 Mar
- 2023 21:58:25 +0000
-Received: from CO1NAM11FT034.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:115:cafe::73) by MW4P220CA0022.outlook.office365.com
- (2603:10b6:303:115::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.28 via Frontend
- Transport; Mon, 6 Mar 2023 21:58:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT034.mail.protection.outlook.com (10.13.174.248) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.16 via Frontend Transport; Mon, 6 Mar 2023 21:58:24 +0000
-Received: from belanger-linux.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 6 Mar
- 2023 15:58:23 -0600
-From: David Belanger <david.belanger@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdkfd: Fixed kfd_process cleanup on module exit.
-Date: Mon, 6 Mar 2023 16:58:08 -0500
-Message-ID: <20230306215808.2903387-1-david.belanger@amd.com>
-X-Mailer: git-send-email 2.38.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id E907D10E354;
+	Mon,  6 Mar 2023 22:27:29 +0000 (UTC)
+Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
+ [IPv6:2001:4860:4864:20::36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDCBA10E441
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Mar 2023 22:27:27 +0000 (UTC)
+Received: by mail-oa1-x36.google.com with SMTP id
+ 586e51a60fabf-176b48a9a05so5729955fac.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 06 Mar 2023 14:27:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1678141647;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=W3qxWDvjerISNaxKF3Ra6sY6j46tGnEJGDU1d94VlvA=;
+ b=kJwtvZMr3YHSGEzS2psyWDWD/BWvNwMC1Q/T8TpjpOhI9Bqcy7C6v+Rsb7CE9MaoCa
+ LkDs1WEC8cFJd3FklOtsqb+J75BArpzi8UEb1AerYHbzv34Wsf2d/6QIGa9kGNCCm+W5
+ 5Zs7WlMcU9RMhXrjJh7LuPrqH5VtSuaE9z/jH84/sQdgMfTOm8z8eTRrDJHpKcPKNaOq
+ OaFO/+DbsNYMLmVYoxykyKe6yFJp+V0RZCeca6btxsBUoRzQk9BAFqkvWMXzWXrWq0kj
+ Ugvtp2fFPsTQKSZfUdLxF/w7Eiq7qUkMY+0UkdqydmZ6c7q/NNvDoE3OpO8QbqOSGoVm
+ kpHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678141647;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=W3qxWDvjerISNaxKF3Ra6sY6j46tGnEJGDU1d94VlvA=;
+ b=4KKdee0crAuPYI4VYiB1B97hao6kln+g9J0oUeEkc+Mb9QyHj4rGSTRYTRWXQ3tk2F
+ dyI/L5eVQafMpRyKt6pjPyrC89Gtgo0U15COR+YQyZke4dWPFTIhfOQzA9uK/vYzP5XU
+ gjtM5mtfoIsV25Fu+AqxfLQBiIBuSzBPT9gOzCtWOTIG/ASE/DT+e2HWQ+2pYQ3O8i8a
+ BUVhKKZsJT6EJGbr9musCfysIhuyOvMqLDXFLxrd96IlURFi3D2z1LZ3GibMBFi1Ixld
+ xx9LIl02i9gN2lgpJia+1pnxmgiKelp2Kml1z3ZYj5Wwtiavec5viu2eyYUrUU9hoWlt
+ tsnA==
+X-Gm-Message-State: AO0yUKXP07XP/1b2BFq037gnsRyx2NFORhjpyyduROAHLx68DYCOS3Gi
+ 2inbFBFaEJJbrKxx+/BfHGLgrl65ZuAd/J+zouA=
+X-Google-Smtp-Source: AK7set/Da8UuCEOb/WaB3N+3ukRiiZIlt6PkEXVGwrGaGbXODTPjVVCrRLvZM72wiJWXoWsEQSPLvOujY0RDaGqUziY=
+X-Received: by 2002:a05:6871:6a91:b0:176:aee9:99e9 with SMTP id
+ zf17-20020a0568716a9100b00176aee999e9mr1845029oab.3.1678141646963; Mon, 06
+ Mar 2023 14:27:26 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT034:EE_|BN9PR12MB5193:EE_
-X-MS-Office365-Filtering-Correlation-Id: f6ed33dc-c5bc-407b-1bf6-08db1e8de8f0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FO85MTMq/opWCJOQFcgRcz6JyY4wKwgUdHYLt5zaeAR6DavKRJbY7oqrMZjDuXGVdQs9y3BMEisSjfcJWYf7QjOEghDXtDxBdgXbnVPXFrUr+oSILrPoEE3AmceRq0MJbmOCIKhRf39J/vteMlTw/kgTftLqOyJhWIQyOFScptwI4N4t1lr+O5TKiPu1wBCtvzX2DEgWjIIIy1XdAPhVR9xpU4iG4WV9BQrRleUjMiixyoUELfkN4G484a36QWq6hMk1lqhgOyp6msImdlfcCVPBrfX/BeQrfrD+3syiPn9iDhfpFbk+k2L00NXQQN/M6BjeXxfmA/FhE8uvtvct9NKdqyeAW3/86fGNiaq1iLZGsf1eKlNZJKYWLo6k+W4eOZNufJWBBxGXCeSrjIU5zgxcTtdGr3kjUKKdj/M7VTuvcoJ+kMuUGb6VQtnYZaFJOrWoNVq+OPqzVhOWvXA4ilUqKycmAlOkIK1TwEnT/sRC4yMCJW0G3lRgn9GxrQ5RxZk7BEGz03B3szXtmErZ9vwxse9NE14knJpoMygRSlU/14HS1ccXWuFwL0HDHAgIlHesU9Dj9caKVq5HA3FuXBCX6BOXmhr+VQxRytkskYLUP7/3U9QlEAU6dvqreNHImkxsU8y9ovXWIimdSdVC4ETBWEqu9CJ2Kgu1cSVwkjK8hovURZLKeKdNgtBIGTUgM77DIZ5Nq7/tbVQQqkBo9efi65TdCtvMN+HgKf3f6Xs=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(136003)(376002)(346002)(39860400002)(451199018)(40470700004)(36840700001)(46966006)(40460700003)(16526019)(186003)(6666004)(81166007)(356005)(6916009)(36860700001)(8936002)(8676002)(41300700001)(2906002)(82740400003)(5660300002)(70206006)(70586007)(4326008)(426003)(7696005)(478600001)(47076005)(2616005)(44832011)(26005)(1076003)(316002)(36756003)(40480700001)(82310400005)(86362001)(83380400001)(336012)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2023 21:58:24.8610 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6ed33dc-c5bc-407b-1bf6-08db1e8de8f0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT034.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5193
+References: <20230304234431.29507-1-mumei6102@gmail.com>
+ <88948047-4f96-67fe-4135-1b385c4a1234@amd.com>
+In-Reply-To: <88948047-4f96-67fe-4135-1b385c4a1234@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 6 Mar 2023 17:27:15 -0500
+Message-ID: <CADnq5_N4MgLeGGpYfs-UBoCfdHh2LyW9p3yi9Ncr1EkY2O-YhA@mail.gmail.com>
+Subject: Re: [v2] drm/amd/pm: Fix sienna cichlid incorrect OD volage after
+ resume
+To: "Limonciello, Mario" <mario.limonciello@amd.com>, "Quan,
+ Evan" <Evan.Quan@amd.com>, Kenneth Feng <kenneth.feng@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,116 +70,140 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Belanger <david.belanger@amd.com>
+Cc: =?UTF-8?B?QsWCYcW8ZWogU3pjenlnaWXFgg==?= <mumei6102@gmail.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Handle case when module is unloaded (kfd_exit) before a process space
-(mm_struct) is released.
++ Evan, Kenneth
 
-Signed-off-by: David Belanger <david.belanger@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_module.c  |  4 ++
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 57 ++++++++++++++++++++++++
- 2 files changed, 61 insertions(+)
+On Mon, Mar 6, 2023 at 2:49 PM Limonciello, Mario
+<mario.limonciello@amd.com> wrote:
+>
+> On 3/4/2023 17:44, B=C5=82a=C5=BCej Szczygie=C5=82 wrote:
+> > Always setup overdrive tables after resume. Preserve only some
+> > user-defined settings in user_overdrive_table if they're set.
+> >
+> > Copy restored user_overdrive_table into od_table to get correct
+> > values.
+> >
+> > Signed-off-by: B=C5=82a=C5=BCej Szczygie=C5=82 <mumei6102@gmail.com>
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_module.c b/drivers/gpu/drm/amd/amdkfd/kfd_module.c
-index 09b966dc3768..8ef4bd9e4f7d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_module.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_module.c
-@@ -26,6 +26,9 @@
- #include "kfd_priv.h"
- #include "amdgpu_amdkfd.h"
- 
-+void kfd_cleanup_processes(void);
-+
-+
- static int kfd_init(void)
- {
- 	int err;
-@@ -77,6 +80,7 @@ static int kfd_init(void)
- 
- static void kfd_exit(void)
- {
-+	kfd_cleanup_processes();
- 	kfd_debugfs_fini();
- 	kfd_process_destroy_wq();
- 	kfd_procfs_shutdown();
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index ebabe92f7edb..b5b28a32639d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1181,6 +1181,17 @@ static void kfd_process_notifier_release(struct mmu_notifier *mn,
- 		return;
- 
- 	mutex_lock(&kfd_processes_mutex);
-+	/*
-+	 * Do early return if p is not in the table.
-+	 *
-+	 * This could potentially happen if this function is called concurrently
-+	 * by mmu_notifier and by kfd_cleanup_pocesses.
-+	 *
-+	 */
-+	if (!hash_hashed(&p->kfd_processes)) {
-+		mutex_unlock(&kfd_processes_mutex);
-+		return;
-+	}
- 	hash_del_rcu(&p->kfd_processes);
- 	mutex_unlock(&kfd_processes_mutex);
- 	synchronize_srcu(&kfd_processes_srcu);
-@@ -1200,6 +1211,52 @@ static const struct mmu_notifier_ops kfd_process_mmu_notifier_ops = {
- 	.free_notifier = kfd_process_free_notifier,
- };
- 
-+
-+void kfd_cleanup_processes(void)
-+{
-+	struct kfd_process *p;
-+	unsigned int temp;
-+
-+	/*
-+	 * Iterate over remaining processes in table, calling notifier release
-+	 * to free up notifier and process resources.
-+	 *
-+	 * This code handles the case when driver is unloaded before all mm_struct
-+	 * are released.
-+	 */
-+	int idx = srcu_read_lock(&kfd_processes_srcu);
-+
-+	hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
-+		if (p) {
-+			/*
-+			 * Obtain a reference on p to avoid a late mmu_notifier release
-+			 * call triggering freeing the process.
-+			 */
-+
-+			kref_get(&p->ref);
-+
-+			srcu_read_unlock(&kfd_processes_srcu, idx);
-+
-+			kfd_process_notifier_release(&p->mmu_notifier, p->mm);
-+
-+			kfd_unref_process(p);
-+
-+			idx = srcu_read_lock(&kfd_processes_srcu);
-+		}
-+	}
-+	srcu_read_unlock(&kfd_processes_srcu, idx);
-+
-+	/*
-+	 * Must be called after all mmu_notifier_put are done and before
-+	 * kfd_process_wq is released.
-+	 *
-+	 * Ensures that all outstanding free_notifier gets called, triggering the release
-+	 * of the process.
-+	 */
-+	mmu_notifier_synchronize();
-+}
-+
-+
- static int kfd_process_init_cwsr_apu(struct kfd_process *p, struct file *filep)
- {
- 	unsigned long  offset;
--- 
-2.38.1
+Please add a link to the bug tracker as well:
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1897
 
+Alex
+
+
+
+> > ---
+> >   .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 43 ++++++++++++++----=
+-
+> >   1 file changed, 33 insertions(+), 10 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/=
+drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> > index 697e98a0a20a..75f18681e984 100644
+> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> > @@ -2143,16 +2143,9 @@ static int sienna_cichlid_set_default_od_setting=
+s(struct smu_context *smu)
+> >               (OverDriveTable_t *)smu->smu_table.boot_overdrive_table;
+> >       OverDriveTable_t *user_od_table =3D
+> >               (OverDriveTable_t *)smu->smu_table.user_overdrive_table;
+> > +     OverDriveTable_t user_od_table_bak;
+> >       int ret =3D 0;
+> >
+> > -     /*
+> > -      * For S3/S4/Runpm resume, no need to setup those overdrive table=
+s again as
+> > -      *   - either they already have the default OD settings got durin=
+g cold bootup
+> > -      *   - or they have some user customized OD settings which cannot=
+ be overwritten
+> > -      */
+> > -     if (smu->adev->in_suspend)
+> > -             return 0;
+> > -
+> >       ret =3D smu_cmn_update_table(smu, SMU_TABLE_OVERDRIVE,
+> >                                  0, (void *)boot_od_table, false);
+> >       if (ret) {
+> > @@ -2163,7 +2156,23 @@ static int sienna_cichlid_set_default_od_setting=
+s(struct smu_context *smu)
+> >       sienna_cichlid_dump_od_table(smu, boot_od_table);
+> >
+> >       memcpy(od_table, boot_od_table, sizeof(OverDriveTable_t));
+> > -     memcpy(user_od_table, boot_od_table, sizeof(OverDriveTable_t));
+> > +
+> > +     /*
+> > +      * For S3/S4/Runpm resume, we need to setup those overdrive table=
+s again,
+> > +      * but we have to preserve user defined values in "user_od_table"=
+.
+> > +      */
+> > +     if (!smu->adev->in_suspend) {
+> > +             memcpy(user_od_table, boot_od_table, sizeof(OverDriveTabl=
+e_t));
+> > +             smu->user_dpm_profile.user_od =3D false;
+> > +     } else if (smu->user_dpm_profile.user_od) {
+> > +             memcpy(&user_od_table_bak, user_od_table, sizeof(OverDriv=
+eTable_t));
+> > +             memcpy(user_od_table, boot_od_table, sizeof(OverDriveTabl=
+e_t));
+> > +             user_od_table->GfxclkFmin =3D user_od_table_bak.GfxclkFmi=
+n;
+> > +             user_od_table->GfxclkFmax =3D user_od_table_bak.GfxclkFma=
+x;
+> > +             user_od_table->UclkFmin =3D user_od_table_bak.UclkFmin;
+> > +             user_od_table->UclkFmax =3D user_od_table_bak.UclkFmax;
+> > +             user_od_table->VddGfxOffset =3D user_od_table_bak.VddGfxO=
+ffset;
+> > +     }
+> >
+> >       return 0;
+> >   }
+> > @@ -2373,6 +2382,20 @@ static int sienna_cichlid_od_edit_dpm_table(stru=
+ct smu_context *smu,
+> >       return ret;
+> >   }
+> >
+> > +static int sienna_cichlid_restore_user_od_settings(struct smu_context =
+*smu)
+> > +{
+> > +     struct smu_table_context *table_context =3D &smu->smu_table;
+> > +     OverDriveTable_t *od_table =3D table_context->overdrive_table;
+> > +     OverDriveTable_t *user_od_table =3D table_context->user_overdrive=
+_table;
+> > +     int res;
+> > +
+> > +     res =3D smu_v11_0_restore_user_od_settings(smu);
+> > +     if (res =3D=3D 0)
+> > +             memcpy(od_table, user_od_table, sizeof(OverDriveTable_t))=
+;
+> > +
+> > +     return res;
+> > +}
+> > +
+> >   static int sienna_cichlid_run_btc(struct smu_context *smu)
+> >   {
+> >       int res;
+> > @@ -4400,7 +4423,7 @@ static const struct pptable_funcs sienna_cichlid_=
+ppt_funcs =3D {
+> >       .set_soft_freq_limited_range =3D smu_v11_0_set_soft_freq_limited_=
+range,
+> >       .set_default_od_settings =3D sienna_cichlid_set_default_od_settin=
+gs,
+> >       .od_edit_dpm_table =3D sienna_cichlid_od_edit_dpm_table,
+> > -     .restore_user_od_settings =3D smu_v11_0_restore_user_od_settings,
+> > +     .restore_user_od_settings =3D sienna_cichlid_restore_user_od_sett=
+ings,
+>
+> Rather than introduce a new static function perhaps it would be better
+> to just change 'smu_v11_0_restore_user_od_settings'.
+>
+> That could help this issue if it also occurs on Navi10 as well.
+>
+> >       .run_btc =3D sienna_cichlid_run_btc,
+> >       .set_power_source =3D smu_v11_0_set_power_source,
+> >       .get_pp_feature_mask =3D smu_cmn_get_pp_feature_mask,
+>
