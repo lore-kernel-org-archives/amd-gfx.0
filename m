@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A479EC61DA4
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Mar 2023 02:32:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26C05C678DB
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Mar 2023 02:32:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 026D310E033;
-	Mon,  6 Mar 2023 02:32:48 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2A4510E033
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Mar 2023 02:32:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8158810E062;
+	Mon,  6 Mar 2023 02:32:49 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2055.outbound.protection.outlook.com [40.107.243.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EDDB10E03F
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Mar 2023 02:32:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NCi0Is4PRw0g++HlbGsfo2NYvHnVB4uMn0IkAmfNcpohhYsr7uN0QQJaqEXJ/CfSOTNFF4jEHoYLvVGITUndJZapcGEGMvGF0PcgGlPDiGkeBh2cZUeHC8lGg5KkNIJ6P8vLhlv+C62qM4HKUeTOLyq5vVhB9iMfCEkryMfreEobcsEoLNaJbgux0UC8mNH+4YpxOc3kRQ7g0l5mJIH7TdVLRPa2d2uozwD0s/YrL3PUkqV7YqRAEeiIB0jThlojPvAXkI4aHikQd0wshp1W2F7u3mWrTNPkA9AbODdhP1SQAYiCU3Vvyuo41rQws+7C/hTM4wrsqTXOgnzlhWoVDw==
+ b=npravKJNR7CTfDfc0lsKM/cy6CMhBphJb7Z3rLK4fQ9OGCNbFN5g7RhFGF1Mo8oeNG+F/pDLPN59cqgUEe5J/QOLPEcaLr0ltTNRhKhQNsIpkC3ldSLWmwlL9IRnTK78VMCm+OdsPCssk8Isfg5OjcUJlbqUB+E+Rv6uGdnB6aNCweEH6runKhwYlnR4WygJgHsOYObVlHIOZSko+FaHAmGNxMZmai30j1rNhsAYHqWuK6ZFM3rGIBhUc7ThbDAbhBP6BQnF0uMiA0coiwyAK3lS6a7htvkYniJHrYPjvmh4LFvwJr+kybnPAucyPuw1dxO2/eLSjtQnenyyuaCaAg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ey7r6IL2n1eItvZmGdIxH90Tf9MoPKcVpRSb7rFATls=;
- b=mRZNnfwsyRvElbjZfmTsYKVVLftcS0U7REk6ULlKtnl/FWjG2fHQ03azTmJlqE/margea3Nxh60t0aBhGNZ4rhg/jHpAoobmiNCZ+N9C2nexHA2KI3W0JvZG1U8cJE3nnzMVl26KdXAAhAq17i6sfvnIcbhtpQZWfS4yoLMNom7fMZnnIPQdLuBHDDGeqZAWlRNQz9z3FqHJMHg80xbFHigg/gpwMd3amSOSSMUgR6amiCIakA82ZCp3gF1BzcCyUinPQPqf9Z3keyjAqkQXUO1vRENP0vI9l4CnkSl5zsPsrgFiMTuIqX7RKrdQWyKlNTTI5gXfTgp6OzxH3p0Nzg==
+ bh=Wp9yEXqSsLHvpAO9+aZaLTqEbon61IDFInyQ1pzHymE=;
+ b=UyYhvpT2kqtTviyhH2yhe4nnXSMbzc5k+prCcNOz8iqMxOjLJcKKTlmMKQLQV+TtEZEpHF+e7y44fPQSo0m9ge8SyXDHh3K9nQTg84JnFIuPZAqBCyC4DvqQv3+eKnU3RjOlJrMmLXvaDWtymkcfkfVuGrAmOrPC1s9e9vHkVgvFhF7CC3GCuebt2pM3p/wpeZlW86/GMQlXV8/C33qg4juePGA9ssIpYnNghCqpxLh/7l9Q/YhGuT8cKkQn7LdQT1KN7MHVl22FoaIN3alRu4QMtbebqRKymczCEO/Z9Ar+KY5mI94JG9mr/Iatx+6UKG13JiqVmJ0gAJZoh4a+rw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ey7r6IL2n1eItvZmGdIxH90Tf9MoPKcVpRSb7rFATls=;
- b=a9SfUwzLQ9LN+sRPoDJ2v3FOk1jHrBrytbTIk0P1j/v/gMXVXZADZAQfuicQnCEHsP9gi1LWvZTN/xcMMEguNT2jzmzGcfS7gbR1bN9+1rwdmhLqBGaSPSuZukgrFrz6XyeWOOpkd1Of0Z/KSGz9z9kdJf6O2PMhxgFgeXSEeW4=
-Received: from MW4PR03CA0339.namprd03.prod.outlook.com (2603:10b6:303:dc::14)
- by PH7PR12MB6585.namprd12.prod.outlook.com (2603:10b6:510:213::22)
+ bh=Wp9yEXqSsLHvpAO9+aZaLTqEbon61IDFInyQ1pzHymE=;
+ b=qmGs9mZJExHQ50YL/3Qy+euHvyQCK4EBN+AAvCsj1F5saeauHEsUE4JthwuDikenQr1GTgcDZFpISnEMlBcGsuWq86f3BqYyHfi/p3andtrVuQISKjd09ZqE4zL12o5BZNazHB1d5wRTmYgNEAss8LcPVaiiQIdkLGgK45A8DBs=
+Received: from MW4PR03CA0011.namprd03.prod.outlook.com (2603:10b6:303:8f::16)
+ by SA0PR12MB4429.namprd12.prod.outlook.com (2603:10b6:806:73::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.27; Mon, 6 Mar
- 2023 02:32:40 +0000
-Received: from CO1NAM11FT108.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:dc:cafe::81) by MW4PR03CA0339.outlook.office365.com
- (2603:10b6:303:dc::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.28; Mon, 6 Mar
+ 2023 02:32:45 +0000
+Received: from CO1NAM11FT052.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8f:cafe::6) by MW4PR03CA0011.outlook.office365.com
+ (2603:10b6:303:8f::16) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.27 via Frontend
- Transport; Mon, 6 Mar 2023 02:32:40 +0000
+ Transport; Mon, 6 Mar 2023 02:32:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,20 +45,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT108.mail.protection.outlook.com (10.13.175.226) with Microsoft SMTP
+ CO1NAM11FT052.mail.protection.outlook.com (10.13.174.225) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.14 via Frontend Transport; Mon, 6 Mar 2023 02:32:40 +0000
+ 15.20.6178.15 via Frontend Transport; Mon, 6 Mar 2023 02:32:44 +0000
 Received: from hawzhang-System-Product-Master.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.34; Sun, 5 Mar 2023 20:32:37 -0600
+ 15.1.2375.34; Sun, 5 Mar 2023 20:32:42 -0600
 From: Hawking Zhang <Hawking.Zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, Tao Zhou <tao.zhou1@amd.com>, "Stanley
  Yang" <Stanley.Yang@amd.com>, Candice Li <Candice.Li@amd.com>, Thomas Chai
  <YiPeng.Chai@amd.com>
-Subject: [PATCH 01/11] drm/amdgpu: Move jpeg ras block init to ras sw_init
-Date: Mon, 6 Mar 2023 10:31:50 +0800
-Message-ID: <20230306023200.29158-2-Hawking.Zhang@amd.com>
+Subject: [PATCH 02/11] drm/amdgpu: Move vcn ras block init to ras sw_init
+Date: Mon, 6 Mar 2023 10:31:51 +0800
+Message-ID: <20230306023200.29158-3-Hawking.Zhang@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20230306023200.29158-1-Hawking.Zhang@amd.com>
 References: <20230306023200.29158-1-Hawking.Zhang@amd.com>
@@ -69,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT108:EE_|PH7PR12MB6585:EE_
-X-MS-Office365-Filtering-Correlation-Id: 91ee4a5a-6a15-4e6f-a370-08db1deb0e9e
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT052:EE_|SA0PR12MB4429:EE_
+X-MS-Office365-Filtering-Correlation-Id: ab7366cc-0ee1-4dd7-49af-08db1deb1150
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FtvFt1VeXPVFsy/uX7XsXBuWVHHtC5WpOrEArBUnEAly6mbCSyhRGh1POR5nkZxtFI9mRnIZ8V+IkhxRiOjN5P0wHNIXaan3Qv11sLd60qCktfgMOXiJ6Sd/0zhB18M20g/KjEJtx2mc6QfSn6of43tHv92WHrqWF0bnui+qBQ2lz3jd4SC6wLpUTqYoA9Dbjf2WDwOVgWDisdhTN2QEJaufn5n/3OvzJaJnIaBHBS+PWS6mHyqMXxRRz0H2en1Z13xmeWBO1N+w0ZsSUzncBnI5BHnDumHatNo3YHaNV85SGgSYKrgvr6g3IUEbjC/FKBVxrdBhOwvaBnuDZv7SJvv8dnEQsnSVPHqitgws3IeePYsE8RmUw5Vj2JcQ57v3rqJ5gZfdMtr2UYSog/RAV4SVDehr7SDUCSr/vvsDPGua2gX66lLcS7l0bbHTvAPbs/xbMQN2Jbf7u+rYeMoyxaULjnDnO4RgliufQvo3d3hG4gpIWI0JZIXkbjWNQp8Ozq3AWlUcn7JacyZaiW82h4MhSUPSWNZgjrK5JiQGP/M2n668oi7GZChs0XokhZRnxWneJsaXZAE6xkp1H4MJVpWFtRa0N5LzlG2nwVxMzSSeoU07qcitqMeRi8ZBE9RR9Cu81B8SJojxYaKVbTc210wQHCTeq2Dh7ZLNIPytzu9C1mB0Rx5l6Juvn66+2qbNmR7kBCa/MIm6Qlq1+B9wUPjzeAi+4fXOGZfFmPBAaWw=
+X-Microsoft-Antispam-Message-Info: /2DtPrqmNf3EHImS2AfN83hGvWmaJ50drtnNDm7Fv5VG6CODJtm9pf/itfRn7IRBbHReTDhr0+G1xFfoHqyyAvtksoBH9vFJ4fUN8YMEQPzf1NYFnooXUUwx9A/tsgDDEPNYSL1zoIv7YhMCSIueY5+oesJnl03CfbQ3FS369dpa3Bj7XHD1D6HZjkZY5lTmGVMsOuMCByJEzmbRAhHlVtPiron5FgrwimwxUWkKQIcHG6czLFhinItAMA2jo7Bi7IrebPEDeGno7/4oENM5FSqzToM6tfKoBAOffD489ryuU0OZWRsdTP1jctliFOELfH+e6vpRetu0SuxYH7Uzzow0JMY2txNKXgOOxZVGUJ4QOQg3YVAn4+BLWi4FXQ7wFrzG4MCbXqmzDOQZqEQ0AHtqGk+gau2CA6ybYEYiA/d3opv4YBAG+J1myHZodecCHeeyNe0Lz5Q1NUomP8GdG3gRpKqhBRl/pSa5OYanx7KWvR0pZpiu7i0Y+kFpR88Otr0ecdSuPEFfFN9MwSEeduZ/wuwlyfzUU+2c2bNapNPqsyyla8WOvWSaVsBaTR4GZG6rOIgiJsyWBBnXiNzMqrJ3s3qZqojoiAYCUPoXjVcJVRoymtWNob41PcyWN63dDgEVLwvmBe2dxluhpLPv2QXgEqovlhMOQEFp94K7PYqHh+D9wuhUQScayhFEyw2Q8jJg0I3lbzKt20OJtl7zpHn53vFH6Wsd8oObBH0KM9c=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(376002)(396003)(136003)(346002)(39860400002)(451199018)(36840700001)(40470700004)(46966006)(36860700001)(7696005)(478600001)(83380400001)(47076005)(426003)(36756003)(6666004)(82310400005)(316002)(356005)(110136005)(82740400003)(6636002)(2616005)(336012)(1076003)(16526019)(186003)(26005)(40460700003)(5660300002)(86362001)(81166007)(2906002)(40480700001)(8676002)(4326008)(70206006)(70586007)(41300700001)(8936002)(36900700001);
+ SFS:(13230025)(4636009)(136003)(346002)(39860400002)(396003)(376002)(451199018)(46966006)(36840700001)(40470700004)(40460700003)(16526019)(186003)(6666004)(81166007)(356005)(8936002)(36860700001)(4326008)(8676002)(41300700001)(82740400003)(2906002)(70586007)(70206006)(5660300002)(426003)(47076005)(7696005)(478600001)(2616005)(1076003)(26005)(336012)(316002)(110136005)(6636002)(36756003)(40480700001)(82310400005)(86362001)(83380400001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2023 02:32:40.1292 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 91ee4a5a-6a15-4e6f-a370-08db1deb0e9e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2023 02:32:44.6645 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ab7366cc-0ee1-4dd7-49af-08db1deb1150
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT108.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT052.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6585
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4429
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,86 +104,86 @@ Cc: Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Initialize jpeg ras block only when jpeg ip block
+Initialize vcn ras block only when vcn ip block
 supports ras features. Driver queries ras capabilities
 after early_init, ras block init needs to be moved to
 sw_int.
 
 Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c | 29 ++++++++++++++++--------
- drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h |  2 +-
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c   | 10 ++++++--
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c   | 10 ++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 29 ++++++++++++++++---------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  2 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c   | 10 +++++++--
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   | 10 +++++++--
  4 files changed, 36 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-index 8f472517d181..74695161cf1b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-@@ -235,19 +235,28 @@ int amdgpu_jpeg_process_poison_irq(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index 02d428ddf2f8..8664a5301b2f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -1158,19 +1158,28 @@ int amdgpu_vcn_process_poison_irq(struct amdgpu_device *adev,
  	return 0;
  }
  
--void jpeg_set_ras_funcs(struct amdgpu_device *adev)
-+int amdgpu_jpeg_ras_sw_init(struct amdgpu_device *adev)
+-void amdgpu_vcn_set_ras_funcs(struct amdgpu_device *adev)
++int amdgpu_vcn_ras_sw_init(struct amdgpu_device *adev)
  {
 +	int err;
-+	struct amdgpu_jpeg_ras *ras;
++	struct amdgpu_vcn_ras *ras;
 +
- 	if (!adev->jpeg.ras)
+ 	if (!adev->vcn.ras)
 -		return;
 +		return 0;
  
--	amdgpu_ras_register_ras_block(adev, &adev->jpeg.ras->ras_block);
-+	ras = adev->jpeg.ras;
+-	amdgpu_ras_register_ras_block(adev, &adev->vcn.ras->ras_block);
++	ras = adev->vcn.ras;
 +	err = amdgpu_ras_register_ras_block(adev, &ras->ras_block);
 +	if (err) {
-+		dev_err(adev->dev, "Failed to register jpeg ras block!\n");
++		dev_err(adev->dev, "Failed to register vcn ras block!\n");
 +		return err;
 +	}
  
--	strcpy(adev->jpeg.ras->ras_block.ras_comm.name, "jpeg");
--	adev->jpeg.ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__JPEG;
--	adev->jpeg.ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__POISON;
--	adev->jpeg.ras_if = &adev->jpeg.ras->ras_block.ras_comm;
-+	strcpy(ras->ras_block.ras_comm.name, "jpeg");
-+	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__JPEG;
+-	strcpy(adev->vcn.ras->ras_block.ras_comm.name, "vcn");
+-	adev->vcn.ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__VCN;
+-	adev->vcn.ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__POISON;
+-	adev->vcn.ras_if = &adev->vcn.ras->ras_block.ras_comm;
++	strcpy(ras->ras_block.ras_comm.name, "vcn");
++	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__VCN;
 +	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__POISON;
-+	adev->jpeg.ras_if = &ras->ras_block.ras_comm;
++	adev->vcn.ras_if = &ras->ras_block.ras_comm;
  
 -	/* If don't define special ras_late_init function, use default ras_late_init */
--	if (!adev->jpeg.ras->ras_block.ras_late_init)
--		adev->jpeg.ras->ras_block.ras_late_init = amdgpu_ras_block_late_init;
+-	if (!adev->vcn.ras->ras_block.ras_late_init)
+-		adev->vcn.ras->ras_block.ras_late_init = amdgpu_ras_block_late_init;
 +	if (!ras->ras_block.ras_late_init)
 +		ras->ras_block.ras_late_init = amdgpu_ras_block_late_init;
 +
 +	return 0;
  }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h
-index e8ca3e32ad52..0ca76f0f23e9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h
-@@ -72,6 +72,6 @@ int amdgpu_jpeg_dec_ring_test_ib(struct amdgpu_ring *ring, long timeout);
- int amdgpu_jpeg_process_poison_irq(struct amdgpu_device *adev,
- 				struct amdgpu_irq_src *source,
- 				struct amdgpu_iv_entry *entry);
--void jpeg_set_ras_funcs(struct amdgpu_device *adev);
-+int amdgpu_jpeg_ras_sw_init(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+index d3e2af902907..c730949ece7d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+@@ -400,6 +400,6 @@ void amdgpu_debugfs_vcn_fwlog_init(struct amdgpu_device *adev,
+ int amdgpu_vcn_process_poison_irq(struct amdgpu_device *adev,
+ 			struct amdgpu_irq_src *source,
+ 			struct amdgpu_iv_entry *entry);
+-void amdgpu_vcn_set_ras_funcs(struct amdgpu_device *adev);
++int amdgpu_vcn_ras_sw_init(struct amdgpu_device *adev);
  
- #endif /*__AMDGPU_JPEG_H__*/
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-index f2b743a93915..7400ed1449e3 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-@@ -138,6 +138,14 @@ static int jpeg_v2_5_sw_init(void *handle)
- 		adev->jpeg.inst[i].external.jpeg_pitch = SOC15_REG_OFFSET(JPEG, i, mmUVD_JPEG_PITCH);
- 	}
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+index b0b0e69c6a94..043c9e0d956c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+@@ -225,6 +225,14 @@ static int vcn_v2_5_sw_init(void *handle)
+ 	if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG)
+ 		adev->vcn.pause_dpg_mode = vcn_v2_5_pause_dpg_mode;
  
-+	if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__JPEG)) {
-+		r = amdgpu_jpeg_ras_sw_init(adev);
++	if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__VCN)) {
++		r = amdgpu_vcn_ras_sw_init(adev);
 +		if (r) {
-+			dev_err(adev->dev, "Failed to initialize jpeg ras block!\n");
++			dev_err(adev->dev, "Failed to initialize vcn ras block!\n");
 +			return r;
 +		}
 +	}
@@ -191,25 +191,25 @@ index f2b743a93915..7400ed1449e3 100644
  	return 0;
  }
  
-@@ -806,6 +814,4 @@ static void jpeg_v2_5_set_ras_funcs(struct amdgpu_device *adev)
+@@ -2031,6 +2039,4 @@ static void vcn_v2_5_set_ras_funcs(struct amdgpu_device *adev)
  	default:
  		break;
  	}
 -
--	jpeg_set_ras_funcs(adev);
+-	amdgpu_vcn_set_ras_funcs(adev);
  }
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-index 3beb731b2ce5..f9f682336b3a 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
-@@ -113,6 +113,14 @@ static int jpeg_v4_0_sw_init(void *handle)
- 	adev->jpeg.internal.jpeg_pitch = regUVD_JPEG_PITCH_INTERNAL_OFFSET;
- 	adev->jpeg.inst->external.jpeg_pitch = SOC15_REG_OFFSET(JPEG, 0, regUVD_JPEG_PITCH);
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+index 43d587404c3e..73b0b1b1beec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+@@ -181,6 +181,14 @@ static int vcn_v4_0_sw_init(void *handle)
+ 	if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG)
+ 		adev->vcn.pause_dpg_mode = vcn_v4_0_pause_dpg_mode;
  
-+	if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__JPEG)) {
-+		r = amdgpu_jpeg_ras_sw_init(adev);
++	if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__VCN)) {
++		r = amdgpu_vcn_ras_sw_init(adev);
 +		if (r) {
-+			dev_err(adev->dev, "Failed to initialize jpeg ras block!\n");
++			dev_err(adev->dev, "Failed to initialize vcn ras block!\n");
 +			return r;
 +		}
 +	}
@@ -217,12 +217,12 @@ index 3beb731b2ce5..f9f682336b3a 100644
  	return 0;
  }
  
-@@ -685,6 +693,4 @@ static void jpeg_v4_0_set_ras_funcs(struct amdgpu_device *adev)
+@@ -2123,6 +2131,4 @@ static void vcn_v4_0_set_ras_funcs(struct amdgpu_device *adev)
  	default:
  		break;
  	}
 -
--	jpeg_set_ras_funcs(adev);
+-	amdgpu_vcn_set_ras_funcs(adev);
  }
 -- 
 2.17.1
