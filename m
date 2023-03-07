@@ -4,60 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B700EC678D5
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Mar 2023 05:11:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5BE2C678DB
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Mar 2023 06:22:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36F9410E36F;
-	Tue,  7 Mar 2023 05:11:23 +0000 (UTC)
-Received: from mail-vs1-xe35.google.com (mail-vs1-xe35.google.com
- [IPv6:2607:f8b0:4864:20::e35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0395210E36F;
- Tue,  7 Mar 2023 05:11:22 +0000 (UTC)
-Received: by mail-vs1-xe35.google.com with SMTP id f13so11323468vsg.6;
- Mon, 06 Mar 2023 21:11:21 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37FC510E0D9;
+	Tue,  7 Mar 2023 06:22:24 +0000 (UTC)
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D753510E0D9
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Mar 2023 06:22:22 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id ay14so44403935edb.11
+ for <amd-gfx@lists.freedesktop.org>; Mon, 06 Mar 2023 22:22:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678165881;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=gOhaj5GaMc2x+mrmGWMEhuFpIiJwp+9KbBPK8wKJme0=;
- b=e8hl3EEyt4DxXdBBzVFW2YX2FyQYl9J+LekJuNwUxMSMgfHz1/PC6VHwQaqSjPptvA
- hC6OxQYaAMCK/02ReFmgVpiSqDHZllJAk8tARaYERGqJYpTjgPO7Mxeho+eE7DwSxWJc
- 9c3PmbapBNNOSq1Mk/pa/LBHS8hUK8bgqok9GortNdTzQ4yKAAUR9wjpWk56k0r2PwTt
- aA1OEvu6hcZuiaZLjAXIFP9FLCOVmm7S7gZS68oKQsM5vfqnIGKF+REHleRitJPf15zw
- OX28lAlMkqsvROV4gFvy4NR8j60I1YRcLiwMj5He81BDPV13Q60l9poBJMHothtS0q4O
- HBag==
+ d=gmail.com; s=20210112; t=1678170141;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=seiMz2V9vYq+e8/akTv6h/xewbO5ysyEC/uhO1WJvDw=;
+ b=baBD0iQ7jwX/ON5SGpy593Zhs78+NuQD+HdDBLyWw+B7CU1pEdkfCOqIJQ5JfV40Z8
+ 5thCgzAw4jIUVjmSnGuABW2sRXO6VxONdUaCoQ3h7FFA3zL5bj5vrPLOrHOjBIDpBRmc
+ xgSTS5pDVh9668ZunRdcviT15WfTqzmxfEugxsrdJhBe9eybedLwBWuULIbC1RNxKcgk
+ sgIgbjqiICmhiI80wyjyLDTzDGOA2la5LDdFwbwKJ1mcmRwvK+zp0nuVGzdD9mNnHu1B
+ urWRJ5tIJmg2xAie+D4ayBdJM0HrbhNamoFlBJDJAKEnKF7u4hQWFEdM4EluBZrSGDzr
+ X97A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678165881;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=gOhaj5GaMc2x+mrmGWMEhuFpIiJwp+9KbBPK8wKJme0=;
- b=bPAgLPx+W7PoqNa4QC1sXIBXFFRwh+ewNadSkAZQefGKmqb2uzw1UvNmC7cVqFZV3h
- fpAOLHxT2iSknJvP5vo/Qx51BTtukhym/FiSrDX9X+/hbodlYM/sW09T0ns5r6f307zn
- gR1lEeQM8qVsJMF4gzt1oQpDvb5X4R0vFFZrpDFoGp5Rq36HPyea2L9jaUVfao4bWkRE
- sADbJoAQvshk7Ooi8W36ZzfWKBUaYHCgtxShVkUIkzWFCXb9+IOfbDeo27xmp23Uekmv
- Ezww4xzf8BLqbG2jRab1goPq6XJteCoXKfehalJxz7ZFA9af+j0SSYA1xq2hLjQG3S2x
- mJRw==
-X-Gm-Message-State: AO0yUKX9nB98I4GioOOxs1ZuyoZhNwImkRbuRpi1d2vwasPnOts1hwtj
- zkVNUCmfmCRPDL36dXsIT1BiNCF7/hRH7K3Yj0Q=
-X-Google-Smtp-Source: AK7set/W/A+me1jNyqWc9vH8ucYNaNO688tI9JJgzbjVx6tkIj8x0Jl/Ni8mowOOIOX3Uuu3Dn7pyPGaxtgEYlgRtxI=
-X-Received: by 2002:a67:e94c:0:b0:421:c4a7:872b with SMTP id
- p12-20020a67e94c000000b00421c4a7872bmr6603337vso.6.1678165880965; Mon, 06 Mar
- 2023 21:11:20 -0800 (PST)
+ d=1e100.net; s=20210112; t=1678170141;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=seiMz2V9vYq+e8/akTv6h/xewbO5ysyEC/uhO1WJvDw=;
+ b=UsfmWchNvI+1J7inpL46IIxn7RbQLApqdL12W5C5Csis+k/jHkqAXGxKP9AxIgLfMc
+ aSY+2BXNlcIequIuWEdI9gDIjbzJmyebU8PnL9JaPSx5yswPYgzYINiV1SYPVTb82mJs
+ TyzKg7zknSwvty0/7PE/qBTBrU+1keCzoti5j6krFVAyVFZsnCEJqclXOq3RpY+oYuIa
+ HNVVLG+ZHnDqlgo0fFvrIz06YDTkJkCGKxbU2akTjNUDqhsf6oKnYGxZUKhqs7WMmYjV
+ 6H70AdjGVGzJgMNsU4K0h3l3PQWW1kLkJoxzivsanhu/zjN/g8n6r0FQ2rJHRfmRvYfc
+ cUZQ==
+X-Gm-Message-State: AO0yUKXWkC792SNjax9z+1xKt3+fBqnO6+BGp149igWLca3s0LZxtpLH
+ jguGFPp5/z+EHhaPoh2TUhw=
+X-Google-Smtp-Source: AK7set+n1QPZReymBVjkQjCnZl0N8xqt1fOtZbiA0T04JDD1jyIJ5GoCUrjCtfXdgmdw/+i1r3qqOw==
+X-Received: by 2002:a17:906:3b4b:b0:85d:dd20:60a4 with SMTP id
+ h11-20020a1709063b4b00b0085ddd2060a4mr12393934ejf.40.1678170141060; 
+ Mon, 06 Mar 2023 22:22:21 -0800 (PST)
+Received: from ?IPV6:2a02:908:1256:79a0:447b:93b2:2cc7:bcfd?
+ ([2a02:908:1256:79a0:447b:93b2:2cc7:bcfd])
+ by smtp.gmail.com with ESMTPSA id
+ l26-20020a170906231a00b008b69aa62efcsm5558442eja.62.2023.03.06.22.22.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 06 Mar 2023 22:22:20 -0800 (PST)
+Message-ID: <1ce9cf14-2d1b-29f8-57df-8e600b353f66@gmail.com>
+Date: Tue, 7 Mar 2023 07:22:18 +0100
 MIME-Version: 1.0
-References: <20220904214134.408619-1-jim.cromie@gmail.com>
- <20220904214134.408619-33-jim.cromie@gmail.com>
- <CAOZdJXXHGW1iceWgB47wSUhG_hYA48JWtOPRrVRnL-EvRCxhBA@mail.gmail.com>
-In-Reply-To: <CAOZdJXXHGW1iceWgB47wSUhG_hYA48JWtOPRrVRnL-EvRCxhBA@mail.gmail.com>
-From: jim.cromie@gmail.com
-Date: Mon, 6 Mar 2023 22:10:54 -0700
-Message-ID: <CAJfuBxy=QKPfR=OEW5ZoUz9_9MWotJnu3CKWknuhGDNOCf7Whw@mail.gmail.com>
-Subject: Re: [PATCH v6 32/57] nouveau: adapt NV_DEBUG,
- NV_ATOMIC to use DRM.debug
-To: Timur Tabi <timur@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH] drm/amdgpu: Fix the warning info when removing amdgpu
+ device
+Content-Language: en-US
+To: "Chen, Guchun" <Guchun.Chen@amd.com>, "Li, Lyndon" <Lyndon.Li@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20230307021221.45890-1-Lyndon.Li@amd.com>
+ <DM5PR12MB24698E2A9E22CB2F80FA8249F1B79@DM5PR12MB2469.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <DM5PR12MB24698E2A9E22CB2F80FA8249F1B79@DM5PR12MB2469.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,75 +78,121 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: gregkh@linuxfoundation.org, intel-gfx@lists.freedesktop.org,
- linux@rasmusvillemoes.dk, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, jbaron@akamai.com, seanpaul@chromium.org,
- dri-devel@lists.freedesktop.org, daniel.vetter@ffwll.ch, joe@perches.com,
- intel-gvt-dev@lists.freedesktop.org, Luis Chamberlain <mcgrof@kernel.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Xu,
+ Feifei" <Feifei.Xu@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Prosyak, Vitaly" <Vitaly.Prosyak@amd.com>, "Ma, Jun" <Jun.Ma2@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 6, 2023 at 11:50=E2=80=AFAM Timur Tabi <timur@kernel.org> wrote=
-:
+The commit message reads a bit bumpy. Generally best practice are:
+
+Short (72 chars or less) summary
+
+More detailed explanatory text. Wrap it to 72 characters. The blank
+line separating the summary from the body is critical (unless you omit
+the body entirely).
+
+Write your commit message in the imperative: "Fix bug" and not "Fixed
+bug" or "Fixes bug." This convention matches up with commit messages
+generated by commands like git merge and git revert.
+
+Further paragraphs come after blank lines.
+
+- Bullet points are okay, too.
+- Typically a hyphen or asterisk is used for the bullet, followed by a
+   single space. Use a hanging indent.
+
+Apart from that the patch is Acked-by: Christian König 
+<christian.koenig@amd.com>
+
+Regards,
+Christian.
+
+Am 07.03.23 um 03:23 schrieb Chen, Guchun:
+> Reviewed-by: Guchun Chen <guchun.chen@amd.com>
 >
-> On Sun, Sep 4, 2022 at 4:48 PM Jim Cromie <jim.cromie@gmail.com> wrote:
-> >
-> > These 2 macros used drm_debug_enabled() on DRM_UT_{DRIVER,ATOMIC}
-> > respectively, replace those with drm_dbg_##cat invocations.
-> >
-> > this results in new class'd prdbg callsites:
-> >
-> > :#> grep nouveau /proc/dynamic_debug/control | grep class | wc
-> >     116    1130   15584
-> > :#> grep nouveau /proc/dynamic_debug/control | grep class | grep DRIVER=
- | wc
-> >      74     704    9709
-> > :#> grep nouveau /proc/dynamic_debug/control | grep class | grep ATOMIC=
- | wc
-> >      31     307    4237
-> > :#> grep nouveau /proc/dynamic_debug/control | grep class | grep KMS | =
-wc
-> >      11     119    1638
-> >
-> > the KMS entries are due to existing uses of drm_dbg_kms().
-> >
-> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> Regards,
+> Guchun
 >
-> Has this patch set been forgotten?  It was posted six months ago and
-> there's no sign that it was picked up.
+> -----Original Message-----
+> From: lyndonli <Lyndon.Li@amd.com>
+> Sent: Tuesday, March 7, 2023 10:12 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Prosyak, Vitaly <Vitaly.Prosyak@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Chen, Guchun <Guchun.Chen@amd.com>; Xu, Feifei <Feifei.Xu@amd.com>; Ma, Jun <Jun.Ma2@amd.com>; Li, Lyndon <Lyndon.Li@amd.com>
+> Subject: [PATCH] drm/amdgpu: Fix the warning info when removing amdgpu device
+>
+> Actually, the drm_dev_enter in psp_cmd_submit_buf does not protect anything.
+> And it is not used to prevent concurrent access.
+> If DRM device is unplugged, it will always check the condition in WARN_ON.
+> We'd better not keep adding commands to the list.
+> Simply moving the drm_dev_enter/drm_dev_exit higher level will not solve the issue.
+> Because psp_cmd_submit_buf is called in many places, such as psp_hw_init-->psp_load_fw, psp_suspend-->psp_xgmi_terminate, amdgpu_device_gpu_recover-->amdgpu_ras_suspend.
+> So drop drm_dev_enter/drm_dev_exit in psp_cmd_submit_buf.
+>
+> When removing amdgpu, the calling order as follows:
+> amdgpu_pci_remove
+> 	drm_dev_unplug
+> 	amdgpu_driver_unload_kms
+> 		amdgpu_device_fini_hw
+> 			amdgpu_device_ip_fini_early
+> 				psp_hw_fini
+> 					psp_ras_terminate
+> 						psp_ta_unloadye
+> 							psp_cmd_submit_buf
+>
+> [ 4507.740388] Call Trace:
+> [ 4507.740389]  <TASK>
+> [ 4507.740391]  psp_ta_unload+0x44/0x70 [amdgpu] [ 4507.740485]  psp_ras_terminate+0x4d/0x70 [amdgpu] [ 4507.740575]  psp_hw_fini+0x28/0xa0 [amdgpu] [ 4507.740662]  amdgpu_device_fini_hw+0x328/0x442 [amdgpu] [ 4507.740791]  amdgpu_driver_unload_kms+0x51/0x60 [amdgpu] [ 4507.740875]  amdgpu_pci_remove+0x5a/0x140 [amdgpu] [ 4507.740962]  ? _raw_spin_unlock_irqrestore+0x27/0x43
+> [ 4507.740965]  ? __pm_runtime_resume+0x60/0x90 [ 4507.740968]  pci_device_remove+0x39/0xb0 [ 4507.740971]  device_remove+0x46/0x70 [ 4507.740972]  device_release_driver_internal+0xd1/0x160
+> [ 4507.740974]  driver_detach+0x4a/0x90
+> [ 4507.740975]  bus_remove_driver+0x6c/0xf0 [ 4507.740976]  driver_unregister+0x31/0x50 [ 4507.740977]  pci_unregister_driver+0x40/0x90 [ 4507.740978]  amdgpu_exit+0x15/0x120 [amdgpu]
+>
+> Signed-off-by: lyndonli <Lyndon.Li@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 17 +----------------
+>   1 file changed, 1 insertion(+), 16 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> index 4c617faaa7c9..02f948adae72 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -603,27 +603,14 @@ psp_cmd_submit_buf(struct psp_context *psp,
+>   		   struct psp_gfx_cmd_resp *cmd, uint64_t fence_mc_addr)  {
+>   	int ret;
+> -	int index, idx;
+> +	int index;
+>   	int timeout = 20000;
+>   	bool ras_intr = false;
+>   	bool skip_unsupport = false;
+> -	bool dev_entered;
+>   
+>   	if (psp->adev->no_hw_access)
+>   		return 0;
+>   
+> -	dev_entered = drm_dev_enter(adev_to_drm(psp->adev), &idx);
+> -	/*
+> -	 * We allow sending PSP messages LOAD_ASD and UNLOAD_TA without acquiring
+> -	 * a lock in drm_dev_enter during driver unload because we must call
+> -	 * drm_dev_unplug as the beginning  of unload driver sequence . It is very
+> -	 * crucial that userspace can't access device instances anymore.
+> -	 */
+> -	if (!dev_entered)
+> -		WARN_ON(psp->cmd_buf_mem->cmd_id != GFX_CMD_ID_LOAD_ASD &&
+> -			psp->cmd_buf_mem->cmd_id != GFX_CMD_ID_UNLOAD_TA &&
+> -			psp->cmd_buf_mem->cmd_id != GFX_CMD_ID_INVOKE_CMD);
+> -
+>   	memset(psp->cmd_buf_mem, 0, PSP_CMD_BUFFER_SIZE);
+>   
+>   	memcpy(psp->cmd_buf_mem, cmd, sizeof(struct psp_gfx_cmd_resp)); @@ -687,8 +674,6 @@ psp_cmd_submit_buf(struct psp_context *psp,
+>   	}
+>   
+>   exit:
+> -	if (dev_entered)
+> -		drm_dev_exit(idx);
+>   	return ret;
+>   }
+>   
+> --
+> 2.34.1
+>
 
-Not forgotten, but chicken-egg problems with initializing prdbgs/drm-dbgs
-in drm.ko & dependent drivers pushed it down in priority.
-I have a fix for them, which needs Jasons "lets use notifier-chain" patches=
-,
-which is now in Luis' modules-next.
-
-After that fix lands, I can revisit this one.
-
-> The changes to drm_debug_enabled have impacted NV_DEBUG and NV_ATOMIC
-> and something needs to be fixed.  I posted a simpler patch a few weeks
-> ago, but maybe Jim's is better.
-
-I couldnt find it on lore, can you post a link ?
-
-But I do recall something about chatty logs, caused by
-
-#define drm_debug_enabled_instrumented(category)                        \
-        ({                                                              \
-                pr_debug("todo: is this frequent enough to optimize ?\n"); =
-\
-                drm_debug_enabled_raw(category);                        \
-        })
-
-If thats the case, it does seem to be frequent enough to silence.
-
-Before you do so, could you turn on the "mfl" flags,
-and count occurrences of each callsite ?
-
-echo module nouveau +mfl > /proc/dynamic_debug/control
-
-the numbers and duration of enablement would inform any optimization,
-including those available in the subject patchset.
-
-thanks,
-Jim
