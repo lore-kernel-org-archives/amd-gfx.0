@@ -4,91 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45CB6C678D4
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Mar 2023 15:29:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BEA5C678D5
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Mar 2023 17:03:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D362810E53F;
-	Tue,  7 Mar 2023 15:29:42 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20600.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eae::600])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C95F310E53F;
- Tue,  7 Mar 2023 15:29:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YXW0Tk+4wT7LgkVotyNPKwm6jkVvLTLAEJ3f37gvyDwmMGZWSjUlo0Q/3CkZbwb+Vf77/O8pK90DauC4AyexvOmtzleJwv5vop+DuAbZIfQXt6tsHM5hk4ia19bv54bZoQx5aCz9wkONiMgbmfUIESY1SEJkafhsnUlHxyMnR823ZXidSbJfXjkN2E3Wu6yh5yYA3obnElmDQu0VETEHqhWgPPsMDAumXhQLwWltU3ajq8FK6EPj7SZU+1TKwsBQ+uamIORExQgC5jz71mnflK0NSNzZf6XbySW0qdRCOMegf832qpjv52Wftahdh0N9D+65FmqFIkv99D8gfsl+9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=67dQ9Q7GFt/oaLDc3m7tKVyhMb9neR7ch22Jq7QTG80=;
- b=GUIradDgdKHobhodKWfpA51OtLYQbYn8Cp82/dCeDq0PY+KiED+CHx5ntLmJQGGNCd3ppS2Eh0+aFFMUMIKQb+vY+VOKGAah/CtHQXe/UZ/3+6bPqwUWDxvQc+ZyNmD7KSptNqaYUlfh3sieNkB5t8Q99KlapCcMUsHYrd5b4V7D04V9izTMUgOwL1XFQ328no5s5uyDOcupdNbxKQtcpoLCGvQav52P4bfu6yPTi2XFRH/7i8dz6pdl3zSPSPWVw+8ukpRkGUNf1dMhd2jVmddpPMEBaMyCun1c0K+un5nZVCMD0wTR7TiLQEjwclVGtc2daL0XCWuiJVIGyv5s2g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=67dQ9Q7GFt/oaLDc3m7tKVyhMb9neR7ch22Jq7QTG80=;
- b=ixtb08fiyZerbV0ltE34B/kYHnN5HAleSMF/c+0q1xzSNMCyK6TriQ6UTGLQv4Bhqdko07e43GdD/D/pc+zp7ugvrb6tZC0BQtZocscv+Ay0ss0i5QHtKkEcoGV/MNT5MOdM6h5KmA+F03HvDhRtKc5remfkzjbDs9UeTYuFYnk=
-Received: from CY5PR15CA0091.namprd15.prod.outlook.com (2603:10b6:930:7::10)
- by BN9PR12MB5180.namprd12.prod.outlook.com (2603:10b6:408:11d::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.29; Tue, 7 Mar
- 2023 15:29:39 +0000
-Received: from CY4PEPF0000C96B.namprd02.prod.outlook.com
- (2603:10b6:930:7:cafe::87) by CY5PR15CA0091.outlook.office365.com
- (2603:10b6:930:7::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.29 via Frontend
- Transport; Tue, 7 Mar 2023 15:29:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000C96B.mail.protection.outlook.com (10.167.241.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.13 via Frontend Transport; Tue, 7 Mar 2023 15:29:38 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 7 Mar
- 2023 09:29:38 -0600
-Received: from localhost.localdomain (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Tue, 7 Mar 2023 09:29:36 -0600
-From: Harry Wentland <harry.wentland@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: [PATCH v4 01/17] drm/connector: Convert DRM_MODE_COLORIMETRY to enum
-Date: Tue, 7 Mar 2023 10:29:34 -0500
-Message-ID: <20230307152934.53372-1-harry.wentland@amd.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <vT46Q_J1ih6YRi8a30VhwbuI43l7uCbTnS9ReApjeTZFD79HaDTZ-9FiNu_sS4iDn-XHhOsQYVQT-Bc699_qGmqMSSyc6XG7YYHVq-EJ-2s=@emersion.fr>
-References: <vT46Q_J1ih6YRi8a30VhwbuI43l7uCbTnS9ReApjeTZFD79HaDTZ-9FiNu_sS4iDn-XHhOsQYVQT-Bc699_qGmqMSSyc6XG7YYHVq-EJ-2s=@emersion.fr>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BFD510E183;
+	Tue,  7 Mar 2023 17:03:43 +0000 (UTC)
+Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
+ [IPv6:2001:4860:4864:20::36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C750410E108;
+ Tue,  7 Mar 2023 17:03:40 +0000 (UTC)
+Received: by mail-oa1-x36.google.com with SMTP id
+ 586e51a60fabf-17711f56136so844065fac.12; 
+ Tue, 07 Mar 2023 09:03:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1678208620;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=NdV+EIKQxSDfQkTVA63x343wU63G4KYaV0wPPzqV5/s=;
+ b=Qq1SnZqYDYlz32YF5cGBN0zRyMORfuj70c5lZbdOxlSbUiqCrz/OL/WZ61RdSs5x4u
+ dSlUqnDUmC3OfsgBzBcjVkJYKmO1WoG42sOuWNopYco/gqy6xxZRB+SKsgB9tTANXzJj
+ gFAhiG1thN+NJw0wpqJbv7hlsq9uYOLvzNZonlt18ZDGzqA9oC+Uz8nI6pfj5HRRG853
+ d6GH6ehaZgNjxW0DXR3OmTEmCbP3ZBOe2T0+RyV2HJsiZy4emhjEefVBy1RuvslUkkiS
+ UVQ2x1oTzbg+x6NXUjk0Nkj1TKqEHP6ItfMkbsgwPqxWWNC0EL/mc8DsYilZoYw68qsU
+ upYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678208620;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=NdV+EIKQxSDfQkTVA63x343wU63G4KYaV0wPPzqV5/s=;
+ b=YCRSZyrcexHFkSFhw27tsVuLBm+7qvfjzstmsSdzCXOVgozNvSP4DHhAmFlZZrF3ZV
+ kNm5WUIrWGupdWRu3w4vCY7gZICQW2B9MrANA4ZGid23dsJeHTGExVUuJImGk4BGZ3tB
+ aFqFItKgeUQ3dKAMiyC2RjYtDUQBcZ/8IEEmOeMVw9C6PiaGfoXsZCeYP2Ja7LMXHjIf
+ 2NwJTcM9GH8bV45GeBwjUD8n/3OU7HG3cd3gzgoimCZUn6DkhT2DcqxtHkpozh0+NY91
+ iZjfObFrB922iV7e/+sWhS7Iq9AnZs64f+ASLdEOtV/ouEDdAJQhCzxXSSMFO0VS1bSf
+ PPVA==
+X-Gm-Message-State: AO0yUKXjFVNXCgZEl2Yt7Aws+njyfMeofeAwzdDf3Ef0dJfXQY/jGfAD
+ HQrQGOuhVLbgwzqRUu8MPCH6PE1bvgmTcTOfZUk=
+X-Google-Smtp-Source: AK7set8e4ffmspjqbs62Heo6QeGYD8SGZ/8HGEUTTT6k0/ZgoiL4JJ/0EmN4Vjlr+r18Sym9+ekVD4YHYA7rghycyeg=
+X-Received: by 2002:a05:6871:6a81:b0:176:3e60:3269 with SMTP id
+ zf1-20020a0568716a8100b001763e603269mr5192990oab.8.1678208619654; Tue, 07 Mar
+ 2023 09:03:39 -0800 (PST)
 MIME-Version: 1.0
+References: <20230306022427.437022-1-davidbtadokoro@gmail.com>
+In-Reply-To: <20230306022427.437022-1-davidbtadokoro@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 7 Mar 2023 12:03:27 -0500
+Message-ID: <CADnq5_OYT576v7ynfxiYE9xj2jQa58vVfyvpFS9k3saoGHMAuw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: add prefix to amdgpu_dm_plane.h functions
+To: David Tadokoro <davidbtadokoro@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000C96B:EE_|BN9PR12MB5180:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3453a136-5bff-4c09-63a7-08db1f20c3d8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: KI8JqVPiiW9FM/XlU1/MWkSwwYpSgOa80g0NMFHXsxemlGC5V6yEl4QmGWFEnd0Wq3JSPNkYbFSpkkvD0NIixi08sw1g6j51AOBBEzb3WIGnVyUCkbUJOrMBTeIJwNE+OevmJMwBl3pUkYSLaOrMnRaqXyLK80fQsZHFcIMzUpS1StQuAmmcHfmiLfidO0+DYBJi5rUU42dONAryJjA0FnDPF5nBFPm8TSW6FExTmtzi57qA3QxyDQKy+yZJ3mnavXCxNB6SIDTDB/yPBDX4HE07rX6/aGiAKvQHkQ0UvFPGGgRXGT+K7W53DgEoLJ/4AvUwKOgZs2dgJJJPi8zygsot1X3IwmCf5vZ1srpKl4E0bmx95l3IgA46+fDBhGf1mbGN1ncrVBYfcSmqQYsF1Ys/fX4WGvPAVmPyT3e7C6trCihF+6qqWxtsXuY+iz+L2ln6imPxr2HpVX/AnvqOae71MDk9t1qkD3UVtafYDHpxrEmga4Xs8LPrvoGxrZjcgUrXixeeYOV2IcRIMFadCNAmCkV2cYqTQnznVk2CrJ8j7a41JOFq3DvN46oPhJJhNIk/1HtKVUZ0X4GdhBw0M75qIQYmVPT5rU1De45pRIRFIX/cyxwvwBtDT6bAe4zryVhhRJwkOAPNghAZ/kqV1p+HGTmkRwWceGfg0KUTWqK6fFgaR+fXUNMBjZ/frCpmCEcj81BC07w0ngAAAZOwNSW4g/6bdQdY7LkBPTuIUO4=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(136003)(346002)(376002)(396003)(39860400002)(451199018)(46966006)(36840700001)(40470700004)(26005)(1076003)(36756003)(36860700001)(426003)(47076005)(66574015)(356005)(82310400005)(40460700003)(83380400001)(86362001)(82740400003)(40480700001)(81166007)(186003)(2616005)(336012)(70586007)(8676002)(70206006)(41300700001)(4326008)(2906002)(44832011)(5660300002)(8936002)(478600001)(110136005)(316002)(54906003)(66899018)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2023 15:29:38.7272 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3453a136-5bff-4c09-63a7-08db1f20c3d8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C96B.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5180
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,118 +65,247 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>,
- Pekka Paalanen <ppaalanen@gmail.com>, Uma Shankar <uma.shankar@intel.com>,
- Vitaly.Prosyak@amd.com, Joshua Ashton <joshua@froggi.es>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Cc: amd-gfx@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ tzimmermann@suse.de, corbet@lwn.net, sunpeng.li@amd.com,
+ harry.wentland@amd.com, Xinhui.Pan@amd.com, maarten.lankhorst@linux.intel.com,
+ linux-kernel@vger.kernel.org, mripard@kernel.org,
+ David Tadokoro <davidbtadokoro@usp.br>, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, alexander.deucher@amd.com, Rodrigo.Siqueira@amd.com,
+ airlied@gmail.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This allows us to use strongly typed arguments.
+On Mon, Mar 6, 2023 at 3:23 AM David Tadokoro <davidbtadokoro@gmail.com> wrote:
+>
+> From: David Tadokoro <davidbtadokoro@usp.br>
+>
+> The amdgpu_dm_plane.h functions didn't have names that indicated where
+> they were declared.
+>
+> To better filter results in debug tools like ftrace, prefix these
+> functions with 'amdgpu_dm_plane_'.
+>
+> Note that we may want to make this same change in other files like
+> amdgpu_dm_crtc.h.
+>
+> Signed-off-by: David Tadokoro <davidbtadokoro@usp.br>
 
-v2:
- - Bring NO_DATA back
- - Provide explicit enum values
+Applied.  Thanks!
 
-v4: Drop unnecessary '&' from kerneldoc (emersion)
+Alex
 
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-Reviewed-by: Simon Ser <contact@emersion.fr>
-
-Cc: Pekka Paalanen <ppaalanen@gmail.com>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>
-Cc: Vitaly.Prosyak@amd.com
-Cc: Uma Shankar <uma.shankar@intel.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Joshua Ashton <joshua@froggi.es>
-Cc: dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org
----
- include/drm/display/drm_dp.h |  2 +-
- include/drm/drm_connector.h  | 49 ++++++++++++++++++------------------
- 2 files changed, 26 insertions(+), 25 deletions(-)
-
-diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
-index ed10e6b6f99d..dae5e9c201e4 100644
---- a/include/drm/display/drm_dp.h
-+++ b/include/drm/display/drm_dp.h
-@@ -1623,7 +1623,7 @@ enum dp_pixelformat {
-  *
-  * This enum is used to indicate DP VSC SDP Colorimetry formats.
-  * It is based on DP 1.4 spec [Table 2-117: VSC SDP Payload for DB16 through
-- * DB18] and a name of enum member follows DRM_MODE_COLORIMETRY definition.
-+ * DB18] and a name of enum member follows enum drm_colorimetry definition.
-  *
-  * @DP_COLORIMETRY_DEFAULT: sRGB (IEC 61966-2-1) or
-  *                          ITU-R BT.601 colorimetry format
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 4d830fc55a3d..6d6a53a6b010 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -371,29 +371,30 @@ enum drm_privacy_screen_status {
-  * a colorspace property which will be created and exposed to
-  * userspace.
-  */
--
--/* For Default case, driver will set the colorspace */
--#define DRM_MODE_COLORIMETRY_DEFAULT			0
--/* CEA 861 Normal Colorimetry options */
--#define DRM_MODE_COLORIMETRY_NO_DATA			0
--#define DRM_MODE_COLORIMETRY_SMPTE_170M_YCC		1
--#define DRM_MODE_COLORIMETRY_BT709_YCC			2
--/* CEA 861 Extended Colorimetry Options */
--#define DRM_MODE_COLORIMETRY_XVYCC_601			3
--#define DRM_MODE_COLORIMETRY_XVYCC_709			4
--#define DRM_MODE_COLORIMETRY_SYCC_601			5
--#define DRM_MODE_COLORIMETRY_OPYCC_601			6
--#define DRM_MODE_COLORIMETRY_OPRGB			7
--#define DRM_MODE_COLORIMETRY_BT2020_CYCC		8
--#define DRM_MODE_COLORIMETRY_BT2020_RGB			9
--#define DRM_MODE_COLORIMETRY_BT2020_YCC			10
--/* Additional Colorimetry extension added as part of CTA 861.G */
--#define DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65		11
--#define DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER		12
--/* Additional Colorimetry Options added for DP 1.4a VSC Colorimetry Format */
--#define DRM_MODE_COLORIMETRY_RGB_WIDE_FIXED		13
--#define DRM_MODE_COLORIMETRY_RGB_WIDE_FLOAT		14
--#define DRM_MODE_COLORIMETRY_BT601_YCC			15
-+enum drm_colorspace {
-+	/* For Default case, driver will set the colorspace */
-+	DRM_MODE_COLORIMETRY_DEFAULT 		= 0,
-+	DRM_MODE_COLORIMETRY_NO_DATA		= 0,
-+	/* CEA 861 Normal Colorimetry options */
-+	DRM_MODE_COLORIMETRY_SMPTE_170M_YCC	= 1,
-+	DRM_MODE_COLORIMETRY_BT709_YCC		= 2,
-+	/* CEA 861 Extended Colorimetry Options */
-+	DRM_MODE_COLORIMETRY_XVYCC_601		= 3,
-+	DRM_MODE_COLORIMETRY_XVYCC_709		= 4,
-+	DRM_MODE_COLORIMETRY_SYCC_601		= 5,
-+	DRM_MODE_COLORIMETRY_OPYCC_601		= 6,
-+	DRM_MODE_COLORIMETRY_OPRGB		= 7,
-+	DRM_MODE_COLORIMETRY_BT2020_CYCC	= 8,
-+	DRM_MODE_COLORIMETRY_BT2020_RGB		= 9,
-+	DRM_MODE_COLORIMETRY_BT2020_YCC		= 10,
-+	/* Additional Colorimetry extension added as part of CTA 861.G */
-+	DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65	= 11,
-+	DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER	= 12,
-+	/* Additional Colorimetry Options added for DP 1.4a VSC Colorimetry Format */
-+	DRM_MODE_COLORIMETRY_RGB_WIDE_FIXED	= 13,
-+	DRM_MODE_COLORIMETRY_RGB_WIDE_FLOAT	= 14,
-+	DRM_MODE_COLORIMETRY_BT601_YCC		= 15,
-+};
- 
- /**
-  * enum drm_bus_flags - bus_flags info for &drm_display_info
-@@ -826,7 +827,7 @@ struct drm_connector_state {
- 	 * colorspace change on Sink. This is most commonly used to switch
- 	 * to wider color gamuts like BT2020.
- 	 */
--	u32 colorspace;
-+	enum drm_colorspace colorspace;
- 
- 	/**
- 	 * @writeback_job: Writeback job for writeback connectors
--- 
-2.39.2
-
+> ---
+>  .../gpu/amdgpu/display/display-manager.rst    |  2 +-
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 ++++++-------
+>  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 20 +++++++++----------
+>  .../amd/display/amdgpu_dm/amdgpu_dm_plane.h   | 12 +++++------
+>  4 files changed, 24 insertions(+), 24 deletions(-)
+>
+> diff --git a/Documentation/gpu/amdgpu/display/display-manager.rst b/Documentation/gpu/amdgpu/display/display-manager.rst
+> index b7abb18cfc82..be2651ecdd7f 100644
+> --- a/Documentation/gpu/amdgpu/display/display-manager.rst
+> +++ b/Documentation/gpu/amdgpu/display/display-manager.rst
+> @@ -173,7 +173,7 @@ The alpha blending equation is configured from DRM to DC interface by the
+>  following path:
+>
+>  1. When updating a :c:type:`drm_plane_state <drm_plane_state>`, DM calls
+> -   :c:type:`fill_blending_from_plane_state()` that maps
+> +   :c:type:`amdgpu_dm_plane_fill_blending_from_plane_state()` that maps
+>     :c:type:`drm_plane_state <drm_plane_state>` attributes to
+>     :c:type:`dc_plane_info <dc_plane_info>` struct to be handled in the
+>     OS-agnostic component (DC).
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 4217ebe6391b..f7111acd45cc 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -2923,7 +2923,7 @@ const struct amdgpu_ip_block_version dm_ip_block =
+>
+>  static const struct drm_mode_config_funcs amdgpu_dm_mode_funcs = {
+>         .fb_create = amdgpu_display_user_framebuffer_create,
+> -       .get_format_info = amd_get_format_info,
+> +       .get_format_info = amdgpu_dm_plane_get_format_info,
+>         .output_poll_changed = drm_fb_helper_output_poll_changed,
+>         .atomic_check = amdgpu_dm_atomic_check,
+>         .atomic_commit = drm_atomic_helper_commit,
+> @@ -4948,7 +4948,7 @@ fill_dc_plane_info_and_addr(struct amdgpu_device *adev,
+>         if (ret)
+>                 return ret;
+>
+> -       ret = fill_plane_buffer_attributes(adev, afb, plane_info->format,
+> +       ret = amdgpu_dm_plane_fill_plane_buffer_attributes(adev, afb, plane_info->format,
+>                                            plane_info->rotation, tiling_flags,
+>                                            &plane_info->tiling_info,
+>                                            &plane_info->plane_size,
+> @@ -4957,7 +4957,7 @@ fill_dc_plane_info_and_addr(struct amdgpu_device *adev,
+>         if (ret)
+>                 return ret;
+>
+> -       fill_blending_from_plane_state(
+> +       amdgpu_dm_plane_fill_blending_from_plane_state(
+>                 plane_state, &plane_info->per_pixel_alpha, &plane_info->pre_multiplied_alpha,
+>                 &plane_info->global_alpha, &plane_info->global_alpha_value);
+>
+> @@ -4976,7 +4976,7 @@ static int fill_dc_plane_attributes(struct amdgpu_device *adev,
+>         int ret;
+>         bool force_disable_dcc = false;
+>
+> -       ret = fill_dc_scaling_info(adev, plane_state, &scaling_info);
+> +       ret = amdgpu_dm_plane_fill_dc_scaling_info(adev, plane_state, &scaling_info);
+>         if (ret)
+>                 return ret;
+>
+> @@ -7882,7 +7882,7 @@ static void amdgpu_dm_commit_cursors(struct drm_atomic_state *state)
+>          */
+>         for_each_old_plane_in_state(state, plane, old_plane_state, i)
+>                 if (plane->type == DRM_PLANE_TYPE_CURSOR)
+> -                       handle_cursor_update(plane, old_plane_state);
+> +                       amdgpu_dm_plane_handle_cursor_update(plane, old_plane_state);
+>  }
+>
+>  static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+> @@ -7967,7 +7967,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+>                         bundle->surface_updates[planes_count].gamut_remap_matrix = &dc_plane->gamut_remap_matrix;
+>                 }
+>
+> -               fill_dc_scaling_info(dm->adev, new_plane_state,
+> +               amdgpu_dm_plane_fill_dc_scaling_info(dm->adev, new_plane_state,
+>                                      &bundle->scaling_infos[planes_count]);
+>
+>                 bundle->surface_updates[planes_count].scaling_info =
+> @@ -9634,7 +9634,7 @@ static int dm_update_plane_state(struct dc *dc,
+>                 if (!needs_reset)
+>                         return 0;
+>
+> -               ret = dm_plane_helper_check_state(new_plane_state, new_crtc_state);
+> +               ret = amdgpu_dm_plane_helper_check_state(new_plane_state, new_crtc_state);
+>                 if (ret)
+>                         return ret;
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> index 28fb1f02591a..dc23c788cdba 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> @@ -90,12 +90,12 @@ enum dm_micro_swizzle {
+>         MICRO_SWIZZLE_R = 3
+>  };
+>
+> -const struct drm_format_info *amd_get_format_info(const struct drm_mode_fb_cmd2 *cmd)
+> +const struct drm_format_info *amdgpu_dm_plane_get_format_info(const struct drm_mode_fb_cmd2 *cmd)
+>  {
+>         return amdgpu_lookup_format_info(cmd->pixel_format, cmd->modifier[0]);
+>  }
+>
+> -void fill_blending_from_plane_state(const struct drm_plane_state *plane_state,
+> +void amdgpu_dm_plane_fill_blending_from_plane_state(const struct drm_plane_state *plane_state,
+>                                bool *per_pixel_alpha, bool *pre_multiplied_alpha,
+>                                bool *global_alpha, int *global_alpha_value)
+>  {
+> @@ -759,7 +759,7 @@ static int attach_color_mgmt_properties(struct amdgpu_display_manager *dm, struc
+>  }
+>  #endif
+>
+> -int fill_plane_buffer_attributes(struct amdgpu_device *adev,
+> +int amdgpu_dm_plane_fill_plane_buffer_attributes(struct amdgpu_device *adev,
+>                              const struct amdgpu_framebuffer *afb,
+>                              const enum surface_pixel_format format,
+>                              const enum dc_rotation_angle rotation,
+> @@ -918,7 +918,7 @@ static int dm_plane_helper_prepare_fb(struct drm_plane *plane,
+>                         dm_plane_state_new->dc_state;
+>                 bool force_disable_dcc = !plane_state->dcc.enable;
+>
+> -               fill_plane_buffer_attributes(
+> +               amdgpu_dm_plane_fill_plane_buffer_attributes(
+>                         adev, afb, plane_state->format, plane_state->rotation,
+>                         afb->tiling_flags,
+>                         &plane_state->tiling_info, &plane_state->plane_size,
+> @@ -999,7 +999,7 @@ static void get_min_max_dc_plane_scaling(struct drm_device *dev,
+>                 *min_downscale = 1000;
+>  }
+>
+> -int dm_plane_helper_check_state(struct drm_plane_state *state,
+> +int amdgpu_dm_plane_helper_check_state(struct drm_plane_state *state,
+>                                        struct drm_crtc_state *new_crtc_state)
+>  {
+>         struct drm_framebuffer *fb = state->fb;
+> @@ -1053,7 +1053,7 @@ int dm_plane_helper_check_state(struct drm_plane_state *state,
+>                 state, new_crtc_state, min_scale, max_scale, true, true);
+>  }
+>
+> -int fill_dc_scaling_info(struct amdgpu_device *adev,
+> +int amdgpu_dm_plane_fill_dc_scaling_info(struct amdgpu_device *adev,
+>                                 const struct drm_plane_state *state,
+>                                 struct dc_scaling_info *scaling_info)
+>  {
+> @@ -1161,11 +1161,11 @@ static int dm_plane_atomic_check(struct drm_plane *plane,
+>         if (!new_crtc_state)
+>                 return -EINVAL;
+>
+> -       ret = dm_plane_helper_check_state(new_plane_state, new_crtc_state);
+> +       ret = amdgpu_dm_plane_helper_check_state(new_plane_state, new_crtc_state);
+>         if (ret)
+>                 return ret;
+>
+> -       ret = fill_dc_scaling_info(adev, new_plane_state, &scaling_info);
+> +       ret = amdgpu_dm_plane_fill_dc_scaling_info(adev, new_plane_state, &scaling_info);
+>         if (ret)
+>                 return ret;
+>
+> @@ -1229,7 +1229,7 @@ static int get_cursor_position(struct drm_plane *plane, struct drm_crtc *crtc,
+>         return 0;
+>  }
+>
+> -void handle_cursor_update(struct drm_plane *plane,
+> +void amdgpu_dm_plane_handle_cursor_update(struct drm_plane *plane,
+>                                  struct drm_plane_state *old_plane_state)
+>  {
+>         struct amdgpu_device *adev = drm_to_adev(plane->dev);
+> @@ -1314,7 +1314,7 @@ static void dm_plane_atomic_async_update(struct drm_plane *plane,
+>         plane->state->crtc_w = new_state->crtc_w;
+>         plane->state->crtc_h = new_state->crtc_h;
+>
+> -       handle_cursor_update(plane, old_state);
+> +       amdgpu_dm_plane_handle_cursor_update(plane, old_state);
+>  }
+>
+>  static const struct drm_plane_helper_funcs dm_plane_helper_funcs = {
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+> index a4bee8528a51..930f1572f898 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+> @@ -29,17 +29,17 @@
+>
+>  #include "dc.h"
+>
+> -void handle_cursor_update(struct drm_plane *plane,
+> +void amdgpu_dm_plane_handle_cursor_update(struct drm_plane *plane,
+>                           struct drm_plane_state *old_plane_state);
+>
+> -int fill_dc_scaling_info(struct amdgpu_device *adev,
+> +int amdgpu_dm_plane_fill_dc_scaling_info(struct amdgpu_device *adev,
+>                          const struct drm_plane_state *state,
+>                          struct dc_scaling_info *scaling_info);
+>
+> -int dm_plane_helper_check_state(struct drm_plane_state *state,
+> +int amdgpu_dm_plane_helper_check_state(struct drm_plane_state *state,
+>                                 struct drm_crtc_state *new_crtc_state);
+>
+> -int fill_plane_buffer_attributes(struct amdgpu_device *adev,
+> +int amdgpu_dm_plane_fill_plane_buffer_attributes(struct amdgpu_device *adev,
+>                                  const struct amdgpu_framebuffer *afb,
+>                                  const enum surface_pixel_format format,
+>                                  const enum dc_rotation_angle rotation,
+> @@ -56,9 +56,9 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+>                          unsigned long possible_crtcs,
+>                          const struct dc_plane_cap *plane_cap);
+>
+> -const struct drm_format_info *amd_get_format_info(const struct drm_mode_fb_cmd2 *cmd);
+> +const struct drm_format_info *amdgpu_dm_plane_get_format_info(const struct drm_mode_fb_cmd2 *cmd);
+>
+> -void fill_blending_from_plane_state(const struct drm_plane_state *plane_state,
+> +void amdgpu_dm_plane_fill_blending_from_plane_state(const struct drm_plane_state *plane_state,
+>                                     bool *per_pixel_alpha, bool *pre_multiplied_alpha,
+>                                     bool *global_alpha, int *global_alpha_value);
+>
+> --
+> 2.39.2
+>
