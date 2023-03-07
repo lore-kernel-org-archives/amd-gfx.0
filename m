@@ -4,92 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBB38C64EC4
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 07:46:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03458C678D5
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 08:10:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8184A10E032;
-	Wed,  8 Mar 2023 07:46:51 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2070.outbound.protection.outlook.com [40.107.96.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80D6710E032
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Mar 2023 07:46:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FSwZHPlbEH9LFv6QH/W2NFmW7ZjfDJTBgzLIfsTaAVtj4U4ESYIMsJs4WP8Um1ZhRoyI6/zBZXvRXc8/r1EQWUTyH2MT83nV0xlL+Z/dh+ENLKgtIcM8FXCVcYcN/UB/jCwsm1v8qzhE11xZbM70aCx241uSpUNOnTA6dCcqRCr6O6eiJEeUFMzIvX7bgXgqvs36jqg34ltO9lyUvoxPSC6jP8DmdXZiCssFY7MI3UOIW7qLxIhq3kOYZG6xbmztPK4E6SORpvFxFNVil96mdoE7Yoc8vbkVZhYIGmf1XdY91JB8CtcJY4zCPxy4Ked/ZNnII4Rj3hwI3uv7Q4Xttg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iTC9l+j3G+NiTLj+qc/UpPUSen4n6IGqQOEfCBivreU=;
- b=c4W/XofCZ2PaVRdQ0fWQqruWOL1RPcBESOiI1qgSAi3lqe2cElTyr4Gr1lqPG1di9bB7TbJl0L/4WC4C+dR4SAnTVh0+7UXShuPi9poyD4FptKFSk2aMPoHmDQM1rV81q13GxbARlU9d2QyxO1WIOE8SQSMHFewQWeJqREaBEnFg8LlRbuAe8YKd+d5A6T3FmL1Uu0uvllwSdPIP811xEiFfIOWXZyxxfoytEGo0lMxHrMOw/9Amnwxfz+mkf7H2HtZhFxZFujNcAYiogruqnqQdizNj/Fo72e99bU/XEb2q0qQySIp88jbze2QMpORsMqyTi864FNdg5mhzft7Mxg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iTC9l+j3G+NiTLj+qc/UpPUSen4n6IGqQOEfCBivreU=;
- b=1wHuyu0SQODxfDsqYFw3Jap7yXkwaYGhXWMxYXr1JPP4p+P8yn2gurbpdhNiJ71ggew5ubEjNrkEgMug6yYJT/JtKxAjPbwTRGxq/lDdMRo46bpVhVplxgTHk+gzhaYeoIxcbFcX3Cd5hx/w0ie/IV9irNVrUeuIuDchqSnog3o=
-Received: from DS7PR03CA0085.namprd03.prod.outlook.com (2603:10b6:5:3bb::30)
- by CYYPR12MB8730.namprd12.prod.outlook.com (2603:10b6:930:c1::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.29; Wed, 8 Mar
- 2023 07:46:48 +0000
-Received: from DM6NAM11FT075.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3bb:cafe::81) by DS7PR03CA0085.outlook.office365.com
- (2603:10b6:5:3bb::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.29 via Frontend
- Transport; Wed, 8 Mar 2023 07:46:48 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT075.mail.protection.outlook.com (10.13.173.42) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.17 via Frontend Transport; Wed, 8 Mar 2023 07:46:48 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 8 Mar
- 2023 01:46:47 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 7 Mar
- 2023 23:46:46 -0800
-Received: from Xiaogang-ROCM-Dev.amd.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Wed, 8 Mar 2023 01:46:42 -0600
-From: Xiaogang.Chen <xiaogang.chen@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdkfd: Get prange->offset after svm_range_vram_node_new
-Date: Wed, 8 Mar 2023 01:45:09 -0600
-Message-ID: <20230308074509.264478-1-xiaogang.chen@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77AA010E5A9;
+	Wed,  8 Mar 2023 08:10:46 +0000 (UTC)
+Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
+ [IPv6:2607:f8b0:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 475C510E2AA
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Mar 2023 22:53:53 +0000 (UTC)
+Received: by mail-ot1-x32c.google.com with SMTP id
+ e26-20020a9d6e1a000000b00694274b5d3aso8065758otr.5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 07 Mar 2023 14:53:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=usp.br; s=usp-google; t=1678229632;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=pKVqxub/Fk+VY98iPdnTOYqYL+oFSC0KdiMA5tq1zzQ=;
+ b=cjO2r2iCTHNkY+LCiq5PTW5GA9posA/IfRrUE3PgSJAgub8XuFtnDujBteNqeBeiKm
+ 9Ip4gcSwzNtDCsEd0lQUnFbSLel7lraorSoJJuLzPmHLe6gnRl/GmWxScST82K/BYYcs
+ kbeFTrZrNY+vkt9r1277I3/M4QvMqWrELhs2q0ld8Sar2C7RacUnJKvyjo6rYTTcPq2c
+ AG6ATsN6CORQxMEnklmjPKfe1IKIonNIWc5POfYDTaXqLxS+kI/hFExi1duHiV47je43
+ 6ZvPcrwL2tRZKisOIWbDfXms4QjxqtVXieaR8w8o06pWGAB+YeEYyQ2ytIp1VPUdiZvW
+ pHcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678229632;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=pKVqxub/Fk+VY98iPdnTOYqYL+oFSC0KdiMA5tq1zzQ=;
+ b=u7FWClXpAWIO6PKI4vngu3VDAb7tIKDSE401elqPnpz6jgaHj/Nx7qIJDzy9t4Zvtt
+ hKyvhApFLEcymrqP2zSw7tMqd113vynMUtuTOg+apoAPTZeM8zd2iMJtJ1BauqmjDAI+
+ f3y+wJnEQKDjMmpJbnUmzTnvzhOBofoU+sb7hazM7SrwtYRGNILXxDAPtgUEtGj5MPbk
+ lsxBGoVwTTbEnuErahso7V7CmExhBZ/6gm5MGADndJqeMnRpJbmpUy5uXliIZQfwC5rZ
+ N5DDTR8ezcH7d5imqM0Xxoz8wMlOYpdTqXQKjIJnBGsCdBOfJ1RFUIgYWv/c98AF1bxC
+ 46Hg==
+X-Gm-Message-State: AO0yUKWdCe9bQEEYd5T4rDXcv6rpUqYPqMcxb2/PThZC4C6f/BOMuaL4
+ ixsPtIaWaH0Wc8mlc7uMXAZdVA==
+X-Google-Smtp-Source: AK7set9wBHhbtGK0bt/+x7+CPlbUY/sT7o5N4KRvbzNLjC9F9hzn9NTWZpYjpUbJL2xzCAIMknEg8g==
+X-Received: by 2002:a05:6830:56c:b0:690:a6b3:a2f6 with SMTP id
+ f12-20020a056830056c00b00690a6b3a2f6mr7070475otc.0.1678229632403; 
+ Tue, 07 Mar 2023 14:53:52 -0800 (PST)
+Received: from localhost.localdomain ([2804:14c:63:8ae3:4d1f:9fc2:9fe6:c88e])
+ by smtp.gmail.com with ESMTPSA id
+ w3-20020a9d70c3000000b0069451a9274bsm5251208otj.28.2023.03.07.14.53.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Mar 2023 14:53:51 -0800 (PST)
+From: David Tadokoro <davidbtadokoro@usp.br>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch
+Subject: [PATCH] drm/amd/display: remove legacy fields of dc_plane_cap struct
+Date: Tue,  7 Mar 2023 19:53:41 -0300
+Message-Id: <20230307225341.246596-1-davidbtadokoro@usp.br>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT075:EE_|CYYPR12MB8730:EE_
-X-MS-Office365-Filtering-Correlation-Id: e97b3370-3809-458e-a640-08db1fa945f2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dmHV7jySyy4SrVA84MvxK1A6ecUrkczZB8oEPYrYw6tXs82O5Ouh4ur7UYfzDKS4wFvAealOc82sg3Q7BYPNZSR9n1yWnXbPw0HqUwtgZ++EWADyDYCRXAu41bD1sDUz/llgUsVTdUvfvC1641YY1Uw4XzQCJAFRqYT4T7zYqesDpT8oGMu6jAHBpnTQOPsPFk2HWgs5zTjZY8I6Tk0U0aVvPrthR5VdqGz3XLS2ywp6tHZ4yv3VMKmuo+Zt9ARsPX83MdQT6FM3wwxqYa8uJdxamOI3XKb1uCNyGJ/Euozqo9lW5eENA0zg7XviYUdF7EiSGS6oOReOjMtLeZdbtNDhvtHYTcyld3okr76RgSGT3q7zfAXcloaxXXdrSacGLNYGmdxSRvk1xHNI6Q58DZFBfkUya0zLmANT6g4l1WmNQmSiwJVpnA7ewzYWaxbuOmuV/tDXn7718+2/I5f2sDZ5kg9A35qkYOT4irqdouNOOU3SJykuOjnDRQ+Sbj+j/OgHzLz/E+upAwYd2G+HSThg5udxMBaaLc8Vq3F6jySy2DPsYOUgppDt0LYnSfmKA/chwEd6cA2rnPI1gcZHZ6zoRiHU9ckrMo/C6/qY64v/pnZtFbln7mVaeoHt6Bsqd25CN8NbMVyUKCm1zAK+t9OBE48uZ8HFu1k0VzkkFTR+UoK4c+tPBRe0Q+iZPv8npY4FTiCir8aRpImr91ploahtmvZzRLkMvVvEX2LFh/o=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(376002)(136003)(39860400002)(396003)(346002)(451199018)(36840700001)(40470700004)(46966006)(86362001)(4326008)(6916009)(70206006)(70586007)(8676002)(83380400001)(2616005)(82310400005)(336012)(81166007)(356005)(186003)(36756003)(36860700001)(40480700001)(82740400003)(26005)(54906003)(478600001)(6666004)(316002)(47076005)(426003)(40460700003)(1076003)(7696005)(8936002)(5660300002)(2906002)(41300700001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2023 07:46:48.5896 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e97b3370-3809-458e-a640-08db1fa945f2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT075.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8730
+X-Mailman-Approved-At: Wed, 08 Mar 2023 08:10:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,52 +72,272 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xiaogang
- Chen <Xiaogang.Chen@amd.com>, felix.kuehling@amd.com
+Cc: David Tadokoro <davidbtadokoro@usp.br>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Xiaogang Chen <xiaogang.chen@amd.com>
+The fields blends_with_above and blends_with_below of struct
+dc_plane_cap (defined in dc/dc.h) are boolean and set to true by
+default. All instances of a dc_plane_cap maintain the default values of
+both. Also, there is only one if statement that checks those fields and
+there would be the same effect if it was deleted (assuming that those
+fields are always going to be true).
 
-During miration to vram prange->offset is valid after vram buffer is located,
-either use old one or allocate a new one. Move svm_range_vram_node_new before migrate
-for each vma to get valid prange->offset.
+For this reason, considering both fields as legacy ones, this commit
+removes them and the aforementioned if statement.
 
-Signed-off-by: Xiaogang Chen <Xiaogang.Chen@amd.com>
+Signed-off-by: David Tadokoro <davidbtadokoro@usp.br>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c       | 3 ---
+ drivers/gpu/drm/amd/display/dc/dc.h                     | 2 --
+ drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c | 3 ---
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c   | 2 --
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c   | 2 --
+ drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c | 2 --
+ drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c   | 2 --
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c   | 2 --
+ drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c | 2 --
+ drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c | 2 --
+ drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c | 2 --
+ drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c   | 2 --
+ drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c | 2 --
+ drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c | 2 --
+ drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.c | 2 --
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c   | 2 --
+ drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c | 2 --
+ 17 files changed, 36 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index fd54a00e7229..15791490c23e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -310,12 +310,6 @@ svm_migrate_copy_to_vram(struct amdgpu_device *adev, struct svm_range *prange,
- 	src = scratch;
- 	dst = (uint64_t *)(scratch + npages);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index b472931cb7ca..fdcb375e908a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4354,9 +4354,6 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
+ 		if (plane->type != DC_PLANE_TYPE_DCN_UNIVERSAL)
+ 			continue;
  
--	r = svm_range_vram_node_new(adev, prange, true);
--	if (r) {
--		dev_dbg(adev->dev, "fail %d to alloc vram\n", r);
--		goto out;
--	}
+-		if (!plane->blends_with_above || !plane->blends_with_below)
+-			continue;
 -
- 	amdgpu_res_first(prange->ttm_res, ttm_res_offset,
- 			 npages << PAGE_SHIFT, &cursor);
- 	for (i = j = 0; i < npages; i++) {
-@@ -525,6 +519,12 @@ svm_migrate_ram_to_vram(struct svm_range *prange, uint32_t best_loc,
+ 		if (!plane->pixel_format_support.argb8888)
+ 			continue;
  
- 	start = prange->start << PAGE_SHIFT;
- 	end = (prange->last + 1) << PAGE_SHIFT;
-+
-+	r = svm_range_vram_node_new(adev, prange, true);
-+	if (r) {
-+		dev_dbg(adev->dev, "fail %d to alloc vram\n", r);
-+		return r;
-+	}
- 	ttm_res_offset = prange->offset << PAGE_SHIFT;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index f0a1934ebf8c..ccc27d482640 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -82,8 +82,6 @@ enum det_size {
  
- 	for (addr = start; addr < end;) {
+ struct dc_plane_cap {
+ 	enum dc_plane_type type;
+-	uint32_t blends_with_above : 1;
+-	uint32_t blends_with_below : 1;
+ 	uint32_t per_pixel_alpha : 1;
+ 	struct {
+ 		uint32_t argb8888 : 1;
+diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
+index f808315b2835..a4a45a6ce61e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
+@@ -401,8 +401,6 @@ static const struct resource_caps stoney_resource_cap = {
+ 
+ static const struct dc_plane_cap plane_cap = {
+ 		.type = DC_PLANE_TYPE_DCE_RGB,
+-		.blends_with_below = true,
+-		.blends_with_above = true,
+ 		.per_pixel_alpha = 1,
+ 
+ 		.pixel_format_support = {
+@@ -428,7 +426,6 @@ static const struct dc_plane_cap plane_cap = {
+ 
+ static const struct dc_plane_cap underlay_plane_cap = {
+ 		.type = DC_PLANE_TYPE_DCE_UNDERLAY,
+-		.blends_with_above = true,
+ 		.per_pixel_alpha = 1,
+ 
+ 		.pixel_format_support = {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
+index 6bfac8088ab0..2bb8e11f26e0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
+@@ -504,8 +504,6 @@ static const struct resource_caps rv2_res_cap = {
+ 
+ static const struct dc_plane_cap plane_cap = {
+ 	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+-	.blends_with_above = true,
+-	.blends_with_below = true,
+ 	.per_pixel_alpha = true,
+ 
+ 	.pixel_format_support = {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+index 3af24ef9cb2d..00668df0938e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+@@ -670,8 +670,6 @@ static const struct resource_caps res_cap_nv10 = {
+ 
+ static const struct dc_plane_cap plane_cap = {
+ 	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+-	.blends_with_above = true,
+-	.blends_with_below = true,
+ 	.per_pixel_alpha = true,
+ 
+ 	.pixel_format_support = {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
+index cd46701398d9..6ea70da28aaa 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
+@@ -571,8 +571,6 @@ static const struct resource_caps res_cap_dnc201 = {
+ 
+ static const struct dc_plane_cap plane_cap = {
+ 	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+-	.blends_with_above = true,
+-	.blends_with_below = true,
+ 	.per_pixel_alpha = true,
+ 
+ 	.pixel_format_support = {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+index 8f9244fe5c86..3ac8c0282589 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+@@ -609,8 +609,6 @@ static const struct resource_caps res_cap_rn_FPGA_2pipe_dsc = {
+ 
+ static const struct dc_plane_cap plane_cap = {
+ 	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+-	.blends_with_above = true,
+-	.blends_with_below = true,
+ 	.per_pixel_alpha = true,
+ 
+ 	.pixel_format_support = {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+index b5b5320c7bef..d60c17d5a0d8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+@@ -680,8 +680,6 @@ static const struct resource_caps res_cap_dcn3 = {
+ 
+ static const struct dc_plane_cap plane_cap = {
+ 	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+-	.blends_with_above = true,
+-	.blends_with_below = true,
+ 	.per_pixel_alpha = true,
+ 
+ 	.pixel_format_support = {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+index ee62ae3eb98f..b93b4498dba4 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+@@ -651,8 +651,6 @@ static struct resource_caps res_cap_dcn301 = {
+ 
+ static const struct dc_plane_cap plane_cap = {
+ 	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+-	.blends_with_above = true,
+-	.blends_with_below = true,
+ 	.per_pixel_alpha = true,
+ 
+ 	.pixel_format_support = {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
+index 03ddf4f5f065..6ccad53f1e49 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
+@@ -147,8 +147,6 @@ static const struct resource_caps res_cap_dcn302 = {
+ 
+ static const struct dc_plane_cap plane_cap = {
+ 		.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+-		.blends_with_above = true,
+-		.blends_with_below = true,
+ 		.per_pixel_alpha = true,
+ 		.pixel_format_support = {
+ 				.argb8888 = true,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
+index 727f458f6ee9..5c28f7151d13 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
+@@ -126,8 +126,6 @@ static const struct resource_caps res_cap_dcn303 = {
+ 
+ static const struct dc_plane_cap plane_cap = {
+ 		.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+-		.blends_with_above = true,
+-		.blends_with_below = true,
+ 		.per_pixel_alpha = true,
+ 		.pixel_format_support = {
+ 				.argb8888 = true,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+index d3918a10773a..eaaa2e01f6d0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+@@ -827,8 +827,6 @@ static const struct resource_caps res_cap_dcn31 = {
+ 
+ static const struct dc_plane_cap plane_cap = {
+ 	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+-	.blends_with_above = true,
+-	.blends_with_below = true,
+ 	.per_pixel_alpha = true,
+ 
+ 	.pixel_format_support = {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
+index f9dfbc7407ee..50ed7e09d5ba 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
+@@ -855,8 +855,6 @@ static const struct resource_caps res_cap_dcn314 = {
+ 
+ static const struct dc_plane_cap plane_cap = {
+ 	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+-	.blends_with_above = true,
+-	.blends_with_below = true,
+ 	.per_pixel_alpha = true,
+ 
+ 	.pixel_format_support = {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c b/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c
+index 7887078c5f64..41c972c8eb19 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c
+@@ -824,8 +824,6 @@ static const struct resource_caps res_cap_dcn31 = {
+ 
+ static const struct dc_plane_cap plane_cap = {
+ 	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+-	.blends_with_above = true,
+-	.blends_with_below = true,
+ 	.per_pixel_alpha = true,
+ 
+ 	.pixel_format_support = {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.c b/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.c
+index dc0b49506275..9ead347a33e9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.c
+@@ -824,8 +824,6 @@ static const struct resource_caps res_cap_dcn31 = {
+ 
+ static const struct dc_plane_cap plane_cap = {
+ 	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+-	.blends_with_above = true,
+-	.blends_with_below = true,
+ 	.per_pixel_alpha = true,
+ 
+ 	.pixel_format_support = {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+index 87f7669e81d7..100b6df33b33 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+@@ -657,8 +657,6 @@ static const struct resource_caps res_cap_dcn32 = {
+ 
+ static const struct dc_plane_cap plane_cap = {
+ 	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+-	.blends_with_above = true,
+-	.blends_with_below = true,
+ 	.per_pixel_alpha = true,
+ 
+ 	.pixel_format_support = {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+index deaa4769be10..0f477d50e935 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+@@ -655,8 +655,6 @@ static const struct resource_caps res_cap_dcn321 = {
+ 
+ static const struct dc_plane_cap plane_cap = {
+ 	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+-	.blends_with_above = true,
+-	.blends_with_below = true,
+ 	.per_pixel_alpha = true,
+ 
+ 	.pixel_format_support = {
 -- 
-2.25.1
+2.39.2
 
