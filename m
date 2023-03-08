@@ -4,79 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FFDCC64EC4
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 14:14:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C313BC6FD20
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 14:14:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56DD410E5F4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDACA10E5F9;
 	Wed,  8 Mar 2023 14:14:16 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EC4210E0F1
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Mar 2023 10:42:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C53310E5E3
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Mar 2023 14:11:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1678272126;
+ s=mimecast20190719; t=1678284686;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=GXwtob7mHiGV/HDAwC/8VbKaxcTJLMG7xjqq8FDlVMk=;
- b=HW8u7xH3w81hm+gNCI8So+EVfbu1SL86/NhQ2l9f3UwEcXZn4CV9Cg3k3GtbIFhUXlF9j6
- WxIMYGJ+OPd+2HQ4R9NL8euW9On0I71BPGfsTsW1qrOprei2w484H+edPYAOa+NxldecJ1
- 74hk2zLrjEmPU14VT26JmXwgtMijy1g=
-Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
- [209.85.208.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ content-transfer-encoding:content-transfer-encoding;
+ bh=m81gFkR2y1XD7ZSB1IHW7cdgZ+75l9heGqDR7NPaKd4=;
+ b=JH6YCTjSyeaOVAHrPSBRmAwnuhjMogbaeCqnHQq+yIBu4DshANB7Q27awUINA+lE0wsP2G
+ sVw2/dTzLTrFI7CKPla2f8hzlSIZm3ODZEJeWHsPQ+uX9s/IEMlxr3dwQv/btxaxM93ddP
+ ehG7BBbY14C8na2CXViQoCeWjJ86bzU=
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-207-Rm3Vbk5LOFm7qynfeujL1w-1; Wed, 08 Mar 2023 05:42:04 -0500
-X-MC-Unique: Rm3Vbk5LOFm7qynfeujL1w-1
-Received: by mail-ed1-f70.google.com with SMTP id
- b7-20020a056402350700b004d2a3d5cd3fso17999650edd.8
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Mar 2023 02:42:04 -0800 (PST)
+ us-mta-597-SDmAQ5-AOUW0sMfK2znEdA-1; Wed, 08 Mar 2023 09:11:24 -0500
+X-MC-Unique: SDmAQ5-AOUW0sMfK2znEdA-1
+Received: by mail-qk1-f199.google.com with SMTP id
+ x14-20020ae9e90e000000b007429af46d5eso9344834qkf.12
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Mar 2023 06:11:24 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678272123;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=GXwtob7mHiGV/HDAwC/8VbKaxcTJLMG7xjqq8FDlVMk=;
- b=q9dg3LHmkS8bOMIskL9Cb2YdnbogItRWC4YeLfSR4A+XQqSvTGfTEDfdMiX1iYmNSD
- Nqqn5YoUt33uO9owcCuoYep6pp/KDx8doWMERmnJAp5NEPlvdoToQ4WZkydDQysCmnb6
- BML9e04jAeTK/dsxrWR1zwAIho1ec7yb/EwPCI7iNb+qXBW/YYyN9JM0KOjiTt8ly0NK
- cuYBAt+xR8n5N9vGr7fqaeums7DnFkuU5ZBcG3ymc/ezfu5U6j+sgz3sK+McmiL3mViJ
- J993aac3+94kEJ3S5SXVZJIbh8aHge/utKBXOJMligl3/3EqA/irtYXLyP6nUaL2JbZJ
- y0rw==
-X-Gm-Message-State: AO0yUKXj1sJ1BOcsU4L+xNe1JM14gLhnoT1A3ZouD89uw0tgVOb/ncSk
- QtnTfkP8EiZXiRi4wXgikBnQvNs4Q6kKqEfyVWHCGWWGQQ+fjMEBTKZzErAyXQpRaqmeFcAHaP1
- f439E1prEDFhOsE0iq/ZY3OYj3VmDVeB4mA==
-X-Received: by 2002:a17:906:3002:b0:8b2:fb3d:9f22 with SMTP id
- 2-20020a170906300200b008b2fb3d9f22mr16818136ejz.33.1678272123539; 
- Wed, 08 Mar 2023 02:42:03 -0800 (PST)
-X-Google-Smtp-Source: AK7set9MuC60mZ5Ycylm2kSUYIx4Veowf3DJRuxRTVdYipVCktABmp02rpAjKlcUcnC2sPx4jWcbDA==
-X-Received: by 2002:a17:906:3002:b0:8b2:fb3d:9f22 with SMTP id
- 2-20020a170906300200b008b2fb3d9f22mr16818121ejz.33.1678272123295; 
- Wed, 08 Mar 2023 02:42:03 -0800 (PST)
-Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec?
- (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
+ d=1e100.net; s=20210112; t=1678284684;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=m81gFkR2y1XD7ZSB1IHW7cdgZ+75l9heGqDR7NPaKd4=;
+ b=FWpy1ChysP7eXM68WlQCns3ek7UrdLy7rxszFRJm6mRVW1kuA0dr3hZIko3QQslfnY
+ UMZRRQRGXzvUDC7vy37oGyDRe5gGk3TlZiwCJ2ggzmH3iXbtC8cKrYlgNMHfS77UFJwZ
+ qFdIBrBINGYN+9M0ynNCLzwszucdARDlwmSciNWK7ruCQao/KISsW1iJHviV5pZq2qOn
+ IEv3tfYrvGqI4/VEHWGJfYeKSMKPsH1WvekTUBxJ6O/Q39dZ656C+MtQy6Lm4tZQOkZv
+ gCvl8CvoOi9p1SuU8WwmxxRowyzLAhvXloSJrezHoxHKy7Fv9Y70oByFJYCobFjrO8f/
+ GQXg==
+X-Gm-Message-State: AO0yUKUR/DrBbwPszFqnlKV9WnfG3OKxrQdkvLgYnyIAT+SbJOdZtVBc
+ lsJWv7YD4+ytu5VB9h7bk/clcen5C+Lp96QKCV9bUrtWUCuGvMvApHiGQyl627ZvZJAy/l3fP0D
+ ZLQ5N8ChVBZW1K5xPZoiprZ3zlA==
+X-Received: by 2002:a05:6214:202d:b0:572:6ed8:e494 with SMTP id
+ 13-20020a056214202d00b005726ed8e494mr36527169qvf.18.1678284684065; 
+ Wed, 08 Mar 2023 06:11:24 -0800 (PST)
+X-Google-Smtp-Source: AK7set/PozfFJrQLJrJyxgwp36xRY3RsiKsiNwx4ETYM7tgGHq8Lwp8dvr5WLBt6+Jo4Oiup/CBkQg==
+X-Received: by 2002:a05:6214:202d:b0:572:6ed8:e494 with SMTP id
+ 13-20020a056214202d00b005726ed8e494mr36527115qvf.18.1678284683835; 
+ Wed, 08 Mar 2023 06:11:23 -0800 (PST)
+Received: from dell-per740-01.7a2m.lab.eng.bos.redhat.com
+ (nat-pool-bos-t.redhat.com. [66.187.233.206])
  by smtp.gmail.com with ESMTPSA id
- 21-20020a170906309500b008b1779ba3c1sm7275516ejv.115.2023.03.08.02.42.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Mar 2023 02:42:02 -0800 (PST)
-Message-ID: <b64a6aa0-bae9-71bc-7672-18481daf963f@redhat.com>
-Date: Wed, 8 Mar 2023 11:42:02 +0100
+ q79-20020a374352000000b0073b27323c6dsm11187764qka.136.2023.03.08.06.11.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Mar 2023 06:11:23 -0800 (PST)
+From: Tom Rix <trix@redhat.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, wenjing.liu@amd.com,
+ qingqing.zhuo@amd.com, Jun.Lei@amd.com, mghaddar@amd.com,
+ candice.li@amd.com, aric.cyr@amd.com
+Subject: [PATCH] drm/amd/display: remove unused variable available
+Date: Wed,  8 Mar 2023 09:10:57 -0500
+Message-Id: <20230308141057.2010361-1-trix@redhat.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [RFC] drm/amd/display: Pass proper parent for DM backlight device
- registration
-To: Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
-References: <20230215113833.477999-1-hdegoede@redhat.com>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <20230215113833.477999-1-hdegoede@redhat.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US, nl
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 08 Mar 2023 14:14:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,110 +85,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: Tom Rix <trix@redhat.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+With gcc and W=1, there is this error
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_dpia_bw.c:297:13: error:
+  variable ‘available’ set but not used [-Werror=unused-but-set-variable]
+  297 |         int available = 0;
+      |             ^~~~~~~~~
 
-On 2/15/23 12:38, Hans de Goede wrote:
-> The parent for the backlight device should be the drm-connector object,
-> not the PCI device.
-> 
-> Userspace relies on this to be able to detect which backlight class device
-> to use on hybrid gfx devices where there may be multiple native (raw)
-> backlight devices registered.
-> 
-> Specifically gnome-settings-daemon expects the parent device to have
-> an "enabled" sysfs attribute (as drm_connector devices do) and tests
-> that this returns "enabled" when read.
-> 
-> This aligns the parent of the backlight device with i915, nouveau, radeon.
-> Note that drivers/gpu/drm/amd/amdgpu/atombios_encoders.c also already
-> uses the drm_connector as parent, only amdgpu_dm.c used the PCI device
-> as parent before this change.
-> 
-> Note this is marked as a RFC because I don't have hw to test, so this
-> has only been compile tested! If someone can test this on actual
-> hw which hits the changed code path that would be great.
-> 
-> Link: https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/issues/730
-> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+Since available is unused, remove it.
 
-Self NACK. This has been tested by 2 reporters of:
+Signed-off-by: Tom Rix <trix@redhat.com>
+---
+ .../drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c   | 8 --------
+ 1 file changed, 8 deletions(-)
 
-https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/issues/730
-
-Now and it does not work. Instead of setting the parent device pointer correctly,
-this makes the backlight device not have a parent device any more at all.
-I already was afraid this might happen, since the drm_connector object is not yet
-registered at the time when the amdgpu code calls backlight_device_register().
-
-Other drivers like e.g. nouveau register the backlight later from
-a drm_connector_funcs.late_register callback. I was hoping doing it
-the simple way as this patch did would work, but it looks like some bigger
-changes to the amdgpu code (using a drm_connector_funcs.late_register callback)
-are necessary.
-
-I'll try to make some time to prepare a new patch.
-
-Regards,
-
-Hans
-
-
-
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++++----
->  1 file changed, 6 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 31bce529f685..33b0e1de2770 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -4065,7 +4065,8 @@ static const struct backlight_ops amdgpu_dm_backlight_ops = {
->  };
->  
->  static void
-> -amdgpu_dm_register_backlight_device(struct amdgpu_display_manager *dm)
-> +amdgpu_dm_register_backlight_device(struct amdgpu_display_manager *dm,
-> +				    struct amdgpu_dm_connector *aconnector)
->  {
->  	char bl_name[16];
->  	struct backlight_properties props = { 0 };
-> @@ -4088,7 +4089,7 @@ amdgpu_dm_register_backlight_device(struct amdgpu_display_manager *dm)
->  		 adev_to_drm(dm->adev)->primary->index + dm->num_of_edps);
->  
->  	dm->backlight_dev[dm->num_of_edps] = backlight_device_register(bl_name,
-> -								       adev_to_drm(dm->adev)->dev,
-> +								       aconnector->base.kdev,
->  								       dm,
->  								       &amdgpu_dm_backlight_ops,
->  								       &props);
-> @@ -4141,6 +4142,7 @@ static int initialize_plane(struct amdgpu_display_manager *dm,
->  
->  
->  static void register_backlight_device(struct amdgpu_display_manager *dm,
-> +				      struct amdgpu_dm_connector *aconnector,
->  				      struct dc_link *link)
->  {
->  	if ((link->connector_signal & (SIGNAL_TYPE_EDP | SIGNAL_TYPE_LVDS)) &&
-> @@ -4151,7 +4153,7 @@ static void register_backlight_device(struct amdgpu_display_manager *dm,
->  		 * is better then a black screen.
->  		 */
->  		if (!dm->backlight_dev[dm->num_of_edps])
-> -			amdgpu_dm_register_backlight_device(dm);
-> +			amdgpu_dm_register_backlight_device(dm, aconnector);
->  
->  		if (dm->backlight_dev[dm->num_of_edps]) {
->  			dm->backlight_link[dm->num_of_edps] = link;
-> @@ -4337,7 +4339,7 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
->  
->  			if (ret) {
->  				amdgpu_dm_update_connector_after_detect(aconnector);
-> -				register_backlight_device(dm, link);
-> +				register_backlight_device(dm, aconnector, link);
->  
->  				if (dm->num_of_edps)
->  					update_connector_ext_caps(aconnector);
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c
+index f14217cc16fd..2f0311c42f90 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c
+@@ -294,7 +294,6 @@ bool link_dp_dpia_set_dptx_usb4_bw_alloc_support(struct dc_link *link)
+ void dpia_handle_bw_alloc_response(struct dc_link *link, uint8_t bw, uint8_t result)
+ {
+ 	int bw_needed = 0;
+-	int available = 0;
+ 	int estimated = 0;
+ 	int host_router_total_estimated_bw = 0;
+ 
+@@ -373,20 +372,13 @@ void dpia_handle_bw_alloc_response(struct dc_link *link, uint8_t bw, uint8_t res
+ 
+ 		// 1. If due to unplug of other sink
+ 		if (estimated == host_router_total_estimated_bw) {
+-
+ 			// First update the estimated & max_bw fields
+ 			if (link->dpia_bw_alloc_config.estimated_bw < estimated) {
+-				available = estimated - link->dpia_bw_alloc_config.estimated_bw;
+ 				link->dpia_bw_alloc_config.estimated_bw = estimated;
+ 			}
+ 		}
+ 		// 2. If due to realloc bw btw 2 dpia due to plug OR realloc unused Bw
+ 		else {
+-
+-			// We took from another unplugged/problematic sink to give to us
+-			if (link->dpia_bw_alloc_config.estimated_bw < estimated)
+-				available = estimated - link->dpia_bw_alloc_config.estimated_bw;
+-
+ 			// We lost estimated bw usually due to plug event of other dpia
+ 			link->dpia_bw_alloc_config.estimated_bw = estimated;
+ 		}
+-- 
+2.27.0
 
