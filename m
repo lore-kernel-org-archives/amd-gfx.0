@@ -4,55 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 987DAC6FD1E
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 15:21:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D6FFC742A7
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 15:38:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6CFD10E611;
-	Wed,  8 Mar 2023 15:21:43 +0000 (UTC)
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
- [IPv6:2607:f8b0:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6706510E602
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Mar 2023 15:21:40 +0000 (UTC)
-Received: by mail-oi1-x230.google.com with SMTP id bj30so12431166oib.6
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Mar 2023 07:21:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678288899;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=mWwmpG3OJq7tFokJHpYRgNZMu9lv5x2wwp+DmVU7BZ8=;
- b=leNr9L+NfcRzz/pALONECMQedFmHiqmHHYMRKFLKbTLssqqoEq931KzSUTY8dT13yB
- Q900mdR+8kkQDKeh9CgHACdtnk+epfIztnJzM3qGVKGoLkFZ2z7y5iRywTaS24yXM3OD
- idghABeJevJ0yANAy3nKkaTDUOYl2SmqOesTvHNNsxsoRQLeOX/JYE08Db5ttCb3XAHg
- hT8vKHATBRGNNs13axON6dTSUPUpdZN/sS1/fvJpZQ4bTq0hmX6Cj1NSkHMZTdl8NlZ3
- 7cSBtcVw1znr2aM/IkAHGA62inT0RnsP9+YDzq/0QJNcLeZZn37aub5hSMiQr4EjHBTN
- UEcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678288899;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=mWwmpG3OJq7tFokJHpYRgNZMu9lv5x2wwp+DmVU7BZ8=;
- b=MwuA1wa5w2GaJpfQ4BblXoNfNtfhoj0xn09cAaKgvsgayLOnRDmKAVBoJARNvheD54
- pGPeLg6akRbOTfWYs6lQBj4ZBntO3x0BEVHnWTGnf3FaWYP1OmlHUUL2ikSbMvMul9Ke
- JcaP+daB6k8rOWGPUC9BhRpyJOIPzbS3GtbBupn3mtWMh+V1B8wV8B6Hg3RkRKfOXXas
- a2aRb4m77aubMlTFLtY+zRmd+uCF6bNgrPpwiJ0q5+0Ghn/g3rKA9svcvzA58YWkxThU
- h1j6O+5/bttH05xcf67BhOpC3LF92VgRnCMd5xr1mFIZhSXFsgNFGREwTD6Km8/EENAV
- 6K5w==
-X-Gm-Message-State: AO0yUKU3pqf1U9QnBhZmLd9woij2qNwvgXNi2sA6G+pMuGaLHfx76ynj
- c2kqVBqFpnMTS3mgGz8GVdsGMj2jZf4KvxiY6bIPQPbt
-X-Google-Smtp-Source: AK7set9P2WgQHCIoeSiO1oS43XOt5hf5AHoFU/sZ1Yze52zVzG/6J/dJA5/J3uqqgejPJkcokiKbKrcXc487VeLDJYg=
-X-Received: by 2002:a05:6808:92:b0:384:23ed:1ff6 with SMTP id
- s18-20020a056808009200b0038423ed1ff6mr5430142oic.3.1678288898202; Wed, 08 Mar
- 2023 07:21:38 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A713E10E609;
+	Wed,  8 Mar 2023 15:38:13 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E496B10E609
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Mar 2023 15:38:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1678289890; x=1709825890;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Oi3lNQaVAFKyZUn3mVauGWFNxI0A2vEeaMf+G8WoBDk=;
+ b=hVql6c3iKtbavNC0mGu7AWVrrb+cfUTVVITqTHw4q/Nz+JYLge3objTw
+ SDQ+qhttTOGrAAlz2evThX5NG/Vj+YKhiY+kWx00zy4HGHeTqPemjFPsF
+ qLjQqM4OhlRsqabyMux0+B0e0WVAft81MM4s8ZKFc41UJpkxemuf6BVYQ
+ yZsHtdlaAUnvrG4AJSo0n4y61XWiTf6vZiyWfEVL2E/7Ys6L4s94sbaFF
+ 4wCVAPO94kFoF51Br9U+b/gNG5ESD+sxIHj6quaVBSgjRB9/yklhC2HiX
+ DIG9ec3u/zLhZgn5cuFr3lrVMAVFx/rp7Qx/cmvctesF8PtchY38JR/Tm Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="336201685"
+X-IronPort-AV: E=Sophos;i="5.98,244,1673942400"; d="scan'208";a="336201685"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Mar 2023 07:37:51 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="800797338"
+X-IronPort-AV: E=Sophos;i="5.98,244,1673942400"; d="scan'208";a="800797338"
+Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
+ by orsmga004.jf.intel.com with ESMTP; 08 Mar 2023 07:37:49 -0800
+Received: from kbuild by b613635ddfff with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pZvrQ-0002EB-1r;
+ Wed, 08 Mar 2023 15:37:48 +0000
+Date: Wed, 08 Mar 2023 23:37:24 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD SUCCESS WITH WARNING
+ fc31900c948610e7b5c2f15fb7795832c8325327
+Message-ID: <6408abb4.d/PEd5OkKkiw2OLw%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-References: <20230308034328.3836244-1-tim.huang@amd.com>
-In-Reply-To: <20230308034328.3836244-1-tim.huang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 8 Mar 2023 10:21:26 -0500
-Message-ID: <CADnq5_NK9Y1zW2E+EFMeM4tU8KZemK0Q7CwKUEJT+NnF5_uekA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: bump SMU 13.0.4 driver_if header version
-To: Tim Huang <tim.huang@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,59 +58,260 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Yifan1.zhang@amd.com, Xiaojian.Du@amd.com,
- li.ma@amd.com, amd-gfx@lists.freedesktop.org
+Cc: linux-watchdog@vger.kernel.org, linux-usb@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ linux-security-module@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: fc31900c948610e7b5c2f15fb7795832c8325327  Add linux-next specific files for 20230308
 
-On Tue, Mar 7, 2023 at 10:44 PM Tim Huang <tim.huang@amd.com> wrote:
->
-> Align the SMU driver interface version with PMFW to
-> suppress the version mismatch message on driver loading.
->
-> Signed-off-by: Tim Huang <tim.huang@amd.com>
-> ---
->  .../drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_4.h    | 4 ++--
->  drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h                  | 2 +-
->  2 files changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_4.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_4.h
-> index f77401709d83..2162ecd1057d 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_4.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_4.h
-> @@ -27,7 +27,7 @@
->  // *** IMPORTANT ***
->  // SMU TEAM: Always increment the interface version if
->  // any structure is changed in this file
-> -#define PMFW_DRIVER_IF_VERSION 7
-> +#define PMFW_DRIVER_IF_VERSION 8
->
->  typedef struct {
->    int32_t value;
-> @@ -198,7 +198,7 @@ typedef struct {
->    uint16_t SkinTemp;
->    uint16_t DeviceState;
->    uint16_t CurTemp;                     //[centi-Celsius]
-> -  uint16_t spare2;
-> +  uint16_t FilterAlphaValue;
->
->    uint16_t AverageGfxclkFrequency;
->    uint16_t AverageFclkFrequency;
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-> index e7d8b4eb4b56..0ef37837b164 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
-> @@ -29,7 +29,7 @@
->  #define SMU13_DRIVER_IF_VERSION_YELLOW_CARP 0x04
->  #define SMU13_DRIVER_IF_VERSION_ALDE 0x08
->  #define SMU13_DRIVER_IF_VERSION_SMU_V13_0_0_0 0x37
-> -#define SMU13_DRIVER_IF_VERSION_SMU_V13_0_4 0x07
-> +#define SMU13_DRIVER_IF_VERSION_SMU_V13_0_4 0x08
->  #define SMU13_DRIVER_IF_VERSION_SMU_V13_0_5 0x04
->  #define SMU13_DRIVER_IF_VERSION_SMU_V13_0_0_10 0x32
->  #define SMU13_DRIVER_IF_VERSION_SMU_V13_0_7 0x37
-> --
-> 2.25.1
->
+Warning reports:
+
+https://lore.kernel.org/oe-kbuild-all/202302100744.d1zZxXFn-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202302111601.jtY4lKrA-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202303081345.OAmwqAh7-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202303081432.D9JWIDY9-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202303081657.6Ble80UY-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202303081807.lBLWKmpX-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202303082135.NjdX1Bij-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202303082325.YWFMFBAj-lkp@intel.com
+
+Warning: (recently discovered and may have been fixed)
+
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_mst_types.c:1214:31: warning: variable 'res_pool' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_optc.c:294:6: warning: no previous prototype for 'optc3_wait_drr_doublebuffer_pending_clear' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:2182: warning: expecting prototype for Check if there is a native DP or passive DP(). Prototype was for dp_is_sink_present() instead
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:2184: warning: expecting prototype for Check if there is a native DP or passive DP(). Prototype was for dp_is_sink_present() instead
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_dpia_bw.c:297:13: warning: variable 'available' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:1146:3: warning: variable 'hotspotlimit' is uninitialized when used here [-Wuninitialized]
+drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:1149:24: warning: variable 'memlimit' is uninitialized when used here [-Wuninitialized]
+drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:1152:34: warning: variable 'software_shutdown_temp' is uninitialized when used here [-Wuninitialized]
+drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:315:17: sparse:    int
+drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:315:17: sparse:    void
+drivers/soc/renesas/pwc-rzv2m.c:124:34: warning: unused variable 'rzv2m_pwc_of_match' [-Wunused-const-variable]
+security/security.c:3647: warning: expecting prototype for security_socket_create(). Prototype was for security_socket_post_create() instead
+security/security.c:4110: warning: expecting prototype for security_socket_create(). Prototype was for security_socket_post_create() instead
+
+Unverified Warning (likely false positive, please contact us if interested):
+
+drivers/usb/gadget/composite.c:2082:33: sparse: sparse: restricted __le16 degrades to integer
+drivers/watchdog/imx2_wdt.c:442:22: sparse: sparse: symbol 'imx_wdt' was not declared. Should it be static?
+drivers/watchdog/imx2_wdt.c:446:22: sparse: sparse: symbol 'imx_wdt_legacy' was not declared. Should it be static?
+
+Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-randconfig-s033-20230305
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_dpia_bw.c:warning:variable-available-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:sparse:int
+|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:sparse:sparse:incompatible-types-in-conditional-expression-(different-base-types):
+|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:sparse:void
+|-- arm64-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
+|-- csky-randconfig-s031-20230305
+|   |-- drivers-usb-gadget-composite.c:sparse:sparse:restricted-__le16-degrades-to-integer
+|   |-- drivers-watchdog-imx2_wdt.c:sparse:sparse:symbol-imx_wdt-was-not-declared.-Should-it-be-static
+|   `-- drivers-watchdog-imx2_wdt.c:sparse:sparse:symbol-imx_wdt_legacy-was-not-declared.-Should-it-be-static
+|-- i386-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
+|-- i386-buildonly-randconfig-r006-20230306
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
+|-- microblaze-randconfig-c033-20230305
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_dpia_bw.c:warning:variable-available-set-but-not-used
+|-- openrisc-randconfig-s052-20230305
+|   `-- drivers-usb-gadget-composite.c:sparse:sparse:restricted-__le16-degrades-to-integer
+|-- powerpc-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_dpia_bw.c:warning:variable-available-set-but-not-used
+|-- sparc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm_mst_types.c:warning:variable-res_pool-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_dpia_bw.c:warning:variable-available-set-but-not-used
+|-- sparc-randconfig-s032-20230305
+|   |-- drivers-watchdog-imx2_wdt.c:sparse:sparse:symbol-imx_wdt-was-not-declared.-Should-it-be-static
+|   `-- drivers-watchdog-imx2_wdt.c:sparse:sparse:symbol-imx_wdt_legacy-was-not-declared.-Should-it-be-static
+|-- x86_64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_dpia_bw.c:warning:variable-available-set-but-not-used
+`-- x86_64-randconfig-s021
+    `-- drivers-usb-gadget-composite.c:sparse:sparse:restricted-__le16-degrades-to-integer
+clang_recent_errors
+|-- hexagon-randconfig-r023-20230306
+|   `-- security-security.c:warning:expecting-prototype-for-security_socket_create().-Prototype-was-for-security_socket_post_create()-instead
+|-- hexagon-randconfig-r045-20230305
+|   `-- security-security.c:warning:expecting-prototype-for-security_socket_create().-Prototype-was-for-security_socket_post_create()-instead
+|-- hexagon-randconfig-r045-20230306
+|   `-- drivers-soc-renesas-pwc-rzv2m.c:warning:unused-variable-rzv2m_pwc_of_match
+|-- riscv-randconfig-r034-20230305
+|   `-- security-security.c:warning:expecting-prototype-for-security_socket_create().-Prototype-was-for-security_socket_post_create()-instead
+|-- riscv-randconfig-r042-20230306
+|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:variable-hotspotlimit-is-uninitialized-when-used-here
+|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:variable-memlimit-is-uninitialized-when-used-here
+|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:variable-software_shutdown_temp-is-uninitialized-when-used-here
+|-- s390-randconfig-r035-20230305
+|   `-- security-security.c:warning:expecting-prototype-for-security_socket_create().-Prototype-was-for-security_socket_post_create()-instead
+|-- x86_64-randconfig-a011-20230306
+|   `-- security-security.c:warning:expecting-prototype-for-security_socket_create().-Prototype-was-for-security_socket_post_create()-instead
+|-- x86_64-randconfig-a014-20230306
+|   `-- security-security.c:warning:expecting-prototype-for-security_socket_create().-Prototype-was-for-security_socket_post_create()-instead
+|-- x86_64-randconfig-a015-20230306
+|   `-- security-security.c:warning:expecting-prototype-for-security_socket_create().-Prototype-was-for-security_socket_post_create()-instead
+`-- x86_64-randconfig-a016-20230306
+    `-- security-security.c:warning:expecting-prototype-for-security_socket_create().-Prototype-was-for-security_socket_post_create()-instead
+
+elapsed time: 727m
+
+configs tested: 143
+configs skipped: 10
+
+tested configs:
+alpha                            allyesconfig   gcc  
+alpha        buildonly-randconfig-r001-20230305   gcc  
+alpha        buildonly-randconfig-r004-20230306   gcc  
+alpha                               defconfig   gcc  
+alpha                randconfig-r016-20230305   gcc  
+arc                              allyesconfig   gcc  
+arc                                 defconfig   gcc  
+arc                  randconfig-r004-20230306   gcc  
+arc                  randconfig-r043-20230305   gcc  
+arc                  randconfig-r043-20230306   gcc  
+arm                              allmodconfig   gcc  
+arm                              allyesconfig   gcc  
+arm                                 defconfig   gcc  
+arm                          moxart_defconfig   clang
+arm                        neponset_defconfig   clang
+arm                  randconfig-r006-20230305   gcc  
+arm                  randconfig-r021-20230306   gcc  
+arm                  randconfig-r046-20230305   clang
+arm                  randconfig-r046-20230306   gcc  
+arm                       spear13xx_defconfig   clang
+arm64                            allyesconfig   gcc  
+arm64                               defconfig   gcc  
+arm64                randconfig-r001-20230306   gcc  
+arm64                randconfig-r004-20230305   clang
+arm64                randconfig-r024-20230305   gcc  
+csky         buildonly-randconfig-r001-20230306   gcc  
+csky                                defconfig   gcc  
+csky                 randconfig-r032-20230305   gcc  
+hexagon              randconfig-r011-20230306   clang
+hexagon              randconfig-r022-20230306   clang
+hexagon              randconfig-r023-20230306   clang
+hexagon              randconfig-r041-20230305   clang
+hexagon              randconfig-r041-20230306   clang
+hexagon              randconfig-r045-20230305   clang
+hexagon              randconfig-r045-20230306   clang
+i386                             allyesconfig   gcc  
+i386         buildonly-randconfig-r003-20230306   gcc  
+i386         buildonly-randconfig-r006-20230306   gcc  
+i386                              debian-10.3   gcc  
+i386                                defconfig   gcc  
+i386                 randconfig-a001-20230306   gcc  
+i386                 randconfig-a002-20230306   gcc  
+i386                 randconfig-a003-20230306   gcc  
+i386                 randconfig-a004-20230306   gcc  
+i386                 randconfig-a005-20230306   gcc  
+i386                 randconfig-a006-20230306   gcc  
+i386                 randconfig-a011-20230306   clang
+i386                 randconfig-a012-20230306   clang
+i386                 randconfig-a013-20230306   clang
+i386                 randconfig-a014-20230306   clang
+i386                 randconfig-a015-20230306   clang
+i386                 randconfig-a016-20230306   clang
+i386                          randconfig-c001   gcc  
+i386                 randconfig-r034-20230306   gcc  
+ia64                             allmodconfig   gcc  
+ia64                                defconfig   gcc  
+ia64                 randconfig-r005-20230305   gcc  
+ia64                 randconfig-r005-20230306   gcc  
+ia64                 randconfig-r012-20230305   gcc  
+loongarch                        allmodconfig   gcc  
+loongarch                         allnoconfig   gcc  
+loongarch                           defconfig   gcc  
+loongarch            randconfig-r011-20230305   gcc  
+loongarch            randconfig-r021-20230305   gcc  
+loongarch            randconfig-r036-20230305   gcc  
+m68k                             allmodconfig   gcc  
+m68k                                defconfig   gcc  
+microblaze           randconfig-r013-20230305   gcc  
+microblaze           randconfig-r013-20230306   gcc  
+microblaze           randconfig-r031-20230306   gcc  
+mips                             allmodconfig   gcc  
+mips                             allyesconfig   gcc  
+mips                           ci20_defconfig   gcc  
+mips                 randconfig-r015-20230305   clang
+nios2                               defconfig   gcc  
+nios2                randconfig-r035-20230306   gcc  
+openrisc             randconfig-r014-20230306   gcc  
+parisc                              defconfig   gcc  
+parisc               randconfig-r014-20230305   gcc  
+parisc64                         alldefconfig   gcc  
+parisc64                            defconfig   gcc  
+powerpc                          allmodconfig   gcc  
+powerpc                           allnoconfig   gcc  
+powerpc      buildonly-randconfig-r005-20230305   gcc  
+powerpc                     mpc5200_defconfig   clang
+powerpc                      pmac32_defconfig   clang
+powerpc                      ppc40x_defconfig   gcc  
+powerpc              randconfig-r023-20230305   gcc  
+powerpc              randconfig-r031-20230305   clang
+riscv                            allmodconfig   gcc  
+riscv                             allnoconfig   gcc  
+riscv        buildonly-randconfig-r003-20230305   gcc  
+riscv        buildonly-randconfig-r005-20230306   clang
+riscv                               defconfig   gcc  
+riscv                randconfig-r003-20230305   clang
+riscv                randconfig-r024-20230306   clang
+riscv                randconfig-r025-20230306   clang
+riscv                randconfig-r034-20230305   clang
+riscv                randconfig-r042-20230305   gcc  
+riscv                randconfig-r042-20230306   clang
+riscv                          rv32_defconfig   gcc  
+s390                             alldefconfig   clang
+s390                             allmodconfig   gcc  
+s390                             allyesconfig   gcc  
+s390                                defconfig   gcc  
+s390                 randconfig-r003-20230306   gcc  
+s390                 randconfig-r016-20230306   clang
+s390                 randconfig-r035-20230305   clang
+s390                 randconfig-r044-20230305   gcc  
+s390                 randconfig-r044-20230306   clang
+sh                               allmodconfig   gcc  
+sh           buildonly-randconfig-r006-20230305   gcc  
+sh                   randconfig-r006-20230306   gcc  
+sh                   randconfig-r012-20230306   gcc  
+sh                   randconfig-r015-20230306   gcc  
+sh                   randconfig-r026-20230305   gcc  
+sh                   randconfig-r033-20230305   gcc  
+sh                           sh2007_defconfig   gcc  
+sparc        buildonly-randconfig-r004-20230305   gcc  
+sparc                               defconfig   gcc  
+sparc                randconfig-r002-20230306   gcc  
+sparc64              randconfig-r022-20230305   gcc  
+um                             i386_defconfig   gcc  
+um                           x86_64_defconfig   gcc  
+x86_64                            allnoconfig   gcc  
+x86_64                           allyesconfig   gcc  
+x86_64                              defconfig   gcc  
+x86_64                                  kexec   gcc  
+x86_64               randconfig-a001-20230306   gcc  
+x86_64               randconfig-a002-20230306   gcc  
+x86_64               randconfig-a003-20230306   gcc  
+x86_64               randconfig-a004-20230306   gcc  
+x86_64               randconfig-a005-20230306   gcc  
+x86_64               randconfig-a006-20230306   gcc  
+x86_64               randconfig-a011-20230306   clang
+x86_64               randconfig-a012-20230306   clang
+x86_64               randconfig-a013-20230306   clang
+x86_64               randconfig-a014-20230306   clang
+x86_64               randconfig-a015-20230306   clang
+x86_64               randconfig-a016-20230306   clang
+x86_64                               rhel-8.3   gcc  
+xtensa       buildonly-randconfig-r002-20230305   gcc  
+xtensa               randconfig-r002-20230305   gcc  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
