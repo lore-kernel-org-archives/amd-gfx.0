@@ -4,33 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F8C9C6FD1E
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 08:10:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C426C64EC4
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 08:21:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A315F10E5AD;
-	Wed,  8 Mar 2023 08:10:48 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99E4610E041;
- Wed,  8 Mar 2023 02:22:29 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id D5B37B81B7E;
- Wed,  8 Mar 2023 02:22:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFEE6C433EF;
- Wed,  8 Mar 2023 02:22:25 +0000 (UTC)
-Date: Tue, 7 Mar 2023 21:22:23 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: LKML <linux-kernel@vger.kernel.org>, Linus Torvalds
- <torvalds@linux-foundation.org>
-Subject: [BUG 6.3-rc1] Bad lock in ttm_bo_delayed_delete()
-Message-ID: <20230307212223.7e49384a@gandalf.local.home>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC34710E07C;
+	Wed,  8 Mar 2023 08:21:53 +0000 (UTC)
+Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
+ [IPv6:2a00:1450:4864:20::242])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 955CB10E07C;
+ Wed,  8 Mar 2023 08:21:51 +0000 (UTC)
+Received: by mail-lj1-x242.google.com with SMTP id b10so15810144ljr.0;
+ Wed, 08 Mar 2023 00:21:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1678263710;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=mj9Y0t+zzOmEeCodEn2+PYLjGbVNUJE2Y9Cga3Ja96M=;
+ b=IZ/0tAS3eQbcYrlkS1Hv4IKIryRKxZ7mAhvq3+W2XhTh+tTUPl+9qK7Ut/Qq2wkdfF
+ aaL+DuYoyB7LdrYmzwLwLXtGcMMFyaPzy2AiDH06/zp8ZYvtZ0gmIBtLzRUyunvEJwYa
+ 5AgyUMCxgSldPacrCZWtI6YUF1WFJEqoTee7JpCMMxO7tGQFRyzQCZ+nINv62KFD+0d1
+ zxLIV7EUQs1bzqoyPZ+yIQVJWdVLomvQt+jUyrBb+gAtPcm3Euy75art1kJhplhUhpZL
+ 2z0AV68TPPLXgvA7fTC66+vg07iuc1tFgo06EIOYK2021BXotbwWRIEva7UEkIqVIhel
+ NHTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678263710;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=mj9Y0t+zzOmEeCodEn2+PYLjGbVNUJE2Y9Cga3Ja96M=;
+ b=LJJKfHCDvYgmLFGiWW//vSqfbjv57PjcDK6eIM8JBx2ClMe6bAOeVOuGzvd9vYbgw1
+ jIkjtzTF+EfIyYy15Qt1rJp8DoC6JJol0OqtYz75xh1uz0lsYJXpcoocplhzit9srzdj
+ 0ZcGJzchYUS5Y6adE0/Gni/RUScZYYvNhdkrlu5b8usfJVF2d9SUQECY5c8MYxQgARQC
+ xLFlAk+dkQpv7PcT2sUHEIhVrMZADCSVmlBob7ENs/T6Kkkk/iRXUGwzk26aMCjQD23H
+ sJlj2OmhCjebNd9MN/+M81iSNW8yKe2w3LfAfW351awKoYgPuCH/1ZJiPE4Av4GExFMZ
+ +QwA==
+X-Gm-Message-State: AO0yUKV8KbB86twH77dwAq1EuNpt0/GkR48rGFjKcnPPF2kjqxmd3a97
+ 5Lm/oTDfpSNky9cwlLttBGw=
+X-Google-Smtp-Source: AK7set8Qx7MBnNXrKEfR+sh/hv0G3Iz7uM3Zu6Sbpdfx79OKURmGdzH+YLBFrFiqSlfKuZ5Sdwnqjg==
+X-Received: by 2002:a2e:b55c:0:b0:290:4e1c:96c9 with SMTP id
+ a28-20020a2eb55c000000b002904e1c96c9mr5062715ljn.32.1678263709562; 
+ Wed, 08 Mar 2023 00:21:49 -0800 (PST)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ 22-20020ac24836000000b0049c29389b98sm2260667lft.151.2023.03.08.00.21.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Mar 2023 00:21:49 -0800 (PST)
+Date: Wed, 8 Mar 2023 10:21:37 +0200
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Subject: Re: [PATCH v4 01/17] drm/connector: Convert DRM_MODE_COLORIMETRY to
+ enum
+Message-ID: <20230308102137.23b649dc@eldfell>
+In-Reply-To: <20230307152934.53372-1-harry.wentland@amd.com>
+References: <vT46Q_J1ih6YRi8a30VhwbuI43l7uCbTnS9ReApjeTZFD79HaDTZ-9FiNu_sS4iDn-XHhOsQYVQT-Bc699_qGmqMSSyc6XG7YYHVq-EJ-2s=@emersion.fr>
+ <20230307152934.53372-1-harry.wentland@amd.com>
 X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Wed, 08 Mar 2023 08:10:45 +0000
+Content-Type: multipart/signed; boundary="Sig_/YLPktixQIp8dgk58zlf6WFR";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,51 +71,162 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, amd-gfx@lists.freedesktop.org,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-media@vger.kernel.org
+Cc: Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>,
+ dri-devel@lists.freedesktop.org, Uma Shankar <uma.shankar@intel.com>,
+ amd-gfx@lists.freedesktop.org, Joshua Ashton <joshua@froggi.es>,
+ Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--Sig_/YLPktixQIp8dgk58zlf6WFR
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-In a report for a regression in my code, I tried to run v6.3-rc1 through my
-tests. It crashed at boot up on my first test (my start up tests do take a
-long time, hence the 206 seconds of boot!).
+On Tue, 7 Mar 2023 10:29:34 -0500
+Harry Wentland <harry.wentland@amd.com> wrote:
 
-[  206.238782] ------------[ cut here ]------------
-[  206.277786] DEBUG_LOCKS_WARN_ON(lock->magic != lock)
-[  206.277946] WARNING: CPU: 0 PID: 332 at kernel/locking/mutex.c:582 __ww_mutex_lock.constprop.0+0x566/0xfec
-[  206.313338] Modules linked in:
-[  206.324732] CPU: 0 PID: 332 Comm: kworker/0:13H Not tainted 6.3.0-rc1-test-00001-ga98bd42762ed-dirty #965
-[  206.338273] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.0-debian-1.16.0-5 04/01/2014
-[  206.353596] Workqueue: ttm ttm_bo_delayed_delete
-[  206.370520] EIP: __ww_mutex_lock.constprop.0+0x566/0xfec
-[  206.382855] Code: e8 ab 59 95 ff 85 c0 0f 84 25 fb ff ff 8b 0d 58 c0 3b cf 85 c9 0f 85 17 fb ff ff 68 e0 8d 07 cf 68 2b ac 05 cf e8 e6 e6 3f ff <0f> 0b 58 5a e9 ff fa ff ff e8 78 59 95 ff 85 c0 74 0e 8b 0d 58 c0
-[  206.411247] EAX: 00000028 EBX: 00000000 ECX: c3ae5dd8 EDX: 00000002
-[  206.425193] ESI: 00000000 EDI: c2d5f0bc EBP: c3ae5f00 ESP: c3ae5eac
-[  206.439236] DS: 007b ES: 007b FS: 00d8 GS: 0000 SS: 0068 EFLAGS: 00010246
-[  206.453597] CR0: 80050033 CR2: ff9ff000 CR3: 0f512000 CR4: 00150ef0
-[  206.467841] Call Trace:
-[  206.481059]  ? ttm_bo_delayed_delete+0x30/0x94
-[  206.494980]  ww_mutex_lock+0x32/0x94
-[  206.508699]  ttm_bo_delayed_delete+0x30/0x94
-[  206.522371]  process_one_work+0x21a/0x538
-[  206.536306]  worker_thread+0x146/0x398
-[  206.549860]  kthread+0xea/0x10c
-[  206.563141]  ? process_one_work+0x538/0x538
-[  206.576835]  ? kthread_complete_and_exit+0x1c/0x1c
-[  206.590652]  ret_from_fork+0x1c/0x28
-[  206.604522] irq event stamp: 4219
-[  206.617852] hardirqs last  enabled at (4219): [<ced2a039>] _raw_spin_unlock_irqrestore+0x2d/0x58
-[  206.633077] hardirqs last disabled at (4218): [<ce1d3a65>] kvfree_call_rcu+0x155/0x2ec
-[  206.648161] softirqs last  enabled at (3570): [<ced2b113>] __do_softirq+0x2f3/0x48b
-[  206.663025] softirqs last disabled at (3565): [<ce0c84e9>] call_on_stack+0x45/0x4c
-[  206.678065] ---[ end trace 0000000000000000 ]---
+> This allows us to use strongly typed arguments.
+>=20
+> v2:
+>  - Bring NO_DATA back
+>  - Provide explicit enum values
+>=20
+> v4: Drop unnecessary '&' from kerneldoc (emersion)
+>=20
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> Reviewed-by: Simon Ser <contact@emersion.fr>
+>=20
+> Cc: Pekka Paalanen <ppaalanen@gmail.com>
+> Cc: Sebastian Wick <sebastian.wick@redhat.com>
+> Cc: Vitaly.Prosyak@amd.com
+> Cc: Uma Shankar <uma.shankar@intel.com>
+> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> Cc: Joshua Ashton <joshua@froggi.es>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: amd-gfx@lists.freedesktop.org
+> ---
+>  include/drm/display/drm_dp.h |  2 +-
+>  include/drm/drm_connector.h  | 49 ++++++++++++++++++------------------
+>  2 files changed, 26 insertions(+), 25 deletions(-)
+>=20
+> diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
+> index ed10e6b6f99d..dae5e9c201e4 100644
+> --- a/include/drm/display/drm_dp.h
+> +++ b/include/drm/display/drm_dp.h
+> @@ -1623,7 +1623,7 @@ enum dp_pixelformat {
+>   *
+>   * This enum is used to indicate DP VSC SDP Colorimetry formats.
+>   * It is based on DP 1.4 spec [Table 2-117: VSC SDP Payload for DB16 thr=
+ough
+> - * DB18] and a name of enum member follows DRM_MODE_COLORIMETRY definiti=
+on.
+> + * DB18] and a name of enum member follows enum drm_colorimetry definiti=
+on.
+>   *
+>   * @DP_COLORIMETRY_DEFAULT: sRGB (IEC 61966-2-1) or
+>   *                          ITU-R BT.601 colorimetry format
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index 4d830fc55a3d..6d6a53a6b010 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -371,29 +371,30 @@ enum drm_privacy_screen_status {
+>   * a colorspace property which will be created and exposed to
+>   * userspace.
+>   */
+> -
+> -/* For Default case, driver will set the colorspace */
+> -#define DRM_MODE_COLORIMETRY_DEFAULT			0
+> -/* CEA 861 Normal Colorimetry options */
+> -#define DRM_MODE_COLORIMETRY_NO_DATA			0
+> -#define DRM_MODE_COLORIMETRY_SMPTE_170M_YCC		1
+> -#define DRM_MODE_COLORIMETRY_BT709_YCC			2
+> -/* CEA 861 Extended Colorimetry Options */
+> -#define DRM_MODE_COLORIMETRY_XVYCC_601			3
+> -#define DRM_MODE_COLORIMETRY_XVYCC_709			4
+> -#define DRM_MODE_COLORIMETRY_SYCC_601			5
+> -#define DRM_MODE_COLORIMETRY_OPYCC_601			6
+> -#define DRM_MODE_COLORIMETRY_OPRGB			7
+> -#define DRM_MODE_COLORIMETRY_BT2020_CYCC		8
+> -#define DRM_MODE_COLORIMETRY_BT2020_RGB			9
+> -#define DRM_MODE_COLORIMETRY_BT2020_YCC			10
+> -/* Additional Colorimetry extension added as part of CTA 861.G */
+> -#define DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65		11
+> -#define DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER		12
+> -/* Additional Colorimetry Options added for DP 1.4a VSC Colorimetry Form=
+at */
+> -#define DRM_MODE_COLORIMETRY_RGB_WIDE_FIXED		13
+> -#define DRM_MODE_COLORIMETRY_RGB_WIDE_FLOAT		14
+> -#define DRM_MODE_COLORIMETRY_BT601_YCC			15
+> +enum drm_colorspace {
+> +	/* For Default case, driver will set the colorspace */
+> +	DRM_MODE_COLORIMETRY_DEFAULT 		=3D 0,
+> +	DRM_MODE_COLORIMETRY_NO_DATA		=3D 0,
+> +	/* CEA 861 Normal Colorimetry options */
 
-Looks like there was a lock possibly used after free. But as commit
-9bff18d13473a9fdf81d5158248472a9d8ecf2bd ("drm/ttm: use per BO cleanup
-workers") changed a lot of this code, I figured it may be the culprit.
+This comment seems to be in the wrong place, NO_DATA should be under
+this comment.
 
--- Steve
+With that fixed:
+Reviewed-by: Pekka Paalanen <pekka.paalanen@collabora.com>
+
+
+Thanks,
+pq
+
+> +	DRM_MODE_COLORIMETRY_SMPTE_170M_YCC	=3D 1,
+> +	DRM_MODE_COLORIMETRY_BT709_YCC		=3D 2,
+> +	/* CEA 861 Extended Colorimetry Options */
+> +	DRM_MODE_COLORIMETRY_XVYCC_601		=3D 3,
+> +	DRM_MODE_COLORIMETRY_XVYCC_709		=3D 4,
+> +	DRM_MODE_COLORIMETRY_SYCC_601		=3D 5,
+> +	DRM_MODE_COLORIMETRY_OPYCC_601		=3D 6,
+> +	DRM_MODE_COLORIMETRY_OPRGB		=3D 7,
+> +	DRM_MODE_COLORIMETRY_BT2020_CYCC	=3D 8,
+> +	DRM_MODE_COLORIMETRY_BT2020_RGB		=3D 9,
+> +	DRM_MODE_COLORIMETRY_BT2020_YCC		=3D 10,
+> +	/* Additional Colorimetry extension added as part of CTA 861.G */
+> +	DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65	=3D 11,
+> +	DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER	=3D 12,
+> +	/* Additional Colorimetry Options added for DP 1.4a VSC Colorimetry For=
+mat */
+> +	DRM_MODE_COLORIMETRY_RGB_WIDE_FIXED	=3D 13,
+> +	DRM_MODE_COLORIMETRY_RGB_WIDE_FLOAT	=3D 14,
+> +	DRM_MODE_COLORIMETRY_BT601_YCC		=3D 15,
+> +};
+> =20
+>  /**
+>   * enum drm_bus_flags - bus_flags info for &drm_display_info
+> @@ -826,7 +827,7 @@ struct drm_connector_state {
+>  	 * colorspace change on Sink. This is most commonly used to switch
+>  	 * to wider color gamuts like BT2020.
+>  	 */
+> -	u32 colorspace;
+> +	enum drm_colorspace colorspace;
+> =20
+>  	/**
+>  	 * @writeback_job: Writeback job for writeback connectors
+
+
+--Sig_/YLPktixQIp8dgk58zlf6WFR
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmQIRZEACgkQI1/ltBGq
+qqcX6g/+OnYayOWGrgJf1foOGo3xBwqnrv19SjTXbYONlfQ6WdZdqvqy7InFFX41
+MSaIk1MNcgcK5m58A70v2WVAWAuF+zmZDshnLamCpYC8jh55Ft91KcSNITDc8EP8
+wHDrSoJ23duljb/wKY129l7TOmgN5viI1oM3uaZrHlsTayCt2IXmCf2mkuHhae39
+Bj20YNviWJVXNgf95E0/00s6oZV8BOMk8sFU59zao72F4Fw0ZW6c8unKQDWofj+b
+c1Qh8LARBnK2heQurKqROFovzP41EKhR5dZAPePwNS3ds7jbwJtdfajygEK46kr7
+ViRkOvSBmpyVIzgG/mEMcHlSQPTMsLO6ANO2gweYkWo3fnJwWSG2+3v41AyrLEUB
+jP3N0yecVDaiMzQ2pV458pzUvN/C5hE5MeYbQpsOqlC5wONnnH2R/lniiO9T1DsE
+Y1ej/nMB1Z6KjWr1xNg4zQymzUH1pOEfRX0Tm7+zZgNEURQJfIa4Qwu/BHU0fVIO
+i1awdurjfTI2zz93HEPmbtYV95gFwna4bnyiae4pyKsbWw/oFq+FpuGmKt14gQlb
+dvMx7TSHGyr1gdzKShlUDkcdrVpoqcynyUA87aScCSjOid33Lkk/M9PQuyiOu8Za
+YHbdwuAL35CnOAJJu/Q4TnvkHsAFifcKOq887xkCTnXB+/fzZdk=
+=2Umf
+-----END PGP SIGNATURE-----
+
+--Sig_/YLPktixQIp8dgk58zlf6WFR--
