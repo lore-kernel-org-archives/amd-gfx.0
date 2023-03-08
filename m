@@ -4,61 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E9E9C6FD1F
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 09:35:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6CFDC64EC4
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 09:38:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B766D10E601;
-	Wed,  8 Mar 2023 09:35:17 +0000 (UTC)
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [IPv6:2a00:1450:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1930310E608;
- Wed,  8 Mar 2023 09:35:16 +0000 (UTC)
-Received: by mail-lj1-x22c.google.com with SMTP id b13so15926694ljf.6;
- Wed, 08 Mar 2023 01:35:16 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D72B10E608;
+	Wed,  8 Mar 2023 09:38:55 +0000 (UTC)
+Received: from mail-lj1-x243.google.com (mail-lj1-x243.google.com
+ [IPv6:2a00:1450:4864:20::243])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B654A10E608;
+ Wed,  8 Mar 2023 09:38:53 +0000 (UTC)
+Received: by mail-lj1-x243.google.com with SMTP id y14so15949708ljq.4;
+ Wed, 08 Mar 2023 01:38:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678268114;
+ d=gmail.com; s=20210112; t=1678268332;
  h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
  :date:from:to:cc:subject:date:message-id:reply-to;
- bh=B9gQSU1hE4pHwNZBTdVKkwllbDTQKBkHL8xqSvdMqIk=;
- b=OK2PjgGiRk4MGijFYrDl+uNqPJmJ1+61aPDKVaAnIk1SJev0G18kzoOvxb8kmfuqvv
- 8FIqUVuFYB7Q2JpZQSbTT4xHP8lK8wJfh7yLVgsaCejbLud6HtxrN18tK5ysk5AKBzrJ
- SyvlFaREbZAn1NdUBqW/eYNNEt0OQ0I+Uwj+WiXN0r8aEFRF5UmHyDo5e4l/4UASL/B/
- 8MVz6OnwAqWSoa6sXI6WhzNjoa3EINRunc/83VWRxtN89YVILsx1fbXzJA10xgFB3c3f
- xjpx9HijyCUwcN3u9MkLAY64Xijlv0OLXDx8kvwxzNuuWRcl1bZWpYO6ftwu3N495kPL
- rFTg==
+ bh=MlaPxfe8sYofmBwNyTWUDfenNrHhQfhqwLCiI7+KPBo=;
+ b=ja29tVShlvdNj0YZlXDFIw2lkmbdfQRNR8rlz1b4eAjmLr1zC5SxhPzfwDHoVll44r
+ I+eNHDU4345xeKy1fljpCKrwFO3bmhvYc9NFDW+8VLMRyx0qf+CZ2FqzggSEFsB3xmTv
+ +hZMO9iJ390f2b8uvWdortDaZQ7Oxtgzxm7vJhFPgsOmzQcCIQKrzB8KXQoNmQoUXRdA
+ c+rFFfsO2IVDqFjJw662BcQaUjwO0dKgoh/A0y6t7cISVioFrrNfQfJlx88UEp8wnnZF
+ leQ930CexR9fTTz7r43WvzoVKd2BeBZHVNyEhVQj5FGuH5DHNFMh4ANk38oUNIRl9b6Y
+ /2+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678268114;
+ d=1e100.net; s=20210112; t=1678268332;
  h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
  :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=B9gQSU1hE4pHwNZBTdVKkwllbDTQKBkHL8xqSvdMqIk=;
- b=aAKljghPMaPzhZk986+DQ+imobkhnBb1unTVey2KgX2rGT8VJQsud+T7fBZJUDmJMO
- GqrSG9axnz41gldw/H0Lwkb+aYsIelHL0BUxPTQTnSAKs8KaFRC2C5m69AT/sS+2LXRw
- mbMwj3NISUCvmKnHOQMuvLR8ltwPMozeA+Ki9vmXDy4P20JWbPKGj3QSGe6UvuCsd8NW
- loyQrmrjvgvW4a1EcCsRglsi0DZrQ3/y/OhHIlu+AMJlM6jSOtGfLxDJgFvs2LTM927b
- WNsDhzokAaTBL5Kf87rfOBaP+O7sI7IM9ePKYBRVxsawsZJvdE8sY0zKv7H99hfzIokO
- THmw==
-X-Gm-Message-State: AO0yUKUAp97LAL1Srk8zOpU+lfVz7Q+ojC+fqLizZbWblgS+1XopPnI0
- HSzUgQH4q8q/guyv8FWTq4c=
-X-Google-Smtp-Source: AK7set+rvIm/UgplTUxnwTk4ieFNE7h2CPFIrmucSKik9P+S0RFZPqowB59v7hh35gw0264HzzUbyg==
-X-Received: by 2002:a2e:960d:0:b0:295:d633:7401 with SMTP id
- v13-20020a2e960d000000b00295d6337401mr5072878ljh.47.1678268114313; 
- Wed, 08 Mar 2023 01:35:14 -0800 (PST)
+ bh=MlaPxfe8sYofmBwNyTWUDfenNrHhQfhqwLCiI7+KPBo=;
+ b=K0QVhyekQgBdxMe1lWPE5DdAAxaZdvQKtP1BgUG29Y513yqZHX1SEL3Fpg3CeBGCWc
+ j9u9KGJHYNIKvJAJ3J2ujHXZGxjB99ww0moAAuoxvkYap+oRlX7U1bJ/OUZZyL+qphuP
+ dPPixhrvhERu8k9R8H9eEneVXSovxnI0wCraWZvFy6pl6IfkXoEKcnGEnoq5YQNWASd8
+ 6am0hLZKkzXhER8fQlR6urWw1GhElYeFAPJcRWJI1Zz+oxtzd9/T3uW5TiIAd1ZKdOD5
+ lKXDd0GyHQ+Oiq5f+ZJajkhI1bmMhXXGwUbjbFv3bUv5IGp+hXvjZpWNrjMmkLmxlnkW
+ F8Hg==
+X-Gm-Message-State: AO0yUKXBYf7R4yGgufftd7HM2CmKYSGbe97NE1wo88yY+3rdD849ALvd
+ RO80CT1Pq05T52WPCZsX3Xc=
+X-Google-Smtp-Source: AK7set/N6bO5cJN92Z0s4pM7jH8hCFnBNfZ6/bw/xBBLhzysO/TftXZfKclbFrS9LqgPiL+CTwdQbA==
+X-Received: by 2002:a2e:8250:0:b0:295:a3aa:e7c2 with SMTP id
+ j16-20020a2e8250000000b00295a3aae7c2mr5116114ljh.36.1678268331815; 
+ Wed, 08 Mar 2023 01:38:51 -0800 (PST)
 Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- j8-20020a2eb708000000b00295b0c0e0c1sm2499726ljo.118.2023.03.08.01.35.13
+ v17-20020a2e9911000000b00298704f1324sm129870lji.33.2023.03.08.01.38.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Mar 2023 01:35:13 -0800 (PST)
-Date: Wed, 8 Mar 2023 11:35:10 +0200
+ Wed, 08 Mar 2023 01:38:51 -0800 (PST)
+Date: Wed, 8 Mar 2023 11:38:48 +0200
 From: Pekka Paalanen <ppaalanen@gmail.com>
 To: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [PATCH v3 15/17] drm/amd/display: Add default case for
- output_color_space switch
-Message-ID: <20230308113510.4165d1bc@eldfell>
-In-Reply-To: <20230307151107.49649-16-harry.wentland@amd.com>
+Subject: Re: [PATCH v3 00/17] Enable Colorspace connector property in amdgpu
+Message-ID: <20230308113848.1289d5a0@eldfell>
+In-Reply-To: <20230307151107.49649-1-harry.wentland@amd.com>
 References: <20230307151107.49649-1-harry.wentland@amd.com>
- <20230307151107.49649-16-harry.wentland@amd.com>
 X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/XX+CFOwIDpI3rfKZn/d.Jy.";
+Content-Type: multipart/signed; boundary="Sig_/3_IMJto9qDiIGLj4UTwmx4O";
  protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,135 +69,106 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Joshua Ashton <joshua@froggi.es>,
- Sebastian Wick <sebastian.wick@redhat.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Vitaly.Prosyak@amd.com
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Sebastian Wick <sebastian.wick@redhat.com>,
+ Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>,
+ dri-devel@lists.freedesktop.org, Uma Shankar <uma.shankar@intel.com>,
+ amd-gfx@lists.freedesktop.org, Joshua Ashton <joshua@froggi.es>,
+ Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/XX+CFOwIDpI3rfKZn/d.Jy.
+--Sig_/3_IMJto9qDiIGLj4UTwmx4O
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, 7 Mar 2023 10:11:05 -0500
+On Tue, 7 Mar 2023 10:10:50 -0500
 Harry Wentland <harry.wentland@amd.com> wrote:
 
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> Cc: Pekka Paalanen <ppaalanen@gmail.com>
-> Cc: Sebastian Wick <sebastian.wick@redhat.com>
-> Cc: Vitaly.Prosyak@amd.com
-> Cc: Joshua Ashton <joshua@froggi.es>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: amd-gfx@lists.freedesktop.org
-> Reviewed-By: Joshua Ashton <joshua@froggi.es>
+> This patchset is based on Joshua's previous patchset [1], as well
+> as my previous patchset [2].
+>=20
+> It is
+> - enabling support for the colorspace property in amdgpu, as well as
+> - allowing drivers to specify the supported set of colorspaces, and
+> - deprecating the BT2020_YCC and BT2020_RGB properties in favor of
+>   a common BT2020 property. We leave the BT2020_CYCC property untouched
+>   for now, same as the other _YVV properties. If they'll see use later
+>   we might need to do something similar there, or allow userspace to
+>   decide on the output encoding (RGB vs YUV).
+>=20
+> Colorspace, Infoframes, and YCbCr matrix
+> ---------------------------------------
+>=20
+> Even though the initial intent of the colorspace property was to set the
+> colorspace field in the respective HDMI AVI and DP SDP infoframes that
+> is not sufficient in all scenarios. For DP the colorspace information
+> also affects the MSA (main stream attribute) packet. For YUV output the
+> colorspace affects the RGB-to-YCbCr conversion matrix. The colorspace
+> field of the infopackets also depends on the encoding used, which is
+> something that is decided by the driver and not known to userspace.
+>=20
+> For these reasons a driver will need to be able to select the supported
+> colorspaces at property creation.
+>=20
+> Note: There seems to be an understanding that the colorspace property
+> should ONLY modify the infoframe. While this is current behavior and
+> sufficient in some cases it is nowhere specified that this should be the
+> only use of this property. As outlined above this limitation is not
+> going to work in all cases.
+>=20
+> This patchset does not affect current behavior for the drivers that
+> implement this property: i915 and vc4.
+>=20
+> In the future we might want to give userspace control over the encoding
+> format on the wire, in particular to avoid use of YUV420 when image
+> fidelity is important. This work would likely go hand in hand with a
+> min_bpc property and wouldn't conflict with the work done in this
+> patchset.
+>=20
+> Colorspace on crtc or connector?
+> --------------------------------
+>=20
+> There have been suggestions of programming 'colorspace' on the drm_crtc
+> but I don't think the crtc is the right place for this property. The
+> drm_plane and drm_crtc will be used to offload color processing that
+> would normally be done via the GFX or other pipelines. The drm_connector
+> controls the signalling with the display and ensures the wire format is
+> appropriate for the encoding by programming the RGB-to-YCbCr matrix.
+>=20
+> [1] https://patchwork.freedesktop.org/series/113632/
+> [2] https://patchwork.freedesktop.org/series/111865/
 
-Hi,
+Hi Harry,
 
-why?
+this is a really good cover letter.
 
-Isn't the bitmask of supported values supposed to stop arbitrary values
-from coming through?
-
-Why handle unsupported values like DEFAULT instead of as a kernel bug?
-
-If this is only to stop compiler warnings of not handling all enum
-values in a switch, is the commit ordering in this series even
-bisectable?
+I've given all the comments I have on this iteration.
 
 
 Thanks,
 pq
 
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 43 ++++++++++---------
->  1 file changed, 22 insertions(+), 21 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 7f77e226f1eb..a15b26962496 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -5308,7 +5308,29 @@ get_output_color_space(const struct dc_crtc_timing=
- *dc_crtc_timing,
->  	enum dc_color_space color_space =3D COLOR_SPACE_SRGB;
-> =20
->  	switch (connector_state->colorspace) {
-> +	case DRM_MODE_COLORIMETRY_BT601_YCC:
-> +		if (dc_crtc_timing->flags.Y_ONLY)
-> +			color_space =3D COLOR_SPACE_YCBCR601_LIMITED;
-> +		else
-> +			color_space =3D COLOR_SPACE_YCBCR601;
-> +		break;
-> +	case DRM_MODE_COLORIMETRY_BT709_YCC:
-> +		if (dc_crtc_timing->flags.Y_ONLY)
-> +			color_space =3D COLOR_SPACE_YCBCR709_LIMITED;
-> +		else
-> +			color_space =3D COLOR_SPACE_YCBCR709;
-> +		break;
-> +	case DRM_MODE_COLORIMETRY_OPRGB:
-> +		color_space =3D COLOR_SPACE_ADOBERGB;
-> +		break;
-> +	case DRM_MODE_COLORIMETRY_BT2020:
-> +		color_space =3D COLOR_SPACE_2020_RGB_FULLRANGE;
-> +		break;
-> +	case DRM_MODE_COLORIMETRY_BT2020_DEPRECATED:
-> +		color_space =3D COLOR_SPACE_2020_YCBCR;
-> +		break;
->  	case DRM_MODE_COLORIMETRY_DEFAULT: // ITU601
-> +	default:
->  		if (dc_crtc_timing->pixel_encoding =3D=3D PIXEL_ENCODING_RGB) {
->  			color_space =3D COLOR_SPACE_SRGB;
->  		/*
-> @@ -5330,27 +5352,6 @@ get_output_color_space(const struct dc_crtc_timing=
- *dc_crtc_timing,
->  				color_space =3D COLOR_SPACE_YCBCR601;
->  		}
->  		break;
-> -	case DRM_MODE_COLORIMETRY_BT601_YCC:
-> -		if (dc_crtc_timing->flags.Y_ONLY)
-> -			color_space =3D COLOR_SPACE_YCBCR601_LIMITED;
-> -		else
-> -			color_space =3D COLOR_SPACE_YCBCR601;
-> -		break;
-> -	case DRM_MODE_COLORIMETRY_BT709_YCC:
-> -		if (dc_crtc_timing->flags.Y_ONLY)
-> -			color_space =3D COLOR_SPACE_YCBCR709_LIMITED;
-> -		else
-> -			color_space =3D COLOR_SPACE_YCBCR709;
-> -		break;
-> -	case DRM_MODE_COLORIMETRY_OPRGB:
-> -		color_space =3D COLOR_SPACE_ADOBERGB;
-> -		break;
-> -	case DRM_MODE_COLORIMETRY_BT2020:
-> -		color_space =3D COLOR_SPACE_2020_RGB_FULLRANGE;
-> -		break;
-> -	case DRM_MODE_COLORIMETRY_BT2020_DEPRECATED:
-> -		color_space =3D COLOR_SPACE_2020_YCBCR;
-> -		break;
->  	}
-> =20
->  	return color_space;
-
-
---Sig_/XX+CFOwIDpI3rfKZn/d.Jy.
+--Sig_/3_IMJto9qDiIGLj4UTwmx4O
 Content-Type: application/pgp-signature
 Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmQIVs4ACgkQI1/ltBGq
-qqfUGw/7BRoOJKeB9W+OcsO5MBRu9hDhujse5eYhZ3HtxbKIHMqKh9DoGD8Q/ZE9
-PILYNaWtW+60zkGBvGSrEkIrkOF46yxYqvELcP4fXAHL+k8litUGPHua1aG/eS4D
-DQlSwJ2uCyw7x7fHxbjDeBDrKIvvSW8jsgARSdNl/V/d5ygg0ydt2knRxpvYk9Zo
-N+vaEnDqeL7bttuVoe07tUgIOMkEPcD6ILIN9J8COVaE2HFgfw5qvRax/VGx+TBr
-rItwtgvMxr07S2ZJ+8cO/85LcYBt1JZhABs4uk8aNemR7ov+7JtyA9iRv3OsK5Yu
-MOY0Q2uUemlyGpjFnQawpavkDRU716iJ7SbDTZWO8CWpRd0YQh7RwWeCtbopUfpS
-h5amPo+O+rENV/z428m+iS0qLN5RhpSagbL2TMirAHxDF4Wv4738gTULnME4eGEa
-rj4dRb218/XBJNGzvgtXg8T/Y4HtavjEPSpUrT+RqGjRRrSOb2Z8mD320jhNfagl
-8HY2ovauRCzkilQeXeAD3B/aoG0WVzG+hF3ltzi0C8ZlwfmvJ4/Bvs2JUfgTI5Sq
-kIQuizaSleJshQb176cDwII1LrnlBeKPKpxrA1mRzSV5gcrS5UIJ7I1opeGYETN/
-iepj9Om8peTE1ix1oNLz/6CfkociPFbCgECpd+y4Tb8rImvwfz8=
-=DJ/T
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmQIV6gACgkQI1/ltBGq
+qqd1lA//cNJMNq0/O82pHPI2fZVxRmMlGCJMr5Y0Zf/37UcSNglZ1X9A4dEXqxkX
+Z76kBiJXT18M+AYicKsqz1W8Gzc2fwyKnBIiH6nj4vLVOQI6oH8lPDJfn0q7bXAq
+rJN1k+PT5G1fSefXL6b8fND9BptxU7ilFkX/XBr1TjSadjOMx0gMi5X/KDROhLe7
+LIZ4LFxf5VUWkMIOBQmqS0clvR5r80z+uF76GEAncfPmcd3nc6x3y8HxQHOp4tDE
+cV6kSwDzxeTqLYvwQKpt57rWOs0IRaTxZctBQQd9R5eQVpeGAgx4zu8onoO6AK0C
+y/X6Z0tIMRu4NT53u3iGVBzPFnVZjUa6udoGCsSwFhHq477S6LQtBJjFaPsclxBE
+we6Ouh6rtajf3TwGiuVd+DMPXGcXsvoxt3hBPsEbVQvzLT0L1EzLHZ4izy5vf2lb
+B1TGpTnVirXAxhJ6gJLQwXvdkA1AkaJIUUwlQGPWUYcQCMU66ESGRaVO1Pq4BTRm
+C3XWjn+JZdNEtxW/HXL92i9BDMBQ1UbJPCZwNpmAQ41sjiWoVPC+LvJMIKLvYyMz
+7sOuu6cx+1Rne7juADJVB0pDDx3S9fDe4Kxk2Ei/uIMvHqPrjl14dr3Db1KIRGNm
+xM97xAZXe2Xoi/t4BStorrDumLidMxr4/KZSSkLV1Q0wrHq8eCk=
+=ZGgn
 -----END PGP SIGNATURE-----
 
---Sig_/XX+CFOwIDpI3rfKZn/d.Jy.--
+--Sig_/3_IMJto9qDiIGLj4UTwmx4O--
