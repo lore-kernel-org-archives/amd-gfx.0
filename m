@@ -4,70 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84619C64EC4
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 09:10:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF480C678D5
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 09:15:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2577E10E5C1;
-	Wed,  8 Mar 2023 09:10:25 +0000 (UTC)
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A72EC10E5C1;
- Wed,  8 Mar 2023 09:10:23 +0000 (UTC)
-Received: by mail-ed1-x530.google.com with SMTP id k10so38943680edk.13;
- Wed, 08 Mar 2023 01:10:23 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C36B10E5C7;
+	Wed,  8 Mar 2023 09:15:19 +0000 (UTC)
+Received: from mail-lf1-x144.google.com (mail-lf1-x144.google.com
+ [IPv6:2a00:1450:4864:20::144])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB7B410E5C7;
+ Wed,  8 Mar 2023 09:15:17 +0000 (UTC)
+Received: by mail-lf1-x144.google.com with SMTP id g17so20463336lfv.4;
+ Wed, 08 Mar 2023 01:15:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678266622;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=motbEo3NY6mz81D1y0KA7IQCNZEkkbhCWQoBlwAGzho=;
- b=eZI3iwUggAzDYYSxhTJwvcrSMoW+xzU7eHbJRQhiHcPmwowxvZyvcpoZhhV5Og4lJD
- NKsBTisfG1ofmTLyhmAveDnX3i8nVSwIgLNNtEdZ2q/GZz9CqeeGzMTWrp1vwymQsbgi
- YaV7FJ0vEzEfZ71bp+kNU9GQpCHBE3ttyChliSU+60J7V52OFmzpSsv083AkoHlJbn+O
- 6I6BUvGY7E4rAfjqdJRDk9YHuE4/IXRDndzAJvgKOAl+0zMOIDvDk8otTzCyYQ3LWvZw
- UmJTy3NmX+oQKwAEKfEnFGzvGU9QI9YX9cH2o9ymiANIl8FWsGbz05ELsiiHetfpdgBQ
- GZ2g==
+ d=gmail.com; s=20210112; t=1678266916;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=AwKRPT4TXKEm82H2u2CV6fnnoU6b+DAtqngrDF+0Ppk=;
+ b=is1heQ8IMeQrr1uPon5P5YBt2V7N2lY/FY9yEEysHFBenytLzkC8LWDdCy7qrF2Kkf
+ +9soc3VAYN+ty10b7yk86IUFulApk/YcH//xs31KCOKzCzZ/1w2rfGvXR7dyPwD8VgH8
+ 7GoSt3+4aY3yqU8K7GQegRmvuw1TwNtHiQUcG7khWgEenABUWDYKyOyBnf+p5FWNxH1S
+ gfBOhL5SWxYUpYvTKOz/7lnSCC9qmMH3XMdfgztTJ4hSkVXRY2dh5I0LjxuVgmoQJj3X
+ H/QE/KkAucoJDHH1Zzb9OuTBj4A7CWn9sszaCZZ/jOw9drqPOQ0zxaEwhYcCYIKVmhWQ
+ Geeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678266622;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=motbEo3NY6mz81D1y0KA7IQCNZEkkbhCWQoBlwAGzho=;
- b=rt1oVyHgZ8hNrRTML256ZiyhC2h0gKCBkwBTvzLEKg4m8zlTGfXBoObh73jHnpS7Wv
- FaI/CvFQqsPCmRQojmoc7aCdr+VFMzNhmf8vYYOes75a9D5xRH08hzczdqOMTJ84L3JF
- HUsVMGWxolBjlBHCiPkq8EKpn7NSTQyTEshPcHizNb+zjqtsVUoAkrROGwDc+bGBaDew
- gZQeYccfIhFikThIm9NtIxmbmlDSoWHl6H3AqZs3q587gGol447hqfXyvad2HBB/wstt
- 8CFLfwzyfF2Evaeh1mfR+j17OMEFaI7EAT6YoK5Q7K5IPwMbJRJnL2i9FneHLqy650GA
- TIAA==
-X-Gm-Message-State: AO0yUKU43rWmbwrfyzOw7Sc/p6w51hngzrM3jDXxd7QjXVzQxiji3C5y
- IAvjt71v5IVvUplbZoxzuAk=
-X-Google-Smtp-Source: AK7set/kgopdSIQ0DTRZY/nQjjK7esGlN3bsq+wWKCESF5S+lh5CRex0X9Hj7hiv+eVUpF7RwN0c4g==
-X-Received: by 2002:a05:6402:8d1:b0:4af:60c1:1961 with SMTP id
- d17-20020a05640208d100b004af60c11961mr17084363edz.23.1678266622027; 
- Wed, 08 Mar 2023 01:10:22 -0800 (PST)
-Received: from ?IPV6:2a02:908:1256:79a0:423c:7396:17af:cdf?
- ([2a02:908:1256:79a0:423c:7396:17af:cdf])
- by smtp.gmail.com with ESMTPSA id
- 20-20020a508e54000000b004d8d2735251sm5834286edx.43.2023.03.08.01.10.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Mar 2023 01:10:21 -0800 (PST)
-Message-ID: <6933b07b-af79-5350-b161-12ee73732b30@gmail.com>
-Date: Wed, 8 Mar 2023 10:10:20 +0100
+ d=1e100.net; s=20210112; t=1678266916;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=AwKRPT4TXKEm82H2u2CV6fnnoU6b+DAtqngrDF+0Ppk=;
+ b=RIZstiUIszB9eAdonP4laVkSAruaYbzH/hcoic03Xgq29RM/tEAwxKY3WD20C+c+52
+ GY+hp5HdjwPKOZyyv8gPkZr5CLgGS79bVDXi6evLZaOdNINASOJj37kQcxZJqD1i0lPe
+ Rphp2VXD2fU72RVATiF1ZM/tbJjYYxPTaelngOVqXKgc2YkhEaXSUnA6yaL9iyEz0NyW
+ 22CxAuBDGkUk4oPvwGLNcfspGtOLpyYauZd6uuFaJiTTsFoG7fK1sGr3TMaQUVff5JPX
+ a/n9wU9vHyhBqMCzUur+VVpnriRco8Iw+GR+3Mfd/St0hlVTXtyEEahdf/EWMaSkilE6
+ htAA==
+X-Gm-Message-State: AO0yUKWJxf4ZBNDCn5DkRbdYOGc3MX5lldo1G0yCApmGv/tp0R9C5N7q
+ Hv4G4dJQ8HPOuD/HGX1o05c=
+X-Google-Smtp-Source: AK7set8UMMbpZQhVUL4gBig67f5Ovu3wsRQl3STnjmewYgqPoiDfIN7Ow6DnXdXfu9c3vt2stUZoWQ==
+X-Received: by 2002:a19:f00e:0:b0:4db:1b30:e634 with SMTP id
+ p14-20020a19f00e000000b004db1b30e634mr4372635lfc.65.1678266915771; 
+ Wed, 08 Mar 2023 01:15:15 -0800 (PST)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ s9-20020ac25fa9000000b004dc807b904bsm2272367lfe.120.2023.03.08.01.15.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Mar 2023 01:15:15 -0800 (PST)
+Date: Wed, 8 Mar 2023 11:15:11 +0200
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Subject: Re: [PATCH v3 05/17] drm/connector: Use common colorspace_names array
+Message-ID: <20230308111511.175c9cf6@eldfell>
+In-Reply-To: <20230307151107.49649-6-harry.wentland@amd.com>
+References: <20230307151107.49649-1-harry.wentland@amd.com>
+ <20230307151107.49649-6-harry.wentland@amd.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH 9/9] drm: move ttm_execbuf_util into vmwgfx
-Content-Language: en-US
-To: Zack Rusin <zackr@vmware.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-References: <20230228083406.1720795-1-christian.koenig@amd.com>
- <20230228083406.1720795-10-christian.koenig@amd.com>
- <b4beeee4b2a004938adc6c502443f7b3311aad50.camel@vmware.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <b4beeee4b2a004938adc6c502443f7b3311aad50.camel@vmware.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; boundary="Sig_/QoPo.N4v9WVhK3k+SzJHvRt";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,31 +70,84 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "dakr@redhat.com" <dakr@redhat.com>,
- "arunpravin.paneerselvam@amd.com" <arunpravin.paneerselvam@amd.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Sebastian Wick <sebastian.wick@redhat.com>, dri-devel@lists.freedesktop.org,
+ Uma Shankar <uma.shankar@intel.com>, amd-gfx@lists.freedesktop.org,
+ Joshua Ashton <joshua@froggi.es>,
+ Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 08.03.23 um 06:14 schrieb Zack Rusin:
-> On Tue, 2023-02-28 at 09:34 +0100, Christian König wrote:
->> VMWGFX is the only remaining user of this and should probably moved over
->> to drm_exec when it starts using GEM as well.
-> Is this because vmwgfx piggybacks buffer-id relocations on top of ttm validations or
-> did you just find it too hard to port it over? I'd prefer to avoid ttm moves to
-> vmwgfx and at least have a clear idea of what we need to do to port.
+--Sig_/QoPo.N4v9WVhK3k+SzJHvRt
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-I've just found it to hard to port it over because vmwgfx does some 
-strange things with the validation code here.
+On Tue, 7 Mar 2023 10:10:55 -0500
+Harry Wentland <harry.wentland@amd.com> wrote:
 
-If you want we can take a deeper look at this together, but I need to 
-find some time.
+> We an use bitfields to track the support ones for HDMI
+> and DP. This allows us to print colorspaces in a consistent
+> manner without needing to know whether we're dealing with
+> DP or HDMI.
+>=20
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> Cc: Pekka Paalanen <ppaalanen@gmail.com>
+> Cc: Sebastian Wick <sebastian.wick@redhat.com>
+> Cc: Vitaly.Prosyak@amd.com
+> Cc: Uma Shankar <uma.shankar@intel.com>
+> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> Cc: Joshua Ashton <joshua@froggi.es>
+> Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: amd-gfx@lists.freedesktop.org
+> ---
+>  drivers/gpu/drm/drm_connector.c | 131 +++++++++++++++++++-------------
+>  include/drm/drm_connector.h     |   1 +
+>  2 files changed, 78 insertions(+), 54 deletions(-)
+>=20
 
-Alternatively just tell me how to do it and I will add that to the patch 
-set :)
+...
 
-Regards,
-Christian.
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index 3e2e1bc7aa04..46c064d9ffef 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -460,6 +460,7 @@ enum drm_colorspace {
+>  	DRM_MODE_COLORIMETRY_RGB_WIDE_FIXED	=3D 13,
+>  	DRM_MODE_COLORIMETRY_RGB_WIDE_FLOAT	=3D 14,
+>  	DRM_MODE_COLORIMETRY_BT601_YCC		=3D 15,
+> +	DRM_MODE_COLORIMETRY_MAX
 
->
-> z
+Maybe a comment to say that MAX is not a valid value?
+Given that things like iccMAX exist (even though it makes no sense as a
+colorspace), MAX could perhaps be confused with something.
 
+Or call it DRM_MODE_COLORIMETRY__COUNT? or __END?
+
+
+Thanks,
+pq
+
+--Sig_/QoPo.N4v9WVhK3k+SzJHvRt
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmQIUh8ACgkQI1/ltBGq
+qqcI6w/9Hih4Wlnhy4mxeri05lkao3cZn415K1D9ZGnx3l5HcHVOTJW5mMUo4NCD
+cMa5mkbDcixRYHg1Tvk486fWIiVt92wIQbERvf7M3MeiZXtLdB7q6Fg/v4lD0A8k
+SbVoygJ1Tu2+XfHhYfC8zIImRZ5M/BLdyIYi38uae2rhOsmG6kERutSDOeLY+tsg
+VIE06TLAJWw7xoshIj0Nx1richQll2VtE4f5zTQm0QIoKIQ12nh+8ffJ3s4MLo/L
+ZragC0zHwLCTL5UVFeqD5KcLs40Z9Agwous7sgq3P6uS6Lmt+SD9jxRo/fxzFrx3
+pAAYeZiPwXgywAtD7ZB5GmfRsQwLygfjFAqvm3RcUA6dlQFeXnmigcmPycIrXjTW
+yhLJjc6/2B6yfvw4dMEQ37QxTm0Hivbj4RDqB540NWnTu5V9MX8Pl+3wEJawxucM
+lkKha4rTT07PXFJFJtLmIdCiEs9ial3Xn56pnoCgGi9ldLLH4ZyXpC8KYiXzV/Yf
+07FXpY6ZM4OL1P5GlIa3iK/pv0mHsQsadi6qOIXAIazPnObz1Oj4sqvYY+dhHJ9M
+06mO0DN1RxFGNGwRLlnPOXyyUx2/DkB7SwmyL8kWF14BOeeB1plY1sePDTL35NMr
+Ldi2VtNS63BrLDNMrr+0euWucJAChYxaMzthB0jwwUi5gl7ejhI=
+=y34t
+-----END PGP SIGNATURE-----
+
+--Sig_/QoPo.N4v9WVhK3k+SzJHvRt--
