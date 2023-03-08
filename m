@@ -4,88 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 962EFC678D5
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 14:58:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A2D6C678D5
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 14:59:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1328B10E5F2;
-	Wed,  8 Mar 2023 14:58:46 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2055.outbound.protection.outlook.com [40.107.220.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5ECB10E0E6
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Mar 2023 14:58:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WhLdk0riHgrH7G/H7Gg5pSxS9bnm6mwciMgpup/MiKet8joM6OEZ4rcqoiz8ME8jl4WVBszPhz+ycs6sCE/ZzhRV1/e9ZhApDqVE//lpZCOMePc5adl8D4lGyvPAJ5mwZmhTC1HCS0DEgZ3xNeJlMZDTyQjZpK1WePXcMCDRb8yi8T4Ep67HkexnZKrenYz3dR8UcVENQGdi9SdUbVoHm5zBdMExNYZb/FL1dxzLeOQOJDu/umeGBeGrW6CholX5KYV/PJjgsVf8JSrvgELrch7M8Phnb4IlDssbXN/I+40sIfc+e1RWd4kq3LcLt3kGe3KUcD7rjyhy8pLhUknvyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y0FHItS9vgJsLzS6aoRJG7dEElp7NXVUC/naqncGL9Q=;
- b=bQQj1h1PO8YHgj/RLZhEIiBDBROG50QgKdF6ahScghGZgnhZN7qAI0Kk+cuiVXwdZcDBhb2DEWrhkzoVtea8WGxEEXqRNtVrqM+zmThzeRNcFc4xknH/LeSRkRAQBX4rah4BzPvh3N9csN0cq09LZfWbEfaHL9ObtIzo1iUu6pw34hJgRVmMjBXCMk5pjxNt28CIo/mbtTGd/wOh//HvSNtcdfpL2og/X22ypujMCxx6rbysF1FRbPRzmXAjL1HhTCsKLpbRItSosxKmZ5LmE1iInsgP6mNk8gKfsqlW7F6OpDarSgdFvgT6fkVDiqdUgbV6J7yMPHGwMyfZxek4xQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y0FHItS9vgJsLzS6aoRJG7dEElp7NXVUC/naqncGL9Q=;
- b=GKDmDwcyGe1xjWF58c186tZGAfk+MRUoi6aNd0dBElpDeJUPxd6zDsuhww1g89fEqqcn48/OAxleIkEpUWwNLRIdUaOdcAzFR0eTJQk8FfBfH3hkE7oNgayb1sbCg0sn7fp8sQyE/EbmOOiwVdA5ryhsgcZGE3LS8ixjpvdXEfY=
-Received: from BL1PR13CA0140.namprd13.prod.outlook.com (2603:10b6:208:2bb::25)
- by CH0PR12MB5057.namprd12.prod.outlook.com (2603:10b6:610:e0::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.17; Wed, 8 Mar
- 2023 14:58:41 +0000
-Received: from BL02EPF000108EA.namprd05.prod.outlook.com
- (2603:10b6:208:2bb:cafe::f0) by BL1PR13CA0140.outlook.office365.com
- (2603:10b6:208:2bb::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.17 via Frontend
- Transport; Wed, 8 Mar 2023 14:58:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF000108EA.mail.protection.outlook.com (10.167.241.203) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.13 via Frontend Transport; Wed, 8 Mar 2023 14:58:41 +0000
-Received: from amd-Lilac-RMB.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 8 Mar
- 2023 08:58:39 -0600
-From: <veerabadhran.gopalakrishnan@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu/soc21: Add video cap query support for VCN_4_0_4
-Date: Wed, 8 Mar 2023 20:28:17 +0530
-Message-ID: <20230308145817.717169-1-veerabadhran.gopalakrishnan@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1E4010E0E6;
+	Wed,  8 Mar 2023 14:59:37 +0000 (UTC)
+Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
+ [IPv6:2607:f8b0:4864:20::234])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72A2210E0E6
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Mar 2023 14:59:35 +0000 (UTC)
+Received: by mail-oi1-x234.google.com with SMTP id bi17so12382693oib.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Mar 2023 06:59:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1678287574;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=iEwkCtzvJHQREniBaUm1XgKy2CfbDmGEkZ5SFL8rJ3c=;
+ b=TU/HPKnPsTu5yCJbDqvy7u8jWqepaslXByHQFHHK60sqTQKFh6DiVLYfyFqGZfSwRS
+ +3a5uZJvPKcT6/0BG2JlANrfgWbC8rB4m67ZK3XtYxjoEx1p8liGFXrSGVi1FW85vFvx
+ MwdWg0g0omFNwJSRJW92Jpo1ZqaWfExIk55gT0sLXucPT0hKdv8sgDKzC6i4dh+Cz+5Y
+ f+ZvTJKDfmc/ZRBirOts0Rpz6FodiDDkcRLNP8H0pUMeXDDwHhA0ZJ27lcIPRZneyLeu
+ nWXxfBg20rXO6mjPkMF2repxbTPnlzDniFYQo900GFumAmmF/luw5YiaHgT/3SWcnA3P
+ YX8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678287574;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=iEwkCtzvJHQREniBaUm1XgKy2CfbDmGEkZ5SFL8rJ3c=;
+ b=BnT22aPdWAsiyWJnBHxnUhcbNZ5Gc/eaTrh2xru80aXqgblXqTfA3JvUEhwsRsXMTI
+ n9/Ypz6ZpUZXpj7LxFhzP+65TxlhErXMVaI+ra00U1r1wt/sQ424PuV+nAimxHVAtanS
+ v7yP8VY5/961PbmR+9w7uy6KKg7bFD7iW6+r3TtDfGEv4MXRBYsN3CCxww1rufjPnWov
+ UbXZGhCVv/pvf4aSG+EG450Y/U7yArTPxo7q+C6XKQHfIHLJKa2EbVFCU52lEAcd7FRV
+ 0XQgCCyEA/qhuIX0dp+eCpNCI2EdKXp/2HGMT9PKhbNJjsrq27P+JXSd2la560AJJOGW
+ 2lVQ==
+X-Gm-Message-State: AO0yUKUlTBZMWWTmVDzdASGa4i2meXEP1aCSsB7fYwbkpFd/jKbRxhrB
+ TlyN2qzzdu3UkNSFeoaCQqlCKAxvVna2PINhcAc=
+X-Google-Smtp-Source: AK7set+C/DVlTPSf382SmwhqBcZahzbqMNCTvOFZ3yk9HSf4MaD2HCtwOsORZZT13RhA3gN9EfNoE43ddHDPFkYVLLE=
+X-Received: by 2002:a05:6808:92:b0:384:23ed:1ff6 with SMTP id
+ s18-20020a056808009200b0038423ed1ff6mr5404132oic.3.1678287574691; Wed, 08 Mar
+ 2023 06:59:34 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF000108EA:EE_|CH0PR12MB5057:EE_
-X-MS-Office365-Filtering-Correlation-Id: 38ba496e-ddaf-4f3e-ab77-08db1fe59b47
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OOqos/VQgocmWLr6Yx9dGS11QoO+iL02okAipnCo3YM9fwRVF49g1P4Lsy2ZLO3CTzZZ5HNv3aocawy8uu+mhqhQorWZJIX8XwYT43dp/TnaLnnQBKZ4qBoC1AI4IM6QKfTt8MH4o5+JsGEK4dFZohHF0NtgC3uJ3p66x/GMHlGplYytYQzS8mmC/zGPo5g2vInz1y4iLnB0MUMDe1viHd9eD9oRik1udPbDBBU+p2nty+vIb7yl50n8oEfqoRAU8YowN7X+zP4mRrnOiFw9KTVRJvcQjwx6CbCLyzwyYrDwUTDrZjV2T9ZXmCBfBx59kCOAVQMQMDMqW3rD6YxfENIlC1vL66RcoHme0Kb29zVclBQ14TuH3wxPv4dAIMlu1fFW2YTRf+SJs3ObeT68cojudIJ91VhS0wLvQiWX/T8BzG9H2oyiOtxpf4aOhXsxLIMDk2cR5AuAWzNvIilhAlGwL8FRE8kI3o9hCZx1/BUolILgHMLaBGlzMh/+1UuSBd5o48ltAFUcr60NqNxDtezzX5IBMWEdNyZSxMHnNkXSAd74AswuucxC/GKTN4Xm4ipiZyQOpWPY3DujYZLGBw+dkxPr++v38OHovnZxhWxEkoZjvQ0+rnvgXB66DJtIADaGVYHaihOAfQGzidECX09htCcd5jTT4FY34MDqE508NmP9Wx+1tN/ITe/kxgZUcQ3a/FUDf06UNSYA7lbNOKbftf+mQcrMg28o7DplZH8=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(376002)(396003)(136003)(346002)(39860400002)(451199018)(46966006)(36840700001)(40470700004)(40460700003)(36756003)(16526019)(6666004)(54906003)(316002)(7696005)(8936002)(5660300002)(2906002)(6916009)(70206006)(2876002)(8676002)(4744005)(70586007)(4326008)(41300700001)(356005)(36860700001)(81166007)(478600001)(86362001)(40480700001)(26005)(82740400003)(186003)(2616005)(1076003)(82310400005)(426003)(336012)(47076005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2023 14:58:41.5725 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38ba496e-ddaf-4f3e-ab77-08db1fe59b47
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF000108EA.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5057
+References: <20230304142035.37615-1-mumei6102@gmail.com>
+ <20230304234431.29507-1-mumei6102@gmail.com>
+ <DM6PR12MB2619D4679EE188A9F44F0FD9E4B79@DM6PR12MB2619.namprd12.prod.outlook.com>
+ <CADnq5_Nt6dUryL+Ad5vrFkAnxRJTuW_wP_g_4G-T76nLfviKCQ@mail.gmail.com>
+ <DM6PR12MB2619360B969854BDCF57129CE4B49@DM6PR12MB2619.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB2619360B969854BDCF57129CE4B49@DM6PR12MB2619.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 8 Mar 2023 09:59:22 -0500
+Message-ID: <CADnq5_PgQS2Yhp32vwy-E++UfR+CgxNnRUC8jguN-1qYWuxXqA@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amd/pm: Fix sienna cichlid incorrect OD volage
+ after resume
+To: "Quan, Evan" <Evan.Quan@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,33 +71,208 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Veerabadhran
- Gopalakrishnan <veerabadhran.gopalakrishnan@amd.com>, leo.liu@amd.com
+Cc: =?UTF-8?B?QsWCYcW8ZWogU3pjenlnaWXFgg==?= <mumei6102@gmail.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Veerabadhran Gopalakrishnan <veerabadhran.gopalakrishnan@amd.com>
+On Tue, Mar 7, 2023 at 9:34 PM Quan, Evan <Evan.Quan@amd.com> wrote:
+>
+> [AMD Official Use Only - General]
+>
+> Thanks Alex. I probably get the root cause of the issue. It should be rel=
+ated with the BTC feature.
+> - On cold boot, BTC was triggered and GfxVfCurve was calibrated.
+>    We got VfCurve settings (a).
+> - On resuming back, BTC will be triggered again and GfxVfCurve will be re=
+calibrated.
+>    VfCurve settings (b) got may be different from those of cold boot.
+>    So if to reuse those VfCurve settings (a) got on cold boot, we might g=
+ot some V/f issues.
+>
+> These can be confirmed by comparing the CustomGfxVfCurve settings got on =
+cold boot and resuming.
+> +       dev_err(smu->adev->dev, "OD: GfxVfCurve: (%d, %d, %d)\n",
+> +                                                       od_table->CustomG=
+fxVfCurve.a,
+> +                                                       od_table->CustomG=
+fxVfCurve.b,
+> +                                                       od_table->CustomG=
+fxVfCurve.c);
+> Below are some data collected on my nv21 platform and we can see the GfxV=
+fCurve settings are different.
+> - On cold boot: OD: GfxVfCurve: (1046469987, -1089068751, 1066221898)
+> - On resuming back: OD: GfxVfCurve: (1046393849, -1089130480, 1066199153)
+>
+> Hi @B=C5=82a=C5=BCej Szczygie=C5=82,
+> If you can add some descriptions about the BTC and GfxVfCurve related in =
+the patch header/description part, it will be better.
+> Anyway, the patch is Reviewed-by: Evan Quan <evan.quan@amd.com>
 
-Added the video capability query support for VCN version 4_0_4
+Presumably this should be done for navi10 as well?
 
-Signed-off-by: Veerabadhran Gopalakrishnan <veerabadhran.gopalakrishnan@amd.com>
-Reviewed-by: Leo Liu <leo.liu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/soc21.c | 1 +
- 1 file changed, 1 insertion(+)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-index 9df223600..061793d39 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -111,6 +111,7 @@ static int soc21_query_video_codecs(struct amdgpu_device *adev, bool encode,
- 	switch (adev->ip_versions[UVD_HWIP][0]) {
- 	case IP_VERSION(4, 0, 0):
- 	case IP_VERSION(4, 0, 2):
-+	case IP_VERSION(4, 0, 4):
- 		if (adev->vcn.harvest_config & AMDGPU_VCN_HARVEST_VCN0) {
- 			if (encode)
- 				*codecs = &vcn_4_0_0_video_codecs_encode_vcn1;
--- 
-2.34.1
-
+>
+> BR
+> Evan
+> > -----Original Message-----
+> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
+> > Deucher
+> > Sent: Tuesday, March 7, 2023 11:23 PM
+> > To: Quan, Evan <Evan.Quan@amd.com>
+> > Cc: B=C5=82a=C5=BCej Szczygie=C5=82 <mumei6102@gmail.com>; amd-
+> > gfx@lists.freedesktop.org
+> > Subject: Re: [PATCH v2] drm/amd/pm: Fix sienna cichlid incorrect OD vol=
+age
+> > after resume
+> >
+> > On Tue, Mar 7, 2023 at 3:23 AM Quan, Evan <Evan.Quan@amd.com> wrote:
+> > >
+> > > [AMD Official Use Only - General]
+> > >
+> > > Can you share more background about this? I cannot see how this can
+> > address incorrect OD voltage issue.
+> >
+> > See https://gitlab.freedesktop.org/drm/amd/-/issues/1897
+> > The OD settings don't seem to be restored properly on resume.
+> >
+> > Alex
+> >
+> > >
+> > > BR
+> > > Evan
+> > > > -----Original Message-----
+> > > > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+> > > > Blazej Szczygiel
+> > > > Sent: Sunday, March 5, 2023 7:45 AM
+> > > > To: amd-gfx@lists.freedesktop.org
+> > > > Cc: B=C5=82a=C5=BCej Szczygie=C5=82 <mumei6102@gmail.com>
+> > > > Subject: [PATCH v2] drm/amd/pm: Fix sienna cichlid incorrect OD
+> > > > volage after resume
+> > > >
+> > > > Always setup overdrive tables after resume. Preserve only some
+> > > > user-defined settings in user_overdrive_table if they're set.
+> > > >
+> > > > Copy restored user_overdrive_table into od_table to get correct
+> > > > values.
+> > > >
+> > > > Signed-off-by: B=C5=82a=C5=BCej Szczygie=C5=82 <mumei6102@gmail.com=
+>
+> > > > ---
+> > > >  .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 43
+> > ++++++++++++++----
+> > > > -
+> > > >  1 file changed, 33 insertions(+), 10 deletions(-)
+> > > >
+> > > > diff --git
+> > a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> > > > b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> > > > index 697e98a0a20a..75f18681e984 100644
+> > > > --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> > > > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> > > > @@ -2143,16 +2143,9 @@ static int
+> > > > sienna_cichlid_set_default_od_settings(struct smu_context *smu)
+> > > >               (OverDriveTable_t *)smu->smu_table.boot_overdrive_tab=
+le;
+> > > >       OverDriveTable_t *user_od_table =3D
+> > > >               (OverDriveTable_t
+> > > > *)smu->smu_table.user_overdrive_table;
+> > > > +     OverDriveTable_t user_od_table_bak;
+> > > >       int ret =3D 0;
+> > > >
+> > > > -     /*
+> > > > -      * For S3/S4/Runpm resume, no need to setup those overdrive
+> > > > tables again as
+> > > > -      *   - either they already have the default OD settings got d=
+uring cold
+> > > > bootup
+> > > > -      *   - or they have some user customized OD settings which ca=
+nnot be
+> > > > overwritten
+> > > > -      */
+> > > > -     if (smu->adev->in_suspend)
+> > > > -             return 0;
+> > > > -
+> > > >       ret =3D smu_cmn_update_table(smu, SMU_TABLE_OVERDRIVE,
+> > > >                                  0, (void *)boot_od_table, false);
+> > > >       if (ret) {
+> > > > @@ -2163,7 +2156,23 @@ static int
+> > > > sienna_cichlid_set_default_od_settings(struct smu_context *smu)
+> > > >       sienna_cichlid_dump_od_table(smu, boot_od_table);
+> > > >
+> > > >       memcpy(od_table, boot_od_table, sizeof(OverDriveTable_t));
+> > > > -     memcpy(user_od_table, boot_od_table, sizeof(OverDriveTable_t)=
+);
+> > > > +
+> > > > +     /*
+> > > > +      * For S3/S4/Runpm resume, we need to setup those overdrive
+> > > > tables again,
+> > > > +      * but we have to preserve user defined values in "user_od_ta=
+ble".
+> > > > +      */
+> > > > +     if (!smu->adev->in_suspend) {
+> > > > +             memcpy(user_od_table, boot_od_table,
+> > > > sizeof(OverDriveTable_t));
+> > > > +             smu->user_dpm_profile.user_od =3D false;
+> > > > +     } else if (smu->user_dpm_profile.user_od) {
+> > > > +             memcpy(&user_od_table_bak, user_od_table,
+> > > > sizeof(OverDriveTable_t));
+> > > > +             memcpy(user_od_table, boot_od_table,
+> > > > sizeof(OverDriveTable_t));
+> > > > +             user_od_table->GfxclkFmin =3D
+> > > > user_od_table_bak.GfxclkFmin;
+> > > > +             user_od_table->GfxclkFmax =3D
+> > > > user_od_table_bak.GfxclkFmax;
+> > > > +             user_od_table->UclkFmin =3D user_od_table_bak.UclkFmi=
+n;
+> > > > +             user_od_table->UclkFmax =3D user_od_table_bak.UclkFma=
+x;
+> > > > +             user_od_table->VddGfxOffset =3D
+> > > > user_od_table_bak.VddGfxOffset;
+> > > > +     }
+> > > >
+> > > >       return 0;
+> > > >  }
+> > > > @@ -2373,6 +2382,20 @@ static int
+> > > > sienna_cichlid_od_edit_dpm_table(struct smu_context *smu,
+> > > >       return ret;
+> > > >  }
+> > > >
+> > > > +static int sienna_cichlid_restore_user_od_settings(struct
+> > > > +smu_context
+> > > > *smu)
+> > > > +{
+> > > > +     struct smu_table_context *table_context =3D &smu->smu_table;
+> > > > +     OverDriveTable_t *od_table =3D table_context->overdrive_table=
+;
+> > > > +     OverDriveTable_t *user_od_table =3D table_context-
+> > > > >user_overdrive_table;
+> > > > +     int res;
+> > > > +
+> > > > +     res =3D smu_v11_0_restore_user_od_settings(smu);
+> > > > +     if (res =3D=3D 0)
+> > > > +             memcpy(od_table, user_od_table,
+> > > > sizeof(OverDriveTable_t));
+> > > > +
+> > > > +     return res;
+> > > > +}
+> > > > +
+> > > >  static int sienna_cichlid_run_btc(struct smu_context *smu)  {
+> > > >       int res;
+> > > > @@ -4400,7 +4423,7 @@ static const struct pptable_funcs
+> > > > sienna_cichlid_ppt_funcs =3D {
+> > > >       .set_soft_freq_limited_range =3D
+> > > > smu_v11_0_set_soft_freq_limited_range,
+> > > >       .set_default_od_settings =3D sienna_cichlid_set_default_od_se=
+ttings,
+> > > >       .od_edit_dpm_table =3D sienna_cichlid_od_edit_dpm_table,
+> > > > -     .restore_user_od_settings =3D smu_v11_0_restore_user_od_setti=
+ngs,
+> > > > +     .restore_user_od_settings =3D
+> > > > sienna_cichlid_restore_user_od_settings,
+> > > >       .run_btc =3D sienna_cichlid_run_btc,
+> > > >       .set_power_source =3D smu_v11_0_set_power_source,
+> > > >       .get_pp_feature_mask =3D smu_cmn_get_pp_feature_mask,
+> > > > --
+> > > > 2.39.2
