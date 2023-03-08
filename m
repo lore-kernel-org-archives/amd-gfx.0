@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60D81C64EC4
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 07:11:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBB38C64EC4
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 07:46:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCDD110E04D;
-	Wed,  8 Mar 2023 07:11:04 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6720710E04D
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Mar 2023 07:11:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8184A10E032;
+	Wed,  8 Mar 2023 07:46:51 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2070.outbound.protection.outlook.com [40.107.96.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80D6710E032
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Mar 2023 07:46:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=grFADKIMTOLPJ2KVRZruAot9hy2B17lONNKLYy3aF4NzYJBv5XOG+UISZvoLNF6nKAohsN+P4Udzw7HL6P9+MV1OoF6RXQnZYryNBTgoYD1OH+GYPYuhxeCe+n+JZqnbHJdjkTm7cboJJwvEmL8CyCJNj6/NDowmWojVhUSWpYBFFZLarRahaHO/iwBmiaoNPgAbnS8u88Ky1X7do45MFppmxpKocRfq6XtPvvRzH2FHenrPblZOvULLIFq7MnG/Gv5tEe97TufJ18PGZimCAh8WSDZzCxdG+1bSGGN9cOeYl2OV5QxDVKz6G19YBVJMdJKuQT04N50tg2lzxFI6gA==
+ b=FSwZHPlbEH9LFv6QH/W2NFmW7ZjfDJTBgzLIfsTaAVtj4U4ESYIMsJs4WP8Um1ZhRoyI6/zBZXvRXc8/r1EQWUTyH2MT83nV0xlL+Z/dh+ENLKgtIcM8FXCVcYcN/UB/jCwsm1v8qzhE11xZbM70aCx241uSpUNOnTA6dCcqRCr6O6eiJEeUFMzIvX7bgXgqvs36jqg34ltO9lyUvoxPSC6jP8DmdXZiCssFY7MI3UOIW7qLxIhq3kOYZG6xbmztPK4E6SORpvFxFNVil96mdoE7Yoc8vbkVZhYIGmf1XdY91JB8CtcJY4zCPxy4Ked/ZNnII4Rj3hwI3uv7Q4Xttg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qoYSQc5gpEd914dqjiLiQqz+gTq+M1bTkIHBqLtQRgw=;
- b=ZSeR9VPj69JSRaFiMT6MYciD+C2sKlku3okxdQvHFNlDoBz/EnaY0HqesG7dsFBWp+/+1hg4gc5E+AuomNA/H3j5oevWVbTtpeqxfXbKuIKbpxLrKAIe8SV0miT0xTJ/Ghnyy7MWLjoY0dtiUPQ4pHdyXjTNTMd+6YbsHsMvVu64bKGvp5tvDplPFNwQ3VDUOiISwfyw58LblJVuu6G/tHnjvL5/jt1c6eQmTB+mVdTFxGnoxLxAhW0su1qu2qIAJwvmySU7+nNfZAs/L1Vwd9ZhFglaa39mUPa27n0+ppmYEGkPjUa4NCctWr177cLrVzYljZhvBP3+T/8NRjshCQ==
+ bh=iTC9l+j3G+NiTLj+qc/UpPUSen4n6IGqQOEfCBivreU=;
+ b=c4W/XofCZ2PaVRdQ0fWQqruWOL1RPcBESOiI1qgSAi3lqe2cElTyr4Gr1lqPG1di9bB7TbJl0L/4WC4C+dR4SAnTVh0+7UXShuPi9poyD4FptKFSk2aMPoHmDQM1rV81q13GxbARlU9d2QyxO1WIOE8SQSMHFewQWeJqREaBEnFg8LlRbuAe8YKd+d5A6T3FmL1Uu0uvllwSdPIP811xEiFfIOWXZyxxfoytEGo0lMxHrMOw/9Amnwxfz+mkf7H2HtZhFxZFujNcAYiogruqnqQdizNj/Fo72e99bU/XEb2q0qQySIp88jbze2QMpORsMqyTi864FNdg5mhzft7Mxg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qoYSQc5gpEd914dqjiLiQqz+gTq+M1bTkIHBqLtQRgw=;
- b=M2JAo1B0kg2pIOBja3y2zscqc61FH8Hdbb0/fPj03vF7cpuFZT3srAHup5+rW2v+kva7UBQPobjoIziVzvffWmU+GxMzPsfGrspVqNn7RFo23LmkzHXnYPt/vmVRPvobGjwxYaCSxSXeDN3Q1kb0B8XP3zv/CLH+wLb8nASzKZ4=
-Received: from BN9PR03CA0757.namprd03.prod.outlook.com (2603:10b6:408:13a::12)
- by CH3PR12MB9023.namprd12.prod.outlook.com (2603:10b6:610:17b::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.17; Wed, 8 Mar
- 2023 07:10:57 +0000
-Received: from BN8NAM11FT094.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:13a:cafe::a3) by BN9PR03CA0757.outlook.office365.com
- (2603:10b6:408:13a::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.17 via Frontend
- Transport; Wed, 8 Mar 2023 07:10:57 +0000
+ bh=iTC9l+j3G+NiTLj+qc/UpPUSen4n6IGqQOEfCBivreU=;
+ b=1wHuyu0SQODxfDsqYFw3Jap7yXkwaYGhXWMxYXr1JPP4p+P8yn2gurbpdhNiJ71ggew5ubEjNrkEgMug6yYJT/JtKxAjPbwTRGxq/lDdMRo46bpVhVplxgTHk+gzhaYeoIxcbFcX3Cd5hx/w0ie/IV9irNVrUeuIuDchqSnog3o=
+Received: from DS7PR03CA0085.namprd03.prod.outlook.com (2603:10b6:5:3bb::30)
+ by CYYPR12MB8730.namprd12.prod.outlook.com (2603:10b6:930:c1::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.29; Wed, 8 Mar
+ 2023 07:46:48 +0000
+Received: from DM6NAM11FT075.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3bb:cafe::81) by DS7PR03CA0085.outlook.office365.com
+ (2603:10b6:5:3bb::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.29 via Frontend
+ Transport; Wed, 8 Mar 2023 07:46:48 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,48 +45,51 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT094.mail.protection.outlook.com (10.13.176.131) with Microsoft SMTP
+ DM6NAM11FT075.mail.protection.outlook.com (10.13.173.42) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.17 via Frontend Transport; Wed, 8 Mar 2023 07:10:57 +0000
-Received: from llvm-tr1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.6178.17 via Frontend Transport; Wed, 8 Mar 2023 07:46:48 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 8 Mar
- 2023 01:10:49 -0600
-From: Shirish S <shirish.s@amd.com>
-To: Leo Li <sunpeng.li@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Roman Li <Roman.Li@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] amd/display/debugfs: add sysfs entry to read PSR residency
- from firmware
-Date: Wed, 8 Mar 2023 12:40:35 +0530
-Message-ID: <20230308071035.98892-1-shirish.s@amd.com>
-X-Mailer: git-send-email 2.17.1
+ 2023 01:46:47 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 7 Mar
+ 2023 23:46:46 -0800
+Received: from Xiaogang-ROCM-Dev.amd.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
+ via Frontend Transport; Wed, 8 Mar 2023 01:46:42 -0600
+From: Xiaogang.Chen <xiaogang.chen@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdkfd: Get prange->offset after svm_range_vram_node_new
+Date: Wed, 8 Mar 2023 01:45:09 -0600
+Message-ID: <20230308074509.264478-1-xiaogang.chen@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT094:EE_|CH3PR12MB9023:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac27cfb0-a325-467f-8b15-08db1fa443a9
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT075:EE_|CYYPR12MB8730:EE_
+X-MS-Office365-Filtering-Correlation-Id: e97b3370-3809-458e-a640-08db1fa945f2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: q88JkHJD5HIKgi17bIUC09f4+1Zhwg6QAOfs431MX5eQF8LRummjt9kcjuVg78cHHtUcVzwOipZyYbLO0xsps7ASdZBhAIx1tEO0ro6vhgrTuZ3RRK4+9tEwq9Vbw6XVhOO00oBjar4opmS5rTxbZfABWrcefBGzIZP/PAyhk+cbHc+l51ZXOmW84h9id4shUfQFo/WuMSkI4HkhoWfrJLyuGDASDsRzAP5sLAboYc7ZhgJSeI7UTko9flFT8ykQNOG++uaQZq6YslB/2T8DMmcxtFjkhMdZxOfvm7RwwhTsIpogg9XMiuI69bMw7AIRLyz2nubGE3/yPhvTFBufJH90o+kqjpUBCJKAzaT8PnkRuv+meRkH44ImxxW4gT6XeBC4937Ym7FMb6sp3hJvpPUt/04ewgl3uFYnM4kqhAr03xwmoMqXLqj0FxWCCJ+LM24E1XS8kkJOK9zenKc21bsOumW9lx1QyYefhPgFRVfQzdzfk2y14MX+ptrhlgDA02GCrWA79Hlwt6xpLRq7O/zqLBPg69iHto8FM80QWOOKp1dYGJZsepxiceHyZOrvadE0d/hqBa7GpeV7UsM25lkcnhmgTmO2ag5rWsPZihW49Xatre2HL53/KVstsfsmMigpDZvNgbzwlHMGJahFdNJw769PCh0SO4UYXUK9Xd/XSr14KvzKH5eIapTbqZ8IhF55G14AkSkg/iVPIZhpCVgFO/daYL+edM7ewfJ8Zg0=
+X-Microsoft-Antispam-Message-Info: dmHV7jySyy4SrVA84MvxK1A6ecUrkczZB8oEPYrYw6tXs82O5Ouh4ur7UYfzDKS4wFvAealOc82sg3Q7BYPNZSR9n1yWnXbPw0HqUwtgZ++EWADyDYCRXAu41bD1sDUz/llgUsVTdUvfvC1641YY1Uw4XzQCJAFRqYT4T7zYqesDpT8oGMu6jAHBpnTQOPsPFk2HWgs5zTjZY8I6Tk0U0aVvPrthR5VdqGz3XLS2ywp6tHZ4yv3VMKmuo+Zt9ARsPX83MdQT6FM3wwxqYa8uJdxamOI3XKb1uCNyGJ/Euozqo9lW5eENA0zg7XviYUdF7EiSGS6oOReOjMtLeZdbtNDhvtHYTcyld3okr76RgSGT3q7zfAXcloaxXXdrSacGLNYGmdxSRvk1xHNI6Q58DZFBfkUya0zLmANT6g4l1WmNQmSiwJVpnA7ewzYWaxbuOmuV/tDXn7718+2/I5f2sDZ5kg9A35qkYOT4irqdouNOOU3SJykuOjnDRQ+Sbj+j/OgHzLz/E+upAwYd2G+HSThg5udxMBaaLc8Vq3F6jySy2DPsYOUgppDt0LYnSfmKA/chwEd6cA2rnPI1gcZHZ6zoRiHU9ckrMo/C6/qY64v/pnZtFbln7mVaeoHt6Bsqd25CN8NbMVyUKCm1zAK+t9OBE48uZ8HFu1k0VzkkFTR+UoK4c+tPBRe0Q+iZPv8npY4FTiCir8aRpImr91ploahtmvZzRLkMvVvEX2LFh/o=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(346002)(376002)(136003)(39860400002)(396003)(451199018)(40470700004)(36840700001)(46966006)(336012)(47076005)(426003)(6636002)(54906003)(110136005)(36756003)(40460700003)(40480700001)(356005)(86362001)(82740400003)(36860700001)(81166007)(1076003)(26005)(82310400005)(83380400001)(16526019)(186003)(6666004)(2616005)(316002)(7696005)(5660300002)(478600001)(8936002)(4326008)(41300700001)(2906002)(70206006)(8676002)(70586007)(36900700001);
+ SFS:(13230025)(4636009)(376002)(136003)(39860400002)(396003)(346002)(451199018)(36840700001)(40470700004)(46966006)(86362001)(4326008)(6916009)(70206006)(70586007)(8676002)(83380400001)(2616005)(82310400005)(336012)(81166007)(356005)(186003)(36756003)(36860700001)(40480700001)(82740400003)(26005)(54906003)(478600001)(6666004)(316002)(47076005)(426003)(40460700003)(1076003)(7696005)(8936002)(5660300002)(2906002)(41300700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2023 07:10:57.2870 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac27cfb0-a325-467f-8b15-08db1fa443a9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2023 07:46:48.5896 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e97b3370-3809-458e-a640-08db1fa945f2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT094.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT075.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9023
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8730
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,73 +101,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, Shirish S <shirish.s@amd.com>
+Cc: Xiaogang
+ Chen <Xiaogang.Chen@amd.com>, felix.kuehling@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-Currently there aren't any methods to determine PSR state residency.
+From: Xiaogang Chen <xiaogang.chen@amd.com>
 
-[How]
-create a sysfs entry for reading residency and internally hook it up
-to existing functionality of reading PSR residency from firmware.
+During miration to vram prange->offset is valid after vram buffer is located,
+either use old one or allocate a new one. Move svm_range_vram_node_new before migrate
+for each vma to get valid prange->offset.
 
-Signed-off-by: Shirish S <shirish.s@amd.com>
+Signed-off-by: Xiaogang Chen <Xiaogang.Chen@amd.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index abf7895d1608..8ff2802db5b5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -27,6 +27,7 @@
- #include <linux/uaccess.h>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+index fd54a00e7229..15791490c23e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -310,12 +310,6 @@ svm_migrate_copy_to_vram(struct amdgpu_device *adev, struct svm_range *prange,
+ 	src = scratch;
+ 	dst = (uint64_t *)(scratch + npages);
  
- #include "dc.h"
-+#include "dc_link.h"
- #include "amdgpu.h"
- #include "amdgpu_dm.h"
- #include "amdgpu_dm_debugfs.h"
-@@ -2793,6 +2794,22 @@ static int psr_get(void *data, u64 *val)
- 	return 0;
- }
+-	r = svm_range_vram_node_new(adev, prange, true);
+-	if (r) {
+-		dev_dbg(adev->dev, "fail %d to alloc vram\n", r);
+-		goto out;
+-	}
+-
+ 	amdgpu_res_first(prange->ttm_res, ttm_res_offset,
+ 			 npages << PAGE_SHIFT, &cursor);
+ 	for (i = j = 0; i < npages; i++) {
+@@ -525,6 +519,12 @@ svm_migrate_ram_to_vram(struct svm_range *prange, uint32_t best_loc,
  
-+/*
-+ *  Read PSR state residency
-+ */
-+static int psr_read_residency(void *data, u64 *val)
-+{
-+	struct amdgpu_dm_connector *connector = data;
-+	struct dc_link *link = connector->dc_link;
-+	u32 residency;
+ 	start = prange->start << PAGE_SHIFT;
+ 	end = (prange->last + 1) << PAGE_SHIFT;
 +
-+	dc_link_get_psr_residency(link, &residency);
-+
-+	*val = (u64)residency;
-+
-+	return 0;
-+}
-+
- /*
-  * Set dmcub trace event IRQ enable or disable.
-  * Usage to enable dmcub trace event IRQ: echo 1 > /sys/kernel/debug/dri/0/amdgpu_dm_dmcub_trace_event_en
-@@ -2828,6 +2845,7 @@ DEFINE_DEBUGFS_ATTRIBUTE(dmcub_trace_event_state_fops, dmcub_trace_event_state_g
- 			 dmcub_trace_event_state_set, "%llu\n");
++	r = svm_range_vram_node_new(adev, prange, true);
++	if (r) {
++		dev_dbg(adev->dev, "fail %d to alloc vram\n", r);
++		return r;
++	}
+ 	ttm_res_offset = prange->offset << PAGE_SHIFT;
  
- DEFINE_DEBUGFS_ATTRIBUTE(psr_fops, psr_get, NULL, "%llu\n");
-+DEFINE_DEBUGFS_ATTRIBUTE(psr_residency_fops, psr_read_residency, NULL, "%llu\n");
- 
- DEFINE_SHOW_ATTRIBUTE(current_backlight);
- DEFINE_SHOW_ATTRIBUTE(target_backlight);
-@@ -2991,6 +3009,7 @@ void connector_debugfs_init(struct amdgpu_dm_connector *connector)
- 	if (connector->base.connector_type == DRM_MODE_CONNECTOR_eDP) {
- 		debugfs_create_file_unsafe("psr_capability", 0444, dir, connector, &psr_capability_fops);
- 		debugfs_create_file_unsafe("psr_state", 0444, dir, connector, &psr_fops);
-+		debugfs_create_file_unsafe("psr_residency", 0444, dir, connector, &psr_residency_fops);
- 		debugfs_create_file("amdgpu_current_backlight_pwm", 0444, dir, connector,
- 				    &current_backlight_fops);
- 		debugfs_create_file("amdgpu_target_backlight_pwm", 0444, dir, connector,
+ 	for (addr = start; addr < end;) {
 -- 
-2.17.1
+2.25.1
 
