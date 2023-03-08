@@ -4,117 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0FC7C6FD1C
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 18:21:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 720C9C678D5
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 18:39:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4385610E135;
-	Wed,  8 Mar 2023 18:21:27 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2053.outbound.protection.outlook.com [40.107.223.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DECFC10E135
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Mar 2023 18:21:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE97610E13F;
+	Wed,  8 Mar 2023 18:39:37 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2076.outbound.protection.outlook.com [40.107.96.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3744010E13F
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Mar 2023 18:39:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MXwqoccWLdjogcjESFNMSyFikZfIjv6vW8N07PQMbr9L1A7rjagwiLOhcmboednKVojVqMOJnS1oLkeD1klodaKmqE0dNIJVOGDwlNiviFwfwIRVfttRGg8tGWXkvhSRoNABEYOeolWJAnFAY+X7W3P08Nte5qjSHxsjml+gHTxT5N+65UIi5jhz4ma/l1YPokT9CnYJ786NwyBkZQP5YC7eFnz8zHObWezj7VEb62REplv+SJnuAU9jDKmYawPQ8hFzChMeAlJP48PYLVQZqe/lWjkAWFAybDXErA2VK/L+W6ChTpDpB3lfwIE1Adt9+jjV1X/gTxoqm7wfddqqfQ==
+ b=W7RNk8lJd0gd2YqcXo117iSDTqXJBXz3X2II9Ox0J60XCKOhF7tOXaeUT4moXXI5XerPbIJ9ZEy0Bp0ONnGGFosTdTRV7LDgQSTkMMyJ9DyPf0qB9TndrSyxRhWQnUoCOLddGZKi7DoKh+eDX1HUnI93q8h6O+fBV8UPdk23tkz2XTV4YXPEYG2ozCr7UAT4JU6RLwgg0wV9N9yG7a07RfNHWb6ShjKrkg0k7WHEpXoAWRsAWRKXStRQGPtgDTUbTnTg2k/w6JuYNGvmE5NYjGNwQRCKUAzYEo8YeAzafUXY5oF+PC5p0dS4hNn+hHRo2gY1axxKSmNXDTRH7N6WZA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2s2UOoQaaWZNywxC0aIoeUZkA2WRrpw4h7J+wYoXYxE=;
- b=WMKLgbjTXJA3pdinyqCTGRjinJhJ76Sbs2UKqJdCrGYbkUEurruzPtlrKqbKfbN6hrZiJw2pKQoskXUGrMQzqHsV8iZzWM0mMf6m+zXGf29XM9Xbt9Px30wahH/gaNwaMA3ZM/U9JfftPW2fCfZJ8+GekMv8nQIGMrLH5xYMZlZIo0f664ZIQZrwJzhN/iViuIpmmZYjw9WMhAfT458ZO7bJb/ZX/ystgl9Fai9RxBn67hDgKqzhLcRw4Hug4NV2dYDmkUwtibwGjnix65DBGQJLcn/VJhIgJJHEm7hz0CyHKeUKgbABaQl//0WxqUCjqo7VFVh5gMTAjTybnHeqaA==
+ bh=0TshMZawfKhE8/o3Kn6kmm0yvxJxN2qp7BKmaTC5Pks=;
+ b=bIgM+RdK7e+XjF2WRR3NdnDmFegoHIOid+8hOpJJOVQDvKRT+Ypd/VP04WJEWRBxIaeu/YpbxCGPLQxhlQSNWXP5L/GtRpHy1EsQTjm5jO1+coY3ofLNnIT3WKiATj0I4vNKhkkkMrAoIWTR3Bm15MzYkezZP/X0ijaNGQeEkWocXq1WgbBqKM9Nuz9QkzYCyaL8XHGguj2ZvunrCbGBere3FMrsyufpolTGhKqtgTRCXpPuiVxBMbjf2SYtNJuVOwVerWhXCJ8FvYqOxp6IK9XIV41Fcw+mEse9nNJKe+13xETe3tTpZ/NR+nR9tQoLvJvTjT0XMcFPt0wNj0Tzsg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2s2UOoQaaWZNywxC0aIoeUZkA2WRrpw4h7J+wYoXYxE=;
- b=pjKm1tS8Zd1eWmR2533Htd6GYwqoF5GvR9X19GdG2jhjbnrzDzUZVCsMYy45zPOEdc+RSOH6hn6OWcuMTlmDYy+l9HTnPX1QW6cm7raWmQRownYdmDyMReiDF7k5fKd+T6f7TozTk5fZacNFvXSw6XtW4mAnICmUQ6xB67t6Ahs=
+ bh=0TshMZawfKhE8/o3Kn6kmm0yvxJxN2qp7BKmaTC5Pks=;
+ b=yUvZByB+AYLvJQISPHBoIpTknSTAV1tEAksdkFBMREZoI3mpneu5mJbnoU8HiomgVx7NuNTFRosDdHvEIDgrbDbEBeoDQ9UZJxjkag/Ie9eG/RGf+FyRQDuft44a4Ary3y9ha8YksQxw0vlgx/Js0AnxneUP/QAzxa0SzG+bNnE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com (2603:10b6:8:a2::11) by
- DS0PR12MB7994.namprd12.prod.outlook.com (2603:10b6:8:149::19) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6156.29; Wed, 8 Mar 2023 18:21:23 +0000
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::cdcb:a816:4bc3:a83f]) by DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::cdcb:a816:4bc3:a83f%9]) with mapi id 15.20.6156.023; Wed, 8 Mar 2023
- 18:21:23 +0000
-Message-ID: <bb743d26-edd3-d60e-96a7-95b70dcb72f2@amd.com>
-Date: Wed, 8 Mar 2023 13:22:37 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH] amd/display/debugfs: add sysfs entry to read PSR
- residency from firmware
+Received: from DM6PR12MB2602.namprd12.prod.outlook.com (2603:10b6:5:4a::11) by
+ SA0PR12MB7089.namprd12.prod.outlook.com (2603:10b6:806:2d5::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.29; Wed, 8 Mar
+ 2023 18:39:33 +0000
+Received: from DM6PR12MB2602.namprd12.prod.outlook.com
+ ([fe80::dcbe:dda5:a90d:eba3]) by DM6PR12MB2602.namprd12.prod.outlook.com
+ ([fe80::dcbe:dda5:a90d:eba3%4]) with mapi id 15.20.6156.028; Wed, 8 Mar 2023
+ 18:39:33 +0000
+Message-ID: <5725a5c8-6fa9-bf48-4c7b-ec3b34d495a0@amd.com>
+Date: Wed, 8 Mar 2023 12:39:30 -0600
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.1
+Subject: Re: [PATCH] drm/amdkfd: Get prange->offset after
+ svm_range_vram_node_new
 Content-Language: en-US
-To: Shirish S <shirish.s@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Roman Li <Roman.Li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20230308071035.98892-1-shirish.s@amd.com>
-From: Hamza Mahfooz <hamza.mahfooz@amd.com>
-In-Reply-To: <20230308071035.98892-1-shirish.s@amd.com>
+To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230308074509.264478-1-xiaogang.chen@amd.com>
+ <35f07147-85a0-a204-b0b1-394459e2c728@amd.com>
+From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
+In-Reply-To: <35f07147-85a0-a204-b0b1-394459e2c728@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQXPR0101CA0022.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00:15::35) To DM4PR12MB6280.namprd12.prod.outlook.com
- (2603:10b6:8:a2::11)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN2PR18CA0008.namprd18.prod.outlook.com
+ (2603:10b6:208:23c::13) To DM6PR12MB2602.namprd12.prod.outlook.com
+ (2603:10b6:5:4a::11)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6280:EE_|DS0PR12MB7994:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3ec8dc09-a379-4ada-009a-08db2001ec5d
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2602:EE_|SA0PR12MB7089:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9c8d9b42-5492-45c5-0270-08db20047591
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: VqBvMIa9loaVaBGHzvjWofVQVjlNH6PD+GF2k3LyZeM+xByemmuaFdRJE8CBPCeg40FjHsl8xwvUDg+qzeka/K/Z8Sa1qIxeWFzRMU0jj56yhHhFgYwGd9JUFtbMaFo9NKFi/XwikClKsJ238mPZ/Hbxl7hgzZruQzVYWwh6sJISPXkG/WbEr14rw4fZzInzixGGClynuceXFip52B4/3IivvG3Pg2NSIZ+kvGjt+wx4NDuwW8B1gjpbJWDie6fs48+O84ler4E2P7ZLnBKoArHWsQboj6IZldoz+8VYLaTwPhbSdCGpsnogS3G42ivB3BmOgnCHpgD7oiGZAlfkf8cPshHUssiiCeToUIS/2cJBLAq/aIldBX1O8TOjM3UiPm5CNDnScA3BETNvdyq53iab6CZGZQZFk8WPO7zw2RlzcRdV8/UXCqr+ezRYnIyL3fI2RCeQud39OfN3qwYyJuGkQUP1O/muN8rm7hzQmEwZY+DAO+MqJRElNaCCG+PGw4ghWEx1g2SZ05KTJ737y4qaVnyE5OJUdaGgoUfsQQzA9/ZSLmvIdCJnrFfE4PFuCqEywjlB2THY6Ay3Rn/kpnL089248VliNtPTaTJRlBqUTDt7m9tUNToIq41ZJ70FmMuC1sr8zmDrY5/l47Ht1BxoLToZYZRQ2fSn5/NYJJLpsZEshuWAjnGl3rCLHuHYYCJ4N8PUzc47HZSF1r6Rq4Ino1TIQlV4wRKyDm3FF8M=
+X-Microsoft-Antispam-Message-Info: f06mV14k3lzPLrAA1Q6oddwMJmN0ULMQel4Hq7gfxQzU2kih1ePLe/L9/wF2Y8vSmuzhVA96vx8PTFNr0F2qFPEh/oEjSUZCzVbZTbJhH8mmaCPbaOZqKcz4dPP9PP4QrJk0qZ0QQ01LMPfuTXtOMcuYNEnk4EHf5jGiZVV4Ti5ODtj39O+OX92pV46xmeiOQyALFkM+JAG7gA+7V+B82+xGf8cwOsIpw1ILjQXfetASRjva2k2nAuL10QIjZNpxc51Pdx3X/mMkE/Rhawd1vQXNFtvpCFmBS8O8NFLnh5ULzz8qIzlK5xEZumFPCzHeF4f+meWbj0grLDY+n0KlLzWRRC+5+ssMsk8DxG/VZGqJJ7ERsGjyDVPzDNHPo4TXOh/U1EEp//8t8MtjyTXoU3kv0GDrS1xDBU3gwbDtWIUKul5cgfEID6kdC4J0nwMnQzVajjRpzFk4dWHeLcDdgXWCqLSkhgFbVra6vRFqSDbhIqlZqeCw22OUtUu1zBZdPNzfob32mSgsjnB5e3sCc03vswxgQRoNvo/uUZuaSAhwoucwdePVo1+rm7zn/IohgKfuJeJq+CdBm8M7XU7acrW40xTOfInw3nuRw2/LUhXONFFbWdWqXOXrJW4MU+uGjE2pSa2UA77T5FU0fe1cDC4MOSq+9vHCi2wCd+IezE2A63JKiJj2WUpiJoFcS7LvBJGqrkomycFKIHif8cAK04YgWWhh6EgT9XBlXxkSYDo=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6280.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(39860400002)(376002)(346002)(136003)(366004)(451199018)(44832011)(31686004)(2906002)(8936002)(5660300002)(41300700001)(4326008)(66556008)(66476007)(83380400001)(66946007)(6636002)(6666004)(6506007)(86362001)(316002)(110136005)(478600001)(6486002)(8676002)(6512007)(53546011)(26005)(31696002)(186003)(2616005)(36756003)(38100700002)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2602.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(39860400002)(346002)(376002)(136003)(366004)(396003)(451199018)(31686004)(86362001)(31696002)(66476007)(66556008)(66946007)(2906002)(8936002)(41300700001)(5660300002)(8676002)(38100700002)(36756003)(6486002)(316002)(478600001)(83380400001)(26005)(186003)(6512007)(6506007)(2616005)(53546011)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M2NzN0lKcE1iSnhhQVRYenNOemlqUVpFdXNLMDB6L3NhWDNZOG9rczI2a00y?=
- =?utf-8?B?STRDeTdqY0Q1djNZeGQ3MHNnMUdNTUprTTNuRldPVk9MU0habTNnallpcnkw?=
- =?utf-8?B?bjJQSXNGN2F3alFkcFRTeUVCNmJ5Z2VVVHhSa1A2QkE4UzdJeDZmRE5mNDFr?=
- =?utf-8?B?ei9CUnFWekp1UWpEWngxSzgvR3ZWQk9TZUpKMmFLQmtsL2JkUEVJN1dHTmp5?=
- =?utf-8?B?b2FnRUI2N1RFblRQL2hxbVJSZ3Z3SmN5QkRSRFZkN2N3Q0Z3MkM2b0xaOFRM?=
- =?utf-8?B?OGZKTzZJRXp1VDNJcHNvWFBCaXhaNFpFdFhDb2NNSHAwQk0wcWFUSitMTjdC?=
- =?utf-8?B?YWZXMlRyTnBuQUgrbnQvUkEvNlM4cFJxWXBCbWJ5MGoybTB2RktvQWJQdEx3?=
- =?utf-8?B?NUlsTUhaNXVhVXpZZ3BUVm1IVm5KNmFOYUh4YVhGcVUxRUhudTVnVlFvY211?=
- =?utf-8?B?MXVNdGd2MkFMcGd2S0xyRllZK1ZLcTBCYkVFdVVqbjlRSnI5S3ROZERuWmdW?=
- =?utf-8?B?MkhyV2JQYmlVZDUrOWhMMWpJcjFndmRUSnFoRDYzdEZPVXYwN0svTFdBU21z?=
- =?utf-8?B?Zmk1bXBzUWI4VTlnTXhTWXFPSVdVbDJ6dURTMjFrYm5IRk5rb2FyZlNwaktH?=
- =?utf-8?B?UjVnWEtmT0RSbGRESkRqNzNTbWJWSjJ3cUttcU1XUnlTbVBrRjlROGNoQlR1?=
- =?utf-8?B?RnJwQ05rQTdGYzdMZTJPR1FaeGVWK3VNQlIxMUtLcUwyTFZ5MEp3cGVwQmp4?=
- =?utf-8?B?allOZDYrc1pwQUlRRHNOcEVUa285cHhrU25Ga0JqRE9qaXlFTWVjSVRINTc1?=
- =?utf-8?B?ZGhaWXVKYTBTcmZ5dkdKL0lLeEQ0MTNidTcrb2dEc2RoUUVyNmtDckNGT2hS?=
- =?utf-8?B?aFdGYjNHOENER252OXpYRUxkdTVZVm0rSytXUGpSVFRTcVBnQlVQbzFVUFhy?=
- =?utf-8?B?WDZ4VlovKzhNTjhNNFFsdmFrbTRkbEI0Wkk4R0FjSjJSZVZKMUNFZmQrM2Vv?=
- =?utf-8?B?YXZNRndCVHQ1WE41Wk5ZUG0wQUdwZ0FUZGJvV1RnbnZLQ2swdUZZRmxlWXNT?=
- =?utf-8?B?UG5qS3Jyd2FHWW9vNWdEeEJXazJTVkVGMXIrN3g1ais4dTZWTjNTZ3UxSHo3?=
- =?utf-8?B?cXVWeUp1d056SnFoSEV6aVdUMFBGZ2xNSjRaTTY5bXFxWTNYWk1BR0dTY3ht?=
- =?utf-8?B?NW1xVGlGV3pUbGFmSjNCVHY1SWVGSEsxNW9naFErdEtYNjdROWtPWjRXUkJ1?=
- =?utf-8?B?VTk5MURHQjZCTXRPeHpPdm1acnRtSkxmMnVMeDZtZ2o5bFdJV2VJcEZCWFRP?=
- =?utf-8?B?amZlQU1PK1FFbCtLOUZsNTNSdXRONS9oYUJ4VGI2bzU2YVZmVGthejY3T3VI?=
- =?utf-8?B?SVpSL0pwRS9NU0dmc1lpdjNpT2lNdW5yUTZ1WVFvK1dUQWROR0g3aTFMbnA5?=
- =?utf-8?B?N2M3SGM4SkRIZEpLM0ROSUlqbmhWOU11Z0RQQUI3c1J6cUpROXZ3NDM4Ky82?=
- =?utf-8?B?MmxINkcycGFLWWJHVGN3L0QweGlwaUcrdmRXcDlkY09RQVBxZE9tN3I5a3o3?=
- =?utf-8?B?dmwybnBaSDhPR1FZWnN5RFdudnk3MElUT01aUVc5N3lhRFdzNnNrcFNrNUJz?=
- =?utf-8?B?WlZQZkJMVkVvRjJwQ2ozUmdPN3VHaUh5cjBIS3dIdHNzSStua2JMaFMzUGF5?=
- =?utf-8?B?OW9yVElCRGUyQjBIM0RNWUllbWxPYlZzcjBnSlVPVFU3RVExSTg5a2graElS?=
- =?utf-8?B?UGUxbFJnQk50cEgrNzE2MS9iNEJaYlZsaHhrbXBhY05TVlFFUTJzNTlNVzFo?=
- =?utf-8?B?QTZhVjRjQ1ptSmNYL0lEeFVjZFNUNU9YeWVXS09Pd245ZExPQ0VMLy94dmdY?=
- =?utf-8?B?UVFZVWJrZFJHRGJ1UktlYWVLbmhDRTljbERoMGVxRExoTzdYS2lBRFZ0VDU3?=
- =?utf-8?B?bDRBYlUzcEVKMVFnTmdwSDlqd0V4LzR4M3Z4RmpLSDZyd1p4Qkw3ZTRMTDFE?=
- =?utf-8?B?ME5lK0xDUlhOVzlZSjcvallvaGJYMGlVckJIMGNUcEpZc0xaTzgzdjBEWE5x?=
- =?utf-8?B?MlpOUmk2aExSOU5OaDlVR3ErVzJlZ3Y2a0dNUG1uckpodFRDYkZTbHluU1Vm?=
- =?utf-8?Q?nJ1pBosvfWncx1UKTrtviVDLP?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bDVaYnJyZGNCaVN0ZmVzcWpxZ0dyWFh3SUJkZG1iSll5Z2lQdkV5YjFZaUNm?=
+ =?utf-8?B?RkZrYm9JTDRKSTBFdzMycndOZnBxMENnN2ZhUTlMOStWc3hWTFJWN3RnY1pq?=
+ =?utf-8?B?cG9tVWUwN1dkY2VzUDllVjUvODJBalF4M2NpOHN2cDZleFpZZEl2TC80Rlg3?=
+ =?utf-8?B?TmpIdkNwdUtpZUZxLzc1ZElvbHhlc251cVB2Sk90MllUSHgrQ0pZNTJEbU1r?=
+ =?utf-8?B?R2lIS3pmRWJlS3JkMUZGQ3R3SVdzeXN0eXkyVlVHVXlqUmhUbHZ2MzVHNjky?=
+ =?utf-8?B?MmpzQm1pb0xoOUdkc3FRT0Y4SDBETXZZRDlCKzBDQkVkTHh0dXpqTlZGVnR5?=
+ =?utf-8?B?NFF3cXBFTngxRDIzYkQzSzZ1aHVwREJ4L1VzcXJDVmpWN2JrN1poemZLbmdy?=
+ =?utf-8?B?Sk12WU1ad3Arc1JBY09XaFAxSEJkcHpLY0NMMjAyN0Jpbm5MaG5DQzBTd0l1?=
+ =?utf-8?B?bnZaNStrU01zNzZWSkRmdENDbE1WZEtGU21CdkhSREx0V0pYNXYvMnJrUnY3?=
+ =?utf-8?B?a0d5eW5HendJZE1xcDMwVWJmM3hoUTlDNC9zM3pzWWgzRVVqQWwrUmt2MWpt?=
+ =?utf-8?B?ZjdDb1JRSVVhNGNkTURDTmd3NFpkaWQ3d2w5ZlhJTU1ETDR4cXkvaUlmRXMz?=
+ =?utf-8?B?WUovbDFXaUlSZ041SVJhLy9UU3JiRXFYWTlXaXVzaXdlODc0ZkR2QnU2Z2Va?=
+ =?utf-8?B?a1JMdmc3ekh3eDhvS3l3eXordVBTOEhGUzllNmhncTIvTHNxdkRqSnFMWUVH?=
+ =?utf-8?B?VVNueFVWZFVCcGExRVQvNi85S3ZKY1FRcWJJaXZkZlZuYnlYZE1rbk8wbHJv?=
+ =?utf-8?B?NUtFQ0VIa3JMWDhaSGp5SUswbmtnb3REYm8xQnpyK1h3VzRvMUtEcG5veHJl?=
+ =?utf-8?B?Q29TaUJoUndFZ2dLYzBsTnFBOHJJQThFVmxyaFF3enUxdTZtL29IY0xnb2gy?=
+ =?utf-8?B?L1lNR2R2ZXhtay84TmJ4QVBTK3NnVzh3MUFTSjdSTVZQRGdVL2dDSW42WnZQ?=
+ =?utf-8?B?UlR2UmwyS0JCWFpOUTc5WUhPMnFQUDNxZFErSUI2Mm9aaDVlQWZvc0pwVHNk?=
+ =?utf-8?B?dEZqNDhrdVJjYkY3RlY1S25OZE9kT0xkVDFybkN0czI2aGpTbWJjZEE2Q3JV?=
+ =?utf-8?B?cUR2bllLUWM0SFFWV3ZkRGI1dE9BS0Q4SGw3TlpXUlN4UjhhaHUyNUpLaEs0?=
+ =?utf-8?B?K0w5UkxnTjUzS0ZaREF5Q0Y0OTI2Zll5RVZDdlVGNzUwMGw2KytjRklVVCt3?=
+ =?utf-8?B?WCtrOFVBbUw5MWpwTy9QQ2NUbmtqRzF3dEtjcXd4blpSekdtVis0NDBhVVZY?=
+ =?utf-8?B?SGpVSE1Xait1bmxwOWJDQlZVeDZ3VDh0NDR5SEFEWHVpM0p2L05mWDFyb3Ex?=
+ =?utf-8?B?M3NCZmRwdCtZcEYvT1BIc1hDZjdzZmJxY004OWRmUGVHeG5xQWpnQTg2WkZz?=
+ =?utf-8?B?T0FEVVF2aEE3NDdlYVBBUzYvUzhNeFpoU0kvZjdTYnlFUFdMT3pVSXdXTDgv?=
+ =?utf-8?B?WUpLWFF4UCt3M1VITVg5WDF1QUtmaWhHVWdzUzkxQWFPcDc3ZGtKQmdadVR5?=
+ =?utf-8?B?anlzQWQ1U1dNRVQ5bTFQbkgwSlFrTXBValIwcFhyQWNkWnFCRk9YbHJ6QTlp?=
+ =?utf-8?B?Rkp6dEdZT3h3SC9SRDJoVFJFMUplUHpoazNOUzdlbXpXcXV4SWYxVzM2NWFt?=
+ =?utf-8?B?SHdGUjUyNE9pUzdtdHd3S0hPa2gzWjhMUm9wNlVHbzlrYUMvOWU3YmMxVjVx?=
+ =?utf-8?B?bGlHd242dGxvcnBWUVpUTnFnNGorMzQwdm9oQS9rWkVMUko4Y0VMOUptVkh1?=
+ =?utf-8?B?UUhMd1U1WXpyRnFxOTd0T0IreUdIYWV0ZS9od05yeUplTXRpbHZScy9Ob0VX?=
+ =?utf-8?B?THZxOEJTN09IYi8wM0VJeVg2TTVJS3V5dmI0cjNHTW9HdE5LeS9qbWFJUFBJ?=
+ =?utf-8?B?R3p1OHpFSG1rOGJheWNBcUhaYi9FWGN5NGtBdDRkajhabFpMb1U5R3FLeXV2?=
+ =?utf-8?B?SHZDejMxNTdTR1VHUm9WY1E1dHU5V2xZZlRkMnIvc1dRTGNDUnZCb3lQZ01v?=
+ =?utf-8?B?TVVQc0c2Zk9iRkhETno0dS9jQSt6dXFsd0w2SjZLUG1Oa0MrSGNlUW5Sak9P?=
+ =?utf-8?Q?wkX0=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ec8dc09-a379-4ada-009a-08db2001ec5d
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6280.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c8d9b42-5492-45c5-0270-08db20047591
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2602.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2023 18:21:23.7328 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2023 18:39:33.0421 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eF76d3mkczDUlnzkkOZh9tZJKirnMZgoFGtLDIN/wtYbvx86rQKSetIwzSN3eEVibaU5ZnYTOnM3q/LffxWNWw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7994
+X-MS-Exchange-CrossTenant-UserPrincipalName: z8Gngrus9NCBCtV64TT+yGEhlWkkVWNQ44NJCjb3ZfP9tBiDNocFRRKlcdrNJJ1L
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7089
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,83 +125,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 3/8/23 02:10, Shirish S wrote:
-> [Why]
-> Currently there aren't any methods to determine PSR state residency.
-> 
-> [How]
-> create a sysfs entry for reading residency and internally hook it up
-> to existing functionality of reading PSR residency from firmware.
-> 
-> Signed-off-by: Shirish S <shirish.s@amd.com>
-> ---
->   .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 19 +++++++++++++++++++
->   1 file changed, 19 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> index abf7895d1608..8ff2802db5b5 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> @@ -27,6 +27,7 @@
->   #include <linux/uaccess.h>
->   
->   #include "dc.h"
-> +#include "dc_link.h"
+On 3/8/2023 11:11 AM, Felix Kuehling wrote:
+> On 2023-03-08 02:45, Xiaogang.Chen wrote:
+>> From: Xiaogang Chen <xiaogang.chen@amd.com>
+>>
+>> During miration to vram prange->offset is valid after vram buffer is 
+>> located,
+>> either use old one or allocate a new one. Move 
+>> svm_range_vram_node_new before migrate
+>> for each vma to get valid prange->offset.
+>>
+>> Signed-off-by: Xiaogang Chen <Xiaogang.Chen@amd.com>
+>
+> I'd  prefer to keep svm_range_vram_node_new in 
+> svm_migrate_copy_to_vram. Logically the memory allocation should be 
+> after migrate_vma_setup. If migrate_vma_setup finds that there is 
+> nothing to migrate, we should not allocate any memory.
+>
+> Does this fix a real issue, or is this a theoretical fix? I think it 
+> should probably work correctly without this patch. 
+> svm_range_vram_node_new sets prange->offset to 0. If no VRAM was 
+> previously allocated, it should already be 0, so nothing changes. 
+> Maybe we just need a fix to set prange->offset = 0 in 
+> svm_range_vram_node_free.
 
-Please drop this include, the relevant function should already be
-accessible from dc.h.
+A real issue is same prange migrate vram->cpu, then cpu->vram. During 
+vram->cpu pragne got split, so prange->offset got changed, then vram 
+node got freed by svm_range_vram_node_free, but not update 
+prange->offset. It is the case KFDSVMRangeTes.MigrateTest. I will check 
+by set prange->offset = 0 at svm_range_vram_node_free.
 
->   #include "amdgpu.h"
->   #include "amdgpu_dm.h"
->   #include "amdgpu_dm_debugfs.h"
-> @@ -2793,6 +2794,22 @@ static int psr_get(void *data, u64 *val)
->   	return 0;
->   }
->   
-> +/*
-> + *  Read PSR state residency
-> + */
-> +static int psr_read_residency(void *data, u64 *val)
-> +{
-> +	struct amdgpu_dm_connector *connector = data;
-> +	struct dc_link *link = connector->dc_link;
-> +	u32 residency;
-> +
-> +	dc_link_get_psr_residency(link, &residency);
+In theory, getting prange->offset after svm_range_vram_node_new makes 
+code logically clearer? svm_range_vram_node_new handles different cases, 
+we are not sure what prange->offset would be before call it.
 
-Did you mean to use link_get_psr_residency() here?
+If migrate_vma_setup fail for a vma, we can svm_range_vram_node_free the 
+vram buffer got from svm_range_vram_node_new.
 
-> +
-> +	*val = (u64)residency;
-> +
-> +	return 0;
-> +}
-> +
->   /*
->    * Set dmcub trace event IRQ enable or disable.
->    * Usage to enable dmcub trace event IRQ: echo 1 > /sys/kernel/debug/dri/0/amdgpu_dm_dmcub_trace_event_en
-> @@ -2828,6 +2845,7 @@ DEFINE_DEBUGFS_ATTRIBUTE(dmcub_trace_event_state_fops, dmcub_trace_event_state_g
->   			 dmcub_trace_event_state_set, "%llu\n");
->   
->   DEFINE_DEBUGFS_ATTRIBUTE(psr_fops, psr_get, NULL, "%llu\n");
-> +DEFINE_DEBUGFS_ATTRIBUTE(psr_residency_fops, psr_read_residency, NULL, "%llu\n");
->   
->   DEFINE_SHOW_ATTRIBUTE(current_backlight);
->   DEFINE_SHOW_ATTRIBUTE(target_backlight);
-> @@ -2991,6 +3009,7 @@ void connector_debugfs_init(struct amdgpu_dm_connector *connector)
->   	if (connector->base.connector_type == DRM_MODE_CONNECTOR_eDP) {
->   		debugfs_create_file_unsafe("psr_capability", 0444, dir, connector, &psr_capability_fops);
->   		debugfs_create_file_unsafe("psr_state", 0444, dir, connector, &psr_fops);
-> +		debugfs_create_file_unsafe("psr_residency", 0444, dir, connector, &psr_residency_fops);
->   		debugfs_create_file("amdgpu_current_backlight_pwm", 0444, dir, connector,
->   				    &current_backlight_fops);
->   		debugfs_create_file("amdgpu_target_backlight_pwm", 0444, dir, connector,
-
--- 
-Hamza
-
+>
+> Regards,
+>   Felix
+>
+>
+>> ---
+>>   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 12 ++++++------
+>>   1 file changed, 6 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c 
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> index fd54a00e7229..15791490c23e 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> @@ -310,12 +310,6 @@ svm_migrate_copy_to_vram(struct amdgpu_device 
+>> *adev, struct svm_range *prange,
+>>       src = scratch;
+>>       dst = (uint64_t *)(scratch + npages);
+>>   -    r = svm_range_vram_node_new(adev, prange, true);
+>> -    if (r) {
+>> -        dev_dbg(adev->dev, "fail %d to alloc vram\n", r);
+>> -        goto out;
+>> -    }
+>> -
+>>       amdgpu_res_first(prange->ttm_res, ttm_res_offset,
+>>                npages << PAGE_SHIFT, &cursor);
+>>       for (i = j = 0; i < npages; i++) {
+>> @@ -525,6 +519,12 @@ svm_migrate_ram_to_vram(struct svm_range 
+>> *prange, uint32_t best_loc,
+>>         start = prange->start << PAGE_SHIFT;
+>>       end = (prange->last + 1) << PAGE_SHIFT;
+>> +
+>> +    r = svm_range_vram_node_new(adev, prange, true);
+>> +    if (r) {
+>> +        dev_dbg(adev->dev, "fail %d to alloc vram\n", r);
+>> +        return r;
+>> +    }
+>>       ttm_res_offset = prange->offset << PAGE_SHIFT;
+>>         for (addr = start; addr < end;) {
