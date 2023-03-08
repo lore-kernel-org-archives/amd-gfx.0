@@ -4,116 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 720C9C678D5
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 18:39:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2FDDC678D5
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 21:11:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE97610E13F;
-	Wed,  8 Mar 2023 18:39:37 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2076.outbound.protection.outlook.com [40.107.96.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3744010E13F
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Mar 2023 18:39:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=W7RNk8lJd0gd2YqcXo117iSDTqXJBXz3X2II9Ox0J60XCKOhF7tOXaeUT4moXXI5XerPbIJ9ZEy0Bp0ONnGGFosTdTRV7LDgQSTkMMyJ9DyPf0qB9TndrSyxRhWQnUoCOLddGZKi7DoKh+eDX1HUnI93q8h6O+fBV8UPdk23tkz2XTV4YXPEYG2ozCr7UAT4JU6RLwgg0wV9N9yG7a07RfNHWb6ShjKrkg0k7WHEpXoAWRsAWRKXStRQGPtgDTUbTnTg2k/w6JuYNGvmE5NYjGNwQRCKUAzYEo8YeAzafUXY5oF+PC5p0dS4hNn+hHRo2gY1axxKSmNXDTRH7N6WZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0TshMZawfKhE8/o3Kn6kmm0yvxJxN2qp7BKmaTC5Pks=;
- b=bIgM+RdK7e+XjF2WRR3NdnDmFegoHIOid+8hOpJJOVQDvKRT+Ypd/VP04WJEWRBxIaeu/YpbxCGPLQxhlQSNWXP5L/GtRpHy1EsQTjm5jO1+coY3ofLNnIT3WKiATj0I4vNKhkkkMrAoIWTR3Bm15MzYkezZP/X0ijaNGQeEkWocXq1WgbBqKM9Nuz9QkzYCyaL8XHGguj2ZvunrCbGBere3FMrsyufpolTGhKqtgTRCXpPuiVxBMbjf2SYtNJuVOwVerWhXCJ8FvYqOxp6IK9XIV41Fcw+mEse9nNJKe+13xETe3tTpZ/NR+nR9tQoLvJvTjT0XMcFPt0wNj0Tzsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0TshMZawfKhE8/o3Kn6kmm0yvxJxN2qp7BKmaTC5Pks=;
- b=yUvZByB+AYLvJQISPHBoIpTknSTAV1tEAksdkFBMREZoI3mpneu5mJbnoU8HiomgVx7NuNTFRosDdHvEIDgrbDbEBeoDQ9UZJxjkag/Ie9eG/RGf+FyRQDuft44a4Ary3y9ha8YksQxw0vlgx/Js0AnxneUP/QAzxa0SzG+bNnE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB2602.namprd12.prod.outlook.com (2603:10b6:5:4a::11) by
- SA0PR12MB7089.namprd12.prod.outlook.com (2603:10b6:806:2d5::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.29; Wed, 8 Mar
- 2023 18:39:33 +0000
-Received: from DM6PR12MB2602.namprd12.prod.outlook.com
- ([fe80::dcbe:dda5:a90d:eba3]) by DM6PR12MB2602.namprd12.prod.outlook.com
- ([fe80::dcbe:dda5:a90d:eba3%4]) with mapi id 15.20.6156.028; Wed, 8 Mar 2023
- 18:39:33 +0000
-Message-ID: <5725a5c8-6fa9-bf48-4c7b-ec3b34d495a0@amd.com>
-Date: Wed, 8 Mar 2023 12:39:30 -0600
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.1
-Subject: Re: [PATCH] drm/amdkfd: Get prange->offset after
- svm_range_vram_node_new
-Content-Language: en-US
-To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230308074509.264478-1-xiaogang.chen@amd.com>
- <35f07147-85a0-a204-b0b1-394459e2c728@amd.com>
-From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
-In-Reply-To: <35f07147-85a0-a204-b0b1-394459e2c728@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR18CA0008.namprd18.prod.outlook.com
- (2603:10b6:208:23c::13) To DM6PR12MB2602.namprd12.prod.outlook.com
- (2603:10b6:5:4a::11)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CA3E10E021;
+	Wed,  8 Mar 2023 21:11:36 +0000 (UTC)
+Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com
+ [IPv6:2607:f8b0:4864:20::c30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AE9510E021
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Mar 2023 21:11:34 +0000 (UTC)
+Received: by mail-oo1-xc30.google.com with SMTP id
+ a23-20020a4ad5d7000000b005250867d3d9so2750512oot.10
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Mar 2023 13:11:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1678309893;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=RsiMPIqEbAZ2a1XeueCZtTk58NvKvyBJoo2lnQ7uXZo=;
+ b=TJM/dM/LJ6H/9R3wn6D6XamAwGAou0d40e8DAdwZ0dNWSLp6UobUFkeueljlYa2zQo
+ RDtzGEZxtHFqTSG624Y+Mn7cllMlZNiE0kST46CRPtn5/NHn6MsBlYn0XQyKtZVK/+2n
+ So2BmK50p9V5fTmNQZmcdi8vorfb3uxbA378GJ8Cjm08dUl1abrKlVQL+n0WybQPFZp+
+ mu6Mg5DUfp1s9sc9qg3TONhiev+3XAqRDWGBUgeJIFmXNwciAIwbbrGrEKOPP/OSsP+o
+ yozbPUzlYt+RR3T8y4yaQdQssIrC3lxoZEZV/SXCgH55bWOeViDcJqtIGSPBIiWyhypK
+ tbrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678309893;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=RsiMPIqEbAZ2a1XeueCZtTk58NvKvyBJoo2lnQ7uXZo=;
+ b=VpOwWTbL67WFOw+DrOFXiB/GfYQV/ma3/I1bvAUlr9UTJU91cr9aF5Lhb19Rcp6+JL
+ VZ7rI66y7Kjj9OoEvgH2FVQ9hau0olCtKdrP8h36F98tCZSH9UNi6NcEv6uwKtl4iXOK
+ lSjb401a3DbIbEokt8gQy3Yxv6S3iUm3SrS2ClNhOtvrQUq5/kpAwuop4BkU2I7AtjXg
+ zyu7vlC7/bmqzEJIAlwqkc8sBhbkcy7+jfjEh+GpkdzlJJfDJu5C+hfHVS5p/hfuaAIf
+ mTcGsoCiUqKBP+7ZSxvi/fADjfR0ZmMkgeWyv0HkYSX37LFv35YBA8e3ympJCuwLHmhd
+ 17jg==
+X-Gm-Message-State: AO0yUKU1aOXaWVXJrKFr+Mwqhny39Wwfa/kDfon+OluOOLeB7j58MZJQ
+ YkB1hOxzNoOUdDJ9WE26wU66Id1hfVuFDOyn/an7jZToLEw=
+X-Google-Smtp-Source: AK7set99n0ojKrYCTQpyCLQiH2BnNmEZN3pbfn1zi17KnRklSpZ4Aby7AbYOtljKIsknMaHKXp38/JchoGjAfmb6/+8=
+X-Received: by 2002:a4a:4114:0:b0:520:1309:c69d with SMTP id
+ x20-20020a4a4114000000b005201309c69dmr6680448ooa.0.1678309893485; Wed, 08 Mar
+ 2023 13:11:33 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2602:EE_|SA0PR12MB7089:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9c8d9b42-5492-45c5-0270-08db20047591
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: f06mV14k3lzPLrAA1Q6oddwMJmN0ULMQel4Hq7gfxQzU2kih1ePLe/L9/wF2Y8vSmuzhVA96vx8PTFNr0F2qFPEh/oEjSUZCzVbZTbJhH8mmaCPbaOZqKcz4dPP9PP4QrJk0qZ0QQ01LMPfuTXtOMcuYNEnk4EHf5jGiZVV4Ti5ODtj39O+OX92pV46xmeiOQyALFkM+JAG7gA+7V+B82+xGf8cwOsIpw1ILjQXfetASRjva2k2nAuL10QIjZNpxc51Pdx3X/mMkE/Rhawd1vQXNFtvpCFmBS8O8NFLnh5ULzz8qIzlK5xEZumFPCzHeF4f+meWbj0grLDY+n0KlLzWRRC+5+ssMsk8DxG/VZGqJJ7ERsGjyDVPzDNHPo4TXOh/U1EEp//8t8MtjyTXoU3kv0GDrS1xDBU3gwbDtWIUKul5cgfEID6kdC4J0nwMnQzVajjRpzFk4dWHeLcDdgXWCqLSkhgFbVra6vRFqSDbhIqlZqeCw22OUtUu1zBZdPNzfob32mSgsjnB5e3sCc03vswxgQRoNvo/uUZuaSAhwoucwdePVo1+rm7zn/IohgKfuJeJq+CdBm8M7XU7acrW40xTOfInw3nuRw2/LUhXONFFbWdWqXOXrJW4MU+uGjE2pSa2UA77T5FU0fe1cDC4MOSq+9vHCi2wCd+IezE2A63JKiJj2WUpiJoFcS7LvBJGqrkomycFKIHif8cAK04YgWWhh6EgT9XBlXxkSYDo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2602.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(39860400002)(346002)(376002)(136003)(366004)(396003)(451199018)(31686004)(86362001)(31696002)(66476007)(66556008)(66946007)(2906002)(8936002)(41300700001)(5660300002)(8676002)(38100700002)(36756003)(6486002)(316002)(478600001)(83380400001)(26005)(186003)(6512007)(6506007)(2616005)(53546011)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bDVaYnJyZGNCaVN0ZmVzcWpxZ0dyWFh3SUJkZG1iSll5Z2lQdkV5YjFZaUNm?=
- =?utf-8?B?RkZrYm9JTDRKSTBFdzMycndOZnBxMENnN2ZhUTlMOStWc3hWTFJWN3RnY1pq?=
- =?utf-8?B?cG9tVWUwN1dkY2VzUDllVjUvODJBalF4M2NpOHN2cDZleFpZZEl2TC80Rlg3?=
- =?utf-8?B?TmpIdkNwdUtpZUZxLzc1ZElvbHhlc251cVB2Sk90MllUSHgrQ0pZNTJEbU1r?=
- =?utf-8?B?R2lIS3pmRWJlS3JkMUZGQ3R3SVdzeXN0eXkyVlVHVXlqUmhUbHZ2MzVHNjky?=
- =?utf-8?B?MmpzQm1pb0xoOUdkc3FRT0Y4SDBETXZZRDlCKzBDQkVkTHh0dXpqTlZGVnR5?=
- =?utf-8?B?NFF3cXBFTngxRDIzYkQzSzZ1aHVwREJ4L1VzcXJDVmpWN2JrN1poemZLbmdy?=
- =?utf-8?B?Sk12WU1ad3Arc1JBY09XaFAxSEJkcHpLY0NMMjAyN0Jpbm5MaG5DQzBTd0l1?=
- =?utf-8?B?bnZaNStrU01zNzZWSkRmdENDbE1WZEtGU21CdkhSREx0V0pYNXYvMnJrUnY3?=
- =?utf-8?B?a0d5eW5HendJZE1xcDMwVWJmM3hoUTlDNC9zM3pzWWgzRVVqQWwrUmt2MWpt?=
- =?utf-8?B?ZjdDb1JRSVVhNGNkTURDTmd3NFpkaWQ3d2w5ZlhJTU1ETDR4cXkvaUlmRXMz?=
- =?utf-8?B?WUovbDFXaUlSZ041SVJhLy9UU3JiRXFYWTlXaXVzaXdlODc0ZkR2QnU2Z2Va?=
- =?utf-8?B?a1JMdmc3ekh3eDhvS3l3eXordVBTOEhGUzllNmhncTIvTHNxdkRqSnFMWUVH?=
- =?utf-8?B?VVNueFVWZFVCcGExRVQvNi85S3ZKY1FRcWJJaXZkZlZuYnlYZE1rbk8wbHJv?=
- =?utf-8?B?NUtFQ0VIa3JMWDhaSGp5SUswbmtnb3REYm8xQnpyK1h3VzRvMUtEcG5veHJl?=
- =?utf-8?B?Q29TaUJoUndFZ2dLYzBsTnFBOHJJQThFVmxyaFF3enUxdTZtL29IY0xnb2gy?=
- =?utf-8?B?L1lNR2R2ZXhtay84TmJ4QVBTK3NnVzh3MUFTSjdSTVZQRGdVL2dDSW42WnZQ?=
- =?utf-8?B?UlR2UmwyS0JCWFpOUTc5WUhPMnFQUDNxZFErSUI2Mm9aaDVlQWZvc0pwVHNk?=
- =?utf-8?B?dEZqNDhrdVJjYkY3RlY1S25OZE9kT0xkVDFybkN0czI2aGpTbWJjZEE2Q3JV?=
- =?utf-8?B?cUR2bllLUWM0SFFWV3ZkRGI1dE9BS0Q4SGw3TlpXUlN4UjhhaHUyNUpLaEs0?=
- =?utf-8?B?K0w5UkxnTjUzS0ZaREF5Q0Y0OTI2Zll5RVZDdlVGNzUwMGw2KytjRklVVCt3?=
- =?utf-8?B?WCtrOFVBbUw5MWpwTy9QQ2NUbmtqRzF3dEtjcXd4blpSekdtVis0NDBhVVZY?=
- =?utf-8?B?SGpVSE1Xait1bmxwOWJDQlZVeDZ3VDh0NDR5SEFEWHVpM0p2L05mWDFyb3Ex?=
- =?utf-8?B?M3NCZmRwdCtZcEYvT1BIc1hDZjdzZmJxY004OWRmUGVHeG5xQWpnQTg2WkZz?=
- =?utf-8?B?T0FEVVF2aEE3NDdlYVBBUzYvUzhNeFpoU0kvZjdTYnlFUFdMT3pVSXdXTDgv?=
- =?utf-8?B?WUpLWFF4UCt3M1VITVg5WDF1QUtmaWhHVWdzUzkxQWFPcDc3ZGtKQmdadVR5?=
- =?utf-8?B?anlzQWQ1U1dNRVQ5bTFQbkgwSlFrTXBValIwcFhyQWNkWnFCRk9YbHJ6QTlp?=
- =?utf-8?B?Rkp6dEdZT3h3SC9SRDJoVFJFMUplUHpoazNOUzdlbXpXcXV4SWYxVzM2NWFt?=
- =?utf-8?B?SHdGUjUyNE9pUzdtdHd3S0hPa2gzWjhMUm9wNlVHbzlrYUMvOWU3YmMxVjVx?=
- =?utf-8?B?bGlHd242dGxvcnBWUVpUTnFnNGorMzQwdm9oQS9rWkVMUko4Y0VMOUptVkh1?=
- =?utf-8?B?UUhMd1U1WXpyRnFxOTd0T0IreUdIYWV0ZS9od05yeUplTXRpbHZScy9Ob0VX?=
- =?utf-8?B?THZxOEJTN09IYi8wM0VJeVg2TTVJS3V5dmI0cjNHTW9HdE5LeS9qbWFJUFBJ?=
- =?utf-8?B?R3p1OHpFSG1rOGJheWNBcUhaYi9FWGN5NGtBdDRkajhabFpMb1U5R3FLeXV2?=
- =?utf-8?B?SHZDejMxNTdTR1VHUm9WY1E1dHU5V2xZZlRkMnIvc1dRTGNDUnZCb3lQZ01v?=
- =?utf-8?B?TVVQc0c2Zk9iRkhETno0dS9jQSt6dXFsd0w2SjZLUG1Oa0MrSGNlUW5Sak9P?=
- =?utf-8?Q?wkX0=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c8d9b42-5492-45c5-0270-08db20047591
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2602.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2023 18:39:33.0421 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: z8Gngrus9NCBCtV64TT+yGEhlWkkVWNQ44NJCjb3ZfP9tBiDNocFRRKlcdrNJJ1L
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7089
+References: <20230308152014.3814372-1-alexander.deucher@amd.com>
+In-Reply-To: <20230308152014.3814372-1-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 8 Mar 2023 16:11:22 -0500
+Message-ID: <CADnq5_Mij45+hSQtS6RwauT+6K862QvL6AJ+LhHRW8YHnTZ1VA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amd/pm: Fix sienna cichlid incorrect OD volage
+ after resume
+To: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,83 +68,145 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Evan Quan <evan.quan@amd.com>,
+ =?UTF-8?B?QsWCYcW8ZWogU3pjenlnaWXFgg==?= <mumei6102@gmail.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 3/8/2023 11:11 AM, Felix Kuehling wrote:
-> On 2023-03-08 02:45, Xiaogang.Chen wrote:
->> From: Xiaogang Chen <xiaogang.chen@amd.com>
->>
->> During miration to vram prange->offset is valid after vram buffer is 
->> located,
->> either use old one or allocate a new one. Move 
->> svm_range_vram_node_new before migrate
->> for each vma to get valid prange->offset.
->>
->> Signed-off-by: Xiaogang Chen <Xiaogang.Chen@amd.com>
+On Wed, Mar 8, 2023 at 10:20 AM Alex Deucher <alexander.deucher@amd.com> wr=
+ote:
 >
-> I'd  prefer to keep svm_range_vram_node_new in 
-> svm_migrate_copy_to_vram. Logically the memory allocation should be 
-> after migrate_vma_setup. If migrate_vma_setup finds that there is 
-> nothing to migrate, we should not allocate any memory.
+> From: B=C5=82a=C5=BCej Szczygie=C5=82 <mumei6102@gmail.com>
 >
-> Does this fix a real issue, or is this a theoretical fix? I think it 
-> should probably work correctly without this patch. 
-> svm_range_vram_node_new sets prange->offset to 0. If no VRAM was 
-> previously allocated, it should already be 0, so nothing changes. 
-> Maybe we just need a fix to set prange->offset = 0 in 
-> svm_range_vram_node_free.
-
-A real issue is same prange migrate vram->cpu, then cpu->vram. During 
-vram->cpu pragne got split, so prange->offset got changed, then vram 
-node got freed by svm_range_vram_node_free, but not update 
-prange->offset. It is the case KFDSVMRangeTes.MigrateTest. I will check 
-by set prange->offset = 0 at svm_range_vram_node_free.
-
-In theory, getting prange->offset after svm_range_vram_node_new makes 
-code logically clearer? svm_range_vram_node_new handles different cases, 
-we are not sure what prange->offset would be before call it.
-
-If migrate_vma_setup fail for a vma, we can svm_range_vram_node_free the 
-vram buffer got from svm_range_vram_node_new.
-
+> Always setup overdrive tables after resume. Preserve only some
+> user-defined settings in user_overdrive_table if they're set.
 >
-> Regards,
->   Felix
+> Copy restored user_overdrive_table into od_table to get correct
+> values.
 >
+> On cold boot, BTC was triggered and GfxVfCurve was calibrated. We
+> got VfCurve settings (a). On resuming back, BTC will be triggered
+> again and GfxVfCurve will be recalibrated. VfCurve settings (b)
+> got may be different from those of cold boot.  So if we reuse
+> those VfCurve settings (a) got on cold boot on suspend, we can
+> run into discrepencies.
 >
->> ---
->>   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 12 ++++++------
->>   1 file changed, 6 insertions(+), 6 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c 
->> b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
->> index fd54a00e7229..15791490c23e 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
->> @@ -310,12 +310,6 @@ svm_migrate_copy_to_vram(struct amdgpu_device 
->> *adev, struct svm_range *prange,
->>       src = scratch;
->>       dst = (uint64_t *)(scratch + npages);
->>   -    r = svm_range_vram_node_new(adev, prange, true);
->> -    if (r) {
->> -        dev_dbg(adev->dev, "fail %d to alloc vram\n", r);
->> -        goto out;
->> -    }
->> -
->>       amdgpu_res_first(prange->ttm_res, ttm_res_offset,
->>                npages << PAGE_SHIFT, &cursor);
->>       for (i = j = 0; i < npages; i++) {
->> @@ -525,6 +519,12 @@ svm_migrate_ram_to_vram(struct svm_range 
->> *prange, uint32_t best_loc,
->>         start = prange->start << PAGE_SHIFT;
->>       end = (prange->last + 1) << PAGE_SHIFT;
->> +
->> +    r = svm_range_vram_node_new(adev, prange, true);
->> +    if (r) {
->> +        dev_dbg(adev->dev, "fail %d to alloc vram\n", r);
->> +        return r;
->> +    }
->>       ttm_res_offset = prange->offset << PAGE_SHIFT;
->>         for (addr = start; addr < end;) {
+> Reviewed-by: Evan Quan <evan.quan@amd.com>
+> Signed-off-by: B=C5=82a=C5=BCej Szczygie=C5=82 <mumei6102@gmail.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+
+Will add the bug references as well when I commit this:
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1897
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2276
+
+Thanks for the patch.
+
+Alex
+
+> ---
+>  .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 43 ++++++++++++++-----
+>  1 file changed, 33 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/dr=
+ivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> index 697e98a0a20a..75f18681e984 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+> @@ -2143,16 +2143,9 @@ static int sienna_cichlid_set_default_od_settings(=
+struct smu_context *smu)
+>                 (OverDriveTable_t *)smu->smu_table.boot_overdrive_table;
+>         OverDriveTable_t *user_od_table =3D
+>                 (OverDriveTable_t *)smu->smu_table.user_overdrive_table;
+> +       OverDriveTable_t user_od_table_bak;
+>         int ret =3D 0;
+>
+> -       /*
+> -        * For S3/S4/Runpm resume, no need to setup those overdrive table=
+s again as
+> -        *   - either they already have the default OD settings got durin=
+g cold bootup
+> -        *   - or they have some user customized OD settings which cannot=
+ be overwritten
+> -        */
+> -       if (smu->adev->in_suspend)
+> -               return 0;
+> -
+>         ret =3D smu_cmn_update_table(smu, SMU_TABLE_OVERDRIVE,
+>                                    0, (void *)boot_od_table, false);
+>         if (ret) {
+> @@ -2163,7 +2156,23 @@ static int sienna_cichlid_set_default_od_settings(=
+struct smu_context *smu)
+>         sienna_cichlid_dump_od_table(smu, boot_od_table);
+>
+>         memcpy(od_table, boot_od_table, sizeof(OverDriveTable_t));
+> -       memcpy(user_od_table, boot_od_table, sizeof(OverDriveTable_t));
+> +
+> +       /*
+> +        * For S3/S4/Runpm resume, we need to setup those overdrive table=
+s again,
+> +        * but we have to preserve user defined values in "user_od_table"=
+.
+> +        */
+> +       if (!smu->adev->in_suspend) {
+> +               memcpy(user_od_table, boot_od_table, sizeof(OverDriveTabl=
+e_t));
+> +               smu->user_dpm_profile.user_od =3D false;
+> +       } else if (smu->user_dpm_profile.user_od) {
+> +               memcpy(&user_od_table_bak, user_od_table, sizeof(OverDriv=
+eTable_t));
+> +               memcpy(user_od_table, boot_od_table, sizeof(OverDriveTabl=
+e_t));
+> +               user_od_table->GfxclkFmin =3D user_od_table_bak.GfxclkFmi=
+n;
+> +               user_od_table->GfxclkFmax =3D user_od_table_bak.GfxclkFma=
+x;
+> +               user_od_table->UclkFmin =3D user_od_table_bak.UclkFmin;
+> +               user_od_table->UclkFmax =3D user_od_table_bak.UclkFmax;
+> +               user_od_table->VddGfxOffset =3D user_od_table_bak.VddGfxO=
+ffset;
+> +       }
+>
+>         return 0;
+>  }
+> @@ -2373,6 +2382,20 @@ static int sienna_cichlid_od_edit_dpm_table(struct=
+ smu_context *smu,
+>         return ret;
+>  }
+>
+> +static int sienna_cichlid_restore_user_od_settings(struct smu_context *s=
+mu)
+> +{
+> +       struct smu_table_context *table_context =3D &smu->smu_table;
+> +       OverDriveTable_t *od_table =3D table_context->overdrive_table;
+> +       OverDriveTable_t *user_od_table =3D table_context->user_overdrive=
+_table;
+> +       int res;
+> +
+> +       res =3D smu_v11_0_restore_user_od_settings(smu);
+> +       if (res =3D=3D 0)
+> +               memcpy(od_table, user_od_table, sizeof(OverDriveTable_t))=
+;
+> +
+> +       return res;
+> +}
+> +
+>  static int sienna_cichlid_run_btc(struct smu_context *smu)
+>  {
+>         int res;
+> @@ -4400,7 +4423,7 @@ static const struct pptable_funcs sienna_cichlid_pp=
+t_funcs =3D {
+>         .set_soft_freq_limited_range =3D smu_v11_0_set_soft_freq_limited_=
+range,
+>         .set_default_od_settings =3D sienna_cichlid_set_default_od_settin=
+gs,
+>         .od_edit_dpm_table =3D sienna_cichlid_od_edit_dpm_table,
+> -       .restore_user_od_settings =3D smu_v11_0_restore_user_od_settings,
+> +       .restore_user_od_settings =3D sienna_cichlid_restore_user_od_sett=
+ings,
+>         .run_btc =3D sienna_cichlid_run_btc,
+>         .set_power_source =3D smu_v11_0_set_power_source,
+>         .get_pp_feature_mask =3D smu_cmn_get_pp_feature_mask,
+> --
+> 2.39.2
+>
