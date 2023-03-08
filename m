@@ -4,62 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 823CBC64EC4
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 08:59:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6955DC678D5
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 09:07:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17E9510E5B2;
-	Wed,  8 Mar 2023 08:59:51 +0000 (UTC)
-Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
- [IPv6:2a00:1450:4864:20::242])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7F3510E5B2;
- Wed,  8 Mar 2023 08:59:49 +0000 (UTC)
-Received: by mail-lj1-x242.google.com with SMTP id a32so15821078ljr.9;
- Wed, 08 Mar 2023 00:59:49 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCAE310E5BE;
+	Wed,  8 Mar 2023 09:07:36 +0000 (UTC)
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [IPv6:2a00:1450:4864:20::52b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F4B610E5B3
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Mar 2023 09:07:34 +0000 (UTC)
+Received: by mail-ed1-x52b.google.com with SMTP id j11so43286891edq.4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Mar 2023 01:07:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678265988;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=sK8aILZorQRHY1+kB9RK81UOD/Jv43ORSJlUC3NmrKM=;
- b=dbm5Gvy01K7tA/ckdnegfD9uba5jzv6OFfVPd5PjrasNjZ6vvOfjFOlYObjKrN+tDk
- aNaP6+rPITARvJGKMW5Y4bZVxcYKNCtdYdOnEpIhWMcmlSIObiT8X/Osztlb20GUQdJe
- 7WOz8JZ6w3mo/vTlWmAY/4wpABzYkDH3zaUMd6FZEm3bDMHqHmXwpKLGfL+t1d9haKtz
- +V9eWJOvh2lQh1CaKyLNqzjg78L9fSpGvCz22XEOChqd1zvD7oYlkncfDNnYoMQKYAJz
- PnF1QksQ0hgvDcBM/CeQ4ZpE5jAZgNZH64X+L0zIwwOHQhoicGJuwWLqGt+IvKyom3S0
- WagA==
+ d=gmail.com; s=20210112; t=1678266453;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=7p5V6Pnv+VZBdYZfY53QEB5DXtIK9qir6jbrOBEo5iw=;
+ b=dXHw4Jp9rsUxKl5wr5LkVa5OzziHDOjveWSaUA7Wlg5ymT9jx/2+Ycfcigr1rB92vI
+ MKLI2V9m3jbyW7Qz/hskkWYq42UKxSW3y6vCQ/v2j7xqvfhW+AdJ5pl4uBDJG8I5cezU
+ w6QgVwzdMcsm9ZA0P319gyOGAKvy4tY8qdzeLDEGf8ygXzcqyLno7cA8Xi2tHTESfkzP
+ hvplhjq871ynt6BpbO/F5I8DGd+iHWfhQBwOCrdiBvsa+5LLqd1sjp5W2acZ3Krnrj2Z
+ CL8/M1gy7PHz2TONb3UW1VOm8bDbstd29NrCS5lZCYfHUipaZuJ2Icz+v1SkmufPkJe8
+ z43Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678265988;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=sK8aILZorQRHY1+kB9RK81UOD/Jv43ORSJlUC3NmrKM=;
- b=lgCuviTwEdtmedN03ah95agjK/iTLYZ96lQmAD49yz/w6B+V+7mdIlD/UU3EBQi1Bi
- 9RLutrgbPxYuu3Vk4MKDzpY7XmeWVFQJlVtP6cG3I1XFQEGzJ2eu3xDUo0HZsbD2R4pe
- Za+Qv0LldzbeKk8nASL4k0eRtgtHyZpNDxncTKqGVq1ZR8zRbGa/T0xp4AT21iyOUbMG
- 15Nbq09xcNLtNeSITmWsoZofeYx14OMlC3BkI/Ppecdfbtljre0jRul3Kop/rDt0+8IG
- L0TVZuxMrst3hLFhSvgQBzKM88XWmii5bQAEV3VBtcEJrXVsg46sOqPctPkWb9QctR5K
- 2Jsg==
-X-Gm-Message-State: AO0yUKXZ29wByv/pU03iDOWxnDlSqw+W4CvgQ6/UuRtm1J1XIg47mb0U
- Hm9d+jXkkkraDIWIXUbCP24=
-X-Google-Smtp-Source: AK7set9lqkKh4fyMFW8ApaUl7rNq+RTCPD+WCd+ferxz3QsAuH2CoNEhLc8hw9yanAfA3EeoPBYVIg==
-X-Received: by 2002:a2e:90cc:0:b0:293:4b61:2657 with SMTP id
- o12-20020a2e90cc000000b002934b612657mr6585676ljg.33.1678265987951; 
- Wed, 08 Mar 2023 00:59:47 -0800 (PST)
-Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- y18-20020a2e9d52000000b00298593e3a01sm679801ljj.70.2023.03.08.00.59.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Mar 2023 00:59:47 -0800 (PST)
-Date: Wed, 8 Mar 2023 10:59:44 +0200
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [PATCH v3 02/17] drm/connector: Add enum documentation to
- drm_colorspace
-Message-ID: <20230308105944.05fb9377@eldfell>
-In-Reply-To: <20230307151107.49649-3-harry.wentland@amd.com>
-References: <20230307151107.49649-1-harry.wentland@amd.com>
- <20230307151107.49649-3-harry.wentland@amd.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+ d=1e100.net; s=20210112; t=1678266453;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=7p5V6Pnv+VZBdYZfY53QEB5DXtIK9qir6jbrOBEo5iw=;
+ b=qtzm/MwX8OvpjWSGYzZm9kBLB6ufJyq5urmEH78VB1fyBTpBeYhoeiVVHgBilPB7IP
+ vWqdzIjYle0Jpo5Vbp4rij5ORB2hutKD1r/Ca3iUHa1xn8LboyEzLdnxHCi87r351dgs
+ l64GlXPXXU9XBNe0jcx5P1ZJ6fQlWYXGmwngRxgResRDSqBWp74N5diZ8kGpkCj52OrT
+ v/scTjCktiBZjoOcmf4dQozS2QeOvKnTqw+yMk1rz92FFsxDID2E4RVlNUOJGa4XB9LL
+ 8DlRC4P9sFHM27VAwmlufioPpYZBNPYcroaRJBthH991wMFI1gk6QeF48wOfVZJKHxbQ
+ VufA==
+X-Gm-Message-State: AO0yUKXYJMeU1BM+O/fRH9amfX7T1J9glFBYT3JkaMRETGxxUVVUVa/Y
+ Yomj6CtfzuY0Cxjol6UV4UmuNAEMKwY=
+X-Google-Smtp-Source: AK7set+u28Rx07PZ5SdjVqf77t7QqdpOdUQrIsSOSgm99QdAYT1934DDrZvna1Z6wnbLDf1wSmk+ag==
+X-Received: by 2002:a17:907:a80f:b0:8b1:3a18:9daf with SMTP id
+ vo15-20020a170907a80f00b008b13a189dafmr16207869ejc.74.1678266452890; 
+ Wed, 08 Mar 2023 01:07:32 -0800 (PST)
+Received: from ?IPV6:2a02:908:1256:79a0:423c:7396:17af:cdf?
+ ([2a02:908:1256:79a0:423c:7396:17af:cdf])
+ by smtp.gmail.com with ESMTPSA id
+ q2-20020a1709060e4200b009140707b475sm2976096eji.33.2023.03.08.01.07.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 08 Mar 2023 01:07:32 -0800 (PST)
+Message-ID: <b38285d6-c7c5-3fa3-1cda-0fc8b430feb1@gmail.com>
+Date: Wed, 8 Mar 2023 10:07:31 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/QGxcggDuSCp6h/7zFmq3NYi";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH] drm/amdkfd: Fixed kfd_process cleanup on module exit.
+Content-Language: en-US
+To: "Belanger, David" <David.Belanger@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20230306215808.2903387-1-david.belanger@amd.com>
+ <92f89f03-dfa8-0f50-309c-69c7c22541d8@amd.com>
+ <DM6PR12MB482867775D93C72A95ED5C3099B79@DM6PR12MB4828.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <DM6PR12MB482867775D93C72A95ED5C3099B79@DM6PR12MB4828.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,219 +79,168 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>, dri-devel@lists.freedesktop.org,
- Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Uma Shankar <uma.shankar@intel.com>, amd-gfx@lists.freedesktop.org,
- Joshua Ashton <joshua@froggi.es>, Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/QGxcggDuSCp6h/7zFmq3NYi
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Am 07.03.23 um 16:28 schrieb Belanger, David:
+> [AMD Official Use Only - General]
+>
+>
+> The test case is a python program that will load the driver, do some operations, then unload the driver.
 
-On Tue, 7 Mar 2023 10:10:52 -0500
-Harry Wentland <harry.wentland@amd.com> wrote:
+What do you mean with unloading the driver? Removing the module? Or 
+destroying the device?
 
-> From: Joshua Ashton <joshua@froggi.es>
->=20
-> To match the other enums, and add more information about these values.
->=20
-> v2:
->  - Specify where an enum entry comes from
->  - Clarify DEFAULT and NO_DATA behavior
->  - BT.2020 CYCC is "constant luminance"
->  - correct type for BT.601
->=20
-> Signed-off-by: Joshua Ashton <joshua@froggi.es>
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> When the driver exists, there is still the python process space around holding on the address space.
+> When the python process space exits, the mmu_notifier gets called but the driver has already been unloaded.
+>
+> The goal of the fix is to address case where there could be outstanding address space / worker threads for process
+> cleanup that needs to be cleared/completed at exit time.
 
-Hi,
+Yeah and when the module is unloaded this is a completely futile effort.
 
-this effort is really good, but of course I still find things to
-nitpick about. If there is no answer to my questions, then I would
-prefer the documentation to spell out the unknowns and ambiguities.
+The general upstream approach is to take references on the struct device 
+and module and prevent unloading as long as those references exists.
 
-> Cc: Pekka Paalanen <ppaalanen@gmail.com>
-> Cc: Sebastian Wick <sebastian.wick@redhat.com>
-> Cc: Vitaly.Prosyak@amd.com
-> Cc: Uma Shankar <uma.shankar@intel.com>
-> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-> Cc: Joshua Ashton <joshua@froggi.es>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: amd-gfx@lists.freedesktop.org
-> ---
->  include/drm/drm_connector.h | 67 +++++++++++++++++++++++++++++++++++--
->  1 file changed, 65 insertions(+), 2 deletions(-)
->=20
-> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> index 6d6a53a6b010..bb078666dc34 100644
-> --- a/include/drm/drm_connector.h
-> +++ b/include/drm/drm_connector.h
-> @@ -363,13 +363,76 @@ enum drm_privacy_screen_status {
->  	PRIVACY_SCREEN_ENABLED_LOCKED,
->  };
-> =20
-> -/*
-> - * This is a consolidated colorimetry list supported by HDMI and
-> +/**
-> + * enum drm_colorspace - color space
-> + *
-> + * This enum is a consolidated colorimetry list supported by HDMI and
->   * DP protocol standard. The respective connectors will register
->   * a property with the subset of this list (supported by that
->   * respective protocol). Userspace will set the colorspace through
->   * a colorspace property which will be created and exposed to
->   * userspace.
-> + *
-> + * DP definitions come from the DP v2.0 spec
-> + * HDMI definitions come from the CTA-861-H spec
-> + *
-> + * @DRM_MODE_COLORIMETRY_DEFAULT:
-> + *   Driver specific behavior.
-> + *   For DP:
-> + *   	RGB encoded: sRGB (IEC 61966-2-1)
-> + *   	YCbCr encoded: ITU-R BT.601 colorimetry format
+The device might be non-functional any more (because for example of hot 
+plug), but the driver should never be unloaded before the python program 
+exits.
 
-Does this mean that HDMI behavior is driver-specific while DP behavior
-is as defined?
+Regards,
+Christian.
 
-Is it intentional that YCbCr encoding also uses different RGB-primaries
-than RGB-encoded signal? (BT.601 vs. BT.709/sRGB)
+>
+> Regards,
+> David B.
+>
+>> -----Original Message-----
+>> From: Koenig, Christian <Christian.Koenig@amd.com>
+>> Sent: Tuesday, March 7, 2023 2:05 AM
+>> To: Belanger, David <David.Belanger@amd.com>; amd-
+>> gfx@lists.freedesktop.org
+>> Subject: Re: [PATCH] drm/amdkfd: Fixed kfd_process cleanup on module
+>> exit.
+>>
+>> Am 06.03.23 um 22:58 schrieb David Belanger:
+>>> Handle case when module is unloaded (kfd_exit) before a process space
+>>> (mm_struct) is released.
+>> Well that should never ever happen in the first place. It sounds like we are
+>> missing grabbing module references.
+>>
+>> Regards,
+>> Christian.
+>>
+>>> Signed-off-by: David Belanger <david.belanger@amd.com>
+>>> ---
+>>>    drivers/gpu/drm/amd/amdkfd/kfd_module.c  |  4 ++
+>>>    drivers/gpu/drm/amd/amdkfd/kfd_process.c | 57
+>> ++++++++++++++++++++++++
+>>>    2 files changed, 61 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_module.c
+>>> b/drivers/gpu/drm/amd/amdkfd/kfd_module.c
+>>> index 09b966dc3768..8ef4bd9e4f7d 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_module.c
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_module.c
+>>> @@ -26,6 +26,9 @@
+>>>    #include "kfd_priv.h"
+>>>    #include "amdgpu_amdkfd.h"
+>>>
+>>> +void kfd_cleanup_processes(void);
+>>> +
+>>> +
+>>>    static int kfd_init(void)
+>>>    {
+>>>    	int err;
+>>> @@ -77,6 +80,7 @@ static int kfd_init(void)
+>>>
+>>>    static void kfd_exit(void)
+>>>    {
+>>> +	kfd_cleanup_processes();
+>>>    	kfd_debugfs_fini();
+>>>    	kfd_process_destroy_wq();
+>>>    	kfd_procfs_shutdown();
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>>> b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>>> index ebabe92f7edb..b5b28a32639d 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>>> @@ -1181,6 +1181,17 @@ static void kfd_process_notifier_release(struct
+>> mmu_notifier *mn,
+>>>    		return;
+>>>
+>>>    	mutex_lock(&kfd_processes_mutex);
+>>> +	/*
+>>> +	 * Do early return if p is not in the table.
+>>> +	 *
+>>> +	 * This could potentially happen if this function is called concurrently
+>>> +	 * by mmu_notifier and by kfd_cleanup_pocesses.
+>>> +	 *
+>>> +	 */
+>>> +	if (!hash_hashed(&p->kfd_processes)) {
+>>> +		mutex_unlock(&kfd_processes_mutex);
+>>> +		return;
+>>> +	}
+>>>    	hash_del_rcu(&p->kfd_processes);
+>>>    	mutex_unlock(&kfd_processes_mutex);
+>>>    	synchronize_srcu(&kfd_processes_srcu);
+>>> @@ -1200,6 +1211,52 @@ static const struct mmu_notifier_ops
+>> kfd_process_mmu_notifier_ops = {
+>>>    	.free_notifier = kfd_process_free_notifier,
+>>>    };
+>>>
+>>> +
+>>> +void kfd_cleanup_processes(void)
+>>> +{
+>>> +	struct kfd_process *p;
+>>> +	unsigned int temp;
+>>> +
+>>> +	/*
+>>> +	 * Iterate over remaining processes in table, calling notifier release
+>>> +	 * to free up notifier and process resources.
+>>> +	 *
+>>> +	 * This code handles the case when driver is unloaded before all
+>> mm_struct
+>>> +	 * are released.
+>>> +	 */
+>>> +	int idx = srcu_read_lock(&kfd_processes_srcu);
+>>> +
+>>> +	hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
+>>> +		if (p) {
+>>> +			/*
+>>> +			 * Obtain a reference on p to avoid a late
+>> mmu_notifier release
+>>> +			 * call triggering freeing the process.
+>>> +			 */
+>>> +
+>>> +			kref_get(&p->ref);
+>>> +
+>>> +			srcu_read_unlock(&kfd_processes_srcu, idx);
+>>> +
+>>> +			kfd_process_notifier_release(&p->mmu_notifier, p-
+>>> mm);
+>>> +
+>>> +			kfd_unref_process(p);
+>>> +
+>>> +			idx = srcu_read_lock(&kfd_processes_srcu);
+>>> +		}
+>>> +	}
+>>> +	srcu_read_unlock(&kfd_processes_srcu, idx);
+>>> +
+>>> +	/*
+>>> +	 * Must be called after all mmu_notifier_put are done and before
+>>> +	 * kfd_process_wq is released.
+>>> +	 *
+>>> +	 * Ensures that all outstanding free_notifier gets called, triggering the
+>> release
+>>> +	 * of the process.
+>>> +	 */
+>>> +	mmu_notifier_synchronize();
+>>> +}
+>>> +
+>>> +
+>>>    static int kfd_process_init_cwsr_apu(struct kfd_process *p, struct file
+>> *filep)
+>>>    {
+>>>    	unsigned long  offset;
 
-Or do you need to be more explicit on which parts of each spec apply
-(ColourPrimaries vs. TransferCharacteristics vs. MatrixCoefficients in
-CICP parlance)?
-
-E.g. BT.709/sRGB ColourPrimaries with BT.601 MatrixCoefficients.
-
-> + * @DRM_MODE_COLORIMETRY_NO_DATA:
-> + *   Driver specific behavior.
-> + *   For HDMI:
-> + * 	Sets "No Data" in infoframe
-
-Does DEFAULT mean that something else than "No Data" may be set in the
-HDMI infoframe?
-
-If so, since these two have the same value, where is the difference? Is
-DEFAULT purely an UAPI token, and NO_DATA used internally? Or NO_DATA
-used only when crafting actual infoframe packets?
-
-Should NO_DATA be documented to be a strictly driver-internal value,
-and not documented with UAPI?
-
-I am unclear if userspace is using these enum values directly, or do
-they use the string names only.
-
-> + * @DRM_MODE_COLORIMETRY_SMPTE_170M_YCC:
-> + *   (HDMI)
-> + *   SMPTE ST 170M colorimetry format
-
-Does "colorimetry format" mean that the spec is used in full, for all
-of ColourPrimaries, TransferCharacteristics and MatrixCoefficients?
-
-If yes, good. If not, the wording misleads me.
-
-> + * @DRM_MODE_COLORIMETRY_BT709_YCC:
-> + *   (HDMI, DP)
-> + *   ITU-R BT.709 colorimetry format
-> + * @DRM_MODE_COLORIMETRY_XVYCC_601:
-> + *   (HDMI, DP)
-> + *   xvYCC601 colorimetry format
-> + * @DRM_MODE_COLORIMETRY_XVYCC_709:
-> + *   (HDMI, DP)
-> + *   xvYCC709 colorimetry format
-
-Btw. xvYCC are funny because they require limited quantization range
-encoding, but use the foot- and headroom to encode out-of-nominal-range
-values in order to expand the color gamut with negative and greater
-than unity values.
-
-Just for curiosity, is it in any way possible today to make use of that
-extended color gamut through KMS? Has it ever been possible?
-
-I mean, the KMS color pipeline assumes full-range RGB, so I don't see
-any way to make use of xvYCC.
-
-> + * @DRM_MODE_COLORIMETRY_SYCC_601:
-> + *   (HDMI, DP)
-> + *   sYCC601 colorimetry format
-> + * @DRM_MODE_COLORIMETRY_OPYCC_601:
-> + *   (HDMI, DP)
-> + *   opYCC601 colorimetry format
-> + * @DRM_MODE_COLORIMETRY_OPRGB:
-> + *   (HDMI, DP)
-> + *   opRGB colorimetry format
-> + * @DRM_MODE_COLORIMETRY_BT2020_CYCC:
-> + *   (HDMI, DP)
-> + *   ITU-R BT.2020 Y'c C'bc C'rc (constant luminance) colorimetry format
-> + * @DRM_MODE_COLORIMETRY_BT2020_RGB:
-> + *   (HDMI, DP)
-> + *   ITU-R BT.2020 R' G' B' colorimetry format
-> + * @DRM_MODE_COLORIMETRY_BT2020_YCC:
-> + *   (HDMI, DP)
-> + *   ITU-R BT.2020 Y' C'b C'r colorimetry format
-> + * @DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65:
-> + *   (HDMI)
-> + *   SMPTE ST 2113 P3D65 colorimetry format
-> + * @DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER:
-> + *   (HDMI)
-> + *   SMPTE ST 2113 P3DCI colorimetry format
-> + * @DRM_MODE_COLORIMETRY_RGB_WIDE_FIXED:
-> + *   (DP)
-> + *   RGB wide gamut fixed point colorimetry format
-> + * @DRM_MODE_COLORIMETRY_RGB_WIDE_FLOAT:
-> + *   (DP)
-> + *   RGB wide gamut floating point
-> + *   (scRGB (IEC 61966-2-2)) colorimetry format
-
-Again, there is no way to actually make use of WIDE since the KMS color
-pipeline is limited to the unit range color values, right? Or is it
-possible by setting all color pipeline KMS properties to pass-through
-and using a floating-point FB?
-
-I suppose the FIXED vs. FLOAT has the exact same problems as BT2020_YCC
-vs. BT2020_RGB, but I would be surprised if anyone cared.
-
-> + * @DRM_MODE_COLORIMETRY_BT601_YCC:
-> + *   (DP)
-> + *   ITU-R BT.601 colorimetry format
-> + *   The DP spec does not say whether this is the 525 or the 625
-> + *   line version.
-
-Good to note that ambiguity here. :-)
-
-Or maybe the DP spec writer was thinking about BT.709 ColourPrimaries
-and BT.601 MatrixCoefficients...
-
->   */
->  enum drm_colorspace {
->  	/* For Default case, driver will set the colorspace */
-
-
-Thanks,
-pq
-
---Sig_/QGxcggDuSCp6h/7zFmq3NYi
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIyBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmQIToAACgkQI1/ltBGq
-qqcAXw/4kpwIY8Ytsb7W9BjKTEGyczFDgW2MTO0FDWu2eeTuf54o5SmGTTj9DE0B
-EIBFRJHGCIlWSLD4clWKv4eMHr7lIOwEVSQYSwaxfUZhLypFbBPfhnUenDqueMHk
-3sOh4zH+COR0+bAS74aEj6s3eP2behPHlg2R+fqeKF0Mr3gw436CL17JqRoqaTAm
-/Dd1f+2f6uRHqRYTvA1i3ZY1GK81QuyOQd+PKK9r6M6KqlRfzoj+969K5t0qthWw
-9iLHfFF9yCtkfTR/mjyRcK5CGWBr+sOklccQpYzakJn8BguNaRX8E/y7IjZRKJ2Y
-88cxkfIHVYAR1LBudT0rsXATnQbZ3vEb/8LTrP6loPtSMwJOiQMJtk8BuQUxya22
-jZ48xCzAO7PkK9/0xWMJnzaehTw1N/+Gnh4Pz95JdzyqHEybzAfAXsTeDcyuuaoQ
-5EMOT8VXN2EbXketZWydRjK0A6l5udibB3xvQj2xRiGfgW0Cc9dmbL5xCR7+96YH
-P6vVi9A0oqntCs8WCBr+Ptd5MAS825uo+AcJ3/PrP7cEDD5+cHYzzXBWAvRKR+ZL
-Ha0Os1oSZsttsHN1E1Ay+jUikSg6x/O1KNc2VH0n0cJ5J8gfjyJPbVxxeQ2j/kQf
-BY++RTs4ON8ySlgZoSk07rnkSZeUGzg6hXgXA9AYhxauwJrLeA==
-=7PhS
------END PGP SIGNATURE-----
-
---Sig_/QGxcggDuSCp6h/7zFmq3NYi--
