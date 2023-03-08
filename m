@@ -4,117 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4E8CC678D5
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Mar 2023 23:36:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41A22C678D5
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 00:13:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2722010E2AA;
-	Tue,  7 Mar 2023 23:36:48 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2061e.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5a::61e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 865EC10E2AA
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Mar 2023 23:36:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CE9A10E570;
+	Wed,  8 Mar 2023 00:13:37 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2063.outbound.protection.outlook.com [40.107.93.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE16210E570;
+ Wed,  8 Mar 2023 00:13:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=b3UeVwNiCqrDnqT6HnVZLH87n//1fzCV5L+UjkVJm0TfY5Sa8/cCm6Jc/AAaKfGQrsfi1t+AMqOOZ7KdkC7UOEkiyshud8SaX2jx/TL+Swmy/WjiUxrDagyzV+4xAZZiRZSmsbNzttSZrACZRDtyZeWXice2HGsbe00xpTkds9Lt3L9vfFQwtXir8wQV6RizyJdSWsC/h07SkuSfLU8x5ZFWJ2auAzGHZQ+HdbgV2AfjsvqAMGQ0gQUa91u342rSUay5Jc2yJjx3RacECwo7BnhlM4cqMpXhbM/w2rI6j9aRrUsm4cE/Vo1giIRB68s2v6XnMzgVvUSXml0E/t5AOg==
+ b=Sox9qVrqqK1sLeaSm7NDC8OpgqRr4sg+phWg4HtzosO61ipXJgG4jZrgrzPqeyvCG7RXbPe1NiICqN2ty25blOE6ZvEx93dA0RG3Bs+C0Y+DvmzyIZG9AbwcM9KRZtOjPaLHjaWNk/m8FOKmwbu5B9Zx1z9nNmREQxW1qNcWR18p4kNZ/GPoa3U2/rIrkNNBe8u2ShMhNaAbM/c36nYxBxaoajodEoj7X7GmJBeepoT2cfmoCDtorXIIGQ/SGQGCdfu+wE5G4Rh5kpjiB7vKmT+tqN5f5GKbMHNkiHIJXlbTJM9V/5JvYefwR8+/pvdHBKPl7wr30TSJYwMzyLFEkQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=48BBv8J3mneZJsUJ9+hI74BxF7G4slCVqciBLf5s4Kc=;
- b=eD4zBycZmqlx/lTqPx2pyGCDy4V+6tbFx1gw/DB/LUcU8MdY+PgXFfFjv6F6aJFXxwuGapNvq9LBTa+t1TX6JCA5vGBqnwNBKDSQ9ZnqSgrkxf0MgBQZ3s1uPdb54TvxifKwIG6VDYmtNsujvl3nfEnWKdFVn5Pwkjnn2iMoqFu5ncmN4pvND003D7l0hknbsDIhAupu19ZkvJDDrJq4694PzY+9OtoL1J8OrKxkskpxZJE+jCNui0MhOvsKvpRdQVZY8s8DR/iXZI6PW4dardmiGeNVc1NbiBU/fPF9JqI7knMBJudvNfU19gzppZpf0XC0155grX4hNsHzc1/YHQ==
+ bh=b6YrmVS2QOkDShH8jSrcaoXpk+qWRl7MkDc71sChL9Y=;
+ b=Zl4zKqKmg6HmDs1CZqdn9F0DtF42u9Lx/I5/YeYW5Q9dCMYMq82SH7ZWxUs9ku0AyYIdkRBG+VpIaM1yb7JD1thmByTZdbKDyyJlVIwnO/vrrflcK9MP27+oZDeY5ClmBtp4wsRLeuvfQMUNZJ7ViUxHTLPFN689AsOtp7skyuB102RuWqMTZEZvJRQuWWulhZuqrbMmPiRziGX+xjbeCnCFBVUjVTfP1b4wVoc7tURtBACkiaRQyN8IT35ljcPm/sh4wFV4UDyq7PnMv6C2Zm4XgOeDRPlKZ7rhh/aQed5yQUUu5fEki6GkA1XNW53iWcSDBCOeSzv4W5mEBfjDpw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=48BBv8J3mneZJsUJ9+hI74BxF7G4slCVqciBLf5s4Kc=;
- b=yJg+yz826igCRrAEZmxybEMANR7Xr7CNitkb98W1mZxf4YEEd5Z078qiH/jajy//pmXS6/aOGyiJb5m8NR9cw3cvT4/GzuqdSq68YGfhVKl9VRkd5OLvOSZN0+GJlNL4IFUFJYBs5ruWrOjXK++e0WXydc8N5AqwtKM6eQRhUro=
+ bh=b6YrmVS2QOkDShH8jSrcaoXpk+qWRl7MkDc71sChL9Y=;
+ b=REfrdwXf9zUZLE7ZYnafvfIpYn6kBKHWKF0d3e43F4XH1A5gNakRrWhOrdpVvG9xIbm/Fzs2117RAhdm8fzP+ye/SYWNmdlboqsD5iVCLjbOFXSD/qw9ebCDYI+N0X3JYKSm69vi2yynOyhx2IyERqTCQIKcCuP5rmCZwTNYaJM=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from MN2PR12MB2941.namprd12.prod.outlook.com (2603:10b6:208:a9::12)
- by PH7PR12MB6761.namprd12.prod.outlook.com (2603:10b6:510:1ab::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.28; Tue, 7 Mar
- 2023 23:36:41 +0000
+ by CH2PR12MB4891.namprd12.prod.outlook.com (2603:10b6:610:36::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.29; Wed, 8 Mar
+ 2023 00:13:33 +0000
 Received: from MN2PR12MB2941.namprd12.prod.outlook.com
  ([fe80::699d:42b8:93ed:76da]) by MN2PR12MB2941.namprd12.prod.outlook.com
- ([fe80::699d:42b8:93ed:76da%3]) with mapi id 15.20.6156.028; Tue, 7 Mar 2023
- 23:36:41 +0000
-Message-ID: <bbed4930-680f-a73b-3c8a-bb745c5f16b8@amd.com>
-Date: Tue, 7 Mar 2023 16:36:38 -0700
+ ([fe80::699d:42b8:93ed:76da%3]) with mapi id 15.20.6156.028; Wed, 8 Mar 2023
+ 00:13:33 +0000
+Message-ID: <e4de1a96-d669-1923-8677-026da2dc5585@amd.com>
+Date: Tue, 7 Mar 2023 17:13:29 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH] Revert "drm/amdgpu/display: change pipe policy for DCN
- 2.1"
+Subject: Re: [PATCH] drm/amd/display: remove legacy fields of dc_plane_cap
+ struct
 Content-Language: en-US
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <20230228195443.10758-1-alexander.deucher@amd.com>
+To: David Tadokoro <davidbtadokoro@usp.br>, harry.wentland@amd.com,
+ sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch
+References: <20230307225341.246596-1-davidbtadokoro@usp.br>
 From: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
-In-Reply-To: <20230228195443.10758-1-alexander.deucher@amd.com>
+In-Reply-To: <20230307225341.246596-1-davidbtadokoro@usp.br>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN2PR06CA0025.namprd06.prod.outlook.com
- (2603:10b6:208:23d::30) To MN2PR12MB2941.namprd12.prod.outlook.com
+X-ClientProxiedBy: BL1PR13CA0182.namprd13.prod.outlook.com
+ (2603:10b6:208:2be::7) To MN2PR12MB2941.namprd12.prod.outlook.com
  (2603:10b6:208:a9::12)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB2941:EE_|PH7PR12MB6761:EE_
-X-MS-Office365-Filtering-Correlation-Id: 938a9ec5-178f-4e21-7d4f-08db1f64cda9
+X-MS-TrafficTypeDiagnostic: MN2PR12MB2941:EE_|CH2PR12MB4891:EE_
+X-MS-Office365-Filtering-Correlation-Id: ee8989da-35aa-4145-97dc-08db1f69f3c9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ujI7hQUk0UkjUM9xeSG7WUZwZNcvfzIBFMaaPfQDPCPTKIZhW7ERyCRlnxuu/G/rWVdrF1e4irauXTrk4P4BYSaoKrn2zHfBdRmznG3WxYV3RhwBdbrBMyNRMt3wIZEFcu9HWiWwjUX7Lp+0a1jXz2iOMitw+fpO4Px5lsAxJRtPetIKgrPHDAsvlUmY+4jjphX9SQqMDNe5D/aQMqdJGjWJbaBTxvsJIrccJtxhJOmqWLMGgH6HIFU9x3iRSS071DhA0hBqVsXaONN+05KZdclygnWcqwHVXDXKGmVrFvJPmhQTvDUKU/dByH3WWjLp1Am8CikogE8Oq6m6uu6VazE5KSEu/fn+f/jsi1WKXZ1HqvBAXYgCXRZ1SmN1z7hZ4jF40nYpK7HAgHPiEPZbsGOOeYIVebG+eBGHvG6najRALxfttXF90yVLIIXq2k0f8TKhtg8vgQDT8QuM3SsiGnxhIAwYsMj+trgj40vbUaFimP1As0MLdY5B1yR6d6BcYkJODaa2Qu9U2wikohiFnUqpg3DarhaCbKCiMv8RUpm8WNGgNwqLtNsEsNsZ2gr9ctpwoL+NXm2ya1ZXTg9ct/DOHBwoEmTDxNPc3tO2mNU991vK2HriC/wCbPpo6XEqMZSU9ZYHfLEmfQN/R3uNVSjXUaZ56nHuzv3nBtVRjQrk9IAdRfFrC8ORv4nTAbA3
+X-Microsoft-Antispam-Message-Info: JVAQ9h1LVcpmygfklKrWaMDmBWHXZOw0ejkkkPQCUBls/EX3Xq3kYKoSNa/uiH0rbiItTKIkCyEc6OgV80HwzMn/4iqiKYwVskXnA13+VYxAhicpuFS3yNDPsaanVgcJ4Uk7HVx8SdloSk3KnVOAbbdGyeKVMD+qdkpQuLdqLDRC/wgYYLbz76Hde8SjDPaH+H4TF67cwuHPFyvTXfpFx9iUkuHU+QmaJIsEexCtCwrhTrGTNNBGAM+4oqFEsbDNTlEaFmdBcIzgGUt+oX74j8SnpICI+SLjFLRC+8jNL/6j0pBm4rVrZ8NlnRqZmUGfy5rH/cjEZPHHMLLJm6W7LaxjYpGMgwKboCr7vTZ6nCew+XRG0IhtK8gLhJOIzdYfuVQZGnKODtKveuEdMgnLL3pUZ+LyV+oGzymOAH6MXKwm+ctZmPcjrI9BQgK0UEGwJcnDhgMaXJcdtArF+BZeWFgkOBG2EgXOrvKwtgEzmPAtvneMjKGH324Ps3Twe7T4C2zm1wcUSwIdZsqIWWgRQC6wVj0iiRpLYg5rUG/AM0i3MubF3dTrEeBvfipuHqPRCfdEKo83+A9qbR+BLHCUPWOSfS2uQF2bEYz+Zo/VMErUOYibPt84uPHcfenifiI+8Gglb1azIBcKboaRzoDJ3rId4R8hMaLqcen7HA/AsiezFoy0q3RaaguNP42X1C1o+hBkx3d8nkHtQO9NRTidqkBKF9bnQmjKfb6i7glniII=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB2941.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(346002)(136003)(376002)(396003)(366004)(39860400002)(451199018)(316002)(6636002)(478600001)(37006003)(4326008)(83380400001)(5660300002)(6862004)(36756003)(8936002)(38100700002)(8676002)(2906002)(66476007)(66946007)(66556008)(6666004)(966005)(6486002)(31686004)(6506007)(2616005)(186003)(53546011)(41300700001)(86362001)(6512007)(31696002)(45980500001)(43740500002);
+ SFS:(13230025)(4636009)(136003)(376002)(396003)(346002)(366004)(39860400002)(451199018)(53546011)(31686004)(86362001)(36756003)(8936002)(66946007)(8676002)(41300700001)(66556008)(5660300002)(66476007)(31696002)(4326008)(478600001)(186003)(6512007)(6666004)(6506007)(2616005)(2906002)(6486002)(316002)(30864003)(38100700002)(83380400001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SklJZ3dYY3k0WHlIMm42QjVRVXA2QVdYTDBVcm54LzJFbkNuNVd0aFpZbmVt?=
- =?utf-8?B?b2VNdHA1bFFHamllWFZxU1Fjc0ZVZFp5Tkc2VVAzMjVrUVBWcXI0aC9tUWZM?=
- =?utf-8?B?Nm1kVFRLaTExMXg1UnFBdGZGYmpITDducTBwVEZHdHhPWE5JZVNDNFNNWHJF?=
- =?utf-8?B?bGUzUGlTR3NjUVhqMm9YS3I2K3FrMnYzSDk1N0lGMkJKTE9FejB3STFSVE4z?=
- =?utf-8?B?TlUrM3doTTBOeE52ZURON3I0YnRTelc0eTdsbHJxMTc5cDJnd3Z5OXY0TmVa?=
- =?utf-8?B?bXJlWEdCdjZsbVk3NEpPTVVocnFUa3pOZDRPVW9QWTFlcEpuZS84b0N4dGpF?=
- =?utf-8?B?TU0rREdSbUM3Zk0yQkt2QWZ6d00zTEN3Q3JMK1NyUHdQMkl5eGdIb2JjM2Fo?=
- =?utf-8?B?aGVJZzIyRk9xelJBRDQva2tlN3hXaVhFbWZiYW4vTkk5NWNSRzFoM21FSHRt?=
- =?utf-8?B?b2NsY056M08vdE10RDBvaSsxSzl0Q3AxR0NtZVRUOHVjOWJOQlR3TFh0ck1a?=
- =?utf-8?B?cWZQeGY5dGZ6bGNUa1c4dzYrREQrNjREMWxpMlZkc2JhYXlpajVNNFdicVNN?=
- =?utf-8?B?bUthazZ5N2x0STBtb2xOd1U3WHNzYzN6SXBxeFJES2EvNjBUYnNiT2w0QXpa?=
- =?utf-8?B?MVltVEV1NVJSY1Q3QW5ucE1jR1ZOYnRCakVuSUV1NGxtb1lnZFdFbFI1OGZ3?=
- =?utf-8?B?a1dWaHRmbDN6cUVISHNyU05teHhHU0pmdU1mS3RhYjRmSWM5YXdKb0RwbDV0?=
- =?utf-8?B?R1RiWXlkSlgvaXQvY1dtTmNHQTFQTXIrODV5OVZtcGVRekJSQkR4TlorR1Rs?=
- =?utf-8?B?MzlvTDdVbEhCcnRURGZRdHhiM1NKdlBTKzlFUmsrZ1BxOGJFUDVIU3ROaUFJ?=
- =?utf-8?B?SzMzQTNEMGppbUlwRnBOZUYvazdQbTdOUUFZdERudHJHVFhBWm5yZzlPK3Iz?=
- =?utf-8?B?WG9KcUxWY3JzM09nRGtRU0c1MVQyMW9VT1MxaktYRW5sV1B4QzV1WGVpL0tO?=
- =?utf-8?B?OHJCS1R5dERXdWZ2MUJjd0p4M3ovOEFXRm5aSngyOEt0V0R2dG9razVtRHVM?=
- =?utf-8?B?c1JvZ2p4M2VQbDlneW5TVyswalJNUTVacDY2NEZvcGl6QkJNcWJHYXBzM0Zp?=
- =?utf-8?B?QW82dHczUDZIcEpPbDQ0cGRzcVFiekJjTmUyQ2syUjZQcm44OHljREdvYVpK?=
- =?utf-8?B?cDNMQmpZZFhENXc5ZVlBZ2xDejBGRUVCVUFweitTME8zUVlLd25nSmpLUjNH?=
- =?utf-8?B?N3VKNmpzRUNhakVGUkI3eksvMElHVEQ3VUtycHVJZlZUWk9NRUlCTzhiakth?=
- =?utf-8?B?YmUvc0VpeUEyMTRyejdOUzFkWUdEYktTd0JCT2Fvb2NmNDRaL0RtSkNJOU9R?=
- =?utf-8?B?aHk4U3VYM05OUXR2M2owM1FEektBaUpQZHJZbm0zTzhYekE0dDBIYmdwRFBP?=
- =?utf-8?B?eEpUN3owRVRpeUdLVTlwbWJxQkpuZ2dPUGt6WmxBUVpnaEJ2NGZxQzVwa2NT?=
- =?utf-8?B?N05rNDlwYUd0V2pyVXhXeEdUL0E1TllibkwvU0V0ZHpNZGI4WXV6dG1CMUlt?=
- =?utf-8?B?dmM3V24za3RqNC9GTDg4ZlBSLzd4OWJMZm9HVy9VbE1VVlB0UGc2eDBWeWl5?=
- =?utf-8?B?dzRnUUdERXdZaWNIQy9ZYTU1M2hJRGozaGltUGo0SHF6ZTNXLzN3QWJ4M0lh?=
- =?utf-8?B?SFpRaThRdjl6aWdqa1pvd0lzSExlSVY3Vm1rM1hPY1JFTXNmRTNoa0s3MXZm?=
- =?utf-8?B?T3p0RktTSUZweU1veDdkRzNlT2VIbzlJRWlFV1M4Tkp5WmwyZVdOTGZsaXdU?=
- =?utf-8?B?S1BlMFlieWhoZVZEU3QzOTBHMjYrZUlzWllsS2xWL1dXdkp6NXQvcXc1THpp?=
- =?utf-8?B?YjhiU0dMaUlkWG5xdjJMSEhYSTFjMEIrK3BtRFVselExV1d1ZkJPbmRFTnpn?=
- =?utf-8?B?VGN5M204ZENHS0p3UnhqRlpvVkZST1M2SUExaTVHVm9qVzJRSXdnc0NrekUy?=
- =?utf-8?B?Y2x4Nys5QVpIZFVnTGo4dElpS3Y4YkJNb3k3NGQyczZlQ21leXo3S1ZLd1BP?=
- =?utf-8?B?ZGlOMXpocG1tQkhabHJQQy80L1BueTVsb0gydlZhZ0FpK1NIKzNSYXBYWVJT?=
- =?utf-8?B?c1Z0T3hHTlZ1YkdOK3FzSng5UmM0SXE0SGdJNTFma3dUS2VEaHhrQzB3NndX?=
- =?utf-8?Q?tMeB0UYxLu/F/HYkNid8/bGvRcDXBmaYFP++AQFtzUPm?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y3VxRS9mQmhDbXNXZVFvNDRib1BNSDkySi9IK2xra21Sb0F6cUl5N2NOT0ls?=
+ =?utf-8?B?dFc1ZnF3aE1YTGR4MjFxbUxaT1dTVzdteXlFOHVqMEYrdmVUamJLNUhLSmM5?=
+ =?utf-8?B?V2wvU3I4Z0NKY0svaGNQckt6Z3VXNkdYcnNNTjA5NWtBYzJEc3V0L3kxWXNp?=
+ =?utf-8?B?MjNFL3V5NTRiNG14Tk5iSklRaWYxNHJub2ROSkhYbExRak0yckpONWducFZq?=
+ =?utf-8?B?VWd1d1kra0dRb3RSenVqRVVUYlcrYVIwL28zVVpreGY1MVZnT09pbVE1RDdr?=
+ =?utf-8?B?ZHdJRENmdm53di9MMkhpRVZNSUNIZWhlT09DSDIvWDdnVGlGOGpyR3oybThu?=
+ =?utf-8?B?Z0ZlZG5zdTRqMVJUaSs0aVNISUw0YWd4M004UkNEMVlHQWZVMGxNZjdRTWJI?=
+ =?utf-8?B?Tk5jRWQ3S2o5OW40NVZpUEUyV0kvdFdXVFM2TGV4aWNKUE1mQ1FPRnVmcHFC?=
+ =?utf-8?B?SFZZK2lXTmFUaDRvWE9uMHVmTzErekxhalprUEZyMzJ6Z09nTVRFUUErOE54?=
+ =?utf-8?B?YnNpblZqNXZyV3orSUxMZ2dsdElOMWN5bXFnWVV4SzBJd3RtbTJlb0JMVThp?=
+ =?utf-8?B?eWI5Wi9jUFBmdkprdnAvY1lHbmNFV0VHcWlvdXg1anVzcXc1c290RE54OTdw?=
+ =?utf-8?B?SFhUQ0VYSkJKYTRWZmMyb29FL1E4SndoWGlDZmpLRExJN2VKZUJmaENjZ1JH?=
+ =?utf-8?B?cTRaR0VGR0lDdUN5L0N3VEI2ZTc5TWtuUVY3RnFjZGdXRDRSNmZwNUFtTytN?=
+ =?utf-8?B?UFpXUzdsTGhPTmR1eFRGTjRjL3FhblkzQmN4TVF1eDBGTTREMktXRmJJT0RJ?=
+ =?utf-8?B?bjN6S1VtNnowdzJFQjBrK2xLVjFiYTZYR05sTzJhRSswK21BSDhSbnhWcTFh?=
+ =?utf-8?B?WUFQMU82UktEN1NIWDRxQlhWckpOdG9WRVpDeSs2ZFNsNktZU0Mrd0hiZU96?=
+ =?utf-8?B?emUyV3c4RGhUUWl2dkw0aDd3bDZleENwVFBpblZJK0lQMzEvbG53RHpnZ0Mw?=
+ =?utf-8?B?ekI0ZWRxdmJBYkhQcmV5eTZQN3R0ZFMzU0ZMLzNFM2hPV0x0ZVNSL1dMZzV3?=
+ =?utf-8?B?U0NkRWQ4emtEWHhzQXZsQ2x2WjlTVVVlN0lpcjRKRTBPVGtuWmIxcVFKVWph?=
+ =?utf-8?B?SWR2Ym1EeUtkb3ZvbGZHRWNneVdtaDJFSHFnWVo5YTJTcERBbUU4SWxHV0Zl?=
+ =?utf-8?B?Zm9SVm16dlFVRDBhUSsyd1JtTTdOTXhMcEZUVDFON1Qzc2RYa2VBcmx1QzNL?=
+ =?utf-8?B?SjI2bk9Bc0VIY1hnMlhacjlKL2lTa1VlWmd6T2ZLQk4zZXZmNExIdTY1T0pG?=
+ =?utf-8?B?a3haMkphKzByMm1OTm4wZ1RETVR1eVBIeVRvVHpHbE96R2gyeFQzUml0MG52?=
+ =?utf-8?B?MmZaaktTc2g4YUhJT0xZODZ1UW02ZXJVeVNqMmpSSVJtMzNrdVVCWVR6Nktk?=
+ =?utf-8?B?dVMyZFlHTU9TU2kvdlF6ZTNpYU9hK3VxZWpkbkFRWnVoVWpKeUd4bDRNUlg1?=
+ =?utf-8?B?MkR5TUNMYzJQWjJqdlMvSjdSdlBQUWwwcGhGdXhXVTA3aGlOakU0eEJNQ2Mx?=
+ =?utf-8?B?QkV6SzdiZVZ1cGFLRXNYN3Q5RDE5OW4yaTBEdDQ4Z2pMVkp4ckhCZmkrMHNI?=
+ =?utf-8?B?d3V0cVlqRDRMTkg3NXRsS3huNmVlcGJiOWY4ZzVTbk0yR1VoUjZTMzM4MS8x?=
+ =?utf-8?B?ZUlLRGZMYVdVMzFrZVJCOUZuWEo5TFFHUWVxdWw4bk1mZFZzSW8vV3dQVE56?=
+ =?utf-8?B?Q2RGUkNhRTBwWlhKdVY0aEtQOVdheXJzSllldDByRmVxL2Vzc0FsMGFMTFBD?=
+ =?utf-8?B?SXAreEhMdk9mcVR1MjR6eTdTUnVBdVlsMGRvOFVJRnMzRXlkRkFKY0VlQXVx?=
+ =?utf-8?B?disxUHNzcnhRL2NZMUZkTHBBeXBvS0t1TUl3RU9iWkFSeXdZdlhuM1lpZVFi?=
+ =?utf-8?B?MnM3cjZickRGYk9wZi9LMmI0TmhzYm82ak5RUGQ5MS8wTitpOUZhT0dLMnM5?=
+ =?utf-8?B?WWtUUkdIWlJWTzVueEgxVkVWVUhyOWUydkxIS0pFQ2dqSWxjSGpJQ0ZKdkdk?=
+ =?utf-8?B?OXg4OEFUcjdKeTJZN2pQamhNanZVRXliSFJjZEZBNEJNblJvMTQrRGdMTFl0?=
+ =?utf-8?B?Z0hXNHZxQ2JHWUpCblpwbW5TRmhyOW1FOCs0REJPVFRqMnFTWk0ycisvcmpu?=
+ =?utf-8?Q?IoE7Idc+WK9E9cltzb8MAWIuRRIi04jhB0RE1ZWb7n8P?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 938a9ec5-178f-4e21-7d4f-08db1f64cda9
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee8989da-35aa-4145-97dc-08db1f69f3c9
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB2941.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2023 23:36:41.2247 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2023 00:13:32.7971 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JS/GiAuNq05LbvyMccWZXUvPU2KEMNsYBDQ6qO0fVsJwd9kvryEq7TYbo6pXcV/wFkTo3+OXZJDY6HoP5lLGaQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6761
+X-MS-Exchange-CrossTenant-UserPrincipalName: ILIEwygtXfvITjRURnCXmSRQfF0T+eBgrVgwcL8LzciKex8C5CDmPTxalkYFUVB1O97XGoWZ23yh15yLaeH8Pw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4891
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,41 +127,279 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 2/28/23 12:54, Alex Deucher wrote:
-> This reverts commit fa458eb10dc7218146a84e6d2e072424e64d188a.
+On 3/7/23 15:53, David Tadokoro wrote:
+> The fields blends_with_above and blends_with_below of struct
+> dc_plane_cap (defined in dc/dc.h) are boolean and set to true by
+> default. All instances of a dc_plane_cap maintain the default values of
+> both. Also, there is only one if statement that checks those fields and
+> there would be the same effect if it was deleted (assuming that those
+> fields are always going to be true).
 > 
-> The issue is no longer present even with this commit present
-> as verified by the original reporter.
+> For this reason, considering both fields as legacy ones, this commit
+> removes them and the aforementioned if statement.
 > 
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1849#note_1759599
+> Signed-off-by: David Tadokoro <davidbtadokoro@usp.br>
 > ---
->   drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c       | 3 ---
+>   drivers/gpu/drm/amd/display/dc/dc.h                     | 2 --
+>   drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c | 3 ---
+>   drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c   | 2 --
+>   drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c   | 2 --
+>   drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c | 2 --
+>   drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c   | 2 --
+>   drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c   | 2 --
+>   drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c | 2 --
+>   drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c | 2 --
+>   drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c | 2 --
+>   drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c   | 2 --
+>   drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c | 2 --
+>   drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c | 2 --
+>   drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.c | 2 --
+>   drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c   | 2 --
+>   drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c | 2 --
+>   17 files changed, 36 deletions(-)
 > 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index b472931cb7ca..fdcb375e908a 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -4354,9 +4354,6 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
+>   		if (plane->type != DC_PLANE_TYPE_DCN_UNIVERSAL)
+>   			continue;
+>   
+> -		if (!plane->blends_with_above || !plane->blends_with_below)
+> -			continue;
+> -
+>   		if (!plane->pixel_format_support.argb8888)
+>   			continue;
+>   
+> diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+> index f0a1934ebf8c..ccc27d482640 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dc.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dc.h
+> @@ -82,8 +82,6 @@ enum det_size {
+>   
+>   struct dc_plane_cap {
+>   	enum dc_plane_type type;
+> -	uint32_t blends_with_above : 1;
+> -	uint32_t blends_with_below : 1;
+>   	uint32_t per_pixel_alpha : 1;
+>   	struct {
+>   		uint32_t argb8888 : 1;
+> diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
+> index f808315b2835..a4a45a6ce61e 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
+> @@ -401,8 +401,6 @@ static const struct resource_caps stoney_resource_cap = {
+>   
+>   static const struct dc_plane_cap plane_cap = {
+>   		.type = DC_PLANE_TYPE_DCE_RGB,
+> -		.blends_with_below = true,
+> -		.blends_with_above = true,
+>   		.per_pixel_alpha = 1,
+>   
+>   		.pixel_format_support = {
+> @@ -428,7 +426,6 @@ static const struct dc_plane_cap plane_cap = {
+>   
+>   static const struct dc_plane_cap underlay_plane_cap = {
+>   		.type = DC_PLANE_TYPE_DCE_UNDERLAY,
+> -		.blends_with_above = true,
+>   		.per_pixel_alpha = 1,
+>   
+>   		.pixel_format_support = {
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
+> index 6bfac8088ab0..2bb8e11f26e0 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c
+> @@ -504,8 +504,6 @@ static const struct resource_caps rv2_res_cap = {
+>   
+>   static const struct dc_plane_cap plane_cap = {
+>   	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+> -	.blends_with_above = true,
+> -	.blends_with_below = true,
+>   	.per_pixel_alpha = true,
+>   
+>   	.pixel_format_support = {
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+> index 3af24ef9cb2d..00668df0938e 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+> @@ -670,8 +670,6 @@ static const struct resource_caps res_cap_nv10 = {
+>   
+>   static const struct dc_plane_cap plane_cap = {
+>   	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+> -	.blends_with_above = true,
+> -	.blends_with_below = true,
+>   	.per_pixel_alpha = true,
+>   
+>   	.pixel_format_support = {
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
+> index cd46701398d9..6ea70da28aaa 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
+> @@ -571,8 +571,6 @@ static const struct resource_caps res_cap_dnc201 = {
+>   
+>   static const struct dc_plane_cap plane_cap = {
+>   	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+> -	.blends_with_above = true,
+> -	.blends_with_below = true,
+>   	.per_pixel_alpha = true,
+>   
+>   	.pixel_format_support = {
 > diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-> index 8f9244fe5c86..c10ff621cb1d 100644
+> index 8f9244fe5c86..3ac8c0282589 100644
 > --- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
 > +++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-> @@ -642,7 +642,7 @@ static const struct dc_debug_options debug_defaults_drv = {
->   		.clock_trace = true,
->   		.disable_pplib_clock_request = true,
->   		.min_disp_clk_khz = 100000,
-> -		.pipe_split_policy = MPC_SPLIT_AVOID_MULT_DISP,
-> +		.pipe_split_policy = MPC_SPLIT_DYNAMIC,
->   		.force_single_disp_pipe_split = false,
->   		.disable_dcc = DCC_ENABLE,
->   		.vsr_support = true,
+> @@ -609,8 +609,6 @@ static const struct resource_caps res_cap_rn_FPGA_2pipe_dsc = {
+>   
+>   static const struct dc_plane_cap plane_cap = {
+>   	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+> -	.blends_with_above = true,
+> -	.blends_with_below = true,
+>   	.per_pixel_alpha = true,
+>   
+>   	.pixel_format_support = {
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+> index b5b5320c7bef..d60c17d5a0d8 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+> @@ -680,8 +680,6 @@ static const struct resource_caps res_cap_dcn3 = {
+>   
+>   static const struct dc_plane_cap plane_cap = {
+>   	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+> -	.blends_with_above = true,
+> -	.blends_with_below = true,
+>   	.per_pixel_alpha = true,
+>   
+>   	.pixel_format_support = {
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+> index ee62ae3eb98f..b93b4498dba4 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
+> @@ -651,8 +651,6 @@ static struct resource_caps res_cap_dcn301 = {
+>   
+>   static const struct dc_plane_cap plane_cap = {
+>   	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+> -	.blends_with_above = true,
+> -	.blends_with_below = true,
+>   	.per_pixel_alpha = true,
+>   
+>   	.pixel_format_support = {
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
+> index 03ddf4f5f065..6ccad53f1e49 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn302/dcn302_resource.c
+> @@ -147,8 +147,6 @@ static const struct resource_caps res_cap_dcn302 = {
+>   
+>   static const struct dc_plane_cap plane_cap = {
+>   		.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+> -		.blends_with_above = true,
+> -		.blends_with_below = true,
+>   		.per_pixel_alpha = true,
+>   		.pixel_format_support = {
+>   				.argb8888 = true,
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
+> index 727f458f6ee9..5c28f7151d13 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn303/dcn303_resource.c
+> @@ -126,8 +126,6 @@ static const struct resource_caps res_cap_dcn303 = {
+>   
+>   static const struct dc_plane_cap plane_cap = {
+>   		.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+> -		.blends_with_above = true,
+> -		.blends_with_below = true,
+>   		.per_pixel_alpha = true,
+>   		.pixel_format_support = {
+>   				.argb8888 = true,
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+> index d3918a10773a..eaaa2e01f6d0 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_resource.c
+> @@ -827,8 +827,6 @@ static const struct resource_caps res_cap_dcn31 = {
+>   
+>   static const struct dc_plane_cap plane_cap = {
+>   	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+> -	.blends_with_above = true,
+> -	.blends_with_below = true,
+>   	.per_pixel_alpha = true,
+>   
+>   	.pixel_format_support = {
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
+> index f9dfbc7407ee..50ed7e09d5ba 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_resource.c
+> @@ -855,8 +855,6 @@ static const struct resource_caps res_cap_dcn314 = {
+>   
+>   static const struct dc_plane_cap plane_cap = {
+>   	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+> -	.blends_with_above = true,
+> -	.blends_with_below = true,
+>   	.per_pixel_alpha = true,
+>   
+>   	.pixel_format_support = {
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c b/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c
+> index 7887078c5f64..41c972c8eb19 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn315/dcn315_resource.c
+> @@ -824,8 +824,6 @@ static const struct resource_caps res_cap_dcn31 = {
+>   
+>   static const struct dc_plane_cap plane_cap = {
+>   	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+> -	.blends_with_above = true,
+> -	.blends_with_below = true,
+>   	.per_pixel_alpha = true,
+>   
+>   	.pixel_format_support = {
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.c b/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.c
+> index dc0b49506275..9ead347a33e9 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn316/dcn316_resource.c
+> @@ -824,8 +824,6 @@ static const struct resource_caps res_cap_dcn31 = {
+>   
+>   static const struct dc_plane_cap plane_cap = {
+>   	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+> -	.blends_with_above = true,
+> -	.blends_with_below = true,
+>   	.per_pixel_alpha = true,
+>   
+>   	.pixel_format_support = {
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+> index 87f7669e81d7..100b6df33b33 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+> @@ -657,8 +657,6 @@ static const struct resource_caps res_cap_dcn32 = {
+>   
+>   static const struct dc_plane_cap plane_cap = {
+>   	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+> -	.blends_with_above = true,
+> -	.blends_with_below = true,
+>   	.per_pixel_alpha = true,
+>   
+>   	.pixel_format_support = {
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+> index deaa4769be10..0f477d50e935 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
+> @@ -655,8 +655,6 @@ static const struct resource_caps res_cap_dcn321 = {
+>   
+>   static const struct dc_plane_cap plane_cap = {
+>   	.type = DC_PLANE_TYPE_DCN_UNIVERSAL,
+> -	.blends_with_above = true,
+> -	.blends_with_below = true,
+>   	.per_pixel_alpha = true,
+>   
+>   	.pixel_format_support = {
 
 Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 
-And change merged into amd-staging-drm-next.
+I also applied your change to amd-staging-drm-next.
 
-Thanks
+Thanks!
 Siqueira
