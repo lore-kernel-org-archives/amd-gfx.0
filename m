@@ -4,91 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABCC9C64EC4
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Mar 2023 05:48:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B550BC61DA4
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Mar 2023 08:33:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 360AB10E790;
-	Thu,  9 Mar 2023 05:48:59 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2060.outbound.protection.outlook.com [40.107.100.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7EA710E790;
- Thu,  9 Mar 2023 05:48:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=B4dbFIFrVr+kbep/O2B/agfUqrlPb1d9tSyH6mmrGfHdT60TI9KMhrt/PsrrL3/GZx9dAF5F/pvvZnJ1QEfuAZCn9ORTFrW0UaEtbawqAPOYqtEEFjMmCaSMmN3A77kmv+ijv0i+Dbc/Bi0HTzKarveXDn/71job8a9BhSlglC+JwqdhMBRsKcTZeoHITE97qg5yws8Ek0a8N75ll4G4c7FlEE+oX8SYtuJiN8KuOrcM67jEJdrN+lO/JpJQuRRD+i8Z7FseI7v2kL6mULmct0q/CVAXCaKWBT35jTZgw13/XN5RX2VWLWkaAECX+mAkRVdsf7OMF+xGplEa2jJdkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2f1jc7JEegY3TTqi7KArcSPfplPcav3nTCioCR9V7Es=;
- b=aR4n9W7umNcHB5B4OuANWLEpV8I3GfuCq+j0u8BS9vS6o2mP/uSvE7DJhTsg8dLXRnutLT2xACWBW6nlzmjlH2EOAeOt+GBQZelKrszsNi2bC/0S7bP/DeEkBMfuuc60vIutCG0K9zP2ssX0O6weyQHTVI0Fth3ESEuE7gt05SW2BOBzOpMflvtQ04LJPD87xODLsLJmvxgjR7ygjH5DzazR2V1nTjGIEx3Ga0cBBIk8zm7jAJ4ZYTuHS6F6Wm4OQ5tv3dvhyh86x/4wVVXCW3ZcH+Bmk9Y0d0KUKGHv3kTB0vDQmN4FLNwov9drp6uxF1nd9KQdjXAQ3oKFPs90oA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2f1jc7JEegY3TTqi7KArcSPfplPcav3nTCioCR9V7Es=;
- b=BzMin/laLnoAcf0/labgq1TpHtkNUiuXkJnqMxcXNPPjDolToJsLLDYh+cfaVFExgioqcoMEj4PL209g/QwW2zHxYASB81CrVmqLAHRkAtoQ2QwqhTDXTwZ1p96t7wN37gOLBjtkIe46/h7hDodEYupB4SQeKEZvvnevphvNBZI=
-Received: from CYZPR17CA0010.namprd17.prod.outlook.com (2603:10b6:930:8c::12)
- by SN7PR12MB6959.namprd12.prod.outlook.com (2603:10b6:806:261::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.28; Thu, 9 Mar
- 2023 05:48:55 +0000
-Received: from CY4PEPF0000C978.namprd02.prod.outlook.com
- (2603:10b6:930:8c:cafe::bc) by CYZPR17CA0010.outlook.office365.com
- (2603:10b6:930:8c::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.19 via Frontend
- Transport; Thu, 9 Mar 2023 05:48:55 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000C978.mail.protection.outlook.com (10.167.241.139) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.12 via Frontend Transport; Thu, 9 Mar 2023 05:48:55 +0000
-Received: from guchchen-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.34; Wed, 8 Mar 2023 23:48:52 -0600
-From: Guchun Chen <guchun.chen@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <alexander.deucher@amd.com>, <hawking.zhang@amd.com>,
- <dmitry.baryshkov@linaro.org>, <spasswolf@web.de>, <mike@fireburn.co.uk>
-Subject: [PATCH 2/2] drm/probe_helper: warning on poll_enabled for issue
- catching
-Date: Thu, 9 Mar 2023 13:48:39 +0800
-Message-ID: <20230309054839.2709424-1-guchun.chen@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26BA410E190;
+	Thu,  9 Mar 2023 08:33:54 +0000 (UTC)
+X-Greylist: delayed 416 seconds by postgrey-1.36 at gabe;
+ Thu, 09 Mar 2023 08:33:52 UTC
+Received: from pio-pvt-msa1.bahnhof.se (pio-pvt-msa1.bahnhof.se [79.136.2.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 488A210E7B0;
+ Thu,  9 Mar 2023 08:33:52 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by pio-pvt-msa1.bahnhof.se (Postfix) with ESMTP id 0643B3FC59;
+ Thu,  9 Mar 2023 09:26:54 +0100 (CET)
+X-Virus-Scanned: Debian amavisd-new at bahnhof.se
+Authentication-Results: pio-pvt-msa1.bahnhof.se (amavisd-new);
+ dkim=pass (1024-bit key) header.d=shipmail.org
+Received: from pio-pvt-msa1.bahnhof.se ([127.0.0.1])
+ by localhost (pio-pvt-msa1.bahnhof.se [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id Vm4R8wD9F9hQ; Thu,  9 Mar 2023 09:26:53 +0100 (CET)
+Received: by pio-pvt-msa1.bahnhof.se (Postfix) with ESMTPA id 26F553FBBA;
+ Thu,  9 Mar 2023 09:26:51 +0100 (CET)
+Received: from [192.168.0.209] (unknown [134.191.232.81])
+ by mail1.shipmail.org (Postfix) with ESMTPSA id 883D236282E;
+ Thu,  9 Mar 2023 09:26:49 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=shipmail.org; s=mail;
+ t=1678350411; bh=o3fpVkC4JEAowJfwwTzpjQqBTQsfq4yAsJ+zbt3Xr5g=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=mc+8YIzCIAmuQ/l6GuFyVHOQaU8EngomCGfPZardpO3bVYgoK6tbRyTkvCIbc94Me
+ tGctiuK5tbZxQDbN/Xxt4YxmrR+q1HhkNP/cL/BYA6L7+FhFznaIHYAWDletmd+gf/
+ D3SiYGtwG3/JREXn0bUdr5xV/OKiLEkiNF0sBUXM=
+Message-ID: <f88566ae-b450-9183-b262-07c0b63d45c3@shipmail.org>
+Date: Thu, 9 Mar 2023 09:26:46 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH 9/9] drm: move ttm_execbuf_util into vmwgfx
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Zack Rusin <zackr@vmware.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+References: <20230228083406.1720795-1-christian.koenig@amd.com>
+ <20230228083406.1720795-10-christian.koenig@amd.com>
+ <b4beeee4b2a004938adc6c502443f7b3311aad50.camel@vmware.com>
+ <6933b07b-af79-5350-b161-12ee73732b30@gmail.com>
+From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
+In-Reply-To: <6933b07b-af79-5350-b161-12ee73732b30@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000C978:EE_|SN7PR12MB6959:EE_
-X-MS-Office365-Filtering-Correlation-Id: dcf7fe72-1543-4f9b-c0b2-08db2061f849
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IAgEGfjwBeedVOvYHQVz1BSxDFPw0VJmyQuDePnCOuTUQNHgVLr8qbtFbXsPUxEmtyesuJzMbc4XPSIUx/hIyKDRXeeKdHasSiUQklW/o2WcyFKqo5xcfxfrKUTZLTCm5gwnQNEFEjvdR3x+kTOCitlRrSKNCAXEyj4ck7zThedyvoFOarlATjdXCIZraV8+Kp7YDkkNcNA1rD+h7XUfXPWsCAjzRgFM8hk4Tq2TK49xZobv2jEb3Q3gkSc5I37WOg5GB/gWkYP7H+ilGwk4/U+pxLNs1GJXR3Y6XItXe4QzIHAKklsIKvy3wfIPulQutRaPtv9Wm0C3LM/F+Q9QeZaNGSTZwnWneuWvfmXxvyF5HsOKketKwXzuMqzINa13x6Fugq6IdMXbF8wGFirvWgee8wfiptVj4wtlaCLQWOUlXLEcLXL8jEqYeO/kNO+WUdYslgRZH3TqMoZDRWVgIbpo0tADe/hT2k9E7rJAMyGiw1IT+Uzli9OODsis0J38nGU/14olELG8jUi9v1moHGG8PFv/9C17AV+HXVSuX+lxK4IY8+s+NIjgY+VqQGvxvw5YYHUJ5a/FVKjtBvGxE7OP1hxjYJGwBBZ7kqBngwyk0TSKmRehx8+ptOfSd3gY4pdwayAjfQfXePdWSXgA9W/11vwTS04pHCxVDOn+ExtMHEhmn5DYz2BNfM/d6ggG
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(136003)(376002)(346002)(396003)(39860400002)(451199018)(36840700001)(46966006)(40470700004)(44832011)(40460700003)(966005)(16526019)(186003)(2906002)(70206006)(4744005)(81166007)(356005)(36860700001)(4326008)(7696005)(6666004)(478600001)(26005)(70586007)(5660300002)(41300700001)(8676002)(8936002)(47076005)(426003)(1076003)(2616005)(316002)(110136005)(336012)(36756003)(86362001)(82310400005)(40480700001)(83380400001)(82740400003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2023 05:48:55.1462 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dcf7fe72-1543-4f9b-c0b2-08db2061f849
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C978.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6959
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,35 +64,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Guchun Chen <guchun.chen@amd.com>
+Cc: "dakr@redhat.com" <dakr@redhat.com>,
+ "arunpravin.paneerselvam@amd.com" <arunpravin.paneerselvam@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In order to catch issues in other drivers to ensure proper call
-sequence of polling function.
 
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2411
-Fixes: a4e771729a51("drm/probe_helper: sort out poll_running vs poll_enabled")
-Reported-by: Bert Karwatzki <spasswolf@web.de>
-Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Signed-off-by: Guchun Chen <guchun.chen@amd.com>
----
- drivers/gpu/drm/drm_probe_helper.c | 2 ++
- 1 file changed, 2 insertions(+)
+On 3/8/23 10:10, Christian König wrote:
+> Am 08.03.23 um 06:14 schrieb Zack Rusin:
+>> On Tue, 2023-02-28 at 09:34 +0100, Christian König wrote:
+>>> VMWGFX is the only remaining user of this and should probably moved 
+>>> over
+>>> to drm_exec when it starts using GEM as well.
+>> Is this because vmwgfx piggybacks buffer-id relocations on top of ttm 
+>> validations or
+>> did you just find it too hard to port it over? I'd prefer to avoid 
+>> ttm moves to
+>> vmwgfx and at least have a clear idea of what we need to do to port.
+>
+> I've just found it to hard to port it over because vmwgfx does some 
+> strange things with the validation code here.
+>
+> If you want we can take a deeper look at this together, but I need to 
+> find some time.
+>
+> Alternatively just tell me how to do it and I will add that to the 
+> patch set :)
+>
+> Regards,
+> Christian.
 
-diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_probe_helper.c
-index 8127be134c39..85e0e80d4a52 100644
---- a/drivers/gpu/drm/drm_probe_helper.c
-+++ b/drivers/gpu/drm/drm_probe_helper.c
-@@ -852,6 +852,8 @@ EXPORT_SYMBOL(drm_kms_helper_is_poll_worker);
-  */
- void drm_kms_helper_poll_disable(struct drm_device *dev)
- {
-+	WARN_ON(!dev->mode_config.poll_enabled);
-+
- 	if (dev->mode_config.poll_running)
- 		drm_kms_helper_disable_hpd(dev);
- 
--- 
-2.25.1
+Hmm.
 
+It turns out Xe was using these from the very start as well. But I will 
+take a look at what it take to deprecate that usage, so don't let that 
+stop this removal. We need a more flexible WW transaction handling anyway.
+
+/Thomas
+
+>
+>>
+>> z
