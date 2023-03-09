@@ -4,56 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DF69C64EC4
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Mar 2023 03:51:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD6AAC61DA4
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Mar 2023 04:38:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9AFF10E788;
-	Thu,  9 Mar 2023 03:51:11 +0000 (UTC)
-Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
- [IPv6:2001:4860:4864:20::2b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4495010E788;
- Thu,  9 Mar 2023 03:51:09 +0000 (UTC)
-Received: by mail-oa1-x2b.google.com with SMTP id
- 586e51a60fabf-17671fb717cso1046708fac.8; 
- Wed, 08 Mar 2023 19:51:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678333868;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=Hp14W4WtX0awNKWlLDE8zn48w3QnOXp8Ol12gIgmm9Q=;
- b=VZC2zz9bQaHlgp8s90U6kGkWkCxhJ0OE6aJWd1dOE4d569lv4K6qFJSquVuLElIU2D
- 5ODRKZ63UrxfYKmBbMwSdSoQseO4AfRK8ijNU9SkX2D8EX9Gk83Bnu4EnkfvfY6w9upt
- D5/Qtn9yzYeGgoB8Bkmh4nvLK9glBHUKJzQnfzR1YXvDippAqffd19QWHj3tY1v/Vs3X
- nd0C2ks7xZaVJpQjsl0Cexx5DUixu11eN5ZOIAsQEqp56KkY3RZPtfOFKRY9dkVsfA3A
- APpFa2to/g+3eoj7mBecMyyk76ALfu9L4xC70YQmfF2mkvU0jR59u1xV6dOWvCMXUWuA
- /Jug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678333868;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Hp14W4WtX0awNKWlLDE8zn48w3QnOXp8Ol12gIgmm9Q=;
- b=gx4rABW2PGTqVFGkONjrh0MTlHXWKbg3yeIrcjVJiKgj7FDA4jVqNoDzsxYjWcCIXZ
- btQjA1HR3UDBgnYOd8p+WVYzvlrMBGKCkrWlkuQFijh8twqma6Vd6SXcKt22E3tjA+U/
- 7CVao04pjA2dklNic+fYSBrx+oKXM7mP3mp0dvdmfSux6WRs0UanXCOf7H+aRH1kwqGj
- uVSpKVpXNclHYR9UyOd0UJbuRFpo0JMQp3TDiKnkZ09cea7De0kaQLBpP9e6DQ03erZ3
- iWlvMW5h/qnhR+T6KErZu3Qx1sPrnbpQgKp6Yr5LZEvklpQu+vGjik1AU21I/GKvwiLl
- 2aPg==
-X-Gm-Message-State: AO0yUKWYf89hG4Wt/lQpzFu4DnGQC58pMuMfC1mAMTaWq1myzGZ7DQJh
- HZqqdlPtyHtBtaPcUzyxUhzOPsLvl3mqvb/BAQA=
-X-Google-Smtp-Source: AK7set8/iY7kVgL0ioTsy+Jeuo0eKBcUzi4tLPsAvZfwHYXHjco2pvMZKjXNsvI/ayzliVhBEIXgojGVUdg8xahMuAY=
-X-Received: by 2002:a05:6871:6ab0:b0:176:4261:5e36 with SMTP id
- zf48-20020a0568716ab000b0017642615e36mr6988343oab.3.1678333868432; Wed, 08
- Mar 2023 19:51:08 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A8D010E794;
+	Thu,  9 Mar 2023 04:38:54 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2067.outbound.protection.outlook.com [40.107.101.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D96C910E786;
+ Thu,  9 Mar 2023 04:38:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RnWYzeB8hirdj8Cr6wYkK4YsD1v1Hdf1pyJnyOk6OXdQ0v2NUs8/0DDRvU3pDtVRYCCokE5FquFNWWW9+hgzZ6gjh1dpoz0m3c3hzwXp11gyM89U3jlMY2PDsQqTOIf6IW1OSaaFodx4yT9xTiuvicxUZwGVsafFwO+IlDVJLQfKF9ECJlCIBNtCBp2+o0UO6b8JCjixmKrDCk8BaOLqxeDhYtevN3de+ODlu0VweMI1wfF3vF7hKjGReRUxgqeM9i0LncL4kz4tjAWuaqGKDdut/zh2l0d7FE1oIYqx4qZkUxjXvtCsrHM3ggDC4A2u9AmRgtHwZl4O1Zk6CFtfUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TUPc6Daf8PfvPoTnGaivzOTGsdvrpjissNCCN8yFPOk=;
+ b=ZQwIKKI0QceKSCEr1G4HLmtlDJHpixvaNCm8FymG4gs+pCY7eIEDVpBZH/LvfEeTf31sIJbskfnlBq35E3WOEzpJuDgit0lQmy0xK6eCy08UZJ84L4I1LnjT89DjiryMfKN59PryU9IdUUCnLG8ep8u7Kw755b7JMka8urQeeWIIGvr7EEvCaj5fvF2yctHxQsAiSufgU7+w4ZeyF8DbNCwyLydpBnWPGRdRxrWhWr7pCnd3Sk06r3HHQ+9KLHYDzHQVpKgyk5Z/Wrc72Hly6qs8PyCfJTWY7PMDRM9htLbMU1o4LX/6vsUQT7EDvddJWlRdu4jRHihqtHPnfz5maw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TUPc6Daf8PfvPoTnGaivzOTGsdvrpjissNCCN8yFPOk=;
+ b=4tzxQguLgr3rwkw/HJHrSZS8/dbprVJnS37I7+0pqoFwoUtggjxWGf+MuO4oDZYnXtCTJAQdRc7xQkBQE5Dn9tBnbR4DZ9Gms5Y6uhIHh/yqeRtMspW163KE3HVgGR2QyheIsaczZVtIopRJJTswGVAdnyasnal6TeT9l4Kra3g=
+Received: from CY8PR19CA0040.namprd19.prod.outlook.com (2603:10b6:930:6::20)
+ by MN0PR12MB6295.namprd12.prod.outlook.com (2603:10b6:208:3c0::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.29; Thu, 9 Mar
+ 2023 04:38:47 +0000
+Received: from CY4PEPF0000C970.namprd02.prod.outlook.com
+ (2603:10b6:930:6:cafe::fb) by CY8PR19CA0040.outlook.office365.com
+ (2603:10b6:930:6::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.19 via Frontend
+ Transport; Thu, 9 Mar 2023 04:38:47 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000C970.mail.protection.outlook.com (10.167.242.8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6178.13 via Frontend Transport; Thu, 9 Mar 2023 04:38:46 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 8 Mar
+ 2023 22:38:45 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
+Subject: [pull] amdgpu, amdkfd drm-fixes-6.3
+Date: Wed, 8 Mar 2023 23:38:16 -0500
+Message-ID: <20230309043816.7840-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-References: <20230309033654.64762-1-jiapeng.chong@linux.alibaba.com>
-In-Reply-To: <20230309033654.64762-1-jiapeng.chong@linux.alibaba.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 8 Mar 2023 22:50:56 -0500
-Message-ID: <CADnq5_NEYTz3kU+2BRC9x3hyMGO7+hEmr4zoabKpU9uzW3xG8g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Remove useless else if
-To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000C970:EE_|MN0PR12MB6295:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6feebda5-3a46-4313-e7bf-08db20582bf8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: hdCxQ7hRAhqZfgcIJa5L6OKtNNXjHEVaZdshhpv3vUHlLWyEDPoT/INImwTFabh/IaF0Vl9GLuz47bAmadNymv45BwWzCityGhOiGNpqz61mQ1CmQHUkXQtgfJJ91slN0aLwDJdTz6K5EI6o3S6rO8bJHHOL3IX2tPdCAy+HmBWyg0T35B0U53BTtLN5weGF/6rmPGovBWlcyP6wh0tEzyhwiy4Bb4+CRCq1D0Vila9ovyDPb9s5o0d0tP4u2Kw1smslA3S/G2wa3OwiAmEM7OK9L2KCltMhYY67H/TpSkf6dclUCGJa+FhcLg2s7oq9eY7qoDKh1SkYCRu74tZy2yZWIcrPEhAbjNDMLpLp4zZsSgIRg74Uy7mKwC+DSePooJcv7VFn4ov0n/XcgwuKBw0WzOCi+tsGW+WTqEBtkPOaJ3ggHKXDxS0/I/tbl/m29fOUccfc5BiFWQuLedI0w3ISF/iw0DYYDO3C/D59+Cpb0xf/hr9Hk8ayyZL8oB3w0JTY+PGxhs58dvZVv8LUa3bMW8bgD/Kbb5tbodIY4A33E6XmleHJYeYvZcz1ihBplRF7iskUAfjy3cG48Ba49zdAezbbGFIf7GFumnMr2kxxw8cqmfJxgwaI/qYwtiOuRfcTkFiSDS5Yi5zx4mWSC7dHLlWvLKSyQb+1yEi4GAk1aH2IZnlfLpsKMEPxY7uq
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(346002)(376002)(39860400002)(396003)(136003)(451199018)(46966006)(36840700001)(40470700004)(426003)(81166007)(356005)(47076005)(7696005)(5660300002)(36860700001)(8936002)(478600001)(36756003)(16526019)(186003)(110136005)(966005)(83380400001)(40480700001)(336012)(82310400005)(41300700001)(2906002)(2616005)(26005)(1076003)(316002)(86362001)(40460700003)(6666004)(8676002)(4326008)(70206006)(82740400003)(70586007)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2023 04:38:46.8906 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6feebda5-3a46-4313-e7bf-08db20582bf8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C970.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6295
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,63 +98,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- christian.koenig@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 8, 2023 at 10:37 PM Jiapeng Chong
-<jiapeng.chong@linux.alibaba.com> wrote:
->
-> The assignment of the else and if branches is the same, so the if else
-> here is redundant, so we remove it.
->
-> ./drivers/gpu/drm/amd/amdgpu/nv.c:1048:2-4: WARNING: possible condition with no effect (if == else).
->
-> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=4454
-> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/nv.c | 18 +++++-------------
->  1 file changed, 5 insertions(+), 13 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-> index 855d390c41de..84803929f7d9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-> @@ -1045,19 +1045,11 @@ static int nv_common_late_init(void *handle)
->
->         if (amdgpu_sriov_vf(adev)) {
->                 xgpu_nv_mailbox_get_irq(adev);
-> -               if (adev->vcn.harvest_config & AMDGPU_VCN_HARVEST_VCN0) {
-> -                       amdgpu_virt_update_sriov_video_codec(adev,
-> -                                                            sriov_sc_video_codecs_encode_array,
-> -                                                            ARRAY_SIZE(sriov_sc_video_codecs_encode_array),
-> -                                                            sriov_sc_video_codecs_decode_array_vcn1,
-> -                                                            ARRAY_SIZE(sriov_sc_video_codecs_decode_array_vcn1));
-> -               } else {
-> -                       amdgpu_virt_update_sriov_video_codec(adev,
-> -                                                            sriov_sc_video_codecs_encode_array,
-> -                                                            ARRAY_SIZE(sriov_sc_video_codecs_encode_array),
-> -                                                            sriov_sc_video_codecs_decode_array_vcn1,
-> -                                                            ARRAY_SIZE(sriov_sc_video_codecs_decode_array_vcn1));
+Hi Dave, Daniel,
 
-This should be vcn0.  I'll send out a patch.  Thanks!
+Fixes for 6.3.
 
-Alex
+The following changes since commit 66305069eb6d17d9190cbcd196f3f7487df47ae8:
 
+  Merge tag 'drm-misc-fixes-2023-02-23' of git://anongit.freedesktop.org/drm/drm-misc into drm-fixes (2023-03-07 05:42:34 +1000)
 
-> -               }
-> +               amdgpu_virt_update_sriov_video_codec(adev,
-> +                                                    sriov_sc_video_codecs_encode_array,
-> +                                                    ARRAY_SIZE(sriov_sc_video_codecs_encode_array),
-> +                                                    sriov_sc_video_codecs_decode_array_vcn1,
-> +                                                    ARRAY_SIZE(sriov_sc_video_codecs_decode_array_vcn1));
->         }
->
->         return 0;
-> --
-> 2.20.1.7.g153144c
->
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.3-2023-03-08
+
+for you to fetch changes up to 41f95a0e40903fcf70463fcc060b7faf761b23f6:
+
+  drm/amdgpu/soc21: Add video cap query support for VCN_4_0_4 (2023-03-08 14:39:09 -0500)
+
+----------------------------------------------------------------
+amd-drm-fixes-6.3-2023-03-08:
+
+amdgpu:
+- Misc display fixes
+- UMC 8.10 fixes
+- Driver unload fixes
+- NBIO 7.3.0 fix
+- Error checking fixes for soc15, nv, soc21 read register interface
+- Fix video cap query for VCN 4.0.4
+
+amdkfd:
+- Fix BO offset for multi-VMA page migration
+- Fix return check in doorbell handling
+
+----------------------------------------------------------------
+Alex Deucher (3):
+      drm/amdgpu: fix error checking in amdgpu_read_mm_registers for soc15
+      drm/amdgpu: fix error checking in amdgpu_read_mm_registers for soc21
+      drm/amdgpu: fix error checking in amdgpu_read_mm_registers for nv
+
+Candice Li (2):
+      drm/amdgpu: Support umc node harvest config on umc v8_10
+      drm/amd/pm: Enable ecc_info table support for smu v13_0_10
+
+Harry Wentland (2):
+      drm/display: Don't block HDR_OUTPUT_METADATA on unknown EOTF
+      drm/connector: print max_requested_bpc in state debugfs
+
+Mario Limonciello (1):
+      drm/amd: Fix initialization mistake for NBIO 7.3.0
+
+Shashank Sharma (1):
+      drm/amdgpu: fix return value check in kfd
+
+Swapnil Patel (1):
+      drm/amd/display: Update clock table to include highest clock setting
+
+Veerabadhran Gopalakrishnan (1):
+      drm/amdgpu/soc21: Add video cap query support for VCN_4_0_4
+
+Xiaogang Chen (1):
+      drm/amdkfd: Fix BO offset for multi-VMA page migration
+
+lyndonli (2):
+      drm/amdgpu: Fix call trace warning and hang when removing amdgpu device
+      drm/amdgpu: Fix the warning info when removing amdgpu device
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      | 10 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c         |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            | 17 +----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h            |  7 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c             |  1 -
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c             | 14 ++--
+ drivers/gpu/drm/amd/amdgpu/nv.c                    |  7 +-
+ drivers/gpu/drm/amd/amdgpu/soc15.c                 |  5 +-
+ drivers/gpu/drm/amd/amdgpu/soc21.c                 |  8 ++-
+ drivers/gpu/drm/amd/amdgpu/umc_v8_10.h             |  4 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c          |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c           | 17 +++--
+ .../drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c | 19 +++++-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   | 75 ++++++++++++++++++++++
+ drivers/gpu/drm/display/drm_hdmi_helper.c          |  6 +-
+ drivers/gpu/drm/drm_atomic.c                       |  1 +
+ 16 files changed, 146 insertions(+), 49 deletions(-)
