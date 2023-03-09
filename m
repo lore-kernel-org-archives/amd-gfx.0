@@ -4,64 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E48A0C64EC4
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Mar 2023 10:04:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3398C64EC4
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Mar 2023 10:12:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8F2810E7D5;
-	Thu,  9 Mar 2023 10:03:57 +0000 (UTC)
-Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com
- [IPv6:2a00:1450:4864:20::143])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4185410E0CE;
- Thu,  9 Mar 2023 10:03:55 +0000 (UTC)
-Received: by mail-lf1-x143.google.com with SMTP id s20so1532517lfb.11;
- Thu, 09 Mar 2023 02:03:55 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5267810E7D8;
+	Thu,  9 Mar 2023 10:12:45 +0000 (UTC)
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9B3010E7D9
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Mar 2023 10:12:43 +0000 (UTC)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ l7-20020a05600c4f0700b003e79fa98ce1so864791wmq.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Mar 2023 02:12:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678356233;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=Xh5PHN8dJb3W4i1nQyu2ip6mx2yHreI4cKKZZj6lDqI=;
- b=G7exZZkZINKQN0OpHZJIj7ObkwGCgLuEA4l+cKWasstWN0+TO1uthFb33Bv/3DaAAx
- d67Pg0XKQ5h81ZncqVGhluPT+GVYhVQQLwQtYl92jim3huXrr96a1V0Zgv6DyrMdeHSb
- K5HqQw91ur5KcTI/8p6vfqAPkbJdFCrLWaRH6VPyoN1Cpo9kppBqTeyUzuVeQbUbdLoo
- 43/+gPkBDCVCr/WLfHjlHOVT0LCwWRwv8X2BisBcCkko3zIVFESc0eGnxxuGVROJbo9g
- bszS6vy4CjndzcWQNNoJtM8cxLeelAMBK701/U3ionEBbJGudKsp7kNdlB2SV6zzifQR
- Nyyg==
+ d=gmail.com; s=20210112; t=1678356762;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=gzmhJXXqsUPDGL1OfCiiuwjtuR41HcUClODCqGGbdEM=;
+ b=NVVDEda1/qMXLn8YSl+LtedOKO7jvbY7PxhboOczPwrk5BZp5OVPud+YXpbT9ChSZW
+ 1L1W2di9cPXZnq2BHdbq1ei3BbXeQYgR9wJRI50pA/l1SbmHKubz4r3dXXBO2efJtstn
+ xPHHN/QwHa/eHb9OZgOahNDqlXcOmt4Gm8SqNqfFEIOqZTYcjQXvYDliFFu0xkLOorIs
+ EoSUseoSkXs7IS0calUwmZFxSMdHU2lwyLArYswvia0w/uk5SxO1ZmhjP9URYN8H5Pc5
+ crLA3Nt0f+sa5ps9ps1gO5e/OrCLcg1yBr7kkgUW9CjPscFJvlVpxheDv2U4MG6F9xxI
+ Clxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678356233;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Xh5PHN8dJb3W4i1nQyu2ip6mx2yHreI4cKKZZj6lDqI=;
- b=BSe0eZYkDeI6QYfVkAj+44ToVFraJQSuaebE/LM7XpW+AO6ws1RfNjbgshwc+rhFX3
- WIhrNGmq6mn0C13GIi897JxJ2PWGThX95CIolUj9zs1qMBvPJOE3zJduWXes9q7EV0+K
- KpIowZeHsJtBmH/HAVqdZgPMgtI4g8txyHe3FUuGL1Op2XnEjpmt8Oq4Y5p0nk/pgg2O
- FXvkjmpOaiY0KSn8UQv218zZPVdPRRcezxyKfzrbi/rb61zKD/gzGZbTmooYy+XMlwe4
- xO5QBk0OvfraGaYvwcsKxKNhbrCoQRs5t6/g6t5ACeJK1Sm7QJDPTv1u7HIjPjF/lwyg
- r+Ow==
-X-Gm-Message-State: AO0yUKVj2oBN9V6BfLECapMX7Ms32aVITx50JfUDD3bxBPUnL3+Xge41
- qMtWx8sUzUdUUapOxjvtGpQ=
-X-Google-Smtp-Source: AK7set/biH9U0bk3VjHwm3dfvd6q3cBTeBvuj7EqX09qrZTOvHLJpgpbAHTx6PuE2WN6PiYPGNL0bQ==
-X-Received: by 2002:ac2:5214:0:b0:4cb:4378:9c6 with SMTP id
- a20-20020ac25214000000b004cb437809c6mr5249636lfl.23.1678356233298; 
- Thu, 09 Mar 2023 02:03:53 -0800 (PST)
-Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- q10-20020a19a40a000000b004d58e782886sm2616360lfc.303.2023.03.09.02.03.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Mar 2023 02:03:52 -0800 (PST)
-Date: Thu, 9 Mar 2023 12:03:42 +0200
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Sebastian Wick <sebastian.wick@redhat.com>
-Subject: Re: [PATCH v3 02/17] drm/connector: Add enum documentation to
- drm_colorspace
-Message-ID: <20230309120342.6260cf94@eldfell>
-In-Reply-To: <CA+hFU4zt4ykkHpB2NyY7Eu2SnMKnMB_b+sUh7NfTTzNyZ3A4mQ@mail.gmail.com>
-References: <20230307151107.49649-1-harry.wentland@amd.com>
- <20230307151107.49649-3-harry.wentland@amd.com>
- <20230308105944.05fb9377@eldfell>
- <CA+hFU4zt4ykkHpB2NyY7Eu2SnMKnMB_b+sUh7NfTTzNyZ3A4mQ@mail.gmail.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+ d=1e100.net; s=20210112; t=1678356762;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=gzmhJXXqsUPDGL1OfCiiuwjtuR41HcUClODCqGGbdEM=;
+ b=RK3faToT8RRh5l7ih/I4ThMTHrCMp26dKivsG8kFNw6fxvPmNSxs+Yf+tbjm9ET6RS
+ E92t5lCCca4DMJTH1oX6cDINwgZvveg72fAxsHomcvg7oZBaaOeB20oGWNpHT5/OFmWj
+ sUti7C2ra+R0CF087IE2Xt1dEUujwwUOJyL2fQZQgw2myYK26+wM9NosCqNMD3OBmrck
+ RnRV/ndHkRwPVtpWZLpZbCGYWIoz6ykUHmWYf0BMyRWv1wLwZcWMrn/Re53RZEThlqq6
+ bQH36Hck2Sn+QQJkKNiHqbM9KHfQTwP96VtOs8ovidN12wKbkebQHOSyHPt3hO9s6fWa
+ B1dQ==
+X-Gm-Message-State: AO0yUKV9CYAWWbpgeD3mTxMX9grzHdv1xWrC5J03cOU53W7CBmUXV/ot
+ fDLM3JndCleJyq3irFsBBYDMF44cD1sqGHBKdSIbw/II
+X-Google-Smtp-Source: AK7set8eZ9De3LSiDswOXLUZ1DkYKJ+n+tIQmaOs/8atrNCbBD/yLCdPW/TPLy0hXBbVLnhYdzQNFNtQoYJ/hEjYSPM=
+X-Received: by 2002:a05:600c:a:b0:3e2:1fd8:887 with SMTP id
+ g10-20020a05600c000a00b003e21fd80887mr4890489wmc.2.1678356762233; Thu, 09 Mar
+ 2023 02:12:42 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/xRfyiUsF+7c.9PVYWqJoKxk";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+References: <CAEzXK1oghXAB_KpKpm=-CviDQbNaH0qfgYTSSjZgvvyj4U78AA@mail.gmail.com>
+ <5e192700-c54a-04cf-a223-281af7af0457@amd.com>
+In-Reply-To: <5e192700-c54a-04cf-a223-281af7af0457@amd.com>
+From: =?UTF-8?B?THXDrXMgTWVuZGVz?= <luis.p.mendes@gmail.com>
+Date: Thu, 9 Mar 2023 10:12:30 +0000
+Message-ID: <CAEzXK1qPjYxDiRVTy8McXbagC8JKgtu+C0E+-VP3NHZvtYdZ+g@mail.gmail.com>
+Subject: Re: [PATCH] [RFC] drm/drm_buddy fails to initialize on 32-bit
+ architectures
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,150 +69,196 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org,
- Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Uma Shankar <uma.shankar@intel.com>, amd-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>, Joshua Ashton <joshua@froggi.es>,
- Vitaly.Prosyak@amd.com
+Cc: akpm@linux-foundation.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "Paneer Selvam,
+ Arunpravin" <Arunpravin.PaneerSelvam@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/xRfyiUsF+7c.9PVYWqJoKxk
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-On Thu, 9 Mar 2023 01:56:11 +0100
-Sebastian Wick <sebastian.wick@redhat.com> wrote:
+Ping? This is actually a regression.
+If there is no one available to work this, maybe I can have a look in
+my spare time, in accordance with your suggestion.
 
-> On Wed, Mar 8, 2023 at 9:59=E2=80=AFAM Pekka Paalanen <ppaalanen@gmail.co=
-m> wrote:
+Regards,
+Lu=C3=ADs
+
+On Tue, Jan 3, 2023 at 8:44=E2=80=AFAM Christian K=C3=B6nig <christian.koen=
+ig@amd.com> wrote:
+>
+> Am 25.12.22 um 20:39 schrieb Lu=C3=ADs Mendes:
+> > Re-sending with the correct  linux-kernel mailing list email address.
+> > Sorry for the inconvenience.
 > >
-> > On Tue, 7 Mar 2023 10:10:52 -0500
-> > Harry Wentland <harry.wentland@amd.com> wrote:
-> > =20
-> > > From: Joshua Ashton <joshua@froggi.es>
-> > >
-> > > To match the other enums, and add more information about these values.
-> > >
-> > > v2:
-> > >  - Specify where an enum entry comes from
-> > >  - Clarify DEFAULT and NO_DATA behavior
-> > >  - BT.2020 CYCC is "constant luminance"
-> > >  - correct type for BT.601
-> > >
-> > > Signed-off-by: Joshua Ashton <joshua@froggi.es>
-> > > Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> > > Reviewed-by: Harry Wentland <harry.wentland@amd.com> =20
+> > The proposed patch fixes the issue and allows amdgpu to work again on
+> > armhf with a AMD RX 550 card, however it may not be the best solution
+> > for the issue, as detailed below.
 > >
-> > Hi,
+> > include/log2.h defined macros rounddown_pow_of_two(...) and
+> > roundup_pow_of_two(...) do not handle 64-bit values on 32-bit
+> > architectures (tested on armv9 armhf machine) causing
+> > drm_buddy_init(...) to fail on BUG_ON with an underflow on the order
+> > value, thus impeding amdgpu to load properly (no GUI).
 > >
-> > this effort is really good, but of course I still find things to
-> > nitpick about. If there is no answer to my questions, then I would
-> > prefer the documentation to spell out the unknowns and ambiguities.
-> > =20
-> > > Cc: Pekka Paalanen <ppaalanen@gmail.com>
-> > > Cc: Sebastian Wick <sebastian.wick@redhat.com>
-> > > Cc: Vitaly.Prosyak@amd.com
-> > > Cc: Uma Shankar <uma.shankar@intel.com>
-> > > Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-> > > Cc: Joshua Ashton <joshua@froggi.es>
-> > > Cc: dri-devel@lists.freedesktop.org
-> > > Cc: amd-gfx@lists.freedesktop.org
-> > > ---
-> > >  include/drm/drm_connector.h | 67 +++++++++++++++++++++++++++++++++++=
---
-> > >  1 file changed, 65 insertions(+), 2 deletions(-)
-> > >
-> > > diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> > > index 6d6a53a6b010..bb078666dc34 100644
-> > > --- a/include/drm/drm_connector.h
-> > > +++ b/include/drm/drm_connector.h
-> > > @@ -363,13 +363,76 @@ enum drm_privacy_screen_status {
-> > >       PRIVACY_SCREEN_ENABLED_LOCKED,
-> > >  };
-> > >
-> > > -/*
-> > > - * This is a consolidated colorimetry list supported by HDMI and
-> > > +/**
-> > > + * enum drm_colorspace - color space
-> > > + *
-> > > + * This enum is a consolidated colorimetry list supported by HDMI and
-> > >   * DP protocol standard. The respective connectors will register
-> > >   * a property with the subset of this list (supported by that
-> > >   * respective protocol). Userspace will set the colorspace through
-> > >   * a colorspace property which will be created and exposed to
-> > >   * userspace.
-> > > + *
-> > > + * DP definitions come from the DP v2.0 spec
-> > > + * HDMI definitions come from the CTA-861-H spec
-> > > + *
-> > > + * @DRM_MODE_COLORIMETRY_DEFAULT:
-> > > + *   Driver specific behavior.
-> > > + *   For DP:
-> > > + *           RGB encoded: sRGB (IEC 61966-2-1)
-> > > + *           YCbCr encoded: ITU-R BT.601 colorimetry format =20
+> > One option is to modify rounddown_pow_of_two(...) to detect if the
+> > variable takes 32 bits or less and call __rounddown_pow_of_two_u32(u32
+> > n) or if the variable takes more space than 32 bits, then call
+> > __rounddown_pow_of_two_u64(u64 n). This would imply renaming
+> > __rounddown_pow_of_two(unsigne
+> > d long n) to
+> > __rounddown_pow_of_two_u32(u32 n) and add a new function
+> > __rounddown_pow_of_two_u64(u64 n). This would be the most transparent
+> > solution, however there a few complications, and they are:
+> > - that the mm subsystem will fail to link on armhf with an undefined
+> > reference on __aeabi_uldivmod
+> > - there a few drivers that directly call __rounddown_pow_of_two(...)
+> > - that other drivers and subsystems generate warnings
 > >
-> > Does this mean that HDMI behavior is driver-specific while DP behavior
-> > is as defined?
+> > So this alternate solution was devised which avoids touching existing
+> > code paths, and just updates drm_buddy which seems to be the only
+> > driver that is failing, however I am not sure if this is the proper
+> > way to go. So I would like to get a second opinion on this, by those
+> > who know.
 > >
-> > Is it intentional that YCbCr encoding also uses different RGB-primaries
-> > than RGB-encoded signal? (BT.601 vs. BT.709/sRGB)
+> > /include/linux/log2.h
+> > /drivers/gpu/drm/drm_buddy.c
 > >
-> > Or do you need to be more explicit on which parts of each spec apply
-> > (ColourPrimaries vs. TransferCharacteristics vs. MatrixCoefficients in
-> > CICP parlance)?
+> > Signed-off-by: Lu=C3=ADs Mendes <luis.p.mendes@gmail.com>
+> >> 8------------------------------------------------------8<
+> > diff -uprN linux-next/drivers/gpu/drm/drm_buddy.c
+> > linux-nextLM/drivers/gpu/drm/drm_buddy.c
+> > --- linux-next/drivers/gpu/drm/drm_buddy.c    2022-12-25
+> > 16:29:26.000000000 +0000
+> > +++ linux-nextLM/drivers/gpu/drm/drm_buddy.c    2022-12-25
+> > 17:04:32.136007116 +0000
+> > @@ -128,7 +128,7 @@ int drm_buddy_init(struct drm_buddy *mm,
+> >           unsigned int order;
+> >           u64 root_size;
 > >
-> > E.g. BT.709/sRGB ColourPrimaries with BT.601 MatrixCoefficients. =20
->=20
-> Yeah, just adding to this: The Default Colorspace is something well
-> defined. CTA-861 says:
->=20
-> "If bits C0 and C1 are zero, the colorimetry shall correspond to the
-> default colorimetry defined in Section 5.1"
->=20
-> and in Section 5.1
->=20
-> "In all cases described above, the RGB color space used should be the
-> RGB color space the Sink declares in the Basic Display Parameters and
-> Feature Block of its EDID."
->=20
-> If I set DRM_MODE_COLORIMETRY_DEFAULT, I expect the Colorimetry the
-> EDID reports to be in effect and not some driver specific nonsense.
-
-Does that also define the MatrixCoefficients for YCbCr signal with
-DRM_MODE_COLORIMETRY_DEFAULT?
-
-Not that userspace would even care, since RGB-to-YCbCr is all
-driver-internal.
-
-It is interesting you point that out. I guess it means that the basic
-colorimetry from EDID is supposed to be really only the default
-colorimetry and might not have anything to do with the actual panel
-primaries.
-
-
-Thanks,
-pq
-
---Sig_/xRfyiUsF+7c.9PVYWqJoKxk
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmQJrv4ACgkQI1/ltBGq
-qqdNFA//UAmscNR41M+Qx5Swt7DnS7SiNQzGzTuDo4VSn0MQmkAsEr9mla7RL2Eo
-JgL1ci8OLRW1Dg+/iqyYSLivjaEvRtNX/Xjp95oKxHDWn1J/McKukWP/eCa7LEQ2
-MHwUv4xFeOrFi0HwNJxW1OCQmI3s1Ue+X5IaGj0f6f8xtOv1gya6PDb1rfZ9FQ/u
-H9OnqMmcdynW8kyNZezD+RjiDrMMbHSMQR4MK8dO20JNgZ7elvbMs87nbGzWTmHp
-EPK0i7gE9pqcels9LqPSlxHq4suGyUD+8l16m++1k8BNIJImfNqwe/Jkmhhc5r2w
-rVkJZluKIBlShBsGUhKu5VbL4p7SPyii7m4TiYEmlN1K0ObUuP6zWDmXnx8xPcrA
-+E+S7sw+HkcICtNkK6o5godWMVVAKwjTjS2vkz6U0HLUOrGGxin2egxOrKzSKIE3
-6avW6GtClJxgSPE6Re3v280Zl49csFhlKcbzYoMXSIUzX0qiI4IYIwLeUyeaFfUG
-swpaSP6V+n5xQXQY6GKb++p+kciZNYLpKCq3JXyKzvv1n4tPAf3x469gLkmaQS9X
-xZicpL1Pq9zXcXdfr0HzxzRhVcx5+0aDMQrFAN8ZfJ6kaAbji1AhmcPzy759mtzY
-hqRWj+CSHWpwim7l0eVU81N1dJXLrOShu3L14hzuVekHnvJU0Ww=
-=UaW4
------END PGP SIGNATURE-----
-
---Sig_/xRfyiUsF+7c.9PVYWqJoKxk--
+> > -        root_size =3D rounddown_pow_of_two(size);
+> > +        root_size =3D rounddown_pow_of_two_u64(size);
+> >           order =3D ilog2(root_size) - ilog2(chunk_size);
+>
+> I think this can be handled much easier if keep around the root_order
+> instead of the root_size in the first place.
+>
+> Cause ilog2() does the right thing even for non power of two values and
+> so we just need the order for the offset subtraction below.
+>
+> Arun can you take a closer look at this?
+>
+> Regards,
+> Christian.
+>
+> >
+> >           root =3D drm_block_alloc(mm, NULL, order, offset);
+> > diff -uprN linux-next/include/linux/log2.h linux-nextLM/include/linux/l=
+og2.h
+> > --- linux-next/include/linux/log2.h    2022-12-25 16:29:29.000000000 +0=
+000
+> > +++ linux-nextLM/include/linux/log2.h    2022-12-25 17:00:34.319901492 =
++0000
+> > @@ -58,6 +58,18 @@ unsigned long __roundup_pow_of_two(unsig
+> >   }
+> >
+> >   /**
+> > + * __roundup_pow_of_two_u64() - round up to nearest power of two
+> > + * (unsgined 64-bits precision version)
+> > + * @n: value to round up
+> > + */
+> > +static inline __attribute__((const))
+> > +u64 __roundup_pow_of_two_u64(u64 n)
+> > +{
+> > +    return 1ULL << fls64(n - 1);
+> > +}
+> > +
+> > +
+> > +/**
+> >    * __rounddown_pow_of_two() - round down to nearest power of two
+> >    * @n: value to round down
+> >    */
+> > @@ -68,6 +80,17 @@ unsigned long __rounddown_pow_of_two(uns
+> >   }
+> >
+> >   /**
+> > + * __rounddown_pow_of_two_u64() - round down to nearest power of two
+> > + * (unsgined 64-bits precision version)
+> > + * @n: value to round down
+> > + */
+> > +static inline __attribute__((const))
+> > +u64 __rounddown_pow_of_two_u64(u64 n)
+> > +{
+> > +    return 1ULL << (fls64(n) - 1);
+> > +}
+> > +
+> > +/**
+> >    * const_ilog2 - log base 2 of 32-bit or a 64-bit constant unsigned v=
+alue
+> >    * @n: parameter
+> >    *
+> > @@ -163,6 +186,7 @@ unsigned long __rounddown_pow_of_two(uns
+> >       __ilog2_u64(n)            \
+> >    )
+> >
+> > +
+> >   /**
+> >    * roundup_pow_of_two - round the given value up to nearest power of =
+two
+> >    * @n: parameter
+> > @@ -181,6 +205,25 @@ unsigned long __rounddown_pow_of_two(uns
+> >    )
+> >
+> >   /**
+> > + * roundup_pow_of_two_u64 - round the given value up to nearest power =
+of two
+> > + * (unsgined 64-bits precision version)
+> > + * @n: parameter
+> > + *
+> > + * round the given value up to the nearest power of two
+> > + * - the result is undefined when n =3D=3D 0
+> > + * - this can be used to initialise global variables from constant dat=
+a
+> > + */
+> > +#define roundup_pow_of_two_u64(n)            \
+> > +(                        \
+> > +    __builtin_constant_p(n) ? (        \
+> > +        ((n) =3D=3D 1) ? 1 :        \
+> > +        (1ULL << (ilog2((n) - 1) + 1))    \
+> > +                   ) :        \
+> > +    __roundup_pow_of_two_u64(n)            \
+> > + )
+> > +
+> > +
+> > +/**
+> >    * rounddown_pow_of_two - round the given value down to nearest power=
+ of two
+> >    * @n: parameter
+> >    *
+> > @@ -195,6 +238,22 @@ unsigned long __rounddown_pow_of_two(uns
+> >       __rounddown_pow_of_two(n)        \
+> >    )
+> >
+> > +/**
+> > + * rounddown_pow_of_two_u64 - round the given value down to nearest
+> > power of two
+> > + * (unsgined 64-bits precision version)
+> > + * @n: parameter
+> > + *
+> > + * round the given value down to the nearest power of two
+> > + * - the result is undefined when n =3D=3D 0
+> > + * - this can be used to initialise global variables from constant dat=
+a
+> > + */
+> > +#define rounddown_pow_of_two_u64(n)            \
+> > +(                        \
+> > +    __builtin_constant_p(n) ? (        \
+> > +        (1ULL << ilog2(n))) :        \
+> > +    __rounddown_pow_of_two_u64(n)        \
+> > + )
+> > +
+> >   static inline __attribute_const__
+> >   int __order_base_2(unsigned long n)
+> >   {
+>
