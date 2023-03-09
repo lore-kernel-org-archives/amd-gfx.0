@@ -4,115 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE7C9C6FD1F
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Mar 2023 15:02:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE207C64EC4
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Mar 2023 15:08:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8758610E83F;
-	Thu,  9 Mar 2023 15:02:47 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2060c.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eaa::60c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5195F10E83F;
- Thu,  9 Mar 2023 15:02:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eSi9kM1Q88J8DDFYmZZ+7nDFZv+7gfLWqezzYuYhbiNY0dARM/1lys5a49TbffqdZ1D+B5iBZy553C8U7Kib0enKrTLshhyY/sGCCS46aBYALO8Tf/649bjym94p0LyV2rqZ/K+3Y9gl/xuzSECdnoHEDLIE/1tjwJ8H6ujhnNbPrY+TvaaQPV8KlzAp0prVnNnMKkjWgQJci7yHX4ayM0GWnyRW0S93g7pYLn79rTT5PhAhbkQI8DE5buwZSIuhvHS4OGlX+CxekWszWDbaO8UaBdr8xKVQ5w8mtxcAdc2Ulk1WXzUAezo04AHW2d0OMeI2FNcuHySy4f//XausVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gCxH7Nqw2S28MYV0Fuia4LNdGKdZCNNxfeE354BngTw=;
- b=guuz+gjQd6BvnsQICrDQMPdkR8O+8wDMEybxC/RBLGxAoZjF/tf9xKSjSjWFmzIuAk+6tCR7L72ieCvrfUUIln7RLM4U/7b2QIPr4DTS0myqkMW7mQ/ruFFI4gUl23ho8QDDTuvhmi0VJNl2cx7HMY6t+/f6C/0o++FcChQOkuDjQ5r3aKrRonwyqyUXRMA7ost0EpLg6KKH2C76TK9Vp8zH3RfgAOseirmvNPB7XOqBbxFZsTX0FdcqM7o3XGnELxkEy5qEewazeG/Td2zxc5/ghvRq7DMFpra4YYYUHtDzHWLMwqXIng5Qz3A8/P0QflnL6oGzMymNubxLw98udw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gCxH7Nqw2S28MYV0Fuia4LNdGKdZCNNxfeE354BngTw=;
- b=pnOeBQyF7mrpxMKsistOJtYuvLei/9nVbVaymRfe4Ljyh83nWeiPC1vPwMTml2cYuz9giQZ000kldpcSH3yZDqNrye5cAUiS0xRZNbJuQmvpBd63q3CJLw/yzKgSWayA+n9rGfn6DEyvl8Etfjgstn0X7dHPN4HEvShEI6epwvY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com (2603:10b6:8:a2::11) by
- DS7PR12MB8274.namprd12.prod.outlook.com (2603:10b6:8:da::13) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6178.19; Thu, 9 Mar 2023 15:02:44 +0000
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::cdcb:a816:4bc3:a83f]) by DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::cdcb:a816:4bc3:a83f%9]) with mapi id 15.20.6178.019; Thu, 9 Mar 2023
- 15:02:44 +0000
-Message-ID: <e51d01a9-c678-18a8-b861-894315c872a9@amd.com>
-Date: Thu, 9 Mar 2023 10:03:58 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH] drm/amd/display: Use swap() instead of open coding it
-To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, harry.wentland@amd.com
-References: <20230309025250.2534-1-jiapeng.chong@linux.alibaba.com>
-Content-Language: en-US
-From: Hamza Mahfooz <hamza.mahfooz@amd.com>
-In-Reply-To: <20230309025250.2534-1-jiapeng.chong@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0206.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:67::25) To DM4PR12MB6280.namprd12.prod.outlook.com
- (2603:10b6:8:a2::11)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B608B10E84E;
+	Thu,  9 Mar 2023 15:08:53 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2695410E84C
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Mar 2023 15:08:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1678374531; x=1709910531;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=+CEGkxWLU/S8mn45ZTds+4lIJE2/zfMR+AlnzPAxGdE=;
+ b=ZJHzR/jPRP+mR3LSdLPkIUEv+emNLPqGpGK1toFhR7aLANeZQBRzLXJW
+ d/YDPxv3K9kjMI5Dg/ZxUp2pgq/LBU4vDe8AdhKLO+h9CN5j/BDsosPQ9
+ ktPGkLsEils/8magrJoiVX17ljcMZWOm81Hov64CXw3cP26fCr28tiWDv
+ X/agVWi89aq+tEvFvEM1XrRU5WXnau9Q1K4cTotvn5D3/F9DVSX6TqBiT
+ 06xhPnuqn933Q8WTquHxq+ELAahzx92K8NevFhcRAwz9Ws8ZYvj3RibXv
+ 5ieHxfVZIhsYItwajqZkDd8f0G2ninScMiMgJNdR4ZkXpm0CTzX4dh0ok g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10643"; a="338006682"
+X-IronPort-AV: E=Sophos;i="5.98,246,1673942400"; d="scan'208";a="338006682"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Mar 2023 06:37:30 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10643"; a="707633256"
+X-IronPort-AV: E=Sophos;i="5.98,246,1673942400"; d="scan'208";a="707633256"
+Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
+ by orsmga008.jf.intel.com with ESMTP; 09 Mar 2023 06:37:27 -0800
+Received: from kbuild by b613635ddfff with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1paHOY-00031I-2n;
+ Thu, 09 Mar 2023 14:37:26 +0000
+Date: Thu, 09 Mar 2023 22:36:55 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 2c6433e9294b6d0f4d8f08c3c70a3eac434d3ec8
+Message-ID: <6409ef07.MijoGslGE1Kw16lB%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6280:EE_|DS7PR12MB8274:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0005e5dd-9ef7-4d42-ff06-08db20af563c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: yOyMLAS1Qgu/HkKV2PfLbpOrtnC0bh8TTSdoAqvmcT81kX5ZJ0NAQ+oQpYu+cNjOxDE7QFUkzBBB+KA+uGFWvaEDRppCYpBOQ2q7SlimB2/7d82sYwIF2Wq+GddJXgyR6++AAUD8xbttUPogoTCSkKYCPLvA+xh1WhTKkgdK4MPski3WiugXxM0yZX0Bi/5anfPOm2oBXCnXaC/RoZW841r2gfQHvzmXOQsgGXE0/lFYRnDzggCjxS/t0qMOcrwuKHV0e47S2vRjQ8xO6KS+GE7XeSG2ye9jERiKA/P2rJYLBuJgoAgzQ6NFhqts2higczEzuDFcpS1oH9HZFawLC5ECnIyq5OsRXRJp+chUivH/GZzi3UYjVZWhAEfw19UDy/tzPHFAOW1M+WZsP0cgczQ5KAhEdl4Ow+mr/eSZDWjk0M3xAdXzDsKNLKqsvgI+2keleL+hGlZgUglglCqpah2H979gSssj5wlMkVdawZjqur9rVyS0Df50JtfC6ouQJBW+Iulks2SCBNaSGg9eDoZDPXdyNNT6FXio6/YExNUmazxERV/Z2b9DC0T8CAuTS1vWCPDQ6EjYDVcsO6H/WSefvNeuzx67AkXuchBQjFO6Ow2f/oCnJlnv/Yzxty3S7MOL5prLN0q3bnOD2pSoA1hc8dW5pZ4PSNyubYDvtedCzXsx5+l/9mLZtJjfeHSMkozzRz3m5DX+nX9JIyEhv8xqIf3xr71ATyzSGeBn+1M=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6280.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(366004)(136003)(376002)(396003)(346002)(39860400002)(451199018)(31686004)(6636002)(36756003)(31696002)(186003)(38100700002)(86362001)(6512007)(53546011)(26005)(83380400001)(6666004)(6506007)(2616005)(5660300002)(316002)(6486002)(478600001)(966005)(4326008)(41300700001)(2906002)(44832011)(66946007)(8936002)(8676002)(66556008)(66476007)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Wjg4S3NRMndId211UlFEU2ZEN2toK01CMXNyVHVXRGtSdDgzRUpwVVlHUzYz?=
- =?utf-8?B?TEZBSkExcVR0dDQvOVVpRXdCeTE5TnY1YmUyajhtK1BPUi9SYU5lVlhqWFVi?=
- =?utf-8?B?VThpdSt4VTlOQUhBNDRkWmVSY2JiOVMzM0hveHp6VjdrZWlwd212TWc2RkdK?=
- =?utf-8?B?L0ZCSERRUEZGbkVtU29yME8zN0ZrdjJNVkNwaUdLSDJkWkZjdmlFVTNwUHND?=
- =?utf-8?B?ZUo0RC9QS21xMXpoazRLaWZZL2R3YmJwNVRhMy82TVJ0Z3NZdnR2aXFFVGs2?=
- =?utf-8?B?aU11eUt4K3ZZRXRCSjhVREF2bVQzYkM4OUdrY1JhaG16QTVremlYUkxOMC8z?=
- =?utf-8?B?bnpmYWVIL1FLdXRscllCdGpacngvY1Z6d1Y3SStVT1puajBqOTNrMUVQQ1p4?=
- =?utf-8?B?WmlvU3FvaExHd2lBWHJkdVJVbzhkekN1R2pFZDB3YWpCTmhnRlp0dGx5WU5U?=
- =?utf-8?B?NU9LSE5zaU4wT2pSa1NhSUF1WmlHV2EvUWl2eVhNNTdxZmFJVmVuNEppMjBo?=
- =?utf-8?B?Y3NaUUhKMGRBUWZpcDNYVm12UnZaWEF2dTV4MGRKQmNqUkN2ZGZUWGFnelhw?=
- =?utf-8?B?dUNLVVpzNHM3d2RIMmMvZlBDVDJsUmFSeDFzQVFTaS85RXlLeExJZFVKZVpK?=
- =?utf-8?B?SndYc2oyZzB3c2hMNExLa01BcEsvaXQ5Ym9UNnBjL0NURnRTWlBRWUtWbnZj?=
- =?utf-8?B?SzVpemkrcGVmN29tY0F6Yld4WjJXTGZRNmRPNTVEMEVSb1Q0MEQ3aHd5T0Nl?=
- =?utf-8?B?SUM1eUhKVGpVL0twQklsQWQzR2pyYWVlemJzRmNzTWpWb0FzNVF4NnlINUFs?=
- =?utf-8?B?OUwrNGZqcmRmNkNVa0ZsQUVPaVZnMGYxelYrZzgrZmZqZHdvT2h1eGZYeDRO?=
- =?utf-8?B?SVN1bnY2OUpyZGU1Yk1sdGs5ek1mQm9nODkvSmJQSUU1b0QvTnNYcDV3NHpZ?=
- =?utf-8?B?dUo3Q21JeDhyNXJFK3FKakw0bHV3RjhGNEVCVVpycUF6S2VOSmRabWNyT3JB?=
- =?utf-8?B?N1F0ejVTcU1TbUlaNzVlMXFzaTZqYkhjTXZYbnZjR3dYSHNwNG1xeTdvVFVK?=
- =?utf-8?B?dmZLNEk1Wk4xWk5QVUF5emVudjZRaUhiSGFJK0cxa0ZiN2dqMDQyQXQvaWt2?=
- =?utf-8?B?QUR5cGFRN0pSUms2b1g2MUhhYUpheDlwQ3RIVkEyTlJGNXI2YzNIT1FJSkh6?=
- =?utf-8?B?RUpNanMxUnJldkJvdTJ6NE9uS0ZUQTJhR2pTbnhqSms1NG5PZkhwRlhrbkF6?=
- =?utf-8?B?WkF5aHhIbEtrMGZsYXg2QnBCNVRMa3VkVjh2OWNJS3BVdnNCRjAxUlNpRWxn?=
- =?utf-8?B?ZnBYLzFIT240ZlFQUzBRTU12TWpCeWdkQmxFWU5HcGExZXBTMk1WZzlFVGdt?=
- =?utf-8?B?YUF5bkFRN2F3cnZicmpHSUtYMnQ1SEx1WVRxSUE5Vi9wSHVHVkpZbkliOE5t?=
- =?utf-8?B?d2xKMk1FR3pFbEtJclFvSGR3dnVhemc3NmJCT2VxRUxMYTMrNlpUZEdlMHAy?=
- =?utf-8?B?N2s3UWl5T2N4NlJLa1BCZXk0dGtEVU4rRzI4UUQ4a0VnRVdLdWkzNmxPenY3?=
- =?utf-8?B?d3ljYzJiblhaSVNXVnFacWFhR0t4WEtjaDhWSU9NeUlRU2ZOdXlHdUEvSm5q?=
- =?utf-8?B?a2RuNkVMM1RrVHdvUGlubFVHZWJ5QXVVWXVML20zOVpyRlRPYkswdTUxT1Jy?=
- =?utf-8?B?MWRwWFROR3Rhc0dHSDB0SGJRd1JNRGpTcWh5RHVjcWZaY01ycG1WVExzdXZK?=
- =?utf-8?B?aUt6dXQwTkQ3Z2dobE9ONzJvS3EvTUJxQnlSUWpFMWc3YjM2MEtrVkpmcW9i?=
- =?utf-8?B?R3VvdmcwL3Y1V3RTbTN1dFJqaVFYZklrcG9ETkVJZmxsTmhHM0llYmJHU3NO?=
- =?utf-8?B?TU14MUc4aGtHUTBDVTVsWi9XTDF2dXZBZW1EY1FGbFJ3KzhHbGZBOGFGZTlB?=
- =?utf-8?B?Wjhsd0xyaG03a0NYN241VXRydllYY2VRSjBPTzZyS3R4QkFXYjV5OG45K2NE?=
- =?utf-8?B?c1AvMnJFa2dOZWNGOUZvT3FtVUtNSjdDb0VWNmttUVJDV3diMnNySHkwVEZp?=
- =?utf-8?B?MFNFeWVlRURaOGtOU3ZDTnZyc1lob2U1eWhaU0ZZNnNFSlFxUW9QMmVvZ2k0?=
- =?utf-8?Q?bmpIo3TsJeMj3Dva2xtQVke8b?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0005e5dd-9ef7-4d42-ff06-08db20af563c
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6280.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2023 15:02:44.4072 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eMLsIvwvawZcWrJpIdpJB/57VFiED6j/+/7eSLeUSGz0swPQx9ObUl2moTNY88JEc2GFggK69YK7c4pZ/M6OZA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8274
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,51 +58,226 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
- Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, alexander.deucher@amd.com, airlied@gmail.com,
- christian.koenig@amd.com
+Cc: linux-gpio@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Linux Memory Management List <linux-mm@kvack.org>, asahi@lists.linux.dev,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 3/8/23 21:52, Jiapeng Chong wrote:
-> Swap is a function interface that provides exchange function. To avoid
-> code duplication, we can use swap function.
-> 
-> ./drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:359:57-58: WARNING opportunity for swap().
-> 
-> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=4448
-> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 2c6433e9294b6d0f4d8f08c3c70a3eac434d3ec8  Add linux-next specific files for 20230309
 
-Applied, thanks!
+Error/Warning reports:
 
-> ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 ++------
->   1 file changed, 2 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index ae994c6c65ac..f6d9bbce15b2 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -352,13 +352,9 @@ static inline void reverse_planes_order(struct dc_surface_update *array_of_surfa
->   					int planes_count)
->   {
->   	int i, j;
-> -	struct dc_surface_update surface_updates_temp;
->   
-> -	for (i = 0, j = planes_count - 1; i < j; i++, j--) {
-> -		surface_updates_temp = array_of_surface_update[i];
-> -		array_of_surface_update[i] = array_of_surface_update[j];
-> -		array_of_surface_update[j] = surface_updates_temp;
-> -	}
-> +	for (i = 0, j = planes_count - 1; i < j; i++, j--)
-> +		swap(array_of_surface_update[i], array_of_surface_update[j]);
->   }
->   
->   /**
+https://lore.kernel.org/oe-kbuild-all/202302111601.jtY4lKrA-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202303081657.6Ble80UY-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202303081807.lBLWKmpX-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202303082135.NjdX1Bij-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202303091430.hbWEMt4b-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202303091435.ae36t8f6-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202303091548.VqmH7I6Q-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202303091711.howZNrIY-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202303091728.UUe6LWye-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202303092022.Jqy5pbvx-lkp@intel.com
+
+Error/Warning: (recently discovered and may have been fixed)
+
+ERROR: modpost: "intel_soc_pmic_exec_mipi_pmic_seq_element" [drivers/platform/x86/x86-android-tablets/x86-android-tablets.ko] undefined!
+drivers/clk/mvebu/kirkwood.c:358:1: error: expected identifier or '('
+drivers/clk/mvebu/kirkwood.c:358:1: error: invalid digit 'd' in decimal constant
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_optc.c:294:6: warning: no previous prototype for 'optc3_wait_drr_doublebuffer_pending_clear' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:2184: warning: expecting prototype for Check if there is a native DP or passive DP(). Prototype was for dp_is_sink_present() instead
+drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:1146:3: warning: variable 'hotspotlimit' is uninitialized when used here [-Wuninitialized]
+drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:1149:24: warning: variable 'memlimit' is uninitialized when used here [-Wuninitialized]
+drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:1152:34: warning: variable 'software_shutdown_temp' is uninitialized when used here [-Wuninitialized]
+drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:315:17: sparse:    int
+drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:315:17: sparse:    void
+include/linux/dynamic_debug.h:307:14: error: implicit declaration of function 'strcmp' [-Werror=implicit-function-declaration]
+kismet: WARNING: unmet direct dependencies detected for GPIO_SYSCON when selected by GPIO_SAMA5D2_PIOBU
+kismet: WARNING: unmet direct dependencies detected for MFD_STMFX when selected by PINCTRL_STMFX
+kismet: WARNING: unmet direct dependencies detected for OF_GPIO when selected by GPIO_LOONGSON_64BIT
+
+Unverified Error/Warning (likely false positive, please contact us if interested):
+
+drivers/iommu/apple-dart.c:1281:1: sparse: sparse: symbol 'apple_dart_pm_ops' was not declared. Should it be static?
+include/linux/gpio/consumer.h: linux/err.h is included more than once.
+include/linux/gpio/driver.h: asm/bug.h is included more than once.
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- arc-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- arm-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- arm-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- arm-randconfig-r005-20230309
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- arm-randconfig-r013-20230308
+|   `-- include-linux-dynamic_debug.h:error:implicit-declaration-of-function-strcmp
+|-- arm64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- i386-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- i386-randconfig-a016-20230206
+|   `-- ERROR:intel_soc_pmic_exec_mipi_pmic_seq_element-drivers-platform-x86-x86-android-tablets-x86-android-tablets.ko-undefined
+|-- ia64-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- loongarch-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- loongarch-buildonly-randconfig-r004-20230308
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- loongarch-defconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- microblaze-randconfig-s041-20230309
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:sparse:int
+|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:sparse:sparse:incompatible-types-in-conditional-expression-(different-base-types):
+|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:sparse:void
+|-- mips-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- mips-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- powerpc-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- riscv-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- riscv-randconfig-s043-20230309
+|   `-- drivers-iommu-apple-dart.c:sparse:sparse:symbol-apple_dart_pm_ops-was-not-declared.-Should-it-be-static
+|-- s390-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- sparc-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- x86_64-allnoconfig
+|   |-- include-linux-gpio-consumer.h:linux-err.h-is-included-more-than-once.
+|   |-- include-linux-gpio-driver.h:asm-bug.h-is-included-more-than-once.
+clang_recent_errors
+|-- arm-mvebu_v5_defconfig
+|   |-- drivers-clk-mvebu-kirkwood.c:error:expected-identifier-or-(
+|   `-- drivers-clk-mvebu-kirkwood.c:error:invalid-digit-d-in-decimal-constant
+`-- s390-randconfig-r044-20230308
+    |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:variable-hotspotlimit-is-uninitialized-when-used-here
+    |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:variable-memlimit-is-uninitialized-when-used-here
+    `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:variable-software_shutdown_temp-is-uninitialized-when-used-here
+
+elapsed time: 724m
+
+configs tested: 106
+configs skipped: 6
+
+tested configs:
+alpha                            alldefconfig   gcc  
+alpha                            allyesconfig   gcc  
+alpha        buildonly-randconfig-r006-20230308   gcc  
+alpha                               defconfig   gcc  
+alpha                randconfig-r031-20230308   gcc  
+alpha                randconfig-r033-20230308   gcc  
+alpha                randconfig-r035-20230308   gcc  
+arc                              allyesconfig   gcc  
+arc                                 defconfig   gcc  
+arc                  randconfig-r015-20230308   gcc  
+arc                  randconfig-r016-20230308   gcc  
+arc                  randconfig-r021-20230308   gcc  
+arc                  randconfig-r022-20230308   gcc  
+arc                  randconfig-r034-20230308   gcc  
+arc                  randconfig-r043-20230308   gcc  
+arm                              allmodconfig   gcc  
+arm                              allyesconfig   gcc  
+arm                        clps711x_defconfig   gcc  
+arm                                 defconfig   gcc  
+arm                       omap2plus_defconfig   gcc  
+arm                  randconfig-r005-20230309   gcc  
+arm                  randconfig-r011-20230308   gcc  
+arm                  randconfig-r046-20230308   gcc  
+arm64                            allyesconfig   gcc  
+arm64        buildonly-randconfig-r001-20230308   gcc  
+arm64                               defconfig   gcc  
+csky                                defconfig   gcc  
+csky                 randconfig-r024-20230308   gcc  
+hexagon              randconfig-r036-20230308   clang
+hexagon              randconfig-r041-20230308   clang
+hexagon              randconfig-r045-20230308   clang
+i386                             allyesconfig   gcc  
+i386                              debian-10.3   gcc  
+i386                                defconfig   gcc  
+i386                          randconfig-a001   gcc  
+i386                          randconfig-a002   clang
+i386                          randconfig-a003   gcc  
+i386                          randconfig-a004   clang
+i386                          randconfig-a005   gcc  
+i386                          randconfig-a006   clang
+i386                          randconfig-a011   clang
+i386                          randconfig-a012   gcc  
+i386                          randconfig-a013   clang
+i386                          randconfig-a014   gcc  
+i386                          randconfig-a015   clang
+i386                          randconfig-a016   gcc  
+ia64                             allmodconfig   gcc  
+ia64                         bigsur_defconfig   gcc  
+ia64                                defconfig   gcc  
+ia64                 randconfig-r002-20230309   gcc  
+ia64                 randconfig-r003-20230309   gcc  
+ia64                 randconfig-r026-20230308   gcc  
+loongarch                        allmodconfig   gcc  
+loongarch                         allnoconfig   gcc  
+loongarch    buildonly-randconfig-r004-20230308   gcc  
+loongarch                           defconfig   gcc  
+m68k                             allmodconfig   gcc  
+m68k                                defconfig   gcc  
+microblaze           randconfig-r032-20230308   gcc  
+mips                             allmodconfig   gcc  
+mips                             allyesconfig   gcc  
+mips                      bmips_stb_defconfig   clang
+mips                           rs90_defconfig   clang
+nios2                               defconfig   gcc  
+nios2                randconfig-r004-20230309   gcc  
+openrisc     buildonly-randconfig-r005-20230308   gcc  
+parisc                              defconfig   gcc  
+parisc64                            defconfig   gcc  
+powerpc                          allmodconfig   gcc  
+powerpc                           allnoconfig   gcc  
+powerpc              randconfig-r001-20230309   clang
+riscv                            allmodconfig   gcc  
+riscv                             allnoconfig   gcc  
+riscv                               defconfig   gcc  
+riscv                randconfig-r042-20230308   clang
+riscv                          rv32_defconfig   gcc  
+s390                             allmodconfig   gcc  
+s390                             allyesconfig   gcc  
+s390                                defconfig   gcc  
+s390                 randconfig-r025-20230308   clang
+s390                 randconfig-r044-20230308   clang
+sh                               allmodconfig   gcc  
+sh                   randconfig-r014-20230308   gcc  
+sparc                               defconfig   gcc  
+sparc64              randconfig-r013-20230308   gcc  
+um                             i386_defconfig   gcc  
+um                           x86_64_defconfig   gcc  
+x86_64                            allnoconfig   gcc  
+x86_64                           allyesconfig   gcc  
+x86_64                              defconfig   gcc  
+x86_64                                  kexec   gcc  
+x86_64                        randconfig-a001   clang
+x86_64                        randconfig-a002   gcc  
+x86_64                        randconfig-a003   clang
+x86_64                        randconfig-a004   gcc  
+x86_64                        randconfig-a005   clang
+x86_64                        randconfig-a006   gcc  
+x86_64                        randconfig-a011   gcc  
+x86_64                        randconfig-a012   clang
+x86_64                        randconfig-a013   gcc  
+x86_64                        randconfig-a014   clang
+x86_64                        randconfig-a015   gcc  
+x86_64                        randconfig-a016   clang
+x86_64                               rhel-8.3   gcc  
+xtensa       buildonly-randconfig-r003-20230308   gcc  
+xtensa               randconfig-r023-20230308   gcc  
 
 -- 
-Hamza
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
