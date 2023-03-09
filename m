@@ -4,54 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1B6EC64EC4
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Mar 2023 08:35:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2511C64EC4
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Mar 2023 09:33:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 311A510E15A;
-	Thu,  9 Mar 2023 08:35:24 +0000 (UTC)
-Received: from pio-pvt-msa2.bahnhof.se (pio-pvt-msa2.bahnhof.se [79.136.2.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2322D10E7B6;
- Thu,  9 Mar 2023 08:35:22 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by pio-pvt-msa2.bahnhof.se (Postfix) with ESMTP id 37A2F3F4B6;
- Thu,  9 Mar 2023 09:35:20 +0100 (CET)
-X-Virus-Scanned: Debian amavisd-new at bahnhof.se
-Authentication-Results: pio-pvt-msa2.bahnhof.se (amavisd-new);
- dkim=pass (1024-bit key) header.d=shipmail.org
-Received: from pio-pvt-msa2.bahnhof.se ([127.0.0.1])
- by localhost (pio-pvt-msa2.bahnhof.se [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 9Q2K6Duj6G_j; Thu,  9 Mar 2023 09:35:19 +0100 (CET)
-Received: by pio-pvt-msa2.bahnhof.se (Postfix) with ESMTPA id A03603F46B;
- Thu,  9 Mar 2023 09:35:18 +0100 (CET)
-Received: from [192.168.0.209] (unknown [134.191.232.81])
- by mail1.shipmail.org (Postfix) with ESMTPSA id D517E36282E;
- Thu,  9 Mar 2023 09:35:15 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=shipmail.org; s=mail;
- t=1678350918; bh=3ILZun5Jh4NKwW3oGUoDQL7U/hu47cW4tbVkkfa77Hg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=U0GX0hv5zoaMVm82CXcuq8j+z4thTzs6NsPG8hwBKNE2eMtW9qW/7ItROzZ/IPcx7
- NvDivDg5xO9odEbhNJNWHHEqZQiZFlcXB2GnJSOHttvOxb3/rZoSBhR5tgYEOkfIL9
- ssIC4nu3Hx9ZM4eua4oZ9hjI6IaegP8OPzaRmlZ0=
-Message-ID: <6430e347-3c76-1457-68af-938ad31ae812@shipmail.org>
-Date: Thu, 9 Mar 2023 09:35:12 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3552610E7C7;
+	Thu,  9 Mar 2023 09:33:29 +0000 (UTC)
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EF0610E7B2
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Mar 2023 08:49:03 +0000 (UTC)
+Received: by mail-lj1-x22d.google.com with SMTP id f16so1038287ljq.10
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Mar 2023 00:49:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1678351741;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=ndQH7nAbuFcVR/u/HQsjMbEiAKZj5mUlBWSv1hdxxug=;
+ b=Fb9OmPAOd5KS4H8D3+pBZFeBepyfAqDGqkOEsG924nynzRB+ZBVaIz1bl2j8WLJEkp
+ oi+4tFWoo/vjLODwyQPBN5pd6St6I8WvEr7ycr31AXzAsuwKVrOhO8UFY2FfBbaW8RL/
+ wziauTtv6gr+1DCr+Gbb1RiQcnyUhNGaM5Ug155ZwSp/utUU0t9xNycdxsVOO+C4xMKL
+ TqU7CUqL0+bQ4NAA4wydrczSYbATVJm1mgcByyHu3wqukezabLUMN9bZda1R4im74ttC
+ 46261RaP2oF/9CH9PuxFfyIqRuFlLrS/LDIcsf1NqG8pKbkAoP6277NvrxLlSxkbMuuo
+ QMkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678351741;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ndQH7nAbuFcVR/u/HQsjMbEiAKZj5mUlBWSv1hdxxug=;
+ b=uyFT0yiszrzcmGrfej2P24JOWB96B/L5dx9H+fq1ZnHkceed6dSa0Gonltqyx2fAIO
+ vtBQaHkE8tyLV70zzA5ZRlClfjHjXGJplyNIFu5xbrrV8ogLcIget7UXHSMZlfx1Lkz/
+ bWD2TRGguWhiAdBkshAnlCfl9fNQggEvjMHzhTQ1O/l1sFFo2VMenwSxBJKL7/W9WyKO
+ AH1zFdplEci4mTkXlUaf6z3TOFgRv1Wf609cYkrSzJA4e7p0n+ON48SU7q5xiY239/FN
+ RRhwiLGxbJWDSsCjpl3XsRFFw1TSyAhrlJnq6rXm9h8LO5Rg7u5m23ICCHSXjg59VSKY
+ UmQQ==
+X-Gm-Message-State: AO0yUKU5v08P3KsY1ivPRSm6FWfuECNTvfWKX/op2huQ1/sBdsVKX/Zl
+ u6iKL6BlKdJpVqtRtia74qLuvA==
+X-Google-Smtp-Source: AK7set8LMu/BEMahbfX8gOyx7vqpoCvyQcWjOT4Pg5tbVcOM9eItld6zLilvF6VjTTGz35wNktmXUA==
+X-Received: by 2002:a2e:b613:0:b0:295:b0ee:666d with SMTP id
+ r19-20020a2eb613000000b00295b0ee666dmr5604860ljn.53.1678351741139; 
+ Thu, 09 Mar 2023 00:49:01 -0800 (PST)
+Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
+ (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ s15-20020a2e98cf000000b002986d306698sm584002ljj.95.2023.03.09.00.49.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 09 Mar 2023 00:49:00 -0800 (PST)
+Message-ID: <55b40f8f-b1d8-71ba-0af5-91e08e69160f@linaro.org>
+Date: Thu, 9 Mar 2023 10:49:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH 9/9] drm: move ttm_execbuf_util into vmwgfx
-Content-Language: en-US
-To: Zack Rusin <zackr@vmware.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "ckoenig.leichtzumerken@gmail.com" <ckoenig.leichtzumerken@gmail.com>
-References: <20230228083406.1720795-1-christian.koenig@amd.com>
- <20230228083406.1720795-10-christian.koenig@amd.com>
- <b4beeee4b2a004938adc6c502443f7b3311aad50.camel@vmware.com>
- <6933b07b-af79-5350-b161-12ee73732b30@gmail.com>
- <40318db5b88601e42e68a94115da2bdcf6e18db8.camel@vmware.com>
-From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
-In-Reply-To: <40318db5b88601e42e68a94115da2bdcf6e18db8.camel@vmware.com>
+Subject: Re: [PATCH 2/2] drm/probe_helper: warning on poll_enabled for issue
+ catching
+Content-Language: en-GB
+To: Guchun Chen <guchun.chen@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
+ hawking.zhang@amd.com, spasswolf@web.de, mike@fireburn.co.uk
+References: <20230309054839.2709424-1-guchun.chen@amd.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230309054839.2709424-1-guchun.chen@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Thu, 09 Mar 2023 09:33:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,79 +79,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Martin Krastev <krastevm@vmware.com>,
- Linux-graphics-maintainer <Linux-graphics-maintainer@vmware.com>,
- "dakr@redhat.com" <dakr@redhat.com>,
- Maaz Mombasawala <mombasawalam@vmware.com>,
- "arunpravin.paneerselvam@amd.com" <arunpravin.paneerselvam@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+On 09/03/2023 07:48, Guchun Chen wrote:
+> In order to catch issues in other drivers to ensure proper call
+> sequence of polling function.
+> 
+> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2411
+> Fixes: a4e771729a51("drm/probe_helper: sort out poll_running vs poll_enabled")
 
-On 3/9/23 06:14, Zack Rusin wrote:
-> On Wed, 2023-03-08 at 10:10 +0100, Christian König wrote:
->> Am 08.03.23 um 06:14 schrieb Zack Rusin:
->>> On Tue, 2023-02-28 at 09:34 +0100, Christian König wrote:
->>>> VMWGFX is the only remaining user of this and should probably moved over
->>>> to drm_exec when it starts using GEM as well.
->>> Is this because vmwgfx piggybacks buffer-id relocations on top of ttm
->>> validations or
->>> did you just find it too hard to port it over? I'd prefer to avoid ttm moves to
->>> vmwgfx and at least have a clear idea of what we need to do to port.
->> I've just found it to hard to port it over because vmwgfx does some
->> strange things with the validation code here.
->>
->> If you want we can take a deeper look at this together, but I need to
->> find some time.
->>
->> Alternatively just tell me how to do it and I will add that to the patch
->> set :)
-> I don't want to hold up the set (it looks good btw), because I had to look at
-> something else today and tomorrow.
->
-> We overload the validation lists to do quite a bit more than just reservations
-> though.
->
-> There are, I think, four separate things that need to be refactored there
-> (Christian, feel free to skip this section, this is mainly for VMware folks on the
-> team):
-> 1) Relocations - userspace uses the id's of the bo's in the command stream, but on
-> the kernel side those id's are different (or in vmwgfx terminology gem id != mob
-> id), so the buffer id's in the command stream need to be replaced,
-> 2) Resource validation. vmwgfx splits the userspace objects into buffers and
-> resources (shaders, surfaces, contexts). The resources are not buffers but are
-> backed by them. A single buffer can back multiple different resources and sometimes
-> the kernel has to actually allocate a buffer to back a resource and attach it to it
-> (i.e. in common terminology buffer is the memory and resources are placed in it) .
-> Now this shouldn't be in the kernel at all, the resources shouldn't have been kernel
-> objects and instead we should have left them completely to userspace.
+Previously it was suggested that this is not a fix, so the Fixes header 
+is incorrect.
 
-The reason behind this is partly historical, since initially the 
-resources (IIRC surfaces and shaders at that time),
-were per-device and not per context and not backed by buffer objects.
+Also please use -vN when preparing/sending patchsets. This is v2.
 
-The main reason for not doing the transition to user-space for resources 
-was the SVGA device "between-draw-call-validation". If you for example 
-unbound a mob that was backing a resource that was bound to a context, 
-you'd need to start a whole chain of resource invalidations to avoid the 
-device complaining about invalid setups at awkward moments, for example 
-when it felt like suspending.
+> Reported-by: Bert Karwatzki <spasswolf@web.de>
+> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+> ---
+>   drivers/gpu/drm/drm_probe_helper.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_probe_helper.c
+> index 8127be134c39..85e0e80d4a52 100644
+> --- a/drivers/gpu/drm/drm_probe_helper.c
+> +++ b/drivers/gpu/drm/drm_probe_helper.c
+> @@ -852,6 +852,8 @@ EXPORT_SYMBOL(drm_kms_helper_is_poll_worker);
+>    */
+>   void drm_kms_helper_poll_disable(struct drm_device *dev)
+>   {
+> +	WARN_ON(!dev->mode_config.poll_enabled);
+> +
+>   	if (dev->mode_config.poll_running)
+>   		drm_kms_helper_disable_hpd(dev);
+>   
 
-Not sure whether that is gone now though, or whether there are better 
-ways to handle that.
+-- 
+With best wishes
+Dmitry
 
-/Thomas
-
-
-> 3) Coherency tracking. We use validation lists as a central place for tracking which
-> bo's/resources are used in a command buffer and we use it to keep track of which
-> buffers/resources will endup dirty to implement coherency.
-> 4) Central place to allocate memory for relocation/validation nodes.
->
-> Where we want to endup is with 2 completely gone from the kernel side and 1, 3 and 4
-> refactored and cleaned up. I think there's at least 4 separate patches to this port,
-> so it's not a trivial thing. We will take a look at this on Friday in more detail to
-> see what we can do.
->
-> z
