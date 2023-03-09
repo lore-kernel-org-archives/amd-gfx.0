@@ -4,49 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE207C64EC4
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Mar 2023 15:08:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99C92C61DA4
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Mar 2023 15:24:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B608B10E84E;
-	Thu,  9 Mar 2023 15:08:53 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2695410E84C
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Mar 2023 15:08:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678374531; x=1709910531;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=+CEGkxWLU/S8mn45ZTds+4lIJE2/zfMR+AlnzPAxGdE=;
- b=ZJHzR/jPRP+mR3LSdLPkIUEv+emNLPqGpGK1toFhR7aLANeZQBRzLXJW
- d/YDPxv3K9kjMI5Dg/ZxUp2pgq/LBU4vDe8AdhKLO+h9CN5j/BDsosPQ9
- ktPGkLsEils/8magrJoiVX17ljcMZWOm81Hov64CXw3cP26fCr28tiWDv
- X/agVWi89aq+tEvFvEM1XrRU5WXnau9Q1K4cTotvn5D3/F9DVSX6TqBiT
- 06xhPnuqn933Q8WTquHxq+ELAahzx92K8NevFhcRAwz9Ws8ZYvj3RibXv
- 5ieHxfVZIhsYItwajqZkDd8f0G2ninScMiMgJNdR4ZkXpm0CTzX4dh0ok g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10643"; a="338006682"
-X-IronPort-AV: E=Sophos;i="5.98,246,1673942400"; d="scan'208";a="338006682"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Mar 2023 06:37:30 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10643"; a="707633256"
-X-IronPort-AV: E=Sophos;i="5.98,246,1673942400"; d="scan'208";a="707633256"
-Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
- by orsmga008.jf.intel.com with ESMTP; 09 Mar 2023 06:37:27 -0800
-Received: from kbuild by b613635ddfff with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1paHOY-00031I-2n;
- Thu, 09 Mar 2023 14:37:26 +0000
-Date: Thu, 09 Mar 2023 22:36:55 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 2c6433e9294b6d0f4d8f08c3c70a3eac434d3ec8
-Message-ID: <6409ef07.MijoGslGE1Kw16lB%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id D84FA10E810;
+	Thu,  9 Mar 2023 15:24:28 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2062b.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7ea9::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1FF010E810
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Mar 2023 15:24:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FbKVSl56bYh3i5wiLAGJykEBndS3Ipo9joL0jyVuzDjb/zFJjwH5j8QaTqdIkUPpuu4zASwm3xYAfqcOFHiWfFIlhyQuyzED5NQTjlJJAWXI9VDnlZAnkai8d6DKe1wbW2z55Zhgg5m3sgZFl9g5S3enOc/pvovTpEzAFkSl+iccIALhFfI6qpKgv9O3BfWr81T2Ri27kIWKe31OJEM/chvFqAeq9cWyGX9JzVSKzdXGVJ1N0BkIXVUTKdsTXT1+SZLVTnHGMnLYsrcYts3wr/WnxjSimP89FfG/z3hMY/kg4MkRoxavPStrLe5YKZgv2K71zKE+DEUll4cg+JdmzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sNkKU/QngZGgWmQCQxlXK+LiaNDq2+zm5dpPxnJn8Nk=;
+ b=D5R0LjkQnXxOSaRfLcxrajb5H+lN1WrJjzaGCE41D+AIqkKDE/ZBr8hNyYHJCZ9LTlz9bBC+cP5BRt+CI/37lrFb2iv57bCuWJbeJXyetBk5ZOOOYXxFRIRQucVl36scSvZ6EqzTbWhdlUvpcpN+cVmMnqUlF0rgokoX5RBR4lRtpfiUkt6M/MVtgDR5mcnIuIXvtLjwNhLz2IBGkAiEMl1bNwCH049E1tD+v54dukv/Fd7H5OCivqGMAlQDVIB0KwcfLo8a+S67VC2EgpSZKkKWn891/RXt0u96l1lU1qg6ZqEbY4/bUIWwuFq190RFHig6/L7iHgBnI0tqoRHbKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sNkKU/QngZGgWmQCQxlXK+LiaNDq2+zm5dpPxnJn8Nk=;
+ b=xggD02lbtZNi7BGVP9YV/9+b6N7NZDXXtjK4ESUSvvM/9vC8BzRTsBequaP1tk0WGsmW6hhZdTAvomMdMyjDZoZ28PuRHi6trOwKFv8PyAIfFkoPwApCTPBtwqi4n3Nq++pnXYHImhd0v4bYbHSByhScSi6fGBq3FU7L3F+Szro=
+Received: from MW4PR03CA0155.namprd03.prod.outlook.com (2603:10b6:303:8d::10)
+ by IA0PR12MB7752.namprd12.prod.outlook.com (2603:10b6:208:431::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.19; Thu, 9 Mar
+ 2023 15:24:23 +0000
+Received: from CO1NAM11FT098.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8d:cafe::15) by MW4PR03CA0155.outlook.office365.com
+ (2603:10b6:303:8d::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.29 via Frontend
+ Transport; Thu, 9 Mar 2023 15:24:23 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT098.mail.protection.outlook.com (10.13.174.207) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6178.19 via Frontend Transport; Thu, 9 Mar 2023 15:24:23 +0000
+Received: from tstdenis.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 9 Mar
+ 2023 09:24:22 -0600
+From: Tom St Denis <tom.stdenis@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/amdgpu: Add missing INT_STAT_DEBUG registers to GC
+ 10.1 and 10.3 headers
+Date: Thu, 9 Mar 2023 10:24:13 -0500
+Message-ID: <20230309152413.1185095-1-tom.stdenis@amd.com>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT098:EE_|IA0PR12MB7752:EE_
+X-MS-Office365-Filtering-Correlation-Id: 800346b8-2f5b-41ef-34e7-08db20b25cd5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: VdTFfqGL3nDAByjcFIINTlX1S56P0Ot5l4VcWEsbqt+TShLF1UanNupBOdTX1xDlCCsmtw05rVyxyyIoUvgAF6kYERK5FTTDFXh/AjMyI3b8EB1Fm+/ga3hKEXFk/MQShlUzQCnITYp1flOSIGh4J0Ygor/5X/484585kK2ImwaF8nL9m54ZdkspGlxlr0YCWvOlgtiCinbfBG2HPiZJdaGOHFlGhxCl+ttLlcu0sDxswOcWRp1eXPXa5yZQm8H80RjCwP3XUQj98qb2x/418sTI+Ff6V/XxLQI3yoyVtSWvGR8mhRSunHrgHI6v0jabq5KGjECHcEGeIFG3RkPobqV8vbSa949ruW79ZTV0gepxeTFSmty68a+I1Ai8nWV85zL+yPALt2jaFPq8wNU5htyIcS06T9jISywFdmJP33XVrfTlho3iSZfj105w2tMYzhZpJSM4zz96FaQL64Qc2grOhPCDzqADYer7hePdWJ+vXedN5RN8yFOm26/sFT0ESBFgU3MlgWV2xWwEgy7iLxfzMowG+UTUH8leYr4V8Lh4iBREgEzC4KA0+hCSUkFJHhNycBEA9+wxqti0N8rwba3j4kyClfm96+Wc0hkZKdc85naoup4mZjAuNvtrIHLGGP/mYvwtkxam5biqEqujJTt0AHPNDTOgN+uLf+KVEjvUYgl/5jNhherWhywTFPtK9oFCOamp6IbJBZf4mT8buXH758HYMWA7SDXCtnkxB6U=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(376002)(346002)(136003)(39860400002)(396003)(451199018)(46966006)(40470700004)(36840700001)(336012)(47076005)(426003)(36756003)(40460700003)(40480700001)(356005)(86362001)(81166007)(82740400003)(36860700001)(186003)(26005)(1076003)(82310400005)(83380400001)(6666004)(16526019)(2616005)(5660300002)(316002)(478600001)(7696005)(41300700001)(4326008)(6916009)(30864003)(2906002)(8936002)(70586007)(8676002)(70206006)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2023 15:24:23.5238 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 800346b8-2f5b-41ef-34e7-08db20b25cd5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT098.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7752
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,226 +99,180 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-gpio@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Linux Memory Management List <linux-mm@kvack.org>, asahi@lists.linux.dev,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Cc: Tom St Denis <tom.stdenis@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 2c6433e9294b6d0f4d8f08c3c70a3eac434d3ec8  Add linux-next specific files for 20230309
+Checked against database, copied from GC 9.4.2 header.
 
-Error/Warning reports:
+Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
+---
+ .../include/asic_reg/gc/gc_10_1_0_offset.h    |  4 ++
+ .../include/asic_reg/gc/gc_10_1_0_sh_mask.h   | 54 +++++++++++++++++++
+ .../include/asic_reg/gc/gc_10_3_0_offset.h    |  4 ++
+ .../include/asic_reg/gc/gc_10_3_0_sh_mask.h   | 54 +++++++++++++++++++
+ 4 files changed, 116 insertions(+)
 
-https://lore.kernel.org/oe-kbuild-all/202302111601.jtY4lKrA-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202303081657.6Ble80UY-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202303081807.lBLWKmpX-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202303082135.NjdX1Bij-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202303091430.hbWEMt4b-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202303091435.ae36t8f6-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202303091548.VqmH7I6Q-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202303091711.howZNrIY-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202303091728.UUe6LWye-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202303092022.Jqy5pbvx-lkp@intel.com
-
-Error/Warning: (recently discovered and may have been fixed)
-
-ERROR: modpost: "intel_soc_pmic_exec_mipi_pmic_seq_element" [drivers/platform/x86/x86-android-tablets/x86-android-tablets.ko] undefined!
-drivers/clk/mvebu/kirkwood.c:358:1: error: expected identifier or '('
-drivers/clk/mvebu/kirkwood.c:358:1: error: invalid digit 'd' in decimal constant
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_optc.c:294:6: warning: no previous prototype for 'optc3_wait_drr_doublebuffer_pending_clear' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:2184: warning: expecting prototype for Check if there is a native DP or passive DP(). Prototype was for dp_is_sink_present() instead
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:1146:3: warning: variable 'hotspotlimit' is uninitialized when used here [-Wuninitialized]
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:1149:24: warning: variable 'memlimit' is uninitialized when used here [-Wuninitialized]
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:1152:34: warning: variable 'software_shutdown_temp' is uninitialized when used here [-Wuninitialized]
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:315:17: sparse:    int
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:315:17: sparse:    void
-include/linux/dynamic_debug.h:307:14: error: implicit declaration of function 'strcmp' [-Werror=implicit-function-declaration]
-kismet: WARNING: unmet direct dependencies detected for GPIO_SYSCON when selected by GPIO_SAMA5D2_PIOBU
-kismet: WARNING: unmet direct dependencies detected for MFD_STMFX when selected by PINCTRL_STMFX
-kismet: WARNING: unmet direct dependencies detected for OF_GPIO when selected by GPIO_LOONGSON_64BIT
-
-Unverified Error/Warning (likely false positive, please contact us if interested):
-
-drivers/iommu/apple-dart.c:1281:1: sparse: sparse: symbol 'apple_dart_pm_ops' was not declared. Should it be static?
-include/linux/gpio/consumer.h: linux/err.h is included more than once.
-include/linux/gpio/driver.h: asm/bug.h is included more than once.
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|-- arc-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|-- arm-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|-- arm-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|-- arm-randconfig-r005-20230309
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|-- arm-randconfig-r013-20230308
-|   `-- include-linux-dynamic_debug.h:error:implicit-declaration-of-function-strcmp
-|-- arm64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|-- i386-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|-- i386-randconfig-a016-20230206
-|   `-- ERROR:intel_soc_pmic_exec_mipi_pmic_seq_element-drivers-platform-x86-x86-android-tablets-x86-android-tablets.ko-undefined
-|-- ia64-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|-- loongarch-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|-- loongarch-buildonly-randconfig-r004-20230308
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|-- loongarch-defconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|-- microblaze-randconfig-s041-20230309
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:sparse:int
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:sparse:sparse:incompatible-types-in-conditional-expression-(different-base-types):
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:sparse:void
-|-- mips-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|-- mips-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|-- powerpc-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|-- riscv-allmodconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|-- riscv-randconfig-s043-20230309
-|   `-- drivers-iommu-apple-dart.c:sparse:sparse:symbol-apple_dart_pm_ops-was-not-declared.-Should-it-be-static
-|-- s390-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|-- sparc-allyesconfig
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|-- x86_64-allnoconfig
-|   |-- include-linux-gpio-consumer.h:linux-err.h-is-included-more-than-once.
-|   |-- include-linux-gpio-driver.h:asm-bug.h-is-included-more-than-once.
-clang_recent_errors
-|-- arm-mvebu_v5_defconfig
-|   |-- drivers-clk-mvebu-kirkwood.c:error:expected-identifier-or-(
-|   `-- drivers-clk-mvebu-kirkwood.c:error:invalid-digit-d-in-decimal-constant
-`-- s390-randconfig-r044-20230308
-    |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:variable-hotspotlimit-is-uninitialized-when-used-here
-    |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:variable-memlimit-is-uninitialized-when-used-here
-    `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:variable-software_shutdown_temp-is-uninitialized-when-used-here
-
-elapsed time: 724m
-
-configs tested: 106
-configs skipped: 6
-
-tested configs:
-alpha                            alldefconfig   gcc  
-alpha                            allyesconfig   gcc  
-alpha        buildonly-randconfig-r006-20230308   gcc  
-alpha                               defconfig   gcc  
-alpha                randconfig-r031-20230308   gcc  
-alpha                randconfig-r033-20230308   gcc  
-alpha                randconfig-r035-20230308   gcc  
-arc                              allyesconfig   gcc  
-arc                                 defconfig   gcc  
-arc                  randconfig-r015-20230308   gcc  
-arc                  randconfig-r016-20230308   gcc  
-arc                  randconfig-r021-20230308   gcc  
-arc                  randconfig-r022-20230308   gcc  
-arc                  randconfig-r034-20230308   gcc  
-arc                  randconfig-r043-20230308   gcc  
-arm                              allmodconfig   gcc  
-arm                              allyesconfig   gcc  
-arm                        clps711x_defconfig   gcc  
-arm                                 defconfig   gcc  
-arm                       omap2plus_defconfig   gcc  
-arm                  randconfig-r005-20230309   gcc  
-arm                  randconfig-r011-20230308   gcc  
-arm                  randconfig-r046-20230308   gcc  
-arm64                            allyesconfig   gcc  
-arm64        buildonly-randconfig-r001-20230308   gcc  
-arm64                               defconfig   gcc  
-csky                                defconfig   gcc  
-csky                 randconfig-r024-20230308   gcc  
-hexagon              randconfig-r036-20230308   clang
-hexagon              randconfig-r041-20230308   clang
-hexagon              randconfig-r045-20230308   clang
-i386                             allyesconfig   gcc  
-i386                              debian-10.3   gcc  
-i386                                defconfig   gcc  
-i386                          randconfig-a001   gcc  
-i386                          randconfig-a002   clang
-i386                          randconfig-a003   gcc  
-i386                          randconfig-a004   clang
-i386                          randconfig-a005   gcc  
-i386                          randconfig-a006   clang
-i386                          randconfig-a011   clang
-i386                          randconfig-a012   gcc  
-i386                          randconfig-a013   clang
-i386                          randconfig-a014   gcc  
-i386                          randconfig-a015   clang
-i386                          randconfig-a016   gcc  
-ia64                             allmodconfig   gcc  
-ia64                         bigsur_defconfig   gcc  
-ia64                                defconfig   gcc  
-ia64                 randconfig-r002-20230309   gcc  
-ia64                 randconfig-r003-20230309   gcc  
-ia64                 randconfig-r026-20230308   gcc  
-loongarch                        allmodconfig   gcc  
-loongarch                         allnoconfig   gcc  
-loongarch    buildonly-randconfig-r004-20230308   gcc  
-loongarch                           defconfig   gcc  
-m68k                             allmodconfig   gcc  
-m68k                                defconfig   gcc  
-microblaze           randconfig-r032-20230308   gcc  
-mips                             allmodconfig   gcc  
-mips                             allyesconfig   gcc  
-mips                      bmips_stb_defconfig   clang
-mips                           rs90_defconfig   clang
-nios2                               defconfig   gcc  
-nios2                randconfig-r004-20230309   gcc  
-openrisc     buildonly-randconfig-r005-20230308   gcc  
-parisc                              defconfig   gcc  
-parisc64                            defconfig   gcc  
-powerpc                          allmodconfig   gcc  
-powerpc                           allnoconfig   gcc  
-powerpc              randconfig-r001-20230309   clang
-riscv                            allmodconfig   gcc  
-riscv                             allnoconfig   gcc  
-riscv                               defconfig   gcc  
-riscv                randconfig-r042-20230308   clang
-riscv                          rv32_defconfig   gcc  
-s390                             allmodconfig   gcc  
-s390                             allyesconfig   gcc  
-s390                                defconfig   gcc  
-s390                 randconfig-r025-20230308   clang
-s390                 randconfig-r044-20230308   clang
-sh                               allmodconfig   gcc  
-sh                   randconfig-r014-20230308   gcc  
-sparc                               defconfig   gcc  
-sparc64              randconfig-r013-20230308   gcc  
-um                             i386_defconfig   gcc  
-um                           x86_64_defconfig   gcc  
-x86_64                            allnoconfig   gcc  
-x86_64                           allyesconfig   gcc  
-x86_64                              defconfig   gcc  
-x86_64                                  kexec   gcc  
-x86_64                        randconfig-a001   clang
-x86_64                        randconfig-a002   gcc  
-x86_64                        randconfig-a003   clang
-x86_64                        randconfig-a004   gcc  
-x86_64                        randconfig-a005   clang
-x86_64                        randconfig-a006   gcc  
-x86_64                        randconfig-a011   gcc  
-x86_64                        randconfig-a012   clang
-x86_64                        randconfig-a013   gcc  
-x86_64                        randconfig-a014   clang
-x86_64                        randconfig-a015   gcc  
-x86_64                        randconfig-a016   clang
-x86_64                               rhel-8.3   gcc  
-xtensa       buildonly-randconfig-r003-20230308   gcc  
-xtensa               randconfig-r023-20230308   gcc  
-
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h
+index 18d34bbceebe..79c41004c0b6 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h
+@@ -4868,6 +4868,10 @@
+ #define mmCP_ME2_PIPE2_INT_STATUS_BASE_IDX                                                             0
+ #define mmCP_ME2_PIPE3_INT_STATUS                                                                      0x1e34
+ #define mmCP_ME2_PIPE3_INT_STATUS_BASE_IDX                                                             0
++#define mmCP_ME1_INT_STAT_DEBUG                                                                        0x1e35
++#define mmCP_ME1_INT_STAT_DEBUG_BASE_IDX                                                               0
++#define mmCP_ME2_INT_STAT_DEBUG                                                                        0x1e36
++#define mmCP_ME2_INT_STAT_DEBUG_BASE_IDX                                                               0
+ #define mmCP_GFX_QUEUE_INDEX                                                                           0x1e37
+ #define mmCP_GFX_QUEUE_INDEX_BASE_IDX                                                                  0
+ #define mmCC_GC_EDC_CONFIG                                                                             0x1e38
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_sh_mask.h
+index 4127896ffcdf..52043e143067 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_sh_mask.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_sh_mask.h
+@@ -18680,6 +18680,60 @@
+ //CC_GC_EDC_CONFIG
+ #define CC_GC_EDC_CONFIG__DIS_EDC__SHIFT                                                                      0x1
+ #define CC_GC_EDC_CONFIG__DIS_EDC_MASK                                                                        0x00000002L
++//CP_ME1_INT_STAT_DEBUG
++#define CP_ME1_INT_STAT_DEBUG__CMP_QUERY_STATUS_INT_ASSERTED__SHIFT                                           0xc
++#define CP_ME1_INT_STAT_DEBUG__DEQUEUE_REQUEST_INT_ASSERTED__SHIFT                                            0xd
++#define CP_ME1_INT_STAT_DEBUG__CP_ECC_ERROR_INT_ASSERTED__SHIFT                                               0xe
++#define CP_ME1_INT_STAT_DEBUG__SUA_VIOLATION_INT_STATUS__SHIFT                                                0xf
++#define CP_ME1_INT_STAT_DEBUG__GPF_INT_ASSERTED__SHIFT                                                        0x10
++#define CP_ME1_INT_STAT_DEBUG__WRM_POLL_TIMEOUT_INT_ASSERTED__SHIFT                                           0x11
++#define CP_ME1_INT_STAT_DEBUG__PRIV_REG_INT_ASSERTED__SHIFT                                                   0x17
++#define CP_ME1_INT_STAT_DEBUG__OPCODE_ERROR_INT_ASSERTED__SHIFT                                               0x18
++#define CP_ME1_INT_STAT_DEBUG__TIME_STAMP_INT_ASSERTED__SHIFT                                                 0x1a
++#define CP_ME1_INT_STAT_DEBUG__RESERVED_BIT_ERROR_INT_ASSERTED__SHIFT                                         0x1b
++#define CP_ME1_INT_STAT_DEBUG__GENERIC2_INT_ASSERTED__SHIFT                                                   0x1d
++#define CP_ME1_INT_STAT_DEBUG__GENERIC1_INT_ASSERTED__SHIFT                                                   0x1e
++#define CP_ME1_INT_STAT_DEBUG__GENERIC0_INT_ASSERTED__SHIFT                                                   0x1f
++#define CP_ME1_INT_STAT_DEBUG__CMP_QUERY_STATUS_INT_ASSERTED_MASK                                             0x00001000L
++#define CP_ME1_INT_STAT_DEBUG__DEQUEUE_REQUEST_INT_ASSERTED_MASK                                              0x00002000L
++#define CP_ME1_INT_STAT_DEBUG__CP_ECC_ERROR_INT_ASSERTED_MASK                                                 0x00004000L
++#define CP_ME1_INT_STAT_DEBUG__SUA_VIOLATION_INT_STATUS_MASK                                                  0x00008000L
++#define CP_ME1_INT_STAT_DEBUG__GPF_INT_ASSERTED_MASK                                                          0x00010000L
++#define CP_ME1_INT_STAT_DEBUG__WRM_POLL_TIMEOUT_INT_ASSERTED_MASK                                             0x00020000L
++#define CP_ME1_INT_STAT_DEBUG__PRIV_REG_INT_ASSERTED_MASK                                                     0x00800000L
++#define CP_ME1_INT_STAT_DEBUG__OPCODE_ERROR_INT_ASSERTED_MASK                                                 0x01000000L
++#define CP_ME1_INT_STAT_DEBUG__TIME_STAMP_INT_ASSERTED_MASK                                                   0x04000000L
++#define CP_ME1_INT_STAT_DEBUG__RESERVED_BIT_ERROR_INT_ASSERTED_MASK                                           0x08000000L
++#define CP_ME1_INT_STAT_DEBUG__GENERIC2_INT_ASSERTED_MASK                                                     0x20000000L
++#define CP_ME1_INT_STAT_DEBUG__GENERIC1_INT_ASSERTED_MASK                                                     0x40000000L
++#define CP_ME1_INT_STAT_DEBUG__GENERIC0_INT_ASSERTED_MASK                                                     0x80000000L
++//CP_ME2_INT_STAT_DEBUG
++#define CP_ME2_INT_STAT_DEBUG__CMP_QUERY_STATUS_INT_ASSERTED__SHIFT                                           0xc
++#define CP_ME2_INT_STAT_DEBUG__DEQUEUE_REQUEST_INT_ASSERTED__SHIFT                                            0xd
++#define CP_ME2_INT_STAT_DEBUG__CP_ECC_ERROR_INT_ASSERTED__SHIFT                                               0xe
++#define CP_ME2_INT_STAT_DEBUG__SUA_VIOLATION_INT_STATUS__SHIFT                                                0xf
++#define CP_ME2_INT_STAT_DEBUG__GPF_INT_ASSERTED__SHIFT                                                        0x10
++#define CP_ME2_INT_STAT_DEBUG__WRM_POLL_TIMEOUT_INT_ASSERTED__SHIFT                                           0x11
++#define CP_ME2_INT_STAT_DEBUG__PRIV_REG_INT_ASSERTED__SHIFT                                                   0x17
++#define CP_ME2_INT_STAT_DEBUG__OPCODE_ERROR_INT_ASSERTED__SHIFT                                               0x18
++#define CP_ME2_INT_STAT_DEBUG__TIME_STAMP_INT_ASSERTED__SHIFT                                                 0x1a
++#define CP_ME2_INT_STAT_DEBUG__RESERVED_BIT_ERROR_INT_ASSERTED__SHIFT                                         0x1b
++#define CP_ME2_INT_STAT_DEBUG__GENERIC2_INT_ASSERTED__SHIFT                                                   0x1d
++#define CP_ME2_INT_STAT_DEBUG__GENERIC1_INT_ASSERTED__SHIFT                                                   0x1e
++#define CP_ME2_INT_STAT_DEBUG__GENERIC0_INT_ASSERTED__SHIFT                                                   0x1f
++#define CP_ME2_INT_STAT_DEBUG__CMP_QUERY_STATUS_INT_ASSERTED_MASK                                             0x00001000L
++#define CP_ME2_INT_STAT_DEBUG__DEQUEUE_REQUEST_INT_ASSERTED_MASK                                              0x00002000L
++#define CP_ME2_INT_STAT_DEBUG__CP_ECC_ERROR_INT_ASSERTED_MASK                                                 0x00004000L
++#define CP_ME2_INT_STAT_DEBUG__SUA_VIOLATION_INT_STATUS_MASK                                                  0x00008000L
++#define CP_ME2_INT_STAT_DEBUG__GPF_INT_ASSERTED_MASK                                                          0x00010000L
++#define CP_ME2_INT_STAT_DEBUG__WRM_POLL_TIMEOUT_INT_ASSERTED_MASK                                             0x00020000L
++#define CP_ME2_INT_STAT_DEBUG__PRIV_REG_INT_ASSERTED_MASK                                                     0x00800000L
++#define CP_ME2_INT_STAT_DEBUG__OPCODE_ERROR_INT_ASSERTED_MASK                                                 0x01000000L
++#define CP_ME2_INT_STAT_DEBUG__TIME_STAMP_INT_ASSERTED_MASK                                                   0x04000000L
++#define CP_ME2_INT_STAT_DEBUG__RESERVED_BIT_ERROR_INT_ASSERTED_MASK                                           0x08000000L
++#define CP_ME2_INT_STAT_DEBUG__GENERIC2_INT_ASSERTED_MASK                                                     0x20000000L
++#define CP_ME2_INT_STAT_DEBUG__GENERIC1_INT_ASSERTED_MASK                                                     0x40000000L
++#define CP_ME2_INT_STAT_DEBUG__GENERIC0_INT_ASSERTED_MASK                                                     0x80000000L
+ //CP_ME1_PIPE_PRIORITY_CNTS
+ #define CP_ME1_PIPE_PRIORITY_CNTS__PRIORITY1_CNT__SHIFT                                                       0x0
+ #define CP_ME1_PIPE_PRIORITY_CNTS__PRIORITY2A_CNT__SHIFT                                                      0x8
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_offset.h
+index 3973110f149c..a734abaa91a5 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_offset.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_offset.h
+@@ -4531,6 +4531,10 @@
+ #define mmCP_GFX_QUEUE_INDEX_BASE_IDX                                                                  0
+ #define mmCC_GC_EDC_CONFIG                                                                             0x1e38
+ #define mmCC_GC_EDC_CONFIG_BASE_IDX                                                                    0
++#define mmCP_ME1_INT_STAT_DEBUG                                                                        0x1e35
++#define mmCP_ME1_INT_STAT_DEBUG_BASE_IDX                                                               0
++#define mmCP_ME2_INT_STAT_DEBUG                                                                        0x1e36
++#define mmCP_ME2_INT_STAT_DEBUG_BASE_IDX                                                               0
+ #define mmCP_ME1_PIPE_PRIORITY_CNTS                                                                    0x1e39
+ #define mmCP_ME1_PIPE_PRIORITY_CNTS_BASE_IDX                                                           0
+ #define mmCP_ME1_PIPE0_PRIORITY                                                                        0x1e3a
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_sh_mask.h
+index d4e8ff22ecb8..d7a17bae2584 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_sh_mask.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_sh_mask.h
+@@ -17028,6 +17028,60 @@
+ //CC_GC_EDC_CONFIG
+ #define CC_GC_EDC_CONFIG__DIS_EDC__SHIFT                                                                      0x1
+ #define CC_GC_EDC_CONFIG__DIS_EDC_MASK                                                                        0x00000002L
++//CP_ME1_INT_STAT_DEBUG
++#define CP_ME1_INT_STAT_DEBUG__CMP_QUERY_STATUS_INT_ASSERTED__SHIFT                                           0xc
++#define CP_ME1_INT_STAT_DEBUG__DEQUEUE_REQUEST_INT_ASSERTED__SHIFT                                            0xd
++#define CP_ME1_INT_STAT_DEBUG__CP_ECC_ERROR_INT_ASSERTED__SHIFT                                               0xe
++#define CP_ME1_INT_STAT_DEBUG__SUA_VIOLATION_INT_STATUS__SHIFT                                                0xf
++#define CP_ME1_INT_STAT_DEBUG__GPF_INT_ASSERTED__SHIFT                                                        0x10
++#define CP_ME1_INT_STAT_DEBUG__WRM_POLL_TIMEOUT_INT_ASSERTED__SHIFT                                           0x11
++#define CP_ME1_INT_STAT_DEBUG__PRIV_REG_INT_ASSERTED__SHIFT                                                   0x17
++#define CP_ME1_INT_STAT_DEBUG__OPCODE_ERROR_INT_ASSERTED__SHIFT                                               0x18
++#define CP_ME1_INT_STAT_DEBUG__TIME_STAMP_INT_ASSERTED__SHIFT                                                 0x1a
++#define CP_ME1_INT_STAT_DEBUG__RESERVED_BIT_ERROR_INT_ASSERTED__SHIFT                                         0x1b
++#define CP_ME1_INT_STAT_DEBUG__GENERIC2_INT_ASSERTED__SHIFT                                                   0x1d
++#define CP_ME1_INT_STAT_DEBUG__GENERIC1_INT_ASSERTED__SHIFT                                                   0x1e
++#define CP_ME1_INT_STAT_DEBUG__GENERIC0_INT_ASSERTED__SHIFT                                                   0x1f
++#define CP_ME1_INT_STAT_DEBUG__CMP_QUERY_STATUS_INT_ASSERTED_MASK                                             0x00001000L
++#define CP_ME1_INT_STAT_DEBUG__DEQUEUE_REQUEST_INT_ASSERTED_MASK                                              0x00002000L
++#define CP_ME1_INT_STAT_DEBUG__CP_ECC_ERROR_INT_ASSERTED_MASK                                                 0x00004000L
++#define CP_ME1_INT_STAT_DEBUG__SUA_VIOLATION_INT_STATUS_MASK                                                  0x00008000L
++#define CP_ME1_INT_STAT_DEBUG__GPF_INT_ASSERTED_MASK                                                          0x00010000L
++#define CP_ME1_INT_STAT_DEBUG__WRM_POLL_TIMEOUT_INT_ASSERTED_MASK                                             0x00020000L
++#define CP_ME1_INT_STAT_DEBUG__PRIV_REG_INT_ASSERTED_MASK                                                     0x00800000L
++#define CP_ME1_INT_STAT_DEBUG__OPCODE_ERROR_INT_ASSERTED_MASK                                                 0x01000000L
++#define CP_ME1_INT_STAT_DEBUG__TIME_STAMP_INT_ASSERTED_MASK                                                   0x04000000L
++#define CP_ME1_INT_STAT_DEBUG__RESERVED_BIT_ERROR_INT_ASSERTED_MASK                                           0x08000000L
++#define CP_ME1_INT_STAT_DEBUG__GENERIC2_INT_ASSERTED_MASK                                                     0x20000000L
++#define CP_ME1_INT_STAT_DEBUG__GENERIC1_INT_ASSERTED_MASK                                                     0x40000000L
++#define CP_ME1_INT_STAT_DEBUG__GENERIC0_INT_ASSERTED_MASK                                                     0x80000000L
++//CP_ME2_INT_STAT_DEBUG
++#define CP_ME2_INT_STAT_DEBUG__CMP_QUERY_STATUS_INT_ASSERTED__SHIFT                                           0xc
++#define CP_ME2_INT_STAT_DEBUG__DEQUEUE_REQUEST_INT_ASSERTED__SHIFT                                            0xd
++#define CP_ME2_INT_STAT_DEBUG__CP_ECC_ERROR_INT_ASSERTED__SHIFT                                               0xe
++#define CP_ME2_INT_STAT_DEBUG__SUA_VIOLATION_INT_STATUS__SHIFT                                                0xf
++#define CP_ME2_INT_STAT_DEBUG__GPF_INT_ASSERTED__SHIFT                                                        0x10
++#define CP_ME2_INT_STAT_DEBUG__WRM_POLL_TIMEOUT_INT_ASSERTED__SHIFT                                           0x11
++#define CP_ME2_INT_STAT_DEBUG__PRIV_REG_INT_ASSERTED__SHIFT                                                   0x17
++#define CP_ME2_INT_STAT_DEBUG__OPCODE_ERROR_INT_ASSERTED__SHIFT                                               0x18
++#define CP_ME2_INT_STAT_DEBUG__TIME_STAMP_INT_ASSERTED__SHIFT                                                 0x1a
++#define CP_ME2_INT_STAT_DEBUG__RESERVED_BIT_ERROR_INT_ASSERTED__SHIFT                                         0x1b
++#define CP_ME2_INT_STAT_DEBUG__GENERIC2_INT_ASSERTED__SHIFT                                                   0x1d
++#define CP_ME2_INT_STAT_DEBUG__GENERIC1_INT_ASSERTED__SHIFT                                                   0x1e
++#define CP_ME2_INT_STAT_DEBUG__GENERIC0_INT_ASSERTED__SHIFT                                                   0x1f
++#define CP_ME2_INT_STAT_DEBUG__CMP_QUERY_STATUS_INT_ASSERTED_MASK                                             0x00001000L
++#define CP_ME2_INT_STAT_DEBUG__DEQUEUE_REQUEST_INT_ASSERTED_MASK                                              0x00002000L
++#define CP_ME2_INT_STAT_DEBUG__CP_ECC_ERROR_INT_ASSERTED_MASK                                                 0x00004000L
++#define CP_ME2_INT_STAT_DEBUG__SUA_VIOLATION_INT_STATUS_MASK                                                  0x00008000L
++#define CP_ME2_INT_STAT_DEBUG__GPF_INT_ASSERTED_MASK                                                          0x00010000L
++#define CP_ME2_INT_STAT_DEBUG__WRM_POLL_TIMEOUT_INT_ASSERTED_MASK                                             0x00020000L
++#define CP_ME2_INT_STAT_DEBUG__PRIV_REG_INT_ASSERTED_MASK                                                     0x00800000L
++#define CP_ME2_INT_STAT_DEBUG__OPCODE_ERROR_INT_ASSERTED_MASK                                                 0x01000000L
++#define CP_ME2_INT_STAT_DEBUG__TIME_STAMP_INT_ASSERTED_MASK                                                   0x04000000L
++#define CP_ME2_INT_STAT_DEBUG__RESERVED_BIT_ERROR_INT_ASSERTED_MASK                                           0x08000000L
++#define CP_ME2_INT_STAT_DEBUG__GENERIC2_INT_ASSERTED_MASK                                                     0x20000000L
++#define CP_ME2_INT_STAT_DEBUG__GENERIC1_INT_ASSERTED_MASK                                                     0x40000000L
++#define CP_ME2_INT_STAT_DEBUG__GENERIC0_INT_ASSERTED_MASK                                                     0x80000000L
+ //CP_ME1_PIPE_PRIORITY_CNTS
+ #define CP_ME1_PIPE_PRIORITY_CNTS__PRIORITY1_CNT__SHIFT                                                       0x0
+ #define CP_ME1_PIPE_PRIORITY_CNTS__PRIORITY2A_CNT__SHIFT                                                      0x8
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+2.37.2
+
