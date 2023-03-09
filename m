@@ -4,88 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 827BFC64EC4
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Mar 2023 09:52:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E48A0C64EC4
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Mar 2023 10:04:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F103510E7CB;
-	Thu,  9 Mar 2023 09:52:15 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2055.outbound.protection.outlook.com [40.107.93.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C84BD10E7CB
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Mar 2023 09:52:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=m8jsSoXGAZZO2e6LE0Yo6MMQ27UjAtcpGh5fXtjTqrq/Af+bNQwQfDCFiiLAEYP+B8iVUxcVeQp+CxzSpRapq66TilZbzxNrOc07x/r4USq9+jv6prjCr4byVrAmGk1VgNJ+/aFaYGmGVLRJ2mTpWkAVtkSDxSKI4pxI1jlFu7YqKh4n+I86sUnI7Mak/W86Fm/YgQhwR1FrDO+KSi1/IFQIwSQ/yfcJJugoq+vqv5HR6ijTeIkjWQiMh+ugwIaD6n07jY4NRs6o/m26KO4gIfJdHxecI/ByHAXXqZn216a8WlTtj64Cwzh+UE0qxXwb6Pw1znW8qXwtnVQCjuLDhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PTrBBXvC/6iRNV5d3H1BOQWy+0XtcF9XXpMWtT/xExg=;
- b=KEd73ayag6hvXnXhpa1VquYmSBNquF5jMU7RhS8DstKif8rqeh/VUwNGEqPntIL8MJScEGYbVp9nzno/bWokqRF9dmf7pX3jHZqj/K6Hdi/iNbCRQDzGFf+/Liy/P18SGUaGMgu8i9+0g6apvqgYgNSyLmqs8v/RX8vuVuL0DwtbrHSGY+5+T244RTM3vHmXKr7Fu2LOU0Mr7cPwZvb4+BhDSR0t5xeuLZ5uTMi1vVVzRy2yGSg0xlcXB09/XIgJF5+J0ooYPoYh+JK3r4mjnKVkLlqkyw3oyFPEcjPuFgfu9aeI/kX7YGbWWDbx6KM7o70SqA6XXQ0PXQh/glLOZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PTrBBXvC/6iRNV5d3H1BOQWy+0XtcF9XXpMWtT/xExg=;
- b=fpGzsgwlLu92BkyeztHOSk4pZhI01ayiu6+47koqvCVOyBP4eG+TwbIid35UxlhK9D+WkoCGri3TuVmZh7StRFbznNeaVxmjUuN8REx2f3H0XCVQY9porj6VybhhcQ/gBKkMai8AP/GSEiJ2gKoxHn6hthz5gmTqGGhLJKya9pM=
-Received: from DM6PR03CA0025.namprd03.prod.outlook.com (2603:10b6:5:40::38) by
- MN2PR12MB4567.namprd12.prod.outlook.com (2603:10b6:208:263::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.17; Thu, 9 Mar
- 2023 09:52:11 +0000
-Received: from DM6NAM11FT061.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:40:cafe::d0) by DM6PR03CA0025.outlook.office365.com
- (2603:10b6:5:40::38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.19 via Frontend
- Transport; Thu, 9 Mar 2023 09:52:11 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT061.mail.protection.outlook.com (10.13.173.138) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.19 via Frontend Transport; Thu, 9 Mar 2023 09:52:11 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 9 Mar
- 2023 03:52:08 -0600
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/pm: Remove unavailable temperature params
-Date: Thu, 9 Mar 2023 15:21:53 +0530
-Message-ID: <20230309095153.2304598-1-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8F2810E7D5;
+	Thu,  9 Mar 2023 10:03:57 +0000 (UTC)
+Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com
+ [IPv6:2a00:1450:4864:20::143])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4185410E0CE;
+ Thu,  9 Mar 2023 10:03:55 +0000 (UTC)
+Received: by mail-lf1-x143.google.com with SMTP id s20so1532517lfb.11;
+ Thu, 09 Mar 2023 02:03:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1678356233;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Xh5PHN8dJb3W4i1nQyu2ip6mx2yHreI4cKKZZj6lDqI=;
+ b=G7exZZkZINKQN0OpHZJIj7ObkwGCgLuEA4l+cKWasstWN0+TO1uthFb33Bv/3DaAAx
+ d67Pg0XKQ5h81ZncqVGhluPT+GVYhVQQLwQtYl92jim3huXrr96a1V0Zgv6DyrMdeHSb
+ K5HqQw91ur5KcTI/8p6vfqAPkbJdFCrLWaRH6VPyoN1Cpo9kppBqTeyUzuVeQbUbdLoo
+ 43/+gPkBDCVCr/WLfHjlHOVT0LCwWRwv8X2BisBcCkko3zIVFESc0eGnxxuGVROJbo9g
+ bszS6vy4CjndzcWQNNoJtM8cxLeelAMBK701/U3ionEBbJGudKsp7kNdlB2SV6zzifQR
+ Nyyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678356233;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Xh5PHN8dJb3W4i1nQyu2ip6mx2yHreI4cKKZZj6lDqI=;
+ b=BSe0eZYkDeI6QYfVkAj+44ToVFraJQSuaebE/LM7XpW+AO6ws1RfNjbgshwc+rhFX3
+ WIhrNGmq6mn0C13GIi897JxJ2PWGThX95CIolUj9zs1qMBvPJOE3zJduWXes9q7EV0+K
+ KpIowZeHsJtBmH/HAVqdZgPMgtI4g8txyHe3FUuGL1Op2XnEjpmt8Oq4Y5p0nk/pgg2O
+ FXvkjmpOaiY0KSn8UQv218zZPVdPRRcezxyKfzrbi/rb61zKD/gzGZbTmooYy+XMlwe4
+ xO5QBk0OvfraGaYvwcsKxKNhbrCoQRs5t6/g6t5ACeJK1Sm7QJDPTv1u7HIjPjF/lwyg
+ r+Ow==
+X-Gm-Message-State: AO0yUKVj2oBN9V6BfLECapMX7Ms32aVITx50JfUDD3bxBPUnL3+Xge41
+ qMtWx8sUzUdUUapOxjvtGpQ=
+X-Google-Smtp-Source: AK7set/biH9U0bk3VjHwm3dfvd6q3cBTeBvuj7EqX09qrZTOvHLJpgpbAHTx6PuE2WN6PiYPGNL0bQ==
+X-Received: by 2002:ac2:5214:0:b0:4cb:4378:9c6 with SMTP id
+ a20-20020ac25214000000b004cb437809c6mr5249636lfl.23.1678356233298; 
+ Thu, 09 Mar 2023 02:03:53 -0800 (PST)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ q10-20020a19a40a000000b004d58e782886sm2616360lfc.303.2023.03.09.02.03.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Mar 2023 02:03:52 -0800 (PST)
+Date: Thu, 9 Mar 2023 12:03:42 +0200
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Sebastian Wick <sebastian.wick@redhat.com>
+Subject: Re: [PATCH v3 02/17] drm/connector: Add enum documentation to
+ drm_colorspace
+Message-ID: <20230309120342.6260cf94@eldfell>
+In-Reply-To: <CA+hFU4zt4ykkHpB2NyY7Eu2SnMKnMB_b+sUh7NfTTzNyZ3A4mQ@mail.gmail.com>
+References: <20230307151107.49649-1-harry.wentland@amd.com>
+ <20230307151107.49649-3-harry.wentland@amd.com>
+ <20230308105944.05fb9377@eldfell>
+ <CA+hFU4zt4ykkHpB2NyY7Eu2SnMKnMB_b+sUh7NfTTzNyZ3A4mQ@mail.gmail.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT061:EE_|MN2PR12MB4567:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7372a31b-d8f6-4f64-a32e-08db2083f43e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zKWwrjm58qxo/8Clqxhy5dmpF0J+BpKO50TD2xJdwfHnWEcZZ6Cbp2skvDCNs8GqR5DyV2bcaZTH5fNp4TRKWxVbqnoCBQXCib8DkvewSRzjMSYD3mpcJSckE9eG9gkLFvLFMqZp+eib+VbwbZ7Y6ns+Cgakd1O78Cs5D4JErMYbf/9fEZ2aU4d2fv5i52x0lZA4kdQ4VTNRGvZTVHNJ1EvOj/QGFXsEPq9KJkkrsBhZD3+XtCOZ6lClIN6TDj+sx5FNbhhyy1ssqTzt3VZ8LD605mhxv0m+GAC3F6rRTuMpsyZmNyGFs9+uuq/dfJNpgd+aPCp4wH4l1Ae+W/9kVEKaamFs+vXj5WXoGzIokE8VAz6WnXT/jRU+KbKYALXZ6SOvECS/WuThFCRL9DXBm+cpqSDzQAWkgiLA2PgxLCWJOs/QXothFEe5Vb5Xo7C3PK5wTx6hifCR6UotIWXOoe2BB3lN0Zs+h1CwztOv7T24Bt2PkLp3qC7HM653WAhi2HOtJx/wDJ9uHtwhRcxLedTPfUUcHDc+H3hLJgQ+9BkHjPZI2V6GWbgN+rtJJHaxsPDhtCS659F1OD/GZtTrzBXawWGORHBqTWmH3k/ikYuMx+SXcgomr3RtvgsZTAw8N9x0NaUcn6ffVL+wak/MB3iK1OyYPlp/CzYVAYDfMRfh42EN/ux2w30U0VG4yH6VKRI8Ixel3OqKPsRMiENa9yItrVinNqFmqqNGuJFEZRyo+t09J7R3U0akMDQQvkhgDMJIMhsF2q+6e3T6RdzMMw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(376002)(39860400002)(396003)(346002)(136003)(451199018)(36840700001)(40470700004)(46966006)(36860700001)(36756003)(82740400003)(83380400001)(47076005)(26005)(41300700001)(16526019)(186003)(1076003)(356005)(7696005)(40460700003)(478600001)(2616005)(6666004)(8676002)(86362001)(2906002)(6916009)(70206006)(4326008)(70586007)(8936002)(5660300002)(44832011)(40480700001)(81166007)(316002)(54906003)(426003)(336012)(82310400005)(131093003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2023 09:52:11.2045 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7372a31b-d8f6-4f64-a32e-08db2083f43e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT061.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4567
+Content-Type: multipart/signed; boundary="Sig_/xRfyiUsF+7c.9PVYWqJoKxk";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,108 +73,150 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Hawking.Zhang@amd.com
+Cc: dri-devel@lists.freedesktop.org,
+ Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Uma Shankar <uma.shankar@intel.com>, amd-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Joshua Ashton <joshua@froggi.es>,
+ Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Temperature limits are not available for SMU v13.0.6. Also, edge
-temperature is not tracked. Remove logic associated with those.
+--Sig_/xRfyiUsF+7c.9PVYWqJoKxk
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
----
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 43 -------------------
- 1 file changed, 43 deletions(-)
+On Thu, 9 Mar 2023 01:56:11 +0100
+Sebastian Wick <sebastian.wick@redhat.com> wrote:
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index 862859bfb9e1..54d36df1306f 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -82,12 +82,6 @@
- 
- #define smnPCIE_ESM_CTRL 0x111003D0
- 
--static const struct smu_temperature_range smu_v13_0_6_thermal_policy[] = {
--	{ -273150, 99000, 99000, -273150, 99000, 99000, -273150, 99000, 99000 },
--	{ 120000, 120000, 120000, 120000, 120000, 120000, 120000, 120000,
--	  120000 },
--};
--
- static const struct cmn2asic_msg_mapping smu_v13_0_6_message_map[SMU_MSG_MAX_COUNT] = {
- 	MSG_MAP(TestMessage,			     PPSMC_MSG_TestMessage,			0),
- 	MSG_MAP(GetSmuVersion,			     PPSMC_MSG_GetSmuVersion,			1),
-@@ -701,9 +695,6 @@ static int smu_v13_0_6_get_smu_metrics_data(struct smu_context *smu,
- 	case METRICS_AVERAGE_SOCKETPOWER:
- 		*value = SMUQ10_TO_UINT(metrics->SocketPower) << 8;
- 		break;
--	case METRICS_TEMPERATURE_EDGE:
--		*value = 0;
--		break;
- 	case METRICS_TEMPERATURE_HOTSPOT:
- 		*value = SMUQ10_TO_UINT(metrics->MaxSocketTemperature);
- 		break;
-@@ -1127,33 +1118,6 @@ static int smu_v13_0_6_force_clk_levels(struct smu_context *smu,
- 	return ret;
- }
- 
--static int
--smu_v13_0_6_get_thermal_temperature_range(struct smu_context *smu,
--					  struct smu_temperature_range *range)
--{
--	uint8_t software_shutdown_temp;
--	uint8_t hotspotlimit;
--	uint8_t memlimit;
--
--	if (!range)
--		return -EINVAL;
--
--	/* TODO: Find a way to get temperature limits */
--	memcpy(range, &smu_v13_0_6_thermal_policy[0],
--	       sizeof(struct smu_temperature_range));
--
--	range->hotspot_crit_max =
--		hotspotlimit * SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
--	range->hotspot_emergency_max = (hotspotlimit + CTF_OFFSET_HOTSPOT) *
--				       SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
--	range->mem_crit_max = memlimit * SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
--	range->mem_emergency_max = (memlimit + CTF_OFFSET_MEM) *
--				   SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
--	range->software_shutdown_temp = software_shutdown_temp;
--
--	return 0;
--}
--
- static int smu_v13_0_6_get_current_activity_percent(struct smu_context *smu,
- 						    enum amd_pp_sensors sensor,
- 						    uint32_t *value)
-@@ -1204,10 +1168,6 @@ static int smu_v13_0_6_thermal_get_temperature(struct smu_context *smu,
- 		ret = smu_v13_0_6_get_smu_metrics_data(
- 			smu, METRICS_TEMPERATURE_HOTSPOT, value);
- 		break;
--	case AMDGPU_PP_SENSOR_EDGE_TEMP:
--		ret = smu_v13_0_6_get_smu_metrics_data(
--			smu, METRICS_TEMPERATURE_EDGE, value);
--		break;
- 	case AMDGPU_PP_SENSOR_MEM_TEMP:
- 		ret = smu_v13_0_6_get_smu_metrics_data(
- 			smu, METRICS_TEMPERATURE_MEM, value);
-@@ -1244,7 +1204,6 @@ static int smu_v13_0_6_read_sensor(struct smu_context *smu,
- 		*size = 4;
- 		break;
- 	case AMDGPU_PP_SENSOR_HOTSPOT_TEMP:
--	case AMDGPU_PP_SENSOR_EDGE_TEMP:
- 	case AMDGPU_PP_SENSOR_MEM_TEMP:
- 		ret = smu_v13_0_6_thermal_get_temperature(smu, sensor,
- 							  (uint32_t *)data);
-@@ -2048,8 +2007,6 @@ static const struct pptable_funcs smu_v13_0_6_ppt_funcs = {
- 	/* dpm/clk tables */
- 	.set_default_dpm_table = smu_v13_0_6_set_default_dpm_table,
- 	.populate_umd_state_clk = smu_v13_0_6_populate_umd_state_clk,
--	.get_thermal_temperature_range =
--		smu_v13_0_6_get_thermal_temperature_range,
- 	.print_clk_levels = smu_v13_0_6_print_clk_levels,
- 	.force_clk_levels = smu_v13_0_6_force_clk_levels,
- 	.read_sensor = smu_v13_0_6_read_sensor,
--- 
-2.25.1
+> On Wed, Mar 8, 2023 at 9:59=E2=80=AFAM Pekka Paalanen <ppaalanen@gmail.co=
+m> wrote:
+> >
+> > On Tue, 7 Mar 2023 10:10:52 -0500
+> > Harry Wentland <harry.wentland@amd.com> wrote:
+> > =20
+> > > From: Joshua Ashton <joshua@froggi.es>
+> > >
+> > > To match the other enums, and add more information about these values.
+> > >
+> > > v2:
+> > >  - Specify where an enum entry comes from
+> > >  - Clarify DEFAULT and NO_DATA behavior
+> > >  - BT.2020 CYCC is "constant luminance"
+> > >  - correct type for BT.601
+> > >
+> > > Signed-off-by: Joshua Ashton <joshua@froggi.es>
+> > > Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> > > Reviewed-by: Harry Wentland <harry.wentland@amd.com> =20
+> >
+> > Hi,
+> >
+> > this effort is really good, but of course I still find things to
+> > nitpick about. If there is no answer to my questions, then I would
+> > prefer the documentation to spell out the unknowns and ambiguities.
+> > =20
+> > > Cc: Pekka Paalanen <ppaalanen@gmail.com>
+> > > Cc: Sebastian Wick <sebastian.wick@redhat.com>
+> > > Cc: Vitaly.Prosyak@amd.com
+> > > Cc: Uma Shankar <uma.shankar@intel.com>
+> > > Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> > > Cc: Joshua Ashton <joshua@froggi.es>
+> > > Cc: dri-devel@lists.freedesktop.org
+> > > Cc: amd-gfx@lists.freedesktop.org
+> > > ---
+> > >  include/drm/drm_connector.h | 67 +++++++++++++++++++++++++++++++++++=
+--
+> > >  1 file changed, 65 insertions(+), 2 deletions(-)
+> > >
+> > > diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> > > index 6d6a53a6b010..bb078666dc34 100644
+> > > --- a/include/drm/drm_connector.h
+> > > +++ b/include/drm/drm_connector.h
+> > > @@ -363,13 +363,76 @@ enum drm_privacy_screen_status {
+> > >       PRIVACY_SCREEN_ENABLED_LOCKED,
+> > >  };
+> > >
+> > > -/*
+> > > - * This is a consolidated colorimetry list supported by HDMI and
+> > > +/**
+> > > + * enum drm_colorspace - color space
+> > > + *
+> > > + * This enum is a consolidated colorimetry list supported by HDMI and
+> > >   * DP protocol standard. The respective connectors will register
+> > >   * a property with the subset of this list (supported by that
+> > >   * respective protocol). Userspace will set the colorspace through
+> > >   * a colorspace property which will be created and exposed to
+> > >   * userspace.
+> > > + *
+> > > + * DP definitions come from the DP v2.0 spec
+> > > + * HDMI definitions come from the CTA-861-H spec
+> > > + *
+> > > + * @DRM_MODE_COLORIMETRY_DEFAULT:
+> > > + *   Driver specific behavior.
+> > > + *   For DP:
+> > > + *           RGB encoded: sRGB (IEC 61966-2-1)
+> > > + *           YCbCr encoded: ITU-R BT.601 colorimetry format =20
+> >
+> > Does this mean that HDMI behavior is driver-specific while DP behavior
+> > is as defined?
+> >
+> > Is it intentional that YCbCr encoding also uses different RGB-primaries
+> > than RGB-encoded signal? (BT.601 vs. BT.709/sRGB)
+> >
+> > Or do you need to be more explicit on which parts of each spec apply
+> > (ColourPrimaries vs. TransferCharacteristics vs. MatrixCoefficients in
+> > CICP parlance)?
+> >
+> > E.g. BT.709/sRGB ColourPrimaries with BT.601 MatrixCoefficients. =20
+>=20
+> Yeah, just adding to this: The Default Colorspace is something well
+> defined. CTA-861 says:
+>=20
+> "If bits C0 and C1 are zero, the colorimetry shall correspond to the
+> default colorimetry defined in Section 5.1"
+>=20
+> and in Section 5.1
+>=20
+> "In all cases described above, the RGB color space used should be the
+> RGB color space the Sink declares in the Basic Display Parameters and
+> Feature Block of its EDID."
+>=20
+> If I set DRM_MODE_COLORIMETRY_DEFAULT, I expect the Colorimetry the
+> EDID reports to be in effect and not some driver specific nonsense.
 
+Does that also define the MatrixCoefficients for YCbCr signal with
+DRM_MODE_COLORIMETRY_DEFAULT?
+
+Not that userspace would even care, since RGB-to-YCbCr is all
+driver-internal.
+
+It is interesting you point that out. I guess it means that the basic
+colorimetry from EDID is supposed to be really only the default
+colorimetry and might not have anything to do with the actual panel
+primaries.
+
+
+Thanks,
+pq
+
+--Sig_/xRfyiUsF+7c.9PVYWqJoKxk
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmQJrv4ACgkQI1/ltBGq
+qqdNFA//UAmscNR41M+Qx5Swt7DnS7SiNQzGzTuDo4VSn0MQmkAsEr9mla7RL2Eo
+JgL1ci8OLRW1Dg+/iqyYSLivjaEvRtNX/Xjp95oKxHDWn1J/McKukWP/eCa7LEQ2
+MHwUv4xFeOrFi0HwNJxW1OCQmI3s1Ue+X5IaGj0f6f8xtOv1gya6PDb1rfZ9FQ/u
+H9OnqMmcdynW8kyNZezD+RjiDrMMbHSMQR4MK8dO20JNgZ7elvbMs87nbGzWTmHp
+EPK0i7gE9pqcels9LqPSlxHq4suGyUD+8l16m++1k8BNIJImfNqwe/Jkmhhc5r2w
+rVkJZluKIBlShBsGUhKu5VbL4p7SPyii7m4TiYEmlN1K0ObUuP6zWDmXnx8xPcrA
++E+S7sw+HkcICtNkK6o5godWMVVAKwjTjS2vkz6U0HLUOrGGxin2egxOrKzSKIE3
+6avW6GtClJxgSPE6Re3v280Zl49csFhlKcbzYoMXSIUzX0qiI4IYIwLeUyeaFfUG
+swpaSP6V+n5xQXQY6GKb++p+kciZNYLpKCq3JXyKzvv1n4tPAf3x469gLkmaQS9X
+xZicpL1Pq9zXcXdfr0HzxzRhVcx5+0aDMQrFAN8ZfJ6kaAbji1AhmcPzy759mtzY
+hqRWj+CSHWpwim7l0eVU81N1dJXLrOShu3L14hzuVekHnvJU0Ww=
+=UaW4
+-----END PGP SIGNATURE-----
+
+--Sig_/xRfyiUsF+7c.9PVYWqJoKxk--
