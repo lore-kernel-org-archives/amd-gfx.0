@@ -4,69 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BF95C678D5
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Mar 2023 02:05:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B222DC678D5
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Mar 2023 02:29:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A72E310E77E;
-	Thu,  9 Mar 2023 02:05:50 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C33B10E77E
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Mar 2023 02:05:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1678327547;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=NVnJg9ud9qHZSQY8fKEZTCBgDmkyky9isgEKLix5YYA=;
- b=I3nRBkZbBMK2njmtx5l6qpta5djRGGunR2PLPqsIlg2A1Z1w5MHiiekOE80OnOa7WX2+VJ
- MT8+HkjJKpmI3fKul72b9g2KEg1rvw2moAAhEsYpzKwXw5ZfFF9ikDbX3xJJFeHU3sHPj8
- tAur32rSTH479mvdQJkB55D9tqaE+A4=
-Received: from mail-lf1-f69.google.com (mail-lf1-f69.google.com
- [209.85.167.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-660-YXR75ERUM3KIY0Yv3s9zdA-1; Wed, 08 Mar 2023 21:05:46 -0500
-X-MC-Unique: YXR75ERUM3KIY0Yv3s9zdA-1
-Received: by mail-lf1-f69.google.com with SMTP id
- cf37-20020a056512282500b004cfd8133992so93447lfb.11
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Mar 2023 18:05:46 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678327545;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=NVnJg9ud9qHZSQY8fKEZTCBgDmkyky9isgEKLix5YYA=;
- b=sQeVkglLl2afOjqgK6opZenzVJUM0RshyUD27zDpRFuB87aU+J+fcctoLD1aUmFKWL
- c6fE2+iJFabEEV4N8I5K7Cowr/8OYQS6jRX3JPCblV2eYmGLzvcXH7n6SxQZc7ncEL4+
- /M/jyx8Ib3vgp3f0UJXgBtaSckfsU8xyQUXiCSBbdozjQi/0Crrf8FjmQePuUzCF4bRo
- tNpdo2d9nUt/z8QqynteT1MlUm+b8Ie2z70e+fX2D6nAmAYHU7VMp/WfNc7A0PjjiLTj
- CHb+ybwaiP6EVTNiO2fHUCsyl7qcW9V2Az4Lf+pxYB2P6zCDiQ4nLuAiM/HhEPhGlcZX
- 10tg==
-X-Gm-Message-State: AO0yUKWyyFXgexD14nD4e9z2oyt6gTY2C5WaO5sfVBHbcPBVXhXDI4gq
- Vi57zEAMRX6XOZ2ZXT3kWUCzmN1vK0/FO1l8u+nnb9QV9GgIJdRlLWwRPJbNxwR6m+YTf0I8zkq
- SY9wMtW851Jts+vdS6l60x6v4LJCiqEkb+oy53WIv8g==
-X-Received: by 2002:a05:651c:314:b0:295:944c:f335 with SMTP id
- a20-20020a05651c031400b00295944cf335mr6264328ljp.1.1678327544963; 
- Wed, 08 Mar 2023 18:05:44 -0800 (PST)
-X-Google-Smtp-Source: AK7set8KBXhHaUyp4/NajLf/d+c+zQU6STuEuYbkorTAcbCSNLt64KTJvRqTUsOQ/B3j3mPvMIeGanv7ulC89B5d9Ig=
-X-Received: by 2002:a05:651c:314:b0:295:944c:f335 with SMTP id
- a20-20020a05651c031400b00295944cf335mr6264320ljp.1.1678327544641; Wed, 08 Mar
- 2023 18:05:44 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF95F10E77F;
+	Thu,  9 Mar 2023 02:29:44 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2088.outbound.protection.outlook.com [40.107.237.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FF6910E77F
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Mar 2023 02:29:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XYUf8jqE705ISAA68YfAGoW0BYut0NzALYJKsYEiO/MObPsZAwsTGv1LbsLd6Acwl7UpflO4HVAT5utQXWLML+HEB2ti3K1RoMM4dadp3sDQRVYFTG2oimcZxxX0po5zT5b5t+MzPN/tQBY3PlCc8zpKyl4MzeGaff3ZimjRLO87L3BxnUJd9R2zDNyX/SJhWim/PVbQg3Yeve862ReQWf2TTMOFEOKpRLNVM0k9tWAOs9TyowDdulcOj7CWZcSeCnrRzFQPc7ScX7d9PYGyg+1wdYNmSaK0GiKGhVM0Kxh8fF+G18lR9+onLFwUZ2Fe7rj8/cd/5ba8Mr1ofK19uA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1fXRx6SkTJxhk1KN2UpWHhib8bM+SN+o1upmi/+K/5A=;
+ b=f6X1mLwXi7P4CZKLQ3gcWQXsQ3MR5ZLSNEaLBZA5Pz1F0IhJ3ZchyLbSSiZ1z2R2lq2gsM5P7mlALJg285sSln5VrSA42rPB43dZumxgQ5daBF00h2xH0jy+aAK6sjCUESOEoovp/bzSxtnenVIPK8IpAPsE23s3FvanYbTKyjGMnPCSlmSYGxwXJ5YneGtTefFLncE4evjCM47opOgfob0J5xv9Sn3jgoxSNv5+Fwcyo7+ltn04NzSUomK2uAsoKo2m1CdbIEqOV1KMGNfJTwNn5OGiApoh1RPRpfxNz5iFb+7K5QyeDMY1OlUOYVxRJ3WQIdPzlD+kCobB7Odakw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1fXRx6SkTJxhk1KN2UpWHhib8bM+SN+o1upmi/+K/5A=;
+ b=4baEewTB0XToZOmvfmi84KaFuHDNCc2Fqtcdk2lfoAWpAPxg4Iq5SNZkKdSGZs/YevCQ10uuuvYJjQCboOFG3Klh2Fxwk4mKj4AEDj/yTZYIGTZ6IR5IJU3GuIJLQhs/vc+1xNQmkPWySLHKKreJ0QBTW9lK0HbN8meH2vtBKZU=
+Received: from MW4PR04CA0312.namprd04.prod.outlook.com (2603:10b6:303:82::17)
+ by CY8PR12MB7515.namprd12.prod.outlook.com (2603:10b6:930:93::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.17; Thu, 9 Mar
+ 2023 02:29:39 +0000
+Received: from CO1NAM11FT046.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:82:cafe::78) by MW4PR04CA0312.outlook.office365.com
+ (2603:10b6:303:82::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.19 via Frontend
+ Transport; Thu, 9 Mar 2023 02:29:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT046.mail.protection.outlook.com (10.13.174.203) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6178.19 via Frontend Transport; Thu, 9 Mar 2023 02:29:38 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 8 Mar
+ 2023 20:29:36 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 8 Mar
+ 2023 20:29:33 -0600
+Received: from yubiwang-dev-linux.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
+ via Frontend Transport; Wed, 8 Mar 2023 20:29:30 -0600
+From: YuBiao Wang <YuBiao.Wang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2] drm/amdgpu: Force signal hw_fences that are embedded in
+ non-sched jobs
+Date: Thu, 9 Mar 2023 10:27:08 +0800
+Message-ID: <20230309022707.4141252-1-YuBiao.Wang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20230307151107.49649-1-harry.wentland@amd.com>
- <20230307151107.49649-15-harry.wentland@amd.com>
-In-Reply-To: <20230307151107.49649-15-harry.wentland@amd.com>
-From: Sebastian Wick <sebastian.wick@redhat.com>
-Date: Thu, 9 Mar 2023 03:05:33 +0100
-Message-ID: <CA+hFU4zB+dNPLk2rPnBw6Z+UG0W2VB6iCJMXuM22piLUrASiXg@mail.gmail.com>
-Subject: Re: [PATCH v3 14/17] drm/amd/display: Add debugfs for testing output
- colorspace
-To: Harry Wentland <harry.wentland@amd.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT046:EE_|CY8PR12MB7515:EE_
+X-MS-Office365-Filtering-Correlation-Id: 45fa85ca-75e8-4778-3c1f-08db204621c0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: m/yGwwPFscZAy9eFfrbjvF1Pvk0O+sw96LaJWOAvE7p0oyM+Sn8TMxEE0rK4bo7Pg+pMWC+dXXLNVnioAjcfSizZe06RmtHOH9/NyzVBzrE1Ttwu7VSqj2zp2TfN2+jw5LJzlTP90jsmlu3Z1VsOPBqo41Jx2QRLO94xn7Ykd795zD2Gwo8YSfbtDmxHeiRI/PJ0Sm7gh30gB85ou3E24MqekOJpZpBmZ4R+xd+FXy5eF0iBGEVtHbp/EWQPhRdg6HV9OhrXmyUlZSDxB4cWBk9JZFzyQ2J3vd2AvII8eR5GJqkTfTt0pEQeaqgq6NPhb+v/o5zo+Wet5JlLgfLLL0xSbVOYmsKVLYUac6soEl2ZoFC/b09/r0i0dZim6TJqQN47i/hKGAOj1FQ/aiUs7meOzhRj86pQbBsBYYA8FMpsBqFOgbb+p+JVk5e+Q886ig1ud+AA5fVFaGIqgcbxfpxHP1I1lye33KPxQ7biXIFAJrKWtHz+Am7P/H/rvF0hmk0KY+zFNTYpYX4xnEnsq9Ej4kcrsGdp73vuWADTm1Kp3RdrWoXgmiigN5hg2fEjYB3u5HvZ4zT7JU038OjhwMlZIatVhkiFwSQCgM1P1JgQwuOMrFuNxkf67S7NFQpZ4rB0QxAVXT0nl2tHTmwl09AgG/qNWJSZi1hK/ImH3j0bt4N7N1KuzRcT1UWNIe/VC8IKH/1TT3e8HytsTqfdGWc/HePNEVZF/y6LsnACadA=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(39860400002)(136003)(376002)(346002)(396003)(451199018)(40470700004)(46966006)(36840700001)(336012)(47076005)(426003)(6666004)(54906003)(36756003)(40460700003)(86362001)(40480700001)(1076003)(356005)(82740400003)(81166007)(36860700001)(26005)(82310400005)(186003)(2616005)(7696005)(316002)(5660300002)(8936002)(478600001)(4326008)(41300700001)(6916009)(70206006)(70586007)(2906002)(8676002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2023 02:29:38.7384 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 45fa85ca-75e8-4778-3c1f-08db204621c0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT046.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7515
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,124 +102,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Joshua Ashton <joshua@froggi.es>, Pekka Paalanen <ppaalanen@gmail.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Vitaly.Prosyak@amd.com
+Cc: YuBiao Wang <YuBiao.Wang@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
+ horace.chen@amd.com, Kevin Wang <Kevin1.Wang@amd.com>,
+ Tuikov Luben <Luben.Tuikov@amd.com>,
+ Deucher Alexander <Alexander.Deucher@amd.com>, Evan Quan <Evan.Quan@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Monk Liu <Monk.Liu@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 7, 2023 at 4:12=E2=80=AFPM Harry Wentland <harry.wentland@amd.c=
-om> wrote:
->
-> In order to IGT test colorspace we'll want to print
-> the currently enabled colorspace on a stream. We add
-> a new debugfs to do so, using the same scheme as
-> current bpc reporting.
->
-> This might also come in handy when debugging display
-> issues.
->
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> Cc: Pekka Paalanen <ppaalanen@gmail.com>
-> Cc: Sebastian Wick <sebastian.wick@redhat.com>
-> Cc: Vitaly.Prosyak@amd.com
-> Cc: Joshua Ashton <joshua@froggi.es>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: amd-gfx@lists.freedesktop.org
-> Reviewed-By: Joshua Ashton <joshua@froggi.es>
-> ---
->  .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 57 +++++++++++++++++++
->  1 file changed, 57 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/=
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> index 4a5dae578d97..f0022c16b708 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> @@ -906,6 +906,61 @@ static int amdgpu_current_bpc_show(struct seq_file *=
-m, void *data)
->  }
->  DEFINE_SHOW_ATTRIBUTE(amdgpu_current_bpc);
->
-> +/*
-> + * Returns the current bpc for the crtc.
-> + * Example usage: cat /sys/kernel/debug/dri/0/crtc-0/amdgpu_current_colo=
-rspace
-> + */
-> +static int amdgpu_current_colorspace_show(struct seq_file *m, void *data=
-)
-> +{
-> +       struct drm_crtc *crtc =3D m->private;
-> +       struct drm_device *dev =3D crtc->dev;
-> +       struct dm_crtc_state *dm_crtc_state =3D NULL;
-> +       int res =3D -ENODEV;
-> +
-> +       mutex_lock(&dev->mode_config.mutex);
-> +       drm_modeset_lock(&crtc->mutex, NULL);
-> +       if (crtc->state =3D=3D NULL)
-> +               goto unlock;
-> +
-> +       dm_crtc_state =3D to_dm_crtc_state(crtc->state);
-> +       if (dm_crtc_state->stream =3D=3D NULL)
-> +               goto unlock;
-> +
-> +       switch (dm_crtc_state->stream->output_color_space) {
-> +       case COLOR_SPACE_SRGB:
-> +               seq_printf(m, "RGB");
-> +               break;
+v2: Add comments to clarify in the code.
 
-Why does it print "RGB" when it says the color space is sRGB? Looking
-at the value when I didn't specify any color space it says RGB. Why is
-your default color space sRGB?
+[Why]
+For engines not supporting soft reset, i.e. VCN, there will be a failed
+ib test before mode 1 reset during asic reset. The fences in this case
+are never signaled and next time when we try to free the sa_bo, kernel
+will hang.
 
+[How]
+During pre_asic_reset, driver will clear job fences and afterwards the
+fences' refcount will be reduced to 1. For drm_sched_jobs it will be
+released in job_free_cb, and for non-sched jobs like ib_test, it's meant
+to be released in sa_bo_free but only when the fences are signaled. So
+we have to force signal the non_sched bad job's fence during
+pre_asic_reset or the clear is not complete.
 
-> +       case COLOR_SPACE_YCBCR601:
-> +       case COLOR_SPACE_YCBCR601_LIMITED:
-> +               seq_printf(m, "BT601_YCC");
-> +               break;
-> +       case COLOR_SPACE_YCBCR709:
-> +       case COLOR_SPACE_YCBCR709_LIMITED:
-> +               seq_printf(m, "BT709_YCC");
-> +               break;
-> +       case COLOR_SPACE_ADOBERGB:
-> +               seq_printf(m, "opRGB");
-> +               break;
-> +       case COLOR_SPACE_2020_RGB_FULLRANGE:
-> +               seq_printf(m, "BT2020_RGB");
-> +               break;
-> +       case COLOR_SPACE_2020_YCBCR:
-> +               seq_printf(m, "BT2020_YCC");
-> +               break;
-> +       default:
-> +               goto unlock;
-> +       }
-> +       res =3D 0;
-> +
-> +unlock:
-> +       drm_modeset_unlock(&crtc->mutex);
-> +       mutex_unlock(&dev->mode_config.mutex);
-> +
-> +       return res;
-> +}
-> +DEFINE_SHOW_ATTRIBUTE(amdgpu_current_colorspace);
-> +
-> +
->  /*
->   * Example usage:
->   * Disable dsc passthrough, i.e.,: have dsc decoding at converver, not e=
-xternal RX
-> @@ -3235,6 +3290,8 @@ void crtc_debugfs_init(struct drm_crtc *crtc)
->  #endif
->         debugfs_create_file("amdgpu_current_bpc", 0644, crtc->debugfs_ent=
-ry,
->                             crtc, &amdgpu_current_bpc_fops);
-> +       debugfs_create_file("amdgpu_current_colorspace", 0644, crtc->debu=
-gfs_entry,
-> +                           crtc, &amdgpu_current_colorspace_fops);
->  }
->
->  /*
-> --
-> 2.39.2
->
+Signed-off-by: YuBiao Wang <YuBiao.Wang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+index faff4a3f96e6..ad7c5b70c35a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+@@ -673,6 +673,7 @@ void amdgpu_fence_driver_clear_job_fences(struct amdgpu_ring *ring)
+ {
+ 	int i;
+ 	struct dma_fence *old, **ptr;
++	struct amdgpu_job *job;
+ 
+ 	for (i = 0; i <= ring->fence_drv.num_fences_mask; i++) {
+ 		ptr = &ring->fence_drv.fences[i];
+@@ -680,6 +681,13 @@ void amdgpu_fence_driver_clear_job_fences(struct amdgpu_ring *ring)
+ 		if (old && old->ops == &amdgpu_job_fence_ops) {
+ 			RCU_INIT_POINTER(*ptr, NULL);
+ 			dma_fence_put(old);
++			/* For non-sched bad job, i.e. failed ib test, we need to force
++			 * signal it right here or we won't be able to track them in fence drv
++			 * and they will remain unsignaled during sa_bo free.
++			 */
++			job = container_of(old, struct amdgpu_job, hw_fence);
++			if (!job->base.s_fence && !dma_fence_is_signaled(old))
++				dma_fence_signal(old);
+ 		}
+ 	}
+ }
+-- 
+2.25.1
 
