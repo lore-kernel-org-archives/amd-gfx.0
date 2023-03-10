@@ -4,119 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93D82C64EC4
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Mar 2023 13:15:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD721C6FA99
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Mar 2023 14:53:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 386EE10E1EC;
-	Fri, 10 Mar 2023 13:15:37 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2061d.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e88::61d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 530CA10E1EC
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Mar 2023 13:15:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19E0910E916;
+	Fri, 10 Mar 2023 14:53:37 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20616.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5b::616])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B8C710E916
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Mar 2023 14:53:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=H27cTKKKurl2KPRXExDShSNdEUxOuwEq5WbUi5n5UN9eU3GMKjylPF2M1kjEbLCb+rwv7NI/BIp3VouFuJToUcTYobuNW82mo8plbMbJCbuBUA61WcE/7dZ/IrjAlcC7J90A/rhVNLqaOdICS7N9qHkR+5Y++9KR+ylcwMr6fIsrd4ZIOtlOJ8CKoSs1Rt71KmfU5kFVy3esH5YJz93R4c2yOu39ZxyL8T5HT6EM85UBwaVB6YQ+838OExktJ3386pDQXraOy13Bz6Hl7mhhK5Kg0eIuAaYspnTeOBtsI1p5UCQSBD2+xpk8MDbI3rOErOenPROlaJwmNX/820qBqw==
+ b=L2vLHOYsE+TP0HhMLro9tZTNMtNwoVxxJzXas11JG9rU/QxKMMdJADqmbmjZU30j4H6zl7H1qkzujWDaQbLlkOzUT9fNpDfrGB5HcqDcX3Q++BwleLla5QMO64aD9FjIpmiA0/8l1a4Xmf8d55FQ1us3B7odotYqQGSOSQMtlyh4ZNrzJTKG71kYVL2E8thUCjm1LmadE7JIj6k5fHnV5CfEqB7MeXkIi0E19+IWyO9oh6/nM/daBQtBepZmQjAh4DqzKqzHUvhpoJRrIV8tCJWHozvLn+z80QlWNrr+YQ6voHL3pJ/pA+oMkmON3raQO13f8RyP4BrCUDGm69cGiQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hSRQKXXG5MHm57sI3lZtuA+HhUxVIwCY6RaNhYj1+9I=;
- b=gjGnUiwjhEZROOaRDieiCl7nIc6K9SPvfY7cm6My8jACLtCCa4bAkUymoLj2pCR4dzEZdP+a8h00J3ajT6mvE+SEtggwYsVcth+3Uj5qgKjBTRUminKC4OPMUjZTfzyJ952ZUoL7/Hkw38BPb9Gfk0xeeZzvfviuE22Wy1LwQlLmjgmJQkvAT2NaJUISROMiYfYF9JPwy0FxogH54ZlOD+l5uqGKje6xzgJAwVPINHCSibkVs6G79K3kcC7nTNr9GZCmGpf7w2PkVkEqvktRf9Jojh5Y30ptSEovGmDUbj8CQNulZTEpcjr/ShCFtstAA5DekMzqjeQBnEc+wmEYig==
+ bh=K7ib2laBxuGttNqljX8MuBl+Q+cLlDR4RjvY4pOUOvY=;
+ b=UQVWOBzNzQvyn0oeHA+6+RPoq9h7f67weDIrOwbA97501o7arYXJ/o7w2P7wbg2/wL8OD+wkCW6VEtwPR63JKTChW6i6IIivzeUnP814hSk1+ZSs5tPia5iJmnfiaqkqAZLYkj/W9WkNko8mJxjHXN5KFaGn+qOZP2lfaB3Tz5UEIMnaEGSpU30QvqOnK4MZSDWUyJzn6JNbckUx6BHMlrydXDtmo7xM6xM5E/88hbk+YOwWOlV4AQWjlYRz9TZwPYp5PE9A2xjMNHohIZYNuuzJYY40VGjmECCClXIzrIUKNzEVhhhUJRFWZg1pAJnQSwk1n5AVqUELU+p7vMAFkg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hSRQKXXG5MHm57sI3lZtuA+HhUxVIwCY6RaNhYj1+9I=;
- b=BH8xEl+Zx9+ec3dU4KgfA8QiZGgXCyETPEuLWQvYGX9mb3tf6rFgiMEpbVHxEx/i6zTrtni78qS26Zol573zYayKcHgqJJNMh8UM6t3A1peIR/KMJivu14QxARdJMhliQX+tY5J4iUnAO4nWtsQqAhVVFex9kEiVyrOpjIQSx1Y=
+ bh=K7ib2laBxuGttNqljX8MuBl+Q+cLlDR4RjvY4pOUOvY=;
+ b=Y6waCyUVLIKLUCkZIaponMjzU91Jhq6j1bB2Qb3c289WFh04/3PZU9vXRY1JuD1aIP1bjNO8K4/LHcefoMhxMg1UUkz9tIiUTwOH8d18PmJ3EIuvYBhanqk4+dVEIGhQNtnkRw8n/5rlupLglnUv1GXe5QcVkcI5x8+lqZX1RAQ=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
- by SA1PR12MB8700.namprd12.prod.outlook.com (2603:10b6:806:388::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.18; Fri, 10 Mar
- 2023 13:15:33 +0000
-Received: from MN2PR12MB4342.namprd12.prod.outlook.com
- ([fe80::b64d:8d0e:8e08:d979]) by MN2PR12MB4342.namprd12.prod.outlook.com
- ([fe80::b64d:8d0e:8e08:d979%3]) with mapi id 15.20.6156.029; Fri, 10 Mar 2023
- 13:15:33 +0000
-Message-ID: <ce410155-1052-cd0a-60bf-2807e6376ddd@amd.com>
-Date: Fri, 10 Mar 2023 18:43:52 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+Received: from DM4PR12MB6280.namprd12.prod.outlook.com (2603:10b6:8:a2::11) by
+ MW4PR12MB7481.namprd12.prod.outlook.com (2603:10b6:303:212::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.19; Fri, 10 Mar
+ 2023 14:53:32 +0000
+Received: from DM4PR12MB6280.namprd12.prod.outlook.com
+ ([fe80::cdcb:a816:4bc3:a83f]) by DM4PR12MB6280.namprd12.prod.outlook.com
+ ([fe80::cdcb:a816:4bc3:a83f%9]) with mapi id 15.20.6178.019; Fri, 10 Mar 2023
+ 14:53:32 +0000
+Message-ID: <76c2f411-5a82-f7bc-e185-fb6023c8fc61@amd.com>
+Date: Fri, 10 Mar 2023 09:54:47 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH] [RFC] drm/drm_buddy fails to initialize on 32-bit
- architectures
-To: =?UTF-8?Q?Lu=c3=ads_Mendes?= <luis.p.mendes@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-References: <CAEzXK1oghXAB_KpKpm=-CviDQbNaH0qfgYTSSjZgvvyj4U78AA@mail.gmail.com>
- <5e192700-c54a-04cf-a223-281af7af0457@amd.com>
- <CAEzXK1qPjYxDiRVTy8McXbagC8JKgtu+C0E+-VP3NHZvtYdZ+g@mail.gmail.com>
+Subject: Re: [PATCH] amd/display/debugfs: add sysfs entry to read PSR
+ residency from firmware
 Content-Language: en-US
-From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <CAEzXK1qPjYxDiRVTy8McXbagC8JKgtu+C0E+-VP3NHZvtYdZ+g@mail.gmail.com>
+To: Shirish S <shirish.s@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Roman Li <Roman.Li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+References: <20230310064312.17127-1-shirish.s@amd.com>
+From: Hamza Mahfooz <hamza.mahfooz@amd.com>
+In-Reply-To: <20230310064312.17127-1-shirish.s@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN2PR01CA0173.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:26::28) To MN2PR12MB4342.namprd12.prod.outlook.com
- (2603:10b6:208:264::7)
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBP288CA0024.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6a::28) To DM4PR12MB6280.namprd12.prod.outlook.com
+ (2603:10b6:8:a2::11)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4342:EE_|SA1PR12MB8700:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6303c638-b190-493d-c4ca-08db21698721
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6280:EE_|MW4PR12MB7481:EE_
+X-MS-Office365-Filtering-Correlation-Id: dbfd3840-cef7-4d03-e1dd-08db2177376b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: A/q6xhxlngzyQ/21N+fUDCPaFCVtGxijsr+6Q8Xeuli84IEYTKhm/rdrfAm7nj1A7YCv3d7j87NqnWhjQKGCUD8FOdg+ndhjj08lYegluZwYp1R3KuJVrFN7uevta4Ue16L166sqbS3htsdGrJatoZmEhOLv+QII40UpU9S4fc+1JVciyzVxwFQevNs+qC2QaOMAJJW7xXwv3P5jCvIOsKsuKtqxag2TIoRzb+YLVlA2R5Zdl+SDVM+igbUWnS+WtC6wqCqsRTtnc/cmDcrEzbMV5tD28dSBuuLWpIbpNRLgwc6HddcpoofwMB+YE2uUiDzyAUoAfqEiH1QdhvLJqkOU7cfm3j7RiswQM4LumniPZeqch4Wsi48esbFNlkfr1D9Nbq+6iOMulVzIUEJRr1weQDaTreDBDzlczDI1Zvn0k81NSv1i7wCnpxgVB2HXMRWm9k8Isw59tcgTFasd6lyezT3p5qwbye2F+EQt6DPJx/Ey7j9EnYCaYkKXzBSNVOT9kb9YqQP0+F8ou0fQusNs78kyn1Mc2PWshlJgWEj6PNz1p/6lTa6Rz+Ya4EW0PgBUXhgpkfiVDc0ealZMOzJsEKan8tVUalt0DbnjZE3UWK4BdcKeqpAC+SlAxsfL/wMekMZy9XFN2aF1B1AU6zakw3c/ZRnMGG9VJdR5SZNab1wyqM0WPl7+Z6GVCev0g2pR4TvzPXIE5Q40mYu8ePkQzlGqjDkemFYqzIdxWts=
+X-Microsoft-Antispam-Message-Info: K73d8c9780Eodc4r7hrCM0mxs4ov4XgcWV2KPKQ1SyKnfDD3ttIOJ12/zC2XM4cxP6TmnEACKotesU2ZbJA4m1SwykjPvlFxgJxnp0gODDuDkQazyjsTEsrJJuk6KINmU2jtWi4YgpiQMPb65iL8tv+bsPnZFxE17CRlyBGhofydmy9YKnsAsqkD7cAJNgNGfOpl5lTzEYSeJSxjP58OmlnZJfvHvUcePyBZUMQi2DaUJhTnU6Qtdbtv5F1uUysEIgDzBRg0XtzAZI/qK+N7U2nXZNp2lufp2SLolMj5GXwoKEuEY+tTmiwgvGP7gUANB3krZhcKGBHI+pgFSn6S2hiC5uos37C5IHEaLOid9uaEgLZHPvRFD67jBvBZKS/F/DOHNIktCh+aB5knXySIIvrYpytxL990RNc5CAJCnAhH/OQR5da+C7HJi5KW/eqv634pL+oARj+ZyJFZ/DJr/U3oWWB2gzpab29CqX7gRuvxiLRt5EmkJlrEsDzUqTkXLQn3j+662BVU4ZEh4M/IplEIiy4EkBJ7dniPhrD7AFCURG9G5vlo7UVhq4tMR631iesWPbuS/4RnSuHU/4gPDNRen1rTDX5Bh/R/lbuRKV819jXXbbLve7IzXgTs5rjZ4gtA8tHjH2QJxQ2Pe2wfi82DdrQCUU11QDiqM326g0LeYBQxMY19CNZZNkAJOHThIznzoUIV1xgaBd/y5g6+IFT58vfU+5JswTz6NuJ+8xXL6I6jyGAqjKo6jyhlunYDJAF0g8MbAmdKtu8DDDEuQg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4342.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(376002)(346002)(136003)(366004)(396003)(39860400002)(451199018)(31686004)(83380400001)(6666004)(66574015)(26005)(36756003)(53546011)(54906003)(316002)(110136005)(38100700002)(6636002)(186003)(6512007)(2616005)(6486002)(6506007)(5660300002)(478600001)(41300700001)(8676002)(4326008)(8936002)(66476007)(4001150100001)(66556008)(2906002)(66946007)(86362001)(31696002)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6280.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(136003)(346002)(376002)(366004)(396003)(39860400002)(451199018)(31686004)(44832011)(2906002)(5660300002)(6512007)(66476007)(26005)(8936002)(36756003)(110136005)(8676002)(41300700001)(66946007)(4326008)(6636002)(316002)(86362001)(66556008)(478600001)(31696002)(6486002)(6666004)(38100700002)(53546011)(6506007)(186003)(2616005)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TTh2TU9IakM4ZE9pRmk0bXE1SDZaNnQrMjdMMlVCV3U2Rm94eG1sNGxCQ3lR?=
- =?utf-8?B?K3RyUThkMmQ2OUlDcGZZS1dKR2NKZnpPKzlyZ1J0WjVmeHJTTU90L1FEQm82?=
- =?utf-8?B?Umk2T3RSRTgwK1pWYmd6MVJ6SGRQUmRCdHVNMzVPK0h4R3BTQkgwYWhyL1Jl?=
- =?utf-8?B?MFIzTklGNEgzcnJhUGlkVEZ2NVFsTU9tREFMTGJRSkZ2T2lWczVxRlJoaDNo?=
- =?utf-8?B?RUdUa2dEai82blQyd0VOcWVLQzN6TWtvT3lsMTlZVmRvMkxWVEp2SEpnQWJw?=
- =?utf-8?B?dUp6ZUZaUEpLWEFRc1dJM3h5T2Nubm0wRGRzajJIRFVYVmcyWEZWY2hpcnZy?=
- =?utf-8?B?VkZWczkvODEwS2pheG5CRmF5UnJuVWwzd0xEd0hNQ1A0eVl2RVc4eDVoS3RM?=
- =?utf-8?B?WTRxRHM1T3dGOVB1WmVmWURGdXNFMnl6MjZKUml0bFVRamhveHNvN0I3cU1O?=
- =?utf-8?B?WFhIb3JURUhRVTFmY3lhQ0pjNjlDTS9lRk9ZUno5clptRnV6d2I4YTVwUkhq?=
- =?utf-8?B?QVdLUUljcHJxSDlxMUtBSGZjZ0UxdzlhYkR0cU5hRnZVZ0Vpa3B0M2txZmVm?=
- =?utf-8?B?YVRDY2U0K2ZZays3Ympzd29NMmh0dHc5QWhRV1BXbTg4ZkIrcGUrV3BiMnYw?=
- =?utf-8?B?VGhLazc5RURCM0xibzZCZ0ZjdFhSVmlUTnRNYjNQTFNkZzNLWDBGR25DcGZU?=
- =?utf-8?B?OVc3VlhwZ281ZEI2WE50c3BoaFdZS2NCL1JzMnhVeExlSnlYd1paYVVHZDlQ?=
- =?utf-8?B?anZUZVFOK3NlU0dTa0dWUE43MUg1TERiamVFdk9VUGlmOFk2ZVRGTUhtN2hU?=
- =?utf-8?B?eHU1OHBRNk1aRUZrS3pDR2Z5L0MwZ0VaMTZ6VWlxWlI5NjhuKzVLcGdyU3pL?=
- =?utf-8?B?dkpnQ0s1K2gzdTBqM25EUmdCQmpKNkkzcEtQYm1uYnFkcU1iaFcwVDd4bVVz?=
- =?utf-8?B?V1hsVUxQdmI5b2JRMFgrTkRqZmt1RWsyZ3pZMndiZmNDMi9ET0w1NE5RTXox?=
- =?utf-8?B?VTNQMHdVa2FsK2U1eElMN0VjSGloVDlpSUJNVEJGbGdjOFlLWVRCcDA2aC93?=
- =?utf-8?B?NlQwcU5qMHgwRnpNaW9oVUM1Q0JqeXFtKzMxU0FJOVhPNTUzSzNTVndzRm1B?=
- =?utf-8?B?N1ZsWnZuSzRNaTlwL2thdWVFOCtQdDV6YlU0QVFmelUwYjZNcEc2VWNHZnZp?=
- =?utf-8?B?VXF2ZEZ5TVo2Y1JYejZHZkNreFVHOSt6b255cHVMaUNDVzlhQmE3NG1TUk9P?=
- =?utf-8?B?Q0RTY0s1RzdWdkl2ZjkvMTdvMGsxQlMzN2kxTDBkeVNPZkJ4elN5aEJidnJY?=
- =?utf-8?B?Y04rS2V6OVpxYTEzbko5eEZqdUY5dzdxRCtOMTl5S002a2tCdm5aVDJMaDRn?=
- =?utf-8?B?c3gzSGZhdjVLNEpVcUVjWDV3QlVpKzlERGNsOVFLbTB0V0dsMGlWSFVieStF?=
- =?utf-8?B?YlhPc3lhZFpJMFRGblJ6K2pLODNOQXIwbytlYXcrcWR4cWVrSkRaSHZ5Y2Nl?=
- =?utf-8?B?YzNRQWlsSFBKMDFKN0lHcjQrZzVWV1JneU1pamJnYXNNZDRWYWRRRlpCK0Jp?=
- =?utf-8?B?a2VMUCtDQTV2di9JQnRkRlIyMThMSUVaZWVQUzVsbHd3RzJoQTVJR3lROFFt?=
- =?utf-8?B?MHlnYUFmOG82Q1NpMCtEc0lUSnVMSHVUQ0hrcjlBSmpFZWdVaU5ydHRNM2xE?=
- =?utf-8?B?eE9LZ3JYTEV6dGZMN1M4M1lDSER4VUFlMktsNG9DazJWdnZPM0N0Mk81cmJl?=
- =?utf-8?B?SVVHSUlsOThha0I5TWljQ3JNWllUWVB1RlVwSXExV3pOMHFJUVVYVHJNOFZX?=
- =?utf-8?B?cGZOdlE2em9IM1NGUjlnV1BHN3FmWnNMSUZIWFdWREVKdXdqRWtOWVcwbEw5?=
- =?utf-8?B?WFc5QWhJUUVMYTdTVFZjUi8xTnhjd3B1QkNWWFRndVA0SWtPU0tpcS9jN0xs?=
- =?utf-8?B?V3NPOEJpNTNZLzUralFxM3dPaEIwekUwdUFDV1c4aURRVm9ob2FPeHUwSWFa?=
- =?utf-8?B?c015TWpWUzU4UXNkSCt3TUxHY0lXM1pVZWdUNjA0Ynl4dC9sem9HOTI3UjJJ?=
- =?utf-8?B?NjFnNXBpTm1XU0hYTDNYTWZRZnFZSFA1Rm5YQlBZT29IaGVmYXgvTlNQbkhZ?=
- =?utf-8?Q?NEClSrEKT0e7E8IB+9WBdVjjj?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K0hKNzNiekF3NDhlM25qTlNYRlRKTmduSVZsSG05dUJKdnN6NWVLUjlONFNj?=
+ =?utf-8?B?R0NTeTBwN09LSGQ0b2NtejFkM1ZOOVQzWFNxUkxWZFd0WlhNdmQwSmFNUDFF?=
+ =?utf-8?B?dUhsWUMwanRzbEFqZnhUdlU1LzRqcU13ejZCT1JOaStvelJFSE8yUzZ0cTB1?=
+ =?utf-8?B?K1YyMDVPaktNdEYremVDUUtBS2g2N0tyV3p4cEFhbWFlWkE1MEIvUmc2Qi85?=
+ =?utf-8?B?ZldSaG1FVUxiWnNDTzlrY0ViRHBOb2tsQ0svM2NHZFdSR0lYOHlDdVRjdWhp?=
+ =?utf-8?B?dExnK1BoUkg1eUlqa0l1TXBmUkpFT2lsRXJNOUdMNVBiOEVaY2JWbjhhTGJq?=
+ =?utf-8?B?d1UxNW1UdFZWdnc3OTZMTGxMYkpvSUZvZytWOUhRZVFuOHFFVEhxcWh2R3JZ?=
+ =?utf-8?B?VUZRa3dFN3g3bWJkS01CQ1VWa1VCaGRzMHIvTXZ2YnprVXNJYnEzSjdEYlJN?=
+ =?utf-8?B?ZzZ2Q24wOTFSbVRlNTVDQkVISTMzalovSFd5dGVKYlpYN0ZXSDlyTE93Z0Jq?=
+ =?utf-8?B?aERzWHBVV3hDem9DaGhUNnJsL0ZoWHY3ejFETmwvRUxZUFB0UThSdzVWOGJS?=
+ =?utf-8?B?cmNWZHJjeXV6N3pUWW41Unh5RUNzc3cxWWZiSG1zV3FxVTE0cnZiVVd5NVRk?=
+ =?utf-8?B?ZVJid1liOUZUN1dJeXA2Z3JnYUlSd1FvVFhYMmNZa1dYOWdvZUFiUGl2Zmwr?=
+ =?utf-8?B?UHg3RXF0SmJ4NERDdzZObzYxS0xoWTRjRHN5eDFuUStBMHk1K25QalUyVDdQ?=
+ =?utf-8?B?b3gvaWJKYVR4YWJJWGNhM24yb0RTVk10ek1sZjBWR2kwbHFBcmQ4RHpLNy83?=
+ =?utf-8?B?ejZWM01kYnU2S1JESDhYTEJaV21DOXoxejR1M1NVOUZkWGtuZEhvbC9IM1Vv?=
+ =?utf-8?B?cUhYOEQwbzRPckwwa2dBdnRQSnZrZ05TcHl5dXdCVzBWa1MwU3FKZTZzTHZh?=
+ =?utf-8?B?WXNZRml2VXRRb2wrL052a3NwL1I5d1pwWkpFVk9ZZWx3dDZPVzd4MCt0N1Vj?=
+ =?utf-8?B?aXlCODM5RVkzWmJncmVINWJMdlpYREpKNnhQaEdLMXUvRThXMzl5NVRDQzZi?=
+ =?utf-8?B?UWVlWTF1MkVqMVplV1lrKzlhRDZqQUdkT2ZzSEp6Z1hrK1VDWUorNFlEaXht?=
+ =?utf-8?B?V3poa2xVYTNTSDNrcU1MaHNqWDBtcGM3aCtyTi8xS1FxZ20rTjY0MWpyeE02?=
+ =?utf-8?B?a2NCMVJNUFlqSDd4ak5tYVEwZ210QUoxMWgxM1VlTUxaTDJBRWR6SUtNczAy?=
+ =?utf-8?B?bjR4ZDE5K1EvcktQeHFMVE0rWmVJclBuWCt4WVB2R3BENDQzeHRZamF2dlM0?=
+ =?utf-8?B?RytSaklPT1V3cFBmclp3K1JXRHRBTjc5blNxeVgrOWRKeG5iZlVLV21LdGl6?=
+ =?utf-8?B?OG51NW1mL2swb2cxVEU2T3hBZ1RpOHpJanI4bzI4TnlrRFRmMGIvOFl4SzEx?=
+ =?utf-8?B?RUQzWW5YVkFvVkNxdDJBd1RraW51dHhxK05sS3Z5NXpXT0FaaHY3QXRzL0tn?=
+ =?utf-8?B?WDQ0aEMxWEVDNm9GMjUzb05RSTNIU1hLWVd3ZXEvU1dhTHFhWXQ3b2l3MVZx?=
+ =?utf-8?B?eVMrTllTTm8yN2RCUmdLbEhNZHg1WS9QMktqaTdHM09Md0JuNDhwWVNjUS9D?=
+ =?utf-8?B?bXlRUXVhMEtYSVk5dm1pVUVVY1E4ZEpsLy9xUngyR0IyNk5IZzM5alFCVE9v?=
+ =?utf-8?B?QXpDaStiVDV1eldBR0pDUHdxQ3p0Z0FHZkFtRmVlT2R6TUV3LzFXeHppN2xj?=
+ =?utf-8?B?VDFyeWhOeUNOWCtTSGJqRnNDNzVRTUdLeUt4MWh0d2xxb1hFTStFd0NTMFgz?=
+ =?utf-8?B?dXNJMHM3YlVKTFNGNVVwZWt2MjlHajMwOWZJOHY3MEdrc1g1Sk1CRGhIWnRl?=
+ =?utf-8?B?YndXN3JyaVFuZVRGZUJheEY5TzF0Rlh0QTBvdXI3dEVXZ3RFcDArTWIrQ0Qw?=
+ =?utf-8?B?UlhkcHQ0VTJNaUkvVng2RGgwZlowQ211Mm1xNHB0Unp5ZEhLRExWNnhLdFNm?=
+ =?utf-8?B?OTBhVTlycXBTVTg1ZkU5QmVBVkNiUXB6SURVRTZCRldtYWNrRkMrUGJ2MlRy?=
+ =?utf-8?B?TDd2ZU0zTDlYOTdjeWd0NFJrLzhmKy9ROW81M0h2Wmg5SnhzdTd6emxGSWs5?=
+ =?utf-8?Q?CVaF/4pSSezM6n8gEI6fspci0?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6303c638-b190-493d-c4ca-08db21698721
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4342.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dbfd3840-cef7-4d03-e1dd-08db2177376b
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6280.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2023 13:15:33.0179 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2023 14:53:31.9417 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zNHnsnBmmhK8XZcofAhwje3oTmfqf2KOWZBrrkBU8pmYXMy2AGYTpwdh0GJNzfJsvHi99CoMWMQdP943k7Mf7A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8700
+X-MS-Exchange-CrossTenant-UserPrincipalName: R44OTuMl9pOXUAUxS+OU014FAcyCspSlJ7TnFIGlxw/s6jdB744mZqJersDmx9ura0PB8SZlNlptHRxh58ggHA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7481
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,191 +127,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: akpm@linux-foundation.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 3/10/23 01:43, Shirish S wrote:
+> [Why]
+> Currently there aren't any methods to determine PSR state residency.
+> 
+> [How]
+> create a sysfs entry for reading residency and internally hook it up
+> to existing functionality of reading PSR residency from firmware.
+> 
+> Signed-off-by: Shirish S <shirish.s@amd.com>
 
+Applied, thanks!
 
-On 3/9/2023 3:42 PM, Luís Mendes wrote:
-> Hi,
->
-> Ping? This is actually a regression.
-> If there is no one available to work this, maybe I can have a look in
-> my spare time, in accordance with your suggestion.
->
-> Regards,
-> Luís
->
-> On Tue, Jan 3, 2023 at 8:44 AM Christian König <christian.koenig@amd.com> wrote:
->> Am 25.12.22 um 20:39 schrieb Luís Mendes:
->>> Re-sending with the correct  linux-kernel mailing list email address.
->>> Sorry for the inconvenience.
->>>
->>> The proposed patch fixes the issue and allows amdgpu to work again on
->>> armhf with a AMD RX 550 card, however it may not be the best solution
->>> for the issue, as detailed below.
->>>
->>> include/log2.h defined macros rounddown_pow_of_two(...) and
->>> roundup_pow_of_two(...) do not handle 64-bit values on 32-bit
->>> architectures (tested on armv9 armhf machine) causing
->>> drm_buddy_init(...) to fail on BUG_ON with an underflow on the order
->>> value, thus impeding amdgpu to load properly (no GUI).
->>>
->>> One option is to modify rounddown_pow_of_two(...) to detect if the
->>> variable takes 32 bits or less and call __rounddown_pow_of_two_u32(u32
->>> n) or if the variable takes more space than 32 bits, then call
->>> __rounddown_pow_of_two_u64(u64 n). This would imply renaming
->>> __rounddown_pow_of_two(unsigne
->>> d long n) to
->>> __rounddown_pow_of_two_u32(u32 n) and add a new function
->>> __rounddown_pow_of_two_u64(u64 n). This would be the most transparent
->>> solution, however there a few complications, and they are:
->>> - that the mm subsystem will fail to link on armhf with an undefined
->>> reference on __aeabi_uldivmod
->>> - there a few drivers that directly call __rounddown_pow_of_two(...)
->>> - that other drivers and subsystems generate warnings
->>>
->>> So this alternate solution was devised which avoids touching existing
->>> code paths, and just updates drm_buddy which seems to be the only
->>> driver that is failing, however I am not sure if this is the proper
->>> way to go. So I would like to get a second opinion on this, by those
->>> who know.
->>>
->>> /include/linux/log2.h
->>> /drivers/gpu/drm/drm_buddy.c
->>>
->>> Signed-off-by: Luís Mendes <luis.p.mendes@gmail.com>
->>>> 8------------------------------------------------------8<
->>> diff -uprN linux-next/drivers/gpu/drm/drm_buddy.c
->>> linux-nextLM/drivers/gpu/drm/drm_buddy.c
->>> --- linux-next/drivers/gpu/drm/drm_buddy.c    2022-12-25
->>> 16:29:26.000000000 +0000
->>> +++ linux-nextLM/drivers/gpu/drm/drm_buddy.c    2022-12-25
->>> 17:04:32.136007116 +0000
->>> @@ -128,7 +128,7 @@ int drm_buddy_init(struct drm_buddy *mm,
->>>            unsigned int order;
->>>            u64 root_size;
->>>
->>> -        root_size = rounddown_pow_of_two(size);
->>> +        root_size = rounddown_pow_of_two_u64(size);
->>>            order = ilog2(root_size) - ilog2(chunk_size);
->> I think this can be handled much easier if keep around the root_order
->> instead of the root_size in the first place.
->>
->> Cause ilog2() does the right thing even for non power of two values and
->> so we just need the order for the offset subtraction below.
-Could you try with ilog2() and see if you are getting the right value 
-for size as suggested
-by Christian.
+> ---
+>   .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 19 +++++++++++++++++++
+>   1 file changed, 19 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> index abf7895d1608..d8a5cde2b06f 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> @@ -35,6 +35,7 @@
+>   #include "resource.h"
+>   #include "dsc.h"
+>   #include "link_hwss.h"
+> +#include "link.h"
+>   #include "dc/dc_dmub_srv.h"
+>   #include "link/protocols/link_dp_capability.h"
+>   
+> @@ -2793,6 +2794,22 @@ static int psr_get(void *data, u64 *val)
+>   	return 0;
+>   }
+>   
+> +/*
+> + *  Read PSR state residency
+> + */
+> +static int psr_read_residency(void *data, u64 *val)
+> +{
+> +	struct amdgpu_dm_connector *connector = data;
+> +	struct dc_link *link = connector->dc_link;
+> +	u32 residency;
+> +
+> +	link_get_psr_residency(link, &residency);
+> +
+> +	*val = (u64)residency;
+> +
+> +	return 0;
+> +}
+> +
+>   /*
+>    * Set dmcub trace event IRQ enable or disable.
+>    * Usage to enable dmcub trace event IRQ: echo 1 > /sys/kernel/debug/dri/0/amdgpu_dm_dmcub_trace_event_en
+> @@ -2828,6 +2845,7 @@ DEFINE_DEBUGFS_ATTRIBUTE(dmcub_trace_event_state_fops, dmcub_trace_event_state_g
+>   			 dmcub_trace_event_state_set, "%llu\n");
+>   
+>   DEFINE_DEBUGFS_ATTRIBUTE(psr_fops, psr_get, NULL, "%llu\n");
+> +DEFINE_DEBUGFS_ATTRIBUTE(psr_residency_fops, psr_read_residency, NULL, "%llu\n");
+>   
+>   DEFINE_SHOW_ATTRIBUTE(current_backlight);
+>   DEFINE_SHOW_ATTRIBUTE(target_backlight);
+> @@ -2991,6 +3009,7 @@ void connector_debugfs_init(struct amdgpu_dm_connector *connector)
+>   	if (connector->base.connector_type == DRM_MODE_CONNECTOR_eDP) {
+>   		debugfs_create_file_unsafe("psr_capability", 0444, dir, connector, &psr_capability_fops);
+>   		debugfs_create_file_unsafe("psr_state", 0444, dir, connector, &psr_fops);
+> +		debugfs_create_file_unsafe("psr_residency", 0444, dir, connector, &psr_residency_fops);
+>   		debugfs_create_file("amdgpu_current_backlight_pwm", 0444, dir, connector,
+>   				    &current_backlight_fops);
+>   		debugfs_create_file("amdgpu_target_backlight_pwm", 0444, dir, connector,
 
-Thanks,
-Arun
->>
->> Arun can you take a closer look at this?
->>
->> Regards,
->> Christian.
->>
->>>            root = drm_block_alloc(mm, NULL, order, offset);
->>> diff -uprN linux-next/include/linux/log2.h linux-nextLM/include/linux/log2.h
->>> --- linux-next/include/linux/log2.h    2022-12-25 16:29:29.000000000 +0000
->>> +++ linux-nextLM/include/linux/log2.h    2022-12-25 17:00:34.319901492 +0000
->>> @@ -58,6 +58,18 @@ unsigned long __roundup_pow_of_two(unsig
->>>    }
->>>
->>>    /**
->>> + * __roundup_pow_of_two_u64() - round up to nearest power of two
->>> + * (unsgined 64-bits precision version)
->>> + * @n: value to round up
->>> + */
->>> +static inline __attribute__((const))
->>> +u64 __roundup_pow_of_two_u64(u64 n)
->>> +{
->>> +    return 1ULL << fls64(n - 1);
->>> +}
->>> +
->>> +
->>> +/**
->>>     * __rounddown_pow_of_two() - round down to nearest power of two
->>>     * @n: value to round down
->>>     */
->>> @@ -68,6 +80,17 @@ unsigned long __rounddown_pow_of_two(uns
->>>    }
->>>
->>>    /**
->>> + * __rounddown_pow_of_two_u64() - round down to nearest power of two
->>> + * (unsgined 64-bits precision version)
->>> + * @n: value to round down
->>> + */
->>> +static inline __attribute__((const))
->>> +u64 __rounddown_pow_of_two_u64(u64 n)
->>> +{
->>> +    return 1ULL << (fls64(n) - 1);
->>> +}
->>> +
->>> +/**
->>>     * const_ilog2 - log base 2 of 32-bit or a 64-bit constant unsigned value
->>>     * @n: parameter
->>>     *
->>> @@ -163,6 +186,7 @@ unsigned long __rounddown_pow_of_two(uns
->>>        __ilog2_u64(n)            \
->>>     )
->>>
->>> +
->>>    /**
->>>     * roundup_pow_of_two - round the given value up to nearest power of two
->>>     * @n: parameter
->>> @@ -181,6 +205,25 @@ unsigned long __rounddown_pow_of_two(uns
->>>     )
->>>
->>>    /**
->>> + * roundup_pow_of_two_u64 - round the given value up to nearest power of two
->>> + * (unsgined 64-bits precision version)
->>> + * @n: parameter
->>> + *
->>> + * round the given value up to the nearest power of two
->>> + * - the result is undefined when n == 0
->>> + * - this can be used to initialise global variables from constant data
->>> + */
->>> +#define roundup_pow_of_two_u64(n)            \
->>> +(                        \
->>> +    __builtin_constant_p(n) ? (        \
->>> +        ((n) == 1) ? 1 :        \
->>> +        (1ULL << (ilog2((n) - 1) + 1))    \
->>> +                   ) :        \
->>> +    __roundup_pow_of_two_u64(n)            \
->>> + )
->>> +
->>> +
->>> +/**
->>>     * rounddown_pow_of_two - round the given value down to nearest power of two
->>>     * @n: parameter
->>>     *
->>> @@ -195,6 +238,22 @@ unsigned long __rounddown_pow_of_two(uns
->>>        __rounddown_pow_of_two(n)        \
->>>     )
->>>
->>> +/**
->>> + * rounddown_pow_of_two_u64 - round the given value down to nearest
->>> power of two
->>> + * (unsgined 64-bits precision version)
->>> + * @n: parameter
->>> + *
->>> + * round the given value down to the nearest power of two
->>> + * - the result is undefined when n == 0
->>> + * - this can be used to initialise global variables from constant data
->>> + */
->>> +#define rounddown_pow_of_two_u64(n)            \
->>> +(                        \
->>> +    __builtin_constant_p(n) ? (        \
->>> +        (1ULL << ilog2(n))) :        \
->>> +    __rounddown_pow_of_two_u64(n)        \
->>> + )
->>> +
->>>    static inline __attribute_const__
->>>    int __order_base_2(unsigned long n)
->>>    {
+-- 
+Hamza
 
