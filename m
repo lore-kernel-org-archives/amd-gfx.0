@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1DECC6FD19
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Mar 2023 09:32:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7312C64EC4
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Mar 2023 09:32:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 517EE10E9A4;
-	Fri, 10 Mar 2023 09:32:13 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2067.outbound.protection.outlook.com [40.107.92.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C49ED10E9A5
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Mar 2023 09:32:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40C7010E9A5;
+	Fri, 10 Mar 2023 09:32:15 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20602.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5b::602])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28BF310E9A4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Mar 2023 09:32:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Kmp8wAS22ZehTizzofga15I5dvu5F/VbToqE8ZjNYxWBpfDQCvIOhBHivGS0+snZ+co0M1NOIwQt+cANZ+lEEkAjzM5GZb8LCjhvWEaMhLJYBG1IoqC80LpNLLkybZdYIv23qsxF7yQ3lUeNfmEbp9kWbgBXKLTrbXJP7RDrqNq7twp5vgfRjLSzgvs7QBDNQzy6dv2aYfX2Dfs/gmuK+vbPfnRue0EBZP8rIgw+nCGSqbBNmG3+ZTdeyEmC9HR0GCO+ZTu8lslkdp+FM2zlt6oIJzTaIRP9FHcx0wrnH1w1RjcFDyoNxZm15fnYZyMt0zfcuTwM2yD/CxzMkGiZzg==
+ b=cdKZQcRYD3oZTwlIvFy6fO2QrZCJ5eSOJsilGWMzo4Bg1WhGQHAeTcEx9MB2HJGp4ts+PiBA0JF6mVR1wSnttkM7fNp4GCq3AxrmNyXA+UQjoK3TWUkTygGxbNwd3f2LFyV1IOEv1WvsGVGybVpJNSw4vp1Lvqdt21xGO6JQYL+6JUp7yOnco9dyFuXHbWYXJbfg0SucPf4O8zx3GASR/dELMKLmynL5r8AGQnksyI6xSaUJeLfLXkQ24FDPitPjHuMBU+ybyYn144/RxRuVhYfn3ayOgNxpO2dlMXoGNQ0jMTPjbrz7SbQK57naCjNemwpqlLKvdA3jAI+0eFiQsg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cZ8dDaPIeSnmfwNKKJ3Pg2cHrcJ8aMnfQlJA4LLyzlk=;
- b=ZHFkBrvt+B/TdDFgykZ9YnLVCInvqUvmJjetzGiHC2A1M7nrIobD9Ni+DP9B4rug0MJ93zzgC4CQSzNwHpQTn0+3ScJAfqW3004ATgb36nBlAqvfsxHJr2rq2ucZdElDno/3yF/fTN+Pk7oGcLGTVGL9roMbdeP3RlPxbrA0Vf0FxnQj0pjyliFXggxoeLNPf+3FmHbflj0NKEEfVUrraapVBP5/wxCMQ+MwLtwsY5Mn/LYdreVOz7uonPjYydSjudQb6C3MZNIBT/3fm3kcXjILef9AEp0w9uLBKrPV7magwUS7ynRLRpjsUvPcji0mjzXUoQMCtSLkVDUlSaIv7Q==
+ bh=cIDC55WVurkK/2kR8CBJ+SqFe6RtWQCQsCmUkrv96yg=;
+ b=i6UfLtWxc/gm9OsO2EVhKPsh7wJiJfzW5SsS4NTCViZcUUuSQo4+i/HHA9nvezf4wOkPLLT3mGaFPHiTFxAyeR+4GdrBZdDX5kZR9sUCE5agGlE1KsYG4+5mFFIBlmFVJ8vVZknunudvfZ5h/+lxi4gmNwEUOesoe/xjtRXbZh+GP/ehdYDc+H74AXcUsvFpWdQJ5Dbnl6zk9qFUKXX4jx2KFGkG8G0eYdqWCLQYESCbWyeY7YbRCQ7sVKypsDWjVmdiiFiTjCx3dam6pjz/RXSqpj53aYImhu+1yL9GLhbHznwAxZBNStfuM1EsJP/7DwUD/EF5v8/xfo4VPWqUhg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cZ8dDaPIeSnmfwNKKJ3Pg2cHrcJ8aMnfQlJA4LLyzlk=;
- b=0z2KMmsBCQr1d+kCskJzhkZf5ROVB7w9DM7xpFopt5UwmMj7DYbazUUWE2L0BWw3hozekbjyMcHoRrn4OMUx5RXD0OiR0EFNUCGJh8Gp1XD24TSNX3QcOu/wZqHTvvXC4M+/PsUq2pJ/8c5AMuRtl42Gc/O9H61hJ6CSIo/me/I=
-Received: from DM6PR12CA0028.namprd12.prod.outlook.com (2603:10b6:5:1c0::41)
- by MW4PR12MB6975.namprd12.prod.outlook.com (2603:10b6:303:20a::9) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=cIDC55WVurkK/2kR8CBJ+SqFe6RtWQCQsCmUkrv96yg=;
+ b=su/4g44Za/1YyBipMzDna0fhubWmXIT62SyMaLBmes5xI52OeVZEtiYr8QXFVDgZH4FdtXVP4tiCYRN0UOMhc0qbMg0fxP+pyqgiDafBxQlVZQmvq1L1nOOK+q/hfqejt3gNtwwvOARzs0Uwa5G6p69/wUf3tg5fDRisewu3LVk=
+Received: from CYZPR14CA0005.namprd14.prod.outlook.com (2603:10b6:930:8f::24)
+ by IA0PR12MB8424.namprd12.prod.outlook.com (2603:10b6:208:40c::15)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.19; Fri, 10 Mar
- 2023 09:32:08 +0000
-Received: from CY4PEPF0000C979.namprd02.prod.outlook.com
- (2603:10b6:5:1c0:cafe::7f) by DM6PR12CA0028.outlook.office365.com
- (2603:10b6:5:1c0::41) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 09:32:09 +0000
+Received: from CY4PEPF0000C97C.namprd02.prod.outlook.com
+ (2603:10b6:930:8f:cafe::35) by CYZPR14CA0005.outlook.office365.com
+ (2603:10b6:930:8f::24) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.20 via Frontend
- Transport; Fri, 10 Mar 2023 09:32:07 +0000
+ Transport; Fri, 10 Mar 2023 09:32:09 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +46,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000C979.mail.protection.outlook.com (10.167.241.137) with Microsoft
+ CY4PEPF0000C97C.mail.protection.outlook.com (10.167.241.135) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.13 via Frontend Transport; Fri, 10 Mar 2023 09:32:07 +0000
+ 15.20.6178.13 via Frontend Transport; Fri, 10 Mar 2023 09:32:08 +0000
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 10 Mar
- 2023 03:31:58 -0600
+ 2023 03:32:03 -0600
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 03/19] drm/amd/display: default values for luminance range if
- they are 0
-Date: Fri, 10 Mar 2023 04:31:01 -0500
-Message-ID: <20230310093117.3030-4-qingqing.zhuo@amd.com>
+Subject: [PATCH 04/19] drm/amd/display: Use DPP inst instead of pipe idx for
+ DPP DTO programming
+Date: Fri, 10 Mar 2023 04:31:02 -0500
+Message-ID: <20230310093117.3030-5-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230310093117.3030-1-qingqing.zhuo@amd.com>
 References: <20230310093117.3030-1-qingqing.zhuo@amd.com>
@@ -69,26 +70,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000C979:EE_|MW4PR12MB6975:EE_
-X-MS-Office365-Filtering-Correlation-Id: a06c876b-b285-4ccb-eb74-08db214a5114
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000C97C:EE_|IA0PR12MB8424:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6ffb7249-4011-4785-eedf-08db214a51f9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pg6JbOk38VIgNvHEK+PcUk7qB0tI7JWhQKvsXyih95r7PqXyas2I/fmvkdpW/5ZuXrFbk129Od4qy7VyrbbfOnuOBhEEvpONDK7XI6ZRGA4S8M5fqbn6BG5936OW3B1knXvbc9YGphp7TsgeD1BtCw/ADYSEDIc3B/PSSmZ6YOBLArKXwQ4nFkxMHl2OxYkPxlYJFscD2PE94GhPAyECdHkOzL6DRcQLu+lTAUdbb7d+vv3Oaym1hmnm5dd7WBsbxc+7fiGes8s/lHmtkW0xHsBjAvPey4ZvZYUipFUW8DFXwdjcjd1pTSG0dE8fm78hpBlHsi2Ml96BvCU3se+5j6dq0vucdQrd7eM8gxqNFbm3EJkGVyvrLJAhRwiNtHR7dJ9RnZ+kpX65sqCjaVF+YMEbWZ6Ffc4aIXyL037BPJbQznK6R5cqJiJcvDhwYRj8amVEyuYFuePNaV3aesO2M5htW7gausy7g8MC+KKe/jY+B5Cf3U/mQK90juUgID2DIPu41moXwpzQYeACnnhnx07mk+mUD672YUSQ7Ybwj1Vb0KauWl03eOUIA+3ObEkZDJuIK/Crr/XR7MB0kMP6/qRVuYqVQkK0kvEBPPvAV31uobyqe5JcEhqrpN3zJrA9HYT93I+uwHiYIS7YTfDMRVhLMD06lUDIf7ZBUvVo9eyqH3h5chR0ECQdF+M2svUh3ZJG6iSvbAhuK/WZ7sk/rF3J64hLczg1i3eDyP00oBo=
+X-Microsoft-Antispam-Message-Info: omZu0zvoBkp91DEQSLcJaMCLKwzdOuKQTm5043g2REy7lPXbKbufljHm030vFXC761u7A00/4FErXD4vjosmvhIOahnKTyOKWzph65j9NuLOlqOiZ3WyDSCYi1NMCr7nb9l+1Fsc4qhlKUjLIlaWHag2H35kn0eq4HDe749+X2e9diS3RiRFo/YgDlLMhgle9TCZBxbcb4blbPe/36Mb03+O/KKEqQxupa/6QuYl8qU9sRJTRx94sgr9XSTVP9pUSelwuvBGsKdrWhXQ/RCxQc6AorHVx5TQYa5MiNiQI7nu9aU40IkHjctCXnG6I4t9oVzsOrVVhJ++Inq99zlpSGln2qaAN1wIw5XUCWN+4EJM0QDjGfWcJC99QRdUkzwbfPUoJDfLUxAFzlfZ23O2oTtgk9PxEbFhktb0hsA9NPEhGc+jVS4iw9a+ta6yCB2DpNiHJwBDiUDkN6wgOMWfbnKdk0MJIQePPZXqtUIjjUAmiScNND+GUwP9cXytNwxlWlvt/xVl1ML6/1+08oJ0xO2ciPMcGOxLfMhjGzXKwVYI41oNG4d8s9ZSITkM6wGmV9KjPdbjLfXQF9E4pQtqq/EXeS+AlyhdGTfC0oliod0ph2SIkjFPUR91D37ClogzPhcgSbiaQd39OFNDGJwVNWg1gxo97Ly86HTNC+tX9IQYpGtzvL2av50yT7Ou7jAlD2GjOkIZ6QH2PQXFnGA5gsTVKo+mrTX0hfxCS65YT8M=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(39860400002)(376002)(396003)(346002)(136003)(451199018)(40470700004)(46966006)(36840700001)(36860700001)(82740400003)(186003)(36756003)(41300700001)(478600001)(54906003)(356005)(86362001)(316002)(81166007)(82310400005)(83380400001)(26005)(6666004)(426003)(40460700003)(16526019)(336012)(2616005)(2906002)(1076003)(70206006)(44832011)(8676002)(8936002)(70586007)(5660300002)(47076005)(6916009)(4326008)(40480700001)(36900700001);
+ SFS:(13230025)(4636009)(39860400002)(346002)(396003)(136003)(376002)(451199018)(40470700004)(36840700001)(46966006)(1076003)(26005)(426003)(47076005)(54906003)(186003)(336012)(316002)(70586007)(8676002)(70206006)(16526019)(8936002)(36860700001)(81166007)(82740400003)(41300700001)(5660300002)(4326008)(2906002)(2616005)(83380400001)(44832011)(6916009)(356005)(86362001)(82310400005)(478600001)(40480700001)(40460700003)(36756003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2023 09:32:07.3116 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a06c876b-b285-4ccb-eb74-08db214a5114
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2023 09:32:08.8594 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ffb7249-4011-4785-eedf-08db214a51f9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C979.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C97C.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6975
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8424
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,51 +101,105 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Swapnil Patel <Swapnil.Patel@amd.com>,
- Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, Roman Li <Roman.Li@amd.com>, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, Alvin Lee <Alvin.Lee2@amd.com>,
+ wayne.lin@amd.com, Jun Lei <Jun.Lei@amd.com>, Bhawanpreet.Lakha@amd.com,
  agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Swapnil Patel <Swapnil.Patel@amd.com>
+From: Alvin Lee <Alvin.Lee2@amd.com>
 
-[why]
-Currently if invalid luminescence range is reported in edid,
-then the driver doesn't have default range to fallback to.
+[Description]
+- For pipe harvesting cases we must use DPP inst instead of
+  pipe index for DPP related programming
 
-[How]
-Add default range if, the range is 0.
-
-Reviewed-by: Roman Li <Roman.Li@amd.com>
+Reviewed-by: Jun Lei <Jun.Lei@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Signed-off-by: Swapnil Patel <Swapnil.Patel@amd.com>
+Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  | 38 ++++++++++++++++++-
+ .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.h  |  3 ++
+ 2 files changed, 39 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 8af58bba503f..51afc937308a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3012,8 +3012,14 @@ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
- 		caps->aux_support = true;
- 
- 	luminance_range = &conn_base->display_info.luminance_range;
--	caps->aux_min_input_signal = luminance_range->min_luminance;
--	caps->aux_max_input_signal = luminance_range->max_luminance;
-+
-+	if (luminance_range->max_luminance) {
-+		caps->aux_min_input_signal = luminance_range->min_luminance;
-+		caps->aux_max_input_signal = luminance_range->max_luminance;
-+	} else {
-+		caps->aux_min_input_signal = 0;
-+		caps->aux_max_input_signal = 512;
-+	}
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+index e686d6610fd4..af108f88b112 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+@@ -255,6 +255,40 @@ static void dcn32_update_dppclk_dispclk_freq(struct clk_mgr_internal *clk_mgr, s
+ 	}
  }
  
- void amdgpu_dm_update_connector_after_detect(
++void dcn32_update_clocks_update_dpp_dto(struct clk_mgr_internal *clk_mgr,
++		struct dc_state *context, bool safe_to_lower)
++{
++	int i;
++
++	clk_mgr->dccg->ref_dppclk = clk_mgr->base.clks.dppclk_khz;
++	for (i = 0; i < clk_mgr->base.ctx->dc->res_pool->pipe_count; i++) {
++		int dpp_inst, dppclk_khz, prev_dppclk_khz;
++
++		dppclk_khz = context->res_ctx.pipe_ctx[i].plane_res.bw.dppclk_khz;
++
++		if (context->res_ctx.pipe_ctx[i].plane_res.dpp)
++			dpp_inst = context->res_ctx.pipe_ctx[i].plane_res.dpp->inst;
++		else if (!context->res_ctx.pipe_ctx[i].plane_res.dpp && dppclk_khz == 0) {
++			/* dpp == NULL && dppclk_khz == 0 is valid because of pipe harvesting.
++			 * In this case just continue in loop
++			 */
++			continue;
++		} else if (!context->res_ctx.pipe_ctx[i].plane_res.dpp && dppclk_khz > 0) {
++			/* The software state is not valid if dpp resource is NULL and
++			 * dppclk_khz > 0.
++			 */
++			ASSERT(false);
++			continue;
++		}
++
++		prev_dppclk_khz = clk_mgr->dccg->pipe_dppclk_khz[i];
++
++		if (safe_to_lower || prev_dppclk_khz < dppclk_khz)
++			clk_mgr->dccg->funcs->update_dpp_dto(
++							clk_mgr->dccg, dpp_inst, dppclk_khz);
++	}
++}
++
+ static void dcn32_update_clocks_update_dentist(
+ 		struct clk_mgr_internal *clk_mgr,
+ 		struct dc_state *context)
+@@ -524,7 +558,7 @@ static void dcn32_update_clocks(struct clk_mgr *clk_mgr_base,
+ 	if (dc->config.forced_clocks == false || (force_reset && safe_to_lower)) {
+ 		if (dpp_clock_lowered) {
+ 			/* if clock is being lowered, increase DTO before lowering refclk */
+-			dcn20_update_clocks_update_dpp_dto(clk_mgr, context, safe_to_lower);
++			dcn32_update_clocks_update_dpp_dto(clk_mgr, context, safe_to_lower);
+ 			dcn32_update_clocks_update_dentist(clk_mgr, context);
+ 			if (clk_mgr->smu_present)
+ 				dcn32_smu_set_hard_min_by_freq(clk_mgr, PPCLK_DPPCLK, khz_to_mhz_ceil(clk_mgr_base->clks.dppclk_khz));
+@@ -536,7 +570,7 @@ static void dcn32_update_clocks(struct clk_mgr *clk_mgr_base,
+ 			 * that we do not lower dto when it is not safe to lower. We do not need to
+ 			 * compare the current and new dppclk before calling this function.
+ 			 */
+-			dcn20_update_clocks_update_dpp_dto(clk_mgr, context, safe_to_lower);
++			dcn32_update_clocks_update_dpp_dto(clk_mgr, context, safe_to_lower);
+ 		}
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.h
+index 57e09c7c95f5..186daada7b03 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.h
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.h
+@@ -32,6 +32,9 @@ void dcn32_clk_mgr_construct(struct dc_context *ctx,
+ 		struct pp_smu_funcs *pp_smu,
+ 		struct dccg *dccg);
+ 
++void dcn32_update_clocks_update_dpp_dto(struct clk_mgr_internal *clk_mgr,
++		struct dc_state *context, bool safe_to_lower);
++
+ void dcn32_clk_mgr_destroy(struct clk_mgr_internal *clk_mgr);
+ 
+ 
 -- 
 2.34.1
 
