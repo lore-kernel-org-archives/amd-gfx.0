@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26D4BC74A44
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Mar 2023 21:29:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E3C3C64EC4
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Mar 2023 01:01:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6741F10E8E4;
-	Thu,  9 Mar 2023 21:29:59 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2054.outbound.protection.outlook.com [40.107.92.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C6E710E8F5;
- Thu,  9 Mar 2023 21:29:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0C7A10E91C;
+	Fri, 10 Mar 2023 01:01:35 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2068.outbound.protection.outlook.com [40.107.220.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8604910E91C;
+ Fri, 10 Mar 2023 01:01:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YwC1bM2ICr2DXScuJKZ1RveLlZDQHGEOq+5e2Bc4iQXgitI9AVlpopJECiyrlVZAB6qTg7ZNJjqx6RNhy4lD28vW9se8r5/UQLl05ydvCyaswys9WcgKUc+XmOuFbrFcimdI9IQ4X+MX1Zu2FlMzZ7sfEz0BEIDoGYGj4vLxo3ZeJuGrikAgHUtLp5ORmJC5RxpLP7gDz82/hufAF7mk+mDFLcSfF8SZZyyKDsCCnMg7rR7fkxx2324jWwJzdpL/R/tnR1ejA59y/Jr56voqAmRcL63KXPH3Dh+c4rInBjAuzhlSaoTr691gnIhF5UcjZ669hkkCmJByk886x3k4tg==
+ b=LNjKWdp8UiUM77V/y0DH+WkxSgQGXg/s5crPpfjjZcQvs3zp8Nh6i95zhSHS7Gtqm4/N/oELLRd0dMJ56j+ovJw2VgznHaJPxlQ/VTZvRnN/QC7pP/cN2+9OmOCVA9pipOaFKch/lerrQGsNTK4nbIRBPdxpxNFaEeQkfVg8uNb3vAueSpNxVqvAUhyPJaiB/Ok3k/Knz9uXN3EbkmjGQDmGlFNjBFePDWZgrU6TYoknCNdgU2q0gOngXUzL3uokT9qf6VlOLGe53x57o6FehXqWj12YnMyCQapJuZZh52Cujmt1itGmYGHB3u+XTh5P/mTMqhJJPTbGP/PeSftirA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5+YA4NjhSP3EDqRuFPt4c+rAlvXC1z+sChnRzk1C8uA=;
- b=UrfBBZnXQzgNoAFCFB6Gg0DjchvWJLP52XbXHRJJtRW0yNdKzDBEbAdJuThrPmw5sgReDde7qon5vqkneUci5WSaKGXzcQjinciScfoDmSDPqO6+oEkETcvLjYYaqhDX8Hrb7HI7GL8UBdHn57N1XQC6YQAdWmN/QtJjv4wxqdYriUIc8uHwI+2WYYrtFU983cbWJmujuwDt6FlmoLmE+80aQjpsmeMDUCPGt4LWvGEDEyak/YPA6uswO1seB9rd5TK9fjJ5mATooSKf9QtuNFvpbz8kulCQ9JAIF7alBaG0da9Dsu5FXIaaaPYVQuI9WP1hueUsb9Bx7E2l/whtKA==
+ bh=WWLmDO4KucMeWUOJnWo/AWyJhuYxu4raCdgM0ilL6fo=;
+ b=FGEcPtUbX3R8c89QKTDeyusZpGPeWCobPD+68YAJxzf/9SggJBlf3pcTxVOiSsIYmr/BOGOUy1bDcwQZkm4Dx6Sca/Y+Cpf1SbNeadRzQf+G3M/6O4SplZHpk/vGdDP9GK8sDbJNsU1bv1gKbeJ5ht+ycRsFuF60V+rBw5rqXR3ItsWljjCRlqtFrxlTtavRBN1H04m4Of3576a9gKEQmWMHz09U3nXPc7NABRniE2G4gSUtmmYSSlgywKBpKNsfT56GC8WpmTqYJW5umMQ6MLHhHv0FiWiz4ySxzLWeSoWIBqP/F93HxjPdsOgcWSaj+9l281sz+H96P7E8Lyiy/g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5+YA4NjhSP3EDqRuFPt4c+rAlvXC1z+sChnRzk1C8uA=;
- b=RA8H+dgRBFyyIUwft8FQfyb0ZYeDh/dx2ky60svDzkuYAzajjFDPvfmuYiNywatDhmi48P8WbAVJ+CakLUXhDhEjzaHZwtVoAloJFp8bRJaqsnx8tXXeJEZZ26ptimaVzzTh1B25jLnu0F62EZvOKrVgghriwTU+GzFuQHScfRU=
-Received: from BN9P221CA0007.NAMP221.PROD.OUTLOOK.COM (2603:10b6:408:10a::26)
- by MW4PR12MB7431.namprd12.prod.outlook.com (2603:10b6:303:225::22)
+ bh=WWLmDO4KucMeWUOJnWo/AWyJhuYxu4raCdgM0ilL6fo=;
+ b=1RqJxCOLfW1iXQiVzjk4gud6SQCaJm5EeaUz+wbyg7JJ3p/ifYsNvrQgANhKcK2ossOK417K6WZwkbpGzzEzBB6rlgszAqPahHd8ft2UYPAS5i49KZEbvk6dyXQTHZ5O4Wds2TH5lZWx543YCOfIgc8TKIbpFmLSdFWPUHyHv5E=
+Received: from BL0PR02CA0092.namprd02.prod.outlook.com (2603:10b6:208:51::33)
+ by MN2PR12MB4206.namprd12.prod.outlook.com (2603:10b6:208:1d5::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.19; Thu, 9 Mar
- 2023 21:29:53 +0000
-Received: from BN8NAM11FT032.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:10a:cafe::24) by BN9P221CA0007.outlook.office365.com
- (2603:10b6:408:10a::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.19; Fri, 10 Mar
+ 2023 01:01:31 +0000
+Received: from BL02EPF000100D3.namprd05.prod.outlook.com
+ (2603:10b6:208:51:cafe::87) by BL0PR02CA0092.outlook.office365.com
+ (2603:10b6:208:51::33) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.19 via Frontend
- Transport; Thu, 9 Mar 2023 21:29:53 +0000
+ Transport; Fri, 10 Mar 2023 01:01:31 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,48 +45,49 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT032.mail.protection.outlook.com (10.13.177.88) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.19 via Frontend Transport; Thu, 9 Mar 2023 21:29:53 +0000
-Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 9 Mar
- 2023 15:29:51 -0600
-From: Hamza Mahfooz <hamza.mahfooz@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/display: use a more accurate check in
- dm_helpers_dp_read_dpcd()
-Date: Thu, 9 Mar 2023 16:30:27 -0500
-Message-ID: <20230309213027.256243-1-hamza.mahfooz@amd.com>
-X-Mailer: git-send-email 2.39.2
+ BL02EPF000100D3.mail.protection.outlook.com (10.167.241.207) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6178.17 via Frontend Transport; Fri, 10 Mar 2023 01:01:31 +0000
+Received: from guchchen-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.34; Thu, 9 Mar 2023 19:01:08 -0600
+From: Guchun Chen <guchun.chen@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <alexander.deucher@amd.com>, <hawking.zhang@amd.com>,
+ <dmitry.baryshkov@linaro.org>, <spasswolf@web.de>, <mike@fireburn.co.uk>
+Subject: [PATCH v3 1/2] drm/amdgpu: move poll enabled/disable into non DC path
+Date: Fri, 10 Mar 2023 09:00:52 +0800
+Message-ID: <20230310010052.2810468-1-guchun.chen@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT032:EE_|MW4PR12MB7431:EE_
-X-MS-Office365-Filtering-Correlation-Id: fb56bde7-5c1d-48bc-524d-08db20e56bcf
+X-MS-TrafficTypeDiagnostic: BL02EPF000100D3:EE_|MN2PR12MB4206:EE_
+X-MS-Office365-Filtering-Correlation-Id: f4e98091-a149-48c4-5fb5-08db2102fcad
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bKLD+DUrDEMEAKn4YlwHW/FEIsOxEfHJafvFW+ka6yeaEZ6WtRNcHK7iwF/9qzcU47/w0+THjff29qQVu6Qo7bHJRNBlmdS/5rYuqwvZVZ07Bp/ZRPs93d9ZZfxcvaeFLCY+8fucSE6VY8FpuvYTI6mW0RzAC0H5i8ptozGvFV26T1JxYix7/xPmr+MaKUGZME+5oWLj1IgghMLUyYHv/XMt9rIUGmC1ylnTJvqW1o1HujPYWZ+nr9NW8RBpWYUzfSlZGwnMnGrcTkr/Kp+DXdR+6GUcl23ymI0qc9UyQUR4KMdHvQ332UG6eh7RfryEcMOZzg3Be4R1LwVhiIFvQu5jsfDswtjaUPkM1Alsp2GhGYPThy/ohhKGhSh31NzZTJ0eQWw6PJVfelJMqZHCTO26kRfwPmAGi/EBTqpNCYEvoOcyjGiweE9cwZ5s6QjCgDTZbcM1JoN1QZ2tbItPYJwZCBTZZh+yit5ME0V8muzxtEcdxwK3NHk3BcvO3P0eaZ7ceyorPWpjEwAHhAuRej08gQgqULZEPWw4xifJX2QpspGGaLAUMNQSR3CqKAecANcX/vfqA0ylw2tg3pVZrYg4Mot+dn0vwKmOlt4zcV1vo1luZoE1XpUa+X8efG71ba1C2hY9MVVtEsJij9/WyRW/8V8PuvHbxmW+VC7GA5+kTe0XiL5Iw+WI3ruZ3UGK5oSw59J3+B0mJCpxUungeX2jyrVOSFwzcyYIcBR2e6j+t6aHLJE1dJ78hKWva3kkK81mWLUX9Q1NOvEU5fIqeg==
+X-Microsoft-Antispam-Message-Info: Cgo+RrY7CA9tyPGpHgZ38Onk1Un8b2DCxiiSABijVITNqdwwOaCGrEwEBVc+WlMP/taPOoAnCMhHHX5FKy/34gHzJZI9M60qyA4yU/JS/DPwHyBvRDqRF3bBJPEcw41XGg2Tlsm0mAodkLKm/jKpk11KPnjKRPoPAmAnraD37lj7QtSQQHEsUCXSuNSmYMo2Zus/329dnAtGept3XBFWY5LHtL5UbPHYT1HGWLWKaxmSdIyY+nOOOK7iPsUYtxv9c2VlFmezzIQsPqJvsHfgJn3ZrwVA0yeip2d2fW5ss3iGqxToxAsAvsdLL52CTu7dEPLyU8kyLPZVS0jb+70ikLVgbwVbGK16alERF2tFEE5WRXlao+Ng/96vSRvkBsxu2UXi2/tWXzru3onWScG1UANyHu93DxvLLCTvbd46Y0IRwTH45Zhp/yPUwtTLZmQoYheH9wD11YgHkkXmmn4NJ5eKHDmK62gCYEBuaMZkeuCYL9vCed082G+3ybpqw0pvNQTr0cGhqxmtghLU6ZmZqnB3rjt+UKobWBSi58oOKA6Pjw0vETeDKUAuU5mY0yqWaJQM2IFDSPVN/C4F6I6Xh86t9EDlZT0h/+vR+Cxi7ipBRfCQIOMVbJ4EOIvu9SxoiFfN/S4piRMQ72QsFj2N7s4Qk4iOUHnmcQa72uX9ijAW5Qmk5xHhuJe8r/GHCkWc
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(346002)(376002)(136003)(396003)(39860400002)(451199018)(40470700004)(36840700001)(46966006)(82310400005)(36860700001)(83380400001)(82740400003)(426003)(47076005)(36756003)(54906003)(478600001)(316002)(356005)(2616005)(40480700001)(40460700003)(16526019)(26005)(6666004)(336012)(81166007)(186003)(1076003)(5660300002)(44832011)(2906002)(70586007)(8936002)(41300700001)(70206006)(4326008)(6916009)(86362001)(8676002)(16060500005)(36900700001);
+ SFS:(13230025)(4636009)(396003)(136003)(39860400002)(376002)(346002)(451199018)(36840700001)(40470700004)(46966006)(36756003)(36860700001)(966005)(7696005)(82740400003)(186003)(1076003)(2616005)(40460700003)(6666004)(16526019)(41300700001)(26005)(478600001)(83380400001)(40480700001)(8936002)(47076005)(4326008)(8676002)(70586007)(2906002)(70206006)(5660300002)(44832011)(426003)(356005)(110136005)(316002)(86362001)(81166007)(336012)(82310400005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2023 21:29:53.0937 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb56bde7-5c1d-48bc-524d-08db20e56bcf
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2023 01:01:31.4522 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f4e98091-a149-48c4-5fb5-08db2102fcad
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT032.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF000100D3.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7431
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4206
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,44 +99,91 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Ian Chen <ian.chen@amd.com>, Leo Li <sunpeng.li@amd.com>,
- David Airlie <airlied@gmail.com>, Qingqing Zhuo <qingqing.zhuo@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Hamza Mahfooz <hamza.mahfooz@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Wayne Lin <Wayne.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Sung Joon Kim <sungjoon.kim@amd.com>
+Cc: Guchun Chen <guchun.chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We should be checking if drm_dp_dpcd_read() returns the size that we are
-asking it to read instead of just checking if it is greater than zero.
-Also, we should WARN_ON() here since this condition is only ever met, if
-there is an issue worth investigating. So, compare the return value of
-drm_dp_dpcd_read() to size and WARN_ON() if they aren't equal.
+Some amd asics having reliable hotplug support don't call
+drm_kms_helper_poll_init in driver init sequence. However,
+due to the unified suspend/resume path for all asics, because
+the output_poll_work->func is not set for these asics, a warning
+arrives when suspending.
 
-Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+[   90.656049]  <TASK>
+[   90.656050]  ? console_unlock+0x4d/0x100
+[   90.656053]  ? __irq_work_queue_local+0x27/0x60
+[   90.656056]  ? irq_work_queue+0x2b/0x50
+[   90.656057]  ? __wake_up_klogd+0x40/0x60
+[   90.656059]  __cancel_work_timer+0xed/0x180
+[   90.656061]  drm_kms_helper_poll_disable.cold+0x1f/0x2c [drm_kms_helper]
+[   90.656072]  amdgpu_device_suspend+0x81/0x170 [amdgpu]
+[   90.656180]  amdgpu_pmops_runtime_suspend+0xb5/0x1b0 [amdgpu]
+[   90.656269]  pci_pm_runtime_suspend+0x61/0x1b0
+
+drm_kms_helper_poll_enable/disable is valid when poll_init is called in
+amdgpu code, which is only used in non DC path. So move such codes into
+non-DC path code to get rid of such warnings.
+
+v1: introduce use_kms_poll flag in amdgpu as the poll stuff check
+v2: use dc_enabled as the flag to simply code
+v3: move code into non DC path instead of relying on any flag
+
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2411
+Fixes: a4e771729a51("drm/probe_helper: sort out poll_running vs poll_enabled")
+Reported-by: Bert Karwatzki <spasswolf@web.de>
+Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  | 4 ----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 4 ++++
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 8d598b322e5b..ed2ed7b1d869 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -511,8 +511,8 @@ bool dm_helpers_dp_read_dpcd(
- 		return false;
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index c4a4e2fe6681..da5b0258a237 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4145,8 +4145,6 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
+ 	if (amdgpu_acpi_smart_shift_update(dev, AMDGPU_SS_DEV_D3))
+ 		DRM_WARN("smart shift update failed\n");
  
--	return drm_dp_dpcd_read(&aconnector->dm_dp_aux.aux, address,
--			data, size) > 0;
-+	return !WARN_ON(drm_dp_dpcd_read(&aconnector->dm_dp_aux.aux, address,
-+					 data, size) != size);
+-	drm_kms_helper_poll_disable(dev);
+-
+ 	if (fbcon)
+ 		drm_fb_helper_set_suspend_unlocked(adev_to_drm(adev)->fb_helper, true);
+ 
+@@ -4243,8 +4241,6 @@ int amdgpu_device_resume(struct drm_device *dev, bool fbcon)
+ 	if (fbcon)
+ 		drm_fb_helper_set_suspend_unlocked(adev_to_drm(adev)->fb_helper, false);
+ 
+-	drm_kms_helper_poll_enable(dev);
+-
+ 	amdgpu_ras_resume(adev);
+ 
+ 	if (adev->mode_info.num_crtc) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+index 503f89a766c3..d60fe7eb5579 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -1618,6 +1618,8 @@ int amdgpu_display_suspend_helper(struct amdgpu_device *adev)
+ 	struct drm_connector_list_iter iter;
+ 	int r;
+ 
++	drm_kms_helper_poll_disable(dev);
++
+ 	/* turn off display hw */
+ 	drm_modeset_lock_all(dev);
+ 	drm_connector_list_iter_begin(dev, &iter);
+@@ -1694,6 +1696,8 @@ int amdgpu_display_resume_helper(struct amdgpu_device *adev)
+ 
+ 	drm_modeset_unlock_all(dev);
+ 
++	drm_kms_helper_poll_enable(dev);
++
+ 	return 0;
  }
  
- bool dm_helpers_dp_write_dpcd(
 -- 
-2.39.2
+2.25.1
 
