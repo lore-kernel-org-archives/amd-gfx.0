@@ -4,90 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B870C6FD1E
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Mar 2023 22:17:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4632EC6FD19
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Mar 2023 23:41:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06F2610EA1C;
-	Fri, 10 Mar 2023 22:17:14 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2054.outbound.protection.outlook.com [40.107.92.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8AAE10EA1C
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Mar 2023 22:17:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nkfxpaRczj552LgkF3umGQPXXCKDC+7BVVIt/2D4HlS7oHFl6ZXOVH5ytjW4l0LkNhpamRFsNH+LZewG8SYr/mRjeKMe9Wg/t8I2ZVl3hwAFn35eaxuU2nzTJMx4F0+kHEbG6g+d96aBXLeRfGZJBwT3a2zVsRY3AtYHOL3Je0VLXDFZOWPIDlzAtjhIgdFDzD+icziFs6LaJrr69WzdJ0g7atT512Cr5GAITd7tiRu6ODFkyLEwtjUc6H7vXuZNhqZ1AsAC6IZVZE5ACngObHrB+FGiQvnyhVp/zCm3LVmShxbGzdyWc8dyp8BpHSRGRkx9K4ITCp2qtil221O6Ow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DjYCQVukO7nZToj79V6spS7NVOx9pTkrUe6QXBW9xWA=;
- b=RsQV7RPAIvxYaxsALlmx+4Jo85h9n+sGZFiHxsclAVY/7ajXZfMuptwniZ7O0VYwGc+0gVXLvx/TA0e72KrRl2gfnmqpfJm2ofJZFB2pUV2s8ga2eFJ7hcatWfsSpkRbo4El/aFC2oh48lxqzuGvGvx6AAJED1to6ZTTDaf2ShjY3Rp5LeQZf3eatt9q4N0WPyD954Ce1+UbZ/BYAq/c7EgkjucGvYSYh931jUrMrkYYRw9xMGF7Atd0XB96doPa1CIihh/CFTqyg9JJZMIf2RNDPhVuQRu4dgN/g6ntUkoWdI8ksNclNPJsDnWoE2rg47G858T3ywWRxv8LyFJ9Nw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DjYCQVukO7nZToj79V6spS7NVOx9pTkrUe6QXBW9xWA=;
- b=CcCYwIvLfquYhHoo8X1hAZT6l9nV0S2y810R7h4WlA/DSUVibPK7fr2jGSe2tN9a/SZVlgF/rBXWbbivRDoZUNLUD5Hz1Vn7uL8FrVRsDmkJ7W3RZ0FUiJ5hmK80CNqKj1Wz6+02DD+ZhSjHDHhMdk9jNHXA6r2uGGnul08iv5E=
-Received: from BN1PR10CA0005.namprd10.prod.outlook.com (2603:10b6:408:e0::10)
- by MN6PR12MB8516.namprd12.prod.outlook.com (2603:10b6:208:46f::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.18; Fri, 10 Mar
- 2023 22:17:08 +0000
-Received: from BN8NAM11FT097.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e0:cafe::f5) by BN1PR10CA0005.outlook.office365.com
- (2603:10b6:408:e0::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.19 via Frontend
- Transport; Fri, 10 Mar 2023 22:17:08 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT097.mail.protection.outlook.com (10.13.176.147) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.19 via Frontend Transport; Fri, 10 Mar 2023 22:17:08 +0000
-Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 10 Mar
- 2023 16:17:07 -0600
-From: Felix Kuehling <Felix.Kuehling@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [RFC PATCH 2/2] drm/amdgpu: Dummy CS for VM sync of compute VMs
-Date: Fri, 10 Mar 2023 17:16:13 -0500
-Message-ID: <20230310221613.1647188-2-Felix.Kuehling@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230310221613.1647188-1-Felix.Kuehling@amd.com>
-References: <20230310221613.1647188-1-Felix.Kuehling@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A121510E092;
+	Fri, 10 Mar 2023 23:41:39 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A33AE10E06C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Mar 2023 23:41:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1678491697; x=1710027697;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=uGxcFXry78PiOQTpS8iMYSvVyBNOau8JHZ/3FUB2DDI=;
+ b=V0/raIVcOH8kWXsaIF+hWq1XzHDc1ajxwhGSlAjk4IH3rFZrZCAleFob
+ IdSs6ZE5OOkLpbmYrACvfWNR+xisby9C9NdeLge/8cKxPeUTW+vGKSi8V
+ gVaTFgUInimBMCvGJCYgV/S+UHNnNb+dTic6Nk8JUhNmaybitMEWhL/12
+ SUoMQ+FKGXHjY8Hhhwlk9fUmq3rwPQB9Xp6HdJTUwqCr2kv5YqemfYXUZ
+ vhptZjgUgocvRIIr2sBF7U8cETejnnD5kYbsqkLIL2YN4lbxVPJmLRouU
+ UH9KF8IHB5XLCDHaDr/rkFJ8yUPq+kKjfsByXULb1hrleFB5UVUtazRn3 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10645"; a="339216061"
+X-IronPort-AV: E=Sophos;i="5.98,251,1673942400"; d="scan'208";a="339216061"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Mar 2023 15:41:37 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10645"; a="627987482"
+X-IronPort-AV: E=Sophos;i="5.98,251,1673942400"; d="scan'208";a="627987482"
+Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
+ by orsmga003.jf.intel.com with ESMTP; 10 Mar 2023 15:41:34 -0800
+Received: from kbuild by b613635ddfff with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pamMf-0004Av-2q;
+ Fri, 10 Mar 2023 23:41:33 +0000
+Date: Sat, 11 Mar 2023 07:40:40 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 24469a0e5052ba01a35a15f104717a82b7a4798b
+Message-ID: <640bbff8.muOygO+OodunRrhY%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT097:EE_|MN6PR12MB8516:EE_
-X-MS-Office365-Filtering-Correlation-Id: be2d6b0c-4782-4494-fb75-08db21b53022
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: SMbKg8JswePhkhutAorPB06CZ8xhcZEEtW1pSPBP/0eyDg0W8qytLvrL5GN8rISEqpzEjT28hUMbez3RetUMa612tD0LZqh2pNf8XPDahrFrzLZwSic4dMSaQ6mv9uPZ04+4xN1NSfibmUbacFV33tNcBtqrLhrEvW2+IOwQSMYjnjs1PDHyH6IJQkHrgG0hFZNbeSFdPrTF5S8uDBPantsFmG6luL0Km6lB3r6injSIyBbPY/+NFWX/bALsX8IFXSRzcTWTY/zdmXJa1lV6LbR2BJPwP7/sh3IcBvGU8qmPz8Ob0I3KnCa1E/5t3XPfJWo12hxz6PZSlNFI6Yk3oUNtX6TfHZ//2e+ueTEITQT3EN2/xzsu3GzsHRMe1Rt0D3cMQW2SnFFSFAP9Sw77lsOfzVztjPZBT0xQM0RqgXlxvOTrsWHKmisYQ1i6rVqs/3xBS+lXnStaaCS7MgWWkmXs9XwXsvC/co83cT/Bk+bpX782s77LIdYEwch6EePSNCxRSkVA8X0lNSAgs3GTjyGWH28vX/65tC9slgkFpyND6o65KAVC1oDnlQgFD5jjqbS+TSwWSoO4gJUvNju4BIGx+87LVu+nXyJU99lEOGU6AjzgkxhFNug8ik0g7vDRtj3v1OzTU8DMFZxp5usAlMJ4kKZMJFIDyt6y3B6jrfs02XZ25C3Rh++idEPrUPTJAScofX3uxNg0S2DZfFJOY7jxkkncr5NqyEzAto362/Q=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(346002)(39860400002)(136003)(396003)(376002)(451199018)(36840700001)(40470700004)(46966006)(36756003)(40460700003)(426003)(6666004)(47076005)(83380400001)(82740400003)(36860700001)(26005)(7696005)(186003)(16526019)(478600001)(336012)(2616005)(8676002)(2906002)(40480700001)(6916009)(86362001)(8936002)(4326008)(70206006)(5660300002)(70586007)(41300700001)(356005)(81166007)(1076003)(316002)(82310400005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2023 22:17:08.3140 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: be2d6b0c-4782-4494-fb75-08db21b53022
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT097.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8516
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,39 +58,272 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: christian.koenig@amd.com
+Cc: linux-arch@vger.kernel.org,
+ Linux Memory Management List <linux-mm@kvack.org>, linux-rdma@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-spi@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-clk@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use dummy command submissions with a 0-sized IB on a compute VM to flush
-TLBs and signal the fence in SW. This allows applications with user mode
-queues to sync with asynchronous VM updates through the CS API.
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 24469a0e5052ba01a35a15f104717a82b7a4798b  Add linux-next specific files for 20230310
 
-Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Error/Warning reports:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-index bcccc348dbe2..3f35d04bd4f7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-@@ -171,6 +171,15 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
- 		return -EINVAL;
- 	}
- 
-+	if (ib->length_dw == 0 && vm->is_compute_context) {
-+		/* Hack: Dummy CS. Just flush TLBs and signal the fence. */
-+		r = amdgpu_amdkfd_flush_tlb(adev, vm, TLB_FLUSH_LEGACY);
-+		if (r)
-+			return r;
-+		*f = &job->hw_fence;
-+		return dma_fence_signal(*f);
-+	}
-+
- 	alloc_size = ring->funcs->emit_frame_size + num_ibs *
- 		ring->funcs->emit_ib_size;
- 
+https://lore.kernel.org/oe-kbuild-all/202302111601.jtY4lKrA-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202302170355.Ljqlzucu-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202302201555.OI4N54jb-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202302242257.4W4myB9z-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202303081657.6Ble80UY-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202303081807.lBLWKmpX-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202303091435.ae36t8f6-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202303101423.vlii0zvA-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202303101701.lWfSMg4P-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202303101928.ZsKHeQTK-lkp@intel.com
+
+Error/Warning: (recently discovered and may have been fixed)
+
+FAILED: load BTF from vmlinux: No data available
+drivers/clk/mvebu/kirkwood.c:358:1: error: expected identifier or '('
+drivers/clk/mvebu/kirkwood.c:358:1: error: invalid digit 'd' in decimal constant
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_optc.c:294:6: warning: no previous prototype for 'optc3_wait_drr_doublebuffer_pending_clear' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:2184: warning: expecting prototype for Check if there is a native DP or passive DP(). Prototype was for dp_is_sink_present() instead
+drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:1146:3: warning: variable 'hotspotlimit' is uninitialized when used here [-Wuninitialized]
+drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:1149:24: warning: variable 'memlimit' is uninitialized when used here [-Wuninitialized]
+drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:1152:34: warning: variable 'software_shutdown_temp' is uninitialized when used here [-Wuninitialized]
+drivers/infiniband/ulp/srp/ib_srp.c:66: warning: "DEFINE_DYNAMIC_DEBUG_METADATA" redefined
+drivers/infiniband/ulp/srp/ib_srp.c:67: warning: "DYNAMIC_DEBUG_BRANCH" redefined
+drivers/spi/spi-mpc512x-psc.c:512:8: error: use of undeclared label 'free_ipg_clock'
+drivers/spi/spi-mpc512x-psc.c:516:17: error: label 'free_ipg_clock' used but not defined
+
+Unverified Error/Warning (likely false positive, please contact us if interested):
+
+include/linux/gpio/consumer.h: linux/err.h is included more than once.
+include/linux/gpio/driver.h: asm/bug.h is included more than once.
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- arc-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- arc-buildonly-randconfig-r002-20230308
+|   |-- FAILED:load-BTF-from-vmlinux:No-data-available
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- arm-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- arm-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- arm64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- csky-randconfig-s032-20230308
+|   |-- include-asm-generic-cmpxchg-local.h:sparse:sparse:cast-truncates-bits-from-constant-value-(-becomes-)
+|   `-- include-asm-generic-cmpxchg-local.h:sparse:sparse:cast-truncates-bits-from-constant-value-(aaa31337-becomes-)
+|-- i386-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dcn30-dcn30_optc.c:warning:no-previous-prototype-for-optc3_wait_drr_doublebuffer_pending_clear
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- ia64-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- loongarch-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- loongarch-defconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- loongarch-randconfig-c024-20230308
+|   `-- drivers-gpio-gpio-loongson-64bit.c:No-need-to-set-.owner-here.-The-core-will-do-it.
+|-- microblaze-randconfig-c042-20230308
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- microblaze-randconfig-s033-20230308
+|   |-- include-asm-generic-cmpxchg-local.h:sparse:sparse:cast-truncates-bits-from-constant-value-(-becomes-)
+|   `-- include-asm-generic-cmpxchg-local.h:sparse:sparse:cast-truncates-bits-from-constant-value-(aaa31337-becomes-)
+|-- mips-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- mips-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- nios2-randconfig-r033-20230310
+|   |-- drivers-infiniband-ulp-srp-ib_srp.c:warning:DEFINE_DYNAMIC_DEBUG_METADATA-redefined
+|   `-- drivers-infiniband-ulp-srp-ib_srp.c:warning:DYNAMIC_DEBUG_BRANCH-redefined
+|-- powerpc-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- powerpc-randconfig-r033-20230308
+|   `-- drivers-spi-spi-mpc512x-psc.c:error:label-free_ipg_clock-used-but-not-defined
+|-- riscv-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- s390-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- sparc-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+clang_recent_errors
+|-- arm-multi_v5_defconfig
+|   |-- drivers-clk-mvebu-kirkwood.c:error:expected-identifier-or-(
+|   `-- drivers-clk-mvebu-kirkwood.c:error:invalid-digit-d-in-decimal-constant
+|-- arm-randconfig-r001-20230308
+|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:variable-hotspotlimit-is-uninitialized-when-used-here
+|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:variable-memlimit-is-uninitialized-when-used-here
+|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:variable-software_shutdown_temp-is-uninitialized-when-used-here
+|-- powerpc-ksi8560_defconfig
+|   `-- error:unknown-target-CPU
+|-- powerpc-mpc512x_defconfig
+|   `-- drivers-spi-spi-mpc512x-psc.c:error:use-of-undeclared-label-free_ipg_clock
+|-- powerpc-randconfig-r022-20230308
+|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:variable-hotspotlimit-is-uninitialized-when-used-here
+|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:variable-memlimit-is-uninitialized-when-used-here
+|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:variable-software_shutdown_temp-is-uninitialized-when-used-here
+`-- s390-randconfig-r044-20230308
+    |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:variable-hotspotlimit-is-uninitialized-when-used-here
+    |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:variable-memlimit-is-uninitialized-when-used-here
+    `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:warning:variable-software_shutdown_temp-is-uninitialized-when-used-here
+
+elapsed time: 1288m
+
+configs tested: 142
+configs skipped: 10
+
+tested configs:
+alpha                            allyesconfig   gcc  
+alpha                               defconfig   gcc  
+arc                              alldefconfig   gcc  
+arc                              allyesconfig   gcc  
+arc          buildonly-randconfig-r002-20230308   gcc  
+arc                                 defconfig   gcc  
+arc                  randconfig-r043-20230308   gcc  
+arc                  randconfig-r043-20230310   gcc  
+arm                              alldefconfig   clang
+arm                              allmodconfig   gcc  
+arm                              allyesconfig   gcc  
+arm                       aspeed_g4_defconfig   clang
+arm                          collie_defconfig   clang
+arm                                 defconfig   gcc  
+arm                          exynos_defconfig   gcc  
+arm                        multi_v5_defconfig   clang
+arm                  randconfig-c002-20230310   gcc  
+arm                  randconfig-r001-20230308   clang
+arm                  randconfig-r006-20230308   clang
+arm                  randconfig-r015-20230308   gcc  
+arm                  randconfig-r046-20230308   gcc  
+arm                  randconfig-r046-20230310   clang
+arm                        shmobile_defconfig   gcc  
+arm                        spear6xx_defconfig   gcc  
+arm64                            allyesconfig   gcc  
+arm64                               defconfig   gcc  
+csky                                defconfig   gcc  
+csky                 randconfig-r016-20230308   gcc  
+hexagon                             defconfig   clang
+hexagon              randconfig-r041-20230308   clang
+hexagon              randconfig-r041-20230310   clang
+hexagon              randconfig-r045-20230308   clang
+hexagon              randconfig-r045-20230310   clang
+i386                             allyesconfig   gcc  
+i386                              debian-10.3   gcc  
+i386                                defconfig   gcc  
+i386                          randconfig-a001   gcc  
+i386                          randconfig-a002   clang
+i386                          randconfig-a003   gcc  
+i386                          randconfig-a004   clang
+i386                          randconfig-a005   gcc  
+i386                          randconfig-a006   clang
+i386                          randconfig-a011   clang
+i386                          randconfig-a012   gcc  
+i386                          randconfig-a013   clang
+i386                          randconfig-a014   gcc  
+i386                          randconfig-a015   clang
+i386                          randconfig-a016   gcc  
+i386                          randconfig-c001   gcc  
+ia64                             allmodconfig   gcc  
+ia64                         bigsur_defconfig   gcc  
+ia64         buildonly-randconfig-r004-20230308   gcc  
+ia64                                defconfig   gcc  
+ia64                 randconfig-r002-20230308   gcc  
+ia64                 randconfig-r025-20230308   gcc  
+ia64                          tiger_defconfig   gcc  
+loongarch                        allmodconfig   gcc  
+loongarch                         allnoconfig   gcc  
+loongarch                           defconfig   gcc  
+loongarch            randconfig-r014-20230308   gcc  
+loongarch            randconfig-r024-20230308   gcc  
+m68k                             allmodconfig   gcc  
+m68k                                defconfig   gcc  
+m68k                        mvme16x_defconfig   gcc  
+m68k                 randconfig-r021-20230308   gcc  
+mips                             allmodconfig   gcc  
+mips                             allyesconfig   gcc  
+mips                         cobalt_defconfig   gcc  
+mips                           ip28_defconfig   clang
+mips                      pic32mzda_defconfig   clang
+nios2                               defconfig   gcc  
+nios2                randconfig-r023-20230308   gcc  
+nios2                randconfig-r032-20230308   gcc  
+openrisc             randconfig-r013-20230308   gcc  
+parisc       buildonly-randconfig-r006-20230308   gcc  
+parisc                              defconfig   gcc  
+parisc64                            defconfig   gcc  
+powerpc                          allmodconfig   gcc  
+powerpc                           allnoconfig   gcc  
+powerpc                      cm5200_defconfig   gcc  
+powerpc                       ebony_defconfig   clang
+powerpc                        fsp2_defconfig   clang
+powerpc                    gamecube_defconfig   clang
+powerpc                  iss476-smp_defconfig   gcc  
+powerpc                     kilauea_defconfig   clang
+powerpc                     ksi8560_defconfig   clang
+powerpc                     mpc512x_defconfig   clang
+powerpc                      ppc40x_defconfig   gcc  
+powerpc              randconfig-r004-20230308   gcc  
+powerpc              randconfig-r022-20230308   clang
+powerpc              randconfig-r033-20230308   gcc  
+powerpc                     redwood_defconfig   gcc  
+powerpc                     sequoia_defconfig   gcc  
+powerpc                     tqm8555_defconfig   gcc  
+riscv                            allmodconfig   gcc  
+riscv                             allnoconfig   gcc  
+riscv                               defconfig   gcc  
+riscv                randconfig-r042-20230308   clang
+riscv                randconfig-r042-20230310   gcc  
+riscv                          rv32_defconfig   gcc  
+s390                             allmodconfig   gcc  
+s390                             allyesconfig   gcc  
+s390                                defconfig   gcc  
+s390                 randconfig-r035-20230308   gcc  
+s390                 randconfig-r044-20230308   clang
+s390                 randconfig-r044-20230310   gcc  
+sh                               allmodconfig   gcc  
+sh                         apsh4a3a_defconfig   gcc  
+sh                         microdev_defconfig   gcc  
+sh                   randconfig-r003-20230308   gcc  
+sh                   randconfig-r031-20230308   gcc  
+sh                   randconfig-r036-20230308   gcc  
+sh                          rsk7201_defconfig   gcc  
+sh                           se7721_defconfig   gcc  
+sh                           se7722_defconfig   gcc  
+sh                     sh7710voipgw_defconfig   gcc  
+sparc                               defconfig   gcc  
+um                             i386_defconfig   gcc  
+um                           x86_64_defconfig   gcc  
+x86_64                            allnoconfig   gcc  
+x86_64                           allyesconfig   gcc  
+x86_64                              defconfig   gcc  
+x86_64                                  kexec   gcc  
+x86_64                        randconfig-a001   clang
+x86_64                        randconfig-a002   gcc  
+x86_64                        randconfig-a003   clang
+x86_64                        randconfig-a004   gcc  
+x86_64                        randconfig-a005   clang
+x86_64                        randconfig-a006   gcc  
+x86_64                        randconfig-a011   gcc  
+x86_64                        randconfig-a012   clang
+x86_64                        randconfig-a013   gcc  
+x86_64                        randconfig-a014   clang
+x86_64                        randconfig-a015   gcc  
+x86_64                        randconfig-a016   clang
+x86_64                        randconfig-c001   gcc  
+x86_64                        randconfig-k001   clang
+x86_64                               rhel-8.3   gcc  
+xtensa       buildonly-randconfig-r001-20230308   gcc  
+xtensa       buildonly-randconfig-r003-20230308   gcc  
+xtensa                  nommu_kc705_defconfig   gcc  
+xtensa               randconfig-r005-20230308   gcc  
+
 -- 
-2.34.1
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
