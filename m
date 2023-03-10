@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 127CFC64EC4
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Mar 2023 09:33:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A20BC64EC4
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Mar 2023 09:33:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CD4A10E9B0;
-	Fri, 10 Mar 2023 09:33:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13E8210E9C3;
+	Fri, 10 Mar 2023 09:33:21 +0000 (UTC)
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2062e.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e89::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCDD410E9B1
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Mar 2023 09:33:08 +0000 (UTC)
+ (mail-mw2nam10on2061.outbound.protection.outlook.com [40.107.94.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0B9310E998
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Mar 2023 09:33:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jgFrV1nEqgTcfNRDxApGHIGVQwlWMnBEYdCt2Esml/HCRLjGUWYYNtDoU/3I4uXA2Dk6RsD19Zwlt1Q66USfjCk5NBp3nveU+KBNmPuI1tKt8GFKKNDvchcLt/bPT+G2YzmqW+F8eENpkj+KHnh3ZkqOjZlOPPrupLgs8RahN5i6QMtPlnILWUmQeutzAuy0RWd9+V6yQ55VKYoqIuU36cqj/GGHARYyxZdNwULDN8NSRUwFz6h3JBevCnx6OjwnA3syn9VpYufZ7qgOjDWrdNQHtu0qeWsC9T9G+zwrOuXcs4QrPqTzBok90g3eSitWYKGvXlggJYo9l0G65FdOHg==
+ b=hz040oGjw2KCOhqCBL9i6X/UupZY3E3ivA6PbUrQQMR4CS6GJYInrRxc1KeR3qyKyR8/MibZ/dBLtJV5P0czsdKgPM1CA7rccK7FHKdBVI1aqQkJ4yzUrcA95+2AtmyQHPHrbtuwPefDgYKrS39UpXL4FxFzg1Q29P9Uhjc+7+MTwRJ/WIf/N8S8zspvvQBhT/wFjJljMkK38AEKpc1z4VqtA8maZfwz5Mw6t7ugtanEIIvOENI/QVHX1jKGK63/YJnqc6URhc6mQsRd7VkdZV6XlKLshx98eh/YrUFYm7A9IVvaDEYXf4g2+HREoHij7noM5VcxRRY7H/4hBGptGQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SaOBD78m+/XzVcmBnBtelpAmnMdL+LDZRA9z0iigZbs=;
- b=BKoxaEqWaNHVrd3OzIGmUeZ87ZzYo2CfBgRFw3zpm+DrXcofM5OGSLDfLioQ/Y9e36IrBDBELYDR95hnw8cRGHw5TXe5KL5u9w5xf/HiRmeeeRf3NNcougTRIkCznFXRYTeIeoJbiXK4XPzQ6K4b5wa1fo6AUNHRVAriikWre8VWcVE0boBnANybluhUTSSQH6Bk+xDq+vtB7f8nZHC6wGrjKm4ktV2UtIHMZfFLg2rBX5mX4ywLK5Ewk5An6+OufPDR5gBbMkjOdk1TEMDladIxIq+ONvUa4PSnW3znGh+5vAWKFkO4WF6x0Ck4+n7Qe/qM2PRd968SlNoDYCDz0A==
+ bh=5UF7tCPVIfqcGlpKm9Ek4o0RWQqwimunlLHRIaXkXLo=;
+ b=LVRVewPwCxmWQbl6y3gPUdnuWTvmTYW1tk6tSg6PYslVgftzb39cOlh3LJ9wSfqGwIS/VnCn7DAz7900TojRQ91+uIEqsbZeDE/nexocg5zrK0qd8FcPaP5pCCMv+om+LBuAp4Gwjg9kJwQW+y3KMBbnXmbhre35Mzl4c8uK2B9p1NJ/ODoVACU5x5GpiH6BHZdTVbDlMVZa4qgKuI4/rvOWhqC5Y/XpMF/EP2jQj8QldouWtJbMi9hIQsITzvoThPRCVRZxlPku+F6KDIpnfU0AhvwZ7OUwDkAZ1mwIgKlJo1A8JyJ3Ctt7BMS5R8SRYQeGV5dVqlFgZTDEyvK7yQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SaOBD78m+/XzVcmBnBtelpAmnMdL+LDZRA9z0iigZbs=;
- b=LhE0M5xBzdcz6ox6pjlpG5O8IRQsGd1p7uRdo/tAijzXnKJh4J/0m7Az9xg579mcbNFI8hOxzT/jHr+08DabsT417HvAe1iWShi1JJL+Gtn6gl5G9htqCFkwo9Pf+4VfMOBz0CTwFJay1YSIFB+8sJLtsSAD/R3ctK7xCSztx6E=
-Received: from CY5PR19CA0074.namprd19.prod.outlook.com (2603:10b6:930:69::23)
- by PH7PR12MB6978.namprd12.prod.outlook.com (2603:10b6:510:1b8::10)
+ bh=5UF7tCPVIfqcGlpKm9Ek4o0RWQqwimunlLHRIaXkXLo=;
+ b=aA2nVBanWUNOIIlaGRenrwp4uxVFAROuYYkW0GoLDyOJR58INoBjNPWkUdfIJaFp7R8JhQ17IDh4Zd475m0EXrVq+7OPEDfhq8G/M7ICgAHc3r1FJ48QZWVbu7yQR0EIk961dVwcRZmAVufT900fEIjra0+52a21+4qEhWNyXRo=
+Received: from CYZPR12CA0002.namprd12.prod.outlook.com (2603:10b6:930:8b::13)
+ by CY8PR12MB7339.namprd12.prod.outlook.com (2603:10b6:930:51::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.19; Fri, 10 Mar
- 2023 09:33:06 +0000
-Received: from CY4PEPF0000C976.namprd02.prod.outlook.com
- (2603:10b6:930:69:cafe::97) by CY5PR19CA0074.outlook.office365.com
- (2603:10b6:930:69::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.19 via Frontend
- Transport; Fri, 10 Mar 2023 09:33:06 +0000
+ 2023 09:33:13 +0000
+Received: from CY4PEPF0000C97C.namprd02.prod.outlook.com
+ (2603:10b6:930:8b:cafe::1e) by CYZPR12CA0002.outlook.office365.com
+ (2603:10b6:930:8b::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.20 via Frontend
+ Transport; Fri, 10 Mar 2023 09:33:13 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -46,19 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000C976.mail.protection.outlook.com (10.167.241.132) with Microsoft
+ CY4PEPF0000C97C.mail.protection.outlook.com (10.167.241.135) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.13 via Frontend Transport; Fri, 10 Mar 2023 09:33:06 +0000
+ 15.20.6178.13 via Frontend Transport; Fri, 10 Mar 2023 09:33:11 +0000
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 10 Mar
- 2023 03:33:00 -0600
+ 2023 03:33:06 -0600
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 14/19] drm/amd/display: reallocate DET for dual displays with
- high pixel rate ratio
-Date: Fri, 10 Mar 2023 04:31:12 -0500
-Message-ID: <20230310093117.3030-15-qingqing.zhuo@amd.com>
+Subject: [PATCH 15/19] drm/amd/display: Make DCN32 functions available to
+ future DCNs
+Date: Fri, 10 Mar 2023 04:31:13 -0500
+Message-ID: <20230310093117.3030-16-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230310093117.3030-1-qingqing.zhuo@amd.com>
 References: <20230310093117.3030-1-qingqing.zhuo@amd.com>
@@ -70,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000C976:EE_|PH7PR12MB6978:EE_
-X-MS-Office365-Filtering-Correlation-Id: c0c9da94-ac57-4ac8-559f-08db214a7449
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000C97C:EE_|CY8PR12MB7339:EE_
+X-MS-Office365-Filtering-Correlation-Id: f2e2c0f1-5b56-4517-9fe9-08db214a7765
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: NnMig7svZdUKUiDRDAMrkl9X+y+dFwLdYmrRrXq6tXunlQw0z+XqeV4mhHO9iUWkUOIuyHCml3kHO1JR7M5HTRbkTlWPPNYPTFMpw9DOeiU4qtdvLX5rNzo7uNc0UMB5RUAULIVxciPccC372LIP2C4fEriTj0mCJDDjgi+jgW5qPHQKkI2dsoHMzAc259j0G0PJ9L594t768eKeiL+o71meXZwrvvY8W8KdDVQtAZbca9cWov70BGEzcDzSSilW2md/QzotzDMAIsjhaUJENqKBsqAZIyDrmNSmxViKhbDwlw7DxuMMbwcYBZYe0MDQTEuC4kwI4fkiUiKEzEcTqEf1qdOteOy6OcbEVrbj5Y8ONbol0vDBDihB8bpuiiophEuNzpnFxWB4vQA6B/wOGYrRcYFlNJ2x/SZ8dYT0hi3DKnsEaVycfcPLA6fehiy9x1SICn/21hHHGstQ/JzcWPYhkoryWBYZUqt6/FO4gAgT+/iT1Vy2YrTldvO/zl20dSOKVdCE27rCp51psj639T6JwuZ9dhA4OsBGldBrm6ODoendHxgiCHpwlYIJ/kDR/ytiXLPmCeqgGg0Gk6jqw37Nqymmd8DeFIFgVKmUkkGICAefASdO4IW0+690IvGu/Mh87SvwkV47Fx9fdIR1N1RTnrzfKKztRB44xPcqK9ygdOaFqO3H5VG9iYGiqZfF5vIhIGJ9Sxvsoqic2z4O9oVDgVAegcSvvGQRnPC8EeU=
+X-Microsoft-Antispam-Message-Info: hzfqndd0ipPVVCI6SIOmEV8SGsrZq4fr+kIjQvn2Wk3ecL1QMMRO9Rqs90w9qnAK15vWq/t4L3geB/0XTy5agGLc3tk/derloYD1/hoRAn5rFTOqxKbA2bZLi5O2IUfxEx3it36hi4JV5CQwQ+w1CQdLrs6b7IWIK376F0Aj5Tf68Ti364tu4UCMexxfiqlVyYHFoprot0IT0Wne0afEtlCT79szhMfcDUGJAK7SBO+Zoz0OyZAb8bIfFosfBrFUK5owzZj2Eo/AeWj3DDRWioV3r6MuGTzEFu8cWZKrzn7g2zkJv38mft547GtCX4tpBTnguHmsJI+N1n/oau8vBleX4AsVGw7IaHJNREuyMleXObRI0zafLFrLVQzlWppjuPuq0vd3iUFUTFhiw3Y2AG3s8aOcr64E4zEfjuyhFiOK7hqVNp3Zc/iJPj6j0rQ5Ia/C8QMII8Gl9UJlTnPLRbM8olo4ZMOquwjcDV6t1xt/+VagBKCBYEj4H6p26KXGHgQkfvaFzoaZVmCLfHKPb++4xPLcusXyoQeP/gOat3Jj3Ty+dJ+7zwvRjxZ60oC/kRjItXtt+FNyUfZPV0giVQ5npd/qPuC8nuEtbMSkj5iDW/s0u3pbxhITqxdhfGtM8fFSMxt9HAdhDK01US+kHs4qVNzLh2nZNclZdrqbxi6fjCkNfk9VXWpt9JX2EvHNcbG//GzOGY8KQoRDBrRk9BDY08bOT2Hfqmp+Q1mr7hE=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(136003)(396003)(376002)(39860400002)(346002)(451199018)(40470700004)(46966006)(36840700001)(336012)(47076005)(426003)(54906003)(36756003)(40460700003)(356005)(36860700001)(40480700001)(86362001)(81166007)(82740400003)(26005)(1076003)(82310400005)(83380400001)(186003)(6666004)(16526019)(2616005)(316002)(5660300002)(478600001)(6916009)(2906002)(4326008)(41300700001)(8936002)(70206006)(8676002)(44832011)(70586007)(36900700001);
+ SFS:(13230025)(4636009)(396003)(39860400002)(136003)(376002)(346002)(451199018)(46966006)(36840700001)(40470700004)(336012)(47076005)(426003)(316002)(54906003)(40460700003)(36756003)(40480700001)(356005)(86362001)(82740400003)(81166007)(36860700001)(1076003)(26005)(6666004)(82310400005)(83380400001)(16526019)(186003)(2616005)(5660300002)(478600001)(8936002)(41300700001)(44832011)(2906002)(8676002)(6916009)(70206006)(4326008)(70586007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2023 09:33:06.4222 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0c9da94-ac57-4ac8-559f-08db214a7449
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2023 09:33:11.6408 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f2e2c0f1-5b56-4517-9fe9-08db214a7765
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C976.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C97C.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6978
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7339
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,118 +100,92 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Samson Tam <Samson.Tam@amd.com>, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, Alvin Lee <Alvin.Lee2@amd.com>, wayne.lin@amd.com,
- Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: stylon.wang@amd.com, Chris Park <Chris.Park@amd.com>,
+ Wesley Chalmers <Wesley.Chalmers@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+ wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Samson Tam <Samson.Tam@amd.com>
+From: Wesley Chalmers <Wesley.Chalmers@amd.com>
 
-[Why]
-For dual displays where pixel rate is much higher on one display,
-we may get underflow when DET is evenly allocated.
+[Why & How]
+Make DCN32 functions available for more DCNs.
 
-[How]
-Allocate less DET segments for the lower pixel rate display and
-more DET segments for the higher pixel rate display
-
-Reviewed-by: Alvin Lee <Alvin.Lee2@amd.com>
+Reviewed-by: Chris Park <Chris.Park@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Signed-off-by: Samson Tam <Samson.Tam@amd.com>
+Signed-off-by: Wesley Chalmers <Wesley.Chalmers@amd.com>
 ---
- .../display/dc/dcn32/dcn32_resource_helpers.c | 43 ++++++++++++++++++-
- 1 file changed, 42 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.c |  8 ++++----
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.h | 13 +++++++++++++
+ 2 files changed, 17 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-index a616cf078cf4..adaf330716c2 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
-@@ -257,6 +257,8 @@ bool dcn32_is_psr_capable(struct pipe_ctx *pipe)
- 	return psr_capable;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.c
+index 206a5ddbaf6d..c8041cfd594d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.c
+@@ -42,7 +42,7 @@
+ 	mpc30->mpc_shift->field_name, mpc30->mpc_mask->field_name
+ 
+ 
+-static void mpc32_mpc_init(struct mpc *mpc)
++void mpc32_mpc_init(struct mpc *mpc)
+ {
+ 	struct dcn30_mpc *mpc30 = TO_DCN30_MPC(mpc);
+ 	int mpcc_id;
+@@ -254,7 +254,7 @@ static void mpc32_program_post1dlut_pwl(
+ 	}
  }
  
-+#define DCN3_2_NEW_DET_OVERRIDE_MIN_MULTIPLIER 7
-+
- /**
-  * *******************************************************************************************
-  * dcn32_determine_det_override: Determine DET allocation for each pipe
-@@ -268,7 +270,6 @@ bool dcn32_is_psr_capable(struct pipe_ctx *pipe)
-  * If there is a plane that's driven by more than 1 pipe (i.e. pipe split), then the
-  * number of DET for that given plane will be split among the pipes driving that plane.
-  *
-- *
-  * High level algorithm:
-  * 1. Split total DET among number of streams
-  * 2. For each stream, split DET among the planes
-@@ -276,6 +277,18 @@ bool dcn32_is_psr_capable(struct pipe_ctx *pipe)
-  *    among those pipes.
-  * 4. Assign the DET override to the DML pipes.
-  *
-+ * Special cases:
-+ *
-+ * For two displays that have a large difference in pixel rate, we may experience
-+ *  underflow on the larger display when we divide the DET equally. For this, we
-+ *  will implement a modified algorithm to assign more DET to larger display.
-+ *
-+ * 1. Calculate difference in pixel rates ( multiplier ) between two displays
-+ * 2. If the multiplier exceeds DCN3_2_NEW_DET_OVERRIDE_MIN_MULTIPLIER, then
-+ *    implement the modified DET override algorithm.
-+ * 3. Assign smaller DET size for lower pixel display and higher DET size for
-+ *    higher pixel display
-+ *
-  * @param [in]: dc: Current DC state
-  * @param [in]: context: New DC state to be programmed
-  * @param [in]: pipes: Array of DML pipes
-@@ -295,18 +308,46 @@ void dcn32_determine_det_override(struct dc *dc,
- 	struct dc_plane_state *current_plane = NULL;
- 	uint8_t stream_count = 0;
+-static bool mpc32_program_post1dlut(
++bool mpc32_program_post1dlut(
+ 		struct mpc *mpc,
+ 		const struct pwl_params *params,
+ 		uint32_t mpcc_id)
+@@ -701,7 +701,7 @@ static void mpc32_power_on_shaper_3dlut(
+ }
  
-+	int phy_pix_clk_mult, lower_mode_stream_index;
-+	int phy_pix_clk[MAX_PIPES] = {0};
-+	bool use_new_det_override_algorithm = false;
-+
- 	for (i = 0; i < context->stream_count; i++) {
- 		/* Don't count SubVP streams for DET allocation */
- 		if (context->streams[i]->mall_stream_config.type != SUBVP_PHANTOM) {
-+			phy_pix_clk[i] = context->streams[i]->phy_pix_clk;
- 			stream_count++;
- 		}
- 	}
  
-+	/* Check for special case with two displays, one with much higher pixel rate */
-+	if (stream_count == 2) {
-+		ASSERT(!phy_pix_clk[0] || !phy_pix_clk[1]);
-+		if (phy_pix_clk[0] < phy_pix_clk[1]) {
-+			lower_mode_stream_index = 0;
-+			phy_pix_clk_mult = phy_pix_clk[1] / phy_pix_clk[0];
-+		} else {
-+			lower_mode_stream_index = 1;
-+			phy_pix_clk_mult = phy_pix_clk[0] / phy_pix_clk[1];
-+		}
-+
-+		if (phy_pix_clk_mult >= DCN3_2_NEW_DET_OVERRIDE_MIN_MULTIPLIER)
-+			use_new_det_override_algorithm = true;
-+	}
-+
- 	if (stream_count > 0) {
- 		stream_segments = 18 / stream_count;
- 		for (i = 0; i < context->stream_count; i++) {
- 			if (context->streams[i]->mall_stream_config.type == SUBVP_PHANTOM)
- 				continue;
-+
-+			if (use_new_det_override_algorithm) {
-+				if (i == lower_mode_stream_index)
-+					stream_segments = 4;
-+				else
-+					stream_segments = 14;
-+			}
-+
- 			if (context->stream_status[i].plane_count > 0)
- 				plane_segments = stream_segments / context->stream_status[i].plane_count;
- 			else
+-static bool mpc32_program_shaper(
++bool mpc32_program_shaper(
+ 		struct mpc *mpc,
+ 		const struct pwl_params *params,
+ 		uint32_t mpcc_id)
+@@ -897,7 +897,7 @@ static void mpc32_set_3dlut_mode(
+ }
+ 
+ 
+-static bool mpc32_program_3dlut(
++bool mpc32_program_3dlut(
+ 		struct mpc *mpc,
+ 		const struct tetrahedral_params *params,
+ 		int mpcc_id)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.h b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.h
+index 61f33c0d8e59..2c2ecd053806 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_mpc.h
+@@ -310,6 +310,19 @@ struct dcn32_mpc_registers {
+ 	MPC_REG_VARIABLE_LIST_DCN3_0;
+ 	MPC_REG_VARIABLE_LIST_DCN32;
+ };
++void mpc32_mpc_init(struct mpc *mpc);
++bool mpc32_program_3dlut(
++		struct mpc *mpc,
++		const struct tetrahedral_params *params,
++		int mpcc_id);
++bool mpc32_program_post1dlut(
++		struct mpc *mpc,
++		const struct pwl_params *params,
++		uint32_t mpcc_id);
++bool mpc32_program_shaper(
++		struct mpc *mpc,
++		const struct pwl_params *params,
++		uint32_t mpcc_id);
+ 
+ void dcn32_mpc_construct(struct dcn30_mpc *mpc30,
+ 	struct dc_context *ctx,
 -- 
 2.34.1
 
