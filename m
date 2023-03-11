@@ -4,42 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A948AC6FD1C
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Mar 2023 13:13:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13E7AC61DA4
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Mar 2023 16:01:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01CF110E1E2;
-	Sat, 11 Mar 2023 13:13:51 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE4FA10E1E2
- for <amd-gfx@lists.freedesktop.org>; Sat, 11 Mar 2023 13:13:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=dxYxJlmgjkq/4ajujbG+Cq5Qw7wpEte3CdOtR7xEpTY=; b=YWBP8Gwkc8iwXqeamVAhUP3AZU
- YZ1EMNzoHrLAaCY24eMAR8o24KXX4ruMMJGhIFEmqGa8eQF93uJc1VUkIEz8lqBIuWSXSodtqLZNC
- vXYZkSVX+//uQqD9OReOnO0zsXh1ihIUzPbTdYN7uPXa+mjOr0I9KH4wLEp12wbNN1IvtYMUzV+Ib
- YoaSMUVaoNj6SF1BieRVv3IO3EImkMg5agy6uydlT4tCDwmi6RtjqIAWF98K5kFgMQtBGQFPHYFs5
- oX70NO7CyzSoiE6gGdAi59Q85lQUIHa6spgeuhYUQqjFwCgIWxpOX1YdDPpTn6aGRDtBPsLZKjWWC
- 215SxnKg==;
-Received: from [38.44.66.31] (helo=mail.igalia.com)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1paz2h-004Wey-8g; Sat, 11 Mar 2023 14:13:47 +0100
-Date: Sat, 11 Mar 2023 12:13:00 -0100
-From: Melissa Wen <mwen@igalia.com>
-To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Subject: Re: [PATCH] drm/amd/display: Set MPC_SPLIT_DYNAMIC for DCN301
-Message-ID: <20230311131300.tw5dgrkbrscmclg3@mail.igalia.com>
-References: <20230309181838.463319-1-Rodrigo.Siqueira@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82AEC10E0E9;
+	Sat, 11 Mar 2023 16:01:48 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A253710E0A3
+ for <amd-gfx@lists.freedesktop.org>; Sat, 11 Mar 2023 10:40:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1678531203;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=nMVyit9KoTVwnZdvsgo8VYbd90GtcYARP5wwOTF3/G4=;
+ b=PNPhVHzUSDwZnDJDKr7PCt2dan4TyTRsepKtXI3+BAtT8bBkmVIHXiRCIvzg1X6vNU3Jz7
+ sRcQ1f29mqJiZqN/RsmJPK3gI/y7MQ3/ySucw1/kDERr9GEm4npjNIJ6tb8s/yVsblbLya
+ LnCEBo6OgzkRKe+NQ8q+nOJBE0J5pOs=
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
+ [209.85.208.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-324-sdSLEE-RO9Srhnvjxdh76g-1; Sat, 11 Mar 2023 05:40:00 -0500
+X-MC-Unique: sdSLEE-RO9Srhnvjxdh76g-1
+Received: by mail-ed1-f70.google.com with SMTP id
+ q13-20020a5085cd000000b004af50de0bcfso11051823edh.15
+ for <amd-gfx@lists.freedesktop.org>; Sat, 11 Mar 2023 02:39:59 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678531199;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=nMVyit9KoTVwnZdvsgo8VYbd90GtcYARP5wwOTF3/G4=;
+ b=tEdltgCOi9c+7SG4cJCcSCLQJGs1Hb11aJBsWJ/TZ5t6BVZ3Tth0owdVcNx4kZNaq1
+ /kgxD4FfszfKxQAyG5CDTFLAVpMKvEhXiU8or8D73Bk1DRaGbwyd2HaVOhkTBIsNmCMo
+ LsvJgSFBx3XwSWyc6ToLTyu3JILKsZZVcA5Xf5cfZHbNidatma0A0X9b5GhkZ5xwbxee
+ yXn1Je61yajvqiN9fcbpuCOD52MvnGa+CGeqGHToyCyHTS5fqcPXm8KAVbezMG/HgLhR
+ k3iQWwGt+C6YrlW5BklBa0cKx+dPjVuby0hKDkP9p0aJqEHuBgeuXIT87c5wTfdUINM4
+ ZOvw==
+X-Gm-Message-State: AO0yUKXT5Gn1Xry97TIZgQBLumWpx0tIGzbwrrjtfOLd87l6wf7PL4aq
+ nydEwKfYiJDkGrpzezBBTXRKTnzza0B092yWwFM07XTS1Hly7LSUw8Dy7/YNfoSQU1GMSFB0Nij
+ btTzkk0P/uNm2HcqNzEPL2RRQ5w==
+X-Received: by 2002:a17:906:1481:b0:8b1:7ae8:ba6f with SMTP id
+ x1-20020a170906148100b008b17ae8ba6fmr27001882ejc.16.1678531199075; 
+ Sat, 11 Mar 2023 02:39:59 -0800 (PST)
+X-Google-Smtp-Source: AK7set910RS+EXo716Ddx3LyA/RnltmgjANkhTbuK3TVY0iwKhD3ubwTYgFFgCFRquhY4jeR2NJZZw==
+X-Received: by 2002:a17:906:1481:b0:8b1:7ae8:ba6f with SMTP id
+ x1-20020a170906148100b008b17ae8ba6fmr27001869ejc.16.1678531198815; 
+ Sat, 11 Mar 2023 02:39:58 -0800 (PST)
+Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec?
+ (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
+ by smtp.gmail.com with ESMTPSA id
+ z10-20020a17090674ca00b008c327bef167sm980894ejl.7.2023.03.11.02.39.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 11 Mar 2023 02:39:58 -0800 (PST)
+Message-ID: <95d4a9f4-9389-f1ee-44e7-44fd6571cb2c@redhat.com>
+Date: Sat, 11 Mar 2023 11:39:57 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="4q2la4okw67dqlxn"
-Content-Disposition: inline
-In-Reply-To: <20230309181838.463319-1-Rodrigo.Siqueira@amd.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [RFC v2 0/6] drm/amd/display: Pass proper parent for DM backlight
+ device v2
+To: Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
+References: <20230308215831.782266-1-hdegoede@redhat.com>
+ <6fd35bd4-4edf-575c-8875-1cb256f414d5@amd.com>
+From: Hans de Goede <hdegoede@redhat.com>
+In-Reply-To: <6fd35bd4-4edf-575c-8875-1cb256f414d5@amd.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US, nl
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sat, 11 Mar 2023 16:01:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,83 +89,90 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Xaver Hugl <xaver.hugl@gmail.com>,
- amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Rodrigo,
 
---4q2la4okw67dqlxn
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 3/10/23 23:12, Rodrigo Siqueira Jordao wrote:
+> Hi Hans,
+> 
+> Which AMD device do you have available for testing this series?
 
-On 03/09, Rodrigo Siqueira wrote:
-> Since DC version 3.2.226, DC started to use a new internal commit
-> sequence that better deals with hardware limitations. Usually, DC adopts
-> split pipe dynamics to improve the display bandwidth and, in some cases,
-> to save power. This commit sets MPC_SPLIT_DYNAMIC for DCN301, improving
-> the bandwidth and fixing the cursor bug on KDE when it tries hardware
-> rotation.
+As mentioned in a reply to the cover-letter (should have been
+in the cover-letter itself but I forgot, sorry. I don't have
+any hw to test this which is why this was marked as a RFC.
 
-Hi Siqueira,
+In the mean time 2 reporters of:
 
-Thanks for the work on allowing this pipe split policy change. I've
-tested SteamDeck system behavior with this change and overall LGTM.
+https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/issues/730
 
-=46rom my previous tests on HW rotation, I don't see glitches when
-splitting pipe, the issue only appears on one-pipe setup, but Xaver is
-the best person to validate this on KDE environment.
+who have affected hw hitting the changed code paths have
+confirmed that this series works and that the correct
+parent now gets set.
 
-Thanks,
-Reviewed-by: Melissa Wen <mwen@igalia.com>
+So as I also already mentioned in a reply to the cover-letter (1):
 
->=20
-> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2247
-> Cc: Melissa Wen <mwen@igalia.com>
-> Cc: Xaver Hugl <xaver.hugl@gmail.com>
-> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c b/dr=
-ivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-> index b93b4498dba4..5ac2a272c380 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn301/dcn301_resource.c
-> @@ -687,7 +687,7 @@ static const struct dc_debug_options debug_defaults_d=
-rv =3D {
->  	.disable_clock_gate =3D true,
->  	.disable_pplib_clock_request =3D true,
->  	.disable_pplib_wm_range =3D true,
-> -	.pipe_split_policy =3D MPC_SPLIT_AVOID,
-> +	.pipe_split_policy =3D MPC_SPLIT_DYNAMIC,
->  	.force_single_disp_pipe_split =3D false,
->  	.disable_dcc =3D DCC_ENABLE,
->  	.vsr_support =3D true,
-> --=20
-> 2.39.2
->=20
+this series no longer is RFC, but is ready for merging (from my pov) now.
 
---4q2la4okw67dqlxn
-Content-Type: application/pgp-signature; name="signature.asc"
+> P.s.: If you have a new version of this series, could you also Cc me?
 
------BEGIN PGP SIGNATURE-----
+Sure, although atm I see no need to do a new version, please consider
+this a non RFC submission now and review it. If the review leads to
+changes being requested then I'll prepare a new version and Cc you.
 
-iQIzBAABCgAdFiEEd8WOo/JViG+Tu+XIwqF3j0dLehwFAmQMflIACgkQwqF3j0dL
-ehzC6w/8CM0VrOgfQGglxlza2V1/x2dWUw9q6npcaSZtMfsZX//6SatIm2SVb8YZ
-rwT24Wd6xjTC6BYdh00EYC28P+gMIDa5h8r+ryCzZrJkXqu17FqchRjrjopXExtt
-G5tXYqby/RxTVcMnD/yn/OgamjkrA52he5UyvJB8NAJwpspb4IyxQvjXNtZiLOO2
-UGPH3+B9lStnUL8w1IcEzIT5Pupu3sEv0LGGPrzK8GhyGc265xrDoChILDqDumRC
-FViSRdCfUl5yoQXVPQEzHzTQ1NHbW1Gk47jexIHzryyfDHoH2C6AH+Q3PY5ygzKs
-juJsqA7zRIw4qfudayOA/OZOI102OGLxohcY6nKYj4WyqrqsZ6ceH9ZEUiOO3fU6
-//BPBVJE1w7M29f0Kde6jgz4Jfl97iLgzL0mNbNIoeUnpS25pjWhe9zKSwEeplG1
-hfhg7Vsqx0ng27sjSGio1ABcZ8fCwFzcQnklHKY0BwXZ+f5PsYPUK6ee2zCbyper
-tWQGuogaWonrAYBZj1JGW5sdxJzw8P+EdV574G3bI18ceq9Q3QtVTp6FUOyp3m4v
-T6hveb4fOtx9L5SGcHzVazh9PUVg2xTvo21LFv40uLHblEvK8uF3pMhs7eNe6pS6
-4BdJ22QhZGZpmcOwnCoFl4QBX8S2y9Gzb0zVB7gDwVvHRemK3H8=
-=jtV3
------END PGP SIGNATURE-----
+Regards,
 
---4q2la4okw67dqlxn--
+Hans
+
+
+
+1) Next time mayvw read the entire thread before replying ?
+
+
+
+
+
+
+
+
+> On 3/8/23 14:58, Hans de Goede wrote:
+>> Hi All,
+>>
+>> Here is version 2 of my patch series to pass the proper parent device
+>> to backlight_device_register().
+>>
+>> New in version 2 is delaying the registering of the backlight_dev till
+>> after the drm_connector is registered by doing it from
+>> drm_connector_funcs.late_register.
+>>
+>> This involves first reworking the code a bit to allow delaying
+>> the registering, so this has turned from a single patch into
+>> a 6 patch set.
+>>
+>> Regards,
+>>
+>> Hans
+>>
+>>
+>> Hans de Goede (6):
+>>    drm/amd/display/amdgpu_dm: Fix backlight_device_register() error
+>>      handling
+>>    drm/amd/display/amdgpu_dm: Refactor register_backlight_device()
+>>    drm/amd/display/amdgpu_dm: Add a bl_idx to amdgpu_dm_connector
+>>    drm/amd/display/amdgpu_dm: Move most backlight setup into
+>>      setup_backlight_device()
+>>    drm/amd/display/amdgpu_dm: Make amdgpu_dm_register_backlight_device()
+>>      take an amdgpu_dm_connector
+>>    drm/amd/display: Pass proper parent for DM backlight device
+>>      registration v2
+>>
+>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 99 ++++++++-----------
+>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  1 +
+>>   2 files changed, 44 insertions(+), 56 deletions(-)
+>>
+> 
+
