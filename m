@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB75EC6FD1F
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Mar 2023 08:18:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 062D6C74A5B
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Mar 2023 08:18:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4436310E4B7;
-	Mon, 13 Mar 2023 08:18:31 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7A4C10E44E;
- Mon, 13 Mar 2023 01:05:12 +0000 (UTC)
-X-UUID: 5d474a64498641cdba043aa07568a6fc-20230313
-X-CID-UNFAMILIAR: 1
-X-CID-O-RULE: Release_Ham
-X-CID-RULE: Release_HamU
-X-CID-O-INFO: VERSION:1.1.20, REQID:3981b3c5-5dcb-4ca8-b8be-32d1c492d406, IP:5,
- U
- RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:4,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:4
-X-CID-INFO: VERSION:1.1.20, REQID:3981b3c5-5dcb-4ca8-b8be-32d1c492d406, IP:5,
- URL
- :0,TC:0,Content:-5,EDM:0,RT:0,SF:4,FILE:0,BULK:0,RULE:Release_HamU,ACTION:
- release,TS:4
-X-CID-META: VersionHash:25b5999, CLOUDID:29b52028-564d-42d9-9875-7c868ee415ec,
- B
- ulkID:2303102321273592KAR8,BulkQuantity:4,Recheck:0,SF:23|16|19|42|102,TC:
- nil,Content:0,EDM:-3,IP:-2,URL:1,File:nil,Bulk:40,QS:nil,BEC:nil,COL:0,OSI
- :0,OSA:0,AV:0
-X-CID-BVR: 0
-X-UUID: 5d474a64498641cdba043aa07568a6fc-20230313
-X-User: lizhenneng@kylinos.cn
-Received: from [172.20.124.41] [(116.128.244.169)] by mailgw
- (envelope-from <lizhenneng@kylinos.cn>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES128-GCM-SHA256 128/128)
- with ESMTP id 1932184781; Mon, 13 Mar 2023 09:05:00 +0800
-Message-ID: <ff8eb2c4-c567-2765-effb-d26d55b32af7@kylinos.cn>
-Date: Mon, 13 Mar 2023 09:04:58 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 580B910E4B8;
+	Mon, 13 Mar 2023 08:18:32 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 263AB10E272
+ for <amd-gfx@lists.freedesktop.org>; Sun, 12 Mar 2023 19:18:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1678648682;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=gzlqJ3cDfLxXhrKVIf4bvaCCqReIo9siiOkDa42+O+w=;
+ b=Orpiolsr8IJVL4B4+86Y1AviIrSVqEv58NHP/G950HZYTiRi//LhoaQB5AU9PFMplXKmsF
+ J7jkKSyjst6nUiAFOZmmZcYTF1RZlcDoxA1zT4cbXKAAquYu79k2uGBtRQs52NAEEUythp
+ LnwPi0r35x3BIn6W6njujBsq2D6cg0U=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-134-QQ9gcM3_Nru4JdDRZxoHgQ-1; Sun, 12 Mar 2023 15:17:58 -0400
+X-MC-Unique: QQ9gcM3_Nru4JdDRZxoHgQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3E412185A794;
+ Sun, 12 Mar 2023 19:17:58 +0000 (UTC)
+Received: from localhost.localdomain (unknown [10.39.192.64])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 5C1B3140EBF4;
+ Sun, 12 Mar 2023 19:17:57 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
+Subject: [PATCH v3 0/6] drm/amd/display: Pass proper parent for DM backlight
+ device v3
+Date: Sun, 12 Mar 2023 20:17:45 +0100
+Message-Id: <20230312191751.183450-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH] drm/amdgpu: resove reboot exception for si oland
-To: "Chen, Guchun" <Guchun.Chen@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <20230310074000.2078124-1-lizhenneng@kylinos.cn>
- <DM5PR12MB2469FEB1E81CA99C51E7DAF0F1BA9@DM5PR12MB2469.namprd12.prod.outlook.com>
-From: =?UTF-8?B?5p2O55yf6IO9?= <lizhenneng@kylinos.cn>
-In-Reply-To: <DM5PR12MB2469FEB1E81CA99C51E7DAF0F1BA9@DM5PR12MB2469.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 X-Mailman-Approved-At: Mon, 13 Mar 2023 08:18:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,67 +62,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+Cc: Hans de Goede <hdegoede@redhat.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This bug is first reported here:
+Hi All,
 
-https://lore.kernel.org/lkml/1a620e7c-5b71-3d16-001a-0d79b292aca7@amd.com/
+Here is version 3 of my patch series to pass the proper parent device
+to backlight_device_register().
 
-I modify the patch accroding mail list's discusstion,   and I do reboot 
-test for tens of thousands of times about 10 machines on arm64,  there's 
-no bug reported.
+Changes in v3:
+- Make amdgpu_dm_register_backlight_device() check bl_idx != 1 before
+  registering the backlight since amdgpu_dm_connector_late_register()
+  now calls it for _all_ connectors.
 
-在 2023/3/10 16:18, Chen, Guchun 写道:
->> -----Original Message-----
->> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
->> Zhenneng Li
->> Sent: Friday, March 10, 2023 3:40 PM
->> To: Deucher, Alexander <Alexander.Deucher@amd.com>
->> Cc: David Airlie <airlied@linux.ie>; Pan, Xinhui <Xinhui.Pan@amd.com>;
->> linux-kernel@vger.kernel.org; dri-devel@lists.freedesktop.org; Zhenneng Li
->> <lizhenneng@kylinos.cn>; amd-gfx@lists.freedesktop.org; Daniel Vetter
->> <daniel@ffwll.ch>; Koenig, Christian <Christian.Koenig@amd.com>
->> Subject: [PATCH] drm/amdgpu: resove reboot exception for si oland
->>
->> During reboot test on arm64 platform, it may failure on boot.
->>
->> The error message are as follows:
->> [    6.996395][ 7] [  T295] [drm:amdgpu_device_ip_late_init [amdgpu]]
->> *ERROR*
->> 			    late_init of IP block <si_dpm> failed -22
->> [    7.006919][ 7] [  T295] amdgpu 0000:04:00.0: amdgpu_device_ip_late_init
->> failed
->> [    7.014224][ 7] [  T295] amdgpu 0000:04:00.0: Fatal error during GPU init
->> ---
->>   drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 3 ---
->>   1 file changed, 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
->> b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
->> index d6d9e3b1b2c0..dee51c757ac0 100644
->> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
->> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
->> @@ -7632,9 +7632,6 @@ static int si_dpm_late_init(void *handle)
->>   	if (!adev->pm.dpm_enabled)
->>   		return 0;
->>
->> -	ret = si_set_temperature_range(adev);
->> -	if (ret)
->> -		return ret;
-> si_set_temperature_range should be platform agnostic. Can you please elaborate more?
->
-> Regards,
-> Guchun
->
->>   #if 0 //TODO ?
->>   	si_dpm_powergate_uvd(adev, true);
->>   #endif
->> --
->> 2.25.1
+Changes in v2:
+- Patches 1 - 5 are new, reworking the code a bit to allow delaying
+  the registering, so this has turned from a single patch into
+  a 6 patch set.
+- Patch 6 now delays the registering of the backlight_dev till
+  after the drm_connector is registered by doing it from
+  drm_connector_funcs.late_register.
+
+Note this no longer is RFC since this has been successfully
+tested on 3 laptops which hit the affected code path.
+
+Version 3 has also been tested on my personal AMD Ryzen 7 5700G APU
+desktop machine and now no longer tries to register a backlight
+device for each connector there.
+
+Regards,
+
+Hans
+
+
+Hans de Goede (6):
+  drm/amd/display/amdgpu_dm: Fix backlight_device_register() error
+    handling
+  drm/amd/display/amdgpu_dm: Refactor register_backlight_device()
+  drm/amd/display/amdgpu_dm: Add a bl_idx to amdgpu_dm_connector
+  drm/amd/display/amdgpu_dm: Move most backlight setup into
+    setup_backlight_device()
+  drm/amd/display/amdgpu_dm: Make amdgpu_dm_register_backlight_device()
+    take an amdgpu_dm_connector
+  drm/amd/display/amdgpu_dm: Pass proper parent for backlight device
+    registration v3
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 100 ++++++++----------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   1 +
+ 2 files changed, 46 insertions(+), 55 deletions(-)
+
+-- 
+2.39.1
+
