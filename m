@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3034C6FD19
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Mar 2023 08:18:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84480C61DA4
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Mar 2023 08:18:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4388F10E4AB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C30EB10E4AC;
 	Mon, 13 Mar 2023 08:18:23 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2379B10E3ED
- for <amd-gfx@lists.freedesktop.org>; Sun, 12 Mar 2023 19:18:04 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9FD810E3FF
+ for <amd-gfx@lists.freedesktop.org>; Sun, 12 Mar 2023 19:18:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1678648683;
+ s=mimecast20190719; t=1678648684;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=rUEnoOj5mVpGTN9PeeZh9hWCnroh4EciYx/3SGOOsu0=;
- b=L/gxRc23o+hvOiId+EmDRGx9I2xy2q6WFsx5fgFnl2yKg2c/Es+ZpTpWzvSzaJYdfo0Lkc
- 3WpyanizrE9EyIATuggakfiaqtIy6Cv5JvzEXRiuBIb/z/R7IlW/nMmWkXj51AOi7faHhy
- wbIWnEcbXAezhvPG7q9/2JdQeGGdUWI=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=lI+UdA8QJB3AB6ONCud8m8WEwuuhIZWoln4gVE1mVMc=;
+ b=CNcQjGbyQQJRaimibMaiM7E7A7+JqpHeJz1OxDRcHu+oJU4UIZirE0F+BE2jCBzMQUFfj5
+ ZXpd+mjQo6Psh7LXGMXcVMsNn7IXJcm9JpF8ecWtfwsGON4PaFvbSfOVEPVkGzbn9kiozt
+ DJdOzaKMV3gveuz+07MwbZNn7nc3pAE=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-31-Tm6RNgmBMQi5hGG2uG-kyQ-1; Sun, 12 Mar 2023 15:17:59 -0400
-X-MC-Unique: Tm6RNgmBMQi5hGG2uG-kyQ-1
+ us-mta-194-H1ZWg65IPjSb2yFO4YBRYA-1; Sun, 12 Mar 2023 15:18:01 -0400
+X-MC-Unique: H1ZWg65IPjSb2yFO4YBRYA-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
  [10.11.54.7])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4E8C085CCE1;
- Sun, 12 Mar 2023 19:17:59 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6D7111C05AF9;
+ Sun, 12 Mar 2023 19:18:01 +0000 (UTC)
 Received: from localhost.localdomain (unknown [10.39.192.64])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 70992140EBF4;
- Sun, 12 Mar 2023 19:17:58 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 9021E140EBF4;
+ Sun, 12 Mar 2023 19:18:00 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
-Subject: [PATCH v3 1/6] drm/amd/display/amdgpu_dm: Fix
- backlight_device_register() error handling
-Date: Sun, 12 Mar 2023 20:17:46 +0100
-Message-Id: <20230312191751.183450-2-hdegoede@redhat.com>
+Subject: [PATCH v3 3/6] drm/amd/display/amdgpu_dm: Add a bl_idx to
+ amdgpu_dm_connector
+Date: Sun, 12 Mar 2023 20:17:48 +0100
+Message-Id: <20230312191751.183450-4-hdegoede@redhat.com>
 In-Reply-To: <20230312191751.183450-1-hdegoede@redhat.com>
 References: <20230312191751.183450-1-hdegoede@redhat.com>
 MIME-Version: 1.0
@@ -70,35 +70,149 @@ Cc: Hans de Goede <hdegoede@redhat.com>, dri-devel@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-backlight_device_register() returns an ERR_PTR on error, but other code
-such as amdgpu_dm_connector_destroy() assumes dm->backlight_dev[i] is NULL
-if no backlight is registered.
+Currently functions like update_connector_ext_caps() and
+amdgpu_dm_connector_destroy() are iterating over dm->backlight_link[i]
+to find the index of the (optional) backlight_dev associated with
+the connector.
 
-Clear dm->backlight_dev[i] on registration failure, to avoid other code
-trying to deref an ERR_PTR pointer.
+Instead make register_backlight_device() store the dm->backlight_dev[]
+index used for the connector inside the amdgpu_dm_connector struct.
+
+This removes the need to iterate over the dm->backlight_link[]
+array and this is necessary as a preparation patch for moving
+the actual backlight_device_register()
+call to drm_connector_funcs.late_register.
+
+While reworking update_connector_ext_caps() also remove the aconnector
+and aconnector->dc_link NULL checks in this function. These are both
+never NULL and are unconditionally derefed in its callers.
 
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 42 +++++++------------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  1 +
+ 2 files changed, 17 insertions(+), 26 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 009ef917dad4..42b88ab5552d 100644
+index 1b5efa56ec15..eb1f2073b0cf 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4180,9 +4180,10 @@ amdgpu_dm_register_backlight_device(struct amdgpu_display_manager *dm)
- 								       &amdgpu_dm_backlight_ops,
- 								       &props);
+@@ -2936,30 +2936,18 @@ static struct drm_mode_config_helper_funcs amdgpu_dm_mode_config_helperfuncs = {
+ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
+ {
+ 	struct amdgpu_dm_backlight_caps *caps;
+-	struct amdgpu_display_manager *dm;
+ 	struct drm_connector *conn_base;
+ 	struct amdgpu_device *adev;
+-	struct dc_link *link = NULL;
+ 	struct drm_luminance_range_info *luminance_range;
+-	int i;
+-
+-	if (!aconnector || !aconnector->dc_link)
+-		return;
  
--	if (IS_ERR(dm->backlight_dev[dm->num_of_edps]))
-+	if (IS_ERR(dm->backlight_dev[dm->num_of_edps])) {
- 		DRM_ERROR("DM: Backlight registration failed!\n");
--	else
-+		dm->backlight_dev[dm->num_of_edps] = NULL;
-+	} else
- 		DRM_DEBUG_DRIVER("DM: Registered Backlight device: %s\n", bl_name);
- }
+-	link = aconnector->dc_link;
+-	if (link->connector_signal != SIGNAL_TYPE_EDP)
++	if (aconnector->bl_idx == -1 ||
++	    aconnector->dc_link->connector_signal != SIGNAL_TYPE_EDP)
+ 		return;
  
+ 	conn_base = &aconnector->base;
+ 	adev = drm_to_adev(conn_base->dev);
+-	dm = &adev->dm;
+-	for (i = 0; i < dm->num_of_edps; i++) {
+-		if (link == dm->backlight_link[i])
+-			break;
+-	}
+-	if (i >= dm->num_of_edps)
+-		return;
+-	caps = &dm->backlight_caps[i];
++
++	caps = &adev->dm.backlight_caps[aconnector->bl_idx];
+ 	caps->ext_caps = &aconnector->dc_link->dpcd_sink_ext_caps;
+ 	caps->aux_support = false;
+ 
+@@ -4229,8 +4217,9 @@ static int initialize_plane(struct amdgpu_display_manager *dm,
+ 
+ 
+ static void register_backlight_device(struct amdgpu_display_manager *dm,
+-				      struct dc_link *link)
++				      struct amdgpu_dm_connector *aconnector)
+ {
++	struct dc_link *link = aconnector->dc_link;
+ 	int bl_idx = dm->num_of_edps;
+ 
+ 	if (!(link->connector_signal & (SIGNAL_TYPE_EDP | SIGNAL_TYPE_LVDS)) ||
+@@ -4242,9 +4231,13 @@ static void register_backlight_device(struct amdgpu_display_manager *dm,
+ 		return;
+ 	}
+ 
++	aconnector->bl_idx = bl_idx;
++
+ 	amdgpu_dm_register_backlight_device(dm);
+-	if (!dm->backlight_dev[bl_idx])
++	if (!dm->backlight_dev[bl_idx]) {
++		aconnector->bl_idx = -1;
+ 		return;
++	}
+ 
+ 	dm->backlight_link[bl_idx] = link;
+ 	dm->num_of_edps++;
+@@ -4430,7 +4423,7 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
+ 
+ 			if (ret) {
+ 				amdgpu_dm_update_connector_after_detect(aconnector);
+-				register_backlight_device(dm, link);
++				register_backlight_device(dm, aconnector);
+ 
+ 				if (dm->num_of_edps)
+ 					update_connector_ext_caps(aconnector);
+@@ -6211,10 +6204,8 @@ static void amdgpu_dm_connector_unregister(struct drm_connector *connector)
+ static void amdgpu_dm_connector_destroy(struct drm_connector *connector)
+ {
+ 	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
+-	const struct dc_link *link = aconnector->dc_link;
+ 	struct amdgpu_device *adev = drm_to_adev(connector->dev);
+ 	struct amdgpu_display_manager *dm = &adev->dm;
+-	int i;
+ 
+ 	/*
+ 	 * Call only if mst_mgr was initialized before since it's not done
+@@ -6223,11 +6214,9 @@ static void amdgpu_dm_connector_destroy(struct drm_connector *connector)
+ 	if (aconnector->mst_mgr.dev)
+ 		drm_dp_mst_topology_mgr_destroy(&aconnector->mst_mgr);
+ 
+-	for (i = 0; i < dm->num_of_edps; i++) {
+-		if ((link == dm->backlight_link[i]) && dm->backlight_dev[i]) {
+-			backlight_device_unregister(dm->backlight_dev[i]);
+-			dm->backlight_dev[i] = NULL;
+-		}
++	if (aconnector->bl_idx != -1) {
++		backlight_device_unregister(dm->backlight_dev[aconnector->bl_idx]);
++		dm->backlight_dev[aconnector->bl_idx] = NULL;
+ 	}
+ 
+ 	if (aconnector->dc_em_sink)
+@@ -7193,6 +7182,7 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+ 		aconnector->base.funcs->reset(&aconnector->base);
+ 
+ 	aconnector->connector_id = link_index;
++	aconnector->bl_idx = -1;
+ 	aconnector->dc_link = link;
+ 	aconnector->base.interlace_allowed = false;
+ 	aconnector->base.doublescan_allowed = false;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index ed5cbe9da40c..84260a478372 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -612,6 +612,7 @@ struct amdgpu_dm_connector {
+ 
+ 	struct drm_connector base;
+ 	uint32_t connector_id;
++	int bl_idx;
+ 
+ 	/* we need to mind the EDID between detect
+ 	   and get modes due to analog/digital/tvencoder */
 -- 
 2.39.1
 
