@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DFA6C6FD19
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DAF1C7618D
 	for <amd-gfx@archiver.kernel.org>; Mon, 13 Mar 2023 08:18:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D1E210E4B3;
-	Mon, 13 Mar 2023 08:18:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE35E10E4AE;
+	Mon, 13 Mar 2023 08:18:24 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D944610E3ED
- for <amd-gfx@lists.freedesktop.org>; Sun, 12 Mar 2023 19:18:08 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1527E10E14D
+ for <amd-gfx@lists.freedesktop.org>; Sun, 12 Mar 2023 19:18:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1678648688;
+ s=mimecast20190719; t=1678648682;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=AownpKIJhwr803qPecntU0wJCU2CAxTb2a8dt5TOPpU=;
- b=W6zPR/M0aJReJcz7PEusKWBkh1FQwsOAnAWzgjwPr+49SUlVM4L7vWpdNNmxEnrVPeU/+n
- cZ9uOFgjiUFy5/QomQGz8l8nveuHJ1vlXD03ntu1EFo8YyH7Fq3xtThrUEttpgGM1AGxmG
- 8EkbN5mCsSuMIBFbIznWcOnxdrc0JcE=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=fdsQaTtbIaBYJTe0xm3ESZR5oOBLuJquJVykY1dYCmg=;
+ b=WfILWyGQc/1J0OLgUroA2lvRPWdNnp3EzfjVCEArNGinexSAusPlDLr/RzkZlFjbT1En3l
+ 0FsXlZzRXp9Hs7kf72J81iijZAC3Ry93mPbiXPV1xrdFzjOZpTwZ1lC6cNprJ5JdFsnmTy
+ QoxY1ZEK52rbaLMlt5lmWpqkIhfPLi0=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-1-9HwWl37tPxCiUiGmE6fEgA-1; Sun, 12 Mar 2023 15:18:04 -0400
-X-MC-Unique: 9HwWl37tPxCiUiGmE6fEgA-1
+ us-mta-190-1-XaOto0PGe2mSUAvV-jJg-1; Sun, 12 Mar 2023 15:18:00 -0400
+X-MC-Unique: 1-XaOto0PGe2mSUAvV-jJg-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
  [10.11.54.7])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8FD9785A5B1;
- Sun, 12 Mar 2023 19:18:03 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5E4913810780;
+ Sun, 12 Mar 2023 19:18:00 +0000 (UTC)
 Received: from localhost.localdomain (unknown [10.39.192.64])
- by smtp.corp.redhat.com (Postfix) with ESMTP id AFE3D140EBF4;
- Sun, 12 Mar 2023 19:18:02 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 8097F140EBF4;
+ Sun, 12 Mar 2023 19:17:59 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
-Subject: [PATCH v3 5/6] drm/amd/display/amdgpu_dm: Make
- amdgpu_dm_register_backlight_device() take an amdgpu_dm_connector
-Date: Sun, 12 Mar 2023 20:17:50 +0100
-Message-Id: <20230312191751.183450-6-hdegoede@redhat.com>
+Subject: [PATCH v3 2/6] drm/amd/display/amdgpu_dm: Refactor
+ register_backlight_device()
+Date: Sun, 12 Mar 2023 20:17:47 +0100
+Message-Id: <20230312191751.183450-3-hdegoede@redhat.com>
 In-Reply-To: <20230312191751.183450-1-hdegoede@redhat.com>
 References: <20230312191751.183450-1-hdegoede@redhat.com>
 MIME-Version: 1.0
@@ -70,74 +70,70 @@ Cc: Hans de Goede <hdegoede@redhat.com>, dri-devel@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Make amdgpu_dm_register_backlight_device() take an amdgpu_dm_connector
-pointer to the connector for which it should register the backlight
-as its only argument.
+Refactor register_backlight_device():
 
-This is a preparation patch for moving the actual backlight class device
-registering to drm_connector_funcs.late_register.
+1) Turn the connector-type + signal check into an early exit
+condition to avoid the indentation level of the rest of the code
+
+2) Add an array bounds check for the arrays indexed by dm->num_of_edps
+
+3) register_backlight_device() always increases dm->num_of_edps if
+amdgpu_dm_register_backlight_device() has assigned a backlight_dev to
+the current dm->backlight_link[dm->num_of_edps] slot.
+
+So on its next call dm->backlight_dev[dm->num_of_edps] always point to
+the next empty slot and the "if (!dm->backlight_dev[dm->num_of_edps])"
+check will thus always succeed and can be removed.
+
+4) Add a bl_idx local variable to use as array index, rather then
+using dm->num_of_edps to improve the code readability.
 
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 24 +++++++++----------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 28 ++++++++++---------
+ 1 file changed, 15 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 757202af2eec..038bf897cc28 100644
+index 42b88ab5552d..1b5efa56ec15 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4140,13 +4140,15 @@ static const struct backlight_ops amdgpu_dm_backlight_ops = {
- };
- 
- static void
--amdgpu_dm_register_backlight_device(struct amdgpu_display_manager *dm)
-+amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector)
+@@ -4231,21 +4231,23 @@ static int initialize_plane(struct amdgpu_display_manager *dm,
+ static void register_backlight_device(struct amdgpu_display_manager *dm,
+ 				      struct dc_link *link)
  {
--	char bl_name[16];
-+	struct drm_device *drm = aconnector->base.dev;
-+	struct amdgpu_display_manager *dm = &drm_to_adev(drm)->dm;
- 	struct backlight_properties props = { 0 };
-+	char bl_name[16];
+-	if ((link->connector_signal & (SIGNAL_TYPE_EDP | SIGNAL_TYPE_LVDS)) &&
+-	    link->type != dc_connection_none) {
+-		/*
+-		 * Event if registration failed, we should continue with
+-		 * DM initialization because not having a backlight control
+-		 * is better then a black screen.
+-		 */
+-		if (!dm->backlight_dev[dm->num_of_edps])
+-			amdgpu_dm_register_backlight_device(dm);
++	int bl_idx = dm->num_of_edps;
  
- 	if (!acpi_video_backlight_use_native()) {
--		drm_info(adev_to_drm(dm->adev), "Skipping amdgpu DM backlight registration\n");
-+		drm_info(drm, "Skipping amdgpu DM backlight registration\n");
- 		/* Try registering an ACPI video backlight device instead. */
- 		acpi_video_register_backlight();
- 		return;
-@@ -4157,17 +4159,15 @@ amdgpu_dm_register_backlight_device(struct amdgpu_display_manager *dm)
- 	props.type = BACKLIGHT_RAW;
- 
- 	snprintf(bl_name, sizeof(bl_name), "amdgpu_bl%d",
--		 adev_to_drm(dm->adev)->primary->index + dm->num_of_edps);
-+		 drm->primary->index + aconnector->bl_idx);
- 
--	dm->backlight_dev[dm->num_of_edps] = backlight_device_register(bl_name,
--								       adev_to_drm(dm->adev)->dev,
--								       dm,
--								       &amdgpu_dm_backlight_ops,
--								       &props);
-+	dm->backlight_dev[aconnector->bl_idx] =
-+		backlight_device_register(bl_name, drm->dev, dm,
-+					  &amdgpu_dm_backlight_ops, &props);
- 
--	if (IS_ERR(dm->backlight_dev[dm->num_of_edps])) {
-+	if (IS_ERR(dm->backlight_dev[aconnector->bl_idx])) {
- 		DRM_ERROR("DM: Backlight registration failed!\n");
--		dm->backlight_dev[dm->num_of_edps] = NULL;
-+		dm->backlight_dev[aconnector->bl_idx] = NULL;
- 	} else
- 		DRM_DEBUG_DRIVER("DM: Registered Backlight device: %s\n", bl_name);
+-		if (dm->backlight_dev[dm->num_of_edps]) {
+-			dm->backlight_link[dm->num_of_edps] = link;
+-			dm->num_of_edps++;
+-		}
++	if (!(link->connector_signal & (SIGNAL_TYPE_EDP | SIGNAL_TYPE_LVDS)) ||
++	    link->type == dc_connection_none)
++		return;
++
++	if (dm->num_of_edps >= AMDGPU_DM_MAX_NUM_EDP) {
++		drm_warn(adev_to_drm(dm->adev), "Too much eDP connections, skipping backlight setup for additional eDPs\n");
++		return;
+ 	}
++
++	amdgpu_dm_register_backlight_device(dm);
++	if (!dm->backlight_dev[bl_idx])
++		return;
++
++	dm->backlight_link[bl_idx] = link;
++	dm->num_of_edps++;
  }
-@@ -4233,7 +4233,7 @@ static void setup_backlight_device(struct amdgpu_display_manager *dm,
- 	amdgpu_dm_update_backlight_caps(dm, bl_idx);
- 	dm->brightness[bl_idx] = AMDGPU_MAX_BL_LEVEL;
  
--	amdgpu_dm_register_backlight_device(dm);
-+	amdgpu_dm_register_backlight_device(aconnector);
- 	if (!dm->backlight_dev[bl_idx]) {
- 		aconnector->bl_idx = -1;
- 		return;
+ static void amdgpu_set_panel_orientation(struct drm_connector *connector);
 -- 
 2.39.1
 
