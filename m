@@ -4,44 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8451DC6FA99
-	for <amd-gfx@archiver.kernel.org>; Sun, 12 Mar 2023 17:37:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39EC9C6FD1C
+	for <amd-gfx@archiver.kernel.org>; Sun, 12 Mar 2023 17:37:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED04810E11D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE7CC10E0B9;
 	Sun, 12 Mar 2023 17:37:08 +0000 (UTC)
-X-Greylist: delayed 66227 seconds by postgrey-1.36 at gabe;
- Sun, 12 Mar 2023 13:51:30 UTC
-Received: from smtp50.i.mail.ru (smtp50.i.mail.ru [95.163.41.92])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44E1D10E129;
- Sun, 12 Mar 2023 13:51:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru;
- s=mail4; 
- h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:Cc:To:From:From:Subject:Content-Type:Content-Transfer-Encoding:To:Cc;
- bh=9e2qemlQ+qu6TtpeSILCd8YXgDshgLNwa7t+UxrGEOg=; 
- t=1678629090;x=1678719090; 
- b=hGpJQzbEqCqCVXZUQZbMIyD28sdtfyQsA675Iq+HtmwRXsuTNnKgdDCyO0030WRRcRmgy6KhMK7A7hWEt7hyIt+K5kenzB2RE8R/IOl7f0d/3MK1opE/cfYlRE7Orqeb65wIpcMlkaLOuLOw0eoP9roftTgZQMAdOiH2Qj8xW4lOqXNdrQSDFYgAib7NAp1whzrohwE6p5M4wQxTwy6m1u9xT8wpnH5c29QrObFPJhfgB/eFYwRoFKqTx1RKadHayjKrVa39UFTOza6L+Zmh0WhhMsxFePG73UT9TMr1h1mWzovbD8F2ajz1ebUPncUibpccj9P3zoDO/y0a14YTNw==;
-Received: by smtp50.i.mail.ru with esmtpa (envelope-from <listdansp@mail.ru>)
- id 1pbM6h-00C5Oi-7t; Sun, 12 Mar 2023 16:51:27 +0300
-From: Danila Chernetsov <listdansp@mail.ru>
-To: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH v5.10 1/1] drm/amdgpu: add error handling for
- drm_fb_helper_initial_config
-Date: Sun, 12 Mar 2023 13:50:53 +0000
-Message-Id: <20230312135053.7218-1-listdansp@mail.ru>
-X-Mailer: git-send-email 2.25.1
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2438B10E10E;
+ Sun, 12 Mar 2023 16:51:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:
+ Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=GAu1eVy6Biexs9th0W7Cw1rvI9YrVlV1Or3DJhCK/lQ=; b=hJcUZg6pXjs9CSysPhjUKhXv7E
+ ee/hyKIWW0NDYfrnnDdfTFQYoiK12DaDgH6WgtEYMFPXtP+OjmKY6FXyOZqrVD32MsPWcrxEntNmW
+ 2PQacaJkQT+e4b+CTr0rr/CR7alRU2ZENZFUgUOWPkPehiK2lpDvjeqyZG6p+N8Qk8uw36VyY9oo5
+ FBA8vsanFGrWx6wpaQ1H6W/WCkrr+LiCjFoHuvw4h4k22FeJqJekponXo37Nu5hJyzGINO5AatZ7u
+ FgDtdVDdasbaxw0qDQPGp1EZwf8RGz3MRWF1Eyd5U+sJGS1ZUgnx1Uqo5sU5lB0sj6TxEuOTLkioz
+ dBsFAk9g==;
+Received: from [152.254.169.34] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1pbOuf-00674a-1Y; Sun, 12 Mar 2023 17:51:13 +0100
+From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu/vcn: Disable indirect SRAM on Vangogh broken BIOSes
+Date: Sun, 12 Mar 2023 13:51:00 -0300
+Message-Id: <20230312165100.1204682-1-gpiccoli@igalia.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Authentication-Results: smtp50.i.mail.ru; auth=pass smtp.auth=listdansp@mail.ru
- smtp.mailfrom=listdansp@mail.ru
-X-Mailru-Src: smtp
-X-7564579A: B8F34718100C35BD
-X-77F55803: 4F1203BC0FB41BD9BCEC41593EBD8357D61703A5C7370B1E319F7344C6651618182A05F5380850404101E7A95639D66F46B724D4AD22814152705C147E0509B9A98EC30680F39800
-X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE710FC7AC39A8009ECEA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F7900637525B22DCF689D4638638F802B75D45FF36EB9D2243A4F8B5A6FCA7DBDB1FC311F39EFFDF887939037866D6147AF826D8A8B962F2C513871FF9C52E85DFF075466F9789CCF6C18C3F8528715B7D10C86878DA827A17800CE7F588D4452561E4D79FA2833FD35BB23D9E625A9149C048EE0AC5B80A05675ACDF6B57BC7E64490618DEB871D839B7333395957E7521B51C2DFABB839C843B9C08941B15DA834481F8AA50765F79006379BABF3D50D9A3D87389733CBF5DBD5E9B5C8C57E37DE458BD9DD9810294C998ED8FC6C240DEA76428AA50765F7900637A9329C8D8D988D4ED81D268191BDAD3DBD4B6F7A4D31EC0BEA7A3FFF5B025636D81D268191BDAD3D78DA827A17800CE72AA49236079A88D2EC76A7562686271ED91E3A1F190DE8FD2E808ACE2090B5E14AD6D5ED66289B5259CC434672EE63711DD303D21008E298D5E8D9A59859A8B6B372FE9A2E580EFC725E5C173C3A84C3443DF20DE7AF59D235872C767BF85DA2F004C90652538430E4A6367B16DE6309
-X-C1DE0DAB: 0D63561A33F958A5C7C8BD3663FA951A02515BEC82C141FC4BF0A345B7E33DD84EAF44D9B582CE87C8A4C02DF684249CC203C45FEA855C8F
-X-C8649E89: 4E36BF7865823D7055A7F0CF078B5EC49A30900B95165D34EB7BD66E9101C1008FCF4C881EC454412423020562D60783A1B62AE67F12488AE155D5A1E56565E71D7E09C32AA3244C38C2F3B520FDC88ABB7C7E14A63851DABBA718C7E6A9E04227AC49D2B05FCCD8
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5ycPtXkTV4k65bRjmOUUP8cvGozZ33TWg5HZplvhhXbhDGzqmQDTd6OAevLeAnq3Ra9uf7zvY2zzsIhlcp/Y7m53TZgf2aB4JOg4gkr2biojN3wBDQf4j7MC6g2skIIJpw==
-X-Mailru-Sender: 4CE1109FD677D2770147F6A9E21DCA7B011BF7C6691D941B53F16FEE055C45F2C79AF7ED9535CCE97E3C9C7AF06D9E7B78274A4A9E9E44FD3C3897ABF9FF211DE8284E426C7B2D9A5FEEDEB644C299C0ED14614B50AE0675
-X-Mras: Ok
 X-Mailman-Approved-At: Sun, 12 Mar 2023 17:37:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,50 +49,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: lvc-project@linuxtesting.org, David Airlie <airlied@linux.ie>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Danila Chernetsov <listdansp@mail.ru>
+Cc: kernel@gpiccoli.net, johns@valvesoftware.com,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, Xinhui.Pan@amd.com,
+ dri-devel@lists.freedesktop.org, cristian.ciocaltea@collabora.com,
+ stable@vger.kernel.org, kernel-dev@igalia.com, alexander.deucher@amd.com,
+ James Zhu <James.Zhu@amd.com>, Leo Liu <leo.liu@amd.com>,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The type of return value of drm_fb_helper_initial_config is int, 
-which may return wrong result, so we add error handling for it 
-to reclaim memory resource, and return when an error occurs.          
+The VCN firmware loading path enables the indirect SRAM mode if it's
+advertised as supported. We might have some cases of FW issues that
+prevents this mode to working properly though, ending-up in a failed
+probe. An example below, observed in the Steam Deck:
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+[...]
+[drm] failed to load ucode VCN0_RAM(0x3A)
+[drm] psp gfx command LOAD_IP_FW(0x6) failed and response status is (0xFFFF0000)
+amdgpu 0000:04:00.0: [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR* ring vcn_dec_0 test failed (-110)
+[drm:amdgpu_device_init.cold [amdgpu]] *ERROR* hw_init of IP block <vcn_v3_0> failed -110
+amdgpu 0000:04:00.0: amdgpu: amdgpu_device_ip_init failed
+amdgpu 0000:04:00.0: amdgpu: Fatal error during GPU init
+[...]
 
-Fixes: d38ceaf99ed0 (drm/amdgpu: add core driver (v4))
-Signed-off-by: Danila Chernetsov <listdansp@mail.ru>
+Disabling the VCN block circumvents this, but it's a very invasive
+workaround that turns off the entire feature. So, let's add a quirk
+on VCN loading that checks for known problematic BIOSes on Vangogh,
+so we can proactively disable the indirect SRAM mode and allow the
+HW proper probe and VCN IP block to work fine.
+
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2385
+Fixes: 82132ecc5432 ("drm/amdgpu: enable Vangogh VCN indirect sram mode")
+Cc: stable@vger.kernel.org
+Cc: James Zhu <James.Zhu@amd.com>
+Cc: Leo Liu <leo.liu@amd.com>
+Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-index 43f29ee0e3b0..e445a2c9f569 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-@@ -348,8 +348,17 @@ int amdgpu_fbdev_init(struct amdgpu_device *adev)
- 	if (!amdgpu_device_has_dc_support(adev))
- 		drm_helper_disable_unused_functions(adev_to_drm(adev));
+
+Hi folks, based on the feedback from the gitlab issue, here is the upstream
+attempt to quirk the Steam Deck's BIOSes having known issues with the
+indirect SRAM mode. I've tested it on both the quirked BIOSes, and also
+with some working ones. This patch is based on agd5f/amd-staging-drm-next.
+
+Thanks in advance for reviews!
+Cheers,
+
+Guilherme
+
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index 02d428ddf2f8..dc4f3f4cb644 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -26,6 +26,7 @@
  
--	drm_fb_helper_initial_config(&rfbdev->helper, bpp_sel);
--	return 0;
-+	ret = drm_fb_helper_initial_config(&rfbdev->helper, bpp_sel);
-+	if (ret)
-+		goto fini;
-+
-+	return 0;
-+
-+fini:
-+	drm_fb_helper_fini(&rfbdev->helper);
-+
-+	kfree(rfbdev);
-+	return ret;
- }
+ #include <linux/firmware.h>
+ #include <linux/module.h>
++#include <linux/dmi.h>
+ #include <linux/pci.h>
+ #include <linux/debugfs.h>
+ #include <drm/drm_drv.h>
+@@ -114,6 +115,24 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
+ 	    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 		adev->vcn.indirect_sram = true;
  
- void amdgpu_fbdev_fini(struct amdgpu_device *adev)
++	/*
++	 * Some Steam Deck's BIOS versions are incompatible with the
++	 * indirect SRAM mode, leading to amdgpu being unable to get
++	 * properly probed (and even potentially crashing the kernel).
++	 * Hence, check for these versions here - notice this is
++	 * restricted to Vangogh (Deck's APU).
++	 */
++	if (adev->ip_versions[UVD_HWIP][0] == IP_VERSION(3, 0, 2)) {
++		const char *bios_ver = dmi_get_system_info(DMI_BIOS_VERSION);
++
++		if (bios_ver && (!strncmp("F7A0113", bios_ver, 7) ||
++		     !strncmp("F7A0114", bios_ver, 7))) {
++			adev->vcn.indirect_sram = false;
++			dev_info(adev->dev,
++				"Steam Deck quirk: indirect SRAM disabled on BIOS %s\n", bios_ver);
++		}
++	}
++
+ 	hdr = (const struct common_firmware_header *)adev->vcn.fw->data;
+ 	adev->vcn.fw_version = le32_to_cpu(hdr->ucode_version);
+ 
 -- 
-2.25.1
+2.39.2
 
