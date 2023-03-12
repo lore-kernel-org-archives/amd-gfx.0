@@ -4,96 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E13AC74A4B
-	for <amd-gfx@archiver.kernel.org>; Sun, 12 Mar 2023 12:02:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8451DC6FA99
+	for <amd-gfx@archiver.kernel.org>; Sun, 12 Mar 2023 17:37:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6C2410E3AF;
-	Sun, 12 Mar 2023 12:02:46 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2064.outbound.protection.outlook.com [40.107.93.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE23610E38A;
- Sun, 12 Mar 2023 12:02:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cIEhsH3FHzzJszUchQXJL8zIXdNQDpnDrw5YR1iWhf3JqSb+npnGL8KY/s7Tz9moHKDljXjF6FhlkjS4tcJN4LjdZcxNMWqeK4szu3dRwx6GY/EkhfK8yHP6ai1MFrplsxRpgrz+VqtbsMv/ZZh9PXM8SMdcp5MkiPIj//Yqt8yULPljJAo4kCveWET2gOT8DEf94mkm+HQX7PZjF5W0XBJ/5W/4qu8Hvh+B6EqQhunOOy92o1stDx3JUnWOESXCaILxy2LcYJ/gUbsz3Zg6laBFmM43pWvBqFg+XLQUejBjKocp+WARpp8MO5IeyZB2CWYXOH7Nrpbl2Glmg1YzPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MS43mNiSDBnUD+5Kh3C9BXVuF+iauADexFTUQZ11670=;
- b=mOEp3D8NQjGlqFH+HmOeBi++mMyqWq9VaOyVADASll39IzSzPbWRFRwF3Xka/uKxW7gcku/cil5NZvTO2Mgw4pC4ETnAwtSiaDnVWqY9tjmKPHw+pWp5arRAQM9Qlp0v2IH1S6wg+CdVIAJaKEgZfaY59YK7OI0SYRpy318GZGp+ZuCWi7eZUs0fMbwxF4gHvhm51zdGPLXpyDBI7hLfzYZ2GCDwxzdd+oqEvdpDcszKvr9Kq7BxFAK0oWMuBIKbVIkvHp3Qr25QI2sjFvB2svbqg6j0G/7yqKMFlwg4l35ZYczhNWFoerYcoOVbT2SnmXwukAkpERTfDRQWGmuh/w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MS43mNiSDBnUD+5Kh3C9BXVuF+iauADexFTUQZ11670=;
- b=Hs2pDP9E3kWxAQCCJAcQP1FV+/2g4JLujIAyL33KTb+XQ9szn3dQ3H3lWB9WBPoFzM247lyxuPxe+Fuy/SONBEmJmrw7r5cXsnti2t/z1ReENZRTwH/ynVeR4DozNZ4fBGtaLsIw4754DKiXzI4DTcHp+dkmrZ6Mb+UEsBcuQy0=
-Received: from MW3PR05CA0012.namprd05.prod.outlook.com (2603:10b6:303:2b::17)
- by CY8PR12MB7194.namprd12.prod.outlook.com (2603:10b6:930:5a::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.23; Sun, 12 Mar
- 2023 12:02:41 +0000
-Received: from CO1NAM11FT049.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:2b:cafe::c3) by MW3PR05CA0012.outlook.office365.com
- (2603:10b6:303:2b::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.25 via Frontend
- Transport; Sun, 12 Mar 2023 12:02:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT049.mail.protection.outlook.com (10.13.175.50) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.24 via Frontend Transport; Sun, 12 Mar 2023 12:02:40 +0000
-Received: from hr-amd.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Sun, 12 Mar
- 2023 07:02:35 -0500
-From: Huang Rui <ray.huang@amd.com>
-To: Juergen Gross <jgross@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Oleksandr Tyshchenko
- <oleksandr_tyshchenko@epam.com>, Boris Ostrovsky
- <boris.ostrovsky@oracle.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
- <roger.pau@citrix.com>, <xen-devel@lists.xenproject.org>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <amd-gfx@lists.freedesktop.org>
-Subject: [RFC PATCH 5/5] xen/privcmd: add IOCTL_PRIVCMD_GSI_FROM_IRQ
-Date: Sun, 12 Mar 2023 20:01:57 +0800
-Message-ID: <20230312120157.452859-6-ray.huang@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED04810E11D;
+	Sun, 12 Mar 2023 17:37:08 +0000 (UTC)
+X-Greylist: delayed 66227 seconds by postgrey-1.36 at gabe;
+ Sun, 12 Mar 2023 13:51:30 UTC
+Received: from smtp50.i.mail.ru (smtp50.i.mail.ru [95.163.41.92])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44E1D10E129;
+ Sun, 12 Mar 2023 13:51:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru;
+ s=mail4; 
+ h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:Cc:To:From:From:Subject:Content-Type:Content-Transfer-Encoding:To:Cc;
+ bh=9e2qemlQ+qu6TtpeSILCd8YXgDshgLNwa7t+UxrGEOg=; 
+ t=1678629090;x=1678719090; 
+ b=hGpJQzbEqCqCVXZUQZbMIyD28sdtfyQsA675Iq+HtmwRXsuTNnKgdDCyO0030WRRcRmgy6KhMK7A7hWEt7hyIt+K5kenzB2RE8R/IOl7f0d/3MK1opE/cfYlRE7Orqeb65wIpcMlkaLOuLOw0eoP9roftTgZQMAdOiH2Qj8xW4lOqXNdrQSDFYgAib7NAp1whzrohwE6p5M4wQxTwy6m1u9xT8wpnH5c29QrObFPJhfgB/eFYwRoFKqTx1RKadHayjKrVa39UFTOza6L+Zmh0WhhMsxFePG73UT9TMr1h1mWzovbD8F2ajz1ebUPncUibpccj9P3zoDO/y0a14YTNw==;
+Received: by smtp50.i.mail.ru with esmtpa (envelope-from <listdansp@mail.ru>)
+ id 1pbM6h-00C5Oi-7t; Sun, 12 Mar 2023 16:51:27 +0300
+From: Danila Chernetsov <listdansp@mail.ru>
+To: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH v5.10 1/1] drm/amdgpu: add error handling for
+ drm_fb_helper_initial_config
+Date: Sun, 12 Mar 2023 13:50:53 +0000
+Message-Id: <20230312135053.7218-1-listdansp@mail.ru>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230312120157.452859-1-ray.huang@amd.com>
-References: <20230312120157.452859-1-ray.huang@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT049:EE_|CY8PR12MB7194:EE_
-X-MS-Office365-Filtering-Correlation-Id: 16c46202-8a5e-45eb-c067-08db22f1ae6e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: KcLg3hFsSzECn1tAEfGEEV/+r3fQgsh4/cphmQrp/dlmbIp1CaY3Y+XaB4ohSHvzCNUf1EGPLMzvQLbLbgoDVTIiMEIL2XkIfkAcCaInm2XuSatPgwgqKn1Kt3oTqNMtvDPffM+mpV0NKRD/TKPbWXqN+Fjx8nadhVkDQOeSgnwtpw/QxTqlTZmBkjQCnPij5RBH3pubLdTcQS4WwoViXIg0aYamzOvuFpMmzS+FVJwE8hwL/LO5Wh8By7URW6c5C9ohN+uzCLOiBY5KTm029pGblscwNF9HUqFmRLX/Sx8/CeIr/KJ4fqG8C1EWCnqVhwKUg7kGXRGp8oBxjuda3sPkPIU1QNrYm00Nzb0rBgVcFpjgwTemfE3TPdI68H/Qj6QqYQdKpNp7VZzl9i08PS9Rr9xLD28qZEjcn4v9WqpgZSkO5B5tFfKvYfN60j1yj6tEk1osXsKHQrs0UoX17rwCY+/fRuy442utGwGMYj4VfXZu2vTdHBWqd6uBcEadebv9ttP/OgaPHiczDZQ+rKsDjIHxJ0Jf8fwHcsQJ5/zZI+15xoE95lwLkcb+yCHno3qR/pFnn3YDkqNIisVTSYTl21BQ5eWQPk1jHVGzTrLbtRYU2xlN6ZtHG9TWBQfkD5SmR3kco+/zge6kBRtuMKFKtnX52NWfl8lgZiOSdxWztd+VCfmQRq/b4E/NyKXBWyZx7odLThOPV2zKFc59HyqbbF1gddaEXOkVSX1OK48=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(136003)(396003)(346002)(376002)(39860400002)(451199018)(40470700004)(46966006)(36840700001)(40460700003)(4326008)(5660300002)(8936002)(7416002)(41300700001)(2906002)(86362001)(36860700001)(82740400003)(81166007)(356005)(36756003)(7696005)(70586007)(70206006)(6666004)(8676002)(40480700001)(82310400005)(426003)(47076005)(110136005)(478600001)(54906003)(316002)(186003)(26005)(1076003)(16526019)(336012)(2616005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2023 12:02:40.9513 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 16c46202-8a5e-45eb-c067-08db22f1ae6e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT049.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7194
+Authentication-Results: smtp50.i.mail.ru; auth=pass smtp.auth=listdansp@mail.ru
+ smtp.mailfrom=listdansp@mail.ru
+X-Mailru-Src: smtp
+X-7564579A: B8F34718100C35BD
+X-77F55803: 4F1203BC0FB41BD9BCEC41593EBD8357D61703A5C7370B1E319F7344C6651618182A05F5380850404101E7A95639D66F46B724D4AD22814152705C147E0509B9A98EC30680F39800
+X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE710FC7AC39A8009ECEA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F7900637525B22DCF689D4638638F802B75D45FF36EB9D2243A4F8B5A6FCA7DBDB1FC311F39EFFDF887939037866D6147AF826D8A8B962F2C513871FF9C52E85DFF075466F9789CCF6C18C3F8528715B7D10C86878DA827A17800CE7F588D4452561E4D79FA2833FD35BB23D9E625A9149C048EE0AC5B80A05675ACDF6B57BC7E64490618DEB871D839B7333395957E7521B51C2DFABB839C843B9C08941B15DA834481F8AA50765F79006379BABF3D50D9A3D87389733CBF5DBD5E9B5C8C57E37DE458BD9DD9810294C998ED8FC6C240DEA76428AA50765F7900637A9329C8D8D988D4ED81D268191BDAD3DBD4B6F7A4D31EC0BEA7A3FFF5B025636D81D268191BDAD3D78DA827A17800CE72AA49236079A88D2EC76A7562686271ED91E3A1F190DE8FD2E808ACE2090B5E14AD6D5ED66289B5259CC434672EE63711DD303D21008E298D5E8D9A59859A8B6B372FE9A2E580EFC725E5C173C3A84C3443DF20DE7AF59D235872C767BF85DA2F004C90652538430E4A6367B16DE6309
+X-C1DE0DAB: 0D63561A33F958A5C7C8BD3663FA951A02515BEC82C141FC4BF0A345B7E33DD84EAF44D9B582CE87C8A4C02DF684249CC203C45FEA855C8F
+X-C8649E89: 4E36BF7865823D7055A7F0CF078B5EC49A30900B95165D34EB7BD66E9101C1008FCF4C881EC454412423020562D60783A1B62AE67F12488AE155D5A1E56565E71D7E09C32AA3244C38C2F3B520FDC88ABB7C7E14A63851DABBA718C7E6A9E04227AC49D2B05FCCD8
+X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5ycPtXkTV4k65bRjmOUUP8cvGozZ33TWg5HZplvhhXbhDGzqmQDTd6OAevLeAnq3Ra9uf7zvY2zzsIhlcp/Y7m53TZgf2aB4JOg4gkr2biojN3wBDQf4j7MC6g2skIIJpw==
+X-Mailru-Sender: 4CE1109FD677D2770147F6A9E21DCA7B011BF7C6691D941B53F16FEE055C45F2C79AF7ED9535CCE97E3C9C7AF06D9E7B78274A4A9E9E44FD3C3897ABF9FF211DE8284E426C7B2D9A5FEEDEB644C299C0ED14614B50AE0675
+X-Mras: Ok
+X-Mailman-Approved-At: Sun, 12 Mar 2023 17:37:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,182 +54,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Honglei Huang <honglei1.huang@amd.com>, Stewart
- Hildebrand <Stewart.Hildebrand@amd.com>, Huang Rui <ray.huang@amd.com>,
- Chen Jiqian <Jiqian.Chen@amd.com>, Xenia Ragiadakou <burzalodowa@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>, Julia Zhang <julia.zhang@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: lvc-project@linuxtesting.org, David Airlie <airlied@linux.ie>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danila Chernetsov <listdansp@mail.ru>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Chen Jiqian <Jiqian.Chen@amd.com>
+The type of return value of drm_fb_helper_initial_config is int, 
+which may return wrong result, so we add error handling for it 
+to reclaim memory resource, and return when an error occurs.          
 
-When hypervisor get an interrupt, it needs interrupt's
-gsi number instead of irq number. Gsi number is unique
-in xen, but irq number is only unique in one domain.
-So, we need to record the relationship between irq and
-gsi when dom0 initialized pci devices, and provide syscall
-IOCTL_PRIVCMD_GSI_FROM_IRQ to translate irq to gsi. So
-that, we can map pirq successfully in hypervisor side.
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-Signed-off-by: Chen Jiqian <Jiqian.Chen@amd.com>
-Signed-off-by: Huang Rui <ray.huang@amd.com>
+Fixes: d38ceaf99ed0 (drm/amdgpu: add core driver (v4))
+Signed-off-by: Danila Chernetsov <listdansp@mail.ru>
 ---
- arch/x86/pci/xen.c               |  4 ++++
- drivers/xen/events/events_base.c | 37 ++++++++++++++++++++++++++++++++
- drivers/xen/privcmd.c            | 20 +++++++++++++++++
- include/uapi/xen/privcmd.h       |  7 ++++++
- include/xen/events.h             |  5 +++++
- 5 files changed, 73 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/pci/xen.c b/arch/x86/pci/xen.c
-index 43b8b6d7147b..3237961c7640 100644
---- a/arch/x86/pci/xen.c
-+++ b/arch/x86/pci/xen.c
-@@ -143,6 +143,10 @@ static int acpi_register_gsi_xen_pvh(struct device *dev, u32 gsi,
- 	else if (rc)
- 		printk(KERN_ERR "Failed to setup GSI :%u, err_code:%d\n", gsi, rc);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
+index 43f29ee0e3b0..e445a2c9f569 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
+@@ -348,8 +348,17 @@ int amdgpu_fbdev_init(struct amdgpu_device *adev)
+ 	if (!amdgpu_device_has_dc_support(adev))
+ 		drm_helper_disable_unused_functions(adev_to_drm(adev));
  
-+	rc = xen_pvh_add_gsi_irq_map(gsi, irq);
-+	if (rc == -EEXIST)
-+		printk(KERN_INFO "Already map the GSI :%u and IRQ: %d\n", gsi, irq);
-+
- 	return irq;
- }
- 
-diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/events_base.c
-index 48dff0ed9acd..39a57fed2de3 100644
---- a/drivers/xen/events/events_base.c
-+++ b/drivers/xen/events/events_base.c
-@@ -967,6 +967,43 @@ int xen_irq_from_gsi(unsigned gsi)
- }
- EXPORT_SYMBOL_GPL(xen_irq_from_gsi);
- 
-+int xen_gsi_from_irq(unsigned irq)
-+{
-+	struct irq_info *info;
-+
-+	list_for_each_entry(info, &xen_irq_list_head, list) {
-+		if (info->type != IRQT_PIRQ)
-+			continue;
-+
-+		if (info->irq == irq)
-+			return info->u.pirq.gsi;
-+	}
-+
-+	return -1;
-+}
-+EXPORT_SYMBOL_GPL(xen_gsi_from_irq);
-+
-+int xen_pvh_add_gsi_irq_map(unsigned gsi, unsigned irq)
-+{
-+	int tmp_irq;
-+	struct irq_info *info;
-+
-+	tmp_irq = xen_irq_from_gsi(gsi);
-+	if (tmp_irq != -1)
-+		return -EEXIST;
-+
-+	info = kzalloc(sizeof(*info), GFP_KERNEL);
-+	if (info == NULL)
-+		panic("Unable to allocate metadata for GSI%d\n", gsi);
-+
-+	info->type = IRQT_PIRQ;
-+	info->irq = irq;
-+	info->u.pirq.gsi = gsi;
-+	list_add_tail(&info->list, &xen_irq_list_head);
+-	drm_fb_helper_initial_config(&rfbdev->helper, bpp_sel);
+-	return 0;
++	ret = drm_fb_helper_initial_config(&rfbdev->helper, bpp_sel);
++	if (ret)
++		goto fini;
 +
 +	return 0;
-+}
 +
- static void __unbind_from_irq(unsigned int irq)
- {
- 	evtchn_port_t evtchn = evtchn_from_irq(irq);
-diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
-index e88e8f6f0a33..830e84451731 100644
---- a/drivers/xen/privcmd.c
-+++ b/drivers/xen/privcmd.c
-@@ -37,6 +37,7 @@
- #include <xen/page.h>
- #include <xen/xen-ops.h>
- #include <xen/balloon.h>
-+#include <xen/events.h>
- 
- #include "privcmd.h"
- 
-@@ -833,6 +834,21 @@ static long privcmd_ioctl_mmap_resource(struct file *file,
- 	return rc;
++fini:
++	drm_fb_helper_fini(&rfbdev->helper);
++
++	kfree(rfbdev);
++	return ret;
  }
  
-+static long privcmd_ioctl_gsi_from_irq(struct file *file, void __user *udata)
-+{
-+	struct privcmd_gsi_from_irq kdata;
-+
-+	if (copy_from_user(&kdata, udata, sizeof(kdata)))
-+		return -EFAULT;
-+
-+	kdata.gsi = xen_gsi_from_irq(kdata.irq);
-+
-+	if (copy_to_user(udata, &kdata, sizeof(kdata)))
-+		return -EFAULT;
-+
-+	return 0;
-+}
-+
- static long privcmd_ioctl(struct file *file,
- 			  unsigned int cmd, unsigned long data)
- {
-@@ -868,6 +884,10 @@ static long privcmd_ioctl(struct file *file,
- 		ret = privcmd_ioctl_mmap_resource(file, udata);
- 		break;
- 
-+	case IOCTL_PRIVCMD_GSI_FROM_IRQ:
-+		ret = privcmd_ioctl_gsi_from_irq(file, udata);
-+		break;
-+
- 	default:
- 		break;
- 	}
-diff --git a/include/uapi/xen/privcmd.h b/include/uapi/xen/privcmd.h
-index d2029556083e..55fe748bbfd7 100644
---- a/include/uapi/xen/privcmd.h
-+++ b/include/uapi/xen/privcmd.h
-@@ -98,6 +98,11 @@ struct privcmd_mmap_resource {
- 	__u64 addr;
- };
- 
-+struct privcmd_gsi_from_irq {
-+	__u32 irq;
-+	__u32 gsi;
-+};
-+
- /*
-  * @cmd: IOCTL_PRIVCMD_HYPERCALL
-  * @arg: &privcmd_hypercall_t
-@@ -125,5 +130,7 @@ struct privcmd_mmap_resource {
- 	_IOC(_IOC_NONE, 'P', 6, sizeof(domid_t))
- #define IOCTL_PRIVCMD_MMAP_RESOURCE				\
- 	_IOC(_IOC_NONE, 'P', 7, sizeof(struct privcmd_mmap_resource))
-+#define IOCTL_PRIVCMD_GSI_FROM_IRQ				\
-+	_IOC(_IOC_NONE, 'P', 8, sizeof(struct privcmd_gsi_from_irq))
- 
- #endif /* __LINUX_PUBLIC_PRIVCMD_H__ */
-diff --git a/include/xen/events.h b/include/xen/events.h
-index 344081e71584..8377d8dfaa71 100644
---- a/include/xen/events.h
-+++ b/include/xen/events.h
-@@ -133,6 +133,11 @@ int xen_pirq_from_irq(unsigned irq);
- /* Return the irq allocated to the gsi */
- int xen_irq_from_gsi(unsigned gsi);
- 
-+/* Return the gsi from irq */
-+int xen_gsi_from_irq(unsigned irq);
-+
-+int xen_pvh_add_gsi_irq_map(unsigned gsi, unsigned irq);
-+
- /* Determine whether to ignore this IRQ if it is passed to a guest. */
- int xen_test_irq_shared(int irq);
- 
+ void amdgpu_fbdev_fini(struct amdgpu_device *adev)
 -- 
 2.25.1
 
