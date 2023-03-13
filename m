@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B167C74A4B
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Mar 2023 01:44:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE465C6FD1F
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Mar 2023 01:45:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DEC110E467;
-	Mon, 13 Mar 2023 01:44:59 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2057.outbound.protection.outlook.com [40.107.93.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6267910E467
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FDCC10E469;
+	Mon, 13 Mar 2023 01:45:00 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2065.outbound.protection.outlook.com [40.107.96.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9777B10E468
  for <amd-gfx@lists.freedesktop.org>; Mon, 13 Mar 2023 01:44:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=C8N8uu9BZu0NC6/LG7ZxVK4NsyDYoRU/2DULRqVU9nMs6OJMz78sW/nOeA++oEc9y6U/cgtWkNdecqoS0+165QPFIX276vEsRaoz60IVGIljvjMoCfoxh1xXZSSyZTVbvDmC0HBATnMIm7+ZMh9kNJobeN8khFPO/czpf/l3FCupf0PLmwTzhgFDMQ5uKsSj98rDe7lbj/Ki+V+IrlU7gNUB6qCn8PJwliPzlvHMdsLfzmNY9C1JvZTk5WtsyiW13lgGaFTs9YmZOU5WfeIfU1XIXGrx6wZT/1BJTuOsCidm2Wj7X+oIP5SYTgeS6/ghQeIwBuDwe04t1wz6qxauIQ==
+ b=MOYJyJulMqSkMl6GI2bMN5VDX2wm8TFqUd6tcjO/Zn9+VrLarIK4toDdEtdRJjp7qZmkZhKLhb8gLMrW+XOzElZPgAokc434ITLsy8yYNfx2f5GpBEGCj+gJ0MRxjO+2IiFKTSPmrbCcpLzoxEeHKSJQ6q+llrVUYwK0SyVgTf4f5n3AnzKqLtrRF6wpjW6HOlbIQZll4YHvi1CSVC8sSRKjykehk/if3JViZS9xxB1jt2VaxdYOHuYV7DNhTqw7dRV+HsmcnlHNRMSQCNSLSd/ZI0krkOdUdKAWwZLkJCrUOOjawVwXt02GShmgrTTLXKwpOZsnH1SemyzNIIw+6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1XvzoPobnYh9sUUQn/TrL3JgwmEV9rnqnZDchsBsk8w=;
- b=Mvtn+oiPpjqA2omYUuG7Up0H0iPo5sZ/sB/H07EuT6cdh23MUwbCEmfA5dSf56ahuJDY4PTPTGb5ke+1g4bRvnQS3xBspHhzwZu/pRhWNlJQBAGkF1GmEYaVcA5g65VcakF7R+40soTe7LrF5IUyzPe/43Gj7c0FlvcKU6U59NU6K1iLMW/x28755seyjRTMND2iK+ivnZ2sVIZhYf07wWtu/giEb2MsV30AG3TXZNDpRm37xTEfMxSlIvkj/TJVoWfSq8ipkr/CD+Uaqp/zxl013AspOWGB0h/s4jgkNaFcVPtnFCu4r6P3IshVST0nno3AGrt5iKJ7IgGno4Tu3Q==
+ bh=8H79LeK75ZKTvK/2JJbgRZqALII24g2Twgmi/qrUGwM=;
+ b=KDYN6JieGyIg+0j/GdE+2vIV5i0pJ6KqOZiFBoTGzELYRSOGSNbpGcq/rNauEQLw29IwG64rfHFWntfrpOmUa1ymSNfCDrknT0zXEFy1oHphT0LA0oWQSQsizpI1TfCQcW/k3JuRlTwIaxBXUo/nMlcpZdu/8r4G+aw6q2XYaY8LiAWv2soV2suGT7O3hCdSq8W1Ng9LL9UECtnZq8+Xv1ji58qw17p2F3mbKcDrX3knket5wfX0Yo7M94iVQs3R6mDkD1eJXX3xNW1mi2HU56+kX3CFvEwjTxLnGPO/DTY2ki+Nyc0VEMNwJEomXE1NARXzN30reHHb/mBl2Kbh1Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1XvzoPobnYh9sUUQn/TrL3JgwmEV9rnqnZDchsBsk8w=;
- b=Db/p9UFbC6DNgMeLsGr30eG7p8shnqaC+3lrmTOXjsdm+ZlSxIEIZ3WQLhVkabgIcSDE565wkGyUz681ozvrqLgS5223WS7Xqt4lv9f/VSYl+atVrsbmROOg0vRp5rsomALmPP1/BhWLOx7CW9e+YcECznxOcNoPMLQyMRa3byk=
-Received: from BN9PR03CA0162.namprd03.prod.outlook.com (2603:10b6:408:f4::17)
- by BL1PR12MB5969.namprd12.prod.outlook.com (2603:10b6:208:398::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.22; Mon, 13 Mar
- 2023 01:44:55 +0000
-Received: from BN8NAM11FT088.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:f4:cafe::48) by BN9PR03CA0162.outlook.office365.com
- (2603:10b6:408:f4::17) with Microsoft SMTP Server (version=TLS1_2,
+ bh=8H79LeK75ZKTvK/2JJbgRZqALII24g2Twgmi/qrUGwM=;
+ b=zCSeVhjMnmHMMy3j4LSuMcfI06dYT8d29KcTODsWL8TKbSeEOu0QJCvklCXfv5nNkXhNfRrcpMPJDtfA+u3QwVRa0FzFm0cnIyObj9nH1g1wjVkbz3IwzKCXVXan7GilhgkvXwOOqqyFE1DVFlEyncDYwNhvHMEjZdiFnqRQvmk=
+Received: from BN0PR04CA0209.namprd04.prod.outlook.com (2603:10b6:408:e9::34)
+ by DM6PR12MB4091.namprd12.prod.outlook.com (2603:10b6:5:222::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.24; Mon, 13 Mar
+ 2023 01:44:52 +0000
+Received: from BN8NAM11FT098.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:e9:cafe::d1) by BN0PR04CA0209.outlook.office365.com
+ (2603:10b6:408:e9::34) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.25 via Frontend
- Transport; Mon, 13 Mar 2023 01:44:55 +0000
+ Transport; Mon, 13 Mar 2023 01:44:52 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,20 +45,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT088.mail.protection.outlook.com (10.13.177.81) with Microsoft SMTP
+ BN8NAM11FT098.mail.protection.outlook.com (10.13.177.196) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.24 via Frontend Transport; Mon, 13 Mar 2023 01:44:55 +0000
+ 15.20.6178.24 via Frontend Transport; Mon, 13 Mar 2023 01:44:52 +0000
 Received: from hawzhang-System-Product-Master.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.34; Sun, 12 Mar 2023 20:44:53 -0500
+ 15.1.2375.34; Sun, 12 Mar 2023 20:44:50 -0500
 From: Hawking Zhang <Hawking.Zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, Tao Zhou <tao.zhou1@amd.com>, "Stanley
  Yang" <Stanley.Yang@amd.com>, Candice Li <Candice.Li@amd.com>, Thomas Chai
  <YiPeng.Chai@amd.com>
-Subject: [PATCH 09/10] drm/amdgpu: Rework pcie_bif ras sw_init
-Date: Mon, 13 Mar 2023 09:44:02 +0800
-Message-ID: <20230313014403.21903-10-Hawking.Zhang@amd.com>
+Subject: [PATCH 08/10] drm/amdgpu: Rework xgmi_wafl_pcs ras sw_init
+Date: Mon, 13 Mar 2023 09:44:01 +0800
+Message-ID: <20230313014403.21903-9-Hawking.Zhang@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20230313014403.21903-1-Hawking.Zhang@amd.com>
 References: <20230313014403.21903-1-Hawking.Zhang@amd.com>
@@ -69,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT088:EE_|BL1PR12MB5969:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5f1a40a2-d088-4ed5-0166-08db23648be6
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT098:EE_|DM6PR12MB4091:EE_
+X-MS-Office365-Filtering-Correlation-Id: cbfbbbe0-f548-4abc-a172-08db23648a3f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: mIQDZFUiWCb+4E8Hn4CXwxAK3VX08IoVng4TcX0yxcF7NFcnO/lsxRzcKKeBgNphp+WB03g9/vpYEjGbDY1N8dKiQMQWeqvfb4EkS435H2c1MSU7TZcN9ttb0eBEpAIF6WZoq5ACdzY9SpnHhgkg1sDzMhldjuZp+vVVldwqH32wwY5j/Us2iJ5fbf3e6vl52LrCWC3p4cO9kVujQYJ4CFr06eibDPMabNoRlYNn9+1sdwHzYbZVQZcNFABuDXoU9jH8CDOi49dyPezNQZxX3XrNj6XGe017bdTzz5HWSC95vNbVs8JfPKOr2Zkr2Ct7ihenN4XdgLHLgp5iTipLfLTOV2LDktPkd+WRz24uSN7IOOI5WmA+SQrWT1NnpTyZdi6STyftm+n5lXfsiISdKXaThsc87K0PnhhY/Z4OLVYcQQ2nKNZA5ne+dghEvWpkU7ATiQjV+4pdfFwU89XjfXxBbb7Bp2+MQwOPVLtJzoy/QRx6FXVsCU1rzGhYw8+mUmI7O1SfnkhXd9zcVpr5NiyzmGgv8rHT5hkayE6N8zzxYP4Vft30g3TjUNTvabZSHJNPjkE2bDwPeadgCYtX3G6xMNhhy3qe6D5uDiSAwS7RxP0Ksxb4W116R2S/6o5VTp1QeU1QZEKouFNCMto13zXBDGK13CpYtk/ZoGZ6tO7dK2u+gCBJx8r9uJDM2ARgfjgqbsKZwJb6dYMPvn3ZpYzy0IAWpsiLNHl/PMsCiCM=
+X-Microsoft-Antispam-Message-Info: BsnFtLNDQ3koC8B9VDFM+yAaHHA1l2ovm1iITWhRLd7pyiGy+sMiYybkUS6jldV9pApTnn4NtlU8a6blMzkGImqd9JiJoWmgouKGDH6MPg8yvXcyBw+lqmZxjtMA1S0Tf+5vXyKmDOSus+xKa+83rT9+xR/hS2vSEY5xkKz1BhvbnIok96gFQABE26hmfSA0/uO8ugcTRyj29GmZZI2pXBYB7FjFV26cJFSdIqLJaXS3+1ccjLNMxO4YtZ3miN6Jt2uMhKKuqYQ+A26wyrwpVMUD1jr9k3suwva6577Pp3MjHIWu6dVDOb4uUsubckiuUrqsq++mvzmgnqVOj+lSksCprAC62/6r00KtqspEXaBL1nhEKjPXia8fnqRebF1h/7GrZWsLjf/OM2rqipaXuVWJp7AmUZJOhxRksnOZrSZ4prMOxqKcwf8TXN+ygDJlB2OyQazjZvpZBA/I9fSbZBLCvnL8KDXs5b2Lhq6ny5DyMXKhn1zbPI+o+hVK4vvsVPTgTH6pWddNmaz+2GFySoFokNQSPD1rwnMbGl5fwHb23DF1i0WIqMVJEG/KLCmCzEG5qkAriFhZCmsgkFBFF4vhxMz9CB9VtrjycghSmBvfxoGj99y7VqTVLYnlIdsAyAj/mVPk4aVzsZIVKhnpbNKaLgF4Av90lEvbJhuJgrutA3hv1iEtj34PoUjWtlmR4QF75N448bdNYQxHB+Z2ptx9S1vD7HWMk+wBJuHTezQ=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(376002)(346002)(136003)(39860400002)(396003)(451199018)(46966006)(40470700004)(36840700001)(83380400001)(70206006)(70586007)(4326008)(36860700001)(2616005)(82740400003)(47076005)(426003)(82310400005)(336012)(81166007)(41300700001)(316002)(8676002)(16526019)(186003)(26005)(110136005)(6636002)(356005)(1076003)(40460700003)(36756003)(8936002)(478600001)(40480700001)(5660300002)(6666004)(7696005)(2906002)(86362001)(36900700001);
+ SFS:(13230025)(4636009)(39860400002)(346002)(396003)(136003)(376002)(451199018)(46966006)(36840700001)(40470700004)(2906002)(83380400001)(6666004)(7696005)(26005)(36756003)(1076003)(40460700003)(5660300002)(16526019)(8936002)(40480700001)(186003)(8676002)(86362001)(41300700001)(2616005)(356005)(4326008)(426003)(70586007)(47076005)(70206006)(336012)(81166007)(478600001)(110136005)(82740400003)(316002)(6636002)(36860700001)(82310400005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2023 01:44:55.3396 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5f1a40a2-d088-4ed5-0166-08db23648be6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2023 01:44:52.5716 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cbfbbbe0-f548-4abc-a172-08db23648a3f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT088.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT098.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5969
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4091
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,98 +104,112 @@ Cc: Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-pcie_bif ras blocks needs to be initialized as early
-as possible to handle fatal error detected in hw_init
-phase. also align the pcie_bif ras sw_init with other
-ras blocks
+To align with other IP blocks.
 
 Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c | 23 +++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c  | 17 ++++++++++-------
- 3 files changed, 34 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c  |  9 ++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 28 +++++++++++++++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h |  1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c    |  7 ++++++
+ 4 files changed, 35 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
-index 37d779b8e4a6..a3bc00577a7c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
-@@ -22,6 +22,29 @@
- #include "amdgpu.h"
- #include "amdgpu_ras.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index ab85b85496f2..a407357cb153 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -478,11 +478,10 @@ int amdgpu_gmc_ras_sw_init(struct amdgpu_device *adev)
+ 	if (r)
+ 		return r;
  
-+int amdgpu_nbio_ras_sw_init(struct amdgpu_device *adev)
+-	if (!adev->gmc.xgmi.connected_to_cpu) {
+-		adev->gmc.xgmi.ras = &xgmi_ras;
+-		amdgpu_ras_register_ras_block(adev, &adev->gmc.xgmi.ras->ras_block);
+-		adev->gmc.xgmi.ras_if = &adev->gmc.xgmi.ras->ras_block.ras_comm;
+-	}
++	/* xgmi ras block */
++	r = amdgpu_xgmi_ras_sw_init(adev);
++	if (r)
++		return r;
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+index fef1575cd0cf..3fe24348d199 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -1048,12 +1048,30 @@ struct amdgpu_ras_block_hw_ops  xgmi_ras_hw_ops = {
+ 
+ struct amdgpu_xgmi_ras xgmi_ras = {
+ 	.ras_block = {
+-		.ras_comm = {
+-			.name = "xgmi_wafl",
+-			.block = AMDGPU_RAS_BLOCK__XGMI_WAFL,
+-			.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE,
+-		},
+ 		.hw_ops = &xgmi_ras_hw_ops,
+ 		.ras_late_init = amdgpu_xgmi_ras_late_init,
+ 	},
+ };
++
++int amdgpu_xgmi_ras_sw_init(struct amdgpu_device *adev)
 +{
 +	int err;
-+	struct amdgpu_nbio_ras *ras;
++	struct amdgpu_xgmi_ras *ras;
 +
-+	if (!adev->nbio.ras)
++	if (!adev->gmc.xgmi.ras)
 +		return 0;
 +
-+	ras = adev->nbio.ras;
++	ras = adev->gmc.xgmi.ras;
 +	err = amdgpu_ras_register_ras_block(adev, &ras->ras_block);
 +	if (err) {
-+		dev_err(adev->dev, "Failed to register pcie_bif ras block!\n");
++		dev_err(adev->dev, "Failed to register xgmi_wafl_pcs ras block!\n");
 +		return err;
 +	}
 +
-+	strcpy(ras->ras_block.ras_comm.name, "pcie_bif");
-+	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__PCIE_BIF;
++	strcpy(ras->ras_block.ras_comm.name, "xgmi_wafl_pcs");
++	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__XGMI_WAFL;
 +	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
-+	adev->nbio.ras_if = &ras->ras_block.ras_comm;
++	adev->gmc.xgmi.ras_if = &ras->ras_block.ras_comm;
 +
 +	return 0;
 +}
-+
- int amdgpu_nbio_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *ras_block)
- {
- 	int r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-index a240336bbc6b..c686ff4bcc39 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-@@ -106,5 +106,6 @@ struct amdgpu_nbio {
- 	struct amdgpu_nbio_ras  *ras;
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+index 30dcc1681b4e..86fbf56938f4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+@@ -73,5 +73,6 @@ static inline bool amdgpu_xgmi_same_hive(struct amdgpu_device *adev,
+ 		adev->gmc.xgmi.hive_id &&
+ 		adev->gmc.xgmi.hive_id == bo_adev->gmc.xgmi.hive_id);
+ }
++int amdgpu_xgmi_ras_sw_init(struct amdgpu_device *adev);
  
-+int amdgpu_nbio_ras_sw_init(struct amdgpu_device *adev);
- int amdgpu_nbio_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *ras_block);
  #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 63dfcc98152d..834092099bff 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -2555,20 +2555,23 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
- 	 * ras functions so hardware fatal error interrupt
- 	 * can be enabled as early as possible */
- 	switch (adev->asic_type) {
--	case CHIP_VEGA20:
--	case CHIP_ARCTURUS:
--	case CHIP_ALDEBARAN:
--		if (!adev->gmc.xgmi.connected_to_cpu) {
-+	case IP_VERSION(7, 4, 0):
-+	case IP_VERSION(7, 4, 1):
-+	case IP_VERSION(7, 4, 4):
-+		if (!adev->gmc.xgmi.connected_to_cpu)
- 			adev->nbio.ras = &nbio_v7_4_ras;
--			amdgpu_ras_register_ras_block(adev, &adev->nbio.ras->ras_block);
--			adev->nbio.ras_if = &adev->nbio.ras->ras_block.ras_comm;
--		}
- 		break;
- 	default:
- 		/* nbio ras is not available */
- 		break;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 67c2a5186b8a..2a8dc9b52c2d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1381,6 +1381,12 @@ static void gmc_v9_0_set_mca_ras_funcs(struct amdgpu_device *adev)
  	}
+ }
  
-+	/* nbio ras block needs to be enabled ahead of other ras blocks
-+	 * to handle fatal error */
-+	r = amdgpu_nbio_ras_sw_init(adev);
-+	if (r)
-+		return r;
++static void gmc_v9_0_set_xgmi_ras_funcs(struct amdgpu_device *adev)
++{
++	if (!adev->gmc.xgmi.connected_to_cpu)
++		adev->gmc.xgmi.ras = &xgmi_ras;
++}
 +
- 	if (adev->nbio.ras &&
- 	    adev->nbio.ras->init_ras_controller_interrupt) {
- 		r = adev->nbio.ras->init_ras_controller_interrupt(adev);
+ static int gmc_v9_0_early_init(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+@@ -1404,6 +1410,7 @@ static int gmc_v9_0_early_init(void *handle)
+ 	gmc_v9_0_set_gfxhub_funcs(adev);
+ 	gmc_v9_0_set_hdp_ras_funcs(adev);
+ 	gmc_v9_0_set_mca_ras_funcs(adev);
++	gmc_v9_0_set_xgmi_ras_funcs(adev);
+ 
+ 	adev->gmc.shared_aperture_start = 0x2000000000000000ULL;
+ 	adev->gmc.shared_aperture_end =
 -- 
 2.17.1
 
