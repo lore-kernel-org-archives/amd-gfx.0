@@ -4,58 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57FFBC61DA4
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Mar 2023 15:43:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C269FC6FD19
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Mar 2023 16:47:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A9F810E12A;
-	Mon, 13 Mar 2023 15:42:59 +0000 (UTC)
-Received: from mail-ua1-x933.google.com (mail-ua1-x933.google.com
- [IPv6:2607:f8b0:4864:20::933])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71EC210E12A;
- Mon, 13 Mar 2023 15:42:57 +0000 (UTC)
-Received: by mail-ua1-x933.google.com with SMTP id p2so8551865uap.1;
- Mon, 13 Mar 2023 08:42:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678722176;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=N8RCVnAi4IeyJIpn+hfbcj5KS7N/D7rOad8PC30GlWs=;
- b=Fn9fOsJuFs8+0eTvsgHqUyG7RN6lbTDMAxv1eOKhkMv9KfIWJ6jKy1fWoqY9Qibz3U
- JgCxX1z8gcJSz97bEIHLOpXtmS5eeILsT++wTBmMqewTTFI4qGeVjAKGzPDiBgzV8kjm
- 6l7dA9ukPQM7cNp7W8+6a7ZAIbdKRNLJoYgBCrqoOPeDNiwPc5EWzwNbXQO1HbRK7Xck
- ARuPdX//dY20vwQGcDRlBlAUglvV7ZCajLHQcSouewW86Tf6mJVpAs/bc4gKQ5S0A/sS
- Bmdhk6TJfjj6rjzlAQKyatJVlZuwuRGvXQbmMhxT6QqMGtW8olfPo+aluOGe26eNAfKV
- zkrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678722176;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=N8RCVnAi4IeyJIpn+hfbcj5KS7N/D7rOad8PC30GlWs=;
- b=Y3BJaBhWkuc4DvW4T1upwbFkvv7PnOJYVmXnOqkdYspT0VfmHnIOO3FMtQnkdhle4B
- qx9TG7HHfPtzofXDEWsL0UmnTvkYSUPzgICu6a33ZZ6un6E+EmVimFt/njmEdBG0jLKi
- hYHam1QL1yxyQpOwPlVYFnVbSH1kVtC0trG7iHzQGhmZcDU2MVY2ziVbx/T5P2DimdRF
- tOt9sCi7HOL9HXHvDcNS+rBB5R7Sd1DPxd/Yx7xxJkzh9zhbcse/5IjptWgmmZm2RMdE
- GzgwurPTGv/Q26ktUEA+QEnMCRrtVudki0mVVCdETno+4L1hQaM72FLHe2PayIZXt3XP
- UjHw==
-X-Gm-Message-State: AO0yUKVP3cU4K8i37cKeWsCu3nEFFq7oyBaqUvOvwqf8F1SdX5+QZqRn
- UXu6XqlYx2O2vTUPSG/8cQjP8xIDYHTNbapUHLo=
-X-Google-Smtp-Source: AK7set9JfPx3fA5ZJMtn3NV+0iyuZjQA4C0DBaTYRJmnq8ulxdtbhKygcUzsvHgF9wQ5zgfP5TaO6xqeadkxp1R4y5o=
-X-Received: by 2002:ac5:cd86:0:b0:401:7625:e9e3 with SMTP id
- i6-20020ac5cd86000000b004017625e9e3mr6491675vka.1.1678722176424; Mon, 13 Mar
- 2023 08:42:56 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230312165100.1204682-1-gpiccoli@igalia.com>
-In-Reply-To: <20230312165100.1204682-1-gpiccoli@igalia.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 13 Mar 2023 11:42:43 -0400
-Message-ID: <CADnq5_PiGx7Lt1_XTrs8k61jZNDY9cy8Rs98iBVsi-FEmnTRpw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/vcn: Disable indirect SRAM on Vangogh broken
- BIOSes
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4407210E4DA;
+	Mon, 13 Mar 2023 16:47:02 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D69D410E572;
+ Mon, 13 Mar 2023 15:27:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+ In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=wpCxvwf3fbLAPDA2SBvrNdTlpxqBWm7vfBvxAU0BSDE=; b=ERpsLSYOO/B08jOgkxgecMzR/U
+ AydhYvnHCxhNZAXDoir04qXs7ABCb+EG7RjsVugtQRv2DrrYGBpjBKmqXB5baDrwwZP/PXr3VBgIy
+ IBwmBSgqEYgHSUevrat5RX1SwBJz4vM/LmTzmgPhVMYrh95ibu36pb/b/KEqlO+PtULlaqSES4F3z
+ jCBDKiVsGU7wIyAb25c88bQ7lYyqeih9QOg+85noNQtOEFrpsbAr3EIEtvmrvoShgaPPENHqragRM
+ aJwTp0hL1SqG0K7VR5pWHO+Emfgti8IvYO3EB2LxJ2MPKy7YFH1criDC8UH9N4gz8KxRC8ETMR1i7
+ tBLUp8ng==;
+Received: from 137.red-83-52-2.dynamicip.rima-tde.net ([83.52.2.137]
+ helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1pbk4r-007m0t-VO; Mon, 13 Mar 2023 16:27:09 +0100
+Message-ID: <19f8b5328550abde46a316189c8cd746339819b0.camel@igalia.com>
+Subject: Re: 2023 X.Org Board of Directors Elections Nomination period is NOW
+From: Ricardo Garcia <rgarcia@igalia.com>
+To: members@x.org, events@lists.x.org, xorg-devel@lists.freedesktop.org, 
+ wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ libre-soc-dev <libre-soc-dev@lists.libre-soc.org>
+Date: Mon, 13 Mar 2023 16:27:09 +0100
+In-Reply-To: <c1c2591a7f7c9bcb05b69b08da529ddb8fc8145c.camel@igalia.com>
+References: <c1c2591a7f7c9bcb05b69b08da529ddb8fc8145c.camel@igalia.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4 (3.46.4-1.fc37) 
+MIME-Version: 1.0
+X-Mailman-Approved-At: Mon, 13 Mar 2023 16:47:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,111 +57,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel@gpiccoli.net, johns@valvesoftware.com, Xinhui.Pan@amd.com,
- dri-devel@lists.freedesktop.org, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- cristian.ciocaltea@collabora.com, stable@vger.kernel.org,
- James Zhu <James.Zhu@amd.com>, Leo Liu <leo.liu@amd.com>,
- christian.koenig@amd.com
+Cc: board <board@foundation.x.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+This is a reminder that the nomination period for the X.Org Board of
+Director elections finishes in a week, on March 19th.
 
-Alex
+If you would like to nominate yourself please send email to the election
+committee elections@x.org, giving your
 
-On Sun, Mar 12, 2023 at 12:51=E2=80=AFPM Guilherme G. Piccoli
-<gpiccoli@igalia.com> wrote:
->
-> The VCN firmware loading path enables the indirect SRAM mode if it's
-> advertised as supported. We might have some cases of FW issues that
-> prevents this mode to working properly though, ending-up in a failed
-> probe. An example below, observed in the Steam Deck:
->
-> [...]
-> [drm] failed to load ucode VCN0_RAM(0x3A)
-> [drm] psp gfx command LOAD_IP_FW(0x6) failed and response status is (0xFF=
-FF0000)
-> amdgpu 0000:04:00.0: [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR* ring =
-vcn_dec_0 test failed (-110)
-> [drm:amdgpu_device_init.cold [amdgpu]] *ERROR* hw_init of IP block <vcn_v=
-3_0> failed -110
-> amdgpu 0000:04:00.0: amdgpu: amdgpu_device_ip_init failed
-> amdgpu 0000:04:00.0: amdgpu: Fatal error during GPU init
-> [...]
->
-> Disabling the VCN block circumvents this, but it's a very invasive
-> workaround that turns off the entire feature. So, let's add a quirk
-> on VCN loading that checks for known problematic BIOSes on Vangogh,
-> so we can proactively disable the indirect SRAM mode and allow the
-> HW proper probe and VCN IP block to work fine.
->
-> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2385
-> Fixes: 82132ecc5432 ("drm/amdgpu: enable Vangogh VCN indirect sram mode")
-> Cc: stable@vger.kernel.org
-> Cc: James Zhu <James.Zhu@amd.com>
-> Cc: Leo Liu <leo.liu@amd.com>
-> Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
-> ---
->
->
-> Hi folks, based on the feedback from the gitlab issue, here is the upstre=
-am
-> attempt to quirk the Steam Deck's BIOSes having known issues with the
-> indirect SRAM mode. I've tested it on both the quirked BIOSes, and also
-> with some working ones. This patch is based on agd5f/amd-staging-drm-next=
-.
->
-> Thanks in advance for reviews!
+    name
+    current professional affiliation
+    a statement of contribution to X.Org or related technologies
+    a personal statement.
+
+To vote or to be elected to the Board you needed to be a Member of the
+X.Org Foundation. To be a Member of the X.Org Foundation you need to
+apply or renew your membership until the end of the nomination period.
+
+Original email follows below. Thanks for your attention.
+
+On Wed, 2023-02-15 at 21:53 +0100, Ricardo Garcia wrote:
+> We are seeking nominations for candidates for election to the X.Org
+> Foundation Board of Directors. All X.Org Foundation members are eligible
+> for election to the board.
+>=20
+> Nominations for the 2023 election are now open and will remain open
+> until 23:59 UTC on 19 March 2023.
+>=20
+> The Board consists of directors elected from the membership. Each year,
+> an election is held to bring the total number of directors to eight. The
+> four members receiving the highest vote totals will serve as directors
+> for two year terms.
+>=20
+> The directors who received two year terms starting in 2022 were Emma
+> Anholt, Mark Filion, Alyssa Rosenzweig and Ricardo Garcia. They will
+> continue to serve until their term ends in 2024. Current directors whose
+> term expires in 2023 are Samuel Iglesias Gons=C3=A1lvez, Manasi D Navare,
+> Lyude Paul and Daniel Vetter.
+>=20
+> A director is expected to participate in the fortnightly IRC meeting to
+> discuss current business and to attend the annual meeting of the X.Org
+> Foundation, which will be held at a location determined in advance by
+> the Board of Directors.
+>=20
+> A member may nominate themselves or any other member they feel is
+> qualified. Nominations should be sent to the Election Committee at
+> elections at x.org.
+>=20
+> Nominees shall be required to be current members of the X.Org
+> Foundation, and submit a personal statement of up to 200 words that will
+> be provided to prospective voters. The collected statements, along with
+> the statement of contribution to the X.Org Foundation in the member's
+> account page on http://members.x.org, will be made available to all
+> voters to help them make their voting decisions.
+>=20
+> Nominations, membership applications or renewals and completed personal
+> statements must be received no later than 23:59 UTC on 19 March 2023.
+>=20
+> The slate of candidates will be published 26 March 2023 and candidate
+> Q&A will begin then. The deadline for Xorg membership applications and
+> renewals is 26 March 2023.
+>=20
 > Cheers,
->
-> Guilherme
->
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_vcn.c
-> index 02d428ddf2f8..dc4f3f4cb644 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> @@ -26,6 +26,7 @@
->
->  #include <linux/firmware.h>
->  #include <linux/module.h>
-> +#include <linux/dmi.h>
->  #include <linux/pci.h>
->  #include <linux/debugfs.h>
->  #include <drm/drm_drv.h>
-> @@ -114,6 +115,24 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
->             (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
->                 adev->vcn.indirect_sram =3D true;
->
-> +       /*
-> +        * Some Steam Deck's BIOS versions are incompatible with the
-> +        * indirect SRAM mode, leading to amdgpu being unable to get
-> +        * properly probed (and even potentially crashing the kernel).
-> +        * Hence, check for these versions here - notice this is
-> +        * restricted to Vangogh (Deck's APU).
-> +        */
-> +       if (adev->ip_versions[UVD_HWIP][0] =3D=3D IP_VERSION(3, 0, 2)) {
-> +               const char *bios_ver =3D dmi_get_system_info(DMI_BIOS_VER=
-SION);
-> +
-> +               if (bios_ver && (!strncmp("F7A0113", bios_ver, 7) ||
-> +                    !strncmp("F7A0114", bios_ver, 7))) {
-> +                       adev->vcn.indirect_sram =3D false;
-> +                       dev_info(adev->dev,
-> +                               "Steam Deck quirk: indirect SRAM disabled=
- on BIOS %s\n", bios_ver);
-> +               }
-> +       }
-> +
->         hdr =3D (const struct common_firmware_header *)adev->vcn.fw->data=
-;
->         adev->vcn.fw_version =3D le32_to_cpu(hdr->ucode_version);
->
-> --
-> 2.39.2
->
+> Ricardo Garcia, on behalf of the X.Org BoD
+>=20
+
