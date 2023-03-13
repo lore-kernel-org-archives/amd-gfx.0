@@ -4,55 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DAF1C7618D
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Mar 2023 08:18:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14A5FC61DA4
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Mar 2023 08:18:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE35E10E4AE;
-	Mon, 13 Mar 2023 08:18:24 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1527E10E14D
- for <amd-gfx@lists.freedesktop.org>; Sun, 12 Mar 2023 19:18:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1678648682;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=fdsQaTtbIaBYJTe0xm3ESZR5oOBLuJquJVykY1dYCmg=;
- b=WfILWyGQc/1J0OLgUroA2lvRPWdNnp3EzfjVCEArNGinexSAusPlDLr/RzkZlFjbT1En3l
- 0FsXlZzRXp9Hs7kf72J81iijZAC3Ry93mPbiXPV1xrdFzjOZpTwZ1lC6cNprJ5JdFsnmTy
- QoxY1ZEK52rbaLMlt5lmWpqkIhfPLi0=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-190-1-XaOto0PGe2mSUAvV-jJg-1; Sun, 12 Mar 2023 15:18:00 -0400
-X-MC-Unique: 1-XaOto0PGe2mSUAvV-jJg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5E4913810780;
- Sun, 12 Mar 2023 19:18:00 +0000 (UTC)
-Received: from localhost.localdomain (unknown [10.39.192.64])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 8097F140EBF4;
- Sun, 12 Mar 2023 19:17:59 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Rodrigo Siqueira Jordao <Rodrigo.Siqueira@amd.com>
-Subject: [PATCH v3 2/6] drm/amd/display/amdgpu_dm: Refactor
- register_backlight_device()
-Date: Sun, 12 Mar 2023 20:17:47 +0100
-Message-Id: <20230312191751.183450-3-hdegoede@redhat.com>
-In-Reply-To: <20230312191751.183450-1-hdegoede@redhat.com>
-References: <20230312191751.183450-1-hdegoede@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78ADF10E4B6;
+	Mon, 13 Mar 2023 08:18:25 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B7C410E130
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Mar 2023 04:38:21 +0000 (UTC)
+X-UUID: fc1b5c4b2bd744ae95c610db65a9a17c-20230313
+X-CID-O-RULE: Release_Ham
+X-CID-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.20, REQID:b125cdae-68d0-4ff9-8aee-d35cbe722955, IP:5,
+ U
+ RL:0,TC:0,Content:0,EDM:25,RT:0,SF:5,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:35
+X-CID-INFO: VERSION:1.1.20, REQID:b125cdae-68d0-4ff9-8aee-d35cbe722955, IP:5,
+ URL
+ :0,TC:0,Content:0,EDM:25,RT:0,SF:5,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+ elease,TS:35
+X-CID-META: VersionHash:25b5999, CLOUDID:fd6593f5-ddba-41c3-91d9-10eeade8eac7,
+ B
+ ulkID:230313105653YN3UMKP4,BulkQuantity:0,Recheck:0,SF:23|17|19|43|102,TC:
+ nil,Content:0,EDM:5,IP:-2,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI
+ :0,OSA:0,AV:0
+X-CID-BVR: 0,NGT
+X-UUID: fc1b5c4b2bd744ae95c610db65a9a17c-20230313
+X-User: lizhenneng@kylinos.cn
+Received: from localhost.localdomain [(116.128.244.169)] by mailgw
+ (envelope-from <lizhenneng@kylinos.cn>) (Generic MTA)
+ with ESMTP id 769191158; Mon, 13 Mar 2023 10:56:50 +0800
+From: Zhenneng Li <lizhenneng@kylinos.cn>
+To: Chen Guchun <Guchun.Chen@amd.com>
+Subject: [PATCH v2] drm/amdgpu: resove reboot exception for si oland
+Date: Mon, 13 Mar 2023 10:56:48 +0800
+Message-Id: <20230313025648.3103971-2-lizhenneng@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230313025648.3103971-1-lizhenneng@kylinos.cn>
+References: <20230313025648.3103971-1-lizhenneng@kylinos.cn>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
 X-Mailman-Approved-At: Mon, 13 Mar 2023 08:18:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,75 +56,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Hans de Goede <hdegoede@redhat.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, Pan Xinhui <Xinhui.Pan@amd.com>,
+ Zhenneng Li <lizhenneng@kylinos.cn>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Refactor register_backlight_device():
+During reboot test on arm64 platform, it may failure
+on boot.
 
-1) Turn the connector-type + signal check into an early exit
-condition to avoid the indentation level of the rest of the code
-
-2) Add an array bounds check for the arrays indexed by dm->num_of_edps
-
-3) register_backlight_device() always increases dm->num_of_edps if
-amdgpu_dm_register_backlight_device() has assigned a backlight_dev to
-the current dm->backlight_link[dm->num_of_edps] slot.
-
-So on its next call dm->backlight_dev[dm->num_of_edps] always point to
-the next empty slot and the "if (!dm->backlight_dev[dm->num_of_edps])"
-check will thus always succeed and can be removed.
-
-4) Add a bl_idx local variable to use as array index, rather then
-using dm->num_of_edps to improve the code readability.
-
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+The error message are as follows:
+[    6.996395][ 7] [  T295] [drm:amdgpu_device_ip_late_init [amdgpu]] *ERROR*
+			    late_init of IP block <si_dpm> failed -22
+[    7.006919][ 7] [  T295] amdgpu 0000:04:00.0: amdgpu_device_ip_late_init failed
+[    7.014224][ 7] [  T295] amdgpu 0000:04:00.0: Fatal error during GPU init
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 28 ++++++++++---------
- 1 file changed, 15 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 12 ------------
+ 1 file changed, 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 42b88ab5552d..1b5efa56ec15 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4231,21 +4231,23 @@ static int initialize_plane(struct amdgpu_display_manager *dm,
- static void register_backlight_device(struct amdgpu_display_manager *dm,
- 				      struct dc_link *link)
- {
--	if ((link->connector_signal & (SIGNAL_TYPE_EDP | SIGNAL_TYPE_LVDS)) &&
--	    link->type != dc_connection_none) {
--		/*
--		 * Event if registration failed, we should continue with
--		 * DM initialization because not having a backlight control
--		 * is better then a black screen.
--		 */
--		if (!dm->backlight_dev[dm->num_of_edps])
--			amdgpu_dm_register_backlight_device(dm);
-+	int bl_idx = dm->num_of_edps;
+diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+index d6d9e3b1b2c0..ca9bce895dbe 100644
+--- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
++++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+@@ -7626,18 +7626,6 @@ static int si_dpm_process_interrupt(struct amdgpu_device *adev,
  
--		if (dm->backlight_dev[dm->num_of_edps]) {
--			dm->backlight_link[dm->num_of_edps] = link;
--			dm->num_of_edps++;
--		}
-+	if (!(link->connector_signal & (SIGNAL_TYPE_EDP | SIGNAL_TYPE_LVDS)) ||
-+	    link->type == dc_connection_none)
-+		return;
-+
-+	if (dm->num_of_edps >= AMDGPU_DM_MAX_NUM_EDP) {
-+		drm_warn(adev_to_drm(dm->adev), "Too much eDP connections, skipping backlight setup for additional eDPs\n");
-+		return;
- 	}
-+
-+	amdgpu_dm_register_backlight_device(dm);
-+	if (!dm->backlight_dev[bl_idx])
-+		return;
-+
-+	dm->backlight_link[bl_idx] = link;
-+	dm->num_of_edps++;
+ static int si_dpm_late_init(void *handle)
+ {
+-	int ret;
+-	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+-
+-	if (!adev->pm.dpm_enabled)
+-		return 0;
+-
+-	ret = si_set_temperature_range(adev);
+-	if (ret)
+-		return ret;
+-#if 0 //TODO ?
+-	si_dpm_powergate_uvd(adev, true);
+-#endif
+ 	return 0;
  }
  
- static void amdgpu_set_panel_orientation(struct drm_connector *connector);
 -- 
-2.39.1
+2.25.1
 
