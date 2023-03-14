@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0ACCDC761A6
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Mar 2023 12:44:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F048CC7618B
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Mar 2023 12:44:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60D7110E7C8;
-	Tue, 14 Mar 2023 12:44:05 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1C0910E7C6;
- Tue, 14 Mar 2023 12:44:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D1A110E7CB;
+	Tue, 14 Mar 2023 12:44:17 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82A6D10E7CA;
+ Tue, 14 Mar 2023 12:44:13 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 138A3B818F3;
- Tue, 14 Mar 2023 12:44:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD10DC433EF;
- Tue, 14 Mar 2023 12:43:58 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 101CE6176B;
+ Tue, 14 Mar 2023 12:44:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 365F7C433D2;
+ Tue, 14 Mar 2023 12:44:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1678797839;
- bh=j1MGEQmNXwRQZbXTFfs+jQOVxqSqFNMBQT1eucoL3Ak=;
+ s=k20201202; t=1678797852;
+ bh=3DZKPSB3eGEDg/foRv0B/RKMlE+9sgeTdtFENIatV2o=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dgub9wu2g+tP8Aj4X7wCzfiJpWcpvrZFrQT6nJ51q1ymVvFSxMetAxU28zUSI1gdE
- JHptIOO8hwmrBy/Mc5syVfPtJp9w/+ggKFbrDE4aBdDyhM/XSI8SHsxzVlbtASn6Iz
- FFGsxZ5YZXuYpNjvXWPJ8BdaGzedH04IOG5sgF5O3H+ZTci7RSHD9p5fzKtPomfJeV
- qHv5sMkd9CqDhVTQmMiYdZaSS6rziCmd8ce9Q9UlZt+zHDuBWLAAjECqKNkHh4tzB/
- 643DGtr6XXa0b8j+iPLw8osu5Ac5VaNbdXEH8DpQzmBeNR888CP/VGGdgJHhqq+Lo0
- J253yaYvIY6mg==
+ b=IlbTpUrTHImHkjvR6wVLCs1b9LMRPr4Dhib+xFIQxRode0F9r7L0XFl/va642TGWk
+ 0sr2D6apZ/SNeVrw+WgARYIkkt5W3alloReWJRfbm4WDF0dlp74cKIlmSkxawQKZzp
+ 9Agx8kYxhazy5rpEyu1IQb+ChDYK7iSD8B4wX6iZj3u2sG0rLhwdpOlQy8780sYd90
+ HtdMWuIyZJGZ2jipOcuwF/i+iajGmkBTJZXdCBhH3MxPEMP3GbNIfbwCyGCj+wYpZA
+ VER/fT3VT5ot/4G3xLfL6Nj4ELcnh+S91b5jCAmZjK5UAyso9NRF82Jvg0zHA7yJLq
+ QLtNdv8U7qbTg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 10/10] drm/amd/display: fix shift-out-of-bounds
- in CalculateVMAndRowBytes
-Date: Tue, 14 Mar 2023 08:43:44 -0400
-Message-Id: <20230314124344.471127-10-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 8/8] drm/amd/display: fix shift-out-of-bounds in
+ CalculateVMAndRowBytes
+Date: Tue, 14 Mar 2023 08:44:00 -0400
+Message-Id: <20230314124400.471257-8-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230314124344.471127-1-sashal@kernel.org>
-References: <20230314124344.471127-1-sashal@kernel.org>
+In-Reply-To: <20230314124400.471257-1-sashal@kernel.org>
+References: <20230314124400.471257-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -89,7 +89,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-index 518672a2450f4..de0fa87b301a5 100644
+index e427f4ffa0807..e5b1002d7f3f0 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
 +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
 @@ -1868,7 +1868,10 @@ static unsigned int CalculateVMAndRowBytes(
