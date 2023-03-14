@@ -4,44 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 284BAC6FD1D
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Mar 2023 12:44:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97163C6FD1D
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Mar 2023 13:08:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79C0010E7D2;
-	Tue, 14 Mar 2023 12:44:38 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EC9110E7CE;
- Tue, 14 Mar 2023 12:44:36 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id CF7F0B81928;
- Tue, 14 Mar 2023 12:44:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FED0C4339B;
- Tue, 14 Mar 2023 12:44:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1678797873;
- bh=Vvlkfw1XBPKnsH1TRnFkFFGGOcbsDu06ehvesBWwqbs=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=osfMhknKMZwDNevKq/filbkSqHQdS0SXowxS2pSC+dXBaFfwBfR4s/4mPuCOgToDU
- HQOyUk+E4DoqypaGt1qM+rKR3vq3Gl6BBGMmiU8bX8iaacIA/tRT81LcbWWIMmqOMy
- d3pPBHjm6YfuvtgdmwADVvW+m2bsWaGeLou/4HPPqy43y4DnWqXnegMxjjD4iQZSpj
- Jyf8pxBx/nFIG80JRJsrMGFHTlZwZMl8gX3HYsHM/6KwyNcv+DELgSiNgFtnxQ5Rp5
- VRx2TsFHRIDb5RxlEXqxFZqT+gBIl8LV9Ol3+w4qqiF99hAMm5xuUnArQQv9sQTjBG
- Z/AVTItjJlCoA==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 6/7] drm/amdkfd: Fix an illegal memory access
-Date: Tue, 14 Mar 2023 08:44:23 -0400
-Message-Id: <20230314124424.471460-6-sashal@kernel.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230314124424.471460-1-sashal@kernel.org>
-References: <20230314124424.471460-1-sashal@kernel.org>
-MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
+	by gabe.freedesktop.org (Postfix) with ESMTP id 027D010E17A;
+	Tue, 14 Mar 2023 13:08:19 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20614.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe59::614])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26CF310E17A;
+ Tue, 14 Mar 2023 13:08:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BvIYxNWL8MylPpaeMGvVHgkapAt0bUvfPe2eU+xhQCTYP6n2Ga6u3CftZiCM3tkS3FTr0P6afMRULKPquXj8K/S4l89ylftMp6unN1lymPxPJFCeXIzaBKjat7JJ8D5AYmIIdWKmCR8h9QdMSKTOYlJOWHov+JUAbgT57vV2vn3DIHMA7Vr253lwRrno/257Tha2IAWuMxNl45TQS9HNCLdZN1dzC+/xFPqVz7vmSkkAPFNh9Xb7nW3IKecUvYmMJtObn9VOZrdnx+MYKJNYOxe/H47CntdnSQLLByzGxO+EEpmJGDRA0s0hbv/1EFWGfp1E3kQD7DqkEbaIXQxFAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Gy/kl5XTz5vVfTpuKvbZ0ccTc8MsZ81xw9RC6nq0d8U=;
+ b=RxcpZv9K6Rb/OsrUBknCUNMIfQzxj3AFP47WxLDVDiCW7JzDYcyhCmdNXps+dBxEJADBvSPnUQoEOSBYrf5N2bN9f3pY+uswBZSWmCWzaB0xefFlFAqiKRhrJk4IgKztSyReJP6QaQl95RCxaB+g2GPeLBRo0mnbukjke+uhJwaW/FL3CW3wWzc6D81pXKCBtMPcS0RMPTeLSia2yWnAEDNRUdNa+HZvjC9l2Y/ISqhu5jW3Bc0HrHd5gg8Z/IiIkShSCjX2L2KJcNDCm9pS14hgNvblcOCo6GcsvFTqvMqp4QfXgpHUfEDlOohA6BR80UJ9ezanPBRD1Qf7wVxZRg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Gy/kl5XTz5vVfTpuKvbZ0ccTc8MsZ81xw9RC6nq0d8U=;
+ b=TqSwD78zCSNqaZdVidO6gRm0rgsGe5+RVNraZ5BIAPjclYawKSIZxiQSzryeY9Ybza0JVHHJaNRYPgLI4vNOKxQFRBXDBRm5EY7KARxuF/4UNdN3+2Gjm9NVph22XnOCfWMOzCRDIJynfStagDek/uo3WHZeVECNE91thnm/xNU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by MW4PR12MB7383.namprd12.prod.outlook.com (2603:10b6:303:219::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.26; Tue, 14 Mar
+ 2023 13:08:14 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::d23f:bb1:df95:3918]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::d23f:bb1:df95:3918%4]) with mapi id 15.20.6178.024; Tue, 14 Mar 2023
+ 13:08:14 +0000
+Message-ID: <b14b8827-7d09-c37e-0548-a30b14ffe64f@amd.com>
+Date: Tue, 14 Mar 2023 14:08:09 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH] drm/radeon: remove unused variable rbo
+Content-Language: en-US
+To: Tom Rix <trix@redhat.com>, alexander.deucher@amd.com, Xinhui.Pan@amd.com, 
+ airlied@gmail.com, daniel@ffwll.ch
+References: <20230314130616.2170856-1-trix@redhat.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20230314130616.2170856-1-trix@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0012.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a::22) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|MW4PR12MB7383:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1e91a1ea-4736-49a7-69b8-08db248d2b86
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: sNH05qPkhwoe73lrz/tjdJPHDZL3g+CRjqK5EBAZeAjD61FDa255p6bQWLH2XK9PmEaZyM5s3bzYQEe2uK6FoEHKPZlM63OF8d+cxUF4StiF9e+NcyiLIdC+VCJoWXgwIMjhDxStecm/WzLGO7v2yT17iL0rQs4T7oVlhfljOfSMloZh9GLVSoQrM1bRp8Jp80/TLcgwtCvt8WYyVQtSLniiK2oZie/87iSsC33tJQUmLYxyz5NYGVTIPgtpzTDy+dmgtvPtLtC95UQ8GWjmOyWljGuV/UP0cZN6pkREF0FhPdXuf9ZDVyTeipzAY8tfpjFM9mnYFY7aHe8wSB4flq4qAA9cEcQV3KS/AqZepoRBt9QZIUcqk5pRv+49of/g9vBLH1LLQu8DOo5X6cUp72NNtPWyZdSB/5Krb/mNdOHL5oSd4AkCdarVTHQSqo9dcBbByrQ62iDqjrEnvBMKH2ZTWdiTp9Z/9G5nLL6tAiqwwh4lnhXPNMujzggmRJxM9mIdlpsg0WqSgPEqoAmqyAU4DN7ZRiH3BoUghAlUnwnC+ijHrEMsFduUWO/2lPpZFBoWzEx7tsM4YaYbkpjzcrcwRogzreT/yOt34l6a2SSBqEhBz/MXpBk/gwQEshc/ZONt00twHBpbDLN+mJLnN/XjiNafEeCoHX2wZuapEn9iVxkJALWoZ+iPbuO10ACduw49IUmnqW9ljKKP22ItuGykPjnOoVBpGzA8eFSl3Wg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(39860400002)(136003)(346002)(366004)(396003)(376002)(451199018)(36756003)(316002)(38100700002)(83380400001)(26005)(6666004)(6506007)(478600001)(2616005)(186003)(6486002)(8936002)(41300700001)(5660300002)(2906002)(86362001)(6512007)(31696002)(66556008)(66476007)(4326008)(8676002)(66946007)(31686004)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d2dtT3N0TE1oaFkwdXloT0loa3FjMU9oTUdtejIvbGY1M1czaHVVWFZnRnNR?=
+ =?utf-8?B?cFVRSmVQZm43WnlnSFFjdVNoWGpuRnV6Z3hRSFIrc0Q2dGJaMFFyUG93ZHY1?=
+ =?utf-8?B?UkhtNzRRRlFEZXZScXNJdlRFL0FGRHloMmR3S3lTb2orbkdEWHRKR08wS2J4?=
+ =?utf-8?B?OFByck1iTFRpdDhiTGRRTXRlM1NmTjgxT2V4eGN5Tnc3SDdrUkc4OG8xVGkz?=
+ =?utf-8?B?QWxnNFpMR2hoWjN1Sys4TkdGa1l2bGx2QjhsOEM0TGI3WUNsamFvSzdLTzdL?=
+ =?utf-8?B?ck4vUWhYbklCTHdMdTVqYWFZamtOME5ZVXJsZDVhYUNoNGZwRjIrMHpzdVhz?=
+ =?utf-8?B?UVAxZngxTjhNeXlKSnU1c3JmNXhab1ZPYkh1UTRPd1J4MTQzclpGdDh1OU9F?=
+ =?utf-8?B?U001ZXRBS29RZG4zNDNMMzJxZlpqYUZZZDlPbHhwZE4vWWF3aTFkV1V2Yk81?=
+ =?utf-8?B?RVZCQmFtUU9Ha2h5MTUxUG9sK1hYUmVadzM1d1lRbjA5a2FhMDEvb201RVZx?=
+ =?utf-8?B?Mkk2V25LTWczNzBMSGNJZjB4TFNDcnNkdlVBSG00OXVJNUZGV25qQ01yT0ZV?=
+ =?utf-8?B?YzJQWU5oTUpVU0NKNS9LVkRiUGd6cGFmenlDUzRybXNVZXR3Q2laU2FKbEpB?=
+ =?utf-8?B?WTlxcGV1ZnhodGtBRExZcE5PU2VnaFFWZTZwbUJudlNyVWJkd3d1bHlLWXBq?=
+ =?utf-8?B?VVozcDgrdHZFZmpQczhmd0FDUTVQem1raWlXQlhTWkUxcEMwbWZuK2Q0YlUz?=
+ =?utf-8?B?eWlQbVVvSkVyUHZtNkMvOFhIRU1tYkVLcS9WcDEwZTEyM0FiSXFVN3Z2VUxj?=
+ =?utf-8?B?L1dRZFNpaXlyNUFEK3dmZnMwUU13MTFkU2lEczJRbHRKUjRTN0N2MzJGd3Ix?=
+ =?utf-8?B?VmZTQlpLWEZnVC91RzNRayt6T09vSGI3Y0NRenZTOGpNeXR5L0loNTVKd0t3?=
+ =?utf-8?B?d3l4L1ZXcWgvWnZGRU1ScmI2OGNyOWpmb2ZhR2ZwNHo2dWFOU2NXdzhOZkdH?=
+ =?utf-8?B?TjhId1ZDZGdZRkJLdDR0Wk91QnFWNWNZUHdvaDFEVEJhbVk2WVZsdGZKUFlE?=
+ =?utf-8?B?TDlmeDN3TlFpcnBGOHpRYm1WKzlyTnp1ZVA0N3FLRkVPMkNheE5QQmQzQ3pX?=
+ =?utf-8?B?WS9Pc3J2cndvaTR2VnBsbzlnZ095SjhHZk9NSmhiRnNUdG1jYXhTdkMyaXV5?=
+ =?utf-8?B?eXFhY28xWVRhLzZqTmxxemp5M09jd0NwZys4ejdualg0MDRqMVRzTEU0WXpV?=
+ =?utf-8?B?dEtNTXoraU1HZzVMTkRGUlNJTllhRmJWQ2tWOTNjcE93SEJjQlcvUVV1R2dz?=
+ =?utf-8?B?MWRRWTdROVcwV09YelpiUC9GL1VWbC81ckZoT29aQ2N4RVptbExabG9JenRR?=
+ =?utf-8?B?T2RUN09qdnJYRGplcXlZNWtlc2hsYjVZYk9JT05uaUdCSXV1NEIvTW5GRC96?=
+ =?utf-8?B?bmpUaEVjZ0I1NDlKTTh5WFBZM2xGSU1xNGVreFAvSXNYWFJoT0lpR202MFNu?=
+ =?utf-8?B?SXMxSUhpcXJhZ29rRTlXNHdIMUlxN0dBbzRCbytJc2FtSWUxaldLTDFYS0N5?=
+ =?utf-8?B?V0VsbFdsUklOUHQxS0dzU0tRU0x6L3ZSMzN0ajRRb3ppL1RReTRLVytDbWUz?=
+ =?utf-8?B?VmgrYTlhVHNuQy91OTdoY0pWZ1lxUkdKTDljWThXRWxZT25WVXpZbGJPOWd5?=
+ =?utf-8?B?R2wvakhCbVJ5S3hvSjBHQ0YyWTlrd05rTWp2KzlZOHJSSHd1NStXVzNwWW1r?=
+ =?utf-8?B?T0ovWHNxbFFkNk9XT1NocWNQRnBLRHVsL2VGTTY0Z0xuazZyemtHRkE0MmVx?=
+ =?utf-8?B?R09VL3JkSmNnNlVTbmJraTJXM1FDRnppTGtoemV3dExSdm8zVGRnUUxZN28y?=
+ =?utf-8?B?NWNEaDdxZVRaeE4vMHlHbVFqQjVMZkRPK015RURtWHo1cFRpQ1liQjNxY1pu?=
+ =?utf-8?B?MytzKzVORUtmOHQ5SDE2dzdReWVpTlVhK1JBdWNXWDAvb3BzNmFydllnVzI2?=
+ =?utf-8?B?d0Ztbk45cTE2elN2VURmdHZmM015ZjMvazNFUGUyZjdFQmZ3dkR3N0srM2lZ?=
+ =?utf-8?B?QWFaN2ZWZ2hVZW1UTXZUcmdjS3FrY05FVEpWQmJGblR4WDE5bDNtUm5ZMUtM?=
+ =?utf-8?Q?tsgvGm84UXIfguK40NvKzVeKN?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e91a1ea-4736-49a7-69b8-08db248d2b86
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2023 13:08:14.4774 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MyjEUqgDmJlCl+d1oeE6h72mkiwLUcEqjZkIu404uAZpuONCX/LVa4CqULYvwGpU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7383
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,87 +125,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, oded.gabbay@gmail.com, airlied@linux.ie,
- Felix Kuehling <Felix.Kuehling@amd.com>, Qu Huang <qu.huang@linux.dev>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Qu Huang <qu.huang@linux.dev>
+Am 14.03.23 um 14:06 schrieb Tom Rix:
+> gcc with W=1 reports this error
+> drivers/gpu/drm/radeon/radeon_ttm.c:201:27: error:
+>    variable ‘rbo’ set but not used [-Werror=unused-but-set-variable]
+>    201 |         struct radeon_bo *rbo;
+>        |                           ^~~
+>
+> rbo use was removed with
+> commit f87c1f0b7b79 ("drm/ttm: prevent moving of pinned BOs")
+> Since the variable is not used, remove it.
+>
+> Signed-off-by: Tom Rix <trix@redhat.com>
 
-[ Upstream commit 4fc8fff378b2f2039f2a666d9f8c570f4e58352c ]
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-In the kfd_wait_on_events() function, the kfd_event_waiter structure is
-allocated by alloc_event_waiters(), but the event field of the waiter
-structure is not initialized; When copy_from_user() fails in the
-kfd_wait_on_events() function, it will enter exception handling to
-release the previously allocated memory of the waiter structure;
-Due to the event field of the waiters structure being accessed
-in the free_waiters() function, this results in illegal memory access
-and system crash, here is the crash log:
-
-localhost kernel: RIP: 0010:native_queued_spin_lock_slowpath+0x185/0x1e0
-localhost kernel: RSP: 0018:ffffaa53c362bd60 EFLAGS: 00010082
-localhost kernel: RAX: ff3d3d6bff4007cb RBX: 0000000000000282 RCX: 00000000002c0000
-localhost kernel: RDX: ffff9e855eeacb80 RSI: 000000000000279c RDI: ffffe7088f6a21d0
-localhost kernel: RBP: ffffe7088f6a21d0 R08: 00000000002c0000 R09: ffffaa53c362be64
-localhost kernel: R10: ffffaa53c362bbd8 R11: 0000000000000001 R12: 0000000000000002
-localhost kernel: R13: ffff9e7ead15d600 R14: 0000000000000000 R15: ffff9e7ead15d698
-localhost kernel: FS:  0000152a3d111700(0000) GS:ffff9e855ee80000(0000) knlGS:0000000000000000
-localhost kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-localhost kernel: CR2: 0000152938000010 CR3: 000000044d7a4000 CR4: 00000000003506e0
-localhost kernel: Call Trace:
-localhost kernel: _raw_spin_lock_irqsave+0x30/0x40
-localhost kernel: remove_wait_queue+0x12/0x50
-localhost kernel: kfd_wait_on_events+0x1b6/0x490 [hydcu]
-localhost kernel: ? ftrace_graph_caller+0xa0/0xa0
-localhost kernel: kfd_ioctl+0x38c/0x4a0 [hydcu]
-localhost kernel: ? kfd_ioctl_set_trap_handler+0x70/0x70 [hydcu]
-localhost kernel: ? kfd_ioctl_create_queue+0x5a0/0x5a0 [hydcu]
-localhost kernel: ? ftrace_graph_caller+0xa0/0xa0
-localhost kernel: __x64_sys_ioctl+0x8e/0xd0
-localhost kernel: ? syscall_trace_enter.isra.18+0x143/0x1b0
-localhost kernel: do_syscall_64+0x33/0x80
-localhost kernel: entry_SYSCALL_64_after_hwframe+0x44/0xa9
-localhost kernel: RIP: 0033:0x152a4dff68d7
-
-Allocate the structure with kcalloc, and remove redundant 0-initialization
-and a redundant loop condition check.
-
-Signed-off-by: Qu Huang <qu.huang@linux.dev>
-Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/amdkfd/kfd_events.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-index 892077377339a..8f23192b67095 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-@@ -529,16 +529,13 @@ static struct kfd_event_waiter *alloc_event_waiters(uint32_t num_events)
- 	struct kfd_event_waiter *event_waiters;
- 	uint32_t i;
- 
--	event_waiters = kmalloc_array(num_events,
--					sizeof(struct kfd_event_waiter),
--					GFP_KERNEL);
-+	event_waiters = kcalloc(num_events, sizeof(struct kfd_event_waiter),
-+				GFP_KERNEL);
- 	if (!event_waiters)
- 		return NULL;
- 
--	for (i = 0; (event_waiters) && (i < num_events) ; i++) {
-+	for (i = 0; i < num_events; i++)
- 		init_wait(&event_waiters[i].wait);
--		event_waiters[i].activated = false;
--	}
- 
- 	return event_waiters;
- }
--- 
-2.39.2
+> ---
+>   drivers/gpu/drm/radeon/radeon_ttm.c | 2 --
+>   1 file changed, 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
+> index 2220cdf6a3f6..0ea430ee5256 100644
+> --- a/drivers/gpu/drm/radeon/radeon_ttm.c
+> +++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+> @@ -198,7 +198,6 @@ static int radeon_bo_move(struct ttm_buffer_object *bo, bool evict,
+>   {
+>   	struct ttm_resource *old_mem = bo->resource;
+>   	struct radeon_device *rdev;
+> -	struct radeon_bo *rbo;
+>   	int r;
+>   
+>   	if (new_mem->mem_type == TTM_PL_TT) {
+> @@ -211,7 +210,6 @@ static int radeon_bo_move(struct ttm_buffer_object *bo, bool evict,
+>   	if (r)
+>   		return r;
+>   
+> -	rbo = container_of(bo, struct radeon_bo, tbo);
+>   	rdev = radeon_get_rdev(bo->bdev);
+>   	if (!old_mem || (old_mem->mem_type == TTM_PL_SYSTEM &&
+>   			 bo->ttm == NULL)) {
 
