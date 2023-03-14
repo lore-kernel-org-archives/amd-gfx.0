@@ -4,73 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 036BEC6FD1D
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Mar 2023 13:13:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63E6FC74A5B
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Mar 2023 14:24:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7814410E7CE;
-	Tue, 14 Mar 2023 13:13:52 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8301910E7D8
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Mar 2023 13:07:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1678799228;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=hMEgWvZUG6qO1PqKglF/V8CaNHty0qtVjMQOxDeWDFc=;
- b=IdP0cXG+wRLq2kZWHkH5HUG/+g5YjYN3CFE/UltMYAzkbHLvUwuiMrN7YrEFwJ01QB3FZU
- g0jeoRbi5LrXIF3XZo0ZKVOt4oeJC9cTwRtrif2zs7wniAPdC7fjMtBI6dskrTCC//MFFk
- xNTGfvdiySPLUIr/TupRPkwZvrkMbWU=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-554-hBWWxG8WM0e_ON-hO0kBLQ-1; Tue, 14 Mar 2023 09:06:42 -0400
-X-MC-Unique: hBWWxG8WM0e_ON-hO0kBLQ-1
-Received: by mail-qk1-f199.google.com with SMTP id
- az31-20020a05620a171f00b00745746178e2so3360732qkb.6
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Mar 2023 06:06:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678799182;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=hMEgWvZUG6qO1PqKglF/V8CaNHty0qtVjMQOxDeWDFc=;
- b=hxcwROVutTfVY4Q9+jFJrJ0vYKjma63uBha3Oy+nw4GLBG2QU7dhgbPGzzRvPKH6gT
- PNT9TAmiois4P8H42EdkzeiM5IRF8hLCBz5GOfeA7XWb6poGIIWIbg3hNEcE8R2KJro/
- bswD8OSY0+od+RfEiBq5azmCEhjeFsrts6SfRGCjNy5YjNkRxrv0N3i3ZWLRobeGmMnZ
- gNSbuwJNFjK93lRkh+fHT90Dvtm6WscqkkdMc32ip0FOmCptpHUTtJnsMp7NlIkm/I1+
- SaqQCfgZaLiCA6H7xH9LH7rA9UcO6J5PbW688ahTmJFk+84ThcN1T20UsY10aFYG78qg
- ApCA==
-X-Gm-Message-State: AO0yUKURs0nGfk6cqEIOnf3XR9iHtyGvEGYslj4teEn58N+mXU1bXY2p
- okZ6rCtILv+BeqAxsR0SxF/BsRPL2wSJY8BA2D2EDESeGWHpxxhi8eG7ahjGzWgUi3InzIYRzQq
- /HIObg6HbgsxRo4wE4aWvoWafzA==
-X-Received: by 2002:ac8:5e08:0:b0:3bf:c83d:5d4c with SMTP id
- h8-20020ac85e08000000b003bfc83d5d4cmr59779107qtx.64.1678799182206; 
- Tue, 14 Mar 2023 06:06:22 -0700 (PDT)
-X-Google-Smtp-Source: AK7set9k9IedTfQ65vtzZ6gDRjmULVgJGaURZvyzzIxUwogrHRw3OQKTz3pFVe2b8l6tkgGNH294DA==
-X-Received: by 2002:ac8:5e08:0:b0:3bf:c83d:5d4c with SMTP id
- h8-20020ac85e08000000b003bfc83d5d4cmr59779062qtx.64.1678799181828; 
- Tue, 14 Mar 2023 06:06:21 -0700 (PDT)
-Received: from dell-per740-01.7a2m.lab.eng.bos.redhat.com
- (nat-pool-bos-t.redhat.com. [66.187.233.206])
- by smtp.gmail.com with ESMTPSA id
- 185-20020a3706c2000000b0070648cf78bdsm1731416qkg.54.2023.03.14.06.06.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Mar 2023 06:06:21 -0700 (PDT)
-From: Tom Rix <trix@redhat.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch
-Subject: [PATCH] drm/radeon: remove unused variable rbo
-Date: Tue, 14 Mar 2023 09:06:16 -0400
-Message-Id: <20230314130616.2170856-1-trix@redhat.com>
-X-Mailer: git-send-email 2.27.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A43B10E812;
+	Tue, 14 Mar 2023 14:24:51 +0000 (UTC)
+Received: from IND01-MAX-obe.outbound.protection.outlook.com
+ (mail-maxind01on2093.outbound.protection.outlook.com [40.107.222.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBE4888A27
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Mar 2023 14:15:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OqdAu5Igx+OgjMqhjjio19dnfhiHVaW+OFPh5saNECkUZhTh068FuClMfAbOx3mW0ZZ5KprS3YsSh8JnilXtCt8UnKm9/d3YZTPgJ0IENOvKvJwXwT80MGggazmwfPXqCtF/7SAJMWnT17YMU5pT/kuF9elj0Dc42VwLnE2Yi59erUEhme2VHO/OpMKME2uld+ekTG+NKdRIh7Il7dFytpKJQKtkMJM4cdvccLge/CNw1DQ71a4TzmbUJe0JCQAytUA3qp3W+9EvUDtFJlQk7EKxU3WSr8BtdIatN2Y3agZ4SrGAm7dN2XnAFsFjGk7kLVrVGJl6j1KQdX8HofkOHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YT1/zS2kx3j1McTWsAx86RNW+9e/uyXBIFY9+GwZ30Y=;
+ b=aTZdYFcNzujhTIJ8Otire0BvmTxgwnGwibB2rUCOS267hNDqkcxxpKeIwYEa2ErTsY/z2E5D9iiRlcBInWzbzyNGjPczgdK0dSiYokM1U7uSg6BZ5pTsJ6K5fNouJPRN6JviDVQCtEMC+QZFE+SI+AcYYcYIwsPRKFp37ucpHBghLMqinEPKJT4W6K+RUio2XLL6YqWskTYjuUs1NPCQmxlkGInLdYGNd57RwKDR3kolMnGuErZq5nz6ku0uLAtoqClxzn4zV+MuneavcMOPTG+X5IGx3MY+TPadU4Cs/LDaL5ZuSe8SmsK7jiILKgNEG/PJoHRZSocekOdeQcBu2g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=findusab2binfo.com; dmarc=pass action=none
+ header.from=findusab2binfo.com; dkim=pass header.d=findusab2binfo.com;
+ arc=none
+Received: from BMXPR01MB2935.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:31::13)
+ by PN2PR01MB9428.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c01:fc::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.24; Tue, 14 Mar
+ 2023 14:15:56 +0000
+Received: from BMXPR01MB2935.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::28bc:738e:f90d:20]) by BMXPR01MB2935.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::28bc:738e:f90d:20%7]) with mapi id 15.20.6178.026; Tue, 14 Mar 2023
+ 14:15:56 +0000
+From: Nancy Tyler <nancy.tyler@findusab2binfo.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: NAB Show 2023 - Lead & Deal retrievals
+Thread-Topic: NAB Show 2023 - Lead & Deal retrievals
+Thread-Index: AdlSsFW8YvTN9h1eR0+27yNYOFEmZwAABp3QAAQPlHAAAAARAAAAAA9AAAAAEKAAAAAPoAAAABDAAAAADzAAAAAP8AAAAA8gAAAAEIAAAAAQsAAAABDgAAAAEKAAAAAQ0AAAABJwAAAAEDAAAAAQYAAAABDAAAAAEVAAAAARUAAAABGwAAAAEoAAAAAScAAAABLQAAAAEaAAAAARYAAAABIwAAAAEvAAAAASIAAAABEgAAAAEeAAAAASsAAAABKgAAAAFAAAAAAToAAEiMxgAAAAEcAAAAAPUAAAAA4gAAAAEVAAAAAOgAAAABGwAAAAEEAAAAAQ0AAAAA8AAAAAEAAAAAAQkAAAABKQAAAAD1AAAAAQgADq75dw
+Importance: high
+X-Priority: 1
+Date: Tue, 14 Mar 2023 14:15:55 +0000
+Message-ID: <BMXPR01MB2935B437951A0B5DCB290AB0C8BE9@BMXPR01MB2935.INDPRD01.PROD.OUTLOOK.COM>
+References: <BMXPR01MB2935264A4FB4A8E0D9606096C8B59@BMXPR01MB2935.INDPRD01.PROD.OUTLOOK.COM>
+In-Reply-To: <BMXPR01MB2935264A4FB4A8E0D9606096C8B59@BMXPR01MB2935.INDPRD01.PROD.OUTLOOK.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=findusab2binfo.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BMXPR01MB2935:EE_|PN2PR01MB9428:EE_
+x-ms-office365-filtering-correlation-id: 54fea956-8778-4058-ea58-08db2496a080
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: VthbjMSsFFJAUtIA7H86E4bA2SrMMlpmSMp2kYpJAm79n8BrD6Ybi98Bis4V+KilH6B89UodKkqeZMptH85qv+QlVDEdn6md4+K5GvgtASlEf662hmkPfDc9MlF227QvNr4mfBsf+bKYaBYR8BKAZ/GMwKAOfmzWPtictbmJsf+wEFqUwrDxeptYrEnXmF/q/t9oNLX39nppXluoih15GQ3eZTelvidTgLoMQ9IAho08Qwo+v24L+el8qxCeio8jJRUBBIDzRBTSowBKv7gxgiC2dyZFOjWSj831XcRH+GLgds8KTwPf4HNsL81qbXsVJzPqIv9QT3iG7Q+wCGC1Sm0YRzQ+bNIg8JezxUvhRtK/j4XamF1ZMJr7HG+Co5dhh0Y9mC4D/nrMleAewAFp3Z51P0cyn2TsePRU5mEvL7DfDyRk3HGWF0ekthrwYG7lbarQADAj02iW7HBRNdLUhnFYiQTwah0wi/4ITzkyq8oRD4wy385qeY+wnSaVd/qBz+nzKszsLur//Rse15f+Hjh+HNaMN3sYAYjAVvMVKs9znNzFCTbT2gVk6w0kDquOH/hXHHJGC/cPrFUXdIvHdptV82AWvFUkPyjinIJ01/a3oCzOo6d5Nj379gO4OvmEFtRIGpt9fbQLJQKN1GDusakrR6HMifZtTn7dlQQs5/VSiqZEeT3xbJ1LhCfLG+sK
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BMXPR01MB2935.INDPRD01.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230025)(366004)(136003)(346002)(376002)(396003)(39840400004)(451199018)(66899018)(9326002)(41300700001)(8936002)(478600001)(66476007)(6916009)(52536014)(66946007)(66446008)(66556008)(8676002)(64756008)(76116006)(33656002)(38070700005)(86362001)(38100700002)(122000001)(55016003)(6506007)(26005)(9686003)(7696005)(53546011)(186003)(71200400001)(44832011)(5660300002)(4744005)(2906002)(316002);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?0vvfzod+c83tPPZgsZEbj8lhNG+kKdnmAUlfpOro4Uq1sG+C8q6e3LCpM4Ch?=
+ =?us-ascii?Q?RVv2YkULVeNDQDOZuGRwSeA3FDBO8A+RcLDypb5A3VJSy11VwHgAaivrtxh3?=
+ =?us-ascii?Q?oFwmqTDrBVn1+tCP+tBAcK72K9Y1qyW1OggeqRHOxNYONmVsxTVqEUmGmCyb?=
+ =?us-ascii?Q?6sCTx+epgsoRdOnOle5gVF8FOx4anTLYSF3OKIVuD5lTMXz6qiVr/+4H9+nG?=
+ =?us-ascii?Q?EBiszA+Cg9dMxXSHJIGwRw+zDJUA9RBCpPxe4FJ4jMwu11EVo9UdT8VHtvzr?=
+ =?us-ascii?Q?pQE8F/5aFjGUE9/W7JIFGnlplwr8aILczxQaAPDpzQHUobegEqLbrHyBHXfg?=
+ =?us-ascii?Q?wz58cFafVryUOx61nt4ZhC5R2U5TL+MOR6jpwiK8A7oKnKRdasCZ6tcErnsC?=
+ =?us-ascii?Q?8anPjdbi+yjOu2TkF/0s3f5GmWlO6XX4sCWabFl8A275RHR0QAafZIu0bgUl?=
+ =?us-ascii?Q?C30yZ4m0r+0ab/0KgJDo/vTa0OXCW3oUalGzEhCEgzG6fk6eLF6tsUJqXeGb?=
+ =?us-ascii?Q?N8GW1BH6sMzOgP5yPOlTwjpC0Mm1/mRuivV4y88ZCeB/HofAfk2NS0Db9oaZ?=
+ =?us-ascii?Q?GAMAVxcihpAR7qWky7sLKLOnNNzG8PlVFoLEYH8KDi3JyeMoO42FSCwpUDw4?=
+ =?us-ascii?Q?FXE9mNQynuERmD69e705Nr6HtZ4G0Xmn3ec1o0uobJ+HDzbkGaZJLkcbQ/x7?=
+ =?us-ascii?Q?fdiv44YguEeVMK7sfF58j1J7I+1JsD7MJNyjvl5I4s8woRgUyfsasxPPI/hv?=
+ =?us-ascii?Q?v6786q+fEaqwAM4s8goHrtfUoZZobKHG2enZ/vd7VVnJvGYXzh9CyBfNhe8J?=
+ =?us-ascii?Q?SANwyJhdFJ5wB3P7EE7DlC4f1RXxjRqdzd5ZrtrVaKTlBgzZDRovKYNyDajR?=
+ =?us-ascii?Q?+B+RhaitxFE2olsKs4Bc88COpIl6h+0tRMX/Lloipsf+UfJtQtaCFee/cDeK?=
+ =?us-ascii?Q?feNpSt8DnpKY9x5XUEYpkhDA/XJvOv864BdRmyRABZjL0qmtt3gP+F2gTXQm?=
+ =?us-ascii?Q?gVh3MaOfIZrwjNfEEAaukZfzmJVApVV0PplkuFpjHc3/a4uSmCDWDdy20uKJ?=
+ =?us-ascii?Q?XWLfnyb7PVCfuEub2jm8QyGCPft/bQp1+60jxda8N+yZmlB/gbVqVSM7QtHC?=
+ =?us-ascii?Q?NXVJFuRIquRI+uAGsEkV35rspQz3PIWgxFeegoNpkiEP7KbQ1Iv5k0+5lxTD?=
+ =?us-ascii?Q?HcLNZrD/BVIeEyDwZF/lrOzpw/WZ+wrjOZnNhY8VTW53Vn/IoRO/kyQZnjpL?=
+ =?us-ascii?Q?0yli0YJocfzWAzFBOansol6tUxJWXNBYPzYQsBGy5H78B33dv7MsFkFRnMAO?=
+ =?us-ascii?Q?L+59TabY0h+tBVhb+imiOPM2yDjRf+Fqi30huos1IOVApCSgN+aKoQ8CYR+/?=
+ =?us-ascii?Q?RTi16OmwM7dxAvvzKXgd1B6MlU+oXJE+B/Ba4v/IedGx+sYmqSUbqcwJYxDM?=
+ =?us-ascii?Q?skyFE1GCdkMLETrM5qKf8sHrP8DZQG0/65VqZ5V/hqUgBjQjuUKKl6jAhedY?=
+ =?us-ascii?Q?j1FzHDVIcIs+VUbU4JY3ajq+M00SYjB9U94YjAix7FzDZMkpMQWyyEjsGvSQ?=
+ =?us-ascii?Q?ktFZqNkpLHBWzDfSzNMqzHcDKKkMJG3abPYANTu+yGRqWXHjvdKXSyAlgvub?=
+ =?us-ascii?Q?lg=3D=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BMXPR01MB2935B437951A0B5DCB290AB0C8BE9BMXPR01MB2935INDP_"
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 14 Mar 2023 13:13:50 +0000
+X-OriginatorOrg: findusab2binfo.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BMXPR01MB2935.INDPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 54fea956-8778-4058-ea58-08db2496a080
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Mar 2023 14:15:55.9398 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 330db043-7520-455a-a0ca-b88971686b37
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: OXwL9MCscBizaqTsSgXYol0gwExQKxfGLpRVtg1M/KJ/pJY/CA6pTYZc4i2GW5IuLCmYIhfrTFABmvmlWZEf6KFKIGjvEgIKzesallhgUkI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN2PR01MB9428
+X-Mailman-Approved-At: Tue, 14 Mar 2023 14:24:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,46 +115,195 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tom Rix <trix@redhat.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-gcc with W=1 reports this error
-drivers/gpu/drm/radeon/radeon_ttm.c:201:27: error:
-  variable ‘rbo’ set but not used [-Werror=unused-but-set-variable]
-  201 |         struct radeon_bo *rbo;
-      |                           ^~~
+--_000_BMXPR01MB2935B437951A0B5DCB290AB0C8BE9BMXPR01MB2935INDP_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-rbo use was removed with
-commit f87c1f0b7b79 ("drm/ttm: prevent moving of pinned BOs")
-Since the variable is not used, remove it.
 
-Signed-off-by: Tom Rix <trix@redhat.com>
----
- drivers/gpu/drm/radeon/radeon_ttm.c | 2 --
- 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
-index 2220cdf6a3f6..0ea430ee5256 100644
---- a/drivers/gpu/drm/radeon/radeon_ttm.c
-+++ b/drivers/gpu/drm/radeon/radeon_ttm.c
-@@ -198,7 +198,6 @@ static int radeon_bo_move(struct ttm_buffer_object *bo, bool evict,
- {
- 	struct ttm_resource *old_mem = bo->resource;
- 	struct radeon_device *rdev;
--	struct radeon_bo *rbo;
- 	int r;
- 
- 	if (new_mem->mem_type == TTM_PL_TT) {
-@@ -211,7 +210,6 @@ static int radeon_bo_move(struct ttm_buffer_object *bo, bool evict,
- 	if (r)
- 		return r;
- 
--	rbo = container_of(bo, struct radeon_bo, tbo);
- 	rdev = radeon_get_rdev(bo->bdev);
- 	if (!old_mem || (old_mem->mem_type == TTM_PL_SYSTEM &&
- 			 bo->ttm == NULL)) {
--- 
-2.27.0
+Hello,
 
+I sent you an email about attendees list ?
+
+Let me know your interest to Send Pricing Details..
+
+Awaiting for your response!
+
+Cheers
+Nancy
+
+From: Nancy Tyler
+Sent: Thursday, March 9, 2023 5:13 PM
+To: amd-gfx@lists.freedesktop.org
+Subject: NAB Show 2023 - Lead & Deal retrievals
+Importance: High
+
+Hello, Have a wonderful day!
+
+Would you want to purchase an National Association of Broadcasters - NAB Sh=
+ow 2023 Attendees Pre-registered Contact List?
+
+ATTENDEES TITLES: -
+
+Executive/Corporate Management, Creative Professionals, Technical Professio=
+nals, Sales/Marketing/Programming Professionals, Others..
+If you're Interested please reply back as a "Send Cost and Counts"
+
+Regards,
+Nancy Tyler |Global Marketing
+
+If you don't want to receive further emails please revert with "Take Out" i=
+n the subject
+
+
+--_000_BMXPR01MB2935B437951A0B5DCB290AB0C8BE9BMXPR01MB2935INDP_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Constantia;
+	panose-1:2 3 6 2 5 3 6 3 3 3;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle18
+	{mso-style-type:personal;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Constantia&quot;,se=
+rif;color:#002060">Hello,<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Constantia&quot;,se=
+rif;color:#002060"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Constantia&quot;,se=
+rif;color:#002060">I sent you an email about
+<b>attendees list</b> ?<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Constantia&quot;,se=
+rif;color:#002060"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Constantia&quot;,se=
+rif;color:#002060">Let me know your interest to
+<b>Send</b> <b>Pricing Details</b>..<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Constantia&quot;,se=
+rif;color:#002060"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Constantia&quot;,se=
+rif;color:#002060">Awaiting for your response!<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Constantia&quot;,se=
+rif;color:#002060"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Constantia&quot;,se=
+rif;color:#002060">Cheers<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><b><span style=3D"font-family:&quot;Constantia&quot;=
+,serif;color:#002060">Nancy</span></b><span style=3D"font-family:&quot;Cons=
+tantia&quot;,serif"><o:p></o:p></span></p>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Nancy Tyler <br>
+<b>Sent:</b> Thursday, March 9, 2023 5:13 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org<br>
+<b>Subject:</b> NAB Show 2023 - Lead &amp; Deal retrievals<br>
+<b>Importance:</b> High<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Constantia&quot;,se=
+rif">Hello, Have a wonderful day!<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Constantia&quot;,se=
+rif"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Constantia&quot;,se=
+rif">Would you want to purchase an
+<b>National Association of Broadcasters - NAB Show 2023 </b>Attendees Pre-r=
+egistered Contact List?<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Constantia&quot;,se=
+rif"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><b><u><span style=3D"font-family:&quot;Constantia&qu=
+ot;,serif">ATTENDEES TITLES: -<o:p></o:p></span></u></b></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Constantia&quot;,se=
+rif"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><b><span style=3D"fon=
+t-family:&quot;Constantia&quot;,serif">Executive/Corporate Management, Crea=
+tive Professionals, Technical Professionals, Sales/Marketing/Programming Pr=
+ofessionals, Others..</span></b><span style=3D"font-family:&quot;Constantia=
+&quot;,serif"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Constantia&quot;,se=
+rif">If you're Interested please reply back as a &quot;<b>Send Cost and Cou=
+nts</b>&quot;<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Constantia&quot;,se=
+rif"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Constantia&quot;,se=
+rif">Regards,<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Constantia&quot;,se=
+rif">Nancy Tyler |Global Marketing<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Constantia&quot;,se=
+rif"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:8.0pt;font-family:&quot;Con=
+stantia&quot;,serif">If you don&#8217;t want to receive further emails plea=
+se revert with &#8220;Take Out&#8221; in the subject<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_BMXPR01MB2935B437951A0B5DCB290AB0C8BE9BMXPR01MB2935INDP_--
