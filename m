@@ -4,70 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F08EBC6FD1D
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Mar 2023 15:25:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E05F8C61DA4
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Mar 2023 16:07:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A22610E916;
-	Wed, 15 Mar 2023 15:25:18 +0000 (UTC)
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D75D10E8DE;
- Wed, 15 Mar 2023 15:25:15 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id l1so17645808wry.12;
- Wed, 15 Mar 2023 08:25:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678893913;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=F1Tjdkcm9ANXGn5qxb6DEQ8TaNVeqrlKXE/a6qrBYv0=;
- b=O3A6NoI86j6M1Fpyq/29vuO8MJ1QL+z3yixMg1bAnLe5zomimV5D7DYNWho9euqPah
- hByHOA1i5cD10Pw9EfWJi9b7Lj5zzETcNJahWVEB+wD3qVRES79flC/38q82o3GovdEV
- 5v2lmHSCPKdH3cofEx8//4uuL24GotJ+b6p2Pow91bvFgnOLj5673MG8EM6wt0fzUkPO
- m54U7YC6gKLmTqiKPJ9jyIOtpKxaiTAyF+8Pa6KCBPFNDz6AVwnwI9vCJOMo0C6i4YPU
- 0A9IXtr8D6cKUO9xYIXItBLcolDb0GA1DjJCrpAY0bcONaY8Dq6QS9fL96teIpos11mq
- SGbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678893913;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=F1Tjdkcm9ANXGn5qxb6DEQ8TaNVeqrlKXE/a6qrBYv0=;
- b=xqhalGUpl2lcTMtyJKjcJ1MjX/4lFpxXS23y/6lWtITWRNbraQ+sEL0bn7cy8/Dxt7
- nUYd539j2nhSy7COPgIhDryLDgL1GkbYIrglFQsuTY5h/m/gC7F+/dc8OsizfBCyHbTZ
- E9DSfSHpx9CM0Q8Fzx6e5jXXR2vrxNPIo8cooraJ53fxWSmBYxV4hndmfekmOgKt/Kb1
- 2bz1pKx6QJ43V2brEpWXzpB8AvAYqRjaLHL9faapVRxo55URAFjqC9i7vPPfs3n8NT3u
- WxG5/WTHNTM3gHsOA7xvJgYuqu2nYHCt7O3anoYuP3Ah7k7R8gZKNTjp5PLpkC17DvTP
- EJtQ==
-X-Gm-Message-State: AO0yUKUxPMDvAHxNqqAcYSCWxWZ2xdt15FhZJ1/7T8tpG89qI47w8akj
- 2EbrlMs5ujbPg6vLNrwvfgQ=
-X-Google-Smtp-Source: AK7set8aLE6gJUe/UJpmlxdKFlAhVSGfuCFvLfWpHPxZSIXWu4cZ2oh/V5Dcjj07r4qXT8eSJKnIyA==
-X-Received: by 2002:adf:ee4f:0:b0:2cf:ef5d:4ee7 with SMTP id
- w15-20020adfee4f000000b002cfef5d4ee7mr2401506wro.69.1678893913468; 
- Wed, 15 Mar 2023 08:25:13 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1256:79a0:2e4a:9084:4119:9c9f?
- ([2a02:908:1256:79a0:2e4a:9084:4119:9c9f])
- by smtp.gmail.com with ESMTPSA id
- b6-20020adfde06000000b002cfe466e894sm4795147wrm.38.2023.03.15.08.25.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Mar 2023 08:25:12 -0700 (PDT)
-Message-ID: <07597f3e-0b35-c22b-91ec-fa3875d6fe22@gmail.com>
-Date: Wed, 15 Mar 2023 16:25:11 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56C1310E941;
+	Wed, 15 Mar 2023 16:07:52 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C5A110E941
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Mar 2023 16:07:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1678896470; x=1710432470;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=eeJRhyMHNk6JaWGoydAhhh2LsmDGc5vOHIhf8n7qITQ=;
+ b=gYFOR8wzwkxdxCC5LgZBU094hPjbmWtgWKfS7jWaCe74H6jdS1rwQqUj
+ V2Pw93R07DO3D2K00ZFheBQ5T3zJxYKCCwdm7G/YhTAh+fSwGaZfF+Wxg
+ Rb6J4p/yxuJskrTMNDl7yqCbLnIr/IopsBmYD7xqJ+GPx0I9Qf2EvqnJ5
+ 3gkA1flhC7NneuPY9neM2VKhUQ9YyaFXiXklGlobYfUJtBpc2/ll3Rg2O
+ RBXFajN08KYWP1/GhUK5xSZvskdzNoXy6Sly+El9zywiT8l9sfLCY3J9Q
+ RGfJ4wsjpRm5K9a2MnLhL9Ho0prOq+DWMFX35t1YTREZkj2jCB7vVDrBL g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="337768317"
+X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="337768317"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2023 09:04:03 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="711979912"
+X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="711979912"
+Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
+ by orsmga001.jf.intel.com with ESMTP; 15 Mar 2023 09:04:01 -0700
+Received: from kbuild by b613635ddfff with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pcTbX-0007qm-1p;
+ Wed, 15 Mar 2023 16:03:55 +0000
+Date: Thu, 16 Mar 2023 00:03:32 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD SUCCESS WITH WARNING
+ 225b6b81afe63b3850b7cee0a3590f51144f2a75
+Message-ID: <6411ec54.1APNJYgsajBPjtri%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [BUG 6.3-rc1] Bad lock in ttm_bo_delayed_delete()
-Content-Language: en-US
-To: Steven Rostedt <rostedt@goodmis.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-References: <20230307212223.7e49384a@gandalf.local.home>
- <20230307212615.7a099103@gandalf.local.home>
- <b919b550-6da8-f9f0-a0eb-0fd8af513817@amd.com>
- <20230315110949.1e11b3aa@gandalf.local.home>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20230315110949.1e11b3aa@gandalf.local.home>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,105 +58,221 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- intel-gfx@lists.freedesktop.org, LKML <linux-kernel@vger.kernel.org>,
- dri-devel@lists.freedesktop.org, Masami Hiramatsu <mhiramat@kernel.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Felix Kuehling <Felix.Kuehling@amd.com>, linux-media@vger.kernel.org
+Cc: Linux Memory Management List <linux-mm@kvack.org>,
+ linux-crypto@vger.kernel.org, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 15.03.23 um 16:09 schrieb Steven Rostedt:
-> On Wed, 8 Mar 2023 07:17:38 +0100
-> Christian König <christian.koenig@amd.com> wrote:
->
->> Am 08.03.23 um 03:26 schrieb Steven Rostedt:
->>> On Tue, 7 Mar 2023 21:22:23 -0500
->>> Steven Rostedt <rostedt@goodmis.org> wrote:
->>>   
->>>> Looks like there was a lock possibly used after free. But as commit
->>>> 9bff18d13473a9fdf81d5158248472a9d8ecf2bd ("drm/ttm: use per BO cleanup
->>>> workers") changed a lot of this code, I figured it may be the culprit.
->>> If I bothered to look at the second warning after this one (I usually stop
->>> after the first), it appears to state there was a use after free issue.
->> Yeah, that looks like the reference count was somehow messed up.
->>
->> What test case/environment do you run to trigger this?
->>
->> Thanks for the notice,
-> I'm still getting this on Linus's latest tree.
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 225b6b81afe63b3850b7cee0a3590f51144f2a75  Add linux-next specific files for 20230315
 
-This must be some reference counting issue which only happens in your 
-particular use case. We have tested this quite extensively and couldn't 
-reproduce it so far.
+Warning reports:
 
-Can you apply this code snippet here and see if you get any warning in 
-the system logs?
+https://lore.kernel.org/oe-kbuild-all/202303081807.lBLWKmpX-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202303151409.por0SBf7-lkp@intel.com
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index 459f1b4440da..efc390bfd69c 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -314,6 +314,7 @@ static void ttm_bo_delayed_delete(struct work_struct 
-*work)
-         dma_resv_lock(bo->base.resv, NULL);
-         ttm_bo_cleanup_memtype_use(bo);
-         dma_resv_unlock(bo->base.resv);
-+       bo->delayed_delete.func = NULL;
-         ttm_bo_put(bo);
-  }
+Warning: (recently discovered and may have been fixed)
 
-@@ -327,6 +328,8 @@ static void ttm_bo_release(struct kref *kref)
-         WARN_ON_ONCE(bo->pin_count);
-         WARN_ON_ONCE(bo->bulk_move);
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_validation.c:258:10: warning: no previous prototype for 'link_timing_bandwidth_kbps' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:2184: warning: expecting prototype for Check if there is a native DP or passive DP(). Prototype was for dp_is_sink_present() instead
+lib/dynamic_debug.c:947:6: warning: no previous prototype for function '__dynamic_ibdev_dbg' [-Wmissing-prototypes]
 
-+       WARN_ON(bo->delayed_delete.func != NULL);
-+
-         if (!bo->deleted) {
-                 ret = ttm_bo_individualize_resv(bo);
-                 if (ret) {
+Unverified Warning (likely false positive, please contact us if interested):
 
+crypto/akcipher.c:135:32: warning: Value stored to 'istat' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
 
-Thanks,
-Christian.
+Warning ids grouped by kconfigs:
 
->
-> [  230.530222] ------------[ cut here ]------------
-> [  230.569795] DEBUG_LOCKS_WARN_ON(lock->magic != lock)
-> [  230.569957] WARNING: CPU: 0 PID: 212 at kernel/locking/mutex.c:582 __ww_mutex_lock.constprop.0+0x62a/0x1300
-> [  230.612599] Modules linked in:
-> [  230.632144] CPU: 0 PID: 212 Comm: kworker/0:8H Not tainted 6.3.0-rc2-test-00047-g6015b1aca1a2-dirty #992
-> [  230.654939] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.0-debian-1.16.0-5 04/01/2014
-> [  230.678866] Workqueue: ttm ttm_bo_delayed_delete
-> [  230.699452] EIP: __ww_mutex_lock.constprop.0+0x62a/0x1300
-> [  230.720582] Code: e8 3b 9a 95 ff 85 c0 0f 84 61 fa ff ff 8b 0d 58 bc 3a c4 85 c9 0f 85 53 fa ff ff 68 54 98 06 c4 68 b7 b6 04 c4 e8 46 af 40 ff <0f> 0b 58 5a e9 3b fa ff ff 8d 74 26 00 90 a1 ec 47 b0 c4 85 c0 75
-> [  230.768336] EAX: 00000028 EBX: 00000000 ECX: c51abdd8 EDX: 00000002
-> [  230.792001] ESI: 00000000 EDI: c53856bc EBP: c51abf00 ESP: c51abeac
-> [  230.815944] DS: 007b ES: 007b FS: 00d8 GS: 0000 SS: 0068 EFLAGS: 00010246
-> [  230.840033] CR0: 80050033 CR2: ff9ff000 CR3: 04506000 CR4: 00150ef0
-> [  230.864059] Call Trace:
-> [  230.886369]  ? ttm_bo_delayed_delete+0x30/0x94
-> [  230.909902]  ww_mutex_lock+0x32/0x94
-> [  230.932550]  ttm_bo_delayed_delete+0x30/0x94
-> [  230.955798]  process_one_work+0x21a/0x484
-> [  230.979335]  worker_thread+0x14a/0x39c
-> [  231.002258]  kthread+0xea/0x10c
-> [  231.024769]  ? process_one_work+0x484/0x484
-> [  231.047870]  ? kthread_complete_and_exit+0x1c/0x1c
-> [  231.071498]  ret_from_fork+0x1c/0x28
-> [  231.094701] irq event stamp: 4023
-> [  231.117272] hardirqs last  enabled at (4023): [<c3d1df99>] _raw_spin_unlock_irqrestore+0x2d/0x58
-> [  231.143217] hardirqs last disabled at (4022): [<c31d5a55>] kvfree_call_rcu+0x155/0x2ec
-> [  231.166058] softirqs last  enabled at (3460): [<c3d1f403>] __do_softirq+0x2c3/0x3bb
-> [  231.183104] softirqs last disabled at (3455): [<c30c96a9>] call_on_stack+0x45/0x4c
-> [  231.200336] ---[ end trace 0000000000000000 ]---
-> [  231.216572] ------------[ cut here ]------------
->
->
-> This is preventing me from adding any of my own patches on v6.3-rcX due to
-> this bug failing my tests. Which means I can't add anything to linux-next
-> until this is fixed!
->
-> -- Steve
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- alpha-randconfig-r024-20230312
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:no-previous-prototype-for-link_timing_bandwidth_kbps
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- arc-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- arm-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:no-previous-prototype-for-link_timing_bandwidth_kbps
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- arm-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:no-previous-prototype-for-link_timing_bandwidth_kbps
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- arm64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:no-previous-prototype-for-link_timing_bandwidth_kbps
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- i386-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:no-previous-prototype-for-link_timing_bandwidth_kbps
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- ia64-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- loongarch-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- loongarch-defconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- mips-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:no-previous-prototype-for-link_timing_bandwidth_kbps
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- mips-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- powerpc-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- riscv-allmodconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- s390-allyesconfig
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- s390-randconfig-r006-20230313
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:no-previous-prototype-for-link_timing_bandwidth_kbps
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+|-- sparc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:no-previous-prototype-for-link_timing_bandwidth_kbps
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+`-- x86_64-allyesconfig
+    `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
+clang_recent_errors
+|-- i386-randconfig-a012-20230313
+|   `-- lib-dynamic_debug.c:warning:no-previous-prototype-for-function-__dynamic_ibdev_dbg
+|-- i386-randconfig-a013-20230313
+|   `-- lib-dynamic_debug.c:warning:no-previous-prototype-for-function-__dynamic_ibdev_dbg
+|-- i386-randconfig-a016-20230313
+|   `-- lib-dynamic_debug.c:warning:no-previous-prototype-for-function-__dynamic_ibdev_dbg
+`-- riscv-randconfig-c006-20230310
+    `-- crypto-akcipher.c:warning:Value-stored-to-istat-during-its-initialization-is-never-read-clang-analyzer-deadcode.DeadStores
 
+elapsed time: 723m
+
+configs tested: 128
+configs skipped: 14
+
+tested configs:
+alpha                            allyesconfig   gcc  
+alpha                               defconfig   gcc  
+alpha                randconfig-r001-20230313   gcc  
+alpha                randconfig-r021-20230312   gcc  
+alpha                randconfig-r024-20230312   gcc  
+arc                              allyesconfig   gcc  
+arc                                 defconfig   gcc  
+arc                  randconfig-r014-20230312   gcc  
+arc                  randconfig-r043-20230312   gcc  
+arc                  randconfig-r043-20230313   gcc  
+arm                              allmodconfig   gcc  
+arm                              allyesconfig   gcc  
+arm                                 defconfig   gcc  
+arm                  randconfig-r002-20230313   clang
+arm                  randconfig-r013-20230313   gcc  
+arm                  randconfig-r016-20230313   gcc  
+arm                  randconfig-r021-20230313   gcc  
+arm                  randconfig-r025-20230313   gcc  
+arm                  randconfig-r034-20230313   clang
+arm                  randconfig-r046-20230312   clang
+arm                  randconfig-r046-20230313   gcc  
+arm64                            allyesconfig   gcc  
+arm64                               defconfig   gcc  
+arm64                randconfig-r011-20230312   gcc  
+csky                                defconfig   gcc  
+csky                 randconfig-r011-20230313   gcc  
+csky                 randconfig-r012-20230313   gcc  
+csky                 randconfig-r036-20230313   gcc  
+hexagon              randconfig-r004-20230313   clang
+hexagon              randconfig-r026-20230313   clang
+hexagon              randconfig-r041-20230312   clang
+hexagon              randconfig-r041-20230313   clang
+hexagon              randconfig-r045-20230312   clang
+hexagon              randconfig-r045-20230313   clang
+i386                             allyesconfig   gcc  
+i386                              debian-10.3   gcc  
+i386                                defconfig   gcc  
+i386                 randconfig-a001-20230313   gcc  
+i386                 randconfig-a002-20230313   gcc  
+i386                 randconfig-a003-20230313   gcc  
+i386                 randconfig-a004-20230313   gcc  
+i386                 randconfig-a005-20230313   gcc  
+i386                 randconfig-a006-20230313   gcc  
+i386                 randconfig-a011-20230313   clang
+i386                 randconfig-a012-20230313   clang
+i386                 randconfig-a013-20230313   clang
+i386                 randconfig-a014-20230313   clang
+i386                 randconfig-a015-20230313   clang
+i386                 randconfig-a016-20230313   clang
+ia64                             allmodconfig   gcc  
+ia64                                defconfig   gcc  
+ia64                 randconfig-r003-20230313   gcc  
+ia64                 randconfig-r005-20230313   gcc  
+loongarch                        allmodconfig   gcc  
+loongarch                         allnoconfig   gcc  
+loongarch    buildonly-randconfig-r003-20230312   gcc  
+loongarch                           defconfig   gcc  
+m68k                             allmodconfig   gcc  
+m68k         buildonly-randconfig-r001-20230312   gcc  
+m68k                                defconfig   gcc  
+m68k                 randconfig-r002-20230312   gcc  
+m68k                 randconfig-r003-20230312   gcc  
+m68k                 randconfig-r014-20230313   gcc  
+m68k                 randconfig-r015-20230313   gcc  
+m68k                 randconfig-r016-20230312   gcc  
+m68k                 randconfig-r032-20230312   gcc  
+microblaze   buildonly-randconfig-r005-20230312   gcc  
+microblaze           randconfig-r001-20230312   gcc  
+mips                             allmodconfig   gcc  
+mips                             allyesconfig   gcc  
+mips                 randconfig-r033-20230312   gcc  
+mips                 randconfig-r035-20230312   gcc  
+nios2        buildonly-randconfig-r006-20230312   gcc  
+nios2                               defconfig   gcc  
+nios2                randconfig-r006-20230312   gcc  
+nios2                randconfig-r012-20230312   gcc  
+nios2                randconfig-r013-20230312   gcc  
+nios2                randconfig-r025-20230312   gcc  
+parisc                              defconfig   gcc  
+parisc64                            defconfig   gcc  
+powerpc                          allmodconfig   gcc  
+powerpc                           allnoconfig   gcc  
+powerpc              randconfig-r004-20230312   clang
+powerpc              randconfig-r015-20230312   gcc  
+powerpc              randconfig-r022-20230313   clang
+riscv                            allmodconfig   gcc  
+riscv                             allnoconfig   gcc  
+riscv                               defconfig   gcc  
+riscv                randconfig-r032-20230313   gcc  
+riscv                randconfig-r042-20230312   gcc  
+riscv                randconfig-r042-20230313   clang
+riscv                          rv32_defconfig   gcc  
+s390                             allmodconfig   gcc  
+s390                             allyesconfig   gcc  
+s390         buildonly-randconfig-r002-20230312   gcc  
+s390                                defconfig   gcc  
+s390                 randconfig-r006-20230313   gcc  
+s390                 randconfig-r044-20230312   gcc  
+s390                 randconfig-r044-20230313   clang
+sh                               allmodconfig   gcc  
+sparc                               defconfig   gcc  
+sparc                randconfig-r005-20230312   gcc  
+sparc                randconfig-r023-20230312   gcc  
+sparc                randconfig-r034-20230312   gcc  
+sparc64      buildonly-randconfig-r002-20230313   gcc  
+sparc64              randconfig-r033-20230313   gcc  
+um                             i386_defconfig   gcc  
+um                           x86_64_defconfig   gcc  
+x86_64                            allnoconfig   gcc  
+x86_64                           allyesconfig   gcc  
+x86_64                              defconfig   gcc  
+x86_64                                  kexec   gcc  
+x86_64               randconfig-a001-20230313   gcc  
+x86_64               randconfig-a002-20230313   gcc  
+x86_64               randconfig-a003-20230313   gcc  
+x86_64               randconfig-a004-20230313   gcc  
+x86_64               randconfig-a005-20230313   gcc  
+x86_64               randconfig-a006-20230313   gcc  
+x86_64               randconfig-a011-20230313   clang
+x86_64               randconfig-a012-20230313   clang
+x86_64               randconfig-a013-20230313   clang
+x86_64               randconfig-a014-20230313   clang
+x86_64               randconfig-a015-20230313   clang
+x86_64               randconfig-a016-20230313   clang
+x86_64               randconfig-r035-20230313   gcc  
+x86_64                               rhel-8.3   gcc  
+xtensa       buildonly-randconfig-r001-20230313   gcc  
+xtensa               randconfig-r036-20230312   gcc  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
