@@ -4,53 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5B44C6FD1D
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Mar 2023 08:25:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3550DC61DA4
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Mar 2023 08:25:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4ACD010E969;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC66B10E96B;
 	Wed, 15 Mar 2023 08:25:36 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6ED210E917
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Mar 2023 06:05:50 +0000 (UTC)
-X-UUID: 83be105869334413b89539de83e3bf84-20230315
-X-CID-O-RULE: Release_Ham
-X-CID-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.20, REQID:b3c59e09-d586-4e2f-bd85-d480c4de6ae8, IP:15,
- URL:0,TC:0,Content:0,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTI
- ON:release,TS:0
-X-CID-INFO: VERSION:1.1.20, REQID:b3c59e09-d586-4e2f-bd85-d480c4de6ae8, IP:15,
- UR
- L:0,TC:0,Content:0,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:0
-X-CID-META: VersionHash:25b5999, CLOUDID:cd596b28-564d-42d9-9875-7c868ee415ec,
- B
- ulkID:230315140542ANP1KDHL,BulkQuantity:0,Recheck:0,SF:24|17|19|44|102,TC:
- nil,Content:0,EDM:-3,IP:-2,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OS
- I:0,OSA:0,AV:0
-X-CID-BVR: 0,NGT
-X-UUID: 83be105869334413b89539de83e3bf84-20230315
-X-User: lizhenneng@kylinos.cn
-Received: from [172.20.124.41] [(116.128.244.169)] by mailgw
- (envelope-from <lizhenneng@kylinos.cn>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES128-GCM-SHA256 128/128)
- with ESMTP id 101849547; Wed, 15 Mar 2023 14:05:42 +0800
-Subject: Re: [PATCH v2] drm/amdgpu: resove reboot exception for si oland
-To: "Chen, Guchun" <Guchun.Chen@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>
-References: <20230313025648.3103971-1-lizhenneng@kylinos.cn>
- <20230313025648.3103971-2-lizhenneng@kylinos.cn>
- <DM5PR12MB2469106B445537FF8F7EBA19F1BE9@DM5PR12MB2469.namprd12.prod.outlook.com>
- <BYAPR12MB46140D57681AA4BC9E42E3DA97BE9@BYAPR12MB4614.namprd12.prod.outlook.com>
- <DM5PR12MB2469D03BB7F3A698DDE6B16AF1BE9@DM5PR12MB2469.namprd12.prod.outlook.com>
-From: lizhenneng <lizhenneng@kylinos.cn>
-Message-ID: <7744ad94-26ad-a960-707c-97b98f1ee75b@kylinos.cn>
-Date: Wed, 15 Mar 2023 14:05:40 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
-MIME-Version: 1.0
-In-Reply-To: <DM5PR12MB2469D03BB7F3A698DDE6B16AF1BE9@DM5PR12MB2469.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on20629.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e1b::629])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E8C710E93F;
+ Wed, 15 Mar 2023 06:52:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HnIGa4bkFquuXCrxE9+j1anhsQC1T3IhzNm12CL1d/B/jHPSDI+WPapCM8BoUt6XoGKCKvzzfevryT28+RInI3rU5kF2qo04iCaoi+Hpvu8ulWCeTVts/wNRdCzQBLCMe54efLTI63QgMJQkD+qOWXQUg831yqxGZAAuARIsCmVfnpKSGt3WKzaZnwtlWp8qbF2rHWj4YCBmB20t4czlVX5XCLGB3H1C31U5kHn6iy3PgyV73gzurpqsQDnmlf00oDabSSoii3zIf3RKnf4Hk31N7BsMGVBU3QZZWPKOZKmqlpD5FrUq7u9xRV9TdLTPc9zNHLGtRhXAXf7Hw+6qmg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CgJ/4y+3OdzOCLSAi9fZwcyeMn10s23vUP6pYpL7MAc=;
+ b=ImUVv61nHY2pHMVtIhadU9+xT9XJCzt6HkHkDm9VQfslw/squVeUgfG1KePdO8LU+7w8DYhB+VMPjjXyy1zROv1bvf3iwK8iBmn+nn63DnckOnU0Qq+qGLRjP0KQDUleGpHPsWSNIWLBrHCPwN7i7BTrvYCY1tcv83W71Fs+K+x5bZ2vwOIKFPzUDGj49C6iZtcJtjSo5KJUVPu9fNvhm9atvQrNRve+QE+Da/YUdQPd4BQvJ4CuU8XUFPb8SjQcKrjyYDA4fxfkpy3bMRJpnrucbwiwnfzX4omUmDMj1rtPlku8Fyj47BLTHYvZU72Ch2t4RsaKfZkE5b4UWp5bPQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CgJ/4y+3OdzOCLSAi9fZwcyeMn10s23vUP6pYpL7MAc=;
+ b=qatN1BYY9FSGqHsaFx+s2cKIQxO7tp51yot3GrHfM4JB9AePCjdCHJqTrmc5o2qmQx07+q3178WL0FGkSB+GYYGK9RlUYk3/LgndaZphixx+BCcsIXh3+MMS3rM3I8Mj0bDql35rzzcq49dJiE1cdWFCpoxlY+8EeObAOJcj1fMJK8lh1q2j9ot14WHvP0xJN+CfieltFwT9Jexr6vAJvglzm+ycCAav7ABdns+lVilK2SCCnSAlOKjjDHUOiln37JjSrTpEKESPXfArwq2DMHebd98m/tGAasj78L1zAR93IECqziFXHano5HI28N2jzib56oq069acRXc4uStHtQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by DBAPR04MB7445.eurprd04.prod.outlook.com (2603:10a6:10:1a7::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.29; Wed, 15 Mar
+ 2023 06:52:23 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b%5]) with mapi id 15.20.6178.026; Wed, 15 Mar 2023
+ 06:52:23 +0000
+Message-ID: <d7ce665c-8fd9-30b4-bf86-8d6907a2c17a@suse.com>
+Date: Wed, 15 Mar 2023 07:52:21 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [RFC PATCH 1/5] x86/xen: disable swiotlb for xen pvh
 Content-Language: en-US
+To: Huang Rui <ray.huang@amd.com>
+References: <20230312120157.452859-1-ray.huang@amd.com>
+ <20230312120157.452859-2-ray.huang@amd.com>
+ <ea0e3852-87ba-984b-4010-5eeac3d6c507@suse.com>
+ <alpine.DEB.2.22.394.2303141747350.863724@ubuntu-linux-20-04-desktop>
+ <ZBFGJUE0ahA4R9gr@amd.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <ZBFGJUE0ahA4R9gr@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0082.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9b::9) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DBAPR04MB7445:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5ab30859-5335-404a-e1e7-08db2521d48f
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: n+1ZWZD0Sb2Exclqn0QVvcLfOIxb2pLTBEeGlUnxDPzgdikS+yBII6WTM/0XRUPJc+gCShZDIo02xkeZEzANGOm1lo4beQRF821W98yKue1+mPl9y0bte97VCZrzs2tKaZgcXQV5Ztc3I8r5y4yVixPY7yCwn3lr5csiOifQ5RWohJFPByXO8HfqUJ7AAataIPP1nU1CF4hpauVs5c5GlY3+NdNBWhd0cOrXj7jt5vREkdKnbc1xgoknZrtAdha45foBZ2JsaqCqw6RSDvZmScmKZcY7UZ/cijivC2N+e4/2Lp/tDTHbBKkfubJtjxKA5rvwA9Gim8yHGHS7Y+v4h6ZyYngzexha5EdqbFNETd/I6hGxAohK2qB9jtz7xsTEYQugEaRcItkmYlUU3ETArWqWUT6NvyZ9+17fbGsfFEPnOXcR5YOTl1tvSYtQcYwRpivno+BQRmi9cqC1+gAHxMZzw/YKNJmmDWMh2mP/sss1a1uruFmYXDVW/1Nvivm9XP2yGzbiLxGkrN70THCr2muLwKwIoiKyuffKf1KfPOnaoUlf4mDeGBbJQm2e+F1ynyBy7mFtRDIlmUZkyr3TmBW12Sxg/fx4+jox15vM+x6AkiA9QxhkKT9YvRCT9loT7QMy9X6ldqOel1fS7s+lLV5xZjMUg4QOHGkfnwVwPNyyHax+90XDh8vdne/DQzhH2lDeQsjKv/D1cBnDzZzdzcVL755dV0pNsQiQTIHXg7Y=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VE1PR04MB6560.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(396003)(376002)(346002)(366004)(39850400004)(136003)(451199018)(36756003)(7416002)(5660300002)(83380400001)(478600001)(6486002)(6506007)(26005)(53546011)(6512007)(2616005)(186003)(66476007)(66556008)(66946007)(8676002)(6916009)(41300700001)(4326008)(8936002)(31696002)(86362001)(54906003)(316002)(38100700002)(2906002)(31686004)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UFZxOElXbFVHMU5FOWlIcVBmdWJBK2dSKzl0TisvdFhZS2dUVXZpRnlMSktt?=
+ =?utf-8?B?ZXJYRlZQSUo5OWhBS0ExQysyaXkxdHdWZmFCT1MrRXNwdm5ydHRSU2lkSC9O?=
+ =?utf-8?B?cGxwNUNPNHpDajY0a1UwcTlFWkRvWk9taE92RStzK1RYT2ZSVDBreVhNK3ZX?=
+ =?utf-8?B?aW5XWTNQYmFFaWNLcmkreEE4OVoyMFA1MnMvMy9LNnkxOVBTWndFd2tHckxm?=
+ =?utf-8?B?RDhYQ0lRejh6cjNXVjNOYTF2VUwrbGhxQXUzVWxsN1F6ZDYrcUJMWm5TMjdx?=
+ =?utf-8?B?YUE3Wko5MU5LUHF6TEg1UkxRemVZRDYzM01wU09Dc3VsTVlJODM5dS9pQUp3?=
+ =?utf-8?B?Q1FIQUoxRUFHR05yUmpIeFdVWDJSaFFpc3A2SlYxZXNOTS85VUV2RE1DRmpr?=
+ =?utf-8?B?TlVDWS9wcXFFKy9FalhMMjI4dWpFOXJ5elpPaHg2NDJ5U1BpdURldWtSRmNV?=
+ =?utf-8?B?cmNuUHpvOEtCWmd5WEN4WXNjT2hkVStKRGtIUTV5a0xnTVBsZVhKMVJVU3N0?=
+ =?utf-8?B?bksySmpVU2YrSkJHSzdFQVJuTVc1RlJ6VmtHVXJLcFovbVdOaGgwbElhdzlz?=
+ =?utf-8?B?RWFoeWVsZ0RkakVIcjNNQlp0bllOZHdIek1nZVVNK1NhZnlRMEwxZUlISEpy?=
+ =?utf-8?B?OXBaYThJaFp1bnVJQitMaklEb0htRHQ3dHBlbXR1OXdsUGVEY1BQUkMrRGpt?=
+ =?utf-8?B?cm8renJudU9oOUttWWd1ZkZDMUpmdC9OSThFSzJaaW40YTVRQ1lKdzhVbDFz?=
+ =?utf-8?B?QlNNcWxEcXByejFEUGJGb0sweFBjL2pHWEtTTzFSU3VTa1Rlc1RrUTNUS0k2?=
+ =?utf-8?B?dnRkdDBKM2svcE9ieHIzUlBqbFMwdXBHWUhkenc5R2tnL2NyT1FhODV4TVlU?=
+ =?utf-8?B?UzgrZHhvSy9DOGhoR0U3aGI4VXpJSW53ZWVKazRYNC9mcjhsWHJuTXorNjAv?=
+ =?utf-8?B?TC9ndW1hZktmRXVIMmp2R0FTbTRSUEF3M09pei9HeExQZ1IvUEVCdzhZTkxD?=
+ =?utf-8?B?REQ1dzMwRy80M2RsSzFpcndwMlZqeW95VFlRNE9BL1Vmd1d0S0lNWGRLNExB?=
+ =?utf-8?B?MndjN1FXS2hkS0pjL1VXUldWOEp6ZGY5UUxxQ2g1bGthcTFvanBNdmJTaG85?=
+ =?utf-8?B?S0JBc1JGVG9IeGozQUlNNkxmSXpxbVJxRUt0VjZKV2hCdmJKd21vTUgxRTIz?=
+ =?utf-8?B?VHFYckhLQ3RkT0ZKN3N1YVRvaEVCN3lNSVFJL1dnTHVlYnNDeWJPNVdFanRT?=
+ =?utf-8?B?TmVuTGU4a0tycGNMSDdpZE9IMnBTWjhQZXNqOCs4OFlZWjFyUTJLWldPQVA5?=
+ =?utf-8?B?QUpST3pQQWVXNDBiUlVKUGdBWHFKcHJ5VFZHWldqOFNXL3BNcUN6SkpMUW9V?=
+ =?utf-8?B?bmc3UzBhNjI3UFpWYlVaK1IwRUJISzhYcld0SzBqcGZpdGNzeHVKQUVoMTJ0?=
+ =?utf-8?B?d1hEYjByNmFoR2w4T2VxdDlJd1NITWNyZHFKL2lNMjFZNTU5eDR5eExGSDJE?=
+ =?utf-8?B?bmc1R3lGdEdTSDl6OEgvdHVUT0NNVEpUNDlsRzk3VGoxbWdUeGhiS3RRZzVv?=
+ =?utf-8?B?SnhReWxHbzdybFg4b3BPNG00Nk9wSmRqbWNHNW1DeGhmdjZ1NEpoaE82QVJj?=
+ =?utf-8?B?UDkvRk5qcGRiS0ExY1laemJLYmlBcStaK01JNFdRSkdxYmVPWG00bEZqa2tp?=
+ =?utf-8?B?ZC9kRTdoL1JXVUw5dHI2ZFQ4dGdLeFZTZzNBSVFrREFHbUlGTjQ0U3VoaktK?=
+ =?utf-8?B?VFBwUEZ3d0tQYmJFSkZiZzkvVmxUamtQRVBmY3pJeHJ5YTk1cy82RWkxcm9W?=
+ =?utf-8?B?b2gxeE5ad1d3RGdnUnc0YytEMDh3eFRTVG91ckpwRVdTZXVubkg1ZCtBVERT?=
+ =?utf-8?B?bTNqTUdrTjNzTVM1UFZrV2hCZnlDSEorcHA4UFZDUjZDRGpQbHVZSFlMZ1NQ?=
+ =?utf-8?B?WThkdFRYM09hTW1zYXhxWTdBZVNPcENKMDQ5cG1NbUJwa3VjeDJ5SG9DSFB6?=
+ =?utf-8?B?a3ZPbEt4U0U0ejFtZ1BLckNqQWxyVk4zaU5wUCtrdDB3VHVudithQWFKS25T?=
+ =?utf-8?B?dmhVejZQcDdxaEhOdjZUZlZGdkYwTG15S1RFVE9NNXJCYnBaVnh3OTk4emQ3?=
+ =?utf-8?Q?P2WZO67KXr6oqNfqShydK7MC7?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ab30859-5335-404a-e1e7-08db2521d48f
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2023 06:52:23.6373 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wr4FUz3W7QSC9tI9ic70Pzda7tkaVKP1LzrYWRXKqav1dVtehgFBqtJQDjjYRCAdjixh+btX8ceg8rXymBYJFw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR04MB7445
 X-Mailman-Approved-At: Wed, 15 Mar 2023 08:25:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,143 +130,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+Cc: Juergen Gross <jgross@suse.com>, "Huang, Honglei1" <Honglei1.Huang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Chen,
+ Jiqian" <Jiqian.Chen@amd.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Hildebrand,
+ Stewart" <Stewart.Hildebrand@amd.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Xenia Ragiadakou <burzalodowa@gmail.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, "Zhang,
+ Julia" <Julia.Zhang@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=ef=bf=bd?= <roger.pau@citrix.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 2023/3/14 下午5:27, Chen, Guchun wrote:
-> [AMD Official Use Only - General]
->
->> -----Original Message-----
->> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->> Sent: Tuesday, March 14, 2023 5:07 PM
->> To: Chen, Guchun <Guchun.Chen@amd.com>; Zhenneng Li
->> <lizhenneng@kylinos.cn>
->> Cc: David Airlie <airlied@linux.ie>; Pan, Xinhui <Xinhui.Pan@amd.com>;
->> amd-gfx@lists.freedesktop.org; Daniel Vetter <daniel@ffwll.ch>; Deucher,
->> Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
->> <Christian.Koenig@amd.com>
->> Subject: RE: [PATCH v2] drm/amdgpu: resove reboot exception for si oland
->>
->> [AMD Official Use Only - General]
->>
->> Hi Guchun,
->>
->> This patch doesn't look correct. Without dpm enabled, temperature range
->> shouldn't be set at all. The patch posted by Zhenneng is good enough or
->> better to skip late init altogether as it remains an empty function with that
->> patch.
-> My intention is to prevent setting temperature range again in late_init, as in hw_init prior to late_init, we have configured this range and set dpm_enabled to true already. Also this is a draft patch:)
->
-> Leaving a NULL function in late_init looks good to me.
-
-To be consistent with previous code style, such as:
-
-static bool si_dpm_is_idle(void *handle)
-{
-     /* XXX */
-     return true;
-}
-
-static int si_dpm_wait_for_idle(void *handle)
-{
-     /* XXX */
-     return 0;
-}
-
-static int si_dpm_soft_reset(void *handle)
-{
-     return 0;
-}
-
-static int si_dpm_set_clockgating_state(void *handle,
-                     enum amd_clockgating_state state)
-{
-     return 0;
-}
-
-static int si_dpm_set_powergating_state(void *handle,
-                     enum amd_powergating_state state)
-{
-     return 0;
-}
-
-We could  use "return 0".
-
->
-> Regards,
-> Guchun
->> Thanks,
->> Lijo
->>
->> -----Original Message-----
->> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Chen,
->> Guchun
->> Sent: Tuesday, March 14, 2023 6:35 AM
->> To: Zhenneng Li <lizhenneng@kylinos.cn>
->> Cc: David Airlie <airlied@linux.ie>; Pan, Xinhui <Xinhui.Pan@amd.com>;
->> amd-gfx@lists.freedesktop.org; Daniel Vetter <daniel@ffwll.ch>; Deucher,
->> Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
->> <Christian.Koenig@amd.com>
->> Subject: RE: [PATCH v2] drm/amdgpu: resove reboot exception for si oland
->>
->> Will attached patch help?
->>
->> Regards,
->> Guchun
->>
->>> -----Original Message-----
->>> From: Zhenneng Li <lizhenneng@kylinos.cn>
->>> Sent: Monday, March 13, 2023 10:57 AM
->>> To: Chen, Guchun <Guchun.Chen@amd.com>
->>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
->>> <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; David
->>> Airlie <airlied@linux.ie>; Daniel Vetter <daniel@ffwll.ch>; amd-
->>> gfx@lists.freedesktop.org; Zhenneng Li <lizhenneng@kylinos.cn>
->>> Subject: [PATCH v2] drm/amdgpu: resove reboot exception for si oland
+On 15.03.2023 05:14, Huang Rui wrote:
+> On Wed, Mar 15, 2023 at 08:52:30AM +0800, Stefano Stabellini wrote:
+>> On Mon, 13 Mar 2023, Jan Beulich wrote:
+>>> On 12.03.2023 13:01, Huang Rui wrote:
+>>>> Xen PVH is the paravirtualized mode and takes advantage of hardware
+>>>> virtualization support when possible. It will using the hardware IOMMU
+>>>> support instead of xen-swiotlb, so disable swiotlb if current domain is
+>>>> Xen PVH.
 >>>
->>> During reboot test on arm64 platform, it may failure on boot.
->>>
->>> The error message are as follows:
->>> [    6.996395][ 7] [  T295] [drm:amdgpu_device_ip_late_init [amdgpu]]
->>> *ERROR*
->>>                          late_init of IP block <si_dpm> failed -22
->>> [    7.006919][ 7] [  T295] amdgpu 0000:04:00.0:
->> amdgpu_device_ip_late_init
->>> failed
->>> [    7.014224][ 7] [  T295] amdgpu 0000:04:00.0: Fatal error during GPU init
->>> ---
->>>   drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 12 ------------
->>>   1 file changed, 12 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
->>> b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
->>> index d6d9e3b1b2c0..ca9bce895dbe 100644
->>> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
->>> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
->>> @@ -7626,18 +7626,6 @@ static int si_dpm_process_interrupt(struct
->>> amdgpu_device *adev,
->>>
->>>   static int si_dpm_late_init(void *handle)  {
->>> -   int ret;
->>> -   struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->>> -
->>> -   if (!adev->pm.dpm_enabled)
->>> -           return 0;
->>> -
->>> -   ret = si_set_temperature_range(adev);
->>> -   if (ret)
->>> -           return ret;
->>> -#if 0 //TODO ?
->>> -   si_dpm_powergate_uvd(adev, true);
->>> -#endif
->>>      return 0;
->>>   }
->>>
->>> --
->>> 2.25.1
+>>> But the kernel has no way (yet) to drive the IOMMU, so how can it get
+>>> away without resorting to swiotlb in certain cases (like I/O to an
+>>> address-restricted device)?
+>>
+>> I think Ray meant that, thanks to the IOMMU setup by Xen, there is no
+>> need for swiotlb-xen in Dom0. Address translations are done by the IOMMU
+>> so we can use guest physical addresses instead of machine addresses for
+>> DMA. This is a similar case to Dom0 on ARM when the IOMMU is available
+>> (see include/xen/arm/swiotlb-xen.h:xen_swiotlb_detect, the corresponding
+>> case is XENFEAT_not_direct_mapped).
+> 
+> Hi Jan, sorry to late reply. We are using the native kernel amdgpu and ttm
+> driver on Dom0, amdgpu/ttm would like to use IOMMU to allocate coherent
+> buffers for userptr that map the user space memory to gpu access, however,
+> swiotlb doesn't support this. In other words, with swiotlb, we only can
+> handle the buffer page by page.
+
+But how does outright disabling swiotlb help with this? There still wouldn't
+be an IOMMU that your kernel has control over. Looks like you want something
+like pvIOMMU, but that work was never completed. And even then the swiotlb
+may continue to be needed for other purposes.
+
+Jan
