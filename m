@@ -4,38 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AE57C61DA4
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Mar 2023 12:37:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF8B1C7618A
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Mar 2023 12:37:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A89810E086;
-	Wed, 15 Mar 2023 12:37:42 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D44E10E9E9;
- Wed, 15 Mar 2023 12:32:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C3F610E9E9;
+	Wed, 15 Mar 2023 12:37:43 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F294310E9F1;
+ Wed, 15 Mar 2023 12:21:42 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id DFDBEB81E0A;
- Wed, 15 Mar 2023 12:32:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1618BC4339C;
- Wed, 15 Mar 2023 12:32:31 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 98A09B81E00;
+ Wed, 15 Mar 2023 12:21:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA112C433D2;
+ Wed, 15 Mar 2023 12:21:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1678883551;
- bh=eN7P8htAmPgtljrobi2czx86gzHf+11fUC07cI6mVj4=;
+ s=korg; t=1678882901;
+ bh=5VvKsSZ5q2xl3WWSJQZnsQVSR683CPyklbi2ZYAxXDc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=oDFY6ZfMm7sVy1iqT6ORrDzgDjkPql6l7aBdw1sttXZ01o+jcLEumNMbazHFyebf/
- xWcMHGM122zHPqIp/s/hSOpFoFTbxVG25sVB65IpiB+KUIBm1aPxEKOhiCuxC98qvz
- BaWFm/MvHbpALviwAaDzozTlyeHoP5NU1h4bbDFc=
+ b=ooTFahoSo9dTnL5KyBHJoW9ufS1drHoIjdvgxLLHnVgfgAceDo/udQtFxUOX5n1Am
+ GcflGM18UZvdZ2nCZF6ms7kxJrr8ajW1DqkREi1LrhFbf+ECuNZzkqr4AlM5aL+Byv
+ URtXBY0Jbr2s75utkcf9bcDgZ5DqMozZYYFaA3P8=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.1 014/143] drm/connector: print max_requested_bpc in state
+Subject: [PATCH 5.10 005/104] drm/connector: print max_requested_bpc in state
  debugfs
-Date: Wed, 15 Mar 2023 13:11:40 +0100
-Message-Id: <20230315115740.910584809@linuxfoundation.org>
+Date: Wed, 15 Mar 2023 13:11:36 +0100
+Message-Id: <20230315115732.201019542@linuxfoundation.org>
 X-Mailer: git-send-email 2.40.0
-In-Reply-To: <20230315115740.429574234@linuxfoundation.org>
-References: <20230315115740.429574234@linuxfoundation.org>
+In-Reply-To: <20230315115731.942692602@linuxfoundation.org>
+References: <20230315115731.942692602@linuxfoundation.org>
 User-Agent: quilt/0.67
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -91,7 +90,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 --- a/drivers/gpu/drm/drm_atomic.c
 +++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1070,6 +1070,7 @@ static void drm_atomic_connector_print_s
+@@ -1010,6 +1010,7 @@ static void drm_atomic_connector_print_s
  	drm_printf(p, "connector[%u]: %s\n", connector->base.id, connector->name);
  	drm_printf(p, "\tcrtc=%s\n", state->crtc ? state->crtc->name : "(null)");
  	drm_printf(p, "\tself_refresh_aware=%d\n", state->self_refresh_aware);
