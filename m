@@ -4,57 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7947DC7618A
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 09:37:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61938C7618D
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 09:37:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65F8210E141;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7BF010E0EE;
 	Thu, 16 Mar 2023 09:37:45 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4264710E085;
- Thu, 16 Mar 2023 09:37:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9B0C10E0A4;
+ Thu, 16 Mar 2023 09:37:41 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C0A6A1FE04;
- Thu, 16 Mar 2023 09:37:40 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id ED0DD1FE00;
+ Thu, 16 Mar 2023 09:37:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1678959460; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=LXaYLLXX7Vd8AeoL4m5iR5gtpaDkzxegCv41ClB2fYY=;
- b=L8502IWmur+8EpP+jBU1uq6/vvgE1IN56k3vVQoqctzDrA80n7tbvXc7eGZrUE5tCkXwaN
- 0CBNh+bs1PgkXJ/3NIwGvJbzRX61TeI5eake744etToNgMyOldPa7PnmKWblzQ9lnSPckA
- IEM7Pft4Rlh/zWjRIMWsl4aQi6SdVek=
+ t=1678959459; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=zqz7fa9d1KFk+W2EKeUIKXxfdJV2phkHTv/JsE+NxxU=;
+ b=KsslD+6iec0QtbiLdvV8A5IbB+BXIQsjLBJ/uKRD7q7Bni50RkvPU6RpZ8X4I8HNdppRH0
+ iuKlYoi5PwztTScbl3OT/Bn4XFRJlIcQUlk/L6c3pVGwPT+4CF/i5SO9lUMS9A17GbbtTs
+ W37nIjjkUAxKJDsTxocNmhif3dbW3eA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1678959460;
+ s=susede2_ed25519; t=1678959459;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=LXaYLLXX7Vd8AeoL4m5iR5gtpaDkzxegCv41ClB2fYY=;
- b=z0sUV6QvqPGBTxFyje6HFdQfSRmA0Ho5xYoVSMSai5jA+QZvqaUCXb5eK0PoN9UcKwiXU2
- b8Y55/yduv7lVjBA==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=zqz7fa9d1KFk+W2EKeUIKXxfdJV2phkHTv/JsE+NxxU=;
+ b=cVGMHYOwwpz+4ne7DnYX5yNi/4F378YNYpeE5jXJwjhWeU/JJwYFE1LyLNy+Yk/hzDSrj6
+ HsDNFGoafKDRYNDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 96AE113A71;
- Thu, 16 Mar 2023 09:37:40 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BB012133E0;
+ Thu, 16 Mar 2023 09:37:39 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id wLj+I2TjEmSORwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Thu, 16 Mar 2023 09:37:40 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 3JyyLGPjEmSORwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Thu, 16 Mar 2023 09:37:39 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  airlied@gmail.com, daniel@ffwll.ch, javierm@redhat.com
-Subject: [PATCH 04/10] drm/radeon: Remove test for !screen_base in fbdev
- probing
-Date: Thu, 16 Mar 2023 10:37:32 +0100
-Message-Id: <20230316093738.28866-5-tzimmermann@suse.de>
+Subject: [PATCH 00/10] drm/radeon: Convert fbdev to DRM client
+Date: Thu, 16 Mar 2023 10:37:28 +0100
+Message-Id: <20230316093738.28866-1-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230316093738.28866-1-tzimmermann@suse.de>
-References: <20230316093738.28866-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -73,33 +66,38 @@ Cc: Thomas Zimmermann <tzimmermann@suse.de>, amd-gfx@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The screen_base field comes from the fbdev BO and contains the fbdev
-framebuffer base address. We get the BO memory via radeon_bo_kmap(),
-which already reports the error -ENOMEM if the buffer could not be
-mapped. So remove the later test for screen_base, which will never
-be NULL at this point.
+Convert radeon's fbdev code to drm_client. Replaces the current
+ad-hoc integration. The conversion includes a number of cleanups.
+Only build fbdev support if the config option has been set.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/radeon/radeon_fb.c | 5 -----
- 1 file changed, 5 deletions(-)
+Thomas Zimmermann (10):
+  drm/radeon: Move radeon_align_pitch() next to dumb-buffer helpers
+  drm/radeon: Improve fbdev object-test helper
+  drm/radeon: Remove struct radeon_fbdev
+  drm/radeon: Remove test for !screen_base in fbdev probing
+  drm/radeon: Move fbdev object helpers before struct fb_ops et al
+  drm/radeon: Fix coding style in fbdev emulation
+  drm/radeon: Move fbdev cleanup code into fb_destroy callback
+  drm/radeon: Correctly clean up failed display probing
+  drm/radeon: Implement client-based fbdev emulation
+  drm/radeon: Only build fbdev if DRM_FBDEV_EMULATION is set
 
-diff --git a/drivers/gpu/drm/radeon/radeon_fb.c b/drivers/gpu/drm/radeon/radeon_fb.c
-index cab10c40b49c..7af038ed0d2d 100644
---- a/drivers/gpu/drm/radeon/radeon_fb.c
-+++ b/drivers/gpu/drm/radeon/radeon_fb.c
-@@ -247,11 +247,6 @@ static int radeonfb_create(struct drm_fb_helper *helper,
- 
- 	/* Use default scratch pixmap (info->pixmap.flags = FB_PIXMAP_SYSTEM) */
- 
--	if (info->screen_base == NULL) {
--		ret = -ENOSPC;
--		goto out;
--	}
--
- 	DRM_INFO("fb mappable at 0x%lX\n",  info->fix.smem_start);
- 	DRM_INFO("vram apper at 0x%lX\n",  (unsigned long)rdev->mc.aper_base);
- 	DRM_INFO("size %lu\n", (unsigned long)radeon_bo_size(rbo));
+ drivers/gpu/drm/radeon/Makefile         |   3 +-
+ drivers/gpu/drm/radeon/radeon.h         |   2 +
+ drivers/gpu/drm/radeon/radeon_display.c |   4 -
+ drivers/gpu/drm/radeon/radeon_drv.c     |   3 +-
+ drivers/gpu/drm/radeon/radeon_drv.h     |   1 -
+ drivers/gpu/drm/radeon/radeon_fb.c      | 400 ----------------------
+ drivers/gpu/drm/radeon/radeon_fbdev.c   | 422 ++++++++++++++++++++++++
+ drivers/gpu/drm/radeon/radeon_gem.c     |  24 ++
+ drivers/gpu/drm/radeon/radeon_kms.c     |  18 -
+ drivers/gpu/drm/radeon/radeon_mode.h    |  20 +-
+ 10 files changed, 464 insertions(+), 433 deletions(-)
+ delete mode 100644 drivers/gpu/drm/radeon/radeon_fb.c
+ create mode 100644 drivers/gpu/drm/radeon/radeon_fbdev.c
+
+
+base-commit: ec0708e846b819c8d5b642de42448a87d7526564
 -- 
 2.39.2
 
