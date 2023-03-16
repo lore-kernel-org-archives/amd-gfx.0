@@ -4,73 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 969EAC6FD1F
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 21:14:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5922BC6FD1F
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 22:40:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 083C010E235;
-	Thu, 16 Mar 2023 21:14:12 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A911810E235
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Mar 2023 21:14:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1679001248;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=SqxFInp2VmQbK8vSNjqSt6mzQoSr9Quz9c9/NhmSHFY=;
- b=hkyBckY27d5v0FHTYMDXRCg/IhSKbIb11QsXAQO7HLXJ9QLK4eU9WNe0ZYvvKFCeAfk0bh
- T0sLmuZK1AfKf4MuLI+1Sk4X6Dm+QcYIcbzjGDHm3YEMFKwlJ5gvIZS2Hr4uZ3HvImiYQD
- yoQTA179gx+HcpiIYBG/ueAR58JjOz8=
-Received: from mail-lj1-f198.google.com (mail-lj1-f198.google.com
- [209.85.208.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-524-FptZ-V6DPze-YUU1OURyig-1; Thu, 16 Mar 2023 17:14:07 -0400
-X-MC-Unique: FptZ-V6DPze-YUU1OURyig-1
-Received: by mail-lj1-f198.google.com with SMTP id
- i14-20020a2e864e000000b00298ab0c9877so782787ljj.19
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Mar 2023 14:14:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679001246;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=SqxFInp2VmQbK8vSNjqSt6mzQoSr9Quz9c9/NhmSHFY=;
- b=I4BJhY/fsfQQeesbwR68q5DSt8h8mWyYnXqgew68lxCbB3jkOUmp8FvRO8tJhOBb/e
- jldNhxbveqisbHxRdtJyPNMRi3apaSLvlvyPpJnxV/dLlF5U/xpW2utGP2Vc6LvOT2QV
- +puhCLLpqt3c5jxrAug393r21xaGQyUkJHiFVM9OAxcExNNLFbDu5jbeENwqrz87bfFA
- Cf62xLEjBZ2jCDrGX0XgU1QQotY3kvUEzhO/gVRGyC0w4BxZyGOZwF77uSJmIpHXz51P
- BsLlCArJjh3D47msgmA/Dc6ipW+WIBWxBOhyYtbwI6rbVgA5AF9eWbtjbVK+RBf5gqQb
- hGEg==
-X-Gm-Message-State: AO0yUKV6bEdIO2DoNpGEKBdfbzW6n1GhqECe4dLvDZtYGNg3fpZW5rT3
- X6RvvR1rL461fEHvUXYN6fYYcBh61ooDgCFVYDAdsfAZP6tJweEIK0R6JzOyPI0SXlBgTtvLmoc
- TmhUsHIxOK/yS4SP5OcJYFbL7yEINBGoQyYZ52mPSeA==
-X-Received: by 2002:a2e:7219:0:b0:299:a9db:a5 with SMTP id
- n25-20020a2e7219000000b00299a9db00a5mr1090490ljc.1.1679001245841; 
- Thu, 16 Mar 2023 14:14:05 -0700 (PDT)
-X-Google-Smtp-Source: AK7set9u6oNUXwAYA7L8OQgK6NF5AbbqomyqJ0OqfKPTetbwRbeaddA3EOQb/RfQFSsLIVrSUl3xyqon3tp9gfv1/Yw=
-X-Received: by 2002:a2e:7219:0:b0:299:a9db:a5 with SMTP id
- n25-20020a2e7219000000b00299a9db00a5mr1090481ljc.1.1679001245539; 
- Thu, 16 Mar 2023 14:14:05 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1E1510E1D4;
+	Thu, 16 Mar 2023 22:40:38 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2069.outbound.protection.outlook.com [40.107.92.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E2FB10E1D4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Mar 2023 22:40:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Qi18O0jxlpY3QbswUV3ZVt9dNeSg/ivL69SyoNixp5C8dy2NvGIcbch5CmwMLj8KVgqVVy8OI16v8L6uGIYOm98t3b2iyqegoL9+NUZn++mAwGwEqLLcvG7PoewFGw8qizOZ2S0cDTlS54qZgTt5fs161LrhhuGrt6xNLGpoPvq3jVWZpV2Fmfzi0PINy3PjUEzZXBDXpKTsUoPxv6aIoPv9TjqOD2oypzIEpeQNwo81f68wD3s1IZb2mUzGOrprt23C1TaLyE6gkUHuso+q3E2LNmGL+v7cwWJsUxqKKP5EC/2fcnCGjsM2P4qiHNubch4tr5iFk0mfAlfnFCHYmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BodiD4RSHGvVb2mVGEJ5L9BOWaXET3V+xN3y8/UIz1g=;
+ b=ZQXx9OzDmiqUpyGlIxuRixR8tE5jSOEPGP7FpvXfDH7YPiPF/zFN1LC03gcnuzZx+vd7nM+EipoY3lQQuPZODbYncPt+f5D/1T4IyotHvyLKH9bsMfSmzoXM/tPdU5gHLJ+dhoI87rzedCX4wxY2NCuKKZ4voPS7x3X9FvltgRC6RD1nafK+YMTRoXYrWDAppR19SwiNlIKQYjgHq3IuMVJ/c4NFnH30YqGKQntqG5QGcru0Itt2miQbPS2B8Hp0fS66KNRd4SQJGK0NVuxG6FZJCzCYTJP0GXU9MvOYKS9Y9mpTl2PpOtpBlE2jVMzlol3EPH0g/9LIiQaFbsoB0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BodiD4RSHGvVb2mVGEJ5L9BOWaXET3V+xN3y8/UIz1g=;
+ b=4J7RbxK1Qm6iLvuc1jMTtQ1xoa9Wafmq0igyObYMyqJCA1MFYloclrhU14U0+CKjiD0FoeFgGSOmfc8wLQeX91ULubE2PLEU03ohX6bNVmE8WncSE7QSdNfbjF4wgNt3lCjFrrErMXdGqlu5hI4tpMYcjyUDW5UPcUe4Qw+g3AI=
+Received: from BN9PR03CA0638.namprd03.prod.outlook.com (2603:10b6:408:13b::13)
+ by CH2PR12MB4326.namprd12.prod.outlook.com (2603:10b6:610:af::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.33; Thu, 16 Mar
+ 2023 22:40:34 +0000
+Received: from BL02EPF000108EB.namprd05.prod.outlook.com
+ (2603:10b6:408:13b:cafe::1) by BN9PR03CA0638.outlook.office365.com
+ (2603:10b6:408:13b::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.33 via Frontend
+ Transport; Thu, 16 Mar 2023 22:40:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF000108EB.mail.protection.outlook.com (10.167.241.200) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6178.30 via Frontend Transport; Thu, 16 Mar 2023 22:40:34 +0000
+Received: from fedora.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 16 Mar
+ 2023 17:40:33 -0500
+From: Luben Tuikov <luben.tuikov@amd.com>
+To: AMD Graphics <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] tests/amdgpu: Add all 9 optios to the help output
+Date: Thu, 16 Mar 2023 18:40:21 -0400
+Message-ID: <20230316224021.67963-1-luben.tuikov@amd.com>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
-References: <20230307151107.49649-1-harry.wentland@amd.com>
- <20230307151107.49649-10-harry.wentland@amd.com>
- <CA+hFU4yiniJdxWOxDKnD7bTGw3QA8uSLyG5sbeiQ5oWqitTZcQ@mail.gmail.com>
- <ZBLmYzVcnBgU6uo5@intel.com> <20230316120701.523bcb37@eldfell>
- <ZBLz17f8YFmNEJlY@intel.com> <20230316133449.26b62760@eldfell>
- <ZBMNEdYWsyfVq46p@intel.com>
-In-Reply-To: <ZBMNEdYWsyfVq46p@intel.com>
-From: Sebastian Wick <sebastian.wick@redhat.com>
-Date: Thu, 16 Mar 2023 22:13:54 +0100
-Message-ID: <CA+hFU4zWvm3-SSjtF17zjRnshEDw27gkQDLGZRk2AbnWN8+1Vg@mail.gmail.com>
-Subject: Re: [PATCH v3 09/17] drm/amd/display: Register Colorspace property
- for DP and HDMI
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF000108EB:EE_|CH2PR12MB4326:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7eb32359-1dc2-4a76-63f6-08db266f74e8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: VpAJSCeHWbSW9EWUmD0HjBQBmkOuxSfue9y6ebyhcaN3JVTLTMB0QlxwykehGf9pAFY+63wPz3CllCscF62I2MTEo1bDKmqhPyYjWOCnHKY2rrTo1JQ4CeLQob+MvXWzR7yusA1ZCkevGfIw3hrtCXhrORSXt7WPrBvOaSrRP+M83wZBGu2+FU9vgJYgJtkZER3ylBXrqQmWFteanryAEt2UcN6c8FDjVDJGe0O5WAJ4BxUZHJJWZ33jDZWZieJ4Pzi6K0DIJuBfpT9oOeIBtj9o9WfzKwaId1UIkOEvGjpbXseE6gMQlxU7Uv6Xi5QkOVfZUFSrnEjLtCftv8FIrYr5dmT/Cf/vvbv4PR/lS1jHinqHrfBUDYYCe16VqP7CEJXMNoEDSLqCecax58NfwrJUfn2pfDR0RFDVbMYXbopQhWR04U2OMXVBRgbTRuvvECwFX4OgbINC+ZLtOunsKpWeLb2WIpXCfFuTcR1W5f2DFzVuDnsPKkRRghhOVEeTwlIXnOdQC04W3vMHOjAnKJhjLbNcbM6ZzK7EK491INujyyo9rZ+jR6Dbgw3qYLTfXjHkRDLabkc//yh4sz+x03JDDdaknZVvjMk7lx5MxQSqc1xAaZRy67B8/NTVgNsz/qKW3x5YaIjnhoD5/7LQmv1j4ci9aL/7LJIzvDpBOzxIjYr/jZVnGz5jcqXwxi46UnRUmMFPOwSLZEBjoI8vVzvYmHZckU6es4IxEGWwYyM=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(376002)(396003)(39860400002)(136003)(346002)(451199018)(46966006)(36840700001)(40470700004)(86362001)(82310400005)(40460700003)(40480700001)(36756003)(7696005)(316002)(8676002)(70206006)(6916009)(54906003)(478600001)(4326008)(70586007)(186003)(1076003)(2616005)(16526019)(83380400001)(426003)(47076005)(26005)(336012)(6666004)(356005)(8936002)(5660300002)(41300700001)(36860700001)(82740400003)(81166007)(2906002)(44832011)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2023 22:40:34.6263 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7eb32359-1dc2-4a76-63f6-08db266f74e8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF000108EB.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4326
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,96 +97,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, Pekka Paalanen <ppaalanen@gmail.com>,
- dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Joshua Ashton <joshua@froggi.es>, Vitaly.Prosyak@amd.com
+Cc: Alex Deucher <Alexander.Deucher@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 16, 2023 at 1:35=E2=80=AFPM Ville Syrj=C3=A4l=C3=A4
-<ville.syrjala@linux.intel.com> wrote:
->
-> On Thu, Mar 16, 2023 at 01:34:49PM +0200, Pekka Paalanen wrote:
-> > On Thu, 16 Mar 2023 12:47:51 +0200
-> > Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com> wrote:
-> >
-> > > On Thu, Mar 16, 2023 at 12:07:01PM +0200, Pekka Paalanen wrote:
-> > > > On Thu, 16 Mar 2023 11:50:27 +0200
-> > > > Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com> wrote:
-> > > >
-> > > > > On Thu, Mar 16, 2023 at 01:37:24AM +0100, Sebastian Wick wrote:
-> > > > > > On Tue, Mar 7, 2023 at 4:12=E2=80=AFPM Harry Wentland <harry.we=
-ntland@amd.com> wrote:
-> > > > > > >
-> > > > > > > We want compositors to be able to set the output
-> > > > > > > colorspace on DP and HDMI outputs, based on the
-> > > > > > > caps reported from the receiver via EDID.
-> > > > > >
-> > > > > > About that... The documentation says that user space has to che=
-ck the
-> > > > > > EDID for what the sink actually supports. So whatever is in
-> > > > > > supported_colorspaces is just what the driver/hardware is able =
-to set
-> > > > > > but doesn't actually indicate that the sink supports it.
-> > > > > >
-> > > > > > So the only way to enable bt2020 is by checking if the sink sup=
-ports
-> > > > > > both RGB and YUV variants because both could be used by the dri=
-ver.
-> > > > > > Not great at all. Something to remember for the new property.
-> > > > >
-> > > > > Hmm. I wonder if that's even legal... Looks like maybe it
-> > > > > is since I can't immediately spot anything in CTA-861 to
-> > > > > forbid it :/
-> > > >
-> > > > Wouldn't the driver do the same EDID check before choosing whether =
-it
-> > > > uses RGB or YCbCr signalling?
-> > >
-> > > I suppose it could. The modeset would then fail, which is perhaps
-> >
-> > Could? What are they missing?
->
-> The fact that the new property that also affects the rgb->ycbcr matrix
-> doesn't even exist?
+Add -s and -t to the help output, as well as sort
+the options output alphabetically.
 
-I think the question was about the current Colorspace property.
+Cc: Alex Deucher <Alexander.Deucher@amd.com>
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+---
+ tests/amdgpu/amdgpu_test.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
 
-> >
-> > I mean, drivers are already automatically choosing between RGB and YCbC=
-r
-> > signalling based on e.g. available bandwidth. Surely they already will
-> > not attempt to send a signal format to a monitor that does not say it
-> > supports that?
+MR 291 has been updated.
 
-That's exactly what they do. The drivers don't check the EDID for the
-colorimetry the sink supports and the responsibility is punted off to
-user space.
-
->
-> We just signal default/bt.709 colorimetry. There is nothing to
-> check for those IIRC.
-
-You do support bt.2020, no?
-
-> >
-> > > not a huge issue, except maybe for suspend+resume if we fail in
-> > > the resume path. Although I guess the EDID/etc. should not yet
-> > > be refreshed at that point so if the modeset worked before suspend
-> > > resume should be able to restore it without failures.
-> >
-> > I assumed that if a monitor can be driven, and it supports any BT2020
-> > format, then it always supports the BT2020 format it is being driven
-> > in (RGB vs. YCbCr flavors). Bad assumption?
->
-> I didn't spot any rule that both must be there. But didn't look
-> too hard either.
-
-Didn't see anything like that either and I looked a bit harder as well.
-
->
-> --
-> Ville Syrj=C3=A4l=C3=A4
-> Intel
->
+diff --git a/tests/amdgpu/amdgpu_test.c b/tests/amdgpu/amdgpu_test.c
+index b8fd638c5f4e97..59ca49bdef5f20 100644
+--- a/tests/amdgpu/amdgpu_test.c
++++ b/tests/amdgpu/amdgpu_test.c
+@@ -298,14 +298,16 @@ static void display_test_suites(void)
+ static const char usage[] =
+ 	"Usage: %s [-hlpr] [-s <suite id>] [-t <test id>] [-f] "
+ 	"[-b <pci_bus_id>] [-d <pci_device_id>]\n"
+-	"where:\n"
+-	"       l - Display all suites and their tests\n"
+-	"       r - Run the tests on render node\n"
+-	"       b - Specify device's PCI bus id to run tests\n"
+-	"       d - Specify device's PCI device id to run tests (optional)\n"
+-	"       p - Display information of AMDGPU devices in system\n"
+-	"       f - Force executing inactive suite or test\n"
+-	"       h - Display this help\n";
++	"Where,\n"
++	"  -b      Specify device's PCI bus id to run tests\n"
++	"  -d      Specify device's PCI device id to run tests (optional)\n"
++	"  -f      Force executing inactive suite or test\n"
++	"  -h      Display this help\n"
++	"  -l      Display all test suites and their tests\n"
++	"  -p      Display information of AMDGPU devices in system\n"
++	"  -r      Run the tests on render node\n"
++	"  -s <s>  Enable only test suite <s>\n"
++	"  -t <t>  Enable only test <t> of test suite <s>\n";
+ /** Specified options strings for getopt */
+ static const char options[]   = "hlrps:t:b:d:f";
+ 
+-- 
+2.40.0
 
