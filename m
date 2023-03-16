@@ -4,45 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 157BAC6FD19
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 13:51:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E32FDC74A5B
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 13:53:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7633C10ECCF;
-	Thu, 16 Mar 2023 13:51:40 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF58310E1E3;
- Thu, 16 Mar 2023 13:48:44 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 925A721A2E;
- Thu, 16 Mar 2023 13:48:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1678974523; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ZesJctOr5t0iJJAp9HYDBl70AgQHglftIazvKYhpsqo=;
- b=JuL7MFJtkU20yjK6sU8wQxJM0kCi2IexuyJVu/FX7GCWSYyzhRf9lsLRDhg85eAtDYHZJg
- rfpWESRHHODF5QQEHDe6/TMJ/eYYSIWieNZZftu8PLjyzNX15XyGCoV13OomWViCUp4EMr
- l6OyztM+l1y6l4MyLPKWi0gz4c6Syzw=
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0A485133E0;
- Thu, 16 Mar 2023 13:48:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id NJOzADseE2T9UgAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 16 Mar 2023 13:48:43 +0000
-Message-ID: <dcb54275-b21f-a837-76bb-e19e331a0666@suse.com>
-Date: Thu, 16 Mar 2023 14:48:42 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76A0A10ECF9;
+	Thu, 16 Mar 2023 13:53:30 +0000 (UTC)
+Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
+ [IPv6:2001:4860:4864:20::33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6ECB210ECEA;
+ Thu, 16 Mar 2023 13:53:27 +0000 (UTC)
+Received: by mail-oa1-x33.google.com with SMTP id
+ 586e51a60fabf-177b78067ffso2222209fac.7; 
+ Thu, 16 Mar 2023 06:53:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1678974806;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=NT2+ny4p/vVYNzr7+EK2Lb0ixcwCh6elsP4Qy0BaT6o=;
+ b=epd5FV2Fr1C10Z/wxi9lYv0/neUD0acFnvSabLSTeExSFzq6FBR61NtOkPotXxqduE
+ brCR6NrGy0nAd/ZuhyIKajahPVWlyqLKTMcu3j3/sqDJ0y7fODXdqghObHQRhZ0sAl7/
+ ZnhPjY9r35Rq38NPvoRNjbxQWb3S+hxnmRL879TrtuNbeUNfmGvOwOY/0+Iotuys2qWe
+ 1LzrE9z6D3OK6j0RYoTO+2S49ip5lo7CjgK/iSYsB+95/j6YZUTv1irUX4KELtY418GT
+ /BmDr2RP90VZB8Smm2fWftkXURgg+guml2VypqebETidlIzT3EMc6J33Jn9ApovvksTI
+ uHNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1678974806;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=NT2+ny4p/vVYNzr7+EK2Lb0ixcwCh6elsP4Qy0BaT6o=;
+ b=uUSNOYzpCvY4mX/La0efjboaTPLfyl1clTXpOqnEI05CK10hKBw72do62TxGkVTkfu
+ PCeqKp3n4vZr2h7/XFYvHJ1wcFPdcVe256lT9Vx9IwIGIw2wFuikottd3A2HZ6krM2/t
+ fcTsJ2LIzimfgW5/JGF7DHF4dv+sh6u0ex8hGh0za7qojsgW2hJ5rK2cTkrYXmLTWIIY
+ vFhTeO+oPAvcyjTeXmIgRE/d8pfrv5CUOfWU17QGOvv8yWVBoEXHtoQWAa6BRRv6gWGi
+ toSc2isYFSFpNv+fuo+ghEh58m8dBR2JWQBNHwXS9eX9zsijVFZhsmEcFWKFpJsdOJKg
+ WLfg==
+X-Gm-Message-State: AO0yUKWAOTJN8L1Pku1buTkiKdF3Jh46Lw2CLqMDuAva8mbBqiL17L9d
+ U8R0VDBe0WXjFjMrehzbjv3Kq8ZJ8qIHQvkG3XegJZY8
+X-Google-Smtp-Source: AK7set/x0uSpr4lrBp0ShQSg5kgvHD9bjWFd3R0T4/YE3AtaigBfKP2+ZizIOyaqzSaC6IVNg0nCI15OW1QygajqbX8=
+X-Received: by 2002:a05:6870:886:b0:177:aa31:79d6 with SMTP id
+ fx6-20020a056870088600b00177aa3179d6mr7154168oab.4.1678974806677; Thu, 16 Mar
+ 2023 06:53:26 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [RFC PATCH 1/5] x86/xen: disable swiotlb for xen pvh
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>, Jan Beulich <jbeulich@suse.com>
 References: <20230312120157.452859-1-ray.huang@amd.com>
  <20230312120157.452859-2-ray.huang@amd.com>
  <ea0e3852-87ba-984b-4010-5eeac3d6c507@suse.com>
@@ -51,12 +55,15 @@ References: <20230312120157.452859-1-ray.huang@amd.com>
  <alpine.DEB.2.22.394.2303151616200.3462@ubuntu-linux-20-04-desktop>
  <5e22a45d-6f12-da9b-94f6-3112a30e8574@suse.com>
  <CADnq5_PH9ZqDqpPES74V3fB3NVpaexDoGTyu_+-zoux5vgagyg@mail.gmail.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <CADnq5_PH9ZqDqpPES74V3fB3NVpaexDoGTyu_+-zoux5vgagyg@mail.gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------THkQSUoEFzHUj9ZPQACR3yGX"
-X-Mailman-Approved-At: Thu, 16 Mar 2023 13:51:39 +0000
+ <dcb54275-b21f-a837-76bb-e19e331a0666@suse.com>
+In-Reply-To: <dcb54275-b21f-a837-76bb-e19e331a0666@suse.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 16 Mar 2023 09:53:14 -0400
+Message-ID: <CADnq5_PpCWrZzQdE_X6ZnuNU3ktVeC6TbmE5vq3K6rCAdB8GTg@mail.gmail.com>
+Subject: Re: [RFC PATCH 1/5] x86/xen: disable swiotlb for xen pvh
+To: Juergen Gross <jgross@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,188 +76,104 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Honglei Huang <honglei1.huang@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Chen Jiqian <Jiqian.Chen@amd.com>,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
+ Xenia Ragiadakou <burzalodowa@gmail.com>, Chen Jiqian <Jiqian.Chen@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Huang Rui <ray.huang@amd.com>, dri-devel@lists.freedesktop.org,
- Xenia Ragiadakou <burzalodowa@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>, xen-devel@lists.xenproject.org,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Huang Rui <ray.huang@amd.com>, amd-gfx@lists.freedesktop.org,
+ Jan Beulich <jbeulich@suse.com>, Alex Deucher <alexander.deucher@amd.com>,
+ xen-devel@lists.xenproject.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
  Julia Zhang <julia.zhang@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------THkQSUoEFzHUj9ZPQACR3yGX
-Content-Type: multipart/mixed; boundary="------------hWJC2JClxN0ZunEMAIMDHxZa";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Alex Deucher <alexdeucher@gmail.com>, Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Honglei Huang <honglei1.huang@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Huang Rui <ray.huang@amd.com>, Chen Jiqian <Jiqian.Chen@amd.com>,
- Xenia Ragiadakou <burzalodowa@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>, xen-devel@lists.xenproject.org,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Julia Zhang <julia.zhang@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?=
- <christian.koenig@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>
-Message-ID: <dcb54275-b21f-a837-76bb-e19e331a0666@suse.com>
-Subject: Re: [RFC PATCH 1/5] x86/xen: disable swiotlb for xen pvh
-References: <20230312120157.452859-1-ray.huang@amd.com>
- <20230312120157.452859-2-ray.huang@amd.com>
- <ea0e3852-87ba-984b-4010-5eeac3d6c507@suse.com>
- <alpine.DEB.2.22.394.2303141747350.863724@ubuntu-linux-20-04-desktop>
- <f5e03f2a-8176-528f-e885-9a97940367c0@suse.com>
- <alpine.DEB.2.22.394.2303151616200.3462@ubuntu-linux-20-04-desktop>
- <5e22a45d-6f12-da9b-94f6-3112a30e8574@suse.com>
- <CADnq5_PH9ZqDqpPES74V3fB3NVpaexDoGTyu_+-zoux5vgagyg@mail.gmail.com>
-In-Reply-To: <CADnq5_PH9ZqDqpPES74V3fB3NVpaexDoGTyu_+-zoux5vgagyg@mail.gmail.com>
+On Thu, Mar 16, 2023 at 9:48=E2=80=AFAM Juergen Gross <jgross@suse.com> wro=
+te:
+>
+> On 16.03.23 14:45, Alex Deucher wrote:
+> > On Thu, Mar 16, 2023 at 3:50=E2=80=AFAM Jan Beulich <jbeulich@suse.com>=
+ wrote:
+> >>
+> >> On 16.03.2023 00:25, Stefano Stabellini wrote:
+> >>> On Wed, 15 Mar 2023, Jan Beulich wrote:
+> >>>> On 15.03.2023 01:52, Stefano Stabellini wrote:
+> >>>>> On Mon, 13 Mar 2023, Jan Beulich wrote:
+> >>>>>> On 12.03.2023 13:01, Huang Rui wrote:
+> >>>>>>> Xen PVH is the paravirtualized mode and takes advantage of hardwa=
+re
+> >>>>>>> virtualization support when possible. It will using the hardware =
+IOMMU
+> >>>>>>> support instead of xen-swiotlb, so disable swiotlb if current dom=
+ain is
+> >>>>>>> Xen PVH.
+> >>>>>>
+> >>>>>> But the kernel has no way (yet) to drive the IOMMU, so how can it =
+get
+> >>>>>> away without resorting to swiotlb in certain cases (like I/O to an
+> >>>>>> address-restricted device)?
+> >>>>>
+> >>>>> I think Ray meant that, thanks to the IOMMU setup by Xen, there is =
+no
+> >>>>> need for swiotlb-xen in Dom0. Address translations are done by the =
+IOMMU
+> >>>>> so we can use guest physical addresses instead of machine addresses=
+ for
+> >>>>> DMA. This is a similar case to Dom0 on ARM when the IOMMU is availa=
+ble
+> >>>>> (see include/xen/arm/swiotlb-xen.h:xen_swiotlb_detect, the correspo=
+nding
+> >>>>> case is XENFEAT_not_direct_mapped).
+> >>>>
+> >>>> But how does Xen using an IOMMU help with, as said, address-restrict=
+ed
+> >>>> devices? They may still need e.g. a 32-bit address to be programmed =
+in,
+> >>>> and if the kernel has memory beyond the 4G boundary not all I/O buff=
+ers
+> >>>> may fulfill this requirement.
+> >>>
+> >>> In short, it is going to work as long as Linux has guest physical
+> >>> addresses (not machine addresses, those could be anything) lower than
+> >>> 4GB.
+> >>>
+> >>> If the address-restricted device does DMA via an IOMMU, then the devi=
+ce
+> >>> gets programmed by Linux using its guest physical addresses (not mach=
+ine
+> >>> addresses).
+> >>>
+> >>> The 32-bit restriction would be applied by Linux to its choice of gue=
+st
+> >>> physical address to use to program the device, the same way it does o=
+n
+> >>> native. The device would be fine as it always uses Linux-provided <4G=
+B
+> >>> addresses. After the IOMMU translation (pagetable setup by Xen), we
+> >>> could get any address, including >4GB addresses, and that is expected=
+ to
+> >>> work.
+> >>
+> >> I understand that's the "normal" way of working. But whatever the swio=
+tlb
+> >> is used for in baremetal Linux, that would similarly require its use i=
+n
+> >> PVH (or HVM) aiui. So unconditionally disabling it in PVH would look t=
+o
+> >> me like an incomplete attempt to disable its use altogether on x86. Wh=
+at
+> >> difference of PVH vs baremetal am I missing here?
+> >
+> > swiotlb is not usable for GPUs even on bare metal.  They often have
+> > hundreds or megs or even gigs of memory mapped on the device at any
+> > given time.  Also, AMD GPUs support 44-48 bit DMA masks (depending on
+> > the chip family).
+>
+> But the swiotlb isn't per device, but system global.
 
---------------hWJC2JClxN0ZunEMAIMDHxZa
-Content-Type: multipart/mixed; boundary="------------KMVO7dtr3In1qGOut4i6OgJL"
+Sure, but if the swiotlb is in use, then you can't really use the GPU.
+So you get to pick one.
 
---------------KMVO7dtr3In1qGOut4i6OgJL
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMTYuMDMuMjMgMTQ6NDUsIEFsZXggRGV1Y2hlciB3cm90ZToNCj4gT24gVGh1LCBNYXIg
-MTYsIDIwMjMgYXQgMzo1MOKAr0FNIEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4g
-d3JvdGU6DQo+Pg0KPj4gT24gMTYuMDMuMjAyMyAwMDoyNSwgU3RlZmFubyBTdGFiZWxsaW5p
-IHdyb3RlOg0KPj4+IE9uIFdlZCwgMTUgTWFyIDIwMjMsIEphbiBCZXVsaWNoIHdyb3RlOg0K
-Pj4+PiBPbiAxNS4wMy4yMDIzIDAxOjUyLCBTdGVmYW5vIFN0YWJlbGxpbmkgd3JvdGU6DQo+
-Pj4+PiBPbiBNb24sIDEzIE1hciAyMDIzLCBKYW4gQmV1bGljaCB3cm90ZToNCj4+Pj4+PiBP
-biAxMi4wMy4yMDIzIDEzOjAxLCBIdWFuZyBSdWkgd3JvdGU6DQo+Pj4+Pj4+IFhlbiBQVkgg
-aXMgdGhlIHBhcmF2aXJ0dWFsaXplZCBtb2RlIGFuZCB0YWtlcyBhZHZhbnRhZ2Ugb2YgaGFy
-ZHdhcmUNCj4+Pj4+Pj4gdmlydHVhbGl6YXRpb24gc3VwcG9ydCB3aGVuIHBvc3NpYmxlLiBJ
-dCB3aWxsIHVzaW5nIHRoZSBoYXJkd2FyZSBJT01NVQ0KPj4+Pj4+PiBzdXBwb3J0IGluc3Rl
-YWQgb2YgeGVuLXN3aW90bGIsIHNvIGRpc2FibGUgc3dpb3RsYiBpZiBjdXJyZW50IGRvbWFp
-biBpcw0KPj4+Pj4+PiBYZW4gUFZILg0KPj4+Pj4+DQo+Pj4+Pj4gQnV0IHRoZSBrZXJuZWwg
-aGFzIG5vIHdheSAoeWV0KSB0byBkcml2ZSB0aGUgSU9NTVUsIHNvIGhvdyBjYW4gaXQgZ2V0
-DQo+Pj4+Pj4gYXdheSB3aXRob3V0IHJlc29ydGluZyB0byBzd2lvdGxiIGluIGNlcnRhaW4g
-Y2FzZXMgKGxpa2UgSS9PIHRvIGFuDQo+Pj4+Pj4gYWRkcmVzcy1yZXN0cmljdGVkIGRldmlj
-ZSk/DQo+Pj4+Pg0KPj4+Pj4gSSB0aGluayBSYXkgbWVhbnQgdGhhdCwgdGhhbmtzIHRvIHRo
-ZSBJT01NVSBzZXR1cCBieSBYZW4sIHRoZXJlIGlzIG5vDQo+Pj4+PiBuZWVkIGZvciBzd2lv
-dGxiLXhlbiBpbiBEb20wLiBBZGRyZXNzIHRyYW5zbGF0aW9ucyBhcmUgZG9uZSBieSB0aGUg
-SU9NTVUNCj4+Pj4+IHNvIHdlIGNhbiB1c2UgZ3Vlc3QgcGh5c2ljYWwgYWRkcmVzc2VzIGlu
-c3RlYWQgb2YgbWFjaGluZSBhZGRyZXNzZXMgZm9yDQo+Pj4+PiBETUEuIFRoaXMgaXMgYSBz
-aW1pbGFyIGNhc2UgdG8gRG9tMCBvbiBBUk0gd2hlbiB0aGUgSU9NTVUgaXMgYXZhaWxhYmxl
-DQo+Pj4+PiAoc2VlIGluY2x1ZGUveGVuL2FybS9zd2lvdGxiLXhlbi5oOnhlbl9zd2lvdGxi
-X2RldGVjdCwgdGhlIGNvcnJlc3BvbmRpbmcNCj4+Pj4+IGNhc2UgaXMgWEVORkVBVF9ub3Rf
-ZGlyZWN0X21hcHBlZCkuDQo+Pj4+DQo+Pj4+IEJ1dCBob3cgZG9lcyBYZW4gdXNpbmcgYW4g
-SU9NTVUgaGVscCB3aXRoLCBhcyBzYWlkLCBhZGRyZXNzLXJlc3RyaWN0ZWQNCj4+Pj4gZGV2
-aWNlcz8gVGhleSBtYXkgc3RpbGwgbmVlZCBlLmcuIGEgMzItYml0IGFkZHJlc3MgdG8gYmUg
-cHJvZ3JhbW1lZCBpbiwNCj4+Pj4gYW5kIGlmIHRoZSBrZXJuZWwgaGFzIG1lbW9yeSBiZXlv
-bmQgdGhlIDRHIGJvdW5kYXJ5IG5vdCBhbGwgSS9PIGJ1ZmZlcnMNCj4+Pj4gbWF5IGZ1bGZp
-bGwgdGhpcyByZXF1aXJlbWVudC4NCj4+Pg0KPj4+IEluIHNob3J0LCBpdCBpcyBnb2luZyB0
-byB3b3JrIGFzIGxvbmcgYXMgTGludXggaGFzIGd1ZXN0IHBoeXNpY2FsDQo+Pj4gYWRkcmVz
-c2VzIChub3QgbWFjaGluZSBhZGRyZXNzZXMsIHRob3NlIGNvdWxkIGJlIGFueXRoaW5nKSBs
-b3dlciB0aGFuDQo+Pj4gNEdCLg0KPj4+DQo+Pj4gSWYgdGhlIGFkZHJlc3MtcmVzdHJpY3Rl
-ZCBkZXZpY2UgZG9lcyBETUEgdmlhIGFuIElPTU1VLCB0aGVuIHRoZSBkZXZpY2UNCj4+PiBn
-ZXRzIHByb2dyYW1tZWQgYnkgTGludXggdXNpbmcgaXRzIGd1ZXN0IHBoeXNpY2FsIGFkZHJl
-c3NlcyAobm90IG1hY2hpbmUNCj4+PiBhZGRyZXNzZXMpLg0KPj4+DQo+Pj4gVGhlIDMyLWJp
-dCByZXN0cmljdGlvbiB3b3VsZCBiZSBhcHBsaWVkIGJ5IExpbnV4IHRvIGl0cyBjaG9pY2Ug
-b2YgZ3Vlc3QNCj4+PiBwaHlzaWNhbCBhZGRyZXNzIHRvIHVzZSB0byBwcm9ncmFtIHRoZSBk
-ZXZpY2UsIHRoZSBzYW1lIHdheSBpdCBkb2VzIG9uDQo+Pj4gbmF0aXZlLiBUaGUgZGV2aWNl
-IHdvdWxkIGJlIGZpbmUgYXMgaXQgYWx3YXlzIHVzZXMgTGludXgtcHJvdmlkZWQgPDRHQg0K
-Pj4+IGFkZHJlc3Nlcy4gQWZ0ZXIgdGhlIElPTU1VIHRyYW5zbGF0aW9uIChwYWdldGFibGUg
-c2V0dXAgYnkgWGVuKSwgd2UNCj4+PiBjb3VsZCBnZXQgYW55IGFkZHJlc3MsIGluY2x1ZGlu
-ZyA+NEdCIGFkZHJlc3NlcywgYW5kIHRoYXQgaXMgZXhwZWN0ZWQgdG8NCj4+PiB3b3JrLg0K
-Pj4NCj4+IEkgdW5kZXJzdGFuZCB0aGF0J3MgdGhlICJub3JtYWwiIHdheSBvZiB3b3JraW5n
-LiBCdXQgd2hhdGV2ZXIgdGhlIHN3aW90bGINCj4+IGlzIHVzZWQgZm9yIGluIGJhcmVtZXRh
-bCBMaW51eCwgdGhhdCB3b3VsZCBzaW1pbGFybHkgcmVxdWlyZSBpdHMgdXNlIGluDQo+PiBQ
-VkggKG9yIEhWTSkgYWl1aS4gU28gdW5jb25kaXRpb25hbGx5IGRpc2FibGluZyBpdCBpbiBQ
-Vkggd291bGQgbG9vayB0bw0KPj4gbWUgbGlrZSBhbiBpbmNvbXBsZXRlIGF0dGVtcHQgdG8g
-ZGlzYWJsZSBpdHMgdXNlIGFsdG9nZXRoZXIgb24geDg2LiBXaGF0DQo+PiBkaWZmZXJlbmNl
-IG9mIFBWSCB2cyBiYXJlbWV0YWwgYW0gSSBtaXNzaW5nIGhlcmU/DQo+IA0KPiBzd2lvdGxi
-IGlzIG5vdCB1c2FibGUgZm9yIEdQVXMgZXZlbiBvbiBiYXJlIG1ldGFsLiAgVGhleSBvZnRl
-biBoYXZlDQo+IGh1bmRyZWRzIG9yIG1lZ3Mgb3IgZXZlbiBnaWdzIG9mIG1lbW9yeSBtYXBw
-ZWQgb24gdGhlIGRldmljZSBhdCBhbnkNCj4gZ2l2ZW4gdGltZS4gIEFsc28sIEFNRCBHUFVz
-IHN1cHBvcnQgNDQtNDggYml0IERNQSBtYXNrcyAoZGVwZW5kaW5nIG9uDQo+IHRoZSBjaGlw
-IGZhbWlseSkuDQoNCkJ1dCB0aGUgc3dpb3RsYiBpc24ndCBwZXIgZGV2aWNlLCBidXQgc3lz
-dGVtIGdsb2JhbC4NCg0KDQpKdWVyZ2VuDQoNCg==
---------------KMVO7dtr3In1qGOut4i6OgJL
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------KMVO7dtr3In1qGOut4i6OgJL--
-
---------------hWJC2JClxN0ZunEMAIMDHxZa--
-
---------------THkQSUoEFzHUj9ZPQACR3yGX
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmQTHjoFAwAAAAAACgkQsN6d1ii/Ey+l
-qAgAiU7MGNIJDQZ1NCH25BrbopgMIQIqOK1AK0KO+KCtwdpLbt0sPVmuH4lORRO5jdRgs7UrW+pb
-7LlEOT0A9cgPYG8ILr66RxG4hAlFrLDdOpZkpsGF2EHhbWsRGqtcM5sBhSv8zUFskh4s1tXVzP8G
-ZYFKKriI5RDM8iDy+YrmxEIS4Oud92CHE3NaU5k0lp+eVCGlljMrtxY7pxumzjY6cWjY7XAD32Uy
-FYk1TFzY98/cvpwh2fF3cC3zbMUEKgQNoQFIdimzyB6OoMxK/6dbp5dXRrN3VZMMNxVeTEfjHoHx
-QVAvSE+C8mPibCD51JSQkXz/EPJ7OwItm+9jwvHNkQ==
-=5tHs
------END PGP SIGNATURE-----
-
---------------THkQSUoEFzHUj9ZPQACR3yGX--
+Alex
