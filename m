@@ -4,64 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D360DC6FD19
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 10:07:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A20B1C6FD1F
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 10:47:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F06410EC8B;
-	Thu, 16 Mar 2023 10:07:32 +0000 (UTC)
-Received: from mail-lj1-x243.google.com (mail-lj1-x243.google.com
- [IPv6:2a00:1450:4864:20::243])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 880E710EC8A;
- Thu, 16 Mar 2023 10:07:30 +0000 (UTC)
-Received: by mail-lj1-x243.google.com with SMTP id a32so1059657ljq.1;
- Thu, 16 Mar 2023 03:07:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678961249;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=OeKMiB8adCyAuvfspP826Eu3GVifkkC1oxu/iYbrcbs=;
- b=Jry7G0JcbOmrkjxGJd1fXKpKo8bO4FkutPdbb8BmFr6NYTnzzuNYYhK6LAlXSzFHfD
- ezSMXjpInys3yfsNk42WdxuHrG0Bhl3pL8zbUzPT15D2oOUaTdY4lvwdN0ap8eWb7zY3
- qiNMLVi1LxsWSLyiFFRC1NSXrDGSpsVDwAd7OEgy/bgAiyVdd/tQebd1mYKfvW0tq5Yd
- 3X/Ek+4nymixhjc29YaSxZfF9nLrehlV/mXPKwURaS8UQjZH5dtIO83AYnL6mar5bI0N
- qlasSetkMOuSvNK19sgZPQZAmFsh+RnygiYX4FzXpg4IL3kbQCwH/5crx6+fgdQXEw+t
- /jWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678961249;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=OeKMiB8adCyAuvfspP826Eu3GVifkkC1oxu/iYbrcbs=;
- b=DDFMNS1GnS5IVsNweAi/SofF1CgY41e2vqwEfLYTkX+nEaxdmCf/Gx4q0STgDxsFGq
- vJthkpzLVl8x1r5zQG+ECZO9tmPvVdD428tbweYH90X+r9nbUiS4WBaF5EyyV+XUZlnN
- /c88dcWMhOH4zyBABd6xar71CzntpoKrsHEIsJZWFF8H/cTIs8yduwdGndZSFMUlF8Ad
- s2qLQlUFG2TQY+Bm6IBFqzdCkpZk8XN5vksA3+8PThk4LA+G8gECIhG9VouIXPtfKFHP
- 618egR7q6P8d2cJAlEaXH36RjqUyXGS2xP11okY18LvJr7BLUNQWKIa6UnROLn/RqeCe
- ZveQ==
-X-Gm-Message-State: AO0yUKXj1wvzHcyyVus1X1IHRKn2nVe2sj1XWv+gKg8UYLCV907a/c4J
- V176xX9luGBN2i98f9zfGaM=
-X-Google-Smtp-Source: AK7set9nRtmCSJrKJqVGo0gAXBfQQY4ldyrn+CMw01Wqk65eOOYMxTjs3/y+knOW11jKFcBNUpNGow==
-X-Received: by 2002:a05:651c:515:b0:295:9021:450a with SMTP id
- o21-20020a05651c051500b002959021450amr2597967ljp.49.1678961248595; 
- Thu, 16 Mar 2023 03:07:28 -0700 (PDT)
-Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- q11-20020a19a40b000000b00497a61453a9sm1171954lfc.243.2023.03.16.03.07.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Mar 2023 03:07:28 -0700 (PDT)
-Date: Thu, 16 Mar 2023 12:07:01 +0200
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0765F10EC9D;
+	Thu, 16 Mar 2023 10:47:59 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD73210EC9D;
+ Thu, 16 Mar 2023 10:47:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1678963676; x=1710499676;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=ZB0FfkksgESmf6Y547mV7iLlkwreB6GNY6mHJEzYzmM=;
+ b=bzn44qaSMHJg0cCS4CEmL+3ZOvM1ltBKeYw40z8Id9uqrF3ExIAvFb1T
+ 1zFQteBLDQcB3UEB3eynHP04Tp5PCpjokAZ3uVOyC1KGSKA6z7CpnVrr7
+ dKjOwo/qU3o295N+hVtigPNNxiqMp7JPb/uJPIZI5aEJ2Cc21L4mjWxOT
+ /expzUt/t75gJtt9sz/nv3KA8hvC2QDdquO4xFVZM0+nfvFCrg6oAVCFe
+ 7jAocbeJCBpKkbYFKw30HHftAoBmHPWZF61dBchOeNtSHj20qEo6QnhQT
+ hbuz8CiVRmV/HGy/5uyXcZj5UH8FnLzB3+3EhQHMyh8ka7xuZGo4C18J9 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="321789859"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="321789859"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2023 03:47:56 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="768879966"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="768879966"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
+ by FMSMGA003.fm.intel.com with SMTP; 16 Mar 2023 03:47:52 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Thu, 16 Mar 2023 12:47:51 +0200
+Date: Thu, 16 Mar 2023 12:47:51 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Pekka Paalanen <ppaalanen@gmail.com>
 Subject: Re: [PATCH v3 09/17] drm/amd/display: Register Colorspace property
  for DP and HDMI
-Message-ID: <20230316120701.523bcb37@eldfell>
-In-Reply-To: <ZBLmYzVcnBgU6uo5@intel.com>
+Message-ID: <ZBLz17f8YFmNEJlY@intel.com>
 References: <20230307151107.49649-1-harry.wentland@amd.com>
  <20230307151107.49649-10-harry.wentland@amd.com>
  <CA+hFU4yiniJdxWOxDKnD7bTGw3QA8uSLyG5sbeiQ5oWqitTZcQ@mail.gmail.com>
- <ZBLmYzVcnBgU6uo5@intel.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.24; x86_64-pc-linux-gnu)
+ <ZBLmYzVcnBgU6uo5@intel.com> <20230316120701.523bcb37@eldfell>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/ocMAbpmXjkZ0NAkzayXrY1j";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230316120701.523bcb37@eldfell>
+X-Patchwork-Hint: comment
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,128 +69,102 @@ Cc: Sebastian Wick <sebastian.wick@redhat.com>, amd-gfx@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/ocMAbpmXjkZ0NAkzayXrY1j
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+On Thu, Mar 16, 2023 at 12:07:01PM +0200, Pekka Paalanen wrote:
+> On Thu, 16 Mar 2023 11:50:27 +0200
+> Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
+> 
+> > On Thu, Mar 16, 2023 at 01:37:24AM +0100, Sebastian Wick wrote:
+> > > On Tue, Mar 7, 2023 at 4:12 PM Harry Wentland <harry.wentland@amd.com> wrote:  
+> > > >
+> > > > We want compositors to be able to set the output
+> > > > colorspace on DP and HDMI outputs, based on the
+> > > > caps reported from the receiver via EDID.  
+> > > 
+> > > About that... The documentation says that user space has to check the
+> > > EDID for what the sink actually supports. So whatever is in
+> > > supported_colorspaces is just what the driver/hardware is able to set
+> > > but doesn't actually indicate that the sink supports it.
+> > > 
+> > > So the only way to enable bt2020 is by checking if the sink supports
+> > > both RGB and YUV variants because both could be used by the driver.
+> > > Not great at all. Something to remember for the new property.  
+> > 
+> > Hmm. I wonder if that's even legal... Looks like maybe it
+> > is since I can't immediately spot anything in CTA-861 to
+> > forbid it :/
+> 
+> Wouldn't the driver do the same EDID check before choosing whether it
+> uses RGB or YCbCr signalling?
 
-On Thu, 16 Mar 2023 11:50:27 +0200
-Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com> wrote:
+I suppose it could. The modeset would then fail, which is perhaps
+not a huge issue, except maybe for suspend+resume if we fail in
+the resume path. Although I guess the EDID/etc. should not yet
+be refreshed at that point so if the modeset worked before suspend
+resume should be able to restore it without failures.
 
-> On Thu, Mar 16, 2023 at 01:37:24AM +0100, Sebastian Wick wrote:
-> > On Tue, Mar 7, 2023 at 4:12=E2=80=AFPM Harry Wentland <harry.wentland@a=
-md.com> wrote: =20
-> > >
-> > > We want compositors to be able to set the output
-> > > colorspace on DP and HDMI outputs, based on the
-> > > caps reported from the receiver via EDID. =20
-> >=20
-> > About that... The documentation says that user space has to check the
-> > EDID for what the sink actually supports. So whatever is in
-> > supported_colorspaces is just what the driver/hardware is able to set
-> > but doesn't actually indicate that the sink supports it.
-> >=20
-> > So the only way to enable bt2020 is by checking if the sink supports
-> > both RGB and YUV variants because both could be used by the driver.
-> > Not great at all. Something to remember for the new property. =20
->=20
-> Hmm. I wonder if that's even legal... Looks like maybe it
-> is since I can't immediately spot anything in CTA-861 to
-> forbid it :/
-
-Wouldn't the driver do the same EDID check before choosing whether it
-uses RGB or YCbCr signalling?
-
-So if EDID says only one of them is supported, userspace should be
-confident that that is the BT2020 mode the driver will match?
-
-
-Thanks,
-pq
-
->=20
-> >  =20
-> > > Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> > > Cc: Pekka Paalanen <ppaalanen@gmail.com>
-> > > Cc: Sebastian Wick <sebastian.wick@redhat.com>
-> > > Cc: Vitaly.Prosyak@amd.com
-> > > Cc: Joshua Ashton <joshua@froggi.es>
-> > > Cc: dri-devel@lists.freedesktop.org
-> > > Cc: amd-gfx@lists.freedesktop.org
-> > > Reviewed-By: Joshua Ashton <joshua@froggi.es>
-> > > ---
-> > >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 +++++++++++++=
-++
-> > >  1 file changed, 15 insertions(+)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/driv=
-ers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > index f91b2ea13d96..2d883c6dae90 100644
-> > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > @@ -7184,6 +7184,12 @@ static int amdgpu_dm_connector_get_modes(struc=
-t drm_connector *connector)
-> > >         return amdgpu_dm_connector->num_modes;
-> > >  }
-> > >
-> > > +static const u32 supported_colorspaces =3D
-> > > +       BIT(DRM_MODE_COLORIMETRY_BT709_YCC) |
-> > > +       BIT(DRM_MODE_COLORIMETRY_OPRGB) |
-> > > +       BIT(DRM_MODE_COLORIMETRY_BT2020) |
-> > > +       BIT(DRM_MODE_COLORIMETRY_BT2020_DEPRECATED);
-> > > +
-> > >  void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *=
-dm,
-> > >                                      struct amdgpu_dm_connector *acon=
-nector,
-> > >                                      int connector_type,
-> > > @@ -7264,6 +7270,15 @@ void amdgpu_dm_connector_init_helper(struct am=
-dgpu_display_manager *dm,
-> > >                                 adev->mode_info.abm_level_property, 0=
-);
-> > >         }
-> > >
-> > > +       if (connector_type =3D=3D DRM_MODE_CONNECTOR_HDMIA) {
-> > > +               if (!drm_mode_create_hdmi_colorspace_property(&aconne=
-ctor->base, supported_colorspaces))
-> > > +                       drm_connector_attach_colorspace_property(&aco=
-nnector->base);
-> > > +       } else if (connector_type =3D=3D DRM_MODE_CONNECTOR_DisplayPo=
-rt ||
-> > > +                  connector_type =3D=3D DRM_MODE_CONNECTOR_eDP) {
-> > > +               if (!drm_mode_create_dp_colorspace_property(&aconnect=
-or->base, supported_colorspaces))
-> > > +                       drm_connector_attach_colorspace_property(&aco=
-nnector->base);
-> > > +       }
-> > > +
-> > >         if (connector_type =3D=3D DRM_MODE_CONNECTOR_HDMIA ||
-> > >             connector_type =3D=3D DRM_MODE_CONNECTOR_DisplayPort ||
-> > >             connector_type =3D=3D DRM_MODE_CONNECTOR_eDP) {
-> > > --
-> > > 2.39.2
-> > > =20
->=20
+> 
+> So if EDID says only one of them is supported, userspace should be
+> confident that that is the BT2020 mode the driver will match?
+> 
+> 
+> Thanks,
+> pq
+> 
+> > 
+> > >   
+> > > > Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> > > > Cc: Pekka Paalanen <ppaalanen@gmail.com>
+> > > > Cc: Sebastian Wick <sebastian.wick@redhat.com>
+> > > > Cc: Vitaly.Prosyak@amd.com
+> > > > Cc: Joshua Ashton <joshua@froggi.es>
+> > > > Cc: dri-devel@lists.freedesktop.org
+> > > > Cc: amd-gfx@lists.freedesktop.org
+> > > > Reviewed-By: Joshua Ashton <joshua@froggi.es>
+> > > > ---
+> > > >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 +++++++++++++++
+> > > >  1 file changed, 15 insertions(+)
+> > > >
+> > > > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > > > index f91b2ea13d96..2d883c6dae90 100644
+> > > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > > > @@ -7184,6 +7184,12 @@ static int amdgpu_dm_connector_get_modes(struct drm_connector *connector)
+> > > >         return amdgpu_dm_connector->num_modes;
+> > > >  }
+> > > >
+> > > > +static const u32 supported_colorspaces =
+> > > > +       BIT(DRM_MODE_COLORIMETRY_BT709_YCC) |
+> > > > +       BIT(DRM_MODE_COLORIMETRY_OPRGB) |
+> > > > +       BIT(DRM_MODE_COLORIMETRY_BT2020) |
+> > > > +       BIT(DRM_MODE_COLORIMETRY_BT2020_DEPRECATED);
+> > > > +
+> > > >  void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+> > > >                                      struct amdgpu_dm_connector *aconnector,
+> > > >                                      int connector_type,
+> > > > @@ -7264,6 +7270,15 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+> > > >                                 adev->mode_info.abm_level_property, 0);
+> > > >         }
+> > > >
+> > > > +       if (connector_type == DRM_MODE_CONNECTOR_HDMIA) {
+> > > > +               if (!drm_mode_create_hdmi_colorspace_property(&aconnector->base, supported_colorspaces))
+> > > > +                       drm_connector_attach_colorspace_property(&aconnector->base);
+> > > > +       } else if (connector_type == DRM_MODE_CONNECTOR_DisplayPort ||
+> > > > +                  connector_type == DRM_MODE_CONNECTOR_eDP) {
+> > > > +               if (!drm_mode_create_dp_colorspace_property(&aconnector->base, supported_colorspaces))
+> > > > +                       drm_connector_attach_colorspace_property(&aconnector->base);
+> > > > +       }
+> > > > +
+> > > >         if (connector_type == DRM_MODE_CONNECTOR_HDMIA ||
+> > > >             connector_type == DRM_MODE_CONNECTOR_DisplayPort ||
+> > > >             connector_type == DRM_MODE_CONNECTOR_eDP) {
+> > > > --
+> > > > 2.39.2
+> > > >  
+> > 
+> 
 
 
---Sig_/ocMAbpmXjkZ0NAkzayXrY1j
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmQS6kUACgkQI1/ltBGq
-qqfdpw//eyT3oV8KT//BbXtGp2mvbD6JmTX7Z2E9b3GaG1J3ANyJJvPq1Hc00pv3
-6h49R+pa1MmVo2Mwlg9zDieTNHAzQ0tAexKn4e1rUMtTpdJI1JpYjpkyBvbHqHvh
-O1TCihe+QQAyOiFix9nN8bbD3+ddkpWd9REpQsz2SzOu7EllvYsBc/eattj8lLk1
-csP/AZu6nutF9h+l7xUrNEIfaWdcfur8B6Az8o1xjRPz3ewLqcXqJ/D9dPcAX6j2
-VfmrX++uxssknw+kuEfZklsaGzbfQieL3bQBUG3pfPCt9ELMHQvQCCCPKnpXdA9D
-3OTnOsJs7Wu60AYSTcH/0le5IUGwvKcUZhjdbsEH0B00OunzcSnWbI+H13+zgqCr
-mlD7flt+xzwdllXLk4+Qbgz2n/EN8Aib2Jrgfz+ikJgfU8OmUUQUis9E6JUg5y13
-xtjhHEC2nLELrqZPQjT5XZK8i6fsZ3D0q+NqBwta9/0cRzcy5d7Y1vNbkT9joXvv
-LbaO6TJw4Nulx/MjJJAG0riO+p3X9491tB9CRLZ5iH7n1WyAY4AhMpXLYTfaZ8zZ
-ANpFiQ21fTfdM/ihjJD/Ul9vFM5QIIN4QQkptABToeKeY5akBiYOxb4IOx/zvfSp
-WLrE/mR9aGkX7oh+YQNzEqxnf2Hp6hsvZcTYHVBEtEcnyeUQOB8=
-=m4pO
------END PGP SIGNATURE-----
-
---Sig_/ocMAbpmXjkZ0NAkzayXrY1j--
+-- 
+Ville Syrjälä
+Intel
