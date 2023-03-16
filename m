@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50C6EC6FD19
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 09:37:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7947DC7618A
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 09:37:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E892210E0BD;
-	Thu, 16 Mar 2023 09:37:44 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8467C10E085;
- Thu, 16 Mar 2023 09:37:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65F8210E141;
+	Thu, 16 Mar 2023 09:37:45 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4264710E085;
+ Thu, 16 Mar 2023 09:37:42 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2F75121A34;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C0A6A1FE04;
  Thu, 16 Mar 2023 09:37:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1678959460; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=P4+45yeX6O3jYCED5icjNwbPHNm60O7jIw8RP90qA8M=;
- b=a+G1WrAptWuuZpVPBwm56/W1G1bDlsMPpPoVntvaD8Qbn8GVhhXwXvEq2pQNF1l4+tpe3J
- G2VZuXCcYjBrFcB4POssnFaJFUPn8dJiomNxFuCtyk/vPSL8oe0Oz/ld8Zy0qWBLj1oJec
- HbD/VPkiantighzRFYLt2PUGVJgVBmU=
+ bh=LXaYLLXX7Vd8AeoL4m5iR5gtpaDkzxegCv41ClB2fYY=;
+ b=L8502IWmur+8EpP+jBU1uq6/vvgE1IN56k3vVQoqctzDrA80n7tbvXc7eGZrUE5tCkXwaN
+ 0CBNh+bs1PgkXJ/3NIwGvJbzRX61TeI5eake744etToNgMyOldPa7PnmKWblzQ9lnSPckA
+ IEM7Pft4Rlh/zWjRIMWsl4aQi6SdVek=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1678959460;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=P4+45yeX6O3jYCED5icjNwbPHNm60O7jIw8RP90qA8M=;
- b=7qmWv9OwyiK9uyjakxWE9upi4MZSEU+y7T9mIZB22j17bbnJo+IQughzl9ac1ZnNLJWg3T
- DrYJvOsnCdrxS6CA==
+ bh=LXaYLLXX7Vd8AeoL4m5iR5gtpaDkzxegCv41ClB2fYY=;
+ b=z0sUV6QvqPGBTxFyje6HFdQfSRmA0Ho5xYoVSMSai5jA+QZvqaUCXb5eK0PoN9UcKwiXU2
+ b8Y55/yduv7lVjBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F2665133E0;
- Thu, 16 Mar 2023 09:37:39 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 96AE113A71;
+ Thu, 16 Mar 2023 09:37:40 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id mKoyOmPjEmSORwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Thu, 16 Mar 2023 09:37:39 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id wLj+I2TjEmSORwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Thu, 16 Mar 2023 09:37:40 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  airlied@gmail.com, daniel@ffwll.ch, javierm@redhat.com
-Subject: [PATCH 01/10] drm/radeon: Move radeon_align_pitch() next to
- dumb-buffer helpers
-Date: Thu, 16 Mar 2023 10:37:29 +0100
-Message-Id: <20230316093738.28866-2-tzimmermann@suse.de>
+Subject: [PATCH 04/10] drm/radeon: Remove test for !screen_base in fbdev
+ probing
+Date: Thu, 16 Mar 2023 10:37:32 +0100
+Message-Id: <20230316093738.28866-5-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230316093738.28866-1-tzimmermann@suse.de>
 References: <20230316093738.28866-1-tzimmermann@suse.de>
@@ -73,115 +73,33 @@ Cc: Thomas Zimmermann <tzimmermann@suse.de>, amd-gfx@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Move radeon_align_pitch() next to its caller in the dumb-buffer
-code. Removes the only dependency on the radeon's fbdev source file
-that is not related to fbdev emulation. No functional changes.
+The screen_base field comes from the fbdev BO and contains the fbdev
+framebuffer base address. We get the BO memory via radeon_bo_kmap(),
+which already reports the error -ENOMEM if the buffer could not be
+mapped. So remove the later test for screen_base, which will never
+be NULL at this point.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/radeon/radeon.h      |  2 ++
- drivers/gpu/drm/radeon/radeon_fb.c   | 25 -------------------------
- drivers/gpu/drm/radeon/radeon_gem.c  | 24 ++++++++++++++++++++++++
- drivers/gpu/drm/radeon/radeon_mode.h |  2 --
- 4 files changed, 26 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/radeon/radeon_fb.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/radeon.h
-index d19a4b1c1a8f..8afb03bbce29 100644
---- a/drivers/gpu/drm/radeon/radeon.h
-+++ b/drivers/gpu/drm/radeon/radeon.h
-@@ -530,6 +530,8 @@ struct radeon_gem {
- 
- extern const struct drm_gem_object_funcs radeon_gem_object_funcs;
- 
-+int radeon_align_pitch(struct radeon_device *rdev, int width, int cpp, bool tiled);
-+
- int radeon_gem_init(struct radeon_device *rdev);
- void radeon_gem_fini(struct radeon_device *rdev);
- int radeon_gem_object_create(struct radeon_device *rdev, unsigned long size,
 diff --git a/drivers/gpu/drm/radeon/radeon_fb.c b/drivers/gpu/drm/radeon/radeon_fb.c
-index c4807f0c43bc..bbb0de2196d3 100644
+index cab10c40b49c..7af038ed0d2d 100644
 --- a/drivers/gpu/drm/radeon/radeon_fb.c
 +++ b/drivers/gpu/drm/radeon/radeon_fb.c
-@@ -87,31 +87,6 @@ static const struct fb_ops radeonfb_ops = {
- 	.fb_imageblit = drm_fb_helper_cfb_imageblit,
- };
+@@ -247,11 +247,6 @@ static int radeonfb_create(struct drm_fb_helper *helper,
  
--
--int radeon_align_pitch(struct radeon_device *rdev, int width, int cpp, bool tiled)
--{
--	int aligned = width;
--	int align_large = (ASIC_IS_AVIVO(rdev)) || tiled;
--	int pitch_mask = 0;
--
--	switch (cpp) {
--	case 1:
--		pitch_mask = align_large ? 255 : 127;
--		break;
--	case 2:
--		pitch_mask = align_large ? 127 : 31;
--		break;
--	case 3:
--	case 4:
--		pitch_mask = align_large ? 63 : 15;
--		break;
+ 	/* Use default scratch pixmap (info->pixmap.flags = FB_PIXMAP_SYSTEM) */
+ 
+-	if (info->screen_base == NULL) {
+-		ret = -ENOSPC;
+-		goto out;
 -	}
 -
--	aligned += pitch_mask;
--	aligned &= ~pitch_mask;
--	return aligned * cpp;
--}
--
- static void radeonfb_destroy_pinned_object(struct drm_gem_object *gobj)
- {
- 	struct radeon_bo *rbo = gem_to_radeon_bo(gobj);
-diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
-index 261fcbae88d7..bdc5af23f005 100644
---- a/drivers/gpu/drm/radeon/radeon_gem.c
-+++ b/drivers/gpu/drm/radeon/radeon_gem.c
-@@ -822,6 +822,30 @@ int radeon_gem_op_ioctl(struct drm_device *dev, void *data,
- 	return r;
- }
- 
-+int radeon_align_pitch(struct radeon_device *rdev, int width, int cpp, bool tiled)
-+{
-+	int aligned = width;
-+	int align_large = (ASIC_IS_AVIVO(rdev)) || tiled;
-+	int pitch_mask = 0;
-+
-+	switch (cpp) {
-+	case 1:
-+		pitch_mask = align_large ? 255 : 127;
-+		break;
-+	case 2:
-+		pitch_mask = align_large ? 127 : 31;
-+		break;
-+	case 3:
-+	case 4:
-+		pitch_mask = align_large ? 63 : 15;
-+		break;
-+	}
-+
-+	aligned += pitch_mask;
-+	aligned &= ~pitch_mask;
-+	return aligned * cpp;
-+}
-+
- int radeon_mode_dumb_create(struct drm_file *file_priv,
- 			    struct drm_device *dev,
- 			    struct drm_mode_create_dumb *args)
-diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeon/radeon_mode.h
-index 3a59d016e8cd..63724ecb8d1b 100644
---- a/drivers/gpu/drm/radeon/radeon_mode.h
-+++ b/drivers/gpu/drm/radeon/radeon_mode.h
-@@ -952,8 +952,6 @@ void radeon_crtc_handle_vblank(struct radeon_device *rdev, int crtc_id);
- 
- void radeon_crtc_handle_flip(struct radeon_device *rdev, int crtc_id);
- 
--int radeon_align_pitch(struct radeon_device *rdev, int width, int bpp, bool tiled);
--
- int radeon_atom_pick_dig_encoder(struct drm_encoder *encoder, int fe_idx);
- void radeon_atom_release_dig_encoder(struct radeon_device *rdev, int enc_idx);
- #endif
+ 	DRM_INFO("fb mappable at 0x%lX\n",  info->fix.smem_start);
+ 	DRM_INFO("vram apper at 0x%lX\n",  (unsigned long)rdev->mc.aper_base);
+ 	DRM_INFO("size %lu\n", (unsigned long)radeon_bo_size(rbo));
 -- 
 2.39.2
 
