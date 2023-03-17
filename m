@@ -4,57 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AB19C6FD1D
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Mar 2023 19:13:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14750C6FD1D
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Mar 2023 19:48:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37FAF10E1FF;
-	Fri, 17 Mar 2023 19:13:14 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8389E10E251;
- Fri, 17 Mar 2023 19:13:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679080391; x=1710616391;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=wg+zRuzv4st6jCPHjiQQWlj2Q9JHdFftgvZtzu+dIDU=;
- b=jIOFHX7Tzvsfzg9nP4QkMTNNW9QaZkBG5vDZ5Phd3giiWBAMe4YdWPlp
- 4Ha8N3VVwMHulB5cobVrr/7UFps7j42svXzwojSmiVP6GLdHi7CKXzhB6
- Y0GurQuUrgGJyoDf+zdr4F76jZ430N2j/0pI7tLhDmFMQB2WhzH05zFEN
- y1Jz4kO25OSo7zyp0emkQzOMGoQRpB9Gp6clTuBTmCUxEDy2zID6UEVoz
- MHIFbCfOt5VvY3IlrPh7b5GNJZPdxxlnCLtd4eSghzF4KzgaxKirkiLuY
- mESWDYMdIvN4Z3a8AF2xFbJYhQVuEpDEfR8UpHgOi/Y9V5MOSK6obNwHj A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10652"; a="335837811"
-X-IronPort-AV: E=Sophos;i="5.98,268,1673942400"; d="scan'208";a="335837811"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2023 12:13:10 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10652"; a="769468663"
-X-IronPort-AV: E=Sophos;i="5.98,268,1673942400"; d="scan'208";a="769468663"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by FMSMGA003.fm.intel.com with SMTP; 17 Mar 2023 12:13:07 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 17 Mar 2023 21:13:06 +0200
-Date: Fri, 17 Mar 2023 21:13:06 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Sebastian Wick <sebastian.wick@redhat.com>
-Subject: Re: [PATCH v3 09/17] drm/amd/display: Register Colorspace property
- for DP and HDMI
-Message-ID: <ZBS7wk+UU+v+3q80@intel.com>
-References: <ZBOf0m6W3ZWPy7nc@intel.com> <20230317105335.45d6a629@eldfell>
- <ZBRiIG+TEft19Kum@intel.com> <20230317153553.5b8eb460@eldfell>
- <ZBR1zs4/L+9thOEe@intel.com> <20230317173751.49c45929@eldfell>
- <ZBSWU5MK3rO6C4si@intel.com>
- <CA+hFU4yqUg6md+RByd6T+teyYqdkkNXS5Hm8uNtdpUw834aXkg@mail.gmail.com>
- <ZBSznxjbnREwLj9E@intel.com>
- <CA+hFU4zv_FP75zj3PF2bi8MGA6A=vWaF=ObfNjSj1SYrtuwPXg@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59FF710E102;
+	Fri, 17 Mar 2023 19:48:38 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2055.outbound.protection.outlook.com [40.107.94.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B04AF10E102
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Mar 2023 19:48:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WULm2686kAH0Yy+1XSfLC92Ee/pq6Pteutu1suE66zELpra6IG1sC1KzRwtubfEkYbhJl6v9lWLEumb5WMbApvRf6yNZdVxsG3+uvlFSTRCda3OdnB1FI+cZWhyvIcmcfcxw4qpBuqVEwvE4WX9zKT4YMjQ+T6tk1J4z4BJAaQqefFaKrPGHLhjOR1OzMgGP/4Di3plT8AURnTlpMyy9To/JOzCnJIEqFrhsn+SuE+vAi7awsYvcoIVNV0VjC54dnRCIwpPQyn8Gz5UE/BXSk3c3LpyW4lvlHBJPWBTVKzaSaZIpKgFhydZweMR+Yi1nCuEHOVfanKMt74mp5Js58g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bwIsVyAaDP6JSY+i4RwragYM35NajWMjqC+hDH3Hv4A=;
+ b=F6JuKXl7aSo0v5WFtaGzu8n3ygeHK6YUc4kovYIZwGoOJ05FQ8G5yPW47TTCBc8Pp2dRKk61RmmAqxg8VUFyBXT4ij6mPbXxda4sNqHlhZar94GKr3ZRT+Ppzjt34oyAzQqsXJj27Jyao/9WGmejGqR9Vh2UkpbSTG9mKYJraNgPR0F93AFBSsd3IVXq8rX5xl8M9kTRj1Qf3NqNgGwJ55AO7lDLMSstwCfHz/aFPKTrvktKyu93WVKVlzArPQZzU5J8FTvfdg3FrEA4sOYGj09kz0L1dvypEuNh0gTvlzw+zUDYT+VvNbJMDtXbuYqPLg+0UzUhrI5/cmx65q+iAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bwIsVyAaDP6JSY+i4RwragYM35NajWMjqC+hDH3Hv4A=;
+ b=3/ASvr7nnKZSuQC2FWM3LVHbdcZZRD9PTlxRrZjJieUZ4AxLWv/51hP88D6q4zlpjZdwQM63iE8g94dGMsKuFiP483Uyh5X3EcdlmgTkkAD9Sk6k7AraT2sev70TaPDe3wvdPJvK7PYzDM5oA09vIsO2wGfRpOi7A1Ink/wx71Y=
+Received: from DM5PR07CA0109.namprd07.prod.outlook.com (2603:10b6:4:ae::38) by
+ IA1PR12MB8312.namprd12.prod.outlook.com (2603:10b6:208:3fc::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.35; Fri, 17 Mar
+ 2023 19:48:34 +0000
+Received: from DS1PEPF0000E64A.namprd02.prod.outlook.com
+ (2603:10b6:4:ae:cafe::62) by DM5PR07CA0109.outlook.office365.com
+ (2603:10b6:4:ae::38) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.35 via Frontend
+ Transport; Fri, 17 Mar 2023 19:48:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF0000E64A.mail.protection.outlook.com (10.167.18.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6178.30 via Frontend Transport; Fri, 17 Mar 2023 19:48:34 +0000
+Received: from mkgs-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 17 Mar
+ 2023 14:48:33 -0500
+From: Graham Sider <Graham.Sider@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: add print for iommu translation mode
+Date: Fri, 17 Mar 2023 15:47:57 -0400
+Message-ID: <20230317194757.1336098-1-Graham.Sider@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CA+hFU4zv_FP75zj3PF2bi8MGA6A=vWaF=ObfNjSj1SYrtuwPXg@mail.gmail.com>
-X-Patchwork-Hint: comment
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF0000E64A:EE_|IA1PR12MB8312:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8fe41ee7-0238-4e18-6eb9-08db272097e9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: YuvTAdBeGWzVGhay3Fxhjs3pib3CFAMiE07bCMtyPTcKUJd7uVssGnIMufozFxX2cVgAoMb9pi6FSqN0hZBmVxeH3JyQem1tcRVtg8rFQu4cB5QHesOiutO86fT+2xtvyIrsf0Sax1XMJilHX9Omst1WAzJFEj8qXlZKTUqtbhD3CnhdVcQXdkM+JMQ4PBZxHGuVqqoO1n34X0c6rYmRklB0ziPhf7o/MNHfRQvsNpmjAqRHeZWpxYP4VxzOBO87SmYMlIcAV3S6l4P6AQKflmNr3oHY7C0M/Xy4bdcB6HqeDKJVXEuG9C2xcj8em+O5CZatTjGqEO88v+HAFbtRZNZpjUxIn1q1aCmUlRCDHwuX/vEWfkD7ek8RXWbIHppMGV8zZQqIoslRihrzYhPdIybYpQ+JMHsVz3zSQFnEkekraYDGeOjaVHVTepuG+h/Dkv/FrwiFFelQBbc4eztDSGZlhSDcbJs1R9byv5Eyz6q0a/bqhImAR1eXAhE7V4mAVcqMunIgE3CEZRk8jLUzbEth8ipIz8Gj1kOqwC3g7z5aTNoLXWccfos1Nvv1OgqAMMmAcOMoudKsDvn5dV77uu91jwAEsCQRPbaKoigleRRkizpj6gT2jW14W52faZWc50EL9/SgbHywR7fvkYme3tYAbd0ExPHXcXbPXSD1p9YgGUHJcVQcPwSKDB7QddpDDJ+bjOr0kwGjqEj1BQzqrVsriQBevxymiYVNsQblT24=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(376002)(346002)(39860400002)(396003)(136003)(451199018)(36840700001)(40470700004)(46966006)(47076005)(86362001)(426003)(7696005)(82310400005)(186003)(2616005)(16526019)(4326008)(8936002)(5660300002)(2906002)(6916009)(41300700001)(8676002)(4744005)(70206006)(70586007)(336012)(36756003)(40480700001)(26005)(1076003)(6666004)(81166007)(316002)(40460700003)(82740400003)(36860700001)(356005)(54906003)(83380400001)(478600001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2023 19:48:34.3370 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8fe41ee7-0238-4e18-6eb9-08db272097e9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000E64A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8312
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,263 +97,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, Pekka Paalanen <ppaalanen@gmail.com>,
- dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Joshua Ashton <joshua@froggi.es>, Vitaly.Prosyak@amd.com
+Cc: Felix.Kuehling@amd.com, Graham Sider <Graham.Sider@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 17, 2023 at 07:47:52PM +0100, Sebastian Wick wrote:
-> On Fri, Mar 17, 2023 at 7:38 PM Ville Syrjälä
-> <ville.syrjala@linux.intel.com> wrote:
-> >
-> > On Fri, Mar 17, 2023 at 06:40:53PM +0100, Sebastian Wick wrote:
-> > > On Fri, Mar 17, 2023 at 5:34 PM Ville Syrjälä
-> > > <ville.syrjala@linux.intel.com> wrote:
-> > > >
-> > > > On Fri, Mar 17, 2023 at 05:37:51PM +0200, Pekka Paalanen wrote:
-> > > > > On Fri, 17 Mar 2023 16:14:38 +0200
-> > > > > Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
-> > > > >
-> > > > > > On Fri, Mar 17, 2023 at 03:35:53PM +0200, Pekka Paalanen wrote:
-> > > > > > > On Fri, 17 Mar 2023 14:50:40 +0200
-> > > > > > > Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
-> > > > > > >
-> > > > > > > > On Fri, Mar 17, 2023 at 10:53:35AM +0200, Pekka Paalanen wrote:
-> > > > > > > > > On Fri, 17 Mar 2023 01:01:38 +0200
-> > > > > > > > > Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
-> > > > > > > > >
-> > > > > > > > > > On Thu, Mar 16, 2023 at 10:13:54PM +0100, Sebastian Wick wrote:
-> > > > > > > > > > > On Thu, Mar 16, 2023 at 1:35 PM Ville Syrjälä
-> > > > > > > > > > > <ville.syrjala@linux.intel.com> wrote:
-> > > > > > > > > > > >
-> > > > > > > > > > > > On Thu, Mar 16, 2023 at 01:34:49PM +0200, Pekka Paalanen wrote:
-> > > > > > > > > > > > > On Thu, 16 Mar 2023 12:47:51 +0200
-> > > > > > > > > > > > > Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > > On Thu, Mar 16, 2023 at 12:07:01PM +0200, Pekka Paalanen wrote:
-> > > > > > > > > > > > > > > On Thu, 16 Mar 2023 11:50:27 +0200
-> > > > > > > > > > > > > > > Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
-> > > > > > > > > > > > > > >
-> > > > > > > > > > > > > > > > On Thu, Mar 16, 2023 at 01:37:24AM +0100, Sebastian Wick wrote:
-> > > > > > > > > > > > > > > > > On Tue, Mar 7, 2023 at 4:12 PM Harry Wentland <harry.wentland@amd.com> wrote:
-> > > > > > > > > > > > > > > > > >
-> > > > > > > > > > > > > > > > > > We want compositors to be able to set the output
-> > > > > > > > > > > > > > > > > > colorspace on DP and HDMI outputs, based on the
-> > > > > > > > > > > > > > > > > > caps reported from the receiver via EDID.
-> > > > > > > > > > > > > > > > >
-> > > > > > > > > > > > > > > > > About that... The documentation says that user space has to check the
-> > > > > > > > > > > > > > > > > EDID for what the sink actually supports. So whatever is in
-> > > > > > > > > > > > > > > > > supported_colorspaces is just what the driver/hardware is able to set
-> > > > > > > > > > > > > > > > > but doesn't actually indicate that the sink supports it.
-> > > > > > > > > > > > > > > > >
-> > > > > > > > > > > > > > > > > So the only way to enable bt2020 is by checking if the sink supports
-> > > > > > > > > > > > > > > > > both RGB and YUV variants because both could be used by the driver.
-> > > > > > > > > > > > > > > > > Not great at all. Something to remember for the new property.
-> > > > > > > > > > > > > > > >
-> > > > > > > > > > > > > > > > Hmm. I wonder if that's even legal... Looks like maybe it
-> > > > > > > > > > > > > > > > is since I can't immediately spot anything in CTA-861 to
-> > > > > > > > > > > > > > > > forbid it :/
-> > > > > > > > > > > > > > >
-> > > > > > > > > > > > > > > Wouldn't the driver do the same EDID check before choosing whether it
-> > > > > > > > > > > > > > > uses RGB or YCbCr signalling?
-> > > > > > > > > > > > > >
-> > > > > > > > > > > > > > I suppose it could. The modeset would then fail, which is perhaps
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > Could? What are they missing?
-> > > > > > > > > > > >
-> > > > > > > > > > > > The fact that the new property that also affects the rgb->ycbcr matrix
-> > > > > > > > > > > > doesn't even exist?
-> > > > > > > > > > >
-> > > > > > > > > > > I think the question was about the current Colorspace property.
-> > > > > > > > >
-> > > > > > > > > Yes.
-> > > > > > > > >
-> > > > > > > > > We need to be able to set ColourPrimaries infoframe field for the sink.
-> > > > > > > > > Only userspace knows what ColourPrimaries it uses, and the driver has
-> > > > > > > > > no need to care at all, other than tell the sink what we have.
-> > > > > > > > >
-> > > > > > > > > When a driver chooses to use YCbCr, it needs to use the
-> > > > > > > > > MatrixCoefficients the sink expects.
-> > > > > > > > >
-> > > > > > > > > If we send the infoframe to the sink telling the signal uses BT.2020
-> > > > > > > > > ColourPrimaries, does that same bit pattern also tell the sink we are
-> > > > > > > > > using the BT.2020 NCL MatrixCoefficients if the driver chooses YCbCr?
-> > > > > > > > >
-> > > > > > > > > Do drivers actually use BT.2020 NCL MatrixCoefficients in that case?
-> > > > > > > >
-> > > > > > > > No. I think I've repeated this same line a thousand times already:
-> > > > > > > > The current colorspace property *only* affects the infoframe/msa/sdp,
-> > > > > > > > nothing else.
-> > > > > > >
-> > > > > > > That's the problem. I don't know what that means.
-> > > > > > >
-> > > > > > > Does it mean that the sink expects BT.2020 NCL MatrixCoefficients to
-> > > > > > > have been used?
-> > > > > >
-> > > > > > Yes, assuming that is the colorspace property value you picked.
-> > > > > >
-> > > > > > >
-> > > > > > > And the driver will never use BT.2020 NCL MatrixCoefficients in any
-> > > > > > > circumstances?
-> > > > > >
-> > > > > > Correct.
-> > > > > >
-> > > > > > >
-> > > > > > > See the conflict? The sink will be decoding the signal incorrectly,
-> > > > > > > because we are encoding it with the wrong MatrixCoefficients if the
-> > > > > > > driver happens to silently choose YCbCr and userspace wants to send
-> > > > > > > BT2020 ColourPrimaries indicated in the infoframe.
-> > > > > >
-> > > > > > Yes. And hence I thought pretty much everyone already
-> > > > > > agreed that a new property is needed.
-> > > > >
-> > > > > I think I was confused as well with the re-posting of this series,
-> > > > > thinking it could be salvageable somehow and tried to understand how.
-> > > > > Up to Harry, I think I've left enough annoying questions by now. :-)
-> > > > >
-> > > > > > To make sure we actually understand what we're implementing
-> > > > > > I think it should start out very minimal. Eg just three values:
-> > > > > > - unspecified RGB + BT.601 YCbCr
-> > > > > > - unspecified RGB + BT.709 YCbCr
-> > > > > > - BT.2020 RGB + BT.2020 YCbCr NCL
-> > >
-> > > It would be best to describe for every case both what the display and
-> > > what the driver expects as input.
-> >
-> > I don't want the uapi to make any claims about the display. Half the
-> > real world displays are going to interpret it some other way anyway.
-> >
-> > So all I think we can promise is:
-> > - exactly what colorimetry we will indicate to the display in the metadata
-> > - exactly what MatrixCoefficients we will use for RGB->YCbCr conversion
-> >
-> > After that it's between you and your god^W display vendor what happens.
-> 
-> Sure, that's what I meant with "what the display expects" but "what we
-> indicate to the display" is more accurate indeed.
-> 
-> > >
-> > > > >
-> > > > > ColourPrimaries + MatrixCoefficients, respectively. Sounds fine.
-> > > > >
-> > > > > I recall hearing that DP spec actually has something like "unspecified"
-> > > > > while HDMI has only "default colorimetry" which is specified, but I'm
-> > > > > guessing that many monitors and TVs just don't implement it like they
-> > > > > should, so it's effectively unspecified.
-> > > >
-> > > > DP in theory might have default RGB (whatever that might mean) vs.
-> > > > sRGB, although at some point I think it was just vague RGB vs. CEA RGB,
-> > > > which I think in i915 we might be using to indicate limited vs. full
-> > > > quantization range instead. I think that somehow fixed some monitors
-> > > > (while many others still get the quantization range horrible wrong of
-> > > > course).
-> > > >
-> > > > HDMI/CTA-861-? IIRC didn't have anything but just "RGB", and in some
-> > > > footnote CTA-861-? then goes on to talk about the sRGB bit in the EDID.
-> > > > In the end it didn't seem to say anything definitive what the RGB
-> > > > colorimetry really means.
-> > >
-> > > DP has "RGB unspecified color space (Legacy RGB mode)" without more explanation.
-> > >
-> > > CTA-861 has, as I said in a previous mail on this series:
-> > >
-> > > "If bits C0 and C1 are zero, the colorimetry shall correspond to the
-> > > default colorimetry defined in Section 5.1"
-> > >
-> > > and in Section 5.1
-> > >
-> > > "In all cases described above, the RGB color space used should be the
-> > > RGB color space the Sink declares in the Basic Display Parameters and
-> > > Feature Block of its EDID."
-> > >
-> > > > >
-> > > > > "unspecified" in UAPI is ok as long as there will be another distinct
-> > > > > value for "HDMI default colorimetry" or such.
-> > > > >
-> > > > > I'm not sure why anyone would want to use "unspecified" but I guess
-> > > > > it's necessary for UAPI backward compatibility.
-> > > >
-> > > > Just because the specs don't really seem to specify anything
-> > > > sensible. We could just call it "RGB" and leave it at that of
-> > > > course.
-> > >
-> > > I think unspecified and default RGB are both good enough. The spec
-> > > doesn't give us much better guarantees anyway. Unspecified might even
-> > > be better because we could then add a default RGB case if we ever get
-> > > a mode which guarantees us that the colorimetry of the EDID is in
-> > > effect.
-> > >
-> > > > >
-> > > > > >
-> > > > > > And that would control:
-> > > > > > - basic colorimetry metadata transmitted to the sink
-> > > > > > - MatrixCoefficients used for the potential RGB->YCbCr conversion
-> > > > > >
-> > > > > > Transfer funcs, primaries, etc. would be left out (apart from
-> > > > > > the potential metadata aspect).
-> > > > >
-> > > > > Primaries left out? What are your "unspecified RGB" and "BT.2020 RGB"
-> > > > > above then?
-> > > >
-> > > > It all seems too open to interpretation to make it anything
-> > > > but "undefined".
-> > > >
-> > > > >
-> > > > > Asking from another angle, using infoframes, is it possible to tell the
-> > > > > sink to use BT.2020 YCbCr NCL without *also* implying BT.2020
-> > > > > ColourPrimaries? Joshua seemed to be saying "no".
-> > > >
-> > > > I don't think so. The BT.2020 cases seems to be more strictrly
-> > > > defined.
-> > >
-> > > The Colorimetry gives us the primaries, white point, transfer
-> > > characteristics and conversion matrix if it is for YCC. The HDR
-> > > metadata can override the transfer characteristics.
-> > >
-> > > Anyways, CTA-861 is still confusing me a lot.
-> > >
-> > > It has "No Data" Colorimetry but is that the same as not sending the
-> > > InfoFrame at all? Either way, the colorimetry should be the one from
-> > > the EDID.
-> > >
-> > > But the transfer characteristics change with the selected Colorimetry.
-> > > In the table is "RGB" the same as "No Data" and the same as sending no
-> > > InfoFrame? But then when is the transfer characteristics of the EDID
-> > > in effect and when bt.709 from the table?
-> > >
-> > > There doesn't appear to be a default colorimetry for YCC. So how would
-> > > you even automatically fall back from RGB to YCC with the same
-> > > colorimetry?
-> > >
-> > > I only see the colorimetry BT.709 and not BT.601. Some other
-> > > colorimetry uses the BT.601 conversion matrix so how would
-> > > "unspecified RGB + BT.709 YCbCr" even work?
-> >
-> > It just means:
-> > - if we output RGB we the colorimetry signalled will be "no data"
-> >   value (or whatever the "i don't know what anything means" value)
-> > - if we output YCbCr the colorimetry signalled will be the BT.709
-> >   value, and the YCbCr data will be produced using the BT.709
-> >   MatrixCoefficients
-> >
-> > Beyond that absolutely no promises about anything.
-> 
-> Then we have different primary chromaticities depending on if the
-> kernel chose RGB or YCC.
+Add log to display whether RAM is direct vs DMA mapped.
 
-Does the display actualy care? No idea.
+Signed-off-by: Graham Sider <Graham.Sider@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-> 
-> When you signal the BT.709 colorimetry you're not only signalling the
-> conversion matrix, you're also signaling the expected primary
-> chromaticities and transfer characteristics as well and they will not
-> match the default/no-data/unspecified colorimetry.
-
-Well then, maybe there's no proper way to do what we want do
-(automagic RGB vs.YCbCr selection). But even the improper way
-seems to work well enough in practie for some people.
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 8bba5e6872a1..8797a9523244 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3528,8 +3528,12 @@ static void amdgpu_device_check_iommu_direct_map(struct amdgpu_device *adev)
+ 	struct iommu_domain *domain;
+ 
+ 	domain = iommu_get_domain_for_dev(adev->dev);
+-	if (!domain || domain->type == IOMMU_DOMAIN_IDENTITY)
++	if (!domain || domain->type == IOMMU_DOMAIN_IDENTITY) {
++		pr_info("RAM is direct mapped to GPU (not traslated by IOMMU)\n");
+ 		adev->ram_is_direct_mapped = true;
++	} else {
++		pr_info("RAM is DMA mapped to GPU (translated by IOMMU)\n");
++	}
+ }
+ 
+ static const struct attribute *amdgpu_dev_attributes[] = {
 -- 
-Ville Syrjälä
-Intel
+2.25.1
+
