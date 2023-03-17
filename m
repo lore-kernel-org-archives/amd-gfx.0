@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C111C74A5B
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Mar 2023 17:18:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4408FC76195
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Mar 2023 17:18:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B506310EF72;
-	Fri, 17 Mar 2023 17:18:17 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2082.outbound.protection.outlook.com [40.107.220.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C928A10EF62
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Mar 2023 17:18:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7310E10E3F1;
+	Fri, 17 Mar 2023 17:18:21 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2078.outbound.protection.outlook.com [40.107.93.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAF9D10E116
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Mar 2023 17:18:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EiK+M+fjJeWFHfMwtvvdmlRr4HRhe1xgq2yN3WFy8iaNjUzjcB9wmJ2jnkA5UNp4+40mgeKNt746rgOHLmjqCnb5glvSQH2QordfTg9NacKKNA2PFxTW5wk+jAASijd0kXE2NvngkQt+x0iQGkgsqtPGYZ4b65aRIOnoV3OVWtWodolLVw/Ts7411hpCLkdU70dNyZghoFPzfNuSHR8FZxK21QMG5/Bv00EUgDQcarKpjTED+9hjvFbcRE3Z/CAyXEFG4zJqz1zBIDxbzrTBA8eKD3ufDqrgQcWA4nV32djion5VEseTpEP0Y8flZJpO9ko9nynirFftGBD0SDfYMQ==
+ b=KeUqLXUPpL3Rjzz2VOwY28OEQ+GbFYWwzsg76Hm/ZfEIJ7/bz/6W7sYtEOCPKd5N0bVQc9IQjdCkl8IjTC6ZsUbPRMYIIBlPIgb6qHFLHUqj2mrfoUCKCKcgreAMcdtNtTK5Zz994fEMvJk1XWtMi9vnhXhgqOBblUvPb25SyDth7BYFYj2DxwKFHfgSZAjQ1lqt5bHrbvBdUcTg7B3paU6umGdAZVZ3WHuqxOFxWV4GAtHhQaDryypbG4G3ABx6IlmImpE2fCvFdCx3BzaP0Zbco0KmS+nxq6qfzdK8QtlwyV1HOV1yQY5QbiZSmZmddwv/ADUrgBA+PLIWUFK+og==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0V+P6JF/7mrp+OpCfRuHXGAhoRlMgoHX9KUNheIHKpE=;
- b=UQfx+3ALXlTxD6BT7iN7v2jJ23NVJAquZ5eoNnvcDfZ1ed1YIiuZjHxeh5z4DzlnVMTQuJ5kn9ue9Q9HccXvJdldyVMhl3YY3AoQjnxUovjXv3PkDzXzId7IB81Q5DcZka63DF3zOELPi41j+unVAqZvr+qU1f+lPTlGqKilb1SjCH1qY3DNU2VhlMJPFptNLWJtug6yFGthGWmtxvNwW5Pk+NpOMmvcRxykOeekwq3stzrCZ98jFZRpHemXcUy063pL1ax9pq6NUx+p1KvTYtpueNjyOempX9w/kg07n6LzvYA+lhr/6k+FLgqKCiqm3XT2hH1fFRrg4u1IqCS4tg==
+ bh=hj6nFlq6aTuhs3/v3dL9oJy+rRNbZEXazvXMMA6xeUI=;
+ b=DtjFhXgv2ZROmA74uNwo8Z1JbbLUoK9v5fGVO1FXAi77M5nOWs1Wdr+Y7bxRflHe/FzFp9Ypfb3fge+dUnOzaQo2cU4kAzagYr6xDkVI4g6cjaHi3qptKKQmYnPCuqd/ivgOHZg2yIyHtQMLBVYjv3/cf/SC5RA/3fRqW7z9THfhHZ7gcVOoZ1yGIa+J0am29n/nzIl6UwG6f67BPslkHCDboz9R06hcxn6YPfF+oJ+fuGz89n3HK6oYCegD+Bb1L0h4FzOBlXknEwDoWro4uKeDHhJ3OjQDH1+RenIcHSTO+a9JMyic11kiMIYeLGlEU77s2ZW46gzaRaOvazID9A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0V+P6JF/7mrp+OpCfRuHXGAhoRlMgoHX9KUNheIHKpE=;
- b=aY6eUgEZquabbEQjkEBRlw4gMe4wjLaoc5YEWhr9EiRrIx6FPTfcNVxWiiEqQi1H9z8E6agTT68YGUqMYZ3L1oe4kmUUY7i3IG98zXQjNH6M+4FkKe8PhI6OgRRj/Dh1asObmlM4uBlupP0+bvTNcd7f4G0kV5XSSCgx4/qUxdk=
-Received: from DM6PR08CA0008.namprd08.prod.outlook.com (2603:10b6:5:80::21) by
- PH7PR12MB7869.namprd12.prod.outlook.com (2603:10b6:510:27e::7) with
+ bh=hj6nFlq6aTuhs3/v3dL9oJy+rRNbZEXazvXMMA6xeUI=;
+ b=5aW7/v7MK/gq09yGi8AL+8/EbiCSFLF7afbJvKCVIn0e3q0OoXucKFJH0Toa7VsGm+bakRbJdpqYa+TJ1IQ6U65fBDbMCo+6E9NIZ8ey2ig6smYkxF62CcDb/yZfOPePu1sb55dBWI5pW94/VPg+81iMNHIG4BOzQosf721Cp8U=
+Received: from DM6PR08CA0033.namprd08.prod.outlook.com (2603:10b6:5:80::46) by
+ BL0PR12MB4868.namprd12.prod.outlook.com (2603:10b6:208:1c4::9) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6178.29; Fri, 17 Mar 2023 17:18:11 +0000
+ 15.20.6178.35; Fri, 17 Mar 2023 17:18:11 +0000
 Received: from DM6NAM11FT091.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:80:cafe::c7) by DM6PR08CA0008.outlook.office365.com
- (2603:10b6:5:80::21) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:5:80:cafe::c5) by DM6PR08CA0033.outlook.office365.com
+ (2603:10b6:5:80::46) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.35 via Frontend
- Transport; Fri, 17 Mar 2023 17:18:11 +0000
+ Transport; Fri, 17 Mar 2023 17:18:10 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DM6NAM11FT091.mail.protection.outlook.com (10.13.173.108) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6199.16 via Frontend Transport; Fri, 17 Mar 2023 17:18:11 +0000
+ 15.20.6199.16 via Frontend Transport; Fri, 17 Mar 2023 17:18:10 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 17 Mar
- 2023 12:18:10 -0500
+ 2023 12:18:09 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 09/10] drm/amdgpu: add support for new GFX shadow size query
-Date: Fri, 17 Mar 2023 13:17:47 -0400
-Message-ID: <20230317171748.682691-10-alexander.deucher@amd.com>
+Subject: [PATCH 08/10] drm/amdgpu: add get_gfx_shadow_info callback for gfx11
+Date: Fri, 17 Mar 2023 13:17:46 -0400
+Message-ID: <20230317171748.682691-9-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230317171748.682691-1-alexander.deucher@amd.com>
 References: <20230317171748.682691-1-alexander.deucher@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT091:EE_|PH7PR12MB7869:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5e3a6909-c0e2-43f5-ac0b-08db270b95d6
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT091:EE_|BL0PR12MB4868:EE_
+X-MS-Office365-Filtering-Correlation-Id: a544f505-944b-4d4e-3b19-08db270b9583
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: YGMtD/Cqs7rfSizy1hBVQTeSaggxMwKVEXFZyHAO+e+7LX56T6nbqX+UYCCSQ5EhlplhQbaiwKEoNfsQTUl7Ru2JAPDv1fsysEAL+nnSeg4/TGd9DNvdp5Hmh9MTmvOpyIZPtQwVzjv2ePiKBOMgJW4hdehejG4twtUrLKPRvpTIh8Kf3Mr/pkmwpJFXoHpLDyWBKiuURaw70Sf0WwDHkpwBE89SL6f6uDinx0+1UtwJ5a2YauaJTmVNi8s+hwrefLv9fFEq2uPpt3evg79oInKdAJ6OetCTs90rRIZAwDDW+FeAHTKMRcJPhORbK78tFLNRMBTSY7d3CxBdC4+/3zFSDnvRgMkjXu/RgmlRGyKQ9X1PEbVInURNRpk0gCw6SgZvx0C3LpT8M2Nidu+Nd7Qr6zIPZcuYH4pw09KiQqOC78i519tn99HutqR0dqsnTwkbFWcYfQmH5WTqrdUxJAWxJai6DPUPF9CWTRMc6c+OtAe0r0vtcN+IhCS4+9//3HsBkr/tX97mICUZ++37PMS8MkroZwUFWAuGt4zg3CoE+5NqVUDt1wC8RedJO264helrvCt1CmDF0ss1qOxQpIXLRXJAHu03K2yrbBC5P44vGAX5ndAlkuICY+F2O36kCLo1O7q42BTIBrikv5t7CWCm0PhfnQ/6eg4h/gy2QsTd7hpf6IqG8l5a+HYoN9dRPKJYgFiFyQfO1P4XdvPiGq6ybyrMrI689YsORpqHXEk=
+X-Microsoft-Antispam-Message-Info: gxF5Epjl2doiqAv9+9jNgLcLOTEKnXAP2S9NsG4XgiFrdScKKdW4nQoc4gR4FcmfNAKqZw6MUXtRnJqIzG15++W0PTNIIqYZ5SN/JaWpSWUrHOnaYJf1besUDLbhDO9NFFhvOIcJBQIHfBuD4qDzEBKsGUkgq8PLMWM8Z/Pb5jL1qiJvkjngSpi5oBRrI2mpaVAyuoeSymlpvBng1wPVp6cZyX78zCXf1EDR2VP8zt8UlSszQvcnaZTWaA9hzAhLro7gEoACW/5165uYwVFmDva6duFmZRx4JOLYhgp2RbSl2K1E6MK0solHMXeMPx3JKrePTOC+p/Ghr8Mq96V52FGOnw0zP5JwegiZ0DrFRxQV9xZOLPZNYJ9tgT1uWU+1rI6oNMwnpBKtBP5r6AGcyB5yo/8aA+XrfmAGnTygtOAj8flTmnVhDK48T6iFcppW8Nj9gaxrl2cNNiAGYjCLKjtQ6/tBsDR6yEiZq/0X+rrXotYRrdpCdxpgINb8jnHGxA2ssttVLTr0RAX5ctzdMcG668T7oBSS5wihjsIa8L2QSo3sEjsrsFgWXGeq5lX9WD9gKF+43yUGbvU1axvJuKVMmqlr5/m7yyh5GyH/JS1uUUqRPi1iN1LcDGbtuWXswidCYZXCJg5rEloHprZudkpb3MQsIR9MBShgHPCsmtelPpy6qpc2P3r3TTuxx24R2WUh71DiS0x3cM/FzNImZ2sj8YzfMk9gwFIkJg8xEUNT4UXrr7jEvY0OBrrtYrPMSMyR8sPYbVZiwpXFZA+fag==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(136003)(396003)(346002)(376002)(39860400002)(451199018)(36840700001)(46966006)(40470700004)(8936002)(5660300002)(41300700001)(8676002)(36860700001)(4326008)(6916009)(356005)(40480700001)(86362001)(36756003)(82310400005)(40460700003)(81166007)(82740400003)(2906002)(2616005)(16526019)(83380400001)(186003)(336012)(6666004)(1076003)(478600001)(47076005)(26005)(7696005)(426003)(70586007)(70206006)(316002)(36900700001);
+ SFS:(13230025)(4636009)(136003)(396003)(39860400002)(346002)(376002)(451199018)(36840700001)(40470700004)(46966006)(40460700003)(4326008)(6916009)(5660300002)(41300700001)(8936002)(2906002)(81166007)(86362001)(82740400003)(356005)(36860700001)(36756003)(70206006)(70586007)(6666004)(7696005)(47076005)(8676002)(336012)(40480700001)(82310400005)(478600001)(316002)(426003)(16526019)(2616005)(186003)(26005)(1076003)(83380400001)(21314003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2023 17:18:11.4273 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e3a6909-c0e2-43f5-ac0b-08db270b95d6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2023 17:18:10.8961 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a544f505-944b-4d4e-3b19-08db270b9583
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT091.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7869
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4868
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,55 +103,65 @@ Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use the new callback to fetch the data.  Return an error if
-not supported.  UMDs should use this query to check whether
-shadow buffers are supported and if so what size they
-should be.
+XXX: don't apply this until we get the final FW versions
 
-v2: return an error rather than a zerod structure.
+Used to get the size and alignment requirements for
+the gfx shadow buffer for preemption.
+
+v2: use FW version check to determine whether to
+    return a valid size here
+    return an error if not supported (Alex)
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 26 +++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 27 ++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 9e85eedb57d8..8a6764756dcf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -1139,6 +1139,32 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		kfree(caps);
- 		return r;
- 	}
-+	case AMDGPU_INFO_CP_GFX_SHADOW_SIZE: {
-+		struct amdgpu_gfx_shadow_info shadow_info;
-+		struct drm_amdgpu_info_cp_gfx_shadow_size drm_shadow_size;
-+		int r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 0a507b7939f4..87b3d777e9ac 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -822,6 +822,32 @@ static void gfx_v11_0_select_me_pipe_q(struct amdgpu_device *adev,
+ 	soc21_grbm_select(adev, me, pipe, q, vm);
+ }
+ 
++/* all sizes are in bytes */
++#define MQD_SHADOW_BASE_SIZE      73728
++#define MQD_SHADOW_BASE_ALIGNMENT 256
++#define MQD_FWWORKAREA_SIZE       484
++#define MQD_FWWORKAREA_ALIGNMENT  256
 +
-+		memset(&shadow_info, 0, sizeof(struct amdgpu_gfx_shadow_info));
-+		if (adev->gfx.funcs->get_gfx_shadow_info) {
-+			r = amdgpu_gfx_get_gfx_shadow_info(adev, &shadow_info);
-+			if (r)
-+				return r;
-+			drm_shadow_size.shadow_size = shadow_info.shadow_size;
-+			drm_shadow_size.shadow_alignment = shadow_info.shadow_alignment;
-+			drm_shadow_size.csa_size = shadow_info.csa_size;
-+			drm_shadow_size.csa_alignment = shadow_info.csa_alignment;
-+			drm_shadow_size.gds_size = shadow_info.gds_size;
-+			drm_shadow_size.gds_alignment = shadow_info.gds_alignment;
++static int gfx_v11_0_get_gfx_shadow_info(struct amdgpu_device *adev,
++					 struct amdgpu_gfx_shadow_info *shadow_info)
++{
++	if (shadow_info) {
++		if (adev->gfx.cp_gfx_shadow) {
++			shadow_info->shadow_size = MQD_SHADOW_BASE_SIZE;
++			shadow_info->shadow_alignment = MQD_SHADOW_BASE_ALIGNMENT;
++			shadow_info->csa_size = MQD_FWWORKAREA_SIZE;
++			shadow_info->csa_alignment = MQD_FWWORKAREA_ALIGNMENT;
++			shadow_info->gds_size = 0x1000;
++			shadow_info->gds_alignment = 256;
++			return 0;
 +		} else {
++			memset(shadow_info, 0, sizeof(struct amdgpu_gfx_shadow_info));
 +			return -ENOTSUPP;
 +		}
-+		r = copy_to_user(out, &drm_shadow_size,
-+				 min((size_t)size,
-+				     sizeof(struct drm_amdgpu_info_cp_gfx_shadow_size))) ?
-+			-EFAULT : 0;
-+		return r;
-+
 +	}
- 	default:
- 		DRM_DEBUG_KMS("Invalid request %d\n", info->query);
- 		return -EINVAL;
++	return -EINVAL;
++}
++
+ static const struct amdgpu_gfx_funcs gfx_v11_0_gfx_funcs = {
+ 	.get_gpu_clock_counter = &gfx_v11_0_get_gpu_clock_counter,
+ 	.select_se_sh = &gfx_v11_0_select_se_sh,
+@@ -830,6 +856,7 @@ static const struct amdgpu_gfx_funcs gfx_v11_0_gfx_funcs = {
+ 	.read_wave_vgprs = &gfx_v11_0_read_wave_vgprs,
+ 	.select_me_pipe_q = &gfx_v11_0_select_me_pipe_q,
+ 	.update_perfmon_mgcg = &gfx_v11_0_update_perf_clk,
++	.get_gfx_shadow_info = &gfx_v11_0_get_gfx_shadow_info,
+ };
+ 
+ static int gfx_v11_0_gpu_early_init(struct amdgpu_device *adev)
 -- 
 2.39.2
 
