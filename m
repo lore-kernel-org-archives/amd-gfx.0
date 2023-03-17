@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A0C1C6FD1D
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Mar 2023 08:22:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB756C7618A
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Mar 2023 08:22:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89E2B10E344;
-	Fri, 17 Mar 2023 08:22:24 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF67510E344;
- Fri, 17 Mar 2023 08:22:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D28010E3A7;
+	Fri, 17 Mar 2023 08:22:28 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96AFE10E36E;
+ Fri, 17 Mar 2023 08:22:26 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 28FA86222D;
- Fri, 17 Mar 2023 08:22:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78B3BC4339C;
- Fri, 17 Mar 2023 08:22:18 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 20D2062227;
+ Fri, 17 Mar 2023 08:22:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CE92C433D2;
+ Fri, 17 Mar 2023 08:22:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1679041341;
- bh=TfCb3mpgK92w4qveQROMcLLOHyHxIIuO1T+X3c8+2WM=;
+ s=k20201202; t=1679041345;
+ bh=g04ZINvTEUjQva4N99+CPauyQdfUwEB0MhvaHIAapKs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=C3V5hKZ8yxClqUUmqB9GbZQXkjU+WxPT8eINXBN6T1RTrdVccRPxk7X9iXomfZ7wd
- 69sGVLYm8T3KnI9DcISQ1Wwu8JTbC2mBYjX1VvuVdiQlxmpbTvCKF7gQdOA7tclFuB
- lFznjaX9201MF00ECDXGsOOTkWLA+oiVLOw3HtFtQlsHwb0eO7XAeAsEOX5wyDikUX
- 5mbCnoM2nASvJ12rLkiz8o0ErpyhilM/8l7Pi0pSOwvZnbhNT0Swes8A3iQxiWvrir
- waxez3K1vxli5yhIvDrP/X50h+rbosv6OTL14keCogNW/0mMiHboxDXgUBTDC3C27c
- 3BOu9BoOU7jEg==
+ b=Sc2dZ7hmNkJXZcLAH4xdxUhtozrQARLpG00GRVEo8lrR/265Zwy+QVjRBN0WlDl1Z
+ 5b83rLlgcL5FqU0BF5yn8ker+hLM6JH6rr1ltl1B1b4lNxjCCpa9m5I6gvJXLWHOg5
+ SseUWNOX92/4i3VazKURF9Oou5Odhqjpk3tIruCH5a47qwdhBzFOza7zMtSD8fsvle
+ wDAgg5UGRjhQLa7j7LmEsKCaueoTsA33oz/6dlh4EZtjV0K2XogJoze8evjemc2cMm
+ apqkoKz0MMtvvNOj9M6kER2y0z80ZQrFMM1mcKphlixj3IXN8hsAJ5i/eqjSI+S0W3
+ fVeUtc21SSyEw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH 01/37] drm/amd/display/dc/dc_hdmi_types: Move string
- definition to the only file it's used in
-Date: Fri, 17 Mar 2023 08:16:42 +0000
-Message-Id: <20230317081718.2650744-2-lee@kernel.org>
+Subject: [PATCH 03/37] drm/amd/amdgpu/amdgpu_device: Provide missing kerneldoc
+ entry for 'reset_context'
+Date: Fri, 17 Mar 2023 08:16:44 +0000
+Message-Id: <20230317081718.2650744-4-lee@kernel.org>
 X-Mailer: git-send-email 2.40.0.rc1.284.g88254d51c5-goog
 In-Reply-To: <20230317081718.2650744-1-lee@kernel.org>
 References: <20230317081718.2650744-1-lee@kernel.org>
@@ -54,65 +53,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Wenjing Liu <wenjing.liu@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>,
+ linaro-mm-sig@lists.linaro.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fixes the following W=1 kernel build warning(s):
 
- drivers/gpu/drm/amd/amdgpu/../display/dc/dc_hdmi_types.h:53:22:
-   warning: ‘dp_hdmi_dongle_signature_str’ defined but not used [-Wunused-const-variable=]
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:5152:
+   warning: Function parameter or member 'reset_context' not described in 'amdgpu_device_gpu_recover'
 
-[snipped 400 similar lines for brevity]
-
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: "Christian König" <christian.koenig@amd.com>
 Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
 Cc: David Airlie <airlied@gmail.com>
 Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Wenjing Liu <wenjing.liu@amd.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>
 Cc: amd-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org
+Cc: linux-media@vger.kernel.org
+Cc: linaro-mm-sig@lists.linaro.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dc_hdmi_types.h       | 1 -
- drivers/gpu/drm/amd/display/dc/link/link_detection.c | 2 ++
- 2 files changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_hdmi_types.h b/drivers/gpu/drm/amd/display/dc/dc_hdmi_types.h
-index c364744b4c835..b015e80672ec9 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_hdmi_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_hdmi_types.h
-@@ -50,7 +50,6 @@ struct dp_hdmi_dongle_signature_data {
- 
- /* DP-HDMI dongle slave address for retrieving dongle signature*/
- #define DP_HDMI_DONGLE_ADDRESS 0x40
--static const uint8_t dp_hdmi_dongle_signature_str[] = "DP-HDMI ADAPTOR";
- #define DP_HDMI_DONGLE_SIGNATURE_EOT 0x04
- 
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-index fee71ebdfc733..8cfeddfb65c89 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-@@ -60,6 +60,8 @@
-  */
- #define LINK_TRAINING_MAX_VERIFY_RETRY 2
- 
-+static const uint8_t dp_hdmi_dongle_signature_str[] = "DP-HDMI ADAPTOR";
-+
- static enum ddc_transaction_type get_ddc_transaction_type(enum signal_type sink_signal)
- {
- 	enum ddc_transaction_type transaction_type = DDC_TRANSACTION_TYPE_NONE;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index d4519fbd526f2..ef0b2787796da 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5145,6 +5145,7 @@ static inline void amdgpu_device_stop_pending_resets(struct amdgpu_device *adev)
+  *
+  * @adev: amdgpu_device pointer
+  * @job: which job trigger hang
++ * @reset_context: amdgpu reset context pointer
+  *
+  * Attempt to reset the GPU if it has hung (all asics).
+  * Attempt to do soft-reset or full-reset and reinitialize Asic
 -- 
 2.40.0.rc1.284.g88254d51c5-goog
 
