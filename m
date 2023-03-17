@@ -4,49 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F5A1C6FD1D
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Mar 2023 15:27:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1447FC74A5B
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Mar 2023 15:38:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD53F10E3C9;
-	Fri, 17 Mar 2023 15:27:18 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85B9610E3C9
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Mar 2023 15:27:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679066836; x=1710602836;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=4nsKQfG2TXVFlzS0a2xqd6TUaOzPnDxZ9w+isDZMppc=;
- b=Ra2/GTkWhkqzxVWbNPlW7azYgc23bRdQTrnvByIuM/oxVcvqEZNHIM65
- CUmw+M7NuWAEwi2EKIegXqvi7xqI62FI3lp8l9jJSxIl6cH4cxLWNdtYF
- YW8zAhVKALQm1S+Dk0XmENRLN1uP/vP8kRZ229kS+s5t/d1K3vFXen+HI
- r3qSTRHkP+kjelIpWFw1WkLcY79iKMtRkaK/ovjrycjNb4hKkWPAhrXY7
- 5tvAv1A/nYUiGwrLjZbkRnPxIPhdASHI9G1GwgaEEl2pFOxZXhf8LEPr9
- pSCnNTFaA8Pr4wU6Pwp29kiuu26ep49ddZDSM1EKEEpS/a3EadO/TXg1f Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10652"; a="318684205"
-X-IronPort-AV: E=Sophos;i="5.98,268,1673942400"; d="scan'208";a="318684205"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2023 08:26:21 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10652"; a="854469627"
-X-IronPort-AV: E=Sophos;i="5.98,268,1673942400"; d="scan'208";a="854469627"
-Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
- by orsmga005.jf.intel.com with ESMTP; 17 Mar 2023 08:26:17 -0700
-Received: from kbuild by b613635ddfff with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pdBy7-0009RE-27;
- Fri, 17 Mar 2023 15:26:11 +0000
-Date: Fri, 17 Mar 2023 23:25:46 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 6f08c1de13a9403341c18b66638a05588b2663ce
-Message-ID: <6414867a.CJX/i0yulQyJmAbH%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14A2F10E118;
+	Fri, 17 Mar 2023 15:38:09 +0000 (UTC)
+Received: from mail-lj1-x243.google.com (mail-lj1-x243.google.com
+ [IPv6:2a00:1450:4864:20::243])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64EBB10E06D;
+ Fri, 17 Mar 2023 15:38:06 +0000 (UTC)
+Received: by mail-lj1-x243.google.com with SMTP id f16so5514406ljq.10;
+ Fri, 17 Mar 2023 08:38:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1679067484;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=PgRh/CYlgTeYbHG/1UWCcAAs0o+RRag5qbQnAzv3v/8=;
+ b=EcbOOXKMhZjfO0efQDnH8OtD9cxV7eDWiWnkRDBzlgqUgllzmJwDrw8tKAYRzmhhwK
+ f3pyLXlFTJDhAF04mHzvoufl1AOa8vgf2OkJfsxtqBFa/kzvJ4RQkew5xlYPUDzf23il
+ 1GC4m5+QgI9ieQEAgDY1bB/WBsVze6+WevhkJT0ctTCp82n04uItv5ROVmLCo8OJEPb4
+ 0zu5Are5BHXSIZO/tmmUHFPBN6fFt7ULlhTOWy0mtm0J4u8ZCokr3y25LSsczQp1MFy8
+ A21XrN5T8YlVt7RIsEqZ9+FEoVIDI8WTJrmbfwkxwNUEBL/ChMvn7Is46y/j5udldI4j
+ Ybvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1679067484;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=PgRh/CYlgTeYbHG/1UWCcAAs0o+RRag5qbQnAzv3v/8=;
+ b=B1GFrO9N4EQBAikn7PAKkV9MDBufix1pLWgW/wIf52GxrCHkmif8nbp/AjLwtVQLX0
+ lBDP0SmxhudBnI0zXy3pj1eqAe5/SfTpUbaak8CBjffEnVCpCXz6x7nUVdbc0S6xKac1
+ LE68qhU74meH/b2xZrBvrIQHwrgkZVjylLQR86dJR8FdPo1kC2ziPrNx94a3SDhwM8I0
+ zjvQ3Sr8JQYdJ/e8n7nV9l6VRla/JbDWGKMUW+nsoiPsFVzgOJqox7bTcx3ybwl5Gdxd
+ 7RWAIAs0nnu/P8+2h2Wvg0OpV6Q21AkHyBFjc4K1/nCs4eR8rd2ZwShGu92b3SWpLLYw
+ XINg==
+X-Gm-Message-State: AO0yUKW4wRWiFWScuY/sghMTQTIvXs/t7yvnQfkzwmCfYMlP7KuuOFTZ
+ SBwsFq7Dq2TPNA/Y4iffKDc=
+X-Google-Smtp-Source: AK7set8HxXWpvOFzg7VvkZgqyqIrFZQmMwxAy1iyu+dmf0S9IYRfHvwd1iUQ8S+O1HElJ9AFpj2QDQ==
+X-Received: by 2002:a2e:a54a:0:b0:293:4fff:ab7d with SMTP id
+ e10-20020a2ea54a000000b002934fffab7dmr5079260ljn.25.1679067484262; 
+ Fri, 17 Mar 2023 08:38:04 -0700 (PDT)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ y5-20020a2e3205000000b0029a7cb17f73sm334871ljy.28.2023.03.17.08.38.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Mar 2023 08:38:03 -0700 (PDT)
+Date: Fri, 17 Mar 2023 17:37:51 +0200
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Subject: Re: [PATCH v3 09/17] drm/amd/display: Register Colorspace property
+ for DP and HDMI
+Message-ID: <20230317173751.49c45929@eldfell>
+In-Reply-To: <ZBR1zs4/L+9thOEe@intel.com>
+References: <ZBLmYzVcnBgU6uo5@intel.com> <20230316120701.523bcb37@eldfell>
+ <ZBLz17f8YFmNEJlY@intel.com> <20230316133449.26b62760@eldfell>
+ <ZBMNEdYWsyfVq46p@intel.com>
+ <CA+hFU4zWvm3-SSjtF17zjRnshEDw27gkQDLGZRk2AbnWN8+1Vg@mail.gmail.com>
+ <ZBOf0m6W3ZWPy7nc@intel.com> <20230317105335.45d6a629@eldfell>
+ <ZBRiIG+TEft19Kum@intel.com> <20230317153553.5b8eb460@eldfell>
+ <ZBR1zs4/L+9thOEe@intel.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.24; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; boundary="Sig_/mS0dO.+fJsydLLJ8anunKDN";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,286 +76,270 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-watchdog@vger.kernel.org,
- Linux Memory Management List <linux-mm@kvack.org>, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- rcu@vger.kernel.org, linux-gpio@vger.kernel.org, linux-crypto@vger.kernel.org,
- io-uring@vger.kernel.org, linux-modules@vger.kernel.org
+Cc: Sebastian Wick <sebastian.wick@redhat.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Joshua Ashton <joshua@froggi.es>, Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 6f08c1de13a9403341c18b66638a05588b2663ce  Add linux-next specific files for 20230317
+--Sig_/mS0dO.+fJsydLLJ8anunKDN
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Error/Warning reports:
+On Fri, 17 Mar 2023 16:14:38 +0200
+Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com> wrote:
 
-https://lore.kernel.org/oe-kbuild-all/202303081807.lBLWKmpX-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202303082135.NjdX1Bij-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202303151409.por0SBf7-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202303161404.OrmfCy09-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202303161521.jbGbaFjJ-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202303171300.g6uEM0X9-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202303171506.Af2gNUDA-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202303171606.xoYwr7Lj-lkp@intel.com
+> On Fri, Mar 17, 2023 at 03:35:53PM +0200, Pekka Paalanen wrote:
+> > On Fri, 17 Mar 2023 14:50:40 +0200
+> > Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com> wrote:
+> >  =20
+> > > On Fri, Mar 17, 2023 at 10:53:35AM +0200, Pekka Paalanen wrote: =20
+> > > > On Fri, 17 Mar 2023 01:01:38 +0200
+> > > > Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com> wrote:
+> > > >    =20
+> > > > > On Thu, Mar 16, 2023 at 10:13:54PM +0100, Sebastian Wick wrote:  =
+ =20
+> > > > > > On Thu, Mar 16, 2023 at 1:35=E2=80=AFPM Ville Syrj=C3=A4l=C3=A4
+> > > > > > <ville.syrjala@linux.intel.com> wrote:     =20
+> > > > > > >
+> > > > > > > On Thu, Mar 16, 2023 at 01:34:49PM +0200, Pekka Paalanen wrot=
+e:     =20
+> > > > > > > > On Thu, 16 Mar 2023 12:47:51 +0200
+> > > > > > > > Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com> wro=
+te:
+> > > > > > > >     =20
+> > > > > > > > > On Thu, Mar 16, 2023 at 12:07:01PM +0200, Pekka Paalanen =
+wrote:     =20
+> > > > > > > > > > On Thu, 16 Mar 2023 11:50:27 +0200
+> > > > > > > > > > Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>=
+ wrote:
+> > > > > > > > > >     =20
+> > > > > > > > > > > On Thu, Mar 16, 2023 at 01:37:24AM +0100, Sebastian W=
+ick wrote:     =20
+> > > > > > > > > > > > On Tue, Mar 7, 2023 at 4:12=E2=80=AFPM Harry Wentla=
+nd <harry.wentland@amd.com> wrote:     =20
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > We want compositors to be able to set the output
+> > > > > > > > > > > > > colorspace on DP and HDMI outputs, based on the
+> > > > > > > > > > > > > caps reported from the receiver via EDID.     =20
+> > > > > > > > > > > >
+> > > > > > > > > > > > About that... The documentation says that user spac=
+e has to check the
+> > > > > > > > > > > > EDID for what the sink actually supports. So whatev=
+er is in
+> > > > > > > > > > > > supported_colorspaces is just what the driver/hardw=
+are is able to set
+> > > > > > > > > > > > but doesn't actually indicate that the sink support=
+s it.
+> > > > > > > > > > > >
+> > > > > > > > > > > > So the only way to enable bt2020 is by checking if =
+the sink supports
+> > > > > > > > > > > > both RGB and YUV variants because both could be use=
+d by the driver.
+> > > > > > > > > > > > Not great at all. Something to remember for the new=
+ property.     =20
+> > > > > > > > > > >
+> > > > > > > > > > > Hmm. I wonder if that's even legal... Looks like mayb=
+e it
+> > > > > > > > > > > is since I can't immediately spot anything in CTA-861=
+ to
+> > > > > > > > > > > forbid it :/     =20
+> > > > > > > > > >
+> > > > > > > > > > Wouldn't the driver do the same EDID check before choos=
+ing whether it
+> > > > > > > > > > uses RGB or YCbCr signalling?     =20
+> > > > > > > > >
+> > > > > > > > > I suppose it could. The modeset would then fail, which is=
+ perhaps     =20
+> > > > > > > >
+> > > > > > > > Could? What are they missing?     =20
+> > > > > > >
+> > > > > > > The fact that the new property that also affects the rgb->ycb=
+cr matrix
+> > > > > > > doesn't even exist?     =20
+> > > > > >=20
+> > > > > > I think the question was about the current Colorspace property.=
+   =20
+> > > >=20
+> > > > Yes.
+> > > >=20
+> > > > We need to be able to set ColourPrimaries infoframe field for the s=
+ink.
+> > > > Only userspace knows what ColourPrimaries it uses, and the driver h=
+as
+> > > > no need to care at all, other than tell the sink what we have.
+> > > >=20
+> > > > When a driver chooses to use YCbCr, it needs to use the
+> > > > MatrixCoefficients the sink expects.
+> > > >=20
+> > > > If we send the infoframe to the sink telling the signal uses BT.2020
+> > > > ColourPrimaries, does that same bit pattern also tell the sink we a=
+re
+> > > > using the BT.2020 NCL MatrixCoefficients if the driver chooses YCbC=
+r?
+> > > >=20
+> > > > Do drivers actually use BT.2020 NCL MatrixCoefficients in that case=
+?   =20
+> > >=20
+> > > No. I think I've repeated this same line a thousand times already:
+> > > The current colorspace property *only* affects the infoframe/msa/sdp,
+> > > nothing else. =20
+> >=20
+> > That's the problem. I don't know what that means.
+> >=20
+> > Does it mean that the sink expects BT.2020 NCL MatrixCoefficients to
+> > have been used? =20
+>=20
+> Yes, assuming that is the colorspace property value you picked.
+>=20
+> >=20
+> > And the driver will never use BT.2020 NCL MatrixCoefficients in any
+> > circumstances? =20
+>=20
+> Correct.
+>=20
+> >=20
+> > See the conflict? The sink will be decoding the signal incorrectly,
+> > because we are encoding it with the wrong MatrixCoefficients if the
+> > driver happens to silently choose YCbCr and userspace wants to send
+> > BT2020 ColourPrimaries indicated in the infoframe. =20
+>=20
+> Yes. And hence I thought pretty much everyone already
+> agreed that a new property is needed.
 
-Error/Warning: (recently discovered and may have been fixed)
+I think I was confused as well with the re-posting of this series,
+thinking it could be salvageable somehow and tried to understand how.
+Up to Harry, I think I've left enough annoying questions by now. :-)
 
-Warning: Documentation/devicetree/bindings/input/snvs-pwrkey.txt references a file that doesn't exist: Documentation/devicetree/bindings/crypto/fsl-sec4.txt
-Warning: Documentation/devicetree/bindings/rtc/snvs-rtc.txt references a file that doesn't exist: Documentation/devicetree/bindings/crypto/fsl-sec4.txt
-Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/crypto/fsl-sec4.txt
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_validation.c:258:10: warning: no previous prototype for 'link_timing_bandwidth_kbps' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:2184: warning: expecting prototype for Check if there is a native DP or passive DP(). Prototype was for dp_is_sink_present() instead
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:309:17: sparse:    int
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:309:17: sparse:    void
-drivers/net/wireless/legacy/ray_cs.c:628:17: warning: 'strncpy' specified bound 32 equals destination size [-Wstringop-truncation]
-include/linux/compiler_types.h:338:27: error: expression in static assertion is not an integer
-include/linux/compiler_types.h:340:27: error: expression in static assertion is not an integer
-include/linux/container_of.h:20:54: error: invalid use of undefined type 'struct module'
-include/linux/rculist.h:392:21: error: invalid use of undefined type 'struct module'
-include/linux/stddef.h:16:33: error: invalid use of undefined type 'struct module'
-kernel/bpf/../module/internal.h:205:2: error: assigning to 'struct module *' from incompatible type 'void'
-kernel/bpf/../module/internal.h:205:2: error: incomplete definition of type 'struct module'
-kernel/bpf/../module/internal.h:205:2: error: offsetof of incomplete type 'typeof (*mod)' (aka 'struct module')
-kernel/bpf/../module/internal.h:205:2: error: operand of type 'void' where arithmetic or pointer type is required
-kernel/bpf/../module/internal.h:212:2: error: operand of type 'void' where arithmetic or pointer type is required
-lib/dynamic_debug.c:947:6: warning: no previous prototype for function '__dynamic_ibdev_dbg' [-Wmissing-prototypes]
+> To make sure we actually understand what we're implementing
+> I think it should start out very minimal. Eg just three values:
+> - unspecified RGB + BT.601 YCbCr
+> - unspecified RGB + BT.709 YCbCr
+> - BT.2020 RGB + BT.2020 YCbCr NCL
 
-Unverified Error/Warning (likely false positive, please contact us if interested):
+ColourPrimaries + MatrixCoefficients, respectively. Sounds fine.
 
-crypto/rng.c:206:27: warning: Value stored to 'istat' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
-drivers/usb/host/xhci-rcar.c:239:34: warning: unused variable 'usb_xhci_of_match' [-Wunused-const-variable]
-drivers/watchdog/imx2_wdt.c:442:22: sparse: sparse: symbol 'imx_wdt' was not declared. Should it be static?
-drivers/watchdog/imx2_wdt.c:446:22: sparse: sparse: symbol 'imx_wdt_legacy' was not declared. Should it be static?
-include/linux/gpio/consumer.h: linux/err.h is included more than once.
-include/linux/gpio/driver.h: asm/bug.h is included more than once.
-io_uring/io_uring.c:432 io_prep_async_work() error: we previously assumed 'req->file' could be null (see line 425)
-io_uring/kbuf.c:221 __io_remove_buffers() warn: variable dereferenced before check 'bl->buf_ring' (see line 219)
+I recall hearing that DP spec actually has something like "unspecified"
+while HDMI has only "default colorimetry" which is specified, but I'm
+guessing that many monitors and TVs just don't implement it like they
+should, so it's effectively unspecified.
 
-Error/Warning ids grouped by kconfigs:
+"unspecified" in UAPI is ok as long as there will be another distinct
+value for "HDMI default colorimetry" or such.
 
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:no-previous-prototype-for-link_timing_bandwidth_kbps
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|   `-- drivers-net-wireless-legacy-ray_cs.c:warning:strncpy-specified-bound-equals-destination-size
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:no-previous-prototype-for-link_timing_bandwidth_kbps
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|-- arc-randconfig-r006-20230313
-|   |-- include-linux-compiler_types.h:error:expression-in-static-assertion-is-not-an-integer
-|   |-- include-linux-container_of.h:error:invalid-use-of-undefined-type-struct-module
-|   |-- include-linux-rculist.h:error:invalid-use-of-undefined-type-struct-module
-|   `-- include-linux-stddef.h:error:invalid-use-of-undefined-type-struct-module
-|-- arc-randconfig-r013-20230312
-|   |-- include-linux-compiler_types.h:error:expression-in-static-assertion-is-not-an-integer
-|   |-- include-linux-container_of.h:error:invalid-use-of-undefined-type-struct-module
-|   |-- include-linux-rculist.h:error:invalid-use-of-undefined-type-struct-module
-|   `-- include-linux-stddef.h:error:invalid-use-of-undefined-type-struct-module
-|-- arm-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:no-previous-prototype-for-link_timing_bandwidth_kbps
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|-- arm-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:no-previous-prototype-for-link_timing_bandwidth_kbps
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|-- arm-buildonly-randconfig-r003-20230313
-|   |-- include-linux-compiler_types.h:error:expression-in-static-assertion-is-not-an-integer
-|   |-- include-linux-container_of.h:error:invalid-use-of-undefined-type-struct-module
-|   |-- include-linux-rculist.h:error:invalid-use-of-undefined-type-struct-module
-|   `-- include-linux-stddef.h:error:invalid-use-of-undefined-type-struct-module
-|-- arm-randconfig-s051-20230312
-|   |-- drivers-watchdog-imx2_wdt.c:sparse:sparse:symbol-imx_wdt-was-not-declared.-Should-it-be-static
-|   `-- drivers-watchdog-imx2_wdt.c:sparse:sparse:symbol-imx_wdt_legacy-was-not-declared.-Should-it-be-static
-|-- arm64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:no-previous-prototype-for-link_timing_bandwidth_kbps
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|-- csky-randconfig-r025-20230313
-|   |-- include-linux-compiler_types.h:error:expression-in-static-assertion-is-not-an-integer
-|   |-- include-linux-container_of.h:error:invalid-use-of-undefined-type-struct-module
-|   |-- include-linux-rculist.h:error:invalid-use-of-undefined-type-struct-module
-|   `-- include-linux-stddef.h:error:invalid-use-of-undefined-type-struct-module
-|-- csky-randconfig-r031-20230313
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:no-previous-prototype-for-link_timing_bandwidth_kbps
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|-- csky-randconfig-s043-20230312
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:sparse:int
-|   |-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:sparse:sparse:incompatible-types-in-conditional-expression-(different-base-types):
-|   `-- drivers-gpu-drm-amd-amdgpu-..-pm-swsmu-smu13-smu_v13_0_6_ppt.c:sparse:void
-|-- i386-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:no-previous-prototype-for-link_timing_bandwidth_kbps
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:expecting-prototype-for-Check-if-there-is-a-native-DP-or-passive-DP().-Prototype-was-for-dp_is_sink_present()-inste
-|-- ia64-allmodconfig
-clang_recent_errors
-|-- arm-randconfig-c002-20230312
-|   `-- crypto-rng.c:warning:Value-stored-to-istat-during-its-initialization-is-never-read-clang-analyzer-deadcode.DeadStores
-|-- arm64-randconfig-r005-20230312
-|   |-- kernel-bpf-..-module-internal.h:error:assigning-to-struct-module-from-incompatible-type-void
-|   |-- kernel-bpf-..-module-internal.h:error:incomplete-definition-of-type-struct-module
-|   |-- kernel-bpf-..-module-internal.h:error:offsetof-of-incomplete-type-typeof-(-mod)-(aka-struct-module-)
-|   `-- kernel-bpf-..-module-internal.h:error:operand-of-type-void-where-arithmetic-or-pointer-type-is-required
-|-- hexagon-buildonly-randconfig-r004-20230312
-|   |-- drivers-usb-host-xhci-rcar.c:warning:unused-variable-usb_xhci_of_match
-|   |-- kernel-bpf-..-module-internal.h:error:assigning-to-struct-module-from-incompatible-type-void
-|   |-- kernel-bpf-..-module-internal.h:error:incomplete-definition-of-type-struct-module
-|   `-- kernel-bpf-..-module-internal.h:error:offsetof-of-incomplete-type-typeof-(-mod)-(aka-struct-module-)
-|-- i386-randconfig-a012-20230313
-|   `-- lib-dynamic_debug.c:warning:no-previous-prototype-for-function-__dynamic_ibdev_dbg
-|-- i386-randconfig-a013-20230313
-|   `-- lib-dynamic_debug.c:warning:no-previous-prototype-for-function-__dynamic_ibdev_dbg
-|-- i386-randconfig-a016-20230313
-|   `-- lib-dynamic_debug.c:warning:no-previous-prototype-for-function-__dynamic_ibdev_dbg
-|-- powerpc-randconfig-r002-20230312
-|   `-- kernel-bpf-..-module-internal.h:error:operand-of-type-void-where-arithmetic-or-pointer-type-is-required
-|-- riscv-randconfig-r002-20230312
-|   |-- kernel-bpf-..-module-internal.h:error:assigning-to-struct-module-from-incompatible-type-void
-|   |-- kernel-bpf-..-module-internal.h:error:incomplete-definition-of-type-struct-module
-|   |-- kernel-bpf-..-module-internal.h:error:offsetof-of-incomplete-type-typeof-(-mod)-(aka-struct-module-)
-|   `-- kernel-bpf-..-module-internal.h:error:operand-of-type-void-where-arithmetic-or-pointer-type-is-required
-`-- riscv-randconfig-r042-20230313
-    |-- kernel-bpf-..-module-internal.h:error:assigning-to-struct-module-from-incompatible-type-void
-    |-- kernel-bpf-..-module-internal.h:error:incomplete-definition-of-type-struct-module
-    |-- kernel-bpf-..-module-internal.h:error:offsetof-of-incomplete-type-typeof-(-mod)-(aka-struct-module-)
-    `-- kernel-bpf-..-module-internal.h:error:operand-of-type-void-where-arithmetic-or-pointer-type-is-required
+I'm not sure why anyone would want to use "unspecified" but I guess
+it's necessary for UAPI backward compatibility.
 
-elapsed time: 723m
+>=20
+> And that would control:
+> - basic colorimetry metadata transmitted to the sink
+> - MatrixCoefficients used for the potential RGB->YCbCr conversion
+>=20
+> Transfer funcs, primaries, etc. would be left out (apart from
+> the potential metadata aspect).
 
-configs tested: 133
-configs skipped: 9
+Primaries left out? What are your "unspecified RGB" and "BT.2020 RGB"
+above then?
 
-tested configs:
-alpha                            allyesconfig   gcc  
-alpha                               defconfig   gcc  
-arc                              allyesconfig   gcc  
-arc                                 defconfig   gcc  
-arc                  randconfig-r002-20230313   gcc  
-arc                  randconfig-r006-20230313   gcc  
-arc                  randconfig-r013-20230312   gcc  
-arc                  randconfig-r023-20230313   gcc  
-arc                  randconfig-r043-20230312   gcc  
-arc                  randconfig-r043-20230313   gcc  
-arm                              allmodconfig   gcc  
-arm                              allyesconfig   gcc  
-arm          buildonly-randconfig-r003-20230313   gcc  
-arm                                 defconfig   gcc  
-arm                       imx_v4_v5_defconfig   clang
-arm                         lpc18xx_defconfig   gcc  
-arm                  randconfig-r004-20230313   clang
-arm                  randconfig-r012-20230312   clang
-arm                  randconfig-r046-20230312   clang
-arm                  randconfig-r046-20230313   gcc  
-arm                           sama5_defconfig   gcc  
-arm64                            allyesconfig   gcc  
-arm64                               defconfig   gcc  
-arm64                randconfig-r005-20230312   clang
-csky                                defconfig   gcc  
-csky                 randconfig-r022-20230313   gcc  
-csky                 randconfig-r023-20230312   gcc  
-csky                 randconfig-r025-20230313   gcc  
-csky                 randconfig-r031-20230313   gcc  
-hexagon      buildonly-randconfig-r004-20230312   clang
-hexagon      buildonly-randconfig-r005-20230313   clang
-hexagon              randconfig-r001-20230313   clang
-hexagon              randconfig-r022-20230312   clang
-hexagon              randconfig-r041-20230312   clang
-hexagon              randconfig-r041-20230313   clang
-hexagon              randconfig-r045-20230312   clang
-hexagon              randconfig-r045-20230313   clang
-i386                             allyesconfig   gcc  
-i386         buildonly-randconfig-r002-20230313   gcc  
-i386                              debian-10.3   gcc  
-i386                                defconfig   gcc  
-i386                 randconfig-a001-20230313   gcc  
-i386                 randconfig-a002-20230313   gcc  
-i386                 randconfig-a003-20230313   gcc  
-i386                 randconfig-a004-20230313   gcc  
-i386                 randconfig-a005-20230313   gcc  
-i386                 randconfig-a006-20230313   gcc  
-i386                 randconfig-a011-20230313   clang
-i386                 randconfig-a012-20230313   clang
-i386                 randconfig-a013-20230313   clang
-i386                 randconfig-a014-20230313   clang
-i386                 randconfig-a015-20230313   clang
-i386                 randconfig-a016-20230313   clang
-i386                          randconfig-c001   gcc  
-i386                 randconfig-r032-20230313   gcc  
-ia64                             allmodconfig   gcc  
-ia64                                defconfig   gcc  
-ia64                 randconfig-r001-20230312   gcc  
-loongarch                        allmodconfig   gcc  
-loongarch                         allnoconfig   gcc  
-loongarch                           defconfig   gcc  
-loongarch            randconfig-r006-20230312   gcc  
-m68k                             allmodconfig   gcc  
-m68k                                defconfig   gcc  
-m68k                            q40_defconfig   gcc  
-microblaze   buildonly-randconfig-r003-20230312   gcc  
-microblaze           randconfig-r011-20230312   gcc  
-mips                             allmodconfig   gcc  
-mips                             allyesconfig   gcc  
-mips                     cu1000-neo_defconfig   clang
-mips                      pic32mzda_defconfig   clang
-mips                 randconfig-r025-20230312   clang
-nios2                               defconfig   gcc  
-nios2                randconfig-r003-20230313   gcc  
-nios2                randconfig-r015-20230312   gcc  
-nios2                randconfig-r036-20230313   gcc  
-openrisc     buildonly-randconfig-r001-20230312   gcc  
-openrisc     buildonly-randconfig-r006-20230312   gcc  
-parisc                              defconfig   gcc  
-parisc               randconfig-r021-20230313   gcc  
-parisc64                            defconfig   gcc  
-powerpc                          allmodconfig   gcc  
-powerpc                           allnoconfig   gcc  
-powerpc                    amigaone_defconfig   gcc  
-powerpc                      bamboo_defconfig   gcc  
-powerpc                   bluestone_defconfig   clang
-powerpc      buildonly-randconfig-r001-20230313   clang
-powerpc      buildonly-randconfig-r004-20230313   clang
-powerpc                  iss476-smp_defconfig   gcc  
-riscv                            allmodconfig   gcc  
-riscv                             allnoconfig   gcc  
-riscv                               defconfig   gcc  
-riscv                randconfig-r002-20230312   clang
-riscv                randconfig-r042-20230312   gcc  
-riscv                randconfig-r042-20230313   clang
-riscv                          rv32_defconfig   gcc  
-s390                             allmodconfig   gcc  
-s390                             allyesconfig   gcc  
-s390                                defconfig   gcc  
-s390                 randconfig-r044-20230312   gcc  
-s390                 randconfig-r044-20230313   clang
-sh                               allmodconfig   gcc  
-sh                               j2_defconfig   gcc  
-sh                   randconfig-r024-20230313   gcc  
-sparc                               defconfig   gcc  
-sparc                randconfig-r004-20230312   gcc  
-sparc                randconfig-r014-20230312   gcc  
-sparc                randconfig-r033-20230313   gcc  
-sparc                randconfig-r035-20230313   gcc  
-sparc64              randconfig-r021-20230312   gcc  
-sparc64              randconfig-r026-20230312   gcc  
-um                             i386_defconfig   gcc  
-um                           x86_64_defconfig   gcc  
-x86_64                            allnoconfig   gcc  
-x86_64                           allyesconfig   gcc  
-x86_64                              defconfig   gcc  
-x86_64                                  kexec   gcc  
-x86_64               randconfig-a001-20230313   gcc  
-x86_64               randconfig-a002-20230313   gcc  
-x86_64               randconfig-a003-20230313   gcc  
-x86_64               randconfig-a004-20230313   gcc  
-x86_64               randconfig-a005-20230313   gcc  
-x86_64               randconfig-a006-20230313   gcc  
-x86_64                        randconfig-a011   gcc  
-x86_64                        randconfig-a012   clang
-x86_64                        randconfig-a013   gcc  
-x86_64                        randconfig-a014   clang
-x86_64                        randconfig-a015   gcc  
-x86_64                        randconfig-a016   clang
-x86_64               randconfig-r026-20230313   clang
-x86_64                               rhel-8.3   gcc  
-xtensa               randconfig-r005-20230313   gcc  
-xtensa               randconfig-r016-20230312   gcc  
+Asking from another angle, using infoframes, is it possible to tell the
+sink to use BT.2020 YCbCr NCL without *also* implying BT.2020
+ColourPrimaries? Joshua seemed to be saying "no".
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+
+> > > >=20
+> > > > If they don't, then YCbCr BT.2020 has never worked, which is another
+> > > > nail in the coffin for "Colorspace" property.   =20
+> > >=20
+> > > That is the same nail we've been talking about all along I thought.
+> > >  =20
+> > > > But it still means that
+> > > > RGB BT.2020 may have worked correctly, and then drivers would regre=
+ss
+> > > > if they started picking YCbCr for any reason where they previously =
+used
+> > > > RGB.   =20
+> > >=20
+> > > The policy has been to use RGB if at all possible. Only falling back
+> > > to YCbCr 4:2:0 if absolutely necessary (eg. EDID says 4:2:0 must
+> > > be used, or there's not enough bandwidth for 4:4:4, etc.). If the
+> > > behaviour suddenly changes then it probably means the driver was
+> > > doing something illegal before by using RGB 4:4:4. =20
+> >=20
+> > Ok.
+> >  =20
+> > > > > > > >
+> > > > > > > > I mean, drivers are already automatically choosing between =
+RGB and YCbCr
+> > > > > > > > signalling based on e.g. available bandwidth. Surely they a=
+lready will
+> > > > > > > > not attempt to send a signal format to a monitor that does =
+not say it
+> > > > > > > > supports that?     =20
+> > > > > >=20
+> > > > > > That's exactly what they do. The drivers don't check the EDID f=
+or the
+> > > > > > colorimetry the sink supports and the responsibility is punted =
+off to
+> > > > > > user space.   =20
+> > > >=20
+> > > > I suspect there are two different things:
+> > > >=20
+> > > > - which of RGB, YCbCr 4:4:4, YCbCr 4:2:0 can the sink take
+> > > > - the supported MatrixCoefficients for each of the YCbCr
+> > > >=20
+> > > > Surely drivers are already checking the former point?   =20
+> > >=20
+> > > Yes.
+> > >  =20
+> > > >=20
+> > > > I'm not surprised if they are not checking the latter point, but th=
+ey
+> > > > do need to, because it is the driver making the choice between RGB =
+and
+> > > > some YCbCr.   =20
+> > >=20
+> > > This point has been irrelevant since we always select BT.709
+> > > and there is no optional feature bit in EDID to check for that.
+> > > Presumaly it is mandatory for sinks to support both BT.601 and
+> > > BT.709 whenever they support YCbCr in general. =20
+> >=20
+> > Ok, so BT.601 and BT.709 MatrixCoefficients are cool. How do you tell
+> > the sink which one you used, btw? =20
+>=20
+> Through the same infoframe/msa/sdp stuff. But that only works
+> correctly if the colorspace property is left at the default value.
+>=20
+> >=20
+> > What about BT.2020 MatrixCoefficients? =20
+>=20
+> It would have to work the same way, if we actually ever used
+> this.
+
+Good.
+
+
+Thanks,
+pq
+
+--Sig_/mS0dO.+fJsydLLJ8anunKDN
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmQUiU8ACgkQI1/ltBGq
+qqdZvQ/+LoBsCXDeQ++icv41wekdVKqfwFOIN+tCkyL8tdoR7VlTwb968PE7OLSp
+cllAWHwDfmkj6NeMIOrh62SLkBWQgXPtXaP18kzU7oXIU5Ada2BlmdOmA4pC1NDx
+CKJsC+Q/1ZBKojg5D7q4bfWADKuCb12NjRjxNzvP46Q4kPUXiig/UGV75f3/Wlj2
+3C4RZtutQDpkVO4/Ok4fS5yN/gg9ruHiG4nEcAbDh3kBvOk64L5vXeO+FjsAEuOd
+yk/wkT/60bPNMuuWD1A1bo99CVIt3KkXMJW8r/rW0fxwK28ixdRYByo1vx+Gvqgr
+pdZLk5tZve9zC9NdQ48buNq8mEZzMTz5qxMg4YDAUkgocbcFXqms7wWhCjZtlKJ0
+WqZv7HvCeqhoXxTf/6YJkW0ipdVFgTyqx4AkYRO7V7akf/FrtqBQSMmgLOdycIJx
+UjI+CuOrwjFEFG64UwJhrQNUN0ZmsBbb3Vyz0lbWISFFBt774fzantNlzoNcBIAs
+g6E7sjNOMQkePQZuKoTOwhZCY/GvpiHAvGljGekFLDQmbwcMyT+Dv9ni9vCOEbXf
+THbCicDUNQeuNKOj5QZ5U64HJAu5UZo72tom+XSiwvUChFHfVu2UxUUFEiWvYj5K
+DTJjGUZzL4VAcrmXgATKvst5S715sfk7429mCLp9RkuVTVR85So=
+=quen
+-----END PGP SIGNATURE-----
+
+--Sig_/mS0dO.+fJsydLLJ8anunKDN--
