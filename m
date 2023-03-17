@@ -4,68 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72F37C74A5B
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Mar 2023 08:53:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11229C6FD1D
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Mar 2023 09:20:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D67A410EE87;
-	Fri, 17 Mar 2023 08:53:50 +0000 (UTC)
-Received: from mail-lj1-x243.google.com (mail-lj1-x243.google.com
- [IPv6:2a00:1450:4864:20::243])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E083010EE87;
- Fri, 17 Mar 2023 08:53:48 +0000 (UTC)
-Received: by mail-lj1-x243.google.com with SMTP id b13so4298699ljf.6;
- Fri, 17 Mar 2023 01:53:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1679043227;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=u1tSKWd7jwjz4W9W5fnkRbJuEz10zSkE/FZ+BjgevGQ=;
- b=hTvE66oOdQX0aaixHJSH0OOHBzm0WhEyjrl5rZss/nkpGTmkT/eQyDVq+wFPdeYPYh
- KeScxeH7DAdA/f+u6siI72lCs28Dew0CY2CiofzOWZiPQqKArgkgEx/CyzBqfnzHfNzg
- /1zGKjPAyyMU64oMNODQcMpLw+EZDMlO8AbrCxPCjBSLMb6cXheprfcCSmYNtdXt8rSH
- gbC78xH1hB27kQiDNeR78HzSleDfOvS++JuaaS9gMgB5Y872rJN9teGmPEqpvyVDvTzA
- 0pbgJis6s3ZYvmRCMEU230LNIis8q52Ggvp6rkGK6X3cgWq1pHBzO7XlzdH9dndLfgXX
- g2Wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679043227;
- h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=u1tSKWd7jwjz4W9W5fnkRbJuEz10zSkE/FZ+BjgevGQ=;
- b=VqYuGzpdUbcKfet+jNbWu9rZwVagWAiMBqkbycUJR/WKsGSfeSaWSJzaT2GDfcqC2D
- 7pyO3YEsTRt895RAYlNg6M6lF7BveVtxMZjllYiduQlhV5ISyP4Kp8IsMwItKnUmSfxB
- +PUzsQLmJWgngbelz4zmHb62OcrX+gpk8cf8+OEglYIFb4BBA8MUroz1gc/h1c2ONsue
- cpqowEbgS1am/5EKdtRZOz1+Vabt6FtiKkKf9f71Hi0ewdoTaKwudH5Qlg0wDIDPyC9U
- VsJUCg6oV0ChutF/OXnfVV8CrW4GjcGL0Pxf4E31GtZ7r2owPcyCHKKnG6ORl1InxFu7
- Kcag==
-X-Gm-Message-State: AO0yUKXj/hzw7lt+fhQQlDSoRpzygKwGL80CHecvdlA/Sui8DfR2lurR
- fIAKjykYxjC5RzW+QbePW+E=
-X-Google-Smtp-Source: AK7set9bcUv/100g6QvPiYHxBcaeBa3LjDIwGYcIrzpT6XKHJdppYEmZBBGCAaTJjSqM/PWV+6j4IA==
-X-Received: by 2002:a05:651c:b29:b0:290:603d:4337 with SMTP id
- b41-20020a05651c0b2900b00290603d4337mr4087932ljr.51.1679043226859; 
- Fri, 17 Mar 2023 01:53:46 -0700 (PDT)
-Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
- w2-20020a2e8202000000b00295a7f35206sm295144ljg.48.2023.03.17.01.53.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Mar 2023 01:53:46 -0700 (PDT)
-Date: Fri, 17 Mar 2023 10:53:35 +0200
-From: Pekka Paalanen <ppaalanen@gmail.com>
-To: Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH v3 09/17] drm/amd/display: Register Colorspace property
- for DP and HDMI
-Message-ID: <20230317105335.45d6a629@eldfell>
-In-Reply-To: <ZBOf0m6W3ZWPy7nc@intel.com>
-References: <20230307151107.49649-1-harry.wentland@amd.com>
- <20230307151107.49649-10-harry.wentland@amd.com>
- <CA+hFU4yiniJdxWOxDKnD7bTGw3QA8uSLyG5sbeiQ5oWqitTZcQ@mail.gmail.com>
- <ZBLmYzVcnBgU6uo5@intel.com> <20230316120701.523bcb37@eldfell>
- <ZBLz17f8YFmNEJlY@intel.com> <20230316133449.26b62760@eldfell>
- <ZBMNEdYWsyfVq46p@intel.com>
- <CA+hFU4zWvm3-SSjtF17zjRnshEDw27gkQDLGZRk2AbnWN8+1Vg@mail.gmail.com>
- <ZBOf0m6W3ZWPy7nc@intel.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.24; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6890E10EEAF;
+	Fri, 17 Mar 2023 09:20:20 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DC2D10EEA8;
+ Fri, 17 Mar 2023 09:20:18 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id CFD5521A6A;
+ Fri, 17 Mar 2023 09:20:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1679044816; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=a3YLdNJ/GUKmOZE/JF1DZ8wfE2vhzraffPkYkzpGjZE=;
+ b=yno3aeMKj/vdZkSWunQOydUd/IupUj5rLFjJjtEN0qLqj+yPk2ZgCIzWYt0ELpaCWVCqFq
+ ynw25BK4OL+94Y02k7zG/kTuz+y3GhZXIlFa/+xWXyk9SdZIt1vFZsI7Ql8UQxBFCkVgcI
+ YmuTgnuDilT/PpYhq/2ja8GK7AxVXF0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1679044816;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=a3YLdNJ/GUKmOZE/JF1DZ8wfE2vhzraffPkYkzpGjZE=;
+ b=2gCFmG2XqTvgAZyCOQaeQEa4fOdho5I56fBKu+NYc7mHe+ZFRYT6g4K5zUc2FlMqssq19L
+ 4SHfOhg0v0Dnz9CA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A312A13428;
+ Fri, 17 Mar 2023 09:20:16 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id LoHLJtAwFGRUTAAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Fri, 17 Mar 2023 09:20:16 +0000
+Message-ID: <2d04d39a-ff1c-59b1-acde-4fef5870a260@suse.de>
+Date: Fri, 17 Mar 2023 10:20:16 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/yEwkilZB.4hm+fLWcniVUwr";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH 00/10] drm/radeon: Convert fbdev to DRM client
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ alexander.deucher@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, javierm@redhat.com
+References: <20230316093738.28866-1-tzimmermann@suse.de>
+ <e84bdd5b-6615-33c0-bfff-208d6165a183@amd.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+In-Reply-To: <e84bdd5b-6615-33c0-bfff-208d6165a183@amd.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------biA282WmOuFWxvR94FnnyDeR"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,154 +71,99 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Joshua Ashton <joshua@froggi.es>, Vitaly.Prosyak@amd.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/yEwkilZB.4hm+fLWcniVUwr
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------biA282WmOuFWxvR94FnnyDeR
+Content-Type: multipart/mixed; boundary="------------paS6qyoWIwJmcPm1Kg9G2bRa";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ alexander.deucher@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, javierm@redhat.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Message-ID: <2d04d39a-ff1c-59b1-acde-4fef5870a260@suse.de>
+Subject: Re: [PATCH 00/10] drm/radeon: Convert fbdev to DRM client
+References: <20230316093738.28866-1-tzimmermann@suse.de>
+ <e84bdd5b-6615-33c0-bfff-208d6165a183@amd.com>
+In-Reply-To: <e84bdd5b-6615-33c0-bfff-208d6165a183@amd.com>
 
-On Fri, 17 Mar 2023 01:01:38 +0200
-Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com> wrote:
+--------------paS6qyoWIwJmcPm1Kg9G2bRa
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-> On Thu, Mar 16, 2023 at 10:13:54PM +0100, Sebastian Wick wrote:
-> > On Thu, Mar 16, 2023 at 1:35=E2=80=AFPM Ville Syrj=C3=A4l=C3=A4
-> > <ville.syrjala@linux.intel.com> wrote: =20
-> > >
-> > > On Thu, Mar 16, 2023 at 01:34:49PM +0200, Pekka Paalanen wrote: =20
-> > > > On Thu, 16 Mar 2023 12:47:51 +0200
-> > > > Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com> wrote:
-> > > > =20
-> > > > > On Thu, Mar 16, 2023 at 12:07:01PM +0200, Pekka Paalanen wrote: =
-=20
-> > > > > > On Thu, 16 Mar 2023 11:50:27 +0200
-> > > > > > Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com> wrote:
-> > > > > > =20
-> > > > > > > On Thu, Mar 16, 2023 at 01:37:24AM +0100, Sebastian Wick wrot=
-e: =20
-> > > > > > > > On Tue, Mar 7, 2023 at 4:12=E2=80=AFPM Harry Wentland <harr=
-y.wentland@amd.com> wrote: =20
-> > > > > > > > >
-> > > > > > > > > We want compositors to be able to set the output
-> > > > > > > > > colorspace on DP and HDMI outputs, based on the
-> > > > > > > > > caps reported from the receiver via EDID. =20
-> > > > > > > >
-> > > > > > > > About that... The documentation says that user space has to=
- check the
-> > > > > > > > EDID for what the sink actually supports. So whatever is in
-> > > > > > > > supported_colorspaces is just what the driver/hardware is a=
-ble to set
-> > > > > > > > but doesn't actually indicate that the sink supports it.
-> > > > > > > >
-> > > > > > > > So the only way to enable bt2020 is by checking if the sink=
- supports
-> > > > > > > > both RGB and YUV variants because both could be used by the=
- driver.
-> > > > > > > > Not great at all. Something to remember for the new propert=
-y. =20
-> > > > > > >
-> > > > > > > Hmm. I wonder if that's even legal... Looks like maybe it
-> > > > > > > is since I can't immediately spot anything in CTA-861 to
-> > > > > > > forbid it :/ =20
-> > > > > >
-> > > > > > Wouldn't the driver do the same EDID check before choosing whet=
-her it
-> > > > > > uses RGB or YCbCr signalling? =20
-> > > > >
-> > > > > I suppose it could. The modeset would then fail, which is perhaps=
- =20
-> > > >
-> > > > Could? What are they missing? =20
-> > >
-> > > The fact that the new property that also affects the rgb->ycbcr matrix
-> > > doesn't even exist? =20
-> >=20
-> > I think the question was about the current Colorspace property.
+SGkgQ2hyaXN0aWFuDQoNCkFtIDE3LjAzLjIzIHVtIDA5OjUzIHNjaHJpZWIgQ2hyaXN0aWFu
+IEvDtm5pZzoNCj4gQW0gMTYuMDMuMjMgdW0gMTA6Mzcgc2NocmllYiBUaG9tYXMgWmltbWVy
+bWFubjoNCj4+IENvbnZlcnQgcmFkZW9uJ3MgZmJkZXYgY29kZSB0byBkcm1fY2xpZW50LiBS
+ZXBsYWNlcyB0aGUgY3VycmVudA0KPj4gYWQtaG9jIGludGVncmF0aW9uLiBUaGUgY29udmVy
+c2lvbiBpbmNsdWRlcyBhIG51bWJlciBvZiBjbGVhbnVwcy4NCj4+IE9ubHkgYnVpbGQgZmJk
+ZXYgc3VwcG9ydCBpZiB0aGUgY29uZmlnIG9wdGlvbiBoYXMgYmVlbiBzZXQuDQo+IA0KPiBJ
+J20gdG9ybiBhcGFydCBvbiB0aGF0LiBPbiB0aGUgb25lIGhhbmQgaXQgbG9va3MgbGlrZSBh
+IHJlYWxseSBuaWNlIA0KPiBjbGVhbnVwIG9uIHRoZSBvdGhlciBoYW5kIHdlIGRvbid0IHJl
+YWxseSB3YW50IHRvIHRvdWNoIHJhZGVvbiBhbnkgbW9yZS4NCg0KSXQncyBhIGRyaXZlciBp
+biB0aGUgdXBzdHJlYW0ga2VybmVsLiBZb3UgaGF2ZSB0byBleHBlY3QgYXQgbGVhc3Qgc29t
+ZSANCmNoYW5nZXMuDQoNCj4gDQo+IEFsZXggd2hhdCBkbyB5b3UgdGhpbms/IElzIHRoYXQg
+d29ydGggdGhlIHJpc2sgb2YgYnJlYWtpbmcgc3R1ZmY/DQoNCk1vdmluZyBhbGwgZmJkZXYg
+ZW11bGF0aW9uIHRvIHN0cnVjdCBkcm1fY2xpZW50IGlzIHJlcXVpcmVkIGZvciBuZXcgDQpp
+bi1rZXJuZWwgRFJNIGNsaWVudHMsIHN1Y2ggYXMgYSBEUk0ga2VybmVsIGxvZ2dlciBvciBh
+IGJvb3Qgc3BsYXNoLg0KDQpCZXN0IHJlZ2FyZHMNClRob21hcw0KDQo+IA0KPiBDaHJpc3Rp
+YW4uDQo+IA0KPj4NCj4+IFRob21hcyBaaW1tZXJtYW5uICgxMCk6DQo+PiDCoMKgIGRybS9y
+YWRlb246IE1vdmUgcmFkZW9uX2FsaWduX3BpdGNoKCkgbmV4dCB0byBkdW1iLWJ1ZmZlciBo
+ZWxwZXJzDQo+PiDCoMKgIGRybS9yYWRlb246IEltcHJvdmUgZmJkZXYgb2JqZWN0LXRlc3Qg
+aGVscGVyDQo+PiDCoMKgIGRybS9yYWRlb246IFJlbW92ZSBzdHJ1Y3QgcmFkZW9uX2ZiZGV2
+DQo+PiDCoMKgIGRybS9yYWRlb246IFJlbW92ZSB0ZXN0IGZvciAhc2NyZWVuX2Jhc2UgaW4g
+ZmJkZXYgcHJvYmluZw0KPj4gwqDCoCBkcm0vcmFkZW9uOiBNb3ZlIGZiZGV2IG9iamVjdCBo
+ZWxwZXJzIGJlZm9yZSBzdHJ1Y3QgZmJfb3BzIGV0IGFsDQo+PiDCoMKgIGRybS9yYWRlb246
+IEZpeCBjb2Rpbmcgc3R5bGUgaW4gZmJkZXYgZW11bGF0aW9uDQo+PiDCoMKgIGRybS9yYWRl
+b246IE1vdmUgZmJkZXYgY2xlYW51cCBjb2RlIGludG8gZmJfZGVzdHJveSBjYWxsYmFjaw0K
+Pj4gwqDCoCBkcm0vcmFkZW9uOiBDb3JyZWN0bHkgY2xlYW4gdXAgZmFpbGVkIGRpc3BsYXkg
+cHJvYmluZw0KPj4gwqDCoCBkcm0vcmFkZW9uOiBJbXBsZW1lbnQgY2xpZW50LWJhc2VkIGZi
+ZGV2IGVtdWxhdGlvbg0KPj4gwqDCoCBkcm0vcmFkZW9uOiBPbmx5IGJ1aWxkIGZiZGV2IGlm
+IERSTV9GQkRFVl9FTVVMQVRJT04gaXMgc2V0DQo+Pg0KPj4gwqAgZHJpdmVycy9ncHUvZHJt
+L3JhZGVvbi9NYWtlZmlsZcKgwqDCoMKgwqDCoMKgwqAgfMKgwqAgMyArLQ0KPj4gwqAgZHJp
+dmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb24uaMKgwqDCoMKgwqDCoMKgwqAgfMKgwqAgMiAr
+DQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9kaXNwbGF5LmMgfMKgwqAg
+NCAtDQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9kcnYuY8KgwqDCoMKg
+IHzCoMKgIDMgKy0NCj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Rydi5o
+wqDCoMKgwqAgfMKgwqAgMSAtDQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVv
+bl9mYi5jwqDCoMKgwqDCoCB8IDQwMCAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQo+PiDCoCBk
+cml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9mYmRldi5jwqDCoCB8IDQyMiArKysrKysr
+KysrKysrKysrKysrKysrKysNCj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9u
+X2dlbS5jwqDCoMKgwqAgfMKgIDI0ICsrDQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0vcmFkZW9u
+L3JhZGVvbl9rbXMuY8KgwqDCoMKgIHzCoCAxOCAtDQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0v
+cmFkZW9uL3JhZGVvbl9tb2RlLmjCoMKgwqAgfMKgIDIwICstDQo+PiDCoCAxMCBmaWxlcyBj
+aGFuZ2VkLCA0NjQgaW5zZXJ0aW9ucygrKSwgNDMzIGRlbGV0aW9ucygtKQ0KPj4gwqAgZGVs
+ZXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2ZiLmMNCj4+
+IMKgIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9m
+YmRldi5jDQo+Pg0KPj4NCj4+IGJhc2UtY29tbWl0OiBlYzA3MDhlODQ2YjgxOWM4ZDViNjQy
+ZGU0MjQ0OGE4N2Q3NTI2NTY0DQo+IA0KDQotLSANClRob21hcyBaaW1tZXJtYW5uDQpHcmFw
+aGljcyBEcml2ZXIgRGV2ZWxvcGVyDQpTVVNFIFNvZnR3YXJlIFNvbHV0aW9ucyBHZXJtYW55
+IEdtYkgNCk1heGZlbGRzdHIuIDUsIDkwNDA5IE7DvHJuYmVyZywgR2VybWFueQ0KKEhSQiAz
+NjgwOSwgQUcgTsO8cm5iZXJnKQ0KR2VzY2jDpGZ0c2bDvGhyZXI6IEl2byBUb3Rldg0K
 
-Yes.
+--------------paS6qyoWIwJmcPm1Kg9G2bRa--
 
-We need to be able to set ColourPrimaries infoframe field for the sink.
-Only userspace knows what ColourPrimaries it uses, and the driver has
-no need to care at all, other than tell the sink what we have.
-
-When a driver chooses to use YCbCr, it needs to use the
-MatrixCoefficients the sink expects.
-
-If we send the infoframe to the sink telling the signal uses BT.2020
-ColourPrimaries, does that same bit pattern also tell the sink we are
-using the BT.2020 NCL MatrixCoefficients if the driver chooses YCbCr?
-
-Do drivers actually use BT.2020 NCL MatrixCoefficients in that case?
-
-If they don't, then YCbCr BT.2020 has never worked, which is another
-nail in the coffin for "Colorspace" property. But it still means that
-RGB BT.2020 may have worked correctly, and then drivers would regress
-if they started picking YCbCr for any reason where they previously used
-RGB.
-
-> > > >
-> > > > I mean, drivers are already automatically choosing between RGB and =
-YCbCr
-> > > > signalling based on e.g. available bandwidth. Surely they already w=
-ill
-> > > > not attempt to send a signal format to a monitor that does not say =
-it
-> > > > supports that? =20
-> >=20
-> > That's exactly what they do. The drivers don't check the EDID for the
-> > colorimetry the sink supports and the responsibility is punted off to
-> > user space.
-
-I suspect there are two different things:
-
-- which of RGB, YCbCr 4:4:4, YCbCr 4:2:0 can the sink take
-- the supported MatrixCoefficients for each of the YCbCr
-
-Surely drivers are already checking the former point?
-
-I'm not surprised if they are not checking the latter point, but they
-do need to, because it is the driver making the choice between RGB and
-some YCbCr.
-
-> > >
-> > > We just signal default/bt.709 colorimetry. There is nothing to
-> > > check for those IIRC. =20
-> >=20
-> > You do support bt.2020, no? =20
->=20
-> Not for rgb->ycbcr conversion.
-
-I see there is confusion about what "colorimetry" is.
-
-Please, let's use the H.273 terminology to make the difference clear
-between ColourPrimaries and MatrixCoefficients.
-
-
-Thanks,
-pq
-
---Sig_/yEwkilZB.4hm+fLWcniVUwr
-Content-Type: application/pgp-signature
+--------------biA282WmOuFWxvR94FnnyDeR
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmQUKo8ACgkQI1/ltBGq
-qqe/tw/+MWbXlmNamuWisqUpD8+aS8Xp/IVgTrFUvJEOcoF6YaHK6tONF+5+zZzl
-nJbL41monmMO7ItxLxvc0J4JGBZMt+7+n+/E2jPLzHWVnXvlsEMEuWSpS+zvSVnp
-WOeHp/Ei4HP7C/1+KqIpwada3xoXsROL123z9qTlfNIY/OSWKRsBbmjT0+U7ez13
-Y/QdO7Mj+vURVWuHFz0PprWOBRWLygzycIun9gC5VslxYJFLvENJxdd9tdszW7C/
-pTdTZY5OS2G01QZRS09fQaS27RKFQzhuRyXjz2O1nMzUdWDfQjYZ8ToN9M6Ab5PF
-NTXOWwglRI6O8GCdelGE5PcROQ4DxUakdRmugssDSAPe58HG8IM2GrAJW5DffvF2
-Y5b0FkQbAVj0d/f5ncJNaeglkNA11lqoZALFybV18Q1v3aBW+f4xnzqRo6fFacdl
-vuENYvskzGPdxqtZ+R5iF/4rBiEnMi+B0/41fmQM2HP9BoZ/b1CRJn10+dWDCLlk
-CcmCRbKRtYjvQIeijmAhsw7XUdjhhnUuy9ek4ARCkEO4jy780ZMZ9/+/1odhJMly
-xRl1YVBUYmZAHoosDze7OQ+rL2mI4WqfqLtXCzRKgQFIRkDEsJyxIJuifn75WM1Z
-behDd59Sn2XL9Bq6skhkzU1OAtv+NHRO/+1sOWE4xlf2d1fC/CU=
-=q5Xo
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmQUMNAFAwAAAAAACgkQlh/E3EQov+Ai
+gw/+POvyxCv8OgnC1B9H/WCABymyzQ0BdzhtBnnHWgVflUYagham9LBAUuUMW2+hCA0oNy0VzVKT
+BS/AmwvFAOdtRSKSWClg5kbb/Lpc8o6qiKvd0MJuZLQMv7WQzAkgWrnVKddtKy2fjcgpETfRQoXg
+wWA/IpXOQQ2+M6LyjPVgNPyIhI94Vhw8vCpItmt4nYWyAL5Bxmsc4vDmGBpRBZd4NvxK3MnB4Xz/
+rVvbR38xzgKo5wTwg1BaSo/1vMItXCtNQYEwWkMquqIkxkVZAsDUbUpchZeP55kpcSgW68CA6weP
+0GkMBXduUOmeBw/fiEH/QpyyaCiO0YGr977aFmV3Mu0z7MZ9rskqOAdnh4UYbPd69cuHZpjrdEqW
+CWFWTV8xoLDUoRkCMT5USEn+/pKT7J3ihEbCW8Hvas+6/9KCu3PKUOnAL7iuW27cEbNrb/ML7b0/
+YaZHr5rR9t9RdYNydQfSG/rHcwk5DaKnk0hlAAILv8Uc0KIUA4D5FruF8zqTGc+r+MTD80M/I/xl
+jQaW3sMrNMk8KRVsVSGrUB/6WfpyXXs69GXs4t+wqLWlxxmRGPIiv7BgvvZqJqN+PPu9YZoDBXwV
+YmJoF5cjK2WdeEMAU0iLkoeCvDJJ5keurE0g9tFUuU6Gjkd+UmxCnTgzAhNhQEajV7sXFMN8QPy3
+DYs=
+=b3Xt
 -----END PGP SIGNATURE-----
 
---Sig_/yEwkilZB.4hm+fLWcniVUwr--
+--------------biA282WmOuFWxvR94FnnyDeR--
