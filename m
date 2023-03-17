@@ -4,38 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85D33C7618A
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Mar 2023 08:23:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA5C1C76195
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Mar 2023 08:23:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BF3C10EE79;
-	Fri, 17 Mar 2023 08:23:19 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A50D10EE74;
- Fri, 17 Mar 2023 08:23:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24BA710EE82;
+	Fri, 17 Mar 2023 08:23:29 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FAC510EE7D;
+ Fri, 17 Mar 2023 08:23:25 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id A606DB824F5;
- Fri, 17 Mar 2023 08:23:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35C23C433EF;
- Fri, 17 Mar 2023 08:23:03 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id D304AB82509;
+ Fri, 17 Mar 2023 08:23:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5B84C433D2;
+ Fri, 17 Mar 2023 08:23:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1679041385;
- bh=Yy6qQhiWlQeyRXwDMARwFhqS8zBGMG54yD+MPv2mfpM=;
+ s=k20201202; t=1679041402;
+ bh=RKxRz51sFgOxiDizVtbSEGg/i/1bqJaiTvQ7ot8eUWE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=EjxtDlZyH9IgO2RrdO8cPGAXjcXr/cr9/taRKEB359jIZzlOSKIZiOLhafVN05amT
- B43Yyacb9tFrPYub1uHBTYJAY3rkO+IzwpY24lal5neRg0gKHn2z5vObTkojNxtM8h
- uKunhQxvc0pA7cbj7Mn4cHz4hzwAwU35bRyIH2M7cIHpRv00Y0ETIyM/yR4Zol3Xbv
- GBFLDU9/kq2WJk8pk4GnWH9NLe9t9+TemPeL2wDSf7QntdpobBn9UKMYmR6MTHNHeQ
- E0YhjH8jnhnS7Tsk+urMBX83n2gnnvEqC89mFyWbo9i7AYhqWwE0FmllDpthylwM7p
- IdiNp5YFmkYNw==
+ b=c0S/Nt5k8fdhUP+o8e92FNQipWDdAcyM++Hg316CKhf6wVSldAVUwjm+Hh3WyH1A9
+ lM7DoA0WkYTelO6adTAXEL8UAgvrGbyTACI5Moe4xtgVdRi2JmN4ap5xoJHaTUJI7C
+ rAOzp48FAEc8+t5qprHkRjSOEi2TlDjgT4kUSP91LHFwAU69f+YptR7Jv4DOzLZ6Fa
+ yXLhBokrMrEFOqF9Mjg/CLcGCdv/BzsZ85G4mz7OC3h9CTAOH45O+J9P1Kiuhm+0q+
+ FJ8qnhYM9MRL8k6NDq46UoG0ZqM0x1c5sQpDyX699/EipIxqgV80gM4MvamfgbIOh9
+ Z7/A/pMd9pitQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH 19/37] drm/amd/pm/swsmu/smu11/vangogh_ppt: Provide a couple of
- missing parameter descriptions
-Date: Fri, 17 Mar 2023 08:17:00 +0000
-Message-Id: <20230317081718.2650744-20-lee@kernel.org>
+Subject: [PATCH 26/37] drm/amd/display/amdgpu_dm/amdgpu_dm_helpers: Move
+ SYNAPTICS_DEVICE_ID into CONFIG_DRM_AMD_DC_DCN ifdef
+Date: Fri, 17 Mar 2023 08:17:07 +0000
+Message-Id: <20230317081718.2650744-27-lee@kernel.org>
 X-Mailer: git-send-email 2.40.0.rc1.284.g88254d51c5-goog
 In-Reply-To: <20230317081718.2650744-1-lee@kernel.org>
 References: <20230317081718.2650744-1-lee@kernel.org>
@@ -53,53 +54,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Li Ma <li.ma@amd.com>,
+Cc: Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
  Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Evan Quan <evan.quan@amd.com>, David Airlie <airlied@gmail.com>,
+ Harry Wentland <harry.wentland@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fixes the following W=1 kernel build warning(s):
 
- drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c:2381: warning: Function parameter or member 'residency' not described in 'vangogh_get_gfxoff_residency'
- drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu11/vangogh_ppt.c:2399: warning: Function parameter or member 'entrycount' not described in 'vangogh_get_gfxoff_entrycount'
+ drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_helpers.c:48:22: warning: ‘SYNAPTICS_DEVICE_ID’ defined but not used [-Wunused-const-variable=]
 
-Cc: Evan Quan <evan.quan@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: "Christian König" <christian.koenig@amd.com>
 Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
 Cc: David Airlie <airlied@gmail.com>
 Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Li Ma <li.ma@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-index 4590374251f3b..7433dcaa16e04 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-@@ -2389,6 +2389,7 @@ static u32 vangogh_set_gfxoff_residency(struct smu_context *smu, bool start)
-  * vangogh_get_gfxoff_residency
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 330ab036c830f..a8904184673f6 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -44,9 +44,6 @@
+ #include "dm_helpers.h"
+ #include "ddc_service_types.h"
+ 
+-/* MST Dock */
+-static const uint8_t SYNAPTICS_DEVICE_ID[] = "SYNA";
+-
+ /* dm_helpers_parse_edid_caps
   *
-  * @smu: amdgpu_device pointer
-+ * @residency: placeholder for return value
-  *
-  * This function will be used to get gfxoff residency.
-  *
-@@ -2407,6 +2408,7 @@ static u32 vangogh_get_gfxoff_residency(struct smu_context *smu, uint32_t *resid
-  * vangogh_get_gfxoff_entrycount - get gfxoff entry count
-  *
-  * @smu: amdgpu_device pointer
-+ * @entrycount: placeholder for return value
-  *
-  * This function will be used to get gfxoff entry count
-  *
+  * Parse edid caps
+@@ -703,6 +700,9 @@ static void apply_synaptics_fifo_reset_wa(struct drm_dp_aux *aux)
+ 	DC_LOG_DC("Done apply_synaptics_fifo_reset_wa\n");
+ }
+ 
++/* MST Dock */
++static const uint8_t SYNAPTICS_DEVICE_ID[] = "SYNA";
++
+ static uint8_t write_dsc_enable_synaptics_non_virtual_dpcd_mst(
+ 		struct drm_dp_aux *aux,
+ 		const struct dc_stream_state *stream,
 -- 
 2.40.0.rc1.284.g88254d51c5-goog
 
