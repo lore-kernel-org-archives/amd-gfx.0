@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E40CC7618B
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Mar 2023 07:57:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50712C74A5B
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Mar 2023 07:57:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3D4E10E309;
-	Sat, 18 Mar 2023 07:57:16 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20627.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe59::627])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D995B10E309
- for <amd-gfx@lists.freedesktop.org>; Sat, 18 Mar 2023 07:57:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E398910E320;
+	Sat, 18 Mar 2023 07:57:18 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2084.outbound.protection.outlook.com [40.107.223.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B257B10E32E
+ for <amd-gfx@lists.freedesktop.org>; Sat, 18 Mar 2023 07:57:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VmLJf/LU47Bq/xtxWrmrFTODZMlajTAJSeLpDWIb66mSObQvpsbJGrrOKNfQtpQ2x657LQRYOln6kNvD3MpubNbzVKg2VONVCe4ODcxbEliw2K0xrg+b1BdibxAmBaTMcsCFjePylwaY2ucwlhtWdEjOa5JAjLzHQEsKhpv/lIpW/TB9bETfS0ovHzpDDrSUZ/MRjPjKrb6MT6WTmy3rByZoL2iv43OwDXNX57hrPTl9glsMmUKLSMQqQFtEqlRAOA5lo45IVpIQalMmuwvijq3Ds8G7OvJcghXfi8NOW0MBY0SS+M0KYEu2b5XHIXkr3GV/scX98IAaK2AhzOR0gA==
+ b=hfLfBz5121ZE0lc6AIje8Cn9OlM7NVQe0Rl1SXZyEI3NMLdgWGU6SZps4jqOgxLdmK8O9T+hzr2fTZVXi+LZgnMlogubP5ZAZRH6khWIq1pPGlTRUgrVV8ckPPHgA4uT5N5Gb5CDLOybAWPaiJo1dtEQIrj2BF99cZTD//CB/S486jrprn6xb8qeQd7oUJyxAnpIbnZoZ0baPlaqyxQc6b82X8n9n88P22GU7QP3Fu/kIxdHWZq3q2XEdI2rwHnnEEQyOBeIWXzUxaiyzfo690wdO3K5caRiUmYKLw8oCG2mcoiz7GaTzjlkq/FNTznb1jDDbXeG9vgHWsf5hVZfsg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x7ODG3H7P9jmvt3O6yQ0pm1H7+/bUujyxH130Sxmhw8=;
- b=hrrgu1iNLu6z1cLspMJ5NxlfJ0kIHlWkoY3xI3JIBV+dEGY4gmB85KZU0xjtaIycTxssLfYpd/4Jx2++OoU+cQcTsRzckwn55P4sz9hKqHOdNIZrFToiIlpmc7XncgctFNmGFATMDv2IGJ48k5zj7FdEflo/eTSce0NBI7nfDXxT3uxr54QJ2AtqVLQueVvF+tdkC/HvYkIFmQH0ndkW5jJBVU9ZqM3VqG0hfoo3EId09UfxDy6Q3Boo30uESMjI3bfp8ZsLAG/gMn9Qgr5MBi2yS7qa6G+k7sefBG8rADP/YEjJn208YPh1zMB00eZ6734ydqxJKlOZRY0E+2Bf2w==
+ bh=vaIvhj92XXM1MWyRSbaFU3aojPsh8kj0WITNDdXz3iA=;
+ b=H6ZvUv9KBY1/SNpwPYduwHGCmYeHwBJpqXnOZl8l22H0GHXvp3Sn1IEdI9HchWDtpZFLcDa+5+b61tGL4dUHJ7C7xb5hyDu8Pni2ttR54lTe/2WTxK3dR5pp8G8FvuCb6eEQ8zbnPTk7qL780ULkO6BZQnsbEQ7lGs5ShiWnb8paM7M8gliMItArpmUoKBE13ZGid9RPXoRM9tcSBaAIcfN+ALmhY885yyVjiKTYAm22ReKpK/i8bqnBdgy0xhCXSrkGI60ruq8GCca85sheu959GLY8RvLCnV4kO1WWuPL9HwxFH4C8s/jdtfpct72T+SQw4lhfrZYJHNvfGuAJ5w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x7ODG3H7P9jmvt3O6yQ0pm1H7+/bUujyxH130Sxmhw8=;
- b=m6Q90oG2s0NeXniiO81G4Lg3hpp1Z8N9KOHt0sSNd9YgrDVfoyU+jHki5d6vtDcw9zzcvHmbbtq6YWeJEi3Y6ejfyfvmX+a1DRL4nD++IXyddDLAHkYwTKugVijM+OmL+Ea1+eO8qkxaOxYWxM3sEMGaItT883J5vcXq2IEnQEc=
-Received: from BN9PR03CA0512.namprd03.prod.outlook.com (2603:10b6:408:131::7)
- by CH3PR12MB8659.namprd12.prod.outlook.com (2603:10b6:610:17c::13)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=vaIvhj92XXM1MWyRSbaFU3aojPsh8kj0WITNDdXz3iA=;
+ b=PV8tzvjmZ8/BmEl5cFD02ZBtQJZYU+T9YjW1CC28k3uilJv1+OGwASQTi2WVOzLNdPdV097Yssqms4iZDMU7xG8jAkmcGRtyF9DacJYG75oOdLCBTsntaNmAns4RdBP2kybN5li2IG09zEFMwJb7/b4wi+RN4z8jEPAmqSoe4KY=
+Received: from BN1PR12CA0016.namprd12.prod.outlook.com (2603:10b6:408:e1::21)
+ by DM6PR12MB4545.namprd12.prod.outlook.com (2603:10b6:5:2a3::15) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.36; Sat, 18 Mar
- 2023 07:57:11 +0000
-Received: from BN8NAM11FT004.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:131:cafe::57) by BN9PR03CA0512.outlook.office365.com
- (2603:10b6:408:131::7) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 07:57:16 +0000
+Received: from BN8NAM11FT024.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:e1:cafe::89) by BN1PR12CA0016.outlook.office365.com
+ (2603:10b6:408:e1::21) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.36 via Frontend
- Transport; Sat, 18 Mar 2023 07:57:11 +0000
+ Transport; Sat, 18 Mar 2023 07:57:15 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -46,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT004.mail.protection.outlook.com (10.13.176.164) with Microsoft SMTP
+ BN8NAM11FT024.mail.protection.outlook.com (10.13.177.38) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6222.10 via Frontend Transport; Sat, 18 Mar 2023 07:57:11 +0000
+ 15.20.6222.10 via Frontend Transport; Sat, 18 Mar 2023 07:57:15 +0000
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Sat, 18 Mar
- 2023 02:57:06 -0500
+ 2023 02:57:11 -0500
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 07/19] drm/amd/display: power down eDP if eDP not present
-Date: Sat, 18 Mar 2023 03:56:03 -0400
-Message-ID: <20230318075615.2630-8-qingqing.zhuo@amd.com>
+Subject: [PATCH 08/19] drm/amd/display: initialize link_srv in virtual env
+Date: Sat, 18 Mar 2023 03:56:04 -0400
+Message-ID: <20230318075615.2630-9-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230318075615.2630-1-qingqing.zhuo@amd.com>
 References: <20230318075615.2630-1-qingqing.zhuo@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT004:EE_|CH3PR12MB8659:EE_
-X-MS-Office365-Filtering-Correlation-Id: d61cb28e-29d4-4b4e-8f7f-08db2786612e
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT024:EE_|DM6PR12MB4545:EE_
+X-MS-Office365-Filtering-Correlation-Id: 367a5e53-31dd-41a7-12f8-08db278663d7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Mq69J0KzncCO9sPyBt1FShGO2ONkcMTPxCAE/khKUkyYQcghkvNInSTfbY660tyzWOtPjFfL71+RcxGaKOB1MtHrrQqco/KzduBCsbRvaX2k5lP9v8t2H3OCZvCJEi32dUrBW0lc3t/FxJAaHNb8mmwOSQ6/p+vLtzveugsaXg4v4B45fA7dVHvC04b48A+WhQ3LwxmFERHe57xMNJ4ohRsIpzCv3vvei4moUARv9wXTS5pkLduOZrTs4dGaJO5MYPnmup5pAwhZmmPlkttIaQTNWlYoIwlrqa2aNFE1xeYHhJtIE6Tu+Mxqi5UONulWA0jwf8851l8M1d9u84MiunYqnQRY8c7UuGBmrBnE+IVIOqymK3x/fY+v+VkfE6HVYAckNvGAjHb5mheZNO8tOh2uLD1NkcTAfEgNmUv/L4DlzCldZ34990n1M0J35Y7/rwKAOL6pQo9HBLLimj7ZbgRMvG73NHabRjk9pxREcXwpqLasLL0DKisfPhjMyVK7DO8UnskY6NHHBQyEh8ofyyQe6demMorAzYRe/1GsZbt22UOAL5b5g0cU4V18XKPaSLp42PKkTn1l7Nq5ecQtjQawmryLlrXI7Q1X7pPfXrh9iKIdONJqdh5iEWzVS4M1ZymGlSgvL9tmUoha1TLE3t0zPL2VRsrZa3+cQ4gqobcDfPlXny37PPIDfI/eTaj1F/Sodu0WZblZl1J3tTYMJ+AGRKz5ceOiXILCIm8JroA=
+X-Microsoft-Antispam-Message-Info: eY0oW7MNQJH01NOi40P4f3QD+b/hmaxcTMsVXvXrS45sdgfp19IIqk1d5m2J6ZCanRGtdvtrd4H9ySiluKckOn6GjGyPljdh21t6PcSQk+S82HUiafBvh10Yq2y82sDrJuj9CYuWgyONrGpW+3j7krnxKHeZTLEPoVZu8Qb+HINJZMI9H0e4ViElXrl3ZcQ5YGkTY8jF6NQtvtQBaNELNzL3o+cYjGsLAbGLpg8c/kQK815FExmOnjlmdDSGekBaCd1OOwS248i59DqOWIJr0/kQi4gMdwyLw8fEpNVYFsYPSCL4cgSpKtMYQYpcZtxHB7nawhwE1rvWwB4cHJAHJhTTCuq3ymPaJa9d34c7+eebhhs/oVn2t6z1J1+yr37zQKz2KMShjbKyBtVA883+/taD9upi1aFW8gm8XYiCSyYWJXOlGhFTHmUYI9QKW7/me7MZsNXtv4Hb+qLV8UIBPtnPFNzD791BjypM4+Bt2I/W7Tow+3AK8QdZSda0w5Xz7aQ1Q/9FElL2wf5X0UngHvgTjBOhldrMPNGna65OWssNlVg1+0lJtdn+WgiZWn1JgSqyICpKDE5luaKsEhIuP6mskTWV0PAIQcTJcTLFaDInzNbDUtG9EFFbbSX0Lmdt8ZRMD+XHAnlCk53nEr6RYBydJrm+ez6esgckK6Q/zxtsS+wbKibhnMxEQiO8Dephpm91MU5xsFr2stEklMHTZj0wUGaG7c+Bzs7jlw+D7vQ=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(376002)(346002)(136003)(39860400002)(451199018)(46966006)(36840700001)(40470700004)(40460700003)(86362001)(356005)(316002)(36756003)(41300700001)(6916009)(4326008)(44832011)(8676002)(8936002)(5660300002)(54906003)(478600001)(70586007)(70206006)(82310400005)(2906002)(36860700001)(83380400001)(40480700001)(82740400003)(81166007)(26005)(6666004)(1076003)(186003)(426003)(47076005)(16526019)(336012)(2616005)(36900700001);
+ SFS:(13230025)(4636009)(136003)(346002)(396003)(39860400002)(376002)(451199018)(46966006)(40470700004)(36840700001)(2616005)(1076003)(26005)(16526019)(6666004)(336012)(47076005)(426003)(186003)(316002)(8676002)(4326008)(70586007)(70206006)(54906003)(478600001)(44832011)(4744005)(81166007)(36860700001)(41300700001)(82740400003)(8936002)(2906002)(5660300002)(6916009)(356005)(40460700003)(86362001)(82310400005)(40480700001)(36756003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2023 07:57:11.2130 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d61cb28e-29d4-4b4e-8f7f-08db2786612e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2023 07:57:15.6728 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 367a5e53-31dd-41a7-12f8-08db278663d7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT004.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT024.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8659
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4545
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,47 +100,42 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Wenjing Liu <Wenjing.Liu@amd.com>, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Paul Hsieh <Paul.Hsieh@amd.com>,
+ qingqing.zhuo@amd.com, Martin Leung <Martin.Leung@amd.com>,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Leo Ma <hanghong.ma@amd.com>,
  Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Paul Hsieh <Paul.Hsieh@amd.com>
+From: Martin Leung <Martin.Leung@amd.com>
 
-[Why]
-When init, driver will power up eDP to check eDP
-present or not. If eDP not present, driver doesn't
-power off eDP VDD cause power consumption.
+[why]
+when refactoring to link_srv, we did not include the
+virtual environment case where dc_construct_ctx gets
+called instead of dc_construct
 
-[How]
-If eDP is not present when detection, power off eDP
-VDD.
+[how]
+add initialize link_srv to dc_construct_ctx as well
 
-Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
+Reviewed-by: Leo Ma <hanghong.ma@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Signed-off-by: Paul Hsieh <Paul.Hsieh@amd.com>
+Signed-off-by: Martin Leung <Martin.Leung@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/link/link_detection.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-index fee71ebdfc73..57cf6fa0de7a 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-@@ -1225,6 +1225,11 @@ bool link_detect_connection_type(struct dc_link *link, enum dc_connection_type *
- 		/* TODO: need to do the actual detection */
- 	} else {
- 		*type = dc_connection_none;
-+		if (link->connector_signal == SIGNAL_TYPE_EDP) {
-+			/* eDP is not connected, power down it */
-+			if (!link->dc->config.edp_no_power_sequencing)
-+				link->dc->hwss.edp_power_control(link, false);
-+		}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index ae5f1b7b4fef..dc67256f565d 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -887,6 +887,7 @@ static bool dc_construct_ctx(struct dc *dc,
  	}
  
+ 	dc->ctx = dc_ctx;
++	dc->link_srv = link_create_link_service();
+ 
  	return true;
+ }
 -- 
 2.34.1
 
