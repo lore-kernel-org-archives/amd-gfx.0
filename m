@@ -4,54 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 865F9C7618D
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Mar 2023 13:10:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F7CDC7618A
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Mar 2023 13:10:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7034E10E18E;
-	Mon, 20 Mar 2023 13:10:23 +0000 (UTC)
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4A5210E42D
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Mar 2023 12:00:13 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id a32so11798752ljr.9
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Mar 2023 05:00:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1679313612;
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=vpKyMTDmTQQkWX4IuLuwKzrbrXmAD+4d8idvwvkaVrk=;
- b=Gi/E/jmdKrkFDWJV7RD5RA9qOxbvzizWJhL9WRRn0PmxEjTjvNevVyXT5kxrT2+Qct
- iFPaKcJUScTddmsXfISTVJcE3nkPviQ0nGwjSaxCYXqaDBWBL3Y/NV20rmTFOHaF8XrB
- Tr/aNAX5JXtY8KIPYTv4/qbF4aqQv9whekqzE7gpaIDoXhHcuuM4SXUQzp3wpV3Ono2D
- 4ot2v0nDwYcUyt54kA4/7LvfNeXPfmws8CKFb8P2vyZSVPPS50D2R9UoecW7GUfSTz7P
- TyBhzeNZJYVxIDkfkXl3irBTfCzvBYsOT1I/Zkm+3w1gZPZztwrekUHaNy76IeJvyV+O
- zY0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679313612;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=vpKyMTDmTQQkWX4IuLuwKzrbrXmAD+4d8idvwvkaVrk=;
- b=TPMkFJjH/bodW7zhLyFbcBBP1rWVMxuEsv13ar2wC41B/B0O36PXzAp+tPzrgNqLYy
- CXrg+v9m/KH6FHWeRGRYmpPC0rd+MLwslgq/KyZLJyNplpk7Qw9GeF8Ii8xbqyPQULDU
- bhqEItBesE2e7HUVQ2bSmaOWOTiNfIHpvUQo/46iOg9C7EUNkNoL2lqc9+un95mzIckO
- YOdmLwvBXbt+PX6S+gUuaX8JanqX3FyfTCp69wBvpJTV3kX+IVPHHWR3oCNHIyJzSuAe
- n5xjePsggtGYTBSsSeqtmOzfNbUt31xttOoW1WHKKsLUA5BE4Ykxfx4qCCC/HQgyTV17
- VO7w==
-X-Gm-Message-State: AO0yUKWfQzCwH4xpwjpk/LXJVeKBpAJX6fIhQzSGwmvT3z7sBX45oxz+
- J2oeX8RqDAXnW1o6O9hCou4jha+hTBC1KayXN86OSIEM
-X-Google-Smtp-Source: AK7set9Rcet110OjWev8CmOkBHAHH4MqA8jkce66CsKGtHFiYBMSDtNOjMANhkqL0KN2W/V0+Ly3WfDxVdPgpQJLbNQ=
-X-Received: by 2002:a2e:8e2a:0:b0:298:8ac5:da28 with SMTP id
- r10-20020a2e8e2a000000b002988ac5da28mr5991790ljk.9.1679313612002; Mon, 20 Mar
- 2023 05:00:12 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 2002:ab3:7550:0:b0:224:109:c464 with HTTP; Mon, 20 Mar 2023
- 05:00:11 -0700 (PDT)
-From: Tom Psyborg <pozega.tomislav@gmail.com>
-Date: Mon, 20 Mar 2023 13:00:11 +0100
-Message-ID: <CAKR_QV+XEki==PT9LP+ZpnnhjeQf73Z-efkNsv3kAd_bwZLsnw@mail.gmail.com>
-Subject: [RFC] VRM setting in a mobile system
-To: amd-gfx@lists.freedesktop.org
+	by gabe.freedesktop.org (Postfix) with ESMTP id A230B10E086;
+	Mon, 20 Mar 2023 13:10:21 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 863BA10E0BF;
+ Sun, 19 Mar 2023 07:51:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+ In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=qKQllYX7SZBnf5V3bXi/JU+KAJtPREwzJ2Fs2x9vgCI=; b=DAzBDjr5c6F8vdTvQu28ITI3a9
+ E/OfwvDmKi0BVz8TOCibDb27OXpd1p+/Y3sXrFuPAkvY4IxGKZ+aMSjiWeZwEyXGU1Im0BGy6FvYw
+ Gm7sh45Rf8O6ZIK4kTTTYBBMaW9Wz2Fv9lJvGGx6BIM2RC4AsIdgfCa5zsG2EPw7G/UT4CSRtnevv
+ lqFlgVd50YXEz5d2hBAjS4lVpfn3S6qq9oKKb+I8nogOBGgHVTqKVqmCkmKOK0FMRvoOToOmmyZ3u
+ pfYfQg3JOANk2YO+ZWgBepD6Wh93RM2pUWMSuf3SKtCugi3m3dSY5yvHbOU/WL9mBunfFLF0hvL+B
+ 4WJHXHMg==;
+Received: from 137.red-83-52-2.dynamicip.rima-tde.net ([83.52.2.137]
+ helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1pdnp3-000458-QM; Sun, 19 Mar 2023 08:51:21 +0100
+Message-ID: <a96ed67f7f44730c6533dcedf6b1cb7333b0c922.camel@igalia.com>
+Subject: Reminder: Last day (!) to nominate candidates for the 2023 X.Org
+ Board of Directors Elections
+From: Ricardo Garcia <rgarcia@igalia.com>
+To: members@x.org, events@lists.x.org, xorg-devel@lists.freedesktop.org, 
+ wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ libre-soc-dev <libre-soc-dev@lists.libre-soc.org>
+Date: Sun, 19 Mar 2023 08:51:20 +0100
+In-Reply-To: <19f8b5328550abde46a316189c8cd746339819b0.camel@igalia.com>
+References: <c1c2591a7f7c9bcb05b69b08da529ddb8fc8145c.camel@igalia.com>
+ <19f8b5328550abde46a316189c8cd746339819b0.camel@igalia.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4 (3.46.4-1.fc37) 
+MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 20 Mar 2023 13:10:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,16 +59,86 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: board <board@foundation.x.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello
+Final reminder that the nomination period for the X.Org Board of
+Director elections finishes today, March 19th.
 
-How can i verify the driver is engageing both phases in a mobile RX460 system?
-I see there are PSI0_VID, PSI0_EN and PSI1 bits defined for use,
-according to VRM specs they are active low and the VBIOS voltageobject
-table is not setting any of these bits. Does that mean my system is
-running 1-phase DE mode? Or there is some logic in driver that
-switches to 2-phase CCM?
+Please send your nominations or self-nominations as soon as possible
+following the instructions below.
 
-Regards, Tom
+Thanks again for your attention.
+
+On Mon, 2023-03-13 at 16:27 +0100, Ricardo Garcia wrote:
+> This is a reminder that the nomination period for the X.Org Board of
+> Director elections finishes in a week, on March 19th.
+>=20
+> If you would like to nominate yourself please send email to the election
+> committee elections@x.org, giving your
+>=20
+>     name
+>     current professional affiliation
+>     a statement of contribution to X.Org or related technologies
+>     a personal statement.
+>=20
+> To vote or to be elected to the Board you needed to be a Member of the
+> X.Org Foundation. To be a Member of the X.Org Foundation you need to
+> apply or renew your membership until the end of the nomination period.
+>=20
+> Original email follows below. Thanks for your attention.
+>=20
+> On Wed, 2023-02-15 at 21:53 +0100, Ricardo Garcia wrote:
+> > We are seeking nominations for candidates for election to the X.Org
+> > Foundation Board of Directors. All X.Org Foundation members are eligibl=
+e
+> > for election to the board.
+> >=20
+> > Nominations for the 2023 election are now open and will remain open
+> > until 23:59 UTC on 19 March 2023.
+> >=20
+> > The Board consists of directors elected from the membership. Each year,
+> > an election is held to bring the total number of directors to eight. Th=
+e
+> > four members receiving the highest vote totals will serve as directors
+> > for two year terms.
+> >=20
+> > The directors who received two year terms starting in 2022 were Emma
+> > Anholt, Mark Filion, Alyssa Rosenzweig and Ricardo Garcia. They will
+> > continue to serve until their term ends in 2024. Current directors whos=
+e
+> > term expires in 2023 are Samuel Iglesias Gons=C3=A1lvez, Manasi D Navar=
+e,
+> > Lyude Paul and Daniel Vetter.
+> >=20
+> > A director is expected to participate in the fortnightly IRC meeting to
+> > discuss current business and to attend the annual meeting of the X.Org
+> > Foundation, which will be held at a location determined in advance by
+> > the Board of Directors.
+> >=20
+> > A member may nominate themselves or any other member they feel is
+> > qualified. Nominations should be sent to the Election Committee at
+> > elections at x.org.
+> >=20
+> > Nominees shall be required to be current members of the X.Org
+> > Foundation, and submit a personal statement of up to 200 words that wil=
+l
+> > be provided to prospective voters. The collected statements, along with
+> > the statement of contribution to the X.Org Foundation in the member's
+> > account page on http://members.x.org, will be made available to all
+> > voters to help them make their voting decisions.
+> >=20
+> > Nominations, membership applications or renewals and completed personal
+> > statements must be received no later than 23:59 UTC on 19 March 2023.
+> >=20
+> > The slate of candidates will be published 26 March 2023 and candidate
+> > Q&A will begin then. The deadline for Xorg membership applications and
+> > renewals is 26 March 2023.
+> >=20
+> > Cheers,
+> > Ricardo Garcia, on behalf of the X.Org BoD
+> >=20
+>=20
+
+
