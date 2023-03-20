@@ -4,118 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF0D7C6FD1C
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Mar 2023 21:49:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61DB5C7619A
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Mar 2023 23:06:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4603510E32D;
-	Mon, 20 Mar 2023 21:49:49 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20600.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eae::600])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC83B10E323;
- Mon, 20 Mar 2023 21:49:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA32510E33E;
+	Mon, 20 Mar 2023 23:06:23 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2061.outbound.protection.outlook.com [40.107.243.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FAEB10E00F;
+ Mon, 20 Mar 2023 23:06:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nW7r35cLVqLFxG3yWGhiTMXHxAY0HURBgf+4C+ZQP3+3YyD5dTG9T+Uep0QuQNK/sj8HpY2sASF8HG9ckBQ4JPBLBGH7lAPrUVogmiUlpSkuiP9FiVZPYGAGd3+0hnWgq1+cAOY+md9Y6qvUqlD8w4oai/tDtb1LC8p/o8yvwNwQScXWqbwrKs0KN+KvR3nUoa+vHyUvxJVIWWbNEH6i/emUAPD66LtFE1kx6T+68isQcf3ExenM7uvXQ7USfF2zqpgYnxMB46r2FuAw15tdIr3jZYq+40xH1pzMh75mcKo1786bxsWut9Choxd72veQNEKDXTEzN0kY/TD3wHTIAw==
+ b=PNpjKcOa5OpMVKLoSL1eRd4xBfN+xx94WScFClLjG8sAsy1XX/07C/UzsBcnGkrblVtOqfhujxL4zBtPeo5/zUsnb2nHIK60f7Y2eK2d8PRQ2NQ/Un0Eb6AaUoXGIUP0nNevW4fpRErKiIqlxxUjAcZOH+UCrALkr69pXXLoDK6flg2+dlG7K3ocAKHZETiasInfDz1G0/jngnMR5uZuf66/t/qdKftltFnx9Y+oBuMe638RTNqz/b9f2xvI1nYLruQQdpFzIHfBMwjceCqk70/sBfKWmY83FQ9Jh5joED8+EhIj5peKUXgG8WpwqbYG1B9kHF8PsXroxCk0hfDh8w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xjolZGp/CfbS245+qj/jFvYev0XV2U385EfPayYFAbE=;
- b=Zk190kZmUYvKHjBWcAkakOil4tKJ8C+6dX8D7QDAvPwo2WnwPB/C2qwC0MbHb++FbWWqtIZRrviR3hwYkfFK72ntGdxbC9GkbbKJmX1vyApJZQL8jjYrxiV1GaOhxL2E8jprC6r/Cesm4JQ0kNcnA9+pp0I9nBTSko5rFnYVWFV1AkQceoJkPdV9oPHvn8YLOnpuAuC/WfPhfuOVcawaqwR9RjxJI+lh0PwPMC3gwyAgdmHq+QfyUDpiGSI5yqN9Fe3uw2vVXb/BhVfQubtHEiqq5XbstWFOYoc0dQEr+sRU4KPjHk6H1LeFt1AGSTb92TcKe+0aZmcojxTasx+CYg==
+ bh=F1dxpxnHaYktiVB14nVmxh2WAHtCwBv43Zl8Xn5Pf7c=;
+ b=HNhw1bLCDKvhxqVj0clY93Ca3eQO5raYin48oz0OeGuVVOd2d34tA9WJhJDMjF6FQivrV5RkHj+9Y189rnd4UZ2r7TqBeHxBqHkNYPWSv/U5h82d6eT3dDslE5KK7a4kq4+5yEhjYe+G+xSKl0+cMjyFaQ4+/0Bf6tWmvfzqB1POJV9ZXejgfzJe9p9it2ZQrlAxlkPQmYAB3BrrsZExPEujkPs/BUM0AgBhKqZ07/i3DFRa2yHzV6mkERE4byCJMcS2XYrPowj9f/T3s2/8ibn88O57jcX/wrr3WKLiyPJf+SZxKG1CRfkw1E0eDB9/9MxEkpssEk1fxw0+hNK0ow==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xjolZGp/CfbS245+qj/jFvYev0XV2U385EfPayYFAbE=;
- b=ZCFOipXVkWXj5IuY9+cuQnk4lCy0RzWvWVmk7y8ilzxGhqPN4ffel0QvKGljeK2n+LPjPzu7uUp/ABh63Ak2UicX+Tzsd3hfELVFD9n5WsMnqRnB3W/CI5GDo5ch79gmIy9ZsWLO2lCeUIGc0/LhQfpxqulqfvb6ukWTcAlQ8iI=
+ bh=F1dxpxnHaYktiVB14nVmxh2WAHtCwBv43Zl8Xn5Pf7c=;
+ b=nD6pBuLRnz8EJFYlz0um06d1PSF0oXHh7kLJeTeesYmsQw40S1C2o+MbeXb8Abbgkz1LKjSK0EjYmLHMenLG0M0YfOWvAZaaF9N1xOIdlA11h6ymm+hk17KJwLgH1wRs8Zgs8M1SLGH5UvOLSeSXDzkR1C0GGWAvyMvAtN1YH1c=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by IA0PR12MB7774.namprd12.prod.outlook.com (2603:10b6:208:430::19)
+ by BL1PR12MB5923.namprd12.prod.outlook.com (2603:10b6:208:39a::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Mon, 20 Mar
- 2023 21:49:44 +0000
+ 2023 23:06:19 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::23f:22c1:b49e:b77e]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::23f:22c1:b49e:b77e%5]) with mapi id 15.20.6178.037; Mon, 20 Mar 2023
- 21:49:39 +0000
-Message-ID: <3b49982c-b339-3b43-afcb-e6f48b8fb70e@amd.com>
-Date: Mon, 20 Mar 2023 17:49:42 -0400
+ 23:06:18 +0000
+Message-ID: <e8d863eb-1c86-dac9-de0b-bf63e6b49c38@amd.com>
+Date: Mon, 20 Mar 2023 19:06:16 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH 15/32] drm/amdkfd: prepare trap workaround for gfx11
+Subject: Re: [PATCH 16/32] drm/amdkfd: add per process hw trap enable and
+ disable functions
 Content-Language: en-US
 To: Jonathan Kim <jonathan.kim@amd.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 References: <20230125195401.4183544-1-jonathan.kim@amd.com>
- <20230125195401.4183544-16-jonathan.kim@amd.com>
+ <20230125195401.4183544-17-jonathan.kim@amd.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-In-Reply-To: <20230125195401.4183544-16-jonathan.kim@amd.com>
+In-Reply-To: <20230125195401.4183544-17-jonathan.kim@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0392.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:108::8) To BN9PR12MB5115.namprd12.prod.outlook.com
+X-ClientProxiedBy: YQBPR0101CA0227.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:66::9) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|IA0PR12MB7774:EE_
-X-MS-Office365-Filtering-Correlation-Id: 486c368f-def4-4b20-b2b9-08db298d017c
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|BL1PR12MB5923:EE_
+X-MS-Office365-Filtering-Correlation-Id: a557ad1f-349c-4c7b-77b0-08db2997b620
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: w+PDeR5xFrTVhAg3AWELHlFfGP/onBMboEPmUj+YkZIuOAkljnCjGfviDy3tnEU0jgMuP+BMSzRMAo/mFYfxAaWRMbyFbRLKRuk8b/71wsOuSpIW6TGM0nExtkBWwRoxmgY0l9wAT8685QTpBl3OsHPZ+UMSt1DvSqg2+rHtScfn24cK5SVVX4EbYwg5Y+jOOFKX7Vd2HZji2eHSxgbHSN64B+Spz69kd7Mp3SIehubK7YjtV1DpismU56iZHQKuTvPNEWWLvXcF3cLMoFFsKwmO8wF9mpXW+RXDJZdJ5rfW9xTHXJuY77yYfAgmIHd+6QVxmW4kf1/o7tG0/dVqp0xslB+MF2eOE/zt7YqBReQL6aTWn0/p0pewngOphZdwzQSadiodgZwS4/JKVTkIywt/BeC8QyWmp/23yaup6wj9zrMqULdo5iiXLYUQmaR9x+FcQ15hrEGDxwVO9DJNpWRLsoxjiziaNvW7UPMex0fwODc3zHJDqOic8Mvhlyc5oWQSfgFVlLkzgnFW+8p75orPuYBSKgBiFN66nGuw/TjFAt6BEkDcNx2NcUN/SVDherFI5G7BqS/Y68YanmPxX4CA5B2KeKpx73CWCNL5JUSoZrMnd7LUrZEmSXeACLkkFJWZ2CmK2a5feHe1JJe3FqMjVQ+nRgA5EXTMLjRxGW6ilYGaIHlSpCx+kV1ycirgubZmd1Kr7nH/Nzs3RQTVNs9bzL82irarjVsSiYkW8tkpe+ANbSfdklXWtLca4QJaJONByZCDAb3Owy2v8+hDyA==
+X-Microsoft-Antispam-Message-Info: ovekJ6QvYdFqiqF6QWuDujQ6SuhRnvlOLcgvuH8MNeuWVGwNUglhky+pLfn/iWw8aQZYj0I1fqFZuW1zvOiivF1umXMkdP6QfBdzuUO7cDzpm+GZ66+qqSY6uCvTaRaDa+8ca/622s/Kg3yEovtOj1dAuaDvadkFMIGZSFXAi4mCU7XdLLelcL1NytNdm4Nrsz5rKn3sJTlu0Ehul3Q4NuF1h8AUNxyS50amC/I1WplPc4sM48De8oqyZ+Bgkp0pkKj0e/Pk+rv5BcrTNWx2bhBgB+LMVHTFUfJ+JQqzB+mrPOzaYYG1tGksWSy0kHr0rdzH0V2I2oRfX4wbpANk+iDrRCmqhTvvU3S2dIkUOLFy5GOGoYo9D1dzVI0ghp/bUe6pPWB4OeIrzCCdTRufKS0bYIo/vXQxhW87yxiH6OUMo4TTScvRW8U0AUsyGtRkMIqG+OQfqq6cydko77uwmpTxbv1dceCuVCvloX6z1p4BGer/WQKekrsXdfPjmSUBzXr2Z8S7K4zmQv0mA0vZn8Pky56tiA7SmeRFD5j6ZiOSDWI8xO+1tCpLwpvRkTbXfNKWAHhKROWBCeLVvnmg6OEmvAvUdN7wfoAicyM+qF+yvuJ2I7onDpeLIpUiWmfYp9Ek7ltOYYvE4YPXekXvaTXHzJn4rvPQITxl/H5SoePdnky2+YqdtPjDlGPCw5MJgrHRtBYPStimI+xufh7m07yvBAc1qCWwPwFFVZk0Yws=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(376002)(366004)(346002)(136003)(39860400002)(451199018)(86362001)(316002)(31696002)(6486002)(83380400001)(38100700002)(2616005)(36916002)(478600001)(36756003)(26005)(6506007)(186003)(53546011)(6666004)(6512007)(30864003)(2906002)(44832011)(41300700001)(31686004)(8936002)(8676002)(5660300002)(66556008)(66476007)(66946007)(450100002)(43740500002)(45980500001)(309714004);
+ SFS:(13230025)(4636009)(346002)(376002)(366004)(39860400002)(396003)(136003)(451199018)(8936002)(44832011)(30864003)(5660300002)(41300700001)(36756003)(31696002)(86362001)(38100700002)(2906002)(6506007)(6486002)(83380400001)(36916002)(2616005)(478600001)(6512007)(186003)(53546011)(31686004)(450100002)(26005)(316002)(66556008)(66946007)(66476007)(8676002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cXFTQnlIdlg2aUtqVHlUYjJ2S3lKL1RLMTkzTmJWVnhaa2RxbURNYkZ2eHhh?=
- =?utf-8?B?Wm5ySXVqekwrazdic0Z5Vzhyb29PODZsZGtXQTZlSVJRRElyWmo0aitDWW01?=
- =?utf-8?B?Sm1CYU1kN2FsK0xmWmFSZU5BeWdONEMwb3pGZWtCZTJZaHJMTkpsVjM5U015?=
- =?utf-8?B?NEZ2UFUwQmYrQS8reWZJZjdiMDBNN05Tdk9naFhKTERKejdpRzdTVDQ2R3FE?=
- =?utf-8?B?ZnM5aXdnOEg4VXhsR3EyYm91dFlTSTFBUlM5ZFdjY0ZWd2lMS2ZSUWRTbXZJ?=
- =?utf-8?B?S2N2YzJjdHdsWk1xRTZwQXpvRVdCd3pKYlhNVkRLWlJMU2NnOFdSQmxCbVRv?=
- =?utf-8?B?eDhGcC8xMlRDNDNETHdvZGNtUjc2b05xQzlOODg0OXd6dGdENlB3UlZRYTJH?=
- =?utf-8?B?ekx6N2c3M0xXd3BuckpTZUpDdTF3QkxoYkE2M1IzcjVQdDdac3dqUi9reVNU?=
- =?utf-8?B?czduK3ZFWW16Rkh1b2Uvamt1SzNyWVJMbFcxQUpvV3NEWldyM2pjaVRUY3hP?=
- =?utf-8?B?bnc1NWcybkY0WUdENnJXYmdVNGphMWVVR2hwb2JiRWpVSU1pWEMzbERRbVRV?=
- =?utf-8?B?OU5jbUkyNTZLWjBacmpiT3ZPd1VsNExqbm1WZFJZYlJVNmYwVll0bWN3OGFL?=
- =?utf-8?B?WW0yd0pLOVpRcTcwOEVvMTNZVXAzdThrWXBzL2p3Z0VXM0pVUEpnQXhHRzc4?=
- =?utf-8?B?akR4bEsvcWtpZm0xN2pwWDI1OStySktYTFphYWJ4aTlKV3dCZjh1UlpabnJl?=
- =?utf-8?B?dVVDZFFTSlBrbU43Vi8rUjQyYnBzTE0vNUdvQVd3THNXVm5lZTdwWm83VE9q?=
- =?utf-8?B?Rk9yU0FNSW5rV0ZaTmxIYkgwbzZFWDBCUHY4U2c3ME5ra0U5cG5SMTJQZ3c2?=
- =?utf-8?B?S2wxcDZiQkh0SXNEbTc4SnBVdVFtVGFpdG1VQmp6aGVjSXhqVzlkU3kyZ2FM?=
- =?utf-8?B?bjR4cWdPOFBaK01hS1N0N0VCWVlXbFhYdEYzaFBLOHRGL2ppaTBiOXI4emZJ?=
- =?utf-8?B?NmRKRWI2VVB3S1FhZE5VTC84NnYwQW52bTl3MEt1QUdhOVhKSzBkTmNlWjlZ?=
- =?utf-8?B?akN6bncvZ1VTTjhVSWkwMUlHWkdCWk90T2tVVVNDbU02UThqQ09xRWo1TUZE?=
- =?utf-8?B?ajBmOElUSlpmSENueG1HbTF0eDVQNEZGQk81Zm5ycDhnY3Y0UTBwR1A5Yy9a?=
- =?utf-8?B?MDArWWlIMEFyQmpGL1lpTUIzcVNYd3hReXJvSFc0YXE2a3ZZVS9XcUtjS1ZB?=
- =?utf-8?B?dS9pSU5PSjBPdGpBS2ViQ1Fsa2J4K3RDWFEvcld4SytiOG4rS2J6QzQ1aTl1?=
- =?utf-8?B?K2t4S3VjQ3N2a0tGQ2Z4bzRRY0FHL3IveEcrQWNqY0ZhdEJycXU3ODdRYWNl?=
- =?utf-8?B?Q3IrWEVkWEJCeHd4bm5ZbVprV2d4aG4rYTNzN2pTZ3hqaHN0S0ZLbEhZMnh5?=
- =?utf-8?B?eGdaWFV0RFQvUGJDaWFuVjMvTFJTWmppdnhySXJPN05kdy9lakFkbzdndHR1?=
- =?utf-8?B?TmZWdjk3SDhMUGR5dlJQa0NnZ1lGQ0hRSG02SytQeTVtZlhMRUEvRHUwaUV5?=
- =?utf-8?B?czB0TXJaekxWWkdYUWlqNlpuSC9vT3VvWXg0SldEd0EwR3cxN1loOVd2TXBa?=
- =?utf-8?B?N1ViOUJqTE9hcWxtUVM2M1pvMVFhcW52TG5PODdBOGlMTG1Kb28wRVZXNjNI?=
- =?utf-8?B?aDBWTko5bHU5R3BwSWJKVDhHb0JnbWRQSExtYSsvU1hhME5ySFVEeTlCZXk0?=
- =?utf-8?B?Z3prRWo5cHhGSlVGZWVJbmFjV1pzYmRvSVdFN1lyWWhWclR0NjlrSnRYeGhG?=
- =?utf-8?B?dlJ1S2J1eW9aWVVxaFBhTlhPQ0t4NnROZzYvTXRpcWI5MG5ITEpXUkV6NnNl?=
- =?utf-8?B?d3l3UHQ0aWlNUmpYREtXMCtCMjBoRVdBQTZicyszZVVmTldLWlNETjVlZ3E4?=
- =?utf-8?B?UEtvbmFrcGM3cVNQdk9JM1F0cjhFbG9janNaaFpqRVJIWVRtNm51U1V6VUlt?=
- =?utf-8?B?bGJVOEo2RnNVUXFrRlNGQktrZWhyLzNIMit4MS9XemIxeHhjcWFMQjZ2dlIx?=
- =?utf-8?B?TU9CQVFKeWZkZVlYdVd4Y0dVR3dyRWppWjdkZW5iS0IrOURYN2dPMkNPMlNW?=
- =?utf-8?Q?fmxznxBrCouVvbRAKBL9QfpJ9?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y2dkZGtManpwbnI1cWdBSmUxZE9jd3d1M2xmd1BTMngxUy9pUWN3TzdiSkFz?=
+ =?utf-8?B?SDl4VWljQTR6ZldTV3ZXc0UwWjZPQmNRc3JvdDI0NHIxMmdtQ3FUcGZDVUNz?=
+ =?utf-8?B?SFZobERwL2pLZ3ppQVBHTHEzdFlRa2FUeW0xWk5ROHNXM1ZqOUlaWWdLcWt4?=
+ =?utf-8?B?cnlYZ3k0ekdWQlp4eWJaMmRYWWdML05uQzU0M3p2TEVBQjdIN09TdzhSOUNo?=
+ =?utf-8?B?SFYzQVhFZUxOa1k4Nm5xVTNCVHdPRmJSVEltREJDb1dCeHBrUXgvSTJ5bFJa?=
+ =?utf-8?B?ZGhrOFc1dUZqcmF3b3NNWGtEdlk0VkNOUllRQW5kVXBCV2piYStZRDVWdmJP?=
+ =?utf-8?B?SjBra2dtemlBWlZoejFRQVZlbUZkMDNZcngzRkNYL0I2ZFBjWTduY0FaZ0xj?=
+ =?utf-8?B?SjVkazRnVHo2MGpwSnBMV1JIa2xTRkkwMnpiRWNLdXVqSW5Iak85K2xUbU9k?=
+ =?utf-8?B?ekRIbnlhWmZhc2RtN0JVV0k1OVAxZk1wNDVndlUrMXJMYzMycHMrdk96VEpk?=
+ =?utf-8?B?YXpqWVhGN1piRm9CejFBZDFRbllGb3BUR3lTTVZ5bWlPM295QmNPQTlLQnll?=
+ =?utf-8?B?QzdGTzE4Y2ZUc0tlTHpoZ3BGQkNuVnJvdENHa0Ixb2VQVm1WRVVURHFlSDNC?=
+ =?utf-8?B?b2tUQldJN21IdUluTS8vMURKdzdnQXlQZ3prdG9Jalkza3h2WTVBaHdiNWVr?=
+ =?utf-8?B?ZkpUVmF3TlBFV1FBY2VvSWF6RU93VmkrNnJpbS9MTDhCY3F2Z2Q5blRJYjl3?=
+ =?utf-8?B?MlByZGtQcW1xRElLNjYwQm0zZnZBb3JaaGI1SEN1Rks2SXNDR0phRlhkQUV0?=
+ =?utf-8?B?b3BGZGFBM2ptK1VTN2pRQk96Tk9TT1hCaVdCcHdwOEh4bitSVi9EdXBxSWc1?=
+ =?utf-8?B?alVaVjdWS3VFTXdBclFrOWtnNDc5RmRpckF6UlBITWRpejdjYmVMaTJvcnU5?=
+ =?utf-8?B?WjM5RXNnTGQ4ajMzdnVmSHVuZXpjVjZHZjR4WFhzVXBDenprQitEOU5UbVA1?=
+ =?utf-8?B?OGdDZkVyNTdQYVVacVd2L2FpcC9jN2ZLMWorK1RKeE9mWkJ2RXRuYlRteGRx?=
+ =?utf-8?B?S3p1Wjdyd1B6NXV2TUNmcTNmZFVZcHlUS1FsbWJIa2hJMWtLdk9HSHNlSWhh?=
+ =?utf-8?B?RmhvSGxoK2VIQjdLSE1Ua0Mramh6bTF0aFI2alZadWtWM2Q2V25pN3N0RHlD?=
+ =?utf-8?B?S0c1WXVYTmNvOGNZRTZrVnZGS0hxK1NEQVc3R09oTjdBOTZiWVk5TVZ4SUlG?=
+ =?utf-8?B?N3NMcEV5RVJSTytHbnFvcS9SWHZDdVVhMVJnRDZPRnNteDJzUkNld1BWWVQ1?=
+ =?utf-8?B?SWJhYmpWREZPVmY2bSs2ajE3cW80b0IzYk1KRk94Zk1lbjl1Yi96Q1BKY3Jk?=
+ =?utf-8?B?bkdPNndoZEdUU1FxSG5md3lkbTlON1luc2RsQ3poYTFZRGd0Njd0SVFYZnFJ?=
+ =?utf-8?B?OXNSamZpZStrRUVhV21EZTgrLy8yTk1CaGVwNS9oN2o4SjU0Nmd2SG0xUW0y?=
+ =?utf-8?B?bk0zUzlCWkZ3WFprVUNiZEpROERYREZTNlh0NHdTa0VHcTFlaWQvZzQ2SzlF?=
+ =?utf-8?B?dTNCOUt5TUhJNTZDRkR5Y0pBeXBCOFZLVjhJNHovRTNFQ2hZODN2TFd3M0ZL?=
+ =?utf-8?B?ald6d3l3TUtIZEFOcGREOXA5UU1oVndHN2RoSkhZUkhNQlNkWlRldEtyYjNi?=
+ =?utf-8?B?bU4yZHczWDdtbFM4WXpYeEt5bk9UNzFTdDBzZENLeVFDaHprenlwQWdxRVdV?=
+ =?utf-8?B?eG5ma3VsNkF3RmJsYXlNaWU3K1ROTDIwWWVaN1F5Z012OEtQc1YvR3VzUGxp?=
+ =?utf-8?B?UDZYMXlhS1BwbmdiTFR6bndJNEdEcm1LblROMENWY1d5ZkJpZmIyN3pJRE5y?=
+ =?utf-8?B?YjNLRnh6dldVblpZQTVCWUFRdlNDbXpxemRBZEFjak8yczFsRHBoOTI1MnRt?=
+ =?utf-8?B?K1dObm5lNXViMk8zUWFVL3BHUEt3SDFLR0N2b3JZVlZuR2FKajdEMkhOTnUy?=
+ =?utf-8?B?L3IwbzBaYVFYQVNSSEk0OWZNN1VZSUNxemdsTUNOOGN0bE9rWXQ1a01tYmVD?=
+ =?utf-8?B?dmt5bTBWNi9WZFJ3S0hjRWhZR25IY0ZhWDJENlErU3htR1FTaE1vQkRqUHha?=
+ =?utf-8?Q?WIOLiAlgSF+GBNtH5e3alHHWd?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 486c368f-def4-4b20-b2b9-08db298d017c
+X-MS-Exchange-CrossTenant-Network-Message-Id: a557ad1f-349c-4c7b-77b0-08db2997b620
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2023 21:49:39.7022 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2023 23:06:17.7004 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GMnqMxPs5QzyeHrS607U+4A53JsmDzt+j9xMMBVFec2r3cIT1VDWieUaczt7v7EFMPu0+pE6zYguOVRly5biVw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7774
+X-MS-Exchange-CrossTenant-UserPrincipalName: /etMDb3Ea2lXS2DpGRNOloSa7QUmjQbO8rn7nrO/iP966IE6gKDAfR1X5lGTfJFDhVFRbv2Gx724vsXCwmE4lQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5923
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,417 +132,347 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 2023-01-25 14:53, Jonathan Kim wrote:
-> Due to a HW bug, waves in only half the shader arrays can enter trap.
+> To enable HW debug mode per process, all devices must be debug enabled
+> successfully.  If a failure occures, rewind the enablement of debug mode
+> on the enabled devices.
 >
-> When starting a debug session, relocate all waves to the first shader
-> array of each shader engine and mask off the 2nd shader array as
-> unavailable.
+> A power management scenario that needs to be considered is HW
+> debug mode setting during GFXOFF.  During GFXOFF, these registers
+> will be unreachable so we have to transiently disable GFXOFF when
+> setting.  Also, some devices don't support the RLC save restore
+> function for these debug registers so we have to disable GFXOFF
+> completely during a debug session.
 >
-> When ending a debug session, re-enable the 2nd shader array per
-> shader engine.
+> Cooperative launch also has debugging restriction based on HW/FW bugs.
+> If such bugs exists, the debugger cannot attach to a process that uses GWS
+> resources nor can GWS resources be requested if a process is being
+> debugged.
 >
-> User CU masking per queue cannot be guaranteed to remain functional
-> if requested during debugging (e.g. user cu mask requests only 2nd shader
-> array as an available resource leading to zero HW resources available)
-> nor can runtime be alerted of any of these changes during execution.
+> Multi-process debug devices can only enable trap temporaries based
+> on certain runtime scenerios, which will be explained when the
+> runtime enable functions are implemented in a follow up patch.
 >
-> Make user CU masking and debugging mutual exclusive with respect to
-> availability.
->
-> If the debugger tries to attach to a process with a user cu masked
-> queue, return the runtime status as enabled but busy.
->
-> If the debugger tries to attach and fails to reallocate queue waves to
-> the first shader array of each shader engine, return the runtime status
-> as enabled but with an error.
->
-> In addition, like any other mutli-process debug supported devices,
-> disable trap temporary setup per-process to avoid performance impact from
-> setup overhead.
+> v2: add gfx11 support. fix fw checks. remove asic family name comments.
 >
 > Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h       |  2 +
->   drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        |  7 +-
->   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  2 -
->   drivers/gpu/drm/amd/amdkfd/kfd_debug.c        | 64 +++++++++++++++++++
->   drivers/gpu/drm/amd/amdkfd/kfd_debug.h        |  3 +-
->   .../drm/amd/amdkfd/kfd_device_queue_manager.c |  7 ++
->   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c  |  3 +-
->   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c  |  3 +-
->   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c  | 42 ++++++++----
->   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   |  3 +-
->   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c   |  3 +-
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  5 +-
->   .../amd/amdkfd/kfd_process_queue_manager.c    |  9 ++-
->   13 files changed, 124 insertions(+), 29 deletions(-)
+>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |   5 +
+>   drivers/gpu/drm/amd/amdkfd/kfd_debug.c        | 148 +++++++++++++++++-
+>   drivers/gpu/drm/amd/amdkfd/kfd_debug.h        |  29 ++++
+>   .../drm/amd/amdkfd/kfd_device_queue_manager.c |   1 +
+>   drivers/gpu/drm/amd/amdkfd/kfd_process.c      |   9 ++
+>   5 files changed, 190 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> index d20df0cf0d88..b5f5eed2b5ef 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> @@ -219,6 +219,8 @@ struct mes_add_queue_input {
->   	uint32_t        gws_size;
->   	uint64_t	tba_addr;
->   	uint64_t	tma_addr;
-> +	uint32_t	trap_en;
-> +	uint32_t	skip_process_ctx_clear;
->   	uint32_t	is_kfd_process;
->   	uint32_t	is_aql_queue;
->   	uint32_t	queue_size;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> index fbacdc42efac..38c7a0cbf264 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> @@ -197,17 +197,14 @@ static int mes_v11_0_add_hw_queue(struct amdgpu_mes *mes,
->   	mes_add_queue_pkt.gws_size = input->gws_size;
->   	mes_add_queue_pkt.trap_handler_addr = input->tba_addr;
->   	mes_add_queue_pkt.tma_addr = input->tma_addr;
-> +	mes_add_queue_pkt.trap_en = input->trap_en;
-> +	mes_add_queue_pkt.skip_process_ctx_clear = input->skip_process_ctx_clear;
->   	mes_add_queue_pkt.is_kfd_process = input->is_kfd_process;
->   
->   	/* For KFD, gds_size is re-used for queue size (needed in MES for AQL queues) */
->   	mes_add_queue_pkt.is_aql_queue = input->is_aql_queue;
->   	mes_add_queue_pkt.gds_size = input->queue_size;
->   
-> -	if (!(((adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) >= 4) &&
-> -		  (adev->ip_versions[GC_HWIP][0] >= IP_VERSION(11, 0, 0)) &&
-> -		  (adev->ip_versions[GC_HWIP][0] <= IP_VERSION(11, 0, 3))))
-> -		mes_add_queue_pkt.trap_en = 1;
-> -
->   	/* For KFD, gds_size is re-used for queue size (needed in MES for AQL queues) */
->   	mes_add_queue_pkt.is_aql_queue = input->is_aql_queue;
->   	mes_add_queue_pkt.gds_size = input->queue_size;
 > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index ee05c2e54ef6..f5f639de28f0 100644
+> index f5f639de28f0..628178126d3b 100644
 > --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
 > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -530,8 +530,6 @@ static int kfd_ioctl_set_cu_mask(struct file *filp, struct kfd_process *p,
->   		goto out;
+> @@ -1453,6 +1453,11 @@ static int kfd_ioctl_alloc_queue_gws(struct file *filep,
+>   		goto out_unlock;
 >   	}
 >   
-> -	minfo.update_flag = UPDATE_FLAG_CU_MASK;
-> -
->   	mutex_lock(&p->mutex);
+> +	if (!kfd_dbg_has_gws_support(dev) && p->debug_trap_enabled) {
+> +		retval = -EBUSY;
+> +		goto out_unlock;
+> +	}
+> +
+>   	retval = pqm_set_gws(&p->pqm, args->queue_id, args->num_gws ? dev->gws : NULL);
+>   	mutex_unlock(&p->mutex);
 >   
->   	retval = pqm_update_mqd(&p->pqm, args->queue_id, &minfo);
 > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> index f6ea6db266b4..6e99a0160275 100644
+> index 6e99a0160275..659dfc7411fe 100644
 > --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
 > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> @@ -37,6 +37,70 @@ void debug_event_write_work_handler(struct work_struct *work)
->   	kernel_write(process->dbg_ev_file, &write_data, 1, &pos);
+> @@ -21,6 +21,7 @@
+>    */
+>   
+>   #include "kfd_debug.h"
+> +#include "kfd_device_queue_manager.h"
+>   #include <linux/file.h>
+>   
+>   void debug_event_write_work_handler(struct work_struct *work)
+> @@ -101,11 +102,68 @@ static int kfd_dbg_set_mes_debug_mode(struct kfd_process_device *pdd)
+>   						pdd->watch_points, flags);
 >   }
 >   
-> +static int kfd_dbg_set_queue_workaround(struct queue *q, bool enable)
+> +/* kfd_dbg_trap_deactivate:
+> + *	target: target process
+> + *	unwind: If this is unwinding a failed kfd_dbg_trap_enable()
+> + *	unwind_count:
+> + *		If unwind == true, how far down the pdd list we need
+> + *				to unwind
+> + *		else: ignored
+> + */
+> +static void kfd_dbg_trap_deactivate(struct kfd_process *target, bool unwind, int unwind_count)
 > +{
-> +	struct mqd_update_info minfo = {0};
-> +	int err;
+> +	int i, count = 0;
 > +
-> +	if (!q || (!q->properties.is_dbg_wa && !enable))
+> +	for (i = 0; i < target->n_pdds; i++) {
+> +		struct kfd_process_device *pdd = target->pdds[i];
+> +
+> +		/* If this is an unwind, and we have unwound the required
+> +		 * enable calls on the pdd list, we need to stop now
+> +		 * otherwise we may mess up another debugger session.
+> +		 */
+> +		if (unwind && count == unwind_count)
+> +			break;
+> +
+> +		/* GFX off is already disabled by debug activate if not RLC restore supported. */
+> +		if (kfd_dbg_is_rlc_restore_supported(pdd->dev))
+> +			amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
+> +		pdd->spi_dbg_override =
+> +				pdd->dev->kfd2kgd->disable_debug_trap(
+> +				pdd->dev->adev,
+> +				target->runtime_info.ttmp_setup,
+> +				pdd->dev->vm_info.last_vmid_kfd);
+> +		if (kfd_dbg_is_rlc_restore_supported(pdd->dev))
+> +			amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
 
-Should this condition be:
-
-     if (!q || q->properties.is_dbg_wa != enable)
-
-
-> +		return 0;
-> +
-> +	if (KFD_GC_VERSION(q->device) < IP_VERSION(11, 0, 0) ||
-> +			KFD_GC_VERSION(q->device) >= IP_VERSION(12, 0, 0))
-
-Indentation. It would be more readable if the KFD_GC_VERSIONs were aligned.
-
-
-> +		return 0;
-> +
-> +	if (enable && q->properties.is_user_cu_masked)
-> +		return -EBUSY;
-> +
-> +	minfo.update_flag = enable ? UPDATE_FLAG_DBG_WA_ENABLE : UPDATE_FLAG_DBG_WA_DISABLE;
-> +
-> +	q->properties.is_dbg_wa = enable;
-> +	err = q->device->dqm->ops.update_queue(q->device->dqm, q, &minfo);
-> +	if (err)
-> +		q->properties.is_dbg_wa = false;
-> +
-> +	return err;
-> +}
-> +
-> +static int kfd_dbg_set_workaround(struct kfd_process *target, bool enable)
-> +{
-> +	struct process_queue_manager *pqm = &target->pqm;
-> +	struct process_queue_node *pqn;
-> +	int r = 0;
-> +
-> +	list_for_each_entry(pqn, &pqm->queues, process_queue_list) {
-> +		r = kfd_dbg_set_queue_workaround(pqn->q, enable);
-> +		if (enable && r)
-> +			goto unwind;
-> +	}
-> +
-> +	return 0;
-> +
-> +unwind:
-> +	list_for_each_entry(pqn, &pqm->queues, process_queue_list)
-> +		kfd_dbg_set_queue_workaround(pqn->q, false);
-> +
-> +	if (enable) {
-> +		target->runtime_info.runtime_state = r == -EBUSY ?
-> +				DEBUG_RUNTIME_STATE_ENABLED_BUSY :
-> +				DEBUG_RUNTIME_STATE_ENABLED_ERROR;
-> +	}
-
-Braces are not needed here.
+Shouldn't this reenable GFXOFF unconditionally? It should not stay 
+disabled on devices without RLC restore support, because we're ending 
+the debug session here.
 
 
 > +
-> +	return r;
-> +}
+> +		if (!kfd_dbg_is_per_vmid_supported(pdd->dev) &&
+> +				release_debug_trap_vmid(pdd->dev->dqm, &pdd->qpd))
+> +			pr_err("Failed to release debug vmid on [%i]\n", pdd->dev->id);
 > +
-> +static int kfd_dbg_set_mes_debug_mode(struct kfd_process_device *pdd)
-> +{
-> +	uint32_t spi_dbg_cntl = pdd->spi_dbg_override | pdd->spi_dbg_launch_mode;
-> +	uint32_t flags = pdd->process->dbg_flags;
+> +		if (!pdd->dev->shared_resources.enable_mes)
+> +			debug_refresh_runlist(pdd->dev->dqm);
+> +		else
+> +			kfd_dbg_set_mes_debug_mode(pdd);
 > +
-> +	if (!kfd_dbg_is_per_vmid_supported(pdd->dev))
-> +		return 0;
-> +
-> +	return amdgpu_mes_set_shader_debugger(pdd->dev->adev, pdd->proc_ctx_gpu_addr, spi_dbg_cntl,
-> +						pdd->watch_points, flags);
-> +}
-> +
+> +		count++;
 
-You're adding some unused static functions here. This will cause compile 
-warnings until the patch that starts using them. You could avoid this by 
-reordering this and the next patch and moving the function calls into 
-this patch. That would also make it more obvious where the workaround 
-plugs into the debug code.
+Isn't count the same as i? Why do we need a separate variable here?
 
 Regards,
    Felix
 
 
+> +	}
+> +
+> +	kfd_dbg_set_workaround(target, false);
+> +}
+> +
 >   int kfd_dbg_trap_disable(struct kfd_process *target)
 >   {
 >   	if (!target->debug_trap_enabled)
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-> index 53c5a3e55bd2..0c09f1729325 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-> @@ -35,7 +35,8 @@ int kfd_dbg_trap_enable(struct kfd_process *target, uint32_t fd,
+>   		return 0;
 >   
->   static inline bool kfd_dbg_is_per_vmid_supported(struct kfd_dev *dev)
->   {
-> -	return KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2);
-> +	return KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2) ||
-> +	       KFD_GC_VERSION(dev) >= IP_VERSION(11, 0, 0);
->   }
->   
->   void debug_event_write_work_handler(struct work_struct *work);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index 2517716d7cbc..be1985b87ea7 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -214,6 +214,10 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
->   	queue_input.paging = false;
->   	queue_input.tba_addr = qpd->tba_addr;
->   	queue_input.tma_addr = qpd->tma_addr;
-> +	queue_input.trap_en = KFD_GC_VERSION(q->device) < IP_VERSION(11, 0, 0) ||
-> +			      KFD_GC_VERSION(q->device) >= IP_VERSION(12, 0, 0) ||
-> +			      q->properties.is_dbg_wa;
-> +	queue_input.skip_process_ctx_clear = qpd->pqm->process->debug_trap_enabled;
->   
->   	queue_type = convert_to_mes_queue_type(q->properties.type);
->   	if (queue_type < 0) {
-> @@ -1679,6 +1683,9 @@ static int create_queue_cpsch(struct device_queue_manager *dqm, struct queue *q,
->   	 * updates the is_evicted flag but is a no-op otherwise.
->   	 */
->   	q->properties.is_evicted = !!qpd->evicted;
-> +	q->properties.is_dbg_wa = qpd->pqm->process->debug_trap_enabled &&
-> +			KFD_GC_VERSION(q->device) >= IP_VERSION(11, 0, 0) &&
-> +			KFD_GC_VERSION(q->device) < IP_VERSION(12, 0, 0);
->   
->   	if (qd)
->   		mqd_mgr->restore_mqd(mqd_mgr, &q->mqd, q->mqd_mem_obj, &q->gart_mqd_addr,
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
-> index 4889865c725c..c2a7226fc588 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
-> @@ -48,8 +48,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
->   	struct cik_mqd *m;
->   	uint32_t se_mask[4] = {0}; /* 4 is the max # of SEs */
->   
-> -	if (!minfo || (minfo->update_flag != UPDATE_FLAG_CU_MASK) ||
-> -	    !minfo->cu_mask.ptr)
-> +	if (!minfo || !minfo->cu_mask.ptr)
->   		return;
->   
->   	mqd_symmetrically_map_cu_mask(mm,
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-> index cb484ace17de..8248e77751e7 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-> @@ -48,8 +48,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
->   	struct v10_compute_mqd *m;
->   	uint32_t se_mask[4] = {0}; /* 4 is the max # of SEs */
->   
-> -	if (!minfo || (minfo->update_flag != UPDATE_FLAG_CU_MASK) ||
-> -	    !minfo->cu_mask.ptr)
-> +	if (!minfo || !minfo->cu_mask.ptr)
->   		return;
->   
->   	mqd_symmetrically_map_cu_mask(mm,
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-> index ac7c8fc83c94..18ab613e787c 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-> @@ -46,15 +46,33 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
->   {
->   	struct v11_compute_mqd *m;
->   	uint32_t se_mask[KFD_MAX_NUM_SE] = {0};
-> +	bool has_wa_flag = minfo && (minfo->update_flag & (UPDATE_FLAG_DBG_WA_ENABLE |
-> +			UPDATE_FLAG_DBG_WA_DISABLE));
->   
-> -	if (!minfo || (minfo->update_flag != UPDATE_FLAG_CU_MASK) ||
-> -	    !minfo->cu_mask.ptr)
-> +	if (!minfo || !(has_wa_flag || minfo->cu_mask.ptr))
->   		return;
->   
-> +	m = get_mqd(mqd);
+> +	/*
+> +	 * Defer deactivation to runtime if runtime not enabled otherwise reset
+> +	 * attached running target runtime state to enable for re-attach.
+> +	 */
+> +	if (target->runtime_info.runtime_state == DEBUG_RUNTIME_STATE_ENABLED)
+> +		kfd_dbg_trap_deactivate(target, false, 0);
+> +	else if (target->runtime_info.runtime_state != DEBUG_RUNTIME_STATE_DISABLED)
+> +		target->runtime_info.runtime_state = DEBUG_RUNTIME_STATE_ENABLED;
 > +
-> +	if (has_wa_flag) {
-> +		uint32_t wa_mask = minfo->update_flag == UPDATE_FLAG_DBG_WA_ENABLE ?
-> +						0xffff : 0xffffffff;
-> +
-> +		m->compute_static_thread_mgmt_se0 = wa_mask;
-> +		m->compute_static_thread_mgmt_se1 = wa_mask;
-> +		m->compute_static_thread_mgmt_se2 = wa_mask;
-> +		m->compute_static_thread_mgmt_se3 = wa_mask;
-> +		m->compute_static_thread_mgmt_se4 = wa_mask;
-> +		m->compute_static_thread_mgmt_se5 = wa_mask;
-> +		m->compute_static_thread_mgmt_se6 = wa_mask;
-> +		m->compute_static_thread_mgmt_se7 = wa_mask;
-> +
-> +		return;
-> +	}
-> +
->   	mqd_symmetrically_map_cu_mask(mm,
->   		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask);
+>   	fput(target->dbg_ev_file);
+>   	target->dbg_ev_file = NULL;
 >   
-> -	m = get_mqd(mqd);
->   	m->compute_static_thread_mgmt_se0 = se_mask[0];
->   	m->compute_static_thread_mgmt_se1 = se_mask[1];
->   	m->compute_static_thread_mgmt_se2 = se_mask[2];
-> @@ -109,6 +127,7 @@ static void init_mqd(struct mqd_manager *mm, void **mqd,
->   	uint64_t addr;
->   	struct v11_compute_mqd *m;
->   	int size;
-> +	uint32_t wa_mask = q->is_dbg_wa ? 0xffff : 0xffffffff;
->   
->   	m = (struct v11_compute_mqd *) mqd_mem_obj->cpu_ptr;
->   	addr = mqd_mem_obj->gpu_addr;
-> @@ -122,14 +141,15 @@ static void init_mqd(struct mqd_manager *mm, void **mqd,
->   
->   	m->header = 0xC0310800;
->   	m->compute_pipelinestat_enable = 1;
-> -	m->compute_static_thread_mgmt_se0 = 0xFFFFFFFF;
-> -	m->compute_static_thread_mgmt_se1 = 0xFFFFFFFF;
-> -	m->compute_static_thread_mgmt_se2 = 0xFFFFFFFF;
-> -	m->compute_static_thread_mgmt_se3 = 0xFFFFFFFF;
-> -	m->compute_static_thread_mgmt_se4 = 0xFFFFFFFF;
-> -	m->compute_static_thread_mgmt_se5 = 0xFFFFFFFF;
-> -	m->compute_static_thread_mgmt_se6 = 0xFFFFFFFF;
-> -	m->compute_static_thread_mgmt_se7 = 0xFFFFFFFF;
-> +
-> +	m->compute_static_thread_mgmt_se0 = wa_mask;
-> +	m->compute_static_thread_mgmt_se1 = wa_mask;
-> +	m->compute_static_thread_mgmt_se2 = wa_mask;
-> +	m->compute_static_thread_mgmt_se3 = wa_mask;
-> +	m->compute_static_thread_mgmt_se4 = wa_mask;
-> +	m->compute_static_thread_mgmt_se5 = wa_mask;
-> +	m->compute_static_thread_mgmt_se6 = wa_mask;
-> +	m->compute_static_thread_mgmt_se7 = wa_mask;
->   
->   	m->cp_hqd_persistent_state = CP_HQD_PERSISTENT_STATE__PRELOAD_REQ_MASK |
->   			0x55 << CP_HQD_PERSISTENT_STATE__PRELOAD_SIZE__SHIFT;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> index 86f1cf090246..50da16dd4c96 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> @@ -49,8 +49,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
->   	struct v9_mqd *m;
->   	uint32_t se_mask[KFD_MAX_NUM_SE] = {0};
->   
-> -	if (!minfo || (minfo->update_flag != UPDATE_FLAG_CU_MASK) ||
-> -	    !minfo->cu_mask.ptr)
-> +	if (!minfo || !minfo->cu_mask.ptr)
->   		return;
->   
->   	mqd_symmetrically_map_cu_mask(mm,
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-> index 530ba6f5b57e..58b40bff3e0c 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-> @@ -51,8 +51,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
->   	struct vi_mqd *m;
->   	uint32_t se_mask[4] = {0}; /* 4 is the max # of SEs */
->   
-> -	if (!minfo || (minfo->update_flag != UPDATE_FLAG_CU_MASK) ||
-> -	    !minfo->cu_mask.ptr)
-> +	if (!minfo || !minfo->cu_mask.ptr)
->   		return;
->   
->   	mqd_symmetrically_map_cu_mask(mm,
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index 8f1e2f9023db..75521d96e937 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -479,6 +479,8 @@ struct queue_properties {
->   	bool is_evicted;
->   	bool is_active;
->   	bool is_gws;
-> +	bool is_dbg_wa;
-> +	bool is_user_cu_masked;
->   	/* Not relevant for user mode queues in cp scheduling */
->   	unsigned int vmid;
->   	/* Relevant only for sdma queues*/
-> @@ -501,7 +503,8 @@ struct queue_properties {
->   			    !(q).is_evicted)
->   
->   enum mqd_update_flag {
-> -	UPDATE_FLAG_CU_MASK = 0,
-> +	UPDATE_FLAG_DBG_WA_ENABLE = 1,
-> +	UPDATE_FLAG_DBG_WA_DISABLE = 2,
->   };
->   
->   struct mqd_update_info {
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-> index 5137476ec18e..d8f032214481 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-> @@ -498,8 +498,12 @@ int pqm_update_mqd(struct process_queue_manager *pqm,
->   		return -EFAULT;
->   	}
->   
-> +	/* CUs are masked for debugger requirements so deny user mask  */
-> +	if (pqn->q->properties.is_dbg_wa && minfo && minfo->cu_mask.ptr)
-> +		return -EBUSY;
-> +
->   	/* ASICs that have WGPs must enforce pairwise enabled mask checks. */
-> -	if (minfo && minfo->update_flag == UPDATE_FLAG_CU_MASK && minfo->cu_mask.ptr &&
-> +	if (minfo && minfo->cu_mask.ptr &&
->   			KFD_GC_VERSION(pqn->q->device) >= IP_VERSION(10, 0, 0)) {
->   		int i;
->   
-> @@ -518,6 +522,9 @@ int pqm_update_mqd(struct process_queue_manager *pqm,
->   	if (retval != 0)
->   		return retval;
->   
-> +	if (minfo && minfo->cu_mask.ptr)
-> +		pqn->q->properties.is_user_cu_masked = true;
-> +
+> @@ -120,16 +178,96 @@ int kfd_dbg_trap_disable(struct kfd_process *target)
 >   	return 0;
 >   }
+>   
+> +static int kfd_dbg_trap_activate(struct kfd_process *target)
+> +{
+> +	int i, r = 0, unwind_count = 0;
+> +
+> +	r = kfd_dbg_set_workaround(target, true);
+> +	if (r)
+> +		return r;
+> +
+> +	for (i = 0; i < target->n_pdds; i++) {
+> +		struct kfd_process_device *pdd = target->pdds[i];
+> +
+> +		if (!kfd_dbg_is_per_vmid_supported(pdd->dev)) {
+> +			r = reserve_debug_trap_vmid(pdd->dev->dqm, &pdd->qpd);
+> +
+> +			if (r) {
+> +				target->runtime_info.runtime_state = (r == -EBUSY) ?
+> +							DEBUG_RUNTIME_STATE_ENABLED_BUSY :
+> +							DEBUG_RUNTIME_STATE_ENABLED_ERROR;
+> +
+> +				goto unwind_err;
+> +			}
+> +		}
+> +
+> +		/* Disable GFX OFF to prevent garbage read/writes to debug registers.
+> +		 * If RLC restore of debug registers is not supported and runtime enable
+> +		 * hasn't done so already on ttmp setup request, restore the trap config registers.
+> +		 *
+> +		 * If RLC restore of debug registers is not supported, keep gfx off disabled for
+> +		 * the debug session.
+> +		 */
+> +		amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
+> +		if (!(kfd_dbg_is_rlc_restore_supported(pdd->dev) ||
+> +						target->runtime_info.ttmp_setup))
+> +			pdd->dev->kfd2kgd->enable_debug_trap(pdd->dev->adev, true,
+> +								pdd->dev->vm_info.last_vmid_kfd);
+> +
+> +		pdd->spi_dbg_override = pdd->dev->kfd2kgd->enable_debug_trap(
+> +					pdd->dev->adev,
+> +					false,
+> +					pdd->dev->vm_info.last_vmid_kfd);
+> +
+> +		if (kfd_dbg_is_rlc_restore_supported(pdd->dev))
+> +			amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
+> +
+> +		if (!pdd->dev->shared_resources.enable_mes)
+> +			r = debug_refresh_runlist(pdd->dev->dqm);
+> +		else
+> +			r = kfd_dbg_set_mes_debug_mode(pdd);
+> +
+> +		if (r) {
+> +			target->runtime_info.runtime_state =
+> +					DEBUG_RUNTIME_STATE_ENABLED_ERROR;
+> +			goto unwind_err;
+> +		}
+> +
+> +		/* Increment unwind_count as the last step */
+> +		unwind_count++;
+
+Similar to above. I think unwind_count is redundant. It'll have the same 
+value as "i" in the next loop iteration.
+
+
+> +	}
+> +
+> +	return 0;
+> +
+> +unwind_err:
+> +	/* Enabling debug failed, we need to disable on
+> +	 * all GPUs so the enable is all or nothing.
+> +	 */
+> +	kfd_dbg_trap_deactivate(target, true, unwind_count);
+> +	return r;
+> +}
+> +
+>   int kfd_dbg_trap_enable(struct kfd_process *target, uint32_t fd,
+>   			void __user *runtime_info, uint32_t *runtime_size)
+>   {
+>   	struct file *f;
+>   	uint32_t copy_size;
+> -	int r = 0;
+> +	int i, r = 0;
+>   
+>   	if (target->debug_trap_enabled)
+>   		return -EALREADY;
+>   
+> +	/* Enable pre-checks */
+> +	for (i = 0; i < target->n_pdds; i++) {
+> +		struct kfd_process_device *pdd = target->pdds[i];
+> +
+> +		if (!KFD_IS_SOC15(pdd->dev))
+> +			return -ENODEV;
+> +
+> +		if (!kfd_dbg_has_gws_support(pdd->dev) && pdd->qpd.num_gws)
+> +			return -EBUSY;
+> +	}
+> +
+>   	copy_size = min((size_t)(*runtime_size), sizeof(target->runtime_info));
+>   
+>   	f = fget(fd);
+> @@ -140,6 +278,10 @@ int kfd_dbg_trap_enable(struct kfd_process *target, uint32_t fd,
+>   
+>   	target->dbg_ev_file = f;
+>   
+> +	/* defer activation to runtime if not runtime enabled */
+> +	if (target->runtime_info.runtime_state == DEBUG_RUNTIME_STATE_ENABLED)
+> +		kfd_dbg_trap_activate(target);
+> +
+>   	/* We already hold the process reference but hold another one for the
+>   	 * debug session.
+>   	 */
+> @@ -149,8 +291,10 @@ int kfd_dbg_trap_enable(struct kfd_process *target, uint32_t fd,
+>   	if (target->debugger_process)
+>   		atomic_inc(&target->debugger_process->debugged_process_count);
+>   
+> -	if (copy_to_user(runtime_info, (void *)&target->runtime_info, copy_size))
+> +	if (copy_to_user(runtime_info, (void *)&target->runtime_info, copy_size)) {
+> +		kfd_dbg_trap_deactivate(target, false, 0);
+>   		r = -EFAULT;
+> +	}
+>   
+>   	*runtime_size = sizeof(target->runtime_info);
+>   
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
+> index 0c09f1729325..f199698d8d60 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
+> @@ -41,4 +41,33 @@ static inline bool kfd_dbg_is_per_vmid_supported(struct kfd_dev *dev)
+>   
+>   void debug_event_write_work_handler(struct work_struct *work);
+>   
+> +/*
+> + * If GFX off is enabled, chips that do not support RLC restore for the debug
+> + * registers will disable GFX off temporarily for the entire debug session.
+> + * See disable_on_trap_action_entry and enable_on_trap_action_exit for details.
+> + */
+> +static inline bool kfd_dbg_is_rlc_restore_supported(struct kfd_dev *dev)
+> +{
+> +	return !(KFD_GC_VERSION(dev) == IP_VERSION(10, 1, 10) ||
+> +		 KFD_GC_VERSION(dev) == IP_VERSION(10, 1, 1));
+> +}
+> +
+> +static inline bool kfd_dbg_has_gws_support(struct kfd_dev *dev)
+> +{
+> +	if ((KFD_GC_VERSION(dev) == IP_VERSION(9, 0, 1)
+> +			&& dev->mec2_fw_version < 0x81b6) ||
+> +		(KFD_GC_VERSION(dev) >= IP_VERSION(9, 1, 0)
+> +			&& KFD_GC_VERSION(dev) <= IP_VERSION(9, 2, 2)
+> +			&& dev->mec2_fw_version < 0x1b6) ||
+> +		(KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 0)
+> +			&& dev->mec2_fw_version < 0x1b6) ||
+> +		(KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 1)
+> +			&& dev->mec2_fw_version < 0x30) ||
+> +		(KFD_GC_VERSION(dev) >= IP_VERSION(11, 0, 0) &&
+> +			KFD_GC_VERSION(dev) < IP_VERSION(12, 0, 0)))
+> +		return false;
+> +
+> +	/* Assume debugging and cooperative launch supported otherwise. */
+> +	return true;
+> +}
+>   #endif
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index be1985b87ea7..3b747e51684e 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -36,6 +36,7 @@
+>   #include "kfd_kernel_queue.h"
+>   #include "amdgpu_amdkfd.h"
+>   #include "mes_api_def.h"
+> +#include "kfd_debug.h"
+>   
+>   /* Size of the per-pipe EOP queue */
+>   #define CIK_HPD_EOP_BYTES_LOG2 11
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> index 94c6545a58b4..0ef2d00af8b1 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -1181,6 +1181,7 @@ static void kfd_process_notifier_release(struct mmu_notifier *mn,
+>   					struct mm_struct *mm)
+>   {
+>   	struct kfd_process *p;
+> +	int i;
+>   
+>   	/*
+>   	 * The kfd_process structure can not be free because the
+> @@ -1198,6 +1199,14 @@ static void kfd_process_notifier_release(struct mmu_notifier *mn,
+>   	cancel_delayed_work_sync(&p->eviction_work);
+>   	cancel_delayed_work_sync(&p->restore_work);
+>   
+> +	for (i = 0; i < p->n_pdds; i++) {
+> +		struct kfd_process_device *pdd = p->pdds[i];
+> +
+> +		/* re-enable GFX OFF since runtime enable with ttmp setup disabled it. */
+> +		if (!kfd_dbg_is_rlc_restore_supported(pdd->dev) && p->runtime_info.ttmp_setup)
+> +			amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
+> +	}
+> +
+>   	/* Indicate to other users that MM is no longer valid */
+>   	p->mm = NULL;
 >   
