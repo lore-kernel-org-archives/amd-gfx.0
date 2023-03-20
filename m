@@ -4,67 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13310C6FD1D
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Mar 2023 15:49:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B521CC6FD1D
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Mar 2023 15:49:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9728F10E2F8;
-	Mon, 20 Mar 2023 15:49:23 +0000 (UTC)
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [IPv6:2a00:1450:4864:20::32b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 926AB10E2F8
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Mar 2023 15:49:21 +0000 (UTC)
-Received: by mail-wm1-x32b.google.com with SMTP id w11so6784185wmo.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Mar 2023 08:49:21 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EEB110E5D9;
+	Mon, 20 Mar 2023 15:49:39 +0000 (UTC)
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E277010E5D9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Mar 2023 15:49:36 +0000 (UTC)
+Received: by mail-oi1-x22d.google.com with SMTP id w133so9035944oib.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Mar 2023 08:49:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1679327360;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=oBdkRC0zzCOKHZM1daphlCh8WbKx5GrvjxylnGsRZ9E=;
- b=MtaEbD5gChgPvCCGwP2EgRHx2Yq/oVZfRlUjcsidm26ybVPKBtCCdt9bWb78SKKT7a
- fV2nxsL/+wL/mwyy0xt+Aq74b80x5Bt582WtdY6oI2o43BMsvwUV095NTkt6sxYRjYmK
- y5hpQyubm+r2JL0fj2C6DcMSSdsTSUj44r+UOkKnpIYIftjUzh8rf473b+ap/pPmSzN5
- Vpl/5tF1Xp+0IQC7qMvCEquYKNbf7YQyOmoLeMbwqdy3/O6TJoOszZCVba+5JAhbaow0
- CugcTHalSB1SPOu4y4ST3enKIWRc8RPLa4dL+gttGfEzZdzMgJwo5NCpksg7sytmDsJI
- pjdg==
+ d=gmail.com; s=20210112; t=1679327376;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/sAIclhA2bG8wjqpqUelukW7DDMOZ4njysTNHnB5c84=;
+ b=qBSnFdoNMwqFXtbgs5r96krMw3RjPJtPtOwIv2mnRFypvYKFIwcY9s7ElsoHK8LbFE
+ aBqWChiYkP86ER9/kWptE/Rz6vM1okLQcmCmEuGMgrcxCFe58HTxw6/miOZ75UmtPgTK
+ t179vpXsVr+NeiALS/AZXTJJf3Fep4TgGUSzz/G2N3olqZwzK3G5WM0HDzZUE+Q0zEYA
+ eURfhcn3I7zUHCR9he5vpSw9xnNzErdNJ0naUVe973uOmyNErfldw/xvmZ67imrIIX78
+ EqhktXPi0n4WoBDYx/LpOV/r6c4eQApNnZ42Nqgm+FUiL95va3feC7BxNjMrHwvxwva9
+ 0QYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679327360;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=oBdkRC0zzCOKHZM1daphlCh8WbKx5GrvjxylnGsRZ9E=;
- b=hEPUVEaE4MV32h2OzBMH2+VPRhUBl6En6fEhlArvXO7pOugFvtHkB0BrYYL2GPG8Er
- gza3SvWeIc6vhHrUpWUXeJ3WtnZt/yXSmCEIOW4hzE48l8W/xyG1JS9epZUc0Sj8deA6
- u6gJEwcWTbTFJoLZxJtVKymn+hkFIt92lT7RD5x1Gc1pSYGwkKStufiHAcWSJ0olxJNI
- ibkfv+tzMgAVZ7CHnQKhKUs8X06UrXk9H1ZTs+27EQYg9UABNEtlOic6riJP/yJHtBFd
- G2MbtLasFC9womiLCXGkGhbUJwfL212OYmgaD28559SelSIdfkFpBSMa+KXMNhWE0hbF
- MZig==
-X-Gm-Message-State: AO0yUKU260G9FEtbswGZlHUJCqTLrtRINbr0hO4TAyxOEUYlwT8+TaMt
- 7HNpo5JABoEXVdaD7Q9UykiOeQy7NpE=
-X-Google-Smtp-Source: AK7set/6vuT/T5cK0Mj5YT28NBXE4xLlrSkgPt1DP3fi2TAfEPcwWODC/vWor8GvJ6TFvQyspd12Zw==
-X-Received: by 2002:a05:600c:3649:b0:3ea:f6c4:5f3d with SMTP id
- y9-20020a05600c364900b003eaf6c45f3dmr50580wmq.2.1679327359856; 
- Mon, 20 Mar 2023 08:49:19 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1256:79a0:fae3:596:f1a7:6853?
- ([2a02:908:1256:79a0:fae3:596:f1a7:6853])
- by smtp.gmail.com with ESMTPSA id
- f12-20020a1cc90c000000b003e20cf0408esm10861114wmb.40.2023.03.20.08.49.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Mar 2023 08:49:19 -0700 (PDT)
-Message-ID: <e1f5b9a0-556c-7c6e-507a-55833937020c@gmail.com>
-Date: Mon, 20 Mar 2023 16:49:18 +0100
+ d=1e100.net; s=20210112; t=1679327376;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=/sAIclhA2bG8wjqpqUelukW7DDMOZ4njysTNHnB5c84=;
+ b=oMgPiZ2BoHJaiDqKT3nxsedQYEZpz/QhDGHoXfnQdJ4rEE/ASfMuGrF9tGviQEQUfm
+ 0uNV0rXiOvPp1FxxaOomPJvFBqiBHd0/Y8HhAL04W4JPcuMn19vtktoERmDfZEsqputD
+ MT6S0epmVCBYn0qoohO5T6aLwonkHinTFYF0jjnvJMr13BvQlzEBS+orj1oTDz2MgItf
+ OEFtOolGVdOutTaTyXQwD9m1lkn8GVxytgIGfdJsVCXZbVXe5EUbXM2VcsyzKwFuCCUU
+ kmKG6K3iS/ZL53b/r1498fEduot1/+7eBaJPuhBhbe8PD+F3KxMgeUPKs6TQv5KNZfI7
+ dU2g==
+X-Gm-Message-State: AO0yUKX8J7UYuV0lcT64xeH02BBkqG/FVVfKxxteYzQaEa/gGbOYIbFU
+ 9KFH2ovtnBeeI19syNa6xtSZ/Hc2It7qtJzYsCtji2CX
+X-Google-Smtp-Source: AK7set/pN0FqZm0MvuRoSjZBf48OxKjN19rAZo9ntm+f0cTVR2CjcNuKwDr17XmiTJq7Gg1FYMqYfqPDuBsuz8cmAOg=
+X-Received: by 2002:a05:6808:3a91:b0:384:893:a924 with SMTP id
+ fb17-20020a0568083a9100b003840893a924mr113420oib.3.1679327376061; Mon, 20 Mar
+ 2023 08:49:36 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH 04/10] drm/amdgpu: add gfx11 emit shadow callback
-Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20230317171748.682691-1-alexander.deucher@amd.com>
- <20230317171748.682691-5-alexander.deucher@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20230317171748.682691-5-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ <20230317171748.682691-4-alexander.deucher@amd.com>
+ <a1b61e2f-d69c-4401-b9d5-46c80c14ae15@amd.com>
+In-Reply-To: <a1b61e2f-d69c-4401-b9d5-46c80c14ae15@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 20 Mar 2023 11:49:24 -0400
+Message-ID: <CADnq5_NenjAzNtjw_LFRQM96j3jXYTRi7MBFOr767v=PVSW+BA@mail.gmail.com>
+Subject: Re: [PATCH 03/10] drm/amdgpu: add gfx shadow CS IOCTL support
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,148 +68,186 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 17.03.23 um 18:17 schrieb Alex Deucher:
-> From: Christian König <christian.koenig@amd.com>
+On Mon, Mar 20, 2023 at 11:46=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> Add ring callback for gfx to update the CP firmware
-> with the new shadow information before we process the
-> IB.
+> Am 17.03.23 um 18:17 schrieb Alex Deucher:
+> > From: Christian K=C3=B6nig <christian.koenig@amd.com>
+> >
+> > Add support for submitting the shadow update packet
+> > when submitting an IB.  Needed for MCBP on GFX11.
+> >
+> > v2: update API for CSA (Alex)
+> > v3: fix ordering; SET_Q_PREEMPTION_MODE most come before COND_EXEC
+> >      Add missing check for AMDGPU_CHUNK_ID_CP_GFX_SHADOW in
+> >      amdgpu_cs_pass1()
+> >      Only initialize shadow on first use
+> >      (Alex)
+> >
+> > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c   | 24 +++++++++++++++++++++++=
++
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h  |  1 +
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c   |  4 ++++
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_job.h  |  6 ++++++
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  2 ++
+> >   5 files changed, 37 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_cs.c
+> > index f6144b378617..9bdda246b09c 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> > @@ -280,6 +280,7 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser =
+*p,
+> >               case AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES:
+> >               case AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_WAIT:
+> >               case AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_SIGNAL:
+> > +             case AMDGPU_CHUNK_ID_CP_GFX_SHADOW:
+> >                       break;
+> >
+> >               default:
+> > @@ -587,6 +588,26 @@ static int amdgpu_cs_p2_syncobj_timeline_signal(st=
+ruct amdgpu_cs_parser *p,
+> >       return 0;
+> >   }
+> >
+> > +static void amdgpu_cs_p2_shadow(struct amdgpu_cs_parser *p,
+> > +                             struct amdgpu_cs_chunk *chunk)
+> > +{
+> > +     struct drm_amdgpu_cs_chunk_cp_gfx_shadow *shadow =3D chunk->kdata=
+;
+> > +     bool shadow_initialized =3D false;
+> > +     int i;
+> > +
+> > +     for (i =3D 0; i < p->gang_size; ++i) {
+> > +             p->jobs[i]->shadow_va =3D shadow->shadow_va;
+> > +             p->jobs[i]->csa_va =3D shadow->csa_va;
+> > +             p->jobs[i]->gds_va =3D shadow->gds_va;
 >
-> v2: add implementation for new packet (Alex)
-> v3: add current FW version checks (Alex)
-> v4: only initialize shadow on first use
->      Only set IB_VMID when a valid shadow buffer is present
->      (Alex)
+> Do we really need all three VAs separately?
 >
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 ++
->   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 46 +++++++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/nvd.h        |  5 ++-
->   3 files changed, 52 insertions(+), 1 deletion(-)
+> > +             if (!p->ctx->shadow_initialized) {
+> > +                     p->jobs[i]->init_shadow =3D true;
+> > +                     shadow_initialized =3D true;
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> index de9e7a00bb15..4ad9e225d6e6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> @@ -364,6 +364,8 @@ struct amdgpu_gfx {
->   
->   	struct amdgpu_ring		sw_gfx_ring[AMDGPU_MAX_SW_GFX_RINGS];
->   	struct amdgpu_ring_mux          muxer;
-> +
-> +	bool				cp_gfx_shadow; /* for gfx11 */
->   };
->   
->   #define amdgpu_gfx_get_gpu_clock_counter(adev) (adev)->gfx.funcs->get_gpu_clock_counter((adev))
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> index 3bf697a80cf2..166a3f640042 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -463,6 +463,27 @@ static int gfx_v11_0_init_toc_microcode(struct amdgpu_device *adev, const char *
->   	return err;
->   }
->   
-> +static void gfx_v11_0_check_fw_cp_gfx_shadow(struct amdgpu_device *adev)
-> +{
-> +	switch (adev->ip_versions[GC_HWIP][0]) {
-> +	case IP_VERSION(11, 0, 0):
-> +	case IP_VERSION(11, 0, 2):
-> +	case IP_VERSION(11, 0, 3):
-> +		/* XXX fix me! */
-> +		if ((adev->gfx.me_fw_version >= 1498) &&
-> +		    (adev->gfx.me_feature_version >= 29) &&
-> +		    (adev->gfx.pfp_fw_version >= 1541) &&
-> +		    (adev->gfx.pfp_feature_version >= 29) &&
-> +		    (adev->gfx.mec_fw_version >= 507) &&
-> +		    (adev->gfx.mec_feature_version >= 29))
-> +			adev->gfx.cp_gfx_shadow = true;
-> +		break;
-> +	default:
-> +		adev->gfx.cp_gfx_shadow = false;
-> +		break;
-> +	}
-> +}
-> +
->   static int gfx_v11_0_init_microcode(struct amdgpu_device *adev)
->   {
->   	char fw_name[40];
-> @@ -539,6 +560,7 @@ static int gfx_v11_0_init_microcode(struct amdgpu_device *adev)
->   	/* only one MEC for gfx 11.0.0. */
->   	adev->gfx.mec2_fw = NULL;
->   
-> +	gfx_v11_0_check_fw_cp_gfx_shadow(adev);
->   out:
->   	if (err) {
->   		amdgpu_ucode_release(&adev->gfx.pfp_fw);
-> @@ -5563,6 +5585,28 @@ static void gfx_v11_0_ring_emit_cntxcntl(struct amdgpu_ring *ring,
->   	amdgpu_ring_write(ring, 0);
->   }
->   
-> +static void gfx_v11_0_ring_emit_gfx_shadow(struct amdgpu_ring *ring,
-> +					   struct amdgpu_job *job)
+> > +             }
+> > +     }
+> > +     if (shadow_initialized)
+> > +             p->ctx->shadow_initialized =3D true;
+>
+> This is a really bad idea since the IOCTL can be interrupted later on.
+>
+> Why do we need that?
 
-Better give the values to use here instead of the job structure.
+Yes.  We have to only initial the buffer the first time it's used.
+Doing it again will overwrite whatever userspace has done with it
+since then.
 
-Regards,
-Christian.
+Alex
 
-> +{
-> +	unsigned vmid = AMDGPU_JOB_GET_VMID(job);
-> +	struct amdgpu_device *adev = ring->adev;
-> +
-> +	if (!adev->gfx.cp_gfx_shadow)
-> +		return;
-> +
-> +	amdgpu_ring_write(ring, PACKET3(PACKET3_SET_Q_PREEMPTION_MODE, 7));
-> +	amdgpu_ring_write(ring, lower_32_bits(job->shadow_va));
-> +	amdgpu_ring_write(ring, upper_32_bits(job->shadow_va));
-> +	amdgpu_ring_write(ring, lower_32_bits(job->gds_va));
-> +	amdgpu_ring_write(ring, upper_32_bits(job->gds_va));
-> +	amdgpu_ring_write(ring, lower_32_bits(job->csa_va));
-> +	amdgpu_ring_write(ring, upper_32_bits(job->csa_va));
-> +	amdgpu_ring_write(ring, job->shadow_va ?
-> +			  PACKET3_SET_Q_PREEMPTION_MODE_IB_VMID(vmid) : 0);
-> +	amdgpu_ring_write(ring, job->init_shadow ?
-> +			  PACKET3_SET_Q_PREEMPTION_MODE_INIT_SHADOW_MEM : 0);
-> +}
-> +
->   static unsigned gfx_v11_0_ring_emit_init_cond_exec(struct amdgpu_ring *ring)
->   {
->   	unsigned ret;
-> @@ -6183,6 +6227,7 @@ static const struct amdgpu_ring_funcs gfx_v11_0_ring_funcs_gfx = {
->   	.set_wptr = gfx_v11_0_ring_set_wptr_gfx,
->   	.emit_frame_size = /* totally 242 maximum if 16 IBs */
->   		5 + /* COND_EXEC */
-> +		9 + /* SET_Q_PREEMPTION_MODE */
->   		7 + /* PIPELINE_SYNC */
->   		SOC15_FLUSH_GPU_TLB_NUM_WREG * 5 +
->   		SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 7 +
-> @@ -6209,6 +6254,7 @@ static const struct amdgpu_ring_funcs gfx_v11_0_ring_funcs_gfx = {
->   	.insert_nop = amdgpu_ring_insert_nop,
->   	.pad_ib = amdgpu_ring_generic_pad_ib,
->   	.emit_cntxcntl = gfx_v11_0_ring_emit_cntxcntl,
-> +	.emit_gfx_shadow = gfx_v11_0_ring_emit_gfx_shadow,
->   	.init_cond_exec = gfx_v11_0_ring_emit_init_cond_exec,
->   	.patch_cond_exec = gfx_v11_0_ring_emit_patch_cond_exec,
->   	.preempt_ib = gfx_v11_0_ring_preempt_ib,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nvd.h b/drivers/gpu/drm/amd/amdgpu/nvd.h
-> index fd6b58243b03..631dafb92299 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nvd.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/nvd.h
-> @@ -462,6 +462,9 @@
->   #              define PACKET3_QUERY_STATUS_ENG_SEL(x)          ((x) << 25)
->   #define	PACKET3_RUN_LIST				0xA5
->   #define	PACKET3_MAP_PROCESS_VM				0xA6
-> -
-> +/* GFX11 */
-> +#define	PACKET3_SET_Q_PREEMPTION_MODE			0xF0
-> +#              define PACKET3_SET_Q_PREEMPTION_MODE_IB_VMID(x)  ((x) << 0)
-> +#              define PACKET3_SET_Q_PREEMPTION_MODE_INIT_SHADOW_MEM    (1 << 0)
->   
->   #endif
-
+>
+> Regards,
+> Christian.
+>
+>
+> > +}
+> > +
+> >   static int amdgpu_cs_pass2(struct amdgpu_cs_parser *p)
+> >   {
+> >       unsigned int ce_preempt =3D 0, de_preempt =3D 0;
+> > @@ -629,6 +650,9 @@ static int amdgpu_cs_pass2(struct amdgpu_cs_parser =
+*p)
+> >                       if (r)
+> >                               return r;
+> >                       break;
+> > +             case AMDGPU_CHUNK_ID_CP_GFX_SHADOW:
+> > +                     amdgpu_cs_p2_shadow(p, chunk);
+> > +                     break;
+> >               }
+> >       }
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_ctx.h
+> > index 0fa0e56daf67..909d188c41f2 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+> > @@ -57,6 +57,7 @@ struct amdgpu_ctx {
+> >       unsigned long                   ras_counter_ce;
+> >       unsigned long                   ras_counter_ue;
+> >       uint32_t                        stable_pstate;
+> > +     bool                            shadow_initialized;
+> >   };
+> >
+> >   struct amdgpu_ctx_mgr {
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_ib.c
+> > index bcccc348dbe2..d88964b9407f 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> > @@ -212,6 +212,10 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, u=
+nsigned num_ibs,
+> >       }
+> >
+> >       amdgpu_ring_ib_begin(ring);
+> > +
+> > +     if (job && ring->funcs->emit_gfx_shadow)
+> > +             amdgpu_ring_emit_gfx_shadow(ring, job);
+> > +
+> >       if (job && ring->funcs->init_cond_exec)
+> >               patch_offset =3D amdgpu_ring_init_cond_exec(ring);
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_job.h
+> > index 9790def34815..b470808fa40e 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> > @@ -68,6 +68,12 @@ struct amdgpu_job {
+> >       uint64_t                uf_addr;
+> >       uint64_t                uf_sequence;
+> >
+> > +     /* virtual addresses for shadow/GDS/CSA */
+> > +     uint64_t                shadow_va;
+> > +     uint64_t                csa_va;
+> > +     uint64_t                gds_va;
+> > +     bool                    init_shadow;
+> > +
+> >       /* job_run_counter >=3D 1 means a resubmit job */
+> >       uint32_t                job_run_counter;
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_ring.h
+> > index 3989e755a5b4..8643d4a92c27 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > @@ -212,6 +212,7 @@ struct amdgpu_ring_funcs {
+> >       void (*end_use)(struct amdgpu_ring *ring);
+> >       void (*emit_switch_buffer) (struct amdgpu_ring *ring);
+> >       void (*emit_cntxcntl) (struct amdgpu_ring *ring, uint32_t flags);
+> > +     void (*emit_gfx_shadow)(struct amdgpu_ring *ring, struct amdgpu_j=
+ob *job);
+> >       void (*emit_rreg)(struct amdgpu_ring *ring, uint32_t reg,
+> >                         uint32_t reg_val_offs);
+> >       void (*emit_wreg)(struct amdgpu_ring *ring, uint32_t reg, uint32_=
+t val);
+> > @@ -307,6 +308,7 @@ struct amdgpu_ring {
+> >   #define amdgpu_ring_emit_hdp_flush(r) (r)->funcs->emit_hdp_flush((r))
+> >   #define amdgpu_ring_emit_switch_buffer(r) (r)->funcs->emit_switch_buf=
+fer((r))
+> >   #define amdgpu_ring_emit_cntxcntl(r, d) (r)->funcs->emit_cntxcntl((r)=
+, (d))
+> > +#define amdgpu_ring_emit_gfx_shadow(r, j) (r)->funcs->emit_gfx_shadow(=
+(r), (j))
+> >   #define amdgpu_ring_emit_rreg(r, d, o) (r)->funcs->emit_rreg((r), (d)=
+, (o))
+> >   #define amdgpu_ring_emit_wreg(r, d, v) (r)->funcs->emit_wreg((r), (d)=
+, (v))
+> >   #define amdgpu_ring_emit_reg_wait(r, d, v, m) (r)->funcs->emit_reg_wa=
+it((r), (d), (v), (m))
+>
