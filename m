@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AB13C7618E
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Mar 2023 00:54:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94304C6FD1F
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Mar 2023 00:55:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C16C10E0BA;
-	Mon, 20 Mar 2023 00:54:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2618810E0DC;
+	Mon, 20 Mar 2023 00:55:11 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE84B10E0AB;
- Mon, 20 Mar 2023 00:54:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 854EB10E0DD;
+ Mon, 20 Mar 2023 00:55:08 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6BC05611E3;
- Mon, 20 Mar 2023 00:54:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 843C9C433EF;
- Mon, 20 Mar 2023 00:54:09 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D4619611FE;
+ Mon, 20 Mar 2023 00:55:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F708C433EF;
+ Mon, 20 Mar 2023 00:55:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1679273651;
- bh=o2hSVSgxLu9H00c5eClJaIkDhqs030/SP8ijcu8C2BU=;
+ s=k20201202; t=1679273707;
+ bh=dP8MKAIz+hzlwbkB+IquFyYQGS6Da7JzwgrSPP86ulE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ed39Um3RcwmCVjyJJlC/QGFTGc6QmZJsk3H6X6t66+v1W/d8H8cb5d+ysE7SWdUsH
- OLttwpVa+XVh9YvKUFwleCQPCsKCpUtkeLHRxwTuoWvWi7LW9PSmBS/uHlBxyXlGCk
- Ptf8aYUy3CcUBqdWsdQJCCzKX7imd65qj+JoPnKKfCA3TMj246xu17V4JeEyU4UTV1
- pYyzyYlfKW12a2bFFfve9KTt3NlfZTMhSwRHkDlSk8EYVe7/WKb4hL9syJFoZfm+t1
- 0SMMCQwS51eUE8nYstrgwfd/6Ty1sCVTTBPzNM4l4LQ3UxNcFxkKfcXU38eh1lSAxY
- uV8GYqEsHd/Kg==
+ b=YbF0BOlB4Fl97XetgSB9wOhWsffhm7FRRR30pral7NG3IMYiRP5meSd40dJDhijeT
+ 0SvaF+juvlxxZ9uokFr2Bx4EviUNIsa2L41rjuEXA2QWZ+qNCq2gcEus6ANye+qEEE
+ Sh1taSffcAmrEc2RMpXIJXq+A3QiVdzgdMAlCzP9pnSJz1JnU3QGzV7HYwf7Sn2PY+
+ YZWcL/w3kpeGxG/CQWo+3YrbsWt0bRAO2wRhepqyD/PlKNTlSRf7V4AFMtc9T1mGt6
+ kXeXD3M8jeIF7eufNJCWAtVWEaIDeZzn6YN+f0UJVOHFBkQZ1cydeYYmmBrbRgi/Qr
+ 2PCop3oYzZ7yQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.2 30/30] drm/amd: Fix initialization mistake for
- NBIO 7.3.0
-Date: Sun, 19 Mar 2023 20:52:55 -0400
-Message-Id: <20230320005258.1428043-30-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 26/29] drm/amd/display: Update clock table to
+ include highest clock setting
+Date: Sun, 19 Mar 2023 20:54:08 -0400
+Message-Id: <20230320005413.1428452-26-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230320005258.1428043-1-sashal@kernel.org>
-References: <20230320005258.1428043-1-sashal@kernel.org>
+In-Reply-To: <20230320005413.1428452-1-sashal@kernel.org>
+References: <20230320005413.1428452-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -55,70 +55,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>,
- Basavaraj Natikar <Basavaraj.Natikar@amd.com>, dri-devel@lists.freedesktop.org,
- Xinhui.Pan@amd.com, Thomas Glanzmann <thomas@glanzmann.de>,
- amd-gfx@lists.freedesktop.org, Mario Limonciello <mario.limonciello@amd.com>,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>, evan.quan@amd.com,
- airlied@gmail.com, christian.koenig@amd.com, Hawking.Zhang@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, oliver.logush@amd.com,
+ Swapnil Patel <Swapnil.Patel@amd.com>, sunpeng.li@amd.com, airlied@gmail.com,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, Xinhui.Pan@amd.com,
+ Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, mwen@igalia.com,
+ mairacanal@riseup.net, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, harry.wentland@amd.com,
+ christian.koenig@amd.com, Pavle Kotarac <pavle.kotarac@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Mario Limonciello <mario.limonciello@amd.com>
+From: Swapnil Patel <Swapnil.Patel@amd.com>
 
-[ Upstream commit 1717cc5f2962a4652c76ed3858b499ccae6c277c ]
+[ Upstream commit 2d99a7ec25cf456cd3680eb314d6454138e5aa64 ]
 
-The same strapping initialization issue that happened on NBIO 7.5.1
-appears to be happening on NBIO 7.3.0.
-Apply the same fix to 7.3.0 as well.
+[Why]
+Currently, the clk manager matches SocVoltage with voltage from
+fused settings (dfPstate clock table). And then corresponding clocks
+are selected.
 
-Note: This workaround relies upon the integrated GPU being enabled
-in BIOS. If the integrated GPU is disabled in BIOS a different
-workaround will be required.
+However in certain situations, this leads to clk manager not
+including at least one entry with highest supported clock setting.
 
-Reported-by: Thomas Glanzmann <thomas@glanzmann.de>
-Cc: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
-Link: https://lore.kernel.org/linux-usb/Y%2Fz9GdHjPyF2rNG3@glanzmann.de/T/#u
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+[How]
+Update the clk manager to include at least one entry with highest
+supported clock setting.
+
+Reviewed-by: Pavle Kotarac <pavle.kotarac@amd.com>
+Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
+Signed-off-by: Swapnil Patel <Swapnil.Patel@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+ .../display/dc/clk_mgr/dcn301/vg_clk_mgr.c    | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
-index 4b0d563c6522c..4ef1fa4603c8e 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
-@@ -382,11 +382,6 @@ static void nbio_v7_2_init_registers(struct amdgpu_device *adev)
- 		if (def != data)
- 			WREG32_PCIE_PORT(SOC15_REG_OFFSET(NBIO, 0, regBIF1_PCIE_MST_CTRL_3), data);
- 		break;
--	case IP_VERSION(7, 5, 1):
--		data = RREG32_SOC15(NBIO, 0, regRCC_DEV2_EPF0_STRAP2);
--		data &= ~RCC_DEV2_EPF0_STRAP2__STRAP_NO_SOFT_RESET_DEV2_F0_MASK;
--		WREG32_SOC15(NBIO, 0, regRCC_DEV2_EPF0_STRAP2, data);
--		fallthrough;
- 	default:
- 		def = data = RREG32_PCIE_PORT(SOC15_REG_OFFSET(NBIO, 0, regPCIE_CONFIG_CNTL));
- 		data = REG_SET_FIELD(data, PCIE_CONFIG_CNTL,
-@@ -399,6 +394,15 @@ static void nbio_v7_2_init_registers(struct amdgpu_device *adev)
- 		break;
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
+index 24715ca2fa944..01383aac6b419 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn301/vg_clk_mgr.c
+@@ -529,6 +529,19 @@ static struct clk_bw_params vg_bw_params = {
  
-+	switch (adev->ip_versions[NBIO_HWIP][0]) {
-+	case IP_VERSION(7, 3, 0):
-+	case IP_VERSION(7, 5, 1):
-+		data = RREG32_SOC15(NBIO, 0, regRCC_DEV2_EPF0_STRAP2);
-+		data &= ~RCC_DEV2_EPF0_STRAP2__STRAP_NO_SOFT_RESET_DEV2_F0_MASK;
-+		WREG32_SOC15(NBIO, 0, regRCC_DEV2_EPF0_STRAP2, data);
-+		break;
+ };
+ 
++static uint32_t find_max_clk_value(const uint32_t clocks[], uint32_t num_clocks)
++{
++	uint32_t max = 0;
++	int i;
++
++	for (i = 0; i < num_clocks; ++i) {
++		if (clocks[i] > max)
++			max = clocks[i];
 +	}
 +
- 	if (amdgpu_sriov_vf(adev))
- 		adev->rmmio_remap.reg_offset = SOC15_REG_OFFSET(NBIO, 0,
- 			regBIF_BX_PF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
++	return max;
++}
++
+ static unsigned int find_dcfclk_for_voltage(const struct vg_dpm_clocks *clock_table,
+ 		unsigned int voltage)
+ {
+@@ -572,12 +585,16 @@ static void vg_clk_mgr_helper_populate_bw_params(
+ 
+ 	bw_params->clk_table.num_entries = j + 1;
+ 
+-	for (i = 0; i < bw_params->clk_table.num_entries; i++, j--) {
++	for (i = 0; i < bw_params->clk_table.num_entries - 1; i++, j--) {
+ 		bw_params->clk_table.entries[i].fclk_mhz = clock_table->DfPstateTable[j].fclk;
+ 		bw_params->clk_table.entries[i].memclk_mhz = clock_table->DfPstateTable[j].memclk;
+ 		bw_params->clk_table.entries[i].voltage = clock_table->DfPstateTable[j].voltage;
+ 		bw_params->clk_table.entries[i].dcfclk_mhz = find_dcfclk_for_voltage(clock_table, clock_table->DfPstateTable[j].voltage);
+ 	}
++	bw_params->clk_table.entries[i].fclk_mhz = clock_table->DfPstateTable[j].fclk;
++	bw_params->clk_table.entries[i].memclk_mhz = clock_table->DfPstateTable[j].memclk;
++	bw_params->clk_table.entries[i].voltage = clock_table->DfPstateTable[j].voltage;
++	bw_params->clk_table.entries[i].dcfclk_mhz = find_max_clk_value(clock_table->DcfClocks, VG_NUM_DCFCLK_DPM_LEVELS);
+ 
+ 	bw_params->vram_type = bios_info->memory_type;
+ 	bw_params->num_channels = bios_info->ma_channel_number;
 -- 
 2.39.2
 
