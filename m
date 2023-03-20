@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56533C6FD1D
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Mar 2023 08:20:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACEDAC6FD1D
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Mar 2023 08:23:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF2CD10E247;
-	Mon, 20 Mar 2023 08:20:08 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 825A510E247;
- Mon, 20 Mar 2023 08:20:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9468810E276;
+	Mon, 20 Mar 2023 08:23:14 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A26A610E269;
+ Mon, 20 Mar 2023 08:23:12 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 21A66CE109B;
- Mon, 20 Mar 2023 08:20:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 235EEC4339B;
- Mon, 20 Mar 2023 08:19:54 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 2DCCFB80D64;
+ Mon, 20 Mar 2023 08:23:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44C90C433EF;
+ Mon, 20 Mar 2023 08:23:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1679300397;
- bh=QpAVKqeubJthGIFfzcG7IrxW0rOZ+Vhr+iwkoRDofsw=;
+ s=k20201202; t=1679300589;
+ bh=yabM2Apro8qj1FFGuBwMuZQLTe9feWHYNh167tSAo/k=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=FFZN1EqsUQoijVrA3D5Fx3IRVmy5UZQwaNQowjxlcI1PUvmO+q1l3PCO0OrEwHHJ9
- 4y0X+YN50WzeAzMy5I6pO0s+0uzu8fDTns8Ub//f8u1eJT0NB+aGVr2AxT1uMw2+pH
- oQVR56yeDBULokyYbs7J9ZgvFmYQMcY7Z5RJkXFBM2v7B0Xh9XEYwRM3lTqvOnXARD
- Y6BG2OV6blc4Aj9wH7BgFQg1LPIdG5+lVQmiJ3F8WLjrrWWTNU9DUAa1KoMw17uzEn
- d76VrlM04pUdTq8OBGXKbELJ1IzMDYG2dBZlp9naz/A1WCvyCzBUF6bvIrFplI7w2T
- rg2BdxYDGt8zQ==
-Date: Mon, 20 Mar 2023 08:19:51 +0000
+ b=FQz4d/CjYV65d+oc0RsBzPvJVmoNHKT1JzJDzHNRDyExrY6Ouospb5UWeHqL/aFha
+ ExoNGowakQFwy2IJw0U7OnzVMktBFIk47fG92XQoUMc8uL2mNU1szyD5uL3BssQ9Yi
+ RRG/qMo5Z+vwNSmkFmbs0/Z54yG0iRBtIYelvjSnKj1D7IyPJNA5rnlz+LbC2/juX1
+ 2a9jITzl6/We/jMTTQbbEkRdlEt7yBBiUm+1U9AzRe9LiwCA9IIC/y6O2pOYYvJeq+
+ 62d7Cr5NDhx3a4wU0xtO+2kN0Yev4eDeChwTLi45TG+mxxP5lSj0Jt3ajoDuaecvc6
+ 6lH+DTL+yYGbw==
+Date: Mon, 20 Mar 2023 08:23:03 +0000
 From: Lee Jones <lee@kernel.org>
 To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH 28/37] drm/amd/display/dc/core/dc_stat: Convert a couple
- of doc headers to kerneldoc format
-Message-ID: <20230320081951.GI9667@google.com>
+Subject: Re: [PATCH 36/37] drm/amd/display/dc/link/link_detection: Demote a
+ couple of kerneldoc abuses
+Message-ID: <20230320082303.GL9667@google.com>
 References: <20230317081718.2650744-1-lee@kernel.org>
- <20230317081718.2650744-29-lee@kernel.org>
- <CADnq5_O0mQWy5z-SeWryyVeBhhsDX_yrsiuHTUbDBBAscB6b=w@mail.gmail.com>
+ <20230317081718.2650744-37-lee@kernel.org>
+ <CADnq5_MhMNbcChfaQ=qbk7=F0xQ+nHvFf6W9Q+rEqXm0Zac14w@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CADnq5_O0mQWy5z-SeWryyVeBhhsDX_yrsiuHTUbDBBAscB6b=w@mail.gmail.com>
+In-Reply-To: <CADnq5_MhMNbcChfaQ=qbk7=F0xQ+nHvFf6W9Q+rEqXm0Zac14w@mail.gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,26 +55,31 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, Jasdeep Dhillon <jdhillon@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
- Mustapha Ghaddar <mghaddar@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Fri, 17 Mar 2023, Alex Deucher wrote:
 
-> On Fri, Mar 17, 2023 at 4:23 AM Lee Jones <lee@kernel.org> wrote:
+> Applied.  Thanks!
+>
+> Alex
+
+Awesome as ever Alex.  Thank you.
+
+> On Fri, Mar 17, 2023 at 4:24 AM Lee Jones <lee@kernel.org> wrote:
 > >
 > > Fixes the following W=1 kernel build warning(s):
 > >
-> >  drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_stat.c:38: warning: Cannot understand  *****************************************************************************
-> >  drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_stat.c:76: warning: Cannot understand  *****************************************************************************
+> >  drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_detection.c:877: warning: Function parameter or member 'link' not described in 'detect_link_and_local_sink'
+> >  drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_detection.c:877: warning: Function parameter or member 'reason' not described in 'detect_link_and_local_sink'
+> >  drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_detection.c:1232: warning: Function parameter or member 'link' not described in 'dc_link_detect_connection_type'
 > >
 > > Cc: Harry Wentland <harry.wentland@amd.com>
 > > Cc: Leo Li <sunpeng.li@amd.com>
@@ -83,79 +89,37 @@ On Fri, 17 Mar 2023, Alex Deucher wrote:
 > > Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
 > > Cc: David Airlie <airlied@gmail.com>
 > > Cc: Daniel Vetter <daniel@ffwll.ch>
-> > Cc: Mustapha Ghaddar <mghaddar@amd.com>
-> > Cc: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
-> > Cc: Jasdeep Dhillon <jdhillon@amd.com>
+> > Cc: Lee Jones <lee@kernel.org>
+> > Cc: Wenjing Liu <wenjing.liu@amd.com>
 > > Cc: amd-gfx@lists.freedesktop.org
 > > Cc: dri-devel@lists.freedesktop.org
 > > Signed-off-by: Lee Jones <lee@kernel.org>
 > > ---
-> >  drivers/gpu/drm/amd/display/dc/core/dc_stat.c | 28 +++++++------------
-> >  1 file changed, 10 insertions(+), 18 deletions(-)
+> >  drivers/gpu/drm/amd/display/dc/link/link_detection.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
 > >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stat.c b/drivers/gpu/drm/amd/display/dc/core/dc_stat.c
-> > index 6c06587dd88c2..5f6392ae31a66 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/core/dc_stat.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc_stat.c
-> > @@ -35,19 +35,15 @@
-> >   */
-> >
-> >  /**
->
-> This looks like it follows some other documentation scheme.  Would
-> probably be better to just remove the extra * and make it not kernel
-> doc.  @Wentland, Harry @Siqueira, Rodrigo ?
-
-Happy to wait for further input.
-
-Either demoting from or converting to kerneldoc would be fine.
-
-> > - *****************************************************************************
-> > - *  Function: dc_stat_get_dmub_notification
-> > + *  dc_stat_get_dmub_notification
-> >   *
-> > - *  @brief
-> > - *             Calls dmub layer to retrieve dmub notification
-> > + * Calls dmub layer to retrieve dmub notification
-> >   *
-> > - *  @param
-> > - *             [in] dc: dc structure
-> > - *             [in] notify: dmub notification structure
-> > + * @dc: dc structure
-> > + * @notify: dmub notification structure
-> >   *
-> > - *  @return
-> > + * Returns
-> >   *     None
-> > - *****************************************************************************
-> >   */
-> >  void dc_stat_get_dmub_notification(const struct dc *dc, struct dmub_notification *notify)
-> >  {
-> > @@ -73,19 +69,15 @@ void dc_stat_get_dmub_notification(const struct dc *dc, struct dmub_notification
+> > diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+> > index 9a4cfa777622e..67addedd89563 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+> > @@ -832,7 +832,7 @@ static void verify_link_capability(struct dc_link *link, struct dc_sink *sink,
+> >                 verify_link_capability_non_destructive(link);
 > >  }
 > >
-> >  /**
-> > - *****************************************************************************
-> > - *  Function: dc_stat_get_dmub_dataout
-> > + * dc_stat_get_dmub_dataout
+> > -/**
+> > +/*
+> >   * detect_link_and_local_sink() - Detect if a sink is attached to a given link
 > >   *
-> > - *  @brief
-> > - *             Calls dmub layer to retrieve dmub gpint dataout
-> > + * Calls dmub layer to retrieve dmub gpint dataout
+> >   * link->local_sink is created or destroyed as needed.
+> > @@ -1185,7 +1185,7 @@ static bool detect_link_and_local_sink(struct dc_link *link,
+> >         return true;
+> >  }
+> >
+> > -/**
+> > +/*
+> >   * link_detect_connection_type() - Determine if there is a sink connected
 > >   *
-> > - *  @param
-> > - *             [in] dc: dc structure
-> > - *             [in] dataout: dmub gpint dataout
-> > + * @dc: dc structure
-> > + * @dataout: dmub gpint dataout
-> >   *
-> > - *  @return
-> > + * Returns
-> >   *     None
-> > - *****************************************************************************
-> >   */
-> >  void dc_stat_get_dmub_dataout(const struct dc *dc, uint32_t *dataout)
-> >  {
+> >   * @type: Returned connection type
 > > --
 > > 2.40.0.rc1.284.g88254d51c5-goog
 > >
