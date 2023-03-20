@@ -4,88 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEADEC6FD1D
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Mar 2023 14:09:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2281FC76195
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Mar 2023 15:11:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69DB210E002;
-	Mon, 20 Mar 2023 14:09:54 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2076.outbound.protection.outlook.com [40.107.223.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 264F110E002
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Mar 2023 14:09:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AEpA/35IJ/CTeULsNEztoc8dMjlrauy0T0Jj+s/rN2Tosd2S/KelCqwPGu68OSXg+5/oPhcq8okUE23J/mGt7pFJfZtqMZXwJV4hYl+7PHcj+81uwO1Zxon8uLuUsltkoDgO+iwHOxhetKOgidkvq5MUBsk9V+Eq1UNHrkkWYs/NfDpQUKmnexztwHpTwY9MDUlwV/wAKuwhh8JANK+gJ5lDRIwoY8vANILLuqlrHRJh3XtyB+LZXQyVGHhhdq3ED1THgMsDcWCQVgf4qFpvkHapfjd0ukgoroKk1mnxhH5fa0M7NvKqpE/d1i+fPWWEhUKWlIV4PZ/LForHE7aW3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Vbk7fwnfBd7g8Vyl+FkuSxhD6IgQYszsoQNgCgR5YxY=;
- b=crK9tCo17Fpqvza86DcCXlVX0X1C2+bENy4DIEjNZKLYgqyN+tT04B6K48zYgha3xXjeHqLEnS5QXDNtqI2CsIoBV1OODfU80ZqOrrUWVX92dlW5bUdBNjbHpWZxKW/M762NZlU3GZmRpvbKxDRF06lj917ZC9IxDqAqnyK/8whQ9wwIMM48JGxTEYLPtArXkaqAo3HuJmd1gYPXwJb+fIRZr0tcjb5ZTv9Zu5Hh6IDSuF8PkwJxfUfZe/eBnG+cJfGsSmQXk8PyLuOSAM/icazRarjSHBRyIRvJSdzFdIhEvyyO7AtUbUTZHX4z/1fIkTWuXoVThF5aJFoBAE2U4Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Vbk7fwnfBd7g8Vyl+FkuSxhD6IgQYszsoQNgCgR5YxY=;
- b=k0UYaMx34VMjAlsKMg/YzvYT+fnL23H/IrFSmA6j13casl2KHFODVPk6ZtypI/bIHChMoC2Bt3OqKRsDsD4VUZlauXhKNhUgg45snCacSVpXebzuaC2qokWvkZ8VnFmni1rF+dPu2xohl46kmLQn2PFMG4rUamKeR+XEd9+zbH8=
-Received: from BL1PR13CA0434.namprd13.prod.outlook.com (2603:10b6:208:2c3::19)
- by SN7PR12MB8027.namprd12.prod.outlook.com (2603:10b6:806:32a::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Mon, 20 Mar
- 2023 14:09:50 +0000
-Received: from BL02EPF000108E8.namprd05.prod.outlook.com
- (2603:10b6:208:2c3:cafe::9a) by BL1PR13CA0434.outlook.office365.com
- (2603:10b6:208:2c3::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.15 via Frontend
- Transport; Mon, 20 Mar 2023 14:09:46 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF000108E8.mail.protection.outlook.com (10.167.241.201) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.30 via Frontend Transport; Mon, 20 Mar 2023 14:09:50 +0000
-Received: from mkgs-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 20 Mar
- 2023 09:09:48 -0500
-From: Graham Sider <Graham.Sider@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2] drm/amdgpu: add print for iommu translation mode
-Date: Mon, 20 Mar 2023 10:08:58 -0400
-Message-ID: <20230320140858.1420216-1-Graham.Sider@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9830588FF9;
+	Mon, 20 Mar 2023 15:11:11 +0000 (UTC)
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EED788FF9;
+ Mon, 20 Mar 2023 15:11:09 +0000 (UTC)
+Received: by mail-wm1-x329.google.com with SMTP id
+ i5-20020a05600c354500b003edd24054e0so2630112wmq.4; 
+ Mon, 20 Mar 2023 08:11:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1679325068;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=MLgEcD7VZWnRzPue4t1I8Ce61Fq3oPAt515XripkCT8=;
+ b=NoHhRK3XhC+HLWncv8nY8O8ib6xkc3TJy1KT6qlsqwlGLv3wBhX8EcqeeTvj1Dxe22
+ qcnoFhLPWDVYxtaVOUlvEfOP5yBEf5wDcCcIkq+x9ubFL5pioNrFpqA4oZOWTTIqKFMI
+ gSL0b2qg3IALL6Nr0DgduBwjw/6q08NiseLdEkFFXp4xDnLu8oq6Hy62ORTn9Jje+Nes
+ aGRgCPIrYpG1I4tXZhCRh9Xxxeeq609Qqcv0V4X6eA7qYSnBPuGF4Cr5pZBQ9vJnIIS0
+ Rxpjq97PlpgiITzW+FqvOd4lpiRCucSiIjHLAlWF66Y/7ih6jic/fVpTUF9jescpkdB0
+ Bg4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1679325068;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=MLgEcD7VZWnRzPue4t1I8Ce61Fq3oPAt515XripkCT8=;
+ b=a0LcdyzCGQ4X4Gud9nNzvq9E41za0aNXTMjfzB0FI4n2w+FEgMNqzZ4q422pc88l8Y
+ c80z2Hx8hocqbg3lQJapv/Wn/uMg+P6FqhKUmRIgI4qJd4vB/xU3uD/y36ERYMyf5efY
+ tM2SrytrI4nQOJ/V94niLdl6R5pPl19122mgHownk4AvyNhtmNjtcc6ieti6DX25fn7q
+ ncXJOcnctwX8ayKw5wPsbJWr1rSD1js/l0gEUclCqxoUhg5ZgDesFjOOFc8RkqtWMstn
+ 24/6m9+eK5cX2BRHFyNFDr0UmZ1XNQc/MNe6kgC5zUMBU0K3bJewXdm+kEfWjDVHmyz0
+ PhyA==
+X-Gm-Message-State: AO0yUKUlWzBjWhgZtidlKfOcrWsG50p7mA7lfDlq01zfpGyJMPlLAg5a
+ b9MagDc5hbO/O/yAJJGouQs=
+X-Google-Smtp-Source: AK7set9fyPmBsRfEGrBWwXHswRDAyKzUCUF/5eV4NBF7I37DY6LbeQ+qWNpHgqir+Awhph/CYZToSg==
+X-Received: by 2002:a05:600c:3491:b0:3eb:2e19:ff3a with SMTP id
+ a17-20020a05600c349100b003eb2e19ff3amr31824143wmq.7.1679325067714; 
+ Mon, 20 Mar 2023 08:11:07 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1256:79a0:fae3:596:f1a7:6853?
+ ([2a02:908:1256:79a0:fae3:596:f1a7:6853])
+ by smtp.gmail.com with ESMTPSA id
+ v10-20020a05600c470a00b003ee11ac2288sm1542346wmo.21.2023.03.20.08.11.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 20 Mar 2023 08:11:06 -0700 (PDT)
+Message-ID: <8cc926f5-ccee-b5ea-b217-297829051a7f@gmail.com>
+Date: Mon, 20 Mar 2023 16:11:08 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH 00/10] drm/radeon: Convert fbdev to DRM client
+Content-Language: en-US
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ alexander.deucher@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, javierm@redhat.com
+References: <20230316093738.28866-1-tzimmermann@suse.de>
+ <e84bdd5b-6615-33c0-bfff-208d6165a183@amd.com>
+ <2d04d39a-ff1c-59b1-acde-4fef5870a260@suse.de>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <2d04d39a-ff1c-59b1-acde-4fef5870a260@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF000108E8:EE_|SN7PR12MB8027:EE_
-X-MS-Office365-Filtering-Correlation-Id: 84e86a54-a62e-4e02-81d9-08db294cc507
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sKXITmxwUD0Uc9WgCjY4IuNPT2A0oVdir6IuutYyQ1ugnUtGUi81P+7hxj3d2jEPN3W70VJl0PcspmFU9f50OuzoHmy3L0awS4oqkocby2rAhHKF3bhtILccQzHfaQtBgw76IMdHGEdYPlf2Mb96dR/brKo5Ojy2lodoyHnR+9BXosF7+KcNsRkZIyvPhqS3cLFPe3fYHmwZ3nxjqQQF87tc6W5Abl78TjRDe7cbDeU+sQoFHtDgpa1FHEdJamiLs3dWWDcLq0QLTBSb4t2/Lt8tI24tV/uwIMwE1pz5GQdThOAbR0SMAVe+UraI2qPe5HEPycyI/8M43e2Gi+hJ2Mmb7dEkmPfZw73WrzjlPsKCgHlvT/QV5dfl25IgcUVFBpFH2XJnKRvNJG+HovX4lOoRBiVJr/+lEoLK3c9KhXQMFRAjqnvV68Xw9F8FKovVwWDCPyQY7O3KN/onuCdJv6GhpPQDhR8uy79i4ISl3tM0ND+t2Vo7JQ4ebn/dvq2yyhSPrL1zp+vSRy4GW7KprbEY2wNKCLRliCkw6ysdjzOONghuOByO1cwNh0/Z3c3Tv5pQJVkeA58ois7WxG09/sjBOIBSamg1K3I+Uo8k2bwn4uGOPZVyxNSWGvccghRm7FKgDqo+DVwRPU6IB8pptAHUslFehjdgdG7LDnuPUsBjECzwZNF+fI1cQb8lOnWp8Suvs44OetkokEvyXLPI5cMMXwZhIlewniGjWrVJ39s=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(346002)(376002)(136003)(396003)(39860400002)(451199018)(36840700001)(46966006)(40470700004)(316002)(7696005)(54906003)(6666004)(81166007)(6916009)(70206006)(70586007)(8676002)(4326008)(336012)(478600001)(47076005)(82740400003)(426003)(2906002)(36860700001)(40460700003)(2616005)(41300700001)(186003)(26005)(16526019)(356005)(86362001)(1076003)(8936002)(83380400001)(40480700001)(36756003)(5660300002)(82310400005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2023 14:09:50.2445 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 84e86a54-a62e-4e02-81d9-08db294cc507
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF000108E8.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8027
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,35 +81,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix.Kuehling@amd.com, Graham Sider <Graham.Sider@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add log to display whether RAM is direct vs DMA mapped.
+Am 17.03.23 um 10:20 schrieb Thomas Zimmermann:
+> Hi Christian
+>
+> Am 17.03.23 um 09:53 schrieb Christian König:
+>> Am 16.03.23 um 10:37 schrieb Thomas Zimmermann:
+>>> Convert radeon's fbdev code to drm_client. Replaces the current
+>>> ad-hoc integration. The conversion includes a number of cleanups.
+>>> Only build fbdev support if the config option has been set.
+>>
+>> I'm torn apart on that. On the one hand it looks like a really nice 
+>> cleanup on the other hand we don't really want to touch radeon any more.
+>
+> It's a driver in the upstream kernel. You have to expect at least some 
+> changes.
 
-Signed-off-by: Graham Sider <Graham.Sider@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Some changes is not the problem, but we need a justification to change 
+something. Just that it's nice to have won't do it without extensive 
+testing.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 3bd6c5aef796..83774824694b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3528,8 +3528,12 @@ static void amdgpu_device_check_iommu_direct_map(struct amdgpu_device *adev)
- 	struct iommu_domain *domain;
- 
- 	domain = iommu_get_domain_for_dev(adev->dev);
--	if (!domain || domain->type == IOMMU_DOMAIN_IDENTITY)
-+	if (!domain || domain->type == IOMMU_DOMAIN_IDENTITY) {
-+		dev_info(adev->dev, "RAM is direct mapped to GPU (not translated by IOMMU)\n");
- 		adev->ram_is_direct_mapped = true;
-+	} else {
-+		dev_info(adev->dev, "RAM is DMA mapped to GPU (translated by IOMMU)\n");
-+	}
- }
- 
- static const struct attribute *amdgpu_dev_attributes[] = {
--- 
-2.25.1
+>
+>>
+>> Alex what do you think? Is that worth the risk of breaking stuff?
+>
+> Moving all fbdev emulation to struct drm_client is required for new 
+> in-kernel DRM clients, such as a DRM kernel logger or a boot splash.
+
+Well that's a rather good justification. I suggest to add that to the 
+cover-letter.
+
+Regards,
+Christian.
+
+>
+> Best regards
+> Thomas
+>
+>>
+>> Christian.
+>>
+>>>
+>>> Thomas Zimmermann (10):
+>>>    drm/radeon: Move radeon_align_pitch() next to dumb-buffer helpers
+>>>    drm/radeon: Improve fbdev object-test helper
+>>>    drm/radeon: Remove struct radeon_fbdev
+>>>    drm/radeon: Remove test for !screen_base in fbdev probing
+>>>    drm/radeon: Move fbdev object helpers before struct fb_ops et al
+>>>    drm/radeon: Fix coding style in fbdev emulation
+>>>    drm/radeon: Move fbdev cleanup code into fb_destroy callback
+>>>    drm/radeon: Correctly clean up failed display probing
+>>>    drm/radeon: Implement client-based fbdev emulation
+>>>    drm/radeon: Only build fbdev if DRM_FBDEV_EMULATION is set
+>>>
+>>>   drivers/gpu/drm/radeon/Makefile         |   3 +-
+>>>   drivers/gpu/drm/radeon/radeon.h         |   2 +
+>>>   drivers/gpu/drm/radeon/radeon_display.c |   4 -
+>>>   drivers/gpu/drm/radeon/radeon_drv.c     |   3 +-
+>>>   drivers/gpu/drm/radeon/radeon_drv.h     |   1 -
+>>>   drivers/gpu/drm/radeon/radeon_fb.c      | 400 ----------------------
+>>>   drivers/gpu/drm/radeon/radeon_fbdev.c   | 422 
+>>> ++++++++++++++++++++++++
+>>>   drivers/gpu/drm/radeon/radeon_gem.c     |  24 ++
+>>>   drivers/gpu/drm/radeon/radeon_kms.c     |  18 -
+>>>   drivers/gpu/drm/radeon/radeon_mode.h    |  20 +-
+>>>   10 files changed, 464 insertions(+), 433 deletions(-)
+>>>   delete mode 100644 drivers/gpu/drm/radeon/radeon_fb.c
+>>>   create mode 100644 drivers/gpu/drm/radeon/radeon_fbdev.c
+>>>
+>>>
+>>> base-commit: ec0708e846b819c8d5b642de42448a87d7526564
+>>
+>
 
