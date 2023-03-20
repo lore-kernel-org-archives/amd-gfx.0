@@ -4,115 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BC81C6FD1D
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Mar 2023 16:16:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 701AEC6FD1D
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Mar 2023 17:02:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A852B10E5E9;
-	Mon, 20 Mar 2023 16:16:08 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2075.outbound.protection.outlook.com [40.107.94.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 931BE10E5EA
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Mar 2023 16:16:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gL01Zru27lP/3GI3KSzoJNu8NV7PwLp5qYxPizuN31C7bB0B6k64kbb+Nv43aHa7vYj6mnyJR7vl1WBOfVHbFkp+UfazdxD2YKgIUemuZfVxE3NZA0T6iIT9RPQbvtqXwx64UBbGQpENn6KwKEvzQwtd39bAUbF8tdtFXTppApLmJcnwcTspUhsxF7dj/pyYzvLz/ll+5Za5Sk3XkFn5xW4x4mFfS8/962wwEfVNjQyAui6oojgMmC3nYD8Ers5CSlnt5qYnGUEj4lnBrvXLd6ivOP3jTgffMINy+Y2PkcedhuOB8cS6A963Xp5ZylwF2OEa7PxXG8dPFd0EZrywuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=80MBbS+VX/y7Fvxkl6E2yZuRf00pXcQXL7fGLloNSRs=;
- b=GehpWpI8BHt0vka6r/KT+VWa0xjhj63sx12f31Y7IlDOjo6utNtuHFu9sPFcuAkN4jx3/W9KoqhG3qL9xyWE3UErFo3bs98Z4BGVI2Z4uOBtvK7snq20asKO9XjuZnTP3IvvHz12ZxtKRuRG+/IvBTU70dlmqaH57f69BfdPIRL9h8yNZIIs+YzmkS05Ohb3pHNNJokHkhK3ClwkdDzbhlTRz0RaRlQ7ZrqZjoTyt8OdSJb4e7kAHDbowwFVOroM4i5RlPYvrzEGzOCd7SsX4Pklmg1mvQaCeV7ZbMWNSb+U3wNcjJQLURU6KCFnvT3MKcTM79+MI4LROXzNbfvjHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=80MBbS+VX/y7Fvxkl6E2yZuRf00pXcQXL7fGLloNSRs=;
- b=uej7/2tmw37+u09QOx6MqoIxquMUQpEj4S/3gMtDFCUe9KyVH4sT7xWmXVh52vAvqyUAP8rDklw6Njabcar95kHjL4bVqycw7inuFV/qVHOvNs+ZfV+40rG7wwGdPC2rzl63sd4+xERwpeRBYBQFtsUTVbEO6Z7yV0/FvrfDk9c=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by DM4PR12MB5375.namprd12.prod.outlook.com (2603:10b6:5:389::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Mon, 20 Mar
- 2023 16:16:01 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::23f:22c1:b49e:b77e]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::23f:22c1:b49e:b77e%5]) with mapi id 15.20.6178.037; Mon, 20 Mar 2023
- 16:16:01 +0000
-Message-ID: <a25a9826-9778-73f8-dcb7-1c15e64782a3@amd.com>
-Date: Mon, 20 Mar 2023 12:16:02 -0400
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0041810E1F4;
+	Mon, 20 Mar 2023 17:02:01 +0000 (UTC)
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [IPv6:2a00:1450:4864:20::431])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A29AD10E5F8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Mar 2023 17:01:57 +0000 (UTC)
+Received: by mail-wr1-x431.google.com with SMTP id v1so4959906wrv.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Mar 2023 10:01:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1679331716;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=lOfKppETmGr96ojnUkRtQ2OX3aDkkQK8qNo5AfjOUxI=;
+ b=FvItMgiSJM6iXJzdu6IxlQpI5uxxO9fnnEzPGkUz4Ts8HX7oeHm4R8LwnM8TMMLHBR
+ ivPfAVTq5r2YM9Xhqf7jH+tyxmFRN25rUF7EwZv/LKfRkVlZbhF9/iNr9UH2yAqFJMhb
+ gLrBbRnNSs5KfsPldrSQOh5P6UGY2IFvdUgNBINnSK2TAkwSlxCcQ1dr8JgjBGt8rSvN
+ JYo6f/dcIHtabsU8FNGq8lESTTQsud3R1JFsEY5AZdZ9yoYnDaAIvQ3z56244kL5ZIdi
+ 2aDxXp89/esDJKKk1WWurlqpTzuutujY6oXHPxvxFwUO9KSOpEP2lqzZscXUW6+NNreN
+ RNWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1679331716;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=lOfKppETmGr96ojnUkRtQ2OX3aDkkQK8qNo5AfjOUxI=;
+ b=mAptqKoi3Ra1nJCdooYUbbT8cKbAgUBQ4FJhExfjaYSiSFB4rO0KOegInKQnvKGYpV
+ Q6OzauxJa5u/yvP5oVCvpnBIeQhSsJF7s/7r84NSO1rAG4Ebm0A71CWjma4MDTnOrtN6
+ ocpWPko/Xm7idKYEfOWzOQj2wDvBJ4sKEQw6Obc5Ln00DZGXs8LK0ZKvCCVDc6yf0sjH
+ 5eZQqpzvoJdQBS46nk1JktoXWGL3zjOKJxWvnd+U59OeDR2L5V2xGrRxS2lbyfb4xenD
+ VwnFXC2HPPlQRqm7uxk+eOKujt/F0ln2GMWqjvApa30uMyD2fAaMrlY2syHopugD63VO
+ m5Rw==
+X-Gm-Message-State: AO0yUKXsgjqwh7UY/1PCEM04XikqDSzjkzrlrpIULPPxu0u7y7S0Pn5E
+ EGa4tl5yEPJJ2AdNpe8ezyE=
+X-Google-Smtp-Source: AK7set/RMOOzWtmL8nf9hqhN8vBufi/pAX3+RK8sDU5f3ZSRczr8Odk13TSX/kCzhMt4LRmyoI0F+g==
+X-Received: by 2002:adf:dd4b:0:b0:2c6:e827:21c1 with SMTP id
+ u11-20020adfdd4b000000b002c6e82721c1mr21997wrm.50.1679331716134; 
+ Mon, 20 Mar 2023 10:01:56 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1256:79a0:ac09:1b0:c451:65?
+ ([2a02:908:1256:79a0:ac09:1b0:c451:65])
+ by smtp.gmail.com with ESMTPSA id
+ a7-20020a5d5087000000b002c55306f6edsm9321434wrt.54.2023.03.20.10.01.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 20 Mar 2023 10:01:55 -0700 (PDT)
+Message-ID: <7c9ae421-8bf6-4935-0e2b-fde402f2825a@gmail.com>
+Date: Mon, 20 Mar 2023 18:01:54 +0100
+MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH v2] drm/amdgpu: add print for iommu translation mode
+Subject: Re: [PATCH] drm/amdgpu: improve debug VRAM access performance using
+ sdma
 Content-Language: en-US
-To: Graham Sider <Graham.Sider@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230320140858.1420216-1-Graham.Sider@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20230320140858.1420216-1-Graham.Sider@amd.com>
+To: "Quan, Evan" <Evan.Quan@amd.com>, "Kim, Jonathan" <Jonathan.Kim@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20220104191211.1707514-1-jonathan.kim@amd.com>
+ <DM6PR12MB26197A9101DD2B16D580D12AE4809@DM6PR12MB2619.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <DM6PR12MB26197A9101DD2B16D580D12AE4809@DM6PR12MB2619.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR01CA0150.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:7e::7) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DM4PR12MB5375:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2036c17a-7189-4f3f-be6c-08db295e65af
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qBLduDKhBeLpxNgD4T1dVm7+5b8dYathClUvnriYuG7fPkhWy7f0Chhf1poruYt9RiHGFBo3ZoiFfvmgXhjxznYuPNbtK6hpS0Fv3pMkzj1gmrTRAzOdAjytvDMxIrTxTiqYl461Fitnq/M08xJ5AAsL3CZxToMIklMpBh6P81j+TYXllVg+3BKVFRKalHWZjP8X+ZNpOM6HPAjKr4us0AQ1JuF5Q0D53Qti0ZH06ki62e/+A+lsNwrxg4Ih00Xah0oQb2AFotPCx1ByXDZM9On9b65GZ0evjHm2kiWn6YFXs4u9VjN3+Cvg4cgBsGYoDLW2SP19okKx3Y1PCRMASw+CMpvcVw0NE922YHLxeibt/wZ7gR0yr8Nnc0FU/a/6muYfuc5QKgOt7DkRa05A2r9+KR+B649q28tG/vybgkHjm9XldmAof3wVYihyuLxk+pe9Dc68fYEK11KDPAU2/cVMfVfEE23ZtL4K8M5XpWo0grc5y4iukXv+uA6BJNfW+I+tic3pPJxpkxstcvIADt4aFsnHDsHh4IbDZiEvHFkYaSn555b5nP7SElmgLMjVG+z/SubOd9pOun6qq9zDjeA7jb6uwoQr993rZ/aCzkW6VtYOKFAFChBPGp3bgUf08xK8jsKoG7erJPsUj+c4VfyjFW20u2F4UAP2kwldztq6709Jde/YVBB0qJQdoUiPN592fvmhWcLmcGf1nCxfPGt/en6guPN8vsACkCgGllM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(376002)(396003)(366004)(136003)(39860400002)(346002)(451199018)(31686004)(2616005)(83380400001)(6512007)(478600001)(6486002)(6506007)(316002)(5660300002)(186003)(53546011)(26005)(36916002)(31696002)(38100700002)(86362001)(8936002)(2906002)(66946007)(41300700001)(44832011)(8676002)(66476007)(36756003)(66556008)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VVdZaWxjU1NaN09BbXlrU3VrT2tkWTltTDJCYnZmdVVXK0UySzYrYzBYSW14?=
- =?utf-8?B?S1BsT29xa0QzbllvRks5MFQ0clBKdlVlNWQvWW9UcHNiQmZxZWlHVTA5ZkZo?=
- =?utf-8?B?TjhEQ3hPMkg2Ti82U3QzOE0xdFMyWktQUFhKbzhnUm14MFRjQlFyVmRPVXNv?=
- =?utf-8?B?VWc1bHFrT3M3TWZyTG5ZZHlHWlJPT0JhWjZ3TFNLRmN0U2NTUUpYYm5INEpn?=
- =?utf-8?B?WDY0LzhHRkptL0o0TXBmNXBoUXdvRHpadXAzaE5QRzRrR1FKaXlaWWxQMzZj?=
- =?utf-8?B?dFpDV25IanZnWERwcTd5c0pnaVY5MXp5WmlvTjUrcmV4MTNpbmlwK3pZQ0xY?=
- =?utf-8?B?aTJGQzYyazB3cElKQWc4SFdPaHBTb005UERDVzdaSUVKamFDeU9rZkkzeWFK?=
- =?utf-8?B?Sk1qYUxmQ3Fac3daU2k2a1VjMmthaGUvampJVlB6L0dxWkdDcGhDUjBJUFVm?=
- =?utf-8?B?dFBuMFVjbldKY0ZWampFZ2kyZlc5bWhFVU96b0RwakM3N1Y0UmRaQXlJNFMv?=
- =?utf-8?B?czVoelI2L1lWR0VZVHBmeEEya3FTc0lpbUpIOTZtQmNOODc0SWFLMEN2Szhj?=
- =?utf-8?B?ODdzczVnZklFRloyUnZKUENNazVEK1lFa1krMjQyNjFOZ3BuN2RwOVlLclZM?=
- =?utf-8?B?cVBtWmVGODRzbWNucWtnWS9lTU1uYTlyYWw1cGpXQ050MEIrUEVTemU0Vzlq?=
- =?utf-8?B?NlROODZNUFNDZ29HbjhCYWxIOHlFdE5IclN1TktIa1A0bXZGclVuWEl3RnRM?=
- =?utf-8?B?R0NNM2hEa05pTnNuNUVIdnhuMUdPeHVvMmdkc2k3K3RBNGhzYUZYT2k0MmZG?=
- =?utf-8?B?aTkwRGxZTGd2ZXpwYVh0UHB2OG1RS2RNbHVYMnlja0t6ZlJKM3FueWQyOENh?=
- =?utf-8?B?TDVyK0xrNjJXY21GWW5wSjBhZUlTQkxTQ3J5YzkxU2p1MHJGVDlaQjVJQXdt?=
- =?utf-8?B?WEFRd0YxMzhQZ21CNW5DN3IwVzB4bUZHNkNocUZOQkZjb0NUd21kU2d4K1k3?=
- =?utf-8?B?WFRub3ZxdHJVMXNnRU9UN2IyQWpyOTAzN0lCU3FXQ2ZFZ3p2Qk9YK0xMY1Fs?=
- =?utf-8?B?VkJuVUtJc005ekMyTjFMYTl6RWFEMjZ1dXBlWUkxV284M0JRV2hFN2NwTXZS?=
- =?utf-8?B?VWpLMlljOW5zcmFWNXowc0RPdTQyb0VaRVVBb1hvQWF6V1ovVVRUeGRZR0Ji?=
- =?utf-8?B?RExhQThQcVZoZnVHbWR6NXFTT3NmRkZhbzFFaFg2dVVjM1NMeWNNMHQxTlRV?=
- =?utf-8?B?dE9nVGFkcWZSTHdHQytLeVkrY1FEbWUxdDQzUVJQNTJaejAwYUtwVCsyc0FM?=
- =?utf-8?B?NlpQSy9HY05MWFo4NStqNUt1amFVaWswSGtUSndGckZESzE0Z1hVYjZBRjBP?=
- =?utf-8?B?ZG5YdmRDOElTcXVEL3M3ZGk4SllEdEZ0bjIwaEE1V2RhVjNMU1h6TGsvdEpw?=
- =?utf-8?B?VFFtZlJQZnErNVF0NW5CWDVVak9UVHpZSmllK2VnSkdYYWNNRGNGN25tSWUz?=
- =?utf-8?B?elZzWXlMcEdpeS9sY3VsZHBSUFIyNVJWc3dsSHJ5NDZXdkJ3NGRZd1poTTBz?=
- =?utf-8?B?R2wzWGNraFhiSUFndEFWSzM4UHYyTi82MEJkRHVrSFFjYk4xR044M1RNZU56?=
- =?utf-8?B?dmtnYTgvQzl5WlNjQS93SjdWSW82dFpLT0pXTzFjbTI3dytvYm5nKzhQcmFQ?=
- =?utf-8?B?aG9ROUdhN1l4M0wrTitWTFlwZitNMFRRa0tWNTN3bEJXeUxsWmJLMG1xUGFP?=
- =?utf-8?B?V0l3b1dyMHpwb3hPQ01lUUVPaW11dzNWR0FNcUN3RFFpK3RwV3prTCs5a0xF?=
- =?utf-8?B?R1NnaDBGczZ5VEpxZk1LTGtIZXhXaWRuQ2xiRlUwVnkxbGlBMjAydXJXeFhN?=
- =?utf-8?B?T1lWcm15eU4vNnB4ODV2N3pxeFlpUFNPQUJjTWRoUFdoUVJnZHY3UlZMS0c3?=
- =?utf-8?B?MmVuSGp0eUc3MmZOZHV4cm8rR3JUODFaR3p0ZmRsa2trMDF6WHd0eC9vR1hR?=
- =?utf-8?B?VG1OVkxocFVEWGx1WTAzZ0VSeEVYTXhNMU5LYUJKTjNHTVdiR0xNbU42YTNW?=
- =?utf-8?B?MzJ2aE1nS2RXOGZDMW85N29kY3JORERzTWpwTG5FbU5uUDdsU29tbFVFYnhh?=
- =?utf-8?Q?ivmFBrNaXrXfTGXQiawoLOqol?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2036c17a-7189-4f3f-be6c-08db295e65af
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2023 16:16:01.3831 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +ICWTRqjQOGosD9CVxF3KQyZPz91uHguh0tE0yLxwqWE9HfEzu6EtcAFURbh3BJeYGZPpDUFWERA0aALpqDAhw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5375
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,36 +78,208 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2023-03-20 10:08, Graham Sider wrote:
-> Add log to display whether RAM is direct vs DMA mapped.
+I don't think so. Have we recently re-ordered something here?
+
+Christian.
+
+Am 20.03.23 um 08:05 schrieb Quan, Evan:
+> [AMD Official Use Only - General]
 >
-> Signed-off-by: Graham Sider <Graham.Sider@amd.com>
-
-Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
-
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 +++++-
->   1 file changed, 5 insertions(+), 1 deletion(-)
+> I happened to find the sdma_access_bo allocation from GTT seems performing before gart is ready.
+> That makes the "amdgpu_gart_map" is skipped since adev->gart.ptr is still NULL.
+> Is that done intentionally ?
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 3bd6c5aef796..83774824694b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3528,8 +3528,12 @@ static void amdgpu_device_check_iommu_direct_map(struct amdgpu_device *adev)
->   	struct iommu_domain *domain;
->   
->   	domain = iommu_get_domain_for_dev(adev->dev);
-> -	if (!domain || domain->type == IOMMU_DOMAIN_IDENTITY)
-> +	if (!domain || domain->type == IOMMU_DOMAIN_IDENTITY) {
-> +		dev_info(adev->dev, "RAM is direct mapped to GPU (not translated by IOMMU)\n");
->   		adev->ram_is_direct_mapped = true;
-> +	} else {
-> +		dev_info(adev->dev, "RAM is DMA mapped to GPU (translated by IOMMU)\n");
-> +	}
->   }
->   
->   static const struct attribute *amdgpu_dev_attributes[] = {
+> Evan
+>> -----Original Message-----
+>> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+>> Jonathan Kim
+>> Sent: Wednesday, January 5, 2022 3:12 AM
+>> To: amd-gfx@lists.freedesktop.org
+>> Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; Kim, Jonathan
+>> <Jonathan.Kim@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
+>> Subject: [PATCH] drm/amdgpu: improve debug VRAM access performance
+>> using sdma
+>>
+>> For better performance during VRAM access for debugged processes, do
+>> read/write copies over SDMA.
+>>
+>> In order to fulfill post mortem debugging on a broken device, fallback to
+>> stable MMIO access when gpu recovery is disabled or when job submission
+>> time outs are set to max.  Failed SDMA access should automatically fall
+>> back to MMIO access.
+>>
+>> Use a pre-allocated GTT bounce buffer pre-mapped into GART to avoid
+>> page-table updates and TLB flushes on access.
+>>
+>> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 78
+>> +++++++++++++++++++++++++
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h |  5 +-
+>>   2 files changed, 82 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> index 367abed1d6e6..512df4c09772 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>> @@ -48,6 +48,7 @@
+>>   #include <drm/ttm/ttm_range_manager.h>
+>>
+>>   #include <drm/amdgpu_drm.h>
+>> +#include <drm/drm_drv.h>
+>>
+>>   #include "amdgpu.h"
+>>   #include "amdgpu_object.h"
+>> @@ -1429,6 +1430,70 @@ static void amdgpu_ttm_vram_mm_access(struct
+>> amdgpu_device *adev, loff_t pos,
+>>   	}
+>>   }
+>>
+>> +static int amdgpu_ttm_access_memory_sdma(struct ttm_buffer_object
+>> *bo,
+>> +					unsigned long offset, void *buf, int
+>> len, int write)
+>> +{
+>> +	struct amdgpu_bo *abo = ttm_to_amdgpu_bo(bo);
+>> +	struct amdgpu_device *adev = amdgpu_ttm_adev(abo->tbo.bdev);
+>> +	struct amdgpu_job *job;
+>> +	struct dma_fence *fence;
+>> +	uint64_t src_addr, dst_addr;
+>> +	unsigned int num_dw;
+>> +	int r, idx;
+>> +
+>> +	if (len != PAGE_SIZE)
+>> +		return -EINVAL;
+>> +
+>> +	if (!adev->mman.sdma_access_ptr)
+>> +		return -EACCES;
+>> +
+>> +	r = drm_dev_enter(adev_to_drm(adev), &idx);
+>> +	if (r)
+>> +		return r;
+>> +
+>> +	if (write)
+>> +		memcpy(adev->mman.sdma_access_ptr, buf, len);
+>> +
+>> +	num_dw = ALIGN(adev->mman.buffer_funcs->copy_num_dw, 8);
+>> +	r = amdgpu_job_alloc_with_ib(adev, num_dw * 4,
+>> AMDGPU_IB_POOL_DELAYED, &job);
+>> +	if (r)
+>> +		goto out;
+>> +
+>> +	src_addr = write ? amdgpu_bo_gpu_offset(adev-
+>>> mman.sdma_access_bo) :
+>> +			amdgpu_bo_gpu_offset(abo);
+>> +	dst_addr = write ? amdgpu_bo_gpu_offset(abo) :
+>> +			amdgpu_bo_gpu_offset(adev-
+>>> mman.sdma_access_bo);
+>> +	amdgpu_emit_copy_buffer(adev, &job->ibs[0], src_addr, dst_addr,
+>> PAGE_SIZE, false);
+>> +
+>> +	amdgpu_ring_pad_ib(adev->mman.buffer_funcs_ring, &job->ibs[0]);
+>> +	WARN_ON(job->ibs[0].length_dw > num_dw);
+>> +
+>> +	r = amdgpu_job_submit(job, &adev->mman.entity,
+>> AMDGPU_FENCE_OWNER_UNDEFINED, &fence);
+>> +	if (r) {
+>> +		amdgpu_job_free(job);
+>> +		goto out;
+>> +	}
+>> +
+>> +	if (!dma_fence_wait_timeout(fence, false, adev->sdma_timeout))
+>> +		r = -ETIMEDOUT;
+>> +	dma_fence_put(fence);
+>> +
+>> +	if (!(r || write))
+>> +		memcpy(buf, adev->mman.sdma_access_ptr, len);
+>> +out:
+>> +	drm_dev_exit(idx);
+>> +	return r;
+>> +}
+>> +
+>> +static inline bool amdgpu_ttm_allow_post_mortem_debug(struct
+>> amdgpu_device *adev)
+>> +{
+>> +	return amdgpu_gpu_recovery == 0 ||
+>> +		adev->gfx_timeout == MAX_SCHEDULE_TIMEOUT ||
+>> +		adev->compute_timeout == MAX_SCHEDULE_TIMEOUT ||
+>> +		adev->sdma_timeout == MAX_SCHEDULE_TIMEOUT ||
+>> +		adev->video_timeout == MAX_SCHEDULE_TIMEOUT;
+>> +}
+>> +
+>>   /**
+>>    * amdgpu_ttm_access_memory - Read or Write memory that backs a
+>> buffer object.
+>>    *
+>> @@ -1453,6 +1518,10 @@ static int amdgpu_ttm_access_memory(struct
+>> ttm_buffer_object *bo,
+>>   	if (bo->resource->mem_type != TTM_PL_VRAM)
+>>   		return -EIO;
+>>
+>> +	if (!amdgpu_ttm_allow_post_mortem_debug(adev) &&
+>> +			!amdgpu_ttm_access_memory_sdma(bo, offset, buf,
+>> len, write))
+>> +		return len;
+>> +
+>>   	amdgpu_res_first(bo->resource, offset, len, &cursor);
+>>   	while (cursor.remaining) {
+>>   		size_t count, size = cursor.size;
+>> @@ -1793,6 +1862,12 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+>>   		return r;
+>>   	}
+>>
+>> +	if (amdgpu_bo_create_kernel(adev, PAGE_SIZE, PAGE_SIZE,
+>> +				AMDGPU_GEM_DOMAIN_GTT,
+>> +				&adev->mman.sdma_access_bo, NULL,
+>> +				adev->mman.sdma_access_ptr))
+>> +		DRM_WARN("Debug VRAM access will use slowpath MM
+>> access\n");
+>> +
+>>   	return 0;
+>>   }
+>>
+>> @@ -1823,6 +1898,9 @@ void amdgpu_ttm_fini(struct amdgpu_device
+>> *adev)
+>>   	ttm_range_man_fini(&adev->mman.bdev, AMDGPU_PL_OA);
+>>   	ttm_device_fini(&adev->mman.bdev);
+>>   	adev->mman.initialized = false;
+>> +	if (adev->mman.sdma_access_ptr)
+>> +		amdgpu_bo_free_kernel(&adev->mman.sdma_access_bo,
+>> NULL,
+>> +					&adev->mman.sdma_access_ptr);
+>>   	DRM_INFO("amdgpu: ttm finalized\n");
+>>   }
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>> index 91a087f9dc7c..b0116c4a768f 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+>> @@ -98,6 +98,10 @@ struct amdgpu_mman {
+>>   	u64		fw_vram_usage_size;
+>>   	struct amdgpu_bo	*fw_vram_usage_reserved_bo;
+>>   	void		*fw_vram_usage_va;
+>> +
+>> +	/* PAGE_SIZE'd BO for process memory r/w over SDMA. */
+>> +	struct amdgpu_bo	*sdma_access_bo;
+>> +	void			*sdma_access_ptr;
+>>   };
+>>
+>>   struct amdgpu_copy_mem {
+>> @@ -193,5 +197,4 @@ uint64_t amdgpu_ttm_tt_pte_flags(struct
+>> amdgpu_device *adev, struct ttm_tt *ttm,
+>>   int amdgpu_ttm_evict_resources(struct amdgpu_device *adev, int
+>> mem_type);
+>>
+>>   void amdgpu_ttm_debugfs_init(struct amdgpu_device *adev);
+>> -
+>>   #endif
+>> --
+>> 2.25.1
+
