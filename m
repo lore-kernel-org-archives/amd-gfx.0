@@ -4,123 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BEADC74A5B
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Mar 2023 13:08:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3E23C74A5B
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Mar 2023 13:12:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3A0710E0B0;
-	Tue, 21 Mar 2023 13:08:48 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2069.outbound.protection.outlook.com [40.107.220.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1476110E0B0
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Mar 2023 13:08:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Wj5flzwDdE/aDlui0O8i77Q/nLFyksRwFT88YpP43lHbBijd2pbxdyFgCEziTKlKxzJnsTwD9O2KzkuphN6bRbOtI2KxkQy3KIJC4YvgoC25tULMBedEDeHLmiR+PhJsZiFKCddEHD4iGJJSA6LVLX2u0zBJiQxxc5n94Q99UjUeO/XKCBDgyjnGgky/ofg0g/I0cthV4Ls7umy5QjHq92hpPTOdZkt3LqrhN35Qxddfans0by+lvUSw/1epaR+2lGuWDTIn2ca4zN+L5GJP0/dFJ63vB7lhWP/fBCr/ybnh43c90imCeMviQE2Artr1dPSm1mEwMsyzbDcSuxNq6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MYgCJ8SKn5FzmSNDGZwr9jpRcxLllGJYQKzPix6cTgE=;
- b=LhOluaGWJM6X+1Z+iEitsA1rmp7e41EnTFsJUdFH9TNYeQXn2DHfs17+fEcMoCoYn5V5v9FUU5osYzEDcclbA02/Rt6ZVlFdQXWNN+D4NMfVIOzNkUNrd+TdHDM3IYbCPA4HmbA2jLwXvkChK0PDKKpLTVcAT5Q65NZyyEo5QXVzYocNi9So7pP+d/9JdCCSSoCPJ5bQqC+iFrLGfy2BMibpxgB2A0wu2cz4l07lEHbSUqB6/5KtyS5GyIGaeieu9UUptls6JK7Unp1i6Q2XxI4e1QeBj4MyvZtw1LMgkNxTC54tPjyIJpoKUqQYtj/aosJ/vi41Qe5dF2Z87kT4Vg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MYgCJ8SKn5FzmSNDGZwr9jpRcxLllGJYQKzPix6cTgE=;
- b=VGKJBDaHQIjTN2G0SG8A1VEhXh1eSneYng1Lq29QoaDTmbFxKTF50HMo9FAoU3R1z/pHZcrRV1HSXFfnKaxXj8qLn5ccBRYDqLQ0FGpNjqDcXuQI+11vLRUzFgaT1hFOAzrmzVQzwbjGMtPnDx+f3OyyeU78b8TKDJzaCJJwkY0=
-Received: from BL1PR12MB5334.namprd12.prod.outlook.com (2603:10b6:208:31d::17)
- by DS0PR12MB8296.namprd12.prod.outlook.com (2603:10b6:8:f7::6) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6178.37; Tue, 21 Mar 2023 13:08:44 +0000
-Received: from BL1PR12MB5334.namprd12.prod.outlook.com
- ([fe80::f228:6619:2cd5:9bf8]) by BL1PR12MB5334.namprd12.prod.outlook.com
- ([fe80::f228:6619:2cd5:9bf8%6]) with mapi id 15.20.6178.037; Tue, 21 Mar 2023
- 13:08:44 +0000
-From: "Yang, Stanley" <Stanley.Yang@amd.com>
-To: "Chai, Thomas" <YiPeng.Chai@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 3/3] drm/amdgpu: resume ras for gfx v11_0_3 during reset
- on SRIOV
-Thread-Topic: [PATCH 3/3] drm/amdgpu: resume ras for gfx v11_0_3 during reset
- on SRIOV
-Thread-Index: AQHZW56hQ+nkXEp0sEeTKPENsW0hiq8FNMww
-Date: Tue, 21 Mar 2023 13:08:44 +0000
-Message-ID: <BL1PR12MB5334AB2197DD2DA30CAFC5B39A819@BL1PR12MB5334.namprd12.prod.outlook.com>
-References: <20230321024020.139199-1-YiPeng.Chai@amd.com>
- <20230321024020.139199-3-YiPeng.Chai@amd.com>
-In-Reply-To: <20230321024020.139199-3-YiPeng.Chai@amd.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-03-21T13:08:42Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=22db5db6-3f7f-4d28-8001-58b671f44b36;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2023-03-21T13:08:42Z
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: 9b31b1ae-b616-4bfd-a087-93c016b6f1ec
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5334:EE_|DS0PR12MB8296:EE_
-x-ms-office365-filtering-correlation-id: 80b40ca9-7bad-4c72-9c4d-08db2a0d6678
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: /i8/Lziho65ZbPaWgQYviYdz/TedY/9PUhTW9ICd6tCrMeb1qCy9/FdZnV8Uw7oOtGiJ00TWN/QBI/U50uMZGZFjhi+gIoTWW6x8+mUnHblhiGhwLeW8sjLH+dOVUx3wnB9eCR8tpAtq7R+ix3Dnt5BI/A992GXU1Ndjn2cvW7ZCz5ywVc4EQefsjEKEfZ7OSuHUqAnLcWcRcj6ratUiOLhRgmNpN5oT3tOW0VfEqS50cRUjeIJTv1c0LpBHerjHq44AxW9OzZLhH5NyPz6BwSGO/iGRHlB0DzIkJDzei+uPtCLnWIR522YZ8Cik0IirLpYUPvr1WNdRernMqVMdZ3krIoCEubhZXCavta/zwMPOrGLCHJM+3eu3IZx6+Ic8a3HAOWi6yv5m2ajcRXepwdRu8qxPZAS2p95psC4Ji63R6/3yU+yHWUnddGoaWDdhgKn4dJoQlZheiFy2mUc5str+6adBvPbOM/Z/7U4a427JhkEYFMbNUV3GemZcXIVqi1uzALA7rCHsVSySQQkOGKIemrNr88/xIFVWKYYIdM/SSI6oaB8EpvR6oi6OceAZHxh9HNMqM7c9rn8cFaO2y7pLDDdpGvY4MfwQ3MSUnoEM42DQmguzpk/h6bTZnzg0GE+U4JFgeyH9H2NX84W4eeOCjbYJIz76floZtHgh1GdTC09HwRrY+Mp4zeZ/XXGPPAph0ZQqNL5SBy21AscDnQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5334.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(136003)(366004)(39860400002)(376002)(396003)(346002)(451199018)(9686003)(53546011)(38070700005)(6506007)(26005)(186003)(71200400001)(110136005)(7696005)(55016003)(38100700002)(52536014)(478600001)(2906002)(83380400001)(86362001)(122000001)(66946007)(33656002)(316002)(54906003)(8676002)(4326008)(64756008)(8936002)(41300700001)(66446008)(5660300002)(76116006)(66476007)(66556008);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Hb4RqEnulVEAMzSJi4FAc46agx5I4kG1BmqJ7jyOq8OAKEkZmceX6I8jqCZj?=
- =?us-ascii?Q?hcWXn0LvFDfqYrUlAyx7Y1VDESG2IvnV2nhTMJrnYaINksEZnwyhKYFZHCyX?=
- =?us-ascii?Q?C2973KlfXyorKaobdMR3ghAktyWJ37LNWasWkayWnpM0PTBTDyTZzRy+DkBF?=
- =?us-ascii?Q?fXiOFYfWsAX2J5yrzJP2YeHh88iUSFAc8D3HNNNnx/M69UeCRiNYkGAwLkfC?=
- =?us-ascii?Q?HNMi56v4MCMM7HfUwaeWO4CuKQIuliZxsYPztRNx3ROSMzpPhx6RlL/Uc6tu?=
- =?us-ascii?Q?i31EB1hL5S/Mp80qOaL2XKOUzujD+7Ujl4RjfOHNlc2bsLGKbS2vKlROo6f4?=
- =?us-ascii?Q?8E8Mim0kq+xoy44qEAKhb9U4qszlXvq8RcUhBkJsqF5mMpveqsU1omlz9SOH?=
- =?us-ascii?Q?jZQqPaUpa/eIrmk0qJNmFQbQBMoPGckhw3/SBl5tXSHMxyhnxvmDdwpGp02L?=
- =?us-ascii?Q?W4Hxm3h2bv3T3bwJeUynoxb3Wg8mgY/FUnehCdSFhEMeJIhzAC7YOFX9OS6X?=
- =?us-ascii?Q?nt/KHpmqU8XBLuu+TwWTh1Z9eF9eu7qIV9AYr0rG6WXaNLMWecDtgXcNc+BM?=
- =?us-ascii?Q?YO1v2QHvhtzNcXOF11ZXchkvyoNBvlUWoQZ2YzZVafdOgUmRi1j7h5zZU31e?=
- =?us-ascii?Q?uFoNJO6cCbfgBmmhxKPalBZx8cUf0D0qfGKfF02m0NsQQnz+KRR9wOlgQimK?=
- =?us-ascii?Q?v7+bBPBgzC2wiLQ75xaDqTmLxJOryybLhp1zIo4rqk99i8lFCM1k3QSg5knC?=
- =?us-ascii?Q?K/SwCYwGdcPS6wCt4ItTvmz7us0IOr4xlsdEM3m2U+8iMpTX6I0Kc2pKFbD9?=
- =?us-ascii?Q?44SQebTSGhCS/MKqYWShvKtzaPLKDEjnLrfz2ME5KpLxXCwoDdq7tGxy/3N4?=
- =?us-ascii?Q?89RziVTYzjLbRq03vrazCn/ieiTwfr3+itiaZ9JAXmygECXyCSz5x0GuK9Qr?=
- =?us-ascii?Q?c0JFN0SHyitgykA4FCt+Z36zbKEvUjmyVeCxMPhsyd9CEVDEgGmXTSR483gJ?=
- =?us-ascii?Q?BG838pqxRF6V7vD0JghG3CzIvEp4i8H6jAdV3s4XwKE/VJWq0j5pTOExTtgi?=
- =?us-ascii?Q?5NQI4Nz8SwjUnOGQR4bhNjtU3ha2d5nemrKgEfczgZbdfcMlqdcCrxro0gdt?=
- =?us-ascii?Q?biYWF/skkqRvDhq3NIDlMttLZDGyGyhxkUEzlefr9rsCDuaFz79FfQgJTOd3?=
- =?us-ascii?Q?cK59jioAXvRfDetFJFHhZUnUOqWzpti33YO0Op1Zg84oRrB0HYbtszYMmlt0?=
- =?us-ascii?Q?SbGrC1x0Cq3JMcj9HCALSGTxdpTHWqJIybKRHFKbyxxJ2/PfmAuS7/jpmWTg?=
- =?us-ascii?Q?udOtlZaFkdKlsyOmPYQ22NivCy3NJCxUtUfeVfKvo2uEMwVNLH0hsgF6+9bQ?=
- =?us-ascii?Q?ZOIzeUpxu6tdRwO5zPak5tXw0GAQSq5jfC06DqIImDalba2sscuvyy8+O7hp?=
- =?us-ascii?Q?f3OF36YQnB5d2keDAtwlr0IogecAcvBEAvd20rrKQS23WixARUg5Fq2Jt4Al?=
- =?us-ascii?Q?4/9rCvUZ/VobqhWPxDEd/WQdkj/GUFgrEWaFfLNU72ydeVfwpr1AlD6Z5pKw?=
- =?us-ascii?Q?PmLkVJyyF4YtHKA6qPY9pEdPaupesdhouH/S6enR?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FD2710E0E8;
+	Tue, 21 Mar 2023 13:12:39 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6775A10E77B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Mar 2023 13:12:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1679404355;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=eWFUnBtyx/hu3aRB6Qds/QASdRiQBFm/RsXbD7zPrs8=;
+ b=cVDKyknHAYdPF0wb2UYLKExanMsDPuaIOTxKLdvYPEhq6GGUUrzjCrKv67iGcPjijbPS04
+ KOtQB/X0Bhmgu8R/uq9p1c3bZJmN9JJ+4hiGEUqebXM1oTwL9MMHL4yQpQ/FEAz/4lMGpb
+ A1AKvgt5q8RoIgXMjtLBchHtB9yrvD8=
+Received: from mail-lf1-f69.google.com (mail-lf1-f69.google.com
+ [209.85.167.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-591-KLsaw9GKNi6vj19UC2EJ_w-1; Tue, 21 Mar 2023 09:12:31 -0400
+X-MC-Unique: KLsaw9GKNi6vj19UC2EJ_w-1
+Received: by mail-lf1-f69.google.com with SMTP id
+ d23-20020a193857000000b004e9d2af9e57so2002150lfj.23
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Mar 2023 06:12:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1679404350;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=eWFUnBtyx/hu3aRB6Qds/QASdRiQBFm/RsXbD7zPrs8=;
+ b=oMa4bG9xIE5LabdrcDqhB5/SJ7KIbwcAyCA10ZDvyQr+u2G3BmsaYjXx2GrujN6pYR
+ 4XWeR1v5VmR3sSwQP8ZRkvDooZhVOl2JcoS6tep0iAPKKOZqjPHmSdD588jRFfiZFcvX
+ XoKXM0xywMNP+oqV+EJgrCElJwpQrBjuS1TNF+b75x43kGibIGRI8dm5Lgx4FV80NTCX
+ 0f62BkBKc6Q3MC3KKf/9aQ844U1JnsEgvc65FlytQsNVuRq+j15muEEuiLqgsJYCIWMK
+ KNsgHzLiQOrw2yLF4SDdYaL1beXyEHDhcsjur1UyE1rBzjxulsOX3JIuDiDOX7SFhUld
+ Q7DQ==
+X-Gm-Message-State: AO0yUKX7GwyDHJmrdQfZAHZ++TWl+Zlj/fee7sUBvuU9COJYTo7CydhI
+ vN5p9TVmpglpfh86gP/BkMclY1qtMFEs6Q1B14/7C7XD/Mgl2VQVWmZe/DKr2o6smBZg/zZudj1
+ WK3ULrqHboyY7tUOu7MT3Wk9oSjAMlWrmeEPE8bHtOw==
+X-Received: by 2002:a2e:9257:0:b0:299:ac4e:a8ad with SMTP id
+ v23-20020a2e9257000000b00299ac4ea8admr867813ljg.1.1679404350533; 
+ Tue, 21 Mar 2023 06:12:30 -0700 (PDT)
+X-Google-Smtp-Source: AK7set/KbT8OnF5ZSrDD+joOOnVNq3dH1Zkr9qSjkGdKShhAj9uhTOGz8Y5fZZNQQMsXpTyWmZgzXbQ4rHZgY2BfE9w=
+X-Received: by 2002:a2e:9257:0:b0:299:ac4e:a8ad with SMTP id
+ v23-20020a2e9257000000b00299ac4ea8admr867802ljg.1.1679404350223; Tue, 21 Mar
+ 2023 06:12:30 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5334.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80b40ca9-7bad-4c72-9c4d-08db2a0d6678
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Mar 2023 13:08:44.4554 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +/Qre4ZJ8Y9nqhpcDiZA5LclWn2OI96IF/Gj4m4PZvqiW8N8StcpmKqR1uZF9zJ474BryDOiKXY1ddMWNDo49Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8296
+References: <20230113162428.33874-1-harry.wentland@amd.com>
+In-Reply-To: <20230113162428.33874-1-harry.wentland@amd.com>
+From: Sebastian Wick <sebastian.wick@redhat.com>
+Date: Tue, 21 Mar 2023 14:12:19 +0100
+Message-ID: <CA+hFU4xASm0wTs98HpqTfJjcsq24WX6uULTnfXobW75bWSzJ1A@mail.gmail.com>
+Subject: Re: [PATCH v2 00/21] Enable Colorspace connector property in amdgpu
+To: Harry Wentland <harry.wentland@amd.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,57 +76,160 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Chai, Thomas" <YiPeng.Chai@amd.com>, "Zhou1, Tao" <Tao.Zhou1@amd.com>,
- "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ dri-devel@lists.freedesktop.org, Pekka Paalanen <ppaalanen@gmail.com>,
+ Uma Shankar <uma.shankar@intel.com>, amd-gfx@lists.freedesktop.org,
+ Joshua Ashton <joshua@froggi.es>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Vitaly.Prosyak@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+FWIW, I still think this series is good (minus the UAPI changes) and
+would allow us to work on user space HDR support without custom
+kernels.
 
-The series is Reviewed-by: Stanley Yang <Stanley.Yang@amd.com>
-
-Regards,
-Stanley
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> YiPeng Chai
-> Sent: Tuesday, March 21, 2023 10:40 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Zhou1, Tao <Tao.Zhou1@amd.com>; Zhang, Hawking
-> <Hawking.Zhang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>; Chai,
-> Thomas <YiPeng.Chai@amd.com>
-> Subject: [PATCH 3/3] drm/amdgpu: resume ras for gfx v11_0_3 during reset
-> on SRIOV
->=20
-> Gfx v11_0_3 supports ras on SRIOV, so need to resume ras during reset.
->=20
-> Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
-> Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index d74d05802566..14d756caf839 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -5313,8 +5313,9 @@ int amdgpu_device_gpu_recover(struct
-> amdgpu_device *adev,
->  		if (r)
->  			adev->asic_reset_res =3D r;
->=20
-> -		/* Aldebaran supports ras in SRIOV, so need resume ras
-> during reset */
-> -		if (adev->ip_versions[GC_HWIP][0] =3D=3D IP_VERSION(9, 4, 2))
-> +		/* Aldebaran and gfx_11_0_3 support ras in SRIOV, so need
-> resume ras during reset */
-> +		if (adev->ip_versions[GC_HWIP][0] =3D=3D IP_VERSION(9, 4, 2)
-> ||
-> +		    adev->ip_versions[GC_HWIP][0] =3D=3D IP_VERSION(11, 0, 3))
->  			amdgpu_ras_resume(adev);
->  	} else {
->  		r =3D amdgpu_do_asic_reset(device_list_handle,
-> reset_context);
+On Fri, Jan 13, 2023 at 5:24=E2=80=AFPM Harry Wentland <harry.wentland@amd.=
+com> wrote:
+>
+> This patchset enables the DP and HDMI infoframe properties
+> in amdgpu.
+>
+> The first two patches are not completely related to the rest. The
+> first patch allows for HDR_OUTPUT_METADATA with EOTFs that are
+> unknown in the kernel.
+>
+> The second one prints a connector's max_bpc as part of the atomic
+> state debugfs print.
+>
+> The following patches rework the connector colorspace code to
+> 1) allow for easy printing of the colorspace in the drm_atomic
+>    state debugfs, and
+> 2) allow drivers to specify the supported colorspaces on a
+>    connector.
+>
+> The rest of the patches deal with the Colorspace enablement
+> in amdgpu.
+>
+> Why do drivers need to specify supported colorspaces? The amdgpu
+> driver needs support for RGB-to-YCbCr conversion when we drive
+> the display in YCbCr. This is currently not implemented for all
+> colorspaces.
+>
+> Since the Colorspace property didn't have an IGT test I added
+> one to kms_hdr. The relevant patchset can be found on the IGT
+> mailing list or on
+> https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/tree/hdr-colorim=
+etry
+>
+> We tested v1 of the patchset and confirmed that the infoframes
+> are as expected for both DP and HDMI when running the IGT
+> colorimetry tests.
+>
+> Open Items
+> ----------
+>
+> A couple comments from Pekka about colorspace documentation are
+> left unaddressed. I hope they won't block merging this set but
+> should still be addressed separately.
+>
+> Pekka's questions really got me thinking of how this colorspace
+> property should be used and working with it more closely with
+> Joshua who is enabling HDR in gamescope made me wonder even more.
+>
+> Uma, is there a (canonical, upstream) userspace that uses this
+> property that I can look at to understand more?
+>
+> One of the key challenges that is currently not addressed is that
+> userspace is expected to pick a colorspace format straight from the
+> list of definitions out of the DP or HDMI spec. But the kernel
+> driver are the ones deciding on the output encoding (RGB, YCBCR444,
+> YCBCR420, etc.). So there is no way for userspace to decide correctly
+> between, for example, BT2020_RGB, BT2020_CYCC, BT2020_YCC.
+>
+> So we end up in a scenario where gamescope sets BT2020_RGB but we
+> output YCBCR444 so have to correct the colorspace value to
+> BT2020_YCC. This in turn breaks the colorspace IGT tests I
+> wrote. I don't think "fixing" the IGT tests to accept this is
+> the right thing to do.
+>
+> The way it stands this patchset allows us to specify the output
+> colorspace on amdgpu and we try to do the right thing, but I don't
+> thing the way the colorspace property is defined is right. We're trying
+> to expose things to userspace that should be under driver control. A
+> much better approach would be to give userspace options for colorspace
+> that are not tied to DP or HDMI specs, i.e., sRGB, BT709, BT2020, etc.,
+> and have the driver do the right thing to fill the infoframe, e.g., by
+> picking BT2020_YCC if the requested colorspace is BT2020 and the
+> is YCBCR444.
+>
+> If no upstream userspace currently makes use of this property I
+> can make that change, i.e., no longer tie the colorspace property
+> directly to the infoframe and reduce the options to sRGB, BT709,
+> BT601, and BT2020 (and possibly opRGB).
+>
+> v2:
+> - Tested with DP and HDMI analyzers
+> - Confirmed driver will fallback to lower bpc when needed
+> - Dropped hunk to set HDMI AVI infoframe as it was a no-op
+> - Fixed BT.2020 YCbCr colorimetry (JoshuaAshton)
+> - Simplify initialization of supported colorspaces (Jani)
+> - Fix kerneldoc (kernel test robot)
+>
+> Cc: Pekka Paalanen <ppaalanen@gmail.com>
+> Cc: Sebastian Wick <sebastian.wick@redhat.com>
+> Cc: Vitaly.Prosyak@amd.com
+> Cc: Uma Shankar <uma.shankar@intel.com>
+> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> Cc: Joshua Ashton <joshua@froggi.es>
+> Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> Cc: Michel D=C3=A4nzer <michel.daenzer@mailbox.org>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: amd-gfx@lists.freedesktop.org
+>
+> Harry Wentland (16):
+>   drm/display: Don't block HDR_OUTPUT_METADATA on unknown EOTF
+>   drm/connector: print max_requested_bpc in state debugfs
+>   drm/connector: Drop COLORIMETRY_NO_DATA
+>   drm/connector: Convert DRM_MODE_COLORIMETRY to enum
+>   drm/connector: Pull out common create_colorspace_property code
+>   drm/connector: Allow drivers to pass list of supported colorspaces
+>   drm/connector: Print connector colorspace in state debugfs
+>   drm/amd/display: Always pass connector_state to stream validation
+>   drm/amd/display: Register Colorspace property for DP and HDMI
+>   drm/amd/display: Signal mode_changed if colorspace changed
+>   drm/amd/display: Send correct DP colorspace infopacket
+>   drm/amd/display: Add support for explicit BT601_YCC
+>   drm/amd/display: Add debugfs for testing output colorspace
+>   drm/amd/display: Add default case for output_color_space switch
+>   drm/amd/display: Don't restrict bpc to 8 bpc
+>   drm/amd/display: Format input and output CSC matrix
+>
+> Joshua Ashton (5):
+>   drm/amd/display: Always set crtcinfo from create_stream_for_sink
+>   drm/amd/display: Fallback to 2020_YCBCR if the pixel encoding is not
+>     RGB
+>   drm/amd/display: Refactor avi_info_frame colorimetry determination
+>   drm/amd/display: Calculate output_color_space after pixel encoding
+>     adjustment
+>   drm/amd/display: Fix COLOR_SPACE_YCBCR2020_TYPE matrix
+>
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  90 ++++++---
+>  .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |  57 ++++++
+>  .../drm/amd/display/dc/core/dc_hw_sequencer.c |  38 ++--
+>  .../gpu/drm/amd/display/dc/core/dc_resource.c |  28 ++-
+>  drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h   |  54 +++--
+>  drivers/gpu/drm/display/drm_hdmi_helper.c     |   8 +-
+>  drivers/gpu/drm/drm_atomic.c                  |   2 +
+>  drivers/gpu/drm/drm_connector.c               | 189 ++++++++++--------
+>  .../gpu/drm/i915/display/intel_connector.c    |   4 +-
+>  drivers/gpu/drm/vc4/vc4_hdmi.c                |   2 +-
+>  include/drm/display/drm_dp.h                  |   2 +-
+>  include/drm/drm_connector.h                   |  57 +++---
+>  12 files changed, 345 insertions(+), 186 deletions(-)
+>
 > --
-> 2.34.1
+> 2.39.0
+>
+
