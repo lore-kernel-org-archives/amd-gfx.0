@@ -4,118 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F1E7C76195
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Mar 2023 21:42:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30E21C6FD20
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Mar 2023 22:16:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73D9410E852;
-	Tue, 21 Mar 2023 21:42:08 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2060d.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eaa::60d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BEC110E31F;
- Tue, 21 Mar 2023 21:42:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7845D10E1E6;
+	Tue, 21 Mar 2023 22:16:09 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2081.outbound.protection.outlook.com [40.107.243.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9BAC10E886;
+ Tue, 21 Mar 2023 22:16:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZBgg55XdSBnCXFIucNBAvfLSmCzHpmGouKvxUE7leuUzEW64ZRM4uUA/A2BAKcjnsezvTS8nPe4fOUipqzwzzedv2FZ1Zmu1DwqyosKEUGwm3A6BFHCydDmtlzmSpqGEtTWB4Zru2GY3jvtoonjOO/3wsnWuy/Phz4EigZ8F5rKxNTF34PJxBM8B67Jsf9ulIKCNT80o8L1Ub+MPNVce7HG93Sy2yVGNQexk0w5omm/oDLdla88AM9DUf+x3po8TcogS4Ro3YnXuScAcsCNLSS2sjhq4jInUz+E5McxBseBNDFp0Uj5BlRyCB1xO8jiDSaqpby9jwtZdcR+4I20tZQ==
+ b=DPimEGvmbXjOesgbl5Wlpqb5imxZDIAhcnMu9vPdYGCUDWrgVV79tg02AP18spdqoeT+URno+QSOIE6mTPsn9EQw5v7q1vYcHGJEeFxQYluPsnBUP/1MIw6qefySUdzS3+SuT4XSH0c5I+GSfPM4bZPZguXUIWFnLqfXzQs6AvCsFb/DtBZB97sjRPNnB5WsQZWlsssIMu63EqinJE00NYO1QrlbnshbtjV4lAw1+miH5WbUSirkiRjF5p+x89FqZpSBwND1Rq0rWsPl4E8BJYAkS+Teea0GLKJ1oDvwAjRM0Y5gMw3QVJvzryhM8NMxisaaGRoe7iaoDPv4SmdjOg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sDC6ykcO1wW/AS7fJosgAAKAc11vapmpuC9I2Tw4KxQ=;
- b=gkRkwCXWHbT0Ovqb1Dj30FVcTc4ZILV7AzXKWfkuQGcJNE4Chi7Dgjzao3FdKENP2dMS+FZJjZ0alQc1/QQlAuEuaBup2f3ImK8DIlziL1TO0/7jAkFCpGfzRXRt5li7jHGtUE/xKZQXWNrSuomJEbuVgEfhLxvmINMYIWA+GgSY8HB/RB+uKAUgksMBsAgMx0LcAww2CoYW5b3jVCuRpcPEZDZy+Kza52amJuPaIj8V5LE5fND8E/2pVdHVpVDu8nzEQYpP+enerIHejxG1pKDTVoA1Lc/bNZ440wxVMzB4onJdDE6NaRtHR8XqomSvO3PAV7CqTlAsBOkInP9XTw==
+ bh=Yhy/U6548KYgOO7Yk2YmXc3jYIAeulzhZh+GvNKu1ic=;
+ b=Ua6LRt5SqzTXBAjnaoO6GN4y51FCXjQlsqKZc0RC3LqJnQypIAQr9aqsx+4xXABt33GxPwotYrC6HXgOJnO1lPQPAjqF2xMowY3ayHlvEQMVnGWgEr829ghN8dxA4yHBD9/7oZFy1lP0tv8yjNUrpUMrfGkJucFs15qlNb0m8I24ME9/aIkA/DdmaHoCC/IByh+lOZw5Mir3wKHeEMpiSxyqSu2dU7fEdJdtfC1LhI5n23HvuRGH3ijLQPbCKZeW/mNCNf/lqfVcCM9qxJU6CWKW22bba7rd6mOiPympzqObXVxzZ2roy200H/zTlUCgDKCh2sbOmz4AYQ8C7JIoPg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sDC6ykcO1wW/AS7fJosgAAKAc11vapmpuC9I2Tw4KxQ=;
- b=NW/kr/54eY7AGn2L/OjLdq3RiGLupR4w9HOk1mn7mcyEnqGcBjIJOEqfRHqHYVQ+elKb5sen9VobdUElxp0zVMM5KAeF8bOs7MHXTFRYELoAMGeDFajTMURFTLvAS7SuDTznmawPDCOGFa9yrnIcqgLngIsjl0Qyo7XQxSXTiyk=
+ bh=Yhy/U6548KYgOO7Yk2YmXc3jYIAeulzhZh+GvNKu1ic=;
+ b=UymwGwyGw/o7/XDlP221nD49zWgxipYMLl0ku03xohEWkJpjcMbD6TaQWa5LHtg3gFumaGSlJ/ZD+mSsxql1LJY0mnjfnScCOMdkWLlwP46rgMPlzv9Hp9RG2yc9rYaSd4DIvW+92vPl8wrGSuEqlz/K6trga+nglST9C94JDUs=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by MN0PR12MB5788.namprd12.prod.outlook.com (2603:10b6:208:377::5)
- with Microsoft SMTP Server (version=TLS1_2,
+ by DS0PR12MB6606.namprd12.prod.outlook.com (2603:10b6:8:d2::20) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Tue, 21 Mar
- 2023 21:42:03 +0000
+ 2023 22:16:05 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::23f:22c1:b49e:b77e]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::23f:22c1:b49e:b77e%5]) with mapi id 15.20.6178.037; Tue, 21 Mar 2023
- 21:42:03 +0000
-Message-ID: <7ab61b55-1a47-4eb7-05a5-e7b6b516fdde@amd.com>
-Date: Tue, 21 Mar 2023 17:42:01 -0400
+ 22:16:05 +0000
+Message-ID: <97b3ede7-dce8-59be-eadb-19e2101dfaa6@amd.com>
+Date: Tue, 21 Mar 2023 18:16:03 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH 24/32] drm/amdkfd: add debug wave launch mode operation
+Subject: Re: [PATCH 25/32] drm/amdkfd: add debug suspend and resume process
+ queues operation
 Content-Language: en-US
 To: Jonathan Kim <jonathan.kim@amd.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 References: <20230125195401.4183544-1-jonathan.kim@amd.com>
- <20230125195401.4183544-25-jonathan.kim@amd.com>
+ <20230125195401.4183544-26-jonathan.kim@amd.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-In-Reply-To: <20230125195401.4183544-25-jonathan.kim@amd.com>
+In-Reply-To: <20230125195401.4183544-26-jonathan.kim@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR01CA0082.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:3::18) To BN9PR12MB5115.namprd12.prod.outlook.com
+X-ClientProxiedBy: YQBPR0101CA0335.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6b::20) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|MN0PR12MB5788:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6ade7a5a-27e8-4e55-e9f9-08db2a551c26
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DS0PR12MB6606:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4e59b3e6-2eaf-4fa2-ae22-08db2a59dcff
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Xt4f3VK5v/H2BCjloUua0QawS1kEre31VTPM1hXlLClqXOnVreaJpQvNkxfTBle7YvXjaLpgoQGq8/9ok1rO/9rgZovitgwCqYrrKit06veW8wOOak+awRt4PNhxSoUBZRyrilFidokRle+tv3VLZ3IGbH1BW/G1EfsvtW7rgwlODFmIPdwsL2gFJB1LX8tIJOYyrKvRpp4HlmL20dyOu04FL5WhqL/LW4aZuPacwOb3EjYEETjVVjt28hpUEn0ajvvX2ZRtV7q1NbUVS2l2O5msOnFFXY2qE774pkQQ+96O0aBdIEvVeH3w36heru/gO5P7WWQVebYodfbmb9SuyQAVRuiWI/tw6MJZyPeSidl2VCP5DxEWvnFCRalIUk5bGC11MOlctHPKg8DH8ThhUtx13MKKYVIZf8+2WkfhLVSAdyrQO8nzYx+yoXefuuIVw6aBunK4qIGE+5HdzrFUD707xK9QUM0Ll2dHrgNw8OvIS6Mw284Y+j8MYyCdJTY7fDeeswjlIAba/cAAgz9Dj2t3AMcPQt845bU+jJnYYyEVuRYaNze9C8J9TmWkUZTuNFIMJrtNSmKWr8cyHAxbmm0PWmB/fiIEfjW3Uf/w+y5OPqvAWYKmQxlmV6iUrvSOl6LUWWRDN0UPYkYQsmRv7OZv8kw2vZjx/z+huh3J0GfXjNkKntnqr1RjRDUgRKPEPqiIPGyZ4gf4dlqmM8K+t8KdWwpmC4FUJPDTwDlFHlpmFkXnwMqkPw8J9Fj2Lkej1UNWaRL1byG/jyN4Vcsd4w==
+X-Microsoft-Antispam-Message-Info: IbotvJePxrRnCxxRdpTYY7mpizDq+SKuEIvVJYY7BwOBauAr4O4Z4VAv9gdFH6DrMdsdWnxtW2EeyCtE6LCwHW0LkgqC9647Gm0WUhbAACwe9ifYG7K6NmTeWSB1/pqiId3TrX/edoJ+yKIjvuCl53CQJth3h4EPcEeuoIdosCQrHsA0YI+3mdVjzVFWtIdLo9ze0NuKj2B56DcaU6qAEtAJ7YXhAtj3KY/Aub74JvGNwViqVbbT2IuJuvQqFBrqyY7ewnCRyf9bQODr6ETTL7SmU0FjNTur7r6gkZUBXh6ygU5eylFtvL90n5LL+nKPbBoIsIQtN+8uDv+A4jTSMUFbAW/hqYoGLnXahLh5roGJfPyHnXGglgdu5gSiFX+z+mA0N6LgsPMrfb3mExrdGbk5VKk6tXzJzJSW+Jbv7Jn1Ik3mGIeqMHuF/fMQC/WN1I+7hf3jNiCF281/ILVDF63Borb8puGsF7vjmlp6cdBTbkc8RtpsJnfxWOyQ/b5L6acCFOII89i2spdM5RvOrF4g/8TrDGAjvxZuycZS5+7iCBTJ/mm/JnCB9Y5pPf+F47xF1wwHoyTHE1704j6M+Jr7Ojlc6TPLxdT5/9XVSpS26eGewvMi35fQv4+7/i58Gmy9RdW78F0TW8nPeYSQMEnUrgApWhmdhEzMXt5hklxvi8fPzNEE7fmWr6qnttu+QcXci59N1laJe27n7GJyulNAAM+fYMceHDZYY9ja1sc=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(366004)(376002)(39860400002)(396003)(346002)(136003)(451199018)(41300700001)(8676002)(450100002)(66556008)(66476007)(66946007)(2906002)(36756003)(38100700002)(30864003)(44832011)(8936002)(5660300002)(53546011)(6506007)(6512007)(6486002)(26005)(2616005)(186003)(31686004)(86362001)(316002)(83380400001)(31696002)(478600001)(36916002)(43740500002)(45980500001)(309714004);
+ SFS:(13230025)(4636009)(39860400002)(346002)(366004)(136003)(396003)(376002)(451199018)(38100700002)(31696002)(86362001)(36916002)(6486002)(8676002)(44832011)(450100002)(316002)(66556008)(8936002)(36756003)(5660300002)(66476007)(41300700001)(66946007)(478600001)(2906002)(83380400001)(15650500001)(2616005)(186003)(6512007)(26005)(53546011)(6506007)(31686004)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WmJJV0xnbUNqYnFHS2hEcXluWHlVVXJSK2NPNldJY2YxWWg1T1kzSG1ZajJH?=
- =?utf-8?B?RzllSUNNcGtBVTZBZUNmQUJ3V1ZJbXo1MExJUWV1eUJCZ3pFbFF5aFB5Vnpu?=
- =?utf-8?B?c3R4N1BxOS9FcUxEK0xJMUlVYlJSTERwV1c3cTRhby96SjN3Q2RQcUg0UEhQ?=
- =?utf-8?B?U09xam5vSlpwTzQwL2VWbjZsRVpjTzhEWXdRdk1mWVE1Tlc4a200bXZmbTB2?=
- =?utf-8?B?ZjZmcXRvb00zZzNwdG1IUW1oZDRPU09HSTlsSTVUY1B6TFl1dHZ5Nkw0bHR1?=
- =?utf-8?B?SFRvcmlIRUtJN2d0dHN3ekcySzlhOE14MENrc3hPaGU4OEppZjlLdnlJZFJK?=
- =?utf-8?B?ZUg4a0VaUnpTMm5yNytLbDc1a3oxTWxnTG1DSU9wMHl6UHp5aEdUVEpjUXFV?=
- =?utf-8?B?SGJueWxrNDdoMXVXbGdDSENlZ2xLK3hFOG9sTDl0Ry9Bdmo3ZDNIc21KYStO?=
- =?utf-8?B?a20wdlRvQ1NNSVBQWTdhMm14ZGlDQzQ3dUx2MHlZcmw3dnNOcVZRakZlVTky?=
- =?utf-8?B?QlE3NlhrOFY4Uzlod1NmZ3I3NTE2ZzR5YlJITURDSmtGaTB0SEkvTi9iSzdo?=
- =?utf-8?B?N24rL1FkUUMraXNBTGVsMEYwcy9oVS9WTkZ5QXArQlFMMnk3ZUFFSU5NTUwr?=
- =?utf-8?B?Z1krZnBKWkIzeitMN2JLSDNHL1dtUHBnNmI1aHVadnlZYVBiU1ZqU2dkZnBo?=
- =?utf-8?B?bjhKS2lPZ3QrcXF6VEJIdGVjcTVOOVpGYkYrTXlJOGp6cXpQbXNZWUo2eEFz?=
- =?utf-8?B?a2p4eitwNmJJZ2lZSVdiRFJSSnRhdmNURlBWdFU1TTlSblp6aVUwdlJtNjFB?=
- =?utf-8?B?TlpzWDVRbUJyNkJ6a09CMlkyV2RRRXd5cmRKUTZTWUZGNEZWRzhuR25iQXJ5?=
- =?utf-8?B?RVo4QWpBWjVpOWIydjZvTmNtOFNJYm9RTWx5S2VBWjd4d002SnFkVFRzdkNw?=
- =?utf-8?B?MWpySDFQQ204MTBLWWQ1elcrV05Gd2FKNHZYbUxWZFpRTXdyT1hFcllYV0Nu?=
- =?utf-8?B?VmZSNjl0aWFJNW4rTXZxNDZnSG02N3puN21SZHE3Tnhpd2xsclVvdm9NRXZD?=
- =?utf-8?B?Y09Vc3JnbW5aYy9ZcUtJYnc2bGxybzBydW1mcysvK2YvVVVOM25qR1hEeVUy?=
- =?utf-8?B?QXN1Q2w3WW9YN0tEaDBncGROdjVJbjBEZEptdXdJdk5wRTB3SlI3aytmc2xS?=
- =?utf-8?B?ai9ZcGFhL1preDhsb3BBSWFYZkFUeVdhRXFFcEMvcW9OKzFZSzdvYTROM1NM?=
- =?utf-8?B?TDdtdERWTlo3dWs2Qkd4MGJ6TnJDdnJBOFBnNFhaeXA5WnJ0RmJrZ0xHUXBD?=
- =?utf-8?B?MzFncTJxbnMvZUZ6N3Nyb0h3NVBTQ0pmTzR3T1JpS3dvTzl4VkFaYnVFS1JO?=
- =?utf-8?B?YWxmNHR1eS9PQmwyQ2tvUmcwbVpsMnNnZGpUbys5UVdmaWcxRjNVZ2hnNWkw?=
- =?utf-8?B?ODFXYzNUQmIvV0RFSjIrbEl2cmlIOWQ1MEJCNUR4VkswMnJFbFJHdDlGa01O?=
- =?utf-8?B?MTgrQmdmTGVFMXgrNXNTMzFoUEdsQjB4Smt2ZTFsQTErcmZ4MDQyWTMvN3Vt?=
- =?utf-8?B?QktRQnk5NXdzendvVTFIcTBpL2l3TkhOKzFNUGlvWTAvTC9OU3VCR1hxZmNW?=
- =?utf-8?B?dWxVeHNyVlBLb0lmZFYyTURFaTFxMVFrbVhzdm9GNG9xYjUxYzNuSktGWUFJ?=
- =?utf-8?B?OXFLYmRlZVdCMERHcnNMcEpaSThNcWFMVHBucW5YbDlNSHVaeUhlTlJSOGI4?=
- =?utf-8?B?RXZMQXBIRHoxWEhWajNGMHpocGUybkJSdVQ2R0J2UDVJdnY5UjZlZmNRd0N1?=
- =?utf-8?B?Zng1YytlbzlKOVVSMDMxTVhEa0RhOERHRDl3VGVhVXBvTTV4SC81VkxkVEgx?=
- =?utf-8?B?SlF1Q20yZVNucHFrQ3Q0UEtkU1l0YlQ5bXdwS3lzQkNkc0RkRDVqMlBoRU1M?=
- =?utf-8?B?VjBxQmFmYlV0S0plRlFNbjVUTnA3NDdqejV6anlDZ2ZxWlBic1pFZUM3SzRH?=
- =?utf-8?B?VUlxcFdzeUxOeU1scURRcEhTRGxBVnNvYk5HOEJSZ1h2NG81UVVEVkFrSlNR?=
- =?utf-8?B?ZVkyTUZSOWdUMEtkOGhDbklZUkpKT2hORGhWVFlhQ2JYMmRJNnh4SU5Na01H?=
- =?utf-8?Q?Gtm9OhvhCQ7nJYC01amXct2TO?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RnM5NUxZMmczRjJLVm11b1IveHV5bDJ1SXRzdE53dHliSUhyYmtFUXp3OUVG?=
+ =?utf-8?B?Um9kWjZMQTFQWmlWTVpjSEI5QjdMSThDbVdUL2UyZnU0d0VhZEpLV0NTbTV0?=
+ =?utf-8?B?bHEvNEtmNzM2YkxZK3lkcTdNZUpmeEcwVzZSVDRwWWcwRldDQ0MvdE1CQ05E?=
+ =?utf-8?B?K2FBL3VmeFA4Z2xtelVJSVE0cFJyY2ZlU3lCeXQySXU3U0w2dFVDbzJsZjZC?=
+ =?utf-8?B?R3Z6STVKSmlFY3VlV2p3VXMwd3FZS25kUW5NVkZ2QXd6WXNXV2dDc0lkUEUz?=
+ =?utf-8?B?VmVkOFFmbSt3UWF0K1lzMU9YdWJQbFVPVzlrVXV3QmJSYXhvWU4vcEo5SUZt?=
+ =?utf-8?B?dGo2NFVhdmpRSjQza1dXMmR0dkQ3WEYrNGhVcWdpVVJ5U2Ztc2ovVTF0UE9E?=
+ =?utf-8?B?WTFPenVmSDBxTzVOVUtqcEl2NS9QZzluQ1RaclBNOFJRcVhuc2k4VXpsSUpS?=
+ =?utf-8?B?OWh5YkFqdk40aWVjbkxyRDd3T0tZeXZxWVAvK0JGOHZFN2pOYTdicXhiMjBt?=
+ =?utf-8?B?Ky9EcU41K1NMejhMcnVnWjVXMFE0N3FLUGhDdlY0TmU3QzBGeEZMaHB2c1dF?=
+ =?utf-8?B?OTZxbTNzL3B2YkpKdUtLOGlTc3A2UURTbVN5SnNSSEFnYkVZbStObDZTZ3ha?=
+ =?utf-8?B?TjY1QjdHNXorM3JzSVRqcXI0aFFzV3IrRlVyVTM5T296N3A4b0orbTBZLy9h?=
+ =?utf-8?B?TFh2MFlYUk10b3hCKzJ2SlNmZ01FVEpYWGZxSUQzSnJFSDRpSDBxSmdNNHVv?=
+ =?utf-8?B?OTNBUjU5dWxpQXVGU0lsa3FORW90aUNjQlRrTWVWUFpyWXp2VzNZL3h4andF?=
+ =?utf-8?B?aUtnRFNGbDBFbURoN3c2TTgzK0kxZnMrc1FRclZVR2txK3JDM2U2Z3dwc0Q3?=
+ =?utf-8?B?SFhubzZjU2ZXUzFmamdpcElhY29OWHMyVmxVUVM1SW1UYnZYVzFla09lS0h6?=
+ =?utf-8?B?L0pOUlJJbzdyNUw3UzdlV2NDeW5vYUt0TExoZUE4U1ZDYjI3Uk1YYWZVYjNy?=
+ =?utf-8?B?dnkrL01YNVFhamZ4dEZySDZoUzJKWkRYM29mZVFRUlZOckNiZUZWaW54Z3FV?=
+ =?utf-8?B?TG9Ed2pyZURFbHN1ZDdiRTBCYzNudXNld1dBR3R0QVJPMmZSakFHM0VRYnkw?=
+ =?utf-8?B?VlN2WUYwcDN0ZUp5aytlUWNzbXJJSHVXNjRhaWQ2MUhMYzJtWnlzaWtSSEN3?=
+ =?utf-8?B?OHkxeTlDYldkQWNjbTl6RE5UTFRVcU5XaVpQZVc0RGJIelhzQzJwYlAxbnpW?=
+ =?utf-8?B?Y29qemtPSWo2cWFrZ0YyVUxtZFA2N2lBMDhackg1T2pUZHhxb2h3a1FoQTBD?=
+ =?utf-8?B?WTFCOUs4bDRsaElXRDVWQXBwNWJkQWxTMSthV0FnNFpvNmRodmc5ZldieXl1?=
+ =?utf-8?B?akV2dTlPbUsvSlMwWGJEVWVXbjVuY3R5Zkd6SFdIaFNMbGl2K01zNUdrUm5X?=
+ =?utf-8?B?NWVwK0hzWlh2VFlXREJzU2lKV1ZtTkVoSkZLUGFMaCs1amhVTmN0eDZpcm5l?=
+ =?utf-8?B?OU5lekhveUFPUHdqcmVPcmtGTmY5N0gzUlo4ZHVUM3RkYjV2VVYyeEh1Yk5j?=
+ =?utf-8?B?Sk9aVFNEYWwrM2toMEVxczB5Z0puMGI0MmFVeHp5ZUpyOUFTU0kvWVZaZ24v?=
+ =?utf-8?B?cmNUY3F6M1hkLythRWgrazF6R1FyZ0piQ3RORTRjSmtOcXNPcTRhWXQ3L1Bp?=
+ =?utf-8?B?UGxtUWxzNE5aTS9LcURaTnorbEF5ZzB1OURCaXhxU3VDSmN3Q1JxZk1YV3h4?=
+ =?utf-8?B?QXdFM1Jjendra3Q3SXBmYWcyNHlsV2thR1AwN05rd0xyVXY0eTIvZnEvbDZ6?=
+ =?utf-8?B?S0d5RFluZW9UUzlhWFdMdmkrZTh6ejNWOWNlTmwyYlIvMHoyaEVhTGtvMUdQ?=
+ =?utf-8?B?UnBvM0dsUTJMWVFnaUhrWnhEd3pWOUR0RkFyb2ZjM3VReXI2WFdpZGNQZlB4?=
+ =?utf-8?B?QVhqOHUyOElWYy9jUHNlUlhxaTU1aTNpYVRMZWtmbXF5Y0tZclNtejErVHVW?=
+ =?utf-8?B?TEwyUnVML3MyWGdMTlVjNHo4VUdiZ1NLTVNvOWo2UlVGaVAxZlRmNTlSMFRN?=
+ =?utf-8?B?ektLbk5SSWxSZlJaUmhnelIvRCtJRUZzTThFMnFOWkVzaTJNcDJTeHFQWktn?=
+ =?utf-8?Q?bpwAYhY6NyFnCnfByZhQIIQ8f?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ade7a5a-27e8-4e55-e9f9-08db2a551c26
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e59b3e6-2eaf-4fa2-ae22-08db2a59dcff
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2023 21:42:03.7518 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2023 22:16:05.2664 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hcUd6WMGHcdiJlK/v2i/QZSjuv3Ib6uVLue9O5gxFbsgCIjZmoX6TFPKyEoUD6MRsS5z2RUHlOaCl1HSdp2f8g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5788
+X-MS-Exchange-CrossTenant-UserPrincipalName: ee56zhDvGVEaYpd+Eu4xUELgFk4RdosPF9EBIB5kzO+zyti+tDRSYvvysmaXQ6APLAN4xpidBGqmzPqYXlwIjA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6606
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,329 +130,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+
 On 2023-01-25 14:53, Jonathan Kim wrote:
-> Allow the debugger to set wave behaviour on to either normally operate,
-> halt at launch, trap on every instruction, terminate immediately or
-> stall on allocation.
+> In order to inspect waves from the saved context at any point during a
+> debug session, the debugger must be able to preempt queues to trigger
+> context save by suspending them.
 >
-> v2: add gfx11 support and remove deprecated launch mode options
+> On queue suspend, the KFD will copy the context save header information
+> so that the debugger can correctly crawl the appropriate size of the saved
+> context. The debugger must then also be allowed to resume suspended queues.
+>
+> A queue that is newly created cannot be suspended because queue ids are
+> recycled after destruction so the debugger needs to know that this has
+> occurred.  Query functions will be later added that will clear a given
+> queue of its new queue status.
+>
+> A queue cannot be destroyed while it is suspended to preserve its saved
+> context during debugger inspection.  Have queue destruction block while
+> a queue is suspended and unblocked when it is resumed.  Likewise, if a
+> queue is about to be destroyed, it cannot be suspended.
+>
+> Return the number of queues successfully suspended or resumed along with
+> a per queue status array where the upper bits per queue status show that
+> the request was invalid (new/destroyed queue suspend request, missing
+> queue) or an error occurred (HWS in a fatal state so it can't suspend or
+> resume queues).
+>
+> v2: add gfx11/mes support.
+> prevent header copy on suspend from overwriting user fields.
+> simplify resume_queues function.
+> address other nit-picks
 >
 > Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
 > ---
->   .../drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c  | 12 +++++++
->   .../drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c   |  1 +
->   .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c    | 25 +++++++++++++
->   .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h    |  3 ++
->   .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c  |  3 +-
->   .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c    | 14 +++++++-
->   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 25 +++++++++++++
->   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h |  3 ++
->   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  3 ++
->   drivers/gpu/drm/amd/amdkfd/kfd_debug.c        | 36 ++++++++++++++++++-
->   drivers/gpu/drm/amd/amdkfd/kfd_debug.h        |  5 ++-
->   11 files changed, 124 insertions(+), 6 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |   5 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |   1 +
+>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  11 +
+>   drivers/gpu/drm/amd/amdkfd/kfd_debug.c        |   7 +
+>   .../drm/amd/amdkfd/kfd_device_queue_manager.c | 446 +++++++++++++++++-
+>   .../drm/amd/amdkfd/kfd_device_queue_manager.h |  10 +
+>   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c  |  14 +
+>   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c  |  11 +-
+>   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   |  18 +-
+>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   5 +-
+>   10 files changed, 518 insertions(+), 10 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
-> index 84a9d9391ea4..4de2066215b4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
-> @@ -107,6 +107,17 @@ static uint32_t kgd_aldebaran_set_wave_launch_trap_override(struct amdgpu_device
->   	return data;
->   }
->   
-> +static uint32_t kgd_aldebaran_set_wave_launch_mode(struct amdgpu_device *adev,
-> +					uint8_t wave_launch_mode,
-> +					uint32_t vmid)
-> +{
-> +	uint32_t data = 0;
-> +
-> +	data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, LAUNCH_MODE, wave_launch_mode);
-> +
-> +	return data;
-> +}
-> +
->   const struct kfd2kgd_calls aldebaran_kfd2kgd = {
->   	.program_sh_mem_settings = kgd_gfx_v9_program_sh_mem_settings,
->   	.set_pasid_vmid_mapping = kgd_gfx_v9_set_pasid_vmid_mapping,
-> @@ -128,6 +139,7 @@ const struct kfd2kgd_calls aldebaran_kfd2kgd = {
->   	.disable_debug_trap = kgd_aldebaran_disable_debug_trap,
->   	.validate_trap_override_request = kgd_aldebaran_validate_trap_override_request,
->   	.set_wave_launch_trap_override = kgd_aldebaran_set_wave_launch_trap_override,
-> +	.set_wave_launch_mode = kgd_aldebaran_set_wave_launch_mode,
->   	.get_iq_wait_times = kgd_gfx_v9_get_iq_wait_times,
->   	.build_grace_period_packet_info = kgd_gfx_v9_build_grace_period_packet_info,
->   	.program_trap_handler_settings = kgd_gfx_v9_program_trap_handler_settings,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-> index 0405725e95e3..500013540356 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-> @@ -412,6 +412,7 @@ const struct kfd2kgd_calls arcturus_kfd2kgd = {
->   	.disable_debug_trap = kgd_arcturus_disable_debug_trap,
->   	.validate_trap_override_request = kgd_gfx_v9_validate_trap_override_request,
->   	.set_wave_launch_trap_override = kgd_gfx_v9_set_wave_launch_trap_override,
-> +	.set_wave_launch_mode = kgd_gfx_v9_set_wave_launch_mode,
->   	.get_iq_wait_times = kgd_gfx_v9_get_iq_wait_times,
->   	.build_grace_period_packet_info = kgd_gfx_v9_build_grace_period_packet_info,
->   	.get_cu_occupancy = kgd_gfx_v9_get_cu_occupancy,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-> index 32a6e5fbeacd..7591145bc69f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-> @@ -854,6 +854,30 @@ uint32_t kgd_gfx_v10_set_wave_launch_trap_override(struct amdgpu_device *adev,
->   	return 0;
->   }
->   
-> +uint32_t kgd_gfx_v10_set_wave_launch_mode(struct amdgpu_device *adev,
-> +					uint8_t wave_launch_mode,
-> +					uint32_t vmid)
-> +{
-> +	uint32_t data = 0;
-> +	bool is_mode_set = !!wave_launch_mode;
-> +
-> +	mutex_lock(&adev->grbm_idx_mutex);
-> +
-> +	kgd_gfx_v10_set_wave_launch_stall(adev, vmid, true);
-> +
-> +	data = REG_SET_FIELD(data, SPI_GDBG_WAVE_CNTL2,
-> +			VMID_MASK, is_mode_set ? 1 << vmid : 0);
-> +	data = REG_SET_FIELD(data, SPI_GDBG_WAVE_CNTL2,
-> +			MODE, is_mode_set ? wave_launch_mode : 0);
-> +	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_WAVE_CNTL2), data);
-> +
-> +	kgd_gfx_v10_set_wave_launch_stall(adev, vmid, false);
-> +
-> +	mutex_unlock(&adev->grbm_idx_mutex);
-> +
-> +	return 0;
-> +}
-> +
->   /* kgd_gfx_v10_get_iq_wait_times: Returns the mmCP_IQ_WAIT_TIME1/2 values
->    * The values read are:
->    *     ib_offload_wait_time     -- Wait Count for Indirect Buffer Offloads.
-> @@ -941,6 +965,7 @@ const struct kfd2kgd_calls gfx_v10_kfd2kgd = {
->   	.disable_debug_trap = kgd_gfx_v10_disable_debug_trap,
->   	.validate_trap_override_request = kgd_gfx_v10_validate_trap_override_request,
->   	.set_wave_launch_trap_override = kgd_gfx_v10_set_wave_launch_trap_override,
-> +	.set_wave_launch_mode = kgd_gfx_v10_set_wave_launch_mode,
->   	.get_iq_wait_times = kgd_gfx_v10_get_iq_wait_times,
->   	.build_grace_period_packet_info = kgd_gfx_v10_build_grace_period_packet_info,
->   	.program_trap_handler_settings = program_trap_handler_settings,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
-> index 85c929fc2926..34c04a2bb83b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
-> @@ -36,6 +36,9 @@ uint32_t kgd_gfx_v10_set_wave_launch_trap_override(struct amdgpu_device *adev,
->   					     uint32_t trap_mask_request,
->   					     uint32_t *trap_mask_prev,
->   					     uint32_t kfd_dbg_trap_cntl_prev);
-> +uint32_t kgd_gfx_v10_set_wave_launch_mode(struct amdgpu_device *adev,
-> +					 uint8_t wave_launch_mode,
-> +					 uint32_t vmid);
->   void kgd_gfx_v10_get_iq_wait_times(struct amdgpu_device *adev, uint32_t *wait_times);
->   void kgd_gfx_v10_build_grace_period_packet_info(struct amdgpu_device *adev,
->   					       uint32_t wait_times,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
-> index ae3ead207df4..8627c5458973 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
-> @@ -675,6 +675,7 @@ const struct kfd2kgd_calls gfx_v10_3_kfd2kgd = {
->   	.enable_debug_trap = kgd_gfx_v10_enable_debug_trap,
->   	.disable_debug_trap = kgd_gfx_v10_disable_debug_trap,
->   	.validate_trap_override_request = kgd_gfx_v10_validate_trap_override_request,
-> -	.set_wave_launch_trap_override = kgd_gfx_v10_set_wave_launch_trap_override
-> +	.set_wave_launch_trap_override = kgd_gfx_v10_set_wave_launch_trap_override,
-> +	.set_wave_launch_mode = kgd_gfx_v10_set_wave_launch_mode
->   
->   };
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-> index 3fb81e6e9422..4fdc25222dcd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-> @@ -725,6 +725,17 @@ static uint32_t kgd_gfx_v11_set_wave_launch_trap_override(struct amdgpu_device *
->   	return data;
->   }
->   
-> +static uint32_t kgd_gfx_v11_set_wave_launch_mode(struct amdgpu_device *adev,
-> +					uint8_t wave_launch_mode,
-> +					uint32_t vmid)
-> +{
-> +	uint32_t data = 0;
-> +
-> +	data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, LAUNCH_MODE, wave_launch_mode);
-> +
-> +	return data;
-> +}
-> +
->   const struct kfd2kgd_calls gfx_v11_kfd2kgd = {
->   	.program_sh_mem_settings = program_sh_mem_settings_v11,
->   	.set_pasid_vmid_mapping = set_pasid_vmid_mapping_v11,
-> @@ -744,5 +755,6 @@ const struct kfd2kgd_calls gfx_v11_kfd2kgd = {
->   	.enable_debug_trap = kgd_gfx_v11_enable_debug_trap,
->   	.disable_debug_trap = kgd_gfx_v11_disable_debug_trap,
->   	.validate_trap_override_request = kgd_gfx_v11_validate_trap_override_request,
-> -	.set_wave_launch_trap_override = kgd_gfx_v11_set_wave_launch_trap_override
-> +	.set_wave_launch_trap_override = kgd_gfx_v11_set_wave_launch_trap_override,
-> +	.set_wave_launch_mode = kgd_gfx_v11_set_wave_launch_mode
->   };
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-> index 81643385512a..a3c8f5578788 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-> @@ -790,6 +790,30 @@ uint32_t kgd_gfx_v9_set_wave_launch_trap_override(struct amdgpu_device *adev,
->   	return 0;
->   }
->   
-> +uint32_t kgd_gfx_v9_set_wave_launch_mode(struct amdgpu_device *adev,
-> +					uint8_t wave_launch_mode,
-> +					uint32_t vmid)
-> +{
-> +	uint32_t data = 0;
-> +	bool is_mode_set = !!wave_launch_mode;
-> +
-> +	mutex_lock(&adev->grbm_idx_mutex);
-> +
-> +	kgd_gfx_v9_set_wave_launch_stall(adev, vmid, true);
-> +
-> +	data = REG_SET_FIELD(data, SPI_GDBG_WAVE_CNTL2,
-> +		VMID_MASK, is_mode_set ? 1 << vmid : 0);
-> +	data = REG_SET_FIELD(data, SPI_GDBG_WAVE_CNTL2,
-> +		MODE, is_mode_set ? wave_launch_mode : 0);
-> +	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_WAVE_CNTL2), data);
-> +
-> +	kgd_gfx_v9_set_wave_launch_stall(adev, vmid, false);
-> +
-> +	mutex_unlock(&adev->grbm_idx_mutex);
-> +
-> +	return 0;
-> +}
-> +
->   /* kgd_gfx_v9_get_iq_wait_times: Returns the mmCP_IQ_WAIT_TIME1/2 values
->    * The values read are:
->    *     ib_offload_wait_time     -- Wait Count for Indirect Buffer Offloads.
-> @@ -1060,6 +1084,7 @@ const struct kfd2kgd_calls gfx_v9_kfd2kgd = {
->   	.disable_debug_trap = kgd_gfx_v9_disable_debug_trap,
->   	.validate_trap_override_request = kgd_gfx_v9_validate_trap_override_request,
->   	.set_wave_launch_trap_override = kgd_gfx_v9_set_wave_launch_trap_override,
-> +	.set_wave_launch_mode = kgd_gfx_v9_set_wave_launch_mode,
->   	.get_iq_wait_times = kgd_gfx_v9_get_iq_wait_times,
->   	.build_grace_period_packet_info = kgd_gfx_v9_build_grace_period_packet_info,
->   	.get_cu_occupancy = kgd_gfx_v9_get_cu_occupancy,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-> index 47cff392b434..2a2ab42037e4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-> @@ -67,6 +67,9 @@ uint32_t kgd_gfx_v9_disable_debug_trap(struct amdgpu_device *adev,
->   int kgd_gfx_v9_validate_trap_override_request(struct amdgpu_device *adev,
->   					     uint32_t trap_override,
->   					     uint32_t *trap_mask_supported);
-> +uint32_t kgd_gfx_v9_set_wave_launch_mode(struct amdgpu_device *adev,
-> +					uint8_t wave_launch_mode,
-> +					uint32_t vmid);
->   uint32_t kgd_gfx_v9_set_wave_launch_trap_override(struct amdgpu_device *adev,
->   					     uint32_t vmid,
->   					     uint32_t trap_override,
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index 28b9db5806f4..205a487d91d2 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -2904,6 +2904,9 @@ static int kfd_ioctl_set_debug_trap(struct file *filep, struct kfd_process *p, v
->   				&args->launch_override.support_request_mask);
->   		break;
->   	case KFD_IOC_DBG_TRAP_SET_WAVE_LAUNCH_MODE:
-> +		r = kfd_dbg_trap_set_wave_launch_mode(target,
-> +				args->launch_mode.launch_mode);
-> +		break;
->   	case KFD_IOC_DBG_TRAP_SUSPEND_QUEUES:
->   	case KFD_IOC_DBG_TRAP_RESUME_QUEUES:
->   	case KFD_IOC_DBG_TRAP_SET_NODE_ADDRESS_WATCH:
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> index a9b52f114ac6..b630633609b0 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> @@ -303,8 +303,10 @@ void kfd_dbg_trap_deactivate(struct kfd_process *target, bool unwind, int unwind
+[snip]
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> index 50da16dd4c96..047c43418a1a 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> @@ -288,6 +288,11 @@ static int get_wave_state(struct mqd_manager *mm, void *mqd,
+>   			  u32 *save_area_used_size)
 >   {
->   	int i, count = 0;
->   
-> -	if (!unwind)
-> +	if (!unwind) {
->   		cancel_work_sync(&target->debug_event_workarea);
-> +		kfd_dbg_trap_set_wave_launch_mode(target, 0);
-> +	}
->   
->   	for (i = 0; i < target->n_pdds; i++) {
->   		struct kfd_process_device *pdd = target->pdds[i];
-> @@ -599,6 +601,38 @@ int kfd_dbg_trap_set_wave_launch_override(struct kfd_process *target,
->   	return r;
->   }
->   
-> +int kfd_dbg_trap_set_wave_launch_mode(struct kfd_process *target,
-> +					uint8_t wave_launch_mode)
-> +{
-> +	int r = 0, i;
-> +
-> +	if (wave_launch_mode != KFD_DBG_TRAP_WAVE_LAUNCH_MODE_NORMAL &&
-> +			wave_launch_mode != KFD_DBG_TRAP_WAVE_LAUNCH_MODE_HALT &&
-> +			wave_launch_mode != KFD_DBG_TRAP_WAVE_LAUNCH_MODE_DEBUG)
-> +		return -EINVAL;
-> +
-> +	for (i = 0; i < target->n_pdds; i++) {
-> +		struct kfd_process_device *pdd = target->pdds[i];
-> +
-> +		amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
+>   	struct v9_mqd *m;
+> +	struct kfd_context_save_area_header header;
+> +	size_t header_copy_size = sizeof(header.control_stack_size) +
+> +		sizeof(header.wave_state_size) +
+> +		sizeof(header.wave_state_offset) +
+> +		sizeof(header.control_stack_offset);
 
-Same comment as in the last patch. This should probably be done in the 
-HW-specific code, only if it actually touches HW registers. Maybe in a 
-separate patch to make sure we catch all the cases.
+This makes assumptions about the structure layout. I'd feel better if 
+these fields were in a sub-structure, which would make this easier and 
+safer to handle.
 
+struct kfd_context_save_area_header {
+	struct {
+		__u32 control_stack_offset;
+		__u32 control_stack_size;
+		__u32 wave_state_offset;
+		__u32 wave_state_size;
+	} wave_state;
+	...
+};
 
-> +		pdd->spi_dbg_launch_mode = pdd->dev->kfd2kgd->set_wave_launch_mode(
-> +				pdd->dev->adev,
-> +				wave_launch_mode,
-> +				pdd->dev->vm_info.last_vmid_kfd);
-> +		amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
-> +
-> +		if (!pdd->dev->shared_resources.enable_mes)
-> +			r = debug_refresh_runlist(pdd->dev->dqm);
-> +		else
-> +			r = kfd_dbg_set_mes_debug_mode(pdd);
-> +
-> +		if (r)
-> +			break;
-> +	}
-> +
-> +	return r;
-> +}
-> +
->   void kfd_dbg_set_enabled_debug_exception_mask(struct kfd_process *target,
->   					uint64_t exception_set_mask)
->   {
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-> index 864eb01f8973..0d70f162d6d8 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-> @@ -25,9 +25,6 @@
->   
->   #include "kfd_priv.h"
->   
-> -void kgd_gfx_v9_set_wave_launch_stall(struct amdgpu_device *adev,
-> -					uint32_t vmid,
-> -					bool stall);
+...
 
-This seems unrelated to this patch.
+|static int get_wave_state(...) { struct kfd_context_save_area_header 
+header; ... header.wave_state.control_stack_size = *ctl_stack_used_size; 
+header.wave_state.wave_state_size = *save_area_used_size; 
+header.wave_state.wave_state_offset = m->cp_hqd_wg_state_offset; 
+header.wave_state.control_stack_offset = m->cp_hqd_cntl_stack_offset; if 
+(copy_to_user(ctl_stack, &header.wave_state, sizeof(header.wave_state))) 
+return -EFAULT; ... } |
+
+This way you're sure you only copy initialized data. The only assumption 
+this still makes is, that wave_state is at the start of the header 
+structure.
 
 Regards,
    Felix
 
 
->   void kfd_dbg_trap_deactivate(struct kfd_process *target, bool unwind, int unwind_count);
->   int kfd_dbg_trap_activate(struct kfd_process *target);
->   bool kfd_set_dbg_ev_from_interrupt(struct kfd_dev *dev,
-> @@ -51,6 +48,8 @@ int kfd_dbg_trap_set_wave_launch_override(struct kfd_process *target,
->   					uint32_t trap_mask_request,
->   					uint32_t *trap_mask_prev,
->   					uint32_t *trap_mask_supported);
-> +int kfd_dbg_trap_set_wave_launch_mode(struct kfd_process *target,
-> +					uint8_t wave_launch_mode);
 >   
->   int kfd_dbg_send_exception_to_runtime(struct kfd_process *p,
->   					unsigned int dev_id,
+>   	/* Control stack is located one page after MQD. */
+>   	void *mqd_ctl_stack = (void *)((uintptr_t)mqd + PAGE_SIZE);
+> @@ -299,7 +304,18 @@ static int get_wave_state(struct mqd_manager *mm, void *mqd,
+>   	*save_area_used_size = m->cp_hqd_wg_state_offset -
+>   		m->cp_hqd_cntl_stack_size;
+>   
+> -	if (copy_to_user(ctl_stack, mqd_ctl_stack, m->cp_hqd_cntl_stack_size))
+> +	header.control_stack_size = *ctl_stack_used_size;
+> +	header.wave_state_size = *save_area_used_size;
+> +
+> +	header.wave_state_offset = m->cp_hqd_wg_state_offset;
+> +	header.control_stack_offset = m->cp_hqd_cntl_stack_offset;
+> +
+> +	if (copy_to_user(ctl_stack, &header, header_copy_size))
+> +		return -EFAULT;
+> +
+> +	if (copy_to_user(ctl_stack + m->cp_hqd_cntl_stack_offset,
+> +				mqd_ctl_stack + m->cp_hqd_cntl_stack_offset,
+> +				*ctl_stack_used_size))
+>   		return -EFAULT;
+>   
+>   	return 0;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> index 6f7dc23af104..8dc7cc1e18a5 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -477,6 +477,8 @@ struct queue_properties {
+>   	uint32_t doorbell_off;
+>   	bool is_interop;
+>   	bool is_evicted;
+> +	bool is_suspended;
+> +	bool is_being_destroyed;
+>   	bool is_active;
+>   	bool is_gws;
+>   	bool is_dbg_wa;
+> @@ -501,7 +503,8 @@ struct queue_properties {
+>   #define QUEUE_IS_ACTIVE(q) ((q).queue_size > 0 &&	\
+>   			    (q).queue_address != 0 &&	\
+>   			    (q).queue_percent > 0 &&	\
+> -			    !(q).is_evicted)
+> +			    !(q).is_evicted &&		\
+> +			    !(q).is_suspended)
+>   
+>   enum mqd_update_flag {
+>   	UPDATE_FLAG_DBG_WA_ENABLE = 1,
