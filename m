@@ -4,67 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3E23C74A5B
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Mar 2023 13:12:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF593C6FD1D
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Mar 2023 13:52:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FD2710E0E8;
-	Tue, 21 Mar 2023 13:12:39 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6775A10E77B
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Mar 2023 13:12:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1679404355;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=eWFUnBtyx/hu3aRB6Qds/QASdRiQBFm/RsXbD7zPrs8=;
- b=cVDKyknHAYdPF0wb2UYLKExanMsDPuaIOTxKLdvYPEhq6GGUUrzjCrKv67iGcPjijbPS04
- KOtQB/X0Bhmgu8R/uq9p1c3bZJmN9JJ+4hiGEUqebXM1oTwL9MMHL4yQpQ/FEAz/4lMGpb
- A1AKvgt5q8RoIgXMjtLBchHtB9yrvD8=
-Received: from mail-lf1-f69.google.com (mail-lf1-f69.google.com
- [209.85.167.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-591-KLsaw9GKNi6vj19UC2EJ_w-1; Tue, 21 Mar 2023 09:12:31 -0400
-X-MC-Unique: KLsaw9GKNi6vj19UC2EJ_w-1
-Received: by mail-lf1-f69.google.com with SMTP id
- d23-20020a193857000000b004e9d2af9e57so2002150lfj.23
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Mar 2023 06:12:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679404350;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=eWFUnBtyx/hu3aRB6Qds/QASdRiQBFm/RsXbD7zPrs8=;
- b=oMa4bG9xIE5LabdrcDqhB5/SJ7KIbwcAyCA10ZDvyQr+u2G3BmsaYjXx2GrujN6pYR
- 4XWeR1v5VmR3sSwQP8ZRkvDooZhVOl2JcoS6tep0iAPKKOZqjPHmSdD588jRFfiZFcvX
- XoKXM0xywMNP+oqV+EJgrCElJwpQrBjuS1TNF+b75x43kGibIGRI8dm5Lgx4FV80NTCX
- 0f62BkBKc6Q3MC3KKf/9aQ844U1JnsEgvc65FlytQsNVuRq+j15muEEuiLqgsJYCIWMK
- KNsgHzLiQOrw2yLF4SDdYaL1beXyEHDhcsjur1UyE1rBzjxulsOX3JIuDiDOX7SFhUld
- Q7DQ==
-X-Gm-Message-State: AO0yUKX7GwyDHJmrdQfZAHZ++TWl+Zlj/fee7sUBvuU9COJYTo7CydhI
- vN5p9TVmpglpfh86gP/BkMclY1qtMFEs6Q1B14/7C7XD/Mgl2VQVWmZe/DKr2o6smBZg/zZudj1
- WK3ULrqHboyY7tUOu7MT3Wk9oSjAMlWrmeEPE8bHtOw==
-X-Received: by 2002:a2e:9257:0:b0:299:ac4e:a8ad with SMTP id
- v23-20020a2e9257000000b00299ac4ea8admr867813ljg.1.1679404350533; 
- Tue, 21 Mar 2023 06:12:30 -0700 (PDT)
-X-Google-Smtp-Source: AK7set/KbT8OnF5ZSrDD+joOOnVNq3dH1Zkr9qSjkGdKShhAj9uhTOGz8Y5fZZNQQMsXpTyWmZgzXbQ4rHZgY2BfE9w=
-X-Received: by 2002:a2e:9257:0:b0:299:ac4e:a8ad with SMTP id
- v23-20020a2e9257000000b00299ac4ea8admr867802ljg.1.1679404350223; Tue, 21 Mar
- 2023 06:12:30 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7204E10E0B7;
+	Tue, 21 Mar 2023 13:52:35 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on20627.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8c::627])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 302C610E0B7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Mar 2023 13:52:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=aU2io4G/apFERzaqSJ2ItILsFjgZi55jvw3a0MI29oeWyDGKJ0ZJS+axS7YSmX/tVy/kEyHJB2IC4CuwXQGPWPvDpTcdDBv6Wzwsx1DahE+LQNsygmOA1kKXPeQoBtlf+xKSG0tdTVopx1uQXz1ij3aTDKTstLI8O/DDEIKV/z355xY8EhXO8RilGP4DoZ9lgrdsl+MqayiwXS2G80e1RYEhMHnZhzgtD69Wx1ldaKQHhmBU7dSo0LhjZIO97IgHZN4X+C0fYxnobYwahnf2T1Qn5fyidBfoZXleCilHbjm5B5ZtWLqrNUshChzGZKVMDYdJ28Mh+q6bM0nv1jJwfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yxrN2PcIJOLrlVvg6VdyBSP4T3iyf+RUm3lRQdTOuBU=;
+ b=DwuBolqVqnuj8ZXcPefNTFe2J1SZQGoNnOlwfwHb/yoPi4FOMhhGwerHfqfgMHnIwXhYV6OU4VGW+ia8nwffGdv0rPHkXEjn/DxlD7kBkAMVCVWh7GzuR6g5TjJMHvp7KdN0sOp9P0PlytxNBtjqdWgxRV2wNxz1fMS3x9f8DE1y5P/SrTRxb//HucpIUIOsH1Cbsg1dxBThnKVJvRsqi7jaSV4gzODhBDk014U2Q02tK/fz3f1ybWiR5KusY62n7s8rrm7N4oDPu/GbYicaxZPB6+xsM9w1Nwncm64gnO9qW61++lQ7EXQb9W8LVfA8Dmt5wrRM94Q1Mx14eZMEkg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yxrN2PcIJOLrlVvg6VdyBSP4T3iyf+RUm3lRQdTOuBU=;
+ b=TtbvGhg+x/3sB2KhuK81qEkhsyCLslTgdUBx8I1VcGL0bFeBLK5G/Hj6FtWNk9nj3RyW3Y7LWX/ARWgFCfKfwE++14mqYIpfDV1l/6t9bwMxUDm9RQstSrqgvM9ZSU4SudkgzgQc3Ln/iupfzOv15VDjFCvzjEaaVixezK+XVI8=
+Received: from DM6PR02CA0167.namprd02.prod.outlook.com (2603:10b6:5:332::34)
+ by DS0PR12MB6485.namprd12.prod.outlook.com (2603:10b6:8:c6::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6156.26; Tue, 21 Mar 2023 13:52:31 +0000
+Received: from DM6NAM11FT079.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:332:cafe::f1) by DM6PR02CA0167.outlook.office365.com
+ (2603:10b6:5:332::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37 via Frontend
+ Transport; Tue, 21 Mar 2023 13:52:30 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT079.mail.protection.outlook.com (10.13.173.4) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6222.17 via Frontend Transport; Tue, 21 Mar 2023 13:52:30 +0000
+Received: from fedora.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 21 Mar
+ 2023 08:52:29 -0500
+From: Luben Tuikov <luben.tuikov@amd.com>
+To: AMD Graphics <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] tests/amdgpu: Allow to exclude a test or a suite of tests
+Date: Tue, 21 Mar 2023 09:52:00 -0400
+Message-ID: <20230321135200.109608-1-luben.tuikov@amd.com>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
-References: <20230113162428.33874-1-harry.wentland@amd.com>
-In-Reply-To: <20230113162428.33874-1-harry.wentland@amd.com>
-From: Sebastian Wick <sebastian.wick@redhat.com>
-Date: Tue, 21 Mar 2023 14:12:19 +0100
-Message-ID: <CA+hFU4xASm0wTs98HpqTfJjcsq24WX6uULTnfXobW75bWSzJ1A@mail.gmail.com>
-Subject: Re: [PATCH v2 00/21] Enable Colorspace connector property in amdgpu
-To: Harry Wentland <harry.wentland@amd.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT079:EE_|DS0PR12MB6485:EE_
+X-MS-Office365-Filtering-Correlation-Id: 744cd7b2-12b0-4425-1841-08db2a1383a9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: DooETooa/LujUQShIwvIa4SZ645mNHkx5ijilW8inrtw/1ttWteTBnjg46Me78N0I/hZYqVZ53GobhrhsEcTdp2wMt52/yPADfvY09XIIZk9QaV7tc2wfdKAXAKbxu0dVGaHGi85Eey3SwVtJIZnqrBTe3cPhF1zrj/kG+ZJGTjAap2e8Gzz+UNK6c0QEMIUGd/Xbpj/RUwsUDwiwNfb4gvklmqA4sG3MrNoG1ixq5mNpFV86pc3TfZNWMl8QrVa/7qAFxr7fInS0PFWzR2wEMgzlLfeF2IbPAsnXzqq7Qzy339VBc4EDrvJ983HJ2i/2OZ2e+gfl0/Ot1azQcvU+3l6RWrQaqoFXNcYst77aWlK9JxsTFFynGuawJMIquWFgzvp+BoJevUwlq51orOngGf1qM0qzRugbouYi0b5K88ho6IS/B+qn6q1frX05Wo2Ar/3jE4h6JiLi4ibhMJhAJo5RAYNFNGW26zIr1UnpS4DkB9EqoSwFadE//iCBGknJn7EC1FmrYIQhGsshAxQGeoClQg7GazInpyuEMmkLsbAwB3kZ+T5aVw70BTqOn+X1na8a4jDROjQY1r/DfCQa5FAUcRwz+IbEGv/BNKBINXJhGlXKFuxo6PCTBwEfUNbJzT+sCBnL2Xuj+B0hvJ/e6QO6yfnBzm7RP2p5ttq6M6yrfUu8T4u6AD5tAkZOPYr83Clnv3t8WOTp1CN5yQvrBz2etA06ymZ6hzn9NT0gw0=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(39860400002)(346002)(396003)(376002)(136003)(451199018)(36840700001)(46966006)(40470700004)(83380400001)(82310400005)(36860700001)(7696005)(426003)(478600001)(36756003)(5660300002)(40460700003)(336012)(82740400003)(6666004)(1076003)(54906003)(40480700001)(16526019)(26005)(70206006)(316002)(47076005)(356005)(44832011)(8936002)(2616005)(186003)(70586007)(41300700001)(2906002)(4326008)(81166007)(8676002)(6916009)(86362001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2023 13:52:30.3918 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 744cd7b2-12b0-4425-1841-08db2a1383a9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT079.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6485
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,160 +97,285 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- dri-devel@lists.freedesktop.org, Pekka Paalanen <ppaalanen@gmail.com>,
- Uma Shankar <uma.shankar@intel.com>, amd-gfx@lists.freedesktop.org,
- Joshua Ashton <joshua@froggi.es>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Vitaly.Prosyak@amd.com
+Cc: Alex Deucher <Alexander.Deucher@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-FWIW, I still think this series is good (minus the UAPI changes) and
-would allow us to work on user space HDR support without custom
-kernels.
+Add the command line argument -e s[.t] to exclude (disable) suite s, or to
+exclude suite s test t.
 
-On Fri, Jan 13, 2023 at 5:24=E2=80=AFPM Harry Wentland <harry.wentland@amd.=
-com> wrote:
->
-> This patchset enables the DP and HDMI infoframe properties
-> in amdgpu.
->
-> The first two patches are not completely related to the rest. The
-> first patch allows for HDR_OUTPUT_METADATA with EOTFs that are
-> unknown in the kernel.
->
-> The second one prints a connector's max_bpc as part of the atomic
-> state debugfs print.
->
-> The following patches rework the connector colorspace code to
-> 1) allow for easy printing of the colorspace in the drm_atomic
->    state debugfs, and
-> 2) allow drivers to specify the supported colorspaces on a
->    connector.
->
-> The rest of the patches deal with the Colorspace enablement
-> in amdgpu.
->
-> Why do drivers need to specify supported colorspaces? The amdgpu
-> driver needs support for RGB-to-YCbCr conversion when we drive
-> the display in YCbCr. This is currently not implemented for all
-> colorspaces.
->
-> Since the Colorspace property didn't have an IGT test I added
-> one to kms_hdr. The relevant patchset can be found on the IGT
-> mailing list or on
-> https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/tree/hdr-colorim=
-etry
->
-> We tested v1 of the patchset and confirmed that the infoframes
-> are as expected for both DP and HDMI when running the IGT
-> colorimetry tests.
->
-> Open Items
-> ----------
->
-> A couple comments from Pekka about colorspace documentation are
-> left unaddressed. I hope they won't block merging this set but
-> should still be addressed separately.
->
-> Pekka's questions really got me thinking of how this colorspace
-> property should be used and working with it more closely with
-> Joshua who is enabling HDR in gamescope made me wonder even more.
->
-> Uma, is there a (canonical, upstream) userspace that uses this
-> property that I can look at to understand more?
->
-> One of the key challenges that is currently not addressed is that
-> userspace is expected to pick a colorspace format straight from the
-> list of definitions out of the DP or HDMI spec. But the kernel
-> driver are the ones deciding on the output encoding (RGB, YCBCR444,
-> YCBCR420, etc.). So there is no way for userspace to decide correctly
-> between, for example, BT2020_RGB, BT2020_CYCC, BT2020_YCC.
->
-> So we end up in a scenario where gamescope sets BT2020_RGB but we
-> output YCBCR444 so have to correct the colorspace value to
-> BT2020_YCC. This in turn breaks the colorspace IGT tests I
-> wrote. I don't think "fixing" the IGT tests to accept this is
-> the right thing to do.
->
-> The way it stands this patchset allows us to specify the output
-> colorspace on amdgpu and we try to do the right thing, but I don't
-> thing the way the colorspace property is defined is right. We're trying
-> to expose things to userspace that should be under driver control. A
-> much better approach would be to give userspace options for colorspace
-> that are not tied to DP or HDMI specs, i.e., sRGB, BT709, BT2020, etc.,
-> and have the driver do the right thing to fill the infoframe, e.g., by
-> picking BT2020_YCC if the requested colorspace is BT2020 and the
-> is YCBCR444.
->
-> If no upstream userspace currently makes use of this property I
-> can make that change, i.e., no longer tie the colorspace property
-> directly to the infoframe and reduce the options to sRGB, BT709,
-> BT601, and BT2020 (and possibly opRGB).
->
-> v2:
-> - Tested with DP and HDMI analyzers
-> - Confirmed driver will fallback to lower bpc when needed
-> - Dropped hunk to set HDMI AVI infoframe as it was a no-op
-> - Fixed BT.2020 YCbCr colorimetry (JoshuaAshton)
-> - Simplify initialization of supported colorspaces (Jani)
-> - Fix kerneldoc (kernel test robot)
->
-> Cc: Pekka Paalanen <ppaalanen@gmail.com>
-> Cc: Sebastian Wick <sebastian.wick@redhat.com>
-> Cc: Vitaly.Prosyak@amd.com
-> Cc: Uma Shankar <uma.shankar@intel.com>
-> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-> Cc: Joshua Ashton <joshua@froggi.es>
-> Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> Cc: Michel D=C3=A4nzer <michel.daenzer@mailbox.org>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: amd-gfx@lists.freedesktop.org
->
-> Harry Wentland (16):
->   drm/display: Don't block HDR_OUTPUT_METADATA on unknown EOTF
->   drm/connector: print max_requested_bpc in state debugfs
->   drm/connector: Drop COLORIMETRY_NO_DATA
->   drm/connector: Convert DRM_MODE_COLORIMETRY to enum
->   drm/connector: Pull out common create_colorspace_property code
->   drm/connector: Allow drivers to pass list of supported colorspaces
->   drm/connector: Print connector colorspace in state debugfs
->   drm/amd/display: Always pass connector_state to stream validation
->   drm/amd/display: Register Colorspace property for DP and HDMI
->   drm/amd/display: Signal mode_changed if colorspace changed
->   drm/amd/display: Send correct DP colorspace infopacket
->   drm/amd/display: Add support for explicit BT601_YCC
->   drm/amd/display: Add debugfs for testing output colorspace
->   drm/amd/display: Add default case for output_color_space switch
->   drm/amd/display: Don't restrict bpc to 8 bpc
->   drm/amd/display: Format input and output CSC matrix
->
-> Joshua Ashton (5):
->   drm/amd/display: Always set crtcinfo from create_stream_for_sink
->   drm/amd/display: Fallback to 2020_YCBCR if the pixel encoding is not
->     RGB
->   drm/amd/display: Refactor avi_info_frame colorimetry determination
->   drm/amd/display: Calculate output_color_space after pixel encoding
->     adjustment
->   drm/amd/display: Fix COLOR_SPACE_YCBCR2020_TYPE matrix
->
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  90 ++++++---
->  .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |  57 ++++++
->  .../drm/amd/display/dc/core/dc_hw_sequencer.c |  38 ++--
->  .../gpu/drm/amd/display/dc/core/dc_resource.c |  28 ++-
->  drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h   |  54 +++--
->  drivers/gpu/drm/display/drm_hdmi_helper.c     |   8 +-
->  drivers/gpu/drm/drm_atomic.c                  |   2 +
->  drivers/gpu/drm/drm_connector.c               | 189 ++++++++++--------
->  .../gpu/drm/i915/display/intel_connector.c    |   4 +-
->  drivers/gpu/drm/vc4/vc4_hdmi.c                |   2 +-
->  include/drm/display/drm_dp.h                  |   2 +-
->  include/drm/drm_connector.h                   |  57 +++---
->  12 files changed, 345 insertions(+), 186 deletions(-)
->
-> --
-> 2.39.0
->
+This is useful for instance to run the Basic Suite, but disable the GPU reset
+test, on the command line, like this:
+
+    amdgpu_tests -s 1 -e 1.13
+
+This option can be specified more than once on the command line, in order to
+exclude more than one suite and/or suite and test combination from being run.
+
+Cc: Alex Deucher <Alexander.Deucher@amd.com>
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+---
+ tests/amdgpu/amdgpu_test.c | 187 ++++++++++++++++++++++++++++++-------
+ 1 file changed, 152 insertions(+), 35 deletions(-)
+
+diff --git a/tests/amdgpu/amdgpu_test.c b/tests/amdgpu/amdgpu_test.c
+index 59ca49bdef5f20..ec787889afd25f 100644
+--- a/tests/amdgpu/amdgpu_test.c
++++ b/tests/amdgpu/amdgpu_test.c
+@@ -296,11 +296,14 @@ static void display_test_suites(void)
+ 
+ /** Help string for command line parameters */
+ static const char usage[] =
+-	"Usage: %s [-hlpr] [-s <suite id>] [-t <test id>] [-f] "
++	"Usage: %s [-hlpr] [-s <suite id>] [-e <s>[.<t>] [-e ...]] [-t <test id>] [-f] "
+ 	"[-b <pci_bus_id>] [-d <pci_device_id>]\n"
+ 	"Where,\n"
+ 	"  -b      Specify device's PCI bus id to run tests\n"
+ 	"  -d      Specify device's PCI device id to run tests (optional)\n"
++	"  -e <s>[.<t>]  Disable test <t> of suite <s>. If only <s> is given, then disable\n"
++	"          the whole suite. Can be specified more than once on the command line\n"
++	"          to disable multiple tests or suites.\n"
+ 	"  -f      Force executing inactive suite or test\n"
+ 	"  -h      Display this help\n"
+ 	"  -l      Display all test suites and their tests\n"
+@@ -309,7 +312,7 @@ static const char usage[] =
+ 	"  -s <s>  Enable only test suite <s>\n"
+ 	"  -t <t>  Enable only test <t> of test suite <s>\n";
+ /** Specified options strings for getopt */
+-static const char options[]   = "hlrps:t:b:d:f";
++static const char options[]   = "hlrps:t:e:b:d:f";
+ 
+ /* Open AMD devices.
+  * Return the number of AMD device opened.
+@@ -664,6 +667,48 @@ char *amdgpu_get_device_from_fd(int fd)
+ #endif
+ }
+ 
++#ifndef ARRAY_SIZE
++#define ARRAY_SIZE(_A) (sizeof(_A)/sizeof(_A[0]))
++#endif
++
++static void amdgpu_test_disable(long suite, long test)
++{
++	const char *suite_name;
++
++	if (suite < 1)
++		return;
++
++	/* The array is 0-based, so subract 1. */
++	suite--;
++	if (suite >= ARRAY_SIZE(suites) - 1)
++		return;
++
++	suite_name = suites[suite].pName;
++	if (test < 1) {
++		fprintf(stderr, "Deactivating suite %s\n", suite_name);
++		amdgpu_set_suite_active(suite_name, CU_FALSE);
++	} else {
++		int ii;
++
++		/* The array is 0-based so subtract 1. */
++		test--;
++		for (ii = 0; suites[suite].pTests[ii].pName; ii++) {
++			if (ii == test) {
++				fprintf(stderr, "Deactivating %s:%s\n",
++					suite_name,
++					suites[suite].pTests[ii].pName);
++				amdgpu_set_test_active(suite_name,
++						       suites[suite].pTests[ii].pName,
++						       CU_FALSE);
++				break;
++			}
++		}
++
++		if (suites[suite].pTests[ii].pName == NULL)
++			fprintf(stderr, "No such suite.test %ld.%ld\n", suite, test);
++	}
++}
++
+ /* The main() function for setting up and running the tests.
+  * Returns a CUE_SUCCESS on successful running, another
+  * CUnit error code on failure.
+@@ -682,48 +727,21 @@ int main(int argc, char **argv)
+ 	int display_list = 0;
+ 	int force_run = 0;
+ 
+-	for (i = 0; i < MAX_CARDS_SUPPORTED; i++)
+-		drm_amdgpu[i] = -1;
+-
+-
+-	/* Parse command line string */
++	/* Parse command line string.
++	 * Process various command line options as early as possible.
++	 */
+ 	opterr = 0;		/* Do not print error messages from getopt */
+ 	while ((c = getopt(argc, argv, options)) != -1) {
+ 		switch (c) {
+-		case 'l':
+-			display_list = 1;
+-			break;
+-		case 's':
+-			suite_id = atoi(optarg);
+-			break;
+-		case 't':
+-			test_id = atoi(optarg);
+-			break;
+-		case 'b':
+-			pci_bus_id = atoi(optarg);
+-			break;
+-		case 'd':
+-			sscanf(optarg, "%x", &pci_device_id);
+-			break;
+-		case 'p':
+-			display_devices = 1;
+-			break;
+-		case 'r':
+-			open_render_node = 1;
+-			break;
+-		case 'f':
+-			force_run = 1;
+-			break;
+-		case '?':
+ 		case 'h':
+ 			fprintf(stderr, usage, argv[0]);
+ 			exit(EXIT_SUCCESS);
+-		default:
+-			fprintf(stderr, usage, argv[0]);
+-			exit(EXIT_FAILURE);
+ 		}
+ 	}
+ 
++	for (i = 0; i < MAX_CARDS_SUPPORTED; i++)
++		drm_amdgpu[i] = -1;
++
+ 	if (amdgpu_open_devices(open_render_node) <= 0) {
+ 		perror("Cannot open AMDGPU device");
+ 		exit(EXIT_FAILURE);
+@@ -734,12 +752,37 @@ int main(int argc, char **argv)
+ 		exit(EXIT_FAILURE);
+ 	}
+ 
++	/* Parse command line string */
++	opterr = 0;		/* Do not print error messages from getopt */
++	optind = 1;
++	while ((c = getopt(argc, argv, options)) != -1) {
++		switch (c) {
++		case 'p':
++			display_devices = 1;
++			break;
++		}
++	}
++
+ 	if (display_devices) {
+ 		amdgpu_print_devices();
+ 		amdgpu_close_devices();
+ 		exit(EXIT_SUCCESS);
+ 	}
+ 
++	/* Parse command line string */
++	opterr = 0;		/* Do not print error messages from getopt */
++	optind = 1;
++	while ((c = getopt(argc, argv, options)) != -1) {
++		switch (c) {
++		case 'b':
++			pci_bus_id = atoi(optarg);
++			break;
++		case 'd':
++			sscanf(optarg, "%x", &pci_device_id);
++			break;
++		}
++	}
++
+ 	if (pci_bus_id > 0 || pci_device_id) {
+ 		/* A device was specified to run the test */
+ 		test_device_index = amdgpu_find_device(pci_bus_id,
+@@ -782,11 +825,85 @@ int main(int argc, char **argv)
+ 	/* Disable suites and individual tests based on misc. conditions */
+ 	amdgpu_disable_suites();
+ 
++	/* Parse command line string */
++	opterr = 0;		/* Do not print error messages from getopt */
++	optind = 1;
++	while ((c = getopt(argc, argv, options)) != -1) {
++		switch (c) {
++		case 'l':
++			display_list = 1;
++			break;
++		}
++	}
++
+ 	if (display_list) {
+ 		display_test_suites();
+ 		goto end;
+ 	}
+ 
++	/* Parse command line string */
++	opterr = 0;		/* Do not print error messages from getopt */
++	optind = 1;
++	while ((c = getopt(argc, argv, options)) != -1) {
++		long esuite = -1;
++		long etest = -1;
++		char *endp;
++		switch (c) {
++		case 's':
++			suite_id = atoi(optarg);
++			break;
++		case 't':
++			test_id = atoi(optarg);
++			break;
++		case 'r':
++                       open_render_node = 1;
++                       break;
++		case 'f':
++			force_run = 1;
++			break;
++		case 'e':
++			esuite = strtol(optarg, &endp, 0);
++			if (endp == optarg) {
++				fprintf(stderr, "No digits given for -e argument\n");
++				goto end;
++			} else if (endp && *endp == '.' && esuite > 0) {
++				char *tt = endp + 1;
++				etest = strtol(tt, &endp, 0);
++				if (endp == tt) {
++					fprintf(stderr, "No digits given for test in -e s.t argument\n");
++					goto end;
++				} else if (endp && *endp != '\0') {
++					fprintf(stderr, "Bad input given for test in -e s.t argument\n");
++					goto end;
++				} else if (etest < 1) {
++					fprintf(stderr, "Test in -e s.t argument cannot be smaller than 1\n");
++					goto end;
++				}
++			} else if (endp && *endp != '\0') {
++				fprintf(stderr, "Bad input given for suite for -e s argument\n");
++				goto end;
++			} else if (esuite < 1) {
++				fprintf(stderr, "Suite in -e s argument cannot be smaller than 1\n");
++				goto end;
++			}
++			amdgpu_test_disable(esuite, etest);
++			break;
++		case 'h':
++		case 'p':
++		case 'b':
++		case 'd':
++		case 'l':
++			/* Those have been processed earlier.
++			 */
++			break;
++		case '?':
++		default:
++			fprintf(stderr, "Unknown command line option '%c'. Try -h.\n",
++				c == '?' ? optopt : c);
++			goto end;
++		}
++	}
++
+ 	if (suite_id != -1) {	/* If user specify particular suite? */
+ 		pSuite = CU_get_suite_by_index((unsigned int) suite_id,
+ 						CU_get_registry());
+-- 
+2.40.0
 
