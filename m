@@ -4,56 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E90E4C6FD1D
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Mar 2023 19:51:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F007C6FD20
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Mar 2023 19:54:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63C3110E766;
-	Tue, 21 Mar 2023 19:51:58 +0000 (UTC)
-Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
- [IPv6:2001:4860:4864:20::2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6FDC10E766
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Mar 2023 19:51:56 +0000 (UTC)
-Received: by mail-oa1-x2c.google.com with SMTP id
- 586e51a60fabf-17aeb49429eso17050226fac.6
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Mar 2023 12:51:56 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44EBE10E805;
+	Tue, 21 Mar 2023 19:54:05 +0000 (UTC)
+Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
+ [IPv6:2001:4860:4864:20::2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67B0710E805
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Mar 2023 19:54:04 +0000 (UTC)
+Received: by mail-oa1-x2f.google.com with SMTP id
+ 586e51a60fabf-177b78067ffso17365513fac.7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Mar 2023 12:54:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1679428316;
+ d=gmail.com; s=20210112; t=1679428443;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=A1Fd+VzjoaAuqwz3j7jKBOuHXkThuMJzHWGEYXDg5hw=;
- b=N5tKs7V5iUoVZRL66qfFJi99dC/kWYERPmPGz/CBYyrn5YUP1rv5Tj5yBYaq6KpwkX
- qzxXXFVdjkFV6UMPSikW6yX5wAo4jrGYw0/+WhfaQqZVTX6Ad/XaU8yeEXBBImtS16nQ
- jKBdusfc5VK4ukgZoreX7rMWh1apcgknhDook36sv1Ab7WJL7ZY0P0iPER08lb9HWC8T
- CVL1CrKf0x0sjtRsPx4bCXUuQn+WbvIIl4010wHai5tNF92oA4yQI4rBT6ASzZ3gmk9F
- 4/LDNwcD6zWxZn5PqMDAXJtpsR6DMYyQSr2OarbmwxBc2QARdjGPAVLSBMGwpmDZuZ++
- C6Ew==
+ bh=jsCiSE4Hb1pCWgqie68S4G4PcCaZ4SdoahP9G0ikEzw=;
+ b=XPjw/nNFY+8JdBu47C770Kg+Qj7EVXn806vK2YWHSMxhqK66JL6umpD+MgT4eqAnbA
+ m5cCALO48igMuYDzZR2qkZs81eR9EsEbRG2s3NmmFIKIs899NH4JbQtLgE+HVeNzAKIR
+ jbrQUcJxHOnX3Bt+nVfmQqqXn3ZwPfbOQiMtv6AgmS/MC+TtW2MJrb0Mxp+jtMU9b6Yt
+ 3M8bWgcg3LQjl95VkZZtNePJvAOJRiBkTP1w2vHpcgAw66yZhXXsNiA22ut3siJs5bW5
+ gk5AmrUYoRXGP5WyOqobL1obkknSsh0fCoffaF06lvhXHxMUVldta45lf0eKtDJGz5bD
+ 269g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679428316;
+ d=1e100.net; s=20210112; t=1679428443;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=A1Fd+VzjoaAuqwz3j7jKBOuHXkThuMJzHWGEYXDg5hw=;
- b=silNlG6j73xWUsH/F6J444uluBe9KSMEvqyQvrMdMJn8VsoR9B+XrNGMmPa8PsbWux
- WszbKSBxm9zzDKINNNjsp0KSXyD4C+1PLZHsGZGFe9a0iv082R7ubr3X68V0L8s0XH7a
- ZZTReWS5DDN2MZ6Ulfb4+yjXB1i7cY/As4LjC3zCMvmuZfUbX7hby9SMFF0wDaWjhzee
- Smr8ScCbHuZ3IZyiibvgmqt0Hkvw2xChkFOqRDKmg/mHxIhS7j53NNKV9yfFzrPlpdnU
- vcy+U7SGuBEpHdnTPjB9Wcl0tdyCnquN1i6W7YZ7suK54RKu1aSjtkuMh4wvFJUaC58D
- qpUA==
-X-Gm-Message-State: AO0yUKWI3Ab7z9dD4L93r5uzp+y9BYBBqqYg3hsnXYlhX9NrEWDg/Q/Q
- cifBsiSIWZnUJcjWlkHdxcLBY4nP0o9XaIjnq4M=
-X-Google-Smtp-Source: AK7set9qVMEB0eiXhkW3yxM8xHkR1DAeOLlb1S4to00jRWoZwXAgr5kkLwOM9fEtbg/L3zX7wOtPT9X/V26x5LX/Rlk=
+ bh=jsCiSE4Hb1pCWgqie68S4G4PcCaZ4SdoahP9G0ikEzw=;
+ b=eP40dEPe3z9KjOSOvxG9xV2vDX6/THfCwHIFUWYZd0uKg97wM+pPIzM7BBqjnbBMsq
+ xEYC3NJ+GELUl+wqOkRt0gp+P2+87to1l6FIRxsw5BJ1fb0zK3wg0WwHxMLxqC2m7kkB
+ +Th7gWBOhaOMG26j4/EuVakdNASHsoWBvB6FcP+N2ebaCmVFqEUH17SojO+BIqs11VED
+ PtgUsqEbwMwn2YpglSqNeA/ApXSQ4G6bM2EM+ajzfxOIBJzkyoMvKsF3+wkGi8gITE9z
+ tIWhmOmtqCCAXYHPXJVm/yXbyLKBMDBdf8nWGOI3Q1RzmZeAsLFt0GWsv5wHmLh9zMbV
+ E2XA==
+X-Gm-Message-State: AO0yUKUkIfz+L206wW8JnUSQg8PRLyHf4V5/TpevXwfxzDqjsuXkHeXW
+ bZC8asMWVYlGvzIz68C8UV4bfhnwRDLFA/jqp64=
+X-Google-Smtp-Source: AK7set/tX/0ctnDyUfERN9A3p8M2m/0J6sXZEUJeyWoxOhL3LpfEqh82CvmzwoeMUtgx3oNo6eSbk0z++JwEg+pXfTE=
 X-Received: by 2002:a05:6871:4905:b0:177:9150:e7ba with SMTP id
- tw5-20020a056871490500b001779150e7bamr57971oab.3.1679428316043; Tue, 21 Mar
- 2023 12:51:56 -0700 (PDT)
+ tw5-20020a056871490500b001779150e7bamr59922oab.3.1679428443536; Tue, 21 Mar
+ 2023 12:54:03 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230320173810.250835-1-alexander.deucher@amd.com>
  <20230320173810.250835-8-alexander.deucher@amd.com>
- <CAAxE2A4oPbDtZfCg=PQhT8Et_KN2Wrs0Dz7jiLv-raeH2u9AEQ@mail.gmail.com>
-In-Reply-To: <CAAxE2A4oPbDtZfCg=PQhT8Et_KN2Wrs0Dz7jiLv-raeH2u9AEQ@mail.gmail.com>
+ <CAAxE2A7enKdyE_cBsCwCFZJjSWQZgOGZYCfUT5ShZN2DGa+Qbw@mail.gmail.com>
+In-Reply-To: <CAAxE2A7enKdyE_cBsCwCFZJjSWQZgOGZYCfUT5ShZN2DGa+Qbw@mail.gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 21 Mar 2023 15:51:44 -0400
-Message-ID: <CADnq5_N+KZrpaPL8=N+70r6dtwZywC5WmEO00a_1jEBTCmA5zg@mail.gmail.com>
+Date: Tue, 21 Mar 2023 15:53:52 -0400
+Message-ID: <CADnq5_Or8QGhBwoB-rc8_gY2g3gaX-4Fvz8VaGKnaRXfJZMCNQ@mail.gmail.com>
 Subject: Re: [PATCH 07/11] drm/amdgpu: add UAPI to query GFX shadow sizes
 To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
@@ -73,9 +73,8 @@ Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 20, 2023 at 8:30=E2=80=AFPM Marek Ol=C5=A1=C3=A1k <maraeo@gmail=
+On Mon, Mar 20, 2023 at 8:31=E2=80=AFPM Marek Ol=C5=A1=C3=A1k <maraeo@gmail=
 .com> wrote:
->
 >
 > On Mon, Mar 20, 2023 at 1:38=E2=80=AFPM Alex Deucher <alexander.deucher@a=
 md.com> wrote:
@@ -99,35 +98,19 @@ md.com> wrote:
 >>         /* Subquery id: Encode */
 >>         #define AMDGPU_INFO_VIDEO_CAPS_ENCODE           1
 >> +#define AMDGPU_INFO_CP_GFX_SHADOW_SIZE         0x22
->>
->>  #define AMDGPU_INFO_MMR_SE_INDEX_SHIFT 0
->>  #define AMDGPU_INFO_MMR_SE_INDEX_MASK  0xff
->> @@ -1203,6 +1204,15 @@ struct drm_amdgpu_info_video_caps {
->>         struct drm_amdgpu_info_video_codec_info codec_info[AMDGPU_INFO_V=
-IDEO_CAPS_CODEC_IDX_COUNT];
->>  };
->>
->> +struct drm_amdgpu_info_cp_gfx_shadow_size {
->> +       __u32 shadow_size;
->> +       __u32 shadow_alignment;
->> +       __u32 csa_size;
->> +       __u32 csa_alignment;
->> +       __u32 gds_size;
->> +       __u32 gds_alignment;
 >
 >
-> Can you document the fields? What is CSA? Also, why is GDS there when the=
- hw deprecated it and replaced it with GDS registers?
+> Can you put this into the device structure instead? Let's minimize the nu=
+mber of kernel queries as much as possible.
 
-Will add documentation.  For reference:
-CSA (Context Save Area) - used as a scratch area for FW for saving
-various things
-Shadow - stores the pipeline state
-GDS backup - stores the GDS state used by the pipeline.  I'm not sure
-if this is registers or the old GDS memory.  Presumably the former.
+I guess, but one nice thing about this is that we can use the query as
+a way to determine if the kernel supports this functionality or not.
+If not, the query returns -ENOTSUP.
 
 Alex
+
 
 >
 > Thanks,
 > Marek
+>
