@@ -4,57 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69CAFC6FD1D
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Mar 2023 03:05:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDFE0C6FD1D
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Mar 2023 09:19:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3F0D10E6BA;
-	Tue, 21 Mar 2023 03:05:45 +0000 (UTC)
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [IPv6:2a00:1450:4864:20::52b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 507C110E6BA
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Mar 2023 03:05:43 +0000 (UTC)
-Received: by mail-ed1-x52b.google.com with SMTP id eg48so54367658edb.13
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Mar 2023 20:05:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1679367941;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=1HEs7Pl+kT1a9pyZLb16RddWdzigEeXbd53zhKfC4zc=;
- b=VCxaFZ1MMKNdWEoh3fzBblh5sptDIRZVlGWFbntgNTLFuCySXfLhNt1rpjojs8tMoQ
- ZVMk2vwVofGFDRT1LKp6wh9UhuDHFViS0WB+ntrjvIIUKYKcvIgrLflQXKuuPOLWKam+
- CmYwf1S3q7SKYhMPeaPrX+mKAql5SadurJjkcO4ah8Z/i3dljneanMT9PLUfjKQ2uMxc
- Rw4Pr681ThpnQvLEKLOVIOKuuOlJvxcoraG49tf/vwDnrohFLwDmjtp597wC0o+ti0sb
- G6OmUU3CGz/QNnbnS8+4uNYq3r+fLVc5Pd4+oziIfU4RBLfDaT59v+tOTvj3ezZWgmLX
- adfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679367941;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=1HEs7Pl+kT1a9pyZLb16RddWdzigEeXbd53zhKfC4zc=;
- b=UobnvG1zLIxmLozWKudv0eUw6LdFO9FiaigcXBZNintWW8g6201dMJ7QTz8HR952XE
- OUvGxg2aSyKp4e7fVn9nimmexNHBZfySX7R1sxWy/ukOWaC8scFPdbnKNe3p8kJfQ+S1
- MUPyQJ6IajZi1RBO67KW70SKF5SThhN61tBOQrdRRzRgv+1IZbWYD3o9Vhkg9nCQu1uh
- Rz7/k5ZdNIGm8pst7481lIZuY+yE7pP1kL3c8ebvkE2XB22RqxyRzJ1gYFyMplm1lUa5
- q+3cMp4szmHPP4hDHADbjKv99yggMr77YBA9eJpDyafEea0Pa1qw8pbLyv9JdXEPWi5I
- Hnkw==
-X-Gm-Message-State: AO0yUKUIhDSg1O8oN30gzctJ1LhdDFAqngKU4qeFcl3lP0zBlkHiujne
- c3XVEw4ejjpVt/3XcCRy9VqvT6WgkasZ03u96ZpgiCQWuZU=
-X-Google-Smtp-Source: AK7set9jwnN6k8b3yFcPD9ER7Y+Bx8/izWYLTj26jvo/G/ISeX/OoprPxQ+QsCeCt/GzrKdzpihX7eCvSFMMENX8B3A=
-X-Received: by 2002:a17:906:c7ca:b0:922:26ae:c68c with SMTP id
- dc10-20020a170906c7ca00b0092226aec68cmr5355677ejb.5.1679367941599; Mon, 20
- Mar 2023 20:05:41 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AFBA10E12E;
+	Tue, 21 Mar 2023 09:19:17 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2068.outbound.protection.outlook.com [40.107.212.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D096A10E0F4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Mar 2023 09:19:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AAsHm6nApsBH2w5aqEVTg3LtsKELKAut2IgQoJFdeyqDgZ8uyxjBmq20uxG/swk2Ui1AVA3Ssy3PTGYyb3BFG371JmEXmnb5pIwEZWCVvarSxdPYnykoqhu+V8n39T3QGBbI625xlT4Ov3hLyn4Aljus0wxtBIinjpDZpqDOg/+WeGYsK4euOeolJ+dXAjYvwcKGEi4kBdnfi5rmxZJgWlMpCX1wR7lEYh3LDZY6x6EJiaBRqKtnFcVIdFA12QIaU6P6tqTTgqrHzxbQ6lkQhUlxgLIathbsBZv+JYy+iTlxplZYpPrCuYhmxUKe38nyQ1+80/tSOxNGpqmkU7mDlg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=W342OCvxFcmVyMbcEy9oYV2XMGmR5qWJ4M0WJGycNjk=;
+ b=fu21UP+xOe1vhOzIBuncz2cUB8+i+AENSxaS50pq5zA6gI5DFWdTGB9rPshEbONEHdV22eEeZkJxb7E7RMFg+G77Vz43HCpiE2LUReIBOKJRZC3VT7HSQPYaybOGlyNkeO0RTKc/UkDlj/1gT25A/zTgcCh4a3cS9aU+sWpNskFRZwPh59lronZ5dtbk2iCzdlTVsb1t4wE/ZiBMy+K7MCG0K5FFsq9wLAXUK17aO/SMugWwc2xqYIvjOlgSl0Q0U5UgVfoJH0/tN+LrjvB6CeyfZL2qoBzeyv165Q+RvgDSNHAY37Heot+4V5VP8zbjmNdKnZERTg1+9efGC7ifKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=W342OCvxFcmVyMbcEy9oYV2XMGmR5qWJ4M0WJGycNjk=;
+ b=CygsvE8Wv1I611Jis5RkfkrpV57YuER8QAcdK/4k1gb9s2CMmclAf78BuNLRIssH24nxUFpuMN1Av/njamEN/Um5rc0dCvXYytzVrD3gbGMaMDc+6IJCE0ZBd1bsz1bxJpixbQwgzi7d5VSvRf9brFdDae9oW0bwgs78wRaFHlU=
+Received: from MW4P223CA0021.NAMP223.PROD.OUTLOOK.COM (2603:10b6:303:80::26)
+ by PH0PR12MB7864.namprd12.prod.outlook.com (2603:10b6:510:26c::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Tue, 21 Mar
+ 2023 09:19:12 +0000
+Received: from CO1NAM11FT017.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:80:cafe::38) by MW4P223CA0021.outlook.office365.com
+ (2603:10b6:303:80::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37 via Frontend
+ Transport; Tue, 21 Mar 2023 09:19:12 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT017.mail.protection.outlook.com (10.13.175.108) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6222.16 via Frontend Transport; Tue, 21 Mar 2023 09:19:11 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 21 Mar
+ 2023 04:19:10 -0500
+Received: from amd-SYS-7048GR-TR.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
+ via Frontend Transport; Tue, 21 Mar 2023 04:19:03 -0500
+From: Tong Liu01 <Tong.Liu01@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: skip unload tmr when tmr is not loaded
+Date: Tue, 21 Mar 2023 17:19:00 +0800
+Message-ID: <20230321091900.144479-1-Tong.Liu01@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20220926214014.5450-1-shashank.sharma@amd.com>
- <20220926214014.5450-2-shashank.sharma@amd.com>
-In-Reply-To: <20220926214014.5450-2-shashank.sharma@amd.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Mon, 20 Mar 2023 23:05:05 -0400
-Message-ID: <CAAxE2A67NMxra-a9ZYbY8e8S4fjfdXgB1cpjYZsSS8DcUu=LbA@mail.gmail.com>
-Subject: Re: [PATCH v3 1/5] drm/amdgpu: add UAPI for workload hints to ctx
- ioctl
-To: Shashank Sharma <shashank.sharma@amd.com>
-Content-Type: multipart/alternative; boundary="0000000000009b347605f7605186"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT017:EE_|PH0PR12MB7864:EE_
+X-MS-Office365-Filtering-Correlation-Id: a8bdf16f-030c-4cc1-51a1-08db29ed5570
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: eJ30s7RN9LoS2inXWasVaVAhaWgAdRxQRCvCE+qluY8NJkT4L7dCnOxeZMHa3gadvZL1juRpE5uvt+UBTRCPeh/HrCI2LRohRcLnOV9IPv6Hfm83ctX2ZB/9Ki6PfYqhbzOSwF+yojr523ZFy1h8dp/y1RhR7YoqDer1RjtQWMXRl+UgYbgjWcFYDukxHGZqSdnCIW6d4TB9nTMdiLRDz8bmSbAe7ik65K5J0jz9qd4GiXpohEnEMNfwvaviRsU4O1c80NlfBnyQRoil1GU7aIl+0qyBpWMFsT1PeMFq0Dyk3SIb5n20rbK9gdB20zm18QvTuidSVLZgenFYWAdT4QAr5ApL2LfmdrR8xbHz93vYPF6KdAHchl4tl8EkQ060Dfe6QUIrPQtewpbjRqlhbpIfHJmo/iw35kPB4ZGh3kp6DGf/q20mjc+3lqCXBWMyvZFglJDqVFADoARN9w9uzh3KaiD1qqdQHHHqU3+Bb/x1v9qCC9rbEOU53QldMeCPjAx6WLBaKkJg2hwhv4Em28FfA0j0z4ot0SOqFlU3PqM09uTOwSAYEhZ6qS/77KFzLyrvbAfkYYOTThEv07ysw92cHwdWA6OELFG5tKrFraVNd/5fALimkRjhV4xnj+yTOw6Ox1vWnPJpBmV1TEChZebr0Ia3D5erDxI9D2VqlOzCsSBUyfLixIHG4MV+57f5nD3GJREhCo/SHo2lM0tP9YB6vaB82xKjHl90aukCF2o=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(376002)(346002)(396003)(136003)(39860400002)(451199018)(36840700001)(40470700004)(46966006)(4744005)(5660300002)(8936002)(41300700001)(4326008)(6916009)(36860700001)(40480700001)(82310400005)(356005)(36756003)(86362001)(82740400003)(81166007)(40460700003)(2906002)(336012)(426003)(47076005)(478600001)(7696005)(2616005)(1076003)(186003)(26005)(54906003)(316002)(70586007)(8676002)(70206006)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2023 09:19:11.8750 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a8bdf16f-030c-4cc1-51a1-08db29ed5570
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT017.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7864
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,184 +97,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, amaranath.somalapuram@amd.com,
- christian.koenig@amd.com, amd-gfx@lists.freedesktop.org
+Cc: Jack Xiao <Jack.Xiao@amd.com>, horace.chen@amd.com, Tong
+ Liu01 <Tong.Liu01@amd.com>, Tuikov Luben <Luben.Tuikov@amd.com>,
+ Deucher Alexander <Alexander.Deucher@amd.com>, Evan Quan <Evan.Quan@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000009b347605f7605186
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+[why]
+For Navi12 and CHIP_SIENNA_CICHLID SRIOV, TMR is not loaded. Should
+also skip tmr unload
 
-I think we should do it differently because this interface will be mostly
-unused by open source userspace in its current form.
+Signed-off-by: Tong Liu01 <Tong.Liu01@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Let's set the workload hint in drm_amdgpu_ctx_in::flags, and that will be
-immutable for the lifetime of the context. No other interface is needed.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 0b9e99c35a05..69addf2751aa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -841,6 +841,12 @@ static int psp_tmr_unload(struct psp_context *psp)
+ 	int ret;
+ 	struct psp_gfx_cmd_resp *cmd = acquire_psp_cmd_buf(psp);
+ 
++	/* For Navi12 and CHIP_SIENNA_CICHLID SRIOV, do not set up TMR.
++	 * Already set up by host driver.
++	 */
++	if (amdgpu_sriov_vf(psp->adev) && psp_skip_tmr(psp))
++		return 0;
++
+ 	psp_prep_tmr_unload_cmd_buf(psp, cmd);
+ 	dev_dbg(psp->adev->dev, "free PSP TMR buffer\n");
+ 
+-- 
+2.34.1
 
-Marek
-
-On Mon, Sep 26, 2022 at 5:41=E2=80=AFPM Shashank Sharma <shashank.sharma@am=
-d.com>
-wrote:
-
-> Allow the user to specify a workload hint to the kernel.
-> We can use these to tweak the dpm heuristics to better match
-> the workload for improved performance.
->
-> V3: Create only set() workload UAPI (Christian)
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
-> ---
->  include/uapi/drm/amdgpu_drm.h | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
->
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.=
-h
-> index c2c9c674a223..23d354242699 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -212,6 +212,7 @@ union drm_amdgpu_bo_list {
->  #define AMDGPU_CTX_OP_QUERY_STATE2     4
->  #define AMDGPU_CTX_OP_GET_STABLE_PSTATE        5
->  #define AMDGPU_CTX_OP_SET_STABLE_PSTATE        6
-> +#define AMDGPU_CTX_OP_SET_WORKLOAD_PROFILE     7
->
->  /* GPU reset status */
->  #define AMDGPU_CTX_NO_RESET            0
-> @@ -252,6 +253,17 @@ union drm_amdgpu_bo_list {
->  #define AMDGPU_CTX_STABLE_PSTATE_MIN_MCLK  3
->  #define AMDGPU_CTX_STABLE_PSTATE_PEAK  4
->
-> +/* GPU workload hints, flag bits 8-15 */
-> +#define AMDGPU_CTX_WORKLOAD_HINT_SHIFT     8
-> +#define AMDGPU_CTX_WORKLOAD_HINT_MASK      (0xff <<
-> AMDGPU_CTX_WORKLOAD_HINT_SHIFT)
-> +#define AMDGPU_CTX_WORKLOAD_HINT_NONE      (0 <<
-> AMDGPU_CTX_WORKLOAD_HINT_SHIFT)
-> +#define AMDGPU_CTX_WORKLOAD_HINT_3D        (1 <<
-> AMDGPU_CTX_WORKLOAD_HINT_SHIFT)
-> +#define AMDGPU_CTX_WORKLOAD_HINT_VIDEO     (2 <<
-> AMDGPU_CTX_WORKLOAD_HINT_SHIFT)
-> +#define AMDGPU_CTX_WORKLOAD_HINT_VR        (3 <<
-> AMDGPU_CTX_WORKLOAD_HINT_SHIFT)
-> +#define AMDGPU_CTX_WORKLOAD_HINT_COMPUTE   (4 <<
-> AMDGPU_CTX_WORKLOAD_HINT_SHIFT)
-> +#define AMDGPU_CTX_WORKLOAD_HINT_MAX      AMDGPU_CTX_WORKLOAD_HINT_COMPU=
-TE
-> +#define AMDGPU_CTX_WORKLOAD_INDEX(n)      (n >>
-> AMDGPU_CTX_WORKLOAD_HINT_SHIFT)
-> +
->  struct drm_amdgpu_ctx_in {
->         /** AMDGPU_CTX_OP_* */
->         __u32   op;
-> @@ -281,6 +293,11 @@ union drm_amdgpu_ctx_out {
->                         __u32   flags;
->                         __u32   _pad;
->                 } pstate;
-> +
-> +               struct {
-> +                       __u32   flags;
-> +                       __u32   _pad;
-> +               } workload;
->  };
->
->  union drm_amdgpu_ctx {
-> --
-> 2.34.1
->
->
-
---0000000000009b347605f7605186
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>I think we should do it differently because this inte=
-rface will be mostly unused by open source userspace in its current form.</=
-div><div><br></div><div>Let&#39;s set the workload hint in drm_amdgpu_ctx_i=
-n::flags, and that will be immutable for the lifetime of the context. No ot=
-her interface is needed.<br></div><div><br></div><div>Marek<br></div></div>=
-<br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Mon=
-, Sep 26, 2022 at 5:41=E2=80=AFPM Shashank Sharma &lt;<a href=3D"mailto:sha=
-shank.sharma@amd.com">shashank.sharma@amd.com</a>&gt; wrote:<br></div><bloc=
-kquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:=
-1px solid rgb(204,204,204);padding-left:1ex">Allow the user to specify a wo=
-rkload hint to the kernel.<br>
-We can use these to tweak the dpm heuristics to better match<br>
-the workload for improved performance.<br>
-<br>
-V3: Create only set() workload UAPI (Christian)<br>
-<br>
-Signed-off-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.com=
-" target=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
-Signed-off-by: Shashank Sharma &lt;<a href=3D"mailto:shashank.sharma@amd.co=
-m" target=3D"_blank">shashank.sharma@amd.com</a>&gt;<br>
----<br>
-=C2=A0include/uapi/drm/amdgpu_drm.h | 17 +++++++++++++++++<br>
-=C2=A01 file changed, 17 insertions(+)<br>
-<br>
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h<=
-br>
-index c2c9c674a223..23d354242699 100644<br>
---- a/include/uapi/drm/amdgpu_drm.h<br>
-+++ b/include/uapi/drm/amdgpu_drm.h<br>
-@@ -212,6 +212,7 @@ union drm_amdgpu_bo_list {<br>
-=C2=A0#define AMDGPU_CTX_OP_QUERY_STATE2=C2=A0 =C2=A0 =C2=A04<br>
-=C2=A0#define AMDGPU_CTX_OP_GET_STABLE_PSTATE=C2=A0 =C2=A0 =C2=A0 =C2=A0 5<=
-br>
-=C2=A0#define AMDGPU_CTX_OP_SET_STABLE_PSTATE=C2=A0 =C2=A0 =C2=A0 =C2=A0 6<=
-br>
-+#define AMDGPU_CTX_OP_SET_WORKLOAD_PROFILE=C2=A0 =C2=A0 =C2=A07<br>
-<br>
-=C2=A0/* GPU reset status */<br>
-=C2=A0#define AMDGPU_CTX_NO_RESET=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-0<br>
-@@ -252,6 +253,17 @@ union drm_amdgpu_bo_list {<br>
-=C2=A0#define AMDGPU_CTX_STABLE_PSTATE_MIN_MCLK=C2=A0 3<br>
-=C2=A0#define AMDGPU_CTX_STABLE_PSTATE_PEAK=C2=A0 4<br>
-<br>
-+/* GPU workload hints, flag bits 8-15 */<br>
-+#define AMDGPU_CTX_WORKLOAD_HINT_SHIFT=C2=A0 =C2=A0 =C2=A08<br>
-+#define AMDGPU_CTX_WORKLOAD_HINT_MASK=C2=A0 =C2=A0 =C2=A0 (0xff &lt;&lt; A=
-MDGPU_CTX_WORKLOAD_HINT_SHIFT)<br>
-+#define AMDGPU_CTX_WORKLOAD_HINT_NONE=C2=A0 =C2=A0 =C2=A0 (0 &lt;&lt; AMDG=
-PU_CTX_WORKLOAD_HINT_SHIFT)<br>
-+#define AMDGPU_CTX_WORKLOAD_HINT_3D=C2=A0 =C2=A0 =C2=A0 =C2=A0 (1 &lt;&lt;=
- AMDGPU_CTX_WORKLOAD_HINT_SHIFT)<br>
-+#define AMDGPU_CTX_WORKLOAD_HINT_VIDEO=C2=A0 =C2=A0 =C2=A0(2 &lt;&lt; AMDG=
-PU_CTX_WORKLOAD_HINT_SHIFT)<br>
-+#define AMDGPU_CTX_WORKLOAD_HINT_VR=C2=A0 =C2=A0 =C2=A0 =C2=A0 (3 &lt;&lt;=
- AMDGPU_CTX_WORKLOAD_HINT_SHIFT)<br>
-+#define AMDGPU_CTX_WORKLOAD_HINT_COMPUTE=C2=A0 =C2=A0(4 &lt;&lt; AMDGPU_CT=
-X_WORKLOAD_HINT_SHIFT)<br>
-+#define AMDGPU_CTX_WORKLOAD_HINT_MAX=C2=A0 =C2=A0 =C2=A0 AMDGPU_CTX_WORKLO=
-AD_HINT_COMPUTE<br>
-+#define AMDGPU_CTX_WORKLOAD_INDEX(n)=C2=A0 =C2=A0 =C2=A0 (n &gt;&gt; AMDGP=
-U_CTX_WORKLOAD_HINT_SHIFT)<br>
-+<br>
-=C2=A0struct drm_amdgpu_ctx_in {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /** AMDGPU_CTX_OP_* */<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 __u32=C2=A0 =C2=A0op;<br>
-@@ -281,6 +293,11 @@ union drm_amdgpu_ctx_out {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 __u32=C2=A0 =C2=A0flags;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 __u32=C2=A0 =C2=A0_pad;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 } pstate;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0__u32=C2=A0 =C2=A0flags;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0__u32=C2=A0 =C2=A0_pad;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0} workload;<br>
-=C2=A0};<br>
-<br>
-=C2=A0union drm_amdgpu_ctx {<br>
--- <br>
-2.34.1<br>
-<br>
-</blockquote></div>
-
---0000000000009b347605f7605186--
