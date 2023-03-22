@@ -4,96 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2803C74A5B
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Mar 2023 05:48:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2185DC6FD1C
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Mar 2023 08:48:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43E1710E279;
-	Wed, 22 Mar 2023 05:48:32 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20606.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eab::606])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2660110E299
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Mar 2023 05:48:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cJio4rCG41BqoBgO7DVaysJWfkFrO/zJ/cU+mrDJYIa3F3Svjk96PbM1dTzvJrVfyZvhC4JGHbh3dMfUigwPHATaa5v17nVyZd97Qjh4OrS4CcLzm8nwobkjzMwrP1vqBQN1mJKZo/blbH2zqGwiG0VF/vHh/EkRKX/XkpYHGNOpmnK81EUMqu+VRrQ3BObX/shst+JkJ5I3HX2E/iEpwSl8M5OPyPbLImVRCRjTfbOE3LePSlhQXWokW9tBJ+Z25I8fCuvAmiQD2Bwv5Wk7RPcJEj/aps3U23lkFxNfwXJs+5QZQTKUnWJaTaTMfPdlYm5Wg3SS9aFweBf62ecUpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uib1Q83WH6fKzOEibd8vbfqsde8Vfj31/mJCiiCk1cY=;
- b=FndPNrjuUxNweZpi2DL02jfnUbbxWHXMbIHLaYjoRnjaNbnjJcjRrGvj8QUgCYRv81ooM4eOW2uItinfhspc155bi/+mRBYIcKsC/B8lxoy7vz2kixM8RKvyodM42Af06hUgcDOoZkJjm+OHeWMXI0sb0wGDDV3yAMfZxTiqwSYMJYYMD7HrBsWIc9VJBdeNVruwofzKdcnBM8ygoRCwzgKKwwvJfjFH0IZkVltxzwetvlBvizmNBgm4u2WRrQT2FMR3zQDYgglFlGoPknQp8unOw3g5nDzHWNLypArX5vlppl69LM8B78DNglWudUS1M2IBRwF4toQiCGxyRTP//w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uib1Q83WH6fKzOEibd8vbfqsde8Vfj31/mJCiiCk1cY=;
- b=0Ysz0g+dW8v4YFRbemuyi89mktbmP4DVyzw1jrYgFQwhXmDG11GJxnKTlQ8tbqxZmVpnhEMIZpBBHEk3nFl9eaU320LBaxdamUS0XHCe1GCFe7HsGW6IV94mLba5mGvIFj7nLON3nM9vg7ynp6hwCqnz0fNqHrtTiGkBeYvHDOs=
-Received: from DS7PR03CA0298.namprd03.prod.outlook.com (2603:10b6:5:3ad::33)
- by SA1PR12MB8988.namprd12.prod.outlook.com (2603:10b6:806:38e::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Wed, 22 Mar
- 2023 05:48:29 +0000
-Received: from DM6NAM11FT019.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3ad:cafe::e1) by DS7PR03CA0298.outlook.office365.com
- (2603:10b6:5:3ad::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37 via Frontend
- Transport; Wed, 22 Mar 2023 05:48:29 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT019.mail.protection.outlook.com (10.13.172.172) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6222.17 via Frontend Transport; Wed, 22 Mar 2023 05:48:28 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 22 Mar
- 2023 00:48:19 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 21 Mar
- 2023 22:48:19 -0700
-Received: from archlinux.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Wed, 22 Mar 2023 00:48:17 -0500
-From: Wenyou Yang <WenYou.Yang@amd.com>
-To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <Xinhui.Pan@amd.com>
-Subject: [PATCH v1 3/3] drm/amd/pm: vangogh: support to send SMT enable message
-Date: Wed, 22 Mar 2023 13:48:08 +0800
-Message-ID: <20230322054808.1555230-4-WenYou.Yang@amd.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230322054808.1555230-1-WenYou.Yang@amd.com>
-References: <20230322054808.1555230-1-WenYou.Yang@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 965E010E36D;
+	Wed, 22 Mar 2023 08:48:34 +0000 (UTC)
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [IPv6:2a00:1450:4864:20::52a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B06810E36D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Mar 2023 08:48:32 +0000 (UTC)
+Received: by mail-ed1-x52a.google.com with SMTP id ek18so69702568edb.6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Mar 2023 01:48:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1679474910;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=U+5jgo36K4UEp60b0loNYxwW6OEvf4rw7+rBhvi/qDc=;
+ b=dcyyTXNksqB/gia45l3Fk9o9ooDof0XzUXIFkCGyNU43XcD/Pzl625Lbn1B42P6KFu
+ 7iGgh1fQ9doNaIZn4AgzzhCgHPuJo+v3pXGf5b8YoquNfmJjZ/JBhVF8gBrfv+NGHs6A
+ jMGdavmHNUya6fQQic3/bAcmUgTOh9xztFE4kpyjNsxJyA4inj3unjQg0lrruDl4aSiB
+ 0stqjZoUZZdL/OM7IpZ831qmQ1z3j/J8Sa/fPKFsFP2rAiPgckDktKPbKJRkV4liawmG
+ vlA8zs7SMkWCiEHLH7LWiiDrBkzBn015rY4HemGGngz6lRaPSkicAYAlIp6MgMsNvCvG
+ 9jIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1679474910;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=U+5jgo36K4UEp60b0loNYxwW6OEvf4rw7+rBhvi/qDc=;
+ b=EABlyAvtRyzuQE6X2bQiaWKqZa3etZakzG3/A7ECG9rJ/u4Ugt/XXIMia0g9FmJHjP
+ HVhQGp34paTFqYaQXm4a4laZDBwHahlbYrPwYr138AGHgeU9tPt9H83G8ynwLP3ek7tZ
+ FNqtFDWa46D3ZT6ZhgX1duxwIqQzV0zLeo/X2ZistQPy7Oxv+EV3A7JbGlgpo1Wi5fEc
+ 6f6OdEHkAJS/+NJ2bmIPtvX4G9T782tM7tpfDlLbA8yMgQl/7navaO1zPy3MKmY+W1qZ
+ f7tyVJpzf8P+qV06GxC+MZaZCmOWKBnRhSW8VFyQbg4Uea64nVYfwL24xfwvSwfOA0b3
+ PGCQ==
+X-Gm-Message-State: AO0yUKXH5Cit0XJ4tdoJ6A+tuanU/Dpasf0LAQr/hsYiDXsiBVqnZ399
+ WsROrXMbXwpPDbAjxUHNp04=
+X-Google-Smtp-Source: AK7set8aLk2yB0hw1nLKYoS5ogq1n8LlXbza/bbSh7AFo3gWHeGTfxU9UaL2Pr0/p1BAKOOaNnQ+hQ==
+X-Received: by 2002:a17:906:2c4b:b0:931:cac0:60f3 with SMTP id
+ f11-20020a1709062c4b00b00931cac060f3mr5438394ejh.60.1679474910432; 
+ Wed, 22 Mar 2023 01:48:30 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1256:79a0:65e5:3673:f4af:8235?
+ ([2a02:908:1256:79a0:65e5:3673:f4af:8235])
+ by smtp.gmail.com with ESMTPSA id
+ s19-20020a170906285300b009316e0b610csm6882866ejc.34.2023.03.22.01.48.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 22 Mar 2023 01:48:30 -0700 (PDT)
+Message-ID: <07b35e4b-c574-0ad8-9c71-591dc5457979@gmail.com>
+Date: Wed, 22 Mar 2023 09:48:29 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH 1/2] drm/amdgpu: track MQD size for gfx and compute
+Content-Language: en-US
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230321193922.2029808-1-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20230321193922.2029808-1-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT019:EE_|SA1PR12MB8988:EE_
-X-MS-Office365-Filtering-Correlation-Id: 235d74f0-ea30-4198-fcb2-08db2a990fef
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: T8BYkR+chBLeTijNxyQZa/b3bQVYOciVGEK87S5vIdEsXJat4EroicVirAQus425+4wEQnJ7nfSpdLwJ0b3RzTV5xb4N8eWi2FLh21Qty8WOzmooAXYOIir97e6I6hWZfEWXVyZwRP2W9/3puIf03E0pPOe6LeQVy8BATgxAkHY2fBrCbmvDaz0IasfqsAtbNZhsV8KF4svB36WOPirZiqv0pCl+x4sxfO1m67z8OnoHhtFp/kpO9b1wCrhjUadRkpX9fFz/cOwwNGPlpihWyPN9ZwTTR6kA6cQXt7UaV8zX2Okz6dp3IyA/gU5sEXYvrcabdz3BUvm7kcqRTdUvDuAMn5clvYUlILooilUUH3dTntG6uxgwV0mVZP6AQIyhGScJI/05LFAiLtv0xh0AKrIqOIzj0YuGAwcYAwMtYW2IlOTrncH+hlyrA2qZAXRB/ZKyO+16isk3ZJJ4OlmLICLqi4LZnQeFV2w8T8PNyepZactPFW2O4a3qmPa5OpB792syzUlmo1ZqBSHlpWBFBRg0eJQh6h9fILNdyRzp1w4qZ65yQhAxiSlxNkG6mTSj4Onaj9fd6/lEe6QB8dgOEpx9xdy12l5TNDirz6mq5rKCHteVEqFXMEMUvo/JaAA1M5blN510BvQCBIlPGGAy/JeoatPlnQo5xBqhNFKo1Us7p04wUZ00lMLBD8jKNPg7L+f+yDGKPPCs0QYEUxZ2uH5X0WjYdXLGsizbeU+CZFM=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(136003)(346002)(39860400002)(376002)(451199018)(46966006)(40470700004)(36840700001)(2906002)(15650500001)(82740400003)(81166007)(356005)(426003)(40480700001)(7696005)(40460700003)(478600001)(83380400001)(47076005)(86362001)(36756003)(82310400005)(186003)(54906003)(110136005)(4326008)(6636002)(316002)(8676002)(6666004)(41300700001)(70586007)(5660300002)(70206006)(2616005)(26005)(336012)(1076003)(8936002)(36860700001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Mar 2023 05:48:28.8024 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 235d74f0-ea30-4198-fcb2-08db2a990fef
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT019.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8988
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,93 +75,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Wenyou Yang <WenYou.Yang@amd.com>, ying.li@amd.com, kunliu13@amd.com,
- amd-gfx@lists.freedesktop.org, richardqi.liang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add the support to PPSMC_MSG_SetCClkSMTEnable(0x58) message to pmfw
-for vangogh.
+Am 21.03.23 um 20:39 schrieb Alex Deucher:
+> It varies by generation and we need to know the size
+> to expose this via debugfs.
 
-Signed-off-by: Wenyou Yang <WenYou.Yang@amd.com>
----
- .../pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h    |  3 ++-
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h  |  3 ++-
- .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 19 +++++++++++++++++++
- 3 files changed, 23 insertions(+), 2 deletions(-)
+I suspect we can't just use the BO size for this?
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h
-index 7471e2df2828..2b182dbc6f9c 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h
-@@ -111,7 +111,8 @@
- #define PPSMC_MSG_GetGfxOffStatus		       0x50
- #define PPSMC_MSG_GetGfxOffEntryCount		       0x51
- #define PPSMC_MSG_LogGfxOffResidency		       0x52
--#define PPSMC_Message_Count                            0x53
-+#define PPSMC_MSG_SetCClkSMTEnable		       0x58
-+#define PPSMC_Message_Count                            0x54
- 
- //Argument for PPSMC_MSG_GfxDeviceDriverReset
- enum {
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-index 297b70b9388f..820812d910bf 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-@@ -245,7 +245,8 @@
- 	__SMU_DUMMY_MAP(AllowGpo),	\
- 	__SMU_DUMMY_MAP(Mode2Reset),	\
- 	__SMU_DUMMY_MAP(RequestI2cTransaction), \
--	__SMU_DUMMY_MAP(GetMetricsTable),
-+	__SMU_DUMMY_MAP(GetMetricsTable), \
-+	__SMU_DUMMY_MAP(SetCClkSMTEnable),
- 
- #undef __SMU_DUMMY_MAP
- #define __SMU_DUMMY_MAP(type)	SMU_MSG_##type
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-index 7433dcaa16e0..f0eeb42df96b 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-@@ -141,6 +141,7 @@ static struct cmn2asic_msg_mapping vangogh_message_map[SMU_MSG_MAX_COUNT] = {
- 	MSG_MAP(GetGfxOffStatus,		    PPSMC_MSG_GetGfxOffStatus,						0),
- 	MSG_MAP(GetGfxOffEntryCount,		    PPSMC_MSG_GetGfxOffEntryCount,					0),
- 	MSG_MAP(LogGfxOffResidency,		    PPSMC_MSG_LogGfxOffResidency,					0),
-+	MSG_MAP(SetCClkSMTEnable,		    PPSMC_MSG_SetCClkSMTEnable,						0),
- };
- 
- static struct cmn2asic_mapping vangogh_feature_mask_map[SMU_FEATURE_COUNT] = {
-@@ -2428,6 +2429,23 @@ static u32 vangogh_get_gfxoff_entrycount(struct smu_context *smu, uint64_t *entr
- 	return ret;
- }
- 
-+static int vangogh_set_cpu_smt_enable(struct smu_context *smu, bool enable)
-+{
-+	int ret = 0;
-+
-+	if (enable) {
-+		ret = smu_cmn_send_smc_msg_with_param(smu,
-+						      SMU_MSG_SetCClkSMTEnable,
-+						      1, NULL);
-+	} else {
-+		ret = smu_cmn_send_smc_msg_with_param(smu,
-+						      SMU_MSG_SetCClkSMTEnable,
-+						      0, NULL);
-+	}
-+
-+	return ret;
-+}
-+
- static const struct pptable_funcs vangogh_ppt_funcs = {
- 
- 	.check_fw_status = smu_v11_0_check_fw_status,
-@@ -2474,6 +2492,7 @@ static const struct pptable_funcs vangogh_ppt_funcs = {
- 	.get_power_limit = vangogh_get_power_limit,
- 	.set_power_limit = vangogh_set_power_limit,
- 	.get_vbios_bootup_values = smu_v11_0_get_vbios_bootup_values,
-+	.set_cpu_smt_enable = vangogh_set_cpu_smt_enable,
- };
- 
- void vangogh_set_ppt_funcs(struct smu_context *smu)
--- 
-2.39.2
+If yes the series is Reviewed-by: Christian König <christian.koenig@amd.com>
+
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c  | 2 ++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 1 +
+>   2 files changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> index c50d59855011..5435f41a3b7f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -404,6 +404,7 @@ int amdgpu_gfx_mqd_sw_init(struct amdgpu_device *adev,
+>   					return r;
+>   				}
+>   
+> +				ring->mqd_size = mqd_size;
+>   				/* prepare MQD backup */
+>   				adev->gfx.me.mqd_backup[i] = kmalloc(mqd_size, GFP_KERNEL);
+>   				if (!adev->gfx.me.mqd_backup[i])
+> @@ -424,6 +425,7 @@ int amdgpu_gfx_mqd_sw_init(struct amdgpu_device *adev,
+>   				return r;
+>   			}
+>   
+> +			ring->mqd_size = mqd_size;
+>   			/* prepare MQD backup */
+>   			adev->gfx.mec.mqd_backup[i] = kmalloc(mqd_size, GFP_KERNEL);
+>   			if (!adev->gfx.mec.mqd_backup[i])
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> index 7942cb62e52c..deb9f7bead02 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> @@ -257,6 +257,7 @@ struct amdgpu_ring {
+>   	struct amdgpu_bo	*mqd_obj;
+>   	uint64_t                mqd_gpu_addr;
+>   	void                    *mqd_ptr;
+> +	unsigned                mqd_size;
+>   	uint64_t                eop_gpu_addr;
+>   	u32			doorbell_index;
+>   	bool			use_doorbell;
 
