@@ -4,59 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1640C6FD1C
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Mar 2023 13:27:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60770C6FD1F
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Mar 2023 13:58:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2742610E0FD;
-	Wed, 22 Mar 2023 13:27:12 +0000 (UTC)
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0127010E0FD
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Mar 2023 13:27:09 +0000 (UTC)
-Received: by mail-ot1-x32c.google.com with SMTP id
- cw13-20020a05683068cd00b0069f8c4eecb5so2518850otb.7
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Mar 2023 06:27:09 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F143310E122;
+	Wed, 22 Mar 2023 13:58:55 +0000 (UTC)
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 985D610E122
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Mar 2023 13:58:54 +0000 (UTC)
+Received: by mail-ed1-x536.google.com with SMTP id ew6so10376333edb.7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Mar 2023 06:58:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1679491629;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=J9hqA1QkZiNOk4weRVpV5MtxAgWjWCDOmBBndEB3oMQ=;
- b=M8wkHpRlQj5YAJAWGPL7p7EkrlBfaYTAO0GdZvKvvVjwhhytaTHjvfnpP1kZlA2TJq
- 3Ox+01ti3Sp9ynhdT9/x4i91pCm7Rq+WpKtEgoVVq1efzkkh4rwbKO+KVv4xLCVpvICt
- +OJN3qHBRvjoot+EYpN8O5E5CivKG71tzGxD3QWH4W58HNGsTkT/BJ8tcpXRR/CpqEbW
- lqjLi7Fg4MKALv90bfCN44ls+VTrar/DXvwK/3KDeuSEqO+SN+H3OxXwE+Se5qXXpuYv
- yhbhGPvf7647ACA84NcLCFbOx+zbnbgAOYsAWAsFBt+jA0hwoN+wXNAWgqhJQj4c2YUp
- 6WlQ==
+ d=gmail.com; s=20210112; t=1679493533;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=hqNIchXJim/0kjoOmqmrC++Cit1IAj+mPEq4naz2WpM=;
+ b=Fnf3fCx57kRl1LS5cb5VuuayAgzWaExuVWZMgkf1hRyrr4xRisja/VdAQXtPOwWzSk
+ HrSsUo9oOA/74k1oQU/u3M9+PHHWjZLG5V6uUYPAnue4KkXzVXEZ8cuKbyLhEkm5GKKR
+ Zj6Eq7jfCs27Pt5faKwCXA8ayr51s6dIroqT+jH4J4eqY4YzAOi+QPJvBvHzq14KV75s
+ 7rLMrwvjgxKVh17u4Q7HEcMGSXGdy2hhCXmcJvFOQpub+x56lhvvseyWUQs9Hg2j1fve
+ imqzuEYSEGxGySkvn7kPpPMRgVMhn6fuXnjfmV4VVDl9cNDdMkxuHMzUJDT53O+pjUGT
+ DC0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679491629;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=J9hqA1QkZiNOk4weRVpV5MtxAgWjWCDOmBBndEB3oMQ=;
- b=IYHSD07koevwymTZrDcagTMC7dK6LI6B4+H9vMKI7Tvb0h7+JgbwLz4m3qwd3xktv6
- elZ6DZXQY/J/qirU3HQVK/SmXQ3Y2T9/3IDNEi2yYmhETwZ1pgKrtSt8qD8L5KOyUQST
- OsXq9RP9AB2iErLDNoteEvOnQYfxodKQN5Vt856rX0JJ2Z4i46FMcaIowb+kZ0WoY12n
- H6ia+BJnbcfrmaQmMtYhO16Tazg9r5agsuAFbflq8f111vfImFJsbXpnnYDSZLILSUd3
- ZQrDo7hMIa1QJ6x404Uongr7xjfKaNocFY/anBjZYYgU9tY9zQpoi30OdO+ldJ1K2qkV
- /FoQ==
-X-Gm-Message-State: AO0yUKWMQzswfTPlaYbxS7hx3oexvo7DY3QMx0RPTMqbaN//RLTRAfTh
- hmQN6izFT46QhGh5HdMDM1RfSFbTX4s+1K6XXAA=
-X-Google-Smtp-Source: AK7set+XmP8qvoJR0mfQoChEn0RQeXhZ0WExvGKdKFCto/o4KDdARVDm1QKUPPSEy/WQU0EAHcluuy2vd2JMmZwIe2Y=
-X-Received: by 2002:a05:6830:1044:b0:69e:24a7:e042 with SMTP id
- b4-20020a056830104400b0069e24a7e042mr1092532otp.3.1679491629218; Wed, 22 Mar
- 2023 06:27:09 -0700 (PDT)
+ d=1e100.net; s=20210112; t=1679493533;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=hqNIchXJim/0kjoOmqmrC++Cit1IAj+mPEq4naz2WpM=;
+ b=G/ebqDA9c2De2BbkiZqDsWkOGeAT6BCnzGY28SQ29SKjBgd4at0y3+IvrctCXA/UIA
+ KRoFM5xxnEakcUvdLtwmrDvcwlk7LrNnBW7eRXUkb5w4xjx0SWvkjd314L9t5jNn0Cls
+ 9la1JAxSsuXXe9bXBgTGyqiPySVs5IrOiPcCHuw5XyJQulTIfexYJAdTQ+QoVi74RwdV
+ VTXQht4ugT8WtdDxPxuikNcvpwv7JRZt6R3UH/AS0NXnFQjRonUdsYlL+i7Qam9eX8RO
+ tnzRbJUk75dwtbjRCmcJ+4EaO3FowbDn0SxPIuCKnKh1eybBzWV0efRURbNvrtgVqADc
+ cYXw==
+X-Gm-Message-State: AO0yUKUG+rEOFiCoqXCM3NiJW4jrF6i4OPowxpaNWSiQNSxNV66rFPHQ
+ JiHHbDQU/nJ8R/jydcm+kvp4jm8T5gw=
+X-Google-Smtp-Source: AK7set/9sqFCPDSL9neVZntu161JcV2te3EzR55XO+ShslhzqDn061GwSojoj6S04rip8M/lMRZkIw==
+X-Received: by 2002:a17:906:1705:b0:92c:a80e:2260 with SMTP id
+ c5-20020a170906170500b0092ca80e2260mr7860063eje.54.1679493533126; 
+ Wed, 22 Mar 2023 06:58:53 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1256:79a0:65e5:3673:f4af:8235?
+ ([2a02:908:1256:79a0:65e5:3673:f4af:8235])
+ by smtp.gmail.com with ESMTPSA id
+ v19-20020a1709067d9300b008cff300cf47sm7230322ejo.72.2023.03.22.06.58.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 22 Mar 2023 06:58:52 -0700 (PDT)
+Message-ID: <22ef9485-11e1-1e23-34d1-f8a40698b226@gmail.com>
+Date: Wed, 22 Mar 2023 14:58:51 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH 1/2] drm/amdgpu: track MQD size for gfx and compute
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>
 References: <20230321193922.2029808-1-alexander.deucher@amd.com>
  <07b35e4b-c574-0ad8-9c71-591dc5457979@gmail.com>
-In-Reply-To: <07b35e4b-c574-0ad8-9c71-591dc5457979@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 22 Mar 2023 09:26:57 -0400
-Message-ID: <CADnq5_OAZZ-SYLprOFzzJgsQBxs15FdxTWc28MpUQ-abM4ZLHA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: track MQD size for gfx and compute
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ <CADnq5_OAZZ-SYLprOFzzJgsQBxs15FdxTWc28MpUQ-abM4ZLHA@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CADnq5_OAZZ-SYLprOFzzJgsQBxs15FdxTWc28MpUQ-abM4ZLHA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,68 +81,64 @@ Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 22, 2023 at 4:48=E2=80=AFAM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> Am 21.03.23 um 20:39 schrieb Alex Deucher:
-> > It varies by generation and we need to know the size
-> > to expose this via debugfs.
->
-> I suspect we can't just use the BO size for this?
+Am 22.03.23 um 14:26 schrieb Alex Deucher:
+> On Wed, Mar 22, 2023 at 4:48 AM Christian König
+> <ckoenig.leichtzumerken@gmail.com> wrote:
+>> Am 21.03.23 um 20:39 schrieb Alex Deucher:
+>>> It varies by generation and we need to know the size
+>>> to expose this via debugfs.
+>> I suspect we can't just use the BO size for this?
+> We could, but it may be larger than the actual MQD.  Maybe that's not
+> a big deal?
 
-We could, but it may be larger than the actual MQD.  Maybe that's not
-a big deal?
+I don't really know either. Maybe just go ahead with this approach here, 
+but I usually try to avoid stuff like that because it can be an 
+additional source of errors when the allocation size is not correct.
 
-Alex
-
+Christian.
 
 >
-> If yes the series is Reviewed-by: Christian K=C3=B6nig <christian.koenig@=
-amd.com>
+> Alex
 >
-> >
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c  | 2 ++
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 1 +
-> >   2 files changed, 3 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_gfx.c
-> > index c50d59855011..5435f41a3b7f 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > @@ -404,6 +404,7 @@ int amdgpu_gfx_mqd_sw_init(struct amdgpu_device *ad=
-ev,
-> >                                       return r;
-> >                               }
-> >
-> > +                             ring->mqd_size =3D mqd_size;
-> >                               /* prepare MQD backup */
-> >                               adev->gfx.me.mqd_backup[i] =3D kmalloc(mq=
-d_size, GFP_KERNEL);
-> >                               if (!adev->gfx.me.mqd_backup[i])
-> > @@ -424,6 +425,7 @@ int amdgpu_gfx_mqd_sw_init(struct amdgpu_device *ad=
-ev,
-> >                               return r;
-> >                       }
-> >
-> > +                     ring->mqd_size =3D mqd_size;
-> >                       /* prepare MQD backup */
-> >                       adev->gfx.mec.mqd_backup[i] =3D kmalloc(mqd_size,=
- GFP_KERNEL);
-> >                       if (!adev->gfx.mec.mqd_backup[i])
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_ring.h
-> > index 7942cb62e52c..deb9f7bead02 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> > @@ -257,6 +257,7 @@ struct amdgpu_ring {
-> >       struct amdgpu_bo        *mqd_obj;
-> >       uint64_t                mqd_gpu_addr;
-> >       void                    *mqd_ptr;
-> > +     unsigned                mqd_size;
-> >       uint64_t                eop_gpu_addr;
-> >       u32                     doorbell_index;
-> >       bool                    use_doorbell;
 >
+>> If yes the series is Reviewed-by: Christian König <christian.koenig@amd.com>
+>>
+>>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>>> ---
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c  | 2 ++
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 1 +
+>>>    2 files changed, 3 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>>> index c50d59855011..5435f41a3b7f 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>>> @@ -404,6 +404,7 @@ int amdgpu_gfx_mqd_sw_init(struct amdgpu_device *adev,
+>>>                                        return r;
+>>>                                }
+>>>
+>>> +                             ring->mqd_size = mqd_size;
+>>>                                /* prepare MQD backup */
+>>>                                adev->gfx.me.mqd_backup[i] = kmalloc(mqd_size, GFP_KERNEL);
+>>>                                if (!adev->gfx.me.mqd_backup[i])
+>>> @@ -424,6 +425,7 @@ int amdgpu_gfx_mqd_sw_init(struct amdgpu_device *adev,
+>>>                                return r;
+>>>                        }
+>>>
+>>> +                     ring->mqd_size = mqd_size;
+>>>                        /* prepare MQD backup */
+>>>                        adev->gfx.mec.mqd_backup[i] = kmalloc(mqd_size, GFP_KERNEL);
+>>>                        if (!adev->gfx.mec.mqd_backup[i])
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>>> index 7942cb62e52c..deb9f7bead02 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>>> @@ -257,6 +257,7 @@ struct amdgpu_ring {
+>>>        struct amdgpu_bo        *mqd_obj;
+>>>        uint64_t                mqd_gpu_addr;
+>>>        void                    *mqd_ptr;
+>>> +     unsigned                mqd_size;
+>>>        uint64_t                eop_gpu_addr;
+>>>        u32                     doorbell_index;
+>>>        bool                    use_doorbell;
+
