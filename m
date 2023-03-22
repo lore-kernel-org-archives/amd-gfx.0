@@ -4,123 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29A04C74A5B
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Mar 2023 14:29:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 477E7C6FD1C
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Mar 2023 14:34:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C912710E96D;
-	Wed, 22 Mar 2023 14:29:30 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2058.outbound.protection.outlook.com [40.107.93.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42CA310E96D
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Mar 2023 14:29:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDA4B10E965;
+	Wed, 22 Mar 2023 14:34:21 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2063.outbound.protection.outlook.com [40.107.102.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A293610E965
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Mar 2023 14:34:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LFfgYcz5xoOYqrXa9HHXCxge9BGHp2vEIB2KvEuDtXzQuP4JfqLTu7+4p5ctnETtuAnOyWlsHeZmq+JHSpdYCpLDDTYlvUpGYKYLfRwtxqzTEV3/INo7fLY0Dz8VEJg4gKEYy7hvMzljk9FtFuBsjk3Qbz1jenDLYNHr/xwhZL1SH7rDDLBty50DGXsddLsyjaGLmQrf2Zd8DWQCfF41xjoSumKYcLHORHYfiSTKtEOzuCS/LksEMMIeZni3spv/ifwYCd/RGgHBZMzvcc2zIE5iA3mO2YmUSH46/tjCvGwpKO1k/WClTJFrZOZsozzqyswHJOfyTYNA2OfAa8RRFg==
+ b=QcoyaS8eXuHzdtJfsvLhUbl0R9aO6m0Pj7azX8SSZCtDRtAjSIXJfg59fJJmfZjMv/snkbA8aH53h45pdlpRuc+LGcedT1NtXbRQLx/kc5VZZxqFH98bmc8vPjrCd0fv+c7ay7+7u36pX0H7rCwMg2oKVi9MSu35zP4o0aLiTWjjHUBb/phaW1iwc0iw55xKms+ACxFJ8UU5dizQDckVp/2jf6xVAVCde3CVX+NTH4apIE5pgOXwXSWHAiYSd31dEJMZKlxyLviDGgmNHl3MT6cS/nGD1+PLFwOJqncife3foxV7Iov3yzrMSuX/3C1oiJ0Pp+gfX79i4NBEwvd9QQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z6tpCgX3U9GYB3iOCHu46MYd6irFIRHPqBFk4DfZ7iY=;
- b=K4wtpaloTg2VZDcNCmjbRn/8vYYAX3gATEqcZJxclLkajvw0I15Fgcmm6oCvXpkKV74Dot+UCVaSQF/Mso1mUsnnbW0Lq2J53X05czhtK47r2k80/+x5oQB2ANtqGcrsrFcRZncffEuKdv9dyqgNgf8e3+WDdTgBanbeFias9mB+/7HdVZfkDAdrKUUyBX0aWwgY1/XU3UZ6og5RYNsGsgUkMEp+EZUU6dOYpZZIA+8EaQvvcXjyIZpYvnMsi9+tgPWrLE8GHGRjoVOwGGpsrJkKGYs2//Vf/CigU+3Nxmrw02aFNFHpBIQcOayQVg2vSEqpc99xGpQx6ocYcjIDTw==
+ bh=WDrn0IbCi4yly2QTs5C39clf5gNttzO2KkbbDjOxevs=;
+ b=IBf4iu7MqODCbvKt506Z4yWab3vQfIL5T1Y6xCie1iYTLNYiMNj8gqL80p4oIFYvYT3nBXF2VuBshacugtxFmpiqn5UHF0QCURC9hcMQLw28NyOD2iQCXqYaGIYxOafwXWRJloD3udqGcJuM+Hv3Vem3rVcspTNj/AmZr7///jr50Ft86uiq6CpIE2eZvYQ5HBwqDO867Z/hoZdfXevK7MPfjMWWwYy5oteGSNpRVu2sTCq5VCHBKEpYHuHoVvoft7mGl5ZvMJMZ9x07PtW55XAYSfmQY2V/0qWXddJl3+1pj/oDcHd/u8FZuFmxGZM/F16MKyjH0XDT3wGhwnCdPw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z6tpCgX3U9GYB3iOCHu46MYd6irFIRHPqBFk4DfZ7iY=;
- b=W/WZHdwupzMSKOuprFTPRJ0CzuzPpbl4rEHwIRJbiTL2+u0BHeoMA1XaX2Hbpp3h4UkGYr1xKfjdbODsNWYJxfoy0KKoMSTjCoWOp8mx0/qgZj8xPcs/cXwlHVshxkd7nmZgrAs6sLjW3FzkTfT5LlI/JlYaPdHYJf7gGKOBrJU=
+ bh=WDrn0IbCi4yly2QTs5C39clf5gNttzO2KkbbDjOxevs=;
+ b=D30U32OnqjyXE2QNrN3yn3AuDg1HKJYI+WdvkoXofY5rgfLhk/NbO43sFTxRDzDB2t8tuOkCTZKcPKmYa8tCZbnur0kifXiCv69i7J3iRq18h4repAKppDX+5OQOop4yp/xerxWjjEbY3CdedgDvFKoNl0vMKP5G6NLrfeUGDaE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by DS0PR12MB8220.namprd12.prod.outlook.com (2603:10b6:8:f5::12) with
- Microsoft SMTP Server (version=TLS1_2,
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by BL0PR12MB4898.namprd12.prod.outlook.com (2603:10b6:208:1c7::17)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Wed, 22 Mar
- 2023 14:29:27 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::d23f:bb1:df95:3918]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::d23f:bb1:df95:3918%4]) with mapi id 15.20.6178.037; Wed, 22 Mar 2023
- 14:29:27 +0000
-Content-Type: multipart/alternative;
- boundary="------------003nZOobJyuGLfBSGWhlh6Lr"
-Message-ID: <ea9ce74c-664c-47de-c750-bd4f3893ac72@amd.com>
-Date: Wed, 22 Mar 2023 15:29:21 +0100
+ 2023 14:34:18 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::23f:22c1:b49e:b77e]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::23f:22c1:b49e:b77e%5]) with mapi id 15.20.6178.037; Wed, 22 Mar 2023
+ 14:34:17 +0000
+Message-ID: <213443b2-5caa-5c50-128c-cc50021dd451@amd.com>
+Date: Wed, 22 Mar 2023 10:34:14 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH v3 1/5] drm/amdgpu: add UAPI for workload hints to ctx
- ioctl
+Subject: Re: [PATCH 1/2] drm/amdgpu: track MQD size for gfx and compute
 Content-Language: en-US
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-References: <20220926214014.5450-1-shashank.sharma@amd.com>
- <20220926214014.5450-2-shashank.sharma@amd.com>
- <CAAxE2A67NMxra-a9ZYbY8e8S4fjfdXgB1cpjYZsSS8DcUu=LbA@mail.gmail.com>
- <MW4PR12MB56678ED37B6E498D3405F875F2819@MW4PR12MB5667.namprd12.prod.outlook.com>
- <0e904e40-ee6f-dea2-b2de-3e408a72908e@gmail.com>
- <CAAxE2A66ZF==rvDd8KFrfz79rXBB52vnWU7zsM+rfH69OV0Psw@mail.gmail.com>
- <ac80456d-ac57-dbf4-dca0-7f92a40bb603@amd.com>
- <CAAxE2A60VNbjKS3LpKjX=Y9gPD92gw4hBJpQApmcQKCu0UM4UQ@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CAAxE2A60VNbjKS3LpKjX=Y9gPD92gw4hBJpQApmcQKCu0UM4UQ@mail.gmail.com>
-X-ClientProxiedBy: FR0P281CA0172.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b4::14) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+References: <20230321193922.2029808-1-alexander.deucher@amd.com>
+ <07b35e4b-c574-0ad8-9c71-591dc5457979@gmail.com>
+ <CADnq5_OAZZ-SYLprOFzzJgsQBxs15FdxTWc28MpUQ-abM4ZLHA@mail.gmail.com>
+ <22ef9485-11e1-1e23-34d1-f8a40698b226@gmail.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <22ef9485-11e1-1e23-34d1-f8a40698b226@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR0101CA0298.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6d::25) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|DS0PR12MB8220:EE_
-X-MS-Office365-Filtering-Correlation-Id: 588adcc6-d0d5-456a-e0c0-08db2ae1d710
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|BL0PR12MB4898:EE_
+X-MS-Office365-Filtering-Correlation-Id: 60e1c6f5-5770-46b3-19ca-08db2ae2845e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: J7EGq4o/shOmCr7vF5gjBqnz126/MAW7BTd/CNVaxY2n+yNt/MIAg2edLqjsXOvNpkYzq6S+rzB43rhVz7RSKS2ow3BNTR7nV5KtFrM/CKWu2f1P9BSVlCcQ+DOqscDAilhXsEwFGbl+yvM11VF9/Jj2JTET+70IDSzoM9D1mew1D7K0OIFpEvQZklgmwkmss88lG/RDHEmRA3EMr1lQo8Apo6wjfSCo51PLD4AV2sN8Rb4N0gnE3L6626AGqsn3LcmgoOEfKY9THiunicF8A4sDnjIFqjixEWMFpHteEXk0+dxw0ZkQrgdrhY61X+JGAHssee90C/TKbku1AWvDYLOf8yZwfSGVSlIoT/q+TSF6zFkf6XWp7buafI6xODZn8ErlCcApxUQpfDJLoyYHeSSU7IjaLNdsuQP6gsx5fbcvuzRGSOzpvUdFS+e+6qNLpYUe+q+rnBWeBloAO4H2YgJJnJN9ZxJbYJrUBeVdY6dbq8aWg70JZOQmaEDA48N6pxn1pdN/ni9z9sHru7uC1bhLcgrZoIKS0ORNwu7/BlBLAfiUTprLHOtjLpdluYN9Frx2NcZePpnOOdt9WDDqbcJQqGJy1r7mJhxAjU9R4e5PQK20JLgcIHqIaUTXwnx/Gjzk3ihHK+4hsO3nzyXtXroPWYyGQWr/bDOQKvS0C1HsLE6vqU6RvRtv5M6JT/or
+X-Microsoft-Antispam-Message-Info: Phda2jaBZBTLOg12JMLZZvrgC0CngaVsOzdFiocT76NrMHlBH0EqFwalu/RPlqmjbT+yIiX1OY6xXkw5HLU1EFiNbgienyr931/O4pj0qK9oV1HKcrtqssAwdH3iYNMkBzlAE3qV48hIGMLpdIsysXOxTqXYN7BnzKhlx7H4+XBfVI3ePOqct6AE/Pebd6gHMhTBkVc2sRXEM7NtubQ9/cfKGGZLk+iOPrV8UijZSXjfRQnoFNfLMf00z2GcftPgeuBJyeiz8uT3T6Xs6GRcLN5ojaHjotw+DwmwDbRVg25z+Q1+IsgEThZfQwr4DDPteNjnAVemyHdO4MbkX5OsQg5ZwzScmykNC43TuMisiW1cAWOk2UKqtURFai6u74RX0vtiGNvjh4EemIx3rOfT0sjpu72upDb0tHY4+D6XyxidajJnaKN7k+bqqoyxlxzhd6GS9hw/bw0fhN6t95X3H9H7TfGeOLHVHz8t1kaHQrxySohO9Oh4t8I1QBKoMpIyqiVuMj8EtvUD5eR91boAloSrh8PSjzvm/nNtB9aqBPndQj874fvVz4ypqpOMdgKSl7K/K+zARWUMIsUiTeA0HTJVOJGTTDgwvr8I2UR/dLkylUicjDMwxphJrSRyCMfvQ9UyYQ08CW8iVzhlujnIuovNWZ6bYrZrLaJGwkKKlNGZT9rHLCyCMISOcHGlfdoe+9/pfgJZt9GrA6Xz3YHHfgxUEcc1w0fp8kV3wkhTCn4=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(39860400002)(376002)(366004)(136003)(346002)(451199018)(86362001)(166002)(31696002)(36756003)(38100700002)(8936002)(4326008)(6916009)(2906002)(5660300002)(30864003)(41300700001)(66574015)(8676002)(2616005)(53546011)(33964004)(83380400001)(186003)(6506007)(316002)(54906003)(6666004)(66946007)(6486002)(966005)(66556008)(66476007)(6512007)(478600001)(31686004)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(136003)(39860400002)(346002)(396003)(366004)(376002)(451199018)(6666004)(186003)(478600001)(26005)(6486002)(6506007)(8676002)(6512007)(31686004)(53546011)(110136005)(2616005)(316002)(66899018)(66556008)(66476007)(66946007)(8936002)(5660300002)(41300700001)(4326008)(2906002)(38100700002)(86362001)(31696002)(36756003)(44832011)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aXBDOHFBUEFOQ0ltSU5TaUNyMEY0dkJlMVZxNXN1VURKYXhVSVVYU3ZtSUZW?=
- =?utf-8?B?ek9UY1kwTFlDeDVyOXlwbEFGVXk5S21VMVQ4a1pMRkNNUncxUDE5RUtPbHBL?=
- =?utf-8?B?OGpiU0gwbko5V1hPVzlSOU51SVJmZGcwdG9kRUxTeUVEbjVxWDBYOVB1YzdQ?=
- =?utf-8?B?aDAxZmFsd3BaOTVzcFhrRTZ3c3dya2diZXF2b3VNWlp2aE5ZeDNMUW1GeGRU?=
- =?utf-8?B?ejMxZ1JrL2FNZDBaN3JBdGd4Z3NqNnVobHZ3LzV4ZlYzemF4QzR5RStyYW83?=
- =?utf-8?B?S1RyRkN0dkh3K0lkWW9ad3Rtbmd5UmVXUnptbEpyeDYxQXFoVjlDTTBPcDVK?=
- =?utf-8?B?YjNXajhmYVAxQWNjQVZiRmx6THlvWUtGenBjdzJja3h5UjdldjFYS0dqbEN1?=
- =?utf-8?B?bzE2NnFXOWZma3JFblJoN3JCOUVVRWFrR3dyUXowb0NYRENKUUd1RzROV1Vv?=
- =?utf-8?B?cjVDa3FyR2Y2MTU3Szl4VGdNYjkyQ1h0UlA5ZVAxOExBY0FJdG9YTlN5U0oz?=
- =?utf-8?B?NW1JaExNM0VlZ3M5OHFJbk5kTGx6Vm1WbllXRnlhMFlTbXNQL3FqVG5lMXBs?=
- =?utf-8?B?czZ4Uk1xSkJ5ZWM5Nmpqc0Q0citBOENNUkFTaE83cFNqM1FDSi8waWdocjdM?=
- =?utf-8?B?Y1BMRXcxU1hnSTQvWXFMaFE2OG05OUIzS2pLTW9IbVZQNjdXdW51RlkwSFZN?=
- =?utf-8?B?eFhxdGRLRkxZTFVqT2hNaFJ1VmhORXZUY1ViSUlteVl4MHhjSVJPS1dteHVE?=
- =?utf-8?B?aFhMbmV2aGplQW5mQWJYYmZKclBCQXdsYmZiY1FmRU91L3ljbGJ6WFA2TE52?=
- =?utf-8?B?ck4zZU9YTHZnUjhuZ2pnM2JNeFljcnppYXIvcmNsVnRpU09Mc2N0VmNqWjla?=
- =?utf-8?B?UGJPeXFpSStpdXFNL1RLcjZxbEtvZzBFMmNKTnZYdHRRalJCelRUYmpod3I2?=
- =?utf-8?B?WVM4OG1OMUR1UFVVV0RJR1lBWTQwWjRXck41NnFQcVVRSW5IcGxmd2QzTktN?=
- =?utf-8?B?aCtBY3RMTm1TRm1JSSs0bjRVRHRnME9Cd2lXbnNWbkoyUU1SanpMTFRsL2Zy?=
- =?utf-8?B?bklkM2xVRUFNdHNPRGo5VDZhN0piVmF3Y2FtWFpQc3pnM2ZlemFHbTNmNWU5?=
- =?utf-8?B?eCsvbVluMXkzcys0OGtERWpoMVR6M1JRZzN4QWRUczFpeHlsZjdHNVNRUElE?=
- =?utf-8?B?RU9ibURhakFTMXM5VVRsdlJwbXdPL25RYzlSaFM2b1ZjUzAzRlNCaVZxbTM2?=
- =?utf-8?B?VVJvcGVFRzYrVWNka0t0bHRBVlRLV3o0UHliT1NLNUcxaWdMajhSUmkyRW9S?=
- =?utf-8?B?U290UWpXMjhFbUllUUl5eHhTdkpaeTU0UlFjOFM5dzErNUw2T3luWW9Xdlpi?=
- =?utf-8?B?eHdwYTFwSVplN2NwajlFY1lIQW5LSTlOSVVDZ0FSSmxIaStBVStjREJWTVZE?=
- =?utf-8?B?aE5EUlFVdjdnV05BT0xyMmk4Y1ViSWdDZG5iRXVpZUVZa1loUlhteFZiZDVZ?=
- =?utf-8?B?bjc0a3hsOThyS0ZsTlpwcTR1NURFZERKalFPT2wrdmJUUnVyUXJ5R3pmSmcr?=
- =?utf-8?B?c05JYnV5bCtQdmg5YS9wenhWZGhuM2ZhQ0lQVkhCMW8rN2dOanY3c3hUM1lV?=
- =?utf-8?B?NnhGR09INlVBRlg4akhvS0w3UC85YWlobEZvZzBFK2crOHJtYVVmTlVWVXhx?=
- =?utf-8?B?ZEhQU2cxaSt5a0JaM2hRK3lzNGJvT2NNLytxcDA1VVl1VFRaWVJTMXBxS1V0?=
- =?utf-8?B?cHVMNGNpaHc5MWJsMmFBa0s4R1pEUUE4ZlphS05vOTBxV3ZKL2I0VUhRSlN0?=
- =?utf-8?B?ZXpGb2pJYmtJSXZXNGhQQk1pZURveEo0V0dXcEtraXZLMWNyMk11Mkxyc3Jw?=
- =?utf-8?B?bzF0dXRsaVN4OW5aNzBvaDkyTWxIN014RWpNNGZMSUVsYmFJUDlzYW9pMjVi?=
- =?utf-8?B?SHpUdXJnRlRmT2p3MFBhVGdwamI0Zk40aG9wMEowVFdtKzVOMXdpbVI0YXpl?=
- =?utf-8?B?VWd4VmdwVjRwTTlPYWtvSVViTWNDM3RGaGVzNlBoZjdXNlFiTXhlN2VIWGZF?=
- =?utf-8?B?b2RGTDZTcWxKVVlpZXBJUUFRZ0pJcnhQd3diU08xM3FxOEdHaEJnMk9RL085?=
- =?utf-8?B?NW1rZktRQTBodE1KRlZPeUYvdUYvWTBDQlZ5ZzNIRGkrdFlYRC9NVFIyU0xk?=
- =?utf-8?Q?LcF/DbCBKncUUiFiclg6nzQXD37xHvCpFthpLVYvvc6Z?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YzJuTVlIZ1ROSlVYS0FjMjU0TlcwNFBRSzQ5TWNoMVJ3VVA3a3UrRWJmbk5G?=
+ =?utf-8?B?c1kyU0xZTjludzZXNEhzSWhxNDlZMCtCRTBVNExTemZDOW5BMUg0ODRZS3oy?=
+ =?utf-8?B?QmNJVXRsVDlXaTEvSFhscEFQRWFLUHZDcXcyRW9EL2M3QUtIa21SM1NqeXJy?=
+ =?utf-8?B?VHdFeDM4VXp2NzB6RDBncG9VVzg4clM3cHFtQ3pKNW5vUFBoMkpOSVp3MEhy?=
+ =?utf-8?B?TDcwN290cVc2WVRHc1NZSXNXbFdoYXZjaDhKZkRMMEMyU2M0SHdVU3lGbnVi?=
+ =?utf-8?B?bVErdWp6SlU4Q1A1K0prbUZZb1Vad0xYTkJObG96cjgzZlVZeXIxejhNVHNJ?=
+ =?utf-8?B?LzdxejU4K1FxdzFXS21tQWRTY0ltUVdET2MveG4xN0VyVUNMdlF5eFRWWWQ5?=
+ =?utf-8?B?a0xyc3FpUkFpQkZvOWk1NlQrbjcveDhOZ3VMLzFsekdSMjdKVXRZdVB6NWZZ?=
+ =?utf-8?B?TGszcDZjRUFoR2pIZkhpaDlMc3ZYVFNqd3pLcUxNWlplbmFnOGJ6dUhqSjVH?=
+ =?utf-8?B?Q1JvVUVra0x6emZRSDQ2K0w4dkU4ZVRRVzZaTFV0QzBKODIxcUhGY3doNXJs?=
+ =?utf-8?B?czF5Q0E3Zyt0TDJWcGZTLzBpdXhTY3RoWFRMRUl4cTRkbWgvcXhVV2xaUmFt?=
+ =?utf-8?B?KytpMWhweDl3VEQzNHo1Mklhc3dvMVJtbXFBYkN2dmtkeGpRcXhKaFhjeS9D?=
+ =?utf-8?B?dkQzanpndmRmM01JZmpQQURwNHJRN1FuUjNTRjVmK3kxMTUzMloxZDBlUU44?=
+ =?utf-8?B?M1ZBMStUTk9XODZXMjZhREtJL2JrMlE0Y0pKYlZUazd5Y3AyNnBJL2c5NWZI?=
+ =?utf-8?B?V1Y0WHE5cmdjWEJjV1psYXR5S3g1RHNkR3BZVEJzYmNKQ1Q3bEhuV2pYQi9L?=
+ =?utf-8?B?NFVuWFh0R2FNK3o4NmdLdVNwcHQ0Umt5L21WNEdwUWtHVkRXaFZFQlF6cnhm?=
+ =?utf-8?B?VmwvbWVQWmxteGtHeE1sZFQ1ZjBidGxJa29SNlUxUHNTSkxwUHo4aTBiMkxP?=
+ =?utf-8?B?YkJ3SFpEVUJsam1vdGU5UTlhVWZXbUJkN3BHa1ZkbmhhOTdyVlhWRUNROWVV?=
+ =?utf-8?B?NkJuZDBUQTdGZk15TUZOVm5tQUhjRk9FcUxvLy9yTk5ndFJ0VWsrOXAyaGVq?=
+ =?utf-8?B?LzdwcjRaZERzMnFsYUlDSHR0aHhRdnRheDhlMW4zb0hTcXNlTDFpSEtPKzAr?=
+ =?utf-8?B?STA0NkdLTnY3YStvMmZFb2tFOVUydkdrNTJDTUN0T21sUkFxQWVsNjFPdVUx?=
+ =?utf-8?B?dUdWRGY0dzRmTklFOW9sUkZLSGRVKzNuUGFEbzZ2bTJPYWYzOTJ5OVBERXdv?=
+ =?utf-8?B?M1A4OE1McE42TDZ6a1lyRTQwQWhJMnpoMERJSzNtQm8vQzNoa3FSdkVpeC9h?=
+ =?utf-8?B?YUozaGdkeGFTaFdMMzFCZ3AzQ2oxRnc3MDdnclVHQ2kzcHVsTk0xY0hhZnhp?=
+ =?utf-8?B?dnZRQm5ROUFlYldJV1pnWlRsdmd0UFp0ZkFhY0I3ZGlRdkJ6cTN0QXU4MHdS?=
+ =?utf-8?B?ZUVRc2pGR0wycjlPWHNnbWJNU2Zzb0N0WDYwekpPajY0WEFxM0x1Uzh3YVdj?=
+ =?utf-8?B?Ym5ndTF5b2VzUFFZbzYxSE9FdGNZVnZTMy93dHlhMkk0TmNRbEViQVE0ejlT?=
+ =?utf-8?B?T09QNUN1RGlhamNqMUZTcnFmZGxwMUEyaHp3MkhIN1cvM2ZYZHQ2Z3liSnJj?=
+ =?utf-8?B?K0FKNzNRV3Z0QVlsVTIrZWJQZEIxUjVEMExhS0ZnVnBhYVNlaWFleG5naVRK?=
+ =?utf-8?B?aXJnNDZuRmJQZVcxSDJRZlVPYkRFSXF6TFBON09rNEMvU3lMV1Q2ekloOEo0?=
+ =?utf-8?B?dTI2bkNoQUVzSVJnY0ZadCtWanFrMGNlUUFtVkJQRnlUMVNaaU5WSlJYZHBR?=
+ =?utf-8?B?ZU5YQmNlNlBWVngxRVI1OEJnM0h4NmM5RllJOVFiVHV4SjZQRmJscDdvUStL?=
+ =?utf-8?B?YVk3L01iWXBWU0h3LzlSaXZvY2RjNWZPUEJUVUZVVFZ4ZGdVTUVBUzRKT3dI?=
+ =?utf-8?B?dEZRMmhrWjYxT2QrNzhCUnMyTldOcE9MVmtCSU5ZNGs1QngvbTY0SDZaK2dO?=
+ =?utf-8?B?Mnp4OEY2dUtYeFgxdHFhY3ZMdXdsNHYrYXRJN1kzUHlDSnlGa1ZuV3FoMHlK?=
+ =?utf-8?Q?jp8GhvCYnSq+J3lUQaMa6VSip?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 588adcc6-d0d5-456a-e0c0-08db2ae1d710
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 60e1c6f5-5770-46b3-19ca-08db2ae2845e
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Mar 2023 14:29:26.9304 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Mar 2023 14:34:17.7148 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XhOczCSzb4srXWtGw3LCH+cp7dvC8lxA9Fb74RWE7q3wACV39/lMC2Bw+rNykKtP
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8220
+X-MS-Exchange-CrossTenant-UserPrincipalName: Zy7s3Ybxw5HnwCSFg/wuXXJIOZSEAIcFyPldFlHvqWv+lHcNBY0O4Bh6R2BvAmNoCA/NXW1LFmllTO+faYXBhw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4898
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,464 +127,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- "Somalapuram, Amaranath" <Amaranath.Somalapuram@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Sharma,
- Shashank" <Shashank.Sharma@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------003nZOobJyuGLfBSGWhlh6Lr
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+MQDs are smaller than a page. The BO size will always be exactly be one 
+page.
 
-Well that sounds like being able to optionally set it after context 
-creation is actually the right approach.
+KFD can allocate MQDs with a suballocator. On some GPUs we allocate MQDs 
+together with the queue's control stack in a single BO. And on some GPUs 
+we allocate SDMA "MQDs" in bulk together with the HIQ MQD. So relying on 
+the BO size would not work for us.
 
-VA-API could set it as soon as we know that this is a video codec 
-application.
+Regards,
+   Felix
 
-Vulkan can set it depending on what features are used by the application.
 
-But yes, Shashank (or whoever requested that) should come up with some 
-code for Mesa to actually use it. Otherwise we don't have the 
-justification to push it into the kernel driver.
-
-Christian.
-
-Am 22.03.23 um 15:24 schrieb Marek Olšák:
-> The hint is static per API (one of graphics, video, compute, unknown). 
-> In the case of Vulkan, which exposes all queues, the hint is unknown, 
-> so Vulkan won't use it. (or make it based on the queue being used and 
-> not the uapi context state) GL won't use it because the default hint 
-> is already 3D. That makes VAAPI the only user that only sets the hint 
-> once, and maybe it's not worth even adding this uapi just for VAAPI.
+Am 2023-03-22 um 09:58 schrieb Christian König:
+> Am 22.03.23 um 14:26 schrieb Alex Deucher:
+>> On Wed, Mar 22, 2023 at 4:48 AM Christian König
+>> <ckoenig.leichtzumerken@gmail.com> wrote:
+>>> Am 21.03.23 um 20:39 schrieb Alex Deucher:
+>>>> It varies by generation and we need to know the size
+>>>> to expose this via debugfs.
+>>> I suspect we can't just use the BO size for this?
+>> We could, but it may be larger than the actual MQD.  Maybe that's not
+>> a big deal?
 >
-> Marek
+> I don't really know either. Maybe just go ahead with this approach 
+> here, but I usually try to avoid stuff like that because it can be an 
+> additional source of errors when the allocation size is not correct.
 >
-> On Wed, Mar 22, 2023 at 10:08 AM Christian König 
-> <christian.koenig@amd.com> wrote:
+> Christian.
 >
->     Well completely agree that we shouldn't have unused API. That's
->     why I said we should remove the getting the hint from the UAPI.
+>>
+>> Alex
+>>
+>>
+>>> If yes the series is Reviewed-by: Christian König 
+>>> <christian.koenig@amd.com>
+>>>
+>>>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>>>> ---
+>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c  | 2 ++
+>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 1 +
+>>>>    2 files changed, 3 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c 
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>>>> index c50d59855011..5435f41a3b7f 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>>>> @@ -404,6 +404,7 @@ int amdgpu_gfx_mqd_sw_init(struct amdgpu_device 
+>>>> *adev,
+>>>>                                        return r;
+>>>>                                }
+>>>>
+>>>> +                             ring->mqd_size = mqd_size;
+>>>>                                /* prepare MQD backup */
+>>>>                                adev->gfx.me.mqd_backup[i] = 
+>>>> kmalloc(mqd_size, GFP_KERNEL);
+>>>>                                if (!adev->gfx.me.mqd_backup[i])
+>>>> @@ -424,6 +425,7 @@ int amdgpu_gfx_mqd_sw_init(struct amdgpu_device 
+>>>> *adev,
+>>>>                                return r;
+>>>>                        }
+>>>>
+>>>> +                     ring->mqd_size = mqd_size;
+>>>>                        /* prepare MQD backup */
+>>>>                        adev->gfx.mec.mqd_backup[i] = 
+>>>> kmalloc(mqd_size, GFP_KERNEL);
+>>>>                        if (!adev->gfx.mec.mqd_backup[i])
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h 
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>>>> index 7942cb62e52c..deb9f7bead02 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>>>> @@ -257,6 +257,7 @@ struct amdgpu_ring {
+>>>>        struct amdgpu_bo        *mqd_obj;
+>>>>        uint64_t                mqd_gpu_addr;
+>>>>        void                    *mqd_ptr;
+>>>> +     unsigned                mqd_size;
+>>>>        uint64_t                eop_gpu_addr;
+>>>>        u32                     doorbell_index;
+>>>>        bool                    use_doorbell;
 >
->     But what's wrong with setting it after creating the context? Don't
->     you know enough about the use case? I need to understand the
->     background a bit better here.
->
->     Christian.
->
->     Am 22.03.23 um 15:05 schrieb Marek Olšák:
->>     The option to change the hint after context creation and get the
->>     hint would be unused uapi, and AFAIK we are not supposed to add
->>     unused uapi. What I asked is to change it to a uapi that
->>     userspace will actually use.
->>
->>     Marek
->>
->>     On Tue, Mar 21, 2023 at 9:54 AM Christian König
->>     <ckoenig.leichtzumerken@gmail.com> wrote:
->>
->>         Yes, I would like to avoid having multiple code paths for
->>         context creation.
->>
->>         Setting it later on should be equally to specifying it on
->>         creation since we only need it during CS.
->>
->>         Regards,
->>         Christian.
->>
->>         Am 21.03.23 um 14:00 schrieb Sharma, Shashank:
->>>
->>>         [AMD Official Use Only - General]
->>>
->>>         When we started this patch series, the workload hint was a
->>>         part of the ctx_flag only,
->>>
->>>         But we changed that after the design review, to make it more
->>>         like how we are handling PSTATE.
->>>
->>>         Details:
->>>
->>>         https://patchwork.freedesktop.org/patch/496111/
->>>
->>>         Regards
->>>
->>>         Shashank
->>>
->>>         *From:*Marek Olšák <maraeo@gmail.com> <mailto:maraeo@gmail.com>
->>>         *Sent:* 21 March 2023 04:05
->>>         *To:* Sharma, Shashank <Shashank.Sharma@amd.com>
->>>         <mailto:Shashank.Sharma@amd.com>
->>>         *Cc:* amd-gfx@lists.freedesktop.org; Deucher, Alexander
->>>         <Alexander.Deucher@amd.com>
->>>         <mailto:Alexander.Deucher@amd.com>; Somalapuram, Amaranath
->>>         <Amaranath.Somalapuram@amd.com>
->>>         <mailto:Amaranath.Somalapuram@amd.com>; Koenig, Christian
->>>         <Christian.Koenig@amd.com> <mailto:Christian.Koenig@amd.com>
->>>         *Subject:* Re: [PATCH v3 1/5] drm/amdgpu: add UAPI for
->>>         workload hints to ctx ioctl
->>>
->>>         I think we should do it differently because this interface
->>>         will be mostly unused by open source userspace in its
->>>         current form.
->>>
->>>         Let's set the workload hint in drm_amdgpu_ctx_in::flags, and
->>>         that will be immutable for the lifetime of the context. No
->>>         other interface is needed.
->>>
->>>         Marek
->>>
->>>         On Mon, Sep 26, 2022 at 5:41 PM Shashank Sharma
->>>         <shashank.sharma@amd.com> wrote:
->>>
->>>             Allow the user to specify a workload hint to the kernel.
->>>             We can use these to tweak the dpm heuristics to better match
->>>             the workload for improved performance.
->>>
->>>             V3: Create only set() workload UAPI (Christian)
->>>
->>>             Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->>>             Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
->>>             ---
->>>              include/uapi/drm/amdgpu_drm.h | 17 +++++++++++++++++
->>>              1 file changed, 17 insertions(+)
->>>
->>>             diff --git a/include/uapi/drm/amdgpu_drm.h
->>>             b/include/uapi/drm/amdgpu_drm.h
->>>             index c2c9c674a223..23d354242699 100644
->>>             --- a/include/uapi/drm/amdgpu_drm.h
->>>             +++ b/include/uapi/drm/amdgpu_drm.h
->>>             @@ -212,6 +212,7 @@ union drm_amdgpu_bo_list {
->>>              #define AMDGPU_CTX_OP_QUERY_STATE2  4
->>>              #define AMDGPU_CTX_OP_GET_STABLE_PSTATE        5
->>>              #define AMDGPU_CTX_OP_SET_STABLE_PSTATE        6
->>>             +#define AMDGPU_CTX_OP_SET_WORKLOAD_PROFILE     7
->>>
->>>              /* GPU reset status */
->>>              #define AMDGPU_CTX_NO_RESET 0
->>>             @@ -252,6 +253,17 @@ union drm_amdgpu_bo_list {
->>>              #define AMDGPU_CTX_STABLE_PSTATE_MIN_MCLK  3
->>>              #define AMDGPU_CTX_STABLE_PSTATE_PEAK 4
->>>
->>>             +/* GPU workload hints, flag bits 8-15 */
->>>             +#define AMDGPU_CTX_WORKLOAD_HINT_SHIFT    8
->>>             +#define AMDGPU_CTX_WORKLOAD_HINT_MASK     (0xff <<
->>>             AMDGPU_CTX_WORKLOAD_HINT_SHIFT)
->>>             +#define AMDGPU_CTX_WORKLOAD_HINT_NONE     (0 <<
->>>             AMDGPU_CTX_WORKLOAD_HINT_SHIFT)
->>>             +#define AMDGPU_CTX_WORKLOAD_HINT_3D     (1 <<
->>>             AMDGPU_CTX_WORKLOAD_HINT_SHIFT)
->>>             +#define AMDGPU_CTX_WORKLOAD_HINT_VIDEO    (2 <<
->>>             AMDGPU_CTX_WORKLOAD_HINT_SHIFT)
->>>             +#define AMDGPU_CTX_WORKLOAD_HINT_VR     (3 <<
->>>             AMDGPU_CTX_WORKLOAD_HINT_SHIFT)
->>>             +#define AMDGPU_CTX_WORKLOAD_HINT_COMPUTE   (4 <<
->>>             AMDGPU_CTX_WORKLOAD_HINT_SHIFT)
->>>             +#define AMDGPU_CTX_WORKLOAD_HINT_MAX  
->>>             AMDGPU_CTX_WORKLOAD_HINT_COMPUTE
->>>             +#define AMDGPU_CTX_WORKLOAD_INDEX(n)   (n >>
->>>             AMDGPU_CTX_WORKLOAD_HINT_SHIFT)
->>>             +
->>>              struct drm_amdgpu_ctx_in {
->>>                     /** AMDGPU_CTX_OP_* */
->>>                     __u32   op;
->>>             @@ -281,6 +293,11 @@ union drm_amdgpu_ctx_out {
->>>                                     __u32   flags;
->>>                                     __u32   _pad;
->>>                             } pstate;
->>>             +
->>>             +               struct {
->>>             +                       __u32   flags;
->>>             +                       __u32   _pad;
->>>             +               } workload;
->>>              };
->>>
->>>              union drm_amdgpu_ctx {
->>>             -- 
->>>             2.34.1
->>>
->>
->
-
---------------003nZOobJyuGLfBSGWhlh6Lr
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    Well that sounds like being able to optionally set it after context
-    creation is actually the right approach.<br>
-    <br>
-    VA-API could set it as soon as we know that this is a video codec
-    application.<br>
-    <br>
-    Vulkan can set it depending on what features are used by the
-    application.<br>
-    <br>
-    But yes, Shashank (or whoever requested that) should come up with
-    some code for Mesa to actually use it. Otherwise we don't have the
-    justification to push it into the kernel driver.<br>
-    <br>
-    Christian.<br>
-    <br>
-    <div class="moz-cite-prefix">Am 22.03.23 um 15:24 schrieb Marek
-      Olšák:<br>
-    </div>
-    <blockquote type="cite" cite="mid:CAAxE2A60VNbjKS3LpKjX=Y9gPD92gw4hBJpQApmcQKCu0UM4UQ@mail.gmail.com">
-      
-      <div dir="ltr">
-        <div>The hint is static per API (one of graphics, video,
-          compute, unknown). In the case of Vulkan, which exposes all
-          queues, the hint is unknown, so Vulkan won't use it. (or make
-          it based on the queue being used and not the uapi context
-          state) GL won't use it because the default hint is already 3D.
-          That makes VAAPI the only user that only sets the hint once,
-          and maybe it's not worth even adding this uapi just for VAAPI.<br>
-        </div>
-        <div><br>
-        </div>
-        <div>Marek<br>
-        </div>
-        <br>
-        <div class="gmail_quote">
-          <div dir="ltr" class="gmail_attr">On Wed, Mar 22, 2023 at
-            10:08 AM Christian König &lt;<a href="mailto:christian.koenig@amd.com" moz-do-not-send="true" class="moz-txt-link-freetext">christian.koenig@amd.com</a>&gt;
-            wrote:<br>
-          </div>
-          <blockquote class="gmail_quote" style="margin:0px 0px 0px
-            0.8ex;border-left:1px solid
-            rgb(204,204,204);padding-left:1ex">
-            <div> Well completely agree that we shouldn't have unused
-              API. That's why I said we should remove the getting the
-              hint from the UAPI.<br>
-              <br>
-              But what's wrong with setting it after creating the
-              context? Don't you know enough about the use case? I need
-              to understand the background a bit better here.<br>
-              <br>
-              Christian.<br>
-              <br>
-              <div>Am 22.03.23 um 15:05 schrieb Marek Olšák:<br>
-              </div>
-              <blockquote type="cite">
-                <div dir="ltr">
-                  <div>The option to change the hint after context
-                    creation and get the hint would be unused uapi, and
-                    AFAIK we are not supposed to add unused uapi. What I
-                    asked is to change it to a uapi that userspace will
-                    actually use.<br>
-                  </div>
-                  <div><br>
-                  </div>
-                  <div>Marek<br>
-                  </div>
-                </div>
-                <br>
-                <div class="gmail_quote">
-                  <div dir="ltr" class="gmail_attr">On Tue, Mar 21, 2023
-                    at 9:54 AM Christian König &lt;<a href="mailto:ckoenig.leichtzumerken@gmail.com" target="_blank" moz-do-not-send="true" class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>&gt;
-                    wrote:<br>
-                  </div>
-                  <blockquote class="gmail_quote" style="margin:0px 0px
-                    0px 0.8ex;border-left:1px solid
-                    rgb(204,204,204);padding-left:1ex">
-                    <div> Yes, I would like to avoid having multiple
-                      code paths for context creation.<br>
-                      <br>
-                      Setting it later on should be equally to
-                      specifying it on creation since we only need it
-                      during CS.<br>
-                      <br>
-                      Regards,<br>
-                      Christian.<br>
-                      <br>
-                      <div>Am 21.03.23 um 14:00 schrieb Sharma,
-                        Shashank:<br>
-                      </div>
-                      <blockquote type="cite">
-                        <div>
-                          <p style="margin:0cm"><span style="font-size:10pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD
-                              Official Use Only - General]</span></p>
-                          <p class="MsoNormal">&nbsp;</p>
-                          <p class="MsoNormal"><span>When we started
-                              this patch series, the workload hint was a
-                              part of the ctx_flag only, </span></p>
-                          <p class="MsoNormal"><span>But we changed that
-                              after the design review, to make it more
-                              like how we are handling PSTATE. </span></p>
-                          <p class="MsoNormal"><span>&nbsp;</span></p>
-                          <p class="MsoNormal"><span>Details: </span></p>
-                          <p class="MsoNormal"><span><a href="https://patchwork.freedesktop.org/patch/496111/" target="_blank" moz-do-not-send="true" class="moz-txt-link-freetext">https://patchwork.freedesktop.org/patch/496111/</a>
-                            </span></p>
-                          <p class="MsoNormal"><span>&nbsp;</span></p>
-                          <p class="MsoNormal"><span>Regards</span></p>
-                          <p class="MsoNormal"><span>Shashank </span></p>
-                          <p class="MsoNormal"><span>&nbsp;</span></p>
-                          <div style="border-color:rgb(225,225,225)
-                            currentcolor currentcolor;border-style:solid
-                            none none;border-width:1pt medium
-                            medium;padding:3pt 0cm 0cm">
-                            <p class="MsoNormal"><b><span lang="EN-US">From:</span></b><span lang="EN-US"> Marek Olšák <a href="mailto:maraeo@gmail.com" target="_blank" moz-do-not-send="true">&lt;maraeo@gmail.com&gt;</a>
-                                <br>
-                                <b>Sent:</b> 21 March 2023 04:05<br>
-                                <b>To:</b> Sharma, Shashank <a href="mailto:Shashank.Sharma@amd.com" target="_blank" moz-do-not-send="true">&lt;Shashank.Sharma@amd.com&gt;</a><br>
-                                <b>Cc:</b> <a href="mailto:amd-gfx@lists.freedesktop.org" target="_blank" moz-do-not-send="true" class="moz-txt-link-freetext">amd-gfx@lists.freedesktop.org</a>;
-                                Deucher, Alexander <a href="mailto:Alexander.Deucher@amd.com" target="_blank" moz-do-not-send="true">&lt;Alexander.Deucher@amd.com&gt;</a>;
-                                Somalapuram, Amaranath <a href="mailto:Amaranath.Somalapuram@amd.com" target="_blank" moz-do-not-send="true">&lt;Amaranath.Somalapuram@amd.com&gt;</a>;
-                                Koenig, Christian <a href="mailto:Christian.Koenig@amd.com" target="_blank" moz-do-not-send="true">&lt;Christian.Koenig@amd.com&gt;</a><br>
-                                <b>Subject:</b> Re: [PATCH v3 1/5]
-                                drm/amdgpu: add UAPI for workload hints
-                                to ctx ioctl</span></p>
-                          </div>
-                          <p class="MsoNormal">&nbsp;</p>
-                          <div>
-                            <div>
-                              <p class="MsoNormal">I think we should do
-                                it differently because this interface
-                                will be mostly unused by open source
-                                userspace in its current form.</p>
-                            </div>
-                            <div>
-                              <p class="MsoNormal">&nbsp;</p>
-                            </div>
-                            <div>
-                              <p class="MsoNormal">Let's set the
-                                workload hint in
-                                drm_amdgpu_ctx_in::flags, and that will
-                                be immutable for the lifetime of the
-                                context. No other interface is needed.</p>
-                            </div>
-                            <div>
-                              <p class="MsoNormal">&nbsp;</p>
-                            </div>
-                            <div>
-                              <p class="MsoNormal">Marek</p>
-                            </div>
-                          </div>
-                          <p class="MsoNormal">&nbsp;</p>
-                          <div>
-                            <div>
-                              <p class="MsoNormal">On Mon, Sep 26, 2022
-                                at 5:41 PM Shashank Sharma &lt;<a href="mailto:shashank.sharma@amd.com" target="_blank" moz-do-not-send="true" class="moz-txt-link-freetext">shashank.sharma@amd.com</a>&gt;
-                                wrote:</p>
-                            </div>
-                            <blockquote style="border-color:currentcolor
-                              currentcolor currentcolor
-                              rgb(204,204,204);border-style:none none
-                              none solid;border-width:medium medium
-                              medium 1pt;padding:0cm 0cm 0cm
-                              6pt;margin:5pt 0cm 5pt 4.8pt">
-                              <p class="MsoNormal" style="margin-bottom:12pt">Allow the
-                                user to specify a workload hint to the
-                                kernel.<br>
-                                We can use these to tweak the dpm
-                                heuristics to better match<br>
-                                the workload for improved performance.<br>
-                                <br>
-                                V3: Create only set() workload UAPI
-                                (Christian)<br>
-                                <br>
-                                Signed-off-by: Alex Deucher &lt;<a href="mailto:alexander.deucher@amd.com" target="_blank" moz-do-not-send="true" class="moz-txt-link-freetext">alexander.deucher@amd.com</a>&gt;<br>
-                                Signed-off-by: Shashank Sharma &lt;<a href="mailto:shashank.sharma@amd.com" target="_blank" moz-do-not-send="true" class="moz-txt-link-freetext">shashank.sharma@amd.com</a>&gt;<br>
-                                ---<br>
-                                &nbsp;include/uapi/drm/amdgpu_drm.h | 17
-                                +++++++++++++++++<br>
-                                &nbsp;1 file changed, 17 insertions(+)<br>
-                                <br>
-                                diff --git
-                                a/include/uapi/drm/amdgpu_drm.h
-                                b/include/uapi/drm/amdgpu_drm.h<br>
-                                index c2c9c674a223..23d354242699 100644<br>
-                                --- a/include/uapi/drm/amdgpu_drm.h<br>
-                                +++ b/include/uapi/drm/amdgpu_drm.h<br>
-                                @@ -212,6 +212,7 @@ union
-                                drm_amdgpu_bo_list {<br>
-                                &nbsp;#define AMDGPU_CTX_OP_QUERY_STATE2&nbsp; &nbsp;
-                                &nbsp;4<br>
-                                &nbsp;#define
-                                AMDGPU_CTX_OP_GET_STABLE_PSTATE&nbsp; &nbsp; &nbsp; &nbsp; 5<br>
-                                &nbsp;#define
-                                AMDGPU_CTX_OP_SET_STABLE_PSTATE&nbsp; &nbsp; &nbsp; &nbsp; 6<br>
-                                +#define
-                                AMDGPU_CTX_OP_SET_WORKLOAD_PROFILE&nbsp; &nbsp; &nbsp;7<br>
-                                <br>
-                                &nbsp;/* GPU reset status */<br>
-                                &nbsp;#define AMDGPU_CTX_NO_RESET&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                0<br>
-                                @@ -252,6 +253,17 @@ union
-                                drm_amdgpu_bo_list {<br>
-                                &nbsp;#define
-                                AMDGPU_CTX_STABLE_PSTATE_MIN_MCLK&nbsp; 3<br>
-                                &nbsp;#define AMDGPU_CTX_STABLE_PSTATE_PEAK&nbsp;
-                                4<br>
-                                <br>
-                                +/* GPU workload hints, flag bits 8-15
-                                */<br>
-                                +#define AMDGPU_CTX_WORKLOAD_HINT_SHIFT&nbsp;
-                                &nbsp; &nbsp;8<br>
-                                +#define AMDGPU_CTX_WORKLOAD_HINT_MASK&nbsp;
-                                &nbsp; &nbsp; (0xff &lt;&lt;
-                                AMDGPU_CTX_WORKLOAD_HINT_SHIFT)<br>
-                                +#define AMDGPU_CTX_WORKLOAD_HINT_NONE&nbsp;
-                                &nbsp; &nbsp; (0 &lt;&lt;
-                                AMDGPU_CTX_WORKLOAD_HINT_SHIFT)<br>
-                                +#define AMDGPU_CTX_WORKLOAD_HINT_3D&nbsp; &nbsp;
-                                &nbsp; &nbsp; (1 &lt;&lt;
-                                AMDGPU_CTX_WORKLOAD_HINT_SHIFT)<br>
-                                +#define AMDGPU_CTX_WORKLOAD_HINT_VIDEO&nbsp;
-                                &nbsp; &nbsp;(2 &lt;&lt;
-                                AMDGPU_CTX_WORKLOAD_HINT_SHIFT)<br>
-                                +#define AMDGPU_CTX_WORKLOAD_HINT_VR&nbsp; &nbsp;
-                                &nbsp; &nbsp; (3 &lt;&lt;
-                                AMDGPU_CTX_WORKLOAD_HINT_SHIFT)<br>
-                                +#define
-                                AMDGPU_CTX_WORKLOAD_HINT_COMPUTE&nbsp; &nbsp;(4
-                                &lt;&lt; AMDGPU_CTX_WORKLOAD_HINT_SHIFT)<br>
-                                +#define AMDGPU_CTX_WORKLOAD_HINT_MAX&nbsp; &nbsp;
-                                &nbsp; AMDGPU_CTX_WORKLOAD_HINT_COMPUTE<br>
-                                +#define AMDGPU_CTX_WORKLOAD_INDEX(n)&nbsp; &nbsp;
-                                &nbsp; (n &gt;&gt;
-                                AMDGPU_CTX_WORKLOAD_HINT_SHIFT)<br>
-                                +<br>
-                                &nbsp;struct drm_amdgpu_ctx_in {<br>
-                                &nbsp; &nbsp; &nbsp; &nbsp; /** AMDGPU_CTX_OP_* */<br>
-                                &nbsp; &nbsp; &nbsp; &nbsp; __u32&nbsp; &nbsp;op;<br>
-                                @@ -281,6 +293,11 @@ union
-                                drm_amdgpu_ctx_out {<br>
-                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; __u32&nbsp; &nbsp;flags;<br>
-                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; __u32&nbsp; &nbsp;_pad;<br>
-                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } pstate;<br>
-                                +<br>
-                                +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;struct {<br>
-                                +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__u32&nbsp; &nbsp;flags;<br>
-                                +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;__u32&nbsp; &nbsp;_pad;<br>
-                                +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;} workload;<br>
-                                &nbsp;};<br>
-                                <br>
-                                &nbsp;union drm_amdgpu_ctx {<br>
-                                -- <br>
-                                2.34.1</p>
-                            </blockquote>
-                          </div>
-                        </div>
-                      </blockquote>
-                      <br>
-                    </div>
-                  </blockquote>
-                </div>
-              </blockquote>
-              <br>
-            </div>
-          </blockquote>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------003nZOobJyuGLfBSGWhlh6Lr--
