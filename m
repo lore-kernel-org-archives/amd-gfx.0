@@ -4,38 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44DB2C761AF
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Mar 2023 19:58:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B92CDC6FD1C
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Mar 2023 19:59:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA64810E3F6;
-	Wed, 22 Mar 2023 19:58:58 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C6A910E3F6;
- Wed, 22 Mar 2023 19:58:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32DF010E9D6;
+	Wed, 22 Mar 2023 19:59:17 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 013CD10E9D6;
+ Wed, 22 Mar 2023 19:59:14 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 0B436CE1D2D;
- Wed, 22 Mar 2023 19:58:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49BCDC433D2;
- Wed, 22 Mar 2023 19:58:49 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id A9406B81DEC;
+ Wed, 22 Mar 2023 19:59:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29956C433D2;
+ Wed, 22 Mar 2023 19:59:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1679515131;
- bh=mJgUxo5owB/ky529vzd/7Ni0Rn3/5W3EfAkj5ZdLqhk=;
+ s=k20201202; t=1679515153;
+ bh=gelvFvMvURmRLNCZnWXCKgk4dLWxrbXorcbSCtb53hs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=QDV08gMM6Pbx28IZuIimh6FhitDb74UnBq88awmHxbVEEoYQFDCpZJ9Gq7eVsj/XO
- 2nMyNo27CbICfdR2i0G28isZG2OjiXY/c8a4uCVk/BnKYmDoss2U3zmqF7FKOpclXZ
- QTKzgcfMJEIcT7Ikq9ZL9lEqapq57EfMmsPCvCt4g9AzTkj8z2iDJlJbSKuhuQLSQP
- QjnrvVe0bDQ7Z48qKiMWcCeMqG877MeTmiXQ2CdvRwBvbreAPnQSONy2DzSFvz33Z6
- UsRofuLdM2tcOAlEutu1GtTavyd9rxcZkAMJHnSDLshVzyjBIvADXpr1diuDcm1aQT
- TWQeSeVnPJ5PQ==
+ b=snS5UCqOMLYx2u23uYPdpjR4lN9VoKTXh7dqodfom9hjWgW5oxD1lHKEomebejD3C
+ pm1RTUN3lMBbO8ZWQgsMoJD8jF3JK1RvbJjt1IFVETfVALRCRcJrGdAAZLjmYVwrhz
+ oj/aZsQBwddnRIafeOsLexnhazcsnir1GZBCVrvPlQIrsRpgY+8ZmyOMmXCKexgg7R
+ E3EZQ//fnhKyq+X4IQZlIGuBIRgAD+A67+Q8Emj/bt+1KCg/BMt5nb0C1yaSnAtxO+
+ QJsa47nqtvHumy5lZaoLN0OEDgrDdzuAsdXRHv6J/VrcPhZiOtxoDWjVc47VCt7eJ9
+ qb27RhqN68IQw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.2 28/45] drm/amd/display: Fix HDCP failing to enable
- after suspend
-Date: Wed, 22 Mar 2023 15:56:22 -0400
-Message-Id: <20230322195639.1995821-28-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.2 37/45] drm/amdkfd: Fixed kfd_process cleanup on
+ module exit.
+Date: Wed, 22 Mar 2023 15:56:31 -0400
+Message-Id: <20230322195639.1995821-37-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230322195639.1995821-1-sashal@kernel.org>
 References: <20230322195639.1995821-1-sashal@kernel.org>
@@ -54,57 +55,157 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, tzimmermann@suse.de, sunpeng.li@amd.com,
- harry.wentland@amd.com, Qingqing Zhuo <qingqing.zhuo@amd.com>,
- Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- amd-gfx@lists.freedesktop.org, Daniel Wheeler <daniel.wheeler@amd.com>,
- Aurabindo Pillai <Aurabindo.Pillai@amd.com>, hersenxs.wu@amd.com,
- dri-devel@lists.freedesktop.org, daniel@ffwll.ch, Wayne.Lin@amd.com,
+Cc: Sasha Levin <sashal@kernel.org>, Xinhui.Pan@amd.com,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ David Belanger <david.belanger@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
  Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, christian.koenig@amd.com
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+From: David Belanger <david.belanger@amd.com>
 
-[ Upstream commit 728cefa53a36ba378ed4a7f31a0c08289687d824 ]
+[ Upstream commit 20bc9f76b6a2455c6b54b91ae7634f147f64987f ]
 
-[Why]
-On resume some displays are not ready for HDCP, so they will fail if we
-start the hdcp authentintication too soon.
+Handle case when module is unloaded (kfd_exit) before a process space
+(mm_struct) is released.
 
-Add a delay so that the displays can be ready before we start.
+v2: Fixed potential race conditions by removing all kfd_process from
+the process table first, then working on releasing the resources.
 
-NOTE: Previoulsy this delay was set to 3 seconds but it was causing
-issues with compliance, 2 seconds should enough for compliance and the
-s3 resume case.
+v3: Fixed loop element access / synchronization.  Fixed extra empty lines.
 
-[How]
-Change the Delay to 2 seconds.
-
-Reviewed-by: Aurabindo Pillai <Aurabindo.Pillai@amd.com>
-Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: David Belanger <david.belanger@amd.com>
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_module.c  |  1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 67 +++++++++++++++++++++---
+ 3 files changed, 62 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-index a7fd98f57f94c..dc62375a8e2c4 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-@@ -495,7 +495,7 @@ static void update_config(void *handle, struct cp_psp_stream_config *config)
- 	link->dp.mst_enabled = config->mst_enabled;
- 	link->dp.usb4_enabled = config->usb4_enabled;
- 	display->adjust.disable = MOD_HDCP_DISPLAY_DISABLE_AUTHENTICATION;
--	link->adjust.auth_delay = 0;
-+	link->adjust.auth_delay = 2;
- 	link->adjust.hdcp1.disable = 0;
- 	conn_state = aconnector->base.state;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_module.c b/drivers/gpu/drm/amd/amdkfd/kfd_module.c
+index 09b966dc37681..aee2212e52f69 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_module.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_module.c
+@@ -77,6 +77,7 @@ static int kfd_init(void)
  
+ static void kfd_exit(void)
+ {
++	kfd_cleanup_processes();
+ 	kfd_debugfs_fini();
+ 	kfd_process_destroy_wq();
+ 	kfd_procfs_shutdown();
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 552c3ac85a132..7dc55919993c0 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -926,6 +926,7 @@ bool kfd_dev_is_large_bar(struct kfd_dev *dev);
+ 
+ int kfd_process_create_wq(void);
+ void kfd_process_destroy_wq(void);
++void kfd_cleanup_processes(void);
+ struct kfd_process *kfd_create_process(struct file *filep);
+ struct kfd_process *kfd_get_process(const struct task_struct *task);
+ struct kfd_process *kfd_lookup_process_by_pasid(u32 pasid);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 51b1683ac5c1e..4d9f2d1c49b1d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1167,6 +1167,17 @@ static void kfd_process_free_notifier(struct mmu_notifier *mn)
+ 	kfd_unref_process(container_of(mn, struct kfd_process, mmu_notifier));
+ }
+ 
++static void kfd_process_notifier_release_internal(struct kfd_process *p)
++{
++	cancel_delayed_work_sync(&p->eviction_work);
++	cancel_delayed_work_sync(&p->restore_work);
++
++	/* Indicate to other users that MM is no longer valid */
++	p->mm = NULL;
++
++	mmu_notifier_put(&p->mmu_notifier);
++}
++
+ static void kfd_process_notifier_release(struct mmu_notifier *mn,
+ 					struct mm_struct *mm)
+ {
+@@ -1181,17 +1192,22 @@ static void kfd_process_notifier_release(struct mmu_notifier *mn,
+ 		return;
+ 
+ 	mutex_lock(&kfd_processes_mutex);
++	/*
++	 * Do early return if table is empty.
++	 *
++	 * This could potentially happen if this function is called concurrently
++	 * by mmu_notifier and by kfd_cleanup_pocesses.
++	 *
++	 */
++	if (hash_empty(kfd_processes_table)) {
++		mutex_unlock(&kfd_processes_mutex);
++		return;
++	}
+ 	hash_del_rcu(&p->kfd_processes);
+ 	mutex_unlock(&kfd_processes_mutex);
+ 	synchronize_srcu(&kfd_processes_srcu);
+ 
+-	cancel_delayed_work_sync(&p->eviction_work);
+-	cancel_delayed_work_sync(&p->restore_work);
+-
+-	/* Indicate to other users that MM is no longer valid */
+-	p->mm = NULL;
+-
+-	mmu_notifier_put(&p->mmu_notifier);
++	kfd_process_notifier_release_internal(p);
+ }
+ 
+ static const struct mmu_notifier_ops kfd_process_mmu_notifier_ops = {
+@@ -1200,6 +1216,43 @@ static const struct mmu_notifier_ops kfd_process_mmu_notifier_ops = {
+ 	.free_notifier = kfd_process_free_notifier,
+ };
+ 
++/*
++ * This code handles the case when driver is being unloaded before all
++ * mm_struct are released.  We need to safely free the kfd_process and
++ * avoid race conditions with mmu_notifier that might try to free them.
++ *
++ */
++void kfd_cleanup_processes(void)
++{
++	struct kfd_process *p;
++	struct hlist_node *p_temp;
++	unsigned int temp;
++	HLIST_HEAD(cleanup_list);
++
++	/*
++	 * Move all remaining kfd_process from the process table to a
++	 * temp list for processing.   Once done, callback from mmu_notifier
++	 * release will not see the kfd_process in the table and do early return,
++	 * avoiding double free issues.
++	 */
++	mutex_lock(&kfd_processes_mutex);
++	hash_for_each_safe(kfd_processes_table, temp, p_temp, p, kfd_processes) {
++		hash_del_rcu(&p->kfd_processes);
++		synchronize_srcu(&kfd_processes_srcu);
++		hlist_add_head(&p->kfd_processes, &cleanup_list);
++	}
++	mutex_unlock(&kfd_processes_mutex);
++
++	hlist_for_each_entry_safe(p, p_temp, &cleanup_list, kfd_processes)
++		kfd_process_notifier_release_internal(p);
++
++	/*
++	 * Ensures that all outstanding free_notifier get called, triggering
++	 * the release of the kfd_process struct.
++	 */
++	mmu_notifier_synchronize();
++}
++
+ static int kfd_process_init_cwsr_apu(struct kfd_process *p, struct file *filep)
+ {
+ 	unsigned long  offset;
 -- 
 2.39.2
 
