@@ -4,124 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C45FC6FD1C
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Mar 2023 02:21:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DABC7C6FD1C
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Mar 2023 02:24:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72CA510E071;
-	Thu, 23 Mar 2023 02:21:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42DED10E425;
+	Thu, 23 Mar 2023 02:24:04 +0000 (UTC)
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2060.outbound.protection.outlook.com [40.107.94.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4088910E071
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Mar 2023 02:21:16 +0000 (UTC)
+ (mail-mw2nam10on2064.outbound.protection.outlook.com [40.107.94.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 101BE10E425
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Mar 2023 02:24:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KzPbTSrghW67TMYEzxzWqHWMtbq8AV72aU4zsmE/wlGsImvjzaw/BO/K73gpXKtoVvo4/v5sCRlQgpkL6jUKbOpwqO4SVDqkLVYNqiRmyXANP5WVC5mNqXD6zkXyw8e2c+5KiHo9Jr1pYSaG4nRcBmPPBz7+6e+ri9VlNJc6Ao4mS7LI/2oGX535W2KyoJN3ZsNKMDurwxRr//rB8quAX8vtm467UyKBaTsUaxUZ0TQkWp2KcaPu9UF33QVwS8uC7Yuw5lw/xDSPeHUdb3vOwoVTo4JT3gnCGvWUWSDJVruZM67ZkB5Mk/TOvYXMYiXDFV0FgWxIGWlBf9rzSMkzmA==
+ b=hVbvgmXF2pQ5q44VhzbyA8mjMbZpmcIvyJGkMRFZJImi4tCON9+/AT0vluXXcZxV9anvVeR6jvlqec5DiMrRMaL7ooyvg6iChdY+5CmkfH9mHYRNFpnCuknHWjQ0NRtGbjkS03xtMkqk3cmSfR6VfaSufBj21VVgo6uu6pwHZ0NwzKms0XyeAHIk848d4HfSty2JIEfqtR5sMzi3GjcSCIbZDGSeoblF2M9EEyufnwRocdjGvQZ/bhZjYvnIzytLZA227jzFWrOoY5xBuq19LK3PwLZpOOMTpBzzPj59UVpmvbB4y4pxQiS+guZZkL6LThl++54H/gd7JiTRYRs6WQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H4KlQavTo72DvUkmiLLGEy5OgIk1lvsi/vBHzNYRTg8=;
- b=kJOXgYOA7PSHRY6RiqUm0e8mMcYjLVnc7kxzd0aYTgt9W1Rug+Ma7AEFTc39p/ret1+Pj01XM036TfO6pn1kjXmcDtGwsXoHKx9hcDg1jdhPiAVapHpBmTUL2Vm53jDgtU59wulHPddwl8S97vIhqD6+mBGYljK/aQvPdpx0cdG+OTLQ9LSHqD1IAK7N8msmdIMPRAw3abZjhOndph8bUvJn6r/SGYuv+lLXPCQ3TF8y0ujfS+t3S7NNT5PefT8egZRiLm14LG/jnojxbEoNpYF7D+PVt5Er+Dj+bV+W+TSFpy9Ce7CNi2kyVUzCrWXjdDmKKyXaGE/TEWESAPirbA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=iI3/QhBqwcZxG/XPTDDmQEKuSBh1o0hUjn5/RXN/iyI=;
+ b=d/hHWoIA+2ZSrLZsky7WSaPN6r2g8/M3AjNMHCDL6bKIYHOXiRU9pW2VSfKkG2PzQYVpsf3lOYc6+2krRkpIwhrqaGNUld9pArjskVeFNqPdKPRVQNmuYoOuxYPSQkEjvTfI/gNPHVwkvXKLTQxvKGihWoJHdgXrKCwCD1cS4Xlw0AuNHrJgd/8tG04ZpyYO8GIsMdv42W5qxwdzYPgf+ycbJ+yZ9MHwzZORmzpAE4ipXXjhyHiLtjTXDdQdqiRYZpGG/HIxMc5Z2wkBCDRHiXr/8S0X4HpdOW4wh13Hn+79TV/l8W6yQrD5wzKbPwbcOzRs1qlkAQlsNsOTtZVx+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H4KlQavTo72DvUkmiLLGEy5OgIk1lvsi/vBHzNYRTg8=;
- b=ShnXg1VwGgjAvuxQDUtqJaYm/RtryNgTmI66V6SOr2riIKLLjnojMOeAjegOm1nhgzYNi66oV+IC3OTvpeDl1zFPvWDUH6ADWrRfCB/rEnORajDS82fCLvk2ZWOdcWtdao2BtcCvsMyy6UAoDR5Onbd1OZ4X7TjOYJ/mLS0y/uo=
-Received: from CYYPR12MB8655.namprd12.prod.outlook.com (2603:10b6:930:c4::19)
- by IA1PR12MB9030.namprd12.prod.outlook.com (2603:10b6:208:3f2::22)
+ bh=iI3/QhBqwcZxG/XPTDDmQEKuSBh1o0hUjn5/RXN/iyI=;
+ b=ajNmM+frMzM/kk1jnAdI0IWBpvBzP6SFwjv1qz+q7lgQE2fhy+5CcwEj0LAV5uMzMsx+/3vCY2N7/MwGK0s5m5iJf5fqK6DxKAq9DO+BpGBbiuBKcM6U3MOQfbYhrRwN5qUDrRJ574+/CK0VnPjWGVwn0odv3zVJSnobrHTMq40=
+Received: from BN8PR04CA0052.namprd04.prod.outlook.com (2603:10b6:408:d4::26)
+ by IA1PR12MB8554.namprd12.prod.outlook.com (2603:10b6:208:450::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Thu, 23 Mar
- 2023 02:21:14 +0000
-Received: from CYYPR12MB8655.namprd12.prod.outlook.com
- ([fe80::1530:61ba:3cae:667f]) by CYYPR12MB8655.namprd12.prod.outlook.com
- ([fe80::1530:61ba:3cae:667f%9]) with mapi id 15.20.6178.038; Thu, 23 Mar 2023
- 02:21:13 +0000
-From: "Yuan, Perry" <Perry.Yuan@amd.com>
-To: "Yang, WenYou" <WenYou.Yang@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Subject: RE: [Resend PATCH v1 3/3] drm/amd/pm: vangogh: support to send SMT
- enable message
-Thread-Topic: [Resend PATCH v1 3/3] drm/amd/pm: vangogh: support to send SMT
- enable message
-Thread-Index: AQHZXJ7+B94h/6vSLEOceHAmhi0pDa8HoZPQ
-Date: Thu, 23 Mar 2023 02:21:13 +0000
-Message-ID: <CYYPR12MB86553BBA21040265D522C86E9C879@CYYPR12MB8655.namprd12.prod.outlook.com>
-References: <20230322091607.1609145-1-WenYou.Yang@amd.com>
- <20230322091607.1609145-4-WenYou.Yang@amd.com>
-In-Reply-To: <20230322091607.1609145-4-WenYou.Yang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-03-23T02:21:08Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=f0678d47-4b0c-4bb3-8e58-aa854d3951d9;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2023-03-23T02:21:08Z
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: fc5c2792-a92f-4f12-9b38-ba8461d562bc
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CYYPR12MB8655:EE_|IA1PR12MB9030:EE_
-x-ms-office365-filtering-correlation-id: d26775f4-8779-4a09-c844-08db2b454629
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: PbgV1JwIRu4QHzoCp0c98/OC04NLfnWQ+CxS+9t05jVXwHlmAWLgP3mJv5HB+XGb98atTw3boHG2Sd243FHGTnvuClc6bHVcdm3sN3msIMzb+XTU1q/z+Is2D0t28J261pA05kHcDygbzvn4xEziWcaM5ljWg+BsegSmVXJFMEgjKt0sVSvpGAnoZVxYuiwWFx60hUSFlFJJzy8fICR0vrUc2yWc3EXfIq8YeHo0iRJR5otwvWFFX5Bcg9JAJTGALwx+Urd87GpKwX+wTU+uC0v847KlhIIDxGhwJYOYQzRPsoxWm2TEcKtIVrf3fHsnPYKLs+nvt0yFQSKdk7Fn5tZqIqD1x0Elgxx876lgCr5WxrdDaLghFHtI/ikJGr6je3CQwa98tmxzmVUTlWYUz9yvEMiMa414PNh0dndTsm1cabZqA1yaC3jBpjcO/ykh4YX2haj9nkkE1DmnLMdsiNmU+cTWa2u4UfgzcNGJ6kApt/TnggKMjXt++N4YB8H/LdCQF9yB76JvV5CIAFG77qiy3wb2QLbssQVdv1yPR70IQLyNRBX+OwJ6FcwARoq+e4SY68aQq0z81i1m2n67HrK7pgJcfZb9+rWu7dLXGBbf0/6VsKDpdIGqTqQDWTsfcTqSH71Eqg5hhiLYa7DJ4H638g+Hx+Vstosd3hs0U0YHpgPhsqWujSf65paHIwtmnpljBchOnvoNmPKLass1Eg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CYYPR12MB8655.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(376002)(346002)(396003)(136003)(366004)(39860400002)(451199018)(186003)(6506007)(110136005)(66476007)(66446008)(478600001)(64756008)(8936002)(15650500001)(8676002)(66946007)(6636002)(54906003)(76116006)(52536014)(41300700001)(4326008)(86362001)(33656002)(38070700005)(7696005)(316002)(5660300002)(26005)(55016003)(122000001)(9686003)(53546011)(66556008)(2906002)(38100700002)(83380400001)(71200400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?0VjZnvRSJvCsLwUzdE8v//+52FjjbJOhY/4N+MU4qQECKRWpaPks47T3rPHt?=
- =?us-ascii?Q?qNBZ7yqeYhc4ZpjlN5EbvPmy8oNkiO6Fg+VqelD+cQzCdCVAdzJYTnH/+0nv?=
- =?us-ascii?Q?BMcZq23twOHMcUDVQWIa3yXxgGGwMIORfc/UyFngeMKriPcmDYlr/qcnTfaw?=
- =?us-ascii?Q?BlRx9DV+6G0q0J0hsPLRPxcler3YpXur/HpNQng7q80XBofeTVbUmUbbydak?=
- =?us-ascii?Q?XKC7N5KNva6qbRjvTYDqe8/E086xBvF0iGnPeYg57uyrWvjtH70gJFUVvaGJ?=
- =?us-ascii?Q?ZVsZkMf+hXHJUw0BMvvR2jMm2gE0Yv7NDTSJjml3EQUkjbw+OFi7+otgz425?=
- =?us-ascii?Q?a+CYyBvlFge7yoeTQ1Q7l7I5Ch+ZFAcYLzbhn5pPMSYowFpdBe3Rvh0ZRSlm?=
- =?us-ascii?Q?Lakw06vfpoEgnh6SuBD5F1x0XYyUZYjuhJ0aBErpEZNABaqGg5HnRt6TiLSr?=
- =?us-ascii?Q?q2dgVCmh1i/k/WF9jkcqjHhXjRaalaOBcxP8kYlYEH16WC7/w16HrhkRP0xh?=
- =?us-ascii?Q?lz50wIG4E1rgAy8EU4YP8BnFbrRFVN8kY8y/E+3djIDC6xkfo+emY/UXZh6R?=
- =?us-ascii?Q?5NmR3mY9EUFmdgHXYhPGPCtc+9nSYgQhj6+9zVwmZVM14fADBrP7Fhj7hj3m?=
- =?us-ascii?Q?blbn3G9rt8Wrb0BttLY4MR2LISg4CL51myTV0MBnbpV6ft4TVzf/eKxLGSiT?=
- =?us-ascii?Q?ua6QtMvcAqBG0EiMzhYAbtrvE3PUNdaVNNI5VrMbl2aQH76kJjPIYNhHpXmK?=
- =?us-ascii?Q?02FU8nIcHilXMLx5VBNAVy62h0RkXg4iIf5BCz/OdsQDdzXEpEwB+2aYGvg3?=
- =?us-ascii?Q?/9aSlIU7s/RbZF6DaCaaCx3uOJTDAgbvBDyn5FjveJRjXi0XlD16YEaJFGOM?=
- =?us-ascii?Q?8fWbVXS2VDY6gnVLCCvr8ZArAMKlmkPx7xWsPUgvOPVqO7PEYVHw1BjYIdNI?=
- =?us-ascii?Q?ADnVJGO37Ejkl65XXg3dlNsrMfFMKc8sPNvMmLgfAMW8jMoeTANPCa4KL4S8?=
- =?us-ascii?Q?iFZwS5/clmqFM6BF+Kt0qYJCD5myVyrkwXXy258e4CTpl58hXesZJuy5o1i/?=
- =?us-ascii?Q?z4KqbdldFnw5nUfj2nDMHiwfUWth6hpcGY5Qik83jP+eoVxhA8RuP60B17ok?=
- =?us-ascii?Q?mWFIMI3Ml1g0v0VkvZgaiUNKlF0Blj/lohEBTA5W3hPMbiZ8N1xzHKLeOWnD?=
- =?us-ascii?Q?zGYlY0ukWF9zgJi4m4/sh8xrjFGAjvFkIvOg7GKADVYswvq/2SW7TrQyq1Lf?=
- =?us-ascii?Q?iZjbPjC2C+fWWF+faOR8oAuzVmALd8CNhdBmVTu+qqt55YMjvGbtTuBPrlmR?=
- =?us-ascii?Q?BsY6Mk2+8mn8sypwgjn1VZIKXDpBt0qsazeuJfMYGlBNz215YOq5ukxVBIZ5?=
- =?us-ascii?Q?jYIfIsqGtoApLN6Dj+TVX/IT2NAOpTCk3zcz8GoUrvdiMsZck0HAsNq54g4z?=
- =?us-ascii?Q?2zZ503UzElHl8W8ORptr33BbDN5R2JEC5vY5rsKsAplQv6iBBA53lVyZnQjm?=
- =?us-ascii?Q?GXzGlp3NJuSkjiZjj125Hhe6jydWlTY5oFBylrv7LjrxXAaHAjXdrvQg7EjL?=
- =?us-ascii?Q?LYuzaiC/AKMVCEEnHtnD/IfPFU9Sh3fxm0CfoITQ?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 2023 02:24:01 +0000
+Received: from BN8NAM11FT073.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:d4:cafe::bf) by BN8PR04CA0052.outlook.office365.com
+ (2603:10b6:408:d4::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37 via Frontend
+ Transport; Thu, 23 Mar 2023 02:24:01 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT073.mail.protection.outlook.com (10.13.177.231) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6222.17 via Frontend Transport; Thu, 23 Mar 2023 02:24:01 +0000
+Received: from hawzhang-System-Product-Master.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.34; Wed, 22 Mar 2023 21:23:58 -0500
+From: Hawking Zhang <Hawking.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, Tao Zhou <tao.zhou1@amd.com>, "Stanley
+ Yang" <Stanley.Yang@amd.com>, Candice Li <Candice.Li@amd.com>, Thomas Chai
+ <YiPeng.Chai@amd.com>
+Subject: [PATCH] drm/amdgpu: Add fatal error handling in nbio v4_3
+Date: Thu, 23 Mar 2023 10:23:44 +0800
+Message-ID: <20230323022344.7533-1-Hawking.Zhang@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT073:EE_|IA1PR12MB8554:EE_
+X-MS-Office365-Filtering-Correlation-Id: 31e57a32-681a-4368-bc3f-08db2b45aa24
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: C01s7141TTdB2N0c0f+HvMADxVYcCNtswhd5G+5R5oJf4vdeR3wDnQhn99I3ZMGAGO/X8yDkpidOfeLWxokgsixSPE7TDuTR8omugVqqyErCpRLvGFSYjI24JhIt+YpH1ivJk+TOyUGx/VlnbVbWuChvpi8bYaRwrurnsWXYNPEy+4cOY88wC/n61MjCR8Yeh67AWaj5OrZo9ucYsdIEGt/rL6fHIRePCB77MtlROhNbMUZZ+On9f7qR79GLYXscwUEk0QtLPcrvRO6QAodRpNvkM3KbyuJL7vioiAzPKKd5bhTXwThQ6PpQPN0RZVnFpazXi1lnDPfxDNvaQEcu4EPl6nGuYw9t8wZU4yoqiSMlLAMqmINWTgHI0S+/M/AfgCnt63uuo4nI6g3w5r91j2dhYls6PM+k9JJ9NhnUrGZ2NtkbAfYAMi/BMSXbrAhSSwcQ8H92qZn1qjkxB9G/focuKemUirSM+nuyxYYRxmMqOpCYfibcYwD8uSF4rXDL5jM2RHX7laHD9EuArOQnaExs46pau2U6OI7/qQjqVoaEgHuLwYgSXiQXPxNQggf4ITnPqyZOyh45U8LUGO5gVNJBHSr5filQG/fXUq30mqvIM9Z8c7SpkcoY+yh9aoBtkMPqyuQys8ID167rlaJuxxeMuxcrygtuPuLnMWfknGs1pdmD2P+kua87Svymcbhf1m7pnQHEg2BK+QnlGuludp9w0ln/qW2mwDLnx6OQWvw=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(376002)(39860400002)(396003)(136003)(346002)(451199018)(36840700001)(46966006)(40470700004)(40460700003)(4326008)(86362001)(356005)(426003)(316002)(5660300002)(36756003)(478600001)(336012)(70586007)(110136005)(81166007)(8676002)(41300700001)(70206006)(6636002)(8936002)(2906002)(36860700001)(1076003)(83380400001)(82740400003)(40480700001)(16526019)(6666004)(26005)(186003)(47076005)(7696005)(2616005)(82310400005)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CYYPR12MB8655.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d26775f4-8779-4a09-c844-08db2b454629
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Mar 2023 02:21:13.2469 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: EWOAwSQFISHrolqIQSlLtlOUA3PmL/I0TSaVVrJgFKt0cVowL4JFB2/In8bnoG8Vfb8LmdM+jAQIOiZdEHr4YA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9030
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2023 02:24:01.0016 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 31e57a32-681a-4368-bc3f-08db2b45aa24
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT073.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8554
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,129 +98,190 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Yang, WenYou" <WenYou.Yang@amd.com>, "Li, Ying" <YING.LI@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Liang,
- Richard qi" <Richardqi.Liang@amd.com>, "Liu, Kun" <Kun.Liu2@amd.com>
+Cc: Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+GPU will stop working once fatal error is detected.
+it will inform driver to do reset to recover from
+the fatal error.
 
+Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 11 ++++
+ drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c  | 79 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/nbio_v4_3.h  |  1 +
+ drivers/gpu/drm/amd/amdgpu/soc21.c      | 15 ++++-
+ 4 files changed, 105 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index c6dc3cd2a9de..5b1779021881 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -34,6 +34,7 @@
+ #include "amdgpu_atomfirmware.h"
+ #include "amdgpu_xgmi.h"
+ #include "ivsrcid/nbio/irqsrcs_nbif_7_4.h"
++#include "nbio_v4_3.h"
+ #include "atom.h"
+ #include "amdgpu_reset.h"
+ 
+@@ -2562,6 +2563,16 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
+ 		if (!adev->gmc.xgmi.connected_to_cpu)
+ 			adev->nbio.ras = &nbio_v7_4_ras;
+ 		break;
++	case IP_VERSION(4, 3, 0):
++		if (adev->ras_hw_enabled | AMDGPU_RAS_BLOCK__DF)
++			/* unlike other generation of nbio ras,
++			 * nbio v4_3 only support fatal error interrupt
++			 * to inform software that DF is freezed due to
++			 * system fatal error event. driver should not
++			 * enable nbio ras in such case. Instead,
++			 * check DF RAS */
++			adev->nbio.ras = &nbio_v4_3_ras;
++		break;
+ 	default:
+ 		/* nbio ras is not available */
+ 		break;
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
+index 09fdcd20cb91..d5ed9e0e1a5f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
+@@ -26,6 +26,7 @@
+ 
+ #include "nbio/nbio_4_3_0_offset.h"
+ #include "nbio/nbio_4_3_0_sh_mask.h"
++#include "ivsrcid/nbio/irqsrcs_nbif_7_4.h"
+ #include <uapi/linux/kfd_ioctl.h>
+ 
+ static void nbio_v4_3_remap_hdp_registers(struct amdgpu_device *adev)
+@@ -538,3 +539,81 @@ const struct amdgpu_nbio_funcs nbio_v4_3_sriov_funcs = {
+ 	.remap_hdp_registers = nbio_v4_3_remap_hdp_registers,
+ 	.get_rom_offset = nbio_v4_3_get_rom_offset,
+ };
++
++static int nbio_v4_3_set_ras_err_event_athub_irq_state(struct amdgpu_device *adev,
++						       struct amdgpu_irq_src *src,
++						       unsigned type,
++						       enum amdgpu_interrupt_state state)
++{
++	/* The ras_controller_irq enablement should be done in psp bl when it
++	 * tries to enable ras feature. Driver only need to set the correct interrupt
++	 * vector for bare-metal and sriov use case respectively
++	 */
++	uint32_t bif_doorbell_int_cntl;
++
++	bif_doorbell_int_cntl = RREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL);
++	bif_doorbell_int_cntl = REG_SET_FIELD(bif_doorbell_int_cntl,
++					      BIF_BX0_BIF_DOORBELL_INT_CNTL,
++					      RAS_ATHUB_ERR_EVENT_INTERRUPT_DISABLE,
++					      (state == AMDGPU_IRQ_STATE_ENABLE) ? 0 : 1);
++	WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL, bif_doorbell_int_cntl);
++
++	return 0;
++}
++
++static int nbio_v4_3_process_err_event_athub_irq(struct amdgpu_device *adev,
++						 struct amdgpu_irq_src *source,
++						 struct amdgpu_iv_entry *entry)
++{
++	/* By design, the ih cookie for err_event_athub_irq should be written
++	 * to bif ring. since bif ring is not enabled, just leave process callback
++	 * as a dummy one.
++	 */
++	return 0;
++}
++
++static const struct amdgpu_irq_src_funcs nbio_v4_3_ras_err_event_athub_irq_funcs = {
++	.set = nbio_v4_3_set_ras_err_event_athub_irq_state,
++	.process = nbio_v4_3_process_err_event_athub_irq,
++};
++
++static void nbio_v4_3_handle_ras_err_event_athub_intr_no_bifring(struct amdgpu_device *adev)
++{
++	uint32_t bif_doorbell_int_cntl;
++
++	bif_doorbell_int_cntl = RREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL);
++	if (REG_GET_FIELD(bif_doorbell_int_cntl,
++			  BIF_DOORBELL_INT_CNTL,
++			  RAS_ATHUB_ERR_EVENT_INTERRUPT_STATUS)) {
++		/* driver has to clear the interrupt status when bif ring is disabled */
++		bif_doorbell_int_cntl = REG_SET_FIELD(bif_doorbell_int_cntl,
++						BIF_DOORBELL_INT_CNTL,
++						RAS_ATHUB_ERR_EVENT_INTERRUPT_CLEAR, 1);
++		WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL, bif_doorbell_int_cntl);
++		amdgpu_ras_global_ras_isr(adev);
++	}
++}
++
++static int nbio_v4_3_init_ras_err_event_athub_interrupt(struct amdgpu_device *adev)
++{
++
++	int r;
++
++	/* init the irq funcs */
++	adev->nbio.ras_err_event_athub_irq.funcs =
++		&nbio_v4_3_ras_err_event_athub_irq_funcs;
++	adev->nbio.ras_err_event_athub_irq.num_types = 1;
++
++	/* register ras err event athub interrupt
++	 * nbio v4_3 uses the same irq source as nbio v7_4 */
++	r = amdgpu_irq_add_id(adev, SOC21_IH_CLIENTID_BIF,
++			      NBIF_7_4__SRCID__ERREVENT_ATHUB_INTERRUPT,
++			      &adev->nbio.ras_err_event_athub_irq);
++
++	return r;
++}
++
++struct amdgpu_nbio_ras nbio_v4_3_ras = {
++	.handle_ras_err_event_athub_intr_no_bifring = nbio_v4_3_handle_ras_err_event_athub_intr_no_bifring,
++	.init_ras_err_event_athub_interrupt = nbio_v4_3_init_ras_err_event_athub_interrupt,
++};
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.h b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.h
+index 711999ceedf4..399037cdf4fb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.h
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.h
+@@ -29,5 +29,6 @@
+ extern const struct nbio_hdp_flush_reg nbio_v4_3_hdp_flush_reg;
+ extern const struct amdgpu_nbio_funcs nbio_v4_3_funcs;
+ extern const struct amdgpu_nbio_funcs nbio_v4_3_sriov_funcs;
++extern struct amdgpu_nbio_ras nbio_v4_3_ras;
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+index 67580761b44d..514bfc705d5a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc21.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+@@ -754,6 +754,14 @@ static int soc21_common_late_init(void *handle)
+ 							     sriov_vcn_4_0_0_video_codecs_decode_array_vcn0,
+ 							     ARRAY_SIZE(sriov_vcn_4_0_0_video_codecs_decode_array_vcn0));
+ 		}
++	} else {
++		if (adev->nbio.ras &&
++		    adev->nbio.ras_err_event_athub_irq.funcs)
++			/* don't need to fail gpu late init
++			 * if enabling athub_err_event interrupt failed
++			 * nbio v4_3 only support fatal error hanlding
++			 * just enable the interrupt directly */
++			amdgpu_irq_get(adev, &adev->nbio.ras_err_event_athub_irq, 0);
+ 	}
+ 
+ 	return 0;
+@@ -801,8 +809,13 @@ static int soc21_common_hw_fini(void *handle)
+ 	/* disable the doorbell aperture */
+ 	soc21_enable_doorbell_aperture(adev, false);
+ 
+-	if (amdgpu_sriov_vf(adev))
++	if (amdgpu_sriov_vf(adev)) {
+ 		xgpu_nv_mailbox_put_irq(adev);
++	} else {
++		if (adev->nbio.ras &&
++		    adev->nbio.ras_err_event_athub_irq.funcs)
++			amdgpu_irq_put(adev, &adev->nbio.ras_err_event_athub_irq, 0);
++	}
+ 
+ 	return 0;
+ }
+-- 
+2.17.1
 
-> -----Original Message-----
-> From: Wenyou Yang <WenYou.Yang@amd.com>
-> Sent: Wednesday, March 22, 2023 5:16 PM
-> To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>
-> Cc: Yuan, Perry <Perry.Yuan@amd.com>; Liang, Richard qi
-> <Richardqi.Liang@amd.com>; Li, Ying <YING.LI@amd.com>; Liu, Kun
-> <Kun.Liu2@amd.com>; amd-gfx@lists.freedesktop.org; Yang, WenYou
-> <WenYou.Yang@amd.com>
-> Subject: [Resend PATCH v1 3/3] drm/amd/pm: vangogh: support to send SMT
-> enable message
->=20
-> Add the support to PPSMC_MSG_SetCClkSMTEnable(0x58) message to pmfw for
-> vangogh.
->=20
-> Signed-off-by: Wenyou Yang <WenYou.Yang@amd.com>
-> ---
->  .../pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h    |  3 ++-
->  drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h  |  3 ++-
->   .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 19
-> +++++++++++++++++++
->  3 files changed, 23 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h
-> b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h
-> index 7471e2df2828..2b182dbc6f9c 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h
-> @@ -111,7 +111,8 @@
->  #define PPSMC_MSG_GetGfxOffStatus		       0x50
->  #define PPSMC_MSG_GetGfxOffEntryCount		       0x51
->  #define PPSMC_MSG_LogGfxOffResidency		       0x52
-> -#define PPSMC_Message_Count                            0x53
-> +#define PPSMC_MSG_SetCClkSMTEnable		       0x58
-> +#define PPSMC_Message_Count                            0x54
->=20
->  //Argument for PPSMC_MSG_GfxDeviceDriverReset  enum { diff --git
-> a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-> b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-> index 297b70b9388f..820812d910bf 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-> @@ -245,7 +245,8 @@
->  	__SMU_DUMMY_MAP(AllowGpo),	\
->  	__SMU_DUMMY_MAP(Mode2Reset),	\
->  	__SMU_DUMMY_MAP(RequestI2cTransaction), \
-> -	__SMU_DUMMY_MAP(GetMetricsTable),
-> +	__SMU_DUMMY_MAP(GetMetricsTable), \
-> +	__SMU_DUMMY_MAP(SetCClkSMTEnable),
->=20
->  #undef __SMU_DUMMY_MAP
->  #define __SMU_DUMMY_MAP(type)	SMU_MSG_##type
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> index 7433dcaa16e0..f0eeb42df96b 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> @@ -141,6 +141,7 @@ static struct cmn2asic_msg_mapping
-> vangogh_message_map[SMU_MSG_MAX_COUNT] =3D {
->  	MSG_MAP(GetGfxOffStatus,
-> PPSMC_MSG_GetGfxOffStatus,						0),
->  	MSG_MAP(GetGfxOffEntryCount,
-> PPSMC_MSG_GetGfxOffEntryCount,					0),
->  	MSG_MAP(LogGfxOffResidency,
-> PPSMC_MSG_LogGfxOffResidency,					0),
-> +	MSG_MAP(SetCClkSMTEnable,
-> PPSMC_MSG_SetCClkSMTEnable,
-> 	0),
->  };
->=20
->  static struct cmn2asic_mapping
-> vangogh_feature_mask_map[SMU_FEATURE_COUNT] =3D { @@ -2428,6
-> +2429,23 @@ static u32 vangogh_get_gfxoff_entrycount(struct smu_context
-> *smu, uint64_t *entr
->  	return ret;
->  }
->=20
-> +static int vangogh_set_cpu_smt_enable(struct smu_context *smu, bool
-> +enable) {
-> +	int ret =3D 0;
-> +
-> +	if (enable) {
-> +		ret =3D smu_cmn_send_smc_msg_with_param(smu,
-> +
-> SMU_MSG_SetCClkSMTEnable,
-> +						      1, NULL);
-> +	} else {
-> +		ret =3D smu_cmn_send_smc_msg_with_param(smu,
-> +
-> SMU_MSG_SetCClkSMTEnable,
-> +						      0, NULL);
-> +	}
-> +
-> +	return ret;
-> +}
-> +
->  static const struct pptable_funcs vangogh_ppt_funcs =3D {
->=20
->  	.check_fw_status =3D smu_v11_0_check_fw_status, @@ -2474,6 +2492,7
-> @@ static const struct pptable_funcs vangogh_ppt_funcs =3D {
->  	.get_power_limit =3D vangogh_get_power_limit,
->  	.set_power_limit =3D vangogh_set_power_limit,
->  	.get_vbios_bootup_values =3D smu_v11_0_get_vbios_bootup_values,
-> +	.set_cpu_smt_enable =3D vangogh_set_cpu_smt_enable,
-
-Maybe we can rename the function with cclk dpm string?=20
-For example,=20
-.set_cclk_pd_limit =3D vangogh_set_cpu_smt_enable,
-
-Perry.=20
-
->  };
->=20
->  void vangogh_set_ppt_funcs(struct smu_context *smu)
-> --
-> 2.39.2
