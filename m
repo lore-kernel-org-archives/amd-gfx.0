@@ -4,115 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC0A2C6FD1C
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Mar 2023 17:15:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B0FCC74A5B
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Mar 2023 17:41:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12C1110E0CA;
-	Thu, 23 Mar 2023 17:15:05 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2044.outbound.protection.outlook.com [40.107.96.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A248910E0CA
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Mar 2023 17:15:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26B1C10E0E6;
+	Thu, 23 Mar 2023 17:41:37 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C693D10E0E6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Mar 2023 17:41:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Bda3SH5wgq+bFsJ6n1yX9KPb/yRG9WzaP/dczuG9aaV78FElIH7JBnb1No/adDZ+dtq1K9G8EWwXt3DHp2GBLa98cGH60vTDxvsAtFzfogfzhU+y2WppoirBNC1VXjuJYUli/Fpj97uhXkR99jmw3BHwxRe6x34wek5nrLWGXhdzran60VU649SqFdiaU3CpLSyN1L9JNFu1blQCEbvsRKuOCZHTTXOZEPgF9deBArEqPXpW1aoiI+xR3qxlOR3Cj+uK0kP0/NqNRuVO2YUmd2Gvi03YhBYKVdljDg+ahANr6hBsDSXCJsUct6Lu4DrKsbN/VJy5z1avsNejpvUhcg==
+ b=OsVPAAmnAwMZx0Qc0HiOHIqqoW+OmG0KKWD20akf6Kabpl7i4FDeqEmTnSAjJZsJcuLchXz5cWQNKP6U+qhmJ/V1YcNdJBXpnP/Cve3KAFltGhpYv2XRkSgYencMe0gQNh56EqCdhm3aKTUa67p9Aix4gTIDEdV6uPe+LmF2sLSi+ToTfiz8s/xHhSlFJoiFKwf5M4G2M/LD5kX+XMnJdl2AdS8bzp2zhfMs0cybukLThGoRlFrA2cd38rq04xPm8yCIs8ylHM1T3YfC/c9GDshuXKlHiNC3dmT1pSNf931s1Fw2iZkFvEaUQRHVgNJWYfzlH5D+1BwqUjEnRUSWSQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RgSLDg3dmotMvdeyAwgZqzeJjuzuZzka8+DrrOdo8FQ=;
- b=FsC005CvZjeeDJxHon5uwkiw8eMSefat4crW+WmkGLfv9ASA8GMlX+dZQKPh4AEkEMZiu0VdZYFWE59zjMP4kz1TgnOsszViZWasv4nAhwlpxvMiwuAIgmAjPcavzbjWnVxUhb6rryJktQKrd+TWoMcQYKAJMZqLuMeknpxjLpOAFszLNGrO7BN9fpe99ZW9Lzc32sfEa6w4TfTIeMCWDeX7wHDxRl7QrB+z/dgUii4jwxKF7fQl1MkCZs1vpX8UO2dcp8f60CB8tER0MemM7uNt30Xg+Tz12vKoA4h6ygHR4wbK6/ut0puqjYpPzCMNfiqwmEW76zoh6cJ4wjuI6g==
+ bh=eGxngh5didm3Fri8TzIo1eOvH4/+HZ7IV8yye0rESD4=;
+ b=RbMmh66+jEMLAqFrq9P0bufQb/RNhXjb2o9q24nKPFYFRsOpK+2qLbByv66nmiFczt4wjIm8Deael08RlCN5xHQ9hjnBNRhYZlCr2+e44ab7l1rRGifIc14LTu2uVWd7iThc1el9iZNcBnAQFIJW1PYtrY36RdBkB6dijuv2n0WKwWuHrI7vL1RlTyz+cMLcFN56qxGjw73tjTH6yYRfuA/kWRmgles7PJExdWVVQT9pyoqc6Yerof6yq9XU0gzG4MP2nLWVRc9AhUQLAgOd1N4feGZbCqAjU7u5Fx0Fo8/1jOyX4pn3lYRw7NFQLeKXDARznVMr+sCY8z9ybjfs0g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RgSLDg3dmotMvdeyAwgZqzeJjuzuZzka8+DrrOdo8FQ=;
- b=Hc732Gpp5XQIq1FPEJJ5DwigO2B90uKvxAeiQ9XKMXZxvuFTsMb1doniNo7Rn//bnJmtdnAhDTTZHGKn3wzzZj9JNVZCrKswK0PMCuY22OJUVh/1FcHwbynikD8BKs32jVDNElMljzsGm/tiy4tpOD3zRg2Mxe62uvsw2BOklL8=
+ bh=eGxngh5didm3Fri8TzIo1eOvH4/+HZ7IV8yye0rESD4=;
+ b=pX7zqCMbWkHc5+Olr5N+Fx3RPyf2T3s7l5Wqnt1U51JC0XBvdWeHLhAq8ZpdTvyMNOCDKAu6dSB2yG2zu9Q85/FT5h8csoUBCSOHemfy1roRkRoRreqYH+zfXq0O7EaI18xSiyZYwW6+ySxaTXFyEdqf21qMhJsrWCtmOS1ELDo=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by CY5PR12MB6478.namprd12.prod.outlook.com (2603:10b6:930:35::19)
+ by LV2PR12MB5845.namprd12.prod.outlook.com (2603:10b6:408:176::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.27; Thu, 23 Mar
- 2023 17:14:58 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.38; Thu, 23 Mar
+ 2023 17:41:33 +0000
 Received: from MN0PR12MB6101.namprd12.prod.outlook.com
  ([fe80::a4e:62dd:d463:5614]) by MN0PR12MB6101.namprd12.prod.outlook.com
  ([fe80::a4e:62dd:d463:5614%9]) with mapi id 15.20.6178.038; Thu, 23 Mar 2023
- 17:14:58 +0000
-Message-ID: <bc2d087d-c627-fa0d-7b4e-da3b763f8cff@amd.com>
-Date: Thu, 23 Mar 2023 12:14:55 -0500
+ 17:41:33 +0000
+Message-ID: <2c8c7a2a-566d-22a7-dc9b-5e08fbaf726c@amd.com>
+Date: Thu, 23 Mar 2023 12:41:30 -0500
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
-Subject: Re: [v1,3/3] drm/amd/pm: vangogh: support to send SMT enable message
+Subject: Re: [v1,2/3] drm/amd/pm: send the SMT-enable message to pmfw
+Content-Language: en-US
 To: Wenyou Yang <WenYou.Yang@amd.com>, alexander.deucher@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com
-References: <20230322054808.1555230-4-WenYou.Yang@amd.com>
-Content-Language: en-US
+References: <20230322054808.1555230-3-WenYou.Yang@amd.com>
 From: "Limonciello, Mario" <mario.limonciello@amd.com>
-In-Reply-To: <20230322054808.1555230-4-WenYou.Yang@amd.com>
+In-Reply-To: <20230322054808.1555230-3-WenYou.Yang@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH0PR03CA0325.namprd03.prod.outlook.com
- (2603:10b6:610:118::31) To MN0PR12MB6101.namprd12.prod.outlook.com
+X-ClientProxiedBy: CH0PR03CA0053.namprd03.prod.outlook.com
+ (2603:10b6:610:b3::28) To MN0PR12MB6101.namprd12.prod.outlook.com
  (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|CY5PR12MB6478:EE_
-X-MS-Office365-Filtering-Correlation-Id: 47d724be-a117-40db-5e2b-08db2bc22101
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|LV2PR12MB5845:EE_
+X-MS-Office365-Filtering-Correlation-Id: fb62a018-ee05-48ae-e013-08db2bc5d7c3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zVLpbLkrGXLJeuX2T3a3EO4MweEZuwbqYIviNdgr+se5uJjJGs8EQcKfjjBHLi7ugqsw9E+jaIDA1HR5VsJeTq//GUgtGOpUIIK8jjtCll1dn+z6RBv/KYaXS55DCM+Q0VWo6Wi96xXGttRhCDi29PV0fwGFoYeIys4GK7vx2qNhUMWFCbJ06Csjv4DSlbKITiEbhpt6366ovr/D78fsw051/P78OjLFR0xNIM5DmcXZrh46ru8aiEambYTM4tMJsxEvRpa2bxQ2MuNPWrlx2r6sQdbCsb51KNlPbBA+p0cJl51vL4OOY+eM1bzAqW88h8gm3/JBfi2M+hdqD7JiHjMLZ85//DEaV/jT1fz2+3wBiDwn6AUQiH/9XsVi2yRW61lt1BLS1jsN28eMEdDaH+n4ibrP7ZrnB68xbAFqWPqclspHGuy/tFbjW7bGVRHmgE6yoXSCb4Us/wF+ePERb6NowojVUR1GKTtKi7YX7NIx7wJS833NYd7pbr8+L7Wph4wNR/L0z2xUq6T6K+GBmRiOVuSAHOOJM5W9zr0mw1/h7WuDXJ6KFGrtaAojNZrsraXf4SMRLDAYb/RddSsXkVwAZySuGdOjlfEAEzQVh0MhYVSutZavO/3a/dpifHvW5PHePR+bjJh2dFJqT8mqDrBPoiF1T8hNLB68Zm3q6pdvcZVKTC+xLBErceGVaihL8SHXSmSE8Ul7gT96Vdh0iAgkoaW5IRE5cVZ3ftvcmxI=
+X-Microsoft-Antispam-Message-Info: OAu/8+vK8nMLJMWIG+w8J83pdskiHfTjzYad2d0U0cS0dX1ibPgYofY6bu9IQBa9rw9qlZgv1uj53uHj+Y5ECoipidHNmzueKpUw1idjsuz18ulUGsk2oApcQk6M3bsS8MWmG/Q88Q6Uv6SHA13lGv0yhvwFKZ48OJU8fOzNGKdC5XXRg84/usRoTC6IXiQ+sdj7ZVDPkA4FeFYWJ+tV1tfNBVjYUbyfBZIpFiex0rpg/285IS0f8m/4OAlt4MldAfEvrOBrdmu2BS20+1zno8Nqw+SuC3kLvx9CuXZALtEsrJfxj6Yc0lX71AAgHNJk4zShJm+IJ84jSjp+zmBOA/iuHZ/KvJ2/Z4Wr/D8kZ2+Ey4hHA0ENCwSVc9zCg6FDwU3FX5aG7MYVhm2k4MmgaI8EXSdHTveSdmUKEDnFo26j45u6mhkBBsAQ+jyboQ8iFRtY1ATvDs+A89cFuXLH43FB0Q9fMjwmaZcgpXXXv5UVReawGsxVigPGiZdi6lWg7NwUTyVhm+G6rFoNMiGEZJurAj8OsH2fTUUbzsq8Lkxok2uU2RBGHl1EM8+nqVkfiUWau0Mq1EF+4c+0Be1Y7xZAleit+uMkbzkmLiLH2Xa+uBbfx5MenmOxNgRKvFDuAPQ8AGVX4BMvlhpPqupNCmXrTc40C1m+OzwXPULZJxpcL5RZosVXQUwAlRlcXooJ6ZzCn95iJ4SR7Ibe+2Ty5/qoCeoPAA8eeEz3+ODfprg=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(346002)(376002)(136003)(366004)(39860400002)(396003)(451199018)(8936002)(5660300002)(2906002)(4326008)(8676002)(15650500001)(66946007)(316002)(31686004)(6636002)(478600001)(66476007)(6666004)(6512007)(53546011)(6506007)(6486002)(26005)(66556008)(2616005)(41300700001)(83380400001)(36756003)(186003)(86362001)(38100700002)(31696002)(43740500002)(45980500001);
+ SFS:(13230025)(4636009)(396003)(346002)(39860400002)(366004)(376002)(136003)(451199018)(6486002)(36756003)(6512007)(6506007)(53546011)(26005)(83380400001)(5660300002)(8936002)(2906002)(2616005)(38100700002)(15650500001)(31686004)(316002)(478600001)(6636002)(86362001)(31696002)(41300700001)(66556008)(66476007)(8676002)(66946007)(186003)(4326008)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VmgrRGRqZDFsa2NURnNES3BOeUk3QXBRbUhpVXpHMWd5N1lEanJkU0p1MWlp?=
- =?utf-8?B?VGFxVWE2Wk9vTVBRQ3RTR2xBcXRnSmgzRkhqcHV3OStlenB2eTRKTG03Y2ln?=
- =?utf-8?B?aHBYbkxpYVZNZk1raEQwSGg2bDFaQW5FbjBnM0o2RWY5d1pWdXZ3ZGVYNXNO?=
- =?utf-8?B?SWE3djA4WDc3dTI4d2wwMzUrVTVzbHM4eXYxS1FzQmtXNHN6ZXQxN0hDYnVY?=
- =?utf-8?B?SENGcFJqeFZsYWdCRHg5cURheUZZeWMyQTFRK3QyTzh4dnhYRC9VKzgwVVov?=
- =?utf-8?B?RkFiSjJ3RS9oODdZa09ISmc1Ly8xZ2pqdnh3WTR0Q2RzZE1SenUxVGpRTTNV?=
- =?utf-8?B?ZUc2Z2JieXBvaytCdngzK1ZvYVdXb3hRazVYbG0vTGY3MzVsVGlwcUVvbjZF?=
- =?utf-8?B?ZlQ5WjU4SjR1TFZ1MENmZ3EzT0tQTlFJem0wSXJJUFc0L3JzbmNUdnd0OXdX?=
- =?utf-8?B?MXVLQi9BSkQ5Nm5DSlFNZmVndFlIS3FodkxaeVpxWXBZTW5vYWhsUGkzZC91?=
- =?utf-8?B?NFhyaExVTUduWmxLNXptU1JRd2JYKzhxSUFNZjNOUXo5L1Z5dFRDM0NyZERU?=
- =?utf-8?B?cGIzM0s1YkVpc0VHcmQ2VTVseWF0Skh6UEpoMHNrSWtuUWhYWGtqNE90MVIv?=
- =?utf-8?B?ajhZTzlUTlVBaXkrU0hCWnNxMVBudEkyMXJWYVZsVmdQb3k3M0hSRFUySy9o?=
- =?utf-8?B?MUxyaklrZERmTzA5SHlwSjl4Zk4zYmt2VkRWVjRZZUJZUVA4L04rUXF0RU1I?=
- =?utf-8?B?UlVoSzJFMVo2U3BxU3YxWTRaMzFEclJQTElJV3JXSjhJUUowMkFQbDQxeTlx?=
- =?utf-8?B?WVR1b1M0OWYxY2tKL00zVHZ5SW9zQVRRT1M2bnBOaE9vckp1Z0gzNDlYelI1?=
- =?utf-8?B?NHU3d0RaQS9PWlZIN1RJeGFzd1dSc2t1QVMraUZoSUpaKzArTWxaR0xmblNp?=
- =?utf-8?B?ZWZYT3hvKzV2cVpkVW14MXNoN2pDN2loczRiNkFMbGRGZ3VaWlcrRGVpU0xF?=
- =?utf-8?B?WkQrZ0ZHbmNWaTZaUDdSRFZkdEoySVdzRXA1TFo4QU5sMkdJL2FSR1RJdkZL?=
- =?utf-8?B?SHlFUUFkakhvOTllL2tQR2FtM2JzdU1CZXNTaHlXVHRtRlgzTFAxcjdITWM0?=
- =?utf-8?B?ckNpZFNPM2hCTXhhWVcwS3FpRW9NeUtYdWR4aXNtMmxlMWF4dkRWVUlibXZ5?=
- =?utf-8?B?QUZGU0ZhRDg0K2hNamtyUFVnV0k1M0ZmaUNFUjVJdWhWOEljVG9KRElmamNa?=
- =?utf-8?B?dk5tT1hUN1A0NFNZdEw4ZC9RemNGMUJoVWg4SGxyT3A0d1hSOWIyZFJDeDRz?=
- =?utf-8?B?a2dmaEh4bVlQZW9yN3ZOR3M4c1dkMWRNTGZSRjQ1R1p0bVh4THdqQUR1dDZj?=
- =?utf-8?B?QkQ5T203ejYvTGZwdGxmZlM3bHhLRmlCdHpiU1BycGZ5Q0xqZzVGQ1NHN2Uy?=
- =?utf-8?B?OHF6cEVDY1pCZWdrVEN2VGFGalN0aVFyK1ovVkRhZEI2aTVpVWg2NytsaS9Z?=
- =?utf-8?B?QmE3dFFXczdqVXlSSWp6bjlER05zbkZkMnM0WURUOU5TWUU2QXliVGFOWnpk?=
- =?utf-8?B?cDE3K1R5WTZ4TkIwOFR1VkJ0TmNXTkhRakl6K2Zmc0FWSmorRHpNRXZNTVY0?=
- =?utf-8?B?QmY4cUVIRGdjMWxFVi9rNEdLcmVlSTBVYmJBS1lwL01NSHlONmtSeFczT0E5?=
- =?utf-8?B?NklBZjUxaDQ4ejQwK1U0Y2NTVkR4Mnk0cGpuK1Ava0VSM2JEU2xMbWtCUjcv?=
- =?utf-8?B?OUZZU20zTEg4WjJ3Y2lkQk1LblJZVy9HanE1UjNlbUsyVXlUYVcwUUt6UURx?=
- =?utf-8?B?S2NaeUV0R251ek0zTGdHVkZrcUdqUEVGTXlGTG0yNGFsem5mR1BrR0k5YzJj?=
- =?utf-8?B?RDNvWkhlWHQvOWo2Ym9BdzNGZEptaUVJL0x0UlltSlBNQzY0NEwxMm5taWN0?=
- =?utf-8?B?K1RQKytwTFVPcjY4Z3JHMnBST1FQRnpDaXgxT2lEQWg3WWJWZGFFd1JGc0Iv?=
- =?utf-8?B?Z1FSWW44bVJHVXBnUWZ3N1NJcUpvQjN4d0dFeHorY2JkMFJoY2JGQWJ6VVhq?=
- =?utf-8?B?Ymo5Z0puUmpLWEVVWkEwUGtXK0lNR1JIeWxjc1ZWL1NBeUVDS05IMXNSbGE5?=
- =?utf-8?Q?01FbYUm0KidrLKczsOgIurLsN?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RS9sQWwrVlV6Ym1nQlczbDIrQVk3TUtXVXhaUlA2VTVWU2d2UjdyK2NiUHNS?=
+ =?utf-8?B?TWJhTXlMZkN3OXR2aVRvNEx0YXlRQS8wcFR1cXg2bmpodzNDT0NKVXdlY2I4?=
+ =?utf-8?B?b0V1N0pnU2lKUUNWSUw1K1JUc1BydkVQeEFwWTZnbFRoUjB4dTdoQ01FV2hC?=
+ =?utf-8?B?cUhrVDg1bENJbzFma0pZdWV1TjRXQ1VHcGl3WXV6MkNXY0dzUHVyVTZzQVVp?=
+ =?utf-8?B?VnlrSjExckJ5bHNkcDRITmJOWlZ3djVGMWNHME5YM1dhQkpTYnNxOVlMZG1I?=
+ =?utf-8?B?blVRS0YxdkpEN25jK2kvOVdSdW9QVWF2OHdRL2tYelBLUEtHZ2Urd0J3Y3Jq?=
+ =?utf-8?B?bHF2d0swMXcvNHB2eUxDUUMrZ2lESjJQNlJIU3NIQ2FFLzVvalRsK3oyVVRE?=
+ =?utf-8?B?YW5QUjNocDdyc0c3T2VTRFZIZ2FvaEFVYUNKOWVFVEZtM1h0WVRqdUp3a1gw?=
+ =?utf-8?B?S2VSU1ZWbnk2bVQ0OFBoRUsrV3JJUE43TE94MnV3SndFVksxSGdhNUlvS2Vz?=
+ =?utf-8?B?eUxUTEdJYjJlSk5xMmU5ZzlxM1l5TmU5L2lTNXFyNHhidFV1YlpTTE1pNTZy?=
+ =?utf-8?B?R3FIZmhseGF5bGZKSTYzUyt1OG1sdjlaSEJ1Mk80bkF0YTFQV2h6cVJFcHdx?=
+ =?utf-8?B?STNNQk8wNzhBK25wR2xON2szVEJyV1V5bVZtTlhhTlF0ZEJTN2dXMEdDdXpP?=
+ =?utf-8?B?ZFpMemVwYUJJWS9TOWlpYVFjNGR1aHFDMk43TUJKVzQwWFE4TnpEN25GY1l3?=
+ =?utf-8?B?QkdPUm9meWZGdXJMZzVzaEVhK1lHVVVxSlhmcHFveDRQWlA3WkU4QnFtWWEr?=
+ =?utf-8?B?bVVVSG96YlIyL0pjSmVsZWVUMVhHMDUzQ0JsTmJja2RZcGdweVRnZldmblZT?=
+ =?utf-8?B?U0hMWGM5QUdWdW9tZjZiM3hNcnJna2Q5SVlZa3R0RkYvUVJyZnNiOTZ5SC8x?=
+ =?utf-8?B?R2pKcmVGQ3ROMWtYdlNhS2NpZUZiUXFhOUI4NGRMNHpLV2pyRElUZDN1YTEy?=
+ =?utf-8?B?N0IvcCtqcktUcVJnbDY1RXU0NGZuekU4Z3M0aHdqV2lBWEI3K1AyRVVpWEdK?=
+ =?utf-8?B?YW1UNXM0aGJZZGs0STN0TFo5QndaYndrV09QWHJPM0F3KytNOEtZVjFyRUkr?=
+ =?utf-8?B?Q2x4RURFc3RkRlBpUW4xMlYxRG8yU1BtM2Q4UDQ5WlcvSTZzd21uZ2NNd3JQ?=
+ =?utf-8?B?YmcycmlnOWJXZlVXemkxZTlrR1g0ckw5QkVRQzZITzlJUlNoR1Iwb2dGeVZZ?=
+ =?utf-8?B?bGR4WlZLNkpZcGQyQ05qSURsV3l5aFdNMjgvWjE1Y3ZHUFZMQm1ha2VTQXhy?=
+ =?utf-8?B?a2xNR1lGbzB6S2NtLzg0Vkt3cGNOR0gzWVdsNkNYVzBFdEZnWms4U2QzVWlI?=
+ =?utf-8?B?cS91VThGNEorY2duRkdzaXZhYzJzeWJBV0ppM3lWOHVQUGgwbUI2QTZLM1h6?=
+ =?utf-8?B?bWI0bklBMXlpWkxXZjA5K01zeVk3OFRPSGtUZDJ3eXkxSjAwcERRYTQ5eHdN?=
+ =?utf-8?B?K2VMeUlVZkFySG5uZlpKSjE4by96TVNLZ0ZFRHpRQnJBU0tPaS9KaFZ1eGw0?=
+ =?utf-8?B?OUVHMWIwWktxNXdndTZ4eFNQQllPdmMweExqcUJDTnBpSFZFRkszSklXS2l5?=
+ =?utf-8?B?UVhWVGw2U3RYdGdlVXB4QWY1L24waVoybnQrQWNWRytHcHVwVlptQ1Z2QXdz?=
+ =?utf-8?B?NFpDRDJ0RStNY3JUeHJEVDNhV1h1VDYxdUhsRDdidmpnWEJQV3RMNG9Kd2Fp?=
+ =?utf-8?B?WmhHNytmM2ZUd09HWFpjNDRNR3NrZk5uSHRRVE1zK0tyTnlSK2dYS3g4VG9U?=
+ =?utf-8?B?Q25WSXdnVVZZNmYwODFoYStxSTJTdFVORkZZNS9yNEtxV0I0N3owZmlvd2o0?=
+ =?utf-8?B?ZVp6TytvYVM1YWJ3Y0hWTDdFNERLZ1o3cVlCQzVCb1VlZHlnMkMvTk5mTmpi?=
+ =?utf-8?B?TDdia1IvdnhLOVlzQUYyRUpLbm9GWlBicGRQUWlQdEwvd29IVS85WkZvd3Qr?=
+ =?utf-8?B?NURjL2VZNzBUclZBT3Q1OWJTdStyM1lzdDhhSWltS2pJT054Rm41WUIrb052?=
+ =?utf-8?B?cHN6SEZUZVAzV0RZZm42ZStPNHVKNmlFRGNVNk53aUFBQUNhWVorN2hhMWR6?=
+ =?utf-8?Q?FRweKhEV8B5gn2iJKuO4LaWhT?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 47d724be-a117-40db-5e2b-08db2bc22101
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb62a018-ee05-48ae-e013-08db2bc5d7c3
 X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2023 17:14:58.2319 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2023 17:41:33.3109 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5w2CuHoNWfvCyX/7OuQnNfsva1teRRfXLlnTqIE7dsJr2ktMbr61kzGkilXq829ud9x9yPpi0vu5ad0+wmyy8g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6478
+X-MS-Exchange-CrossTenant-UserPrincipalName: A2CsGMBKsyCiNTBTENaMnE+aK70aUciZkMIYC6wcP1GCVc/Lu784/asd1pmFTfJ9bEvw273Vrr2G9QZpLhfl2A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5845
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,92 +130,136 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 3/22/2023 00:48, Wenyou Yang wrote:
-> Add the support to PPSMC_MSG_SetCClkSMTEnable(0x58) message to pmfw
-> for vangogh.
+> When the CPU SMT status change in the fly, sent the SMT-enable
+> message to pmfw to notify it that the SMT status changed.
 > 
 > Signed-off-by: Wenyou Yang <WenYou.Yang@amd.com>
 > ---
->   .../pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h    |  3 ++-
->   drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h  |  3 ++-
->   .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 19 +++++++++++++++++++
->   3 files changed, 23 insertions(+), 2 deletions(-)
+>   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 41 +++++++++++++++++++
+>   drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  5 +++
+>   2 files changed, 46 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h
-> index 7471e2df2828..2b182dbc6f9c 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h
-> @@ -111,7 +111,8 @@
->   #define PPSMC_MSG_GetGfxOffStatus		       0x50
->   #define PPSMC_MSG_GetGfxOffEntryCount		       0x51
->   #define PPSMC_MSG_LogGfxOffResidency		       0x52
-> -#define PPSMC_Message_Count                            0x53
-> +#define PPSMC_MSG_SetCClkSMTEnable		       0x58
-> +#define PPSMC_Message_Count                            0x54
-
-This doesn't make sense that the PPSMC_Message_Count would be smaller 
-than the biggest message.  This should be:
-
-#define PPSMC_Message_Count 0x59
-
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index b5d64749990e..5cd85a9d149d 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -22,6 +22,7 @@
 >   
->   //Argument for PPSMC_MSG_GfxDeviceDriverReset
->   enum {
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-> index 297b70b9388f..820812d910bf 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-> @@ -245,7 +245,8 @@
->   	__SMU_DUMMY_MAP(AllowGpo),	\
->   	__SMU_DUMMY_MAP(Mode2Reset),	\
->   	__SMU_DUMMY_MAP(RequestI2cTransaction), \
-> -	__SMU_DUMMY_MAP(GetMetricsTable),
-> +	__SMU_DUMMY_MAP(GetMetricsTable), \
-> +	__SMU_DUMMY_MAP(SetCClkSMTEnable),
+>   #define SWSMU_CODE_LAYER_L1
 >   
->   #undef __SMU_DUMMY_MAP
->   #define __SMU_DUMMY_MAP(type)	SMU_MSG_##type
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> index 7433dcaa16e0..f0eeb42df96b 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> @@ -141,6 +141,7 @@ static struct cmn2asic_msg_mapping vangogh_message_map[SMU_MSG_MAX_COUNT] = {
->   	MSG_MAP(GetGfxOffStatus,		    PPSMC_MSG_GetGfxOffStatus,						0),
->   	MSG_MAP(GetGfxOffEntryCount,		    PPSMC_MSG_GetGfxOffEntryCount,					0),
->   	MSG_MAP(LogGfxOffResidency,		    PPSMC_MSG_LogGfxOffResidency,					0),
-> +	MSG_MAP(SetCClkSMTEnable,		    PPSMC_MSG_SetCClkSMTEnable,						0),
->   };
+> +#include <linux/cpu.h>
+>   #include <linux/firmware.h>
+>   #include <linux/pci.h>
 >   
->   static struct cmn2asic_mapping vangogh_feature_mask_map[SMU_FEATURE_COUNT] = {
-> @@ -2428,6 +2429,23 @@ static u32 vangogh_get_gfxoff_entrycount(struct smu_context *smu, uint64_t *entr
->   	return ret;
+> @@ -69,6 +70,14 @@ static int smu_set_fan_speed_rpm(void *handle, uint32_t speed);
+>   static int smu_set_gfx_cgpg(struct smu_context *smu, bool enabled);
+>   static int smu_set_mp1_state(void *handle, enum pp_mp1_state mp1_state);
+>   
+> +static int smt_notifier_callback(struct notifier_block *nb, unsigned long action, void *data);
+> +
+> +extern struct raw_notifier_head smt_notifier_head;
+> +
+> +static struct notifier_block smt_notifier = {
+> +	.notifier_call = smt_notifier_callback,
+> +};
+> +
+>   static int smu_sys_get_pp_feature_mask(void *handle,
+>   				       char *buf)
+>   {
+> @@ -625,6 +634,8 @@ static int smu_set_funcs(struct amdgpu_device *adev)
+>   	return 0;
 >   }
 >   
-> +static int vangogh_set_cpu_smt_enable(struct smu_context *smu, bool enable)
-> +{
-> +	int ret = 0;
+> +static struct smu_context *current_smu;
 > +
-> +	if (enable) {
-> +		ret = smu_cmn_send_smc_msg_with_param(smu,
-> +						      SMU_MSG_SetCClkSMTEnable,
-> +						      1, NULL);
-> +	} else {
-> +		ret = smu_cmn_send_smc_msg_with_param(smu,
-> +						      SMU_MSG_SetCClkSMTEnable,
-> +						      0, NULL);
-> +	}
+>   static int smu_early_init(void *handle)
+>   {
+>   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> @@ -645,6 +656,7 @@ static int smu_early_init(void *handle)
+>   	mutex_init(&smu->message_lock);
+>   
+>   	adev->powerplay.pp_handle = smu;
+> +	current_smu = smu;
+>   	adev->powerplay.pp_funcs = &swsmu_pm_funcs;
+>   
+>   	r = smu_set_funcs(adev);
+> @@ -1105,6 +1117,8 @@ static int smu_sw_init(void *handle)
+>   	if (!smu->ppt_funcs->get_fan_control_mode)
+>   		smu->adev->pm.no_fan = true;
+>   
+> +	raw_notifier_chain_register(&smt_notifier_head, &smt_notifier);
+> +
+>   	return 0;
+>   }
+>   
+> @@ -1122,6 +1136,8 @@ static int smu_sw_fini(void *handle)
+>   
+>   	smu_fini_microcode(smu);
+>   
+> +	raw_notifier_chain_unregister(&smt_notifier_head, &smt_notifier);
+> +
+>   	return 0;
+>   }
+>   
+> @@ -3241,3 +3257,28 @@ int smu_send_hbm_bad_channel_flag(struct smu_context *smu, uint32_t size)
+>   
+>   	return ret;
+>   }
+> +
+> +static int smu_set_cpu_smt_enable(struct smu_context *smu, bool enable)
+> +{
+> +	int ret = -EINVAL;
+> +
+> +	if (smu->ppt_funcs && smu->ppt_funcs->set_cpu_smt_enable)
+> +		ret = smu->ppt_funcs->set_cpu_smt_enable(smu, enable);
 > +
 > +	return ret;
 > +}
 > +
->   static const struct pptable_funcs vangogh_ppt_funcs = {
->   
->   	.check_fw_status = smu_v11_0_check_fw_status,
-> @@ -2474,6 +2492,7 @@ static const struct pptable_funcs vangogh_ppt_funcs = {
->   	.get_power_limit = vangogh_get_power_limit,
->   	.set_power_limit = vangogh_set_power_limit,
->   	.get_vbios_bootup_values = smu_v11_0_get_vbios_bootup_values,
-> +	.set_cpu_smt_enable = vangogh_set_cpu_smt_enable,
+> +static int smt_notifier_callback(struct notifier_block *nb,
+> +				 unsigned long action, void *data)
+> +{
+> +	struct smu_context *smu = current_smu;
+> +	int ret = NOTIFY_OK;
+
+This initialization is pointless, it's clobbered in the next line.
+
+> +
+> +	ret = (action == SMT_ENABLED) ?
+> +				smu_set_cpu_smt_enable(smu, true) :
+> +				smu_set_cpu_smt_enable(smu, false);
+
+How about this instead, it should be more readable:
+
+	ret = smu_set_cpu_smt_enable(smu, action == SMT_ENABLED);
+
+> +	if (ret)
+> +		ret = NOTIFY_BAD;
+> +
+> +	return ret;
+
+How about instead:
+
+	dev_dbg(adev->dev, "failed to %sable SMT: %d\n", action == SMT_ENABLED 
+? "en" : "dis", ret);
+
+	return ret ? NOTIFY_BAD : NOTIFY_OK;
+
+> +}
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> index 09469c750a96..7c6594bba796 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> @@ -1354,6 +1354,11 @@ struct pptable_funcs {
+>   	 * @init_pptable_microcode: Prepare the pptable microcode to upload via PSP
+>   	 */
+>   	int (*init_pptable_microcode)(struct smu_context *smu);
+> +
+> +	/**
+> +	 * @set_cpu_smt_enable: Set the CPU SMT status
+> +	 */
+> +	int (*set_cpu_smt_enable)(struct smu_context *smu, bool enable);
 >   };
 >   
->   void vangogh_set_ppt_funcs(struct smu_context *smu)
+>   typedef enum {
 
