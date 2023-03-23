@@ -4,49 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 826D7C6FD1C
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Mar 2023 21:34:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 469E2C74A5B
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Mar 2023 21:40:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0616C10E4A3;
-	Thu, 23 Mar 2023 21:34:49 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A19BC10E4A3
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Mar 2023 21:34:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679607287; x=1711143287;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=Vj88errHAqkc2MpwHVhcao8KxdNF/c5KYhxc9M4wdRg=;
- b=NLOcwkojp6Tqp1in5pshxOn+8bthGduxdmIzCjlSHtBvFTuyo0j2z0xe
- afOY9kFYlLWdNt0nIwGcgFlp89Or8naZj/u4eQKS3DDXjBMzowUlgC6Uj
- 9m0/HpUyu2Mjy2CDHqUD8tHrR5/5Hu6AqJgiQyOUwH4BB+EZMralHLoNP
- pnAV6ZvU8fRuU8ChO7T2bnvUOONV4QULkuakA8/keaOylgvSa3dwyvpav
- Iqhr8Nodhkknkd1Smuyi/Nn0XqPFsK3A7Xxr8WkeSmhGEoBFli07/QoVI
- ENJ4lczS8fhI3rPkzN8YAJZb8d+lfRnAKWas+5fLHDQH/HVl+oe1Qxsbh Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10658"; a="339661229"
-X-IronPort-AV: E=Sophos;i="5.98,286,1673942400"; d="scan'208";a="339661229"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2023 14:34:47 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10658"; a="684911011"
-X-IronPort-AV: E=Sophos;i="5.98,286,1673942400"; d="scan'208";a="684911011"
-Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
- by fmsmga007.fm.intel.com with ESMTP; 23 Mar 2023 14:34:45 -0700
-Received: from kbuild by b613635ddfff with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pfSa4-000Eii-1t;
- Thu, 23 Mar 2023 21:34:44 +0000
-Date: Fri, 24 Mar 2023 05:34:18 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 7c4a254d78f89546d0e74a40617ef24c6151c8d1
-Message-ID: <641cc5da.LRhzzaC4RvFK5EH/%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93E2210EB32;
+	Thu, 23 Mar 2023 21:40:53 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20626.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5b::626])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B127510EB32
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Mar 2023 21:40:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KLVRs5lfPXXESJm93CulZHiwSirT3nL/nUNmHtVgFRjU+WYhYp6WyWZiPEd3KgfLAk3QJVZk8gM2ej3pJESZnwZt2OokbJER6bsj8D32OvInPxP2v8UQh3Gr8YX5xcyYoBzf67cT0IQZ7Iuk6zKGuGE9AE4RydWqEmrXXfoZq5SdjPoTu+XQId49eZxMrNp5buB5JtsTE4P8/1T2O8Hp/ZldfMFFmp1FmGDYRwiTS2AhYVUmN/SJsd4eDKFITb9L/nzDOL2GYo61iAj+guBNqY+MF1Lr20FYT5nytyU8HlgBlWqmLupqHg3BtOdUIPnOPVtnGjvndFP7290zIHaW8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=d4kP9Y9mKdrtSqONAU7L0ozwTP9pEEY+utkuiCXvmTc=;
+ b=ajk5PG7FeLnS7nyxqe9386zgGL+jV7ZUYEv84bTohVjin0o1CZmSm4Kk0R0kMOU0wtidXPztvZ1wsrfSK7KU16Lo1WYnvTc2r2dhvJKwS/3832c3GBU9sCHx5vq7Ab3CuTs9+S0vfEzEgBmTR+z8MKa+GBVo3D7zZ37gu55uCNuhPYPzTO61qXSspG/12Wpr6zrJJGgm7CsTIsqHJ9XjHIL1rMsw/PNS+e3jhGtew/kzZZa6CYT5Lnv7zSmuApvY3sSil1uO+AJnG0A+gXa84qDNDEWUE36uz0aLA12Z1H4FwXsfDifCpXYLaAY27wz39kCSltPoxkSLCAHFK0lKjg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=d4kP9Y9mKdrtSqONAU7L0ozwTP9pEEY+utkuiCXvmTc=;
+ b=45aLVzpi1P9V5kzkE23lOgdbGmORQ2nA4QfJpnb5xGtz9h3n1hBPVgNqzx0J/UjFGwubTahksL7Tr8rG3cOlMu44Px7ANyoGwYL3K56kzESYkHG2a3sKKLlWhkH2mH5gzRWkm0jYAKuJClq/VvrQKUlyNf6ckqpf90jyO6Vg3Yw=
+Received: from DM6PR06CA0097.namprd06.prod.outlook.com (2603:10b6:5:336::30)
+ by DS0PR12MB8069.namprd12.prod.outlook.com (2603:10b6:8:f0::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6178.38; Thu, 23 Mar 2023 21:40:49 +0000
+Received: from DM6NAM11FT048.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:336:cafe::70) by DM6PR06CA0097.outlook.office365.com
+ (2603:10b6:5:336::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.38 via Frontend
+ Transport; Thu, 23 Mar 2023 21:40:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT048.mail.protection.outlook.com (10.13.173.114) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6222.17 via Frontend Transport; Thu, 23 Mar 2023 21:40:49 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 23 Mar
+ 2023 16:40:48 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH V3 00/13] Enable FW assisted shadowing for GFX11
+Date: Thu, 23 Mar 2023 17:40:21 -0400
+Message-ID: <20230323214034.1169310-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT048:EE_|DS0PR12MB8069:EE_
+X-MS-Office365-Filtering-Correlation-Id: 153d6f55-c371-4470-7864-08db2be74492
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 6h89nYu1kfUlZbohgb6CQ2XFY2JqAAhpBGwliVti1wS9H7vqFA0FhgwR1xF5evrmGpERryI4yb+y9y+Cu12ane6wcBZKEIFSsvNuBOrv7O8t82ihFArug4ehitzhyAF9SuSTHP+1RQ0q5AjmADDRuNQGVQeEj6tRgKVJ5W/7bBXtcKSoTmcqSLkcEEsgwN1ao5ROERHcSkSsRF8OBKVSrX9nfiMTddygCYR20cxLCykzaLWwyM7a6Ge38jMxmHPYFG5ckY1Lp/xHquZdscLNM45mA55M0cX6oNpCI+ypo8d1wdjBOcQRkohNHo2YsxO/DawYjlD+ABLjhp04O3JmnKAIIHQIKHX2HEUDW1rc/ZugsvhMgA/ePr8qm9k0vC6Ps9MSmtF2+yx5utrYhE8qrBnbH9loCsH3av9ZM86aOlVJD3rTQTQQJ/HGGpLK8JNVoczVNd3/fgFimvmKkhz42OH/RVHLkgRfwLaqnWByiojPmfKbb3T/gTeS0DqHF+r/nnaQLwyaRomjTGOzmggnnNQWf4LhjaXS41ecA9Y0fUepKJ6FXxzrPj/9DWc0nZZ+jtqL3LmHSAFoQivDQ6yCEVWfCr7jL9BdHaWcUqMRvsP6HegLotIhQ/WODY+Nu8lklFcAqmhcso9q0rN/T6aU24sT+TreOuL/KzIji9IdbqK5d/TjQPxcN5l/t41ldGSN
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230025)(4636009)(376002)(396003)(346002)(39860400002)(136003)(451199018)(46966006)(36840700001)(40470700004)(82740400003)(5660300002)(8936002)(81166007)(2906002)(41300700001)(36860700001)(86362001)(40480700001)(36756003)(82310400005)(40460700003)(356005)(7696005)(966005)(66574015)(47076005)(426003)(478600001)(83380400001)(336012)(2616005)(186003)(16526019)(6666004)(26005)(1076003)(70586007)(70206006)(6916009)(8676002)(4326008)(316002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2023 21:40:49.0165 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 153d6f55-c371-4470-7864-08db2be74492
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT048.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8069
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,170 +97,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linux Memory Management List <linux-mm@kvack.org>,
- linux-wireless@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- amd-gfx@lists.freedesktop.org, sound-open-firmware@alsa-project.org
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 7c4a254d78f89546d0e74a40617ef24c6151c8d1  Add linux-next specific files for 20230323
+This patch set allows for FW assisted shadowing on supported
+platforms.  A new enough CP FW is required.  This feature is
+required for mid command buffer preemption and proper SR-IOV
+support.  This also simplifies the UMDs by allowing persistent
+hardware state when the command submission executes.  UMDs
+that use this will have their state retained across command
+submissions.
 
-Error/Warning reports:
+The mesa MR to implement the user mode side of this is:
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/21986
 
-https://lore.kernel.org/oe-kbuild-all/202303161521.jbGbaFjJ-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202303231302.iY6qIfXA-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202303232154.aXOXAWhg-lkp@intel.com
+v2: Integrate feedback from V1.  UMDs now need to specify init_shadow
+    on first use.
+v3: Integrate feedback from V2.  Drop GDS query, move query into
+    dev info.  Add MQD dumping for debug.
 
-Error/Warning: (recently discovered and may have been fixed)
+Alex Deucher (11):
+  drm/amdgpu/gfx11: add FW version check for new CP GFX shadow feature
+  drm/amdgpu/gfx11: check the CP FW version CP GFX shadow support
+  drm/amdgpu/UAPI: add new CS chunk for GFX shadow buffers
+  drm/amdgpu: don't require a job for cond_exec and shadow
+  drm/amdgpu: add UAPI to query GFX shadow sizes
+  drm/amdgpu: add gfx shadow callback
+  drm/amdgpu: add get_gfx_shadow_info callback for gfx11
+  drm/amdgpu: add support for new GFX shadow size query
+  drm/amdgpu: bump driver version number for CP GFX shadow
+  drm/amdgpu: track MQD size for gfx and compute
+  drm/amdgpu: add debugfs interface for reading MQDs
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_validation.c:351:13: warning: variable 'bw_needed' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_validation.c:352:25: warning: variable 'link' set but not used [-Wunused-but-set-variable]
-drivers/net/wireless/legacy/ray_cs.c:628:17: warning: 'strncpy' specified bound 32 equals destination size [-Wstringop-truncation]
-gpio.c:(.init.text+0xec): undefined reference to `of_mm_gpiochip_add_data'
-include/linux/mmzone.h:1749:2: error: #error Allocator MAX_ORDER exceeds SECTION_SIZE
+Christian König (2):
+  drm/amdgpu: add gfx shadow CS IOCTL support
+  drm/amdgpu: add gfx11 emit shadow callback
 
-Unverified Error/Warning (likely false positive, please contact us if interested):
-
-drivers/soc/fsl/qe/tsa.c:140:26: sparse: sparse: incorrect type in argument 2 (different address spaces)
-drivers/soc/fsl/qe/tsa.c:150:27: sparse: sparse: incorrect type in argument 1 (different address spaces)
-mm/mmap.c:962 vma_merge() error: uninitialized symbol 'next'.
-sound/soc/sof/ipc4-pcm.c:391 sof_ipc4_pcm_dai_link_fixup_rate() error: uninitialized symbol 'be_rate'.
-sound/soc/sof/ipc4-topology.c:1132 ipc4_copier_set_capture_fmt() error: uninitialized symbol 'sample_valid_bits'.
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   `-- drivers-net-wireless-legacy-ray_cs.c:warning:strncpy-specified-bound-equals-destination-size
-|-- arm-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- i386-randconfig-m021
-|   `-- mm-mmap.c-vma_merge()-error:uninitialized-symbol-next-.
-|-- ia64-allmodconfig
-|   `-- drivers-net-wireless-legacy-ray_cs.c:warning:strncpy-specified-bound-equals-destination-size
-|-- loongarch-randconfig-r006-20230322
-|   `-- include-linux-mmzone.h:error:error-Allocator-MAX_ORDER-exceeds-SECTION_SIZE
-|-- m68k-randconfig-s041-20230323
-|   |-- drivers-soc-fsl-qe-tsa.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-const-noderef-__iomem-got-void-noderef-__iomem-addr
-|   `-- drivers-soc-fsl-qe-tsa.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-noderef-__iomem-got-void-noderef-__iomem-addr
-|-- microblaze-buildonly-randconfig-r003-20230323
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- powerpc-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- powerpc-randconfig-s041-20230322
-|   `-- gpio.c:(.init.text):undefined-reference-to-of_mm_gpiochip_add_data
-|-- s390-randconfig-m031-20230321
-|   |-- sound-soc-sof-ipc4-pcm.c-sof_ipc4_pcm_dai_link_fixup_rate()-error:uninitialized-symbol-be_rate-.
-|   `-- sound-soc-sof-ipc4-topology.c-ipc4_copier_set_capture_fmt()-error:uninitialized-symbol-sample_valid_bits-.
-`-- sparc-allyesconfig
-    `-- drivers-net-wireless-legacy-ray_cs.c:warning:strncpy-specified-bound-equals-destination-size
-
-elapsed time: 1022m
-
-configs tested: 95
-configs skipped: 4
-
-tested configs:
-alpha                            allyesconfig   gcc  
-alpha                               defconfig   gcc  
-alpha                randconfig-r026-20230322   gcc  
-arc                              allyesconfig   gcc  
-arc                                 defconfig   gcc  
-arc                  randconfig-r033-20230322   gcc  
-arc                  randconfig-r043-20230322   gcc  
-arm                              allmodconfig   gcc  
-arm                              allyesconfig   gcc  
-arm                                 defconfig   gcc  
-arm                  randconfig-r023-20230322   clang
-arm                  randconfig-r046-20230322   clang
-arm                         vf610m4_defconfig   gcc  
-arm64                            allyesconfig   gcc  
-arm64                               defconfig   gcc  
-csky                                defconfig   gcc  
-hexagon              randconfig-r041-20230322   clang
-hexagon              randconfig-r045-20230322   clang
-i386                             allyesconfig   gcc  
-i386                              debian-10.3   gcc  
-i386                                defconfig   gcc  
-i386                          randconfig-a001   gcc  
-i386                          randconfig-a002   clang
-i386                          randconfig-a003   gcc  
-i386                          randconfig-a004   clang
-i386                          randconfig-a005   gcc  
-i386                          randconfig-a006   clang
-i386                          randconfig-a011   clang
-i386                          randconfig-a012   gcc  
-i386                          randconfig-a013   clang
-i386                          randconfig-a014   gcc  
-i386                          randconfig-a015   clang
-i386                          randconfig-a016   gcc  
-ia64                             allmodconfig   gcc  
-ia64                                defconfig   gcc  
-ia64                 randconfig-r015-20230322   gcc  
-loongarch                        allmodconfig   gcc  
-loongarch                         allnoconfig   gcc  
-loongarch                           defconfig   gcc  
-loongarch            randconfig-r032-20230322   gcc  
-m68k                             allmodconfig   gcc  
-m68k                                defconfig   gcc  
-m68k                       m5208evb_defconfig   gcc  
-m68k                 randconfig-r012-20230322   gcc  
-mips                             allmodconfig   gcc  
-mips                             allyesconfig   gcc  
-mips                 randconfig-r021-20230322   clang
-nios2                               defconfig   gcc  
-nios2                randconfig-r016-20230322   gcc  
-openrisc             randconfig-r024-20230322   gcc  
-parisc                              defconfig   gcc  
-parisc               randconfig-r031-20230322   gcc  
-parisc               randconfig-r034-20230322   gcc  
-parisc64                            defconfig   gcc  
-powerpc                          allmodconfig   gcc  
-powerpc                           allnoconfig   gcc  
-powerpc                     mpc83xx_defconfig   gcc  
-powerpc                      obs600_defconfig   clang
-riscv                            allmodconfig   gcc  
-riscv                             allnoconfig   gcc  
-riscv                               defconfig   gcc  
-riscv                randconfig-r022-20230322   gcc  
-riscv                randconfig-r042-20230322   gcc  
-riscv                          rv32_defconfig   gcc  
-s390                             allmodconfig   gcc  
-s390                             allyesconfig   gcc  
-s390                                defconfig   gcc  
-s390                 randconfig-r014-20230322   gcc  
-s390                 randconfig-r035-20230322   clang
-s390                 randconfig-r044-20230322   gcc  
-sh                               allmodconfig   gcc  
-sparc                               defconfig   gcc  
-sparc                randconfig-r011-20230322   gcc  
-um                             i386_defconfig   gcc  
-um                           x86_64_defconfig   gcc  
-x86_64                            allnoconfig   gcc  
-x86_64                           allyesconfig   gcc  
-x86_64                              defconfig   gcc  
-x86_64                                  kexec   gcc  
-x86_64                        randconfig-a001   clang
-x86_64                        randconfig-a002   gcc  
-x86_64                        randconfig-a003   clang
-x86_64                        randconfig-a004   gcc  
-x86_64                        randconfig-a005   clang
-x86_64                        randconfig-a006   gcc  
-x86_64                        randconfig-a011   gcc  
-x86_64                        randconfig-a012   clang
-x86_64                        randconfig-a013   gcc  
-x86_64                        randconfig-a014   clang
-x86_64                        randconfig-a015   gcc  
-x86_64                        randconfig-a016   clang
-x86_64                               rhel-8.3   gcc  
-xtensa                  nommu_kc705_defconfig   gcc  
-xtensa               randconfig-r013-20230322   gcc  
-xtensa               randconfig-r025-20230322   gcc  
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c   | 26 +++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  |  3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c  |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h  | 12 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c   | 19 ++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.h  |  6 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c  | 14 +++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 60 +++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  4 ++
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c   | 72 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/nvd.h         |  5 +-
+ include/uapi/drm/amdgpu_drm.h            | 18 ++++++
+ 12 files changed, 236 insertions(+), 5 deletions(-)
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+2.39.2
+
