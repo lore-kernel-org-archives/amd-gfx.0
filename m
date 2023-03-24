@@ -4,71 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E1FCC6FD1C
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Mar 2023 17:10:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA7C7C6FD20
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Mar 2023 17:10:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A62FD10E52C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE46910EC11;
 	Fri, 24 Mar 2023 17:10:43 +0000 (UTC)
-X-Greylist: delayed 898 seconds by postgrey-1.36 at gabe;
- Fri, 24 Mar 2023 15:57:24 UTC
-Received: from mout.web.de (mout.web.de [212.227.17.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9942710E539;
- Fri, 24 Mar 2023 15:57:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de; s=s29768273;
- t=1679673443; i=markus.elfring@web.de;
- bh=FUV2j/mIf5N8XPN4ZSnuoAgV2XPJ4du/+8E5iOw21GE=;
- h=X-UI-Sender-Class:Date:Subject:From:To:Cc:References:In-Reply-To;
- b=MRTG2yiiPIeZ0dAeHXD7KP9nnTWn/5QH9MlAK4gXjX/SxExfTcLsFk+je+VSUBenw
- /VKLGLNAIabSXTcCOW05kjkuKxm9hhrVDIgk3i9b9RZljMP1sEG15r2koElK2zQDG0
- VbSbkwjM9vUGXH4vnk9vkxfdpiP2q7ospPxGDIoe44Yn19906iPD+sGdESIMjyOTtq
- tkGyKzmG/XGihNOo9aG4+orilof7GG48mN4US1B1Yx2ekGa/6E+N+s6iugmF4vPgfH
- xOylqt91KdlgA457HJTJMxnIgMVqALU12IKw77mdMGDLHZCzYLU9roSJnFy/ITZwiB
- AWJxtba4xjtKA==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from [192.168.178.21] ([94.31.81.83]) by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1N3Xnl-1qfR420z7z-010c9g; Fri, 24
- Mar 2023 16:42:21 +0100
-Message-ID: <ea0ff67b-3665-db82-9792-67a633ba07f5@web.de>
-Date: Fri, 24 Mar 2023 16:42:06 +0100
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CAF410E0DA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Mar 2023 14:05:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1679666702; x=1711202702;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=N3nImKI8eGuJ2BCUd714yeyqn0z1Xx7ywtWUfvVU6L4=;
+ b=A19669wGhgFeaOFI+ry517zYeB4pwZq0GqLM5jv9t41Y5GPtJdjRSJOX
+ RK5LajDRsjPNV4Qdk7FcPGo6tji6OTw4lgvPK5rlYi69IIQRum2vrzemH
+ Mg9o82HtRTjIKazC9BxXsA6LEVUGTB2kXtoWyJUf29HIDYWIf6AecylFv
+ RXahoiJ5vtcGRNH1x5XjYbUb4v6bw5xqt16FUkSBSBBO2oFf+DTEJMwY7
+ FcAIYL61vGCta+Jgo0zvtVVI6mFFP5KOz/CNaNvcuj+PNsdEr+iGmJBc9
+ 1H3Dsi4xIVYTUDxFDY2D4TQFHUX5b9H5H2vFete5s1OC0Bya67GzcdgTY Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10659"; a="426051923"
+X-IronPort-AV: E=Sophos;i="5.98,288,1673942400"; d="scan'208";a="426051923"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Mar 2023 07:05:01 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10659"; a="856865022"
+X-IronPort-AV: E=Sophos;i="5.98,288,1673942400"; d="scan'208";a="856865022"
+Received: from rosenbaf-mobl.ger.corp.intel.com (HELO [10.252.63.223])
+ ([10.252.63.223])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Mar 2023 07:04:58 -0700
+Message-ID: <fecbddb2-e729-f9db-8426-a598348e26db@linux.intel.com>
+Date: Fri, 24 Mar 2023 16:05:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: [PATCH resent] drm/amd/display: Fix exception handling in
- dm_validate_stream_and_context()
-From: Markus Elfring <Markus.Elfring@web.de>
-To: kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Hersen Wu <hersenxs.wu@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Roman Li <roman.li@amd.com>,
- Stylon Wang <stylon.wang@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>
-References: <f9303bdc-b1a7-be5e-56c6-dfa8232b8b55@web.de>
- <e6656c83-ee7a-a253-2028-109138779c94@web.de>
-Content-Language: en-GB
-In-Reply-To: <e6656c83-ee7a-a253-2028-109138779c94@web.de>
+ Firefox/102.0 Thunderbird/102.9.0
+Subject: Re: [linux-next:master] BUILD REGRESSION
+ 7c4a254d78f89546d0e74a40617ef24c6151c8d1
+Content-Language: en-US
+To: kernel test robot <lkp@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+References: <641cc5da.LRhzzaC4RvFK5EH/%lkp@intel.com>
+From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <641cc5da.LRhzzaC4RvFK5EH/%lkp@intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:wURbRRzJDKLNkPhJ1aQ657prHwMd7a6I/FrJ1on0Fmq6FFRpdPk
- 39ANyg6ItpDWjPmHE25D7kHn5uS5WBOmM+M25MDJ4dsJdV5ryq/ZfVUF6rHp1P9n75GTAKf
- CYfFUR0ZJpy+yFNqsWjzMgSSCB+YVB3TbiMZJNIJEeQAfeH3EhtZ+1817F7a9mxBnGJ1R/H
- PssPVlr9gm3S0yS//lpbg==
-UI-OutboundReport: notjunk:1;M01:P0:X3zg9xzqSPA=;6+mxuhJpaGRPm1k7txSJGyIF5eA
- VsWr57xlj/YSCtgBvkkbGLS84Qv4Z27XSaELZv25fB35BQqf0hFRMFlWYoJtfIWKk6cRtGbJc
- 9McmoBqDwlQt3pmq2JfwiHrLeMk3ZGdHIxtVH0LSNF3zRWsXrnt/9elNzqfPK6KUo3OVzIRHp
- gStp45IXyIIZoKIPGIA/gf7pE9MYna9+/nfAt8dUzW7m3jUZvw5y/XeURXQiZLKJbxmYYfqLJ
- rqxoAbD8Tivvlj6MItsxMc+iyyRCWn11rbiPn95uPs13kEAbbaOJLm1mNS+JAcdj90DWldOoY
- tyE1fMKvjFQ1ajoj+r9OuRBfd8Rwv6sVCrvQrGrESd1BPZ1V2iYuwVHEVdoBxIzjtcI91lGhL
- ifo5pEfkgBwQoSVKLrK4yNXmr566WWp9S/tojqhictw0ydEBljXxKF+b/fvgOHQf/yg9CBGwX
- 5Inrnod9AxUzhabNzA6gmjMs+pWMCqenr8qZlYWZQyZ1BRsBvN303G20LtMsYgn9SMG3/ieM7
- qwWGbVc8oTeLUMFkyQ8uS+jkr0Z4TtS6mUeMnXpwtDLwCRvvaf7GLsXduzgaUxkZLGGOFKZrr
- +LerawzPcifZ0KBdcPTOaR+gmtNCVl1rHRJ/VjropcY3Lp9THQcBx7oDqJrq4ghA9DJEbXvyI
- 2w+Pym1v+XDY2IduB9/QVpCE180yKZxOmWZxVIytZX2WQWtB5dmF36xeoOIIlIFdslBvFVjBy
- 8+x9LX2hZkoPJyutv2Zz9IetKnq79QXcTK3lYWkyS6Or2zd9/joV60Valw0aom1x4Gvj7kxV8
- bbxoMNxiYyTU9cFsuSiEhIPcAG0iG78P3syL3AW5xfQt6Ncwx1u2UpRpY/uzZbZW9UGp3H5IB
- ZFyRHykaI6IXFZyp4WkE5jGFfdhAlgv49iNJO71fEeiYK+IWkvaZXpL4x
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 24 Mar 2023 17:10:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,93 +63,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: LKML <linux-kernel@vger.kernel.org>, cocci@inria.fr
+Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>, linux-wireless@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ amd-gfx@lists.freedesktop.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ linuxppc-dev@lists.ozlabs.org, sound-open-firmware@alsa-project.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Date: Sat, 18 Mar 2023 16:21:32 +0100
+Hi,
 
-The label =E2=80=9Ccleanup=E2=80=9D was used to jump to another pointer ch=
-eck despite of
-the detail in the implementation of the function =E2=80=9Cdm_validate_stre=
-am_and_context=E2=80=9D
-that it was determined already that corresponding variables contained
-still null pointers.
+On 23/03/2023 23:34, kernel test robot wrote:
+> tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+> branch HEAD: 7c4a254d78f89546d0e74a40617ef24c6151c8d1  Add linux-next specific files for 20230323
+> 
+> Error/Warning reports:
+> 
+> https://lore.kernel.org/oe-kbuild-all/202303161521.jbGbaFjJ-lkp@intel.com
+> https://lore.kernel.org/oe-kbuild-all/202303231302.iY6qIfXA-lkp@intel.com
+> https://lore.kernel.org/oe-kbuild-all/202303232154.aXOXAWhg-lkp@intel.com
+> 
+> Error/Warning: (recently discovered and may have been fixed)
+> 
+> drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_validation.c:351:13: warning: variable 'bw_needed' set but not used [-Wunused-but-set-variable]
+> drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_validation.c:352:25: warning: variable 'link' set but not used [-Wunused-but-set-variable]
+> drivers/net/wireless/legacy/ray_cs.c:628:17: warning: 'strncpy' specified bound 32 equals destination size [-Wstringop-truncation]
+> gpio.c:(.init.text+0xec): undefined reference to `of_mm_gpiochip_add_data'
+> include/linux/mmzone.h:1749:2: error: #error Allocator MAX_ORDER exceeds SECTION_SIZE
+> 
+> Unverified Error/Warning (likely false positive, please contact us if interested):
 
-1. Thus return directly if
-   * a null pointer was passed for the function parameter =E2=80=9Cstream=
-=E2=80=9D
-     or
-   * a call of the function =E2=80=9Cdc_create_plane_state=E2=80=9D failed=
-.
+...
 
-2. Use a more appropriate label instead.
+> sound/soc/sof/ipc4-pcm.c:391 sof_ipc4_pcm_dai_link_fixup_rate() error: uninitialized symbol 'be_rate'.
+> sound/soc/sof/ipc4-topology.c:1132 ipc4_copier_set_capture_fmt() error: uninitialized symbol 'sample_valid_bits'.
 
-3. Delete two questionable checks.
+These are false positives, the copier which is used in these functions
+always have input and output side, the be_rate will be initialized:
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/sound/soc/sof/ipc4-pcm.c#n485
+on the first iteration.
 
-4. Omit extra initialisations (for the variables =E2=80=9Cdc_state=E2=80=
-=9D and =E2=80=9Cdc_plane_state=E2=80=9D)
-   which became unnecessary with this refactoring.
+the sample_valid_bits will be initialized:
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/sound/soc/sof/ipc4-topology.c#n1310
+on the first iteration.
 
-
-This issue was detected by using the Coccinelle software.
-
-Fixes: 5468c36d628524effbb89a9503eb1a2318804759 ("drm/amd/display: Filter =
-Invalid 420 Modes for HDMI TMDS")
-Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
-=2D--
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 20 ++++++++-----------
- 1 file changed, 8 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/g=
-pu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index eeaeca8b51f4..3086613f5f5d 100644
-=2D-- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6426,19 +6426,19 @@ static enum dc_status dm_validate_stream_and_conte=
-xt(struct dc *dc,
- 						struct dc_stream_state *stream)
- {
- 	enum dc_status dc_result =3D DC_ERROR_UNEXPECTED;
--	struct dc_plane_state *dc_plane_state =3D NULL;
--	struct dc_state *dc_state =3D NULL;
-+	struct dc_plane_state *dc_plane_state;
-+	struct dc_state *dc_state;
-
- 	if (!stream)
--		goto cleanup;
-+		return dc_result;
-
- 	dc_plane_state =3D dc_create_plane_state(dc);
- 	if (!dc_plane_state)
--		goto cleanup;
-+		return dc_result;
-
- 	dc_state =3D dc_create_state(dc);
- 	if (!dc_state)
--		goto cleanup;
-+		goto release_plane_state;
-
- 	/* populate stream to plane */
- 	dc_plane_state->src_rect.height  =3D stream->src.height;
-@@ -6475,13 +6475,9 @@ static enum dc_status dm_validate_stream_and_contex=
-t(struct dc *dc,
- 	if (dc_result =3D=3D DC_OK)
- 		dc_result =3D dc_validate_global_state(dc, dc_state, true);
-
--cleanup:
--	if (dc_state)
--		dc_release_state(dc_state);
--
--	if (dc_plane_state)
--		dc_plane_state_release(dc_plane_state);
--
-+	dc_release_state(dc_state);
-+release_plane_state:
-+	dc_plane_state_release(dc_plane_state);
- 	return dc_result;
- }
-
-=2D-
-2.40.0
-
+-- 
+-- 
+Péter
