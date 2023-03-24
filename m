@@ -4,106 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCDD6C6FD1C
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Mar 2023 07:26:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33B9AC6FD1C
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Mar 2023 09:48:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63BF310E50C;
-	Fri, 24 Mar 2023 07:26:29 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2059.outbound.protection.outlook.com [40.107.220.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DED2D10E50C
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Mar 2023 07:26:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jJIUFD6QM7E+/h5k7/l4uulKfxf8V9J5sAUfHI/9kzPJ9PKA16K5wj0WQjEkbrvGJNLVsO409YfuhHXQSahKGMYYnvpqCrLsRpWrMuT4yb6vyQe/WT7CW+ilVGYr/flANdB9sxl4+7QxelCl50vkMbP3SOqzgcyClWjYgeYirO8EoRzlLdGlyMQsGtZ4AmGuDkrBskldqdlEuCQQCxma54q0ovnebFbcwzmPmLyprL2d7HEVxMgb2pLULdcakObtxDP3bG5Vlcn+B5Kp6SLMd9MkfdsTpOTKdVd2X1LB5HYKkx+IbR3OCRos2bo01G/6yX+fG4FjT8ZTvEXwQTmaMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b4+qpaFqEkwZXCb3yQZ8V3e23Doc2V2ExKLuUq72K/8=;
- b=P8nVTET7d+jLIxKc0Y3zU2nvFf7OQ7cyDCRzIGEAOPAJvavgNJ5e5TWZ9/PizqoytnOvZSsglmNjz7gk+0kz7RiEL1msp1uqUf0J5w6nUPckJvkIj4SmFflolczwwRg9CNsVsb1dsDtVCJjN+lecun7MynvqOpY95d71Fdq26BXHznPlj3yrC0ooKn3TTrijQyvFw6Ju+P0zQw+0hZMg3fmurFaIJrbj/tt3+1EiATWcXn4xCY0wXQ/Cd+VGmZoF2M/7V40DTJEwrkFluJnEhqJLnOZCvBjzBxVUtRX7tc/MhSoXTjtX8utPM8ThAtkSl18blj7BcvcJ1PXzlGn/Dg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b4+qpaFqEkwZXCb3yQZ8V3e23Doc2V2ExKLuUq72K/8=;
- b=W61iHEGdK2ANuhjQ+oJYlA3C9duIN6lMfZ/n+5of9u74pTm5lipZmcXSgo484YOgNG8m4Yy1WkhCbahklHikgbVeLXfH5g/3407fCLIihiDMs/w05rraklu5o746mxDu6MgcRzRgq+tlNd0cY47N6BkX7XYBDQw0NIqvh4ED5ow=
-Received: from DM5PR12MB2469.namprd12.prod.outlook.com (2603:10b6:4:af::38) by
- DM4PR12MB5310.namprd12.prod.outlook.com (2603:10b6:5:39e::10) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6178.38; Fri, 24 Mar 2023 07:26:24 +0000
-Received: from DM5PR12MB2469.namprd12.prod.outlook.com
- ([fe80::5ca6:3a18:d6ee:c103]) by DM5PR12MB2469.namprd12.prod.outlook.com
- ([fe80::5ca6:3a18:d6ee:c103%7]) with mapi id 15.20.6178.038; Fri, 24 Mar 2023
- 07:26:24 +0000
-From: "Chen, Guchun" <Guchun.Chen@amd.com>
-To: "Huang, Tim" <Tim.Huang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd/pm: re-enable the gfx imu when smu resume
-Thread-Topic: [PATCH] drm/amd/pm: re-enable the gfx imu when smu resume
-Thread-Index: AQHZXh+HSdCaSx0480C2N9YS7tmuMK8Jhygg
-Date: Fri, 24 Mar 2023 07:26:23 +0000
-Message-ID: <DM5PR12MB2469985A3A3C5BD4279EDD87F1849@DM5PR12MB2469.namprd12.prod.outlook.com>
-References: <20230324070812.1304117-1-tim.huang@amd.com>
-In-Reply-To: <20230324070812.1304117-1-tim.huang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM5PR12MB2469:EE_|DM4PR12MB5310:EE_
-x-ms-office365-filtering-correlation-id: d0501b0a-d1f4-4512-4d31-08db2c391299
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: ESCBlCgkuxoOVBoMrqEqW2N3oPbTkPhWBTa2LFm7srW7t+/7pzxIJllmTktcUk0A7wMmlLad4eOGvuBshazQfflWye/bUxuF6xTSyn4sJ5FGBk36rh+1y1pLWzoZ/apkeQOhDthJIuHdu893jWAJIQ6zKBTHUqRvMGIpHU7+KiqqRu3wCqbeV9+mgx7qTgazTVfmT9LcIf0k08wMSEL6qdxim2/k+GIWgBaS44VCudWRAff2jD1U0uqmx4JFB992NaIWRFUPxiCcY+u57Znhy4k6fVfSwj/2uGpnFX7bIm24DKj3fPrGdCR8QAuboA7ZrpLkUYcM0LeDKDxu8gcHMEGRWB0x78ICJ2tM+EhMBxLBGY0e1HTrHCBvQN5og8Bibz4P1Z4Yy35xHziKEvMsCSGakOTp2klDhafs6FfnZ0t1/ZHazYgakkUrYL7cYnvh3jaAoNo4QWr+5LL0XFGu6qz5lyUQeBvC87lCZnLt7KAYjx7vKffWdolGGHMpgMgUJe81+49AH5XySzrJxClx+B1lOH19raPyN+PYeK4A1RGQsFkkuo+uMb1zbc3n7H71FJl6VqNzIn9PnLD7fPQD2TFBgOSzQeztfE0QESypgd3Yky6WdnGOu0R/ttnyRxLl
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2469.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(4636009)(366004)(346002)(39860400002)(136003)(376002)(396003)(451199018)(38100700002)(122000001)(6506007)(186003)(26005)(53546011)(9686003)(8936002)(5660300002)(4326008)(52536014)(41300700001)(33656002)(2906002)(7696005)(478600001)(38070700005)(71200400001)(86362001)(66556008)(66446008)(76116006)(110136005)(316002)(55016003)(8676002)(66946007)(54906003)(64756008)(66476007)(83380400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?WDlB6rNDh2N9Hgoprbh0yxIKavdbANv/v3BaydFgdrpL3mR7s4Y7ukwMxcWS?=
- =?us-ascii?Q?2BZw1uU4I+CmV2eF1wCdPhhdVYpC30qdhmOdjAvlCFSzInRm57scGwGQMHUn?=
- =?us-ascii?Q?OPJvGaytvHJym6+LqU3rSJ9CymF6rI0yivrQFbFtuu4sp6w2GCjs7v1b29c1?=
- =?us-ascii?Q?UZhmdbwJRohS88f1p8yx8sTN8ngEfxg+9ptVvrrxtU3Omtf/B0xJPBY4kwbD?=
- =?us-ascii?Q?PW1uvQVebtTzFw1akkEedQqURQJlQkM1l+xPEkUT/CacqHISMXWLgXz8meIj?=
- =?us-ascii?Q?WLDwRw7G/1IjEzzjgY1IvODBX+jn4jXTL3fi333e5LPsBno/1reoCYAc8dCK?=
- =?us-ascii?Q?nK4idrgCXKMJThJXwKxMfWr8kINy5ThzR14tvH8jnaWWZVARRmwxlcp57Pnx?=
- =?us-ascii?Q?HiNh3oeMSzCDQTjkXGoJD61d3nBCfKDHED+QtMaZdd5e5n1Pj+lkfg1y6jOf?=
- =?us-ascii?Q?PFsAE8oNmvs402Bd5g93MzJE4Zb+0EszR5niAxuCqW0NDt3vU6iLhUaeRkgk?=
- =?us-ascii?Q?EXVyJQIje5JylD4YlFkWxb04xFys+gFZRGYvkvjooimzuB9ixFsJWs8Eakox?=
- =?us-ascii?Q?iq7n5H1p1FgELDcemHaL3Dmm/uSXW81N0/BhBlfEaV9bcaH4PuftTrqPm4Qe?=
- =?us-ascii?Q?szdWN6AG804YHeOw6yCEPHRGFTzE9yMEGFd7FLOkMRL82GqPszWQYvoYS9ro?=
- =?us-ascii?Q?EuudUVR1JjHG3Zx5HWhdTI1iHEzJwHDgqZTIPzfxwBjSAPorx9rAQK7xsxLX?=
- =?us-ascii?Q?gLIX3JkL87eBvXd9588d79ZZLSn8ZH3lL/qnh91Ifr+xhQbcTDVHjmB8XK5X?=
- =?us-ascii?Q?HDbSQh3TMMWde1quJ/s/TKqCMJQwA05X5LHUGfi+IRAsnqQ7gk4tS/wBSBCf?=
- =?us-ascii?Q?AxhnsDGwCDuDzeQHH+9rChnHB63DMIa4H8rLnXG/nWVGfaQ7kbRPBSkWkXl2?=
- =?us-ascii?Q?+kkLLT+H0HZ3gtQ90Pxl//7ku2BoskO1vliFN3/hGyWV+ZNMvMhSgYPpM+6m?=
- =?us-ascii?Q?z8BGZDd3Te4p/9TpMr6nkUJ79qoRaNfD+y27mROjaYbgPg5eQgtdAO5hb7MB?=
- =?us-ascii?Q?++kiIYWOT3frYFWENXtLONxaT38i0xrZGEGBqLAaGxp+n9SMd6VTVHOJ0MIn?=
- =?us-ascii?Q?5VTLMflYlTJSwJJv+fHIn0GDSq4kKooOZEyPN1cmVlTIWQx+L8niztO9iRN8?=
- =?us-ascii?Q?U3qFST4+zKuza7nwVP3sq8+mQFiRbRwucycKPX6RzEl/vjJkkjSVgBfN4mDT?=
- =?us-ascii?Q?+jecLhIyMI+I22hiI2V/xLQS1t5u5gl9gun9G0IJJcuyoqr6h8ujSATvWlN0?=
- =?us-ascii?Q?KcM0i4oOkxi81a0ekcGn+LTFJnBb9OlpJ5OrODy/AaOgYZKkrlPl/JPrHkFE?=
- =?us-ascii?Q?Y0byTp7GvzTVSylMOIRZV1x4d7iTKK9i7tZEAPHfbk1A7/ehkyjL7z8O+Mn7?=
- =?us-ascii?Q?b/069UFVtFkeRqmAalqvZ27wNuDvGertyr8PIjnVCF5eM9VcXfAjeXTCf0uW?=
- =?us-ascii?Q?J4Y+tfM5ne5SDQo9nY1wmddM26s4HjsH8NfwE6WIslvvaKmmRs5d/SSXLrVl?=
- =?us-ascii?Q?ZKcfAfGnlyZIOTTnTy0=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA91110E525;
+	Fri, 24 Mar 2023 09:48:12 +0000 (UTC)
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [IPv6:2a00:1450:4864:20::336])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E523310EBA5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Mar 2023 09:48:10 +0000 (UTC)
+Received: by mail-wm1-x336.google.com with SMTP id u1so725745wmn.5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Mar 2023 02:48:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1679651289; x=1682243289;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=NruCG9KnEBTudzG21xlEqapBgxFRlVnIoA3g3lXbMf4=;
+ b=K9WptdH4Dka+GOJLgz771LPXL0Z4zWEF9uffaxwPoA/ICo8Grbp08wKWcVAz7hPDQy
+ a6fN3sPWc5Fv/2+Mc4HTPH1bSgJYL4RbnTRNYp/8CeYnYxg+icaDm29B+M/V1pG4kcqC
+ +lBc+XYRCvmrGqaiGWLWOFmJSTefKDAg/uJW4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1679651289; x=1682243289;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=NruCG9KnEBTudzG21xlEqapBgxFRlVnIoA3g3lXbMf4=;
+ b=2/r6JEwYVLpdGsN4P8mK3+UaO300rZVohA3kQ8esEh9K7BUvRajtKXJmjxUBPNWrl+
+ 97BAAC20qLWSxc04LkK34ZNpAPwn0x1pH3GuWOP7iB3i4UvZLQi3dQi1nMnVG7k5XYSN
+ 6BmsZv5sR5CV97Em9LGFIwWvI0CQQxrnjsNhtSF+oj0eS7XFLCKDPsxp8np8D2a5jTs9
+ 9UcMarav4+aIU9dliJY+CK4qRPH7e2zNDFAtrjbdqp30Mr/mEdUL9Knv8gJTwoASVmpU
+ s3UKps7WfROTPOXz9LmkVRybz0ufc5rUqmBqdcTpyw4QcJEeIhD8/E3XOO1SlI71t4H4
+ FIkQ==
+X-Gm-Message-State: AO0yUKW39for0tI+hKJihcHaXly0nRylmWRfET/we1IzSLrsQiZA+7mJ
+ tjRZVAXuyl9hCTEA9C5CelGrzA==
+X-Google-Smtp-Source: AK7set+J8AsJ2UF7gxrywt8ctaJSq1LiiXCFCjJP0SP0S3+7w0pZbv8CoCU6O9ycBLo+wwAuh+eZkw==
+X-Received: by 2002:a05:600c:1d03:b0:3e8:7ca3:8424 with SMTP id
+ l3-20020a05600c1d0300b003e87ca38424mr2302906wms.1.1679651289429; 
+ Fri, 24 Mar 2023 02:48:09 -0700 (PDT)
+Received: from phenom.ffwll.local (212-51-149-33.fiber7.init7.net.
+ [212.51.149.33]) by smtp.gmail.com with ESMTPSA id
+ n17-20020a1c7211000000b003edf2dc7ca3sm4328779wmc.34.2023.03.24.02.48.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Mar 2023 02:48:09 -0700 (PDT)
+Date: Fri, 24 Mar 2023 10:48:07 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Alex Deucher <alexander.deucher@amd.com>
+Subject: Re: [pull] amdgpu drm-fixes-6.3
+Message-ID: <ZB1x19/Zuqt8Zh6r@phenom.ffwll.local>
+References: <20230323161939.7751-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2469.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d0501b0a-d1f4-4512-4d31-08db2c391299
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Mar 2023 07:26:23.9539 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: aQtS6CSyojJrKOJvwg+eXXVuHQdwSDswArp1hIj3Tt9+6GPYaV2SMEF9fYi8GolxQMnh5qkqVUEKPSbKhU4G0A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5310
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230323161939.7751-1-alexander.deucher@amd.com>
+X-Operating-System: Linux phenom 6.1.0-6-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,115 +68,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang,
- Yifan" <Yifan1.Zhang@amd.com>, "Ma, Li" <Li.Ma@amd.com>, "Du,
- Xiaojian" <Xiaojian.Du@amd.com>, "Huang, Tim" <Tim.Huang@amd.com>
+Cc: daniel.vetter@ffwll.ch, airlied@gmail.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Thu, Mar 23, 2023 at 12:19:39PM -0400, Alex Deucher wrote:
+> Hi Dave, Daniel,
+> 
+> Fixes for 6.3.
+> 
+> The following changes since commit e8d018dd0257f744ca50a729e3d042cf2ec9da65:
+> 
+>   Linux 6.3-rc3 (2023-03-19 13:27:55 -0700)
+> 
+> are available in the Git repository at:
+> 
+>   https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.3-2023-03-23
+> 
+> for you to fetch changes up to f9537b1fa7fb51c2162bc15ce469cbbf1ca0fbfe:
+> 
+>   drm/amd/display: Set dcn32 caps.seamless_odm (2023-03-23 09:39:34 -0400)
 
+Pulled, thanks.
+-Daniel
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Tim
-> Huang
-> Sent: Friday, March 24, 2023 3:08 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Yifan
-> <Yifan1.Zhang@amd.com>; Ma, Li <Li.Ma@amd.com>; Du, Xiaojian
-> <Xiaojian.Du@amd.com>; Huang, Tim <Tim.Huang@amd.com>
-> Subject: [PATCH] drm/amd/pm: re-enable the gfx imu when smu resume
->=20
-> If the gfx imu is poweroff when suspend, then it need to be re-enabled wh=
-en
-> resume.
->=20
-> Signed-off-by: Tim Huang <tim.huang@amd.com>
-> ---
->  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 40 ++++++++++++++++-
-> ------
->  1 file changed, 28 insertions(+), 12 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> index b5d64749990e..94fe8593444a 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -162,10 +162,15 @@ int smu_get_dpm_freq_range(struct smu_context
-> *smu,
->=20
->  int smu_set_gfx_power_up_by_imu(struct smu_context *smu)  {
-> -	if (!smu->ppt_funcs || !smu->ppt_funcs->set_gfx_power_up_by_imu)
-> -		return -EOPNOTSUPP;
-> +	int ret =3D 0;
-> +	struct amdgpu_device *adev =3D smu->adev;
->=20
-> -	return smu->ppt_funcs->set_gfx_power_up_by_imu(smu);
-> +	if (smu->ppt_funcs->set_gfx_power_up_by_imu) {
-> +		ret =3D smu->ppt_funcs->set_gfx_power_up_by_imu(smu);
-> +		if (ret)
-> +			dev_err(adev->dev, "Failed to enable gfx imu!\n");
-> +	}
-> +	return ret;
->  }
->=20
->  static u32 smu_get_mclk(void *handle, bool low) @@ -196,6 +201,19 @@
-> static u32 smu_get_sclk(void *handle, bool low)
->  	return clk_freq * 100;
->  }
->=20
-> +static int smu_set_gfx_imu_enable(struct smu_context *smu) {
-> +	struct amdgpu_device *adev =3D smu->adev;
-> +
-> +	if (adev->firmware.load_type !=3D AMDGPU_FW_LOAD_PSP)
-> +		return 0;
-> +
-> +	if (amdgpu_in_reset(smu->adev) || adev->in_s0ix)
-> +		return 0;
-> +
-> +	return smu_set_gfx_power_up_by_imu(smu); }
-> +
->  static int smu_dpm_set_vcn_enable(struct smu_context *smu,
->  				  bool enable)
->  {
-> @@ -1396,15 +1414,9 @@ static int smu_hw_init(void *handle)
->  	}
->=20
->  	if (smu->is_apu) {
-> -		if ((smu->ppt_funcs->set_gfx_power_up_by_imu) &&
-> -				likely(adev->firmware.load_type =3D=3D
-> AMDGPU_FW_LOAD_PSP)) {
-> -			ret =3D smu->ppt_funcs-
-> >set_gfx_power_up_by_imu(smu);
-> -			if (ret) {
-> -				dev_err(adev->dev, "Failed to Enable gfx
-> imu!\n");
-> -				return ret;
-> -			}
-> -		}
-> -
-> +		ret =3D smu_set_gfx_imu_enable(smu);
-> +		if (ret)
-> +			return ret;
->  		smu_dpm_set_vcn_enable(smu, true);
->  		smu_dpm_set_jpeg_enable(smu, true);
->  		smu_set_gfx_cgpg(smu, true);
-> @@ -1681,6 +1693,10 @@ static int smu_resume(void *handle)
->  		return ret;
->  	}
->=20
-> +	ret =3D smu_set_gfx_imu_enable(smu);
-> +	if (ret)
-> +		return ret;
+> 
+> ----------------------------------------------------------------
+> amd-drm-fixes-6.3-2023-03-23:
+> 
+> amdgpu:
+> - S4 fix
+> - Soft reset fixes
+> - SR-IOV fix
+> - Remove an out of date comment in the DC code
+> - ASPM fix
+> - DCN 3.2 fixes
+> 
+> ----------------------------------------------------------------
+> Alex Hung (1):
+>       drm/amd/display: remove outdated 8bpc comments
+> 
+> Hersen Wu (2):
+>       drm/amd/display: fix wrong index used in dccg32_set_dpstreamclk
+>       drm/amd/display: Set dcn32 caps.seamless_odm
+> 
+> Jane Jian (1):
+>       drm/amdgpu/gfx: set cg flags to enter/exit safe mode
+> 
+> Kai-Heng Feng (1):
+>       drm/amdgpu/nv: Apply ASPM quirk on Intel ADL + AMD Navi
+> 
+> Tim Huang (2):
+>       drm/amdgpu: reposition the gpu reset checking for reuse
+>       drm/amdgpu: skip ASIC reset for APUs when go to S4
+> 
+> Tong Liu01 (1):
+>       drm/amdgpu: add mes resume when do gfx post soft reset
+> 
+> YuBiao Wang (1):
+>       drm/amdgpu: Force signal hw_fences that are embedded in non-sched jobs
+> 
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h                |  5 +--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c           | 41 ++++++++++++----------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         | 15 ++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |  5 ++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c          |  9 +++++
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c             | 14 ++++++++
+>  drivers/gpu/drm/amd/amdgpu/nv.c                    |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/vi.c                    | 17 +--------
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  1 -
+>  drivers/gpu/drm/amd/display/dc/dcn32/dcn32_dccg.c  |  3 +-
+>  .../gpu/drm/amd/display/dc/dcn32/dcn32_resource.c  |  1 +
+>  11 files changed, 72 insertions(+), 41 deletions(-)
 
-smu_set_gfx_imu_enable in smu_hw_init is valid when sum->is_apu is true. So=
- such check is still necessary in smu_resume?
-
-Regards,
-Guchun
-
->  	smu_set_gfx_cgpg(smu, true);
->=20
->  	smu->disable_uclk_switch =3D 0;
-> --
-> 2.25.1
-
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
