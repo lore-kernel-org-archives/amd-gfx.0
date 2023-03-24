@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F2EAC6FD20
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Mar 2023 06:52:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4011CC6FD20
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Mar 2023 06:52:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8B3F10E4E6;
-	Fri, 24 Mar 2023 06:52:34 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2048.outbound.protection.outlook.com [40.107.244.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0967C10E4E6
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Mar 2023 06:52:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9C0110E4E8;
+	Fri, 24 Mar 2023 06:52:38 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2060.outbound.protection.outlook.com [40.107.93.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 055C310E4E8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Mar 2023 06:52:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JjBBkW7H9UyJsOtBMeM57XAAfBsTQTWXNGCTAxPm5U8hVIlPqg2kzH33QH70av+wHk7fUIFzm9SjIRd/0hQqubG+WR0l8svRg14LjFOy+r/vB26uvAn8v86PI8bgjwEaC03c+wYrK/QlBwpEx31wuWQ4FPA90zOCzvaGpDwPSS+zleUbPcaQU/rFcd+P0xt6w8HROQklSdAbVchnzEHHd0HCrw/1TKZrR7VJB7iAXoIM5Gzo8b74gNGxNtKTd3EI+byjRy5pe6MuRZVev0U0dIRfT2MbJHIbRMWTfId7SsbJXjkJl8OS/pEnNG6xy6j3IZRCKOmNt0vqzXRChH+jaA==
+ b=GwPFDJVQ5FGNS7GwJ3rZ+G0fve3i0iJfnHNlUKZ+/a/fE+hV2/0HJwf9sQS8kYAX4emvWpCU+BKKSnh3jZDFN1SQfpp+YOmnFHa2GhCbqdJvJuVO59L/Hve3z/aForAkefvsfmFFqytWTVHRGoss4Qhg4t2c+U7KI2MqMAiRrHc3qq43Vzj3Z8E3eJddW7mhofs/EU1qBAupCoWmO+9fFzMw/uaSYkxQuCpvCnEoZpwwClPAAwLE+nKLDikcMHBuh0Cc/fz9QHXgV79pc2K514lGLiWjkih1i0GLF2XT3PhKhD8OPoLbrwQfyxGrrH/TReAcSLgiZKktJ2Rsx94r4Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GKjLLFm08u2gNm7YFH6q9JLGUtScci59ZJhkjC5ZHkA=;
- b=jxeHE3O4uABRzJ+gxNuYQ13EfT5G0nxCrs16kwkmuulqDNQvyNV1rse04ObO10UXO0MGirElK5fWqox/cfg3nZa6dIbr02EVC6sxdGoZbhVdOYlPI1Jmar8NjthZ7J8oH4TorC//2yckSuYstLLHdXq82mNI+Vad7GIFz2zgYQl3XXPSOLcM8AetuRG/+2Z7qI2TtZ7AJ2oiIJnhey0jIhvbYaA9Zza1ASv7yUdnsYiKsrEwNc3tNs//jH3SD8QPjz4xSu+SirShpVEMKZPp0wnTXNDCLXgG0PFxMX6CQcsLollRE+YdSHtvYCPWjzFgYuhExWFO28gsLO4rEZgxjA==
+ bh=uau7Orrotbu3+M+U5bWZ9igbp+nFlgy/fDNWiCzVC80=;
+ b=G773IifwXbLB3h4i+Hwr7aON612kNMx/iSb/DOtiwocyWdA8QxKu3CMLDXAcdAECqPmQcU3buCXaQGCBns4YOOS+6Q9Ysg23ZjqU6VjZ1HPKHGP86dfKFEFd8jPjPS8oiwOPnpCNvG0cyg5jMAgTwtPAvxSFJ4Ux5OPNVPXeDcByzLd7QlYdgMs8KYU31PKYfs4/5ERDUBy3wQBwRurceswl04IF+4gPHQdg5XXHlwWBRxqY7LsQqNF31ZKiGISCdsvkXiS+xNMV6QAFF7FcOkcf2/qABwAEHpqDi3BZhlMCn/3pWL2/0NaRzAme9PFTMMwg13RQFhVMa9dtjKjFiQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GKjLLFm08u2gNm7YFH6q9JLGUtScci59ZJhkjC5ZHkA=;
- b=TE8tHulumEr8Ex05ohMhvNFRzeMa6W9oB6xO95aVoZbsliz1Zv01yHLZLAS0km28JYltATVKtCaDCs2LRudW6VtCaSblS+Zd2hrA3th2mi9G9IXBHyBsRhX8sSkeLp79qzYykx4zykKTrw0BOE5K9fKbQvD6nITXmxSfF9trJSE=
-Received: from MW4PR03CA0164.namprd03.prod.outlook.com (2603:10b6:303:8d::19)
- by CY8PR12MB8412.namprd12.prod.outlook.com (2603:10b6:930:6f::11)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=uau7Orrotbu3+M+U5bWZ9igbp+nFlgy/fDNWiCzVC80=;
+ b=pNA63fN4Wblg42XWBZh+D5Av10kVQPNCEaqbbHuy8/3UP3CXRbOsmTLkdjt07WaCi0kdI4x8X9kT1D2LTJB+z/WKGYBmnnILd6v9B0rrfGs/1S+2EJ+QVsHg7EPbUJyy7csoka5WxfUVztzsw0gIsRfxepdZy9SVgOPKY/wPG9U=
+Received: from MW4PR03CA0153.namprd03.prod.outlook.com (2603:10b6:303:8d::8)
+ by CH3PR12MB8281.namprd12.prod.outlook.com (2603:10b6:610:128::19) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.38; Fri, 24 Mar
- 2023 06:52:31 +0000
+ 2023 06:52:35 +0000
 Received: from CO1NAM11FT111.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8d:cafe::1d) by MW4PR03CA0164.outlook.office365.com
- (2603:10b6:303:8d::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.38 via Frontend
- Transport; Fri, 24 Mar 2023 06:52:31 +0000
+ (2603:10b6:303:8d:cafe::44) by MW4PR03CA0153.outlook.office365.com
+ (2603:10b6:303:8d::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.39 via Frontend
+ Transport; Fri, 24 Mar 2023 06:52:34 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT111.mail.protection.outlook.com (10.13.174.61) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6222.21 via Frontend Transport; Fri, 24 Mar 2023 06:52:30 +0000
+ 15.20.6222.21 via Frontend Transport; Fri, 24 Mar 2023 06:52:34 +0000
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 24 Mar
- 2023 01:52:16 -0500
+ 2023 01:52:29 -0500
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 07/19] drm/amd/display: w/a for dcn315 inconsistent smu clock
- table
-Date: Fri, 24 Mar 2023 02:50:59 -0400
-Message-ID: <20230324065111.2782-8-qingqing.zhuo@amd.com>
+Subject: [PATCH 08/19] drm/amd/display: Add 90Mhz to
+ video_optimized_pixel_rates
+Date: Fri, 24 Mar 2023 02:51:00 -0400
+Message-ID: <20230324065111.2782-9-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230324065111.2782-1-qingqing.zhuo@amd.com>
 References: <20230324065111.2782-1-qingqing.zhuo@amd.com>
@@ -69,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT111:EE_|CY8PR12MB8412:EE_
-X-MS-Office365-Filtering-Correlation-Id: 325fb9c2-cc62-45f4-717b-08db2c3456dc
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT111:EE_|CH3PR12MB8281:EE_
+X-MS-Office365-Filtering-Correlation-Id: 82da4514-0a6b-435d-ee1f-08db2c345907
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: KYBz3+RAxqfeavJ9wlqHWHuB8YyBhH/7cXRNMAU1I05OHWdMkX7AKmbJrz/oP7gTRXsFmpIOrhbssR1le/QUa87ATc1yoSKSByOqRmsoWv4h5BrjJBIT1Is5V3oEM5OBg8cyf1c0moX+cpWM2mdnP0PzlRdvnsaNxgEPb5ODUHf+ytBYwOjAxhet8ZqJP498nkCvG4V7vFynzzQvbGkEWk1k3Vlj6KaSiff+8cEjTxdtkOilNvrjjdyLLQ/8OH1z64FIAzF1UulLDoJW4UOI4GFovrYgBEPkJCwxt5LuDtiI0SqiRUFrA/2kWk5/Gunl66fnCFUd09CU0pUdXA9JRX+eZTrDznGiWZYOv3ivfFGaZB2xQtwxfDcnfPqpsD6WCLbfZvTiK7A+T4gIqB4FuJ+HC3RoNfqmCOFSzT2Q/1W+eOPsUlYA9lK0DQZs8dSFAG8q2j5+MU4SXG+NWHHgCYrc06et42P7iZNElGUXWu3rlfm3ZMGxTDGwrUuHarqfjV7W6pa5Q9D1WLnzM5bD9snua/ARc/TkvLecjziLWlAUtDDz7ds4MLxzVVc2DvlSud9WuZjgwqmpFUc76SfFPh7dU1ZKFPPlbOXN+LuRIbftkKBW8sZ8NuKru9UZ1FRBWXCCBzRpFxYQB8+ICiVHO8C/Kc7WXkfP+5hhFT8A94Yzr/VYftXSSWIgyy9Q+Lr+HgGTLoSKnYvYEl+d55jXqNIvHBypPyzyO3QYVTm1WkU=
+X-Microsoft-Antispam-Message-Info: GnaaGKgIi0lRZavdFFkz6a2pyKHmJiz/mwMD7fK3V4Y7Bc3TpEzwbTsRDm8tyy9aZ0XqKQyyAzI/B3fDVXl1kL3IEAdgs2eAPKuibuvV1YULqBkXpDlAC81rzRKfyjxNhh6SrjrdSUkxb99T5ROCqFe6DmpYhDdPvsATcu8Kqv98ZdP/r9JEhSplDlHiX5qnGq/Tw4pWLLvd/4jCaRvV3305YBNCV2HlSP6h/fM1q5280ywvIhcfz/35qcTV8B94R+wjqVy1rG0jg0NUTy8n96EkhMx9Q5k6gpfA3JpdhHr4UYtZVHalC0bzB/3cLWPJ86xXw1kU8V/oxxAweBKS1G39kNSD+jxJbQQtpEIjDgjZHRdOxA06UfSnI8q/bRS8BgeUgz9y5/JNQj3MY8DHZwKidTzvYpP34meigj7TZ1y42Se6Fu6SjA3x05P5NvwtzPLZSwFk2LCWYrbwgX9DaiN5yhrVYfJZdDTWHgsLArheTmYdSA6Hc8zic9zFh617EPpIWs1StjSVa8rxQtxV4dNnQFmKecd8qRsKaW6MS7D4Gmt59gIaaHh1fLJcF5JLUR3hEZTBgjRQzJVLjzQggL3xmINJAwxGSM5S8u6r7Greu6suuDqjyNkrWQT0wlcaI3bmfv6CNDAky9vYx6iuem1njpaXplRKFt4rExuyNdeViOUdiE5l3IDDgV8myZOJTFt3M2Rb8o3FT8BhYNiN1c+DdjU1qCyDf5tCbpRGAeI=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(396003)(136003)(39860400002)(346002)(376002)(451199018)(40470700004)(36840700001)(46966006)(83380400001)(186003)(26005)(336012)(16526019)(2616005)(478600001)(356005)(426003)(6666004)(47076005)(4326008)(8676002)(6916009)(316002)(54906003)(70586007)(70206006)(1076003)(41300700001)(8936002)(82740400003)(2906002)(5660300002)(81166007)(44832011)(36860700001)(40460700003)(82310400005)(40480700001)(86362001)(36756003)(36900700001);
+ SFS:(13230025)(4636009)(396003)(136003)(376002)(39860400002)(346002)(451199018)(40470700004)(46966006)(36840700001)(5660300002)(6916009)(4326008)(41300700001)(2906002)(40460700003)(44832011)(36860700001)(8676002)(356005)(82740400003)(81166007)(86362001)(36756003)(1076003)(26005)(6666004)(316002)(478600001)(70206006)(70586007)(8936002)(82310400005)(40480700001)(47076005)(54906003)(426003)(336012)(186003)(16526019)(2616005)(83380400001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2023 06:52:30.8860 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 325fb9c2-cc62-45f4-717b-08db2c3456dc
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2023 06:52:34.5264 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 82da4514-0a6b-435d-ee1f-08db2c345907
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT111.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8412
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8281
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,43 +100,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
+Cc: stylon.wang@amd.com, Charlene Liu <Charlene.Liu@amd.com>,
  Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
- Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ Taimur Hassan <Syed.Hassan@amd.com>, solomon.chiu@amd.com,
  Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>, agustin.gutierrez@amd.com,
- pavle.kotarac@amd.com
+ agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+From: Taimur Hassan <Syed.Hassan@amd.com>
 
 [Why & How]
-w/a for dcn315 inconsistent smu clock.
+Needed to get certain EDID to light up during TMDS compliance.
 
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Reviewed-by: Charlene Liu <Charlene.Liu@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Signed-off-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+Signed-off-by: Taimur Hassan <Syed.Hassan@amd.com>
 ---
- .../gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c   | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-index a737782b2840..b737cbc468f5 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn315/dcn315_clk_mgr.c
-@@ -522,6 +522,11 @@ static void dcn315_clk_mgr_helper_populate_bw_params(
- 		bw_params->clk_table.entries[i].dcfclk_mhz = clock_table->DcfClocks[0];
- 		bw_params->clk_table.entries[i].wck_ratio = 1;
- 		i++;
-+	} else if (clock_table->NumDcfClkLevelsEnabled != clock_table->NumSocClkLevelsEnabled) {
-+		bw_params->clk_table.entries[i-1].voltage = clock_table->SocVoltage[clock_table->NumSocClkLevelsEnabled - 1];
-+		bw_params->clk_table.entries[i-1].socclk_mhz = clock_table->SocClocks[clock_table->NumSocClkLevelsEnabled - 1];
-+		bw_params->clk_table.entries[i-1].dispclk_mhz = clock_table->DispClocks[clock_table->NumDispClkLevelsEnabled - 1];
-+		bw_params->clk_table.entries[i-1].dppclk_mhz = clock_table->DppClocks[clock_table->NumDispClkLevelsEnabled - 1];
- 	}
- 	bw_params->clk_table.num_entries = i;
- 
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+index 67e3df7e1b05..462c7a3ec3cc 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+@@ -1157,6 +1157,7 @@ const struct pixel_rate_range_table_entry video_optimized_pixel_rates[] = {
+ 	{25170, 25180, 25200, 1000, 1001},	//25.2MHz   ->   25.17
+ 	{59340, 59350, 59400, 1000, 1001},	//59.4Mhz   ->   59.340
+ 	{74170, 74180, 74250, 1000, 1001},	//74.25Mhz  ->   74.1758
++	{89910, 90000, 90000, 1000, 1001},	//90Mhz     ->   89.91
+ 	{125870, 125880, 126000, 1000, 1001},	//126Mhz    ->  125.87
+ 	{148350, 148360, 148500, 1000, 1001},	//148.5Mhz  ->  148.3516
+ 	{167830, 167840, 168000, 1000, 1001},	//168Mhz    ->  167.83
 -- 
 2.34.1
 
