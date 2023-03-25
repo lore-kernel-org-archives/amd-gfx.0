@@ -4,38 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B812CC6FD1F
-	for <amd-gfx@archiver.kernel.org>; Sat, 25 Mar 2023 17:30:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B331CC6FD1F
+	for <amd-gfx@archiver.kernel.org>; Sat, 25 Mar 2023 20:32:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22BEF10E053;
-	Sat, 25 Mar 2023 17:30:07 +0000 (UTC)
-X-Greylist: delayed 457 seconds by postgrey-1.36 at gabe;
- Sat, 25 Mar 2023 17:30:04 UTC
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6738110E223;
+	Sat, 25 Mar 2023 20:31:57 +0000 (UTC)
 Received: from knopi.disroot.org (knopi.disroot.org [178.21.23.139])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85A6810E053;
- Sat, 25 Mar 2023 17:30:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 643E310E21C;
+ Sat, 25 Mar 2023 20:31:55 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by disroot.org (Postfix) with ESMTP id 96A0A4179B;
- Sat, 25 Mar 2023 18:22:25 +0100 (CET)
+ by disroot.org (Postfix) with ESMTP id A643444536;
+ Sat, 25 Mar 2023 21:31:53 +0100 (CET)
 X-Virus-Scanned: SPAM Filter at disroot.org
 Received: from knopi.disroot.org ([127.0.0.1])
  by localhost (disroot.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id OL1t-CpaxX2e; Sat, 25 Mar 2023 18:22:24 +0100 (CET)
+ with ESMTP id dEUs8Y2xSF9d; Sat, 25 Mar 2023 21:31:52 +0100 (CET)
 From: Carlos Eduardo Gallo Filho <gcarlos@disroot.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
- t=1679764944; bh=p/c8nuEmaGbzp/LfotIufrRa9jGX8DZ0lu+qqXLt/1o=;
+ t=1679776312; bh=zJZ3GBNggTrNe4MEi7UTf9RS2VQczEGPhT+ljQfNLn8=;
  h=From:To:Cc:Subject:Date;
- b=bzwqfeiHrKonERuvbpVuwuIU//pUooPPoKbJcygDJMFaZbhFWbeWlx5cW4MQKZ41v
- YFrFKX7MaB9JdqAqIGQycYDWCPQ5KNT/+W9/RvEVJpZeshAdVVZrqk9hbYr8g0NZOn
- RJhfsMfmbINr8CEDL/LTffgsDyw06p8nwF8lLRhdPoY+VzSQqccbOyjzJjdkpi375m
- LhRV5QtHCB/+HUT4xTOmqp/WzSuY+n/sLXwY+upWTlt38NqzOq1uuLlGaQB+HM1oWK
- YkeeNhrd1XiUrfCX8sr+TXvx1FLs/1cWs4Wb+dluLJf5i88A0ypAz2zY33aaZh6YI/
- xMX0qxkFX31Xw==
+ b=lS6XeOybuAcWz68mqc846bMa1UmWKiBTXh7EPZeucVCuhv+kS84vBfaA/TDkQjgE8
+ 7gvZzeibHHd0mUb35VPH5OoCjsfjeQy3+Ggu5Qwf7mtLf5ec2EXTsfzHZXEPL2D1OU
+ 8paS30JthIbIw8A/nvknRQo7NbnwZZswgd+gg2xYMH68wK/nHJjj2oeto92fufDJ+f
+ zJlEaJDUFJqtXrPQ9A/2xRPq0yIlGzrxPbkxiRY6Qh1SWsUfxAHj/u+dmwxopTtuoQ
+ JTHchzVI4wz8vedAnL4qqHmDMIaDKvmfYAO0Z3kF3YDyahsLByZodaqfJDOTqpKMGg
+ UsBTA0R/VHUpA==
 To: dri-devel@lists.freedesktop.org,
 	amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: Remove ununsed variable that holds a return value
-Date: Sat, 25 Mar 2023 14:20:51 -0300
-Message-Id: <20230325172051.16768-1-gcarlos@disroot.org>
+Subject: [PATCH v2] drm/amdgpu: Remove unused variable that holds a return
+ value
+Date: Sat, 25 Mar 2023 17:31:36 -0300
+Message-Id: <20230325203136.14401-1-gcarlos@disroot.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -66,6 +65,12 @@ That variable is used to hold the return value of amdgpu_bo_create_kernel()
 function call.
 
 Remove r to fix the warning.
+
+Signed-off-by: Carlos Eduardo Gallo Filho <gcarlos@disroot.org>
+---
+Changes in v2:
+- Fix missing Signed-off-by tag
+- Fix typo in the description
 ---
  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 14 ++++++--------
  1 file changed, 6 insertions(+), 8 deletions(-)
