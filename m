@@ -4,65 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB764C76195
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 23:36:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 898CAC76195
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 23:46:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E89C10E6D6;
-	Mon, 27 Mar 2023 23:36:12 +0000 (UTC)
-Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
- [IPv6:2607:f8b0:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6C7910E6D6
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 23:36:10 +0000 (UTC)
-Received: by mail-oi1-x234.google.com with SMTP id bk5so7701036oib.6
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 16:36:10 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6376410E7D9;
+	Mon, 27 Mar 2023 23:46:40 +0000 (UTC)
+Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
+ [IPv6:2001:4860:4864:20::2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91F0C10E41C;
+ Mon, 27 Mar 2023 23:46:37 +0000 (UTC)
+Received: by mail-oa1-x2f.google.com with SMTP id
+ 586e51a60fabf-17aaa51a911so11063518fac.5; 
+ Mon, 27 Mar 2023 16:46:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1679960170;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20210112; t=1679960797;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=DMjKJJljMmxLa3Ljhxg1VmcGN3uGAZRfG7BjQI50ULI=;
- b=yZcXL9yyvDZKCVJzbqsl/6xiSdbujypjw3qnCm+WCPI+oYss4rXX79NJb6EhbtXhp5
- LYJdAEiuKIwajKd2vSdA8Vsn+SLgotaZnv312ScdaCXG6RSNfhjqzidGZ5FaTWmOddcu
- UqsdHJyw7JByhHBlwA+ANsEOdFyhKPDFuKMOTDQZxeEmDeFBVCSDD74RXqiDfE4TlQV+
- sTpfn15kjRl3szo+IakedBOdd3wUF6wP+o07P8dSqHEkdd5/zmw/xhwmhb9f3Jl9QUvJ
- nKqDWBehFY5QznZ12WccPFZIrMinZI+bzFXpCrPzOj+NO8w+KAs7YglMRg0fwMJgGOPy
- pFaA==
+ bh=+HHSCdFOMcHm/qTnYSefeJOCZD07oxZlsWhVPH8z90I=;
+ b=XkhgxyTZd9kUR7Mla+hglqBL+D9/RgpyDpo01akjHC4VAuLumOJrjNLjak/QXPcNrc
+ oRYEgpTBzmdQzsXmFXudNZDRN9xrMJ7ZUVOEt3QpMP1FF1owquMp/AEIobLlDc/dM8k1
+ 2YWN/qLuTmP4VZMnIcAbRydw5hR6BxqRGi+009qYQTkX9Y59f4DfxlSWD4rng7LpLXhD
+ lbF/ujVpRDWHyIrh8a8IoNHZxzuflZmFVejEjezfku+2NDz8HvcrkYHXuPgvYaqE5B1N
+ f/ctHuRye3Y3ZVa9sdtg+pMuAHkV+HlyGGOIH6H91wlrnVahQEYrXOD1wO4WgefG4zNy
+ uSuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679960170;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20210112; t=1679960797;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=DMjKJJljMmxLa3Ljhxg1VmcGN3uGAZRfG7BjQI50ULI=;
- b=VB1cbokgep045kc2GBPf3QlPua09BYzMgc6eYEIHkhzHMLp8ruHa5HbvEKxnxZqc3S
- EM6ZGEDsiRoV5dwiiDJzjg24IFJFtExrQdD6BFBGSy95SQ8K9HR8ZGiX+6uw/BB+Er/I
- zMkAPjmy3PCHarELMzdURkFuyX+agOdaUFHwEWSP+dX84nntywbOGDReqPhm0b3GUkFQ
- EHeOIEt/x5/modFkW/rcQ18MxVTITk++coIk2G+RdjKErpWD2X3LDumDlC2sXG1ZyujR
- U+rG7Fb6/gKcaj5PHhabrGRA0I5c+wZlKrA0vYSfY7voHUtRqkoTua5Wsr1Ujs3L1r6k
- XWhA==
-X-Gm-Message-State: AO0yUKVHYZJ3+BdWKU9u4VizdawVFsazfMb5PjurJOZUUcF95FerIADB
- uUw4PimlblXlAJbiY51KJg8iENLx3FMHU01DhBBKbQ==
-X-Google-Smtp-Source: AK7set9oAz6sAJk9i+Yr1zEBONLpWWppxu2w98hCDmfDs6XKH+G2nHgnPlqdPGuqAbSZfcMHN2iseA==
-X-Received: by 2002:a05:6808:7cf:b0:383:f04d:5d41 with SMTP id
- f15-20020a05680807cf00b00383f04d5d41mr5941639oij.59.1679960170022; 
- Mon, 27 Mar 2023 16:36:10 -0700 (PDT)
-Received: from ARCHaio.localdomain ([2804:1b3:a2c0:c911:919f:bd20:4f2a:8383])
- by smtp.gmail.com with ESMTPSA id
- b186-20020aca34c3000000b00389295e8424sm1643409oia.45.2023.03.27.16.36.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Mar 2023 16:36:09 -0700 (PDT)
-From: Caio Novais <caionovais@usp.br>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 12/12] drm/amd/display: Remove two unused variables
- 'result_write_min_hblank' and 'hblank_size'
-Date: Mon, 27 Mar 2023 20:33:53 -0300
-Message-Id: <20230327233353.64081-13-caionovais@usp.br>
-X-Mailer: git-send-email 2.40.0
-In-Reply-To: <20230327233353.64081-1-caionovais@usp.br>
-References: <20230327233353.64081-1-caionovais@usp.br>
+ bh=+HHSCdFOMcHm/qTnYSefeJOCZD07oxZlsWhVPH8z90I=;
+ b=Dh2OKqQmaNR1RUOpWafu6FRu19sAWLD785kCp1jY+UTAo3+taUcPymYrYvUaf8JZZ8
+ Sr48AacdfU0CaXFJ43g33jGV509F0yvMDW4JTWvdSuys9LVtrhjuqFbY22DEQqpPW5ne
+ 63eWm5QWwRlWltEU8zduTpIrrfaaWbS8KpYHk8vt+7GVcfihz8DO0O8A8SYbwNwS548H
+ C+7xQjPHrMsd/TO8S6aSj0puXblp6b+1kA3aelUisctrpwo6Zq1I61U3mws675dRKD1w
+ nubnFIQFFd/GxFDI30t0NLKm98wPu5ED4ULTZiPj3RKcj5U+BGcNEphnSj4vqsf+LmeP
+ 3pew==
+X-Gm-Message-State: AAQBX9eys8kYqveFYIsvKGeXHvBz3erO0ob+fcRwHE1d+9CnEnSZBjHG
+ QhR0vk+nRstuMeU1yTfv4flxLXwBbdyz3a8LztQ=
+X-Google-Smtp-Source: AKy350ajECs9vlAxp9Zc/RgZFmI0my5+POzp/1L6Jpd0DTDvqtD1z4/8o71AriXo3dXx3BrhelIhPxq8nhB7VZYcmwo=
+X-Received: by 2002:a05:6870:7f84:b0:177:b05f:c5f with SMTP id
+ aw4-20020a0568707f8400b00177b05f0c5fmr2712997oac.3.1679960796796; Mon, 27 Mar
+ 2023 16:46:36 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=y
-Content-Transfer-Encoding: 8bit
+References: <20230327233353.64081-1-caionovais@usp.br>
+ <20230327233353.64081-2-caionovais@usp.br>
+In-Reply-To: <20230327233353.64081-2-caionovais@usp.br>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 27 Mar 2023 19:46:25 -0400
+Message-ID: <CADnq5_M6LEBPVfAXPcVyR-C2qKYrTk=Nyb1cOjGz_Zo6LX9rxA@mail.gmail.com>
+Subject: Re: [PATCH 01/12] drm/amd: Remove unused variable 'r'
+To: Caio Novais <caionovais@usp.br>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,78 +68,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felipe Clark <felipe.clark@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mairacanal@riseup.net>,
- Mario Limonciello <mario.limonciello@amd.com>, Jun Lei <Jun.Lei@amd.com>,
- David Airlie <airlied@gmail.com>, Charlene Liu <Charlene.Liu@amd.com>,
- Gabe Teeger <gabe.teeger@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Taimur Hassan <Syed.Hassan@amd.com>,
+Cc: Felipe Clark <felipe.clark@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Wenjing Liu <wenjing.liu@amd.com>, dri-devel@lists.freedesktop.org,
+ Roman Li <Roman.Li@amd.com>,
+ =?UTF-8?B?TWHDrXJhIENhbmFs?= <mairacanal@riseup.net>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, Jun Lei <Jun.Lei@amd.com>,
+ Charlene Liu <Charlene.Liu@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Taimur Hassan <Syed.Hassan@amd.com>, amd-gfx@lists.freedesktop.org,
  Aurabindo Pillai <aurabindo.pillai@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
- George Shen <George.Shen@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Chaitanya Dhere <chaitanya.dhere@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Alan Liu <HaoPing.Liu@amd.com>,
- Mukul Joshi <mukul.joshi@amd.com>,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
+ George Shen <George.Shen@amd.com>, Chaitanya Dhere <chaitanya.dhere@amd.com>,
+ Alan Liu <HaoPing.Liu@amd.com>, Mukul Joshi <mukul.joshi@amd.com>,
+ =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
  Jingwen Zhu <Jingwen.Zhu@amd.com>, Guo Zhengkui <guozhengkui@vivo.com>,
- Leo Li <sunpeng.li@amd.com>, Melissa Wen <mwen@igalia.com>,
- Le Ma <le.ma@amd.com>, Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- Caio Novais <caionovais@usp.br>, Martin Leung <Martin.Leung@amd.com>,
- Ryan Lin <tsung-hua.lin@amd.com>, Brian Chang <Brian.Chang@amd.com>,
- Sung Joon Kim <sungjoon.kim@amd.com>, Yifan Zhang <yifan1.zhang@amd.com>,
- Jack Xiao <Jack.Xiao@amd.com>, Dillon Varone <Dillon.Varone@amd.com>,
- Tom Chung <chiahsuan.chung@amd.com>, Wesley Chalmers <Wesley.Chalmers@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
+ Melissa Wen <mwen@igalia.com>, Le Ma <le.ma@amd.com>,
+ Martin Leung <Martin.Leung@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Brian Chang <Brian.Chang@amd.com>, Sung Joon Kim <sungjoon.kim@amd.com>,
+ Yifan Zhang <yifan1.zhang@amd.com>, Jack Xiao <Jack.Xiao@amd.com>,
+ Dillon Varone <Dillon.Varone@amd.com>, Tom Chung <chiahsuan.chung@amd.com>,
+ Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
  Qingqing Zhuo <qingqing.zhuo@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Zhan Liu <zhan.liu@amd.com>, Roman Li <Roman.Li@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Wayne Lin <wayne.lin@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
+ Zhan Liu <zhan.liu@amd.com>, linux-kernel@vger.kernel.org,
+ Gabe Teeger <gabe.teeger@amd.com>, Wesley Chalmers <Wesley.Chalmers@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
  Ethan Wellenreiter <Ethan.Wellenreiter@amd.com>,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
- Joshua Ashton <joshua@froggi.es>, Hawking Zhang <Hawking.Zhang@amd.com>
+ Ryan Lin <tsung-hua.lin@amd.com>, Joshua Ashton <joshua@froggi.es>,
+ Mario Limonciello <mario.limonciello@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Compiling AMD GPU drivers displays a warning:
+On Mon, Mar 27, 2023 at 7:34=E2=80=AFPM Caio Novais <caionovais@usp.br> wro=
+te:
+>
+> Compiling AMD GPU drivers displays a warning:
+>
+> drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c: In function =E2=80=98amdgpu_mes_=
+ctx_alloc_meta_data=E2=80=99:
+> drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c:1099:13: warning: variable =E2=80=
+=98r=E2=80=99 set but not used [-Wunused-but-set-variable]
+>
+> Get rid of it by removing the variable.
+>
+> Signed-off-by: Caio Novais <caionovais@usp.br>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 8 --------
+>  1 file changed, 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_mes.c
+> index 82e27bd4f038..e0130536f778 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+> @@ -1096,14 +1096,6 @@ uint32_t amdgpu_mes_get_aggregated_doorbell_index(=
+struct amdgpu_device *adev,
+>  int amdgpu_mes_ctx_alloc_meta_data(struct amdgpu_device *adev,
+>                                    struct amdgpu_mes_ctx_data *ctx_data)
+>  {
+> -       int r;
+> -
+> -       r =3D amdgpu_bo_create_kernel(adev,
+> -                           sizeof(struct amdgpu_mes_ctx_meta_data),
+> -                           PAGE_SIZE, AMDGPU_GEM_DOMAIN_GTT,
+> -                           &ctx_data->meta_data_obj,
+> -                           &ctx_data->meta_data_mc_addr,
+> -                           &ctx_data->meta_data_ptr);
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c: In function ‘dpcd_set_source_specific_data’:
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:1290:32: warning: variable ‘result_write_min_hblank’ set but not used [-Wunused-but-set-variable]
+You can't just remove the buffer allocation here.  If you want to fix
+this then do something like
+if (r)
+    return r;
 
-Get rid of it by removing the variable 'result_write_min_hblank' and 'hblank_size'.
+Alex
 
-Signed-off-by: Caio Novais <caionovais@usp.br>
----
- .../drm/amd/display/dc/link/protocols/link_dp_capability.c | 7 -------
- 1 file changed, 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-index d4370856f164..7392fcf17653 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-@@ -1287,7 +1287,6 @@ void dc_link_overwrite_extended_receiver_cap(
- void dpcd_set_source_specific_data(struct dc_link *link)
- {
- 	if (!link->dc->vendor_signature.is_valid) {
--		enum dc_status result_write_min_hblank = DC_NOT_SUPPORTED;
- 		struct dpcd_amd_signature amd_signature = {0};
- 		struct dpcd_amd_device_id amd_device_id = {0};
- 
-@@ -1324,16 +1323,10 @@ void dpcd_set_source_specific_data(struct dc_link *link)
- 		if (link->ctx->dce_version >= DCN_VERSION_2_0 &&
- 			link->dc->caps.min_horizontal_blanking_period != 0) {
- 
--			uint8_t hblank_size = (uint8_t)link->dc->caps.min_horizontal_blanking_period;
--
--			result_write_min_hblank = core_link_write_dpcd(link,
--				DP_SOURCE_MINIMUM_HBLANK_SUPPORTED, (uint8_t *)(&hblank_size),
--				sizeof(hblank_size));
- 		}
- 		DC_TRACE_LEVEL_MESSAGE(DAL_TRACE_LEVEL_INFORMATION,
- 							WPP_BIT_FLAG_DC_DETECTION_DP_CAPS,
- 							"result=%u link_index=%u enum dce_version=%d DPCD=0x%04X min_hblank=%u branch_dev_id=0x%x branch_dev_name='%c%c%c%c%c%c'",
--							result_write_min_hblank,
- 							link->link_index,
- 							link->ctx->dce_version,
- 							DP_SOURCE_MINIMUM_HBLANK_SUPPORTED,
--- 
-2.40.0
-
+>         if (!ctx_data->meta_data_obj)
+>                 return -ENOMEM;
+>
+> --
+> 2.40.0
+>
