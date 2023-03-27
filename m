@@ -4,116 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABD50C6FD1D
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 15:02:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01211C76195
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 15:20:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42E8410E617;
-	Mon, 27 Mar 2023 15:02:14 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2042.outbound.protection.outlook.com [40.107.100.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D47FE10E3AA;
- Mon, 27 Mar 2023 15:02:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E40110E381;
+	Mon, 27 Mar 2023 15:20:39 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2045.outbound.protection.outlook.com [40.107.243.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E66E110E381
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 15:20:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HvpiiHhRAQMBs7RW/LV63hsPG8CAza3vYB25CgVzCwKoBl6/FBAnpYzS7PcoS3u1WqJJ0UpsFoi8EGs18LKTcDpajLZ7H6N9nbvpWARL9gNTznM4m3Sig6jBBNf6r+Cy3Cv1kL9+3V408wOEtJx+NPjpXn0Cska0y19zGIS9+aRYbLXqKRNSAmPHeCB8l34Cv6uzWsR4YbJWTi/Anvl2lmompIneusraJUSDzIKk8lBrHZQWwW9uVfSpeRAp+bqLSFj1mrjZJ+dRfl7GN9xjhFi4tIS9M41s6pEx7wy5Q/Z1XRzf9saO4R0INqN6iedCDgBZ+8sE+zz6AeiGQwV/jg==
+ b=I0dWV7ABV7k98usGO4ykAgHlVOi+sL5zrEVyBRDoD1R87/8nVKRXlRJyk37r8UgMzMe3AogiHs8aTk4KuTqzA9QULGED37tdlCWrBvVmmoMYCn0fyT8DdWa5WEcw7I6gWIj9vA+QISATewoy56zWrjQDxSqR7YhhhcUzPRnDd+kAitj4jSGf+/rhPbPCRN+Po7R3NhI/MFZ2tpvZsTRIhg2/KwJMoiwvc1V6nxu4THWPpKbzFS4kspUxuBf+vuD/zLSvbK9L+pBjGj5/9TSD4ztzkoo5C99+WApf1k9kTDKz50e3tD7qsObDunSADyg90rry547hcbNE2knhoet1dQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ezmf1LSCQJeiilrVWuGaXsG7BT+op+gamW7yLgakgcY=;
- b=UX2IdU0vVjBZjCAyu6IQnqY5Odqvjy5IXtRH4J3n9nqHQ3q6TVKm1UiqpKbdcUvh+lDavLhEqeMV3btG6FlRFbE+IxGCmdfra9kFOM3eYkdrA8JzBcXoML+BZy28v5IPIIIHcwZMlyYREyRS2/GwN1URmMhRTNHLQLVAcQmQbE0cq8CJEfcrBd28TFxxbebpH8Av+Xl68arJsdSM4iEok+qlsGSEgGj7v3Sf/ljqWc9EFzwgG26QDrFPfcSx9PCHlZ2OG9wgkDZDldvXgvp6y5zpPzBXwUjS9heFJjcqKYk1eP4yCjuCXNj/1qboR8Ndf6GbNzqkRn6PDb/nRG2MTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=7mQLmOYU5NRN0o0gfr7s+37to9tw2PUcIDGNxRz5Ifw=;
+ b=K77MIl0eJD70PpsBpk+leW7MeJc4yuh55O3yQY1U1ZQyfRXJu2WdoCq8XpOxjYl75Gi/jRFHneghd7T4vd/UI0sRHPEfEFsSM04tTIOYCYkE4vZa+9yUiXc726v75RAKFYaxlTwQm9o58uO9/qG6JA6A14HJUQE+JCy68idauU4TfQHQZZqciUNNDt4Lniepbwv7WMc8tzMyS8d3GSytyFuep4AsE0ntI8zYo277q5u5ZXl4nNSEsChiqqLQCfiHLgTINLaRgzOpvPHETW5rEMjretgdV4KhZvpLjGhVvSHWNTQ8nMW4KPWBFobiFTi/rUW2NkeE2GjAizmkjj3K4A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ezmf1LSCQJeiilrVWuGaXsG7BT+op+gamW7yLgakgcY=;
- b=nGOFcoPLThG60x0BSp1rFNN/1wMU3d1s7bW6qF6URQZYx7PpcSbyRhSkQII4OUfLqTC3O33UbiPJgDdgwOZQajRJqitanlkiWZ3LUG04UgVy9fXPZ+b2ovjGbbdTj5XzP6Pv4/ozStP0z/Kbmibv79gz5WpMtQ/85PDzJU/xJFk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
- IA1PR12MB8335.namprd12.prod.outlook.com (2603:10b6:208:3fa::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.41; Mon, 27 Mar
- 2023 15:02:10 +0000
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::b877:9974:5a14:cc37]) by DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::b877:9974:5a14:cc37%4]) with mapi id 15.20.6222.028; Mon, 27 Mar 2023
- 15:02:10 +0000
-Message-ID: <17ac25df-1e06-ae3a-e04e-831e20f00323@amd.com>
-Date: Mon, 27 Mar 2023 11:02:07 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: Re: [PATCH] drm/scheduler: Fix variable name in function description
-Content-Language: en-CA
-To: Caio Novais <caionovais@usp.br>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-References: <20230325131532.6356-1-caionovais@usp.br>
-From: Luben Tuikov <luben.tuikov@amd.com>
-In-Reply-To: <20230325131532.6356-1-caionovais@usp.br>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0293.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10e::21) To DM6PR12MB3370.namprd12.prod.outlook.com
- (2603:10b6:5:38::25)
+ bh=7mQLmOYU5NRN0o0gfr7s+37to9tw2PUcIDGNxRz5Ifw=;
+ b=t7KyM+vLv38zdSYi5ut5fO2OVRzuVFZi7cmBEkgJ+6keU4nRYKmGtgpf9U7oKdVlyZxy1pe6yJCO6Htp2Xxwh99wf4ILZF6091POAKelE1yTPZt6Wx8CWW+ZTa82vExV5sp1O+42k5XWpvHbCcWWouDuXRwSs8dW8gU9jHl8lUQ=
+Received: from CYZPR19CA0022.namprd19.prod.outlook.com (2603:10b6:930:8e::25)
+ by IA1PR12MB6065.namprd12.prod.outlook.com (2603:10b6:208:3ef::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.29; Mon, 27 Mar
+ 2023 15:20:34 +0000
+Received: from CY4PEPF0000C983.namprd02.prod.outlook.com
+ (2603:10b6:930:8e:cafe::35) by CYZPR19CA0022.outlook.office365.com
+ (2603:10b6:930:8e::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.43 via Frontend
+ Transport; Mon, 27 Mar 2023 15:20:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CY4PEPF0000C983.mail.protection.outlook.com (10.167.241.199) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6178.30 via Frontend Transport; Mon, 27 Mar 2023 15:20:33 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 27 Mar
+ 2023 10:20:33 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 27 Mar
+ 2023 08:20:32 -0700
+Received: from alan-new-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Mon, 27 Mar 2023 10:20:31 -0500
+From: Alan Liu <HaoPing.Liu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Fix desktop freezed after gpu-reset
+Date: Mon, 27 Mar 2023 23:20:28 +0800
+Message-ID: <20230327152028.2939908-1-HaoPing.Liu@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|IA1PR12MB8335:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4f3219aa-46ca-49f3-8d06-08db2ed43d32
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000C983:EE_|IA1PR12MB6065:EE_
+X-MS-Office365-Filtering-Correlation-Id: 02efa912-791a-4df2-94d4-08db2ed6cf3a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: oYK3R5HU1LCuUIBuOKeM5DJ6EAEUJtSmUR8LWZ9y0A2JInwUVGL4fQkoRKhVHvuZDkcXFFjuiVXxoWM2V3Kzw7O+8aKSUWMoa4kuY1wzGAmN/IuTEZhXUvu7DQgSxm5YxFAC4LAVD43zzmgpd5qqLTjlj1ile9yC9AqEYTl5Y100mACs0MhbNscR4rYiD59PzATpOMmIlLgbmMOM8nNSs0KetIOEuqoNxTwXOU9LGs0iV7ZBQXbDkibHzUsCgCec0HB9ZYHCRPwJiMjp10lo0NZ6jhIWVvKMlLzU0Ymm39U79Er4YCKJh2GrnxyuBlH6tlTBJ2x0Uh243o3WHL8xVqfu9H1Twh+WnknS9622RbQ0WR+MJp5USCtNGqREVIpYI0Xoco5OD7jPbL3fDo9uv+Z5qUuQDejlqDKallrDtX5ZwPAEtG8bhI0regFBwF0Uyz0KCI1atw0zTW4l8Ka6T7LIjvVODnZlC9soc7/1myNAl6nKD2P6VQILPaEjAk9S1IuP5XNEVNqpskyVp7c1mlefVgF/CgoePwdQ77kXJ3fP2qOnliIKphf7BzP/3Ru8sV8vDh+ijZugHMLNJOVkQpZrGCccwqoG+tL4tR6MHifmHO2Oau8alT34CZtaaX2i4FeNXjs+0BhFqGxK3E8soQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(136003)(346002)(376002)(396003)(366004)(451199021)(66476007)(66946007)(8676002)(66556008)(4326008)(316002)(5660300002)(38100700002)(41300700001)(8936002)(6512007)(186003)(53546011)(6506007)(2616005)(6486002)(83380400001)(6666004)(478600001)(44832011)(86362001)(31696002)(2906002)(36756003)(31686004)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: i98o049sLrHj68CutG8/8PyI29cYV5qY99cDAA8Cs2JuneWpFPwJYZjbBPHEUvSp7BIHITMCcMPQcZf73Aewe+s32ujbIz7BzSvdtHut9wB9uvPcMTcuj8ZvM2w/uJLMjLagi2NxoCtGR/vwiR4KTAHB19TN1mLcPDHOUBzl9yCRMD6Mf+62BKzOvvm9YxK3rk852daeYj8XoCrmS4IkA0vYiLO4lZfeBxNNIIiVW0yFXAhiVo8M2gE6L9a8o8Ky49sVz09sGCGRDinVAZCu/uUPxtjk5PIs7MQtfhVV+B3nqN9loiWJnj7LZhr5a7CcCtZfYlTPbsf8VV3jBXq6TbZ7d7QSeuNDMTFqIFqWesT36xVGqy85BllQQxCW0Xfmr9u9+FoY2p+P3nTuPgqrAIoWJzdu1gGRz/XCMDGdw67pXHPEsAtzWoKwqn1M/nD77WCNoElK+KM/47iP9wQUFIReh6FIAL9NNIiitTmMWou+Q6cYtS+gHLM4M6AJ5l0758CxQ0clz06jJ3Qu30W/SvXpH7U3wiAp9smnD15R3+nmIQtQqiDjWkW0u4zjDToxxhtu7eRjvfs5ZIPO0WvyX32WkN+dRyj1zV/Y4aWnqls77ImWoCRu5bTC9RbdqLljtara6MxkHax5HwJ7SJkAPUQGjwA0A3RgaLQWX3eSpfrlaJAFO0fbdfVnay1SnQ18l7HcFwfT2abkWHi9CCmxyBAe4CULBFQ5/AnaMRshgXE=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(39860400002)(396003)(376002)(136003)(451199021)(36840700001)(40470700004)(46966006)(2616005)(47076005)(83380400001)(336012)(426003)(36860700001)(41300700001)(86362001)(36756003)(5660300002)(8936002)(356005)(81166007)(82740400003)(40460700003)(54906003)(7696005)(478600001)(8676002)(70586007)(70206006)(4326008)(6916009)(2906002)(82310400005)(40480700001)(6666004)(26005)(186003)(1076003)(316002)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WXFvWjl3dExzc0ZTL2U5ckJsNXIyRFNZZDVHQ0xaaG1Ja1BHNTVtcXZIQ29o?=
- =?utf-8?B?em5acWtCeFdnN0VxdDNIdkdOU3cvS2hvVmlFd0ZDaHZoR0xNNWh6TjNIUTdL?=
- =?utf-8?B?bmVoTHdGd3BWL2R6bjZHM3B0YWo1U2k4bFZGMGJVaGYxMzlNR2lYekU1QmxS?=
- =?utf-8?B?Znc3Y04xdGR4TnhZZkMxNVlPQ0h2dnlzRGRSajJocEdQc0pjU1VsWjZ2VTZx?=
- =?utf-8?B?Zjl0TG9Rc3ZXV1dOR2d6QndmSHZWNWV1MEs2QUxsd2dCanZJRHM3bnV5TzQ5?=
- =?utf-8?B?MzhobWdaM1Z5OFFMVEIrWHM3dk9PVmR6WFdodC9SdXBYRWV6U0gwVU1tSmt2?=
- =?utf-8?B?czJNV3JhWW9kRVkzcFJHZmlRbjFqTThFbWhWc1RKd2J4dUtaK2ppYnhpRXpv?=
- =?utf-8?B?ZDdhbGtibGVPbGd4NG1DdVo1NVFGQmdwYm82RFo2Zm45KzZQaDIxNDBPcnBh?=
- =?utf-8?B?S1pGZTlzQ2RWdDNZcGIwREtmOUhjaDI3MzRZMTk4M2JYNS9WaWpOb3FmQzNT?=
- =?utf-8?B?aE5zQkVZbzZ2dnc3cVB2Z2lOWFhvMm5DeGR2YkNUTUNCa0FjUGRkTUFxREFO?=
- =?utf-8?B?Q3Y3MEFJbHhQeDFHL0loWkk4UU9ZSC80Tjl6ZmQ2MW1HcTZ0Q2JDcU4zRG9k?=
- =?utf-8?B?eE44RHI5NllPUWZaWEhTcUpidGl6ejdVRitQaXYxZTdaV1lDMVBuaUpjMEdn?=
- =?utf-8?B?aGVwTk9CT3FHZTVzS1EwSTRydGVVK05mTklocWxhbVR3ZjBxd1NDZlpKbG1U?=
- =?utf-8?B?S2hwemJDQXNQR0JMSHFHaTZzWXhkRGZQVkhlaVFKTWFBa0dyMW0zTzVUdjBt?=
- =?utf-8?B?UWczQkE3aTlUTEFoZkk5NlFlYXdNelNiVU9ON1lVZ011bDJtbzE3NC94RVZY?=
- =?utf-8?B?R3R2YThZbjd2Nkc1bWZ5M1VQWGtKcHVXVnlINEZXY0MvbDNZRXBEWmxDN2Fv?=
- =?utf-8?B?K1YwRm90RlQ5UkQ2Wm9FLzZJZkdLTkR2ZWcwNzhzYUhTWmJhamFTdEY0bUlG?=
- =?utf-8?B?eEF3Um9WcTFDcmMwRUJsWXV4OXZ6RmE4eWlMZFBWR2NvbzZybUNLZWdaYjJa?=
- =?utf-8?B?bThoSnJKaFN5T2RoUEEyUmNmcDNSZGk2WEtHTkpKZGd4NE4wcFhwWTRUbFdo?=
- =?utf-8?B?RkQrYkZOOFNHOWIxR09tNE12MEtwbS9SN2pITWc0VmE5b1ZJUHpNNkJTTEJt?=
- =?utf-8?B?SnhTQXN4cDJjLzlSUHlOZHdRM2o2QWVacUJadTRCZmlQUlo0d0R3aHhmZVZY?=
- =?utf-8?B?Tkw2MHIrenhGUXRoWXoreUVjYVpXbUVndjg2YWxtU3dXRmFpdlZpS050Mlc4?=
- =?utf-8?B?TjA5dWRNN0JVVG8rUkVyci93S2k3bTZ5OEVQbEQwaVJGTTIvSDdZcVYyMWlh?=
- =?utf-8?B?eUxyNVdLSllNbHNnTTRJMjBHSGxUUGxTVEE4R2RZMk9YQldlTS9nVW54VTZM?=
- =?utf-8?B?cGxmTmlrQ1BPb3dIeGVaUi80NUZZUzIrTkpHdFpsOHdkK01BQThXZThhcERy?=
- =?utf-8?B?ckhMOVpYVkJJNlhob1l4NjlTbHV5aFFEcDh0Wmx5R0hPZDRTYWRCeUxGeVc2?=
- =?utf-8?B?WGJqVDAwWFdGRHNsODRGajFNM241aFVPY2lEU2VCR3VvWmoySktJOHlWdUZs?=
- =?utf-8?B?ckJwZnZWMndmNXNjd3BFSUJaTnJZOWNKeFBZaS9qdGRRLzNFbmdFY2lJdlpL?=
- =?utf-8?B?TkxEMWlGQTZpMjhDRVVnaHpPRTRJQ25vVEMvVDQxQ1hEcHYrSVNwK01iandB?=
- =?utf-8?B?bFNBVjlwSHRBWWxlS0hXaWxCNHdZR1RXVDBVbEtta2Q3Wk1OSFlGTUJ1SEk3?=
- =?utf-8?B?NVphYTlablEwbll5V2pTR1JBWU9ka0MybCtYSWhjWjZXNFJkeDJ5L0oxYjlZ?=
- =?utf-8?B?MjB1cXFIandZaHJqdm9qeHMzRDNrd3lvVjV3c2QvZ3VGbGdNNlZOOG9hOHRG?=
- =?utf-8?B?U0tOS3ZrWTZtTDlCampVaEJvS3NPaDZiKzFMN0hvUW11SXpFWjB2a293d2ll?=
- =?utf-8?B?QnRHeVVZemgyWUQ1OXIrMXVQYnduQ3ZOT1JMdjh5SnZGbm9OeVlGcHYvSkhv?=
- =?utf-8?B?MVdmRzFqWkNMTjVRWURYQis0VERZKzJ5eGxDaVpjQU1NVDU2RXhYQkUrY0xU?=
- =?utf-8?B?S0VPb0R5MitCNmJDWk9Jc05nS1g1ZFpxZUN3aFJtWWhVMGtGNGxrR0N6NWxS?=
- =?utf-8?Q?BZENBIatAD2W9uhSbrR05pxZD3PaJvsKnN7JzI37rUu1?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f3219aa-46ca-49f3-8d06-08db2ed43d32
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 15:02:09.9150 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 15:20:33.6565 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 02efa912-791a-4df2-94d4-08db2ed6cf3a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: muk16Iz0zSWJxjaKecrehl5KiSbvdJdRXu8s4UKX2kuluClY0cFfw1X9CLPWclxb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8335
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C983.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6065
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,43 +101,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@gmail.com, daniel@ffwll.ch
+Cc: Alan Liu <HaoPing.Liu@amd.com>, bhawanpreet.lakha@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Thanks for the fix. I'll push this via amd-staging-drm-next.
+[Why]
+After gpu-reset, sometimes the driver would fail to enable vblank irq,
+causing flip_done timed out and the desktop freezed.
 
-Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
+During gpu-reset, we will disable and enable vblank irq in dm_suspend()
+and dm_resume(). Later on in amdgpu_irq_gpu_reset_resume_helper(), we
+will check irqs' refcount and decide to enable or disable the irqs again.
 
-Regards,
-Luben
+However, we have 2 sets of API for controling vblank irq, one is
+dm_vblank_get/put() and another is amdgpu_irq_get/put(). Each API has
+its own refcount and flag to store the state of vblank irq, and they
+are not synchronized.
 
-On 2023-03-25 09:15, Caio Novais wrote:
-> Compiling AMD GPU drivers displays two warnings:
-> 
-> drivers/gpu/drm/scheduler/sched_main.c:738: warning: Function parameter or member 'file' not described in 'drm_sched_job_add_syncobj_dependency'
-> drivers/gpu/drm/scheduler/sched_main.c:738: warning: Excess function
-> parameter 'file_private' description in
-> 'drm_sched_job_add_syncobj_dependency'
-> 
-> Get rid of them by renaming the variable name on the function description
-> 
-> Signed-off-by: Caio Novais <caionovais@usp.br>
-> ---
->  drivers/gpu/drm/scheduler/sched_main.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-> index 214364fccb71..7db586e6fce6 100644
-> --- a/drivers/gpu/drm/scheduler/sched_main.c
-> +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> @@ -722,7 +722,7 @@ EXPORT_SYMBOL(drm_sched_job_add_dependency);
->  /**
->   * drm_sched_job_add_syncobj_dependency - adds a syncobj's fence as a job dependency
->   * @job: scheduler job to add the dependencies to
-> - * @file_private: drm file private pointer
-> + * @file: drm file private pointer
->   * @handle: syncobj handle to lookup
->   * @point: timeline point
->   *
+In drm we use the first API to control vblank irq but in
+amdgpu_irq_gpu_reset_resume_helper() we use the second set of API.
+
+The failure happens when vblank irq was enabled by dm_vblank_get() before
+gpu-reset, we have vblank->enabled true. However, during gpu-reset, in
+amdgpu_irq_gpu_reset_resume_helper(), vblank irq's state checked from
+amdgpu_irq_update() is DISABLED. So finally it will disable vblank irq
+again. After gpu-reset, if there is a cursor plane commit, the driver
+will try to enable vblank irq by calling drm_vblank_enable(), but the
+vblank->enabled is still true, so it fails to turn on vblank irq and
+causes flip_done can't be completed in vblank irq handler and desktop
+become freezed.
+
+[How]
+Combining the 2 vblank control APIs by letting drm's API finally calls
+amdgpu_irq's API, so the irq's refcount and state of both APIs can be
+synchronized. Also add a check to prevent refcount from being less then
+0 in amdgpu_irq_put().
+
+Signed-off-by: Alan Liu <HaoPing.Liu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c            |  3 +++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 14 ++++++++++----
+ 2 files changed, 13 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+index a6aef488a822..1b66003657e2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+@@ -597,6 +597,9 @@ int amdgpu_irq_put(struct amdgpu_device *adev, struct amdgpu_irq_src *src,
+ 	if (!src->enabled_types || !src->funcs->set)
+ 		return -EINVAL;
+ 
++	if (!amdgpu_irq_enabled(adev, src, type))
++		return 0;
++
+ 	if (atomic_dec_and_test(&src->enabled_types[type]))
+ 		return amdgpu_irq_update(adev, src, type);
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+index dc4f37240beb..e04f846b0b19 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+@@ -146,7 +146,7 @@ static void vblank_control_worker(struct work_struct *work)
+ 
+ static inline int dm_set_vblank(struct drm_crtc *crtc, bool enable)
+ {
+-	enum dc_irq_source irq_source;
++	int irq_type;
+ 	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
+ 	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
+ 	struct dm_crtc_state *acrtc_state = to_dm_crtc_state(crtc->state);
+@@ -169,10 +169,16 @@ static inline int dm_set_vblank(struct drm_crtc *crtc, bool enable)
+ 	if (rc)
+ 		return rc;
+ 
+-	irq_source = IRQ_TYPE_VBLANK + acrtc->otg_inst;
++	irq_type = amdgpu_display_crtc_idx_to_irq_type(adev, acrtc->crtc_id);
++
++	if (enable)
++		rc = amdgpu_irq_get(adev, &adev->crtc_irq, irq_type);
++
++	else
++		rc = amdgpu_irq_put(adev, &adev->crtc_irq, irq_type);
+ 
+-	if (!dc_interrupt_set(adev->dm.dc, irq_source, enable))
+-		return -EBUSY;
++	if (rc)
++		return rc;
+ 
+ skip:
+ 	if (amdgpu_in_reset(adev))
+-- 
+2.34.1
 
