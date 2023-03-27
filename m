@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DEB9C6FD1D
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 23:34:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0754CC761A6
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 23:35:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5C3110E7B7;
-	Mon, 27 Mar 2023 23:34:52 +0000 (UTC)
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CD0D10E7B8
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 23:34:50 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id l18so7674452oic.13
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 16:34:50 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FFF110E7C0;
+	Mon, 27 Mar 2023 23:35:04 +0000 (UTC)
+Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
+ [IPv6:2607:f8b0:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C77A910E7BF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 23:35:00 +0000 (UTC)
+Received: by mail-oi1-x22c.google.com with SMTP id r16so7610443oij.5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 16:35:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1679960089;
+ d=usp.br; s=usp-google; t=1679960099;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=8QsHyz7gKUkQwkVhf5pyg1KknFMPIvy4LcmMgDotpCM=;
- b=sx01gakuWa2Q5P6dcI4aIQRwIo9i+t9MKVEV2yp/xxLG+XXh5L4SKodd8Ib0rthkhM
- d229sHbxpl6ezpNSYIuE8NQG3fv4OcWLeqiVpughUBDCD6HoXLYQkjPeeOcHA6UVU8G5
- /J+jdLdjufxFxv955wirCwSmbuLxHyCqXYk0my/ciyXJCElao7c90x1rIa/Yh0yTCp3W
- s7+bZXZt1V3nUO4Bba4bODojyT+ct9iMtEBxRi58GmbNQ7mDBbPk1ey70ybCkLX6rMhK
- 2vB49cK9mzSLuo9e7QPRVLEHJHwT0WQ6eKElBGY/NK8HFvBSQE8kDrnuupww2QfLMRTD
- Y6EA==
+ bh=UZvChWzT9y/5zLeIHf5uAQzD/BtvkDRJ3FwyLW2ZaHk=;
+ b=wm7ahbRIhc9RvuZcZDoeymhlv3zgD7q8vtlddoiFgyPuYrCF2UQHw1qVFatPY38lbk
+ L2MDcqf4eFfFC9CD4fkQf+dipCiiaXWG8ig6gj/1+WLjtVv9dPoPoWUW0OdVyljtevBj
+ P1tAYeCjhmjGlaaJoO3h1AsREJwGADm4oAyEWnyxhNQmZEp/yuGqEhppic9GwJ497+6m
+ cdfMze0NchXZo6iFtJ+LC4Uj2Wt37hP+m0Yhw2h11qHaiAf+GKNcfNcWz6Vr8UPFQ20/
+ qqdrotLRu9N+cgoUH8F8M74KXSdu7eKJD2CI9iaISd9WZdaUnoQcd733g9l1a2Q1kQib
+ AJ2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679960089;
+ d=1e100.net; s=20210112; t=1679960099;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=8QsHyz7gKUkQwkVhf5pyg1KknFMPIvy4LcmMgDotpCM=;
- b=3LCTLVbRnhA5H762E/IULQOw2ZW83mXfKakjzxFspClZoolfUuXMdFlJI5gS4JSSyU
- x5S7egxYar4+5z+wgKsVgntuhDuYZtGKrA4PdoHGYheEX3N4gBvOXSwmeRcG5MWhDCwb
- VYMR1AdY5HLi6ZhB8Qco4uZMkNWASOL5kOfLRlbf2rTFePBr1vElfCneZixD9BFQg/wH
- VE039undG8ivD8g8ooNVDFjK3iKVJJWll2m+AIjbgLDyHVCWNvMFpYaZmBsjUeVXnq49
- obxoRkuctK22i6Cpx2ZSSsXIf7AXx2wkweungO3SZ7ZzC9R/enwYtZzv8o8dYy7rDRkM
- 80rA==
-X-Gm-Message-State: AAQBX9dWauGMaFJGAhZX83J/v45wSFIMPDgHLqIXb94zrUuoW0HzPYQQ
- mSftWU6UyfXPVZ+GrIBzTzRXrJUYckqNGgFjkFXO3Q==
-X-Google-Smtp-Source: AKy350Zf7TAyCj72D7dBxB05x85USmeaRH3Aok5R7Th4M199ri5mIqKovxSmqM4aYnXWp8ALjUMQfA==
-X-Received: by 2002:aca:d0f:0:b0:389:f4a:93ec with SMTP id
- 15-20020aca0d0f000000b003890f4a93ecmr2974502oin.28.1679960089575; 
- Mon, 27 Mar 2023 16:34:49 -0700 (PDT)
+ bh=UZvChWzT9y/5zLeIHf5uAQzD/BtvkDRJ3FwyLW2ZaHk=;
+ b=2Xvfn5zARsHwxBGHqrURr7PCFdT1kW2r1hwj/SA4luu7jhkj1eiNfYJRwBxNfMdWr+
+ CXbIUyNweQWWBrelxrozeLV7wm4HAFIATIar5UTIcRpxiNADpW1RtcSbGnpTvDA7iyGh
+ gR7j2+q869654icOQsAfNPHY2ejKNQuhAXxd4xYHskv3Y6GiOH71Gt3jR5b5nEuzJHZm
+ CDW0SvYtSUwGTWkay9Ncj6gHwYIDbrirlYcquhxT7jcJpsO8pdUdEuY7LcdVt4vlc3/Y
+ PZi2d41c8IqWenwBY3fE0P+iu0coVKYVNqTG4Q0LvlSAAtkbjYzDeN0YlY1tY8XQ/TmT
+ T9vA==
+X-Gm-Message-State: AO0yUKVBJWmLoS1R9LpUnOOYbQT2UgfokqyMITKd9Suvs1y0S+mQlPAV
+ iwk7oHGfB+TxGRwwtXzs5BsMp4gzAv+SPSi/j4VxWA==
+X-Google-Smtp-Source: AK7set/8tjEH59vf8bLWrjpQFwfi5OJxvuo18LnQL3tRmSwfL7lkONT3v+KQNmF/JKJ6LyaDvpfYzA==
+X-Received: by 2002:aca:220a:0:b0:387:3a49:4733 with SMTP id
+ b10-20020aca220a000000b003873a494733mr5203770oic.59.1679960099653; 
+ Mon, 27 Mar 2023 16:34:59 -0700 (PDT)
 Received: from ARCHaio.localdomain ([2804:1b3:a2c0:c911:919f:bd20:4f2a:8383])
  by smtp.gmail.com with ESMTPSA id
- b186-20020aca34c3000000b00389295e8424sm1643409oia.45.2023.03.27.16.34.39
+ b186-20020aca34c3000000b00389295e8424sm1643409oia.45.2023.03.27.16.34.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Mar 2023 16:34:49 -0700 (PDT)
+ Mon, 27 Mar 2023 16:34:59 -0700 (PDT)
 From: Caio Novais <caionovais@usp.br>
 To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 04/12] drm/amd/display: Remove unused variable 'hubp'
-Date: Mon, 27 Mar 2023 20:33:45 -0300
-Message-Id: <20230327233353.64081-5-caionovais@usp.br>
+Subject: [PATCH 05/12] drm/amd/display: Remove unused variable 'speakers'
+Date: Mon, 27 Mar 2023 20:33:46 -0300
+Message-Id: <20230327233353.64081-6-caionovais@usp.br>
 X-Mailer: git-send-email 2.40.0
 In-Reply-To: <20230327233353.64081-1-caionovais@usp.br>
 References: <20230327233353.64081-1-caionovais@usp.br>
@@ -106,29 +106,36 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Compiling AMD GPU drivers displays a warning:
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn201/dcn201_hwseq.c: In function ‘dcn201_pipe_control_lock’:
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn201/dcn201_hwseq.c:544:22: warning: variable ‘hubp’ set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_afmt.c: In function ‘afmt3_se_audio_setup’:
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_afmt.c:126:18: warning: variable ‘speakers’ set but not used [-Wunused-but-set-variable]
 
 Get rid of it by removing the variable.
 
 Signed-off-by: Caio Novais <caionovais@usp.br>
 ---
- drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c | 2 --
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_afmt.c | 2 --
  1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c
-index 61bcfa03c4e7..1aeb04fbd89d 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c
-@@ -541,8 +541,6 @@ void dcn201_pipe_control_lock(
- 	bool lock)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_afmt.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_afmt.c
+index 95528e5ef89e..55e388c4c98b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_afmt.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_afmt.c
+@@ -123,7 +123,6 @@ void afmt3_se_audio_setup(
  {
- 	struct dce_hwseq *hws = dc->hwseq;
--	struct hubp *hubp = NULL;
--	hubp = dc->res_pool->hubps[pipe->pipe_idx];
- 	/* use TG master update lock to lock everything on the TG
- 	 * therefore only top pipe need to lock
- 	 */
+ 	struct dcn30_afmt *afmt3 = DCN30_AFMT_FROM_AFMT(afmt);
+ 
+-	uint32_t speakers = 0;
+ 	uint32_t channels = 0;
+ 
+ 	ASSERT(audio_info);
+@@ -131,7 +130,6 @@ void afmt3_se_audio_setup(
+ 	if (audio_info == NULL)
+ 		return;
+ 
+-	speakers = audio_info->flags.info.ALLSPEAKERS;
+ 	channels = speakers_to_channels(audio_info->flags.speaker_flags).all;
+ 
+ 	/* setup the audio stream source select (audio -> dig mapping) */
 -- 
 2.40.0
 
