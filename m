@@ -4,59 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFF87C6FD1D
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 23:35:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4612FC76195
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 23:35:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 655C210E7CC;
-	Mon, 27 Mar 2023 23:35:42 +0000 (UTC)
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E93B810E7CB
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 23:35:40 +0000 (UTC)
-Received: by mail-oi1-x22a.google.com with SMTP id s8so7716577ois.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 16:35:40 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCFDF10E7CD;
+	Mon, 27 Mar 2023 23:35:51 +0000 (UTC)
+Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
+ [IPv6:2607:f8b0:4864:20::235])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 828EB10E7CD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 23:35:50 +0000 (UTC)
+Received: by mail-oi1-x235.google.com with SMTP id bi31so7683899oib.9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 16:35:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1679960140;
+ d=usp.br; s=usp-google; t=1679960150;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=1A2mIjPdUqhr5Ice4vp7gIRuK6chByRV3cyN7aavT0E=;
- b=hBEZEu/Fg8Z7uqZ/Ekz1hHMkGIiWSFF5sR50cANSTAnWulG9QmfK+wwFoes5VSYTRh
- htMmf303bnpibjbmVMsR9SPCc51HKUstFFhpmUbInbdSvxo7XOCdedKUFZ8ZtXeJ7/FA
- 238eQJQE4A1BarBX9h8IbgyVHKEJmOM2bfBO2yN40h1Yw8KQ3rxQ/tQW4pQ1x4wP5cwj
- x4RDRYoVZB/R5SC67RF1rxAyAA1Nu27ewQa8soq4BzP4HWRC7hBCY2FiqLFMYboWuy++
- x2mBeYBSEDmh/XqmaVCK4Cp6GkEDyA9YmnvG/o4ecItjja9Cz2eSbfxPBnJSBpJvtT0J
- pvug==
+ bh=K1xhDxA3uWDRifG4IvLBAoRIIiYm0r4QC9LLNbKp2X8=;
+ b=hvoaJX2ufI+udaK8mtxiLI21DzeH7JurXG/B43jOARKu83aSms5p/jUB7lwFs6omfL
+ C3MvJEbwKrp4+zN7nS9bwwLJRstOf0GeeBnUjX0wuSPeyXQ2hqrkBQek1SQGMIiX+KCX
+ /4ZPrhOgZvJ0MEOfcTm3nKfKoZUGeUiv8O33K6TquSH+CmZVXyqzo50twDCInP4i9q9l
+ LtUwMM4WfNHC2cmc/CLIiaJJAaok/ssG3j/4jAMDz7SP/mcITFs8jlPilmDmUbIu1rpa
+ S8HtZoIjJX3ZkBhEtr41i+hLJVS4ef1KC5FtF535WpCQQdngJk+XZwGB3Wp0bFrZvPsJ
+ rcZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679960140;
+ d=1e100.net; s=20210112; t=1679960150;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=1A2mIjPdUqhr5Ice4vp7gIRuK6chByRV3cyN7aavT0E=;
- b=5YIX7I11ZhZR5zNvBpnoTCmH8T8FO2YOwOFuwb+wIXYwlrSMz31PLaP22AKU5PL7qz
- j17Mj8cSNVFZVWY76hZ1jCaI+MqFjSm4v0pXHyt1WYeVaOWCot140i3AMYq1wnpnGjU+
- tr9Ttf6YHQQbnrq11LDLUYbGQftOf8nssQJh4tzVyE5AHbv9tDCLuo5MlS8w/GudzVma
- BItu2/bLALnXV/XncEiGP7wyTbL/fcDy7+jG12X9Xfx3eh2fjjhvwCIM00VmcqOspVcw
- npkNg8/G/koekxHUpR9ACtkRvVzDDY062sy40Gg0teppRTqQT5hyqrtLoj4I2vv/VXlB
- 7G8A==
-X-Gm-Message-State: AO0yUKXvyw4uB5TuyukN6icwsAY/rlGyOw91XO8QKIYvPwiuJOBFw+Fl
- w25pR8pVfWbAnWb8U5QfGiiTzzdYBsb0uCe7d3vq0w==
-X-Google-Smtp-Source: AK7set/XpIaBnrd0Il1RA6TJi7frFciWmH9SabrmY2R33L9ZbylSXEKtU1Nfc4VXuM45NiWKMhJC9Q==
-X-Received: by 2002:a05:6808:58:b0:386:f58a:2262 with SMTP id
- v24-20020a056808005800b00386f58a2262mr5575924oic.57.1679960139887; 
- Mon, 27 Mar 2023 16:35:39 -0700 (PDT)
+ bh=K1xhDxA3uWDRifG4IvLBAoRIIiYm0r4QC9LLNbKp2X8=;
+ b=X1j75KgE9pLHgQH5nzCJSKx9XxGSntl6tayRZaQWkPpOa6xZcUgUImyqw3TkvcCzyT
+ mZAxM9sQo3g0HGlsLKoKi6l6bRM1lN4Kz+2qp5EcO9EygIrqf/e56/CZ+z1ntgTCYpl5
+ mHdT40ZkV4svuGY7vQj+Yrbm1UK0KVvmejePnlh0e82k86fOY99vM0EzcWapT8zO1ytQ
+ vGTNBJhH2o7e1ySBLDBWEmEJ1Y0E0ZPGZFGdFYomVs8YBsAr6lTgFARks5fhFMtST584
+ 58PtZm/76DJcJDPRXwB5B0Fqejw4HXI1U9I2sK4PMRXHJS5LoD6dDNmmF5gtPH5ufUBe
+ 2bIQ==
+X-Gm-Message-State: AO0yUKUE5ReiHOh70TAb5fQJfPASC7/w5ff/zhX4dZiU+GctApJPTzZy
+ tmIp9M/GajGF33NZLa7MQAfWH2bmAjz/Bkrv02fauQ==
+X-Google-Smtp-Source: AK7set8NiGmgJV8HERS4O1DEMBfqAEeV4IytdUJ48dLagBB0+Hq6qQQfvpgB8IkKbofF5pTimWiQAg==
+X-Received: by 2002:aca:6507:0:b0:387:3239:61fa with SMTP id
+ m7-20020aca6507000000b00387323961famr5553985oim.30.1679960149872; 
+ Mon, 27 Mar 2023 16:35:49 -0700 (PDT)
 Received: from ARCHaio.localdomain ([2804:1b3:a2c0:c911:919f:bd20:4f2a:8383])
  by smtp.gmail.com with ESMTPSA id
- b186-20020aca34c3000000b00389295e8424sm1643409oia.45.2023.03.27.16.35.30
+ b186-20020aca34c3000000b00389295e8424sm1643409oia.45.2023.03.27.16.35.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Mar 2023 16:35:39 -0700 (PDT)
+ Mon, 27 Mar 2023 16:35:49 -0700 (PDT)
 From: Caio Novais <caionovais@usp.br>
 To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 09/12] drm/amd/display: Remove two unused variables
- 'is_pipe_split_expected' and 'state'
-Date: Mon, 27 Mar 2023 20:33:50 -0300
-Message-Id: <20230327233353.64081-10-caionovais@usp.br>
+Subject: [PATCH 10/12] drm/amd/display: Remove unused variable 'cursor_bpp'
+Date: Mon, 27 Mar 2023 20:33:51 -0300
+Message-Id: <20230327233353.64081-11-caionovais@usp.br>
 X-Mailer: git-send-email 2.40.0
 In-Reply-To: <20230327233353.64081-1-caionovais@usp.br>
 References: <20230327233353.64081-1-caionovais@usp.br>
@@ -105,57 +104,48 @@ Cc: Felipe Clark <felipe.clark@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Compiling AMD GPU drivers displays two warnings:
+Compiling AMD GPU drivers displays a warning:
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource.c: In function ‘dcn32_acquire_post_bldn_3dlut’:
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource.c:1614:31: warning: variable ‘state’ set but not used [-Wunused-but-set-variable]
-and
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource.c: In function ‘dcn32_populate_dml_pipes_from_context’:
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource.c:1916:17: warning: variable ‘is_pipe_split_expected’ set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource_helpers.c: In function ‘dcn32_helper_calculate_mall_bytes_for_cursor’:
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn32/dcn32_resource_helpers.c:62:18: warning: variable ‘cursor_bpp’ set but not used [-Wunused-but-set-variable]
 
-Get rid of them by removing the variables.
+Get rid of it by removing the variable.
 
 Signed-off-by: Caio Novais <caionovais@usp.br>
 ---
- drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c | 4 ----
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c | 4 ----
  1 file changed, 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-index 74e50c09bb62..3435d3294e0b 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-@@ -1611,7 +1611,6 @@ bool dcn32_acquire_post_bldn_3dlut(
- 		struct dc_transfer_func **shaper)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
+index 3a2d7bcc4b6d..a616cf078cf4 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource_helpers.c
+@@ -59,25 +59,21 @@ uint32_t dcn32_helper_calculate_mall_bytes_for_cursor(
  {
- 	bool ret = false;
--	union dc_3dlut_state *state;
+ 	struct hubp *hubp = pipe_ctx->plane_res.hubp;
+ 	uint32_t cursor_size = hubp->curs_attr.pitch * hubp->curs_attr.height;
+-	uint32_t cursor_bpp = 4;
+ 	uint32_t cursor_mall_size_bytes = 0;
  
- 	ASSERT(*lut == NULL && *shaper == NULL);
- 	*lut = NULL;
-@@ -1620,7 +1619,6 @@ bool dcn32_acquire_post_bldn_3dlut(
- 	if (!res_ctx->is_mpc_3dlut_acquired[mpcc_id]) {
- 		*lut = pool->mpc_lut[mpcc_id];
- 		*shaper = pool->mpc_shaper[mpcc_id];
--		state = &pool->mpc_lut[mpcc_id]->state;
- 		res_ctx->is_mpc_3dlut_acquired[mpcc_id] = true;
- 		ret = true;
+ 	switch (pipe_ctx->stream->cursor_attributes.color_format) {
+ 	case CURSOR_MODE_MONO:
+ 		cursor_size /= 2;
+-		cursor_bpp = 4;
+ 		break;
+ 	case CURSOR_MODE_COLOR_1BIT_AND:
+ 	case CURSOR_MODE_COLOR_PRE_MULTIPLIED_ALPHA:
+ 	case CURSOR_MODE_COLOR_UN_PRE_MULTIPLIED_ALPHA:
+ 		cursor_size *= 4;
+-		cursor_bpp = 4;
+ 		break;
+ 
+ 	case CURSOR_MODE_COLOR_64BIT_FP_PRE_MULTIPLIED:
+ 	case CURSOR_MODE_COLOR_64BIT_FP_UN_PRE_MULTIPLIED:
+ 		cursor_size *= 8;
+-		cursor_bpp = 8;
+ 		break;
  	}
-@@ -1913,7 +1911,6 @@ int dcn32_populate_dml_pipes_from_context(
- 	struct resource_context *res_ctx = &context->res_ctx;
- 	struct pipe_ctx *pipe;
- 	bool subvp_in_use = false;
--	uint8_t is_pipe_split_expected[MAX_PIPES] = {0};
- 	struct dc_crtc_timing *timing;
  
- 	dcn20_populate_dml_pipes_from_context(dc, context, pipes, fast_validate);
-@@ -2002,7 +1999,6 @@ int dcn32_populate_dml_pipes_from_context(
- 		}
- 
- 		DC_FP_START();
--		is_pipe_split_expected[i] = dcn32_predict_pipe_split(context, &pipes[pipe_cnt]);
- 		DC_FP_END();
- 
- 		pipe_cnt++;
 -- 
 2.40.0
 
