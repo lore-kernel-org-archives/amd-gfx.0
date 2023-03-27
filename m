@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B993C77B6D
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 18:45:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2265BC77B60
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 18:45:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E8BC10E6FC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C198D10E700;
 	Mon, 27 Mar 2023 18:44:29 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2055.outbound.protection.outlook.com [40.107.92.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E70F510E6C8;
- Mon, 27 Mar 2023 18:43:59 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2053.outbound.protection.outlook.com [40.107.237.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2580C10E6CF;
+ Mon, 27 Mar 2023 18:44:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Jw5oTcenWv7qQ6rHnujqQl3D60272BqoBwgvlBMF3Kk0ubZXFQeuTYkFw/f0+RO10YTjEJUFLaGFJNpk1N0Nl2J7vZbO6+nOlbPtp05M3oM6wohCp89evzvC3VCMjkJhrhgx3LFZ8GYRKjwJAZQH9Yqk/z1ZJDTiyh1c4Ezs1bNOQKhMBMeLRBFX0fKGg6/NouVLMcR+Ryr/bCibj/81+es83WqgYUkzJjYeKf0ibG7L+78Kdu7fjRNuj9cX/PkbGqLcHUUM6Bn40Fb0FEhYs8k1dvlmVenWfHsex+gG+gd2Hsa7gp/izjCJMkdKcTAyO8jpJ8tC2FtS5Dm1GBV9UQ==
+ b=Gfn+XL2A3vYDo9ZDjfosFx+SaWrzqAX2kCh8S3NOACm3ScIhp4g3Eygs0kXjwI0jt6nV3dH2gU0ByK3/QLkAXA31txngckbPywewYFY2YgXQZwMm9WeXELWVt5jRuC/ntVVaVyrN2eKQxKWbLYMYQ1Lczj2jf3qfVWpvESPSTdrc95snr9UTiwUMAi3gZckKBiZXpw6ItRZqP0T5L7Q8JDWF1qNu+v4r9iPKzLLpgWqnwLODQRLNVyNpkryA+Ly88scHENML/8sWgZ3xC2IDtAndjrI9rzhzmRHgxtKF8/9b26BU2Wzrgr/PtcwZL1Ibdo+zu2KYkbmrDwbKtBwrrw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cqM74mH0OYz5f+cxKDnbMccinjcT27DG5dqxZyQ56Yo=;
- b=cEKpmFj+1GLo/RGHTJ7IshbDK/kCGFJvxqcZWllJPH75FR583IVgOy6orxEPnq7w7ltvt7aEglKE6kEx7wVaTQ8N21Sn1xO+PsSgdKWTRrMitpGCAGyP1aPzcNO1iGpvaZ6TO8u/XU49XFnxBri6s/I7DKj3nxoqN/x/C8AQESaFSNiMAdh6D2PZEKkiK1UXz1HolIMLQuGLd0571AAcm0P4KBZpD1jPZYlGdiJIXZqTepMDawuuvmciqk+WcrJXYUPFkkRdX8O+5GzdJ4KEuLBuSJaHIib/N7rppU3xnVOZmeJOQedZk2KImauEDMOw8pZcHJ8PH6TgUOIZj1DCVQ==
+ bh=4+GHmS3I2IftCAvgwqxNn3cl13rxedb1jSrk3ivwK/E=;
+ b=BirXuOTt9jkfYWu28OSOnqxbFt/8CZUNLem5FGAt88VDnEykl0hhdo4MXWVteyWzcTAfAnx/5eoPYLwmUbh55IWho34k8Px/sz7J1ABcnTGzmCbtB+xJ0MjrgAZL/m1WRFCZ/n5ePBHg+VsFL6ehniqmg72B95Rr2KS0jnryuGcD1yQyP2YSDmrdrifokwqXbzZIlv17BYyHmK0DHWNpk6t/TSjkzzvGbfTVriRO95DmuIGBSkA6BM0qcrIbj7yLfBpgUjxaTuMvauyj8PAbCsW9a9VFHxwFhXkjArb77ADJiIbxv1NWdftziIPDcdxXSvwczFZVUjCLsh0CB09sLg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cqM74mH0OYz5f+cxKDnbMccinjcT27DG5dqxZyQ56Yo=;
- b=leXfZBbqL/a25IhfPJeCuuMqzDnFnKoRHRvQ5Gh2mVwwDWKMCdeEx2AtArC+nC8pIJ8s7epuuYpK/fjqLu3hSZPipGfzkMN2sTANGp+9nFCa/0XHDLnJsyuxYH9voJF57jZc5fLs60lGiOlWfL6PkkHVu66C6tO0Ch4YvQTOiSs=
-Received: from CY8PR02CA0006.namprd02.prod.outlook.com (2603:10b6:930:4d::11)
- by MN2PR12MB4407.namprd12.prod.outlook.com (2603:10b6:208:260::18)
+ bh=4+GHmS3I2IftCAvgwqxNn3cl13rxedb1jSrk3ivwK/E=;
+ b=U8lOoa0+VKtJmhKPtUNe8m/4bEiShdjDCn9K8LVUr8uRrUdmbeesF9yo7mEKgZh/ROz4PmEiMS9Zuyoh1wZJ9JLP+PeUw9V5H3uO7cXwFFyX2kWSZdPUCWSKkVNj9jWFipmwpPgu1fTSqXd+gendP/j8M98i6uuyIDcFv6y2TdQ=
+Received: from CY8PR02CA0002.namprd02.prod.outlook.com (2603:10b6:930:4d::16)
+ by PH8PR12MB7254.namprd12.prod.outlook.com (2603:10b6:510:225::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.30; Mon, 27 Mar
- 2023 18:43:57 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.41; Mon, 27 Mar
+ 2023 18:43:59 +0000
 Received: from CY4PEPF0000C97D.namprd02.prod.outlook.com
- (2603:10b6:930:4d:cafe::71) by CY8PR02CA0006.outlook.office365.com
- (2603:10b6:930:4d::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.41 via Frontend
- Transport; Mon, 27 Mar 2023 18:43:57 +0000
+ (2603:10b6:930:4d:cafe::2d) by CY8PR02CA0002.outlook.office365.com
+ (2603:10b6:930:4d::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.42 via Frontend
+ Transport; Mon, 27 Mar 2023 18:43:59 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CY4PEPF0000C97D.mail.protection.outlook.com (10.167.241.136) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.30 via Frontend Transport; Mon, 27 Mar 2023 18:43:57 +0000
+ 15.20.6178.30 via Frontend Transport; Mon, 27 Mar 2023 18:43:59 +0000
 Received: from jonathan-KFD.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 27 Mar
- 2023 13:43:55 -0500
+ 2023 13:43:58 -0500
 From: Jonathan Kim <jonathan.kim@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: [PATCH 21/34] drm/amdkfd: add debug trap enabled flag to tma
-Date: Mon, 27 Mar 2023 14:43:26 -0400
-Message-ID: <20230327184339.125016-21-jonathan.kim@amd.com>
+Subject: [PATCH 28/34] drm/amdkfd: add debug set flags operation
+Date: Mon, 27 Mar 2023 14:43:33 -0400
+Message-ID: <20230327184339.125016-28-jonathan.kim@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230327184339.125016-1-jonathan.kim@amd.com>
 References: <20230327184339.125016-1-jonathan.kim@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000C97D:EE_|MN2PR12MB4407:EE_
-X-MS-Office365-Filtering-Correlation-Id: 999884ea-637e-4b17-b792-08db2ef33917
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000C97D:EE_|PH8PR12MB7254:EE_
+X-MS-Office365-Filtering-Correlation-Id: 03446f49-10e5-4114-6d27-08db2ef33a52
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: d8YK/qSHggoNf58Nd5EJeW/Dy9N6xt9rXDwDlUTvZdHscHNwKvECKFa0L3o+8puTfbQ68DkSHVnSoyZGzNeYFpQvsVbTPkRwkO2ioEMd4fOVQwFqkkZwlee0+yJ3CCb0sikRXtws0TjcoagENbL888OBz3CyGo2JHfLbnCxP38UxhgQcja9QnZ7XV1pk4fwIcUAj/0RbgjX/1bwoNIjnmxTmmxcp6/5yZa9i/VPvV+V7l9MS7MJBgDtr57icmKEGnEYKFqh1+4HW6AjnKon6sn0it9nIDEOtYpkpHoVc5rGoTPyOI5BuyZVy7+SVmcoXStWeQiEDety29+cdS6V0VlYj2AYWQW31I/tBeaS90ha2XODUHH3yoqz1S6hr7iM4dEP2o5K+Td9/bL7NuNnE1AnuXdWff+2RcAr2BWT4XrZb5u5UmmGNNpGR4SwrGBl/qGoj0MLgI2eL8VgpscY7wrWX/INpfVAMxN10kYadZdXDrtl34/Ud93kVxhgbNFeDkyX06AxutPQRN3HoDINMh8evPNMmJ3E8xZ3/0Z9jqMNMDP1py6bSVX8DRQbqucoAscYE5ubSzBQ5W/gRvsJOlyJRU50JXjayORp1uiC4aoL52QdlGOHveKC+RTaeSp+FJbTbnTDk6gShRcaqdg7tm4Ao1UC3KWYVpMYo4CLHdOfnrPGgDCJ+7wBleDhCz4JPFQcTckcvE/Yb/kbQNmmtVCTFZrwJ3g2OrgumSbC2rwE=
+X-Microsoft-Antispam-Message-Info: Z6M0IsK0w03VeIbdymqOHlmU2eX7Y2dkGoYsHR9mLEQYwnA+6+Ansh4w/Ep5N9GXC4ocYwJqn+n1W9+ycUgxg0hVYuDHmPwWT4zDuQpykteH1TK7HU8S5A1jbP0YzHU0fwTAI/TARQBDNSNOTZUivD4M9HAaotDeGO6QKcS7fOHY3iRf8b3CKl1fFHiI28ShfPqIsLPYI+vE2Erzt1iNPXVOWee50xMJPbpZYtmPFMLYv0RJX3gTywJbFuFDsfd1x022bGupX8SUpWUWxu2052O6Y0FS/qnbYsj3uchiG0mittkwAcvipwnd9Vfc7i+ZU7xAPUDzCd62Ai3WhQgGfrafuWt9Om5P3f2JfI19/HUypwuR+ZpOPNYI5PtatHOvlaXFK0mwEhRIL1QuFXdMKgYvFQkM7crH3MIl5FhFHgVwHKmYkZfuKF8eDrfidagfnEerYY4oH8mLXUUeobC2+Ceh6U9Me8K7tzWWlzVWaK937PLDTkHn3K130eNNB1dfB11sQnblBDZeTsxxeeESj7q2fa2W/sv19aQDCBj2Fw+cPdZaK+opoVrSdCh7eNEk9seU8QXNOuGgSDLHgH+U36AlLpMivp8wgRllWvgFUE0eTpUl1uAA40P7bzCq5rVPzoZmV64GNTC2jIItcrMeAtc6qLFow8nFDabb+z8MhIHNifFkyf9Vs5QDWX9vOz+xzTdLECOGTeXGnqlUP5/9qMacys1cBtA3XCYUFghks/s=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(346002)(376002)(39860400002)(396003)(451199021)(46966006)(40470700004)(36840700001)(16526019)(26005)(426003)(1076003)(40480700001)(41300700001)(186003)(6666004)(7696005)(83380400001)(336012)(2616005)(47076005)(478600001)(54906003)(110136005)(316002)(36860700001)(40460700003)(4326008)(70206006)(450100002)(44832011)(2906002)(70586007)(8676002)(81166007)(82740400003)(356005)(36756003)(82310400005)(86362001)(5660300002)(8936002)(36900700001);
+ SFS:(13230028)(4636009)(136003)(376002)(39860400002)(346002)(396003)(451199021)(40470700004)(36840700001)(46966006)(478600001)(6666004)(316002)(26005)(1076003)(4326008)(54906003)(110136005)(8676002)(41300700001)(47076005)(5660300002)(336012)(44832011)(426003)(2906002)(83380400001)(82740400003)(81166007)(186003)(70206006)(70586007)(450100002)(36860700001)(356005)(16526019)(36756003)(40460700003)(82310400005)(8936002)(2616005)(7696005)(40480700001)(86362001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 18:43:57.1749 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 999884ea-637e-4b17-b792-08db2ef33917
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 18:43:59.2218 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 03446f49-10e5-4114-6d27-08db2ef33a52
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C97D.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4407
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7254
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,111 +103,147 @@ Cc: Felix.Kuehling@amd.com, Jonathan.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jay Cornwall <jay.cornwall@amd.com>
+Allow the debugger to set single memory and single ALU operations.
 
-Trap handler behavior will differ when a debugger is attached.
+Some exceptions are imprecise (memory violations, address watch) in the
+sense that a trap occurs only when the exception interrupt occurs and
+not at the non-halting faulty instruction.  Trap temporaries 0 & 1 save
+the program counter address, which means that these values will not point
+to the faulty instruction address but to whenever the interrupt was
+raised.
 
-Make the debug trap flag available in the trap handler TMA.
-Update it when the debug trap ioctl is invoked.
+Setting the Single Memory Operations flag will inject an automatic wait
+on every memory operation instruction forcing imprecise memory exceptions
+to become precise at the cost of performance.  This setting is not
+permitted on debug devices that support only a global setting of this
+option.
 
-v4: fix up comments to clarify flagging implementation.
+Return the previous set flags to the debugger as well.
 
-v3: Rebase for upstream
+v3: fix var declare spacing and add rewind to failed flag setting.
 
-v2:
-Add missing debug flag setup on APUs
+v3: make precise mem op the only available flag for now.
 
-Signed-off-by: Jay Cornwall <jay.cornwall@amd.com>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+v2: add gfx11 support.
+
 Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_debug.c   | 11 +++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  2 ++
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 15 +++++++++++++++
- 3 files changed, 28 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |  2 +
+ drivers/gpu/drm/amd/amdkfd/kfd_debug.c   | 58 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_debug.h   |  1 +
+ 3 files changed, 61 insertions(+)
 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 194221ab0f25..da3478b133bd 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -3021,6 +3021,8 @@ static int kfd_ioctl_set_debug_trap(struct file *filep, struct kfd_process *p, v
+ 				args->clear_node_address_watch.id);
+ 		break;
+ 	case KFD_IOC_DBG_TRAP_SET_FLAGS:
++		r = kfd_dbg_trap_set_flags(target, &args->set_flags.flags);
++		break;
+ 	case KFD_IOC_DBG_TRAP_QUERY_DEBUG_EVENT:
+ 	case KFD_IOC_DBG_TRAP_QUERY_EXCEPTION_INFO:
+ 	case KFD_IOC_DBG_TRAP_GET_QUEUE_SNAPSHOT:
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-index f498987dc21d..c779acb9a623 100644
+index 4b8b71b1a322..5d3193ae71e3 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-@@ -256,6 +256,8 @@ void kfd_dbg_trap_deactivate(struct kfd_process *target, bool unwind, int unwind
- 		if (unwind && i == unwind_count)
- 			break;
+@@ -23,6 +23,7 @@
+ #include "kfd_debug.h"
+ #include "kfd_device_queue_manager.h"
+ #include <linux/file.h>
++#include <uapi/linux/kfd_ioctl.h>
  
-+		kfd_process_set_trap_debug_flag(&pdd->qpd, false);
-+
- 		/* GFX off is already disabled by debug activate if not RLC restore supported. */
- 		if (kfd_dbg_is_rlc_restore_supported(pdd->dev))
- 			amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
-@@ -351,6 +353,15 @@ int kfd_dbg_trap_activate(struct kfd_process *target)
- 		if (kfd_dbg_is_rlc_restore_supported(pdd->dev))
- 			amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
+ #define MAX_WATCH_ADDRESSES	4
  
-+		/**
-+		 * Setting the debug flag in the trap handler requires that the TMA has been
-+		 * allocated, which occurs during CWSR initialization.
-+		 * In the event that CWSR has not been initialized at this point, setting the
-+		 * flag will be called again during CWSR initialization if the target process
-+		 * is still debug enabled.
-+		 */
-+		kfd_process_set_trap_debug_flag(&pdd->qpd, true);
-+
- 		if (!pdd->dev->shared_resources.enable_mes)
- 			r = debug_refresh_runlist(pdd->dev->dqm);
- 		else
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index d092c81c9dc2..42a4502287f2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -1105,6 +1105,8 @@ int kfd_init_apertures(struct kfd_process *process);
- void kfd_process_set_trap_handler(struct qcm_process_device *qpd,
- 				  uint64_t tba_addr,
- 				  uint64_t tma_addr);
-+void kfd_process_set_trap_debug_flag(struct qcm_process_device *qpd,
-+				     bool enabled);
- 
- /* CWSR initialization */
- int kfd_process_init_cwsr_apu(struct kfd_process *process, struct file *filep);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index c6a4d01bb1b5..d26aa339fa6b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1303,6 +1303,8 @@ int kfd_process_init_cwsr_apu(struct kfd_process *p, struct file *filep)
- 
- 		memcpy(qpd->cwsr_kaddr, dev->cwsr_isa, dev->cwsr_isa_size);
- 
-+		kfd_process_set_trap_debug_flag(qpd, p->debug_trap_enabled);
-+
- 		qpd->tma_addr = qpd->tba_addr + KFD_CWSR_TMA_OFFSET;
- 		pr_debug("set tba :0x%llx, tma:0x%llx, cwsr_kaddr:%p for pqm.\n",
- 			qpd->tba_addr, qpd->tma_addr, qpd->cwsr_kaddr);
-@@ -1339,6 +1341,9 @@ static int kfd_process_device_init_cwsr_dgpu(struct kfd_process_device *pdd)
- 
- 	memcpy(qpd->cwsr_kaddr, dev->cwsr_isa, dev->cwsr_isa_size);
- 
-+	kfd_process_set_trap_debug_flag(&pdd->qpd,
-+					pdd->process->debug_trap_enabled);
-+
- 	qpd->tma_addr = qpd->tba_addr + KFD_CWSR_TMA_OFFSET;
- 	pr_debug("set tba :0x%llx, tma:0x%llx, cwsr_kaddr:%p for pqm.\n",
- 		 qpd->tba_addr, qpd->tma_addr, qpd->cwsr_kaddr);
-@@ -1425,6 +1430,16 @@ bool kfd_process_xnack_mode(struct kfd_process *p, bool supported)
- 	return true;
+@@ -423,6 +424,59 @@ static void kfd_dbg_clear_process_address_watch(struct kfd_process *target)
+ 			kfd_dbg_trap_clear_dev_address_watch(target->pdds[i], j);
  }
  
-+void kfd_process_set_trap_debug_flag(struct qcm_process_device *qpd,
-+				     bool enabled)
++int kfd_dbg_trap_set_flags(struct kfd_process *target, uint32_t *flags)
 +{
-+	if (qpd->cwsr_kaddr) {
-+		uint64_t *tma =
-+			(uint64_t *)(qpd->cwsr_kaddr + KFD_CWSR_TMA_OFFSET);
-+		tma[2] = enabled;
-+	}
-+}
++	uint32_t prev_flags = target->dbg_flags;
++	int i, r = 0, rewind_count = 0;
 +
- /*
-  * On return the kfd_process is fully operational and will be freed when the
-  * mm is released
++	for (i = 0; i < target->n_pdds; i++) {
++		if (!kfd_dbg_is_per_vmid_supported(target->pdds[i]->dev) &&
++			(*flags & KFD_DBG_TRAP_FLAG_SINGLE_MEM_OP)) {
++			*flags = prev_flags;
++			return -EACCES;
++		}
++	}
++
++	target->dbg_flags = *flags & KFD_DBG_TRAP_FLAG_SINGLE_MEM_OP;
++	*flags = prev_flags;
++	for (i = 0; i < target->n_pdds; i++) {
++		struct kfd_process_device *pdd = target->pdds[i];
++
++		if (!kfd_dbg_is_per_vmid_supported(pdd->dev))
++			continue;
++
++		if (!pdd->dev->shared_resources.enable_mes)
++			r = debug_refresh_runlist(pdd->dev->dqm);
++		else
++			r = kfd_dbg_set_mes_debug_mode(pdd);
++
++		if (r) {
++			target->dbg_flags = prev_flags;
++			break;
++		}
++
++		rewind_count++;
++	}
++
++	/* Rewind flags */
++	if (r) {
++		target->dbg_flags = prev_flags;
++
++		for (i = 0; i < rewind_count; i++) {
++			struct kfd_process_device *pdd = target->pdds[i];
++
++			if (!kfd_dbg_is_per_vmid_supported(pdd->dev))
++				continue;
++
++			if (!pdd->dev->shared_resources.enable_mes)
++				debug_refresh_runlist(pdd->dev->dqm);
++			else
++				kfd_dbg_set_mes_debug_mode(pdd);
++		}
++	}
++
++	return r;
++}
+ 
+ /* kfd_dbg_trap_deactivate:
+  *	target: target process
+@@ -437,9 +491,13 @@ void kfd_dbg_trap_deactivate(struct kfd_process *target, bool unwind, int unwind
+ 	int i;
+ 
+ 	if (!unwind) {
++		uint32_t flags = 0;
++
+ 		cancel_work_sync(&target->debug_event_workarea);
+ 		kfd_dbg_clear_process_address_watch(target);
+ 		kfd_dbg_trap_set_wave_launch_mode(target, 0);
++
++		kfd_dbg_trap_set_flags(target, &flags);
+ 	}
+ 
+ 	for (i = 0; i < target->n_pdds; i++) {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
+index 63c716ce5ab9..782362d82890 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
+@@ -57,6 +57,7 @@ int kfd_dbg_trap_set_dev_address_watch(struct kfd_process_device *pdd,
+ 					uint32_t watch_address_mask,
+ 					uint32_t *watch_id,
+ 					uint32_t watch_mode);
++int kfd_dbg_trap_set_flags(struct kfd_process *target, uint32_t *flags);
+ int kfd_dbg_send_exception_to_runtime(struct kfd_process *p,
+ 					unsigned int dev_id,
+ 					unsigned int queue_id,
 -- 
 2.25.1
 
