@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70834C761A6
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 23:34:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B19A8C76195
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 23:34:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8819110E65B;
-	Mon, 27 Mar 2023 23:34:22 +0000 (UTC)
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EFD110E54F
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 23:34:20 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id bk5so7698528oib.6
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 16:34:20 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15AEE10E7B5;
+	Mon, 27 Mar 2023 23:34:34 +0000 (UTC)
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F42210E7B0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 23:34:32 +0000 (UTC)
+Received: by mail-oi1-x22e.google.com with SMTP id q27so6957812oiw.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 16:34:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1679960059;
+ d=usp.br; s=usp-google; t=1679960071;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ATSF4wL+BzdBMa6MQ9WEbv1t9xTPovSyTP8ALVjMP/g=;
- b=jjeTndIjow57RXIs03XG4zTCjcQS7/ijT5BWQdjbh4qY+GsQ5sYgm1M7PfuUXOSubb
- RrcSC2LSZIQfp0531wAMUZRsj1uVKqOISsBGGNSY5U6pNoa1kNuv43aD/NYjC6A0KQAw
- NT3ZDNcHFzDJJVeOAgZLF9F0vKbnjWCpGSlH6vBP4QDYysI59nc8P7J+kUnT8x4lBZJp
- FYbdsN9mU0vDTXG1HHo3ScuOB+bDR2fxQyorBOuoG76lU68szVA2oeX+KQjILaM4guk7
- /vn8xua0wWVLPjP/ShDuq9R6Lij2bknq4mBHwqNGQM7y9Z7y1F/u1tIdneevves42NeF
- BK+g==
+ bh=rCjnRFQPvAGnNx5L3qglgkfLmLwG3nPN+a/hM9CacEs=;
+ b=GtnEi/KsBIrFkxShd3lvYGNJ9gUrQ2buWtvBFztcLMpjZHYnpfC2btTyNI2wDsx8gP
+ PDOwtTF/TcTUNyeDxR4+oqyXUYAWrwKZvEptBJqEajGlOvHQG/N2hgJNqoRivII1xx51
+ srSRUFm+TSmPWghIrj0BJh5li74VwsAaLfH1KqwWeaR6TO4B41nDX8EIySGgAXFLkN8F
+ YdwEqm/wd8FQ3RikiVit9f33f8/yakAEXCIUHf2m4mD8ZPr83k/J/9pPD+iRpgpI1jss
+ eOoS5rgPZHuaXhSaw/dfu9zrMhREgjPL3L5P57orkSVqAnny3ybOMPodpqyInQTfYtTE
+ TpRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679960059;
+ d=1e100.net; s=20210112; t=1679960071;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ATSF4wL+BzdBMa6MQ9WEbv1t9xTPovSyTP8ALVjMP/g=;
- b=NP/4IIXUpDKgRbHr3tfQFOeYMH7YXo+xxDYaHdF1P3y05i7I8r2p1calexSvoCmfJS
- SbgG+rQdeAZauG83UNMipG9Q0E48dwnNfwAoIqoXuX3THEfDk2pH2y7OyZ0oidEEVvfa
- TByiK3Aw//nty3sf3Ua12nQzYSdU0YavFmv3+p9KvcORRIyeL3764EI3z3J6s0tfOxKT
- FsUCSRKGKu4WRvB1Eurlu8THiiboIV/xCHG3rF8BiV35X0ay7dLE2oxwDp7Z3dg7qrCk
- b1qOfmGMWWkauZWcwvFl4mcsRSWfCT6rhiznUB0z7uPIJt7SYwhk2AYAjANckLbbQ/3q
- /BqQ==
-X-Gm-Message-State: AO0yUKXt6gzxTyHs6ND5B3c5siVZvTibfud/3oiRxtCM06AAkHoJ2TTn
- 16xKx5A1Erv5IZgDYOfqsNNgOLMqTBRR2wrCTUnO9A==
-X-Google-Smtp-Source: AK7set9DW5uNG3ER+wZDWGxBetFSD6HDWjyxXA+KWrXZQuX9MkweyGj2xhoBwNRWBg7ILEXEH0kkjQ==
-X-Received: by 2002:a05:6808:b22:b0:383:f572:2646 with SMTP id
- t2-20020a0568080b2200b00383f5722646mr4940712oij.5.1679960059520; 
- Mon, 27 Mar 2023 16:34:19 -0700 (PDT)
+ bh=rCjnRFQPvAGnNx5L3qglgkfLmLwG3nPN+a/hM9CacEs=;
+ b=fzHd5NICYzb3ph4eKEMsI8uErnk9KXDSrM3L2s0FouX9UHoL/+j57jYhW0nWL9CEGg
+ bqVZEmWOO8h2sq2Vauj6xFjGPYjGV6phClJiLgNVQJ11/KW8Ucj4VuNQ4mnOzr+1QLDh
+ peqqYFa2Xp34xFACtLYYs834coZUyaU4XyEAMlDUAjJSaC3cUUByzSGeTy8wAx7c1Wd8
+ O/LZ8KENDiUPb36gW04ANeQyvrnawYpM/mHiILhr34eqykLzOVb7shTmUotdANWEgZ9Q
+ 2/ponwQW7EnMNi9qc3e/Ok5x0CySeHscXkJhwU60LMJa0jKk42OZljToyBsVJ5s/l1iE
+ j9zA==
+X-Gm-Message-State: AO0yUKUdgaMGR6lSMv07r0luG0Wkg6HTfJ/2DPEnjKtlx9YSqK6sb8AW
+ NZleBYonZTnNG4nz373y6kYWGvHX0gw25YzNtHIKNA==
+X-Google-Smtp-Source: AK7set8rDxFHQB6rrg/v8At+R+vD2rhk2qXsj5IgrUWpiFpg9BehvyB3jSFGPbGLp8x0w8YllHWLbA==
+X-Received: by 2002:a05:6808:2d3:b0:386:ca6d:b602 with SMTP id
+ a19-20020a05680802d300b00386ca6db602mr3723586oid.41.1679960069565; 
+ Mon, 27 Mar 2023 16:34:29 -0700 (PDT)
 Received: from ARCHaio.localdomain ([2804:1b3:a2c0:c911:919f:bd20:4f2a:8383])
  by smtp.gmail.com with ESMTPSA id
- b186-20020aca34c3000000b00389295e8424sm1643409oia.45.2023.03.27.16.34.09
+ b186-20020aca34c3000000b00389295e8424sm1643409oia.45.2023.03.27.16.34.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Mar 2023 16:34:19 -0700 (PDT)
+ Mon, 27 Mar 2023 16:34:29 -0700 (PDT)
 From: Caio Novais <caionovais@usp.br>
 To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 01/12] drm/amd: Remove unused variable 'r'
-Date: Mon, 27 Mar 2023 20:33:42 -0300
-Message-Id: <20230327233353.64081-2-caionovais@usp.br>
+Subject: [PATCH 02/12] drm/amd: Remove unused variable 'value0'
+Date: Mon, 27 Mar 2023 20:33:43 -0300
+Message-Id: <20230327233353.64081-3-caionovais@usp.br>
 X-Mailer: git-send-email 2.40.0
 In-Reply-To: <20230327233353.64081-1-caionovais@usp.br>
 References: <20230327233353.64081-1-caionovais@usp.br>
@@ -106,34 +106,36 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Compiling AMD GPU drivers displays a warning:
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c: In function ‘amdgpu_mes_ctx_alloc_meta_data’:
-drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c:1099:13: warning: variable ‘r’ set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_link_encoder.c: In function ‘dcn10_link_encoder_update_mst_stream_allocation_table’:
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_link_encoder.c:1222:18: warning: variable ‘value0’ set but not used [-Wunused-but-set-variable]
 
 Get rid of it by removing the variable.
 
 Signed-off-by: Caio Novais <caionovais@usp.br>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 8 --------
- 1 file changed, 8 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index 82e27bd4f038..e0130536f778 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -1096,14 +1096,6 @@ uint32_t amdgpu_mes_get_aggregated_doorbell_index(struct amdgpu_device *adev,
- int amdgpu_mes_ctx_alloc_meta_data(struct amdgpu_device *adev,
- 				   struct amdgpu_mes_ctx_data *ctx_data)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c
+index c4287147b853..81aa1631945a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c
+@@ -1219,7 +1219,6 @@ void dcn10_link_encoder_update_mst_stream_allocation_table(
+ 	const struct link_mst_stream_allocation_table *table)
  {
--	int r;
+ 	struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
+-	uint32_t value0 = 0;
+ 	uint32_t value1 = 0;
+ 	uint32_t value2 = 0;
+ 	uint32_t slots = 0;
+@@ -1321,8 +1320,6 @@ void dcn10_link_encoder_update_mst_stream_allocation_table(
+ 	do {
+ 		udelay(10);
+ 
+-		value0 = REG_READ(DP_MSE_SAT_UPDATE);
 -
--	r = amdgpu_bo_create_kernel(adev,
--			    sizeof(struct amdgpu_mes_ctx_meta_data),
--			    PAGE_SIZE, AMDGPU_GEM_DOMAIN_GTT,
--			    &ctx_data->meta_data_obj,
--			    &ctx_data->meta_data_mc_addr,
--			    &ctx_data->meta_data_ptr);
- 	if (!ctx_data->meta_data_obj)
- 		return -ENOMEM;
+ 		REG_GET(DP_MSE_SAT_UPDATE,
+ 				DP_MSE_SAT_UPDATE, &value1);
  
 -- 
 2.40.0
