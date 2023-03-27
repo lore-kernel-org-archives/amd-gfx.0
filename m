@@ -4,58 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1718BC76195
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 16:36:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A51C4C6FD1D
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 17:20:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E84610E655;
-	Mon, 27 Mar 2023 16:36:13 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7899510E61E
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 16:08:06 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1pgpO1-00087W-AY; Mon, 27 Mar 2023 18:07:57 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1pgpO0-0077RX-CK; Mon, 27 Mar 2023 18:07:56 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1pgpNz-008Sqd-K2; Mon, 27 Mar 2023 18:07:55 +0200
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Subject: [PATCH] drm/amd/display: Whitespace cleanup
-Date: Mon, 27 Mar 2023 18:07:54 +0200
-Message-Id: <20230327160754.772302-1-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.39.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07F9C10E3C2;
+	Mon, 27 Mar 2023 17:20:15 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2088.outbound.protection.outlook.com [40.107.244.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E45C410E3C2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 17:20:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=oTpMsheQO5nVKTw2VReZ3mPkVzEuzZSmM37iDwnLji7HBtlEiCKhONR/Rv9gYncxK3U87VU7jqzPyEtvEtCecX7P1Hz29vnk1MkvQpFCvBECy7q//rLKhsB2eeH2iFF/2EjHtPgVC42CEVA8mJH4BVSZOG8uG0cTku3Y1djipw6E/r/r6LgQfehBnuXcWk+l82jyPFq/d/a5F2gEYHVXlRt5Sg83N1GyZ6sN7LSiRVCMr0QnSd3WtLGQb+clwFkqpEhJlWvSh5X2seDjdJmHy2Uf7fCnkrJO0HpM2Br/AUgYh9g9uQiEj1XXS39N4o95c4Pr9wXvJla2kvT2WcpYrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lrNIDuSHV0MTyt20jXDO3iBKWHwn8LByCDo3Dt4ZJ64=;
+ b=WQq5zCN3c2f8zO2/rhUXRiXcT5YK9l1ZR1L1f8mekzGfxP7u+Iqrhgjsn4GDC4ISAH5c1Z1ryj38AzbeYBK5/89H/OZE0X4ghjzE4HhPPDM+Tms3KkePzy4K331brF0oTt5yDAYgtaCjfybODtKKnUwcXtHLlim9MP4sK7bGqaGwRcxjlQRSpPWqCsCTP/qW2dQ5hpdymyCehYdk62IT+5snc+rsa25aqqHohBjwvzpHJ5pzRNM07RFwQm0PBNRNpHF0h6FC1iQDhIR01L9KoDE3RqZoIwzb7a0zgQugu7JHlQo+GnGt1mSsk7ef9N2SOBnjxjpc+i7U2Th7IoUM8g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lrNIDuSHV0MTyt20jXDO3iBKWHwn8LByCDo3Dt4ZJ64=;
+ b=swPjJXhC2OOCwoxlmDZ2wopbsNxJENMm+NiaFa+VuZ1WUxlug/8ZsCyZPjsDbs5/fs1nt5zg12kELNdW73meZ0ZV396xWy9i7/oIldKBYHH3GxWFlLFD4VYEyPZ4yYYeZOLzHY+1kzNT8Cr4TOOgTCEt6A7ZkKcZbDJ/5LN7Bes=
+Received: from DS7P222CA0020.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::16) by
+ DM6PR12MB4975.namprd12.prod.outlook.com (2603:10b6:5:1bd::16) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6222.30; Mon, 27 Mar 2023 17:20:11 +0000
+Received: from DM6NAM11FT065.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:2e:cafe::74) by DS7P222CA0020.outlook.office365.com
+ (2603:10b6:8:2e::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.41 via Frontend
+ Transport; Mon, 27 Mar 2023 17:20:11 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT065.mail.protection.outlook.com (10.13.172.109) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6222.22 via Frontend Transport; Mon, 27 Mar 2023 17:20:11 +0000
+Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 27 Mar
+ 2023 12:20:08 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>, Mario Limonciello
+ <mario.limonciello@amd.com>
+Subject: [PATCH] drm/amd/amdgpu: Fix error do not initialise globals to 0
+Date: Mon, 27 Mar 2023 22:49:53 +0530
+Message-ID: <20230327171953.1910597-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4950;
- i=u.kleine-koenig@pengutronix.de; h=from:subject;
- bh=nMqUkJb/didxEjphbfEWiUnQJ0w8k8CTikmn712Qjeo=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBkIb9XexY2NgwXBljrk/WdNz25GG48bFfO9rzxD
- LcT6ylve2mJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZCG/VwAKCRCPgPtYfRL+
- Tkq6B/47kjPVsvkV28rqy0/Q+bvPXH/ZsIPZMFg+CL/+R8x3qzKUv62rslaiQylKVzMIOq6ILWn
- g3ZXIyTWoYlIYuzwAiPYcT0VT2AQyWMPPAiAhHAcGDEXZDZzhpiWRdGRyxZwVYmX9NHGIwh1Fdg
- RtK68P9TM8/c9ICRe0ny4TjHOFELGrGGQ/8idtRiD/VfRgo4PpQxVkobX2S6WAnNdi6lQ+F9n9u
- gKuecaYsVcLIf/nF3fgs5QBRsDb81N9uqNN9zUFca1JTXp6Ti4yXLZiBXF85IG/4SYUu79j8n9P
- Sxq7+HSog9MSfuoFnWx6iWl+OtVc3KRv15cr9DgJ+EWUgNMG
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: amd-gfx@lists.freedesktop.org
-X-Mailman-Approved-At: Mon, 27 Mar 2023 16:36:11 +0000
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT065:EE_|DM6PR12MB4975:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4d39ecac-6100-4da7-0b15-08db2ee78550
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: YuM8zBXvyC7gVbyUUqRMpdTqxDSRi/VAfqxrBQ4kwz9QapQ2zFYl7e/JJFbrHzAhxTGTQ8kYI01GTwkBSr6q5BpmZj9LV2V8b5bvUT7TIyLSd2AZ3yGr5RbkJCPQtS+lBJ+00fr5NgXQ2XT5GvoLZQ57Ac43LxAKWVp3trrc9spbRmzYMIe3ILHYv9SfWDDxMvGojozWk/knPXXGtBzhmAgK2GkOhkloI/eK1osfi+71KlhNxjGprS10fpPhCWT+5zI4J1FBMogK3WRzf5u8sxYpg028No1e2+Yc7KNT8Gk2ROfx01et94Zena0X3tpW5xJ776jRG6SMEHmWc5E95ARNwGi6LY7khNoo7Kr1w8meLIRlaoU0pUwAq4In4ITCt4gHF+5ZkfHWcNr14YHaFQx+LZbk+K9opyLpCiJlNcWPG5ZPbuzzYOWEIPxPDZU3c9bPeZGo4+Z0TJpEAodSxdBS4SqQDTP7FilbittGPjAUXaqBxcigct5mZ1aqT4XypTjpT0Mwgm+fiC4Mu6qa/UnwAB9q5tPQcmPQ1aAuwYgDdHKWHKD933URNm7jjF2wETPSMSdUmWfSQbvk6OhpodnqiutWxU4H21DEgrdV1O8qcUMIAnT664mvS9j8ziFXhHq9XAqSRjV5rWwPPYvQ4zmNvRaPmplzeBvpL2BviwVifqDVTlM1RF6RQoLYLIIKEna8MGichzU/vTDjsXSCtMPoy2VaOxiBRFASDsWkmg4=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(346002)(376002)(39860400002)(396003)(451199021)(46966006)(40470700004)(36840700001)(26005)(16526019)(1076003)(40480700001)(41300700001)(6666004)(186003)(7696005)(2616005)(83380400001)(426003)(336012)(66574015)(47076005)(478600001)(54906003)(316002)(110136005)(6636002)(36860700001)(40460700003)(4326008)(2906002)(8676002)(70586007)(70206006)(44832011)(81166007)(82740400003)(356005)(36756003)(82310400005)(5660300002)(86362001)(8936002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 17:20:11.0277 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d39ecac-6100-4da7-0b15-08db2ee78550
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT065.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4975
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,163 +99,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel@pengutronix.de, dri-devel@lists.freedesktop.org,
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
  amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Commit 075e2099c32c ("drm/amd/display: Fix race condition in DPIA AUX
-transfer") was backported to stable, which I noticed because of git
-saying
+Global variables do not need to be initialized to 0 and checkpatch
+flags this error in drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:
 
-	linux-6.1/.git/rebase-apply/patch:37154: space before tab in indent.
+ERROR: do not initialise globals to 0
++int amdgpu_no_queue_eviction_on_vm_fault = 0;
 
-while applying patch-6.1.21. While fixing the code location that issued
-that warning, improve in few more places.
+Fix this checkpatch error.
 
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
-Hello,
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-while reading through the driver I found a few more things that could be
-improved. E.g 
-
-| @@ -2625,43 +2625,35 @@ static void emulated_link_detect(struct dc_link *link)
-|  		dc_sink_release(prev_sink);
-|  
-|  	switch (link->connector_signal) {
-| -	case SIGNAL_TYPE_HDMI_TYPE_A: {
-| +	case SIGNAL_TYPE_HDMI_TYPE_A:
-|  		sink_caps.transaction_type = DDC_TRANSACTION_TYPE_I2C;
-|  		sink_caps.signal = SIGNAL_TYPE_HDMI_TYPE_A;
-|  		break;
-| -	}
-|  
-| -	case SIGNAL_TYPE_DVI_SINGLE_LINK: {
-| +	case SIGNAL_TYPE_DVI_SINGLE_LINK:
-|  		sink_caps.transaction_type = DDC_TRANSACTION_TYPE_I2C;
-|  		sink_caps.signal = SIGNAL_TYPE_DVI_SINGLE_LINK;
-|  		break;
-| -	}
-|  
-| -	case SIGNAL_TYPE_DVI_DUAL_LINK: {
-| +	case SIGNAL_TYPE_DVI_DUAL_LINK:
-|  		sink_caps.transaction_type = DDC_TRANSACTION_TYPE_I2C;
-|  		sink_caps.signal = SIGNAL_TYPE_DVI_DUAL_LINK;
-|  		break;
-| -	}
-|  
-| -	case SIGNAL_TYPE_LVDS: {
-| +	case SIGNAL_TYPE_LVDS:
-|  		sink_caps.transaction_type = DDC_TRANSACTION_TYPE_I2C;
-|  		sink_caps.signal = SIGNAL_TYPE_LVDS;
-|  		break;
-| -	}
-|  
-| -	case SIGNAL_TYPE_EDP: {
-| -		sink_caps.transaction_type =
-| -			DDC_TRANSACTION_TYPE_I2C_OVER_AUX;
-| +	case SIGNAL_TYPE_EDP:
-| +		sink_caps.transaction_type = DDC_TRANSACTION_TYPE_I2C_OVER_AUX;
-|  		sink_caps.signal = SIGNAL_TYPE_EDP;
-|  		break;
-| -	}
-|  
-| -	case SIGNAL_TYPE_DISPLAY_PORT: {
-| -		sink_caps.transaction_type =
-| -			DDC_TRANSACTION_TYPE_I2C_OVER_AUX;
-| +	case SIGNAL_TYPE_DISPLAY_PORT:
-| +		sink_caps.transaction_type = DDC_TRANSACTION_TYPE_I2C_OVER_AUX;
-|  		sink_caps.signal = SIGNAL_TYPE_VIRTUAL;
-|  		break;
-| -	}
-|  
-|  	default:
-|  		DC_ERROR("Invalid connector type! signal:%d\n",
-
-(hopefully that is quoted good enough not to be picked up by git)
-
-Best regards
-Uwe
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 26 +++++++++----------
- 1 file changed, 13 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 5bac5781a06b..78590e48e8d5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2300,9 +2300,9 @@ static int dm_late_init(void *handle)
- 	 */
- 	params.min_abm_backlight = 0x28F;
- 	/* In the case where abm is implemented on dmcub,
--	* dmcu object will be null.
--	* ABM 2.4 and up are implemented on dmcub.
--	*/
-+	 * dmcu object will be null.
-+	 * ABM 2.4 and up are implemented on dmcub.
-+	 */
- 	if (dmcu) {
- 		if (!dmcu_load_iram(dmcu, params))
- 			return -EINVAL;
-@@ -7106,13 +7106,13 @@ static uint add_fs_modes(struct amdgpu_dm_connector *aconnector)
- 	/* Standard FPS values
- 	 *
- 	 * 23.976       - TV/NTSC
--	 * 24 	        - Cinema
--	 * 25 	        - TV/PAL
-+	 * 24           - Cinema
-+	 * 25           - TV/PAL
- 	 * 29.97        - TV/NTSC
--	 * 30 	        - TV/NTSC
--	 * 48 	        - Cinema HFR
--	 * 50 	        - TV/PAL
--	 * 60 	        - Commonly used
-+	 * 30           - TV/NTSC
-+	 * 48           - Cinema HFR
-+	 * 50           - TV/PAL
-+	 * 60           - Commonly used
- 	 * 48,72,96,120 - Multiples of 24
- 	 */
- 	static const u32 common_rates[] = {
-@@ -7740,7 +7740,7 @@ static void update_freesync_state_on_stream(
- 		return;
- 
- 	spin_lock_irqsave(&adev_to_drm(adev)->event_lock, flags);
--        vrr_params = acrtc->dm_irq_params.vrr_params;
-+	vrr_params = acrtc->dm_irq_params.vrr_params;
- 
- 	if (surface) {
- 		mod_freesync_handle_preflip(
-@@ -8321,7 +8321,7 @@ static void amdgpu_dm_commit_audio(struct drm_device *dev,
- 		if (!drm_atomic_crtc_needs_modeset(new_crtc_state))
- 			continue;
- 
--	notify:
-+notify:
- 		aconnector = to_amdgpu_dm_connector(connector);
- 
- 		mutex_lock(&adev->dm.audio_lock);
-@@ -9337,7 +9337,7 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
- skip_modeset:
- 	/* Release extra reference */
- 	if (new_stream)
--		 dc_stream_release(new_stream);
-+		dc_stream_release(new_stream);
- 
- 	/*
- 	 * We want to do dc stream updates that do not require a
-@@ -10671,7 +10671,7 @@ int amdgpu_dm_process_dmub_aux_transfer_sync(
- 	if (!dc_process_dmub_aux_transfer_async(ctx->dc, link_index, payload)) {
- 		*operation_result = AUX_RET_ERROR_ENGINE_ACQUIRE;
- 		goto out;
-- 	}
-+	}
- 
- 	if (!wait_for_completion_timeout(&adev->dm.dmub_aux_transfer_done, 10 * HZ)) {
- 		DRM_ERROR("wait_for_completion_timeout timeout!");
-
-base-commit: e5dbf24e8b9e6aa0a185d86ce46a7a9c79ebb40f
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 917926c8dc5f5..67dbac87202e4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -823,7 +823,7 @@ MODULE_PARM_DESC(no_system_mem_limit, "disable system memory limit (false = defa
+  * DOC: no_queue_eviction_on_vm_fault (int)
+  * If set, process queues will not be evicted on gpuvm fault. This is to keep the wavefront context for debugging (0 = queue eviction, 1 = no queue eviction). The default is 0 (queue eviction).
+  */
+-int amdgpu_no_queue_eviction_on_vm_fault = 0;
++int amdgpu_no_queue_eviction_on_vm_fault;
+ MODULE_PARM_DESC(no_queue_eviction_on_vm_fault, "No queue eviction on VM fault (0 = queue eviction, 1 = no queue eviction)");
+ module_param_named(no_queue_eviction_on_vm_fault, amdgpu_no_queue_eviction_on_vm_fault, int, 0444);
+ #endif
 -- 
-2.39.2
+2.25.1
 
