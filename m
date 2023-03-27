@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C281BC761A6
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 19:36:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02256C77B61
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 19:36:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 530C310E722;
-	Mon, 27 Mar 2023 19:36:37 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2064.outbound.protection.outlook.com [40.107.237.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B669010E722
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 19:36:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC57210E726;
+	Mon, 27 Mar 2023 19:36:38 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2074.outbound.protection.outlook.com [40.107.100.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF38010E722
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 19:36:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jDy46IK2KMmeUcY7fJMTV+Utx36lQqgBqkf6J1vGu/y/3ScOJbRZmAGGC6ogdpVWfp6lW0BcxU3bJh+wrBUWEoV1j62vlTDUyG3vztveluhcp2/wpfsL9AZ1mTNooPx28ONeZebiDQpQ84NGcjo55n7ChDAcKmNJHsC6D3L6KG2o+NNAPd5+7vx2a1y3CmCN5TETYKSfS4/cp+YJy4xWFoQQCukyHGOMYsFq1rLLiPVZXiuWTYMhWhPnPkv/HdWeb0OB8pA5By+j1fmsJqIpVuUAZycIKuuK4OdFEfU0nNzY0zcSX/YgMlsG5M4kg/LZqfwaTHX+cAHyEsYMAZQysA==
+ b=BH5FILroUp0acFUe+JBU4DqNeicCRzwQkN6eURIDBKzNeKEuJUpj7kJtUfxGrT2gLwDa97Ed3ePntm5jlGDtO5U5lUfcGUEYxbgZkwwjpGNFXM1OGGl9KVbw1MVchsI4m+6y8Fioim/hTevfQaKTMs7dB5Iqpot43e9i49mJLkLVpBVpl4GHF0o1Zfso/KadkbWnEbVJRwtD42SE1znMwkUau9mFyebt6eMr1ofC1jkDtYPA+qbFvRQePlR3bWMU9tODCylXgG3JR5sUCtzpqHoDJA2YBap1cKJ6NyIL5eM3kRpjkLgcsWAbsRaC7BrpBEsihomZ/gNP52KtaKpB2Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tK0onmJW0rqIgWGICEDNX3GkfF8gGGyH8vsB9bQbBbY=;
- b=Qu9jfsG+e0CkMNYkk/ntjhPCD6DyUU3K2hRZlIcg4hGnocsRB1lEK6PDFOh8jcOniyJdU9WM9ZOqHozjrZKgGFSKT8ty6bUnoEr5KSaqfDYfLX1wXs95VMgF/Vd4dfRXUv0n+ZLWaZ5W4p0cl3qQp/P1UAZOrzpyaqf5Ry32qYbVbdBSL7p/poJHuKCQkBw2i9NxTxqu4+rZVuMI5oR1IkJHkJrvFmv1fG0XYXINZYKaTUvDN7+QWESR4pp+SPrS3d8qgVKeJX56+SIqRWMTWBPCk+agM6skaPDNH1i2NyIOesofINd+Bcr899bAgxJkIyhMv8M/lwk/UFx/dyoa1A==
+ bh=Rm4pgywjSR9xhuHER/XyHTigaJ8Pp1ARnoPx/T8rw8c=;
+ b=JTzua37xEaysu/6y9UFGvFWR7ijbXKryBMK7RTqehSYXjZpHWkLrlaI9r+9VvUC0qPgYM4h9LJEmS1Ul3uQV4FsvWiwAnUv7keOCKysuAALhT5oEwaNvEjyr26bdOUzSTxqPrCmcrD3uVe76Ri0Alt28LUCX+Tm8/G+7z6wDXubBMKNyNYzNvol/4Eq3EccT158ukokmad0/uxhhu5x9ibd4HVu+TXWG2j5PsSRS2HsYsanAPXosoVwAH02avhA0PPT4Ow+fVea9/gWgcyBQvzI3XmTWncwdPdf3gNNqyOmqqW5gQq430q05qaq6Bs15hIXcsqnD0JHXM/6OxKTELg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tK0onmJW0rqIgWGICEDNX3GkfF8gGGyH8vsB9bQbBbY=;
- b=lecvybACm5GFKep9o3KNl5r5Tac794UXDoc3gRDhbOH1hh8X56GfaSY4sAiLd7EoBS8eJAmpoVNuCfIFCm6OGrITXOoPDsYA+8BTZKr+CQXtJLaQs+u3KLBZERdu5DQRbSBeD0hkftyjGPZX1V1eLJf7UqQVP4/2JDvRU0HHv1A=
-Received: from BN8PR15CA0063.namprd15.prod.outlook.com (2603:10b6:408:80::40)
- by DM4PR12MB6183.namprd12.prod.outlook.com (2603:10b6:8:a7::16) with
+ bh=Rm4pgywjSR9xhuHER/XyHTigaJ8Pp1ARnoPx/T8rw8c=;
+ b=ko54Byrr9UrPg5RtwN8T1KGH0MX69RvaGxAy/LKJbLbzcLSwZVRYakbS8Wdz1QjPO7MbuiKNZQBFbZHcqSm8iuFGuYAct2ahqOr446YScBQxaG/e7iN2VGS2CXJUlO1oiCKy6su0vtHUg1EcYQKtYwcqDPJQqGPrWOzrX9Q3DD0=
+Received: from BL1PR13CA0374.namprd13.prod.outlook.com (2603:10b6:208:2c0::19)
+ by CH2PR12MB4892.namprd12.prod.outlook.com (2603:10b6:610:65::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.30; Mon, 27 Mar
- 2023 19:36:29 +0000
-Received: from BL02EPF000100D0.namprd05.prod.outlook.com
- (2603:10b6:408:80:cafe::73) by BN8PR15CA0063.outlook.office365.com
- (2603:10b6:408:80::40) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.41 via Frontend
- Transport; Mon, 27 Mar 2023 19:36:29 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.32; Mon, 27 Mar
+ 2023 19:36:33 +0000
+Received: from BL02EPF000100D2.namprd05.prod.outlook.com
+ (2603:10b6:208:2c0:cafe::7f) by BL1PR13CA0374.outlook.office365.com
+ (2603:10b6:208:2c0::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.16 via Frontend
+ Transport; Mon, 27 Mar 2023 19:36:33 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,49 +45,49 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF000100D0.mail.protection.outlook.com (10.167.241.204) with Microsoft
+ BL02EPF000100D2.mail.protection.outlook.com (10.167.241.206) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.30 via Frontend Transport; Mon, 27 Mar 2023 19:36:29 +0000
+ 15.20.6178.30 via Frontend Transport; Mon, 27 Mar 2023 19:36:33 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 27 Mar
- 2023 14:36:28 -0500
+ 2023 14:36:32 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 13/28] drm/amdgpu: add master/slave check in init phase
-Date: Mon, 27 Mar 2023 15:35:47 -0400
-Message-ID: <20230327193602.7901-13-alexander.deucher@amd.com>
+Subject: [PATCH 19/28] drm/amdgpu: add bitmask to iterate vmhubs
+Date: Mon, 27 Mar 2023 15:35:53 -0400
+Message-ID: <20230327193602.7901-19-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230327193602.7901-1-alexander.deucher@amd.com>
 References: <20230327193602.7901-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF000100D0:EE_|DM4PR12MB6183:EE_
-X-MS-Office365-Filtering-Correlation-Id: 17b0221f-1d24-42ba-31a6-08db2efa8ff4
+X-MS-TrafficTypeDiagnostic: BL02EPF000100D2:EE_|CH2PR12MB4892:EE_
+X-MS-Office365-Filtering-Correlation-Id: 71e16a28-8624-46e9-7c2f-08db2efa9251
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zjLP5REtrhrnUWBDRa9g+9tDnuCPZCI7lPiKeaOdx0fmhgm/728eoyp1tCnIdpzVnIInZnxPnKgPHYL3+Vb9/56YBTUTg7RqJ8+9oY6wjoxEO34WOtN+o40Nb396nUC/Rkox+8Z4bVFJq2gvVk9Vw2VgPd9ez9hTyw26ifUdlJmQBvNMWkBxIkhhPSxH9/XsVcTLcK4ecgzvS9PIpjqE74P8kJ11Q6E3qU3hj0q0YrjSQJV7B01UiLoanVqLmRSstRX1Ss088Wdi6OslscLSly2gqfjFw2A/LnlG1gKGmDD449DW2vouxljlyU1LMRBxEIW7k5gakPFdsQoctpQk3hgsqRBhRKwTriIh6zPBM9Yhh/KQhihLj1nne56en+cwB2aPOZRpvn9uE9Blm0S/iRpjVcjAkzvO9E17KuLUgi7CAeb+WxXsp6eMa04hmxn06IRq3NuJ8vf9a8kmw0b1yzo0ZWBo8mh/JpZppZhdwKenlEZfwvalM5s0PhuZZ9tumvmfiJYxaNxvQ3gYOltpwrA1woIviS/FbEM1Fum8+JVNXUTV9CPXmnA3tHpqM3Faa78ReSFhYW70bB6tXrJjeVK9PNC1vqC7oaLqKUcITEE5D1pe7I9cyvlQ7WEdbQ0Kllu6hACjcgjW1dltriFm37HNYq3SCB4n3Uic6lsKwgpxpqR+G+u+cMDsIFOPk/AKz8Rz2Mem7mqnUHLInYcFQ9k4bnPemQi+2TxnF+8Re54=
+X-Microsoft-Antispam-Message-Info: bdKtnQaJ1VSRkH3SaqkS75VMnJCawL3SwpcFDp/K9v7C/qXlAyOuQjIEd7/BLw+oHgJz5qZ+GhGoqJFI5XCTzV5jT/HBkFk6ipYZKPA+XXapo4Rud54YAQ/AcjgjTyTPpFepirCjJRTuSBGZ0EWuRlkCUs5DcapLxWnnXDSuWAumUlA25Lsb9a4de6r4y0/8SlPZexRDGMEWIIvcN0yvsnWL4vqxpqb285wdpOsS5w/65Bl2ZZRk197v6YoRMIYiceHRz2sO1JgjksdKy6XqQJNbhbjeovO2nb4+ElJJ7SSYcvOjmbY2NvPszeVQrRg7O1tGSQWH/dk1m/e7FyNHNJMEQ23HJVLot67dJDWdazBBwZH5vRTqbbU8shBfZuHahGIr/OZyj+hwZnN6PB7uPDD/sSPJfebhyUz8QS60CcO9sQwMKno1rulIB57b3iAjFAgvMjJOFSuqfkRHtDHZVD9BtFaHnNdwVeYBPkMijF7UvYKyJZPjj0CkDQpAYnKvxHoBxo7u8qFxEThdDiVntZrmqAs0tLsAiF8cjm+/RNTos6b/kL8usc6upHg3wNdcnJHn+jtM/6eYI6ttzqjFArDOhTg4Ov9L0kNAkNn5HXV0Ib0dgDESMa290cTXp/ZhpwiAEtj7Vl1WGuE2xt/A545CuYW7KQp/ckzxeVaR+Eq1qwaOi1mIrV2JEXeawV418DDJYvz8XEbf8sHmXt07+fQgvythKybD7Smx6+aiKrY=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(346002)(376002)(39860400002)(396003)(451199021)(46966006)(40470700004)(36840700001)(16526019)(26005)(426003)(1076003)(40480700001)(41300700001)(186003)(6666004)(7696005)(83380400001)(336012)(2616005)(47076005)(478600001)(54906003)(316002)(36860700001)(40460700003)(4326008)(70206006)(2906002)(70586007)(8676002)(6916009)(81166007)(82740400003)(356005)(36756003)(82310400005)(86362001)(5660300002)(8936002)(36900700001);
+ SFS:(13230028)(4636009)(39860400002)(346002)(136003)(396003)(376002)(451199021)(40470700004)(36840700001)(46966006)(40460700003)(4326008)(70586007)(70206006)(36860700001)(8676002)(6916009)(316002)(5660300002)(8936002)(356005)(41300700001)(82740400003)(1076003)(16526019)(26005)(81166007)(478600001)(54906003)(186003)(7696005)(2616005)(426003)(336012)(83380400001)(47076005)(6666004)(40480700001)(86362001)(2906002)(82310400005)(36756003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 19:36:29.4435 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 17b0221f-1d24-42ba-31a6-08db2efa8ff4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 19:36:33.4103 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 71e16a28-8624-46e9-7c2f-08db2efa9251
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF000100D0.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF000100D2.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6183
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4892
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,156 +100,252 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Alex Deucher <alexander.deucher@amd.com>, Le Ma <le.ma@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Le Ma <le.ma@amd.com>
 
-Skip KCQ setup on slave xcc as there's no use case.
+As the layout of VMHUB definition has been changed to cover multiple
+XCD/AID case, the original num_vmhubs is not appropriate to do vmhub
+iteration any more.
+
+Drop num_vmhubs and introduce vmhubs_mask instead.
+
+v2: switch to the new VMHUB layout
+v3: use DECLARE_BITMAP to define vmhubs_mask
 
 Signed-off-by: Le Ma <le.ma@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 59 +++++++++++++++----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c  |  5 +++
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 10 +++--
- 4 files changed, 50 insertions(+), 26 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c   |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c     |  5 +++--
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c     |  5 +++--
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      | 21 ++++++++++++---------
+ 9 files changed, 25 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index 7f5c60381103..c83fb4277233 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -489,16 +489,19 @@ int amdgpu_gfx_disable_kcq(struct amdgpu_device *adev, int xcc_id)
- 		return -EINVAL;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 7c3288a1aa70..81b437fa7b9c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -850,7 +850,7 @@ struct amdgpu_device {
+ 	dma_addr_t			dummy_page_addr;
+ 	struct amdgpu_vm_manager	vm_manager;
+ 	struct amdgpu_vmhub             vmhub[AMDGPU_MAX_VMHUBS];
+-	unsigned			num_vmhubs;
++	DECLARE_BITMAP(vmhubs_mask, AMDGPU_MAX_VMHUBS);
  
- 	spin_lock(&kiq->ring_lock);
--	if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size *
--					adev->gfx.num_compute_rings)) {
--		spin_unlock(&adev->gfx.kiq[0].ring_lock);
--		return -ENOMEM;
--	}
-+	if (amdgpu_gfx_is_master_xcc(adev, xcc_id)) {
-+		if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size *
-+						adev->gfx.num_compute_rings)) {
-+			spin_unlock(&kiq->ring_lock);
-+			return -ENOMEM;
-+		}
+ 	/* memory management */
+ 	struct amdgpu_mman		mman;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+index a7afe1fb8881..90d872356edc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+@@ -732,7 +732,7 @@ int amdgpu_amdkfd_flush_gpu_tlb_vmid(struct amdgpu_device *adev,
+ 	if (adev->family == AMDGPU_FAMILY_AI) {
+ 		int i;
  
--	for (i = 0; i < adev->gfx.num_compute_rings; i++) {
--		j = i + xcc_id * adev->gfx.num_compute_rings;
--		kiq->pmf->kiq_unmap_queues(kiq_ring, &adev->gfx.compute_ring[i],
--					   RESET_QUEUES, 0, 0);
-+		for (i = 0; i < adev->gfx.num_compute_rings; i++) {
-+			j = i + xcc_id * adev->gfx.num_compute_rings;
-+			kiq->pmf->kiq_unmap_queues(kiq_ring,
-+						   &adev->gfx.compute_ring[i],
-+						   RESET_QUEUES, 0, 0);
-+		}
+-		for (i = 0; i < adev->num_vmhubs; i++)
++		for_each_set_bit(i, adev->vmhubs_mask, AMDGPU_MAX_VMHUBS)
+ 			amdgpu_gmc_flush_gpu_tlb(adev, vmid, i, 0);
+ 	} else {
+ 		amdgpu_gmc_flush_gpu_tlb(adev, vmid, AMDGPU_GFXHUB(0), 0);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+index 01cb89ffbd56..6b12f4a75fc3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+@@ -182,7 +182,7 @@ void amdgpu_gart_unbind(struct amdgpu_device *adev, uint64_t offset,
  	}
+ 	mb();
+ 	amdgpu_device_flush_hdp(adev, NULL);
+-	for (i = 0; i < adev->num_vmhubs; i++)
++	for_each_set_bit(i, adev->vmhubs_mask, AMDGPU_MAX_VMHUBS)
+ 		amdgpu_gmc_flush_gpu_tlb(adev, 0, i, 0);
  
- 	if (adev->gfx.kiq[0].ring.sched.ready && !adev->job_hang)
-@@ -549,22 +552,26 @@ int amdgpu_gfx_enable_kcq(struct amdgpu_device *adev, int xcc_id)
- 	DRM_INFO("kiq ring mec %d pipe %d q %d\n", kiq_ring->me, kiq_ring->pipe,
- 							kiq_ring->queue);
- 	spin_lock(&kiq->ring_lock);
--	r = amdgpu_ring_alloc(kiq_ring, kiq->pmf->map_queues_size *
--					adev->gfx.num_compute_rings +
--					kiq->pmf->set_resources_size);
--	if (r) {
--		DRM_ERROR("Failed to lock KIQ (%d).\n", r);
--		spin_unlock(&adev->gfx.kiq[0].ring_lock);
--		return r;
--	}
-+	/* No need to map kcq on the slave */
-+	if (amdgpu_gfx_is_master_xcc(adev, xcc_id)) {
-+		r = amdgpu_ring_alloc(kiq_ring, kiq->pmf->map_queues_size *
-+						adev->gfx.num_compute_rings +
-+						kiq->pmf->set_resources_size);
-+		if (r) {
-+			DRM_ERROR("Failed to lock KIQ (%d).\n", r);
-+			spin_unlock(&adev->gfx.kiq[0].ring_lock);
-+			return r;
-+		}
+ 	drm_dev_exit(idx);
+@@ -264,7 +264,7 @@ void amdgpu_gart_invalidate_tlb(struct amdgpu_device *adev)
  
--	if (adev->enable_mes)
--		queue_mask = ~0ULL;
-+		if (adev->enable_mes)
-+			queue_mask = ~0ULL;
- 
--	kiq->pmf->kiq_set_resources(kiq_ring, queue_mask);
--	for (i = 0; i < adev->gfx.num_compute_rings; i++) {
--		j = i + xcc_id * adev->gfx.num_compute_rings;
--		kiq->pmf->kiq_map_queues(kiq_ring, &adev->gfx.compute_ring[i]);
-+		kiq->pmf->kiq_set_resources(kiq_ring, queue_mask);
-+		for (i = 0; i < adev->gfx.num_compute_rings; i++) {
-+			j = i + xcc_id * adev->gfx.num_compute_rings;
-+			kiq->pmf->kiq_map_queues(kiq_ring,
-+						 &adev->gfx.compute_ring[i]);
-+		}
- 	}
- 
- 	r = amdgpu_ring_test_helper(kiq_ring);
-@@ -1078,3 +1085,9 @@ void amdgpu_gfx_cp_init_microcode(struct amdgpu_device *adev,
- 		adev->firmware.fw_size += ALIGN(fw_size, PAGE_SIZE);
- 	}
+ 	mb();
+ 	amdgpu_device_flush_hdp(adev, NULL);
+-	for (i = 0; i < adev->num_vmhubs; i++)
++	for_each_set_bit(i, adev->vmhubs_mask, AMDGPU_MAX_VMHUBS)
+ 		amdgpu_gmc_flush_gpu_tlb(adev, 0, i, 0);
  }
-+
-+bool amdgpu_gfx_is_master_xcc(struct amdgpu_device *adev, int xcc_id)
-+{
-+	return !(xcc_id % (adev->gfx.num_xcc_per_xcp ?
-+			adev->gfx.num_xcc_per_xcp : 1));
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index 1f7010041431..4c5881a24f6f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -462,4 +462,6 @@ void amdgpu_gfx_cp_init_microcode(struct amdgpu_device *adev, uint32_t ucode_id)
- int amdgpu_gfx_ras_sw_init(struct amdgpu_device *adev);
- int amdgpu_gfx_poison_consumption_handler(struct amdgpu_device *adev,
- 						struct amdgpu_iv_entry *entry);
-+
-+bool amdgpu_gfx_is_master_xcc(struct amdgpu_device *adev, int xcc_id);
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-index 2b6fdcf3bf60..15fd61c202c8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-@@ -407,6 +407,11 @@ int amdgpu_ib_ring_tests(struct amdgpu_device *adev)
- 		else
- 			tmo = tmo_gfx;
  
-+		/* skip ib test on the slave kcq */
-+		if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE &&
-+		    !amdgpu_gfx_is_master_xcc(adev, ring->xcc_id))
-+			continue;
-+
- 		r = amdgpu_ring_test_ib(ring, tmo);
- 		if (!r) {
- 			DRM_DEV_DEBUG(adev->dev, "ib test on %s succeeded\n",
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index 0e162189d860..b9b02fa15c7b 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -1886,9 +1886,13 @@ static int gfx_v9_4_3_cp_resume(struct amdgpu_device *adev)
- 		if (r)
- 			return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index a3ac887f36ab..503b4ff13fa4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -460,7 +460,7 @@ static int gmc_v10_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+ 				&queried_pasid);
+ 		if (ret	&& queried_pasid == pasid) {
+ 			if (all_hub) {
+-				for (i = 0; i < adev->num_vmhubs; i++)
++				for_each_set_bit(i, adev->vmhubs_mask, AMDGPU_MAX_VMHUBS)
+ 					gmc_v10_0_flush_gpu_tlb(adev, vmid,
+ 							i, flush_type);
+ 			} else {
+@@ -928,7 +928,8 @@ static int gmc_v10_0_sw_init(void *handle)
+ 	case IP_VERSION(10, 3, 6):
+ 	case IP_VERSION(10, 3, 3):
+ 	case IP_VERSION(10, 3, 7):
+-		adev->num_vmhubs = 2;
++		set_bit(AMDGPU_GFXHUB(0), adev->vmhubs_mask);
++		set_bit(AMDGPU_MMHUB0(0), adev->vmhubs_mask);
+ 		/*
+ 		 * To fulfill 4-level page support,
+ 		 * vm size is 256TB (48bit), maximum size of Navi10/Navi14/Navi12,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+index 37bc272bcf98..d5a0f16cddba 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -362,7 +362,7 @@ static int gmc_v11_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+ 				&queried_pasid);
+ 		if (ret	&& queried_pasid == pasid) {
+ 			if (all_hub) {
+-				for (i = 0; i < adev->num_vmhubs; i++)
++				for_each_set_bit(i, adev->vmhubs_mask, AMDGPU_MAX_VMHUBS)
+ 					gmc_v11_0_flush_gpu_tlb(adev, vmid,
+ 							i, flush_type);
+ 			} else {
+@@ -760,7 +760,8 @@ static int gmc_v11_0_sw_init(void *handle)
+ 	case IP_VERSION(11, 0, 2):
+ 	case IP_VERSION(11, 0, 3):
+ 	case IP_VERSION(11, 0, 4):
+-		adev->num_vmhubs = 2;
++		set_bit(AMDGPU_GFXHUB(0), adev->vmhubs_mask);
++		set_bit(AMDGPU_MMHUB0(0), adev->vmhubs_mask);
+ 		/*
+ 		 * To fulfill 4-level page support,
+ 		 * vm size is 256TB (48bit), maximum size,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+index b7dad4e67813..aa754c95a0b3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+@@ -808,7 +808,7 @@ static int gmc_v6_0_sw_init(void *handle)
+ 	int r;
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
  
--		for (j = 0; j < adev->gfx.num_compute_rings; j++) {
--			ring = &adev->gfx.compute_ring[j + i * adev->gfx.num_compute_rings];
--			amdgpu_ring_test_helper(ring);
-+		/* skip ring test on slave kcq */
-+		if (amdgpu_gfx_is_master_xcc(adev, i)) {
-+			for (j = 0; j < adev->gfx.num_compute_rings; j++) {
-+				ring = &adev->gfx.compute_ring[j +
-+					i * adev->gfx.num_compute_rings];
-+				amdgpu_ring_test_helper(ring);
-+			}
+-	adev->num_vmhubs = 1;
++	set_bit(AMDGPU_GFXHUB(0), adev->vmhubs_mask);
+ 
+ 	if (adev->flags & AMD_IS_APU) {
+ 		adev->gmc.vram_type = AMDGPU_VRAM_TYPE_UNKNOWN;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+index 402960b0174e..81609a2b226f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+@@ -977,7 +977,7 @@ static int gmc_v7_0_sw_init(void *handle)
+ 	int r;
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
+-	adev->num_vmhubs = 1;
++	set_bit(AMDGPU_GFXHUB(0), adev->vmhubs_mask);
+ 
+ 	if (adev->flags & AMD_IS_APU) {
+ 		adev->gmc.vram_type = AMDGPU_VRAM_TYPE_UNKNOWN;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+index 504c1b34dab7..d48e33738a88 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+@@ -1093,7 +1093,7 @@ static int gmc_v8_0_sw_init(void *handle)
+ 	int r;
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
+-	adev->num_vmhubs = 1;
++	set_bit(AMDGPU_GFXHUB(0), adev->vmhubs_mask);
+ 
+ 	if (adev->flags & AMD_IS_APU) {
+ 		adev->gmc.vram_type = AMDGPU_VRAM_TYPE_UNKNOWN;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 6d13d42a125f..ce9ae3a5a9c5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -481,7 +481,7 @@ static int gmc_v9_0_vm_fault_interrupt_state(struct amdgpu_device *adev,
+ 
+ 	switch (state) {
+ 	case AMDGPU_IRQ_STATE_DISABLE:
+-		for (j = 0; j < adev->num_vmhubs; j++) {
++		for_each_set_bit(j, adev->vmhubs_mask, AMDGPU_MAX_VMHUBS) {
+ 			hub = &adev->vmhub[j];
+ 			for (i = 0; i < 16; i++) {
+ 				reg = hub->vm_context0_cntl + i;
+@@ -509,7 +509,7 @@ static int gmc_v9_0_vm_fault_interrupt_state(struct amdgpu_device *adev,
  		}
+ 		break;
+ 	case AMDGPU_IRQ_STATE_ENABLE:
+-		for (j = 0; j < adev->num_vmhubs; j++) {
++		for_each_set_bit(j, adev->vmhubs_mask, AMDGPU_MAX_VMHUBS) {
+ 			hub = &adev->vmhub[j];
+ 			for (i = 0; i < 16; i++) {
+ 				reg = hub->vm_context0_cntl + i;
+@@ -786,7 +786,7 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ 	u32 j, inv_req, inv_req2, tmp;
+ 	struct amdgpu_vmhub *hub;
  
- 		gfx_v9_4_3_enable_gui_idle_interrupt(adev, true, i);
+-	BUG_ON(vmhub >= adev->num_vmhubs);
++	BUG_ON(vmhub >= AMDGPU_MAX_VMHUBS);
+ 
+ 	hub = &adev->vmhub[vmhub];
+ 	if (adev->gmc.xgmi.num_physical_nodes &&
+@@ -970,7 +970,7 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+ 				&queried_pasid);
+ 		if (ret && queried_pasid == pasid) {
+ 			if (all_hub) {
+-				for (i = 0; i < adev->num_vmhubs; i++)
++				for_each_set_bit(i, adev->vmhubs_mask, AMDGPU_MAX_VMHUBS)
+ 					gmc_v9_0_flush_gpu_tlb(adev, vmid,
+ 							i, flush_type);
+ 			} else {
+@@ -1667,7 +1667,8 @@ static int gmc_v9_0_sw_init(void *handle)
+ 	switch (adev->ip_versions[GC_HWIP][0]) {
+ 	case IP_VERSION(9, 1, 0):
+ 	case IP_VERSION(9, 2, 2):
+-		adev->num_vmhubs = 2;
++		set_bit(AMDGPU_GFXHUB(0), adev->vmhubs_mask);
++		set_bit(AMDGPU_MMHUB0(0), adev->vmhubs_mask);
+ 
+ 		if (adev->rev_id == 0x0 || adev->rev_id == 0x1) {
+ 			amdgpu_vm_adjust_size(adev, 256 * 1024, 9, 3, 48);
+@@ -1684,8 +1685,8 @@ static int gmc_v9_0_sw_init(void *handle)
+ 	case IP_VERSION(9, 3, 0):
+ 	case IP_VERSION(9, 4, 2):
+ 	case IP_VERSION(9, 4, 3):
+-		adev->num_vmhubs = 2;
+-
++		set_bit(AMDGPU_GFXHUB(0), adev->vmhubs_mask);
++		set_bit(AMDGPU_MMHUB0(0), adev->vmhubs_mask);
+ 
+ 		/*
+ 		 * To fulfill 4-level page support,
+@@ -1701,7 +1702,9 @@ static int gmc_v9_0_sw_init(void *handle)
+ 			adev->gmc.translate_further = adev->vm_manager.num_level > 1;
+ 		break;
+ 	case IP_VERSION(9, 4, 1):
+-		adev->num_vmhubs = 3;
++		set_bit(AMDGPU_GFXHUB(0), adev->vmhubs_mask);
++		set_bit(AMDGPU_MMHUB0(0), adev->vmhubs_mask);
++		set_bit(AMDGPU_MMHUB1(0), adev->vmhubs_mask);
+ 
+ 		/* Keep the vm size same with Vega20 */
+ 		amdgpu_vm_adjust_size(adev, 256 * 1024, 9, 3, 48);
+@@ -1927,7 +1930,7 @@ static int gmc_v9_0_hw_init(void *handle)
+ 			adev->gfxhub.funcs->set_fault_enable_default(adev, value);
+ 		adev->mmhub.funcs->set_fault_enable_default(adev, value);
+ 	}
+-	for (i = 0; i < adev->num_vmhubs; ++i) {
++	for_each_set_bit(i, adev->vmhubs_mask, AMDGPU_MAX_VMHUBS) {
+ 		if (adev->in_s0ix && (i == AMDGPU_GFXHUB(0)))
+ 			continue;
+ 		gmc_v9_0_flush_gpu_tlb(adev, 0, i, 0);
 -- 
 2.39.2
 
