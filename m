@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 425F9C76195
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 18:45:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F445C76195
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 18:45:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 785D710E6F3;
-	Mon, 27 Mar 2023 18:44:24 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2059.outbound.protection.outlook.com [40.107.92.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15CD510E6BE;
- Mon, 27 Mar 2023 18:43:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A33DB10E702;
+	Mon, 27 Mar 2023 18:44:26 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2063.outbound.protection.outlook.com [40.107.212.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6F3410E6C6;
+ Mon, 27 Mar 2023 18:43:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lrG7lh6Rk4x1dRsYGqNS6Pq0gGI2S6fmp+RmK+rbgVsU7YGX638gvKNGIfv3h7o7w5nILVxMit6oBkuYfX7aMy66gmUAMAYPdZIwq0WsQTbagupxaOolYm6Ww+uGsL8k4e5SCcrjwo5QdzEg/AMCl6h426OBJE0xtEfHCVmUHM3O4UeiteHMSbfvMYZbPgLEN5M1rW4rfYQPO8XPz58KgEn4cbhw8cQkXgNLf1IrEvIuncp4sQAQGhORbIwy3qT0fcjELgVDMMbs3CPyr/aTDNMOnb6F3VmsVjOX5qkJffZBnjHr6oSat/dllvQAakXl7/4ENnpU8tEuwoYQKPdWNQ==
+ b=GwcvSvq5Y9D9wr0VhMae5aPJjZGDFROysU++h49g2+5r3eC6eVkDaLBRozeDWNMZpedO2EL2QJNblxcv660iOH/RN0embeRidXpw4nW8nF4yCNmDK8swdnO6QpR37i3N4l+/oQNXmfmXL546Kiqp3uYSOZfFCm4TthF8AV2VVIYRjKK8Fd30GeLnyl5m2xw/+Oc76DpmC6mPiVtTsiXEnMdA8hKoubWpHgjSHy7EI51lsipajU2/hUu1NKiPVJHFkBYHSYLdbFlL3cpmeoH1n+msSIxaOiZMIqpN+sPoA8m+KTi0Jb1/o7wzStqVz1mkEftdlkmURP+Yx1jqMklopw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ynbhxscDe6MGXdd1+KdDsTyQ6OmtJzww+fJiDjlmMCM=;
- b=KAj9QawI+Dc0k7pg3qX+I6OwuNxBZ0uYTwC72v0sp2rhfc6n7XXc7WAEA5iy8GrIlZkCpkYBb/GkuJjLXA9LmPOse4qgT6kw8++usnS4nccz4sM8SfEVEPV2PWCGoaqBoJbsSq/tz72q7onyR9GiZuhmhxIF7DZ09V6OZS3NC36mVkk09NOr8OBjbkAZpTqJZp8M039bELmwhr0LvnegP8KZB0PIlql4Im9QlsuQ4tlRKH7MjFAXsxnOifO2s5QUw9BDQp5DqIgsJz/kgL5s4XYI6Ed+vC+3G/ZFQv7yhGZiLbwt5Is1Yf84NnLOTk36KHalgEnRxc0spg6Ba+UPKw==
+ bh=HfC1VaX4cQdtYs9YRieZUdyv5W+wzaTRmlWC10i9j0E=;
+ b=Aom12XhLKMNe261WOPYWrs0kQMBF3LZUn7kPGJjFZr3f+L+8qOgGe7FAnS2BHOFQXKq4G+dwdpRn7pC0azQxHbumV/LrF1IOPL6Mh45ePk+F8AdrzD2PgvVIMg1CFHN13PgVWvKFON6jW4oRpFbXCUOlrmsO6oHg7Qt0dE7yK3Yw777f0sm22kF1AqHreOOQPDBwZZXuifqoPwJrf7FI2wqtvpba/DyIXoV7Zz0tr86hOoDR1dLtAr9jG3RQAPLEJ5aj9LkZOyY6TWxSUt14ZecewmKxrnSWnNf0JkhwO4T/zc0BN6IYRcIscjBUAuYLLSRteZMr6MdktggvaF59wQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ynbhxscDe6MGXdd1+KdDsTyQ6OmtJzww+fJiDjlmMCM=;
- b=gUAZXFzGgv7Xsqx+A/av3xNsXOVHe6JpaDBjFtOo4Xh66rvAQDTKoHRY3HCpUF3yY+luOtPidXUF0rwO0SHG/giGZqAC4pgRuX//jyfJkui+vtd9Mbiu+tNpNLCuYuylOCDXYcMPiLrj7Q9/+FI3UWrlWPKoDQJmpGypHm/4Pxs=
-Received: from CY8PR02CA0015.namprd02.prod.outlook.com (2603:10b6:930:4d::18)
- by MW3PR12MB4409.namprd12.prod.outlook.com (2603:10b6:303:2d::23)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=HfC1VaX4cQdtYs9YRieZUdyv5W+wzaTRmlWC10i9j0E=;
+ b=aBs9RrTmmIU1CLd746GaAl1IOmJPvPqpdXvcWZ1Yzy42IadbZ/3lb/Co0SdzIg6GSsag185CcPZu5T9KAvT9JJZ99UIse1QQ0YmuG/t5Oksng0aiIsEIjsgmnVxXgLKcGvvRD38NVHAc80iR6xHBlOOXEyV83ChAeWQTazt2EZk=
+Received: from CY5PR18CA0025.namprd18.prod.outlook.com (2603:10b6:930:5::22)
+ by CH3PR12MB7500.namprd12.prod.outlook.com (2603:10b6:610:148::17) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.41; Mon, 27 Mar
- 2023 18:43:55 +0000
-Received: from CY4PEPF0000C97D.namprd02.prod.outlook.com
- (2603:10b6:930:4d:cafe::ea) by CY8PR02CA0015.outlook.office365.com
- (2603:10b6:930:4d::18) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 18:43:57 +0000
+Received: from CY4PEPF0000C97C.namprd02.prod.outlook.com
+ (2603:10b6:930:5:cafe::71) by CY5PR18CA0025.outlook.office365.com
+ (2603:10b6:930:5::22) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.43 via Frontend
- Transport; Mon, 27 Mar 2023 18:43:55 +0000
+ Transport; Mon, 27 Mar 2023 18:43:56 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000C97D.mail.protection.outlook.com (10.167.241.136) with Microsoft
+ CY4PEPF0000C97C.mail.protection.outlook.com (10.167.241.135) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.30 via Frontend Transport; Mon, 27 Mar 2023 18:43:54 +0000
+ 15.20.6178.30 via Frontend Transport; Mon, 27 Mar 2023 18:43:56 +0000
 Received: from jonathan-KFD.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 27 Mar
- 2023 13:43:52 -0500
+ 2023 13:43:55 -0500
 From: Jonathan Kim <jonathan.kim@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: [PATCH 13/34] drm/amdkfd: prepare map process for single process
- debug devices
-Date: Mon, 27 Mar 2023 14:43:18 -0400
-Message-ID: <20230327184339.125016-13-jonathan.kim@amd.com>
+Subject: [PATCH 20/34] drm/amdkfd: add runtime enable operation
+Date: Mon, 27 Mar 2023 14:43:25 -0400
+Message-ID: <20230327184339.125016-20-jonathan.kim@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230327184339.125016-1-jonathan.kim@amd.com>
 References: <20230327184339.125016-1-jonathan.kim@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000C97D:EE_|MW3PR12MB4409:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3518b28b-f9b0-47ac-8d6f-08db2ef337c7
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000C97C:EE_|CH3PR12MB7500:EE_
+X-MS-Office365-Filtering-Correlation-Id: 18cd60e7-b59f-4383-409d-08db2ef338de
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: AmUZ7/jX24xIjuo1jfIaS2RzgjmOJBnHikKhaJqwKVFnjJV6ecaUQ1iaCdpb8izdaoR6PcHAF4IZ4o7Wv9+1lyCGl1vr+PLkbuQwlze+AmisPqja5PDDbq9gdbCBNy+bY8DLoH7poPQ2rSIwzSBPRmWs8NAE4XvFWp3mblovtkTf+WEl4FmFosVifdUzw0ebzHx39iIysSt86EKDKDwd418Ygu8ioDt7Q2ec0B2jR5DI2gqdJ8CG46brvkxYi55HZAVhTT58wFZhDPg6T0jRfropjJcoxnHC7U/HFpnqZLXyrQSaC3SACLvFiV6hGBFwMWa9NwEadvUqExne3WFJ9bTvZK6Vv72eBqsp8vkE4pG54k9p2fG/8EyMqW2GLI/BThRYm0p280JB3Sqqwtez2eupn/ypbyxoNZq5Wjk+03BSkhU8MieXo8fTZe5Dd/fBtGoEuW4IXOCTq2cutX2cghUqk4Xmh/alBf4xj0rPF0a8yffqfcPAXq1sPYI9uACJwf6trRVmf8vlI5YVCNUrdmyrQpKlxYf9FgWmPkmZyvWilqpBX8fpn0uKEhqeES9wfcHPfZdGwKBQBFV72/ZTJ9PdHsPH0JOhibOxAbZtwzD7U/o9N8ADr1qr254R7kp9A+IQTzV+Z8VmUJCLquB4AdkJVCXdDeHaA8PH4UOj2HaAWVyFaxeQ/G6GcD4Dw2zTU2gjisyRda4fyiM3Q+O43bbnEswyCW64NaFJtz8QH4s=
+X-Microsoft-Antispam-Message-Info: +w7T9bZZz0WWrwsb9IuHnGiGy6egdiRtfpvOQqlQoGolTLdOiEU8RK4FyeX+7tNUdbdrGhl+6TIbNI35MR741DkBdARV3jqjFlk05wVSjUxywsw4BW50XJ+AaXZ+2xJj3GVHzR6cnF5nbvYIA5UCDka62mj11B/xqDBdJG2XrTUM/b2hpiaVixigjDIKlE8oagjd6SqW/B+RY2sDjJ13+ogkDdevb0/A9tEXqqQZS7hyWT0fD7/itb5GfnAVidP+yetkpZO8SzYOl5hgPtKmdLWGpzVc7D97hk0p4So6R/loura2zNvSdEk9Vd1qwKp2mmYj8mIGp0hNahibyg3QSedqMlLP2Vw1VBPuT0UBh1XBCuOHpHN2S7eFhLYsPpXIxjdhvaS5jlCqiPPdeWA4XMQ5w9Pd8bWHoic6ZcOH7sJt8r3JdcFo8qiM0uFkb3TbSAU+xJaGmxJtP51EYcNSwXswvEHN71gHCeMClKxbUIm7ryaJp4wwRtAA6gdBk0eFcr4G0GYbeI7QH42vQZCwxaVJxEtr4ORzObEskCwsbayvG3UYmhDiQCYszL6wBJGXXwBC2XGPeyGNUZ40JWh3e3hw60flxK0q42/EehzQn9hCIfAZ+joohncbksF+wK5StMEG9Tc1sKFAJHralBtmO3q4PLxyU/DK7ZnH9ysi35c25FQQcEqgHvFqkA8L8LOwUkC6SyjauyT42W0BJ+Y8is+9kxD+q8lFIkdUz5wqNPu8dqFus0eSPkKxsAZjYgqc0ST4bqvc4EJA9auMfV7U6Q==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(136003)(396003)(346002)(39860400002)(451199021)(36840700001)(46966006)(40470700004)(40460700003)(36860700001)(478600001)(316002)(54906003)(110136005)(81166007)(82310400005)(8936002)(5660300002)(86362001)(36756003)(2906002)(44832011)(356005)(70206006)(70586007)(450100002)(8676002)(40480700001)(41300700001)(4326008)(336012)(16526019)(186003)(2616005)(426003)(1076003)(26005)(83380400001)(82740400003)(6666004)(7696005)(47076005)(36900700001);
+ SFS:(13230028)(4636009)(396003)(39860400002)(346002)(136003)(376002)(451199021)(40470700004)(46966006)(36840700001)(26005)(40460700003)(8676002)(4326008)(110136005)(316002)(70586007)(70206006)(36860700001)(5660300002)(41300700001)(450100002)(8936002)(54906003)(186003)(16526019)(81166007)(30864003)(82740400003)(47076005)(7696005)(2616005)(426003)(1076003)(336012)(83380400001)(6666004)(478600001)(40480700001)(44832011)(86362001)(356005)(2906002)(82310400005)(36756003)(36900700001)(309714004);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 18:43:54.9874 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3518b28b-f9b0-47ac-8d6f-08db2ef337c7
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 18:43:56.7983 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 18cd60e7-b59f-4383-409d-08db2ef338de
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C97D.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C97C.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4409
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7500
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,204 +103,302 @@ Cc: Felix.Kuehling@amd.com, Jonathan.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Older HW only supports debugging on a single process because the
-SPI debug mode setting registers are device global.
+The debugger can attach to a process prior to HSA enablement (i.e.
+inferior is spawned by the debugger and attached to immediately before
+target process has been enabled for HSA dispatches) or it
+can attach to a running target that is already HSA enabled.  Either
+way, the debugger needs to know the enablement status to know when
+it can inspect queues.
 
-The HWS has supplied a single pinned VMID (0xf) for MAP_PROCESS
-for debug purposes. To pin the VMID, the KFD will remove the VMID from
-the HWS dynamic VMID allocation via SET_RESOUCES so that a debugged
-process will never migrate away from its pinned VMID.
+For the scenario where the debugger spawns the target process,
+it will have to wait for ROCr's runtime enable request from the target.
+The runtime enable request will be able to see that its process has been
+debug attached.  ROCr raises an EC_PROCESS_RUNTIME signal to the
+debugger then blocks the target process while waiting the debugger's
+response. Once the debugger has received the runtime signal, it will
+unblock the target process.
 
-The KFD is responsible for reserving and releasing this pinned VMID
-accordingly whenever the debugger attaches and detaches respectively.
+For the scenario where the debugger attaches to a running target
+process, ROCr will set the target process' runtime status as enabled so
+that on an attach request, the debugger will be able to see this
+status and will continue with debug enablement as normal.
 
-v2: remove unneeded formatting and add back mistakenly removed worker.
+A secondary requirement is to conditionally enable the trap tempories only
+if the user requests it (env var HSA_ENABLE_DEBUG=1) or if the debugger
+attaches with HSA runtime enabled.  This is because setting up the trap
+temporaries incurs a performance overhead that is unacceptable for
+microbench performance in normal mode for certain customers.
+
+In the scenario where the debugger spawns the target process, when ROCr
+detects that the debugger has attached during the runtime enable
+request, it will enable the trap temporaries before it blocks the target
+process while waiting for the debugger to respond.
+
+In the scenario where the debugger attaches to a running target process,
+it will enable to trap temporaries itself.
+
+Finally, there is an additional restriction that is required to be
+enforced with runtime enable and HW debug mode setting. The debugger must
+first ensure that HW debug mode has been enabled before permitting HW debug
+mode operations.
+
+With single process debug devices, allowing the debugger to set debug
+HW modes prior to trap activation means that debug HW mode setting can
+occur before the KFD has reserved the debug VMID (0xf) from the hardware
+scheduler's VMID allocation resource pool.  This can result in the
+hardware scheduler assigning VMID 0xf to a non-debugged process and
+having that process inherit debug HW mode settings intended for the
+debugged target process instead, which is both incorrect and potentially
+fatal for normal mode operation.
+
+With multi process debug devices, allowing the debugger to set debug
+HW modes prior to trap activation means that non-debugged processes
+migrating to a new VMID could inherit unintended debug settings.
+
+All debug operations that touch HW settings must require trap activation
+where trap activation is triggered by both debug attach and runtime
+enablement (target has KFD opened and is ready to dispatch work).
+
+v3: fix and cleanup ttmp_setup for runtime_enable.
+
+v2: fix up hierarchy of semantics in description.
 
 Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
 ---
- .../drm/amd/amdkfd/kfd_device_queue_manager.c | 93 +++++++++++++++++++
- .../drm/amd/amdkfd/kfd_device_queue_manager.h |  5 +
- .../drm/amd/amdkfd/kfd_packet_manager_v9.c    |  9 ++
- .../gpu/drm/amd/amdkfd/kfd_pm4_headers_ai.h   |  5 +-
- 4 files changed, 111 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 143 ++++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_debug.c   |   6 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_debug.h   |   4 +
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |   1 +
+ 4 files changed, 150 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 807cad60d21e..40744dc3db57 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -1492,6 +1492,7 @@ static int initialize_cpsch(struct device_queue_manager *dqm)
- 	dqm->gws_queue_count = 0;
- 	dqm->active_runlist = false;
- 	INIT_WORK(&dqm->hw_exception_work, kfd_process_hw_exception);
-+	dqm->trap_debug_vmid = 0;
- 
- 	init_sdma_bitmaps(dqm);
- 
-@@ -2465,6 +2466,98 @@ static void kfd_process_hw_exception(struct work_struct *work)
- 	amdgpu_amdkfd_gpu_reset(dqm->dev->adev);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index c48d4598583a..2a8d30dbb3f6 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -2724,11 +2724,140 @@ static int kfd_ioctl_criu(struct file *filep, struct kfd_process *p, void *data)
+ 	return ret;
  }
  
-+int reserve_debug_trap_vmid(struct device_queue_manager *dqm,
-+				struct qcm_process_device *qpd)
+-static int kfd_ioctl_runtime_enable(struct file *filep, struct kfd_process *p, void *data)
++static int runtime_enable(struct kfd_process *p, uint64_t r_debug,
++			bool enable_ttmp_setup)
 +{
++	int i = 0, ret = 0;
++
++	if (p->is_runtime_retry)
++		goto retry;
++
++	if (p->runtime_info.runtime_state != DEBUG_RUNTIME_STATE_DISABLED)
++		return -EBUSY;
++
++	for (i = 0; i < p->n_pdds; i++) {
++		struct kfd_process_device *pdd = p->pdds[i];
++
++		if (pdd->qpd.queue_count)
++			return -EEXIST;
++	}
++
++	p->runtime_info.runtime_state = DEBUG_RUNTIME_STATE_ENABLED;
++	p->runtime_info.r_debug = r_debug;
++	p->runtime_info.ttmp_setup = enable_ttmp_setup;
++
++	if (p->runtime_info.ttmp_setup) {
++		for (i = 0; i < p->n_pdds; i++) {
++			struct kfd_process_device *pdd = p->pdds[i];
++
++			if (!kfd_dbg_is_rlc_restore_supported(pdd->dev)) {
++				amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
++				pdd->dev->kfd2kgd->enable_debug_trap(
++						pdd->dev->adev,
++						true,
++						pdd->dev->vm_info.last_vmid_kfd);
++			} else if (kfd_dbg_is_per_vmid_supported(pdd->dev)) {
++				pdd->spi_dbg_override = pdd->dev->kfd2kgd->enable_debug_trap(
++						pdd->dev->adev,
++						false,
++						0);
++			}
++		}
++	}
++
++retry:
++	if (p->debug_trap_enabled) {
++		if (!p->is_runtime_retry) {
++			kfd_dbg_trap_activate(p);
++			kfd_dbg_ev_raise(KFD_EC_MASK(EC_PROCESS_RUNTIME),
++					p, NULL, 0, false, NULL, 0);
++		}
++
++		mutex_unlock(&p->mutex);
++		ret = down_interruptible(&p->runtime_enable_sema);
++		mutex_lock(&p->mutex);
++
++		p->is_runtime_retry = !!ret;
++	}
++
++	return ret;
++}
++
++static int runtime_disable(struct kfd_process *p)
+ {
++	int i = 0, ret;
++	bool was_enabled = p->runtime_info.runtime_state == DEBUG_RUNTIME_STATE_ENABLED;
++
++	p->runtime_info.runtime_state = DEBUG_RUNTIME_STATE_DISABLED;
++	p->runtime_info.r_debug = 0;
++
++	if (p->debug_trap_enabled) {
++		if (was_enabled)
++			kfd_dbg_trap_deactivate(p, false, 0);
++
++		if (!p->is_runtime_retry)
++			kfd_dbg_ev_raise(KFD_EC_MASK(EC_PROCESS_RUNTIME),
++					p, NULL, 0, false, NULL, 0);
++
++		mutex_unlock(&p->mutex);
++		ret = down_interruptible(&p->runtime_enable_sema);
++		mutex_lock(&p->mutex);
++
++		p->is_runtime_retry = !!ret;
++		if (ret)
++			return ret;
++	}
++
++	if (was_enabled && p->runtime_info.ttmp_setup) {
++		for (i = 0; i < p->n_pdds; i++) {
++			struct kfd_process_device *pdd = p->pdds[i];
++
++			if (!kfd_dbg_is_rlc_restore_supported(pdd->dev))
++				amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
++		}
++	}
++
++	p->runtime_info.ttmp_setup = false;
++
++	/* disable ttmp setup */
++	for (i = 0; i < p->n_pdds; i++) {
++		struct kfd_process_device *pdd = p->pdds[i];
++
++		if (kfd_dbg_is_per_vmid_supported(pdd->dev)) {
++			pdd->spi_dbg_override =
++					pdd->dev->kfd2kgd->disable_debug_trap(
++					pdd->dev->adev,
++					false,
++					pdd->dev->vm_info.last_vmid_kfd);
++
++			if (!pdd->dev->shared_resources.enable_mes)
++				debug_refresh_runlist(pdd->dev->dqm);
++			else
++				kfd_dbg_set_mes_debug_mode(pdd);
++		}
++	}
++
+ 	return 0;
+ }
+ 
++static int kfd_ioctl_runtime_enable(struct file *filep, struct kfd_process *p, void *data)
++{
++	struct kfd_ioctl_runtime_enable_args *args = data;
 +	int r;
-+	int updated_vmid_mask;
 +
-+	if (dqm->sched_policy == KFD_SCHED_POLICY_NO_HWS) {
-+		pr_err("Unsupported on sched_policy: %i\n", dqm->sched_policy);
-+		return -EINVAL;
-+	}
++	mutex_lock(&p->mutex);
 +
-+	dqm_lock(dqm);
++	if (args->mode_mask & KFD_RUNTIME_ENABLE_MODE_ENABLE_MASK)
++		r = runtime_enable(p, args->r_debug,
++				!!(args->mode_mask & KFD_RUNTIME_ENABLE_MODE_TTMP_SAVE_MASK));
++	else
++		r = runtime_disable(p);
 +
-+	if (dqm->trap_debug_vmid != 0) {
-+		pr_err("Trap debug id already reserved\n");
-+		r = -EBUSY;
-+		goto out_unlock;
-+	}
++	mutex_unlock(&p->mutex);
 +
-+	r = unmap_queues_cpsch(dqm, KFD_UNMAP_QUEUES_FILTER_ALL_QUEUES, 0,
-+			USE_DEFAULT_GRACE_PERIOD, false);
-+	if (r)
-+		goto out_unlock;
-+
-+	updated_vmid_mask = dqm->dev->shared_resources.compute_vmid_bitmap;
-+	updated_vmid_mask &= ~(1 << dqm->dev->vm_info.last_vmid_kfd);
-+
-+	dqm->dev->shared_resources.compute_vmid_bitmap = updated_vmid_mask;
-+	dqm->trap_debug_vmid = dqm->dev->vm_info.last_vmid_kfd;
-+	r = set_sched_resources(dqm);
-+	if (r)
-+		goto out_unlock;
-+
-+	r = map_queues_cpsch(dqm);
-+	if (r)
-+		goto out_unlock;
-+
-+	pr_debug("Reserved VMID for trap debug: %i\n", dqm->trap_debug_vmid);
-+
-+out_unlock:
-+	dqm_unlock(dqm);
 +	return r;
 +}
 +
-+/*
-+ * Releases vmid for the trap debugger
-+ */
-+int release_debug_trap_vmid(struct device_queue_manager *dqm,
-+			struct qcm_process_device *qpd)
-+{
-+	int r;
-+	int updated_vmid_mask;
-+	uint32_t trap_debug_vmid;
-+
-+	if (dqm->sched_policy == KFD_SCHED_POLICY_NO_HWS) {
-+		pr_err("Unsupported on sched_policy: %i\n", dqm->sched_policy);
-+		return -EINVAL;
-+	}
-+
-+	dqm_lock(dqm);
-+	trap_debug_vmid = dqm->trap_debug_vmid;
-+	if (dqm->trap_debug_vmid == 0) {
-+		pr_err("Trap debug id is not reserved\n");
-+		r = -EINVAL;
-+		goto out_unlock;
-+	}
-+
-+	r = unmap_queues_cpsch(dqm, KFD_UNMAP_QUEUES_FILTER_ALL_QUEUES, 0,
-+			USE_DEFAULT_GRACE_PERIOD, false);
-+	if (r)
-+		goto out_unlock;
-+
-+	updated_vmid_mask = dqm->dev->shared_resources.compute_vmid_bitmap;
-+	updated_vmid_mask |= (1 << dqm->dev->vm_info.last_vmid_kfd);
-+
-+	dqm->dev->shared_resources.compute_vmid_bitmap = updated_vmid_mask;
-+	dqm->trap_debug_vmid = 0;
-+	r = set_sched_resources(dqm);
-+	if (r)
-+		goto out_unlock;
-+
-+	r = map_queues_cpsch(dqm);
-+	if (r)
-+		goto out_unlock;
-+
-+	pr_debug("Released VMID for trap debug: %i\n", trap_debug_vmid);
-+
-+out_unlock:
-+	dqm_unlock(dqm);
-+	return r;
-+}
-+
- #if defined(CONFIG_DEBUG_FS)
- 
- static void seq_reg_dump(struct seq_file *m,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-index fb48b124161f..0cb1504d24cf 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-@@ -250,6 +250,7 @@ struct device_queue_manager {
- 	struct kfd_mem_obj	*fence_mem;
- 	bool			active_runlist;
- 	int			sched_policy;
-+	uint32_t		trap_debug_vmid;
- 
- 	/* hw exception  */
- 	bool			is_hws_hang;
-@@ -281,6 +282,10 @@ unsigned int get_queues_per_pipe(struct device_queue_manager *dqm);
- unsigned int get_pipes_per_mec(struct device_queue_manager *dqm);
- unsigned int get_num_sdma_queues(struct device_queue_manager *dqm);
- unsigned int get_num_xgmi_sdma_queues(struct device_queue_manager *dqm);
-+int reserve_debug_trap_vmid(struct device_queue_manager *dqm,
-+			struct qcm_process_device *qpd);
-+int release_debug_trap_vmid(struct device_queue_manager *dqm,
-+			struct qcm_process_device *qpd);
- 
- static inline unsigned int get_sh_mem_bases_32(struct kfd_process_device *pdd)
+ static int kfd_ioctl_set_debug_trap(struct file *filep, struct kfd_process *p, void *data)
  {
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-index f0cdc8695b8c..363cf8e005cc 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-@@ -34,6 +34,9 @@ static int pm_map_process_v9(struct packet_manager *pm,
- {
- 	struct pm4_mes_map_process *packet;
- 	uint64_t vm_page_table_base_addr = qpd->page_table_base;
-+	struct kfd_dev *kfd = pm->dqm->dev;
-+	struct kfd_process_device *pdd =
-+			container_of(qpd, struct kfd_process_device, qpd);
+ 	struct kfd_ioctl_dbg_trap_args *args = data;
+@@ -2801,6 +2930,18 @@ static int kfd_ioctl_set_debug_trap(struct file *filep, struct kfd_process *p, v
+ 		goto unlock_out;
+ 	}
  
- 	packet = (struct pm4_mes_map_process *)buffer;
- 	memset(buffer, 0, sizeof(struct pm4_mes_map_process));
-@@ -49,6 +52,12 @@ static int pm_map_process_v9(struct packet_manager *pm,
- 	packet->bitfields14.sdma_enable = 1;
- 	packet->bitfields14.num_queues = (qpd->is_debug) ? 0 : qpd->queue_count;
- 
-+	if (kfd->dqm->trap_debug_vmid && pdd->process->debug_trap_enabled &&
-+			pdd->process->runtime_info.runtime_state == DEBUG_RUNTIME_STATE_ENABLED) {
-+		packet->bitfields2.debug_vmid = kfd->dqm->trap_debug_vmid;
-+		packet->bitfields2.new_debug = 1;
++	if (target->runtime_info.runtime_state != DEBUG_RUNTIME_STATE_ENABLED &&
++			(args->op == KFD_IOC_DBG_TRAP_SET_WAVE_LAUNCH_OVERRIDE ||
++			 args->op == KFD_IOC_DBG_TRAP_SET_WAVE_LAUNCH_MODE ||
++			 args->op == KFD_IOC_DBG_TRAP_SUSPEND_QUEUES ||
++			 args->op == KFD_IOC_DBG_TRAP_RESUME_QUEUES ||
++			 args->op == KFD_IOC_DBG_TRAP_SET_NODE_ADDRESS_WATCH ||
++			 args->op == KFD_IOC_DBG_TRAP_CLEAR_NODE_ADDRESS_WATCH ||
++			 args->op == KFD_IOC_DBG_TRAP_SET_FLAGS)) {
++		r = -EPERM;
++		goto unlock_out;
 +	}
 +
- 	packet->sh_mem_config = qpd->sh_mem_config;
- 	packet->sh_mem_bases = qpd->sh_mem_bases;
- 	if (qpd->tba_addr) {
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_ai.h b/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_ai.h
-index 795001c947e1..bb6edbc27de7 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_ai.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_pm4_headers_ai.h
-@@ -146,7 +146,10 @@ struct pm4_mes_map_process {
- 	union {
- 		struct {
- 			uint32_t pasid:16;
--			uint32_t reserved1:8;
-+			uint32_t reserved1:2;
-+			uint32_t debug_vmid:4;
-+			uint32_t new_debug:1;
-+			uint32_t reserved2:1;
- 			uint32_t diq_enable:1;
- 			uint32_t process_quantum:7;
- 		} bitfields2;
+ 	switch (args->op) {
+ 	case KFD_IOC_DBG_TRAP_ENABLE:
+ 		if (target != p)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+index b3bd101b3b34..f498987dc21d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+@@ -219,7 +219,7 @@ static int kfd_dbg_set_workaround(struct kfd_process *target, bool enable)
+ 	return r;
+ }
+ 
+-static int kfd_dbg_set_mes_debug_mode(struct kfd_process_device *pdd)
++int kfd_dbg_set_mes_debug_mode(struct kfd_process_device *pdd)
+ {
+ 	uint32_t spi_dbg_cntl = pdd->spi_dbg_override | pdd->spi_dbg_launch_mode;
+ 	uint32_t flags = pdd->process->dbg_flags;
+@@ -239,7 +239,7 @@ static int kfd_dbg_set_mes_debug_mode(struct kfd_process_device *pdd)
+  *				to unwind
+  *		else: ignored
+  */
+-static void kfd_dbg_trap_deactivate(struct kfd_process *target, bool unwind, int unwind_count)
++void kfd_dbg_trap_deactivate(struct kfd_process *target, bool unwind, int unwind_count)
+ {
+ 	int i;
+ 
+@@ -307,7 +307,7 @@ int kfd_dbg_trap_disable(struct kfd_process *target)
+ 	return 0;
+ }
+ 
+-static int kfd_dbg_trap_activate(struct kfd_process *target)
++int kfd_dbg_trap_activate(struct kfd_process *target)
+ {
+ 	int i, r = 0;
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
+index adde17c45b4f..5b46b9d4420d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
+@@ -25,6 +25,8 @@
+ 
+ #include "kfd_priv.h"
+ 
++void kfd_dbg_trap_deactivate(struct kfd_process *target, bool unwind, int unwind_count);
++int kfd_dbg_trap_activate(struct kfd_process *target);
+ bool kfd_dbg_ev_raise(uint64_t event_mask,
+ 			struct kfd_process *process, struct kfd_dev *dev,
+ 			unsigned int source_id, bool use_worker,
+@@ -77,4 +79,6 @@ static inline bool kfd_dbg_has_gws_support(struct kfd_dev *dev)
+ 	/* Assume debugging and cooperative launch supported otherwise. */
+ 	return true;
+ }
++
++int kfd_dbg_set_mes_debug_mode(struct kfd_process_device *pdd);
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index ee579b27586a..d092c81c9dc2 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -946,6 +946,7 @@ struct kfd_process {
+ 
+ 	/* Tracks runtime enable status */
+ 	struct semaphore runtime_enable_sema;
++	bool is_runtime_retry;
+ 	struct kfd_runtime_info runtime_info;
+ 
+ };
 -- 
 2.25.1
 
