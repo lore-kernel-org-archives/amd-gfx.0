@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B19A8C76195
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 23:34:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4B69C761A6
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 23:34:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15AEE10E7B5;
-	Mon, 27 Mar 2023 23:34:34 +0000 (UTC)
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [IPv6:2607:f8b0:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F42210E7B0
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 23:34:32 +0000 (UTC)
-Received: by mail-oi1-x22e.google.com with SMTP id q27so6957812oiw.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 16:34:32 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF28E10E7BC;
+	Mon, 27 Mar 2023 23:34:44 +0000 (UTC)
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3A1510E7B7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 23:34:41 +0000 (UTC)
+Received: by mail-oi1-x229.google.com with SMTP id s8so7715275ois.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 16:34:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1679960071;
+ d=usp.br; s=usp-google; t=1679960081;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=rCjnRFQPvAGnNx5L3qglgkfLmLwG3nPN+a/hM9CacEs=;
- b=GtnEi/KsBIrFkxShd3lvYGNJ9gUrQ2buWtvBFztcLMpjZHYnpfC2btTyNI2wDsx8gP
- PDOwtTF/TcTUNyeDxR4+oqyXUYAWrwKZvEptBJqEajGlOvHQG/N2hgJNqoRivII1xx51
- srSRUFm+TSmPWghIrj0BJh5li74VwsAaLfH1KqwWeaR6TO4B41nDX8EIySGgAXFLkN8F
- YdwEqm/wd8FQ3RikiVit9f33f8/yakAEXCIUHf2m4mD8ZPr83k/J/9pPD+iRpgpI1jss
- eOoS5rgPZHuaXhSaw/dfu9zrMhREgjPL3L5P57orkSVqAnny3ybOMPodpqyInQTfYtTE
- TpRA==
+ bh=1IwF6Kj9QYhpJPxCrtGOCcjZaHDRHTEbDHEOQ0Q0o5c=;
+ b=jfYnm0x5boN6VyBUnMWPRzz97xGu/bVZkk8ot1nSNhbtqM525wpnumuPPxj2g6SBmt
+ iqmmB2Tb3gG2gIqDlHDVBtcb5bLSyxASg2JlHy4W5rzyjFd0wER0kSIGXZ7mUjS5562+
+ 4imgqjAZwoauhGi0X9/tsjF17nKL8f44lyAP2Z9q8WVM+VVX4Mrf8rvcYLk8k6Yypltz
+ 55syccSk7F6t6/C4ZpQlbrqQ+AQDGC3FjX9vijwQatYhvkvfGErtohIi3PnBdcogv/Fr
+ i1LAISm1WjJdeH7GRdOWbnkEjnvTOG2OW2321C8y6x5FfqRTcO49qcGEIHuN8EzxTkpx
+ KDtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679960071;
+ d=1e100.net; s=20210112; t=1679960081;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=rCjnRFQPvAGnNx5L3qglgkfLmLwG3nPN+a/hM9CacEs=;
- b=fzHd5NICYzb3ph4eKEMsI8uErnk9KXDSrM3L2s0FouX9UHoL/+j57jYhW0nWL9CEGg
- bqVZEmWOO8h2sq2Vauj6xFjGPYjGV6phClJiLgNVQJ11/KW8Ucj4VuNQ4mnOzr+1QLDh
- peqqYFa2Xp34xFACtLYYs834coZUyaU4XyEAMlDUAjJSaC3cUUByzSGeTy8wAx7c1Wd8
- O/LZ8KENDiUPb36gW04ANeQyvrnawYpM/mHiILhr34eqykLzOVb7shTmUotdANWEgZ9Q
- 2/ponwQW7EnMNi9qc3e/Ok5x0CySeHscXkJhwU60LMJa0jKk42OZljToyBsVJ5s/l1iE
- j9zA==
-X-Gm-Message-State: AO0yUKUdgaMGR6lSMv07r0luG0Wkg6HTfJ/2DPEnjKtlx9YSqK6sb8AW
- NZleBYonZTnNG4nz373y6kYWGvHX0gw25YzNtHIKNA==
-X-Google-Smtp-Source: AK7set8rDxFHQB6rrg/v8At+R+vD2rhk2qXsj5IgrUWpiFpg9BehvyB3jSFGPbGLp8x0w8YllHWLbA==
-X-Received: by 2002:a05:6808:2d3:b0:386:ca6d:b602 with SMTP id
- a19-20020a05680802d300b00386ca6db602mr3723586oid.41.1679960069565; 
- Mon, 27 Mar 2023 16:34:29 -0700 (PDT)
+ bh=1IwF6Kj9QYhpJPxCrtGOCcjZaHDRHTEbDHEOQ0Q0o5c=;
+ b=JBmXK5LSNHT2dyJMfcAiRN4Zr8pun7VeOv6bALZzWsWwwkFpzPg3HMo5qJ3pe7RgdS
+ DbQmm//s+5paP0vAmIkoLjAzBAasb60I+ZyJQDxLJiXYcG22hx7U+ChoO04uGEzMeoGF
+ MwM/i13KHgnLrbD0D1NszRxINw5Or+pTV50+xjxJf3qVFpIr5gOpUmKwcyfjy9rlD0gw
+ +UZUXeQRQd0G0YoWsxMqbPk4KFDDwqD9Pn8XxXCJqTeYg/mcDvw2AccxslS2S099+8K5
+ P6kq3C8DA3JZvGcVXCq6Ll67PF0LF9X2sc0zE9xJiiYAPRCVDRw1jlWNA4XaigOfN8co
+ SDyw==
+X-Gm-Message-State: AAQBX9fmsx1RDyZOS5lIpewZ8H90mFO7ITG7QSAybiAq2T3mXBhi1bCf
+ M9h/I2Y3v6S8xQ4hpfHmBiPLsg8oPmeBzoAX1BWeOg==
+X-Google-Smtp-Source: AKy350amlW4hmJ5oi6zfnFlDhNs8qcwQpjdMENIe7wdz31yjBqJqQIgig25+IFqaAxHNxlomgZLO+Q==
+X-Received: by 2002:aca:2b09:0:b0:389:4f27:9e0 with SMTP id
+ i9-20020aca2b09000000b003894f2709e0mr676851oik.26.1679960079586; 
+ Mon, 27 Mar 2023 16:34:39 -0700 (PDT)
 Received: from ARCHaio.localdomain ([2804:1b3:a2c0:c911:919f:bd20:4f2a:8383])
  by smtp.gmail.com with ESMTPSA id
- b186-20020aca34c3000000b00389295e8424sm1643409oia.45.2023.03.27.16.34.19
+ b186-20020aca34c3000000b00389295e8424sm1643409oia.45.2023.03.27.16.34.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Mar 2023 16:34:29 -0700 (PDT)
+ Mon, 27 Mar 2023 16:34:39 -0700 (PDT)
 From: Caio Novais <caionovais@usp.br>
 To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 02/12] drm/amd: Remove unused variable 'value0'
-Date: Mon, 27 Mar 2023 20:33:43 -0300
-Message-Id: <20230327233353.64081-3-caionovais@usp.br>
+Subject: [PATCH 03/12] drm/amd/display: Remove unused variable 'pixel_width'
+Date: Mon, 27 Mar 2023 20:33:44 -0300
+Message-Id: <20230327233353.64081-4-caionovais@usp.br>
 X-Mailer: git-send-email 2.40.0
 In-Reply-To: <20230327233353.64081-1-caionovais@usp.br>
 References: <20230327233353.64081-1-caionovais@usp.br>
@@ -106,37 +106,33 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Compiling AMD GPU drivers displays a warning:
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_link_encoder.c: In function ‘dcn10_link_encoder_update_mst_stream_allocation_table’:
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_link_encoder.c:1222:18: warning: variable ‘value0’ set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn201/dcn201_dpp.c: In function ‘dpp201_get_optimal_number_of_taps’:
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn201/dcn201_dpp.c:188:18: warning: variable ‘pixel_width’ set but not used [-Wunused-but-set-variable]
 
 Get rid of it by removing the variable.
 
 Signed-off-by: Caio Novais <caionovais@usp.br>
 ---
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c | 6 ------
+ 1 file changed, 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c
-index c4287147b853..81aa1631945a 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_link_encoder.c
-@@ -1219,7 +1219,6 @@ void dcn10_link_encoder_update_mst_stream_allocation_table(
- 	const struct link_mst_stream_allocation_table *table)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c
+index f50ab961bc17..f8ffc06593b2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c
+@@ -185,12 +185,6 @@ static bool dpp201_get_optimal_number_of_taps(
+ 		struct scaler_data *scl_data,
+ 		const struct scaling_taps *in_taps)
  {
- 	struct dcn10_link_encoder *enc10 = TO_DCN10_LINK_ENC(enc);
--	uint32_t value0 = 0;
- 	uint32_t value1 = 0;
- 	uint32_t value2 = 0;
- 	uint32_t slots = 0;
-@@ -1321,8 +1320,6 @@ void dcn10_link_encoder_update_mst_stream_allocation_table(
- 	do {
- 		udelay(10);
- 
--		value0 = REG_READ(DP_MSE_SAT_UPDATE);
+-	uint32_t pixel_width;
 -
- 		REG_GET(DP_MSE_SAT_UPDATE,
- 				DP_MSE_SAT_UPDATE, &value1);
+-	if (scl_data->viewport.width > scl_data->recout.width)
+-		pixel_width = scl_data->recout.width;
+-	else
+-		pixel_width = scl_data->viewport.width;
  
+ 	if (scl_data->viewport.width  != scl_data->h_active &&
+ 		scl_data->viewport.height != scl_data->v_active &&
 -- 
 2.40.0
 
