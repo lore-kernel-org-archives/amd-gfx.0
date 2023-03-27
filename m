@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3ABE9C77B6C
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 18:45:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91E41C6FD1D
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 18:45:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD0F210E6DE;
-	Mon, 27 Mar 2023 18:44:22 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2060.outbound.protection.outlook.com [40.107.244.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CE8A10E6C9;
- Mon, 27 Mar 2023 18:44:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78B8810E6DC;
+	Mon, 27 Mar 2023 18:44:19 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2079.outbound.protection.outlook.com [40.107.101.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 668BA10E6C8;
+ Mon, 27 Mar 2023 18:43:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L3d7q6vT+/E+dCoWwPCtGVSMYG1GRot0sBvjMW3+o7Bo6rj5UlYa0eHP5sy9LNMXHI8xXXe5L8/ttvFoI8eM8aMNpI7VLF7v256m83jsWDgAP59Mks4lzo6QlWeT1dEeaBnrQbuVe4jT3XSOHZNyPP3oxM1/mQt2dBjAt4GXxyCH4HjJt3Anf0z1TzJ4dzToXnWJQ+rNAkPUfNcG3zookoTeX+b9Up+G8U6Iixxe5cvrWdWN+bW6VeVmxW/RGw81RKQuu+NKvW4gYtPyZJ42/tgYq2IiR2JbThtL96G1q9WwkVu1cgWMK9QBvE4Z+NlGL679Wan8THg+5g/HOnsjrw==
+ b=fOrCUneZFwWFBkDQoF0DjAe9ZoDl0miidwVUUUUAeOz6aHaCI5LZMLPHkn/e+mu48APOBM2X8HgTNc3Yftp4W2RsxgDHSsJoaIMVZBALeKEePTNbmek9Dv6jY2KUBE05KWG2q2TpRAqKHwkFW9AYNS2qTSow47pf/XANTemOaDHyaGw50yVK7eHA2/bqrJ/0DhLJHYmjCABp/zqPQBTj7lzd8BXMjAGxlgFky/AKoNzlr1th6evsAkc2/NldwnGkrTKjsa2EBylwSaNtiUCWXNmOifdNTrza0vs0Em+JgMMo4MM0p6t1Y/1FiiRefs+PWApT8Xo+Dg9XYGK8bn49xg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Y7LP7mfFchPscM8z6VHmjZtccGniiSOWe1YR6u6YfeQ=;
- b=D1f2WqsIkHeQvuMatY726pK+qyEvYzMmTo3Yc0gqbDIGh58YQRrT/N1Jj9/c5qbs2rSqATGsfL7efl11IQJXbZa2spUgLK+gJFQgDtcM8SzPrVCb2zQEe/+PEwsIUFXggCfDeM4TOabU2wWq7lsBkLAg7sbY3PG80bzVREx2XoqIbtvve7oNo7BhiVA27J+tyimEeNWB5e5AG2X8ShJJ1+ejawC/Tr3btAf5XRi95j7loJcfg0zQWmnSuHMU22DRakwBXYGNI39FD+OyezzgzQsk9Ygvo9bP1yyH6Vsme6cJaHJW+AdyAlzHki3kYesi5SwV9gvAE7sT+UK6RzRoag==
+ bh=bmP2algl0r2qEkqYr6Xk5n6wMMDRMegTGo93p9jlMsI=;
+ b=ZSq7FZwTUewdHgedtyddgllUv9tGCgwgWM+HkBDfct5aLus9efXnUGTzG6gE7jGjP4i+LB+r1CZFHeMdRtBVJYAfkZdp1RX1+5n2Zb6HvObjqkV1oEsRDAF3xj7+6BAeJh5GJl6YFZsOnW4mifwgqTRGX2B0CcwlmIWlv2TXKKMc5Q61xikNIp6bdBrOhPtV4kwRM3k4fVtStqWktCdBOESRnDyS6jdf+9mQ9uClqI4v5Y4qjJcLEKGuvl+3cw+VM3mCo+3EwJdBdVjiULgREtIBKc+JTrNI7054K+OWj9RGJqvarIwYCh2DERyO+aty1VbpXg/RHlt3jEMl0aIWRQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Y7LP7mfFchPscM8z6VHmjZtccGniiSOWe1YR6u6YfeQ=;
- b=0C6nmyuHUNxOpvHceKAWqNccCI4zFoLo4S6RZLxeXyA8iHgYGUnFclY8BchYGui81kh+OYGlA1YdxQA/tOGDdiOOfmqfc6dJ32k0W/C3iuvhryXA9auZuKI4WM/SYFpi8Jlf6zQx1OQYBQ9t1lFnghHZjf8CxSFSFMx0vY14Hoo=
-Received: from CY5PR15CA0073.namprd15.prod.outlook.com (2603:10b6:930:18::21)
- by CH2PR12MB5516.namprd12.prod.outlook.com (2603:10b6:610:6b::23)
+ bh=bmP2algl0r2qEkqYr6Xk5n6wMMDRMegTGo93p9jlMsI=;
+ b=1I06doiGglNp1i8q6rWd6CrF5vEMiD486tO6REsJizU+E/QE2U6rRUdqOGjC4/m3oOKapX7F77lYriB4NmaIPwCwxBJkkEKgor2I4UsHNseCBMRv5VioY4oUr5wk/OdgcYJY8MVb7piYqZhy7s284VV/qhrJvV7YsDXVSfg9bS0=
+Received: from CY8PR02CA0014.namprd02.prod.outlook.com (2603:10b6:930:4d::28)
+ by PH7PR12MB7820.namprd12.prod.outlook.com (2603:10b6:510:268::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.41; Mon, 27 Mar
- 2023 18:44:01 +0000
-Received: from CY4PEPF0000C979.namprd02.prod.outlook.com
- (2603:10b6:930:18:cafe::2d) by CY5PR15CA0073.outlook.office365.com
- (2603:10b6:930:18::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.42 via Frontend
- Transport; Mon, 27 Mar 2023 18:44:01 +0000
+ 2023 18:43:56 +0000
+Received: from CY4PEPF0000C97D.namprd02.prod.outlook.com
+ (2603:10b6:930:4d:cafe::a9) by CY8PR02CA0014.outlook.office365.com
+ (2603:10b6:930:4d::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.43 via Frontend
+ Transport; Mon, 27 Mar 2023 18:43:56 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000C979.mail.protection.outlook.com (10.167.241.137) with Microsoft
+ CY4PEPF0000C97D.mail.protection.outlook.com (10.167.241.136) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.30 via Frontend Transport; Mon, 27 Mar 2023 18:44:01 +0000
+ 15.20.6178.30 via Frontend Transport; Mon, 27 Mar 2023 18:43:56 +0000
 Received: from jonathan-KFD.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 27 Mar
- 2023 13:43:59 -0500
+ 2023 13:43:54 -0500
 From: Jonathan Kim <jonathan.kim@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: [PATCH 31/34] drm/amdkfd: add debug queue snapshot operation
-Date: Mon, 27 Mar 2023 14:43:36 -0400
-Message-ID: <20230327184339.125016-31-jonathan.kim@amd.com>
+Subject: [PATCH 17/34] drm/amdkfd: apply trap workaround for gfx11
+Date: Mon, 27 Mar 2023 14:43:22 -0400
+Message-ID: <20230327184339.125016-17-jonathan.kim@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230327184339.125016-1-jonathan.kim@amd.com>
 References: <20230327184339.125016-1-jonathan.kim@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000C979:EE_|CH2PR12MB5516:EE_
-X-MS-Office365-Filtering-Correlation-Id: 063879f8-a6db-45e2-e777-08db2ef33bd6
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000C97D:EE_|PH7PR12MB7820:EE_
+X-MS-Office365-Filtering-Correlation-Id: 345e1029-4d49-420e-7478-08db2ef3386e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qPPO6FcawMDSb/CaFGETtW1gNFuTeHxRYYtw2UG/zHd4E7KlaT29B4JSmbbtHJjfhGnwxLOsK3qqUKfF53V0Ekvx+i+l/2ZupzlcRWdDvABhGAD4uUoJMw7G1q5L5GUHQK1rGnSz15zZ+4IfuzLhdKpQk+v6Kqs1Q/teyiS/ujGECLwwmCU7f5IWsrk8c+Zb8uReIBu5lxO/jRN9F6YL+FwYajYOv52TW46cnamSGf2T9B1XitkqK9XRB5IHtq2C6oM671AZqekqxwQM4NaoNBEyuaL+Ld3snWn94mUG2UMo8L2R1XsGn0HEVZs4X1ttdoguuRI0/Nojv9XmKbpfj0L1P+vEL2tLPRxVJ/18C/O0AYjwXABkEELi1ejNPUlAu1LyE0IZk5QoZnuCSnemHqTG+MvR2OKSjaGfOSw/2vhJqWPJlwoKV6M2FyJfBVHfjeqfC6/l/PlIXwHg+Y7aqnG0N6zQAnHZOICH6J8zSPufGjuOLYnbw+aRyRxYyIuaXc8PkfNe5+8A0oRCMN2bu7+UMoT3k8rfUDGpstogO3qcJo93ulraBhKOJr0nPPHH1gMDl7jwKtxcpXqYbJgV1mFtndHbDO93t0tAbXZnBLdI0wJa3feSaR1+pejQQnwNMpUTwcYpOIYPf/tl/clQm1HmNUE4AL+DNzo8x451URhAvTczCB+ib05nF+lfmFXoMOrkbbvXRgFg/e2ywE6ucR2M/cu0f0sfP0L1feQ07pI=
+X-Microsoft-Antispam-Message-Info: AoNyeKDX+msX6lBcyu/Af20JbXKfisZS2ileqiB3HaCsnwKEs3bY6z+q3Kxevd3Pqy2Xdbk52RVEvfz5EyZDcRIAStI5Kp4N6pvifRCJjclQz3ZzdxifJ+1ZzP61mPWqxmXTk/9vR+WsuKTiAAqU/ErEhqHn2jHrkAKIsgTTT0jE6CFEWZNQgVJf8JRkPK7DtSp1eq4nbpPBgqCNcWdruj/yQeBagKPcc9PhzbvHypjVmysnZWyzMM0LHMMPA94P9aqm2Mizcrdtjon8fgCm2XZRjpHskO/hMcJGqABhmlDWoPS0GGW0CB8V4FFXi4KVTMKkwhkOzTwv8L6F7Q61i7a0NjVLhMOpgGrAfXRVtnpyPxU9bfcvyNWQYo298jwk/+22uaHO6mfJv/ot3EYCS7wIfWtgS8IC6JHWin79DQVbp/pz7lphHJHbhzpn/w8Wc2cV/bSshYsXdKWAMEZbr8W7RVau5kO6rpaq49Qv0+eDCpLGicvlRq75AhSqZ2zhnVQ7n0R645hJHHUK7YDOZVatZvakONVInkgHlLTTBmJ4M1X2lzJUPEE3uzPIP5TXbTQd8T8FmImrvBlPKbj2dGBGj0uSF1hWRYRAXbg/xX6bWXS6lzN+iTxZJl/k3u79/hPQIBx/3Ij4QDfjpsh3HRnqsRPk9XcQRqyy+imT+oM5t7GKM9g01PIEz2iD87Ho86QPN48eotFsBd7gaOzljEdgVEDSRQ1Q0aWvbJdIov+0Xs3GQ5JoD3NOB45kPPMmjmvbysugWAVmapADnMKOxw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(136003)(396003)(346002)(39860400002)(451199021)(36840700001)(46966006)(40470700004)(40460700003)(36860700001)(478600001)(316002)(54906003)(110136005)(81166007)(82310400005)(8936002)(5660300002)(86362001)(36756003)(2906002)(44832011)(356005)(70206006)(70586007)(450100002)(8676002)(40480700001)(41300700001)(4326008)(336012)(16526019)(186003)(2616005)(426003)(1076003)(26005)(83380400001)(82740400003)(6666004)(7696005)(47076005)(36900700001);
+ SFS:(13230028)(4636009)(346002)(39860400002)(396003)(376002)(136003)(451199021)(36840700001)(40470700004)(46966006)(47076005)(2906002)(426003)(83380400001)(30864003)(336012)(5660300002)(44832011)(8936002)(82740400003)(356005)(36756003)(40480700001)(81166007)(86362001)(82310400005)(40460700003)(36860700001)(26005)(316002)(1076003)(110136005)(54906003)(8676002)(4326008)(70206006)(70586007)(450100002)(186003)(16526019)(7696005)(6666004)(478600001)(41300700001)(2616005)(66899021)(36900700001)(309714004);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 18:44:01.7833 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 063879f8-a6db-45e2-e777-08db2ef33bd6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 18:43:56.0812 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 345e1029-4d49-420e-7478-08db2ef3386e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C979.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C97D.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB5516
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7820
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,185 +103,427 @@ Cc: Felix.Kuehling@amd.com, Jonathan.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Allow the debugger to get a snapshot of a specified number of queues
-containing various queue property information that is copied to the
-debugger.
+Due to a HW bug, waves in only half the shader arrays can enter trap.
 
-Since the debugger doesn't know how many queues exist at any given time,
-allow the debugger to pass the requested number of snapshots as 0 to get
-the actual number of potential snapshots to use for a subsequent snapshot
-request for actual information.
+When starting a debug session, relocate all waves to the first shader
+array of each shader engine and mask off the 2nd shader array as
+unavailable.
 
-To prevent future ABI breakage, pass in the requested entry_size.
-The KFD will return it's own entry_size in case the debugger still wants
-log the information in a core dump on sizing failure.
+When ending a debug session, re-enable the 2nd shader array per
+shader engine.
 
-Also allow the debugger to clear exceptions when doing a snapshot.
+User CU masking per queue cannot be guaranteed to remain functional
+if requested during debugging (e.g. user cu mask requests only 2nd shader
+array as an available resource leading to zero HW resources available)
+nor can runtime be alerted of any of these changes during execution.
 
-v4: declare and memset 0 snapshot struct out of loop
+Make user CU masking and debugging mutual exclusive with respect to
+availability.
 
-v3: fix uninitialized return and change queue snapshot to type void for
-proper increment on buffer copy.
-use memset 0 to init snapshot entry to clear struct padding.
+If the debugger tries to attach to a process with a user cu masked
+queue, return the runtime status as enabled but busy.
 
-v2: change buf_size arg to num_queues for clarity.
-fix minimum entry size calculation.
+If the debugger tries to attach and fails to reallocate queue waves to
+the first shader array of each shader engine, return the runtime status
+as enabled but with an error.
+
+In addition, like any other mutli-process debug supported devices,
+disable trap temporary setup per-process to avoid performance impact from
+setup overhead.
+
+v2: move this after debug trap enable disable patch to better illustrate
+application.
+disable debugging for now on gfx11 due to broken fw.
 
 Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  6 +++
- .../drm/amd/amdkfd/kfd_device_queue_manager.c | 36 +++++++++++++++++
- .../drm/amd/amdkfd/kfd_device_queue_manager.h |  3 ++
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  5 +++
- .../amd/amdkfd/kfd_process_queue_manager.c    | 40 +++++++++++++++++++
- 5 files changed, 90 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h       |  2 +
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        |  7 +--
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  2 -
+ drivers/gpu/drm/amd/amdkfd/kfd_debug.c        | 57 +++++++++++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_debug.h        |  3 +-
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c |  7 +++
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c  |  3 +-
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c  |  3 +-
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c  | 42 ++++++++++----
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   |  3 +-
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c   |  3 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  5 +-
+ .../amd/amdkfd/kfd_process_queue_manager.c    |  9 ++-
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c     |  7 ++-
+ 14 files changed, 122 insertions(+), 31 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+index d20df0cf0d88..b5f5eed2b5ef 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+@@ -219,6 +219,8 @@ struct mes_add_queue_input {
+ 	uint32_t        gws_size;
+ 	uint64_t	tba_addr;
+ 	uint64_t	tma_addr;
++	uint32_t	trap_en;
++	uint32_t	skip_process_ctx_clear;
+ 	uint32_t	is_kfd_process;
+ 	uint32_t	is_aql_queue;
+ 	uint32_t	queue_size;
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+index 08793dac618c..4fff158e231f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+@@ -197,17 +197,14 @@ static int mes_v11_0_add_hw_queue(struct amdgpu_mes *mes,
+ 	mes_add_queue_pkt.gws_size = input->gws_size;
+ 	mes_add_queue_pkt.trap_handler_addr = input->tba_addr;
+ 	mes_add_queue_pkt.tma_addr = input->tma_addr;
++	mes_add_queue_pkt.trap_en = input->trap_en;
++	mes_add_queue_pkt.skip_process_ctx_clear = input->skip_process_ctx_clear;
+ 	mes_add_queue_pkt.is_kfd_process = input->is_kfd_process;
+ 
+ 	/* For KFD, gds_size is re-used for queue size (needed in MES for AQL queues) */
+ 	mes_add_queue_pkt.is_aql_queue = input->is_aql_queue;
+ 	mes_add_queue_pkt.gds_size = input->queue_size;
+ 
+-	if (!(((adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) >= 4) &&
+-		  (adev->ip_versions[GC_HWIP][0] >= IP_VERSION(11, 0, 0)) &&
+-		  (adev->ip_versions[GC_HWIP][0] <= IP_VERSION(11, 0, 3))))
+-		mes_add_queue_pkt.trap_en = 1;
+-
+ 	/* For KFD, gds_size is re-used for queue size (needed in MES for AQL queues) */
+ 	mes_add_queue_pkt.is_aql_queue = input->is_aql_queue;
+ 	mes_add_queue_pkt.gds_size = input->queue_size;
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 1f7e57abefb4..7868a0aecc9f 100644
+index c0c54206b1c2..acbed2a25a1e 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -3039,6 +3039,12 @@ static int kfd_ioctl_set_debug_trap(struct file *filep, struct kfd_process *p, v
- 				&args->query_exception_info.info_size);
- 		break;
- 	case KFD_IOC_DBG_TRAP_GET_QUEUE_SNAPSHOT:
-+		r = pqm_get_queue_snapshot(&target->pqm,
-+				args->queue_snapshot.exception_mask,
-+				(void __user *)args->queue_snapshot.snapshot_buf_ptr,
-+				&args->queue_snapshot.num_queues,
-+				&args->queue_snapshot.entry_size);
-+		break;
- 	case KFD_IOC_DBG_TRAP_GET_DEVICE_SNAPSHOT:
- 		pr_warn("Debug op %i not supported yet\n", args->op);
- 		r = -EACCES;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index f79c26e02417..ce0a1483606e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -3004,6 +3004,42 @@ int suspend_queues(struct kfd_process *p,
- 	return total_suspended;
- }
+@@ -530,8 +530,6 @@ static int kfd_ioctl_set_cu_mask(struct file *filp, struct kfd_process *p,
+ 		goto out;
+ 	}
  
-+static uint32_t set_queue_type_for_user(struct queue_properties *q_props)
+-	minfo.update_flag = UPDATE_FLAG_CU_MASK;
+-
+ 	mutex_lock(&p->mutex);
+ 
+ 	retval = pqm_update_mqd(&p->pqm, args->queue_id, &minfo);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+index fe5b965ac8f6..7e6d8694938d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+@@ -24,6 +24,57 @@
+ #include "kfd_device_queue_manager.h"
+ #include <linux/file.h>
+ 
++static int kfd_dbg_set_queue_workaround(struct queue *q, bool enable)
 +{
-+	switch (q_props->type) {
-+	case KFD_QUEUE_TYPE_COMPUTE:
-+		return q_props->format == KFD_QUEUE_FORMAT_PM4
-+					? KFD_IOC_QUEUE_TYPE_COMPUTE
-+					: KFD_IOC_QUEUE_TYPE_COMPUTE_AQL;
-+	case KFD_QUEUE_TYPE_SDMA:
-+		return KFD_IOC_QUEUE_TYPE_SDMA;
-+	case KFD_QUEUE_TYPE_SDMA_XGMI:
-+		return KFD_IOC_QUEUE_TYPE_SDMA_XGMI;
-+	default:
-+		WARN_ONCE(true, "queue type not recognized!");
-+		return 0xffffffff;
-+	};
++	struct mqd_update_info minfo = {0};
++	int err;
++
++	if (!q)
++		return 0;
++
++	if (KFD_GC_VERSION(q->device) < IP_VERSION(11, 0, 0) ||
++	    KFD_GC_VERSION(q->device) >= IP_VERSION(12, 0, 0))
++		return 0;
++
++	if (enable && q->properties.is_user_cu_masked)
++		return -EBUSY;
++
++	minfo.update_flag = enable ? UPDATE_FLAG_DBG_WA_ENABLE : UPDATE_FLAG_DBG_WA_DISABLE;
++
++	q->properties.is_dbg_wa = enable;
++	err = q->device->dqm->ops.update_queue(q->device->dqm, q, &minfo);
++	if (err)
++		q->properties.is_dbg_wa = false;
++
++	return err;
 +}
 +
-+void set_queue_snapshot_entry(struct queue *q,
-+			      uint64_t exception_clear_mask,
-+			      struct kfd_queue_snapshot_entry *qss_entry)
++static int kfd_dbg_set_workaround(struct kfd_process *target, bool enable)
 +{
-+	qss_entry->ring_base_address = q->properties.queue_address;
-+	qss_entry->write_pointer_address = (uint64_t)q->properties.write_ptr;
-+	qss_entry->read_pointer_address = (uint64_t)q->properties.read_ptr;
-+	qss_entry->ctx_save_restore_address =
-+				q->properties.ctx_save_restore_area_address;
-+	qss_entry->ctx_save_restore_area_size =
-+				q->properties.ctx_save_restore_area_size;
-+	qss_entry->exception_status = q->properties.exception_status;
-+	qss_entry->queue_id = q->properties.queue_id;
-+	qss_entry->gpu_id = q->device->id;
-+	qss_entry->ring_size = (uint32_t)q->properties.queue_size;
-+	qss_entry->queue_type = set_queue_type_for_user(&q->properties);
-+	q->properties.exception_status &= ~exception_clear_mask;
-+}
-+
- int debug_lock_and_unmap(struct device_queue_manager *dqm)
- {
- 	int r;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-index 7ccf8d0d1867..89d4a5b293a5 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-@@ -296,6 +296,9 @@ int suspend_queues(struct kfd_process *p,
- int resume_queues(struct kfd_process *p,
- 		uint32_t num_queues,
- 		uint32_t *usr_queue_id_array);
-+void set_queue_snapshot_entry(struct queue *q,
-+			      uint64_t exception_clear_mask,
-+			      struct kfd_queue_snapshot_entry *qss_entry);
- int debug_lock_and_unmap(struct device_queue_manager *dqm);
- int debug_map_and_unlock(struct device_queue_manager *dqm);
- int debug_refresh_runlist(struct device_queue_manager *dqm);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index dd084888258d..d82964851f86 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -1303,6 +1303,11 @@ int pqm_get_wave_state(struct process_queue_manager *pqm,
- 		       void __user *ctl_stack,
- 		       u32 *ctl_stack_used_size,
- 		       u32 *save_area_used_size);
-+int pqm_get_queue_snapshot(struct process_queue_manager *pqm,
-+			   uint64_t exception_clear_mask,
-+			   void __user *buf,
-+			   int *num_qss_entries,
-+			   uint32_t *entry_size);
- 
- int amdkfd_fence_wait_timeout(uint64_t *fence_addr,
- 			      uint64_t fence_value,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index c5afa33fc9ef..6167135dbd23 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -576,6 +576,46 @@ int pqm_get_wave_state(struct process_queue_manager *pqm,
- 						       save_area_used_size);
- }
- 
-+int pqm_get_queue_snapshot(struct process_queue_manager *pqm,
-+			   uint64_t exception_clear_mask,
-+			   void __user *buf,
-+			   int *num_qss_entries,
-+			   uint32_t *entry_size)
-+{
++	struct process_queue_manager *pqm = &target->pqm;
 +	struct process_queue_node *pqn;
-+	struct kfd_queue_snapshot_entry src;
-+	uint32_t tmp_entry_size = *entry_size, tmp_qss_entries = *num_qss_entries;
 +	int r = 0;
 +
-+	*num_qss_entries = 0;
-+	if (!(*entry_size))
-+		return -EINVAL;
-+
-+	*entry_size = min_t(size_t, *entry_size, sizeof(struct kfd_queue_snapshot_entry));
-+	mutex_lock(&pqm->process->event_mutex);
-+
-+	memset(&src, 0, sizeof(src));
-+
 +	list_for_each_entry(pqn, &pqm->queues, process_queue_list) {
-+		if (!pqn->q)
-+			continue;
-+
-+		if (*num_qss_entries < tmp_qss_entries) {
-+			set_queue_snapshot_entry(pqn->q, exception_clear_mask, &src);
-+
-+			if (copy_to_user(buf, &src, *entry_size)) {
-+				r = -EFAULT;
-+				break;
-+			}
-+			buf += tmp_entry_size;
-+		}
-+		*num_qss_entries += 1;
++		r = kfd_dbg_set_queue_workaround(pqn->q, enable);
++		if (enable && r)
++			goto unwind;
 +	}
 +
-+	mutex_unlock(&pqm->process->event_mutex);
++	return 0;
++
++unwind:
++	list_for_each_entry(pqn, &pqm->queues, process_queue_list)
++		kfd_dbg_set_queue_workaround(pqn->q, false);
++
++	if (enable)
++		target->runtime_info.runtime_state = r == -EBUSY ?
++				DEBUG_RUNTIME_STATE_ENABLED_BUSY :
++				DEBUG_RUNTIME_STATE_ENABLED_ERROR;
++
 +	return r;
 +}
 +
- static int get_queue_data_sizes(struct kfd_process_device *pdd,
- 				struct queue *q,
- 				uint32_t *mqd_size,
+ static int kfd_dbg_set_mes_debug_mode(struct kfd_process_device *pdd)
+ {
+ 	uint32_t spi_dbg_cntl = pdd->spi_dbg_override | pdd->spi_dbg_launch_mode;
+@@ -77,6 +128,8 @@ static void kfd_dbg_trap_deactivate(struct kfd_process *target, bool unwind, int
+ 		else
+ 			kfd_dbg_set_mes_debug_mode(pdd);
+ 	}
++
++	kfd_dbg_set_workaround(target, false);
+ }
+ 
+ int kfd_dbg_trap_disable(struct kfd_process *target)
+@@ -111,6 +164,10 @@ static int kfd_dbg_trap_activate(struct kfd_process *target)
+ {
+ 	int i, r = 0;
+ 
++	r = kfd_dbg_set_workaround(target, true);
++	if (r)
++		return r;
++
+ 	for (i = 0; i < target->n_pdds; i++) {
+ 		struct kfd_process_device *pdd = target->pdds[i];
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
+index 68a95c8105e5..bba599bb4665 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
+@@ -31,7 +31,8 @@ int kfd_dbg_trap_enable(struct kfd_process *target, uint32_t fd,
+ 			uint32_t *runtime_info_size);
+ static inline bool kfd_dbg_is_per_vmid_supported(struct kfd_dev *dev)
+ {
+-	return KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2);
++	return KFD_GC_VERSION(dev) == IP_VERSION(9, 4, 2) ||
++	       KFD_GC_VERSION(dev) >= IP_VERSION(11, 0, 0);
+ }
+ 
+ /*
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index a39bd8f3d4bb..19859f3f0778 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -215,6 +215,10 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
+ 	queue_input.paging = false;
+ 	queue_input.tba_addr = qpd->tba_addr;
+ 	queue_input.tma_addr = qpd->tma_addr;
++	queue_input.trap_en = KFD_GC_VERSION(q->device) < IP_VERSION(11, 0, 0) ||
++			      KFD_GC_VERSION(q->device) >= IP_VERSION(12, 0, 0) ||
++			      q->properties.is_dbg_wa;
++	queue_input.skip_process_ctx_clear = qpd->pqm->process->debug_trap_enabled;
+ 
+ 	queue_type = convert_to_mes_queue_type(q->properties.type);
+ 	if (queue_type < 0) {
+@@ -1682,6 +1686,9 @@ static int create_queue_cpsch(struct device_queue_manager *dqm, struct queue *q,
+ 	 * updates the is_evicted flag but is a no-op otherwise.
+ 	 */
+ 	q->properties.is_evicted = !!qpd->evicted;
++	q->properties.is_dbg_wa = qpd->pqm->process->debug_trap_enabled &&
++			KFD_GC_VERSION(q->device) >= IP_VERSION(11, 0, 0) &&
++			KFD_GC_VERSION(q->device) < IP_VERSION(12, 0, 0);
+ 
+ 	if (qd)
+ 		mqd_mgr->restore_mqd(mqd_mgr, &q->mqd, q->mqd_mem_obj, &q->gart_mqd_addr,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
+index 4889865c725c..c2a7226fc588 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
+@@ -48,8 +48,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
+ 	struct cik_mqd *m;
+ 	uint32_t se_mask[4] = {0}; /* 4 is the max # of SEs */
+ 
+-	if (!minfo || (minfo->update_flag != UPDATE_FLAG_CU_MASK) ||
+-	    !minfo->cu_mask.ptr)
++	if (!minfo || !minfo->cu_mask.ptr)
+ 		return;
+ 
+ 	mqd_symmetrically_map_cu_mask(mm,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+index cb484ace17de..8248e77751e7 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+@@ -48,8 +48,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
+ 	struct v10_compute_mqd *m;
+ 	uint32_t se_mask[4] = {0}; /* 4 is the max # of SEs */
+ 
+-	if (!minfo || (minfo->update_flag != UPDATE_FLAG_CU_MASK) ||
+-	    !minfo->cu_mask.ptr)
++	if (!minfo || !minfo->cu_mask.ptr)
+ 		return;
+ 
+ 	mqd_symmetrically_map_cu_mask(mm,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+index 61147f5532ef..bad8d4d6e4cf 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+@@ -46,15 +46,33 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
+ {
+ 	struct v11_compute_mqd *m;
+ 	uint32_t se_mask[KFD_MAX_NUM_SE] = {0};
++	bool has_wa_flag = minfo && (minfo->update_flag & (UPDATE_FLAG_DBG_WA_ENABLE |
++			UPDATE_FLAG_DBG_WA_DISABLE));
+ 
+-	if (!minfo || (minfo->update_flag != UPDATE_FLAG_CU_MASK) ||
+-	    !minfo->cu_mask.ptr)
++	if (!minfo || !(has_wa_flag || minfo->cu_mask.ptr))
+ 		return;
+ 
++	m = get_mqd(mqd);
++
++	if (has_wa_flag) {
++		uint32_t wa_mask = minfo->update_flag == UPDATE_FLAG_DBG_WA_ENABLE ?
++						0xffff : 0xffffffff;
++
++		m->compute_static_thread_mgmt_se0 = wa_mask;
++		m->compute_static_thread_mgmt_se1 = wa_mask;
++		m->compute_static_thread_mgmt_se2 = wa_mask;
++		m->compute_static_thread_mgmt_se3 = wa_mask;
++		m->compute_static_thread_mgmt_se4 = wa_mask;
++		m->compute_static_thread_mgmt_se5 = wa_mask;
++		m->compute_static_thread_mgmt_se6 = wa_mask;
++		m->compute_static_thread_mgmt_se7 = wa_mask;
++
++		return;
++	}
++
+ 	mqd_symmetrically_map_cu_mask(mm,
+ 		minfo->cu_mask.ptr, minfo->cu_mask.count, se_mask);
+ 
+-	m = get_mqd(mqd);
+ 	m->compute_static_thread_mgmt_se0 = se_mask[0];
+ 	m->compute_static_thread_mgmt_se1 = se_mask[1];
+ 	m->compute_static_thread_mgmt_se2 = se_mask[2];
+@@ -109,6 +127,7 @@ static void init_mqd(struct mqd_manager *mm, void **mqd,
+ 	uint64_t addr;
+ 	struct v11_compute_mqd *m;
+ 	int size;
++	uint32_t wa_mask = q->is_dbg_wa ? 0xffff : 0xffffffff;
+ 
+ 	m = (struct v11_compute_mqd *) mqd_mem_obj->cpu_ptr;
+ 	addr = mqd_mem_obj->gpu_addr;
+@@ -122,14 +141,15 @@ static void init_mqd(struct mqd_manager *mm, void **mqd,
+ 
+ 	m->header = 0xC0310800;
+ 	m->compute_pipelinestat_enable = 1;
+-	m->compute_static_thread_mgmt_se0 = 0xFFFFFFFF;
+-	m->compute_static_thread_mgmt_se1 = 0xFFFFFFFF;
+-	m->compute_static_thread_mgmt_se2 = 0xFFFFFFFF;
+-	m->compute_static_thread_mgmt_se3 = 0xFFFFFFFF;
+-	m->compute_static_thread_mgmt_se4 = 0xFFFFFFFF;
+-	m->compute_static_thread_mgmt_se5 = 0xFFFFFFFF;
+-	m->compute_static_thread_mgmt_se6 = 0xFFFFFFFF;
+-	m->compute_static_thread_mgmt_se7 = 0xFFFFFFFF;
++
++	m->compute_static_thread_mgmt_se0 = wa_mask;
++	m->compute_static_thread_mgmt_se1 = wa_mask;
++	m->compute_static_thread_mgmt_se2 = wa_mask;
++	m->compute_static_thread_mgmt_se3 = wa_mask;
++	m->compute_static_thread_mgmt_se4 = wa_mask;
++	m->compute_static_thread_mgmt_se5 = wa_mask;
++	m->compute_static_thread_mgmt_se6 = wa_mask;
++	m->compute_static_thread_mgmt_se7 = wa_mask;
+ 
+ 	m->cp_hqd_persistent_state = CP_HQD_PERSISTENT_STATE__PRELOAD_REQ_MASK |
+ 			0x55 << CP_HQD_PERSISTENT_STATE__PRELOAD_SIZE__SHIFT;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+index 86f1cf090246..50da16dd4c96 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+@@ -49,8 +49,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
+ 	struct v9_mqd *m;
+ 	uint32_t se_mask[KFD_MAX_NUM_SE] = {0};
+ 
+-	if (!minfo || (minfo->update_flag != UPDATE_FLAG_CU_MASK) ||
+-	    !minfo->cu_mask.ptr)
++	if (!minfo || !minfo->cu_mask.ptr)
+ 		return;
+ 
+ 	mqd_symmetrically_map_cu_mask(mm,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+index 530ba6f5b57e..58b40bff3e0c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+@@ -51,8 +51,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
+ 	struct vi_mqd *m;
+ 	uint32_t se_mask[4] = {0}; /* 4 is the max # of SEs */
+ 
+-	if (!minfo || (minfo->update_flag != UPDATE_FLAG_CU_MASK) ||
+-	    !minfo->cu_mask.ptr)
++	if (!minfo || !minfo->cu_mask.ptr)
+ 		return;
+ 
+ 	mqd_symmetrically_map_cu_mask(mm,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 8c34a1e725a1..799389767455 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -479,6 +479,8 @@ struct queue_properties {
+ 	bool is_evicted;
+ 	bool is_active;
+ 	bool is_gws;
++	bool is_dbg_wa;
++	bool is_user_cu_masked;
+ 	/* Not relevant for user mode queues in cp scheduling */
+ 	unsigned int vmid;
+ 	/* Relevant only for sdma queues*/
+@@ -501,7 +503,8 @@ struct queue_properties {
+ 			    !(q).is_evicted)
+ 
+ enum mqd_update_flag {
+-	UPDATE_FLAG_CU_MASK = 0,
++	UPDATE_FLAG_DBG_WA_ENABLE = 1,
++	UPDATE_FLAG_DBG_WA_DISABLE = 2,
+ };
+ 
+ struct mqd_update_info {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 4236539d9f93..b02433b15929 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -498,8 +498,12 @@ int pqm_update_mqd(struct process_queue_manager *pqm,
+ 		return -EFAULT;
+ 	}
+ 
++	/* CUs are masked for debugger requirements so deny user mask  */
++	if (pqn->q->properties.is_dbg_wa && minfo && minfo->cu_mask.ptr)
++		return -EBUSY;
++
+ 	/* ASICs that have WGPs must enforce pairwise enabled mask checks. */
+-	if (minfo && minfo->update_flag == UPDATE_FLAG_CU_MASK && minfo->cu_mask.ptr &&
++	if (minfo && minfo->cu_mask.ptr &&
+ 			KFD_GC_VERSION(pqn->q->device) >= IP_VERSION(10, 0, 0)) {
+ 		int i;
+ 
+@@ -518,6 +522,9 @@ int pqm_update_mqd(struct process_queue_manager *pqm,
+ 	if (retval != 0)
+ 		return retval;
+ 
++	if (minfo && minfo->cu_mask.ptr)
++		pqn->q->properties.is_user_cu_masked = true;
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index 0deeb87e5a2d..15e9064807c9 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -1871,10 +1871,13 @@ static void kfd_topology_set_dbg_firmware_support(struct kfd_topology_device *de
+ {
+ 	bool firmware_supported = true;
+ 
++	/*
++	 * FIXME: GFX11 FW currently not sufficient to deal with CWSR WA.
++	 * Updated FW with API changes coming soon.
++	 */
+ 	if (KFD_GC_VERSION(dev->gpu) >= IP_VERSION(11, 0, 0) &&
+ 			KFD_GC_VERSION(dev->gpu) < IP_VERSION(12, 0, 0)) {
+-		firmware_supported =
+-			(dev->gpu->adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) >= 9;
++		firmware_supported = false;
+ 		goto out;
+ 	}
+ 
 -- 
 2.25.1
 
