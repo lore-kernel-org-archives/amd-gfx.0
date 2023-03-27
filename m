@@ -4,95 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 982B5C761AF
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 07:25:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 335DDC76195
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 12:33:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29F4D10E24C;
-	Mon, 27 Mar 2023 07:25:13 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2045.outbound.protection.outlook.com [40.107.243.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8ECFF10E24C
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 07:25:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B2AD10E590;
+	Mon, 27 Mar 2023 12:33:55 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2045.outbound.protection.outlook.com [40.107.244.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B0A010E590
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 12:33:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MsxIhgk68nBcW6uQGew3wJw5cDFraK/kDkrL9UJoUGkkQ3cBN29VNUZrg6APJo6NdZGTiSwkvYUe9ixqiqK8Rh6jROmhIoJ3jWRvrqfIoq2N9ITKWnsMQTjupOzg/OPO9TI4T1xlbLFEo4UBsMSok0t8MM06086W3Pio3viks1fP+LfC5i8kgamzsPvG4ETvz72CgSY0F1Mu986ET+36kHD1UBc4FX6edb2RsAHyrsSrzzUadhiiRbZTAd5ToX1mAEzQmQWFr6ixZ+UAdF6PXw3i9Adt2tHkBWohXu2esRpyvmpR3JNY13iP0rW1MQ8Lm7wEYF59I5x5JTl0a2MYLA==
+ b=T1CChL5KoRaU0f48YEvbg/SPFqs7HtWwVcFOWKYAFw3a1xB4CZL6f4OAysil9EajhqCU0ELG1odJdFqcyzKjjQ1pddl8a3KeqAOj87BIb4IzU9dfiE86kvQ7AyLlfzYc5L0Bik3FrJRpTx4Zb3LYV9/fXTSmTdpdDRYU2Oc0jveKr57EgxfvLoP0Q63R1SjgABljRf4oCz8FAGwYRIe2565+Uw7ioAd8uBytBpixinnEv5fuIJjBP6xUtmJaCbrsXiRWxE+9jav4cIMFUSNspW3fAQIx2A+CiPiOJS957mH/JaBL0Xs2aWWPxOnrs5N0ECJUYIJRAHbzA0gxpuBptQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uCVUSv61KuptL0aLjHuC22QXA/yUSrEFe53Fqd3ZEaA=;
- b=GBQeBzSVc97Qw34C6uWnLKuzKSxlDugIqWBnZHthIgFC/PuwFJL00OANNx6XG/XmqcupeOLgnWFDI40UQyx9nnG42ZmFLp334+/knrOXAKGDPiNRQtZ+/sH0SL/sUFdRs8VUSCu6SEaNLM/+46M3R9JzGzMZOQ0vQRO/PsFAlLLXEZKwBKbJpNSWnmNYMc7zI6sHlhyc3ddyag3l0oLEOgnUWP5HsE3behgE+JasfjxQYvG0dez4xUWt3rjjvz9HK/qPgQK+9STTkEZTMKP7o6XzbnziNWuB/YtJ10Ah/0u+lA9Qe7NSZLDDZEwe2rBucHRe8atcpJQ179NCwLQTNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=igalia.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
+ bh=o/Gqwzw6y20utHSofjHivZ0yW0hvtH/wdSwMVzc/omk=;
+ b=fWs0r3BbqqIghJj5jKbBsJ5ZhIZN01OW+WJzKKTXA4fuMOiHd9r/zgYSu40XNkQ+T3Rhy2AN9jnvUtggwZcJQVQMVzOa4yOkWyQrDeVfdodligtYp90FdlLQVTDCLI1z/gOb0igg/tal5Uj+kHYwMfBYwboN/O22CvmDJIcs18hDCgw4wxNkz1Nzx2oOXIbumC1KPIfO0feoBW0HPMX/K/ESIGcU7U2IT4EWp6vqazgSHyliwuMmK+9irTF/5HYAVjn7A9IpYqH9ChIUpJUakzcf2DcVO1ZleKm/koSb4dAPKIZh02mZTBwD6S3kcvZ7kNpbmu9YSrpZTZKpregsdg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uCVUSv61KuptL0aLjHuC22QXA/yUSrEFe53Fqd3ZEaA=;
- b=xDrPymb5qbQpiqB2O5pFgBhS93ZFzets4oO8uMSdjuZbzhbY8JW+GWA0tNFaSp92bGkwB2jJxge2p4FF/7ibPUTI/60MYAtHpsLjo03Z/lB/7MUh0cSEfcwoCgkHyslvgmKEJoxlx1PYvRBBkBQ+Jp4uhl1pV/1PjMluj07ho+g=
-Received: from MW4PR04CA0147.namprd04.prod.outlook.com (2603:10b6:303:84::32)
- by DM4PR12MB5937.namprd12.prod.outlook.com (2603:10b6:8:68::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.41; Mon, 27 Mar
- 2023 07:25:07 +0000
-Received: from CO1NAM11FT116.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:84:cafe::dc) by MW4PR04CA0147.outlook.office365.com
- (2603:10b6:303:84::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.41 via Frontend
- Transport; Mon, 27 Mar 2023 07:25:07 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT116.mail.protection.outlook.com (10.13.174.243) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6222.22 via Frontend Transport; Mon, 27 Mar 2023 07:25:06 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 27 Mar
- 2023 02:25:06 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 27 Mar
- 2023 02:25:05 -0500
-Received: from archlinux.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Mon, 27 Mar 2023 02:25:03 -0500
-From: Wenyou Yang <WenYou.Yang@amd.com>
-To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <Xinhui.Pan@amd.com>, <evan.quan@amd.com>, <mario.limonciello@amd.com>
-Subject: [PATCH v2 3/3] drm/amd/pm: vangogh: support to send SMT enable message
-Date: Mon, 27 Mar 2023 15:24:37 +0800
-Message-ID: <20230327072437.580766-4-WenYou.Yang@amd.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230327072437.580766-1-WenYou.Yang@amd.com>
+ bh=o/Gqwzw6y20utHSofjHivZ0yW0hvtH/wdSwMVzc/omk=;
+ b=c2ekTN/klWDOjI5FcFIE5JXzhkjm5yHiuHR5XjrgSMpAVns6RNkvZaok61WlJ6uCkPvZM5BM14AiPzCNDjkOTTTMazIpKHnEErBDavF1ltYs0lcQGuh0pOo1lnqhzh1Ih8px7f/+4xtMQmLLomn8roInn/XHiN6iYgd+iI6eU40=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
+ by DS7PR12MB6285.namprd12.prod.outlook.com (2603:10b6:8:96::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6178.41; Mon, 27 Mar 2023 12:33:52 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::3e46:4948:b543:8dba]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::3e46:4948:b543:8dba%2]) with mapi id 15.20.6178.041; Mon, 27 Mar 2023
+ 12:33:51 +0000
+Message-ID: <841ff665-0cf1-50f5-a470-59085972a0e3@amd.com>
+Date: Mon, 27 Mar 2023 18:03:38 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.1
+Subject: Re: [PATCH v2 2/3] drm/amd/pm: send the SMT enable message to pmfw
+Content-Language: en-US
+To: Wenyou Yang <WenYou.Yang@amd.com>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, evan.quan@amd.com,
+ mario.limonciello@amd.com
 References: <20230327072437.580766-1-WenYou.Yang@amd.com>
+ <20230327072437.580766-3-WenYou.Yang@amd.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20230327072437.580766-3-WenYou.Yang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0090.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:9a::9) To BYAPR12MB4614.namprd12.prod.outlook.com
+ (2603:10b6:a03:a6::22)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT116:EE_|DM4PR12MB5937:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5d907c43-5332-4878-1eaf-08db2e9463fc
+X-MS-TrafficTypeDiagnostic: BYAPR12MB4614:EE_|DS7PR12MB6285:EE_
+X-MS-Office365-Filtering-Correlation-Id: 061dfed1-0e94-45c9-c814-08db2ebf8535
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3Qx4OOI8zKqmth9Swsi+zM8VK0/RJ9DP/1jZbivOvCtXG8uzbhPumzkmZQR3+eurd581oH9nkpZ2v40uNfQ8s5g8xs+OV1qXwz+Nk/gW0n01biAz5dvBoQRCC0MtKSHR/UQf4EBKwCdRGns/0Ixw4Gg12UvfsYwzSSw+tn/KM71A/A+feip2JfPTPJ4Su0VagI8BDXeL0gBF1N8X2UzPCKsREdngQtdPnlHw7wwHJKhCLIePTGsMMKk3jlUWI7+mfoyUZ/boUbTAvLibl9Dop93yak3WDXw3E6teQc3W198dgVTr31uvPTgxrzxbzVZ0uluoytvIUdxos8I8pJ4H0j2KqTiDnJGwqMhaRObMHj+92EDIqGB7J505dU+jEt49kHdT0rKUeD+F4lzROyXZX0qNrHCANVYKD+1+bDv2afbcibArtfjyhLwgP5yDJ7U2BkuTxaNTToTy+1jvFYxf7MIP97kHm3h0TBVujOLRw5OTANMtJOPAjq2WjY3bWJe7i4AtgA3O2xNUHC19O+bU/uGD8zsURgiLzc8CsA1pl7xoQ2xGeDqNMuLGbSp388KOJYiI3TVJ7iIfEPM3LhRR5Cs/8tBhb43BYcwf3Lk9s++RQDxZDzI6LRYLNnm+Ev0w61QPXw/JQEkM/ug8efTox7N9hWLKarnmL4w4cQ3MhreZVDd3dqJ9Sjyva71u8ZFe8Xu7IV0JOmzvflo3dyH5DdLjoENU03fHGRgDP/xMmVs=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(346002)(396003)(376002)(39860400002)(451199021)(46966006)(36840700001)(40470700004)(2906002)(15650500001)(426003)(47076005)(86362001)(186003)(40460700003)(2616005)(336012)(356005)(40480700001)(81166007)(36860700001)(82740400003)(8936002)(5660300002)(4326008)(8676002)(41300700001)(70206006)(36756003)(70586007)(82310400005)(26005)(110136005)(1076003)(316002)(6666004)(7696005)(54906003)(478600001)(6636002)(83380400001)(36900700001);
+X-Microsoft-Antispam-Message-Info: 25VXXwhaLpWQSbkGMTqz1o/kEShWIzrYIgAcyLtzL4ExP3vbLu7U7BMryBVxz/G1frvgBUDCpzd6TPprwoz9vx1EOfLWJbpW8QdbT9vitbJRIDhaUVlwAUz/5ruRJW01+W249EGQaKcciETtf7+dvjP5z4gCroH+3iC7jQNxpwl7C3Y4Xb2CDsPNqg9EL1Il5ODqNdsqjN4bNAW8HQlwHtUVAtaBlUybch82Vhcmn+wwGErjdvwu6RZazK/CMZvkyjDEGjhXfR+yCEpmH61d7Gz2TYvCesOO+2D1H0CsWvvvNxZCtzjfebWwu+wNv8mTdYIm1RYzslhW828EULvCU6u+l1emApQNa78lfI3wiDkdCMYk3eSwbL0Jx4IXai+K2WtL0vp4E3A0mdO8ft4MWjHRWKb/fmOZ8O4KIS24o0XE134bl4leksnwDQBD4i/ddHPsR2n32X2N66+K9/z6vrTrxqYh4XGrQtUkUDizxHYB7dodROhkH9YykRNxmZZSZidITRJulODQQ8d0newWpOLVjU+fJFYWXOYR23Uk2T1m7KPdq7MhZ6uKtId/8DJzDpoUzM/L5AQLkfz9YvadPyjjmKLmZ3dtFCd4HbAdOJl/i8x8KUXBzKn7HyrKSNxly/EMGLBd1N1iJm9QIzwEMQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(136003)(346002)(376002)(396003)(366004)(451199021)(66476007)(66946007)(8676002)(66556008)(6636002)(4326008)(316002)(8936002)(5660300002)(41300700001)(38100700002)(6512007)(186003)(53546011)(6506007)(2616005)(6486002)(26005)(83380400001)(6666004)(478600001)(15650500001)(86362001)(31696002)(2906002)(36756003)(31686004)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZXIvYW1TOHo0Z0lPZUk4Rit6aEdkRVowNkRYTnV1MkpPYWN5amhSOVlwOHpx?=
+ =?utf-8?B?dE8zekJZdTRLZVJqQnlHOENCTVlDL09JQlJ3bWpzUXBlUlE4VnZ1ZEpXZHRU?=
+ =?utf-8?B?ck94M0N6WFpxNUVvWi9rOVZ1d1NTU0d4SjgxUUZPTGlZTWcyWFJ5SzdOVS9h?=
+ =?utf-8?B?ekVHekZCU25WTklSVFZBaENId08vK016c3cxZ1dsSzJOUHVqSXNvSmMyeHo4?=
+ =?utf-8?B?aWZZRldIMHRJU0htOGN2TGxUdWZnR21qdlVZb29zaUpQSmVIVERJNzhjUS96?=
+ =?utf-8?B?VERFQkFZUW1Rdm5oajV1c2RZU1d4ZGxSUVUrdTAxTENJYVF5bE9pczBGQ2px?=
+ =?utf-8?B?N05zWTdyTlIyTmhuUDlVSklKRXZvdEZIM2FiQmhvMFpaQWxWaFdZaDdvWmNk?=
+ =?utf-8?B?Nml3U3FKaWUxMDJ3bFh5ZWlnZ0dDR1dVcytLR3dIaXVUOWdFKy92Ylk1dVRO?=
+ =?utf-8?B?YTQ1eUE4OU5Ib0xzWkZtRzM0V091Zzk5UHZxbHoydWdJY3BPazJXRTR6ckE2?=
+ =?utf-8?B?RDV4UXA2dGdCVGVWdGdGMDZuT3RpMFZ1S2F0blhuR2RSeGMzTUdVZ0dEaG15?=
+ =?utf-8?B?RVE2WjZvU21DMlorY2F5M2dSUXBxSmpqZ0ZlZTJXZHl5N0xVbzNuMGdjdG45?=
+ =?utf-8?B?M2lXbzN3Q0lrelVDUXJpVzFLMUNXSU5kc0QrekJRais1SkhRYjRGYVZMcUZh?=
+ =?utf-8?B?cFJNNXJ0REpGNlE3VlJkbTNSd09HV0hZSXFIMURUVlEvYVBTQUx3N1pFYUlp?=
+ =?utf-8?B?aGxqMU9xY3lZNzJRUlZrdDd6RUpUNmI4YThSSjRZODlMTDh5UnlYOVpCRXFo?=
+ =?utf-8?B?RUZ6UmI4RUxRTG9Hd0NMYlNIYTVldDRnc1hWMXRDTVRKU1BqR2IzN1BqcUxk?=
+ =?utf-8?B?OCtvb1N5cVdMUkhxSjlYUFEzdUt6d1oyTDRTc0lITkhLYUpieFA1ZGVSV3Qv?=
+ =?utf-8?B?MlJJRmNPaTV4MGNJSFpuZFdtUmE4VzZmc2xSUWQ3MGVJMEx4MVUxb0Z4UDFs?=
+ =?utf-8?B?NTVrN1VPb3ZnUzkyUEVudEVmSzVIWVNVVng0cW0zN2o3SjFWVVRaWDl0eFc5?=
+ =?utf-8?B?UjJHa3gzemNNVk4vWG1JZTBSTTNlNkNVOWEvNStUMFZSWkJ0UGxDVlllM0xw?=
+ =?utf-8?B?Z1dNTERacjIzdDdad2g1QXEvdmF3ZDBLdGxDYkJsZm50RnMrRGpuL1Mzc3dK?=
+ =?utf-8?B?QUl4dy9HMXV2U1hVRXduRFU0OVBIRHFySU0vK2RJU1h2SWNkTGg0dFdvNlgz?=
+ =?utf-8?B?M0dzZ1l2aGJWc3lJQStIR29CUnU3YTR3dzJiVG4wNkM3ZGV5RVpKV0p2RGtH?=
+ =?utf-8?B?N3NWYmJmYUVjaEVTcUFqQS9XQ2lXNkZjUk5BeXhPUlI1VkltWWMxbTJEMVZN?=
+ =?utf-8?B?K0ZURG42QmJZdzJOZ0VocDJtRXE0REJsclhxYWNJeXArM3hFN1NpTVdiSXVZ?=
+ =?utf-8?B?VWJsb0czbFBDVE5WV2R6UGQzcStUdGJsYjF5VTc1MEdvNHJoZUtWUzF4L0Mx?=
+ =?utf-8?B?WHY0QlJaMko4Q3k1cHdpWkQxL0RhbXl2NHMwNEJlSEV3aWtpamVVb3FFVTdV?=
+ =?utf-8?B?VE1GejM3b2FtOHp0V1ErSEU0OEc1OGlYMUs2QjNOQ3FFM0hySHIwRHdUVDFE?=
+ =?utf-8?B?elRyTWRYZjVlVmx0UkpkWjA2TS91aituQm1LcmxSVldRR2Q0eURXdFFPVmFT?=
+ =?utf-8?B?UmUvaFE2ZHNHQURWdWRyaW9HM2xRRzhHQk9HSWh3RjFkblhnVGlpK040d0FV?=
+ =?utf-8?B?UlM3Qmo1WnZJblNEN3psUFJjU0NzN0RWbm1yaUhYQnZxVVdlQmU0T3RLZFJW?=
+ =?utf-8?B?TkcxL0hZdC9TYlp0WU1YRW9TYXJidGpBaFBURDk2dUJzOTZqajBPZ3dYa2Rk?=
+ =?utf-8?B?QWROdG9rcVpZaU1qOUpEM2VsWjVnQ2FuNFEvOG9La0kwZXlMaWRpVDVpbkRN?=
+ =?utf-8?B?ZHJPbUcvTDhzZ2FzS3lnQk9PMkxNNGJUYXc2UjZxbHJMWkZlMi9hMkR0QnVR?=
+ =?utf-8?B?Tk5sR1hSVzFNbHZRUjgzZDRQalZRNytpRStRL252aUgzL3JDcjlxWSsreHlR?=
+ =?utf-8?B?c1hqQXJ3VElzZTMwZnU5Q0xyOHVid1FHbldvRXNoZWxteUlXZ0Yrb0VzY05V?=
+ =?utf-8?Q?M17ceylZRts4zwwj4zHB/BVRZ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 07:25:06.9155 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d907c43-5332-4878-1eaf-08db2e9463fc
+X-MS-Exchange-CrossTenant-Network-Message-Id: 061dfed1-0e94-45c9-c814-08db2ebf8535
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 12:33:51.6738 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT116.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5937
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7yZ0jB2fmpQpP7lCsovKqErAn94To/3YLwTUhKTeR7j9ICMWk7SI25ZEjBSGEVzc
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6285
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,83 +126,144 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: weiyuan2@amd.com, ying.li@amd.com, amd-gfx@lists.freedesktop.org,
- Wenyou Yang <WenYou.Yang@amd.com>, gpiccoli@igalia.com, kunliu13@amd.com,
- richardqi.liang@amd.com
+Cc: kunliu13@amd.com, ying.li@amd.com, amd-gfx@lists.freedesktop.org,
+ gpiccoli@igalia.com, weiyuan2@amd.com, richardqi.liang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add the support to send PPSMC_MSG_SetCClkSMTEnable(0x58) message
-to pmfw for vangogh.
 
-Signed-off-by: Wenyou Yang <WenYou.Yang@amd.com>
----
- .../gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h    | 3 ++-
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h              | 3 ++-
- drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c          | 8 ++++++++
- 3 files changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h
-index 7471e2df2828..a6bfa1912c42 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h
-@@ -111,7 +111,8 @@
- #define PPSMC_MSG_GetGfxOffStatus		       0x50
- #define PPSMC_MSG_GetGfxOffEntryCount		       0x51
- #define PPSMC_MSG_LogGfxOffResidency		       0x52
--#define PPSMC_Message_Count                            0x53
-+#define PPSMC_MSG_SetCClkSMTEnable		       0x58
-+#define PPSMC_Message_Count                            0x59
- 
- //Argument for PPSMC_MSG_GfxDeviceDriverReset
- enum {
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-index 297b70b9388f..820812d910bf 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-@@ -245,7 +245,8 @@
- 	__SMU_DUMMY_MAP(AllowGpo),	\
- 	__SMU_DUMMY_MAP(Mode2Reset),	\
- 	__SMU_DUMMY_MAP(RequestI2cTransaction), \
--	__SMU_DUMMY_MAP(GetMetricsTable),
-+	__SMU_DUMMY_MAP(GetMetricsTable), \
-+	__SMU_DUMMY_MAP(SetCClkSMTEnable),
- 
- #undef __SMU_DUMMY_MAP
- #define __SMU_DUMMY_MAP(type)	SMU_MSG_##type
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-index 7433dcaa16e0..68a2987e17c9 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-@@ -141,6 +141,7 @@ static struct cmn2asic_msg_mapping vangogh_message_map[SMU_MSG_MAX_COUNT] = {
- 	MSG_MAP(GetGfxOffStatus,		    PPSMC_MSG_GetGfxOffStatus,						0),
- 	MSG_MAP(GetGfxOffEntryCount,		    PPSMC_MSG_GetGfxOffEntryCount,					0),
- 	MSG_MAP(LogGfxOffResidency,		    PPSMC_MSG_LogGfxOffResidency,					0),
-+	MSG_MAP(SetCClkSMTEnable,		    PPSMC_MSG_SetCClkSMTEnable,						0),
- };
- 
- static struct cmn2asic_mapping vangogh_feature_mask_map[SMU_FEATURE_COUNT] = {
-@@ -2428,6 +2429,12 @@ static u32 vangogh_get_gfxoff_entrycount(struct smu_context *smu, uint64_t *entr
- 	return ret;
- }
- 
-+static int vangogh_set_cpu_smt_enable(struct smu_context *smu, bool enable)
-+{
-+	return smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetCClkSMTEnable,
-+					       enable ? 1 : 0, NULL);
-+}
-+
- static const struct pptable_funcs vangogh_ppt_funcs = {
- 
- 	.check_fw_status = smu_v11_0_check_fw_status,
-@@ -2474,6 +2481,7 @@ static const struct pptable_funcs vangogh_ppt_funcs = {
- 	.get_power_limit = vangogh_get_power_limit,
- 	.set_power_limit = vangogh_set_power_limit,
- 	.get_vbios_bootup_values = smu_v11_0_get_vbios_bootup_values,
-+	.set_cpu_smt_enable = vangogh_set_cpu_smt_enable,
- };
- 
- void vangogh_set_ppt_funcs(struct smu_context *smu)
--- 
-2.39.2
+On 3/27/2023 12:54 PM, Wenyou Yang wrote:
+> When the CPU SMT status is changed in the fly, sent the SMT enable
+> message to pmfw to notify it that the SMT status changed.
+> 
+> Signed-off-by: Wenyou Yang <WenYou.Yang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 39 +++++++++++++++++++
+>   drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  7 ++++
+>   2 files changed, 46 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index b5d64749990e..eb4c49f38292 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -22,6 +22,7 @@
+>   
+>   #define SWSMU_CODE_LAYER_L1
+>   
+> +#include <linux/cpu.h>
+>   #include <linux/firmware.h>
+>   #include <linux/pci.h>
+>   
+> @@ -54,6 +55,8 @@
+>   #undef pr_info
+>   #undef pr_debug
+>   
+> +extern struct raw_notifier_head smt_notifier_head;
+> +
+>   static const struct amd_pm_funcs swsmu_pm_funcs;
+>   static int smu_force_smuclk_levels(struct smu_context *smu,
+>   				   enum smu_clk_type clk_type,
+> @@ -69,6 +72,9 @@ static int smu_set_fan_speed_rpm(void *handle, uint32_t speed);
+>   static int smu_set_gfx_cgpg(struct smu_context *smu, bool enabled);
+>   static int smu_set_mp1_state(void *handle, enum pp_mp1_state mp1_state);
+>   
+> +static int smt_notifier_callback(struct notifier_block *nb,
+> +				 unsigned long action, void *data);
+> +
+>   static int smu_sys_get_pp_feature_mask(void *handle,
+>   				       char *buf)
+>   {
+> @@ -647,6 +653,8 @@ static int smu_early_init(void *handle)
+>   	adev->powerplay.pp_handle = smu;
+>   	adev->powerplay.pp_funcs = &swsmu_pm_funcs;
+>   
+> +	smu->nb.notifier_call = smt_notifier_callback;
+> +
+>   	r = smu_set_funcs(adev);
+>   	if (r)
+>   		return r;
+> @@ -1105,6 +1113,8 @@ static int smu_sw_init(void *handle)
+>   	if (!smu->ppt_funcs->get_fan_control_mode)
+>   		smu->adev->pm.no_fan = true;
+>   
+> +	raw_notifier_chain_register(&smt_notifier_head, &smu->nb);
+> +
 
+As mentioned before, it's not a blind registration for any ASIC. This 
+should only be done by the ASICs which are interested in the 
+notification and not here. So this should be somewhere inside 
+vangogh_set_ppt_funcs or part of a software init callback like 
+vangogh_init_smc_tables.
+
+Thanks,
+Lijo
+
+>   	return 0;
+>   }
+>   
+> @@ -1122,6 +1132,9 @@ static int smu_sw_fini(void *handle)
+>   
+>   	smu_fini_microcode(smu);
+>   
+> +	if (smu->nb.notifier_call != NULL)
+> +		raw_notifier_chain_unregister(&smt_notifier_head, &smu->nb);
+> +
+>   	return 0;
+>   }
+>   
+> @@ -3241,3 +3254,29 @@ int smu_send_hbm_bad_channel_flag(struct smu_context *smu, uint32_t size)
+>   
+>   	return ret;
+>   }
+> +
+> +static int smu_set_cpu_smt_enable(struct smu_context *smu, bool enable)
+> +{
+> +	int ret = -EINVAL;
+> +
+> +	if (smu->ppt_funcs && smu->ppt_funcs->set_cpu_smt_enable)
+> +		ret = smu->ppt_funcs->set_cpu_smt_enable(smu, enable);
+> +
+> +	return ret;
+> +}
+> +
+> +static int smt_notifier_callback(struct notifier_block *nb,
+> +				 unsigned long action, void *data)
+> +{
+> +	struct smu_context *smu = container_of(nb, struct smu_context, nb);
+> +	int ret;
+> +
+> +	smu = container_of(nb, struct smu_context, nb);
+> +
+> +	ret = smu_set_cpu_smt_enable(smu, action == SMT_ENABLED);
+> +
+> +	dev_dbg(smu->adev->dev, "failed to set cclk_pd_limit for SMT %sabled: %d\n",
+> +		action == SMT_ENABLED ?	"en" : "dis", ret);
+> +
+> +	return ret ? NOTIFY_BAD : NOTIFY_OK;
+> +}
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> index 09469c750a96..4d51ac5ec8ba 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> @@ -566,6 +566,8 @@ struct smu_context
+>   
+>   	struct firmware pptable_firmware;
+>   
+> +	struct notifier_block nb;
+> +
+>   	u32 param_reg;
+>   	u32 msg_reg;
+>   	u32 resp_reg;
+> @@ -1354,6 +1356,11 @@ struct pptable_funcs {
+>   	 * @init_pptable_microcode: Prepare the pptable microcode to upload via PSP
+>   	 */
+>   	int (*init_pptable_microcode)(struct smu_context *smu);
+> +
+> +	/**
+> +	 * @set_cpu_smt_enable: Set the CPU SMT status.
+> +	 */
+> +	int (*set_cpu_smt_enable)(struct smu_context *smu, bool smt_enable);
+>   };
+>   
+>   typedef enum {
