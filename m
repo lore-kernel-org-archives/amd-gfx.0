@@ -4,56 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71254C6FD1D
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 21:15:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7FA6C76195
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 21:20:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3BD410E102;
-	Mon, 27 Mar 2023 21:15:49 +0000 (UTC)
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5B3B10E102
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 21:15:48 +0000 (UTC)
-Received: by mail-ed1-x533.google.com with SMTP id y4so41786944edo.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 14:15:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1679951747;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=7x8dR54kFbaKXgT2PvjpCCg9qt2D82lU1ztMQzvJaLM=;
- b=Phh0gD47ZxEaq7+HhySzUAzuqR0XBaKgsw8vT87iOOcScAjNmoDovsD/h1jwDVLwn4
- 4Zst3Pw202bUJxS+lzpXwKZ2bWJSuWQW0z6Rq5K/upClLG5cn/2zHuhRPmK9VrcnThSi
- 7jo3tB7tkonqk4Qrl511DQkVWm6al6MHidi7XHRwfvwjPuUL3U+5XiDaDg3mh4XaNbYO
- TCWokgwYAhCQcMjQkZXmlzwl8bvR7nAt5NUDB/6XdcSJnZdJPbXHt4m6GMPjh3ygt47H
- PUJeBmO0B66ne+MdC26LZlbtQ/YCAFEIU/8crHRV/HxE0o97Zc9x+/2ozbcUlWrY+wEi
- P/oQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679951747;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=7x8dR54kFbaKXgT2PvjpCCg9qt2D82lU1ztMQzvJaLM=;
- b=Z3bedkhQYM8Fr+KeD4/3Igfx4Jh6XvOh6aVO+cS69ioUoAaegZslgmZyhcgSv0gWdU
- UW1JHo7SSHIEdEZqCbrqbPlSPZnzQe9nZrlcqWmxYgsuo3ehM+jeDQ09dWgLBOSK8Ufh
- s4N7a8JkLd0DdYdwJh7+ZR79+x0OyBJ6UdHDlpJ3OQ0Tz7WuRlu0YU8z29+zcll9TH8d
- pLppSDG8DPFIPAN9+iEIyFZk14h/I8c+tpSFWxLEWIppzh4FXCsTaJQiWfdJa/QVsbyN
- zGaHYJeG22T8WWTNW2mbROoo0gBEMvuRerWs+mc3j3mRQLq++Z/IkhTlUqS2seyK5fQP
- yF8A==
-X-Gm-Message-State: AAQBX9dmAwqh24i5HZ+bqhzm5I4Ftd6vJ8ZkvVpvUE+Z9Xv9ZnDqaJ5F
- eg1Jg2bKT5C+z+pdHzDgX9LoIEDG0OQrjkpZwXE9WKwq
-X-Google-Smtp-Source: AKy350YI+U4SniWyl65fDq2Qv/7pxQ58Ge7IslnrwI3+3vQAMTQn4QDxwPPKqwoR1dzTzxdqI6CNYuEBlX1W9lXVhWE=
-X-Received: by 2002:a17:906:c315:b0:8eb:27de:447e with SMTP id
- s21-20020a170906c31500b008eb27de447emr5924879ejz.7.1679951746796; Mon, 27 Mar
- 2023 14:15:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 014DC10E3F0;
+	Mon, 27 Mar 2023 21:20:56 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2049.outbound.protection.outlook.com [40.107.92.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3BA110E3EC;
+ Mon, 27 Mar 2023 21:20:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EDwzQLSefieSMAgVKSDif+VpjOwJGGKmIvQy536SlquK0AmyqjpJlT8/zPqldl/g4/Iof30zwY6bJUIC408OK/lPz7d1oW0kKlfDMnZNojgMVoF014hZQnA69pXGiOvI5Mra6nHrsztG8c7mmBHzhxtqKvehvd3JP3Riut3lmQr3f+ncVK85XA675G9KEGZfibNCYT2H41GrygzqWbQ7xQE52veeqWusSHvo9HmtnFm+Hrn8qoLCzvTPNyqiJMEjOPXGeETlKbISMbJdv2lKkXB872X6pONqTJK4dORLqn+EUiLZh4Zxln3WeNJzilkBjLAb1tV5dBXnhRJf7eUahA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TzNC55IqPCEkjZeTavzyl4V1NMFbDgF1Z6aiFZ0XyDE=;
+ b=ieBUvI9T69PPboaLiSxIb6AukoDURPHXYkN91/7zaSt0rf2p9mqpNj22EzDl6QhtmezlhQIaAQGthqZZTXnQIgLRzcWyW35FdrdQCwuFo3TV5lgW+WBVOtjyTghAHWp5EeTfI0xco2E01FcMqOz/Ywp2BLgHpuptuDySz2NByDytDB1dkJXkaiLNszqyffohXV/51XDqxHSUklJbS/pTjlxg4tJmWpXCuLgFhoqhA1qYpvAkfdgan9QdCU5bOO2CiwqA7QlO/Eq7nimiA7+0Q1QHuVIWoq0uTs2c2zQRg6smCL9oOqpR7tCl9c1zDUcN/ddRmDrSrhB1XbrajxyMWg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TzNC55IqPCEkjZeTavzyl4V1NMFbDgF1Z6aiFZ0XyDE=;
+ b=lQRxBhiXrgnWzMVf/tMxARIODK/Ld6OGtHK+/i7pcOSqR+/DAUvgOdjvADmLID0ptIJdEvS7pI5ELelxkljeGE/WeLlDykUY6ojTvKmhjChXxdF33f5s2hY8rYQKV4BHerXVT5+faUrgNNrorYL/M751lEK/dKoeaBkyaCwfRy4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by BN9PR12MB5275.namprd12.prod.outlook.com (2603:10b6:408:100::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.30; Mon, 27 Mar
+ 2023 21:20:50 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::23f:22c1:b49e:b77e]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::23f:22c1:b49e:b77e%5]) with mapi id 15.20.6222.031; Mon, 27 Mar 2023
+ 21:20:50 +0000
+Message-ID: <01e7c6a8-e6b6-7d28-1d54-4e065e7e150f@amd.com>
+Date: Mon, 27 Mar 2023 17:20:48 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH 08/34] drm/amdkfd: fix kfd_suspend_all_processes for
+ gfx941 debugging
+To: Jonathan Kim <jonathan.kim@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20230327184339.125016-1-jonathan.kim@amd.com>
+ <20230327184339.125016-8-jonathan.kim@amd.com>
+Content-Language: en-US
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20230327184339.125016-8-jonathan.kim@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0314.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6c::27) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
-References: <20230323214034.1169310-1-alexander.deucher@amd.com>
- <20230323214034.1169310-8-alexander.deucher@amd.com>
-In-Reply-To: <20230323214034.1169310-8-alexander.deucher@amd.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Mon, 27 Mar 2023 17:15:10 -0400
-Message-ID: <CAAxE2A7m0ERp_8+++ytWcqJgtN_EuJEApu89cjGw23BYBuOuzQ@mail.gmail.com>
-Subject: Re: [PATCH 07/13] drm/amdgpu: add UAPI to query GFX shadow sizes
-To: Alex Deucher <alexander.deucher@amd.com>
-Content-Type: multipart/alternative; boundary="0000000000001b917205f7e83faf"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|BN9PR12MB5275:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1af87a08-3e16-4189-0c5d-08db2f0923c2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ppr4Vj1UZXdh3UESoin3CnDlEK6luhgT+gB0NW3yJL2YMVq7ye31ciar3Iwu20E4TkxXolOd0s+AGBKZn0omNribb683sBLP+ohfaMGcO4MwgEy53SKFBnS2S8NerDo9OI+4ybm2YiupqGaonQIIyZOXTNASWs/dQQK6RY2jWIZlXAHCUJ94mOCjRuOSoiOom6vaRl7eDPCb1Gv/HW25ZAXy9eF5hmRcuhwKk0tV2wdwsIoL+ITtrmVArTbLYatv7Tk8tjPeovIySO+kJjLPQq5js+uu+I9alSWRq3cw73x4Wr95BDvfCSIg2nDjxmSUtjUXd1bjQFsv6q/9A/ZRE2Kp40z7fNelxaRPxvt1kFZqjKKzgS/yyi2eKjV6I8clIC2rbA1+Ku5jG0DPBl/niGcFOmkZZ7hicS1E8K7bvMQO6437yMFfVsA0aw7U0U8l/DHTSGudbRwdjU5aChgM21w8Oc9/z17isxN4AUaaD16GUa44vk88otgAZGSffW5WGRkmG6KHiltxI6tS1GksMOYxYk9umNPZnIH/JDWSNa0fo9Q80nmDxm3yv6jlYxjoqgGI/aMkhJwV+uAaC2uGfYEBb3abT2qdQvMliZjaDAAnYyidBH4KutjkiU2012VOZm39GpWN2T0E8MJH+f8kmQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(366004)(346002)(376002)(39860400002)(396003)(451199021)(6506007)(26005)(53546011)(6512007)(41300700001)(186003)(6486002)(36916002)(83380400001)(2616005)(31686004)(478600001)(316002)(66476007)(450100002)(38100700002)(44832011)(2906002)(66556008)(66946007)(8676002)(36756003)(31696002)(86362001)(5660300002)(8936002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZVFNaVcxSVlTcUFJa3BGM3N0WktSNUVhRktmL2kyaFZ0Z3VYcEJYOFowNU9t?=
+ =?utf-8?B?a205M2xqdXN0ZENJNWJzak5ickxZVVB0VEhpOVM1VWtkamRJM2czeFdHbE0y?=
+ =?utf-8?B?dHBDY1pRdmhSL0pIV3NNRFJRbVFJRkErOXh2M09CK1ZYVEZFMDRmOFNQZXNu?=
+ =?utf-8?B?ZWRwdnJYRk1GTUpFWkozRjlEUTRFOW42NUgvQzV3T3JwYmUyTk93RENQQnpT?=
+ =?utf-8?B?Tko1LzUrS2VKendIb3pBMWFxZ0dmdVJBdEJzR1JqQi9QcnFhcWFDTWpqVGl1?=
+ =?utf-8?B?RGc2a3FIRUxmVDFGNG1yUDk4L21RZGxCOStROEhIMk1ZeGdUaHZKQ3dGMUlX?=
+ =?utf-8?B?em56YnNpMEF4SXk2MkY5L3pWVUJvQXRyZVpqRGFrVFVsZExIWlFvbTh4MTVv?=
+ =?utf-8?B?V0laemxKV1g3TnV0bTZaYU9aYzYwU1ZjcHhOTWptaFRaMXVsdUtrVWFMWUxj?=
+ =?utf-8?B?MCtEbTFTTXhqK2FJQlUzdG9VYTVRQjExdkNhV1FGcjRWblBaaEk4ZHJ5bXB1?=
+ =?utf-8?B?NTZxVERvakIra1FTcXlheDdGNUFsdTRISUJrUTRKQm9KV0VKVzFUanhjRzli?=
+ =?utf-8?B?MS9XbUZrb0FBYmF1VXROT2tPMkVseDIyYStLMWh6dE91dW5iZ0I2REpsY0Zm?=
+ =?utf-8?B?djFYQ0czeE5nci9haUFGYnloSkkyMlNrNE1jbDdDMVdDa0QxYzMrSHpWVm9q?=
+ =?utf-8?B?UkJ2MEFWMnN5cHlHOHBOdHVkSGUwRjR0OTBxcjk4djhXWHR4RWdyTVBpUmVa?=
+ =?utf-8?B?TGtSUVBDRXY4MnhRRFZ0T2Z1ZkpqeDNnMUoyTXdqRWxtZEQ2QXg4MUIvSVdL?=
+ =?utf-8?B?OFR4WHhvU2V3dFliUWRNbkZzT254UHhtcGZIOUw2eWhHYmlFMGdQK0djdmMx?=
+ =?utf-8?B?VkJCTUtteUl2VEtqajNRTEFsVkhzdmZBMktmTnc4OGxFMC9NckdnRi9ZcFU4?=
+ =?utf-8?B?TkdUd0dKS1VYa0t1MEloZGZFZllPNEtTZWJKc205aDN2ZHN0cVc4NVpObUVz?=
+ =?utf-8?B?SFd1UXB3d3VtUG55MGxHYUM5UTZwSlA1dWdsUk5RRjZUZlBVSlhwT2d4MlRy?=
+ =?utf-8?B?UHZ0NDVZVHNOSjRudnVVSmhzazVFWWg5aVE3RkNuT3RFL3REaVlucW9kd0JS?=
+ =?utf-8?B?bjdWcHZ2eDJ0VWtyWjJWUnh4enlueENpeE1DVmpCM0t1S0xnK0R1RWhSSTZk?=
+ =?utf-8?B?ZDNNNGI2M3lmNTBJdExwTUZBaFpVeFpjOHdmV0lRRWRvNTlRYk5kNWc2R1hT?=
+ =?utf-8?B?YVJ6TFlud1EzQ25qMEtTak1NTFR4amVkZjFyMEVjSGNDalA2UHo5dXE4TFVt?=
+ =?utf-8?B?WTJVblFqbTRDeDgrdCthOCtIV25MYUF0bWIwVTNWamZmeE0ydmRCNVVHTFlE?=
+ =?utf-8?B?NnJFVENwanBoZEtGbVhVQnp1RnR4VGdYaStrZE9ZK3BSZ1ZBRkxOenlVTk5O?=
+ =?utf-8?B?OEtER1l6TFIvb0l2d1VnRlpwRzEvTjQvaGtjTFExVGl2QkpUZXo4N2dlckpY?=
+ =?utf-8?B?OGhPOWJGRGQvVEpqZUZHLzZHZlhSRS9NYUw0TXIxdUdJb1VKcGt3OTU2c0kr?=
+ =?utf-8?B?NjhoRkh2Q3cyc1U3UWFjOERFVEg0N2paaXRBTGljQkd1R3hQamsybGJxNFQ5?=
+ =?utf-8?B?VGNDNzErQW5oTXMzR0luT3pwNkpOT2RpOVBpRCtTNmMvWmc2UnFOOWhTdGxJ?=
+ =?utf-8?B?N3dremx3OERpbGRBTEtXbVI0cVU2aVJXdlF6T05jYm5KVldibFRnLzFlb05H?=
+ =?utf-8?B?dlhza3JPd285SDVEei9yMUh6UCtZK3R1aWdmNjBaVTZqSXpsbW9RMWVXbmxC?=
+ =?utf-8?B?VFdmdk5PZGFMTFNzVE5XQnNCVzUyc2FMYkJNM1p0aUVwcERvR1B1RXplZlY2?=
+ =?utf-8?B?Z3VzVmt1Yk8xUHVBckE2aTV6RHJmS1Z6RUlwL1NqbHNFR1l3VEhyVVRGQWhW?=
+ =?utf-8?B?TjRsQW9jOFhNQUxGZ09lMmJsRWRlWjdma1hZMVgyRWpEVGJXVjBFUFErcGFL?=
+ =?utf-8?B?R2JhamZsU0hFdGd6Y1E3SWY3V0hmby9jdDBqb1E5SWxXV0FpVlhMT215czly?=
+ =?utf-8?B?RFMyclJmdzdOTnEya0QyOEROcWNCMDZIeEY0cXZRT1pyQmV3a011K1d1a0FT?=
+ =?utf-8?Q?wGcrGfPhJ1JitBSsCmAXR2e6V?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1af87a08-3e16-4189-0c5d-08db2f0923c2
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 21:20:50.6009 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: J2VlzylcfYjNLD6ePIVABT18lEqAguy4K5kKMnyEqyX4UhwcW6P4TXSUqbpX1k0wI2s4NA1OUtq9dbxGm+ypeQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5275
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,105 +127,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000001b917205f7e83faf
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Marek Ol=C5=A1=C3=A1k <marek.olsak@amd.com>
-
-On Thu, Mar 23, 2023 at 5:41=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
-.com>
-wrote:
-
-> Add UAPI to query the GFX shadow buffer requirements
-> for preemption on GFX11.  UMDs need to specify the shadow
-> areas for preemption.
+On 2023-03-27 14:43, Jonathan Kim wrote:
+> The debugger for GFX9.4.1 uses kfd_suspend_all_processes to pause the
+> compute pipe line so it can safely toggle the SQ's implicit wait on
+> barrier setting during debug attach/detach to work around the wave
+> exception s_barrier race condition.
 >
-> v2: move into existing asic info query
->     drop GDS as its use is determined by the UMD (Marek)
+> For mGPU setups, repeated calls to cancel all outstanding restore work can
+> result in an assymetric permanent cancelling of the restored work from the
+> debug device after it has toggled the HW work around settings.
+
+This is a bit hard to follow. Not sure what you mean by asymmetric.
+
+I think this is a general bug in how kfd_suspend_all_processes and 
+kfd_resume_all_processes interact. The latter schedules restore work. If 
+that gets cancelled before it gets a chance to run, it will result in 
+the queues staying preempted forever. It just happened that the barrier 
+waitcount setting workaround on GFXv9.4.1 was good at triggering the bug.
+
+I would simplify the description like this:
+
+> Flush delayed restore work in kfd_suspend_all_queues instead of 
+> cancelling. Cancelling the work before it runs results in the queues 
+> becoming permanently disabled. Flushing the work ensures that the 
+> queue suspend/resume state stays balanced.
+With the updated description, the patch is
+
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+
+
+> Instead of cancelling the outstanding restore work, just flush it as it
+> will be properly evicted anyways by the current suspend call.
 >
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
 > ---
->  include/uapi/drm/amdgpu_drm.h | 8 ++++++++
->  1 file changed, 8 insertions(+)
+>   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.=
-h
-> index 3d9474af6566..3563c69521b0 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -1136,6 +1136,14 @@ struct drm_amdgpu_info_device {
->         __u64 mall_size;            /* AKA infinity cache */
->         /* high 32 bits of the rb pipes mask */
->         __u32 enabled_rb_pipes_mask_hi;
-> +       /* shadow area size for gfx11 */
-> +       __u32 shadow_size;
-> +       /* shadow area alignment for gfx11 */
-> +       __u32 shadow_alignment;
-> +       /* context save area size for gfx11 */
-> +       __u32 csa_size;
-> +       /* context save area alignment for gfx11 */
-> +       __u32 csa_alignment;
->  };
->
->  struct drm_amdgpu_info_hw_ip {
-> --
-> 2.39.2
->
->
-
---0000000000001b917205f7e83faf
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Reviewed-by: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:m=
-arek.olsak@amd.com">marek.olsak@amd.com</a>&gt;<br></div><br><div class=3D"=
-gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Mar 23, 2023 at =
-5:41=E2=80=AFPM Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.co=
-m">alexander.deucher@amd.com</a>&gt; wrote:<br></div><blockquote class=3D"g=
-mail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204=
-,204,204);padding-left:1ex">Add UAPI to query the GFX shadow buffer require=
-ments<br>
-for preemption on GFX11.=C2=A0 UMDs need to specify the shadow<br>
-areas for preemption.<br>
-<br>
-v2: move into existing asic info query<br>
-=C2=A0 =C2=A0 drop GDS as its use is determined by the UMD (Marek)<br>
-<br>
-Signed-off-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.com=
-" target=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
----<br>
-=C2=A0include/uapi/drm/amdgpu_drm.h | 8 ++++++++<br>
-=C2=A01 file changed, 8 insertions(+)<br>
-<br>
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h<=
-br>
-index 3d9474af6566..3563c69521b0 100644<br>
---- a/include/uapi/drm/amdgpu_drm.h<br>
-+++ b/include/uapi/drm/amdgpu_drm.h<br>
-@@ -1136,6 +1136,14 @@ struct drm_amdgpu_info_device {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 __u64 mall_size;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 /* AKA infinity cache */<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* high 32 bits of the rb pipes mask */<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 __u32 enabled_rb_pipes_mask_hi;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* shadow area size for gfx11 */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0__u32 shadow_size;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* shadow area alignment for gfx11 */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0__u32 shadow_alignment;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* context save area size for gfx11 */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0__u32 csa_size;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* context save area alignment for gfx11 */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0__u32 csa_alignment;<br>
-=C2=A0};<br>
-<br>
-=C2=A0struct drm_amdgpu_info_hw_ip {<br>
--- <br>
-2.39.2<br>
-<br>
-</blockquote></div>
-
---0000000000001b917205f7e83faf--
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> index 1e3795e7e18d..55a4ddd35e12 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -2008,7 +2008,7 @@ void kfd_suspend_all_processes(void)
+>   	WARN(debug_evictions, "Evicting all processes");
+>   	hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
+>   		cancel_delayed_work_sync(&p->eviction_work);
+> -		cancel_delayed_work_sync(&p->restore_work);
+> +		flush_delayed_work(&p->restore_work);
+>   
+>   		if (kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_TRIGGER_SUSPEND))
+>   			pr_err("Failed to suspend process 0x%x\n", p->pasid);
