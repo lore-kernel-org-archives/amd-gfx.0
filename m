@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4B69C761A6
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 23:34:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DEB9C6FD1D
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 23:34:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF28E10E7BC;
-	Mon, 27 Mar 2023 23:34:44 +0000 (UTC)
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [IPv6:2607:f8b0:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3A1510E7B7
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 23:34:41 +0000 (UTC)
-Received: by mail-oi1-x229.google.com with SMTP id s8so7715275ois.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 16:34:41 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5C3110E7B7;
+	Mon, 27 Mar 2023 23:34:52 +0000 (UTC)
+Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
+ [IPv6:2607:f8b0:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CD0D10E7B8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 23:34:50 +0000 (UTC)
+Received: by mail-oi1-x22b.google.com with SMTP id l18so7674452oic.13
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 16:34:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1679960081;
+ d=usp.br; s=usp-google; t=1679960089;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=1IwF6Kj9QYhpJPxCrtGOCcjZaHDRHTEbDHEOQ0Q0o5c=;
- b=jfYnm0x5boN6VyBUnMWPRzz97xGu/bVZkk8ot1nSNhbtqM525wpnumuPPxj2g6SBmt
- iqmmB2Tb3gG2gIqDlHDVBtcb5bLSyxASg2JlHy4W5rzyjFd0wER0kSIGXZ7mUjS5562+
- 4imgqjAZwoauhGi0X9/tsjF17nKL8f44lyAP2Z9q8WVM+VVX4Mrf8rvcYLk8k6Yypltz
- 55syccSk7F6t6/C4ZpQlbrqQ+AQDGC3FjX9vijwQatYhvkvfGErtohIi3PnBdcogv/Fr
- i1LAISm1WjJdeH7GRdOWbnkEjnvTOG2OW2321C8y6x5FfqRTcO49qcGEIHuN8EzxTkpx
- KDtQ==
+ bh=8QsHyz7gKUkQwkVhf5pyg1KknFMPIvy4LcmMgDotpCM=;
+ b=sx01gakuWa2Q5P6dcI4aIQRwIo9i+t9MKVEV2yp/xxLG+XXh5L4SKodd8Ib0rthkhM
+ d229sHbxpl6ezpNSYIuE8NQG3fv4OcWLeqiVpughUBDCD6HoXLYQkjPeeOcHA6UVU8G5
+ /J+jdLdjufxFxv955wirCwSmbuLxHyCqXYk0my/ciyXJCElao7c90x1rIa/Yh0yTCp3W
+ s7+bZXZt1V3nUO4Bba4bODojyT+ct9iMtEBxRi58GmbNQ7mDBbPk1ey70ybCkLX6rMhK
+ 2vB49cK9mzSLuo9e7QPRVLEHJHwT0WQ6eKElBGY/NK8HFvBSQE8kDrnuupww2QfLMRTD
+ Y6EA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679960081;
+ d=1e100.net; s=20210112; t=1679960089;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=1IwF6Kj9QYhpJPxCrtGOCcjZaHDRHTEbDHEOQ0Q0o5c=;
- b=JBmXK5LSNHT2dyJMfcAiRN4Zr8pun7VeOv6bALZzWsWwwkFpzPg3HMo5qJ3pe7RgdS
- DbQmm//s+5paP0vAmIkoLjAzBAasb60I+ZyJQDxLJiXYcG22hx7U+ChoO04uGEzMeoGF
- MwM/i13KHgnLrbD0D1NszRxINw5Or+pTV50+xjxJf3qVFpIr5gOpUmKwcyfjy9rlD0gw
- +UZUXeQRQd0G0YoWsxMqbPk4KFDDwqD9Pn8XxXCJqTeYg/mcDvw2AccxslS2S099+8K5
- P6kq3C8DA3JZvGcVXCq6Ll67PF0LF9X2sc0zE9xJiiYAPRCVDRw1jlWNA4XaigOfN8co
- SDyw==
-X-Gm-Message-State: AAQBX9fmsx1RDyZOS5lIpewZ8H90mFO7ITG7QSAybiAq2T3mXBhi1bCf
- M9h/I2Y3v6S8xQ4hpfHmBiPLsg8oPmeBzoAX1BWeOg==
-X-Google-Smtp-Source: AKy350amlW4hmJ5oi6zfnFlDhNs8qcwQpjdMENIe7wdz31yjBqJqQIgig25+IFqaAxHNxlomgZLO+Q==
-X-Received: by 2002:aca:2b09:0:b0:389:4f27:9e0 with SMTP id
- i9-20020aca2b09000000b003894f2709e0mr676851oik.26.1679960079586; 
- Mon, 27 Mar 2023 16:34:39 -0700 (PDT)
+ bh=8QsHyz7gKUkQwkVhf5pyg1KknFMPIvy4LcmMgDotpCM=;
+ b=3LCTLVbRnhA5H762E/IULQOw2ZW83mXfKakjzxFspClZoolfUuXMdFlJI5gS4JSSyU
+ x5S7egxYar4+5z+wgKsVgntuhDuYZtGKrA4PdoHGYheEX3N4gBvOXSwmeRcG5MWhDCwb
+ VYMR1AdY5HLi6ZhB8Qco4uZMkNWASOL5kOfLRlbf2rTFePBr1vElfCneZixD9BFQg/wH
+ VE039undG8ivD8g8ooNVDFjK3iKVJJWll2m+AIjbgLDyHVCWNvMFpYaZmBsjUeVXnq49
+ obxoRkuctK22i6Cpx2ZSSsXIf7AXx2wkweungO3SZ7ZzC9R/enwYtZzv8o8dYy7rDRkM
+ 80rA==
+X-Gm-Message-State: AAQBX9dWauGMaFJGAhZX83J/v45wSFIMPDgHLqIXb94zrUuoW0HzPYQQ
+ mSftWU6UyfXPVZ+GrIBzTzRXrJUYckqNGgFjkFXO3Q==
+X-Google-Smtp-Source: AKy350Zf7TAyCj72D7dBxB05x85USmeaRH3Aok5R7Th4M199ri5mIqKovxSmqM4aYnXWp8ALjUMQfA==
+X-Received: by 2002:aca:d0f:0:b0:389:f4a:93ec with SMTP id
+ 15-20020aca0d0f000000b003890f4a93ecmr2974502oin.28.1679960089575; 
+ Mon, 27 Mar 2023 16:34:49 -0700 (PDT)
 Received: from ARCHaio.localdomain ([2804:1b3:a2c0:c911:919f:bd20:4f2a:8383])
  by smtp.gmail.com with ESMTPSA id
- b186-20020aca34c3000000b00389295e8424sm1643409oia.45.2023.03.27.16.34.29
+ b186-20020aca34c3000000b00389295e8424sm1643409oia.45.2023.03.27.16.34.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Mar 2023 16:34:39 -0700 (PDT)
+ Mon, 27 Mar 2023 16:34:49 -0700 (PDT)
 From: Caio Novais <caionovais@usp.br>
 To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 03/12] drm/amd/display: Remove unused variable 'pixel_width'
-Date: Mon, 27 Mar 2023 20:33:44 -0300
-Message-Id: <20230327233353.64081-4-caionovais@usp.br>
+Subject: [PATCH 04/12] drm/amd/display: Remove unused variable 'hubp'
+Date: Mon, 27 Mar 2023 20:33:45 -0300
+Message-Id: <20230327233353.64081-5-caionovais@usp.br>
 X-Mailer: git-send-email 2.40.0
 In-Reply-To: <20230327233353.64081-1-caionovais@usp.br>
 References: <20230327233353.64081-1-caionovais@usp.br>
@@ -106,33 +106,29 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Compiling AMD GPU drivers displays a warning:
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn201/dcn201_dpp.c: In function ‘dpp201_get_optimal_number_of_taps’:
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn201/dcn201_dpp.c:188:18: warning: variable ‘pixel_width’ set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn201/dcn201_hwseq.c: In function ‘dcn201_pipe_control_lock’:
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn201/dcn201_hwseq.c:544:22: warning: variable ‘hubp’ set but not used [-Wunused-but-set-variable]
 
 Get rid of it by removing the variable.
 
 Signed-off-by: Caio Novais <caionovais@usp.br>
 ---
- drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c | 6 ------
- 1 file changed, 6 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c
-index f50ab961bc17..f8ffc06593b2 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_dpp.c
-@@ -185,12 +185,6 @@ static bool dpp201_get_optimal_number_of_taps(
- 		struct scaler_data *scl_data,
- 		const struct scaling_taps *in_taps)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c
+index 61bcfa03c4e7..1aeb04fbd89d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_hwseq.c
+@@ -541,8 +541,6 @@ void dcn201_pipe_control_lock(
+ 	bool lock)
  {
--	uint32_t pixel_width;
--
--	if (scl_data->viewport.width > scl_data->recout.width)
--		pixel_width = scl_data->recout.width;
--	else
--		pixel_width = scl_data->viewport.width;
- 
- 	if (scl_data->viewport.width  != scl_data->h_active &&
- 		scl_data->viewport.height != scl_data->v_active &&
+ 	struct dce_hwseq *hws = dc->hwseq;
+-	struct hubp *hubp = NULL;
+-	hubp = dc->res_pool->hubps[pipe->pipe_idx];
+ 	/* use TG master update lock to lock everything on the TG
+ 	 * therefore only top pipe need to lock
+ 	 */
 -- 
 2.40.0
 
