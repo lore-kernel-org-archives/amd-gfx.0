@@ -4,59 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42F2EC76195
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 18:42:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DA9CC76195
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 18:43:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF39010E37E;
-	Mon, 27 Mar 2023 18:42:08 +0000 (UTC)
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
- [IPv6:2001:4860:4864:20::2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BCCE10E37E
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 18:42:07 +0000 (UTC)
-Received: by mail-oa1-x2a.google.com with SMTP id
- 586e51a60fabf-17aceccdcf6so10271901fac.9
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 11:42:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1679942526;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=pLqRL+GduVToT0LH5XcyIJMVhrCIJDoubeUUYSb9eKQ=;
- b=owihmBIKEBIFIzDSYRzcfeOaGM3bQEbpDLj7Xq9QzOSUJ5XTpWNOPp0Q2uWuY2diVc
- mrwTvQtjMAW9G4slwDnj75YzP1JycdTQxAybDogDCU82sWsRlYA0mGxRdt3CaPsshNXn
- Pql0r6c6f4PUJSPDq8ZTw4goPfpjoYNXtfFyetp+RE0VkNt3X7s2/SyNnGxlUoEMIsxX
- LJg2U/undCAhzbXbWeqCA2T+a7OSBhuNljjyVJLO8RR3IW3pY2Rp7S85S2q1kLPGpb1B
- Bviu02t8JdCc8AzEApiFQ61bAyIrIp1nJI0At75Bqv21jT3AbAJC1kWVIcuwE0P7Wmfo
- dmXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679942526;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=pLqRL+GduVToT0LH5XcyIJMVhrCIJDoubeUUYSb9eKQ=;
- b=Rf8jytgLvZtamfv+XY11LC+1SEOYVb2uH3ILrYlTTWjmkK2lqo+102d8lqcJ522wz2
- RC1i/WfBTFPTWhP5oTN3biW6ycj/f+l5AVu5TUZYU8XizRHHQ2gQok/M8j+lIiA0a1Xx
- HNMKN5/nZgYMZ9eN/R9vEMjkTBBugbxkodM0Uu7snt2Ly+CNWFjPdobm4kfj/cXH2zcT
- nxLvvwwlu+rP1dGhjCE0St6YAR4eIThSFEqSaNlsBPxao6Fj1hnml3BA3hPdkcbbf97k
- UNhVoJonmdD/V1xUx9oHLou64Og8nidhCZpghK+McrL0nk7+vL3v4IyeLYaUvTHVSD0Q
- jRrw==
-X-Gm-Message-State: AAQBX9ew0jrCcFQoDXK+ZOsHBqzVBiLcpOwhxe/eNwqZkvEWwnfFR+0w
- s/tOd92aKvZzpUfv2WcP7qhHSCresvzkCUgIb6IvFSud
-X-Google-Smtp-Source: AK7set+htAGoikSL5vOA23t7AWRni04xTRUdr7jSrMKv15sH2wIQNJacKQyrOjBYYadexYzcqb/8el/RhlAHm1wqht4=
-X-Received: by 2002:a05:6870:f816:b0:177:aa31:79d6 with SMTP id
- fr22-20020a056870f81600b00177aa3179d6mr7148008oab.4.1679942526624; Mon, 27
- Mar 2023 11:42:06 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E011410E385;
+	Mon, 27 Mar 2023 18:43:54 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2074.outbound.protection.outlook.com [40.107.223.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84D9A10E6B2;
+ Mon, 27 Mar 2023 18:43:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ITuiTdso+VLx/y48R8mWHdbnqRyJRGBtJRv07GRUdvd1eSQAgqEfbMI73Y/LRnSuYO0TuNqq1w78vldg+wEeAm8nrRGRMXHGFFj4n32RnDHSYf996ECaIUHHmjmfK1+rQKZOrRODLMuelLGhQVI+1sVrTgooUo5vqYQze+N5Cj4t9Du2BQFF051t6EvU/2r+TjeBxNqUY4BvQF4OG0WpLNOC9Ghu90eKSIaPKeGH8fsmW+fWtQgc7p82Tm5625nfXx3wAVg+lXYcHAJQC3noor9DG8JRdrFlL1Lqfkev61oGTgL2v+JIYkYSIDB1S0S6YCYeTHYJwfItEcKuGa2EDw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TibBQ8VcHzNAm0R5GQlm7S/xSBM20zKjavGHvULlAbo=;
+ b=OfTSfGNqcnrvpq/DgWbtn/qJcVgQJjHFel7yqrkyiuLqxyXfmV7rFoGpWfYmzlopS4W1sbentmmN+ipfVsY+u8McFI3gxUytVWscWESZ4LoO3dLvMadDOouf9TjF9UCtIPIY3nbwC6dqHmxD3SAcvs7EDuEjNINPuVEvapp+AqTCwW7mRnSW2DXrQPJb0BmarSFjzwoWQNqOTClhyQMJFjzNQW5tlNmHXIor1w+QalBNUmSsBvlzWl3q9i/c8R4N++CXGTdGpXpFphf2zDIcno/RjSVMEWget5FtzKMdt67TwKQt3zIcCMCRZlL3lTKS/Fo/7u7mtSht5r21a9hV6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TibBQ8VcHzNAm0R5GQlm7S/xSBM20zKjavGHvULlAbo=;
+ b=2pnwwb25TQllJkfjRGa/fz7RQdP0uVdM0VlFtT1hfIP9gSJPiTEuo5471tFQ5r/YfCf8pT8FYOk3q6lJeiYRyhEGSLuNa+gju5g1qjeCuJspMLN+eW/RcjnRNxyUBybOc0QjoyvN5AjbSxcJF5L8ci7coMscg0yKUudyZ3LcKJ0=
+Received: from CY8PR02CA0005.namprd02.prod.outlook.com (2603:10b6:930:4d::9)
+ by DM4PR12MB7671.namprd12.prod.outlook.com (2603:10b6:8:104::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.41; Mon, 27 Mar
+ 2023 18:43:51 +0000
+Received: from CY4PEPF0000C97D.namprd02.prod.outlook.com
+ (2603:10b6:930:4d:cafe::56) by CY8PR02CA0005.outlook.office365.com
+ (2603:10b6:930:4d::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.41 via Frontend
+ Transport; Mon, 27 Mar 2023 18:43:51 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000C97D.mail.protection.outlook.com (10.167.241.136) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6178.30 via Frontend Transport; Mon, 27 Mar 2023 18:43:51 +0000
+Received: from jonathan-KFD.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 27 Mar
+ 2023 13:43:49 -0500
+From: Jonathan Kim <jonathan.kim@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+Subject: [PATCH 04/34] drm/amdgpu: add kgd hw debug mode setting interface
+Date: Mon, 27 Mar 2023 14:43:09 -0400
+Message-ID: <20230327184339.125016-4-jonathan.kim@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230327184339.125016-1-jonathan.kim@amd.com>
+References: <20230327184339.125016-1-jonathan.kim@amd.com>
 MIME-Version: 1.0
-References: <20230327181040.1972784-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20230327181040.1972784-1-srinivasan.shanmugam@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 27 Mar 2023 14:41:55 -0400
-Message-ID: <CADnq5_PkQyPDk7xTEOTs7anXKZz+GKBkBn8N8hLukrPVuFLkTg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/amdgpu: Remove initialisation of globals to 0 or
- NULL
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000C97D:EE_|DM4PR12MB7671:EE_
+X-MS-Office365-Filtering-Correlation-Id: 27b64322-e449-497d-d250-08db2ef33581
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: +lsCrSdNMLdwFPuYytVqkexdKN/9MrQVCAAxAnXMu4tK8gTfOPP/NWDeeIM87hkBJdLR4EyY8SnY8n7vKQ3b0oDoz+IpkxwMYvOI7CnoJjhxMmkpoNfH7bfZg8+23hOdW3amLvZaKuCvqXCYQaeVJRdhLVKZj29GVq6jQI8UYeAA3Sq3wku7YB1fq0hmyIycEDxqLQsAEkRDVtALN+k16qCzdh0FDig6Svaf4JXY/m6/Vk/nkBXlTU1DoIjBsiTjyLhbjXyplRWDeLYiKc0oF+Po6eEXio8wtxqD3eXZLnc42NsJb8F8m9jQbCcpgjuC01jFhAPUWkfFJhDbgc2Yql4PEpwmuJgNvONB2XCbpOwNLa0nr62tyC0pp0jAo9+Sx2Gvao3gNyRJN2y6XW7u5Rdwz0kRMAEyq0LlABxDhg1xQjWqeaCeBqUxyc9A/SSO57TXHhRiET9nywvab7uvy39cWlMR59MBK5i2iMfUd+PdynCyJPrtfAp5VRt0Z036qKpUfyKiqUQN0w5JcXxBxTRqjX8eWn7+hJ7GyzWJo5u7c/va3TGXioC4WWHjtmkD7WAvkXyXwxU30NbfXnQdpZ85Xb2JdR4E9pRgp0NmAgWQ2YMKOIO6MKWEksYHg/fKcIEW4cpWQfO/XYsHvDzi83q+pzzzDgKJxvIg5cmgJOfsP8QSbyYBih1mfxM4vY2nOXnIF8UYhGI0T0lDdDH275rOfBC4XpTqPFiNSBzXFFs=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(39860400002)(346002)(136003)(376002)(451199021)(40470700004)(46966006)(36840700001)(26005)(40460700003)(8676002)(4326008)(110136005)(316002)(70586007)(70206006)(36860700001)(5660300002)(41300700001)(450100002)(8936002)(54906003)(186003)(16526019)(81166007)(82740400003)(47076005)(7696005)(2616005)(426003)(1076003)(336012)(83380400001)(6666004)(478600001)(40480700001)(44832011)(86362001)(356005)(2906002)(82310400005)(36756003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 18:43:51.1594 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 27b64322-e449-497d-d250-08db2ef33581
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C97D.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7671
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,54 +99,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Hamza Mahfooz <Hamza.Mahfooz@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, Mario Limonciello <mario.limonciello@amd.com>
+Cc: Felix.Kuehling@amd.com, Jonathan.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 27, 2023 at 2:11=E2=80=AFPM Srinivasan Shanmugam
-<srinivasan.shanmugam@amd.com> wrote:
->
-> Global variables do not need to be initialized to 0 or NULL and checkpatc=
-h
-> flags this error in drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:
->
-> ERROR: do not initialise globals to NULL
-> +char *amdgpu_disable_cu =3D NULL;
-> +char *amdgpu_virtual_display =3D NULL;
->
-> Fix this checkpatch error.
->
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Mario Limonciello <mario.limonciello@amd.com>
-> Cc: Hamza Mahfooz <Hamza.Mahfooz@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Introduce the require KGD debug calls that will execute hardware debug
+mode setting.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+---
+ .../gpu/drm/amd/include/kgd_kfd_interface.h   | 34 +++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index 917926c8dc5f5..ece8033dbad29 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -149,8 +149,8 @@ uint amdgpu_pcie_lane_cap;
->  u64 amdgpu_cg_mask =3D 0xffffffffffffffff;
->  uint amdgpu_pg_mask =3D 0xffffffff;
->  uint amdgpu_sdma_phase_quantum =3D 32;
-> -char *amdgpu_disable_cu =3D NULL;
-> -char *amdgpu_virtual_display =3D NULL;
-> +char *amdgpu_disable_cu;
-> +char *amdgpu_virtual_display;
->
->  /*
->   * OverDrive(bit 14) disabled by default
-> --
-> 2.25.1
->
+diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+index 5cb3e8634739..15e7a5c920a0 100644
+--- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+@@ -289,6 +289,40 @@ struct kfd2kgd_calls {
+ 			uint32_t vmid, uint64_t page_table_base);
+ 	uint32_t (*read_vmid_from_vmfault_reg)(struct amdgpu_device *adev);
+ 
++	uint32_t (*enable_debug_trap)(struct amdgpu_device *adev,
++					bool restore_dbg_registers,
++					uint32_t vmid);
++	uint32_t (*disable_debug_trap)(struct amdgpu_device *adev,
++					bool keep_trap_enabled,
++					uint32_t vmid);
++	int (*validate_trap_override_request)(struct amdgpu_device *adev,
++					uint32_t trap_override,
++					uint32_t *trap_mask_supported);
++	uint32_t (*set_wave_launch_trap_override)(struct amdgpu_device *adev,
++					     uint32_t vmid,
++					     uint32_t trap_override,
++					     uint32_t trap_mask_bits,
++					     uint32_t trap_mask_request,
++					     uint32_t *trap_mask_prev,
++					     uint32_t kfd_dbg_trap_cntl_prev);
++	uint32_t (*set_wave_launch_mode)(struct amdgpu_device *adev,
++					uint8_t wave_launch_mode,
++					uint32_t vmid);
++	uint32_t (*set_address_watch)(struct amdgpu_device *adev,
++					uint64_t watch_address,
++					uint32_t watch_address_mask,
++					uint32_t watch_id,
++					uint32_t watch_mode,
++					uint32_t debug_vmid);
++	uint32_t (*clear_address_watch)(struct amdgpu_device *adev,
++			uint32_t watch_id);
++	void (*get_iq_wait_times)(struct amdgpu_device *adev,
++			uint32_t *wait_times);
++	void (*build_grace_period_packet_info)(struct amdgpu_device *adev,
++			uint32_t wait_times,
++			uint32_t grace_period,
++			uint32_t *reg_offset,
++			uint32_t *reg_data);
+ 	void (*get_cu_occupancy)(struct amdgpu_device *adev, int pasid,
+ 			int *wave_cnt, int *max_waves_per_cu);
+ 	void (*program_trap_handler_settings)(struct amdgpu_device *adev,
+-- 
+2.25.1
+
