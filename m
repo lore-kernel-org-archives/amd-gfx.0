@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B754C76195
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF79FC6FD1D
 	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 19:36:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1714B10E72C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A7EA10E72D;
 	Mon, 27 Mar 2023 19:36:57 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2042.outbound.protection.outlook.com [40.107.244.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8BC310E71F
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2057.outbound.protection.outlook.com [40.107.100.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E16C510E728
  for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 19:36:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q8Up5aVBBOiSy1olQra9I5MY6n2Tr2Mx9iP91F16cQVcnkQMpAOoykI4OMat7x2BQEMeCBHE03u5sOnyNNUpir2bCRqvg1VGBiy7ToKuT3dBIgKuYXr7vPBwFK7Yq4B6iEQG2Hz5gJkPIncsoPJj9Odv/dGzddL1VMGUA28ZUknHc4KSKErFGNC4kppzTAf69smsbzI0mUWUAGf0BgOyjObCBF/kJLiE3YplqBVQITuj9kPbAqfeBaLPjSrrOCIkYD2sy8aVIsjrVIdr6Zr+aohPSYAbV6i/X1KXWm328WiiInMiAWZDtRFoTBBI3W8N+h27SoPc5IVLEmNd9CP+pg==
+ b=mH4J2G3qnCG0sVOq48w497K3819KhJXtcegttQyrz7l5EUyFAUlvz2NM3PfWjQAgEi6Utu6deO5VpYn3pNBIcVMFnX2852QtmyNjouaEIKXOOMNa1cvWzVvIPvEn/C4u9HE3U6OSp/GJRXas1d5beUyywxh+JnRPwM3UD8ALIyBZIFmyvqnzlDSLalrnK1oS75z5LErGCCvFABZd7FSJsCGt/+4CJSwRLJa/Ez4Zwp4l3U6+RmJ7ZnrPEK54OhTsIJigiYIuNXgktBN+dkUMMAuCu7NyK7QeibMN38XqEsjcnGXFHQEg8Dzr8aSM/+Y9xFnQyn7uqjlvmhpkJefW8w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mqUrLjESEk64FP3m8NMwcR0r9K88/OvrcF/RkCgR4Ps=;
- b=mP2XcFYJgGonn9zw6tyAWgdTEzLXMeFa8aTpyGFtSSkQp/LPG31BHKhBsdlMos1CoCPN32Mv3kjuEe4L3QD+TsOA3uy8JrHnagg7pFkrhXIVigLwisQlYnwZ4t/7H1kt1UHbzX4VY2sBFE8QPEJAYMwrG51Xh40mP5Ef5jAzdyTNEhwdxVpx1ynOlNxMnsFrWGY1a43SjYzG4gaFvnTLQfz3l4okwB3gXtzf3E7Y+wfcg1ta2AVTqZS3ye19PUlp6O2KSzsTLwQr1pB9qgdwABvLVRsNpobQB2/PCQRRmac0Ga3luEpE72NNj246P5wI6i+4K6FFD+IAeNjK7/Kwrw==
+ bh=CjMGED0XSsN+TrkhJqXmrOy5ELxL3ZpK+PuW9bn4mRk=;
+ b=aUl2XogUN9E9VEmZZxX4MsqMaGooCjr2mpaG3H2Xxr8Sghk786ufCrc2SfQAkhwfVEfyx19nvjRy18lHeq6rdt2/KQKEpMm41AW8mzSicgyqyp3aGP9U9PygLcfRAysnq08u0ICf121pEip9Um0DnmHbJe6SfS+sJL2EXMuVDn6TiCK8xUmXir9OY/g3ygVRUmjP5xuXHxHyfFUfdWbmKC51Az8P3hWwiT2TbYwJoQ6c0QeKgPXkAJi/EB9PDbR+eoawWuw9vnwBXfqoCETLkUmMHN0xy6oVKhUoboxU6hqkioON7inRqu44xlmSNrFXVYHN3v9jbqKIxMQJooyNpw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mqUrLjESEk64FP3m8NMwcR0r9K88/OvrcF/RkCgR4Ps=;
- b=JV/sCQqSoenYEPVQnt3gHemMjHneZJ2lDrPSYlA+9cTqK/lfsHKdRWQJf+Ly5Lc4fl7hCqyLzQFVpk8iYoS2oUaDUOLol4jmQWA/Qpc4whQLyWvJZSkg5v6P5Ufz6g3VTVJfyYWsi7SyyVKMeINOB21VJYRJHhK0un1QhZJL2FI=
-Received: from BL1PR13CA0386.namprd13.prod.outlook.com (2603:10b6:208:2c0::31)
- by BL1PR12MB5921.namprd12.prod.outlook.com (2603:10b6:208:398::5)
+ bh=CjMGED0XSsN+TrkhJqXmrOy5ELxL3ZpK+PuW9bn4mRk=;
+ b=stzvvxxL6nHLeZGN1YgJzphhjrhNoq7H+JEKEYcWb/VqKPdysgrHNET9ZPMFFGiSbfw6+NXnUDiRQXtjUgeslAHI2PimQyjdPOuYbuBycMkv6q6qYKog8IRKf7nJsB6uC3eK0WP1pa2CBmgsKlm3j+l5O65tbuUuABd9+uaLbUg=
+Received: from BL1PR13CA0362.namprd13.prod.outlook.com (2603:10b6:208:2c0::7)
+ by CH2PR12MB4279.namprd12.prod.outlook.com (2603:10b6:610:af::24)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.41; Mon, 27 Mar
- 2023 19:36:37 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.28; Mon, 27 Mar
+ 2023 19:36:36 +0000
 Received: from BL02EPF000100D2.namprd05.prod.outlook.com
- (2603:10b6:208:2c0:cafe::9d) by BL1PR13CA0386.outlook.office365.com
- (2603:10b6:208:2c0::31) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:208:2c0:cafe::2a) by BL1PR13CA0362.outlook.office365.com
+ (2603:10b6:208:2c0::7) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.16 via Frontend
  Transport; Mon, 27 Mar 2023 19:36:36 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
@@ -51,13 +51,12 @@ Received: from SATLEXMB04.amd.com (165.204.84.17) by
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 27 Mar
- 2023 14:36:35 -0500
+ 2023 14:36:34 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 24/28] drm/amdgpu: override partition mode through module
- parameter
-Date: Mon, 27 Mar 2023 15:35:58 -0400
-Message-ID: <20230327193602.7901-24-alexander.deucher@amd.com>
+Subject: [PATCH 22/28] drm/amdgpu: add sysfs node for compute partition mode
+Date: Mon, 27 Mar 2023 15:35:56 -0400
+Message-ID: <20230327193602.7901-22-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230327193602.7901-1-alexander.deucher@amd.com>
 References: <20230327193602.7901-1-alexander.deucher@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF000100D2:EE_|BL1PR12MB5921:EE_
-X-MS-Office365-Filtering-Correlation-Id: f37fd5c3-936b-40cd-8b1e-08db2efa9467
+X-MS-TrafficTypeDiagnostic: BL02EPF000100D2:EE_|CH2PR12MB4279:EE_
+X-MS-Office365-Filtering-Correlation-Id: b3aa9b8d-144e-4118-a52b-08db2efa93df
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FYM+YHMR0gKe8MiegrCsh/A8sUgxcZj6IxkbAcKY+5tTlH7zd9sDVaBQxN13JSl/zx1fi1209MgEb0kQn6sbOXzB6xyRlGNAEW5TKzXuZOyQj9OTbtftiWOLpcfSIrvP2zkWfm6ZaM2rgMa36H9+FB+MbbSZDcOjY0DauX1KCgihQN45tI4hbp4FshXExxDv1BoI0nPtLi9AEFx0+Z8llSovHSbiH+rTeM651hJMHd3rg2Gyiw3GLrUv00bHWq7/hYLEVoaOgCIvHn/+S5YZwfowd8clXklevT+btDnSLs5VZdP0+fqL5Bc62+gBMiG/08sQV7Ic/uqN7xojSpRooaDy+uMUk3F2YosLr+1YE2HMF5s5/gDIoMDgxSD7VygsDlP1sQKz5zQLXdfA0a9DfWoklxCJQvTDYy4L03igSPXhWZCkTxtNrLCi/0QkCQskWEEwGU99uvv6cQx0ycXU1vld4N0JorMQOBeNPrQD+P2ODuvD406P2oNfyBtr09BEb3/jugIN7OZaNpMBJkeW7g36Fmudyh6LdOwZ6hud6N9EBdFAhfJeCl/d4xeeUFvZbCvwGA2QyCVCdYeEBo+j/l0WGlUoJUFo2552luz4WSGVsMHkkimXqF0SkmZpIncJtsyo/DX38EHjq44Wbtw8r1Jk1u3aSwaIOCiVTV0L1EVY+SRmY3aIMJsNqnOiK9PQhkyyC0duPhU7rZSJp5TbuBIX9Ow6Pi5NOr7ZN6fyOjA=
+X-Microsoft-Antispam-Message-Info: qX9LwRlvsGDaGakhoO8GmnjS6FeXY0cRin44YfT9ASOoPyD3U/vNyT16fWeBSzfKemBAagEYEmYr/B9QN51NdTrLjTWxuH1zHra+VeJwLeixhEM7pYmN+TqEeqimD3uiJ7UeO8TtPdYen2nGsZQl4IcwuqZbnBeBWgfaotvXCQoIb+QaM+SmZ+EnvI8K96mGwTOeURygjAyEF6eaQhtAZQzbfBoElugTmCXl56Bd6le650DDy72EjMRawJQtdg0JZUG2uD4JV3mS2SmQly2ffhaem3GTl5S18aGX7mGx9h8e5S0JvQqYbvANdkJTSOhHnLhYPhg9Cq0+IWMw+o5vVzPgn4PkWNho/dUEwgA1h+QIkd/qnitA9dcZyvr5X0d3UxDh0dHxF6TOD0T9HRM727enDx2YrZk57dWMk6ZDczx6OgrfsvGuN37b9I4ON4B4dggsSqsRlq8eGe2MwcCkrDnEDKSTQSHAcdhOUpGHhDWm7IAwf13hSFO4PUcAK33ZLPdkuTnkaeEKt7SxciMyNxE37AYF+fUOt0qtEBW1yT39k8by6HQzzg8MdaBGUC54hnci5FRXnmvB8YfnsI0xUQKZXmddWdnExhVYC7ZI2+tomU1cV27pJ1HiYPfJfRcurGxNRT5KS7F1iXSJQL5/rlDD9Bv1naT3graHoDmiofoyJ7FF2hG0mZDIQqpHmrUHBJH8uVKIZg0QGvygWCHBA+u2u9aO+bcB2v8KrJdi3GQ=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(346002)(396003)(39860400002)(136003)(451199021)(40470700004)(46966006)(36840700001)(7696005)(40460700003)(47076005)(82310400005)(16526019)(186003)(26005)(1076003)(36756003)(83380400001)(6666004)(86362001)(40480700001)(54906003)(41300700001)(2906002)(426003)(8936002)(336012)(36860700001)(316002)(81166007)(82740400003)(8676002)(5660300002)(6916009)(70586007)(2616005)(4326008)(70206006)(478600001)(356005)(36900700001);
+ SFS:(13230028)(4636009)(396003)(39860400002)(376002)(346002)(136003)(451199021)(36840700001)(46966006)(40470700004)(336012)(426003)(16526019)(186003)(36756003)(82310400005)(26005)(1076003)(83380400001)(2616005)(40460700003)(8936002)(81166007)(8676002)(5660300002)(41300700001)(6916009)(70586007)(4326008)(70206006)(316002)(478600001)(356005)(82740400003)(54906003)(47076005)(40480700001)(30864003)(7696005)(2906002)(36860700001)(6666004)(86362001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 19:36:36.9103 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f37fd5c3-936b-40cd-8b1e-08db2efa9467
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 19:36:36.0197 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3aa9b8d-144e-4118-a52b-08db2efa93df
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL02EPF000100D2.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5921
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4279
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,104 +99,364 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Le Ma <Le.Ma@amd.com>,
- Shiwu Zhang <shiwu.zhang@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Le Ma <le.ma@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Shiwu Zhang <shiwu.zhang@amd.com>
+From: Le Ma <le.ma@amd.com>
 
-Add a module parameter to override the partition mode.
+Add current/available compute partitin mode sysfs node.
 
-Signed-off-by: Shiwu Zhang <shiwu.zhang@amd.com>
-Reviewed-by: Le Ma <Le.Ma@amd.com>
+v2: make the sysfs node as IP independent one in amdgpu_gfx.c
+
+Signed-off-by: Le Ma <le.ma@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 13 +++++++++++++
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 25 +++++++++++++++++++++++--
- 3 files changed, 38 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 132 +++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h    |   6 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h   |   3 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c    |  67 +++++++++++
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c     |  32 +++++
+ 6 files changed, 241 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 81b437fa7b9c..bdc1190601d4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -244,6 +244,8 @@ extern int amdgpu_num_kcq;
- extern int amdgpu_vcnfw_log;
- extern int amdgpu_sg_display;
- 
-+extern uint amdgpu_user_partt_mode;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 065f5396d0ce..12dd2aa85b39 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3630,6 +3630,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 	mutex_init(&adev->srbm_mutex);
+ 	mutex_init(&adev->gfx.pipe_reserve_mutex);
+ 	mutex_init(&adev->gfx.gfx_off_mutex);
++	mutex_init(&adev->gfx.partition_mutex);
+ 	mutex_init(&adev->grbm_idx_mutex);
+ 	mutex_init(&adev->mn_lock);
+ 	mutex_init(&adev->virt.vf_errors.lock);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 5e1e8e043a69..14ea9bbc3715 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -1096,3 +1096,135 @@ bool amdgpu_gfx_is_master_xcc(struct amdgpu_device *adev, int xcc_id)
+ 	return !(xcc_id % (adev->gfx.num_xcc_per_xcp ?
+ 			adev->gfx.num_xcc_per_xcp : 1));
+ }
 +
- #define AMDGPU_VM_MAX_NUM_CTX			4096
- #define AMDGPU_SG_THRESHOLD			(256*1024*1024)
- #define AMDGPU_DEFAULT_GTT_SIZE_MB		3072ULL /* 3GB by default */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 917926c8dc5f..13bcd8e955ac 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -193,6 +193,7 @@ int amdgpu_smartshift_bias;
- int amdgpu_use_xgmi_p2p = 1;
- int amdgpu_vcnfw_log;
- int amdgpu_sg_display = -1; /* auto */
-+uint amdgpu_user_partt_mode = 0;
- 
- static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work);
- 
-@@ -957,6 +958,18 @@ MODULE_PARM_DESC(smu_pptable_id,
- 	"specify pptable id to be used (-1 = auto(default) value, 0 = use pptable from vbios, > 0 = soft pptable id)");
- module_param_named(smu_pptable_id, amdgpu_smu_pptable_id, int, 0444);
- 
-+/**
-+ * DOC: partition_mode (int)
-+ * Used to override the default SPX mode.
-+ */
-+MODULE_PARM_DESC(user_partt_mode,
-+	"specify partition mode to be used (0 = AMDGPU_SPX_PARTITION_MODE(default value), \
-+						1 = AMDGPU_DPX_PARTITION_MODE, \
-+						2 = AMDGPU_TPX_PARTITION_MODE, \
-+						3 = AMDGPU_QPX_PARTITION_MODE, \
-+						4 = AMDGPU_CPX_PARTITION_MODE)");
-+module_param_named(user_partt_mode, amdgpu_user_partt_mode, uint, 0444);
++static ssize_t amdgpu_gfx_get_current_compute_partition(struct device *dev,
++						struct device_attribute *addr,
++						char *buf)
++{
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++	enum amdgpu_gfx_partition mode;
++	char *partition_mode;
 +
- /* These devices are not supported by amdgpu.
-  * They are supported by the mach64, r128, radeon drivers
-  */
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index 9a9e52e1c4fd..048e21d202d4 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -2168,8 +2168,29 @@ static int gfx_v9_4_3_early_init(void *handle)
- 
- 	/* hardcode in emulation phase */
- 	adev->gfx.num_xcd = 1;
--	adev->gfx.num_xcc_per_xcp = 1;
--	adev->gfx.partition_mode = AMDGPU_SPX_PARTITION_MODE;
++	mode = adev->gfx.funcs->query_partition_mode(adev);
 +
-+	adev->gfx.partition_mode = amdgpu_user_partt_mode;
-+	/* calculate the num_xcc_in_xcp for the partition mode*/
-+	switch (amdgpu_user_partt_mode) {
++	switch (mode) {
 +	case AMDGPU_SPX_PARTITION_MODE:
-+		adev->gfx.num_xcc_per_xcp = adev->gfx.num_xcd;
++		partition_mode = "SPX";
 +		break;
 +	case AMDGPU_DPX_PARTITION_MODE:
-+		adev->gfx.num_xcc_per_xcp = adev->gfx.num_xcd / 2;
++		partition_mode = "DPX";
 +		break;
 +	case AMDGPU_TPX_PARTITION_MODE:
-+		adev->gfx.num_xcc_per_xcp = adev->gfx.num_xcd / 3;
++		partition_mode = "TPX";
 +		break;
 +	case AMDGPU_QPX_PARTITION_MODE:
-+		adev->gfx.num_xcc_per_xcp = adev->gfx.num_xcd / 4;
++		partition_mode = "QPX";
 +		break;
 +	case AMDGPU_CPX_PARTITION_MODE:
-+		adev->gfx.num_xcc_per_xcp = 1;
++		partition_mode = "CPX";
 +		break;
 +	default:
-+		adev->gfx.num_xcc_per_xcp = adev->gfx.num_xcd;
++		partition_mode = "UNKNOWN";
 +		break;
 +	}
++
++	return sysfs_emit(buf, "%s\n", partition_mode);
++}
++
++static ssize_t amdgpu_gfx_set_compute_partition(struct device *dev,
++						struct device_attribute *addr,
++						const char *buf, size_t count)
++{
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++	enum amdgpu_gfx_partition mode;
++	int ret;
++
++	if (adev->gfx.num_xcd % 2 != 0)
++		return -EINVAL;
++
++	if (!strncasecmp("SPX", buf, strlen("SPX"))) {
++		mode = AMDGPU_SPX_PARTITION_MODE;
++	} else if (!strncasecmp("DPX", buf, strlen("DPX"))) {
++		if (adev->gfx.num_xcd != 4 || adev->gfx.num_xcd != 8)
++			return -EINVAL;
++		mode = AMDGPU_DPX_PARTITION_MODE;
++	} else if (!strncasecmp("TPX", buf, strlen("TPX"))) {
++		if (adev->gfx.num_xcd != 6)
++			return -EINVAL;
++		mode = AMDGPU_TPX_PARTITION_MODE;
++	} else if (!strncasecmp("QPX", buf, strlen("QPX"))) {
++		if (adev->gfx.num_xcd != 8)
++			return -EINVAL;
++		mode = AMDGPU_QPX_PARTITION_MODE;
++	} else if (!strncasecmp("CPX", buf, strlen("CPX"))) {
++		mode = AMDGPU_CPX_PARTITION_MODE;
++	} else {
++		return -EINVAL;
++	}
++
++	mutex_lock(&adev->gfx.partition_mutex);
++
++	ret = adev->gfx.funcs->switch_partition_mode(adev, mode);
++
++	mutex_unlock(&adev->gfx.partition_mutex);
++
++	if (ret)
++		return ret;
++
++	return count;
++}
++
++static ssize_t amdgpu_gfx_get_available_compute_partition(struct device *dev,
++						struct device_attribute *addr,
++						char *buf)
++{
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++	char *supported_partition;
++
++	/* TBD */
++	switch (adev->gfx.num_xcd) {
++	case 8:
++		supported_partition = "SPX, DPX, QPX, CPX";
++		break;
++	case 6:
++		supported_partition = "SPX, TPX, CPX";
++		break;
++	case 4:
++		supported_partition = "SPX, DPX, CPX";
++		break;
++	/* this seems only existing in emulation phase */
++	case 2:
++		supported_partition = "SPX, CPX";
++		break;
++	default:
++		supported_partition = "Not supported";
++		break;
++	}
++
++	return sysfs_emit(buf, "%s\n", supported_partition);
++}
++
++static DEVICE_ATTR(current_compute_partition, S_IRUGO | S_IWUSR,
++		   amdgpu_gfx_get_current_compute_partition,
++		   amdgpu_gfx_set_compute_partition);
++
++static DEVICE_ATTR(available_compute_partition, S_IRUGO,
++		   amdgpu_gfx_get_available_compute_partition, NULL);
++
++int amdgpu_gfx_sysfs_init(struct amdgpu_device *adev)
++{
++	int r;
++
++	r = device_create_file(adev->dev, &dev_attr_current_compute_partition);
++	if (r)
++		return r;
++
++	r = device_create_file(adev->dev, &dev_attr_available_compute_partition);
++	if (r)
++		return r;
++
++	return 0;
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index 4c5881a24f6f..0cf3591c13b2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -250,6 +250,10 @@ struct amdgpu_gfx_funcs {
+ 				 u32 queue, u32 vmid);
+ 	void (*init_spm_golden)(struct amdgpu_device *adev);
+ 	void (*update_perfmon_mgcg)(struct amdgpu_device *adev, bool enable);
++	enum amdgpu_gfx_partition
++			(*query_partition_mode)(struct amdgpu_device *adev);
++	int (*switch_partition_mode)(struct amdgpu_device *adev,
++				     enum amdgpu_gfx_partition mode);
+ };
  
- 	adev->gfx.num_compute_rings = min(amdgpu_gfx_get_num_kcq(adev),
- 					  AMDGPU_MAX_COMPUTE_RINGS);
+ struct sq_work {
+@@ -383,6 +387,7 @@ struct amdgpu_gfx {
+ 	enum amdgpu_gfx_partition	partition_mode;
+ 	uint32_t			num_xcd;
+ 	uint32_t			num_xcc_per_xcp;
++	struct mutex			partition_mutex;
+ };
+ 
+ #define amdgpu_gfx_get_gpu_clock_counter(adev) (adev)->gfx.funcs->get_gpu_clock_counter((adev))
+@@ -464,4 +469,5 @@ int amdgpu_gfx_poison_consumption_handler(struct amdgpu_device *adev,
+ 						struct amdgpu_iv_entry *entry);
+ 
+ bool amdgpu_gfx_is_master_xcc(struct amdgpu_device *adev, int xcc_id);
++int amdgpu_gfx_sysfs_init(struct amdgpu_device *adev);
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
+index c686ff4bcc39..6a636c34b717 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
+@@ -95,6 +95,9 @@ struct amdgpu_nbio_funcs {
+ 	void (*apply_l1_link_width_reconfig_wa)(struct amdgpu_device *adev);
+ 	void (*clear_doorbell_interrupt)(struct amdgpu_device *adev);
+ 	u32 (*get_rom_offset)(struct amdgpu_device *adev);
++	u32 (*get_compute_partition_mode)(struct amdgpu_device *adev);
++	void (*set_compute_partition_mode)(struct amdgpu_device *adev,
++					   enum amdgpu_gfx_partition mode);
+ };
+ 
+ struct amdgpu_nbio {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+index bd3a049b20c3..9a9e52e1c4fd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -667,6 +667,67 @@ static void gfx_v9_4_3_select_me_pipe_q(struct amdgpu_device *adev,
+ 	soc15_grbm_select(adev, me, pipe, q, vm, 0);
+ }
+ 
++static enum amdgpu_gfx_partition
++gfx_v9_4_3_query_compute_partition(struct amdgpu_device *adev)
++{
++	enum amdgpu_gfx_partition mode = AMDGPU_UNKNOWN_COMPUTE_PARTITION_MODE;
++
++	if (adev->nbio.funcs->get_compute_partition_mode)
++		mode = adev->nbio.funcs->get_compute_partition_mode(adev);
++
++	return mode;
++}
++
++static int gfx_v9_4_3_switch_compute_partition(struct amdgpu_device *adev,
++						enum amdgpu_gfx_partition mode)
++{
++	u32 tmp = 0;
++	int num_xcc_per_partition, i;
++
++	if (mode == adev->gfx.partition_mode)
++		return mode;
++
++	switch (mode) {
++	case AMDGPU_SPX_PARTITION_MODE:
++		num_xcc_per_partition = adev->gfx.num_xcd;
++		break;
++	case AMDGPU_DPX_PARTITION_MODE:
++		num_xcc_per_partition = adev->gfx.num_xcd / 2;
++		break;
++	case AMDGPU_TPX_PARTITION_MODE:
++		num_xcc_per_partition = adev->gfx.num_xcd / 3;
++		break;
++	case AMDGPU_QPX_PARTITION_MODE:
++		num_xcc_per_partition = adev->gfx.num_xcd / 4;
++		break;
++	case AMDGPU_CPX_PARTITION_MODE:
++		num_xcc_per_partition = 1;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	/* TODO:
++	 * Stop user queues and threads, and make sure GPU is empty of work.
++	 */
++
++	for (i = 0; i < adev->gfx.num_xcd; i++) {
++		tmp = REG_SET_FIELD(tmp, CP_HYP_XCP_CTL, NUM_XCC_IN_XCP,
++				    num_xcc_per_partition);
++		tmp = REG_SET_FIELD(tmp, CP_HYP_XCP_CTL, VIRTUAL_XCC_ID,
++				    i % num_xcc_per_partition);
++		WREG32_SOC15(GC, i, regCP_HYP_XCP_CTL, tmp);
++	}
++
++	if (adev->nbio.funcs->set_compute_partition_mode)
++		adev->nbio.funcs->set_compute_partition_mode(adev, mode);
++
++	adev->gfx.num_xcc_per_xcp = num_xcc_per_partition;
++	adev->gfx.partition_mode = mode;
++
++	return 0;
++}
++
+ static const struct amdgpu_gfx_funcs gfx_v9_4_3_gfx_funcs = {
+         .get_gpu_clock_counter = &gfx_v9_4_3_get_gpu_clock_counter,
+         .select_se_sh = &gfx_v9_4_3_select_se_sh,
+@@ -674,6 +735,8 @@ static const struct amdgpu_gfx_funcs gfx_v9_4_3_gfx_funcs = {
+         .read_wave_sgprs = &gfx_v9_4_3_read_wave_sgprs,
+         .read_wave_vgprs = &gfx_v9_4_3_read_wave_vgprs,
+         .select_me_pipe_q = &gfx_v9_4_3_select_me_pipe_q,
++        .query_partition_mode = &gfx_v9_4_3_query_compute_partition,
++        .switch_partition_mode = &gfx_v9_4_3_switch_compute_partition,
+ };
+ 
+ static int gfx_v9_4_3_gpu_early_init(struct amdgpu_device *adev)
+@@ -863,6 +926,10 @@ static int gfx_v9_4_3_sw_init(void *handle)
+ 	if (r)
+ 		return r;
+ 
++	r = amdgpu_gfx_sysfs_init(adev);
++	if (r)
++		return r;
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
+index 24d12075ca3a..5f2270b1d7de 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
+@@ -347,6 +347,36 @@ static void nbio_v7_9_enable_doorbell_interrupt(struct amdgpu_device *adev,
+ 			      DOORBELL_INTERRUPT_DISABLE, enable ? 0 : 1);
+ }
+ 
++static enum amdgpu_gfx_partition nbio_v7_9_get_compute_partition_mode(struct amdgpu_device *adev)
++{
++	u32 tmp;
++
++	tmp = RREG32_SOC15(NBIO, 0, regBIF_BX_PF0_PARTITION_COMPUTE_CAP);
++
++	if (REG_GET_FIELD(tmp, BIF_BX_PF0_PARTITION_COMPUTE_CAP, SPX_SUPPORT))
++		return AMDGPU_SPX_PARTITION_MODE;
++	else if (REG_GET_FIELD(tmp, BIF_BX_PF0_PARTITION_COMPUTE_CAP, DPX_SUPPORT))
++		return AMDGPU_DPX_PARTITION_MODE;
++	else if (REG_GET_FIELD(tmp, BIF_BX_PF0_PARTITION_COMPUTE_CAP, TPX_SUPPORT))
++		return AMDGPU_TPX_PARTITION_MODE;
++	else if (REG_GET_FIELD(tmp, BIF_BX_PF0_PARTITION_COMPUTE_CAP, CPX_SUPPORT))
++		return AMDGPU_CPX_PARTITION_MODE;
++	else
++		return AMDGPU_UNKNOWN_COMPUTE_PARTITION_MODE;
++}
++
++static void nbio_v7_9_set_compute_partition_mode(struct amdgpu_device *adev,
++					enum amdgpu_gfx_partition mode)
++{
++	u32 tmp;
++
++	tmp = RREG32_SOC15(NBIO, 0, regBIF_BX_PF0_PARTITION_COMPUTE_CAP);
++	tmp &= ~0x1f;
++	tmp |= 1 << mode;
++
++	WREG32_SOC15(NBIO, 0, regBIF_BX_PF0_PARTITION_COMPUTE_CAP, tmp);
++}
++
+ const struct amdgpu_nbio_funcs nbio_v7_9_funcs = {
+ 	.get_hdp_flush_req_offset = nbio_v7_9_get_hdp_flush_req_offset,
+ 	.get_hdp_flush_done_offset = nbio_v7_9_get_hdp_flush_done_offset,
+@@ -366,4 +396,6 @@ const struct amdgpu_nbio_funcs nbio_v7_9_funcs = {
+ 	.get_clockgating_state = nbio_v7_9_get_clockgating_state,
+ 	.ih_control = nbio_v7_9_ih_control,
+ 	.remap_hdp_registers = nbio_v7_9_remap_hdp_registers,
++	.get_compute_partition_mode = nbio_v7_9_get_compute_partition_mode,
++	.set_compute_partition_mode = nbio_v7_9_set_compute_partition_mode,
+ };
 -- 
 2.39.2
 
