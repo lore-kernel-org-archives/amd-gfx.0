@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6604CC77B6E
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 19:36:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B754C76195
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 19:36:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B85C10E746;
-	Mon, 27 Mar 2023 19:36:50 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2051.outbound.protection.outlook.com [40.107.92.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2347210E71F
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 19:36:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1714B10E72C;
+	Mon, 27 Mar 2023 19:36:57 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2042.outbound.protection.outlook.com [40.107.244.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8BC310E71F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 19:36:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=V3D9PP8fqtcxNf+9Tf2oOghRTXmU/52dx/W+5ysZ3c/BH+2uLgQNHfh2sa5UDr76jDloU/VkM5lGp7OzzssFUnoGooiEABaLJmXL59EKRg3+qBIq/bp+00ewfeecPSlUUkCrF+4XZS+ku3bEgKSP9G5NAu81WMSHMUlWUrKKNyvZuMV2TrTr5g3xRjpoXDgxGV8wxCUIKehcji1jnh/UdNn24DE78WtujvU5gA/gCH4Bm/7yRmVpZ580xR9ks1HYEXJlhxBX4PevjZpJCQYN6gLzQgmSnTSlw56J+opisTgBsHmWcKtm0VUlTzT3sXCcPjGSx8zOiSKsFZoNsPC/+Q==
+ b=Q8Up5aVBBOiSy1olQra9I5MY6n2Tr2Mx9iP91F16cQVcnkQMpAOoykI4OMat7x2BQEMeCBHE03u5sOnyNNUpir2bCRqvg1VGBiy7ToKuT3dBIgKuYXr7vPBwFK7Yq4B6iEQG2Hz5gJkPIncsoPJj9Odv/dGzddL1VMGUA28ZUknHc4KSKErFGNC4kppzTAf69smsbzI0mUWUAGf0BgOyjObCBF/kJLiE3YplqBVQITuj9kPbAqfeBaLPjSrrOCIkYD2sy8aVIsjrVIdr6Zr+aohPSYAbV6i/X1KXWm328WiiInMiAWZDtRFoTBBI3W8N+h27SoPc5IVLEmNd9CP+pg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ReA1bzSz/QekvGQJtCF9oD8Yg3hZAS9/QOJF7znVkfg=;
- b=Eo65zDScvj6J1aCINiriR4IZi9c4iQOiz4AozFsCJgN7ZpKh3EPRYLP2h9N6a0R4xJwy4UT5j3b/UIn9z5mKLXhj2EVm+ylnAbclSc8fkFgiS7x47L8xNbfcP8Gr3ExQnFizKMguWS2m8OlQaPqCY0UXjjJJhRnsFvFD/G9DuiAe685KyWSuzvvQZTyL7bDUVYD0bM01jnYFMkeIo8yWRuHVqI//7RLc1EUAQsXltsiskyk0dkAEzd5/uR2WGd0n39EDuIiNFnqK0nHNTrN1RMqVwKBkrxHTRZK+41EcrvfkB5tlTSirEUjyoinUc42gRqh2au9lLsDXWwcAIBvY1Q==
+ bh=mqUrLjESEk64FP3m8NMwcR0r9K88/OvrcF/RkCgR4Ps=;
+ b=mP2XcFYJgGonn9zw6tyAWgdTEzLXMeFa8aTpyGFtSSkQp/LPG31BHKhBsdlMos1CoCPN32Mv3kjuEe4L3QD+TsOA3uy8JrHnagg7pFkrhXIVigLwisQlYnwZ4t/7H1kt1UHbzX4VY2sBFE8QPEJAYMwrG51Xh40mP5Ef5jAzdyTNEhwdxVpx1ynOlNxMnsFrWGY1a43SjYzG4gaFvnTLQfz3l4okwB3gXtzf3E7Y+wfcg1ta2AVTqZS3ye19PUlp6O2KSzsTLwQr1pB9qgdwABvLVRsNpobQB2/PCQRRmac0Ga3luEpE72NNj246P5wI6i+4K6FFD+IAeNjK7/Kwrw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ReA1bzSz/QekvGQJtCF9oD8Yg3hZAS9/QOJF7znVkfg=;
- b=HjBQrZnv4k1zcNkOrJ+bLV+H5O3MvXA1hJHY9tb5OOReb80m/5zZz6L6zwFyRAIiXG+AAwNdxCRZXny5nqUHxfLmKu6BN2RHxNDzqHJBOn2P5ITaU9hTkYgCqQ8i40ZAFyQIhKQBFmx1RoppzoUfoyR7571EPApkAYuqhmPYtQU=
-Received: from BL1PR13CA0364.namprd13.prod.outlook.com (2603:10b6:208:2c0::9)
- by DS0PR12MB6533.namprd12.prod.outlook.com (2603:10b6:8:c2::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.28; Mon, 27 Mar
- 2023 19:36:31 +0000
+ bh=mqUrLjESEk64FP3m8NMwcR0r9K88/OvrcF/RkCgR4Ps=;
+ b=JV/sCQqSoenYEPVQnt3gHemMjHneZJ2lDrPSYlA+9cTqK/lfsHKdRWQJf+Ly5Lc4fl7hCqyLzQFVpk8iYoS2oUaDUOLol4jmQWA/Qpc4whQLyWvJZSkg5v6P5Ufz6g3VTVJfyYWsi7SyyVKMeINOB21VJYRJHhK0un1QhZJL2FI=
+Received: from BL1PR13CA0386.namprd13.prod.outlook.com (2603:10b6:208:2c0::31)
+ by BL1PR12MB5921.namprd12.prod.outlook.com (2603:10b6:208:398::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.41; Mon, 27 Mar
+ 2023 19:36:37 +0000
 Received: from BL02EPF000100D2.namprd05.prod.outlook.com
- (2603:10b6:208:2c0::4) by BL1PR13CA0364.outlook.office365.com
- (2603:10b6:208:2c0::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.18 via Frontend
- Transport; Mon, 27 Mar 2023 19:36:31 +0000
+ (2603:10b6:208:2c0:cafe::9d) by BL1PR13CA0386.outlook.office365.com
+ (2603:10b6:208:2c0::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.16 via Frontend
+ Transport; Mon, 27 Mar 2023 19:36:36 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BL02EPF000100D2.mail.protection.outlook.com (10.167.241.206) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.30 via Frontend Transport; Mon, 27 Mar 2023 19:36:31 +0000
+ 15.20.6178.30 via Frontend Transport; Mon, 27 Mar 2023 19:36:36 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 27 Mar
- 2023 14:36:30 -0500
+ 2023 14:36:35 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 16/28] drm/amdgpu: do gfxhub init for all XCDs
-Date: Mon, 27 Mar 2023 15:35:50 -0400
-Message-ID: <20230327193602.7901-16-alexander.deucher@amd.com>
+Subject: [PATCH 24/28] drm/amdgpu: override partition mode through module
+ parameter
+Date: Mon, 27 Mar 2023 15:35:58 -0400
+Message-ID: <20230327193602.7901-24-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230327193602.7901-1-alexander.deucher@amd.com>
 References: <20230327193602.7901-1-alexander.deucher@amd.com>
@@ -68,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF000100D2:EE_|DS0PR12MB6533:EE_
-X-MS-Office365-Filtering-Correlation-Id: 53f0716a-78c9-4a85-1687-08db2efa90e7
+X-MS-TrafficTypeDiagnostic: BL02EPF000100D2:EE_|BL1PR12MB5921:EE_
+X-MS-Office365-Filtering-Correlation-Id: f37fd5c3-936b-40cd-8b1e-08db2efa9467
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: QPUFnltKh2PLs6iRJ7J+VA4VekuV9goR6298hX+HfdZzT7LyRHHCGP6dSA8GF3w4XgKeYOaxjCjweGwdOinXnAbuGOAp9LcOFRDvcF0EbGnXQIy2G/3B3Gx2d+4MMTupyte18qg3c0AfQwXAoX7ZlfTjgaaOhpvAbmznDkbcjiYCfyM+MMWmRBh7JVNTdowlySvKQdGCN7JMDXVZTWGvDeQZ+2nXUxRrPA8qc3Bgewm7sustQ8OBoFEu/O8bE0gLgN6npqsT5Uv4ZoJ3ILMCSsG3XV0rFp5gvC/QE1FpJcBK8X/U3z+tdTS3be8xyTf29pYvBTCMoLZ2Uc1v7BsXWPPP7eW0akMlw++agtKIcnX8fBrbYcCHbwkfsHqxAfHZ4Xlr0nFWmL/VXzVWIikSn/aaTrnhXbxdmRkvsyUqhicLpz+hxPiOrKixFKqR6ej3/NqC8W55G+DL1akeTH1u3Xjp973BRmhoUiHtvDhW9kg7/RhiiY1KfimUOP1qlyqIsrAfiIMnAVH2i6xzRKOdriItTWPlMvJP1jZqhmoLvdM/+gX1FHqPafSrYYhUzlTq2y34QYlFCvaARo6onsQUkY+mAYZqi03e5Z3j2RvgIUj8TXoDG1pLKFi6AC5vLVhyhaBEMRbQDrLnLAhACWdJ4TUqXet4JoYOvHz0bcIcURcNrkcdufS6qDxWWE2pA8/1LGANyYS3ijVuhDhBcxhyZDHHaL3Nkau3XvdpoQZE+pWyxqPIzyXwyowoGzQZ+Fe0XaE4cQygKmvCLaOkswmKcA==
+X-Microsoft-Antispam-Message-Info: FYM+YHMR0gKe8MiegrCsh/A8sUgxcZj6IxkbAcKY+5tTlH7zd9sDVaBQxN13JSl/zx1fi1209MgEb0kQn6sbOXzB6xyRlGNAEW5TKzXuZOyQj9OTbtftiWOLpcfSIrvP2zkWfm6ZaM2rgMa36H9+FB+MbbSZDcOjY0DauX1KCgihQN45tI4hbp4FshXExxDv1BoI0nPtLi9AEFx0+Z8llSovHSbiH+rTeM651hJMHd3rg2Gyiw3GLrUv00bHWq7/hYLEVoaOgCIvHn/+S5YZwfowd8clXklevT+btDnSLs5VZdP0+fqL5Bc62+gBMiG/08sQV7Ic/uqN7xojSpRooaDy+uMUk3F2YosLr+1YE2HMF5s5/gDIoMDgxSD7VygsDlP1sQKz5zQLXdfA0a9DfWoklxCJQvTDYy4L03igSPXhWZCkTxtNrLCi/0QkCQskWEEwGU99uvv6cQx0ycXU1vld4N0JorMQOBeNPrQD+P2ODuvD406P2oNfyBtr09BEb3/jugIN7OZaNpMBJkeW7g36Fmudyh6LdOwZ6hud6N9EBdFAhfJeCl/d4xeeUFvZbCvwGA2QyCVCdYeEBo+j/l0WGlUoJUFo2552luz4WSGVsMHkkimXqF0SkmZpIncJtsyo/DX38EHjq44Wbtw8r1Jk1u3aSwaIOCiVTV0L1EVY+SRmY3aIMJsNqnOiK9PQhkyyC0duPhU7rZSJp5TbuBIX9Ow6Pi5NOr7ZN6fyOjA=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(346002)(136003)(376002)(396003)(451199021)(40470700004)(46966006)(36840700001)(2616005)(47076005)(83380400001)(336012)(426003)(41300700001)(36860700001)(36756003)(86362001)(5660300002)(356005)(8936002)(81166007)(82740400003)(40460700003)(54906003)(7696005)(478600001)(70586007)(8676002)(4326008)(6916009)(70206006)(2906002)(40480700001)(82310400005)(30864003)(6666004)(16526019)(1076003)(316002)(186003)(26005)(21314003)(36900700001);
+ SFS:(13230028)(4636009)(376002)(346002)(396003)(39860400002)(136003)(451199021)(40470700004)(46966006)(36840700001)(7696005)(40460700003)(47076005)(82310400005)(16526019)(186003)(26005)(1076003)(36756003)(83380400001)(6666004)(86362001)(40480700001)(54906003)(41300700001)(2906002)(426003)(8936002)(336012)(36860700001)(316002)(81166007)(82740400003)(8676002)(5660300002)(6916009)(70586007)(2616005)(4326008)(70206006)(478600001)(356005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 19:36:31.0353 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 53f0716a-78c9-4a85-1687-08db2efa90e7
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 19:36:36.9103 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f37fd5c3-936b-40cd-8b1e-08db2efa9467
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL02EPF000100D2.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6533
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5921
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,708 +100,104 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Le Ma <le.ma@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Le Ma <Le.Ma@amd.com>,
+ Shiwu Zhang <shiwu.zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Le Ma <le.ma@amd.com>
+From: Shiwu Zhang <shiwu.zhang@amd.com>
 
-Each XCD needs to do gfxhub init
+Add a module parameter to override the partition mode.
 
-Signed-off-by: Le Ma <le.ma@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Shiwu Zhang <shiwu.zhang@amd.com>
+Reviewed-by: Le Ma <Le.Ma@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c | 581 +++++++++++++----------
- 1 file changed, 317 insertions(+), 264 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 13 +++++++++++++
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 25 +++++++++++++++++++++++--
+ 3 files changed, 38 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-index c59c6c85fbff..79af32bb078c 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
-@@ -43,19 +43,25 @@ static void gfxhub_v1_2_setup_vm_pt_regs(struct amdgpu_device *adev,
- 					 uint64_t page_table_base)
- {
- 	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB_0];
-+	int i;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 81b437fa7b9c..bdc1190601d4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -244,6 +244,8 @@ extern int amdgpu_num_kcq;
+ extern int amdgpu_vcnfw_log;
+ extern int amdgpu_sg_display;
  
--	WREG32_SOC15_OFFSET(GC, 0, regVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32,
--			    hub->ctx_addr_distance * vmid,
--			    lower_32_bits(page_table_base));
-+	for (i = 0; i < adev->gfx.num_xcd; i++) {
-+		WREG32_SOC15_OFFSET(GC, i,
-+				    regVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32,
-+				    hub->ctx_addr_distance * vmid,
-+				    lower_32_bits(page_table_base));
++extern uint amdgpu_user_partt_mode;
++
+ #define AMDGPU_VM_MAX_NUM_CTX			4096
+ #define AMDGPU_SG_THRESHOLD			(256*1024*1024)
+ #define AMDGPU_DEFAULT_GTT_SIZE_MB		3072ULL /* 3GB by default */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 917926c8dc5f..13bcd8e955ac 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -193,6 +193,7 @@ int amdgpu_smartshift_bias;
+ int amdgpu_use_xgmi_p2p = 1;
+ int amdgpu_vcnfw_log;
+ int amdgpu_sg_display = -1; /* auto */
++uint amdgpu_user_partt_mode = 0;
  
--	WREG32_SOC15_OFFSET(GC, 0, regVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_HI32,
--			    hub->ctx_addr_distance * vmid,
--			    upper_32_bits(page_table_base));
-+		WREG32_SOC15_OFFSET(GC, i,
-+				    regVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_HI32,
-+				    hub->ctx_addr_distance * vmid,
-+				    upper_32_bits(page_table_base));
+ static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work);
+ 
+@@ -957,6 +958,18 @@ MODULE_PARM_DESC(smu_pptable_id,
+ 	"specify pptable id to be used (-1 = auto(default) value, 0 = use pptable from vbios, > 0 = soft pptable id)");
+ module_param_named(smu_pptable_id, amdgpu_smu_pptable_id, int, 0444);
+ 
++/**
++ * DOC: partition_mode (int)
++ * Used to override the default SPX mode.
++ */
++MODULE_PARM_DESC(user_partt_mode,
++	"specify partition mode to be used (0 = AMDGPU_SPX_PARTITION_MODE(default value), \
++						1 = AMDGPU_DPX_PARTITION_MODE, \
++						2 = AMDGPU_TPX_PARTITION_MODE, \
++						3 = AMDGPU_QPX_PARTITION_MODE, \
++						4 = AMDGPU_CPX_PARTITION_MODE)");
++module_param_named(user_partt_mode, amdgpu_user_partt_mode, uint, 0444);
++
+ /* These devices are not supported by amdgpu.
+  * They are supported by the mach64, r128, radeon drivers
+  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+index 9a9e52e1c4fd..048e21d202d4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -2168,8 +2168,29 @@ static int gfx_v9_4_3_early_init(void *handle)
+ 
+ 	/* hardcode in emulation phase */
+ 	adev->gfx.num_xcd = 1;
+-	adev->gfx.num_xcc_per_xcp = 1;
+-	adev->gfx.partition_mode = AMDGPU_SPX_PARTITION_MODE;
++
++	adev->gfx.partition_mode = amdgpu_user_partt_mode;
++	/* calculate the num_xcc_in_xcp for the partition mode*/
++	switch (amdgpu_user_partt_mode) {
++	case AMDGPU_SPX_PARTITION_MODE:
++		adev->gfx.num_xcc_per_xcp = adev->gfx.num_xcd;
++		break;
++	case AMDGPU_DPX_PARTITION_MODE:
++		adev->gfx.num_xcc_per_xcp = adev->gfx.num_xcd / 2;
++		break;
++	case AMDGPU_TPX_PARTITION_MODE:
++		adev->gfx.num_xcc_per_xcp = adev->gfx.num_xcd / 3;
++		break;
++	case AMDGPU_QPX_PARTITION_MODE:
++		adev->gfx.num_xcc_per_xcp = adev->gfx.num_xcd / 4;
++		break;
++	case AMDGPU_CPX_PARTITION_MODE:
++		adev->gfx.num_xcc_per_xcp = 1;
++		break;
++	default:
++		adev->gfx.num_xcc_per_xcp = adev->gfx.num_xcd;
++		break;
 +	}
- }
  
- static void gfxhub_v1_2_init_gart_aperture_regs(struct amdgpu_device *adev)
- {
- 	uint64_t pt_base;
-+	int i;
- 
- 	if (adev->gmc.pdb0_bo)
- 		pt_base = amdgpu_gmc_pd_addr(adev->gmc.pdb0_bo);
-@@ -67,26 +73,36 @@ static void gfxhub_v1_2_init_gart_aperture_regs(struct amdgpu_device *adev)
- 	/* If use GART for FB translation, vmid0 page table covers both
- 	 * vram and system memory (gart)
- 	 */
--	if (adev->gmc.pdb0_bo) {
--		WREG32_SOC15(GC, 0, regVM_CONTEXT0_PAGE_TABLE_START_ADDR_LO32,
--				(u32)(adev->gmc.fb_start >> 12));
--		WREG32_SOC15(GC, 0, regVM_CONTEXT0_PAGE_TABLE_START_ADDR_HI32,
--				(u32)(adev->gmc.fb_start >> 44));
--
--		WREG32_SOC15(GC, 0, regVM_CONTEXT0_PAGE_TABLE_END_ADDR_LO32,
--				(u32)(adev->gmc.gart_end >> 12));
--		WREG32_SOC15(GC, 0, regVM_CONTEXT0_PAGE_TABLE_END_ADDR_HI32,
--				(u32)(adev->gmc.gart_end >> 44));
--	} else {
--		WREG32_SOC15(GC, 0, regVM_CONTEXT0_PAGE_TABLE_START_ADDR_LO32,
--				(u32)(adev->gmc.gart_start >> 12));
--		WREG32_SOC15(GC, 0, regVM_CONTEXT0_PAGE_TABLE_START_ADDR_HI32,
--				(u32)(adev->gmc.gart_start >> 44));
--
--		WREG32_SOC15(GC, 0, regVM_CONTEXT0_PAGE_TABLE_END_ADDR_LO32,
--				(u32)(adev->gmc.gart_end >> 12));
--		WREG32_SOC15(GC, 0, regVM_CONTEXT0_PAGE_TABLE_END_ADDR_HI32,
--				(u32)(adev->gmc.gart_end >> 44));
-+	for (i = 0; i < adev->gfx.num_xcd; i++) {
-+		if (adev->gmc.pdb0_bo) {
-+			WREG32_SOC15(GC, i,
-+				     regVM_CONTEXT0_PAGE_TABLE_START_ADDR_LO32,
-+				     (u32)(adev->gmc.fb_start >> 12));
-+			WREG32_SOC15(GC, i,
-+				     regVM_CONTEXT0_PAGE_TABLE_START_ADDR_HI32,
-+				     (u32)(adev->gmc.fb_start >> 44));
-+
-+			WREG32_SOC15(GC, i,
-+				     regVM_CONTEXT0_PAGE_TABLE_END_ADDR_LO32,
-+				     (u32)(adev->gmc.gart_end >> 12));
-+			WREG32_SOC15(GC, i,
-+				     regVM_CONTEXT0_PAGE_TABLE_END_ADDR_HI32,
-+				     (u32)(adev->gmc.gart_end >> 44));
-+		} else {
-+			WREG32_SOC15(GC, i,
-+				     regVM_CONTEXT0_PAGE_TABLE_START_ADDR_LO32,
-+				     (u32)(adev->gmc.gart_start >> 12));
-+			WREG32_SOC15(GC, i,
-+				     regVM_CONTEXT0_PAGE_TABLE_START_ADDR_HI32,
-+				     (u32)(adev->gmc.gart_start >> 44));
-+
-+			WREG32_SOC15(GC, i,
-+				     regVM_CONTEXT0_PAGE_TABLE_END_ADDR_LO32,
-+				     (u32)(adev->gmc.gart_end >> 12));
-+			WREG32_SOC15(GC, i,
-+				     regVM_CONTEXT0_PAGE_TABLE_END_ADDR_HI32,
-+				     (u32)(adev->gmc.gart_end >> 44));
-+		}
- 	}
- }
- 
-@@ -94,160 +110,183 @@ static void gfxhub_v1_2_init_system_aperture_regs(struct amdgpu_device *adev)
- {
- 	uint64_t value;
- 	uint32_t tmp;
-+	int i;
- 
--	/* Program the AGP BAR */
--	WREG32_SOC15_RLC(GC, 0, regMC_VM_AGP_BASE, 0);
--	WREG32_SOC15_RLC(GC, 0, regMC_VM_AGP_BOT, adev->gmc.agp_start >> 24);
--	WREG32_SOC15_RLC(GC, 0, regMC_VM_AGP_TOP, adev->gmc.agp_end >> 24);
--
--	if (!amdgpu_sriov_vf(adev) || adev->asic_type <= CHIP_VEGA10) {
--		/* Program the system aperture low logical page number. */
--		WREG32_SOC15_RLC(GC, 0, regMC_VM_SYSTEM_APERTURE_LOW_ADDR,
--			min(adev->gmc.fb_start, adev->gmc.agp_start) >> 18);
--
--		if (adev->apu_flags & AMD_APU_IS_RAVEN2)
--			/*
--			* Raven2 has a HW issue that it is unable to use the
--			* vram which is out of MC_VM_SYSTEM_APERTURE_HIGH_ADDR.
--			* So here is the workaround that increase system
--			* aperture high address (add 1) to get rid of the VM
--			* fault and hardware hang.
--			*/
--			WREG32_SOC15_RLC(GC, 0,
--					 regMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
--					 max((adev->gmc.fb_end >> 18) + 0x1,
--					     adev->gmc.agp_end >> 18));
--		else
--			WREG32_SOC15_RLC(GC, 0,
--				regMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
--				max(adev->gmc.fb_end, adev->gmc.agp_end) >> 18);
--
--		/* Set default page address. */
--		value = amdgpu_gmc_vram_mc2pa(adev, adev->mem_scratch.gpu_addr);
--		WREG32_SOC15(GC, 0, regMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
--			     (u32)(value >> 12));
--		WREG32_SOC15(GC, 0, regMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
--			     (u32)(value >> 44));
--
--		/* Program "protection fault". */
--		WREG32_SOC15(GC, 0, regVM_L2_PROTECTION_FAULT_DEFAULT_ADDR_LO32,
--			     (u32)(adev->dummy_page_addr >> 12));
--		WREG32_SOC15(GC, 0, regVM_L2_PROTECTION_FAULT_DEFAULT_ADDR_HI32,
--			     (u32)((u64)adev->dummy_page_addr >> 44));
--
--		tmp = RREG32_SOC15(GC, 0, regVM_L2_PROTECTION_FAULT_CNTL2);
--		tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL2,
--				    ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
--		WREG32_SOC15(GC, 0, regVM_L2_PROTECTION_FAULT_CNTL2, tmp);
--	}
--
--	/* In the case squeezing vram into GART aperture, we don't use
--	 * FB aperture and AGP aperture. Disable them.
--	 */
--	if (adev->gmc.pdb0_bo) {
--		WREG32_SOC15(GC, 0, regMC_VM_FB_LOCATION_TOP, 0);
--		WREG32_SOC15(GC, 0, regMC_VM_FB_LOCATION_BASE, 0x00FFFFFF);
--		WREG32_SOC15(GC, 0, regMC_VM_AGP_TOP, 0);
--		WREG32_SOC15(GC, 0, regMC_VM_AGP_BOT, 0xFFFFFF);
--		WREG32_SOC15(GC, 0, regMC_VM_SYSTEM_APERTURE_LOW_ADDR, 0x3FFFFFFF);
--		WREG32_SOC15(GC, 0, regMC_VM_SYSTEM_APERTURE_HIGH_ADDR, 0);
-+	for (i = 0; i < adev->gfx.num_xcd; i++) {
-+		/* Program the AGP BAR */
-+		WREG32_SOC15_RLC(GC, i, regMC_VM_AGP_BASE, 0);
-+		WREG32_SOC15_RLC(GC, i, regMC_VM_AGP_BOT, adev->gmc.agp_start >> 24);
-+		WREG32_SOC15_RLC(GC, i, regMC_VM_AGP_TOP, adev->gmc.agp_end >> 24);
-+
-+		if (!amdgpu_sriov_vf(adev) || adev->asic_type <= CHIP_VEGA10) {
-+			/* Program the system aperture low logical page number. */
-+			WREG32_SOC15_RLC(GC, i, regMC_VM_SYSTEM_APERTURE_LOW_ADDR,
-+				min(adev->gmc.fb_start, adev->gmc.agp_start) >> 18);
-+
-+			if (adev->apu_flags & AMD_APU_IS_RAVEN2)
-+				/*
-+				* Raven2 has a HW issue that it is unable to use the
-+				* vram which is out of MC_VM_SYSTEM_APERTURE_HIGH_ADDR.
-+				* So here is the workaround that increase system
-+				* aperture high address (add 1) to get rid of the VM
-+				* fault and hardware hang.
-+				*/
-+				WREG32_SOC15_RLC(GC, i,
-+						 regMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
-+						 max((adev->gmc.fb_end >> 18) + 0x1,
-+						     adev->gmc.agp_end >> 18));
-+			else
-+				WREG32_SOC15_RLC(GC, i,
-+					regMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
-+					max(adev->gmc.fb_end, adev->gmc.agp_end) >> 18);
-+
-+			/* Set default page address. */
-+			value = amdgpu_gmc_vram_mc2pa(adev, adev->mem_scratch.gpu_addr);
-+			WREG32_SOC15(GC, i, regMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
-+				     (u32)(value >> 12));
-+			WREG32_SOC15(GC, i, regMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
-+				     (u32)(value >> 44));
-+
-+			/* Program "protection fault". */
-+			WREG32_SOC15(GC, i, regVM_L2_PROTECTION_FAULT_DEFAULT_ADDR_LO32,
-+				     (u32)(adev->dummy_page_addr >> 12));
-+			WREG32_SOC15(GC, i, regVM_L2_PROTECTION_FAULT_DEFAULT_ADDR_HI32,
-+				     (u32)((u64)adev->dummy_page_addr >> 44));
-+
-+			tmp = RREG32_SOC15(GC, i, regVM_L2_PROTECTION_FAULT_CNTL2);
-+			tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL2,
-+					    ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
-+			WREG32_SOC15(GC, i, regVM_L2_PROTECTION_FAULT_CNTL2, tmp);
-+		}
-+
-+		/* In the case squeezing vram into GART aperture, we don't use
-+		 * FB aperture and AGP aperture. Disable them.
-+		 */
-+		if (adev->gmc.pdb0_bo) {
-+			WREG32_SOC15(GC, i, regMC_VM_FB_LOCATION_TOP, 0);
-+			WREG32_SOC15(GC, i, regMC_VM_FB_LOCATION_BASE, 0x00FFFFFF);
-+			WREG32_SOC15(GC, i, regMC_VM_AGP_TOP, 0);
-+			WREG32_SOC15(GC, i, regMC_VM_AGP_BOT, 0xFFFFFF);
-+			WREG32_SOC15(GC, i, regMC_VM_SYSTEM_APERTURE_LOW_ADDR, 0x3FFFFFFF);
-+			WREG32_SOC15(GC, i, regMC_VM_SYSTEM_APERTURE_HIGH_ADDR, 0);
-+		}
- 	}
- }
- 
- static void gfxhub_v1_2_init_tlb_regs(struct amdgpu_device *adev)
- {
- 	uint32_t tmp;
-+	int i;
- 
--	/* Setup TLB control */
--	tmp = RREG32_SOC15(GC, 0, regMC_VM_MX_L1_TLB_CNTL);
--
--	tmp = REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL, ENABLE_L1_TLB, 1);
--	tmp = REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL, SYSTEM_ACCESS_MODE, 3);
--	tmp = REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL,
--			    ENABLE_ADVANCED_DRIVER_MODEL, 1);
--	tmp = REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL,
--			    SYSTEM_APERTURE_UNMAPPED_ACCESS, 0);
--	tmp = REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL,
--			    MTYPE, MTYPE_UC);/* XXX for emulation. */
--	tmp = REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL, ATC_EN, 1);
--
--	WREG32_SOC15_RLC(GC, 0, regMC_VM_MX_L1_TLB_CNTL, tmp);
-+	for (i = 0; i < adev->gfx.num_xcd; i++) {
-+		/* Setup TLB control */
-+		tmp = RREG32_SOC15(GC, i, regMC_VM_MX_L1_TLB_CNTL);
-+
-+		tmp = REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL,
-+				    ENABLE_L1_TLB, 1);
-+		tmp = REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL,
-+				    SYSTEM_ACCESS_MODE, 3);
-+		tmp = REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL,
-+				    ENABLE_ADVANCED_DRIVER_MODEL, 1);
-+		tmp = REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL,
-+				    SYSTEM_APERTURE_UNMAPPED_ACCESS, 0);
-+		tmp = REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL,
-+				    MTYPE, MTYPE_UC);/* XXX for emulation. */
-+		tmp = REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL, ATC_EN, 1);
-+
-+		WREG32_SOC15_RLC(GC, i, regMC_VM_MX_L1_TLB_CNTL, tmp);
-+	}
- }
- 
- static void gfxhub_v1_2_init_cache_regs(struct amdgpu_device *adev)
- {
- 	uint32_t tmp;
-+	int i;
- 
--	/* Setup L2 cache */
--	tmp = RREG32_SOC15(GC, 0, regVM_L2_CNTL);
--	tmp = REG_SET_FIELD(tmp, VM_L2_CNTL, ENABLE_L2_CACHE, 1);
--	tmp = REG_SET_FIELD(tmp, VM_L2_CNTL, ENABLE_L2_FRAGMENT_PROCESSING, 1);
--	/* XXX for emulation, Refer to closed source code.*/
--	tmp = REG_SET_FIELD(tmp, VM_L2_CNTL, L2_PDE0_CACHE_TAG_GENERATION_MODE,
--			    0);
--	tmp = REG_SET_FIELD(tmp, VM_L2_CNTL, PDE_FAULT_CLASSIFICATION, 0);
--	tmp = REG_SET_FIELD(tmp, VM_L2_CNTL, CONTEXT1_IDENTITY_ACCESS_MODE, 1);
--	tmp = REG_SET_FIELD(tmp, VM_L2_CNTL, IDENTITY_MODE_FRAGMENT_SIZE, 0);
--	WREG32_SOC15_RLC(GC, 0, regVM_L2_CNTL, tmp);
--
--	tmp = RREG32_SOC15(GC, 0, regVM_L2_CNTL2);
--	tmp = REG_SET_FIELD(tmp, VM_L2_CNTL2, INVALIDATE_ALL_L1_TLBS, 1);
--	tmp = REG_SET_FIELD(tmp, VM_L2_CNTL2, INVALIDATE_L2_CACHE, 1);
--	WREG32_SOC15_RLC(GC, 0, regVM_L2_CNTL2, tmp);
--
--	tmp = regVM_L2_CNTL3_DEFAULT;
--	if (adev->gmc.translate_further) {
--		tmp = REG_SET_FIELD(tmp, VM_L2_CNTL3, BANK_SELECT, 12);
--		tmp = REG_SET_FIELD(tmp, VM_L2_CNTL3,
--				    L2_CACHE_BIGK_FRAGMENT_SIZE, 9);
--	} else {
--		tmp = REG_SET_FIELD(tmp, VM_L2_CNTL3, BANK_SELECT, 9);
--		tmp = REG_SET_FIELD(tmp, VM_L2_CNTL3,
--				    L2_CACHE_BIGK_FRAGMENT_SIZE, 6);
--	}
--	WREG32_SOC15_RLC(GC, 0, regVM_L2_CNTL3, tmp);
--
--	tmp = regVM_L2_CNTL4_DEFAULT;
--	if (adev->gmc.xgmi.connected_to_cpu) {
--		tmp = REG_SET_FIELD(tmp, VM_L2_CNTL4, VMC_TAP_PDE_REQUEST_PHYSICAL, 1);
--		tmp = REG_SET_FIELD(tmp, VM_L2_CNTL4, VMC_TAP_PTE_REQUEST_PHYSICAL, 1);
--	} else {
--		tmp = REG_SET_FIELD(tmp, VM_L2_CNTL4, VMC_TAP_PDE_REQUEST_PHYSICAL, 0);
--		tmp = REG_SET_FIELD(tmp, VM_L2_CNTL4, VMC_TAP_PTE_REQUEST_PHYSICAL, 0);
-+	for (i = 0; i < adev->gfx.num_xcd; i++) {
-+		/* Setup L2 cache */
-+		tmp = RREG32_SOC15(GC, i, regVM_L2_CNTL);
-+		tmp = REG_SET_FIELD(tmp, VM_L2_CNTL, ENABLE_L2_CACHE, 1);
-+		tmp = REG_SET_FIELD(tmp, VM_L2_CNTL, ENABLE_L2_FRAGMENT_PROCESSING, 1);
-+		/* XXX for emulation, Refer to closed source code.*/
-+		tmp = REG_SET_FIELD(tmp, VM_L2_CNTL, L2_PDE0_CACHE_TAG_GENERATION_MODE,
-+				    0);
-+		tmp = REG_SET_FIELD(tmp, VM_L2_CNTL, PDE_FAULT_CLASSIFICATION, 0);
-+		tmp = REG_SET_FIELD(tmp, VM_L2_CNTL, CONTEXT1_IDENTITY_ACCESS_MODE, 1);
-+		tmp = REG_SET_FIELD(tmp, VM_L2_CNTL, IDENTITY_MODE_FRAGMENT_SIZE, 0);
-+		WREG32_SOC15_RLC(GC, i, regVM_L2_CNTL, tmp);
-+
-+		tmp = RREG32_SOC15(GC, i, regVM_L2_CNTL2);
-+		tmp = REG_SET_FIELD(tmp, VM_L2_CNTL2, INVALIDATE_ALL_L1_TLBS, 1);
-+		tmp = REG_SET_FIELD(tmp, VM_L2_CNTL2, INVALIDATE_L2_CACHE, 1);
-+		WREG32_SOC15_RLC(GC, i, regVM_L2_CNTL2, tmp);
-+
-+		tmp = regVM_L2_CNTL3_DEFAULT;
-+		if (adev->gmc.translate_further) {
-+			tmp = REG_SET_FIELD(tmp, VM_L2_CNTL3, BANK_SELECT, 12);
-+			tmp = REG_SET_FIELD(tmp, VM_L2_CNTL3,
-+					    L2_CACHE_BIGK_FRAGMENT_SIZE, 9);
-+		} else {
-+			tmp = REG_SET_FIELD(tmp, VM_L2_CNTL3, BANK_SELECT, 9);
-+			tmp = REG_SET_FIELD(tmp, VM_L2_CNTL3,
-+					    L2_CACHE_BIGK_FRAGMENT_SIZE, 6);
-+		}
-+		WREG32_SOC15_RLC(GC, i, regVM_L2_CNTL3, tmp);
-+
-+		tmp = regVM_L2_CNTL4_DEFAULT;
-+		if (adev->gmc.xgmi.connected_to_cpu) {
-+			tmp = REG_SET_FIELD(tmp, VM_L2_CNTL4, VMC_TAP_PDE_REQUEST_PHYSICAL, 1);
-+			tmp = REG_SET_FIELD(tmp, VM_L2_CNTL4, VMC_TAP_PTE_REQUEST_PHYSICAL, 1);
-+		} else {
-+			tmp = REG_SET_FIELD(tmp, VM_L2_CNTL4, VMC_TAP_PDE_REQUEST_PHYSICAL, 0);
-+			tmp = REG_SET_FIELD(tmp, VM_L2_CNTL4, VMC_TAP_PTE_REQUEST_PHYSICAL, 0);
-+		}
-+		WREG32_SOC15_RLC(GC, i, regVM_L2_CNTL4, tmp);
- 	}
--	WREG32_SOC15_RLC(GC, 0, regVM_L2_CNTL4, tmp);
- }
- 
- static void gfxhub_v1_2_enable_system_domain(struct amdgpu_device *adev)
- {
- 	uint32_t tmp;
-+	int i;
- 
--	tmp = RREG32_SOC15(GC, 0, regVM_CONTEXT0_CNTL);
--	tmp = REG_SET_FIELD(tmp, VM_CONTEXT0_CNTL, ENABLE_CONTEXT, 1);
--	tmp = REG_SET_FIELD(tmp, VM_CONTEXT0_CNTL, PAGE_TABLE_DEPTH,
--			adev->gmc.vmid0_page_table_depth);
--	tmp = REG_SET_FIELD(tmp, VM_CONTEXT0_CNTL, PAGE_TABLE_BLOCK_SIZE,
--			adev->gmc.vmid0_page_table_block_size);
--	tmp = REG_SET_FIELD(tmp, VM_CONTEXT0_CNTL,
--			    RETRY_PERMISSION_OR_INVALID_PAGE_FAULT, 0);
--	WREG32_SOC15(GC, 0, regVM_CONTEXT0_CNTL, tmp);
-+	for (i = 0; i < adev->gfx.num_xcd; i++) {
-+		tmp = RREG32_SOC15(GC, i, regVM_CONTEXT0_CNTL);
-+		tmp = REG_SET_FIELD(tmp, VM_CONTEXT0_CNTL, ENABLE_CONTEXT, 1);
-+		tmp = REG_SET_FIELD(tmp, VM_CONTEXT0_CNTL, PAGE_TABLE_DEPTH,
-+				adev->gmc.vmid0_page_table_depth);
-+		tmp = REG_SET_FIELD(tmp, VM_CONTEXT0_CNTL, PAGE_TABLE_BLOCK_SIZE,
-+				adev->gmc.vmid0_page_table_block_size);
-+		tmp = REG_SET_FIELD(tmp, VM_CONTEXT0_CNTL,
-+				    RETRY_PERMISSION_OR_INVALID_PAGE_FAULT, 0);
-+		WREG32_SOC15(GC, i, regVM_CONTEXT0_CNTL, tmp);
-+	}
- }
- 
- static void gfxhub_v1_2_disable_identity_aperture(struct amdgpu_device *adev)
- {
--	WREG32_SOC15(GC, 0, regVM_L2_CONTEXT1_IDENTITY_APERTURE_LOW_ADDR_LO32,
--		     0XFFFFFFFF);
--	WREG32_SOC15(GC, 0, regVM_L2_CONTEXT1_IDENTITY_APERTURE_LOW_ADDR_HI32,
--		     0x0000000F);
--
--	WREG32_SOC15(GC, 0, regVM_L2_CONTEXT1_IDENTITY_APERTURE_HIGH_ADDR_LO32,
--		     0);
--	WREG32_SOC15(GC, 0, regVM_L2_CONTEXT1_IDENTITY_APERTURE_HIGH_ADDR_HI32,
--		     0);
--
--	WREG32_SOC15(GC, 0, regVM_L2_CONTEXT_IDENTITY_PHYSICAL_OFFSET_LO32, 0);
--	WREG32_SOC15(GC, 0, regVM_L2_CONTEXT_IDENTITY_PHYSICAL_OFFSET_HI32, 0);
-+	int i;
- 
-+	for (i = 0; i < adev->gfx.num_xcd; i++) {
-+		WREG32_SOC15(GC, i,
-+			     regVM_L2_CONTEXT1_IDENTITY_APERTURE_LOW_ADDR_LO32,
-+			     0XFFFFFFFF);
-+		WREG32_SOC15(GC, i,
-+			     regVM_L2_CONTEXT1_IDENTITY_APERTURE_LOW_ADDR_HI32,
-+			     0x0000000F);
-+
-+		WREG32_SOC15(GC, i,
-+			     regVM_L2_CONTEXT1_IDENTITY_APERTURE_HIGH_ADDR_LO32,
-+			     0);
-+		WREG32_SOC15(GC, i,
-+			     regVM_L2_CONTEXT1_IDENTITY_APERTURE_HIGH_ADDR_HI32,
-+			     0);
-+
-+		WREG32_SOC15(GC, i,
-+			     regVM_L2_CONTEXT_IDENTITY_PHYSICAL_OFFSET_LO32, 0);
-+		WREG32_SOC15(GC, i,
-+			     regVM_L2_CONTEXT_IDENTITY_PHYSICAL_OFFSET_HI32, 0);
-+	}
- }
- 
- static void gfxhub_v1_2_setup_vmid_config(struct amdgpu_device *adev)
-@@ -255,7 +294,7 @@ static void gfxhub_v1_2_setup_vmid_config(struct amdgpu_device *adev)
- 	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB_0];
- 	unsigned num_level, block_size;
- 	uint32_t tmp;
--	int i;
-+	int i, j;
- 
- 	num_level = adev->vm_manager.num_level;
- 	block_size = adev->vm_manager.block_size;
-@@ -264,81 +303,89 @@ static void gfxhub_v1_2_setup_vmid_config(struct amdgpu_device *adev)
- 	else
- 		block_size -= 9;
- 
--	for (i = 0; i <= 14; i++) {
--		tmp = RREG32_SOC15_OFFSET(GC, 0, regVM_CONTEXT1_CNTL, i);
--		tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL, ENABLE_CONTEXT, 1);
--		tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL, PAGE_TABLE_DEPTH,
--				    num_level);
--		tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL,
--				    RANGE_PROTECTION_FAULT_ENABLE_DEFAULT, 1);
--		tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL,
--				    DUMMY_PAGE_PROTECTION_FAULT_ENABLE_DEFAULT,
--				    1);
--		tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL,
--				    PDE0_PROTECTION_FAULT_ENABLE_DEFAULT, 1);
--		tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL,
--				    VALID_PROTECTION_FAULT_ENABLE_DEFAULT, 1);
--		tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL,
--				    READ_PROTECTION_FAULT_ENABLE_DEFAULT, 1);
--		tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL,
--				    WRITE_PROTECTION_FAULT_ENABLE_DEFAULT, 1);
--		tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL,
--				    EXECUTE_PROTECTION_FAULT_ENABLE_DEFAULT, 1);
--		tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL,
--				    PAGE_TABLE_BLOCK_SIZE,
--				    block_size);
--		/* Send no-retry XNACK on fault to suppress VM fault storm.
--		 * On Aldebaran, XNACK can be enabled in the SQ per-process.
--		 * Retry faults need to be enabled for that to work.
--		 */
--		tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL,
--				    RETRY_PERMISSION_OR_INVALID_PAGE_FAULT,
--				    !adev->gmc.noretry ||
--				    adev->asic_type == CHIP_ALDEBARAN);
--		WREG32_SOC15_OFFSET(GC, 0, regVM_CONTEXT1_CNTL,
--				    i * hub->ctx_distance, tmp);
--		WREG32_SOC15_OFFSET(GC, 0,
--				    regVM_CONTEXT1_PAGE_TABLE_START_ADDR_LO32,
--				    i * hub->ctx_addr_distance, 0);
--		WREG32_SOC15_OFFSET(GC, 0,
--				    regVM_CONTEXT1_PAGE_TABLE_START_ADDR_HI32,
--				    i * hub->ctx_addr_distance, 0);
--		WREG32_SOC15_OFFSET(GC, 0,
--				    regVM_CONTEXT1_PAGE_TABLE_END_ADDR_LO32,
--				    i * hub->ctx_addr_distance,
--				    lower_32_bits(adev->vm_manager.max_pfn - 1));
--		WREG32_SOC15_OFFSET(GC, 0,
--				    regVM_CONTEXT1_PAGE_TABLE_END_ADDR_HI32,
--				    i * hub->ctx_addr_distance,
--				    upper_32_bits(adev->vm_manager.max_pfn - 1));
-+	for (j = 0; j < adev->gfx.num_xcd; j++) {
-+		for (i = 0; i <= 14; i++) {
-+			tmp = RREG32_SOC15_OFFSET(GC, j, regVM_CONTEXT1_CNTL, i);
-+			tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL, ENABLE_CONTEXT, 1);
-+			tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL, PAGE_TABLE_DEPTH,
-+					    num_level);
-+			tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL,
-+					    RANGE_PROTECTION_FAULT_ENABLE_DEFAULT, 1);
-+			tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL,
-+					    DUMMY_PAGE_PROTECTION_FAULT_ENABLE_DEFAULT,
-+					    1);
-+			tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL,
-+					    PDE0_PROTECTION_FAULT_ENABLE_DEFAULT, 1);
-+			tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL,
-+					    VALID_PROTECTION_FAULT_ENABLE_DEFAULT, 1);
-+			tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL,
-+					    READ_PROTECTION_FAULT_ENABLE_DEFAULT, 1);
-+			tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL,
-+					    WRITE_PROTECTION_FAULT_ENABLE_DEFAULT, 1);
-+			tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL,
-+					    EXECUTE_PROTECTION_FAULT_ENABLE_DEFAULT, 1);
-+			tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL,
-+					    PAGE_TABLE_BLOCK_SIZE,
-+					    block_size);
-+			/* Send no-retry XNACK on fault to suppress VM fault storm.
-+			 * On Aldebaran, XNACK can be enabled in the SQ per-process.
-+			 * Retry faults need to be enabled for that to work.
-+			 */
-+			tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL,
-+					    RETRY_PERMISSION_OR_INVALID_PAGE_FAULT,
-+					    !adev->gmc.noretry ||
-+					    adev->asic_type == CHIP_ALDEBARAN);
-+			WREG32_SOC15_OFFSET(GC, j, regVM_CONTEXT1_CNTL,
-+					    i * hub->ctx_distance, tmp);
-+			WREG32_SOC15_OFFSET(GC, j,
-+					    regVM_CONTEXT1_PAGE_TABLE_START_ADDR_LO32,
-+					    i * hub->ctx_addr_distance, 0);
-+			WREG32_SOC15_OFFSET(GC, j,
-+					    regVM_CONTEXT1_PAGE_TABLE_START_ADDR_HI32,
-+					    i * hub->ctx_addr_distance, 0);
-+			WREG32_SOC15_OFFSET(GC, j,
-+					    regVM_CONTEXT1_PAGE_TABLE_END_ADDR_LO32,
-+					    i * hub->ctx_addr_distance,
-+					    lower_32_bits(adev->vm_manager.max_pfn - 1));
-+			WREG32_SOC15_OFFSET(GC, j,
-+					    regVM_CONTEXT1_PAGE_TABLE_END_ADDR_HI32,
-+					    i * hub->ctx_addr_distance,
-+					    upper_32_bits(adev->vm_manager.max_pfn - 1));
-+		}
- 	}
- }
- 
- static void gfxhub_v1_2_program_invalidation(struct amdgpu_device *adev)
- {
- 	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB_0];
--	unsigned i;
--
--	for (i = 0 ; i < 18; ++i) {
--		WREG32_SOC15_OFFSET(GC, 0, regVM_INVALIDATE_ENG0_ADDR_RANGE_LO32,
--				    i * hub->eng_addr_distance, 0xffffffff);
--		WREG32_SOC15_OFFSET(GC, 0, regVM_INVALIDATE_ENG0_ADDR_RANGE_HI32,
--				    i * hub->eng_addr_distance, 0x1f);
-+	unsigned i, j;
-+
-+	for (j = 0; j < adev->gfx.num_xcd; j++) {
-+		for (i = 0 ; i < 18; ++i) {
-+			WREG32_SOC15_OFFSET(GC, j, regVM_INVALIDATE_ENG0_ADDR_RANGE_LO32,
-+					    i * hub->eng_addr_distance, 0xffffffff);
-+			WREG32_SOC15_OFFSET(GC, j, regVM_INVALIDATE_ENG0_ADDR_RANGE_HI32,
-+					    i * hub->eng_addr_distance, 0x1f);
-+		}
- 	}
- }
- 
- static int gfxhub_v1_2_gart_enable(struct amdgpu_device *adev)
- {
--	if (amdgpu_sriov_vf(adev) && adev->asic_type != CHIP_ARCTURUS) {
-+	int i;
-+
-+	for (i = 0; i < adev->gfx.num_xcd; i++) {
-+		if (amdgpu_sriov_vf(adev)) {
- 		/*
- 		 * MC_VM_FB_LOCATION_BASE/TOP is NULL for VF, becuase they are
- 		 * VF copy registers so vbios post doesn't program them, for
- 		 * SRIOV driver need to program them
- 		 */
--		WREG32_SOC15_RLC(GC, 0, regMC_VM_FB_LOCATION_BASE,
--			     adev->gmc.vram_start >> 24);
--		WREG32_SOC15_RLC(GC, 0, regMC_VM_FB_LOCATION_TOP,
--			     adev->gmc.vram_end >> 24);
-+			WREG32_SOC15_RLC(GC, i, regMC_VM_FB_LOCATION_BASE,
-+				     adev->gmc.vram_start >> 24);
-+			WREG32_SOC15_RLC(GC, i, regMC_VM_FB_LOCATION_TOP,
-+				     adev->gmc.vram_end >> 24);
-+		}
- 	}
- 
- 	/* GART Enable. */
-@@ -361,27 +408,29 @@ static void gfxhub_v1_2_gart_disable(struct amdgpu_device *adev)
- {
- 	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB_0];
- 	u32 tmp;
--	u32 i;
--
--	/* Disable all tables */
--	for (i = 0; i < 16; i++)
--		WREG32_SOC15_OFFSET(GC, 0, regVM_CONTEXT0_CNTL,
--				    i * hub->ctx_distance, 0);
--
--	/* Setup TLB control */
--	tmp = RREG32_SOC15(GC, 0, regMC_VM_MX_L1_TLB_CNTL);
--	tmp = REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL, ENABLE_L1_TLB, 0);
--	tmp = REG_SET_FIELD(tmp,
--				MC_VM_MX_L1_TLB_CNTL,
--				ENABLE_ADVANCED_DRIVER_MODEL,
--				0);
--	WREG32_SOC15_RLC(GC, 0, regMC_VM_MX_L1_TLB_CNTL, tmp);
--
--	/* Setup L2 cache */
--	tmp = RREG32_SOC15(GC, 0, regVM_L2_CNTL);
--	tmp = REG_SET_FIELD(tmp, VM_L2_CNTL, ENABLE_L2_CACHE, 0);
--	WREG32_SOC15(GC, 0, regVM_L2_CNTL, tmp);
--	WREG32_SOC15(GC, 0, regVM_L2_CNTL3, 0);
-+	u32 i, j;
-+
-+	for (j = 0; j < adev->gfx.num_xcd; j++) {
-+		/* Disable all tables */
-+		for (i = 0; i < 16; i++)
-+			WREG32_SOC15_OFFSET(GC, j, regVM_CONTEXT0_CNTL,
-+					    i * hub->ctx_distance, 0);
-+
-+		/* Setup TLB control */
-+		tmp = RREG32_SOC15(GC, j, regMC_VM_MX_L1_TLB_CNTL);
-+		tmp = REG_SET_FIELD(tmp, MC_VM_MX_L1_TLB_CNTL, ENABLE_L1_TLB, 0);
-+		tmp = REG_SET_FIELD(tmp,
-+					MC_VM_MX_L1_TLB_CNTL,
-+					ENABLE_ADVANCED_DRIVER_MODEL,
-+					0);
-+		WREG32_SOC15_RLC(GC, j, regMC_VM_MX_L1_TLB_CNTL, tmp);
-+
-+		/* Setup L2 cache */
-+		tmp = RREG32_SOC15(GC, j, regVM_L2_CNTL);
-+		tmp = REG_SET_FIELD(tmp, VM_L2_CNTL, ENABLE_L2_CACHE, 0);
-+		WREG32_SOC15(GC, j, regVM_L2_CNTL, tmp);
-+		WREG32_SOC15(GC, j, regVM_L2_CNTL3, 0);
-+	}
- }
- 
- /**
-@@ -394,38 +443,42 @@ static void gfxhub_v1_2_set_fault_enable_default(struct amdgpu_device *adev,
- 						 bool value)
- {
- 	u32 tmp;
--	tmp = RREG32_SOC15(GC, 0, regVM_L2_PROTECTION_FAULT_CNTL);
--	tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
--			RANGE_PROTECTION_FAULT_ENABLE_DEFAULT, value);
--	tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
--			PDE0_PROTECTION_FAULT_ENABLE_DEFAULT, value);
--	tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
--			PDE1_PROTECTION_FAULT_ENABLE_DEFAULT, value);
--	tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
--			PDE2_PROTECTION_FAULT_ENABLE_DEFAULT, value);
--	tmp = REG_SET_FIELD(tmp,
--			VM_L2_PROTECTION_FAULT_CNTL,
--			TRANSLATE_FURTHER_PROTECTION_FAULT_ENABLE_DEFAULT,
--			value);
--	tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
--			NACK_PROTECTION_FAULT_ENABLE_DEFAULT, value);
--	tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
--			DUMMY_PAGE_PROTECTION_FAULT_ENABLE_DEFAULT, value);
--	tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
--			VALID_PROTECTION_FAULT_ENABLE_DEFAULT, value);
--	tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
--			READ_PROTECTION_FAULT_ENABLE_DEFAULT, value);
--	tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
--			WRITE_PROTECTION_FAULT_ENABLE_DEFAULT, value);
--	tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
--			EXECUTE_PROTECTION_FAULT_ENABLE_DEFAULT, value);
--	if (!value) {
-+	int i;
-+
-+	for (i = 0; i < adev->gfx.num_xcd; i++) {
-+		tmp = RREG32_SOC15(GC, i, regVM_L2_PROTECTION_FAULT_CNTL);
-+		tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
-+				RANGE_PROTECTION_FAULT_ENABLE_DEFAULT, value);
-+		tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
-+				PDE0_PROTECTION_FAULT_ENABLE_DEFAULT, value);
-+		tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
-+				PDE1_PROTECTION_FAULT_ENABLE_DEFAULT, value);
-+		tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
-+				PDE2_PROTECTION_FAULT_ENABLE_DEFAULT, value);
-+		tmp = REG_SET_FIELD(tmp,
-+				VM_L2_PROTECTION_FAULT_CNTL,
-+				TRANSLATE_FURTHER_PROTECTION_FAULT_ENABLE_DEFAULT,
-+				value);
-+		tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
-+				NACK_PROTECTION_FAULT_ENABLE_DEFAULT, value);
-+		tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
-+				DUMMY_PAGE_PROTECTION_FAULT_ENABLE_DEFAULT, value);
-+		tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
-+				VALID_PROTECTION_FAULT_ENABLE_DEFAULT, value);
-+		tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
-+				READ_PROTECTION_FAULT_ENABLE_DEFAULT, value);
- 		tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
--				CRASH_ON_NO_RETRY_FAULT, 1);
-+				WRITE_PROTECTION_FAULT_ENABLE_DEFAULT, value);
- 		tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
--				CRASH_ON_RETRY_FAULT, 1);
-+				EXECUTE_PROTECTION_FAULT_ENABLE_DEFAULT, value);
-+		if (!value) {
-+			tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
-+					CRASH_ON_NO_RETRY_FAULT, 1);
-+			tmp = REG_SET_FIELD(tmp, VM_L2_PROTECTION_FAULT_CNTL,
-+					CRASH_ON_RETRY_FAULT, 1);
-+		}
-+		WREG32_SOC15(GC, i, regVM_L2_PROTECTION_FAULT_CNTL, tmp);
- 	}
--	WREG32_SOC15(GC, 0, regVM_L2_PROTECTION_FAULT_CNTL, tmp);
- }
- 
- static void gfxhub_v1_2_init(struct amdgpu_device *adev)
+ 	adev->gfx.num_compute_rings = min(amdgpu_gfx_get_num_kcq(adev),
+ 					  AMDGPU_MAX_COMPUTE_RINGS);
 -- 
 2.39.2
 
