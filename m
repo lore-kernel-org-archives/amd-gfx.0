@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CB02C76195
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B993C77B6D
 	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 18:45:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8B6D10E6F5;
-	Mon, 27 Mar 2023 18:44:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E8BC10E6FC;
+	Mon, 27 Mar 2023 18:44:29 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20624.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8a::624])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D573010E6C9;
- Mon, 27 Mar 2023 18:44:00 +0000 (UTC)
+ (mail-bn7nam10on2055.outbound.protection.outlook.com [40.107.92.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E70F510E6C8;
+ Mon, 27 Mar 2023 18:43:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dWfOHx9h8zdSzJ2I4MkZ2D0hRvUr73AZTYq1lir3A5+fehTCt4CEe0fFn1JhxuWCDWmZMef1kqMHS+nrovogTH3WG/lLAvl2/ieFDqQNbJDLiHtapFIy/CpBcdz27vo1GCUTZKqCSt5nyRf1CtQfjnNcWUXTbCiQBTME1taZQ52K38dbOwI8CMZZHDUXMwFQROm5qqZ/SnGDRQ1wylCYKlftqErGMkd8V0B8xVJK6T0FHcdQKWAMgBchVBiTb7b+gLBGz1Q147e9IZQn6kYvqDPyLo1fj31tFCjKCPU1K+AhAT8r9CAvQ0OqEg5XD90rRl/uFaXCExvccp34GMO75A==
+ b=Jw5oTcenWv7qQ6rHnujqQl3D60272BqoBwgvlBMF3Kk0ubZXFQeuTYkFw/f0+RO10YTjEJUFLaGFJNpk1N0Nl2J7vZbO6+nOlbPtp05M3oM6wohCp89evzvC3VCMjkJhrhgx3LFZ8GYRKjwJAZQH9Yqk/z1ZJDTiyh1c4Ezs1bNOQKhMBMeLRBFX0fKGg6/NouVLMcR+Ryr/bCibj/81+es83WqgYUkzJjYeKf0ibG7L+78Kdu7fjRNuj9cX/PkbGqLcHUUM6Bn40Fb0FEhYs8k1dvlmVenWfHsex+gG+gd2Hsa7gp/izjCJMkdKcTAyO8jpJ8tC2FtS5Dm1GBV9UQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zDBdNXEVdBygSfICAItJ89V09GJJFp3JpdBmmw4HLQM=;
- b=MLzXwf2aK6xTDK1bXw/emIffuwJlDpvZH0+mIsbCYtQaTDiI9IIDS5GlINv64nnCH0W3NzU/90zic5t2NGU2CAq/NjwvilN70DvVhDsPVMfvjbVMJB16QggKmozicZW6nFCmH3gIsxhy1zQKdYokE5AWTkGROjzin3CcRS5JUb7gZ+WHN6js31m3sJbSUG7ZRBIHm4vtdYZtJ17w+34jLIr8LUdPJ+LFxY81Cg+RDm0y2vdK8CHqHYEUvdJn4HERQWqi426tKbT9cvClgVtwcmS74M4E8bg3lIgIsGfoNUKA1VIRkYqfsTGkPT47Q/nF8T5XfXYIv7+pJaxPBTr/yg==
+ bh=cqM74mH0OYz5f+cxKDnbMccinjcT27DG5dqxZyQ56Yo=;
+ b=cEKpmFj+1GLo/RGHTJ7IshbDK/kCGFJvxqcZWllJPH75FR583IVgOy6orxEPnq7w7ltvt7aEglKE6kEx7wVaTQ8N21Sn1xO+PsSgdKWTRrMitpGCAGyP1aPzcNO1iGpvaZ6TO8u/XU49XFnxBri6s/I7DKj3nxoqN/x/C8AQESaFSNiMAdh6D2PZEKkiK1UXz1HolIMLQuGLd0571AAcm0P4KBZpD1jPZYlGdiJIXZqTepMDawuuvmciqk+WcrJXYUPFkkRdX8O+5GzdJ4KEuLBuSJaHIib/N7rppU3xnVOZmeJOQedZk2KImauEDMOw8pZcHJ8PH6TgUOIZj1DCVQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zDBdNXEVdBygSfICAItJ89V09GJJFp3JpdBmmw4HLQM=;
- b=pQxw9epNFftIJAaB9/mVJAqZTcHugcmIN6mXdexBZbBVxJ8TQDCh4IlTrP30AXqr+umtb2Y8wyc9xNsVOKXZ+27BpXoXi3FUb88aItpCtiYFLTuxS5UnRTKLEXpUxCDj0Q7Qz+fkH7QX+SLqL+n0I/3kEAHvuSnQfA6hH32gU/Q=
-Received: from CY8PR02CA0020.namprd02.prod.outlook.com (2603:10b6:930:4d::23)
- by CYYPR12MB8749.namprd12.prod.outlook.com (2603:10b6:930:c6::12)
+ bh=cqM74mH0OYz5f+cxKDnbMccinjcT27DG5dqxZyQ56Yo=;
+ b=leXfZBbqL/a25IhfPJeCuuMqzDnFnKoRHRvQ5Gh2mVwwDWKMCdeEx2AtArC+nC8pIJ8s7epuuYpK/fjqLu3hSZPipGfzkMN2sTANGp+9nFCa/0XHDLnJsyuxYH9voJF57jZc5fLs60lGiOlWfL6PkkHVu66C6tO0Ch4YvQTOiSs=
+Received: from CY8PR02CA0006.namprd02.prod.outlook.com (2603:10b6:930:4d::11)
+ by MN2PR12MB4407.namprd12.prod.outlook.com (2603:10b6:208:260::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.38; Mon, 27 Mar
- 2023 18:43:58 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.30; Mon, 27 Mar
+ 2023 18:43:57 +0000
 Received: from CY4PEPF0000C97D.namprd02.prod.outlook.com
- (2603:10b6:930:4d:cafe::4c) by CY8PR02CA0020.outlook.office365.com
- (2603:10b6:930:4d::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.43 via Frontend
- Transport; Mon, 27 Mar 2023 18:43:58 +0000
+ (2603:10b6:930:4d:cafe::71) by CY8PR02CA0006.outlook.office365.com
+ (2603:10b6:930:4d::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.41 via Frontend
+ Transport; Mon, 27 Mar 2023 18:43:57 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CY4PEPF0000C97D.mail.protection.outlook.com (10.167.241.136) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.30 via Frontend Transport; Mon, 27 Mar 2023 18:43:58 +0000
+ 15.20.6178.30 via Frontend Transport; Mon, 27 Mar 2023 18:43:57 +0000
 Received: from jonathan-KFD.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 27 Mar
- 2023 13:43:57 -0500
+ 2023 13:43:55 -0500
 From: Jonathan Kim <jonathan.kim@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: [PATCH 25/34] drm/amdkfd: add debug wave launch mode operation
-Date: Mon, 27 Mar 2023 14:43:30 -0400
-Message-ID: <20230327184339.125016-25-jonathan.kim@amd.com>
+Subject: [PATCH 21/34] drm/amdkfd: add debug trap enabled flag to tma
+Date: Mon, 27 Mar 2023 14:43:26 -0400
+Message-ID: <20230327184339.125016-21-jonathan.kim@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230327184339.125016-1-jonathan.kim@amd.com>
 References: <20230327184339.125016-1-jonathan.kim@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000C97D:EE_|CYYPR12MB8749:EE_
-X-MS-Office365-Filtering-Correlation-Id: 98d2da3f-849b-46f1-26f9-08db2ef339c8
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000C97D:EE_|MN2PR12MB4407:EE_
+X-MS-Office365-Filtering-Correlation-Id: 999884ea-637e-4b17-b792-08db2ef33917
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pqOImXCPHDTXqz81ajkE6hHDNBZy4jBo2Pjy4gMDO1atLLG9npiAluh6s0f2rNLjwaTFci1yX8FbDowr6d3YxSssLzlR1JQPHqdaEMRybwMLG+yYMwE8w7dr/q/SRf4N++RftuBKvJnCtDpTgWF2IPvOJ21libLDWP/72TUfPCT+6NZgDrom9DU1rfnOVXRjYyU8PGIkitVZVdh6+MY46znQAnjtDHS4V9DeQRFE7bmCQVX5ThXFajoI1a8kLN372974PJSdlz24p2Kbo1IYHeuMA8w4osHQvtLdIswmMWDsUDdA8QPcf0vEJ/izWrQjKYi1VInZaqn4DMLS2iaIfn/j4BHgkWwIENsTr3J+pJayglWqWXragOvm/wkFxmfWbxVa2acNn17Ka7A0tZSSNzFYwk0QQ8Mv7Wh5Bl6/YoIAYlc60kkAaJP30OdTE6mJRwq5Fi2zAAXPtEGX0nqtx0M8pALxN+6Ls9AxG84T636BtIeT834Eg0AJBgwGTo146hFVSXz6akCL477YrBKaOVuAfRluV0X7G7Bl1jx77uLY9FHGNe6i7wBDZwFf7wEiDVN7Vmu3EEf8/rZDAVCRYe44NpblJCAjq2+2zp8nZsxfX21mcZb20ZH8g2jF1w3/7rxqs3TbP6y6UK8LMOpkE4YeymcKhq33+A49LW7MvRPeB18H0QLnB23JVhV4eY1DH/95d4VP0W7V0RZ95nuY9Lzi17C2tbpD4zIryuF43Do9dfLx4MzUvWz/+5H9CtiLhGpbwq2xRhxREgd6Cqt9UQ==
+X-Microsoft-Antispam-Message-Info: d8YK/qSHggoNf58Nd5EJeW/Dy9N6xt9rXDwDlUTvZdHscHNwKvECKFa0L3o+8puTfbQ68DkSHVnSoyZGzNeYFpQvsVbTPkRwkO2ioEMd4fOVQwFqkkZwlee0+yJ3CCb0sikRXtws0TjcoagENbL888OBz3CyGo2JHfLbnCxP38UxhgQcja9QnZ7XV1pk4fwIcUAj/0RbgjX/1bwoNIjnmxTmmxcp6/5yZa9i/VPvV+V7l9MS7MJBgDtr57icmKEGnEYKFqh1+4HW6AjnKon6sn0it9nIDEOtYpkpHoVc5rGoTPyOI5BuyZVy7+SVmcoXStWeQiEDety29+cdS6V0VlYj2AYWQW31I/tBeaS90ha2XODUHH3yoqz1S6hr7iM4dEP2o5K+Td9/bL7NuNnE1AnuXdWff+2RcAr2BWT4XrZb5u5UmmGNNpGR4SwrGBl/qGoj0MLgI2eL8VgpscY7wrWX/INpfVAMxN10kYadZdXDrtl34/Ud93kVxhgbNFeDkyX06AxutPQRN3HoDINMh8evPNMmJ3E8xZ3/0Z9jqMNMDP1py6bSVX8DRQbqucoAscYE5ubSzBQ5W/gRvsJOlyJRU50JXjayORp1uiC4aoL52QdlGOHveKC+RTaeSp+FJbTbnTDk6gShRcaqdg7tm4Ao1UC3KWYVpMYo4CLHdOfnrPGgDCJ+7wBleDhCz4JPFQcTckcvE/Yb/kbQNmmtVCTFZrwJ3g2OrgumSbC2rwE=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(136003)(396003)(376002)(39860400002)(451199021)(40470700004)(46966006)(36840700001)(6666004)(54906003)(316002)(450100002)(40460700003)(426003)(8676002)(41300700001)(70206006)(356005)(70586007)(4326008)(7696005)(26005)(44832011)(1076003)(110136005)(2906002)(186003)(478600001)(83380400001)(82310400005)(2616005)(336012)(47076005)(16526019)(40480700001)(5660300002)(8936002)(81166007)(36860700001)(86362001)(82740400003)(30864003)(36756003)(36900700001)(309714004);
+ SFS:(13230028)(4636009)(136003)(346002)(376002)(39860400002)(396003)(451199021)(46966006)(40470700004)(36840700001)(16526019)(26005)(426003)(1076003)(40480700001)(41300700001)(186003)(6666004)(7696005)(83380400001)(336012)(2616005)(47076005)(478600001)(54906003)(110136005)(316002)(36860700001)(40460700003)(4326008)(70206006)(450100002)(44832011)(2906002)(70586007)(8676002)(81166007)(82740400003)(356005)(36756003)(82310400005)(86362001)(5660300002)(8936002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 18:43:58.3312 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 98d2da3f-849b-46f1-26f9-08db2ef339c8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 18:43:57.1749 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 999884ea-637e-4b17-b792-08db2ef33917
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C97D.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8749
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4407
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,311 +103,111 @@ Cc: Felix.Kuehling@amd.com, Jonathan.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Allow the debugger to set wave behaviour on to either normally operate,
-halt at launch, trap on every instruction, terminate immediately or
-stall on allocation.
+From: Jay Cornwall <jay.cornwall@amd.com>
 
-v3: remove unrequired stall_launch reference in an earlier patch.
-gfx off optimization will be addressed later.
+Trap handler behavior will differ when a debugger is attached.
 
-v2: add gfx11 support and remove deprecated launch mode options
+Make the debug trap flag available in the trap handler TMA.
+Update it when the debug trap ioctl is invoked.
 
+v4: fix up comments to clarify flagging implementation.
+
+v3: Rebase for upstream
+
+v2:
+Add missing debug flag setup on APUs
+
+Signed-off-by: Jay Cornwall <jay.cornwall@amd.com>
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
 ---
- .../drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c  | 12 +++++++
- .../drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c   |  1 +
- .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c    | 25 +++++++++++++
- .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h    |  3 ++
- .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c  |  3 +-
- .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c    | 14 +++++++-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 25 +++++++++++++
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h |  3 ++
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  3 ++
- drivers/gpu/drm/amd/amdkfd/kfd_debug.c        | 36 ++++++++++++++++++-
- drivers/gpu/drm/amd/amdkfd/kfd_debug.h        |  2 ++
- 11 files changed, 124 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_debug.c   | 11 +++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  2 ++
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 15 +++++++++++++++
+ 3 files changed, 28 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
-index d7881bbd828d..774ecfc3451a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
-@@ -107,6 +107,17 @@ static uint32_t kgd_aldebaran_set_wave_launch_trap_override(struct amdgpu_device
- 	return data;
- }
- 
-+static uint32_t kgd_aldebaran_set_wave_launch_mode(struct amdgpu_device *adev,
-+					uint8_t wave_launch_mode,
-+					uint32_t vmid)
-+{
-+	uint32_t data = 0;
-+
-+	data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, LAUNCH_MODE, wave_launch_mode);
-+
-+	return data;
-+}
-+
- const struct kfd2kgd_calls aldebaran_kfd2kgd = {
- 	.program_sh_mem_settings = kgd_gfx_v9_program_sh_mem_settings,
- 	.set_pasid_vmid_mapping = kgd_gfx_v9_set_pasid_vmid_mapping,
-@@ -129,6 +140,7 @@ const struct kfd2kgd_calls aldebaran_kfd2kgd = {
- 	.disable_debug_trap = kgd_aldebaran_disable_debug_trap,
- 	.validate_trap_override_request = kgd_aldebaran_validate_trap_override_request,
- 	.set_wave_launch_trap_override = kgd_aldebaran_set_wave_launch_trap_override,
-+	.set_wave_launch_mode = kgd_aldebaran_set_wave_launch_mode,
- 	.get_iq_wait_times = kgd_gfx_v9_get_iq_wait_times,
- 	.build_grace_period_packet_info = kgd_gfx_v9_build_grace_period_packet_info,
- 	.program_trap_handler_settings = kgd_gfx_v9_program_trap_handler_settings,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-index ec2587664001..fbdc1b7b1e42 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-@@ -412,6 +412,7 @@ const struct kfd2kgd_calls arcturus_kfd2kgd = {
- 	.disable_debug_trap = kgd_arcturus_disable_debug_trap,
- 	.validate_trap_override_request = kgd_gfx_v9_validate_trap_override_request,
- 	.set_wave_launch_trap_override = kgd_gfx_v9_set_wave_launch_trap_override,
-+	.set_wave_launch_mode = kgd_gfx_v9_set_wave_launch_mode,
- 	.get_iq_wait_times = kgd_gfx_v9_get_iq_wait_times,
- 	.build_grace_period_packet_info = kgd_gfx_v9_build_grace_period_packet_info,
- 	.get_cu_occupancy = kgd_gfx_v9_get_cu_occupancy,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-index 8e2468d02001..5ace6aa042c1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-@@ -855,6 +855,30 @@ uint32_t kgd_gfx_v10_set_wave_launch_trap_override(struct amdgpu_device *adev,
- 	return 0;
- }
- 
-+uint32_t kgd_gfx_v10_set_wave_launch_mode(struct amdgpu_device *adev,
-+					uint8_t wave_launch_mode,
-+					uint32_t vmid)
-+{
-+	uint32_t data = 0;
-+	bool is_mode_set = !!wave_launch_mode;
-+
-+	mutex_lock(&adev->grbm_idx_mutex);
-+
-+	kgd_gfx_v10_set_wave_launch_stall(adev, vmid, true);
-+
-+	data = REG_SET_FIELD(data, SPI_GDBG_WAVE_CNTL2,
-+			VMID_MASK, is_mode_set ? 1 << vmid : 0);
-+	data = REG_SET_FIELD(data, SPI_GDBG_WAVE_CNTL2,
-+			MODE, is_mode_set ? wave_launch_mode : 0);
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_WAVE_CNTL2), data);
-+
-+	kgd_gfx_v10_set_wave_launch_stall(adev, vmid, false);
-+
-+	mutex_unlock(&adev->grbm_idx_mutex);
-+
-+	return 0;
-+}
-+
- /* kgd_gfx_v10_get_iq_wait_times: Returns the mmCP_IQ_WAIT_TIME1/2 values
-  * The values read are:
-  *     ib_offload_wait_time     -- Wait Count for Indirect Buffer Offloads.
-@@ -942,6 +966,7 @@ const struct kfd2kgd_calls gfx_v10_kfd2kgd = {
- 	.disable_debug_trap = kgd_gfx_v10_disable_debug_trap,
- 	.validate_trap_override_request = kgd_gfx_v10_validate_trap_override_request,
- 	.set_wave_launch_trap_override = kgd_gfx_v10_set_wave_launch_trap_override,
-+	.set_wave_launch_mode = kgd_gfx_v10_set_wave_launch_mode,
- 	.get_iq_wait_times = kgd_gfx_v10_get_iq_wait_times,
- 	.build_grace_period_packet_info = kgd_gfx_v10_build_grace_period_packet_info,
- 	.program_trap_handler_settings = program_trap_handler_settings,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
-index 85c929fc2926..34c04a2bb83b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
-@@ -36,6 +36,9 @@ uint32_t kgd_gfx_v10_set_wave_launch_trap_override(struct amdgpu_device *adev,
- 					     uint32_t trap_mask_request,
- 					     uint32_t *trap_mask_prev,
- 					     uint32_t kfd_dbg_trap_cntl_prev);
-+uint32_t kgd_gfx_v10_set_wave_launch_mode(struct amdgpu_device *adev,
-+					 uint8_t wave_launch_mode,
-+					 uint32_t vmid);
- void kgd_gfx_v10_get_iq_wait_times(struct amdgpu_device *adev, uint32_t *wait_times);
- void kgd_gfx_v10_build_grace_period_packet_info(struct amdgpu_device *adev,
- 					       uint32_t wait_times,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
-index ae3ead207df4..8627c5458973 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
-@@ -675,6 +675,7 @@ const struct kfd2kgd_calls gfx_v10_3_kfd2kgd = {
- 	.enable_debug_trap = kgd_gfx_v10_enable_debug_trap,
- 	.disable_debug_trap = kgd_gfx_v10_disable_debug_trap,
- 	.validate_trap_override_request = kgd_gfx_v10_validate_trap_override_request,
--	.set_wave_launch_trap_override = kgd_gfx_v10_set_wave_launch_trap_override
-+	.set_wave_launch_trap_override = kgd_gfx_v10_set_wave_launch_trap_override,
-+	.set_wave_launch_mode = kgd_gfx_v10_set_wave_launch_mode
- 
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-index 839094434a25..7ce596e10a62 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-@@ -725,6 +725,17 @@ static uint32_t kgd_gfx_v11_set_wave_launch_trap_override(struct amdgpu_device *
- 	return data;
- }
- 
-+static uint32_t kgd_gfx_v11_set_wave_launch_mode(struct amdgpu_device *adev,
-+					uint8_t wave_launch_mode,
-+					uint32_t vmid)
-+{
-+	uint32_t data = 0;
-+
-+	data = REG_SET_FIELD(data, SPI_GDBG_PER_VMID_CNTL, LAUNCH_MODE, wave_launch_mode);
-+
-+	return data;
-+}
-+
- const struct kfd2kgd_calls gfx_v11_kfd2kgd = {
- 	.program_sh_mem_settings = program_sh_mem_settings_v11,
- 	.set_pasid_vmid_mapping = set_pasid_vmid_mapping_v11,
-@@ -744,5 +755,6 @@ const struct kfd2kgd_calls gfx_v11_kfd2kgd = {
- 	.enable_debug_trap = kgd_gfx_v11_enable_debug_trap,
- 	.disable_debug_trap = kgd_gfx_v11_disable_debug_trap,
- 	.validate_trap_override_request = kgd_gfx_v11_validate_trap_override_request,
--	.set_wave_launch_trap_override = kgd_gfx_v11_set_wave_launch_trap_override
-+	.set_wave_launch_trap_override = kgd_gfx_v11_set_wave_launch_trap_override,
-+	.set_wave_launch_mode = kgd_gfx_v11_set_wave_launch_mode
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-index 16ecfa9ab49c..e7a83a2b7fde 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-@@ -789,6 +789,30 @@ uint32_t kgd_gfx_v9_set_wave_launch_trap_override(struct amdgpu_device *adev,
- 	return 0;
- }
- 
-+uint32_t kgd_gfx_v9_set_wave_launch_mode(struct amdgpu_device *adev,
-+					uint8_t wave_launch_mode,
-+					uint32_t vmid)
-+{
-+	uint32_t data = 0;
-+	bool is_mode_set = !!wave_launch_mode;
-+
-+	mutex_lock(&adev->grbm_idx_mutex);
-+
-+	kgd_gfx_v9_set_wave_launch_stall(adev, vmid, true);
-+
-+	data = REG_SET_FIELD(data, SPI_GDBG_WAVE_CNTL2,
-+		VMID_MASK, is_mode_set ? 1 << vmid : 0);
-+	data = REG_SET_FIELD(data, SPI_GDBG_WAVE_CNTL2,
-+		MODE, is_mode_set ? wave_launch_mode : 0);
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_WAVE_CNTL2), data);
-+
-+	kgd_gfx_v9_set_wave_launch_stall(adev, vmid, false);
-+
-+	mutex_unlock(&adev->grbm_idx_mutex);
-+
-+	return 0;
-+}
-+
- /* kgd_gfx_v9_get_iq_wait_times: Returns the mmCP_IQ_WAIT_TIME1/2 values
-  * The values read are:
-  *     ib_offload_wait_time     -- Wait Count for Indirect Buffer Offloads.
-@@ -1059,6 +1083,7 @@ const struct kfd2kgd_calls gfx_v9_kfd2kgd = {
- 	.disable_debug_trap = kgd_gfx_v9_disable_debug_trap,
- 	.validate_trap_override_request = kgd_gfx_v9_validate_trap_override_request,
- 	.set_wave_launch_trap_override = kgd_gfx_v9_set_wave_launch_trap_override,
-+	.set_wave_launch_mode = kgd_gfx_v9_set_wave_launch_mode,
- 	.get_iq_wait_times = kgd_gfx_v9_get_iq_wait_times,
- 	.build_grace_period_packet_info = kgd_gfx_v9_build_grace_period_packet_info,
- 	.get_cu_occupancy = kgd_gfx_v9_get_cu_occupancy,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-index 47cff392b434..2a2ab42037e4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-@@ -67,6 +67,9 @@ uint32_t kgd_gfx_v9_disable_debug_trap(struct amdgpu_device *adev,
- int kgd_gfx_v9_validate_trap_override_request(struct amdgpu_device *adev,
- 					     uint32_t trap_override,
- 					     uint32_t *trap_mask_supported);
-+uint32_t kgd_gfx_v9_set_wave_launch_mode(struct amdgpu_device *adev,
-+					uint8_t wave_launch_mode,
-+					uint32_t vmid);
- uint32_t kgd_gfx_v9_set_wave_launch_trap_override(struct amdgpu_device *adev,
- 					     uint32_t vmid,
- 					     uint32_t trap_override,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 10ded4141f9b..3b4dffbbc563 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -2978,6 +2978,9 @@ static int kfd_ioctl_set_debug_trap(struct file *filep, struct kfd_process *p, v
- 				&args->launch_override.support_request_mask);
- 		break;
- 	case KFD_IOC_DBG_TRAP_SET_WAVE_LAUNCH_MODE:
-+		r = kfd_dbg_trap_set_wave_launch_mode(target,
-+				args->launch_mode.launch_mode);
-+		break;
- 	case KFD_IOC_DBG_TRAP_SUSPEND_QUEUES:
- 	case KFD_IOC_DBG_TRAP_RESUME_QUEUES:
- 	case KFD_IOC_DBG_TRAP_SET_NODE_ADDRESS_WATCH:
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-index 3da287af9695..d131ff740fba 100644
+index f498987dc21d..c779acb9a623 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-@@ -301,8 +301,10 @@ void kfd_dbg_trap_deactivate(struct kfd_process *target, bool unwind, int unwind
- {
- 	int i;
+@@ -256,6 +256,8 @@ void kfd_dbg_trap_deactivate(struct kfd_process *target, bool unwind, int unwind
+ 		if (unwind && i == unwind_count)
+ 			break;
  
--	if (!unwind)
-+	if (!unwind) {
- 		cancel_work_sync(&target->debug_event_workarea);
-+		kfd_dbg_trap_set_wave_launch_mode(target, 0);
-+	}
++		kfd_process_set_trap_debug_flag(&pdd->qpd, false);
++
+ 		/* GFX off is already disabled by debug activate if not RLC restore supported. */
+ 		if (kfd_dbg_is_rlc_restore_supported(pdd->dev))
+ 			amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
+@@ -351,6 +353,15 @@ int kfd_dbg_trap_activate(struct kfd_process *target)
+ 		if (kfd_dbg_is_rlc_restore_supported(pdd->dev))
+ 			amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
  
- 	for (i = 0; i < target->n_pdds; i++) {
- 		struct kfd_process_device *pdd = target->pdds[i];
-@@ -591,6 +593,38 @@ int kfd_dbg_trap_set_wave_launch_override(struct kfd_process *target,
- 	return r;
++		/**
++		 * Setting the debug flag in the trap handler requires that the TMA has been
++		 * allocated, which occurs during CWSR initialization.
++		 * In the event that CWSR has not been initialized at this point, setting the
++		 * flag will be called again during CWSR initialization if the target process
++		 * is still debug enabled.
++		 */
++		kfd_process_set_trap_debug_flag(&pdd->qpd, true);
++
+ 		if (!pdd->dev->shared_resources.enable_mes)
+ 			r = debug_refresh_runlist(pdd->dev->dqm);
+ 		else
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index d092c81c9dc2..42a4502287f2 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -1105,6 +1105,8 @@ int kfd_init_apertures(struct kfd_process *process);
+ void kfd_process_set_trap_handler(struct qcm_process_device *qpd,
+ 				  uint64_t tba_addr,
+ 				  uint64_t tma_addr);
++void kfd_process_set_trap_debug_flag(struct qcm_process_device *qpd,
++				     bool enabled);
+ 
+ /* CWSR initialization */
+ int kfd_process_init_cwsr_apu(struct kfd_process *process, struct file *filep);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index c6a4d01bb1b5..d26aa339fa6b 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1303,6 +1303,8 @@ int kfd_process_init_cwsr_apu(struct kfd_process *p, struct file *filep)
+ 
+ 		memcpy(qpd->cwsr_kaddr, dev->cwsr_isa, dev->cwsr_isa_size);
+ 
++		kfd_process_set_trap_debug_flag(qpd, p->debug_trap_enabled);
++
+ 		qpd->tma_addr = qpd->tba_addr + KFD_CWSR_TMA_OFFSET;
+ 		pr_debug("set tba :0x%llx, tma:0x%llx, cwsr_kaddr:%p for pqm.\n",
+ 			qpd->tba_addr, qpd->tma_addr, qpd->cwsr_kaddr);
+@@ -1339,6 +1341,9 @@ static int kfd_process_device_init_cwsr_dgpu(struct kfd_process_device *pdd)
+ 
+ 	memcpy(qpd->cwsr_kaddr, dev->cwsr_isa, dev->cwsr_isa_size);
+ 
++	kfd_process_set_trap_debug_flag(&pdd->qpd,
++					pdd->process->debug_trap_enabled);
++
+ 	qpd->tma_addr = qpd->tba_addr + KFD_CWSR_TMA_OFFSET;
+ 	pr_debug("set tba :0x%llx, tma:0x%llx, cwsr_kaddr:%p for pqm.\n",
+ 		 qpd->tba_addr, qpd->tma_addr, qpd->cwsr_kaddr);
+@@ -1425,6 +1430,16 @@ bool kfd_process_xnack_mode(struct kfd_process *p, bool supported)
+ 	return true;
  }
  
-+int kfd_dbg_trap_set_wave_launch_mode(struct kfd_process *target,
-+					uint8_t wave_launch_mode)
++void kfd_process_set_trap_debug_flag(struct qcm_process_device *qpd,
++				     bool enabled)
 +{
-+	int r = 0, i;
-+
-+	if (wave_launch_mode != KFD_DBG_TRAP_WAVE_LAUNCH_MODE_NORMAL &&
-+			wave_launch_mode != KFD_DBG_TRAP_WAVE_LAUNCH_MODE_HALT &&
-+			wave_launch_mode != KFD_DBG_TRAP_WAVE_LAUNCH_MODE_DEBUG)
-+		return -EINVAL;
-+
-+	for (i = 0; i < target->n_pdds; i++) {
-+		struct kfd_process_device *pdd = target->pdds[i];
-+
-+		amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
-+		pdd->spi_dbg_launch_mode = pdd->dev->kfd2kgd->set_wave_launch_mode(
-+				pdd->dev->adev,
-+				wave_launch_mode,
-+				pdd->dev->vm_info.last_vmid_kfd);
-+		amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
-+
-+		if (!pdd->dev->shared_resources.enable_mes)
-+			r = debug_refresh_runlist(pdd->dev->dqm);
-+		else
-+			r = kfd_dbg_set_mes_debug_mode(pdd);
-+
-+		if (r)
-+			break;
++	if (qpd->cwsr_kaddr) {
++		uint64_t *tma =
++			(uint64_t *)(qpd->cwsr_kaddr + KFD_CWSR_TMA_OFFSET);
++		tma[2] = enabled;
 +	}
-+
-+	return r;
 +}
 +
- void kfd_dbg_set_enabled_debug_exception_mask(struct kfd_process *target,
- 					uint64_t exception_set_mask)
- {
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-index 8b3a3d2f4e40..0d70f162d6d8 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-@@ -48,6 +48,8 @@ int kfd_dbg_trap_set_wave_launch_override(struct kfd_process *target,
- 					uint32_t trap_mask_request,
- 					uint32_t *trap_mask_prev,
- 					uint32_t *trap_mask_supported);
-+int kfd_dbg_trap_set_wave_launch_mode(struct kfd_process *target,
-+					uint8_t wave_launch_mode);
- 
- int kfd_dbg_send_exception_to_runtime(struct kfd_process *p,
- 					unsigned int dev_id,
+ /*
+  * On return the kfd_process is fully operational and will be freed when the
+  * mm is released
 -- 
 2.25.1
 
