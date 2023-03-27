@@ -4,58 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0754CC761A6
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 23:35:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13B78C76195
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 23:35:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FFF110E7C0;
-	Mon, 27 Mar 2023 23:35:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF3BE10E7C1;
+	Mon, 27 Mar 2023 23:35:11 +0000 (UTC)
 Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
  [IPv6:2607:f8b0:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C77A910E7BF
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 23:35:00 +0000 (UTC)
-Received: by mail-oi1-x22c.google.com with SMTP id r16so7610443oij.5
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 16:35:00 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C839510E7C1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 23:35:10 +0000 (UTC)
+Received: by mail-oi1-x22c.google.com with SMTP id w133so7709588oib.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 16:35:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1679960099;
+ d=usp.br; s=usp-google; t=1679960109;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=UZvChWzT9y/5zLeIHf5uAQzD/BtvkDRJ3FwyLW2ZaHk=;
- b=wm7ahbRIhc9RvuZcZDoeymhlv3zgD7q8vtlddoiFgyPuYrCF2UQHw1qVFatPY38lbk
- L2MDcqf4eFfFC9CD4fkQf+dipCiiaXWG8ig6gj/1+WLjtVv9dPoPoWUW0OdVyljtevBj
- P1tAYeCjhmjGlaaJoO3h1AsREJwGADm4oAyEWnyxhNQmZEp/yuGqEhppic9GwJ497+6m
- cdfMze0NchXZo6iFtJ+LC4Uj2Wt37hP+m0Yhw2h11qHaiAf+GKNcfNcWz6Vr8UPFQ20/
- qqdrotLRu9N+cgoUH8F8M74KXSdu7eKJD2CI9iaISd9WZdaUnoQcd733g9l1a2Q1kQib
- AJ2w==
+ bh=yAF560UdJX0GEGh8pB1EAaLbRBoRHEw96H0zayNQKjc=;
+ b=s5BGJnAq7jaEqaXyIrghhFPGN9hy259iqKpXXpXaLj6L2JgntWwWRT6UwzgFlL+a6W
+ br0qVZmkEWUZydrOQC4RCcT08aprE/usdIisKmADVQTJWZ9gkn3qOoRxa6xH/VwZdZYd
+ H6xJ8snIaCAxI8OR/2rpEpjvQxq4fo8hn1T+N4L/9gP+EFRzPFNqq40G34MBOLW5+ltB
+ xJiKW4lWmTocpeyGW60GYjyY67U9OI3/VgY814ZUnRKxgLIgyQ9UbU9XRVQF4vEaidER
+ SQpbiRtTQMZRqidHy2/13vqKJSjrBZDDVKUU5qEqOj/9JRRRZkVpXovfI+KwpabwKJ9B
+ yg2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679960099;
+ d=1e100.net; s=20210112; t=1679960109;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=UZvChWzT9y/5zLeIHf5uAQzD/BtvkDRJ3FwyLW2ZaHk=;
- b=2Xvfn5zARsHwxBGHqrURr7PCFdT1kW2r1hwj/SA4luu7jhkj1eiNfYJRwBxNfMdWr+
- CXbIUyNweQWWBrelxrozeLV7wm4HAFIATIar5UTIcRpxiNADpW1RtcSbGnpTvDA7iyGh
- gR7j2+q869654icOQsAfNPHY2ejKNQuhAXxd4xYHskv3Y6GiOH71Gt3jR5b5nEuzJHZm
- CDW0SvYtSUwGTWkay9Ncj6gHwYIDbrirlYcquhxT7jcJpsO8pdUdEuY7LcdVt4vlc3/Y
- PZi2d41c8IqWenwBY3fE0P+iu0coVKYVNqTG4Q0LvlSAAtkbjYzDeN0YlY1tY8XQ/TmT
- T9vA==
-X-Gm-Message-State: AO0yUKVBJWmLoS1R9LpUnOOYbQT2UgfokqyMITKd9Suvs1y0S+mQlPAV
- iwk7oHGfB+TxGRwwtXzs5BsMp4gzAv+SPSi/j4VxWA==
-X-Google-Smtp-Source: AK7set/8tjEH59vf8bLWrjpQFwfi5OJxvuo18LnQL3tRmSwfL7lkONT3v+KQNmF/JKJ6LyaDvpfYzA==
-X-Received: by 2002:aca:220a:0:b0:387:3a49:4733 with SMTP id
- b10-20020aca220a000000b003873a494733mr5203770oic.59.1679960099653; 
- Mon, 27 Mar 2023 16:34:59 -0700 (PDT)
+ bh=yAF560UdJX0GEGh8pB1EAaLbRBoRHEw96H0zayNQKjc=;
+ b=wRQ72DZpqPFgGUw7khPKfv/pC1sdWCRyURbRnCrmrZnIle6Ia60C59DFizYrXS1lZA
+ k4OCs+j7r2CHwoa0rFLni8vOJ11XGsh+wQoLb/AkX/2BPQTdQSw5u3X4dVna8qSlgq+u
+ zWHvUFcRjpZKvmQFTMAkHOEGFxANYtClTaKk9mOXF/HZn33tflNEyeRjlDSiH7vPq9fg
+ /1+CWxY4yppAakBJn4NG6OI01fa7mLPWfSkh+OlwzTFc3kwifexRTgn5a2iNIAF1IvvU
+ pxCogs+P33SJh8g5GTTgODqHwKL6ToaqSaiD190rYuG7bcUJGu0AIylO3fxcVZXfIRDS
+ qMaQ==
+X-Gm-Message-State: AAQBX9f73npMXMliUkz0BN1ArtsP+xHfurliGB0Nult1A0QgSKKe+EGo
+ bK3hgmcUt73VQa2sJDYCm5mt/FWZNSSTglYRr01VjA==
+X-Google-Smtp-Source: AKy350aHN1ssxfd7wdlDmSEKxo8G+lYPHr4FVFNdyq/GmsDYlksjWmJHcmWgoxbY/wLtygfAH8HgwA==
+X-Received: by 2002:a05:6808:9b3:b0:389:545c:a95f with SMTP id
+ e19-20020a05680809b300b00389545ca95fmr5474oig.42.1679960109737; 
+ Mon, 27 Mar 2023 16:35:09 -0700 (PDT)
 Received: from ARCHaio.localdomain ([2804:1b3:a2c0:c911:919f:bd20:4f2a:8383])
  by smtp.gmail.com with ESMTPSA id
- b186-20020aca34c3000000b00389295e8424sm1643409oia.45.2023.03.27.16.34.49
+ b186-20020aca34c3000000b00389295e8424sm1643409oia.45.2023.03.27.16.34.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Mar 2023 16:34:59 -0700 (PDT)
+ Mon, 27 Mar 2023 16:35:09 -0700 (PDT)
 From: Caio Novais <caionovais@usp.br>
 To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 05/12] drm/amd/display: Remove unused variable 'speakers'
-Date: Mon, 27 Mar 2023 20:33:46 -0300
-Message-Id: <20230327233353.64081-6-caionovais@usp.br>
+Subject: [PATCH 06/12] drm/amd/display: Remove unused variable
+ 'mc_vm_apt_default'
+Date: Mon, 27 Mar 2023 20:33:47 -0300
+Message-Id: <20230327233353.64081-7-caionovais@usp.br>
 X-Mailer: git-send-email 2.40.0
 In-Reply-To: <20230327233353.64081-1-caionovais@usp.br>
 References: <20230327233353.64081-1-caionovais@usp.br>
@@ -106,36 +107,34 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Compiling AMD GPU drivers displays a warning:
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_afmt.c: In function ‘afmt3_se_audio_setup’:
-drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_afmt.c:126:18: warning: variable ‘speakers’ set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_hubp.c: In function ‘hubp3_set_vm_system_aperture_settings’:
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_hubp.c:50:30: warning: variable ‘mc_vm_apt_default’ set but not used [-Wunused-but-set-variable]
 
 Get rid of it by removing the variable.
 
 Signed-off-by: Caio Novais <caionovais@usp.br>
 ---
- drivers/gpu/drm/amd/display/dc/dcn30/dcn30_afmt.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_afmt.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_afmt.c
-index 95528e5ef89e..55e388c4c98b 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_afmt.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_afmt.c
-@@ -123,7 +123,6 @@ void afmt3_se_audio_setup(
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
+index dc3e8df706b3..e46bbe7ddcc9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
+@@ -47,13 +47,9 @@ void hubp3_set_vm_system_aperture_settings(struct hubp *hubp,
  {
- 	struct dcn30_afmt *afmt3 = DCN30_AFMT_FROM_AFMT(afmt);
+ 	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
  
--	uint32_t speakers = 0;
- 	uint32_t channels = 0;
+-	PHYSICAL_ADDRESS_LOC mc_vm_apt_default;
+ 	PHYSICAL_ADDRESS_LOC mc_vm_apt_low;
+ 	PHYSICAL_ADDRESS_LOC mc_vm_apt_high;
  
- 	ASSERT(audio_info);
-@@ -131,7 +130,6 @@ void afmt3_se_audio_setup(
- 	if (audio_info == NULL)
- 		return;
- 
--	speakers = audio_info->flags.info.ALLSPEAKERS;
- 	channels = speakers_to_channels(audio_info->flags.speaker_flags).all;
- 
- 	/* setup the audio stream source select (audio -> dig mapping) */
+-	// The format of default addr is 48:12 of the 48 bit addr
+-	mc_vm_apt_default.quad_part = apt->sys_default.quad_part >> 12;
+-
+ 	// The format of high/low are 48:18 of the 48 bit addr
+ 	mc_vm_apt_low.quad_part = apt->sys_low.quad_part >> 18;
+ 	mc_vm_apt_high.quad_part = apt->sys_high.quad_part >> 18;
 -- 
 2.40.0
 
