@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D8C3C77B61
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 18:45:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08898C6FD1D
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 18:45:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D1FF10E703;
-	Mon, 27 Mar 2023 18:44:39 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2069.outbound.protection.outlook.com [40.107.237.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A8FF10E6D1;
- Mon, 27 Mar 2023 18:44:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4523510E712;
+	Mon, 27 Mar 2023 18:44:51 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2041.outbound.protection.outlook.com [40.107.212.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA17910E6C9;
+ Mon, 27 Mar 2023 18:44:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TY2+nmWNZS8a2CncMrWQIQnxAtuV1WSokPruI6X911Uj5GNPLh3hVDthdBA3rXG0mxAao/xOcrmu2P2UOq9JmRjxx1PPnWzfysi6lC64FsZNbg/cqEsOJF14VPGDY1FflBlsEjdGLpmjNet7smmjQ+C9CcXKy5Xy3DZBFymo17pc3qsBKNkuwhq/Vkwr2FnoTlRa3MK/ypTMhnJiafQf3tPuqhuOEsESkxis352Mqj/GZhfEnjfCGT2FIhqbokyErw0obnvayj5qgnYvDhjVwueswO80ELTxfjJwgi2XuVnfqbnmaH8fzk0etoXWDSTqgNaCiKPgxllyEo75MZPEIg==
+ b=eP1mj7/DR15SJEoRqiZiW1CVn2d1urRwD2oIu8Bml+QR66angAVWXVKprkBVKltWao5mKJBHO0byY5t8963H9kFJcKqk4rMwS+DMyAa3j0KpuxSLSeUFz12Z3Qynib5jGWeBofO6uQbuDS8qDY7UFYxYe1AjU58nF9k03s2Ee6vIy+MJRHywp0WRsJImGkVZFRpugmRU/lM6MF/qJ7xxUaHlylLthhK8S/hLQzvELbf2Ymzsb6xglxC3hKdZ9eGmxpp37ViVI8bOFd/iAkdQbAG8dC2F6eUh8ji7GNsV/m+BOdntDkYAwLqhbHI/p3NytWTg3v42r8ENyt3VmAom6A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2HvqXpnF4iq8+n/2RmtCmrSa3TVheLCU1O+vf9zydIE=;
- b=iyeFjF9ex5l5en7WFIV+qB7KRmZPA1YLXpRBGj1ylZuNki2fd7CH39nZYxm6g9kKwfIXEXygfPU9tK9GHgO8d8oduV2wn4eA9WuS26giJXWrPk1RqzxT8huk3Ndba8LnentloKy6E/cFEqhqK9oYWbtVAkC6jEBfI2JecKMX9XLe/EkTI8nT/fiUuPHKIoPTWobuI3FNVLGgBtswRdmf6TyZzqvASXShi1AfQTNWn+5XBhGb+MMOoInQxCrih1dGChEoEYnQZCxkbF3ASkr9wHfFn+VT7Ny0QjfB/ZCjUNuzW2sqKMxINVXhrSpX0Mmne5aWVHyh6yWGPCGH203mSw==
+ bh=EMciIW2LnJlmp8Db1CT/qAm9JTD3BzUqRMnRVy31gwI=;
+ b=TFRTKyHb3z2I9auLBJIkc+xadmP3U7s3wAbOzLMpLVg2NI6foTrOHuQr39Q2OonPCbzpZFllnwFu8TeX6x2HWNYM5dhS2Ttx/y8BmH2GbahgX6md3lQeT0b0He00B9Xvd8MXR4V9exgB2huV4KYqz6TefEwLkLasm4jarsCopOkuGCmXwMzjmNghT53cLdfn3x3tjX5aUWTqyFzQh+TszNXyse1oXGmtH8Z8PLt6rFwHH7al1GigzR07b1F0aHhprMfr++XjxOeVRgf1Nrn5/+UGulqDAySOoUryNzcEBfUdWflr1AcgNl/KOvmdlUKtgSPqDNOOKXZz997NkMVOdw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2HvqXpnF4iq8+n/2RmtCmrSa3TVheLCU1O+vf9zydIE=;
- b=2CZ/J53yvXqFbNvkCuEjhmaXUsLexjDDpi482lTOiLdNbeBjLhzPUvQgVichB/Vki0jmmpJcDwd88ZNro2TZt9DrXd+o913Oi7v67lL1wPG0OYcM/qhTmYUHNvJt8yhgXco47t+RFQgboFAsZI18hY9EwNgKc4Fhv6WlTlTwP30=
-Received: from CY5PR18CA0008.namprd18.prod.outlook.com (2603:10b6:930:5::11)
- by SJ0PR12MB7473.namprd12.prod.outlook.com (2603:10b6:a03:48d::8) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=EMciIW2LnJlmp8Db1CT/qAm9JTD3BzUqRMnRVy31gwI=;
+ b=B5P5rBCTrNpiFr99koaDOwbfBnBS/qnXv0jSaOZz9Q31dt9DPVU50EleSHHez4CpjHKVgtiPks/e5x44RJEhXs6p6jLv31xnntJxjMXGQ92a540whdLVwke2+JZqQJ5WY4B0SP4G6xeU3edGd46kitUBDwNkIhQP0X014a3mnbY=
+Received: from CY5PR15CA0088.namprd15.prod.outlook.com (2603:10b6:930:18::29)
+ by BL1PR12MB5993.namprd12.prod.outlook.com (2603:10b6:208:399::9)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.41; Mon, 27 Mar
- 2023 18:43:59 +0000
-Received: from CY4PEPF0000C97C.namprd02.prod.outlook.com
- (2603:10b6:930:5:cafe::35) by CY5PR18CA0008.outlook.office365.com
- (2603:10b6:930:5::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.41 via Frontend
- Transport; Mon, 27 Mar 2023 18:43:58 +0000
+ 2023 18:44:03 +0000
+Received: from CY4PEPF0000C979.namprd02.prod.outlook.com
+ (2603:10b6:930:18:cafe::3b) by CY5PR15CA0088.outlook.office365.com
+ (2603:10b6:930:18::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.43 via Frontend
+ Transport; Mon, 27 Mar 2023 18:44:03 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000C97C.mail.protection.outlook.com (10.167.241.135) with Microsoft
+ CY4PEPF0000C979.mail.protection.outlook.com (10.167.241.137) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.30 via Frontend Transport; Mon, 27 Mar 2023 18:43:58 +0000
+ 15.20.6178.30 via Frontend Transport; Mon, 27 Mar 2023 18:44:03 +0000
 Received: from jonathan-KFD.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 27 Mar
- 2023 13:43:58 -0500
+ 2023 13:44:00 -0500
 From: Jonathan Kim <jonathan.kim@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: [PATCH 27/34] drm/amdkfd: add debug set and clear address watch
- points operation
-Date: Mon, 27 Mar 2023 14:43:32 -0400
-Message-ID: <20230327184339.125016-27-jonathan.kim@amd.com>
+Subject: [PATCH 34/34] drm/amdkfd: optimize gfx off enable toggle for debugging
+Date: Mon, 27 Mar 2023 14:43:39 -0400
+Message-ID: <20230327184339.125016-34-jonathan.kim@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230327184339.125016-1-jonathan.kim@amd.com>
 References: <20230327184339.125016-1-jonathan.kim@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000C97C:EE_|SJ0PR12MB7473:EE_
-X-MS-Office365-Filtering-Correlation-Id: 64a855c3-0152-47aa-0bdf-08db2ef33a0d
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000C979:EE_|BL1PR12MB5993:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7ef76216-6785-4eca-a041-08db2ef33cf2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pQkQrWAIjgY/cqURwHlOW1s5fSexW4p23NaztXLHZSCNKA/N52OVjvOdwdZNLxaEVqLGRjSzGLmoC84Gfc5iNOuKTAhKW/MgXmEBHNXDEla8vFq5FFBWrZuPm6Ui36EK3cVDGNeBT1Nz/2iXMwO/OR/zyj6JdInVQtC0qS/4RJa7VJCX1tIBkD4y/XFuIoLRX3KjkH+3vpjTAZsRkfkAV+CP13wYexBAI77UyUxGCGs7FO28+3mh5R0cKSr23zk5GLIKUaJWYgGKAVQduFpKzOYUoWCrVxOdgQ7/QgXq2Mbx/IBXw6/NlYRl6UbwI+HENHuBwXlHONp+SLEVkNrBm1plU95QXI/Re+AMzr1qMS+QMwYTT1oqfOSHpVdqcS5ElScpIAcrivOljsp/vMTZ4aHqrsK9lih58uvYilAfH1x1NIP20hVeQXTINB7sJbfyZEj2mrVmNqc6VLr2MAIWVfeu0jfRQ2+YZx9Pjfe+x9cCJuuJD6rIpXWaPxapHvNqj+gLkxPpz7q15wHe25+ByO2AauA4tgjCkIidVrz4tSLpbX8VC6Sj23++3ab1JonvmEMYc03qEsxtIy+avMgVwuF2MRsED5d5GJAGWoGxpqh0url3ghiWCeX1EAqkRN/SNGASQdf6ZbseIgIhhaFACN5KIFFnq1uyo+/U3pXxBKrn/2l+gHpyjKubAvBEA0YOeDYVZezIhN36YwbqxYrJcgMf1Slmdh6vFMKivXB7cDk=
+X-Microsoft-Antispam-Message-Info: A+ndAcE8Gy8e0h867BDS+AIiQEhceCXtKWhg9OBKvt8vDrfxQUu8tG1zt7vfnAUpCWLN6KD8QSDhMwWpXkhKPtkTHGjodndqZNDQzz9cy05Ggpt2DRJn2DWmUWV3iPazRWYJ58utdyIOt1doKla2i4BnK7BmDwIZHmG1ib7ZYbWfgqHQxipXs9PhjIpYW7UiDc9X9KjvNGy0GX7rS63ZR6dt1MJjiPYS7UewhqZOS79+aaDltb7zI8wWrXPFbFB/34k5kNemohlwA+sHagrhfxOOHw/Z2LBBJ1NJZR8nYpOMrXwXt9LiYWP8kwWM82H3joxYDMBovk+jHb8lqXCPlwOnQl/EIxu+vnJP4p1P2Ktp/fw2/XnrlbheGsqxQy3cgFuNG4xjI8a6sdGf/Bii2rNU158mhNJhAjYVbQLm24ehruzICY00AFsj/2mfkuyH000d0jgIeFH61Sszjf934RIhh60TN4YZJqDDKPANUObgatuW2I1Y8B6o0SMV1JWZndQaOykEhuP0bQBfCwBVik5zOdGJ/A6HqxMt6kBiyF77DFUVgyX3aa0F1tA3dthieCajtoIRL6G9K5pkK5ANiJD2bgP0sAKAmkvIk5JRTrIAVbmxrHv1Esi7wzQqpGylp+Bhl3JCptvyRaN82JeZ9e2rr20UdHFChAFcKesrxmYxwWVrCgkCC3x74Rsp+Fc5M5RPZTaBaJaFIVuAYYL9ZaPwwPDh43ha92yXtW/W8/oxa7HX5603UFgG0b1JcGkdyiALuy73/iLBbKAah8CEdg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(136003)(346002)(39860400002)(376002)(451199021)(36840700001)(40470700004)(46966006)(40460700003)(81166007)(8676002)(70206006)(70586007)(4326008)(41300700001)(450100002)(16526019)(186003)(2906002)(83380400001)(82310400005)(30864003)(36756003)(36860700001)(5660300002)(44832011)(47076005)(356005)(86362001)(426003)(82740400003)(2616005)(336012)(40480700001)(6666004)(478600001)(54906003)(110136005)(7696005)(8936002)(26005)(1076003)(316002)(36900700001);
+ SFS:(13230028)(4636009)(396003)(136003)(346002)(39860400002)(376002)(451199021)(36840700001)(40470700004)(46966006)(40460700003)(81166007)(8676002)(70206006)(70586007)(4326008)(41300700001)(450100002)(16526019)(186003)(2906002)(83380400001)(82310400005)(30864003)(36756003)(36860700001)(5660300002)(44832011)(47076005)(356005)(86362001)(426003)(82740400003)(2616005)(336012)(40480700001)(6666004)(478600001)(54906003)(110136005)(7696005)(8936002)(26005)(1076003)(316002)(36900700001)(309714004);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 18:43:58.7826 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 64a855c3-0152-47aa-0bdf-08db2ef33a0d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 18:44:03.6427 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7ef76216-6785-4eca-a041-08db2ef33cf2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C97C.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C979.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7473
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5993
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,708 +103,447 @@ Cc: Felix.Kuehling@amd.com, Jonathan.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Shader read, write and atomic memory operations can be alerted to the
-debugger as an address watch exception.
+Legacy debug devices limited to pinning a single debug VMID for debugging
+are the only devices that require disabling GFX OFF while accessing
+debug registers.  Debug devices that support multi-process debugging
+rely on the hardware scheduler to update debug registers and do not run
+into GFX OFF access issues.
 
-Allow the debugger to pass in a watch point to a particular memory
-address per device.
-
-Note that there exists only 4 watch points per devices to date, so have
-the KFD keep track of what watch points are allocated or not.
-
-v4: fixup bad indentation
-
-v3: add gfx11 support.
-cleanup gfx9 kgd calls to set and clear address watch.
-use per device spinlock to set watch points.
-fixup runlist refresh calls on set/clear address watch.
-
-v2: change dev_id arg to gpu_id for consistency
+Remove KFD GFX OFF enable toggle clutter by moving these calls into the
+KGD debug calls themselves.
 
 Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 ---
- .../drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c  |  51 +++++++
- .../drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c   |   2 +
- .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c    |  78 ++++++++++
- .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h    |   8 ++
- .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c  |   5 +-
- .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c    |  52 ++++++-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c |  77 ++++++++++
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h |   8 ++
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  24 ++++
- drivers/gpu/drm/amd/amdkfd/kfd_debug.c        | 136 ++++++++++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_debug.h        |   8 +-
- drivers/gpu/drm/amd/amdkfd/kfd_device.c       |   1 +
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   6 +-
- 13 files changed, 451 insertions(+), 5 deletions(-)
+ .../drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c   |  7 ++++
+ .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c    | 33 ++++++++++++++++++-
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 24 ++++++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 30 +++++------------
+ drivers/gpu/drm/amd/amdkfd/kfd_debug.c        | 21 +-----------
+ 5 files changed, 73 insertions(+), 42 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
-index 774ecfc3451a..efd6a72aab4e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_aldebaran.c
-@@ -118,6 +118,55 @@ static uint32_t kgd_aldebaran_set_wave_launch_mode(struct amdgpu_device *adev,
- 	return data;
- }
- 
-+#define TCP_WATCH_STRIDE (regTCP_WATCH1_ADDR_H - regTCP_WATCH0_ADDR_H)
-+static uint32_t kgd_gfx_aldebaran_set_address_watch(
-+					struct amdgpu_device *adev,
-+					uint64_t watch_address,
-+					uint32_t watch_address_mask,
-+					uint32_t watch_id,
-+					uint32_t watch_mode,
-+					uint32_t debug_vmid)
-+{
-+	uint32_t watch_address_high;
-+	uint32_t watch_address_low;
-+	uint32_t watch_address_cntl;
-+
-+	watch_address_cntl = 0;
-+	watch_address_low = lower_32_bits(watch_address);
-+	watch_address_high = upper_32_bits(watch_address) & 0xffff;
-+
-+	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
-+			TCP_WATCH0_CNTL,
-+			MODE,
-+			watch_mode);
-+
-+	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
-+			TCP_WATCH0_CNTL,
-+			MASK,
-+			watch_address_mask >> 6);
-+
-+	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
-+			TCP_WATCH0_CNTL,
-+			VALID,
-+			1);
-+
-+	WREG32_RLC((SOC15_REG_OFFSET(GC, 0, regTCP_WATCH0_ADDR_H) +
-+			(watch_id * TCP_WATCH_STRIDE)),
-+			watch_address_high);
-+
-+	WREG32_RLC((SOC15_REG_OFFSET(GC, 0, regTCP_WATCH0_ADDR_L) +
-+			(watch_id * TCP_WATCH_STRIDE)),
-+			watch_address_low);
-+
-+	return watch_address_cntl;
-+}
-+
-+uint32_t kgd_gfx_aldebaran_clear_address_watch(struct amdgpu_device *adev,
-+					uint32_t watch_id)
-+{
-+	return 0;
-+}
-+
- const struct kfd2kgd_calls aldebaran_kfd2kgd = {
- 	.program_sh_mem_settings = kgd_gfx_v9_program_sh_mem_settings,
- 	.set_pasid_vmid_mapping = kgd_gfx_v9_set_pasid_vmid_mapping,
-@@ -141,6 +190,8 @@ const struct kfd2kgd_calls aldebaran_kfd2kgd = {
- 	.validate_trap_override_request = kgd_aldebaran_validate_trap_override_request,
- 	.set_wave_launch_trap_override = kgd_aldebaran_set_wave_launch_trap_override,
- 	.set_wave_launch_mode = kgd_aldebaran_set_wave_launch_mode,
-+	.set_address_watch = kgd_gfx_aldebaran_set_address_watch,
-+	.clear_address_watch = kgd_gfx_aldebaran_clear_address_watch,
- 	.get_iq_wait_times = kgd_gfx_v9_get_iq_wait_times,
- 	.build_grace_period_packet_info = kgd_gfx_v9_build_grace_period_packet_info,
- 	.program_trap_handler_settings = kgd_gfx_v9_program_trap_handler_settings,
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-index fbdc1b7b1e42..6df215aba4c4 100644
+index 6df215aba4c4..dec4a3381ccb 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-@@ -413,6 +413,8 @@ const struct kfd2kgd_calls arcturus_kfd2kgd = {
- 	.validate_trap_override_request = kgd_gfx_v9_validate_trap_override_request,
- 	.set_wave_launch_trap_override = kgd_gfx_v9_set_wave_launch_trap_override,
- 	.set_wave_launch_mode = kgd_gfx_v9_set_wave_launch_mode,
-+	.set_address_watch = kgd_gfx_v9_set_address_watch,
-+	.clear_address_watch = kgd_gfx_v9_clear_address_watch,
- 	.get_iq_wait_times = kgd_gfx_v9_get_iq_wait_times,
- 	.build_grace_period_packet_info = kgd_gfx_v9_build_grace_period_packet_info,
- 	.get_cu_occupancy = kgd_gfx_v9_get_cu_occupancy,
+@@ -350,6 +350,8 @@ static uint32_t kgd_arcturus_enable_debug_trap(struct amdgpu_device *adev,
+ 				bool restore_dbg_registers,
+ 				uint32_t vmid)
+ {
++	amdgpu_gfx_off_ctrl(adev, false);
++
+ 	mutex_lock(&adev->grbm_idx_mutex);
+ 
+ 	kgd_gfx_v9_set_wave_launch_stall(adev, vmid, true);
+@@ -362,6 +364,8 @@ static uint32_t kgd_arcturus_enable_debug_trap(struct amdgpu_device *adev,
+ 
+ 	mutex_unlock(&adev->grbm_idx_mutex);
+ 
++	amdgpu_gfx_off_ctrl(adev, true);
++
+ 	return 0;
+ }
+ 
+@@ -375,6 +379,7 @@ static uint32_t kgd_arcturus_disable_debug_trap(struct amdgpu_device *adev,
+ 					bool keep_trap_enabled,
+ 					uint32_t vmid)
+ {
++	amdgpu_gfx_off_ctrl(adev, false);
+ 
+ 	mutex_lock(&adev->grbm_idx_mutex);
+ 
+@@ -388,6 +393,8 @@ static uint32_t kgd_arcturus_disable_debug_trap(struct amdgpu_device *adev,
+ 
+ 	mutex_unlock(&adev->grbm_idx_mutex);
+ 
++	amdgpu_gfx_off_ctrl(adev, true);
++
+ 	return 0;
+ }
+ const struct kfd2kgd_calls arcturus_kfd2kgd = {
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-index 5ace6aa042c1..444f9ea758d6 100644
+index 444f9ea758d6..2132376e2107 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-@@ -879,6 +879,82 @@ uint32_t kgd_gfx_v10_set_wave_launch_mode(struct amdgpu_device *adev,
+@@ -753,12 +753,13 @@ uint32_t kgd_gfx_v10_enable_debug_trap(struct amdgpu_device *adev,
+ 				bool restore_dbg_registers,
+ 				uint32_t vmid)
+ {
++	amdgpu_gfx_off_ctrl(adev, false);
+ 
+ 	mutex_lock(&adev->grbm_idx_mutex);
+ 
+ 	kgd_gfx_v10_set_wave_launch_stall(adev, vmid, true);
+ 
+-	/* assume gfx off is disabled for the debug session if rlc restore not supported. */
++	/* keep gfx off disabled for the debug session if rlc restore not supported. */
+ 	if (restore_dbg_registers) {
+ 		uint32_t data = 0;
+ 
+@@ -783,6 +784,8 @@ uint32_t kgd_gfx_v10_enable_debug_trap(struct amdgpu_device *adev,
+ 
+ 	mutex_unlock(&adev->grbm_idx_mutex);
+ 
++	amdgpu_gfx_off_ctrl(adev, true);
++
  	return 0;
  }
  
-+#define TCP_WATCH_STRIDE (mmTCP_WATCH1_ADDR_H - mmTCP_WATCH0_ADDR_H)
-+uint32_t kgd_gfx_v10_set_address_watch(struct amdgpu_device *adev,
-+					uint64_t watch_address,
-+					uint32_t watch_address_mask,
-+					uint32_t watch_id,
-+					uint32_t watch_mode,
-+					uint32_t debug_vmid)
-+{
-+	uint32_t watch_address_high;
-+	uint32_t watch_address_low;
-+	uint32_t watch_address_cntl;
+@@ -790,6 +793,8 @@ uint32_t kgd_gfx_v10_disable_debug_trap(struct amdgpu_device *adev,
+ 					bool keep_trap_enabled,
+ 					uint32_t vmid)
+ {
++	amdgpu_gfx_off_ctrl(adev, false);
 +
-+	watch_address_cntl = 0;
+ 	mutex_lock(&adev->grbm_idx_mutex);
+ 
+ 	kgd_gfx_v10_set_wave_launch_stall(adev, vmid, true);
+@@ -800,6 +805,16 @@ uint32_t kgd_gfx_v10_disable_debug_trap(struct amdgpu_device *adev,
+ 
+ 	mutex_unlock(&adev->grbm_idx_mutex);
+ 
++	amdgpu_gfx_off_ctrl(adev, true);
 +
-+	watch_address_low = lower_32_bits(watch_address);
-+	watch_address_high = upper_32_bits(watch_address) & 0xffff;
++	/*
++	 * Remove the extra gfx off disable reference from debug restore call
++	 * for asics that do not support rlc restore for debug registers.
++	 */
++	if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(10, 1, 10) ||
++	    adev->ip_versions[GC_HWIP][0] == IP_VERSION(10, 1, 1))
++		amdgpu_gfx_off_ctrl(adev, true);
 +
-+	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
-+			TCP_WATCH0_CNTL,
-+			VMID,
-+			debug_vmid);
-+	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
-+			TCP_WATCH0_CNTL,
-+			MODE,
-+			watch_mode);
-+	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
-+			TCP_WATCH0_CNTL,
-+			MASK,
-+			watch_address_mask >> 7);
-+
-+	/* Turning off this watch point until we set all the registers */
-+	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
-+			TCP_WATCH0_CNTL,
-+			VALID,
-+			0);
-+
-+	WREG32((SOC15_REG_OFFSET(GC, 0, mmTCP_WATCH0_CNTL) +
-+			(watch_id * TCP_WATCH_STRIDE)),
-+			watch_address_cntl);
-+
-+	WREG32((SOC15_REG_OFFSET(GC, 0, mmTCP_WATCH0_ADDR_H) +
-+			(watch_id * TCP_WATCH_STRIDE)),
-+			watch_address_high);
-+
-+	WREG32((SOC15_REG_OFFSET(GC, 0, mmTCP_WATCH0_ADDR_L) +
-+			(watch_id * TCP_WATCH_STRIDE)),
-+			watch_address_low);
-+
-+	/* Enable the watch point */
-+	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
-+			TCP_WATCH0_CNTL,
-+			VALID,
-+			1);
-+
-+	WREG32((SOC15_REG_OFFSET(GC, 0, mmTCP_WATCH0_CNTL) +
-+			(watch_id * TCP_WATCH_STRIDE)),
-+			watch_address_cntl);
-+
-+	return 0;
-+}
-+
-+uint32_t kgd_gfx_v10_clear_address_watch(struct amdgpu_device *adev,
-+					uint32_t watch_id)
-+{
-+	uint32_t watch_address_cntl;
-+
-+	watch_address_cntl = 0;
-+
-+	WREG32((SOC15_REG_OFFSET(GC, 0, mmTCP_WATCH0_CNTL) +
-+			(watch_id * TCP_WATCH_STRIDE)),
-+			watch_address_cntl);
-+
-+	return 0;
-+}
-+
-+
- /* kgd_gfx_v10_get_iq_wait_times: Returns the mmCP_IQ_WAIT_TIME1/2 values
-  * The values read are:
-  *     ib_offload_wait_time     -- Wait Count for Indirect Buffer Offloads.
-@@ -967,6 +1043,8 @@ const struct kfd2kgd_calls gfx_v10_kfd2kgd = {
- 	.validate_trap_override_request = kgd_gfx_v10_validate_trap_override_request,
- 	.set_wave_launch_trap_override = kgd_gfx_v10_set_wave_launch_trap_override,
- 	.set_wave_launch_mode = kgd_gfx_v10_set_wave_launch_mode,
-+	.set_address_watch = kgd_gfx_v10_set_address_watch,
-+	.clear_address_watch = kgd_gfx_v10_clear_address_watch,
- 	.get_iq_wait_times = kgd_gfx_v10_get_iq_wait_times,
- 	.build_grace_period_packet_info = kgd_gfx_v10_build_grace_period_packet_info,
- 	.program_trap_handler_settings = program_trap_handler_settings,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
-index 34c04a2bb83b..334ff16e25db 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
-@@ -39,6 +39,14 @@ uint32_t kgd_gfx_v10_set_wave_launch_trap_override(struct amdgpu_device *adev,
- uint32_t kgd_gfx_v10_set_wave_launch_mode(struct amdgpu_device *adev,
- 					 uint8_t wave_launch_mode,
- 					 uint32_t vmid);
-+uint32_t kgd_gfx_v10_set_address_watch(struct amdgpu_device *adev,
-+					uint64_t watch_address,
-+					uint32_t watch_address_mask,
-+					uint32_t watch_id,
-+					uint32_t watch_mode,
-+					uint32_t debug_vmid);
-+uint32_t kgd_gfx_v10_clear_address_watch(struct amdgpu_device *adev,
-+					uint32_t watch_id);
- void kgd_gfx_v10_get_iq_wait_times(struct amdgpu_device *adev, uint32_t *wait_times);
- void kgd_gfx_v10_build_grace_period_packet_info(struct amdgpu_device *adev,
- 					       uint32_t wait_times,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
-index 8627c5458973..ee36ba045dcf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
-@@ -676,6 +676,7 @@ const struct kfd2kgd_calls gfx_v10_3_kfd2kgd = {
- 	.disable_debug_trap = kgd_gfx_v10_disable_debug_trap,
- 	.validate_trap_override_request = kgd_gfx_v10_validate_trap_override_request,
- 	.set_wave_launch_trap_override = kgd_gfx_v10_set_wave_launch_trap_override,
--	.set_wave_launch_mode = kgd_gfx_v10_set_wave_launch_mode
--
-+	.set_wave_launch_mode = kgd_gfx_v10_set_wave_launch_mode,
-+	.set_address_watch = kgd_gfx_v10_set_address_watch,
-+	.clear_address_watch = kgd_gfx_v10_clear_address_watch
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-index 7ce596e10a62..8d899013d5a4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-@@ -736,6 +736,54 @@ static uint32_t kgd_gfx_v11_set_wave_launch_mode(struct amdgpu_device *adev,
- 	return data;
+ 	return 0;
  }
  
-+#define TCP_WATCH_STRIDE (regTCP_WATCH1_ADDR_H - regTCP_WATCH0_ADDR_H)
-+static uint32_t kgd_gfx_v11_set_address_watch(struct amdgpu_device *adev,
-+					uint64_t watch_address,
-+					uint32_t watch_address_mask,
-+					uint32_t watch_id,
-+					uint32_t watch_mode,
-+					uint32_t debug_vmid)
-+{
-+	uint32_t watch_address_high;
-+	uint32_t watch_address_low;
-+	uint32_t watch_address_cntl;
+@@ -831,6 +846,8 @@ uint32_t kgd_gfx_v10_set_wave_launch_trap_override(struct amdgpu_device *adev,
+ {
+ 	uint32_t data, wave_cntl_prev;
+ 
++	amdgpu_gfx_off_ctrl(adev, false);
 +
-+	watch_address_cntl = 0;
-+	watch_address_low = lower_32_bits(watch_address);
-+	watch_address_high = upper_32_bits(watch_address) & 0xffff;
+ 	mutex_lock(&adev->grbm_idx_mutex);
+ 
+ 	wave_cntl_prev = RREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_WAVE_CNTL));
+@@ -852,6 +869,8 @@ uint32_t kgd_gfx_v10_set_wave_launch_trap_override(struct amdgpu_device *adev,
+ 
+ 	mutex_unlock(&adev->grbm_idx_mutex);
+ 
++	amdgpu_gfx_off_ctrl(adev, true);
 +
-+	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
-+			TCP_WATCH0_CNTL,
-+			MODE,
-+			watch_mode);
+ 	return 0;
+ }
+ 
+@@ -862,6 +881,8 @@ uint32_t kgd_gfx_v10_set_wave_launch_mode(struct amdgpu_device *adev,
+ 	uint32_t data = 0;
+ 	bool is_mode_set = !!wave_launch_mode;
+ 
++	amdgpu_gfx_off_ctrl(adev, false);
 +
-+	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
-+			TCP_WATCH0_CNTL,
-+			MASK,
-+			watch_address_mask >> 7);
+ 	mutex_lock(&adev->grbm_idx_mutex);
+ 
+ 	kgd_gfx_v10_set_wave_launch_stall(adev, vmid, true);
+@@ -876,6 +897,8 @@ uint32_t kgd_gfx_v10_set_wave_launch_mode(struct amdgpu_device *adev,
+ 
+ 	mutex_unlock(&adev->grbm_idx_mutex);
+ 
++	amdgpu_gfx_off_ctrl(adev, true);
 +
-+	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
-+			TCP_WATCH0_CNTL,
-+			VALID,
-+			1);
+ 	return 0;
+ }
+ 
+@@ -933,10 +956,14 @@ uint32_t kgd_gfx_v10_set_address_watch(struct amdgpu_device *adev,
+ 			VALID,
+ 			1);
+ 
++	amdgpu_gfx_off_ctrl(adev, false);
 +
-+	WREG32_RLC((SOC15_REG_OFFSET(GC, 0, regTCP_WATCH0_ADDR_H) +
-+			(watch_id * TCP_WATCH_STRIDE)),
-+			watch_address_high);
+ 	WREG32((SOC15_REG_OFFSET(GC, 0, mmTCP_WATCH0_CNTL) +
+ 			(watch_id * TCP_WATCH_STRIDE)),
+ 			watch_address_cntl);
+ 
++	amdgpu_gfx_off_ctrl(adev, true);
 +
-+	WREG32_RLC((SOC15_REG_OFFSET(GC, 0, regTCP_WATCH0_ADDR_L) +
-+			(watch_id * TCP_WATCH_STRIDE)),
-+			watch_address_low);
+ 	return 0;
+ }
+ 
+@@ -947,10 +974,14 @@ uint32_t kgd_gfx_v10_clear_address_watch(struct amdgpu_device *adev,
+ 
+ 	watch_address_cntl = 0;
+ 
++	amdgpu_gfx_off_ctrl(adev, false);
 +
-+	return watch_address_cntl;
-+}
+ 	WREG32((SOC15_REG_OFFSET(GC, 0, mmTCP_WATCH0_CNTL) +
+ 			(watch_id * TCP_WATCH_STRIDE)),
+ 			watch_address_cntl);
+ 
++	amdgpu_gfx_off_ctrl(adev, true);
 +
-+uint32_t kgd_gfx_v11_clear_address_watch(struct amdgpu_device *adev,
-+					uint32_t watch_id)
-+{
-+	return 0;
-+}
-+
- const struct kfd2kgd_calls gfx_v11_kfd2kgd = {
- 	.program_sh_mem_settings = program_sh_mem_settings_v11,
- 	.set_pasid_vmid_mapping = set_pasid_vmid_mapping_v11,
-@@ -756,5 +804,7 @@ const struct kfd2kgd_calls gfx_v11_kfd2kgd = {
- 	.disable_debug_trap = kgd_gfx_v11_disable_debug_trap,
- 	.validate_trap_override_request = kgd_gfx_v11_validate_trap_override_request,
- 	.set_wave_launch_trap_override = kgd_gfx_v11_set_wave_launch_trap_override,
--	.set_wave_launch_mode = kgd_gfx_v11_set_wave_launch_mode
-+	.set_wave_launch_mode = kgd_gfx_v11_set_wave_launch_mode,
-+	.set_address_watch = kgd_gfx_v11_set_address_watch,
-+	.clear_address_watch = kgd_gfx_v11_clear_address_watch
- };
+ 	return 0;
+ }
+ 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-index e7a83a2b7fde..87eef794d299 100644
+index 87eef794d299..4b025fa0beb5 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-@@ -813,6 +813,81 @@ uint32_t kgd_gfx_v9_set_wave_launch_mode(struct amdgpu_device *adev,
+@@ -701,6 +701,8 @@ uint32_t kgd_gfx_v9_enable_debug_trap(struct amdgpu_device *adev,
+ 				bool restore_dbg_registers,
+ 				uint32_t vmid)
+ {
++	amdgpu_gfx_off_ctrl(adev, false);
++
+ 	mutex_lock(&adev->grbm_idx_mutex);
+ 
+ 	kgd_gfx_v9_set_wave_launch_stall(adev, vmid, true);
+@@ -711,6 +713,8 @@ uint32_t kgd_gfx_v9_enable_debug_trap(struct amdgpu_device *adev,
+ 
+ 	mutex_unlock(&adev->grbm_idx_mutex);
+ 
++	amdgpu_gfx_off_ctrl(adev, true);
++
  	return 0;
  }
  
-+#define TCP_WATCH_STRIDE (mmTCP_WATCH1_ADDR_H - mmTCP_WATCH0_ADDR_H)
-+uint32_t kgd_gfx_v9_set_address_watch(struct amdgpu_device *adev,
-+					uint64_t watch_address,
-+					uint32_t watch_address_mask,
-+					uint32_t watch_id,
-+					uint32_t watch_mode,
-+					uint32_t debug_vmid)
-+{
-+	uint32_t watch_address_high;
-+	uint32_t watch_address_low;
-+	uint32_t watch_address_cntl;
-+
-+	watch_address_cntl = 0;
-+
-+	watch_address_low = lower_32_bits(watch_address);
-+	watch_address_high = upper_32_bits(watch_address) & 0xffff;
-+
-+	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
-+			TCP_WATCH0_CNTL,
-+			VMID,
-+			debug_vmid);
-+	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
-+			TCP_WATCH0_CNTL,
-+			MODE,
-+			watch_mode);
-+	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
-+			TCP_WATCH0_CNTL,
-+			MASK,
-+			watch_address_mask >> 6);
-+
-+	/* Turning off this watch point until we set all the registers */
-+	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
-+			TCP_WATCH0_CNTL,
-+			VALID,
-+			0);
-+
-+	WREG32_RLC((SOC15_REG_OFFSET(GC, 0, mmTCP_WATCH0_CNTL) +
-+			(watch_id * TCP_WATCH_STRIDE)),
-+			watch_address_cntl);
-+
-+	WREG32_RLC((SOC15_REG_OFFSET(GC, 0, mmTCP_WATCH0_ADDR_H) +
-+			(watch_id * TCP_WATCH_STRIDE)),
-+			watch_address_high);
-+
-+	WREG32_RLC((SOC15_REG_OFFSET(GC, 0, mmTCP_WATCH0_ADDR_L) +
-+			(watch_id * TCP_WATCH_STRIDE)),
-+			watch_address_low);
-+
-+	/* Enable the watch point */
-+	watch_address_cntl = REG_SET_FIELD(watch_address_cntl,
-+			TCP_WATCH0_CNTL,
-+			VALID,
-+			1);
-+
-+	WREG32_RLC((SOC15_REG_OFFSET(GC, 0, mmTCP_WATCH0_CNTL) +
-+			(watch_id * TCP_WATCH_STRIDE)),
-+			watch_address_cntl);
-+
-+	return 0;
-+}
-+
-+uint32_t kgd_gfx_v9_clear_address_watch(struct amdgpu_device *adev,
-+					uint32_t watch_id)
-+{
-+	uint32_t watch_address_cntl;
-+
-+	watch_address_cntl = 0;
-+
-+	WREG32_RLC((SOC15_REG_OFFSET(GC, 0, mmTCP_WATCH0_CNTL) +
-+			(watch_id * TCP_WATCH_STRIDE)),
-+			watch_address_cntl);
-+
-+	return 0;
-+}
-+
- /* kgd_gfx_v9_get_iq_wait_times: Returns the mmCP_IQ_WAIT_TIME1/2 values
-  * The values read are:
-  *     ib_offload_wait_time     -- Wait Count for Indirect Buffer Offloads.
-@@ -1084,6 +1159,8 @@ const struct kfd2kgd_calls gfx_v9_kfd2kgd = {
- 	.validate_trap_override_request = kgd_gfx_v9_validate_trap_override_request,
- 	.set_wave_launch_trap_override = kgd_gfx_v9_set_wave_launch_trap_override,
- 	.set_wave_launch_mode = kgd_gfx_v9_set_wave_launch_mode,
-+	.set_address_watch = kgd_gfx_v9_set_address_watch,
-+	.clear_address_watch = kgd_gfx_v9_clear_address_watch,
- 	.get_iq_wait_times = kgd_gfx_v9_get_iq_wait_times,
- 	.build_grace_period_packet_info = kgd_gfx_v9_build_grace_period_packet_info,
- 	.get_cu_occupancy = kgd_gfx_v9_get_cu_occupancy,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-index 2a2ab42037e4..ba52b61b68c5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-@@ -77,6 +77,14 @@ uint32_t kgd_gfx_v9_set_wave_launch_trap_override(struct amdgpu_device *adev,
- 					     uint32_t trap_mask_request,
- 					     uint32_t *trap_mask_prev,
- 					     uint32_t kfd_dbg_trap_cntl_prev);
-+uint32_t kgd_gfx_v9_set_address_watch(struct amdgpu_device *adev,
-+					uint64_t watch_address,
-+					uint32_t watch_address_mask,
-+					uint32_t watch_id,
-+					uint32_t watch_mode,
-+					uint32_t debug_vmid);
-+uint32_t kgd_gfx_v9_clear_address_watch(struct amdgpu_device *adev,
-+					uint32_t watch_id);
- void kgd_gfx_v9_get_iq_wait_times(struct amdgpu_device *adev, uint32_t *wait_times);
- void kgd_gfx_v9_build_grace_period_packet_info(struct amdgpu_device *adev,
- 					       uint32_t wait_times,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index e62d050a31e3..194221ab0f25 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -2866,6 +2866,7 @@ static int kfd_ioctl_set_debug_trap(struct file *filep, struct kfd_process *p, v
- 	struct mm_struct *mm = NULL;
- 	struct pid *pid = NULL;
- 	struct kfd_process *target = NULL;
-+	struct kfd_process_device *pdd = NULL;
- 	int r = 0;
- 
- 	if (sched_policy == KFD_SCHED_POLICY_NO_HWS) {
-@@ -2943,6 +2944,20 @@ static int kfd_ioctl_set_debug_trap(struct file *filep, struct kfd_process *p, v
- 		goto unlock_out;
- 	}
- 
-+	if (args->op == KFD_IOC_DBG_TRAP_SET_NODE_ADDRESS_WATCH ||
-+	    args->op == KFD_IOC_DBG_TRAP_CLEAR_NODE_ADDRESS_WATCH) {
-+		int user_gpu_id = kfd_process_get_user_gpu_id(target,
-+				args->op == KFD_IOC_DBG_TRAP_SET_NODE_ADDRESS_WATCH ?
-+					args->set_node_address_watch.gpu_id :
-+					args->clear_node_address_watch.gpu_id);
-+
-+		pdd = kfd_process_device_data_by_id(target, user_gpu_id);
-+		if (user_gpu_id == -EINVAL || !pdd) {
-+			r = -ENODEV;
-+			goto unlock_out;
-+		}
-+	}
-+
- 	switch (args->op) {
- 	case KFD_IOC_DBG_TRAP_ENABLE:
- 		if (target != p)
-@@ -2995,7 +3010,16 @@ static int kfd_ioctl_set_debug_trap(struct file *filep, struct kfd_process *p, v
- 				(uint32_t *)args->resume_queues.queue_array_ptr);
- 		break;
- 	case KFD_IOC_DBG_TRAP_SET_NODE_ADDRESS_WATCH:
-+		r = kfd_dbg_trap_set_dev_address_watch(pdd,
-+				args->set_node_address_watch.address,
-+				args->set_node_address_watch.mask,
-+				&args->set_node_address_watch.id,
-+				args->set_node_address_watch.mode);
-+		break;
- 	case KFD_IOC_DBG_TRAP_CLEAR_NODE_ADDRESS_WATCH:
-+		r = kfd_dbg_trap_clear_dev_address_watch(pdd,
-+				args->clear_node_address_watch.id);
-+		break;
- 	case KFD_IOC_DBG_TRAP_SET_FLAGS:
- 	case KFD_IOC_DBG_TRAP_QUERY_DEBUG_EVENT:
- 	case KFD_IOC_DBG_TRAP_QUERY_EXCEPTION_INFO:
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-index d17e2c03502f..4b8b71b1a322 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-@@ -24,6 +24,8 @@
- #include "kfd_device_queue_manager.h"
- #include <linux/file.h>
- 
-+#define MAX_WATCH_ADDRESSES	4
-+
- void debug_event_write_work_handler(struct work_struct *work)
+@@ -724,6 +728,8 @@ uint32_t kgd_gfx_v9_disable_debug_trap(struct amdgpu_device *adev,
+ 					bool keep_trap_enabled,
+ 					uint32_t vmid)
  {
- 	struct kfd_process *process;
-@@ -289,6 +291,139 @@ int kfd_dbg_set_mes_debug_mode(struct kfd_process_device *pdd)
- 						pdd->watch_points, flags);
++	amdgpu_gfx_off_ctrl(adev, false);
++
+ 	mutex_lock(&adev->grbm_idx_mutex);
+ 
+ 	kgd_gfx_v9_set_wave_launch_stall(adev, vmid, true);
+@@ -734,6 +740,8 @@ uint32_t kgd_gfx_v9_disable_debug_trap(struct amdgpu_device *adev,
+ 
+ 	mutex_unlock(&adev->grbm_idx_mutex);
+ 
++	amdgpu_gfx_off_ctrl(adev, true);
++
+ 	return 0;
  }
  
-+#define KFD_DEBUGGER_INVALID_WATCH_POINT_ID -1
-+static int kfd_dbg_get_dev_watch_id(struct kfd_process_device *pdd, int *watch_id)
-+{
-+	int i;
+@@ -765,6 +773,8 @@ uint32_t kgd_gfx_v9_set_wave_launch_trap_override(struct amdgpu_device *adev,
+ {
+ 	uint32_t data, wave_cntl_prev;
+ 
++	amdgpu_gfx_off_ctrl(adev, false);
 +
-+	*watch_id = KFD_DEBUGGER_INVALID_WATCH_POINT_ID;
+ 	mutex_lock(&adev->grbm_idx_mutex);
+ 
+ 	wave_cntl_prev = RREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_WAVE_CNTL));
+@@ -786,6 +796,8 @@ uint32_t kgd_gfx_v9_set_wave_launch_trap_override(struct amdgpu_device *adev,
+ 
+ 	mutex_unlock(&adev->grbm_idx_mutex);
+ 
++	amdgpu_gfx_off_ctrl(adev, true);
 +
-+	spin_lock(&pdd->dev->watch_points_lock);
+ 	return 0;
+ }
+ 
+@@ -796,6 +808,8 @@ uint32_t kgd_gfx_v9_set_wave_launch_mode(struct amdgpu_device *adev,
+ 	uint32_t data = 0;
+ 	bool is_mode_set = !!wave_launch_mode;
+ 
++	amdgpu_gfx_off_ctrl(adev, false);
 +
-+	for (i = 0; i < MAX_WATCH_ADDRESSES; i++) {
-+		/* device watchpoint in use so skip */
-+		if ((pdd->dev->alloc_watch_ids >> i) & 0x1)
-+			continue;
+ 	mutex_lock(&adev->grbm_idx_mutex);
+ 
+ 	kgd_gfx_v9_set_wave_launch_stall(adev, vmid, true);
+@@ -810,6 +824,8 @@ uint32_t kgd_gfx_v9_set_wave_launch_mode(struct amdgpu_device *adev,
+ 
+ 	mutex_unlock(&adev->grbm_idx_mutex);
+ 
++	amdgpu_gfx_off_ctrl(adev, true);
 +
-+		pdd->alloc_watch_ids |= 0x1 << i;
-+		pdd->dev->alloc_watch_ids |= 0x1 << i;
-+		*watch_id = i;
-+		spin_unlock(&pdd->dev->watch_points_lock);
-+		return 0;
-+	}
+ 	return 0;
+ }
+ 
+@@ -867,10 +883,14 @@ uint32_t kgd_gfx_v9_set_address_watch(struct amdgpu_device *adev,
+ 			VALID,
+ 			1);
+ 
++	amdgpu_gfx_off_ctrl(adev, false);
 +
-+	spin_unlock(&pdd->dev->watch_points_lock);
+ 	WREG32_RLC((SOC15_REG_OFFSET(GC, 0, mmTCP_WATCH0_CNTL) +
+ 			(watch_id * TCP_WATCH_STRIDE)),
+ 			watch_address_cntl);
+ 
++	amdgpu_gfx_off_ctrl(adev, true);
 +
-+	return -ENOMEM;
-+}
+ 	return 0;
+ }
+ 
+@@ -881,10 +901,14 @@ uint32_t kgd_gfx_v9_clear_address_watch(struct amdgpu_device *adev,
+ 
+ 	watch_address_cntl = 0;
+ 
++	amdgpu_gfx_off_ctrl(adev, false);
 +
-+static void kfd_dbg_clear_dev_watch_id(struct kfd_process_device *pdd, int watch_id)
-+{
-+	spin_lock(&pdd->dev->watch_points_lock);
+ 	WREG32_RLC((SOC15_REG_OFFSET(GC, 0, mmTCP_WATCH0_CNTL) +
+ 			(watch_id * TCP_WATCH_STRIDE)),
+ 			watch_address_cntl);
+ 
++	amdgpu_gfx_off_ctrl(adev, true);
 +
-+	/* process owns device watch point so safe to clear */
-+	if ((pdd->alloc_watch_ids >> watch_id) & 0x1) {
-+		pdd->alloc_watch_ids &= ~(0x1 << watch_id);
-+		pdd->dev->alloc_watch_ids &= ~(0x1 << watch_id);
-+	}
-+
-+	spin_unlock(&pdd->dev->watch_points_lock);
-+}
-+
-+static bool kfd_dbg_owns_dev_watch_id(struct kfd_process_device *pdd, int watch_id)
-+{
-+	bool owns_watch_id = false;
-+
-+	spin_lock(&pdd->dev->watch_points_lock);
-+	owns_watch_id = watch_id < MAX_WATCH_ADDRESSES &&
-+			((pdd->alloc_watch_ids >> watch_id) & 0x1);
-+
-+	spin_unlock(&pdd->dev->watch_points_lock);
-+
-+	return owns_watch_id;
-+}
-+
-+int kfd_dbg_trap_clear_dev_address_watch(struct kfd_process_device *pdd,
-+					uint32_t watch_id)
-+{
-+	int r;
-+
-+	if (!kfd_dbg_owns_dev_watch_id(pdd, watch_id))
-+		return -EINVAL;
-+
-+	if (!pdd->dev->shared_resources.enable_mes) {
-+		r = debug_lock_and_unmap(pdd->dev->dqm);
-+		if (r)
-+			return r;
-+	}
-+
-+	amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
-+	pdd->watch_points[watch_id] = pdd->dev->kfd2kgd->clear_address_watch(
-+							pdd->dev->adev,
-+							watch_id);
-+	amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
-+
-+	if (!pdd->dev->shared_resources.enable_mes)
-+		r = debug_map_and_unlock(pdd->dev->dqm);
-+	else
-+		r = kfd_dbg_set_mes_debug_mode(pdd);
-+
-+	kfd_dbg_clear_dev_watch_id(pdd, watch_id);
-+
-+	return r;
-+}
-+
-+int kfd_dbg_trap_set_dev_address_watch(struct kfd_process_device *pdd,
-+					uint64_t watch_address,
-+					uint32_t watch_address_mask,
-+					uint32_t *watch_id,
-+					uint32_t watch_mode)
-+{
-+	int r = kfd_dbg_get_dev_watch_id(pdd, watch_id);
-+
-+	if (r)
-+		return r;
-+
-+	if (!pdd->dev->shared_resources.enable_mes) {
-+		r = debug_lock_and_unmap(pdd->dev->dqm);
-+		if (r) {
-+			kfd_dbg_clear_dev_watch_id(pdd, *watch_id);
-+			return r;
-+		}
-+	}
-+
-+	amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
-+	pdd->watch_points[*watch_id] = pdd->dev->kfd2kgd->set_address_watch(
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index ead5afe4216b..131b9c25e3ec 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -2752,7 +2752,6 @@ static int runtime_enable(struct kfd_process *p, uint64_t r_debug,
+ 			struct kfd_process_device *pdd = p->pdds[i];
+ 
+ 			if (!kfd_dbg_is_rlc_restore_supported(pdd->dev)) {
+-				amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
+ 				pdd->dev->kfd2kgd->enable_debug_trap(
+ 						pdd->dev->adev,
+ 						true,
+@@ -2809,33 +2808,22 @@ static int runtime_disable(struct kfd_process *p)
+ 			return ret;
+ 	}
+ 
+-	if (was_enabled && p->runtime_info.ttmp_setup) {
+-		for (i = 0; i < p->n_pdds; i++) {
+-			struct kfd_process_device *pdd = p->pdds[i];
+-
+-			if (!kfd_dbg_is_rlc_restore_supported(pdd->dev))
+-				amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
+-		}
+-	}
+-
+ 	p->runtime_info.ttmp_setup = false;
+ 
+ 	/* disable ttmp setup */
+ 	for (i = 0; i < p->n_pdds; i++) {
+ 		struct kfd_process_device *pdd = p->pdds[i];
+ 
+-		if (kfd_dbg_is_per_vmid_supported(pdd->dev)) {
+-			pdd->spi_dbg_override =
+-					pdd->dev->kfd2kgd->disable_debug_trap(
+-					pdd->dev->adev,
+-					false,
+-					pdd->dev->vm_info.last_vmid_kfd);
++		pdd->spi_dbg_override =
++				pdd->dev->kfd2kgd->disable_debug_trap(
 +				pdd->dev->adev,
-+				watch_address,
-+				watch_address_mask,
-+				*watch_id,
-+				watch_mode,
++				false,
 +				pdd->dev->vm_info.last_vmid_kfd);
-+	amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
-+
-+	if (!pdd->dev->shared_resources.enable_mes)
-+		r = debug_map_and_unlock(pdd->dev->dqm);
-+	else
-+		r = kfd_dbg_set_mes_debug_mode(pdd);
-+
-+	/* HWS is broken so no point in HW rollback but release the watchpoint anyways */
-+	if (r)
-+		kfd_dbg_clear_dev_watch_id(pdd, *watch_id);
-+
-+	return 0;
-+}
-+
-+static void kfd_dbg_clear_process_address_watch(struct kfd_process *target)
-+{
-+	int i, j;
-+
-+	for (i = 0; i < target->n_pdds; i++)
-+		for (j = 0; j < MAX_WATCH_ADDRESSES; j++)
-+			kfd_dbg_trap_clear_dev_address_watch(target->pdds[i], j);
-+}
-+
-+
- /* kfd_dbg_trap_deactivate:
-  *	target: target process
-  *	unwind: If this is unwinding a failed kfd_dbg_trap_enable()
-@@ -303,6 +438,7 @@ void kfd_dbg_trap_deactivate(struct kfd_process *target, bool unwind, int unwind
  
- 	if (!unwind) {
- 		cancel_work_sync(&target->debug_event_workarea);
-+		kfd_dbg_clear_process_address_watch(target);
- 		kfd_dbg_trap_set_wave_launch_mode(target, 0);
+-			if (!pdd->dev->shared_resources.enable_mes)
+-				debug_refresh_runlist(pdd->dev->dqm);
+-			else
+-				kfd_dbg_set_mes_debug_mode(pdd);
+-		}
++		if (!pdd->dev->shared_resources.enable_mes)
++			debug_refresh_runlist(pdd->dev->dqm);
++		else
++			kfd_dbg_set_mes_debug_mode(pdd);
  	}
  
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-index 0d70f162d6d8..63c716ce5ab9 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
-@@ -50,7 +50,13 @@ int kfd_dbg_trap_set_wave_launch_override(struct kfd_process *target,
- 					uint32_t *trap_mask_supported);
- int kfd_dbg_trap_set_wave_launch_mode(struct kfd_process *target,
- 					uint8_t wave_launch_mode);
--
-+int kfd_dbg_trap_clear_dev_address_watch(struct kfd_process_device *pdd,
-+					uint32_t watch_id);
-+int kfd_dbg_trap_set_dev_address_watch(struct kfd_process_device *pdd,
-+					uint64_t watch_address,
-+					uint32_t watch_address_mask,
-+					uint32_t *watch_id,
-+					uint32_t watch_mode);
- int kfd_dbg_send_exception_to_runtime(struct kfd_process *p,
- 					unsigned int dev_id,
- 					unsigned int queue_id,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 92b5b90ffdc0..379eb357d13f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -641,6 +641,7 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+index 0ea85afcffd3..6e306defcc85 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+@@ -423,11 +423,9 @@ int kfd_dbg_trap_clear_dev_address_watch(struct kfd_process_device *pdd,
+ 			return r;
  	}
  
- 	kfd_smi_init(kfd);
-+	spin_lock_init(&kfd->watch_points_lock);
+-	amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
+ 	pdd->watch_points[watch_id] = pdd->dev->kfd2kgd->clear_address_watch(
+ 							pdd->dev->adev,
+ 							watch_id);
+-	amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
  
- 	kfd->init_complete = true;
- 	dev_info(kfd_device, "added device %x:%x\n", kfd->adev->pdev->vendor,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 5f148d0136e6..dd084888258d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -348,6 +348,10 @@ struct kfd_dev {
+ 	if (!pdd->dev->shared_resources.enable_mes)
+ 		r = debug_map_and_unlock(pdd->dev->dqm);
+@@ -458,7 +456,6 @@ int kfd_dbg_trap_set_dev_address_watch(struct kfd_process_device *pdd,
+ 		}
+ 	}
  
- 	/* HMM page migration MEMORY_DEVICE_PRIVATE mapping */
- 	struct dev_pagemap pgmap;
-+
-+	/* Track per device allocated watch points */
-+	uint32_t alloc_watch_ids;
-+	spinlock_t watch_points_lock;
- };
+-	amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
+ 	pdd->watch_points[*watch_id] = pdd->dev->kfd2kgd->set_address_watch(
+ 				pdd->dev->adev,
+ 				watch_address,
+@@ -466,7 +463,6 @@ int kfd_dbg_trap_set_dev_address_watch(struct kfd_process_device *pdd,
+ 				*watch_id,
+ 				watch_mode,
+ 				pdd->dev->vm_info.last_vmid_kfd);
+-	amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
  
- enum kfd_mempool {
-@@ -799,6 +803,7 @@ struct kfd_process_device {
- 	uint32_t spi_dbg_override;
- 	uint32_t spi_dbg_launch_mode;
- 	uint32_t watch_points[4];
-+	uint32_t alloc_watch_ids;
+ 	if (!pdd->dev->shared_resources.enable_mes)
+ 		r = debug_map_and_unlock(pdd->dev->dqm);
+@@ -577,15 +573,11 @@ void kfd_dbg_trap_deactivate(struct kfd_process *target, bool unwind, int unwind
  
- 	/*
- 	 * If this process has been checkpointed before, then the user
-@@ -955,7 +960,6 @@ struct kfd_process {
- 	struct semaphore runtime_enable_sema;
- 	bool is_runtime_retry;
- 	struct kfd_runtime_info runtime_info;
+ 		kfd_process_set_trap_debug_flag(&pdd->qpd, false);
+ 
+-		/* GFX off is already disabled by debug activate if not RLC restore supported. */
+-		if (kfd_dbg_is_rlc_restore_supported(pdd->dev))
+-			amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
+ 		pdd->spi_dbg_override =
+ 				pdd->dev->kfd2kgd->disable_debug_trap(
+ 				pdd->dev->adev,
+ 				target->runtime_info.ttmp_setup,
+ 				pdd->dev->vm_info.last_vmid_kfd);
+-		amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
+ 
+ 		if (!kfd_dbg_is_per_vmid_supported(pdd->dev) &&
+ 				release_debug_trap_vmid(pdd->dev->dqm, &pdd->qpd))
+@@ -684,14 +676,10 @@ int kfd_dbg_trap_activate(struct kfd_process *target)
+ 			}
+ 		}
+ 
+-		/* Disable GFX OFF to prevent garbage read/writes to debug registers.
++		/*
+ 		 * If RLC restore of debug registers is not supported and runtime enable
+ 		 * hasn't done so already on ttmp setup request, restore the trap config registers.
+-		 *
+-		 * If RLC restore of debug registers is not supported, keep gfx off disabled for
+-		 * the debug session.
+ 		 */
+-		amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
+ 		if (!(kfd_dbg_is_rlc_restore_supported(pdd->dev) ||
+ 						target->runtime_info.ttmp_setup))
+ 			pdd->dev->kfd2kgd->enable_debug_trap(pdd->dev->adev, true,
+@@ -702,9 +690,6 @@ int kfd_dbg_trap_activate(struct kfd_process *target)
+ 					false,
+ 					pdd->dev->vm_info.last_vmid_kfd);
+ 
+-		if (kfd_dbg_is_rlc_restore_supported(pdd->dev))
+-			amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
 -
- };
+ 		/**
+ 		 * Setting the debug flag in the trap handler requires that the TMA has been
+ 		 * allocated, which occurs during CWSR initialization.
+@@ -836,7 +821,6 @@ int kfd_dbg_trap_set_wave_launch_override(struct kfd_process *target,
+ 	for (i = 0; i < target->n_pdds; i++) {
+ 		struct kfd_process_device *pdd = target->pdds[i];
  
- #define KFD_PROCESS_TABLE_SIZE 5 /* bits: 32 entries */
+-		amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
+ 		pdd->spi_dbg_override = pdd->dev->kfd2kgd->set_wave_launch_trap_override(
+ 				pdd->dev->adev,
+ 				pdd->dev->vm_info.last_vmid_kfd,
+@@ -845,7 +829,6 @@ int kfd_dbg_trap_set_wave_launch_override(struct kfd_process *target,
+ 				trap_mask_request,
+ 				trap_mask_prev,
+ 				pdd->spi_dbg_override);
+-		amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
+ 
+ 		if (!pdd->dev->shared_resources.enable_mes)
+ 			r = debug_refresh_runlist(pdd->dev->dqm);
+@@ -872,12 +855,10 @@ int kfd_dbg_trap_set_wave_launch_mode(struct kfd_process *target,
+ 	for (i = 0; i < target->n_pdds; i++) {
+ 		struct kfd_process_device *pdd = target->pdds[i];
+ 
+-		amdgpu_gfx_off_ctrl(pdd->dev->adev, false);
+ 		pdd->spi_dbg_launch_mode = pdd->dev->kfd2kgd->set_wave_launch_mode(
+ 				pdd->dev->adev,
+ 				wave_launch_mode,
+ 				pdd->dev->vm_info.last_vmid_kfd);
+-		amdgpu_gfx_off_ctrl(pdd->dev->adev, true);
+ 
+ 		if (!pdd->dev->shared_resources.enable_mes)
+ 			r = debug_refresh_runlist(pdd->dev->dqm);
 -- 
 2.25.1
 
