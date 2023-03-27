@@ -4,92 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 739F4C76195
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 19:35:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09631C761A6
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 19:36:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCA2610E713;
-	Mon, 27 Mar 2023 19:35:42 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2066.outbound.protection.outlook.com [40.107.102.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E77C10E713
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 19:35:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B11510E714;
+	Mon, 27 Mar 2023 19:36:26 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2040.outbound.protection.outlook.com [40.107.100.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5A6810E71A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Mar 2023 19:36:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KyMu19LiLqjNu6JPdUuEJJu8RbQ0MCkgCVNYA27M7SNYo+pM6E2ne/ZeXwCAdbGGz4KfPZ8zqR6PAff+gwFYpGVxCz7e+zFImBai8ytULj/DgyXuS0d1UYWdsFB5RkyQTn+qzsLFx+wcvZ7Vi3hCzmkRvjIN+GzjPurONfY4hT6JjJDm1sLkIbhIBYX7Vnmb7y/WoLzuq0YasKls8RVxbwDh2p/C7dzJzJDbdJYBo5iTxhaO6KWR5C74Xm6Kp6/X32aYcCNg+HTDV5A9XKxDcLIolHqrQDOwkFxCCw9FjUZenSQdQ8qq8pTkbogkgctJZJsVp/frGSe8CHzZl/4ODw==
+ b=geu5MFJpZ9ziTyX/Kj1njFV1uMG7rptstHQ0nUBk1++TvzIorwYUOJLpiq06OeYcstG1Qd9bhL/SRixG0+w7nUw1jRZBoF21yTutcN8ZXkmdTlC5pY4zIrnAE2dpogn0awjZuvPLL0EX4FsJbrCPC57fXE7iCB5y/etLBekq7How/xfwIRnfjKJwmENH8K/EOFFAjA7MGgYYXfUG7tOWcNiy5YqCrJaYNG0yxSfTw0nNPg+Kr1nowZhfjgN8gUNQHdPXZqssHmCT/e5GcUoc6RfLdvbhLXika0DbDlFqVG4HLSjWs4J7vJSX+9LGAge1JCu2KznE3JRSqwTOALUf/g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FzBl9NNDqkHF24qm8gfrLKaNsqx+MkZmGRzpRBQ1iiA=;
- b=XEVbNIYa+hI0GDGC0Jwo7Ngrp+TWU6p4+xDO1oWDGcoOkCYV0PqC1m7BkaixyHvBiiV7HmmtYKjb8qiypY4pTvglVK1MzTddi/rBXK+BzsOfHrKxaMTh2S1yiHHvGV0YobQsILH8ZwbqMcfxTs+ewOS/zXsURkAYo0PfftJQMs/YlOGG6QdyqXJfVHAUGu8r8KGsFZxENt4Q0UzkXUBsvXgPag4asOJztaU4z2AGaxqsBhgA6B+nPgCtbDIZvLTW49+PzwY2t70yUKZ3Cc6UiHjVU59daAiUWU8RUrQxI9L68zGHUuBJQ+1CI4+98X9BZCy+TSdoxH5p/E2ai2J7/A==
+ bh=2rvrPgCa/3WP2OHg/8/h7juz+lfNB9SQP2cAq7l27gI=;
+ b=mxChrkQV4tNvmPe45q0lEIQE2unocCbkyf4NKgTjS/WkZ3NYxsxQYPVqldE+oLwxh5W+z8bbZtqYADrJkkicHqki7CLOc65MikE03GanKueob+Fuf2WduINQySE+vJvDRzXKrnKy15TFhGQTEKlX/itYGCctlIxpUE/YHDrIFyk4Zr2vfbhafiKfluRR4Dney2SYbLAD0KsNz8Us8QQP8RvK1dyb1AF009K3RMZU6mMe9INsmwXYoFu8pPnbJs/5kgYuaM8pB5PlgBVdvO3FL+Xv6hfRG+vm8Zj4jrWbJtk/0+3I7ocoqLuOTnmKnTnYhpg02LCvjzdPYcDL00lbgw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FzBl9NNDqkHF24qm8gfrLKaNsqx+MkZmGRzpRBQ1iiA=;
- b=G+cX6+SLqi9cBgUM71s8ULUMfk3Dfys5ngxrC73Eix9yGD6fG8TzW0AUIEAZjn5TWFwQJ5zXQrTzErpUiDdcuDXuEOiU/qCU/wqvynjF1oYFqYamrwplbCfG4hYQ7Zx8bSF+gu+DKiME4UcZhGa93eXb9F7SqW0YCZtXs8DvTX8=
-Received: from DS7PR03CA0138.namprd03.prod.outlook.com (2603:10b6:5:3b4::23)
- by DM4PR12MB6280.namprd12.prod.outlook.com (2603:10b6:8:a2::11) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=2rvrPgCa/3WP2OHg/8/h7juz+lfNB9SQP2cAq7l27gI=;
+ b=3l8HgBPkzl7Ev1I3SMVs9JMKMR6aK7uTXrkHIo9jiI/t6viRNc6psCb7ro4HwfOPEOeDwAt+vo6bazGonolM6ZVBSJYL5UGAj8eH+eL2A9nJM0EAnO/+k0EyGkZAit7ijL/b2Hr7VH6/S5VpiOmSP4JEwsC0xMzGaKPDyBUWgkM=
+Received: from BN8PR15CA0056.namprd15.prod.outlook.com (2603:10b6:408:80::33)
+ by SN7PR12MB7180.namprd12.prod.outlook.com (2603:10b6:806:2a8::5)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.41; Mon, 27 Mar
- 2023 19:35:39 +0000
-Received: from DS1PEPF0000E63F.namprd02.prod.outlook.com
- (2603:10b6:5:3b4:cafe::52) by DS7PR03CA0138.outlook.office365.com
- (2603:10b6:5:3b4::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.42 via Frontend
- Transport; Mon, 27 Mar 2023 19:35:39 +0000
+ 2023 19:36:21 +0000
+Received: from BL02EPF000100D0.namprd05.prod.outlook.com
+ (2603:10b6:408:80:cafe::94) by BN8PR15CA0056.outlook.office365.com
+ (2603:10b6:408:80::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.41 via Frontend
+ Transport; Mon, 27 Mar 2023 19:36:20 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DS1PEPF0000E63F.mail.protection.outlook.com (10.167.17.199) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF000100D0.mail.protection.outlook.com (10.167.241.204) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.30 via Frontend Transport; Mon, 27 Mar 2023 19:35:39 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6178.30 via Frontend Transport; Mon, 27 Mar 2023 19:36:20 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 27 Mar
- 2023 14:35:38 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 27 Mar
- 2023 14:35:38 -0500
-Received: from aaurabin-elitedesk-arch.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Mon, 27 Mar 2023 14:35:38 -0500
-From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+ 2023 14:36:19 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/display: set correct capablity for MPO on DCN321
-Date: Mon, 27 Mar 2023 15:35:37 -0400
-Message-ID: <20230327193537.2603330-1-aurabindo.pillai@amd.com>
-X-Mailer: git-send-email 2.40.0
+Subject: [PATCH 02/28] drm/amdgpu: add some basic elements for multiple XCD
+ case
+Date: Mon, 27 Mar 2023 15:35:36 -0400
+Message-ID: <20230327193602.7901-2-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230327193602.7901-1-alexander.deucher@amd.com>
+References: <20230327193602.7901-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0000E63F:EE_|DM4PR12MB6280:EE_
-X-MS-Office365-Filtering-Correlation-Id: 95d47d7e-899f-4501-1c5b-08db2efa71f7
+X-MS-TrafficTypeDiagnostic: BL02EPF000100D0:EE_|SN7PR12MB7180:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2f2e1999-893c-4607-bbe5-08db2efa8acd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: SFczlYFo+8J9b99VoY5hC8EEkTq0LWJkjBCe7d3Xk18RzOLRUulzgnBuJxAUjPeQ3SgRd5o7wv2VRC0+Bdu6vgz5/USbIq+J4LEt8y0odAKIToxQz3ZksgKJ8a3/5HcG9v88dokMqo7T0UrqOWexa8MjQLu4avq3sBrh4HwTTlB7qPyKiUfENAtULU2YbqgWJ6CDdt08C42We7t++iwp83Bi7eHHnp7u+ks/Ms7+82kU9mNImVH9Y9WqjREhREYH4vOh9XVKzIF8Sgm6TSnlWgwVM2YccWPN3KHgg0frUq3bG6nldZDyWR5BUfZKW6GLMv0EwwrQOPBmoksr5FLZGcnvKhMIil+ypRv6OymxBqJkhozMLjoFoj7d3fNH58CxhkORVGTV1nuTC44mSPzySCsVm7IZubJ7AkfA3nXK+1aWl70mt6BiAPyI6CRN5YExTJrWTx/hjv92qPrDwbCOoOQdkK/WQRbA1w5cAFef0STMwH09jNDSILBnEzlaFnu6wsBpd2QOZfo6ezXuYpuVKgYeuwdw+9Ugg1KONCtVZoixPjaSzGefGaVpC1Nj+6XYIou+WfLQTmdv8hvA58Eims/oCElPJjWzHaUZncziBimHhYf3KNt3pEWFuNaafGvSXhMg+4fw56PkELF3Z3d6Z7CzK9mv3Etqff/6bZFQtcpyA2IxgYt7H3/AQwoZ933L7EzhSKX5QYyDkVwdt9DhKtVU0HkksxYY+N8ryIaS67g=
+X-Microsoft-Antispam-Message-Info: MGPBYSHSsEwKETV60hSO6sEofO6+8hbZeiwfBoCMW+zvsZxBEDJOZZ+lA3nJC80l9F8i0Laq1Vxguc1BFZYlAaPCVVXNY6wCNEe6CDi8WNJlCdTd/9uYgeC29mDUJdcMiyGEbWrRk/eIlcvtGaKem92lj0joNoU+IDJhZmm0bvfYiAKWqG60z+fvmB0O/bNiq0rf8IzXW3Z7RnOeSEjz2xQQA+FN1gb+BxYbzFPB9d9pYKUGsmSk8Y516P8IJweSqgi26CDzGiRlwAz56DkOtJcLsp9GuoVVWzRT0yDthVnFSJAeYOTvwNtye616ULWEsS3LYQTra/qezpiEWSvBSKKFru/fi/FEfTqTQI+EWWtvO84jIJ8ewWczWSYi1wlc9EnR37JlRxPMAN00k8c6Cg7LZV82jgMIUP0H+kiXWd62Q3xf+AfNIPbradunzkL14l1MLNkIuHgH/yXisIDTzigfzhWJfyM4zA7xxuLyzui10lXG5yCTEsJSQbvqNaJhCuCjYMjoBoO/RzniS0AuZgJG4GPWf0iYAa1w1ObEIr33BU/wSVqnmAeOpCaryXJVzPh1XDMf0eCDARhk5MMPCEL0Ev/Enbqb/3vY+KX7a0zM1mZa0AbphS2ZASAGnE4tMM8OJgJVyMm3HSRh1A1t0xd3m+YPflECoGiiZy6B+qwe3y6q0APB8zeqKGaxrnOstLS5XQMXCV34517/6XGmZqKPnK8UkwGH44euu3UtDhk=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(39860400002)(346002)(376002)(136003)(451199021)(46966006)(40470700004)(36840700001)(70206006)(4326008)(6916009)(70586007)(316002)(5660300002)(54906003)(7696005)(81166007)(1076003)(26005)(44832011)(8936002)(2616005)(186003)(41300700001)(478600001)(8676002)(336012)(47076005)(426003)(83380400001)(82740400003)(36860700001)(356005)(40460700003)(86362001)(36756003)(82310400005)(40480700001)(2906002)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(346002)(396003)(376002)(39860400002)(451199021)(46966006)(36840700001)(40470700004)(2906002)(47076005)(426003)(86362001)(26005)(2616005)(186003)(40460700003)(16526019)(336012)(40480700001)(356005)(36860700001)(81166007)(82740400003)(8936002)(4326008)(6916009)(8676002)(70586007)(70206006)(5660300002)(36756003)(41300700001)(82310400005)(1076003)(316002)(6666004)(478600001)(7696005)(54906003)(83380400001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 19:35:39.0997 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 95d47d7e-899f-4501-1c5b-08db2efa71f7
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 19:36:20.8028 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2f2e1999-893c-4607-bbe5-08db2efa8acd
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000E63F.namprd02.prod.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF000100D0.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6280
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7180
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,39 +100,101 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: rodrigo.siqueira@amd.com, aurabindo.pillai@amd.com,
- bhawanpreet.lakha@amd.com, stable@vger.kernel.org, harry.wentland@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>, Le Ma <le.ma@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why&How]
-Fix the incorrect value for parameters used to enable multi plane
-overlay support for DCN321
+From: Le Ma <le.ma@amd.com>
 
-Fixes: 235c6763423 ("drm/amd/display: add DCN32/321 specific files for Display Core")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Add some basic definitions and structure member. Inscrease MAX_WB slots
+to 1024 to support the increasing number of rings for multiple partitions.
+
+v2: unify naming style
+
+Signed-off-by: Le Ma <le.ma@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h  | 17 ++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  1 +
+ 3 files changed, 18 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
-index c6a0e84885a2..87b9dac4110e 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn321/dcn321_resource.c
-@@ -1723,9 +1723,9 @@ static bool dcn321_resource_construct(
- 	dc->caps.subvp_pstate_allow_width_us = 20;
- 	dc->caps.subvp_vertical_int_margin_us = 30;
- 	dc->caps.subvp_drr_vblank_start_margin_us = 100; // 100us margin
--	dc->caps.max_slave_planes = 1;
--	dc->caps.max_slave_yuv_planes = 1;
--	dc->caps.max_slave_rgb_planes = 1;
-+	dc->caps.max_slave_planes = 2;
-+	dc->caps.max_slave_yuv_planes = 2;
-+	dc->caps.max_slave_rgb_planes = 2;
- 	dc->caps.post_blend_color_processing = true;
- 	dc->caps.force_dp_tps4_for_cp2520 = true;
- 	dc->caps.dp_hpo = true;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index bbac4239ceb3..7c3288a1aa70 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -490,7 +490,7 @@ int amdgpu_file_to_fpriv(struct file *filp, struct amdgpu_fpriv **fpriv);
+ /*
+  * Writeback
+  */
+-#define AMDGPU_MAX_WB 256	/* Reserve at most 256 WB slots for amdgpu-owned rings. */
++#define AMDGPU_MAX_WB 1024	/* Reserve at most 1024 WB slots for amdgpu-owned rings. */
+ 
+ struct amdgpu_wb {
+ 	struct amdgpu_bo	*wb_obj;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index de9e7a00bb15..bfabea76d166 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -42,6 +42,8 @@
+ #define AMDGPU_GFX_CG_DISABLED_MODE		0x00000004L
+ #define AMDGPU_GFX_LBPW_DISABLED_MODE		0x00000008L
+ 
++#define AMDGPU_MAX_GC_INSTANCES		8
++
+ #define AMDGPU_MAX_GFX_QUEUES KGD_MAX_QUEUES
+ #define AMDGPU_MAX_COMPUTE_QUEUES KGD_MAX_QUEUES
+ 
+@@ -53,6 +55,15 @@ enum amdgpu_gfx_pipe_priority {
+ #define AMDGPU_GFX_QUEUE_PRIORITY_MINIMUM  0
+ #define AMDGPU_GFX_QUEUE_PRIORITY_MAXIMUM  15
+ 
++enum amdgpu_gfx_partition {
++	AMDGPU_SPX_PARTITION_MODE = 0,
++	AMDGPU_DPX_PARTITION_MODE = 1,
++	AMDGPU_TPX_PARTITION_MODE = 2,
++	AMDGPU_QPX_PARTITION_MODE = 3,
++	AMDGPU_CPX_PARTITION_MODE = 4,
++	AMDGPU_UNKNOWN_COMPUTE_PARTITION_MODE,
++};
++
+ struct amdgpu_mec {
+ 	struct amdgpu_bo	*hpd_eop_obj;
+ 	u64			hpd_eop_gpu_addr;
+@@ -323,7 +334,7 @@ struct amdgpu_gfx {
+ 	bool				cp_fw_write_wait;
+ 	struct amdgpu_ring		gfx_ring[AMDGPU_MAX_GFX_RINGS];
+ 	unsigned			num_gfx_rings;
+-	struct amdgpu_ring		compute_ring[AMDGPU_MAX_COMPUTE_RINGS];
++	struct amdgpu_ring		compute_ring[AMDGPU_MAX_COMPUTE_RINGS * AMDGPU_MAX_GC_INSTANCES];
+ 	unsigned			num_compute_rings;
+ 	struct amdgpu_irq_src		eop_irq;
+ 	struct amdgpu_irq_src		priv_reg_irq;
+@@ -364,6 +375,10 @@ struct amdgpu_gfx {
+ 
+ 	struct amdgpu_ring		sw_gfx_ring[AMDGPU_MAX_SW_GFX_RINGS];
+ 	struct amdgpu_ring_mux          muxer;
++
++	enum amdgpu_gfx_partition	partition_mode;
++	uint32_t			num_xcd;
++	uint32_t			num_xcc_per_xcp;
+ };
+ 
+ #define amdgpu_gfx_get_gpu_clock_counter(adev) (adev)->gfx.funcs->get_gpu_clock_counter((adev))
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index fd269d6ddbf2..72a7afb852d0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -248,6 +248,7 @@ struct amdgpu_ring {
+ 	uint64_t		ptr_mask;
+ 	uint32_t		buf_mask;
+ 	u32			idx;
++	u32			xcc_id;
+ 	u32			me;
+ 	u32			pipe;
+ 	u32			queue;
 -- 
-2.40.0
+2.39.2
 
