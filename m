@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 175CBC761AF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E51BDC6FD18
 	for <amd-gfx@archiver.kernel.org>; Tue, 28 Mar 2023 15:15:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33CB110E929;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5165510E92A;
 	Tue, 28 Mar 2023 15:15:05 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2076.outbound.protection.outlook.com [40.107.93.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A404B10E917
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Mar 2023 15:14:58 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2080.outbound.protection.outlook.com [40.107.243.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD6D110E910
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Mar 2023 15:14:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cwenSJh7SbJ5bYoyYFuio+rxaCd40rpFvm8Q4zlP4P0Wd2PiVZhjP/7tFloH4O/Ezg9rhJp4W7vfPDbPofXN+mbJOXLzi26LpE1G8S9n9oegNsdmlusxrbq1Ky1R8rKoSvzxd2Gvo5b4rVEwVvxSikuQna15k73jL3ZPqluIMcmgYDg/3bWCY9WRdLfp9HxToxR9RmG5XiVTGIw9MOFHRCJK8yAc+wlttnS4PEDDIT3vuX1+PwidQgb4UqdwB5lAJT7iUg2HEuXb+U6bCs+jBaiJjVkUlE5Pi00yJqWSJ9xvZ4XupbTPKtnb7Tm7Zly1iilfreBlDbnKkyTxAHaCHw==
+ b=aqaw0PAqAAcMDiwVkbpxlQwOMavaBN4j4fl5aLDW6B4QPN4wwhgBGXajsYR5St2EUQUHPDYXBrWViWnb7y3ZO2aPWn1h2Q3w30+GRYRCJwOM4cxf14QxB8mMySm2MHx1FWmsiVZLYgJTOR4XDwdVZeXqgeqUI5pwx5YJRaJ1YuRd1730IyKwhAxl02WU65JvnowPRmh/eF5M6PrmNvsqew2BrLJcK+Agx6Elg43lewd5eZFnRl7+Vf0xwcvGFAvD2dhbcYMXLwzecmwvnoJpvZXwWlVwKGO2aAhLHzPHOGDvMiyP2b69aL1wptrEXoT9pALFkl7GbX3kDO/DZBbiMA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=k5qIOR0ogusbhy7woGMl2bXWByQU+RgiJde6r/GO9PE=;
- b=bIYoAuuXJLVzH34TnRoQfFOjc+n+SslcYJd8J/RiTXC+4or9aqDaz0I5doPlhxjJEde45tC8bBcb2L0IHe1sgySbfnkoq7mLJYvzZg+zX6w+wvSec9kcb49kaOyd/ijYq9N+omImsltcRbruEPwh9dWZ/cQKBmBgDoi9WfC7Abvn/OyBAbuMrkYnAfqfLS0CH0RF1jQkkSbsvtf3mIAeQ3fRz2CEYqhI2d+ksmgZXrBXXbnEEIOz4pwxNINppbXnukbQEiORK3mlk4EpPwIKDPBTriLK0keEvw7acnGTtk3jwRfDi44ccQCpRoenP6xYhxg/SZmmYvPW1vtW4mlEZg==
+ bh=oikK3t1cqymA2LEDzXhg5cxG6o0qvrLUt7uGOEu5kz4=;
+ b=oDgIt12VsSzJphejs63LrN29xYCL1Pgfx2GMi992wJuupqfiYhiQ/4VmstI7ehLDAhVa8d6kRQs5WnFZ2PAKRFmUF4cTfsmxu+Kdb09in/Hazi2IX9fB51cNvu6cp9Kp9cpzqkpKqi5vVHpKiD7VsLl2BYQphVPWvQ2JDGJVxUMD+pSOptNR4GOcTQLquXw45RenT7DJcmTNYiKiPhWaGkLM1RKcCvbaBOfd25rNe/l0SKNUoBFnTjSWGS0iSDehHxgeJPVyjAUystdSuehShQHGSfiMIpodZe3C0lSSqSNFY8b/bgH0QdtFeNMtdHIRxszt7meDwC0d2SbuRF6+uw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k5qIOR0ogusbhy7woGMl2bXWByQU+RgiJde6r/GO9PE=;
- b=1ciH/oyLGKvOx/OlTq0r61cbWjGdFB9bPUCt3aSsRCo1kFOCru7vJrCy063UntJz8ajqZZz0bHsdJFm4JuRQIQ7RiPXvhLWM6muWUN9/kWs7U1iDyp0/qDk6vawP+nxw6l1SOfsJJh9PxLGeu+FplDaem0RXCQu0mXW08UIxbxA=
-Received: from BLAP220CA0018.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:32c::23)
- by SJ0PR12MB8139.namprd12.prod.outlook.com (2603:10b6:a03:4e8::5)
+ bh=oikK3t1cqymA2LEDzXhg5cxG6o0qvrLUt7uGOEu5kz4=;
+ b=0iTUGp873YAWS4VhhcjGhQdxeXjReAWItMkce4UFhcNCYyDxJzqCKkb4CsjXNn4EbDxIEweP/Q+ONGdX1J9h9Rhh6Ca1siRVO1rD40vsPn3GxutCke1ZU4n0ji+mLa0PspNLvlzPvfjPSU2+Mol5p2eibaryP3wUyNutGidS70Y=
+Received: from BL1PR13CA0074.namprd13.prod.outlook.com (2603:10b6:208:2b8::19)
+ by SN7PR12MB7299.namprd12.prod.outlook.com (2603:10b6:806:2af::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.41; Tue, 28 Mar
- 2023 15:14:54 +0000
-Received: from BL02EPF000100D1.namprd05.prod.outlook.com
- (2603:10b6:208:32c:cafe::54) by BLAP220CA0018.outlook.office365.com
- (2603:10b6:208:32c::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.43 via Frontend
- Transport; Tue, 28 Mar 2023 15:14:54 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.38; Tue, 28 Mar
+ 2023 15:14:44 +0000
+Received: from BL02EPF000100D2.namprd05.prod.outlook.com
+ (2603:10b6:208:2b8:cafe::a) by BL1PR13CA0074.outlook.office365.com
+ (2603:10b6:208:2b8::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.18 via Frontend
+ Transport; Tue, 28 Mar 2023 15:14:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF000100D1.mail.protection.outlook.com (10.167.241.205) with Microsoft
+ BL02EPF000100D2.mail.protection.outlook.com (10.167.241.206) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.30 via Frontend Transport; Tue, 28 Mar 2023 15:14:54 +0000
+ 15.20.6178.30 via Frontend Transport; Tue, 28 Mar 2023 15:14:44 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 28 Mar
- 2023 10:14:52 -0500
+ 2023 10:14:43 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 31/32] drm/amdgpu: introduce new doorbell assignment table for
- GC 9.4.3
-Date: Tue, 28 Mar 2023 11:13:43 -0400
-Message-ID: <20230328151344.1934291-31-alexander.deucher@amd.com>
+Subject: [PATCH 20/32] drm/amdgpu: Set XNACK per process on GC 9.4.3
+Date: Tue, 28 Mar 2023 11:13:32 -0400
+Message-ID: <20230328151344.1934291-20-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230328151344.1934291-1-alexander.deucher@amd.com>
 References: <20230328151344.1934291-1-alexander.deucher@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF000100D1:EE_|SJ0PR12MB8139:EE_
-X-MS-Office365-Filtering-Correlation-Id: 34fb0910-0184-4720-16d9-08db2f9f2f4b
+X-MS-TrafficTypeDiagnostic: BL02EPF000100D2:EE_|SN7PR12MB7299:EE_
+X-MS-Office365-Filtering-Correlation-Id: 62ee7620-a8bc-4a73-4540-08db2f9f2957
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UDjgmPB+t3jI9mwt/Ha9R3da6BpHSpwWPhxhcnr4UkXPWF2Eh95SqN+kkgm29i6SPEq74DpegQreq7QaRv/kfUqBYkJvC58BPco9AOvdcXQrhobVmt6/XM67H/oGSxkGcmfQdNiYTbQjBMesxDBwOrMHNSveYGployTGF4zNXqn4MlInVShSgx/+2H3cMpHgLREubcacu8xbFYZurYA6X+8RpmJnV5WCrpLIGkLMpfAgy0i2B5TrpFSV7KkDRLnjdq8PjcbebIQmWeR0XztRd0UpvbSHM3zDJfgq6BXVPFKASK3r1hllllg6rx6Dmu3jftmBGSY47/zB6GFl1TrYdniWmlrpNe2fbiPD3tveXI6LVkn6VXjjAIr6L737/RlL24VNFtzWsvX+TpULEfZ/BosPYWd4HKqTIq05dxmGv5wrArD7h/yzTQhKoLgy80vpVk/xIGVpk6x6tafZYCEHffA3vaIgv2YA6vEY083h5ANnEwFY1uRcLV63flXpvIsHz0zj0oBwZUHwj+iX6TlBqlNntuN9wDeZj/9mHU/T2RzAbyMStzJS3gFPSYg/ifZ5HZM0bNg3E5MrSdPqjfm4InLF+HT9cnmX7tYC27j1aSFcGE+9fnDzJF3A5MYUG1YRAey2GjqcJ5DBBP0JzIYytXIBnDvVOrTLElvxGJLtx2hJYUnaIHCOmlb/ZKe7ZlLlT5Pk3R9bbr+DEYEwTptLtmZMTgKy8evuT1DSjgsdOCQ=
+X-Microsoft-Antispam-Message-Info: hf8oA5HbiBAro5xJQ8v31rhAYvO6kE/WWkMulcoJNJi5TnUnXcr2Wxk3ck5RJe3Ly+iMoISsWE5wjLf7a+Us5CktasJgloyZ3/JwJPYdq7Y9XGzEEmDHjb9YtvflYQtkBpuHAFoTnRfCr3oYUXs9oMQ5JyiinccPynzCBDRELZgTK4QfOreGZT0HoJzGdMlLfKo9lgNcNIeh7LqHsb2D8aGVBok4EMDL7dmzW4CP4h2v6tCooMKImiwczFk/C/JGmEI5yl567N0FcooB76Vd3G5wblZuPbYzryuxvS3FtddzVFpgHLn/hmxV9vBV7wubnabNLovzbOmYMh6dfkU2iQSnKKQp3d2cHLTdIlXyQ8L5FGBWw32fKxSOuUbUgfj60c9oK4VrmCmvLzXeAwCnKNRLrc8jtkz82QmNGTVXVFxkF1eC90ScbJdBwleZYZQCd9mEL32ZK0kIVTTDueOF07CFPyOi5cqbsGBQVZWVpQdbWeQPu/eYTlEJ22uvBVhqhfmvcuS32y5geianhKlka4ZS78eNfWv3JyaLPaWnEYg0OZaLsrA83ry7/ecX+zvfRuaWE3kQO00fqTGNaa2nYhEiuVhKjzhLN4kDTrWeaJPhP4n2hbEnSoC0/XIs2yQGalrbybuLFNW0m/lanmnmI376mvpzQfsW6owijj1XGZEYV9BpGpR64h7jSWtzsY8zVTmts/e9e7Sj3VQ6hDMGweeK+0k338gjYHsM3cPtf/M=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(396003)(136003)(39860400002)(376002)(451199021)(46966006)(36840700001)(40470700004)(6916009)(356005)(40480700001)(36756003)(40460700003)(86362001)(82310400005)(8676002)(70586007)(70206006)(316002)(336012)(8936002)(5660300002)(2616005)(41300700001)(16526019)(6666004)(186003)(7696005)(478600001)(54906003)(26005)(1076003)(4326008)(36860700001)(81166007)(47076005)(426003)(2906002)(82740400003)(83380400001)(36900700001);
+ SFS:(13230028)(4636009)(136003)(346002)(376002)(396003)(39860400002)(451199021)(36840700001)(40470700004)(46966006)(54906003)(8676002)(70206006)(6916009)(4326008)(2906002)(16526019)(356005)(36756003)(41300700001)(8936002)(7696005)(186003)(316002)(82740400003)(336012)(82310400005)(26005)(86362001)(478600001)(6666004)(5660300002)(2616005)(1076003)(40460700003)(70586007)(81166007)(40480700001)(83380400001)(36860700001)(47076005)(426003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2023 15:14:54.2344 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34fb0910-0184-4720-16d9-08db2f9f2f4b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2023 15:14:44.2479 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 62ee7620-a8bc-4a73-4540-08db2f9f2957
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF000100D1.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF000100D2.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8139
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7299
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,166 +99,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Le Ma <le.ma@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>
+Cc: Amber Lin <Amber.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Le Ma <le.ma@amd.com>
+From: Amber Lin <Amber.Lin@amd.com>
 
-Four basic reasons as below to do the change:
-  1. number of ring expand a lot on GC 9.4.3, and adjustment on old
-     assignment cannot make each ring in a continuous doorbell space.
-  2. the SDMA doorbell index should not exceed 0x1FF on SDMA 4.2.2 due to
-     regDOORBELLx_CTRL_ENTRY.BIF_DOORBELLx_RANGE_OFFSET_ENTRY field width.
-  3. re-design the doorbell assignment and unify the calculation as
-     "start + ring/inst id" will make the code much concise.
-  4. only defining the START/END makes the table look simple
+Set RETRY_PERMISSION_OR_INVALID_PAGE_FAULT bit in VM_CONTEXT1_CNTL
+as well so XNACK can be enabled in the SQ per process.
 
-v2: (Lijo)
-  1. replace name
-  2. use num_inst_per_aid/sdma_doorbell_range instead of hardcoding
-
-Signed-off-by: Le Ma <le.ma@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: Amber Lin <Amber.Lin@amd.com>
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h | 32 +++++++++++++++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c      |  6 +---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c      |  8 +----
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c     | 19 ++----------
- 4 files changed, 33 insertions(+), 32 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c | 6 ++++--
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c  | 2 +-
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
-index 613bc035f2e4..93cbb307db93 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
-@@ -54,7 +54,7 @@ struct amdgpu_doorbell_index {
- 	uint32_t gfx_ring1;
- 	uint32_t gfx_userqueue_start;
- 	uint32_t gfx_userqueue_end;
--	uint32_t sdma_engine[8];
-+	uint32_t sdma_engine[16];
- 	uint32_t mes_ring0;
- 	uint32_t mes_ring1;
- 	uint32_t ih;
-@@ -78,9 +78,6 @@ struct amdgpu_doorbell_index {
- 	};
- 	uint32_t first_non_cp;
- 	uint32_t last_non_cp;
--	uint32_t xcc1_kiq_start;
--	uint32_t xcc1_mec_ring0_start;
--	uint32_t aid1_sdma_start;
- 	uint32_t max_assignment;
- 	/* Per engine SDMA doorbell size in dword */
- 	uint32_t sdma_doorbell_range;
-@@ -307,6 +304,33 @@ typedef enum _AMDGPU_DOORBELL64_ASSIGNMENT
- 	AMDGPU_DOORBELL64_INVALID                 = 0xFFFF
- } AMDGPU_DOORBELL64_ASSIGNMENT;
- 
-+typedef enum _AMDGPU_DOORBELL_ASSIGNMENT_LAYOUT1
-+{
-+	/* KIQ: 0~7 for maximum 8 XCD */
-+	AMDGPU_DOORBELL_LAYOUT1_KIQ_START               = 0x000,
-+	AMDGPU_DOORBELL_LAYOUT1_HIQ                     = 0x008,
-+	AMDGPU_DOORBELL_LAYOUT1_DIQ                     = 0x009,
-+	/* Compute: 0x0A ~ 0x49 */
-+	AMDGPU_DOORBELL_LAYOUT1_MEC_RING_START          = 0x00A,
-+	AMDGPU_DOORBELL_LAYOUT1_MEC_RING_END            = 0x049,
-+	AMDGPU_DOORBELL_LAYOUT1_USERQUEUE_START         = 0x04A,
-+	AMDGPU_DOORBELL_LAYOUT1_USERQUEUE_END           = 0x0C9,
-+	/* SDMA: 0x100 ~ 0x19F */
-+	AMDGPU_DOORBELL_LAYOUT1_sDMA_ENGINE_START       = 0x100,
-+	AMDGPU_DOORBELL_LAYOUT1_sDMA_ENGINE_END         = 0x19F,
-+	/* IH: 0x1A0 ~ 0x1AF */
-+	AMDGPU_DOORBELL_LAYOUT1_IH                      = 0x1A0,
-+	/* VCN: 0x1B0 ~ 0x1C2 */
-+	AMDGPU_DOORBELL_LAYOUT1_VCN_START               = 0x1B0,
-+	AMDGPU_DOORBELL_LAYOUT1_VCN_END                 = 0x1C2,
-+
-+	AMDGPU_DOORBELL_LAYOUT1_FIRST_NON_CP            = AMDGPU_DOORBELL_LAYOUT1_sDMA_ENGINE_START,
-+	AMDGPU_DOORBELL_LAYOUT1_LAST_NON_CP             = AMDGPU_DOORBELL_LAYOUT1_VCN_END,
-+
-+	AMDGPU_DOORBELL_LAYOUT1_MAX_ASSIGNMENT          = 0x1C2,
-+	AMDGPU_DOORBELL_LAYOUT1_INVALID                 = 0xFFFF
-+} AMDGPU_DOORBELL_ASSIGNMENT_LAYOUT1;
-+
- u32 amdgpu_mm_rdoorbell(struct amdgpu_device *adev, u32 index);
- void amdgpu_mm_wdoorbell(struct amdgpu_device *adev, u32 index, u32 v);
- u64 amdgpu_mm_rdoorbell64(struct amdgpu_device *adev, u32 index);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index d48f80469533..77a42f73c3de 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -315,11 +315,7 @@ int amdgpu_gfx_kiq_init_ring(struct amdgpu_device *adev,
- 	ring->use_doorbell = true;
- 	ring->xcc_id = xcc_id;
- 	ring->vm_hub = AMDGPU_GFXHUB(xcc_id);
--	if (xcc_id >= 1)
--		ring->doorbell_index = (adev->doorbell_index.xcc1_kiq_start +
--					xcc_id - 1) << 1;
--	else
--		ring->doorbell_index = adev->doorbell_index.kiq << 1;
-+	ring->doorbell_index = (adev->doorbell_index.kiq + xcc_id) << 1;
- 
- 	r = amdgpu_gfx_kiq_acquire(adev, ring, xcc_id);
- 	if (r)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index bd375e472823..d103832630f3 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -822,13 +822,7 @@ static int gfx_v9_4_3_compute_ring_init(struct amdgpu_device *adev, int ring_id,
- 
- 	ring->ring_obj = NULL;
- 	ring->use_doorbell = true;
--	if (xcc_id >= 1)
--		ring->doorbell_index =
--				(adev->doorbell_index.xcc1_mec_ring0_start +
--				ring_id - adev->gfx.num_compute_rings) << 1;
--	else
--		ring->doorbell_index =
--				(adev->doorbell_index.mec_ring0 + ring_id) << 1;
-+	ring->doorbell_index = (adev->doorbell_index.mec_ring0 + ring_id) << 1;
- 	ring->eop_gpu_addr = adev->gfx.mec.hpd_eop_gpu_addr
- 				+ (ring_id * GFX9_MEC_HPD_SIZE);
- 	ring->vm_hub = AMDGPU_GFXHUB(xcc_id);
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-index d3c7f9a43ef1..9b53174925f8 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-@@ -1310,14 +1310,7 @@ static int sdma_v4_4_2_sw_init(void *handle)
- 				ring->use_doorbell?"true":"false");
- 
- 		/* doorbell size is 2 dwords, get DWORD offset */
--		if (aid_id > 0)
--			ring->doorbell_index =
--				(adev->doorbell_index.aid1_sdma_start << 1)
--				+ adev->doorbell_index.sdma_doorbell_range
--				* (i - adev->sdma.num_inst_per_aid);
--		else
--			ring->doorbell_index =
--				adev->doorbell_index.sdma_engine[i] << 1;
-+		ring->doorbell_index = adev->doorbell_index.sdma_engine[i] << 1;
- 		ring->vm_hub = AMDGPU_MMHUB0(aid_id);
- 
- 		sprintf(ring->name, "sdma%d.%d", aid_id,
-@@ -1336,14 +1329,8 @@ static int sdma_v4_4_2_sw_init(void *handle)
- 			/* doorbell index of page queue is assigned right after
- 			 * gfx queue on the same instance
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
+index e5016fea1f28..d74621662311 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c
+@@ -328,13 +328,15 @@ static void gfxhub_v1_2_setup_vmid_config(struct amdgpu_device *adev)
+ 					    PAGE_TABLE_BLOCK_SIZE,
+ 					    block_size);
+ 			/* Send no-retry XNACK on fault to suppress VM fault storm.
+-			 * On Aldebaran, XNACK can be enabled in the SQ per-process.
++			 * On 9.4.2 and 9.4.3, XNACK can be enabled in
++			 * the SQ per-process.
+ 			 * Retry faults need to be enabled for that to work.
  			 */
--			if (aid_id > 0)
--				ring->doorbell_index =
--					((adev->doorbell_index.aid1_sdma_start + 1) << 1)
--					+ adev->doorbell_index.sdma_doorbell_range
--					* (i - adev->sdma.num_inst_per_aid);
--			else
--				ring->doorbell_index =
--					(adev->doorbell_index.sdma_engine[i] + 1) << 1;
-+			ring->doorbell_index =
-+				(adev->doorbell_index.sdma_engine[i] + 1) << 1;
- 			ring->vm_hub = AMDGPU_MMHUB0(aid_id);
- 
- 			sprintf(ring->name, "page%d.%d", aid_id,
+ 			tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL,
+ 					    RETRY_PERMISSION_OR_INVALID_PAGE_FAULT,
+ 					    !adev->gmc.noretry ||
+-					    adev->asic_type == CHIP_ALDEBARAN);
++					    adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 2) ||
++					    adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 3));
+ 			WREG32_SOC15_OFFSET(GC, j, regVM_CONTEXT1_CNTL,
+ 					    i * hub->ctx_distance, tmp);
+ 			WREG32_SOC15_OFFSET(GC, j,
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
+index 9ec06f9db761..3883758b7993 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
+@@ -288,7 +288,7 @@ static void mmhub_v1_8_setup_vmid_config(struct amdgpu_device *adev)
+ 		tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL,
+ 				    PAGE_TABLE_BLOCK_SIZE,
+ 				    block_size);
+-		/* On Aldebaran, XNACK can be enabled in the SQ per-process.
++		/* On 9.4.3, XNACK can be enabled in the SQ per-process.
+ 		 * Retry faults need to be enabled for that to work.
+ 		 */
+ 		tmp = REG_SET_FIELD(tmp, VM_CONTEXT1_CNTL,
 -- 
 2.39.2
 
