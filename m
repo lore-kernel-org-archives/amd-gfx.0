@@ -4,51 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8866BC76195
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Mar 2023 05:30:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83485C76196
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Mar 2023 06:07:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2592610E461;
-	Tue, 28 Mar 2023 05:29:59 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 443F710E443;
- Tue, 28 Mar 2023 05:29:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679981397; x=1711517397;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=TlSiYkgPc+idxV0iFLyGQisyK8BGMSWO8q/o6til95I=;
- b=ZTXd67qYR3wI48x0CQfcUoRAL37YytpSW2PSkNzJt4QQ9a6OJ22Bt/K8
- 8bZm2pxUiS90E7K6Uh2C+hj7bhcUuUC7P18CO/k1Zuh4HgHoai0p2z1Gm
- NDyfVKCOxeX+HoiklNJxF6N1PZgwv1qzsKhqNA9wWc7qPyDjSEmgpaoHP
- TorCVUklD1dBeuUh1GGyq3Fzc7i9Eyhg6/X70ckWarsjCC9QAPHaZwbX3
- A1sB8UhBaSfHDzKvuQtN2WGwrzjPCvoBhKsj8yhJxe/eBet0a24AoDyCv
- MNcje6/J2nrhPE6GhBK8K700xRWyxHWr+0UOj4JJjdpzXPMKA9Ft3nzCh g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10662"; a="340500367"
-X-IronPort-AV: E=Sophos;i="5.98,296,1673942400"; d="scan'208";a="340500367"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Mar 2023 22:29:56 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10662"; a="794645431"
-X-IronPort-AV: E=Sophos;i="5.98,296,1673942400"; d="scan'208";a="794645431"
-Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
- by fmsmga002.fm.intel.com with ESMTP; 27 Mar 2023 22:29:55 -0700
-Received: from kbuild by b613635ddfff with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1ph1u1-000IIj-1X;
- Tue, 28 Mar 2023 05:29:49 +0000
-Date: Tue, 28 Mar 2023 13:28:58 +0800
-From: kernel test robot <lkp@intel.com>
-To: Jonathan Kim <jonathan.kim@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 07/34] drm/amdgpu: add gfx9.4.1 hw debug mode enable and
- disable calls
-Message-ID: <202303281322.o1bwZYim-lkp@intel.com>
-References: <20230327184339.125016-7-jonathan.kim@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27F7410E7ED;
+	Tue, 28 Mar 2023 06:07:44 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2089.outbound.protection.outlook.com [40.107.244.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36D2710E7ED
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Mar 2023 06:07:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WkdVUIfbwKf27wWq05UBaidvOVe78m92APWUZl+k/VXXbuNxuup8Gq2N+zdZ1omCqS6ATIJveHeugoM4txOtI7XcNwi6L0xyjGoGErskwTD7Z04R6ej/sRw83C1HFF+s2oeQsHNm/kMoWF7BvfBdhISoGRq/2FdEAB/z0tL6cn2OEwiToYU8op36LMNBBQnW9Fn4zv8hyROoP+/PpvNK4woSD3VwTjmvqXgUwRyCieVVX4bXMV9InPZuZgLbCLTsrC0LzuLmK1hSDu0CcADwjzXN7ktE0pyvHsgrnMfz0NuoKWd5I3Ump5JOdTfhjqvWlXqjRJOEyK8qoMruM7UrQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iZu+dcBJI8D0wJf/NV9WRYh4/PW+QUNfaKMwZ6kzCJo=;
+ b=gmqZAfIEuy9CnhWmB8E4+FBDfwIP5cl6vIPU6IzdahE2HV4iXtgOWMI2BiHI9iYsoVQHawu2AA2lSzpa80pVa0cL7IgOP6htZom6PO/FpQTvQk9JMxkZAgEeFp/hrc2VkUIZgfzkZPwG6bM2enrYopqRaXYWpMkaP/hOwkcdwFDOHf/w/H5HGIyQN5T1NqjaFXb5jMLy03CznqUoB7stz8J3a36m3IKPa1Bt0ASoaT4L1QlC1s1sj+XsTpKDZXi6h4Y3GO5tNGCvG9TZF9PzOX2rPMZxDIFtUZ6yCBEXhMZ2uDtt6FBmwnSrgxmy5epKIuFAsTgt66wHhfXMAG6pDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iZu+dcBJI8D0wJf/NV9WRYh4/PW+QUNfaKMwZ6kzCJo=;
+ b=T67llIeyUgBSRqeGfY2pEYfzmQpRlJELUcMARA8jjksvjr2/QFZEkKrThXMERrYJ7ShDxMPBSE6B9WrBdSDuh5fcYyroa7YhVfo6HLl8LF2T29zpYXd/b8ikZnIG4NEsODHo0TG9NODQGy7WbKGyfte6fnIvV3J+NGCPhhw5MBw=
+Received: from DM6PR12MB3531.namprd12.prod.outlook.com (2603:10b6:5:18b::10)
+ by MW4PR12MB5627.namprd12.prod.outlook.com (2603:10b6:303:16a::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.28; Tue, 28 Mar
+ 2023 06:07:41 +0000
+Received: from DM6PR12MB3531.namprd12.prod.outlook.com
+ ([fe80::cf43:4080:4a5c:c4af]) by DM6PR12MB3531.namprd12.prod.outlook.com
+ ([fe80::cf43:4080:4a5c:c4af%3]) with mapi id 15.20.6178.041; Tue, 28 Mar 2023
+ 06:07:41 +0000
+From: "Yang, WenYou" <WenYou.Yang@amd.com>
+To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>, amd-gfx list
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [Resend PATCH v1 0/3] send message to pmfw when SMT changes
+Thread-Topic: [Resend PATCH v1 0/3] send message to pmfw when SMT changes
+Thread-Index: AQHZXdCRiq1WHho1wE6x8W+3r8tG5a8N79AwgAC/yACAAQsOoA==
+Date: Tue, 28 Mar 2023 06:07:41 +0000
+Message-ID: <DM6PR12MB35312CF3EAB7E9CF6092665FFD889@DM6PR12MB3531.namprd12.prod.outlook.com>
+References: <a75662b0-7e5b-16d9-735d-11b00a385a58@igalia.com>
+ <DM6PR12MB353134DD69F58F5C9D3FFA8DFD8B9@DM6PR12MB3531.namprd12.prod.outlook.com>
+ <49ef6b76-6e49-d7ee-377b-0cb700f5da71@igalia.com>
+In-Reply-To: <49ef6b76-6e49-d7ee-377b-0cb700f5da71@igalia.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-03-28T06:07:39Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=1b031475-cfed-49bc-a94d-de076a571ed9;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR12MB3531:EE_|MW4PR12MB5627:EE_
+x-ms-office365-filtering-correlation-id: 42867956-3ec2-42af-b1a3-08db2f52bd34
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: EjYGQpp15pNmRQ2HTCoMdoCVVUhNXdE9bVcqHAjKx3AitfljeYe5ww7c2qfoMTnSr9G3f7iH/7MAx8jqvbeRKPuj2MaxlCLHVbf2o8aDnRAeCMEMCkGeva9XRmkUxeTQWz3GaBxNHi7mIxajvb664d29YdmsxQ4VawugrVBf0KMV1I2YaVqc9sPb+oCPyF3ApOi3ZacYa0BmsAJFAMBilwynhPyFw5wYnd+3JFxPF4WorUZjQgPTpgiZskiFKF6qTzx27r9TfmeqQ+Wf+2nsVusovDhyf9pzYTLhrV7BH0Nmf6E6gigWbQ/A+FU1NlTpW9keGm7qJ0DDguTt3XI6vaTuVwD4JuzVuDykCmiUWLJOrCGaKoSb9MDQAljqR2iae3VUqFKxk2nGasKpFvFonHwKheHxaKgLjrirzcg42LacKU0pSCuRcmPBbDwH8SClUeQLHy5rhtg5ZdkuELvIfmXrwYO8HlXYCGCi8wFHGrMCwzVQ6AniVwxnpw7GVNDHlSLXSIk/0JQxX+SHL3Oa4Odt7JAfmev8UAubiH34mpBbXRf1jznpnXzcZwwUb0CuDall5hFPcVTzCKpPcLuvVbc3GOCcOe/8KURx1mBt1mE=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3531.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(366004)(376002)(396003)(346002)(39860400002)(451199021)(83380400001)(8676002)(66946007)(66556008)(64756008)(2906002)(4326008)(66476007)(7696005)(966005)(478600001)(76116006)(71200400001)(54906003)(316002)(186003)(9686003)(110136005)(26005)(38070700005)(55016003)(53546011)(6506007)(15650500001)(66446008)(86362001)(52536014)(41300700001)(8936002)(122000001)(33656002)(5660300002)(38100700002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?VTRoSXU3KzJDYURQcUtUU1pvVDBwMjY2SkM3ZWtiWFZURC94ZjNuV0RuQ2lV?=
+ =?utf-8?B?S3p5N1RoWHFWSGtuQm03Z1Q3M21JblNTcDlWVDU5WmNOOXRJYXNoZWlQYmZt?=
+ =?utf-8?B?NGZZNkdHZjRVZXJYTnZjUE5qdE9VV2JhdzZqcmZZeEpuMFZtZzhNNjZkNlBC?=
+ =?utf-8?B?d0FwL1ZTeXdvQnBucENKME1zSzUvVEJDcS9XZWl3UW90TTdrR3ZkdXRlcmRs?=
+ =?utf-8?B?THVyeCs2Yi8zV0JJZ0pBeGR5anh3NmN1TXgraTJZejg4S0VBWkFJTXhybmR0?=
+ =?utf-8?B?K2Z3R1o5cFV5aE9nbnJFVjJWSlJtM2s3bkpkZzdmMmpuOFI2aUpXVEJuKzY1?=
+ =?utf-8?B?VHJRS0xQMlkyZEhFUlViRDJHN3A3Mk1MSXNWNHJRbWExOWxabjN3U2x2K3VG?=
+ =?utf-8?B?UStIeit3K1FJWVE0TnNueW9WS1Z1K3lnNnJxcGFScDdwUW1sa3JqMGprOUgx?=
+ =?utf-8?B?SWZZTmVKRW1iRVNpS0NrRlIwSDh3c2ZWZUdWTW5uVFJhbkFOMndYcGg3K3lj?=
+ =?utf-8?B?Vk9yU0JMaXRMQ09ncDBMTTE3cllJaTZWY1FKQkJueHJzdUhMa2RybHMxQ3cw?=
+ =?utf-8?B?b2thS1Rud25vZitqOEJ1MEhJeGQrNDRNeG0ydVZJMUNDWm5EemlLeVFYOUo0?=
+ =?utf-8?B?NkMwZmxGMDBjbWdoNGJPUm5jK0lyUDFFR2l2U3YyMG1tTE85ejJKWktSditp?=
+ =?utf-8?B?QitqWWlxMmlpcVVGSVBtYlVnekdqeHJEaXhHc09laHJFSmRsNmdiUUJRbUFO?=
+ =?utf-8?B?dkwzMFlPOWZ3b3I1VXhYR1BHcHh1UnJ3L1FUWjNVQlF0NGVOYzNMckdCWi9a?=
+ =?utf-8?B?dkxHeFZHVEZVeDI2b0hab29KS2tkdko3ZCtTL2hEOWo3YUk2QWNTUXFzY2lK?=
+ =?utf-8?B?UmllbVVXbkkrcVpUbmtIQWgzQTEydXhrWllBd3E0cmd3SXBPUXRqNHU3V01s?=
+ =?utf-8?B?NWxVNUJKb2xpWmh1aWRDSW11YkJlcERTUkw3U1R3cUZCL2xpM0pvbSsvckxl?=
+ =?utf-8?B?bEhxM0laSC9lemY4RDI2UUhmLzRGRlBjaVRVcm1XMkxXWGwrcFB5MHlDTWZU?=
+ =?utf-8?B?NUJVaTJWQ2NaODl0akF4dlJkMmw2cW1IdE1NRjRiZ0RvNU5iUDlvcm9Fak0v?=
+ =?utf-8?B?SSs0V3FNaTA1Qi9MNitHZWRCeHkrNTBOQ2FDaFc1SVV2dnBCUFFGRDJVMFFu?=
+ =?utf-8?B?VmtmdFNUSUdUM05CSkJ0aURReXR2Y2M0dEFybVYyS2xHK0RYSnNtdW9yU3pN?=
+ =?utf-8?B?bFBZbVZ5RGx2MXU0UCt4b1BMelFueTRjKzdIWDJ3NXJWRGpPM3lmcm9TTDVs?=
+ =?utf-8?B?WFFPbFRzMkFpV2lWYVVyY25uMUo0bWdIejhoWDZqMmFGSkxUUy9BTGduc3Fl?=
+ =?utf-8?B?QVBCaXhocnphbkZySnJDeDNtUUZiN3RsM3YvTXVnTlF5cFJOUFZGNm4wcFo0?=
+ =?utf-8?B?amZhUEZJZW1BOWtFK1hqNFBTcWdOVk53L05aNm1vdlZ2OXI1ZjFQcjhTRzhW?=
+ =?utf-8?B?Z3VXWEF0V1F3YU5sNEM5c0VyT3g1NHZnWEg2b3lrbVAwellVbUV6T2Y3akUy?=
+ =?utf-8?B?Z1lkUGtzdHQ2Tll3KzBLOXpaWFFBdFo4MmJOWXpTdXpoM0g5Z1gwOXFhd2VQ?=
+ =?utf-8?B?Nk54dWRnVWIxR2JSY0crTmNLL0pHd3FENG5GbWJ1cGtQRm10cEZPN0N2b3p2?=
+ =?utf-8?B?UXJlWWFWU3llbEtzYURzSW03SmhOYUVJQ0dGRXd1cWpIdXRORmlHY0FXcU10?=
+ =?utf-8?B?RXBTL21hTE11MHdBWGJVMFM4dG80WmlnTlo3Z3NJQUpkMWFNRGNja1dtRW5K?=
+ =?utf-8?B?eHN4ODg1dUhBcE9NSU5Hc00yTTNpcHRsbGM2UVYrdE1OWWZtd3hvZkxaOWYv?=
+ =?utf-8?B?bktxeHdJYnhxcC9VNVQxR1RMSWNUTTZrU3RVQlM1WFlWRDdBeU5ydS9BbHo1?=
+ =?utf-8?B?NVBtdEJ0YS8ydjFpaHE3WmdGR0ZwQ3B6YTJnSmNwdUVGdGdKcEZxQWNQMDBF?=
+ =?utf-8?B?VVc1MGRnbys3QjFCUVlrTlo2RDRPMEJNQUM5aFJubWR2T2lNVDFJdHFhbGpp?=
+ =?utf-8?B?WGo3ZEhPQ2tEL2QrZ2hzdTMxc21aVi82cHFuUk9rTHE1alN0dVVTd3dYMVlG?=
+ =?utf-8?Q?cQMI=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230327184339.125016-7-jonathan.kim@amd.com>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3531.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42867956-3ec2-42af-b1a3-08db2f52bd34
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Mar 2023 06:07:41.0915 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Uektz8GPRUWJTr9CEgpcjBsTypjxhv60Gw7kvR3YHNmSwoBjwE75s6AQschEo6d8xA7wqcTbRb0wd/Sn8XuaVg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5627
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,95 +133,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felix.Kuehling@amd.com, Jonathan.kim@amd.com, oe-kbuild-all@lists.linux.dev
+Cc: "Li, Ying" <YING.LI@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Yuan,
+ Perry" <Perry.Yuan@amd.com>, "Limonciello,
+ Mario" <Mario.Limonciello@amd.com>,
+ "kernel-dev@igalia.com" <kernel-dev@igalia.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, "Liang,
+ Richard qi" <Richardqi.Liang@amd.com>, "Liu, Kun" <Kun.Liu2@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Jonathan,
-
-Thank you for the patch! Perhaps something to improve:
-
-[auto build test WARNING on drm/drm-next]
-[also build test WARNING on drm-exynos/exynos-drm-next drm-tip/drm-tip next-20230327]
-[cannot apply to drm-misc/drm-misc-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes linus/master v6.3-rc4]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Jonathan-Kim/drm-amdkfd-display-debug-capabilities/20230328-024632
-base:   git://anongit.freedesktop.org/drm/drm drm-next
-patch link:    https://lore.kernel.org/r/20230327184339.125016-7-jonathan.kim%40amd.com
-patch subject: [PATCH 07/34] drm/amdgpu: add gfx9.4.1 hw debug mode enable and disable calls
-config: x86_64-allyesconfig (https://download.01.org/0day-ci/archive/20230328/202303281322.o1bwZYim-lkp@intel.com/config)
-compiler: gcc-11 (Debian 11.3.0-8) 11.3.0
-reproduce (this is a W=1 build):
-        # https://github.com/intel-lab-lkp/linux/commit/d97444aab7664a04c8975f466a1422a6c0e2efc9
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Jonathan-Kim/drm-amdkfd-display-debug-capabilities/20230328-024632
-        git checkout d97444aab7664a04c8975f466a1422a6c0e2efc9
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        make W=1 O=build_dir ARCH=x86_64 olddefconfig
-        make W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash drivers/gpu/drm/amd/amdgpu/
-
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Link: https://lore.kernel.org/oe-kbuild-all/202303281322.o1bwZYim-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c: In function 'suspend_resume_compute_scheduler':
->> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c:312:53: warning: implicit conversion from 'enum amd_hw_ip_block_type' to 'enum amd_ip_block_type' [-Wenum-conversion]
-     312 |         return amdgpu_device_ip_wait_for_idle(adev, GC_HWIP);
-         |                                                     ^~~~~~~
-   In file included from drivers/gpu/drm/amd/amdgpu/../display/dc/dc_types.h:37,
-                    from drivers/gpu/drm/amd/amdgpu/../display/dc/dm_services_types.h:30,
-                    from drivers/gpu/drm/amd/amdgpu/../include/dm_pp_interface.h:26,
-                    from drivers/gpu/drm/amd/amdgpu/amdgpu.h:63,
-                    from drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c:26:
-   At top level:
-   drivers/gpu/drm/amd/amdgpu/../display/dc/dc_hdmi_types.h:53:22: warning: 'dp_hdmi_dongle_signature_str' defined but not used [-Wunused-const-variable=]
-      53 | static const uint8_t dp_hdmi_dongle_signature_str[] = "DP-HDMI ADAPTOR";
-         |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-vim +312 drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-
-   281	
-   282	/*
-   283	 * Helper used to suspend/resume gfx pipe for image post process work to set
-   284	 * barrier behaviour.
-   285	 */
-   286	static int suspend_resume_compute_scheduler(struct amdgpu_device *adev, bool suspend)
-   287	{
-   288		int i, r = 0;
-   289	
-   290		for (i = 0; i < adev->gfx.num_compute_rings; i++) {
-   291			struct amdgpu_ring *ring = &adev->gfx.compute_ring[i];
-   292	
-   293			if (!(ring && ring->sched.thread))
-   294				continue;
-   295	
-   296			/* stop secheduler and drain ring. */
-   297			if (suspend) {
-   298				drm_sched_stop(&ring->sched, NULL);
-   299				r = amdgpu_fence_wait_empty(ring);
-   300				if (r)
-   301					goto out;
-   302			} else {
-   303				drm_sched_start(&ring->sched, false);
-   304			}
-   305		}
-   306	
-   307	out:
-   308		/* return on resume or failure to drain rings. */
-   309		if (!suspend || r)
-   310			return r;
-   311	
- > 312		return amdgpu_device_ip_wait_for_idle(adev, GC_HWIP);
-   313	}
-   314	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNCg0KDQo+IC0tLS0tT3JpZ2luYWwg
+TWVzc2FnZS0tLS0tDQo+IEZyb206IEd1aWxoZXJtZSBHLiBQaWNjb2xpIDxncGljY29saUBpZ2Fs
+aWEuY29tPg0KPiBTZW50OiBNb25kYXksIE1hcmNoIDI3LCAyMDIzIDEwOjA5IFBNDQo+IFRvOiBZ
+YW5nLCBXZW5Zb3UgPFdlbllvdS5ZYW5nQGFtZC5jb20+OyBhbWQtZ2Z4IGxpc3QgPGFtZC0NCj4g
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4NCj4gQ2M6IERldWNoZXIsIEFsZXhhbmRlciA8QWxl
+eGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IEtvZW5pZywgQ2hyaXN0aWFuDQo+IDxDaHJpc3RpYW4u
+S29lbmlnQGFtZC5jb20+OyBQYW4sIFhpbmh1aSA8WGluaHVpLlBhbkBhbWQuY29tPjsgTGl1LCBL
+dW4NCj4gPEt1bi5MaXUyQGFtZC5jb20+OyBMaWFuZywgUmljaGFyZCBxaSA8UmljaGFyZHFpLkxp
+YW5nQGFtZC5jb20+OyBZdWFuLA0KPiBQZXJyeSA8UGVycnkuWXVhbkBhbWQuY29tPjsgTGksIFlp
+bmcgPFlJTkcuTElAYW1kLmNvbT47IExpbW9uY2llbGxvLA0KPiBNYXJpbyA8TWFyaW8uTGltb25j
+aWVsbG9AYW1kLmNvbT47IGtlcm5lbC1kZXZAaWdhbGlhLmNvbQ0KPiBTdWJqZWN0OiBSZTogW1Jl
+c2VuZCBQQVRDSCB2MSAwLzNdIHNlbmQgbWVzc2FnZSB0byBwbWZ3IHdoZW4gU01UIGNoYW5nZXMN
+Cj4gDQo+IENhdXRpb246IFRoaXMgbWVzc2FnZSBvcmlnaW5hdGVkIGZyb20gYW4gRXh0ZXJuYWwg
+U291cmNlLiBVc2UgcHJvcGVyIGNhdXRpb24NCj4gd2hlbiBvcGVuaW5nIGF0dGFjaG1lbnRzLCBj
+bGlja2luZyBsaW5rcywgb3IgcmVzcG9uZGluZy4NCj4gDQo+IA0KPiBPbiAyNi8wMy8yMDIzIDIz
+OjQ5LCBZYW5nLCBXZW5Zb3Ugd3JvdGU6DQo+ID4gSGkgR3VpbGhlcm1lLA0KPiA+DQo+ID4gVGhh
+bmsgeW91IGZvciB5b3VyIGF0dGVudGlvbiBvbiB0aGUgcGF0Y2ggc2V0Lg0KPiA+IFRoZSBwdXJw
+b3NlIG9mIHRoZSBwYXRjaCBzZXQgaXMgdG8gaW1wcm92ZSB0aGUgcGVyZm9ybWFuY2Ugd2hlbiBw
+bGF5aW5nIHRoZQ0KPiBnYW1lLg0KPiA+DQo+ID4gQmVzdCBSZWdhcmRzLA0KPiA+IFdlbnlvdQ0K
+PiANCj4gSGkgV2VueW91LCB0aGFuayB5b3UgZm9yIHRoZSBjbGFyaWZpY2F0aW9uIGFuZCBmb3Ig
+dGhlIGludGVyZXN0aW5nIHBhdGNoIHNldCENCj4gDQo+IFNvLCBqdXN0IHNvIEkgY2FuIHVuZGVy
+c3RhbmQ6IGlzIGl0IGV4cGVjdGVkIHRoYXQgZ2FtZXJzIGRpc2FibGUgU01UPyBJIGhlYXJkDQo+
+IHNvbWUgZ2FtZXMgZ290IHRoZWlyIHBlcmZvcm1hbmNlIGltcHJvdmVkLCBidXQgbm90IHN1cmUg
+dGhlIHJlYXNvbi4uLmlmIHlvdQ0KPiBoYXZlIHRob3VnaHRzIG9uIHRoYXQsIEknbSBwcmV0dHkg
+aW50ZXJlc3RlZCENCkhpIEd1aWxoZXJtZSwNCg0KTm8sIGl0IG5vdC4gSXQgaXMgbm90IHRvIGRp
+c2FibGUgU01ULg0KDQpZZXMsIHRoZXJlIGlzIGEgY29tbWl0IHRvIGdldCBwZXJmb3JtYW5jZSBp
+bXByb3ZlZC4NCmh0dHBzOi8vZ2l0aHViLmNvbS90b3J2YWxkcy9saW51eC9jb21taXQvYThmYjQw
+OTY2ZjE5ZmY4MTUyMGQ5Y2NmOGY3ZTJiOTUyMDEzNjhiOA0KDQpCZXN0IFJlZ2FyZHMsDQpXZW55
+b3UNCg0KDQoNCj4gDQo+IENoZWVycywNCj4gDQo+IA0KPiBHdWlsaGVybWUNCg==
