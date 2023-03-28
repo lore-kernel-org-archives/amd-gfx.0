@@ -4,59 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5B0AC6FD1D
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 23:53:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE494C76195
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Mar 2023 00:11:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD66210E7D4;
-	Mon, 27 Mar 2023 23:53:50 +0000 (UTC)
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [IPv6:2607:f8b0:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC68310E7D1;
- Mon, 27 Mar 2023 23:53:48 +0000 (UTC)
-Received: by mail-oi1-x22b.google.com with SMTP id f17so7706588oiw.10;
- Mon, 27 Mar 2023 16:53:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1679961228;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=TEINlP1HTf0KiWQiW/MMP3STi+t5LIT7u9Uiqkj5UJc=;
- b=K2dxzzZsJDLZD3ld0NfxIEYLnm3YZT2Su7+tRCOuZnSZt3j5r6RFHXIy1P3ksfrLma
- oxL9uvMxqRbsLL098604bLhslDNARwyyii/RCDP2lbUAo5+/phe2w2zTSP0nNuha6XRa
- dVfbfGkNM5CL/bFJoxRcGGf3eoj5oPRsoWUIC95N9wVloK2an/UXxh7lqZX6fNIDUja6
- lC4+c1+vfT4reBg2GEDww8nbWIFjDT8CXSXKjeUOrgmxjv5gj/kW7LzQoiXkBFaKQ5WA
- an9tiQUDxD2YDKY3RMq65R6G/n0d2eYuJA+gHTWgvfx2v2/y1/Wtaz/4iXJY75cREBsy
- FPWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679961228;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=TEINlP1HTf0KiWQiW/MMP3STi+t5LIT7u9Uiqkj5UJc=;
- b=dQIBHSNom9FzszgSnA92w6PFc+Gm3eIkZNQaR630L/ywCaVE1yGY+M16ZNTmL2lTOk
- rOz8gYUn1sAaKeHhOglppi+DqRUnoHc2+Wl2jZsS44TI5oQTRgajWY4CNJ9d749h3NHk
- Txv2oh6lunuTbq0hd5rNa6k8mF00QaFyvGcVh9eyunZFHcbWamo8PSifHdirfDMdIr3M
- zKw88hfm1287tF5dxVEL/bC7K2FTjOwCBsucd4d8ORLkw1LyuzeN6Dyw64a5D5UWn4t+
- xE/21m50Tn7I9BuMQiU5iiUPzPKrhfHNkoX5bwryVNz774TxUugEBvjPFlr+ZwsjsDCC
- Eu2g==
-X-Gm-Message-State: AO0yUKWPeuBDV9FbZQV1/yBLFuDpDSf82FFNgj8ndRX1yM4cMAxzumR+
- eondRPEjiBrUyZ8Jq8gCby1njk/SlbKN9oclCylRMPwTzW4=
-X-Google-Smtp-Source: AK7set+cJLjB4dodyoIFBIGpuwJOmm7mzIuCepZJkUX6S9tscdI91Q4BhI0XnNzIOc/CJ51lIZrOaxuDtk6NQxBmoO8=
-X-Received: by 2002:a05:6808:1981:b0:384:253:642d with SMTP id
- bj1-20020a056808198100b003840253642dmr3959709oib.3.1679961227991; Mon, 27 Mar
- 2023 16:53:47 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CF9B10E7DD;
+	Tue, 28 Mar 2023 00:11:39 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2074.outbound.protection.outlook.com [40.107.94.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3754610E273
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Mar 2023 00:11:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Wess6kTUfol1H9RQ0kPOzkb9//BCkp1XwBad8HikA/ksroQdlNn0CT1Rv8Fs2yOKQhS/dCnC3ZiCAMh2wwQ2x/uG5EZGTgqW72Y0W0HNvEX6Bumv2fgjQLaub1gaYSMiuinlWF9Va9rRFfzio8EZ0aDd1PLdSn73ZBeSsv0ki62Ii66mleMSJlqefYj7WK9sVWZI/LCeuyKxOP52Ya2x08SFydgb1PHVryqLJ/uY3T6qnptjFETvkjGxZ8LLiRxGCOTa2pvpwWIeuy/WGuP7lSoPi3sOISfVyEUvsuIp7AiAa+lOjti6NIwN5/EWPvqAYj+bygV+LkmjCUbBzBEp8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wrj6kLcR42dynOm/kg/KTDhhU6BkrBXgGCwmuB0B3qY=;
+ b=Wzehk+F/NfAf0Ot9X43m0Q+GDZebWWB3dO1//Eiszn0583PKfcRN6r/fLXCN4tthJ2ZGxq5jK5vKdhjcKhucOI9ubC+Z0Q8w0niLlaabaIGQaRnTk05WgsCwUUkHyNEe5EmKS8Ds/tECm/bY3A21435dwaoWWsnkdP2jdbihcATLwkr6g/f+8G6xzP3HywJth9JAN/TZ9rTXc0QSi8upOUj0mGe8Hrc7ffJr9auwthTZQ0NOXeJ3VzZJB0lGOuS19lcjN2sAxvgXtajSi5uPnfOuIw0jC+FKJzGXvzpQPT6Wxzl5k4q+XTbxpa01cLb4IfyZoCGfbpa/672/sobFxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wrj6kLcR42dynOm/kg/KTDhhU6BkrBXgGCwmuB0B3qY=;
+ b=qRyzmFgQOLljh/2/woC9tMtLl3CNwXfksvyhnL9Rzb6B9baKISwR0MGKd9wsltKzs7yp6GQ289OsGxujH2V54DSWLLcTNgbsG7Ij4+37ymeqFYtkg/o7Ljv+5OCVTxHQrmWa1l3wt7wUJpOriLUXJ1wLMIRnNG4CgQ8QznEf48s=
+Received: from BN7PR06CA0071.namprd06.prod.outlook.com (2603:10b6:408:34::48)
+ by CH3PR12MB7570.namprd12.prod.outlook.com (2603:10b6:610:149::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.30; Tue, 28 Mar
+ 2023 00:11:35 +0000
+Received: from BL02EPF0000C405.namprd05.prod.outlook.com
+ (2603:10b6:408:34:cafe::cd) by BN7PR06CA0071.outlook.office365.com
+ (2603:10b6:408:34::48) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.41 via Frontend
+ Transport; Tue, 28 Mar 2023 00:11:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0000C405.mail.protection.outlook.com (10.167.241.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6178.30 via Frontend Transport; Tue, 28 Mar 2023 00:11:34 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 27 Mar
+ 2023 19:11:33 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: simplify amdgpu_ras_eeprom.c
+Date: Mon, 27 Mar 2023 20:11:19 -0400
+Message-ID: <20230328001119.1363691-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-References: <20230327233353.64081-1-caionovais@usp.br>
- <20230327233353.64081-13-caionovais@usp.br>
-In-Reply-To: <20230327233353.64081-13-caionovais@usp.br>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 27 Mar 2023 19:53:36 -0400
-Message-ID: <CADnq5_OG8pDyYruc4VCpd_eG8MxZUDf+nPr4zTy+u-7-a5L6uw@mail.gmail.com>
-Subject: Re: [PATCH 12/12] drm/amd/display: Remove two unused variables
- 'result_write_min_hblank' and 'hblank_size'
-To: Caio Novais <caionovais@usp.br>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0000C405:EE_|CH3PR12MB7570:EE_
+X-MS-Office365-Filtering-Correlation-Id: a7b36b7f-8e7b-4106-149b-08db2f20fde7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: z/uXKc33hr7qZmY+3/q0RXR6lVjzEVOp/GxIXLEq2nBkL/tyEpEh8eBBpe7ZjOJV20SBqvoGfbjY1pVpdqaxEyWIaJKRhIsqOuDuf8AZRmwd0xKD0lFZtTL87cD8mvPAooCQsZXfI8Euwex3djaRef6/ULkWEQHdHUmV7RyRqHhEYdQiEVHtMoKJ42PQrg/D7QubxhOMr3fXjLs+ktZNSJxHjb7hSkgF7x8pBXmUIMy7cBJVkWYrbDtlcyltj4d25c50CUc4AOcaPyukHaxDP56m21T0/6OydpGj1d/6G0FtIkTnfgiUvren4sy86CVSe3cJNL33v6DZxx2QWjNYYdQ5tDbyl8tcm/RyUdrsNOW1bgV52prZOhoTemh+IU99QO7N0VhRAi+jrf93o1TdfHSrtZUKKd4YKH/+rc2tf0C/wBlUgbw3gLEs2yJRwUfGamKrZqNg1UguxgNbAabm8TqKyff8Fl09ADXQEDLCRdPJJHxf4r5Wsxi8xJ4w9teV5ZAlSI5ZaKS5vGdxWu5cgOk7QxznCwPxlP40137MyqeXfi4Jm52AwZC8ZaIBaxocPakQTvQZTo+vuBKUYPprioNxVRWNnIQsEsQJzPZgIcKQBl0P3d1KObCfpk+fhJ8gVbqkjn5jMdK1Y63K6oQdxBNNR5msSkDdW5j2FuDbIerb+wa8lod2ukU6wxFc4blIMvYMESF+Eh9cs5mcUC/RVR3Tih+9iczxsWe9sRFiAs8=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(396003)(39860400002)(136003)(376002)(451199021)(40470700004)(46966006)(36840700001)(82310400005)(36756003)(40460700003)(40480700001)(54906003)(478600001)(7696005)(6666004)(70586007)(70206006)(316002)(6916009)(8676002)(4326008)(36860700001)(1076003)(26005)(426003)(336012)(16526019)(186003)(83380400001)(2616005)(47076005)(86362001)(8936002)(81166007)(5660300002)(356005)(2906002)(82740400003)(41300700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2023 00:11:34.7827 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7b36b7f-8e7b-4106-149b-08db2f20fde7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0000C405.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7570
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,111 +97,124 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Felipe Clark <felipe.clark@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Wenjing Liu <wenjing.liu@amd.com>, dri-devel@lists.freedesktop.org,
- Roman Li <Roman.Li@amd.com>,
- =?UTF-8?B?TWHDrXJhIENhbmFs?= <mairacanal@riseup.net>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>, Jun Lei <Jun.Lei@amd.com>,
- David Airlie <airlied@gmail.com>, Charlene Liu <Charlene.Liu@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Taimur Hassan <Syed.Hassan@amd.com>, amd-gfx@lists.freedesktop.org,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
- George Shen <George.Shen@amd.com>, Chaitanya Dhere <chaitanya.dhere@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Alan Liu <HaoPing.Liu@amd.com>,
- Mukul Joshi <mukul.joshi@amd.com>,
- =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- Jingwen Zhu <Jingwen.Zhu@amd.com>, Guo Zhengkui <guozhengkui@vivo.com>,
- Leo Li <sunpeng.li@amd.com>, Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
- Melissa Wen <mwen@igalia.com>, Le Ma <le.ma@amd.com>,
- Martin Leung <Martin.Leung@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Brian Chang <Brian.Chang@amd.com>, Sung Joon Kim <sungjoon.kim@amd.com>,
- Yifan Zhang <yifan1.zhang@amd.com>, Jack Xiao <Jack.Xiao@amd.com>,
- Dillon Varone <Dillon.Varone@amd.com>, Tom Chung <chiahsuan.chung@amd.com>,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Zhan Liu <zhan.liu@amd.com>, linux-kernel@vger.kernel.org,
- Gabe Teeger <gabe.teeger@amd.com>, Wesley Chalmers <Wesley.Chalmers@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Wayne Lin <wayne.lin@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Ethan Wellenreiter <Ethan.Wellenreiter@amd.com>,
- Ryan Lin <tsung-hua.lin@amd.com>, Joshua Ashton <joshua@froggi.es>,
- Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Luben Tuikov <luben.tuikov@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 27, 2023 at 7:36=E2=80=AFPM Caio Novais <caionovais@usp.br> wro=
-te:
->
-> Compiling AMD GPU drivers displays a warning:
->
-> drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capabilit=
-y.c: In function =E2=80=98dpcd_set_source_specific_data=E2=80=99:
-> drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capabilit=
-y.c:1290:32: warning: variable =E2=80=98result_write_min_hblank=E2=80=99 se=
-t but not used [-Wunused-but-set-variable]
->
-> Get rid of it by removing the variable 'result_write_min_hblank' and 'hbl=
-ank_size'.
->
-> Signed-off-by: Caio Novais <caionovais@usp.br>
-> ---
->  .../drm/amd/display/dc/link/protocols/link_dp_capability.c | 7 -------
->  1 file changed, 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capabi=
-lity.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-> index d4370856f164..7392fcf17653 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-> @@ -1287,7 +1287,6 @@ void dc_link_overwrite_extended_receiver_cap(
->  void dpcd_set_source_specific_data(struct dc_link *link)
->  {
->         if (!link->dc->vendor_signature.is_valid) {
-> -               enum dc_status result_write_min_hblank =3D DC_NOT_SUPPORT=
-ED;
->                 struct dpcd_amd_signature amd_signature =3D {0};
->                 struct dpcd_amd_device_id amd_device_id =3D {0};
->
-> @@ -1324,16 +1323,10 @@ void dpcd_set_source_specific_data(struct dc_link=
- *link)
->                 if (link->ctx->dce_version >=3D DCN_VERSION_2_0 &&
->                         link->dc->caps.min_horizontal_blanking_period !=
-=3D 0) {
->
-> -                       uint8_t hblank_size =3D (uint8_t)link->dc->caps.m=
-in_horizontal_blanking_period;
-> -
-> -                       result_write_min_hblank =3D core_link_write_dpcd(=
-link,
-> -                               DP_SOURCE_MINIMUM_HBLANK_SUPPORTED, (uint=
-8_t *)(&hblank_size),
-> -                               sizeof(hblank_size));
+All chips that support RAS also support IP discovery, so
+use the IP versions rather than a mix of IP versions and
+asic types.
 
-This writes to the monitor.  We shouldn't remove this.
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: Luben Tuikov <luben.tuikov@amd.com>
+---
+ .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    | 72 ++++++-------------
+ 1 file changed, 20 insertions(+), 52 deletions(-)
 
->                 }
->                 DC_TRACE_LEVEL_MESSAGE(DAL_TRACE_LEVEL_INFORMATION,
->                                                         WPP_BIT_FLAG_DC_D=
-ETECTION_DP_CAPS,
->                                                         "result=3D%u link=
-_index=3D%u enum dce_version=3D%d DPCD=3D0x%04X min_hblank=3D%u branch_dev_=
-id=3D0x%x branch_dev_name=3D'%c%c%c%c%c%c'",
-> -                                                       result_write_min_=
-hblank,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+index 3106fa8a15ef..c2ef2b1456bc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+@@ -106,48 +106,13 @@
+ #define to_amdgpu_device(x) (container_of(x, struct amdgpu_ras, eeprom_control))->adev
+ 
+ static bool __is_ras_eeprom_supported(struct amdgpu_device *adev)
+-{
+-	if (adev->asic_type == CHIP_IP_DISCOVERY) {
+-		switch (adev->ip_versions[MP1_HWIP][0]) {
+-		case IP_VERSION(13, 0, 0):
+-		case IP_VERSION(13, 0, 10):
+-			return true;
+-		default:
+-			return false;
+-		}
+-	}
+-
+-	return  adev->asic_type == CHIP_VEGA20 ||
+-		adev->asic_type == CHIP_ARCTURUS ||
+-		adev->asic_type == CHIP_SIENNA_CICHLID ||
+-		adev->asic_type == CHIP_ALDEBARAN;
+-}
+-
+-static bool __get_eeprom_i2c_addr_arct(struct amdgpu_device *adev,
+-				       struct amdgpu_ras_eeprom_control *control)
+-{
+-	struct atom_context *atom_ctx = adev->mode_info.atom_context;
+-
+-	if (!control || !atom_ctx)
+-		return false;
+-
+-	if (strnstr(atom_ctx->vbios_version,
+-	            "D342",
+-		    sizeof(atom_ctx->vbios_version)))
+-		control->i2c_address = EEPROM_I2C_MADDR_0;
+-	else
+-		control->i2c_address = EEPROM_I2C_MADDR_4;
+-
+-	return true;
+-}
+-
+-static bool __get_eeprom_i2c_addr_ip_discovery(struct amdgpu_device *adev,
+-				       struct amdgpu_ras_eeprom_control *control)
+ {
+ 	switch (adev->ip_versions[MP1_HWIP][0]) {
++	case IP_VERSION(11, 0, 2): /* VEGA20 and ARCTURUS */
++	case IP_VERSION(11, 0, 7):
+ 	case IP_VERSION(13, 0, 0):
++	case IP_VERSION(13, 0, 2):
+ 	case IP_VERSION(13, 0, 10):
+-		control->i2c_address = EEPROM_I2C_MADDR_4;
+ 		return true;
+ 	default:
+ 		return false;
+@@ -178,29 +143,32 @@ static bool __get_eeprom_i2c_addr(struct amdgpu_device *adev,
+ 		return true;
+ 	}
+ 
+-	switch (adev->asic_type) {
+-	case CHIP_VEGA20:
+-		control->i2c_address = EEPROM_I2C_MADDR_0;
++	switch (adev->ip_versions[MP1_HWIP][0]) {
++	case IP_VERSION(11, 0, 2):
++		/* VEGA20 and ARCTURUS */
++		if (adev->asic_type == CHIP_VEGA20)
++			control->i2c_address = EEPROM_I2C_MADDR_0;
++		else if (strnstr(atom_ctx->vbios_version,
++				 "D342",
++				 sizeof(atom_ctx->vbios_version)))
++			control->i2c_address = EEPROM_I2C_MADDR_0;
++		else
++			control->i2c_address = EEPROM_I2C_MADDR_4;
+ 		return true;
+-
+-	case CHIP_ARCTURUS:
+-		return __get_eeprom_i2c_addr_arct(adev, control);
+-
+-	case CHIP_SIENNA_CICHLID:
++	case IP_VERSION(11, 0, 7):
+ 		control->i2c_address = EEPROM_I2C_MADDR_0;
+ 		return true;
+-
+-	case CHIP_ALDEBARAN:
++	case IP_VERSION(13, 0, 2):
+ 		if (strnstr(atom_ctx->vbios_version, "D673",
+ 			    sizeof(atom_ctx->vbios_version)))
+ 			control->i2c_address = EEPROM_I2C_MADDR_4;
+ 		else
+ 			control->i2c_address = EEPROM_I2C_MADDR_0;
+ 		return true;
+-
+-	case CHIP_IP_DISCOVERY:
+-		return __get_eeprom_i2c_addr_ip_discovery(adev, control);
+-
++	case IP_VERSION(13, 0, 0):
++	case IP_VERSION(13, 0, 10):
++		control->i2c_address = EEPROM_I2C_MADDR_4;
++		return true;
+ 	default:
+ 		return false;
+ 	}
+-- 
+2.39.2
 
-You are dropping information from the debug logging.  Maybe it would
-be better to just flag this as maybe unused.  Also, I'd suggest
-rebasing on the latest amdgpu -next branch, as I think a lot of these
-were already fixed last week or the week before.
-
-Alex
-
->                                                         link->link_index,
->                                                         link->ctx->dce_ve=
-rsion,
->                                                         DP_SOURCE_MINIMUM=
-_HBLANK_SUPPORTED,
-> --
-> 2.40.0
->
