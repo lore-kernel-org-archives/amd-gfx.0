@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F21E1C74A5B
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 20:10:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE1ACC74A5B
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 20:10:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C1D310EC22;
-	Wed, 29 Mar 2023 20:10:06 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2051.outbound.protection.outlook.com [40.107.212.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BD7510EC11
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 20:10:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68D1810EC2B;
+	Wed, 29 Mar 2023 20:10:14 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2067.outbound.protection.outlook.com [40.107.92.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E86E10EC1C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 20:10:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=odj/6rWbOy+uKuOw2YNHLVwyaSZFgKvG8q8c50ehXlVl5TovEcGdOPk4DCkhY55fqu04aB6bT9n+cVkwJ34XLSMXCS1KsfCq3MV8Y7yCdcr3dI2rG2Iewe2obzZuC9QbrRAPBItR5AbdJOhWLZzb4UqJc5SERW+CMKZQHrAQaoH6ePXpyWr5ZVEi4Nw/lJV+EQY3UCGaXSw0aCd0MAnOukdDoW1A5EJjnge3weN5uqriXmk4UQ+I0vOM0OU/bE1Ie/LpvdqNARPDjmaD/3NEUdsvLiyuAsxFsCTM8ZK6eGvGg37vpSVLUUZZ4S6o/KwSwqcqkk6IvxPCEl+fakiCIw==
+ b=VDwlVa9BRXbir3cc397Jg87r9ECxD6Hr+XrpQsvkNC1oboIi1Bn6+A/ewIARfMF35Xz95gXMtE0i1V3Jz+5UHGa6cgYy0YbMXiHE2oFUBUzcaTayv8H6gN+9rH7iyGbs9nRdAdUFBPBpRx2b56OC8MgAR2z45Y+UmpQT1kaK13bDn+uCb+Edt2bnX39HxlheJaxiMix6tO3t8SQ1MEATCePiLVB/j1851zTFxxn8zNYY4mocLkk35TP+7//DGvTyrALhIaOXnf9bqbDDkj4U9RxS1mD+CL0f9sqn2ehSLaT/2KSZW5UpbKJfBMXq1USvJnKTUOJR9E51/A5LAo5Q0A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OcsnCpHumW2LhxRso/McN23UVRdCvFVzOp9Qfd1o1b8=;
- b=UI9kahdulXdqY98VD4yTLP//hvQU5a1aH4bhS1CCAbOasB9rb2/Vuhgooy40K2sQqaV7P1MUkL5tDlFq3jRemEP32S6WwW+TbxEweKxHrB3yN/9hjFPV4wvlKVJUVKstPTepH9y+ErTe/tm5aoTEvmmntHdtT60badLfvXc9deD8yRZCro0EADvflE4DBKAuR5j1wa/GQXb4zqrF2mysZldFs7Bv2spf6GxdLVyjd9xnXfDh9O4/WHnf005LUPOsI7m8Z60F17N0gLB+N7HXL19hh+5UE30sYVlXH8cQVtqMxu9Zio0ZqRmjsFr6P+drvCds40zJBnKPtu2w+oJ/mA==
+ bh=xRWhNsyzkJ0D47U3MiSgwa1QBAt5ZotUVKW7enJE2xw=;
+ b=Ny6cKXzsVRAXiItkCc/sUNyiM4hE9ZTp2a4plFhq/xiR9UZYSRi5I1FkvbXR76M/r/IfTJvjmVerN8YjElHmLzRtkpjS4lt9+Xjq24rjdBdDaEYfPQQV1F8qa933fmpwKHb8d0MO2cOUputhHybyAHfFCDltDWwegpR3Smu11sFPBAtST0n+GfxOtwPkujjcKFW+Kf+d0OrPSKU5bQXkvkRVCQUbG0+bBrOCvgQPuYNSj+0FlJRddFzKrKjODgPMI5gRwMMmuQYfkN0Rggs17Nr+8DnWR0Sk/o+LJMrMWpBzTLUg0gWse7YBuWK/MgKPTEmvuRxx5C13sj9BFreuwA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OcsnCpHumW2LhxRso/McN23UVRdCvFVzOp9Qfd1o1b8=;
- b=MrWEofMu9y+EVb5jFT+reeFC6PPpAEtUXWiUCCnMeyW2HljHRNT9jzrPu+KElSxU+Kl/MtCFmgMvBg7xVEl5xG/CATFUOPFCfQLIeWE4aKIZ2mbhP/5+0UL5SfLGxbjMfuhFh6J/zrQqLn8XzupoBIP9VuXsPXvqUkpbKMSVEhE=
-Received: from DS7PR06CA0019.namprd06.prod.outlook.com (2603:10b6:8:2a::18) by
- MN0PR12MB5833.namprd12.prod.outlook.com (2603:10b6:208:378::21) with
+ bh=xRWhNsyzkJ0D47U3MiSgwa1QBAt5ZotUVKW7enJE2xw=;
+ b=HGvG8F2VYN5SNU8VE20leqDPpE50ayiWEX5Syq4cs0PAlAXoeHugv2RWBNGEpJhQ3/6WE7ROyiXRjQsiIewATGDUCzu74/FcLKdzqOqjffOuD1Rly5Y0V2Vl0diaguzIhV0HdeSHGIOiBDUqAo100EvK0tv+YlINIR2vf7vC2sY=
+Received: from MW4PR04CA0362.namprd04.prod.outlook.com (2603:10b6:303:81::7)
+ by DM4PR12MB5296.namprd12.prod.outlook.com (2603:10b6:5:39d::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.38; Wed, 29 Mar
- 2023 20:09:58 +0000
-Received: from DM6NAM11FT029.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:2a:cafe::f2) by DS7PR06CA0019.outlook.office365.com
- (2603:10b6:8:2a::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.35; Wed, 29 Mar
+ 2023 20:10:01 +0000
+Received: from CO1NAM11FT097.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:81:cafe::82) by MW4PR04CA0362.outlook.office365.com
+ (2603:10b6:303:81::7) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.20 via Frontend
- Transport; Wed, 29 Mar 2023 20:09:58 +0000
+ Transport; Wed, 29 Mar 2023 20:10:01 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT029.mail.protection.outlook.com (10.13.173.23) with Microsoft SMTP
+ CO1NAM11FT097.mail.protection.outlook.com (10.13.175.185) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6222.22 via Frontend Transport; Wed, 29 Mar 2023 20:09:58 +0000
+ 15.20.6222.22 via Frontend Transport; Wed, 29 Mar 2023 20:10:01 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 29 Mar
- 2023 15:09:57 -0500
+ 2023 15:09:56 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 12/12] drm/amdgpu/nbio: add vcn doorbell multiple AIDs support
-Date: Wed, 29 Mar 2023 16:09:30 -0400
-Message-ID: <20230329200930.1982035-12-alexander.deucher@amd.com>
+Subject: [PATCH 10/12] drm/amdgpu: Use instance table for sdma 4.4.2
+Date: Wed, 29 Mar 2023 16:09:28 -0400
+Message-ID: <20230329200930.1982035-10-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230329200930.1982035-1-alexander.deucher@amd.com>
 References: <20230329200930.1982035-1-alexander.deucher@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT029:EE_|MN0PR12MB5833:EE_
-X-MS-Office365-Filtering-Correlation-Id: bfb60562-6131-440f-4995-08db30919259
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT097:EE_|DM4PR12MB5296:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6da27727-6397-415e-31ab-08db30919415
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: MSggp/JfUOPRLQRliuriJaYbfTvRPrVJ6PFEphLyF1HRgqADArwHMESQ9rw7u4Oir9m4w3LlR9AqjFtE3ADJH4dKHyXpBdY3IdBuIeaZ9h5JnE0aKsuyNbiRKCgy6JHKN/KawH0wsn1maOheLlIjKT9IVPl84G1CEJ8wGgV70zrFGiFR43LiG3i25o/412SVjmqqaA8sITwfzCYZGEjy7YjC+GtxAuPCjPJl578uaYAwOzckFnpI7lGy4uUmuhX4MVaH2UmLhDQHQXsXvvuPE2ouIXetX3O1Gz12P5DZuUKxHktsdZOizZEKipdJ6deK+YtAGOj1kRsfFjfjYoQslI4siHO0pmdju1Ntqm0bOkIXi3GIojElPtPBHovassoNGyTiXxYxw9HI66X6ccxkKyXrPMpI9dsP00tcfDANyUUtRmqhgcLtui/gkWPxoqNL8yYZ3A19y6+EfeuivAZA//eH7DrMEOnZgRUlO9ygUon6BK5szZ8DrD6mumJcVQwaBfGl7rc1XwQqqLj3QYRJjwIqA9XO9P6hUqy/W4OuTreY8G0QlxD8EiRsf1abf/cxcdQSVYfCMCxdXOn7QIAIhUqH+TWD/S2Bj0U3GCyKpO18bRpe0VF6U5HWsmX7Mb4kkP+3WRQnirrpaPdW0+XItsQZDS+wDbZg0/cFphA0m6sOYT3JFtvIKgUYuRtQPJkFYFpIQe9UzK/Vzq+geqwHROX6No5qJQMGZejOXAcSco39GSgSK7f7R0W+JCn4mBjD
+X-Microsoft-Antispam-Message-Info: dJxEnE+XSUly7VIOQFQ+/JW9ti3/PHdUlnIz5ji0jv9XkbKEsJeXHEYEzrc9ieBl6e2uyH6m1P+ur8MZsewop5fbSJRMA9B1xvVxcyDDpltOEhdLqUL/N8Wp3XPtRR4LzD292gs/XAmvlha1fLHGnBNKFL38gGDVwiiII9AQdmBxyHbZTpqyBpoY4Jnf83uFFT9j/WuVratx2bJeMk96l+liO1qyenqWSr1DnpBRZG3XI+tYlKQs1eWSm5KhziUuitaoVk1Hk2diH3xmhAJ1rFDHCaqGZjhaDkoOEayqzdGA2FWeW/JQsoJGF6jWRw7MfnyJwe8hjh18uY3CHUkUz7dyIkcY/zb9dssKBSpR6lfIgSq1qquTX4zB5DYAiBCJRVvyRr7xEzPWFpkx83JhwENwfqtNk7gEhTAQKtZXyy8jx0Y1IgvDoJKWndRXn8lDPNUxbECf2Z+FZ821SxCaFIqYUWYXg4uqo6eSBs4ZaGulRKFC+h999lCQOuCX93csZ6tN+wPThcHndyyykpWZlAtq0hx80MDjixNkcfLMlAQAUeZXbPnRhW7t9nfBC3VpPWSmk15zpbaSm1dCdPfee2Ne9rQa/bKQD6i2poTXfXm/H8a6NPqHUNG/2CtP5vrEHlQGEaYw3wwJAIPt6pTcGwEr1u9lPKvsOqWh0E+AXOyuiQiWPcsQF2wvkdmDxbNOh5CqlaAZo8KzZy0QtPsgckTgDddNRCUdGvmeKTOOGBw=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(346002)(136003)(376002)(396003)(451199021)(46966006)(36840700001)(40470700004)(6666004)(36860700001)(426003)(70586007)(5660300002)(54906003)(7696005)(2906002)(82310400005)(8936002)(478600001)(82740400003)(316002)(336012)(26005)(1076003)(40480700001)(41300700001)(47076005)(6916009)(36756003)(70206006)(40460700003)(8676002)(356005)(81166007)(4326008)(16526019)(2616005)(86362001)(83380400001)(186003)(36900700001)(309714004);
+ SFS:(13230028)(4636009)(376002)(396003)(39860400002)(136003)(346002)(451199021)(46966006)(40470700004)(36840700001)(1076003)(6666004)(356005)(82740400003)(81166007)(26005)(2616005)(47076005)(186003)(16526019)(36860700001)(426003)(2906002)(5660300002)(336012)(40460700003)(8936002)(36756003)(82310400005)(478600001)(316002)(54906003)(7696005)(4326008)(86362001)(40480700001)(6916009)(41300700001)(70206006)(8676002)(70586007)(83380400001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2023 20:09:58.5992 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bfb60562-6131-440f-4995-08db30919259
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2023 20:10:01.4146 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6da27727-6397-415e-31ab-08db30919415
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT029.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT097.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5833
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5296
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,88 +99,160 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, James Zhu <James.Zhu@amd.com>,
- Leo Liu <leo.liu@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Le Ma <Le.Ma@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: James Zhu <James.Zhu@amd.com>
+From: Lijo Lazar <lijo.lazar@amd.com>
 
-Update vcn doorbell range to support multiple AIDs.
+For ASICs with sdma IP v4.4.2, add mapping for logical to physical
+instances.
 
-Signed-off-by: James Zhu <James.Zhu@amd.com>
-Acked-by: Leo Liu <leo.liu@amd.com>
+v2:
+	Register accesses on bare metal should be based on physical
+instance. Use GET_INST() to get physical instance.
+
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Reviewed-by: Le Ma <Le.Ma@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.h |  1 +
- drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c   | 20 +++++++++++++++++---
- 2 files changed, 18 insertions(+), 3 deletions(-)
+ .../drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c   |  7 ++--
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c        |  7 +++-
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      | 38 ++++++++++++++-----
+ 3 files changed, 38 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.h b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.h
-index 70a5f030d5f7..22483dc66351 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.h
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.h
-@@ -42,6 +42,7 @@
- #define regUVD_JRBC_STATUS_INTERNAL_OFFSET				0x4089
- #define regUVD_JPEG_PITCH_INTERNAL_OFFSET				0x4043
- #define regUVD_JRBC0_UVD_JRBC_SCRATCH0_INTERNAL_OFFSET			0x4094
-+#define regUVD_JRBC_EXTERNAL_MCM_ADDR_INTERNAL_OFFSET			0x1bffe
- 
- #define JRBC_DEC_EXTERNAL_REG_WRITE_ADDR				0x18000
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
+index 5daec0b45545..772774615cb8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gc_9_4_3.c
+@@ -43,9 +43,10 @@ static uint32_t get_sdma_rlc_reg_offset(struct amdgpu_device *adev,
+ 					unsigned int engine_id,
+ 					unsigned int queue_id)
+ {
+-	uint32_t sdma_engine_reg_base = SOC15_REG_OFFSET(SDMA0, engine_id,
+-					regSDMA_RLC0_RB_CNTL) -
+-					regSDMA_RLC0_RB_CNTL;
++	uint32_t sdma_engine_reg_base =
++		SOC15_REG_OFFSET(SDMA0, GET_INST(SDMA0, engine_id),
++				 regSDMA_RLC0_RB_CNTL) -
++		regSDMA_RLC0_RB_CNTL;
+ 	uint32_t retval = sdma_engine_reg_base +
+ 		  queue_id * (regSDMA_RLC1_RB_CNTL - regSDMA_RLC0_RB_CNTL);
  
 diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-index dfbf5973efed..b3e1eefe260d 100644
+index 9353f04c5dd9..dfbf5973efed 100644
 --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
 +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-@@ -202,6 +202,7 @@ static void nbio_v7_9_vcn_doorbell_range(struct amdgpu_device *adev, bool use_do
- 					 int doorbell_index, int instance)
+@@ -75,7 +75,10 @@ static void nbio_v7_9_sdma_doorbell_range(struct amdgpu_device *adev, int instan
+ 			bool use_doorbell, int doorbell_index, int doorbell_size)
  {
  	u32 doorbell_range = 0, doorbell_ctrl = 0;
-+	u32 aid_id = instance;
- 
- 	if (use_doorbell) {
- 		doorbell_range = REG_SET_FIELD(doorbell_range,
-@@ -212,6 +213,11 @@ static void nbio_v7_9_vcn_doorbell_range(struct amdgpu_device *adev, bool use_do
- 				DOORBELL0_CTRL_ENTRY_0,
- 				BIF_DOORBELL0_RANGE_SIZE_ENTRY,
- 				0x9);
-+		if (aid_id)
-+			doorbell_range = REG_SET_FIELD(doorbell_range,
-+					DOORBELL0_CTRL_ENTRY_0,
-+					DOORBELL0_FENCE_ENABLE_ENTRY,
-+					0x4);
- 
- 		doorbell_ctrl = REG_SET_FIELD(doorbell_ctrl,
- 				S2A_DOORBELL_ENTRY_1_CTRL,
-@@ -228,6 +234,13 @@ static void nbio_v7_9_vcn_doorbell_range(struct amdgpu_device *adev, bool use_do
- 		doorbell_ctrl = REG_SET_FIELD(doorbell_ctrl,
- 				S2A_DOORBELL_ENTRY_1_CTRL,
- 				S2A_DOORBELL_PORT1_AWADDR_31_28_VALUE, 0x4);
+-	int aid_id = adev->sdma.instance[instance].aid_id;
++	int aid_id, dev_inst;
 +
-+		WREG32(SOC15_REG_OFFSET(NBIO, 0, regDOORBELL0_CTRL_ENTRY_17) +
-+					aid_id, doorbell_range);
-+		WREG32_PCIE_EXT(SOC15_REG_OFFSET(NBIO, 0, regS2A_DOORBELL_ENTRY_4_CTRL) * 4
-+				+ AMDGPU_SMN_TARGET_AID(aid_id)
-+				+ AMDGPU_SMN_CROSS_AID * !!aid_id,
-+				doorbell_ctrl);
- 	} else {
- 		doorbell_range = REG_SET_FIELD(doorbell_range,
- 				DOORBELL0_CTRL_ENTRY_0,
-@@ -235,10 +248,11 @@ static void nbio_v7_9_vcn_doorbell_range(struct amdgpu_device *adev, bool use_do
- 		doorbell_ctrl = REG_SET_FIELD(doorbell_ctrl,
- 				S2A_DOORBELL_ENTRY_1_CTRL,
- 				S2A_DOORBELL_PORT1_RANGE_SIZE, 0);
--	}
++	dev_inst = GET_INST(SDMA0, instance);
++	aid_id = adev->sdma.instance[instance].aid_id;
  
--	WREG32_SOC15(NBIO, 0, regDOORBELL0_CTRL_ENTRY_17, doorbell_range);
--	WREG32_SOC15(NBIO, 0, regS2A_DOORBELL_ENTRY_4_CTRL, doorbell_ctrl);
-+		WREG32_SOC15(NBIO, 0, regDOORBELL0_CTRL_ENTRY_17, doorbell_range);
-+		WREG32(SOC15_REG_OFFSET(NBIO, 0, regS2A_DOORBELL_ENTRY_4_CTRL),
-+						doorbell_ctrl);
-+	}
+ 	if (use_doorbell == false)
+ 		return;
+@@ -93,7 +96,7 @@ static void nbio_v7_9_sdma_doorbell_range(struct amdgpu_device *adev, int instan
+ 		REG_SET_FIELD(doorbell_ctrl, S2A_DOORBELL_ENTRY_1_CTRL,
+ 			S2A_DOORBELL_PORT1_RANGE_SIZE, doorbell_size);
+ 
+-	switch (instance % adev->sdma.num_inst_per_aid) {
++	switch (dev_inst % adev->sdma.num_inst_per_aid) {
+ 	case 0:
+ 		WREG32(SOC15_REG_OFFSET(NBIO, 0, regDOORBELL0_CTRL_ENTRY_1) +
+ 			4 * aid_id, doorbell_range);
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+index 9b53174925f8..4350939105c5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+@@ -57,7 +57,9 @@ static void sdma_v4_4_2_set_irq_funcs(struct amdgpu_device *adev);
+ static u32 sdma_v4_4_2_get_reg_offset(struct amdgpu_device *adev,
+ 		u32 instance, u32 offset)
+ {
+-	return (adev->reg_offset[SDMA0_HWIP][instance][0] + offset);
++	u32 dev_inst = GET_INST(SDMA0, instance);
++
++	return (adev->reg_offset[SDMA0_HWIP][dev_inst][0] + offset);
  }
  
- static void nbio_v7_9_enable_doorbell_aperture(struct amdgpu_device *adev,
+ static unsigned sdma_v4_4_2_seq_to_irq_id(int seq_num)
+@@ -1475,16 +1477,31 @@ static int sdma_v4_4_2_process_trap_irq(struct amdgpu_device *adev,
+ 				      struct amdgpu_irq_src *source,
+ 				      struct amdgpu_iv_entry *entry)
+ {
+-	uint32_t instance;
++	uint32_t instance, i;
+ 
+ 	DRM_DEBUG("IH: SDMA trap\n");
+ 	instance = sdma_v4_4_2_irq_id_to_seq(entry->client_id);
+-	instance += node_id_to_phys_map[entry->node_id] *
+-			adev->sdma.num_inst_per_aid;
++
++	/* Client id gives the SDMA instance in AID. To know the exact SDMA
++	 * instance, interrupt entry gives the node id which corresponds to the AID instance.
++	 * Match node id with the AID id associated with the SDMA instance. */
++	for (i = instance; i < adev->sdma.num_instances;
++	     i += adev->sdma.num_inst_per_aid) {
++		if (adev->sdma.instance[i].aid_id ==
++		    node_id_to_phys_map[entry->node_id])
++			break;
++	}
++
++	if (i >= adev->sdma.num_instances) {
++		dev_WARN_ONCE(
++			adev->dev, 1,
++			"Couldn't find the right sdma instance in trap handler");
++		return 0;
++	}
+ 
+ 	switch (entry->ring_id) {
+ 	case 0:
+-		amdgpu_fence_process(&adev->sdma.instance[instance].ring);
++		amdgpu_fence_process(&adev->sdma.instance[i].ring);
+ 		break;
+ 	default:
+ 		break;
+@@ -1717,12 +1734,12 @@ static void sdma_v4_4_2_get_clockgating_state(void *handle, u64 *flags)
+ 		*flags = 0;
+ 
+ 	/* AMD_CG_SUPPORT_SDMA_MGCG */
+-	data = RREG32(SOC15_REG_OFFSET(SDMA0, 0, regSDMA_CLK_CTRL));
++	data = RREG32(SOC15_REG_OFFSET(SDMA0, GET_INST(SDMA0, 0), regSDMA_CLK_CTRL));
+ 	if (!(data & SDMA_CLK_CTRL__SOFT_OVERRIDE7_MASK))
+ 		*flags |= AMD_CG_SUPPORT_SDMA_MGCG;
+ 
+ 	/* AMD_CG_SUPPORT_SDMA_LS */
+-	data = RREG32(SOC15_REG_OFFSET(SDMA0, 0, regSDMA_POWER_CNTL));
++	data = RREG32(SOC15_REG_OFFSET(SDMA0, GET_INST(SDMA0, 0), regSDMA_POWER_CNTL));
+ 	if (data & SDMA_POWER_CNTL__MEM_POWER_OVERRIDE_MASK)
+ 		*flags |= AMD_CG_SUPPORT_SDMA_LS;
+ }
+@@ -1809,7 +1826,7 @@ static const struct amdgpu_ring_funcs sdma_v4_4_2_page_ring_funcs = {
+ 
+ static void sdma_v4_4_2_set_ring_funcs(struct amdgpu_device *adev)
+ {
+-	int i;
++	int i, dev_inst;
+ 
+ 	for (i = 0; i < adev->sdma.num_instances; i++) {
+ 		adev->sdma.instance[i].ring.funcs = &sdma_v4_4_2_ring_funcs;
+@@ -1820,7 +1837,10 @@ static void sdma_v4_4_2_set_ring_funcs(struct amdgpu_device *adev)
+ 			adev->sdma.instance[i].page.me = i;
+ 		}
+ 
+-		adev->sdma.instance[i].aid_id = i / adev->sdma.num_inst_per_aid;
++		dev_inst = GET_INST(SDMA0, i);
++		/* AID to which SDMA belongs depends on physical instance */
++		adev->sdma.instance[i].aid_id =
++			dev_inst / adev->sdma.num_inst_per_aid;
+ 	}
+ }
+ 
 -- 
 2.39.2
 
