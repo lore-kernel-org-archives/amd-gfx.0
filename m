@@ -4,58 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FE36C74A5B
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 17:57:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D8B3C74A5B
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 18:05:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8270B10EBEB;
-	Wed, 29 Mar 2023 17:57:43 +0000 (UTC)
-Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
- [IPv6:2607:f8b0:4864:20::22c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10E1710EBEC
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 17:57:42 +0000 (UTC)
-Received: by mail-oi1-x22c.google.com with SMTP id r16so12153404oij.5
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 10:57:42 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89CB110EBE5;
+	Wed, 29 Mar 2023 18:05:47 +0000 (UTC)
+Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
+ [IPv6:2001:4860:4864:20::31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A95510EBE9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 18:05:45 +0000 (UTC)
+Received: by mail-oa1-x31.google.com with SMTP id
+ 586e51a60fabf-177ca271cb8so17099634fac.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 11:05:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1680112661;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=YijMcgFk7zhJBr/Nnxg/klaAr20/RMmKPDrGQ15ZrRQ=;
- b=kksMpxGDoj7xB9+rzbsaPtQiNGDG4uWTq2VgOSkBAtL0hZGDu5UYWVMllyxZNS1ASA
- NxTSVjqn4OhvTLGnyse331qpfce8/zefCFd+5493S4sYRl9hT8B9odgmhEXqrzqhOcbn
- T603lPaUR3wc8VxM6I8ugucS5TnflwqgOXdVOm4b5k7TqEPlFGGzljY+zUyEJhEgJEYg
- wocMtPGCU4izT9qv4qy9bUTYszdgSD5IiNLF73yRye9DeocynFNKLD2/aIO2TGOHIwoz
- xbbcmLF7Uf68kT4kEo8Hk30ej5zYtqxeCFdddRFEChzsDtmoV+1Cw4mq9+nTTMJbzNQ2
- GGlw==
+ d=usp.br; s=usp-google; t=1680113144;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=6gvT2+hYG9YTsl59VNP7YaGR4GU2t1ElrBSXIbGw5O0=;
+ b=kum9hvQcJhQxvpZnLYfOsayFZbt/VJU/E8QmI/FIu3qMvXugcvzTrzukVbwWYZru4/
+ C+0mvS9A67oTlla//Huq7cuFre670IMG6AFC2RtylU9iDiTK6WLRYLMekcoVvginbNWc
+ PHjukN1WGzYslWrF2Q168ZlsNpt42XRqpaBvxEZQRi3q4YuQu/HeFyCivAgpw9ROsT+t
+ zVxuBem744WeDhCdq598jerLE4uVCRltzfF5QNfoVbdc86ewcvrebF9Dffju+Lm+3uo9
+ XjVTfXTOSFSc0Q0HrgqTfZbR2rCCNvvRrCbHBz6e3OCMj+GtCo9qf8OUVa103E/i/vwe
+ 3mfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680112661;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=YijMcgFk7zhJBr/Nnxg/klaAr20/RMmKPDrGQ15ZrRQ=;
- b=q9d8Wlcz2LAFEga6tNMO0R4xFFWvAIIcR1vrhYe5AmC/5C0xXdqMHdEBezVBhK9hOE
- jfWqsVT+YN8DXm3hDUNlz4ZjQ+7HhzOvnQ28ifKplKUnu0NAwKqkTB5hgztDDohSVNGs
- 1Nqx1inOUs6kME3ywd7wG7BAQm8PHcAdWgu/b+ScGod0Cync+BC2Wx0SqzKN04lRBaAE
- BHc3pxbiwyUzSUX3O5PoWqf9byW5wi1/dFQmVjCAcPZoSVx5mE38rPsQmJyPmUBjawnq
- DFX4Vrcvwarw2+J4GtGYrzCKfyy3YTUP1mEPf6TRfHM3M7XvG5Um2T5JBxPhKzyog6Qi
- S9mg==
-X-Gm-Message-State: AAQBX9e3Kg7yMAlqWwTj7xCey0rQ46k1jdlwUaempT9rH7spaNQBAwQ+
- Jo9NP9QRVZ4nOH92xB+hKmxkzzOIkgQK6qsD2wKF0i+JXao=
-X-Google-Smtp-Source: AKy350ZTJAZZpnLdUSB0D6PBZA+N7piA1EXHcoCzLiY4KuM1GWY6gARuiO8w/wnLAaNNcN2EsOiiFvRzag0QDe3vGAM=
-X-Received: by 2002:aca:210c:0:b0:389:4e54:79f0 with SMTP id
- 12-20020aca210c000000b003894e5479f0mr2639574oiz.3.1680112661188; Wed, 29 Mar
- 2023 10:57:41 -0700 (PDT)
+ d=1e100.net; s=20210112; t=1680113144;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=6gvT2+hYG9YTsl59VNP7YaGR4GU2t1ElrBSXIbGw5O0=;
+ b=2gd1r4euVxqK+i2D2odw8WxIpw7Hm0qGzW949S4Sgca8Psry3UBlQyNNSnsarAglnp
+ KBIKF4F3UO8ug003A+26ZVYbKmV1/wOls8Q4BhYgptAlZ4RZjnIpUpqYPSdjah/SMjuA
+ 1RfVXDr+fNLkzoGu+995YdUXEy2AZ7PQ6i3hEHxYe7yjqStLSINyCO9ELIDJNOtJtwRW
+ iQOxTIYDEPm36dHbowJOOTx8945gWp8Gqx/8qchnkqsOmG57W9ylKY3ntI0qM/qLYMtx
+ cHs2vhP9rgVjVDNVH7cfRaLKuiDzDHN41KsT4t7uUex7cAd+Kwa2OiU27Ifu0KEQaVEp
+ /J/A==
+X-Gm-Message-State: AAQBX9fV/sN7EvMZqNU2sKzzFoqooiYI5Sku/Cz8/YSuew6ZOBxzyIWY
+ fbqymKQALtLZtKxdr1MAxtM2MbS4EAQCy+CSP7apyg==
+X-Google-Smtp-Source: AKy350YNgr/qkdBS4RnMoR+3Rtoz5LaA3HHitm3EVEE3vqnDKuJ6lb1ITT2IwvnEMsF0rJG2pjwNwQ==
+X-Received: by 2002:a05:6870:9592:b0:17c:ae2:85af with SMTP id
+ k18-20020a056870959200b0017c0ae285afmr12600042oao.34.1680113143872; 
+ Wed, 29 Mar 2023 11:05:43 -0700 (PDT)
+Received: from ARCHaio.localdomain ([2804:1b3:a2c0:c911:919f:bd20:4f2a:8383])
+ by smtp.gmail.com with ESMTPSA id
+ yo7-20020a05687c018700b001777244e3f9sm12098767oab.8.2023.03.29.11.05.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 29 Mar 2023 11:05:43 -0700 (PDT)
+From: Caio Novais <caionovais@usp.br>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] drm/amd/display: Remove a unused variable and mark a
+ function as static
+Date: Wed, 29 Mar 2023 15:05:32 -0300
+Message-Id: <20230329180534.99151-1-caionovais@usp.br>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
-References: <20230329160445.1300-1-shashank.sharma@amd.com>
- <20230329160445.1300-2-shashank.sharma@amd.com>
-In-Reply-To: <20230329160445.1300-2-shashank.sharma@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 29 Mar 2023 13:57:29 -0400
-Message-ID: <CADnq5_PL8sVkpmEff2P03s0PRHsfsqWh1z6GtKZJCR0EDwzdjQ@mail.gmail.com>
-Subject: Re: [PATCH v3 1/9] drm/amdgpu: UAPI for user queue management
-To: Shashank Sharma <shashank.sharma@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,134 +71,34 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>,
- Christian Koenig <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+ Wesley Chalmers <Wesley.Chalmers@amd.com>, Gabe Teeger <gabe.teeger@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Roman Li <roman.li@amd.com>,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mairacanal@riseup.net>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Deepak R Varma <drv@mailo.com>,
+ "Lee, Alvin" <Alvin.Lee2@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, Jun Lei <Jun.Lei@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Caio Novais <caionovais@usp.br>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 29, 2023 at 12:05=E2=80=AFPM Shashank Sharma
-<shashank.sharma@amd.com> wrote:
->
-> From: Alex Deucher <alexander.deucher@amd.com>
->
-> This patch intorduces new UAPI/IOCTL for usermode graphics
-> queue. The userspace app will fill this structure and request
-> the graphics driver to add a graphics work queue for it. The
-> output of this UAPI is a queue id.
->
-> This UAPI maps the queue into GPU, so the graphics app can start
-> submitting work to the queue as soon as the call returns.
->
-> V2: Addressed review comments from Alex and Christian
->     - Make the doorbell offset's comment clearer
->     - Change the output parameter name to queue_id
-> V3: Integration with doorbell manager
->
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
-> ---
->  include/uapi/drm/amdgpu_drm.h | 55 +++++++++++++++++++++++++++++++++++
->  1 file changed, 55 insertions(+)
->
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.=
-h
-> index cc5d551abda5..e4943099b9d2 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -54,6 +54,7 @@ extern "C" {
->  #define DRM_AMDGPU_VM                  0x13
->  #define DRM_AMDGPU_FENCE_TO_HANDLE     0x14
->  #define DRM_AMDGPU_SCHED               0x15
-> +#define DRM_AMDGPU_USERQ               0x16
->
->  #define DRM_IOCTL_AMDGPU_GEM_CREATE    DRM_IOWR(DRM_COMMAND_BASE + DRM_A=
-MDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
->  #define DRM_IOCTL_AMDGPU_GEM_MMAP      DRM_IOWR(DRM_COMMAND_BASE + DRM_A=
-MDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
-> @@ -71,6 +72,7 @@ extern "C" {
->  #define DRM_IOCTL_AMDGPU_VM            DRM_IOWR(DRM_COMMAND_BASE + DRM_A=
-MDGPU_VM, union drm_amdgpu_vm)
->  #define DRM_IOCTL_AMDGPU_FENCE_TO_HANDLE DRM_IOWR(DRM_COMMAND_BASE + DRM=
-_AMDGPU_FENCE_TO_HANDLE, union drm_amdgpu_fence_to_handle)
->  #define DRM_IOCTL_AMDGPU_SCHED         DRM_IOW(DRM_COMMAND_BASE + DRM_AM=
-DGPU_SCHED, union drm_amdgpu_sched)
-> +#define DRM_IOCTL_AMDGPU_USERQ         DRM_IOW(DRM_COMMAND_BASE + DRM_AM=
-DGPU_USERQ, union drm_amdgpu_userq)
->
->  /**
->   * DOC: memory domains
-> @@ -307,6 +309,59 @@ union drm_amdgpu_ctx {
->         union drm_amdgpu_ctx_out out;
->  };
->
-> +/* user queue IOCTL */
-> +#define AMDGPU_USERQ_OP_CREATE 1
-> +#define AMDGPU_USERQ_OP_FREE   2
-> +
-> +#define AMDGPU_USERQ_MQD_FLAGS_SECURE  (1 << 0)
-> +#define AMDGPU_USERQ_MQD_FLAGS_AQL     (1 << 1)
-> +
-> +struct drm_amdgpu_userq_mqd {
-> +       /** Flags: AMDGPU_USERQ_MQD_FLAGS_* */
-> +       __u32   flags;
-> +       /** IP type: AMDGPU_HW_IP_* */
-> +       __u32   ip_type;
-> +       /** GEM object handle */
-> +       __u32   doorbell_handle;
-> +       /** Doorbell's offset in the doorbell bo */
-> +       __u32   doorbell_offset;
-> +       /** GPU virtual address of the queue */
-> +       __u64   queue_va;
-> +       /** Size of the queue in bytes */
-> +       __u64   queue_size;
-> +       /** GPU virtual address of the rptr */
-> +       __u64   rptr_va;
-> +       /** GPU virtual address of the wptr */
-> +       __u64   wptr_va;
-> +       /** GPU virtual address of the shadow context space */
-> +       __u64   shadow_va;
-> +};
+This patchset removes one unused variable and mark a function as static.
 
-We may want to make the MQD engine specific.  E.g., shadow is gfx
-specific.  We also probably need the csa and gds buffers for gfx as
-well.  Other engines may have their own additional buffer
-requirements.
+Caio Novais (2):
+  drm/amd/display: Remove unused variable 'scl_enable'
+  drm/amd/display: Mark function
+    'optc3_wait_drr_doublebuffer_pending_clear' as static
 
-Alex
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c               | 2 +-
+ .../gpu/drm/amd/display/dc/dml/dcn314/display_rq_dlg_calc_314.c | 2 --
+ 2 files changed, 1 insertion(+), 3 deletions(-)
 
+-- 
+2.40.0
 
-> +
-> +struct drm_amdgpu_userq_in {
-> +       /** AMDGPU_USERQ_OP_* */
-> +       __u32   op;
-> +       /** Flags */
-> +       __u32   flags;
-> +       /** Queue handle to associate the queue free call with,
-> +        * unused for queue create calls */
-> +       __u32   queue_id;
-> +       __u32   pad;
-> +       /** Queue descriptor */
-> +       struct drm_amdgpu_userq_mqd mqd;
-> +};
-> +
-> +struct drm_amdgpu_userq_out {
-> +       /** Queue handle */
-> +       __u32   queue_id;
-> +       /** Flags */
-> +       __u32   flags;
-> +};
-> +
-> +union drm_amdgpu_userq {
-> +       struct drm_amdgpu_userq_in in;
-> +       struct drm_amdgpu_userq_out out;
-> +};
-> +
->  /* vm ioctl */
->  #define AMDGPU_VM_OP_RESERVE_VMID      1
->  #define AMDGPU_VM_OP_UNRESERVE_VMID    2
-> --
-> 2.40.0
->
