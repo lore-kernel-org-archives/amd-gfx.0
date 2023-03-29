@@ -4,98 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF3E3C6FD18
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 01:52:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86648C76196
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 02:11:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D3AB10E345;
-	Wed, 29 Mar 2023 01:52:10 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81BAB10E9FC
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 01:52:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2403510E0C0;
+	Wed, 29 Mar 2023 02:11:41 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2051.outbound.protection.outlook.com [40.107.93.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4115A10E0C0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 02:11:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=a3MnHwJCs17lF2336iyATNBK4ALwOsAqRai5TjGGHpDHxRT3hn4ImzOZP/cF2pnBHomkPwlXjCNWdxudruuxPnF78pZt/DsrmkR7j+cYTV9DQNxTSocv3jvjLrcxZlSSYD/6bo+EH1h1L7EEedEpwViA1pHIH1l82g7rpNooWbfnZXxQyhNItHIut7qnPM+C0/yoXUAjnr5UPwJWPWkOpSGOXVjSCJP+PLE65IhfZMqU0BNE+PjNXaz5THSkDil65WQJ60T0jM8kWQuj/z1VqgZOzhL/+cuWBV/+n8NKcT5ym+e7xjG2tqkxtsnnSSF0E/9T7gjPwW6fJvuN85Hgmw==
+ b=XVEIb0fcxeY7rgYZMautsHS3IwO0A2MdvkjLzMhYq9fVvXzbwj2/oMwqpj5hCJBQZx1i3uQnZkusNn+mpPzTBPMbsg8eARFZlcnn4t9YR587fxe2qWU25/Tca5uHd4D35cGFfiElfDpev8OSR5PSxGetj5mQqyAyj0WwWmTsSM/KmKDNc+Et1ggWzAEkuR/5KpvNWFNk2BN6Fsgxv/yUDB6sBtj2RYxUylSkQ2AwiZe4wExVKFkVjQd8GTEIOB+L9DJbPOvEGwJyBi9YRutHgOdHj1LXzv4iHORE8s1Rwsca/F/JCym43xqP6Qweacr6YbMPTFOfLBALXwMsunFE3Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uoKjHgaz+O6qb9LcdbBmRo8EcqmvbtRPBBiNrkHl9DY=;
- b=Qhqv541z/pWX6rxi8QSvildpznS71Ygi72iBOEZRRsz6Vorboi4sJEifBjtiSBhMdS0zsYpIj5JyUD3JV4VvYmZOG2KsPX4VbAM0XZOWxIPJtsl+NAdZn2zwDxrIRRxYT++hItkzYLEywdJqk3r7RVg+UDu0nc0DgD/wUn1qDoiyYLWJNJEA651SXKJOLxDRWvx0bNoh0s2PCaAGyw0+e7KmMM8S8ap7ohcJHUCgCif6NbPF1x+88O3aiZXMHrxDkkRJwiVbViguBWkioCVAWnMOC/Yq7gveKRalTRRRYeds3HitwEIu/Wjerfj0tpP/6JcA3ELRr/Rjx5xxVP2Fmw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.de smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
+ bh=0+TyEDLq9AbgTKFCK1X69yJAtzz4BrwjR9vyjRydPzo=;
+ b=JP639au3gi9TXwUtCiKV7wuUPx2ENRrEYTyHvWUVO1L2KDBXcl/xaiJiFiGnP0TW7CbK2czxETEHpuGFYnjfdOae6ztIPYfDErdlNfe6u3hdz4dRrMzgRLOm9Ogk0fhqcScByETF9Ap/1GffR8hvXPTw6Xc87FfyOVKjlZQzsd97UHHspz5FU37LtVWuCHsEwT8yvatbXs9NBFr7L42azjnGPghMWRduPf7cQNd+Ctfjs+/Sw7efkqnx3zNSm/ksUrx6+2DLaEbDOSsWy+g3V0+VqmzKaKOuIiffXkxsev3p1gCdrCn4ceR0GaLOR6XkwcyJjYz+k30ycG3sHSDmCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uoKjHgaz+O6qb9LcdbBmRo8EcqmvbtRPBBiNrkHl9DY=;
- b=A9LzA2InWveFNuu3io1fS5ks1PE4+40kI99FIcQVS/YtTS4xytWyxMLjSri0cZ0p0lx32A6oyQU6VYflTefFZ+EnOtnVkukZexiXw2FGP/fSnQowijPg+DaOUb3pQehHsWLmX8baUDthxWvg0lh5qvsa0ouiascK4yzmEx/+TlE=
-Received: from BN6PR17CA0034.namprd17.prod.outlook.com (2603:10b6:405:75::23)
- by IA1PR12MB6186.namprd12.prod.outlook.com (2603:10b6:208:3e6::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.33; Wed, 29 Mar
- 2023 01:52:05 +0000
-Received: from BN8NAM11FT106.eop-nam11.prod.protection.outlook.com
- (2603:10b6:405:75:cafe::d8) by BN6PR17CA0034.outlook.office365.com
- (2603:10b6:405:75::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.43 via Frontend
- Transport; Wed, 29 Mar 2023 01:52:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT106.mail.protection.outlook.com (10.13.177.7) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6222.22 via Frontend Transport; Wed, 29 Mar 2023 01:52:05 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 28 Mar
- 2023 20:52:03 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 28 Mar
- 2023 20:52:03 -0500
-Received: from archlinux.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Tue, 28 Mar 2023 20:51:59 -0500
-From: Wenyou Yang <WenYou.Yang@amd.com>
-To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <Xinhui.Pan@amd.com>, <evan.quan@amd.com>, <mario.limonciello@amd.com>,
- <bp@suse.de>, <peterz@infradead.org>, <jpoimboe@kernel.org>,
- <kim.phillips@amd.com>, <tglx@linutronix.de>
-Subject: [PATCH v3 2/2] drm/amd/pm: vangogh: send the SMT enable message to
- pmfw
-Date: Wed, 29 Mar 2023 09:51:49 +0800
-Message-ID: <20230329015149.870132-3-WenYou.Yang@amd.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230329015149.870132-1-WenYou.Yang@amd.com>
-References: <20230329015149.870132-1-WenYou.Yang@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT106:EE_|IA1PR12MB6186:EE_
-X-MS-Office365-Filtering-Correlation-Id: a14d831e-7859-4c51-5281-08db2ff832f8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Yflm0ZgqILXKEiibCE9w9WGdWhjHh57K8YPpxoH8/BRNaVlQXain2wKcLP2R5dD7c2gJqVwrjhy3jnrXhS7KDfrJnSb8l7abyX2PfBJI3EMe15oQ+Vphfi6laJEkcyxpa+QieLQnSHPBwfpul5HvZ42LtUOd7sBDn2h+37P4/Xq2MWu4QXoe47TcGOwW8K+3aPizYx0huikNdRzzl/WukkwOw4T5RfD0sgokGb1b211f/C2AvdEir2UO9cTF5Kk4B+rOeqB5YD/On/wSdw8KsuBJQIJOpBiuR3DMRrqXQ5rLz5mD3CcZXgWQtAZlPUTwQ6fta2vCmJY++DGJ0KoJH/yFaYb7kwsYaKaPyXaeyMwogHc78QKzvFap6ywNylCuZfv9xXy43qBhLckNyW2Wg78ZFXvVFU55xiOSbtrBZk5UcVbsZY3/Sf0XBGVBqBqDwHgL94wc5YXb9BSaxIcKF5WB/iuJ0iSbspjeYd9eyCDOy7WQrh4V1AunG7E9c49R1xN/w6ddGfh91jgPAs5yHNsiHhd66b0GzzhHGrR7RYFUNJXZwczBbcqsB8o33S62yx7QHhAYzNArR5tIsbO0t+iMPNz6kyLREPCMgDtzyaQS3RAJvgzAajJLMbpEgSGpMpfzHOuiwTVjHXdWoOkh/LrMEi6N7URe/dqU6G/NCCK75N5vJncyFV5QTGxTmhrASMKhRdROV2Sv2OAmhVWOGsE3QpPQ9S5JJI0lXZ5/bpFwO9WsLohRM/6pOt7IhOWe
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(136003)(346002)(39860400002)(376002)(451199021)(46966006)(36840700001)(40470700004)(7696005)(6666004)(1076003)(26005)(54906003)(110136005)(316002)(478600001)(186003)(47076005)(36860700001)(83380400001)(70206006)(70586007)(426003)(336012)(8676002)(2616005)(41300700001)(81166007)(8936002)(5660300002)(921005)(356005)(4326008)(2906002)(82740400003)(15650500001)(40460700003)(40480700001)(86362001)(82310400005)(36756003)(36900700001);
+ bh=0+TyEDLq9AbgTKFCK1X69yJAtzz4BrwjR9vyjRydPzo=;
+ b=xHzAjvHRpb3VMsH1/JOiazJhmoj30Wt9ai1FVctqfHcl3ApP1eDXGbJqPw0nveZLaYXQWj/fcvV2g1T2wduOxtPHSx5xLVWyfrlkRfww7ifwJUPYi5cDCGA/n7SO1iIcawq3s08hfxNivT7IrzGtMKt/BQsATeg/A3VBfo1eBLk=
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ MN0PR12MB5763.namprd12.prod.outlook.com (2603:10b6:208:376::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6222.35; Wed, 29 Mar 2023 02:11:32 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::3334:46b8:da25:16ad]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::3334:46b8:da25:16ad%7]) with mapi id 15.20.6178.041; Wed, 29 Mar 2023
+ 02:11:31 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: "Liu01, Tong (Esther)" <Tong.Liu01@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: enable sysfs node pp_dpm_vclk1 for some asics
+Thread-Topic: [PATCH] drm/amdgpu: enable sysfs node pp_dpm_vclk1 for some asics
+Thread-Index: AQHZYWpSdr/i0zJ8Z0yCUu9nGIMRlK8RA/hg
+Date: Wed, 29 Mar 2023 02:11:31 +0000
+Message-ID: <DM6PR12MB26192C4687DE015320972F2FE4899@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20230328114141.1154742-1-Tong.Liu01@amd.com>
+In-Reply-To: <20230328114141.1154742-1-Tong.Liu01@amd.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-03-29T02:11:28Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=1df8a165-5084-4641-a497-290ca4465b34;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR12MB2619:EE_|MN0PR12MB5763:EE_
+x-ms-office365-filtering-correlation-id: 3be860f1-862f-4cac-de04-08db2ffae9e6
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: rCucNQH0sg2e7R7Y0fiWG+V/jMfOYH2MQisuf4UUW8JyMNZ7ZTjFogjEs2kchChJZy1i7IM/taLhEUWSvGgtvonTZ9C7DX+i3NoSH6cma+aNB6xYloc5StKNL6w3294uHq97lRygKaqk40tJAexHd29Ka21Ysqy3wTq9Pktm4NnkVttTKuTWNg22zPEn2RHkhmA39nmBhvYl0YjIOTMvoqQHHeaRaTbekSChAUihmPw263bGYfgk+0EhkZLQN6Dot/N2k3MO0caQYtOc3tMDk7hORymbdlDS6j4t5NSCnZ4KzoSuYXsvTx8li9SpeotgQ6FiU2nJsTnRVgsmTPU4uvZUF3SGUnY/srEsgSSvVcY5kZPn+8H67mzb0aDuVVxpwZrDn2cpBpdJQU7S9xTlTAzc83sDzTKhQ5XrjybE4XZCSGdJ86nJk2u2GNJp5aAy4vcuiZpfYi5RDrcGfiZfkFxVJfdbER6mIYKGR4zsgRnLKa8DcdologHeLFqYzjndPdu7L05EVzxzWfhDwceSzcIz8cgrjirbjBracVL4eUoMVJpdRZr3NT9j2ewaG/+E6nVCeMiBa5D7k1XSaY+mshE25NtpRzX01RjbXVypxAvL3+DuMm/kadJ71O9+6KEO
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(39860400002)(346002)(376002)(136003)(366004)(451199021)(54906003)(110136005)(6506007)(53546011)(478600001)(83380400001)(4326008)(66946007)(66556008)(76116006)(316002)(26005)(9686003)(7696005)(71200400001)(8676002)(64756008)(66476007)(66446008)(186003)(41300700001)(122000001)(8936002)(52536014)(5660300002)(2906002)(33656002)(38070700005)(38100700002)(55016003)(86362001);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?jjfSdxyjqq/eJEn5ht59M0k2McvIRz2TW2JSinOWCr+KS3dP7kuELm9JT3cN?=
+ =?us-ascii?Q?dak/PSBfKgY6SY6od6iBrKwdUTiGxeXPF1qNXi137YTEkrRzUxSZbMb2as7G?=
+ =?us-ascii?Q?s5JrwWA5BjrHTVsopD5/9vY3R0tAYzX6qbvHHjP+AJ/22wk2jb02of6JJ0BX?=
+ =?us-ascii?Q?FHqjGWNdoTS4ZAo5EQ+hldyGTxEY4UGYAiMRczNm+XLevvkw573yEvgZd+Gi?=
+ =?us-ascii?Q?1pG15ezYJQLyehItdNQft/Z9w7QFiZaU2/rx1wMsVomCN+jhJ3WUbTvav48L?=
+ =?us-ascii?Q?fm2DoTSofbKlGXkLhF/+1wXl1HWBfP+CQU+wMNN0HRwTDqOtPAdrWMOenyuB?=
+ =?us-ascii?Q?vbrVJ1YNGNKnm6nYux4lUC5VbeQeQMjps+VUfnhC8vwxfLtyMd19JbZwy4/b?=
+ =?us-ascii?Q?iySu9zBZM/LUOJ28WYiNls2pONsJ/dlUVPioO4WAidcPnhRqQAeqfLPzS6Rl?=
+ =?us-ascii?Q?R/xGtaYB/Ev/bIOjfGTw2P3biovyHA5+FJYZAFa4gJ4YZacqoGkzU7yGqkAt?=
+ =?us-ascii?Q?vTbE02AE9VQJyd4GVv3+932uLPucV6rj/KIAKMP6bdzLp60PswA5aC5bBPFM?=
+ =?us-ascii?Q?ybUSE59Bl/LJkJNmiYaERSF8IJ8JHz7alzONHJ4ZBcTLR2+DP47JloBgC8io?=
+ =?us-ascii?Q?jf33a6c/tAwPVo11ygrx9aPPgYn8LbhiyjiXDotQS/9dTu70WsesrTwQLNLn?=
+ =?us-ascii?Q?wsL/Xba2no2nO5sc7qrjqIbhrhACgZQSFCbrxzffbvPFkbAgQ2hU2zMz1U4X?=
+ =?us-ascii?Q?PFaG5tMajnDt7u2mVVFkXLYKPN+zK5pXqyI26+jixGONOfeBCYgaM50qG8jL?=
+ =?us-ascii?Q?XT3pZP0H6xp6p7LGIzL3yGrpL5gS1zCVobLLxx3I9O/0p/RXPz+gUTcWKutz?=
+ =?us-ascii?Q?/uZ7+JXWWQGvjGs5Jd0gqsPSeo06G5GZoSF8yp3ASnDoOFB9BNm84h+g9Nk/?=
+ =?us-ascii?Q?Vi2ClzF6eEKlI5uyjCPGXBM9yYgQ5saA96UivvNu4CoWcqWkY0WEYpIhd97P?=
+ =?us-ascii?Q?Q/QUqKeowg+HS8gfgMP4faZ2rnsFpvwhRMp7gk72bOtesONeySZEn170VLOh?=
+ =?us-ascii?Q?3QJFjp4gSIrIT32QNa+pROBcx/ZnHZOd/WB64PZNE/0cgq6IXWlwVBKcgiL7?=
+ =?us-ascii?Q?FDlxUBJvVDEI1YAdJQ3GKUY2oMxbvTIva9jOARgTianMYLeGcWmlqWVF+5AE?=
+ =?us-ascii?Q?hplsa0Ikl52wpQWx5UEPd2idvn6BimzlUwn1vOI8nGDjN+/c5T+qjxkg6m4z?=
+ =?us-ascii?Q?nwjqog/LCVAH10tRD9MKACUMvKTUhYOLIUWkb3mXZc0R6gtc5bJK9/ewS3kF?=
+ =?us-ascii?Q?9phjFMimle9xu/A0iyuX+5p93icV2Qp7A2WtafAELcD8a/pqFfIeQw+jOHN0?=
+ =?us-ascii?Q?T4iK3Q3WnLadskJ4F5mZHa+u0v6FrTY5R9A7E55pju49u/itKceBLFqP2iFa?=
+ =?us-ascii?Q?3Ft/DN3aU4zHx1wpgunflrO56mdg6TWTjk1cjShC0WkqGZyT0Le2d4pS2hBl?=
+ =?us-ascii?Q?ndBTb7tB2OJHjg5O9vPgsTlE+tx1oNoYgAO/5AU/rbbJ05eHcF7A6SxuVOv/?=
+ =?us-ascii?Q?FennMvhc8jyTfDNyELA=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2023 01:52:05.5180 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a14d831e-7859-4c51-5281-08db2ff832f8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT106.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6186
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3be860f1-862f-4cac-de04-08db2ffae9e6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Mar 2023 02:11:31.5139 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: lcx5iXgYOXPxkGd4QYGrH2/JPY5OZJ+Yr6JqIW7VsQ5Jg2QV5uPsEt4vtWoWS2I5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5763
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,203 +122,144 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: weiyuan2@amd.com, ying.li@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Wenyou Yang <WenYou.Yang@amd.com>,
- gpiccoli@igalia.com, kunliu13@amd.com, richardqi.liang@amd.com
+Cc: "Xiao, Jack" <Jack.Xiao@amd.com>, "Wang,
+ Yang\(Kevin\)" <KevinYang.Wang@amd.com>, "Xu, Feifei" <Feifei.Xu@amd.com>,
+ "Chen, Horace" <Horace.Chen@amd.com>, "Liu01,
+ Tong \(Esther\)" <Tong.Liu01@amd.com>, "Tuikov, Luben" <Luben.Tuikov@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, "Liu, Monk" <Monk.Liu@amd.com>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When the CPU SMT status is changed in the fly, sent the SMT enable
-message to pmfw to notify it that the SMT status changed.
+[AMD Official Use Only - General]
 
-Add the support to send PPSMC_MSG_SetCClkSMTEnable(0x58) message
-to pmfw for vangogh.
+IIRC, the VCLK1 always have the same frequency as VCLK0 with our current im=
+plementation.
+So, is it necessary to provide another sysfs node for checking vclk1 freque=
+ncy?
 
-Signed-off-by: Wenyou Yang <WenYou.Yang@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  5 +++
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  7 +++
- .../pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h    |  3 +-
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h  |  3 +-
- .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 43 +++++++++++++++++++
- 5 files changed, 59 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index b5d64749990e..d53d2acc9b46 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -69,6 +69,8 @@ static int smu_set_fan_speed_rpm(void *handle, uint32_t speed);
- static int smu_set_gfx_cgpg(struct smu_context *smu, bool enabled);
- static int smu_set_mp1_state(void *handle, enum pp_mp1_state mp1_state);
- 
-+extern struct raw_notifier_head smt_notifier_head;
-+
- static int smu_sys_get_pp_feature_mask(void *handle,
- 				       char *buf)
- {
-@@ -1122,6 +1124,9 @@ static int smu_sw_fini(void *handle)
- 
- 	smu_fini_microcode(smu);
- 
-+	if (smu->nb.notifier_call != NULL)
-+		raw_notifier_chain_unregister(&smt_notifier_head, &smu->nb);
-+
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-index 09469c750a96..4d51ac5ec8ba 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-@@ -566,6 +566,8 @@ struct smu_context
- 
- 	struct firmware pptable_firmware;
- 
-+	struct notifier_block nb;
-+
- 	u32 param_reg;
- 	u32 msg_reg;
- 	u32 resp_reg;
-@@ -1354,6 +1356,11 @@ struct pptable_funcs {
- 	 * @init_pptable_microcode: Prepare the pptable microcode to upload via PSP
- 	 */
- 	int (*init_pptable_microcode)(struct smu_context *smu);
-+
-+	/**
-+	 * @set_cpu_smt_enable: Set the CPU SMT status.
-+	 */
-+	int (*set_cpu_smt_enable)(struct smu_context *smu, bool smt_enable);
- };
- 
- typedef enum {
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h
-index 7471e2df2828..a6bfa1912c42 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h
-@@ -111,7 +111,8 @@
- #define PPSMC_MSG_GetGfxOffStatus		       0x50
- #define PPSMC_MSG_GetGfxOffEntryCount		       0x51
- #define PPSMC_MSG_LogGfxOffResidency		       0x52
--#define PPSMC_Message_Count                            0x53
-+#define PPSMC_MSG_SetCClkSMTEnable		       0x58
-+#define PPSMC_Message_Count                            0x59
- 
- //Argument for PPSMC_MSG_GfxDeviceDriverReset
- enum {
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-index 297b70b9388f..820812d910bf 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-@@ -245,7 +245,8 @@
- 	__SMU_DUMMY_MAP(AllowGpo),	\
- 	__SMU_DUMMY_MAP(Mode2Reset),	\
- 	__SMU_DUMMY_MAP(RequestI2cTransaction), \
--	__SMU_DUMMY_MAP(GetMetricsTable),
-+	__SMU_DUMMY_MAP(GetMetricsTable), \
-+	__SMU_DUMMY_MAP(SetCClkSMTEnable),
- 
- #undef __SMU_DUMMY_MAP
- #define __SMU_DUMMY_MAP(type)	SMU_MSG_##type
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-index 7433dcaa16e0..07f8822f2eb0 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-@@ -35,6 +35,7 @@
- #include "asic_reg/gc/gc_10_3_0_offset.h"
- #include "asic_reg/gc/gc_10_3_0_sh_mask.h"
- #include <asm/processor.h>
-+#include <linux/cpu.h>
- 
- /*
-  * DO NOT use these for err/warn/info/debug messages.
-@@ -70,6 +71,8 @@
- 	FEATURE_MASK(FEATURE_DCFCLK_DPM_BIT)| \
- 	FEATURE_MASK(FEATURE_GFX_DPM_BIT))
- 
-+extern struct raw_notifier_head smt_notifier_head;
-+
- static struct cmn2asic_msg_mapping vangogh_message_map[SMU_MSG_MAX_COUNT] = {
- 	MSG_MAP(TestMessage,                    PPSMC_MSG_TestMessage,			0),
- 	MSG_MAP(GetSmuVersion,                  PPSMC_MSG_GetSmuVersion,		0),
-@@ -141,6 +144,7 @@ static struct cmn2asic_msg_mapping vangogh_message_map[SMU_MSG_MAX_COUNT] = {
- 	MSG_MAP(GetGfxOffStatus,		    PPSMC_MSG_GetGfxOffStatus,						0),
- 	MSG_MAP(GetGfxOffEntryCount,		    PPSMC_MSG_GetGfxOffEntryCount,					0),
- 	MSG_MAP(LogGfxOffResidency,		    PPSMC_MSG_LogGfxOffResidency,					0),
-+	MSG_MAP(SetCClkSMTEnable,		    PPSMC_MSG_SetCClkSMTEnable,						0),
- };
- 
- static struct cmn2asic_mapping vangogh_feature_mask_map[SMU_FEATURE_COUNT] = {
-@@ -221,6 +225,9 @@ static const uint8_t vangogh_throttler_map[] = {
- 	[THROTTLER_STATUS_BIT_TDC_CVIP]	= (SMU_THROTTLER_TDC_CVIP_BIT),
- };
- 
-+static int smt_notifier_callback(struct notifier_block *nb,
-+				 unsigned long action, void *data);
-+
- static int vangogh_tables_init(struct smu_context *smu)
- {
- 	struct smu_table_context *smu_table = &smu->smu_table;
-@@ -477,6 +484,9 @@ static int vangogh_init_smc_tables(struct smu_context *smu)
- 	smu->cpu_core_num = 4;
- #endif
- 
-+	smu->nb.notifier_call = smt_notifier_callback;
-+	raw_notifier_chain_register(&smt_notifier_head, &smu->nb);
-+
- 	return smu_v11_0_init_smc_tables(smu);
- }
- 
-@@ -2428,6 +2438,12 @@ static u32 vangogh_get_gfxoff_entrycount(struct smu_context *smu, uint64_t *entr
- 	return ret;
- }
- 
-+static int vangogh_set_cpu_smt_enable(struct smu_context *smu, bool enable)
-+{
-+	return smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetCClkSMTEnable,
-+					       enable ? 1 : 0, NULL);
-+}
-+
- static const struct pptable_funcs vangogh_ppt_funcs = {
- 
- 	.check_fw_status = smu_v11_0_check_fw_status,
-@@ -2474,6 +2490,7 @@ static const struct pptable_funcs vangogh_ppt_funcs = {
- 	.get_power_limit = vangogh_get_power_limit,
- 	.set_power_limit = vangogh_set_power_limit,
- 	.get_vbios_bootup_values = smu_v11_0_get_vbios_bootup_values,
-+	.set_cpu_smt_enable = vangogh_set_cpu_smt_enable,
- };
- 
- void vangogh_set_ppt_funcs(struct smu_context *smu)
-@@ -2486,3 +2503,29 @@ void vangogh_set_ppt_funcs(struct smu_context *smu)
- 	smu->is_apu = true;
- 	smu_v11_0_set_smu_mailbox_registers(smu);
- }
-+
-+static int smu_set_cpu_smt_enable(struct smu_context *smu, bool enable)
-+{
-+	int ret = -EINVAL;
-+
-+	if (smu->ppt_funcs && smu->ppt_funcs->set_cpu_smt_enable)
-+		ret = smu->ppt_funcs->set_cpu_smt_enable(smu, enable);
-+
-+	return ret;
-+}
-+
-+static int smt_notifier_callback(struct notifier_block *nb,
-+				 unsigned long action, void *data)
-+{
-+	struct smu_context *smu = container_of(nb, struct smu_context, nb);
-+	int ret;
-+
-+	smu = container_of(nb, struct smu_context, nb);
-+
-+	ret = smu_set_cpu_smt_enable(smu, action == SMT_ENABLED);
-+
-+	dev_dbg(smu->adev->dev, "failed to set cclk_pd_limit for SMT %sabled: %d\n",
-+		action == SMT_ENABLED ?	"en" : "dis", ret);
-+
-+	return ret ? NOTIFY_BAD : NOTIFY_OK;
-+}
--- 
-2.39.2
-
+BR
+Evan
+> -----Original Message-----
+> From: Tong Liu01 <Tong.Liu01@amd.com>
+> Sent: Tuesday, March 28, 2023 7:42 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Quan, Evan <Evan.Quan@amd.com>; Chen, Horace
+> <Horace.Chen@amd.com>; Tuikov, Luben <Luben.Tuikov@amd.com>;
+> Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander
+> <Alexander.Deucher@amd.com>; Xiao, Jack <Jack.Xiao@amd.com>; Zhang,
+> Hawking <Hawking.Zhang@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Xu,
+> Feifei <Feifei.Xu@amd.com>; Wang, Yang(Kevin)
+> <KevinYang.Wang@amd.com>; Liu01, Tong (Esther) <Tong.Liu01@amd.com>
+> Subject: [PATCH] drm/amdgpu: enable sysfs node pp_dpm_vclk1 for some
+> asics
+>=20
+> Add sysfs node pp_dpm_vclk1 for gc11.0.3
+>=20
+> Signed-off-by: Tong Liu01 <Tong.Liu01@amd.com>
+> ---
+>  .../gpu/drm/amd/include/kgd_pp_interface.h    |  1 +
+>  drivers/gpu/drm/amd/pm/amdgpu_pm.c            | 22
+> +++++++++++++++++++
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  4 ++++
+>  3 files changed, 27 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+> b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+> index 86b6b0c9fb02..fe75497eeeab 100644
+> --- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+> +++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+> @@ -104,6 +104,7 @@ enum pp_clock_type {
+>  	PP_FCLK,
+>  	PP_DCEFCLK,
+>  	PP_VCLK,
+> +	PP_VCLK1,
+>  	PP_DCLK,
+>  	OD_SCLK,
+>  	OD_MCLK,
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> index d75a67cfe523..1da6e9469450 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> @@ -1180,6 +1180,21 @@ static ssize_t amdgpu_set_pp_dpm_vclk(struct
+> device *dev,
+>  	return amdgpu_set_pp_dpm_clock(dev, PP_VCLK, buf, count);
+>  }
+>=20
+> +static ssize_t amdgpu_get_pp_dpm_vclk1(struct device *dev,
+> +		struct device_attribute *attr,
+> +		char *buf)
+> +{
+> +	return amdgpu_get_pp_dpm_clock(dev, PP_VCLK1, buf);
+> +}
+> +
+> +static ssize_t amdgpu_set_pp_dpm_vclk1(struct device *dev,
+> +		struct device_attribute *attr,
+> +		const char *buf,
+> +		size_t count)
+> +{
+> +	return amdgpu_set_pp_dpm_clock(dev, PP_VCLK1, buf, count);
+> +}
+> +
+>  static ssize_t amdgpu_get_pp_dpm_dclk(struct device *dev,
+>  		struct device_attribute *attr,
+>  		char *buf)
+> @@ -2002,6 +2017,7 @@ static struct amdgpu_device_attr
+> amdgpu_device_attrs[] =3D {
+>  	AMDGPU_DEVICE_ATTR_RW(pp_dpm_socclk,
+> 	ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
+>  	AMDGPU_DEVICE_ATTR_RW(pp_dpm_fclk,
+> 	ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
+>  	AMDGPU_DEVICE_ATTR_RW(pp_dpm_vclk,
+> 	ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
+> +	AMDGPU_DEVICE_ATTR_RW(pp_dpm_vclk1,
+> 	ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
+>  	AMDGPU_DEVICE_ATTR_RW(pp_dpm_dclk,
+> 	ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
+>  	AMDGPU_DEVICE_ATTR_RW(pp_dpm_dcefclk,
+> 		ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
+>  	AMDGPU_DEVICE_ATTR_RW(pp_dpm_pcie,
+> 	ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
+> @@ -2091,6 +2107,12 @@ static int default_attr_update(struct
+> amdgpu_device *adev, struct amdgpu_device_
+>  		      gc_ver =3D=3D IP_VERSION(11, 0, 2) ||
+>  		      gc_ver =3D=3D IP_VERSION(11, 0, 3)))
+>  			*states =3D ATTR_STATE_UNSUPPORTED;
+> +	} else if (DEVICE_ATTR_IS(pp_dpm_vclk1)) {
+> +		if (!((gc_ver =3D=3D IP_VERSION(10, 3, 1) ||
+> +		       gc_ver =3D=3D IP_VERSION(10, 3, 0) ||
+> +			   gc_ver =3D=3D IP_VERSION(11, 0, 2) ||
+> +			   gc_ver =3D=3D IP_VERSION(11, 0, 3)) && adev-
+> >vcn.num_vcn_inst >=3D 2))
+> +			*states =3D ATTR_STATE_UNSUPPORTED;
+>  	} else if (DEVICE_ATTR_IS(pp_dpm_dclk)) {
+>  		if (!(gc_ver =3D=3D IP_VERSION(10, 3, 1) ||
+>  		      gc_ver =3D=3D IP_VERSION(10, 3, 0) ||
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index b5d64749990e..bffbef3f666d 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -2006,6 +2006,8 @@ static int smu_force_ppclk_levels(void *handle,
+>  		clk_type =3D SMU_DCEFCLK; break;
+>  	case PP_VCLK:
+>  		clk_type =3D SMU_VCLK; break;
+> +	case PP_VCLK1:
+> +		clk_type =3D SMU_VCLK1; break;
+>  	case PP_DCLK:
+>  		clk_type =3D SMU_DCLK; break;
+>  	case OD_SCLK:
+> @@ -2393,6 +2395,8 @@ static enum smu_clk_type
+> smu_convert_to_smuclk(enum pp_clock_type type)
+>  		clk_type =3D SMU_DCEFCLK; break;
+>  	case PP_VCLK:
+>  		clk_type =3D SMU_VCLK; break;
+> +	case PP_VCLK1:
+> +		clk_type =3D SMU_VCLK1; break;
+>  	case PP_DCLK:
+>  		clk_type =3D SMU_DCLK; break;
+>  	case OD_SCLK:
+> --
+> 2.34.1
