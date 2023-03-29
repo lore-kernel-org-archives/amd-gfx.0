@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28A08C74A5B
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 20:26:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D9B9C77B60
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 20:26:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D49510EC59;
-	Wed, 29 Mar 2023 20:26:08 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C0F010EC54
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 20:26:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20AFB10EC5E;
+	Wed, 29 Mar 2023 20:26:09 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20615.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eaa::615])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44D6410EC59
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 20:26:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OFPmvX4IEj0zCZ0eTZLKQ+WUIdzxbu08PY2KhK1H2yWRaa9jq8afPVTF3z+Vb+zNCeTE4Lt8Xl9EylRmOX4/98kawt2LFZaipAoZsGVtdUprG0GWyZKnJJQAX7+2ACycHJBEQ+m3ASeQ0qH57A+rv3n35vXkIr/3VQZXRilbQVmciRqwNaX4ffr8yjCe6ZIG5kS4Vz321nqNxTlUFG1i69+2Def/Mf+g+VDTbhGfd2RygpusOMFsUhg7T8xAIIcNjGBY2bqMmHfNHE04qZQljGGWI9lRIMASzNkglFx0pVQZP1nyXiLlEkKgSOQdS+WHuDcNerfjO+SH2JgCRldt8Q==
+ b=MRy6RjMPflt2qwgiVI9SfYlsaVbssE2+pNtmAt5Q22l0f/k5oTuu8X4iASlhup0CZWGbg2r6belIf65QMVdQ6rnvVUo9HqkeCTnaj/vq1gtuxXy26qxIq82eebXJW2Oi31kgOkir1+moUF+nhQvJ0P7qtn4TJEXwiREoiSOE3PU5tYTCpDbZ8+zVxFiRh7nURhgxPzcO0QY0iKaXrisa6a44qqYFlU66VgeIN5XhgSee2tzWtx316QiJGO+kSNz/Zoj+t6+yp+tvw65IJZLHQdBMmsobRAX16VvaKiNif9jwvUjR2rp4OWuIBbU/e/TtDMjGLRJ0YTC4pBbBEounjg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R/9sWEjgjhaJNjyYOB6w39AzdCy4IuHPVSwusWnDlbQ=;
- b=JhHuGSAbLRXLJPDds2pfVfXgIngnzpBqcpcYk1gKfLMwpW9GkVGIAlIcEkAk0SkrMFWyHNTDCHv2KTpXhohT0SKHswWzU3Xn0lKtWn9UbT44q0m5GInwOWdih/pvhMmhy/ctpC1+kXiYD6fvWe2b+1i+6eiUvD/UVtyNcEZ+1MGjNwXfQOexiO3KMgOktkHtHxNKFyropzzcO7UUrKJMf5o9qEuJnN/BxQUml9Jpgw371luS+p/K/5KssobU3z/AJq8xfO3zLW0wBFnNtYZF+1ZZdRYmDLnrANjBs2iJOaAE+naVk19lYGczcM1DW4MYNdodRHlNfyMEXIG2RQBmxg==
+ bh=CKPFQBrUiGuWxL4FQHcBCyNagkqioR6BjnaPCLF0/Fc=;
+ b=GgnUuXI9O4Pv8q6+2Wp+tnN5lbYLG/zGKJ3M5kJ3xbMFi0/TNy0UqRysOyXvy/fWgUnktKN0zhQlETGwffDNDsh1tlh8jf/BVI0LeQ+WB2N6o0rlJyVBnkHJ79UinqqBFmdjYH5HhHPFNaJtZe8z7Rv8csp6cjNQ5wtb1Ng+Vy7Y1GsNYph7uIe6ZN8w2MpUrn92TZAQDjyQA4WMxhCv2eIPX82JNEasFUSbpyWUxRqo3GhDct292Kiq2usko2CisVEgkl/EfdUtrfde7QW8GPJvu+WOmFll8NM0c5/sE2PxJUqAFrR4RvFighd3A/dbSiUoBHl1OGUJmi6otIRpgA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R/9sWEjgjhaJNjyYOB6w39AzdCy4IuHPVSwusWnDlbQ=;
- b=MgWHTqRyrEuvvdUgLjtTtGnKvJDNx3AKzHEk45ZbU0/mqfzRJKTAhZ9Ejgzc0uNlP3vfgrl0Plkde+g5m8zR0KihvxG6tO/bKkKtAK4QqZFNtHJSoO4Zb+CYGoXD6Nb3nI8DVPi4exyr+8hN+d0Tm1VTsn0H5NFWkFg1OtNAX6w=
-Received: from DS7PR03CA0135.namprd03.prod.outlook.com (2603:10b6:5:3b4::20)
- by BY5PR12MB4322.namprd12.prod.outlook.com (2603:10b6:a03:20a::20) with
+ bh=CKPFQBrUiGuWxL4FQHcBCyNagkqioR6BjnaPCLF0/Fc=;
+ b=e/KbA0HxReUVjl6dfKASZK+/5fjEFKDW/PvA5Yd7s5UTwtQGra6I82DCr/od6uvjsdHaNyx/vCohMzzJZHhl2mxmQTp6At2lXdW7/NmQx3/I1M8NR8p9ONM/nW0ez+PKrY9TeCKz4S0l8qzdknM2EPj9oFCUJ2q93jdRV8eXZcc=
+Received: from DS7PR03CA0143.namprd03.prod.outlook.com (2603:10b6:5:3b4::28)
+ by SA3PR12MB8437.namprd12.prod.outlook.com (2603:10b6:806:2f5::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.35; Wed, 29 Mar
- 2023 20:26:04 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.33; Wed, 29 Mar
+ 2023 20:26:03 +0000
 Received: from DM6NAM11FT084.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3b4:cafe::97) by DS7PR03CA0135.outlook.office365.com
- (2603:10b6:5:3b4::20) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:5:3b4:cafe::ee) by DS7PR03CA0143.outlook.office365.com
+ (2603:10b6:5:3b4::28) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.20 via Frontend
- Transport; Wed, 29 Mar 2023 20:26:04 +0000
+ Transport; Wed, 29 Mar 2023 20:26:03 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,12 +52,12 @@ Received: from SATLEXMB04.amd.com (165.204.84.17) by
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 29 Mar
- 2023 15:26:03 -0500
+ 2023 15:26:02 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 05/14] drm/amdgpu: do some register access cleanup in nbio v7_9
-Date: Wed, 29 Mar 2023 16:25:39 -0400
-Message-ID: <20230329202548.1983334-5-alexander.deucher@amd.com>
+Subject: [PATCH 04/14] drm/amdgpu: extend max instances
+Date: Wed, 29 Mar 2023 16:25:38 -0400
+Message-ID: <20230329202548.1983334-4-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230329202548.1983334-1-alexander.deucher@amd.com>
 References: <20230329202548.1983334-1-alexander.deucher@amd.com>
@@ -68,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT084:EE_|BY5PR12MB4322:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9e271e67-78e6-450d-8f1b-08db3093d1bb
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT084:EE_|SA3PR12MB8437:EE_
+X-MS-Office365-Filtering-Correlation-Id: c9263bac-c56f-4c49-ce55-08db3093d178
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: E0UUezS6HO+oZ3lgIHNDnlc7Q86uQDhajKSBQK3U29d30akqOtTAS10DPzvdoIxDkqfLCNVGHghGIBmbf7QALkgI5EJJiscb1wrnJGUuJJKwTpQtOL+oUVM553NSQ6iTeNmWse2s2QNSLF3M6e5LEKbMBcPw2QaIgw9Z9bybh+3RklsnacbUyUTAyE+QYnV6BvL555Fncl7SJOUmEXvzMF6F2xVnYWS7lW5GxBbe+lehSmujmywn+8QD+W34Rg7A+vk5teeMWyHytU6SbeT8W78VpRiUDMtomFZZFyyB5kyd2r3BEZa1tFz4zacUgVAiQOCZlFw4paoQ5uR2zsEUUghY/W2McBy6Gemo+igJsiz+qraAsu+b+K8KDSl/Kgg1zwO/C/jTt4L3DkFLNU1VhqdVOGz8MlG2Qen9upuE/R4pvnG9uZzhvcJd445yygfUXlGKLIM5ejvc1QprwHJd2Fkee7wbl6d70YvKPWXWPpO/LADnNSHor3o3yppWAzT7I5lIvHjkXvvB0zgsyOkt/vhEyurMtCqNQ6qqxJ/qiSbYDRt4BuqYiFRVoRn5wZa70V/byQbZImt90kLOqV4/6+xJY83dwMrkhL8q6B9c0H4GRb4kWuU7NonOpRe+02+GIdChn+hZAiEjqr15L1jJNIMCTPnA4+mEf/cIwpqVPhT9UVNivKdJB8DymL+r8Av7Ti10XtxhnNPAhriZVCivuIFfnPO3o0vL9oqqNgYtL2Y=
+X-Microsoft-Antispam-Message-Info: OYQ/eAxX2m81gI4hnS2yrUi8pHbZpA8wpDZgGoepPnOmcZp32mGxND+x3JDlMSDT4id5lZMriJSK0udeEXRra5z3ef2v6vgovckrP/gS2pHL/K+J3lomce8w6cHBvc3k2ExhoQBhyg458ZTwTyI+BnQN+r8HFUIJ4xsJtxk8WEa+myrBwQJ2MKHj8SbBTdArZFDOs+mMzV3Pd4BERTjSNI3Qjjh0OVAsXMjDz8wUfO8b///CsnhmyelNt7rIq8ilx2VPuq1ueSYVA0sW3Q0KXPYTkrd4G4BzepEzurxsH8qwRr08bN4QcQ+I2zwqGn94ToGKoKZ7r4wFKsu/wLabp4g4sAK+DpdmsKTOjeHeppETyaOt7nwGA/R0q15c9JXUwh4ok7+3gdVH0syTFqFMgYB0WWUTLEAswlljgtI7LYoaH+56qmwJJtkf7J8uXzUt6toM5rRVNGVn5lVeTzoyLsq6g18Ip8BRVPZ8YKU7S2t0NhoVTblwEMo1ar213hUIPDTOuoxdHcqiNJe3ugVo4gGxV2Qmvej2jVUW6bOoEC0suvpdcsT/g1Gf5+gE7fvFaJYIWQtvfofZ/Lr78oDnmrEt4SZjzmgGqzMgu7A6jcYa8DxSTvDuQcftKzejLBUP5brLAvgw8DOJUVI4r8Io095xC0ecWSigiNYmZPi+UlT+OLcEyVgG15I6uk2nDPBCB5VRDdDImXI2E6lgjGogyQb7govT3RkNI+0KElvRU/Y=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(346002)(396003)(136003)(39860400002)(451199021)(40470700004)(46966006)(36840700001)(1076003)(356005)(6666004)(82740400003)(81166007)(26005)(336012)(2616005)(47076005)(36860700001)(16526019)(186003)(426003)(2906002)(5660300002)(8936002)(40460700003)(36756003)(478600001)(82310400005)(54906003)(316002)(7696005)(41300700001)(86362001)(4326008)(8676002)(70586007)(70206006)(6916009)(83380400001)(40480700001)(36900700001);
+ SFS:(13230028)(4636009)(376002)(136003)(346002)(39860400002)(396003)(451199021)(40470700004)(36840700001)(46966006)(478600001)(83380400001)(2906002)(36860700001)(7696005)(426003)(336012)(1076003)(356005)(2616005)(8936002)(82310400005)(5660300002)(81166007)(54906003)(6666004)(316002)(82740400003)(86362001)(40460700003)(186003)(26005)(40480700001)(16526019)(6916009)(41300700001)(47076005)(8676002)(70206006)(4326008)(70586007)(36756003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2023 20:26:03.9331 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e271e67-78e6-450d-8f1b-08db3093d1bb
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2023 20:26:03.4957 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c9263bac-c56f-4c49-ce55-08db3093d178
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT084.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4322
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8437
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,74 +107,42 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Le Ma <le.ma@amd.com>
 
-Use WREG_SOC15x() instead of WREG32(SOC15_REG_OFFSET())
+Number of instances is extended.
 
 Signed-off-by: Le Ma <le.ma@amd.com>
 Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-index 172f7f6807fa..301d26da3716 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-@@ -98,7 +98,7 @@ static void nbio_v7_9_sdma_doorbell_range(struct amdgpu_device *adev, int instan
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 888652d5eb9e..4ee79bddd0f5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -682,7 +682,7 @@ enum amd_hw_ip_block_type {
+ 	MAX_HWIP
+ };
  
- 	switch (dev_inst % adev->sdma.num_inst_per_aid) {
- 	case 0:
--		WREG32(SOC15_REG_OFFSET(NBIO, 0, regDOORBELL0_CTRL_ENTRY_1) +
-+		WREG32_SOC15_OFFSET(NBIO, 0, regDOORBELL0_CTRL_ENTRY_1,
- 			4 * aid_id, doorbell_range);
+-#define HWIP_MAX_INSTANCE	28
++#define HWIP_MAX_INSTANCE	44
  
- 		doorbell_ctrl = REG_SET_FIELD(doorbell_ctrl,
-@@ -118,7 +118,7 @@ static void nbio_v7_9_sdma_doorbell_range(struct amdgpu_device *adev, int instan
- 			doorbell_ctrl);
- 		break;
- 	case 1:
--		WREG32(SOC15_REG_OFFSET(NBIO, 0, regDOORBELL0_CTRL_ENTRY_2) +
-+		WREG32_SOC15_OFFSET(NBIO, 0, regDOORBELL0_CTRL_ENTRY_2,
- 			4 * aid_id, doorbell_range);
+ #define HW_ID_MAX		300
+ #define IP_VERSION(mj, mn, rv) (((mj) << 16) | ((mn) << 8) | (rv))
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+index 1024a06359ca..6ea3f076257e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+@@ -32,7 +32,7 @@
+ #define AMDGPU_VCN_FIRMWARE_OFFSET	256
+ #define AMDGPU_VCN_MAX_ENC_RINGS	3
  
- 		doorbell_ctrl = REG_SET_FIELD(doorbell_ctrl,
-@@ -138,7 +138,7 @@ static void nbio_v7_9_sdma_doorbell_range(struct amdgpu_device *adev, int instan
- 			doorbell_ctrl);
- 		break;
- 	case 2:
--		WREG32(SOC15_REG_OFFSET(NBIO, 0, regDOORBELL0_CTRL_ENTRY_3) +
-+		WREG32_SOC15_OFFSET(NBIO, 0, regDOORBELL0_CTRL_ENTRY_3,
- 			4 * aid_id, doorbell_range);
+-#define AMDGPU_MAX_VCN_INSTANCES	2
++#define AMDGPU_MAX_VCN_INSTANCES	4
+ #define AMDGPU_MAX_VCN_ENC_RINGS  AMDGPU_VCN_MAX_ENC_RINGS * AMDGPU_MAX_VCN_INSTANCES
  
- 		doorbell_ctrl = REG_SET_FIELD(doorbell_ctrl,
-@@ -157,7 +157,7 @@ static void nbio_v7_9_sdma_doorbell_range(struct amdgpu_device *adev, int instan
- 			doorbell_ctrl);
- 		break;
- 	case 3:
--		WREG32(SOC15_REG_OFFSET(NBIO, 0, regDOORBELL0_CTRL_ENTRY_4) +
-+		WREG32_SOC15_OFFSET(NBIO, 0, regDOORBELL0_CTRL_ENTRY_4,
- 			4 * aid_id, doorbell_range);
- 
- 		doorbell_ctrl = REG_SET_FIELD(doorbell_ctrl,
-@@ -219,7 +219,7 @@ static void nbio_v7_9_vcn_doorbell_range(struct amdgpu_device *adev, bool use_do
- 				S2A_DOORBELL_ENTRY_1_CTRL,
- 				S2A_DOORBELL_PORT1_AWADDR_31_28_VALUE, 0x4);
- 
--		WREG32(SOC15_REG_OFFSET(NBIO, 0, regDOORBELL0_CTRL_ENTRY_17) +
-+		WREG32_SOC15_OFFSET(NBIO, 0, regDOORBELL0_CTRL_ENTRY_17,
- 					aid_id, doorbell_range);
- 		WREG32_PCIE_EXT(SOC15_REG_OFFSET(NBIO, 0, regS2A_DOORBELL_ENTRY_4_CTRL) * 4
- 				+ AMDGPU_SMN_TARGET_AID(aid_id)
-@@ -233,7 +233,8 @@ static void nbio_v7_9_vcn_doorbell_range(struct amdgpu_device *adev, bool use_do
- 				S2A_DOORBELL_ENTRY_1_CTRL,
- 				S2A_DOORBELL_PORT1_RANGE_SIZE, 0);
- 
--		WREG32_SOC15(NBIO, 0, regDOORBELL0_CTRL_ENTRY_17, doorbell_range);
-+		WREG32_SOC15_OFFSET(NBIO, 0, regDOORBELL0_CTRL_ENTRY_17,
-+					aid_id, doorbell_range);
- 		WREG32(SOC15_REG_OFFSET(NBIO, 0, regS2A_DOORBELL_ENTRY_4_CTRL),
- 						doorbell_ctrl);
- 	}
+ #define AMDGPU_VCN_HARVEST_VCN0 (1 << 0)
 -- 
 2.39.2
 
