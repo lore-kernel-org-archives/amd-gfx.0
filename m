@@ -4,44 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0C22C761A6
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 13:08:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BF67C77B60
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 13:08:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3077610E51D;
-	Wed, 29 Mar 2023 13:08:19 +0000 (UTC)
-Received: from smtp-relay-canonical-0.canonical.com
- (smtp-relay-canonical-0.canonical.com [185.125.188.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02DD810EA6C;
- Wed, 29 Mar 2023 10:00:47 +0000 (UTC)
-Received: from localhost.localdomain (unknown [10.101.196.174])
+	by gabe.freedesktop.org (Postfix) with ESMTP id A965A10E528;
+	Wed, 29 Mar 2023 13:08:20 +0000 (UTC)
+Received: from desiato.infradead.org (desiato.infradead.org
+ [IPv6:2001:8b0:10b:1:d65d:64ff:fe57:4e05])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C70D310E506
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 08:50:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=tu8D8sNJ5RV0W3AuFiycIVvG6n0AuLvN4txSs88tZ2E=; b=JiL4y62ZsZ1uxjqtNN9l2NqWSl
+ wxFK6o6H4pWzhxVAQSDIXQNVDR9pMKbYaap0flqtbJgYCElstOCLDlAbI/ZULqUin+B0mfNOdsmnC
+ 3toxNj3QkKeaWcpC6vNXDFdV2DWS2t6hEYTOD17aFe59/LrKoSStR1TqhbRQT+nxq86CY12GTC4oc
+ duwoqyzBovddWn3KGZNYoRP2n2e76Up0t6hdkgKqJ9KJC07xYnxz7QWmkrWeFD50dq/1WxRcP93+g
+ rYg2MU4TGWl4Ls13rt7Sz0OwILovO1FM6FZZtNF9EpmsgPnckV7RHBqy617mSrUTTWwwJK/eE8sej
+ MEhM3vrA==;
+Received: from j130084.upc-j.chello.nl ([24.132.130.84]
+ helo=noisy.programming.kicks-ass.net)
+ by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1phRVg-006oAq-35; Wed, 29 Mar 2023 08:50:25 +0000
+Received: from hirez.programming.kicks-ass.net
+ (hirez.programming.kicks-ass.net [192.168.1.225])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 269323F7EC; 
- Wed, 29 Mar 2023 10:00:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1680084045;
- bh=VMzLHhxzhHC4PRmh66lC+fdivOWneh5TdLK3pKLgHuw=;
- h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
- MIME-Version;
- b=U47maoOSC0R9+1f324S7g9AXqoEBBe5DM30hBLFLgstnYXuA0PCxRV4f7Q0xji9hB
- SNBLKM9vNscR9YFs2QQlZsqLWbnOltBK/xgZPLYZVAZjvbtw9ZVe299refxOwoED9e
- 5KB+Qnj4QWJIjxXRSCm8Myfu28dC7V1GThjgS5ud7xyOZbYQ1sgdZ9UZjx0yx4omrT
- Ym0JORgjADjxPLfnpx2irA1zRSXtclujWx2pOkYMTgLMz/mZ47UjORV+JGYO78Lo0v
- TQMilsci3clidA0S14HDJk3oKdsdlJusRuUEyMvgGx4Hv8Lyu6a6TFLhBcOxe1Xz1s
- H+cFLdJD1Lq0Q==
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	Xinhui.Pan@amd.com
-Subject: [PATCH 2/2] drm/amdgpu: Remove ASPM workaround on VI and NV
-Date: Wed, 29 Mar 2023 17:59:30 +0800
-Message-Id: <20230329095933.1203559-2-kai.heng.feng@canonical.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230329095933.1203559-1-kai.heng.feng@canonical.com>
-References: <20230329095933.1203559-1-kai.heng.feng@canonical.com>
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (Client did not present a certificate)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 88D12300237;
+ Wed, 29 Mar 2023 10:50:23 +0200 (CEST)
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+ id 348AA262EE29D; Wed, 29 Mar 2023 10:50:23 +0200 (CEST)
+Date: Wed, 29 Mar 2023 10:50:23 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: "Yang, WenYou" <WenYou.Yang@amd.com>
+Subject: Re: [PATCH v3 1/2] cpu/smt: add a notifier to notify the SMT changes
+Message-ID: <20230329085023.GO4253@hirez.programming.kicks-ass.net>
+References: <20230329015149.870132-1-WenYou.Yang@amd.com>
+ <20230329015149.870132-2-WenYou.Yang@amd.com>
+ <20230329071014.GC7701@hirez.programming.kicks-ass.net>
+ <BYAPR12MB352749E2864A87C3C32B7D0FFD899@BYAPR12MB3527.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <BYAPR12MB352749E2864A87C3C32B7D0FFD899@BYAPR12MB3527.namprd12.prod.outlook.com>
 X-Mailman-Approved-At: Wed, 29 Mar 2023 13:08:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,105 +61,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Victor Zhao <Victor.Zhao@amd.com>, dri-devel@lists.freedesktop.org,
- Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Mario Limonciello <mario.limonciello@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- David Airlie <airlied@gmail.com>, Guchun Chen <guchun.chen@amd.com>,
- amd-gfx@lists.freedesktop.org,
- Veerabadhran Gopalakrishnan <veerabadhran.gopalakrishnan@amd.com>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Bokun Zhang <Bokun.Zhang@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Evan Quan <evan.quan@amd.com>, Jack Xiao <Jack.Xiao@amd.com>,
- Richard Gong <richard.gong@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
- Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
- linux-kernel@vger.kernel.org, YiPeng Chai <YiPeng.Chai@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: "Phillips, Kim" <kim.phillips@amd.com>, "Li, Ying" <YING.LI@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "jpoimboe@kernel.org" <jpoimboe@kernel.org>,
+ "gpiccoli@igalia.com" <gpiccoli@igalia.com>, "Yuan,
+ Perry" <Perry.Yuan@amd.com>, bp@alien8.de, "Limonciello,
+ Mario" <Mario.Limonciello@amd.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>,
+ "tglx@linutronix.de" <tglx@linutronix.de>, "Quan, Evan" <Evan.Quan@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>, "Liang,
+ Richard qi" <Richardqi.Liang@amd.com>, "Liu, Kun" <Kun.Liu2@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Since the original issue is resolved by a new fix, the ASPM workaround
-can be dropped.
+On Wed, Mar 29, 2023 at 07:23:29AM +0000, Yang, WenYou wrote:
+> [AMD Official Use Only - General]
 
-Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 15 ---------------
- drivers/gpu/drm/amd/amdgpu/nv.c            |  2 +-
- drivers/gpu/drm/amd/amdgpu/vi.c            |  2 +-
- 4 files changed, 2 insertions(+), 18 deletions(-)
+^^^ that has no business being in a public email.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 8cf2cc50b3de..a19a6489b117 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1248,7 +1248,6 @@ void amdgpu_device_pci_config_reset(struct amdgpu_device *adev);
- int amdgpu_device_pci_reset(struct amdgpu_device *adev);
- bool amdgpu_device_need_post(struct amdgpu_device *adev);
- bool amdgpu_device_should_use_aspm(struct amdgpu_device *adev);
--bool amdgpu_device_aspm_support_quirk(void);
- 
- void amdgpu_cs_report_moved_bytes(struct amdgpu_device *adev, u64 num_bytes,
- 				  u64 num_vis_bytes);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index d56b7a2bafa6..0cacace2d6c2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -81,10 +81,6 @@
- 
- #include <drm/drm_drv.h>
- 
--#if IS_ENABLED(CONFIG_X86)
--#include <asm/intel-family.h>
--#endif
--
- MODULE_FIRMWARE("amdgpu/vega10_gpu_info.bin");
- MODULE_FIRMWARE("amdgpu/vega12_gpu_info.bin");
- MODULE_FIRMWARE("amdgpu/raven_gpu_info.bin");
-@@ -1377,17 +1373,6 @@ bool amdgpu_device_should_use_aspm(struct amdgpu_device *adev)
- 	return pcie_aspm_enabled(adev->pdev);
- }
- 
--bool amdgpu_device_aspm_support_quirk(void)
--{
--#if IS_ENABLED(CONFIG_X86)
--	struct cpuinfo_x86 *c = &cpu_data(0);
--
--	return !(c->x86 == 6 && c->x86_model == INTEL_FAM6_ALDERLAKE);
--#else
--	return true;
--#endif
--}
--
- /* if we get transitioned to only one device, take VGA back */
- /**
-  * amdgpu_device_vga_set_decode - enable/disable vga decode
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index 47420b403871..15f3c6745ea9 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -522,7 +522,7 @@ static int nv_set_vce_clocks(struct amdgpu_device *adev, u32 evclk, u32 ecclk)
- 
- static void nv_program_aspm(struct amdgpu_device *adev)
- {
--	if (!amdgpu_device_should_use_aspm(adev) || !amdgpu_device_aspm_support_quirk())
-+	if (!amdgpu_device_should_use_aspm(adev))
- 		return;
- 
- 	if (!(adev->flags & AMD_IS_APU) &&
-diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
-index 531f173ade2d..81dcb1148a60 100644
---- a/drivers/gpu/drm/amd/amdgpu/vi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-@@ -1122,7 +1122,7 @@ static void vi_program_aspm(struct amdgpu_device *adev)
- 	bool bL1SS = false;
- 	bool bClkReqSupport = true;
- 
--	if (!amdgpu_device_should_use_aspm(adev) || !amdgpu_device_aspm_support_quirk())
-+	if (!amdgpu_device_should_use_aspm(adev))
- 		return;
- 
- 	if (adev->flags & AMD_IS_APU ||
--- 
-2.34.1
+> Hi Peter,
+> 
+> Thank you for your review.
+> 
+> The purpose of the patch set is to improve the performance when playing game for some AMD APUs with SMT enabled/disabled.
+> 
+> When change the SMT state on the fly through " echo on/off > /sys/devices/system/cpu/smt/control", the kernel needs to send a message to notify PMFW to adjust a variable's value, which impacts the performance.
 
+When top posting I normally ignore the email. When not wrapping email I
+typically get cranky. You 'win' *3* 'I cannot use email' trophies in a
+singly try. Surely AMD has a HOWTO somewhere you can read?
+
+So what do you want to have happen when someone goes and manually
+offlines all the SMT siblings using /sys/devices/system/cpu/cpu*/online
+?
+
+I'm thinking that wants the same PMFW (whatever the heck that is)
+notification change done, right?
+
+If the answer is "yes", then your patch does not meet the goals and is
+inadequate.
