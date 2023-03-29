@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03A7AC6FD18
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 10:20:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DEFBC74A5B
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 10:51:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15F4310EA64;
-	Wed, 29 Mar 2023 10:10:59 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2065.outbound.protection.outlook.com [40.107.212.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8DB510EA64
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 10:10:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E8AD10E507;
+	Wed, 29 Mar 2023 10:51:35 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2060.outbound.protection.outlook.com [40.107.220.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1982C10E525
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 10:51:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SuPVv0tCL0tlTT/m5S2C398MlvcIjalqnwC893wsVsPguJmZaWsOVChMFpnvebXqihz61TkZd7joeMwZ4m0jkS2tB2BVx3zWRf53mEI7ynj+uapdMAkEhxnz78/0RW05dJMQOyaCDIT7A9vzXr8SV3y4WpvsJmiVT0AUYQdTX/eEI0Bq3tNDv/I7a3RddT27xy8j+255zSE/s5lGxoUnEzzIAzgkWxMhICT8nhNIW18KNLLQaPlNqPOeKuPNLfd/BB6Xij71GnzTGvz6sXg4TCnWdZPdDgsqlu9fVLfrhD07wOvCFQubQwzolPLTFhIFHVDoIjJpon/LcSv1OZZg1Q==
+ b=ThnnWk7HRaifSmv+mkCe5dQotjYcflS4VnDAqeCiu+0Wy9OmmmL/99eCWr5O52OPLOjuR59TSx1CSRSVSbuMyuN+qY8sguxoNg4Kef6j5rIc182Bmo8Dh3oU9JovTzhzLrHXAv5Pda7oUTk3ekEbnAUeOWxxHaQTTyUoxUe8tge8pod0D+Kv0RXyu95fpZWHuxsYHObAR4i7JcOXuUnyYC4/fowYKzhqVOslIHvlzByJntwk62kAhFK+kEdYo+7pHnCvgV+VuRVEMJNEUly+SAQ9Auu3+cdsXMh3n6Psob1Q77ebkzzjE/UlPNzT5r4+vZJFN4TPvQL2c4Yoi0LdMg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mAmj2loP6cO4LYa3avAxy7W+vg84hkVpYUEITqZ6Yao=;
- b=QNPxX3W0ZMZmFTZI6lZoy2l4tdWuHGSaKl7iasQrCk+SgfhmSNeWaqrr0tLxTbomB3NWMsSXvEJqtkfF9DJNsUW84+awHL2fcSMejnj92UWYSehLLoroGw3CaJeVAxVA4dx1LNymUb/jvKAsTbCFAUImMM+WI9SN1ZIbzV0iWtlP3Un8dmSSDYinuOyzUfkz4Izb4F4tulwDvOHwvpGj9iHMCfnxRbGEP8k77+vajmI5xvdSp3FAl3G8XUx+LIeUo8pzDjZNFKc6EWqIZGxdRbkXL5rXZxe5sk/vB1glPrheB7RXniEjPQgWGXd4QLTIzVdyu2AemEuCUwHvcx/wZg==
+ bh=H3ERT1LGrbU/P698OmMJW62TsSK0dhJhBecbiTq2SL0=;
+ b=Eof2M9uV5XJ50lii2I5H0MehlW28NO1mnxkiZRcl/QQk803Nr7P5AD+D+sTDHM1ivG7MO2eFgE45X15QtyJWPlPc1f4JvcDRchwYxg4ysf09X4gnckaOAMixON5XMCb2kF4Aprd9hGcB0vSflXu4KnxrQeUXsdF2gvPBRlREre1Z0tyBx2yM/Hri9ZIsRxOBrFWOsY06fxkWxMZOpdLVq+/DLbv/VufL7NB3iS7EuMAhCy+baEHpeO//Zw7bbkF0omkFotATM3EYASzRbKXRxtHfh2C57VURviJoqd8mX0CCufLjG2UPOd+Wy06YDv2XQhvMvAteh69Ev1J2jOIlYg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mAmj2loP6cO4LYa3avAxy7W+vg84hkVpYUEITqZ6Yao=;
- b=b2OeoLIGfhBfMmGRGJe6krOJm/IU0yxCkJ3ufg42qfMt+YcP+9hwkUkxJfoXcEu75dJkT7tsB98nwB+DM3BpUw/XPju9i9d1t8pz3GzJL04U5HaVXqS9U0c/0BgKX6iHXNaAVNomxmoAXP23ILHCIPEZWOKtaM5A0ZcnNBvWSgI=
-Received: from DS7PR03CA0057.namprd03.prod.outlook.com (2603:10b6:5:3b5::32)
- by DS7PR12MB6118.namprd12.prod.outlook.com (2603:10b6:8:9a::5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6178.41; Wed, 29 Mar 2023 10:10:54 +0000
-Received: from DS1PEPF0000B078.namprd05.prod.outlook.com
- (2603:10b6:5:3b5:cafe::2f) by DS7PR03CA0057.outlook.office365.com
- (2603:10b6:5:3b5::32) with Microsoft SMTP Server (version=TLS1_2,
+ bh=H3ERT1LGrbU/P698OmMJW62TsSK0dhJhBecbiTq2SL0=;
+ b=2c2ujZv2olGy2M3lsxeuwbx4DbtR7hhUQUO6UyR4Xg/m8YQDKGLMWcHzgRRvZcmUuz9A4Jz/YQ8VrGix+BoSD9PiTx3OBNJMUHJRnASYSHk+ZhBhqi8XTPoO1riQiwgkaWg965XeWzt/CNMPgNsgZVGRtoPnSpabN0gI/17CYzg=
+Received: from MW4PR03CA0284.namprd03.prod.outlook.com (2603:10b6:303:b5::19)
+ by IA1PR12MB9032.namprd12.prod.outlook.com (2603:10b6:208:3f3::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.33; Wed, 29 Mar
+ 2023 10:51:30 +0000
+Received: from CO1NAM11FT007.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b5:cafe::20) by MW4PR03CA0284.outlook.office365.com
+ (2603:10b6:303:b5::19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.43 via Frontend
- Transport; Wed, 29 Mar 2023 10:10:54 +0000
+ Transport; Wed, 29 Mar 2023 10:51:29 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -44,48 +45,51 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF0000B078.mail.protection.outlook.com (10.167.17.9) with Microsoft SMTP
+ CO1NAM11FT007.mail.protection.outlook.com (10.13.174.131) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.26 via Frontend Transport; Wed, 29 Mar 2023 10:10:54 +0000
-Received: from jackfedora30.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.6254.11 via Frontend Transport; Wed, 29 Mar 2023 10:51:29 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 29 Mar
- 2023 05:10:52 -0500
-From: Jack Xiao <Jack.Xiao@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <Alexander.Deucher@amd.com>,
- <Hawking.Zhang@amd.com>
-Subject: [PATCH] drm/amd/amdgpu: introduce gc_*_mes_2.bin
-Date: Wed, 29 Mar 2023 18:10:33 +0800
-Message-ID: <20230329101033.2581741-1-Jack.Xiao@amd.com>
-X-Mailer: git-send-email 2.37.3
+ 2023 05:51:28 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 29 Mar
+ 2023 05:51:28 -0500
+Received: from amd-SYS-7048GR-TR.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
+ via Frontend Transport; Wed, 29 Mar 2023 05:51:25 -0500
+From: Tong Liu01 <Tong.Liu01@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/3] drm/amdgpu: add sysfs node vclk1 and dclk1
+Date: Wed, 29 Mar 2023 18:51:14 +0800
+Message-ID: <20230329105116.214594-1-Tong.Liu01@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0000B078:EE_|DS7PR12MB6118:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6037a36b-c186-4b5c-a371-08db303de21e
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT007:EE_|IA1PR12MB9032:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5ddc473e-fe00-462c-13ef-08db30438d82
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LxX/Fw66wK0hh2BAMECSFZLSJ0y5fqJu64CZQH2cSN+6o/eh6O71Pnp5XJG8gG+rVZc6e2+Bd32Im64dan+ogRBSX8+dIugFdeD3RTfQccUgerXRJksKUnuy4F4iNZb9WeH0sBQGKqS8R7vt4ASD32OTdwwDRluUWX4KsoGKidVJiZ+nzxeCDr+AUuUPCLWkzLkCca7VbC+JrQ56xfdWRKSYaw3dBspnU5IKemFy/0DwrJOcYPw+J01htiNi9FUsepFYu+V3HAX/TBq5o4Y+bUxfwHXgk2d3FEcbsGqwPZ7Sum6zUjtPZ8WWrZyGSbVkyrESjzWjhenJVMuZHkJ6Z55hwfyy8USAn6H1iGQXQ7ecvkBi3XkM4UwH45ceHkjXyZskI6JCkBfRKls6rdNSmbexL2ApY+FAs7ExMA5NRv+z8sx8zXy79i76XNqzJPGBVORskVr0Is8SbpV6WgGc+ONbWblkIpCOa6EQu+VhCHJDtwu3//7XjDOhdNjc+mgH6JIxa8K6kWpZtudh+WOj5cXTprFEPzqoNJ5sk8jFrE4d/FuCoGmPI2Yh/TpvC4IciPoMk/8TpaNdvaxA2jA7axUdLxuMw2nrEiegf3MNCnKFIExV4x2tjGsGtUQ1HuoEHo7V4A3VkUE1k5hbUJ1PPNaEHf5LEUJvPDZpoBI4ikxzK1/dw5xnNTIC6YIZ3pE0Sg+pTP/tGCsZZExVPWEc5qAELVO3mmH6KYnAwLr0s4/67RqQDg+O/fV/2du5O1E0
+X-Microsoft-Antispam-Message-Info: ZO9MSmiwicf/Eb+AnA94FH23qEEgvwVfBgF0ghRX3cwuaXFybDTO+2Ats0MWeCmbT72qETu/6Yh5P0WSv8b6f1xh6I7s3yLcJb6Jc+rArqLYsrVWn32uFs84jW54qhlRAsD9C54lIJfyv5XsMbZlBKCKGlCKB6PdsM4PxPD7V7hVRNcCqT1A4srpuG6COUQ7VETcyuhzzbj1boXDUUGLouj0lkKInU5dIDCaxDukUbS+3duO1rvFFYdK1xXkFPmE9KvGJwFHcg9EiO2hLBebBdT7ZyJHDevKqOHnsDav/8PkTHRqmhISo2ys2/ZDyK7VHeVkPkrNr6MvQruSMdL7ALNIhb7ZG1VG+rCs5SXOXNQBOZEbZChojeoE+ZvabujYvlMfShHQ874LKrzFgPQJ1IwdREkfcZcA37DkzIz4fMvO6PjOw+qlq2ORS57p3NL4JetYbq2pdoHA7dBK9HFxWWWFyTheGNROGt3dL3MZQsG4VAszfxVtSio/G70+dm/LsycidvW1wR45vBKLNtSgIy6u/yJ7KUnRYfhJafrjZgKfwnSvxkLsJND9H4Supc48IYMVqAq1f0en3mUaWur3nYrB3QRakx5/3BnSJpepKiLCUnas8tJLFUZi8znXbyrZ3zE61LGTmX9LbAxVgeL2qBpjbiikbFfAF/Hm15AMRqT+xW8eExPunGHa8Dyc1lLEr1Z72SuGe0eQpuupUXYL9nv6ItdrUuqz3Vytll87xsE=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(396003)(346002)(376002)(136003)(451199021)(46966006)(40470700004)(36840700001)(40460700003)(1076003)(6636002)(26005)(81166007)(83380400001)(5660300002)(426003)(86362001)(2906002)(82310400005)(356005)(8936002)(47076005)(336012)(82740400003)(186003)(40480700001)(36860700001)(70586007)(16526019)(316002)(8676002)(70206006)(2616005)(36756003)(478600001)(7696005)(41300700001)(4326008)(110136005)(6666004)(36900700001)(2101003);
+ SFS:(13230028)(4636009)(346002)(376002)(396003)(39860400002)(136003)(451199021)(40470700004)(36840700001)(46966006)(2616005)(478600001)(83380400001)(2906002)(1076003)(36860700001)(7696005)(336012)(426003)(356005)(54906003)(8936002)(81166007)(5660300002)(6666004)(40460700003)(316002)(86362001)(82740400003)(186003)(26005)(40480700001)(82310400005)(47076005)(70586007)(6916009)(41300700001)(4326008)(8676002)(70206006)(36756003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2023 10:10:54.7072 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6037a36b-c186-4b5c-a371-08db303de21e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2023 10:51:29.6705 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ddc473e-fe00-462c-13ef-08db30438d82
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000B078.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT007.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6118
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9032
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,58 +101,127 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jack Xiao <Jack.Xiao@amd.com>
+Cc: Jack Xiao <Jack.Xiao@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
+ horace.chen@amd.com, Kevin Wang <Kevin1.Wang@amd.com>,
+ Tong Liu01 <Tong.Liu01@amd.com>, Tuikov Luben <Luben.Tuikov@amd.com>,
+ Deucher Alexander <Alexander.Deucher@amd.com>, Evan Quan <Evan.Quan@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Monk
+ Liu <Monk.Liu@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-To avoid new mes fw running with old driver, rename
-mes schq fw to gc_*_mes_2.bin.
+User can check pp_dpm_vclk1 and pp_dpm_dclk1 for DPM frequency of
+vcn and dcn
 
-Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
+Signed-off-by: Tong Liu01 <Tong.Liu01@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 26 +++++++++++++++++++++----
- 1 file changed, 22 insertions(+), 4 deletions(-)
+ .../gpu/drm/amd/include/kgd_pp_interface.h    |  2 ++
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c            | 32 +++++++++++++++++++
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  8 +++++
+ 3 files changed, 42 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index 0e55823ef6ca..f0f00466b59f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -1434,13 +1434,31 @@ int amdgpu_mes_init_microcode(struct amdgpu_device *adev, int pipe)
- 	struct amdgpu_firmware_info *info;
- 	char ucode_prefix[30];
- 	char fw_name[40];
-+	bool need_retry = false;
- 	int r;
+diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+index 86b6b0c9fb02..9f542f6e19ed 100644
+--- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+@@ -104,7 +104,9 @@ enum pp_clock_type {
+ 	PP_FCLK,
+ 	PP_DCEFCLK,
+ 	PP_VCLK,
++	PP_VCLK1,
+ 	PP_DCLK,
++	PP_DCLK1,
+ 	OD_SCLK,
+ 	OD_MCLK,
+ 	OD_VDDC_CURVE,
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index d75a67cfe523..9991447b5f14 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -1180,6 +1180,21 @@ static ssize_t amdgpu_set_pp_dpm_vclk(struct device *dev,
+ 	return amdgpu_set_pp_dpm_clock(dev, PP_VCLK, buf, count);
+ }
  
--	amdgpu_ucode_ip_version_decode(adev, GC_HWIP, ucode_prefix, sizeof(ucode_prefix));
--	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mes%s.bin",
--		ucode_prefix,
--		pipe == AMDGPU_MES_SCHED_PIPE ? "" : "1");
-+	amdgpu_ucode_ip_version_decode(adev, GC_HWIP, ucode_prefix,
-+				       sizeof(ucode_prefix));
-+	if (adev->ip_versions[GC_HWIP][0] >= IP_VERSION(11, 0, 0)) {
-+		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mes%s.bin",
-+			 ucode_prefix,
-+			 pipe == AMDGPU_MES_SCHED_PIPE ? "_2" : "1");
-+		need_retry = true;
-+	} else {
-+		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mes%s.bin",
-+			 ucode_prefix,
-+			 pipe == AMDGPU_MES_SCHED_PIPE ? "" : "1");
-+	}
++static ssize_t amdgpu_get_pp_dpm_vclk1(struct device *dev,
++		struct device_attribute *attr,
++		char *buf)
++{
++	return amdgpu_get_pp_dpm_clock(dev, PP_VCLK1, buf);
++}
 +
- 	r = amdgpu_ucode_request(adev, &adev->mes.fw[pipe], fw_name);
-+	if (r && need_retry && pipe == AMDGPU_MES_SCHED_PIPE) {
-+		snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_mes.bin",
-+			 ucode_prefix);
-+		DRM_INFO("try to fall back to %s\n", fw_name);
-+		r = amdgpu_ucode_request(adev, &adev->mes.fw[pipe],
-+					 fw_name);
-+	}
++static ssize_t amdgpu_set_pp_dpm_vclk1(struct device *dev,
++		struct device_attribute *attr,
++		const char *buf,
++		size_t count)
++{
++	return amdgpu_set_pp_dpm_clock(dev, PP_VCLK1, buf, count);
++}
 +
- 	if (r)
- 		goto out;
+ static ssize_t amdgpu_get_pp_dpm_dclk(struct device *dev,
+ 		struct device_attribute *attr,
+ 		char *buf)
+@@ -1195,6 +1210,21 @@ static ssize_t amdgpu_set_pp_dpm_dclk(struct device *dev,
+ 	return amdgpu_set_pp_dpm_clock(dev, PP_DCLK, buf, count);
+ }
  
++static ssize_t amdgpu_get_pp_dpm_dclk1(struct device *dev,
++		struct device_attribute *attr,
++		char *buf)
++{
++	return amdgpu_get_pp_dpm_clock(dev, PP_DCLK, buf);
++}
++
++static ssize_t amdgpu_set_pp_dpm_dclk1(struct device *dev,
++		struct device_attribute *attr,
++		const char *buf,
++		size_t count)
++{
++	return amdgpu_set_pp_dpm_clock(dev, PP_DCLK, buf, count);
++}
++
+ static ssize_t amdgpu_get_pp_dpm_dcefclk(struct device *dev,
+ 		struct device_attribute *attr,
+ 		char *buf)
+@@ -2002,7 +2032,9 @@ static struct amdgpu_device_attr amdgpu_device_attrs[] = {
+ 	AMDGPU_DEVICE_ATTR_RW(pp_dpm_socclk,				ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
+ 	AMDGPU_DEVICE_ATTR_RW(pp_dpm_fclk,				ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
+ 	AMDGPU_DEVICE_ATTR_RW(pp_dpm_vclk,				ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
++	AMDGPU_DEVICE_ATTR_RW(pp_dpm_vclk1,				ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
+ 	AMDGPU_DEVICE_ATTR_RW(pp_dpm_dclk,				ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
++	AMDGPU_DEVICE_ATTR_RW(pp_dpm_dclk1,				ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
+ 	AMDGPU_DEVICE_ATTR_RW(pp_dpm_dcefclk,				ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
+ 	AMDGPU_DEVICE_ATTR_RW(pp_dpm_pcie,				ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
+ 	AMDGPU_DEVICE_ATTR_RW(pp_sclk_od,				ATTR_FLAG_BASIC),
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 94fe8593444a..056ac2b512eb 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -2022,8 +2022,12 @@ static int smu_force_ppclk_levels(void *handle,
+ 		clk_type = SMU_DCEFCLK; break;
+ 	case PP_VCLK:
+ 		clk_type = SMU_VCLK; break;
++	case PP_VCLK1:
++		clk_type = SMU_VCLK1; break;
+ 	case PP_DCLK:
+ 		clk_type = SMU_DCLK; break;
++	case PP_DCLK1:
++		clk_type = SMU_DCLK1; break;
+ 	case OD_SCLK:
+ 		clk_type = SMU_OD_SCLK; break;
+ 	case OD_MCLK:
+@@ -2409,8 +2413,12 @@ static enum smu_clk_type smu_convert_to_smuclk(enum pp_clock_type type)
+ 		clk_type = SMU_DCEFCLK; break;
+ 	case PP_VCLK:
+ 		clk_type = SMU_VCLK; break;
++	case PP_VCLK1:
++		clk_type = SMU_VCLK1; break;
+ 	case PP_DCLK:
+ 		clk_type = SMU_DCLK; break;
++	case PP_DCLK1:
++		clk_type = SMU_DCLK1; break;
+ 	case OD_SCLK:
+ 		clk_type = SMU_OD_SCLK; break;
+ 	case OD_MCLK:
 -- 
-2.37.3
+2.34.1
 
