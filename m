@@ -4,91 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48CF4C761AF
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 08:59:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B6B3C77B61
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 08:59:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC2B410ED4B;
-	Thu, 30 Mar 2023 08:59:08 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2062.outbound.protection.outlook.com [40.107.212.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E648C10ED4B
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 08:59:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B19C210ED4E;
+	Thu, 30 Mar 2023 08:59:11 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20623.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e89::623])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1487B10ED4E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 08:59:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AyvdiwC6P/sjy8MRfMbHo3OFcSW26pxhvE61vYLMouomZ/XKgTWs95aYPho1BF/YXNW0C4B+FLmjNzCkXQ2U+lu7kRj5JFe+rL2+eoD98P8qYWaNtcnbT3jsYownnp8W/fFIhGgoRNkUHzj39DEeeLE1z6paPsAWhgptL9+d5QoWBJ89821OOzWotyKIEBe1uldQhHkv7aoCI5PGn4YSv//xkCyoCpYvDp/WPOhd5nVPMZuRCe7Pxn39CZqBg1apnY3Rjb42T2rCNTCH62/bsRAsKVmDBp6NrL5RKtraQc/kYzR8n5r2g3+GWVXnaWMWQLT6aw/1cQqyfW9nW5OfUQ==
+ b=T6gtrLFspxhO6JZFs9pLjqRz19YkSHJkQSISNhXe5qy5sfxqTecem0lTC8XZ3kaKlZWyShzbwLlp70i0tdQ32rOjvJxrmBn9BlPR8CLDhEYbE71Ufizy7X0cJy2sma63TvYyDexzrOXqw/aR3GjiOimLMRQhyCwQ/Z3R8ubhx/KnMx9gq/yqFJ3EzPIiRKCRPFB1JXhDFKQg8H3gC1HySbm6rEmvfBbj3hceurYvFOpX5VpknNNhD7fMszr88wjgyOrkiM4oxEzy1SPK5CqpebARWj0pLul6ILwGHQ99iKuQP5s9Wu3h/o2knlEkuPe2GoTDPPse4w1AqLreSNyqrw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Kpr2KfjEyx5n3G2rB+9eYmVgPAeZq+/ew9pyETPEN6s=;
- b=YoLT5aPAD+khWg0RK6srrVFaZCSV2BMBGjwtnXxdt9lKpQIvc0CaCEgN77ky5yzl3tw86AR74I0fZMtvGxtlyLcwLtj2Dizhw6ZX0nZViLdoq9S2WSg6V6dd4enoLmG0WTTyLhFoSyarBva2I9pXYWwD3Rc3rE7XZX4yP3DwXqD8ZxuRSzZJRVQqb8R5NnTeK3lXnoaIj5b1mIthuIfea5zGJRx0EJNs+OSrvlNuwmrerQipN+tO/EaBDreO0eqTf9OAqvrLxgIUsTnVZMPcYz1exz/gjlauRGcGvTYk3sMngCJKy68vODv7v+7c/+mjYREY7lVV+3M7ioQ149Y/uA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=KxYpXaMjGUO+2LoTgAitX3ZBLl4Kdyk4LLbHMFfycfw=;
+ b=gESUGVa5SK0YVEWRrCp/9YvQV6zKKGLMwf7ZidXCPhQJrztLEj2Opi2g9bOH0DjCzJz/JHiqpy3B+KqVvQSv/dIyhP8nHO41Qqw5NkuFqJnBW6NlsqGVXqE2WWAUvo6IxprUC7QqrMjE5S6zeLgsqLI71qLQ7wxwdJRwiMAw57iBV4pX+VgBirvmlZ5xgBNF8kQO1h96vLLeN6V3cvMNnDUs//xfYPEadEwHUkffl45WUyRe5Jo/B6pMLa1s3yQHJmriH6sSWq8LKPyZSkpg6nOkoqgxc5+9vesnrIXLlQ69NiqhjFB/bajhRKzjUI+piljgLq1TfLGUBcR2PKzjNA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kpr2KfjEyx5n3G2rB+9eYmVgPAeZq+/ew9pyETPEN6s=;
- b=rvP3OAxoS46U9w4b3RFzTORHLpwqh4TXCmVG/PXqzWQ5xV8m6pOZfYZchXGX7H57AYS1ePOv7bI78IuIeBfGPyQdm1Yq/GWdEP0lV0wWoA3F0VNosf+h1O2aknVWVFJfUVXQK3M8PCNEkCYk/Ci69UR+r7Ir5a/fw+Y0ugjwrBM=
-Received: from BN9PR03CA0680.namprd03.prod.outlook.com (2603:10b6:408:10e::25)
- by MW4PR12MB7466.namprd12.prod.outlook.com (2603:10b6:303:212::20)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=KxYpXaMjGUO+2LoTgAitX3ZBLl4Kdyk4LLbHMFfycfw=;
+ b=UMX0NM6f6vid3s74793h2k4NOguAlWRMMd2YC/cwZZREYrXFgTs1ZaieUKMcIHuTMu22Kt+DX2Nrxffi8n0/LltT02Ex8XF/vajkwn9WpLdb9NWXeEk25i/5dqWcXhw+IG5N2/DW6mkmvQnJPUh0eTVEUKXjyg1U/CCcFiU8C8k=
+Received: from SN1PR12MB2445.namprd12.prod.outlook.com (2603:10b6:802:31::24)
+ by DM4PR12MB6087.namprd12.prod.outlook.com (2603:10b6:8:b1::12) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.35; Thu, 30 Mar
- 2023 08:59:02 +0000
-Received: from BN8NAM11FT108.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:10e:cafe::b1) by BN9PR03CA0680.outlook.office365.com
- (2603:10b6:408:10e::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.22 via Frontend
- Transport; Thu, 30 Mar 2023 08:59:01 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT108.mail.protection.outlook.com (10.13.176.155) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6254.22 via Frontend Transport; Thu, 30 Mar 2023 08:59:01 +0000
-Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 30 Mar
- 2023 03:58:55 -0500
-From: Qingqing Zhuo <Qingqing.Zhuo@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 03/10] drm/amd/display: prep work for root clock optimization
- enablement for DCN314
-Date: Thu, 30 Mar 2023 04:57:13 -0400
-Message-ID: <20230330085720.3863-4-Qingqing.Zhuo@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230330085720.3863-1-Qingqing.Zhuo@amd.com>
-References: <20230330085720.3863-1-Qingqing.Zhuo@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT108:EE_|MW4PR12MB7466:EE_
-X-MS-Office365-Filtering-Correlation-Id: d85ae8e4-570e-43e2-280a-08db30fd01aa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 29f/BqCmiwB6qNaShCk2sgUhSiqjMYkxdlkFh0yGl9gRBGVoeylQVh4JlW7mL0QyN+mE0nXV82SV8dl2fDm9BS+c/pTiCoqV3Hmr0rNDm3B1r7ng+qeDHl46qJ7BLjDW3MlCyY97ZF821uBidxnF/RndxWJo9zNna+Ht0uKAe2LYan6bZ/0LhlZZp4k0kPeArxFlaI0Lk2lfBlQZyuo4ucmEzWZgSWBWYst7E4J8qqEIFRvxJzKtRyFHfDhmnjc0aW+LXm/7P5nqnta18CvneMzgpU2CDKYsW6/VV1WtCQn1RRNevTfd/aOlJUwMZFcNJty+lA8gPiW9ovyb53zuZ9IylnruTmj3KgR9y+zpcka+mNwvfbLWGnJ0MmfB87RsVeWNy1pqulYT/g4Ctzh04yDfBlyyITC6o2vdUDZ+9mpPmnMlbWrbELu8VOPN3s5mHilgVaqJKmNACbWLxb31Ks1NEjNLhUbInDHN/gq719cYPFg/cKle3ngqswig9BGQeLKHqUW3SoR6vFKowOyKQdJm24wC+U14SL5uAmGdNOK8o92ZpdTfqjhpnZbINx/TNv5dlSCpXtATQSXIWYAPQ5N+CtWlGJn1yKgEbbaP6o6iexqzT91MRxyLC4ql6sZBIBWzItW2/ygMTCZyk2rBPW8vJsrUj4lNjCxrfkUXqk0f59Uj7OWb1E44FM7DMzZxbmbN9qWk3Q63OjoQ8Qiz0Cr+y8f75sZRLgzt9mN5pJs=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(136003)(376002)(396003)(346002)(451199021)(46966006)(36840700001)(40470700004)(83380400001)(36756003)(356005)(81166007)(82740400003)(1076003)(26005)(6666004)(54906003)(316002)(478600001)(8676002)(82310400005)(6916009)(4326008)(70206006)(70586007)(40480700001)(41300700001)(86362001)(47076005)(336012)(2906002)(2616005)(426003)(40460700003)(5660300002)(36860700001)(8936002)(16526019)(186003)(36900700001);
+ 2023 08:59:08 +0000
+Received: from SN1PR12MB2445.namprd12.prod.outlook.com
+ ([fe80::977a:52f:acf1:55f9]) by SN1PR12MB2445.namprd12.prod.outlook.com
+ ([fe80::977a:52f:acf1:55f9%6]) with mapi id 15.20.6254.020; Thu, 30 Mar 2023
+ 08:59:07 +0000
+From: "Liu, HaoPing (Alan)" <HaoPing.Liu@amd.com>
+To: "Tuikov, Luben" <Luben.Tuikov@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Fix desktop freezed after gpu-reset
+Thread-Topic: [PATCH] drm/amdgpu: Fix desktop freezed after gpu-reset
+Thread-Index: AQHZYL+u0CSWOl4FhUCX0abAnaoJla8O+0KAgAPcdUA=
+Date: Thu, 30 Mar 2023 08:59:07 +0000
+Message-ID: <SN1PR12MB2445C6C12FC1824D4A14124DF58E9@SN1PR12MB2445.namprd12.prod.outlook.com>
+References: <20230327152028.2939908-1-HaoPing.Liu@amd.com>
+ <aff27f2a-a878-be69-fb06-74f2063997f9@amd.com>
+In-Reply-To: <aff27f2a-a878-be69-fb06-74f2063997f9@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-03-30T08:59:04Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=4f447fd6-2264-4287-93e3-291488ffc6fd;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2023-03-30T08:59:04Z
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: d8940f72-6b59-4769-a149-46f051b96d66
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SN1PR12MB2445:EE_|DM4PR12MB6087:EE_
+x-ms-office365-filtering-correlation-id: aa17a2ed-2ff8-411f-be6b-08db30fd0501
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: ogB4eyqKtDKuYo1vyGmxbBQGTzP5pGAGmUSVKBZLCBreeShgf9gxI60X5bEp0eY2MPSQ4GdOIcF+NTssLBzpo2FFdErtbium29LIOvA8fZ8hKvn3h/CBwZ+OsJ9NlqtOvARHHJ8fAr+DDu+T8afmPOuSPEXZwQ056GnjNc3hZcQ/2CLv2chcv/i8MiXc/iYFC/LH+8hPQDkpySoIt8TnlJcwQ96KtHb74eU3SjgAv1qYiYM8K8c80PIFWXFdyTYn5XiKS1p28MEInNOakBF7vsLzkiIrFbaaEISaOzGa5rpAiJCCD4k2LQroxEjPKNIzAr4Lel8jkmjnjAcmWZ9iJF8HW0bbzo1s3IY7nmFbBzCNRwVb8ZpxfJNeoR8l71xjRDxdGoBV7e2v6wWa6LppbgHAlsihe2pZKY21yGjfi8VHhfnLfatmcsLoO1lfPu+uL1fX1rL07bNlx2Za3jJqw/nX9Ev2Y4A/AWrVQUsSp5SH0/qpGDkrCErMu05ethTQrjqgfGDxQQEMQPzKGQ2e13cE1uiLygjKND3OMxdsXM7kGE+VjkerYl9t5KcV+/z6girVwSIj77EVAfozDlwY+d3AsdyV1BW0fHg9V2ZptQn2KmaaQr0nWJIdXJAyWkjd
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN1PR12MB2445.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(39860400002)(346002)(396003)(366004)(136003)(451199021)(478600001)(38070700005)(86362001)(110136005)(26005)(7696005)(6506007)(316002)(53546011)(9686003)(38100700002)(71200400001)(66946007)(76116006)(66556008)(64756008)(66446008)(66476007)(186003)(122000001)(4326008)(33656002)(83380400001)(41300700001)(55016003)(8676002)(2906002)(8936002)(52536014)(5660300002);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ar6Q2R1Xbykh4nKSvVwlEJuGw7/GGklLq52KuPCmvAQPw0NwMjsX8peSjSnR?=
+ =?us-ascii?Q?mBy5aUyuJhDb/ILzMvpjx3qtV69AdrySpOqc349NLhLHrfEFigMZWf3aD80Q?=
+ =?us-ascii?Q?L75/xRHzQXLthdYevSYWIttP3Y3afc5qn/47jySkUJ910iT/sVHmDzkCJ3VF?=
+ =?us-ascii?Q?r8umkRf5i9fHmMssYqagqjCQwyZfGBHT/ubB2vqqHPbbpTTflyIn9RpeL34X?=
+ =?us-ascii?Q?TY/04mYf6IGXwoWaEwNkEzXZZjBOyYv4ZASn2ma+1Bfe814J1/9hRvOOctWX?=
+ =?us-ascii?Q?lOSgpcBLH4SO3vpTnBCb5Unul4w2oEMmXeQEPqSco6J5ehzAPBcjCbMeeaBQ?=
+ =?us-ascii?Q?cNNH+oyDBfjTKrVVIQshYr351LEkA0lNkqaB3SYsMZ9BCJgTbSFZfS+mqEvT?=
+ =?us-ascii?Q?r4vi9YMzh07bmIo+Ji//RbjwwaOCU7JeHOJhCjy7ih9SbDv7VSI0GYLRN6gA?=
+ =?us-ascii?Q?qQFMS2vuMdzugyAO8q71OQNEdQjef1Z3SJRtfS1WX44xWramDCrZSZf9P/CT?=
+ =?us-ascii?Q?l6scGTpSaFWGF3CneUSe5DU65mL6iQtivlThCBoE9iCQBBgLjEuO86flWNlB?=
+ =?us-ascii?Q?YuxNPFL9eNhq3mRNCZ7IJ+jyepEifyKlgDgja+iG12/wB1MImKjluMkhFG/k?=
+ =?us-ascii?Q?EJAWgIUaRVCApUC0wSONGHBC44A9zgmglFS3gv+K+0WS41NbuugO+e2qkAMj?=
+ =?us-ascii?Q?sAB7PcntdqVDD98CkcSkMrm9x0Kj26L4uB5Q9pji1d1vNML8Y+gm7MTJrsxB?=
+ =?us-ascii?Q?ThpWcOxQJX/qO2R3ipEwujfxp1BqBaqWVCOi/+w4zZmneF8UWYZsSfe6TwJ1?=
+ =?us-ascii?Q?dpLWRcRae8RjnkL8lzMNX9rVlcLae+wKS/ECBUJxbHuYKME5S3L+sw4gZUC+?=
+ =?us-ascii?Q?LM9Xmz6M9ZYrucNAUZC1UhU2tfkJJUBn377/8mi+mhzG0E734VNp4dU6ZI6k?=
+ =?us-ascii?Q?BA4j641c74V1N6ln2D0C1DeowJk+9JhPvNfBGcidqEPg5HXipjGtSuOJdpLk?=
+ =?us-ascii?Q?GrnqUq2YYerJaUwqWiyCH22RVuUX63SfJRjYAe9EH/tPpfiuQBGLpJdun4s6?=
+ =?us-ascii?Q?DcwF+R4XjjE//vvAlJdK1IpOsOK/VJppP7GlmkWG43+ufT+0DEPsMjPf+ixo?=
+ =?us-ascii?Q?L9Dzb/CPH/RDKIyPTpWv4XYUXYG1MJU7KiUfPIFmVza5D8Yr/v43FDp+62jZ?=
+ =?us-ascii?Q?W5+0wjqpkD+KLXWmXxCILbeduP4c9U5XrWVZyoFyDiaYnkvOFTsjG474AI/z?=
+ =?us-ascii?Q?A3t06sT1vDxu4cKYNPT1pNrOeyuvRnCwSCWrsYIKgkvrkq4tRaZ01xsFKmM4?=
+ =?us-ascii?Q?Pf9tEfTCNRhOQ/vI5TJ/giy+m2C5jgdLJuU6ncmGNdb6kEvRsYq09oYptVgv?=
+ =?us-ascii?Q?PTlUGt3fknSgXUD9WK2T1GV/UhhIOj5yBx3LSAuIRsTb1/mb91oVk8dlbzq6?=
+ =?us-ascii?Q?KYkOf8UcWiylhsZIcs9cDoO+/rZJ+afskcAy2rjaYkwsdZh+poKAsjc+FHgJ?=
+ =?us-ascii?Q?Glqs3p9Flr7lDkKJ7btmSw9gt2qgGNdkGrxXCj6JlbhoEJVEUjudd5QCJFAY?=
+ =?us-ascii?Q?Tjy7P7hZWyxzXgR1hTk=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_SN1PR12MB2445C6C12FC1824D4A14124DF58E9SN1PR12MB2445namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2023 08:59:01.5376 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d85ae8e4-570e-43e2-280a-08db30fd01aa
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT108.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7466
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2445.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa17a2ed-2ff8-411f-be6b-08db30fd0501
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Mar 2023 08:59:07.1417 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: PvM+2PAoVYxFKMFCPQTo4J07Fl+Z8P47KKJ/INvQgYuynKdHhKx4MAOOyLLeDWDwIhL0WLq86lmKnliF+VMf2Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6087
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,96 +131,604 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
- Hamza Mahfooz <hamza.mahfooz@amd.com>, wayne.lin@amd.com,
- Bhawanpreet.Lakha@amd.com, Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+Cc: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Hamza Mahfooz <hamza.mahfooz@amd.com>
+--_000_SN1PR12MB2445C6C12FC1824D4A14124DF58E9SN1PR12MB2445namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-To enable root clock optimizations, we need a number of
-register writes and need to account for the difference
-in DPSTREAMCLK between DCN31 and DCN314. To prevent
-issues, add a number of register writes to
-DCCG_MASK_SH_LIST_DCN314_COMMON(), and define dccg314_init()
-which is mostly in alignment with dccg31_init() but
-accounts for the new DPSTREAMCLK sequence.
+[AMD Official Use Only - General]
 
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
-Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
----
- .../drm/amd/display/dc/dcn314/dcn314_dccg.c   | 28 ++++++++++++++++++-
- .../drm/amd/display/dc/dcn314/dcn314_dccg.h   |  6 ++++
- 2 files changed, 33 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_dccg.c b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_dccg.c
-index 081ce168f621..6f879265ad9c 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_dccg.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_dccg.c
-@@ -274,6 +274,32 @@ static void dccg314_set_dpstreamclk(
- 	}
- }
- 
-+void dccg314_init(struct dccg *dccg)
-+{
-+	int otg_inst;
-+
-+	/* Set HPO stream encoder to use refclk to avoid case where PHY is
-+	 * disabled and SYMCLK32 for HPO SE is sourced from PHYD32CLK which
-+	 * will cause DCN to hang.
-+	 */
-+	for (otg_inst = 0; otg_inst < 4; otg_inst++)
-+		dccg31_disable_symclk32_se(dccg, otg_inst);
-+
-+	if (dccg->ctx->dc->debug.root_clock_optimization.bits.symclk32_le)
-+		for (otg_inst = 0; otg_inst < 2; otg_inst++)
-+			dccg31_disable_symclk32_le(dccg, otg_inst);
-+
-+	if (dccg->ctx->dc->debug.root_clock_optimization.bits.dpstream)
-+		for (otg_inst = 0; otg_inst < 4; otg_inst++)
-+			dccg314_set_dpstreamclk(dccg, REFCLK, otg_inst,
-+						otg_inst);
-+
-+	if (dccg->ctx->dc->debug.root_clock_optimization.bits.physymclk)
-+		for (otg_inst = 0; otg_inst < 5; otg_inst++)
-+			dccg31_set_physymclk(dccg, otg_inst,
-+					     PHYSYMCLK_FORCE_SRC_SYMCLK, false);
-+}
-+
- static void dccg314_set_valid_pixel_rate(
- 		struct dccg *dccg,
- 		int ref_dtbclk_khz,
-@@ -315,7 +341,7 @@ static const struct dccg_funcs dccg314_funcs = {
- 	.update_dpp_dto = dccg31_update_dpp_dto,
- 	.dpp_root_clock_control = dccg314_dpp_root_clock_control,
- 	.get_dccg_ref_freq = dccg31_get_dccg_ref_freq,
--	.dccg_init = dccg31_init,
-+	.dccg_init = dccg314_init,
- 	.set_dpstreamclk = dccg314_set_dpstreamclk,
- 	.enable_symclk32_se = dccg31_enable_symclk32_se,
- 	.disable_symclk32_se = dccg31_disable_symclk32_se,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_dccg.h b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_dccg.h
-index 6a35986307af..f62631ab53a2 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_dccg.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn314/dcn314_dccg.h
-@@ -155,6 +155,12 @@
- 	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_ROOT_SE3_GATE_DISABLE, mask_sh),\
- 	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_ROOT_LE0_GATE_DISABLE, mask_sh),\
- 	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_ROOT_LE1_GATE_DISABLE, mask_sh),\
-+	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_SE0_GATE_DISABLE, mask_sh),\
-+	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_SE1_GATE_DISABLE, mask_sh),\
-+	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_SE2_GATE_DISABLE, mask_sh),\
-+	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_SE3_GATE_DISABLE, mask_sh),\
-+	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_LE0_GATE_DISABLE, mask_sh),\
-+	DCCG_SF(DCCG_GATE_DISABLE_CNTL3, SYMCLK32_LE1_GATE_DISABLE, mask_sh),\
- 	DCCG_SF(HDMISTREAMCLK0_DTO_PARAM, HDMISTREAMCLK0_DTO_PHASE, mask_sh),\
- 	DCCG_SF(HDMISTREAMCLK0_DTO_PARAM, HDMISTREAMCLK0_DTO_MODULO, mask_sh)
- 
--- 
-2.34.1
+Hi, Luben
 
+
+
+Thanks for the review. Please see inline.
+
+
+
+Best Regards,
+
+Alan
+
+
+
+-----Original Message-----
+From: Tuikov, Luben <Luben.Tuikov@amd.com>
+Sent: Tuesday, March 28, 2023 3:00 AM
+To: Liu, HaoPing (Alan) <HaoPing.Liu@amd.com>; amd-gfx@lists.freedesktop.or=
+g
+Cc: Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix desktop freezed after gpu-reset
+
+
+
+Hi,
+
+
+
+That's a good fix. Some questions and comments below:
+
+
+
+On 2023-03-27 11:20, Alan Liu wrote:
+
+> [Why]
+
+> After gpu-reset, sometimes the driver would fail to enable vblank irq,
+
+> causing flip_done timed out and the desktop freezed.
+
+>
+
+> During gpu-reset, we will disable and enable vblank irq in
+
+> dm_suspend() and dm_resume(). Later on in
+
+> amdgpu_irq_gpu_reset_resume_helper(), we will check irqs' refcount and de=
+cide to enable or disable the irqs again.
+
+>
+
+> However, we have 2 sets of API for controling vblank irq, one is
+
+> dm_vblank_get/put() and another is amdgpu_irq_get/put(). Each API has
+
+> its own refcount and flag to store the state of vblank irq, and they
+
+> are not synchronized.
+
+
+
+Is it possible to reconcile controlling VBlank IRQ to a single refcount?
+
+
+
+In struct drm_vblank_crtc, we have "enabled" and "refcount" to store vblank=
+ irq state, and in struct amdgpu_irq_src we have "enabled_types" as the ref=
+count for each irq in dm layer.
+
+To reconcile vblank irq to a single refcount, my idea is to remove enabled =
+and refcount from struct drm_vblank_crtc, and add a callback function like =
+vblank_irq_enabled() to drm_crtc_funcs.
+
+Drm layer can use this function to check the state or refcount of vblank ir=
+q from dm layer. But it may be dangerous because it is a change to drm laye=
+r. Do you have any comments?
+
+
+
+>
+
+> In drm we use the first API to control vblank irq but in
+
+> amdgpu_irq_gpu_reset_resume_helper() we use the second set of API.
+
+>
+
+> The failure happens when vblank irq was enabled by dm_vblank_get()
+
+> before gpu-reset, we have vblank->enabled true. However, during
+
+> gpu-reset, in amdgpu_irq_gpu_reset_resume_helper(), vblank irq's state
+
+> checked from
+
+> amdgpu_irq_update() is DISABLED. So finally it will disable vblank irq
+
+> again. After gpu-reset, if there is a cursor plane commit, the driver
+
+> will try to enable vblank irq by calling drm_vblank_enable(), but the
+
+> vblank->enabled is still true, so it fails to turn on vblank irq and
+
+> causes flip_done can't be completed in vblank irq handler and desktop
+
+> become freezed.
+
+>
+
+> [How]
+
+> Combining the 2 vblank control APIs by letting drm's API finally calls
+
+> amdgpu_irq's API, so the irq's refcount and state of both APIs can be
+
+> synchronized. Also add a check to prevent refcount from being less
+
+> then
+
+> 0 in amdgpu_irq_put().
+
+>
+
+> Signed-off-by: Alan Liu <HaoPing.Liu@amd.com<mailto:HaoPing.Liu@amd.com>>
+
+> ---
+
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c            |  3 +++
+
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 14
+
+> ++++++++++----
+
+>  2 files changed, 13 insertions(+), 4 deletions(-)
+
+>
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+
+> index a6aef488a822..1b66003657e2 100644
+
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+
+> @@ -597,6 +597,9 @@ int amdgpu_irq_put(struct amdgpu_device *adev, struct=
+ amdgpu_irq_src *src,
+
+>            if (!src->enabled_types || !src->funcs->set)
+
+>                           return -EINVAL;
+
+>
+
+> +         if (!amdgpu_irq_enabled(adev, src, type))
+
+> +                       return 0;
+
+> +
+
+>            if (atomic_dec_and_test(&src->enabled_types[type]))
+
+>                           return amdgpu_irq_update(adev, src, type);
+
+>
+
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+
+> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+
+> index dc4f37240beb..e04f846b0b19 100644
+
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+
+> @@ -146,7 +146,7 @@ static void vblank_control_worker(struct
+
+> work_struct *work)
+
+>
+
+>  static inline int dm_set_vblank(struct drm_crtc *crtc, bool enable)
+
+> {
+
+> -          enum dc_irq_source irq_source;
+
+> +         int irq_type;
+
+>            struct amdgpu_crtc *acrtc =3D to_amdgpu_crtc(crtc);
+
+>            struct amdgpu_device *adev =3D drm_to_adev(crtc->dev);
+
+>            struct dm_crtc_state *acrtc_state =3D to_dm_crtc_state(crtc->s=
+tate);
+
+> @@ -169,10 +169,16 @@ static inline int dm_set_vblank(struct drm_crtc *cr=
+tc, bool enable)
+
+>            if (rc)
+
+>                           return rc;
+
+>
+
+> -          irq_source =3D IRQ_TYPE_VBLANK + acrtc->otg_inst;
+
+> +         irq_type =3D amdgpu_display_crtc_idx_to_irq_type(adev,
+
+> +acrtc->crtc_id);
+
+> +
+
+> +         if (enable)
+
+> +                       rc =3D amdgpu_irq_get(adev, &adev->crtc_irq, irq_=
+type);
+
+> +
+
+> +         else
+
+
+
+There's an unnecessary empty line before the "else". It's a good idea to ru=
+n patches through scripts/checkpatch.pl.
+
+
+
+Thanks, will use the tool next time.
+
+
+
+> +                       rc =3D amdgpu_irq_put(adev, &adev->crtc_irq, irq_=
+type);
+
+>
+
+> -          if (!dc_interrupt_set(adev->dm.dc, irq_source, enable))
+
+> -                        return -EBUSY;
+
+> +         if (rc)
+
+> +                       return rc;
+
+>
+
+>  skip:
+
+>            if (amdgpu_in_reset(adev))
+
+
+
+--
+
+Regards,
+
+Luben
+
+
+
+--_000_SN1PR12MB2445C6C12FC1824D4A14124DF58E9SN1PR12MB2445namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:PMingLiU;
+	panose-1:2 1 6 1 0 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@PMingLiU";
+	panose-1:2 1 6 1 0 1 1 1 1 1;}
+/* Style Definitions */
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
+	{mso-style-priority:99;
+	mso-style-link:"Plain Text Char";
+	margin:0cm;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.PlainTextChar
+	{mso-style-name:"Plain Text Char";
+	mso-style-priority:99;
+	mso-style-link:"Plain Text";
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle20
+	{mso-style-type:personal-compose;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<p class=3D"msipheaderdf3d92d6" align=3D"Left" style=3D"margin:0"><span sty=
+le=3D"font-size:10.0pt;font-family:Arial;color:#0000FF">[AMD Official Use O=
+nly - General]</span></p>
+<br>
+<div class=3D"WordSection1">
+<p class=3D"MsoPlainText">Hi, Luben<o:p></o:p></p>
+<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText">Thanks for the review. Please see <span style=3D"=
+color:#00B050">
+inline</span>.<o:p></o:p></p>
+<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText">Best Regards,<o:p></o:p></p>
+<p class=3D"MsoPlainText">Alan<o:p></o:p></p>
+<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText">-----Original Message-----<br>
+From: Tuikov, Luben &lt;Luben.Tuikov@amd.com&gt; <br>
+Sent: Tuesday, March 28, 2023 3:00 AM<br>
+To: Liu, HaoPing (Alan) &lt;HaoPing.Liu@amd.com&gt;; amd-gfx@lists.freedesk=
+top.org<br>
+Cc: Lakha, Bhawanpreet &lt;Bhawanpreet.Lakha@amd.com&gt;<br>
+Subject: Re: [PATCH] drm/amdgpu: Fix desktop freezed after gpu-reset<o:p></=
+o:p></p>
+<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText">Hi,<o:p></o:p></p>
+<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText">That's a good fix. Some questions and comments be=
+low:<o:p></o:p></p>
+<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText">On 2023-03-27 11:20, Alan Liu wrote:<o:p></o:p></=
+p>
+<p class=3D"MsoPlainText">&gt; [Why]<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; After gpu-reset, sometimes the driver would =
+fail to enable vblank irq,
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; causing flip_done timed out and the desktop =
+freezed.<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; <o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; During gpu-reset, we will disable and enable=
+ vblank irq in
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; dm_suspend() and dm_resume(). Later on in <o=
+:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; amdgpu_irq_gpu_reset_resume_helper(), we wil=
+l check irqs' refcount and decide to enable or disable the irqs again.<o:p>=
+</o:p></p>
+<p class=3D"MsoPlainText">&gt; <o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; However, we have 2 sets of API for controlin=
+g vblank irq, one is<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; dm_vblank_get/put() and another is amdgpu_ir=
+q_get/put(). Each API has
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; its own refcount and flag to store the state=
+ of vblank irq, and they
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; are not synchronized.<o:p></o:p></p>
+<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText">Is it possible to reconcile controlling VBlank IR=
+Q to a single refcount?<o:p></o:p></p>
+<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText"><span style=3D"color:#00B050">In struct drm_vblan=
+k_crtc, we have &#8220;enabled&#8221; and &#8220;refcount&#8221; to store v=
+blank irq state, and in struct amdgpu_irq_src we have &#8220;enabled_types&=
+#8221; as the refcount for each irq in dm layer.<o:p></o:p></span></p>
+<p class=3D"MsoPlainText"><span style=3D"color:#00B050">To reconcile vblank=
+ irq to a single refcount, my idea is to remove enabled and refcount from s=
+truct drm_vblank_crtc, and add a callback function like vblank_irq_enabled(=
+) to drm_crtc_funcs.<o:p></o:p></span></p>
+<p class=3D"MsoPlainText"><span style=3D"color:#00B050">Drm layer can use t=
+his function to check the state or refcount of vblank irq from dm layer. Bu=
+t it may be dangerous because it is a change to drm layer. Do you have any =
+comments?</span><o:p></o:p></p>
+<p class=3D"MsoPlainText"><span style=3D"color:black"><o:p>&nbsp;</o:p></sp=
+an></p>
+<p class=3D"MsoPlainText">&gt; <o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; In drm we use the first API to control vblan=
+k irq but in<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; amdgpu_irq_gpu_reset_resume_helper() we use =
+the second set of API.<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; <o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; The failure happens when vblank irq was enab=
+led by dm_vblank_get()
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; before gpu-reset, we have vblank-&gt;enabled=
+ true. However, during
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; gpu-reset, in amdgpu_irq_gpu_reset_resume_he=
+lper(), vblank irq's state
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; checked from<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; amdgpu_irq_update() is DISABLED. So finally =
+it will disable vblank irq
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; again. After gpu-reset, if there is a cursor=
+ plane commit, the driver
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; will try to enable vblank irq by calling drm=
+_vblank_enable(), but the<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; vblank-&gt;enabled is still true, so it fail=
+s to turn on vblank irq and<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; causes flip_done can't be completed in vblan=
+k irq handler and desktop
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; become freezed.<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; <o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; [How]<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; Combining the 2 vblank control APIs by letti=
+ng drm's API finally calls
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; amdgpu_irq's API, so the irq's refcount and =
+state of both APIs can be
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; synchronized. Also add a check to prevent re=
+fcount from being less
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; then<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; 0 in amdgpu_irq_put().<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; <o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; Signed-off-by: Alan Liu &lt;<a href=3D"mailt=
+o:HaoPing.Liu@amd.com"><span style=3D"color:windowtext;text-decoration:none=
+">HaoPing.Liu@amd.com</span></a>&gt;<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; ---<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_irq.=
+c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;=
+ 3 +++<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&nbsp; .../gpu/drm/amd/display/amdgpu_dm/amdg=
+pu_dm_crtc.c | 14
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; ++++++++++----<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&nbsp; 2 files changed, 13 insertions(+), 4 d=
+eletions(-)<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; <o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdg=
+pu_irq.c <o:p>
+</o:p></p>
+<p class=3D"MsoPlainText">&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c<o:=
+p></o:p></p>
+<p class=3D"MsoPlainText">&gt; index a6aef488a822..1b66003657e2 100644<o:p>=
+</o:p></p>
+<p class=3D"MsoPlainText">&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.=
+c<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.=
+c<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; @@ -597,6 +597,9 @@ int amdgpu_irq_put(struc=
+t amdgpu_device *adev, struct amdgpu_irq_src *src,<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; if (!src-&gt;enabled_types || !src-&gt;funcs-&gt;set)<o:p>=
+</o:p></p>
+<p class=3D"MsoPlainText">&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&nbsp; <o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; if (!amdgpu_irq_enabled(adev, src, type))<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; return 0;<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; +<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; if (atomic_dec_and_test(&amp;src-&gt;enabled_types[type]))=
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return amdgpu_irq_update(adev, src, type);<=
+o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&nbsp; <o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; diff --git a/drivers/gpu/drm/amd/display/amd=
+gpu_dm/amdgpu_dm_crtc.c
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; b/drivers/gpu/drm/amd/display/amdgpu_dm/amdg=
+pu_dm_crtc.c<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; index dc4f37240beb..e04f846b0b19 100644<o:p>=
+</o:p></p>
+<p class=3D"MsoPlainText">&gt; --- a/drivers/gpu/drm/amd/display/amdgpu_dm/=
+amdgpu_dm_crtc.c<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/=
+amdgpu_dm_crtc.c<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; @@ -146,7 +146,7 @@ static void vblank_contr=
+ol_worker(struct
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; work_struct *work)<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&nbsp; <o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; &nbsp;static inline int dm_set_vblank(struct=
+ drm_crtc *crtc, bool enable)&nbsp;
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; {<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; enum dc_irq_source irq_source;<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; int irq_type;<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; struct amdgpu_crtc *acrtc =3D to_amdgpu_crtc(crtc);<o:p></=
+o:p></p>
+<p class=3D"MsoPlainText">&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D drm_to_adev(crtc-&gt;dev);<=
+o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; struct dm_crtc_state *acrtc_state =3D to_dm_crtc_state(crt=
+c-&gt;state);
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; @@ -169,10 +169,16 @@ static inline int dm_s=
+et_vblank(struct drm_crtc *crtc, bool enable)<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; if (rc)<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return rc;<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&nbsp; <o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; irq_source =3D IRQ_TYPE_VBLANK + acrtc-&gt;otg_inst;<o:p></o:p>=
+</p>
+<p class=3D"MsoPlainText">&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; irq_type =3D amdgpu_display_crtc_idx_to_irq_type(adev,
+<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; +acrtc-&gt;crtc_id);<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; +<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; if (enable)<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; rc =3D amdgpu_irq_get(adev, &amp;adev-&gt;crtc_irq, irq_type=
+);<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; +<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; else<o:p></o:p></p>
+<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText">There's an unnecessary empty line before the &quo=
+t;else&quot;. It's a good idea to run patches through scripts/checkpatch.pl=
+.<o:p></o:p></p>
+<p class=3D"MsoPlainText"><span style=3D"color:#00B050"><o:p>&nbsp;</o:p></=
+span></p>
+<p class=3D"MsoPlainText"><span style=3D"color:#00B050">Thanks, will use th=
+e tool next time.<o:p></o:p></span></p>
+<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText">&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; rc =3D amdgpu_irq_put(adev, &amp;adev-&gt;crtc_irq, irq_type=
+);<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&nbsp; <o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; if (!dc_interrupt_set(adev-&gt;dm.dc, irq_source, enable))<o:p>=
+</o:p></p>
+<p class=3D"MsoPlainText">&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; return -EBUSY;<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; if (rc)<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return rc;<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&nbsp; <o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&nbsp; skip:<o:p></o:p></p>
+<p class=3D"MsoPlainText">&gt;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; if (amdgpu_in_reset(adev))<o:p></o:p></p>
+<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoPlainText">--<o:p></o:p></p>
+<p class=3D"MsoPlainText">Regards,<o:p></o:p></p>
+<p class=3D"MsoPlainText">Luben<o:p></o:p></p>
+<p class=3D"MsoPlainText"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_SN1PR12MB2445C6C12FC1824D4A14124DF58E9SN1PR12MB2445namp_--
