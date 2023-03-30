@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85518C6FD1D
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 18:24:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81F11C761A6
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 18:42:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19F3610E3CB;
-	Thu, 30 Mar 2023 18:24:00 +0000 (UTC)
-Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
- [IPv6:2001:4860:4864:20::2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E0D910E3CB
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 18:23:58 +0000 (UTC)
-Received: by mail-oa1-x2d.google.com with SMTP id
- 586e51a60fabf-17683b570b8so20644478fac.13
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 11:23:58 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8C1F10E054;
+	Thu, 30 Mar 2023 18:42:46 +0000 (UTC)
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD6A810E054
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 18:42:44 +0000 (UTC)
+Received: by mail-oi1-x22d.google.com with SMTP id bm2so14932428oib.4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 11:42:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1680200637;
+ d=gmail.com; s=20210112; t=1680201764;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=wZZsLdHbwftk4nXhT4cyv/PZMfhLFGXGFRP3AZuWzrQ=;
- b=OcfQjYvIdaO7LOmGKyhLnJlmsXtF8qs0ncrjaHOxmr26uFxmKvjVhzwDlbZPGz66mb
- 5kCCDfarF4Vj28tz/G5Ev60fxrrHHlMg+2sfnBp14sxOEORC442pgiFmq43TZcr9RUoR
- 42QyHnYhqKEtwcW/4ONfyHWSSSeXDl5iIa5LfiF3K/cxusR5QpFeKRAISpy3BCwAbLk/
- bbJRinQh5dl6yQ3j4RUXLgyT5Rsl1U1ERQ3WyKp5Aqu/vHhQJFcx1GHgn8f1xiywEHa0
- ta5Oj3YNszLeIOGcUbNDcIq8WRqS+jr/ql7Qd6bIa4U2ORcA5ysy6HlHexr84yU/a9am
- Fs8Q==
+ bh=GsH+o52GLfkObV6SiVwfLzuYMOVbuC3JGNoTHWLUMBM=;
+ b=TZsMkyzV5IUAbXOemZ/C/M/1OTXF30MgdTTxBbxJ42R6/kaFR4OliosypzJ6068dfB
+ gpKri3hVt4mavdl1GvvdU7U1It2i8KX6y56Hlq+acAVfEpjbMxeEEPxOosjHgvbRhBjH
+ PALLbq8++Wg7dVFZqOh0UDLznHaitiInyACQirjsqUdKn5NDF5dMuklF1dopetjr7Mn1
+ GgSwajlwI/6YnbW27ZsLZyWgc4u38d501kbLJLIlwQCQgcuHQ96WHRXJZtWLnp2HIYEE
+ D+mSsoML8uJe8ax4O00E+bDKXozggnDsaLlRXQcFjrHgktAwTeUY6yw5gMoAUarDm/M/
+ AthA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680200637;
+ d=1e100.net; s=20210112; t=1680201764;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=wZZsLdHbwftk4nXhT4cyv/PZMfhLFGXGFRP3AZuWzrQ=;
- b=RJKJ648OLYz8+cp7zp/xxT4b49nUciOzhGE8BncmZzyQ40QQM9RLb/FdAJtjcpAiJP
- XbCXos28w3PYsSG7uIMYTLe0JeFm12mMpi0kAevq2gnXPCAYq7jPxxhEDqjr2/3gkZxU
- lPJ7E5dHtNqFqKWCFwaanqwK4tk1WzAhG7KNjAxtVFJhqoinQVUK/ORbiwRSHarnAqfV
- kOqLN9kc2lbNdSxLlO5OMOeG0M6HWg40mulYqUchRtwh2YhD9wP1rdmJ02qfFxa1PZWv
- Dh8Ekz17ITwrGZRv9Ta8f/KiQx9BC535unR2hjhFpQpsiUwp5tPRAuFYolIPnDcEJHUr
- 4buQ==
-X-Gm-Message-State: AO0yUKV7Iiqqz+dRBJj3qYpJNSxhNwa+XO6aNcMz/pZ+BN7X3Rx8ztrv
- Ldg+bJk6/Mh05Is337yb34VToFQA10I4SlA5kQl0vwgn
-X-Google-Smtp-Source: AKy350YvWOjM4s9CfN0juHiWNNb0WY3kkZE664HLdGB66v15pi4SO/+qax5oSOjM3GI3QMo2Rgtw0NVR+iuKyLlideE=
-X-Received: by 2002:a05:6870:1114:b0:177:9150:e7ba with SMTP id
- 20-20020a056870111400b001779150e7bamr8105940oaf.3.1680200636605; Thu, 30 Mar
- 2023 11:23:56 -0700 (PDT)
+ bh=GsH+o52GLfkObV6SiVwfLzuYMOVbuC3JGNoTHWLUMBM=;
+ b=SDnlkw/rMoMHH5ItcRjkLEujrDmj5RlbW9fhM7GTcjWK9GE7FMcda3cjhBiLj4lxbp
+ QMprvJVXXz5buLdexJBFObxXFD+sJkB3FauLHRI5kqIO2AnXR3kZFGzbWPumbTRPaQ1L
+ HNGPQdjybGkuj7M6qWrAklKSXlypL4gr/6JNkuKW1HVF0sodZIjgGpPZSg1GAF/ate55
+ kFxRN4glXqSf3/0kk/YElw0HBTe2oAvxJMb+Rky8IFb9ZAHyaFE1ouiBWrRwUT+ndW8j
+ jw60YOiv5KqzvLzOI2GJ6N0z7FSwcBsPeWzgxRKZ6saIg0UI3/WsrSDZHz3lTblcbW9q
+ AeUA==
+X-Gm-Message-State: AAQBX9exTZr87Bi9eeaeQFbad80HmUaX0GOG6WNm8P0M4+1rk05Q1EPG
+ jZyzmCCl8TKsQFqXKsqV1te+Gh2x9ORWQyf0lJb0YboL
+X-Google-Smtp-Source: AKy350bgKbyHnGoPpKQ5rEo5eiAU42a5vHHeRqqAOjolq75mQjKs6HLZsnVBsqSUyOtwjaCCzfVsd8vTE+27PiSc6XQ=
+X-Received: by 2002:a05:6808:2810:b0:389:8025:aae8 with SMTP id
+ et16-20020a056808281000b003898025aae8mr714443oib.3.1680201764049; Thu, 30 Mar
+ 2023 11:42:44 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230330144045.466110-1-gpiccoli@igalia.com>
-In-Reply-To: <20230330144045.466110-1-gpiccoli@igalia.com>
+References: <20230329152521.1980681-1-alexander.deucher@amd.com>
+ <20230329152521.1980681-5-alexander.deucher@amd.com>
+ <06cfb048-5349-9e96-ebd2-7adbbb66ebc5@gmail.com>
+In-Reply-To: <06cfb048-5349-9e96-ebd2-7adbbb66ebc5@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 30 Mar 2023 14:23:45 -0400
-Message-ID: <CADnq5_PxtSF=dYjRV=7Bc0XpNbakquD=KOgrbaocLR61SHqbJQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: Fix incorrect comment about Vangogh power cap
- support
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Date: Thu, 30 Mar 2023 14:42:33 -0400
+Message-ID: <CADnq5_Oj=E7XLQKBMeipuWTGT=CdLg4TKMNrfj8GFo1QYUg-sw@mail.gmail.com>
+Subject: Re: [PATCH 04/13] drm/amdgpu: add gfx shadow CS IOCTL support
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,76 +68,230 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, Lijo Lazar <lijo.lazar@amd.com>,
- amd-gfx@lists.freedesktop.org, kernel@gpiccoli.net,
- Melissa Wen <mwen@igalia.com>, kernel-dev@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com,
- rodrigo.barbieri@canonical.com
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Thu, Mar 30, 2023 at 2:12=E2=80=AFAM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> Am 29.03.23 um 17:25 schrieb Alex Deucher:
+> > From: Christian K=C3=B6nig <christian.koenig@amd.com>
+> >
+> > Add support for submitting the shadow update packet
+> > when submitting an IB.  Needed for MCBP on GFX11.
+> >
+> > v2: update API for CSA (Alex)
+> > v3: fix ordering; SET_Q_PREEMPTION_MODE most come before COND_EXEC
+> >      Add missing check for AMDGPU_CHUNK_ID_CP_GFX_SHADOW in
+> >      amdgpu_cs_pass1()
+> >      Only initialize shadow on first use
+> >      (Alex)
+> > v4: Pass parameters rather than job to new ring callback (Alex)
+> > v5: squash in change to call SET_Q_PREEMPTION_MODE/COND_EXEC
+> >      before RELEASE_MEM to complete the UMDs use of the shadow (Alex)
+> >
+> > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c   | 26 +++++++++++++++++++++
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c   | 29 +++++++++++++++++++++++=
+-
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_job.h  |  6 +++++
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  3 +++
+> >   4 files changed, 63 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_cs.c
+> > index 47763ac0d14a..41bd3a1a1989 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> > @@ -281,6 +281,7 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser =
+*p,
+> >               case AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES:
+> >               case AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_WAIT:
+> >               case AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_SIGNAL:
+> > +             case AMDGPU_CHUNK_ID_CP_GFX_SHADOW:
+> >                       break;
+> >
+> >               default:
+> > @@ -583,6 +584,26 @@ static int amdgpu_cs_p2_syncobj_timeline_signal(st=
+ruct amdgpu_cs_parser *p,
+> >       return 0;
+> >   }
+> >
+> > +static int amdgpu_cs_p2_shadow(struct amdgpu_cs_parser *p,
+> > +                            struct amdgpu_cs_chunk *chunk)
+> > +{
+> > +     struct drm_amdgpu_cs_chunk_cp_gfx_shadow *shadow =3D chunk->kdata=
+;
+> > +     int i;
+> > +
+> > +     if (shadow->flags & ~AMDGPU_CS_CHUNK_CP_GFX_SHADOW_FLAGS_INIT_SHA=
+DOW)
+> > +             return -EINVAL;
+> > +
+> > +     for (i =3D 0; i < p->gang_size; ++i) {
+> > +             p->jobs[i]->shadow_va =3D shadow->shadow_va;
+> > +             p->jobs[i]->csa_va =3D shadow->csa_va;
+> > +             p->jobs[i]->gds_va =3D shadow->gds_va;
+> > +             p->jobs[i]->init_shadow =3D
+> > +                     shadow->flags & AMDGPU_CS_CHUNK_CP_GFX_SHADOW_FLA=
+GS_INIT_SHADOW;
+> > +     }
+> > +
+> > +     return 0;
+> > +}
+> > +
+> >   static int amdgpu_cs_pass2(struct amdgpu_cs_parser *p)
+> >   {
+> >       unsigned int ce_preempt =3D 0, de_preempt =3D 0;
+> > @@ -625,6 +646,11 @@ static int amdgpu_cs_pass2(struct amdgpu_cs_parser=
+ *p)
+> >                       if (r)
+> >                               return r;
+> >                       break;
+> > +             case AMDGPU_CHUNK_ID_CP_GFX_SHADOW:
+> > +                     r =3D amdgpu_cs_p2_shadow(p, chunk);
+> > +                     if (r)
+> > +                             return r;
+> > +                     break;
+> >               }
+> >       }
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_ib.c
+> > index bcccc348dbe2..9bee630eb0c9 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> > @@ -136,7 +136,9 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, un=
+signed num_ibs,
+> >       uint64_t fence_ctx;
+> >       uint32_t status =3D 0, alloc_size;
+> >       unsigned fence_flags =3D 0;
+> > -     bool secure;
+> > +     bool secure, init_shadow;
+> > +     u64 shadow_va, csa_va, gds_va;
+> > +     int vmid =3D AMDGPU_JOB_GET_VMID(job);
+> >
+> >       unsigned i;
+> >       int r =3D 0;
+> > @@ -150,9 +152,17 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, u=
+nsigned num_ibs,
+> >               vm =3D job->vm;
+> >               fence_ctx =3D job->base.s_fence ?
+> >                       job->base.s_fence->scheduled.context : 0;
+> > +             shadow_va =3D job->shadow_va;
+> > +             csa_va =3D job->csa_va;
+> > +             gds_va =3D job->gds_va;
+> > +             init_shadow =3D job->init_shadow;
+> >       } else {
+> >               vm =3D NULL;
+> >               fence_ctx =3D 0;
+> > +             shadow_va =3D 0;
+> > +             csa_va =3D 0;
+> > +             gds_va =3D 0;
+> > +             init_shadow =3D false;
+> >       }
+> >
+> >       if (!ring->sched.ready && !ring->is_mes_queue) {
+> > @@ -212,6 +222,11 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, u=
+nsigned num_ibs,
+> >       }
+> >
+> >       amdgpu_ring_ib_begin(ring);
+> > +
+> > +     if (job && ring->funcs->emit_gfx_shadow)
+> > +             amdgpu_ring_emit_gfx_shadow(ring, shadow_va, csa_va, gds_=
+va,
+> > +                                         init_shadow, vmid);
+> > +
+> >       if (job && ring->funcs->init_cond_exec)
+> >               patch_offset =3D amdgpu_ring_init_cond_exec(ring);
+> >
+> > @@ -263,6 +278,18 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, u=
+nsigned num_ibs,
+> >                                      fence_flags | AMDGPU_FENCE_FLAG_64=
+BIT);
+> >       }
+> >
+> > +     if (ring->funcs->emit_gfx_shadow) {
+> > +             amdgpu_ring_emit_gfx_shadow(ring, 0, 0, 0, false, 0);
+> > +
+> > +             if (ring->funcs->init_cond_exec) {
+> > +                     unsigned ce_offset =3D ~0;
+> > +
+> > +                     ce_offset =3D amdgpu_ring_init_cond_exec(ring);
+> > +                     if (ce_offset !=3D ~0 && ring->funcs->patch_cond_=
+exec)
+> > +                             amdgpu_ring_patch_cond_exec(ring, ce_offs=
+et);
+> > +             }
+> > +     }
+> > +
+> >       r =3D amdgpu_fence_emit(ring, f, job, fence_flags);
+> >       if (r) {
+> >               dev_err(adev->dev, "failed to emit fence (%d)\n", r);
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_job.h
+> > index 52f2e313ea17..3f9804f956c9 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> > @@ -67,6 +67,12 @@ struct amdgpu_job {
+> >       uint64_t                uf_addr;
+> >       uint64_t                uf_sequence;
+> >
+> > +     /* virtual addresses for shadow/GDS/CSA */
+> > +     uint64_t                shadow_va;
+> > +     uint64_t                csa_va;
+> > +     uint64_t                gds_va;
+> > +     bool                    init_shadow;
+>
+> Doesn't the job has a flags field for stuff like that? Or was that the IB=
+?
 
-On Thu, Mar 30, 2023 at 11:32=E2=80=AFAM Guilherme G. Piccoli
-<gpiccoli@igalia.com> wrote:
+This comes from the flag in the new CS chunk.  Job doesn't have any
+flags at the moment.
+
+Alex
+
 >
-> The comment mentions that power1 cap attributes are not supported on
-> Vangogh, but the opposite is indeed valid: for APUs, only Vangogh is
-> supported. While at it, also fixed the Renoir comment below (thanks
-> Melissa for noticing that!).
+> Apart from that looks good to me.
 >
-> Cc: Lijo Lazar <lijo.lazar@amd.com>
-> Cc: Melissa Wen <mwen@igalia.com>
-> Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
-> ---
->
->
-> Hi folks, this is a very trivial one, just to fix the comments - since I =
-needed
-> to re-read the code/comments to figure out, I'm trying to improve it here=
- to
-> avoid others to get confused as well heh
->
-> Lemme know in case I made some mistake (even after re-re-reading the code=
-).
-> Cheers,
->
->
-> Guilherme
->
->
->  drivers/gpu/drm/amd/pm/amdgpu_pm.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/=
-amdgpu_pm.c
-> index d75a67cfe523..6460906c354c 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> @@ -3351,7 +3351,7 @@ static umode_t hwmon_attributes_visible(struct kobj=
-ect *kobj,
->               attr =3D=3D &sensor_dev_attr_pwm1_enable.dev_attr.attr)) /*=
- can't manage state */
->                 effective_mode &=3D ~S_IWUSR;
->
-> -       /* not implemented yet for GC 10.3.1 APUs */
-> +       /* In the case of APUs, this is only implemented on Vangogh */
->         if (((adev->family =3D=3D AMDGPU_FAMILY_SI) ||
->              ((adev->flags & AMD_IS_APU) && (gc_ver !=3D IP_VERSION(10, 3=
-, 1)))) &&
->             (attr =3D=3D &sensor_dev_attr_power1_cap_max.dev_attr.attr ||
-> @@ -3360,7 +3360,7 @@ static umode_t hwmon_attributes_visible(struct kobj=
-ect *kobj,
->              attr =3D=3D &sensor_dev_attr_power1_cap_default.dev_attr.att=
-r))
->                 return 0;
->
-> -       /* not implemented yet for APUs having <=3D GC 9.3.0 */
-> +       /* not implemented yet for APUs having < GC 9.3.0 (Renoir) */
->         if (((adev->family =3D=3D AMDGPU_FAMILY_SI) ||
->              ((adev->flags & AMD_IS_APU) && (gc_ver < IP_VERSION(9, 3, 0)=
-))) &&
->             (attr =3D=3D &sensor_dev_attr_power1_average.dev_attr.attr))
-> --
-> 2.40.0
+> > +
+> >       /* job_run_counter >=3D 1 means a resubmit job */
+> >       uint32_t                job_run_counter;
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_ring.h
+> > index 3989e755a5b4..7942cb62e52c 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > @@ -212,6 +212,8 @@ struct amdgpu_ring_funcs {
+> >       void (*end_use)(struct amdgpu_ring *ring);
+> >       void (*emit_switch_buffer) (struct amdgpu_ring *ring);
+> >       void (*emit_cntxcntl) (struct amdgpu_ring *ring, uint32_t flags);
+> > +     void (*emit_gfx_shadow)(struct amdgpu_ring *ring, u64 shadow_va, =
+u64 csa_va,
+> > +                             u64 gds_va, bool init_shadow, int vmid);
+> >       void (*emit_rreg)(struct amdgpu_ring *ring, uint32_t reg,
+> >                         uint32_t reg_val_offs);
+> >       void (*emit_wreg)(struct amdgpu_ring *ring, uint32_t reg, uint32_=
+t val);
+> > @@ -307,6 +309,7 @@ struct amdgpu_ring {
+> >   #define amdgpu_ring_emit_hdp_flush(r) (r)->funcs->emit_hdp_flush((r))
+> >   #define amdgpu_ring_emit_switch_buffer(r) (r)->funcs->emit_switch_buf=
+fer((r))
+> >   #define amdgpu_ring_emit_cntxcntl(r, d) (r)->funcs->emit_cntxcntl((r)=
+, (d))
+> > +#define amdgpu_ring_emit_gfx_shadow(r, s, c, g, i, v) (r)->funcs->emit=
+_gfx_shadow((r), (s), (c), (g), (i), (v))
+> >   #define amdgpu_ring_emit_rreg(r, d, o) (r)->funcs->emit_rreg((r), (d)=
+, (o))
+> >   #define amdgpu_ring_emit_wreg(r, d, v) (r)->funcs->emit_wreg((r), (d)=
+, (v))
+> >   #define amdgpu_ring_emit_reg_wait(r, d, v, m) (r)->funcs->emit_reg_wa=
+it((r), (d), (v), (m))
 >
