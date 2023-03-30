@@ -4,60 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FC6FC6FD1D
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 13:22:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A36DC6FD1D
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 13:30:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C71E410E408;
-	Thu, 30 Mar 2023 13:22:42 +0000 (UTC)
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [IPv6:2607:f8b0:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6EEB10E408;
- Thu, 30 Mar 2023 13:22:41 +0000 (UTC)
-Received: by mail-oi1-x229.google.com with SMTP id bi31so14101973oib.9;
- Thu, 30 Mar 2023 06:22:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1680182561;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=G9YMpuSttM4A9nULCMBhiq2+uydHNy9WNmU1ZG++oTM=;
- b=blZZRDRBNT5kYMjCC85ZeQpLeFdPOaXatuCk4NyXH1yuA9j9xns+8uFcbTyf6WGsd7
- BDclarMJIrma70T6OYfrbTKiaJktRYiWtH2IupaFo26teMxv1+nv1CU/Je+ECtaGqleu
- +T7GquzfQQRKKcFfc/Ta8p8NIkr3Lu11J9EmmwLDKz5MpdzSkh7V3T4ZLjUNXVqZcOpW
- hbhyN50tsxwj4fL3Gbsbt97t0hVUNuwNegP1RVM2DEowXcZxRcWoHTZXaFDnBaj2MwW2
- z0Ko4Al/zR8CxIwAqfIsUfpt4efg4XRPVPjgcZJRTCvxjQcjicKRXrNb544sZnHxOHR9
- nAug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680182561;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=G9YMpuSttM4A9nULCMBhiq2+uydHNy9WNmU1ZG++oTM=;
- b=TVXAm4BvfkzkM/sKLEw/0OetduU6Th3+dKm7bhP5amsakGwWe0SE6gozXvQ/ppb9Z+
- kgTE/cr7BA71UeeVsVf8UQcUsSo11cWh1q7U90jebjegxDpggF73SD4zvbsBnQ1KG+Sf
- JwgkRmVUIT502u26X01Pt/ilbIozStVWUSkxBTVJjFTAc30YUB+xrZ+2YC1AECGG7pon
- yViXPr46UmEOPWdv9ahi2KZ3qWvncfX5ifaiRfgji5JBLgYHB2u3PkLQak9AabS+vZ8L
- tarbHdlcN7c89+DKzSYv0d+rffq2iLPgq+CzyrCwvVCXM3u9ZYW6jMbT6t2tuSBefkDa
- zr4g==
-X-Gm-Message-State: AAQBX9cyH+gORyH5jGr9tOyN6FVg34oGIq3AjnDEdyT0obbKg0SBsZZG
- 7wtJ6p96iKreiaO4sAjm5roQT/5rwRt3WBNtGdQ=
-X-Google-Smtp-Source: AKy350bR4j3tWoutyh4OrqpV7ceW0UP7GuJA3//rLD7fDA/S8emKV6+mvo+u+TtelRGzGKE8vVlQiTelIZxHtDX1mh0=
-X-Received: by 2002:a54:4019:0:b0:386:a2d0:2814 with SMTP id
- x25-20020a544019000000b00386a2d02814mr2811957oie.4.1680182560801; Thu, 30 Mar
- 2023 06:22:40 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A6CE10EE20;
+	Thu, 30 Mar 2023 13:30:12 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2074.outbound.protection.outlook.com [40.107.94.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BC8F10EE20
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 13:30:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ATT2cd9KD/C0+p2OEvrvm2/n1hYBfwH/t0CiWtomN/GriBJXTjjTu92CBN9xVjvzqhu6upb/XY/WBOH8Z4LQw5FdOsEe40w6PRJKblED80qIYZPPzKY4BmeV42mQjPKcUakv5P+IcDJLNNh4IuohF3ryzC5QS7qvBtZXOdalejIV4kQoEwih0awa3ijgx4/O3SW7Hs3/JITSQDNEETFzXyXW+F9wmCkLeKibIvxB/z/IOszZRsFXWxbMu6M7W6hwZAR9W6UCBO3e7hKwb82brG8jsbjwYUTGeGT7AW9yYuKJl2SDkMiaTs5Y4AmYpWeOTtqG0Tn+ooKQasa5h1505g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ANKSIfCdxOu/xyFSdGjScB3quEb1TdpqpzhG6rqHC7M=;
+ b=lkk0Oz/746+KwC00IDDceX6+9fNblC0QJicT3Acp+rJDDO6IsRuPp5BcEicGETmntQCsO4o6I8NWeXQoY9ygfwgKQ1vuN/oOzkVxEiYi/WpfNOC9tNotimbJGagVoFwOhNRVwM8pG4Qf4X7tcZV63NIkfxkSDyx4mEbPdpC6tNTbXf0LKkV1FqIUob6ppwJEII/aK1e6lzG78aFCvLxkCoECVd3TCV5MqIg0kd7YlcrIIoD3ZnA8EJdt0+XxvaBiFutLo1gOO0jDvgYSvVDt6hA4ePf7dG+AugfolYN/lbs+yMrjtOOUu94wyJXRfVWXb8xN4HZbFh0RWOPtBYxMAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ANKSIfCdxOu/xyFSdGjScB3quEb1TdpqpzhG6rqHC7M=;
+ b=yectyv8foixjU+UeMEbup644K4Kwoe4/vwCaJRQ/nnxXSRHIghr7S/XYSkr8gZcDFZasR0oaaG5MtQs3mKgPOROitpLjqpTxD9B+//kcjABMZ8QWH42okxeZA/htcjXiodttN3VwhMCAQYV1nxSyTQX4vY6Sab5H17YSXGchzv8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
+ SJ2PR12MB7868.namprd12.prod.outlook.com (2603:10b6:a03:4cd::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.33; Thu, 30 Mar
+ 2023 13:30:02 +0000
+Received: from DM6PR12MB3370.namprd12.prod.outlook.com
+ ([fe80::8299:158a:c296:de80]) by DM6PR12MB3370.namprd12.prod.outlook.com
+ ([fe80::8299:158a:c296:de80%5]) with mapi id 15.20.6254.022; Thu, 30 Mar 2023
+ 13:30:02 +0000
+Message-ID: <5c1c4b38-1574-4625-1074-62838bd3d0f7@amd.com>
+Date: Thu, 30 Mar 2023 09:29:58 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Content-Language: en-CA
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230329154753.1261-1-shashank.sharma@amd.com>
+ <20230329154753.1261-4-shashank.sharma@amd.com>
+ <ed0f7cb9-78da-550c-8d91-6989e0ceb7a2@amd.com>
+From: Luben Tuikov <luben.tuikov@amd.com>
+Subject: Re: [PATCH 03/16] drm/amdgpu: create a new file for doorbell manager
+In-Reply-To: <ed0f7cb9-78da-550c-8d91-6989e0ceb7a2@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0101.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d7::17) To DM6PR12MB3370.namprd12.prod.outlook.com
+ (2603:10b6:5:38::25)
 MIME-Version: 1.0
-References: <20230329095933.1203559-1-kai.heng.feng@canonical.com>
- <76853776-ddfd-2fbc-a209-ca4f77faa481@amd.com>
- <CAAd53p7sgowhaFS1b7MM0F0kf14sWf6jbF9T__=4BAMM8bnz3A@mail.gmail.com>
-In-Reply-To: <CAAd53p7sgowhaFS1b7MM0F0kf14sWf6jbF9T__=4BAMM8bnz3A@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 30 Mar 2023 09:22:29 -0400
-Message-ID: <CADnq5_PicHGZKH5f23btP9srMQ5iKWDhfAk0Gnr27X92C-rFYg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: Reset GPU on S0ix when device supports
- BOCO
-To: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|SJ2PR12MB7868:EE_
+X-MS-Office365-Filtering-Correlation-Id: 56261191-2aa5-4f0f-b522-08db3122dde4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: SajZg9H0VBzOYZBdE2mH4JP+3rp+CRa4hzDt1Me47XxnzDI7jlQsYoHMdaB2V16T+6yIUnXFZcRgBTjJku25aHuasqjcsf2WyVWJWyncoxwhGIkkpuXwZ6ZN4BHUJ44EW6hA0mtfisWSCrEp8JY20n1jy2P6HU3rHVG/9yqmYfb+R399xvOpfyVMEHzzvFezHncTjJdA5dbI/Y0FOlPRsmMZQ2JFvTJtYDVBpo3wddIpEjjJm7CS+UbdW97OZsiaVrbKReIgzCkrkBJMLwH6qzJkszH2w2/er9y+QyYBr2eXAYbmF3s3W8FVoGsAXxJTU2CBgcWs15UFtwf6y+VLOkF9vZv+EPOMMLjvn/utXLVmbha4/Tc63EShg64XpHS+gpSy74bq0kStoJFaEuzpjzSyZrJUb5/IFd55tSLDo5Zpd0PaVnw+/qDNbdSf57Y1/eolDPjDQ6pixytpTfXrPisGHg+HpzUJD+t44spCsHBAJVsnXgA7R+FVlWmu8ucFwZpcBFBF++FVYCzyHOzryFcsyp/vMpv5YEBAY0s+mW2JthQU6QZDITE0/yR1avbP+h9xNaUr8aLqQB7qa081gDxwWg4bSM+D1yva0BUdCo+YcXwvVa3deozPFC+zwpHeLbdakYc4LCaqJIAZj1dwdKSSJQK5UDHPaJwUEsCm+kDCCXiBmoaQmJZs3Oy4q9y5a47+Tf1yn+/ZXAdC/07y/w==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(366004)(39860400002)(396003)(136003)(376002)(346002)(451199021)(6512007)(6486002)(53546011)(6666004)(6506007)(31686004)(26005)(316002)(54906003)(478600001)(110136005)(66574015)(66556008)(8676002)(66899021)(66476007)(186003)(2616005)(83380400001)(66946007)(41300700001)(8936002)(2906002)(4326008)(5660300002)(30864003)(44832011)(38100700002)(86362001)(31696002)(36756003)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dFJQbUxyMmpIN3RBbnhhOFBqRlQ5bHJhbGcyckNlVkxYaFJrME5aclc5eWND?=
+ =?utf-8?B?NXZpUUVWaDNlbHh4VTE4dC96ZFVDaVljb3huc0FaVVZDK1U0U0JzZ1JQR09k?=
+ =?utf-8?B?MlRwVTRuOTdBTnRmK0dOeWxxeUtuUjFuNGdkYy9xYWU3eExIK0xtcERxNXcz?=
+ =?utf-8?B?bWVQKzhCaWd0T3BqM3dVMU1OZmNPS1AvNURTRzk0TjFGODhkdVg1ajJtWSt5?=
+ =?utf-8?B?c0JqR0MrbEl4YVd5Yk1CSHRIQnlWTHlPOVlYa1pzYVVTUVNRdGNnNUs3SHNB?=
+ =?utf-8?B?cjJOVkp4dmJjR2J0ZWhxTWNWdDI0T3EwWDJvMjlqU291TVlHaE1yN3lXSkdq?=
+ =?utf-8?B?YnQ5Qjh0a2dpUWRvRlpIbFVMaUVNT0dUdDJCR1VXU2tNaTc3L2RJN1pkaXpW?=
+ =?utf-8?B?RGFrenVnREJhQVJJYkRtU3BYa042S2N6eWtXR2tlSnpxZnp3aWs2SGJ1YjlV?=
+ =?utf-8?B?YWo2K0F0eC9Tb0l3Tnp4VURMMGs0UWp4UEJQZjZDajlBTEk5WGU2NzlkbExG?=
+ =?utf-8?B?SHlIVnQzZGkxRWEvbmtITDROdHhOcjIxUnBac3RtZ0FGcmt6NHF1ZFdqVkdR?=
+ =?utf-8?B?azNGODNyd0IzSjZ0Ri9CRUxqUjF6SHo2a0ZHUVJQSVE4WjNSUTJRTEtsc2dp?=
+ =?utf-8?B?RGlUblRYN2svVDk5MGZBQmlxaER1bWtwaTV5REIxTUo1Mzk5cFJaOFVYcldX?=
+ =?utf-8?B?OW5TeUdlSFJKYzlWTTZhRm9EOXVMNkJzV3dWYksxNEZBUTZiSXpVdkluUjhG?=
+ =?utf-8?B?YTNWKzN1Ym5IYU4zOXFSemdKVW5sL2hla3J2TnBoaXNCd1pIRHA3Vy9sMmx3?=
+ =?utf-8?B?UCt2emZBRFFZMlVKZWZORTZTQVJOTnBNNkdjbEpBM1FSQTBEdGNUeGU1MTFZ?=
+ =?utf-8?B?Q3hxZGs1SVRzUGw2WTV1cGd4dFlFWm0wZkIydWhKMnJCTDQ5dDFmVjhoQllu?=
+ =?utf-8?B?QlZPeHY5aHI0RVY0SWlodDBxcVk4MVZhOUhVZFdrV0xUb3U0QlZuNmJLRUJq?=
+ =?utf-8?B?S01wd29SbjJXNHpxL0w3VGdkbzlGQzZWcW4wbngvZEV4RmdFeS9YNEovaStt?=
+ =?utf-8?B?YlV3UmxwWC83MXNhRHo4bzBNcldHYlNsWDdNZHp3TXd3cjMveUJxUmVKK3Y4?=
+ =?utf-8?B?RFA4N1NWL28zM0V2YVFhZEZHN0xUYWpZYjRSUTlReXo0K2ZaSDlqUkYyeUk3?=
+ =?utf-8?B?cFMwenptMU4vd2tvei9oNEZuSThzbmNDNGJkenZtVmE0ZllWNDg3RjV2eVl2?=
+ =?utf-8?B?aHVlTWNmeU5md3QyUDIxaWlQNGhVNkdpSG9SZ3JnZzhiUUJuNEczUnRJZ1R0?=
+ =?utf-8?B?em9KcFVnQnB6biszdGNURENxN1ZRdDRRSm1iNnorc0k4cmhENENodFlUWlgr?=
+ =?utf-8?B?cEJoUFg4QnZsQlhEZDR0eG5EQ2pxeFVZSUJWRk1TU0VRdUh2UTJhVC9sbUVj?=
+ =?utf-8?B?blZPNFdsYTNsaEpYSC9ZWjFvMmlPb3R6dXQ0bm5KNC9Nd2srM0NERHg5ZHo4?=
+ =?utf-8?B?U0dma1c3d0Zkc0JLNjUxY0JQWG8vaVhKQlRKMnhJUVpqMkcxcmVvVUg3VlVV?=
+ =?utf-8?B?Y2ZLdHlZTGpjT0pUOEtMR0JaM1hKNlR0dUJ2R0xVbUNYTGZNTElmTVRmdG1Y?=
+ =?utf-8?B?WUlveXc0NytvRFE2MThQWmZPeHVMc0lZRmduZTNSbkhOQlI2VU4zaE1LczRX?=
+ =?utf-8?B?RjF1eHZ6a0FKREFDcktMWGFHbkhQNTRuUWcyMkNKcDQ2d3ZtNmUvTUM3b01S?=
+ =?utf-8?B?Lzd4cXpRa2VXSkg0emNlT2ZIVnE0a3ZRQ0JoVVJodmRRWXh4aGFSU1pMZzd0?=
+ =?utf-8?B?MlhnTnZEaDZpRk9NOFFhbTBlK2h2QnBEZ0liWmFIWGR2bE9vV1hUUUw4cmpB?=
+ =?utf-8?B?MGtERytCcHNiK2JoQ09rcXlkVlhldStneXE5MUNYQ2w3aEM2ME4yRm1hbGVG?=
+ =?utf-8?B?QzVtb3E3elRtQWRSRzV0U0hLSU5kWGVpRzZnVmpKSUl2YnVIb3pwRGJtc3oz?=
+ =?utf-8?B?MFBvTnVCcm9aSGFxN1JXUm9UUU4yTjJZZWdFMUZWUlN3Z2VQeXhhVDUwaUs1?=
+ =?utf-8?B?QkFXci9DckIvR0gxb2o2dVhFeEw2TGNaRjRRQ0hrSG00Y2ttMm9VK1FZdVdW?=
+ =?utf-8?Q?0v6tLes6IyKIQE4/T4HmXNV2Q?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56261191-2aa5-4f0f-b522-08db3122dde4
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2023 13:30:02.6231 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +ESIeBUVYoKjB5qrfW5UoI5wdpddVe7Az2lILOx/biv9+wlstchacFJbR5zqmUc8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7868
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,205 +126,475 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jingyu Wang <jingyuwang_vip@163.com>,
- Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
- Tim Huang <tim.huang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- dri-devel@lists.freedesktop.org,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>,
- YiPeng Chai <YiPeng.Chai@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Guchun Chen <guchun.chen@amd.com>,
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- amd-gfx@lists.freedesktop.org, Jiansong Chen <Jiansong.Chen@amd.com>,
- Kenneth Feng <kenneth.feng@amd.com>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Bokun Zhang <Bokun.Zhang@amd.com>, Hans de Goede <hdegoede@redhat.com>,
- Maxime Ripard <maxime@cerno.tech>, Evan Quan <evan.quan@amd.com>,
- Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org, alexander.deucher@amd.com,
- christian.koenig@amd.com, Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Mukul Joshi <mukul.joshi@amd.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ Shashank Sharma <contactshashanksharma@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 29, 2023 at 11:36=E2=80=AFPM Kai-Heng Feng
-<kai.heng.feng@canonical.com> wrote:
->
-> On Wed, Mar 29, 2023 at 9:23=E2=80=AFPM Mario Limonciello
-> <mario.limonciello@amd.com> wrote:
-> >
-> >
-> > On 3/29/23 04:59, Kai-Heng Feng wrote:
-> > > When the power is lost due to ACPI power resources being turned off, =
-the
-> > > driver should reset the GPU so it can work anew.
-> > >
-> > > First, _PR3 support of the hierarchy needs to be found correctly. Sin=
-ce
-> > > the GPU on some discrete GFX cards is behind a PCIe switch, checking =
-the
-> > > _PR3 on downstream port alone is not enough, as the _PR3 can associat=
-e
-> > > to the root port above the PCIe switch.
-> >
-> > I think this should be split into two commits:
-> >
-> > * One of them to look at _PR3 further up in hierarchy to fix indication
-> > for BOCO support.
->
-> Yes, this part can be split up.
->
-> >
-> > * One to adjust policy for whether to reset
->
-> IIUC, the GPU only needs to be reset when the power status isn't certain?
->
-> Assuming power resources in _PR3 are really disabled, GPU is already
-> reset by itself. That means reset shouldn't be necessary for D3cold,
-> am I understanding it correctly?
+Hi Shashank,
 
-Right, if D3cold actually works, then no reset is necessary.
+Inline:
 
->
-> However, this is a desktop plugged with GFX card that has external
-> power, does that assumption still stand? Perform resetting on D3cold
-> can cover this scenario.
+On 2023-03-30 07:09, Christian König wrote:
+> Am 29.03.23 um 17:47 schrieb Shashank Sharma:
+>> From: Shashank Sharma <contactshashanksharma@gmail.com>
+>>
+>> This patch:
+>> - creates a new file for doorbell management.
+>> - moves doorbell code from amdgpu_device.c to this file.
+>>
+>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>> Cc: Christian Koenig <christian.koenig@amd.com>
+>> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +-
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 164 ---------------
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h  |  22 +++
+>>   .../gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c  | 186 ++++++++++++++++++
+>>   4 files changed, 209 insertions(+), 165 deletions(-)
+>>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+>> index 798d0e9a60b7..204665f20319 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+>> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+>> @@ -41,7 +41,7 @@ ccflags-y := -I$(FULL_AMD_PATH)/include/asic_reg \
+>>   amdgpu-y := amdgpu_drv.o
+>>   
+>>   # add KMS driver
+>> -amdgpu-y += amdgpu_device.o amdgpu_kms.o \
+>> +amdgpu-y += amdgpu_device.o amdgpu_doorbell_mgr.o amdgpu_kms.o \
+>>   	amdgpu_atombios.o atombios_crtc.o amdgpu_connectors.o \
+>>   	atom.o amdgpu_fence.o amdgpu_ttm.o amdgpu_object.o amdgpu_gart.o \
+>>   	amdgpu_encoders.o amdgpu_display.o amdgpu_i2c.o \
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> index 57ee1c4a81e9..7f8fcac4f18b 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> @@ -579,94 +579,6 @@ void amdgpu_mm_wreg_mmio_rlc(struct amdgpu_device *adev,
+>>   	}
+>>   }
+>>   
+>> -/**
+>> - * amdgpu_mm_rdoorbell - read a doorbell dword
+>> - *
+>> - * @adev: amdgpu_device pointer
+>> - * @index: doorbell index
+>> - *
+>> - * Returns the value in the doorbell aperture at the
+>> - * requested doorbell index (CIK).
+>> - */
+>> -u32 amdgpu_mm_rdoorbell(struct amdgpu_device *adev, u32 index)
+>> -{
+>> -	if (amdgpu_device_skip_hw_access(adev))
+>> -		return 0;
+>> -
+>> -	if (index < adev->doorbell.num_kernel_doorbells) {
+>> -		return readl(adev->doorbell.ptr + index);
+>> -	} else {
+>> -		DRM_ERROR("reading beyond doorbell aperture: 0x%08x!\n", index);
+>> -		return 0;
+>> -	}
+>> -}
+>> -
+>> -/**
+>> - * amdgpu_mm_wdoorbell - write a doorbell dword
+>> - *
+>> - * @adev: amdgpu_device pointer
+>> - * @index: doorbell index
+>> - * @v: value to write
+>> - *
+>> - * Writes @v to the doorbell aperture at the
+>> - * requested doorbell index (CIK).
+>> - */
+>> -void amdgpu_mm_wdoorbell(struct amdgpu_device *adev, u32 index, u32 v)
+>> -{
+>> -	if (amdgpu_device_skip_hw_access(adev))
+>> -		return;
+>> -
+>> -	if (index < adev->doorbell.num_kernel_doorbells) {
+>> -		writel(v, adev->doorbell.ptr + index);
+>> -	} else {
+>> -		DRM_ERROR("writing beyond doorbell aperture: 0x%08x!\n", index);
+>> -	}
+>> -}
+>> -
+>> -/**
+>> - * amdgpu_mm_rdoorbell64 - read a doorbell Qword
+>> - *
+>> - * @adev: amdgpu_device pointer
+>> - * @index: doorbell index
+>> - *
+>> - * Returns the value in the doorbell aperture at the
+>> - * requested doorbell index (VEGA10+).
+>> - */
+>> -u64 amdgpu_mm_rdoorbell64(struct amdgpu_device *adev, u32 index)
+>> -{
+>> -	if (amdgpu_device_skip_hw_access(adev))
+>> -		return 0;
+>> -
+>> -	if (index < adev->doorbell.num_kernel_doorbells) {
+>> -		return atomic64_read((atomic64_t *)(adev->doorbell.ptr + index));
+>> -	} else {
+>> -		DRM_ERROR("reading beyond doorbell aperture: 0x%08x!\n", index);
+>> -		return 0;
+>> -	}
+>> -}
+>> -
+>> -/**
+>> - * amdgpu_mm_wdoorbell64 - write a doorbell Qword
+>> - *
+>> - * @adev: amdgpu_device pointer
+>> - * @index: doorbell index
+>> - * @v: value to write
+>> - *
+>> - * Writes @v to the doorbell aperture at the
+>> - * requested doorbell index (VEGA10+).
+>> - */
+>> -void amdgpu_mm_wdoorbell64(struct amdgpu_device *adev, u32 index, u64 v)
+>> -{
+>> -	if (amdgpu_device_skip_hw_access(adev))
+>> -		return;
+>> -
+>> -	if (index < adev->doorbell.num_kernel_doorbells) {
+>> -		atomic64_set((atomic64_t *)(adev->doorbell.ptr + index), v);
+>> -	} else {
+>> -		DRM_ERROR("writing beyond doorbell aperture: 0x%08x!\n", index);
+>> -	}
+>> -}
+>> -
+>>   /**
+>>    * amdgpu_device_indirect_rreg - read an indirect register
+>>    *
+>> @@ -1016,82 +928,6 @@ int amdgpu_device_pci_reset(struct amdgpu_device *adev)
+>>   	return pci_reset_function(adev->pdev);
+>>   }
+>>   
+>> -/*
+>> - * GPU doorbell aperture helpers function.
+>> - */
+>> -/**
+>> - * amdgpu_device_doorbell_init - Init doorbell driver information.
+>> - *
+>> - * @adev: amdgpu_device pointer
+>> - *
+>> - * Init doorbell driver information (CIK)
+>> - * Returns 0 on success, error on failure.
+>> - */
+>> -static int amdgpu_device_doorbell_init(struct amdgpu_device *adev)
+>> -{
+>> -
+>> -	/* No doorbell on SI hardware generation */
+>> -	if (adev->asic_type < CHIP_BONAIRE) {
+>> -		adev->doorbell.base = 0;
+>> -		adev->doorbell.size = 0;
+>> -		adev->doorbell.num_kernel_doorbells = 0;
+>> -		adev->doorbell.ptr = NULL;
+>> -		return 0;
+>> -	}
+>> -
+>> -	if (pci_resource_flags(adev->pdev, 2) & IORESOURCE_UNSET)
+>> -		return -EINVAL;
+>> -
+>> -	amdgpu_asic_init_doorbell_index(adev);
+>> -
+>> -	/* doorbell bar mapping */
+>> -	adev->doorbell.base = pci_resource_start(adev->pdev, 2);
+>> -	adev->doorbell.size = pci_resource_len(adev->pdev, 2);
+>> -
+>> -	if (adev->enable_mes) {
+>> -		adev->doorbell.num_kernel_doorbells =
+>> -			adev->doorbell.size / sizeof(u32);
+>> -	} else {
+>> -		adev->doorbell.num_kernel_doorbells =
+>> -			min_t(u32, adev->doorbell.size / sizeof(u32),
+>> -			      adev->doorbell_index.max_assignment+1);
+>> -		if (adev->doorbell.num_kernel_doorbells == 0)
+>> -			return -EINVAL;
+>> -
+>> -		/* For Vega, reserve and map two pages on doorbell BAR since SDMA
+>> -		 * paging queue doorbell use the second page. The
+>> -		 * AMDGPU_DOORBELL64_MAX_ASSIGNMENT definition assumes all the
+>> -		 * doorbells are in the first page. So with paging queue enabled,
+>> -		 * the max num_kernel_doorbells should + 1 page (0x400 in dword)
+>> -		 */
+>> -		if (adev->asic_type >= CHIP_VEGA10)
+>> -			adev->doorbell.num_kernel_doorbells += 0x400;
+>> -	}
+>> -
+>> -	adev->doorbell.ptr = ioremap(adev->doorbell.base,
+>> -				     adev->doorbell.num_kernel_doorbells *
+>> -				     sizeof(u32));
+>> -	if (adev->doorbell.ptr == NULL)
+>> -		return -ENOMEM;
+>> -
+>> -	return 0;
+>> -}
+>> -
+>> -/**
+>> - * amdgpu_device_doorbell_fini - Tear down doorbell driver information.
+>> - *
+>> - * @adev: amdgpu_device pointer
+>> - *
+>> - * Tear down doorbell driver information (CIK)
+>> - */
+>> -static void amdgpu_device_doorbell_fini(struct amdgpu_device *adev)
+>> -{
+>> -	iounmap(adev->doorbell.ptr);
+>> -	adev->doorbell.ptr = NULL;
+>> -}
+>> -
+>> -
+>> -
+>>   /*
+>>    * amdgpu_device_wb_*()
+>>    * Writeback is the method by which the GPU updates special pages in memory
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
+>> index 6064943a1b53..f9c3b77bf65d 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
+>> @@ -306,6 +306,28 @@ void amdgpu_mm_wdoorbell(struct amdgpu_device *adev, u32 index, u32 v);
+>>   u64 amdgpu_mm_rdoorbell64(struct amdgpu_device *adev, u32 index);
+>>   void amdgpu_mm_wdoorbell64(struct amdgpu_device *adev, u32 index, u64 v);
+>>   
+>> +/*
+>> + * GPU doorbell aperture helpers function.
+>> + */
+>> +/**
+>> + * amdgpu_device_doorbell_init - Init doorbell driver information.
+>> + *
+>> + * @adev: amdgpu_device pointer
+>> + *
+>> + * Init doorbell driver information (CIK)
+>> + * Returns 0 on success, error on failure.
+>> + */
+>> +int amdgpu_device_doorbell_init(struct amdgpu_device *adev);
+>> +
+>> +/**
+>> + * amdgpu_device_doorbell_fini - Tear down doorbell driver information.
+>> + *
+>> + * @adev: amdgpu_device pointer
+>> + *
+>> + * Tear down doorbell driver information (CIK)
+>> + */
+>> +void amdgpu_device_doorbell_fini(struct amdgpu_device *adev);
+> 
+> I might be wrong, but having kerneldoc on both the declaration and the 
+> implementation is forbidden I think.
+> 
+> We usually have it on the implementation side only.
 
-BOCO is generally only available on laptops and all-in-one systems
-where the dGPU is integrated into the platform.  Power to the dGPU is
-controlled by a GPIO which is toggled by the ACPI _PR3 method for the
-device.  There is an ATPX method on all platforms which support BOCO.
-Since this is an AIB in a desktop system, I doubt it actually supports
-D3Cold.  For desktop systems, we have what we call BACO where the
-driver controls power to everything on the GPU except the bus
-interface.  In the BACO case, we can turn off the GPU, but the device
-still shows up on the PCI bus.  For BOCO, the device is completely
-powered down and disappears from the PCI bus.
+Yes, that is correct--implementation side only as that's where
+the actual code can be found.
 
-Alex
+> 
+> Christian.
+> 
+>> +
+>>   #define RDOORBELL32(index) amdgpu_mm_rdoorbell(adev, (index))
+>>   #define WDOORBELL32(index, v) amdgpu_mm_wdoorbell(adev, (index), (v))
+>>   #define RDOORBELL64(index) amdgpu_mm_rdoorbell64(adev, (index))
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c
+>> new file mode 100644
+>> index 000000000000..2206926ba289
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c
+>> @@ -0,0 +1,186 @@
+>> +/*
 
->
-> >
-> >
-> > > Once the _PR3 is found and BOCO support is correctly marked, use that
-> > > information to inform the GPU should be reset. This solves an issue t=
-hat
-> > > system freeze on a Intel ADL desktop that uses S0ix for sleep and D3c=
-old
-> > > is supported for the GFX slot.
-> >
-> > I'm worried this is still papering over an underlying issue with L0s
-> > handling on ALD + Navi1x/Navi2x.
->
-> Is it possible to get the ASIC's ASPM parameter under Windows? Knowing
-> the difference can be useful.
->
-> >
-> > Also, what about runtime suspend?  If you unplug the monitor from this
-> > dGPU and interact with it over SSH it should go into runtime suspend.
-> >
-> > Is it working properly for that case now?
->
-> Thanks for the tip. Runtime resume doesn't work at all:
-> [ 1087.601631] pcieport 0000:00:01.0: power state changed by ACPI to D0
-> [ 1087.613820] pcieport 0000:00:01.0: restoring config space at offset
-> 0x2c (was 0x43, writing 0x43)
-> [ 1087.613835] pcieport 0000:00:01.0: restoring config space at offset
-> 0x28 (was 0x41, writing 0x41)
-> [ 1087.613841] pcieport 0000:00:01.0: restoring config space at offset
-> 0x24 (was 0xfff10001, writing 0xfff10001)
-> [ 1087.613978] pcieport 0000:00:01.0: PME# disabled
-> [ 1087.613984] pcieport 0000:00:01.0: waiting 100 ms for downstream
-> link, after activation
-> [ 1089.330956] pcieport 0000:01:00.0: not ready 1023ms after resume; givi=
-ng up
-> [ 1089.373036] pcieport 0000:01:00.0: Unable to change power state
-> from D3cold to D0, device inaccessible
->
-> After a short while the whole system froze.
->
-> So the upstream port of GFX's PCIe switch cannot be powered on again.
->
-> Kai-Heng
->
-> >
-> > >
-> > > Fixes: 0064b0ce85bb ("drm/amd/pm: enable ASPM by default")
-> > > Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1885
-> > > Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2458
-> > > Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
-> > > ---
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c   |  3 +++
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  7 ++++++-
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 12 +++++-------
-> > >   3 files changed, 14 insertions(+), 8 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_acpi.c
-> > > index 60b1857f469e..407456ac0e84 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> > > @@ -987,6 +987,9 @@ bool amdgpu_acpi_should_gpu_reset(struct amdgpu_d=
-evice *adev)
-> > >       if (amdgpu_sriov_vf(adev))
-> > >               return false;
-> > >
-> > > +     if (amdgpu_device_supports_boco(adev_to_drm(adev)))
-> > > +             return true;
-> > > +
-> > >   #if IS_ENABLED(CONFIG_SUSPEND)
-> > >       return pm_suspend_target_state !=3D PM_SUSPEND_TO_IDLE;
-> > >   #else
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_device.c
-> > > index f5658359ff5c..d56b7a2bafa6 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > @@ -2181,7 +2181,12 @@ static int amdgpu_device_ip_early_init(struct =
-amdgpu_device *adev)
-> > >
-> > >       if (!(adev->flags & AMD_IS_APU)) {
-> > >               parent =3D pci_upstream_bridge(adev->pdev);
-> > > -             adev->has_pr3 =3D parent ? pci_pr3_present(parent) : fa=
-lse;
-> > > +             do {
-> > > +                     if (pci_pr3_present(parent)) {
-> > > +                             adev->has_pr3 =3D true;
-> > > +                             break;
-> > > +                     }
-> > > +             } while ((parent =3D pci_upstream_bridge(parent)));
-> > >       }
-> > >
-> > >       amdgpu_amdkfd_device_probe(adev);
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_drv.c
-> > > index ba5def374368..5d81fcac4b0a 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > > @@ -2415,10 +2415,11 @@ static int amdgpu_pmops_suspend(struct device=
- *dev)
-> > >       struct drm_device *drm_dev =3D dev_get_drvdata(dev);
-> > >       struct amdgpu_device *adev =3D drm_to_adev(drm_dev);
-> > >
-> > > -     if (amdgpu_acpi_is_s0ix_active(adev))
-> > > -             adev->in_s0ix =3D true;
-> > > -     else if (amdgpu_acpi_is_s3_active(adev))
-> > > +     if (amdgpu_acpi_is_s3_active(adev) ||
-> > > +         amdgpu_device_supports_boco(drm_dev))
-> > >               adev->in_s3 =3D true;
-> > > +     else if (amdgpu_acpi_is_s0ix_active(adev))
-> > > +             adev->in_s0ix =3D true;
-> > >       if (!adev->in_s0ix && !adev->in_s3)
-> > >               return 0;
-> > >       return amdgpu_device_suspend(drm_dev, true);
-> > > @@ -2449,10 +2450,7 @@ static int amdgpu_pmops_resume(struct device *=
-dev)
-> > >               adev->no_hw_access =3D true;
-> > >
-> > >       r =3D amdgpu_device_resume(drm_dev, true);
-> > > -     if (amdgpu_acpi_is_s0ix_active(adev))
-> > > -             adev->in_s0ix =3D false;
-> > > -     else
-> > > -             adev->in_s3 =3D false;
-> > > +     adev->in_s0ix =3D adev->in_s3 =3D false;
-> > >       return r;
-> > >   }
-> > >
+Add an SPDX licence identifier as the very first line:
+//SPDX-License-Identifier: <value>
+
+with some appropriate value, maybe "GPL-2.0-or-later" (no quotes when added).
+
+Regards,
+Luben
+
+>> + * Copyright 2023 Advanced Micro Devices, Inc.
+>> + *
+>> + * Permission is hereby granted, free of charge, to any person obtaining a
+>> + * copy of this software and associated documentation files (the "Software"),
+>> + * to deal in the Software without restriction, including without limitation
+>> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+>> + * and/or sell copies of the Software, and to permit persons to whom the
+>> + * Software is furnished to do so, subject to the following conditions:
+>> + *
+>> + * The above copyright notice and this permission notice shall be included in
+>> + * all copies or substantial portions of the Software.
+>> + *
+>> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+>> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+>> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+>> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+>> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+>> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+>> + * OTHER DEALINGS IN THE SOFTWARE.
+>> + *
+>> + */
+>> +
+>> +#include "amdgpu.h"
+>> +
+>> +/**
+>> + * amdgpu_mm_rdoorbell - read a doorbell dword
+>> + *
+>> + * @adev: amdgpu_device pointer
+>> + * @index: doorbell index
+>> + *
+>> + * Returns the value in the doorbell aperture at the
+>> + * requested doorbell index (CIK).
+>> + */
+>> +u32 amdgpu_mm_rdoorbell(struct amdgpu_device *adev, u32 index)
+>> +{
+>> +	if (amdgpu_device_skip_hw_access(adev))
+>> +		return 0;
+>> +
+>> +	if (index < adev->doorbell.num_kernel_doorbells) {
+>> +		return readl(adev->doorbell.ptr + index);
+>> +	} else {
+>> +		DRM_ERROR("reading beyond doorbell aperture: 0x%08x!\n", index);
+>> +		return 0;
+>> +	}
+>> +}
+>> +
+>> +/**
+>> + * amdgpu_mm_wdoorbell - write a doorbell dword
+>> + *
+>> + * @adev: amdgpu_device pointer
+>> + * @index: doorbell index
+>> + * @v: value to write
+>> + *
+>> + * Writes @v to the doorbell aperture at the
+>> + * requested doorbell index (CIK).
+>> + */
+>> +void amdgpu_mm_wdoorbell(struct amdgpu_device *adev, u32 index, u32 v)
+>> +{
+>> +	if (amdgpu_device_skip_hw_access(adev))
+>> +		return;
+>> +
+>> +	if (index < adev->doorbell.num_kernel_doorbells) {
+>> +		writel(v, adev->doorbell.ptr + index);
+>> +	} else {
+>> +		DRM_ERROR("writing beyond doorbell aperture: 0x%08x!\n", index);
+>> +	}
+>> +}
+>> +
+>> +/**
+>> + * amdgpu_mm_rdoorbell64 - read a doorbell Qword
+>> + *
+>> + * @adev: amdgpu_device pointer
+>> + * @index: doorbell index
+>> + *
+>> + * Returns the value in the doorbell aperture at the
+>> + * requested doorbell index (VEGA10+).
+>> + */
+>> +u64 amdgpu_mm_rdoorbell64(struct amdgpu_device *adev, u32 index)
+>> +{
+>> +	if (amdgpu_device_skip_hw_access(adev))
+>> +		return 0;
+>> +
+>> +	if (index < adev->doorbell.num_kernel_doorbells) {
+>> +		return atomic64_read((atomic64_t *)(adev->doorbell.ptr + index));
+>> +	} else {
+>> +		DRM_ERROR("reading beyond doorbell aperture: 0x%08x!\n", index);
+>> +		return 0;
+>> +	}
+>> +}
+>> +
+>> +/**
+>> + * amdgpu_mm_wdoorbell64 - write a doorbell Qword
+>> + *
+>> + * @adev: amdgpu_device pointer
+>> + * @index: doorbell index
+>> + * @v: value to write
+>> + *
+>> + * Writes @v to the doorbell aperture at the
+>> + * requested doorbell index (VEGA10+).
+>> + */
+>> +void amdgpu_mm_wdoorbell64(struct amdgpu_device *adev, u32 index, u64 v)
+>> +{
+>> +	if (amdgpu_device_skip_hw_access(adev))
+>> +		return;
+>> +
+>> +	if (index < adev->doorbell.num_kernel_doorbells) {
+>> +		atomic64_set((atomic64_t *)(adev->doorbell.ptr + index), v);
+>> +	} else {
+>> +		DRM_ERROR("writing beyond doorbell aperture: 0x%08x!\n", index);
+>> +	}
+>> +}
+>> +
+>> +/*
+>> + * GPU doorbell aperture helpers function.
+>> + */
+>> +/**
+>> + * amdgpu_device_doorbell_init - Init doorbell driver information.
+>> + *
+>> + * @adev: amdgpu_device pointer
+>> + *
+>> + * Init doorbell driver information (CIK)
+>> + * Returns 0 on success, error on failure.
+>> + */
+>> +int amdgpu_device_doorbell_init(struct amdgpu_device *adev)
+>> +{
+>> +
+>> +	/* No doorbell on SI hardware generation */
+>> +	if (adev->asic_type < CHIP_BONAIRE) {
+>> +		adev->doorbell.base = 0;
+>> +		adev->doorbell.size = 0;
+>> +		adev->doorbell.num_kernel_doorbells = 0;
+>> +		adev->doorbell.ptr = NULL;
+>> +		return 0;
+>> +	}
+>> +
+>> +	if (pci_resource_flags(adev->pdev, 2) & IORESOURCE_UNSET)
+>> +		return -EINVAL;
+>> +
+>> +	amdgpu_asic_init_doorbell_index(adev);
+>> +
+>> +	/* doorbell bar mapping */
+>> +	adev->doorbell.base = pci_resource_start(adev->pdev, 2);
+>> +	adev->doorbell.size = pci_resource_len(adev->pdev, 2);
+>> +
+>> +	if (adev->enable_mes) {
+>> +		adev->doorbell.num_kernel_doorbells =
+>> +			adev->doorbell.size / sizeof(u32);
+>> +	} else {
+>> +		adev->doorbell.num_kernel_doorbells =
+>> +			min_t(u32, adev->doorbell.size / sizeof(u32),
+>> +			      adev->doorbell_index.max_assignment+1);
+>> +		if (adev->doorbell.num_kernel_doorbells == 0)
+>> +			return -EINVAL;
+>> +
+>> +		/* For Vega, reserve and map two pages on doorbell BAR since SDMA
+>> +		 * paging queue doorbell use the second page. The
+>> +		 * AMDGPU_DOORBELL64_MAX_ASSIGNMENT definition assumes all the
+>> +		 * doorbells are in the first page. So with paging queue enabled,
+>> +		 * the max num_kernel_doorbells should + 1 page (0x400 in dword)
+>> +		 */
+>> +		if (adev->asic_type >= CHIP_VEGA10)
+>> +			adev->doorbell.num_kernel_doorbells += 0x400;
+>> +	}
+>> +
+>> +	adev->doorbell.ptr = ioremap(adev->doorbell.base,
+>> +				     adev->doorbell.num_kernel_doorbells *
+>> +				     sizeof(u32));
+>> +	if (adev->doorbell.ptr == NULL)
+>> +		return -ENOMEM;
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +/**
+>> + * amdgpu_device_doorbell_fini - Tear down doorbell driver information.
+>> + *
+>> + * @adev: amdgpu_device pointer
+>> + *
+>> + * Tear down doorbell driver information (CIK)
+>> + */
+>> +void amdgpu_device_doorbell_fini(struct amdgpu_device *adev)
+>> +{
+>> +	iounmap(adev->doorbell.ptr);
+>> +	adev->doorbell.ptr = NULL;
+>> +}
+> 
+
