@@ -4,59 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DA0EC7619A
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 19:59:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74953C7619A
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 20:14:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C004110F013;
-	Thu, 30 Mar 2023 19:59:15 +0000 (UTC)
-Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com
- [IPv6:2001:4860:4864:20::33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3156F10F013
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 19:59:14 +0000 (UTC)
-Received: by mail-oa1-x33.google.com with SMTP id
- 586e51a60fabf-17aceccdcf6so20968787fac.9
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 12:59:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1680206353;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=RVTrgTdxQ2f93Hs5DTLtWFI8EL9W1di9bh6dSscQuCc=;
- b=guXCt3/+8U+XG0pX1T1mDzn9nQLaArb9vjGAp5ncOyP/MpB8VfAVJN5u/XdP+8LYti
- OjNvHhHkvWDbyOSKnIVCUP+bJs3ScyTNzGVbpSqoEEkjYM3wMQOXEfKOajq4qPeGB150
- divS1QSpWi3uTGdQPtD5m5NlpqqZAyLsZekf+/rD3Lpc7sGhSdkq2oBE+Yy5BGPUGobK
- Zdo0pbzcTsSaIYVfMc0a1yW9pWBAsjUc7PHCm+8Txix+lYdADtzxQxTMSVz7kjCpcxFF
- bTHWwnvzUKuzVRGBMjd7pYpKkD7nIqZoWS9h5q13m03Zf7Js4jr3BN9Y9C2/g4PMoC/l
- h2JQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680206353;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=RVTrgTdxQ2f93Hs5DTLtWFI8EL9W1di9bh6dSscQuCc=;
- b=ifkIoaIPXWv8oR2DlIlAj4EtADarctk5pV5lqKRyKa1gcPet53DSisB7Kd1yLqcgN7
- YwwKCqZfZaoOnJUHFp2Cfi87OI3xiMI9Z5LBl1mdS3P1lGBRZiD0L6PVvnACpWg+03Vz
- k0HnfinEDx6n23+k81Y9TWnKN32VBOYh8p0SKFiMbSIWv4BHvItb+GbKW5l4Sb1n/8XA
- 2t6vDlv4wuPCHw27Xqmq2YGsXrockHZlwBppEXBwb9n781R6yL2ty0Hwhszjm7h6V7OP
- G7UzLeQBlvR7ckZvFuYA3rF8iFgnZ4zGVAgsU0WJ+qGYzLWUL/3RGY0xPvOkqLedwMRB
- vRww==
-X-Gm-Message-State: AAQBX9fQVRsGxpbiPEDZzb6JxYRM032kj9PHmdv3+cNRdU11fIL1No3r
- 4DT1IVtEldFGHe1OG+xTl+2dfnGxgyDQA5TfqPA=
-X-Google-Smtp-Source: AKy350abZ8AZlspDHSTytap8Er6lqTlmewG1kRKhGC/wMRZRftqLTBm11fN9nQJA7xYmhmvIY9NFPnQZ29MGeE+DdQ8=
-X-Received: by 2002:a05:6871:4910:b0:177:b992:fee7 with SMTP id
- tw16-20020a056871491000b00177b992fee7mr6195930oab.3.1680206353372; Thu, 30
- Mar 2023 12:59:13 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D816610F027;
+	Thu, 30 Mar 2023 20:14:15 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF5C010E1CF;
+ Thu, 30 Mar 2023 20:14:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1680207252; x=1711743252;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=IfDsXOX+am26qhUOPvmXOslDXLj5q6Lvq+lbvLySEp0=;
+ b=gf6vIvWK1wsGrhwz2maH48bUP/57Uyt7RL9hDfQ2PL5sHLsbjDwz44QK
+ bXm/pSWWwivr5HjpitUZyslfgyxA33yn3WHf3HuIQrdaCsku1jLIO5Tks
+ 1GvSeEsvN746cBjQT7o93IQURydFS3VjxFGajW2BcMs1hJkRZohOtFfql
+ FS6sY5iX60hT2TZObkFy+wqbGhhH4XSEZa/vsZHsgCH80QqI4Cggu+kKK
+ PboEaWh+SZwKMtv6wcgeKPEplxxQBPui7ITShCucqtlLGFO1EhhjTzo+Y
+ lpdesSY9zztyoopTBxe2fl32LoGdE4ByVza4D7rzDoExxS95scB+s95uC Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="342921697"
+X-IronPort-AV: E=Sophos;i="5.98,305,1673942400"; d="scan'208";a="342921697"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2023 13:14:12 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="930870474"
+X-IronPort-AV: E=Sophos;i="5.98,305,1673942400"; d="scan'208";a="930870474"
+Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
+ by fmsmga006.fm.intel.com with ESMTP; 30 Mar 2023 13:14:09 -0700
+Received: from kbuild by b613635ddfff with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1phyeu-000LBA-29;
+ Thu, 30 Mar 2023 20:14:08 +0000
+Date: Fri, 31 Mar 2023 04:13:26 +0800
+From: kernel test robot <lkp@intel.com>
+To: Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 04/12] drm/radeon: remove radeon_connector_edid() and
+ stop using edid_blob_ptr
+Message-ID: <202303310350.HnqZZxIV-lkp@intel.com>
+References: <e4cb7b0c7217511429e69c1c78729f0e864c5b24.1680190534.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-References: <20230329154753.1261-1-shashank.sharma@amd.com>
- <20230329154753.1261-7-shashank.sharma@amd.com>
-In-Reply-To: <20230329154753.1261-7-shashank.sharma@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 30 Mar 2023 15:59:02 -0400
-Message-ID: <CADnq5_ODDptH7KRGHO7JDTnp-uhdQfpEa113hyces-0YDfh=ww@mail.gmail.com>
-Subject: Re: [PATCH 06/16] drm/amdgpu: accommodate DOMAIN/PL_DOORBELL
-To: Shashank Sharma <shashank.sharma@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e4cb7b0c7217511429e69c1c78729f0e864c5b24.1680190534.git.jani.nikula@intel.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,188 +59,85 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Mukul Joshi <mukul.joshi@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>,
- Christian Koenig <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Pan@freedesktop.org, jani.nikula@intel.com, intel-gfx@lists.freedesktop.org,
+ Xinhui <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org,
+ oe-kbuild-all@lists.linux.dev, Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 29, 2023 at 11:48=E2=80=AFAM Shashank Sharma
-<shashank.sharma@amd.com> wrote:
->
-> From: Alex Deucher <alexander.deucher@amd.com>
->
-> This patch adds changes:
-> - to accommodate the new GEM domain DOORBELL
-> - to accommodate the new TTM PL DOORBELL
->
-> in order to manage doorbell pages as GEM object.
->
-> V2: Addressed reviwe comments from Christian
->     - drop the doorbell changes for pinning/unpinning
->     - drop the doorbell changes for dma-buf map
->     - drop the doorbell changes for sgt
->     - no need to handle TTM_PL_FLAG_CONTIGUOUS for doorbell
->     - add caching type for doorbell
->
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian Koenig <christian.koenig@amd.com>
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c     | 11 ++++++++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h |  2 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c        | 16 +++++++++++++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h        |  1 +
+Hi Jani,
 
-Also need to update amdgpu_mem_type_to_domain() in amdgpu_object.h
+I love your patch! Yet something to improve:
 
-Alex
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-exynos/exynos-drm-next linus/master v6.3-rc4 next-20230330]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
->  4 files changed, 28 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_object.c
-> index 4e684c2afc70..0ec080e240ad 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -147,6 +147,14 @@ void amdgpu_bo_placement_from_domain(struct amdgpu_b=
-o *abo, u32 domain)
->                 c++;
->         }
->
-> +       if (domain & AMDGPU_GEM_DOMAIN_DOORBELL) {
-> +               places[c].fpfn =3D 0;
-> +               places[c].lpfn =3D 0;
-> +               places[c].mem_type =3D AMDGPU_PL_DOORBELL;
-> +               places[c].flags =3D 0;
-> +               c++;
-> +       }
-> +
->         if (domain & AMDGPU_GEM_DOMAIN_GTT) {
->                 places[c].fpfn =3D 0;
->                 places[c].lpfn =3D 0;
-> @@ -466,7 +474,7 @@ static bool amdgpu_bo_validate_size(struct amdgpu_dev=
-ice *adev,
->                 goto fail;
->         }
->
-> -       /* TODO add more domains checks, such as AMDGPU_GEM_DOMAIN_CPU */
-> +       /* TODO add more domains checks, such as AMDGPU_GEM_DOMAIN_CPU,  =
-AMDGPU_GEM_DOMAIN_DOORBELL */
->         return true;
->
->  fail:
-> @@ -1013,6 +1021,7 @@ void amdgpu_bo_unpin(struct amdgpu_bo *bo)
->         } else if (bo->tbo.resource->mem_type =3D=3D TTM_PL_TT) {
->                 atomic64_sub(amdgpu_bo_size(bo), &adev->gart_pin_size);
->         }
-> +
->  }
->
->  static const char *amdgpu_vram_names[] =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_res_cursor.h
-> index 5c4f93ee0c57..3c988cc406e4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_res_cursor.h
-> @@ -90,6 +90,7 @@ static inline void amdgpu_res_first(struct ttm_resource=
- *res,
->                 cur->node =3D block;
->                 break;
->         case TTM_PL_TT:
-> +       case AMDGPU_PL_DOORBELL:
->                 node =3D to_ttm_range_mgr_node(res)->mm_nodes;
->                 while (start >=3D node->size << PAGE_SHIFT)
->                         start -=3D node++->size << PAGE_SHIFT;
-> @@ -152,6 +153,7 @@ static inline void amdgpu_res_next(struct amdgpu_res_=
-cursor *cur, uint64_t size)
->                 cur->size =3D min(amdgpu_vram_mgr_block_size(block), cur-=
->remaining);
->                 break;
->         case TTM_PL_TT:
-> +       case AMDGPU_PL_DOORBELL:
->                 node =3D cur->node;
->
->                 cur->node =3D ++node;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ttm.c
-> index 55e0284b2bdd..6f61491ef3dd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -128,6 +128,7 @@ static void amdgpu_evict_flags(struct ttm_buffer_obje=
-ct *bo,
->         case AMDGPU_PL_GDS:
->         case AMDGPU_PL_GWS:
->         case AMDGPU_PL_OA:
-> +       case AMDGPU_PL_DOORBELL:
->                 placement->num_placement =3D 0;
->                 placement->num_busy_placement =3D 0;
->                 return;
-> @@ -500,9 +501,11 @@ static int amdgpu_bo_move(struct ttm_buffer_object *=
-bo, bool evict,
->         if (old_mem->mem_type =3D=3D AMDGPU_PL_GDS ||
->             old_mem->mem_type =3D=3D AMDGPU_PL_GWS ||
->             old_mem->mem_type =3D=3D AMDGPU_PL_OA ||
-> +           old_mem->mem_type =3D=3D AMDGPU_PL_DOORBELL ||
->             new_mem->mem_type =3D=3D AMDGPU_PL_GDS ||
->             new_mem->mem_type =3D=3D AMDGPU_PL_GWS ||
-> -           new_mem->mem_type =3D=3D AMDGPU_PL_OA) {
-> +           new_mem->mem_type =3D=3D AMDGPU_PL_OA ||
-> +           new_mem->mem_type =3D=3D AMDGPU_PL_DOORBELL) {
->                 /* Nothing to save here */
->                 ttm_bo_move_null(bo, new_mem);
->                 goto out;
-> @@ -586,6 +589,12 @@ static int amdgpu_ttm_io_mem_reserve(struct ttm_devi=
-ce *bdev,
->                 mem->bus.offset +=3D adev->gmc.aper_base;
->                 mem->bus.is_iomem =3D true;
->                 break;
-> +       case AMDGPU_PL_DOORBELL:
-> +               mem->bus.offset =3D mem->start << PAGE_SHIFT;
-> +               mem->bus.offset +=3D adev->doorbell.base;
-> +               mem->bus.is_iomem =3D true;
-> +               mem->bus.caching =3D ttm_uncached;
-> +               break;
->         default:
->                 return -EINVAL;
->         }
-> @@ -600,6 +609,10 @@ static unsigned long amdgpu_ttm_io_mem_pfn(struct tt=
-m_buffer_object *bo,
->
->         amdgpu_res_first(bo->resource, (u64)page_offset << PAGE_SHIFT, 0,
->                          &cursor);
-> +
-> +       if (bo->resource->mem_type =3D=3D AMDGPU_PL_DOORBELL)
-> +               return ((uint64_t)(adev->doorbell.base + cursor.start)) >=
-> PAGE_SHIFT;
-> +
->         return (adev->gmc.aper_base + cursor.start) >> PAGE_SHIFT;
->  }
->
-> @@ -1267,6 +1280,7 @@ uint64_t amdgpu_ttm_tt_pde_flags(struct ttm_tt *ttm=
-, struct ttm_resource *mem)
->                 flags |=3D AMDGPU_PTE_VALID;
->
->         if (mem && (mem->mem_type =3D=3D TTM_PL_TT ||
-> +                   mem->mem_type =3D=3D AMDGPU_PL_DOORBELL ||
->                     mem->mem_type =3D=3D AMDGPU_PL_PREEMPT)) {
->                 flags |=3D AMDGPU_PTE_SYSTEM;
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ttm.h
-> index e2cd5894afc9..761cd6b2b942 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> @@ -33,6 +33,7 @@
->  #define AMDGPU_PL_GWS          (TTM_PL_PRIV + 1)
->  #define AMDGPU_PL_OA           (TTM_PL_PRIV + 2)
->  #define AMDGPU_PL_PREEMPT      (TTM_PL_PRIV + 3)
-> +#define AMDGPU_PL_DOORBELL     (TTM_PL_PRIV + 4)
->
->  #define AMDGPU_GTT_MAX_TRANSFER_SIZE   512
->  #define AMDGPU_GTT_NUM_TRANSFER_WINDOWS        2
-> --
-> 2.40.0
->
+url:    https://github.com/intel-lab-lkp/linux/commits/Jani-Nikula/drm-edid-parse-display-info-has_audio-similar-to-is_hdmi/20230330-234201
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/e4cb7b0c7217511429e69c1c78729f0e864c5b24.1680190534.git.jani.nikula%40intel.com
+patch subject: [PATCH 04/12] drm/radeon: remove radeon_connector_edid() and stop using edid_blob_ptr
+config: s390-allyesconfig (https://download.01.org/0day-ci/archive/20230331/202303310350.HnqZZxIV-lkp@intel.com/config)
+compiler: s390-linux-gcc (GCC) 12.1.0
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/ad73d8b0ebf2124b058e95ef5831caa8f2d34229
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Jani-Nikula/drm-edid-parse-display-info-has_audio-similar-to-is_hdmi/20230330-234201
+        git checkout ad73d8b0ebf2124b058e95ef5831caa8f2d34229
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=s390 olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=s390 SHELL=/bin/bash drivers/gpu/
+
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Link: https://lore.kernel.org/oe-kbuild-all/202303310350.HnqZZxIV-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   drivers/gpu/drm/radeon/radeon_audio.c: In function 'radeon_audio_write_sad_regs':
+>> drivers/gpu/drm/radeon/radeon_audio.c:312:37: error: 'radeon_connector' undeclared (first use in this function)
+     312 |         sad_count = drm_edid_to_sad(radeon_connector->edid, &sads);
+         |                                     ^~~~~~~~~~~~~~~~
+   drivers/gpu/drm/radeon/radeon_audio.c:312:37: note: each undeclared identifier is reported only once for each function it appears in
+   drivers/gpu/drm/radeon/radeon_audio.c: In function 'radeon_audio_write_speaker_allocation':
+   drivers/gpu/drm/radeon/radeon_audio.c:335:52: error: 'radeon_connector' undeclared (first use in this function)
+     335 |         sad_count = drm_edid_to_speaker_allocation(radeon_connector->edid, &sadb);
+         |                                                    ^~~~~~~~~~~~~~~~
+
+
+vim +/radeon_connector +312 drivers/gpu/drm/radeon/radeon_audio.c
+
+   301	
+   302	static void radeon_audio_write_sad_regs(struct drm_encoder *encoder)
+   303	{
+   304		struct drm_connector *connector = radeon_get_connector_for_encoder(encoder);
+   305		struct radeon_encoder *radeon_encoder = to_radeon_encoder(encoder);
+   306		struct cea_sad *sads;
+   307		int sad_count;
+   308	
+   309		if (!connector)
+   310			return;
+   311	
+ > 312		sad_count = drm_edid_to_sad(radeon_connector->edid, &sads);
+   313		if (sad_count < 0)
+   314			DRM_ERROR("Couldn't read SADs: %d\n", sad_count);
+   315		if (sad_count <= 0)
+   316			return;
+   317		BUG_ON(!sads);
+   318	
+   319		if (radeon_encoder->audio && radeon_encoder->audio->write_sad_regs)
+   320			radeon_encoder->audio->write_sad_regs(encoder, sads, sad_count);
+   321	
+   322		kfree(sads);
+   323	}
+   324	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
