@@ -4,68 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7150C6FD1D
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 10:48:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7FA3C6FD1D
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 11:04:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44C2210E1E8;
-	Thu, 30 Mar 2023 10:48:58 +0000 (UTC)
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D99210E1ED
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 10:48:55 +0000 (UTC)
-Received: by mail-ed1-x536.google.com with SMTP id x3so74620408edb.10
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 03:48:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1680173334;
- h=in-reply-to:from:references:cc:to:content-language:subject
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=BUxtj+vBnxyRbXWC+tCPIIjdvFH9MiSBKxi8tUWA5Iw=;
- b=H6htspieNSshdMR9tbXUmlp8ikcpWYxsW2wR22LXU3Hy42Bcz0ONBJ8FtpEPBkoQsR
- CGRdgIz2zwETHGuYibFoOJBMsWuDOV9BHd34GlaRHfItLaJoVmSbEfv1vR0DNoQ4vs34
- TDk9WDwP/izm0me8Opcu1KRyLnaR2Sg8oGpa5HMi0GYnNcd/SnoMQTMDvVpNIKsB5p1Z
- 5vXarDUSidJCyPUPKFu8JMerX/jTznFCd4fYDtF6lrNtRPtHTXVv+I8Cm4WLg009LkOY
- 7w4ffYqxiY9YI2sFfH8jX45mclqKcCqt6HPMKZW7LNwPq9bQGZhJfG+41U1/vKA+kdsb
- +iGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680173334;
- h=in-reply-to:from:references:cc:to:content-language:subject
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=BUxtj+vBnxyRbXWC+tCPIIjdvFH9MiSBKxi8tUWA5Iw=;
- b=zLbhjRAL0VygilAd1ZkSFPELbs/Nvyqv44qf9maL44MWEex1qfXvjio7dx7/upaN1A
- 2amZGU6e2FVFxQtIMsKF18ohu1sBJgAm4kRLjoXrbt21K2CFEXA9XaMeGX9JVzgAsKk9
- xyLOt7ZThivBdyuUk6wsozLpPThO4xKec12cWechtVe5NBu6GrTlTNNf8NrgUAUO27Sz
- jjaFl02loIRvriAUtORH/5tS0urpJJHYmA8dS03ziTp3aYjyuZxu+bchFQX3JYx2Wo/O
- Y/bTsS0uCW4x3wVVSnfkfT8LxyZb2yrFxXvhESKJ7YORvRClCAyPK9IpBDp5ycM75RAO
- O9Gg==
-X-Gm-Message-State: AAQBX9f8gJ/0NTZMy8J833RVnPCEucAu/xI+oeyj3q/UaO7P2/yAoXA6
- 7CeGOeiiBewRplK1xXuFXGrx6Y0z5ApTiw==
-X-Google-Smtp-Source: AKy350YQRaAQ7MLezSpdP14auWBEULY7uqBqLfZkNoraaxskiFxULKCpKjlq53OGCb9VeFiTSY/buA==
-X-Received: by 2002:a17:906:4c59:b0:947:6d49:d221 with SMTP id
- d25-20020a1709064c5900b009476d49d221mr1059806ejw.6.1680173333886; 
- Thu, 30 Mar 2023 03:48:53 -0700 (PDT)
-Received: from [192.168.178.21] (p4fc2092b.dip0.t-ipconnect.de. [79.194.9.43])
- by smtp.gmail.com with ESMTPSA id
- lx12-20020a170906af0c00b008e57b5e0ce9sm17374719ejb.108.2023.03.30.03.48.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Mar 2023 03:48:53 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------fSYCmysqYab03ZHgq83O3wwW"
-Message-ID: <842f5527-6992-f579-8749-c49d4f9f6e28@gmail.com>
-Date: Thu, 30 Mar 2023 12:48:52 +0200
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DDD810E1EF;
+	Thu, 30 Mar 2023 11:04:40 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20608.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe59::608])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CE3E10E1EF
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 11:04:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=A2UaLj/u5E7dYE6tXSI9fv5RUcgG69xvRwzXt1ODNvu7ZbRbb0t0z1KpWncoEmiOcmq3ebKJ6JLgrCBk6QAidgo91XkguDArvLjW6sJrhaZU9G2R1A+qMK2Noy0C9fiE0ECkQJiY9t4tCq5MGyszXjMd1le+ZwtYoPo7KiyuOKS5b+nU+xKy+0Brq8uKDWlNnXfzt4q37InZlOIa8Iaaiy4Z6ApTMOkc/6ez9NcS74423+yjOLYmOGeVLTCNNGrB4GnNJjCKltt4eU3JaReRAbszGLNPh8VZCW4NdXuhPl7pyRieBi6TFmJ6ERUKt3dx2N6XSDYJuceK0lNG0v1d2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qmHiFJMuxz1joodDhSHNYqx6No4LMOGN1ZyBjHCnTOQ=;
+ b=oeoZR0tLPwFkMlXF4L/HvRvz0KtjJLFK/QthB/ylb0x+5j6k0Us9YJSaysjm6hwICQMVldXix+yN0qOnbUmZkT3Wtip8cok/bqhY3Gr8/3DnwVQNWC5hjwN1KOO6t2vIXfsIy0w+HXxO6FwMo5VJLmZeUFg48XWe07Xr/7Rhai/DePk3WVnRuUC9BrYSTT5gdvM4X8SNWYIy/Uh489iL8scts+JMRLPL2XQu1OT5jrw90F5p+WmYKGiBEQRqg6Tbkm9eGX8b1LziwDTwpKiRszqaR5XMc1bmGNgB0ybMSh/j/MHzpbUwLdZiN2GnfI575MVL/1hBoJfFK9NpKd7Ffg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qmHiFJMuxz1joodDhSHNYqx6No4LMOGN1ZyBjHCnTOQ=;
+ b=H2AYRZiPvgobjpO9/0epYPK6ld1vcsOCKgwKR+LcO9RFk6Py12WBN3MijGd3joY43zhQadLeEmds4a+yxVzRd5XkUdM4RvESkP4vI6kYGrXLRaeMFG8DFn475E511Cxl+1uKGaCqfoo8Hf7r7/HaqP1YgWByssrQk32se16Bxv8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by DS7PR12MB8249.namprd12.prod.outlook.com (2603:10b6:8:ea::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.33; Thu, 30 Mar
+ 2023 11:04:35 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::4624:dc39:943e:6ae]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::4624:dc39:943e:6ae%5]) with mapi id 15.20.6254.022; Thu, 30 Mar 2023
+ 11:04:35 +0000
+Message-ID: <930561d6-ad58-8ba5-63c8-0c6ef1f6b427@amd.com>
+Date: Thu, 30 Mar 2023 13:04:30 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
-Subject: Re: [PATCH] drm/amdgpu: Fix desktop freezed after gpu-reset
+Subject: Re: [PATCH 01/16] drm/amdgpu: rename num_doorbells
 Content-Language: en-US
-To: "Liu, HaoPing (Alan)" <HaoPing.Liu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20230327152028.2939908-1-HaoPing.Liu@amd.com>
- <76206089-39dd-c009-f0a3-415f3c02406a@gmail.com>
- <SN1PR12MB24455388D199AD581AC2FA5CF58E9@SN1PR12MB2445.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <SN1PR12MB24455388D199AD581AC2FA5CF58E9@SN1PR12MB2445.namprd12.prod.outlook.com>
+To: Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230329154753.1261-1-shashank.sharma@amd.com>
+ <20230329154753.1261-2-shashank.sharma@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20230329154753.1261-2-shashank.sharma@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0162.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:99::12) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|DS7PR12MB8249:EE_
+X-MS-Office365-Filtering-Correlation-Id: 791ed239-db29-4f34-3976-08db310e8c37
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: uqxLbNjE3uN9YMT3+WGflQk3mUbWpfBJr3NCLdsCa2EKhQf3jUA3Mhe8VelUFtChVE8sMMDffr19yuVGn4zaTaAFkCZt6GNDkenI1bHSYFvwTlLh7Z4qJXhGGIOkCM1Xj3BV9bkvmn+pucqM1w4mpcaHihV9Fd0B3hSxmGTqGuxMWZfmAkHRuH8zwn5wC/ehBoiOPXrMplbsauZyiWBXk1malm/FBKhlc5gsGEJkTiUyt6DCed+JoUyZiDMy0x92Cs+YFk4gFIhSkJltXxxXAs3k3a3cLqDc+2TR+xE3nW0ckpuciX4GRvw3XXZZwyhNlco7RMFnhYAhgKd1eQob6vxKYLnqW5aAbYDH08Mvtaq6t+QryhEwjlfP2TO3xF9a566QNiiKUDYpLxKvmVdWjIWiLLzxDjEUiRAvxCCcqV2Q21WNjGC1Yd7IvAzQLvAoZMEXLjFMt5ajOcleKziHCOfy+nLpgboV7I6XtQrg/Dh7INFI0K3d0WqTU73q09E0PCM6RAuGdCQtCVK0hRH1CzgzCaQR57sHNnUKhmw3wKS8heTF9UTeeejo61yiZ6aM6nxGclARiDWZ6gyZ46Gz68Mea1TRR36y5npYpruNgVP45LzYo0XoQPcPZjadLT7dGHCMKsP/ubd7FoT4sbXXow==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(376002)(366004)(346002)(39860400002)(396003)(451199021)(66476007)(8936002)(66946007)(66556008)(8676002)(41300700001)(4326008)(2906002)(38100700002)(5660300002)(6506007)(6512007)(26005)(6666004)(6486002)(2616005)(83380400001)(36756003)(66574015)(31686004)(186003)(316002)(31696002)(86362001)(54906003)(478600001)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S3ZuUnpNSFNaMk5PMTR0NFN5aDF4Rm9NS1QyTGd6QlJRTE8rdkxDSDN4WWRO?=
+ =?utf-8?B?VHA5dmVkZ1FLc1VEV3lFc0wzeTdsTTJ1cWNVckdqbk44Ly9kaEIwL2NkSmNn?=
+ =?utf-8?B?U0VOZFhuRC9lMjV1TjU5aU0yK2djWW5Sci96S0JRbk11S0tQTERhUjJpa2xm?=
+ =?utf-8?B?RHJoRysvQnl2MUIzSmlVUnBkRzBBTHBwQmI5bEk2VEVZUFBuWnUxemdKVFU5?=
+ =?utf-8?B?YlpYTS9ROFQzKzF3b0hpSkl3TUtYeExORHE4Y2tiZVdIMTJQUXBXejJkMjFh?=
+ =?utf-8?B?RVA0Y2VMb05nWXBYSGtpVGpud2ZCTmNmVjFvRko3N0JjdGhRU0VCYVZud0ox?=
+ =?utf-8?B?eDgzNUhYYkIzcngyWWJaYkVlSkZCdE5lTnhWbWN3U1hzQndxTHNUckdtZ09o?=
+ =?utf-8?B?eTEzNjZZOTBTVCtDazFDTDU3cUN4N0JTMCt4M0QzMUo0cWx1MkFHdFNaeEIr?=
+ =?utf-8?B?c3poN3lXZzhFVzV1aThFR2ZSZFBLMnZDWWtOdXEySXdHZTQ1WFo0dzk1cWhF?=
+ =?utf-8?B?TS9URWpCb1F6Q213YkladGswUlcrblQ0ZmZTRW5iM3R4QzFSMzhXS1g1cThx?=
+ =?utf-8?B?U0lUeVc0WDR5SVZQL0hjR3VuQ242cVZGYUo0ZWRzYmVUZXRKNjMxckQwRnN3?=
+ =?utf-8?B?R1l5eFg1UXZ0cE91UUx3NmY0KzlkVHR1S3pIWDVoRU5VVGlhMDFieG1OaTVU?=
+ =?utf-8?B?NExRWTRhcnZoUHVFb2l0Njl6RGlORVNZYVFrcXlnR2E5bXBzUndXUGl3V2c1?=
+ =?utf-8?B?VW53dHdUb1hZZXFFNldzT0xHQ0xyVkp0dFAvSk56eVl4ZENHMDN5aVNuT1ZB?=
+ =?utf-8?B?aGNWblh0K2h2MVZFZFBBYnEzR1RVc0R5VTJST1V5Z2pGK3BsUFNkMHhZM2ts?=
+ =?utf-8?B?TGZlakRZSFhjOU4rdEEveU9BMzhKSStGck5ZK1d5dGkwOUNUZ2c4dXFEcXZm?=
+ =?utf-8?B?MGhOYXA0OHBFaVdSSE12andJSlExZ0RUR0FWb2RKS1ZwZzlVaVpPcjVvTE9w?=
+ =?utf-8?B?NThHVjlUK3gzSDQ3ODBWbEtLYnNRWlV6dnJWcFFUT0NBNVRlbkl3S09zQS9B?=
+ =?utf-8?B?bUJPazAyK0ZZakxvUDJORExtRVZabDJxdWVNR3d4K3c1Qmc2bGtONFlMWE5o?=
+ =?utf-8?B?RDBNLzNwSmJ2RFhFcnZERmxuZXFDQmErVGd1cGpKNmRDTjdmUUdqZDVrK1FN?=
+ =?utf-8?B?VDdxSWlvU0l6NEpxTk05VnJPRk15Q1FjZnVPeXdLWEd2MWJ6bE5NQ2YyZEhy?=
+ =?utf-8?B?NXVIdGoranYxZTlDQ2VhUFpJeGpKU0JySWQvVW1KcXVZZGk3Wnlhb29KUnV1?=
+ =?utf-8?B?eElrZE5GRHcwS3hkUStsVEdkZDNFR0Fvdms0cVpKUXFScEVUMGRXY1hOYit3?=
+ =?utf-8?B?YS9vZW5HMHdLMmVmb2JnSVN2dmlabXE0RlkxTXErOGZGM3FqbU40QmdZKzNy?=
+ =?utf-8?B?M3dUTktkeUlmM2d1STk4aE82cS9FbzJ4NTJhcEF5WWNSWmFSMVFKb1RIVml3?=
+ =?utf-8?B?QkwybXNWaTlIZUltOFNueFZrUzBPSllIMTNiRUp1SFFOV2YrcDBtNFh4TFI2?=
+ =?utf-8?B?ZXVIUkxkSkV0cUZsem5XS2wyY0ZUWVVUWEVadDlGVDVoem9QWTFBMkNWeEhl?=
+ =?utf-8?B?Q3pEN2N6K3g1cTRDeW9Qa1ZnMTFDbGRRb1J3a3g4QktqUFZQTzhIV284MlhM?=
+ =?utf-8?B?UFdGOWNyK1ZaRThRK0hoVjlRSjl4WlQyUzJCQngrN01UNC9Uc3NZVXcyT1ow?=
+ =?utf-8?B?MFcvZDI0cUYwczV2VzMvSWJSTlUvLzc2bnpvSU5IN2Uyb0E1Z3I2dzBhamRX?=
+ =?utf-8?B?Q1lqVzBtNkE4UDZVRDFod2pIRjVnUlptSDRDK2dTQVdQV0lHUTk4em1PbE1k?=
+ =?utf-8?B?V2pETFJDUmxxZ05tQmgwTkM1d2MxK3VXcWhBcWwzd0hGZ1pORDNYS3Z1bDRW?=
+ =?utf-8?B?Q3E5b09FSGJldGFVRmR5ZGhaTWZaM1hmRWpNWjFuU3ZBSTJnTjN4dTFoc3V1?=
+ =?utf-8?B?YXk5MFZzMDRoREl0Qzg5M2JwM3AyaHVuaVROdVI5V0lmdVY3Sjl0VEk3MXVH?=
+ =?utf-8?B?d0UxcktDMjVWdHc2MFMvak1LWDZWMm5xdFJmdDZOMVFiQnV3UHF6KzdMd3VS?=
+ =?utf-8?Q?2GU0=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 791ed239-db29-4f34-3976-08db310e8c37
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2023 11:04:35.6602 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BLuS6ulO0kqHa6wO6AKXWz6wFap/ycESF3UBjvTD1TYTgg7VuRlXExLzgflAVxk8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8249
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,606 +125,153 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Mukul Joshi <mukul.joshi@amd.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ Shashank Sharma <contactshashanksharma@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------fSYCmysqYab03ZHgq83O3wwW
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Am 29.03.23 um 17:47 schrieb Shashank Sharma:
+> From: Shashank Sharma <contactshashanksharma@gmail.com>
+>
+> Rename doorbell.num_doorbells to doorbell.num_kernel_doorbells to
+> make it more readable.
+>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian Koenig <christian.koenig@amd.com>
+> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
 
-Am 30.03.23 um 11:15 schrieb Liu, HaoPing (Alan):
->
-> [AMD Official Use Only - General]
->
-> Hi Christian,
->
-> Thanks for the review. Please see inline.
->
-> Best Regards,
->
-> Alan
->
-> -----Original Message-----
-> From: Christian König <ckoenig.leichtzumerken@gmail.com>
-> Sent: Tuesday, March 28, 2023 7:16 PM
-> To: Liu, HaoPing (Alan) <HaoPing.Liu@amd.com>; 
-> amd-gfx@lists.freedesktop.org
-> Cc: Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>
-> Subject: Re: [PATCH] drm/amdgpu: Fix desktop freezed after gpu-reset
->
-> Am 27.03.23 um 17:20 schrieb Alan Liu:
->
-> > [Why]
->
-> > After gpu-reset, sometimes the driver would fail to enable vblank irq,
->
-> > causing flip_done timed out and the desktop freezed.
->
-> >
->
-> > During gpu-reset, we will disable and enable vblank irq in
->
-> > dm_suspend() and dm_resume(). Later on in
->
-> > amdgpu_irq_gpu_reset_resume_helper(), we will check irqs' refcount 
-> and decide to enable or disable the irqs again.
->
-> >
->
-> > However, we have 2 sets of API for controling vblank irq, one is
->
-> > dm_vblank_get/put() and another is amdgpu_irq_get/put(). Each API has
->
-> > its own refcount and flag to store the state of vblank irq, and they
->
-> > are not synchronized.
->
-> This is the source of the problem and you should address this instead.
->
-> The change you suggested below would break in some use cases.
->
-> In struct drm_vblank_crtc we have a vblank irq refcount controlled by 
-> drm layer, and in struct amdgpu_irq_src we have enabled_types as 
-> refcount for each irq controlled by the dm.
->
-> I think the best solution will be to get rid of the refcount in drm 
-> and only maintain the dm one, and add a crtc function for the drm 
-> layer to get the refcount/state of vblank.
->
-> But this may be dangerous since it’s a change in drm layer. Do you 
-> have any comments?
->
+Acked-by: Christian König <christian.koenig@amd.com>
 
-You don't necessarily need to remove it completely, what you can do as 
-well is properly chaining of them.
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c   |  6 +++---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c   | 22 ++++++++++----------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h |  4 +++-
+>   3 files changed, 17 insertions(+), 15 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> index f99d4873bf22..0385f7f69278 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> @@ -96,7 +96,7 @@ static void amdgpu_doorbell_get_kfd_info(struct amdgpu_device *adev,
+>   					 size_t *start_offset)
+>   {
+>   	/*
+> -	 * The first num_doorbells are used by amdgpu.
+> +	 * The first num_kernel_doorbells are used by amdgpu.
+>   	 * amdkfd takes whatever's left in the aperture.
+>   	 */
+>   	if (adev->enable_mes) {
+> @@ -109,11 +109,11 @@ static void amdgpu_doorbell_get_kfd_info(struct amdgpu_device *adev,
+>   		*aperture_base = adev->doorbell.base;
+>   		*aperture_size = 0;
+>   		*start_offset = 0;
+> -	} else if (adev->doorbell.size > adev->doorbell.num_doorbells *
+> +	} else if (adev->doorbell.size > adev->doorbell.num_kernel_doorbells *
+>   						sizeof(u32)) {
+>   		*aperture_base = adev->doorbell.base;
+>   		*aperture_size = adev->doorbell.size;
+> -		*start_offset = adev->doorbell.num_doorbells * sizeof(u32);
+> +		*start_offset = adev->doorbell.num_kernel_doorbells * sizeof(u32);
+>   	} else {
+>   		*aperture_base = 0;
+>   		*aperture_size = 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index afe6af9c0138..57ee1c4a81e9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -593,7 +593,7 @@ u32 amdgpu_mm_rdoorbell(struct amdgpu_device *adev, u32 index)
+>   	if (amdgpu_device_skip_hw_access(adev))
+>   		return 0;
+>   
+> -	if (index < adev->doorbell.num_doorbells) {
+> +	if (index < adev->doorbell.num_kernel_doorbells) {
+>   		return readl(adev->doorbell.ptr + index);
+>   	} else {
+>   		DRM_ERROR("reading beyond doorbell aperture: 0x%08x!\n", index);
+> @@ -616,7 +616,7 @@ void amdgpu_mm_wdoorbell(struct amdgpu_device *adev, u32 index, u32 v)
+>   	if (amdgpu_device_skip_hw_access(adev))
+>   		return;
+>   
+> -	if (index < adev->doorbell.num_doorbells) {
+> +	if (index < adev->doorbell.num_kernel_doorbells) {
+>   		writel(v, adev->doorbell.ptr + index);
+>   	} else {
+>   		DRM_ERROR("writing beyond doorbell aperture: 0x%08x!\n", index);
+> @@ -637,7 +637,7 @@ u64 amdgpu_mm_rdoorbell64(struct amdgpu_device *adev, u32 index)
+>   	if (amdgpu_device_skip_hw_access(adev))
+>   		return 0;
+>   
+> -	if (index < adev->doorbell.num_doorbells) {
+> +	if (index < adev->doorbell.num_kernel_doorbells) {
+>   		return atomic64_read((atomic64_t *)(adev->doorbell.ptr + index));
+>   	} else {
+>   		DRM_ERROR("reading beyond doorbell aperture: 0x%08x!\n", index);
+> @@ -660,7 +660,7 @@ void amdgpu_mm_wdoorbell64(struct amdgpu_device *adev, u32 index, u64 v)
+>   	if (amdgpu_device_skip_hw_access(adev))
+>   		return;
+>   
+> -	if (index < adev->doorbell.num_doorbells) {
+> +	if (index < adev->doorbell.num_kernel_doorbells) {
+>   		atomic64_set((atomic64_t *)(adev->doorbell.ptr + index), v);
+>   	} else {
+>   		DRM_ERROR("writing beyond doorbell aperture: 0x%08x!\n", index);
+> @@ -1034,7 +1034,7 @@ static int amdgpu_device_doorbell_init(struct amdgpu_device *adev)
+>   	if (adev->asic_type < CHIP_BONAIRE) {
+>   		adev->doorbell.base = 0;
+>   		adev->doorbell.size = 0;
+> -		adev->doorbell.num_doorbells = 0;
+> +		adev->doorbell.num_kernel_doorbells = 0;
+>   		adev->doorbell.ptr = NULL;
+>   		return 0;
+>   	}
+> @@ -1049,27 +1049,27 @@ static int amdgpu_device_doorbell_init(struct amdgpu_device *adev)
+>   	adev->doorbell.size = pci_resource_len(adev->pdev, 2);
+>   
+>   	if (adev->enable_mes) {
+> -		adev->doorbell.num_doorbells =
+> +		adev->doorbell.num_kernel_doorbells =
+>   			adev->doorbell.size / sizeof(u32);
+>   	} else {
+> -		adev->doorbell.num_doorbells =
+> +		adev->doorbell.num_kernel_doorbells =
+>   			min_t(u32, adev->doorbell.size / sizeof(u32),
+>   			      adev->doorbell_index.max_assignment+1);
+> -		if (adev->doorbell.num_doorbells == 0)
+> +		if (adev->doorbell.num_kernel_doorbells == 0)
+>   			return -EINVAL;
+>   
+>   		/* For Vega, reserve and map two pages on doorbell BAR since SDMA
+>   		 * paging queue doorbell use the second page. The
+>   		 * AMDGPU_DOORBELL64_MAX_ASSIGNMENT definition assumes all the
+>   		 * doorbells are in the first page. So with paging queue enabled,
+> -		 * the max num_doorbells should + 1 page (0x400 in dword)
+> +		 * the max num_kernel_doorbells should + 1 page (0x400 in dword)
+>   		 */
+>   		if (adev->asic_type >= CHIP_VEGA10)
+> -			adev->doorbell.num_doorbells += 0x400;
+> +			adev->doorbell.num_kernel_doorbells += 0x400;
+>   	}
+>   
+>   	adev->doorbell.ptr = ioremap(adev->doorbell.base,
+> -				     adev->doorbell.num_doorbells *
+> +				     adev->doorbell.num_kernel_doorbells *
+>   				     sizeof(u32));
+>   	if (adev->doorbell.ptr == NULL)
+>   		return -ENOMEM;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
+> index 7199b6b0be81..12263986f889 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
+> @@ -29,7 +29,9 @@ struct amdgpu_doorbell {
+>   	resource_size_t		base;
+>   	resource_size_t		size;
+>   	u32 __iomem		*ptr;
+> -	u32			num_doorbells;	/* Number of doorbells actually reserved for amdgpu. */
+> +
+> +	/* Number of doorbells reserved for amdgpu kernel driver */
+> +	u32 num_kernel_doorbells;
+>   };
+>   
+>   /* Reserved doorbells for amdgpu (including multimedia).
 
-E.g. when the DRM counter goes from 0->1 or 1->0 it calls some function 
-to enable/disable the hw irq. In this situation you call 
-amdgpu_irq_get()/amdgpu_irq_put() as appropriate.
-
-The the code in this patch already looks like it goes into the right 
-direction regarding that. It just seems to be that you have some race 
-issues when you need to add checks that the IRQ counter doesn't goes 
-below 0.
-
-> >
->
-> > In drm we use the first API to control vblank irq but in
->
-> > amdgpu_irq_gpu_reset_resume_helper() we use the second set of API.
->
-> >
->
-> > The failure happens when vblank irq was enabled by dm_vblank_get()
->
-> > before gpu-reset, we have vblank->enabled true. However, during
->
-> > gpu-reset, in amdgpu_irq_gpu_reset_resume_helper(), vblank irq's state
->
-> > checked from
->
-> > amdgpu_irq_update() is DISABLED. So finally it will disable vblank irq
->
-> > again. After gpu-reset, if there is a cursor plane commit, the driver
->
-> > will try to enable vblank irq by calling drm_vblank_enable(), but the
->
-> > vblank->enabled is still true, so it fails to turn on vblank irq and
->
-> > causes flip_done can't be completed in vblank irq handler and desktop
->
-> > become freezed.
->
-> >
->
-> > [How]
->
-> > Combining the 2 vblank control APIs by letting drm's API finally calls
->
-> > amdgpu_irq's API, so the irq's refcount and state of both APIs can be
->
-> > synchronized. Also add a check to prevent refcount from being less
->
-> > then
->
-> > 0 in amdgpu_irq_put().
->
-> >
->
-> > Signed-off-by: Alan Liu <HaoPing.Liu@amd.com 
-> <mailto:HaoPing.Liu@amd.com>>
->
-> > ---
->
-> > drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c            |  3 +++
->
-> > .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 14 ++++++++++----
->
-> >   2 files changed, 13 insertions(+), 4 deletions(-)
->
-> >
->
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
->
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
->
-> > index a6aef488a822..1b66003657e2 100644
->
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
->
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
->
-> > @@ -597,6 +597,9 @@ int amdgpu_irq_put(struct amdgpu_device *adev, 
-> struct amdgpu_irq_src *src,
->
-> >            if (!src->enabled_types || !src->funcs->set)
->
-> >                           return -EINVAL;
->
-> >
->
-> > +         if (!amdgpu_irq_enabled(adev, src, type))
->
-> > +                       return 0;
->
-> > +
->
-> That is racy and won't work. The intention of amdgpu_irq_update() is 
-> to always update the irq state, no matter what the status is.
->
-> This is a change to amdgpu_irq_put() to prevent the refcount from 
-> being cut to less than 0. Does it break the intention of 
-> amdgpu_irq_update()?
->
-
-Yes, exactly that. The reference count can *never* be below 0 or you 
-have a bug in the caller.
-
-What you could do is to add a WARN_ON(!amdgpu_irq_enabled(adev, src, 
-type)), but just ignoring the call is an absolute no-go.
-
-Regards,
-Christian.
-
-PS: Please don't use HTML formating when discussing on public mailing lists.
-
-> Regards,
->
-> Christian.
->
-> >            if (atomic_dec_and_test(&src->enabled_types[type]))
->
-> >                           return amdgpu_irq_update(adev, src, type);
->
-> >
->
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
->
-> > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
->
-> > index dc4f37240beb..e04f846b0b19 100644
->
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
->
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
->
-> > @@ -146,7 +146,7 @@ static void vblank_control_worker(struct
->
-> > work_struct *work)
->
-> >
->
-> >   static inline int dm_set_vblank(struct drm_crtc *crtc, bool enable)
->
-> >   {
->
-> > -          enum dc_irq_source irq_source;
->
-> > +         int irq_type;
->
-> >            struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
->
-> >            struct amdgpu_device *adev = drm_to_adev(crtc->dev);
->
-> >            struct dm_crtc_state *acrtc_state = 
-> to_dm_crtc_state(crtc->state);
->
-> > @@ -169,10 +169,16 @@ static inline int dm_set_vblank(struct 
-> drm_crtc *crtc, bool enable)
->
-> >            if (rc)
->
-> >                           return rc;
->
-> >
->
-> > -          irq_source = IRQ_TYPE_VBLANK + acrtc->otg_inst;
->
-> > +         irq_type = amdgpu_display_crtc_idx_to_irq_type(adev,
->
-> > +acrtc->crtc_id);
->
-> > +
->
-> > +         if (enable)
->
-> > +                       rc = amdgpu_irq_get(adev, &adev->crtc_irq, 
-> irq_type);
->
-> > +
->
-> > +         else
->
-> > +                       rc = amdgpu_irq_put(adev, &adev->crtc_irq, 
-> irq_type);
->
-> >
->
-> > -          if (!dc_interrupt_set(adev->dm.dc, irq_source, enable))
->
-> > -                        return -EBUSY;
->
-> > +         if (rc)
->
-> > +                       return rc;
->
-> >
->
-> >   skip:
->
-> >            if (amdgpu_in_reset(adev))
->
-
---------------fSYCmysqYab03ZHgq83O3wwW
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    Am 30.03.23 um 11:15 schrieb Liu, HaoPing (Alan):<br>
-    <blockquote type="cite"
-cite="mid:SN1PR12MB24455388D199AD581AC2FA5CF58E9@SN1PR12MB2445.namprd12.prod.outlook.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <meta name="Generator" content="Microsoft Word 15 (filtered
-        medium)">
-      <style>@font-face
-	{font-family:PMingLiU;
-	panose-1:2 1 6 1 0 1 1 1 1 1;}@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}@font-face
-	{font-family:"\@PMingLiU";
-	panose-1:2 1 6 1 0 1 1 1 1 1;}p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
-	{mso-style-priority:99;
-	mso-style-link:"Plain Text Char";
-	margin:0cm;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}span.PlainTextChar
-	{mso-style-name:"Plain Text Char";
-	mso-style-priority:99;
-	mso-style-link:"Plain Text";
-	font-family:"Calibri",sans-serif;}p.msipheaderdf3d92d6, li.msipheaderdf3d92d6, div.msipheaderdf3d92d6
-	{mso-style-name:msipheaderdf3d92d6;
-	mso-margin-top-alt:auto;
-	margin-right:0cm;
-	mso-margin-bottom-alt:auto;
-	margin-left:0cm;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}span.EmailStyle21
-	{mso-style-type:personal-compose;
-	font-family:"Arial",sans-serif;
-	color:blue;}.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}div.WordSection1
-	{page:WordSection1;}</style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext="edit" spidmax="1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext="edit">
-<o:idmap v:ext="edit" data="1" />
-</o:shapelayout></xml><![endif]-->
-      <div class="WordSection1">
-        <p class="msipheaderdf3d92d6" style="margin:0cm"><span
-style="font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD
-            Official Use Only - General]</span><o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoPlainText">Hi Christian,<o:p></o:p></p>
-        <p class="MsoPlainText"><o:p> </o:p></p>
-        <p class="MsoPlainText">Thanks for the review. Please see <span
-            style="color:#00B050">
-            inline</span>.<o:p></o:p></p>
-        <p class="MsoPlainText"><o:p> </o:p></p>
-        <p class="MsoPlainText">Best Regards,<o:p></o:p></p>
-        <p class="MsoPlainText">Alan<o:p></o:p></p>
-        <p class="MsoPlainText"><o:p> </o:p></p>
-        <p class="MsoPlainText">-----Original Message-----<br>
-          From: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:ckoenig.leichtzumerken@gmail.com">&lt;ckoenig.leichtzumerken@gmail.com&gt;</a>
-          <br>
-          Sent: Tuesday, March 28, 2023 7:16 PM<br>
-          To: Liu, HaoPing (Alan) <a class="moz-txt-link-rfc2396E" href="mailto:HaoPing.Liu@amd.com">&lt;HaoPing.Liu@amd.com&gt;</a>;
-          <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a><br>
-          Cc: Lakha, Bhawanpreet <a class="moz-txt-link-rfc2396E" href="mailto:Bhawanpreet.Lakha@amd.com">&lt;Bhawanpreet.Lakha@amd.com&gt;</a><br>
-          Subject: Re: [PATCH] drm/amdgpu: Fix desktop freezed after
-          gpu-reset<o:p></o:p></p>
-        <p class="MsoPlainText"><o:p> </o:p></p>
-        <p class="MsoPlainText">Am 27.03.23 um 17:20 schrieb Alan Liu:<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; [Why]<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; After gpu-reset, sometimes the
-          driver would fail to enable vblank irq,
-          <o:p></o:p></p>
-        <p class="MsoPlainText">&gt; causing flip_done timed out and the
-          desktop freezed.<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;<o:p> </o:p></p>
-        <p class="MsoPlainText">&gt; During gpu-reset, we will disable
-          and enable vblank irq in
-          <o:p></o:p></p>
-        <p class="MsoPlainText">&gt; dm_suspend() and dm_resume(). Later
-          on in <o:p></o:p></p>
-        <p class="MsoPlainText">&gt;
-          amdgpu_irq_gpu_reset_resume_helper(), we will check irqs'
-          refcount and decide to enable or disable the irqs again.<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;<o:p> </o:p></p>
-        <p class="MsoPlainText">&gt; However, we have 2 sets of API for
-          controling vblank irq, one is<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; dm_vblank_get/put() and another is
-          amdgpu_irq_get/put(). Each API has
-          <o:p></o:p></p>
-        <p class="MsoPlainText">&gt; its own refcount and flag to store
-          the state of vblank irq, and they
-          <o:p></o:p></p>
-        <p class="MsoPlainText">&gt; are not synchronized.<o:p></o:p></p>
-        <p class="MsoPlainText"><o:p> </o:p></p>
-        <p class="MsoPlainText">This is the source of the problem and
-          you should address this instead.
-          <o:p></o:p></p>
-        <p class="MsoPlainText">The change you suggested below would
-          break in some use cases.<o:p></o:p></p>
-        <p class="MsoPlainText"><span style="color:black"><o:p> </o:p></span></p>
-        <p class="MsoPlainText"><span style="color:#00B050">In struct
-            drm_vblank_crtc we have a vblank irq refcount controlled by
-            drm layer, and in struct amdgpu_irq_src we have
-            enabled_types as refcount for each irq controlled by the dm.<o:p></o:p></span></p>
-        <p class="MsoPlainText"><span style="color:#00B050">I think the
-            best solution will be to get rid of the refcount in drm and
-            only maintain the dm one, and add a crtc function for the
-            drm layer to get the refcount/state of vblank.<o:p></o:p></span></p>
-        <p class="MsoPlainText"><span style="color:#00B050">But this may
-            be dangerous since it’s a change in drm layer. Do you have
-            any comments?
-          </span></p>
-      </div>
-    </blockquote>
-    <br>
-    You don't necessarily need to remove it completely, what you can do
-    as well is properly chaining of them.<br>
-    <br>
-    E.g. when the DRM counter goes from 0-&gt;1 or 1-&gt;0 it calls some
-    function to enable/disable the hw irq. In this situation you call
-    amdgpu_irq_get()/amdgpu_irq_put() as appropriate.<br>
-    <br>
-    The the code in this patch already looks like it goes into the right
-    direction regarding that. It just seems to be that you have some
-    race issues when you need to add checks that the IRQ counter doesn't
-    goes below 0.<br>
-    <br>
-    <blockquote type="cite"
-cite="mid:SN1PR12MB24455388D199AD581AC2FA5CF58E9@SN1PR12MB2445.namprd12.prod.outlook.com">
-      <div class="WordSection1">
-        <p class="MsoPlainText"><span style="color:#00B050"><o:p></o:p></span></p>
-        <p class="MsoPlainText"><o:p> </o:p></p>
-        <p class="MsoPlainText">&gt;<o:p> </o:p></p>
-        <p class="MsoPlainText">&gt; In drm we use the first API to
-          control vblank irq but in<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;
-          amdgpu_irq_gpu_reset_resume_helper() we use the second set of
-          API.<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;<o:p> </o:p></p>
-        <p class="MsoPlainText">&gt; The failure happens when vblank irq
-          was enabled by dm_vblank_get()
-          <o:p></o:p></p>
-        <p class="MsoPlainText">&gt; before gpu-reset, we have
-          vblank-&gt;enabled true. However, during
-          <o:p></o:p></p>
-        <p class="MsoPlainText">&gt; gpu-reset, in
-          amdgpu_irq_gpu_reset_resume_helper(), vblank irq's state
-          <o:p></o:p></p>
-        <p class="MsoPlainText">&gt; checked from<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; amdgpu_irq_update() is DISABLED. So
-          finally it will disable vblank irq
-          <o:p></o:p></p>
-        <p class="MsoPlainText">&gt; again. After gpu-reset, if there is
-          a cursor plane commit, the driver
-          <o:p></o:p></p>
-        <p class="MsoPlainText">&gt; will try to enable vblank irq by
-          calling drm_vblank_enable(), but the<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; vblank-&gt;enabled is still true,
-          so it fails to turn on vblank irq and<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; causes flip_done can't be completed
-          in vblank irq handler and desktop
-          <o:p></o:p></p>
-        <p class="MsoPlainText">&gt; become freezed.<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;<o:p> </o:p></p>
-        <p class="MsoPlainText">&gt; [How]<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; Combining the 2 vblank control APIs
-          by letting drm's API finally calls
-          <o:p></o:p></p>
-        <p class="MsoPlainText">&gt; amdgpu_irq's API, so the irq's
-          refcount and state of both APIs can be
-          <o:p></o:p></p>
-        <p class="MsoPlainText">&gt; synchronized. Also add a check to
-          prevent refcount from being less
-          <o:p></o:p></p>
-        <p class="MsoPlainText">&gt; then<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; 0 in amdgpu_irq_put().<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;<o:p> </o:p></p>
-        <p class="MsoPlainText">&gt; Signed-off-by: Alan Liu &lt;<a
-            href="mailto:HaoPing.Liu@amd.com" moz-do-not-send="true"><span
-              style="color:windowtext;text-decoration:none">HaoPing.Liu@amd.com</span></a>&gt;<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; ---<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;  
-          drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c            |  3 +++<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;  
-          .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 14
-          ++++++++++----<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;   2 files changed, 13
-          insertions(+), 4 deletions(-)<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;<o:p> </o:p></p>
-        <p class="MsoPlainText">&gt; diff --git
-          a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c <o:p>
-          </o:p></p>
-        <p class="MsoPlainText">&gt;
-          b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; index a6aef488a822..1b66003657e2
-          100644<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; ---
-          a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; +++
-          b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; @@ -597,6 +597,9 @@ int
-          amdgpu_irq_put(struct amdgpu_device *adev, struct
-          amdgpu_irq_src *src,<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;            if
-          (!src-&gt;enabled_types || !src-&gt;funcs-&gt;set)<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;                           return
-          -EINVAL;<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;   <o:p></o:p></p>
-        <p class="MsoPlainText">&gt; +         if
-          (!amdgpu_irq_enabled(adev, src, type))<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; +                       return 0;<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; +<o:p></o:p></p>
-        <p class="MsoPlainText"><o:p> </o:p></p>
-        <p class="MsoPlainText">That is racy and won't work. The
-          intention of amdgpu_irq_update() is to always update the irq
-          state, no matter what the status is.<o:p></o:p></p>
-        <p class="MsoPlainText"><o:p> </o:p></p>
-        <p class="MsoPlainText"><span style="color:#00B050">This is a
-            change to amdgpu_irq_put() to prevent the refcount from
-            being cut to less than 0. Does it break the intention of
-            amdgpu_irq_update()?</span></p>
-      </div>
-    </blockquote>
-    <br>
-    Yes, exactly that. The reference count can *never* be below 0 or you
-    have a bug in the caller.<br>
-    <br>
-    What you could do is to add a WARN_ON(!amdgpu_irq_enabled(adev, src,
-    type)), but just ignoring the call is an absolute no-go.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    PS: Please don't use HTML formating when discussing on public
-    mailing lists.<br>
-    <br>
-    <blockquote type="cite"
-cite="mid:SN1PR12MB24455388D199AD581AC2FA5CF58E9@SN1PR12MB2445.namprd12.prod.outlook.com">
-      <div class="WordSection1">
-        <p class="MsoPlainText"><span style="color:#00B050"><o:p></o:p></span></p>
-        <p class="MsoPlainText"><span style="color:black"><o:p> </o:p></span></p>
-        <p class="MsoPlainText">Regards,<o:p></o:p></p>
-        <p class="MsoPlainText">Christian.<o:p></o:p></p>
-        <p class="MsoPlainText"><o:p> </o:p></p>
-        <p class="MsoPlainText">&gt;            if
-          (atomic_dec_and_test(&amp;src-&gt;enabled_types[type]))<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;                           return
-          amdgpu_irq_update(adev, src, type);<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;   <o:p></o:p></p>
-        <p class="MsoPlainText">&gt; diff --git
-          a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-          <o:p></o:p></p>
-        <p class="MsoPlainText">&gt;
-          b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; index dc4f37240beb..e04f846b0b19
-          100644<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; ---
-          a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; +++
-          b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; @@ -146,7 +146,7 @@ static void
-          vblank_control_worker(struct
-          <o:p></o:p></p>
-        <p class="MsoPlainText">&gt; work_struct *work)<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;   <o:p></o:p></p>
-        <p class="MsoPlainText">&gt;   static inline int
-          dm_set_vblank(struct drm_crtc *crtc, bool enable)<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;   {<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; -          enum dc_irq_source
-          irq_source;<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; +         int irq_type;<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;            struct amdgpu_crtc
-          *acrtc = to_amdgpu_crtc(crtc);<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;            struct amdgpu_device
-          *adev = drm_to_adev(crtc-&gt;dev);<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;            struct dm_crtc_state
-          *acrtc_state = to_dm_crtc_state(crtc-&gt;state);
-          <o:p></o:p></p>
-        <p class="MsoPlainText">&gt; @@ -169,10 +169,16 @@ static inline
-          int dm_set_vblank(struct drm_crtc *crtc, bool enable)<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;            if (rc)<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;                           return
-          rc;<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;   <o:p></o:p></p>
-        <p class="MsoPlainText">&gt; -          irq_source =
-          IRQ_TYPE_VBLANK + acrtc-&gt;otg_inst;<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; +         irq_type =
-          amdgpu_display_crtc_idx_to_irq_type(adev,
-          <o:p></o:p></p>
-        <p class="MsoPlainText">&gt; +acrtc-&gt;crtc_id);<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; +<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; +         if (enable)<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; +                       rc =
-          amdgpu_irq_get(adev, &amp;adev-&gt;crtc_irq, irq_type);<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; +<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; +         else<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; +                       rc =
-          amdgpu_irq_put(adev, &amp;adev-&gt;crtc_irq, irq_type);<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;   <o:p></o:p></p>
-        <p class="MsoPlainText">&gt; -          if
-          (!dc_interrupt_set(adev-&gt;dm.dc, irq_source, enable))<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; -                        return
-          -EBUSY;<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; +         if (rc)<o:p></o:p></p>
-        <p class="MsoPlainText">&gt; +                       return rc;<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;   <o:p></o:p></p>
-        <p class="MsoPlainText">&gt;   skip:<o:p></o:p></p>
-        <p class="MsoPlainText">&gt;            if
-          (amdgpu_in_reset(adev))<o:p></o:p></p>
-        <p class="MsoPlainText"><o:p> </o:p></p>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------fSYCmysqYab03ZHgq83O3wwW--
