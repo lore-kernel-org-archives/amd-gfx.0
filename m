@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A87B3C77B62
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 19:27:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F127C6FD1D
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 19:27:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4655210EFCD;
-	Thu, 30 Mar 2023 19:27:22 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2062c.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8a::62c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0741510EFB1
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 19:27:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0D0D10EFD3;
+	Thu, 30 Mar 2023 19:27:29 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20601.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eae::601])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2C0310E54A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 19:27:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VyMgStjF8MFoWChDLWKW78B/qWsOwAZxI+kGeQEO5iG+t6TRZoDEtj66ArD4Cq+3MjV6lk5GcUJ75UrHK7KGSPij5oaClM+ANiKXCv3JxYJSEBFcbeBf3aKxk5Uu/cjahX60CwZRwJWir9Jo2TqDVsal84R8UHykjW1fydlm2pdGJ3eiXgbmPNLjqDJcTqRfcEyKDelyE9/cjKd4YTXD5/3qdMlshD5r5ujCDRKMEKIIi3bGFmHg0Jjr/Uhg67lnhQf8PRomQClJniBRmfrFVH6B1PS8kiwevwqzePW43tYA+2O8IZ4beYqq8nDGrbIB6UEC1yGb+ZdGv/b+V5Ly0Q==
+ b=Rj2ei/hXAG+22tpTU5rYb63yoV7jt2FFFgiQ2x8vHTMbT7HeqJ202Lyvmlckolux8BpLcGSF1qnpRzUMpeNmFJIQDlcf5l2JoJAPNuU7yIT8rkyt17YtcLia9c9ahrDhvdkbn5C2N9LicJmkKntyppx0gpXgqnojRxs3kJsNgBQKh7FcJurJMKYgy+CzCLWAvXehBJJAqngDDDrhLa7YiaHPcHokcrSANRw5P924wvR4ynoD8vdk6vGixLP32LVAaLXnl2JCmMfLlrvhYwgEmzHY22wnKhsAiAsRaY7nvmSJC6q8fFSv7kMmLd8OfIZMNXdx22tekmGVwYEK0WACMg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fNpOgyes1p44IroEvTfPVz4hMKPFIt5KHztC7/JUxlc=;
- b=JRoP3HCdjpACHQeAOZyfG3Hdin+PTd7sAlEDxR0/yHpFVcy/IgRnDsMYvos3JPd0Qe7Ftgnch+OwyDwcZ2ConK+bZsi2m9cw5Z73EqJq1boZ6Bx6doA1pDUGAnYhCVPbqT/Si7R9ytkVdbavBrFON6/wbPXuz6osdWhRpLVsV2tW/ky8F3Q1XRttGenyhF9LGNJaJg2MQwmVTLNMvpEB5y/DSkA6+IdpP3ElCBBEQO2OzGWRMJhiE7tpAg/tSW/ipF7kiH9wLxEwHYndIO6qnasBzUxIaVvY7quR2W7FzEsOq+8x8CLFyZqTlCLJCOjolF3sW8RqKSuMKzS5KEAU+A==
+ bh=+GyntP1Rit8Hcieyu246eg4FbI57nEhYwoHmhjHxBWA=;
+ b=IEEQX5LA0f9oWZrs+vX2V+s4UXKOe/906BNR4HtChLIEs1b7k0hHrtzk2bZLWa0MFdeyIBqPt6S6dxEVrAW+Zi+ceBO7mij17O9vEWQNYjbb29VgBRaPvPAeY/gcxsIELySXdFyWNO3KjrDtuKeZfNkYOJYRnlNPfIfBE82gNoflgoUZhbElPSgRe55Dhht1PnQLq535nMZPL2PWaCQyh+C5Jo/ooGCZ7vRSnTp3jb3GhxIxPrKB7Jwk4T9AZ6oNigDF9dxGi9RiqEWOlvgneVpPlmeKzZYT5CyfBPGRXCPtQj4vtS3P5W0bf3w5VjK/QZmwau6eViZ5fjFMqw7qpA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fNpOgyes1p44IroEvTfPVz4hMKPFIt5KHztC7/JUxlc=;
- b=iE2K7DLqOY6JMCvtEY/4anBzwswgAMaizJk8U0b5dRp5phBk4Q41aTdI/UL4ZFPyWegd/SySkgKggwN6KU9GzYxLWGJi6fsqn/bKnuaOPrdq5ExMFpFml9gqf4O7flKBlJxRlGGuPRCG/TCxGOlpcmE/4yziwJFeX8clx/5Vxmc=
-Received: from BN8PR12CA0028.namprd12.prod.outlook.com (2603:10b6:408:60::41)
- by PH8PR12MB7374.namprd12.prod.outlook.com (2603:10b6:510:216::15)
+ bh=+GyntP1Rit8Hcieyu246eg4FbI57nEhYwoHmhjHxBWA=;
+ b=oNFHvrpEVx/jS8CeC9ylQcTpNsapzW/8I/uZ/+w1hOA6lr0FZObmkhWuBwjmPHp9lk8pTA9gKVFIusL0dYmSLdbHHkp4mkpbODLn9nBBY3OMh1OeKctUN1HzmVhK8cVIkfMWFUz1Kfy7LzwTBX2tnZtVrJGGsAQiBG8Q6rjIIrY=
+Received: from BN8PR12CA0012.namprd12.prod.outlook.com (2603:10b6:408:60::25)
+ by CY5PR12MB6430.namprd12.prod.outlook.com (2603:10b6:930:3a::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.33; Thu, 30 Mar
- 2023 19:27:14 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.41; Thu, 30 Mar
+ 2023 19:27:15 +0000
 Received: from BN8NAM11FT043.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:60:cafe::d3) by BN8PR12CA0028.outlook.office365.com
- (2603:10b6:408:60::41) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:408:60:cafe::c1) by BN8PR12CA0012.outlook.office365.com
+ (2603:10b6:408:60::25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.22 via Frontend
  Transport; Thu, 30 Mar 2023 19:27:14 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
@@ -55,9 +55,9 @@ Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  2023 14:27:13 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 7/9] drm/amdgpu: more GPU page fault info for GC v9.4.3
-Date: Thu, 30 Mar 2023 15:26:55 -0400
-Message-ID: <20230330192657.1134433-7-alexander.deucher@amd.com>
+Subject: [PATCH 8/9] drm/amdgpu: Check APU supports true APP mode
+Date: Thu, 30 Mar 2023 15:26:56 -0400
+Message-ID: <20230330192657.1134433-8-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230330192657.1134433-1-alexander.deucher@amd.com>
 References: <20230330192657.1134433-1-alexander.deucher@amd.com>
@@ -69,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT043:EE_|PH8PR12MB7374:EE_
-X-MS-Office365-Filtering-Correlation-Id: 76039648-969b-491f-91c9-08db3154c466
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT043:EE_|CY5PR12MB6430:EE_
+X-MS-Office365-Filtering-Correlation-Id: 57adeaea-3dfb-4a49-7969-08db3154c4b0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: gE7bKQYs7Io4NNM7dDtSnPoXm16Ak2+tC+93pa/Z9lLwEMVPBkXd1OrpiyAw3f+ICGflIh8t2AGB41jwCuA+zOZg9EZPY67VG3wa3XfoLOBbq//8LEtSEuSjdSVH3xXdtBR6bVUGPXtOSCzklWo6EsoZygDB7Zg01PG9UKuS+GdtlSxB4OvXJwAUEIfUXYCo+jVvsFP32yLxOWQxyeiXvZdYS7mN/ZBT48q2hBULwVLBnVmBpuRvnaicWe+Rwv0NIilMzaFOqdTx1g0xDKEz7syEPCHdUs5/REfWzJips9T4ctpz9WQAKVvrJ+Z0opjz/vaMOrSZR+eos3QmXU8mAUIZsNVp5lIhEYf/TfhdZUECCweCe8H/p9ibpkpuZu0IltCzRltfcou+zJGtNPIvX4ehmiets7g8xGQC0fEgyvJgsHBj2DpRKEgrd3ssg7dAJF7+xni3P9QkpW9KcgmxUNnd4yvnGi03/QPtltoHzzmD5qr40tPsF6YLWhwbFUu0WiZkxuTDzwSQi0jXIhePu2gljMS6jPpBbBvO/DA0T1TNW9cJ4KkGW6pmXl75OwUrDH4zbJ+nkeA37TSDayhWJ8IYuV9TnEGciOZHgJiz8I30FC6ZGm8VjNfXJLoS6b91W91GLahKpQYiGG9mwMxFKKl6/F+3XIFYePwLgse7nQjI1Xq03E7EuCdfFVqcT944NWjksvfx6byC596FbD37+uc6oODz5pSXV9PhKvMeM9U=
+X-Microsoft-Antispam-Message-Info: DwRWTEeXio2LDtBm+9Je6PZ6bUqUVpwK6pxzp1jCRqn8UEgROssMYFSuiHB23StyZSBGJ5u9dtRYguxjXzA9pRe84+f1TNoZVSvUyH6KSblLeh+czrqzzMBHtUnJ9QsdiS1X4OLTLBWsT2ETBYrIIbYXzNrwW+AM6uRnupOGFwqt5wA3Xdxjx2xMRM8lMLR5KhMY3DPl3UdtX6sg5NtFxpu+SBfau3yqXtC98ZypaoTBoY3kupTJOkGpQ5ivHIDOzUDoaQ6f3gppZBvDSBHiN3/U99QKutkjxEHpFzDd7cVgooAGCY1ZOW4UyoYElcsrbD/XwgAl2EKyH+e6uoZqe645c8Dr+ieNKcRTan3PtmBi6EHlO8iPOm8+31X6vUQ9VLC47MzKJnrMdS3R/fpevG3L5/5LUBNrmG+9sHYR25MpFO4IOUF2kIBy3DlYRPXEcItOEZrbbpuJv6ILMXa3czTRhxSKKVpHWjM/+S7c2hJokpxkV8pXqr6pgdyX24lAv+tIxzbtx7kcTIvMNVzGRCNhjMT10WdsCSI+E8yRguzmPTO+kqHBHwWrFoCtI0yAia1YXuBP6nE9kWAHv/eElkP8Gb49jMOs+uhTURZ3pPTblCZYh0TVngXZjx6ff115PSmiX+eu91mRf6atXVjmoRC6nw4trj0V4Uy/QndY4usV9xqCFUfkZyE0mjEJe+UwGJFj7XohOOqjn7HCA4lRQAHq8avMHSuEL2WZP3dyz9g=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(396003)(136003)(376002)(39860400002)(451199021)(40470700004)(46966006)(36840700001)(40460700003)(7696005)(4326008)(36756003)(8676002)(70206006)(356005)(2906002)(36860700001)(6916009)(41300700001)(5660300002)(81166007)(82740400003)(8936002)(40480700001)(86362001)(70586007)(82310400005)(316002)(186003)(26005)(16526019)(1076003)(6666004)(478600001)(83380400001)(54906003)(2616005)(47076005)(336012)(426003)(36900700001);
+ SFS:(13230028)(4636009)(136003)(376002)(39860400002)(346002)(396003)(451199021)(36840700001)(46966006)(40470700004)(41300700001)(7696005)(316002)(4326008)(1076003)(186003)(16526019)(6666004)(26005)(8936002)(5660300002)(478600001)(2616005)(336012)(70586007)(8676002)(54906003)(426003)(6916009)(83380400001)(70206006)(47076005)(82740400003)(36860700001)(2906002)(81166007)(356005)(82310400005)(36756003)(40460700003)(40480700001)(86362001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2023 19:27:14.4658 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 76039648-969b-491f-91c9-08db3154c466
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2023 19:27:14.9502 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 57adeaea-3dfb-4a49-7969-08db3154c4b0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT043.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7374
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6430
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,59 +100,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Philip Yang <Philip.Yang@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>, Graham
+ Sider <graham.sider@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Philip Yang <Philip.Yang@amd.com>
+From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 
-Output IH cookie node_id and translate it to the corresponding AID id
-and XCC id, to help debug the GPU page fault.
+On GPXIP 9.4.3 APU, in no carveout mode there is no real vram heap and
+could be emulated by the driver over the interleaved NUMA system memory
+and the APU could also  be in the carveout mode during early development
+stage or otherwise for debugging purpose so introduce a new member in
+amdgpu_gmc to figure out whether the APU is in the native mode as per
+the production configuration. AMD_IS_APU cannot be used for Accelerated
+Processing Platform APUs as it might be used in a different context on
+previous generations or on small APUs.
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Tested-by: Graham Sider <graham.sider@amd.com>
+Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  1 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 14 ++++++++++++++
+ 2 files changed, 15 insertions(+)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+index 5c1d68bec0be..88649701b30e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -250,6 +250,7 @@ struct amdgpu_gmc {
+ 	uint64_t		last_fault:AMDGPU_GMC_FAULT_RING_ORDER;
+ 
+ 	bool tmz_enabled;
++	bool is_app_apu;
+ 
+ 	const struct amdgpu_gmc_funcs	*gmc_funcs;
+ 
 diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index d819b544b043..016adcfe8c49 100644
+index 016adcfe8c49..1a43276de338 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -555,7 +555,9 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
- 	const char *mmhub_cid;
- 	const char *hub_name;
- 	u64 addr;
--	uint32_t node_id = 0;
-+	uint32_t node_id;
-+
-+	node_id = (adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 3)) ? entry->node_id : 0;
- 
- 	addr = (u64)entry->src_data[0] << 12;
- 	addr |= ((u64)entry->src_data[1] & 0xf) << 44;
-@@ -568,8 +570,6 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
- 		hub = &adev->vmhub[AMDGPU_MMHUB1(0)];
- 	} else {
- 		hub_name = "gfxhub0";
--		node_id = (adev->ip_versions[GC_HWIP][0] ==
--			   IP_VERSION(9, 4, 3)) ? entry->node_id : 0;
- 		hub = &adev->vmhub[node_id/2];
+@@ -1424,6 +1424,20 @@ static int gmc_v9_0_early_init(void *handle)
+ 			adev->smuio.funcs->is_host_gpu_xgmi_supported(adev);
  	}
  
-@@ -616,6 +616,11 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
- 		addr, entry->client_id,
- 		soc15_ih_clientid_name[entry->client_id]);
- 
-+	if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 3))
-+		dev_err(adev->dev, "  cookie node_id %d fault from die %s%d%s\n",
-+			node_id, node_id % 4 == 3 ? "RSV" : "AID", node_id / 4,
-+			node_id % 4 == 1 ? ".XCD0" : node_id % 4 == 2 ? ".XCD1" : "");
++	if (adev->ip_versions[GC_HWIP][0] == IP_VERSION(9, 4, 3)) {
++		enum amdgpu_pkg_type pkg_type =
++			adev->smuio.funcs->get_pkg_type(adev);
++		/* On GFXIP 9.4.3. APU, there is no physical VRAM domain present
++		 * and the APU, can be in used two possible modes:
++		 *  - carveout mode
++		 *  - native APU mode
++		 * "is_app_apu" can be used to identify the APU in the native
++		 * mode.
++		 */
++		adev->gmc.is_app_apu = (pkg_type == AMDGPU_PKG_TYPE_APU &&
++					!pci_resource_len(adev->pdev, 0));
++	}
 +
- 	if (amdgpu_sriov_vf(adev))
- 		return 0;
- 
+ 	gmc_v9_0_set_gmc_funcs(adev);
+ 	gmc_v9_0_set_irq_funcs(adev);
+ 	gmc_v9_0_set_umc_funcs(adev);
 -- 
 2.39.2
 
