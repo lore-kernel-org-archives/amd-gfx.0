@@ -4,66 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0A68C6FD1D
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 06:15:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 333CFC74A5B
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 06:16:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 637EC10E19B;
-	Thu, 30 Mar 2023 06:15:23 +0000 (UTC)
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1EB510E19B
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 06:15:21 +0000 (UTC)
-Received: by mail-ed1-x52e.google.com with SMTP id er13so31243951edb.9
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 23:15:21 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CC4D10E1B4;
+	Thu, 30 Mar 2023 06:16:09 +0000 (UTC)
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [IPv6:2a00:1450:4864:20::530])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C361510E1B4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 06:16:07 +0000 (UTC)
+Received: by mail-ed1-x530.google.com with SMTP id cn12so72278009edb.4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 23:16:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1680156920;
+ d=gmail.com; s=20210112; t=1680156966;
  h=content-transfer-encoding:in-reply-to:from:references:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=iSyUVfiBN54GIC1AUWILb6eDFCOmBaid3CGMG4zkqBE=;
- b=lJfgyl3OMgBfV6ZH3gNtKhlPqXg74XT1DYFG64GRlCz8GSGkJfphjuztvWc7R1hTEP
- zxa/yncXzmTzXIKhkB/8rGPzmSMDkmjsoK31Uay7RePJvhE0F78vJlPhFSkMFT7pMOJ1
- lRGz9nFeDpzpuuGJxqdnoihNiE6hsFmmPVxMaRbElnyrMs5ai/oJp03HmwdozCmM0BZm
- MxLKSFO4C4I8mMtJ2RsFtke/bQ4Kk8q7isrMkG/joA8VaU6JTE8u9QSOyYRaIDy0Eeja
- 3gMmtQVnUbEG/0RE4uErmE0fXatzZZo+6nBm1o0pqzFwjqw+I3u9cpvOyMtSRTp8Eyn1
- 0w/A==
+ bh=9XvCvteZjYBR8H8BFGIIVoPM8gD5ooYM4zfNV6A/oDg=;
+ b=OFU6exh1B3sq5PNdtYmT5yILsrG4k07RVHFqNuBapMjxdBUtJMAo2xgRjYXVP+8laI
+ vOrY1fZtSmThJkENZDoq2AR9Zt5501ChkKZR0uaryQZ4HugqMjXQe8a3TE8dvIsiVQv6
+ Hxl+3tzlMDvsLvOjLY6+KPYYUhArhTQInGp+djGJgYvxMdmzbO8+0YK7fUZQVvJYXRiU
+ At/J9NgBXQNaKALF3Xb6820O7yXhxVR+eEQzulCJRgA4NtcQLD6c6RoNAWSMXBMo3wh/
+ FSFFN9QWabCFWej0khsmXkwjoe7JwUcFhq0JQYJbGho3AKAV0zb+aVlcHoDcE3T85c2p
+ V5WA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680156920;
+ d=1e100.net; s=20210112; t=1680156966;
  h=content-transfer-encoding:in-reply-to:from:references:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=iSyUVfiBN54GIC1AUWILb6eDFCOmBaid3CGMG4zkqBE=;
- b=DW5zT/Aa+R1QsU9T891tZnu6/hEiEhx+qOq1Q0Gi0/4hj5+YHAxee+tpgulZMuy8e0
- Lt88Iz5lhk/dP5VYPOoyb2rC8ojzO5dkfkyrfX+VbnUDzuSXkg+DzPFuzv5QlT9uFrwz
- w6oB2WEFaP9p+LWeK4EgYDCKaFgyxJPjR+tx5C5XfZ8Kbn8XM1RB8DPKYr1K5f79lXGW
- NslWBr8I54z9MI0/yL+T+t7380IsjusvqRidvQejo7eZz/U5nRBZHPq89wTwwLZHAcBu
- TUMrV74b0RSndyIaxPEP4FFFVFs5SqDKTOPZub2aZjoeI2J4PrScphtTj3FS5fm+S8tx
- WP3g==
-X-Gm-Message-State: AAQBX9d0UcVm9WteannmsEtCe2hhgbr2A7UvTWMLoV+j2X6G0kTQmcc+
- 0+4M1vyfnj1VvXXlTmxaljM=
-X-Google-Smtp-Source: AKy350bZFLHf+jAAY5oZH3qSG0BnzG80+5XCg5mDt9ZSceOmrPJpJDJ+D7YlsKiZAeAqeHRygLLmgg==
-X-Received: by 2002:a17:906:9f22:b0:933:4556:d1cd with SMTP id
- fy34-20020a1709069f2200b009334556d1cdmr6504778ejc.33.1680156919940; 
- Wed, 29 Mar 2023 23:15:19 -0700 (PDT)
+ bh=9XvCvteZjYBR8H8BFGIIVoPM8gD5ooYM4zfNV6A/oDg=;
+ b=KIporfVgHPfBFw+LWKuQva7N2AaXGGc1vXNVjKZ8db1zefCYhPMlrq9SCuBxyzOEKw
+ GIodLkbhZd6CthtLP/AwdujHgzM6Hk2ztlMJuCERofppFdTt/CW1mD76dvlz6ujVIKzs
+ GbccwXvM3vKzG3RV85tjOUq8damTeFFfuvGV9oLV1GMTR2+kHrXBYuUz+X4fZiUv9q5Z
+ Phiu2lK981tjFXBeTx+z4FzH455Oh3230t/p1pqNhpcqyCNhVMCMb4Vu0BhCmMjCRc3b
+ fbZ8WrN1BJc9SiE1q70LW3qDm9V3+qZeHb8k0z7un2lCBeeTY8secHYAvu1td1rd9l30
+ lt1Q==
+X-Gm-Message-State: AAQBX9eg8OroMve71HT4jr7biRsqTQn88MpR39QAOIRTeigoqqn1myno
+ X/KrDWzBFdkinl71NO6WUho=
+X-Google-Smtp-Source: AKy350aUC+cOu3iV4awGeIa69A1Bt4YDj3KEBvf2KsDqAmvt5IO3NsTzTJHidZJ5wai0rLhayn5GIg==
+X-Received: by 2002:a17:906:74f:b0:933:3b2e:6016 with SMTP id
+ z15-20020a170906074f00b009333b2e6016mr21858539ejb.7.1680156966034; 
+ Wed, 29 Mar 2023 23:16:06 -0700 (PDT)
 Received: from [192.168.178.21] (p4fc2092b.dip0.t-ipconnect.de. [79.194.9.43])
  by smtp.gmail.com with ESMTPSA id
- sd13-20020a170906ce2d00b008e09deb6610sm17151805ejb.200.2023.03.29.23.15.19
+ bb11-20020a1709070a0b00b0093dce4e6257sm8280713ejc.201.2023.03.29.23.16.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Mar 2023 23:15:19 -0700 (PDT)
-Message-ID: <5bb62161-7863-4515-5d0c-c92f4be8a631@gmail.com>
-Date: Thu, 30 Mar 2023 08:15:18 +0200
+ Wed, 29 Mar 2023 23:16:05 -0700 (PDT)
+Message-ID: <e0800275-c356-bbad-ac5a-c92cf0d14c35@gmail.com>
+Date: Thu, 30 Mar 2023 08:16:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
-Subject: Re: [PATCH 08/13] drm/amdgpu: add gfx shadow callback
+Subject: Re: [PATCH 09/13] drm/amdgpu: add get_gfx_shadow_info callback for
+ gfx11
 Content-Language: en-US
 To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20230329152521.1980681-1-alexander.deucher@amd.com>
- <20230329152521.1980681-9-alexander.deucher@amd.com>
+ <20230329152521.1980681-10-alexander.deucher@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20230329152521.1980681-9-alexander.deucher@amd.com>
+In-Reply-To: <20230329152521.1980681-10-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,54 +80,65 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Am 29.03.23 um 17:25 schrieb Alex Deucher:
-> To provide IP specific shadow sizes.  UMDs will use
-> this to query the kernel driver for the size of the
-> shadow buffers.
+> Used to get the size and alignment requirements for
+> the gfx shadow buffer for preemption.
 >
-> v2: make callback return an int (Alex)
+> v2: use FW version check to determine whether to
+>      return a valid size here
+>      return an error if not supported (Alex)
 > v3: drop GDS (Alex)
 >
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-
-Reviewed-by: Christian König <christian.koenig@amd.com>
-
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 10 ++++++++++
->   1 file changed, 10 insertions(+)
+>   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 25 +++++++++++++++++++++++++
+>   1 file changed, 25 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> index 4ad9e225d6e6..62047a541c21 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> @@ -219,6 +219,13 @@ struct amdgpu_gfx_ras {
->   						struct amdgpu_iv_entry *entry);
->   };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> index 1fc1e941f7df..df2eabf50e6e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -822,6 +822,30 @@ static void gfx_v11_0_select_me_pipe_q(struct amdgpu_device *adev,
+>   	soc21_grbm_select(adev, me, pipe, q, vm);
+>   }
 >   
-> +struct amdgpu_gfx_shadow_info {
-> +	u32 shadow_size;
-> +	u32 shadow_alignment;
-> +	u32 csa_size;
-> +	u32 csa_alignment;
-> +};
+> +/* all sizes are in bytes */
+> +#define MQD_SHADOW_BASE_SIZE      73728
+> +#define MQD_SHADOW_BASE_ALIGNMENT 256
+> +#define MQD_FWWORKAREA_SIZE       484
+> +#define MQD_FWWORKAREA_ALIGNMENT  256
 > +
->   struct amdgpu_gfx_funcs {
->   	/* get the gpu clock counter */
->   	uint64_t (*get_gpu_clock_counter)(struct amdgpu_device *adev);
-> @@ -236,6 +243,8 @@ struct amdgpu_gfx_funcs {
->   				 u32 queue, u32 vmid);
->   	void (*init_spm_golden)(struct amdgpu_device *adev);
->   	void (*update_perfmon_mgcg)(struct amdgpu_device *adev, bool enable);
-> +	int (*get_gfx_shadow_info)(struct amdgpu_device *adev,
-> +				   struct amdgpu_gfx_shadow_info *shadow_info);
+> +static int gfx_v11_0_get_gfx_shadow_info(struct amdgpu_device *adev,
+> +					 struct amdgpu_gfx_shadow_info *shadow_info)
+> +{
+> +	if (shadow_info) {
+
+Why would anybody call this without parameter?
+
+Christian.
+
+> +		if (adev->gfx.cp_gfx_shadow) {
+> +			shadow_info->shadow_size = MQD_SHADOW_BASE_SIZE;
+> +			shadow_info->shadow_alignment = MQD_SHADOW_BASE_ALIGNMENT;
+> +			shadow_info->csa_size = MQD_FWWORKAREA_SIZE;
+> +			shadow_info->csa_alignment = MQD_FWWORKAREA_ALIGNMENT;
+> +			return 0;
+> +		} else {
+> +			memset(shadow_info, 0, sizeof(struct amdgpu_gfx_shadow_info));
+> +			return -ENOTSUPP;
+> +		}
+> +	}
+> +	return -EINVAL;
+> +}
+> +
+>   static const struct amdgpu_gfx_funcs gfx_v11_0_gfx_funcs = {
+>   	.get_gpu_clock_counter = &gfx_v11_0_get_gpu_clock_counter,
+>   	.select_se_sh = &gfx_v11_0_select_se_sh,
+> @@ -830,6 +854,7 @@ static const struct amdgpu_gfx_funcs gfx_v11_0_gfx_funcs = {
+>   	.read_wave_vgprs = &gfx_v11_0_read_wave_vgprs,
+>   	.select_me_pipe_q = &gfx_v11_0_select_me_pipe_q,
+>   	.update_perfmon_mgcg = &gfx_v11_0_update_perf_clk,
+> +	.get_gfx_shadow_info = &gfx_v11_0_get_gfx_shadow_info,
 >   };
 >   
->   struct sq_work {
-> @@ -372,6 +381,7 @@ struct amdgpu_gfx {
->   #define amdgpu_gfx_select_se_sh(adev, se, sh, instance) (adev)->gfx.funcs->select_se_sh((adev), (se), (sh), (instance))
->   #define amdgpu_gfx_select_me_pipe_q(adev, me, pipe, q, vmid) (adev)->gfx.funcs->select_me_pipe_q((adev), (me), (pipe), (q), (vmid))
->   #define amdgpu_gfx_init_spm_golden(adev) (adev)->gfx.funcs->init_spm_golden((adev))
-> +#define amdgpu_gfx_get_gfx_shadow_info(adev, si) (adev)->gfx.funcs->get_gfx_shadow_info((adev), (si))
->   
->   /**
->    * amdgpu_gfx_create_bitmask - create a bitmask
+>   static int gfx_v11_0_gpu_early_init(struct amdgpu_device *adev)
 
