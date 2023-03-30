@@ -4,49 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C44B6C761A6
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 16:14:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46690C761A6
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 16:56:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F95F10E002;
-	Thu, 30 Mar 2023 16:14:05 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C38010E002
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 16:14:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680192844; x=1711728844;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=7ElYsMNT+HJxJYO4GGzC6zAdpQ1oT6NK5jOdZEm5or4=;
- b=DoAdQC/vEowyn/pKBiO0RjznT7+flVpI0vlk/WvLAsHp+vjoVrV+rd3I
- t2A6Ctsqq9wd+Rtu2cnXQX+6stJiaTB9qf818u7SBwjiMrIx/Qrhx/7FW
- pu2yhNgZzrxEs0xawzivIp4ID1F3njDjJZ4y7yK8XqrxqTjOouPxE53Ti
- d06p7uHC86xBksltrWp+Jz68+7UxeU6gO3UnQNCPiVm8JuukgjGATWXXC
- Ug9Yle6LTbwT0WRzFZ6DnCdEU5oJF+WwIhonJC+nC1hi0W/krpjbB7p++
- 5Xav1k4aNbI5hsp77k3d6zILlyAKlvQA0hpWs7eBnmn7R0e15K8s3s9K1 A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="427491642"
-X-IronPort-AV: E=Sophos;i="5.98,305,1673942400"; d="scan'208";a="427491642"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2023 09:14:03 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="795715444"
-X-IronPort-AV: E=Sophos;i="5.98,305,1673942400"; d="scan'208";a="795715444"
-Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
- by fmsmga002.fm.intel.com with ESMTP; 30 Mar 2023 09:14:00 -0700
-Received: from kbuild by b613635ddfff with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1phuuV-000KzO-3D;
- Thu, 30 Mar 2023 16:13:59 +0000
-Date: Fri, 31 Mar 2023 00:13:51 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- a6d9e3034536ba4b68ac34490c02267e6eec9c05
-Message-ID: <6425b53f.mjvjApBCFlusUbza%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id A496F10E42D;
+	Thu, 30 Mar 2023 16:56:19 +0000 (UTC)
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5430310EF16
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 16:56:17 +0000 (UTC)
+Received: by mail-wm1-x330.google.com with SMTP id
+ i5-20020a05600c354500b003edd24054e0so13804446wmq.4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 09:56:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1680195376; x=1682787376;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=rSWBz3mIBXBdxw6TcqTLatMi79mw1Y62Q64fcwwg5XQ=;
+ b=gUhdOPd+Up9qPAdQUYDa8lvbClM59gdqiYAopfZpomdemOlRmBp0G8LVud1yU4blJO
+ q6F8CoPwbjXxsTCLt6YRDgxoXLTI3wr23Jyf03ben6fb2JGQHZRO86B+0bAdLB+p0ZMd
+ McLwYmfe+oy6rqzo9UCBUDwrg4WcKmyqqSsxg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1680195376; x=1682787376;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=rSWBz3mIBXBdxw6TcqTLatMi79mw1Y62Q64fcwwg5XQ=;
+ b=llR2s1cKpOqTEO25zgsgGo44sNkOQD/vNYKbAQwXDmylTVHxIi9Pqc7Qto69vEIRUr
+ ps5Pf1e+5q6IN1PaS3fFzBEXLQwzYMDp+eunOxSLRHLpuEqsxCFTugXnGZYcHdYXGanN
+ J+7igMNWuFm3P9Ab6VeCKHuVJUCl/Aj6/dVYvqrWYrtoq6ngVI/hToTIPz7jDxt0pT/q
+ 84GJBVEFiJDawW2wTE8E+3yqAzQ81+QrhyA9AxIFDCy229blNoSd7QMnIveoEWOm1jYz
+ ebKsvVWnpDH4CGJ8y1zY5oaaUXCMKg8pBzLho5ySNDCA9DaumJVeWkhv6r/HRU+cqoc9
+ PAHg==
+X-Gm-Message-State: AAQBX9fLlkv523V2As25JnwlPnCS4c7wKlCZnJiPI5uvKngVEGqgvos0
+ N6s79yylccyiZjyLy4N/+tR0uA==
+X-Google-Smtp-Source: AKy350a0GUu3C0dSw3paeLQHDiulOYdP58SAJNcFfM1Hzo2BSLl88mMtdmXrVa72+MbPIRw0DbxW1g==
+X-Received: by 2002:a05:600c:1550:b0:3ed:d2ae:9adb with SMTP id
+ f16-20020a05600c155000b003edd2ae9adbmr2505251wmg.0.1680195375828; 
+ Thu, 30 Mar 2023 09:56:15 -0700 (PDT)
+Received: from phenom.ffwll.local (212-51-149-33.fiber7.init7.net.
+ [212.51.149.33]) by smtp.gmail.com with ESMTPSA id
+ k4-20020a05600c1c8400b003ee610d1ce9sm7005666wms.34.2023.03.30.09.56.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Mar 2023 09:56:15 -0700 (PDT)
+Date: Thu, 30 Mar 2023 18:56:13 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Alex Deucher <alexander.deucher@amd.com>
+Subject: Re: [pull] amdgpu drm-fixes-6.3
+Message-ID: <ZCW/LWgWX7+uBUuc@phenom.ffwll.local>
+References: <20230329220059.7622-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+In-Reply-To: <20230329220059.7622-1-alexander.deucher@amd.com>
+X-Operating-System: Linux phenom 6.1.0-6-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,209 +69,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alsa-devel@alsa-project.org, linux-watchdog@vger.kernel.org,
- linux-acpi@vger.kernel.org, linux-wireless@vger.kernel.org,
- amd-gfx@lists.freedesktop.org,
- Linux Memory Management List <linux-mm@kvack.org>, linux-gpio@vger.kernel.org,
- bpf@vger.kernel.org, io-uring@vger.kernel.org
+Cc: daniel.vetter@ffwll.ch, airlied@gmail.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: a6d9e3034536ba4b68ac34490c02267e6eec9c05  Add linux-next specific files for 20230330
+On Wed, Mar 29, 2023 at 06:00:59PM -0400, Alex Deucher wrote:
+> Hi Dave, Daniel,
+> 
+> Fixes for 6.3.
+> 
+> The following changes since commit 197b6b60ae7bc51dd0814953c562833143b292aa:
+> 
+>   Linux 6.3-rc4 (2023-03-26 14:40:20 -0700)
+> 
+> are available in the Git repository at:
+> 
+>   https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.3-2023-03-29
+> 
+> for you to fetch changes up to 68dc1846c3a44d5e633be145c169ce2fd5420695:
+> 
+>   drm/amd/display: Take FEC Overhead into Timeslot Calculation (2023-03-29 17:21:06 -0400)
 
-Error/Warning reports:
+Pulled, thanks
 
-https://lore.kernel.org/oe-kbuild-all/202303161521.jbGbaFjJ-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202303301712.i4ddVa9j-lkp@intel.com
-
-Error/Warning: (recently discovered and may have been fixed)
-
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_validation.c:351:13: warning: variable 'bw_needed' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_validation.c:352:25: warning: variable 'link' set but not used [-Wunused-but-set-variable]
-drivers/net/wireless/legacy/ray_cs.c:628:17: warning: 'strncpy' specified bound 32 equals destination size [-Wstringop-truncation]
-kernel/bpf/verifier.c:18485: undefined reference to `find_kallsyms_symbol_value'
-sound/pci/ymfpci/ymfpci_main.c:2259:9: error: implicit declaration of function 'snd_ac97_suspend'; did you mean 'snd_ac97_reset'? [-Werror=implicit-function-declaration]
-sound/pci/ymfpci/ymfpci_main.c:2288:9: error: implicit declaration of function 'snd_ac97_resume'; did you mean 'snd_ac97_reset'? [-Werror=implicit-function-declaration]
-
-Unverified Error/Warning (likely false positive, please contact us if interested):
-
-drivers/acpi/property.c:985 acpi_data_prop_read_single() error: potentially dereferencing uninitialized 'obj'.
-drivers/pinctrl/pinctrl-mlxbf3.c:162:20: sparse: sparse: symbol 'mlxbf3_pmx_funcs' was not declared. Should it be static?
-drivers/watchdog/imx2_wdt.c:442:22: sparse: sparse: symbol 'imx_wdt' was not declared. Should it be static?
-drivers/watchdog/imx2_wdt.c:446:22: sparse: sparse: symbol 'imx_wdt_legacy' was not declared. Should it be static?
-io_uring/io_uring.c:432 io_prep_async_work() error: we previously assumed 'req->file' could be null (see line 425)
-io_uring/kbuf.c:221 __io_remove_buffers() warn: variable dereferenced before check 'bl->buf_ring' (see line 219)
-net/mac80211/mesh_pathtbl.c:616:24: warning: Value stored to 'cache' during its initialization is never read [clang-analyzer-deadcode.DeadStores]
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|   `-- drivers-net-wireless-legacy-ray_cs.c:warning:strncpy-specified-bound-equals-destination-size
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- arm-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- arm-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- arm-randconfig-r024-20230329
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- arm-randconfig-s031-20230329
-|   `-- drivers-pinctrl-pinctrl-mlxbf3.c:sparse:sparse:symbol-mlxbf3_pmx_funcs-was-not-declared.-Should-it-be-static
-|-- arm64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- i386-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- ia64-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|   `-- drivers-net-wireless-legacy-ray_cs.c:warning:strncpy-specified-bound-equals-destination-size
-|-- loongarch-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- loongarch-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- loongarch-defconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- microblaze-buildonly-randconfig-r001-20230329
-|   |-- sound-pci-ymfpci-ymfpci_main.c:error:implicit-declaration-of-function-snd_ac97_resume
-|   `-- sound-pci-ymfpci-ymfpci_main.c:error:implicit-declaration-of-function-snd_ac97_suspend
-|-- mips-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- mips-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- mips-randconfig-s032-20230329
-|   |-- drivers-watchdog-imx2_wdt.c:sparse:sparse:symbol-imx_wdt-was-not-declared.-Should-it-be-static
-|   `-- drivers-watchdog-imx2_wdt.c:sparse:sparse:symbol-imx_wdt_legacy-was-not-declared.-Should-it-be-static
-|-- nios2-buildonly-randconfig-r005-20230329
-clang_recent_errors
-`-- riscv-randconfig-c006-20230326
-    `-- net-mac80211-mesh_pathtbl.c:warning:Value-stored-to-cache-during-its-initialization-is-never-read-clang-analyzer-deadcode.DeadStores
-
-elapsed time: 722m
-
-configs tested: 104
-configs skipped: 7
-
-tested configs:
-alpha                            allyesconfig   gcc  
-alpha                               defconfig   gcc  
-arc                              allyesconfig   gcc  
-arc          buildonly-randconfig-r002-20230329   gcc  
-arc                                 defconfig   gcc  
-arc                  randconfig-r013-20230329   gcc  
-arc                  randconfig-r043-20230329   gcc  
-arm                              allmodconfig   gcc  
-arm                              allyesconfig   gcc  
-arm                         axm55xx_defconfig   gcc  
-arm                                 defconfig   gcc  
-arm                         lpc18xx_defconfig   gcc  
-arm                  randconfig-r003-20230329   clang
-arm                  randconfig-r024-20230329   gcc  
-arm                  randconfig-r046-20230329   gcc  
-arm64                            allyesconfig   gcc  
-arm64                               defconfig   gcc  
-csky                                defconfig   gcc  
-csky                 randconfig-r026-20230329   gcc  
-hexagon              randconfig-r033-20230329   clang
-hexagon              randconfig-r041-20230329   clang
-hexagon              randconfig-r045-20230329   clang
-i386                             allyesconfig   gcc  
-i386                              debian-10.3   gcc  
-i386                                defconfig   gcc  
-i386                          randconfig-a001   gcc  
-i386                          randconfig-a002   clang
-i386                          randconfig-a003   gcc  
-i386                          randconfig-a004   clang
-i386                          randconfig-a005   gcc  
-i386                          randconfig-a006   clang
-i386                          randconfig-a011   clang
-i386                          randconfig-a012   gcc  
-i386                          randconfig-a013   clang
-i386                          randconfig-a014   gcc  
-i386                          randconfig-a015   clang
-i386                          randconfig-a016   gcc  
-ia64                             allmodconfig   gcc  
-ia64                                defconfig   gcc  
-ia64                 randconfig-r005-20230329   gcc  
-ia64                 randconfig-r016-20230329   gcc  
-loongarch                        allmodconfig   gcc  
-loongarch                         allnoconfig   gcc  
-loongarch    buildonly-randconfig-r003-20230329   gcc  
-loongarch                           defconfig   gcc  
-loongarch            randconfig-r006-20230329   gcc  
-loongarch            randconfig-r011-20230329   gcc  
-m68k                             allmodconfig   gcc  
-m68k                                defconfig   gcc  
-m68k                 randconfig-r004-20230329   gcc  
-microblaze   buildonly-randconfig-r004-20230329   gcc  
-mips                             allmodconfig   gcc  
-mips                             allyesconfig   gcc  
-mips                 randconfig-r012-20230329   gcc  
-nios2                               defconfig   gcc  
-nios2                randconfig-r015-20230329   gcc  
-openrisc             randconfig-r032-20230329   gcc  
-parisc       buildonly-randconfig-r005-20230329   gcc  
-parisc                              defconfig   gcc  
-parisc               randconfig-r021-20230329   gcc  
-parisc64                            defconfig   gcc  
-powerpc                          allmodconfig   gcc  
-powerpc                           allnoconfig   gcc  
-powerpc                       holly_defconfig   gcc  
-powerpc              randconfig-r031-20230329   gcc  
-riscv                            allmodconfig   gcc  
-riscv                             allnoconfig   gcc  
-riscv                               defconfig   gcc  
-riscv                randconfig-r022-20230329   clang
-riscv                randconfig-r036-20230329   gcc  
-riscv                randconfig-r042-20230329   clang
-riscv                          rv32_defconfig   gcc  
-s390                             alldefconfig   clang
-s390                             allmodconfig   gcc  
-s390                             allyesconfig   gcc  
-s390                                defconfig   gcc  
-s390                 randconfig-r014-20230329   clang
-s390                 randconfig-r023-20230329   clang
-s390                 randconfig-r034-20230329   gcc  
-s390                 randconfig-r044-20230329   clang
-sh                               allmodconfig   gcc  
-sh                         microdev_defconfig   gcc  
-sparc        buildonly-randconfig-r006-20230329   gcc  
-sparc                               defconfig   gcc  
-um                             i386_defconfig   gcc  
-um                           x86_64_defconfig   gcc  
-x86_64                            allnoconfig   gcc  
-x86_64                           allyesconfig   gcc  
-x86_64                              defconfig   gcc  
-x86_64                                  kexec   gcc  
-x86_64                        randconfig-a001   clang
-x86_64                        randconfig-a002   gcc  
-x86_64                        randconfig-a003   clang
-x86_64                        randconfig-a004   gcc  
-x86_64                        randconfig-a005   clang
-x86_64                        randconfig-a006   gcc  
-x86_64                        randconfig-a011   gcc  
-x86_64                        randconfig-a012   clang
-x86_64                        randconfig-a013   gcc  
-x86_64                        randconfig-a014   clang
-x86_64                        randconfig-a015   gcc  
-x86_64                        randconfig-a016   clang
-x86_64                               rhel-8.3   gcc  
-xtensa               randconfig-r025-20230329   gcc  
+> 
+> ----------------------------------------------------------------
+> amd-drm-fixes-6.3-2023-03-29:
+> 
+> amdgpu:
+> - Two DP MST fixes
+> 
+> ----------------------------------------------------------------
+> Fangzhi Zuo (2):
+>       drm/amd/display: Add DSC Support for Synaptics Cascaded MST Hub
+>       drm/amd/display: Take FEC Overhead into Timeslot Calculation
+> 
+>  .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    | 51 ++++++++++++++++++----
+>  .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.h    | 15 +++++++
+>  2 files changed, 58 insertions(+), 8 deletions(-)
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
