@@ -4,89 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB342C74A5B
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 22:01:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6614AC6FD18
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 02:08:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5276010E199;
-	Wed, 29 Mar 2023 22:01:19 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF58110E199;
- Wed, 29 Mar 2023 22:01:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=D62r01uoqVZXDWTPMG19ray6+MVCAbXmKU7Ldf7V8H0iFzBNoUJCrIffImAgnwraP7htIIhGuzFYKO+cNIR/lFGB1sCg0m4lXJIjbGUyq6FMwWQwoYWddLxyb/mzgVSod0rASzwFt4vtRjlTLKrNxAssfu04MgFJx89Am/Qv9HKwP205gSqjxhm34g/2BukRh2ngbIzqItjD2EnR7365vFbspHnO32iqiBNbz1KDzF+wSVh8bwAuoJ6IxS+860Ce75RfWeXuMJ0jt9+/UYvKipJwyQ9pNKohP93ta7afHDjxhcPdryqPjnhSo2jm8VIUCrkZY+I4mwRZDovHqJ2uww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3ZePqlh73OZNe2RJOYDVumPZOnRQhw+S5gN6D3l1Hdo=;
- b=e4f8kUzgd1uEBXyrYQ5Y5RvOwbRyNS4EVS6Ia3nXJzQJqcwzsje7p6fI3FjuEimsibcXNJqyZGeeyRiNlfmKB2O1YrpSUgENM6XTEoQTh8w2KhPfB2sdvcGbEV5UsEjToutjUJoPRu2x2jEu/5KvwSIgia8f2iO9rY/F/FtWuB5AByUUj0ljuPq8hgfDk2L6QaYWGVGpjFoonYJvwEqzhWBrg+/Kds6qNnJv8RDH92GKCVXPclYngFTg4/kVX4UM0MxtZaSfVuPR2z04mQTFvGidyf+0iQStHdd5AC2vMbqF+rNEhH04tyEXZ28g7jSfZsgovEIt//HDAeboZ5My6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3ZePqlh73OZNe2RJOYDVumPZOnRQhw+S5gN6D3l1Hdo=;
- b=Wh0o/0Ff8w1fZwPG1qXqSMEk7GbN7YB1PpfGLAc1rhMRxCNCn/pvBLybVQah74Y8CM3s3n0OOn5PePVJZdwc38T0ipMyRJ6kjr+aL7uigTGUpskGUGLvz0zPfb1NQm48OzTWUD30ud5zKLYS39wMovZ+F3NWuFTI7Kqh+CPURKY=
-Received: from BL1P222CA0014.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:2c7::19)
- by CY5PR12MB6130.namprd12.prod.outlook.com (2603:10b6:930:26::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.41; Wed, 29 Mar
- 2023 22:01:14 +0000
-Received: from BL02EPF00010209.namprd05.prod.outlook.com
- (2603:10b6:208:2c7:cafe::b2) by BL1P222CA0014.outlook.office365.com
- (2603:10b6:208:2c7::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.20 via Frontend
- Transport; Wed, 29 Mar 2023 22:01:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF00010209.mail.protection.outlook.com (10.167.241.198) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.30 via Frontend Transport; Wed, 29 Mar 2023 22:01:14 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 29 Mar
- 2023 17:01:13 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
-Subject: [pull] amdgpu drm-fixes-6.3
-Date: Wed, 29 Mar 2023 18:00:59 -0400
-Message-ID: <20230329220059.7622-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.39.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id E116710E02E;
+	Thu, 30 Mar 2023 02:08:46 +0000 (UTC)
+Received: from smtp-relay-internal-1.canonical.com
+ (smtp-relay-internal-1.canonical.com [185.125.188.123])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63BF410EC94
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 00:49:19 +0000 (UTC)
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
+ [209.85.215.198])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id E978D3F232
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 00:49:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1680137355;
+ bh=2bTlOOOOVa4/gjv3TZ+YFUjSIkiCAUcO1Pmm7DLw2W0=;
+ h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+ To:Cc:Content-Type;
+ b=dZEacsKwjLH0zgb3fn8r5d/1HPLLgVDGckyVJESEXw8VBiI4kUQFzYjjEop2DMlFj
+ F3qb8G1LuErfOH23eumY10OBgCL92O4CDDqcnp+u50cADWVEA9NpxeuWsyah5cFBAN
+ dvcMUoUtBoJorDMV2FboqF6uaSj2pjt5A1NJ/v/iqTGsm1av6jAnslPSG3pZoxMrW3
+ ykP/QCsK86e6WjmKO68azH4efExRPi2pw0Jw2D3NK+SJOqUgOaeKht1ti8Rmv2laew
+ oGhRbqa88VvCe8uYVqHwk05dV0UIYwGByQKUEdtQKKG+YA/TkcpFbWj+9SXsRkF8bN
+ vZ8X73wcH7WZg==
+Received: by mail-pg1-f198.google.com with SMTP id
+ t12-20020a65608c000000b005091ec4f2d4so4881257pgu.20
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 17:49:15 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1680137354;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=2bTlOOOOVa4/gjv3TZ+YFUjSIkiCAUcO1Pmm7DLw2W0=;
+ b=MCE6TDv+8cnqewxFMHfdOho/Q3r3H6Yl5Nzg6SbOFO4ilTztsG/GgCmqMnTOhirMWg
+ DQ0h8G7tpFuaDF4IrrOB3YJeFMFa+jLMXRyVOsB1ckFppCl+wAu7/0+GmSGsKnq8OBUP
+ vuXDcpHUM6YOvJ637kb1wcNbFV7eA77vECkmUsr811J4rKZ6Gg6QY2fgI48fllU29SLT
+ mRXenDMNunTqTlERX+5JSLUZaJWw2QAF6GMeHSpiIfxfBj/EX4Taz4ENXimNFfl9kLQo
+ 84QqdZkt9S/rGK4X2szJD/tveemyXGd3PI6IA4wl9LVsw9MSX+93mG7Im6vPW94DwU65
+ Ea8A==
+X-Gm-Message-State: AAQBX9fzjDHIhVaGhJEzTL8CYXU3vVT3Bqh3WOiVSFVRDCDZuW2NQFo7
+ Kpb8kRKdfGrykbMpTTEwuP3bwotXp5S8tw7TC3gpaC+M3krs6POp6kJckmMSdjprL4hdZl1NP9D
+ pydkJYjIKK5qUBOerAdq2I/3+qEAafBnkBdKcRNTP+LkJ/LccmgM8TGPbUms=
+X-Received: by 2002:a17:902:ea0c:b0:1a0:527b:9189 with SMTP id
+ s12-20020a170902ea0c00b001a0527b9189mr7876940plg.11.1680137354466; 
+ Wed, 29 Mar 2023 17:49:14 -0700 (PDT)
+X-Google-Smtp-Source: AKy350bveMH01s7+yH455+SdTj3dQe+mfSCF727NIqTHZ2zVZXUcA2FnI/LaSBhxpMsA8Pcm1zN+9zySOov6rVuVADo=
+X-Received: by 2002:a17:902:ea0c:b0:1a0:527b:9189 with SMTP id
+ s12-20020a170902ea0c00b001a0527b9189mr7876926plg.11.1680137354120; Wed, 29
+ Mar 2023 17:49:14 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00010209:EE_|CY5PR12MB6130:EE_
-X-MS-Office365-Filtering-Correlation-Id: d5f7f361-0534-4ee2-4a5d-08db30a11d82
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: i7vDBVxUMsksfL6x5n4aktS3YYgipODCkm6BzXAqAofDbxt/raUdVU7Ya08Bgy0fSHiQlko7aYpOwxkTlE4hQnsmhlDcHfAoajFFVjoQee+86ZjZP7vNz8jZQLucAzZchzd2um7Z2veEb2p9QC7x+LtrX/50WyAPjmYh2lSOGPea8bwtUxQaA8pxwsKgH+WxeKmi91JslDXH/eRO/01yVhC8VIn/k++QcbkG5L3YLU6WRU7rIPImeHw0WG4PDnTSEYciLFtlFimEXIfV2cOswUl4NT+KhvplG71j/nywvOIhuTJf8wgpczNIV+YbeNIKvkFW3Vie57UPh3wQdWjEX00VJ5SPl61CCOgxDdnOs7u2GIrG2PbJSXyMLWgeEYQOo9y5nf2va6Hrx3125/7QkWOyhbAzEPrSZhVA6IUJmw+NKwFS1ihQ/I/A8Hm2dbuxTYwCDvP/88r/S+M0RkESawHk5Z48giCXo3YS8FogyeQ6deKS6CR8H7EqRYwgo6ZPZ5z84CFkX8y8vcolsD+as2V2TJZfM+p0xXn5agKDRVYLVH8/wDoKNa2MB4b0aEk0tcZr0oBQzYbgfQnlHDbeV8RuuiQr8OrVu5L8na1FKzdwZSSt5Z6dOjKaYqoEtFLTOg80tB9YheHRpk8KmV6F9qGUSzGwqjC42RJoT79gAfNbCc/ow/fl+QIQzjYJO01z
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(39860400002)(346002)(396003)(136003)(451199021)(46966006)(36840700001)(40470700004)(966005)(7696005)(478600001)(110136005)(40480700001)(6666004)(26005)(1076003)(316002)(8936002)(70206006)(16526019)(70586007)(40460700003)(8676002)(41300700001)(81166007)(2616005)(82740400003)(4326008)(336012)(4744005)(36860700001)(36756003)(83380400001)(2906002)(5660300002)(82310400005)(186003)(426003)(86362001)(47076005)(356005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2023 22:01:14.5533 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5f7f361-0534-4ee2-4a5d-08db30a11d82
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00010209.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6130
+References: <20230329095933.1203559-1-kai.heng.feng@canonical.com>
+ <CADnq5_MMg4XD3QK72ZfLYvq02hYrX2aApNT2JUEAvQGvBP+NeQ@mail.gmail.com>
+In-Reply-To: <CADnq5_MMg4XD3QK72ZfLYvq02hYrX2aApNT2JUEAvQGvBP+NeQ@mail.gmail.com>
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Date: Thu, 30 Mar 2023 08:49:02 +0800
+Message-ID: <CAAd53p5A4Rxs0FHXzkgP9sXe=5_mWjfkDeROBT2k71PYKVKTwQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu: Reset GPU on S0ix when device supports
+ BOCO
+To: Alex Deucher <alexdeucher@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Thu, 30 Mar 2023 02:08:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,37 +80,147 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Jingyu Wang <jingyuwang_vip@163.com>,
+ Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
+ Tim Huang <tim.huang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ dri-devel@lists.freedesktop.org,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>,
+ YiPeng Chai <YiPeng.Chai@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Guchun Chen <guchun.chen@amd.com>,
+ "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+ amd-gfx@lists.freedesktop.org, Jiansong Chen <Jiansong.Chen@amd.com>,
+ Kenneth Feng <kenneth.feng@amd.com>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Bokun Zhang <Bokun.Zhang@amd.com>, Hans de Goede <hdegoede@redhat.com>,
+ Maxime Ripard <maxime@cerno.tech>, Evan Quan <evan.quan@amd.com>,
+ Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+On Wed, Mar 29, 2023 at 9:21=E2=80=AFPM Alex Deucher <alexdeucher@gmail.com=
+> wrote:
+>
+> On Wed, Mar 29, 2023 at 6:00=E2=80=AFAM Kai-Heng Feng
+> <kai.heng.feng@canonical.com> wrote:
+> >
+> > When the power is lost due to ACPI power resources being turned off, th=
+e
+> > driver should reset the GPU so it can work anew.
+> >
+> > First, _PR3 support of the hierarchy needs to be found correctly. Since
+> > the GPU on some discrete GFX cards is behind a PCIe switch, checking th=
+e
+> > _PR3 on downstream port alone is not enough, as the _PR3 can associate
+> > to the root port above the PCIe switch.
+> >
+> > Once the _PR3 is found and BOCO support is correctly marked, use that
+> > information to inform the GPU should be reset. This solves an issue tha=
+t
+> > system freeze on a Intel ADL desktop that uses S0ix for sleep and D3col=
+d
+> > is supported for the GFX slot.
+>
+> I don't think we need to reset the GPU.  If the power is turned off, a
+> reset shouldn't be necessary. The reset is only necessary when the
+> power is not turned off to put the GPU into a known good state.  It
+> should be in that state already if the power is turn off.  It sounds
+> like the device is not actually getting powered off.
 
-Fixes for 6.3.
+I had the impression that the GPU gets reset because S3 turned the
+power rail off.
 
-The following changes since commit 197b6b60ae7bc51dd0814953c562833143b292aa:
+So the actual intention for GPU reset is because S3 doesn't guarantee
+the power is being turned off?
 
-  Linux 6.3-rc4 (2023-03-26 14:40:20 -0700)
+Kai-Heng
 
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.3-2023-03-29
-
-for you to fetch changes up to 68dc1846c3a44d5e633be145c169ce2fd5420695:
-
-  drm/amd/display: Take FEC Overhead into Timeslot Calculation (2023-03-29 17:21:06 -0400)
-
-----------------------------------------------------------------
-amd-drm-fixes-6.3-2023-03-29:
-
-amdgpu:
-- Two DP MST fixes
-
-----------------------------------------------------------------
-Fangzhi Zuo (2):
-      drm/amd/display: Add DSC Support for Synaptics Cascaded MST Hub
-      drm/amd/display: Take FEC Overhead into Timeslot Calculation
-
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    | 51 ++++++++++++++++++----
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.h    | 15 +++++++
- 2 files changed, 58 insertions(+), 8 deletions(-)
+>
+> Alex
+>
+> >
+> > Fixes: 0064b0ce85bb ("drm/amd/pm: enable ASPM by default")
+> > Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1885
+> > Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2458
+> > Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c   |  3 +++
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  7 ++++++-
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 12 +++++-------
+> >  3 files changed, 14 insertions(+), 8 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_acpi.c
+> > index 60b1857f469e..407456ac0e84 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> > @@ -987,6 +987,9 @@ bool amdgpu_acpi_should_gpu_reset(struct amdgpu_dev=
+ice *adev)
+> >         if (amdgpu_sriov_vf(adev))
+> >                 return false;
+> >
+> > +       if (amdgpu_device_supports_boco(adev_to_drm(adev)))
+> > +               return true;
+> > +
+> >  #if IS_ENABLED(CONFIG_SUSPEND)
+> >         return pm_suspend_target_state !=3D PM_SUSPEND_TO_IDLE;
+> >  #else
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_device.c
+> > index f5658359ff5c..d56b7a2bafa6 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -2181,7 +2181,12 @@ static int amdgpu_device_ip_early_init(struct am=
+dgpu_device *adev)
+> >
+> >         if (!(adev->flags & AMD_IS_APU)) {
+> >                 parent =3D pci_upstream_bridge(adev->pdev);
+> > -               adev->has_pr3 =3D parent ? pci_pr3_present(parent) : fa=
+lse;
+> > +               do {
+> > +                       if (pci_pr3_present(parent)) {
+> > +                               adev->has_pr3 =3D true;
+> > +                               break;
+> > +                       }
+> > +               } while ((parent =3D pci_upstream_bridge(parent)));
+> >         }
+> >
+> >         amdgpu_amdkfd_device_probe(adev);
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_drv.c
+> > index ba5def374368..5d81fcac4b0a 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > @@ -2415,10 +2415,11 @@ static int amdgpu_pmops_suspend(struct device *=
+dev)
+> >         struct drm_device *drm_dev =3D dev_get_drvdata(dev);
+> >         struct amdgpu_device *adev =3D drm_to_adev(drm_dev);
+> >
+> > -       if (amdgpu_acpi_is_s0ix_active(adev))
+> > -               adev->in_s0ix =3D true;
+> > -       else if (amdgpu_acpi_is_s3_active(adev))
+> > +       if (amdgpu_acpi_is_s3_active(adev) ||
+> > +           amdgpu_device_supports_boco(drm_dev))
+> >                 adev->in_s3 =3D true;
+> > +       else if (amdgpu_acpi_is_s0ix_active(adev))
+> > +               adev->in_s0ix =3D true;
+> >         if (!adev->in_s0ix && !adev->in_s3)
+> >                 return 0;
+> >         return amdgpu_device_suspend(drm_dev, true);
+> > @@ -2449,10 +2450,7 @@ static int amdgpu_pmops_resume(struct device *de=
+v)
+> >                 adev->no_hw_access =3D true;
+> >
+> >         r =3D amdgpu_device_resume(drm_dev, true);
+> > -       if (amdgpu_acpi_is_s0ix_active(adev))
+> > -               adev->in_s0ix =3D false;
+> > -       else
+> > -               adev->in_s3 =3D false;
+> > +       adev->in_s0ix =3D adev->in_s3 =3D false;
+> >         return r;
+> >  }
+> >
+> > --
+> > 2.34.1
+> >
