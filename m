@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0D04C77B6D
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 19:32:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86560C77B60
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 19:32:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0234610EFE9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5123910EFD1;
 	Thu, 30 Mar 2023 19:32:30 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2050.outbound.protection.outlook.com [40.107.94.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5135E10E54A
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 19:32:24 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2061a.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5a::61a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 815A710EFE5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 19:32:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kgCKrwTV0zc0fzp1glYRcgN5gdwPvqLYIqek5HwOyOu3+rPk6XBrQ68FnxvDn82r+bhiMECag1upii7wOW/wIp3Ssxe2KYMN6UPW75+p2NCOg9wOV/UJou2vURex9mZb0WVr9uLW5I786wtx7DGv5jPPh/s6jg0cDMPS7tMsJnDtOZUCiYBUNe50I8vflP7IgeyD4MZUzbG9qGnsYbU1cLtPvPqvcID3c4ed7QOiRYYlHJRKeMkVubAjLB1Jz4XErpmGkYsNTs0+bvBI9VAiNS4c9WvPL6sIuHolNJfqLn2mwJzkORr3UDa/tmNjYiaupb7VDPpxq4lJCnpkuiNnjw==
+ b=Vy5S410C1GOBWZwTguIbFjAucWRc0CX4NpLnUSVnB8WgGnKUi3EFhkn02yKH3uj6Eh01CEV/vlygEq8PuVwMHf64KFjEo5sPJyU81yrMdWx1qTBOYzyjpd8/eymwH5pUU06el+DngHxRvFp42W/i24V0K8qi+qe3kQN0XSGXMac/pW8TV+I55+fcZGklD4YY0Z8vntEupkOWykiwQz1kyEnhSooSzTQ+NPH9ssV7dvS8W+gFnQ1nKyz8nJjvORVGAGiDqtktA/YVEki+vvLaTTa6ptcMn1STopyQ2JnvpZa5ifkr2qzpaOs5uOEj0zur0k5bmWG4E5mDWiHOfCQD3Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o5Po3girqK91yrrZvanPI+mPBfnohtebSub7T+84lj0=;
- b=UIkknjJLlrurQzH2YsaaoVWBQ7vBHAeOMpfwGwm07AuB3GHqz41CX/caRiSzMHmztYsNlvf6U5C+w0iwAnWYjsOMKxiKqpvC9HcspgOpzVHQjSJYJ9mSgxsJ0kOhzPd1spv0+640puI9Oi8aIucMBdO+zVK8/7FAeuHi4SridPJaKvDlnH+NlvRcPZ107z8wTtJMVVK3yehCeX8aRa2HQBPBdr3k/SjxsS/nDWaEjJUwKG9lAbAEOcCqRuFoI2Y6eDwer46mvNqDe1tvP3NVq3wkLR8Ee0aOOa1YDuWTszIUuBD0EJ9WWrpNznha6rg0dEmFJBf7jD6j6xBcKSrVSw==
+ bh=F6DaDzp2emmMQeLI8z8epUHvEEWvYJ/Of3zx742KBIU=;
+ b=eBW3svsBjRcyip+9d3f7ETt3WJDdvtO5uD3QMEY4By0ykXXyO8Rht/oBBLLxQaotbOceypPmeNSrmiNrZxL5HBSKKL7gL7AUcoBni31MCHlJmanffMGK5FZf/I9EarA/syHlqsZ3AaUFJK9iZtYesSv7zxn2MonJNZDPyqTkTFRVSC9ykHWNwvyR96dPNppeSJvWCKtbe1HzGs3b9x6xg5/HQmPPzktL/0NheE6HkDQf88SuFIkAlu844usA4jNL/RQP4J6hNX+0Jzqebyd6ML5INJzR+TwTeh37j5TwQZXpRrUc3AemPx8tTK8GohpOzG23weTGM0nj83RAGDA/+Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o5Po3girqK91yrrZvanPI+mPBfnohtebSub7T+84lj0=;
- b=M8faoaHHmf7faXzgqyctPHAtzhcNBGLny2sW/IQMigLdIea57AzBod8fDbMvK4Ks6FAwpWTDPFqa8qVqBFVO+LlF2ElGckngvESkU5voSoqYfzCSSovDP6OfsjfaKxdbWp1+90h4D3XHalUTOcN4wE5n3pYBvQ1NGB0/J74Du6s=
-Received: from BN9PR03CA0064.namprd03.prod.outlook.com (2603:10b6:408:fc::9)
- by BL1PR12MB5707.namprd12.prod.outlook.com (2603:10b6:208:386::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.20; Thu, 30 Mar
- 2023 19:32:22 +0000
-Received: from BN8NAM11FT078.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:fc:cafe::b) by BN9PR03CA0064.outlook.office365.com
- (2603:10b6:408:fc::9) with Microsoft SMTP Server (version=TLS1_2,
+ bh=F6DaDzp2emmMQeLI8z8epUHvEEWvYJ/Of3zx742KBIU=;
+ b=BaqxZ3J9+AsRZTDar59RztunqQDLmNGh+SLc5rOWQfZldRpzEPyiJ7Ep/wjXsnAdKwFvXbCxBOPcwMQ5i2z4rpUmYt64zVl0AQ8DG4J7LkaYUYlg5XrHMdT1z5xUzCA1tVKJFj4PK7n+hh0S6rDRCXtNcQifD6bjU8AUTZN/if0=
+Received: from BN9PR03CA0797.namprd03.prod.outlook.com (2603:10b6:408:13f::22)
+ by BY5PR12MB4241.namprd12.prod.outlook.com (2603:10b6:a03:20c::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.29; Thu, 30 Mar
+ 2023 19:32:25 +0000
+Received: from BN8NAM11FT089.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13f:cafe::15) by BN9PR03CA0797.outlook.office365.com
+ (2603:10b6:408:13f::22) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.20 via Frontend
- Transport; Thu, 30 Mar 2023 19:32:22 +0000
+ Transport; Thu, 30 Mar 2023 19:32:25 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +46,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT078.mail.protection.outlook.com (10.13.176.251) with Microsoft SMTP
+ BN8NAM11FT089.mail.protection.outlook.com (10.13.176.105) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6254.22 via Frontend Transport; Thu, 30 Mar 2023 19:32:22 +0000
+ 15.20.6254.22 via Frontend Transport; Thu, 30 Mar 2023 19:32:25 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 30 Mar
- 2023 14:32:21 -0500
+ 2023 14:32:24 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 04/10] drm/amdgpu: Add SOC partition funcs for GC v9.4.3
-Date: Thu, 30 Mar 2023 15:31:52 -0400
-Message-ID: <20230330193158.1134802-4-alexander.deucher@amd.com>
+Subject: [PATCH 10/10] drm/amdgpu: Add XCP IP callback funcs for each IP
+Date: Thu, 30 Mar 2023 15:31:58 -0400
+Message-ID: <20230330193158.1134802-10-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230330193158.1134802-1-alexander.deucher@amd.com>
 References: <20230330193158.1134802-1-alexander.deucher@amd.com>
@@ -68,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT078:EE_|BL1PR12MB5707:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8d3ee6e9-1ed7-4292-6f11-08db31557bea
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT089:EE_|BY5PR12MB4241:EE_
+X-MS-Office365-Filtering-Correlation-Id: ad20154e-61bc-47a6-a1a5-08db31557d96
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Rned16saa9AhNVWSNGvgXInGZBk8y0M57vqvWYOwXVUhDCrTGIapGuad9bPw/q9uDS4NIFJtgRuSqorLcPdn46NjZb3h+SlfIT/GCbsmhozPJOkl2N4mv1bT+NebOY8ZLEQmH5DoqUnujBOm9zpzmTyK4DDRX2G2bHfpxwaN7vBDqvC68WErg4OOheh0bJnekpe3IMBXzp2N1AJPuZtsp8St/HxC5xep51pGFUIRrX3KltGC3TSIO1JIFRpUfCpVwJuwEvpOn+Vh5+GSyLAaF0kkYMF2t5M08jc/apJprxke0Kp9BzX9jwWam05L3cNt1d9I0COuc0HjeGuc/ixtU0ghyew8gBCU8GIvsJv5rD6tDNhiFmtx7nRT7F9gAPegZCwbZI/uqO0Noo5l3NFcyjb9TJhnbX2lGAMRgBymsCMRaznt5DgstxfQUXNsoCv1iNXNCsdk0AgFxNVw6NecKRXEw4LWhlGQbCczKDQkEgyCicAW8UZB2yV2w34Giprw+GLe0p1Ihb73BGUsnfexBB3KkLvWrns/HcAwKMzLuasIM9vfcnsD2WGEVi15HaNr/PXeSmUBY/1E+RiIWjsE42J2/zIURl0whKaNnj27ne5hKJAU3ODAr5/aib8mtZgof2hyR0u6ifkF7tnTPEatOQ6TOI7jdGBp2VO9V7MuFLyH9qFVP7ip5V/mQOY27RHB5tXMmSiATpnp824DMSHKr+kR/tcc6szkNUsfQaTYH3RGtt6dY2xdOtRp/gr0dPDl6QUd7eEYIC/WFIPWBQQI/aMYhdeygAnx5T17Ay61tP0=
+X-Microsoft-Antispam-Message-Info: cyAByxFr3mVAX9q8hedmGrX6br0OPSezgQld4s4V8HlfjCz2WORhFZf7qMc+FvZn5mM4JZFwn2Mlr8J35iSp/PJ+6H7Rj9iZtQoX0QoUynBWR6VAk5WHB+6CsLmI9BeLdz7ao3GT1tFIBrvresKcT8qwnXEGEh2nkV7JbTJZ77BTBEA8iun2MXjkHVu9gyvjRRLgP6yn9B8zY3UctK68O8HvEE6r9qJCXD79ko/DNoAQTt5T96QC/t0Iv3EoJDum55tw+4mIpkfRJbQhVWetNQ43aNC/dw4BnSezD46/xSVhaeX/Ss3CqMbO2ZGhdjyhsYOMbeVUwdcO+ODJMQyW9CjL1Dy1rdBUi09fYSGEtHNZrauYE3ltxMqwEUdTjTB8/w02c1726OMm+GxfXYpy6wPJBbzW9tOUqOOKakpYzJu7xQI3InKJ7FHyv/tD2LmjuU/ib2386DJOVkp0drTxFh0i9dCBauSg2Pg7aD7q2R7fYrB3x0yTaZVlGx9GcEjVqfRoHdDlU/21/4VGQOiALUUXBvnkRgI26hXtlAQ90XbQf8jp+GeZvq8jHnvBaV2qSupjZ5RjZACo3SLUZOgH1pZmud7zXXInamri7vdAjvRS/WB690fPQ4Jf/g3ejfM0TtjM8TX48TVJ/S78dACIxufM75Gmf31idUjD3qTUlRtxcnvaxsGqFGzYGGlRCZhsIVbTQAHk/x6uABjMgFK9LXh0VwOxdIRTZfjr8RCpOrw=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(39860400002)(346002)(396003)(136003)(451199021)(36840700001)(40470700004)(46966006)(82740400003)(81166007)(356005)(36860700001)(2906002)(47076005)(83380400001)(336012)(426003)(82310400005)(2616005)(1076003)(26005)(186003)(86362001)(6666004)(16526019)(40480700001)(8936002)(7696005)(40460700003)(478600001)(8676002)(70206006)(316002)(5660300002)(70586007)(6916009)(4326008)(54906003)(36756003)(41300700001)(36900700001);
+ SFS:(13230028)(4636009)(376002)(136003)(396003)(346002)(39860400002)(451199021)(40470700004)(46966006)(36840700001)(47076005)(6916009)(2906002)(336012)(2616005)(83380400001)(426003)(54906003)(70586007)(4326008)(70206006)(8676002)(478600001)(16526019)(26005)(1076003)(316002)(82310400005)(6666004)(186003)(7696005)(36756003)(86362001)(36860700001)(40460700003)(40480700001)(5660300002)(356005)(81166007)(82740400003)(41300700001)(8936002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2023 19:32:22.3531 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d3ee6e9-1ed7-4292-6f11-08db31557bea
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2023 19:32:25.1749 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ad20154e-61bc-47a6-a1a5-08db31557d96
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT078.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT089.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5707
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4241
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,284 +107,85 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Lijo Lazar <lijo.lazar@amd.com>
 
-Switching the partition mode configuration of ASIC is SOC
-level function rather than something at GFX core level. Add
-partition mode switch functions as SOC specific callbacks.
-Implement the XCP manager callbacks needed for partition
-switch for GC 9.4.3 based ASICs.
+Initialize with the IP specific functions needed for GFXHUB, GFX and
+SDMA.
 
 Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h       |   4 +
- .../drm/amd/amdgpu/aqua_vanjaram_reg_init.c   | 232 ++++++++++++++++++
- 2 files changed, 236 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/aqua_vanjaram_reg_init.c | 9 ++++++---
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.h             | 2 ++
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.h            | 2 ++
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.h            | 2 ++
+ 4 files changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index 77e3c86b7623..3fc4f090ca49 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -269,8 +269,12 @@ struct amdgpu_gfx_funcs {
- 			(*query_partition_mode)(struct amdgpu_device *adev);
- 	enum amdgpu_memory_partition
- 			(*query_mem_partition_mode)(struct amdgpu_device *adev);
-+
- 	int (*switch_partition_mode)(struct amdgpu_device *adev,
- 				     enum amdgpu_gfx_partition mode);
-+
-+	int (*switch_gfx_partition_mode)(struct amdgpu_device *adev,
-+				     int num_xccs_per_xcp);
- };
- 
- struct sq_work {
 diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram_reg_init.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram_reg_init.c
-index 2616bdb40418..4264fbd267ae 100644
+index bbcdececfd2f..2cbac0bccd80 100644
 --- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram_reg_init.c
 +++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram_reg_init.c
-@@ -24,6 +24,12 @@
- #include "soc15.h"
+@@ -25,6 +25,9 @@
  
  #include "soc15_common.h"
-+#include "amdgpu_xcp.h"
-+
-+#define XCP_INST_MASK(num_inst, xcp_id)                                        \
-+	(num_inst ? GENMASK(num_inst - 1, 0) << (xcp_id * num_inst) : 0)
-+
-+#define AMDGPU_XCP_OPS_KFD	(1 << 0)
+ #include "amdgpu_xcp.h"
++#include "gfx_v9_4_3.h"
++#include "gfxhub_v1_2.h"
++#include "sdma_v4_4_2.h"
  
- void aqua_vanjaram_doorbell_index_init(struct amdgpu_device *adev)
- {
-@@ -119,3 +125,229 @@ u64 aqua_vanjaram_encode_ext_smn_addressing(int ext_id)
+ #define XCP_INST_MASK(num_inst, xcp_id)                                        \
+ 	(num_inst ? GENMASK(num_inst - 1, 0) << (xcp_id * num_inst) : 0)
+@@ -205,15 +208,15 @@ int __aqua_vanjaram_get_xcp_ip_info(struct amdgpu_xcp_mgr *xcp_mgr, int xcp_id,
+ 	switch (ip_id) {
+ 	case AMDGPU_XCP_GFXHUB:
+ 		ip->inst_mask = XCP_INST_MASK(num_xcc_xcp, xcp_id);
+-		/* TODO : Assign IP funcs */
++		ip->ip_funcs = &gfxhub_v1_2_xcp_funcs;
+ 		break;
+ 	case AMDGPU_XCP_GFX:
+ 		ip->inst_mask = XCP_INST_MASK(num_xcc_xcp, xcp_id);
+-		/* TODO : Assign IP funcs */
++		ip->ip_funcs = &gfx_v9_4_3_xcp_funcs;
+ 		break;
+ 	case AMDGPU_XCP_SDMA:
+ 		ip->inst_mask = XCP_INST_MASK(num_sdma_xcp, xcp_id);
+-		/* TODO : Assign IP funcs */
++		ip->ip_funcs = &sdma_v4_4_2_xcp_funcs;
+ 		break;
+ 	case AMDGPU_XCP_VCN:
+ 		ip->inst_mask = XCP_INST_MASK(num_vcn_xcp, xcp_id);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.h b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.h
+index 4b530f4c1295..42d67ee0e7ef 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.h
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.h
+@@ -26,4 +26,6 @@
  
- 	return ext_offset;
- }
+ extern const struct amdgpu_ip_block_version gfx_v9_4_3_ip_block;
+ 
++extern struct amdgpu_xcp_ip_funcs gfx_v9_4_3_xcp_funcs;
 +
-+static int aqua_vanjaram_query_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr)
-+{
-+	enum amdgpu_gfx_partition mode = AMDGPU_UNKNOWN_COMPUTE_PARTITION_MODE;
-+	struct amdgpu_device *adev = xcp_mgr->adev;
+ #endif /* __GFX_V9_4_3_H__ */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.h b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.h
+index e2d508f5a7ee..997e9f90c990 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.h
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.h
+@@ -26,4 +26,6 @@
+ 
+ extern const struct amdgpu_gfxhub_funcs gfxhub_v1_2_funcs;
+ 
++extern struct amdgpu_xcp_ip_funcs gfxhub_v1_2_xcp_funcs;
 +
-+	if (adev->nbio.funcs->get_compute_partition_mode)
-+		mode = adev->nbio.funcs->get_compute_partition_mode(adev);
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.h b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.h
+index 4814e8a074d6..d516145529bb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.h
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.h
+@@ -27,4 +27,6 @@
+ extern const struct amd_ip_funcs sdma_v4_4_2_ip_funcs;
+ extern const struct amdgpu_ip_block_version sdma_v4_4_2_ip_block;
+ 
++extern struct amdgpu_xcp_ip_funcs sdma_v4_4_2_xcp_funcs;
 +
-+	return mode;
-+}
-+
-+int __aqua_vanjaram_get_xcc_per_xcp(struct amdgpu_xcp_mgr *xcp_mgr, int mode)
-+{
-+	int num_xcc, num_xcc_per_xcp = 0;
-+
-+	num_xcc = NUM_XCC(xcp_mgr->adev->gfx.xcc_mask);
-+
-+	switch (mode) {
-+	case AMDGPU_SPX_PARTITION_MODE:
-+		num_xcc_per_xcp = num_xcc;
-+		break;
-+	case AMDGPU_DPX_PARTITION_MODE:
-+		num_xcc_per_xcp = num_xcc / 2;
-+		break;
-+	case AMDGPU_TPX_PARTITION_MODE:
-+		num_xcc_per_xcp = num_xcc / 3;
-+		break;
-+	case AMDGPU_QPX_PARTITION_MODE:
-+		num_xcc_per_xcp = num_xcc / 4;
-+		break;
-+	case AMDGPU_CPX_PARTITION_MODE:
-+		num_xcc_per_xcp = 1;
-+		break;
-+	}
-+
-+	return num_xcc_per_xcp;
-+}
-+
-+int __aqua_vanjaram_get_xcp_ip_info(struct amdgpu_xcp_mgr *xcp_mgr, int xcp_id,
-+				    enum AMDGPU_XCP_IP_BLOCK ip_id,
-+				    struct amdgpu_xcp_ip *ip)
-+{
-+	struct amdgpu_device *adev = xcp_mgr->adev;
-+	int num_xcc_xcp, num_sdma_xcp, num_vcn_xcp;
-+	int num_sdma, num_vcn;
-+
-+	num_sdma = adev->sdma.num_instances;
-+	num_vcn = adev->vcn.num_vcn_inst;
-+
-+	switch (xcp_mgr->mode) {
-+	case AMDGPU_SPX_PARTITION_MODE:
-+		num_sdma_xcp = num_sdma;
-+		num_vcn_xcp = num_vcn;
-+		break;
-+	case AMDGPU_DPX_PARTITION_MODE:
-+		num_sdma_xcp = num_sdma / 2;
-+		num_vcn_xcp = num_vcn / 2;
-+		break;
-+	case AMDGPU_TPX_PARTITION_MODE:
-+		num_sdma_xcp = num_sdma / 3;
-+		num_vcn_xcp = num_vcn / 3;
-+		break;
-+	case AMDGPU_QPX_PARTITION_MODE:
-+		num_sdma_xcp = num_sdma / 4;
-+		num_vcn_xcp = num_vcn / 4;
-+		break;
-+	case AMDGPU_CPX_PARTITION_MODE:
-+		num_sdma_xcp = 2;
-+		num_vcn_xcp = num_vcn ? 1 : 0;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	num_xcc_xcp = adev->gfx.num_xcc_per_xcp;
-+
-+	switch (ip_id) {
-+	case AMDGPU_XCP_GFXHUB:
-+		ip->inst_mask = XCP_INST_MASK(num_xcc_xcp, xcp_id);
-+		/* TODO : Assign IP funcs */
-+		break;
-+	case AMDGPU_XCP_GFX:
-+		ip->inst_mask = XCP_INST_MASK(num_xcc_xcp, xcp_id);
-+		/* TODO : Assign IP funcs */
-+		break;
-+	case AMDGPU_XCP_SDMA:
-+		ip->inst_mask = XCP_INST_MASK(num_sdma_xcp, xcp_id);
-+		/* TODO : Assign IP funcs */
-+		break;
-+	case AMDGPU_XCP_VCN:
-+		ip->inst_mask = XCP_INST_MASK(num_vcn_xcp, xcp_id);
-+		/* TODO : Assign IP funcs */
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	ip->ip_id = ip_id;
-+
-+	return 0;
-+}
-+
-+static bool __aqua_vanjaram_is_valid_mode(struct amdgpu_xcp_mgr *xcp_mgr,
-+					  enum amdgpu_gfx_partition mode)
-+{
-+	int num_xcc, num_xccs_per_xcp;
-+
-+	num_xcc = NUM_XCC(xcp_mgr->adev->gfx.xcc_mask);
-+	switch (mode) {
-+	case AMDGPU_SPX_PARTITION_MODE:
-+		return num_xcc > 0;
-+	case AMDGPU_DPX_PARTITION_MODE:
-+		return (num_xcc % 4) == 0;
-+	case AMDGPU_TPX_PARTITION_MODE:
-+		return (num_xcc % 3) == 0;
-+	case AMDGPU_QPX_PARTITION_MODE:
-+		num_xccs_per_xcp = num_xcc / 4;
-+		return (num_xccs_per_xcp >= 2);
-+	case AMDGPU_CPX_PARTITION_MODE:
-+		return (num_xcc > 1);
-+	default:
-+		return false;
-+	}
-+
-+	return false;
-+}
-+
-+static int __aqua_vanjaram_pre_partition_switch(struct amdgpu_xcp_mgr *xcp_mgr, u32 flags)
-+{
-+	/* TODO:
-+	 * Stop user queues and threads, and make sure GPU is empty of work.
-+	 */
-+
-+	if (flags & AMDGPU_XCP_OPS_KFD)
-+		amdgpu_amdkfd_device_fini_sw(xcp_mgr->adev);
-+
-+	return 0;
-+}
-+
-+static int __aqua_vanjaram_post_partition_switch(struct amdgpu_xcp_mgr *xcp_mgr, u32 flags)
-+{
-+	int ret = 0;
-+
-+	if (flags & AMDGPU_XCP_OPS_KFD) {
-+		amdgpu_amdkfd_device_probe(xcp_mgr->adev);
-+		amdgpu_amdkfd_device_init(xcp_mgr->adev);
-+		/* If KFD init failed, return failure */
-+		if (!xcp_mgr->adev->kfd.init_complete)
-+			ret = -EIO;
-+	}
-+
-+	return ret;
-+}
-+
-+static int aqua_vanjaram_switch_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr,
-+					       int mode, int *num_xcps)
-+{
-+	int num_xcc_per_xcp, num_xcc, ret;
-+	struct amdgpu_device *adev;
-+	u32 flags = 0;
-+
-+	adev = xcp_mgr->adev;
-+	num_xcc = NUM_XCC(adev->gfx.xcc_mask);
-+
-+	if (!__aqua_vanjaram_is_valid_mode(xcp_mgr, mode))
-+		return -EINVAL;
-+
-+	if (adev->kfd.init_complete)
-+		flags |= AMDGPU_XCP_OPS_KFD;
-+
-+	if (flags & AMDGPU_XCP_OPS_KFD) {
-+		ret = amdgpu_amdkfd_check_and_lock_kfd(adev);
-+		if (ret)
-+			goto out;
-+	}
-+
-+	ret = __aqua_vanjaram_pre_partition_switch(xcp_mgr, flags);
-+	if (ret)
-+		goto unlock;
-+
-+	num_xcc_per_xcp = __aqua_vanjaram_get_xcc_per_xcp(xcp_mgr, mode);
-+	if (adev->gfx.funcs->switch_gfx_partition_mode)
-+		adev->gfx.funcs->switch_gfx_partition_mode(xcp_mgr->adev,
-+						       num_xcc_per_xcp);
-+
-+	if (adev->nbio.funcs->set_compute_partition_mode)
-+		adev->nbio.funcs->set_compute_partition_mode(adev, mode);
-+
-+	ret = __aqua_vanjaram_post_partition_switch(xcp_mgr, flags);
-+unlock:
-+	if (flags & AMDGPU_XCP_OPS_KFD)
-+		amdgpu_amdkfd_unlock_kfd(adev);
-+out:
-+	return ret;
-+}
-+
-+int aqua_vanjaram_get_xcp_ip_details(struct amdgpu_xcp_mgr *xcp_mgr, int xcp_id,
-+				     enum AMDGPU_XCP_IP_BLOCK ip_id,
-+				     struct amdgpu_xcp_ip *ip)
-+{
-+	if (!ip)
-+		return -EINVAL;
-+
-+	return __aqua_vanjaram_get_xcp_ip_info(xcp_mgr, xcp_id, ip_id, ip);
-+}
-+
-+struct amdgpu_xcp_mgr_funcs aqua_vanjaram_xcp_funcs = {
-+	.switch_partition_mode = &aqua_vanjaram_switch_partition_mode,
-+	.query_partition_mode = &aqua_vanjaram_query_partition_mode,
-+	.get_ip_details = &aqua_vanjaram_get_xcp_ip_details
-+};
-+
-+static int aqua_vanjaram_xcp_mgr_init(struct amdgpu_device *adev)
-+{
-+	int ret;
-+
-+	ret = amdgpu_xcp_mgr_init(adev, AMDGPU_UNKNOWN_COMPUTE_PARTITION_MODE, 1,
-+				  &aqua_vanjaram_xcp_funcs);
-+	if (ret)
-+		return ret;
-+
-+	/* TODO: Default memory node affinity init */
-+
-+	return ret;
-+}
+ #endif
 -- 
 2.39.2
 
