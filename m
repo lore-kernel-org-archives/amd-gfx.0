@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4957C6FD18
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 07:36:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E45EC76196
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 07:36:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AE6210E306;
-	Fri, 31 Mar 2023 07:36:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D74A10F10F;
+	Fri, 31 Mar 2023 07:36:31 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF19F10F0B2
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 00:10:38 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40A0510E00E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 23:43:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1680221437;
+ s=mimecast20190719; t=1680219789;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding;
  bh=sxdUBC3+7/+FoRE3AV8lIbZMqGBJVuxDsooJhZM+Js0=;
- b=SJF3Z32iSA1mOhjUHDFUQxL0c1EtE8/qbawEPmNtJa8Z0au/uswhH/WrQAcq6dQdx0X/Dm
- l/S/PEt8ABtkzj+l9FMBAnBEABMCYrYkIkPbvoygzXM39ve3/CiF5MKoaz4JT6MWSryI9H
- ThQbIpY8/h45xWI/+6CO1+EdCjymWl0=
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ b=d67SPFPVM7ZtAUKXhW4+8eMD2E/ndwCzQ7bgU/pm8Qi+3odrJ+NjcIK0w5s+ik+O+EyvWL
+ GMD6ihhNQV3FtwXue2LfOLZ3uz71B58mgXIS2ZfuAKG91zS91dkWKWMKFYrQLfh29vPJZl
+ f4vTjhPO7hrXNmV7VtbtMjIOaosy78c=
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-21-xuaRfuAnPx2_AYv7jz55FQ-1; Thu, 30 Mar 2023 20:10:36 -0400
-X-MC-Unique: xuaRfuAnPx2_AYv7jz55FQ-1
-Received: by mail-qt1-f200.google.com with SMTP id
- v7-20020a05622a188700b003e0e27bbc2eso13512264qtc.8
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 17:10:36 -0700 (PDT)
+ us-mta-570-w0CMWEyiMG26bu7xHr9jYQ-1; Thu, 30 Mar 2023 19:43:08 -0400
+X-MC-Unique: w0CMWEyiMG26bu7xHr9jYQ-1
+Received: by mail-qv1-f70.google.com with SMTP id
+ pe26-20020a056214495a00b005df3eac4c0bso5933714qvb.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 16:43:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680221436;
+ d=1e100.net; s=20210112; t=1680219787;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
  bh=sxdUBC3+7/+FoRE3AV8lIbZMqGBJVuxDsooJhZM+Js0=;
- b=pRu5OdGredJjXGo3RoMQQhwPSD63A6t9zu6k9Bx715yevho1gxZOsavDCremphapTb
- 36rwB2NVnS7ArXUrUtoVILMlVLQ5g/sF3Qeh9oBqgrJXoZ3bha3RHOveh2//ZRgi6jbl
- 2aMXUvN2I2eOh9ZhaIS8/eYxZJNJii3M8JR6vFxJgcaB8fauBSK16K4pB/VMzVKEDVfp
- EgVfv6A3oEdC2UvJJa3U3/4M2i4QHmRFff7gloBO/dN7Zaz1xtcoPHluGKFZuQpM+gz5
- xBo9xMJdW3tRIoOhcTQqOO+/jgfv1loKgnxQ4flgZsBtsySAJMifBPdTlhxTZa+W7fWn
- 3q7Q==
-X-Gm-Message-State: AAQBX9fXU7xH3+QyO1VmistL6qjLCv1ArqsavyqvnZ19SQelgk4dOI7q
- Mv4TFeE451/zgD7XB8mwgiOnU06XyeAhKtFo9wIm+vVVD0duBejinxIVUc265ZiVbpZFHULkOIs
- v8oGFZ8tmDCHGKmqtTtXR5fSpaw==
-X-Received: by 2002:ac8:5b01:0:b0:3e6:3851:b949 with SMTP id
- m1-20020ac85b01000000b003e63851b949mr5096990qtw.18.1680221436254; 
- Thu, 30 Mar 2023 17:10:36 -0700 (PDT)
-X-Google-Smtp-Source: AKy350ZfvmPI/ZvqdmyfvzOcRsU2w4va42Sg5iZv/lqX0s90R5xmXd2ghuy7behp6ugqVkYCdP5wxg==
-X-Received: by 2002:ac8:5b01:0:b0:3e6:3851:b949 with SMTP id
- m1-20020ac85b01000000b003e63851b949mr5096964qtw.18.1680221436015; 
- Thu, 30 Mar 2023 17:10:36 -0700 (PDT)
+ b=zHcUJk2z99mD9sIStPmhY72zHe8IRXAF87eV9lXa5rzBWVPDsIdMq3OFQuOjzSPAAC
+ rqFGObsP/VvJfZb1iMqH6AvuVWY8QjkM9yamzE3DoT728y/NYKrbSpWbo2g2CMGkW1uX
+ NJUB4nAWIhB70Do1JDV06Hr8xOstnBF1QvRsFfEbCCUtt0dbmQC/IULa8oVchnFrJLNh
+ 99vSNeLP874uTI4NIUZuz/cBBIPUa9iCsydk+6a7BkEZzWM3pC8NGkiaay++PCm8U0Pm
+ 3nxIzCi81BjKrjNfhexniuqaMfOhI/2mJQ1J0zy+IePd8qxosh5DPNK22knAhUImCRF2
+ 1Syw==
+X-Gm-Message-State: AO0yUKXkkEz+lC9zf01KHgvRNPm7stprIb7nEyD0n1YXE6k81sV1zoaV
+ +D/xRDofCXgBX8hREKHpCq8UleWhuZtCgwpwgE7F0RUQwoQY2zDZa/bYbmeLiAqDaPHyI3/tWCm
+ 93MUdEoKrzUJ04mBsFJ/YIodRDQ==
+X-Received: by 2002:a05:622a:1a98:b0:3d8:9b45:d362 with SMTP id
+ s24-20020a05622a1a9800b003d89b45d362mr38620998qtc.28.1680219787542; 
+ Thu, 30 Mar 2023 16:43:07 -0700 (PDT)
+X-Google-Smtp-Source: AK7set8e+7pjqcJzugW+87SA4B2ztfpVpwfdIdmQmFB4Xnk8pbSHqG3Dep8cVHiY/IIHhrhVsGayJA==
+X-Received: by 2002:a05:622a:1a98:b0:3d8:9b45:d362 with SMTP id
+ s24-20020a05622a1a9800b003d89b45d362mr38620961qtc.28.1680219787200; 
+ Thu, 30 Mar 2023 16:43:07 -0700 (PDT)
 Received: from dell-per740-01.7a2m.lab.eng.bos.redhat.com
  (nat-pool-bos-t.redhat.com. [66.187.233.206])
  by smtp.gmail.com with ESMTPSA id
- e14-20020ac8670e000000b003e38d6c013dsm223281qtp.60.2023.03.30.17.10.34
+ q19-20020ac87353000000b003e387a2fbdfsm235015qtp.0.2023.03.30.16.43.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Mar 2023 17:10:35 -0700 (PDT)
+ Thu, 30 Mar 2023 16:43:06 -0700 (PDT)
 From: Tom Rix <trix@redhat.com>
 To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
  alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  airlied@gmail.com, daniel@ffwll.ch, nathan@kernel.org,
- ndesaulniers@google.com, aric.cyr@amd.com, HaoPing.Liu@amd.com,
- Anthony.Koo@amd.com, hanghong.ma@amd.com, Angus.Wang@amd.com,
- Dillon.Varone@amd.com
+ ndesaulniers@google.com, HaoPing.Liu@amd.com, aric.cyr@amd.com,
+ chiahsuan.chung@amd.com, felipe.clark@amd.com, Angus.Wang@amd.com,
+ hanghong.ma@amd.com, lv.ruyi@zte.com.cn, Dillon.Varone@amd.com
 Subject: [PATCH] drm/amd/display: remove unused average_render_time_in_us and
  i variables
-Date: Thu, 30 Mar 2023 20:10:32 -0400
-Message-Id: <20230331001032.1846456-1-trix@redhat.com>
+Date: Thu, 30 Mar 2023 19:43:03 -0400
+Message-Id: <20230330234303.1845377-1-trix@redhat.com>
 X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
