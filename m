@@ -4,56 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 805C2C761A6
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 14:19:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D83CBC761A6
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 14:21:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4E3710EE71;
-	Thu, 30 Mar 2023 14:19:58 +0000 (UTC)
-Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
- [IPv6:2001:4860:4864:20::2c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4AC510EE71
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 14:19:57 +0000 (UTC)
-Received: by mail-oa1-x2c.google.com with SMTP id
- 586e51a60fabf-177b78067ffso19875170fac.7
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 07:19:57 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A67710EE88;
+	Thu, 30 Mar 2023 14:20:51 +0000 (UTC)
+Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
+ [IPv6:2607:f8b0:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5C1310EE76
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 14:20:47 +0000 (UTC)
+Received: by mail-ot1-x32b.google.com with SMTP id
+ cm7-20020a056830650700b006a11f365d13so8771467otb.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 07:20:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1680185997;
+ d=gmail.com; s=20210112; t=1680186047;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ebbyHfZVIIY9FwzOvwZpm+MWXVt/q3eiVTp4wZxS5Jw=;
- b=fUOUFHne7T/q9Box5WZ6Rzau8kT9A/UYpWWFx7K0tTExmvJwalog/d7m3GmqWhh+TG
- Sa3ZBVvoYl3OEBBkpWRQKXN0s1M7L3r26eIsJGCvgPKp9yuvwS1dfyFzMYUpuHsV2Nty
- Nmn7iEiZxNB76ZRWJoraRR0clHPBoDge3PNh10soGID3KqDD6YUD0ZlR3YrVAFu9qx4L
- zRTZ4lWrk38WVE8+GZejJgRpwmZl4UsYQzlxIqd6UiH7fXGu8wCRwy2ha2ssbrCBA3br
- 3F/vfIIFl8wWu/TPS/lEzvhA/EkJLrVUPCa6qW1TiYXH7y8BE9r4kGnTPzHr+6qIPm4M
- 9yRQ==
+ bh=4rYiaO0VQeOoofLR0qzkYw1w7HBedC9p0jjwZ3g7568=;
+ b=m6f/CfittP5EKhticYPgk+6wzrrf5NFTOPLFcGeWzswm6nva+opxD6IvBEV00+TeRW
+ KO7lW7noN5NSsDyBhOsuSiYT07eVpoM3HhI/jqZ9yl4GmUSrRYnL/OvBF4NX30dsFsvV
+ GHRSHZpKwAoZ6amaphvv3gIy3eZXKLGo9SHzMFRC4TyyGZ2W9UmrwpT5LoWWLXBqgEnv
+ lo8L1S2+al0QMRvowQym+KGi7y2lKB84v72NDUDS9Bz4gNlf7VCJ3tQJyq5/L02fbB4L
+ n1g5IMwR2FrGJXUH7I8/kP2OSAIXoFwnWjBUZQs2zBWCWONAwR7au8sK7RNM8q/iBF6Z
+ wiTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680185997;
+ d=1e100.net; s=20210112; t=1680186047;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ebbyHfZVIIY9FwzOvwZpm+MWXVt/q3eiVTp4wZxS5Jw=;
- b=wiTxMd9xrQXky3emrHSY37eb4QQlVSVK1OTtFVIGb1qag2Qaj21bPNm6DIF19tSdKm
- 3zHkaQiLFsAQOkjBDCNUijSncutbT1aUg1ghf+uRCfupHIlKYOxGZk110L678Cx11KG3
- AQhigHiZ4/YdDbSKsWyFDWXlLzr6Sc8llniJsCphbfcDQOUgKP5JbJo0usueCOiLlBoQ
- m+98ubzAxniEvh/PDjL2+qxuAgRYdkNoAzNTtdXkr+ZmkjdLJKRanTvThYTFTzuRdUUd
- V9dc+flbTRUBBZDVRnHcnd39e1gHFiWE05s262JJmNyfyWCBeqskDjJKajvEE21yRwy5
- pPFg==
-X-Gm-Message-State: AAQBX9dAl5ogin5PWpquebBMWjPVXTop60zP+nxOrK33I2RRI+B++Dli
- K/qJ2A0jNwlTL5xh8jy0lz0A1ps6ZGEo8kZMXaI=
-X-Google-Smtp-Source: AKy350aOyxIWjXzdfLNKtOojrSSDVa4DLPhW/eg5Ne0a+UwNI0UZmAR1IXvXTTW5FMYLQcxtlHH4S64V+Fmpc5eZ4P0=
-X-Received: by 2002:a05:6870:58:b0:17e:1970:e5d9 with SMTP id
- 24-20020a056870005800b0017e1970e5d9mr2367013oaz.4.1680185996908; Thu, 30 Mar
- 2023 07:19:56 -0700 (PDT)
+ bh=4rYiaO0VQeOoofLR0qzkYw1w7HBedC9p0jjwZ3g7568=;
+ b=CBzh0jehB3FZkIZtzkrHmlYoHktt+6B/uBmfgOow9UIOVY0yj1y0ZC4o8BrqEV/s+f
+ 8/vm03cvgdY6ce1nQAyVdlvZr2k5ym2CyzzV5y1XOOqb6nrdeG8RFZyk1V0XDArU9XpH
+ I66iCWQXunsutLyeQba5QIAeEt/XoN3qHv2VNRwgoIilegVrs8AG89/rTImLUC4wCmar
+ xvXfXW3FUsj5W8T7KoZlsWQd/G/8gnAoaF6HyG07ePH2UU3XzDX6nTU5br1HmeP1Ara3
+ 5izXwsUMbir5+hcsL5z2EgzNoMYymQotFwODUW79pxyZBnT3uC+Q6L4vKxUAC2SafyIn
+ 0haA==
+X-Gm-Message-State: AAQBX9e8x9+i3P2yYNj6yw0YDcLqzvUGfozn10SawUBSKC9dvjteWtQ8
+ 0ogQv29rmsxa9IZccGx66MyZKHzoJ/rCn+zgq650jUd/
+X-Google-Smtp-Source: AKy350amXaeOfL6sLYQTw5Rg1m76OD32Fwt+lHk2QNtj3FwvO/O6lfGg6Rw3QN2tE9K3X5PVPGHOY0za8JfyblyBcNc=
+X-Received: by 2002:a9d:6c5a:0:b0:6a1:7f22:a821 with SMTP id
+ g26-20020a9d6c5a000000b006a17f22a821mr335931otq.3.1680186047068; Thu, 30 Mar
+ 2023 07:20:47 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230329154753.1261-1-shashank.sharma@amd.com>
- <20230329154753.1261-2-shashank.sharma@amd.com>
-In-Reply-To: <20230329154753.1261-2-shashank.sharma@amd.com>
+ <20230329154753.1261-3-shashank.sharma@amd.com>
+In-Reply-To: <20230329154753.1261-3-shashank.sharma@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 30 Mar 2023 10:19:45 -0400
-Message-ID: <CADnq5_MqqTz5Z2QVvLtyHkwUyZbW+sX=4NCcEPBqrouFEvs5Vw@mail.gmail.com>
-Subject: Re: [PATCH 01/16] drm/amdgpu: rename num_doorbells
+Date: Thu, 30 Mar 2023 10:20:36 -0400
+Message-ID: <CADnq5_NKXAESwLgP9qT=En8YYzVMEyuDJZ3Sjeyq3iHoNJGxqQ@mail.gmail.com>
+Subject: Re: [PATCH 02/16] drm/amdgpu: include protection for doobell.h
 To: Shashank Sharma <shashank.sharma@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -80,8 +80,7 @@ On Wed, Mar 29, 2023 at 11:48=E2=80=AFAM Shashank Sharma
 >
 > From: Shashank Sharma <contactshashanksharma@gmail.com>
 >
-> Rename doorbell.num_doorbells to doorbell.num_kernel_doorbells to
-> make it more readable.
+> This patch adds double include protection for doorbell.h
 >
 > Cc: Alex Deucher <alexander.deucher@amd.com>
 > Cc: Christian Koenig <christian.koenig@amd.com>
@@ -90,162 +89,31 @@ On Wed, Mar 29, 2023 at 11:48=E2=80=AFAM Shashank Sharma
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c   |  6 +++---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c   | 22 ++++++++++----------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h |  4 +++-
->  3 files changed, 17 insertions(+), 15 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h | 4 ++++
+>  1 file changed, 4 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_amdkfd.c
-> index f99d4873bf22..0385f7f69278 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> @@ -96,7 +96,7 @@ static void amdgpu_doorbell_get_kfd_info(struct amdgpu_=
-device *adev,
->                                          size_t *start_offset)
->  {
->         /*
-> -        * The first num_doorbells are used by amdgpu.
-> +        * The first num_kernel_doorbells are used by amdgpu.
->          * amdkfd takes whatever's left in the aperture.
->          */
->         if (adev->enable_mes) {
-> @@ -109,11 +109,11 @@ static void amdgpu_doorbell_get_kfd_info(struct amd=
-gpu_device *adev,
->                 *aperture_base =3D adev->doorbell.base;
->                 *aperture_size =3D 0;
->                 *start_offset =3D 0;
-> -       } else if (adev->doorbell.size > adev->doorbell.num_doorbells *
-> +       } else if (adev->doorbell.size > adev->doorbell.num_kernel_doorbe=
-lls *
->                                                 sizeof(u32)) {
->                 *aperture_base =3D adev->doorbell.base;
->                 *aperture_size =3D adev->doorbell.size;
-> -               *start_offset =3D adev->doorbell.num_doorbells * sizeof(u=
-32);
-> +               *start_offset =3D adev->doorbell.num_kernel_doorbells * s=
-izeof(u32);
->         } else {
->                 *aperture_base =3D 0;
->                 *aperture_size =3D 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index afe6af9c0138..57ee1c4a81e9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -593,7 +593,7 @@ u32 amdgpu_mm_rdoorbell(struct amdgpu_device *adev, u=
-32 index)
->         if (amdgpu_device_skip_hw_access(adev))
->                 return 0;
->
-> -       if (index < adev->doorbell.num_doorbells) {
-> +       if (index < adev->doorbell.num_kernel_doorbells) {
->                 return readl(adev->doorbell.ptr + index);
->         } else {
->                 DRM_ERROR("reading beyond doorbell aperture: 0x%08x!\n", =
-index);
-> @@ -616,7 +616,7 @@ void amdgpu_mm_wdoorbell(struct amdgpu_device *adev, =
-u32 index, u32 v)
->         if (amdgpu_device_skip_hw_access(adev))
->                 return;
->
-> -       if (index < adev->doorbell.num_doorbells) {
-> +       if (index < adev->doorbell.num_kernel_doorbells) {
->                 writel(v, adev->doorbell.ptr + index);
->         } else {
->                 DRM_ERROR("writing beyond doorbell aperture: 0x%08x!\n", =
-index);
-> @@ -637,7 +637,7 @@ u64 amdgpu_mm_rdoorbell64(struct amdgpu_device *adev,=
- u32 index)
->         if (amdgpu_device_skip_hw_access(adev))
->                 return 0;
->
-> -       if (index < adev->doorbell.num_doorbells) {
-> +       if (index < adev->doorbell.num_kernel_doorbells) {
->                 return atomic64_read((atomic64_t *)(adev->doorbell.ptr + =
-index));
->         } else {
->                 DRM_ERROR("reading beyond doorbell aperture: 0x%08x!\n", =
-index);
-> @@ -660,7 +660,7 @@ void amdgpu_mm_wdoorbell64(struct amdgpu_device *adev=
-, u32 index, u64 v)
->         if (amdgpu_device_skip_hw_access(adev))
->                 return;
->
-> -       if (index < adev->doorbell.num_doorbells) {
-> +       if (index < adev->doorbell.num_kernel_doorbells) {
->                 atomic64_set((atomic64_t *)(adev->doorbell.ptr + index), =
-v);
->         } else {
->                 DRM_ERROR("writing beyond doorbell aperture: 0x%08x!\n", =
-index);
-> @@ -1034,7 +1034,7 @@ static int amdgpu_device_doorbell_init(struct amdgp=
-u_device *adev)
->         if (adev->asic_type < CHIP_BONAIRE) {
->                 adev->doorbell.base =3D 0;
->                 adev->doorbell.size =3D 0;
-> -               adev->doorbell.num_doorbells =3D 0;
-> +               adev->doorbell.num_kernel_doorbells =3D 0;
->                 adev->doorbell.ptr =3D NULL;
->                 return 0;
->         }
-> @@ -1049,27 +1049,27 @@ static int amdgpu_device_doorbell_init(struct amd=
-gpu_device *adev)
->         adev->doorbell.size =3D pci_resource_len(adev->pdev, 2);
->
->         if (adev->enable_mes) {
-> -               adev->doorbell.num_doorbells =3D
-> +               adev->doorbell.num_kernel_doorbells =3D
->                         adev->doorbell.size / sizeof(u32);
->         } else {
-> -               adev->doorbell.num_doorbells =3D
-> +               adev->doorbell.num_kernel_doorbells =3D
->                         min_t(u32, adev->doorbell.size / sizeof(u32),
->                               adev->doorbell_index.max_assignment+1);
-> -               if (adev->doorbell.num_doorbells =3D=3D 0)
-> +               if (adev->doorbell.num_kernel_doorbells =3D=3D 0)
->                         return -EINVAL;
->
->                 /* For Vega, reserve and map two pages on doorbell BAR si=
-nce SDMA
->                  * paging queue doorbell use the second page. The
->                  * AMDGPU_DOORBELL64_MAX_ASSIGNMENT definition assumes al=
-l the
->                  * doorbells are in the first page. So with paging queue =
-enabled,
-> -                * the max num_doorbells should + 1 page (0x400 in dword)
-> +                * the max num_kernel_doorbells should + 1 page (0x400 in=
- dword)
->                  */
->                 if (adev->asic_type >=3D CHIP_VEGA10)
-> -                       adev->doorbell.num_doorbells +=3D 0x400;
-> +                       adev->doorbell.num_kernel_doorbells +=3D 0x400;
->         }
->
->         adev->doorbell.ptr =3D ioremap(adev->doorbell.base,
-> -                                    adev->doorbell.num_doorbells *
-> +                                    adev->doorbell.num_kernel_doorbells =
-*
->                                      sizeof(u32));
->         if (adev->doorbell.ptr =3D=3D NULL)
->                 return -ENOMEM;
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h b/drivers/gpu/d=
 rm/amd/amdgpu/amdgpu_doorbell.h
-> index 7199b6b0be81..12263986f889 100644
+> index 12263986f889..6064943a1b53 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
-> @@ -29,7 +29,9 @@ struct amdgpu_doorbell {
->         resource_size_t         base;
->         resource_size_t         size;
->         u32 __iomem             *ptr;
-> -       u32                     num_doorbells;  /* Number of doorbells ac=
-tually reserved for amdgpu. */
-> +
-> +       /* Number of doorbells reserved for amdgpu kernel driver */
-> +       u32 num_kernel_doorbells;
->  };
+> @@ -21,6 +21,9 @@
+>   *
+>   */
 >
->  /* Reserved doorbells for amdgpu (including multimedia).
+> +#ifndef AMDGPU_DOORBELL_H
+> +#define AMDGPU_DOORBELL_H
+> +
+>  /*
+>   * GPU doorbell structures, functions & helpers
+>   */
+> @@ -308,3 +311,4 @@ void amdgpu_mm_wdoorbell64(struct amdgpu_device *adev=
+, u32 index, u64 v);
+>  #define RDOORBELL64(index) amdgpu_mm_rdoorbell64(adev, (index))
+>  #define WDOORBELL64(index, v) amdgpu_mm_wdoorbell64(adev, (index), (v))
+>
+> +#endif
+> \ No newline at end of file
 > --
 > 2.40.0
 >
