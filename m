@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 333CFC74A5B
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 06:16:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E597C74A5B
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 06:17:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CC4D10E1B4;
-	Thu, 30 Mar 2023 06:16:09 +0000 (UTC)
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C361510E1B4
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 06:16:07 +0000 (UTC)
-Received: by mail-ed1-x530.google.com with SMTP id cn12so72278009edb.4
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 23:16:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D643B10ECDA;
+	Thu, 30 Mar 2023 06:17:20 +0000 (UTC)
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [IPv6:2a00:1450:4864:20::52f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1657910ECDA
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 06:17:17 +0000 (UTC)
+Received: by mail-ed1-x52f.google.com with SMTP id eg48so72160700edb.13
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 23:17:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1680156966;
+ d=gmail.com; s=20210112; t=1680157036;
  h=content-transfer-encoding:in-reply-to:from:references:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=9XvCvteZjYBR8H8BFGIIVoPM8gD5ooYM4zfNV6A/oDg=;
- b=OFU6exh1B3sq5PNdtYmT5yILsrG4k07RVHFqNuBapMjxdBUtJMAo2xgRjYXVP+8laI
- vOrY1fZtSmThJkENZDoq2AR9Zt5501ChkKZR0uaryQZ4HugqMjXQe8a3TE8dvIsiVQv6
- Hxl+3tzlMDvsLvOjLY6+KPYYUhArhTQInGp+djGJgYvxMdmzbO8+0YK7fUZQVvJYXRiU
- At/J9NgBXQNaKALF3Xb6820O7yXhxVR+eEQzulCJRgA4NtcQLD6c6RoNAWSMXBMo3wh/
- FSFFN9QWabCFWej0khsmXkwjoe7JwUcFhq0JQYJbGho3AKAV0zb+aVlcHoDcE3T85c2p
- V5WA==
+ bh=B7rAc5FhwhJ3r8Fuuzi0Jo76g9RjzPLa52V1aOhZZJU=;
+ b=JgyB389G+ukSEL4091u+LlKyIetfYK70gl9VezYgjrWop5V1ZEGi5vGm+A1SleZuF3
+ 9T3hCpKlDZ+l3fd7fREOGt/PeX9JTNd+loz/vSVZGiAtnkScL4fiXkGeUPx26zZKqIuO
+ 6RZj7IRkmdwAbmV+DOtbo9S+x9LFh/MNSLN+7Q0EIN/vrGgEf8/5T4piUzRvvS7kVx+0
+ KSu1FWkhlFEZQ1+3zeElrvW3qz2GgoTWSrHqO9g/iheR/EMCeBuiZgcVGQn7+Sd2joJ9
+ TRAXAGvq5whTnT6gUqiL3znZiZrQRTatJt3eoHcR8Pdggd4zbHfy5cndPs59/aB2lY5P
+ k3EA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680156966;
+ d=1e100.net; s=20210112; t=1680157036;
  h=content-transfer-encoding:in-reply-to:from:references:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=9XvCvteZjYBR8H8BFGIIVoPM8gD5ooYM4zfNV6A/oDg=;
- b=KIporfVgHPfBFw+LWKuQva7N2AaXGGc1vXNVjKZ8db1zefCYhPMlrq9SCuBxyzOEKw
- GIodLkbhZd6CthtLP/AwdujHgzM6Hk2ztlMJuCERofppFdTt/CW1mD76dvlz6ujVIKzs
- GbccwXvM3vKzG3RV85tjOUq8damTeFFfuvGV9oLV1GMTR2+kHrXBYuUz+X4fZiUv9q5Z
- Phiu2lK981tjFXBeTx+z4FzH455Oh3230t/p1pqNhpcqyCNhVMCMb4Vu0BhCmMjCRc3b
- fbZ8WrN1BJc9SiE1q70LW3qDm9V3+qZeHb8k0z7un2lCBeeTY8secHYAvu1td1rd9l30
- lt1Q==
-X-Gm-Message-State: AAQBX9eg8OroMve71HT4jr7biRsqTQn88MpR39QAOIRTeigoqqn1myno
- X/KrDWzBFdkinl71NO6WUho=
-X-Google-Smtp-Source: AKy350aUC+cOu3iV4awGeIa69A1Bt4YDj3KEBvf2KsDqAmvt5IO3NsTzTJHidZJ5wai0rLhayn5GIg==
-X-Received: by 2002:a17:906:74f:b0:933:3b2e:6016 with SMTP id
- z15-20020a170906074f00b009333b2e6016mr21858539ejb.7.1680156966034; 
- Wed, 29 Mar 2023 23:16:06 -0700 (PDT)
+ bh=B7rAc5FhwhJ3r8Fuuzi0Jo76g9RjzPLa52V1aOhZZJU=;
+ b=cLByHCZiHWWhwoTKzgH5oIUxQOf6MgNzrTiWvnJIdZuncW7lQHO7X1pUqZI7HzjJ8l
+ ZMyKg2ZFDgF1eyOAeT0RAYmmhQlOI/fyP7Kr38rSC81kUfqE7rXBDeokjLB7FLDH3yQf
+ gzwpV8ij1NE8F3iufnnrTd+eu+KGC+GTL8gSyAEAaBufmPmdmVcfurkYCXI/z/+0mYrS
+ AjdOSY6rEWDeePwE4NSIhNx7oVg97IGFzxrnerlOgKO+wClwQQxTHvf1Km0jVe5z2XB+
+ 8LPAPkOdMoOWuKAc2ARWDdOgLyRPAQwmE3xslSXrhZpsio+v2kpYsZevAM0L9RUeojjj
+ KYyw==
+X-Gm-Message-State: AAQBX9eiBAQ/udJ3Qw9kPcaWOSUeZ+4QzNVVffV3JSibmr0xadPz4MYy
+ z/za8L1unab8JLBvNSngZmQeMx20z5g=
+X-Google-Smtp-Source: AKy350ZRV/MHUw4MHE31o+tYDojMNlYqZYCPVWY2iLI4QO46Vxt957fJ3jKLFVOL9R1++G1NolDXAg==
+X-Received: by 2002:a17:906:608f:b0:877:573d:e919 with SMTP id
+ t15-20020a170906608f00b00877573de919mr21191383ejj.20.1680157036109; 
+ Wed, 29 Mar 2023 23:17:16 -0700 (PDT)
 Received: from [192.168.178.21] (p4fc2092b.dip0.t-ipconnect.de. [79.194.9.43])
  by smtp.gmail.com with ESMTPSA id
- bb11-20020a1709070a0b00b0093dce4e6257sm8280713ejc.201.2023.03.29.23.16.05
+ hb6-20020a170906b88600b0093120a11a5dsm17358695ejb.92.2023.03.29.23.17.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Mar 2023 23:16:05 -0700 (PDT)
-Message-ID: <e0800275-c356-bbad-ac5a-c92cf0d14c35@gmail.com>
-Date: Thu, 30 Mar 2023 08:16:04 +0200
+ Wed, 29 Mar 2023 23:17:15 -0700 (PDT)
+Message-ID: <33ad3215-55d5-723d-f1f5-65bb6d3d1d75@gmail.com>
+Date: Thu, 30 Mar 2023 08:17:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
-Subject: Re: [PATCH 09/13] drm/amdgpu: add get_gfx_shadow_info callback for
- gfx11
+Subject: Re: [PATCH 10/13] drm/amdgpu: add support for new GFX shadow size
+ query
 Content-Language: en-US
 To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20230329152521.1980681-1-alexander.deucher@amd.com>
- <20230329152521.1980681-10-alexander.deucher@amd.com>
+ <20230329152521.1980681-11-alexander.deucher@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20230329152521.1980681-10-alexander.deucher@amd.com>
+In-Reply-To: <20230329152521.1980681-11-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -79,66 +79,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+
+
 Am 29.03.23 um 17:25 schrieb Alex Deucher:
-> Used to get the size and alignment requirements for
-> the gfx shadow buffer for preemption.
+> Use the new callback to fetch the data.  Return an error if
+> not supported.  UMDs should use this query to check whether
+> shadow buffers are supported and if so what size they
+> should be.
 >
-> v2: use FW version check to determine whether to
->      return a valid size here
->      return an error if not supported (Alex)
-> v3: drop GDS (Alex)
+> v2: return an error rather than a zerod structure.
+> v3: drop GDS, move into dev_info structure.  Data will be
+>      0 if not supported.
 >
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 25 +++++++++++++++++++++++++
->   1 file changed, 25 insertions(+)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 14 ++++++++++++++
+>   1 file changed, 14 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> index 1fc1e941f7df..df2eabf50e6e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -822,6 +822,30 @@ static void gfx_v11_0_select_me_pipe_q(struct amdgpu_device *adev,
->   	soc21_grbm_select(adev, me, pipe, q, vm);
->   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index 0efb38539d70..90738024cc1a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -876,6 +876,20 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>   		dev_info->gl2c_cache_size = adev->gfx.config.gc_gl2c_per_gpu;
+>   		dev_info->mall_size = adev->gmc.mall_size;
 >   
-> +/* all sizes are in bytes */
-> +#define MQD_SHADOW_BASE_SIZE      73728
-> +#define MQD_SHADOW_BASE_ALIGNMENT 256
-> +#define MQD_FWWORKAREA_SIZE       484
-> +#define MQD_FWWORKAREA_ALIGNMENT  256
 > +
-> +static int gfx_v11_0_get_gfx_shadow_info(struct amdgpu_device *adev,
-> +					 struct amdgpu_gfx_shadow_info *shadow_info)
-> +{
-> +	if (shadow_info) {
+> +		if (adev->gfx.funcs->get_gfx_shadow_info) {
+> +			struct amdgpu_gfx_shadow_info shadow_info;
+> +			int r;
 
-Why would anybody call this without parameter?
+We can probably use the ret variable here instead of declaring a new one.
 
 Christian.
 
-> +		if (adev->gfx.cp_gfx_shadow) {
-> +			shadow_info->shadow_size = MQD_SHADOW_BASE_SIZE;
-> +			shadow_info->shadow_alignment = MQD_SHADOW_BASE_ALIGNMENT;
-> +			shadow_info->csa_size = MQD_FWWORKAREA_SIZE;
-> +			shadow_info->csa_alignment = MQD_FWWORKAREA_ALIGNMENT;
-> +			return 0;
-> +		} else {
-> +			memset(shadow_info, 0, sizeof(struct amdgpu_gfx_shadow_info));
-> +			return -ENOTSUPP;
-> +		}
-> +	}
-> +	return -EINVAL;
-> +}
 > +
->   static const struct amdgpu_gfx_funcs gfx_v11_0_gfx_funcs = {
->   	.get_gpu_clock_counter = &gfx_v11_0_get_gpu_clock_counter,
->   	.select_se_sh = &gfx_v11_0_select_se_sh,
-> @@ -830,6 +854,7 @@ static const struct amdgpu_gfx_funcs gfx_v11_0_gfx_funcs = {
->   	.read_wave_vgprs = &gfx_v11_0_read_wave_vgprs,
->   	.select_me_pipe_q = &gfx_v11_0_select_me_pipe_q,
->   	.update_perfmon_mgcg = &gfx_v11_0_update_perf_clk,
-> +	.get_gfx_shadow_info = &gfx_v11_0_get_gfx_shadow_info,
->   };
->   
->   static int gfx_v11_0_gpu_early_init(struct amdgpu_device *adev)
+> +			r = amdgpu_gfx_get_gfx_shadow_info(adev, &shadow_info);
+> +			if (!r) {
+> +				dev_info->shadow_size = shadow_info.shadow_size;
+> +				dev_info->shadow_alignment = shadow_info.shadow_alignment;
+> +				dev_info->csa_size = shadow_info.csa_size;
+> +				dev_info->csa_alignment = shadow_info.csa_alignment;
+> +			}
+> +		}
+> +
+>   		ret = copy_to_user(out, dev_info,
+>   				   min((size_t)size, sizeof(*dev_info))) ? -EFAULT : 0;
+>   		kfree(dev_info);
 
