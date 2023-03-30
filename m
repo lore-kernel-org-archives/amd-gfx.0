@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76C78C761A6
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 11:23:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AE47C77B6D
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 11:29:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDE5810EDCB;
-	Thu, 30 Mar 2023 11:22:59 +0000 (UTC)
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [IPv6:2a00:1450:4864:20::532])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FF6110EDCB
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 11:22:58 +0000 (UTC)
-Received: by mail-ed1-x532.google.com with SMTP id eg48so74942869edb.13
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 04:22:58 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE55D10EDCC;
+	Thu, 30 Mar 2023 11:29:11 +0000 (UTC)
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [IPv6:2a00:1450:4864:20::52a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FF7510EDCC
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 11:29:10 +0000 (UTC)
+Received: by mail-ed1-x52a.google.com with SMTP id t10so74959102edd.12
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 04:29:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1680175376;
+ d=gmail.com; s=20210112; t=1680175749;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=H+9agMMJ/uRIpaZb5Lw46EgNOhB9l2q8VGvLzu9iJnw=;
- b=AXLJ1AGt8+Hp57aoGppiIJufXmo+GfYsp3vKO2ONBRowMoOgLx9fwEnEqP7WgIjhnE
- 3zmyWgtFmpyOg92pIz9XzJHkW0jVjJn6CUiLItrOKQkxU0Quk43cpuINDC2nGDWzQqP4
- dpCG3cURvuXYaOmbcq0PVCY+krL3AGJ76JLkeUSNIyKdXUigwRK3/92i27nuWcdjROTM
- AiQNB5QHVGh7dTa4x4LmunDnpy6FQEVULJaMCCXa2orGppGLm/Cf9d1R4WCl3Gl2RKBW
- eiWkYjHnIydQCJWNQmWANG24umGYQRSmHyo7JMTA3/ZTpzS4YJxHZ/MK6dUhgRcy4cWt
- njuQ==
+ bh=2bWyoCKjb9UTDLISpPg1jWo0DKrt4PohcvDsTSp77Tg=;
+ b=AWAb2hlRvjvtiN2r1JsXrs9lMH8MLlNHo6ptDKB1EvCBOhucN815Pc4/CKP4XzrJAK
+ ottYxdvvZxYYyKuYn5IncHFiaehNzJx71PH2Ez2532JJMelPMFH9C6h/s57sbHquui6h
+ UecdUq/Wpndv9g++/uY6YrSfg13MKpd4yg6BIPLAtyjHXKf8pItBdmajTGHcZrQWNbhj
+ eZMkKqJTHwKsOuOnb3yfnJH/5t9rzC8Yn6qtJ5SRcoL/gpwI5kLhZiDjACWtmqNcWQPo
+ SRQk/uXevlC3sDy9JgzteJPxp4fL96MAFhwYZveRgPyNDdgz1x/YR0zjeSSUwzGcQNG2
+ xO3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680175376;
+ d=1e100.net; s=20210112; t=1680175749;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=H+9agMMJ/uRIpaZb5Lw46EgNOhB9l2q8VGvLzu9iJnw=;
- b=HP1T/1ZBNZ0MmMjNgOZbaUnyF6UG2uODvFx9QYNSb0qt7eP+nAnGM1ef0ayOF7W+X/
- e3MPLGBgPWHHuIBNhxnvk4GTKh1Oby96sm3UePeGtBh7S5GFhEXROKQKBFuf0Bi3+WBX
- Bx5YISSJFn4M5EIsuY4ZhLaLzUvPU4pGoSdFMJ6HFXmT55KCORqrcEjFTctckzcDB0c7
- lafGYiBW7qvSGgJS/YQ5tlJTSDzsPURvzVI+fNnlV0Ep5MKRqYskPEmRQmdqogrgBLOJ
- THgNWIOKjI3GOBQSO7BgkS8gIhVF66wsUce29XfihRSQCH+59FszjNB7njVl0diwkEhi
- oH1w==
-X-Gm-Message-State: AAQBX9cLis6NeJrnMb1BBt6as07aA4SEFwqJ33d0yPbFNZXz8NhNepff
- 18sLMn7ImKED8R64b5RWKELK4ud/d8WRWA==
-X-Google-Smtp-Source: AKy350Ymr+5q0d5ZVuLxiHlyZh5DnuSkdszSvYA69DhavO9upXb4vdeOAyVm+6xZW9lqa8TUwH2NjA==
-X-Received: by 2002:a17:907:6d8d:b0:946:a14e:23a5 with SMTP id
- sb13-20020a1709076d8d00b00946a14e23a5mr12953238ejc.45.1680175376392; 
- Thu, 30 Mar 2023 04:22:56 -0700 (PDT)
+ bh=2bWyoCKjb9UTDLISpPg1jWo0DKrt4PohcvDsTSp77Tg=;
+ b=OsedITO4o0sEicXdfSA2CIFJNM1ttDeLr68Tf3MkQRkzjBLLv6HRM4jAUiCfuJ0S6n
+ ILBQjBCvZsGS0GKx7xCbHBsbwYnDxRvi6DB8SHxZvdubfFwr9PtSuk6KhpWKj+AMXpnp
+ aP06FnWY2Pj3/gRjxhJvIY18wfioI7Av1UvJcyZv6Nya/gv8xMeUPK2JDl7cMUZMhBtz
+ O1flj7F1c/gezj3r9rNqk92hP+onPbdb7QXdf+hucyH2d+eAtT+Emw5Vg3mvS0dj7oSK
+ 9bdVG6XMMh0nVsAXxtZbmNPylJ4K71vfuRr9ynnl9KkplzAT7+jgAWrcNhkRcTo59nQr
+ NZcQ==
+X-Gm-Message-State: AAQBX9fded7H4dE/tzmOKWmU8/+d0ymSdRQsbfwHlx4KlVbBgaovSM5R
+ FgD2M3aPLfBqLJnvpw48afg=
+X-Google-Smtp-Source: AKy350aKfXDxNiW33UjO1zeKhbt9fTjU736WODT2ar6bafIJMds8n1nHKfCze302EjP+blCYoW6vpQ==
+X-Received: by 2002:a17:907:3f82:b0:92e:c4c9:7a43 with SMTP id
+ hr2-20020a1709073f8200b0092ec4c97a43mr28124600ejc.25.1680175748789; 
+ Thu, 30 Mar 2023 04:29:08 -0700 (PDT)
 Received: from [192.168.178.21] (p4fc2092b.dip0.t-ipconnect.de. [79.194.9.43])
  by smtp.gmail.com with ESMTPSA id
- e9-20020a17090681c900b008cf377e8795sm17615759ejx.199.2023.03.30.04.22.54
+ u20-20020a50c054000000b004aeeb476c5bsm17900514edd.24.2023.03.30.04.29.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Mar 2023 04:22:55 -0700 (PDT)
-Message-ID: <b3e94b1c-1bac-0158-2210-a35dd9de86da@gmail.com>
-Date: Thu, 30 Mar 2023 13:22:54 +0200
+ Thu, 30 Mar 2023 04:29:08 -0700 (PDT)
+Message-ID: <220faa77-f51d-0551-e390-437e2accbced@gmail.com>
+Date: Thu, 30 Mar 2023 13:29:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
-Subject: Re: [PATCH 08/16] drm/amdgpu: initialize ttm for doorbells
+Subject: Re: [PATCH 07/16] drm/amdgpu: add helper to create doorbell pages
 Content-Language: en-US
 To: Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20230329154753.1261-1-shashank.sharma@amd.com>
- <20230329154753.1261-9-shashank.sharma@amd.com>
+ <20230329154753.1261-8-shashank.sharma@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20230329154753.1261-9-shashank.sharma@amd.com>
+In-Reply-To: <20230329154753.1261-8-shashank.sharma@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,35 +85,144 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Am 29.03.23 um 17:47 schrieb Shashank Sharma:
 > From: Shashank Sharma <contactshashanksharma@gmail.com>
 >
-> This patch initialzes the ttm resource manager for doorbells.
+> This patch adds helper functions to create and free doorbell
+> pages for kernel objects.
 >
 > Cc: Alex Deucher <alexander.deucher@amd.com>
 > Cc: Christian Koenig <christian.koenig@amd.com>
 > Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
-
-Reviewed-by: Christian König <christian.koenig@amd.com>
-
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 8 ++++++++
->   1 file changed, 8 insertions(+)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h  | 41 ++++++++++++++++
+>   .../gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c  | 49 +++++++++++++++++++
+>   2 files changed, 90 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 6f61491ef3dd..203d77a20507 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -1858,6 +1858,14 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
->   	DRM_INFO("amdgpu: %uM of GTT memory ready.\n",
->   		 (unsigned)(gtt_size / (1024 * 1024)));
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
+> index f9c3b77bf65d..6581b78fe438 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
+> @@ -27,6 +27,24 @@
+>   /*
+>    * GPU doorbell structures, functions & helpers
+>    */
+> +
+> +/* Structure to hold doorbell pages from PCI doorbell BAR */
+> +struct amdgpu_doorbell_obj {
+> +	struct amdgpu_bo *bo;
+> +	uint64_t gpu_addr;
+
+Do we need to map the doorbells into the GART for something?
+
+On the other hand we probably don't have the check to not do it in 
+amdgpu_bo_create_reserved yet.
+
+> +	uint32_t *cpu_addr;
+> +	uint32_t size;
+> +
+> +	/* First index in this object */
+> +	uint32_t start;
+> +
+> +	/* Last index in this object */
+> +	uint32_t end;
+> +
+> +	/* bitmap for dynamic doorbell allocation from this object */
+> +	unsigned long *doorbell_bitmap;
+> +};
+> +
+
+Do we really need a separate structure for all this? As far as I can see 
+this is just part of the doorbell handling.
+
+>   struct amdgpu_doorbell {
+>   	/* doorbell mmio */
+>   	resource_size_t		base;
+> @@ -328,6 +346,29 @@ int amdgpu_device_doorbell_init(struct amdgpu_device *adev);
+>    */
+>   void amdgpu_device_doorbell_fini(struct amdgpu_device *adev);
 >   
-> +	/* Initiailize doorbell pool on PCI BAR */
-> +	r = amdgpu_ttm_init_on_chip(adev, AMDGPU_PL_DOORBELL,
-> +				    DIV_ROUND_UP(adev->doorbell.size, PAGE_SIZE));
+> +/**
+> + * amdgpu_doorbell_free_page - Free a doorbell page
+> + *
+> + * @adev: amdgpu_device pointer
+> + *
+> + * @db_age: previously allocated doobell page details
+> + *
+> + */
+> +void amdgpu_doorbell_free_page(struct amdgpu_device *adev,
+> +				struct amdgpu_doorbell_obj *db_obj);
+> +
+> +/**
+> + * amdgpu_doorbell_alloc_page - create a page from doorbell pool
+> + *
+> + * @adev: amdgpu_device pointer
+> + *
+> + * @db_age: doobell page structure to fill details with
+> + *
+> + * returns 0 on success, else error number
+> + */
+> +int amdgpu_doorbell_alloc_page(struct amdgpu_device *adev,
+> +				struct amdgpu_doorbell_obj *db_obj);
+> +
+>   #define RDOORBELL32(index) amdgpu_mm_rdoorbell(adev, (index))
+>   #define WDOORBELL32(index, v) amdgpu_mm_wdoorbell(adev, (index), (v))
+>   #define RDOORBELL64(index) amdgpu_mm_rdoorbell64(adev, (index))
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c
+> index 1aea92363fd3..8be15b82b545 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr.c
+> @@ -111,6 +111,55 @@ void amdgpu_mm_wdoorbell64(struct amdgpu_device *adev, u32 index, u64 v)
+>   	}
+>   }
+>   
+> +/**
+> + * amdgpu_doorbell_free_page - Free a doorbell page
+> + *
+> + * @adev: amdgpu_device pointer
+> + *
+> + * @db_age: previously allocated doobell page details
+> + *
+> + */
+> +void amdgpu_doorbell_free_page(struct amdgpu_device *adev,
+> +					struct amdgpu_doorbell_obj *db_obj)
+> +{
+> +	amdgpu_bo_free_kernel(&db_obj->bo,
+> +			      &db_obj->gpu_addr,
+> +			      (void **)&db_obj->cpu_addr);
+> +
+> +}
+> +
+> +/**
+> + * amdgpu_doorbell_alloc_page - create a page from doorbell pool
+> + *
+> + * @adev: amdgpu_device pointer
+> + *
+> + * @db_age: doobell page structure to fill details with
+> + *
+> + * returns 0 on success, else error number
+> + */
+> +int amdgpu_doorbell_alloc_page(struct amdgpu_device *adev,
+> +				struct amdgpu_doorbell_obj *db_obj)
+> +{
+> +	int r;
+> +
+> +	db_obj->size = ALIGN(db_obj->size, PAGE_SIZE);
+> +
+> +	r = amdgpu_bo_create_kernel(adev,
+> +				    db_obj->size,
+> +				    PAGE_SIZE,
+> +				    AMDGPU_GEM_DOMAIN_DOORBELL,
+> +				    &db_obj->bo,
+> +				    &db_obj->gpu_addr,
+> +				    (void **)&db_obj->cpu_addr);
+> +
 > +	if (r) {
-> +		DRM_ERROR("Failed initializing doorbell heap. \n");
+> +		DRM_ERROR("Failed to create doorbell BO, err=%d\n", r);
 > +		return r;
 > +	}
 > +
->   	/* Initialize preemptible memory pool */
->   	r = amdgpu_preempt_mgr_init(adev);
->   	if (r) {
+> +	return 0;
+> +}
+> +
+>   /*
+>    * GPU doorbell aperture helpers function.
+>    */
 
