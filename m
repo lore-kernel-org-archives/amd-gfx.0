@@ -4,52 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBD0CC6FD18
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 13:21:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BF3FC761A6
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 15:00:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A02B10F205;
-	Fri, 31 Mar 2023 13:21:53 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 021D110F141;
- Fri, 31 Mar 2023 08:50:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680252615; x=1711788615;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=BYf6gcQ+8pBQ3J2IfyMIsvJoZJhrstWGkrCjW+23ZyU=;
- b=SouLsEO2q2j2FCeoS+H0gkkqW8cIDNsdFHAUILIUFUd1j0Ul3GF5zvTx
- J3UViHSG6K34F7DC4hmtftBL36dTN9eUazKcZGhtFqw+JHr7P3cILnx4P
- UfTsC7ddgF6fyaZnRFXnH2mlGd6pwXRuENPYQqRkff4yJvmKLDXjN/Cwa
- YQS0+vQ1m1+kJNMf5n8fBjhZCukIPHnA+kzBMtk3Qb90+mErpiuudJo76
- DofMhaL6IU7VWks00Bqz+mFLQ9Cwb4xlKLIqXksZ3jxCIMlRTJMsaEN+U
- 9SNDAKFDlwCFjDLXxX4i4IhZeq2XTMG54VsfkS8TdetYRI+m684H9x2z7 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="341412790"
-X-IronPort-AV: E=Sophos;i="5.98,307,1673942400"; d="scan'208";a="341412790"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2023 01:50:14 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="754334060"
-X-IronPort-AV: E=Sophos;i="5.98,307,1673942400"; d="scan'208";a="754334060"
-Received: from bachaue1-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.41.110])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2023 01:50:12 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 04/12] drm/radeon: remove radeon_connector_edid() and
- stop using edid_blob_ptr
-In-Reply-To: <e4cb7b0c7217511429e69c1c78729f0e864c5b24.1680190534.git.jani.nikula@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <cover.1680190534.git.jani.nikula@intel.com>
- <e4cb7b0c7217511429e69c1c78729f0e864c5b24.1680190534.git.jani.nikula@intel.com>
-Date: Fri, 31 Mar 2023 11:50:09 +0300
-Message-ID: <87a5zt2tku.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BE6710F298;
+	Fri, 31 Mar 2023 15:00:09 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2055.outbound.protection.outlook.com [40.107.93.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 428E110F2B9;
+ Fri, 31 Mar 2023 15:00:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=j7j9KGTue/p+soch2GH+SpVVNBDC7jW7Jqw1yO47Pc2yu2PlSZP9kVQB8dtgskZmGuqKDV/lLknVnlQGYlz2IrVCaXD0a0biYRofm+Ia+UGqCeG+wqiMSvCO6ghtaXSTp4vMa000vUUj4LD6QYqPf3TV3+P4/5bPFP0HjxpWE44bcPmz6QD0+/c0IalfBz2Tjwt4dQ69LrWl+oM6h/Sex3kDjl81YcC4Gby9mtxxJTQyIO0Pa84Wh7CL7XHYYgUQmJPdzb4i9rhDfYnKO5w2tBVCmcZgSBKrHoZYMAu3nRCLKwRFxD6bC/U9Sy9J2bmjB5nrukgyLIlqhUJHaXPRWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=S8OkWdTZyukZI3YJ2VF8km93+RWgsgG07Akig3m0inU=;
+ b=b05MyRwj1kOlJhG7l+xZ4BeVC1mA9fi8kRb25y8eFDgayj5MFZ8Nu0v5jlQFfjX9/K8S+kWIFG7G3vj7FLLRuZfu7AJSN4eYUC4S2dQnFndMh78vYkOj9G7e/p3iiFAZg1+XrgmrDzJq9VL80RuGT4dfTr+hLuuTVnNzXo0EbzUnef9xc5zbMtFUXxVXOlds2OtKAjKpR+hosJosfXXMgPnsqP7n5L0qrw7DRRMVk6Iy9DGzTtuKRBlVXj6SOB95kwTjiOFYCbARAvINfmY3T7ih3ZhpdHaG1Ui/t/7c8jelso3Gcskk0ADCglYuCz6HwlskqoyYFolDYTFB/5+pyw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=S8OkWdTZyukZI3YJ2VF8km93+RWgsgG07Akig3m0inU=;
+ b=LTKBapFHPW44MQo3RDQVMkOE9ah4ODpdh7u2ueVskgNmsBb648QuFs0bNMNgak8kUp24GIr5FSxDq+H5AEI2PYdXb8qf0O88n96SwqyXxiCK0yLueXcJqLuYjNAxdx0dUtBZFtwaDvaQU0b6vhT0OMLuHHtMEDAYWDI75fNO6TM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6280.namprd12.prod.outlook.com (2603:10b6:8:a2::11) by
+ BN9PR12MB5226.namprd12.prod.outlook.com (2603:10b6:408:11f::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.22; Fri, 31 Mar
+ 2023 15:00:04 +0000
+Received: from DM4PR12MB6280.namprd12.prod.outlook.com
+ ([fe80::fe53:2742:10f9:b8f1]) by DM4PR12MB6280.namprd12.prod.outlook.com
+ ([fe80::fe53:2742:10f9:b8f1%9]) with mapi id 15.20.6254.024; Fri, 31 Mar 2023
+ 15:00:04 +0000
+Message-ID: <fbf84e6b-438c-0486-1ee3-7bb1171b2c0a@amd.com>
+Date: Fri, 31 Mar 2023 11:01:23 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH] drm/amd/display: remove unused average_render_time_in_us
+ and i variables
+To: Tom Rix <trix@redhat.com>, harry.wentland@amd.com, sunpeng.li@amd.com,
+ Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, nathan@kernel.org, ndesaulniers@google.com,
+ aric.cyr@amd.com, HaoPing.Liu@amd.com, Anthony.Koo@amd.com,
+ hanghong.ma@amd.com, Angus.Wang@amd.com, Dillon.Varone@amd.com
+References: <20230331001032.1846456-1-trix@redhat.com>
+Content-Language: en-US
+From: Hamza Mahfooz <hamza.mahfooz@amd.com>
+In-Reply-To: <20230331001032.1846456-1-trix@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0384.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:fd::13) To DM4PR12MB6280.namprd12.prod.outlook.com
+ (2603:10b6:8:a2::11)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Fri, 31 Mar 2023 13:21:50 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6280:EE_|BN9PR12MB5226:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1013ea79-ccd1-4f50-dff2-08db31f89bd4
+X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: zRX1kGT22mZPuSpFaCsdEI1zJuGuahmZ3j8z5N4kxZ/lUd9kj5111CrA88Cog+U433oYdnvCbjGNNiK61btqomkK81bogF+LAPl61H0TKD8tqiFQs++Aw+fxYCjykiiDeUFh8P4oxe5soECKwODcsr29iSoGb8uB6lmJZ765LipzEV5fdgqOuacTfjFXeWKUIWBtMUex7MqAdQDUUs1FAmeygS40Jkq6w74Ni7MywyVixRoMMxR3k1xH5a3uPurVoPnHJCBTpqPwvQOio1yxUKr7WSn0eUyUSV6weGqqYscvKFSKe6mjwb+W0pKEJFXeV80mRpM4rfmZkVfrAL9ULPjOU8h76HiBjr7cnvFb+GTN7Ho03Cgsvk65HQXfdrKxgHtSRvCQXDzuV41U6fXHQdu1hDs+wa0GTCbTGhnirIEgwaIcls5pMVSJ0DQO5/4GTy8AaMaeBB4NIVI33UHb5eU486iNNTCgigvavdFKAkaZl2gf/1VoYCY2PT/+oPgMLy658RrgGRqzGuS3xF+g5cqILkUFJwLDfY92oD2Bb25xyffNsFCqKGtz2Bz9A5UnINrMDjguOQ6CKZPLmkDHhS0kGBLBDFQzqKozfYoeFfX2MhHgKLUZCw8DOiWyeG+oIaZROlzzT7+H4cpCryZXhtRaLfeSi1AvYOh8s3U/19Q=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6280.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(39860400002)(346002)(376002)(366004)(136003)(451199021)(2616005)(6636002)(83380400001)(6486002)(316002)(186003)(6666004)(53546011)(6506007)(26005)(2906002)(478600001)(6512007)(8936002)(4326008)(5660300002)(36756003)(38100700002)(921005)(44832011)(66556008)(31696002)(41300700001)(66476007)(66946007)(8676002)(86362001)(31686004)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N2pDT2g2YjVRQzVISHNaOUNab25HRzVnWkZkR091eC90N21KN1lUK2R3aUNn?=
+ =?utf-8?B?Wi9mcDFxWm81NWdvbUpGRXdlZFFLUWVWN2RFcCs1TEs0cDJGbjlQS2ZIbWhK?=
+ =?utf-8?B?L21aNmRkVWwrQ1ZiV0dHelFiUmZQdU9WZ3FRTi9ZTUtNUUM0VmxlWVFBdFoz?=
+ =?utf-8?B?ckdiSHdTYVpZY2dYYnlvd2hRRHJVekpWY0dhRHVUMUo3a1dOSWpJZUoydElP?=
+ =?utf-8?B?ZURpRmlwK3RqSFhwUGQ2bVk0VzE0SEJ4WlBoMllHdEl5ZEIwejhGOHFKQWlx?=
+ =?utf-8?B?ZGxueHhqbFh5Sk9aUlVYNmRhSThwdi9yUDVzYnA4SjhaY2dUNTVJUHBHbGRJ?=
+ =?utf-8?B?SUJYVnhBYkxNVDJFamNKVnNrTjNXOFhReTRmRTd4c2dsclA5Nk0vZEVjeVRO?=
+ =?utf-8?B?SlNKMStoR3ZlTHRCWW8ya2Q2bU5CZWZFQ20zaU5pMjlkdjhOdUdrSlUyNGFl?=
+ =?utf-8?B?dXhleEhxcThFVlIyWWRUQ2doZ1UzWGdFdktsK0ZZT1c5T3h0ZGExTWZSUFFh?=
+ =?utf-8?B?UVFDek5PMWxWRWJJSTZHV1ZVWS9QR2VieHdZUHVMeHRTOUhya1MvY0lmTDZH?=
+ =?utf-8?B?SG84NWg0QmFZSk9TcVE4Ynlnd1hxQ0lXN0VwSFBpU250NGg5K0doZ25MZnBJ?=
+ =?utf-8?B?SUxLckhUWDJ6Sm8zR3RBYWI4aEE5T2FvRlREeVFmcVVrN3d6ZlUxNVQ1dmlS?=
+ =?utf-8?B?Mzh0M2d1eS9TYS9NZ205TURFeUYwYmZMSDNGbFdJeXRoUlZOZnJVd05zT29D?=
+ =?utf-8?B?ZXlLOWhidmIxUG0vWitIVWhON1dtVXdNaithMU9QSnFmbjV0VDZXQzRXUU9J?=
+ =?utf-8?B?VitZOGR6WFdPUFFsZDhveEEyb2FMVEpkQTI2bU03MmRsWEtnalhLQ2xpdkhF?=
+ =?utf-8?B?U1U3dEZtV1ErWUVNcmtlUnB1Q202T1E1LzBRQjUwVU8vb24xc09PVU9HeFRn?=
+ =?utf-8?B?MVQrekQyK3JQTUwzOWUzRTFaZk5PdGVFQy84MW9WeVVaMzVac0JOczc2REY4?=
+ =?utf-8?B?c044TGlvY1VSckZFZmFQY0N3dmdadGRaRTV2cWsvREhhWGYwU0ZTSVNtQXY3?=
+ =?utf-8?B?ZkZDNnB1aTdReTZqaVVMQ3pBUU5EOStRRWUvTUpGUWdyNTNlRm11YXVwZUZI?=
+ =?utf-8?B?a0hTckpiN0FrcUpBNytZRjl2WXZIZWprdVkvdjFYRWRJUEhvV2pKV0E3V0o5?=
+ =?utf-8?B?dmJhK1dtUzBCd1dpemZCRytSbW4vdFpJekdTbkpkQVJETllNeTcxemtUeGhW?=
+ =?utf-8?B?eXdlQWlHWUphKzVocXhxSWk3bnBhMWNXZzJMUkxxMnBKUlgyaS9aYktTMzAx?=
+ =?utf-8?B?OFZGdC9OWGJwdGRGMWtSRGpkN3RvTVZ6Zy82blJpSlYwZU9jWFUvTUtDUHls?=
+ =?utf-8?B?VVY3cWhsOTRoU01DY0lyaDVGSkpnQjVGZ1Z3emltRFpYTmhtVGg4ZEpVRnZu?=
+ =?utf-8?B?UzZOY0R5T0JyK3k0UlVLMDhQQSt5bm1HTGpyTC9NeDZ0cHlBOXcrQ0Z1WnhC?=
+ =?utf-8?B?STUxY05jRm50TTlWOXBURVZFK21QT0J2ZzJ4VCtoRVVmai9LejQwVm11R0d3?=
+ =?utf-8?B?dHpRbGhNaDBKTGwxTHZkTUExS1NTN0dYdVdxTWw2V1FEUFRFV0kxait2S2Ro?=
+ =?utf-8?B?SnJvQ2VNTU1na295QU9WVmZXclVlL1BjbkxoSGlrR0dpMitCc2NBSEZTQ3dG?=
+ =?utf-8?B?SE1ZQzNqazZKbHd3ejllbWRWeDVNRnJKMFRqcVFsMWR1ZlRvdE0xSkNqUzQw?=
+ =?utf-8?B?a1VzenZ1cXBQVUJHVnVlUkg5czQzcGh2c2o5bWI2U0NEdzRjNnJ2K0RmN0Z2?=
+ =?utf-8?B?d0NmOW85bDVENXdPL0QvLzlmNTJaeUFucmRkUjhUd3lXVmZ2Uno1YktvMklI?=
+ =?utf-8?B?RVU2ekpON0N3TzMwZm9ydGJFak15Rm9RK3lYc0JFOVJNeDY5TVZkYjJaaEF2?=
+ =?utf-8?B?QU1SNmtDZ3BKU051U2VuanhMVGlrUVhGRmp3WDJLczNhWjFvRVErUkltUjNv?=
+ =?utf-8?B?ZnNtZ2hKT3paNGNaV082SHhSTFR2RElUTzB1R3dOUGcvSDBQR3JFdDh0RWJo?=
+ =?utf-8?B?T25IM2hlZUdJRUpZclhaOEZHUWpEOWJ6MlVxZjN0dzRSVmhqbitQUkJxUDh5?=
+ =?utf-8?Q?hh9XO3TCoN3U6EZojJoed7onx?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1013ea79-ccd1-4f50-dff2-08db31f89bd4
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6280.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2023 15:00:04.3630 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aBbCcrPxJgWt5t9r3W2HZdgNXmzMR/+5PhawQv00Dry4DA5XBSRyQRhC8g56YUWEMmf15PvrCy8uBXR/RkvS4g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5226
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,112 +130,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, intel-gfx@lists.freedesktop.org,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: llvm@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 30 Mar 2023, Jani Nikula <jani.nikula@intel.com> wrote:
-> radeon_connector_edid() copies the EDID from edid_blob_ptr as a side
-> effect if radeon_connector->edid isn't initialized. However, everywhere
-> that the returned EDID is used, the EDID should have been set
-> beforehands.
->
-> Only the EDID code and sysfs should look at the EDID property, anyway,
-> so stop using it.
+On 3/30/23 20:10, Tom Rix wrote:
+> clang with W=1 reports
+> drivers/gpu/drm/amd/amdgpu/../display/modules/freesync/freesync.c:1132:15: error: variable
+>    'average_render_time_in_us' set but not used [-Werror,-Wunused-but-set-variable]
+>          unsigned int average_render_time_in_us = 0;
+>                       ^
+> This variable is not used so remove it, which caused i to be unused so remove that as well.
+> 
+> Signed-off-by: Tom Rix <trix@redhat.com>
 
-Never mind this, I need to fix my config to actually build
-this. *facepalm*
+Applied, thanks!
 
->
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Pan, Xinhui <Xinhui.Pan@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 > ---
->  drivers/gpu/drm/radeon/radeon_audio.c      |  5 ++---
->  drivers/gpu/drm/radeon/radeon_connectors.c | 15 ---------------
->  drivers/gpu/drm/radeon/radeon_mode.h       |  2 --
->  3 files changed, 2 insertions(+), 20 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_audio.c b/drivers/gpu/drm/rade=
-on/radeon_audio.c
-> index 947de91e13f6..759b5dfaca15 100644
-> --- a/drivers/gpu/drm/radeon/radeon_audio.c
-> +++ b/drivers/gpu/drm/radeon/radeon_audio.c
-> @@ -309,7 +309,7 @@ static void radeon_audio_write_sad_regs(struct drm_en=
-coder *encoder)
->  	if (!connector)
->  		return;
->=20=20
-> -	sad_count =3D drm_edid_to_sad(radeon_connector_edid(connector), &sads);
-> +	sad_count =3D drm_edid_to_sad(radeon_connector->edid, &sads);
->  	if (sad_count < 0)
->  		DRM_ERROR("Couldn't read SADs: %d\n", sad_count);
->  	if (sad_count <=3D 0)
-> @@ -332,8 +332,7 @@ static void radeon_audio_write_speaker_allocation(str=
-uct drm_encoder *encoder)
->  	if (!connector)
->  		return;
->=20=20
-> -	sad_count =3D drm_edid_to_speaker_allocation(radeon_connector_edid(conn=
-ector),
-> -						   &sadb);
-> +	sad_count =3D drm_edid_to_speaker_allocation(radeon_connector->edid, &s=
-adb);
->  	if (sad_count < 0) {
->  		DRM_DEBUG("Couldn't read Speaker Allocation Data Block: %d\n",
->  			  sad_count);
-> diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm=
-/radeon/radeon_connectors.c
-> index adebf8e9d2bd..99e8f387fe21 100644
-> --- a/drivers/gpu/drm/radeon/radeon_connectors.c
-> +++ b/drivers/gpu/drm/radeon/radeon_connectors.c
-> @@ -256,21 +256,6 @@ static struct drm_encoder *radeon_find_encoder(struc=
-t drm_connector *connector,
->  	return NULL;
->  }
->=20=20
-> -struct edid *radeon_connector_edid(struct drm_connector *connector)
-> -{
-> -	struct radeon_connector *radeon_connector =3D to_radeon_connector(conne=
-ctor);
-> -	struct drm_property_blob *edid_blob =3D connector->edid_blob_ptr;
+>   .../drm/amd/display/modules/freesync/freesync.c    | 14 --------------
+>   1 file changed, 14 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+> index 315da61ee897..5c41a4751db4 100644
+> --- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+> +++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+> @@ -1129,7 +1129,6 @@ void mod_freesync_handle_preflip(struct mod_freesync *mod_freesync,
+>   {
+>   	struct core_freesync *core_freesync = NULL;
+>   	unsigned int last_render_time_in_us = 0;
+> -	unsigned int average_render_time_in_us = 0;
+>   
+>   	if (mod_freesync == NULL)
+>   		return;
+> @@ -1138,7 +1137,6 @@ void mod_freesync_handle_preflip(struct mod_freesync *mod_freesync,
+>   
+>   	if (in_out_vrr->supported &&
+>   			in_out_vrr->state == VRR_STATE_ACTIVE_VARIABLE) {
+> -		unsigned int i = 0;
+>   		unsigned int oldest_index = plane->time.index + 1;
+>   
+>   		if (oldest_index >= DC_PLANE_UPDATE_TIMES_MAX)
+> @@ -1147,18 +1145,6 @@ void mod_freesync_handle_preflip(struct mod_freesync *mod_freesync,
+>   		last_render_time_in_us = curr_time_stamp_in_us -
+>   				plane->time.prev_update_time_in_us;
+>   
+> -		/* Sum off all entries except oldest one */
+> -		for (i = 0; i < DC_PLANE_UPDATE_TIMES_MAX; i++) {
+> -			average_render_time_in_us +=
+> -					plane->time.time_elapsed_in_us[i];
+> -		}
+> -		average_render_time_in_us -=
+> -				plane->time.time_elapsed_in_us[oldest_index];
 > -
-> -	if (radeon_connector->edid) {
-> -		return radeon_connector->edid;
-> -	} else if (edid_blob) {
-> -		struct edid *edid =3D kmemdup(edid_blob->data, edid_blob->length, GFP_=
-KERNEL);
-> -		if (edid)
-> -			radeon_connector->edid =3D edid;
-> -	}
-> -	return radeon_connector->edid;
-> -}
+> -		/* Add render time for current flip */
+> -		average_render_time_in_us += last_render_time_in_us;
+> -		average_render_time_in_us /= DC_PLANE_UPDATE_TIMES_MAX;
 > -
->  static void radeon_connector_get_edid(struct drm_connector *connector)
->  {
->  	struct drm_device *dev =3D connector->dev;
-> diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeo=
-n/radeon_mode.h
-> index 3a59d016e8cd..ab71a744d2b2 100644
-> --- a/drivers/gpu/drm/radeon/radeon_mode.h
-> +++ b/drivers/gpu/drm/radeon/radeon_mode.h
-> @@ -708,8 +708,6 @@ extern u16 radeon_connector_encoder_get_dp_bridge_enc=
-oder_id(struct drm_connecto
->  extern bool radeon_connector_is_dp12_capable(struct drm_connector *conne=
-ctor);
->  extern int radeon_get_monitor_bpc(struct drm_connector *connector);
->=20=20
-> -extern struct edid *radeon_connector_edid(struct drm_connector *connecto=
-r);
-> -
->  extern void radeon_connector_hotplug(struct drm_connector *connector);
->  extern int radeon_dp_mode_valid_helper(struct drm_connector *connector,
->  				       struct drm_display_mode *mode);
+>   		if (in_out_vrr->btr.btr_enabled) {
+>   			apply_below_the_range(core_freesync,
+>   					stream,
+-- 
+Hamza
 
---=20
-Jani Nikula, Intel Open Source Graphics Center
