@@ -4,88 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4E72C76196
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 19:54:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BE48C76196
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 20:02:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2952110E22E;
-	Fri, 31 Mar 2023 19:54:42 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2047.outbound.protection.outlook.com [40.107.100.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46AF010E22E
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 19:54:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C47610F2F6;
+	Fri, 31 Mar 2023 20:02:30 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20611.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5a::611])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A74C10F2F2;
+ Fri, 31 Mar 2023 20:02:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iWXTwwr8nbO0kijWq3CafILRgPnKy+9QAKPd3Npfz8Sqfv287Db2r/hL1IW1w3Lj0S0+ydtbPNM5/TB2Ar4GqqnnR/92stH+XqztxQE7HQ17dDe06cEP2/TgtTWLY1z373iOl5Zklk9gcTxnAz2JflkR9yaiKL6wvbYGefBCxwsmHHtyvakDMxIXVvx4V8uignpD+y0yJvMLHwvYUEQMlF3I5XJ8tJEOCQ27K193p0jJBLRFAbzz1eP3fD4tST8qrZGzxRZ9Al6kzu5wIWD/0ctUOGjml5zIfs5OM3I6H6eh/heC22gB2fl0lWG5vEzoQeVItDdLvxx8TLOcry/3vg==
+ b=WsVdRTiJaxKgnSmHPHG/kqoCCOMNMuYhYmHxnQfhBB/ItL8phiZyiW8MuEpd7AOIsHzZQ3esHNAK/MPLGxppo10SM6ZzZVlX0YhbNlvpwGB94yVyib/5Ra0lDdksOsutird4qI0369HO+ILwfQdQ8FYypkuXde+OmvtrQ3hDsohEhFtwWXiksQ3y/HL5v4cdEgaOb4ViSq/qZsammO6wIb7Uxu4Y2KleME00qkJHCMk/tXv8+SY+kPWnTpUqP8U6uvclYF31WTwdO35+OwnXotHpXz8SNcoHHSRLDSqScVNK44/KH9WZYgeWUfPG2hGn/jU5umBbZC/4alzmyutHEg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kr4GrQyCx9N/l8XZIvHyJxNRp2IMwet6bXXlFZdy+CU=;
- b=ZVHLpyEgUxhMVy1MbFQyBQvXUGEW6G6HZYiUWGgusNBGnbmTnffJV8rBRmiVcMGoAyx5busleHk98M3S0WkOG9hQYk3bjXTwonecl7p8aAa6Aliix+iqeqx/zqmVjPEUE/Z1Yt3GOu/YgO+shi5zFhd/CN5vhqbDFUqnJiF5cGvd0QMQyTyCv9Jp1UtkHKrYxb79AQcStZojamWKhtpOicOfqQM5RMBzMorHTMZFEKzmYeoO+lJwTEV/KaN206qwjcLaQLeQ5rBv3IRp2GsF/9ps95vhlWJKh73HAUWDp8VFlXpfoVizm8W5W/l8c2YckE7eljBSBHsrsOakzeuFNQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=OqsM+xB+tOHZ/asbEmvlBOXe2ZScGWhPm0MTufO9y44=;
+ b=HAXwd9laPc8yNOD2YEf77dIGto5XHJJsyjL8Hdo1KzlFe/EDixMMgh+MtEhZGdL+eovsURz7uGWLztrXoDRlCqswWAbLDKg2PTeU6RJyNPSUOdHhQiThbtEvyXJK54zJ+vLBccPmxVoREGMWwPuDcwSYeW26z21fFyM2aLjWOFqi/JUjGipIpPaFVQZzMdiAmUZCQ3atJai+4/dm23ufXbT01acO3xghVEGCDjxwadaJZD4GecgGmxzz/ALYdZn26JNQKUD2vXuMzLXPr0mDsoYSkJ+W8ZXClmFpYA5twbslZg8yEqasJH27sq7D4fZraTbEHKFabh2y81hbx0TBGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kr4GrQyCx9N/l8XZIvHyJxNRp2IMwet6bXXlFZdy+CU=;
- b=worrTNGGiNyXPFhNUPO0v5dmpcNZU48AHp4c0q7tbksPUNlVjHyXI8HU7fSQ3LKT/6O5+j9z4tsfocApyhnF4QA8O5c5XzFzKVnIYQUXikxSzxuIz9Qc0CAXgOwLZ7BN69bMDYbrBNJ32OAjdtQVWEMCtcKpoHYXaPDmcbm7wTY=
-Received: from DS7PR03CA0105.namprd03.prod.outlook.com (2603:10b6:5:3b7::20)
- by BY5PR12MB4260.namprd12.prod.outlook.com (2603:10b6:a03:206::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.23; Fri, 31 Mar
- 2023 19:54:36 +0000
-Received: from DS1PEPF0000E635.namprd02.prod.outlook.com
- (2603:10b6:5:3b7:cafe::6b) by DS7PR03CA0105.outlook.office365.com
- (2603:10b6:5:3b7::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.20 via Frontend
- Transport; Fri, 31 Mar 2023 19:54:36 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF0000E635.mail.protection.outlook.com (10.167.17.139) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.30 via Frontend Transport; Fri, 31 Mar 2023 19:54:36 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 31 Mar
- 2023 14:54:35 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: simplify amdgpu_ras_eeprom.c
-Date: Fri, 31 Mar 2023 15:54:22 -0400
-Message-ID: <20230331195422.1866769-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.39.2
-MIME-Version: 1.0
+ bh=OqsM+xB+tOHZ/asbEmvlBOXe2ZScGWhPm0MTufO9y44=;
+ b=ELJHe8irHY25saKaQy0HHqlb5x6q6NDnD8S1ik1MUqCiySThtTT4OtZz7ShTbPXqvbNhnB917tWNhg6bcpCJLqd+p/99jF/puWIWgK+JWQGGqE72APqbIrHje5/7+s27SU1EpdoufVG/jmWEXqc4xoEECnJaojHBldNBhIMRyoE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by IA1PR12MB8406.namprd12.prod.outlook.com (2603:10b6:208:3da::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.35; Fri, 31 Mar
+ 2023 20:02:17 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::f170:8d72:ca64:bb26]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::f170:8d72:ca64:bb26%5]) with mapi id 15.20.6254.022; Fri, 31 Mar 2023
+ 20:02:16 +0000
+Message-ID: <dd4944ef-ef9b-4070-8012-543a78bb9e58@amd.com>
+Date: Fri, 31 Mar 2023 16:02:14 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH] drm/ttm: add NUMA node id to the pool
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+References: <20230330195043.1136322-1-alexander.deucher@amd.com>
+ <aeb5c27e-121d-f666-249c-898e98d5ec2f@gmail.com>
+ <CADnq5_MSAWnK18rbST28iJKTDM2Tr58wL7ak2CGoeJ845HTOqg@mail.gmail.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <CADnq5_MSAWnK18rbST28iJKTDM2Tr58wL7ak2CGoeJ845HTOqg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: YT4PR01CA0148.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:ac::13) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0000E635:EE_|BY5PR12MB4260:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6fba3694-3462-4358-e713-08db3221c17c
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|IA1PR12MB8406:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ec83b43-1c62-43c8-7ea3-08db3222d3ca
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: uL3L5rBowWxbbj5XXxTNHtxVlsgF6+3AfWl4gHnvj1XXyZFfavX4oS8TWAFwf0piQ/M2durI0GA1g/paK0z/DohkELsUyxoVzP6I1P0d7Pn3sWt1kc1OE4zyrbJlPVGQyiZYnOA576zvW+Xze4QFakTt4n7DCdajIgPiVMZ4ekIRkZTAX546okhoex4hYdHJTV9ACrGXwTBwOXVSxsqxnjPgVpHZiZ7hlgMdXQhKaCxr4zbDfuYAJj/z2BAcCX9hCSWQ5MFDOSD6m3SA1bk1p8hQd9vkj82+pPx+oqaJXAXFrYbjtdXe/oOTCOlUP9jX9n1tNomsWVaTdGBl4+ZlhJcmUE+HATY7MrHsYc8fbkkHC2KpJw+qNTOQM1wFAkeRxlLnKM4iX3zzm9CiD5LorkSVuMeE/ttYTFFnMaLaXcs28110Cjl4+KpPJ5wo4aUL7wJX/xhQ943s1cqFTlVW8W/nGZG5+/pbzbJktefn10s4Qwh3NeyQZeANdAWzBhVenHNdexGqVQgKnZR+6DS+ry262wzpdx3EMnx+BIEQ5waVnt0Q2hIOLJz3m+7byV7qJeBKej6/7frRE7tK+Vu63lsAkV4jPK7DC5drBceXm7JW6yTp7NFcNWSq2S4XeqES16v3VyqTmdltUeNmBYCEOOz5cG8IPEcE5jJrgFV5cP6A0mB57yS7xpyYtot7cv27NXZjEOGQ0P30rNLaKjgtJY650RQDQ9SRH0771xKDjls=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(396003)(136003)(346002)(376002)(451199021)(36840700001)(40470700004)(46966006)(1076003)(40480700001)(82310400005)(186003)(16526019)(6666004)(83380400001)(47076005)(26005)(81166007)(41300700001)(336012)(54906003)(316002)(70586007)(40460700003)(2616005)(70206006)(478600001)(426003)(8676002)(6916009)(2906002)(36756003)(82740400003)(356005)(7696005)(4326008)(5660300002)(86362001)(8936002)(36860700001)(36900700001);
+X-Microsoft-Antispam-Message-Info: gVNvP6KPOUMpeJr5c/kCFAfkd/zudgz5Y5Q2ZK4vl222gV3FYplOFP4gbJcapFGDmfhgGbFgR67+zgAkDtIufNnMn9lTlmQ4Rixv41YYG+XzbknBYYBr/uQf3YtdR/mUMZZHNtjjbsIUjJivye32JuvWwW6ic3aZz5pEY5DX3MRlTUjjHJaiMlTYIX2F6gWnGRl5Nm39/4ea4fexwcj5B/WQgkStqkMVGrkEkzCnXZBOc93TuPaDF2/+G7zpnfgVttTgwaQcNpprjkNjqOBI8zmDEuuIBCBm+VSc3WL/UKmOtWPCreUFR/TX8aKFUyHFYOCxPuJVLVE0mBByoLcirbZl/rsKA1ApzhaBgrkkh6Ij7QRe5GT3QtYmLBtO85q9TzKD8ipIN8IJWATOklNWmvrd15n3Pqzq5e8R4aqlE//GJ/935QT2iRKdwGqrkjlkmyoewesK2Rw9b77z52Oug07NoRDdTATVDinLcF0zPSQAgPhkjopQmaV/k5g1AVh/yBID111qhuLIgK0XHLNx6iz8WcovKKzFiP5IycviwDtvVN5s/8Ku4OFWP0SpNwtWsB0PWlCHzo9UWyn6blkX4OJ8fWcWun+sBnetYIu1y6WxBFhygT1BrEtuisqbMuoVD6CGiya3oP842m0duj8qjg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(39860400002)(346002)(136003)(366004)(376002)(451199021)(66946007)(31686004)(66574015)(83380400001)(38100700002)(36756003)(66476007)(86362001)(5660300002)(2616005)(8676002)(8936002)(66556008)(2906002)(41300700001)(4326008)(6486002)(31696002)(478600001)(53546011)(36916002)(44832011)(186003)(316002)(110136005)(54906003)(6506007)(26005)(6512007)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NW9XTXNFaEgrUkFVb3R1WDJGZkxYZWZZR2JDc1hDbEJPUks5eXNPdWw0dU5s?=
+ =?utf-8?B?UG9OMmhsOUd6TlFuZkZKZytJb1dTQWYyU1RZY1F5ZnpRSEFZYXQvNW54OWdC?=
+ =?utf-8?B?am43MG5KUXYxRDQyMmpsSEZKOFkxdzZSb0UyUDNhdlQwZWJIL1dBL0EveHpM?=
+ =?utf-8?B?ODZLbGt4TDE0dVlJOGJzcS8xTnNUUGdoM3ZXL0E3Wnc4TlZPZXhld3gzYzNK?=
+ =?utf-8?B?aGNOZHRsWG9KdUZaWGJsejZYY0NBc1FpaFEyUEpiTWFzT04vZGh6aFVnZldT?=
+ =?utf-8?B?MFlrNFBhQ0xtdG5Vay92UGJBZkt2Q2p3ak1DcjRidDkrekdzeGE3MGU5OXZy?=
+ =?utf-8?B?MzNTeCtXQzhEY251ZU5lL1ZlWjBtbzF1bFRLdEErclZTQ3ozQlFRclRwRDAy?=
+ =?utf-8?B?VkZiVEllN21PQXEwcHJKMmMvclVwViszYkFvUFhpbTNIZ3g5dXd2WEY4Rll6?=
+ =?utf-8?B?ZGNKQTZ5ZElSNmVUWXptUHNKc0llbWZWejVQU1FNbVBraEFLWmNPVUdjZUVI?=
+ =?utf-8?B?b0c2RTNpcnhJcnIvdEpURVZ4YmpNek9MdHNmNGJDUHZ5YzFYcWxTSGtxYzkr?=
+ =?utf-8?B?TlJMeEVTMUpIUUZkcG9XaThBRkcxNWpZbXczZjNwQWNVQlR5Nk9leDFEMWN4?=
+ =?utf-8?B?RWwwa0lHQTlkcXVwT3VBMGl3LzVtRFdML2JZcEM4SEY2dUMxUXZ0NjhKd0t4?=
+ =?utf-8?B?cnB2MFJPNUlzalRMTU1lbURCSXdLV0g5M3BYK0pWOXlPZGVpL2p5T0x0alhO?=
+ =?utf-8?B?QklrdUErNTdvdVZ5M2ZkdHUzcTZrZ2FBS0lSay9KT0Z5MlJNb3U1ZE5KZzZ6?=
+ =?utf-8?B?b2tRTkF1bzdzT1hrQ0pmeEtaV3JnMnV0czFLVTEreW5nSDVGY2t1SDFEMUly?=
+ =?utf-8?B?ZnBKU2lGWDdRamR5blBxb3JQdGxHR1YyMTMrVG80NmE5VUJMSjNhOTZvS29B?=
+ =?utf-8?B?LzhkaGFMMGZqaXJWWVc2ZTJMZGJVRTVvT3gxRjN3MkJjN2F1STlHaUpjdFJ3?=
+ =?utf-8?B?LzUyQXV5YnZSR2t0bHZFM3ZoK2VCZFBtVHV6eWhmOFI5MUdTQWVQMjVqNWZp?=
+ =?utf-8?B?NWxQbkdWZVd3ZkhQSGhVVExnWjh1M3lqb0JlMVBiMXk0RVl5WElFa0JSK0RH?=
+ =?utf-8?B?UEZPQkxvbFg2TS9SQWUrazNRS2MzbEgrblRPbXF4Q1BLZkF1OTY2dUJBdVp6?=
+ =?utf-8?B?L2s2a1RUTUlqVzFMdERONldRQWdsd3RJcjFNR0dTOTdNMEE2bnQzZzlwZlZI?=
+ =?utf-8?B?a3dsdG1qb0kxNUhVTVZNUDcwb2NMTUZ0aHBDZE1HTTlEb2RJR2lKMkhIcE1B?=
+ =?utf-8?B?VksvK3oxNjhoR2ZMQWI0Tk1BVTd6S2R6enVZdlE5SmdQSFFYbGc2MzN3cDlK?=
+ =?utf-8?B?K3drUW04WFhkSkVTNkpsZkJ6VzdGQ1ZhQ3JEVEdJL2phMXRCaXFqUDdrVE1T?=
+ =?utf-8?B?R0tFZ1kxVXFDTHBtL2JGT1ZiOXE0S25GSk5tWWNHZld4czN2bFpPN0VPcFcy?=
+ =?utf-8?B?MEhteHhSeFpZU09RN0VpUTVmaTltNlZPL0ZWNmo1bUFFdkoxbnJLd2JWc1RE?=
+ =?utf-8?B?Y21SV2VkQ1JlK1VGaUNIQWxUSzE2NEg0em1ickVqZFlla2RHQ3dlWlpBQ2xh?=
+ =?utf-8?B?TWErU2dUTDBNVFgwaG42RDEyR2krQ0I2a1hXRmNwK3dYeFZYM3VpSlkwZzZs?=
+ =?utf-8?B?d2swZ1hLVThGc0JMTURwODcrbytCK3B3RDdOT2llS1lLS3FkdjB3dTl3d2Vz?=
+ =?utf-8?B?R1BCc2F6Z3NQUFRYemIvcEplZCt0K016OXN0NzJ0U3JqcXFoTkNHVHNmUkN2?=
+ =?utf-8?B?WVBNZHNWYUs0V2dsYUVJSGJKRWxZNElEcjgxdG9hWlhmUlFNb3RBc3lyeCt2?=
+ =?utf-8?B?QmdlVUFyQVNVdmVvZlUwSDNJRWRlSXRaV0oxeG5nazZ5LytBQXdUNFVBMGNZ?=
+ =?utf-8?B?VU42OEN5azZLTmNTZmJpU2gvUVBxZnpPbDZKbjNJSUcrdkJXZHZxSkNUZXFx?=
+ =?utf-8?B?TFkxeHlMckM3VmpKTVNmZVc1UzdlWVRLR0IrSWNBUURkRXZTWVVHMjVMK0Z1?=
+ =?utf-8?B?aDlVaDRSc0ZTMDMrNk9mS2pGZUNLdWVoM05idFl1SlB2V0h4WlVXTE1qcW42?=
+ =?utf-8?Q?wMhzZFaC5gVr8VqnrmeicjBxG?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2023 19:54:36.3773 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6fba3694-3462-4358-e713-08db3221c17c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ec83b43-1c62-43c8-7ea3-08db3222d3ca
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2023 20:02:16.8373 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000E635.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4260
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Cc1CCBwaSIEMrknbj69vPfedzVuikuvOvQoqkjGdZid5xlaHuoprjRGo0s9fZ/WlTHM211D/iKhLz7PcphbWmQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8406
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,128 +128,157 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Luben Tuikov <luben.tuikov@amd.com>
+Cc: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Graham Sider <graham.sider@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-All chips that support RAS also support IP discovery, so
-use the IP versions rather than a mix of IP versions and
-asic types.  Checking the validity of the atom_ctx pointer
-is not required as the vbios is already fetched at this
-point.
+There is a subsequent patch where amdgpu directly calls ttm_pool_init to 
+create pools per NUMA node. That will depend on the updated function 
+signature.
 
-v2: add comments to id asic types based on feedback from Luben
+Regards,
+   Felix
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: Luben Tuikov <luben.tuikov@amd.com>
----
- .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    | 72 ++++++-------------
- 1 file changed, 20 insertions(+), 52 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-index 3106fa8a15ef..c2c2a7718613 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-@@ -106,48 +106,13 @@
- #define to_amdgpu_device(x) (container_of(x, struct amdgpu_ras, eeprom_control))->adev
- 
- static bool __is_ras_eeprom_supported(struct amdgpu_device *adev)
--{
--	if (adev->asic_type == CHIP_IP_DISCOVERY) {
--		switch (adev->ip_versions[MP1_HWIP][0]) {
--		case IP_VERSION(13, 0, 0):
--		case IP_VERSION(13, 0, 10):
--			return true;
--		default:
--			return false;
--		}
--	}
--
--	return  adev->asic_type == CHIP_VEGA20 ||
--		adev->asic_type == CHIP_ARCTURUS ||
--		adev->asic_type == CHIP_SIENNA_CICHLID ||
--		adev->asic_type == CHIP_ALDEBARAN;
--}
--
--static bool __get_eeprom_i2c_addr_arct(struct amdgpu_device *adev,
--				       struct amdgpu_ras_eeprom_control *control)
--{
--	struct atom_context *atom_ctx = adev->mode_info.atom_context;
--
--	if (!control || !atom_ctx)
--		return false;
--
--	if (strnstr(atom_ctx->vbios_version,
--	            "D342",
--		    sizeof(atom_ctx->vbios_version)))
--		control->i2c_address = EEPROM_I2C_MADDR_0;
--	else
--		control->i2c_address = EEPROM_I2C_MADDR_4;
--
--	return true;
--}
--
--static bool __get_eeprom_i2c_addr_ip_discovery(struct amdgpu_device *adev,
--				       struct amdgpu_ras_eeprom_control *control)
- {
- 	switch (adev->ip_versions[MP1_HWIP][0]) {
-+	case IP_VERSION(11, 0, 2): /* VEGA20 and ARCTURUS */
-+	case IP_VERSION(11, 0, 7): /* Sienna cichlid */
- 	case IP_VERSION(13, 0, 0):
-+	case IP_VERSION(13, 0, 2): /* Aldebaran */
- 	case IP_VERSION(13, 0, 10):
--		control->i2c_address = EEPROM_I2C_MADDR_4;
- 		return true;
- 	default:
- 		return false;
-@@ -178,29 +143,32 @@ static bool __get_eeprom_i2c_addr(struct amdgpu_device *adev,
- 		return true;
- 	}
- 
--	switch (adev->asic_type) {
--	case CHIP_VEGA20:
--		control->i2c_address = EEPROM_I2C_MADDR_0;
-+	switch (adev->ip_versions[MP1_HWIP][0]) {
-+	case IP_VERSION(11, 0, 2):
-+		/* VEGA20 and ARCTURUS */
-+		if (adev->asic_type == CHIP_VEGA20)
-+			control->i2c_address = EEPROM_I2C_MADDR_0;
-+		else if (strnstr(atom_ctx->vbios_version,
-+				 "D342",
-+				 sizeof(atom_ctx->vbios_version)))
-+			control->i2c_address = EEPROM_I2C_MADDR_0;
-+		else
-+			control->i2c_address = EEPROM_I2C_MADDR_4;
- 		return true;
--
--	case CHIP_ARCTURUS:
--		return __get_eeprom_i2c_addr_arct(adev, control);
--
--	case CHIP_SIENNA_CICHLID:
-+	case IP_VERSION(11, 0, 7):
- 		control->i2c_address = EEPROM_I2C_MADDR_0;
- 		return true;
--
--	case CHIP_ALDEBARAN:
-+	case IP_VERSION(13, 0, 2):
- 		if (strnstr(atom_ctx->vbios_version, "D673",
- 			    sizeof(atom_ctx->vbios_version)))
- 			control->i2c_address = EEPROM_I2C_MADDR_4;
- 		else
- 			control->i2c_address = EEPROM_I2C_MADDR_0;
- 		return true;
--
--	case CHIP_IP_DISCOVERY:
--		return __get_eeprom_i2c_addr_ip_discovery(adev, control);
--
-+	case IP_VERSION(13, 0, 0):
-+	case IP_VERSION(13, 0, 10):
-+		control->i2c_address = EEPROM_I2C_MADDR_4;
-+		return true;
- 	default:
- 		return false;
- 	}
--- 
-2.39.2
-
+On 2023-03-31 15:17, Alex Deucher wrote:
+> On Fri, Mar 31, 2023 at 2:54 AM Christian König
+> <ckoenig.leichtzumerken@gmail.com> wrote:
+>> Should I push this to drm-misc-next or do we take it through
+>> amd-staging-drm-next?
+> I think either way is fine.  We can carry it internally as needed for
+> testing if you want to commit it to drm-misc-next.  I don't think
+> there are any direct code dependencies, but you or Rajneesh can
+> correct me if I'm wrong.
+>
+> Alex
+>
+>> Christian.
+>>
+>> Am 30.03.23 um 21:50 schrieb Alex Deucher:
+>>> From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+>>>
+>>> This allows backing ttm_tt structure with pages from different NUMA
+>>> pools.
+>>>
+>>> Tested-by: Graham Sider <graham.sider@amd.com>
+>>> Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+>>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>>> Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+>>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>>> ---
+>>>    drivers/gpu/drm/ttm/ttm_device.c |  2 +-
+>>>    drivers/gpu/drm/ttm/ttm_pool.c   | 13 ++++++++-----
+>>>    include/drm/ttm/ttm_pool.h       |  4 +++-
+>>>    3 files changed, 12 insertions(+), 7 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm_device.c
+>>> index e7147e304637..4a8164a5320f 100644
+>>> --- a/drivers/gpu/drm/ttm/ttm_device.c
+>>> +++ b/drivers/gpu/drm/ttm/ttm_device.c
+>>> @@ -218,7 +218,7 @@ int ttm_device_init(struct ttm_device *bdev, struct ttm_device_funcs *funcs,
+>>>        bdev->funcs = funcs;
+>>>
+>>>        ttm_sys_man_init(bdev);
+>>> -     ttm_pool_init(&bdev->pool, dev, use_dma_alloc, use_dma32);
+>>> +     ttm_pool_init(&bdev->pool, dev, NUMA_NO_NODE, use_dma_alloc, use_dma32);
+>>>
+>>>        bdev->vma_manager = vma_manager;
+>>>        INIT_DELAYED_WORK(&bdev->wq, ttm_device_delayed_workqueue);
+>>> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+>>> index 9f6764bf3b15..1068a41cded1 100644
+>>> --- a/drivers/gpu/drm/ttm/ttm_pool.c
+>>> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
+>>> @@ -92,7 +92,7 @@ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
+>>>                        __GFP_KSWAPD_RECLAIM;
+>>>
+>>>        if (!pool->use_dma_alloc) {
+>>> -             p = alloc_pages(gfp_flags, order);
+>>> +             p = alloc_pages_node(pool->nid, gfp_flags, order);
+>>>                if (p)
+>>>                        p->private = order;
+>>>                return p;
+>>> @@ -286,7 +286,7 @@ static struct ttm_pool_type *ttm_pool_select_type(struct ttm_pool *pool,
+>>>                                                  enum ttm_caching caching,
+>>>                                                  unsigned int order)
+>>>    {
+>>> -     if (pool->use_dma_alloc)
+>>> +     if (pool->use_dma_alloc || pool->nid != NUMA_NO_NODE)
+>>>                return &pool->caching[caching].orders[order];
+>>>
+>>>    #ifdef CONFIG_X86
+>>> @@ -523,29 +523,32 @@ EXPORT_SYMBOL(ttm_pool_free);
+>>>     *
+>>>     * @pool: the pool to initialize
+>>>     * @dev: device for DMA allocations and mappings
+>>> + * @nid: NUMA node to use for allocations
+>>>     * @use_dma_alloc: true if coherent DMA alloc should be used
+>>>     * @use_dma32: true if GFP_DMA32 should be used
+>>>     *
+>>>     * Initialize the pool and its pool types.
+>>>     */
+>>>    void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
+>>> -                bool use_dma_alloc, bool use_dma32)
+>>> +                int nid, bool use_dma_alloc, bool use_dma32)
+>>>    {
+>>>        unsigned int i, j;
+>>>
+>>>        WARN_ON(!dev && use_dma_alloc);
+>>>
+>>>        pool->dev = dev;
+>>> +     pool->nid = nid;
+>>>        pool->use_dma_alloc = use_dma_alloc;
+>>>        pool->use_dma32 = use_dma32;
+>>>
+>>> -     if (use_dma_alloc) {
+>>> +     if (use_dma_alloc || nid != NUMA_NO_NODE) {
+>>>                for (i = 0; i < TTM_NUM_CACHING_TYPES; ++i)
+>>>                        for (j = 0; j < MAX_ORDER; ++j)
+>>>                                ttm_pool_type_init(&pool->caching[i].orders[j],
+>>>                                                   pool, i, j);
+>>>        }
+>>>    }
+>>> +EXPORT_SYMBOL(ttm_pool_init);
+>>>
+>>>    /**
+>>>     * ttm_pool_fini - Cleanup a pool
+>>> @@ -559,7 +562,7 @@ void ttm_pool_fini(struct ttm_pool *pool)
+>>>    {
+>>>        unsigned int i, j;
+>>>
+>>> -     if (pool->use_dma_alloc) {
+>>> +     if (pool->use_dma_alloc || pool->nid != NUMA_NO_NODE) {
+>>>                for (i = 0; i < TTM_NUM_CACHING_TYPES; ++i)
+>>>                        for (j = 0; j < MAX_ORDER; ++j)
+>>>                                ttm_pool_type_fini(&pool->caching[i].orders[j]);
+>>> diff --git a/include/drm/ttm/ttm_pool.h b/include/drm/ttm/ttm_pool.h
+>>> index ef09b23d29e3..23bd8be6d4f8 100644
+>>> --- a/include/drm/ttm/ttm_pool.h
+>>> +++ b/include/drm/ttm/ttm_pool.h
+>>> @@ -61,12 +61,14 @@ struct ttm_pool_type {
+>>>     * struct ttm_pool - Pool for all caching and orders
+>>>     *
+>>>     * @dev: the device we allocate pages for
+>>> + * @nid: which numa node to use
+>>>     * @use_dma_alloc: if coherent DMA allocations should be used
+>>>     * @use_dma32: if GFP_DMA32 should be used
+>>>     * @caching: pools for each caching/order
+>>>     */
+>>>    struct ttm_pool {
+>>>        struct device *dev;
+>>> +     int nid;
+>>>
+>>>        bool use_dma_alloc;
+>>>        bool use_dma32;
+>>> @@ -81,7 +83,7 @@ int ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+>>>    void ttm_pool_free(struct ttm_pool *pool, struct ttm_tt *tt);
+>>>
+>>>    void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
+>>> -                bool use_dma_alloc, bool use_dma32);
+>>> +                int nid, bool use_dma_alloc, bool use_dma32);
+>>>    void ttm_pool_fini(struct ttm_pool *pool);
+>>>
+>>>    int ttm_pool_debugfs(struct ttm_pool *pool, struct seq_file *m);
