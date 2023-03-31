@@ -4,67 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2B4CC6FD18
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 06:51:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A39BC6FD18
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 06:54:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26B7010F103;
-	Fri, 31 Mar 2023 06:51:38 +0000 (UTC)
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73D9010F103
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 06:51:36 +0000 (UTC)
-Received: by mail-ed1-x535.google.com with SMTP id ek18so85841787edb.6
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 23:51:36 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A60010F105;
+	Fri, 31 Mar 2023 06:54:58 +0000 (UTC)
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [IPv6:2a00:1450:4864:20::530])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB0AB10F105;
+ Fri, 31 Mar 2023 06:54:56 +0000 (UTC)
+Received: by mail-ed1-x530.google.com with SMTP id ek18so85868242edb.6;
+ Thu, 30 Mar 2023 23:54:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1680245495;
+ d=gmail.com; s=20210112; t=1680245695;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=ePYowlHVMs9KaXacjyUGkDd+cSmqfZioihB/zFAzqNU=;
- b=ab3tnGocBc6TJFZFfzg5XSk1xofOhzVE63bvQ/f8umYE78I+qEWur/VW6SZ0tT7HOE
- 7/6HGl0+ZHElMoxuX3OAObTB7fYo20Scp6J3sUrgxnG2peG1KIde4HdMiJaougX7Q8nb
- aJ+aO93fP8JHTLDQTCgo9Ee5cZaOvuWJlizlKMxOFu8kEM/oQQQJxsK5SJZJ9frHXW4M
- ZPP6HE3rQ2bDINpTDMOyjxBk+f5pV6FCtt+SUFi/Drhkfd11iFHEmHjbUzu5QocP1hWr
- +o34RQH+u951KYXFP1N1MbTrdNK6kjzDhaS9sddSsDgPPYZxGAe1ykicIeeMkoHxxlCB
- 2xWg==
+ bh=T350syEDwkn/f0xzRemPbRMMflXvKJZI0903FV+qLWM=;
+ b=j/y8vIAseCne2B9rjRsy0XPjVqT7yKosbTclMCPKwD4aWdO04Lc3EKdpsSBouySLwN
+ UMEl+/tWOIHPqMiy5IfMIuUlcs1hmmQcVCKN0U+Cu19N9N00AgoMpUiUuYujL0aJ/Y4k
+ wr0R4zb8BMGRhwaiGOieeummVA3EmG2U/XxiUscbHECmOCkVxtB+wJ4I8pys3t5FGECY
+ vcOp9Ut8+pE8HLiwfB5sm5uNwfAtzosWrPCNho/3q+hwgnbvQNl336+oLW67WI4kKD8t
+ sGtrBFjVyxwfvoa+VAgxcdfu7qAgS9G8oZE6NzTJtI73XmYqJTrXTwrrGQAMfemmmyUq
+ uN9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680245495;
+ d=1e100.net; s=20210112; t=1680245695;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ePYowlHVMs9KaXacjyUGkDd+cSmqfZioihB/zFAzqNU=;
- b=RC3HgL6JOK1Ev0EMsD98cG2VlOpdqGXPUAE8N7Me7SL5u9mm26BfecgfnSbkG72g1p
- pldrsvB8EwizaK5jsMVmgq8z4MKOKSS57JekO1tthe+QKmCOAoViMU3DCO2foScYesEx
- yndgBuqT6ZE+HbavpHSaUkAv0Qctjblmvl8N9LG1OTORuAlWyWsZS2wLfOvBOJOYWmTB
- T4JEgNxNWf0qfyxiAftCCNsIkH2WubXU5fyg4OUiCSyx/+dQIIoPKQyJ3axhKPXXL2xD
- zK18uxAhM2hVB+mY5Zj+aDBmedsrDw2ZLrCTLakB9SU3KD2ZEIRSCUd26rTkw6z+R+3P
- rvLA==
-X-Gm-Message-State: AAQBX9dtmUgYcPeUYcZWmHJ1VJxy7pk0X4OThqzl9eUvn2wCP7ux5ZP4
- z87lnAU6R6K7/9a0QeeclRM=
-X-Google-Smtp-Source: AKy350YEWOkUuQr/s6j0p0Ct+wA4UHBldulHJav5uOVQbO7ImE2+RRUa/IaBMEGecT+NsLR3WEScPw==
-X-Received: by 2002:a17:906:da88:b0:945:c4cf:34b7 with SMTP id
- xh8-20020a170906da8800b00945c4cf34b7mr17468275ejb.68.1680245494812; 
- Thu, 30 Mar 2023 23:51:34 -0700 (PDT)
+ bh=T350syEDwkn/f0xzRemPbRMMflXvKJZI0903FV+qLWM=;
+ b=SZQt/Tw1ChtoPy5/Rlb0hesylIgafNd8Stwzk3mh90J3yxJoajNFvaotj237UWZQ38
+ UfTbBm01cxCdHlkv5fGIwF8t0wndemZam8AVmFKIefYoj1Dx/+bLYqGyGl7aup/jHLLi
+ sqZGzt0Z1ZS6j6hKCLDxn0dzLbJYWay4uJ6TPaWVb3TnA0u9SzwIm3dorsFRMuMteHlh
+ N4cH1Y5ltYIHzoicbJKMsVquxgKnUZN6Iamn4pyeYv/KgIN8+Ry7wgfnx+maWgcJH1tN
+ /233M4IBOpuUqksT5cWVfgAgqgDQeDQSeJsBtbBM8/XO5HONXmiIO+LYquxo0mbkCAZS
+ QzGw==
+X-Gm-Message-State: AAQBX9eLsvASlVrVJ/gmrxrGcshJfQ8QHH4Ph2qf7fFKddHrFFr8qoyO
+ HARXoEi6zEG9BpjgtZOfBbi0dJisTGT8ow==
+X-Google-Smtp-Source: AKy350b5twJiGsxQ7dZ6XR/NGuhWFp/oHm3MLi2s+y0w/uv99pR2pMgRvRxBBVAMPa+8PT1M2Qdpmw==
+X-Received: by 2002:a17:906:4888:b0:932:da0d:96ac with SMTP id
+ v8-20020a170906488800b00932da0d96acmr25776008ejq.10.1680245695277; 
+ Thu, 30 Mar 2023 23:54:55 -0700 (PDT)
 Received: from [192.168.178.21] (p4fc2092b.dip0.t-ipconnect.de. [79.194.9.43])
  by smtp.gmail.com with ESMTPSA id
- cw1-20020a170906c78100b0093de5b42856sm635101ejb.119.2023.03.30.23.51.33
+ w10-20020a1709060a0a00b00933c4a25735sm637336ejf.100.2023.03.30.23.54.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Mar 2023 23:51:34 -0700 (PDT)
-Message-ID: <623b6bbc-61be-2368-9071-ed907dc2f316@gmail.com>
-Date: Fri, 31 Mar 2023 08:51:32 +0200
+ Thu, 30 Mar 2023 23:54:54 -0700 (PDT)
+Message-ID: <aeb5c27e-121d-f666-249c-898e98d5ec2f@gmail.com>
+Date: Fri, 31 Mar 2023 08:54:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
-Subject: Re: [PATCH] drm/amdgpu: Fix desktop freezed after gpu-reset
+Subject: Re: [PATCH] drm/ttm: add NUMA node id to the pool
 Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <20230327152028.2939908-1-HaoPing.Liu@amd.com>
- <76206089-39dd-c009-f0a3-415f3c02406a@gmail.com>
- <SN1PR12MB24455388D199AD581AC2FA5CF58E9@SN1PR12MB2445.namprd12.prod.outlook.com>
- <842f5527-6992-f579-8749-c49d4f9f6e28@gmail.com>
- <CADnq5_OJ7_a750rrsncs4HyPK3K8zkE5nYG+oPMcqJQEfAK2aw@mail.gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20230330195043.1136322-1-alexander.deucher@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CADnq5_OJ7_a750rrsncs4HyPK3K8zkE5nYG+oPMcqJQEfAK2aw@mail.gmail.com>
+In-Reply-To: <20230330195043.1136322-1-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -78,193 +75,140 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Liu, HaoPing \(Alan\)" <HaoPing.Liu@amd.com>, "Lakha,
- Bhawanpreet" <Bhawanpreet.Lakha@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Felix Kuehling <felix.kuehling@amd.com>,
+ Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
+ Graham Sider <graham.sider@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 30.03.23 um 15:10 schrieb Alex Deucher:
-> On Thu, Mar 30, 2023 at 6:48 AM Christian König
-> <ckoenig.leichtzumerken@gmail.com> wrote:
->> Am 30.03.23 um 11:15 schrieb Liu, HaoPing (Alan):
->>
->> [AMD Official Use Only - General]
->>
->>
->>
->> Hi Christian,
->>
->>
->>
->> Thanks for the review. Please see inline.
->>
->>
->>
->> Best Regards,
->>
->> Alan
->>
->>
->>
->> -----Original Message-----
->> From: Christian König <ckoenig.leichtzumerken@gmail.com>
->> Sent: Tuesday, March 28, 2023 7:16 PM
->> To: Liu, HaoPing (Alan) <HaoPing.Liu@amd.com>; amd-gfx@lists.freedesktop.org
->> Cc: Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>
->> Subject: Re: [PATCH] drm/amdgpu: Fix desktop freezed after gpu-reset
->>
->>
->>
->> Am 27.03.23 um 17:20 schrieb Alan Liu:
->>
->>> [Why]
->>> After gpu-reset, sometimes the driver would fail to enable vblank irq,
->>> causing flip_done timed out and the desktop freezed.
->>> During gpu-reset, we will disable and enable vblank irq in
->>> dm_suspend() and dm_resume(). Later on in
->>> amdgpu_irq_gpu_reset_resume_helper(), we will check irqs' refcount and decide to enable or disable the irqs again.
->>> However, we have 2 sets of API for controling vblank irq, one is
->>> dm_vblank_get/put() and another is amdgpu_irq_get/put(). Each API has
->>> its own refcount and flag to store the state of vblank irq, and they
->>> are not synchronized.
->>
->>
->> This is the source of the problem and you should address this instead.
->>
->> The change you suggested below would break in some use cases.
->>
->>
->>
->> In struct drm_vblank_crtc we have a vblank irq refcount controlled by drm layer, and in struct amdgpu_irq_src we have enabled_types as refcount for each irq controlled by the dm.
->>
->> I think the best solution will be to get rid of the refcount in drm and only maintain the dm one, and add a crtc function for the drm layer to get the refcount/state of vblank.
->>
->> But this may be dangerous since it’s a change in drm layer. Do you have any comments?
->>
->>
->> You don't necessarily need to remove it completely, what you can do as well is properly chaining of them.
->>
->> E.g. when the DRM counter goes from 0->1 or 1->0 it calls some function to enable/disable the hw irq. In this situation you call amdgpu_irq_get()/amdgpu_irq_put() as appropriate.
->>
->> The the code in this patch already looks like it goes into the right direction regarding that. It just seems to be that you have some race issues when you need to add checks that the IRQ counter doesn't goes below 0.
->>
-> I think the problem is that atomic in general is not GPU reset
-> compatible.  GPU resets sort of happen outside of the standard atomic
-> flow.  So the DRM level interrupts will keep their original state, but
-> internally, the driver has to deal with the fact that we need to
-> re-enable interrupts as part of the reset sequence.
-
-If I'm not completely mistaken we already do update all the interrupt 
-state after a GPU reset.
-
-I think what could potentially happen here is that we try to update the 
-state while *inside* the GPU reset.
-
-This basically means we just need to grab the appropriate locks.
+Should I push this to drm-misc-next or do we take it through 
+amd-staging-drm-next?
 
 Christian.
 
+Am 30.03.23 um 21:50 schrieb Alex Deucher:
+> From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 >
-> Alex
+> This allows backing ttm_tt structure with pages from different NUMA
+> pools.
 >
+> Tested-by: Graham Sider <graham.sider@amd.com>
+> Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>   drivers/gpu/drm/ttm/ttm_device.c |  2 +-
+>   drivers/gpu/drm/ttm/ttm_pool.c   | 13 ++++++++-----
+>   include/drm/ttm/ttm_pool.h       |  4 +++-
+>   3 files changed, 12 insertions(+), 7 deletions(-)
 >
->>
->>> In drm we use the first API to control vblank irq but in
->>> amdgpu_irq_gpu_reset_resume_helper() we use the second set of API.
->>> The failure happens when vblank irq was enabled by dm_vblank_get()
->>> before gpu-reset, we have vblank->enabled true. However, during
->>> gpu-reset, in amdgpu_irq_gpu_reset_resume_helper(), vblank irq's state
->>> checked from
->>> amdgpu_irq_update() is DISABLED. So finally it will disable vblank irq
->>> again. After gpu-reset, if there is a cursor plane commit, the driver
->>> will try to enable vblank irq by calling drm_vblank_enable(), but the
->>> vblank->enabled is still true, so it fails to turn on vblank irq and
->>> causes flip_done can't be completed in vblank irq handler and desktop
->>> become freezed.
->>> [How]
->>> Combining the 2 vblank control APIs by letting drm's API finally calls
->>> amdgpu_irq's API, so the irq's refcount and state of both APIs can be
->>> synchronized. Also add a check to prevent refcount from being less
->>> then
->>> 0 in amdgpu_irq_put().
->>> Signed-off-by: Alan Liu <HaoPing.Liu@amd.com>
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c            |  3 +++
->>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 14 ++++++++++----
->>>    2 files changed, 13 insertions(+), 4 deletions(-)
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
->>> index a6aef488a822..1b66003657e2 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
->>> @@ -597,6 +597,9 @@ int amdgpu_irq_put(struct amdgpu_device *adev, struct amdgpu_irq_src *src,
->>>             if (!src->enabled_types || !src->funcs->set)
->>>                            return -EINVAL;
->>> +         if (!amdgpu_irq_enabled(adev, src, type))
->>> +                       return 0;
->>> +
->>
->>
->> That is racy and won't work. The intention of amdgpu_irq_update() is to always update the irq state, no matter what the status is.
->>
->>
->>
->> This is a change to amdgpu_irq_put() to prevent the refcount from being cut to less than 0. Does it break the intention of amdgpu_irq_update()?
->>
->>
->> Yes, exactly that. The reference count can *never* be below 0 or you have a bug in the caller.
->>
->> What you could do is to add a WARN_ON(!amdgpu_irq_enabled(adev, src, type)), but just ignoring the call is an absolute no-go.
->>
->> Regards,
->> Christian.
->>
->> PS: Please don't use HTML formating when discussing on public mailing lists.
->>
->>
->>
->> Regards,
->>
->> Christian.
->>
->>
->>
->>>             if (atomic_dec_and_test(&src->enabled_types[type]))
->>>                            return amdgpu_irq_update(adev, src, type);
->>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
->>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
->>> index dc4f37240beb..e04f846b0b19 100644
->>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
->>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
->>> @@ -146,7 +146,7 @@ static void vblank_control_worker(struct
->>> work_struct *work)
->>>    static inline int dm_set_vblank(struct drm_crtc *crtc, bool enable)
->>>    {
->>> -          enum dc_irq_source irq_source;
->>> +         int irq_type;
->>>             struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
->>>             struct amdgpu_device *adev = drm_to_adev(crtc->dev);
->>>             struct dm_crtc_state *acrtc_state = to_dm_crtc_state(crtc->state);
->>> @@ -169,10 +169,16 @@ static inline int dm_set_vblank(struct drm_crtc *crtc, bool enable)
->>>             if (rc)
->>>                            return rc;
->>> -          irq_source = IRQ_TYPE_VBLANK + acrtc->otg_inst;
->>> +         irq_type = amdgpu_display_crtc_idx_to_irq_type(adev,
->>> +acrtc->crtc_id);
->>> +
->>> +         if (enable)
->>> +                       rc = amdgpu_irq_get(adev, &adev->crtc_irq, irq_type);
->>> +
->>> +         else
->>> +                       rc = amdgpu_irq_put(adev, &adev->crtc_irq, irq_type);
->>> -          if (!dc_interrupt_set(adev->dm.dc, irq_source, enable))
->>> -                        return -EBUSY;
->>> +         if (rc)
->>> +                       return rc;
->>>    skip:
->>>             if (amdgpu_in_reset(adev))
->>
->>
->>
+> diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm_device.c
+> index e7147e304637..4a8164a5320f 100644
+> --- a/drivers/gpu/drm/ttm/ttm_device.c
+> +++ b/drivers/gpu/drm/ttm/ttm_device.c
+> @@ -218,7 +218,7 @@ int ttm_device_init(struct ttm_device *bdev, struct ttm_device_funcs *funcs,
+>   	bdev->funcs = funcs;
+>   
+>   	ttm_sys_man_init(bdev);
+> -	ttm_pool_init(&bdev->pool, dev, use_dma_alloc, use_dma32);
+> +	ttm_pool_init(&bdev->pool, dev, NUMA_NO_NODE, use_dma_alloc, use_dma32);
+>   
+>   	bdev->vma_manager = vma_manager;
+>   	INIT_DELAYED_WORK(&bdev->wq, ttm_device_delayed_workqueue);
+> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+> index 9f6764bf3b15..1068a41cded1 100644
+> --- a/drivers/gpu/drm/ttm/ttm_pool.c
+> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
+> @@ -92,7 +92,7 @@ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
+>   			__GFP_KSWAPD_RECLAIM;
+>   
+>   	if (!pool->use_dma_alloc) {
+> -		p = alloc_pages(gfp_flags, order);
+> +		p = alloc_pages_node(pool->nid, gfp_flags, order);
+>   		if (p)
+>   			p->private = order;
+>   		return p;
+> @@ -286,7 +286,7 @@ static struct ttm_pool_type *ttm_pool_select_type(struct ttm_pool *pool,
+>   						  enum ttm_caching caching,
+>   						  unsigned int order)
+>   {
+> -	if (pool->use_dma_alloc)
+> +	if (pool->use_dma_alloc || pool->nid != NUMA_NO_NODE)
+>   		return &pool->caching[caching].orders[order];
+>   
+>   #ifdef CONFIG_X86
+> @@ -523,29 +523,32 @@ EXPORT_SYMBOL(ttm_pool_free);
+>    *
+>    * @pool: the pool to initialize
+>    * @dev: device for DMA allocations and mappings
+> + * @nid: NUMA node to use for allocations
+>    * @use_dma_alloc: true if coherent DMA alloc should be used
+>    * @use_dma32: true if GFP_DMA32 should be used
+>    *
+>    * Initialize the pool and its pool types.
+>    */
+>   void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
+> -		   bool use_dma_alloc, bool use_dma32)
+> +		   int nid, bool use_dma_alloc, bool use_dma32)
+>   {
+>   	unsigned int i, j;
+>   
+>   	WARN_ON(!dev && use_dma_alloc);
+>   
+>   	pool->dev = dev;
+> +	pool->nid = nid;
+>   	pool->use_dma_alloc = use_dma_alloc;
+>   	pool->use_dma32 = use_dma32;
+>   
+> -	if (use_dma_alloc) {
+> +	if (use_dma_alloc || nid != NUMA_NO_NODE) {
+>   		for (i = 0; i < TTM_NUM_CACHING_TYPES; ++i)
+>   			for (j = 0; j < MAX_ORDER; ++j)
+>   				ttm_pool_type_init(&pool->caching[i].orders[j],
+>   						   pool, i, j);
+>   	}
+>   }
+> +EXPORT_SYMBOL(ttm_pool_init);
+>   
+>   /**
+>    * ttm_pool_fini - Cleanup a pool
+> @@ -559,7 +562,7 @@ void ttm_pool_fini(struct ttm_pool *pool)
+>   {
+>   	unsigned int i, j;
+>   
+> -	if (pool->use_dma_alloc) {
+> +	if (pool->use_dma_alloc || pool->nid != NUMA_NO_NODE) {
+>   		for (i = 0; i < TTM_NUM_CACHING_TYPES; ++i)
+>   			for (j = 0; j < MAX_ORDER; ++j)
+>   				ttm_pool_type_fini(&pool->caching[i].orders[j]);
+> diff --git a/include/drm/ttm/ttm_pool.h b/include/drm/ttm/ttm_pool.h
+> index ef09b23d29e3..23bd8be6d4f8 100644
+> --- a/include/drm/ttm/ttm_pool.h
+> +++ b/include/drm/ttm/ttm_pool.h
+> @@ -61,12 +61,14 @@ struct ttm_pool_type {
+>    * struct ttm_pool - Pool for all caching and orders
+>    *
+>    * @dev: the device we allocate pages for
+> + * @nid: which numa node to use
+>    * @use_dma_alloc: if coherent DMA allocations should be used
+>    * @use_dma32: if GFP_DMA32 should be used
+>    * @caching: pools for each caching/order
+>    */
+>   struct ttm_pool {
+>   	struct device *dev;
+> +	int nid;
+>   
+>   	bool use_dma_alloc;
+>   	bool use_dma32;
+> @@ -81,7 +83,7 @@ int ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+>   void ttm_pool_free(struct ttm_pool *pool, struct ttm_tt *tt);
+>   
+>   void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
+> -		   bool use_dma_alloc, bool use_dma32);
+> +		   int nid, bool use_dma_alloc, bool use_dma32);
+>   void ttm_pool_fini(struct ttm_pool *pool);
+>   
+>   int ttm_pool_debugfs(struct ttm_pool *pool, struct seq_file *m);
 
