@@ -4,117 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21708C76196
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 05:49:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0FA5C6FD18
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 06:17:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B0FB10E2DD;
-	Fri, 31 Mar 2023 05:49:45 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2043.outbound.protection.outlook.com [40.107.243.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC36410E2DD
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 05:49:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eYzNoW0E65Dtbr7FJFbZVJ8soR1/ZupR9fvaj1xw2DX3iR13gGqcfFgB5sDqMx/H3Z39iLxa+q1WXGE0MDTSX+v5cAW7NUG/HGSEIk24D8NGj1nbe3JR5J0ZZBhbhsitlHKjfFceaX2t5w0t8xAzGFidrgBTfT5RfpsFbA0PRSJjlZ+RXs4eigyzfQwWUeaRTMtlO9EMeLC9rKR4SIlGUVld8Hy6Ufq2b5IOAvlUwt7XTz4U6KZHkth3IZiidmyt5ybuROQWfoUtO+cjc8DXWK4RfqXn59thx7gopqNSAWx5nYG/qDOevsbseJX/ct+/KmdOC8soeDBjTnT6RGTHzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xBe2AY+O+jRt6M2u7QYPuQhaNFwNZQ7U8huMdaGedxc=;
- b=TX3UBDcHb1XxBUW23NgSlVW3TMzg0J+ctppgS/iZSNG21ViI4mt6iPoNSUvbn2XjWf4pL2PJgSMwncGMQ5GvJ5WIffvxdgw5VSAll1cGXgaXr11gZnPgIZvgIrXF+0dl2tE4PNtQ2YfSSJ35Er6pgdLx+UU+eM7KHpG7JbdN8HQMRHgANZiwahwBHiB2CjugnA3zWLvmvYEB30S6VHrVTcyp7gedrWgaGDmQRWRq+/je+DcN5ERw0O5c5hVlVnl+LCeVpCE/XIiyLYcNE4NpBpdRMvHZKcA9mERNyQDBaerg+lm06BTzGewLzTXEdBKLTjYJErRNa0jCUThpYpJs8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xBe2AY+O+jRt6M2u7QYPuQhaNFwNZQ7U8huMdaGedxc=;
- b=rz89nFbz8StDpJwPwJ6H/pjFnlJj78NKr7pX/L9Nz0iiFKYgOpsC9WH8jCmBOY68pS5AXAoO7uRVTUJ+NsHExnKw5RpM99IxHA0NjnphVi8vdwDy7kIpxoH3y9A5G7FKexhqHeBzt4PK1K15vKeCz1k+ptLDGyguUmv2B5FfGJ8=
-Received: from DM6PR12MB3531.namprd12.prod.outlook.com (2603:10b6:5:18b::10)
- by BL1PR12MB5205.namprd12.prod.outlook.com (2603:10b6:208:308::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.23; Fri, 31 Mar
- 2023 05:49:40 +0000
-Received: from DM6PR12MB3531.namprd12.prod.outlook.com
- ([fe80::cf43:4080:4a5c:c4af]) by DM6PR12MB3531.namprd12.prod.outlook.com
- ([fe80::cf43:4080:4a5c:c4af%3]) with mapi id 15.20.6222.035; Fri, 31 Mar 2023
- 05:49:39 +0000
-From: "Yang, WenYou" <WenYou.Yang@amd.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Subject: RE: [PATCH v3 1/2] cpu/smt: add a notifier to notify the SMT changes
-Thread-Topic: [PATCH v3 1/2] cpu/smt: add a notifier to notify the SMT changes
-Thread-Index: AQHZYeESu1Z/BgjKTUGFWIVG6kMXya8RV0EAgAAB2QCAABojgIAADcWggALiSjA=
-Date: Fri, 31 Mar 2023 05:49:39 +0000
-Message-ID: <DM6PR12MB3531340547BE346D07E88BE3FD8F9@DM6PR12MB3531.namprd12.prod.outlook.com>
-References: <20230329015149.870132-1-WenYou.Yang@amd.com>
- <20230329015149.870132-2-WenYou.Yang@amd.com>
- <20230329071014.GC7701@hirez.programming.kicks-ass.net>
- <BYAPR12MB352749E2864A87C3C32B7D0FFD899@BYAPR12MB3527.namprd12.prod.outlook.com>
- <20230329085023.GO4253@hirez.programming.kicks-ass.net>
- <DM6PR12MB3531933678779C5923989925FD899@DM6PR12MB3531.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB3531933678779C5923989925FD899@DM6PR12MB3531.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-03-31T05:49:37Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=02dc1b6b-2112-4f8e-9325-e16b94f0766f;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB3531:EE_|BL1PR12MB5205:EE_
-x-ms-office365-filtering-correlation-id: 45705dd0-7107-47e0-f167-08db31abb7dc
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: xm9lc6ZrPBvfd4lgjUSnk+7X/QCcVADoYfFXo6QbSBOI37+BEAKfg5vX/TgRuilnqZuqFnf+uBvoE3DspQawfPTWTP4RCtBleN2mHCEY0FS4v6lCNkJKFFllBoCfR0tXe06uESsNlt4JA661ngMZ7cRiwc4HMRWoci6v2mExOZZxyXZwKmFKtoiy878TQrHYUuil/SBliXEoa2fCJso8eH+QkRK8ZdBhxweVDhSAqFFPT492TSnn7xOlxqt0BRVDqbndub8AWOCf5qJZngJ7OrQHXMsfrLWCxESvw83mGXQkiU8FrokKAWuiyuR67AxtaIfniduhNO+sUtFlzKmtn+qX2HQ9Ph1n77MBC+/YPKUiPUQYIc4m5GF4vzFrqZumX7HrO3F8Le7hzig5/zEbsK9Rp8e+4DZbNk7I9yyBxbE9Kmc9t+iNYtj5hDVXLcAkugI3rpMH4lPNMIcgoJgaVlIbnB4oNpYDkSAkMEJXDKEI8qTL9GbQLwCoI+FWkb/cLJWLezlvhkutRWRRHGWtK3HgTc4uHcIlE5KkUzPlJyws1Ho3ToyifUKjlAhDsI5CMAldQMSl38iZtQ82d0L75PaNYLCujnp6WK/jtqiSs2q8FRw7IuemxXPQAFOn+ngz
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3531.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(396003)(346002)(366004)(136003)(376002)(451199021)(83380400001)(33656002)(26005)(7696005)(71200400001)(53546011)(6506007)(9686003)(54906003)(478600001)(66476007)(316002)(186003)(66556008)(66946007)(76116006)(66446008)(4326008)(64756008)(6916009)(122000001)(8676002)(8936002)(5660300002)(41300700001)(52536014)(38100700002)(86362001)(2906002)(55016003)(38070700005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?YWK5ihhjfhJz7gGP2Ysmgss2S4e2BweojUqOV27D5sYYiN+fAKuSE0uo289a?=
- =?us-ascii?Q?vp7IvV7KLz3xnSNn9Ghm/DcDd5TYFC2ZXvfiY9rc2Z1koKOeLJVMw192bsKA?=
- =?us-ascii?Q?BGdQSjj2w2Dhx51ugGiqAjXBR5uPTbvJcAysUOvh5y5a19x+6OuACHFsKQnm?=
- =?us-ascii?Q?/Nw6V8O3fTVYKhM6NuExtTY8Krn9GVrCi7NJbC/6agc1D9ec4U9hBI1jTTkn?=
- =?us-ascii?Q?BSASYuu69DO9HVSOvXa2LFeHavC+HXd0sMygh10xHKuhoim92oxSS7ahs/Fi?=
- =?us-ascii?Q?XqzGGk35OEZSyEjsoWYBj2ujPrFruqRHQRakI82lngdc5oftrPBUdrBe06bK?=
- =?us-ascii?Q?xHVWRwN0cq2jJJzKsl1cCH0X0kFLQL2BtVGXyBD8iwFOzkzXb1JZUFh7u8ol?=
- =?us-ascii?Q?4nnWs6kGPL0xwkmKzgspjqRe1XiarcyFt9MDQsKq8UkL97IfcjmgopJMPsIs?=
- =?us-ascii?Q?MqIYoaiugEN1iIL00Es27PThgimuAMRQ9IIkjDUMrtSQ654IFn9XUuLy6RBo?=
- =?us-ascii?Q?wXbl/b41HOKp3++0Gl+pYGWbMr6iFklnUcoEXUcXO2WDIUxrY6cwoGRzPCKP?=
- =?us-ascii?Q?i10CPND+HVh3ij9+3lOvlWQB0kxhjHyo9OW8zL/S2tP3Bl/R5iapcatpjdlv?=
- =?us-ascii?Q?UhSrMXJ+hdSQEOBYnDWn9RPnOYHYurtWN8mfrIjKgpg0LXReuCPdtvnJYc67?=
- =?us-ascii?Q?PhuzBtbfiQ59rKuVTw2GlKnmqVw7UoYpCZJ6ArHSx2DMkrHVQ976BBMNCemZ?=
- =?us-ascii?Q?1w9s4qi5pkMnHjg0/HQdJlsnnLWHVsry5MNB4nMYVEVhjAvg63nerFEaEzg3?=
- =?us-ascii?Q?J2XpTTMxCpBsj5T6dFVe11Ad1YAlA0b3gqUQAaiUsyfgF0Rb8CzPVAtMIhpl?=
- =?us-ascii?Q?yjd/gtPqc9tnneznoCBPF7T7XJLf5rIGmt3gdysygOp9K26Kz7anVc1U9fVo?=
- =?us-ascii?Q?Ka1exgICarEd5IfeTDZD9Dmt1oc/AK0eNhnp6hOz/VG5LnB5qP2e00LoyHCq?=
- =?us-ascii?Q?jRPCLOUDDGND5DObULSjV8Nq2Hm4UEUT3iilDJSp7Wii0tGvwF0r8XA+6exA?=
- =?us-ascii?Q?MGT0QoJVvKfdiIHZNHQE1cFz7UEuzzPhPdQpT1gQ5OW50EAWbnZ5C1p6hjZU?=
- =?us-ascii?Q?/97Y67C1MQ33XpbmH3m1KpksuLIw6Ataq+uNo76y/idyjKNePaCxRf6ko7ei?=
- =?us-ascii?Q?KVr4lE4OE3acjs2ra4cLQDdBvFeelKXkRUkZ7xIEkjYGI8g1x+brH0xL8abP?=
- =?us-ascii?Q?Yo0jJGuVXAB33f8O0eYR5gRWBt1bmQqV+bsw6L+7aJwayBjxgDCgjjMq4lDJ?=
- =?us-ascii?Q?2G9HhkHaKl65iRe8u01r4kdIlSRwFz/O8Ff5gv/k7qiWPefJZhF0oqubeJ++?=
- =?us-ascii?Q?JcQOVnzVRzc39JXNiDZjqvIIIJApxQ6+U3HXDYQ4iDSJj/awHSINoEvVQ1e0?=
- =?us-ascii?Q?EZYWprEsIhZs1UDJsuiFTZT7Gj/o77p4o9ytGTvQcVttAHo9ryLWu7MvdmOs?=
- =?us-ascii?Q?sN3H9FeJHI7kcQ/Us+UoFJpYiz56v+STBkHv6/QTI46ZaBNhACPJOv67VPbm?=
- =?us-ascii?Q?X97zLFpSVj7zIsEvB2U=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8E4D10E2E7;
+	Fri, 31 Mar 2023 06:17:20 +0000 (UTC)
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9709D10E2E7
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 06:17:18 +0000 (UTC)
+Received: by mail-ed1-x52c.google.com with SMTP id eh3so85485115edb.11
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 23:17:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1680243437;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=hVHmE+XjgN7Y/glNDVOp/arWpP7IZ21W9nlf3Ghci04=;
+ b=OdUFDzB+njw38KGGjIUeJBPcPtNdfHjj4x4yTbzzIY9hCnTL4UuEu2oyjiyUmj6TKM
+ KifEV48jWuYB22cd+v9QKEZzOoJI5wGnlvxWk+dUTlSZ6KBFX77duePyvaGWPtZ5EaVe
+ AW2n1658ZXf4KDTFba4pGYMul9DIw32DYvxj6VoRpVI5M+eXuBp5koY6V/RpcIzf+X2X
+ syllT8UOhnXf1G5Yr207E/RCftVtCRos6OQxYNm71ftR9HMdBdzQKERbclEuA+DjZZJX
+ K43tYBSGV9qBPXTDyk4/FdiuJrEEoyyOoAg76S6ZvUqiWlicLU1tkg0xLYzMj6DilAKU
+ DygQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1680243437;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=hVHmE+XjgN7Y/glNDVOp/arWpP7IZ21W9nlf3Ghci04=;
+ b=lmQPUFLxtXNjqvfJPL6daYApzmM5N6gh+1bTw3JYBvp21wZpDk9Hv510ycCSbLd0Vk
+ sXoI4RKBRD9zKaHjL7Jyu9IHfuklnEVykbeViWn1bD4E+mX/d1FVVAvzbNzMOdATS/cH
+ s7fn0j/H+1MDFG2KvaZdT8x3joqUlQzL5XMzgOhoath7LX7Tsei/9Ok645pdZUbTLVTq
+ nqDiXk/qahIxAJAQJXcsG+84YhR1jTVJZf5yW+iYlw2SX4pDodIpusExs5ILN6o0G0L1
+ jm/NwqBZB77MQa6zQP4TFV7GlvYFbTWqxTgwBriYEG8vqrLapOiRmLM6qXTtkL0SlRO5
+ FEjw==
+X-Gm-Message-State: AAQBX9fEWovZLqUrSjO5od7GOY172qJp9g5TAbjQ/TtlYcY3CX3HhPvI
+ lxEwmhuGFOgXIf6zyjlzUX2LzQaLWFa1Ag==
+X-Google-Smtp-Source: AKy350bYfOK1m3yOKj+2qObGCcKfSk6qnkKTq7BQHmN08/9PO4CZCxiJpU3fgyTZiRDbNr72Qnoeqw==
+X-Received: by 2002:a17:907:8a08:b0:944:44d:c736 with SMTP id
+ sc8-20020a1709078a0800b00944044dc736mr24710774ejc.64.1680243436958; 
+ Thu, 30 Mar 2023 23:17:16 -0700 (PDT)
+Received: from [192.168.178.21] (p4fc2092b.dip0.t-ipconnect.de. [79.194.9.43])
+ by smtp.gmail.com with ESMTPSA id
+ u25-20020a170906109900b008e22978b98bsm606020eju.61.2023.03.30.23.17.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 30 Mar 2023 23:17:16 -0700 (PDT)
+Message-ID: <91105af7-a7ed-bb82-d3ae-96b31ed4c465@gmail.com>
+Date: Fri, 31 Mar 2023 08:17:15 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3531.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 45705dd0-7107-47e0-f167-08db31abb7dc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Mar 2023 05:49:39.6569 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: lOi7tvb5a+jKUnJ/BRfBvHLj8nXMey6Ww0R1a+P/3OqCTsd07Bod521GS2ahc38K3YLL3rY2TeIr+QFT7Ty4fw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5205
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH 7/8] drm/amd: fix compiler error to support older compilers
+Content-Language: en-US
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230330194843.1136162-1-alexander.deucher@amd.com>
+ <20230330194843.1136162-7-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20230330194843.1136162-7-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,121 +75,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Phillips, Kim" <kim.phillips@amd.com>, "Li, Ying" <YING.LI@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "jpoimboe@kernel.org" <jpoimboe@kernel.org>,
- "gpiccoli@igalia.com" <gpiccoli@igalia.com>, "Yuan,
- Perry" <Perry.Yuan@amd.com>, "bp@alien8.de" <bp@alien8.de>, "Limonciello,
- Mario" <Mario.Limonciello@amd.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>,
- "tglx@linutronix.de" <tglx@linutronix.de>, "Quan, Evan" <Evan.Quan@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>, "Liang,
- Richard qi" <Richardqi.Liang@amd.com>, "Liu, Kun" <Kun.Liu2@amd.com>
+Cc: Mukul Joshi <mukul.joshi@amd.com>,
+ Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+Am 30.03.23 um 21:48 schrieb Alex Deucher:
+> From: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+>
+> ‘for’ loop initial declarations are only allowed in C99 or C11 mode
 
+This isn't necessary any more and can be dropped.
 
+Christian.
 
-> -----Original Message-----
-> From: Yang, WenYou
-> Sent: Wednesday, March 29, 2023 5:43 PM
-> To: Peter Zijlstra <peterz@infradead.org>
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; Quan, Evan
-> <Evan.Quan@amd.com>; Limonciello, Mario <Mario.Limonciello@amd.com>;
-> bp@alien8.de; jpoimboe@kernel.org; Phillips, Kim <kim.phillips@amd.com>;
-> tglx@linutronix.de; Yuan, Perry <Perry.Yuan@amd.com>; Liang, Richard qi
-> <Richardqi.Liang@amd.com>; Li, Ying <YING.LI@amd.com>; Liu, Kun
-> <Kun.Liu2@amd.com>; gpiccoli@igalia.com; amd-gfx@lists.freedesktop.org;
-> linux-kernel@vger.kernel.org
-> Subject: RE: [PATCH v3 1/2] cpu/smt: add a notifier to notify the SMT cha=
-nges
->=20
-> [AMD Official Use Only - General]
->=20
->=20
->=20
-> > -----Original Message-----
-> > From: Peter Zijlstra <peterz@infradead.org>
-> > Sent: Wednesday, March 29, 2023 4:50 PM
-> > To: Yang, WenYou <WenYou.Yang@amd.com>
-> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> > <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; Quan,
-> > Evan <Evan.Quan@amd.com>; Limonciello, Mario
-> > <Mario.Limonciello@amd.com>; bp@alien8.de; jpoimboe@kernel.org;
-> > Phillips, Kim <kim.phillips@amd.com>; tglx@linutronix.de; Yuan, Perry
-> > <Perry.Yuan@amd.com>; Liang, Richard qi <Richardqi.Liang@amd.com>; Li,
-> > Ying <YING.LI@amd.com>; Liu, Kun <Kun.Liu2@amd.com>;
-> > gpiccoli@igalia.com; amd-gfx@lists.freedesktop.org;
-> > linux-kernel@vger.kernel.org
-> > Subject: Re: [PATCH v3 1/2] cpu/smt: add a notifier to notify the SMT
-> > changes
-> >
-> > Caution: This message originated from an External Source. Use proper
-> > caution when opening attachments, clicking links, or responding.
-> >
-> >
-> > On Wed, Mar 29, 2023 at 07:23:29AM +0000, Yang, WenYou wrote:
-> > > [AMD Official Use Only - General]
-> >
-> > ^^^ that has no business being in a public email.
-> >
-> > > Hi Peter,
-> > >
-> > > Thank you for your review.
-> > >
-> > > The purpose of the patch set is to improve the performance when
-> > > playing
-> > game for some AMD APUs with SMT enabled/disabled.
-> > >
-> > > When change the SMT state on the fly through " echo on/off >
-> > /sys/devices/system/cpu/smt/control", the kernel needs to send a
-> > message to notify PMFW to adjust a variable's value, which impacts the
-> performance.
-> >
-> > When top posting I normally ignore the email. When not wrapping email
-> > I typically get cranky. You 'win' *3* 'I cannot use email' trophies in =
-a singly try.
-> > Surely AMD has a HOWTO somewhere you can read?
->=20
-> Yes. It is my fault. Sorry.
->=20
-> >
-> > So what do you want to have happen when someone goes and manually
-> > offlines all the SMT siblings using
-> > /sys/devices/system/cpu/cpu*/online
-> > ?
->=20
-> I don't consider this situation.  Any suggestions will be deeply apprecia=
-ted.
+>
+> Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+> Reviewed-by: Mukul Joshi <mukul.joshi@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/aqua_vanjaram_reg_init.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram_reg_init.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram_reg_init.c
+> index 55a6ebb940ba..fdc728f678d7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram_reg_init.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram_reg_init.c
+> @@ -360,7 +360,7 @@ static int aqua_vanjaram_xcp_mgr_init(struct amdgpu_device *adev)
+>   
+>   int aqua_vanjaram_init_soc_config(struct amdgpu_device *adev)
+>   {
+> -	u32 inst_mask = adev->sdma.sdma_mask;
+> +	u32 mask, inst_mask = adev->sdma.sdma_mask;
+>   	int ret, i, num_inst;
+>   
+>   	/* generally 1 AID supports 4 instances */
+> @@ -370,7 +370,7 @@ int aqua_vanjaram_init_soc_config(struct amdgpu_device *adev)
+>   	adev->aid_mask = i = 1;
+>   	inst_mask >>= adev->sdma.num_inst_per_aid;
+>   
+> -	for (const u32 mask = (1 << adev->sdma.num_inst_per_aid) - 1; inst_mask;
+> +	for (mask = (1 << adev->sdma.num_inst_per_aid) - 1; inst_mask;
+>   	     inst_mask >>= adev->sdma.num_inst_per_aid, ++i) {
+>   		if ((inst_mask & mask) == mask)
+>   			adev->aid_mask |= (1 << i);
 
-Hi Peter,
-
-I don't find a good method to handle this situation.
-Yes, manually offlining all the SMT sibling will get the same result of SMT=
- disabling on the fly.
-
-Actually, the normal way to enable/disable SMT on the fly is to echo on/off=
- > /sys/device/system/cpu/smt/control
-
-What are your opinions?
-
-Best Regards,
-Wenyou
-
->=20
-> >
-> > I'm thinking that wants the same PMFW (whatever the heck that is)
-> > notification change done, right?
-> >
-> > If the answer is "yes", then your patch does not meet the goals and is
-> > inadequate.
->=20
-> Yes.  Need to improve.
->=20
-> Thank you.
-> Wenyou
