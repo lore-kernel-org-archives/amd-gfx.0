@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CCB7C76196
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 09:27:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4914FC761AF
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 13:21:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1393010F1A9;
-	Fri, 31 Mar 2023 09:27:11 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B69710F190;
- Fri, 31 Mar 2023 09:27:08 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5C6210E09E;
+	Fri, 31 Mar 2023 13:21:50 +0000 (UTC)
+X-Greylist: delayed 421 seconds by postgrey-1.36 at gabe;
+ Fri, 31 Mar 2023 11:01:10 UTC
+Received: from gandalf.ozlabs.org (mail.ozlabs.org
+ [IPv6:2404:9400:2221:ea00::3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A7BF10F1D8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 11:01:10 +0000 (UTC)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id AE4616265A;
- Fri, 31 Mar 2023 09:27:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68DD6C433D2;
- Fri, 31 Mar 2023 09:27:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1680254827;
- bh=h8C/nCvQ95GrVt3vhY71TCmgTeCG4/uxqnWpxM7dCvc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dsTJ8rRVglkyMZumINEy8WnEYodYuNEhZ7bk1k65j6hRSt6A+H6HSIvwtd10Q7Pew
- mDw2gtHjx/Wcbcjzbkz+E4al5QovbvJmBTGuowMkfOeT3uswymaaryDuad3rt3skik
- 5V5Bbv3qYCq7vivephtUFBGWG86wnCgaWebo/0f/p2rqGeM9esEDofWzKN7G+RpviI
- uGVW/qs5y+ADztJb7OtXuw83KGVnks7D3LZENOEVzA8BLUVYaq3VNB0jjOaOb5xHKz
- KUcG4WeYIOei20QDLzRmfFPg48kD4AHMaklv91+4SWntbuAwafm2Tk9Hkn2rRjV4B2
- yMfi7F7+H4KBw==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org
-Subject: [PATCH 18/19] drm/amd/amdgpu/sdma_v6_0: Demote a bunch of
- half-completed function headers
-Date: Fri, 31 Mar 2023 10:26:06 +0100
-Message-Id: <20230331092607.700644-19-lee@kernel.org>
-X-Mailer: git-send-email 2.40.0.348.gf938b09366-goog
-In-Reply-To: <20230331092607.700644-1-lee@kernel.org>
-References: <20230331092607.700644-1-lee@kernel.org>
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4Pnxx241sXz4x4r;
+ Fri, 31 Mar 2023 21:53:58 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ellerman.id.au;
+ s=201909; t=1680260040;
+ bh=8QUsIUkBAgfdYfmbh//kvQTjF8lIKNNdvGDKhDBFuWg=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+ b=AbBH1oq3KYd9qxnIlJOo0+7fIFnlw+pTGY+aW7PSFh5mdL880GrQYw72MEllwI+Fu
+ Sn/TjtOyvGg7OR3BUbipFCYwSA5Yf2nP4FH3IDESzrgs1WW3lIHW1brLI1C+T0vdqO
+ w7h94bj6QCeXfEHnv+HrsqMLGutoz7KwFzBsHbEUdhElNbDkqKiA30SW8SSCFAuM6A
+ kCRKf/NqhSAmytND1L897CKg7WHSw2yq8uKMNZCp3nCncYacK6GlmMPLeKXd+O77Od
+ hcyThV0TzQe1Jkalx5JTBxzOOc3L9GJwA/dRzLUW+2txepCtH9t9nPyoIkvQ9bZXyL
+ kgIrl6k5DV6HA==
+From: Michael Ellerman <mpe@ellerman.id.au>
+To: Daniel Kolesa <daniel@octaforge.org>, linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH] drm/amdgpu: drop the long-double-128 powerpc check/hack
+In-Reply-To: <dab9cbd8-2626-4b99-8098-31fe76397d2d@app.fastmail.com>
+References: <dab9cbd8-2626-4b99-8098-31fe76397d2d@app.fastmail.com>
+Date: Fri, 31 Mar 2023 21:53:57 +1100
+Message-ID: <87o7o9b396.fsf@mpe.ellerman.id.au>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Mailman-Approved-At: Fri, 31 Mar 2023 13:21:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,81 +52,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>,
- linaro-mm-sig@lists.linaro.org, Stanley Yang <Stanley.Yang@amd.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-media@vger.kernel.org
+Cc: dan@danny.cz, alexdeucher@gmail.com, tpearson@raptorengineering.com,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fixes the following W=1 kernel build warning(s):
+"Daniel Kolesa" <daniel@octaforge.org> writes:
+> Commit c653c591789b ("drm/amdgpu: Re-enable DCN for 64-bit powerpc")
+> introduced this check as a workaround for the driver not building
+> with toolchains that default to 64-bit long double.
+...
+> In mainline, this work is now fully done, so this check is fully
+> redundant and does not do anything except preventing AMDGPU DC
+> from being built on systems such as those using musl libc. The
+> last piece of work to enable this was commit c92b7fe0d92a
+> ("drm/amd/display: move remaining FPU code to dml folder")
+> and this has since been backported to 6.1 stable (in 6.1.7).
+>
+> Relevant issue: https://gitlab.freedesktop.org/drm/amd/-/issues/2288
 
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c:248: warning: Function parameter or member 'job' not described in 'sdma_v6_0_ring_emit_ib'
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c:248: warning: Function parameter or member 'flags' not described in 'sdma_v6_0_ring_emit_ib'
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c:945: warning: Function parameter or member 'timeout' not described in 'sdma_v6_0_ring_test_ib'
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c:1124: warning: Function parameter or member 'ring' not described in 'sdma_v6_0_ring_pad_ib'
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c:1175: warning: Function parameter or member 'vmid' not described in 'sdma_v6_0_ring_emit_vm_flush'
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c:1175: warning: Function parameter or member 'pd_addr' not described in 'sdma_v6_0_ring_emit_vm_flush'
+I looked to pick this up for 6.3 but was still seeing build errors with
+some compilers. I assumed that was due to some fixes coming in
+linux-next that I didn't have.
 
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>
-Cc: Stanley Yang <Stanley.Yang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-media@vger.kernel.org
-Cc: linaro-mm-sig@lists.linaro.org
-Signed-off-by: Lee Jones <lee@kernel.org>
----
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+But applying the patch on v6.3-rc4 I still see build errors. This is
+building allyesconfig with the kernel.org GCC 12.2.0 / binutils 2.39
+toolchain:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-index 40e6b22daa226..efea4ef30a787 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-@@ -233,7 +233,7 @@ static void sdma_v6_0_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
- 			amdgpu_ring_write(ring, ring->funcs->nop);
- }
- 
--/**
-+/*
-  * sdma_v6_0_ring_emit_ib - Schedule an IB on the DMA engine
-  *
-  * @ring: amdgpu ring pointer
-@@ -933,7 +933,7 @@ static int sdma_v6_0_ring_test_ring(struct amdgpu_ring *ring)
- 	return r;
- }
- 
--/**
-+/*
-  * sdma_v6_0_ring_test_ib - test an IB on the DMA engine
-  *
-  * @ring: amdgpu_ring structure holding ring information
-@@ -1114,7 +1114,7 @@ static void sdma_v6_0_vm_set_pte_pde(struct amdgpu_ib *ib,
- 	ib->ptr[ib->length_dw++] = count - 1; /* number of entries */
- }
- 
--/**
-+/*
-  * sdma_v6_0_ring_pad_ib - pad the IB
-  * @ib: indirect buffer to fill with padding
-  *
-@@ -1162,7 +1162,7 @@ static void sdma_v6_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
- 			  SDMA_PKT_POLL_REGMEM_DW5_INTERVAL(4)); /* retry count, poll interval */
- }
- 
--/**
-+/*
-  * sdma_v6_0_ring_emit_vm_flush - vm flush using sDMA
-  *
-  * @ring: amdgpu_ring pointer
--- 
-2.40.0.348.gf938b09366-goog
+  powerpc64le-linux-gnu-ld: drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.o uses hard float, arch/powerpc/lib/test_emulate_step.o uses soft float
+  powerpc64le-linux-gnu-ld: failed to merge target specific data of file drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.o
 
+etc.
+
+All the conflicts are between test_emulate_step.o and some file in drivers/gpu/drm/amd/display/dc/dml.
+
+So even with all the hard-float code isolated in the dml folder, we
+still hit build errors, because allyesconfig wants to link those
+hard-float using objects with soft-float objects from elsewhere in the
+kernel.
+
+It seems like the only workable fix is to force the kernel build to use
+128-bit long double. I'll send a patch doing that.
+
+cheers
