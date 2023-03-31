@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C50CC76196
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 09:26:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CCB7C76196
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 09:27:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3351810F152;
-	Fri, 31 Mar 2023 09:26:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1393010F1A9;
+	Fri, 31 Mar 2023 09:27:11 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 357FE10F14C;
- Fri, 31 Mar 2023 09:26:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B69710F190;
+ Fri, 31 Mar 2023 09:27:08 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 70BB162657;
- Fri, 31 Mar 2023 09:26:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1DFFC4339C;
- Fri, 31 Mar 2023 09:26:19 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id AE4616265A;
+ Fri, 31 Mar 2023 09:27:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68DD6C433D2;
+ Fri, 31 Mar 2023 09:27:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1680254781;
- bh=Xj4WyozKPmZtTN1kClJTBi/X5tfzwvcxXXrKvf/WUhE=;
+ s=k20201202; t=1680254827;
+ bh=h8C/nCvQ95GrVt3vhY71TCmgTeCG4/uxqnWpxM7dCvc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dAZXFCbKCx3fKL0doDoVVk5L6sJXUiM+NHgn9vejM8I7z7I0QiyJMRnBXSMO/GJJp
- tAJn9X7SwrcuHi0CWHJGVdad+YwKNqZS6jRDaiIdAGOiJ8r2NJDZRU51HoTZvGx2l5
- nd/DvOqnztIsmLzrKXVA2FxmEUE7FA6UkmYPQy6230mBRIikOOJ5FnWpGpZdREATr8
- pOhWgFxK13pM9pdTb40qb72FZY4Efp53sy9K2nt/VbfsGRcAMyjyWlQN1RzSpcWHzp
- gM7o0R32UFbBwBS6Q3NRgj9FKi8sVLgpUa0LU2lZlnJIjrFVHQ7OEop/9+1el27VDz
- epdoO575oQg4g==
+ b=dsTJ8rRVglkyMZumINEy8WnEYodYuNEhZ7bk1k65j6hRSt6A+H6HSIvwtd10Q7Pew
+ mDw2gtHjx/Wcbcjzbkz+E4al5QovbvJmBTGuowMkfOeT3uswymaaryDuad3rt3skik
+ 5V5Bbv3qYCq7vivephtUFBGWG86wnCgaWebo/0f/p2rqGeM9esEDofWzKN7G+RpviI
+ uGVW/qs5y+ADztJb7OtXuw83KGVnks7D3LZENOEVzA8BLUVYaq3VNB0jjOaOb5xHKz
+ KUcG4WeYIOei20QDLzRmfFPg48kD4AHMaklv91+4SWntbuAwafm2Tk9Hkn2rRjV4B2
+ yMfi7F7+H4KBw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org
-Subject: [PATCH 03/19] drm/radeon/radeon_ttm: Remove unused variable 'rbo'
- from radeon_bo_move()
-Date: Fri, 31 Mar 2023 10:25:51 +0100
-Message-Id: <20230331092607.700644-4-lee@kernel.org>
+Subject: [PATCH 18/19] drm/amd/amdgpu/sdma_v6_0: Demote a bunch of
+ half-completed function headers
+Date: Fri, 31 Mar 2023 10:26:06 +0100
+Message-Id: <20230331092607.700644-19-lee@kernel.org>
 X-Mailer: git-send-email 2.40.0.348.gf938b09366-goog
 In-Reply-To: <20230331092607.700644-1-lee@kernel.org>
 References: <20230331092607.700644-1-lee@kernel.org>
@@ -54,51 +54,80 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Jerome Glisse <glisse@freedesktop.org>,
+ amd-gfx@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>,
+ linaro-mm-sig@lists.linaro.org, Stanley Yang <Stanley.Yang@amd.com>,
  dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
  Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fixes the following W=1 kernel build warning(s):
 
- drivers/gpu/drm/radeon/radeon_ttm.c: In function ‘radeon_bo_move’:
- drivers/gpu/drm/radeon/radeon_ttm.c:201:27: warning: variable ‘rbo’ set but not used [-Wunused-but-set-variable]
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c:248: warning: Function parameter or member 'job' not described in 'sdma_v6_0_ring_emit_ib'
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c:248: warning: Function parameter or member 'flags' not described in 'sdma_v6_0_ring_emit_ib'
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c:945: warning: Function parameter or member 'timeout' not described in 'sdma_v6_0_ring_test_ib'
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c:1124: warning: Function parameter or member 'ring' not described in 'sdma_v6_0_ring_pad_ib'
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c:1175: warning: Function parameter or member 'vmid' not described in 'sdma_v6_0_ring_emit_vm_flush'
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c:1175: warning: Function parameter or member 'pd_addr' not described in 'sdma_v6_0_ring_emit_vm_flush'
 
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: "Christian König" <christian.koenig@amd.com>
 Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
 Cc: David Airlie <airlied@gmail.com>
 Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Jerome Glisse <glisse@freedesktop.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Stanley Yang <Stanley.Yang@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org
+Cc: linux-media@vger.kernel.org
+Cc: linaro-mm-sig@lists.linaro.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/gpu/drm/radeon/radeon_ttm.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
-index 2220cdf6a3f68..0ea430ee52569 100644
---- a/drivers/gpu/drm/radeon/radeon_ttm.c
-+++ b/drivers/gpu/drm/radeon/radeon_ttm.c
-@@ -198,7 +198,6 @@ static int radeon_bo_move(struct ttm_buffer_object *bo, bool evict,
- {
- 	struct ttm_resource *old_mem = bo->resource;
- 	struct radeon_device *rdev;
--	struct radeon_bo *rbo;
- 	int r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+index 40e6b22daa226..efea4ef30a787 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+@@ -233,7 +233,7 @@ static void sdma_v6_0_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
+ 			amdgpu_ring_write(ring, ring->funcs->nop);
+ }
  
- 	if (new_mem->mem_type == TTM_PL_TT) {
-@@ -211,7 +210,6 @@ static int radeon_bo_move(struct ttm_buffer_object *bo, bool evict,
- 	if (r)
- 		return r;
+-/**
++/*
+  * sdma_v6_0_ring_emit_ib - Schedule an IB on the DMA engine
+  *
+  * @ring: amdgpu ring pointer
+@@ -933,7 +933,7 @@ static int sdma_v6_0_ring_test_ring(struct amdgpu_ring *ring)
+ 	return r;
+ }
  
--	rbo = container_of(bo, struct radeon_bo, tbo);
- 	rdev = radeon_get_rdev(bo->bdev);
- 	if (!old_mem || (old_mem->mem_type == TTM_PL_SYSTEM &&
- 			 bo->ttm == NULL)) {
+-/**
++/*
+  * sdma_v6_0_ring_test_ib - test an IB on the DMA engine
+  *
+  * @ring: amdgpu_ring structure holding ring information
+@@ -1114,7 +1114,7 @@ static void sdma_v6_0_vm_set_pte_pde(struct amdgpu_ib *ib,
+ 	ib->ptr[ib->length_dw++] = count - 1; /* number of entries */
+ }
+ 
+-/**
++/*
+  * sdma_v6_0_ring_pad_ib - pad the IB
+  * @ib: indirect buffer to fill with padding
+  *
+@@ -1162,7 +1162,7 @@ static void sdma_v6_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
+ 			  SDMA_PKT_POLL_REGMEM_DW5_INTERVAL(4)); /* retry count, poll interval */
+ }
+ 
+-/**
++/*
+  * sdma_v6_0_ring_emit_vm_flush - vm flush using sDMA
+  *
+  * @ring: amdgpu_ring pointer
 -- 
 2.40.0.348.gf938b09366-goog
 
