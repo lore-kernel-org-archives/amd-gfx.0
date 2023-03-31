@@ -4,42 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4914FC761AF
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 13:21:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBD0CC6FD18
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 13:21:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5C6210E09E;
-	Fri, 31 Mar 2023 13:21:50 +0000 (UTC)
-X-Greylist: delayed 421 seconds by postgrey-1.36 at gabe;
- Fri, 31 Mar 2023 11:01:10 UTC
-Received: from gandalf.ozlabs.org (mail.ozlabs.org
- [IPv6:2404:9400:2221:ea00::3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A7BF10F1D8
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 11:01:10 +0000 (UTC)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4Pnxx241sXz4x4r;
- Fri, 31 Mar 2023 21:53:58 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ellerman.id.au;
- s=201909; t=1680260040;
- bh=8QUsIUkBAgfdYfmbh//kvQTjF8lIKNNdvGDKhDBFuWg=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
- b=AbBH1oq3KYd9qxnIlJOo0+7fIFnlw+pTGY+aW7PSFh5mdL880GrQYw72MEllwI+Fu
- Sn/TjtOyvGg7OR3BUbipFCYwSA5Yf2nP4FH3IDESzrgs1WW3lIHW1brLI1C+T0vdqO
- w7h94bj6QCeXfEHnv+HrsqMLGutoz7KwFzBsHbEUdhElNbDkqKiA30SW8SSCFAuM6A
- kCRKf/NqhSAmytND1L897CKg7WHSw2yq8uKMNZCp3nCncYacK6GlmMPLeKXd+O77Od
- hcyThV0TzQe1Jkalx5JTBxzOOc3L9GJwA/dRzLUW+2txepCtH9t9nPyoIkvQ9bZXyL
- kgIrl6k5DV6HA==
-From: Michael Ellerman <mpe@ellerman.id.au>
-To: Daniel Kolesa <daniel@octaforge.org>, linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH] drm/amdgpu: drop the long-double-128 powerpc check/hack
-In-Reply-To: <dab9cbd8-2626-4b99-8098-31fe76397d2d@app.fastmail.com>
-References: <dab9cbd8-2626-4b99-8098-31fe76397d2d@app.fastmail.com>
-Date: Fri, 31 Mar 2023 21:53:57 +1100
-Message-ID: <87o7o9b396.fsf@mpe.ellerman.id.au>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A02B10F205;
+	Fri, 31 Mar 2023 13:21:53 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 021D110F141;
+ Fri, 31 Mar 2023 08:50:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1680252615; x=1711788615;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=BYf6gcQ+8pBQ3J2IfyMIsvJoZJhrstWGkrCjW+23ZyU=;
+ b=SouLsEO2q2j2FCeoS+H0gkkqW8cIDNsdFHAUILIUFUd1j0Ul3GF5zvTx
+ J3UViHSG6K34F7DC4hmtftBL36dTN9eUazKcZGhtFqw+JHr7P3cILnx4P
+ UfTsC7ddgF6fyaZnRFXnH2mlGd6pwXRuENPYQqRkff4yJvmKLDXjN/Cwa
+ YQS0+vQ1m1+kJNMf5n8fBjhZCukIPHnA+kzBMtk3Qb90+mErpiuudJo76
+ DofMhaL6IU7VWks00Bqz+mFLQ9Cwb4xlKLIqXksZ3jxCIMlRTJMsaEN+U
+ 9SNDAKFDlwCFjDLXxX4i4IhZeq2XTMG54VsfkS8TdetYRI+m684H9x2z7 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="341412790"
+X-IronPort-AV: E=Sophos;i="5.98,307,1673942400"; d="scan'208";a="341412790"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2023 01:50:14 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="754334060"
+X-IronPort-AV: E=Sophos;i="5.98,307,1673942400"; d="scan'208";a="754334060"
+Received: from bachaue1-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.41.110])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2023 01:50:12 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 04/12] drm/radeon: remove radeon_connector_edid() and
+ stop using edid_blob_ptr
+In-Reply-To: <e4cb7b0c7217511429e69c1c78729f0e864c5b24.1680190534.git.jani.nikula@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <cover.1680190534.git.jani.nikula@intel.com>
+ <e4cb7b0c7217511429e69c1c78729f0e864c5b24.1680190534.git.jani.nikula@intel.com>
+Date: Fri, 31 Mar 2023 11:50:09 +0300
+Message-ID: <87a5zt2tku.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 31 Mar 2023 13:21:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -52,46 +61,112 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dan@danny.cz, alexdeucher@gmail.com, tpearson@raptorengineering.com,
+Cc: Alex Deucher <alexander.deucher@amd.com>, intel-gfx@lists.freedesktop.org,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>,
  amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-"Daniel Kolesa" <daniel@octaforge.org> writes:
-> Commit c653c591789b ("drm/amdgpu: Re-enable DCN for 64-bit powerpc")
-> introduced this check as a workaround for the driver not building
-> with toolchains that default to 64-bit long double.
-...
-> In mainline, this work is now fully done, so this check is fully
-> redundant and does not do anything except preventing AMDGPU DC
-> from being built on systems such as those using musl libc. The
-> last piece of work to enable this was commit c92b7fe0d92a
-> ("drm/amd/display: move remaining FPU code to dml folder")
-> and this has since been backported to 6.1 stable (in 6.1.7).
+On Thu, 30 Mar 2023, Jani Nikula <jani.nikula@intel.com> wrote:
+> radeon_connector_edid() copies the EDID from edid_blob_ptr as a side
+> effect if radeon_connector->edid isn't initialized. However, everywhere
+> that the returned EDID is used, the EDID should have been set
+> beforehands.
 >
-> Relevant issue: https://gitlab.freedesktop.org/drm/amd/-/issues/2288
+> Only the EDID code and sysfs should look at the EDID property, anyway,
+> so stop using it.
 
-I looked to pick this up for 6.3 but was still seeing build errors with
-some compilers. I assumed that was due to some fixes coming in
-linux-next that I didn't have.
+Never mind this, I need to fix my config to actually build
+this. *facepalm*
 
-But applying the patch on v6.3-rc4 I still see build errors. This is
-building allyesconfig with the kernel.org GCC 12.2.0 / binutils 2.39
-toolchain:
+>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Pan, Xinhui <Xinhui.Pan@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> ---
+>  drivers/gpu/drm/radeon/radeon_audio.c      |  5 ++---
+>  drivers/gpu/drm/radeon/radeon_connectors.c | 15 ---------------
+>  drivers/gpu/drm/radeon/radeon_mode.h       |  2 --
+>  3 files changed, 2 insertions(+), 20 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_audio.c b/drivers/gpu/drm/rade=
+on/radeon_audio.c
+> index 947de91e13f6..759b5dfaca15 100644
+> --- a/drivers/gpu/drm/radeon/radeon_audio.c
+> +++ b/drivers/gpu/drm/radeon/radeon_audio.c
+> @@ -309,7 +309,7 @@ static void radeon_audio_write_sad_regs(struct drm_en=
+coder *encoder)
+>  	if (!connector)
+>  		return;
+>=20=20
+> -	sad_count =3D drm_edid_to_sad(radeon_connector_edid(connector), &sads);
+> +	sad_count =3D drm_edid_to_sad(radeon_connector->edid, &sads);
+>  	if (sad_count < 0)
+>  		DRM_ERROR("Couldn't read SADs: %d\n", sad_count);
+>  	if (sad_count <=3D 0)
+> @@ -332,8 +332,7 @@ static void radeon_audio_write_speaker_allocation(str=
+uct drm_encoder *encoder)
+>  	if (!connector)
+>  		return;
+>=20=20
+> -	sad_count =3D drm_edid_to_speaker_allocation(radeon_connector_edid(conn=
+ector),
+> -						   &sadb);
+> +	sad_count =3D drm_edid_to_speaker_allocation(radeon_connector->edid, &s=
+adb);
+>  	if (sad_count < 0) {
+>  		DRM_DEBUG("Couldn't read Speaker Allocation Data Block: %d\n",
+>  			  sad_count);
+> diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm=
+/radeon/radeon_connectors.c
+> index adebf8e9d2bd..99e8f387fe21 100644
+> --- a/drivers/gpu/drm/radeon/radeon_connectors.c
+> +++ b/drivers/gpu/drm/radeon/radeon_connectors.c
+> @@ -256,21 +256,6 @@ static struct drm_encoder *radeon_find_encoder(struc=
+t drm_connector *connector,
+>  	return NULL;
+>  }
+>=20=20
+> -struct edid *radeon_connector_edid(struct drm_connector *connector)
+> -{
+> -	struct radeon_connector *radeon_connector =3D to_radeon_connector(conne=
+ctor);
+> -	struct drm_property_blob *edid_blob =3D connector->edid_blob_ptr;
+> -
+> -	if (radeon_connector->edid) {
+> -		return radeon_connector->edid;
+> -	} else if (edid_blob) {
+> -		struct edid *edid =3D kmemdup(edid_blob->data, edid_blob->length, GFP_=
+KERNEL);
+> -		if (edid)
+> -			radeon_connector->edid =3D edid;
+> -	}
+> -	return radeon_connector->edid;
+> -}
+> -
+>  static void radeon_connector_get_edid(struct drm_connector *connector)
+>  {
+>  	struct drm_device *dev =3D connector->dev;
+> diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeo=
+n/radeon_mode.h
+> index 3a59d016e8cd..ab71a744d2b2 100644
+> --- a/drivers/gpu/drm/radeon/radeon_mode.h
+> +++ b/drivers/gpu/drm/radeon/radeon_mode.h
+> @@ -708,8 +708,6 @@ extern u16 radeon_connector_encoder_get_dp_bridge_enc=
+oder_id(struct drm_connecto
+>  extern bool radeon_connector_is_dp12_capable(struct drm_connector *conne=
+ctor);
+>  extern int radeon_get_monitor_bpc(struct drm_connector *connector);
+>=20=20
+> -extern struct edid *radeon_connector_edid(struct drm_connector *connecto=
+r);
+> -
+>  extern void radeon_connector_hotplug(struct drm_connector *connector);
+>  extern int radeon_dp_mode_valid_helper(struct drm_connector *connector,
+>  				       struct drm_display_mode *mode);
 
-  powerpc64le-linux-gnu-ld: drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.o uses hard float, arch/powerpc/lib/test_emulate_step.o uses soft float
-  powerpc64le-linux-gnu-ld: failed to merge target specific data of file drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.o
-
-etc.
-
-All the conflicts are between test_emulate_step.o and some file in drivers/gpu/drm/amd/display/dc/dml.
-
-So even with all the hard-float code isolated in the dml folder, we
-still hit build errors, because allyesconfig wants to link those
-hard-float using objects with soft-float objects from elsewhere in the
-kernel.
-
-It seems like the only workable fix is to force the kernel build to use
-128-bit long double. I'll send a patch doing that.
-
-cheers
+--=20
+Jani Nikula, Intel Open Source Graphics Center
