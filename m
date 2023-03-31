@@ -4,117 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64437C76196
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 08:28:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 456FDC76196
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 08:30:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E404910F129;
-	Fri, 31 Mar 2023 08:28:24 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2069.outbound.protection.outlook.com [40.107.223.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B65B10F129
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 08:28:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC72A10F12E;
+	Fri, 31 Mar 2023 08:30:05 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23BA210F12B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 08:30:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZfiYGuoUZ9sNpCxMq71uYlOI26kyUTvFiHG0Z8nF1U1WprA/JHIFnxeM28iN2/MQSZoQI/gGhdp5ir3xj/hlEd4kyDJRv1Hn8PICA5zMOvbBnmmLFy00OIT9cboUcIvEGgqo55BcuEfGd1SXFA13jTFEdF5Yz30Dw9+Oy7lObjKtZDip7zslsmbhrc2F0a/1/pXotlwk7FW/+fgzfT4hBF/s1CpgQcxfe6T5l+FmfJNHbGKZx+D0h2hRdhV0pLAyeO99MLpofUxQ2UPZZTHApicGpbe0GyuWxstSepeGKdiRnMT1ARIHbxkodxa/Qpu0nEHSSsXtJf889HfQniZDDA==
+ b=DFkkmU+V6LAsiPPlGlYzW7FJYOzOm5q/ZGVxIQJJm0vW6a8f0I/qb1oXHx8tI1hwP+jTElXM4tfeD+mW+G45SS3DYz6+4g0bvwIA003rWr3d0FIl9hN5NMb1NFWckcAQBQdZDMJjM/i/7Xt/AjDsKCUZn1Ha/c5zbdPU0onmIq5chbTXv9JTQmaLo3bT/6Dt4Af2tUrLWjQ7cNQJulkvg64grnCs6+vW1gSXZcOtpyhG1SU6PPwXuObJSyFc+akJkNQ63yub2v4mcA5o4SJX6g9aZed1SCNoCf5194HMh3apjLJ5RIkwMY2cFFYDhSeQL6xJP5nUSnQyOHKijnpLGw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jQpMavwUqeO7bDXxzZFJhV/f8vdzZYj5+eKBOm5Lku0=;
- b=JHXeNRRXSCZSZyGaPx+qMQmdLJcz6vGYom746xv4BP8Y3Iwp9Ft8rMlaSJzv3Mhbr8ZSVZtcqBSTl/KMznFipXB0QpAtGEj2/QGi5V+YJH+LBHznFcnuGuHfQZxfQGYOxtIcXS+U77tKM6DnzXFMI0clqtvcAdZ+VhhTSRCF0bP+aV5ZFoIPwyp0AJDDWRsUaCkkrRu7Qddx4wWyEiZB3Upeot/TtDapHS4/sUVELwECediFdEl9VKb89PyhddewZkxBlhnXWBlmAzez6/DRkL0HS+5KazOeHSQ9eprdCJteDRsKlyEuIK/myugukZxDXhFGDN0F50t2FKX50aAG5g==
+ bh=LjYO2ZPCjDHPkbjBIXMqaMoXJrgMNm19VF6QI0KnE7o=;
+ b=AiF53O7aKC+y1H45EMJTjAAEkNkFXpnLQe62s2hpnm6SE/TMywca3nTBSSnFxlPP4k1URVbw5zcxZzkmrFDDIz8gskJnvNHJIs84RmJNDQV8Flr7bhXpymdLE4Mh0puzIajs7/jqQgJTY58Pv+O2qaa91ZeURjJr0rtZzOr5z/0edyIY6klkMr0ut3OPMV2MJYnXOxGlX4C0hyUBCawqzLGUIl892LyQEsWKjonAsjnd3XCKzjf1dPaVTzXys4NMVmUqe8RGs7YZ3CkEisAci4Qa+u0FCEMm1ImTulX+yE1PggS7DiDwUyq0iCU7Hou6FZ6byTZSci1pIGhXgH+Ojw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jQpMavwUqeO7bDXxzZFJhV/f8vdzZYj5+eKBOm5Lku0=;
- b=eHo3jUc1glB/kEuy2OYeEn5OaYuCivENlvaUAiKFI4xVMp7Wm+swvdpTpudq9SsnEud7FPei17bZ3IL/N7oB1GiQsYUGo8HF89VaHzIT6Y+rY2G/AzaxD/2wyppSG6baT7wtBqvtOVXt0anVcWTY4bUjaUr1rQHs+M9JqoPmhgA=
+ bh=LjYO2ZPCjDHPkbjBIXMqaMoXJrgMNm19VF6QI0KnE7o=;
+ b=F1PdPhl+FvvGNnDfL5F8SDvRMMIBgPjuSXEwsnCVx5j0mRWMAnRuyUnx9tQcqgiJkaMME3lz+RuOUP0jfLB3fZ3Tf6jwyW2W3UzIYfex9azKzSXySgwQGKV+4IyB6NlgGznJw0+Z0XkAheBOwOeRssUh/W1UpmYF9HXTIMZtA/4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
- by MW5PR12MB5652.namprd12.prod.outlook.com (2603:10b6:303:1a0::15)
+ by PH7PR12MB6788.namprd12.prod.outlook.com (2603:10b6:510:1ae::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.35; Fri, 31 Mar
- 2023 08:28:19 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.33; Fri, 31 Mar
+ 2023 08:30:00 +0000
 Received: from MW4PR12MB5667.namprd12.prod.outlook.com
  ([fe80::755d:fed:c4a:bf05]) by MW4PR12MB5667.namprd12.prod.outlook.com
  ([fe80::755d:fed:c4a:bf05%4]) with mapi id 15.20.6222.035; Fri, 31 Mar 2023
- 08:28:19 +0000
-Message-ID: <933db25a-2acd-eae1-0c44-1d64bcc7a6dd@amd.com>
-Date: Fri, 31 Mar 2023 10:28:14 +0200
+ 08:30:00 +0000
+Message-ID: <fa473cdd-df44-3cf8-fee2-eb8d0d9b612d@amd.com>
+Date: Fri, 31 Mar 2023 10:29:53 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.1
-Subject: Re: [PATCH 13/16] drm/amdgpu: use doorbell manager for kfd process
+Subject: Re: [PATCH 15/16] drm/amdgpu: use doorbell mgr for MES kernel
  doorbells
 Content-Language: en-US
 To: Alex Deucher <alexdeucher@gmail.com>
 References: <20230329154753.1261-1-shashank.sharma@amd.com>
- <20230329154753.1261-14-shashank.sharma@amd.com>
- <CADnq5_Ow4ehDKQEdkqndkXFq093-1k5GwPLAvurBzBb2ejvfjA@mail.gmail.com>
+ <20230329154753.1261-16-shashank.sharma@amd.com>
+ <CADnq5_M7xn3kkKhBv4xVRQjteuaHufXOYSEpf=rY7DybyEpojw@mail.gmail.com>
 From: Shashank Sharma <shashank.sharma@amd.com>
-In-Reply-To: <CADnq5_Ow4ehDKQEdkqndkXFq093-1k5GwPLAvurBzBb2ejvfjA@mail.gmail.com>
+In-Reply-To: <CADnq5_M7xn3kkKhBv4xVRQjteuaHufXOYSEpf=rY7DybyEpojw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0138.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:96::7) To MW4PR12MB5667.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR0P281CA0253.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:af::8) To MW4PR12MB5667.namprd12.prod.outlook.com
  (2603:10b6:303:18a::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB5667:EE_|MW5PR12MB5652:EE_
-X-MS-Office365-Filtering-Correlation-Id: efe4896f-fb4a-4b4b-2829-08db31c1e217
+X-MS-TrafficTypeDiagnostic: MW4PR12MB5667:EE_|PH7PR12MB6788:EE_
+X-MS-Office365-Filtering-Correlation-Id: 967510a9-3e07-4019-6586-08db31c21dcb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2I1t8iXwU07rCMMt2XjyPgUvuptVRC157h/5jYktTs85ywW7S0SDEZFgrtOiQPoz/Lv0NII+nv3+P+e7MghfN5pCDWANGtn237R7Cf7Kgw+nnxpKPxQU5jn/55BUcTeQzVytwyC6ZcvbsJmbRMcoeFLqzy7LPjw+XBUlrOyR8fhH64qV02NaRq+Vgsg+nEyG4av5U5yA3nyDUk3Bdm11MZsjR8pwnyv3o+b2oih3y+PVf6ngJsLLj+RlqtazSmn4TOP9oJ7wiCe7HLI82NF8QWblY3KQUFclgzNbZl57QfUBv0R8xM3XUSbthcuuYz4Sa5UZE8DnVJBc1Y2+f/tO6KjeKom/iOD4JQ3aGXZLqb+n2uZQ7IiiQql7zOoREogLdXTb+Sx6o1DiK0KPl/XjMy/HU7LLvtiTN/UnmF5Ix2mBzRYprlBFzYGBoqvFo7zHVwC4u9cTWcgerCoqHwkgO4sWGChxAEBvJu2whs1UxMn+PLg+qnugwYRDIpx++CqAHoMWUHFS4jozRpnmOX3iX8yW0/0RIefnqODEUYV9ixpb0r9e68XqQygqoMrK0S2PrDkMrQ4SP8pzUdhQ7flVe4RyZLRpGFHdXmZb2bKfDH03crrZBQqB7NbbgUGrkyZM0MRPMxoPX8ptd+KrI3Pubw==
+X-Microsoft-Antispam-Message-Info: LXhUnh5QI3cNvkCLs3DgS0YpYUJiK5CHydYx6t5gEEVbLB69LAIYNMBOTJJt2t8xRoQLmN1xjzLRxr77JdQaCYsBpXLczBlzMQJHxZdojTsSdxLBUaOjPPaESkNUG/2wx/VT95g3DWNNWyKCoKRxRq9SrHbJV0rO5GWaunmsc/oSVtrYFK53QtCLxitI9uRann4TGIFpDF+zNRJCAQleWYSYyOi3EJP0wIyJDE5TBQcTKcOlpn6zGKotEP+gpU8oCfda5rU0kMat4sprXgGh2c1xLBiXjaI4BWID7v+TfMMhvZXvdxxGLxXmZy3pdKKS5BymO3H7WcrFP1J7ZllpT6uQpbNi71MiXP8zOKgSC3PpiK79o5XW3c0o8H2fZGPG2TjvBDNQYxgCOvK/RoLFyijmJnm9lDQvHAgid8GCc3967pYqtx3wGjshmpoV1ZWpxLI1W+DZ+HVVpdl0Gsse5P5XGdbaP593Thy1xUeFhsoMScBb1dlp63cmzfjpCQPopJMp0894h/qwsZyphimp+dSkHmrcZVLhZjPgIjMtaDQ5Hmrjgjx94PJB2bMqTlPox9f11umQgw3OnN/z9ViG89WlFIuxUfhuOMGedLAXdrBMq3UZv5LErgtFY/mbbK4sO95cpaHYiDuaL1P0l9jrYg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(396003)(346002)(136003)(376002)(366004)(451199021)(66476007)(186003)(4326008)(6916009)(66556008)(66946007)(8676002)(2906002)(44832011)(36756003)(8936002)(5660300002)(30864003)(83380400001)(41300700001)(2616005)(26005)(54906003)(478600001)(86362001)(31696002)(66899021)(6666004)(38100700002)(6486002)(6512007)(6506007)(31686004)(53546011)(316002)(45980500001)(43740500002);
+ SFS:(13230028)(4636009)(346002)(376002)(396003)(39860400002)(136003)(366004)(451199021)(6512007)(26005)(6506007)(86362001)(8936002)(53546011)(31686004)(6666004)(83380400001)(186003)(31696002)(2616005)(6486002)(316002)(38100700002)(2906002)(41300700001)(44832011)(5660300002)(478600001)(36756003)(66946007)(66556008)(66476007)(8676002)(6916009)(4326008)(54906003)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RkE4MzFWcXZMaHk0OUh6VEpGR0IrZ1dZZUJIOG9xZ0VYb0xBUmNkUTgrTWlB?=
- =?utf-8?B?ZGlGRjBzRThSSFgrVlFZZldrNTFPM2tlUEtNeTV3bVEvditCcW84akp3a01M?=
- =?utf-8?B?OFhxRnNYbk8yTTJrd29vT3JwNnhLbmRYNTFnUFBUbnF6ZWVGMCtLZTU4SEtS?=
- =?utf-8?B?SzJ2c1dmUTh2VW93T1lQWkFjMjRZYU8zazZOY0swVlJGRXd4TURiWml5NWhX?=
- =?utf-8?B?QS9rV29oV0Rzb0wxWVc1VkFKZm45N294dS9GNmpEL2pVOE1US0luSHg3ZnNP?=
- =?utf-8?B?KzVhMEsyQXd1Vys5Ylg4UzMrb2ltSW9GMjdHcUJvcGJZL1FjbktpRndJNG1r?=
- =?utf-8?B?QldJQ0U1Z3dWTlpaSHVrRGRCcFlHR2V5MlQydkZuS0NDRVIzSzh4VktIaFdT?=
- =?utf-8?B?TFNLRHdCNTBFQis2K2ppUjJ6SGFHcGNGVCtKMVBROEh1SSszSU5JTzRqQzlF?=
- =?utf-8?B?d1AwbFlXYXk5YUlyOEFjTkxRV0p5aVFFVSs1eDBLUW5LN3hWckw2WnBtLzds?=
- =?utf-8?B?c08wVUdvQTR0QldKbjFNem1hQlgzaFhtV1F2MWRQL25NSkg1QVZ5eVVWRHZV?=
- =?utf-8?B?M3VHOExQcmU0NXhwQ0UvcjMreDM2U1pCZ3pSeVBsc3ZjRkxISFlTQkxSTXRh?=
- =?utf-8?B?V0N2REE1Sm5zcTVVak85aS9XdlFDTU10aDdjN0MwRktoRi9FWW80My9NVEpt?=
- =?utf-8?B?YmNFaytYUXZodlB0bDIyalhoaW1rWXc5Z29wMHJaQ2cyQTNIVzJZaitnV0FX?=
- =?utf-8?B?NTNFTEFQWm43aHhWZjlrRnNlcjhUMHVxSERQd3FXT1ZFdFpMZGFQOGQ5L0l5?=
- =?utf-8?B?SUMrSmFmZ2NKTkpYRGhrTVk1TVFHTHo4cmdRZ3l1MmhmVldsRWl2OTUrUURI?=
- =?utf-8?B?SUUwaE9CRUZuSFYwSEoyb29oQVNFYzArdVNtNTdWRExadkRSbkZHbFJWVFNZ?=
- =?utf-8?B?UEQrQlUyeER6aUFBNmZGTmZNdDAzczV0dHlodk9wLytJYTBzd010SUVZZTFW?=
- =?utf-8?B?VzZ6OEZpdlMzNjVuQkk4UnVLKzlnVDY0eDBLdFdBaVMyNWRqdW8yUlllTmdP?=
- =?utf-8?B?d3h3OHRGV1lnNlhlY0piSDNCQXpBOUNBSTJneFVoK0RyaitoSEdrWmMveEhT?=
- =?utf-8?B?NDIzd3o4TlJGRENWeFR4a3huTmtETFJZYko3YlhIU2FrUDlhNXk0WFF0S3hL?=
- =?utf-8?B?cjZydFdWUEcrMXc0WXVmVkx3cHRjN3V6VjF2VlM5MHpsTXk0TEZIYzJvWEVX?=
- =?utf-8?B?VkVPQmg2RytkZW9DVi9BOXRnbjRBZExhNXVINHNGS0hmZXlhSmJ2RGttU3Jx?=
- =?utf-8?B?TjAzbStFL0UxQXVUMlplMEY3MXNjNG4xUmI4dm9zbkZSbWdWZzdDU2h5SXEy?=
- =?utf-8?B?eWhkZGhDWjlJSEpWSFlGSFhOd0hERHNvckp2U3F5c1laUU15NEY2RkF5Rjla?=
- =?utf-8?B?MUNZdVdRaUlJSFNwbm1INU5sRW90a3M1RFNRTjRRZ0l4YjdGVVUrK1krYlRu?=
- =?utf-8?B?aGlQaURSaWRZN1hCU3JHUi8zdFpYRjFPL1NVOFowSFRvakxQenc3WTE1Nmdj?=
- =?utf-8?B?M1MrSExQMEo5SmVVL1lIbGI0WVNRRFdQR1lDWU9kcWFOS1QxTEJTcWR4MlFh?=
- =?utf-8?B?aWtSaFVtSHFVZ3BYWlc1Sm96bFE0WkU4VFdGcGgwYWhqRjY4S2JBcUNKNHY4?=
- =?utf-8?B?UkpmT2IwanlLU1lmbEtBRzZNVlJTOTdTb21MdmtqNGIrNlo5L2N1dDNydWEw?=
- =?utf-8?B?U21Ba0lDV1IvVVl4ZTF6YTcxTlJkNm8xcUJjbmlaMGNobmYyWkp5UTJwTGtw?=
- =?utf-8?B?Z2pxbk9aYnlrWStRQ0t3VWZyV2FQRVZJdlhKWGVCcmVzbWkwWmZzaldxcnRo?=
- =?utf-8?B?eWFTR01VZ2MzUFRoVTJDVGZZa1UrTW4vbENuaTNvTTBYQ1EvTWFWRjNiRFlF?=
- =?utf-8?B?TnkxK2NGeU1aNXoxc1IwdUhxY0R6Y2xPN2RDVXQzYjlUZG5OdnlTbjU1Y3U5?=
- =?utf-8?B?STZwcEY2Tmo3a0F1TkYyNlRxRlQrN0RmaDE2b0JQS3FXbFk4ZkZqVmk0RU5n?=
- =?utf-8?B?ZFViNUpXRzhTSFMyN1h1bjFQbWwzSmFlREFwQUExaU5wWkdpZEhodVFSRXhS?=
- =?utf-8?Q?a8wLme3kfEkpQ2V3rWw2LM354?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YXE2dDZ0U29RdUFyb3QzM0ExZXNkc1grSXlmamFDM3RZQXdhTVlnaVhSMU9w?=
+ =?utf-8?B?RHJleDQwMzJVTTFTcXRKZExEUDJ0YlBta3JBbGN2eXdydTFNZEN5Rk94K3Rx?=
+ =?utf-8?B?ZyszSkhtbWNoYmtid0tqd2FKWlMxN21GS0xiTHBDUTJ4dC9zNUo0REdJTWxm?=
+ =?utf-8?B?Uld6V0N4dlJHTjdJRlpGU2VzNWl5TlZQZXBkQ08zQzdKQ0p3dm9BU0tXTm43?=
+ =?utf-8?B?YlMyWnZpeGsrQnd4andDQ3ppOE51N3A4SjNsWjB3bEdEdWlaL2ltMUtNZGZp?=
+ =?utf-8?B?UysveEpPb3d5c0pvK2xvVlZJaU1CQU9WcUFPVGdFdGJGNUo1b2ppcHJhTlFo?=
+ =?utf-8?B?c1VURkhTSFFzODE4MzV3YWxkUEY3ZHBNdUFVMFNoWWF4M056cmh4azhSTUpw?=
+ =?utf-8?B?ZCtTdkd1V2R2NlZVRy9wOERZOXdYRGNRUlR6Y1FnNkh3TEFENFQ3WnlYVk12?=
+ =?utf-8?B?ZE92YTBsSGppeTZRWnVwaFlUZG0vMDBEOTZVdHM4UTF6aXlJRWh6WDRzd0Q5?=
+ =?utf-8?B?S1BnOXQ1a2h4MXVlV1hmdTQvK2FhQ1NYbUlVb1RxUTdiTTRYcUJJbXYyU282?=
+ =?utf-8?B?MHJFOW5vMmJRRjBSZG1kT3ZuZXJzNVhPL0w0UCs4dHk0TkNtL24yWUZKRGJD?=
+ =?utf-8?B?ZzUrVVBMZ2d3amRGMFlqalNRMU9aZVN3QWlhL2luVDZtM3pkT3FBZHYzaTA3?=
+ =?utf-8?B?UmpJYmZPdXg5QStFay9GRE16MEhQTk1RbncxMm5KS2tyT2M0NG42d3Zha3lv?=
+ =?utf-8?B?Sm91UnRQUllaUFZ5QmdpNTU1OXZuQ1hqNDBYanRiS0kwdGdFY1Nqa2R3eW1n?=
+ =?utf-8?B?VHd1TGhvNjcvcmNGWWVLL1duZW5zUDZFbi9KMWdmL0pTbmtDbTVVeTBiWDl5?=
+ =?utf-8?B?UHZHMTVyQVQveVY3L3lrc2hLQ3VNTnZSS1A2MWIvMllxUWQ2MUd6cWV5aFo0?=
+ =?utf-8?B?dXBZb2NHOUNBTG1ReHRKLy9vWHlqN0p1L1VqZDhlWkg0ZGEwVU5kTHU5RDFV?=
+ =?utf-8?B?RlZFZ3VrQlB2eFUwVnZsWUxDSEVrckZGVVhheWtnWW9BYjBNMTZKYmE1eWtw?=
+ =?utf-8?B?MnV1UHBpdlBwVDFzaW5NTHlvTVpITHhVRm1Fd21wZm4weXVCOS9VK0dLVGhj?=
+ =?utf-8?B?SWxjaythRGNiOXZHdUpjcmVyTmY0RHRBYTM3SHl3MUpPcjB5NUFJUXFrN0k2?=
+ =?utf-8?B?bDZnOVluYjIzRUU1a25naHI0VkVTNTdDOU9iUkM1Y21ZeW1GcERJYUNnTG9C?=
+ =?utf-8?B?Tk9yWks1c1lRODBLbnAzYWpIdmFqWmJBZzk3UmMzVlZQN2VnRWJ4K1pBSHNk?=
+ =?utf-8?B?cTd6aUQxcU05MDNTdWYwQkhxaldNbFM0dDBvVitmRlkzdVorS3ZOUG9RN0NX?=
+ =?utf-8?B?azRnclVINWpGTXNGdjlRRUFhMXZ3ZC9qQVUrQUR1a1BwTjBrZVRTTE9kamk2?=
+ =?utf-8?B?UFZhaW14QnRKcDVNUHlKZEpDb0JDdS9PbTdDdkQ5eVhsdjZhYWtZUnd1Kzcr?=
+ =?utf-8?B?Yk9rRTNJamxtYnZPeUVwb2dkTGYydEI3NURDdiszUUlwMERhYmhGL3FUSU9i?=
+ =?utf-8?B?VjZDdnlVbXNDRWlvU1dEeVF0RW8yVk5DbnNrVVpVdU5VYzJsUytNNGplMkJp?=
+ =?utf-8?B?eExLSWdsamdWbWpORXRNNXd4dStUVTdtdUY0aDlSelZEeEpGWmpvSzA2V2xQ?=
+ =?utf-8?B?bFJoWFlQY0NNdmJxdHorWlY2cVNkNWpwRnpJcFI2MUU5cFFTUDgyTHBqVEEr?=
+ =?utf-8?B?WSt1YzJEK3dBUWlyQisyZnQyLytkVERLTEdxdFdvTDR6dzA5VFNYcWJHREcw?=
+ =?utf-8?B?MTlTVXhnbTkyd3hwTGJ0MlJpcTl1VnlzVUpiV2oyL2VndG9SajlmbVNTYXhL?=
+ =?utf-8?B?U2lXSmNNNmRVQzBoSGFtNjNhNE83TGdBRHlhVG9yUkNVSCs1dElnU1pHWE9W?=
+ =?utf-8?B?elZVY3Rmd2VsZjJjKzMxVjRKVkZCN0pVdGNlOXhmZ1JnczJyY3Y3OVVLeEtQ?=
+ =?utf-8?B?QmNSVlA2dklpMG5qbEFpSmlra2FiOTFaZU5jZ0pRcHUxNVVoMk9HVmIzWlVp?=
+ =?utf-8?B?K3IzUW92WC9mS1dtM2tRMXd6aVQvSTZPRmRKZFdxQXVuNDNqSVZheWF1OEh4?=
+ =?utf-8?Q?gVvEPM5lj/jnvz9yMCWRenegg?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: efe4896f-fb4a-4b4b-2829-08db31c1e217
+X-MS-Exchange-CrossTenant-Network-Message-Id: 967510a9-3e07-4019-6586-08db31c21dcb
 X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2023 08:28:19.7468 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2023 08:29:59.8932 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hwGaE5V/mJkL7guFkxXbMeJVx5AwBiXpoXkLVCLiRBHseWX8r4Euj2EJNeho9QzHrb7JMvW1N+2CnfXEyfwzqg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5652
+X-MS-Exchange-CrossTenant-UserPrincipalName: WQ9gNxrSBvBhsNYLgeuupKpOuB4uxAecnIWoc7c5084smjviE5wt7UEtHKlASK1sxPcBCntSSINjEX6Hg4ie0g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6788
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,363 +126,257 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Mukul Joshi <mukul.joshi@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>,
- Christian Koenig <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Mukul Joshi <mukul.joshi@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
+ Arvind Yadav <arvind.yadav@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 30/03/2023 22:54, Alex Deucher wrote:
+On 30/03/2023 22:58, Alex Deucher wrote:
 > On Wed, Mar 29, 2023 at 11:48 AM Shashank Sharma
 > <shashank.sharma@amd.com> wrote:
 >> This patch:
->> - adds a new doorbell manager object in kfd pdd structure.
->> - allocates doorbells for a process while creating its pdd.
->> - frees the doorbells with pdd destroy.
->> - uses direct doorbell manager API for doorbell indexing.
->> - removes previous calls to allocate process doorbells as
->>    its not required anymore.
->>
->> PS: This patch ensures that we don't break the existing KFD
->>      functionality, but now KFD userspace library must also
->>      move to creating doorbell pages as AMDGPU GEM objects
->>      using libdrm functions in userspace. The reference code
->>      for the same is available with AMDGPU Usermode queue
->>      libdrm MR. Once this is done, we will not need this
->>      patch.
+>> - adds a doorbell object in MES structure, to manage the MES
+>>    doorbell requirements in kernel.
+>> - Removes the doorbell management code, and its variables from
+>>    the doorbell_init function, it will be done in doorbell manager
+>>    now.
+>> - creates doorbell pages for MES kernel level needs (doorbells
+>>    for MES self tests)
+>> - current MES code was allocating MES doorbells in MES process context,
+>>    but those were rung using kernel doorbell calls. This patch allocates
+>>    MES kernel doorbells instead for this in add_hw_queue.
 >>
 >> Cc: Alex Deucher <alexander.deucher@amd.com>
 >> Cc: Christian Koenig <christian.koenig@amd.com>
 >> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+>> Signed-off-by: Arvind Yadav <arvind.yadav@amd.com>
 >> ---
->>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 13 ----
->>   .../drm/amd/amdkfd/kfd_device_queue_manager.c | 16 ++---
->>   drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c     | 59 +++++++++----------
->>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  8 +--
->>   drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 26 ++++----
->>   .../amd/amdkfd/kfd_process_queue_manager.c    | 16 ++---
->>   6 files changed, 58 insertions(+), 80 deletions(-)
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 105 ++++++++++++------------
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h |   5 +-
+>>   2 files changed, 56 insertions(+), 54 deletions(-)
 >>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->> index 6d291aa6386b..0e40756417e5 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->> @@ -327,12 +327,6 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
->>                  goto err_bind_process;
->>          }
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+>> index 0c546245793b..423cd642647c 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+>> @@ -65,91 +65,89 @@ unsigned int amdgpu_mes_get_doorbell_dw_offset_in_bar(
+>>                  doorbell_id * 2);
+>>   }
 >>
->> -       if (!pdd->doorbell_index &&
->> -           kfd_alloc_process_doorbells(dev, &pdd->doorbell_index) < 0) {
->> -               err = -ENOMEM;
->> -               goto err_alloc_doorbells;
+>> -static int amdgpu_mes_queue_doorbell_get(struct amdgpu_device *adev,
+>> +static int amdgpu_mes_kernel_doorbell_get(struct amdgpu_device *adev,
+>>                                           struct amdgpu_mes_process *process,
+>>                                           int ip_type, uint64_t *doorbell_index)
+>>   {
+>>          unsigned int offset, found;
+>> +       struct amdgpu_doorbell_obj *doorbells = &adev->mes.kernel_doorbells;
+>>
+>> -       if (ip_type == AMDGPU_RING_TYPE_SDMA) {
+>> +       if (ip_type == AMDGPU_RING_TYPE_SDMA)
+>>                  offset = adev->doorbell_index.sdma_engine[0];
+>> -               found = find_next_zero_bit(process->doorbell_bitmap,
+>> -                                          AMDGPU_MES_MAX_NUM_OF_QUEUES_PER_PROCESS,
+>> -                                          offset);
+>> -       } else {
+>> -               found = find_first_zero_bit(process->doorbell_bitmap,
+>> -                                           AMDGPU_MES_MAX_NUM_OF_QUEUES_PER_PROCESS);
 >> -       }
->> -
->>          /* Starting with GFX11, wptr BOs must be mapped to GART for MES to determine work
->>           * on unmapped queues for usermode queue oversubscription (no aggregated doorbell)
->>           */
->> @@ -410,7 +404,6 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
->>          if (wptr_bo)
->>                  amdgpu_amdkfd_free_gtt_mem(dev->adev, wptr_bo);
->>   err_wptr_map_gart:
->> -err_alloc_doorbells:
->>   err_bind_process:
->>   err_pdd:
->>          mutex_unlock(&p->mutex);
->> @@ -2163,12 +2156,6 @@ static int criu_restore_devices(struct kfd_process *p,
->>                          ret = PTR_ERR(pdd);
->>                          goto exit;
->>                  }
->> -
->> -               if (!pdd->doorbell_index &&
->> -                   kfd_alloc_process_doorbells(pdd->dev, &pdd->doorbell_index) < 0) {
->> -                       ret = -ENOMEM;
->> -                       goto exit;
->> -               }
+>> +       else
+>> +               offset = 0;
+>>
+>> +       found = find_next_zero_bit(doorbells->doorbell_bitmap,
+>> +                                  AMDGPU_MES_MAX_NUM_OF_QUEUES_PER_PROCESS,
+>> +                                  offset);
+>>          if (found >= AMDGPU_MES_MAX_NUM_OF_QUEUES_PER_PROCESS) {
+>>                  DRM_WARN("No doorbell available\n");
+>>                  return -ENOSPC;
 >>          }
 >>
->>          /*
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
->> index ecb4c3abc629..5827db9b18a8 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
->> @@ -362,7 +362,7 @@ static int allocate_doorbell(struct qcm_process_device *qpd,
->>                  /* For CP queues on SOC15 */
->>                  if (restore_id) {
->>                          /* make sure that ID is free  */
->> -                       if (__test_and_set_bit(*restore_id, qpd->doorbell_bitmap))
->> +                       if (__test_and_set_bit(*restore_id, qpd->proc_doorbells.doorbell_bitmap))
->>                                  return -EINVAL;
+>> -       set_bit(found, process->doorbell_bitmap);
+>> +       set_bit(found, doorbells->doorbell_bitmap);
 >>
->>                          q->doorbell_id = *restore_id;
->> @@ -370,20 +370,20 @@ static int allocate_doorbell(struct qcm_process_device *qpd,
->>                          /* or reserve a free doorbell ID */
->>                          unsigned int found;
+>> -       *doorbell_index = amdgpu_mes_get_doorbell_dw_offset_in_bar(adev,
+>> -                               process->doorbell_index, found);
+>> +       *doorbell_index = amdgpu_doorbell_index_on_bar(adev, doorbells->bo, found);
 >>
->> -                       found = find_first_zero_bit(qpd->doorbell_bitmap,
->> -                                               KFD_MAX_NUM_OF_QUEUES_PER_PROCESS);
->> +                       found = find_first_zero_bit(qpd->proc_doorbells.doorbell_bitmap,
->> +                                                   KFD_MAX_NUM_OF_QUEUES_PER_PROCESS);
->>                          if (found >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS) {
->>                                  pr_debug("No doorbells available");
->>                                  return -EBUSY;
->>                          }
->> -                       set_bit(found, qpd->doorbell_bitmap);
->> +                       set_bit(found, qpd->proc_doorbells.doorbell_bitmap);
->>                          q->doorbell_id = found;
->>                  }
->>          }
->>
->> -       q->properties.doorbell_off =
->> -               kfd_get_doorbell_dw_offset_in_bar(dev, qpd_to_pdd(qpd),
->> -                                         q->doorbell_id);
->> +       q->properties.doorbell_off = amdgpu_doorbell_index_on_bar(dev->adev,
->> +                                                                 qpd->proc_doorbells.bo,
->> +                                                                 q->doorbell_id);
 >>          return 0;
 >>   }
 >>
->> @@ -398,7 +398,7 @@ static void deallocate_doorbell(struct qcm_process_device *qpd,
->>              q->properties.type == KFD_QUEUE_TYPE_SDMA_XGMI)
->>                  return;
+>> -static void amdgpu_mes_queue_doorbell_free(struct amdgpu_device *adev,
+>> +static void amdgpu_mes_kernel_doorbell_free(struct amdgpu_device *adev,
+>>                                             struct amdgpu_mes_process *process,
+>>                                             uint32_t doorbell_index)
+>>   {
+>>          unsigned int old, doorbell_id;
+>> +       struct amdgpu_doorbell_obj *doorbells = &adev->mes.kernel_doorbells;
 >>
->> -       old = test_and_clear_bit(q->doorbell_id, qpd->doorbell_bitmap);
->> +       old = test_and_clear_bit(q->doorbell_id, qpd->proc_doorbells.doorbell_bitmap);
+>> -       doorbell_id = doorbell_index -
+>> -               (process->doorbell_index *
+>> -                amdgpu_mes_doorbell_process_slice(adev)) / sizeof(u32);
+>> +       /* Find the relative index of the doorbell in this object */
+>> +       doorbell_id = doorbell_index - doorbells->start;
+>>          doorbell_id /= 2;
+>>
+>> -       old = test_and_clear_bit(doorbell_id, process->doorbell_bitmap);
+>> +       old = test_and_clear_bit(doorbell_id, doorbells->doorbell_bitmap);
 >>          WARN_ON(!old);
 >>   }
 >>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
->> index df259f2cc58a..7d29653bff81 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
->> @@ -228,46 +228,41 @@ uint64_t kfd_get_number_elems(struct kfd_dev *kfd)
->>
->>   phys_addr_t kfd_get_process_doorbells(struct kfd_process_device *pdd)
+>>   static int amdgpu_mes_doorbell_init(struct amdgpu_device *adev)
 >>   {
->> -       if (!pdd->doorbell_index) {
->> -               int r = kfd_alloc_process_doorbells(pdd->dev,
->> -                                                   &pdd->doorbell_index);
->> -               if (r < 0)
->> -                       return 0;
->> -       }
->> +       struct amdgpu_device *adev = pdd->dev->adev;
->>
->> -       return pdd->dev->doorbell_base +
->> -               pdd->doorbell_index * kfd_doorbell_process_slice(pdd->dev);
->> +       /* Return base of the first doorbell of this process */
->> +       return adev->doorbell.base + pdd->qpd.proc_doorbells.start * sizeof(uint32_t);
->>   }
->>
->> -int kfd_alloc_process_doorbells(struct kfd_dev *kfd, unsigned int *doorbell_index)
->> +int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *pdd)
->>   {
->> -       int r = 0;
+>> -       size_t doorbell_start_offset;
+>> -       size_t doorbell_aperture_size;
+>> -       size_t doorbell_process_limit;
+>> -       size_t aggregated_doorbell_start;
+>> -       int i;
 >> -
->> -       if (!kfd->shared_resources.enable_mes)
->> -               r = ida_simple_get(&kfd->doorbell_ida, 1,
->> -                                  kfd->max_doorbell_slices, GFP_KERNEL);
+>> -       aggregated_doorbell_start = (adev->doorbell_index.max_assignment + 1) * sizeof(u32);
+>> -       aggregated_doorbell_start =
+>> -               roundup(aggregated_doorbell_start, PAGE_SIZE);
+>> -
+>> -       doorbell_start_offset = aggregated_doorbell_start + PAGE_SIZE;
+>> -       doorbell_start_offset =
+>> -               roundup(doorbell_start_offset,
+>> -                       amdgpu_mes_doorbell_process_slice(adev));
+>> -
+>> -       doorbell_aperture_size = adev->doorbell.size;
+>> -       doorbell_aperture_size =
+>> -                       rounddown(doorbell_aperture_size,
+>> -                                 amdgpu_mes_doorbell_process_slice(adev));
+>> -
+>> -       if (doorbell_aperture_size > doorbell_start_offset)
+>> -               doorbell_process_limit =
+>> -                       (doorbell_aperture_size - doorbell_start_offset) /
+>> -                       amdgpu_mes_doorbell_process_slice(adev);
 >> -       else
->> -               r = amdgpu_mes_alloc_process_doorbells(
->> -                               (struct amdgpu_device *)kfd->adev,
->> -                               doorbell_index);
->> -
->> -       if (r > 0)
->> -               *doorbell_index = r;
->> +       int r;
->> +       struct qcm_process_device *qpd = &pdd->qpd;
->> +       struct amdgpu_doorbell_obj *proc_doorbells = &qpd->proc_doorbells;
->> +
->> +       /* Allocate bitmap for dynamic doorbell allocation */
->> +       proc_doorbells->doorbell_bitmap = bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS,
->> +                                                       GFP_KERNEL);
->> +       if (!proc_doorbells->doorbell_bitmap) {
->> +               DRM_ERROR("Failed to allocate process doorbell bitmap\n");
+>> -               return -ENOSPC;
+>> +       int i, r;
+>> +       u32 agg_db_start_index, nbits;
+>> +       struct amdgpu_doorbell_obj *mes_doorbells = &adev->mes.kernel_doorbells;
+>>
+>> -       adev->mes.doorbell_id_offset = doorbell_start_offset / sizeof(u32);
+>> -       adev->mes.max_doorbell_slices = doorbell_process_limit;
+>> +               /* Allocated one page doorbells for MES kernel usages */
+>> +       mes_doorbells->size = PAGE_SIZE;
+>>
+>> -       /* allocate Qword range for aggregated doorbell */
+>> -       for (i = 0; i < AMDGPU_MES_PRIORITY_NUM_LEVELS; i++)
+>> -               adev->mes.aggregated_doorbells[i] =
+>> -                       aggregated_doorbell_start / sizeof(u32) + i * 2;
+>> +       nbits = DIV_ROUND_UP(mes_doorbells->size, sizeof(u32));
+>> +       mes_doorbells->doorbell_bitmap = bitmap_zalloc(nbits, GFP_KERNEL);
+>> +       if (!mes_doorbells->doorbell_bitmap) {
+>> +               DRM_ERROR("Failed to allocate MES doorbell bitmap\n");
 >> +               return -ENOMEM;
 >> +       }
->>
->> -       if (r < 0)
->> -               pr_err("Failed to allocate process doorbells\n");
->> +       /* Allocate doorbells for this process from the PCI BAR */
->> +       proc_doorbells->size = kfd_doorbell_process_slice(kfd);
->> +       r = amdgpu_doorbell_alloc_page(kfd->adev, proc_doorbells);
-> Same thing here as the previous patch.  Just call
-> amdgpu_bo_create_kernel(..DOORBELL..) and store the bo in the process
-> structure.
->
-> Alex
+>> +
+>> +       r = amdgpu_doorbell_alloc_page(adev, mes_doorbells);
+> Rather than allocating a separate page here, just allocate two pages
+> in the earlier patch where you allocate the KGD doorbell and then just
+> use the second page here.
 
 got it,
 
 - Shashank
 
+> Alex
 >
 >> +       if (r) {
->> +               DRM_ERROR("Failed to allocate process doorbells\n");
+>> +               DRM_ERROR("Failed to create MES doorbell object\n, err=%d", r);
+>> +               bitmap_free(mes_doorbells->doorbell_bitmap);
 >> +               return r;
 >> +       }
->>
->>          return r;
->>   }
->>
->> -void kfd_free_process_doorbells(struct kfd_dev *kfd, unsigned int doorbell_index)
->> +void kfd_free_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *pdd)
->>   {
->> -       if (doorbell_index) {
->> -               if (!kfd->shared_resources.enable_mes)
->> -                       ida_simple_remove(&kfd->doorbell_ida, doorbell_index);
->> -               else
->> -                       amdgpu_mes_free_process_doorbells(
->> -                                       (struct amdgpu_device *)kfd->adev,
->> -                                       doorbell_index);
->> -       }
->> +       struct amdgpu_doorbell_obj *proc_doorbells = &pdd->qpd.proc_doorbells;
 >> +
->> +       bitmap_free(proc_doorbells->doorbell_bitmap);
->> +       amdgpu_doorbell_free_page(kfd->adev, proc_doorbells);
->>   }
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> index 0ed33416c35f..c97ed8e7e02d 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> @@ -658,8 +658,8 @@ struct qcm_process_device {
->>          uint64_t ib_base;
->>          void *ib_kaddr;
->>
->> -       /* doorbell resources per process per device */
->> -       unsigned long *doorbell_bitmap;
->> +       /* physical doorbell pages */
->> +       struct amdgpu_doorbell_obj proc_doorbells;
->>   };
->>
->>   /* KFD Memory Eviction */
->> @@ -1006,9 +1006,9 @@ unsigned int kfd_get_doorbell_dw_offset_in_bar(struct kfd_dev *kfd,
->>                                          unsigned int doorbell_id);
->>   phys_addr_t kfd_get_process_doorbells(struct kfd_process_device *pdd);
->>   int kfd_alloc_process_doorbells(struct kfd_dev *kfd,
->> -                               unsigned int *doorbell_index);
->> +                                struct kfd_process_device *pdd);
->>   void kfd_free_process_doorbells(struct kfd_dev *kfd,
->> -                               unsigned int doorbell_index);
->> +                                struct kfd_process_device *pdd);
->>   /* GTT Sub-Allocator */
->>
->>   int kfd_gtt_sa_allocate(struct kfd_dev *kfd, unsigned int size,
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->> index 51b1683ac5c1..68d0310c2d53 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->> @@ -1037,10 +1037,9 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
->>                          free_pages((unsigned long)pdd->qpd.cwsr_kaddr,
->>                                  get_order(KFD_CWSR_TBA_TMA_SIZE));
->>
->> -               bitmap_free(pdd->qpd.doorbell_bitmap);
->>                  idr_destroy(&pdd->alloc_idr);
->>
->> -               kfd_free_process_doorbells(pdd->dev, pdd->doorbell_index);
->> +               kfd_free_process_doorbells(pdd->dev, pdd);
->>
->>                  if (pdd->dev->shared_resources.enable_mes)
->>                          amdgpu_amdkfd_free_gtt_mem(pdd->dev->adev,
->> @@ -1449,15 +1448,11 @@ static int init_doorbell_bitmap(struct qcm_process_device *qpd,
->>          unsigned int i;
->>          int range_start = dev->shared_resources.non_cp_doorbells_start;
->>          int range_end = dev->shared_resources.non_cp_doorbells_end;
->> +       struct amdgpu_doorbell_obj *proc_doorbells = &qpd->proc_doorbells;
->>
->>          if (!KFD_IS_SOC15(dev))
->>                  return 0;
->>
->> -       qpd->doorbell_bitmap = bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS,
->> -                                            GFP_KERNEL);
->> -       if (!qpd->doorbell_bitmap)
->> -               return -ENOMEM;
->> -
->>          /* Mask out doorbells reserved for SDMA, IH, and VCN on SOC15. */
->>          pr_debug("reserved doorbell 0x%03x - 0x%03x\n", range_start, range_end);
->>          pr_debug("reserved doorbell 0x%03x - 0x%03x\n",
->> @@ -1466,9 +1461,9 @@ static int init_doorbell_bitmap(struct qcm_process_device *qpd,
->>
->>          for (i = 0; i < KFD_MAX_NUM_OF_QUEUES_PER_PROCESS / 2; i++) {
->>                  if (i >= range_start && i <= range_end) {
->> -                       __set_bit(i, qpd->doorbell_bitmap);
->> +                       __set_bit(i, proc_doorbells->doorbell_bitmap);
->>                          __set_bit(i + KFD_QUEUE_DOORBELL_MIRROR_OFFSET,
->> -                                 qpd->doorbell_bitmap);
->> +                                 proc_doorbells->doorbell_bitmap);
->>                  }
->>          }
->>
->> @@ -1499,9 +1494,15 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_dev *dev,
->>          if (!pdd)
->>                  return NULL;
->>
->> +       retval = kfd_alloc_process_doorbells(dev, pdd);
->> +       if (retval) {
->> +               pr_err("failed to allocate process doorbells\n");
->> +               goto err_free_pdd;
+>> +       /* Get the absolute doorbell index for aggregated doobells */
+>> +       agg_db_start_index = mes_doorbells->start;
+>> +       for (i = 0; i < AMDGPU_MES_PRIORITY_NUM_LEVELS; i++) {
+>> +               adev->mes.aggregated_doorbells[i] = agg_db_start_index + i;
+>> +               set_bit(agg_db_start_index + i, mes_doorbells->doorbell_bitmap);
 >> +       }
+>>
+>> -       DRM_INFO("max_doorbell_slices=%zu\n", doorbell_process_limit);
+>>          return 0;
+>>   }
+>>
+>> +static void amdgpu_mes_doorbell_free(struct amdgpu_device *adev)
+>> +{
+>> +       struct amdgpu_doorbell_obj *mes_doorbells = &adev->mes.kernel_doorbells;
 >> +
->>          if (init_doorbell_bitmap(&pdd->qpd, dev)) {
->>                  pr_err("Failed to init doorbell for process\n");
->> -               goto err_free_pdd;
->> +               goto err_free_db;
->>          }
->>
->>          pdd->dev = dev;
->> @@ -1529,7 +1530,7 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_dev *dev,
->>                                                  false);
->>                  if (retval) {
->>                          pr_err("failed to allocate process context bo\n");
->> -                       goto err_free_pdd;
->> +                       goto err_free_db;
->>                  }
->>                  memset(pdd->proc_ctx_cpu_ptr, 0, AMDGPU_MES_PROC_CTX_SIZE);
->>          }
->> @@ -1541,6 +1542,9 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_dev *dev,
->>
->>          return pdd;
->>
->> +err_free_db:
->> +       kfd_free_process_doorbells(pdd->dev, pdd);
+>> +       bitmap_free(mes_doorbells->doorbell_bitmap);
+>> +       amdgpu_doorbell_free_page(adev, mes_doorbells);
+>> +}
 >> +
->>   err_free_pdd:
->>          kfree(pdd);
->>          return NULL;
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
->> index 5137476ec18e..693688d789d3 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
->> @@ -348,13 +348,11 @@ int pqm_create_queue(struct process_queue_manager *pqm,
->>                  /* Return the doorbell offset within the doorbell page
->>                   * to the caller so it can be passed up to user mode
->>                   * (in bytes).
->> -                * There are always 1024 doorbells per process, so in case
->> -                * of 8-byte doorbells, there are two doorbell pages per
->> -                * process.
->> +                * relative doorbell index = Absolute doorbell index -
->> +                * absolute index of first doorbell in the page.
->>                   */
->> -               *p_doorbell_offset_in_process =
->> -                       (q->properties.doorbell_off * sizeof(uint32_t)) &
->> -                       (kfd_doorbell_process_slice(dev) - 1);
->> +               *p_doorbell_offset_in_process = (q->properties.doorbell_off
->> +                                               - pdd->qpd.proc_doorbells.start) * sizeof(uint32_t);
+>>   int amdgpu_mes_init(struct amdgpu_device *adev)
+>>   {
+>>          int i, r;
+>> @@ -248,6 +246,7 @@ void amdgpu_mes_fini(struct amdgpu_device *adev)
+>>          amdgpu_device_wb_free(adev, adev->mes.sch_ctx_offs);
+>>          amdgpu_device_wb_free(adev, adev->mes.query_status_fence_offs);
+>>          amdgpu_device_wb_free(adev, adev->mes.read_val_offs);
+>> +       amdgpu_mes_doorbell_free(adev);
 >>
->>          pr_debug("PQM After DQM create queue\n");
+>>          idr_destroy(&adev->mes.pasid_idr);
+>>          idr_destroy(&adev->mes.gang_id_idr);
+>> @@ -677,7 +676,7 @@ int amdgpu_mes_add_hw_queue(struct amdgpu_device *adev, int gang_id,
+>>          *queue_id = queue->queue_id = r;
 >>
->> @@ -858,12 +856,6 @@ int kfd_criu_restore_queue(struct kfd_process *p,
->>                  goto exit;
->>          }
+>>          /* allocate a doorbell index for the queue */
+>> -       r = amdgpu_mes_queue_doorbell_get(adev, gang->process,
+>> +       r = amdgpu_mes_kernel_doorbell_get(adev, gang->process,
+>>                                            qprops->queue_type,
+>>                                            &qprops->doorbell_off);
+>>          if (r)
+>> @@ -735,7 +734,7 @@ int amdgpu_mes_add_hw_queue(struct amdgpu_device *adev, int gang_id,
+>>          return 0;
 >>
->> -       if (!pdd->doorbell_index &&
->> -           kfd_alloc_process_doorbells(pdd->dev, &pdd->doorbell_index) < 0) {
->> -               ret = -ENOMEM;
->> -               goto exit;
->> -       }
->> -
->>          /* data stored in this order: mqd, ctl_stack */
->>          mqd = q_extra_data;
->>          ctl_stack = mqd + q_data->mqd_size;
+>>   clean_up_doorbell:
+>> -       amdgpu_mes_queue_doorbell_free(adev, gang->process,
+>> +       amdgpu_mes_kernel_doorbell_free(adev, gang->process,
+>>                                         qprops->doorbell_off);
+>>   clean_up_queue_id:
+>>          spin_lock_irqsave(&adev->mes.queue_id_lock, flags);
+>> @@ -790,7 +789,7 @@ int amdgpu_mes_remove_hw_queue(struct amdgpu_device *adev, int queue_id)
+>>                            queue_id);
+>>
+>>          list_del(&queue->list);
+>> -       amdgpu_mes_queue_doorbell_free(adev, gang->process,
+>> +       amdgpu_mes_kernel_doorbell_free(adev, gang->process,
+>>                                         queue->doorbell_off);
+>>          amdgpu_mes_unlock(&adev->mes);
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+>> index 97c05d08a551..e7e9dfe44c99 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+>> @@ -27,6 +27,7 @@
+>>   #include "amdgpu_irq.h"
+>>   #include "kgd_kfd_interface.h"
+>>   #include "amdgpu_gfx.h"
+>> +#include "amdgpu_doorbell.h"
+>>   #include <linux/sched/mm.h>
+>>
+>>   #define AMDGPU_MES_MAX_COMPUTE_PIPES        8
+>> @@ -76,7 +77,6 @@ struct amdgpu_mes {
+>>          uint32_t                        kiq_version;
+>>
+>>          uint32_t                        total_max_queue;
+>> -       uint32_t                        doorbell_id_offset;
+>>          uint32_t                        max_doorbell_slices;
+>>
+>>          uint64_t                        default_process_quantum;
+>> @@ -128,6 +128,9 @@ struct amdgpu_mes {
+>>          int                             (*kiq_hw_init)(struct amdgpu_device *adev);
+>>          int                             (*kiq_hw_fini)(struct amdgpu_device *adev);
+>>
+>> +       /* MES Kernel doorbells */
+>> +       struct amdgpu_doorbell_obj      kernel_doorbells;
+>> +
+>>          /* ip specific functions */
+>>          const struct amdgpu_mes_funcs   *funcs;
+>>   };
 >> --
 >> 2.40.0
 >>
