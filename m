@@ -4,116 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84607C76196
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 06:34:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA2D0C76196
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 06:39:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2F7E10F0F4;
-	Fri, 31 Mar 2023 06:34:55 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2087.outbound.protection.outlook.com [40.107.223.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B6DE10F0F4
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 06:34:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BrPTSsKwkLXMwnXixOXHV8uHqyCF2ZfMzPDd5hiNNfKe6rvTrGiUWvSxNby+V4Fdd8B5if6dy2tVJ3IEcuO+rA0OyFNkAZNbikzzkYzqEqWBLdYyJvm8pwWkaPdHczzqvpEpThEt3bfsX2SD14MBMPJ6hZZRUxaPgGUoTz5W+VvLtiP8p3moak1lnnVyZPZ16SNmqGBXX8cGuGavoYPc89qLghtDDHpBtc18sx6D5sjKbe91GfU1/5bDF4aBCPycuifwUIPAq0Wms7Hwd0493YRlX9WebM4YzSErvWtU6RCfDGLAqsvwoSmYhrHAsW2FwJL0CBJfTMPiYVpmc2huuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yYkmyEDzUAWmNHIgfYq7/rtum9CX0eUp9bH/1IWP3C0=;
- b=h6Tm0uq/a2XM+nnIaNpzJKJE/gtXWuOU8WziHw4GUMOYi36JpnHvI9Kly9ZufnlUOoKUR+RoaLiPMaG+Zna5zxhDVl9ZrnNtQeXA/tfJ85VHNgvrlRQ+VQs3HN7eDsnTEKTotCK6QX7U/3C72fSJHIos6fg0FZFl02vJx/ZRRR4KtbRuxGKywOFV23mA39fBV6jFDWv2G3XR4CvEIZaNT+j/tAMVc9uBPPD1gIw25254/lD0lu+EkXySTD+8jMg+ZR1VPWPxJG5ehuJnCVJOzduehJj8GuEFgyQSYUW4jI4/DGobpiBOD+x1ia/12yU04ONHV+NHO8pioH21Bc6CHA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yYkmyEDzUAWmNHIgfYq7/rtum9CX0eUp9bH/1IWP3C0=;
- b=GRkrisE6CxbWzW2BiT+njpTffLH2d5mNgj+bNVC+tgshiUhZHNCS7af+lU4L/I/3Ij6xccKwpCXjmygEBuXXqCgGR29n8eorz10Ba2Ia8sWkcJX71f7dsVTPsF5s+U/5VEWXWYFJfxxlOMWMo6EXXzqrmFA7HLARbLmofEQh384=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by DM4PR12MB5232.namprd12.prod.outlook.com (2603:10b6:5:39c::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.23; Fri, 31 Mar
- 2023 06:34:51 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::4624:dc39:943e:6ae]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::4624:dc39:943e:6ae%5]) with mapi id 15.20.6254.022; Fri, 31 Mar 2023
- 06:34:51 +0000
-Message-ID: <ecf2a379-4b8d-a168-f555-26f66d5d5e9b@amd.com>
-Date: Fri, 31 Mar 2023 08:34:46 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C03410F0F7;
+	Fri, 31 Mar 2023 06:39:25 +0000 (UTC)
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [IPv6:2a00:1450:4864:20::52a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B90510F0F7
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 06:39:24 +0000 (UTC)
+Received: by mail-ed1-x52a.google.com with SMTP id ew6so85659767edb.7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 23:39:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1680244762;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=l7is+T05lwqpsZesXTKNlIfJyUXb7KBMVsJ3ThsSqQs=;
+ b=aKuL+G+OdtpeNOWEZgcwM1S17VSqV34Azs4re5yXYXc2D+N6wzY6r7ojM0lpvJROW6
+ 4pGIQur6HSXPqSGvCYkZlmU/n2ury3pVGJVi+6kz0yErb1YwxYaOGQutj9FGTZt3pToR
+ Qu8xqiKd2HpfGGfTqXLyZZe/qlXbkjnHf+r5KwPJrbrodljl9Y8vcSFWhJRjlzCMb3w5
+ 0kw/5JwwZ8mQzEKAbamKQHmS6a9UyM4flp6CtC9sdxNfgWWT4aPCGHPaWJcCGZrThnGn
+ 6wCgAdbCvjZay5Mon3E/vbdOYZGObJmh9EVKaMEc2e6lv6M6bbEtKOOqQqkbdGs0kRCy
+ IKiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1680244762;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=l7is+T05lwqpsZesXTKNlIfJyUXb7KBMVsJ3ThsSqQs=;
+ b=3cARidFHLEtGvpoQubJeAKw6PTDAogFTbD2OGkWGawWr6MDOdiQNUkg5Yr9cpaLwYZ
+ GKLRsdtxNs4S1tn4wEJ0R4MyBI9OOFJaOY3Zom1qUWigSiRn9PMNvPCOxZ5vJ42cC4lb
+ Q0OKA1QWMrHKrJ0m/hq9I7/KqmekAdRBsiHEx/11QzYB4OWhQE+RPcLjCdIfZB9PsLcp
+ o1HkqYoZQ77b/VBDJwnhBWCR75R9HEMneusL7NPTsFMi3i7T2zvFSRVWCvpBrXZPM/NM
+ 7iXlW32CHuhKKjJkPZz79Z5z+X902/26gSJNip0nLiCcjCNrfdQLxni/sx7fwT+GH86O
+ GRew==
+X-Gm-Message-State: AAQBX9cun+j0rCsLyh4Hc6F/dM/cmsQ8LOhGxtb64c170EmtQTEr9/YJ
+ dR55c+ovQkKw6QRWcd08Bcrl3W4857h12g==
+X-Google-Smtp-Source: AKy350atWCnAwlGkXj7/QkZqUtcC5+4X0348hL1CsTPMXxDEQYsTW/Zey1yhgXUXwtvendku3N9+jA==
+X-Received: by 2002:a17:906:31cb:b0:92c:a80e:225f with SMTP id
+ f11-20020a17090631cb00b0092ca80e225fmr29178305ejf.52.1680244762665; 
+ Thu, 30 Mar 2023 23:39:22 -0700 (PDT)
+Received: from [192.168.178.21] (p4fc2092b.dip0.t-ipconnect.de. [79.194.9.43])
+ by smtp.gmail.com with ESMTPSA id
+ y18-20020a170906525200b0093f322187f0sm622686ejm.189.2023.03.30.23.39.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 30 Mar 2023 23:39:22 -0700 (PDT)
+Message-ID: <f5874f59-c388-9c51-5996-bdb9d168e791@gmail.com>
+Date: Fri, 31 Mar 2023 08:39:20 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
-Subject: Re: [PATCH 02/13] drm/amdgpu/gfx11: check the CP FW version CP GFX
- shadow support
+Subject: Re: [PATCH] drm/amdgpu: Fix desktop freezed after gpu-reset
 Content-Language: en-US
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230330191750.1134210-1-alexander.deucher@amd.com>
- <20230330191750.1134210-3-alexander.deucher@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230330191750.1134210-3-alexander.deucher@amd.com>
+To: Luben Tuikov <luben.tuikov@amd.com>,
+ "Liu, HaoPing (Alan)" <HaoPing.Liu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20230327152028.2939908-1-HaoPing.Liu@amd.com>
+ <aff27f2a-a878-be69-fb06-74f2063997f9@amd.com>
+ <SN1PR12MB2445C6C12FC1824D4A14124DF58E9@SN1PR12MB2445.namprd12.prod.outlook.com>
+ <ed7db628-3749-d109-73b3-aac9f04baf62@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <ed7db628-3749-d109-73b3-aac9f04baf62@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0090.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9b::8) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|DM4PR12MB5232:EE_
-X-MS-Office365-Filtering-Correlation-Id: f3c58665-a0dc-4a49-6ee2-08db31b20804
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: JcbnTzkd3IaoRcJ2poUlkbIzj5iQsqWWBB+cj6sZ2XcvhJTR1ltg7XhifBb9EjpjB09f/2QdTKAcXlzhLsAY93AuP1gKjKDQoZlp0jFSEL4Xw/82GMuSiWzX4Fe/7qCEvPBOwtrgrIiBJ5RsOOuwZtbo9sqYqnYAEdQ0i3kgd3c1abHNQezi1onZshVaWL5h/wHZpfAoC4Zd/eT3OGI2ndKxTYz5qlxVGXdmfrNDkJZfvCwvEpmG0A/t9ggRPBw3ZIEqSwfBGW20W3MQrCtD3ijUsl85saNVvlCdvxFywZHoRKqV1WlFpKVkpHK39Tlrhh5ERxwWhk9XKN7f+3uJdXHjXXp8GtESG5ErpyISpjB8d/DwFoM2yIlXVPZ31il/KK/C4HxS5yoZlk6YKx19DGeMRFVr+kYD82NIowQ0MpEMFGvlyv7kirKP7nFOQd0+vZNLzB1S5nW23rjirswCGCdC04QwEwiWkIbJhk/OMA2yBQ6P8QPg9SgBDtLUgw9zJclexJDldDtAXtds+LorJp+4RjrIuqcVACIPdEbBlWLw5ew00W9U+K/mt2lYKPyN8qqoZb0pMPzZVOtrAZtqylKRR3U+9sM1bP3fM6XSzEsvswwZkYid/N5Gg16Pyr5MBplBYoeRvUD8DmNT2RPgdXrlHPJkxOWyIvbi4aHiYok=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(39860400002)(376002)(366004)(396003)(346002)(451199021)(186003)(6666004)(6512007)(6506007)(26005)(41300700001)(2616005)(66476007)(66556008)(478600001)(66946007)(316002)(38100700002)(8676002)(2906002)(36756003)(6486002)(86362001)(31696002)(5660300002)(8936002)(31686004)(21314003)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MTNYUUlUNU91NWl5NkZ4aXRXMHdqOUlwYno4cm9MV3VlbWpINW11M05rMGpK?=
- =?utf-8?B?cStXYng4V0lYbVdTMGF3aUdhak5IUDdjdnd0eWVtMjN0S09JdTJjSHdYZXlo?=
- =?utf-8?B?M1VsWG84VVFFc3d1SE5taDhlRnVMQXVQc1hFbGxFWVhHYXBCMjdVbWRQYXFM?=
- =?utf-8?B?bWI2L2x3Y3A2bklIZm92Z0ttdHJldTJOcXhpVVNhSk1yQWpsM2tMSEgxL1dI?=
- =?utf-8?B?OG81ZjV6QXJwcXUyT1hkeDMvQnpzVFgvdnBSK0NVT0xoNDdXa3A3bDNMd0lC?=
- =?utf-8?B?dldvSHhnS1prZFcyVG9GS0ZHaUVjUVZ6bGNjK1JwdHRBRkJoaFBUb0pPcktO?=
- =?utf-8?B?TjdLUEw4biticlQyWHhzWnZDUnl1cVM4ZnUyYmVYNURBeUc2VHVyNE0vZWsx?=
- =?utf-8?B?R0tvOXdrUWRDbmloemdIVFBLWHRBdHkrUytuOEoyVWFaZTl4bllwUHBzcTY1?=
- =?utf-8?B?bFhzS0NQVUVOM3JJQ3lLS3BWeDA0UVpSc0xBcXAvT1NCMTdEYVpMT0hvckN3?=
- =?utf-8?B?ZERaRjZXY3lTdG0xMHpMc2c2NUszODNUOHFKWjV4WjRQUzUxRFA5dmVROUQv?=
- =?utf-8?B?OWRuUEpST0lYQU4yVzIwb3liMVh4NlFEYWJ6dHpSc0JlQ2RZZlh5dXd5NTlY?=
- =?utf-8?B?T0dEbDlPZUY1M0I1eDMyV0dGakZQcmE1MWdyTW8zVXpwRGo5ZEUzL1ZHMzlL?=
- =?utf-8?B?VWVadkhreXRZcGYyWGZCUWZJaDZ4VWF5MmJLVnJoTnJDbHNlOVp0eUJ0dGtS?=
- =?utf-8?B?VkNXOUt2ckNCQ2pkWnBFeWNWWkdaRDlFRnMrdFV3bHRKNG81MFViRWJBZ1hS?=
- =?utf-8?B?OHEwc2p6R3o5cHFUOVZoRFNWdnRXV2F6akR1eS9oK0MzTFhFcFJUV29KM003?=
- =?utf-8?B?ajdmcVpwVE9CRU9BWkNyRGNlTkJyc3ByWU41TVZaYXpjQzVQWllKTnZjOG1W?=
- =?utf-8?B?eVlYMHNkcFhpOXRFZlRma0Q0cnBCc0IySi9wKzR0UFdZclhjOU9wczk0UTRk?=
- =?utf-8?B?SUpWT3N4RE9DSFphQkYvaGpsMGFyV2dibnFzQkZXUDdTNkd3aktOUUNkSjdT?=
- =?utf-8?B?Nlh3OVBlNkxncU1LeTJQYTY5bm45NDJwdGcxcFdjczJXQmVhTHFLYUxJK0R5?=
- =?utf-8?B?bnluYWt5R1JVWldFSGZETHF3MFlCdDJYSUVVYzVHNmxwSlZEbG5NbnNZbEVp?=
- =?utf-8?B?a0ZMM2QxRU10VjJNWnp5a01sc2FieGZxVnNLTVc4djloQ1JOTGtKZUtjWTE0?=
- =?utf-8?B?YS96Q0xSdFJ3Qjc0MG5US0J5N0hQWmFnM0Y5aHp0TS8wRUdhRHJkMmlIMDQ0?=
- =?utf-8?B?OGsvdW5Xbkk3YzRqaGxiaEw1UjlXb1BVaXZzdi9LS3lHNlNtTWdZU2RsVlpR?=
- =?utf-8?B?Z0pEYzFVYWVPYlZlaFlZWUkzM3hySjV1OVp5Rlp2dXEvT21EQlBxN0pjMWRp?=
- =?utf-8?B?SzNJa0gwbTVtQitBWDBkY1hzeVZHZVNtL0pSeE11Wk92anBBa0NtZVRCa1c4?=
- =?utf-8?B?RXdDVEpUdzhjbHZiVEdxMFovSVMxUlkzQTgzcWdjNnpRcEJBMktETTRBY1Mv?=
- =?utf-8?B?R2Z2STJvQmZhZW85aXZBRGNsN1RHS3FTRHdGWGhhM285L3FJcnVnUWJOTERZ?=
- =?utf-8?B?MTUwTnVsVFBEbGpzR2VaVm0vcHFnTGFwTGtiV2d0cU15WmtUMXB6OFJKZTV4?=
- =?utf-8?B?Mk82MDhoR2xJL2FBZUk5WTc2aG5HNHlKc0wxQW1RY3VSeDVoNmNYWUpuUGVE?=
- =?utf-8?B?aUdZZEt3K0orekxJc1hXbTN2NGdQa0p1ZXlwOXczL2tiZjRsVTJzY0xLVCtE?=
- =?utf-8?B?eVpKeXJhS2p1cTJkcldXVWdUN3VSRTNOTG41czROMkNiN0FpYU4yUWVwb1lh?=
- =?utf-8?B?MUVIakFROUNxbFNpSkRpdlpBU3J5SCttb1pqelJLR3ZvaWwvMkxCUWY0U2NS?=
- =?utf-8?B?T0gvTzNmTTZ2SGpHYmM0WXRYYm9qakZBcDhTN2dSWUY4eVRLb0grakNENHBZ?=
- =?utf-8?B?TGlEM3FUZ1d5SFdQeDJOVGh5eHpzYlBvclpNMk9oMDkxclh2WjJkeTRUQ2NF?=
- =?utf-8?B?NVV2c1VCbHNKODg0WDd6MGhveTNhMUZiNzZIYytnRXhrVzJVbHNvaFFMbXZH?=
- =?utf-8?Q?mCXQTW7eFpdOsw2HfhlVkpoX+?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f3c58665-a0dc-4a49-6ee2-08db31b20804
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2023 06:34:51.3726 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3DxX24If7p5lm9oGd79j1qo8yMZoruOd/DCpJntLr4AEreJR2TahZQTmLy04MLif
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5232
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,46 +79,185 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 30.03.23 um 21:17 schrieb Alex Deucher:
-> Only set the supported flag if we have new enough CP FW.
->
-> XXX: don't commit this until the CP FW versions are finalized!
+Hi Luben,
 
-Maybe commit the rest of this series and just hold back this one?
+sorry, looks like I haven't seen your reply in my inbox at the time I've 
+wrote my reply.
 
-It should still keep everything working.
+That seems to happen quite often with freedesktop.org list recently and 
+I'm wondering if there's something wrong with my setup or the list server.
 
-Regards,
 Christian.
 
+Am 30.03.23 um 14:27 schrieb Luben Tuikov:
+> Hi Alan,
 >
-> Acked-by: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 9 +++++++++
->   1 file changed, 9 insertions(+)
+> I'll comment in the other thread, as it seems Christian commented directly to your
+> patch the day after my comment, rather than following up with my email sent the previous
+> day and we now have two divergent threads where you post two identical comments, and it shouldn't
+> be like that--we should have one thread only.
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> index a0d830dc0d01..4a50d0fbcdcf 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -469,6 +469,15 @@ static void gfx_v11_0_check_fw_cp_gfx_shadow(struct amdgpu_device *adev)
->   	case IP_VERSION(11, 0, 0):
->   	case IP_VERSION(11, 0, 2):
->   	case IP_VERSION(11, 0, 3):
-> +		/* XXX fix me! */
-> +		if ((adev->gfx.me_fw_version >= 1498) &&
-> +		    (adev->gfx.me_feature_version >= 29) &&
-> +		    (adev->gfx.pfp_fw_version >= 1541) &&
-> +		    (adev->gfx.pfp_feature_version >= 29) &&
-> +		    (adev->gfx.mec_fw_version >= 507) &&
-> +		    (adev->gfx.mec_feature_version >= 29))
-> +			adev->gfx.cp_gfx_shadow = true;
-> +		break;
->   	default:
->   		adev->gfx.cp_gfx_shadow = false;
->   		break;
+> Regards,
+> Luben
+>
+> On 2023-03-30 04:59, Liu, HaoPing (Alan) wrote:
+>> [AMD Official Use Only - General]
+>>
+>>
+>> Hi, Luben
+>>
+>>   
+>>
+>> Thanks for the review. Please see inline.
+>>
+>>   
+>>
+>> Best Regards,
+>>
+>> Alan
+>>
+>>   
+>>
+>> -----Original Message-----
+>> From: Tuikov, Luben <Luben.Tuikov@amd.com>
+>> Sent: Tuesday, March 28, 2023 3:00 AM
+>> To: Liu, HaoPing (Alan) <HaoPing.Liu@amd.com>; amd-gfx@lists.freedesktop.org
+>> Cc: Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>
+>> Subject: Re: [PATCH] drm/amdgpu: Fix desktop freezed after gpu-reset
+>>
+>>   
+>>
+>> Hi,
+>>
+>>   
+>>
+>> That's a good fix. Some questions and comments below:
+>>
+>>   
+>>
+>> On 2023-03-27 11:20, Alan Liu wrote:
+>>
+>>> [Why]
+>>> After gpu-reset, sometimes the driver would fail to enable vblank irq,
+>>> causing flip_done timed out and the desktop freezed.
+>>> During gpu-reset, we will disable and enable vblank irq in
+>>> dm_suspend() and dm_resume(). Later on in
+>>> amdgpu_irq_gpu_reset_resume_helper(), we will check irqs' refcount and decide to enable or disable the irqs again.
+>>> However, we have 2 sets of API for controling vblank irq, one is
+>>> dm_vblank_get/put() and another is amdgpu_irq_get/put(). Each API has
+>>> its own refcount and flag to store the state of vblank irq, and they
+>>> are not synchronized.
+>>   
+>>
+>> Is it possible to reconcile controlling VBlank IRQ to a single refcount?
+>>
+>>   
+>>
+>> In struct drm_vblank_crtc, we have “enabled” and “refcount” to store vblank irq state, and in struct amdgpu_irq_src we have “enabled_types” as the refcount for each irq in dm layer.
+>>
+>> To reconcile vblank irq to a single refcount, my idea is to remove enabled and refcount from struct drm_vblank_crtc, and add a callback function like vblank_irq_enabled() to drm_crtc_funcs.
+>>
+>> Drm layer can use this function to check the state or refcount of vblank irq from dm layer. But it may be dangerous because it is a change to drm layer. Do you have any comments?
+>>
+>>   
+>>
+>>> In drm we use the first API to control vblank irq but in
+>>> amdgpu_irq_gpu_reset_resume_helper() we use the second set of API.
+>>> The failure happens when vblank irq was enabled by dm_vblank_get()
+>>> before gpu-reset, we have vblank->enabled true. However, during
+>>> gpu-reset, in amdgpu_irq_gpu_reset_resume_helper(), vblank irq's state
+>>> checked from
+>>> amdgpu_irq_update() is DISABLED. So finally it will disable vblank irq
+>>> again. After gpu-reset, if there is a cursor plane commit, the driver
+>>> will try to enable vblank irq by calling drm_vblank_enable(), but the
+>>> vblank->enabled is still true, so it fails to turn on vblank irq and
+>>> causes flip_done can't be completed in vblank irq handler and desktop
+>>> become freezed.
+>>> [How]
+>>> Combining the 2 vblank control APIs by letting drm's API finally calls
+>>> amdgpu_irq's API, so the irq's refcount and state of both APIs can be
+>>> synchronized. Also add a check to prevent refcount from being less
+>>> then
+>>> 0 in amdgpu_irq_put().
+>>> Signed-off-by: Alan Liu <HaoPing.Liu@amd.com <mailto:HaoPing.Liu@amd.com>>
+>>> ---
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c            |  3 +++
+>>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 14
+>>> ++++++++++----
+>>>    2 files changed, 13 insertions(+), 4 deletions(-)
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+>>> index a6aef488a822..1b66003657e2 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+>>> @@ -597,6 +597,9 @@ int amdgpu_irq_put(struct amdgpu_device *adev, struct amdgpu_irq_src *src,
+>>>              if (!src->enabled_types || !src->funcs->set)
+>>>                             return -EINVAL;
+>>>   
+>>> +         if (!amdgpu_irq_enabled(adev, src, type))
+>>> +                       return 0;
+>>> +
+>>>              if (atomic_dec_and_test(&src->enabled_types[type]))
+>>>                             return amdgpu_irq_update(adev, src, type);
+>>>   
+>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+>>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+>>> index dc4f37240beb..e04f846b0b19 100644
+>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+>>> @@ -146,7 +146,7 @@ static void vblank_control_worker(struct
+>>> work_struct *work)
+>>>   
+>>>   static inline int dm_set_vblank(struct drm_crtc *crtc, bool enable)
+>>> {
+>>> -          enum dc_irq_source irq_source;
+>>> +         int irq_type;
+>>>              struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
+>>>              struct amdgpu_device *adev = drm_to_adev(crtc->dev);
+>>>              struct dm_crtc_state *acrtc_state = to_dm_crtc_state(crtc->state);
+>>> @@ -169,10 +169,16 @@ static inline int dm_set_vblank(struct drm_crtc *crtc, bool enable)
+>>>              if (rc)
+>>>                             return rc;
+>>>   
+>>> -          irq_source = IRQ_TYPE_VBLANK + acrtc->otg_inst;
+>>> +         irq_type = amdgpu_display_crtc_idx_to_irq_type(adev,
+>>> +acrtc->crtc_id);
+>>> +
+>>> +         if (enable)
+>>> +                       rc = amdgpu_irq_get(adev, &adev->crtc_irq, irq_type);
+>>> +
+>>> +         else
+>>   
+>>
+>> There's an unnecessary empty line before the "else". It's a good idea to run patches through scripts/checkpatch.pl.
+>>
+>>   
+>>
+>> Thanks, will use the tool next time.
+>>
+>>   
+>>
+>>> +                       rc = amdgpu_irq_put(adev, &adev->crtc_irq, irq_type);
+>>>   
+>>> -          if (!dc_interrupt_set(adev->dm.dc, irq_source, enable))
+>>> -                        return -EBUSY;
+>>> +         if (rc)
+>>> +                       return rc;
+>>>   
+>>>    skip:
+>>>              if (amdgpu_in_reset(adev))
+>>   
+>>
+>> --
+>>
+>> Regards,
+>>
+>> Luben
+>>
+>>   
+>>
 
