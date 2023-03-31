@@ -4,58 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41A2EC761A6
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 19:18:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAD49C761A6
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 19:30:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEC3110F2E8;
-	Fri, 31 Mar 2023 19:18:54 +0000 (UTC)
-Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
- [IPv6:2607:f8b0:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE6CF10F2DF
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 19:18:49 +0000 (UTC)
-Received: by mail-oi1-x236.google.com with SMTP id bx42so1898502oib.6
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 12:18:49 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A518310F2EF;
+	Fri, 31 Mar 2023 19:30:44 +0000 (UTC)
+Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
+ [IPv6:2607:f8b0:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B494710F2EF
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 19:30:21 +0000 (UTC)
+Received: by mail-oi1-x22a.google.com with SMTP id f14so3923058oiw.10
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 12:30:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1680290329;
+ d=gmail.com; s=20210112; t=1680291021;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=6RZETmSNf3NSJPtBsSKbsAgK0TifJmGPhzSD9VZiYJM=;
- b=qN8CWnD0/btvw7TtqqOOk8R9QWQYfNQplMAWfj4Hh/JPtBN5PN/o49BVg95j7a7Swu
- lew/nfHjV6Ykz/M6j7K0q+OAyHeXLXfGvxzy4Bx+xdapqvBGIGEoEiwN3n7WNuUCobk6
- gd3MRxoJ2f+rYSHF45x8Dc8tffO1/eRuTHP2UQLJFhh+whXGT1jd3ZUjlhrL67syOZX7
- U5iWtpVSSKKCAnKus64dw095nXSG6xn6Uu+42zQgJp7rk6tmtJWlvN2xejdcAVUGoae0
- 1wjoJTK3DWdrsNvh60Rf5U5dTE7g9VqiLIbPyhIRSkTmSutL4Yg/C9vLKMCdepFFfLmr
- q0pw==
+ bh=FbtgTLuK3hmi6zMQPLTCG8zEhIwgvE0SlW8CMKib6bM=;
+ b=N+qN/ErO1Z9XjGG6eHTyAN7/V6DJ3rqZcrJTsZMWRUQDQHsKwpNGul4dU0gOEphyFN
+ VrgOC3Sh2pI1fe2i3EsGbV4t2UGyvk7NMLldoHIOg+mi6k4kREElfFF83TtwJkwVEN1+
+ JvtycwHlnMu9+tUjwhCgWa9TlCuB6qGdx5v3AcULQlQMyugape1RHnJePod3Vtk8aOYY
+ OZhrhNQaZgsokEl/LqZWNILmS+JdCuxAaxUR+GLj5jLXUuvaz78ID3xg14DijfmmjeoF
+ 1G7kquEqSr0tKDe4HOm34Fg6OQJveZIlIsFnPqLCzFZmEQ/9HnSCce1sk+BpgBrHQu5v
+ rPHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680290329;
+ d=1e100.net; s=20210112; t=1680291021;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=6RZETmSNf3NSJPtBsSKbsAgK0TifJmGPhzSD9VZiYJM=;
- b=OdthEfBdtOmvK0EPGX1I9grYxkd+1U6YJ5QBSe337G0AtRBaizqZQOq3kx9SmZvG+o
- ix0QREgSyIVwbUViDKLx3WI/s+iPvbOZts0N+DMeWKVUBNWxRGuEuefls2+ukhwnrrY8
- 8JuNbkFRw8yk3QaRHAP6hbPwrYLPPLy0rAZTxSanjmcHeC4vwcTfOD76U55WAF3zqMzA
- BlGGUc2sFvwwaQgxDyWlCHjuhlsr7DnGVowO7K6KSYOi48y2bFiNdeSSA7JS0WnKdMxJ
- zPCEvk26YQ5w463Y7WJxX4SzxnAjipzrSsW4TTNQzVtCQJsYwHRkMU8vRpkjusaV2uxI
- 4VnA==
-X-Gm-Message-State: AAQBX9c5c9sGswUl6ZaOTYQkCESvG0NSa07ucLoGbgIIXgWSVxQaBJpv
- SpR/Nrvp3q57OwKB0iqoNP0ikFUmU9jQMSKR3nY=
-X-Google-Smtp-Source: AKy350aBFAOkbO8ODbYokMA2c9WmLeWDtI0/Q25Olz7w6/iNHro83DOuvLJOXRroz6zJRRHiT0ulRJGNzej6dnlPmWY=
+ bh=FbtgTLuK3hmi6zMQPLTCG8zEhIwgvE0SlW8CMKib6bM=;
+ b=EADfytls/iQ3bEJvZXXC2n1wexAGEE75KM6f5cO89m7nKWfHNiJN+iEv+b17DG/evl
+ jNQ33Dr8QwmhJDt0Svug0Mrh2rfGKlSEaHWhSwTxwNiojDHpempdSlecaFhATSN1L/49
+ ziWqiu1AJgUJYud8Kp14eX7k9GSbJnk2DRn1+I3ikwfQP+BNZP26H0Bt9+7PL7gQkMn2
+ vfkUYd9KC78S9z0GusVxgovoc6vNuNOO/0ALylo8Wv3wuplyTMAKZ4SpXFs4mTVmW8Ju
+ gffYTHuLsB4hP/Mlm23xQ/CJQXlp4i1JbLU1Wuyt1ycHV2qdH5HYycsHxK1sUtsXX6x+
+ Riug==
+X-Gm-Message-State: AAQBX9c8A0UrHXw0JkxvIfdel9wwua0UHhxR+F2EiE5WkPc/N6MgZb+M
+ JnqodJ4dXamKRtPq79x+ffC//zQWIfSwzwGrUxA=
+X-Google-Smtp-Source: AKy350ZA77SnIoAzTWUi9VJIFz76juVzVs9+3J52xKSp+rzQ299bIeNmd2y7WLonuorLtUnK3lOZveb4QvN5gJmjiao=
 X-Received: by 2002:a54:448c:0:b0:389:4e54:79f0 with SMTP id
- v12-20020a54448c000000b003894e5479f0mr2230826oiv.3.1680290327768; Fri, 31 Mar
- 2023 12:18:47 -0700 (PDT)
+ v12-20020a54448c000000b003894e5479f0mr2240153oiv.3.1680291020818; Fri, 31 Mar
+ 2023 12:30:20 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230330191750.1134210-1-alexander.deucher@amd.com>
- <20230330191750.1134210-3-alexander.deucher@amd.com>
- <ecf2a379-4b8d-a168-f555-26f66d5d5e9b@amd.com>
-In-Reply-To: <ecf2a379-4b8d-a168-f555-26f66d5d5e9b@amd.com>
+References: <20230328001119.1363691-1-alexander.deucher@amd.com>
+ <cf5a5181-4c3c-10ff-1dff-36a34658cea7@amd.com>
+In-Reply-To: <cf5a5181-4c3c-10ff-1dff-36a34658cea7@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 31 Mar 2023 15:18:36 -0400
-Message-ID: <CADnq5_N2i63v3Ay9o00RoYMFkzwCdrHzCRPL43vGz0xtqeERcg@mail.gmail.com>
-Subject: Re: [PATCH 02/13] drm/amdgpu/gfx11: check the CP FW version CP GFX
- shadow support
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Date: Fri, 31 Mar 2023 15:30:09 -0400
+Message-ID: <CADnq5_P0VdXL=SC_2MWGHHOL+KZfrbkrvS=ko9sDnHbgocAhmg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: simplify amdgpu_ras_eeprom.c
+To: Luben Tuikov <luben.tuikov@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -73,53 +71,161 @@ Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 31, 2023 at 2:34=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
+On Tue, Mar 28, 2023 at 12:30=E2=80=AFPM Luben Tuikov <luben.tuikov@amd.com=
+> wrote:
 >
-> Am 30.03.23 um 21:17 schrieb Alex Deucher:
-> > Only set the supported flag if we have new enough CP FW.
+> On 2023-03-27 20:11, Alex Deucher wrote:
+> > All chips that support RAS also support IP discovery, so
+> > use the IP versions rather than a mix of IP versions and
+> > asic types.
 > >
-> > XXX: don't commit this until the CP FW versions are finalized!
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > Cc: Luben Tuikov <luben.tuikov@amd.com>
+> > ---
+> >  .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    | 72 ++++++-------------
+> >  1 file changed, 20 insertions(+), 52 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/g=
+pu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> > index 3106fa8a15ef..c2ef2b1456bc 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> > @@ -106,48 +106,13 @@
+> >  #define to_amdgpu_device(x) (container_of(x, struct amdgpu_ras, eeprom=
+_control))->adev
+> >
+> >  static bool __is_ras_eeprom_supported(struct amdgpu_device *adev)
+> > -{
+> > -     if (adev->asic_type =3D=3D CHIP_IP_DISCOVERY) {
+> > -             switch (adev->ip_versions[MP1_HWIP][0]) {
+> > -             case IP_VERSION(13, 0, 0):
+> > -             case IP_VERSION(13, 0, 10):
+> > -                     return true;
+> > -             default:
+> > -                     return false;
+> > -             }
+> > -     }
+> > -
+> > -     return  adev->asic_type =3D=3D CHIP_VEGA20 ||
+> > -             adev->asic_type =3D=3D CHIP_ARCTURUS ||
+> > -             adev->asic_type =3D=3D CHIP_SIENNA_CICHLID ||
+> > -             adev->asic_type =3D=3D CHIP_ALDEBARAN;
+> > -}
+> > -
+> > -static bool __get_eeprom_i2c_addr_arct(struct amdgpu_device *adev,
+> > -                                    struct amdgpu_ras_eeprom_control *=
+control)
+> > -{
+> > -     struct atom_context *atom_ctx =3D adev->mode_info.atom_context;
+> > -
+> > -     if (!control || !atom_ctx)
+> > -             return false;
+> > -
+> > -     if (strnstr(atom_ctx->vbios_version,
+> > -                 "D342",
+> > -                 sizeof(atom_ctx->vbios_version)))
+> > -             control->i2c_address =3D EEPROM_I2C_MADDR_0;
+> > -     else
+> > -             control->i2c_address =3D EEPROM_I2C_MADDR_4;
+> > -
+> > -     return true;
+> > -}
+> > -
+> > -static bool __get_eeprom_i2c_addr_ip_discovery(struct amdgpu_device *a=
+dev,
+> > -                                    struct amdgpu_ras_eeprom_control *=
+control)
+> >  {
+> >       switch (adev->ip_versions[MP1_HWIP][0]) {
+> > +     case IP_VERSION(11, 0, 2): /* VEGA20 and ARCTURUS */
+> > +     case IP_VERSION(11, 0, 7):
+> >       case IP_VERSION(13, 0, 0):
+> > +     case IP_VERSION(13, 0, 2):
+> >       case IP_VERSION(13, 0, 10):
 >
-> Maybe commit the rest of this series and just hold back this one?
->
-> It should still keep everything working.
+> I'd add the rest of the proper names here which are being deleted by this=
+ change,
+> so as to not lose this information by this commit: Sienna Cichlid and Ald=
+ebaran,
+> the rest can be left blank as per the current state of the code.
 
-Yes, that was my plan.
+Fixed.
+
+>
+> > -             control->i2c_address =3D EEPROM_I2C_MADDR_4;
+> >               return true;
+> >       default:
+> >               return false;
+> > @@ -178,29 +143,32 @@ static bool __get_eeprom_i2c_addr(struct amdgpu_d=
+evice *adev,
+> >               return true;
+> >       }
+> >
+> > -     switch (adev->asic_type) {
+> > -     case CHIP_VEGA20:
+> > -             control->i2c_address =3D EEPROM_I2C_MADDR_0;
+> > +     switch (adev->ip_versions[MP1_HWIP][0]) {
+> > +     case IP_VERSION(11, 0, 2):
+> > +             /* VEGA20 and ARCTURUS */
+> > +             if (adev->asic_type =3D=3D CHIP_VEGA20)
+> > +                     control->i2c_address =3D EEPROM_I2C_MADDR_0;
+> > +             else if (strnstr(atom_ctx->vbios_version,
+>
+> In the code this is qualified with atom_ctx !=3D NULL; and if it is,
+> then we return false. So, this is fine, iff we can guarantee that
+> "atom_ctx" will never be NULL. If, OTOH, we cannot guarantee that,
+> then we need to add,
+>                 else if (!atom_ctx)
+>                         return false;
+>                 else if (strnstr(...
+>
+> Although, I do recognize that for Aldebaran below, we do not qualify
+> atom_ctx, so we should probably qualify there too.
+
+This function is called after the vbios is initialized so I think we
+can drop the check.  vbios is fetched in amdgpu_device_ip_early_init()
+and ras is initialized in amdgpu_device_ip_init() which is called much
+later.
 
 Alex
 
 >
-> Regards,
-> Christian.
->
-> >
-> > Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 9 +++++++++
-> >   1 file changed, 9 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/a=
-md/amdgpu/gfx_v11_0.c
-> > index a0d830dc0d01..4a50d0fbcdcf 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> > @@ -469,6 +469,15 @@ static void gfx_v11_0_check_fw_cp_gfx_shadow(struc=
-t amdgpu_device *adev)
-> >       case IP_VERSION(11, 0, 0):
-> >       case IP_VERSION(11, 0, 2):
-> >       case IP_VERSION(11, 0, 3):
-> > +             /* XXX fix me! */
-> > +             if ((adev->gfx.me_fw_version >=3D 1498) &&
-> > +                 (adev->gfx.me_feature_version >=3D 29) &&
-> > +                 (adev->gfx.pfp_fw_version >=3D 1541) &&
-> > +                 (adev->gfx.pfp_feature_version >=3D 29) &&
-> > +                 (adev->gfx.mec_fw_version >=3D 507) &&
-> > +                 (adev->gfx.mec_feature_version >=3D 29))
-> > +                     adev->gfx.cp_gfx_shadow =3D true;
-> > +             break;
+> > +                              "D342",
+> > +                              sizeof(atom_ctx->vbios_version)))
+> > +                     control->i2c_address =3D EEPROM_I2C_MADDR_0;
+> > +             else
+> > +                     control->i2c_address =3D EEPROM_I2C_MADDR_4;
+> >               return true;
+> > -
+> > -     case CHIP_ARCTURUS:
+> > -             return __get_eeprom_i2c_addr_arct(adev, control);
+> > -
+> > -     case CHIP_SIENNA_CICHLID:
+> > +     case IP_VERSION(11, 0, 7):
+> >               control->i2c_address =3D EEPROM_I2C_MADDR_0;
+> >               return true;
+> > -
+> > -     case CHIP_ALDEBARAN:
+> > +     case IP_VERSION(13, 0, 2):
+> >               if (strnstr(atom_ctx->vbios_version, "D673",
+> >                           sizeof(atom_ctx->vbios_version)))
+> >                       control->i2c_address =3D EEPROM_I2C_MADDR_4;
+> >               else
+> >                       control->i2c_address =3D EEPROM_I2C_MADDR_0;
+> >               return true;
+> > -
+> > -     case CHIP_IP_DISCOVERY:
+> > -             return __get_eeprom_i2c_addr_ip_discovery(adev, control);
+> > -
+> > +     case IP_VERSION(13, 0, 0):
+> > +     case IP_VERSION(13, 0, 10):
+> > +             control->i2c_address =3D EEPROM_I2C_MADDR_4;
+> > +             return true;
 > >       default:
-> >               adev->gfx.cp_gfx_shadow =3D false;
-> >               break;
+> >               return false;
+> >       }
+>
+> --
+> Regards,
+> Luben
 >
