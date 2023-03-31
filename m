@@ -4,76 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACA28C761A6
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 17:16:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30A0AC76196
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 19:18:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FA9710E1DE;
-	Fri, 31 Mar 2023 17:16:52 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA13510E08C
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 16:40:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1680280850;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=S5srYW34Gq6Rc0mPy9hqCIRWz9WH4Jy0yDiTUMwyFoY=;
- b=GZO1jJkp/VbbiwwhG4md7LWiiSb3oB6sZAbdfBBnvgByUBDJO/sA/+xtLajQG7RZIXHRE4
- 4uwNfSEbWRuKU6hNLMxnOO3l6OBp0qFwb8wkCQpjSzxxcl0QdKlqZAqdos/+B0mI4qACiQ
- eO1FshtRS+I+nt3xghseZJi3xp13qpA=
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-595-I4VKiLhAOiKOoyMisZZYQg-1; Fri, 31 Mar 2023 12:40:46 -0400
-X-MC-Unique: I4VKiLhAOiKOoyMisZZYQg-1
-Received: by mail-qt1-f199.google.com with SMTP id
- h6-20020a05622a170600b003e22c6de617so15033449qtk.13
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 09:40:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABC3E10F2DE;
+	Fri, 31 Mar 2023 19:17:59 +0000 (UTC)
+Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
+ [IPv6:2607:f8b0:4864:20::22c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70AE310F2DB;
+ Fri, 31 Mar 2023 19:17:51 +0000 (UTC)
+Received: by mail-oi1-x22c.google.com with SMTP id bi31so17439410oib.9;
+ Fri, 31 Mar 2023 12:17:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1680290270;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dyUK9GE+quS5Hgwf5w2XMS5JC5zRXhYFpXjWFPP6RP8=;
+ b=nJ5Fv5nX0WXNS4A8UEr5XTitzzM3A9uac9Xsb/j6+qCsiC1L7IKY1zKhLU2D6XfPLH
+ 6pmEKmgJDjUGKqKgmdOFb9OZMTcuAB4+9klV50H2mN2gyTAFR97deoOKuUooQznComz+
+ J24BWLbKiw2nf3DSGB/NB/8rpG2DfLoNkjKWy6JZr+t31NqMsdUe40rYcGtVCjms/CDZ
+ C/srtSFx880KA2IL+clSzAYNk/o4sfKxcdzAkV8IRoOC8FNocDEtt2YcDI1y5gKf8eUa
+ 4P0FBMCXzwZJIS+YJoZ+09SxOD0sG6vZkSDwbEPLmUlcmf522bKeH0btK3uZUss0wxk6
+ PZEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680280845;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=S5srYW34Gq6Rc0mPy9hqCIRWz9WH4Jy0yDiTUMwyFoY=;
- b=rvnqqvIRUDVXvQ8GIL5/KC5Vin5++9NYfqIUGfrrhAKWarwmNWGPv74t+XXU/xnzbo
- Je9ty6Ij+/hfKGy1kJZo0d47zegs2/M0fftQfiHREx5/qhVKCDzSNe0IBCfKqIfoOmdX
- k17lmap1AWI+YZG8RCd4kUGPnnkg9ISVPaMKkLOHfp0Nxnu3s70rJh5fjtnYruqMXuIA
- xRiUsztu8OwfJeK28mLcINSj5dLiDJvu3b91wEkHl8prfYp1oFQKkeBIaXEWwcbf7TL6
- Y84981cQ3OysikveVL3FTOQ9AlaQZLJixObXsqsNtk/ZLQb4KnvMJasNQVHl7FP+Tpvg
- 63Iw==
-X-Gm-Message-State: AAQBX9fIEl5yL+7M92mn8qRhGMh/qZz4JcXpdRlQdlaeus6nfwbe2Wq0
- yPCy5RA/vm9drk3c/EWK0NEjQ5Ge7VS1uvHJY1aEJ1WeQSajh35wxzshyWezQLx4bDg9ug30PF3
- YMsdzwg0vEPAqdJFn3nRHkoGUjg==
-X-Received: by 2002:a05:622a:1a20:b0:3e3:9041:3f6e with SMTP id
- f32-20020a05622a1a2000b003e390413f6emr46722897qtb.7.1680280845097; 
- Fri, 31 Mar 2023 09:40:45 -0700 (PDT)
-X-Google-Smtp-Source: AK7set9AlG21wz/QX/2UqrS1W/pPfMtig2JbymMss4of37EbHIk5FJiRqMt3PBrL7AF9Ryxd9BM1Yg==
-X-Received: by 2002:a05:622a:1a20:b0:3e3:9041:3f6e with SMTP id
- f32-20020a05622a1a2000b003e390413f6emr46722869qtb.7.1680280844887; 
- Fri, 31 Mar 2023 09:40:44 -0700 (PDT)
-Received: from dell-per740-01.7a2m.lab.eng.bos.redhat.com
- (nat-pool-bos-t.redhat.com. [66.187.233.206])
- by smtp.gmail.com with ESMTPSA id
- c70-20020a379a49000000b00746ae84ea6csm797194qke.3.2023.03.31.09.40.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 31 Mar 2023 09:40:44 -0700 (PDT)
-From: Tom Rix <trix@redhat.com>
-To: evan.quan@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch, nathan@kernel.org,
- ndesaulniers@google.com, Hawking.Zhang@amd.com, kenneth.feng@amd.com,
- lijo.lazar@amd.com, KevinYang.Wang@amd.com, tim.huang@amd.com,
- andrealmeid@igalia.com, Kun.Liu2@amd.com, mario.limonciello@amd.com
-Subject: [PATCH] drm/amd/pm: remove unused num_of_active_display variable
-Date: Fri, 31 Mar 2023 12:40:41 -0400
-Message-Id: <20230331164041.1859088-1-trix@redhat.com>
-X-Mailer: git-send-email 2.27.0
+ d=1e100.net; s=20210112; t=1680290270;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=dyUK9GE+quS5Hgwf5w2XMS5JC5zRXhYFpXjWFPP6RP8=;
+ b=NIQDP4qb+DuGl/37X9+WlaiHnwIfuw6OBCGI58YxnW5AAQi8WZRhBS84UEMIsEi/a7
+ 6zfvuoo73A8wMpX4rhZdryN11ttCGfPZShHMAaqNk3SvBx1ahSgNyPR9Xf8CSGfIvy39
+ JJEqZss/QNzKU+OIhpiVMlWZtYDZ96sTi5GbAdR4EiH3BSSOQAFWuIfY8bCrD76h74t5
+ 7ihSV3QbOHMVfebVxh6vsusngOnLFzI8Zh22OZkMp18v2kagwLJBHXNNjzUZN+WI7su/
+ NP5Qe8Bkj+Vn5aj4vN6iRkegSm0fy/Z268yHZIBmRoUf4VDNjnlYSARX3JtkJNE4GplJ
+ z3ow==
+X-Gm-Message-State: AAQBX9fBceHL7TmPGPcjMUhs6zrSIgxwWvTdLjZrp3KloSzCnWAzunYt
+ 8UIZcwd5tqZh4vN3N3eQv/BaeJMinp56U1BdrdPY5Ui/
+X-Google-Smtp-Source: AKy350Z5Lw4lsx5IxbABdcfN0xax1adbEntwD2wG99oDjFQNyPVyWpYtOmpiMhr29+0LoYM1Hu8nGF3dIDfHzgwKji0=
+X-Received: by 2002:a54:4019:0:b0:386:a2d0:2814 with SMTP id
+ x25-20020a544019000000b00386a2d02814mr5024050oie.4.1680290270559; Fri, 31 Mar
+ 2023 12:17:50 -0700 (PDT)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
-X-Mailman-Approved-At: Fri, 31 Mar 2023 17:16:49 +0000
+References: <20230330195043.1136322-1-alexander.deucher@amd.com>
+ <aeb5c27e-121d-f666-249c-898e98d5ec2f@gmail.com>
+In-Reply-To: <aeb5c27e-121d-f666-249c-898e98d5ec2f@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 31 Mar 2023 15:17:39 -0400
+Message-ID: <CADnq5_MSAWnK18rbST28iJKTDM2Tr58wL7ak2CGoeJ845HTOqg@mail.gmail.com>
+Subject: Re: [PATCH] drm/ttm: add NUMA node id to the pool
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,49 +67,162 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tom Rix <trix@redhat.com>, llvm@lists.linux.dev,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: Felix Kuehling <felix.kuehling@amd.com>,
+ Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Graham Sider <graham.sider@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-clang with W=1 reports
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:1700:6: error: variable
-  'num_of_active_display' set but not used [-Werror,-Wunused-but-set-variable]
-        int num_of_active_display = 0;
-            ^
-This variable is not used so remove it.
+On Fri, Mar 31, 2023 at 2:54=E2=80=AFAM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> Should I push this to drm-misc-next or do we take it through
+> amd-staging-drm-next?
 
-Signed-off-by: Tom Rix <trix@redhat.com>
----
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 7 -------
- 1 file changed, 7 deletions(-)
+I think either way is fine.  We can carry it internally as needed for
+testing if you want to commit it to drm-misc-next.  I don't think
+there are any direct code dependencies, but you or Rajneesh can
+correct me if I'm wrong.
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index b5d64749990e..f93f7a9ed631 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -1696,8 +1696,6 @@ static int smu_display_configuration_change(void *handle,
- 					    const struct amd_pp_display_configuration *display_config)
- {
- 	struct smu_context *smu = handle;
--	int index = 0;
--	int num_of_active_display = 0;
- 
- 	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
- 		return -EOPNOTSUPP;
-@@ -1708,11 +1706,6 @@ static int smu_display_configuration_change(void *handle,
- 	smu_set_min_dcef_deep_sleep(smu,
- 				    display_config->min_dcef_deep_sleep_set_clk / 100);
- 
--	for (index = 0; index < display_config->num_path_including_non_display; index++) {
--		if (display_config->displays[index].controller_id != 0)
--			num_of_active_display++;
--	}
--
- 	return 0;
- }
- 
--- 
-2.27.0
+Alex
 
+>
+> Christian.
+>
+> Am 30.03.23 um 21:50 schrieb Alex Deucher:
+> > From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+> >
+> > This allows backing ttm_tt structure with pages from different NUMA
+> > pools.
+> >
+> > Tested-by: Graham Sider <graham.sider@amd.com>
+> > Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+> > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >   drivers/gpu/drm/ttm/ttm_device.c |  2 +-
+> >   drivers/gpu/drm/ttm/ttm_pool.c   | 13 ++++++++-----
+> >   include/drm/ttm/ttm_pool.h       |  4 +++-
+> >   3 files changed, 12 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm=
+_device.c
+> > index e7147e304637..4a8164a5320f 100644
+> > --- a/drivers/gpu/drm/ttm/ttm_device.c
+> > +++ b/drivers/gpu/drm/ttm/ttm_device.c
+> > @@ -218,7 +218,7 @@ int ttm_device_init(struct ttm_device *bdev, struct=
+ ttm_device_funcs *funcs,
+> >       bdev->funcs =3D funcs;
+> >
+> >       ttm_sys_man_init(bdev);
+> > -     ttm_pool_init(&bdev->pool, dev, use_dma_alloc, use_dma32);
+> > +     ttm_pool_init(&bdev->pool, dev, NUMA_NO_NODE, use_dma_alloc, use_=
+dma32);
+> >
+> >       bdev->vma_manager =3D vma_manager;
+> >       INIT_DELAYED_WORK(&bdev->wq, ttm_device_delayed_workqueue);
+> > diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_p=
+ool.c
+> > index 9f6764bf3b15..1068a41cded1 100644
+> > --- a/drivers/gpu/drm/ttm/ttm_pool.c
+> > +++ b/drivers/gpu/drm/ttm/ttm_pool.c
+> > @@ -92,7 +92,7 @@ static struct page *ttm_pool_alloc_page(struct ttm_po=
+ol *pool, gfp_t gfp_flags,
+> >                       __GFP_KSWAPD_RECLAIM;
+> >
+> >       if (!pool->use_dma_alloc) {
+> > -             p =3D alloc_pages(gfp_flags, order);
+> > +             p =3D alloc_pages_node(pool->nid, gfp_flags, order);
+> >               if (p)
+> >                       p->private =3D order;
+> >               return p;
+> > @@ -286,7 +286,7 @@ static struct ttm_pool_type *ttm_pool_select_type(s=
+truct ttm_pool *pool,
+> >                                                 enum ttm_caching cachin=
+g,
+> >                                                 unsigned int order)
+> >   {
+> > -     if (pool->use_dma_alloc)
+> > +     if (pool->use_dma_alloc || pool->nid !=3D NUMA_NO_NODE)
+> >               return &pool->caching[caching].orders[order];
+> >
+> >   #ifdef CONFIG_X86
+> > @@ -523,29 +523,32 @@ EXPORT_SYMBOL(ttm_pool_free);
+> >    *
+> >    * @pool: the pool to initialize
+> >    * @dev: device for DMA allocations and mappings
+> > + * @nid: NUMA node to use for allocations
+> >    * @use_dma_alloc: true if coherent DMA alloc should be used
+> >    * @use_dma32: true if GFP_DMA32 should be used
+> >    *
+> >    * Initialize the pool and its pool types.
+> >    */
+> >   void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
+> > -                bool use_dma_alloc, bool use_dma32)
+> > +                int nid, bool use_dma_alloc, bool use_dma32)
+> >   {
+> >       unsigned int i, j;
+> >
+> >       WARN_ON(!dev && use_dma_alloc);
+> >
+> >       pool->dev =3D dev;
+> > +     pool->nid =3D nid;
+> >       pool->use_dma_alloc =3D use_dma_alloc;
+> >       pool->use_dma32 =3D use_dma32;
+> >
+> > -     if (use_dma_alloc) {
+> > +     if (use_dma_alloc || nid !=3D NUMA_NO_NODE) {
+> >               for (i =3D 0; i < TTM_NUM_CACHING_TYPES; ++i)
+> >                       for (j =3D 0; j < MAX_ORDER; ++j)
+> >                               ttm_pool_type_init(&pool->caching[i].orde=
+rs[j],
+> >                                                  pool, i, j);
+> >       }
+> >   }
+> > +EXPORT_SYMBOL(ttm_pool_init);
+> >
+> >   /**
+> >    * ttm_pool_fini - Cleanup a pool
+> > @@ -559,7 +562,7 @@ void ttm_pool_fini(struct ttm_pool *pool)
+> >   {
+> >       unsigned int i, j;
+> >
+> > -     if (pool->use_dma_alloc) {
+> > +     if (pool->use_dma_alloc || pool->nid !=3D NUMA_NO_NODE) {
+> >               for (i =3D 0; i < TTM_NUM_CACHING_TYPES; ++i)
+> >                       for (j =3D 0; j < MAX_ORDER; ++j)
+> >                               ttm_pool_type_fini(&pool->caching[i].orde=
+rs[j]);
+> > diff --git a/include/drm/ttm/ttm_pool.h b/include/drm/ttm/ttm_pool.h
+> > index ef09b23d29e3..23bd8be6d4f8 100644
+> > --- a/include/drm/ttm/ttm_pool.h
+> > +++ b/include/drm/ttm/ttm_pool.h
+> > @@ -61,12 +61,14 @@ struct ttm_pool_type {
+> >    * struct ttm_pool - Pool for all caching and orders
+> >    *
+> >    * @dev: the device we allocate pages for
+> > + * @nid: which numa node to use
+> >    * @use_dma_alloc: if coherent DMA allocations should be used
+> >    * @use_dma32: if GFP_DMA32 should be used
+> >    * @caching: pools for each caching/order
+> >    */
+> >   struct ttm_pool {
+> >       struct device *dev;
+> > +     int nid;
+> >
+> >       bool use_dma_alloc;
+> >       bool use_dma32;
+> > @@ -81,7 +83,7 @@ int ttm_pool_alloc(struct ttm_pool *pool, struct ttm_=
+tt *tt,
+> >   void ttm_pool_free(struct ttm_pool *pool, struct ttm_tt *tt);
+> >
+> >   void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
+> > -                bool use_dma_alloc, bool use_dma32);
+> > +                int nid, bool use_dma_alloc, bool use_dma32);
+> >   void ttm_pool_fini(struct ttm_pool *pool);
+> >
+> >   int ttm_pool_debugfs(struct ttm_pool *pool, struct seq_file *m);
+>
