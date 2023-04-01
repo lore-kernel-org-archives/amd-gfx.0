@@ -4,91 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B9D8C761A6
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 22:46:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70474C77B61
+	for <amd-gfx@archiver.kernel.org>; Sat,  1 Apr 2023 01:42:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9ECE10F34A;
-	Fri, 31 Mar 2023 22:46:49 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20611.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eaa::611])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B8AD10F347
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 22:46:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DuDwgnPUEXWIG43fGF+zqUgkZTgyv40pdTM6fre/0msJ+hfQiqMUE/JNrdGD0zbwMYhYXjjv640dsBvw7njljO2fBbgLTFO9H4KWbzDNWXSvm8mQZO8CBjltPiqc+EgHTz8jo0h5QG+FvXZAGJNYi2JQRppG6DcjpruK8RXUSt0LvcYl8RKbCGFQyfPsJgxndn7vFi7Llr2w8wJ+c/o3NOKbuhBK7wj0cRFIBBMs2N8j898oT4WNS148UQEKNzGR+n59WLZR9V6Ngf9bEPiwQ6HJ8M1wO/ePVboDT3EgtyUniD1cbxSC0qEA9LOPtE7Sk65YR64SJhu+Mgg6qKNlnA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EiHSL/JgDIFAicnbNfeou4kQyO5n9JzsxVG8Qi60I3A=;
- b=DJdxr/5fXdR76es9B1y0oJLq29iQTjpGpxajieUOqF6Mm+FnkeAejIPY+QiPYPhjFZxszTmo1Vpkmq/UPEBh7iiackRhnSiH+nNUfMZyuSYk4rBlD5Lndvzwg8kVhrHY1A6rVZ1hdtxhbpE48acrxRvDnyCdTjVjQp7Jo9xSjfYZB/d1oRlXvtLfkpda6laNajh7joGWsX3jRlViUmX1DoOkl+hy3986t9+TzQkIHfbcgYVkToRm0NQEHLifReQxFooNfeopdHGcWmMlowi3+HmuaGsyBwRuXhs/BUAmOA6DKAK6GpygKwX+OMLRJCvSnv3dmYf0rMEHQzuhdIjAlw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EiHSL/JgDIFAicnbNfeou4kQyO5n9JzsxVG8Qi60I3A=;
- b=14vYcKBDsAeoMUt+kD8kQb3r/KRSNWnt0g3XiMXJAie7xGuamNfVvmGYXWYn/qSIVI3UTrzyhtK5b0XdC91gyalNkMIwvUhbqp21odLgyH2pSDnvRBK0mIs3zwbfUvfTHAohcageFGlutzr3ju1Vf92Rhv1IVUHN1FzY9EOdahg=
-Received: from MW4PR04CA0190.namprd04.prod.outlook.com (2603:10b6:303:86::15)
- by MN2PR12MB4174.namprd12.prod.outlook.com (2603:10b6:208:15f::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.23; Fri, 31 Mar
- 2023 22:46:38 +0000
-Received: from CO1NAM11FT042.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:86:cafe::a6) by MW4PR04CA0190.outlook.office365.com
- (2603:10b6:303:86::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.22 via Frontend
- Transport; Fri, 31 Mar 2023 22:46:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT042.mail.protection.outlook.com (10.13.174.250) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6254.22 via Frontend Transport; Fri, 31 Mar 2023 22:46:38 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 31 Mar
- 2023 17:46:36 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Enable persistent edc harvesting in APP APU
-Date: Fri, 31 Mar 2023 18:46:16 -0400
-Message-ID: <20230331224617.8961-2-alexander.deucher@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5037C10F360;
+	Sat,  1 Apr 2023 01:42:35 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7E1E10F360;
+ Sat,  1 Apr 2023 01:42:30 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id D7F37B83303;
+ Sat,  1 Apr 2023 01:42:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0D9BC433D2;
+ Sat,  1 Apr 2023 01:42:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1680313347;
+ bh=RvE78KytFAoRhZX6ykIgr1P/kHs/4e9J1365WZ43r7E=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=FeYR4ayCQxmqL1/fn+jKVO/QaM2WfrGqUWJ/bGgq3hz0XUtDrp7mzWyzjxNmWvMj8
+ 746iPoVROSD+vG542gkCJsNgWzwh4fD9VAmWJgzz6nPsVeZOBppTqlLyMVjTTfrWyD
+ WUxhAKHRS8G7OVqLk18wLbwQMZZ4vWJ68BdU1iDv/9shPKzab1Y7L2HivHElxNgXt4
+ w/NYQJyJGxA5m+elq9fGyrZ5gCfmGjm+/C4yCkUhVK0x9H1Vhhn1ErVLJlZyJ1vpfH
+ iowzkPCI6IcQPkuCBvO01srWjrIZLNPGSBzTNwigFD2OEhnTJQ4RD5BIAAKgroQkeJ
+ bn5qWTCJ0WCbA==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.2 22/25] drm/amdgpu: add mes resume when do gfx post
+ soft reset
+Date: Fri, 31 Mar 2023 21:41:20 -0400
+Message-Id: <20230401014126.3356410-22-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230331224617.8961-1-alexander.deucher@amd.com>
-References: <20230331224617.8961-1-alexander.deucher@amd.com>
+In-Reply-To: <20230401014126.3356410-1-sashal@kernel.org>
+References: <20230401014126.3356410-1-sashal@kernel.org>
 MIME-Version: 1.0
+X-stable: review
+X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT042:EE_|MN2PR12MB4174:EE_
-X-MS-Office365-Filtering-Correlation-Id: 710806fa-35f6-46ef-efc0-08db3239c9eb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: p5t6pAsgDwPWzKu/k9fjD9CGTR2V0CTDCsRGJPC8HTut9tAmOVaDTmo6qCs3EI74XKj+YwR4DkxnB0GBlPrSOygVUwvOnSjLFQYAJ3H/lbDgHVSPCVIIlUVD64dLB/K6BjngKUm4tImLgNtis1TA40MNCfvjdrxCEvj8jGdZy5vfQznQChnWx02i474EgLT1v605gQZtCebeoM72RAuEJ2wymQqX8Yg6dKSjKZRHIHBMk3molFN99SIkWymApGes9BCR+9jL1v2MFe870qq4PmrvDu+yqkA8P8V/xsfEz9FwcSVKoQAJ2BMrXaopgXZ5v41AMf3YNLmiW7xEyFq9ri+VoKLTO5/7WWnXI+rckjawlVe608oN76XVOJ9b70yA048FkXeS0ccDhuNXeAMpeoIy/WM0yMEaYdlCd0SOPQP/1pAZ05cz3A1m32LBmh2nh2LiUb5cbzbr6W+WATvjgWI3PcpF7+8CYy0VaEM06DNkh0rQd1Z/m6vq3Lr6CTdXyoYKrIO1xefgejZP5tuXhJfPUXFD9dYAiEFy8xCgnDEHyFj0hXFZFXKfnASqorm2xKl2crKhoFmcC8aE1qxZxaaDqdgEmIyWmXCypU/lmc1fKSUsfNf5+fN/Y/wKM3u0VEn9khcAszp79DXhYmQX9NBWHXaUXUDKKfUhN8NVTokQ4Hugl48jjpH6lHa1Qa0GrSbc4Fy/FgroNoi6+/+Vh3zVRxfdJ8q0NPq9xMUMcQI=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(396003)(346002)(39860400002)(136003)(451199021)(36840700001)(40470700004)(46966006)(54906003)(6916009)(8676002)(40460700003)(70586007)(70206006)(316002)(4326008)(36756003)(1076003)(6666004)(356005)(186003)(82740400003)(2616005)(16526019)(426003)(47076005)(83380400001)(81166007)(82310400005)(41300700001)(5660300002)(40480700001)(8936002)(7696005)(36860700001)(26005)(478600001)(2906002)(86362001)(4744005)(336012)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2023 22:46:38.3702 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 710806fa-35f6-46ef-efc0-08db3239c9eb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT042.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4174
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,36 +54,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, tim.huang@amd.com,
+ Tong Liu01 <Tong.Liu01@amd.com>, yifan1.zhang@amd.com, kenneth.feng@amd.com,
+ dri-devel@lists.freedesktop.org, Xinhui.Pan@amd.com,
+ amd-gfx@lists.freedesktop.org, mario.limonciello@amd.com, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, Likun.Gao@amd.com, evan.quan@amd.com,
+ airlied@gmail.com, christian.koenig@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Hawking Zhang <Hawking.Zhang@amd.com>
+From: Tong Liu01 <Tong.Liu01@amd.com>
 
-Persistent edc harvesting is supported in APP APU
+[ Upstream commit 4eb0b49a0ad3e004a6a65b84efe37bc7e66d560f ]
 
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+[why]
+when gfx do soft reset, mes will also do reset, if mes is not
+resumed when do recover from soft reset, mes is unable to respond
+in later sequence
+
+[how]
+resume mes when do gfx post soft reset
+
+Signed-off-by: Tong Liu01 <Tong.Liu01@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 5e9e617b0812..d5705ee99b4c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -2619,7 +2619,8 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
- 
- int amdgpu_persistent_edc_harvesting_supported(struct amdgpu_device *adev)
- {
--	if (adev->gmc.xgmi.connected_to_cpu)
-+	if (adev->gmc.xgmi.connected_to_cpu ||
-+	    adev->gmc.is_app_apu)
- 		return 1;
- 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 66eb102cd88fb..c748d92cec8e7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -4625,6 +4625,14 @@ static bool gfx_v11_0_check_soft_reset(void *handle)
+ 	return false;
  }
+ 
++static int gfx_v11_0_post_soft_reset(void *handle)
++{
++	/**
++	 * GFX soft reset will impact MES, need resume MES when do GFX soft reset
++	 */
++	return amdgpu_mes_resume((struct amdgpu_device *)handle);
++}
++
+ static uint64_t gfx_v11_0_get_gpu_clock_counter(struct amdgpu_device *adev)
+ {
+ 	uint64_t clock;
+@@ -6096,6 +6104,7 @@ static const struct amd_ip_funcs gfx_v11_0_ip_funcs = {
+ 	.wait_for_idle = gfx_v11_0_wait_for_idle,
+ 	.soft_reset = gfx_v11_0_soft_reset,
+ 	.check_soft_reset = gfx_v11_0_check_soft_reset,
++	.post_soft_reset = gfx_v11_0_post_soft_reset,
+ 	.set_clockgating_state = gfx_v11_0_set_clockgating_state,
+ 	.set_powergating_state = gfx_v11_0_set_powergating_state,
+ 	.get_clockgating_state = gfx_v11_0_get_clockgating_state,
 -- 
 2.39.2
 
