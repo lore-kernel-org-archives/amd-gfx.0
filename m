@@ -4,116 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3ACE9C761A6
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Apr 2023 14:15:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D4DFC77B6D
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Apr 2023 14:16:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3BB010E49E;
-	Mon,  3 Apr 2023 14:15:27 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4B1510E49E
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Apr 2023 14:15:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B51B810E4A1;
+	Mon,  3 Apr 2023 14:16:20 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2043.outbound.protection.outlook.com [40.107.237.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8CD810E4A3
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Apr 2023 14:16:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BmenxE7e5qzTL3HAGjPe/YgFyCwC0QtWwgIZs6Tz2C6WBSur6TElGCzISq2M60nqvSPBqRw7K1ENNyvmLaqIu9VYQx2+2LYd/ibVJoV5AVCXbLDo1rybzO+sk33ezsEdAVmDFsj4+2L+LFWpWivXLxDuZokmAj75wcIRsUUsD84so152gOa1NaY8QUaIiBCYJ/69yixirTXAwsU/UIYIeOJoNDbKL14i/S93SWDJK28PmnDz5+eMopnkojj8MQzk69Hm9zJr386jVCalMWfLQTi64kx8hGG1PAjCJuaYCfeZhMkmzQsI9isA4fgkXYduXr4AUhX/wNemy/EwY6Qnkg==
+ b=GkDptlqJ05SopozcC0fIBXwqd3vOdhyfisVulfL/r61V2VqwdpvBNHkAEaH4p/EYHZ9L2FAcfLf5TeiJl2yPJF6xpjJhyVQ/ML6FoxgoYSQOtlo9O9Ndop1aGTS4o8PFAa9N1RvghN6+X816s8Vt2gZMNX0wj+QzeT4IMReqiGdQZXLHwFdRMv79QoGPlLd8R75+cgrkDYOGnacKlWGM8v44rJh6d+VSyVRxQPgf4VDB+hCM4f5/AFT7ubabs+W9CM8MVSQGl7aJYYX+OtEfbQ5HFmehlDhwPwy1ALky5g5hOhMVlQxoDaHKgBNyKwnn05WhgiGKPz5YOHho2R+Zzw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qmB3z3m4sZURBmaxAghsSubyMLXp+5RtSFVO1dW2Mpc=;
- b=TuBO1IdpJ4LMtIUsUhAfhLatptFt2khIVUO4FPnT8sqXdPbLJ3vAsy1/bnGPTti0H3EjCODqDC2fO7W8fsyjYGkJXueNINi+On8WQcO35R2ZMczwta6K4FZwNhirNWlmycO8sdVvV59aeWVGw1DbVHvW7z9XURY9wPPD6aErwnE7+IyPXiTiXd1QjDbZl+hFC2pM+NlimU+BOurIHNZjI1F0zpYCuA1K2GO+MGIM7bVSQqnX5lbsFLaG8EMe0x9t80zHUh4ovj4HglPSGf/Gu5SdAWFD7pzPViSAVeUyCVCjfGgqtmgH8ZMUus5g9CwfWvT7tAQ5zjRI7WIBHzMWwA==
+ bh=ygBaga/W1iU7gqYNe1U6OkToimv2eTj/ux5p7avavuY=;
+ b=CLyioo1a0SH9mBs47sP9dm3fand2VylkWfU/kI87ne6djNwjwVCcjCl333Q9StCKGtq9nKV+CX5NBhl/GZUwRq/1TP4krolBpb90WZyNM6amb4AZR+5mna47C6XTixiCu8Z+Da2x2WFTk2w1+wMO/lmsQ0yAT7haTOfYqEp8SsNg0SSEfBtMZt2Ikn3Pko3JQXwcC2KdSsU+L1E0J7Z/Ui7ZXkXvUMpd4c9j3+bmw3oyGG8fP4EDEYe/iFG0dDy+eWCGg1y1w89zJb19XPYycc1Flu7hiA1VXCX7S4OPJIvwShUvZmF77tcBz8zab8sufdrqfi7EpRjd/fBAntjo+Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qmB3z3m4sZURBmaxAghsSubyMLXp+5RtSFVO1dW2Mpc=;
- b=eOPiEZ3JBEwSnJs8TplpEU3USIGRTz6k+qThRz1Uz/3QStLsdi96uXCHcTVJFQeNoxy9BeUpSCAlMxAIvUq1x8DkAbkUf3DyTAKOF5+XhdO2pWcreifc/lbS4VZ7rTtTOkMZi9dfPZw7lH/UGVfzyreMglayDsbjQM237KRsW3U=
+ bh=ygBaga/W1iU7gqYNe1U6OkToimv2eTj/ux5p7avavuY=;
+ b=tjeTkxkSWTwnqMYY0oPkULe3s9NTuxC9xcVd2W0ONvarnhgcSjGuCr1GdL1zUBWSXFMIEO+d6LKtYjDDZ10HN3fMSJZKyFHuEuBPgrabXdw7sQvVolt73ePgUB5O7h9PFVMd/3XiSDJ3rgxsLYBxexbQ+qZ7/tCWISwUB7Db1lc=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
- MN2PR12MB4501.namprd12.prod.outlook.com (2603:10b6:208:269::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.33; Mon, 3 Apr
- 2023 14:15:21 +0000
+ DM4PR12MB5072.namprd12.prod.outlook.com (2603:10b6:5:38b::22) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6254.33; Mon, 3 Apr 2023 14:16:16 +0000
 Received: from DM6PR12MB3370.namprd12.prod.outlook.com
  ([fe80::8299:158a:c296:de80]) by DM6PR12MB3370.namprd12.prod.outlook.com
  ([fe80::8299:158a:c296:de80%6]) with mapi id 15.20.6254.033; Mon, 3 Apr 2023
- 14:15:21 +0000
-Message-ID: <58d31076-0bef-8e8d-d0a1-03a2a4394ed1@amd.com>
-Date: Mon, 3 Apr 2023 10:15:18 -0400
+ 14:16:16 +0000
+Message-ID: <3d8cc4e4-8fd3-ffa2-b4fb-044cffac1181@amd.com>
+Date: Mon, 3 Apr 2023 10:16:13 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.1
-Content-Language: en-CA
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <20230328001119.1363691-1-alexander.deucher@amd.com>
- <cf5a5181-4c3c-10ff-1dff-36a34658cea7@amd.com>
- <CADnq5_P0VdXL=SC_2MWGHHOL+KZfrbkrvS=ko9sDnHbgocAhmg@mail.gmail.com>
-From: Luben Tuikov <luben.tuikov@amd.com>
 Subject: Re: [PATCH] drm/amdgpu: simplify amdgpu_ras_eeprom.c
-In-Reply-To: <CADnq5_P0VdXL=SC_2MWGHHOL+KZfrbkrvS=ko9sDnHbgocAhmg@mail.gmail.com>
+Content-Language: en-CA
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230331195422.1866769-1-alexander.deucher@amd.com>
+From: Luben Tuikov <luben.tuikov@amd.com>
+In-Reply-To: <20230331195422.1866769-1-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0284.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:109::12) To DM6PR12MB3370.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0286.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:109::6) To DM6PR12MB3370.namprd12.prod.outlook.com
  (2603:10b6:5:38::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|MN2PR12MB4501:EE_
-X-MS-Office365-Filtering-Correlation-Id: cebb0c45-1b02-49c2-0a61-08db344ddbe6
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|DM4PR12MB5072:EE_
+X-MS-Office365-Filtering-Correlation-Id: e8d457a2-58a4-4229-0d3c-08db344dfcdb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sahMlVvPEDMk389797i/jNknt6C8iFeoUurW5XjQlgDZi067MONlXxfstzr5yanWsUXOLk73m1a3T0e3WkysyroQ85BJsXxdp2uKo1mOBkL2eVM9ZUsBTFkRT+xlfOYYL9OFPpax/wbmoVuewuEE8ib6aRxUtNJ/P1yVvEobR7kJQByZxn9b1yopt+JgnWr5u7taTonIBA9L/+3nekEHgF5xb5ccUr7ntLGjLlzZvFjVPQC/B7+3yT5Zs+nrNeh5mxRnfs7+rxGezK/FXc+XYsc2d+HdPW+h8xyEAPZ6iN8mVTtPmhRw4T/UeB460IB3Kd7v70VffpJI1hcjwI+VIZEu2CKKKQCjwiLOMNJzV/uVtE5EK0r4FuqZBd8wNIb+5+cvTYlD52eppXEah/Z+dFGWNs6Jhal5ASMdizbCJ06gPASVYb+cn5r6z/+fbw6mVsFGWSYC+9DMJ+ykMSQWKO+AFH6VFGD3p2e9mCscRD0Hw9SfjRoJ5Pt4D0hNW+tyjDShuP+V+0GxRaLtWV8Y0qcre/arTzm9esgI0VoAJaWko84di6y3XGKl9pMNyHsOv2GtDuc3upbQrPgpDSR9KfGHduQnhXBjZoGsd+qAI3DZMSFnl9UAjuY7OWsou2a/iwrRZIXeJlXLbOxhyOMj3A==
+X-Microsoft-Antispam-Message-Info: WUHoU5EGeecrk3OLeXh3/xvpMdEfEhm6AUyrXQZmgjphbF5AcKAO/jX0QCE4ln41N0tKq/jnqrxzzGoslNqfZKhzQeZWwOdrvtNpntFYG/bIYSvWOugvlPoKGJ3W7HeAHyJ6Q6ZRMMvq2da4tHgWJYCyrldNWDXUFi5T/UtGSYAhx84IcSopFEPM129xHMjHm/V6m7+EQDWjB4pvGTwoZVtcNo09+aqDh0wZ0QFBVCJgQosAkiR7FDD4bgkQHLRn3rv+eXZDCIw1XDx2taTKscduzJfeIc6HGpKHkz2iDyS9uLIM8K1ZMGxsYAsTS+qsWQEz8kS6sHfM4JTVZzzSg99FQRrEBlYJk8/0ZstuoPYoC70oO6ntY8C5eQMFstmxxMah0Qdi4fseAkdT2fwcQYP7NOLb0mRJux6DwhL9MRqLkJonj/ELjLEXgLMS7ESwLIFm9W8lJmq7/SkgYEwq5sUWdg3xJpU6EJU9mKnNiUI5YQ0jzhGU9tjxgcM2E0hb/2GSBd43H7vQOa7qLjxFIC6VBS/n0R94wIAdNiNp3MmJFxsm7SIBGWiB7IryAh41MMwjoTP2Fuvf8a8qRTqdGiWpz70G8mhWZZKlFMIaIHiyxmk3/6AK/Y4xKBs8PzAZHrjmz/DAFXqDTOo5VOeQ4g==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(366004)(136003)(396003)(346002)(39860400002)(376002)(451199021)(53546011)(6666004)(186003)(26005)(55236004)(83380400001)(6916009)(6506007)(2616005)(478600001)(41300700001)(8676002)(66946007)(66556008)(4326008)(316002)(6486002)(66476007)(38100700002)(36756003)(2906002)(31696002)(86362001)(8936002)(5660300002)(44832011)(6512007)(31686004)(43740500002)(45980500001);
+ SFS:(13230028)(4636009)(346002)(39860400002)(366004)(136003)(376002)(396003)(451199021)(31686004)(31696002)(86362001)(38100700002)(316002)(2906002)(478600001)(41300700001)(6666004)(36756003)(5660300002)(53546011)(6486002)(6506007)(26005)(6512007)(55236004)(83380400001)(44832011)(66476007)(8676002)(66556008)(8936002)(66946007)(186003)(2616005)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RitpRk9xUWhaOVVNZkI3alBnNFNJRTNXSzVZSXVmQk1wM09ZTGpIS0lTRkU0?=
- =?utf-8?B?QjJIZ1BWSkhZQVBVNUlrajdsY0FQOHYxcVpabVRjZXFSOE5XME0yaDMzM3Ni?=
- =?utf-8?B?Vlo2M2hpNllMdXpTZHRRZzlKVWdhNlhZL1RHT2JXVjIxZkVhZ2s1Q3JtMkRV?=
- =?utf-8?B?bHhieEdBaWRsQ2xhdUxuUDBubVRoelRvN2FoOS9vN2xSOHNTcGtzbEhvdWdk?=
- =?utf-8?B?OEZjRFFHN0pFTkMyK1FBelpVL0t2a05Wak4xSm50cllxZDIraER6M2RiKzMr?=
- =?utf-8?B?SERNUmh2RlRSWGNYS0lEWGlVa2RRWWtVZFlwWXRPRmhVeDczcjlJa3hDajlo?=
- =?utf-8?B?TEZ3Q1kxbVQrUnlaNkR1UGJOV09nOXhzUVhJUTkwN1IxYU9pT3hqWndwbXRY?=
- =?utf-8?B?cEI1S2JtOFdNNXBScVFmRE9oWlE5NEdzVGl2elJLMDZsZ3VNQlJtcnp4Y3l0?=
- =?utf-8?B?VXRHd2hxWEpjSU1BSHBoVWN5cFZjZjhPUTI2MGpYNXl4OFpUcG1rTDhGU1Fy?=
- =?utf-8?B?TVg2cWtxZGNBdk81UytFbWE0cHM3SWUwc3g0MVFUQ3VmN0dNa0RTWWZzWTR2?=
- =?utf-8?B?UC9iaVpDM243enR1RDFoaUhwTkNvYmk0RUR1MFJGVXdIWlY5MHpHWlErMGlP?=
- =?utf-8?B?cnJSbUdiSjQ5UklxRXVGa0VITE5KSGJ5bFpBcDVVaDNNeW03SDIxWnprQlVV?=
- =?utf-8?B?enJmNi80L080ZWI2UDlBK3dxZ0VSb2JyRXVEVVpKeC96dFpTWENmTXhkY1Ez?=
- =?utf-8?B?UGU3ZWxjVzdKQ0kzTDdDSlZIYVJ3bjc4MWdmQ0g3ZkpBcFFNRm9FSmZZc01l?=
- =?utf-8?B?R0FhWHZZaC9sY0NJNFpUMVBXOEM3cG5LdHozMUlHWmZjajlCdTNoYlVLT3RY?=
- =?utf-8?B?dytNbVlMaTgxa2JYQS83a0xLVVBVaDJzaC9ZektxcmMrV3Y5enJDRjlaUkow?=
- =?utf-8?B?cVR4bjV6VmMwajIwazE2UjB6NThzZjhmQjhrRGtzMWlFWHNvVHZGd0pWODZS?=
- =?utf-8?B?MUhQQUpkemZoNThYTDlNeHU1QU1xMm1Ta3pkRXZGWmViNEthMzJGVmVQZXVG?=
- =?utf-8?B?K2IzN3liNUF3ckpGZ0dERUpJSlhiNTNPUWEwSGQ4OS9yZWU2ZC96MkpGRjFM?=
- =?utf-8?B?VDdYanFJWXUvZk4yRDUyTlBnNUJ3bU01cS9tdVoxVlE4cS8wQXBxZUlxRm9v?=
- =?utf-8?B?cDRzY2U0UmZML2pSZ2lFZU0xbjZHd01DUGxicUZEWEx1dDdzYkhMQ0c2MGlX?=
- =?utf-8?B?eTFwWlQzOU5VbE80K0FoVWREMHFrc0JaSDlmT2hQbm1aMmNYbGFNRHRrM2ta?=
- =?utf-8?B?SDJ5TGVZRDdEb0NPb1FUREpPM2lqME9qQXgvdUszMWNWamcrL3FPYTUxZlc2?=
- =?utf-8?B?UFBkTDdhUFdHVXBRTjAyQ3ErSURMOUFmTWFoWi9NOWxmdVVmcHVqajBCUW5I?=
- =?utf-8?B?QjFDQk50UU0rbTJKYTQ0NENNNnBrQWptRm51bldiR0llSmUreGJOakpHelFV?=
- =?utf-8?B?Qy9Ld3hlcU8zSXZOM1psZUdJU1JwajNyWFlNZjl3QVljai8ybmtYRnp6dXQv?=
- =?utf-8?B?Y3RRVHA2QUF4Wm9vWWoxMWVXbEUvd1NVM0FqSGFvQXY2QzJnTU1rNmVmYUYx?=
- =?utf-8?B?dnBwNVMwa2ppYjRRVDdVZHVDbnhoa1YyemRFU05qb3NRMkJRSEFIZGxVaVg3?=
- =?utf-8?B?WjRHQlA4U1g0czFvbEZqZHRlVTY5YWx6Vjh2UGlkNkRWQ2tmQXorVGFnSjAx?=
- =?utf-8?B?QVhIdmZmWFdUdnhXMy9mdDVmWi9FN0U2TjkzSlVSYVF3UmtYK3ppc01nNTla?=
- =?utf-8?B?K2ErcXZpWjlBNC9QMnNEWVdkVytuWXkyQXpRZ2xUWEs5clcrQytNZG1hQXlS?=
- =?utf-8?B?TC9XZ0xMeStsK3JhSElvdlc0N2RWUlE5ZXFUY2pXQm9aaU5RekwvY2NsbHRL?=
- =?utf-8?B?dGxReHRwRXkwb2lxdXdoUCthTC96bncxWTFRZmg3MFg4eE80M21CZlpEWEta?=
- =?utf-8?B?UHF4TTB1SVE4bjBkTWRnalYxLzJJYm5nNHdBdUo3TVlRMXZ6cXBHbFgwMHhv?=
- =?utf-8?B?MUd0QlhybHZ1MS9ZblcwZFkrTmdHTldIY1VTSkgwOXpsWjZRMVV1cEpHU3g2?=
- =?utf-8?Q?5aOyFHu7k32VyvqliPNKMluWb?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Tm9QTy9BbUI3a3Y1VnR3TlA2MzcwOWN6dE44OWR3eXQxcmZxZWM2dzZIK2hu?=
+ =?utf-8?B?VktHQjVJYUNWeFFyakpSYnBlMzBCSXZuT1RjMjNldDgyb2x3TWUvTFdNTFpv?=
+ =?utf-8?B?WGlyK1NCMU82V2pXcmtvVXNUVERsdG5YL0drbWNobDl1U1JxazVYNnB5MUFi?=
+ =?utf-8?B?UmF0eWlxbkJyY3R3ZUFGZ2h4cEdYaHp3TXhrKzFLSFdXV2NFOHFLL0svRmhT?=
+ =?utf-8?B?YWY2bkcySkpLbFk3dy9GNU9QOFpzVExBaFhXcExJL3JSdkxiMzNwSnRpdjJu?=
+ =?utf-8?B?T1Ivenl4U09IcjhkbE1nL2I2VGE1TE9yNXp2TUJKVzBMKzNwM0pENUp3ek93?=
+ =?utf-8?B?R1FsTE5ESnVpdFRsazJneTRFeGRNcXpIOFk4RTRyWFV1RElKeXVHajJDZ3I0?=
+ =?utf-8?B?V2FkMzBzaERKclNzUVRmbEoraEd3WGdvQlNUaEpiZUtqRlFjemRYUG1KcG5u?=
+ =?utf-8?B?aFc2YXVXMnlqL1RhUHhNNW40NkRIUFlsL3daRHFaSU1jVXlaWkdhVUtsOGdv?=
+ =?utf-8?B?ZFFqcjROK0NnQU1vSjhFZEVTSUsxdUE0VnBSdjg2UWwzYnI0QVhKbVoxOTFz?=
+ =?utf-8?B?YXUwaWttL0M5MVdpM0g1ZjlEWnZqWms3Ylp3ZlJmaFJVaWRwQ0lRUEROUWt5?=
+ =?utf-8?B?L1RLbUw0ZDZOS2hQanRWN2VkNnY3TlJiQ25LMm03QmtZU1d0NUE1bTJMOFEz?=
+ =?utf-8?B?VlUzTzZyb2Y1aStjaUhyNWFzSzMrOVRxRU9XUTRJaHRmT3YzM3hhL2JSN0Vz?=
+ =?utf-8?B?NW9mdW12VE1WRW5mOTA5eUVDWC9KNlIrUkphTzdTaEYxMG1uT1FjTVpPZ2ZK?=
+ =?utf-8?B?cDBUK2pTcEhmQWQ5OU55ZGV3T0k1Rk1lSXdTbk52RDBjYXIrTjU1T28wekw5?=
+ =?utf-8?B?am1oeDN5aDdwamZBc0hxODR1V1FhbEJ1RmtXMjNQZnVFazI1RjBFTXdaL2Rp?=
+ =?utf-8?B?WVlobVhpVVp6NlBqQTc2WGxmTCtMSHdZYW94SExCbmRKTGVoNEtQNldVMW50?=
+ =?utf-8?B?aGQ0VWI5bUViVlhEOWlSOHVCMURYaGlUb1VhY3lwOWdNbUdxcVVGTEEwZHMw?=
+ =?utf-8?B?NDkvYzVvR20wSlpmNHByU2Q2SlRQV1JYaThmbS83K0dpVTduT21ObDlXNVhu?=
+ =?utf-8?B?Q3MwWlVkZEVHRVdhZ1Vhc2xra1Q5a3JQcU9tckRVNGJaV2hTTVBVOTdwODR6?=
+ =?utf-8?B?Y3I0SnVvQ0J1ZjgrRWtyVVQzNzRzQXBxd2VqdUhGN1o4bXB3MjBVSzdjajJh?=
+ =?utf-8?B?bEJSVHRIY2RMWHBLck5vSTdZRlc3d1o4cmtOT014bjVoUmhNTEFBamtxOWhP?=
+ =?utf-8?B?WnE2amJqN3ZiSWlGLzhGNW0xSktsUW9BQnJWc25PVEhSSVRVZ0hJZk0rQjNx?=
+ =?utf-8?B?cEMySzRmVjRCWENWSzQ2VEluZkZLNklEYU5jTDBRZWI4dmxtRjVOcndTWENn?=
+ =?utf-8?B?TXhMSW1sZ1NGRzhoeE5hT0V6YjZwY2hQU3JMNGlBV3pTdlVVTzdjVlZzQ2ti?=
+ =?utf-8?B?V0RxNlVmbjZIbG5wOFFZZWdaOWkxMkdnb3JDNlFhbkpEVXNES3hVK0ZkYlpj?=
+ =?utf-8?B?d2dQbkNsTm8yY3MrS3JRbjcxSENaa0tHUlRRa0JndllGVDQ4YmdDU3ZSaFph?=
+ =?utf-8?B?SkRKeXREa2RqdzFaVm5TbUMyYkxESXJ0ajhuMzBjb2lxK256VDRsK281YVlv?=
+ =?utf-8?B?YjVXTVNzWVVYY3pMZjlhYXFTL1oyWTcvNFVkMUR6bXYzV1UxZVN3SnlHU3Q4?=
+ =?utf-8?B?VExhb3M4N3pmWHFIaDJGT3pWTWV0c2pRNmw1TGJIKzM5clBtaklmSnNadHha?=
+ =?utf-8?B?UXpiWloxYVZvYkR6TDNSVVMvUFluSFkzYXNwQmdUaGl4TVduMXB6NHZIVkRi?=
+ =?utf-8?B?VWJWVyszNzBySmNHd0l6ZktlM3d6d1JLZHEzYkl4WjhGUHZzZ3NaaDAxRzVh?=
+ =?utf-8?B?Y2t5dThsTzZzb1BxTnpZamVYdE8rK2VIaE1LZjc0d1VzanoyVXZDUGliWWd2?=
+ =?utf-8?B?ZjZlZ2d4dm8xOUF3UVRQWUpMWEhsL0lncXpGQjNUZkJwV0R5VWZpZGI4Q1Y4?=
+ =?utf-8?B?em43UmpXS3U5bFhrc0xzaEsxZDQzUjc1Z25pRDM4dEhTWVBzem13Y2llaUtW?=
+ =?utf-8?Q?/W4q3hhYpznJjqY/7uRsdwTZd?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cebb0c45-1b02-49c2-0a61-08db344ddbe6
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8d457a2-58a4-4229-0d3c-08db344dfcdb
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2023 14:15:21.1277 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2023 14:16:16.6408 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tb+BnY5Cw3j0ermWdtHTcDBbm/4khH5xePHKIq9/DlcH99oZtilflG5I5mglxxJ9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4501
+X-MS-Exchange-CrossTenant-UserPrincipalName: 31m7wSRrKtutZez4Tfm8IeeS7yh+Q7cKait1ATBLyn8BRxT7UaIfqGTQ+aWUtKa7
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5072
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,170 +123,132 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2023-03-31 15:30, Alex Deucher wrote:
-> On Tue, Mar 28, 2023 at 12:30 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
->>
->> On 2023-03-27 20:11, Alex Deucher wrote:
->>> All chips that support RAS also support IP discovery, so
->>> use the IP versions rather than a mix of IP versions and
->>> asic types.
->>>
->>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->>> Cc: Luben Tuikov <luben.tuikov@amd.com>
->>> ---
->>>  .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    | 72 ++++++-------------
->>>  1 file changed, 20 insertions(+), 52 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
->>> index 3106fa8a15ef..c2ef2b1456bc 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
->>> @@ -106,48 +106,13 @@
->>>  #define to_amdgpu_device(x) (container_of(x, struct amdgpu_ras, eeprom_control))->adev
->>>
->>>  static bool __is_ras_eeprom_supported(struct amdgpu_device *adev)
->>> -{
->>> -     if (adev->asic_type == CHIP_IP_DISCOVERY) {
->>> -             switch (adev->ip_versions[MP1_HWIP][0]) {
->>> -             case IP_VERSION(13, 0, 0):
->>> -             case IP_VERSION(13, 0, 10):
->>> -                     return true;
->>> -             default:
->>> -                     return false;
->>> -             }
->>> -     }
->>> -
->>> -     return  adev->asic_type == CHIP_VEGA20 ||
->>> -             adev->asic_type == CHIP_ARCTURUS ||
->>> -             adev->asic_type == CHIP_SIENNA_CICHLID ||
->>> -             adev->asic_type == CHIP_ALDEBARAN;
->>> -}
->>> -
->>> -static bool __get_eeprom_i2c_addr_arct(struct amdgpu_device *adev,
->>> -                                    struct amdgpu_ras_eeprom_control *control)
->>> -{
->>> -     struct atom_context *atom_ctx = adev->mode_info.atom_context;
->>> -
->>> -     if (!control || !atom_ctx)
->>> -             return false;
->>> -
->>> -     if (strnstr(atom_ctx->vbios_version,
->>> -                 "D342",
->>> -                 sizeof(atom_ctx->vbios_version)))
->>> -             control->i2c_address = EEPROM_I2C_MADDR_0;
->>> -     else
->>> -             control->i2c_address = EEPROM_I2C_MADDR_4;
->>> -
->>> -     return true;
->>> -}
->>> -
->>> -static bool __get_eeprom_i2c_addr_ip_discovery(struct amdgpu_device *adev,
->>> -                                    struct amdgpu_ras_eeprom_control *control)
->>>  {
->>>       switch (adev->ip_versions[MP1_HWIP][0]) {
->>> +     case IP_VERSION(11, 0, 2): /* VEGA20 and ARCTURUS */
->>> +     case IP_VERSION(11, 0, 7):
->>>       case IP_VERSION(13, 0, 0):
->>> +     case IP_VERSION(13, 0, 2):
->>>       case IP_VERSION(13, 0, 10):
->>
->> I'd add the rest of the proper names here which are being deleted by this change,
->> so as to not lose this information by this commit: Sienna Cichlid and Aldebaran,
->> the rest can be left blank as per the current state of the code.
-> 
-> Fixed.
-> 
->>
->>> -             control->i2c_address = EEPROM_I2C_MADDR_4;
->>>               return true;
->>>       default:
->>>               return false;
->>> @@ -178,29 +143,32 @@ static bool __get_eeprom_i2c_addr(struct amdgpu_device *adev,
->>>               return true;
->>>       }
->>>
->>> -     switch (adev->asic_type) {
->>> -     case CHIP_VEGA20:
->>> -             control->i2c_address = EEPROM_I2C_MADDR_0;
->>> +     switch (adev->ip_versions[MP1_HWIP][0]) {
->>> +     case IP_VERSION(11, 0, 2):
->>> +             /* VEGA20 and ARCTURUS */
->>> +             if (adev->asic_type == CHIP_VEGA20)
->>> +                     control->i2c_address = EEPROM_I2C_MADDR_0;
->>> +             else if (strnstr(atom_ctx->vbios_version,
->>
->> In the code this is qualified with atom_ctx != NULL; and if it is,
->> then we return false. So, this is fine, iff we can guarantee that
->> "atom_ctx" will never be NULL. If, OTOH, we cannot guarantee that,
->> then we need to add,
->>                 else if (!atom_ctx)
->>                         return false;
->>                 else if (strnstr(...
->>
->> Although, I do recognize that for Aldebaran below, we do not qualify
->> atom_ctx, so we should probably qualify there too.
-> 
-> This function is called after the vbios is initialized so I think we
-> can drop the check.  vbios is fetched in amdgpu_device_ip_early_init()
-> and ras is initialized in amdgpu_device_ip_init() which is called much
-> later.
-
-Okay, so we can guarantee that atom_ctx is not NULL at this point.
-Add my,
+This patch is,
 
 Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
-
-And if in the wild we see that it is, it'll be an easy fix.
 
 Regards,
 Luben
 
-
+On 2023-03-31 15:54, Alex Deucher wrote:
+> All chips that support RAS also support IP discovery, so
+> use the IP versions rather than a mix of IP versions and
+> asic types.  Checking the validity of the atom_ctx pointer
+> is not required as the vbios is already fetched at this
+> point.
 > 
-> Alex
+> v2: add comments to id asic types based on feedback from Luben
 > 
->>
->>> +                              "D342",
->>> +                              sizeof(atom_ctx->vbios_version)))
->>> +                     control->i2c_address = EEPROM_I2C_MADDR_0;
->>> +             else
->>> +                     control->i2c_address = EEPROM_I2C_MADDR_4;
->>>               return true;
->>> -
->>> -     case CHIP_ARCTURUS:
->>> -             return __get_eeprom_i2c_addr_arct(adev, control);
->>> -
->>> -     case CHIP_SIENNA_CICHLID:
->>> +     case IP_VERSION(11, 0, 7):
->>>               control->i2c_address = EEPROM_I2C_MADDR_0;
->>>               return true;
->>> -
->>> -     case CHIP_ALDEBARAN:
->>> +     case IP_VERSION(13, 0, 2):
->>>               if (strnstr(atom_ctx->vbios_version, "D673",
->>>                           sizeof(atom_ctx->vbios_version)))
->>>                       control->i2c_address = EEPROM_I2C_MADDR_4;
->>>               else
->>>                       control->i2c_address = EEPROM_I2C_MADDR_0;
->>>               return true;
->>> -
->>> -     case CHIP_IP_DISCOVERY:
->>> -             return __get_eeprom_i2c_addr_ip_discovery(adev, control);
->>> -
->>> +     case IP_VERSION(13, 0, 0):
->>> +     case IP_VERSION(13, 0, 10):
->>> +             control->i2c_address = EEPROM_I2C_MADDR_4;
->>> +             return true;
->>>       default:
->>>               return false;
->>>       }
->>
->> --
->> Regards,
->> Luben
->>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Luben Tuikov <luben.tuikov@amd.com>
+> ---
+>  .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    | 72 ++++++-------------
+>  1 file changed, 20 insertions(+), 52 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> index 3106fa8a15ef..c2c2a7718613 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> @@ -106,48 +106,13 @@
+>  #define to_amdgpu_device(x) (container_of(x, struct amdgpu_ras, eeprom_control))->adev
+>  
+>  static bool __is_ras_eeprom_supported(struct amdgpu_device *adev)
+> -{
+> -	if (adev->asic_type == CHIP_IP_DISCOVERY) {
+> -		switch (adev->ip_versions[MP1_HWIP][0]) {
+> -		case IP_VERSION(13, 0, 0):
+> -		case IP_VERSION(13, 0, 10):
+> -			return true;
+> -		default:
+> -			return false;
+> -		}
+> -	}
+> -
+> -	return  adev->asic_type == CHIP_VEGA20 ||
+> -		adev->asic_type == CHIP_ARCTURUS ||
+> -		adev->asic_type == CHIP_SIENNA_CICHLID ||
+> -		adev->asic_type == CHIP_ALDEBARAN;
+> -}
+> -
+> -static bool __get_eeprom_i2c_addr_arct(struct amdgpu_device *adev,
+> -				       struct amdgpu_ras_eeprom_control *control)
+> -{
+> -	struct atom_context *atom_ctx = adev->mode_info.atom_context;
+> -
+> -	if (!control || !atom_ctx)
+> -		return false;
+> -
+> -	if (strnstr(atom_ctx->vbios_version,
+> -	            "D342",
+> -		    sizeof(atom_ctx->vbios_version)))
+> -		control->i2c_address = EEPROM_I2C_MADDR_0;
+> -	else
+> -		control->i2c_address = EEPROM_I2C_MADDR_4;
+> -
+> -	return true;
+> -}
+> -
+> -static bool __get_eeprom_i2c_addr_ip_discovery(struct amdgpu_device *adev,
+> -				       struct amdgpu_ras_eeprom_control *control)
+>  {
+>  	switch (adev->ip_versions[MP1_HWIP][0]) {
+> +	case IP_VERSION(11, 0, 2): /* VEGA20 and ARCTURUS */
+> +	case IP_VERSION(11, 0, 7): /* Sienna cichlid */
+>  	case IP_VERSION(13, 0, 0):
+> +	case IP_VERSION(13, 0, 2): /* Aldebaran */
+>  	case IP_VERSION(13, 0, 10):
+> -		control->i2c_address = EEPROM_I2C_MADDR_4;
+>  		return true;
+>  	default:
+>  		return false;
+> @@ -178,29 +143,32 @@ static bool __get_eeprom_i2c_addr(struct amdgpu_device *adev,
+>  		return true;
+>  	}
+>  
+> -	switch (adev->asic_type) {
+> -	case CHIP_VEGA20:
+> -		control->i2c_address = EEPROM_I2C_MADDR_0;
+> +	switch (adev->ip_versions[MP1_HWIP][0]) {
+> +	case IP_VERSION(11, 0, 2):
+> +		/* VEGA20 and ARCTURUS */
+> +		if (adev->asic_type == CHIP_VEGA20)
+> +			control->i2c_address = EEPROM_I2C_MADDR_0;
+> +		else if (strnstr(atom_ctx->vbios_version,
+> +				 "D342",
+> +				 sizeof(atom_ctx->vbios_version)))
+> +			control->i2c_address = EEPROM_I2C_MADDR_0;
+> +		else
+> +			control->i2c_address = EEPROM_I2C_MADDR_4;
+>  		return true;
+> -
+> -	case CHIP_ARCTURUS:
+> -		return __get_eeprom_i2c_addr_arct(adev, control);
+> -
+> -	case CHIP_SIENNA_CICHLID:
+> +	case IP_VERSION(11, 0, 7):
+>  		control->i2c_address = EEPROM_I2C_MADDR_0;
+>  		return true;
+> -
+> -	case CHIP_ALDEBARAN:
+> +	case IP_VERSION(13, 0, 2):
+>  		if (strnstr(atom_ctx->vbios_version, "D673",
+>  			    sizeof(atom_ctx->vbios_version)))
+>  			control->i2c_address = EEPROM_I2C_MADDR_4;
+>  		else
+>  			control->i2c_address = EEPROM_I2C_MADDR_0;
+>  		return true;
+> -
+> -	case CHIP_IP_DISCOVERY:
+> -		return __get_eeprom_i2c_addr_ip_discovery(adev, control);
+> -
+> +	case IP_VERSION(13, 0, 0):
+> +	case IP_VERSION(13, 0, 10):
+> +		control->i2c_address = EEPROM_I2C_MADDR_4;
+> +		return true;
+>  	default:
+>  		return false;
+>  	}
 
