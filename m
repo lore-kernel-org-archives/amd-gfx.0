@@ -4,89 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE87FC76196
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Apr 2023 18:00:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FF43C76188
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Apr 2023 19:41:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53B5B10E038;
-	Mon,  3 Apr 2023 18:00:11 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20611.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5b::611])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2923010E0BF
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Apr 2023 18:00:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Nf9NqGo6WCFMcntnAHHSAfDxm+2XSMWJpGMNlnL2bkvsiwp2TtxmCIPypIISnCsKbJAWssPeO0vp9smKVoBa01rshTAOpfdHeqQFKQuNmrKVQ30g8miRHfx+CM2X1hmJrqkMt3Utcaa4fzMAdVdZjiVILER0L9nCFXueykCPqK4p9BcMIbdgGpYsZ1hEY/OJBJ6lFtb2w/JKf6GoEBFFaz/bhPh8sYYgKCI46EIneqyIJ+vyKogXn4tFkGxSptUX/cHb51Q5wGoySz4rQE+cdGojwlz9cvoscupDAmqwxxjcTJrzyYK1e12KS0ldx4LUDqhgS+5xuSu3rxd0dZvEhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dtiMRMtZhELG4cWU4GgyN/IQegD4k4wBL7SkFGCsu6M=;
- b=GXRRBxiF8p0PE3t3BIpHwjCG7ZD+86qDyBFIEe+rU41S3THtiAs4WG2sy0QoDaBI8vlgDD/cWHPOMks1EkqPk5MywbsNUTel+tBsl/dOOilxBVCsufnwDwEu1jjj+9gk4IAZeDpBCosR9Dw4IFzmztLruQyeRmRgHhL3JYWDzq/MgZlRQpLPpkUQNno51fS9dVSbq/OhR9nWXOE+TwxeSAXLPHehS8mQWIGTfBMfEOeNIT+B6Mwi0EdQiJ+KFGioov1Otqy6CycejxpG/FrM7CtYajL6fDq9Tql9CHBgli9AkpdrxaZNNMW/Mkn0fDQJCulQ3W5hst7pWbzE2DcMLg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dtiMRMtZhELG4cWU4GgyN/IQegD4k4wBL7SkFGCsu6M=;
- b=z19ov0Z329VZ64fJbY+gzEtxESe9idAlCLlvSsM1vvEinCzhr6scHfDRuov5oghRDB9nXcBtLZsN9hcKxfwzX1ELUGT6+mRNDXb8MekB1ut7zryZ7eQ1quDbxpl/IlXzZN1aaAPDVzvY/Dj4wkLZCzaClplvT/EuqvH7jo6l9y0=
-Received: from CY5PR22CA0008.namprd22.prod.outlook.com (2603:10b6:930:16::31)
- by CY8PR12MB7242.namprd12.prod.outlook.com (2603:10b6:930:59::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.29; Mon, 3 Apr
- 2023 18:00:05 +0000
-Received: from CY4PEPF0000C96B.namprd02.prod.outlook.com
- (2603:10b6:930:16:cafe::25) by CY5PR22CA0008.outlook.office365.com
- (2603:10b6:930:16::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.22 via Frontend
- Transport; Mon, 3 Apr 2023 18:00:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000C96B.mail.protection.outlook.com (10.167.241.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.30 via Frontend Transport; Mon, 3 Apr 2023 18:00:05 +0000
-Received: from eric-hp-elitebook-845-g7.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.34; Mon, 3 Apr 2023 13:00:02 -0500
-From: Eric Huang <jinhuieric.huang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdkfd: Fix dmabuf's redundant eviction when unmapping
-Date: Mon, 3 Apr 2023 13:59:49 -0400
-Message-ID: <20230403175949.131530-1-jinhuieric.huang@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FFAE10E177;
+	Mon,  3 Apr 2023 19:41:16 +0000 (UTC)
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [IPv6:2a00:1450:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 998FB10E176
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Apr 2023 19:41:15 +0000 (UTC)
+Received: by mail-wm1-x330.google.com with SMTP id
+ bg16-20020a05600c3c9000b003eb34e21bdfso20550191wmb.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 03 Apr 2023 12:41:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=froggi.es; s=google; t=1680550874;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=orMdBEc3/RmwPvEOZPHju61Hcg5STsDr6ot7AN4t8dw=;
+ b=Cs+8iiOkPMVQqjr1dTG42pLCMG/idCBMT+RzTM+FSwtEYqlYmaY1btysclzLkFZccI
+ OpgkgUsUkT/sQOPVP36lZbqiyyFXhBeYn8NjeqlKa93SDLFh2xOUaRMSpDZXReyG7pBb
+ 01q6WwofKPyJy28k6p/Gg4p4Y2jQzndp/HICiTetGhkrH2GTatcVNynOTpLefu8P1AlX
+ /UvbxeqU3q0FUcFXAkjpj+hwFgWsr5RKjtOmMBgcDZDdHt/QsGThDUFdb1DbmkaEKkAB
+ TT5UWZbvZZRU+Qw/JXfGrImsV+bPJofZx5DwssLDXWt0Nst7ZSyoFbYWgf4F8AB7G56W
+ D3DA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1680550874;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=orMdBEc3/RmwPvEOZPHju61Hcg5STsDr6ot7AN4t8dw=;
+ b=cupcWzjAnFOC6We5W/HaqqH+qwL+fBdVIzyO9skzvE8ZB/135axQHKd/m6WDrptMVE
+ k+N1nnOO5StGZK0RCnv1TW3/ZU67ck8wPIGe0FzCxQYGpHzTBsFxMLDfFbmML51NpX/G
+ PtrhbxTA7jyGVVexXTObETr8CehzFH1zEKvPMFHZ3NSFvFzGbUNZConF2fkUfsDkNA2M
+ kq2SrnUD9q20WNytYRkn2iFgBvaP7VZrhoihqHjNDmQkGU2JrcKZycHDSiI9/h8F7LBe
+ EoBobuuZyr+1xPVLl49PsnC5nhlMhklSm12ft122wuSMH+BLfGUL5kvGn4uyY2ZaGtjf
+ 3Tbw==
+X-Gm-Message-State: AAQBX9c5lGbhTwO+jNiZw/TDftUWfSIdGVcEvpF2056AJ9H3zZ80ahsd
+ 8bVHpFDKTHUwIPEnfxoJibUVfQ==
+X-Google-Smtp-Source: AKy350YMooipic8wGoMCR1fAHCdpyNNsyJhW0YLp85S1PDNq3G3+uBw99GFalgjrELqeQk4R5BNueA==
+X-Received: by 2002:a05:600c:2255:b0:3ed:711c:e8fe with SMTP id
+ a21-20020a05600c225500b003ed711ce8femr466489wmm.2.1680550873854; 
+ Mon, 03 Apr 2023 12:41:13 -0700 (PDT)
+Received: from localhost.localdomain
+ (darl-09-b2-v4wan-165404-cust288.vm5.cable.virginm.net. [86.17.61.33])
+ by smtp.gmail.com with ESMTPSA id
+ u17-20020a7bcb11000000b003ef5db16176sm13036342wmj.32.2023.04.03.12.41.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Apr 2023 12:41:13 -0700 (PDT)
+From: Joshua Ashton <joshua@froggi.es>
+To: dri-devel@lists.freedesktop.org,
+	amd-gfx@lists.freedesktop.org
+Subject: [RFC PATCH 0/4] uapi, drm: Add and implement RLIMIT_GPUPRIO
+Date: Mon,  3 Apr 2023 20:40:54 +0100
+Message-Id: <20230403194058.25958-1-joshua@froggi.es>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000C96B:EE_|CY8PR12MB7242:EE_
-X-MS-Office365-Filtering-Correlation-Id: 00039fdf-e3a3-4ccc-2f90-08db346d416c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lHN8Jv2VQ8bewaFIft3tzhNtRbi/mdHsK+PSNzPvWotmKiht/iS7Xx6VMYNhR7fZNTnRYLKXuaFPr/HRf8NQ+hRLMyqpB8giOGzT6JYJPMN3EO8x9paAnMy9WgxFgonjIPKMCcqDtyrYEyeV2LYL9nIOZgBnXvkAnKtWWCy3hY2cpXtfdqQmhqapgzibsZx6TB3dMVnlxVOiAay0b+zw+eSPIxBVV5BBRyU3ga79P3RFKB4b/thdmloouTKVKUAS2pU0l+yDWdN4uq+YchOoVo3VTbv3fJLnZ2d30hC4s7c3ygFf8doomvCjSSlUiWqrjKW9WtlSyoVlT0V6p1rfb+cP6GkwSx8XW56afcHS/OR9tIIpOJv0qKmmYhUVA80DI9bUqKGZTTFN6Ttm82whrioZQc8MURqx86lK1oBdy1DyNi+IJKd12cGv0i6MYTydTfvEJBPjz9TlUuv/P5Ca9r8qmTUqqT3Qo/jP/SkWar1m6bDt2DFBUyFVjNa4aIpmv75jsMl88Ng7FQY9UqT6T+bUH+NXbOFQurrE3W6LnkRQKkO+3w+lojlY+UJ2/tXPe19hE3ejwpP9kw79v33f9g/1ocgQtglG9JxD/tNTlUutFTYIp4FzSQxxlqCAemViiWe0IVyuoiOyLXTmjHBfyiiJDLO03fHWI+keoWjnmsw+LhdRfhUxeSiIaKi/pqvIrSXnwACfDwflY/JvxbG9nCUgS2qOHGldRyN+v4tAVEs=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(39860400002)(346002)(396003)(376002)(451199021)(36840700001)(40470700004)(46966006)(5660300002)(6666004)(7696005)(40460700003)(70586007)(6916009)(8676002)(4326008)(70206006)(316002)(36756003)(2906002)(82740400003)(81166007)(82310400005)(356005)(41300700001)(86362001)(8936002)(478600001)(36860700001)(40480700001)(47076005)(1076003)(426003)(336012)(26005)(16526019)(186003)(2616005)(83380400001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2023 18:00:05.5808 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 00039fdf-e3a3-4ccc-2f90-08db346d416c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C96B.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7242
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,33 +71,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Eric Huang <jinhuieric.huang@amd.com>
+Cc: Joshua Ashton <joshua@froggi.es>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-dmabuf is allocated/mapped as GTT domain, when dma-unmapping dmabuf
-changing placement to CPU will trigger memory eviction after calling
-ttm_bo_validate, and the eviction will cause performance drop.
-Keeping the correct domain will solve the issue.
+Hello all!
 
-Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I would like to propose a new API for allowing processes to control
+the priority of GPU queues similar to RLIMIT_NICE/RLIMIT_RTPRIO.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index a3b09edfd1bf..17b708acb447 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -642,7 +642,7 @@ kfd_mem_dmaunmap_dmabuf(struct kfd_mem_attachment *attachment)
- 	struct ttm_operation_ctx ctx = {.interruptible = true};
- 	struct amdgpu_bo *bo = attachment->bo_va->base.bo;
- 
--	amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_CPU);
-+	amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_GTT);
- 	ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
- }
- 
+The main reason for this is for compositors such as Gamescope and
+SteamVR vrcompositor to be able to create realtime async compute
+queues on AMD without the need of CAP_SYS_NICE.
+
+The current situation is bad for a few reasons, one being that in order
+to setcap the executable, typically one must run as root which involves
+a pretty high privelage escalation in order to achieve one
+small feat, a realtime async compute queue queue for VR or a compositor.
+The executable cannot be setcap'ed inside a
+container nor can the setcap'ed executable be run in a container with
+NO_NEW_PRIVS.
+
+I go into more detail in the description in
+`uapi: Add RLIMIT_GPUPRIO`.
+
+My initial proposal here is to add a new RLIMIT, `RLIMIT_GPUPRIO`,
+which seems to make most initial sense to me to solve the problem.
+
+I am definitely not set that this is the best formulation however
+or if this should be linked to DRM (in terms of it's scheduler
+priority enum/definitions) in any way and and would really like other
+people's opinions across the stack on this.
+
+Once initial concern is that potentially this RLIMIT could out-live
+the lifespan of DRM. It sounds crazy saying it right now, something
+that definitely popped into my mind when touching `resource.h`. :-)
+
+Anyway, please let me know what you think!
+Definitely open to any feedback and advice you may have. :D
+
+Thanks!
+ - Joshie
+
+Joshua Ashton (4):
+  drm/scheduler: Add DRM_SCHED_PRIORITY_VERY_HIGH
+  drm/scheduler: Split out drm_sched_priority to own file
+  uapi: Add RLIMIT_GPUPRIO
+  drm/amd/amdgpu: Check RLIMIT_GPUPRIO in priority permissions
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 13 ++++++--
+ drivers/gpu/drm/msm/msm_gpu.h           |  2 +-
+ fs/proc/base.c                          |  1 +
+ include/asm-generic/resource.h          |  3 +-
+ include/drm/drm_sched_priority.h        | 41 +++++++++++++++++++++++++
+ include/drm/gpu_scheduler.h             | 14 +--------
+ include/uapi/asm-generic/resource.h     |  3 +-
+ 7 files changed, 58 insertions(+), 19 deletions(-)
+ create mode 100644 include/drm/drm_sched_priority.h
+
 -- 
-2.34.1
+2.40.0
 
