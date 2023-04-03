@@ -4,60 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FF43C76188
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Apr 2023 19:41:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08B52C761AF
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Apr 2023 19:41:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FFAE10E177;
-	Mon,  3 Apr 2023 19:41:16 +0000 (UTC)
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [IPv6:2a00:1450:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 998FB10E176
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Apr 2023 19:41:15 +0000 (UTC)
-Received: by mail-wm1-x330.google.com with SMTP id
- bg16-20020a05600c3c9000b003eb34e21bdfso20550191wmb.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 03 Apr 2023 12:41:15 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BA0B10E185;
+	Mon,  3 Apr 2023 19:41:19 +0000 (UTC)
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 821C210E07B
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Apr 2023 19:41:17 +0000 (UTC)
+Received: by mail-wr1-x436.google.com with SMTP id r29so30487800wra.13
+ for <amd-gfx@lists.freedesktop.org>; Mon, 03 Apr 2023 12:41:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=froggi.es; s=google; t=1680550874;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=orMdBEc3/RmwPvEOZPHju61Hcg5STsDr6ot7AN4t8dw=;
- b=Cs+8iiOkPMVQqjr1dTG42pLCMG/idCBMT+RzTM+FSwtEYqlYmaY1btysclzLkFZccI
- OpgkgUsUkT/sQOPVP36lZbqiyyFXhBeYn8NjeqlKa93SDLFh2xOUaRMSpDZXReyG7pBb
- 01q6WwofKPyJy28k6p/Gg4p4Y2jQzndp/HICiTetGhkrH2GTatcVNynOTpLefu8P1AlX
- /UvbxeqU3q0FUcFXAkjpj+hwFgWsr5RKjtOmMBgcDZDdHt/QsGThDUFdb1DbmkaEKkAB
- TT5UWZbvZZRU+Qw/JXfGrImsV+bPJofZx5DwssLDXWt0Nst7ZSyoFbYWgf4F8AB7G56W
- D3DA==
+ d=froggi.es; s=google; t=1680550876;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=oU+L5nIaiDPDPyp7C6mhI8cKJn6SnKYd8OI0WaI/OCc=;
+ b=hrkjpiLs2p89GoYvmMQvTNwCnAlkV+809xMgqK+qRerqH20me7sRj0tdKFBLmPa1Yt
+ CwmwP5YjbavaNpn7EiMwwkj+8UN6tG7ns4x5a4Ghw/7oH7CrB5dTliV8uwhl1Sga1/1o
+ 0MF8J3DbDFjCFqsZNNIwS1ZDeRq9X41WtIr41rz0ZSMBK45EFJxiSdLMbMCZz64de/DB
+ k+a1N8iuegfqqngvIH3tGZjEjP5TUkQ645/FCk9zpJgSny+DWikIY/wYdQZJTFwPGLY5
+ TXfI5YTMxotKOdsZ67RVCD82zShFgosrpP0e7K9PF1uKnyNirBpZHmgRJvroyOBCPdU4
+ TYEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680550874;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=orMdBEc3/RmwPvEOZPHju61Hcg5STsDr6ot7AN4t8dw=;
- b=cupcWzjAnFOC6We5W/HaqqH+qwL+fBdVIzyO9skzvE8ZB/135axQHKd/m6WDrptMVE
- k+N1nnOO5StGZK0RCnv1TW3/ZU67ck8wPIGe0FzCxQYGpHzTBsFxMLDfFbmML51NpX/G
- PtrhbxTA7jyGVVexXTObETr8CehzFH1zEKvPMFHZ3NSFvFzGbUNZConF2fkUfsDkNA2M
- kq2SrnUD9q20WNytYRkn2iFgBvaP7VZrhoihqHjNDmQkGU2JrcKZycHDSiI9/h8F7LBe
- EoBobuuZyr+1xPVLl49PsnC5nhlMhklSm12ft122wuSMH+BLfGUL5kvGn4uyY2ZaGtjf
- 3Tbw==
-X-Gm-Message-State: AAQBX9c5lGbhTwO+jNiZw/TDftUWfSIdGVcEvpF2056AJ9H3zZ80ahsd
- 8bVHpFDKTHUwIPEnfxoJibUVfQ==
-X-Google-Smtp-Source: AKy350YMooipic8wGoMCR1fAHCdpyNNsyJhW0YLp85S1PDNq3G3+uBw99GFalgjrELqeQk4R5BNueA==
-X-Received: by 2002:a05:600c:2255:b0:3ed:711c:e8fe with SMTP id
- a21-20020a05600c225500b003ed711ce8femr466489wmm.2.1680550873854; 
- Mon, 03 Apr 2023 12:41:13 -0700 (PDT)
+ d=1e100.net; s=20210112; t=1680550876;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=oU+L5nIaiDPDPyp7C6mhI8cKJn6SnKYd8OI0WaI/OCc=;
+ b=O1NcVEkBLInJhSOo41qHclfO22aLYze1pii69cH+GD6trvzyk3BMBZKjlQhNrPd9bq
+ syGn+caiFP3jGtOE+79NcQjUY+hptwi2pV5rkvfFqAmxaoZVpwn2fMT9xCgRlEcuCRon
+ w1423cd5JbWmwmW0YHzy7okGzT5DMAWlKgR/ZoxOXOkpnfs87o0iaOex9yuOYcxUJbhr
+ H1KUCkbTnY/MuSDUUIg55dFhSn+VfPf9CIGGz5ZCa87HfveC5lPZAhSNuAdkodcFJb7H
+ rsiHKF2+r/NGmA7UzdwzsfNwVgYKxGsXi1sBpUOes9rKs8mkksuJCRd0AiyucFPdpks/
+ P3Ng==
+X-Gm-Message-State: AAQBX9eLuDtz+eoOCFHBJkI9wU92MMkWSTh6UK9ZaZH+gcDlaXWLhAH7
+ UcUN6yhjGgSz/59R1WCYdGMUA2rhsNa4fkb1PgQ=
+X-Google-Smtp-Source: AKy350Y6QcVh3jMCJP1CeIEoEigMyHei8BCcc6GYjm2rfJ9DP96MlxtUrUdIv9DDl/8lZGk89hJDxQ==
+X-Received: by 2002:a5d:458f:0:b0:2ce:a703:1937 with SMTP id
+ p15-20020a5d458f000000b002cea7031937mr26791351wrq.50.1680550875792; 
+ Mon, 03 Apr 2023 12:41:15 -0700 (PDT)
 Received: from localhost.localdomain
  (darl-09-b2-v4wan-165404-cust288.vm5.cable.virginm.net. [86.17.61.33])
  by smtp.gmail.com with ESMTPSA id
- u17-20020a7bcb11000000b003ef5db16176sm13036342wmj.32.2023.04.03.12.41.13
+ u17-20020a7bcb11000000b003ef5db16176sm13036342wmj.32.2023.04.03.12.41.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Apr 2023 12:41:13 -0700 (PDT)
+ Mon, 03 Apr 2023 12:41:15 -0700 (PDT)
 From: Joshua Ashton <joshua@froggi.es>
 To: dri-devel@lists.freedesktop.org,
 	amd-gfx@lists.freedesktop.org
-Subject: [RFC PATCH 0/4] uapi, drm: Add and implement RLIMIT_GPUPRIO
-Date: Mon,  3 Apr 2023 20:40:54 +0100
-Message-Id: <20230403194058.25958-1-joshua@froggi.es>
+Subject: [RFC PATCH 2/4] drm/scheduler: Split out drm_sched_priority to own
+ file
+Date: Mon,  3 Apr 2023 20:40:56 +0100
+Message-Id: <20230403194058.25958-3-joshua@froggi.es>
 X-Mailer: git-send-email 2.40.0
+In-Reply-To: <20230403194058.25958-1-joshua@froggi.es>
+References: <20230403194058.25958-1-joshua@froggi.es>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -75,60 +78,96 @@ Cc: Joshua Ashton <joshua@froggi.es>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello all!
+This allows it to be used by other parts of the codebase without fear
+of a circular include dependency being introduced.
 
-I would like to propose a new API for allowing processes to control
-the priority of GPU queues similar to RLIMIT_NICE/RLIMIT_RTPRIO.
-
-The main reason for this is for compositors such as Gamescope and
-SteamVR vrcompositor to be able to create realtime async compute
-queues on AMD without the need of CAP_SYS_NICE.
-
-The current situation is bad for a few reasons, one being that in order
-to setcap the executable, typically one must run as root which involves
-a pretty high privelage escalation in order to achieve one
-small feat, a realtime async compute queue queue for VR or a compositor.
-The executable cannot be setcap'ed inside a
-container nor can the setcap'ed executable be run in a container with
-NO_NEW_PRIVS.
-
-I go into more detail in the description in
-`uapi: Add RLIMIT_GPUPRIO`.
-
-My initial proposal here is to add a new RLIMIT, `RLIMIT_GPUPRIO`,
-which seems to make most initial sense to me to solve the problem.
-
-I am definitely not set that this is the best formulation however
-or if this should be linked to DRM (in terms of it's scheduler
-priority enum/definitions) in any way and and would really like other
-people's opinions across the stack on this.
-
-Once initial concern is that potentially this RLIMIT could out-live
-the lifespan of DRM. It sounds crazy saying it right now, something
-that definitely popped into my mind when touching `resource.h`. :-)
-
-Anyway, please let me know what you think!
-Definitely open to any feedback and advice you may have. :D
-
-Thanks!
- - Joshie
-
-Joshua Ashton (4):
-  drm/scheduler: Add DRM_SCHED_PRIORITY_VERY_HIGH
-  drm/scheduler: Split out drm_sched_priority to own file
-  uapi: Add RLIMIT_GPUPRIO
-  drm/amd/amdgpu: Check RLIMIT_GPUPRIO in priority permissions
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 13 ++++++--
- drivers/gpu/drm/msm/msm_gpu.h           |  2 +-
- fs/proc/base.c                          |  1 +
- include/asm-generic/resource.h          |  3 +-
- include/drm/drm_sched_priority.h        | 41 +++++++++++++++++++++++++
- include/drm/gpu_scheduler.h             | 14 +--------
- include/uapi/asm-generic/resource.h     |  3 +-
- 7 files changed, 58 insertions(+), 19 deletions(-)
+Signed-off-by: Joshua Ashton <joshua@froggi.es>
+---
+ include/drm/drm_sched_priority.h | 41 ++++++++++++++++++++++++++++++++
+ include/drm/gpu_scheduler.h      | 15 +-----------
+ 2 files changed, 42 insertions(+), 14 deletions(-)
  create mode 100644 include/drm/drm_sched_priority.h
 
+diff --git a/include/drm/drm_sched_priority.h b/include/drm/drm_sched_priority.h
+new file mode 100644
+index 000000000000..85a7bb011e27
+--- /dev/null
++++ b/include/drm/drm_sched_priority.h
+@@ -0,0 +1,41 @@
++/*
++ * Copyright 2015 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++#ifndef _DRM_SCHED_PRIORITY_H_
++#define _DRM_SCHED_PRIORITY_H_
++
++/* These are often used as an (initial) index
++ * to an array, and as such should start at 0.
++ */
++enum drm_sched_priority {
++	DRM_SCHED_PRIORITY_MIN,
++	DRM_SCHED_PRIORITY_NORMAL,
++	DRM_SCHED_PRIORITY_HIGH,
++	DRM_SCHED_PRIORITY_VERY_HIGH,
++	DRM_SCHED_PRIORITY_KERNEL,
++
++	DRM_SCHED_PRIORITY_COUNT,
++	DRM_SCHED_PRIORITY_UNSET = -2
++};
++
++#endif
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index a62071660602..9228ff0d515e 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -29,6 +29,7 @@
+ #include <linux/completion.h>
+ #include <linux/xarray.h>
+ #include <linux/workqueue.h>
++#include <drm/drm_sched_priority.h>
+ 
+ #define MAX_WAIT_SCHED_ENTITY_Q_EMPTY msecs_to_jiffies(1000)
+ 
+@@ -48,20 +49,6 @@ struct drm_gem_object;
+ struct drm_gpu_scheduler;
+ struct drm_sched_rq;
+ 
+-/* These are often used as an (initial) index
+- * to an array, and as such should start at 0.
+- */
+-enum drm_sched_priority {
+-	DRM_SCHED_PRIORITY_MIN,
+-	DRM_SCHED_PRIORITY_NORMAL,
+-	DRM_SCHED_PRIORITY_HIGH,
+-	DRM_SCHED_PRIORITY_VERY_HIGH,
+-	DRM_SCHED_PRIORITY_KERNEL,
+-
+-	DRM_SCHED_PRIORITY_COUNT,
+-	DRM_SCHED_PRIORITY_UNSET = -2
+-};
+-
+ /* Used to chose between FIFO and RR jobs scheduling */
+ extern int drm_sched_policy;
+ 
 -- 
 2.40.0
 
