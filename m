@@ -4,35 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88D1FC6FD1D
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Apr 2023 07:31:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2550DC7618D
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Apr 2023 07:31:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE95110E5F2;
-	Tue,  4 Apr 2023 07:31:54 +0000 (UTC)
-X-Greylist: delayed 326 seconds by postgrey-1.36 at gabe;
- Mon, 03 Apr 2023 18:34:03 UTC
-Received: from exchange.fintech.ru (exchange.fintech.ru [195.54.195.159])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4C8110E0F5;
- Mon,  3 Apr 2023 18:34:03 +0000 (UTC)
-Received: from Ex16-01.fintech.ru (10.0.10.18) by exchange.fintech.ru
- (195.54.195.169) with Microsoft SMTP Server (TLS) id 14.3.498.0; Mon, 3 Apr
- 2023 21:28:28 +0300
-Received: from localhost (10.0.253.157) by Ex16-01.fintech.ru (10.0.10.18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Mon, 3 Apr 2023
- 21:28:28 +0300
-From: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
-To: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] radeon: avoid double free in ci_dpm_init()
-Date: Mon, 3 Apr 2023 11:28:08 -0700
-Message-ID: <20230403182808.8699-1-n.zhandarovich@fintech.ru>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49BDC10E5F3;
+	Tue,  4 Apr 2023 07:31:55 +0000 (UTC)
+X-Greylist: delayed 380 seconds by postgrey-1.36 at gabe;
+ Mon, 03 Apr 2023 13:18:16 UTC
+Received: from tretyak2.mcst.ru (tretyak2.mcst.ru [212.5.119.215])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2007D89153;
+ Mon,  3 Apr 2023 13:18:16 +0000 (UTC)
+Received: from tretyak2.mcst.ru (localhost [127.0.0.1])
+ by tretyak2.mcst.ru (Postfix) with ESMTP id 02F3B102390;
+ Mon,  3 Apr 2023 16:11:52 +0300 (MSK)
+Received: from frog.lab.sun.mcst.ru (frog.lab.sun.mcst.ru [172.16.4.50])
+ by tretyak2.mcst.ru (Postfix) with ESMTP id F19EE102391;
+ Mon,  3 Apr 2023 16:11:01 +0300 (MSK)
+Received: from artemiev-i.lab.sun.mcst.ru (avior-1 [192.168.53.223])
+ by frog.lab.sun.mcst.ru (8.13.4/8.12.11) with ESMTP id 333DAwDL024350;
+ Mon, 3 Apr 2023 16:10:58 +0300
+From: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
+To: David Airlie <airlied@gmail.com>
+Subject: [PATCH] drm/amd/display: Fix potential null dereference
+Date: Mon,  3 Apr 2023 16:10:37 +0300
+Message-Id: <20230403131037.1912215-1-Igor.A.Artemiev@mcst.ru>
+X-Mailer: git-send-email 2.39.0.152.ga5737674b6
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.0.253.157]
-X-ClientProxiedBy: Ex16-02.fintech.ru (10.0.10.19) To Ex16-01.fintech.ru
- (10.0.10.18)
+X-Anti-Virus: Kaspersky Anti-Virus for Linux Mail Server 5.6.39/RELEASE,
+ bases: 20111107 #2745587, check: 20230403 notchecked
+X-AV-Checked: ClamAV using ClamSMTP
 X-Mailman-Approved-At: Tue, 04 Apr 2023 07:31:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -45,84 +46,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Nikita Zhandarovich <n.zhandarovich@fintech.ru>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+Cc: lvc-project@linuxtesting.org, Harry Wentland <harry.wentland@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- lvc-project@linuxtesting.org
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Igor Artemiev <Igor.A.Artemiev@mcst.ru>,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There are several calls to ci_dpm_fini() in ci_dpm_init() when there
-occur errors in functions like r600_parse_extended_power_table().
-This is harmful as it can lead to double free situations: for
-instance, r600_parse_extended_power_table() will call for
-r600_free_extended_power_table() as will ci_dpm_fini(), both
-of which will try to free resources.
-Other drivers do not call *_dpm_fini functions from their
-respective *_dpm_init calls - neither should cpm_dpm_init().
+The adev->dm.dc pointer can be NULL and dereferenced in amdgpu_dm_fini()
+without checking.
 
-Fix this by removing extra calls to ci_dpm_fini().
+Add a NULL pointer check before calling dc_dmub_srv_destroy(). 
 
-Found by Linux Verification Center (linuxtesting.org) with static
-analysis tool SVACE.
+Found by Linux Verification Center (linuxtesting.org) with SVACE. 
 
-Fixes: cc8dbbb4f62a ("drm/radeon: add dpm support for CI dGPUs (v2)")
-Cc: stable@vger.kernel.org
-Co-developed-by: Natalia Petrova <n.petrova@fintech.ru>
-Signed-off-by: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
-
+Fixes: 9a71c7d31734 ("drm/amd/display: Register DMUB service with DC")
+Signed-off-by: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
 ---
- drivers/gpu/drm/radeon/ci_dpm.c | 20 +++++---------------
- 1 file changed, 5 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/radeon/ci_dpm.c b/drivers/gpu/drm/radeon/ci_dpm.c
-index 8ef25ab305ae..7b77d4c93f1d 100644
---- a/drivers/gpu/drm/radeon/ci_dpm.c
-+++ b/drivers/gpu/drm/radeon/ci_dpm.c
-@@ -5677,28 +5677,20 @@ int ci_dpm_init(struct radeon_device *rdev)
- 	pi->pcie_lane_powersaving.min = 16;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index a01fd41643fc..27f7a554874e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1854,7 +1854,8 @@ static void amdgpu_dm_fini(struct amdgpu_device *adev)
+ 		dc_deinit_callbacks(adev->dm.dc);
+ #endif
  
- 	ret = ci_get_vbios_boot_values(rdev, &pi->vbios_boot_state);
--	if (ret) {
--		ci_dpm_fini(rdev);
-+	if (ret)
- 		return ret;
--	}
+-	dc_dmub_srv_destroy(&adev->dm.dc->ctx->dmub_srv);
++	if (adev->dm.dc)
++		dc_dmub_srv_destroy(&adev->dm.dc->ctx->dmub_srv);
  
- 	ret = r600_get_platform_caps(rdev);
--	if (ret) {
--		ci_dpm_fini(rdev);
-+	if (ret)
- 		return ret;
--	}
- 
- 	ret = r600_parse_extended_power_table(rdev);
--	if (ret) {
--		ci_dpm_fini(rdev);
-+	if (ret)
- 		return ret;
--	}
- 
- 	ret = ci_parse_power_table(rdev);
--	if (ret) {
--		ci_dpm_fini(rdev);
-+	if (ret)
- 		return ret;
--	}
- 
- 	pi->dll_default_on = false;
- 	pi->sram_end = SMC_RAM_END;
-@@ -5749,10 +5741,8 @@ int ci_dpm_init(struct radeon_device *rdev)
- 		kcalloc(4,
- 			sizeof(struct radeon_clock_voltage_dependency_entry),
- 			GFP_KERNEL);
--	if (!rdev->pm.dpm.dyn_state.vddc_dependency_on_dispclk.entries) {
--		ci_dpm_fini(rdev);
-+	if (!rdev->pm.dpm.dyn_state.vddc_dependency_on_dispclk.entries)
- 		return -ENOMEM;
--	}
- 	rdev->pm.dpm.dyn_state.vddc_dependency_on_dispclk.count = 4;
- 	rdev->pm.dpm.dyn_state.vddc_dependency_on_dispclk.entries[0].clk = 0;
- 	rdev->pm.dpm.dyn_state.vddc_dependency_on_dispclk.entries[0].v = 0;
+ 	if (dc_enable_dmub_notifications(adev->dm.dc)) {
+ 		kfree(adev->dm.dmub_notify);
+-- 
+2.30.2
+
