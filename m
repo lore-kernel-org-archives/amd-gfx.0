@@ -4,90 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACFC8C7619A
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Apr 2023 02:02:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8ED7C76196
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Apr 2023 03:44:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5269310E0B5;
-	Mon,  3 Apr 2023 02:01:58 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2064.outbound.protection.outlook.com [40.107.93.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22A4810E044
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Apr 2023 02:01:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58B3110E11A;
+	Mon,  3 Apr 2023 03:44:58 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20630.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe59::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC49410E11A
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Apr 2023 03:44:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=B5gATf0Nlw0IUpLmdHwZuUwJuF9exdYNrqophf2IcgC11KS+6JApLNWKeVOcEp2dPCw+CcBkY0sZ8UsYbHkEyLwsYR2Yug9Gl7XY9pGAvs4OrtBMWPdv68lXKaOHIuYeunOHW95kyfHn7MzNex97VbGoPDFNVZXsdeRN5PzyWZ3QJHFqd10WKXXyxLXfgHgo57Ih9QbiQxFm9dpan7XWiVgmlpEbbD0f62hJI1whdm3cTbbPcwhCGlCXHdaACQH15OZrBOfXMFqc8vYxs5VY8T6QCj2cYA9CiPEFEyAe8RS39n0BTKCkj8JsJQ2WpQX/vF+33VoqYnJh31uRx+Mg2A==
+ b=GJXSNM4qXPlUVpZ/NtsxCm1rXWG6cNvH/tEZOuGIIqMreoBSXBl5B5BZHgevld0boUCT56PKpBieQi8DNqstEnWIJWe1nY3I7UNOsGgis0eovd4ShSWjqZoyCzXbI/DUK9y0HulG42MczyEeluxLJQNVEajpp5tysbWo9NgS0ZDIq996O4aCkVwXdqHvbodXP5+QomkTk2i0dXcX78CPbnHIJ4qEtPjobGFOKjzw9G8SL4RW6kQWpKagPniEnK6+akU+37AJmLmkJ3ebvQ4MAd4LeaHLAb8RMIuMh9P2pdyznht2my/3qMNpGTv/1fvKZ/Yq558D0d4UDFM49eSlLA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kAHWQlH/igSxEbog+/Ow6EX9D/CIQSx65aJbVuhaI1k=;
- b=Sm1urDO3pA+S1tpRG8sBgK+NBnQQw6lInDwnB7Q4yy76jc+DY0EHuN2YGilY07uVmRGOC8LSvDm4jC4UlcolP6Honn13CwxBLi9IsQwHP9CkOmMGKudda9avT8ZqOm2pSBAAoK7XAHQH3kCt3eZUYhqHJ23HBRSnrLe0Azo6HfLj12Wd6EO33bhwSyeQGNumn5Em2A1JqVtjoWSFRG3zDuJu0PfgT1KkO0yzw1btzQQGOK6P8qo2FCZf/Wrrx2KyDnn+LqZH5ZFQ34WbydWBiK0/HJSyMekG3TCZzvrudyOzpcKjXE5sG2/1fBoSgHKvV3H8pNJ8yz6SpF0av+RNcw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=YM+qtGCf7CJQMCjRnuWQwg++SVo8WijE2Fq3dQi+BmQ=;
+ b=MZOFIwpD4oh2M0SQT+bhrpS2arUWG05FtVDhjFz66x04fMW7BSD+Sx9qF2ZWv8pPK9y8+olTxlcurfq9Nqtf4kbJBNtWamH4ZCQK4/9mr5QAXwI+Dws0Kj1NBtGNr1W3nd+WKvPlLuggB0HYMkFKelWqSEZ2U59TKcQjFwMed30aaWA0s+kX/XXoBWoQhrUHaVw0I9X5elMjm3TJxpOVVNDnc8E0+u3kffnTcyUhQMUdYtxZPrYbmT2B88aOovFf01fHbznvAnEGRUxAevUEl/OONSA4kA3/0u+1p3yuBI3NZ7QAJL6JcPKCEckZrLePMVxRobgsKAK9ugYZSiSIeA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kAHWQlH/igSxEbog+/Ow6EX9D/CIQSx65aJbVuhaI1k=;
- b=fF2vuQAKOTv/eKQS03qYF3JqUA3VYsv6okFGerU9rxeceyv9iKk7jcYmYloZrdHgHxn28vPokMVbZjewuiJBCqCTE/7SW7rzOdZeXgvrBgxfzY/SW9PR+aozsx0Yys4GBW4L8R8HKdOhfEO9QNIsmnocbvcI4YqKGRQDzZXAY0Q=
-Received: from BN9PR03CA0637.namprd03.prod.outlook.com (2603:10b6:408:13b::12)
- by CH3PR12MB7641.namprd12.prod.outlook.com (2603:10b6:610:150::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.33; Mon, 3 Apr
- 2023 02:01:53 +0000
-Received: from BN8NAM11FT100.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:13b:cafe::b6) by BN9PR03CA0637.outlook.office365.com
- (2603:10b6:408:13b::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.44 via Frontend
- Transport; Mon, 3 Apr 2023 02:01:53 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT100.mail.protection.outlook.com (10.13.177.100) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6277.18 via Frontend Transport; Mon, 3 Apr 2023 02:01:53 +0000
-Received: from thomas-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Sun, 2 Apr
- 2023 21:01:51 -0500
-From: YiPeng Chai <YiPeng.Chai@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/2] drm/amdgpu: optimize redundant code in umc_v6_7
-Date: Mon, 3 Apr 2023 09:59:30 +0800
-Message-ID: <20230403015930.3426238-2-YiPeng.Chai@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230403015930.3426238-1-YiPeng.Chai@amd.com>
+ bh=YM+qtGCf7CJQMCjRnuWQwg++SVo8WijE2Fq3dQi+BmQ=;
+ b=wX01WzNdeBpJ5UKXAajuN2QqoyjBm+iuodJTCcaLKp/zCzhBzFe13Oh9FF7zxTVZNrxPDdpH+RCNyTOzZtYMFEAwxPXSV0QWSRghEaqCcqydWp4YmYvXv6JrX8QDzW7aPtSTDhvdxr6SkBxDxpVdIH0PuyfP6UIykjQLkXef3lc=
+Received: from DM5PR12MB1770.namprd12.prod.outlook.com (2603:10b6:3:108::22)
+ by MW4PR12MB7439.namprd12.prod.outlook.com (2603:10b6:303:22b::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.30; Mon, 3 Apr
+ 2023 03:44:53 +0000
+Received: from DM5PR12MB1770.namprd12.prod.outlook.com
+ ([fe80::e52b:f6b6:5b71:cd92]) by DM5PR12MB1770.namprd12.prod.outlook.com
+ ([fe80::e52b:f6b6:5b71:cd92%9]) with mapi id 15.20.6254.030; Mon, 3 Apr 2023
+ 03:44:52 +0000
+From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+To: "Chai, Thomas" <YiPeng.Chai@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 1/2] drm/amdgpu: optimize redundant code in umc_v8_10
+Thread-Topic: [PATCH 1/2] drm/amdgpu: optimize redundant code in umc_v8_10
+Thread-Index: AQHZZdBDIUgu9N2Ud0KJhtP8yMnXRq8Y8MrQ
+Date: Mon, 3 Apr 2023 03:44:52 +0000
+Message-ID: <DM5PR12MB1770077FD7D17A141B9D608CB0929@DM5PR12MB1770.namprd12.prod.outlook.com>
 References: <20230403015930.3426238-1-YiPeng.Chai@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT100:EE_|CH3PR12MB7641:EE_
-X-MS-Office365-Filtering-Correlation-Id: 62df905f-e036-4759-8812-08db33e76550
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pSci0+ny5HJnfyfGdpGKVJbQzpeS+ob+aGKlfgKRMCp34x5Qpf9B3n5oiTWCGQBTF/Plk37YrO3n4J8YEYLU0/YQeDH/7I74fxq6iQMyNFrB6TvodyfPE08KzU9yGQ2/mqVc2jg+2WQirjkDpjSCjANxF8On162ldPX7fWh0kzemh+GWCWK4E20WbvKaZNPVzlq/h0CT8cEyQE7XuO6S9xTe/MwoO9qb876TXe3umG+uM+dlDubSsaQr2jkvpylRQDxJq9hwhmb/H8ApLZrnZc5luodZjSvejSob2TtEP2E5uo6GWLxV2KlpTUEazjnKDUbg2UsqZjd3RIUbmupQeRfdb3ya3ejaFqiY4nB6Yw+Sf1VgzggTvqVXFb+rLiLQtCEy4UzsiP3+BteSg3F6yJ9evzBRQbm2XYVDiDFXl0s65F5eD6PE1bwSnybIcWeJMQ30SfBfkRU2wdu3niba3IyrgHkqZu5487pFvlk3IWCMlY++Wq+0jn07s2TfmvgVU04ANI0U0kAVTq3L9/BgguZMlnIvnmiIxKGE6WbzNyKj8DNXkl6xWFkUd6EtEARa4L44E2RIR1p64CAOCVHhm2aysZx3XszQMvLqBCGiRrjatR3GFgGs1JcAiLbq6bLvNqMm7W5I2GkVyVNm6jx334bIXT7h7hVy4hhwb1jwFoHSld/EPBfCmINVIdPo1XiucPjjaueMwD09yQs685PBeCmdsG1eVbdpbmcWijQx85s=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(396003)(136003)(39860400002)(346002)(451199021)(40470700004)(36840700001)(46966006)(40480700001)(40460700003)(4326008)(6916009)(8676002)(70586007)(70206006)(36860700001)(316002)(478600001)(54906003)(8936002)(5660300002)(356005)(41300700001)(81166007)(82740400003)(16526019)(186003)(47076005)(426003)(83380400001)(2616005)(7696005)(336012)(6666004)(1076003)(26005)(86362001)(36756003)(82310400005)(2906002)(36900700001);
+In-Reply-To: <20230403015930.3426238-1-YiPeng.Chai@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-04-03T03:44:46Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=77aa5156-25a5-4735-a093-69ee1d4e4933;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2023-04-03T03:44:47Z
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: aa2e2811-4a9e-4aba-bb68-6cf2d8eb2c86
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM5PR12MB1770:EE_|MW4PR12MB7439:EE_
+x-ms-office365-filtering-correlation-id: 80fc8765-7a40-472f-6ec5-08db33f5c882
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: ZObthtKQB34iaIon26MfsTy6Y7Na88Xm9+U1IC0D8ybox/tZwZ2yovH4WWR63xrTnHvtXtqD+28HvtnZvdytuCT/YhgJo8aAI0tWp+heKFCAMVFaydDXHBA1hqEz+ITpl1INW8zhKN1KlmAIcWeun9LEU5+4Xm++lH9suXDFzJ79gaskfpAVaGMH6XKRPXovmB7MTBQM6UwZ5EM76sGdCNV68HZ/Z/mP5TDVriwuXtGYRgAxaeoPBAAUWChl4dB2oQSPbVKNYXUCoCMzsHh74Wp70vrtQnmDN08rOy4fQ9P6w8sj7v5nqIOhq36lDIkIynG3qmfEnHxhCfxgOl2P/HIPUo/qbtQoyamZaWu5vb/fbwbIYgxVRr9EMJmtSE13WYryKUrZXj12oY+pN2ag+QKuRFgA864nPr0kIZ4Go60KMAKWzNRF4VTOdYERJ22SexcQvm6TtWbf6/Of0EG+1+yajukdEdZao7GYlJnsrPgzx73iVzW/C9O3Wgjy2h+cExFJ7aVr/CKI5liDp1cx8br4YRNT6BrRdNxMPjNF+xwdxVGeV6xvCc3vYxWnEiVeidQ44TcHdH9RXtP5ZYvz7pnBuEK1Gm9LVP4F3SS3ZaX0csjOfXrfRNt1fF+NgtUK
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1770.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(366004)(136003)(346002)(396003)(39860400002)(451199021)(38070700005)(26005)(9686003)(6506007)(33656002)(86362001)(53546011)(83380400001)(55016003)(38100700002)(122000001)(186003)(66556008)(66476007)(66446008)(64756008)(66946007)(478600001)(76116006)(30864003)(2906002)(4326008)(52536014)(5660300002)(8676002)(316002)(110136005)(8936002)(54906003)(41300700001)(7696005)(71200400001);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?gz/q3J7MqkFQkt2/+2ojumX5RhCG6vYsXH4bsYuZx2D+pvJAzMoSnEhMra1b?=
+ =?us-ascii?Q?oZJXP246yZQ/1lmxHavEYthW9m41BtvIWQwb/dYTznClQ+fl5qgTUNq+vgKi?=
+ =?us-ascii?Q?+PJQoAkOhkgRgiIuyeM8o7PevXYsTQZFR9uok1P1e2R1Nni4+BCB3fEWZD8N?=
+ =?us-ascii?Q?u71Nv8VaN/kGXW9+0UQ/S9oa1NIt/MRddeH6UKK1vBWd2kCRAgrwvde96A3O?=
+ =?us-ascii?Q?e5KHVlUqzZROGxicnOkOrsBLdFuQYREATAa0c7qnDTlnC9HS9NXoTRF6mEIR?=
+ =?us-ascii?Q?mo6w+5VPy+Gzqz0BH/5bXCXz3W6CPPZwu849uWgEL1uJipv52DjDHsRUdBtn?=
+ =?us-ascii?Q?4d3ODsFhHG6zYsXB6eVFFIbtjnpnjNzTGyQfri5QauTaJ3gh9iDZSZOg7BrS?=
+ =?us-ascii?Q?5VuMtRc5XSWqOz8EDSP1wRBjBSf0lC4SKxc2NM9tbMgNt/Nf/3dUncul13Yr?=
+ =?us-ascii?Q?oHR/yJWQFUz/50MlTTKUBjqi3AbWAWYwIoMW6pNhIFnGcW7PpXBegWsZYAkf?=
+ =?us-ascii?Q?ArVF49Hz9jIqqB+j2mwhffVD4Cs8sLAwup369exNSBwkB+nBTjHiUHIko9VJ?=
+ =?us-ascii?Q?7COy1LQdkCMYpZQ9HBneSOzWvi8t2AFv4T7oRh4LJ4UBV6omRFTaVgo1GxXk?=
+ =?us-ascii?Q?Wd+QOM9LoCqgYCg9QabpYmHgmWv8vqYDgBmD5tkb7NI8iOOe0CZC3z4fd7X6?=
+ =?us-ascii?Q?/NRqqdle/UynzceXmQzbX5DTiz2h+3DO3W+xd1A1dETcj79+XxNbooBZr2yJ?=
+ =?us-ascii?Q?7276ETa6wA+qu1ypiRs1cpaKWj/QXb2WcqfFWrM+LHpkYnr0Gzhqj7s6ceRy?=
+ =?us-ascii?Q?c1z4YI6XNcnRtM0QJtMkBnCDkbwz4yKh0WKhx0gSi1rxZ+/0YUDzhFFOICT+?=
+ =?us-ascii?Q?VlrlYegUy5zP3avYnUJWjRjv4HCpgo1eD2w0m1JBzJ/urr4aqLnP0BfAqvev?=
+ =?us-ascii?Q?GzzCGSjVbXr/yvCd5K6qwvsDDqQOPiWfqkQPYipjHWvvbY7lRWfvL6qWiOfn?=
+ =?us-ascii?Q?HHeSEUNeVoY4y/oad49NEPXlqI7vXzgznyN6+LbAZFRxT1EsghXsgTiorDMa?=
+ =?us-ascii?Q?X7D+tTSMM7Io1jAxXAYaycU+69tb5TaTxcQPv+KVqfXL9s8Sld9NnKr+oYop?=
+ =?us-ascii?Q?AjbLGnCSRvIH1RkfAlihwIueQCMA4jbAKRtYWNEa9YZY8redjHS1xqpJE1Km?=
+ =?us-ascii?Q?VuvvLPMx+jgAjPxP/M3AhUiuyLNWrqg6+Jp6qm7bhUxhIMJKQOUWjKjvCcCZ?=
+ =?us-ascii?Q?txjSmt4ED+4PK8nFJDkwc6jlpHAL6POyouOeyodZEzuOf7jPgA8q3hIrBjhx?=
+ =?us-ascii?Q?6qwRTAWDDnJBg9uMZnzzasjjBrdLfccFkm58g0ydfXzuCMS+tWM5mfqGEiFs?=
+ =?us-ascii?Q?7Ls8NspdF2O1LlMc+l83FrTX7q48J1df6CUee4hSQoPw7OX2TkdyARSiDypY?=
+ =?us-ascii?Q?1lrx8Tcoj8jNPUNkJGI29AYpBqgaZxejgSfbsUhyzR2NeBvxx1/Zkp6bfAUH?=
+ =?us-ascii?Q?SPeHPQloRKaJ+i5pKgHgc0bfXIaTy1XhLTe4Va1ddjO1u7tYH82BoQyWtA6x?=
+ =?us-ascii?Q?S4GyxTXXDY6V/tgUjE8=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2023 02:01:53.2826 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 62df905f-e036-4759-8812-08db33e76550
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT100.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7641
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB1770.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 80fc8765-7a40-472f-6ec5-08db33f5c882
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Apr 2023 03:44:52.6919 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: b8tW67HTvvC5MRE9ntk5SL79wrLohfztytYHnKUJNbvgLFzQ4KS15l0dIjFHxcgG
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7439
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,282 +130,466 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tao.Zhou1@amd.com, YiPeng Chai <YiPeng.Chai@amd.com>, Stanley.Yang@amd.com,
- yipechai@amd.com, Candice.Li@amd.com, Hawking.Zhang@amd.com
+Cc: "Li, Candice" <Candice.Li@amd.com>, "Yang, Stanley" <Stanley.Yang@amd.com>,
+ "Zhang, Hawking" <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Optimize redundant code in umc_v6_7.
+[AMD Official Use Only - General]
 
-Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/umc_v6_7.c | 162 +++++++++++---------------
- 1 file changed, 71 insertions(+), 91 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
-index e08e25a3a1a9..f360362ba5dd 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_7.c
-@@ -160,24 +160,28 @@ static void umc_v6_7_ecc_info_querry_uncorrectable_error_count(struct amdgpu_dev
- 	}
- }
- 
-+static int umc_v6_7_ecc_info_querry_ecc_error_count(struct amdgpu_device *adev,
-+					uint32_t node_inst, uint32_t umc_inst,
-+					uint32_t ch_inst, void *data)
-+{
-+	struct ras_err_data *err_data = (struct ras_err_data *)data;
-+
-+	umc_v6_7_ecc_info_query_correctable_error_count(adev,
-+		umc_inst, ch_inst,
-+		&(err_data->ce_count));
-+
-+	umc_v6_7_ecc_info_querry_uncorrectable_error_count(adev,
-+		umc_inst, ch_inst,
-+		&(err_data->ue_count));
-+
-+	return 0;
-+}
-+
- static void umc_v6_7_ecc_info_query_ras_error_count(struct amdgpu_device *adev,
- 					   void *ras_error_status)
- {
--	struct ras_err_data *err_data = (struct ras_err_data *)ras_error_status;
--
--	uint32_t umc_inst        = 0;
--	uint32_t ch_inst         = 0;
--
--	/*TODO: driver needs to toggle DF Cstate to ensure
--	 * safe access of UMC registers. Will add the protection */
--	LOOP_UMC_INST_AND_CH(umc_inst, ch_inst) {
--		umc_v6_7_ecc_info_query_correctable_error_count(adev,
--						      umc_inst, ch_inst,
--						      &(err_data->ce_count));
--		umc_v6_7_ecc_info_querry_uncorrectable_error_count(adev,
--						      umc_inst, ch_inst,
--							  &(err_data->ue_count));
--	}
-+	amdgpu_umc_scan_all_umc_channels(adev,
-+		umc_v6_7_ecc_info_querry_ecc_error_count, ras_error_status);
- }
- 
- void umc_v6_7_convert_error_address(struct amdgpu_device *adev,
-@@ -215,23 +219,23 @@ void umc_v6_7_convert_error_address(struct amdgpu_device *adev,
- 	}
- }
- 
--static void umc_v6_7_ecc_info_query_error_address(struct amdgpu_device *adev,
--					 struct ras_err_data *err_data,
--					 uint32_t ch_inst,
--					 uint32_t umc_inst)
-+static int umc_v6_7_ecc_info_query_error_address(struct amdgpu_device *adev,
-+					uint32_t node_inst, uint32_t umc_inst,
-+					uint32_t ch_inst, void *data)
- {
- 	uint64_t mc_umc_status, err_addr;
- 	uint32_t eccinfo_table_idx;
- 	struct amdgpu_ras *ras = amdgpu_ras_get_context(adev);
-+	struct ras_err_data *err_data = (struct ras_err_data *)data;
- 
- 	eccinfo_table_idx = umc_inst * adev->umc.channel_inst_num + ch_inst;
- 	mc_umc_status = ras->umc_ecc.ecc[eccinfo_table_idx].mca_umc_status;
- 
- 	if (mc_umc_status == 0)
--		return;
-+		return 0;
- 
- 	if (!err_data->err_addr)
--		return;
-+		return 0;
- 
- 	/* calculate error address if ue error is detected */
- 	if (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Val) == 1 &&
-@@ -243,25 +247,15 @@ static void umc_v6_7_ecc_info_query_error_address(struct amdgpu_device *adev,
- 		umc_v6_7_convert_error_address(adev, err_data, err_addr,
- 					ch_inst, umc_inst);
- 	}
-+
-+	return 0;
- }
- 
- static void umc_v6_7_ecc_info_query_ras_error_address(struct amdgpu_device *adev,
- 					     void *ras_error_status)
- {
--	struct ras_err_data *err_data = (struct ras_err_data *)ras_error_status;
--
--	uint32_t umc_inst        = 0;
--	uint32_t ch_inst         = 0;
--
--	/*TODO: driver needs to toggle DF Cstate to ensure
--	 * safe access of UMC resgisters. Will add the protection
--	 * when firmware interface is ready */
--	LOOP_UMC_INST_AND_CH(umc_inst, ch_inst) {
--		umc_v6_7_ecc_info_query_error_address(adev,
--					     err_data,
--					     ch_inst,
--					     umc_inst);
--	}
-+	amdgpu_umc_scan_all_umc_channels(adev,
-+	    umc_v6_7_ecc_info_query_error_address, ras_error_status);
- }
- 
- static void umc_v6_7_query_correctable_error_count(struct amdgpu_device *adev,
-@@ -364,11 +358,14 @@ static void umc_v6_7_querry_uncorrectable_error_count(struct amdgpu_device *adev
- 	}
- }
- 
--static void umc_v6_7_reset_error_count_per_channel(struct amdgpu_device *adev,
--						   uint32_t umc_reg_offset)
-+static int umc_v6_7_reset_error_count_per_channel(struct amdgpu_device *adev,
-+					uint32_t node_inst, uint32_t umc_inst,
-+					uint32_t ch_inst, void *data)
- {
- 	uint32_t ecc_err_cnt_addr;
- 	uint32_t ecc_err_cnt_sel, ecc_err_cnt_sel_addr;
-+	uint32_t umc_reg_offset =
-+		get_umc_v6_7_reg_offset(adev, umc_inst, ch_inst);
- 
- 	ecc_err_cnt_sel_addr =
- 		SOC15_REG_OFFSET(UMC, 0,
-@@ -402,58 +399,54 @@ static void umc_v6_7_reset_error_count_per_channel(struct amdgpu_device *adev,
- 	/* clear higher chip error count */
- 	WREG32_PCIE((ecc_err_cnt_addr + umc_reg_offset) * 4,
- 			UMC_V6_7_CE_CNT_INIT);
-+
-+	return 0;
- }
- 
- static void umc_v6_7_reset_error_count(struct amdgpu_device *adev)
- {
--	uint32_t umc_inst        = 0;
--	uint32_t ch_inst         = 0;
--	uint32_t umc_reg_offset  = 0;
-+	amdgpu_umc_scan_all_umc_channels(adev,
-+		umc_v6_7_reset_error_count_per_channel, NULL);
-+}
- 
--	LOOP_UMC_INST_AND_CH(umc_inst, ch_inst) {
--		umc_reg_offset = get_umc_v6_7_reg_offset(adev,
--							 umc_inst,
--							 ch_inst);
-+static int umc_v6_7_query_ecc_error_count(struct amdgpu_device *adev,
-+					uint32_t node_inst, uint32_t umc_inst,
-+					uint32_t ch_inst, void *data)
-+{
-+	struct ras_err_data *err_data = (struct ras_err_data *)data;
-+	uint32_t umc_reg_offset =
-+		get_umc_v6_7_reg_offset(adev, umc_inst, ch_inst);
- 
--		umc_v6_7_reset_error_count_per_channel(adev,
--						       umc_reg_offset);
--	}
-+	umc_v6_7_query_correctable_error_count(adev,
-+					umc_reg_offset,
-+					&(err_data->ce_count),
-+					ch_inst, umc_inst);
-+
-+	umc_v6_7_querry_uncorrectable_error_count(adev,
-+					umc_reg_offset,
-+					&(err_data->ue_count));
-+
-+	return 0;
- }
- 
- static void umc_v6_7_query_ras_error_count(struct amdgpu_device *adev,
- 					   void *ras_error_status)
- {
--	struct ras_err_data *err_data = (struct ras_err_data *)ras_error_status;
--
--	uint32_t umc_inst        = 0;
--	uint32_t ch_inst         = 0;
--	uint32_t umc_reg_offset  = 0;
--
--	/*TODO: driver needs to toggle DF Cstate to ensure
--	 * safe access of UMC registers. Will add the protection */
--	LOOP_UMC_INST_AND_CH(umc_inst, ch_inst) {
--		umc_reg_offset = get_umc_v6_7_reg_offset(adev,
--							 umc_inst,
--							 ch_inst);
--		umc_v6_7_query_correctable_error_count(adev,
--						       umc_reg_offset,
--						       &(err_data->ce_count),
--						       ch_inst, umc_inst);
--		umc_v6_7_querry_uncorrectable_error_count(adev,
--							  umc_reg_offset,
--							  &(err_data->ue_count));
--	}
-+	amdgpu_umc_scan_all_umc_channels(adev,
-+		umc_v6_7_query_ecc_error_count, ras_error_status);
- 
- 	umc_v6_7_reset_error_count(adev);
- }
- 
--static void umc_v6_7_query_error_address(struct amdgpu_device *adev,
--					 struct ras_err_data *err_data,
--					 uint32_t umc_reg_offset, uint32_t ch_inst,
--					 uint32_t umc_inst)
-+static int umc_v6_7_query_error_address(struct amdgpu_device *adev,
-+					uint32_t node_inst, uint32_t umc_inst,
-+					uint32_t ch_inst, void *data)
- {
- 	uint32_t mc_umc_status_addr;
- 	uint64_t mc_umc_status = 0, mc_umc_addrt0, err_addr;
-+	struct ras_err_data *err_data = (struct ras_err_data *)data;
-+	uint32_t umc_reg_offset =
-+		get_umc_v6_7_reg_offset(adev, umc_inst, ch_inst);
- 
- 	mc_umc_status_addr =
- 		SOC15_REG_OFFSET(UMC, 0, regMCA_UMC_UMC0_MCUMC_STATUST0);
-@@ -463,12 +456,12 @@ static void umc_v6_7_query_error_address(struct amdgpu_device *adev,
- 	mc_umc_status = RREG64_PCIE((mc_umc_status_addr + umc_reg_offset) * 4);
- 
- 	if (mc_umc_status == 0)
--		return;
-+		return 0;
- 
- 	if (!err_data->err_addr) {
- 		/* clear umc status */
- 		WREG64_PCIE((mc_umc_status_addr + umc_reg_offset) * 4, 0x0ULL);
--		return;
-+		return 0;
- 	}
- 
- 	/* calculate error address if ue error is detected */
-@@ -484,29 +477,16 @@ static void umc_v6_7_query_error_address(struct amdgpu_device *adev,
- 
- 	/* clear umc status */
- 	WREG64_PCIE((mc_umc_status_addr + umc_reg_offset) * 4, 0x0ULL);
-+
-+	return 0;
- }
- 
-+
- static void umc_v6_7_query_ras_error_address(struct amdgpu_device *adev,
- 					     void *ras_error_status)
- {
--	struct ras_err_data *err_data = (struct ras_err_data *)ras_error_status;
--
--	uint32_t umc_inst        = 0;
--	uint32_t ch_inst         = 0;
--	uint32_t umc_reg_offset  = 0;
--
--	/*TODO: driver needs to toggle DF Cstate to ensure
--	 * safe access of UMC resgisters. Will add the protection
--	 * when firmware interface is ready */
--	LOOP_UMC_INST_AND_CH(umc_inst, ch_inst) {
--		umc_reg_offset = get_umc_v6_7_reg_offset(adev,
--							 umc_inst,
--							 ch_inst);
--		umc_v6_7_query_error_address(adev,
--					     err_data,
--					     umc_reg_offset, ch_inst,
--					     umc_inst);
--	}
-+	amdgpu_umc_scan_all_umc_channels(adev,
-+		umc_v6_7_query_error_address, ras_error_status);
- }
- 
- static uint32_t umc_v6_7_query_ras_poison_mode_per_channel(
--- 
-2.34.1
 
+> -----Original Message-----
+> From: Chai, Thomas <YiPeng.Chai@amd.com>
+> Sent: Monday, April 3, 2023 9:59 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Chai, Thomas <YiPeng.Chai@amd.com>; Zhang, Hawking
+> <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Li, Candice
+> <Candice.Li@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>; Chai,
+> Thomas <YiPeng.Chai@amd.com>
+> Subject: [PATCH 1/2] drm/amdgpu: optimize redundant code in umc_v8_10
+>=20
+> Optimize redundant code in umc_v8_10
+>=20
+> Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c |  31 ++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h |   7 +
+>  drivers/gpu/drm/amd/amdgpu/umc_v8_10.c  | 197 +++++++++---------------
+>  3 files changed, 115 insertions(+), 120 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+> index 9e2e97207e53..734442315cf6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+> @@ -302,3 +302,34 @@ void amdgpu_umc_fill_error_record(struct
+> ras_err_data *err_data,
+>=20
+>  	err_data->err_addr_cnt++;
+>  }
+> +
+> +int amdgpu_umc_scan_all_umc_channels(struct amdgpu_device *adev,
+> +			umc_func func, void *data)
+> +{
+> +	uint32_t node_inst       =3D 0;
+> +	uint32_t umc_inst        =3D 0;
+> +	uint32_t ch_inst         =3D 0;
+> +	int ret =3D 0;
+> +
+> +	if (adev->umc.node_inst_num) {
+> +		LOOP_UMC_EACH_NODE_INST_AND_CH(node_inst, umc_inst,
+> ch_inst) {
+> +			ret =3D func(adev, node_inst, umc_inst, ch_inst, data);
+> +			if (ret) {
+> +				dev_err(adev->dev, "Node %d umc %d ch %d
+> func returns %d\n",
+> +					node_inst, umc_inst, ch_inst, ret);
+> +				return ret;
+> +			}
+> +		}
+> +	} else {
+> +		LOOP_UMC_INST_AND_CH(umc_inst, ch_inst) {
+
+[Tao] for ASIC which doesn't support node, can we set its node_inst_num to =
+1 and retire the macro LOOP_UMC_INST_AND_CH?
+
+> +			ret =3D func(adev, 0, umc_inst, ch_inst, data);
+> +			if (ret) {
+> +				dev_err(adev->dev, "Umc %d ch %d func
+> returns %d\n",
+> +					umc_inst, ch_inst, ret);
+> +				return ret;
+> +			}
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
+> index d7f1229ff11f..f279c8057f96 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
+> @@ -47,6 +47,10 @@
+>  #define LOOP_UMC_EACH_NODE_INST_AND_CH(node_inst, umc_inst, ch_inst)
+> \
+>  		LOOP_UMC_NODE_INST((node_inst))
+> LOOP_UMC_INST_AND_CH((umc_inst), (ch_inst))
+>=20
+> +
+> +typedef int (*umc_func)(struct amdgpu_device *adev, uint32_t node_inst,
+> +			uint32_t umc_inst, uint32_t ch_inst, void *data);
+> +
+>  struct amdgpu_umc_ras {
+>  	struct amdgpu_ras_block_object ras_block;
+>  	void (*err_cnt_init)(struct amdgpu_device *adev); @@ -104,4 +108,7
+> @@ int amdgpu_umc_process_ras_data_cb(struct amdgpu_device *adev,
+>  		struct amdgpu_iv_entry *entry);
+>  int amdgpu_umc_page_retirement_mca(struct amdgpu_device *adev,
+>  			uint64_t err_addr, uint32_t ch_inst, uint32_t umc_inst);
+> +
+> +int amdgpu_umc_scan_all_umc_channels(struct amdgpu_device *adev,
+> +			umc_func func, void *data);
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v8_10.c
+> b/drivers/gpu/drm/amd/amdgpu/umc_v8_10.c
+> index fb55e8cb9967..6dff313ac04c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/umc_v8_10.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/umc_v8_10.c
+> @@ -76,10 +76,13 @@ static inline uint32_t get_umc_v8_10_reg_offset(struc=
+t
+> amdgpu_device *adev,
+>  		UMC_8_NODE_DIST * node_inst;
+>  }
+>=20
+> -static void umc_v8_10_clear_error_count_per_channel(struct amdgpu_device
+> *adev,
+> -					uint32_t umc_reg_offset)
+> +static int umc_v8_10_clear_error_count_per_channel(struct amdgpu_device
+> *adev,
+> +					uint32_t node_inst, uint32_t umc_inst,
+> +					uint32_t ch_inst, void *data)
+>  {
+>  	uint32_t ecc_err_cnt_addr;
+> +	uint32_t umc_reg_offset =3D
+> +		get_umc_v8_10_reg_offset(adev, node_inst, umc_inst, ch_inst);
+>=20
+>  	ecc_err_cnt_addr =3D
+>  		SOC15_REG_OFFSET(UMC, 0, regUMCCH0_0_GeccErrCnt); @@
+> -87,24 +90,14 @@ static void
+> umc_v8_10_clear_error_count_per_channel(struct amdgpu_device *adev,
+>  	/* clear error count */
+>  	WREG32_PCIE((ecc_err_cnt_addr + umc_reg_offset) * 4,
+>  			UMC_V8_10_CE_CNT_INIT);
+> +
+> +	return 0;
+>  }
+>=20
+>  static void umc_v8_10_clear_error_count(struct amdgpu_device *adev)  {
+> -	uint32_t node_inst       =3D 0;
+> -	uint32_t umc_inst        =3D 0;
+> -	uint32_t ch_inst         =3D 0;
+> -	uint32_t umc_reg_offset  =3D 0;
+> -
+> -	LOOP_UMC_EACH_NODE_INST_AND_CH(node_inst, umc_inst, ch_inst)
+> {
+> -		umc_reg_offset =3D get_umc_v8_10_reg_offset(adev,
+> -						node_inst,
+> -						umc_inst,
+> -						ch_inst);
+> -
+> -		umc_v8_10_clear_error_count_per_channel(adev,
+> -						umc_reg_offset);
+> -	}
+> +	amdgpu_umc_scan_all_umc_channels(adev,
+> +		umc_v8_10_clear_error_count_per_channel, NULL);
+>  }
+>=20
+>  static void umc_v8_10_query_correctable_error_count(struct amdgpu_device
+> *adev, @@ -147,29 +140,29 @@ static void
+> umc_v8_10_query_uncorrectable_error_count(struct amdgpu_device *adev
+>  		*error_count +=3D 1;
+>  }
+>=20
+> +static int umc_v8_10_query_ecc_error_count(struct amdgpu_device *adev,
+> +					uint32_t node_inst, uint32_t umc_inst,
+> +					uint32_t ch_inst, void *data)
+> +{
+> +	struct ras_err_data *err_data =3D (struct ras_err_data *)data;
+> +	uint32_t umc_reg_offset =3D
+> +		get_umc_v8_10_reg_offset(adev, node_inst, umc_inst, ch_inst);
+> +
+> +	umc_v8_10_query_correctable_error_count(adev,
+> +					umc_reg_offset,
+> +					&(err_data->ce_count));
+> +	umc_v8_10_query_uncorrectable_error_count(adev,
+> +					umc_reg_offset,
+> +					&(err_data->ue_count));
+> +
+> +	return 0;
+> +}
+> +
+>  static void umc_v8_10_query_ras_error_count(struct amdgpu_device *adev,
+>  					   void *ras_error_status)
+>  {
+> -	struct ras_err_data *err_data =3D (struct ras_err_data *)ras_error_stat=
+us;
+> -
+> -	uint32_t node_inst       =3D 0;
+> -	uint32_t umc_inst        =3D 0;
+> -	uint32_t ch_inst         =3D 0;
+> -	uint32_t umc_reg_offset  =3D 0;
+> -
+> -	LOOP_UMC_EACH_NODE_INST_AND_CH(node_inst, umc_inst, ch_inst)
+> {
+> -		umc_reg_offset =3D get_umc_v8_10_reg_offset(adev,
+> -						node_inst,
+> -						umc_inst,
+> -						ch_inst);
+> -
+> -		umc_v8_10_query_correctable_error_count(adev,
+> -						umc_reg_offset,
+> -						&(err_data->ce_count));
+> -		umc_v8_10_query_uncorrectable_error_count(adev,
+> -						umc_reg_offset,
+> -						&(err_data->ue_count));
+> -	}
+> +	amdgpu_umc_scan_all_umc_channels(adev,
+> +		umc_v8_10_query_ecc_error_count, ras_error_status);
+>=20
+>  	umc_v8_10_clear_error_count(adev);
+>  }
+> @@ -248,28 +241,28 @@ static void umc_v8_10_convert_error_address(struct
+> amdgpu_device *adev,
+>  	}
+>  }
+>=20
+> -static void umc_v8_10_query_error_address(struct amdgpu_device *adev,
+> -					 struct ras_err_data *err_data,
+> -					 uint32_t umc_reg_offset,
+> -					 uint32_t node_inst,
+> -					 uint32_t ch_inst,
+> -					 uint32_t umc_inst)
+> +static int umc_v8_10_query_error_address(struct amdgpu_device *adev,
+> +					uint32_t node_inst, uint32_t umc_inst,
+> +					uint32_t ch_inst, void *data)
+>  {
+>  	uint64_t mc_umc_status_addr;
+>  	uint64_t mc_umc_status, err_addr;
+>  	uint64_t mc_umc_addrt0;
+> +	struct ras_err_data *err_data =3D (struct ras_err_data *)data;
+> +	uint32_t umc_reg_offset =3D
+> +		get_umc_v8_10_reg_offset(adev, node_inst, umc_inst, ch_inst);
+>=20
+>  	mc_umc_status_addr =3D
+>  		SOC15_REG_OFFSET(UMC, 0,
+> regMCA_UMC_UMC0_MCUMC_STATUST0);
+>  	mc_umc_status =3D RREG64_PCIE((mc_umc_status_addr +
+> umc_reg_offset) * 4);
+>=20
+>  	if (mc_umc_status =3D=3D 0)
+> -		return;
+> +		return 0;
+>=20
+>  	if (!err_data->err_addr) {
+>  		/* clear umc status */
+>  		WREG64_PCIE((mc_umc_status_addr + umc_reg_offset) * 4,
+> 0x0ULL);
+> -		return;
+> +		return 0;
+>  	}
+>=20
+>  	/* calculate error address if ue error is detected */ @@ -287,37 +280,2=
+5
+> @@ static void umc_v8_10_query_error_address(struct amdgpu_device *adev,
+>=20
+>  	/* clear umc status */
+>  	WREG64_PCIE((mc_umc_status_addr + umc_reg_offset) * 4, 0x0ULL);
+> +
+> +	return 0;
+>  }
+>=20
+>  static void umc_v8_10_query_ras_error_address(struct amdgpu_device *adev=
+,
+>  					     void *ras_error_status)
+>  {
+> -	struct ras_err_data *err_data =3D (struct ras_err_data *)ras_error_stat=
+us;
+> -	uint32_t node_inst       =3D 0;
+> -	uint32_t umc_inst        =3D 0;
+> -	uint32_t ch_inst         =3D 0;
+> -	uint32_t umc_reg_offset  =3D 0;
+> -
+> -	LOOP_UMC_EACH_NODE_INST_AND_CH(node_inst, umc_inst, ch_inst)
+> {
+> -		umc_reg_offset =3D get_umc_v8_10_reg_offset(adev,
+> -						node_inst,
+> -						umc_inst,
+> -						ch_inst);
+> -
+> -		umc_v8_10_query_error_address(adev,
+> -					err_data,
+> -					umc_reg_offset,
+> -					node_inst,
+> -					ch_inst,
+> -					umc_inst);
+> -	}
+> +	amdgpu_umc_scan_all_umc_channels(adev,
+> +		umc_v8_10_query_error_address, ras_error_status);
+>  }
+>=20
+> -static void umc_v8_10_err_cnt_init_per_channel(struct amdgpu_device *ade=
+v,
+> -					      uint32_t umc_reg_offset)
+> +static int umc_v8_10_err_cnt_init_per_channel(struct amdgpu_device *adev=
+,
+> +					uint32_t node_inst, uint32_t umc_inst,
+> +					uint32_t ch_inst, void *data)
+>  {
+>  	uint32_t ecc_err_cnt_sel, ecc_err_cnt_sel_addr;
+>  	uint32_t ecc_err_cnt_addr;
+> +	uint32_t umc_reg_offset =3D
+> +		get_umc_v8_10_reg_offset(adev, node_inst, umc_inst, ch_inst);
+>=20
+>  	ecc_err_cnt_sel_addr =3D
+>  		SOC15_REG_OFFSET(UMC, 0, regUMCCH0_0_GeccErrCntSel);
+> @@ -332,23 +313,14 @@ static void
+> umc_v8_10_err_cnt_init_per_channel(struct amdgpu_device *adev,
+>  	WREG32_PCIE((ecc_err_cnt_sel_addr + umc_reg_offset) * 4,
+> ecc_err_cnt_sel);
+>  	/* set error count to initial value */
+>  	WREG32_PCIE((ecc_err_cnt_addr + umc_reg_offset) * 4,
+> UMC_V8_10_CE_CNT_INIT);
+> +
+> +	return 0;
+>  }
+>=20
+>  static void umc_v8_10_err_cnt_init(struct amdgpu_device *adev)  {
+> -	uint32_t node_inst       =3D 0;
+> -	uint32_t umc_inst        =3D 0;
+> -	uint32_t ch_inst         =3D 0;
+> -	uint32_t umc_reg_offset  =3D 0;
+> -
+> -	LOOP_UMC_EACH_NODE_INST_AND_CH(node_inst, umc_inst, ch_inst)
+> {
+> -		umc_reg_offset =3D get_umc_v8_10_reg_offset(adev,
+> -						node_inst,
+> -						umc_inst,
+> -						ch_inst);
+> -
+> -		umc_v8_10_err_cnt_init_per_channel(adev, umc_reg_offset);
+> -	}
+> +	amdgpu_umc_scan_all_umc_channels(adev,
+> +		umc_v8_10_err_cnt_init_per_channel, NULL);
+>  }
+>=20
+>  static bool umc_v8_10_query_ras_poison_mode(struct amdgpu_device *adev)
+> @@ -406,37 +378,35 @@ static void
+> umc_v8_10_ecc_info_query_uncorrectable_error_count(struct amdgpu_dev
+>  	}
+>  }
+>=20
+> +static int umc_v8_10_ecc_info_query_ecc_error_count(struct amdgpu_device
+> *adev,
+> +					uint32_t node_inst, uint32_t umc_inst,
+> +					uint32_t ch_inst, void *data)
+> +{
+> +	struct ras_err_data *err_data =3D (struct ras_err_data *)data;
+> +
+> +	umc_v8_10_ecc_info_query_correctable_error_count(adev,
+> +					node_inst, umc_inst, ch_inst,
+> +					&(err_data->ce_count));
+> +	umc_v8_10_ecc_info_query_uncorrectable_error_count(adev,
+> +					node_inst, umc_inst, ch_inst,
+> +					&(err_data->ue_count));
+> +	return 0;
+> +}
+> +
+>  static void umc_v8_10_ecc_info_query_ras_error_count(struct amdgpu_devic=
+e
+> *adev,
+>  					void *ras_error_status)
+>  {
+> -	struct ras_err_data *err_data =3D (struct ras_err_data *)ras_error_stat=
+us;
+> -
+> -	uint32_t node_inst       =3D 0;
+> -	uint32_t umc_inst        =3D 0;
+> -	uint32_t ch_inst         =3D 0;
+> -
+> -	/* TODO: driver needs to toggle DF Cstate to ensure
+> -	 * safe access of UMC registers. Will add the protection
+> -	 */
+> -	LOOP_UMC_EACH_NODE_INST_AND_CH(node_inst, umc_inst, ch_inst)
+> {
+> -		umc_v8_10_ecc_info_query_correctable_error_count(adev,
+> -							node_inst, umc_inst,
+> ch_inst,
+> -							&(err_data-
+> >ce_count));
+> -		umc_v8_10_ecc_info_query_uncorrectable_error_count(adev,
+> -							node_inst, umc_inst,
+> ch_inst,
+> -							&(err_data-
+> >ue_count));
+> -	}
+> +	amdgpu_umc_scan_all_umc_channels(adev,
+> +		umc_v8_10_ecc_info_query_ecc_error_count,
+> ras_error_status);
+>  }
+>=20
+> -static void umc_v8_10_ecc_info_query_error_address(struct amdgpu_device
+> *adev,
+> -					struct ras_err_data *err_data,
+> -					uint32_t ch_inst,
+> -					uint32_t umc_inst,
+> -					uint32_t node_inst)
+> +static int umc_v8_10_ecc_info_query_error_address(struct amdgpu_device
+> *adev,
+> +					uint32_t node_inst, uint32_t umc_inst,
+> +					uint32_t ch_inst, void *data)
+>  {
+>  	uint32_t eccinfo_table_idx;
+>  	uint64_t mc_umc_status, err_addr;
+> -
+> +	struct ras_err_data *err_data =3D (struct ras_err_data *)data;
+>  	struct amdgpu_ras *ras =3D amdgpu_ras_get_context(adev);
+>=20
+>  	eccinfo_table_idx =3D node_inst * adev->umc.umc_inst_num * @@ -
+> 447,10 +417,10 @@ static void
+> umc_v8_10_ecc_info_query_error_address(struct amdgpu_device *adev,
+>  	mc_umc_status =3D ras-
+> >umc_ecc.ecc[eccinfo_table_idx].mca_umc_status;
+>=20
+>  	if (mc_umc_status =3D=3D 0)
+> -		return;
+> +		return 0;
+>=20
+>  	if (!err_data->err_addr)
+> -		return;
+> +		return 0;
+>=20
+>  	/* calculate error address if ue error is detected */
+>  	if (REG_GET_FIELD(mc_umc_status,
+> MCA_UMC_UMC0_MCUMC_STATUST0, Val) =3D=3D 1 && @@ -463,28 +433,15 @@
+> static void umc_v8_10_ecc_info_query_error_address(struct amdgpu_device
+> *adev,
+>  		umc_v8_10_convert_error_address(adev, err_data, err_addr,
+>  					ch_inst, umc_inst, node_inst,
+> mc_umc_status);
+>  	}
+> +
+> +	return 0;
+>  }
+>=20
+>  static void umc_v8_10_ecc_info_query_ras_error_address(struct
+> amdgpu_device *adev,
+>  					void *ras_error_status)
+>  {
+> -	struct ras_err_data *err_data =3D (struct ras_err_data *)ras_error_stat=
+us;
+> -
+> -	uint32_t node_inst       =3D 0;
+> -	uint32_t umc_inst        =3D 0;
+> -	uint32_t ch_inst         =3D 0;
+> -
+> -	/* TODO: driver needs to toggle DF Cstate to ensure
+> -	 * safe access of UMC resgisters. Will add the protection
+> -	 * when firmware interface is ready
+> -	 */
+> -	LOOP_UMC_EACH_NODE_INST_AND_CH(node_inst, umc_inst, ch_inst)
+> {
+> -		umc_v8_10_ecc_info_query_error_address(adev,
+> -						err_data,
+> -						ch_inst,
+> -						umc_inst,
+> -						node_inst);
+> -	}
+> +	amdgpu_umc_scan_all_umc_channels(adev,
+> +		umc_v8_10_ecc_info_query_error_address, ras_error_status);
+>  }
+>=20
+>  const struct amdgpu_ras_block_hw_ops umc_v8_10_ras_hw_ops =3D {
+> --
+> 2.34.1
