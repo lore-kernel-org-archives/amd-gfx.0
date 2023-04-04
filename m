@@ -4,134 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 940CFC6FD1D
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Apr 2023 14:46:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF07BC761A6
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Apr 2023 15:59:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE40010E6CF;
-	Tue,  4 Apr 2023 14:46:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E9AA10E6E6;
+	Tue,  4 Apr 2023 15:59:48 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2052.outbound.protection.outlook.com [40.107.92.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82C6410E6CF
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Apr 2023 14:46:42 +0000 (UTC)
+ (mail-bn7nam10on2061b.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8a::61b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E6F710E6DD
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Apr 2023 15:59:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XNQMI0ji+w3WCG1os/j+BiCit63nfmu7bHMYsrcqXlBg0VKCIVXwjaZbbvFJHcp2xWCYjZRWwJDj+IcUBnjlTDEMIKrlZ/fsG2lhqEd6AS48eQwXLySm+/Es2LfL/94PRQ5hTbqH4LhW6mn4zK6HPjBqnjMwcA5AgRokChgamUNKM0r+46gPXMu57lWuD4lwtsL+YufqqncO8DNTRxJuYamDvbhFGc17ZvnsMgbf0youdbqI8uAQx2y5sepb24/I1MBL6M8xHiThGykLyfn0XUrsWdvMRov5KUL+ia0PiFHlfLUJOilklJeirce3nAInwmbaBv/KZXuLKPSc82j+zQ==
+ b=Yuo++RItuSjmIK5X6PEbSX8ialaRpQqla8NOk3jYtPnvEnEO39JdM7DRiNXyih/OKTfNgLW1Gsez/xOV/CYrWHxP8RIhKwTEotNYAElUMFovPArGwqF8+mKdLmnYDbaZ5Pz2h/zYuZN+D6lJGojGKdLNaoLMrR0ujFC1/D7hsmaAfXFORpxAsMAPaU7Jnu2AIeOfDohL8Bb/sgsXYiMo7+TvyQEyMKnGzbqqWSbBhLQqnEMMbaV29mHYLohHZ//OZJ8DH2ribEaPlowfKFjQOCzDGvzhJjxFg5XuIgya4oRhbTin1/OPKIXdZtUIMCXxhrEIB1pzygc6OAz7SUWedA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WNbQvhuX2OMt6fy3OSEVM1X6rBMSJsr+Y5grYbaluio=;
- b=YGNU2YLgleLSa0qhqhUN5nuRjmF0451t3616wRMVDGdFU8p02IzlNaZC3PMkF61K82BQKw4tHH4PKtzZgABlD/nhLsIp5977AM62X8wwXCzfavF26Km0DvDduunKVDL8PLFCD6wgqYaTruUbqPRkT9MuUKnCv0Q/Y7U5PV1mJMitBivk9qTYJ+HyLtWNe657x6IQ0Wq4eRqUST+s4c+E2yQkim8/wissE18aTQ0JC49i1D1Mp+l3yXCzuU7UfhQfANv3uOaGOAT4hMNFHQvsrTRzU9md/gYKlmUnJcC3c5KGg4P5LLZNmp91stlLGXSXxxLh2qW4rvxLvIsxebyYuw==
+ bh=OdhBqGh4jMvfU7tDxFUPdU6uHhwavHeDrHWHo4VTG+0=;
+ b=jSC5fLnKB5fyGBWhG9p1pBwEU1Uy6Ym+ILNLbuDWksitc2Ciw/DyNcekL7vpJiBFqMYTg7Zka6CWHjwVSLCOcwB4GgFn2XqeS7tDY8mvj5Supec3xFwusZyKZj9pyNXPmPjU8conZ0dYMHxYYvbSjIikcRXVDXU4PwKvIu+ge1lEhyWpJm9PbaocyV4VDOvOmIM2qM1RNySqCIecdfR03TShKwzxbnXJ98PqNfv7SBm6cGSRvFh8YDRtmCtpT+3w5djzXXqW7mNPk26A6gGrYGlABY/0IF9dJ1Nz317ugeqqpT06vhTCkPUK2Z5CS0eQj3jyI1UoaaCySEsahV0MWA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WNbQvhuX2OMt6fy3OSEVM1X6rBMSJsr+Y5grYbaluio=;
- b=JJzxnsqOycx+66x7ahvEwvHE2BnCI2aShVR/Ey2/eBA1wZFEcKzbUQF937pdFOP+mOHOv1/EfVIZCiHZ7swTW25fXXZZBGTno33tBKpyEqvF0xY5JE05xv6BJ8CWaafQJzq1EtEOJ+TBj3iP+V63T+GD6BuAu53jHCrg50DO6tY=
-Received: from DM4PR12MB5261.namprd12.prod.outlook.com (2603:10b6:5:398::22)
- by SJ2PR12MB8157.namprd12.prod.outlook.com (2603:10b6:a03:4fa::11) with
+ bh=OdhBqGh4jMvfU7tDxFUPdU6uHhwavHeDrHWHo4VTG+0=;
+ b=puvdDtdxCWJSDcCUv+4fcADJ7WU1MJTWkYd/LwlkszAWyKSg4RP15YpTQ38FSeluXy63vt/gdYetD/6HB5Vd5oKbr4xHfYAvD1CHtmTdl5A86tPK/5ktc1YYas0PfY59iVZm2+IqvlVigMGzoSyKwPeMW9BuQalp4zqW2WIhnJ4=
+Received: from DM6PR12MB3067.namprd12.prod.outlook.com (2603:10b6:5:115::10)
+ by SA1PR12MB5616.namprd12.prod.outlook.com (2603:10b6:806:22a::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.30; Tue, 4 Apr
- 2023 14:46:39 +0000
-Received: from DM4PR12MB5261.namprd12.prod.outlook.com
- ([fe80::6b6e:7238:b357:8185]) by DM4PR12MB5261.namprd12.prod.outlook.com
- ([fe80::6b6e:7238:b357:8185%9]) with mapi id 15.20.6254.035; Tue, 4 Apr 2023
- 14:46:39 +0000
-From: "Xiao, Shane" <shane.xiao@amd.com>
-To: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
-Subject: RE: [PATCH 3/3] drm/amdgpu: DROP redundant
- drm_prime_sg_to_dma_addr_array
-Thread-Topic: [PATCH 3/3] drm/amdgpu: DROP redundant
- drm_prime_sg_to_dma_addr_array
-Thread-Index: AQHZZtvd7IRA0nro/k+QlhBhRD8R+68bLZqAgAAM2wA=
-Date: Tue, 4 Apr 2023 14:46:39 +0000
-Message-ID: <DM4PR12MB52618FBB7C299AA3EF20406E9D939@DM4PR12MB5261.namprd12.prod.outlook.com>
-References: <20230404095640.3277840-1-shane.xiao@amd.com>
- <20230404095640.3277840-3-shane.xiao@amd.com>
- <73dfa0fe-4ea1-26bf-cf49-57b4f873a765@amd.com>
-In-Reply-To: <73dfa0fe-4ea1-26bf-cf49-57b4f873a765@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.33; Tue, 4 Apr
+ 2023 15:59:41 +0000
+Received: from DM6PR12MB3067.namprd12.prod.outlook.com
+ ([fe80::4d0e:a57d:65d0:1e63]) by DM6PR12MB3067.namprd12.prod.outlook.com
+ ([fe80::4d0e:a57d:65d0:1e63%4]) with mapi id 15.20.6254.033; Tue, 4 Apr 2023
+ 15:59:41 +0000
+From: "Sider, Graham" <Graham.Sider@amd.com>
+To: "Russell, Kent" <Kent.Russell@amd.com>, "Somasekharan, Sreekant"
+ <Sreekant.Somasekharan@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdkfd: On GFX11 check PCIe atomics support and set
+ CP_HQD_HQ_STATUS0[29]
+Thread-Topic: [PATCH] drm/amdkfd: On GFX11 check PCIe atomics support and set
+ CP_HQD_HQ_STATUS0[29]
+Thread-Index: AQHZZmbCA2ZPzf+tAEKr7pelPDereK8bKd6AgAAkU8A=
+Date: Tue, 4 Apr 2023 15:59:41 +0000
+Message-ID: <DM6PR12MB30678F470E502F9FED0D129C8A939@DM6PR12MB3067.namprd12.prod.outlook.com>
+References: <20230403195839.80419-1-sreekant.somasekharan@amd.com>
+ <DM5PR12MB13084ED911E1EC100F8FC09B85939@DM5PR12MB1308.namprd12.prod.outlook.com>
+In-Reply-To: <DM5PR12MB13084ED911E1EC100F8FC09B85939@DM5PR12MB1308.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-04-04T14:46:36Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=b1deaaa9-a85a-4209-83ab-c49fbe7c7973;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2023-04-04T14:46:36Z
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: bb1e83c5-28c8-4997-b160-d2bbe055d05f
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-04-04T15:59:39Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=9383bebe-b219-4d56-9d60-c0ddce977a71;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_enabled: true
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_setdate: 2023-04-04T15:59:39Z
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_method: Privileged
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_name: Public-AIP 2.0
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_actionid: 3b006a69-afea-4350-85e6-c53b5464afe9
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_contentbits: 0
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB5261:EE_|SJ2PR12MB8157:EE_
-x-ms-office365-filtering-correlation-id: 18ccd93f-63e4-424b-d1a8-08db351b660a
+x-ms-traffictypediagnostic: DM6PR12MB3067:EE_|SA1PR12MB5616:EE_
+x-ms-office365-filtering-correlation-id: 0603bb08-09a5-4791-2120-08db352599a3
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: oosxkXPdLOR1BpS3J2o29YBrjuQCyrK6Yv0rhOCDS7dCMj+/lEgX0fP8Bj6na/p5KRmMfymjptpwhZ7DJTqU2vPV/c0KuQUnmSPWogOpks8IztVcThZRTrlmRUTwnvco7BehgrlXaKnFBzmIJDXhz52FHvwLSHfuSf/w+wcUnGQJBbzprddf/kWt9qQMuHDCWCr7nPKbja4L6LLD/J4ZkBfX3N3kECBIRZUORQ5aNbBou5WzfqtawcS1QjvTrZKM2cFUTktJfGmE+W+QJD5lz+siiYJiAobPa4upGpni+gqmN7QBM4AJc9CZu/B3VRjCsI+/LXN5U3mlTKrpw4nNtxdivuVTRiwxSG+Z6cMM1AviSQULLbphiWO5WhdqDoC5ya1BeMBtTHd2OsvS19txxSr77aGAfVeMj4h1gVCJwp8vhyh4Jz609fbh6olji1xp8r0EzcZ5eTVVqjziRAZMfRDIgTKoZZOrNCONDMAa5otzwoHnTq8fGRDugV9qys3+D3flFp/ia0veCH7aeteUqcbnAIAvAKdyIydQxrKfFyJ4nXawJNMpOJ/zBUCLlTJXAobPJXlAyL8KCXqy5e83jbwb97B4U0SU1qLtOetj7Kg78A49waW1NeI1Q/9g2/TD
+x-microsoft-antispam-message-info: Uer6Z09UvjVknEhqqh4axhGBpnhKAtJke+33UmdLlnLaOPVPdHNjmxCBoBWhbuZdZly82TSwFiJ0qbV69MP1Vq23vvPsWlUJ/9PLAd94Z23vw2lRFe5YNNA/TJBUV3PV+jHn4ck7iGet8NOGqNrQubISWgnbywoLv+9vuIUD46/SsOFq8+JJZIOdOUAYEcaPdb0gB1uXnV0Ev3NahxJscnmoBI3+lkuWwoOxBFNZiDmSKMuuzbAGM8lIJTRGpL4/7iWlRbgZ0zOBKPZ4t1Nq52WYnOTQbjnxQznEPcTN2MKcS/x+n9FKKk2gzcefV78EC8fFDk9klylpuTliTfnSHDBO+ySJdfhVGIUIwo1dUFgKZujyQoW7aLSCBHq6vHjQ4CNMjBZks6lAYI4ovr/stu3bAaMO0ItmgpnlUro8Y80vmauxIt8qCJxXjrxq0Z7Isk1V0ritHXmmbV72Fjf2KTf9uuWypisMew+Xiq0gxQ84ls+UMVirZqD5m4c8lZPpiyyQMfleCeWf1dEADLOYxflgvMj4Mm3Jk9+HyMwRX/Gq7DJMNG6KrTFNgDDKtpbIuSmlI74u3Be7NmlEAVHMTolGivsJEoZ8s9l/fxy/AR1HFjj3H8pLElF97+Cb4K+s
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5261.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(136003)(366004)(346002)(39860400002)(396003)(451199021)(38070700005)(9686003)(6506007)(26005)(33656002)(86362001)(53546011)(122000001)(83380400001)(55016003)(38100700002)(186003)(66446008)(66556008)(66476007)(66946007)(64756008)(478600001)(76116006)(4326008)(52536014)(5660300002)(316002)(8676002)(2906002)(110136005)(41300700001)(8936002)(71200400001)(7696005)(6636002)(54906003);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3067.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(366004)(136003)(39860400002)(396003)(346002)(451199021)(86362001)(38070700005)(33656002)(2906002)(55016003)(71200400001)(7696005)(53546011)(186003)(83380400001)(9686003)(26005)(6506007)(478600001)(4326008)(66556008)(66446008)(66946007)(64756008)(8676002)(66476007)(76116006)(5660300002)(41300700001)(38100700002)(52536014)(122000001)(110136005)(316002)(8936002);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?MWpTRzNDdVlWM2lrQ2VROWR4R3NaZnZxOFAxUEdNa1F1MjNhelZRVGl5eUds?=
- =?utf-8?B?WFVPV0xlSGE2WENXQVNUNktueVNESDRuZ2lQdTgwWThhYk5VWWsveDBXTGRL?=
- =?utf-8?B?SThNR2RIQndLZFk5TXQ4R0tmU1JXd1Z4M3hwVmZmUEFDUDdxYzFXZmpkbCtN?=
- =?utf-8?B?d0RhQmVJeVd1Z3RtRWJET2dRcmkvMzZuVkNyY2tiV25vaWhEdDRsSTlGWTB6?=
- =?utf-8?B?U2Q2M29LMVNpcUFWdUF1dStEdDAxeklOaGJwWXhHbk1MWUZXOXM2ajNIdUJa?=
- =?utf-8?B?dGdHNHdnOU4yNFllV3dWMnkrUk1uZkI3MjdocVl1bVNyTndkSm1KWUhZYU9u?=
- =?utf-8?B?NGFyN1FzdFNKUCsxeDM1cUNYU0dMRkZhbmlreWRxL0Y0OWFqQWJoem0xZXFW?=
- =?utf-8?B?NGQxZVZSZ1Jzc05ybUwzSWdrL3UxUm1XdGhaWFRyd1hOTFVNanJ6djExdFhP?=
- =?utf-8?B?NFpwMW5YZjEremZFUTRFYXNtZEU0VmU0MmQ4bWd3UXdhb0pEek85Qmlxa3or?=
- =?utf-8?B?Y054NlV3bk1uZkFrK3BrVGVpMTB0TnExNVM0emhRdk0vd2RDS2IxazRiSVNF?=
- =?utf-8?B?YmdsaGthaVhSeGNwZUtUcnJMdkg1NEpaTFUrSjZCbnNzTHlQTGg2MEVDbU5j?=
- =?utf-8?B?YVlQTi9sRnBWTnVaTktaNldzV0JxNW4vSzRwWW1uWE5rY1dUWlhzTk1EODlF?=
- =?utf-8?B?V1EzSXBCclZTUmExYXFnRzVKSWdyV1ZPUTM2NzR3WUozdnE0eUtFZk81bHRJ?=
- =?utf-8?B?OXR2YUMyZDJBajZVSDhpK0JXOCsrL0ZHUjdNeEo3VzMzeGJUL0dtditkOEhs?=
- =?utf-8?B?WjE1RjdadlFpdTNySlJzOXo1ZFFnVmZrQXN3K1ZzR1FSTkhJOXk4RjROK1lo?=
- =?utf-8?B?M3U1WXFsK2ZjQy9TVER5NGxEbnJtYWY4c25zV3dHc2NkUmpHZUdGTGYweDM2?=
- =?utf-8?B?YzdjWjNTQUI2bXJtNHNmUWV3UjNHemM3UUV3aVd3ZUp6dlRnZWpsMW56Nklk?=
- =?utf-8?B?aVdFRzRLZ1kzVU41NENPMDVjOVNURVpCSmxFTHkzUWhxcDdVcmV0L1lDNWxE?=
- =?utf-8?B?RDRmVFFLeEdVMnNTcVY1WWVNL0RvOTI1eHNQWUNITXdtSEh0YW5PZXp2eG1N?=
- =?utf-8?B?b0ZtS1R1ajdBcmQzTm9KUi94RlF3ZmF5Tm9qNlZwakNYMUllSlZPMnppUzRx?=
- =?utf-8?B?K0dFSG1ha2JTNWcrMzJPKzNLcmFKUjlWRVo2YWw1UW5VZzk0R1ltc1VJRVB1?=
- =?utf-8?B?SExDNGxSVlFmOVNxaVZiNWlwczRtZTlOd2ZPQVJXWnUxV2pBODZPWnRqOS8z?=
- =?utf-8?B?MStqMTBaOVlLbEMwa09tM29YUllrcldmZFVyd3JsOHFQZ2tOdEwxU1loVFRz?=
- =?utf-8?B?eUV0b2xPdUlTY0VkNXZhM2E5eUducHk2QmpFRFdoRFNqdUJzZ285YWtMcklE?=
- =?utf-8?B?Y0lNcm1TL012YWp4WUNoRWdkakxvRWJ2VWdWSGc0dTBBV0Z0dWthS2pwd09H?=
- =?utf-8?B?Z1A4cno5UElVaXVldUNrYnhVSVI1WS9SL01DTEYzdE9MdG40aC9DeWs3aVJM?=
- =?utf-8?B?TGNlamhBRVBNdnlnV3RlQnJCcmxzNWZDRVdEczNDcU9BU01ONm8wYWVOeHlK?=
- =?utf-8?B?TndUd1d6RVRvS1Z0a2czK1NvUm41aUw0R1htZnI4Q2FCNlo3ZS9HcHQ2S2JG?=
- =?utf-8?B?Vlp5T1dKQlYrNkNvTW16dmZVVFRzdGJjaUJWZ0NwNlpNWWtUNlFtSm1PZzlD?=
- =?utf-8?B?U08wV3NsVjZURmhkU0hHNG5LT1IxQUFNZjdzaTZrQzkrbEh4K3ViaElvandw?=
- =?utf-8?B?UDlKV3dNcm5hUE5iN2FLRFdncTQySGFDbko5S3c3clhKdnF5TmYvY09QNENJ?=
- =?utf-8?B?KytQNDlTSlZtUFNMbXd5U3FKT1NuRzdxNGpqaEVJS2lmaTVoRS90cHJMMFhS?=
- =?utf-8?B?cEtpMDk4eDhlWjdvd3dsYmZ1NHorZkduOE9Kd3lNUmwvSnV0SE5BRHRhRG1S?=
- =?utf-8?B?UWMrbGJSZFMwVzJnOWZ5L0dNT1ZSUXM1MzQwVFF4OFVDZ3NDamtQZUZJZXFS?=
- =?utf-8?B?Nm15RXR1M3hUYzEzczRpVk81NVRNdVZtK3U4cDR4U29icyt5SGFrV0tmM0ds?=
- =?utf-8?Q?0O3E=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?3BDKQCSZjyOWCaWoEpInH7biU7C2BJEIOCwiKDN9O7clvXWCh31v8oG9G2Rn?=
+ =?us-ascii?Q?PPINfaAazxwFV9gzGa0eikGWgWXnwyr96TIXAgOUaLm1nAAAUVj4L129+PEk?=
+ =?us-ascii?Q?T0jYa69h42iLkgM4L8HKV+TA2X3G5dQKAaolEPSBEvui/CY32RYKDFWExMhq?=
+ =?us-ascii?Q?Q0Y4V5TaOdrtpl9J7iuu4ZVt/pSqun5NQKmTLs1PQ56cKkAREohaOvfsrtah?=
+ =?us-ascii?Q?zVJ/Z6cbjMtEmGukMycj8TivPnjNVWBjuElg8lydE7VOoXHvR7rHQ8v1wucG?=
+ =?us-ascii?Q?XCb2Dr6MPPcd8wMg9O79cYOlJR8racEpp6Gh/17vzKdSgCLRaZuYQN85j0Ou?=
+ =?us-ascii?Q?7+Gi38OYy0AWSI4wB5SFrlVuJRpZIofciJjT9XJIuWEy/cmk34wy1gJzUQGZ?=
+ =?us-ascii?Q?JCg8es7gjQredLMaDE5ef5qKrqU/I2fwt3fT9T0ZzzcRBjQrhmo+90tUVc7k?=
+ =?us-ascii?Q?1eQUjhXPYheE94VuunLTqT8X6yK4eq3yXmMqxqkjPuVC+hR0BAp8qcljChJt?=
+ =?us-ascii?Q?brzhcmb8bCg9MauW7SUanT56eO6yh5gWaZBQn4A03RrjfzVWKofsh6fq8+al?=
+ =?us-ascii?Q?G6hlHAX9rfdxHDKJZup4puOQLkOR7NQcNk/G97TLuF8FBcszon2aAL2hUxE9?=
+ =?us-ascii?Q?JUg1x2LP97be0qDUfYFi1XE7K80oFKEYyqEgD+Hys4xA3tkDkTK0oFCpW8rF?=
+ =?us-ascii?Q?FP/O+OLly2HwjVfcJnAJFm9fakOt529rLpb0VnYj1F1f7mj1yszFN7A1oVOy?=
+ =?us-ascii?Q?UiJkszlcIRiW8oWvUOb3+Y70OcKN4BckUk4fRb7A+TbPka6LOxSe4gpPiwaE?=
+ =?us-ascii?Q?LXwsgA4eK0HDlE6tTDYYtJGDiLjYux44PctCGYSVMUprLnjroJ4d1WJ/juai?=
+ =?us-ascii?Q?QOO+9mKO66S/IOhnJKQpmk3OI77gSch+pGdSYFuLLHJ9MHn5VCzeSm6GGfqO?=
+ =?us-ascii?Q?C9O/xM5f6yuAZZT4Wfsz3cYzbR+ud00VWXuTlnbJLtRmfL1Z8kDb6bsoTfdq?=
+ =?us-ascii?Q?OPuU668lWMwtFh/HeLfly5tkfn1doht0a4oiU7ItJfWux+gAStHRipX21nUo?=
+ =?us-ascii?Q?36pNfPqxpuEQJDarJLwF6TXSfGIMqcPOR8SNbOl3sJRxf3eZLaUyZEjN7X92?=
+ =?us-ascii?Q?ILpe2r5PFEc+nsDINv+uo68qOlsWwHyCoGZdP4oEyyRj49YpXV8PMBhprjPS?=
+ =?us-ascii?Q?gLpJEVlA+QKhuQWd3/wxa8udmOU7A7pC4iShzeRoklamZI3eEBVaQguP0SHg?=
+ =?us-ascii?Q?+G3WfoQobM7mOvnuLdYcCXYmtf84OUSQqUDO0VhwAbGfSDz76Y5aFPzsl+kc?=
+ =?us-ascii?Q?dwwz/ujE+oU/SKiPbzyltH9ATBmfKufcCwkQEV3PWv3tsKBXlxavRCZ+VTvS?=
+ =?us-ascii?Q?r9jrggs2EHg8HqLutxDeCeV/yEtpFQDwuAKSi1kl3XXEPQNavx/kfLvmvhoj?=
+ =?us-ascii?Q?QBQVv5aHjOXPkNxvQj+vVM7759fNtbAgDc3qSaPMFPSFG5ZQA+xUyrykL2Jb?=
+ =?us-ascii?Q?VdZFl/+JTvfo+EioKLoP7MPwXWXwBvMx5mM46Oo6mR7UNqJmSxa3VDyOCiKR?=
+ =?us-ascii?Q?FPtiw+gGI0uPqNB2kWQ=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5261.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18ccd93f-63e4-424b-d1a8-08db351b660a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Apr 2023 14:46:39.5223 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3067.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0603bb08-09a5-4791-2120-08db352599a3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Apr 2023 15:59:41.0581 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7eoMUGvQyABD8/8fVzNrfG2L/0dzC88uL7zsig1DwdEh9EsG0nPbk43VotG95918tMp4rfo0b8wbDcj7n8/tzg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8157
+X-MS-Exchange-CrossTenant-userprincipalname: zKJAFiI7ZaJILH6vd8riMByXNenTYXOfNXJ1ASQLrMLyePO4o5f8ilL5zWVBZfel72CveuxhbRgbuo2DHKHC+Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5616
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,40 +134,188 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Liu, Aaron" <Aaron.Liu@amd.com>, "Guo, Shikai" <Shikai.Guo@amd.com>
+Cc: "Somasekharan, Sreekant" <Sreekant.Somasekharan@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNCg0KDQo+IC0tLS0tT3JpZ2luYWwg
-TWVzc2FnZS0tLS0tDQo+IEZyb206IEt1ZWhsaW5nLCBGZWxpeCA8RmVsaXguS3VlaGxpbmdAYW1k
-LmNvbT4NCj4gU2VudDogVHVlc2RheSwgQXByaWwgNCwgMjAyMyA5OjU5IFBNDQo+IFRvOiBYaWFv
-LCBTaGFuZSA8c2hhbmUueGlhb0BhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmc7DQo+IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+DQo+IENj
-OiBMaXUsIEFhcm9uIDxBYXJvbi5MaXVAYW1kLmNvbT47IEd1bywgU2hpa2FpIDxTaGlrYWkuR3Vv
-QGFtZC5jb20+DQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMy8zXSBkcm0vYW1kZ3B1OiBEUk9QIHJl
-ZHVuZGFudA0KPiBkcm1fcHJpbWVfc2dfdG9fZG1hX2FkZHJfYXJyYXkNCj4gDQo+IEFtIDIwMjMt
-MDQtMDQgdW0gMDU6NTYgc2NocmllYiBTaGFuZSBYaWFvOg0KPiA+IEZvciBETUEtTUFQIHVzZXJw
-dHIgb24gb3RoZXIgR1BVcywgdGhlIGRtYSBhZGRyZXNzIGFycmF5IGhhcyBiZWVuDQo+ID4gcG9w
-dWxhdGVkIGluIGFtZGdwdV90dG1fYmFja2VuZF9iaW5kLg0KPiANCj4gT0suIEkgdGhpbmsgImhh
-cyBiZWVuIHBvcHVsYXRlZCIgc2hvdWxkIGJlICJ3aWxsIGJlIHBvcHVsYXRlZCIsIGJlY2F1c2UN
-Cj4gYW1kZ3B1X3R0bV9iYWNrZW5kX2JpbmQgaGFwcGVucyBhcyBhIGNhbGxiYWNrIGZyb20gdGhl
-IHR0bV9ib192YWxpZGF0ZQ0KPiBjYWxsIGJlbG93LiBXaXRoIHRoYXQgZml4ZWQgaW4gdGhlIHBh
-dGNoIGRlc2NyaXB0aW9uLCB0aGUgcGF0Y2ggaXMNCg0KWWVzLCBJIHdpbGwgZml4IHRoZSBjb21t
-ZW50Lg0KDQpCZXN0IFJlZ2FyZHMsDQpTaGFuZQ0KDQo+IA0KPiBSZXZpZXdlZC1ieTogRmVsaXgg
-S3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+DQo+IA0KPiANCj4gPg0KPiA+IFJlbW92
-ZSB0aGUgcmVkdW5kYW50IGNhbGwgZnJvbSB0aGUgZHJpdmVyLg0KPiA+DQo+ID4gU2lnbmVkLW9m
-Zi1ieTogU2hhbmUgWGlhbyA8c2hhbmUueGlhb0BhbWQuY29tPg0KPiA+IC0tLQ0KPiA+ICAgZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jIHwgMyAtLS0NCj4g
-PiAgIDEgZmlsZSBjaGFuZ2VkLCAzIGRlbGV0aW9ucygtKQ0KPiA+DQo+ID4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYw0KPiA+IGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jDQo+ID4gaW5k
-ZXggYmNiMGE3YjMyNzAzLi45NGVlOGY2MzhjMTIgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jDQo+ID4gKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jDQo+ID4gQEAgLTQ4OCw5
-ICs0ODgsNiBAQCBrZmRfbWVtX2RtYW1hcF91c2VycHRyKHN0cnVjdCBrZ2RfbWVtICptZW0sDQo+
-ID4gICAJaWYgKHVubGlrZWx5KHJldCkpDQo+ID4gICAJCWdvdG8gcmVsZWFzZV9zZzsNCj4gPg0K
-PiA+IC0JZHJtX3ByaW1lX3NnX3RvX2RtYV9hZGRyX2FycmF5KHR0bS0+c2csIHR0bS0+ZG1hX2Fk
-ZHJlc3MsDQo+ID4gLQkJCQkgICAgICAgdHRtLT5udW1fcGFnZXMpOw0KPiA+IC0NCj4gPiAgIAlh
-bWRncHVfYm9fcGxhY2VtZW50X2Zyb21fZG9tYWluKGJvLA0KPiBBTURHUFVfR0VNX0RPTUFJTl9H
-VFQpOw0KPiA+ICAgCXJldCA9IHR0bV9ib192YWxpZGF0ZSgmYm8tPnRibywgJmJvLT5wbGFjZW1l
-bnQsICZjdHgpOw0KPiA+ICAgCWlmIChyZXQpDQo=
+[Public]
+
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+> Russell, Kent
+> Sent: Tuesday, April 4, 2023 9:43 AM
+> To: Somasekharan, Sreekant <Sreekant.Somasekharan@amd.com>; amd-
+> gfx@lists.freedesktop.org
+> Cc: Somasekharan, Sreekant <Sreekant.Somasekharan@amd.com>
+> Subject: RE: [PATCH] drm/amdkfd: On GFX11 check PCIe atomics support and
+> set CP_HQD_HQ_STATUS0[29]
+>=20
+> Caution: This message originated from an External Source. Use proper
+> caution when opening attachments, clicking links, or responding.
+>=20
+>=20
+> [AMD Official Use Only - General]
+>=20
+> Comments inline
+>=20
+> > -----Original Message-----
+> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+> > Sreekant Somasekharan
+> > Sent: Monday, April 3, 2023 3:59 PM
+> > To: amd-gfx@lists.freedesktop.org
+> > Cc: Somasekharan, Sreekant <Sreekant.Somasekharan@amd.com>
+> > Subject: [PATCH] drm/amdkfd: On GFX11 check PCIe atomics support and
+> > set CP_HQD_HQ_STATUS0[29]
+> >
+> > On GFX11, CP_HQD_HQ_STATUS0[29] bit will be used by CPFW to
+> > acknowledge whether PCIe atomics are supported. The default value of
+> > this bit is set to 0. Driver will check whether PCIe atomics are
+> > supported and set the bit to 1 if supported. This will force CPFW to us=
+e real
+> atomic ops.
+> > If the bit is not set, CPFW will default to read/modify/write using
+> > the firmware itself.
+> >
+> > This is applicable only to RS64 based GFX11 with MEC FW greater than
+> > or equal to 509. If MEC FW is less than 509, PCIe atomics needs to be
+> > supported, else it will skip the device.
+> >
+> > This commit also involves moving amdgpu_amdkfd_device_probe()
+> function
+> > call after per-IP early_init loop in amdgpu_device_ip_early_init()
+> > function so as to check for RS64 enabled device.
+> >
+> > Signed-off-by: Sreekant Somasekharan
+> <sreekant.somasekharan@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c       |  2 +-
+> >  drivers/gpu/drm/amd/amdkfd/kfd_device.c          | 11 +++++++++++
+> >  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c |  9 +++++++++
+> >  3 files changed, 21 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > index 7116119ed038..b3a754ca0923 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -2150,7 +2150,6 @@ static int amdgpu_device_ip_early_init(struct
+> > amdgpu_device *adev)
+> >               adev->has_pr3 =3D parent ? pci_pr3_present(parent) : fals=
+e;
+> >       }
+> >
+> > -     amdgpu_amdkfd_device_probe(adev);
+> >
+> >       adev->pm.pp_feature =3D amdgpu_pp_feature_mask;
+> >       if (amdgpu_sriov_vf(adev) || sched_policy =3D=3D
+> > KFD_SCHED_POLICY_NO_HWS)
+> > @@ -2206,6 +2205,7 @@ static int amdgpu_device_ip_early_init(struct
+> > amdgpu_device *adev)
+> >       if (!total)
+> >               return -ENODEV;
+> >
+> > +     amdgpu_amdkfd_device_probe(adev);
+> >       adev->cg_flags &=3D amdgpu_cg_mask;
+> >       adev->pg_flags &=3D amdgpu_pg_mask;
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> > b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> > index 521dfa88aad8..64a295a35d37 100644
+> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> > @@ -204,6 +204,17 @@ static void kfd_device_info_init(struct kfd_dev
+> *kfd,
+> >                       /* Navi1x+ */
+> >                       if (gc_version >=3D IP_VERSION(10, 1, 1))
+> >                               kfd->device_info.needs_pci_atomics =3D
+> > true;
+> > +             } else if (gc_version < IP_VERSION(12, 0, 0)) {
+>=20
+>=20
+> What if we get a GFX9 with MEC v509? Wouldn't that trigger this too?
+> Wondering if this should be if (gc_version>=3DIP_VERSION(11,0,0) &&
+> gc_version < IP_VERSION(12,0,0)) thus ensuring it's only GFX11. Or maybe
+> there is some better check than that. Either way, checking that it's < GF=
+X11
+> might false-positive on GFX10- too, so we should probably be explicit in =
+our
+> GFX check that it's only GFX11.
+
+The previous condition is for gc_version < IP_VERSION(11, 0, 0), so that co=
+ndition will (and currently is) taken for gfx9/gfx10/etc.
+
+That's to say the logic after this change will look like:
+
+If (KFD_IS_SOC15(kfd)) {
+	<...>
+	If (gc_version < IP_VERSION(11, 0, 0)) {
+		<...>
+	} else if (gc_version < IP_VERSION(12, 0, 0)) {
+		<...>
+	}
+}
+
+So this new path will only be taken for gfx11.
+
+Best,
+Graham
+
+>=20
+>  Kent
+>=20
+> > +                     /* On GFX11 running on RS64, MEC FW version must
+> > + be
+> > greater than
+> > +                      * or equal to version 509 to support
+> > + acknowledging
+> > whether
+> > +                      * PCIe atomics are supported. Before MEC
+> > + version 509,
+> > PCIe
+> > +                      * atomics are required. After that, the FW's
+> > + use of
+> > atomics
+> > +                      * is controlled by CP_HQD_HQ_STATUS0[29].
+> > +                      * This will fail on GFX11 when PCIe atomics are
+> > + not
+> > supported
+> > +                      * and MEC FW version < 509 for RS64 based CPFW.
+> > +                      */
+> > +                     kfd->device_info.needs_pci_atomics =3D true;
+> > +                     kfd->device_info.no_atomic_fw_version =3D
+> > + kfd->adev-
+> > >gfx.rs64_enable ? 509 : 0;
+> >               }
+> >       } else {
+> >               kfd->device_info.doorbell_size =3D 4; diff --git
+> > a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+> > b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+> > index 4a9af800b1f1..c5ea594abbf6 100644
+> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+> > @@ -143,6 +143,15 @@ static void init_mqd(struct mqd_manager *mm,
+> void
+> > **mqd,
+> >                       1 << CP_HQD_QUANTUM__QUANTUM_SCALE__SHIFT
+> > |
+> >                       1 <<
+> > CP_HQD_QUANTUM__QUANTUM_DURATION__SHIFT;
+> >
+> > +     /*
+> > +      * If PCIe atomics are supported, set CP_HQD_HQ_STATUS0[29] =3D=
+=3D 1
+> > +      * to force CPFW to use atomics. This is supported only on MEC FW
+> > +      * version >=3D 509 and on RS64 based CPFW only. On previous vers=
+ions,
+> > +      * platforms running on GFX11 must support atomics else will
+> > + skip the
+> > device.
+> > +      */
+> > +     if (amdgpu_amdkfd_have_atomics_support((mm->dev->adev)))
+> > +             m->cp_hqd_hq_status0 |=3D 1 << 29;
+> > +
+> >       if (q->format =3D=3D KFD_QUEUE_FORMAT_AQL) {
+> >               m->cp_hqd_aql_control =3D
+> >                       1 << CP_HQD_AQL_CONTROL__CONTROL0__SHIFT;
+> > --
+> > 2.25.1
