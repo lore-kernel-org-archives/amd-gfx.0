@@ -4,41 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36987C76188
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Apr 2023 10:47:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F19A3C7619A
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Apr 2023 10:47:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3B4210E8CA;
-	Wed,  5 Apr 2023 10:47:51 +0000 (UTC)
-Received: from gandalf.ozlabs.org (mail.ozlabs.org
- [IPv6:2404:9400:2221:ea00::3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0887310E04B
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Apr 2023 05:32:33 +0000 (UTC)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4PrtYh30Hrz4wj7;
- Wed,  5 Apr 2023 15:32:24 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ellerman.id.au;
- s=201909; t=1680672746;
- bh=6cvZnTNdwRmgAZ2M1VYA2Gsp2e92pYs++vVV/vBNJI0=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
- b=YfZvmH+FVv9XziLRu5Qy0A59sFncSyDVUTEY9XnAANVK87Rj7BcIp7Pr4igO888Wj
- 7fEVYZ6ezUGVvYRpfEYBpt+/rsqwlyGm51T1Ocbfrth0iO8J2iYQ/zNcI+duNkPddP
- WEJa9k0ih/LUCi1xme4jWirECKyad4GxjkLJWaEhO3XIUbU4QGr8M6rqqrUxvYlIp3
- XXzlLj1te8KtwjzDxT7Z+8QaiK8N/dA0Ksf1iaIy0DL6VrIHabBAhfTz20X4qWZl9H
- 3I7PFOMSZlj3noQzITqlCpBOWSHxa4q3nZC0/kOItcmVaakQrbOHemRvnCnTkSvBSK
- SA4zKynbM994g==
-From: Michael Ellerman <mpe@ellerman.id.au>
-To: Segher Boessenkool <segher@kernel.crashing.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 036C710E8CB;
+	Wed,  5 Apr 2023 10:47:53 +0000 (UTC)
+X-Greylist: delayed 962 seconds by postgrey-1.36 at gabe;
+ Tue, 04 Apr 2023 15:30:25 UTC
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 138A510E6D3
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Apr 2023 15:30:24 +0000 (UTC)
+Received: from gate.crashing.org (localhost.localdomain [127.0.0.1])
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id 334FADOc011641;
+ Tue, 4 Apr 2023 10:10:13 -0500
+Received: (from segher@localhost)
+ by gate.crashing.org (8.14.1/8.14.1/Submit) id 334FAAO1011634;
+ Tue, 4 Apr 2023 10:10:10 -0500
+X-Authentication-Warning: gate.crashing.org: segher set sender to
+ segher@kernel.crashing.org using -f
+Date: Tue, 4 Apr 2023 10:10:10 -0500
+From: Segher Boessenkool <segher@kernel.crashing.org>
+To: Michael Ellerman <mpe@ellerman.id.au>
 Subject: Re: [PATCH] powerpc/64: Always build with 128-bit long double
-In-Reply-To: <20230404151010.GC25951@gate.crashing.org>
+Message-ID: <20230404151010.GC25951@gate.crashing.org>
 References: <20230404102847.3303623-1-mpe@ellerman.id.au>
- <20230404151010.GC25951@gate.crashing.org>
-Date: Wed, 05 Apr 2023 15:32:21 +1000
-Message-ID: <87edoyki6y.fsf@mpe.ellerman.id.au>
-MIME-Version: 1.0
-Content-Type: text/plain
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230404102847.3303623-1-mpe@ellerman.id.au>
+User-Agent: Mutt/1.4.2.3i
 X-Mailman-Approved-At: Wed, 05 Apr 2023 10:47:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,61 +51,44 @@ Cc: dan@danny.cz, daniel@octaforge.org, amd-gfx@lists.freedesktop.org,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Segher Boessenkool <segher@kernel.crashing.org> writes:
-> On Tue, Apr 04, 2023 at 08:28:47PM +1000, Michael Ellerman wrote:
->> The amdgpu driver builds some of its code with hard-float enabled,
->> whereas the rest of the kernel is built with soft-float.
->> 
->> When building with 64-bit long double, if soft-float and hard-float
->> objects are linked together, the build fails due to incompatible ABI
->> tags.
->
->> Currently those build errors are avoided because the amdgpu driver is
->> gated on 128-bit long double being enabled. But that's not a detail the
->> amdgpu driver should need to be aware of, and if another driver starts
->> using hard-float the same problem would occur.
->
-> Well.  The kernel driver either has no business using long double (or
-> any other floating point even) at all, or it should know exactly what is
-> used: double precision, double-double, or quadruple precision.  Both of
-> the latter two are 128 bits.
+Hi!
 
-In a perfect world ... :)
+On Tue, Apr 04, 2023 at 08:28:47PM +1000, Michael Ellerman wrote:
+> The amdgpu driver builds some of its code with hard-float enabled,
+> whereas the rest of the kernel is built with soft-float.
+> 
+> When building with 64-bit long double, if soft-float and hard-float
+> objects are linked together, the build fails due to incompatible ABI
+> tags.
 
->> All versions of the 64-bit ABI specify that long-double is 128-bits.
->> However some compilers, notably the kernel.org ones, are built to use
->> 64-bit long double by default.
->
-> Mea culpa, I suppose?  But builddall doesn't force 64 bit explicitly.
-> I wonder how this happened?  Is it maybe a problem in the powerpc64le
-> config in GCC itself?
+> Currently those build errors are avoided because the amdgpu driver is
+> gated on 128-bit long double being enabled. But that's not a detail the
+> amdgpu driver should need to be aware of, and if another driver starts
+> using hard-float the same problem would occur.
 
-Not blaming anyone, just one of those things that happens. The
-toolchains the distros (Ubuntu/Fedora) build all seem to use 128, but
-possibly that's because someone told them to configure them that way at
-some point.
+Well.  The kernel driver either has no business using long double (or
+any other floating point even) at all, or it should know exactly what is
+used: double precision, double-double, or quadruple precision.  Both of
+the latter two are 128 bits.
 
-> I have a patch from summer last year (Arnd's
-> toolchains are built without it) that does
-> +       powerpc64le-*)  TARGET_GCC_CONF=--with-long-double-128
-> Unfortunately I don't remember why I did that, and I never investigated
-> what the deeper problem is :-/
+> All versions of the 64-bit ABI specify that long-double is 128-bits.
+> However some compilers, notably the kernel.org ones, are built to use
+> 64-bit long double by default.
 
-Last summer (aka winter) is when we first discovered this issue with the
-long double size being implicated.
+Mea culpa, I suppose?  But builddall doesn't force 64 bit explicitly.
+I wonder how this happened?  Is it maybe a problem in the powerpc64le
+config in GCC itself?  I have a patch from summer last year (Arnd's
+toolchains are built without it) that does
++       powerpc64le-*)  TARGET_GCC_CONF=--with-long-double-128
+Unfortunately I don't remember why I did that, and I never investigated
+what the deeper problem is :-/
 
-See:
-  https://git.kernel.org/torvalds/c/c653c591789b3acfa4bf6ae45d5af4f330e50a91
+In either case, the kernel should always use specific types, not rely on
+the toolchain to pick a type that may or may not work.  The correct size
+floating point type alone is not enough, but it is a step in the right
+direction certainly.
 
-So I guess that's what prompted your patch?
+Reviewed-by: Segher Boessenkool <segher@kernel.crashing.org>
 
-> In either case, the kernel should always use specific types, not rely on
-> the toolchain to pick a type that may or may not work.  The correct size
-> floating point type alone is not enough, but it is a step in the right
-> direction certainly.
->
-> Reviewed-by: Segher Boessenkool <segher@kernel.crashing.org>
 
-Thanks.
-
-cheers
+Segher
