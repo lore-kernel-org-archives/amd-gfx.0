@@ -4,122 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A809C6FD1D
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Apr 2023 13:45:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4957EC761A6
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Apr 2023 13:52:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73D8D10E552;
-	Tue,  4 Apr 2023 13:45:18 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2047.outbound.protection.outlook.com [40.107.92.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 649D610E552
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Apr 2023 13:45:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4E9710E692;
+	Tue,  4 Apr 2023 13:52:12 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2054.outbound.protection.outlook.com [40.107.93.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B504B10E692
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Apr 2023 13:52:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GIJAxghhRbUVubFwHy+VPfGmpNGV8ETEZCm5/G6iJ8L+kUSSB4spOlIQKSfP5ANkYEGyi3stvqUjlNKIb7Qg+AY5B/Bbg/v95sUYIUecmZkFTJOXIbW3AmkWybJVChu2ILh04HlyBcRwZDuLRX35gHRLluCG6+dB2W7QL/UehWIlIa/7Ns+uDVhyvFQEHq0ctOl4hK9js8ur8SZWJejLm9TN192imO7cJo6hX/zN7WdVDCIlfwKnFxMfvs3saRq5db2WpBk8H6sXYcbNnri6ZKiuX+RAhJI9awGtZUBDnFQhGkfDEClDL1J1poDXLa2Yd1Ws1GXTkqNPG7aaEpLlVw==
+ b=gFxPsPJ+P4in47xZ6PgT4/fXWaUrX3XXewbgvEkmhxO8bK+31UZ+FCFIExftYKFwkmZiF7gv+JX/PIco00xjTwLUWRy8kgrxsK2WZE8QdJO82fILaO76eZea6b8/0iep5ehy7wfP1aEdJmejOdqGIz4U9O2ixE8QSZCmnMg+8bQx5ZC5WprNpJszRIFjZK/BIqtKvRXZcMMbEUWd4Fy3d/r4Fy1IOHfOxgjjyCRy58Kvgaf/kn3KthlGDMq4pvkCYtWwGgOROhZ6r+jRKiJOiv2IxizeGN+g7FXeo1tT9F05i4kgaU8ckPfTURaVhP+XBSzggLusInM6UZ8nIHs27w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f5IsbDYmy+b6a8PP8P6KvJhAMg4qeWN7N6zGiTxpL/Y=;
- b=dqpKmQLeOQnjd6fDF0AEYeWSaIxAn3IIUxjkRiVE/LjpeAHYwDMBygaDQHJ6Yc6jxcEOxsHfpN7o4EoVaFLnjfzw8957JAlZralve0tU9+0VP5dNXXxmTliTHWWROvB9o9k1e3l+d06DzMYaC2/uffvEnFOPg6f/f+wMcNiIyYWDj+m6WotcgeKfvMUywp+tYXoYcbn5B+JXx31SEgF6y5rKmbA8w6i6fqoqOOEMJOCrqsYceqsBO5N6XZiv4SR875MOFlqeawfAZWTU6vybgGFBl2GRBU4g0B5vULWXsaQuFnGIE9II4zW4U0ny+bU4fNthTmcCzcLtlwsLUO8ayg==
+ bh=76sgIi2E3ZQgzLTddcXSOMB7I/UbVHdZk5TeXIF7HEI=;
+ b=jQGl5hYF/K8i9+O77Ci58SN5L+kSrjDKuUVq1/6wZbwW85kyg0Oi9Nr8+/PpJbXgt7d3/UzLhMXiBHLwrK4NsDb6RyUcwuejMmLGQarzOyj5INWJw93ucI8FzCKlUg8IKfCL9idVxfItJLYvUr70Q21fJ8XOfy23sNmlwpvIQSjIDYGgxeCQP7QQsfnQ05jOch3/SQw7j9gv9h3aCwuBI/JsrDXeQNHIfpPqHKVKd54//JNimgZR3J/oOEsJhbiJYFt8L7lFymt7WBAq7zMnEUM/19EV/EESaLgefFlnuGsvlJbknv6hJ/oNvaJxsrZniqnAv3gcNppNJibJqR7U2g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f5IsbDYmy+b6a8PP8P6KvJhAMg4qeWN7N6zGiTxpL/Y=;
- b=16Q/RzDGK8x9Jm6wLrC34VJBraztord20f+gog9EAf/KlOmrMgahGf/WZQ6JhknonUSFADYOIkqAbZ4f5shssQs5MZCxnDdcGTr63DCcIw1+GpgDx7LGiGGRhNZ4pKrp+yRlotG0edoChp84zNIDGcU3m0bVkeJ7A+Z2HtBgzzg=
+ bh=76sgIi2E3ZQgzLTddcXSOMB7I/UbVHdZk5TeXIF7HEI=;
+ b=flEne8LcOs4pSyy9zNIIjTW3j26QH787/1wBkbH4f9sJy67HGUCx90o/XI1G5U7339vugRVbKt042e6y/artPx+wtbcPIfj6vachRYc1WWjx7HAeo/rC+70hIpXUC6RbwpP/1VOqjOKXTV+dGghPWpQ9hUO224/oLqvO7jZK0/8=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by BL3PR12MB6642.namprd12.prod.outlook.com (2603:10b6:208:38e::15)
+ by IA1PR12MB6209.namprd12.prod.outlook.com (2603:10b6:208:3e7::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.33; Tue, 4 Apr
- 2023 13:45:12 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.35; Tue, 4 Apr
+ 2023 13:52:06 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::f170:8d72:ca64:bb26]) by BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::f170:8d72:ca64:bb26%6]) with mapi id 15.20.6254.033; Tue, 4 Apr 2023
- 13:45:11 +0000
-Message-ID: <539b143b-64fd-9108-1967-04e2ef27848e@amd.com>
-Date: Tue, 4 Apr 2023 09:45:08 -0400
+ 13:52:06 +0000
+Message-ID: <ead2bf27-f496-47b0-53fc-7796582d0ab5@amd.com>
+Date: Tue, 4 Apr 2023 09:52:04 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH 1/3] drm/amdgpu: Add userptr bo support for mGPUs when
- iommu is on
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- "Xiao, Shane" <shane.xiao@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Yang, Philip" <Philip.Yang@amd.com>
-References: <20230404095640.3277840-1-shane.xiao@amd.com>
- <cd5efdb0-d6f6-8e91-353f-35906a1fe62f@amd.com>
- <DM4PR12MB5261B08BE4730541920230F89D939@DM4PR12MB5261.namprd12.prod.outlook.com>
- <c5bd045a-a5ff-36ea-ed9b-bc4732b50b16@gmail.com>
+Subject: Re: [PATCH 2/3] amd/amdgpu: Inherit coherence flags base on original
+ BO flags
 Content-Language: en-US
+To: Shane Xiao <shane.xiao@amd.com>, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com
+References: <20230404095640.3277840-1-shane.xiao@amd.com>
+ <20230404095640.3277840-2-shane.xiao@amd.com>
 From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <c5bd045a-a5ff-36ea-ed9b-bc4732b50b16@gmail.com>
+In-Reply-To: <20230404095640.3277840-2-shane.xiao@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQXPR0101CA0053.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00:14::30) To BN9PR12MB5115.namprd12.prod.outlook.com
+X-ClientProxiedBy: YQBPR0101CA0269.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:68::19) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|BL3PR12MB6642:EE_
-X-MS-Office365-Filtering-Correlation-Id: d1d58db1-6aa7-4ded-e4c6-08db3512cfd4
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|IA1PR12MB6209:EE_
+X-MS-Office365-Filtering-Correlation-Id: 292db948-4e61-49f2-326d-08db3513c72b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RZNf5nVEBHcmbd+eAiVRe2fx0fTf1AraCiOHmzXauu4J5+RZIefSTX+Iu+psP02vRFMxW7NZggcTb1vx2y+oxCdXHz24tNb5En9RhfOmWkiH23EFl30ugA6WYG+JMX1llJdgUck1uTKPAEJD/yQZqEqCESYpfUp7QZl0OKFox9DECtv3pd38Sf8u2khUYTYU0Hecvryh+YkHpwZQYt30N3P07moiXgPA8QG80e7i5fB1OmuIaRd7Tt3H+8cSs3Vrm/ilIV3lOb1PFGuNNQYQRFGJDuTp0pVEkdZGT/8fNS9kR0Y5xTLMWSsWeMkdVoq8sCLqpY1yAMJ2m39AIWSinPNnwPuApiWPPE1OBco0CZDlaFfO3SkoRYf80N7DKmex/DcIQ2p7TkzEHeHMXWJCZr00partQp/bgn2Ix3IcwOhgQ9H4Ke1u6gZeaVZpxz5dSn8WAzzVOZBVgdfrDtohl0HyPaCysc0WN/1g7eQVRsnqrEgKMr4TYE9pDlc9Be4NqSnN31ThZ3fo5HkgljKNmOKJh7rNbBwF7AjkMgl4yTb4yAIMMjAWqOrpBHGRqLt3t/l8UVBhO2aGF17u+qBnzblkl6akzPnKTza5AYv32Qnj+xbvDxUjcZ8Gj0GVjjij1j1W5VHJilfrAOqhi14EcA==
+X-Microsoft-Antispam-Message-Info: VHa4y0zcoQTbF5TJd5W8zDTqUAoCJAkN/Vxp7sUXt/ItQW74KpnteI6dzOrQDHpaR1O6lCB8ggW3MnzfiEMISKFQpr72oYaqRXAo/Glc1CxZ1pSHc24zu8yyKepG9PnjAzvuIW9+eSHTEpOXDHdPPuvjb0KHCmz70rjf6XzTP3YEUuUuVJAYsf5p7i+vkkkCTBAUj0jj2phiLKzuxZvdOHgBzmHnZWon616d6zkIjYbfKlOtCltlvQogq3kUZbjhViHyq+56u3S1EVDC9vteNbcYMm3aLsBfvCGingC3I9/sahoLuQSmP3SHo4foWVa3XvlvpDYJpKztnwzUwt0XRPhaQz90u0wSFYpxVzON1mB8ol3T87Es8/X/y79PUeC5PWF6X0uvpRFdUchL4CnbEbxKMZ6qRWkRgCefvYtxKm7lFgEBPuBtDF8rDJheduhaOuliqNp4Lpsqv40YlCl5KBWWFPQaSlbY8GmiLUaAB4mpJ6YX6DMog3r1oDZHY34EIzyZUHoCC9bXbj/hMC+f/mhMvfBKyEoot4ds9mprxMtJ1iDXj1b4IqB0TdzLm1nA0LUUzcSEIOG8Kl+IgPEeyP6z8/pp7v091Z2TJhZ6wQo9kJ2UxIzpKUpZ+ELuFVqUO/icstoLBoDiKmP03u8yFg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(396003)(366004)(136003)(39860400002)(346002)(451199021)(41300700001)(66476007)(66556008)(8676002)(66946007)(316002)(44832011)(478600001)(4326008)(6636002)(8936002)(5660300002)(110136005)(38100700002)(54906003)(6666004)(83380400001)(66574015)(186003)(2616005)(6486002)(6506007)(6512007)(53546011)(26005)(86362001)(31696002)(36756003)(2906002)(31686004)(45980500001)(43740500002);
+ SFS:(13230028)(4636009)(366004)(396003)(376002)(136003)(39860400002)(346002)(451199021)(5660300002)(31686004)(316002)(6636002)(2906002)(8936002)(41300700001)(186003)(478600001)(4326008)(66946007)(8676002)(66556008)(66476007)(44832011)(6486002)(26005)(6512007)(6506007)(83380400001)(2616005)(36756003)(31696002)(86362001)(38100700002)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OUM4RkRDQTRsdW5OazF1V2JkdUhFcjByNEk1OWpGS00vSGpuYWNIQm1vSlFQ?=
- =?utf-8?B?dkoveXR3MmpQN1U1aURYVG9WUmNoUzVlVjY1YmRvd2Vod3crMEgwNjVRS2N2?=
- =?utf-8?B?WVlFY2ZKQjMxSFE2YTNOcXNiWFFxMTg2cmJSR1hQN0daSjhPS2VBNkVrVjVQ?=
- =?utf-8?B?M2VhdjhNanpWRW96enNLdEJNck1welZOVzJING9OR0c1Q2VLYjQ3U0IyWmVa?=
- =?utf-8?B?VXFRN21TYlZXbzZOTklUUVgxQU5Tc084Z1BVQnBtb3RmN0RmK1RRSkExd2xQ?=
- =?utf-8?B?a1RyeDB4OVp1djRiUUZJMXFEblIxZFdXN3p4TytqTGlTOUNxNFVtT2laOC80?=
- =?utf-8?B?eExPNlllM1l1SThuUFpMNnpUV1Npd0gvSU1Ya0ZyeUFIV21IL0s1TTlnT2lC?=
- =?utf-8?B?V0o4MDJXeWErSHdqekdBTHJNN3JwNVdKZmkwUHFnYkRGVjRaU3pGZHRscjRk?=
- =?utf-8?B?bGdPSENrU3FkTjNMV2xxWWEvNENidzRhelBXNEdKVDF0cXN2RWMzRjV0ZDI5?=
- =?utf-8?B?c0dhZ0FIeGNQeFJXSFJxU3hWcXRYYWc4VjNLUzlZY1JBcUJxVXYvQjY0cmVh?=
- =?utf-8?B?WUJiZzJTemFBWVM2NVllbnh4V1hmalZabStxeUhXbFgwc1craGRZVFZVdEJN?=
- =?utf-8?B?dUdEUzgxdVVEQmZEaTlVVFRCc1JVS0ROSW1LUmJzcHEzRXJFdTBaUWdWTS9Q?=
- =?utf-8?B?dUFMQUNNRjRndnRDMXdzUUFzZjc2WjNIMTJwSXQ5TDl2L2REaUQ2VS9NU3Zt?=
- =?utf-8?B?MnVxL3poYlViNnlWVWtLZXBJTGZGL3VOZUQ3dndzZXBlN3N2UkI0ZEIvalAv?=
- =?utf-8?B?cUg5dXMvTDZmVm9BTjBXOFMyU1Z2NFl3VXVKWFpKZjgyQ1REcVVZT09Wb2V1?=
- =?utf-8?B?WXhjU0REMklYNXNrcWNXdmFQTkVCUVA2a2VPdmgrY2thUlYyK1BLR0pZb3Jp?=
- =?utf-8?B?WkJQNVVTbEJFNXpDakpJQUdxUnpnekZkOExucXdON2Frb1lxQkJNK0RONTRD?=
- =?utf-8?B?QXE2RUMzNzRXNy9MckxudXR1MURJYUhMOXNWVnVlMkxUWVd6dGNtR1BlRk05?=
- =?utf-8?B?TE4rdldsNlA2aGRUU1hVUlpjUkQxNnJnbmFwWG5ROGlBZHdZRFpsa3dSdWli?=
- =?utf-8?B?Q3UrUUlzKzNZSk54bEl5bXVBVFlPbTNhVnJMdjJwN0Z4NDJqa01XakRPcFhF?=
- =?utf-8?B?dWkyaG5YckViRmtQb3lvc0VqKzBBc2h4aHptS282L3NmNlFQbzV2VlBDWkUz?=
- =?utf-8?B?MTRVZU1TVzJ3RTlVVjBUSGJuUmwyOVpMRVdQMXhLSzVLUnZKTEN2am50dm53?=
- =?utf-8?B?Zk12U1dkdGQxaGNwVmVDY1NJOEVCL1poZ2NRMFpaRXlsVm1ZSmJwNXM3U05C?=
- =?utf-8?B?UTVDNWRCUUxBaE5YKzZGdW85ZUpCa21OTmc1dm9BSmFtaU5KaVJjVzFrWWNm?=
- =?utf-8?B?OGZRVEZBMTZ2ZDBvZG9VVXkreWdpYTRtOTJPTGhtb0FhTFh1WUNkZFFhY0hR?=
- =?utf-8?B?ZXZiK3QwUVNsNFpxTGFqbnMwTVdkRnliR1BKL20yUXpqa1hKdzRITVdRQlVo?=
- =?utf-8?B?c2g4Z29XWmx4d2drcXZHckVRWTZjMlhJK3ZWUytqd1FxbnZ5ZUpjdEV3VXgx?=
- =?utf-8?B?OFpBMkY1QTZxOG9oUGFWN0k3N0hLZW9qSWJMVUxCMVZjV2FHUE9IOG85TStu?=
- =?utf-8?B?Nk00RXNBMjBDYzE3bW1JVlZudFF2MnhYdFltUE9hWCtHTElqNWpQTGE4OHRp?=
- =?utf-8?B?SUpLVk9qYUVVZnhOQllESWVtRy9mSEwwaGVkZU9QTEh5ak1pdDcwcHUvanVX?=
- =?utf-8?B?WW02WUc4dGZmYjVlcGFGczRDeDZPV0gyTzJYT3VHdU9KZmhEaHV4UmRsMkpE?=
- =?utf-8?B?Um5Gb2xlUGdzQlZyZk1idWJsZU9lbjNXbzhUYnh5aUxKbzNLM1N1alc1MU1W?=
- =?utf-8?B?RVcrQzBpMnB5bFYxKzh4R0g1SDJraXdTcUNMeXJaeVc0RVBEUTByKzA1akFY?=
- =?utf-8?B?VEtPZXloUVBuK1REYmVGblIzbDZlKzlodUZKY1IvN3R3ZDJGai91RDdWUkxB?=
- =?utf-8?B?QWtoOUZGSXlwOG5lRktJa3JvbERkOVlzcTI0Tncyb3ZFK1NWQmZQZW9jTm5s?=
- =?utf-8?Q?c16fBuBnSqGQzFZf6BGt/odyk?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VmQ3SmxMQW85UUNqTGtlVUQzbE5BR1hnQzR2bWQwSGZ1T1dxc1dIYmVEM2ZI?=
+ =?utf-8?B?ZW1JZ0ZrTUNhWWVrZ2daVU5CK1ZQNnBsMW4vQjhCU2M3UmtyaG9nNWc2Q3Fw?=
+ =?utf-8?B?REZjZElQdnMxNS9lL05EWkl0ZUR4Q2F1OFNZOWJIanNuYU1xdTQ3OHB0TDdQ?=
+ =?utf-8?B?QWdJS2pEcmdCaHMxaXRod1hjZnRFUk9lZ2lPZjM4R3ZCV2hMdE51Zk1TVE5Q?=
+ =?utf-8?B?U241djkvOEV1Qlp1dzhla3VGUFo2dG5iYkZleWdFOGF1VWZTQW1BQmV1akl0?=
+ =?utf-8?B?aWJjejluSzY2eHZIdm5uQW1ENlVXUk9ib3lGUnF2aFhrZ0VuL0ZQZmtFekpO?=
+ =?utf-8?B?R1QwbWZQcFZDN1FrUStzak9lSzJLb0p6TmpMWkZCd3cxRU0rMGk0cDBtYm54?=
+ =?utf-8?B?Z3d5bFRya0owZzN6VU5ZcUFKVnpoWHdRSURwOGdMZ2hxMHdHQXhZTmhRUU1Z?=
+ =?utf-8?B?aklhcERaTmdlckZzaDhBSCtRQnpJQWsyUHpDbzR0NFovZEVwNHJXdE9CdTEw?=
+ =?utf-8?B?ZktZeFlBZzZjTnN6eHMvWC9GaFlsY0dkbVgxWk52WDU0eEtuZzdTQWdLeURE?=
+ =?utf-8?B?NVpHVThMVlBOZ212SmIrU050Vm16Ulp4OFo5amtDSjJHd2IxOXFqTTRoQURU?=
+ =?utf-8?B?OFJIMW9acUcyYlJuemdEZEwzb1dDKzVrSG85SUVnN0FtdEJ2RklyTHBHVENo?=
+ =?utf-8?B?dUo4STdWYUYwbjJyRU93SEV3NEN0dmV0U3VQUDB1ODJYM1E3OGMyeTkrTmhs?=
+ =?utf-8?B?SEh5VS9UNDI0TlJycWhUbHBrRjZLRmEwc3BaVmVsMkRjZGo3c0ViaSs1akl0?=
+ =?utf-8?B?T042T1k0S3gwWER2ZU9ZY29FVlhDbThKOG94WG4xYXhxR24rWGhWMzVuaWpU?=
+ =?utf-8?B?cno4RnZGMHhtQVB1SjRyTzI5OWp6WERmeUozT3FuZHE1MHNjV0dhRndIM2M3?=
+ =?utf-8?B?NWQ1V2tPaUVnbjNjTDIrdEpIdTEvQ3JIeEVNVCtzRmVROURGT01XZmxoRXlh?=
+ =?utf-8?B?bDEyTDF3ai95KzlpL2J0ZnJ3N0hmTEpIRlRxZVd4QkVJOTRtdjJub3JZM3Bm?=
+ =?utf-8?B?ZFdMMGZTMWUwODdVTW1IL1pKQmREUE5wSSt0ZmJhVFlkNmRpaEt4N3N5b1E4?=
+ =?utf-8?B?YWpVWno0RitTYWZCTHdmK1RVamxvT2w3K2YxM2dqVFhQazBmdC91UktGa1BZ?=
+ =?utf-8?B?cUZOOXZvMXJrS2pBdXQ1eXM2NzRJR3Fmd1BVZUFEdUdOTWI3MmVlTmY5SlR5?=
+ =?utf-8?B?VjlXT1E0cWdXa0dQZVpxTHJTNGxqYVVLZW1HMUpiRDUwcjIyQVcwN0RtUndo?=
+ =?utf-8?B?RGo5cU1sOE4zeWRWbHlGTW54YU8yT0djckdmWHRRd2pSZGNEK21RcEZ5R3dN?=
+ =?utf-8?B?K1NZQ2xoY0E5YTEzS0lIMU4vVUo0VXZ4aTVqZ1htNExVeGczMTJqWVlFR3k2?=
+ =?utf-8?B?SElYNCs2RUVENlRJVjNjTlhkaHgzUTE0NFdXdGU0cWQybkdYU2pMNHB1K1M2?=
+ =?utf-8?B?SkIrMERxcmw1TjFWUng4TU56R3JoMTh5a3dJYVkrYWRQbTN2YWkrcUlaTjRU?=
+ =?utf-8?B?Q1RaWlBXZGVUWFZ0eWlRcE9HUUhkVjJmNmNnYUdxaXZjNjBoajZSbFN1L3ZK?=
+ =?utf-8?B?bmMxdHcybFYxaDhyR1FjRm9NUDN2NTNUY1V2NDJHMC9KaTRvZnFuM3hwaTFt?=
+ =?utf-8?B?cnJXQzlHRy9zZjQwUmI4U2hIeG9qdlVUMWZmTStXaU5tTXRBQnJKcjNrZkt6?=
+ =?utf-8?B?b3BtcTdoUHlkWDNvTGZyRW5qWjIwVVdNZGZmSlNEYkcwcmZPL1VjSHd2Vzhy?=
+ =?utf-8?B?ZmJUY0t3RFNvWlBjanh6SXZZY25zTjdVWmM5Q3NaWlYxeGNJY2lNRFhNZDBm?=
+ =?utf-8?B?RmdQNjNzUHc1Mmh2enFjdXBwbXVOTzc3V2d2OHUrd2ZTRmEwQ042eUEvR1Zp?=
+ =?utf-8?B?dHptb3NDRGNWc1lxeG5NSHJCYnorUGNBRXNIZFI3Rk9EbXhWdlkxNm1VbFlX?=
+ =?utf-8?B?N0FFNk9FTlJnSjVabmxrK0FVSFlTYjhxMUU2NGhHM1R0dUhDc2c0RlVpWkVi?=
+ =?utf-8?B?MEJCQm52SmdIRzhoNGd1TGZ0dWZycGZhanREZitmQ3krRjJJS1pVdmdpbVln?=
+ =?utf-8?Q?uo3KZRYdr1xXXDQ4v2Sbpr5VF?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1d58db1-6aa7-4ded-e4c6-08db3512cfd4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 292db948-4e61-49f2-326d-08db3513c72b
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Apr 2023 13:45:11.7239 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Apr 2023 13:52:06.6631 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pp/KJcoIJKzPULWIkkBFMkF8fePvYT/SAx/MSKvTX47XzTyaM0pkSnZnOubeFr2Sbw8tJb4W7qn/yUJUBq8XhA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6642
+X-MS-Exchange-CrossTenant-UserPrincipalName: hldqetJyVlNOeg8fuGm7NPKMw/c8CmOUzy2dtTHmJF7EbR3wpZAlP24mvFYzur8yCOcfApIhF8wvTugSBX2e4Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6209
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,131 +126,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Liu, Aaron" <Aaron.Liu@amd.com>, "Guo, Shikai" <Shikai.Guo@amd.com>
+Cc: aaron.liu@amd.com, shikai.guo@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[+Philip]
+Am 2023-04-04 um 05:56 schrieb Shane Xiao:
+> For SG BO to DMA-map userptrs on other GPUs, the SG BO need inherit
+> MTYPEs in PTEs from original BO.
 
-Am 2023-04-04 um 08:47 schrieb Christian König:
+Good catch. See two comments inline.
 
-> Am 04.04.23 um 12:56 schrieb Xiao, Shane:
->> [AMD Official Use Only - General]
->>
->>> -----Original Message-----
->>> From: Koenig, Christian <Christian.Koenig@amd.com>
->>> Sent: Tuesday, April 4, 2023 6:27 PM
->>> To: Xiao, Shane <shane.xiao@amd.com>; amd-gfx@lists.freedesktop.org;
->>> Kuehling, Felix <Felix.Kuehling@amd.com>
->>> Cc: Liu, Aaron <Aaron.Liu@amd.com>; Guo, Shikai <Shikai.Guo@amd.com>
->>> Subject: Re: [PATCH 1/3] drm/amdgpu: Add userptr bo support for mGPUs
->>> when iommu is on
->>>
->>> Am 04.04.23 um 11:56 schrieb Shane Xiao:
->>>> For userptr bo with iommu on, multiple GPUs use same system memory dma
->>>> mapping address when both bo_adev and adev in identity mode or in the
->>>> same iommu group.
->> Hi Christian,
->>
->>> WTF? Userptr BOs are not allowed to be exported/imported between 
->>> different
->>> GPUs.
->>>
->>> So how can the same userptr BO be used on different GPUs?
->> If GPUs are all in iommu identity mode which means dma address are 
->> the same as physical address,  all of the GPUs can see the system 
->> memory directly.
->>
->> In such case, should we export/import the BO,  then create a new SG 
->> BO for another GPU?
+
 >
-> Yes, absolutely. Each userptr BO is only meant to be used on one GPU.
+> If we set the flags, the device can be coherent with the CPUs and other GPUs.
 >
-> Even if you could use the same BO for multiple GPUs it's not necessary 
-> a good idea since you then have live time problems for example.
+> Signed-off-by: Shane Xiao <shane.xiao@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 10 +++++++++-
+>   1 file changed, 9 insertions(+), 1 deletion(-)
 >
-> E.g. what happens when one GPU is hot removed while the other one who 
-> imported the BO is still in use?
->
-> Felix can you comment on that? My recollection was that we rather 
-> improve the storage of DMA addresses instead of duplicating the BOs 
-> over different GPUs.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index 33cda358cb9e..bcb0a7b32703 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -253,14 +253,22 @@ create_dmamap_sg_bo(struct amdgpu_device *adev,
+>   {
+>   	struct drm_gem_object *gem_obj;
+>   	int ret, align;
+> +	uint64_t flags = 0;
+>   
+>   	ret = amdgpu_bo_reserve(mem->bo, false);
+>   	if (ret)
+>   		return ret;
+>   
+>   	align = 1;
+> +	if(mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_USERPTR)
+> +	{
+> +		flags |= mem->bo->flags &(AMDGPU_GEM_CREATE_CPU_GTT_USWC |
 
-For KFD we currently enable sharing of userptr BOs between multiple GPUs 
-by creating a userptr BO for the first GPU, and creating additional SG 
-BOs using the same page list for additional GPUs. That way we don't have 
-to call hmm_range_fault N times and setup N MMU notifiers for the same 
-address range on an N GPU system. But we do have to create N DMA 
-mappings, which is facilitated by the SG BOs.
+I think userptrs never use USWC because the pages are not allocated by 
+the driver. You can drop this flag.
 
-We have a further optimization to not even store separate DMA addresses 
-per-GPU if they are a direct mapping. In that case we just increase the 
-reference count on the original userptr BO. (I agree that we should also 
-look into more efficient storage of DMA addresses. However, last time we 
-talked about this, you basically told us that scatter gather tables are 
-being deprecated, but I haven't seen the alternative yet.)
 
-I think this patch fixes a potential issue with that optimization. There 
-is an implicit assumption, that the DMA addresses stored in the original 
-userptr BO are a direct mapping, so we can reuse them on other GPUs that 
-also use a direct mapping. But, we didn't actually check that 
-assumption. I think this patch fixes that for systems where system 
-memory is direct mapped on some but not all GPUs.
+> +				AMDGPU_GEM_CREATE_COHERENT | AMDGPU_GEM_CREATE_UNCACHED);
+> +		align = PAGE_SIZE;
 
-This scenario should probably be called out explicitly in the patch 
-description. The condition is also getting pretty hard to read and 
-understand. Maybe move the both-direct-map-or-same-iommu-group 
-conditions into a helper function, say 
-"amdgpu_ttm_tt_get_usermm(mem->bo->tbo.ttm) && reuse_dmamap(adev, bo_adev)".
+Isn't a page alignment implicit anyway? I don't see why we need to use a 
+different alignment for userptrs. If PAGE_SIZE is needed for this case, 
+we can use the same for all cases We don't even need a local variable 
+for this.
 
 Regards,
    Felix
 
 
->
-> Regards,
-> Christian.
->
->>
->>
->> Best Regards,
->> Shane
->>
->>> Regards,
->>> Christian.
->>>
->>>> Signed-off-by: Shane Xiao <shane.xiao@amd.com>
->>>> ---
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 8 ++++----
->>>>    1 file changed, 4 insertions(+), 4 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->>>> index e7403f8e4eba..33cda358cb9e 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->>>> @@ -804,11 +804,11 @@ static int kfd_mem_attach(struct amdgpu_device
->>> *adev, struct kgd_mem *mem,
->>>>                 va + bo_size, vm);
->>>>
->>>>            if ((adev == bo_adev && !(mem->alloc_flags &
->>> KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP)) ||
->>>> - (amdgpu_ttm_tt_get_usermm(mem->bo->tbo.ttm) &&
->>> adev->ram_is_direct_mapped) ||
->>>> -            same_hive) {
->>>> + (amdgpu_ttm_tt_get_usermm(mem->bo->tbo.ttm) &&
->>> ((adev->ram_is_direct_mapped && bo_adev->ram_is_direct_mapped) ||
->>>> + adev->dev->iommu_group == bo_adev->dev-
->>>> iommu_group)) ||
->>>> +same_hive){
->>>>                /* Mappings on the local GPU, or VRAM mappings in
->>> the
->>>> -             * local hive, or userptr mapping IOMMU direct map
->>> mode
->>>> -             * share the original BO
->>>> +             * local hive, or userptr mapping in the same dma
->>>> +             * address space share the original BO
->>>>                 */
->>>>                attachment[i]->type = KFD_MEM_ATT_SHARED;
->>>>                bo[i] = mem->bo;
->
+> +	}
+> +
+>   	ret = amdgpu_gem_object_create(adev, mem->bo->tbo.base.size, align,
+> -			AMDGPU_GEM_DOMAIN_CPU, AMDGPU_GEM_CREATE_PREEMPTIBLE,
+> +			AMDGPU_GEM_DOMAIN_CPU, AMDGPU_GEM_CREATE_PREEMPTIBLE | flags,
+>   			ttm_bo_type_sg, mem->bo->tbo.base.resv, &gem_obj);
+>   
+>   	amdgpu_bo_unreserve(mem->bo);
