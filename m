@@ -4,117 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 960E9C76188
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Apr 2023 10:28:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF080C7619A
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Apr 2023 10:47:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28B2F10E8B7;
-	Wed,  5 Apr 2023 10:28:05 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2042.outbound.protection.outlook.com [40.107.96.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2908F10E8B3
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Apr 2023 10:28:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=k2zMyhiI0KUSFP1WqYoMFBbJcvYkRf8GzSSPN02z+N6gFFGGqdkpV/k//pl/9b3Ug0o/3VurfQDznlGm2swVWHKONiClECXepu0UDG7htwSC76pS3g/uXg1CJMCRuZkPXqDShl0rSsRDOr6lbgpQ01MjVEjwD/28FmuFwKyAE9BHZfAG6nKrsdMLEVwTjAVQKLd2VW5YAGBjaMBz/qdFFj9PFa3BJ2CJIqWqYIxAedmTGSpmwm4QzsLxl6ltqvwKm6HAK7P3oy0tVtB6XFWt2Bucfuw6n5r4B5EeML8gG7lvTdfnPBXTvINg78yn3YI/EdlV1o0JtWcSsUtqPXeeBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0eWekPzkNzDhjQXB5q2cGUgxYlPe+hDA6NkrOqOuP/Q=;
- b=edkg6s+fOoi69A2Nz1Kmm2AQP1hfWs+ImRCLyqgnwWwL//VCnfeMok1SlIP+n4fPt3WzX+ZvuWPkagHxnqsr/ydhGBepXK/oAYcBkRTisCAWgVomBQpzlG42FXEeQQwzen3zmShqM4HGGBEZEbedZqd+ZF+4fgzJIuijEiYYF35aGZzw2PI5e0t2LSqATAzx0BBlwJN2zxKfBO9BLiG8aVOm+/nIzoYeriR91GvOZmvp1l8lmYrUFlSQ+IHjq/QSIme3dV7+iIskIOElLPbYTRV86E4N2BDwqDAbcHLYzpuyhthe+tIv/7OHyHNovX94WagoCxMThOk4bWFlmLZtcw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0eWekPzkNzDhjQXB5q2cGUgxYlPe+hDA6NkrOqOuP/Q=;
- b=YPMNlp55OlxAHvzft0ANwVdQ+C5lSFkBCDURcJI21KbIbNhiCmZWzgUCmjAjo3NZNB6uFHl7knQ15hzPLp/cNn2jRBJAYJ+zs1kGdVAKleuYmAtsF9BaKd4Olxu8wsWEXXaX4qdSwMkB2eiUIdzhnJUFrxYX0W2brq0hJLQd4GM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by DM6PR12MB4498.namprd12.prod.outlook.com (2603:10b6:5:2a2::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.33; Wed, 5 Apr
- 2023 10:28:00 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::4624:dc39:943e:6ae]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::4624:dc39:943e:6ae%5]) with mapi id 15.20.6254.035; Wed, 5 Apr 2023
- 10:28:00 +0000
-Message-ID: <01e6dbad-edb7-abcd-f4c3-8ed9b6849e44@amd.com>
-Date: Wed, 5 Apr 2023 12:27:50 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: Re: [PATCH] drm/amd/amdgpu: Fix trivial style errors
-Content-Language: en-US
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>
-References: <20230405041939.3781870-1-srinivasan.shanmugam@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230405041939.3781870-1-srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0182.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ab::13) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F6DD10E8C9;
+	Wed,  5 Apr 2023 10:47:50 +0000 (UTC)
+X-Greylist: delayed 431 seconds by postgrey-1.36 at gabe;
+ Tue, 04 Apr 2023 10:36:12 UTC
+Received: from gandalf.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F5CC10E64C
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Apr 2023 10:36:11 +0000 (UTC)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4PrPBJ5WTrz4x1N;
+ Tue,  4 Apr 2023 20:28:56 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ellerman.id.au;
+ s=201909; t=1680604139;
+ bh=8o2+RFgNk7wyDy11vu39SRy4hjDn2gnyBl4n5abjTwI=;
+ h=From:To:Cc:Subject:Date:From;
+ b=A7nifk1kfEvS33UdTDBn/+ASOWdtcDwvPfFymDW3ssxupISW6nISIxZWYlIaUFzMX
+ ugpK9Tt5TQhb3Cu04glk9YwSzXHC+qv6wQtXVHLwh+GfPaJ1QUW6/Sllmvy08Xll0j
+ E5mcdgVkg253/0l/66LtTIrTIIGZRql9GV5Gb6Smflq1dtrWr5bXgZZwGIeEqXibEv
+ mkhhOkmA/l+P5PX4H9bIUzycZJ+ihHqOYNw/zZHZeHWam7safymyTKwP7gHPhqJwcO
+ vZiAVfLsALk/zcQfPwOBGyNHTBBhVU8bIzJ199WSFgOfCScoa7NsmPdZXRi26AdseZ
+ pB7lFKnCgcbzg==
+From: Michael Ellerman <mpe@ellerman.id.au>
+To: <linuxppc-dev@lists.ozlabs.org>
+Subject: [PATCH] powerpc/64: Always build with 128-bit long double
+Date: Tue,  4 Apr 2023 20:28:47 +1000
+Message-Id: <20230404102847.3303623-1-mpe@ellerman.id.au>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|DM6PR12MB4498:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9e7d4a0c-ab4b-4069-1d4a-08db35c06e0e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: m8OyPbSCLuom5S0h+rVBAxktJe2ml+hX/pGjeeWH4kBFl+Xg2rCkS2AZ0m2h1sWu9fqH5jF2LPvRhipr40qd6fcLUokC8knSNAPUBTLcyQN+Ru5ZQ9sxgGwv52lf0e8t/7feq5rI07s3/76lTjUTG/kPYtjP1SsKOe/RueNOXEZlH3H9fiqFiKk1185WO6VvX99bQLK3r6amQpLWwVNknlxW4pYvMHju4N8e8FpQ7LB+rHfIVvWoJ4MpfPhur25MCIl+sARp2sI3EaSKasTjntdXtvjnQv1XUjxOXfmKNTSL7+fa5LWLhjLCDRT3a6YoQn8mCh2+CPwWpQ4NEibSQG2bOTIAMdNvhvC/dggLJhgsaobzRMQ/nRDBJv6lDY/YEMhFHax7DOqOsj4awpDYu3+MJCJ5K/qBirkJKaigpoGBHAVGpDfNuLFrdBUft0YCd3WXSW7xrFT1m4OVVhfRdKMiznFxGjegqR33ZHaU+wR4yotEVAilSuNkneymTcLv6cDz0lAhgd3tU1GUDrb3T7JzDrpliKhbDKn4HI5qc/lhrtWg9lIMEMrGeS53vJYzNY0lT7snBV35TQlsyvs8fn27D78Ncr3coQipXbdcRDjgARmowRtsg5iMsROdnuf/vCYfpiFI5qYp5G1yxql9mA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(366004)(346002)(396003)(376002)(39860400002)(136003)(451199021)(2906002)(31696002)(36756003)(31686004)(86362001)(6486002)(2616005)(66574015)(83380400001)(186003)(6512007)(6506007)(6666004)(66476007)(8676002)(66946007)(41300700001)(66556008)(38100700002)(110136005)(5660300002)(478600001)(316002)(4326008)(8936002)(6636002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NXZMVDJLMzZma2lick0zc3B3Uko4UUtvYlUwZFpOQWl3aXdDc2g3aDExOCtx?=
- =?utf-8?B?ejRtQkpYMm1zeUlIZ1BIZ2FXdmQwMWRTWUNsUUFYNUc0dlFWQTc3eVA0MVlk?=
- =?utf-8?B?RWtUWDE4MVRzeVF5aU01WFNsV1hhTmh1THJxd29tc2VFbHQ5b1k2dENUbzJK?=
- =?utf-8?B?dmlnY2hFa3FFdXJMOTl5bUgxRGViek1xRUJNWlZWTFJ2TWVGV1IvSW01dm9L?=
- =?utf-8?B?UGJmekNZYk9tRjJ6TGN6U3VqT1JGaWl3TWtIYmpZRXl1dlpiMnhINW5IR1NE?=
- =?utf-8?B?RUFCcFBFeDBNYmhDWkY3UGxjZDRqMnNVSDF3NzAySGtJVnY1T3dQemtvWTZx?=
- =?utf-8?B?SGlqaGp2dU1jaWZ4UWRkUU9hNTFLempXaFJEWHE3RXpkNEZwVjAwMTlkelZu?=
- =?utf-8?B?S1ZURFJkbHZzMmNjTTJwTW5WTHdCZFJVUFNka3lOU3ZBWnowNzBpRS9taENK?=
- =?utf-8?B?ckI1a3RFZ3VmcjhxbmtSQ0poOFJPeFdjQnF4cjRoL1U4SlNrY3h4dSswS280?=
- =?utf-8?B?NWhNVmIzM0h3eGszTVJRMzNCR0JaeThZMEsxNFpLN3ZUYmd5OHhqdjBtQlEz?=
- =?utf-8?B?a1lLd2cvaXlEZTkwOThvcW1MMy9OK2lFYktqeXV3RERNQjJ2OHFkMmh1di9P?=
- =?utf-8?B?TjBvL0tHR0tyTXJHL3NZRGhaQjhEY0EzNWU1N2FVRmpHeXltUldpczlNTDl2?=
- =?utf-8?B?NHFCL0dCYXNBVC9qZE51b0tjREZ4UmZsZFpXTTFDY3NVblIwZEFTaHZPc1o3?=
- =?utf-8?B?NXMrVHE4cVlWWDVWSXg3MUtsV1lDS2F0M0dWalN3WmpTQ1VDb093RnpFQ1Vw?=
- =?utf-8?B?a3dXUHVTNFdCN01idEZuWXd3eHVRQklWcGdwdEhEbThud0pwN2szU0ZaTlZB?=
- =?utf-8?B?RGd2U05aZG12WDRnMDhNeGE0Y0tHZGxQWnZOV0IzUm1ocTczWFpSbGpYY2VB?=
- =?utf-8?B?MGZBeUtYbmcrTERKeDNpQ0dVTzJjNEpLKy8wYjNqWjZvd0t5YVQ0Z0NLMGlL?=
- =?utf-8?B?djR1SUpKY2ZTTExjdDY1WFA3RjRZdGF3SjBBTG1jcWFRSGdhK1lBNWYxVi9O?=
- =?utf-8?B?MHZ4TUhMTk1wSExDSlgrai9nc2MzaTY2WUhCdk52dE1nUW01OTZ5U2YzZXFw?=
- =?utf-8?B?Wmp1WmlZMzhuRWdGd0F0cmZnTm9nOS95YUNpR2J1emdYMmhxWE5pL1BHTHh6?=
- =?utf-8?B?cGdYbzcvcTFLeTh4Y2IxN2Fzd0ZTT0FoSGxLaVhGem90enE4Tis0U1AxZ2ZQ?=
- =?utf-8?B?UWJBWExnZXlpamJ5anlSTWViM01CRG5TaFVPb0xWL0xldlAwYmhPMEhtbTZI?=
- =?utf-8?B?WmJlNUJ3MWxVT0U1MDI5RVBHeVE4WkJMZ0ZyRm42RkNDdVdBU2RYeTkwSkhQ?=
- =?utf-8?B?c053bG5YNUVvb0x2NFZ1amo2by9VZ1JEK2UyM0VPdmgweE5jOTNNUXpyeDZI?=
- =?utf-8?B?aitMbERhanNKWlpqbU5NRGZieVB1ZERwcWtkOHN0MEpXQ3NWV1VKMEpQUXUw?=
- =?utf-8?B?Ull2Q3FTOEM3Nzdoc2Vmd0M2Um9ZVzIycWZ3QkRhVVhsUXE2d3d1ZHdkWWJs?=
- =?utf-8?B?ZWVKcldiZjdLbDRnbGZiRE1YUzBiNWNqUHVvRHdIR29QSE91UW5lcmlJbHRN?=
- =?utf-8?B?eTk0Z0hHaklremJ0dWpPTlgyVUlNTmJkRlR5MUs3T2NZR0dwQkZtemx4YXhL?=
- =?utf-8?B?bFI5RktNa0hZYUNOR3FMaXY4d3crbDg0TDJlSXdpSWd2c0JjR1BGcXV0cXBX?=
- =?utf-8?B?WG5HNmVPTktHcmNrUWZxc3BuOVFzRzRkRlpjbDBETWYrNWcxL0tvS3NGUk5O?=
- =?utf-8?B?T1gxeis1TTZVWWZGQlcvejl3ZkxZQ3VFY2Z6b2JDY3N0ZHAyMHB2Z3pER0Ni?=
- =?utf-8?B?UHlOamNaRnFwaDNEc0lFYkU4RGF0Q3ZhTkg0eEpqeE5WeTArQlVBei9oajI3?=
- =?utf-8?B?ZHNNaUJ4V2NzdmxVSVdQdjQ5TGpqLzYra1lIN0EwRThrNVV6dHViOHU3cE9j?=
- =?utf-8?B?dUJGY1pmRkp1QXFyamJXSkZHencvbys0cmFwY2pOb0ZWeDExOHgvTjNxajRK?=
- =?utf-8?B?T20rRkt6QUt4VjllNXBhZ1NhR2FkQXJVdFhSMk1zcmlRNkhtbitIN3UwU0I1?=
- =?utf-8?B?SzNoUFFnT0xWSmdkTUUzOGMwVU8xYTdYZlNTY2dnNXArc2F1UVpicWJ5UmVD?=
- =?utf-8?Q?JnrgQMxy0MXkjEg0BO0lfd7q1rmA8zHBdB3h3KHyb9Ot?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e7d4a0c-ab4b-4069-1d4a-08db35c06e0e
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Apr 2023 10:28:00.3361 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0zd8Ou1hR5wL8xASd8rJQqAbFZJIDeO4uyqEikDOtOn8TQ+A0jJoiNMtAiiVackN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4498
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 05 Apr 2023 10:47:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,48 +50,104 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
+Cc: segher@kernel.crashing.org, dan@danny.cz, daniel@octaforge.org,
+ amd-gfx@lists.freedesktop.org, tpearson@raptorengineering.com,
+ alexdeucher@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 05.04.23 um 06:19 schrieb Srinivasan Shanmugam:
-> Fix coding style errors reported by checkpatch, specifically:
->
-> ERROR: space prohibited before that ',' (ctx:WxV)
-> +module_param_named(job_hang_limit, amdgpu_job_hang_limit, int ,0444);
->                                                                 ^
->
-> ERROR: space required after that ',' (ctx:WxV)
-> +module_param_named(job_hang_limit, amdgpu_job_hang_limit, int ,0444);
+The amdgpu driver builds some of its code with hard-float enabled,
+whereas the rest of the kernel is built with soft-float.
 
-Since we don't do resubmission any more this whole parameter can 
-probably be removed all together.
+When building with 64-bit long double, if soft-float and hard-float
+objects are linked together, the build fails due to incompatible ABI
+tags.
 
-Christian.
+In the past there have been build errors in the amdgpu driver caused by
+this, some of those were due to bad intermingling of soft & hard-float
+code, but those issues have now all been fixed since commit c92b7fe0d92a
+("drm/amd/display: move remaining FPU code to dml folder").
 
->
-> This patch gets rid of all above type of  "ERROR" messages in
-> drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:
->
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Mario Limonciello <mario.limonciello@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index e652ffb2c68e..d2af86c2af2b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -526,7 +526,7 @@ module_param_named(virtual_display, amdgpu_virtual_display, charp, 0444);
->    * Set how much time allow a job hang and not drop it. The default is 0.
->    */
->   MODULE_PARM_DESC(job_hang_limit, "how much time allow a job hang and not drop it (default 0)");
-> -module_param_named(job_hang_limit, amdgpu_job_hang_limit, int ,0444);
-> +module_param_named(job_hang_limit, amdgpu_job_hang_limit, int, 0444);
->   
->   /**
->    * DOC: lbpw (int)
+However it's still possible for soft & hard-float objects to end up
+linked together, if the amdgpu driver is built-in to the kernel along
+with the test_emulate_step.c code, which uses soft-float. That happens
+in an allyesconfig build.
+
+Currently those build errors are avoided because the amdgpu driver is
+gated on 128-bit long double being enabled. But that's not a detail the
+amdgpu driver should need to be aware of, and if another driver starts
+using hard-float the same problem would occur.
+
+All versions of the 64-bit ABI specify that long-double is 128-bits.
+However some compilers, notably the kernel.org ones, are built to use
+64-bit long double by default.
+
+Apart from this issue of soft vs hard-float, the kernel doesn't care
+what size long double is. In particular the kernel using 128-bit long
+double doesn't impact userspace's ability to use 64-bit long double, as
+musl does.
+
+So always build the 64-bit kernel with 128-bit long double. That should
+avoid any build errors due to the incompatible ABI tags. Excluding the
+code that uses soft/hard-float, the vmlinux is identical with/without
+the flag.
+
+It does mean any code which is incorrectly intermingling soft &
+hard-float code will build without error, so those bugs will need to be
+caught by testing rather than at build time.
+
+For more background see:
+  - commit d11219ad53dc ("amdgpu: disable powerpc support for the newer display engine")
+  - commit c653c591789b ("drm/amdgpu: Re-enable DCN for 64-bit powerpc")
+  - https://lore.kernel.org/r/dab9cbd8-2626-4b99-8098-31fe76397d2d@app.fastmail.com
+
+Signed-off-by: Michael Ellerman <mpe@ellerman.id.au>
+---
+ arch/powerpc/Kconfig                | 4 ----
+ arch/powerpc/Makefile               | 1 +
+ drivers/gpu/drm/amd/display/Kconfig | 2 +-
+ 3 files changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
+index fc4e81dafca7..3fb2c2766139 100644
+--- a/arch/powerpc/Kconfig
++++ b/arch/powerpc/Kconfig
+@@ -291,10 +291,6 @@ config PPC
+ 	# Please keep this list sorted alphabetically.
+ 	#
+ 
+-config PPC_LONG_DOUBLE_128
+-	depends on PPC64 && ALTIVEC
+-	def_bool $(success,test "$(shell,echo __LONG_DOUBLE_128__ | $(CC) -E -P -)" = 1)
+-
+ config PPC_BARRIER_NOSPEC
+ 	bool
+ 	default y
+diff --git a/arch/powerpc/Makefile b/arch/powerpc/Makefile
+index 12447b2361e4..4343cca57cb3 100644
+--- a/arch/powerpc/Makefile
++++ b/arch/powerpc/Makefile
+@@ -133,6 +133,7 @@ endif
+ endif
+ CFLAGS-$(CONFIG_PPC64)	+= $(call cc-option,-mcmodel=medium,$(call cc-option,-mminimal-toc))
+ CFLAGS-$(CONFIG_PPC64)	+= $(call cc-option,-mno-pointers-to-nested-functions)
++CFLAGS-$(CONFIG_PPC64)	+= $(call cc-option,-mlong-double-128)
+ 
+ # Clang unconditionally reserves r2 on ppc32 and does not support the flag
+ # https://bugs.llvm.org/show_bug.cgi?id=39555
+diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
+index 0c9bd0a53e60..e36261d546af 100644
+--- a/drivers/gpu/drm/amd/display/Kconfig
++++ b/drivers/gpu/drm/amd/display/Kconfig
+@@ -8,7 +8,7 @@ config DRM_AMD_DC
+ 	depends on BROKEN || !CC_IS_CLANG || X86_64 || SPARC64 || ARM64
+ 	select SND_HDA_COMPONENT if SND_HDA_CORE
+ 	# !CC_IS_CLANG: https://github.com/ClangBuiltLinux/linux/issues/1752
+-	select DRM_AMD_DC_DCN if (X86 || PPC_LONG_DOUBLE_128 || (ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG))
++	select DRM_AMD_DC_DCN if (X86 || (PPC64 && ALTIVEC) || (ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG))
+ 	help
+ 	  Choose this option if you want to use the new display engine
+ 	  support for AMDGPU. This adds required support for Vega and
+-- 
+2.39.2
 
