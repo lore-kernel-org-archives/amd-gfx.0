@@ -4,52 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E075BC7618D
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Apr 2023 08:04:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C69A1C7618D
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Apr 2023 08:04:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EC7210EB04;
-	Thu,  6 Apr 2023 08:04:51 +0000 (UTC)
-Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com
- [IPv6:2607:f8b0:4864:20::829])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E53E10EAEA
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Apr 2023 06:25:01 +0000 (UTC)
-Received: by mail-qt1-x829.google.com with SMTP id h3so10441753qtu.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 05 Apr 2023 23:25:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1680762300;
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=LrETg5K1WxrjG92hDMvBvAcI0yVnKFBZ3mX9X7d+ci4=;
- b=QFyBcAS11O8A2DVvrGeXadYzl5ZMEviq0EamRBG4lWeevXM/Ndhcyj5IvDfZbOwJ7S
- iBzQOUj/i0aUf7ubMb26m3GyvDw4caR2wushhZz20B3ss8lHw8l2+HA8S0ptIpCAYEDN
- /990uZiKl0D6RhyituBJTfW+bzqjVkR4lbPs25nVjvi0dMsZ0wk+ZaHc+QVVb5tAel67
- 5a7bEd6hRULGELFzn6EpSktrI260nHvRjzun/0CVdQ0Di5tmKvQ9KgeKC/yQeMnul4zX
- FDniSNgRV1rg2JEexjwuW9m9fyE0LgvLR1tXbN9aT/JJeBlGJ4ows9LyT6Xp1GsEw468
- uXYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680762300;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=LrETg5K1WxrjG92hDMvBvAcI0yVnKFBZ3mX9X7d+ci4=;
- b=G5IqXho7wm9IyvaJ+Ny7IOFBY8jQ3WM0qmxaNarnutWhgoaMeI55rIAG8LMjRov7gV
- itWBfosQu9w5rJitgMAkMQ7YFCLHxOmsM+Hf+DPi0j0koIBePSsgwxfgsOHque3IR3Oe
- WyCB/w7AaIrgbjz2FB03X4L+FBMmHnUgJpAzi6L5VOSqzy3hib0OfPbUntUmEIIYoiJc
- 3r+y301Eq3vRck4MLQKD2rGD8VgLRO8JB3uemum/5M4fD4ybKpwfJ/f6NLL3DUMSDH8K
- zGwbQjsR05Tc5uvmdBWiaJ6USKQEb7wTtm4575oMJ0DcXE0kUp0iqH3nVatKlYPY9l4x
- LjGw==
-X-Gm-Message-State: AAQBX9eoUTSg12JD3Lw6GIMRxTFN11POttGkd8Y8aUOGZLxYBes/zE8q
- NrfKM/pIx4GR63wn4HdiDStcGZn9FsS2e3n35ZDQksltisE=
-X-Google-Smtp-Source: AKy350Y++iPbM0ghSygi/TB+JUTcOMxk2eQJELQT0aYFbyrsxBO8tIJWZP+AQKGi/2smkYkvaUhY5YPbjGl7UJKNy/Q=
-X-Received: by 2002:a05:622a:1c8:b0:3d9:650a:7a9f with SMTP id
- t8-20020a05622a01c800b003d9650a7a9fmr2158444qtw.3.1680762300043; Wed, 05 Apr
- 2023 23:25:00 -0700 (PDT)
-MIME-Version: 1.0
-From: __- -__ <isapgswell@gmail.com>
-Date: Thu, 6 Apr 2023 03:24:44 -0300
-Message-ID: <CAN9WMdMkC+DTKE=SC2HX7yP3dh0Hoy-i55UtNv1wtkHMcv8d4w@mail.gmail.com>
-Subject: [INNOVATION] AMD nvme (pcie 4.0)
-To: amd-gfx@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="000000000000d893ca05f8a4f7cc"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EF4210EB05;
+	Thu,  6 Apr 2023 08:04:54 +0000 (UTC)
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2678210E0C3
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Apr 2023 11:08:43 +0000 (UTC)
+Received: from gate.crashing.org (localhost.localdomain [127.0.0.1])
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id 335B4Xi2027075;
+ Wed, 5 Apr 2023 06:04:33 -0500
+Received: (from segher@localhost)
+ by gate.crashing.org (8.14.1/8.14.1/Submit) id 335B4V9L027074;
+ Wed, 5 Apr 2023 06:04:31 -0500
+X-Authentication-Warning: gate.crashing.org: segher set sender to
+ segher@kernel.crashing.org using -f
+Date: Wed, 5 Apr 2023 06:04:31 -0500
+From: Segher Boessenkool <segher@kernel.crashing.org>
+To: Michael Ellerman <mpe@ellerman.id.au>
+Subject: Re: [PATCH] powerpc/64: Always build with 128-bit long double
+Message-ID: <20230405110431.GG25951@gate.crashing.org>
+References: <20230404102847.3303623-1-mpe@ellerman.id.au>
+ <20230404151010.GC25951@gate.crashing.org>
+ <87edoyki6y.fsf@mpe.ellerman.id.au>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87edoyki6y.fsf@mpe.ellerman.id.au>
+User-Agent: Mutt/1.4.2.3i
 X-Mailman-Approved-At: Thu, 06 Apr 2023 08:04:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,104 +45,112 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: dan@danny.cz, daniel@octaforge.org, amd-gfx@lists.freedesktop.org,
+ tpearson@raptorengineering.com, alexdeucher@gmail.com,
+ linuxppc-dev@lists.ozlabs.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000d893ca05f8a4f7cc
-Content-Type: text/plain; charset="UTF-8"
+Hi!
 
-Hi,
+On Wed, Apr 05, 2023 at 03:32:21PM +1000, Michael Ellerman wrote:
+> Segher Boessenkool <segher@kernel.crashing.org> writes:
+> > On Tue, Apr 04, 2023 at 08:28:47PM +1000, Michael Ellerman wrote:
+> >> The amdgpu driver builds some of its code with hard-float enabled,
+> >> whereas the rest of the kernel is built with soft-float.
+> >> 
+> >> When building with 64-bit long double, if soft-float and hard-float
+> >> objects are linked together, the build fails due to incompatible ABI
+> >> tags.
+> >
+> >> Currently those build errors are avoided because the amdgpu driver is
+> >> gated on 128-bit long double being enabled. But that's not a detail the
+> >> amdgpu driver should need to be aware of, and if another driver starts
+> >> using hard-float the same problem would occur.
+> >
+> > Well.  The kernel driver either has no business using long double (or
+> > any other floating point even) at all, or it should know exactly what is
+> > used: double precision, double-double, or quadruple precision.  Both of
+> > the latter two are 128 bits.
+> 
+> In a perfect world ... :)
 
-I have read on the internet that asrock launched a nvme pcie gpu.
+Well, without it knowing what exactly it calculates, does this code have
+any business running in kernel space?  Is it acceptable to just do
+random things in the kernel?  I don't know the kernel code that uses
+long double at all (and I'm afraid to look for fear of going blind), but
+all this sounds like the 64-bit IEEE double precision floating point is
+not good enough for some certain calculation, but 80-bit extended double
+precision as used on x86 is.  That does make it likely that both of our
+128-bit formats would work, but there are lots and lots of "buts".  To
+start with, what does that code require wrt fp contraction (so, floating
+multiply-add)?
 
-On Linux distros we dont have support to graphics 3D and stream processors
-(opencl) simultaneously like windows 10/11.
+All of this suggests that there should not be floating point code here
+*at all*, it is harder to use it in any acceptable way than to just do
+things in fixed point or scaled integer or whatever.
 
-My notebook have two nvme slots.
+> >> All versions of the 64-bit ABI specify that long-double is 128-bits.
+> >> However some compilers, notably the kernel.org ones, are built to use
+> >> 64-bit long double by default.
+> >
+> > Mea culpa, I suppose?  But buildall doesn't force 64 bit explicitly.
+> > I wonder how this happened?  Is it maybe a problem in the powerpc64le
+> > config in GCC itself?
+> 
+> Not blaming anyone, just one of those things that happens.
 
-So, why not a amd's dedicated nvme vram (video ram) devices?
+Oh I didn't say anyone is blaming me.  I want to fix the problem, that
+is all :-)
 
-It would represent a high improvement to VR (virtual reality), AR
-(augmented reality), deep learning, machine learning, IA (artificial
-inteligence [constraints]), stereo 3D, real time and more realistic gaming
-8k/16k/+k, etc
+> The
+> toolchains the distros (Ubuntu/Fedora) build all seem to use 128, but
+> possibly that's because someone told them to configure them that way at
+> some point.
 
-With this we can even implement tickless gpu/graphics/apis/drivers/kernel.
+No, or yes, depending on how you look at it?  Default configurations all
+have 128-bit long double.  But buildall uses (almost) the same
+configuration on all targets, namely:
 
-Valve's source 2 engine now have this feature (tickless [sub-ticks]).
-That's wonderfull!
+        $GCC_SRC/configure \
+        --target=$TARGET --enable-targets=all --prefix=$PREFIX \
+        --enable-languages=c --without-headers --disable-bootstrap \
+        --disable-nls --disable-threads --disable-shared \
+        --disable-libmudflap --disable-libssp --disable-libgomp \
+        --disable-decimal-float --disable-libquadmath \
+        --disable-libatomic --disable-libcc1 --disable-libmpx
 
-What about tickless X11(xorg)/Wayland and all Linux graphics stack. No more
-render delays nor input lag ;)
+All of this is perfectly reasonable imnsho, but I guess the
+--enable-targets=all causes the problem here?  That makes no sense, but
+it is still my best guess.
 
-A amd's dedicated nvme ( pcie 4.0 x8 or x16 ) nvram :D
+> > I have a patch from summer last year (Arnd's
+> > toolchains are built without it) that does
+> > +       powerpc64le-*)  TARGET_GCC_CONF=--with-long-double-128
+> > Unfortunately I don't remember why I did that, and I never investigated
+> > what the deeper problem is :-/
+> 
+> Last summer (aka winter)
 
-APU + dGPU with an optional dedicated nvme (nvram) for both (opencl rules)
+Oh right.  Last July :-)
 
-What about opencl thundercache, turbo opencl or opencl boost? Why not all
-of this mixed stages on-demand?
+> is when we first discovered this issue with the
+> long double size being implicated.
+> 
+> See:
+>   https://git.kernel.org/torvalds/c/c653c591789b3acfa4bf6ae45d5af4f330e50a91
+> 
+> So I guess that's what prompted your patch?
 
-We dont have yet a known way to "overclock" opencl by gpu exclusively.
-Maybe AMD software's can do the job. Less or no race condition anymore.
+It was one day before my patch, maybe less than 12h even, so that could
+be.  I don't update the kernel source automatically though (there are
+50 to 100 build breaks every year, when things are in decent state I
+tend to keep it for a while).  But it may have been our patches are due
+to the same cause, and mine is no longer needed?  That would be nice.  I
+never committed that patch (or there would be more context, sigh).
 
-Intel has dedicated desktop gpus, its oficial, but i dont know intel's
-roadmap for mobile. AMD has the oportunity to make notebooks powerful like
-workstations and desktops.
+I'll dig, there is a real problem in the compiler it seems.  Thanks for
+the help so far!
 
-Dont forget this "new" device run coldest as possible. Heat sink, thermal
-pads, etc.
 
-Valve's steam deck have made progress about that.
-
-Apple has a macbook air with no active cooler system.
-
-Think about it ...
-
-Thank you!
-
-Luiz
-
---000000000000d893ca05f8a4f7cc
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi,<div dir=3D"auto"><br></div><div dir=3D"auto">I have re=
-ad on the internet that asrock launched a nvme pcie gpu.</div><div dir=3D"a=
-uto"><br></div><div dir=3D"auto">On Linux distros we dont have support to g=
-raphics 3D and stream processors (opencl) simultaneously like windows 10/11=
-.=C2=A0</div><div dir=3D"auto"><br></div><div dir=3D"auto">My notebook have=
- two nvme slots.=C2=A0</div><div dir=3D"auto"><br></div><div dir=3D"auto">S=
-o, why not a amd&#39;s dedicated nvme vram (video ram) devices?</div><div d=
-ir=3D"auto"><br></div><div dir=3D"auto">It
- would represent a high improvement to VR (virtual reality), AR=20
-(augmented reality), deep learning, machine learning, IA (artificial=20
-inteligence [constraints]), stereo 3D, real time and=20
-more realistic gaming 8k/16k/+k, etc</div><div dir=3D"auto"><br></div><div =
-dir=3D"auto">With this we can even implement tickless gpu/graphics/apis/dri=
-vers/kernel.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Valve&#39;s=
- source 2 engine now have this feature (tickless [sub-ticks]). That&#39;s w=
-onderfull!</div><div dir=3D"auto"><br></div><div dir=3D"auto">What about ti=
-ckless X11(xorg)/Wayland and all Linux graphics stack. No more render delay=
-s nor input lag ;)</div><div dir=3D"auto"><br></div><div dir=3D"auto">A amd=
-&#39;s dedicated nvme ( pcie 4.0 x8 or x16 ) nvram :D</div><div dir=3D"auto=
-"><br></div><div>APU + dGPU with an optional dedicated nvme (nvram) for bot=
-h (opencl rules)<br></div><div dir=3D"auto"><br></div><div dir=3D"auto">Wha=
-t about opencl thundercache, turbo opencl or opencl boost? Why not all of t=
-his mixed stages on-demand?</div><div dir=3D"auto"><br></div><div dir=3D"au=
-to">We dont have yet a known way to &quot;overclock&quot; opencl by gpu exc=
-lusively. Maybe AMD software&#39;s can do the job. Less or no race conditio=
-n anymore.<br></div><div dir=3D"auto"><br></div><div dir=3D"auto">Intel
- has dedicated desktop gpus, its oficial, but i dont know intel&#39;s=20
-roadmap for mobile. AMD has the oportunity to make notebooks powerful=20
-like workstations and desktops.</div><div dir=3D"auto"><br></div><div dir=
-=3D"auto">Dont forget this &quot;new&quot; device run coldest as possible. =
-Heat sink, thermal pads, etc.</div><div dir=3D"auto"><br></div><div dir=3D"=
-auto">Valve&#39;s steam deck have made progress about that.</div><div dir=
-=3D"auto"><br></div><div>Apple has a macbook air with no active cooler syst=
-em.<br></div><div dir=3D"auto"><br></div><div dir=3D"auto">Think about it .=
-..</div><div dir=3D"auto"><br></div><div dir=3D"auto">Thank you!</div><div =
-dir=3D"auto"><br></div><div dir=3D"auto">Luiz</div><div class=3D"gmail-yj6q=
-o"></div><div dir=3D"auto" class=3D"gmail-adL"><br></div><div dir=3D"auto" =
-class=3D"gmail-adL"><br><br></div></div>
-
---000000000000d893ca05f8a4f7cc--
+Segher
