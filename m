@@ -4,90 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C31A1C7619A
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Apr 2023 04:20:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3C0FC7619A
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Apr 2023 08:29:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 595C110E2F7;
-	Wed,  5 Apr 2023 04:20:02 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C71A10E2F7
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Apr 2023 04:20:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ek41Htlbww3U20Tzi6649mlwzo0fHDNfHRMCvsmdkEX2mlygEJGamsW6gj70qFFjI7b8vp36CDUyRjcL/u0LcNp5DN4+m0JjumYMivG3g1RbwF4nRdUM9nFEZdLSR6608ViUt3aFbCtTWSBRh/oJJ0zlFeWOK9ATXeTO0WKrX2/w23ct1bwCQh7g4Ev5/5voL/xzTMQao0y/UPwys2QOg7Vc0qAv56hASps6Z8QTcL9fdN7vB9oa42R2THyulMKe7TTk7YfK0VJIJoOXif9vkB27uAVbXL/haz4tBHt2efXAOQXTKA/fQuaypN2xVobaVSEWBu/LPHV/rK8RIJe3tg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fWmZRZfjDPRIkngA5kZ47e5MlKsvkmxvvKuvazHtBKE=;
- b=JGpCXd7gTR9VPLlTkQd0Z1zI9Seqz3+C1eGzibr2Fh4m0T1I16XWxUHUfPGaYKOyyRiO1gR+j34XKewG/pkdxdPsLBDzjYGhgWdK6r7BNOAZaqW9rHzE6U1IHmtbgUxh5IqvxEPYRTWbdkZ5f4PpKFoKKZV29ai3wuRYQAHk/hlSPF6IYR54cCC2om81LteN01RVM6i+lx4dh6aOa1I0xQighaV2xjvKiV7F4y3PeHbiyoZnKSTyWaJYqU+0QB+CXQeI0GZZw6M+KhLft9HU1TeeiyiKpRMMO9oEPue9Lpex5JUh7xmWqpWxKHN5KScnFWWOKbot6gdGbkr8C3SGyQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fWmZRZfjDPRIkngA5kZ47e5MlKsvkmxvvKuvazHtBKE=;
- b=l01KmmebOGRBNJim+mm4pMgXBU7hI+A4vYceWExf0mqsTUCBDKQAgrnTpfQtizyYzRrnG762TPcmxq4OSx/dCAEzr+bp4614Ryarem3hnG/df3zR79uqD+z8ta0nzYP1D8z2Jdlo4mDPaz6vNpwVQRDxJ+vIsr52qw41+cRitOU=
-Received: from DM6PR03CA0074.namprd03.prod.outlook.com (2603:10b6:5:333::7) by
- MW5PR12MB5623.namprd12.prod.outlook.com (2603:10b6:303:199::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6254.28; Wed, 5 Apr 2023 04:19:56 +0000
-Received: from DS1PEPF0000E64F.namprd02.prod.outlook.com
- (2603:10b6:5:333:cafe::4b) by DM6PR03CA0074.outlook.office365.com
- (2603:10b6:5:333::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.20 via Frontend
- Transport; Wed, 5 Apr 2023 04:19:56 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF0000E64F.mail.protection.outlook.com (10.167.18.5) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.30 via Frontend Transport; Wed, 5 Apr 2023 04:19:56 +0000
-Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 4 Apr
- 2023 23:19:54 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>, Mario Limonciello
- <mario.limonciello@amd.com>
-Subject: [PATCH] drm/amd/amdgpu: Fix trivial style errors
-Date: Wed, 5 Apr 2023 09:49:39 +0530
-Message-ID: <20230405041939.3781870-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74E2310E87B;
+	Wed,  5 Apr 2023 08:29:00 +0000 (UTC)
+Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
+ [IPv6:2001:4860:4864:20::2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4425010E87D
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Apr 2023 08:28:58 +0000 (UTC)
+Received: by mail-oa1-x2b.google.com with SMTP id
+ 586e51a60fabf-177b78067ffso37565366fac.7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 05 Apr 2023 01:28:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1680683336;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=tXA/l+z5WhIJoyhAr9FoVJ3CB1nfPNcZnynaiD+D5wE=;
+ b=jnOfoRQhSw9mvFP94fQbu2afO7QYtSo7VH1fyxaSmK9iXdyHBP9/ADYEaRfBBl9h37
+ oHpbn7tcgUXy3V70XHIPzjHIiPzyIFBEVoiAx5CZNnbE/G0rXSRpBVaf+Py7sxunp40t
+ gWCnM9AnJXZLiUEcIBtKSn/dy3bjymkg96om0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1680683336;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=tXA/l+z5WhIJoyhAr9FoVJ3CB1nfPNcZnynaiD+D5wE=;
+ b=Y5d/BlUCk0h9LNHgRWInij4cYb/rzbv6zI1LO3XDQk3aYGpcUL0YGi06ngyyvH2GxN
+ e6/aKE+qvuXcCHBFvytE7CUGcD1BBb+3uMjVj8Cy1NXbsq4uVugY7lTwQ+a0Yark0Enl
+ HEJ7q2bOW8neSc/83DM8x6tuSrq6fHrp2lQ5YGf09/q8BQ9sIywn7qu0682CNekvFHPR
+ mXXvfJ77EBL2MYwbOii9elwNx5haFWXa4MEQlUfpkN8OWzp2Vb5E5q88j3q5aEuYsy3U
+ rLKuQb8Q1yBsKf2ADStueFkTZMbPPr2c+5qVlgdc51qPA4YOg/jjMhkZSUZo5U5xOyeQ
+ nBdg==
+X-Gm-Message-State: AAQBX9fPveAAA+jQgZm54yMxGd6Jst38dBbeDfcblUecDUocWDttkHAQ
+ KiT/jQ3q9di/y1i3SdTWmStnarAGVgfwRm5JToc/Xw==
+X-Google-Smtp-Source: AKy350YPCyCtLI9MzqLVftUqoTS343CTLiMruivDJauvH3oHzMuGYacpJEmoGEO2h5XWw67yjw0sE6ECd8XAZQ2qZR4=
+X-Received: by 2002:a05:6870:e747:b0:17e:d863:a5c0 with SMTP id
+ t7-20020a056870e74700b0017ed863a5c0mr2747437oak.8.1680683336411; Wed, 05 Apr
+ 2023 01:28:56 -0700 (PDT)
 MIME-Version: 1.0
+References: <20230403194058.25958-1-joshua@froggi.es>
+ <fa0360e4-b845-92ee-3c6d-a593cc4135b5@linux.intel.com>
+In-Reply-To: <fa0360e4-b845-92ee-3c6d-a593cc4135b5@linux.intel.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Wed, 5 Apr 2023 10:28:45 +0200
+Message-ID: <CAKMK7uE7iFJL4_3GD2Vx4g99rJ2tQoLLsFA9GmYw_CBf1VB1Rw@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/4] uapi, drm: Add and implement RLIMIT_GPUPRIO
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0000E64F:EE_|MW5PR12MB5623:EE_
-X-MS-Office365-Filtering-Correlation-Id: a3a0cea5-afcb-40e1-8804-08db358d032b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UPmgwN7Efk3PlNeOjVhN1oEu6QX0tft83zFjB5p9zMlroCkyccVhPxEkTyASl/Or+3NYGbdE/JFboBVMJ85IdiHjBpI8x/+v4/ox8/XJCkyyPk5mPv07VAamQ5Jh8dAH3UdwSxF2zm7JiwUqri/1futWZvCrFajRJ9OI5Esit2iW1v3aN5+0JYA65Xf4yE3+Q9k2vw636UHSf9Q+oAFhz1eM2yfm+PhElPspQr0sACx66+JNztnka8RHtazRffdJyZkf+S8sPHxSW7RPE2tsiYkvq3EhvswMvfQpidOdUG+gTuwAPxzhBCTtiutDVAaEZWz2ggFln0O780hIH8Bo+01dygT4mFJ+ekgwOkZS7cZ+OIAYkG7EDjKP3Lw8HHY/BsGLubkIqyn+l5mVBMNxTdgtY8ZMwJ5cUorlSC5AvM5W3/QQ6uA0iqV4Kyn24qo4xyY5vYfyQnFDEYDfEzblbfsv8etfC9lONf7Cs4FY1Rye9LtoJNgVy1sqMaL7GL8gm2C8BbDZzo67bf1jqGXFO0AINC9JKuQ5aWpKuAVE7XB/1bSW3WwThd6sPnmEf9z79V/lb1lhmF+/DqgAT1SKAtj8hfJjom1yKsr3Vd4MdAI2aceYkswRV10Z+lG8by2SU2DzFmb6sQ34RG5W5KNzVaSxcIWqzcuW03M0LNbhFAX4ZCpziEsDSydhiONRtoSM3BzQMknv6MFop9VgJ8vuzdJg4KqdfiEaUxABaOOhPjs=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(346002)(39860400002)(376002)(136003)(451199021)(40470700004)(46966006)(36840700001)(40480700001)(40460700003)(7696005)(81166007)(356005)(70206006)(5660300002)(36860700001)(478600001)(70586007)(316002)(8936002)(6636002)(4326008)(41300700001)(110136005)(54906003)(82740400003)(8676002)(336012)(186003)(66574015)(2616005)(47076005)(426003)(83380400001)(44832011)(6666004)(16526019)(26005)(1076003)(36756003)(82310400005)(2906002)(86362001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Apr 2023 04:19:56.2121 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a3a0cea5-afcb-40e1-8804-08db358d032b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000E64F.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5623
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,44 +65,140 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: Matthew Brost <matthew.brost@intel.com>, Asahi Lina <lina@asahilina.net>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Danilo Krummrich <dakr@redhat.com>, Qiang Yu <yuq825@gmail.com>,
+ Joshua Ashton <joshua@froggi.es>, Lucas Stach <l.stach@pengutronix.de>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix coding style errors reported by checkpatch, specifically:
+On Tue, 4 Apr 2023 at 12:45, Tvrtko Ursulin
+<tvrtko.ursulin@linux.intel.com> wrote:
+>
+>
+> Hi,
+>
+> On 03/04/2023 20:40, Joshua Ashton wrote:
+> > Hello all!
+> >
+> > I would like to propose a new API for allowing processes to control
+> > the priority of GPU queues similar to RLIMIT_NICE/RLIMIT_RTPRIO.
+> >
+> > The main reason for this is for compositors such as Gamescope and
+> > SteamVR vrcompositor to be able to create realtime async compute
+> > queues on AMD without the need of CAP_SYS_NICE.
+> >
+> > The current situation is bad for a few reasons, one being that in order
+> > to setcap the executable, typically one must run as root which involves
+> > a pretty high privelage escalation in order to achieve one
+> > small feat, a realtime async compute queue queue for VR or a compositor=
+.
+> > The executable cannot be setcap'ed inside a
+> > container nor can the setcap'ed executable be run in a container with
+> > NO_NEW_PRIVS.
+> >
+> > I go into more detail in the description in
+> > `uapi: Add RLIMIT_GPUPRIO`.
+> >
+> > My initial proposal here is to add a new RLIMIT, `RLIMIT_GPUPRIO`,
+> > which seems to make most initial sense to me to solve the problem.
+> >
+> > I am definitely not set that this is the best formulation however
+> > or if this should be linked to DRM (in terms of it's scheduler
+> > priority enum/definitions) in any way and and would really like other
+> > people's opinions across the stack on this.
+> >
+> > Once initial concern is that potentially this RLIMIT could out-live
+> > the lifespan of DRM. It sounds crazy saying it right now, something
+> > that definitely popped into my mind when touching `resource.h`. :-)
+> >
+> > Anyway, please let me know what you think!
+> > Definitely open to any feedback and advice you may have. :D
+>
+> Interesting! I tried to solved the similar problem two times in the past =
+already.
+>
+> First time I was proposing to tie nice to DRM scheduling priority [1] - i=
+f the latter has been left at default - drawing the analogy with the nice+i=
+onice handling. That was rejected and I was nudged towards the cgroups rout=
+e.
+>
+> So with that second attempt I implemented a hierarchical opaque drm.prior=
+ity cgroup controller [2]. I think it would allow you to solve your use cas=
+e too by placing your compositor in a cgroup with an elevated priority leve=
+l.
+>
+> Implementation wise in my proposal it was left to individual drivers to "=
+meld" the opaque cgroup drm.priority with the driver specific priority conc=
+ept.
+>
+> That too wasn't too popular with the feedback (AFAIR) that the priority i=
+s a too subsystem specific concept.
+>
+> Finally I was left with a weight based drm cgroup controller, exactly fol=
+lowing the controls of the CPU and IO ones, but with much looser runtime gu=
+arantees. [3]
+>
+> I don't think this last one works for your use case, at least not at the =
+current state for drm scheduling capability, where the implementation is a =
+"bit" too reactive for realtime.
+>
+> Depending on how the discussion around your rlimit proposal goes, perhaps=
+ one alternative could be to go the cgroup route and add an attribute like =
+drm.realtime. That perhaps sounds abstract and generic enough to be passabl=
+e. Built as a simplification of [2] it wouldn't be too complicated.
+>
+> On the actual proposal of RLIMIT_GPUPRIO...
+>
+> The name would be problematic since we have generic hw accelerators (not =
+just GPUs) under the DRM subsystem. Perhaps RLIMIT_DRMPRIO would be better =
+but I think you will need to copy some more mailing lists and people on tha=
+t one. Because I can imagine one or two more fundamental questions this ope=
+ns up, as you have eluded in your cover letter as well.
 
-ERROR: space prohibited before that ',' (ctx:WxV)
-+module_param_named(job_hang_limit, amdgpu_job_hang_limit, int ,0444);
-                                                               ^
+So I don't want to get into the bikeshed, I think Tvrtko summarized
+pretty well that this is a hard problem with lots of attempts (I think
+some more from amd too). I think what we need are two pieces here
+really:
+- A solid summary of all the previous attempts from everyone in this
+space of trying to manage gpu compute resources (all the various
+cgroup attempts, sched priority), listening the pros/cons. There's
+also the fdinfo stuff just for reporting gpu usage which blew up kinda
+badly and didn't have much discussion among all the stakeholders.
+- Everyone on cc who's doing new drivers using drm/sched (which I
+think is everyone really, or using that currently. So that's like
+etnaviv, lima, amd, intel with the new xe, probably new nouveau driver
+too, amd ofc, panfrost, asahi. Please cc everyone.
 
-ERROR: space required after that ',' (ctx:WxV)
-+module_param_named(job_hang_limit, amdgpu_job_hang_limit, int ,0444);
+Unless we do have some actual rough consens in this space across all
+stakeholders I think all we'll achieve is just yet another rfc that
+goes nowhere. Or maybe something like the minimal fdinfo stuff
+(minimal I guess to avoid wider discussion) which then blew up because
+it wasn't thought out well enough.
 
-This patch gets rid of all above type of  "ERROR" messages in
-drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:
+Adding at least some of the people who probably should be cc'ed on
+this. Please add more.
 
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Cheers, Daniel
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index e652ffb2c68e..d2af86c2af2b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -526,7 +526,7 @@ module_param_named(virtual_display, amdgpu_virtual_display, charp, 0444);
-  * Set how much time allow a job hang and not drop it. The default is 0.
-  */
- MODULE_PARM_DESC(job_hang_limit, "how much time allow a job hang and not drop it (default 0)");
--module_param_named(job_hang_limit, amdgpu_job_hang_limit, int ,0444);
-+module_param_named(job_hang_limit, amdgpu_job_hang_limit, int, 0444);
- 
- /**
-  * DOC: lbpw (int)
--- 
-2.25.1
 
+>
+> Regards,
+>
+> Tvrtko
+>
+> [1] https://lore.kernel.org/dri-devel/20220407152806.3387898-1-tvrtko.urs=
+ulin@linux.intel.com/T/
+> [2] https://lore.kernel.org/lkml/20221019173254.3361334-4-tvrtko.ursulin@=
+linux.intel.com/T/#u
+> [3] https://lore.kernel.org/lkml/20230314141904.1210824-1-tvrtko.ursulin@=
+linux.intel.com/
+
+
+
+--
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
