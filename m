@@ -4,58 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AF39C7619A
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Apr 2023 09:14:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91B04C7619A
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Apr 2023 09:46:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAA2610E300;
-	Wed,  5 Apr 2023 09:14:08 +0000 (UTC)
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 661C710E8A1
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Apr 2023 09:14:07 +0000 (UTC)
-Received: by mail-oi1-x22a.google.com with SMTP id bm2so26196325oib.4
- for <amd-gfx@lists.freedesktop.org>; Wed, 05 Apr 2023 02:14:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1680686046;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=h+LWss62gkxlG1CdU7TJFzkLixmZVYl2pi1NkWLm3wU=;
- b=KvXvzOAxyVEk80k/JThTQisvfPAFcGlbfMFLw12k7p/s0SLEVZ7nVCX6IGwaqp2IrJ
- 5lToLoRmpqO/kRgx4eDgKC4CGmM0uvIrcypSd6CS6LkMv4KGW7nk3g3Mt1zcT7QW/7NZ
- qPXlvynt25X0dltakzHWL5RZYIDWrxl0I+3Ts=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680686046;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=h+LWss62gkxlG1CdU7TJFzkLixmZVYl2pi1NkWLm3wU=;
- b=boCnZlifP10NKw/8JltoehT7d3Y60w/EH8baP3/LTkl3Z+sb+KmRU39TWnQcjY/uSK
- LYOkJDAnxnrxluFZ5FqunkP628bPZH2s/fZeDJwTVGjV4wvbZ385VjiLDvaSe9ppExIb
- /mfxg6Qg04bYqrmT51TurdKJlGFoyH6c72eTQ9JOy/x7VxcDC1jsmP9XpQiEuvlMb1OO
- 6uwr4cXM/3FTjfIAqGRnrAQVeC1TQHgYgyekUFtaeYCft/KM8OkUOmK7uN80oazxNiuA
- +fX8mN/5syfMRV3e78GXGiG1+4nVpqxn44TL4DyKcXDvcIriYoLewSfS/gH5mkxht/WM
- tFaw==
-X-Gm-Message-State: AAQBX9ddB1ueLdjScLviGw+jrGqF5SpOkTgTE5BjDZFJQjgJaov7BQbC
- JTitpT34Y4HbSLmO/1eSzaDBDVPGHBOjHb0u/DIzWw==
-X-Google-Smtp-Source: AKy350Y4aDdPhOZCi6zMUqRH/MBEhjkWy+l+QxJQolyW6W0LTT7Nd8KaOoBS81GWbFBqIVtEpzy1Kn+qK9KExIA4NrE=
-X-Received: by 2002:a05:6808:2d8:b0:37a:ec66:a1f with SMTP id
- a24-20020a05680802d800b0037aec660a1fmr1960090oid.8.1680686046297; Wed, 05 Apr
- 2023 02:14:06 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A99A10E31B;
+	Wed,  5 Apr 2023 09:46:03 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2069.outbound.protection.outlook.com [40.107.92.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D99A410E31B
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Apr 2023 09:46:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hLzG/7j+EBpoH6BwJ/9yW2gaaGSYeTfAh2Xshsaf3gQrkOW1EmVTr0goovGNy5ure3Dx2B7fdnsxXW62pAfTKNYhd/SGld5KTCfQyCC3yPA3+eE2U4cwjuQ/Aoaz8M2sLGiFKzqXMwIKq5mZoqZcUKhYOWbjS4La9Ene4gekI3szFoz4PotyPH5oV6Bt1gssltSzm9fkcmEDvAJpKDANV2+4N0jV32gfagyH4u1UoGUnBSpWnt62602fw0I4toSffL192tRG1pDu4GEd3KGm2dMRTiDIUjlITBmfL5EfqHQI1Uj26Sfp4P+EP1yoz0CazpRmPt7L7i3LTGmsetkyZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0WhUMkxKARIqLQ+vy2KBVgRxnv0ksgvAqO6CrR1upsc=;
+ b=a1i2QOEPtIL2SUU6UO+jtB4DxwPwcfKqg+PVY9QWfrEwWHx6C1t9UKKJLdIpudVJMle5FZL3epxVXAT1LpCs8hQ+u1WkGuDSoXT9G3fnS2yVhY4Xgp025VVyKJpVaVyjViSfdldwvKFrJXc79hLeHAYCuE+bMuAuZ+z5jPJlbEcdennIoSefBl2GnXpooJfIZBhy3UuNk3nfYk7bXqFxWkEpJsX0RZJPljxuDV4QZHgYiimDLd1HGrR6zt9zV400QCWoA/XzEreZccduZ3Ilb80LinkQoBPkZHI0wmXStb0rHr9P++XR0gWSctncFU5T4wUveRpOLDSoqaZI7Vhe6A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0WhUMkxKARIqLQ+vy2KBVgRxnv0ksgvAqO6CrR1upsc=;
+ b=tFQq46yD3S4mSXO9JwPVuxC9eGqWpsopsIMuoJkuEN8ynmnCdZT70D+jXY786l6Cw0pa4RJTIBc7HeVwEy1Ij5lG61JePNyynUTzF1TAEpqNM9ymJNs2DOZNhPNq9Y/sxmRrEIruGTne76r0xokUBqCCn+rFniOuiGyjg0cm9Rw=
+Received: from DM6PR07CA0048.namprd07.prod.outlook.com (2603:10b6:5:74::25) by
+ SA0PR12MB4479.namprd12.prod.outlook.com (2603:10b6:806:95::24) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6254.35; Wed, 5 Apr 2023 09:45:58 +0000
+Received: from DM6NAM11FT095.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:74:cafe::83) by DM6PR07CA0048.outlook.office365.com
+ (2603:10b6:5:74::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.37 via Frontend
+ Transport; Wed, 5 Apr 2023 09:45:58 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT095.mail.protection.outlook.com (10.13.172.180) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6254.20 via Frontend Transport; Wed, 5 Apr 2023 09:45:57 +0000
+Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 5 Apr
+ 2023 04:45:55 -0500
+From: Lijo Lazar <lijo.lazar@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Fix warnings
+Date: Wed, 5 Apr 2023 15:15:40 +0530
+Message-ID: <20230405094540.2935900-1-lijo.lazar@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20230403194058.25958-1-joshua@froggi.es>
- <fa0360e4-b845-92ee-3c6d-a593cc4135b5@linux.intel.com>
- <CAKMK7uE7iFJL4_3GD2Vx4g99rJ2tQoLLsFA9GmYw_CBf1VB1Rw@mail.gmail.com>
- <1cdd1c32-f56c-93f3-4e72-51a8782f7b34@linux.intel.com>
-In-Reply-To: <1cdd1c32-f56c-93f3-4e72-51a8782f7b34@linux.intel.com>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Wed, 5 Apr 2023 11:13:55 +0200
-Message-ID: <CAKMK7uHrR+FmAQjQVEackn3o_eNP4ZHCOTA_jY8-i9bQbX9zTg@mail.gmail.com>
-Subject: Re: fdinfo blew up? (Was: [RFC PATCH 0/4] uapi, drm: Add and
- implement RLIMIT_GPUPRIO)
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT095:EE_|SA0PR12MB4479:EE_
+X-MS-Office365-Filtering-Correlation-Id: 38c8b7a1-85e9-4828-d737-08db35ba8ee2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: PYoY/wr9Ppukv+FZ+9QkzqdsvpyQsR8pyewrsVAkfjBIYVoE6KxVOPk6anGi83rUxadblhUTKMqqaYqieg2Vsv7WaR3lKKWayR3sVX5BK8rxza484oby/jRqUDzUZCl/1/XPDX6IU9rNOhwHXuN6mnSnp7tHW2gz6ifSfBkVqMhJFv6vLMPhVM229HxqKmERo0N7P7L/+yxjFTZ21WGgrC3PkeYUdDteAk0vVVvVMhqQLllIU98zJiUWRW+t9NZkeP92ZVOJu+Mg2p8xnA1ZP4ecQ6O7bCyW5s/taC/AlVG70rOSXJavInHrJBjIf12G1xGV/ulzbajMpDCGfjrtm2fcLaHxJTqj45Sj3QG8u+I+zHFwOUecl8QUXRifIA0dzYPMmH4Pqm2V4/5SitEmQVKBU2JH9Qi/g4WRyGYteEEUX/Rwg9u9iL+cNMJzpW2/kIQsJ1G0aNHBX4ljwNyCd2H9UU0Rm1w1tddpFgnaqZlmOTy80U8t1BY7K68fgwrAq+YsiIqGSLUNCym3YfOwaaH/F6B7aWmgnRo2bWIU79Y0VfU7a4mA/Dw1/eEQtYuyP9oQh/EwdbHa1QiHl3jP+YJ+63sMj0tbFtEZvIxRij0z/QWjnk72SzOyR2+lAnqwPMX67e8chvBXjLwVWMLr5kbyIDtu7/dTmsI4Dsdtc0ccaUNjrbpS6guKnCkswzr4088/UDZwCRK/SqQjt2DrPkrXwYtZnE3XEMJdTSMOPyI=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(39860400002)(376002)(346002)(136003)(451199021)(40470700004)(46966006)(36840700001)(6666004)(47076005)(83380400001)(426003)(336012)(2616005)(40460700003)(186003)(4326008)(26005)(1076003)(16526019)(6916009)(356005)(70206006)(70586007)(81166007)(8676002)(2906002)(44832011)(82740400003)(40480700001)(41300700001)(316002)(478600001)(82310400005)(36860700001)(54906003)(5660300002)(8936002)(86362001)(36756003)(7696005)(966005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Apr 2023 09:45:57.9539 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38c8b7a1-85e9-4828-d737-08db35ba8ee2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT095.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4479
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,142 +97,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Matthew Brost <matthew.brost@intel.com>, Asahi Lina <lina@asahilina.net>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Danilo Krummrich <dakr@redhat.com>, Qiang Yu <yuq825@gmail.com>,
- Joshua Ashton <joshua@froggi.es>, Lucas Stach <l.stach@pengutronix.de>
+Cc: Alexander.Deucher@amd.com, kernel test robot <lkp@intel.com>,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 5 Apr 2023 at 11:11, Tvrtko Ursulin
-<tvrtko.ursulin@linux.intel.com> wrote:
->
->
-> On 05/04/2023 09:28, Daniel Vetter wrote:
-> > On Tue, 4 Apr 2023 at 12:45, Tvrtko Ursulin
-> > <tvrtko.ursulin@linux.intel.com> wrote:
-> >>
-> >>
-> >> Hi,
-> >>
-> >> On 03/04/2023 20:40, Joshua Ashton wrote:
-> >>> Hello all!
-> >>>
-> >>> I would like to propose a new API for allowing processes to control
-> >>> the priority of GPU queues similar to RLIMIT_NICE/RLIMIT_RTPRIO.
-> >>>
-> >>> The main reason for this is for compositors such as Gamescope and
-> >>> SteamVR vrcompositor to be able to create realtime async compute
-> >>> queues on AMD without the need of CAP_SYS_NICE.
-> >>>
-> >>> The current situation is bad for a few reasons, one being that in ord=
-er
-> >>> to setcap the executable, typically one must run as root which involv=
-es
-> >>> a pretty high privelage escalation in order to achieve one
-> >>> small feat, a realtime async compute queue queue for VR or a composit=
-or.
-> >>> The executable cannot be setcap'ed inside a
-> >>> container nor can the setcap'ed executable be run in a container with
-> >>> NO_NEW_PRIVS.
-> >>>
-> >>> I go into more detail in the description in
-> >>> `uapi: Add RLIMIT_GPUPRIO`.
-> >>>
-> >>> My initial proposal here is to add a new RLIMIT, `RLIMIT_GPUPRIO`,
-> >>> which seems to make most initial sense to me to solve the problem.
-> >>>
-> >>> I am definitely not set that this is the best formulation however
-> >>> or if this should be linked to DRM (in terms of it's scheduler
-> >>> priority enum/definitions) in any way and and would really like other
-> >>> people's opinions across the stack on this.
-> >>>
-> >>> Once initial concern is that potentially this RLIMIT could out-live
-> >>> the lifespan of DRM. It sounds crazy saying it right now, something
-> >>> that definitely popped into my mind when touching `resource.h`. :-)
-> >>>
-> >>> Anyway, please let me know what you think!
-> >>> Definitely open to any feedback and advice you may have. :D
-> >>
-> >> Interesting! I tried to solved the similar problem two times in the pa=
-st already.
-> >>
-> >> First time I was proposing to tie nice to DRM scheduling priority [1] =
-- if the latter has been left at default - drawing the analogy with the nic=
-e+ionice handling. That was rejected and I was nudged towards the cgroups r=
-oute.
-> >>
-> >> So with that second attempt I implemented a hierarchical opaque drm.pr=
-iority cgroup controller [2]. I think it would allow you to solve your use =
-case too by placing your compositor in a cgroup with an elevated priority l=
-evel.
-> >>
-> >> Implementation wise in my proposal it was left to individual drivers t=
-o "meld" the opaque cgroup drm.priority with the driver specific priority c=
-oncept.
-> >>
-> >> That too wasn't too popular with the feedback (AFAIR) that the priorit=
-y is a too subsystem specific concept.
-> >>
-> >> Finally I was left with a weight based drm cgroup controller, exactly =
-following the controls of the CPU and IO ones, but with much looser runtime=
- guarantees. [3]
-> >>
-> >> I don't think this last one works for your use case, at least not at t=
-he current state for drm scheduling capability, where the implementation is=
- a "bit" too reactive for realtime.
-> >>
-> >> Depending on how the discussion around your rlimit proposal goes, perh=
-aps one alternative could be to go the cgroup route and add an attribute li=
-ke drm.realtime. That perhaps sounds abstract and generic enough to be pass=
-able. Built as a simplification of [2] it wouldn't be too complicated.
-> >>
-> >> On the actual proposal of RLIMIT_GPUPRIO...
-> >>
-> >> The name would be problematic since we have generic hw accelerators (n=
-ot just GPUs) under the DRM subsystem. Perhaps RLIMIT_DRMPRIO would be bett=
-er but I think you will need to copy some more mailing lists and people on =
-that one. Because I can imagine one or two more fundamental questions this =
-opens up, as you have eluded in your cover letter as well.
-> >
-> > So I don't want to get into the bikeshed, I think Tvrtko summarized
-> > pretty well that this is a hard problem with lots of attempts (I think
-> > some more from amd too). I think what we need are two pieces here
-> > really:
-> > - A solid summary of all the previous attempts from everyone in this
-> > space of trying to manage gpu compute resources (all the various
-> > cgroup attempts, sched priority), listening the pros/cons. There's
-> > also the fdinfo stuff just for reporting gpu usage which blew up kinda
-> > badly and didn't have much discussion among all the stakeholders.
-> > - Everyone on cc who's doing new drivers using drm/sched (which I
-> > think is everyone really, or using that currently. So that's like
-> > etnaviv, lima, amd, intel with the new xe, probably new nouveau driver
-> > too, amd ofc, panfrost, asahi. Please cc everyone.
-> >
-> > Unless we do have some actual rough consens in this space across all
-> > stakeholders I think all we'll achieve is just yet another rfc that
-> > goes nowhere. Or maybe something like the minimal fdinfo stuff
-> > (minimal I guess to avoid wider discussion) which then blew up because
-> > it wasn't thought out well enough.
->
-> On the particular point how fdinfo allegedly blew up - are you referring
-> to client usage stats? If so this would be the first time I hear about
-> any problems in that space. Which would be "a bit" surprising given it's
-> the thing I drove standardisation of. All I heard were positive
-> comments. Both "works for us" from driver implementors and positives
-> from the users.
+Fix below warning due to incompatible types in conditional operator
 
-The drm/sched implementation blew up. Not the overall spec or the i915
-implementation. See the reverts in -rc5 and drm-misc-next.
+../pm/swsmu/smu13/smu_v13_0_6_ppt.c:315:17: sparse: sparse: incompatible
+types in conditional expression (different base types):
 
-I think a tad more coordination and maybe more shared code for
-drm/sched using drivers probably what we want for this. Or at least a
-bit more cross-driver collaboration than here where one side reverts
-while the other pushes more patches.
--Daniel
---=20
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Reported-by: kernel test robot <lkp@intel.com>
+Link: https://lore.kernel.org/oe-kbuild-all/202303082135.NjdX1Bij-lkp@intel.com/
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index bbac4239ceb3..376d14de7602 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1241,7 +1241,7 @@ int emu_soc_asic_init(struct amdgpu_device *adev);
+ 	((adev)->asic_funcs->flush_hdp ? (adev)->asic_funcs->flush_hdp((adev), (r)) : (adev)->hdp.funcs->flush_hdp((adev), (r)))
+ #define amdgpu_asic_invalidate_hdp(adev, r) \
+ 	((adev)->asic_funcs->invalidate_hdp ? (adev)->asic_funcs->invalidate_hdp((adev), (r)) : \
+-	 ((adev)->hdp.funcs->invalidate_hdp ? (adev)->hdp.funcs->invalidate_hdp((adev), (r)) : 0))
++	 ((adev)->hdp.funcs->invalidate_hdp ? (adev)->hdp.funcs->invalidate_hdp((adev), (r)) : (void)0))
+ #define amdgpu_asic_need_full_reset(adev) (adev)->asic_funcs->need_full_reset((adev))
+ #define amdgpu_asic_init_doorbell_index(adev) (adev)->asic_funcs->init_doorbell_index((adev))
+ #define amdgpu_asic_get_pcie_usage(adev, cnt0, cnt1) ((adev)->asic_funcs->get_pcie_usage((adev), (cnt0), (cnt1)))
+-- 
+2.25.1
+
