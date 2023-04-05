@@ -4,49 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA7E9C77B72
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Apr 2023 18:35:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33113C7619A
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Apr 2023 20:26:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29F2410E351;
-	Wed,  5 Apr 2023 18:35:29 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5874E10E0E4;
- Wed,  5 Apr 2023 18:35:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680719726; x=1712255726;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=legMIf5YD0q+ajTCLkrNmjm9FBPRqVMOXe3drlEE8NY=;
- b=cMf+CcIBFsZBLhJUVs2Gt8Awo5Et3ld5mtiHUsD3Xzg4Q7ukEXRjpuyn
- 4LZE+fP0OMsOPdSzEz3RBOl0optafYDgJ33ZlWiBZdoi3sZrMH7ffLCK3
- ocAAi1UXuY6AXcZk7cdU+6DGR2+qDLjYVU21/NfsvFJDI57VS3cLxkhzu
- TAuyBqdVpJIriIjbrC+hLHufRuTeQZWAJhIUHG9AFmeukSCNBqQM+M/aZ
- pe+y7f5Uhh4jov/cq8Ml63NJhnslw9DdZV3I8Wtt/6KAo/Wp5jsqrzlMo
- oA1fFNkuLwMWiO7foaeB38JmC4LUbQQw3wiywSdPWzOFWgdctPdwKjL9o Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10671"; a="370365083"
-X-IronPort-AV: E=Sophos;i="5.98,321,1673942400"; d="scan'208";a="370365083"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2023 11:35:25 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10671"; a="686844405"
-X-IronPort-AV: E=Sophos;i="5.98,321,1673942400"; d="scan'208";a="686844405"
-Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
- by orsmga002.jf.intel.com with ESMTP; 05 Apr 2023 11:35:21 -0700
-Received: from kbuild by b613635ddfff with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pk7ya-000Qi2-2Z;
- Wed, 05 Apr 2023 18:35:20 +0000
-Date: Thu, 06 Apr 2023 02:35:03 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 8417c8f5007bf4567ccffda850a3157c7d905f67
-Message-ID: <642dbf57.X1BJAzM0kfiN4uzj%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E38610E206;
+	Wed,  5 Apr 2023 20:26:06 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2089.outbound.protection.outlook.com [40.107.94.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 998EC10E206
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Apr 2023 20:26:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=N1rprwTwV5qp7RnNVnmGJJVez3n9NKhr6AOKUSTpVOtbS8A5d82gRlbwn2mAReGmuJ2bspASw+LiEWmXQsSiFcgzIwu5cHYsost855LGPdfS5t8xB/MyUPIVVMTMgHHZwZ+kc9oEgWGRDt/krP+9LzWPOf9d/MP99SDxI1qCKHz9ksedLSLZi70UvcXitojKfWnea6zEkdc5o9A5jRMMTGUaa53xdO5CekBRtREdMYkb/rE4UfqpyTx4grc7wEQAjF3setwO7vSCS53S9jAMfKMN79DKBbhzYTPOtcHU4aNcIiTgEtDciw99iq4KyK7lcc/Rs9WIBAYznjUcqDRsKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JlCnvowI0NRI6A18sYSgdc0yqpEJ9WVuPRmSaj8cOtk=;
+ b=LM18hHgbzgYeqbnwLRWvLzidVrAWnpCpUv5T1Uu5xu0rorRZhboHV/h3r6Lcr4PynEp02JVSQkymDb6u8F36ud5YxcGm3U304cEqHeUhmkoRY1YN5mNb0TywKRM6fpgz5Z4WQMKt3/04gMFXL+8yqg1zMUIcid8at6PyUw3pd1m6aA8FNynqFw73QU3G5gLukjMTNLLnwVitZaiZrio1iULjARg69LVxkXkTTErhY1GlV4wT4qhUlVuielAyrbUcCj5ZkC2KNe+0SJ99t1pcbkrL3as95y81Vge4OfmrOXvnmMod62sSGLczpl4BRinDmHGeSZftYqLkzw/4wGhmGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JlCnvowI0NRI6A18sYSgdc0yqpEJ9WVuPRmSaj8cOtk=;
+ b=vOgZ8m8GbYOPAeMHTfUMI+sleJnKZ/ws5LfkzG5ckV1sqv8sq9/ZaOGMbFDNW0iCheFcjVCVi2yyJY4l0immH3UxK1Sn0ak0anJIqRlPI6ry1pC5wcq47nw5eTtnepg/ylHz7VXYo6uH8iiqtEsF+Y84Mfd4wM77r7q8Xfxltd8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by BY5PR12MB5013.namprd12.prod.outlook.com (2603:10b6:a03:1dc::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.35; Wed, 5 Apr
+ 2023 20:26:00 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::f170:8d72:ca64:bb26]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::f170:8d72:ca64:bb26%6]) with mapi id 15.20.6254.035; Wed, 5 Apr 2023
+ 20:26:00 +0000
+Message-ID: <358c8b39-1032-3643-1640-b45ad7264599@amd.com>
+Date: Wed, 5 Apr 2023 16:25:56 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH 1/3] drm/amdgpu: Add userptr bo support for mGPUs when
+ iommu is on
+Content-Language: en-US
+To: Shane Xiao <shane.xiao@amd.com>, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com, Philip.Yang@amd.com
+References: <20230405153121.3324620-1-shane.xiao@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20230405153121.3324620-1-shane.xiao@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0041.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c00:1::18) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|BY5PR12MB5013:EE_
+X-MS-Office365-Filtering-Correlation-Id: 008a8dcd-cdf9-4939-aa9c-08db3613f7d0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ZyngyIAHGibRCrukseFyCJn46RqneHQUU5jlbtxLZTxmoYzPMGQIhp4fxWnppnmXXrky6m3bdXUXyqe2uwFOHJjfwNa40aav+710/wd/CLIgmD4FXak/XXOHaBQeJgBswJ2MkSQ+uKxoshw8NbTNBiX8tLnFGCghnbkv89stMLR1+ZhZRSml6yk9BLFFHS+GsFH27wffq/tn6BIxxKlPnRF8wsHAIbLN3T/SoSW8fxIzwnZpwIbHDjHgQm/BfPkT2TxEH7DHq0/GfgMMoSe5Uu0YmOK0zDKqlc6KdBNlmz2yYEd3i48hclDuDhiBt2IbUEK2gW2YHmq4YzoKrwN3U8lQSwlrUE3+DmYzXFIB6Kocw4b2IXIbxFJTJvqJAmIXEHElMt2uVira/niXqNTODeUfoFV1RXay4iPkpRuOr5cwl9hO7tcj1UkOGYEeQaE8WNyN7XFQX8JAawSBXmNFmuYyaWHqcjOMNPtKymjcmOLV8sEAnPgAHDWnZDahhPy+zYJunEioDEAEROFBjRt78qhf+aSsZHjttB5sHIgj++o5/rjVztGI+EdRigNGstj88VjTFN/BQQeBa0b77X8P20rG8NlZgzRUyDS6hgt6dhm2Oxdtlbvr7TnEj5uz56wW7fxP4/unw5YiqDU6LhQR3Q==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(366004)(39860400002)(346002)(376002)(136003)(451199021)(66476007)(186003)(6666004)(6486002)(41300700001)(38100700002)(31686004)(36916002)(26005)(53546011)(6506007)(6512007)(2616005)(83380400001)(66556008)(478600001)(316002)(2906002)(44832011)(31696002)(86362001)(66946007)(4326008)(8676002)(5660300002)(6636002)(36756003)(8936002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b2s5a2E4Wm9BNVZqUEt4Mk9jbnBKNXEyWENEL3J6TzE2c1JGb1RCbWlQaGxQ?=
+ =?utf-8?B?d1hGcVJTOThhSW1sRFlqYUUzTHRRVDdNMGJvVFR3UlJWZWRiQjd0WmVYbWZE?=
+ =?utf-8?B?R3ByZzEyYWZWaDFSaStoVmJNUXpoZCtWREw0RXk3blJncDdGSSt4dFExYmZ4?=
+ =?utf-8?B?OWZYM3lpbnhuMnNUNnF1YTh2QU5BV0lscUJkOERRdm9hcjJWdHFnTWJVSVM0?=
+ =?utf-8?B?Sm5OT0o0eVBxdlBjUE83dWpIVVlvc25EK3AyeXNsR1J6alhnTTMzaGE5WlRM?=
+ =?utf-8?B?czNNTm5iUnhDRjY0Rmx1ejJaNHRRQ1l3bWcrRHMwQnk0cjRvT3M2dlhpemlr?=
+ =?utf-8?B?UEhEWFJNLzJEeFVMb04vRGp1UzJrUk93TXJYb2FXM25iMVhnb0o3Q1ZHYU1O?=
+ =?utf-8?B?YXFIZ1A0V1R5aFJsZjREcW8rNU51NjJYaTFsNk9ZeUJGNGY4L25JV1RGeU9B?=
+ =?utf-8?B?am9NSnVab1puZGpBZUZ4LytrYy85akQwd1pmTUN1RGxWMy80cHBqNHA0WFJi?=
+ =?utf-8?B?R1JlZitlYm5wTHBOQmZmY1ptNE1oVGdRbFZpV3Vwb0dpQmNSMitCYTNCYlF6?=
+ =?utf-8?B?cVQwaHYyOHJGQnVoUjl1Y2U4RWhuM0kvaWxMdjJxaEE4ck5RS3RGUWNnL2hm?=
+ =?utf-8?B?UFJoamhlTVdMMGRwWHRZRDNMSUlKTnFIOWtYakdLTXNRdjloSitFK3BSU01y?=
+ =?utf-8?B?ZUl2RlpKMHpZbTUxQUJkbTBabTNqSk5xb1hwYmI1K0s4QzlPNWpsYXBqRzdk?=
+ =?utf-8?B?Ui9TMllyUGRYWnR4NVk0S2FPc2VlOXZxR0hnL3Q2a1o2akpEZlYyYVVOY09o?=
+ =?utf-8?B?SjdUMHRrc1cvSnRjbGRBcmlNQTR0cHkzV0xQcElzZXZkQ3poVzRsRVl5Nm82?=
+ =?utf-8?B?ZEFLV2FNTFhnUGdySlBkc2djVHBEV2orbzdkazJFTmxmWlZHRkM5S0RFMVNQ?=
+ =?utf-8?B?dlFIZ2V0MHpocVZINVFDNndRT0s3dTd4MkV6MUtkaXdxdkNGRkJ4WTlXaVpj?=
+ =?utf-8?B?a3RtNm0xMGxBamZVbEd0N25VUmk0TUpyRjBZa3VycVpCUFRHWVpXdVRqcmlo?=
+ =?utf-8?B?UVYrL2NhdTVEcktkU0ZrT1pvSEFsMXorNVRCZ0dJcHdoY3ZLM0IxNlU1b1d4?=
+ =?utf-8?B?K1J2cCtYT2Z0a0daQStxbzRhem5TWWpubDgySHc0UmtqbFlLdGdOalg0UHRr?=
+ =?utf-8?B?M1pkSDNQM2MrUllHVFZxbTlvMXJvUi9OR3B3WkdGR0pQa2xpTW9SeWNhbkJW?=
+ =?utf-8?B?Y01vZitNWUJjenVoMFd2N3FmZGFkTjRaSmdEUFJjNGdyc2xTeEdNNk94TGEv?=
+ =?utf-8?B?cVRnMlBUTDhwYVBiYXljMktaM0ZZb3Uza1NCYVFNUzRXQWJVdkxLUHJNMys5?=
+ =?utf-8?B?eExFY2poQjZSNW9NZHdJc2VqSWlZVUkwZGlROFREWmwxSTBNMW96SlNtNEdR?=
+ =?utf-8?B?RVh4Nmk4akx3ZWFkbGRmUk5KOEJiRlBtTFNWZ0V5SVJkQnV4QTJGU2dyWTNF?=
+ =?utf-8?B?WGxzelFOSXZFMmJNb2pNNlhScFJTYVRlenBieEZMVWkzbkxSN3VqdmhPNSt1?=
+ =?utf-8?B?Q2tMTjRVWWR0ZVladlk1UWxIeDZPWExRZXgrM3RDVCtnbUNQYzh0dXd5VTd6?=
+ =?utf-8?B?YmFIVTFsY1BrcWF0cVg4WWhxcTZVekZCenJWWHFxVkoyTUpsN2xENU9ZdERr?=
+ =?utf-8?B?L1dqRHZFaEFrRnpDZW9wekxsaGxNMkRiaDZNbzVSYm93MWNXYW5vbFVqREtt?=
+ =?utf-8?B?NWtuMnVCTVJzQXErVVUwLyt0aEYwUWpSZ09ERmIyS0VzdEdPLzUzaWVONWtm?=
+ =?utf-8?B?aU5WYi9xSW9zdkhlUjVDcDIwMVd2VjFXbVorOG9SQkh2Vm11V3hoVC9uMTBO?=
+ =?utf-8?B?R0RnRTFuOVlFNHo4RGJyREFCVXhuUDZSUWV3bWZSRUFFTThYYlJ3bDJ2bEhk?=
+ =?utf-8?B?N09TUm14RU9lZDZTOStBZXo2a2VtZlpKVkJIcTJNNWlxcGhoVUtzTzNaRFRT?=
+ =?utf-8?B?L1Q4UG9pVTM1WnBDb0xCUDlHSFM5NHNyVmd6U1k0bU9ORFVUWTVRN2UybE9O?=
+ =?utf-8?B?dHREbEFtM244QUZnNEY1czY2bVc3K0ovalNPNml0T3pieXRKeS9TNktyZldC?=
+ =?utf-8?Q?PeW+je4eKB8QlscERwMjXhfjf?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 008a8dcd-cdf9-4939-aa9c-08db3613f7d0
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Apr 2023 20:25:59.5763 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: w0fAbhqzGHBeq8lSw+i8mRF2NY7NGTBEb6ousz//wvQRdqaMsHsYOfjpbBaEnewY6jVrRVghAvIYn+IY4uEWmQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB5013
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,201 +126,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-acpi@vger.kernel.org, linux-wireless@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- Linux Memory Management List <linux-mm@kvack.org>, linux-gpio@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- io-uring@vger.kernel.org
+Cc: aaron.liu@amd.com, shikai.guo@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 8417c8f5007bf4567ccffda850a3157c7d905f67  Add linux-next specific files for 20230405
+On 2023-04-05 11:31, Shane Xiao wrote:
+> For userptr bo with iommu on, multiple GPUs use same system
+> memory dma mapping address when both adev and bo_adev are in
+> identity mode or in the same iommu group.
+>
+> If RAM direct map to one GPU, other GPUs can share the original
+> BO in order to reduce dma address array usage when RAM can
+> direct map to these GPUs. However, we should explicit check
+> whether RAM can direct map to all these GPUs.
+>
+> This patch fixes a potential issue that where RAM is
+> direct mapped on some but not all GPUs.
+>
+> v2:
+>    1. Update comment
+>    2. Add helper function reuse_dmamap
+>
+> Signed-off-by: Shane Xiao <shane.xiao@amd.com>
 
-Error/Warning reports:
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
-https://lore.kernel.org/oe-kbuild-all/202303161521.jbGbaFjJ-lkp@intel.com
 
-Error/Warning: (recently discovered and may have been fixed)
-
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_validation.c:351:13: warning: variable 'bw_needed' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_validation.c:352:25: warning: variable 'link' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/tegra/fb.c:276:60: error: 'VM_MAP' undeclared (first use in this function); did you mean 'VM_MTE'?
-drivers/net/wireless/legacy/ray_cs.c:628:17: warning: 'strncpy' specified bound 32 equals destination size [-Wstringop-truncation]
-ld.lld: error: undefined symbol: find_kallsyms_symbol_value
-
-Unverified Error/Warning (likely false positive, please contact us if interested):
-
-drivers/acpi/property.c:985 acpi_data_prop_read_single() error: potentially dereferencing uninitialized 'obj'.
-include/linux/gpio/consumer.h: linux/err.h is included more than once.
-include/linux/gpio/driver.h: asm/bug.h is included more than once.
-io_uring/io_uring.c:432 io_prep_async_work() error: we previously assumed 'req->file' could be null (see line 425)
-io_uring/kbuf.c:221 __io_remove_buffers() warn: variable dereferenced before check 'bl->buf_ring' (see line 219)
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|   `-- drivers-net-wireless-legacy-ray_cs.c:warning:strncpy-specified-bound-equals-destination-size
-|-- alpha-randconfig-r036-20230403
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- arm-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- arm-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- arm64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- i386-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- ia64-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|   `-- drivers-net-wireless-legacy-ray_cs.c:warning:strncpy-specified-bound-equals-destination-size
-|-- loongarch-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- loongarch-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- loongarch-defconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- mips-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|   `-- drivers-gpu-drm-tegra-fb.c:error:VM_MAP-undeclared-(first-use-in-this-function)
-|-- mips-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- parisc-randconfig-r015-20230403
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- powerpc-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- riscv-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-clang_recent_errors
-`-- arm-randconfig-r046-20230403
-    `-- ld.lld:error:undefined-symbol:find_kallsyms_symbol_value
-
-elapsed time: 727m
-
-configs tested: 100
-configs skipped: 6
-
-tested configs:
-alpha                            allyesconfig   gcc  
-alpha        buildonly-randconfig-r002-20230403   gcc  
-alpha                               defconfig   gcc  
-alpha                randconfig-r036-20230403   gcc  
-arc                              allyesconfig   gcc  
-arc                                 defconfig   gcc  
-arc                  randconfig-r021-20230403   gcc  
-arc                  randconfig-r025-20230403   gcc  
-arc                  randconfig-r043-20230403   gcc  
-arm                              allmodconfig   gcc  
-arm                              allyesconfig   gcc  
-arm                                 defconfig   gcc  
-arm                  randconfig-r046-20230403   clang
-arm64                            allyesconfig   gcc  
-arm64                               defconfig   gcc  
-arm64                randconfig-r032-20230403   clang
-csky         buildonly-randconfig-r003-20230403   gcc  
-csky                                defconfig   gcc  
-csky                 randconfig-r033-20230403   gcc  
-hexagon      buildonly-randconfig-r001-20230403   clang
-hexagon              randconfig-r012-20230403   clang
-hexagon              randconfig-r041-20230403   clang
-hexagon              randconfig-r045-20230403   clang
-i386                             allyesconfig   gcc  
-i386                              debian-10.3   gcc  
-i386                                defconfig   gcc  
-i386                 randconfig-a001-20230403   clang
-i386                 randconfig-a002-20230403   clang
-i386                 randconfig-a003-20230403   clang
-i386                 randconfig-a004-20230403   clang
-i386                 randconfig-a005-20230403   clang
-i386                 randconfig-a006-20230403   clang
-i386                 randconfig-a011-20230403   gcc  
-i386                 randconfig-a012-20230403   gcc  
-i386                 randconfig-a013-20230403   gcc  
-i386                 randconfig-a014-20230403   gcc  
-i386                 randconfig-a015-20230403   gcc  
-i386                 randconfig-a016-20230403   gcc  
-i386                 randconfig-r035-20230403   clang
-ia64                             allmodconfig   gcc  
-ia64                                defconfig   gcc  
-ia64                 randconfig-r026-20230403   gcc  
-loongarch                        allmodconfig   gcc  
-loongarch                         allnoconfig   gcc  
-loongarch                           defconfig   gcc  
-loongarch            randconfig-r022-20230403   gcc  
-m68k                             allmodconfig   gcc  
-m68k         buildonly-randconfig-r005-20230403   gcc  
-m68k         buildonly-randconfig-r006-20230403   gcc  
-m68k                                defconfig   gcc  
-microblaze           randconfig-r024-20230403   gcc  
-mips                             allmodconfig   gcc  
-mips                             allyesconfig   gcc  
-nios2                               defconfig   gcc  
-openrisc             randconfig-r003-20230403   gcc  
-parisc                              defconfig   gcc  
-parisc               randconfig-r011-20230403   gcc  
-parisc               randconfig-r013-20230403   gcc  
-parisc               randconfig-r015-20230403   gcc  
-parisc               randconfig-r034-20230403   gcc  
-parisc64                            defconfig   gcc  
-powerpc                          allmodconfig   gcc  
-powerpc                           allnoconfig   gcc  
-powerpc      buildonly-randconfig-r004-20230403   gcc  
-riscv                            allmodconfig   gcc  
-riscv                             allnoconfig   gcc  
-riscv                               defconfig   gcc  
-riscv                randconfig-r042-20230403   gcc  
-riscv                          rv32_defconfig   gcc  
-s390                             allmodconfig   gcc  
-s390                             allyesconfig   gcc  
-s390                                defconfig   gcc  
-s390                 randconfig-r004-20230403   clang
-s390                 randconfig-r006-20230403   clang
-s390                 randconfig-r016-20230403   gcc  
-s390                 randconfig-r031-20230403   clang
-s390                 randconfig-r044-20230403   gcc  
-sh                               allmodconfig   gcc  
-sh                   randconfig-r002-20230403   gcc  
-sparc                               defconfig   gcc  
-um                             i386_defconfig   gcc  
-um                           x86_64_defconfig   gcc  
-x86_64                            allnoconfig   gcc  
-x86_64                           allyesconfig   gcc  
-x86_64                              defconfig   gcc  
-x86_64                                  kexec   gcc  
-x86_64               randconfig-a001-20230403   clang
-x86_64               randconfig-a002-20230403   clang
-x86_64               randconfig-a003-20230403   clang
-x86_64               randconfig-a004-20230403   clang
-x86_64               randconfig-a005-20230403   clang
-x86_64               randconfig-a006-20230403   clang
-x86_64               randconfig-a011-20230403   gcc  
-x86_64               randconfig-a012-20230403   gcc  
-x86_64               randconfig-a013-20230403   gcc  
-x86_64               randconfig-a014-20230403   gcc  
-x86_64               randconfig-a015-20230403   gcc  
-x86_64               randconfig-a016-20230403   gcc  
-x86_64                               rhel-8.3   gcc  
-xtensa               randconfig-r001-20230403   gcc  
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+> ---
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 27 ++++++++++++++++---
+>   1 file changed, 23 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index e7403f8e4eba..2fbb9db64ad5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -81,6 +81,25 @@ static bool kfd_mem_is_attached(struct amdgpu_vm *avm,
+>   	return false;
+>   }
+>   
+> +/**
+> + * reuse_dmamap() - Check whether adev can share the original
+> + * userptr BO
+> + *
+> + * If both adev and bo_adev are in direct mapping or
+> + * in the same iommu group, they can share the original BO.
+> + *
+> + * @adev: Device to which can or cannot share the original BO
+> + * @bo_adev: Device to which allocated BO belongs to
+> + *
+> + * Return: returns true if adev can share original userptr BO,
+> + * false otherwise.
+> + */
+> +static bool reuse_dmamap(struct amdgpu_device *adev, struct amdgpu_device *bo_adev)
+> +{
+> +	return (adev->ram_is_direct_mapped && bo_adev->ram_is_direct_mapped) ||
+> +			(adev->dev->iommu_group == bo_adev->dev->iommu_group);
+> +}
+> +
+>   /* Set memory usage limits. Current, limits are
+>    *  System (TTM + userptr) memory - 15/16th System RAM
+>    *  TTM memory - 3/8th System RAM
+> @@ -804,11 +823,11 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
+>   			 va + bo_size, vm);
+>   
+>   		if ((adev == bo_adev && !(mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP)) ||
+> -		    (amdgpu_ttm_tt_get_usermm(mem->bo->tbo.ttm) && adev->ram_is_direct_mapped) ||
+> -		    same_hive) {
+> +		    (amdgpu_ttm_tt_get_usermm(mem->bo->tbo.ttm) && reuse_dmamap(adev, bo_adev)) ||
+> +			same_hive) {
+>   			/* Mappings on the local GPU, or VRAM mappings in the
+> -			 * local hive, or userptr mapping IOMMU direct map mode
+> -			 * share the original BO
+> +			 * local hive, or userptr mapping can reuse dma map
+> +			 * address space share the original BO
+>   			 */
+>   			attachment[i]->type = KFD_MEM_ATT_SHARED;
+>   			bo[i] = mem->bo;
