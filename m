@@ -4,60 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6FC8C7618D
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Apr 2023 09:44:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A39CC76196
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Apr 2023 10:06:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A1EF10E066;
-	Thu,  6 Apr 2023 09:44:13 +0000 (UTC)
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D1D010E066
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Apr 2023 09:44:12 +0000 (UTC)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-4fa3ca4052eso1131559a12.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 06 Apr 2023 02:44:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6ECE010EB4B;
+	Thu,  6 Apr 2023 10:06:37 +0000 (UTC)
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B02D10EB4B
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Apr 2023 10:06:36 +0000 (UTC)
+Received: by mail-wr1-x436.google.com with SMTP id l12so38923545wrm.10
+ for <amd-gfx@lists.freedesktop.org>; Thu, 06 Apr 2023 03:06:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1680774249;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=nlkFN1Lo1Q6+ecfIJ6APKDoGvubMxyNPS98GNJXUnto=;
- b=mAmCiqcpXfb8dbt1BynFoUlomlgXQi6rcr6+PpPNBQbZlbBCdPS7CUs9GelRvS3cSR
- P0IYa4kG5/sSCYARTk4qm2BtqT6gdUFK6lGeXMPA0S+SdEPIRfwxIEAIw4kl7iJsV7uH
- Q5tz82BdeSC0O7qWhNqpEKAkX4ZhJyu9FnK/vGT5oxGchQDtohVzo2p5mr8ttf0C/iBG
- xESPVBqdVD0guq80hoFrUE3dXcDqaaQ/BqPqLNtjjm/EPRbNuBpjB2vdh+s/6guT4Ubm
- dGEvi8llmjIxglBUrcW07gEdIfHNLjdm50kNlXLLOYpQh0pWEtfVNyso+EBc8fFu8cbY
- Ez2g==
+ d=gmail.com; s=20210112; t=1680775594; x=1683367594;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=nyO9HvxlIGTX5rt3vSSDM5k5j1CZpY8TFYR++BvoFLE=;
+ b=C5dRhV4Oz7vqgLpR23ER02ZvkeEtkE9JAliMkWGlqTr+ZNWRGw6qnqrl1X+7V3yOUr
+ zieXRXrys3tS/3+PrITwRHuJlV0o3jEr1xD6U94xnsZIUbks7RO1LLJEpDPGjia2sXop
+ u1xRYUsmIsQ7KWv2q7/mowSNlByg21gVcnPX+WGjz+UFveSWZX1NOuygn0nbxNElkM2m
+ xxXXtaf7SBWcdoUX9JGfVKurihLotHNJ4yJmsyCMAyXo8+7ulKJ3BvMW+0AHZZUebWTf
+ 7fy7tQBiTS1Us/k6p5pFmAHlX9/Q3cD1tVG3YOrzHZMsqVuzCKaPOZeQsq3+MKoZsogP
+ Uf3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680774249;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=nlkFN1Lo1Q6+ecfIJ6APKDoGvubMxyNPS98GNJXUnto=;
- b=aVFaiFLwc2Pkc6MoWahAIZW0BHu8KL9lGZGK8osP8GoVGf5bKQiwo/KUwPxY1Dwx/C
- ah4+oMzAlKyIwAccCGd09FS7cnVZjOgtuevPDdDMVd8pi26WG73MGkKrea9aos8Oh4pT
- j35d8hdGHTD+/pL5v3GVs1C8GNIijWu+joOhK4UYmoHBevwRcmxRPihx8vM5PjBl2Z0B
- 7HvKoKs2+X3nljgnFOGaNum4eInfKcknh4OBl7IO75ksB9ATZiRAeWBMNSBrATN4u5TK
- xGobCaXLR1goG3/gyVebgWMb3iYuX1WfbA25r9dywKZP1Ce3cWbZWzJ2GYxb1zbsYV0C
- EsEw==
-X-Gm-Message-State: AAQBX9ea74WB/GV/EUFd9D9gdUHz9CPg9wjr3+OJbVSjxAXj9eFtYPSd
- Ty3P1fIc+MIKwD1a1/qFBp0Y3iu9t/MpltBUlLI=
-X-Google-Smtp-Source: AKy350axJfM3gMld+BapchRVJg9FMEqyHiR/tS3TAQiIMlOXGJs9MoUtWwE2aBjcnvSzDL30M6mY5B3f2C3Uckl8VLs=
-X-Received: by 2002:a50:d781:0:b0:500:547b:4e1b with SMTP id
- w1-20020a50d781000000b00500547b4e1bmr2822430edi.6.1680774248684; Thu, 06 Apr
- 2023 02:44:08 -0700 (PDT)
+ d=1e100.net; s=20210112; t=1680775594; x=1683367594;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=nyO9HvxlIGTX5rt3vSSDM5k5j1CZpY8TFYR++BvoFLE=;
+ b=tagP0BBdSVD8vyUvtXJMSbc0o5wVfTG4QHjl9arEXAJ15sEnbVRlwEpYpCiDOJb3PH
+ Mggh3/tZzZ0GsSd+9TgVuY1naVHpcPxBrmJifHsgGU7GatAWxi0ZD7NhdKmfcA5oKghr
+ s6zfEyVwElGL+/sT5vqdm7U0w9LDHq6F1KCjO7A21w2ff1QMArR8mNkSijVVWzdYBDuN
+ +kcdSYCCl0dAJUWCp3jq5FOA1S2zMWqGohocbav3k/0ghsnC+E+QFxyjpiiYSwSyJ7+k
+ Zhwk2Q+qm7S+vG3IpBdyeH2v6BtoZRZ0m2cDv0OR2wxFzrt8GG4F++kTO6cBJmwAx/ZG
+ Yhdg==
+X-Gm-Message-State: AAQBX9c/J4p2A06AOmi9Dhzmf6QXanu8RTdhxypmKm74k9Za1szEEUkW
+ XiTUEhzlfPSxSL0DpNr1CLQ=
+X-Google-Smtp-Source: AKy350bK9Y042FvmmqHQHXBIGU5xEecND5S9rIPWRRGxqJZIcEUQ1Gs7JTa+wbMQOtgdyUSMbA8PsA==
+X-Received: by 2002:adf:f0c4:0:b0:2ce:aa2f:55ff with SMTP id
+ x4-20020adff0c4000000b002ceaa2f55ffmr5892206wro.1.1680775594323; 
+ Thu, 06 Apr 2023 03:06:34 -0700 (PDT)
+Received: from [192.168.178.21] (p4fc2092b.dip0.t-ipconnect.de. [79.194.9.43])
+ by smtp.gmail.com with ESMTPSA id
+ z16-20020a5d4c90000000b002cf1c435afcsm1350238wrs.11.2023.04.06.03.06.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 06 Apr 2023 03:06:33 -0700 (PDT)
+Message-ID: <5f78c379-c7cc-1b1b-d273-175f8e57e1c5@gmail.com>
+Date: Thu, 6 Apr 2023 12:06:32 +0200
 MIME-Version: 1.0
-References: <20230330191750.1134210-1-alexander.deucher@amd.com>
- <20230330191750.1134210-4-alexander.deucher@amd.com>
- <CAAxE2A7nvmXdUaXESi4g6HVBFxk+dooz7tZYQfjGE8O2fKFi-w@mail.gmail.com>
- <8a98b160-5276-54f5-d166-e12a572892e9@amd.com>
-In-Reply-To: <8a98b160-5276-54f5-d166-e12a572892e9@amd.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Thu, 6 Apr 2023 05:43:32 -0400
-Message-ID: <CAAxE2A4LzFudfzTNRr290ORZvcF6-xzKiyNM6LZ3uiZDPerf5Q@mail.gmail.com>
-Subject: Re: [PATCH 03/13] drm/amdgpu/UAPI: add new CS chunk for GFX shadow
- buffers
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: multipart/alternative; boundary="0000000000000a5e2305f8a7c016"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH v3] drm/amd/amdgpu: Drop the hang limit parameter
+Content-Language: en-US
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Kent Russell <kent.russell@amd.com>
+References: <20230405152352.457978-1-srinivasan.shanmugam@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20230405152352.457978-1-srinivasan.shanmugam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,192 +78,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000000a5e2305f8a7c016
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-GDS memory isn't used on gfx11. Only GDS OA is used.
-
-Marek
-
-On Thu, Apr 6, 2023 at 5:09=E2=80=AFAM Christian K=C3=B6nig <christian.koen=
-ig@amd.com>
-wrote:
-
-> Why that?
+Am 05.04.23 um 17:23 schrieb Srinivasan Shanmugam:
+> The driver doesn't resubmit jobs on hangs any more, hence drop
+> the hang limit parameter - amdgpu_job_hang_limit, wherever it is used.
 >
-> This is the save buffer for GDS, not the old style GDS BOs.
->
-> Christian.
->
-> Am 06.04.23 um 09:36 schrieb Marek Ol=C5=A1=C3=A1k:
->
-> gds_va is unnecessary.
->
-> Marek
->
-> On Thu, Mar 30, 2023 at 3:18=E2=80=AFPM Alex Deucher <alexander.deucher@a=
-md.com>
-> wrote:
->
->> For GFX11, the UMD needs to allocate some shadow buffers
->> to be used for preemption.  The UMD allocates the buffers
->> and passes the GPU virtual address to the kernel since the
->> kernel will program the packet that specified these
->> addresses as part of its IB submission frame.
->>
->> v2: UMD passes shadow init to tell kernel when to initialize
->>     the shadow
->>
->> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->> ---
->>  include/uapi/drm/amdgpu_drm.h | 10 ++++++++++
->>  1 file changed, 10 insertions(+)
->>
->> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm=
-.h
->> index b6eb90df5d05..3d9474af6566 100644
->> --- a/include/uapi/drm/amdgpu_drm.h
->> +++ b/include/uapi/drm/amdgpu_drm.h
->> @@ -592,6 +592,7 @@ struct drm_amdgpu_gem_va {
->>  #define AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES 0x07
->>  #define AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_WAIT    0x08
->>  #define AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_SIGNAL  0x09
->> +#define AMDGPU_CHUNK_ID_CP_GFX_SHADOW   0x0a
->>
->>  struct drm_amdgpu_cs_chunk {
->>         __u32           chunk_id;
->> @@ -708,6 +709,15 @@ struct drm_amdgpu_cs_chunk_data {
->>         };
->>  };
->>
->> +#define AMDGPU_CS_CHUNK_CP_GFX_SHADOW_FLAGS_INIT_SHADOW         0x1
->> +
->> +struct drm_amdgpu_cs_chunk_cp_gfx_shadow {
->> +       __u64 shadow_va;
->> +       __u64 csa_va;
->> +       __u64 gds_va;
->> +       __u64 flags;
->> +};
->> +
->>  /*
->>   *  Query h/w info: Flag that this is integrated (a.h.a. fusion) GPU
->>   *
->> --
->> 2.39.2
->>
->>
->
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Mario Limonciello <mario.limonciello@amd.com>
+> Cc: Kent Russell <kent.russell@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
---0000000000000a5e2305f8a7c016
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-<div dir=3D"ltr"><div>GDS memory isn&#39;t used on gfx11. Only GDS OA is us=
-ed.<br></div><div><br></div><div>Marek<br></div></div><br><div class=3D"gma=
-il_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Apr 6, 2023 at 5:09=
-=E2=80=AFAM Christian K=C3=B6nig &lt;<a href=3D"mailto:christian.koenig@amd=
-.com">christian.koenig@amd.com</a>&gt; wrote:<br></div><blockquote class=3D=
-"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(2=
-04,204,204);padding-left:1ex">
-
- =20
-  <div>
-    Why that?<br>
-    <br>
-    This is the save buffer for GDS, not the old style GDS BOs.<br>
-    <br>
-    Christian.<br>
-    <br>
-    <div>Am 06.04.23 um 09:36 schrieb Marek
-      Ol=C5=A1=C3=A1k:<br>
-    </div>
-    <blockquote type=3D"cite">
-     =20
-      <div dir=3D"ltr">
-        <div>gds_va is unnecessary.</div>
-        <div><br>
-        </div>
-        <div>Marek<br>
-        </div>
-      </div>
-      <br>
-      <div class=3D"gmail_quote">
-        <div dir=3D"ltr" class=3D"gmail_attr">On Thu, Mar 30, 2023 at
-          3:18=E2=80=AFPM Alex Deucher &lt;<a href=3D"mailto:alexander.deuc=
-her@amd.com" target=3D"_blank">alexander.deucher@amd.com</a>&gt;
-          wrote:<br>
-        </div>
-        <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
-;border-left:1px solid rgb(204,204,204);padding-left:1ex">For
-          GFX11, the UMD needs to allocate some shadow buffers<br>
-          to be used for preemption.=C2=A0 The UMD allocates the buffers<br=
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 1 -
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 8 --------
+>   3 files changed, 1 insertion(+), 10 deletions(-)
 >
-          and passes the GPU virtual address to the kernel since the<br>
-          kernel will program the packet that specified these<br>
-          addresses as part of its IB submission frame.<br>
-          <br>
-          v2: UMD passes shadow init to tell kernel when to initialize<br>
-          =C2=A0 =C2=A0 the shadow<br>
-          <br>
-          Reviewed-by: Christian K=C3=B6nig &lt;<a href=3D"mailto:christian=
-.koenig@amd.com" target=3D"_blank">christian.koenig@amd.com</a>&gt;<br>
-          Signed-off-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deuch=
-er@amd.com" target=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
-          ---<br>
-          =C2=A0include/uapi/drm/amdgpu_drm.h | 10 ++++++++++<br>
-          =C2=A01 file changed, 10 insertions(+)<br>
-          <br>
-          diff --git a/include/uapi/drm/amdgpu_drm.h
-          b/include/uapi/drm/amdgpu_drm.h<br>
-          index b6eb90df5d05..3d9474af6566 100644<br>
-          --- a/include/uapi/drm/amdgpu_drm.h<br>
-          +++ b/include/uapi/drm/amdgpu_drm.h<br>
-          @@ -592,6 +592,7 @@ struct drm_amdgpu_gem_va {<br>
-          =C2=A0#define AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES 0x07<br>
-          =C2=A0#define AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_WAIT=C2=A0 =C2=A0 =
-0x08<br>
-          =C2=A0#define AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_SIGNAL=C2=A0 0x09<=
-br>
-          +#define AMDGPU_CHUNK_ID_CP_GFX_SHADOW=C2=A0 =C2=A00x0a<br>
-          <br>
-          =C2=A0struct drm_amdgpu_cs_chunk {<br>
-          =C2=A0 =C2=A0 =C2=A0 =C2=A0 __u32=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0chunk_id;<br>
-          @@ -708,6 +709,15 @@ struct drm_amdgpu_cs_chunk_data {<br>
-          =C2=A0 =C2=A0 =C2=A0 =C2=A0 };<br>
-          =C2=A0};<br>
-          <br>
-          +#define AMDGPU_CS_CHUNK_CP_GFX_SHADOW_FLAGS_INIT_SHADOW=C2=A0 =
-=C2=A0 =C2=A0
-          =C2=A0 =C2=A00x1<br>
-          +<br>
-          +struct drm_amdgpu_cs_chunk_cp_gfx_shadow {<br>
-          +=C2=A0 =C2=A0 =C2=A0 =C2=A0__u64 shadow_va;<br>
-          +=C2=A0 =C2=A0 =C2=A0 =C2=A0__u64 csa_va;<br>
-          +=C2=A0 =C2=A0 =C2=A0 =C2=A0__u64 gds_va;<br>
-          +=C2=A0 =C2=A0 =C2=A0 =C2=A0__u64 flags;<br>
-          +};<br>
-          +<br>
-          =C2=A0/*<br>
-          =C2=A0 *=C2=A0 Query h/w info: Flag that this is integrated (a.h.=
-a.
-          fusion) GPU<br>
-          =C2=A0 *<br>
-          -- <br>
-          2.39.2<br>
-          <br>
-        </blockquote>
-      </div>
-    </blockquote>
-    <br>
-  </div>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index bbac4239ceb3..35a0474ccdb0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -186,7 +186,6 @@ extern char *amdgpu_disable_cu;
+>   extern char *amdgpu_virtual_display;
+>   extern uint amdgpu_pp_feature_mask;
+>   extern uint amdgpu_force_long_training;
+> -extern int amdgpu_job_hang_limit;
+>   extern int amdgpu_lbpw;
+>   extern int amdgpu_compute_multipipe;
+>   extern int amdgpu_gpu_recovery;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 3b6b85d9e0be..051b9e231cf4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -2364,7 +2364,7 @@ static int amdgpu_device_init_schedulers(struct amdgpu_device *adev)
+>   		}
+>   
+>   		r = drm_sched_init(&ring->sched, &amdgpu_sched_ops,
+> -				   ring->num_hw_submission, amdgpu_job_hang_limit,
+> +				   ring->num_hw_submission, 0,
+>   				   timeout, adev->reset_domain->wq,
+>   				   ring->sched_score, ring->name,
+>   				   adev->dev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index e652ffb2c68e..03e928123d71 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -158,7 +158,6 @@ char *amdgpu_virtual_display;
+>    */
+>   uint amdgpu_pp_feature_mask = 0xfff7bfff;
+>   uint amdgpu_force_long_training;
+> -int amdgpu_job_hang_limit;
+>   int amdgpu_lbpw = -1;
+>   int amdgpu_compute_multipipe = -1;
+>   int amdgpu_gpu_recovery = -1; /* auto */
+> @@ -521,13 +520,6 @@ MODULE_PARM_DESC(virtual_display,
+>   		 "Enable virtual display feature (the virtual_display will be set like xxxx:xx:xx.x,x;xxxx:xx:xx.x,x)");
+>   module_param_named(virtual_display, amdgpu_virtual_display, charp, 0444);
+>   
+> -/**
+> - * DOC: job_hang_limit (int)
+> - * Set how much time allow a job hang and not drop it. The default is 0.
+> - */
+> -MODULE_PARM_DESC(job_hang_limit, "how much time allow a job hang and not drop it (default 0)");
+> -module_param_named(job_hang_limit, amdgpu_job_hang_limit, int ,0444);
+> -
+>   /**
+>    * DOC: lbpw (int)
+>    * Override Load Balancing Per Watt (LBPW) support (1 = enable, 0 = disable). The default is -1 (auto, enabled).
 
-</blockquote></div>
-
---0000000000000a5e2305f8a7c016--
