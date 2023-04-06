@@ -4,71 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0D1BC76196
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Apr 2023 10:31:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 927B9C7618D
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Apr 2023 12:45:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F91510EB4C;
-	Thu,  6 Apr 2023 10:31:25 +0000 (UTC)
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67BA810EB4C
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Apr 2023 10:31:23 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id y14so39046979wrq.4
- for <amd-gfx@lists.freedesktop.org>; Thu, 06 Apr 2023 03:31:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1680777081; x=1683369081;
- h=in-reply-to:from:references:cc:to:content-language:subject
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6z7X0k5PRwTtFsVwxtnrEnLsaOtQuQHT21b/gQZ8/fM=;
- b=b257hvip20lBuifEgPznlP2RlJKYoxjuGw4TAY+PArtZnbOft49PyIx/WLy2HAyzHr
- aKkIIiAsxE37K+kP1FZsamg+bsvMQLZbVPTfH3VzE+9MpZLIav7blm5j7fhM4u0wSK1u
- QrewY7HHQI8FDqaS1e+pSuQVSHdbfJokfQ3pYZG4lxfdnnp8Kmb8ueSiUNX53cdY9ote
- BrqiVknPUgcKx14jVW6nwxWF6sPuyNJhD72NIse5W1lwcCuLTOkRykUUiEnwRdZy7IzN
- GLybUn6CnyFAQcgiPQaRYt4Lag6Zmv8QYQ/tgcOkBFjLUVNyq8EnpU/BCLCbVzXLRmKH
- n1dA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680777081; x=1683369081;
- h=in-reply-to:from:references:cc:to:content-language:subject
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=6z7X0k5PRwTtFsVwxtnrEnLsaOtQuQHT21b/gQZ8/fM=;
- b=SYc0BjFtlDZZJ4gCBeZzrZWHmPQ5XRGDkGLdaEBm0mDz3R6F6/Swu0ikVqNisUU18T
- LELv91J0RH8Mi973H9gkW0ncig9U87aRQfrUqmqLf7CGj5P1Zsi3wIZu0tNWOGtqqb65
- 5nbrqfPIV2bmPL1aNK5zK+A8dvTbuymV066LoIEz4vFBe1fV9Txha3MhmS742MEY2K1N
- oFCe8v+ZM6zO2IeGGztrrkwLy69vVZ+iFk+iiPA2R8HdhU0y78tnbL0dcSnE7S3+hu82
- /nXVN5cY1PK2T1It+oI4M1dJRxX6Egdc+83yZNZyygDNDNuXQqw1V9zFH4l04PLsD2v/
- K0fA==
-X-Gm-Message-State: AAQBX9cZnAd20CGhrB/MUwcvI8DNAtmHnTcdfIwi/b0XgAl5s5wQXW6y
- j/A1TKQvlgu8ZkbFzSnH9dTRzEIabhc=
-X-Google-Smtp-Source: AKy350YHWUr0shmGdcOjk29++2+omLMYMYmigrk+UBGKk3Ko5/FBPPc/4gHUVWP2oWUvUezCZEtj2g==
-X-Received: by 2002:a5d:4ec3:0:b0:2ce:ae54:1592 with SMTP id
- s3-20020a5d4ec3000000b002ceae541592mr6194860wrv.38.1680777081266; 
- Thu, 06 Apr 2023 03:31:21 -0700 (PDT)
-Received: from [192.168.178.21] (p4fc2092b.dip0.t-ipconnect.de. [79.194.9.43])
- by smtp.gmail.com with ESMTPSA id
- x1-20020adfec01000000b002e52dfb9256sm1393462wrn.41.2023.04.06.03.31.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Apr 2023 03:31:20 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------7BiG3h0lsTmJiZMpuaYi56KG"
-Message-ID: <b1485943-5f0a-1a7e-f0a4-b35771b48a23@gmail.com>
-Date: Thu, 6 Apr 2023 12:31:18 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD15110E20C;
+	Thu,  6 Apr 2023 12:45:24 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20615.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8a::615])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4571910E20C
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Apr 2023 12:45:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cUA121wJeP6Wf4iAH0SRc/obRKSoCqWvRJASsshaaw1xSPcCixqgyL7nQA1+RkTpQ58A5wJhJ1WmMJ+/kzNPWsD3CYzWYuKgLjmOguiLWo5VzJ+BxI1E4BE9zsub3iR1YesmfbTsxUA7Cam86D1dGRD4jgt3GLbyVAR6d6osmrssTSQVi7yi4A7Mz/ctjwG+faiafat9JN2OG5ncJ/JulVbQngZm2QRlvYfA50VHFl9Sh7vDy3/xYnHIqgSXP505akPN/T+Y05TkwRI4+UTAC7ZH7jvFLvp7ySd5P+0sPLpeCvC/yJfxONeBynsLkL36CHu6W/Hfw9fQigldTzLyIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qBJTevGK/t/JWBET8UslobDCi1f8jdO2iHAuj/YJqck=;
+ b=j/vsjX/gMJlZ/6Nw3OLSP/pIzpudQCazsf12TGk06/1PCL1wGQa2MN3KxKy+53kZ86QUtbr71SF43jHlq6njncA2TA+iY03OvcuRrI4RVxLJDAU8DIRMxuv0vPBSLb4Rjm437oBu6E/h6AMNa5qBi+NqqdidHCNOELo0s64BsFpwzwK35FyU8OwOI//R6D5ahAS9HBrHKr88VI0duxPDUFFj0iAkVn1QEMOp9+iqW4gXWpFhI8Bk6jrhDDwsU7ImFXWRIYc/KS6Nv9gL/JTlu+EVs/JY2sGEwIlNxxdWQcz4eca7zTp6o2Q0Djb8OfI/oDChFY1/m4iPy5JeVfTdwA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qBJTevGK/t/JWBET8UslobDCi1f8jdO2iHAuj/YJqck=;
+ b=ByCjtVvP+EDPBIBvU+CF9eYcLCpWN1HJ3nmB7P0YdsZQhndXDKLQyGKsw9xLf/rkeFHvdlmgTwRoz8ZElaqzlfcxgiJqvovD8IjzyM8cvDIFP/reETtZ3uwzjFcMHTlPhANyTt8/FOKY8E9djWTDTJEmgNRaIy88qRrj0uKQH5s=
+Received: from BN0PR04CA0178.namprd04.prod.outlook.com (2603:10b6:408:eb::33)
+ by PH0PR12MB5499.namprd12.prod.outlook.com (2603:10b6:510:d5::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.35; Thu, 6 Apr
+ 2023 12:45:18 +0000
+Received: from BN8NAM11FT004.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:eb:cafe::41) by BN0PR04CA0178.outlook.office365.com
+ (2603:10b6:408:eb::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.31 via Frontend
+ Transport; Thu, 6 Apr 2023 12:45:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT004.mail.protection.outlook.com (10.13.176.164) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6277.28 via Frontend Transport; Thu, 6 Apr 2023 12:45:18 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 6 Apr
+ 2023 07:45:18 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 6 Apr
+ 2023 05:45:17 -0700
+Received: from archlinux.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Thu, 6 Apr 2023 07:45:15 -0500
+From: Wenyou Yang <WenYou.Yang@amd.com>
+To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <Xinhui.Pan@amd.com>, <evan.quan@amd.com>, <mario.limonciello@amd.com>
+Subject: [PATCH v5 0/2] Send message to PMFW when SMT changes
+Date: Thu, 6 Apr 2023 20:45:12 +0800
+Message-ID: <20230406124514.2906870-1-WenYou.Yang@amd.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: Re: [PATCH 03/13] drm/amdgpu/UAPI: add new CS chunk for GFX shadow
- buffers
-Content-Language: en-US
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-References: <20230330191750.1134210-1-alexander.deucher@amd.com>
- <20230330191750.1134210-4-alexander.deucher@amd.com>
- <CAAxE2A7nvmXdUaXESi4g6HVBFxk+dooz7tZYQfjGE8O2fKFi-w@mail.gmail.com>
- <8a98b160-5276-54f5-d166-e12a572892e9@amd.com>
- <CAAxE2A4LzFudfzTNRr290ORZvcF6-xzKiyNM6LZ3uiZDPerf5Q@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CAAxE2A4LzFudfzTNRr290ORZvcF6-xzKiyNM6LZ3uiZDPerf5Q@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT004:EE_|PH0PR12MB5499:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8aa1de67-f43e-40d7-31fa-08db369cc702
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: aowXtMcgZuDxHUdfz323f/uQngtRHyKZYPvEsQU4ZQuaGHyLftB86tG9ylSkEaseU/Gz5P6W4Qu0exoz5PXELTzVMoFSO91UHIkt1WH/6t725gpVF3Gop8XpkxXOTH5juOi45daQJQmWleW1zjx3o1qmJljc/ji7R29KtOxZe5LJMG6oJFOql5SkPnZxRHWOMXGvs5arwlDbnxU9POD4782AGYsQEicPiTo5yNMTfKz9QeX1aIIpZJr65bC0LQTLkHL9bp8wWos1j7uUyDfeJcfb+j3dwKzVfGy2ufRhzCY2dZzDE+Wy7Lw7NZAK4SwIG38sd91ylstVBgPci85ofcuSxQPYI99L23ReYl1ESqBnPokWz6fNp0JbLOk0IjfmxeB18x/NcqLCxuptWaRX9XY0VzgyVdWepZykfi8PPLrkqXAVX9o0PUwKQZHKUrEoQfsY4l3uMtUQyeIoejQP2kye6dMk+30nHJQqGV7cADg1rvv97F/P0lhEB6HIvBn9X54CY7uY1Kml5WErynPqaZDWjIHHy1zvv6n5jJZyP9EQtTxRNE94I2vOZiE/HFJgS7cO9BvJzep6+H44BiQC09AkJPKOZMq/vmE6yIGrqQGyZhiUy4pReQAdSZD12B2dQiTT5iG3Dhhc8RZ4AvbC8gUm5GVVuEAGmtD5uaG4PtCNzuzmljxo7d13Ge2A+FIF6CJHuU24Wi/PUxw8iDC7X4TuMchlx79D4aX1qQLYn5I=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(376002)(396003)(346002)(39860400002)(451199021)(36840700001)(46966006)(40470700004)(40480700001)(40460700003)(8676002)(478600001)(41300700001)(70206006)(36860700001)(4326008)(81166007)(316002)(6636002)(54906003)(8936002)(110136005)(70586007)(82740400003)(5660300002)(426003)(83380400001)(7696005)(2616005)(6666004)(186003)(47076005)(26005)(1076003)(336012)(86362001)(36756003)(15650500001)(2906002)(82310400005)(356005)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2023 12:45:18.4196 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8aa1de67-f43e-40d7-31fa-08db369cc702
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT004.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5499
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,228 +103,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: weiyuan2@amd.com, ying.li@amd.com, amd-gfx@lists.freedesktop.org,
+ Wenyou Yang <WenYou.Yang@amd.com>, kunliu13@amd.com, richardqi.liang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------7BiG3h0lsTmJiZMpuaYi56KG
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+When the SMT changes on the fly, send the message to the PMFW
+to notify the SMT status changed.
 
-That's what I thought as well, but Mitch/Hans insisted on that.
+Changes in v5
+1./ Add a new vangogh_fini_smc_tables() to accommodate the timer fini
+and smu_v11_0_fini_smc_tables(). 
+2./ Move the version check of SMU version before initializing the timer.
 
-We should probably double check internally.
+Changes in v4
+1./ Since we didn't find a good solution to handle the case that
+manually offlining all the SMT siblings using
+/sys/devices/system/cpu/cpu*/online to disable or enable SMT.
+Come up with a new solution, add a timer to poll the SMT state
+periodically, if finding that the SMT state is changed, it invokes
+the interface to notify the PMFW.
+2./ Move the generic code to smu_cmn.c. 
+3./ Add PMFW version check for this feature.
 
-Christian.
+Changes in v3
+1./ Because it is only required for Vangogh, move registering notifier
+to vangogh_ppt.c, then remove the patch 2, and the number of patches
+decreased to 2.
 
-Am 06.04.23 um 11:43 schrieb Marek Olšák:
-> GDS memory isn't used on gfx11. Only GDS OA is used.
->
-> Marek
->
-> On Thu, Apr 6, 2023 at 5:09 AM Christian König 
-> <christian.koenig@amd.com> wrote:
->
->     Why that?
->
->     This is the save buffer for GDS, not the old style GDS BOs.
->
->     Christian.
->
->     Am 06.04.23 um 09:36 schrieb Marek Olšák:
->>     gds_va is unnecessary.
->>
->>     Marek
->>
->>     On Thu, Mar 30, 2023 at 3:18 PM Alex Deucher
->>     <alexander.deucher@amd.com> wrote:
->>
->>         For GFX11, the UMD needs to allocate some shadow buffers
->>         to be used for preemption.  The UMD allocates the buffers
->>         and passes the GPU virtual address to the kernel since the
->>         kernel will program the packet that specified these
->>         addresses as part of its IB submission frame.
->>
->>         v2: UMD passes shadow init to tell kernel when to initialize
->>             the shadow
->>
->>         Reviewed-by: Christian König <christian.koenig@amd.com>
->>         Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->>         ---
->>          include/uapi/drm/amdgpu_drm.h | 10 ++++++++++
->>          1 file changed, 10 insertions(+)
->>
->>         diff --git a/include/uapi/drm/amdgpu_drm.h
->>         b/include/uapi/drm/amdgpu_drm.h
->>         index b6eb90df5d05..3d9474af6566 100644
->>         --- a/include/uapi/drm/amdgpu_drm.h
->>         +++ b/include/uapi/drm/amdgpu_drm.h
->>         @@ -592,6 +592,7 @@ struct drm_amdgpu_gem_va {
->>          #define AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES 0x07
->>          #define AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_WAIT    0x08
->>          #define AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_SIGNAL  0x09
->>         +#define AMDGPU_CHUNK_ID_CP_GFX_SHADOW   0x0a
->>
->>          struct drm_amdgpu_cs_chunk {
->>                 __u32           chunk_id;
->>         @@ -708,6 +709,15 @@ struct drm_amdgpu_cs_chunk_data {
->>                 };
->>          };
->>
->>         +#define AMDGPU_CS_CHUNK_CP_GFX_SHADOW_FLAGS_INIT_SHADOW  0x1
->>         +
->>         +struct drm_amdgpu_cs_chunk_cp_gfx_shadow {
->>         +       __u64 shadow_va;
->>         +       __u64 csa_va;
->>         +       __u64 gds_va;
->>         +       __u64 flags;
->>         +};
->>         +
->>          /*
->>           *  Query h/w info: Flag that this is integrated (a.h.a.
->>         fusion) GPU
->>           *
->>         -- 
->>         2.39.2
->>
->
+Changes in v2:
+1/. Embed the smt notifer callback into "struct smu_context" structure.
+2/. Correct the PPSMC_Message_Count value.
+3/. Improve several code styles and others.
 
---------------7BiG3h0lsTmJiZMpuaYi56KG
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Wenyou Yang (2):
+  drm/amd/pm: Add support to check SMT state periodically
+  drm/amd/pm/vangogh: Send SMT enable message to PMFW
 
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    That's what I thought as well, but Mitch/Hans insisted on that.<br>
-    <br>
-    We should probably double check internally.<br>
-    <br>
-    Christian.<br>
-    <br>
-    <div class="moz-cite-prefix">Am 06.04.23 um 11:43 schrieb Marek
-      Olšák:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:CAAxE2A4LzFudfzTNRr290ORZvcF6-xzKiyNM6LZ3uiZDPerf5Q@mail.gmail.com">
-      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-      <div dir="ltr">
-        <div>GDS memory isn't used on gfx11. Only GDS OA is used.<br>
-        </div>
-        <div><br>
-        </div>
-        <div>Marek<br>
-        </div>
-      </div>
-      <br>
-      <div class="gmail_quote">
-        <div dir="ltr" class="gmail_attr">On Thu, Apr 6, 2023 at 5:09 AM
-          Christian König &lt;<a href="mailto:christian.koenig@amd.com"
-            moz-do-not-send="true" class="moz-txt-link-freetext">christian.koenig@amd.com</a>&gt;
-          wrote:<br>
-        </div>
-        <blockquote class="gmail_quote" style="margin:0px 0px 0px
-          0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-          <div> Why that?<br>
-            <br>
-            This is the save buffer for GDS, not the old style GDS BOs.<br>
-            <br>
-            Christian.<br>
-            <br>
-            <div>Am 06.04.23 um 09:36 schrieb Marek Olšák:<br>
-            </div>
-            <blockquote type="cite">
-              <div dir="ltr">
-                <div>gds_va is unnecessary.</div>
-                <div><br>
-                </div>
-                <div>Marek<br>
-                </div>
-              </div>
-              <br>
-              <div class="gmail_quote">
-                <div dir="ltr" class="gmail_attr">On Thu, Mar 30, 2023
-                  at 3:18 PM Alex Deucher &lt;<a
-                    href="mailto:alexander.deucher@amd.com"
-                    target="_blank" moz-do-not-send="true"
-                    class="moz-txt-link-freetext">alexander.deucher@amd.com</a>&gt;
-                  wrote:<br>
-                </div>
-                <blockquote class="gmail_quote" style="margin:0px 0px
-                  0px 0.8ex;border-left:1px solid
-                  rgb(204,204,204);padding-left:1ex">For GFX11, the UMD
-                  needs to allocate some shadow buffers<br>
-                  to be used for preemption.  The UMD allocates the
-                  buffers<br>
-                  and passes the GPU virtual address to the kernel since
-                  the<br>
-                  kernel will program the packet that specified these<br>
-                  addresses as part of its IB submission frame.<br>
-                  <br>
-                  v2: UMD passes shadow init to tell kernel when to
-                  initialize<br>
-                      the shadow<br>
-                  <br>
-                  Reviewed-by: Christian König &lt;<a
-                    href="mailto:christian.koenig@amd.com"
-                    target="_blank" moz-do-not-send="true"
-                    class="moz-txt-link-freetext">christian.koenig@amd.com</a>&gt;<br>
-                  Signed-off-by: Alex Deucher &lt;<a
-                    href="mailto:alexander.deucher@amd.com"
-                    target="_blank" moz-do-not-send="true"
-                    class="moz-txt-link-freetext">alexander.deucher@amd.com</a>&gt;<br>
-                  ---<br>
-                   include/uapi/drm/amdgpu_drm.h | 10 ++++++++++<br>
-                   1 file changed, 10 insertions(+)<br>
-                  <br>
-                  diff --git a/include/uapi/drm/amdgpu_drm.h
-                  b/include/uapi/drm/amdgpu_drm.h<br>
-                  index b6eb90df5d05..3d9474af6566 100644<br>
-                  --- a/include/uapi/drm/amdgpu_drm.h<br>
-                  +++ b/include/uapi/drm/amdgpu_drm.h<br>
-                  @@ -592,6 +592,7 @@ struct drm_amdgpu_gem_va {<br>
-                   #define AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES 0x07<br>
-                   #define AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_WAIT    0x08<br>
-                   #define AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_SIGNAL  0x09<br>
-                  +#define AMDGPU_CHUNK_ID_CP_GFX_SHADOW   0x0a<br>
-                  <br>
-                   struct drm_amdgpu_cs_chunk {<br>
-                          __u32           chunk_id;<br>
-                  @@ -708,6 +709,15 @@ struct drm_amdgpu_cs_chunk_data {<br>
-                          };<br>
-                   };<br>
-                  <br>
-                  +#define
-                  AMDGPU_CS_CHUNK_CP_GFX_SHADOW_FLAGS_INIT_SHADOW       
-                   0x1<br>
-                  +<br>
-                  +struct drm_amdgpu_cs_chunk_cp_gfx_shadow {<br>
-                  +       __u64 shadow_va;<br>
-                  +       __u64 csa_va;<br>
-                  +       __u64 gds_va;<br>
-                  +       __u64 flags;<br>
-                  +};<br>
-                  +<br>
-                   /*<br>
-                    *  Query h/w info: Flag that this is integrated
-                  (a.h.a. fusion) GPU<br>
-                    *<br>
-                  -- <br>
-                  2.39.2<br>
-                  <br>
-                </blockquote>
-              </div>
-            </blockquote>
-            <br>
-          </div>
-        </blockquote>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  8 ++++
+ .../pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h    |  3 +-
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h  |  3 +-
+ .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  | 32 +++++++++++++-
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        | 44 +++++++++++++++++++
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h        |  5 +++
+ 6 files changed, 92 insertions(+), 3 deletions(-)
 
---------------7BiG3h0lsTmJiZMpuaYi56KG--
+-- 
+2.39.2
+
