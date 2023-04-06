@@ -4,58 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAC13C77B71
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15F8CC77B6C
 	for <amd-gfx@archiver.kernel.org>; Sat,  8 Apr 2023 12:39:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC9AF10E356;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6351C10E345;
 	Sat,  8 Apr 2023 12:39:03 +0000 (UTC)
-Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
- [IPv6:2607:f8b0:4864:20::434])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2BCB10EDDA
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Apr 2023 18:17:15 +0000 (UTC)
-Received: by mail-pf1-x434.google.com with SMTP id
- d2e1a72fcca58-62ddb232ddaso1036235b3a.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 07 Apr 2023 11:17:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20210112; t=1680891435; x=1683483435;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=NuwimqlPO9HpY2//fLh7FzFmSEeSG4CgWKNzgwGf5e0=;
- b=Pxebkcm9CczGaHvPx5PvvvRnR6vaeDp6HKms/KgNAqJQXvWemgVDWj5OCZHUEsr5j3
- G9LMgv/KajspUvAGyGLQ7Iszic6kbG9P2k5NSjI2veF2IMW/awCFrSItQeZmJWK2XLZ8
- i6eaSk3xj2bQYr9/oCtHhhg4bWIW25XK+DRij7sRFBY0PrKPBfd43oe3kVErQiVRHnnP
- rBC1NfOjx2peA67xPLFCrmXLrsiOeHJW2kZXiKf92yzvKxgztNNJ4tJanifs/JMLrTin
- Iun3CcwO27658Fb0advMSuPzDrAVtKjlY5wElw8gSey5BR3sb1CzIGcoUtpUEIO4NNiT
- hDXQ==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 285B810E2FB
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Apr 2023 19:58:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1680811105;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=LRqwdTQMWkbHJObb62Qyqd5cmfrq+lMBU33zKFDK0cA=;
+ b=VO96n2bGTU/YzYB71Qq2wcqF9UiUzCyzJzq3yw665XitJdXIJRtgBN+Ho9g362N27HnLEt
+ w6779i7hzBpaU68AwjeQ2D5oh/Z8n3K3WqFxB/gorBRgol/xahG2vnanSAvcDMlhYG0P9v
+ UVJ8mGD74PKQ1qxTbQkLkyNxvqaGo6c=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-616---yPPjIKM0aDa4owaBhfaw-1; Thu, 06 Apr 2023 15:58:22 -0400
+X-MC-Unique: --yPPjIKM0aDa4owaBhfaw-1
+Received: by mail-qk1-f198.google.com with SMTP id
+ 187-20020a3707c4000000b007468d9a30faso18262498qkh.23
+ for <amd-gfx@lists.freedesktop.org>; Thu, 06 Apr 2023 12:58:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680891435; x=1683483435;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=NuwimqlPO9HpY2//fLh7FzFmSEeSG4CgWKNzgwGf5e0=;
- b=iwAEUGihHqDb+965oF/B7QUqBlbkOiAFHOZ0owq6AgK453DsfERUmksnIrpU9Md9fW
- msnK/LT475ZtMW3ics/ms0NqJojlCDQCYNlfjg11NRcu1Sqkw4ROr3Y3hNRhmgRuRLUd
- fGl+NDFZD+EfyM8rqeCjDtivRpBpQ5KKI2SLPaFLS3k+4h6X605FvUvtBl+cKXybdWvW
- 6VccGcdfPDA2A60GkhB8pZVwOIZfc7DZVIokwP3rjAwRc19GqygIugicldmgVYAkGLAl
- mcrBRz84bafE2nxCVz9y2l1T5E4R7y9UwxpmYkos/T8kJtujBizAVU/x/5pmzp4vCJca
- /K0g==
-X-Gm-Message-State: AAQBX9ePY9zX/uwCz9MhURfc54dRh7pQ8RBZ2ok/+F6WI3j7Tywtz2m/
- mRwYaqsvT5e5DWWfnV2rue2vLa/W6ddynsxp89G349+XibdSGQYpC1YTcA==
-X-Google-Smtp-Source: AKy350Y6wWEggvCrlIf1bje2atujKhf9qMM/qxlunzgcridw/Fvst4ed6hVP1rP9DeneT/1K3zn48LLIF486O17fgc0=
-X-Received: by 2002:a05:6a00:2ea8:b0:61c:67d2:a332 with SMTP id
- fd40-20020a056a002ea800b0061c67d2a332mr1427088pfb.3.1680891434554; Fri, 07
- Apr 2023 11:17:14 -0700 (PDT)
+ d=1e100.net; s=20210112; t=1680811101;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=LRqwdTQMWkbHJObb62Qyqd5cmfrq+lMBU33zKFDK0cA=;
+ b=zFBB2alWs6P9EhtDhCnATmli7DVD5qtAtOSGBZot6jZRJ3m1rJ3PHFF2IgypRDzLZ/
+ Tek21/3ShNHSFgkRz53JqlE5V7V/a9QAcLDLHV75BgJRmZtTbILmf4k99g0bX+cWZyJM
+ 7vzvzYoKMKKGjVJYbMkstecdAukl0+H1IUYw4ZqVPQbpQl2UOaCFPAdPMlTOHfZ9yAaD
+ fTpEzBqDkm4GTNRPsfTp3wpK+S6Alu2QKiREzce9pRVYF6BbBE0G1nwWddCaBoUvCCdy
+ T6hXAreiVOTPBT2yw518sjKQ6uRkNIHTKtLvL4xMQ6zZy6vJUaFsjSqbEuZSUkfrjahl
+ 6qww==
+X-Gm-Message-State: AAQBX9d41yOLqqy4NrAXtWvg7O8em8yyZPp4Ua/G0oU49PibirRgjY1A
+ y8/sg08ZXktO+z9a+XeAEGO3yy/TZ8toQ9aN2trE0umRT7BASJPVZdsDMRm85I7lSNRPqmC1P3p
+ zxjmOyYCyX2YkLMie0vRhnJnO0Q==
+X-Received: by 2002:a05:6214:d88:b0:56f:52ba:ccf7 with SMTP id
+ e8-20020a0562140d8800b0056f52baccf7mr731004qve.14.1680811101488; 
+ Thu, 06 Apr 2023 12:58:21 -0700 (PDT)
+X-Google-Smtp-Source: AKy350Zp+eBXfawoiv3Bq3fAJCCQ9Lkm2x6dWbrn6iRjoMte3WoDewQoxo6DwdNhkhrR4LeP5Aop1w==
+X-Received: by 2002:a05:6214:d88:b0:56f:52ba:ccf7 with SMTP id
+ e8-20020a0562140d8800b0056f52baccf7mr730984qve.14.1680811101252; 
+ Thu, 06 Apr 2023 12:58:21 -0700 (PDT)
+Received: from dell-per740-01.7a2m.lab.eng.bos.redhat.com
+ (nat-pool-bos-t.redhat.com. [66.187.233.206])
+ by smtp.gmail.com with ESMTPSA id
+ mk21-20020a056214581500b005dd8b9345f0sm733097qvb.136.2023.04.06.12.58.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 06 Apr 2023 12:58:20 -0700 (PDT)
+From: Tom Rix <trix@redhat.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, Brian.Chang@amd.com,
+ Martin.Leung@amd.com, David.Galiffi@amd.com, Ethan.Wellenreiter@amd.com,
+ martin.tsai@amd.com, tales.aparecida@gmail.com
+Subject: [PATCH] drm/amd/display: set variables aperture_default_system and
+ context0_default_system storage-class-specifier to static
+Date: Thu,  6 Apr 2023 15:58:18 -0400
+Message-Id: <20230406195818.1958162-1-trix@redhat.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-References: <20230331164041.1859088-1-trix@redhat.com>
-In-Reply-To: <20230331164041.1859088-1-trix@redhat.com>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Fri, 7 Apr 2023 11:17:03 -0700
-Message-ID: <CAKwvOd=5Uw=6_8erAq0gt_-URUqXgK2ZvtCv5Ch_VZdk01sayQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: remove unused num_of_active_display variable
-To: Tom Rix <trix@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"; x-default=true
 X-Mailman-Approved-At: Sat, 08 Apr 2023 12:39:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,74 +86,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: tim.huang@amd.com, lijo.lazar@amd.com, andrealmeid@igalia.com,
- KevinYang.Wang@amd.com, kenneth.feng@amd.com, dri-devel@lists.freedesktop.org,
- Xinhui.Pan@amd.com, llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, nathan@kernel.org, mario.limonciello@amd.com,
- daniel@ffwll.ch, alexander.deucher@amd.com, Kun.Liu2@amd.com,
- evan.quan@amd.com, airlied@gmail.com, christian.koenig@amd.com,
- Hawking.Zhang@amd.com
+Cc: Tom Rix <trix@redhat.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 31, 2023 at 9:40=E2=80=AFAM Tom Rix <trix@redhat.com> wrote:
->
-> clang with W=3D1 reports
-> drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:1700:6: error: variab=
-le
->   'num_of_active_display' set but not used [-Werror,-Wunused-but-set-vari=
-able]
->         int num_of_active_display =3D 0;
->             ^
-> This variable is not used so remove it.
->
-> Signed-off-by: Tom Rix <trix@redhat.com>
+smatch reports
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hubp.c:758:10: warning: symbol
+  'aperture_default_system' was not declared. Should it be static?
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hubp.c:759:10: warning: symbol
+  'context0_default_system' was not declared. Should it be static?
 
-Thanks for the patch!
-Fixes: commit 75145aab7a0d ("drm/amdgpu/swsmu: clean up a bunch of
-stale interfaces")
-Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
+These variables are only used in one file so should be static.
 
-> ---
->  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 7 -------
->  1 file changed, 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/=
-amd/pm/swsmu/amdgpu_smu.c
-> index b5d64749990e..f93f7a9ed631 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -1696,8 +1696,6 @@ static int smu_display_configuration_change(void *h=
-andle,
->                                             const struct amd_pp_display_c=
-onfiguration *display_config)
->  {
->         struct smu_context *smu =3D handle;
-> -       int index =3D 0;
-> -       int num_of_active_display =3D 0;
->
->         if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
->                 return -EOPNOTSUPP;
-> @@ -1708,11 +1706,6 @@ static int smu_display_configuration_change(void *=
-handle,
->         smu_set_min_dcef_deep_sleep(smu,
->                                     display_config->min_dcef_deep_sleep_s=
-et_clk / 100);
->
-> -       for (index =3D 0; index < display_config->num_path_including_non_=
-display; index++) {
-> -               if (display_config->displays[index].controller_id !=3D 0)
-> -                       num_of_active_display++;
-> -       }
-> -
->         return 0;
->  }
->
-> --
-> 2.27.0
->
+Signed-off-by: Tom Rix <trix@redhat.com>
+---
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c
+index a142a00bc432..bf399819ca80 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c
+@@ -755,8 +755,8 @@ bool hubp1_is_flip_pending(struct hubp *hubp)
+ 	return false;
+ }
+ 
+-uint32_t aperture_default_system = 1;
+-uint32_t context0_default_system; /* = 0;*/
++static uint32_t aperture_default_system = 1;
++static uint32_t context0_default_system; /* = 0;*/
+ 
+ static void hubp1_set_vm_system_aperture_settings(struct hubp *hubp,
+ 		struct vm_system_aperture_param *apt)
+-- 
+2.27.0
 
---=20
-Thanks,
-~Nick Desaulniers
