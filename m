@@ -4,115 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C430DC7618D
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Apr 2023 17:11:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05F5FC76196
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Apr 2023 20:01:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F88E10EC68;
-	Thu,  6 Apr 2023 17:11:34 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20617.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eaa::617])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 120D710EC68
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Apr 2023 17:11:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A36A10E2FB;
+	Thu,  6 Apr 2023 20:01:35 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2073.outbound.protection.outlook.com [40.107.93.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9369510E2FB
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Apr 2023 20:01:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=B8HE/9vYza0He3zqmKCDCHNvomIt2yGh9By+lA0oFRLL5XzZZhllfgHxRQxzL03UoI2sAhAyL+xzw80fG49XsX19mi8MBDADWcqvgon0eGB8lcsgvQa7gjFNNPNSCNghdgCM1r2NJPNrJbqFLUUk9AyzdhRHbsbjW2m6T7ww/N2T73DHXDJFDR94y+dlP7TERARySfhakcV6Dcx73DeK8MDMUotYdEmz8Pr4a2X3ZR+KQbRivUM41AArKqYcYzIb5tCtUDHFPYi9bswY/GeE6k5h6BNU3C28A7iYcYo8ogZ8EBMzu250lYqqn2oIizGToxzyLpFVFca4gGUwoL3Szg==
+ b=jowVFK3fJGqZEKLpxsYtb8C/Pu6Su7V7XYEE3EMF6yv4m9Ac/WsQdiSmUpF78futlFHxbFQT2V1NbEKzw+PSaj9enkPUt3ig6KIHbmbnK2WqTNlNlFs/PPCPHOsyH+a+ib0Psnl3SHkon41+jiRj9B0jS9IXzN3k42vTJiBROun4aC/fe+cmXJvcOi6ZYoly4Cn52jx4L97M5NIJlr2NVfdHJxQe/ZuKktxZoTBbxkVlvzMOMwc4P4nS238UZcqOiMgm4wvIQkvoX5+SCcafHjFYk8Hg17MAmYOAM90/QuRgzWXkFRvg4O4s1BAkOJowDwe/Zw0rD3kRsPqyUzVdEg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qs22qxjAuqDmCGH80DSq+qPz8n01+P81j6sW5hrO9Cc=;
- b=Ik90bbu4dkN0fUrpihwvRa08XRMezEvYoi90meXu+VhUWR0Xf+y5D7hsd7l2sKu7fHER0Mqw7/d/jEZ2G94LqjOa4b6w3WFEhKknTK2Ucsn1uah7/9YyrYsraqZITNQrxPbeWDm+3gxoVel04LT5LQJu44omVmyMPG59hhB/69B6knOEWPKVNJraAOW3Eea+fsbKwkiwKPESsECdKmUEiGHRFROe/ZP7qTBfVdPA9a+8Nf/65w2Ip5pYFOyQ0rOKECFVaPu9EOdze+FfHThxCAZOquzaH++DVMvWseH5DgH9EcUfmIWT4xwGhimN9+ZmowS/XNgmtOJX0qmjkIIbnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=ki7cx8reuAduvvzgmJheLxMKc0mb+W80E3C75NEJWro=;
+ b=CKFFpKAXk8oAfS0UUchyy8EyWkGM3TShGyvI3NzOcfnZj6OzXgNS4qVxZAN3ZmaOYOXnIq7kOGdLlBq1aWbTsfp2dH7c8y40USZ+gLg4+8QaMMXnCy7KSGoJzEm9wV7zpOw3lRYIkP9dbahOfxyxXJSEl3A3uRcYnxcFiuBxkOFv9qqEMxq0KLxF8uQnDRCHuyuUxNvYwpjn9Jrnh5nGw1cHmg390kDp8gZGIvDKhgD3sSE6/mSdQ7dhDLy7kfGb0g6IxYpwGYcQmBs5su1vK6CplDn3cqHIrnkEMPrIk1/OB8sJ/H8xjzvTK8Yy98aXT7uqoxiSIUTcXWp4LDppYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qs22qxjAuqDmCGH80DSq+qPz8n01+P81j6sW5hrO9Cc=;
- b=11FswRw52Ze1Lu+8hWkkOYoqSjZxg+8UYNoY0miJ+2D/Sf9Ae/B9KFhY+aT2kFAD8aGAFPP3jRJZrpXi1H8QSo/XFwZ4HZgTpCn/fwDhKUY5BdOapJFAWB5q2KXNEZ59TCq6IM9GDdZMBrYuWgpaXSSVIJDSMqJo6Y2mpdLmNoM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com (2603:10b6:8:a2::11) by
- IA1PR12MB6257.namprd12.prod.outlook.com (2603:10b6:208:3e7::13) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=ki7cx8reuAduvvzgmJheLxMKc0mb+W80E3C75NEJWro=;
+ b=h5O0KlXsKzW9T/S4kkF7oVr8ua9Gb7MMC+xgm6vxc4QQMc150kzytqyMcrdg/neZfD6Fkx7+n0K3WaLOTGicapH5utMPZMJh9q1LDc33Z2WMf17l7dcKTKs81hw5nQ4lXu7r+PRmjQWPYHGzDrywCxUnD0W6VH9Q1zJqseDZnew=
+Received: from BL1P223CA0021.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:2c4::26)
+ by SA1PR12MB6896.namprd12.prod.outlook.com (2603:10b6:806:24f::5)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.33; Thu, 6 Apr
- 2023 17:11:24 +0000
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::fe53:2742:10f9:b8f1]) by DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::fe53:2742:10f9:b8f1%9]) with mapi id 15.20.6254.035; Thu, 6 Apr 2023
- 17:11:24 +0000
-Message-ID: <155c1057-d928-9037-9847-58cdbe7cf537@amd.com>
-Date: Thu, 6 Apr 2023 13:12:46 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: Re: [PATCH] powerpc/64: Always build with 128-bit long double
-To: Michael Ellerman <mpe@ellerman.id.au>, linuxppc-dev@lists.ozlabs.org
-References: <20230404102847.3303623-1-mpe@ellerman.id.au>
-Content-Language: en-US
-From: Hamza Mahfooz <hamza.mahfooz@amd.com>
-In-Reply-To: <20230404102847.3303623-1-mpe@ellerman.id.au>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT3PR01CA0014.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:86::16) To DM4PR12MB6280.namprd12.prod.outlook.com
- (2603:10b6:8:a2::11)
+ 2023 20:01:31 +0000
+Received: from BL02EPF0000EE3C.namprd05.prod.outlook.com
+ (2603:10b6:208:2c4:cafe::8) by BL1P223CA0021.outlook.office365.com
+ (2603:10b6:208:2c4::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.20 via Frontend
+ Transport; Thu, 6 Apr 2023 20:01:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0000EE3C.mail.protection.outlook.com (10.167.241.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6178.30 via Frontend Transport; Thu, 6 Apr 2023 20:01:30 +0000
+Received: from localhost.localdomain.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.34; Thu, 6 Apr 2023 15:01:29 -0500
+From: Luben Tuikov <luben.tuikov@amd.com>
+To: AMD Graphics <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/sched: Check scheduler ready before calling timeout
+ handling
+Date: Thu, 6 Apr 2023 16:00:54 -0400
+Message-ID: <20230406200054.633379-1-luben.tuikov@amd.com>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+X-check-string-leak: v1.0
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6280:EE_|IA1PR12MB6257:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3cb20389-26a3-460c-8e2c-08db36c1f355
+X-MS-TrafficTypeDiagnostic: BL02EPF0000EE3C:EE_|SA1PR12MB6896:EE_
+X-MS-Office365-Filtering-Correlation-Id: f9799726-a3a6-410f-3290-08db36d9b703
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TTEJlO6ts2I71eyb0dHUkpLjSor6MXgs6HfnZZ3HLQL6uvpcqcXf+9yBk1E4w2GdI4l5TZlc5F1xjOXTV0+SMejGsmtLajkUPICj87WT3XRghH1QBZugmR4XoHCm3khmk+wmIfBGhFl0dPGxE30WfGi3YCLkDivSBbK39PRQ7D4EnJl9YM8cRa9d6opbcwr+a6sX0BBn+khOrdtyEA37ub2PDmoMjsMSsV9oA1hYmZsss4fnE+/3go950HQaJhNATpw+iy57Sa//lICfR19Ns5vJTadubn6hjiUdg+h3qs/55LNivjjOs83uuO+RLAy7xMiRPIHqiPwdAA90OQFuYJn1p31Kqi0IFuM0zYLHeuz43iT63kqfWM6peYFAbt7nG9Z/KKEio009W1NogabFI7XFYDwhtlAiBwqaos6iYLUBpNBK3sLi3bfclRV7ObicXF1twUwN+q+kLDIVv1HIV7HBrR6+ZZh/A/MMN+wxliJY1BiowjindQKB4uXmyJMsL6lrVdz21a2COcrHvjGA+qDtNCtGNLHrrtWpmMEYJ/C30Al7rSkzUZADnhRr0V/yhxWgEYqS6jazVGNPy5jIuHEoaXENvjpdGtXEDaijGJjzmZdU94JKZk9dxFCp9g5PFthvtLS534YjiNseuSPboR4Ddlqady5KmxjLfVrCmQXChyeQX/OiwkE0W0lkygTn
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6280.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(39860400002)(346002)(396003)(136003)(366004)(451199021)(2906002)(36756003)(6512007)(6486002)(316002)(966005)(53546011)(6506007)(26005)(2616005)(478600001)(66476007)(66946007)(31686004)(186003)(86362001)(8676002)(66556008)(83380400001)(6666004)(4326008)(31696002)(41300700001)(5660300002)(44832011)(38100700002)(8936002)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: lBAPf6i1LjUWaNCMzjOS+Ht/EBBGIPXyDM+K4TnjZY9DMEi7jWwBkmzVUKrNfi9eGL2GOzUqVUTNunKH3UnjgAWtQ7nBnl2HV6db5D3rJSIx/6UdJf3bY56tmKnDyhlmeDExpxYh+H+A6ZMFumA3tRXH6jme8EwKLOjj0ibtWMmHHgsK7kbnxnX1hMfEGyMhS40gsk+zb4SP0riX6oVRfOhAusjvWpSThC2liehtKjmFpSEo3cVso+GOj/b/25q1XA2KReEwF0JJhBvaHVe/6ZOLV/d8pOOaa8Ehus4Uu/uIcN/jEy/oBE1K1G/uH2J5gHDgQ8HSN/eNqol2QnpwXVweagQJdFO1LcL1lI5ETkE+97eAv37HGWMohslzscQpkqyKKZbxYorff63B9EZF9IUrI57RoffDhJa4ajVVDLBFuoYN4pNQVZov2Kutd/YPKfQTFP54nAB/9+poiQHwotDnOAxSit/mzJyiP+Ch7CK5la9bh4R66u4im5GxQVvrILpl4+i8k+dmEfv7u4Ci+HME/QT6gEt9CYPqNbmvjIRwJ6njrKZKVAvTjiPH2J9WT6MgJvPYQE1FHuqV+RXD/ruU4gdzbAoCXBN29ciCVczQs1vsg2T/SLi5rEqjIGhqZ7c/SIf8lRZzq3jeSEbAGzrQrHh6wMKCEOzpptlpYChYPs4MewgYs2C9Hih0kM8RRVREBkNjP+dSCBHmEm94O9WVyR9xiAnH3U/5xDhe+No=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(136003)(39860400002)(376002)(346002)(451199021)(46966006)(36840700001)(40470700004)(26005)(336012)(16526019)(82310400005)(41300700001)(54906003)(4326008)(316002)(66574015)(70206006)(426003)(2616005)(478600001)(8676002)(70586007)(83380400001)(1076003)(6916009)(45080400002)(81166007)(82740400003)(40460700003)(7696005)(36756003)(86362001)(2906002)(8936002)(5660300002)(47076005)(44832011)(186003)(36860700001)(6666004)(356005)(40480700001)(36900700001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UjBaRVR1VFFuQ0owME5FdHlXTXI2K2lZWlcrMnVwU2pqdkZaMWFrMllWTG4r?=
- =?utf-8?B?V045RFl6citFUnZHenNmRUhQRVM5RVdFK2JoQWpYUkFrZGdhWWZtWGdlZlhT?=
- =?utf-8?B?aEtoRGlWRHdvbFM0cFQwTHVnZFhXSElQU1VjOWVaNkJKaEhMYTU5UlBzdkVF?=
- =?utf-8?B?aHdGUk1SZ1BCVE9CbGVtVmx0YnBsQjNiWThwT2l2UStpL1RRZUdZSm1oU2VI?=
- =?utf-8?B?QmVQQUZqRlFqRytrV3JaVmNzSVdrcmdlOEhWcldta3NseFFlRHJ4ZmNwcldz?=
- =?utf-8?B?cmMzWG9mSDVQQVJrckw1RFVtTXY0a0MvMW1WdjJLVU9SZllnVmx6R1hJQ0xY?=
- =?utf-8?B?VjVHbC94YmM5N00zdDZCMU8weHRPNkpJTWQ5azZEK2Z2Y2pWTDN1Tkk1QW51?=
- =?utf-8?B?emFHVmljbldiKzRXYnRXN2JOWDF1VUovdTUxS2JGOWc2dlNhNVNqSkJpMFBV?=
- =?utf-8?B?bSthSmZtWktPelU0L2Yza2lUcCt4KzM5TlVkc0hlaXVIQnlBMzFhZEJUVThH?=
- =?utf-8?B?cFp0RnhsejlicW5mR3BwYXRZNFRLNjQxbDBHSHFTMHNLa1Y0TmpsMEJEakJp?=
- =?utf-8?B?Qzh4SHNncTVVUnZ4dzhseUI3STQ4cGdRQ1NDdTBudkY2ckZTWmo5anBvUlY0?=
- =?utf-8?B?UXhZZ2NYd1NhaDh5Rlp4MjZsNzlaZzAxR2ZtMGppT29FeXJMSGVMT0w3VVIy?=
- =?utf-8?B?THdjT21wcEdNNW5aOUJTb2JhbEpoRWVLWDJtQ0pOYTBYOHlvYjlTdlI0ZFVT?=
- =?utf-8?B?Y0ZodkNkSi95VUI3RXNua3lQYWUreGZBNHBYZGtSUUxCdWNBaEx3VkJNRlgx?=
- =?utf-8?B?TjAvNGVXV0ZuU0J2N3o4UEhTSTNnYVpkc3E5OGxadEppU3FGZG56cFBHcThN?=
- =?utf-8?B?WXdWZmEzT0VvZ2t6eXlxbmRuOFFGR3IzRmpoM1lMZDluQWFSYnJBM2U0eVlQ?=
- =?utf-8?B?TVh0Ynp0TTVuK1p3WnNLTHB4Yit6Z3k0TzdrRE1ieHRRVDFxWlpjTjF1c1Zl?=
- =?utf-8?B?YmlNcjVCeTltY2lzQ1BaeUx5VFpkay9EU1ZBcWloSVpkOUhnN2tHR2ZHMHFU?=
- =?utf-8?B?anE5Z2tEY0JyZEI3OHl6NjlvM0F5cUh6L1c1M2pCdFdCNWpQUDJ1ZnVUZ3V6?=
- =?utf-8?B?MVVXdWJBMkZVSmhHZC9RbUM3OHZPTDVzOER3UmZYc0pIKzUzN3orNUFzSFlG?=
- =?utf-8?B?c0Z6eThMNU5Nckt1NUpPTEgxQkdyZUtnYS9FbUhLZnNBNERkNitNZVhhT1VL?=
- =?utf-8?B?dFRPYkdGYVlkdkVqbEpHY1ZXSlZlRUVRSGx5cUsrOWMzcVhXVURYdDlFMGgz?=
- =?utf-8?B?ZXN1aDJQN0hzMi8wS3o3Uk5iU1RJNzdoNzhhdUlnMGg0V3B3UUdwMk45MU9z?=
- =?utf-8?B?Z2JpUFBRckx2SnJla1RjM2M0ZXFxeVdHb0luM2haYUNCbzhucElXdGhocE51?=
- =?utf-8?B?YVlFbGE5TE9qSGRIeWozQ3RVS0dUQ0gxWXVYdyt3QmNwbENYalBQbnZ5a3lz?=
- =?utf-8?B?NVB5UmU5eDdZaVcvUjI0L3JoUzlXdjZRS2pOYjh5THUxNWVuZW0zM0V1ZFli?=
- =?utf-8?B?VDlGVUFhUVQyVHRlSGxJak1rYmM3K2p4NXQ0b0xZQUtuTkNoSDA1dlVTZUJX?=
- =?utf-8?B?bjlPTzByd0hUU0RVdFN2M0ZZWGV6NHo1NEZJNG9FNmVMRzc4TnZwSWVORU50?=
- =?utf-8?B?UUZBSGpKMWxDT0c5UUpHaGtHMWZvRXduNms4TDJhNG1zODJISkUzOHhaakRS?=
- =?utf-8?B?Nmh5SkxSaXNWbk5zdHpxa3J0S2FIMjlzREJ0UFRXc2tYSWZYUmI1cTRnYnNr?=
- =?utf-8?B?eTJMYmQ5MnM0SGdtZkR2Q2FqL0Rha255VTVsUUVmM3V2K2taUlhoU2t3STFR?=
- =?utf-8?B?RHhXWmovek8zZWNoWG5IaGR3a1Y5VTVnYkxFRDkyZzQ0ZnZuRmhOSjFQaC9w?=
- =?utf-8?B?emV4eElldnFMclo0WENWODVWS3FtZW01Nm1TeXMya0psVFVJQ3NoZWNFYmhP?=
- =?utf-8?B?cWJhbk1Ha0Q3eWlMQXVlV3BORmt6ZDU0cWthNmxsNnFOYlhMWUVhcWdQa3U5?=
- =?utf-8?B?S095QXZCMGpYNUxja2JNdXF5SWVaM2xiVEowZkU3YkVWa3c5bXpDOXlVVkI2?=
- =?utf-8?Q?BnenJVQdCN2sAhFfCL2eQRvbU?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3cb20389-26a3-460c-8e2c-08db36c1f355
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6280.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2023 17:11:24.5750 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2023 20:01:30.8831 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9799726-a3a6-410f-3290-08db36d9b703
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3vG9Y5+DUDlNx6vxSVzBfSBYS7mNyNmyWOOuUj4eUXrBI8MvHZOrmww9bW8jX6CY5WQGfLgfrSpzt8FOQJ+tGQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6257
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0000EE3C.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6896
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,112 +99,114 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: segher@kernel.crashing.org, dan@danny.cz, daniel@octaforge.org,
- amd-gfx@lists.freedesktop.org, tpearson@raptorengineering.com,
- alexdeucher@gmail.com
+Cc: Luben Tuikov <luben.tuikov@amd.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Vitaly Prosyak <vitaly.prosyak@amd.com>
 
-On 4/4/23 06:28, Michael Ellerman wrote:
-> The amdgpu driver builds some of its code with hard-float enabled,
-> whereas the rest of the kernel is built with soft-float.
-> 
-> When building with 64-bit long double, if soft-float and hard-float
-> objects are linked together, the build fails due to incompatible ABI
-> tags.
-> 
-> In the past there have been build errors in the amdgpu driver caused by
-> this, some of those were due to bad intermingling of soft & hard-float
-> code, but those issues have now all been fixed since commit c92b7fe0d92a
-> ("drm/amd/display: move remaining FPU code to dml folder").
-> 
-> However it's still possible for soft & hard-float objects to end up
-> linked together, if the amdgpu driver is built-in to the kernel along
-> with the test_emulate_step.c code, which uses soft-float. That happens
-> in an allyesconfig build.
-> 
-> Currently those build errors are avoided because the amdgpu driver is
-> gated on 128-bit long double being enabled. But that's not a detail the
-> amdgpu driver should need to be aware of, and if another driver starts
-> using hard-float the same problem would occur.
-> 
-> All versions of the 64-bit ABI specify that long-double is 128-bits.
-> However some compilers, notably the kernel.org ones, are built to use
-> 64-bit long double by default.
-> 
-> Apart from this issue of soft vs hard-float, the kernel doesn't care
-> what size long double is. In particular the kernel using 128-bit long
-> double doesn't impact userspace's ability to use 64-bit long double, as
-> musl does.
-> 
-> So always build the 64-bit kernel with 128-bit long double. That should
-> avoid any build errors due to the incompatible ABI tags. Excluding the
-> code that uses soft/hard-float, the vmlinux is identical with/without
-> the flag.
-> 
-> It does mean any code which is incorrectly intermingling soft &
-> hard-float code will build without error, so those bugs will need to be
-> caught by testing rather than at build time.
-> 
-> For more background see:
->    - commit d11219ad53dc ("amdgpu: disable powerpc support for the newer display engine")
->    - commit c653c591789b ("drm/amdgpu: Re-enable DCN for 64-bit powerpc")
->    - https://lore.kernel.org/r/dab9cbd8-2626-4b99-8098-31fe76397d2d@app.fastmail.com
-> 
-> Signed-off-by: Michael Ellerman <mpe@ellerman.id.au>
+During an IGT GPU reset test we see the following oops,
 
-Reviewed-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+[  +0.000003] ------------[ cut here ]------------
+[  +0.000000] WARNING: CPU: 9 PID: 0 at kernel/workqueue.c:1656 __queue_delayed_work+0x6d/0xa0
+[  +0.000004] Modules linked in: iptable_filter bpfilter amdgpu(OE) nls_iso8859_1 snd_hda_codec_realtek snd_hda_codec_generic intel_rapl_msr ledtrig_audio snd_hda_codec_hdmi intel_rapl_common snd_hda_intel edac_mce_amd snd_intel_dspcfg snd_intel_sdw_acpi snd_hda_codec snd_hda_core iommu_v2 gpu_sched(OE) kvm_amd drm_buddy snd_hwdep kvm video drm_ttm_helper snd_pcm ttm snd_seq_midi drm_display_helper snd_seq_midi_event snd_rawmidi cec crct10dif_pclmul ghash_clmulni_intel sha512_ssse3 snd_seq aesni_intel rc_core crypto_simd cryptd binfmt_misc drm_kms_helper rapl snd_seq_device input_leds joydev snd_timer i2c_algo_bit syscopyarea snd ccp sysfillrect sysimgblt wmi_bmof k10temp soundcore mac_hid sch_fq_codel msr parport_pc ppdev drm lp parport ramoops reed_solomon pstore_blk pstore_zone efi_pstore ip_tables x_tables autofs4 hid_generic usbhid hid r8169 ahci xhci_pci gpio_amdpt realtek i2c_piix4 wmi crc32_pclmul xhci_pci_renesas libahci gpio_generic
+[  +0.000070] CPU: 9 PID: 0 Comm: swapper/9 Tainted: G        W OE      6.1.11+ #2
+[  +0.000003] Hardware name: Gigabyte Technology Co., Ltd. AB350-Gaming 3/AB350-Gaming 3-CF, BIOS F7 06/16/2017
+[  +0.000001] RIP: 0010:__queue_delayed_work+0x6d/0xa0
+[  +0.000003] Code: 7a 50 48 01 c1 48 89 4a 30 81 ff 00 20 00 00 75 38 4c 89 cf e8 64 3e 0a 00 5d e9 1e c5 11 01 e8 99 f7 ff ff 5d e9 13 c5 11 01 <0f> 0b eb c1 0f 0b 48 81 7a 38 70 5c 0e 81 74 9f 0f 0b 48 8b 42 28
+[  +0.000002] RSP: 0018:ffffc90000398d60 EFLAGS: 00010007
+[  +0.000002] RAX: ffff88810d589c60 RBX: 0000000000000000 RCX: 0000000000000000
+[  +0.000002] RDX: ffff88810d589c58 RSI: 0000000000000000 RDI: 0000000000002000
+[  +0.000001] RBP: ffffc90000398d60 R08: 0000000000000000 R09: ffff88810d589c78
+[  +0.000002] R10: 72705f305f39765f R11: 7866673a6d72645b R12: ffff88810d589c58
+[  +0.000001] R13: 0000000000002000 R14: 0000000000000000 R15: 0000000000000000
+[  +0.000002] FS:  0000000000000000(0000) GS:ffff8887fee40000(0000) knlGS:0000000000000000
+[  +0.000001] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  +0.000002] CR2: 00005562c4797fa0 CR3: 0000000110da0000 CR4: 00000000003506e0
+[  +0.000002] Call Trace:
+[  +0.000001]  <IRQ>
+[  +0.000001]  mod_delayed_work_on+0x5e/0xa0
+[  +0.000004]  drm_sched_fault+0x23/0x30 [gpu_sched]
+[  +0.000007]  gfx_v9_0_fault.isra.0+0xa6/0xd0 [amdgpu]
+[  +0.000258]  gfx_v9_0_priv_reg_irq+0x29/0x40 [amdgpu]
+[  +0.000254]  amdgpu_irq_dispatch+0x1ac/0x2b0 [amdgpu]
+[  +0.000243]  amdgpu_ih_process+0x89/0x130 [amdgpu]
+[  +0.000245]  amdgpu_irq_handler+0x24/0x60 [amdgpu]
+[  +0.000165]  __handle_irq_event_percpu+0x4f/0x1a0
+[  +0.000003]  handle_irq_event_percpu+0x15/0x50
+[  +0.000001]  handle_irq_event+0x39/0x60
+[  +0.000002]  handle_edge_irq+0xa8/0x250
+[  +0.000003]  __common_interrupt+0x7b/0x150
+[  +0.000002]  common_interrupt+0xc1/0xe0
+[  +0.000003]  </IRQ>
+[  +0.000000]  <TASK>
+[  +0.000001]  asm_common_interrupt+0x27/0x40
+[  +0.000002] RIP: 0010:native_safe_halt+0xb/0x10
+[  +0.000003] Code: 46 ff ff ff cc cc cc cc cc cc cc cc cc cc cc eb 07 0f 00 2d 69 f2 5e 00 f4 e9 f1 3b 3e 00 90 eb 07 0f 00 2d 59 f2 5e 00 fb f4 <e9> e0 3b 3e 00 0f 1f 44 00 00 55 48 89 e5 53 e8 b1 d4 fe ff 66 90
+[  +0.000002] RSP: 0018:ffffc9000018fdc8 EFLAGS: 00000246
+[  +0.000002] RAX: 0000000000004000 RBX: 000000000002e5a8 RCX: 000000000000001f
+[  +0.000001] RDX: 0000000000000001 RSI: ffff888101298800 RDI: ffff888101298864
+[  +0.000001] RBP: ffffc9000018fdd0 R08: 000000527f64bd8b R09: 000000000001dc90
+[  +0.000001] R10: 000000000001dc90 R11: 0000000000000003 R12: 0000000000000001
+[  +0.000001] R13: ffff888101298864 R14: ffffffff832d9e20 R15: ffff888193aa8c00
+[  +0.000003]  ? acpi_idle_do_entry+0x5e/0x70
+[  +0.000002]  acpi_idle_enter+0xd1/0x160
+[  +0.000003]  cpuidle_enter_state+0x9a/0x6e0
+[  +0.000003]  cpuidle_enter+0x2e/0x50
+[  +0.000003]  call_cpuidle+0x23/0x50
+[  +0.000002]  do_idle+0x1de/0x260
+[  +0.000002]  cpu_startup_entry+0x20/0x30
+[  +0.000002]  start_secondary+0x120/0x150
+[  +0.000003]  secondary_startup_64_no_verify+0xe5/0xeb
+[  +0.000004]  </TASK>
+[  +0.000000] ---[ end trace 0000000000000000 ]---
+[  +0.000003] BUG: kernel NULL pointer dereference, address: 0000000000000102
+[  +0.006233] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring gfx_low timeout, signaled seq=3, emitted seq=4
+[  +0.000734] #PF: supervisor read access in kernel mode
+[  +0.009670] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* Process information: process amd_deadlock pid 2002 thread amd_deadlock pid 2002
+[  +0.005135] #PF: error_code(0x0000) - not-present page
+[  +0.000002] PGD 0 P4D 0
+[  +0.000002] Oops: 0000 [#1] PREEMPT SMP NOPTI
+[  +0.000002] CPU: 9 PID: 0 Comm: swapper/9 Tainted: G        W OE      6.1.11+ #2
+[  +0.000002] Hardware name: Gigabyte Technology Co., Ltd. AB350-Gaming 3/AB350-Gaming 3-CF, BIOS F7 06/16/2017
+[  +0.012101] amdgpu 0000:0c:00.0: amdgpu: GPU reset begin!
+[  +0.005136] RIP: 0010:__queue_work+0x1f/0x4e0
+[  +0.000004] Code: 87 cd 11 01 0f 1f 80 00 00 00 00 0f 1f 44 00 00 55 48 89 e5 41 57 41 56 41 55 49 89 d5 41 54 49 89 f4 53 48 83 ec 10 89 7d d4 <f6> 86 02 01 00 00 01 0f 85 6c 03 00 00 e8 7f 36 08 00 8b 45 d4 48
 
-If you'd prefer to have this go through the amdgpu branch, please let
-me know.
+For gfx_rings the schedulers may not be initialized by
+amdgpu_device_init_schedulers() due to ring->no_scheduler flag being set to
+true and thus the timeout_wq is NULL. As a result, since all ASICs call
+drm_sched_fault() unconditionally even for schedulers which have not been
+initialized, it is simpler to use the ready condition which indicates whether
+the given scheduler worker thread runs and whether the timeout_wq of the reset
+domain has been initialized.
 
-> ---
->   arch/powerpc/Kconfig                | 4 ----
->   arch/powerpc/Makefile               | 1 +
->   drivers/gpu/drm/amd/display/Kconfig | 2 +-
->   3 files changed, 2 insertions(+), 5 deletions(-)
-> 
-> diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
-> index fc4e81dafca7..3fb2c2766139 100644
-> --- a/arch/powerpc/Kconfig
-> +++ b/arch/powerpc/Kconfig
-> @@ -291,10 +291,6 @@ config PPC
->   	# Please keep this list sorted alphabetically.
->   	#
->   
-> -config PPC_LONG_DOUBLE_128
-> -	depends on PPC64 && ALTIVEC
-> -	def_bool $(success,test "$(shell,echo __LONG_DOUBLE_128__ | $(CC) -E -P -)" = 1)
-> -
->   config PPC_BARRIER_NOSPEC
->   	bool
->   	default y
-> diff --git a/arch/powerpc/Makefile b/arch/powerpc/Makefile
-> index 12447b2361e4..4343cca57cb3 100644
-> --- a/arch/powerpc/Makefile
-> +++ b/arch/powerpc/Makefile
-> @@ -133,6 +133,7 @@ endif
->   endif
->   CFLAGS-$(CONFIG_PPC64)	+= $(call cc-option,-mcmodel=medium,$(call cc-option,-mminimal-toc))
->   CFLAGS-$(CONFIG_PPC64)	+= $(call cc-option,-mno-pointers-to-nested-functions)
-> +CFLAGS-$(CONFIG_PPC64)	+= $(call cc-option,-mlong-double-128)
->   
->   # Clang unconditionally reserves r2 on ppc32 and does not support the flag
->   # https://bugs.llvm.org/show_bug.cgi?id=39555
-> diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
-> index 0c9bd0a53e60..e36261d546af 100644
-> --- a/drivers/gpu/drm/amd/display/Kconfig
-> +++ b/drivers/gpu/drm/amd/display/Kconfig
-> @@ -8,7 +8,7 @@ config DRM_AMD_DC
->   	depends on BROKEN || !CC_IS_CLANG || X86_64 || SPARC64 || ARM64
->   	select SND_HDA_COMPONENT if SND_HDA_CORE
->   	# !CC_IS_CLANG: https://github.com/ClangBuiltLinux/linux/issues/1752
-> -	select DRM_AMD_DC_DCN if (X86 || PPC_LONG_DOUBLE_128 || (ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG))
-> +	select DRM_AMD_DC_DCN if (X86 || (PPC64 && ALTIVEC) || (ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG))
->   	help
->   	  Choose this option if you want to use the new display engine
->   	  support for AMDGPU. This adds required support for Vega and
+Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
+Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+---
+ drivers/gpu/drm/scheduler/sched_main.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index fd22d753b4ed0c..fcd4bfef741580 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -308,7 +308,8 @@ static void drm_sched_start_timeout(struct drm_gpu_scheduler *sched)
+  */
+ void drm_sched_fault(struct drm_gpu_scheduler *sched)
+ {
+-	mod_delayed_work(sched->timeout_wq, &sched->work_tdr, 0);
++	if (sched->ready)
++		mod_delayed_work(sched->timeout_wq, &sched->work_tdr, 0);
+ }
+ EXPORT_SYMBOL(drm_sched_fault);
+ 
+
+base-commit: 49144cd279d047c1d572a57323df3af8e1461894
 -- 
-Hamza
+2.40.0
 
