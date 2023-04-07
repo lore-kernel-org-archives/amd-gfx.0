@@ -4,49 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD758C77B6C
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Apr 2023 03:44:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C87BAC76196
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Apr 2023 04:50:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86C9310ED73;
-	Fri,  7 Apr 2023 03:44:33 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B02710E37E;
- Fri,  7 Apr 2023 03:44:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680839071; x=1712375071;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=PLs5JPDUHNYwfcnKHsSeZ6Vihp3GPVzFQtLqg/2mSy4=;
- b=MLz0h3DVlWkDpqYS6jX5oXNSl+m8vkMSs50Bk2qMDUaWs8Y3kkh9DFsN
- fVeiHJf8Nlk2P1AsSC+eUF/sFJm6gpEaatuSEYotevPiiwVQUWdolQrYp
- 3tLjsSVVohx830NokU1Rkni3xayxUu6aVEr25pcnkd7pk5juEuw50owu/
- fDNK96K/JVdhpbMUZwy+QtQGYSIcOzFMuvegcRYLaQbnn4mxzQVXrlc7s
- nRgymh6NrGYuV6sZAElJ3pcihpgcjj6EN+GN3i/JMFuFStzH9LqmYo7zD
- NzcFzh/JoRNDNXlT1y2J82uuOtDKriuoZJNleMAml6QWrUXw34oeTlS+k w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10672"; a="323290643"
-X-IronPort-AV: E=Sophos;i="5.98,324,1673942400"; d="scan'208";a="323290643"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Apr 2023 20:44:30 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10672"; a="664757168"
-X-IronPort-AV: E=Sophos;i="5.98,324,1673942400"; d="scan'208";a="664757168"
-Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
- by orsmga006.jf.intel.com with ESMTP; 06 Apr 2023 20:44:26 -0700
-Received: from kbuild by b613635ddfff with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pkd1V-000S5o-1j;
- Fri, 07 Apr 2023 03:44:25 +0000
-Date: Fri, 07 Apr 2023 11:43:39 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- e134c93f788fb93fd6a3ec3af9af850a2048c7e6
-Message-ID: <642f916b.pPIKZ/l//bw8tvIH%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+	by gabe.freedesktop.org (Postfix) with ESMTP id C18B310E1D1;
+	Fri,  7 Apr 2023 04:50:57 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2057.outbound.protection.outlook.com [40.107.244.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBFBD10E1D1
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Apr 2023 04:50:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VwD8lEttxwnv4znchqZlWD9NW5m9FxI88rd1afXgSv+5FjMOgt2g9eDiUHWLYizu4Or366sRu28Qlf3rZT7BmiQt2QZA/xpLKYX9LwX04L75U5TCB0QnJFVs0pqAD+WhLWJk2OVWOdzlSj0wrwy6SkLeiqt8YeCcNtcgARLnExvFXxfaQcVU+z867Yls0+hUuaeOsZL3RyGyRXQRDdY3ijl4P09XTG879Bc53LoMMKrd4OFrQZ2EQOPqHiCVSgfz5Tl22k0L18Mp6bssGxje03Q+Uqxz/vMDaoCpQklCZYVOJ50EU5lW/lGb58VbxT+pzHoUmu1mMRC25mcwogudHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+r5gChNMYMeML8lO2i4uEV5SS+fkebtrKE99p9gO3f8=;
+ b=j6uXISliFCnvQ9q2F+JJk2fpcB5Lmp63K6IxevVEHqrVItaaA1jNJTFnWmqwdT7ZZsFOF8o6yE5lSfFzlFnBz4Sb1etMbl464QaeQTfxR9NSH/0WSH680XlXXl2vxR/TvyY0M+S8o//Da4BGMfrHsBT8C4iVViPi3Ty2z1BfR220XrQiJEvgp0LM1hbeNL3EZE0QwPGCvVVYlKw6eaf0xQjk4e95LxfQZhEyox4gjxZ2/kGsZ1nul2J6gEdaF8csWSWEFYEZKJptmho9zAOFtrYD3R5QxMTZVvxcDXYe95NCK/hpMkW7SyV84Qvj/kP7k6IHPNh2e3vU5MpcZCcnBQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+r5gChNMYMeML8lO2i4uEV5SS+fkebtrKE99p9gO3f8=;
+ b=yYK0aWE+UeBvXt7YhEXJT9o2kkJrW7DVj0JroQILVp9abLPalOkPujR0VyemasMN6TIJoNPwB9prjD8ALxbSlNxwvkMcJV6fjplU+AbjtIeEE22SrM7lkp0OGe/YmyBGC89F3YivqsFxyDyczS1VHC/obmspVP4jUonEydvTy+Y=
+Received: from DM6PR12MB3531.namprd12.prod.outlook.com (2603:10b6:5:18b::10)
+ by BL1PR12MB5269.namprd12.prod.outlook.com (2603:10b6:208:30b::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.31; Fri, 7 Apr
+ 2023 04:50:53 +0000
+Received: from DM6PR12MB3531.namprd12.prod.outlook.com
+ ([fe80::3e72:eac:4e50:d003]) by DM6PR12MB3531.namprd12.prod.outlook.com
+ ([fe80::3e72:eac:4e50:d003%4]) with mapi id 15.20.6277.030; Fri, 7 Apr 2023
+ 04:50:52 +0000
+From: "Yang, WenYou" <WenYou.Yang@amd.com>
+To: "Limonciello, Mario" <Mario.Limonciello@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>
+Subject: RE: [PATCH v5 2/2] drm/amd/pm/vangogh: Send SMT enable message to PMFW
+Thread-Topic: [PATCH v5 2/2] drm/amd/pm/vangogh: Send SMT enable message to
+ PMFW
+Thread-Index: AQHZaIWvdWC1JaO4X0qOTSc/pw8Xi68eUKMAgADSgOCAACPwEA==
+Date: Fri, 7 Apr 2023 04:50:52 +0000
+Message-ID: <DM6PR12MB3531F15AA0A72080BB93E619FD969@DM6PR12MB3531.namprd12.prod.outlook.com>
+References: <20230406124514.2906870-1-WenYou.Yang@amd.com>
+ <20230406124514.2906870-3-WenYou.Yang@amd.com>
+ <3b45e949-e55c-46d0-a439-2f86b7073a0f@amd.com>
+ <DM6PR12MB35314D15A337BB8CCA81DDEDFD969@DM6PR12MB3531.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB35314D15A337BB8CCA81DDEDFD969@DM6PR12MB3531.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-04-07T04:50:49Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=6deb297c-ea82-4ebd-80bb-939b21741d08;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR12MB3531:EE_|BL1PR12MB5269:EE_
+x-ms-office365-filtering-correlation-id: 3def6f11-1a90-47e8-c115-08db3723aa30
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: TycZrpqVqILhc5gWz+uSskGxYVFX+dq8qPG7BzrsOTVFlXXfwxdwc08JUeWj+2IMtAUvn9wsc6WkLlDiLh2hxXRU1mYG3UYf6Cm7tm5dI++Kih3XpTlIPfMOt0ybhaZ8+eJNFbweUcGWFs7VoPHjNUASc98+t3It75YvjRZz8b7qsTSWL0BhDNx7IRsQkHHCa/YQ7CeVSwEKw+cQOQiDp89FbQrRT3fI05tacrCIaWr2khPgC0t2v8svwT6/JjA9Jyi9Xfo3Ymx78cWIyaAQ6dkuwTucuHnxF9v33MzRLSxoKmq+9kFcE9O2wuO+Ujj/TsUzf146J7hcgyPa6UzX1E4UYh8OAK81mkbtjQ8y6H/uyaphi5z1KAGSbZvhzQFe290MvULHfnAhS7O76gQDFH8Ice0yjvqH8t5EaMl0N7n/SyKreOSUCSdaw+ev0FKJ4NuQ3DvOzWkBM+HX/yn1I1Eg08/xNvldf/PKw2f/CMwXgRwhIcQPQck4UuQ6Mw0B72aXT/wDBJZLYGkW2ocZFt99TgFNjfg3E6X0rtNOicz3ZZ2Mhnb7zI7qpPrfzxMxZcFb99NAeuUdLAn1ZTbE4WJ9YT8USCIp7VXhZshdBdQwHFPsqAwNxv+eYjoFhKe2ONYpmEW6qTNvIgMK9TgCeQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3531.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(366004)(376002)(136003)(346002)(396003)(39860400002)(451199021)(26005)(6506007)(52536014)(5660300002)(53546011)(8676002)(8936002)(9686003)(55016003)(15650500001)(83380400001)(7696005)(478600001)(6636002)(316002)(110136005)(71200400001)(54906003)(76116006)(41300700001)(186003)(66476007)(2940100002)(64756008)(66946007)(66446008)(66556008)(4326008)(86362001)(33656002)(38070700005)(38100700002)(921005)(122000001)(2906002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?NTFhcTMzZ0pKNzM1VDJZU3VqL0s4WlJORnpwcEY0b2VESE9GNkx6QWFjWkw1?=
+ =?utf-8?B?dzVIeGFFcC85M094Q0g1a2ZtOWJsaTg5cGNFbll6UFcyN094azMxelhVTVcw?=
+ =?utf-8?B?NGRhNzdoLzBaTXYxWUljbVRNejdMU2svd2tJaWIwSEtYZkpITFA0eDdUUTNh?=
+ =?utf-8?B?U1F6bkZvNWJnR2NRSVFET2kxbTNCYlJmSmZXSE55cGUzd3JMRFp0YVFQWXps?=
+ =?utf-8?B?ODJEMXpaWWVjRURvbGhpcEdyNVgwaUJ3aEtlRmZrUEFWWUxDRW1SUTZUSjlp?=
+ =?utf-8?B?WmxPN2lDdnhCT3hEcXJuQ0dXYm8xbEd6amxsZnViSTR3VElFM2lzQmxKTTl2?=
+ =?utf-8?B?NmdEQjg5WFhzZ0NFTW1GVGo3L1pCMTQwRElyKzZneEswYmp5aGo4aXVUdUMx?=
+ =?utf-8?B?WHBFdDVDZGFpaUY3T3FvOGczbHh1a1VqUFB3MThpeGRJWSsxNjZ4ZGFSbDRu?=
+ =?utf-8?B?WEN1Vk9yVDlJWklDTlZjQWhjTGJaZnZHNytRS0FSZHJNVDJqcEFibWw2M2NC?=
+ =?utf-8?B?V0RWd0ttTlR3WFhhOE8wUVE4TXN4TVhRTmc2WFdGMHpxUllNK1laWkUvdm9s?=
+ =?utf-8?B?Q3l6d2t0Ny9zV2xsQjgxNHUyY3VzT2VBeDl6Y3pSUW4wVFZhOHAvZnlZa0p6?=
+ =?utf-8?B?RUhtd1Nsc0ZkZUVES0RXeXR6T1VlOWZpa29Xb3EvSEFKcVhmekhFQzZ3eFky?=
+ =?utf-8?B?VmNPUy9vRUtlU0dXNXd1MUIwWU9IZ3lSNXkwWUkvTmZpYTRYTWZSOG96R2lo?=
+ =?utf-8?B?WVVLVCtaQjRFbzdyaHB5cW9ncUZnVDdBNG5oYVVueDBOM1lOOW5iakZXQmhj?=
+ =?utf-8?B?Tk1sanNaMVRlcWE4K0EwS0RRWDhhbHJBVlVQOEswYmQ0L2lXM0VtdWFQRG52?=
+ =?utf-8?B?VHI4TElUTHg2L3pDTUVlWlpwdTRXQnZNZVloWmVKcm5uRGRBZWFRMzd1aitH?=
+ =?utf-8?B?YUpCRWF5ejZoRThuTGE0UGVsVjlBYUZ0SGhUNTljMFdyWEphTnB3VUZUQmpT?=
+ =?utf-8?B?REt2US9sSHAxUERXWFhJY3FPdmgzaUwydExCNkVMMHNaNTkxWFRycGFTalI3?=
+ =?utf-8?B?UXhYblI1R1J3Y3Izb3pDUk1nQWlLUENyWHFhcXBzS3ZRUVJpNU1DL0lqSXJn?=
+ =?utf-8?B?eTR4bEd2akVBT3NMQzJEaHlmNVZxNlFsRHE2b1lhbUpwUnZzRFJDYzVRUWR3?=
+ =?utf-8?B?V3RtSytKaUZZN0s0YVdkQnNrbDRObFBGaFRta25rWlhLQi8yeHZ5UzB4WFl1?=
+ =?utf-8?B?WXRKUHVyQnp6THpDMXdaQnZLZVVvQWxMYkpuR0lFSWxoc2dqcTJKVS9NcXJC?=
+ =?utf-8?B?M1haeVFrelpWYVNuWkNjTXQwUHBHL0VTWkZ3clhwTGt3cGxJSkkzSHYxMndt?=
+ =?utf-8?B?WGIyUjlpa3JMd2dPQ3d2bWVnR0p0Q0tVWGlBSjkwbTVOdGV2eXltZnU5Sm9G?=
+ =?utf-8?B?aGxSeFkyQjNDTzlva2JCMW9HdGcwVjJwUENjMC9oNHZJaUpJb3lZNWtZLzZR?=
+ =?utf-8?B?SWc1blg3aGJ5MERaeWhxaUJDMlU1UERwMWNqQTg1cVZFWlZJVlFMV25YSUN4?=
+ =?utf-8?B?NDhoejFBOGdDNnNKckFVZmVNOWMwK3U2RjhicWt5eVpJUDJKb0xvY3l1Nlkw?=
+ =?utf-8?B?c0Y3cUhvazBGc0dKQVIzYkhsenFpRUQzR3VvWElPUGd4MTlkQStPZm5jVzN1?=
+ =?utf-8?B?LzNnWmY4NTM2eHEvQXNYTlhzajd0SmVvUGxEdkp2b2lXNGhqTnl3RDU0TG4z?=
+ =?utf-8?B?aFJBZXJBcmYxbHhLc2I3SWRuSXJDV0R1OHArMU1MK3dnKy84MGx3dm9kRWs3?=
+ =?utf-8?B?S252UzdXYzIyUTJyVzJPMGZDZGVhekJrK1hUS1VqZTF6eFo3NnpsZlFRVnhQ?=
+ =?utf-8?B?NzJpNFJaeWlZSURuR2dtYXA3anRUVEk0WlRvUk9leUhETnJEdXlYMHJ4ZGM2?=
+ =?utf-8?B?NDR0N2JIVnE2eGJkRkVTdzd0Z3lRM052SSsyR0NMNXNXTnhsVVd1RnBUc1Jp?=
+ =?utf-8?B?WUVuWnQ5RzlDVWR0Z2ZYMFNwRG9ZVUFITkJaaitIdndxS1Zka01VTFZVSkVM?=
+ =?utf-8?B?Vm1lOUwyNktsZzBlRnQ0QWJ3aUhZUC9xalJLWmFvQmZ6Q3N4VHgxd1luMzU3?=
+ =?utf-8?Q?ooPU=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3531.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3def6f11-1a90-47e8-c115-08db3723aa30
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Apr 2023 04:50:52.1758 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: +fKbE42alVaVYLWkDXSlGigTHi/7Aek9LEmQwAsEXx0sSqK3QUiHAFJ+7WeJ9M3qpYSN/rEhzbpA4/6ROur6Rg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5269
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,220 +136,147 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-acpi@vger.kernel.org, linux-bluetooth@vger.kernel.org,
- linux-wireless@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-remoteproc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org,
- Linux Memory Management List <linux-mm@kvack.org>, linux-gpio@vger.kernel.org,
- bpf@vger.kernel.org, linux-clk@vger.kernel.org, io-uring@vger.kernel.org
+Cc: "Yuan, Perry" <Perry.Yuan@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Li,
+ Ying" <YING.LI@amd.com>, "Liang, Richard qi" <Richardqi.Liang@amd.com>, "Liu,
+ Kun" <Kun.Liu2@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: e134c93f788fb93fd6a3ec3af9af850a2048c7e6  Add linux-next specific files for 20230406
-
-Error/Warning reports:
-
-https://lore.kernel.org/oe-kbuild-all/202303082135.NjdX1Bij-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202303161521.jbGbaFjJ-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202304011449.XFV6lLwh-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202304040401.IMxt7Ubi-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202304061839.hi01VPl1-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202304070251.LY6c7kgm-lkp@intel.com
-
-Error/Warning: (recently discovered and may have been fixed)
-
-Warning: arch/x86/Kconfig references a file that doesn't exist: Documentation/x86/shstk.rst
-diff: tools/arch/s390/include/uapi/asm/ptrace.h: No such file or directory
-drivers/bluetooth/hci_qca.c:1894:37: warning: unused variable 'qca_soc_data_wcn6855' [-Wunused-const-variable]
-drivers/clk/clk-sp7021.c:316:8: warning: result of comparison of constant 18446744073709551615 with expression of type 'typeof (_Generic((_m), char: (unsigned char)0, unsigned char: (unsigned char)0, signed char: (unsigned char)0, unsigned short: (unsigned short)0, short: (unsigned short)0, unsigned int: (unsigned int)0, int: (unsigned int)0, unsigned long: (unsigned long)0, long: (unsigned long)0, unsigned long long: (unsigned long long)0, long long: (unsigned long long)0, default: (_m)))' (aka 'unsigned int') is always false [-Wtautological-constant-out-of-range-compare]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_validation.c:351:13: warning: variable 'bw_needed' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_validation.c:352:25: warning: variable 'link' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:309:17: sparse:    int
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v13_0_6_ppt.c:309:17: sparse:    void
-drivers/net/wireless/legacy/ray_cs.c:628:17: warning: 'strncpy' specified bound 32 equals destination size [-Wstringop-truncation]
-kernel/bpf/verifier.c:18485: undefined reference to `find_kallsyms_symbol_value'
-
-Unverified Error/Warning (likely false positive, please contact us if interested):
-
-drivers/acpi/property.c:985 acpi_data_prop_read_single() error: potentially dereferencing uninitialized 'obj'.
-drivers/gpu/drm/i915/display/intel_tc.c:424 icl_tc_phy_hpd_live_status() error: uninitialized symbol 'fia_isr'.
-drivers/gpu/drm/i915/display/intel_tc.c:436 icl_tc_phy_hpd_live_status() error: uninitialized symbol 'pch_isr'.
-drivers/gpu/drm/i915/display/intel_tc.c:655 tgl_tc_phy_init() error: uninitialized symbol 'val'.
-drivers/gpu/drm/i915/display/intel_tc.c:709 adlp_tc_phy_hpd_live_status() error: uninitialized symbol 'cpu_isr'.
-drivers/gpu/drm/i915/display/intel_tc.c:714 adlp_tc_phy_hpd_live_status() error: uninitialized symbol 'pch_isr'.
-drivers/gpu/drm/i915/i915_hwmon.c:411 hwm_power_max_write() error: uninitialized symbol 'nval'.
-include/linux/gpio/consumer.h: linux/err.h is included more than once.
-include/linux/gpio/driver.h: asm/bug.h is included more than once.
-io_uring/io_uring.c:432 io_prep_async_work() error: we previously assumed 'req->file' could be null (see line 425)
-io_uring/kbuf.c:221 __io_remove_buffers() warn: variable dereferenced before check 'bl->buf_ring' (see line 219)
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|   `-- drivers-net-wireless-legacy-ray_cs.c:warning:strncpy-specified-bound-equals-destination-size
-|-- alpha-randconfig-m041-20230403
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- arc-randconfig-r043-20230404
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- arm-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- arm-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- arm64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- arm64-randconfig-s053-20230406
-|   |-- drivers-remoteproc-imx_dsp_rproc.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-const-volatile-noderef-__iomem-addr-got-unsigned-int-usertype-assigned-tmp_dst
-|   |-- drivers-remoteproc-imx_dsp_rproc.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-const-volatile-noderef-__iomem-addr-got-void
-|   |-- drivers-remoteproc-imx_dsp_rproc.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-volatile-noderef-__iomem-addr-got-unsigned-int-usertype
-|   |-- drivers-remoteproc-imx_dsp_rproc.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-volatile-noderef-__iomem-addr-got-unsigned-int-usertype-assigned-tmp_dst
-|   `-- drivers-remoteproc-imx_dsp_rproc.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-volatile-noderef-__iomem-addr-got-void
-|-- csky-buildonly-randconfig-r002-20230403
-|   `-- drivers-net-wireless-legacy-ray_cs.c:warning:strncpy-specified-bound-equals-destination-size
-|-- csky-randconfig-r011-20230403
-|   `-- drivers-net-wireless-legacy-ray_cs.c:warning:strncpy-specified-bound-equals-destination-size
-|-- i386-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- i386-randconfig-m021-20230403
-|   |-- drivers-acpi-property.c-acpi_data_prop_read_single()-error:potentially-dereferencing-uninitialized-obj-.
-|   |-- io_uring-io_uring.c-io_prep_async_work()-error:we-previously-assumed-req-file-could-be-null-(see-line-)
-|   `-- io_uring-kbuf.c-__io_remove_buffers()-warn:variable-dereferenced-before-check-bl-buf_ring-(see-line-)
-|-- i386-randconfig-m031-20230403
-|   |-- drivers-acpi-property.c-acpi_data_prop_read_single()-error:potentially-dereferencing-uninitialized-obj-.
-|   |-- drivers-gpu-drm-i915-display-intel_tc.c-adlp_tc_phy_hpd_live_status()-error:uninitialized-symbol-cpu_isr-.
-|   |-- drivers-gpu-drm-i915-display-intel_tc.c-adlp_tc_phy_hpd_live_status()-error:uninitialized-symbol-pch_isr-.
-|   |-- drivers-gpu-drm-i915-display-intel_tc.c-icl_tc_phy_hpd_live_status()-error:uninitialized-symbol-fia_isr-.
-|   |-- drivers-gpu-drm-i915-display-intel_tc.c-icl_tc_phy_hpd_live_status()-error:uninitialized-symbol-pch_isr-.
-|   |-- drivers-gpu-drm-i915-display-intel_tc.c-tgl_tc_phy_init()-error:uninitialized-symbol-val-.
-|   |-- drivers-gpu-drm-i915-i915_hwmon.c-hwm_power_max_write()-error:uninitialized-symbol-nval-.
-|   |-- io_uring-io_uring.c-io_prep_async_work()-error:we-previously-assumed-req-file-could-be-null-(see-line-)
-|   `-- io_uring-kbuf.c-__io_remove_buffers()-warn:variable-dereferenced-before-check-bl-buf_ring-(see-line-)
-|-- ia64-allmodconfig
-clang_recent_errors
-|-- hexagon-randconfig-r025-20230405
-|   `-- drivers-clk-clk-sp7021.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((_m)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(unsigned-char)-unsigned-
-`-- hexagon-randconfig-r041-20230404
-    `-- drivers-bluetooth-hci_qca.c:warning:unused-variable-qca_soc_data_wcn6855
-
-elapsed time: 1262m
-
-configs tested: 100
-configs skipped: 6
-
-tested configs:
-alpha                            allyesconfig   gcc  
-alpha                               defconfig   gcc  
-alpha                randconfig-r026-20230405   gcc  
-arc                              allyesconfig   gcc  
-arc                                 defconfig   gcc  
-arc                  randconfig-r043-20230404   gcc  
-arm                              allmodconfig   gcc  
-arm                              allyesconfig   gcc  
-arm                                 defconfig   gcc  
-arm                  randconfig-r002-20230405   gcc  
-arm                  randconfig-r046-20230404   gcc  
-arm64                            allyesconfig   gcc  
-arm64        buildonly-randconfig-r003-20230403   clang
-arm64                               defconfig   gcc  
-csky         buildonly-randconfig-r002-20230403   gcc  
-csky                                defconfig   gcc  
-csky                 randconfig-r011-20230403   gcc  
-csky                 randconfig-r013-20230403   gcc  
-csky                 randconfig-r032-20230405   gcc  
-csky                 randconfig-r035-20230405   gcc  
-hexagon      buildonly-randconfig-r004-20230403   clang
-hexagon              randconfig-r025-20230405   clang
-hexagon              randconfig-r041-20230404   clang
-hexagon              randconfig-r045-20230404   clang
-i386                             allyesconfig   gcc  
-i386                              debian-10.3   gcc  
-i386                                defconfig   gcc  
-i386                 randconfig-a001-20230403   clang
-i386                 randconfig-a002-20230403   clang
-i386                 randconfig-a003-20230403   clang
-i386                 randconfig-a004-20230403   clang
-i386                 randconfig-a005-20230403   clang
-i386                 randconfig-a006-20230403   clang
-i386                 randconfig-a011-20230403   gcc  
-i386                 randconfig-a012-20230403   gcc  
-i386                 randconfig-a013-20230403   gcc  
-i386                 randconfig-a014-20230403   gcc  
-i386                 randconfig-a015-20230403   gcc  
-i386                 randconfig-a016-20230403   gcc  
-ia64                             allmodconfig   gcc  
-ia64         buildonly-randconfig-r006-20230403   gcc  
-ia64                                defconfig   gcc  
-ia64                 randconfig-r001-20230405   gcc  
-ia64                 randconfig-r024-20230405   gcc  
-loongarch                        allmodconfig   gcc  
-loongarch                         allnoconfig   gcc  
-loongarch                           defconfig   gcc  
-m68k                             allmodconfig   gcc  
-m68k         buildonly-randconfig-r005-20230403   gcc  
-m68k                                defconfig   gcc  
-m68k                 randconfig-r014-20230403   gcc  
-m68k                 randconfig-r031-20230405   gcc  
-mips                             allmodconfig   gcc  
-mips                             allyesconfig   gcc  
-mips                 randconfig-r033-20230405   gcc  
-nios2                               defconfig   gcc  
-openrisc             randconfig-r034-20230405   gcc  
-parisc                              defconfig   gcc  
-parisc               randconfig-r006-20230405   gcc  
-parisc64                            defconfig   gcc  
-powerpc                          allmodconfig   gcc  
-powerpc                           allnoconfig   gcc  
-powerpc              randconfig-r021-20230405   gcc  
-riscv                            allmodconfig   gcc  
-riscv                             allnoconfig   gcc  
-riscv                               defconfig   gcc  
-riscv                randconfig-r003-20230405   clang
-riscv                randconfig-r012-20230403   gcc  
-riscv                randconfig-r016-20230403   gcc  
-riscv                randconfig-r023-20230405   gcc  
-riscv                randconfig-r042-20230404   clang
-riscv                          rv32_defconfig   gcc  
-s390                             allmodconfig   gcc  
-s390                             allyesconfig   gcc  
-s390                                defconfig   gcc  
-s390                 randconfig-r022-20230405   gcc  
-s390                 randconfig-r044-20230404   clang
-sh                               allmodconfig   gcc  
-sparc        buildonly-randconfig-r001-20230403   gcc  
-sparc                               defconfig   gcc  
-um                             i386_defconfig   gcc  
-um                           x86_64_defconfig   gcc  
-x86_64                            allnoconfig   gcc  
-x86_64                           allyesconfig   gcc  
-x86_64                              defconfig   gcc  
-x86_64                                  kexec   gcc  
-x86_64                        randconfig-a001   clang
-x86_64                        randconfig-a002   gcc  
-x86_64                        randconfig-a003   clang
-x86_64                        randconfig-a004   gcc  
-x86_64                        randconfig-a005   clang
-x86_64                        randconfig-a006   gcc  
-x86_64               randconfig-a011-20230403   gcc  
-x86_64               randconfig-a012-20230403   gcc  
-x86_64               randconfig-a013-20230403   gcc  
-x86_64               randconfig-a014-20230403   gcc  
-x86_64               randconfig-a015-20230403   gcc  
-x86_64               randconfig-a016-20230403   gcc  
-x86_64                               rhel-8.3   gcc  
-xtensa               randconfig-r005-20230405   gcc  
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNCkhpIE1hcmlvLA0KDQo+IC0tLS0t
+T3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IFlhbmcsIFdlbllvdQ0KPiBTZW50OiBGcmlk
+YXksIEFwcmlsIDcsIDIwMjMgMTA6NDcgQU0NCj4gVG86IExpbW9uY2llbGxvLCBNYXJpbyA8TWFy
+aW8uTGltb25jaWVsbG9AYW1kLmNvbT47IERldWNoZXIsIEFsZXhhbmRlcg0KPiA8QWxleGFuZGVy
+LkRldWNoZXJAYW1kLmNvbT47IEtvZW5pZywgQ2hyaXN0aWFuDQo+IDxDaHJpc3RpYW4uS29lbmln
+QGFtZC5jb20+OyBQYW4sIFhpbmh1aSA8WGluaHVpLlBhbkBhbWQuY29tPjsgUXVhbiwNCj4gRXZh
+biA8RXZhbi5RdWFuQGFtZC5jb20+DQo+IENjOiBZdWFuLCBQZXJyeSA8UGVycnkuWXVhbkBhbWQu
+Y29tPjsgTGlhbmcsIFJpY2hhcmQgcWkNCj4gPFJpY2hhcmRxaS5MaWFuZ0BhbWQuY29tPjsgTGks
+IFlpbmcgPFlJTkcuTElAYW1kLmNvbT47IExpdSwgS3VuDQo+IDxLdW4uTGl1MkBhbWQuY29tPjsg
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gU3ViamVjdDogUkU6IFtQQVRDSCB2NSAy
+LzJdIGRybS9hbWQvcG0vdmFuZ29naDogU2VuZCBTTVQgZW5hYmxlDQo+IG1lc3NhZ2UgdG8gUE1G
+Vw0KPiANCj4gW0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQo+IA0KPiBIaSBNYXJp
+bywNCj4gDQo+IFRoYW5rIHlvdSBmb3IgeW91ciByZXZpZXcuDQo+IA0KPiA+IC0tLS0tT3JpZ2lu
+YWwgTWVzc2FnZS0tLS0tDQo+ID4gRnJvbTogTGltb25jaWVsbG8sIE1hcmlvIDxNYXJpby5MaW1v
+bmNpZWxsb0BhbWQuY29tPg0KPiA+IFNlbnQ6IFRodXJzZGF5LCBBcHJpbCA2LCAyMDIzIDEwOjA1
+IFBNDQo+ID4gVG86IFlhbmcsIFdlbllvdSA8V2VuWW91LllhbmdAYW1kLmNvbT47IERldWNoZXIs
+IEFsZXhhbmRlcg0KPiA+IDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgS29lbmlnLCBDaHJp
+c3RpYW4NCj4gPiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPjsgUGFuLCBYaW5odWkgPFhpbmh1
+aS5QYW5AYW1kLmNvbT47IFF1YW4sDQo+ID4gRXZhbiA8RXZhbi5RdWFuQGFtZC5jb20+DQo+ID4g
+Q2M6IFl1YW4sIFBlcnJ5IDxQZXJyeS5ZdWFuQGFtZC5jb20+OyBMaWFuZywgUmljaGFyZCBxaQ0K
+PiA+IDxSaWNoYXJkcWkuTGlhbmdAYW1kLmNvbT47IExpLCBZaW5nIDxZSU5HLkxJQGFtZC5jb20+
+OyBMaXUsIEt1bg0KPiA+IDxLdW4uTGl1MkBhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcNCj4gPiBTdWJqZWN0OiBSZTogW1BBVENIIHY1IDIvMl0gZHJtL2FtZC9wbS92YW5n
+b2doOiBTZW5kIFNNVCBlbmFibGUNCj4gPiBtZXNzYWdlIHRvIFBNRlcNCj4gPg0KPiA+IE9uIDQv
+Ni8yMDIzIDA3OjQ1LCBXZW55b3UgWWFuZyB3cm90ZToNCj4gPiA+IFdoZW4gdGhlIFNNVCBzdGF0
+ZSBpcyBjaGFuZ2VkIG9uIHRoZSBmbHksIHNlbnQgdGhlIFNNVCBlbmFibGUNCj4gPiA+IG1lc3Nh
+Z2UgdG8gdGhlIFBNRlcgdG8gbm90aWZ5IGl0IHRoYXQgdGhlIFNNVCBzdGF0ZSBjaGFuZ2VkLg0K
+PiA+ID4NCj4gPiA+IEFkZCB0aGUgc3VwcG9ydCB0byBzZW5kIFBQU01DX01TR19TZXRDQ2xrU01U
+RW5hYmxlKDB4NTgpDQo+IG1lc3NhZ2UgdG8NCj4gPiA+IHRoZSBQTUZXIGZvciBWYW5nb2doLg0K
+PiA+ID4NCj4gPiA+IFNpZ25lZC1vZmYtYnk6IFdlbnlvdSBZYW5nIDxXZW5Zb3UuWWFuZ0BhbWQu
+Y29tPg0KPiA+ID4gLS0tDQo+ID4gPiAgIC4uLi9wbS9zd3NtdS9pbmMvcG1md19pZi9zbXVfdjEx
+XzVfcHBzbWMuaCAgICB8ICAzICstDQo+ID4gPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG0vc3dz
+bXUvaW5jL3NtdV90eXBlcy5oICB8ICAzICstDQo+ID4gPiAgIC4uLi9ncHUvZHJtL2FtZC9wbS9z
+d3NtdS9zbXUxMS92YW5nb2doX3BwdC5jICB8IDMyDQo+ID4gKysrKysrKysrKysrKysrKysrLQ0K
+PiA+ID4gICAzIGZpbGVzIGNoYW5nZWQsIDM1IGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0p
+DQo+ID4gPg0KPiA+ID4gZGlmZiAtLWdpdA0KPiA+ID4gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bt
+L3N3c211L2luYy9wbWZ3X2lmL3NtdV92MTFfNV9wcHNtYy5oDQo+ID4gPiBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvcG0vc3dzbXUvaW5jL3BtZndfaWYvc211X3YxMV81X3Bwc21jLmgNCj4gPiA+IGlu
+ZGV4IDc0NzFlMmRmMjgyOC4uYTZiZmExOTEyYzQyIDEwMDY0NA0KPiA+ID4gLS0tDQo+IGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9wbS9zd3NtdS9pbmMvcG1md19pZi9zbXVfdjExXzVfcHBzbWMuaA0K
+PiA+ID4gKysrDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3NtdS9pbmMvcG1md19pZi9z
+bXVfdjExXzVfcHBzbWMuaA0KPiA+ID4gQEAgLTExMSw3ICsxMTEsOCBAQA0KPiA+ID4gICAjZGVm
+aW5lIFBQU01DX01TR19HZXRHZnhPZmZTdGF0dXMJCSAgICAgICAweDUwDQo+ID4gPiAgICNkZWZp
+bmUgUFBTTUNfTVNHX0dldEdmeE9mZkVudHJ5Q291bnQJCSAgICAgICAweDUxDQo+ID4gPiAgICNk
+ZWZpbmUgUFBTTUNfTVNHX0xvZ0dmeE9mZlJlc2lkZW5jeQkJICAgICAgIDB4NTINCj4gPiA+IC0j
+ZGVmaW5lIFBQU01DX01lc3NhZ2VfQ291bnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHg1
+Mw0KPiA+ID4gKyNkZWZpbmUgUFBTTUNfTVNHX1NldENDbGtTTVRFbmFibGUJCSAgICAgICAweDU4
+DQo+ID4gPiArI2RlZmluZSBQUFNNQ19NZXNzYWdlX0NvdW50ICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIDB4NTkNCj4gPiA+DQo+ID4gPiAgIC8vQXJndW1lbnQgZm9yIFBQU01DX01TR19HZnhE
+ZXZpY2VEcml2ZXJSZXNldA0KPiA+ID4gICBlbnVtIHsNCj4gPiA+IGRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL3BtL3N3c211L2luYy9zbXVfdHlwZXMuaA0KPiA+ID4gYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL3BtL3N3c211L2luYy9zbXVfdHlwZXMuaA0KPiA+ID4gaW5kZXggMjk3Yjcw
+YjkzODhmLi44MjA4MTJkOTEwYmYgMTAwNjQ0DQo+ID4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL3BtL3N3c211L2luYy9zbXVfdHlwZXMuaA0KPiA+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9wbS9zd3NtdS9pbmMvc211X3R5cGVzLmgNCj4gPiA+IEBAIC0yNDUsNyArMjQ1LDggQEAN
+Cj4gPiA+ICAgCV9fU01VX0RVTU1ZX01BUChBbGxvd0dwbyksCVwNCj4gPiA+ICAgCV9fU01VX0RV
+TU1ZX01BUChNb2RlMlJlc2V0KSwJXA0KPiA+ID4gICAJX19TTVVfRFVNTVlfTUFQKFJlcXVlc3RJ
+MmNUcmFuc2FjdGlvbiksIFwNCj4gPiA+IC0JX19TTVVfRFVNTVlfTUFQKEdldE1ldHJpY3NUYWJs
+ZSksDQo+ID4gPiArCV9fU01VX0RVTU1ZX01BUChHZXRNZXRyaWNzVGFibGUpLCBcDQo+ID4gPiAr
+CV9fU01VX0RVTU1ZX01BUChTZXRDQ2xrU01URW5hYmxlKSwNCj4gPiA+DQo+ID4gPiAgICN1bmRl
+ZiBfX1NNVV9EVU1NWV9NQVANCj4gPiA+ICAgI2RlZmluZSBfX1NNVV9EVU1NWV9NQVAodHlwZSkJ
+U01VX01TR18jI3R5cGUNCj4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bt
+L3N3c211L3NtdTExL3ZhbmdvZ2hfcHB0LmMNCj4gPiA+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9w
+bS9zd3NtdS9zbXUxMS92YW5nb2doX3BwdC5jDQo+ID4gPiBpbmRleCA3NDMzZGNhYTE2ZTAuLmNh
+MWZmOTdmMzM1MyAxMDA2NDQNCj4gPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG0vc3dz
+bXUvc211MTEvdmFuZ29naF9wcHQuYw0KPiA+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9w
+bS9zd3NtdS9zbXUxMS92YW5nb2doX3BwdC5jDQo+ID4gPiBAQCAtMTQxLDYgKzE0MSw3IEBAIHN0
+YXRpYyBzdHJ1Y3QgY21uMmFzaWNfbXNnX21hcHBpbmcNCj4gPiB2YW5nb2doX21lc3NhZ2VfbWFw
+W1NNVV9NU0dfTUFYX0NPVU5UXSA9IHsNCj4gPiA+ICAgCU1TR19NQVAoR2V0R2Z4T2ZmU3RhdHVz
+LA0KPiA+IFBQU01DX01TR19HZXRHZnhPZmZTdGF0dXMsDQo+IAkwKSwNCj4gPiA+ICAgCU1TR19N
+QVAoR2V0R2Z4T2ZmRW50cnlDb3VudCwNCj4gPiBQUFNNQ19NU0dfR2V0R2Z4T2ZmRW50cnlDb3Vu
+dCwNCj4gCTApLA0KPiA+ID4gICAJTVNHX01BUChMb2dHZnhPZmZSZXNpZGVuY3ksDQo+ID4gUFBT
+TUNfTVNHX0xvZ0dmeE9mZlJlc2lkZW5jeSwJCQkJCTApLA0KPiA+ID4gKwlNU0dfTUFQKFNldEND
+bGtTTVRFbmFibGUsDQo+ID4gUFBTTUNfTVNHX1NldENDbGtTTVRFbmFibGUsDQo+ID4gCTApLA0K
+PiA+ID4gICB9Ow0KPiA+ID4NCj4gPiA+ICAgc3RhdGljIHN0cnVjdCBjbW4yYXNpY19tYXBwaW5n
+DQo+ID4gPiB2YW5nb2doX2ZlYXR1cmVfbWFza19tYXBbU01VX0ZFQVRVUkVfQ09VTlRdID0geyBA
+QCAtNDYwLDYNCj4gKzQ2MSw3DQo+ID4gQEANCj4gPiA+IHN0YXRpYyBpbnQgdmFuZ29naF9hbGxv
+Y2F0ZV9kcG1fY29udGV4dChzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSkNCj4gPiA+DQo+ID4gPiAg
+IHN0YXRpYyBpbnQgdmFuZ29naF9pbml0X3NtY190YWJsZXMoc3RydWN0IHNtdV9jb250ZXh0ICpz
+bXUpDQo+ID4gPiAgIHsNCj4gPiA+ICsJdWludDMyX3Qgc211X3ZlcnNpb247DQo+ID4gPiAgIAlp
+bnQgcmV0ID0gMDsNCj4gPiA+DQo+ID4gPiAgIAlyZXQgPSB2YW5nb2doX3RhYmxlc19pbml0KHNt
+dSk7DQo+ID4gPiBAQCAtNDc3LDkgKzQ3OSwyNCBAQCBzdGF0aWMgaW50IHZhbmdvZ2hfaW5pdF9z
+bWNfdGFibGVzKHN0cnVjdA0KPiA+IHNtdV9jb250ZXh0ICpzbXUpDQo+ID4gPiAgIAlzbXUtPmNw
+dV9jb3JlX251bSA9IDQ7DQo+ID4gPiAgICNlbmRpZg0KPiA+ID4NCj4gPiA+ICsJcmV0ID0gc211
+X2Ntbl9nZXRfc21jX3ZlcnNpb24oc211LCBOVUxMLCAmc211X3ZlcnNpb24pOw0KPiA+ID4gKwlp
+ZiAocmV0KQ0KPiA+ID4gKwkJcmV0dXJuIHJldDsNCj4gPiA+ICsNCj4gPiA+ICsJaWYgKHNtdV92
+ZXJzaW9uID49IDB4MDYzRjA2MDApDQo+ID4NCj4gPiBBRkFJQ1QgdGhlIHZhbHVlIGhhcyBhbHJl
+YWR5IGJlZW4gbG9va2VkIHVwIGFuZCB5b3UgY2FuIGluc3RlYWQgdXNlOg0KPiA+DQo+ID4gc211
+LT5hZGV2LT5wbS5md192ZXJzaW9uID49IDB4MDYzRjA2MDANCj4gDQo+IHNtdS0+YWRldi0+cG0u
+ZndfdmVyc2lvbiBpcyBhc3NpZ25lZCBpbiBzbXVfdjExXzBfaW5pdF9taWNyb2NvZGUoKSwNCj4g
+DQo+IFZhbmdvZ2ggZG9lc24ndCBpbml0aWFsaXplIC5pbml0X21pY3JvY29kZSBpbnRlcmZhY2Uu
+DQo+IA0KPiBTbywgc211LT5hZGV2LT5wbS5md192ZXJzaW9uIHZhbHVlIGlzIDAuDQo+IA0KPiA+
+DQo+ID4gPiArCQlzbXVfc210X3RpbWVyX2luaXQoc211KTsNCj4gPiA+ICsNCj4gPiA+ICAgCXJl
+dHVybiBzbXVfdjExXzBfaW5pdF9zbWNfdGFibGVzKHNtdSk7DQo+ID4gPiAgIH0NCj4gPiA+DQo+
+ID4gPiArc3RhdGljIGludCB2YW5nb2doX2Zpbmlfc21jX3RhYmxlcyhzdHJ1Y3Qgc211X2NvbnRl
+eHQgKnNtdSkgew0KPiA+ID4gKwlzbXVfc210X3RpbWVyX2Zpbmkoc211KTsNCj4gPg0KPiA+IFNo
+b3VsZG4ndCB0aGlzIHRpbWVyIG9ubHkgYmUgZGVsZXRlZCBpZg0KPiA+DQo+ID4gc211LT5hZGV2
+LT5wbS5md192ZXJzaW9uID49IDB4MDYzRjA2MDANCj4gPg0KPiANCj4gWWVzLCB3aWxsIGFkZCB2
+ZXJzaW9uIGNoZWNrIGJlZm9yZSBkZWxldGUgdGhlIHRpbWVyLg0KPiANCj4gTmVlZCB0byBjYWxs
+IHRoZSBzbXVfY21uX2dldF9zbWNfdmVyc2lvbigpIGFnYWluLCBub3QgZ29vZC4NCj4gTG9vayBm
+b3J3YXJkIHRvIHlvdXIgb3BpbmlvbnMuDQo+IA0KPiA+ID4gKwlzbXVfdjExXzBfZmluaV9zbWNf
+dGFibGVzKHNtdSk7DQo+ID4gPiArDQo+ID4gPiArCXJldHVybiAwOw0KPiA+ID4gK30NCj4gPiA+
+ICsNCj4gPiA+ICAgc3RhdGljIGludCB2YW5nb2doX2RwbV9zZXRfdmNuX2VuYWJsZShzdHJ1Y3Qg
+c211X2NvbnRleHQgKnNtdSwNCj4gPiA+IGJvb2wNCj4gPiBlbmFibGUpDQo+ID4gPiAgIHsNCj4g
+PiA+ICAgCWludCByZXQgPSAwOw0KPiA+ID4gQEAgLTI0MjgsMTIgKzI0NDUsMjQgQEAgc3RhdGlj
+IHUzMg0KPiA+ID4gdmFuZ29naF9nZXRfZ2Z4b2ZmX2VudHJ5Y291bnQoc3RydWN0DQo+ID4gc211
+X2NvbnRleHQgKnNtdSwgdWludDY0X3QgKmVudHINCj4gPiA+ICAgCXJldHVybiByZXQ7DQo+ID4g
+PiAgIH0NCj4gPiA+DQo+ID4gPiArc3RhdGljIGludCB2YW5nb2doX3NldF9jcHVfc210X2VuYWJs
+ZShzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwgYm9vbA0KPiA+ID4gK2VuYWJsZSkgew0KPiA+ID4g
+KwlpbnQgcmV0Ow0KPiA+ID4gKw0KPiA+ID4gKwlyZXQgPSBzbXVfY21uX3NlbmRfc21jX21zZ193
+aXRoX3BhcmFtKHNtdSwNCj4gPiBTTVVfTVNHX1NldENDbGtTTVRFbmFibGUsDQo+ID4gPiArCQkJ
+CQkgICAgICBlbmFibGUgPyAxIDogMCwgTlVMTCk7DQo+ID4gPiArCWlmIChyZXQpDQo+ID4gPiAr
+CQlkZXZfZXJyKHNtdS0+YWRldi0+ZGV2LCAiU2V0IENQVSBTTVQgc3RhdGUgZmFpbGVkIVxuIik7
+DQo+ID4NCj4gPiBHaXZlbiB0aGlzIGlzIGdvaWduIHRvIGJlIHRyaWdnZXJlZCBieSBhIHRpbWVy
+LCB0aGlzIG1pZ2h0IGJlIGJlc3QgdG8NCj4gPiBiZSBhIHJhdGUgbGltaXRlZCBtZXNzYWdlIHRv
+IGF2b2lkIGZsb29kaW5nIHRoZSBsb2dzDQoNCkkgcHJlZmVyIHJlbW92aW5nIHRoaXMgbWVzc2Fn
+ZSBzdGF0ZW1lbnQuIFRoZSBsb3ctbGV2ZWwgYXBpIGhhcyBhIG1lc3NhZ2UgcHJpbnQgaWYgZmFp
+bGluZyB0byBzZW5kLiANCg0KPiANCj4gWWVzLCB3aWxsIGFkZCwgYmVmb3JlIGNhbGwgZGV2X2Vy
+ciguLi4pDQo+IA0KPiAJaWYgKHByaW50a19yYXRlbGltaXQoKSkNCj4gDQo+IEJlc3QgUmVnYXJk
+cywNCj4gV2VueW91DQo+ID4NCj4gPiA+ICsNCj4gPiA+ICsJcmV0dXJuIHJldDsNCj4gPiA+ICt9
+DQo+ID4gPiArDQo+ID4gPiAgIHN0YXRpYyBjb25zdCBzdHJ1Y3QgcHB0YWJsZV9mdW5jcyB2YW5n
+b2doX3BwdF9mdW5jcyA9IHsNCj4gPiA+DQo+ID4gPiAgIAkuY2hlY2tfZndfc3RhdHVzID0gc211
+X3YxMV8wX2NoZWNrX2Z3X3N0YXR1cywNCj4gPiA+ICAgCS5jaGVja19md192ZXJzaW9uID0gc211
+X3YxMV8wX2NoZWNrX2Z3X3ZlcnNpb24sDQo+ID4gPiAgIAkuaW5pdF9zbWNfdGFibGVzID0gdmFu
+Z29naF9pbml0X3NtY190YWJsZXMsDQo+ID4gPiAtCS5maW5pX3NtY190YWJsZXMgPSBzbXVfdjEx
+XzBfZmluaV9zbWNfdGFibGVzLA0KPiA+ID4gKwkuZmluaV9zbWNfdGFibGVzID0gdmFuZ29naF9m
+aW5pX3NtY190YWJsZXMsDQo+ID4gPiAgIAkuaW5pdF9wb3dlciA9IHNtdV92MTFfMF9pbml0X3Bv
+d2VyLA0KPiA+ID4gICAJLmZpbmlfcG93ZXIgPSBzbXVfdjExXzBfZmluaV9wb3dlciwNCj4gPiA+
+ICAgCS5yZWdpc3Rlcl9pcnFfaGFuZGxlciA9IHNtdV92MTFfMF9yZWdpc3Rlcl9pcnFfaGFuZGxl
+ciwgQEANCj4gPiA+IC0yNDc0LDYNCj4gPiA+ICsyNTAzLDcgQEAgc3RhdGljIGNvbnN0IHN0cnVj
+dCBwcHRhYmxlX2Z1bmNzIHZhbmdvZ2hfcHB0X2Z1bmNzID0gew0KPiA+ID4gICAJLmdldF9wb3dl
+cl9saW1pdCA9IHZhbmdvZ2hfZ2V0X3Bvd2VyX2xpbWl0LA0KPiA+ID4gICAJLnNldF9wb3dlcl9s
+aW1pdCA9IHZhbmdvZ2hfc2V0X3Bvd2VyX2xpbWl0LA0KPiA+ID4gICAJLmdldF92Ymlvc19ib290
+dXBfdmFsdWVzID0gc211X3YxMV8wX2dldF92Ymlvc19ib290dXBfdmFsdWVzLA0KPiA+ID4gKwku
+c2V0X2NwdV9zbXRfZW5hYmxlID0gdmFuZ29naF9zZXRfY3B1X3NtdF9lbmFibGUsDQo+ID4gPiAg
+IH07DQo+ID4gPg0KPiA+ID4gICB2b2lkIHZhbmdvZ2hfc2V0X3BwdF9mdW5jcyhzdHJ1Y3Qgc211
+X2NvbnRleHQgKnNtdSkNCg==
