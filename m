@@ -4,76 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB0C7C7619A
-	for <amd-gfx@archiver.kernel.org>; Sat,  8 Apr 2023 12:39:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC975C77B70
+	for <amd-gfx@archiver.kernel.org>; Sat,  8 Apr 2023 12:39:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B25810E342;
-	Sat,  8 Apr 2023 12:39:02 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31C2110E06D
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Apr 2023 18:44:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1680806684;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=LOzVIpJJM6v7k5No2ia8gTr6fhScQxv4U9oi5fa7u4c=;
- b=ToWgKrAL7WvZBCuvVwZ2XZmaVM7vkkx7si4tS+gQR9R/fafMq0ye38lXmTcPddG9seMwe+
- CoClHHSSgqJE/4EULmMmlZ/1PSyxfdNMlpHSg8hW77Ask1EyRS+j2CYBhk2dMRIv+IYTnv
- 8sR2G9feByQUNelHlknPsNH8Sn09dSA=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-655-vhPznP13OfeLAfkiwQ2WSw-1; Thu, 06 Apr 2023 14:44:41 -0400
-X-MC-Unique: vhPznP13OfeLAfkiwQ2WSw-1
-Received: by mail-qk1-f199.google.com with SMTP id
- r127-20020a374485000000b0074a6b927a49so2457496qka.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 06 Apr 2023 11:44:41 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBE0010E34A;
+	Sat,  8 Apr 2023 12:39:03 +0000 (UTC)
+Received: from mail-pf1-x42e.google.com (mail-pf1-x42e.google.com
+ [IPv6:2607:f8b0:4864:20::42e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D3C210E124
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Apr 2023 17:53:01 +0000 (UTC)
+Received: by mail-pf1-x42e.google.com with SMTP id cm5so21127572pfb.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 07 Apr 2023 10:53:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20210112; t=1680889980; x=1683481980;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=KYBbdfYMz/vjcXkNGYT26LJaYJDJYJgOQo589rbtS2s=;
+ b=DqKYdsHfDx8zdLJVjdTiTFTABvHWdnCrcEmv1w5HVb7vZJgYb9t4uDuX/Cr9FthsY+
+ sNlQf5412FR4vITwMaeTaoKN8vXOBxK5I09sKXDtFLOCDcucYYJqntHqjO3K/idXejnx
+ mpjwZtwsKYITG3OUusv3MCa9zgiWgd4qcE93WnOc5b19hJYSRsJv9ND+hyeP42g88eNa
+ 4M5aWWIG7t2lc67vCrkzFbzHfaMpEH2orbYitLkGcLjlPGiRbePJKxB3XQzuoavzhYGq
+ dWt2ylU++nmF7XJzcfQQHXSf1nOsa4/z1PObYwy+i3A5Vf3jwiWGU3HMphpiMtUKlzUK
+ V5Qg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680806680;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=LOzVIpJJM6v7k5No2ia8gTr6fhScQxv4U9oi5fa7u4c=;
- b=FX+zXiM5BFL9ttfFNu9/AOZDl67GwNr2h0aavhVAZRcoW4SI1PTKtIOZyPzAHxebYr
- oM43fjVeb/fmx2UPFkIWDR/GqQKsUHSSiDXd7E93eK0dL+kUd1EPmukvIxhSAPVsYbB9
- n9DZkyU2SeYpucfA7YCRvsTUFdBrVs/HdU6Qow9UljA7BUbc3R+D6qdhO/GXeiZE/mHT
- 3S2HiFCARUCfVROnFdxmik1wxgyXlFK6gOijcYrIBiyWJjUE2Igyw9azW2xFpWZZnpRZ
- /ZjqYKoHcyVBT9taNmj1QfdJofsjV4X/FZyg42iOgU3FcopB4HVnJfvDP8oKQKwuD3pg
- nBQw==
-X-Gm-Message-State: AAQBX9ecCy5orkUvdpKhBp2/Q03LA9VmLconmqKfPzfy8Xa3S/UddEAh
- dnZ2zWbaq02Rjx/ZjgXTfS+1V4/rVGCf4TCDJu83dF7GlRsBYxnCfuz5wv4Ne9WgS+zpDc1gL2T
- v1ULItPUmE0nDRyTAuFJMukOmsw==
-X-Received: by 2002:a05:6214:21ea:b0:5e6:8e03:994e with SMTP id
- p10-20020a05621421ea00b005e68e03994emr271467qvj.38.1680806680528; 
- Thu, 06 Apr 2023 11:44:40 -0700 (PDT)
-X-Google-Smtp-Source: AKy350b2esvOM7SNf3mflCNYsRvsqb30rSrGo0KeUq5T2D+bFM8buWpXaMGtXaXNEy28BM83L3uLMQ==
-X-Received: by 2002:a05:6214:21ea:b0:5e6:8e03:994e with SMTP id
- p10-20020a05621421ea00b005e68e03994emr271427qvj.38.1680806680099; 
- Thu, 06 Apr 2023 11:44:40 -0700 (PDT)
-Received: from dell-per740-01.7a2m.lab.eng.bos.redhat.com
- (nat-pool-bos-t.redhat.com. [66.187.233.206])
- by smtp.gmail.com with ESMTPSA id
- lb30-20020a056214319e00b005dd8b93458esm708436qvb.38.2023.04.06.11.44.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Apr 2023 11:44:39 -0700 (PDT)
-From: Tom Rix <trix@redhat.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, nicholas.kazlauskas@amd.com,
- Jun.Lei@amd.com, Pavle.Kotarac@amd.com, chiahsuan.chung@amd.com,
- duncan.ma@amd.com, Charlene.Liu@amd.com, muansari@amd.com
-Subject: [PATCH] drm/amd/display: set variable dcn3_14_soc
- storage-class-specifier to static
-Date: Thu,  6 Apr 2023 14:44:34 -0400
-Message-Id: <20230406184434.1956813-1-trix@redhat.com>
-X-Mailer: git-send-email 2.27.0
+ d=1e100.net; s=20210112; t=1680889980; x=1683481980;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=KYBbdfYMz/vjcXkNGYT26LJaYJDJYJgOQo589rbtS2s=;
+ b=k7ER0Bp1c76Sd7gHLxCAKj7RDAQOESGVkMS7W3Kly9qJW89Aq9YQryBEB41BWbeCi6
+ Tw4V5zAYAaFj4+D7EKFweJda7pKH19UJN4b5+kQXgRCIkZPe1CP7uSjudWv05Gfg2KiA
+ XhI9bJPxIFXC57PkYF+jbIanQeU2ngtEg3gI4pOMDo1q8vyg99x05Di+dHVWd3nVhyxG
+ 008xmC1Q2HY27dw+VmZsFahgxYSzMGxBG2PVRLHVkTpbDquIx3MGdcwOuw04DGrV6F5b
+ gg0YnbKdapiSB3MSlMkQCVj19HQgZHxJl2LKaZ+fRj7l3Q6lnPGXGuf7P3qP7htZtBcf
+ u41w==
+X-Gm-Message-State: AAQBX9czKGF3MYxG/1ehFkJp+Wspe4g9Qq18nZ5Mt9vcQEEjnWdN3QL7
+ IwstpE4pSB6+GsZ6fQCTfDhlsvyfuZaLHiQKTkJctw==
+X-Google-Smtp-Source: AKy350a+v8VTeVHFSzQqt9MX7OgojFeGTP3VMzP+2ISQI5Bm8J3rb6li0V3ygg9UHvL/3/kvKvVCidFCyNNRg0JU/is=
+X-Received: by 2002:a65:5b43:0:b0:50f:5f89:2a9d with SMTP id
+ y3-20020a655b43000000b0050f5f892a9dmr671939pgr.1.1680889980187; Fri, 07 Apr
+ 2023 10:53:00 -0700 (PDT)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
+References: <20230325134503.1335510-1-trix@redhat.com>
+In-Reply-To: <20230325134503.1335510-1-trix@redhat.com>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Fri, 7 Apr 2023 10:52:49 -0700
+Message-ID: <CAKwvOdng_wH8qKnnGN=VpUhLK9q6wyc7sZKO7ORt-3QOKVP_nw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: remove unused matching_stream_ptrs
+ variable
+To: Jimmy.Kizito@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Sat, 08 Apr 2023 12:39:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,35 +68,68 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tom Rix <trix@redhat.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Cruise.Hung@amd.com, llvm@lists.linux.dev, sunpeng.li@amd.com,
+ airlied@gmail.com, Xinhui.Pan@amd.com, Rodrigo.Siqueira@amd.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ wenjing.liu@amd.com, nathan@kernel.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, Tom Rix <trix@redhat.com>, alexander.deucher@amd.com,
+ Jun.Lei@amd.com, harry.wentland@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-smatch reports
-drivers/gpu/drm/amd/amdgpu/../display/dc/dml/dcn314/dcn314_fpu.c:100:37: warning: symbol
-  'dcn3_14_soc' was not declared. Should it be static?
+Jimmy, can you review?
 
-This variable is only used in one file so should be static.
+The change LGTM; but I'm not sure if there was something else intended here=
+.
 
-Signed-off-by: Tom Rix <trix@redhat.com>
----
- drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Sat, Mar 25, 2023 at 6:45=E2=80=AFAM Tom Rix <trix@redhat.com> wrote:
+>
+> clang with W=3D1 reports
+> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_enc_cfg.c:625:6: er=
+ror:
+>   variable 'matching_stream_ptrs' set but not used [-Werror,-Wunused-but-=
+set-variable]
+>         int matching_stream_ptrs =3D 0;
+>             ^
+> This variable is not used so remove it.
+>
+> Signed-off-by: Tom Rix <trix@redhat.com>
+> ---
+>  drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c | 5 +----
+>  1 file changed, 1 insertion(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c b/driv=
+ers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
+> index 41198c729d90..30c0644d4418 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
+> @@ -622,7 +622,6 @@ bool link_enc_cfg_validate(struct dc *dc, struct dc_s=
+tate *state)
+>         int i, j;
+>         uint8_t valid_count =3D 0;
+>         uint8_t dig_stream_count =3D 0;
+> -       int matching_stream_ptrs =3D 0;
+>         int eng_ids_per_ep_id[MAX_PIPES] =3D {0};
+>         int ep_ids_per_eng_id[MAX_PIPES] =3D {0};
+>         int valid_bitmap =3D 0;
+> @@ -645,9 +644,7 @@ bool link_enc_cfg_validate(struct dc *dc, struct dc_s=
+tate *state)
+>                 struct link_enc_assignment assignment =3D state->res_ctx.=
+link_enc_cfg_ctx.link_enc_assignments[i];
+>
+>                 if (assignment.valid) {
+> -                       if (assignment.stream =3D=3D state->streams[i])
+> -                               matching_stream_ptrs++;
+> -                       else
+> +                       if (assignment.stream !=3D state->streams[i])
+>                                 valid_stream_ptrs =3D false;
+>                 }
+>         }
+> --
+> 2.27.0
+>
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c
-index c52b76610bd2..44082f65de1f 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c
-@@ -97,7 +97,7 @@ struct _vcs_dpi_ip_params_st dcn3_14_ip = {
- 	.dcc_supported = true,
- };
- 
--struct _vcs_dpi_soc_bounding_box_st dcn3_14_soc = {
-+static struct _vcs_dpi_soc_bounding_box_st dcn3_14_soc = {
- 		/*TODO: correct dispclk/dppclk voltage level determination*/
- 	.clock_limits = {
- 		{
--- 
-2.27.0
 
+--=20
+Thanks,
+~Nick Desaulniers
