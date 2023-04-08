@@ -4,115 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BFC0C6FD1D
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Apr 2023 16:56:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4DBDC77B61
+	for <amd-gfx@archiver.kernel.org>; Sat,  8 Apr 2023 11:46:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B03BF10EE18;
-	Fri,  7 Apr 2023 16:55:59 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on20614.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eb2::614])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E51110EE18
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Apr 2023 16:55:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IUQBr2sikieuIHSSjb5nNczFSArc7noZ7fFBfmUFOxdkDMisNAMf73j5vuUBxJ58F+3esQbc9DDJtvuD11pdz0I5hVvoqSsppSUSRgx2NGYrdM2BqbdMLJk+XI/zt2FOooeGdGj3q0eWzKT9WL86VSFZZJQQ6Y0E/qgHinoFLNIobnqghudcUB19tTjSaEGiSLNSTC3X8ZDH2xCBF/Q76rNt+VewSlzPVmp1gahO/vJRfAE1Nr0ABRKKVuQn7vplXatov21tH2OkIgwIYZMM7PB1OFtzobyiTsRYtGA04HWys6ivSCZu07mpr/oQIx4I7u+VBI9db55KVLsy1lMAaw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uVXZlLdjkLK2DLsDPpoEak3lc6tI0L2JMonHc4uRBnU=;
- b=S3ddgsCBArj6r6fw9meM4NA6+zv0tQy30MDSsZhnsknr2UXHWZ+dgSN8QFYwrI2qizo/g+pzYwiDvbPs4+jtXN5FU72g2yHgfteGTHluvKWSnNuK+KZR6En1D9yA+bq5MJNRe52BRQeJeT+PNmdEFdPaC5i3VWqk/qlpGwlnGm0QYGBGWrn5dfiEzHUJ1EJ/agoNP/FlzlL/wYkmOyfKN2/MpnM79fF2hXhN13zKrtU94U6/PRKndLAVxamTJURJdsFh45psZGsjGwGR9YEGMP7I9KTYZoB/mB3au8x8xNQzM2qxgBQZ3HeobhPhG71RwbaTwUTj+MEQ2R+E37d9OA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uVXZlLdjkLK2DLsDPpoEak3lc6tI0L2JMonHc4uRBnU=;
- b=RVKyGhMpv/526pKNpoWC3tqh1iiLjCspPPvzGB1XiodzuDaK24mvR/7JqvnwOQW0tYrxp0bwv4Lxwd3Y1oKEBAe4VD5cZB+IWeHZtHcQcT5mr3+HLOcs1vALb1f7P5YQTkzTHeEXpoewZhugsaL5tup2m/sUl48lwu5ldDnbH/w=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com (2603:10b6:5:38::25) by
- CY5PR12MB6600.namprd12.prod.outlook.com (2603:10b6:930:40::13) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6254.35; Fri, 7 Apr 2023 16:55:54 +0000
-Received: from DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::8299:158a:c296:de80]) by DM6PR12MB3370.namprd12.prod.outlook.com
- ([fe80::8299:158a:c296:de80%6]) with mapi id 15.20.6277.031; Fri, 7 Apr 2023
- 16:55:54 +0000
-Message-ID: <84100ef9-a098-b5b2-fbd6-22df2f1015da@amd.com>
-Date: Fri, 7 Apr 2023 12:55:40 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: Re: [PATCH] drm/amdgpu: refine get gpu clock counter method
-Content-Language: en-CA
-To: Tong Liu01 <Tong.Liu01@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230406101327.28310-1-Tong.Liu01@amd.com>
-From: Luben Tuikov <luben.tuikov@amd.com>
-In-Reply-To: <20230406101327.28310-1-Tong.Liu01@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT1P288CA0013.CANP288.PROD.OUTLOOK.COM (2603:10b6:b01::26)
- To DM6PR12MB3370.namprd12.prod.outlook.com
- (2603:10b6:5:38::25)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8D4010E13C;
+	Sat,  8 Apr 2023 11:46:32 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AB6F10E13C;
+ Sat,  8 Apr 2023 11:46:29 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A975B60A25;
+ Sat,  8 Apr 2023 11:46:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2C47C433D2;
+ Sat,  8 Apr 2023 11:46:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1680954387;
+ bh=CU9zC5N7CshRtPMy5r5KysPZz2ppwbhQKcAycllefRE=;
+ h=Subject:From:To:Date:From;
+ b=dtcRn+V69LzY5c1vJOD+JbnTK0XhSdMQJX7Ltfu93qu4EKcE+B5xFyY/6l1QTvMtH
+ yzT+uZcfsG/PhEPNrJYFauRuGghGv3p+pbK3ywlsgHC3G9u8M5I7rKTHgDeyCn/KBW
+ ril5YrQKSL6+KmvPkxRFkSYU7ScnNJ9zRJgyNubsH13s1hxTgOlsY9Ak23FsYM1grQ
+ czXkigkQCtDVHvlMWwaxRaCQM9i3RNYByGCAxeiCsrC/yavwEwumac3WFFMGLn/r0z
+ KsZT8/lepcb9ms0uuutxhceM9EDZ7bNH4mS5jjoM3aH/gZ1aKEEwM/5J/v+DRGAVZm
+ wMwM2Y/SONiYg==
+Message-ID: <fed2a3f9111713cc619cbd54d7c1be0987c7da7b.camel@kernel.org>
+Subject: NULL pointer dereference in drm_dp_add_payload_part2+0xca/0x100
+From: Jeff Layton <jlayton@kernel.org>
+To: amd-gfx <amd-gfx@lists.freedesktop.org>, dri-devel
+ <dri-devel@lists.freedesktop.org>, linux-kernel
+ <linux-kernel@vger.kernel.org>
+Date: Sat, 08 Apr 2023 07:46:25 -0400
+Content-Type: text/plain; charset="ISO-8859-15"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4 (3.46.4-1.fc37) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3370:EE_|CY5PR12MB6600:EE_
-X-MS-Office365-Filtering-Correlation-Id: a9477e55-edac-47c7-4688-08db3788f334
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: khDFjaa79k9PI0eAbHrxxblhsrXiVsXIZl/PopvT/2K/ltyar0WHs1OVVfAWyNwlPlyvfRKybfi/xeFX9PdV/irm8wVwmHrfH07Xyj0lw4CDMaGVQk821ZM065GM2azOCmTVNd0haq3kCYFtY0qrLy7uHTxhG2sYay7O63BcRzT0xhX3PB8uRmZQ6B9ThGv6gIUsaJ77m2JomIjWTzfqsGQMiJq7msB3LHt9DT44kUDk/nlxQlL4x127V+q/18t876eShSmljwzUpIcI/8BfdmLfr+L94E9pQIt4spLOmoAA0q95U/dufn6CjVILab+yE6bjimdZX7WovhoQDWpnVFsHDHXPkW50X2is9NG7Sy+SsLOGfH3tbhVJRMzZOTp9rJPCvxsvp8B6a56XUMY1Tq6SIg0CLAeZKRz90sfk1w09Qtf2CHi1omFi67azVefKMQJMPS4KH4ot4wQzucpnGreaqMnDhCIClBgNQ6azEHt3eqHbElolYpq9WIcISx7/RrzNR6u3MlR7fZ5DvwXfKzEWDA5ZUBg0gr1z2JvoleXjMJBlL3YVaQQSaFqvp6jfaaGLHTqvYi+hbZNJ0MLc4AhCavuZ/0lI7vclRsehCqYD9Gba2Vraio4KE06KvesBeWaCDS6Hg8UC78Sa7p0FDQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3370.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(366004)(376002)(136003)(396003)(346002)(39860400002)(451199021)(6486002)(2906002)(478600001)(83380400001)(31686004)(6506007)(54906003)(41300700001)(6512007)(86362001)(186003)(8936002)(6666004)(26005)(53546011)(5660300002)(2616005)(316002)(8676002)(4326008)(44832011)(66556008)(66946007)(66476007)(38100700002)(31696002)(36756003)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZHBtMisxdG1DQzdHaFhzcUJyU25wemp1d2ZiakhDZTcySXd0QUxUU29tSHJK?=
- =?utf-8?B?VHRrWHU5RHhUMzZnbS94WXZSdDF2R0d0ZGIrb2hwSHNEcjg5cWM3OVMvWDkr?=
- =?utf-8?B?L2RQL3U5cjNtUWJodkpPTThyVE44bUNISXhxTytkRmE0dVovU2pYdjdXQ1Ex?=
- =?utf-8?B?Vk9VU2N6czNicXF0YnJQRXZIb1NmRmQyUDVoVWFVTUlnMjFVSHY0RkJtcnRV?=
- =?utf-8?B?UzVpTFZ4OTVKcFUvdzdQYUVESU9hbDJEQ1BaRGlnTDc1cFN5YlZMUUVHKzdq?=
- =?utf-8?B?dW5Da3M1L1FJWm1kR21mT3VqNEd0eXFDUXZBR3U2Z051Wk5zWjNOd1BaRDhl?=
- =?utf-8?B?RkpBRDIrNVV2eW05Zkh3RlNBYU9vTk9sakxZeWJLR1BSOEdaU3R4MHFMYXpB?=
- =?utf-8?B?Qk9Lc0xqM1ljTTg2eGhPNmt5V211WllXNWRIelFxcDljOGQyN1I0dVNQM0FZ?=
- =?utf-8?B?THF0UzRuSDA3MThUdEpMbml0WUFoNkxzNWpYOURHVVZ6OGV1dnduV21QSWhJ?=
- =?utf-8?B?bUpTUVhlWFF0akRCVDg5ZHdYZUsvUm50cVQ4enBaM2hkVUdTN1llM1lVMUJJ?=
- =?utf-8?B?U0d0aVVybFp4cVI2NG1FSnRKeGx5NW1nUEJxdGRtRXk4WG5zSkFLQnBOOUk1?=
- =?utf-8?B?Rk4vL2daN1l1V2xjZHllNDc0VGtzVCtLRklYZy9IRnZSS29oUUNORzg2blph?=
- =?utf-8?B?aFJneDlSUXRMZ1NmaFh6Tm5zWFpmNW5vQk4zV3k1UlJqVWRQYmk3elVtQ1o1?=
- =?utf-8?B?clltcCthOTJkREVRMXQ5dTh1aEtDZG1LeFJKaUwwaGV4NDk4ZnpKemdJV054?=
- =?utf-8?B?Q3N2L0k3YldFeklaMXlCUlcvQWpHbUtYZkYwZGtmSFdveWx6d1RHQ2YvUGhk?=
- =?utf-8?B?akpmQlhIdThBMk5hYzVXWnhGUndEN3lXZG1CTHNKazNXRjRpdzMzQm5kNkoz?=
- =?utf-8?B?cjRIMWtqam9EYW9CUjl1ajFvLzFFRkNUV3ZlYThmakU1SFE2WjJMZS9vQTRp?=
- =?utf-8?B?RnA0YVlseG13OURWS1F1bnlENVNDM1cxeDJxNXVDaUViRnZIZ2psdEhGcVlZ?=
- =?utf-8?B?VFUwRWRIT2pOR0gxaG1iWVIyTVE4MnNrOG80b2puSHp4UFJSc2lGRFVFZEZy?=
- =?utf-8?B?Y3VsK2VCY245bHk5ckl1N1pQT0x3aXluMWpxMFhoNTRnYTA0Wm1GUXZ6K3I0?=
- =?utf-8?B?WmpSdmNrbGxTVUR1Szkrcis3L3FVbXUrSm80dFRjdGlUT1QwOW5xL3pmQ2Fz?=
- =?utf-8?B?bUV0OFYzRHpNT2NOdVJ4NkJHc3g2RVFrRGplYkhQcmxlRVpvT2xLdzBNN1J2?=
- =?utf-8?B?bWFiQStibkRnbzRxb3BRbWJzT1Bva1JFWisvZHN3MktKWTg0ME5pMXJ2aEF3?=
- =?utf-8?B?cXF3WGZkcDFLMVF3c3BTZGNONk5zaWlybXo1RUpHODEraFNWZUJmeWIyRVkr?=
- =?utf-8?B?bEZWVmNuSE4rNFlDaWFHVDFEMFBDVVFFSFdBMlJnRU1Nd25oZ0Y3Q2V2TkdK?=
- =?utf-8?B?MHhKd1pJZXU2d0xZblgyTkI2WlBSVFY2M29VM3hYeE5oWGhrUU5aUXhvb0lW?=
- =?utf-8?B?VGpkVFRVR3Q3UTVnRlBmOExzS2JyTkt3RmVhS3JxNCtzTm9qdUsxaDJqNDFT?=
- =?utf-8?B?bHU4MjdsRlJYRUlMVFpESVRMbFpNdjlLRXlZUVZWbUV5Y1pGR3JGdStpMzlq?=
- =?utf-8?B?eU0xSVhqN1ZHalljZjA5MmFKL0RnS0QrS09TQ3NMY3M1MXdrVmJ5ZHVEUnF0?=
- =?utf-8?B?cWVPenF0RDdRSmxZL1pGVnB0N2hFR1RLelB3dkhkendhZEhqbnFpRVZnM0ZY?=
- =?utf-8?B?aDBiaDVZbC9MRTY4ZFp4bXJxQ0tHSVVkRTIyTzNtUXE2dlJseXRFeVJSU0hW?=
- =?utf-8?B?TkRpK2lteFJPSDlBSzB6bFhlaEJaeWREMDJHRGVPYW1ITjdLNmplZ240MElX?=
- =?utf-8?B?WHBpbmNZem5aR0pJNG54K05IZUxNSzNhckpSNlF3S0dSMUw3UHVOMFdYS3hw?=
- =?utf-8?B?ZkFwenhoS3ZOZEJxby9qamZpbTd0QWFYQ2syaDN2ejJBbUQzTXJFUU1QSXor?=
- =?utf-8?B?TXFIaEFobW85SmRMZ2orc0JpKzdFQlYxclU5N1piWXZrVmk1NUNTZXFHbld2?=
- =?utf-8?Q?wM1IZOdIBTb3C8T/J3NaRyNfs?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a9477e55-edac-47c7-4688-08db3788f334
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3370.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2023 16:55:54.1170 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7SSQc+9j5KExLAcq7gro7vN93sLKDzz5h6xYV2x46tqXLm9L08PBTil/WYeXHGon
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6600
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,64 +52,162 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jack Xiao <Jack.Xiao@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
- horace.chen@amd.com, Kevin Wang <Kevin1.Wang@amd.com>, haijun.chang@amd.com,
- Deucher Alexander <Alexander.Deucher@amd.com>, Evan Quan <Evan.Quan@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Monk Liu <Monk.Liu@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Acked-by: Luben Tuikov <luben.tuikov@amd.com>
+I've hit some repeated crashes in drm_dp_add_payload_part2. Here's one
+from this morning that occurred not long after booting the machine. I
+hadn't even logged in yet -- it was still at a gdm prompt:
 
-Regards,
-Luben
+Apr 08 05:34:20 tleilax kernel: amdgpu 0000:30:00.0: [drm] Failed to create=
+ MST payload for port 0000000074d1d8eb: -5
+Apr 08 05:34:20 tleilax kernel: BUG: kernel NULL pointer dereference, addre=
+ss: 0000000000000008
+Apr 08 05:34:20 tleilax kernel: #PF: supervisor read access in kernel mode
+Apr 08 05:34:20 tleilax kernel: #PF: error_code(0x0000) - not-present page
+Apr 08 05:34:20 tleilax kernel: PGD 0 P4D 0=20
+Apr 08 05:34:20 tleilax kernel: Oops: 0000 [#1] PREEMPT SMP NOPTI
+Apr 08 05:34:20 tleilax kernel: CPU: 8 PID: 2278 Comm: gnome-shell Kdump: l=
+oaded Not tainted 6.2.9-200.fc37.x86_64 #1
+Apr 08 05:34:20 tleilax kernel: Hardware name: Micro-Star International Co.=
+, Ltd. MS-7A33/X370 SLI PLUS (MS-7A33), BIOS 3.JR 11/29/2019
+Apr 08 05:34:20 tleilax kernel: RIP: 0010:drm_dp_add_payload_part2+0xca/0x1=
+00 [drm_display_helper]
+Apr 08 05:34:20 tleilax kernel: Code: 8b 7e 08 44 89 e9 4c 89 c2 48 c7 c6 6=
+0 d2 55 c0 e8 ab 69 54 c5 44 89 e8 5b 5d 41 5c 41 5d e9 2d 73 a2 c5 48 8b 8=
+0 60 05 00 00 <48> 8b 76 08 4c 8b 40 60 48 85 f6 74 04 48 8b 76 08 4>
+Apr 08 05:34:20 tleilax kernel: RSP: 0018:ffffa4238a2db590 EFLAGS: 00010246
+Apr 08 05:34:20 tleilax kernel: RAX: ffff961550cac000 RBX: ffff961550cac000=
+ RCX: ffffffffc055ca98
+Apr 08 05:34:20 tleilax kernel: RDX: ffff9615a6326140 RSI: 0000000000000000=
+ RDI: ffff9615578a4568
+Apr 08 05:34:20 tleilax kernel: RBP: 0000000000000001 R08: 00000000fffffffb=
+ R09: 0000000000000000
+Apr 08 05:34:20 tleilax kernel: R10: 0000000000000002 R11: 0000000000000100=
+ R12: ffff9615578a4000
+Apr 08 05:34:20 tleilax kernel: R13: ffff96154a5b8de0 R14: ffffffffc0d9d980=
+ R15: ffff9615589c1f90
+Apr 08 05:34:20 tleilax kernel: FS:  00007f1c8ad775c0(0000) GS:ffff96241f00=
+0000(0000) knlGS:0000000000000000
+Apr 08 05:34:20 tleilax kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080=
+050033
+Apr 08 05:34:20 tleilax kernel: CR2: 0000000000000008 CR3: 000000012f908000=
+ CR4: 00000000003506e0
+Apr 08 05:34:20 tleilax kernel: Call Trace:
+Apr 08 05:34:20 tleilax kernel:  <TASK>
+Apr 08 05:34:20 tleilax kernel:  dm_helpers_dp_mst_send_payload_allocation+=
+0x83/0xb0 [amdgpu]
+Apr 08 05:34:20 tleilax kernel:  dc_link_allocate_mst_payload+0x16d/0x280 [=
+amdgpu]
+Apr 08 05:34:20 tleilax kernel:  core_link_enable_stream+0x8ec/0xa10 [amdgp=
+u]
+Apr 08 05:34:20 tleilax kernel:  ? optc1_set_drr+0x136/0x1e0 [amdgpu]
+Apr 08 05:34:20 tleilax kernel:  dce110_apply_ctx_to_hw+0x61b/0x670 [amdgpu=
+]
+Apr 08 05:34:20 tleilax kernel:  dc_commit_state_no_check+0x39b/0xcd0 [amdg=
+pu]
+Apr 08 05:34:20 tleilax kernel:  dc_commit_state+0x107/0x120 [amdgpu]
+Apr 08 05:34:20 tleilax kernel:  amdgpu_dm_atomic_commit_tail+0x5bf/0x2d20 =
+[amdgpu]
+Apr 08 05:34:20 tleilax kernel:  ? cpufreq_this_cpu_can_update+0x12/0x60
+Apr 08 05:34:20 tleilax kernel:  ? sugov_get_util+0x7e/0x90
+Apr 08 05:34:20 tleilax kernel:  ? sugov_update_single_freq+0xb7/0x180
+Apr 08 05:34:20 tleilax kernel:  ? _raw_spin_lock+0x13/0x40
+Apr 08 05:34:20 tleilax kernel:  ? raw_spin_rq_lock_nested+0x1e/0x70
+Apr 08 05:34:20 tleilax kernel:  ? psi_group_change+0x168/0x400
+Apr 08 05:34:20 tleilax kernel:  ? _raw_spin_unlock+0x15/0x30
+Apr 08 05:34:20 tleilax kernel:  ? finish_task_switch.isra.0+0x9b/0x300
+Apr 08 05:34:20 tleilax kernel:  ? __switch_to+0x106/0x410
+Apr 08 05:34:20 tleilax kernel:  ? __schedule+0x3d4/0x13c0
+Apr 08 05:34:20 tleilax kernel:  ? dma_resv_get_fences+0x11b/0x220
+Apr 08 05:34:20 tleilax kernel:  ? get_nohz_timer_target+0x18/0x190
+Apr 08 05:34:20 tleilax kernel:  ? lock_timer_base+0x61/0x80
+Apr 08 05:34:20 tleilax kernel:  ? _raw_spin_unlock_irqrestore+0x23/0x40
+Apr 08 05:34:20 tleilax kernel:  ? __mod_timer+0x29e/0x3d0
+Apr 08 05:34:20 tleilax kernel:  ? preempt_count_add+0x6a/0xa0
+Apr 08 05:34:20 tleilax kernel:  ? _raw_spin_lock_irq+0x19/0x40
+Apr 08 05:34:20 tleilax kernel:  ? _raw_spin_unlock_irq+0x1b/0x40
+Apr 08 05:34:20 tleilax kernel:  ? wait_for_completion_timeout+0x13a/0x170
+Apr 08 05:34:20 tleilax kernel:  ? wait_for_completion_interruptible+0x135/=
+0x1e0
+Apr 08 05:34:20 tleilax kernel:  ? __pfx_dma_fence_default_wait_cb+0x10/0x1=
+0
+Apr 08 05:34:20 tleilax kernel:  commit_tail+0x94/0x130
+Apr 08 05:34:20 tleilax kernel:  drm_atomic_helper_commit+0x112/0x140
+Apr 08 05:34:20 tleilax kernel:  drm_atomic_commit+0x96/0xc0
+Apr 08 05:34:20 tleilax kernel:  ? __pfx___drm_printfn_info+0x10/0x10
+Apr 08 05:34:20 tleilax kernel:  drm_mode_atomic_ioctl+0x959/0xb50
+Apr 08 05:34:20 tleilax kernel:  ? __pfx_drm_mode_atomic_ioctl+0x10/0x10
+Apr 08 05:34:20 tleilax kernel:  drm_ioctl_kernel+0xc9/0x170
+Apr 08 05:34:20 tleilax kernel:  drm_ioctl+0x22f/0x410
+Apr 08 05:34:20 tleilax kernel:  ? __pfx_drm_mode_atomic_ioctl+0x10/0x10
+Apr 08 05:34:20 tleilax kernel:  amdgpu_drm_ioctl+0x4a/0x80 [amdgpu]
+Apr 08 05:34:20 tleilax kernel:  __x64_sys_ioctl+0x90/0xd0
+Apr 08 05:34:20 tleilax kernel:  do_syscall_64+0x5b/0x80
+Apr 08 05:34:20 tleilax kernel:  ? __x64_sys_ioctl+0xa8/0xd0
+Apr 08 05:34:20 tleilax kernel:  ? syscall_exit_to_user_mode+0x17/0x40
+Apr 08 05:34:20 tleilax kernel:  ? do_syscall_64+0x67/0x80
+Apr 08 05:34:20 tleilax kernel:  ? sched_clock_cpu+0xb/0xc0
+Apr 08 05:34:20 tleilax kernel:  ? __irq_exit_rcu+0x3d/0x140
+Apr 08 05:34:20 tleilax kernel:  entry_SYSCALL_64_after_hwframe+0x72/0xdc
+Apr 08 05:34:20 tleilax kernel: RIP: 0033:0x7f1c8e723d6f
+Apr 08 05:34:20 tleilax kernel: Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 6=
+0 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 0=
+0 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 18 48 8b 44 24 18 64 48 2b 0>
+Apr 08 05:34:20 tleilax kernel: RSP: 002b:00007ffea61067d0 EFLAGS: 00000246=
+ ORIG_RAX: 0000000000000010
+Apr 08 05:34:20 tleilax kernel: RAX: ffffffffffffffda RBX: 00005571af410fb0=
+ RCX: 00007f1c8e723d6f
+Apr 08 05:34:20 tleilax kernel: RDX: 00007ffea6106870 RSI: 00000000c03864bc=
+ RDI: 000000000000000a
+Apr 08 05:34:20 tleilax kernel: RBP: 00007ffea6106870 R08: 0000000000000011=
+ R09: 0000000000000011
+Apr 08 05:34:20 tleilax kernel: R10: 00005571ae320010 R11: 0000000000000246=
+ R12: 00000000c03864bc
+Apr 08 05:34:20 tleilax kernel: R13: 000000000000000a R14: 00005571ae6ff140=
+ R15: 00005571b0261950
+Apr 08 05:34:20 tleilax kernel:  </TASK>
+Apr 08 05:34:20 tleilax kernel: Modules linked in: rfcomm snd_seq_dummy snd=
+_hrtimer rpcrdma rdma_cm iw_cm ib_cm ib_core xt_CHECKSUM xt_MASQUERADE xt_c=
+onntrack ipt_REJECT nf_nat_tftp nf_conntrack_tftp nf_conntrack_netbi>
+Apr 08 05:34:20 tleilax kernel:  videobuf2_memops rapl mxm_wmi videobuf2_v4=
+l2 wmi_bmof snd_pcm k10temp rfkill pcspkr videobuf2_common i2c_piix4 snd_ti=
+mer joydev videodev snd mc parport_pc soundcore parport gpio_amdpt g>
+Apr 08 05:34:20 tleilax kernel: CR2: 0000000000000008
+Apr 08 05:34:20 tleilax kernel: ---[ end trace 0000000000000000 ]---
 
-On 2023-04-06 06:13, Tong Liu01 wrote:
-> [why]
-> regGOLDEN_TSC_COUNT_LOWER/regGOLDEN_TSC_COUNT_UPPER are protected and
-> unaccessible under sriov.
-> The clock counter high bit may update during reading process.
-> 
-> [How]
-> Replace regGOLDEN_TSC_COUNT_LOWER/regGOLDEN_TSC_COUNT_UPPER with
-> regCP_MES_MTIME_LO/regCP_MES_MTIME_HI to get gpu clock under sriov.
-> Refine get gpu clock counter method to make the result more precise.
-> 
-> Signed-off-by: Tong Liu01 <Tong.Liu01@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 17 +++++++++++++++--
->  1 file changed, 15 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> index ecf8ceb53311..107c487c0c37 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -4671,11 +4671,24 @@ static int gfx_v11_0_post_soft_reset(void *handle)
->  static uint64_t gfx_v11_0_get_gpu_clock_counter(struct amdgpu_device *adev)
->  {
->  	uint64_t clock;
-> +	uint64_t clock_counter_lo, clock_counter_hi_pre, clock_counter_hi_after;
->  
->  	amdgpu_gfx_off_ctrl(adev, false);
->  	mutex_lock(&adev->gfx.gpu_clock_mutex);
-> -	clock = (uint64_t)RREG32_SOC15(SMUIO, 0, regGOLDEN_TSC_COUNT_LOWER) |
-> -		((uint64_t)RREG32_SOC15(SMUIO, 0, regGOLDEN_TSC_COUNT_UPPER) << 32ULL);
-> +	if (amdgpu_sriov_vf(adev)) {
-> +		clock_counter_hi_pre = (uint64_t)RREG32_SOC15(GC, 0, regCP_MES_MTIME_HI);
-> +		clock_counter_lo = (uint64_t)RREG32_SOC15(GC, 0, regCP_MES_MTIME_LO);
-> +		clock_counter_hi_after = (uint64_t)RREG32_SOC15(GC, 0, regCP_MES_MTIME_HI);
-> +		if (clock_counter_hi_pre != clock_counter_hi_after)
-> +			clock_counter_lo = (uint64_t)RREG32_SOC15(GC, 0, regCP_MES_MTIME_LO);
-> +	} else {
-> +		clock_counter_hi_pre = (uint64_t)RREG32_SOC15(SMUIO, 0, regGOLDEN_TSC_COUNT_UPPER);
-> +		clock_counter_lo = (uint64_t)RREG32_SOC15(SMUIO, 0, regGOLDEN_TSC_COUNT_LOWER);
-> +		clock_counter_hi_after = (uint64_t)RREG32_SOC15(SMUIO, 0, regGOLDEN_TSC_COUNT_UPPER);
-> +		if (clock_counter_hi_pre != clock_counter_hi_after)
-> +			clock_counter_lo = (uint64_t)RREG32_SOC15(SMUIO, 0, regGOLDEN_TSC_COUNT_LOWER);
-> +	}
-> +	clock = clock_counter_lo | (clock_counter_hi_after << 32ULL);
->  	mutex_unlock(&adev->gfx.gpu_clock_mutex);
->  	amdgpu_gfx_off_ctrl(adev, true);
->  	return clock;
+$ ./scripts/faddr2line --list /usr/lib/debug/lib/modules/6.2.9-200.fc37.x86=
+_64/kernel/drivers/gpu/drm/display/drm_display_helper.ko.debug drm_dp_add_p=
+ayload_part2+0xca/0x100
+drm_dp_add_payload_part2+0xca/0x100:
 
+drm_dp_add_payload_part2 at /usr/src/debug/kernel-6.2.9/linux-6.2.9-200.fc3=
+7.x86_64/drivers/gpu/drm/display/drm_dp_mst_topology.c:3407
+ 3402 	{
+ 3403 		int ret =3D 0;
+ 3404 =09
+ 3405 		/* Skip failed payloads */
+ 3406 		if (payload->vc_start_slot =3D=3D -1) {
+>3407<			drm_dbg_kms(state->dev, "Part 1 of payload creation for %s failed,=
+ skipping part 2\n",
+ 3408 				    payload->port->connector->name);
+ 3409 			return -EIO;
+ 3410 		}
+ 3411 =09
+ 3412 		ret =3D drm_dp_create_payload_step2(mgr, payload);
+
+Since %rsi is NULL and the ->dev field is 8 bytes into the struct, I'm
+guessing that means that "state" was NULL here.
+
+I'm assuming that the real bug is in the caller (and I'm happy to help
+track that down), but would it make sense to allow this function to
+gracefully handle a NULL state pointer? IOW something like this?
+
+     drm_dbg_kms(state ? state->dev : NULL, "Part 1 of payload creation for=
+ %s failed, skipping part 2\n",
+
+I think that would at least prevent this problem from crashing the machine.
+
+Thanks,
+--=20
+Jeff Layton <jlayton@kernel.org>
