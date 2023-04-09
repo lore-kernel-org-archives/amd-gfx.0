@@ -4,64 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02080C77B61
-	for <amd-gfx@archiver.kernel.org>; Sun,  9 Apr 2023 14:47:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6E0CC77B70
+	for <amd-gfx@archiver.kernel.org>; Sun,  9 Apr 2023 15:21:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB8C610E192;
-	Sun,  9 Apr 2023 14:46:56 +0000 (UTC)
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [IPv6:2a00:1450:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34F1210E192
- for <amd-gfx@lists.freedesktop.org>; Sun,  9 Apr 2023 14:46:55 +0000 (UTC)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-94a342f4c8eso12259866b.0
- for <amd-gfx@lists.freedesktop.org>; Sun, 09 Apr 2023 07:46:55 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87EC410E1BA;
+	Sun,  9 Apr 2023 15:21:37 +0000 (UTC)
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 484D310E1BA
+ for <amd-gfx@lists.freedesktop.org>; Sun,  9 Apr 2023 15:21:35 +0000 (UTC)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ hg25-20020a05600c539900b003f05a99a841so9487976wmb.3
+ for <amd-gfx@lists.freedesktop.org>; Sun, 09 Apr 2023 08:21:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=basnieuwenhuizen.nl; s=google; t=1681051612; x=1683643612;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20210112; t=1681053693; x=1683645693;
+ h=in-reply-to:from:references:cc:to:content-language:subject
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
  :message-id:reply-to;
- bh=lfvKhQ+oV1l4cha8UMDqL2oyVB7mtYaHhVuM37/Ma98=;
- b=dtswPVVbbqVIdJojH4B3ZTvZB+Dnol9eJ67cQuzkEB/r+5N4xQBr+p1UAmFqs9huU6
- rQo/BPbysgix9ppGi6Q4WRjH1bP4Nb8mgvrYqhyZ8Z3Yy5XnlJ29RQiWWS/NRb/wjc1R
- qouOGxsEcfSw0HIyYU0wgQZEfy9v3Ay1fJe15vn6kBUba2495pwZk69cYrvMxuzQU0bg
- fxflOWMZhsTqiM1FEYowLrfzRk71RpKMEmWRa8dWHoXZKbyIREBSikrp+5FLbcMkceCI
- P3e/wMWV+sgejaU3l9gGhTbLm0KKcEN++WCFxo7hbMyeExdaQuxubq4AWG1OT8DoAk66
- WiUA==
+ bh=wMB0wcqy/oxeERBh1qn/dfjt06YJyHzfy0J4864U8nk=;
+ b=Gyex41tckFcWZEH21xWVdhZ4HHRwaDrLtBlLq/S4J06pI7Hm9rxfsNzZpZEz4wAmH0
+ YFITQrNHGMJ1EL0L1Vv/tPu29SsX1BAiO3sdQdc4GJ+atCe5S0GJmeBcNLpsZ/qgtlV0
+ lej0vAmWeSMhVdYKZiAmcepPWY8Bcm5jRuG/Ri9xOnF/NqequBPWoxwstK/tUE1ol23N
+ 9gdvrlKbG+XSEc1VlCJH3sNFDcdpQFkyk35vdA/mEVOtwJu/jo81zcQrQ213vQwRJhvr
+ 510c4ps8YNNfk/oVTMi5+dQ/Y8aP7Fx9+plPV5vek4NgsuL4jMMzIu+XWndDQG2BjIZo
+ zQoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681051612; x=1683643612;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=lfvKhQ+oV1l4cha8UMDqL2oyVB7mtYaHhVuM37/Ma98=;
- b=xc5rpIXUhf55WJfUwt+tGGj4y+cju3t4t6b/GqnuiI1B09qhbbAspyD+F3WfGLUqfS
- LYghRKV81MGpztTVmHmWCyhCT+CHrwmjpqLjo9gECY5bj5DlvEp+1dwfsSZrZU1S8E92
- Cj/4dmCJijWeYAb3U6CVn27uPeyaOzdX/t3ynSEv5fI81vn0e4S89Rg8wobtgDptRa4D
- 0eeH68F6fvSyNrd22xDEaFC0CP69CREATkTfD8vF6xpcehb1xlPMuLAQDZg5H4+gmyA2
- qPGnrV8/SZGrky/arx8+deFzY+PhtAnqobktspZCXJbSlKYdw0YR3hEbCK+6FPGBiJ2w
- RX1w==
-X-Gm-Message-State: AAQBX9cqTeh3HLL2ma0wO4UdhqciVbsoNLn7sV1i+gLXHsRz0/nldIMN
- 59u7rC0nMLKmegnKSU9fjONvxYYNohQqXNMT00C3yA==
-X-Google-Smtp-Source: AKy350arG1dLP2rUhMRERhmFY89x9QTvytHAPtFKJr1+o32iwL2gfU7vsXZJJmrSpOUB7F+Qtcg4vw==
-X-Received: by 2002:a17:906:208a:b0:94a:8619:2893 with SMTP id
- 10-20020a170906208a00b0094a86192893mr515242ejq.3.1681051612685; 
- Sun, 09 Apr 2023 07:46:52 -0700 (PDT)
-Received: from bas-workstation.. ([2a02:aa12:a782:cc00::ab])
+ d=1e100.net; s=20210112; t=1681053693; x=1683645693;
+ h=in-reply-to:from:references:cc:to:content-language:subject
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=wMB0wcqy/oxeERBh1qn/dfjt06YJyHzfy0J4864U8nk=;
+ b=teCBa2Fet4cTqF4oZegqXI6ZIav72BaCLn5+02aNufhOntkZxw4Q34RjdyuZeei8BX
+ zWm71Ppo/ypbqtGhDBB7PY4x2r5/zXZdfexTxq667M12zKzlewjy+VzmYQfn0c6NU2tn
+ kCXEI8uWQ0lQSM6WQS/b2F/O0LvAzH+YthWrU4k1ZSu12UeguSmFhkJOfZbABXk3h6a/
+ il036kXfomYYKvHMCcKdSurSi84kdBBfJenryoxteb3LHkH04VBgUJHnbtxd9+c5Wxav
+ KnKoxp1yBfeAephNy2whLhP1JeDZM6K5Dp7nZO4NwyKJQWBNTKcb1sDRAtFNHcLjQbE7
+ zKdQ==
+X-Gm-Message-State: AAQBX9efcaiWkrc9EzUSLykPXKywGsYWvt52rimFSb/Ge1aQCE5iQswD
+ 6i5yHoIOyi9lzT6cL2jHT0g=
+X-Google-Smtp-Source: AKy350YCTxwGfm+dmZlRP1EvUu6eXFWg/B4OZseLBdnLfM4Y9a3FVxuO9rP9tOhRdzk5v71k+Spodg==
+X-Received: by 2002:a05:600c:2184:b0:3ef:64b4:b081 with SMTP id
+ e4-20020a05600c218400b003ef64b4b081mr3143294wme.39.1681053693053; 
+ Sun, 09 Apr 2023 08:21:33 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1256:79a0:f3e8:9542:46ff:241f?
+ ([2a02:908:1256:79a0:f3e8:9542:46ff:241f])
  by smtp.gmail.com with ESMTPSA id
- xj5-20020a170906db0500b00924d38bbdc0sm4155587ejb.105.2023.04.09.07.46.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 09 Apr 2023 07:46:52 -0700 (PDT)
-From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/3] drm/amdgpu: Add support for querying the max ibs in a
- submission.
-Date: Sun,  9 Apr 2023 16:44:45 +0200
-Message-Id: <20230409144445.374816-3-bas@basnieuwenhuizen.nl>
-X-Mailer: git-send-email 2.40.0
-In-Reply-To: <20230409144445.374816-1-bas@basnieuwenhuizen.nl>
-References: <20230409144445.374816-1-bas@basnieuwenhuizen.nl>
+ k23-20020a05600c0b5700b003ee44b2effasm10849200wmr.12.2023.04.09.08.21.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 09 Apr 2023 08:21:32 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------eBFm1rYmJ2UK6NMVt24iB3Lc"
+Message-ID: <2897fa79-f0ef-1ddb-dc38-05ef429fe0d9@gmail.com>
+Date: Sun, 9 Apr 2023 17:21:35 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH 03/13] drm/amdgpu/UAPI: add new CS chunk for GFX shadow
+ buffers
+Content-Language: en-US
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+References: <20230330191750.1134210-1-alexander.deucher@amd.com>
+ <20230330191750.1134210-4-alexander.deucher@amd.com>
+ <CAAxE2A7nvmXdUaXESi4g6HVBFxk+dooz7tZYQfjGE8O2fKFi-w@mail.gmail.com>
+ <8a98b160-5276-54f5-d166-e12a572892e9@amd.com>
+ <CAAxE2A4LzFudfzTNRr290ORZvcF6-xzKiyNM6LZ3uiZDPerf5Q@mail.gmail.com>
+ <b1485943-5f0a-1a7e-f0a4-b35771b48a23@gmail.com>
+ <CAAxE2A6m346bTD7G=wMa=8OcRmk6OHui9N=Z9B5xHCS4VxxYwQ@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CAAxE2A6m346bTD7G=wMa=8OcRmk6OHui9N=Z9B5xHCS4VxxYwQ@mail.gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,124 +84,298 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: maraeo@gmail.com, timur.kristof@gmail.com,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, alexander.deucher@amd.com,
- David Airlie <airlied@gmail.com>, christian.koenig@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We need to introduce a new version of the info struct because
-libdrm_amdgpu forgot any versioning info in amdgpu_query_hw_ip_info
-so the mesa<->libdrm_amdgpu interface can't handle increasing the
-size.
+This is a multi-part message in MIME format.
+--------------eBFm1rYmJ2UK6NMVt24iB3Lc
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-This info would be used by radv to figure out when we need to
-split a submission into multiple submissions. radv currently has
-a limit of 192 which seems to work for most gfx submissions, but
-is way too high for e.g. compute or sdma.
+We removed the GDS information because they were unnecessary. The GDS 
+size was already part of the device info before we added the shadow info.
 
-Because the kernel handling is just fine we can just use the v2
-everywhere and have the return_size do the versioning for us,
-with userspace interpreting 0 as unknown.
+But as far as I know the firmware needs valid VAs for all three buffers 
+or won't work correctly.
 
-Userspace implementation:
-https://gitlab.freedesktop.org/bnieuwenhuizen/drm/-/tree/ib-rejection
-https://gitlab.freedesktop.org/bnieuwenhuizen/mesa/-/tree/ib-rejection
+Christian.
 
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2498
-Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Cc: David Airlie <airlied@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |  7 ++++--
- include/uapi/drm/amdgpu_drm.h           | 29 +++++++++++++++++++++++++
- 2 files changed, 34 insertions(+), 2 deletions(-)
+Am 06.04.23 um 17:01 schrieb Marek Olšák:
+> There is no GDS shadowing info in the device info uapi, so userspace 
+> can't create any GDS buffer and thus can't have any GDS va. It's a 
+> uapi issue, not what firmware wants to do.
+>
+> Marek
+>
+> On Thu, Apr 6, 2023 at 6:31 AM Christian König 
+> <ckoenig.leichtzumerken@gmail.com> wrote:
+>
+>     That's what I thought as well, but Mitch/Hans insisted on that.
+>
+>     We should probably double check internally.
+>
+>     Christian.
+>
+>     Am 06.04.23 um 11:43 schrieb Marek Olšák:
+>>     GDS memory isn't used on gfx11. Only GDS OA is used.
+>>
+>>     Marek
+>>
+>>     On Thu, Apr 6, 2023 at 5:09 AM Christian König
+>>     <christian.koenig@amd.com> wrote:
+>>
+>>         Why that?
+>>
+>>         This is the save buffer for GDS, not the old style GDS BOs.
+>>
+>>         Christian.
+>>
+>>         Am 06.04.23 um 09:36 schrieb Marek Olšák:
+>>>         gds_va is unnecessary.
+>>>
+>>>         Marek
+>>>
+>>>         On Thu, Mar 30, 2023 at 3:18 PM Alex Deucher
+>>>         <alexander.deucher@amd.com> wrote:
+>>>
+>>>             For GFX11, the UMD needs to allocate some shadow buffers
+>>>             to be used for preemption.  The UMD allocates the buffers
+>>>             and passes the GPU virtual address to the kernel since the
+>>>             kernel will program the packet that specified these
+>>>             addresses as part of its IB submission frame.
+>>>
+>>>             v2: UMD passes shadow init to tell kernel when to initialize
+>>>                 the shadow
+>>>
+>>>             Reviewed-by: Christian König <christian.koenig@amd.com>
+>>>             Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>>>             ---
+>>>              include/uapi/drm/amdgpu_drm.h | 10 ++++++++++
+>>>              1 file changed, 10 insertions(+)
+>>>
+>>>             diff --git a/include/uapi/drm/amdgpu_drm.h
+>>>             b/include/uapi/drm/amdgpu_drm.h
+>>>             index b6eb90df5d05..3d9474af6566 100644
+>>>             --- a/include/uapi/drm/amdgpu_drm.h
+>>>             +++ b/include/uapi/drm/amdgpu_drm.h
+>>>             @@ -592,6 +592,7 @@ struct drm_amdgpu_gem_va {
+>>>              #define AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES 0x07
+>>>              #define AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_WAIT    0x08
+>>>              #define AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_SIGNAL  0x09
+>>>             +#define AMDGPU_CHUNK_ID_CP_GFX_SHADOW   0x0a
+>>>
+>>>              struct drm_amdgpu_cs_chunk {
+>>>                     __u32           chunk_id;
+>>>             @@ -708,6 +709,15 @@ struct drm_amdgpu_cs_chunk_data {
+>>>                     };
+>>>              };
+>>>
+>>>             +#define AMDGPU_CS_CHUNK_CP_GFX_SHADOW_FLAGS_INIT_SHADOW
+>>>                    0x1
+>>>             +
+>>>             +struct drm_amdgpu_cs_chunk_cp_gfx_shadow {
+>>>             +       __u64 shadow_va;
+>>>             +       __u64 csa_va;
+>>>             +       __u64 gds_va;
+>>>             +       __u64 flags;
+>>>             +};
+>>>             +
+>>>              /*
+>>>               *  Query h/w info: Flag that this is integrated
+>>>             (a.h.a. fusion) GPU
+>>>               *
+>>>             -- 
+>>>             2.39.2
+>>>
+>>
+>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 89689b940493..c7e815c2733e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -360,7 +360,7 @@ static int amdgpu_firmware_info(struct drm_amdgpu_info_firmware *fw_info,
- 
- static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
- 			     struct drm_amdgpu_info *info,
--			     struct drm_amdgpu_info_hw_ip *result)
-+			     struct drm_amdgpu_info_hw_ip2 *result)
- {
- 	uint32_t ib_start_alignment = 0;
- 	uint32_t ib_size_alignment = 0;
-@@ -431,6 +431,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
- 		return -EINVAL;
- 	}
- 
-+	result->max_ibs = UINT_MAX;
- 	for (i = 0; i < adev->num_rings; ++i) {
- 		/* Note that this uses that ring types alias the equivalent
- 		 * HW IP exposes to userspace.
-@@ -438,6 +439,8 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
- 		if (adev->rings[i]->funcs->type == info->query_hw_ip.type &&
- 		    adev->rings[i]->sched.ready) {
- 			++num_rings;
-+			result->max_ibs = min(result->max_ibs,
-+					      adev->rings[i]->max_ibs);
- 		}
- 	}
- 
-@@ -536,7 +539,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		}
- 		return copy_to_user(out, &ui32, min(size, 4u)) ? -EFAULT : 0;
- 	case AMDGPU_INFO_HW_IP_INFO: {
--		struct drm_amdgpu_info_hw_ip ip = {};
-+		struct drm_amdgpu_info_hw_ip2 ip = {};
- 		int ret;
- 
- 		ret = amdgpu_hw_ip_info(adev, info, &ip);
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index b6eb90df5d05..45e5ae546d19 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -1128,6 +1128,9 @@ struct drm_amdgpu_info_device {
- 	__u32 enabled_rb_pipes_mask_hi;
- };
- 
-+/* The size of this struct cannot be increased for compatibility reasons, use
-+ * struct drm_amdgpu_info_hw_ip2 instead.
-+ */
- struct drm_amdgpu_info_hw_ip {
- 	/** Version of h/w IP */
- 	__u32  hw_ip_version_major;
-@@ -1144,6 +1147,32 @@ struct drm_amdgpu_info_hw_ip {
- 	__u32  ip_discovery_version;
- };
- 
-+/* The prefix fields of this are intentionally the same as those of
-+ * struct drm_amdgpu_info_hw_ip. The struct has a v2 to resolve a lack of
-+ * versioning on the libdrm_amdgpu side.
-+ */
-+struct drm_amdgpu_info_hw_ip2 {
-+	/** Version of h/w IP */
-+	__u32  hw_ip_version_major;
-+	__u32  hw_ip_version_minor;
-+	/** Capabilities */
-+	__u64  capabilities_flags;
-+	/** command buffer address start alignment*/
-+	__u32  ib_start_alignment;
-+	/** command buffer size alignment*/
-+	__u32  ib_size_alignment;
-+	/** Bitmask of available rings. Bit 0 means ring 0, etc. */
-+	__u32  available_rings;
-+	/** version info: bits 23:16 major, 15:8 minor, 7:0 revision */
-+	__u32  ip_discovery_version;
-+	/** The maximum number of IBs one can submit in a single submission
-+	 * ioctl. (When using gang submit: this is per IP type)
-+	 */
-+	__u32  max_ibs;
-+	/** padding to 64bit for arch differences */
-+	__u32  pad;
-+};
-+
- struct drm_amdgpu_info_num_handles {
- 	/** Max handles as supported by firmware for UVD */
- 	__u32  uvd_max_handles;
--- 
-2.40.0
+--------------eBFm1rYmJ2UK6NMVt24iB3Lc
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    We removed the GDS information because they were unnecessary. The
+    GDS size was already part of the device info before we added the
+    shadow info.<br>
+    <br>
+    But as far as I know the firmware needs valid VAs for all three
+    buffers or won't work correctly.<br>
+    <br>
+    Christian.<br>
+    <br>
+    <div class="moz-cite-prefix">Am 06.04.23 um 17:01 schrieb Marek
+      Olšák:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:CAAxE2A6m346bTD7G=wMa=8OcRmk6OHui9N=Z9B5xHCS4VxxYwQ@mail.gmail.com">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <div dir="ltr">
+        <div>There is no GDS shadowing info in the device info uapi, so
+          userspace can't create any GDS buffer and thus can't have any
+          GDS va. It's a uapi issue, not what firmware wants to do.<br>
+        </div>
+        <div><br>
+        </div>
+        <div>Marek<br>
+        </div>
+      </div>
+      <br>
+      <div class="gmail_quote">
+        <div dir="ltr" class="gmail_attr">On Thu, Apr 6, 2023 at 6:31 AM
+          Christian König &lt;<a
+            href="mailto:ckoenig.leichtzumerken@gmail.com"
+            target="_blank" moz-do-not-send="true"
+            class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>&gt;
+          wrote:<br>
+        </div>
+        <blockquote class="gmail_quote" style="margin:0px 0px 0px
+          0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+          <div> That's what I thought as well, but Mitch/Hans insisted
+            on that.<br>
+            <br>
+            We should probably double check internally.<br>
+            <br>
+            Christian.<br>
+            <br>
+            <div>Am 06.04.23 um 11:43 schrieb Marek Olšák:<br>
+            </div>
+            <blockquote type="cite">
+              <div dir="ltr">
+                <div>GDS memory isn't used on gfx11. Only GDS OA is
+                  used.<br>
+                </div>
+                <div><br>
+                </div>
+                <div>Marek<br>
+                </div>
+              </div>
+              <br>
+              <div class="gmail_quote">
+                <div dir="ltr" class="gmail_attr">On Thu, Apr 6, 2023 at
+                  5:09 AM Christian König &lt;<a
+                    href="mailto:christian.koenig@amd.com"
+                    target="_blank" moz-do-not-send="true"
+                    class="moz-txt-link-freetext">christian.koenig@amd.com</a>&gt;
+                  wrote:<br>
+                </div>
+                <blockquote class="gmail_quote" style="margin:0px 0px
+                  0px 0.8ex;border-left:1px solid
+                  rgb(204,204,204);padding-left:1ex">
+                  <div> Why that?<br>
+                    <br>
+                    This is the save buffer for GDS, not the old style
+                    GDS BOs.<br>
+                    <br>
+                    Christian.<br>
+                    <br>
+                    <div>Am 06.04.23 um 09:36 schrieb Marek Olšák:<br>
+                    </div>
+                    <blockquote type="cite">
+                      <div dir="ltr">
+                        <div>gds_va is unnecessary.</div>
+                        <div><br>
+                        </div>
+                        <div>Marek<br>
+                        </div>
+                      </div>
+                      <br>
+                      <div class="gmail_quote">
+                        <div dir="ltr" class="gmail_attr">On Thu, Mar
+                          30, 2023 at 3:18 PM Alex Deucher &lt;<a
+                            href="mailto:alexander.deucher@amd.com"
+                            target="_blank" moz-do-not-send="true"
+                            class="moz-txt-link-freetext">alexander.deucher@amd.com</a>&gt;
+                          wrote:<br>
+                        </div>
+                        <blockquote class="gmail_quote"
+                          style="margin:0px 0px 0px
+                          0.8ex;border-left:1px solid
+                          rgb(204,204,204);padding-left:1ex">For GFX11,
+                          the UMD needs to allocate some shadow buffers<br>
+                          to be used for preemption.  The UMD allocates
+                          the buffers<br>
+                          and passes the GPU virtual address to the
+                          kernel since the<br>
+                          kernel will program the packet that specified
+                          these<br>
+                          addresses as part of its IB submission frame.<br>
+                          <br>
+                          v2: UMD passes shadow init to tell kernel when
+                          to initialize<br>
+                              the shadow<br>
+                          <br>
+                          Reviewed-by: Christian König &lt;<a
+                            href="mailto:christian.koenig@amd.com"
+                            target="_blank" moz-do-not-send="true"
+                            class="moz-txt-link-freetext">christian.koenig@amd.com</a>&gt;<br>
+                          Signed-off-by: Alex Deucher &lt;<a
+                            href="mailto:alexander.deucher@amd.com"
+                            target="_blank" moz-do-not-send="true"
+                            class="moz-txt-link-freetext">alexander.deucher@amd.com</a>&gt;<br>
+                          ---<br>
+                           include/uapi/drm/amdgpu_drm.h | 10 ++++++++++<br>
+                           1 file changed, 10 insertions(+)<br>
+                          <br>
+                          diff --git a/include/uapi/drm/amdgpu_drm.h
+                          b/include/uapi/drm/amdgpu_drm.h<br>
+                          index b6eb90df5d05..3d9474af6566 100644<br>
+                          --- a/include/uapi/drm/amdgpu_drm.h<br>
+                          +++ b/include/uapi/drm/amdgpu_drm.h<br>
+                          @@ -592,6 +592,7 @@ struct drm_amdgpu_gem_va {<br>
+                           #define
+                          AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES 0x07<br>
+                           #define
+                          AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_WAIT    0x08<br>
+                           #define
+                          AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_SIGNAL  0x09<br>
+                          +#define AMDGPU_CHUNK_ID_CP_GFX_SHADOW   0x0a<br>
+                          <br>
+                           struct drm_amdgpu_cs_chunk {<br>
+                                  __u32           chunk_id;<br>
+                          @@ -708,6 +709,15 @@ struct
+                          drm_amdgpu_cs_chunk_data {<br>
+                                  };<br>
+                           };<br>
+                          <br>
+                          +#define
+                          AMDGPU_CS_CHUNK_CP_GFX_SHADOW_FLAGS_INIT_SHADOW 
+                                 0x1<br>
+                          +<br>
+                          +struct drm_amdgpu_cs_chunk_cp_gfx_shadow {<br>
+                          +       __u64 shadow_va;<br>
+                          +       __u64 csa_va;<br>
+                          +       __u64 gds_va;<br>
+                          +       __u64 flags;<br>
+                          +};<br>
+                          +<br>
+                           /*<br>
+                            *  Query h/w info: Flag that this is
+                          integrated (a.h.a. fusion) GPU<br>
+                            *<br>
+                          -- <br>
+                          2.39.2<br>
+                          <br>
+                        </blockquote>
+                      </div>
+                    </blockquote>
+                    <br>
+                  </div>
+                </blockquote>
+              </div>
+            </blockquote>
+            <br>
+          </div>
+        </blockquote>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------eBFm1rYmJ2UK6NMVt24iB3Lc--
