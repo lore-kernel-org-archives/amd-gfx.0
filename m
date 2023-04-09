@@ -4,122 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CFC7C76196
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Apr 2023 07:32:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBD12C76196
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Apr 2023 08:05:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FBE510E06C;
-	Mon, 10 Apr 2023 07:32:09 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2067.outbound.protection.outlook.com [40.107.92.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C55110E06C
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Apr 2023 07:32:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZxkxdyZBD6TCOIQTp34p49lHrxPu7lpvsd90/b4z33CHfG8B8+z0CMU9RUUWplT5pWjxSMJ1KTiSdpshk6VLsyZRkv2JlnMcn3zVff9gp3N1v/zHFAYwHP++ZZQEsLv+YoZkxV4PmRKXG6ByRuqmG8WjgWsM0dkBVB2HPEfq+/9V7x6z7K4aQbn/bzXuA3kvf+crxGnYJqRSuz0Zpw1WdMrBr6ltab9cEJ8bGATEOU6uEYcPF/cfZwNK3cbYE5KYSKJe/Z9rFXXIm/cMk5+r25PaG/PzDTwjhYZRIQEMqsRvtY1yeFSFzL1sOCMENrqIulXRlZPwG4uufSUrCu1TXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=73BRwsV8peFLtAQWRixRrA/uqkEQ7Vifarx7G6Qto+4=;
- b=bXTVbOb1Xb7sRjJgJILILIsH7/oygzOT0Np/7t4EKrLx6U95Wg+L+i+TLpnzn7KWzRXPxaKh3j4ooyOr/It/0Dbpiw4mLwCIsoMmLtuMHNPtXMN0NRYTHEAfnN57gKoFQduH7XwdX3NC7qf8gGO62fJzb+PWdYb1/uoFLhV5KZPZJvMaDyLwB7UZjvC8R8a0gTz+iv7ALc2Hv5qQT01g0SOR6m5vGLhIgAqZDj+DykYYGF+ZfDtO2OyPJWzkZm7qvPHlJyFZ01WVyiSm0FQChULcrpVBoRy7hFH/HvTcOpTegtElYxzGIr9HwroW1HEcgFmY/v8+sj+AcKoJifoYZg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=73BRwsV8peFLtAQWRixRrA/uqkEQ7Vifarx7G6Qto+4=;
- b=x49DxVAZzoPgqAp0tHmHMQi57fa/FLg6ZdP+utwsY7HRd3HNN9kZonJf2HgCxg/kmvhUbcV8ScUXBQ8OpBONvVWn5vEEUgvBYBo5w8IlEZLx/NPpnNjonxYuWi4TLLWO37G3FmPkwNNMoe/Dpn63NS+jkadw7UESYqkEEl4Jxwo=
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
- by CY8PR12MB7289.namprd12.prod.outlook.com (2603:10b6:930:56::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.36; Mon, 10 Apr
- 2023 07:32:04 +0000
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::755d:fed:c4a:bf05]) by MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::755d:fed:c4a:bf05%4]) with mapi id 15.20.6277.036; Mon, 10 Apr 2023
- 07:32:03 +0000
-From: "Sharma, Shashank" <Shashank.Sharma@amd.com>
-To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Subject: RE: [PATCH v3 0/9] AMDGPU Usermode queues
-Thread-Topic: [PATCH v3 0/9] AMDGPU Usermode queues
-Thread-Index: AQHZYlg/wQgIMZ1Dd0K1XyfDx7ke8K8jxFGAgABwPVA=
-Date: Mon, 10 Apr 2023 07:32:03 +0000
-Message-ID: <MW4PR12MB5667D4837CFDEE7230F5423DF2959@MW4PR12MB5667.namprd12.prod.outlook.com>
-References: <20230329160445.1300-1-shashank.sharma@amd.com>
- <CAP+8YyFgbru=1HkLo1Kfm1jKPrk5sXenUmmkzzysWbSh05q2tg@mail.gmail.com>
-In-Reply-To: <CAP+8YyFgbru=1HkLo1Kfm1jKPrk5sXenUmmkzzysWbSh05q2tg@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-04-10T07:31:59Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=16eb9239-29c2-4c1e-bc26-0664cd95ffb9;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW4PR12MB5667:EE_|CY8PR12MB7289:EE_
-x-ms-office365-filtering-correlation-id: 078bf4ff-0e87-4bcf-56c7-08db3995adbc
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: rM3ZjCwU4G339TFj8+G619bG98ABQJxnJEKx6TREkyVY+2jiIZx1X4vYD6faKDB/zzO8OYGFLScjohJPr0LcCWXcmjLCwjcSJ2O84MaP8pf6u7elo8pLXCfh9R8R8rm+eV4SPjHjOAJIiaf4VnrsymU9/t2I8u1fx8m2MMZwZzRx6FE4KyiMv16WeRLygZJhdSUZexsotNGViC+TccqOix1xLZe+fsSYUGRIBzT1kAiJjrRlx3VwAkNC2UEJ6HMEiH27iDY/SqRCnGJ3U0v9hVcR9+uO9c1luk95MPEastzbPMgOe4B1PNzEv62IK65JBu26UVqIbUeBK1PfXvLkRiEzO2DPd9IunsqOPTUuSZq+vrW9As8qZrF2gpQwRAVbzTbVs5epLAK7hX+rurtpJqHiFXNb8JYp5omAV3A+MEZXmJQPG41WvdbsnFZIPNuzX+KKZDJgJAOBmEKhz57F3Im537nMlhGPRAqB+Lu2JIDc4ZPX/YOXBwZcRf+rII2Lelt6Pn/b6tzEY4tFcOZ7+XgKcsghfrix4zXZrrcGRS2iTBroYAGWiVSR7r0+XmVB
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(396003)(346002)(376002)(366004)(39860400002)(451199021)(83380400001)(76116006)(966005)(71200400001)(478600001)(7696005)(186003)(54906003)(26005)(9686003)(6506007)(53546011)(52536014)(2906002)(33656002)(38100700002)(5660300002)(122000001)(66476007)(66556008)(66946007)(64756008)(6916009)(4326008)(41300700001)(66446008)(8676002)(8936002)(86362001)(38070700005)(316002)(55016003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?djlzTUMzTFBIRXAyL0VTanltYnhjeWhVUjNIMTV3YU5lRGZhMTF0OVNRSGwx?=
- =?utf-8?B?Y2NBdDQ3L1VCTGQ5emx5Vm1BcGxNcTZCeUpiZkU2Y0QrZlZJT0l1Wldnck9S?=
- =?utf-8?B?SUNabXZGaVJIbi9ZWVFIVWJaOFA3amErSHU5Z3NRM0FQdFNwQkdqeFV2Mmc2?=
- =?utf-8?B?UjB2akE1Yk0yQlpGT3BYNWhVb1lvMis2U3p0Q3RMdE94d0FvSkxwKys0MG1B?=
- =?utf-8?B?dEROUWhTb2laOEN2VldWNGlTTGJ4cGhGTjF3bURWUFJJVHNaaDJ5a1dGWUF0?=
- =?utf-8?B?Rmp3SzJXckRSaGVFRHd4VDNKZ0dhNDE4VkFjTkJiOGpLVFlTdTdBenVMZDNF?=
- =?utf-8?B?aUk0YUNjNjJ5OFpGZFNpcytOMGtqYU03SVNSbGRwU25pTEJVR0FUL2xqb21m?=
- =?utf-8?B?Sno1SVFZSVg2eTNDbUNoR0MvL2taNjYxWlh3S0V4SVRBTVNjWjd1SU1MeCsv?=
- =?utf-8?B?aDJBZUhZOXZicythdW9NRWVDbENHWFRnTTlWdiszdUlTM29oa2NOQWgrV2Zx?=
- =?utf-8?B?dDVFR0JERXBhbExZbmkwU09qT2N6dFMvY0NBYjNaYUJuUUx0NWtBQTNTVW1C?=
- =?utf-8?B?aTZiUlZOS1FPNzNpSnhBeVpVeEJlWkI0YURERkVjODNqbUF0T2hDVFFkU3NB?=
- =?utf-8?B?d3VCOEVvdnZxSWlQSzBkS2RkTzFYRUpqbDN2WSs5Y0d4U3l4VmxrblBOYm1Z?=
- =?utf-8?B?bG9NTVNNdjNJUlZic3JQREZMNnlBd0NHR0IxZndEUTNRbHJYcUdOa3lLQzJE?=
- =?utf-8?B?QldwN0xVVHFWemhlSW54Yk9RU1pSUXhvYmVxZ0Faa1A5QlhFRmcxWTlOZ3ZP?=
- =?utf-8?B?WElYM1FndlJISW5tTHRpTFdKaDdQTFpEenZUclVXMTl4ZDBpQ3JGWTZwYjBk?=
- =?utf-8?B?eG05Y1B0NXdpUkJnRTMxSnNhNlZoWWcySC9KbEtoWGx6Tzg4NzVoZmVuOEhy?=
- =?utf-8?B?WkhSVHc4dXA0U1Qwcm55MUt5QTJ4b3pGcGlVenVheEg4Wm53ZUZJekZBV3BD?=
- =?utf-8?B?T0lMdGJTblRFaUdZeitTK0lIeXhvRVlmR1hYc3h4OUtJc0MzYjZlWE1TNU9l?=
- =?utf-8?B?OUwyYmpsQUZ2NWhmN0pIK1ZCT2hIenJHek1obkpTRmljSWFiZkt3NGJlZFpI?=
- =?utf-8?B?U1lOU3RYR3Z2L1pZRXFwaFJnbW9MQlU5U1dBR3lCSGV0L210SWlJTlhnRTlS?=
- =?utf-8?B?TTlGVzBlVXI5akEyOUF6enA5a1RRVUZFRUxIazl3WTRXRmZxdlhtN2hydkx0?=
- =?utf-8?B?cmJyL2V2SWxJTEptZkowV1FtSTRUSFQzVWF1ZlRzN3daV1JKTWFrNWNBOUxC?=
- =?utf-8?B?WUQ0QjNENkxKWmlGdVlmWHQ0bGlmN012UVhaYWMzVkNWNmRGVmNZOG5wbHJJ?=
- =?utf-8?B?QTRhK1ZNZWRtV2dmM2FYYlVzUW9VcWh0YWZGT1A0b1JVTFR5RXltbmNQVjh2?=
- =?utf-8?B?bWJqdEJ6NFp5UW9aTkpZYTBiSjh2QkVuajdaRFhNbERlU3RlQW4wTkRBcnla?=
- =?utf-8?B?U0JQWksrOEIyWWZaYnYwL293aGZLbEFVVStQa0g1eENJUjR5aVg3YjZUdzFn?=
- =?utf-8?B?NnNQeCtrVHJrT05JeTRCSXpucUxyYkJEbjliMlZHbVdybDVLbVNjakFmdUxF?=
- =?utf-8?B?bDZ5TmI3cEx0QU4yc1N4MWRvWUZOUFd1REdZN3AycnJIbGV5blFDYjIvV0tT?=
- =?utf-8?B?U2tYVzRWc1d6TW54NDJjejQyYUxIeHo2bm04cVZCdFFpdjJabFQybmNCemxB?=
- =?utf-8?B?VjJvZmx2MWJiT01JcENEdTlVUmR3RGhidTluQUMwWXZFcWNCc0hFa0Vza0p1?=
- =?utf-8?B?YnlzMTVmY3BGK1NHU0F1UXhNbUltbVVUemtDWkhSd3dzRzhhc2tvWlBkclhO?=
- =?utf-8?B?aUM4Q0M0b2FmcGtmbzRwbkp3c2Vmdy9JY0tMYi9aRkFNM1NsdDZRV0dXNklo?=
- =?utf-8?B?UzVVcHlZVElDSVRmQ0tuV2JIQ2s2MVpCRU0vdkxyRnJQU0YzaW1XL2RiT0Mw?=
- =?utf-8?B?Mkp2YURoQzNhU0VSRTRRUWduRHVjN0srUXBKaWRMUjRJeEF6L0dJRW1QcjRM?=
- =?utf-8?B?cUVxUVVQcDZYdDNYeGxqRWZKQUtCR0lRb1VsWmRGYzZZTHh5NURsbG9iekZ0?=
- =?utf-8?Q?cBl4=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19F2410E031;
+	Mon, 10 Apr 2023 08:05:28 +0000 (UTC)
+Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
+ [IPv6:2607:f8b0:4864:20::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4BC310E1C3
+ for <amd-gfx@lists.freedesktop.org>; Sun,  9 Apr 2023 15:50:54 +0000 (UTC)
+Received: by mail-pl1-x62f.google.com with SMTP id la3so2558011plb.11
+ for <amd-gfx@lists.freedesktop.org>; Sun, 09 Apr 2023 08:50:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1681055454; x=1683647454;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=kprKULrwU639Uf3sPEtSBCjbIfUFH5rRhBZRMRWCsxc=;
+ b=Zdua5ny+GP6JyASKV3azQ9jBX0wvSbiOqCeehK9t/NnKFmLu5/wvaJ0mlR2SQYEuSR
+ 8Nc8MCfA7BbPrAMP0ESIRGvMKZNgtEsUSBVvgcVEiiXSwdeS37sWHWqZmIC8p/8mN+pj
+ S6HGvG4YN0cdrFEXx2m9rcb2H5GLfl4khCrlAvP2aLbq3/YqwRmVzL5Ncam0wnwMSswd
+ L6AvKpbvO3L7wSE2+f8O9BTeISt6kzbMjY15wgUBRyYjx7RHK69FsVOC8AIvBpDzwcDV
+ Cbcz+mclVJSyNJ0PyYHV3LD2L61/T6ZhHnmUCMuZ4csGBSnAV6JAfShGqblf9AGYydwQ
+ RKTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1681055454; x=1683647454;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=kprKULrwU639Uf3sPEtSBCjbIfUFH5rRhBZRMRWCsxc=;
+ b=kDNBNpp+hsA+3B6RYe3bHcyZH7mBuWLcQ7wO87sUiOfaM4mDuaIZG+/5x7/tU6X8j9
+ LaL82Fd9woj7axmU8y02N7Wofggqoa3ihLpnQDIl/N3xRl4OoZZs6Kc2zQKVNI9/xCf/
+ IfAlkDq8oMEVljw3F1jgYPoUwWIGNA9bfUnejjVIw+6veVpzrRiFqNPmUYAbeOgHDUul
+ XXfH5Xp4fNY0XdisYnFwRIIKg/z3+P1XAaYUx9VLffeO/ldY9iqxNP7e40wNo/nUwH1x
+ YqbPXB+oLyxnpk6kmbvNe0WNteJSEIsklF6XHsMvd+9Y3xfK5lzE5OvWSK9xOPw5eiAN
+ OMrA==
+X-Gm-Message-State: AAQBX9cvqpRDkqYn3GlFriHJlfUzx4LTzmNGShSdicZAaDxbgFMxSkcz
+ cO6jYyacooFmD5oNWmfy5hXSSDHXDyYYHZ2cb35AEI+n
+X-Google-Smtp-Source: AKy350YWwtLB5zqaSSSgEctTnhqE8exLXym57sbbgB7h7KNmsJiuvzXuN9H/dVtzwWwrZ2llNXVX0mhts907389GBYY=
+X-Received: by 2002:a17:903:445:b0:1a0:5402:b17b with SMTP id
+ iw5-20020a170903044500b001a05402b17bmr1355499plb.0.1681055453687; Sun, 09 Apr
+ 2023 08:50:53 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 078bf4ff-0e87-4bcf-56c7-08db3995adbc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Apr 2023 07:32:03.0708 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6KwwMfJAFClCA0dutEy6jEq+Q5QBUt7BvX9Qa2xo1cBt2plWeC28lff2mWsHcafi/v800MePMf+noLlBYVbBoA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7289
+References: <20230409144445.374816-1-bas@basnieuwenhuizen.nl>
+ <20230409144445.374816-3-bas@basnieuwenhuizen.nl>
+ <99dad825-894a-bc00-7a26-6b1b917477d4@gmail.com>
+ <CAP+8YyF8-5aVoLBmAUy0rS6rturFk0GMYy6Y6wLA2p9U1P7iAw@mail.gmail.com>
+ <7d5bb5e5-91a7-71ba-8fa4-6d1cbcb00b26@gmail.com>
+In-Reply-To: <7d5bb5e5-91a7-71ba-8fa4-6d1cbcb00b26@gmail.com>
+From: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Date: Sun, 9 Apr 2023 17:50:41 +0200
+Message-ID: <CAFF-SiWRNMZazGazpbanW1kzjKFWhzUpbcErn6fKyGB8Q63rsg@mail.gmail.com>
+Subject: Re: [PATCH 3/3] drm/amdgpu: Add support for querying the max ibs in a
+ submission.
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: multipart/alternative; boundary="0000000000002a34a705f8e9393e"
+X-Mailman-Approved-At: Mon, 10 Apr 2023 08:05:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,98 +70,435 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kuehling,
- Felix" <Felix.Kuehling@amd.com>, "Yadav, Arvind" <Arvind.Yadav@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNCkhlbGxvIEJhcywgDQpUaGFua3Mg
-Zm9yIHRyeWluZyB0aGlzIG91dC4gDQoNClRoaXMgY291bGQgYmUgZHVlIHRvIHRoZSBkb29yYmVs
-bCBhcyB5b3UgbWVudGlvbmVkLCBVc2VybW9kZSBxdWV1ZSB1c2VzIGRvb3JiZWxsIG1hbmFnZXIg
-aW50ZXJuYWxseS4NClRoaXMgd2Vlaywgd2UgYXJlIHBsYW5uaW5nIHRvIHB1YmxpcyB0aGUgbGF0
-ZXN0IGxpYkRSTSBzYW1wbGUgY29kZSB3aGljaCB1c2VzIGEgZG9vcmJlbGwgb2JqZWN0IChpbnN0
-ZWFkIG9mIHRoZSBkb29yYmVsbCBoYWNrIElPQ1RMKSwgYWRhcHRpbmcgdG8gdGhhdCBzaG91bGQg
-Zml4IHlvdXIgcHJvYmxlbSBpbiBteSBvcGluaW9uLiANCldlIGhhdmUgdGVzdGVkIHRoaXMgZnVs
-bCBzdGFjayAobGliRFJNIHRlc3QgKyBVc2VybW9kZSBxdWV1ZSArIGRvb3JiZWxsIG1hbmFnZXIp
-IGZvciA1MDArIGNvbnNlY3V0aXZlIHJ1bnMsIGFuZCBpdCB3b3JrZWQgd2VsbCBmb3IgdXMuDQoN
-CllvdSBjYW4gdXNlIHRoaXMgaW50ZWdyYXRlZCBrZXJuZWwgc3RhY2sgKDErMikgZnJvbSBteSBn
-aXRsYWIgdG8gYnVpbGQgeW91ciBrZXJuZWw6IGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9y
-Zy9jb250YWN0c2hhc2hhbmtzaGFybWEvdXNlcnEtYW1kZ3B1Ly0vdHJlZS9pbnRlZ3JhdGVkLWRi
-LWFuZC11cS12MyANClBsZWFzZSBzdGF5IHR1bmVkIGZvciB1cGRhdGVkIGxpYkRSTSBjaGFuZ2Vz
-IHdpdGggZG9vcmJlbGwgb2JqZWN0cy4NCg0KUmVnYXJkcw0KU2hhc2hhbmsNCi0tLS0tT3JpZ2lu
-YWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBCYXMgTmlldXdlbmh1aXplbiA8YmFzQGJhc25pZXV3ZW5o
-dWl6ZW4ubmw+IA0KU2VudDogMTAgQXByaWwgMjAyMyAwMjozNw0KVG86IFNoYXJtYSwgU2hhc2hh
-bmsgPFNoYXNoYW5rLlNoYXJtYUBhbWQuY29tPg0KQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnOyBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+OyBL
-dWVobGluZywgRmVsaXggPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+OyBLb2VuaWcsIENocmlzdGlh
-biA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KU3ViamVjdDogUmU6IFtQQVRDSCB2MyAwLzld
-IEFNREdQVSBVc2VybW9kZSBxdWV1ZXMNCg0KSGkgU2hhc2hhbmssDQoNCkkgdHJpZWQgd3JpdGlu
-ZyBhIHByb2dyYW0gdG8gZXhwZXJpbWVudCB3aXRoIHVzZXJtb2RlIHF1ZXVlcyBhbmQgSSBmb3Vu
-ZCBzb21lIHdlaXJkIGJlaGF2aW9yOiBUaGUgZmlyc3QgcnVuIG9mIHRoZSBwcm9ncmFtIHdvcmtz
-IGFzIGV4cGVjdGVkLCB3aGlsZSBzdWJzZXF1ZW50IHJ1bnMgZG9uJ3Qgc2VlbSB0byBkbyBhbnl0
-aGluZyAoYW5kIEkgYWxsb2NhdGUgZXZlcnl0aGluZyBpbiBHVFQsIHNvIGl0IHNob3VsZCBiZSB6
-ZXJvIGluaXRpYWxpemVkIGNvbnNpc3RlbnRseSkuIElzIHRoaXMgYSBrbm93biBpc3N1ZT8NCg0K
-VGhlIGxpbmtlZCBsaWJkcm0gY29kZSBmb3IgdGhlIHVhcGkgc3RpbGwgZG9lcyBhIGRvb3JiZWxs
-IGlvY3RsIHNvIGl0IGNvdWxkIHZlcnkgd2VsbCBiZSB0aGF0IEkgZG8gdGhlIGRvb3JiZWxsIHdy
-b25nIChlc3BlY2lhbGx5IHNpbmNlIHRoZSBpb2N0bCBpbXBsZW1lbnRhdGlvbiB3YXMgbmV2ZXIg
-c2hhcmVkIEFGQUlDVD8pLCBidXQgaXQgc2VlbXMgbGlrZSB0aGUga2VybmVsIHN1Ym1pc3Npb25z
-IChpLmUuIHdyaXRlIHdwdHIgaW4gZHdvcmRzIHRvIHRoZSB3cHRyIHZhIGFuZCB0byB0aGUgZG9v
-cmJlbGwpLiBJcyBpdCBwb3NzaWJsZSB0byB1cGRhdGUgdGhlIHRlc3QgaW4gbGliZHJtPw0KDQpD
-b2RlOiBodHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvYm5pZXV3ZW5odWl6ZW4vdXNlcm1v
-ZGUtcXVldWUNCg0KVGhhbmtzLA0KQmFzDQoNCk9uIFdlZCwgTWFyIDI5LCAyMDIzIGF0IDY6MDXi
-gK9QTSBTaGFzaGFuayBTaGFybWEgPHNoYXNoYW5rLnNoYXJtYUBhbWQuY29tPiB3cm90ZToNCj4N
-Cj4gVGhpcyBwYXRjaCBzZXJpZXMgaW50cm9kdWNlcyBBTURHUFUgdXNlcm1vZGUgcXVldWVzIGZv
-ciBnZnggd29ya2xvYWRzLg0KPiBVc2VybW9kZSBxdWV1ZXMgaXMgYSBtZXRob2Qgb2YgR1BVIHdv
-cmtsb2FkIHN1Ym1pc3Npb24gaW50byB0aGUgDQo+IGdyYXBoaWNzIGhhcmR3YXJlIHdpdGhvdXQg
-YW55IGludGVyYWN0aW9uIHdpdGgga2VybmVsL0RSTSBzY2hlZHVsZXJzLiANCj4gSW4gdGhpcyBt
-ZXRob2QsIGEgdXNlcnNwYWNlIGdyYXBoaWNzIGFwcGxpY2F0aW9uIGNhbiBjcmVhdGUgaXRzIG93
-biANCj4gd29ya3F1ZXVlIGFuZCBzdWJtaXQgaXQgZGlyZWN0bHkgaW4gdGhlIEdQVSBIVy4NCj4N
-Cj4gVGhlIGdlbmVyYWwgaWRlYSBvZiBob3cgdGhpcyBpcyBzdXBwb3NlZCB0byB3b3JrOg0KPiAt
-IFRoZSBhcHBsaWNhdGlvbiBjcmVhdGVzIHRoZSBmb2xsb3dpbmcgR1BVIG9iamV0Y3M6DQo+ICAg
-LSBBIHF1ZXVlIG9iamVjdCB0byBob2xkIHRoZSB3b3JrbG9hZCBwYWNrZXRzLg0KPiAgIC0gQSBy
-ZWFkIHBvaW50ZXIgb2JqZWN0Lg0KPiAgIC0gQSB3cml0ZSBwb2ludGVyIG9iamVjdC4NCj4gICAt
-IEEgZG9vcmJlbGwgcGFnZS4NCj4gLSBUaGUgYXBwbGljYXRpb24gcGlja3MgYSAzMi1iaXQgb2Zm
-c2V0IGluIHRoZSBkb29yYmVsbCBwYWdlIGZvciB0aGlzIHF1ZXVlLg0KPiAtIFRoZSBhcHBsaWNh
-dGlvbiB1c2VzIHRoZSB1c2VybW9kZV9xdWV1ZV9jcmVhdGUgSU9DVEwgaW50cm9kdWNlZCBpbg0K
-PiAgIHRoaXMgcGF0Y2gsIGJ5IHBhc3NpbmcgdGhlIHRoZSBHUFUgYWRkcmVzc2VzIG9mIHRoZXNl
-IG9iamVjdHMgKHJlYWQNCj4gICBwdHIsIHdyaXRlIHB0ciwgcXVldWUgYmFzZSBhZGRyZXNzIGFu
-ZCAzMi1iaXQgZG9vcmJlbGwgb2Zmc2V0IGZyb20NCj4gICB0aGUgZG9vcmJlbGwgcGFnZSkNCj4g
-LSBUaGUga2VybmVsIGNyZWF0ZXMgdGhlIHF1ZXVlIGFuZCBtYXBzIGl0IGluIHRoZSBIVy4NCj4g
-LSBUaGUgYXBwbGljYXRpb24gY2FuIHN0YXJ0IHN1Ym1pdHRpbmcgdGhlIGRhdGEgaW4gdGhlIHF1
-ZXVlIGFzIHNvb24gYXMNCj4gICB0aGUga2VybmVsIElPQ1RMIHJldHVybnMuDQo+IC0gQWZ0ZXIg
-ZmlsbGluZyB0aGUgd29ya2xvYWQgZGF0YSBpbiB0aGUgcXVldWUsIHRoZSBhcHAgbXVzdCB3cml0
-ZSB0aGUNCj4gICBudW1iZXIgb2YgZHdvcmRzIGFkZGVkIGluIHRoZSBxdWV1ZSBpbnRvIHRoZSBk
-b29yYmVsbCBvZmZzZXQsIGFuZCB0aGUNCj4gICBHUFUgd2lsbCBzdGFydCBmZXRjaGluZyB0aGUg
-ZGF0YS4NCj4NCj4gbGliRFJNIGNoYW5nZXMgZm9yIHRoaXMgc2VyaWVzIGFuZCBhIHNhbXBsZSBE
-Uk0gdGVzdCBwcm9ncmFtIGNhbiBiZSANCj4gZm91bmQgaW4gdGhlIE1FU0EgbWVyZ2UgcmVxdWVz
-dCBoZXJlOg0KPiBodHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvbWVzYS9kcm0vLS9tZXJn
-ZV9yZXF1ZXN0cy8yODcNCj4NCj4gVGhpcyBwYXRjaCBzZXJpZXMgZGVwZW5kcyBvbiB0aGUgZG9v
-cmJlbGwtbWFuYWdlciBjaGFuZ2VzLCB3aGljaCBhcmUgDQo+IGJlaW5nIHJldmlld2VkIGhlcmU6
-DQo+IGh0dHBzOi8vcGF0Y2h3b3JrLmZyZWVkZXNrdG9wLm9yZy9zZXJpZXMvMTE1ODAyLw0KPg0K
-PiBBbGV4IERldWNoZXIgKDEpOg0KPiAgIGRybS9hbWRncHU6IFVBUEkgZm9yIHVzZXIgcXVldWUg
-bWFuYWdlbWVudA0KPg0KPiBBcnZpbmQgWWFkYXYgKDIpOg0KPiAgIGRybS9hbWRncHU6IGFkZCBu
-ZXcgcGFyYW1ldGVycyBpbiB2MTFfc3RydWN0DQo+ICAgZHJtL2FtZGdwdTogbWFwIHdwdHIgQk8g
-aW50byBHQVJUDQo+DQo+IFNoYXNoYW5rIFNoYXJtYSAoNik6DQo+ICAgZHJtL2FtZGdwdTogYWRk
-IHVzZXJtb2RlIHF1ZXVlIGJhc2UgY29kZQ0KPiAgIGRybS9hbWRncHU6IGFkZCBuZXcgSU9DVEwg
-Zm9yIHVzZXJtb2RlIHF1ZXVlDQo+ICAgZHJtL2FtZGdwdTogY3JlYXRlIEdGWC1nZW4xMSBNUUQg
-Zm9yIHVzZXJxdWV1ZQ0KPiAgIGRybS9hbWRncHU6IGNyZWF0ZSBjb250ZXh0IHNwYWNlIGZvciB1
-c2VybW9kZSBxdWV1ZQ0KPiAgIGRybS9hbWRncHU6IG1hcCB1c2VybW9kZSBxdWV1ZSBpbnRvIE1F
-Uw0KPiAgIGRybS9hbWRncHU6IGdlbmVyYXRlIGRvb3JiZWxsIGluZGV4IGZvciB1c2VycXVldWUN
-Cj4NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L01ha2VmaWxlICAgICAgICAgICB8ICAg
-MyArDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCAgICAgICAgICAgfCAg
-MTAgKy0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyAgICAgICB8
-ICAgMiArDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgICAgICAg
-fCAgIDYgKw0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3VzZXJxdWV1ZS5j
-IHwgMjk4IA0KPiArKysrKysrKysrKysrKysrKysgIC4uLi9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dXNlcnF1ZXVlX2dmeF92MTEuYyB8IDIzMCArKysrKysrKysrKysrKw0KPiAgLi4uL2dwdS9kcm0v
-YW1kL2luY2x1ZGUvYW1kZ3B1X3VzZXJxdWV1ZS5oICAgIHwgIDY2ICsrKysNCj4gIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvaW5jbHVkZS92MTFfc3RydWN0cy5oICAgICB8ICAxNiArLQ0KPiAgaW5jbHVk
-ZS91YXBpL2RybS9hbWRncHVfZHJtLmggICAgICAgICAgICAgICAgIHwgIDU1ICsrKysNCj4gIDkg
-ZmlsZXMgY2hhbmdlZCwgNjc3IGluc2VydGlvbnMoKyksIDkgZGVsZXRpb25zKC0pICBjcmVhdGUg
-bW9kZSANCj4gMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91c2VycXVl
-dWUuYw0KPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IA0KPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfdXNlcnF1ZXVlX2dmeF92MTEuYw0KPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZl
-cnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hbWRncHVfdXNlcnF1ZXVlLmgNCj4NCj4gLS0NCj4gMi40
-MC4wDQo+DQo=
+--0000000000002a34a705f8e9393e
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Christian K=C3=B6nig <ckoenig.leichtzumerken@gmail.com> ezt =C3=ADrta (id=
+=C5=91pont: 2023.
+=C3=A1pr. 9., Vas 17:38):
+
+> Am 09.04.23 um 17:32 schrieb Bas Nieuwenhuizen:
+> > On Sun, Apr 9, 2023 at 5:30=E2=80=AFPM Christian K=C3=B6nig
+> > <ckoenig.leichtzumerken@gmail.com> wrote:
+> >> Am 09.04.23 um 16:44 schrieb Bas Nieuwenhuizen:
+> >>> We need to introduce a new version of the info struct because
+> >>> libdrm_amdgpu forgot any versioning info in amdgpu_query_hw_ip_info
+> >>> so the mesa<->libdrm_amdgpu interface can't handle increasing the
+> >>> size.
+> >> Those are not forgotten, but simply unnecessary.
+> >>
+> >> The size of the input output structures are given to the IOCTL in byte=
+s
+> >> and additional bytes should be filled with zeros.
+> > At the ioctl side, yes, but it is libdrm_amdgpu filling in the size,
+> > while passing in the struct directly from the client (mesa or
+> > whatever). So if we have new libdrm_amdgpu and old mesa, then mesa
+> > allocates  N bytes on the stack and libdrm_amdgpu happily tells the
+> > kernel in the ioctl "this struct is N+8 bytes long" which would cause
+> > corruption?
+>
+> WTF? This has a wrapper in libdrm? Well then that's indeed horrible broke=
+n.
+>
+> In this case please define the new structure as extension of the old
+> one. E.g. something like:
+>
+> struct drm_amdgpu_info_hw_ip2 {
+>      struct drm_amdgpu_info_hw_ip    base;
+>      ....
+> };
+>
+> This way we can make it clear that this is an extension.
+>
+
+
+Can we solve this in userspace by letting mesa pass the struct size to
+libdrm as well? Or would that create other compatibility issues?
+
+
+
+
+> Thanks,
+> Christian.
+>
+> >
+> > - Bas
+> >
+> >> So you should be able to extend the structures at the end without
+> >> breaking anything.
+> >>
+> >> Regards,
+> >> Christian.
+> >>
+> >>> This info would be used by radv to figure out when we need to
+> >>> split a submission into multiple submissions. radv currently has
+> >>> a limit of 192 which seems to work for most gfx submissions, but
+> >>> is way too high for e.g. compute or sdma.
+> >>>
+> >>> Because the kernel handling is just fine we can just use the v2
+> >>> everywhere and have the return_size do the versioning for us,
+> >>> with userspace interpreting 0 as unknown.
+> >>>
+> >>> Userspace implementation:
+> >>> https://gitlab.freedesktop.org/bnieuwenhuizen/drm/-/tree/ib-rejection
+> >>> https://gitlab.freedesktop.org/bnieuwenhuizen/mesa/-/tree/ib-rejectio=
+n
+> >>>
+> >>> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2498
+> >>> Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+> >>> Cc: David Airlie <airlied@gmail.com>
+> >>> ---
+> >>>    drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |  7 ++++--
+> >>>    include/uapi/drm/amdgpu_drm.h           | 29
+> +++++++++++++++++++++++++
+> >>>    2 files changed, 34 insertions(+), 2 deletions(-)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> >>> index 89689b940493..c7e815c2733e 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> >>> @@ -360,7 +360,7 @@ static int amdgpu_firmware_info(struct
+> drm_amdgpu_info_firmware *fw_info,
+> >>>
+> >>>    static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
+> >>>                             struct drm_amdgpu_info *info,
+> >>> -                          struct drm_amdgpu_info_hw_ip *result)
+> >>> +                          struct drm_amdgpu_info_hw_ip2 *result)
+> >>>    {
+> >>>        uint32_t ib_start_alignment =3D 0;
+> >>>        uint32_t ib_size_alignment =3D 0;
+> >>> @@ -431,6 +431,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device
+> *adev,
+> >>>                return -EINVAL;
+> >>>        }
+> >>>
+> >>> +     result->max_ibs =3D UINT_MAX;
+> >>>        for (i =3D 0; i < adev->num_rings; ++i) {
+> >>>                /* Note that this uses that ring types alias the
+> equivalent
+> >>>                 * HW IP exposes to userspace.
+> >>> @@ -438,6 +439,8 @@ static int amdgpu_hw_ip_info(struct amdgpu_device
+> *adev,
+> >>>                if (adev->rings[i]->funcs->type =3D=3D
+> info->query_hw_ip.type &&
+> >>>                    adev->rings[i]->sched.ready) {
+> >>>                        ++num_rings;
+> >>> +                     result->max_ibs =3D min(result->max_ibs,
+> >>> +                                           adev->rings[i]->max_ibs);
+> >>>                }
+> >>>        }
+> >>>
+> >>> @@ -536,7 +539,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, voi=
+d
+> *data, struct drm_file *filp)
+> >>>                }
+> >>>                return copy_to_user(out, &ui32, min(size, 4u)) ?
+> -EFAULT : 0;
+> >>>        case AMDGPU_INFO_HW_IP_INFO: {
+> >>> -             struct drm_amdgpu_info_hw_ip ip =3D {};
+> >>> +             struct drm_amdgpu_info_hw_ip2 ip =3D {};
+> >>>                int ret;
+> >>>
+> >>>                ret =3D amdgpu_hw_ip_info(adev, info, &ip);
+> >>> diff --git a/include/uapi/drm/amdgpu_drm.h
+> b/include/uapi/drm/amdgpu_drm.h
+> >>> index b6eb90df5d05..45e5ae546d19 100644
+> >>> --- a/include/uapi/drm/amdgpu_drm.h
+> >>> +++ b/include/uapi/drm/amdgpu_drm.h
+> >>> @@ -1128,6 +1128,9 @@ struct drm_amdgpu_info_device {
+> >>>        __u32 enabled_rb_pipes_mask_hi;
+> >>>    };
+> >>>
+> >>> +/* The size of this struct cannot be increased for compatibility
+> reasons, use
+> >>> + * struct drm_amdgpu_info_hw_ip2 instead.
+> >>> + */
+> >>>    struct drm_amdgpu_info_hw_ip {
+> >>>        /** Version of h/w IP */
+> >>>        __u32  hw_ip_version_major;
+> >>> @@ -1144,6 +1147,32 @@ struct drm_amdgpu_info_hw_ip {
+> >>>        __u32  ip_discovery_version;
+> >>>    };
+> >>>
+> >>> +/* The prefix fields of this are intentionally the same as those of
+> >>> + * struct drm_amdgpu_info_hw_ip. The struct has a v2 to resolve a
+> lack of
+> >>> + * versioning on the libdrm_amdgpu side.
+> >>> + */
+> >>> +struct drm_amdgpu_info_hw_ip2 {
+> >>> +     /** Version of h/w IP */
+> >>> +     __u32  hw_ip_version_major;
+> >>> +     __u32  hw_ip_version_minor;
+> >>> +     /** Capabilities */
+> >>> +     __u64  capabilities_flags;
+> >>> +     /** command buffer address start alignment*/
+> >>> +     __u32  ib_start_alignment;
+> >>> +     /** command buffer size alignment*/
+> >>> +     __u32  ib_size_alignment;
+> >>> +     /** Bitmask of available rings. Bit 0 means ring 0, etc. */
+> >>> +     __u32  available_rings;
+> >>> +     /** version info: bits 23:16 major, 15:8 minor, 7:0 revision */
+> >>> +     __u32  ip_discovery_version;
+> >>> +     /** The maximum number of IBs one can submit in a single
+> submission
+> >>> +      * ioctl. (When using gang submit: this is per IP type)
+> >>> +      */
+> >>> +     __u32  max_ibs;
+> >>> +     /** padding to 64bit for arch differences */
+> >>> +     __u32  pad;
+> >>> +};
+> >>> +
+> >>>    struct drm_amdgpu_info_num_handles {
+> >>>        /** Max handles as supported by firmware for UVD */
+> >>>        __u32  uvd_max_handles;
+>
+>
+
+--0000000000002a34a705f8e9393e
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
+class=3D"gmail_attr">Christian K=C3=B6nig &lt;<a href=3D"mailto:ckoenig.lei=
+chtzumerken@gmail.com">ckoenig.leichtzumerken@gmail.com</a>&gt; ezt =C3=ADr=
+ta (id=C5=91pont: 2023. =C3=A1pr. 9., Vas 17:38):<br></div><blockquote clas=
+s=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;pad=
+ding-left:1ex">Am 09.04.23 um 17:32 schrieb Bas Nieuwenhuizen:<br>
+&gt; On Sun, Apr 9, 2023 at 5:30=E2=80=AFPM Christian K=C3=B6nig<br>
+&gt; &lt;<a href=3D"mailto:ckoenig.leichtzumerken@gmail.com" target=3D"_bla=
+nk" rel=3D"noreferrer">ckoenig.leichtzumerken@gmail.com</a>&gt; wrote:<br>
+&gt;&gt; Am 09.04.23 um 16:44 schrieb Bas Nieuwenhuizen:<br>
+&gt;&gt;&gt; We need to introduce a new version of the info struct because<=
+br>
+&gt;&gt;&gt; libdrm_amdgpu forgot any versioning info in amdgpu_query_hw_ip=
+_info<br>
+&gt;&gt;&gt; so the mesa&lt;-&gt;libdrm_amdgpu interface can&#39;t handle i=
+ncreasing the<br>
+&gt;&gt;&gt; size.<br>
+&gt;&gt; Those are not forgotten, but simply unnecessary.<br>
+&gt;&gt;<br>
+&gt;&gt; The size of the input output structures are given to the IOCTL in =
+bytes<br>
+&gt;&gt; and additional bytes should be filled with zeros.<br>
+&gt; At the ioctl side, yes, but it is libdrm_amdgpu filling in the size,<b=
+r>
+&gt; while passing in the struct directly from the client (mesa or<br>
+&gt; whatever). So if we have new libdrm_amdgpu and old mesa, then mesa<br>
+&gt; allocates=C2=A0 N bytes on the stack and libdrm_amdgpu happily tells t=
+he<br>
+&gt; kernel in the ioctl &quot;this struct is N+8 bytes long&quot; which wo=
+uld cause<br>
+&gt; corruption?<br>
+<br>
+WTF? This has a wrapper in libdrm? Well then that&#39;s indeed horrible bro=
+ken.<br>
+<br>
+In this case please define the new structure as extension of the old <br>
+one. E.g. something like:<br>
+<br>
+struct drm_amdgpu_info_hw_ip2 {<br>
+=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_amdgpu_info_hw_ip=C2=A0=C2=A0=C2=A0 bas=
+e;<br>
+=C2=A0=C2=A0=C2=A0=C2=A0 ....<br>
+};<br>
+<br>
+This way we can make it clear that this is an extension.<br></blockquote></=
+div></div><div dir=3D"auto"><br></div><div dir=3D"auto"><br></div><div dir=
+=3D"auto">Can we solve this in userspace by letting mesa pass the struct si=
+ze to libdrm as well? Or would that create other compatibility issues?</div=
+><div dir=3D"auto"><br></div><div dir=3D"auto"><br></div><div dir=3D"auto">=
+<br></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D=
+"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding=
+-left:1ex">
+<br>
+Thanks,<br>
+Christian.<br>
+<br>
+&gt;<br>
+&gt; - Bas<br>
+&gt;<br>
+&gt;&gt; So you should be able to extend the structures at the end without<=
+br>
+&gt;&gt; breaking anything.<br>
+&gt;&gt;<br>
+&gt;&gt; Regards,<br>
+&gt;&gt; Christian.<br>
+&gt;&gt;<br>
+&gt;&gt;&gt; This info would be used by radv to figure out when we need to<=
+br>
+&gt;&gt;&gt; split a submission into multiple submissions. radv currently h=
+as<br>
+&gt;&gt;&gt; a limit of 192 which seems to work for most gfx submissions, b=
+ut<br>
+&gt;&gt;&gt; is way too high for e.g. compute or sdma.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Because the kernel handling is just fine we can just use the v=
+2<br>
+&gt;&gt;&gt; everywhere and have the return_size do the versioning for us,<=
+br>
+&gt;&gt;&gt; with userspace interpreting 0 as unknown.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Userspace implementation:<br>
+&gt;&gt;&gt; <a href=3D"https://gitlab.freedesktop.org/bnieuwenhuizen/drm/-=
+/tree/ib-rejection" rel=3D"noreferrer noreferrer" target=3D"_blank">https:/=
+/gitlab.freedesktop.org/bnieuwenhuizen/drm/-/tree/ib-rejection</a><br>
+&gt;&gt;&gt; <a href=3D"https://gitlab.freedesktop.org/bnieuwenhuizen/mesa/=
+-/tree/ib-rejection" rel=3D"noreferrer noreferrer" target=3D"_blank">https:=
+//gitlab.freedesktop.org/bnieuwenhuizen/mesa/-/tree/ib-rejection</a><br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Link: <a href=3D"https://gitlab.freedesktop.org/drm/amd/-/issu=
+es/2498" rel=3D"noreferrer noreferrer" target=3D"_blank">https://gitlab.fre=
+edesktop.org/drm/amd/-/issues/2498</a><br>
+&gt;&gt;&gt; Signed-off-by: Bas Nieuwenhuizen &lt;<a href=3D"mailto:bas@bas=
+nieuwenhuizen.nl" target=3D"_blank" rel=3D"noreferrer">bas@basnieuwenhuizen=
+.nl</a>&gt;<br>
+&gt;&gt;&gt; Cc: David Airlie &lt;<a href=3D"mailto:airlied@gmail.com" targ=
+et=3D"_blank" rel=3D"noreferrer">airlied@gmail.com</a>&gt;<br>
+&gt;&gt;&gt; ---<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |=C2=A0 7=
+ ++++--<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 include/uapi/drm/amdgpu_drm.h=C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0| 29 +++++++++++++++++++++++++<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 2 files changed, 34 insertions(+), 2 deletions(-)=
+<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers=
+/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+&gt;&gt;&gt; index 89689b940493..c7e815c2733e 100644<br>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+&gt;&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+&gt;&gt;&gt; @@ -360,7 +360,7 @@ static int amdgpu_firmware_info(struct drm=
+_amdgpu_info_firmware *fw_info,<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 static int amdgpu_hw_ip_info(struct amdgpu_device=
+ *adev,<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_amdgpu_info *info,<br>
+&gt;&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct drm_amdgpu_info_hw_ip *result)<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct drm_amdgpu_info_hw_ip2 *result)<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 {<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 uint32_t ib_start_alignment =3D 0;<=
+br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 uint32_t ib_size_alignment =3D 0;<b=
+r>
+&gt;&gt;&gt; @@ -431,6 +431,7 @@ static int amdgpu_hw_ip_info(struct amdgpu=
+_device *adev,<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return =
+-EINVAL;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0result-&gt;max_ibs =3D UINT_MAX;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 for (i =3D 0; i &lt; adev-&gt;num_r=
+ings; ++i) {<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Note=
+ that this uses that ring types alias the equivalent<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*=
+ HW IP exposes to userspace.<br>
+&gt;&gt;&gt; @@ -438,6 +439,8 @@ static int amdgpu_hw_ip_info(struct amdgpu=
+_device *adev,<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (ade=
+v-&gt;rings[i]-&gt;funcs-&gt;type =3D=3D info-&gt;query_hw_ip.type &amp;&am=
+p;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 adev-&gt;rings[i]-&gt;sched.ready) {<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 ++num_rings;<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0result-&gt;max_ibs =3D min(result-&gt;max_ibs,<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0adev-&gt;rings[i]-&gt;max_ibs);<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; @@ -536,7 +539,7 @@ int amdgpu_info_ioctl(struct drm_device *d=
+ev, void *data, struct drm_file *filp)<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return =
+copy_to_user(out, &amp;ui32, min(size, 4u)) ? -EFAULT : 0;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 case AMDGPU_INFO_HW_IP_INFO: {<br>
+&gt;&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_am=
+dgpu_info_hw_ip ip =3D {};<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_am=
+dgpu_info_hw_ip2 ip =3D {};<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 int ret=
+;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ret =3D=
+ amdgpu_hw_ip_info(adev, info, &amp;ip);<br>
+&gt;&gt;&gt; diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/=
+amdgpu_drm.h<br>
+&gt;&gt;&gt; index b6eb90df5d05..45e5ae546d19 100644<br>
+&gt;&gt;&gt; --- a/include/uapi/drm/amdgpu_drm.h<br>
+&gt;&gt;&gt; +++ b/include/uapi/drm/amdgpu_drm.h<br>
+&gt;&gt;&gt; @@ -1128,6 +1128,9 @@ struct drm_amdgpu_info_device {<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 __u32 enabled_rb_pipes_mask_hi;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 };<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; +/* The size of this struct cannot be increased for compatibil=
+ity reasons, use<br>
+&gt;&gt;&gt; + * struct drm_amdgpu_info_hw_ip2 instead.<br>
+&gt;&gt;&gt; + */<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 struct drm_amdgpu_info_hw_ip {<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 /** Version of h/w IP */<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 __u32=C2=A0 hw_ip_version_major;<br=
+>
+&gt;&gt;&gt; @@ -1144,6 +1147,32 @@ struct drm_amdgpu_info_hw_ip {<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 __u32=C2=A0 ip_discovery_version;<b=
+r>
+&gt;&gt;&gt;=C2=A0 =C2=A0 };<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; +/* The prefix fields of this are intentionally the same as th=
+ose of<br>
+&gt;&gt;&gt; + * struct drm_amdgpu_info_hw_ip. The struct has a v2 to resol=
+ve a lack of<br>
+&gt;&gt;&gt; + * versioning on the libdrm_amdgpu side.<br>
+&gt;&gt;&gt; + */<br>
+&gt;&gt;&gt; +struct drm_amdgpu_info_hw_ip2 {<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0/** Version of h/w IP */<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0__u32=C2=A0 hw_ip_version_major;<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0__u32=C2=A0 hw_ip_version_minor;<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0/** Capabilities */<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0__u64=C2=A0 capabilities_flags;<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0/** command buffer address start alignmen=
+t*/<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0__u32=C2=A0 ib_start_alignment;<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0/** command buffer size alignment*/<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0__u32=C2=A0 ib_size_alignment;<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0/** Bitmask of available rings. Bit 0 mea=
+ns ring 0, etc. */<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0__u32=C2=A0 available_rings;<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0/** version info: bits 23:16 major, 15:8 =
+minor, 7:0 revision */<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0__u32=C2=A0 ip_discovery_version;<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0/** The maximum number of IBs one can sub=
+mit in a single submission<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 * ioctl. (When using gang submit: this i=
+s per IP type)<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 */<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0__u32=C2=A0 max_ibs;<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0/** padding to 64bit for arch differences=
+ */<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0__u32=C2=A0 pad;<br>
+&gt;&gt;&gt; +};<br>
+&gt;&gt;&gt; +<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 struct drm_amdgpu_info_num_handles {<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 /** Max handles as supported by fir=
+mware for UVD */<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 __u32=C2=A0 uvd_max_handles;<br>
+<br>
+</blockquote></div></div></div>
+
+--0000000000002a34a705f8e9393e--
