@@ -4,61 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9D33C77B70
-	for <amd-gfx@archiver.kernel.org>; Sun,  9 Apr 2023 14:46:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F630C77B71
+	for <amd-gfx@archiver.kernel.org>; Sun,  9 Apr 2023 14:46:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D616410E110;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF4B910E140;
 	Sun,  9 Apr 2023 14:46:55 +0000 (UTC)
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [IPv6:2a00:1450:4864:20::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2643B10E110
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [IPv6:2a00:1450:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D5FA10E140
  for <amd-gfx@lists.freedesktop.org>; Sun,  9 Apr 2023 14:46:55 +0000 (UTC)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-94706a972f3so45718866b.0
- for <amd-gfx@lists.freedesktop.org>; Sun, 09 Apr 2023 07:46:55 -0700 (PDT)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-94706a972f3so45718666b.0
+ for <amd-gfx@lists.freedesktop.org>; Sun, 09 Apr 2023 07:46:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=basnieuwenhuizen.nl; s=google; t=1681051611; x=1683643611;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9vbRGZzKjUYn3Zx6ww6ERRejqqAxmlmY/HVplNrYcSg=;
- b=Xg1H1yJslQ764DsN9Yy4V7NqSMElscuZ1zrk6e12NR1h2UFlkj3wbI3iMWDrCmbEzF
- hID0+hfRtliqjlZ0+73wt0GohlADTZDmnTChBHrloiZUdzMVACNRxqAkrUdsLP7KqGuB
- vYt0d6SbRaWsOFAxsmWAfl0LhozrdUOm7coA+sNEYK+bnlOwjPQ+dRB2EVLacKuLcDjJ
- OKWXENdZPfqPTopa2e7j+94pyEwljxrjvqvtnUsC1xx3NJ/plE4dbdpLSgfw2eDkFMcU
- AsGX2j6iXZXJhLli3ccerwHYKm5WJGooqo0xKhR5kxtsOF/d745l5X8rOUGQDYa5oxHl
- SURg==
+ d=basnieuwenhuizen.nl; s=google; t=1681051609; x=1683643609;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=oLmzVq0hxpZo50dklapmsCpWXglsYbkSNUJFkSRsb9s=;
+ b=J5ozYpbWYRhytESbBGfF7C6PIBL4XNPPlifYH1bgFhMcjuWUAc+XznOsfPioO3QeBl
+ 58ZtZlcQsTCV1yAY3uSbigidE9zqvsg+v306e6b4wacJ9DiGUAYfuYYPWe8vPbT0nlR/
+ l8P8BN7WiIudTGPTli1V+TBdzXdfaRHxPfyrklqp/hEAKuE2HETbJdxhXZLf1k0urWnU
+ IZcU1+g/dq8xFlr85CgXegNBSj6eSV0Yx6vhK5fpFHK+CPB43WrpHWOzKBY3ALVn9CWa
+ P1JwxeyDgXsHYrMVvoY9WcvfdV9BkMdk3i1/djjBE2W0lyuxTCt4QKlwA84Vp87sLSOM
+ bbOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681051611; x=1683643611;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=9vbRGZzKjUYn3Zx6ww6ERRejqqAxmlmY/HVplNrYcSg=;
- b=FqOGcQzOm0KShhM/oJtt0fExSAtpewZKeT/lD5dFjX8+MiTWcRFPv9tr1Wky0NideX
- tbPm3MGkq+kbZkCEPn/PCisAME/MjB5G/JgtcHJwhcFl2c6/nczPXwuBIluCOiTchjGf
- J5cgBwI5eG9UBNFYc6PJZDNr8Ybp20WmXlZ7HMQdFECfKy0c6zcg34bcVNr1JJsrWgr/
- /q+MTYl8Cpp0YnkuLVVNeXgHipGMZP2mWl6rt7ofzx+XuP+jPylCWRyiA8FWbfgv51tX
- OYho8oatY0652vU0pbsrceQnCFtDLRVaaSqQL0WZwPpTFZkMPI80c4jepAalwyF9PsJ9
- 1Jvw==
-X-Gm-Message-State: AAQBX9e7pRvyUEVcuF417f1RzkL9Lxnp6S4E83bJ6U0DcRI4w5etfnjp
- ShV6JMm5FPtCcQDksQ+igmRoxdHOsyVHFcQd17S2DA==
-X-Google-Smtp-Source: AKy350aTIoLoUOvpBOwgvghEsDjy1k37SxXvJDaoAvC5kIVtOk5XWyNKOtqJSq/dYSiPPPuCFEEPmg==
-X-Received: by 2002:a17:906:74cc:b0:933:23c4:820b with SMTP id
- z12-20020a17090674cc00b0093323c4820bmr4464675ejl.4.1681051611282; 
- Sun, 09 Apr 2023 07:46:51 -0700 (PDT)
+ d=1e100.net; s=20210112; t=1681051609; x=1683643609;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=oLmzVq0hxpZo50dklapmsCpWXglsYbkSNUJFkSRsb9s=;
+ b=DZtNduqGJ3sZI8Ne5TIcYW7h1TxJvQ9Lz29ucf1Vd/jMr8ja/Eqh7lXx4A48Nj3cQW
+ qskd6BwZHrSlOp1pz29iNtUeRByLRqb3EEE6Hi6uLqkJSzyn9CNdD+5TbsbbztUV5jyy
+ oAjrE9KK5bMlMBqeZVDmdzRRyK3amGAn7F2+yOPE8nGd3fV4g3Z5Xo6+iAvPo8oDpY98
+ Kaz780sQp8kXGLWtmCv/IuFweGE+DRG+xFPjMfZcydZsJWMCUZcRsLFgNtcjMdRyf0bY
+ HpKiWOe/Xo8SyL1q8rouBTfjei7Tc1TxMdFtuxqImtUH+N/LfVVzAlIbHd39hzEbiMkH
+ su7g==
+X-Gm-Message-State: AAQBX9c3aQYzDyfPibn9HvDHZbtRRKMTCVmqHsjwCVAtrwcvcNDx6f8U
+ lns1X2HylDKH8eZIxodbLTzYbkDNP/+KnYs1yufumw==
+X-Google-Smtp-Source: AKy350bl6C/FVhEhpM4F0TpucjoV8ehXC8p42PaObXMxfd2MOzzkPTYXwzcICqcb1ZoSGHmAiMEnfQ==
+X-Received: by 2002:a17:906:73ca:b0:93b:dddf:4be2 with SMTP id
+ n10-20020a17090673ca00b0093bdddf4be2mr4370529ejl.3.1681051609676; 
+ Sun, 09 Apr 2023 07:46:49 -0700 (PDT)
 Received: from bas-workstation.. ([2a02:aa12:a782:cc00::ab])
  by smtp.gmail.com with ESMTPSA id
- xj5-20020a170906db0500b00924d38bbdc0sm4155587ejb.105.2023.04.09.07.46.49
+ xj5-20020a170906db0500b00924d38bbdc0sm4155587ejb.105.2023.04.09.07.46.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 09 Apr 2023 07:46:50 -0700 (PDT)
+ Sun, 09 Apr 2023 07:46:48 -0700 (PDT)
 From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/3] drm/amdgpu: Simplify amdgpu_hw_ip_info.
-Date: Sun,  9 Apr 2023 16:44:44 +0200
-Message-Id: <20230409144445.374816-2-bas@basnieuwenhuizen.nl>
+Subject: [PATCH 1/3] drm/amdgpu: Reject submissions with too many IBs.
+Date: Sun,  9 Apr 2023 16:44:43 +0200
+Message-Id: <20230409144445.374816-1-bas@basnieuwenhuizen.nl>
 X-Mailer: git-send-email 2.40.0
-In-Reply-To: <20230409144445.374816-1-bas@basnieuwenhuizen.nl>
-References: <20230409144445.374816-1-bas@basnieuwenhuizen.nl>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -77,151 +74,65 @@ Cc: alexander.deucher@amd.com, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We have a list of all rings, so no sense writing the same loop N
-times. With how often this gets called and how small the ring list
-is the performance of this shouldn't matter.
+Instead of failing somewhere in the scheduler after the
+ioctl has already succeeded.
 
-Note that some of the loops included some checking wrt harvesting.
-That is redundant now, as those rings never get initialized and
-hence never added to the adev->rings array.
-
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2498
 Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 61 ++++++-------------------
- 1 file changed, 15 insertions(+), 46 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c  | 9 +++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 5 +++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 1 +
+ 3 files changed, 15 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 0efb38539d70..89689b940493 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -366,7 +366,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
- 	uint32_t ib_size_alignment = 0;
- 	enum amd_ip_block_type type;
- 	unsigned int num_rings = 0;
--	unsigned int i, j;
-+	unsigned int i;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index 995ee9ff65c9..8db6618b9049 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -113,6 +113,15 @@ int amdgpu_job_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	if (!entity)
+ 		return 0;
  
- 	if (info->query_hw_ip.ip_instance >= AMDGPU_HW_IP_INSTANCE_MAX_COUNT)
- 		return -EINVAL;
-@@ -374,83 +374,49 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
- 	switch (info->query_hw_ip.type) {
- 	case AMDGPU_HW_IP_GFX:
- 		type = AMD_IP_BLOCK_TYPE_GFX;
--		for (i = 0; i < adev->gfx.num_gfx_rings; i++)
--			if (adev->gfx.gfx_ring[i].sched.ready)
--				++num_rings;
++	if (entity->rq && entity->rq->sched) {
++		struct amdgpu_ring *ring = to_amdgpu_ring(entity->rq->sched);
 +
- 		ib_start_alignment = 32;
- 		ib_size_alignment = 32;
- 		break;
- 	case AMDGPU_HW_IP_COMPUTE:
- 		type = AMD_IP_BLOCK_TYPE_GFX;
--		for (i = 0; i < adev->gfx.num_compute_rings; i++)
--			if (adev->gfx.compute_ring[i].sched.ready)
--				++num_rings;
-+
- 		ib_start_alignment = 32;
- 		ib_size_alignment = 32;
- 		break;
- 	case AMDGPU_HW_IP_DMA:
- 		type = AMD_IP_BLOCK_TYPE_SDMA;
--		for (i = 0; i < adev->sdma.num_instances; i++)
--			if (adev->sdma.instance[i].ring.sched.ready)
--				++num_rings;
-+
- 		ib_start_alignment = 256;
- 		ib_size_alignment = 4;
- 		break;
- 	case AMDGPU_HW_IP_UVD:
- 		type = AMD_IP_BLOCK_TYPE_UVD;
--		for (i = 0; i < adev->uvd.num_uvd_inst; i++) {
--			if (adev->uvd.harvest_config & (1 << i))
--				continue;
- 
--			if (adev->uvd.inst[i].ring.sched.ready)
--				++num_rings;
--		}
- 		ib_start_alignment = 64;
- 		ib_size_alignment = 64;
- 		break;
- 	case AMDGPU_HW_IP_VCE:
- 		type = AMD_IP_BLOCK_TYPE_VCE;
--		for (i = 0; i < adev->vce.num_rings; i++)
--			if (adev->vce.ring[i].sched.ready)
--				++num_rings;
-+
- 		ib_start_alignment = 4;
- 		ib_size_alignment = 1;
- 		break;
- 	case AMDGPU_HW_IP_UVD_ENC:
- 		type = AMD_IP_BLOCK_TYPE_UVD;
--		for (i = 0; i < adev->uvd.num_uvd_inst; i++) {
--			if (adev->uvd.harvest_config & (1 << i))
--				continue;
- 
--			for (j = 0; j < adev->uvd.num_enc_rings; j++)
--				if (adev->uvd.inst[i].ring_enc[j].sched.ready)
--					++num_rings;
--		}
- 		ib_start_alignment = 64;
- 		ib_size_alignment = 64;
- 		break;
- 	case AMDGPU_HW_IP_VCN_DEC:
- 		type = AMD_IP_BLOCK_TYPE_VCN;
--		for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
--			if (adev->vcn.harvest_config & (1 << i))
--				continue;
- 
--			if (adev->vcn.inst[i].ring_dec.sched.ready)
--				++num_rings;
--		}
- 		ib_start_alignment = 16;
- 		ib_size_alignment = 16;
- 		break;
- 	case AMDGPU_HW_IP_VCN_ENC:
- 		type = AMD_IP_BLOCK_TYPE_VCN;
--		for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
--			if (adev->vcn.harvest_config & (1 << i))
--				continue;
- 
--			for (j = 0; j < adev->vcn.num_enc_rings; j++)
--				if (adev->vcn.inst[i].ring_enc[j].sched.ready)
--					++num_rings;
--		}
- 		ib_start_alignment = 64;
- 		ib_size_alignment = 1;
- 		break;
-@@ -458,13 +424,6 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
- 		type = (amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_JPEG)) ?
- 			AMD_IP_BLOCK_TYPE_JPEG : AMD_IP_BLOCK_TYPE_VCN;
- 
--		for (i = 0; i < adev->jpeg.num_jpeg_inst; i++) {
--			if (adev->jpeg.harvest_config & (1 << i))
--				continue;
--
--			if (adev->jpeg.inst[i].ring_dec.sched.ready)
--				++num_rings;
--		}
- 		ib_start_alignment = 16;
- 		ib_size_alignment = 16;
- 		break;
-@@ -472,6 +431,16 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
- 		return -EINVAL;
- 	}
- 
-+	for (i = 0; i < adev->num_rings; ++i) {
-+		/* Note that this uses that ring types alias the equivalent
-+		 * HW IP exposes to userspace.
-+		 */
-+		if (adev->rings[i]->funcs->type == info->query_hw_ip.type &&
-+		    adev->rings[i]->sched.ready) {
-+			++num_rings;
++		if (num_ibs > ring->max_ibs) {
++			DRM_DEBUG("Rejected a submission with too many IBs");
++			return -EINVAL;
 +		}
 +	}
 +
- 	for (i = 0; i < adev->num_ip_blocks; i++)
- 		if (adev->ip_blocks[i].version->type == type &&
- 		    adev->ip_blocks[i].status.valid)
+ 	return drm_sched_job_init(&(*job)->base, entity, owner);
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index dc474b809604..933cb95a0e30 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -324,6 +324,11 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+ 	ring->max_dw = max_dw;
+ 	ring->hw_prio = hw_prio;
+ 
++	if (ring->funcs->emit_ib_size) {
++		ring->max_ibs =
++			(max_dw - ring->funcs->emit_frame_size) / ring->funcs->emit_ib_size;
++	}
++
+ 	if (!ring->no_scheduler) {
+ 		hw_ip = ring->funcs->type;
+ 		num_sched = &adev->gpu_sched[hw_ip][hw_prio].num_scheds;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index 3989e755a5b4..7a295d80728b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -245,6 +245,7 @@ struct amdgpu_ring {
+ 	unsigned		ring_size;
+ 	unsigned		max_dw;
+ 	int			count_dw;
++	unsigned		max_ibs;
+ 	uint64_t		gpu_addr;
+ 	uint64_t		ptr_mask;
+ 	uint32_t		buf_mask;
 -- 
 2.40.0
 
