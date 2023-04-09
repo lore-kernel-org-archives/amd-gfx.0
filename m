@@ -4,64 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85893C77B6F
-	for <amd-gfx@archiver.kernel.org>; Sun,  9 Apr 2023 19:02:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34291C77B6E
+	for <amd-gfx@archiver.kernel.org>; Sun,  9 Apr 2023 19:21:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A882910E1F2;
-	Sun,  9 Apr 2023 19:02:07 +0000 (UTC)
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 857E610E1ED
- for <amd-gfx@lists.freedesktop.org>; Sun,  9 Apr 2023 19:02:05 +0000 (UTC)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-947a47eb908so107519866b.0
- for <amd-gfx@lists.freedesktop.org>; Sun, 09 Apr 2023 12:02:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=basnieuwenhuizen.nl; s=google; t=1681066923; x=1683658923;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=7FVYJ1au10rxEnJX58fvFbkZ9mzQm5fCGuW6E9SZYXQ=;
- b=BHlTkwvmKpia0JZeny+ggwnXtHQ3dk1tBD3tVwkf7pqkKbthSGF0ITvIQVE2fO+jTb
- A6EcoK6u1/7n3pNeuB4ZxTOWj78X0zL5fAVv9R7/5/abzfeZ6m0vrjD7ZYmnEiNJs0Ln
- yN3x++LwdUj0fxpAkOvjW6n8nr1DYFL0FGz8nfFICrSig5mXgs41SvNzG2uVmZhjmqOt
- FpuK/TYrIuFEM9aUpya9s/7ToZCcL2XQN2KeUwoGPTwK36eH8fP2h3ZGikH5lwREPTkl
- GQd2Q8OJznv3T88GNPi7U3SYXPm/tJ3jLTI5UE481R9lPEM0sCAKhCcwaIewGGspGbVz
- DoDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681066923; x=1683658923;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=7FVYJ1au10rxEnJX58fvFbkZ9mzQm5fCGuW6E9SZYXQ=;
- b=tsw2q5XW22rwLScQ/s+0xmgh7Mx5CIXOMzjZBJA49nkipHVDRPW869IbbNIDWXQJGV
- qOgDfRbC5bGtPoVPFI0OHR1JM+4SyVxMLRXDqF6m2EEq9Xphuu1VXZo728srU0/AZVrT
- cecP4q1fesRF5D6xg2j/jC3rMBDv8u1kn3bVV3XSTUHsBQM7WF8H5Hjq2ARcf5qtDuaF
- Ej5UlCG2CzbMSVQuO4cJBV8mMSNfAqijSu2Ey6iwA4xqpslWwYKozWMpVJTc8uJ4YqMx
- 6eOB0Ira2m2YFEDYNoR8jgbKL61PTrEVCm//cQDpsA84xE9MTg1wSuytE0GjRh1ebT6N
- QMFg==
-X-Gm-Message-State: AAQBX9cUbXFlJBasgjqaTXxjHG/hCigTxIkWkqHoo2xo6EGcV09f1slJ
- 3834JJgG2rIhN4dxj/gYFvuBxgtdTapXQLbEP4H59w==
-X-Google-Smtp-Source: AKy350bfX4DYgRbku0KLgQM20erx6MTzxxoqgyVWE+h5wZwsjtVxhVO6Ds1fgj4zN0/Mg6WiRUVz4w==
-X-Received: by 2002:a17:906:19c:b0:947:bff2:1c2d with SMTP id
- 28-20020a170906019c00b00947bff21c2dmr5063074ejb.3.1681066923032; 
- Sun, 09 Apr 2023 12:02:03 -0700 (PDT)
-Received: from bas-workstation.. ([2a02:aa12:a782:cc00::ab])
- by smtp.gmail.com with ESMTPSA id
- xb4-20020a170907070400b0094a71869153sm730693ejb.46.2023.04.09.12.02.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 09 Apr 2023 12:02:02 -0700 (PDT)
-From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v2 3/3] drm/amdgpu: Add support for querying the max ibs in a
- submission. (v2)
-Date: Sun,  9 Apr 2023 20:59:56 +0200
-Message-Id: <20230409185956.725016-3-bas@basnieuwenhuizen.nl>
-X-Mailer: git-send-email 2.40.0
-In-Reply-To: <20230409185956.725016-1-bas@basnieuwenhuizen.nl>
-References: <20230409185956.725016-1-bas@basnieuwenhuizen.nl>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A029610E1E1;
+	Sun,  9 Apr 2023 19:21:40 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2060b.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5b::60b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE64A10E1E1
+ for <amd-gfx@lists.freedesktop.org>; Sun,  9 Apr 2023 19:21:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Rnmp88ED8qvXiKJFfil+V+JAOEVQhIN/ONjCkn4JQLSCJZcLO+Q7PGH2ZTG9Ww0M6KGZtbbs9bIFKEZX9AuNB6Kg/cJaJVaWfzSbxrOsN3hbR4FrOh4jYN1y8sYnfrjbUuC0USAZ/T9PkPSCLBBn5cp1Ww1DFzLjuo3gtCjFUjLOkdT8BtQw+sqLISBWd9HVIPei7WX/09jxL6UCltQW7Y+1H90HuHPB7n5+evk8MifjLwCFBFEVClCf54XBinr7+gmjw7mqOPYwd+ZCQF+AjP8Bh0rSifYRTxBdZSWqtjzXJnA6yk9W5UkBpMrreOqMU3HdUqw+BBw6PcQdKa/gUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xXgIh0I7d1XTB5Dd+lheGjQIz4NV48UHYYwQojyT53k=;
+ b=T+RCjcOW6ePfLf8lnhL7Q6fHRVRmi/I2WBiHEXz+QwRYDnjuPfUrbB23AH8HZzyyCQrZXehrWc6jK3Jjs76xAFZBopfLOXrwaJVEbHECBVFMpJru6csrtsjyWNu3xE6uKidehOkXJCk9rIb21DcUCDB6+w1W+1QA3oK9QhWe0x1rtV39J9U23XmxaBv8GM+7zSO9ym1QlE12EPK6X/YszatKYBAqo51gOuSLWPGOfMKCiQ5SWzkBBfRWa/qxeOdVaUVX/e3gurU0ZAnvPdEFJsTr1WJddwIQ2BU8+8yGgNXQAiYOkckVo5qclhMhRxtbnAyb3A3z3v1h0FvnHOu15A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xXgIh0I7d1XTB5Dd+lheGjQIz4NV48UHYYwQojyT53k=;
+ b=dPLiuGo8GI7T9uIa4N5UNLip2CrycVYSKVvFL1c/HZWbizq4NYbl72rBEBJ+NtDm+qVb6KHx5rcQXN7vmQVPZxKEBhUqFlhbhOnWJouCfVFzLWED+eCd8gZPpV/bFaw55s6yQih9fDYlaG6PiOvBFkEZ/HeRlkQxpKLFx/zvd2A=
+Received: from BN8PR15CA0059.namprd15.prod.outlook.com (2603:10b6:408:80::36)
+ by CH2PR12MB5513.namprd12.prod.outlook.com (2603:10b6:610:68::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.36; Sun, 9 Apr
+ 2023 19:21:31 +0000
+Received: from BN8NAM11FT083.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:80:cafe::66) by BN8PR15CA0059.outlook.office365.com
+ (2603:10b6:408:80::36) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.35 via Frontend
+ Transport; Sun, 9 Apr 2023 19:21:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT083.mail.protection.outlook.com (10.13.177.75) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6298.25 via Frontend Transport; Sun, 9 Apr 2023 19:21:31 +0000
+Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Sun, 9 Apr
+ 2023 14:21:28 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Harry Wentland <harry.wentland@amd.com>, Mario Limonciello
+ <mario.limonciello@amd.com>, Li Sun peng <sunpeng.li@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amd/display : Log DP link training downspread info
+Date: Mon, 10 Apr 2023 00:51:08 +0530
+Message-ID: <20230409192108.1505595-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT083:EE_|CH2PR12MB5513:EE_
+X-MS-Office365-Filtering-Correlation-Id: bda343a1-b726-469c-5616-08db392f9fd2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: kIZ+8bBeMlAQMH/HkbnCnK/jApp2Edqre8Qxg3C8QRuXjO/UPREYC+CuARjbjtNFIrpxYIQO/Tn217XE4MlV5zIN1yEq6h6Bm5eS9xNHWjG9GfpCji8gu2RMlwkYzxfiDgRzc4saQky43upA7LRQk2a7TNmOxBnFs44lrofmS9T52CI2VZyodn09Iq27D3pyNkIiHw6L237atxgeEUMNjPoH65XgIeT4bO6q9ljS4+LvFBYjMfTyp+AKU4DndkNYCFcNy8oCWrVlzbmLTkW47wmZB/UIx57GCsZC9Hn2z5YdKYs0Ma4zRek+VSJTgqNO5J7zgOhAZMEI/E9cqK1MlnUkWLlg6cWUBfiGsguFMoKz50qXTXgzG43EvjbTNNm4auQhoRRi93iaZ0qfo4fuY2Swkl6+wL8CRDQmsgKvCFbQOub8y2rQdsCsFnmYo3UakE14IEJg+fgIAjF0t+kUBSpIwd6J0U8BgSx7+XU5WssTe/Ou+VY3NMruuK9/qCftYbesp1vBVOsVThh1fn2IQTP5sz8DcELicoO3C53qkwel4Y8IMKF0khxLzerV4lrjTigGyQC5f/WyJrKcCnywzTTbaL3ZCIAjP9dt67AkSzlonDPDLCJRercc5U/eertT/gQkx6g+R5MujlsUKh30p2N2sEQswk8Qxm0a7Ho0M4zcetaIWKWG6cKE9J5B4FVNyS3AkV8v7EVjF6Th8x1bSfA0Rm9kweztFrtAw9qw1aY=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(136003)(396003)(39860400002)(376002)(451199021)(40470700004)(36840700001)(46966006)(478600001)(7696005)(54906003)(6636002)(110136005)(316002)(1076003)(26005)(16526019)(186003)(44832011)(6666004)(2906002)(4326008)(70586007)(70206006)(5660300002)(8676002)(41300700001)(8936002)(82310400005)(81166007)(356005)(82740400003)(86362001)(40480700001)(36756003)(40460700003)(47076005)(83380400001)(2616005)(426003)(336012)(36860700001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2023 19:21:31.0196 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bda343a1-b726-469c-5616-08db392f9fd2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT083.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB5513
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,160 +100,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: maraeo@gmail.com, timur.kristof@gmail.com,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, alexander.deucher@amd.com,
- David Airlie <airlied@gmail.com>, christian.koenig@amd.com
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We need to introduce a new version of the info struct because
-libdrm_amdgpu forgot any versioning info in amdgpu_query_hw_ip_info
-so the mesa<->libdrm_amdgpu interface can't handle increasing the
-size.
+Update the existing log with DP LT downspread info:
 
-This info would be used by radv to figure out when we need to
-split a submission into multiple submissions. radv currently has
-a limit of 192 which seems to work for most gfx submissions, but
-is way too high for e.g. compute or sdma.
+[Downstream devices shall support down spreading of the link clock.
+The down-spread amplitude shall either be disabled (0.0%) or up to 0.5%,
+as written by the upstream device to the DOWNSPREAD_CTRL register
+(DPCD 00107h). The modulation frequency range shall be 30 to 33 kHz]
 
-Because the kernel handling is just fine we can just use the v2
-everywhere and have the return_size do the versioning for us,
-with userspace interpreting 0 as unknown.
+Besides, fix checkpatch warning:
 
-Userspace implementation:
-https://gitlab.freedesktop.org/bnieuwenhuizen/drm/-/tree/ib-rejection
-https://gitlab.freedesktop.org/bnieuwenhuizen/mesa/-/tree/ib-rejection
+CHECK: Alignment should match open parenthesis
 
-v2: Use base member in the new struct.
-
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2498
-Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Cc: David Airlie <airlied@gmail.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 31 ++++++++++++++-----------
- include/uapi/drm/amdgpu_drm.h           | 14 +++++++++++
- 2 files changed, 31 insertions(+), 14 deletions(-)
+ .../display/dc/link/protocols/link_dp_training.c   | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 89689b940493..5b575e1aef1a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -360,7 +360,7 @@ static int amdgpu_firmware_info(struct drm_amdgpu_info_firmware *fw_info,
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
+index 70fc0ddf2d7e..2d067a4a8517 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
+@@ -1560,9 +1560,10 @@ bool perform_link_training_with_retries(
+ 	j = 0;
+ 	while (j < attempts && fail_count < (attempts * 10)) {
  
- static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
- 			     struct drm_amdgpu_info *info,
--			     struct drm_amdgpu_info_hw_ip *result)
-+			     struct drm_amdgpu_info_hw_ip2 *result)
- {
- 	uint32_t ib_start_alignment = 0;
- 	uint32_t ib_size_alignment = 0;
-@@ -431,6 +431,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
- 		return -EINVAL;
- 	}
+-		DC_LOG_HW_LINK_TRAINING("%s: Beginning link(%d) training attempt %u of %d @ rate(%d) x lane(%d)\n",
+-			__func__, link->link_index, (unsigned int)j + 1, attempts, cur_link_settings.link_rate,
+-			cur_link_settings.lane_count);
++		DC_LOG_HW_LINK_TRAINING("%s: Beginning link(%d) training attempt %u of %d @ rate(%d) x lane(%d) @ spread = %x\n",
++					__func__, link->link_index, (unsigned int)j + 1, attempts,
++				       cur_link_settings.link_rate, cur_link_settings.lane_count,
++				       cur_link_settings.link_spread);
  
-+	result->max_ibs = UINT_MAX;
- 	for (i = 0; i < adev->num_rings; ++i) {
- 		/* Note that this uses that ring types alias the equivalent
- 		 * HW IP exposes to userspace.
-@@ -438,6 +439,8 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
- 		if (adev->rings[i]->funcs->type == info->query_hw_ip.type &&
- 		    adev->rings[i]->sched.ready) {
- 			++num_rings;
-+			result->max_ibs = min(result->max_ibs,
-+					      adev->rings[i]->max_ibs);
+ 		dp_enable_link_phy(
+ 			link,
+@@ -1640,9 +1641,10 @@ bool perform_link_training_with_retries(
+ 				break;
  		}
- 	}
  
-@@ -452,36 +455,36 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
- 	num_rings = min(amdgpu_ctx_num_entities[info->query_hw_ip.type],
- 			num_rings);
+-		DC_LOG_WARNING("%s: Link(%d) training attempt %u of %d failed @ rate(%d) x lane(%d) : fail reason:(%d)\n",
+-			__func__, link->link_index, (unsigned int)j + 1, attempts, cur_link_settings.link_rate,
+-			cur_link_settings.lane_count, status);
++		DC_LOG_WARNING("%s: Link(%d) training attempt %u of %d failed @ rate(%d) x lane(%d) @ spread = %x : fail reason:(%d)\n",
++			       __func__, link->link_index, (unsigned int)j + 1, attempts,
++			      cur_link_settings.link_rate, cur_link_settings.lane_count,
++			      cur_link_settings.link_spread, status);
  
--	result->hw_ip_version_major = adev->ip_blocks[i].version->major;
--	result->hw_ip_version_minor = adev->ip_blocks[i].version->minor;
-+	result->base.hw_ip_version_major = adev->ip_blocks[i].version->major;
-+	result->base.hw_ip_version_minor = adev->ip_blocks[i].version->minor;
+ 		dp_disable_link_phy(link, &pipe_ctx->link_res, signal);
  
- 	if (adev->asic_type >= CHIP_VEGA10) {
- 		switch (type) {
- 		case AMD_IP_BLOCK_TYPE_GFX:
--			result->ip_discovery_version = adev->ip_versions[GC_HWIP][0];
-+			result->base.ip_discovery_version = adev->ip_versions[GC_HWIP][0];
- 			break;
- 		case AMD_IP_BLOCK_TYPE_SDMA:
--			result->ip_discovery_version = adev->ip_versions[SDMA0_HWIP][0];
-+			result->base.ip_discovery_version = adev->ip_versions[SDMA0_HWIP][0];
- 			break;
- 		case AMD_IP_BLOCK_TYPE_UVD:
- 		case AMD_IP_BLOCK_TYPE_VCN:
- 		case AMD_IP_BLOCK_TYPE_JPEG:
--			result->ip_discovery_version = adev->ip_versions[UVD_HWIP][0];
-+			result->base.ip_discovery_version = adev->ip_versions[UVD_HWIP][0];
- 			break;
- 		case AMD_IP_BLOCK_TYPE_VCE:
--			result->ip_discovery_version = adev->ip_versions[VCE_HWIP][0];
-+			result->base.ip_discovery_version = adev->ip_versions[VCE_HWIP][0];
- 			break;
- 		default:
--			result->ip_discovery_version = 0;
-+			result->base.ip_discovery_version = 0;
- 			break;
- 		}
- 	} else {
--		result->ip_discovery_version = 0;
-+		result->base.ip_discovery_version = 0;
- 	}
--	result->capabilities_flags = 0;
--	result->available_rings = (1 << num_rings) - 1;
--	result->ib_start_alignment = ib_start_alignment;
--	result->ib_size_alignment = ib_size_alignment;
-+	result->base.capabilities_flags = 0;
-+	result->base.available_rings = (1 << num_rings) - 1;
-+	result->base.ib_start_alignment = ib_start_alignment;
-+	result->base.ib_size_alignment = ib_size_alignment;
- 	return 0;
- }
- 
-@@ -536,7 +539,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		}
- 		return copy_to_user(out, &ui32, min(size, 4u)) ? -EFAULT : 0;
- 	case AMDGPU_INFO_HW_IP_INFO: {
--		struct drm_amdgpu_info_hw_ip ip = {};
-+		struct drm_amdgpu_info_hw_ip2 ip = {};
- 		int ret;
- 
- 		ret = amdgpu_hw_ip_info(adev, info, &ip);
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index b6eb90df5d05..6b9e35b6f747 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -1128,6 +1128,9 @@ struct drm_amdgpu_info_device {
- 	__u32 enabled_rb_pipes_mask_hi;
- };
- 
-+/* The size of this struct cannot be increased for compatibility reasons, use
-+ * struct drm_amdgpu_info_hw_ip2 instead.
-+ */
- struct drm_amdgpu_info_hw_ip {
- 	/** Version of h/w IP */
- 	__u32  hw_ip_version_major;
-@@ -1144,6 +1147,17 @@ struct drm_amdgpu_info_hw_ip {
- 	__u32  ip_discovery_version;
- };
- 
-+struct drm_amdgpu_info_hw_ip2 {
-+	/** Previous version of the struct */
-+	struct drm_amdgpu_info_hw_ip  base;
-+	/** The maximum number of IBs one can submit in a single submission
-+	 * ioctl. (When using gang submit: this is per IP type)
-+	 */
-+	__u32  max_ibs;
-+	/** padding to 64bit for arch differences */
-+	__u32  pad;
-+};
-+
- struct drm_amdgpu_info_num_handles {
- 	/** Max handles as supported by firmware for UVD */
- 	__u32  uvd_max_handles;
 -- 
-2.40.0
+2.25.1
 
