@@ -4,56 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C425BC77B6E
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Apr 2023 00:04:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90A10C77B6E
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Apr 2023 00:38:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5683310E1F3;
-	Mon, 10 Apr 2023 00:04:45 +0000 (UTC)
-Received: from mail-yw1-x1136.google.com (mail-yw1-x1136.google.com
- [IPv6:2607:f8b0:4864:20::1136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0E9310E1F3
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Apr 2023 00:04:43 +0000 (UTC)
-Received: by mail-yw1-x1136.google.com with SMTP id
- 00721157ae682-54bfa5e698eso228494027b3.13
- for <amd-gfx@lists.freedesktop.org>; Sun, 09 Apr 2023 17:04:43 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF8F410E21C;
+	Mon, 10 Apr 2023 00:38:50 +0000 (UTC)
+Received: from mail-yb1-xb36.google.com (mail-yb1-xb36.google.com
+ [IPv6:2607:f8b0:4864:20::b36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0300610E21C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Apr 2023 00:38:48 +0000 (UTC)
+Received: by mail-yb1-xb36.google.com with SMTP id i20so6919757ybg.10
+ for <amd-gfx@lists.freedesktop.org>; Sun, 09 Apr 2023 17:38:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=basnieuwenhuizen.nl; s=google; t=1681085081; x=1683677081;
+ d=basnieuwenhuizen.nl; s=google; t=1681087128; x=1683679128;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=/snaqrOyQufN7i9bGN7or2gZDsfaOIyL9LmABmkQ66Q=;
- b=Cb7rflmmbGRVOj2UywER7kczNzjd44BaMK1WVm9Oe4sqK7A7CcR32y8hWEKliEFUUS
- 6b8hHVbWk1OzYK4OJyi23hV1+m029dAyTL5oX7XzlSeolvyaHgmXlfxRkDA66DOh+/Lz
- Eso4osADXXmxhYmK8mOZa/8iNVAoySsrFv8wfMaGq/c4gZGLL6SxQkAIbONRpa4WxRoD
- /FAXt192prDAM+APXPbCDcqCG7OHN3on/63abk980OWAnSOmgNdwmq9AD/A/tnWXVZi/
- YS86WcMoOWjeCMMMqsp9AdFkF7Qgy0ht4Mlr1YTWsG76oeVKQepz9uH9WauZeoO9QGsl
- rSig==
+ bh=MhFTsXwmF5whC2KI03VAym+2gZK46UV+EvOd4XgCHFs=;
+ b=HEvcXke+S685I9M2cBx6UarBDE9oROzNHBck3FOZuuMn1O8zjfyCbFqhz/By8TLxaU
+ UbT8cFkg2esASrmKvzSxJ9jOQYSDz4E2+BjnEiOzdoo1nyCrHuMzFbc+YFrhT0NS7eUN
+ UegaPmljqoRkOIe7yBSOBmpziwuHpFQMLN/fhhRVRoEjk5nFeRhUg97LU1Fx0rmFh3vZ
+ 793ob0tUlKBDXa8mZXC0rWNSMZtxTUmjurf0M8kXjqZ7kFG7Pp6tfxZykmEqb5pOOiZs
+ cy6KH/YZnlLxGHL7JcuyNmVKWPHPU6UEPbNHtCqQ60bNq9i2T/vHR8x1vbpFTCcEHy+C
+ UVuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681085081; x=1683677081;
+ d=1e100.net; s=20210112; t=1681087128; x=1683679128;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=/snaqrOyQufN7i9bGN7or2gZDsfaOIyL9LmABmkQ66Q=;
- b=20zPr6uWK5g09AZ40e9bVBY2jha1je8m+WVk557jaNPcn3PIsKJp76i+pY/UZsfTDt
- zTIW5SIVCIHUWYsqLJu1HVu2t04w8NW2+L/WJmCeuhhMC5c8PCC5U7NN7oR5VBmWCOxQ
- 0SbpH6uIDC1k1WEjbMoZE7gkLOuIeMlGasX1f0+YkZonJrrDF/4jWO88mI19WneDMdUQ
- S9a9CIEZyrlD2dkXGuyG9RawYtTKqiTiaDquKQA5ll7pcak3QA5PvAe+wqmNa/4IhcIy
- lMkUgrgeyrhco2VCf0Mvj8NuBtpy/eRu5baRbLIUOL1e+c5prdGH8ONHG0tVZJneNs7i
- UUMg==
-X-Gm-Message-State: AAQBX9esaTCC28A34wn4yOlcEewjCuRPolks7YavyEbyVu7JBopnS9VX
- +IYzKh1Wp5U4FaYirQYqHH9OSwGB4hNk3kD9JyIUFA==
-X-Google-Smtp-Source: AKy350YwhtoqP8vwV6CpTr03vN/PEXAj7O6P/300RBn653Nb2vUZb6mWS5ucQVkqFcdQCl61Rw7Dg0h+kXtaprgfcUk=
-X-Received: by 2002:a81:a783:0:b0:545:7143:2940 with SMTP id
- e125-20020a81a783000000b0054571432940mr5430007ywh.0.1681085081457; Sun, 09
- Apr 2023 17:04:41 -0700 (PDT)
+ bh=MhFTsXwmF5whC2KI03VAym+2gZK46UV+EvOd4XgCHFs=;
+ b=u77rLcX35XmslTZ9SfICa8uKtrHtLYWLeCF2QQokFxKPUEKONpikEMLx1LHMfuxp7W
+ nhc3jghVi103MWN4lEYULir7PLAN8IrEy9lcH2u/CNCDCqxmynkaAKfbxECmzecd8CrY
+ UhjmBGXXadhqDICiYI+Nm7yzirc0tCvYjArjlGqD5DygJawUY3edZtUTZPV1SG37SC69
+ y350xZYxrIfX8EN5HnEEgcOROnGzORu51+Rq8J2vBxw5dU+Qh4acbp+/TMhShBisol5x
+ vFyWVocjIZoAr++VCSkFfqeHjeqbHqK9QYn4q/HyB9nbrOGwR2cBQbJ1BuaLW1LBO7w8
+ ij5w==
+X-Gm-Message-State: AAQBX9eSRiNJfruvPbAg+uns2rjG58lBzetrQfLxIZiBTKgkiJiLHVgM
+ nMYp4InoN3n4Ia2igkcMxODb3poWD5lWtJT0uuCIpQ==
+X-Google-Smtp-Source: AKy350aoZNB6Xo9XJ43epUeUKINkLGgupp8hr42BDKy+evFARENzT4glCB/Zp9zP9LXj4B0XT3GEDpYcNrxFE/mZjGE=
+X-Received: by 2002:a25:dfc3:0:b0:b8a:5fd7:5180 with SMTP id
+ w186-20020a25dfc3000000b00b8a5fd75180mr6360197ybg.2.1681087128021; Sun, 09
+ Apr 2023 17:38:48 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230329160445.1300-1-shashank.sharma@amd.com>
- <20230329160445.1300-4-shashank.sharma@amd.com>
-In-Reply-To: <20230329160445.1300-4-shashank.sharma@amd.com>
+In-Reply-To: <20230329160445.1300-1-shashank.sharma@amd.com>
 From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Date: Mon, 10 Apr 2023 02:02:29 +0200
-Message-ID: <CAP+8YyH7v0oOy5j8=9Y9f1hbLD0Nca6ZZGgo8nSup3qPiMfFLQ@mail.gmail.com>
-Subject: Re: [PATCH v3 3/9] drm/amdgpu: add new IOCTL for usermode queue
+Date: Mon, 10 Apr 2023 02:36:35 +0200
+Message-ID: <CAP+8YyFgbru=1HkLo1Kfm1jKPrk5sXenUmmkzzysWbSh05q2tg@mail.gmail.com>
+Subject: Re: [PATCH v3 0/9] AMDGPU Usermode queues
 To: Shashank Sharma <shashank.sharma@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -70,218 +68,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Alex Deucher <alexander.deucher@amd.com>,
  Felix Kuehling <felix.kuehling@amd.com>,
- Shashank Sharma <contactshashanksharma@gmail.com>,
  Christian Koenig <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Shashank,
+
+I tried writing a program to experiment with usermode queues and I
+found some weird behavior: The first run of the program works as
+expected, while subsequent runs don't seem to do anything (and I
+allocate everything in GTT, so it should be zero initialized
+consistently). Is this a known issue?
+
+The linked libdrm code for the uapi still does a doorbell ioctl so it
+could very well be that I do the doorbell wrong (especially since the
+ioctl implementation was never shared AFAICT?), but it seems like the
+kernel submissions (i.e. write wptr in dwords to the wptr va and to
+the doorbell). Is it possible to update the test in libdrm?
+
+Code: https://gitlab.freedesktop.org/bnieuwenhuizen/usermode-queue
+
+Thanks,
+Bas
+
 On Wed, Mar 29, 2023 at 6:05=E2=80=AFPM Shashank Sharma <shashank.sharma@am=
 d.com> wrote:
 >
-> From: Shashank Sharma <contactshashanksharma@gmail.com>
+> This patch series introduces AMDGPU usermode queues for gfx workloads.
+> Usermode queues is a method of GPU workload submission into the graphics
+> hardware without any interaction with kernel/DRM schedulers. In this
+> method, a userspace graphics application can create its own workqueue
+> and submit it directly in the GPU HW.
 >
-> This patch adds:
-> - A new IOCTL function to create and destroy
-> - A new structure to keep all the user queue data in one place.
-> - A function to generate unique index for the queue.
+> The general idea of how this is supposed to work:
+> - The application creates the following GPU objetcs:
+>   - A queue object to hold the workload packets.
+>   - A read pointer object.
+>   - A write pointer object.
+>   - A doorbell page.
+> - The application picks a 32-bit offset in the doorbell page for this que=
+ue.
+> - The application uses the usermode_queue_create IOCTL introduced in
+>   this patch, by passing the the GPU addresses of these objects (read
+>   ptr, write ptr, queue base address and 32-bit doorbell offset from
+>   the doorbell page)
+> - The kernel creates the queue and maps it in the HW.
+> - The application can start submitting the data in the queue as soon as
+>   the kernel IOCTL returns.
+> - After filling the workload data in the queue, the app must write the
+>   number of dwords added in the queue into the doorbell offset, and the
+>   GPU will start fetching the data.
 >
-> V1: Worked on review comments from RFC patch series:
->   - Alex: Keep a list of queues, instead of single queue per process.
->   - Christian: Use the queue manager instead of global ptrs,
->            Don't keep the queue structure in amdgpu_ctx
+> libDRM changes for this series and a sample DRM test program can be found
+> in the MESA merge request here:
+> https://gitlab.freedesktop.org/mesa/drm/-/merge_requests/287
 >
-> V2: Worked on review comments:
->  - Christian:
->    - Formatting of text
->    - There is no need for queuing of userqueues, with idr in place
->  - Alex:
->    - Remove use_doorbell, its unnecessary
->    - Reuse amdgpu_mqd_props for saving mqd fields
+> This patch series depends on the doorbell-manager changes, which are bein=
+g
+> reviewed here:
+> https://patchwork.freedesktop.org/series/115802/
 >
->  - Code formatting and re-arrangement
+> Alex Deucher (1):
+>   drm/amdgpu: UAPI for user queue management
 >
-> V3:
->  - Integration with doorbell manager
+> Arvind Yadav (2):
+>   drm/amdgpu: add new parameters in v11_struct
+>   drm/amdgpu: map wptr BO into GART
 >
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Signed-off-by: Shashank Sharma <contactshashanksharma@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 113 ++++++++++++++++++
->  .../gpu/drm/amd/include/amdgpu_userqueue.h    |   2 +
->  3 files changed, 116 insertions(+)
+> Shashank Sharma (6):
+>   drm/amdgpu: add usermode queue base code
+>   drm/amdgpu: add new IOCTL for usermode queue
+>   drm/amdgpu: create GFX-gen11 MQD for userqueue
+>   drm/amdgpu: create context space for usermode queue
+>   drm/amdgpu: map usermode queue into MES
+>   drm/amdgpu: generate doorbell index for userqueue
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index 2d6bcfd727c8..229976a2d0e7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2749,6 +2749,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] =3D=
- {
->         DRM_IOCTL_DEF_DRV(AMDGPU_GEM_VA, amdgpu_gem_va_ioctl, DRM_AUTH|DR=
-M_RENDER_ALLOW),
->         DRM_IOCTL_DEF_DRV(AMDGPU_GEM_OP, amdgpu_gem_op_ioctl, DRM_AUTH|DR=
-M_RENDER_ALLOW),
->         DRM_IOCTL_DEF_DRV(AMDGPU_GEM_USERPTR, amdgpu_gem_userptr_ioctl, D=
-RM_AUTH|DRM_RENDER_ALLOW),
-> +       DRM_IOCTL_DEF_DRV(AMDGPU_USERQ, amdgpu_userq_ioctl, DRM_AUTH|DRM_=
-RENDER_ALLOW),
->  };
+>  drivers/gpu/drm/amd/amdgpu/Makefile           |   3 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  10 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   2 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |   6 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 298 ++++++++++++++++++
+>  .../drm/amd/amdgpu/amdgpu_userqueue_gfx_v11.c | 230 ++++++++++++++
+>  .../gpu/drm/amd/include/amdgpu_userqueue.h    |  66 ++++
+>  drivers/gpu/drm/amd/include/v11_structs.h     |  16 +-
+>  include/uapi/drm/amdgpu_drm.h                 |  55 ++++
+>  9 files changed, 677 insertions(+), 9 deletions(-)
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+>  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue_gfx_v11.c
+>  create mode 100644 drivers/gpu/drm/amd/include/amdgpu_userqueue.h
 >
->  static const struct drm_driver amdgpu_kms_driver =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_userqueue.c
-> index 13e1eebc1cb6..353f57c5a772 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> @@ -22,6 +22,119 @@
->   */
->
->  #include "amdgpu.h"
-> +#include "amdgpu_vm.h"
-> +#include "amdgpu_userqueue.h"
-> +
-> +static inline int
-> +amdgpu_userqueue_index(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_us=
-ermode_queue *queue)
-> +{
-> +    return idr_alloc(&uq_mgr->userq_idr, queue, 1, AMDGPU_MAX_USERQ, GFP=
-_KERNEL);
-> +}
-> +
-> +static inline void
-> +amdgpu_userqueue_free_index(struct amdgpu_userq_mgr *uq_mgr, int queue_i=
-d)
-> +{
-> +    idr_remove(&uq_mgr->userq_idr, queue_id);
-> +}
-> +
-> +static struct amdgpu_usermode_queue *
-> +amdgpu_userqueue_find(struct amdgpu_userq_mgr *uq_mgr, int qid)
-> +{
-> +    return idr_find(&uq_mgr->userq_idr, qid);
-> +}
-> +
-> +static int amdgpu_userqueue_create(struct drm_file *filp, union drm_amdg=
-pu_userq *args)
-> +{
-> +    struct amdgpu_usermode_queue *queue;
-> +    struct amdgpu_fpriv *fpriv =3D filp->driver_priv;
-> +    struct amdgpu_userq_mgr *uq_mgr =3D &fpriv->userq_mgr;
-> +    struct drm_amdgpu_userq_mqd *mqd_in =3D &args->in.mqd;
-> +    int r;
-> +
-> +    /* Do we have support userqueues for this IP ? */
-> +    if (!uq_mgr->userq_funcs[mqd_in->ip_type]) {
-> +        DRM_ERROR("GFX User queues not supported for this IP: %d\n", mqd=
-_in->ip_type);
-> +        return -EINVAL;
-> +    }
-> +
-> +    queue =3D kzalloc(sizeof(struct amdgpu_usermode_queue), GFP_KERNEL);
-> +    if (!queue) {
-> +        DRM_ERROR("Failed to allocate memory for queue\n");
-> +        return -ENOMEM;
-> +    }
-> +
-> +    mutex_lock(&uq_mgr->userq_mutex);
-> +    queue->userq_prop.wptr_gpu_addr =3D mqd_in->wptr_va;
-> +    queue->userq_prop.rptr_gpu_addr =3D mqd_in->rptr_va;
-> +    queue->userq_prop.queue_size =3D mqd_in->queue_size;
-> +    queue->userq_prop.hqd_base_gpu_addr =3D mqd_in->queue_va;
-> +    queue->userq_prop.queue_size =3D mqd_in->queue_size;
-
-This sets queue_size twice.
-
-> +
-> +    queue->doorbell_handle =3D mqd_in->doorbell_handle;
-> +    queue->queue_type =3D mqd_in->ip_type;
-> +    queue->flags =3D mqd_in->flags;
-> +    queue->vm =3D &fpriv->vm;
-> +    queue->queue_id =3D amdgpu_userqueue_index(uq_mgr, queue);
-> +    if (queue->queue_id < 0) {
-> +        DRM_ERROR("Failed to allocate a queue id\n");
-> +        r =3D queue->queue_id;
-> +        goto free_queue;
-> +    }
-> +
-> +    args->out.queue_id =3D queue->queue_id;
-> +    args->out.flags =3D 0;
-> +    mutex_unlock(&uq_mgr->userq_mutex);
-> +    return 0;
-> +
-> +free_queue:
-> +    mutex_unlock(&uq_mgr->userq_mutex);
-> +    kfree(queue);
-> +    return r;
-> +}
-> +
-> +static void amdgpu_userqueue_destroy(struct drm_file *filp, int queue_id=
-)
-> +{
-> +    struct amdgpu_fpriv *fpriv =3D filp->driver_priv;
-> +    struct amdgpu_userq_mgr *uq_mgr =3D &fpriv->userq_mgr;
-> +    struct amdgpu_usermode_queue *queue;
-> +
-> +    queue =3D amdgpu_userqueue_find(uq_mgr, queue_id);
-> +    if (!queue) {
-> +        DRM_DEBUG_DRIVER("Invalid queue id to destroy\n");
-> +        return;
-> +    }
-> +
-> +    mutex_lock(&uq_mgr->userq_mutex);
-> +    amdgpu_userqueue_free_index(uq_mgr, queue->queue_id);
-> +    mutex_unlock(&uq_mgr->userq_mutex);
-> +    kfree(queue);
-> +}
-> +
-> +int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
-> +                      struct drm_file *filp)
-> +{
-> +    union drm_amdgpu_userq *args =3D data;
-> +    int r =3D 0;
-> +
-> +    switch (args->in.op) {
-> +    case AMDGPU_USERQ_OP_CREATE:
-> +        r =3D amdgpu_userqueue_create(filp, args);
-> +        if (r)
-> +            DRM_ERROR("Failed to create usermode queue\n");
-> +        break;
-> +
-> +    case AMDGPU_USERQ_OP_FREE:
-> +        amdgpu_userqueue_destroy(filp, args->in.queue_id);
-> +        break;
-> +
-> +    default:
-> +        DRM_ERROR("Invalid user queue op specified: %d\n", args->in.op);
-> +        return -EINVAL;
-> +    }
-> +
-> +    return r;
-> +}
-> +
->
->  int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct amd=
-gpu_device *adev)
->  {
-> diff --git a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h b/drivers/gpu=
-/drm/amd/include/amdgpu_userqueue.h
-> index 7eeb8c9e6575..7625a862b1fc 100644
-> --- a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
-> +++ b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
-> @@ -42,6 +42,8 @@ struct amdgpu_userq_funcs {
->         void (*mqd_destroy)(struct amdgpu_userq_mgr *, struct amdgpu_user=
-mode_queue *);
->  };
->
-> +int amdgpu_userq_ioctl(struct drm_device *dev, void *data, struct drm_fi=
-le *filp);
-> +
->  int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct amd=
-gpu_device *adev);
->
->  void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr);
 > --
 > 2.40.0
 >
