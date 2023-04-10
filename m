@@ -4,90 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 470E7C76196
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Apr 2023 17:32:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF91EC76196
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Apr 2023 17:35:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6CED10E251;
-	Mon, 10 Apr 2023 17:32:23 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5EAA10E251
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Apr 2023 17:32:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7661B10E240;
+	Mon, 10 Apr 2023 17:35:51 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2080.outbound.protection.outlook.com [40.107.212.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E834F10E240
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Apr 2023 17:35:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UxbzIuSUCC4u5iBf6oN6wVEAdqKfAR1WTsr2+9syoErhNhctrRxceqfVkIrCsVc1JQzUsjE9dO70lHZWgDYBeqLT2617wDxHFQRJWQKk5t5oI0m3buAWIQdJDv1c4+np+LWp/WxlWQhJaxxqyeVZudknST1i3E6oL3SS+LM3uC/4HAXhEP46/Zxc8Va49KKTpftrQ0QCt1FdW9DqulKK3krpGIaHKBkJyDUk+zDiVFkGqpqPFxWsiHyOMzX7OsG25A3LWQ+ypnQEj5xo/I1UwHIjsJMIhDVyD1MWS3F301mPUrjgLHzlI0YD4plg3ozHFn7ERkRWJaAwHV+JHXX+xA==
+ b=WOQanA0gf6lVSMxiVk61WzRHTm06FSVsnPWyklZ7IibAy5Rk4Y/3FKLg4o/WHV78GShZSPuvBUFpcUx8PynxKsadwBGejNKI/98sDQkoe8h6deIzxi6iorLHCnZfuO8xuvcu7gTFAw1UvxxS2c5rSabBa2DckDTu1AIaPUkQCaanM26NdCU87ipgZs2aree1aNgARvNJEUHdiB3ZAYfrUBNRe67UznGOVTcKhUtlYykSi7nYsjavDNUZTZueux/xDVtuxIczQp8Hahz352wAdskgFbK7/ERp6+c8kWTev2oC0gLC20MknF4z2YuYtSHgmPdKsOIuqNeofWi+aUvjrA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bgiL05X/6J1Xg7R7mEVstIyjPLMgBoZTmwDx7ufYxNE=;
- b=ocRXizYM6zDN4tC9f+UCOfyF06h8ZJUrWx7XXlaEuN2qbkaO3oy9n5NViZTVhKNkuVMhqtLOX53iP0ZQRqhYUYgaMguwko37IwTG8umh3XXfUyM8NlLnNJqeHk4ef1oj9cmdO2DEa6YCXme0YnCFHzSl2YADl0U7WCUB+rKRZDGH2Z8q3bcc6QV51GodWaVLJKPmxmcjsKzAIngxmzRbM4Xnrwx7wxpRnDD3jR6tB2ut2vXH6FI8420zA6oKcCRSeyqmazmjI703Q+BF20/roWXGzBbkatx84Qqqi0hCvdFO2oLhMx81mTxYTL8MNk+sexupcFRmewfFGoeCPn8SZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=nTfvOoGXzD6jiZDE81olrQPoMROFh2R6E/MrmGH54OU=;
+ b=Cbp/tyN7GmZ82bvZROHwD18nb3RraGnagQqLN28XdrdBxyMC4z9HBmekhjRBQBpopCcHzHDg1Zh7bUJ9HHsbDwaAFuYlrky9comq9d1iLpzz0zpC47vANp9MoB6x+l8+/HaYAu6YLWO+P1YwN0uCRMCfNyZOSKWbG3xX3+mKZyZ7pKXj4BsvUlqSNzhTsIb08KA1eD8p4vRwnJkqcqVczAqhuKHL6OOm0I1Gj/qB++2GApuFb7LHYNuaDRrHIU+744v1NMNk5neGtLi6vQXXjW0txk0ftPAekTdRmIwVyg8R8knUY87C7j+QqBlMjeJ8izY74vYOPirr2Zzlv1Nqow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bgiL05X/6J1Xg7R7mEVstIyjPLMgBoZTmwDx7ufYxNE=;
- b=uwRMdxs4oDITHq9/BjYrKwkTpDp6pTI50Wdy8i4Mphmz+vqG73pe8DMnB0KQ0Fv1WLMieWJHsb+InPAWhiq41MZXY7d05GTYz0DX0LJXH3ZE8HjifjLkWPXUOo/4zg98FwEkwqYYk62jqPJKYOARWtG8ilenQbR0gjtIe7zwIgM=
-Received: from MW4P220CA0023.NAMP220.PROD.OUTLOOK.COM (2603:10b6:303:115::28)
- by BN9PR12MB5100.namprd12.prod.outlook.com (2603:10b6:408:119::9)
+ bh=nTfvOoGXzD6jiZDE81olrQPoMROFh2R6E/MrmGH54OU=;
+ b=bCkqiWN/ErHONqrFRujDf+kHmpZxYWs7TAKLT+ECQkfC241grAPaXNZF4dRBzG/nD/NB5Z5wu2rALkmpOOYJGxwLNAQzeLBFz8l51J/A1mKXCxtBg2xtCbGAmKMSQp3Z/ATunKPVtHXpzHEEbM+frwa0Dyutq0C7hTvCxImoHKs=
+Received: from MN2PR12MB4128.namprd12.prod.outlook.com (2603:10b6:208:1dd::15)
+ by MN6PR12MB8591.namprd12.prod.outlook.com (2603:10b6:208:471::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.34; Mon, 10 Apr
- 2023 17:32:18 +0000
-Received: from CO1NAM11FT087.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:115:cafe::7) by MW4P220CA0023.outlook.office365.com
- (2603:10b6:303:115::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.36 via Frontend
- Transport; Mon, 10 Apr 2023 17:32:18 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT087.mail.protection.outlook.com (10.13.174.68) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6298.25 via Frontend Transport; Mon, 10 Apr 2023 17:32:18 +0000
-Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 10 Apr
- 2023 12:32:16 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: Harry Wentland <harry.wentland@amd.com>, Jerry Zuo <jerry.zuo@amd.com>,
- "Li Sun peng" <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH v2] drm/amd/display: Add logging for DP link traning Test
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.38; Mon, 10 Apr
+ 2023 17:35:46 +0000
+Received: from MN2PR12MB4128.namprd12.prod.outlook.com
+ ([fe80::9365:edd0:6096:4ffc]) by MN2PR12MB4128.namprd12.prod.outlook.com
+ ([fe80::9365:edd0:6096:4ffc%9]) with mapi id 15.20.6277.036; Mon, 10 Apr 2023
+ 17:35:43 +0000
+From: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+To: "Wentland, Harry" <Harry.Wentland@amd.com>, "Zuo, Jerry"
+ <Jerry.Zuo@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH v2] drm/amd/display: Add logging for DP link traning Test
  Pattern Seqeunces
-Date: Mon, 10 Apr 2023 23:02:00 +0530
-Message-ID: <20230410173200.1881023-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT087:EE_|BN9PR12MB5100:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8d27bb2c-3f0c-4d94-64ec-08db39e988a7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Z64iN+AkIT2fcP6lq/fcfTrUFKWhsR8x8ocu3hpNhzim/IrNtoGh9rQX4ScywRtdyYKDFKJrPPbEpQL3A2oVRze4n6s5x6WifFGxC7bWYyiwj3sPq/LGtlgFv9+b6CZ6gz5P+ullAbG8ASddhRRQRyq8SYkMgsFSfVfFwvKfvug/p0BjsQ+FEO8KSZPoi3m5FgBT0m7UXNH4xkd9m0A1DoAkKGGxvXv7ZKOnS9Z71JLBPzUO8FJrHdn02o3mbAKcuZtxOCeNArqG6KhCpXhr/oHOzlY1QmI83kqTgQLe4G9yWBkR6jbvmMKfZQB8pAs84izWmc59mUwtuhdEjxZ5fIr5t36zgPnRODz+W+wJ7N4Bd0oXb+kcaCRNm1G7CSsANh2zGucdOgNrIxQni575kzOcTvRXQfbz7YVDfoqBzECIgXgOleiIgl1ApCWGYYOaImqXC8b17z9ZfL2+mSyXYqETTLM0dMSm9Fj+JwHl47one7d2u7neBus7qVJVM3Utw/H6Sk6IjpFRRdmHcggmZ6JKC1s4n1EbXazEEXjrcUDDbVLrMSPsfIyvKitjI+odj/P66KJn1Y3TEFDU22e5wYI0hXN0epbdF2uC91qXyCzTr1tgfkfZn9H/YADhJxqBLYJ2bvStgZXts3k76qBwN3hj90c1E46+2sBBaVfinimuVDwvU0wRQ1h9CVfKBOXo2emyAcGtORWJfEbNgoI3jllp1nWFkwUPJZj06q5KShI=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(396003)(136003)(376002)(346002)(451199021)(46966006)(36840700001)(40470700004)(44832011)(2906002)(4326008)(8676002)(70586007)(70206006)(8936002)(41300700001)(5660300002)(478600001)(54906003)(110136005)(316002)(6636002)(40460700003)(7696005)(26005)(47076005)(40480700001)(186003)(1076003)(426003)(6666004)(36756003)(2616005)(336012)(82740400003)(36860700001)(82310400005)(81166007)(16526019)(356005)(86362001)(36900700001);
+Thread-Topic: [PATCH v2] drm/amd/display: Add logging for DP link traning Test
+ Pattern Seqeunces
+Thread-Index: AQHZa9JpFIuBAGZ0akmw+RBYWNwg668kzcXg
+Date: Mon, 10 Apr 2023 17:35:43 +0000
+Message-ID: <MN2PR12MB4128F4212F6C8EEA37044D3290959@MN2PR12MB4128.namprd12.prod.outlook.com>
+References: <20230410173200.1881023-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20230410173200.1881023-1-srinivasan.shanmugam@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-04-10T17:35:41Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=82835e19-2457-4c7f-a387-fd5de2d3f625;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MN2PR12MB4128:EE_|MN6PR12MB8591:EE_
+x-ms-office365-filtering-correlation-id: 8156e418-10ba-42f2-06cd-08db39ea02da
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: OtQJOkcl1C0Ngbk1oGRp631t7oBYv5ilrV99NMivj/mSueyLo9mYIom+OvBv8tWQNWQ1HZT7DD9aftNpf/Uo5GSZ4PNwLWooP5ytGoI1L+dh++rDFLU0Y+D/FmSk5DoRasY+gRUkFWZJqjU8QggsdhuHI2h3fUa1/r9BxkNvxNckyWAvkBuUk3l7TGtiymwVIb8eRksNpzju8upDOGxfPu+Y2yD45aml4abNnw9bVgJcXSUci30JL0oqOXFDLf8W/cvLEEFf0RZssCXQfhpJD0VeSfoi74cKx/G4Gp9abzngI8fZ+egFUJifyGShClCGVhXJV/MKZqOgk+i5m3NIDz9tlTmxUzUdMFsZ2krlN5mXUeQmVrUsIKbsIvCyfwo1oWm1btPweLK4Ppz4CI27BFI5gWKKhjHoAuVLvpqGsMgwVdanlnbLegHfApOzd3bfcMhmuK5U9Q0/+mq/3OLbi2PGtTrKu02wcZXPl4C6SOVuF0YhLk4LHPyYLW50UCqITKZ0yLiQqSUxixpdQdQP+6eJdNCB/+yuzQDFrccxsbHVFJzB1Ru11S4/XFGiwfC4NJSwM+C7VB221kr9GYexAK66dUJyvOV9VihXWO10yRoNvxkUHmLVY9lQA8tyUpQu
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4128.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(39860400002)(396003)(366004)(376002)(136003)(451199021)(33656002)(86362001)(2906002)(38070700005)(55016003)(9686003)(71200400001)(7696005)(53546011)(186003)(83380400001)(26005)(6506007)(76116006)(66476007)(478600001)(4326008)(66556008)(64756008)(66446008)(66946007)(122000001)(41300700001)(8936002)(8676002)(38100700002)(6636002)(110136005)(316002)(5660300002)(52536014);
  DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?M/iLi9p3osVvlfAoDiK68Lu2hf8bJzCkHU8nisn48uCnc1qFrw4D9HP7bC+y?=
+ =?us-ascii?Q?6u52krv2rcktjYnY2HItP9oFeEwdpa4fFbLGioWwRGxm7Gd0R9Er9+EjMBpS?=
+ =?us-ascii?Q?yv0rPPPoWdalhxUiMmNm4KeU+3skKS4X/s7YFe/vnY0szmOyxXpX064xNd/a?=
+ =?us-ascii?Q?JBcHoLabrvp3IRuTiUECR+6FCDVQl3bjoTtsDHUNPGPTS0eKzwefD2jP7gMJ?=
+ =?us-ascii?Q?ItQE8NfMsrPHWV/VVW3U9SQZdpd+AV+82nR7HXE745+hAUC0TsF8FnDmls6b?=
+ =?us-ascii?Q?vmSE45EeQRv0eGzN5jBrQXzl88coVEyveypTEn7HEtDWtBz/hTxFy4ynuXIo?=
+ =?us-ascii?Q?E7gMap9q/Iq170489/hCubuQPSCDKBV5xp+sytCqfrlUSrrHcAh3WFg3iKVb?=
+ =?us-ascii?Q?bIM/tFst8NGHkKwBQaWSAmWmokEl+/0mn04/2dHMAvZafQCpZWVUWX6dF5n4?=
+ =?us-ascii?Q?3+JWKm79IwcovxLIbTrzSj1XoRR1ECQ/Ed5NKcLobi94QX5QxsXkZu1o4l2s?=
+ =?us-ascii?Q?EmEsXja4VmzakPeTIrgi50WEKaHPRV+yDMy3a9hA7wDIxPrDZhKfcgIzUBnN?=
+ =?us-ascii?Q?sIlI2zuLhlIyMkW20QFNxBou8DYGf+SVa9m41fgWDuVlYYlh1YEfJzyVqW6W?=
+ =?us-ascii?Q?FT0wYq36EvMC3gBXchxNQSZNefakpLLzgCse8PWwnoc5WdlUwVXFusy0iofJ?=
+ =?us-ascii?Q?097y7QqrjHhhCFCk/1eKpD82astNDuXZ7exLs/qGk2AQjpZPjwp1NPJyruyk?=
+ =?us-ascii?Q?jIJcjw1WOtnr37QXCa1XUEj5HvIA/7h41p3v+PYhg3HIeIj/39B//Ic6PEjL?=
+ =?us-ascii?Q?8KctVNzo0v2DtVx3tBryRSeuRakh/s3UTU1U+kdJjW3UupL/hAgmZCuZI/YX?=
+ =?us-ascii?Q?tJASWyfsyFoumSy+/qRhgu3TK7PvUsPWpP0XoD82VOQn8ua+v8RAVJvFxJTG?=
+ =?us-ascii?Q?JGVu+TnU3iIlhmioJ7KZAAL58CSE02J9tygUZAQ0BqunSB8OfCXfJmiwZAyC?=
+ =?us-ascii?Q?2KkiZMOF/Ni3BrWxaozxkRroD75p96jWMBoBwQRth80TdxrcXmAtlb3sZnFy?=
+ =?us-ascii?Q?/dyENMRHzNd73dmuV0HG9MsDPfu2FBnNtdE2afuw0Stwy28upWLgVsCPwQjp?=
+ =?us-ascii?Q?s9W6WKYLl/j2eq1V2u739pfEcFyYycNWDFl1ipQIv+M2ikATwp5/4KuaykNB?=
+ =?us-ascii?Q?C0UjnT95aen43cNhqZO0hQJ6YYmZcxAD0I2ei7XBqJqN+6nbgu6iiUVMFFm2?=
+ =?us-ascii?Q?eK8nuT2M8lyLwXShPHQ5YZuo4Snk5wdH/wkneF+a9Z5RmWnxD2oSpDLVclO/?=
+ =?us-ascii?Q?6e4jENj5crmJl4DSO6Ekn/Jmz+0D+boG+xroJnpC4ydS9rTcbc3PgApaXuIe?=
+ =?us-ascii?Q?6cEsi+VElpNKnW2HdWOXAHqWfrqd5uiKbAG9ZeXgwlwA9sVUl0q7xb8n0PK2?=
+ =?us-ascii?Q?PtCigofsq3wFP4wNsikJ8N8GQhx3q+vua0c9/BlySeYNbyexuNmjCuoD1lAN?=
+ =?us-ascii?Q?8GPuaZY0wSDNm5M/Vi/OOILuGh4pVXfU+TrGg16guOCpcXRaRwx/ZGfh0syN?=
+ =?us-ascii?Q?0HEaClWZOI9WyiEAovo=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2023 17:32:18.4173 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d27bb2c-3f0c-4d94-64ec-08db39e988a7
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT087.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5100
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4128.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8156e418-10ba-42f2-06cd-08db39ea02da
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Apr 2023 17:35:43.5421 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: DYJvIDvWDuDi+FyvzuZme7TiHeWxSEl6ESOXT2mNbSQDaX2TLiQy7w2H6zMqUW8C4oq80TbnTHI9AIc4Cxnxfw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8591
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,13 +125,27 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add some more logging for DP link traning test pattern seqeunces
-for better debugging.
+[AMD Official Use Only - General]
+
+
+
+-----Original Message-----
+From: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>=20
+Sent: Monday, April 10, 2023 11:02 PM
+To: Wentland, Harry <Harry.Wentland@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com=
+>; Li, Sun peng (Leo) <Sunpeng.Li@amd.com>; Deucher, Alexander <Alexander.D=
+eucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org; SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMU=
+GAM@amd.com>
+Subject: [PATCH v2] drm/amd/display: Add logging for DP link traning Test P=
+attern Seqeunces
+
+Add some more logging for DP link traning test pattern seqeunces for better=
+ debugging.
 
 Cc: Jerry Zuo <jerry.zuo@amd.com>
 Cc: Harry Wentland <harry.wentland@amd.com>
@@ -113,50 +153,65 @@ Cc: Leo Li <sunpeng.li@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
+v2:
+
+ - it is better to use : instead of \n, following the log format in default=
+ section (Jerry)
+ - seems no need to print dpcd_tr_pattern if it is already mentioned in the=
+ string (Jerry)
+
  .../drm/amd/display/dc/link/protocols/link_dp_training.c | 9 +++++++++
  1 file changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training=
+.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
 index 70fc0ddf2d7e..265233979cf8 100644
 --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
 +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
 @@ -212,27 +212,36 @@ enum dpcd_training_patterns
- 
+=20
  	switch (pattern) {
  	case DP_TRAINING_PATTERN_SEQUENCE_1:
-+		DC_LOG_HW_LINK_TRAINING("%s: Using DP training pattern TPS1\n", __func__);
- 		dpcd_tr_pattern = DPCD_TRAINING_PATTERN_1;
++		DC_LOG_HW_LINK_TRAINING("%s: Using DP training pattern TPS1\n",=20
++__func__);
+ 		dpcd_tr_pattern =3D DPCD_TRAINING_PATTERN_1;
  		break;
  	case DP_TRAINING_PATTERN_SEQUENCE_2:
-+		DC_LOG_HW_LINK_TRAINING("%s: Using DP training pattern TPS2\n", __func__);
- 		dpcd_tr_pattern = DPCD_TRAINING_PATTERN_2;
++		DC_LOG_HW_LINK_TRAINING("%s: Using DP training pattern TPS2\n",=20
++__func__);
+ 		dpcd_tr_pattern =3D DPCD_TRAINING_PATTERN_2;
  		break;
  	case DP_TRAINING_PATTERN_SEQUENCE_3:
-+		DC_LOG_HW_LINK_TRAINING("%s: Using DP training pattern TPS3\n", __func__);
- 		dpcd_tr_pattern = DPCD_TRAINING_PATTERN_3;
++		DC_LOG_HW_LINK_TRAINING("%s: Using DP training pattern TPS3\n",=20
++__func__);
+ 		dpcd_tr_pattern =3D DPCD_TRAINING_PATTERN_3;
  		break;
  	case DP_TRAINING_PATTERN_SEQUENCE_4:
-+		DC_LOG_HW_LINK_TRAINING("%s: Using DP training pattern TPS4\n", __func__);
- 		dpcd_tr_pattern = DPCD_TRAINING_PATTERN_4;
++		DC_LOG_HW_LINK_TRAINING("%s: Using DP training pattern TPS4\n",=20
++__func__);
+ 		dpcd_tr_pattern =3D DPCD_TRAINING_PATTERN_4;
  		break;
  	case DP_128b_132b_TPS1:
-+		DC_LOG_HW_LINK_TRAINING("%s: Using DP 128b/132b training pattern TPS1\n", __func__);
- 		dpcd_tr_pattern = DPCD_128b_132b_TPS1;
++		DC_LOG_HW_LINK_TRAINING("%s: Using DP 128b/132b training pattern=20
++TPS1\n", __func__);
+ 		dpcd_tr_pattern =3D DPCD_128b_132b_TPS1;
  		break;
  	case DP_128b_132b_TPS2:
-+		DC_LOG_HW_LINK_TRAINING("%s: Using DP 128b/132b training pattern TPS2\n", __func__);
- 		dpcd_tr_pattern = DPCD_128b_132b_TPS2;
++		DC_LOG_HW_LINK_TRAINING("%s: Using DP 128b/132b training pattern=20
++TPS2\n", __func__);
+ 		dpcd_tr_pattern =3D DPCD_128b_132b_TPS2;
  		break;
  	case DP_128b_132b_TPS2_CDS:
-+		DC_LOG_HW_LINK_TRAINING("%s: Using DP 128b/132b training pattern TPS2 CDS\n",
++		DC_LOG_HW_LINK_TRAINING("%s: Using DP 128b/132b training pattern TPS2 CD=
+S\n",
 +					__func__);
- 		dpcd_tr_pattern = DPCD_128b_132b_TPS2_CDS;
+ 		dpcd_tr_pattern =3D DPCD_128b_132b_TPS2_CDS;
  		break;
  	case DP_TRAINING_PATTERN_VIDEOIDLE:
-+		DC_LOG_HW_LINK_TRAINING("%s: Using DP training pattern videoidle\n", __func__);
- 		dpcd_tr_pattern = DPCD_TRAINING_PATTERN_VIDEOIDLE;
++		DC_LOG_HW_LINK_TRAINING("%s: Using DP training pattern videoidle\n",=20
++__func__);
+ 		dpcd_tr_pattern =3D DPCD_TRAINING_PATTERN_VIDEOIDLE;
  		break;
  	default:
--- 
+--
 2.25.1
-
