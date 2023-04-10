@@ -4,120 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5C13C77B61
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Apr 2023 14:47:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92E56C77B61
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Apr 2023 15:10:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B8D310E3A0;
-	Mon, 10 Apr 2023 14:47:54 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2043.outbound.protection.outlook.com [40.107.237.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE84210E3A0;
- Mon, 10 Apr 2023 14:47:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HNCFKPXxYy5F1nqpVfbm9m4ij2Dp4wQwJgZotemXk3Cv32LBQECDBONiSJJctDi9kE8sfzFcPm+66dfzeEQRtezjWQCUto7Efwsf2QVw1AKlUTplS/mYs1CJhd7HvvgpDfRc5GEHEdTOblmltr2gsFvtuJOWfS9g+bfGH59P/ueBRPezsZCYYYDznNs3kxFXGjnKH5tia+mdED0ncwlJofebAShRyPW6B2Ne7zjzYDQmlCz9hWvSZF1cUWooxjx0PVmmhSkbO3WwAmJN8eXpQA82sRL4pbe0Fhq9ivzwyBr+/EEW6E2pBvqA+mAUKNVluki5s9Alit2gVA8/etC99g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lMmEzuy259m9MJGu1sIJOY1M97d39JlZyKes1BDmvVg=;
- b=CTb1W4Q03HsIhVzO3Uc/vQI9xb7QRsxGsyL/MAvURI2kVF27ZOp2QcKnsR7GNGRTC9jsWc1mVYP4nHSAXea4D0AXRbAcgQ+FB2ii9/NhFhhyXYW4OFBkpnrJvxxaVi9zyYkaMfJk+fVTq0rLUbVCBhj67X3zRIv6COFwfO/bLrFS+cHjkjX3xEMAd+VZw7Z4tR03vMfM4X4UGOVdNU6Q1OWUAP2ArCsZez76AfnJhYsRth1kA6u0wGRLFC8ySp2Jo4KTp7MKsh2OKQqYZUElAwEz/F1PSpsVCwZwo9TjkA4V8XvkbfxwFas1yJqKlXhlWEs8L2evqu5IBMBukWYL8g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lMmEzuy259m9MJGu1sIJOY1M97d39JlZyKes1BDmvVg=;
- b=QlI9pFMKfViCi7o3CxvbdGB/JT7n3WkwqDeo1+dahY6rPlaQ8QtAeyNUWQQEfal1DR42pQIh2EfknwAfpbl4NnX7zoVNfyW9O5YckVdeaQaQImwa/9Nh1OmvJwqpHz7RY8O4GsVQ++JEkw4Jla9sifd+Rgu5Fcu1MC4ntFXEA2c=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com (2603:10b6:8:a2::11) by
- PH8PR12MB7110.namprd12.prod.outlook.com (2603:10b6:510:22e::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.35; Mon, 10 Apr
- 2023 14:47:49 +0000
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::fe53:2742:10f9:b8f1]) by DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::fe53:2742:10f9:b8f1%9]) with mapi id 15.20.6277.038; Mon, 10 Apr 2023
- 14:47:49 +0000
-Message-ID: <2a608e8f-823a-7c01-8dc5-ad6c86e5f306@amd.com>
-Date: Mon, 10 Apr 2023 10:49:12 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: Re: [PATCH] drm/amd/display: set variables dml*_funcs
- storage-class-specifier to static
-Content-Language: en-US
-To: Tom Rix <trix@redhat.com>, harry.wentland@amd.com, sunpeng.li@amd.com,
- Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, Pavle.Kotarac@amd.com, Jun.Lei@amd.com,
- nicholas.kazlauskas@amd.com, Charlene.Liu@amd.com, aurabindo.pillai@amd.com,
- Dmytro.Laktyushkin@amd.com
-References: <20230408134348.2703105-1-trix@redhat.com>
-From: Hamza Mahfooz <hamza.mahfooz@amd.com>
-In-Reply-To: <20230408134348.2703105-1-trix@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0114.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:d7::19) To DM4PR12MB6280.namprd12.prod.outlook.com
- (2603:10b6:8:a2::11)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D931D10E093;
+	Mon, 10 Apr 2023 15:10:42 +0000 (UTC)
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2975B10E093
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Apr 2023 15:10:40 +0000 (UTC)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ j1-20020a05600c1c0100b003f04da00d07so6574094wms.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Apr 2023 08:10:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1681139438; x=1683731438;
+ h=in-reply-to:from:content-language:references:cc:to:subject
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=MiHlHguPo/KztZ5mdx3wv7eJp4jdFYEK/SRzm4EWhzs=;
+ b=CTi1v8fVc9rOA3ufMHse13vRfdWK63+EeUwf4ICeCl1nm87ALiB5QkQmovuekkarlN
+ rS0j2zdiSs+AwTreg4snjQOO8SoHpwNrB7IGvFHdwbfJtGsG1Dzyn4Iv3Pc3Apu+NTR6
+ UsQhGvZ26TT96V4r3rot3iseqVOl4d84z/c5NVaoELExdfz4NTg3IHMn9JH69plbsRIL
+ EXFD0ZkAGPfbFFEskpWDUObJhR+utcyl7EoQKCQCo7YHW6dz7tDnsyWWoFGYOUEwLc4+
+ F+QhV1QZB1WSskfTuZ3Qb4yc7ywj8pA8+Nu4aEKi1QGkq+6RrkZriPUyAm8MbZxDWE9f
+ 8Kkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1681139438; x=1683731438;
+ h=in-reply-to:from:content-language:references:cc:to:subject
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=MiHlHguPo/KztZ5mdx3wv7eJp4jdFYEK/SRzm4EWhzs=;
+ b=Qk4Bnn0bqHH/F2hxVg/0/ksD5VZkoFVqKMH53Ohe9/3mHOsB+VAeZZpQp9Nd8mtbza
+ PBy77fmSZCdGp0ezo1lFUwTVYeeYqcTJCcreQ4T5tgYHhuyu+t+WcbWhPDMjXQIT/dIe
+ xw8xyzzGgt7oVFkHLJEkeEr/H/HcB6MnMfOccq/XCucu2ho3ODwzXYVkRealgbVvhIcq
+ 4V0NpfM2NCPAOQ2lU0zqL+4AHficzI5zjXJFbu6Qy55DARfkAYuL7dlbkrPjxajE7I0O
+ ZPPOkeSgadV3ouXXM/4Or3YSEKo9PLkbp1akww5K5T4Qo0Y3uLBSZdSGYTiKGFcqNOEY
+ o0AQ==
+X-Gm-Message-State: AAQBX9eMDoGxTdMuil6/dZvUmrDJJnQxx+wJolYmUQmslEM+JGFtpuYe
+ fUXE9uNPJI0lnmL+fygKbD8=
+X-Google-Smtp-Source: AKy350btKvqveU8A9x2EqGMGR9+9ELGxcEl3RASYDjh5BbyV4d3aI7WFFfQwaA3jUiqTYVkC3iepNQ==
+X-Received: by 2002:a05:600c:2158:b0:3ed:df74:bac7 with SMTP id
+ v24-20020a05600c215800b003eddf74bac7mr7699948wml.21.1681139437811; 
+ Mon, 10 Apr 2023 08:10:37 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1256:79a0:12bd:a31c:145a:22ea?
+ ([2a02:908:1256:79a0:12bd:a31c:145a:22ea])
+ by smtp.gmail.com with ESMTPSA id
+ f3-20020a7bc8c3000000b003ee10fb56ebsm14093102wml.9.2023.04.10.08.10.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 10 Apr 2023 08:10:37 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------qGsNddny9VVlghjkLndkBZzC"
+Message-ID: <8f184ac4-347e-9518-f41e-e1ffe8335516@gmail.com>
+Date: Mon, 10 Apr 2023 17:10:36 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6280:EE_|PH8PR12MB7110:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a36ef29-11a8-4d4a-36d2-08db39d28df1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LXDkC+1Z79aVin+ZqMnpK8Fbk/kMOhJZDdr67jRO3T08t99DEcQ54FOICeP14gNC6gWgimO5+LO/tjgjxWt0+D2BgNngEmWUCOGmNBvVpGH5pDiGgjqfsIsbSYqS1dIU/1suxMb4WGHNcViIPgwTYhMEeI6dBdVIKgnIi3DL3D2exMN76Sqaep4FYG0JjtAWfl+YZ0sEf7uj+dKxMAEwU1GIX9zLV8WQpdRQ/JM57Eu22DwMPsvJzwpu9XHQp2/elpSuQ7dWHqhCjXVodKs3onoDfIDuKTKXxzHKejIyoBLw5srJj7okZFvl8c/mjAdZzRP5z7+D/BBrH1rpeHT4WLnDpXSMPkFumORbcyGeVD2AR68I7dpkbobQutj/s4PPK4+mUy6PpDmNdBhAyGXJa2L/2NcEblJC78APA1M7Ggwv2Z4M6X7Le9Npso9Zp/elk6/95t6Z1jTNWkD9A9M1gjmLnEPbXe8Z6RjHEQIzNcBvZRLU3UhRFkgKFK2z9KKheBbGLVIkDyU8VqHQXaPZKyJcP2h91jl5IpEg8hXpxGsjH+ckVYKxB7t4C80ymE9B71PC3VIOuoFGPer2qc9hnzSFIYuhtXFbNvN/3/pwWzCerh1gVlpIPahYQ9Eyfr59dc9T+q1zSNXDZspsYf8IteWX4+m1/CaeQwpSGH3UYA4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6280.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(346002)(366004)(396003)(136003)(39860400002)(451199021)(86362001)(31696002)(36756003)(316002)(41300700001)(8676002)(4326008)(6636002)(66946007)(6486002)(478600001)(66476007)(66556008)(5660300002)(2906002)(44832011)(8936002)(921005)(38100700002)(186003)(53546011)(6666004)(6506007)(26005)(6512007)(2616005)(83380400001)(31686004)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dnJJZU5jeVRIbW9zYWMwSlNlRHFEMjhMNjNmR3ZsQUVOZndncHd5b2JOSGlB?=
- =?utf-8?B?S2ZzbTdya1laZW5DN0dvaFdPY0F2YXlEWjlFVXMxamJXT0o4S091QkNMSFZC?=
- =?utf-8?B?Z0NjUGFaVC94bTRaL3VwOTh5Z3d4VDlnbVZWNGlqNmlwMHZXcndhUCtZV2hk?=
- =?utf-8?B?MTd1OENzbnVJbTlWZzhuUDAwdGxySW9DYTNCQ2pkS2xkaWhsNkdMa0NTakxu?=
- =?utf-8?B?VjE1Mm1uWThsMmxGa3JGMjRXZ2RhRDdzRTUvUFQ2QkVwNDI4Q25qTHMvanRM?=
- =?utf-8?B?Y29jQzBNa2o4OGo4bnhQYmtmN1BFaVZTUDFPZC9VL0tROUJqWE9xTmJLR3FS?=
- =?utf-8?B?QUJIT1VDWG0vb3ZlNk8yM1ZCNkpDZUorb2NabUVvTUF1eVgzWitxakI4OVNm?=
- =?utf-8?B?dXhZc0czbFpYb3pKcXdldXBTT1FBVWNjN091RUZkRzJ1YWsxK3p6YWZFNGVQ?=
- =?utf-8?B?TXJVSDh6WG02akhlZjI2cDViaGhSZytGSXlhbzZaWWgzd3cyVHBlNWV4Z1RT?=
- =?utf-8?B?NTVNKzlyZzNJYTZSMjdNVkd5MHRaWUxCQkpkS01pVUlIRVBNajZjWUdncmRs?=
- =?utf-8?B?bGtSZVBKQXEzeEhJZGxXWnlVOVJwSnltT01vT2IyM2RmSkVsN2hRRHBUVkJ3?=
- =?utf-8?B?dXNVK2dFWEw1aXRkVlJyaFhFVmpTbkNoQW56azJUQXBXOUlPclppbWpHRllC?=
- =?utf-8?B?NUZVUDUyQU9SbTVCTCtzTTZaMG9xai9oUE1walRnM3ZkYS9LVkJOK1JzZE04?=
- =?utf-8?B?MFl0cllyODNFSXRpTVhLcTRtV1QxQmxIZUNHdUlOdHJBZDNxTitmUnRmK1lP?=
- =?utf-8?B?aE5oeUJFbEFnNG9VWUIxVEdPQVNmM0M1OFNta29YWXcrK0srSTc2dXltUmVk?=
- =?utf-8?B?THV0K1Zvd1BuMzhkbU03SXFaZ3Y5RTdWaHpzZER1dVdaRGF2cTViZUoxU0hn?=
- =?utf-8?B?YnFxNUhQbXhFb1hialV3ZEtJVzhjQXcyczFJV3dqMmhVVWJGc0ZmVVFHVDlO?=
- =?utf-8?B?U0hOeGh4a282OFBwK09XcnJmcEprZytpcDB4L040K1RVWjZSWU9Nalprb0hH?=
- =?utf-8?B?V3loQmdoNkZOenVjRnVRd0pwUlI1RE9TVjFaUjZGQ3VmUDdkZS9DZG91Y3g4?=
- =?utf-8?B?RWQzeFdBZDUzK083U2g1bGhRek0ycWQ5VUU2MU0vVTZ3Uzc3ZWVUVTlRZzZJ?=
- =?utf-8?B?N0V5eTFyM3JSWGRBcWxua1VSbVFiZVpUbWwvMmFxaG42cGhON1JpRlFuTHZH?=
- =?utf-8?B?MTZWZFlHOEFhMFRiNFNucGtOOUFDcmlxcWx0aWVuSzhWQ0FtWmpDVW9lWm01?=
- =?utf-8?B?b1djeTJ1MlpoZFBsaVh2TnpjRHVRaDhWMUpLVkNNR1E2YnIxMHh4dERmNWJu?=
- =?utf-8?B?K01Rd1FtazZDRE9VVGxsMCs2NjJUMXlhVjVOV3loNEk4ZERMZlpPbVdlK05B?=
- =?utf-8?B?R2paeXVqOUVNSVE2K2hOcTBhbEtJM1YxWCsrTHVtWUV6S21LK24zeitpdnlI?=
- =?utf-8?B?TzU2K21VYUFUSll1Z3J0VUFkNU0rd3VQbG5nMTBsQXM2dzVETnNYcmtkUDF3?=
- =?utf-8?B?ZmttSmE4WFBQQ05sMVBBcFlDL2NuL0dlNzFVaGxPUnRrOGtXN3JJUnVHdVBN?=
- =?utf-8?B?NWxEK25NUFdLVEg1aUt3WDlsbGZmQlBNMUgrdG9CcFdlMlU5dFVVWWx3VVVO?=
- =?utf-8?B?Sk9hL0tjdGc5NVQ5MXk1LzlEZ2lnVWFzZGxrcGlhOVE4QWEyTDdHV280THBO?=
- =?utf-8?B?bzMybDdsRklJMUEyemQ5NHBIVjdUUVU2bnY2YmxIaVZneEw3eDFESTFiaHdy?=
- =?utf-8?B?UTJMWFJCb3ZMWFVaRWlhREQ4N3o3MnpZVUJ6bW1NWk5wZHByaG9YNVVpNW8x?=
- =?utf-8?B?QnEvMUY4R0NzZk9GQVYzQ0JFMFhrL1NISnJsRFFVRkFRS3dTeVBpV1plM0wy?=
- =?utf-8?B?R2VLSU85a2R3REJSVlFOWkhEM3hMWGIxR1hBaDgwWTZyckUrR0FiN29OV1ho?=
- =?utf-8?B?NjEycVVmT0xQMGs3VnNvVWxDaVJsWXlUd1UxR1BnZHZtVjhkQ1pzY0VOZGlG?=
- =?utf-8?B?NnFuRzZadTFTTHd4ZE1xN21rUzViYURES2pqNWlndXlkeVFQVENxeHUrWTB0?=
- =?utf-8?Q?QL9aNSjht4lOxVlTnSDALL973?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a36ef29-11a8-4d4a-36d2-08db39d28df1
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6280.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2023 14:47:49.2138 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: t98YHPHl2fmc8QR3jkBDDY2QJNe1P8QP75vjGn5XoALAPz72r9AIPDAIW8GiAN8ZVAC51PuXcVz2CrqFHrq4aQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7110
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH 3/3] drm/amdgpu: Add support for querying the max ibs in a
+ submission.
+To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ =?UTF-8?Q?Timur_Krist=c3=b3f?= <timur.kristof@gmail.com>
+References: <20230409144445.374816-1-bas@basnieuwenhuizen.nl>
+ <20230409144445.374816-3-bas@basnieuwenhuizen.nl>
+ <99dad825-894a-bc00-7a26-6b1b917477d4@gmail.com>
+ <CAP+8YyF8-5aVoLBmAUy0rS6rturFk0GMYy6Y6wLA2p9U1P7iAw@mail.gmail.com>
+ <7d5bb5e5-91a7-71ba-8fa4-6d1cbcb00b26@gmail.com>
+ <CAFF-SiWRNMZazGazpbanW1kzjKFWhzUpbcErn6fKyGB8Q63rsg@mail.gmail.com>
+ <CAP+8YyEzB9UoLuTYjmHXDYdTOdE2mFeYN5CzhzpJ3O=VuHTH5g@mail.gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CAP+8YyEzB9UoLuTYjmHXDYdTOdE2mFeYN5CzhzpJ3O=VuHTH5g@mail.gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,107 +84,595 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 4/8/23 09:43, Tom Rix wrote:
-> smatch reports
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/display_mode_lib.c:44:24: warning: symbol
->    'dml20_funcs' was not declared. Should it be static?
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/display_mode_lib.c:51:24: warning: symbol
->    'dml20v2_funcs' was not declared. Should it be static?
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/display_mode_lib.c:58:24: warning: symbol
->    'dml21_funcs' was not declared. Should it be static?
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/display_mode_lib.c:65:24: warning: symbol
->    'dml30_funcs' was not declared. Should it be static?
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/display_mode_lib.c:72:24: warning: symbol
->    'dml31_funcs' was not declared. Should it be static?
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/display_mode_lib.c:79:24: warning: symbol
->    'dml314_funcs' was not declared. Should it be static?
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dml/display_mode_lib.c:86:24: warning: symbol
->    'dml32_funcs' was not declared. Should it be static?
-> 
-> These variables are only used in one file so should be static.
-> Cleanup whitespace, use tabs consistently for indents.
-> 
-> Signed-off-by: Tom Rix <trix@redhat.com>
+This is a multi-part message in MIME format.
+--------------qGsNddny9VVlghjkLndkBZzC
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Applied, thanks!
+Am 09.04.23 um 17:59 schrieb Bas Nieuwenhuizen:
+> On Sun, Apr 9, 2023, 5:50 PM Timur Kristóf <timur.kristof@gmail.com> 
+> wrote:
+>
+>
+>
+>     Christian König <ckoenig.leichtzumerken@gmail.com> ezt írta
+>     (időpont: 2023. ápr. 9., Vas 17:38):
+>
+>         Am 09.04.23 um 17:32 schrieb Bas Nieuwenhuizen:
+>         > On Sun, Apr 9, 2023 at 5:30 PM Christian König
+>         > <ckoenig.leichtzumerken@gmail.com> wrote:
+>         >> Am 09.04.23 um 16:44 schrieb Bas Nieuwenhuizen:
+>         >>> We need to introduce a new version of the info struct because
+>         >>> libdrm_amdgpu forgot any versioning info in
+>         amdgpu_query_hw_ip_info
+>         >>> so the mesa<->libdrm_amdgpu interface can't handle
+>         increasing the
+>         >>> size.
+>         >> Those are not forgotten, but simply unnecessary.
+>         >>
+>         >> The size of the input output structures are given to the
+>         IOCTL in bytes
+>         >> and additional bytes should be filled with zeros.
+>         > At the ioctl side, yes, but it is libdrm_amdgpu filling in
+>         the size,
+>         > while passing in the struct directly from the client (mesa or
+>         > whatever). So if we have new libdrm_amdgpu and old mesa,
+>         then mesa
+>         > allocates  N bytes on the stack and libdrm_amdgpu happily
+>         tells the
+>         > kernel in the ioctl "this struct is N+8 bytes long" which
+>         would cause
+>         > corruption?
+>
+>         WTF? This has a wrapper in libdrm? Well then that's indeed
+>         horrible broken.
+>
+>         In this case please define the new structure as extension of
+>         the old
+>         one. E.g. something like:
+>
+>         struct drm_amdgpu_info_hw_ip2 {
+>              struct drm_amdgpu_info_hw_ip    base;
+>              ....
+>         };
+>
+>         This way we can make it clear that this is an extension.
+>
+>
+>
+>     Can we solve this in userspace by letting mesa pass the struct
+>     size to libdrm as well? Or would that create other compatibility
+>     issues?
+>
+>
+> That is what the new wrapper in my libdrm patch does, but we still 
+> need the new struct to deal with the old broken wrapper.
 
-> ---
->   .../drm/amd/display/dc/dml/display_mode_lib.c | 24 +++++++++----------
->   1 file changed, 12 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.c b/drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.c
-> index 4125d3d111d1..bdf3ac6cadd5 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/display_mode_lib.c
-> @@ -41,51 +41,51 @@
->   #include "dcn32/display_rq_dlg_calc_32.h"
->   #include "dml_logger.h"
->   
-> -const struct dml_funcs dml20_funcs = {
-> +static const struct dml_funcs dml20_funcs = {
->   	.validate = dml20_ModeSupportAndSystemConfigurationFull,
->   	.recalculate = dml20_recalculate,
->   	.rq_dlg_get_dlg_reg = dml20_rq_dlg_get_dlg_reg,
->   	.rq_dlg_get_rq_reg = dml20_rq_dlg_get_rq_reg
->   };
->   
-> -const struct dml_funcs dml20v2_funcs = {
-> +static const struct dml_funcs dml20v2_funcs = {
->   	.validate = dml20v2_ModeSupportAndSystemConfigurationFull,
->   	.recalculate = dml20v2_recalculate,
->   	.rq_dlg_get_dlg_reg = dml20v2_rq_dlg_get_dlg_reg,
->   	.rq_dlg_get_rq_reg = dml20v2_rq_dlg_get_rq_reg
->   };
->   
-> -const struct dml_funcs dml21_funcs = {
-> -        .validate = dml21_ModeSupportAndSystemConfigurationFull,
-> -        .recalculate = dml21_recalculate,
-> -        .rq_dlg_get_dlg_reg = dml21_rq_dlg_get_dlg_reg,
-> -        .rq_dlg_get_rq_reg = dml21_rq_dlg_get_rq_reg
-> +static const struct dml_funcs dml21_funcs = {
-> +	.validate = dml21_ModeSupportAndSystemConfigurationFull,
-> +	.recalculate = dml21_recalculate,
-> +	.rq_dlg_get_dlg_reg = dml21_rq_dlg_get_dlg_reg,
-> +	.rq_dlg_get_rq_reg = dml21_rq_dlg_get_rq_reg
->   };
->   
-> -const struct dml_funcs dml30_funcs = {
-> +static const struct dml_funcs dml30_funcs = {
->   	.validate = dml30_ModeSupportAndSystemConfigurationFull,
->   	.recalculate = dml30_recalculate,
->   	.rq_dlg_get_dlg_reg = dml30_rq_dlg_get_dlg_reg,
->   	.rq_dlg_get_rq_reg = dml30_rq_dlg_get_rq_reg
->   };
->   
-> -const struct dml_funcs dml31_funcs = {
-> +static const struct dml_funcs dml31_funcs = {
->   	.validate = dml31_ModeSupportAndSystemConfigurationFull,
->   	.recalculate = dml31_recalculate,
->   	.rq_dlg_get_dlg_reg = dml31_rq_dlg_get_dlg_reg,
->   	.rq_dlg_get_rq_reg = dml31_rq_dlg_get_rq_reg
->   };
->   
-> -const struct dml_funcs dml314_funcs = {
-> +static const struct dml_funcs dml314_funcs = {
->   	.validate = dml314_ModeSupportAndSystemConfigurationFull,
->   	.recalculate = dml314_recalculate,
->   	.rq_dlg_get_dlg_reg = dml314_rq_dlg_get_dlg_reg,
->   	.rq_dlg_get_rq_reg = dml314_rq_dlg_get_rq_reg
->   };
->   
-> -const struct dml_funcs dml32_funcs = {
-> +static const struct dml_funcs dml32_funcs = {
->   	.validate = dml32_ModeSupportAndSystemConfigurationFull,
-> -    .recalculate = dml32_recalculate,
-> +	.recalculate = dml32_recalculate,
->   	.rq_dlg_get_dlg_reg_v2 = dml32_rq_dlg_get_dlg_reg,
->   	.rq_dlg_get_rq_reg_v2 = dml32_rq_dlg_get_rq_reg
->   };
--- 
-Hamza
+Let me double check what exactly goes wrong here. I clearly remember 
+that while we designed this I've pointed out that structures can't be 
+extended when they are part of the libdrm C ABI.
 
+Because of this we added a general query function which takes an enum 
+and parameters what to querey and an out buffer with size for the result.
+
+I'm really wondering why this isn't used for this information.
+
+Thanks,
+Christian.
+
+>
+>
+>
+>
+>
+>         Thanks,
+>         Christian.
+>
+>         >
+>         > - Bas
+>         >
+>         >> So you should be able to extend the structures at the end
+>         without
+>         >> breaking anything.
+>         >>
+>         >> Regards,
+>         >> Christian.
+>         >>
+>         >>> This info would be used by radv to figure out when we need to
+>         >>> split a submission into multiple submissions. radv
+>         currently has
+>         >>> a limit of 192 which seems to work for most gfx
+>         submissions, but
+>         >>> is way too high for e.g. compute or sdma.
+>         >>>
+>         >>> Because the kernel handling is just fine we can just use
+>         the v2
+>         >>> everywhere and have the return_size do the versioning for us,
+>         >>> with userspace interpreting 0 as unknown.
+>         >>>
+>         >>> Userspace implementation:
+>         >>>
+>         https://gitlab.freedesktop.org/bnieuwenhuizen/drm/-/tree/ib-rejection
+>         >>>
+>         https://gitlab.freedesktop.org/bnieuwenhuizen/mesa/-/tree/ib-rejection
+>         >>>
+>         >>> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2498
+>         >>> Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+>         >>> Cc: David Airlie <airlied@gmail.com>
+>         >>> ---
+>         >>> drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |  7 ++++--
+>         >>>    include/uapi/drm/amdgpu_drm.h      | 29
+>         +++++++++++++++++++++++++
+>         >>>    2 files changed, 34 insertions(+), 2 deletions(-)
+>         >>>
+>         >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+>         b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+>         >>> index 89689b940493..c7e815c2733e 100644
+>         >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+>         >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+>         >>> @@ -360,7 +360,7 @@ static int amdgpu_firmware_info(struct
+>         drm_amdgpu_info_firmware *fw_info,
+>         >>>
+>         >>>    static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
+>         >>>                             struct drm_amdgpu_info *info,
+>         >>> -                          struct drm_amdgpu_info_hw_ip
+>         *result)
+>         >>> +                          struct drm_amdgpu_info_hw_ip2
+>         *result)
+>         >>>    {
+>         >>>        uint32_t ib_start_alignment = 0;
+>         >>>        uint32_t ib_size_alignment = 0;
+>         >>> @@ -431,6 +431,7 @@ static int amdgpu_hw_ip_info(struct
+>         amdgpu_device *adev,
+>         >>>                return -EINVAL;
+>         >>>        }
+>         >>>
+>         >>> +     result->max_ibs = UINT_MAX;
+>         >>>        for (i = 0; i < adev->num_rings; ++i) {
+>         >>>                /* Note that this uses that ring types
+>         alias the equivalent
+>         >>>                 * HW IP exposes to userspace.
+>         >>> @@ -438,6 +439,8 @@ static int amdgpu_hw_ip_info(struct
+>         amdgpu_device *adev,
+>         >>>                if (adev->rings[i]->funcs->type ==
+>         info->query_hw_ip.type &&
+>         >>> adev->rings[i]->sched.ready) {
+>         >>>                        ++num_rings;
+>         >>> +  result->max_ibs = min(result->max_ibs,
+>         >>> +        adev->rings[i]->max_ibs);
+>         >>>                }
+>         >>>        }
+>         >>>
+>         >>> @@ -536,7 +539,7 @@ int amdgpu_info_ioctl(struct
+>         drm_device *dev, void *data, struct drm_file *filp)
+>         >>>                }
+>         >>>                return copy_to_user(out, &ui32, min(size,
+>         4u)) ? -EFAULT : 0;
+>         >>>        case AMDGPU_INFO_HW_IP_INFO: {
+>         >>> -             struct drm_amdgpu_info_hw_ip ip = {};
+>         >>> +             struct drm_amdgpu_info_hw_ip2 ip = {};
+>         >>>                int ret;
+>         >>>
+>         >>>                ret = amdgpu_hw_ip_info(adev, info, &ip);
+>         >>> diff --git a/include/uapi/drm/amdgpu_drm.h
+>         b/include/uapi/drm/amdgpu_drm.h
+>         >>> index b6eb90df5d05..45e5ae546d19 100644
+>         >>> --- a/include/uapi/drm/amdgpu_drm.h
+>         >>> +++ b/include/uapi/drm/amdgpu_drm.h
+>         >>> @@ -1128,6 +1128,9 @@ struct drm_amdgpu_info_device {
+>         >>>        __u32 enabled_rb_pipes_mask_hi;
+>         >>>    };
+>         >>>
+>         >>> +/* The size of this struct cannot be increased for
+>         compatibility reasons, use
+>         >>> + * struct drm_amdgpu_info_hw_ip2 instead.
+>         >>> + */
+>         >>>    struct drm_amdgpu_info_hw_ip {
+>         >>>        /** Version of h/w IP */
+>         >>>        __u32  hw_ip_version_major;
+>         >>> @@ -1144,6 +1147,32 @@ struct drm_amdgpu_info_hw_ip {
+>         >>>        __u32  ip_discovery_version;
+>         >>>    };
+>         >>>
+>         >>> +/* The prefix fields of this are intentionally the same
+>         as those of
+>         >>> + * struct drm_amdgpu_info_hw_ip. The struct has a v2 to
+>         resolve a lack of
+>         >>> + * versioning on the libdrm_amdgpu side.
+>         >>> + */
+>         >>> +struct drm_amdgpu_info_hw_ip2 {
+>         >>> +     /** Version of h/w IP */
+>         >>> +     __u32  hw_ip_version_major;
+>         >>> +     __u32  hw_ip_version_minor;
+>         >>> +     /** Capabilities */
+>         >>> +     __u64  capabilities_flags;
+>         >>> +     /** command buffer address start alignment*/
+>         >>> +     __u32  ib_start_alignment;
+>         >>> +     /** command buffer size alignment*/
+>         >>> +     __u32  ib_size_alignment;
+>         >>> +     /** Bitmask of available rings. Bit 0 means ring 0,
+>         etc. */
+>         >>> +     __u32  available_rings;
+>         >>> +     /** version info: bits 23:16 major, 15:8 minor, 7:0
+>         revision */
+>         >>> +     __u32  ip_discovery_version;
+>         >>> +     /** The maximum number of IBs one can submit in a
+>         single submission
+>         >>> +      * ioctl. (When using gang submit: this is per IP type)
+>         >>> +      */
+>         >>> +     __u32  max_ibs;
+>         >>> +     /** padding to 64bit for arch differences */
+>         >>> +     __u32  pad;
+>         >>> +};
+>         >>> +
+>         >>>    struct drm_amdgpu_info_num_handles {
+>         >>>        /** Max handles as supported by firmware for UVD */
+>         >>>        __u32  uvd_max_handles;
+>
+
+--------------qGsNddny9VVlghjkLndkBZzC
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    Am 09.04.23 um 17:59 schrieb Bas Nieuwenhuizen:<br>
+    <blockquote type="cite"
+cite="mid:CAP+8YyEzB9UoLuTYjmHXDYdTOdE2mFeYN5CzhzpJ3O=VuHTH5g@mail.gmail.com">
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+      <div dir="auto">
+        <div>On Sun, Apr 9, 2023, 5:50 PM Timur Kristóf &lt;<a
+            href="mailto:timur.kristof@gmail.com" moz-do-not-send="true"
+            class="moz-txt-link-freetext">timur.kristof@gmail.com</a>&gt;
+          wrote:<br>
+          <div class="gmail_quote">
+            <blockquote class="gmail_quote" style="margin:0 0 0
+              .8ex;border-left:1px #ccc solid;padding-left:1ex">
+              <div dir="auto">
+                <div><br>
+                  <br>
+                  <div class="gmail_quote">
+                    <div dir="ltr" class="gmail_attr">Christian König
+                      &lt;<a
+                        href="mailto:ckoenig.leichtzumerken@gmail.com"
+                        target="_blank" rel="noreferrer"
+                        moz-do-not-send="true"
+                        class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>&gt;
+                      ezt írta (időpont: 2023. ápr. 9., Vas 17:38):<br>
+                    </div>
+                    <blockquote class="gmail_quote" style="margin:0 0 0
+                      .8ex;border-left:1px #ccc solid;padding-left:1ex">Am
+                      09.04.23 um 17:32 schrieb Bas Nieuwenhuizen:<br>
+                      &gt; On Sun, Apr 9, 2023 at 5:30 PM Christian
+                      König<br>
+                      &gt; &lt;<a
+                        href="mailto:ckoenig.leichtzumerken@gmail.com"
+                        rel="noreferrer noreferrer" target="_blank"
+                        moz-do-not-send="true"
+                        class="moz-txt-link-freetext">ckoenig.leichtzumerken@gmail.com</a>&gt;
+                      wrote:<br>
+                      &gt;&gt; Am 09.04.23 um 16:44 schrieb Bas
+                      Nieuwenhuizen:<br>
+                      &gt;&gt;&gt; We need to introduce a new version of
+                      the info struct because<br>
+                      &gt;&gt;&gt; libdrm_amdgpu forgot any versioning
+                      info in amdgpu_query_hw_ip_info<br>
+                      &gt;&gt;&gt; so the mesa&lt;-&gt;libdrm_amdgpu
+                      interface can't handle increasing the<br>
+                      &gt;&gt;&gt; size.<br>
+                      &gt;&gt; Those are not forgotten, but simply
+                      unnecessary.<br>
+                      &gt;&gt;<br>
+                      &gt;&gt; The size of the input output structures
+                      are given to the IOCTL in bytes<br>
+                      &gt;&gt; and additional bytes should be filled
+                      with zeros.<br>
+                      &gt; At the ioctl side, yes, but it is
+                      libdrm_amdgpu filling in the size,<br>
+                      &gt; while passing in the struct directly from the
+                      client (mesa or<br>
+                      &gt; whatever). So if we have new libdrm_amdgpu
+                      and old mesa, then mesa<br>
+                      &gt; allocates  N bytes on the stack and
+                      libdrm_amdgpu happily tells the<br>
+                      &gt; kernel in the ioctl "this struct is N+8 bytes
+                      long" which would cause<br>
+                      &gt; corruption?<br>
+                      <br>
+                      WTF? This has a wrapper in libdrm? Well then
+                      that's indeed horrible broken.<br>
+                      <br>
+                      In this case please define the new structure as
+                      extension of the old <br>
+                      one. E.g. something like:<br>
+                      <br>
+                      struct drm_amdgpu_info_hw_ip2 {<br>
+                           struct drm_amdgpu_info_hw_ip    base;<br>
+                           ....<br>
+                      };<br>
+                      <br>
+                      This way we can make it clear that this is an
+                      extension.<br>
+                    </blockquote>
+                  </div>
+                </div>
+                <div dir="auto"><br>
+                </div>
+                <div dir="auto"><br>
+                </div>
+                <div dir="auto">Can we solve this in userspace by
+                  letting mesa pass the struct size to libdrm as well?
+                  Or would that create other compatibility issues?</div>
+              </div>
+            </blockquote>
+          </div>
+        </div>
+        <div dir="auto"><br>
+        </div>
+        <div dir="auto">That is what the new wrapper in my libdrm patch
+          does, but we still need the new struct to deal with the old
+          broken wrapper.</div>
+      </div>
+    </blockquote>
+    <br>
+    Let me double check what exactly goes wrong here. I clearly remember
+    that while we designed this I've pointed out that structures can't
+    be extended when they are part of the libdrm C ABI.<br>
+    <br>
+    Because of this we added a general query function which takes an
+    enum and parameters what to querey and an out buffer with size for
+    the result.<br>
+    <br>
+    I'm really wondering why this isn't used for this information.<br>
+    <br>
+    Thanks,<br>
+    Christian.<br>
+    <br>
+    <blockquote type="cite"
+cite="mid:CAP+8YyEzB9UoLuTYjmHXDYdTOdE2mFeYN5CzhzpJ3O=VuHTH5g@mail.gmail.com">
+      <div dir="auto">
+        <div dir="auto"><br>
+        </div>
+        <div dir="auto">
+          <div class="gmail_quote">
+            <blockquote class="gmail_quote" style="margin:0 0 0
+              .8ex;border-left:1px #ccc solid;padding-left:1ex">
+              <div dir="auto">
+                <div dir="auto"><br>
+                </div>
+                <div dir="auto"><br>
+                </div>
+                <div dir="auto"><br>
+                </div>
+                <div dir="auto">
+                  <div class="gmail_quote">
+                    <blockquote class="gmail_quote" style="margin:0 0 0
+                      .8ex;border-left:1px #ccc solid;padding-left:1ex">
+                      <br>
+                      Thanks,<br>
+                      Christian.<br>
+                      <br>
+                      &gt;<br>
+                      &gt; - Bas<br>
+                      &gt;<br>
+                      &gt;&gt; So you should be able to extend the
+                      structures at the end without<br>
+                      &gt;&gt; breaking anything.<br>
+                      &gt;&gt;<br>
+                      &gt;&gt; Regards,<br>
+                      &gt;&gt; Christian.<br>
+                      &gt;&gt;<br>
+                      &gt;&gt;&gt; This info would be used by radv to
+                      figure out when we need to<br>
+                      &gt;&gt;&gt; split a submission into multiple
+                      submissions. radv currently has<br>
+                      &gt;&gt;&gt; a limit of 192 which seems to work
+                      for most gfx submissions, but<br>
+                      &gt;&gt;&gt; is way too high for e.g. compute or
+                      sdma.<br>
+                      &gt;&gt;&gt;<br>
+                      &gt;&gt;&gt; Because the kernel handling is just
+                      fine we can just use the v2<br>
+                      &gt;&gt;&gt; everywhere and have the return_size
+                      do the versioning for us,<br>
+                      &gt;&gt;&gt; with userspace interpreting 0 as
+                      unknown.<br>
+                      &gt;&gt;&gt;<br>
+                      &gt;&gt;&gt; Userspace implementation:<br>
+                      &gt;&gt;&gt; <a
+href="https://gitlab.freedesktop.org/bnieuwenhuizen/drm/-/tree/ib-rejection"
+                        rel="noreferrer noreferrer noreferrer"
+                        target="_blank" moz-do-not-send="true"
+                        class="moz-txt-link-freetext">https://gitlab.freedesktop.org/bnieuwenhuizen/drm/-/tree/ib-rejection</a><br>
+                      &gt;&gt;&gt; <a
+href="https://gitlab.freedesktop.org/bnieuwenhuizen/mesa/-/tree/ib-rejection"
+                        rel="noreferrer noreferrer noreferrer"
+                        target="_blank" moz-do-not-send="true"
+                        class="moz-txt-link-freetext">https://gitlab.freedesktop.org/bnieuwenhuizen/mesa/-/tree/ib-rejection</a><br>
+                      &gt;&gt;&gt;<br>
+                      &gt;&gt;&gt; Link: <a
+                        href="https://gitlab.freedesktop.org/drm/amd/-/issues/2498"
+                        rel="noreferrer noreferrer noreferrer"
+                        target="_blank" moz-do-not-send="true"
+                        class="moz-txt-link-freetext">https://gitlab.freedesktop.org/drm/amd/-/issues/2498</a><br>
+                      &gt;&gt;&gt; Signed-off-by: Bas Nieuwenhuizen &lt;<a
+                        href="mailto:bas@basnieuwenhuizen.nl"
+                        rel="noreferrer noreferrer" target="_blank"
+                        moz-do-not-send="true"
+                        class="moz-txt-link-freetext">bas@basnieuwenhuizen.nl</a>&gt;<br>
+                      &gt;&gt;&gt; Cc: David Airlie &lt;<a
+                        href="mailto:airlied@gmail.com" rel="noreferrer
+                        noreferrer" target="_blank"
+                        moz-do-not-send="true"
+                        class="moz-txt-link-freetext">airlied@gmail.com</a>&gt;<br>
+                      &gt;&gt;&gt; ---<br>
+                      &gt;&gt;&gt;   
+                      drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |  7
+                      ++++--<br>
+                      &gt;&gt;&gt;    include/uapi/drm/amdgpu_drm.h     
+                           | 29 +++++++++++++++++++++++++<br>
+                      &gt;&gt;&gt;    2 files changed, 34 insertions(+),
+                      2 deletions(-)<br>
+                      &gt;&gt;&gt;<br>
+                      &gt;&gt;&gt; diff --git
+                      a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+                      b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+                      &gt;&gt;&gt; index 89689b940493..c7e815c2733e
+                      100644<br>
+                      &gt;&gt;&gt; ---
+                      a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+                      &gt;&gt;&gt; +++
+                      b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+                      &gt;&gt;&gt; @@ -360,7 +360,7 @@ static int
+                      amdgpu_firmware_info(struct
+                      drm_amdgpu_info_firmware *fw_info,<br>
+                      &gt;&gt;&gt;<br>
+                      &gt;&gt;&gt;    static int
+                      amdgpu_hw_ip_info(struct amdgpu_device *adev,<br>
+                      &gt;&gt;&gt;                             struct
+                      drm_amdgpu_info *info,<br>
+                      &gt;&gt;&gt; -                          struct
+                      drm_amdgpu_info_hw_ip *result)<br>
+                      &gt;&gt;&gt; +                          struct
+                      drm_amdgpu_info_hw_ip2 *result)<br>
+                      &gt;&gt;&gt;    {<br>
+                      &gt;&gt;&gt;        uint32_t ib_start_alignment =
+                      0;<br>
+                      &gt;&gt;&gt;        uint32_t ib_size_alignment =
+                      0;<br>
+                      &gt;&gt;&gt; @@ -431,6 +431,7 @@ static int
+                      amdgpu_hw_ip_info(struct amdgpu_device *adev,<br>
+                      &gt;&gt;&gt;                return -EINVAL;<br>
+                      &gt;&gt;&gt;        }<br>
+                      &gt;&gt;&gt;<br>
+                      &gt;&gt;&gt; +     result-&gt;max_ibs = UINT_MAX;<br>
+                      &gt;&gt;&gt;        for (i = 0; i &lt;
+                      adev-&gt;num_rings; ++i) {<br>
+                      &gt;&gt;&gt;                /* Note that this uses
+                      that ring types alias the equivalent<br>
+                      &gt;&gt;&gt;                 * HW IP exposes to
+                      userspace.<br>
+                      &gt;&gt;&gt; @@ -438,6 +439,8 @@ static int
+                      amdgpu_hw_ip_info(struct amdgpu_device *adev,<br>
+                      &gt;&gt;&gt;                if
+                      (adev-&gt;rings[i]-&gt;funcs-&gt;type ==
+                      info-&gt;query_hw_ip.type &amp;&amp;<br>
+                      &gt;&gt;&gt;                   
+                      adev-&gt;rings[i]-&gt;sched.ready) {<br>
+                      &gt;&gt;&gt;                        ++num_rings;<br>
+                      &gt;&gt;&gt; +                   
+                       result-&gt;max_ibs = min(result-&gt;max_ibs,<br>
+                      &gt;&gt;&gt; +                                   
+                             adev-&gt;rings[i]-&gt;max_ibs);<br>
+                      &gt;&gt;&gt;                }<br>
+                      &gt;&gt;&gt;        }<br>
+                      &gt;&gt;&gt;<br>
+                      &gt;&gt;&gt; @@ -536,7 +539,7 @@ int
+                      amdgpu_info_ioctl(struct drm_device *dev, void
+                      *data, struct drm_file *filp)<br>
+                      &gt;&gt;&gt;                }<br>
+                      &gt;&gt;&gt;                return
+                      copy_to_user(out, &amp;ui32, min(size, 4u)) ?
+                      -EFAULT : 0;<br>
+                      &gt;&gt;&gt;        case AMDGPU_INFO_HW_IP_INFO: {<br>
+                      &gt;&gt;&gt; -             struct
+                      drm_amdgpu_info_hw_ip ip = {};<br>
+                      &gt;&gt;&gt; +             struct
+                      drm_amdgpu_info_hw_ip2 ip = {};<br>
+                      &gt;&gt;&gt;                int ret;<br>
+                      &gt;&gt;&gt;<br>
+                      &gt;&gt;&gt;                ret =
+                      amdgpu_hw_ip_info(adev, info, &amp;ip);<br>
+                      &gt;&gt;&gt; diff --git
+                      a/include/uapi/drm/amdgpu_drm.h
+                      b/include/uapi/drm/amdgpu_drm.h<br>
+                      &gt;&gt;&gt; index b6eb90df5d05..45e5ae546d19
+                      100644<br>
+                      &gt;&gt;&gt; --- a/include/uapi/drm/amdgpu_drm.h<br>
+                      &gt;&gt;&gt; +++ b/include/uapi/drm/amdgpu_drm.h<br>
+                      &gt;&gt;&gt; @@ -1128,6 +1128,9 @@ struct
+                      drm_amdgpu_info_device {<br>
+                      &gt;&gt;&gt;        __u32
+                      enabled_rb_pipes_mask_hi;<br>
+                      &gt;&gt;&gt;    };<br>
+                      &gt;&gt;&gt;<br>
+                      &gt;&gt;&gt; +/* The size of this struct cannot be
+                      increased for compatibility reasons, use<br>
+                      &gt;&gt;&gt; + * struct drm_amdgpu_info_hw_ip2
+                      instead.<br>
+                      &gt;&gt;&gt; + */<br>
+                      &gt;&gt;&gt;    struct drm_amdgpu_info_hw_ip {<br>
+                      &gt;&gt;&gt;        /** Version of h/w IP */<br>
+                      &gt;&gt;&gt;        __u32  hw_ip_version_major;<br>
+                      &gt;&gt;&gt; @@ -1144,6 +1147,32 @@ struct
+                      drm_amdgpu_info_hw_ip {<br>
+                      &gt;&gt;&gt;        __u32  ip_discovery_version;<br>
+                      &gt;&gt;&gt;    };<br>
+                      &gt;&gt;&gt;<br>
+                      &gt;&gt;&gt; +/* The prefix fields of this are
+                      intentionally the same as those of<br>
+                      &gt;&gt;&gt; + * struct drm_amdgpu_info_hw_ip. The
+                      struct has a v2 to resolve a lack of<br>
+                      &gt;&gt;&gt; + * versioning on the libdrm_amdgpu
+                      side.<br>
+                      &gt;&gt;&gt; + */<br>
+                      &gt;&gt;&gt; +struct drm_amdgpu_info_hw_ip2 {<br>
+                      &gt;&gt;&gt; +     /** Version of h/w IP */<br>
+                      &gt;&gt;&gt; +     __u32  hw_ip_version_major;<br>
+                      &gt;&gt;&gt; +     __u32  hw_ip_version_minor;<br>
+                      &gt;&gt;&gt; +     /** Capabilities */<br>
+                      &gt;&gt;&gt; +     __u64  capabilities_flags;<br>
+                      &gt;&gt;&gt; +     /** command buffer address
+                      start alignment*/<br>
+                      &gt;&gt;&gt; +     __u32  ib_start_alignment;<br>
+                      &gt;&gt;&gt; +     /** command buffer size
+                      alignment*/<br>
+                      &gt;&gt;&gt; +     __u32  ib_size_alignment;<br>
+                      &gt;&gt;&gt; +     /** Bitmask of available rings.
+                      Bit 0 means ring 0, etc. */<br>
+                      &gt;&gt;&gt; +     __u32  available_rings;<br>
+                      &gt;&gt;&gt; +     /** version info: bits 23:16
+                      major, 15:8 minor, 7:0 revision */<br>
+                      &gt;&gt;&gt; +     __u32  ip_discovery_version;<br>
+                      &gt;&gt;&gt; +     /** The maximum number of IBs
+                      one can submit in a single submission<br>
+                      &gt;&gt;&gt; +      * ioctl. (When using gang
+                      submit: this is per IP type)<br>
+                      &gt;&gt;&gt; +      */<br>
+                      &gt;&gt;&gt; +     __u32  max_ibs;<br>
+                      &gt;&gt;&gt; +     /** padding to 64bit for arch
+                      differences */<br>
+                      &gt;&gt;&gt; +     __u32  pad;<br>
+                      &gt;&gt;&gt; +};<br>
+                      &gt;&gt;&gt; +<br>
+                      &gt;&gt;&gt;    struct drm_amdgpu_info_num_handles
+                      {<br>
+                      &gt;&gt;&gt;        /** Max handles as supported
+                      by firmware for UVD */<br>
+                      &gt;&gt;&gt;        __u32  uvd_max_handles;<br>
+                      <br>
+                    </blockquote>
+                  </div>
+                </div>
+              </div>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------qGsNddny9VVlghjkLndkBZzC--
