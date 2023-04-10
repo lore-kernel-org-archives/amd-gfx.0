@@ -4,124 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAFC4C76196
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Apr 2023 13:40:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E44B3C77B61
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Apr 2023 13:48:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49B2B10E333;
-	Mon, 10 Apr 2023 13:40:47 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2063.outbound.protection.outlook.com [40.107.101.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40FA610E333
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Apr 2023 13:40:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=G8keQzUzcUByZZNzytbWhN6wKd7ScQjXIIxPCWeKzobaoYx5m/dW3CfxpFjk/aCMkXrXE6GWCNklLAbUnOSccoGcZ50Mau973HSShRRLHE33UzWx/SiLQZK3tx79VRqcgodlrGlqKSLVwpr9IvvgvFqoVePu44YnH3jIdNtK98G50StZdHMYYP+a2OizwUsmVv6vT8M2QLdZzfwNx8AZBiu5tw7dtT9cbfKYl4rbXvmHV47oS11fqxJqID0p1IR3tiRJ95bZJoopsHR8VKqnlLDlj76D16lUyVye8zFBUArO+F5Ge/NPRqBt8bNXrduvRhma/t/U1Xkk0I3wlYrG7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BD3aHE1sK8w8n+mr8SAI3LKURPvUOm9rlZjI7p6mzho=;
- b=SVOUBM/Z9MeWaWmPOabcS2pZ4I/xIH+tMX1hx7KKoTcVd4E+iVSlZcLG4lJwjgN3M+btziQHuRYuVR4Yi/SX70oQ+8N/jgCvQ4IMm0o7lSsluU1V9+mAIuaNwLX/Rfr9gBwY785XpRk5W8Uiyg9qhUUpZaNqDKBQhxwhXxnLhMecQfkmqVwgLzu5UdO5V6QKoOC5OQ9z4BWQXgbX+WYPSF95jGwYbEioXyDjZNcZsAkE035A235Vcr1JJaBLBTwbtGrec6wc08kU6pZG239pjB1N3zMPeKpuGCdUcKz98rD9Zh0qZz4gAqh/Xl6VlaFubSuWDvCxl+s+M4IGaxyVJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BD3aHE1sK8w8n+mr8SAI3LKURPvUOm9rlZjI7p6mzho=;
- b=ka/27x5WO2a7QnHLv5s1WrGKHAX0cmwp9EBRd/S01GHLpQvexMbMHrAxNmQIAH1f9VGowiqM8m+DSBBoCqxAhUdFWzIZEXVrqmBJCcRZlpn3bfTSfnv/eSe5+DYueYcxpfWry7awtTxlQRmNlhm5HCg/qjmfSVLNDPgb7KOzyR8=
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
- by BL1PR12MB5032.namprd12.prod.outlook.com (2603:10b6:208:30a::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.35; Mon, 10 Apr
- 2023 13:40:42 +0000
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::755d:fed:c4a:bf05]) by MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::755d:fed:c4a:bf05%4]) with mapi id 15.20.6277.036; Mon, 10 Apr 2023
- 13:40:41 +0000
-From: "Sharma, Shashank" <Shashank.Sharma@amd.com>
-To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Subject: RE: [PATCH v3 0/9] AMDGPU Usermode queues
-Thread-Topic: [PATCH v3 0/9] AMDGPU Usermode queues
-Thread-Index: AQHZYlg/wQgIMZ1Dd0K1XyfDx7ke8K8jxFGAgABwPVCAACOfAIAARw8A
-Date: Mon, 10 Apr 2023 13:40:41 +0000
-Message-ID: <MW4PR12MB5667EC2D2E57FDDE93EE546FF2959@MW4PR12MB5667.namprd12.prod.outlook.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EFDD10E0F4;
+	Mon, 10 Apr 2023 13:48:57 +0000 (UTC)
+Received: from mail-yb1-xb36.google.com (mail-yb1-xb36.google.com
+ [IPv6:2607:f8b0:4864:20::b36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93C6410E0F4
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Apr 2023 13:48:56 +0000 (UTC)
+Received: by mail-yb1-xb36.google.com with SMTP id f188so36399576ybb.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Apr 2023 06:48:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=basnieuwenhuizen.nl; s=google; t=1681134535; x=1683726535;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=vZ0G4xA3YnA3kH45nn5s6+/AgE58uI1V1smo4A0XzJY=;
+ b=edrHu32cwAf5e5PL7MzOko9fQbaXvl+7z+Az8o1wjBL+M46aT1nHmyZwb6A8bC22MT
+ UhZikeDThRNGOx0fxW++85oBZck1iNEyJ8UJbHxB3UGLn91oJl1ASyzNoaDhlboii3nv
+ MnKamjKJCL5wwIKUHiyYFLKuhSkA5NKoxbg9a7RykyY1ZaP6hnP1wi+hWtASn1QsDMuj
+ Dh9F+fbf9SVGNbr86xENzybNtpezcwcyX/XqkbV1ijPtlbKozK/IeRQz8H6T8f+v3zKf
+ kvGm5NTA6thOfbtk1fHUthN2SBPzjZapF51vmyNf3VPWXKUXWbV30kLHvTWN6CB7zC2k
+ N45A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1681134535; x=1683726535;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=vZ0G4xA3YnA3kH45nn5s6+/AgE58uI1V1smo4A0XzJY=;
+ b=5sNsp6RBDI5P8YQqo5xeicBEF5/NuZ0ONXDRuvWOk94ci/BxCGdkaAlNskTos3rBcC
+ 2zmryAqobdlf68i9/KI+o66cGneoYmtX2J8YUYTekp1yL0cKFfZ+w336VpMfFdlqQSfX
+ m3SmRFlTsi3cN+OSFtUu/WIrsvaukIjr4dFnFo/26Xzp40JGLwn+G5yWB0BitAJUHjFJ
+ b0+ZVoQDwrZCxMNk4pg4wPEhCvNhjUF/PiqjpTmgZvoIHLREDMnUVj7JiY6vorp8gfvk
+ BbAfa5ZUWx/jVLzmguYJn1byVYx0SvCqpXfMzONpRKI/sFl3sEtiQkdZn+DAKEJQPBkE
+ E2zA==
+X-Gm-Message-State: AAQBX9eOR7fRCSq7r+HizCi91lsq8s/Nm8insq2T7sTIX1z7deTJ/gxI
+ BreNsOa6ILxYRhjvwlPTFqkEWFlf/mub/9LHJpBY8nd9bc14wLIcpfpNZw==
+X-Google-Smtp-Source: AKy350aAumX4S/6R8Od0bvYSkoDOel5GT+Df3eEqRtcuX9PzL21KF5IuWXKjL7/9ZyqHdVt/gyet8UD6ZJLBAMlNQ80=
+X-Received: by 2002:a25:7397:0:b0:b8b:fe5f:2eaa with SMTP id
+ o145-20020a257397000000b00b8bfe5f2eaamr3654556ybc.2.1681134535343; Mon, 10
+ Apr 2023 06:48:55 -0700 (PDT)
+MIME-Version: 1.0
 References: <20230329160445.1300-1-shashank.sharma@amd.com>
  <CAP+8YyFgbru=1HkLo1Kfm1jKPrk5sXenUmmkzzysWbSh05q2tg@mail.gmail.com>
  <MW4PR12MB5667D4837CFDEE7230F5423DF2959@MW4PR12MB5667.namprd12.prod.outlook.com>
  <CAP+8YyGthhzm6291=jiydsNgK3suGdi4cMM7GMhTW_j3mdgCgQ@mail.gmail.com>
-In-Reply-To: <CAP+8YyGthhzm6291=jiydsNgK3suGdi4cMM7GMhTW_j3mdgCgQ@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-04-10T13:40:38Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=31fa2511-ce8b-4517-8fb0-6b2ab6e44d26;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW4PR12MB5667:EE_|BL1PR12MB5032:EE_
-x-ms-office365-filtering-correlation-id: aadc41e1-a5e3-4ea9-3c05-08db39c92d83
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 6Z0ApfFAzow4SWqdQ53mp62ETLECDsbhg+xtM2wM0g1jVRn/p/pC2dYpp2KBkx68YHktz+6r1B+km1d1fuXHJQ44Hh7L/GRSEBMujW9h5Rn3GGF5FoA1W5oGDK8/nJ+r2PbqxEP5cpzv6gc22BEVWt8y7xXG9pbpCy6NN15fZuNFgtajwwxl8YdMOv3JRAr1C/1Y/fCqwsOKaygwQvWlAxmqkdntjWrlibq8LaKvj4alMhJeZynKho6ihRAY+uW1IikOQqrnP2gTh522xzF5bN46CkodDpXkXgZsxdQRx9vV6Ar4s91M+1i2a+zG54/vzOPi39WApaQiS4Qi72DIseN63tCSlt5cWlJXQzVcALDo3FFbBPn/0BxflsJyl8X9ZngXpqeo0aE8RNYelinKmZfF1JWKr2WLTL//1LdasYfuKrzXq+HDOkUWGDgzN1GQzoX8C5YrDVjeM+wuqRWGhic+/vVjYMnecpsHQ6d+VJpMIdvDFJdwUQ/lUteRm0Weg4mD72ctluYOdU0R1LgKgPKu3vwlSoyvRcf87MCHKWK6tdQul7WuEbPTCj7ax1Ou/aW6QQrFER7C50kfyi/kF9GbyznSPavFtch7cLclKsU=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(376002)(396003)(346002)(366004)(39860400002)(451199021)(478600001)(7696005)(71200400001)(316002)(54906003)(9686003)(53546011)(6506007)(26005)(186003)(966005)(2906002)(5660300002)(4326008)(76116006)(66946007)(41300700001)(66446008)(8936002)(8676002)(6916009)(66476007)(64756008)(52536014)(66556008)(38100700002)(38070700005)(122000001)(86362001)(55016003)(33656002)(83380400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?c000Z3BXOXNyZGxBQTFSbytaZXJiSzlON0JIdTBzN25DaHc2LzBub2oxeThL?=
- =?utf-8?B?cHRYQnlVMjBNaWdjWjV3U25BbEI1QmFWRkRUYitxOURQQWhQNHNqOCt5TUoz?=
- =?utf-8?B?b0ZBb0h6R25RcVU1aC9GcUZzYUI4aUQyczdEWG5ySHh0WVJTclp3QVdjRlZC?=
- =?utf-8?B?S21DaXdCMmMxTnZWYlkycDB0cjVxUGpqaDF0NkZ4all3SkFOUS9TR3AycERk?=
- =?utf-8?B?UStRalZqTHAzRFM4YzJYb2J6L2VUaUYvSzltRE45OXd1NHVnQm5kbmRuM2VS?=
- =?utf-8?B?Tk0xK2t4N24rcUY3bEU3cFkyQ0ZxalQyMkRYbG9pK296a1NqR21FcUM4aGxs?=
- =?utf-8?B?NzhaZ0RtTWtxaTk4R1dIUi9zWnBOMlJmc1piRytPbElVclFYTVRybGw2bWYx?=
- =?utf-8?B?SnNZKytvdG5BUXd1a1Y3TDMrTzlxZk9tenZHT3RrcVFRd1NFWXFPM3NOU0dF?=
- =?utf-8?B?ZUpoWUxadFphOHBod2RmdGFxUURGbjFscXB6ZmpYNzVKeHZpTlRoeUJPbnYw?=
- =?utf-8?B?Qkc5SFRHREZxRG5CNWljL0w5bXJFZ3A1cVZXaGd1N3VqVEFSYnRMMFBURU1w?=
- =?utf-8?B?OTF1S0t6NVpkU09XYUpBQktLYUhMUklzL3RCZXgwaVc5RzcvRWxQcTY2Y3k3?=
- =?utf-8?B?YmdOY1IxL1FvN085c1E5QVRsVUgwdWtZNFRkOFFiaTY4L1NSeDVaZG1yemdR?=
- =?utf-8?B?OWJJNzl0cmhhWEJlcGNsOU93QkFZcEJoSHFMWUs5eGJOcjNpM0dlbXlubXFX?=
- =?utf-8?B?YTl3aUZ2N242SXVHZWpObXQ4K3QzRHJsZlNqVVJhcnMxWGdwT21DaFRJTmZv?=
- =?utf-8?B?R3pxYnl6Z2F0OS81bmlZTFRxN2xGZ0xaYnFkblJIcG14Y3ZZcjN4ME9IRmtJ?=
- =?utf-8?B?T3gvSkVEbDN0dGU3OThLOU9FMnVoQ3RnejRvMlVyWmFQOGNIeG9vS0FBYXNL?=
- =?utf-8?B?Zklya0o3c0ordS8rREtIOTlPYmJPU2d4MmQxR1ZjZVQxWHkzeFRVejJRZFh2?=
- =?utf-8?B?R0JIOG15VWh2Y2VaNTNWK1A4em1DMFFPRDg4VUdZZkZvcURvUlpPODhsbUti?=
- =?utf-8?B?RnozTUplaVF0MzB3eFdSNmswWkNLTmx1a1B6S2Mvam12Q1JuRVZ0OHJkL1pH?=
- =?utf-8?B?UHQ0Z0FRUkZoWVBlQng0TXdzdXY2YVYxMHhLcVZwK1orTGMwdW1mcU9pdVFJ?=
- =?utf-8?B?VWlpREZrVmh2QTdwRnlTbGZjQVhsZ0RLZVhHd1V2ZDBPRWk5WUdqWkdpZ1li?=
- =?utf-8?B?cXRtVTBZWkFSYVIvLyt5TU9DdituWml4cGhGL1Rydi9sem9XT3RnSlNJazFM?=
- =?utf-8?B?S0pmOVM0bGNyc1NxYVlWemtrNEoySUtRNVM0ZUdSUzIvK1pYRitoNWowL2NE?=
- =?utf-8?B?VHZZaW85VDRxN2N4ZWtvaUpZZVozbEN3VjY5RUlzSW1zZktWV01HQkpCSkU5?=
- =?utf-8?B?QjZBVjNVRHpveE8wWlJNRUh2NUwrMlJ2SzcweklTWFpxem91Yk9sM3VRdVlr?=
- =?utf-8?B?UmljKzhVZHNSTzE3aFRvQ2FSWFNMMThET2QwZGVpb212VndEbmZNZ3ZJK2xn?=
- =?utf-8?B?dUdWZVF2aHhlbUdWSlYzcEkzMURqUzc5bitTRmsxWUZKaDhKOHdUZWtERnRH?=
- =?utf-8?B?cHViYzVNbXllaS9EQWsvdWVlZk1sVGU2L01TSWdEditndTZJWUQ3YUNFM2d1?=
- =?utf-8?B?Z3FpS1ZFSE4rK3dLMDNxNWtBKzAxQU9HSGtOZ1h5RHQ0cjBEcnZORU1wM1Zs?=
- =?utf-8?B?NGpKc01EUENFSEg0SlBUWVV1YjNranJoQ3ZqVDdXNjdCOEFKU0RXeUlPOTc3?=
- =?utf-8?B?cUxxMWlZS3BEZWN1dU9sMWRtUzlkeUZETmNXRFZhMHc3TlZXZzNsT29wZVZU?=
- =?utf-8?B?TEVmc0RWdm10SU1BTm5DSXVocjVqMHNsTDkxMncrbnhMREo1YlA1Tm41Z01M?=
- =?utf-8?B?YmFjQ0dkbVpBdHhqL3ppb21hTHZiRnlHbzJNbnd0b1J2T1lWakVNeHl4cjN4?=
- =?utf-8?B?YzJiQVVUUU1aa21GOUZSamZlTUdIa1ZpTDBhTERyaXIvU1NydHRXWjQ5Q2ZO?=
- =?utf-8?B?OXh2RWRUbjdWZ25QK3lKeGpqbENNS1lGakNHaXJKYXY0YTZuSUlnSGYxNUdG?=
- =?utf-8?Q?hI6M=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: aadc41e1-a5e3-4ea9-3c05-08db39c92d83
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Apr 2023 13:40:41.7317 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: s4gYXg78RPT20Tz94QZRtLJ5bg9IVJJ5IRKS3Ps/OzvGjGg91WGK+rRu2c3CpjuOpVnr7YmhPtLjIRWzJs/39g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5032
+ <MW4PR12MB5667EC2D2E57FDDE93EE546FF2959@MW4PR12MB5667.namprd12.prod.outlook.com>
+In-Reply-To: <MW4PR12MB5667EC2D2E57FDDE93EE546FF2959@MW4PR12MB5667.namprd12.prod.outlook.com>
+From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Date: Mon, 10 Apr 2023 15:46:42 +0200
+Message-ID: <CAP+8YyH9GsyiUPvyeHfgG=TOOywxA42vubsYPWB9mPiexHBG_A@mail.gmail.com>
+Subject: Re: [PATCH v3 0/9] AMDGPU Usermode queues
+To: "Sharma, Shashank" <Shashank.Sharma@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,119 +77,174 @@ Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kuehling,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQoNCkhlbGxvIEJhcywgDQoNClRoaXMg
-aXMgbm90IHRoZSBjb3JyZWN0IGludGVycHJldGF0aW9uIG9mIHRoZSBjb2RlLCB0aGUgVVNFUlFf
-SU9DVEwgaGFzIGJvdGggdGhlIE9QcyAoY3JlYXRlIGFuZCBkZXN0cm95KSwgYnV0IHRoIGV1c2Vy
-IGhhcyB0byBleGNsdXNpdmVseSBjYWxsICBpdC4NCg0KUGxlYXNlIHNlZSB0aGUgc2FtcGxlIHRl
-c3QgcHJvZ3JhbSBpbiB0aGUgZXhpc3RpbmcgbGliRFJNIHNlcmllcyAodXNlcnFfdGVzdC5jLCBp
-dCBzcGVjaWZpY2FsbHkgY2FsbHMgYW1kZ3B1X2ZyZWVfdXNlcnEsIHdoaWNoIGRvZXMgdGhlIGRl
-c3Ryb3lfT1ANCg0KZm9yIHRoZSBJT0NUTC4NCg0KLSBTaGFzaGFuaw0KDQotLS0tLU9yaWdpbmFs
-IE1lc3NhZ2UtLS0tLQ0KRnJvbTogQmFzIE5pZXV3ZW5odWl6ZW4gPGJhc0BiYXNuaWV1d2VuaHVp
-emVuLm5sPiANClNlbnQ6IDEwIEFwcmlsIDIwMjMgMTE6MjYNClRvOiBTaGFybWEsIFNoYXNoYW5r
-IDxTaGFzaGFuay5TaGFybWFAYW1kLmNvbT4NCkNjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZzsgRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgS3Vl
-aGxpbmcsIEZlbGl4IDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPjsgS29lbmlnLCBDaHJpc3RpYW4g
-PENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT47IFlhZGF2LCBBcnZpbmQgPEFydmluZC5ZYWRhdkBh
-bWQuY29tPg0KU3ViamVjdDogUmU6IFtQQVRDSCB2MyAwLzldIEFNREdQVSBVc2VybW9kZSBxdWV1
-ZXMNCg0KSGkgU2hhc2hhbmssDQoNCkkgdGhpbmsgSSBmb3VuZCB0aGUgaXNzdWU6IEkgd2Fzbid0
-IGRlc3Ryb3lpbmcgdGhlIHVzZXIgcXVldWUgaW4gbXkgcHJvZ3JhbSBhbmQgdGhlIGtlcm5lbCBk
-b2Vzbid0IGNsZWFuIHVwIGFueSByZW1haW5pbmcgdXNlciBxdWV1ZXMgaW4gdGhlIHBvc3RjbG9z
-ZSBob29rLiBJIHRoaW5rIHdlIG5lZWQgc29tZXRoaW5nIGxpa2UNCmh0dHBzOi8vZ2l0aHViLmNv
-bS9CTmlldXdlbmh1aXplbi9saW51eC9jb21taXQvZTkwYzhkMTE4NWRhNzM1M2MxMjgzNzk3M2Nl
-ZGRmNTVjY2M4NWQyOQ0KPw0KDQpXaGlsZSBydW5uaW5nIHRoaW5ncyBtdWx0aXBsZSB0aW1lcyBu
-b3cgd29ya3MsIEkgc3RpbGwgaGF2ZSBwcm9ibGVtcyBkb2luZyBtdWx0aXBsZSBzdWJtaXNzaW9u
-cyBmcm9tIHRoZSBzYW1lIHF1ZXVlLiBMb29raW5nIGZvcndhcmQgdG8gdGhlIHVwZGF0ZWQgdGVz
-dC9zYW1wbGUNCg0KVGhhbmtzLA0KQmFzDQoNCk9uIE1vbiwgQXByIDEwLCAyMDIzIGF0IDk6MzLi
-gK9BTSBTaGFybWEsIFNoYXNoYW5rIDxTaGFzaGFuay5TaGFybWFAYW1kLmNvbT4gd3JvdGU6DQo+
-DQo+IFtBTUQgT2ZmaWNpYWwgVXNlIE9ubHkgLSBHZW5lcmFsXQ0KPg0KPiBIZWxsbyBCYXMsDQo+
-IFRoYW5rcyBmb3IgdHJ5aW5nIHRoaXMgb3V0Lg0KPg0KPiBUaGlzIGNvdWxkIGJlIGR1ZSB0byB0
-aGUgZG9vcmJlbGwgYXMgeW91IG1lbnRpb25lZCwgVXNlcm1vZGUgcXVldWUgdXNlcyBkb29yYmVs
-bCBtYW5hZ2VyIGludGVybmFsbHkuDQo+IFRoaXMgd2Vlaywgd2UgYXJlIHBsYW5uaW5nIHRvIHB1
-YmxpcyB0aGUgbGF0ZXN0IGxpYkRSTSBzYW1wbGUgY29kZSB3aGljaCB1c2VzIGEgZG9vcmJlbGwg
-b2JqZWN0IChpbnN0ZWFkIG9mIHRoZSBkb29yYmVsbCBoYWNrIElPQ1RMKSwgYWRhcHRpbmcgdG8g
-dGhhdCBzaG91bGQgZml4IHlvdXIgcHJvYmxlbSBpbiBteSBvcGluaW9uLg0KPiBXZSBoYXZlIHRl
-c3RlZCB0aGlzIGZ1bGwgc3RhY2sgKGxpYkRSTSB0ZXN0ICsgVXNlcm1vZGUgcXVldWUgKyBkb29y
-YmVsbCBtYW5hZ2VyKSBmb3IgNTAwKyBjb25zZWN1dGl2ZSBydW5zLCBhbmQgaXQgd29ya2VkIHdl
-bGwgZm9yIHVzLg0KPg0KPiBZb3UgY2FuIHVzZSB0aGlzIGludGVncmF0ZWQga2VybmVsIHN0YWNr
-ICgxKzIpIGZyb20gbXkgZ2l0bGFiIHRvIGJ1aWxkIA0KPiB5b3VyIGtlcm5lbDogDQo+IGh0dHBz
-Oi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9jb250YWN0c2hhc2hhbmtzaGFybWEvdXNlcnEtYW1k
-Z3B1Ly0vdHINCj4gZWUvaW50ZWdyYXRlZC1kYi1hbmQtdXEtdjMgUGxlYXNlIHN0YXkgdHVuZWQg
-Zm9yIHVwZGF0ZWQgbGliRFJNIA0KPiBjaGFuZ2VzIHdpdGggZG9vcmJlbGwgb2JqZWN0cy4NCj4N
-Cj4gUmVnYXJkcw0KPiBTaGFzaGFuaw0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBG
-cm9tOiBCYXMgTmlldXdlbmh1aXplbiA8YmFzQGJhc25pZXV3ZW5odWl6ZW4ubmw+DQo+IFNlbnQ6
-IDEwIEFwcmlsIDIwMjMgMDI6MzcNCj4gVG86IFNoYXJtYSwgU2hhc2hhbmsgPFNoYXNoYW5rLlNo
-YXJtYUBhbWQuY29tPg0KPiBDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IERldWNo
-ZXIsIEFsZXhhbmRlciANCj4gPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+OyBLdWVobGluZywg
-RmVsaXggPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+OyANCj4gS29lbmlnLCBDaHJpc3RpYW4gPENo
-cmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT4NCj4gU3ViamVjdDogUmU6IFtQQVRDSCB2MyAwLzldIEFN
-REdQVSBVc2VybW9kZSBxdWV1ZXMNCj4NCj4gSGkgU2hhc2hhbmssDQo+DQo+IEkgdHJpZWQgd3Jp
-dGluZyBhIHByb2dyYW0gdG8gZXhwZXJpbWVudCB3aXRoIHVzZXJtb2RlIHF1ZXVlcyBhbmQgSSBm
-b3VuZCBzb21lIHdlaXJkIGJlaGF2aW9yOiBUaGUgZmlyc3QgcnVuIG9mIHRoZSBwcm9ncmFtIHdv
-cmtzIGFzIGV4cGVjdGVkLCB3aGlsZSBzdWJzZXF1ZW50IHJ1bnMgZG9uJ3Qgc2VlbSB0byBkbyBh
-bnl0aGluZyAoYW5kIEkgYWxsb2NhdGUgZXZlcnl0aGluZyBpbiBHVFQsIHNvIGl0IHNob3VsZCBi
-ZSB6ZXJvIGluaXRpYWxpemVkIGNvbnNpc3RlbnRseSkuIElzIHRoaXMgYSBrbm93biBpc3N1ZT8N
-Cj4NCj4gVGhlIGxpbmtlZCBsaWJkcm0gY29kZSBmb3IgdGhlIHVhcGkgc3RpbGwgZG9lcyBhIGRv
-b3JiZWxsIGlvY3RsIHNvIGl0IGNvdWxkIHZlcnkgd2VsbCBiZSB0aGF0IEkgZG8gdGhlIGRvb3Ji
-ZWxsIHdyb25nIChlc3BlY2lhbGx5IHNpbmNlIHRoZSBpb2N0bCBpbXBsZW1lbnRhdGlvbiB3YXMg
-bmV2ZXIgc2hhcmVkIEFGQUlDVD8pLCBidXQgaXQgc2VlbXMgbGlrZSB0aGUga2VybmVsIHN1Ym1p
-c3Npb25zIChpLmUuIHdyaXRlIHdwdHIgaW4gZHdvcmRzIHRvIHRoZSB3cHRyIHZhIGFuZCB0byB0
-aGUgZG9vcmJlbGwpLiBJcyBpdCBwb3NzaWJsZSB0byB1cGRhdGUgdGhlIHRlc3QgaW4gbGliZHJt
-Pw0KPg0KPiBDb2RlOiBodHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvYm5pZXV3ZW5odWl6
-ZW4vdXNlcm1vZGUtcXVldWUNCj4NCj4gVGhhbmtzLA0KPiBCYXMNCj4NCj4gT24gV2VkLCBNYXIg
-MjksIDIwMjMgYXQgNjowNeKAr1BNIFNoYXNoYW5rIFNoYXJtYSA8c2hhc2hhbmsuc2hhcm1hQGFt
-ZC5jb20+IHdyb3RlOg0KPiA+DQo+ID4gVGhpcyBwYXRjaCBzZXJpZXMgaW50cm9kdWNlcyBBTURH
-UFUgdXNlcm1vZGUgcXVldWVzIGZvciBnZnggd29ya2xvYWRzLg0KPiA+IFVzZXJtb2RlIHF1ZXVl
-cyBpcyBhIG1ldGhvZCBvZiBHUFUgd29ya2xvYWQgc3VibWlzc2lvbiBpbnRvIHRoZSANCj4gPiBn
-cmFwaGljcyBoYXJkd2FyZSB3aXRob3V0IGFueSBpbnRlcmFjdGlvbiB3aXRoIGtlcm5lbC9EUk0g
-c2NoZWR1bGVycy4NCj4gPiBJbiB0aGlzIG1ldGhvZCwgYSB1c2Vyc3BhY2UgZ3JhcGhpY3MgYXBw
-bGljYXRpb24gY2FuIGNyZWF0ZSBpdHMgb3duIA0KPiA+IHdvcmtxdWV1ZSBhbmQgc3VibWl0IGl0
-IGRpcmVjdGx5IGluIHRoZSBHUFUgSFcuDQo+ID4NCj4gPiBUaGUgZ2VuZXJhbCBpZGVhIG9mIGhv
-dyB0aGlzIGlzIHN1cHBvc2VkIHRvIHdvcms6DQo+ID4gLSBUaGUgYXBwbGljYXRpb24gY3JlYXRl
-cyB0aGUgZm9sbG93aW5nIEdQVSBvYmpldGNzOg0KPiA+ICAgLSBBIHF1ZXVlIG9iamVjdCB0byBo
-b2xkIHRoZSB3b3JrbG9hZCBwYWNrZXRzLg0KPiA+ICAgLSBBIHJlYWQgcG9pbnRlciBvYmplY3Qu
-DQo+ID4gICAtIEEgd3JpdGUgcG9pbnRlciBvYmplY3QuDQo+ID4gICAtIEEgZG9vcmJlbGwgcGFn
-ZS4NCj4gPiAtIFRoZSBhcHBsaWNhdGlvbiBwaWNrcyBhIDMyLWJpdCBvZmZzZXQgaW4gdGhlIGRv
-b3JiZWxsIHBhZ2UgZm9yIHRoaXMgcXVldWUuDQo+ID4gLSBUaGUgYXBwbGljYXRpb24gdXNlcyB0
-aGUgdXNlcm1vZGVfcXVldWVfY3JlYXRlIElPQ1RMIGludHJvZHVjZWQgaW4NCj4gPiAgIHRoaXMg
-cGF0Y2gsIGJ5IHBhc3NpbmcgdGhlIHRoZSBHUFUgYWRkcmVzc2VzIG9mIHRoZXNlIG9iamVjdHMg
-KHJlYWQNCj4gPiAgIHB0ciwgd3JpdGUgcHRyLCBxdWV1ZSBiYXNlIGFkZHJlc3MgYW5kIDMyLWJp
-dCBkb29yYmVsbCBvZmZzZXQgZnJvbQ0KPiA+ICAgdGhlIGRvb3JiZWxsIHBhZ2UpDQo+ID4gLSBU
-aGUga2VybmVsIGNyZWF0ZXMgdGhlIHF1ZXVlIGFuZCBtYXBzIGl0IGluIHRoZSBIVy4NCj4gPiAt
-IFRoZSBhcHBsaWNhdGlvbiBjYW4gc3RhcnQgc3VibWl0dGluZyB0aGUgZGF0YSBpbiB0aGUgcXVl
-dWUgYXMgc29vbiBhcw0KPiA+ICAgdGhlIGtlcm5lbCBJT0NUTCByZXR1cm5zLg0KPiA+IC0gQWZ0
-ZXIgZmlsbGluZyB0aGUgd29ya2xvYWQgZGF0YSBpbiB0aGUgcXVldWUsIHRoZSBhcHAgbXVzdCB3
-cml0ZSB0aGUNCj4gPiAgIG51bWJlciBvZiBkd29yZHMgYWRkZWQgaW4gdGhlIHF1ZXVlIGludG8g
-dGhlIGRvb3JiZWxsIG9mZnNldCwgYW5kIHRoZQ0KPiA+ICAgR1BVIHdpbGwgc3RhcnQgZmV0Y2hp
-bmcgdGhlIGRhdGEuDQo+ID4NCj4gPiBsaWJEUk0gY2hhbmdlcyBmb3IgdGhpcyBzZXJpZXMgYW5k
-IGEgc2FtcGxlIERSTSB0ZXN0IHByb2dyYW0gY2FuIGJlIA0KPiA+IGZvdW5kIGluIHRoZSBNRVNB
-IG1lcmdlIHJlcXVlc3QgaGVyZToNCj4gPiBodHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcv
-bWVzYS9kcm0vLS9tZXJnZV9yZXF1ZXN0cy8yODcNCj4gPg0KPiA+IFRoaXMgcGF0Y2ggc2VyaWVz
-IGRlcGVuZHMgb24gdGhlIGRvb3JiZWxsLW1hbmFnZXIgY2hhbmdlcywgd2hpY2ggYXJlIA0KPiA+
-IGJlaW5nIHJldmlld2VkIGhlcmU6DQo+ID4gaHR0cHM6Ly9wYXRjaHdvcmsuZnJlZWRlc2t0b3Au
-b3JnL3Nlcmllcy8xMTU4MDIvDQo+ID4NCj4gPiBBbGV4IERldWNoZXIgKDEpOg0KPiA+ICAgZHJt
-L2FtZGdwdTogVUFQSSBmb3IgdXNlciBxdWV1ZSBtYW5hZ2VtZW50DQo+ID4NCj4gPiBBcnZpbmQg
-WWFkYXYgKDIpOg0KPiA+ICAgZHJtL2FtZGdwdTogYWRkIG5ldyBwYXJhbWV0ZXJzIGluIHYxMV9z
-dHJ1Y3QNCj4gPiAgIGRybS9hbWRncHU6IG1hcCB3cHRyIEJPIGludG8gR0FSVA0KPiA+DQo+ID4g
-U2hhc2hhbmsgU2hhcm1hICg2KToNCj4gPiAgIGRybS9hbWRncHU6IGFkZCB1c2VybW9kZSBxdWV1
-ZSBiYXNlIGNvZGUNCj4gPiAgIGRybS9hbWRncHU6IGFkZCBuZXcgSU9DVEwgZm9yIHVzZXJtb2Rl
-IHF1ZXVlDQo+ID4gICBkcm0vYW1kZ3B1OiBjcmVhdGUgR0ZYLWdlbjExIE1RRCBmb3IgdXNlcnF1
-ZXVlDQo+ID4gICBkcm0vYW1kZ3B1OiBjcmVhdGUgY29udGV4dCBzcGFjZSBmb3IgdXNlcm1vZGUg
-cXVldWUNCj4gPiAgIGRybS9hbWRncHU6IG1hcCB1c2VybW9kZSBxdWV1ZSBpbnRvIE1FUw0KPiA+
-ICAgZHJtL2FtZGdwdTogZ2VuZXJhdGUgZG9vcmJlbGwgaW5kZXggZm9yIHVzZXJxdWV1ZQ0KPiA+
-DQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L01ha2VmaWxlICAgICAgICAgICB8ICAg
-MyArDQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgICAgICAgICB8
-ICAxMCArLQ0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgICAg
-ICAgfCAgIDIgKw0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMg
-ICAgICAgfCAgIDYgKw0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdXNl
-cnF1ZXVlLmMgfCAyOTgNCj4gPiArKysrKysrKysrKysrKysrKysgIC4uLi9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfdXNlcnF1ZXVlX2dmeF92MTEuYyB8IA0KPiA+ICsrKysrKysrKysrKysrKysrKyAy
-MzAgKysrKysrKysrKysrKysNCj4gPiAgLi4uL2dwdS9kcm0vYW1kL2luY2x1ZGUvYW1kZ3B1X3Vz
-ZXJxdWV1ZS5oICAgIHwgIDY2ICsrKysNCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRl
-L3YxMV9zdHJ1Y3RzLmggICAgIHwgIDE2ICstDQo+ID4gIGluY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1
-X2RybS5oICAgICAgICAgICAgICAgICB8ICA1NSArKysrDQo+ID4gIDkgZmlsZXMgY2hhbmdlZCwg
-Njc3IGluc2VydGlvbnMoKyksIDkgZGVsZXRpb25zKC0pICBjcmVhdGUgbW9kZQ0KPiA+IDEwMDY0
-NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdXNlcnF1ZXVlLmMNCj4gPiAgY3Jl
-YXRlIG1vZGUgMTAwNjQ0DQo+ID4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Vz
-ZXJxdWV1ZV9nZnhfdjExLmMNCj4gPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvaW5jbHVkZS9hbWRncHVfdXNlcnF1ZXVlLmgNCj4gPg0KPiA+IC0tDQo+ID4gMi40MC4w
-DQo+ID4NCg==
+On Mon, Apr 10, 2023 at 3:40=E2=80=AFPM Sharma, Shashank
+<Shashank.Sharma@amd.com> wrote:
+>
+> [AMD Official Use Only - General]
+>
+> Hello Bas,
+>
+> This is not the correct interpretation of the code, the USERQ_IOCTL has b=
+oth the OPs (create and destroy), but th euser has to exclusively call  it.
+>
+> Please see the sample test program in the existing libDRM series (userq_t=
+est.c, it specifically calls amdgpu_free_userq, which does the destroy_OP
+>
+> for the IOCTL.
+
+In the presence of crashes the kernel should always be able to clean
+this up no? Otherwise there is a resource leak?
+
+>
+> - Shashank
+>
+> -----Original Message-----
+> From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+> Sent: 10 April 2023 11:26
+> To: Sharma, Shashank <Shashank.Sharma@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@=
+amd.com>; Kuehling, Felix <Felix.Kuehling@amd.com>; Koenig, Christian <Chri=
+stian.Koenig@amd.com>; Yadav, Arvind <Arvind.Yadav@amd.com>
+> Subject: Re: [PATCH v3 0/9] AMDGPU Usermode queues
+>
+> Hi Shashank,
+>
+> I think I found the issue: I wasn't destroying the user queue in my progr=
+am and the kernel doesn't clean up any remaining user queues in the postclo=
+se hook. I think we need something like
+> https://github.com/BNieuwenhuizen/linux/commit/e90c8d1185da7353c12837973c=
+eddf55ccc85d29
+> ?
+>
+> While running things multiple times now works, I still have problems doin=
+g multiple submissions from the same queue. Looking forward to the updated =
+test/sample
+>
+> Thanks,
+> Bas
+>
+> On Mon, Apr 10, 2023 at 9:32=E2=80=AFAM Sharma, Shashank <Shashank.Sharma=
+@amd.com> wrote:
+> >
+> > [AMD Official Use Only - General]
+> >
+> > Hello Bas,
+> > Thanks for trying this out.
+> >
+> > This could be due to the doorbell as you mentioned, Usermode queue uses=
+ doorbell manager internally.
+> > This week, we are planning to publis the latest libDRM sample code whic=
+h uses a doorbell object (instead of the doorbell hack IOCTL), adapting to =
+that should fix your problem in my opinion.
+> > We have tested this full stack (libDRM test + Usermode queue + doorbell=
+ manager) for 500+ consecutive runs, and it worked well for us.
+> >
+> > You can use this integrated kernel stack (1+2) from my gitlab to build
+> > your kernel:
+> > https://gitlab.freedesktop.org/contactshashanksharma/userq-amdgpu/-/tr
+> > ee/integrated-db-and-uq-v3 Please stay tuned for updated libDRM
+> > changes with doorbell objects.
+> >
+> > Regards
+> > Shashank
+> > -----Original Message-----
+> > From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+> > Sent: 10 April 2023 02:37
+> > To: Sharma, Shashank <Shashank.Sharma@amd.com>
+> > Cc: amd-gfx@lists.freedesktop.org; Deucher, Alexander
+> > <Alexander.Deucher@amd.com>; Kuehling, Felix <Felix.Kuehling@amd.com>;
+> > Koenig, Christian <Christian.Koenig@amd.com>
+> > Subject: Re: [PATCH v3 0/9] AMDGPU Usermode queues
+> >
+> > Hi Shashank,
+> >
+> > I tried writing a program to experiment with usermode queues and I foun=
+d some weird behavior: The first run of the program works as expected, whil=
+e subsequent runs don't seem to do anything (and I allocate everything in G=
+TT, so it should be zero initialized consistently). Is this a known issue?
+> >
+> > The linked libdrm code for the uapi still does a doorbell ioctl so it c=
+ould very well be that I do the doorbell wrong (especially since the ioctl =
+implementation was never shared AFAICT?), but it seems like the kernel subm=
+issions (i.e. write wptr in dwords to the wptr va and to the doorbell). Is =
+it possible to update the test in libdrm?
+> >
+> > Code: https://gitlab.freedesktop.org/bnieuwenhuizen/usermode-queue
+> >
+> > Thanks,
+> > Bas
+> >
+> > On Wed, Mar 29, 2023 at 6:05=E2=80=AFPM Shashank Sharma <shashank.sharm=
+a@amd.com> wrote:
+> > >
+> > > This patch series introduces AMDGPU usermode queues for gfx workloads=
+.
+> > > Usermode queues is a method of GPU workload submission into the
+> > > graphics hardware without any interaction with kernel/DRM schedulers.
+> > > In this method, a userspace graphics application can create its own
+> > > workqueue and submit it directly in the GPU HW.
+> > >
+> > > The general idea of how this is supposed to work:
+> > > - The application creates the following GPU objetcs:
+> > >   - A queue object to hold the workload packets.
+> > >   - A read pointer object.
+> > >   - A write pointer object.
+> > >   - A doorbell page.
+> > > - The application picks a 32-bit offset in the doorbell page for this=
+ queue.
+> > > - The application uses the usermode_queue_create IOCTL introduced in
+> > >   this patch, by passing the the GPU addresses of these objects (read
+> > >   ptr, write ptr, queue base address and 32-bit doorbell offset from
+> > >   the doorbell page)
+> > > - The kernel creates the queue and maps it in the HW.
+> > > - The application can start submitting the data in the queue as soon =
+as
+> > >   the kernel IOCTL returns.
+> > > - After filling the workload data in the queue, the app must write th=
+e
+> > >   number of dwords added in the queue into the doorbell offset, and t=
+he
+> > >   GPU will start fetching the data.
+> > >
+> > > libDRM changes for this series and a sample DRM test program can be
+> > > found in the MESA merge request here:
+> > > https://gitlab.freedesktop.org/mesa/drm/-/merge_requests/287
+> > >
+> > > This patch series depends on the doorbell-manager changes, which are
+> > > being reviewed here:
+> > > https://patchwork.freedesktop.org/series/115802/
+> > >
+> > > Alex Deucher (1):
+> > >   drm/amdgpu: UAPI for user queue management
+> > >
+> > > Arvind Yadav (2):
+> > >   drm/amdgpu: add new parameters in v11_struct
+> > >   drm/amdgpu: map wptr BO into GART
+> > >
+> > > Shashank Sharma (6):
+> > >   drm/amdgpu: add usermode queue base code
+> > >   drm/amdgpu: add new IOCTL for usermode queue
+> > >   drm/amdgpu: create GFX-gen11 MQD for userqueue
+> > >   drm/amdgpu: create context space for usermode queue
+> > >   drm/amdgpu: map usermode queue into MES
+> > >   drm/amdgpu: generate doorbell index for userqueue
+> > >
+> > >  drivers/gpu/drm/amd/amdgpu/Makefile           |   3 +
+> > >  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  10 +-
+> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   2 +
+> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |   6 +
+> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 298
+> > > ++++++++++++++++++  .../drm/amd/amdgpu/amdgpu_userqueue_gfx_v11.c |
+> > > ++++++++++++++++++ 230 ++++++++++++++
+> > >  .../gpu/drm/amd/include/amdgpu_userqueue.h    |  66 ++++
+> > >  drivers/gpu/drm/amd/include/v11_structs.h     |  16 +-
+> > >  include/uapi/drm/amdgpu_drm.h                 |  55 ++++
+> > >  9 files changed, 677 insertions(+), 9 deletions(-)  create mode
+> > > 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> > >  create mode 100644
+> > > drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue_gfx_v11.c
+> > >  create mode 100644 drivers/gpu/drm/amd/include/amdgpu_userqueue.h
+> > >
+> > > --
+> > > 2.40.0
+> > >
