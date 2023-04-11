@@ -4,85 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8561EC77B77
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Apr 2023 13:49:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07822C77B6F
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Apr 2023 13:49:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F20BF10E561;
-	Tue, 11 Apr 2023 13:49:21 +0000 (UTC)
-X-Greylist: delayed 311 seconds by postgrey-1.36 at gabe;
- Tue, 11 Apr 2023 13:42:30 UTC
-Received: from mout.web.de (mout.web.de [212.227.15.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06EB110E2F5;
- Tue, 11 Apr 2023 13:42:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de; s=s29768273;
- t=1681220529; i=markus.elfring@web.de;
- bh=MdVoBfc/dINhWnEEIR/uciIViBWA6WiKvA2ZgQLTO6U=;
- h=X-UI-Sender-Class:Date:Subject:From:To:Cc:References:In-Reply-To;
- b=LJvC47Keh162g60XJxLk25jMiGsplj3uqBrXyV0WKxPlF5qGl+XdM7ARKYR5L71JE
- 1b9sMiQ65irha7oV82FWxVd4SzME7q8Whi317lDv4PnsOw1kXFpGuEW4nErDoDKXwh
- srg2XlbsAsWku69qqHL86adLV4o4uCHza6M8I5TdHSA812He42XG5StoVU8k/9s3hl
- Czk1Swjq4qpPdFy1emDuRxtwyt5sLqD2W3ID4nex/yAb4gvSSaHzxvLU6UPzyScouf
- fC28gyJvIjIpvem0ns93BHSZbbX0py8Nn5TECeaFfKbqUtsryNqEB4kp+smxkEyNS0
- SdPkXCb0MBGSA==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from [192.168.178.21] ([94.31.80.83]) by smtp.web.de (mrweb005
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1MidHP-1qGMD93cff-00fjHF; Tue, 11
- Apr 2023 15:42:09 +0200
-Message-ID: <0d4b92ab-f7c2-4f18-f3c3-c0f82ba47fc8@web.de>
-Date: Tue, 11 Apr 2023 15:42:07 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08D0610E563;
+	Tue, 11 Apr 2023 13:49:22 +0000 (UTC)
+Received: from michel.telenet-ops.be (michel.telenet-ops.be
+ [IPv6:2a02:1800:110:4::f00:18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B74A10E15D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Apr 2023 10:20:46 +0000 (UTC)
+Received: from ramsan.of.borg ([84.195.187.55])
+ by michel.telenet-ops.be with bizsmtp
+ id jNLe2900D1C8whw06NLeKC; Tue, 11 Apr 2023 12:20:44 +0200
+Received: from rox.of.borg ([192.168.97.57])
+ by ramsan.of.borg with esmtp (Exim 4.95)
+ (envelope-from <geert@linux-m68k.org>) id 1pmB6J-00Gaa2-Ip;
+ Tue, 11 Apr 2023 12:20:38 +0200
+Received: from geert by rox.of.borg with local (Exim 4.95)
+ (envelope-from <geert@linux-m68k.org>) id 1pmB78-00EHKL-Je;
+ Tue, 11 Apr 2023 12:20:38 +0200
+From: Geert Uytterhoeven <geert+renesas@glider.be>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Pan@rox.of.borg, Xinhui <Xinhui.Pan@amd.com>
+Subject: [PATCH 1/2] drm: Spelling s/sempahore/semaphore/
+Date: Tue, 11 Apr 2023 12:20:35 +0200
+Message-Id: <50439958420f91cc97ad929437334bfb19ca4d90.1681208396.git.geert+renesas@glider.be>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: [PATCH 1/5] drm/amdgpu: Move a variable assignment behind a null
- pointer check in amdgpu_ras_interrupt_dispatch()
-Content-Language: en-GB
-From: Markus Elfring <Markus.Elfring@web.de>
-To: kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alan Liu <HaoPing.Liu@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Alex Hung <alex.hung@amd.com>,
- Alexey Kodanev <aleksei.kodanev@bell-sw.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Bhanuprakash Modem <bhanuprakash.modem@intel.com>,
- Candice Li <candice.li@amd.com>, Charlene Liu <charlene.liu@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- David Tadokoro <davidbtadokoro@usp.br>, Eryk Brol <eryk.brol@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>, hersen wu <hersenxs.wu@amd.com>,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, Jun Lei <jun.lei@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Mikita Lipski <mikita.lipski@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Stanley Yang <Stanley.Yang@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- Tom Rix <trix@redhat.com>, Victor Zhao <Victor.Zhao@amd.com>,
- Wayne Lin <Wayne.Lin@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>,
- Zhan Liu <zhan.liu@amd.com>
-References: <40c60719-4bfe-b1a4-ead7-724b84637f55@web.de>
- <1a11455f-ab57-dce0-1677-6beb8492a257@web.de>
- <2258ce64-2a14-6778-8319-b342b06a1f33@web.de>
-In-Reply-To: <2258ce64-2a14-6778-8319-b342b06a1f33@web.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:25febEqWetoQFrH/VBrwzBfTZugoK4sRWe5E4/QkInoeM7mmYZD
- TAwrXHKHDI9pkIADa8o8P5ZXEeWc53/5VA2ElTgbNWnpDUpzd8KvpK80DhfwPvGN6e/Ecpa
- L9+Oy8j2pqZgtAhQTdDKZu2mzIKAq5DryqasE9YtyWkeT+b93vSX8KPc6BszT3hKXYoZxt3
- YG8zPMqts/i/f6BWFEEog==
-UI-OutboundReport: notjunk:1;M01:P0:rk04CgmiAgM=;BjHW4/lmZCg4/XhetZVbD0uiU/7
- 6xo7boTMuwYxpNVQsDmg37k+mhVfwgK5T6tbTthJjc0R7/TjZokWwAWgzkefPt3epO9/9BFOz
- pq6Toe1LfbPOPTR9QwrFxd7tRD+hBXGelxeor5euggerPKgvKDOZIBEGgN/ZsnNRVvnN6LxpM
- GCvhcL6GPK+D/uNk7iv+5wMnPH1IflQ+A3xOz15LXHDSAC7uQ/isKCWKST1PvUnkptJSrzw7u
- jgZxR3QI2WA58N4n/5HSx7zdm3lF5f8/5Zwg5BL+PW8b98YV0PrnNoTAp441+7ML71OpHpMOR
- lnaUfJx+yl0S70j42GgynhWHDdDtkut9hqIRZMa0oXvKQFN0mIc0xs6ZSY3Gg1LwiZ7WZPrvm
- LAIGAk89jrFoT6UdclsdWvyBgCdAdJX9f7uZQaABpBAROIiGBdtLcBx3SVtMwtm7wDStJSO4O
- BdkDzyZv3GgsCH3+73vMXdZW3nkrcfkC6dL9ptxhozWkd5NB6JR9X4CmOILZHMuP3UHzqoe2b
- +pcCtRRz5/g6lUxZ//771PTzwsKgYdzMs8tZG1Zmi97T9BfjeJzYMepSU21RFXrmXC+VZUpD7
- MJooViMRuqTey1bP3pfiM6KcMcR9HEx7Wz9IGQyCN5J3rG50x4/+68j7rtPepA04tNUdW9Pi3
- nuzTspL78ixzLw785rGRZ6TvI3Neu8IqHNPznd3h43PSjN6EcN6kxkUKivkYvEOCfjvr+Nby8
- QMyPvW1rypdAYWpla7LvgjIbatJJwbm73kwgrB6LtPB7qTZ752KgSTWM3jnb6abcl3VwatFsu
- b/C5xu/WxV6e7ectsHQj2L/ZU7i92GUREA0WKGNCBB6DFdX8U9kaLRspS4rmDfME6lKPGHvgO
- PpOl9b+2/01y1F71kTEcQDT5NcZ4755N8bC96sTBRKI/EWyg7aza/YCEk
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 11 Apr 2023 13:49:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,48 +50,74 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: LKML <linux-kernel@vger.kernel.org>, cocci@inria.fr
+Cc: intel-gfx@lists.freedesktop.org,
+ Geert Uytterhoeven <geert+renesas@glider.be>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Date: Tue, 11 Apr 2023 10:52:48 +0200
+Fix misspellings of "semaphore".
 
-The address of a data structure member was determined before
-a corresponding null pointer check in the implementation of
-the function =E2=80=9Camdgpu_ras_interrupt_dispatch=E2=80=9D.
+Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+---
+ drivers/gpu/drm/i915/i915_request.c | 2 +-
+ drivers/gpu/drm/radeon/cik.c        | 2 +-
+ drivers/gpu/drm/radeon/r600.c       | 2 +-
+ include/drm/task_barrier.h          | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
 
-Thus avoid the risk for undefined behaviour by moving the assignment
-for the variable =E2=80=9Cdata=E2=80=9D behind the null pointer check.
-
-This issue was detected by using the Coccinelle software.
-
-Fixes: c030f2e4166c3f5597c7e7a70bcd9ab383695de4 ("drm/amdgpu: add amdgpu_r=
-as.c to support ras (v2)")
-Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
-=2D--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_ras.c
-index 4069bce9479f..a920c7888d07 100644
-=2D-- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1730,11 +1730,12 @@ int amdgpu_ras_interrupt_dispatch(struct amdgpu_de=
-vice *adev,
- 		struct ras_dispatch_if *info)
- {
- 	struct ras_manager *obj =3D amdgpu_ras_find_obj(adev, &info->head);
--	struct ras_ih_data *data =3D &obj->ih_data;
-+	struct ras_ih_data *data;
-
- 	if (!obj)
- 		return -EINVAL;
-
-+	data =3D &obj->ih_data;
- 	if (data->inuse =3D=3D 0)
- 		return 0;
-
-=2D-
-2.40.0
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 630a732aaecca8fb..0bb368a5dd0bb107 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -1220,7 +1220,7 @@ emit_semaphore_wait(struct i915_request *to,
+ 	/*
+ 	 * If this or its dependents are waiting on an external fence
+ 	 * that may fail catastrophically, then we want to avoid using
+-	 * sempahores as they bypass the fence signaling metadata, and we
++	 * semaphores as they bypass the fence signaling metadata, and we
+ 	 * lose the fence->error propagation.
+ 	 */
+ 	if (from->sched.flags & I915_SCHED_HAS_EXTERNAL_CHAIN)
+diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik.c
+index 5819737c21c678d3..5d6b81a6578ef2ba 100644
+--- a/drivers/gpu/drm/radeon/cik.c
++++ b/drivers/gpu/drm/radeon/cik.c
+@@ -3603,7 +3603,7 @@ void cik_fence_compute_ring_emit(struct radeon_device *rdev,
+  * @rdev: radeon_device pointer
+  * @ring: radeon ring buffer object
+  * @semaphore: radeon semaphore object
+- * @emit_wait: Is this a sempahore wait?
++ * @emit_wait: Is this a semaphore wait?
+  *
+  * Emits a semaphore signal/wait packet to the CP ring and prevents the PFP
+  * from running ahead of semaphore waits.
+diff --git a/drivers/gpu/drm/radeon/r600.c b/drivers/gpu/drm/radeon/r600.c
+index dd78fc4994024815..34457e51035278fb 100644
+--- a/drivers/gpu/drm/radeon/r600.c
++++ b/drivers/gpu/drm/radeon/r600.c
+@@ -2918,7 +2918,7 @@ void r600_fence_ring_emit(struct radeon_device *rdev,
+  * @rdev: radeon_device pointer
+  * @ring: radeon ring buffer object
+  * @semaphore: radeon semaphore object
+- * @emit_wait: Is this a sempahore wait?
++ * @emit_wait: Is this a semaphore wait?
+  *
+  * Emits a semaphore signal/wait packet to the CP ring and prevents the PFP
+  * from running ahead of semaphore waits.
+diff --git a/include/drm/task_barrier.h b/include/drm/task_barrier.h
+index 087e3f649c52f02d..217c1cf21c1ab7d5 100644
+--- a/include/drm/task_barrier.h
++++ b/include/drm/task_barrier.h
+@@ -25,7 +25,7 @@
+ 
+ /*
+  * Reusable 2 PHASE task barrier (randevouz point) implementation for N tasks.
+- * Based on the Little book of sempahores - https://greenteapress.com/wp/semaphores/
++ * Based on the Little book of semaphores - https://greenteapress.com/wp/semaphores/
+  */
+ 
+ 
+-- 
+2.34.1
 
