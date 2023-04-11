@@ -4,67 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FAD5C7619A
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Apr 2023 10:02:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED5F2C76196
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Apr 2023 10:08:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D20D10E0C1;
-	Tue, 11 Apr 2023 10:02:51 +0000 (UTC)
-Received: from mail-yb1-xb30.google.com (mail-yb1-xb30.google.com
- [IPv6:2607:f8b0:4864:20::b30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 412B810E0C1
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Apr 2023 10:02:50 +0000 (UTC)
-Received: by mail-yb1-xb30.google.com with SMTP id u13so7562520ybu.5
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Apr 2023 03:02:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=basnieuwenhuizen.nl; s=google; t=1681207369; x=1683799369;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=MR+ZToA22Hr3V0k82iGEnXD3VPd5UnCHR4n/9nVtcKc=;
- b=frPpYf67jGoibAOwdEZ3ycBrSE354qJiV7ZjDdVZHRTdznbWYLxQhj7p0Jfte7Ki3B
- Y30kwe7IPqY59rrAtKK2gHjh8z0QohDdrOv6XvVbBFHtqiNranRI8s1VIO8CdmZYo0v6
- iu7Y34nRRNYNNxIzM1cVb1KTvZihQSaGSduODPRIww2rDKVLrMKn4JRdrgRgM3by/FbH
- EKynjUA3vu6SeVIikxALU7SndpafXjSrna5XMWhloOx9N3QKOfFvrbDKKDTMACWpAnb9
- TyOkHlNiDDs/0IsQcnqGdzZl/pGYn1HzLYhpe6jqDfVLFNH+bNB5iAIUI7PLTHdkTAvf
- 9Iqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681207369; x=1683799369;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=MR+ZToA22Hr3V0k82iGEnXD3VPd5UnCHR4n/9nVtcKc=;
- b=X1r8/RD/1sK0VtoyKdffUWUKCdrPERy1B5q6dQvrvvjSps9PGXEpFG/SIvLlAWh+B+
- qqS5TdRhgk898yxzXUrZ/qpIWXLLnoAGJObH/pgkIi8Yb+3VQA7kdjhxOS0Gty+8ePkA
- V+HvUzHFJOa9GawP2O7HM8cZUcFgXx/UbmCj5KBD0EKzR4npFxVpNO7SvC/5BbAGjFfa
- KHb/p+M5BOOsyC/7moIpVUVORNcOpOgEPxIIRTA3SHb3G2RrKp+nC4ZHGQhtfMkN4/t0
- IKwucx4fPc4a5jU0P3Yx+MDKyOnibLyCR+XQuD4O7tNzl5iMZMKPHZy1REDjxSRt11zr
- yRWg==
-X-Gm-Message-State: AAQBX9fdN87SlUIItpJZAOMJ1LpFSG8x0kdTX4KN18Go4sCKlmSJKcL1
- JHW+lzWR0OQrl00S0hvNdneth8wrMCuzootMS/7Jbw==
-X-Google-Smtp-Source: AKy350YTPUWHU+R44n0wT1vKh667BKP+6i7FczVZahgd/+xi5YeA8O40rnL75PwvxbNQUQPufDxn6ZIuYuLcu/7pBNo=
-X-Received: by 2002:a25:7397:0:b0:b8b:fe5f:2eaa with SMTP id
- o145-20020a257397000000b00b8bfe5f2eaamr5127782ybc.2.1681207368980; Tue, 11
- Apr 2023 03:02:48 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230329160445.1300-1-shashank.sharma@amd.com>
- <CAP+8YyFgbru=1HkLo1Kfm1jKPrk5sXenUmmkzzysWbSh05q2tg@mail.gmail.com>
- <MW4PR12MB5667D4837CFDEE7230F5423DF2959@MW4PR12MB5667.namprd12.prod.outlook.com>
- <CAP+8YyGthhzm6291=jiydsNgK3suGdi4cMM7GMhTW_j3mdgCgQ@mail.gmail.com>
- <MW4PR12MB5667EC2D2E57FDDE93EE546FF2959@MW4PR12MB5667.namprd12.prod.outlook.com>
- <CAP+8YyH9GsyiUPvyeHfgG=TOOywxA42vubsYPWB9mPiexHBG_A@mail.gmail.com>
- <07322367-bbf1-cf82-0a21-15d453fe4dae@amd.com>
- <CAP+8YyEDW7JNQ1C9j0NZqXuLAnXPduSAye7esSOOwPpLNT9yYA@mail.gmail.com>
- <bc5752cd-fe72-a72d-4f35-92bcfdbe289c@amd.com>
- <e144baff-847b-9c59-6792-ff3c6167d19d@amd.com>
- <63178153-bd90-8b82-6fa7-241ec5b3d242@amd.com>
-In-Reply-To: <63178153-bd90-8b82-6fa7-241ec5b3d242@amd.com>
-From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Date: Tue, 11 Apr 2023 12:00:32 +0200
-Message-ID: <CAP+8YyF_oPCbCK2xBEU+=vXKtfTFUZvcQoX_P8fHnS+wcBJhoA@mail.gmail.com>
-Subject: Re: [PATCH v3 0/9] AMDGPU Usermode queues
-To: Shashank Sharma <shashank.sharma@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FFDC890BB;
+	Tue, 11 Apr 2023 10:08:28 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20601.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eae::601])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59950890BB
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Apr 2023 10:08:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Hrac9TdvTwAtJtoe3Bcxv3JqeSisuuAXOhj9bia2QSgGu3xxUbnnzIC3wg3KJ3KdAXGzJWC/7cOer1nlVV2VED6qgVtxPRWx7zo8SVszafA3k82Yu6bqnvLSBAa3HICESEWZ8cnI57nQOHQYqwnlpDl58PEPOsgzqxYZZQovbQUsiDx4hRZbDtc3Qr2CidimE0fXxNB7a21wT/5cDmAP/E2jX8nd3qMDyifJcAFDHgN2/Ipro2p58dnKLMt5sKOUjaeTb4br+DAe9Li9tek19X+7eqGy+4x/aQPdi/HDiZAw8zPFg8wTST/laHKVXHuXf8iAg/SkCwbUgMJI70t3nA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nv1sFYLiYLXhNo3qV7eNAFcAx9BTijcPip1f4ynRoeQ=;
+ b=NjPt0BWoRNMR1gm9Ps9vrVNybMHT/qbIwy2cCuQZwellljCDhvECIWohzxaTZcUQNd47H1yGUMG+nyE2//DsVfZ5/yUYCnnWfdF7eTUxCF1f2WazJQIejZ+0ggk58wVMGHmwv14kcx0G2R95Suyy29YqSJy4YZrEvIkfDoerwL5wWMZ7BLy2ijkDVRz8WbxZl3QeeBIRN5SSNhkaRdgHr0ZKfp+LhNliWQQa98Pv3Yk320+qTe8PgJbsGB5aRBc/NkQ1HaVv/r0WsUTORnJ2e7tC3uucOJPdhSqNIV5fz7pDjbbNtt23XeL3mvwKYGu7hFXkKzJxxysMEQVJBTk0uQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nv1sFYLiYLXhNo3qV7eNAFcAx9BTijcPip1f4ynRoeQ=;
+ b=2z2F9lALkhCrjwpmf79X6JXNHBQN5U8gj4yZ07zG5T/GaDAu6r+67w2lP+FWg1nVueRkgt3Y46hFLVuu0Ji3rGatutbqAmk+REGMPVZzVvZ/coSW6iUgaxgr7xxkg3tpNUQoB6HkZxFt5n93ndMK1XCQXalza3rMlE3AYR+pRw0=
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com (2603:10b6:a03:a6::22)
+ by PH0PR12MB5404.namprd12.prod.outlook.com (2603:10b6:510:d7::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.38; Tue, 11 Apr
+ 2023 10:08:23 +0000
+Received: from BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::7dbe:aa65:96f1:836f]) by BYAPR12MB4614.namprd12.prod.outlook.com
+ ([fe80::7dbe:aa65:96f1:836f%6]) with mapi id 15.20.6277.038; Tue, 11 Apr 2023
+ 10:08:23 +0000
+From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
+To: "Yang, Stanley" <Stanley.Yang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Zhang, Hawking" <Hawking.Zhang@amd.com>,
+ "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Chen, Guchun" <Guchun.Chen@amd.com>
+Subject: RE: [PATCH Review V2 2/2] drm/amdgpu: correct ras enabled flag
+Thread-Topic: [PATCH Review V2 2/2] drm/amdgpu: correct ras enabled flag
+Thread-Index: AQHZbFiezhbZ2lqIT0ugfmXoB5Pmma8l4hKw
+Date: Tue, 11 Apr 2023 10:08:23 +0000
+Message-ID: <BYAPR12MB461415F709E73AC11316262B979A9@BYAPR12MB4614.namprd12.prod.outlook.com>
+References: <20230411093241.4644-1-Stanley.Yang@amd.com>
+ <20230411093241.4644-2-Stanley.Yang@amd.com>
+In-Reply-To: <20230411093241.4644-2-Stanley.Yang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-04-11T10:08:15Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=920c4e7b-a3f1-4c10-b7fe-fe3b91e14bf1;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2023-04-11T10:08:15Z
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: 4f44ee87-1789-4330-9faf-64c4395f232b
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BYAPR12MB4614:EE_|PH0PR12MB5404:EE_
+x-ms-office365-filtering-correlation-id: 658f41c6-2893-4bc2-7e29-08db3a74af2b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 80ibM/PhzMpste4xuIZxZ/tTcqYiPSipW4xCIZevV1UUA6lkCxrWBOjdrwDt5t2Hn9UsW/NbWWvQw3gy90iuGTcaEScXPyJiR6chcIM0H4yWXrduOgrsUtfOgRgWyIVdzczXmDhg/28msaQ+GgEPyrvlhRg4d66sT77aaYwKUQrT0XEmCKLbal9vVVy0D/dYG72r9kunwoEw0+lwzBgsmUOh4ECkcn0wM0wnZbIaJw/rsKSeAaWjMeU4yJKMZTzMa2jNWn/OjA/jwziWJRfz5WjPeGpTD0kVYYRFOklNLsMqsbQ2bijtMmFMVlkxmdXnpUxTA8kr+4O0Dst0sLMTRL1Sx1PEkJFj/bpAkePzB24BVaRjOVsG4q8KlcpVBjvDFnYH9HpSfNNvskVgOpu20abUvxlqqQfl35tC63BY09O5lwhQY56td9sogtOoYHngqQNQRLcCVYKp6R1YnwWmUK7n+0PPiUJScbKlygISu5Ip3Uq4N9s9d1FMO38vP5uJwZG+e7tBTCGTRU1vosYj75ayVNVqN/f38mb2cGeUEKBD1XRsjf+GWpFcGa9HDG31eiYgnjDMq5fh6I+I35EJmXr+ztdECZtKGYQWAUGi1b/x4gLwVHqwwiR7sL54M/Yi
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB4614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(396003)(346002)(376002)(366004)(136003)(451199021)(53546011)(66946007)(4326008)(76116006)(26005)(86362001)(316002)(6506007)(110136005)(66476007)(66556008)(66446008)(64756008)(9686003)(186003)(7696005)(71200400001)(6636002)(55016003)(478600001)(8676002)(33656002)(8936002)(52536014)(38100700002)(41300700001)(122000001)(5660300002)(38070700005)(2906002)(83380400001);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?wPftgN45VT8eL87pVEQ9sFW/0SeFaH5tEK1Vxhw26GvvkxHyZcdZp1K8nQie?=
+ =?us-ascii?Q?FqhE4MLdzNdZPX0dgxfgkw9j2ASW7p3SHrdFDj3DRSeMKhHhXHrGD4w6zMU7?=
+ =?us-ascii?Q?JL1pRp+1QzGUkekXL1NyQZcME1+ubERfMiuKhePYG4wdxzeR4sj2n2K6mHv0?=
+ =?us-ascii?Q?DmAk0dVOluYpnK38cqUXIPw4w1hpvrHvT04Bigfjaih+kMnUFaRgKefv8NMI?=
+ =?us-ascii?Q?SxwBFBfth1FZn8eocQ8xoKFn9eH17lhR2EPrHJeVIF+MduQGkm/sVHVW7eCY?=
+ =?us-ascii?Q?6yzqca5RrZ0oGfyCGT/6jlYO8G598wHOpVnwbzLjTjPMmPp2A1CpBC8f41sX?=
+ =?us-ascii?Q?eA6hQl2cc0yR+X+NgtBg92QqvjRf+yGctfdzP/3tXRyzo6wPWSmUElkjPFvx?=
+ =?us-ascii?Q?nzca8dYZ9G6zvwTLxS+c4o5HtPm2wgOVJT/i4u8xtwYEPbaVwhP4hFJ9mtlf?=
+ =?us-ascii?Q?U30LpLovDcmgubOcW1wdDw1LOftgOus/gmurauYfBA/ooiDpKWhsNAtsXgFw?=
+ =?us-ascii?Q?ZAU6vM0RxTKwqcJneh5alqJid8nvxcA3544Vxr29wtH4TPzjlNo3jjtIe13n?=
+ =?us-ascii?Q?CkBKSnQm6VYzaJVWPUagUw2kFWh4nVCxuifM2IYVYmWsMKWAHH0Yx/9vpUff?=
+ =?us-ascii?Q?9fFPqvEnUOGLDbh8nueiQUgSJg0SbrQGdThQz57SN/b34tYJJl6ChP+VflNU?=
+ =?us-ascii?Q?CSYGHmaKOu+OGpVAww5GFY1cvrhmcsh986++zkYrPMxIoaNqPqAH/RrvMG+J?=
+ =?us-ascii?Q?jVgUzmpzGXA0EG+IYaUb5uPKeKCbrAbr+iv4G0eLiSEYFOZLETM64ZvIpUFg?=
+ =?us-ascii?Q?0JV98JdBeEHwny9SGIOoGURiuD/YO/hx5h4lH6Fz4rjEbKlu6yESi8Hr12jv?=
+ =?us-ascii?Q?7jvxD1Bv1U8VsMlRKpzUsvJ9Tz0ebleDOLnSKyp12aT9CyBwdExii+KyFaN+?=
+ =?us-ascii?Q?9W0+KEECT1YbYxEiMtqHoHUoqqUolRMCprmwFXjQLOxoOEvZ18ywe4xHkXCp?=
+ =?us-ascii?Q?HIDycjnEAXyZAwU82hquUkZYOihVfBKj95DN669hlEUiqxU61iBFeNmGkdxB?=
+ =?us-ascii?Q?zl7ArAb6qx5bPXCF9kvieQkZ6qJd1D4MalKl/MHQ9AB9H/bdAgsl8SvxQC3Z?=
+ =?us-ascii?Q?cydWcW8RaYXpj+g0jMogwkflElBHpKsZLR6FFm4dcVr08v6wYgEGt9HpO0EM?=
+ =?us-ascii?Q?40Ero6ilfru5Mij7M/dkBexztE2Bvomn+CVFVU6ZbG6z8jkz/SUzdoxrXuk1?=
+ =?us-ascii?Q?9QcHISjyKzjU+0cqacayvlHCW5KPgC6bqUljsDSDDeCJwaUtEG02lUIyzcrP?=
+ =?us-ascii?Q?ys87wc9+O61Za9Bn/gdaqtw1j7J88zlcuHcztPsknsuRf0IL7xyELWoLG1PS?=
+ =?us-ascii?Q?mLiE72HjLD77T9cIIeVI2zZrzRTPp5pHDKwKQJhpuRujulJqCQvaC/H6k/bd?=
+ =?us-ascii?Q?I1IiziRthJlWjl4EDVsqq30eza0IUWLzj5Wdjtf5Zaf0QeWGoFy1XMJU9/64?=
+ =?us-ascii?Q?E/pzwipFowbks/frbJnwSUe2QYKy0XvaD+6UDs8BzMdiYSUzs0pV2GdcrTOc?=
+ =?us-ascii?Q?m1ZjHTpMkTqjU9GJ1vk=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB4614.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 658f41c6-2893-4bc2-7e29-08db3a74af2b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Apr 2023 10:08:23.2064 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 3gSMwhG9HqqmSEToHWnLxQWZuc5EWKnv0bpSqMy9LOEz7AV+RsLR692/6xMnT9oY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5404
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,287 +132,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kuehling,
- Felix" <Felix.Kuehling@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Yadav,
- Arvind" <Arvind.Yadav@amd.com>
+Cc: "Yang, Stanley" <Stanley.Yang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 11, 2023 at 11:48=E2=80=AFAM Shashank Sharma
-<shashank.sharma@amd.com> wrote:
->
->
-> On 11/04/2023 11:37, Christian K=C3=B6nig wrote:
-> > Am 10.04.23 um 16:26 schrieb Shashank Sharma:
-> >>
-> >> On 10/04/2023 16:04, Bas Nieuwenhuizen wrote:
-> >>> On Mon, Apr 10, 2023 at 4:01=E2=80=AFPM Shashank Sharma
-> >>> <shashank.sharma@amd.com> wrote:
-> >>>>
-> >>>> On 10/04/2023 15:46, Bas Nieuwenhuizen wrote:
-> >>>>> On Mon, Apr 10, 2023 at 3:40=E2=80=AFPM Sharma, Shashank
-> >>>>> <Shashank.Sharma@amd.com> wrote:
-> >>>>>> [AMD Official Use Only - General]
-> >>>>>>
-> >>>>>> Hello Bas,
-> >>>>>>
-> >>>>>> This is not the correct interpretation of the code, the
-> >>>>>> USERQ_IOCTL has both the OPs (create and destroy), but th euser
-> >>>>>> has to exclusively call  it.
-> >>>>>>
-> >>>>>> Please see the sample test program in the existing libDRM series
-> >>>>>> (userq_test.c, it specifically calls amdgpu_free_userq, which
-> >>>>>> does the destroy_OP
-> >>>>>>
-> >>>>>> for the IOCTL.
-> >>>>> In the presence of crashes the kernel should always be able to clea=
-n
-> >>>>> this up no? Otherwise there is a resource leak?
-> >>>> The crash handling is the same as any of the existing GPU resource
-> >>>> which
-> >>>> are allocated and freed with IOCTL_OPs.
-> >>> Most of those are handled in the when the DRM fd gets closed (i.e.
-> >>> when the process exits):
-> >>>
-> >>> - buffers through drm_gem_release()
-> >>> - mappings in amdgpu_vm_fini
-> >>> - contexts in amdgpu_ctx_mgr_fini
-> >>>
-> >>> etc.
-> >>>
-> >>> Why would we do things differently for userspace queues? It doesn't
-> >>> look complicated looking at the above patch (which does seem to work)=
-.
-> >>
-> >> As the code is in initial stage, I have not given much thoughts about
-> >> handling resource leak due to app crash, but this seems like a good
-> >> suggestion.
-> >>
-> >> I am taking a note and will try to accommodate this in an upcoming
-> >> version of the series.
-> >
-> > Bas is right, the application doesn't necessary needs to clean up on
-> > exit (but it's still good custody to do so).
-> >
-> > See amdgpu_driver_postclose_kms() for how we cleanup (for example) the
-> > ctx manager by calling amdgpu_ctx_mgr_fini() or the BO lists.
-> >
-> Thanks for the pointers Christian,
->
-> I also feel like that its good to have this cleanup for those apps which
-> did not clean-up themselves (due to crash or coding error).
+[AMD Official Use Only - General]
 
-I think the patch I linked earlier does exactly this: keep the IOCTL,
-but on fini goes through the list and destroys the queue:
-https://github.com/BNieuwenhuizen/linux/commit/e90c8d1185da7353c12837973ced=
-df55ccc85d29
->
-> So something like,
->
-> on close_fd,
->
-> for_idr_each {
->
->     get_queue()
->
->     if (queue)
->
->         free_queue
->
-> }
->
-> But we will also keep the queue_free_OP as well, so that if an app
-> allocate multiple queues, and wants to free some in between, it can do it=
-.
->
-> - Shashank
->
-> > Regards,
-> > Christian.
-> >
-> >>
-> >> - Shashank
-> >>
-> >>>> To be honest a crash handling can be very elaborated and complex one=
-,
-> >>>> and hence only can be done at the driver unload IMO, which doesn't
-> >>>> help
-> >>>> at that stage,
-> >>>>
-> >>>> coz anyways driver will re-allocate the resources on next load.
-> >>>>
-> >>>> - Shashank
-> >>>>
-> >>>>>> - Shashank
-> >>>>>>
-> >>>>>> -----Original Message-----
-> >>>>>> From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-> >>>>>> Sent: 10 April 2023 11:26
-> >>>>>> To: Sharma, Shashank <Shashank.Sharma@amd.com>
-> >>>>>> Cc: amd-gfx@lists.freedesktop.org; Deucher, Alexander
-> >>>>>> <Alexander.Deucher@amd.com>; Kuehling, Felix
-> >>>>>> <Felix.Kuehling@amd.com>; Koenig, Christian
-> >>>>>> <Christian.Koenig@amd.com>; Yadav, Arvind <Arvind.Yadav@amd.com>
-> >>>>>> Subject: Re: [PATCH v3 0/9] AMDGPU Usermode queues
-> >>>>>>
-> >>>>>> Hi Shashank,
-> >>>>>>
-> >>>>>> I think I found the issue: I wasn't destroying the user queue in
-> >>>>>> my program and the kernel doesn't clean up any remaining user
-> >>>>>> queues in the postclose hook. I think we need something like
-> >>>>>> https://github.com/BNieuwenhuizen/linux/commit/e90c8d1185da7353c12=
-837973ceddf55ccc85d29
-> >>>>>>
-> >>>>>> ?
-> >>>>>>
-> >>>>>> While running things multiple times now works, I still have
-> >>>>>> problems doing multiple submissions from the same queue. Looking
-> >>>>>> forward to the updated test/sample
-> >>>>>>
-> >>>>>> Thanks,
-> >>>>>> Bas
-> >>>>>>
-> >>>>>> On Mon, Apr 10, 2023 at 9:32=E2=80=AFAM Sharma, Shashank
-> >>>>>> <Shashank.Sharma@amd.com> wrote:
-> >>>>>>> [AMD Official Use Only - General]
-> >>>>>>>
-> >>>>>>> Hello Bas,
-> >>>>>>> Thanks for trying this out.
-> >>>>>>>
-> >>>>>>> This could be due to the doorbell as you mentioned, Usermode
-> >>>>>>> queue uses doorbell manager internally.
-> >>>>>>> This week, we are planning to publis the latest libDRM sample
-> >>>>>>> code which uses a doorbell object (instead of the doorbell hack
-> >>>>>>> IOCTL), adapting to that should fix your problem in my opinion.
-> >>>>>>> We have tested this full stack (libDRM test + Usermode queue +
-> >>>>>>> doorbell manager) for 500+ consecutive runs, and it worked well
-> >>>>>>> for us.
-> >>>>>>>
-> >>>>>>> You can use this integrated kernel stack (1+2) from my gitlab to
-> >>>>>>> build
-> >>>>>>> your kernel:
-> >>>>>>> https://gitlab.freedesktop.org/contactshashanksharma/userq-amdgpu=
-/-/tr
-> >>>>>>>
-> >>>>>>> ee/integrated-db-and-uq-v3 Please stay tuned for updated libDRM
-> >>>>>>> changes with doorbell objects.
-> >>>>>>>
-> >>>>>>> Regards
-> >>>>>>> Shashank
-> >>>>>>> -----Original Message-----
-> >>>>>>> From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-> >>>>>>> Sent: 10 April 2023 02:37
-> >>>>>>> To: Sharma, Shashank <Shashank.Sharma@amd.com>
-> >>>>>>> Cc: amd-gfx@lists.freedesktop.org; Deucher, Alexander
-> >>>>>>> <Alexander.Deucher@amd.com>; Kuehling, Felix
-> >>>>>>> <Felix.Kuehling@amd.com>;
-> >>>>>>> Koenig, Christian <Christian.Koenig@amd.com>
-> >>>>>>> Subject: Re: [PATCH v3 0/9] AMDGPU Usermode queues
-> >>>>>>>
-> >>>>>>> Hi Shashank,
-> >>>>>>>
-> >>>>>>> I tried writing a program to experiment with usermode queues and
-> >>>>>>> I found some weird behavior: The first run of the program works
-> >>>>>>> as expected, while subsequent runs don't seem to do anything
-> >>>>>>> (and I allocate everything in GTT, so it should be zero
-> >>>>>>> initialized consistently). Is this a known issue?
-> >>>>>>>
-> >>>>>>> The linked libdrm code for the uapi still does a doorbell ioctl
-> >>>>>>> so it could very well be that I do the doorbell wrong
-> >>>>>>> (especially since the ioctl implementation was never shared
-> >>>>>>> AFAICT?), but it seems like the kernel submissions (i.e. write
-> >>>>>>> wptr in dwords to the wptr va and to the doorbell). Is it
-> >>>>>>> possible to update the test in libdrm?
-> >>>>>>>
-> >>>>>>> Code: https://gitlab.freedesktop.org/bnieuwenhuizen/usermode-queu=
-e
-> >>>>>>>
-> >>>>>>> Thanks,
-> >>>>>>> Bas
-> >>>>>>>
-> >>>>>>> On Wed, Mar 29, 2023 at 6:05=E2=80=AFPM Shashank Sharma
-> >>>>>>> <shashank.sharma@amd.com> wrote:
-> >>>>>>>> This patch series introduces AMDGPU usermode queues for gfx
-> >>>>>>>> workloads.
-> >>>>>>>> Usermode queues is a method of GPU workload submission into the
-> >>>>>>>> graphics hardware without any interaction with kernel/DRM
-> >>>>>>>> schedulers.
-> >>>>>>>> In this method, a userspace graphics application can create its
-> >>>>>>>> own
-> >>>>>>>> workqueue and submit it directly in the GPU HW.
-> >>>>>>>>
-> >>>>>>>> The general idea of how this is supposed to work:
-> >>>>>>>> - The application creates the following GPU objetcs:
-> >>>>>>>>     - A queue object to hold the workload packets.
-> >>>>>>>>     - A read pointer object.
-> >>>>>>>>     - A write pointer object.
-> >>>>>>>>     - A doorbell page.
-> >>>>>>>> - The application picks a 32-bit offset in the doorbell page
-> >>>>>>>> for this queue.
-> >>>>>>>> - The application uses the usermode_queue_create IOCTL
-> >>>>>>>> introduced in
-> >>>>>>>>     this patch, by passing the the GPU addresses of these
-> >>>>>>>> objects (read
-> >>>>>>>>     ptr, write ptr, queue base address and 32-bit doorbell
-> >>>>>>>> offset from
-> >>>>>>>>     the doorbell page)
-> >>>>>>>> - The kernel creates the queue and maps it in the HW.
-> >>>>>>>> - The application can start submitting the data in the queue as
-> >>>>>>>> soon as
-> >>>>>>>>     the kernel IOCTL returns.
-> >>>>>>>> - After filling the workload data in the queue, the app must
-> >>>>>>>> write the
-> >>>>>>>>     number of dwords added in the queue into the doorbell
-> >>>>>>>> offset, and the
-> >>>>>>>>     GPU will start fetching the data.
-> >>>>>>>>
-> >>>>>>>> libDRM changes for this series and a sample DRM test program
-> >>>>>>>> can be
-> >>>>>>>> found in the MESA merge request here:
-> >>>>>>>> https://gitlab.freedesktop.org/mesa/drm/-/merge_requests/287
-> >>>>>>>>
-> >>>>>>>> This patch series depends on the doorbell-manager changes,
-> >>>>>>>> which are
-> >>>>>>>> being reviewed here:
-> >>>>>>>> https://patchwork.freedesktop.org/series/115802/
-> >>>>>>>>
-> >>>>>>>> Alex Deucher (1):
-> >>>>>>>>     drm/amdgpu: UAPI for user queue management
-> >>>>>>>>
-> >>>>>>>> Arvind Yadav (2):
-> >>>>>>>>     drm/amdgpu: add new parameters in v11_struct
-> >>>>>>>>     drm/amdgpu: map wptr BO into GART
-> >>>>>>>>
-> >>>>>>>> Shashank Sharma (6):
-> >>>>>>>>     drm/amdgpu: add usermode queue base code
-> >>>>>>>>     drm/amdgpu: add new IOCTL for usermode queue
-> >>>>>>>>     drm/amdgpu: create GFX-gen11 MQD for userqueue
-> >>>>>>>>     drm/amdgpu: create context space for usermode queue
-> >>>>>>>>     drm/amdgpu: map usermode queue into MES
-> >>>>>>>>     drm/amdgpu: generate doorbell index for userqueue
-> >>>>>>>>
-> >>>>>>>>    drivers/gpu/drm/amd/amdgpu/Makefile           | 3 +
-> >>>>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu.h           | 10 +-
-> >>>>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 2 +
-> >>>>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       | 6 +
-> >>>>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 298
-> >>>>>>>> ++++++++++++++++++ .../drm/amd/amdgpu/amdgpu_userqueue_gfx_v11.c=
- |
-> >>>>>>>> ++++++++++++++++++ 230 ++++++++++++++
-> >>>>>>>>    .../gpu/drm/amd/include/amdgpu_userqueue.h    | 66 ++++
-> >>>>>>>>    drivers/gpu/drm/amd/include/v11_structs.h     | 16 +-
-> >>>>>>>>    include/uapi/drm/amdgpu_drm.h                 | 55 ++++
-> >>>>>>>>    9 files changed, 677 insertions(+), 9 deletions(-) create mod=
-e
-> >>>>>>>> 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> >>>>>>>>    create mode 100644
-> >>>>>>>> drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue_gfx_v11.c
-> >>>>>>>>    create mode 100644
-> >>>>>>>> drivers/gpu/drm/amd/include/amdgpu_userqueue.h
-> >>>>>>>>
-> >>>>>>>> --
-> >>>>>>>> 2.40.0
-> >>>>>>>>
-> >
+>  if (adev->gmc.xmgi.
+
+This looks like a typo. Should be gmc.xgmi=20
+
+Thanks,
+Lijo
+
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Stanley.=
+Yang
+Sent: Tuesday, April 11, 2023 3:03 PM
+To: amd-gfx@lists.freedesktop.org; Zhang, Hawking <Hawking.Zhang@amd.com>; =
+Zhou1, Tao <Tao.Zhou1@amd.com>; Chen, Guchun <Guchun.Chen@amd.com>
+Cc: Yang, Stanley <Stanley.Yang@amd.com>
+Subject: [PATCH Review V2 2/2] drm/amdgpu: correct ras enabled flag
+
+XGMI RAS should be according to the gmc xgmi physical nodes number, XGMI RA=
+S should not be enabled if xgmi num_physical_nodes is zero.
+
+Change-Id: Idf3600b30584b10b528e7237d103d84d5097b7e0
+Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c
+index 4069bce9479f..c2c4d978896c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -2430,6 +2430,13 @@ static void amdgpu_ras_check_supported(struct amdgpu=
+_device *adev)
+ 			else
+ 				adev->ras_hw_enabled &=3D ~(1 << AMDGPU_RAS_BLOCK__VCN |
+ 							1 << AMDGPU_RAS_BLOCK__JPEG);
++
++			/*
++			 * XGMI RAS is not supported if xgmi num physical nodes
++			 * is zero
++			 */
++			if (adev->gmc.xmgi.num_physical_nodes =3D=3D 0)
++				adev->ras_hw_enabled &=3D ~(1 << AMDGPU_RAS_BLOCK__XGMI_WAFL);
+ 		} else {
+ 			dev_info(adev->dev, "SRAM ECC is not presented.\n");
+ 		}
+--
+2.17.1
