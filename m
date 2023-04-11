@@ -4,58 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AC14C77B7C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2C21C77B70
 	for <amd-gfx@archiver.kernel.org>; Tue, 11 Apr 2023 13:49:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61EB010E560;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF35910E554;
 	Tue, 11 Apr 2023 13:49:21 +0000 (UTC)
-Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
- [IPv6:2607:f8b0:4864:20::62a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9018D10E226;
- Tue, 11 Apr 2023 10:49:41 +0000 (UTC)
-Received: by mail-pl1-x62a.google.com with SMTP id q2so12313510pll.7;
- Tue, 11 Apr 2023 03:49:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1681210180; x=1683802180;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=IBq+Uus/FZgXLcP8xGrtvuI6hfCEGIicJ5yksbFAHOs=;
- b=VP8SPdz6m7bZCqjSwbu2CWMhRIG43BNbcqdzzY7lI+mm1XgQkzJoznsPKHwRhbsMGR
- KYzhqjfPAwtY8v6VwvJh72H3PD+8p6AzBCbYDZflR9rIzXLnpIOjS0e5auJMYOSvfpne
- Jg0SO4gptkizxsgzz1qgvjQ5IxSvBh1QFBLpZ+ztV8uZiQlV8weiOAgIHibrfLgz0Yfe
- yy0dUANC2umHn13hoAARAuhapAXPhTexD/2+22p9hmxDqPnNQx2UkYfILLDOxPVlYiV1
- dpcgX82R8z+0y/xrGeeziqknvIHW6oSVk7QV6hBa+g89OeE5e91f2I/FbPGJG2beo4AI
- o+vA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681210180; x=1683802180;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=IBq+Uus/FZgXLcP8xGrtvuI6hfCEGIicJ5yksbFAHOs=;
- b=TXt/enzA06Zc6C+0lPOYILrVmXv0OwdfnETrVa/s5mpnK6Vm+OAj0AI+5D0dnwRD/x
- Jbc+BaiuMmgVOe+ka5rBNY4CPWGWHxj6dmJjEAHTbZoE20xJfOJT7k90r0i1MKCGTys/
- R6HB6jeYGRhuWyarclMVnid3ySKsxK3B0EympP69kJ9npMumKyDfGJ0fqaaQW1FPCunN
- tUbqWPl6Lh8dj4Y/BFEHHkW6LD0NrXiT5Q22XdPplZNYGIsPQRGbvJaVmfjdIgRDbtMQ
- Vh3+UWHePUMnUuwWp/FEn+QUjXYJDv9bFEla1mST7u+G/TSTJb661BAvGL1cNd13hWgG
- Yinw==
-X-Gm-Message-State: AAQBX9c6ODczH5hSZUcrkP1IQKcRvcdQF1H0Ia/FfAPJOoRKKxji+PtG
- c+FDXdLAwwXgbX4nFeZ/2MHdPK/cd+4+/40GgUE=
-X-Google-Smtp-Source: AKy350bBaHnbfX5Z4+nwRR0UpaT9fDAZeLkAIJE04Q3LMr4Qeoz1k+1ZhYYkSfXpJw7gduNPvA9r6OY5zluuA05qVUQ=
-X-Received: by 2002:a17:90a:d3c8:b0:240:d397:e66f with SMTP id
- d8-20020a17090ad3c800b00240d397e66fmr3918615pjw.6.1681210180619; Tue, 11 Apr
- 2023 03:49:40 -0700 (PDT)
+Received: from mout.web.de (mout.web.de [212.227.15.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C993D10E355;
+ Tue, 11 Apr 2023 13:42:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de; s=s29768273;
+ t=1681220572; i=markus.elfring@web.de;
+ bh=OgaLLOQi3BLhTZK7PXXmygRTTkKNgw64HGqUqvj1wCI=;
+ h=X-UI-Sender-Class:Date:Subject:From:To:References:Cc:In-Reply-To;
+ b=tUMzmmTI1st/xbVtse2EplbW74uz3t6inOCFOEszggyuD6hBerpT7oG7ITRpvVGM9
+ qnU82q/OD8x+pFYX5McTqzwg50cIns2B7qTuhpcStDvR14mjIN2wMdzwLWR3b/qDsk
+ g12u2b0QPUWOxKq+6VFLoqeUaflpm0UKRgLrEMqbio725PNRP9f0yrgR93liBrMA6m
+ spNgNoxSzBmEpHMrDLOuU2hVPKOIDc7gjxgG5mJGWjhZGoQj5Q0+8reJrIUcZa7DFb
+ 9QsQlmz2UL8iagH1LvhfzsHujpBFqcYhCvBwAW00YzH1vHsFnfRiwA+o6FshSL1mGk
+ FdVtz5MGjgAhw==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.178.21] ([94.31.80.83]) by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1M43KW-1pmEAw1S6a-000RFh; Tue, 11
+ Apr 2023 15:36:46 +0200
+Message-ID: <2258ce64-2a14-6778-8319-b342b06a1f33@web.de>
+Date: Tue, 11 Apr 2023 15:36:30 +0200
 MIME-Version: 1.0
-References: <50439958420f91cc97ad929437334bfb19ca4d90.1681208396.git.geert+renesas@glider.be>
- <fd7c23298f2c62db85abc9114d12059ef5e5f330.1681208396.git.geert+renesas@glider.be>
-In-Reply-To: <fd7c23298f2c62db85abc9114d12059ef5e5f330.1681208396.git.geert+renesas@glider.be>
-From: Marc Dionne <marc.c.dionne@gmail.com>
-Date: Tue, 11 Apr 2023 07:49:29 -0300
-Message-ID: <CAB9dFds_C9hfwW+YBMbF8sakUwVXm4etVPSAXgXQpKMeTA9+yA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm: Spelling s/randevouz/rendez-vouz/
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Subject: [PATCH 0/5] drm/amd: Adjustments for three function implementations
+From: Markus Elfring <Markus.Elfring@web.de>
+To: kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Alan Liu <HaoPing.Liu@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Alexey Kodanev <aleksei.kodanev@bell-sw.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Bhanuprakash Modem <bhanuprakash.modem@intel.com>,
+ Candice Li <candice.li@amd.com>, Charlene Liu <charlene.liu@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ David Tadokoro <davidbtadokoro@usp.br>, Eryk Brol <eryk.brol@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>, hersen wu <hersenxs.wu@amd.com>,
+ Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, Jun Lei <jun.lei@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Mikita Lipski <mikita.lipski@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Stanley Yang <Stanley.Yang@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
+ Tom Rix <trix@redhat.com>, Victor Zhao <Victor.Zhao@amd.com>,
+ Wayne Lin <Wayne.Lin@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>,
+ Zhan Liu <zhan.liu@amd.com>
+References: <40c60719-4bfe-b1a4-ead7-724b84637f55@web.de>
+ <1a11455f-ab57-dce0-1677-6beb8492a257@web.de>
+Content-Language: en-GB
+In-Reply-To: <1a11455f-ab57-dce0-1677-6beb8492a257@web.de>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:Wsv7nBnFp1BYjqo/ByyaPrBnKZPriMlSmoRCWlDHk0on2YSaRs8
+ 4cMs4oUIBAwmnnWXpHtRTHBSJi8QMKFcHU7avEDVgcbe0s3aEu6GupXXHhCePuqY9pdFjnS
+ a3wIAMsbpUVnfSNoUATeoayKxFqUNwe9TpTbGlf3KmopmSSS3rXdhXAvfVqZzUDcM9XChah
+ PbP8tgwGn68yzSPB/hATA==
+UI-OutboundReport: notjunk:1;M01:P0:dG+teEJQyng=;9iP0F3ryAgH9PP87giDU1FkTcpV
+ sYzTGspTxfg2QovIbQu6yOmrs91xRwJUtaIuo3yjoYXG5Pdux8eeza4J01JNLkY0E1Xo1wzzm
+ RHPM+7WW9Hm023ZBADN/iYJSCIpM4pz0pwAAx0kCIYbwa+JbvhDCjzi6XXkBiOi54TlQiCilx
+ 8dqG4aRiPfBnQXRc7TcY2L6qNiSgPlTKnpLGa204txnulTU670oXB8licxJ0qzA10ZkThpwJl
+ LRgQEkjuhISUPZKIpvyYfjBzHYcSvB7sLa2J2ba0JTnmpnNz1n3gFYhNuhKacaEWKC/1JlpFf
+ 4AfeaDnTvdPnM0FDqR8jKNiGlGv+M+vPVfa3/PLRnTsvuVuVkEnTZttr+0v81ghPMJtmZOn61
+ o7yrayWPjyG9mhr9BrkiRTCBeXMR6J1S0XuwRv8eADte8uqgWDNsHVR80xnRGspGpbWsll6eW
+ V4sQ1KeUBZWbp7NJB/LhZVymOLnpER9Fn6SjAKUf253/2RUNpXLiqEz/VWj5DuRodSgYKVMZH
+ k05DYGVmBE4LvN5bo8OS7pAP8QrXioeSFR8S5VSQ3BZQQz5OAn+A9uPhdEjCZ5vOSV4s3B552
+ mCVNq2rZ5yg9Phufgr6cqnipJO3tgzm6MckpmXaRVhw8QLKxdB2s2M85azIsYg6ZvXrej46L2
+ RoIg9Jj/mVWNL/O2m1ZJDAXzsSRdWri270y4MsIvPvI2j5Wh8WO4N3F6Yvg4AIQkVoTniTb9F
+ iP8Pj0EtwVR7v/2pVqS03pz5F/9Bgd0+JxoLdZiPyCuBl2i8ShDnLRLBdgjy7RMfw3qC/YCky
+ kdv9eOl4C6+fAM2isUAZyyp5oMUwTWaN+UAhVyh+tZA1cer4CMflVZjXmfG3O/ZGRD7CPGJkK
+ XtMNOi7TomIUlX6yVwr7wls5uycOjMKQSmE5iJzqzbJ9kATvZAw+RYAKR
 X-Mailman-Approved-At: Tue, 11 Apr 2023 13:49:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,48 +91,31 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Xinhui <Xinhui.Pan@amd.com>, Pan@rox.of.borg, intel-gfx@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- linux-kernel@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, cocci@inria.fr
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 11, 2023 at 7:44=E2=80=AFAM Geert Uytterhoeven
-<geert+renesas@glider.be> wrote:
->
-> Fix a misspelling of "rendez-vouz".
->
-> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> ---
->  include/drm/task_barrier.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/include/drm/task_barrier.h b/include/drm/task_barrier.h
-> index 217c1cf21c1ab7d5..59ead429acb2afb0 100644
-> --- a/include/drm/task_barrier.h
-> +++ b/include/drm/task_barrier.h
-> @@ -24,7 +24,7 @@
->  #include <linux/atomic.h>
->
->  /*
-> - * Reusable 2 PHASE task barrier (randevouz point) implementation for N =
-tasks.
-> + * Reusable 2 PHASE task barrier (rendez-vouz point) implementation for =
-N tasks.
->   * Based on the Little book of semaphores - https://greenteapress.com/wp=
-/semaphores/
->   */
->
-> --
-> 2.34.1
+Date: Tue, 11 Apr 2023 14:36:36 +0200
 
-Sorry for the drive by comment, but shouldn't this be "rendez-vous"
-(with an 's' rather than a 'z')?
+Some update suggestions were taken into account
+from static source code analysis.
 
-Marc
+Markus Elfring (5)
+  amdgpu: Move a variable assignment behind a null pointer check in amdgpu=
+_ras_interrupt_dispatch()
+  display: Move three variable assignments behind condition checks in trig=
+ger_hotplug()
+  display: Delete three unnecessary variable initialisations in trigger_ho=
+tplug()
+  display: Delete a redundant statement in trigger_hotplug()
+  display: Move an expression into a return statement in dcn201_link_encod=
+er_create()
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       |  3 ++-
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 19 ++++++++++---------
+ .../amd/display/dc/dcn201/dcn201_resource.c   |  4 +---
+ 3 files changed, 13 insertions(+), 13 deletions(-)
+
+=2D-
+2.40.0
+
