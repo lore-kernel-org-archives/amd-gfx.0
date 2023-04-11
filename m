@@ -4,57 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C44BC76196
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Apr 2023 22:57:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AB3EC76196
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Apr 2023 22:58:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 442C910E1C3;
-	Tue, 11 Apr 2023 22:57:45 +0000 (UTC)
-Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
- [IPv6:2607:f8b0:4864:20::629])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F47E10E00C;
- Tue, 11 Apr 2023 22:57:42 +0000 (UTC)
-Received: by mail-pl1-x629.google.com with SMTP id la3so9234909plb.11;
- Tue, 11 Apr 2023 15:57:42 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F7B310E6A1;
+	Tue, 11 Apr 2023 22:57:53 +0000 (UTC)
+Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
+ [IPv6:2607:f8b0:4864:20::102f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 654A210E69B;
+ Tue, 11 Apr 2023 22:57:50 +0000 (UTC)
+Received: by mail-pj1-x102f.google.com with SMTP id
+ pc4-20020a17090b3b8400b0024676052044so9670992pjb.1; 
+ Tue, 11 Apr 2023 15:57:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681253861;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=nII3QwEycAnovqWQfjWZu+6YGPxxA4KRFjzFYjJblIQ=;
- b=ZAC+uXDhUxji26Ze6K9nnsc/qkqNfO/BNR+cWRfv0hEqJWuCAoTGY1LTVUBy4ONBTf
- d5T8GAeHi8KkynlfafbWzNvIw8wZ0uFodWqaCNwNH0rH6wqDKr5SayKPsyT7ylkMtLcC
- pZX//qJfNqMpJOx/Ig3MPM377p5o6FHoboEBNshuT+8sJ4dqh9QgsSyozzxjDaXnSTQv
- YF+g/WDxpn77tLAABR4mVDSCUoE4ya4pOQ7XFK62nfOirsVqbS5WMoPIH30lmx+68HyH
- YWchXD690VQkVdW5neJpK+KTaD9WQ6vzmlCtQISpk7MCZ4jnFlY4JIi4AKUB6bxeUnAD
- XuAw==
+ d=gmail.com; s=20221208; t=1681253869;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=IA16a8P3ifQnuFE2cU6SZqzeMpec7rd2aaRk7CHbWjo=;
+ b=N1wV9W1CkfJg8ZW8nbO/XbncdQcQ5WGUtAM39mq0MG54NQ569pUJsbxo8xSPP82eit
+ Aw1VXkHGLydvIe2j7Xskuta625jMiaCqT3wkVDU9Nklhk1E50eh93rQ4W+epDDOw1hCC
+ TDYs1dg+HW2pUlvEQSCcjOSegMnOP82/h46z/2i5x8r+Ia8Gv2Obf5QLbH/v8KXbW3xM
+ btyYK0XK+zdVkAi+aleiIramImekj7X87ikeburFiU/L2qvhqMWTQU+KqydDKsnJ3vlv
+ kGG+jOK8ZET2J3IVZPTATZNhsfpgnWv0E4G9FBmaV3Gx7ZtDKixAi7Acr5hArBjCpqRQ
+ QzcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681253861;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=nII3QwEycAnovqWQfjWZu+6YGPxxA4KRFjzFYjJblIQ=;
- b=v4bWjPalvB5VsAEQPwWspZZWziNcHZW1tDc/yKPeQ2aU/oV7RY6h5hQUDD5V6Igvft
- VY5sXLXLc7xMqoqJsojkqatLUGXqk1+BCCZiEkctbepBWzSSepcXQmL+p+Ut1piYSq/F
- L2Iynvq5fXzT/zrU72s1ezDl/Y3Mnqu3KzvAnQ7bz6U073maUU6y8M6/AnG9Y6ppHnZT
- Kc+qwfDkklHcsdempU1RxIMtzZD/q/trQg8SfGhdWPjadA6Cppc0qHzHmYOvBZnR8Ifx
- MjJOysS8HQJzCcE83Rl6PtaEtVjyeCOGRMmzMlUWncaAuTK8zIffcYpGvpB1LE0twRas
- Q0jQ==
-X-Gm-Message-State: AAQBX9cu1qnze7pgOTngDLaDBmNQoY//9Fei1VO5Gq+3r5oqYMVoA4sF
- UqzqGNjH0buDs1w453HXU3zsBtkFf+M=
-X-Google-Smtp-Source: AKy350b3kN3Vv7Rn1Xudjo2ScWIpD4ohPF62kNG35kDDgi5zG4c7QyA4AJOOZxCvGcg2yWirfkC2pA==
-X-Received: by 2002:a05:6a20:1b11:b0:db:4fae:ad15 with SMTP id
- ch17-20020a056a201b1100b000db4faead15mr15979423pzb.42.1681253861084; 
- Tue, 11 Apr 2023 15:57:41 -0700 (PDT)
+ d=1e100.net; s=20210112; t=1681253869;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=IA16a8P3ifQnuFE2cU6SZqzeMpec7rd2aaRk7CHbWjo=;
+ b=vXXKWQ2+RFxeHIBdzwYjUYsa89cnj+DrnLnQkU3+qGVIeRCbmLdx64rXda773Mh38R
+ RUFAO1DJ+whpNfBUgi6Lf8gsjvyjnUspkj1W5PQOfHL9KGe4PfHMkfL+gHq4oJ/cZD6P
+ 8iVCvzCL39z37Sds6Sv7Ia+A6dbQM8qRkUbbAE5QcHsjI+H0D89rwzKSwWcsGdt+HBhg
+ FPfpa0iOrC9U4L71tjsTfHJkYL4pXudn7Y76Gqm7IDUO7PGLzEjred0g6cxx9JSclPkN
+ mnglTck/z5/0S6SPUZoReHJeitU70tcXqWrR6DAJ0vr/i0v007Rg86fFHTc3gbYBSN8u
+ 1SAA==
+X-Gm-Message-State: AAQBX9e3gG5Av1u1G26LOKZd398xzdX0rKXEQ9CGf/ZT1jtRfNIB0m2t
+ R012igTHs6Qmj924GEFgXL1NvuC3lDQ=
+X-Google-Smtp-Source: AKy350bEeqU5DiwN669zYMn8njQUVxYmCFUZdbZaRVA3pKtDRjjEcnb2lSJmj4IgzOT1GoTtagoJXQ==
+X-Received: by 2002:a17:90b:3892:b0:246:c223:14ba with SMTP id
+ mu18-20020a17090b389200b00246c22314bamr8589895pjb.28.1681253869342; 
+ Tue, 11 Apr 2023 15:57:49 -0700 (PDT)
 Received: from localhost ([2a00:79e1:abd:4a00:61b:48ed:72ab:435b])
  by smtp.gmail.com with ESMTPSA id
- n4-20020aa78a44000000b006338e0a9728sm6657912pfa.109.2023.04.11.15.57.40
+ jw8-20020a170903278800b001a649347f59sm3626131plb.12.2023.04.11.15.57.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Apr 2023 15:57:40 -0700 (PDT)
+ Tue, 11 Apr 2023 15:57:49 -0700 (PDT)
 From: Rob Clark <robdclark@gmail.com>
 To: dri-devel@lists.freedesktop.org
-Subject: [PATCH v3 0/7] drm: fdinfo memory stats
-Date: Tue, 11 Apr 2023 15:56:05 -0700
-Message-Id: <20230411225725.2032862-1-robdclark@gmail.com>
+Subject: [PATCH v3 3/7] drm/amdgpu: Switch to fdinfo helper
+Date: Tue, 11 Apr 2023 15:56:08 -0700
+Message-Id: <20230411225725.2032862-4-robdclark@gmail.com>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230411225725.2032862-1-robdclark@gmail.com>
+References: <20230411225725.2032862-1-robdclark@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,26 +72,22 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
+Cc: open list <linux-kernel@vger.kernel.org>,
  =?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>,
  YiPeng Chai <YiPeng.Chai@amd.com>,
  Mario Limonciello <mario.limonciello@amd.com>,
- Rob Clark <robdclark@chromium.org>, Guchun Chen <guchun.chen@amd.com>,
- Shashank Sharma <shashank.sharma@amd.com>,
+ David Airlie <airlied@gmail.com>, Rob Clark <robdclark@chromium.org>,
+ Guchun Chen <guchun.chen@amd.com>, Shashank Sharma <shashank.sharma@amd.com>,
  "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
  Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- "moderated list:DRM DRIVERS FOR VIVANTE GPU IP"
- <etnaviv@lists.freedesktop.org>,
- Christian Gmeiner <christian.gmeiner@gmail.com>, Evan Quan <evan.quan@amd.com>,
- Sean Paul <sean@poorly.run>, Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
+ linux-arm-msm@vger.kernel.org, Evan Quan <evan.quan@amd.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@intel.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
  Emil Velikov <emil.l.velikov@gmail.com>,
  Christopher Healy <healych@amazon.com>,
  Boris Brezillon <boris.brezillon@collabora.com>,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ freedreno@lists.freedesktop.org,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -95,43 +95,85 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Rob Clark <robdclark@chromium.org>
 
-Similar motivation to other similar recent attempt[1].  But with an
-attempt to have some shared code for this.  As well as documentation.
+Signed-off-by: Rob Clark <robdclark@chromium.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  3 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c | 16 ++++++----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h |  2 +-
+ 3 files changed, 9 insertions(+), 12 deletions(-)
 
-It is probably a bit UMA-centric, I guess devices with VRAM might want
-some placement stats as well.  But this seems like a reasonable start.
-
-Basic gputop support: https://patchwork.freedesktop.org/series/116236/
-And already nvtop support: https://github.com/Syllo/nvtop/pull/204
-
-[1] https://patchwork.freedesktop.org/series/112397/
-
-Rob Clark (7):
-  drm: Add common fdinfo helper
-  drm/msm: Switch to fdinfo helper
-  drm/amdgpu: Switch to fdinfo helper
-  drm/i915: Switch to fdinfo helper
-  drm/etnaviv: Switch to fdinfo helper
-  drm: Add fdinfo memory stats
-  drm/msm: Add memory stats to fdinfo
-
- Documentation/gpu/drm-usage-stats.rst      |  21 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c |  16 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h |   2 +-
- drivers/gpu/drm/drm_file.c                 | 115 +++++++++++++++++++++
- drivers/gpu/drm/etnaviv/etnaviv_drv.c      |  10 +-
- drivers/gpu/drm/i915/i915_driver.c         |   3 +-
- drivers/gpu/drm/i915/i915_drm_client.c     |  18 +---
- drivers/gpu/drm/i915/i915_drm_client.h     |   2 +-
- drivers/gpu/drm/msm/msm_drv.c              |  11 +-
- drivers/gpu/drm/msm/msm_gem.c              |  15 +++
- drivers/gpu/drm/msm/msm_gpu.c              |   2 -
- include/drm/drm_drv.h                      |   7 ++
- include/drm/drm_file.h                     |   5 +
- include/drm/drm_gem.h                      |  19 ++++
- 15 files changed, 208 insertions(+), 41 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index f5ffca24def4..3611cfd5f076 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2752,7 +2752,7 @@ static const struct file_operations amdgpu_driver_kms_fops = {
+ 	.compat_ioctl = amdgpu_kms_compat_ioctl,
+ #endif
+ #ifdef CONFIG_PROC_FS
+-	.show_fdinfo = amdgpu_show_fdinfo
++	.show_fdinfo = drm_fop_show_fdinfo,
+ #endif
+ };
+ 
+@@ -2807,6 +2807,7 @@ static const struct drm_driver amdgpu_kms_driver = {
+ 	.dumb_map_offset = amdgpu_mode_dumb_mmap,
+ 	.fops = &amdgpu_driver_kms_fops,
+ 	.release = &amdgpu_driver_release_kms,
++	.show_fdinfo = amdgpu_show_fdinfo,
+ 
+ 	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
+ 	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+index 99a7855ab1bc..c2fdd5e448d1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+@@ -53,9 +53,8 @@ static const char *amdgpu_ip_name[AMDGPU_HW_IP_NUM] = {
+ 	[AMDGPU_HW_IP_VCN_JPEG]	=	"jpeg",
+ };
+ 
+-void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
++void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
+ {
+-	struct drm_file *file = f->private_data;
+ 	struct amdgpu_device *adev = drm_to_adev(file->minor->dev);
+ 	struct amdgpu_fpriv *fpriv = file->driver_priv;
+ 	struct amdgpu_vm *vm = &fpriv->vm;
+@@ -86,18 +85,15 @@ void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
+ 	 * ******************************************************************
+ 	 */
+ 
+-	seq_printf(m, "pasid:\t%u\n", fpriv->vm.pasid);
+-	seq_printf(m, "drm-driver:\t%s\n", file->minor->dev->driver->name);
+-	seq_printf(m, "drm-pdev:\t%04x:%02x:%02x.%d\n", domain, bus, dev, fn);
+-	seq_printf(m, "drm-client-id:\t%Lu\n", vm->immediate.fence_context);
+-	seq_printf(m, "drm-memory-vram:\t%llu KiB\n", vram_mem/1024UL);
+-	seq_printf(m, "drm-memory-gtt: \t%llu KiB\n", gtt_mem/1024UL);
+-	seq_printf(m, "drm-memory-cpu: \t%llu KiB\n", cpu_mem/1024UL);
++	drm_printf(p, "pasid:\t%u\n", fpriv->vm.pasid);
++	drm_printf(p, "drm-memory-vram:\t%llu KiB\n", vram_mem/1024UL);
++	drm_printf(p, "drm-memory-gtt: \t%llu KiB\n", gtt_mem/1024UL);
++	drm_printf(p, "drm-memory-cpu: \t%llu KiB\n", cpu_mem/1024UL);
+ 	for (hw_ip = 0; hw_ip < AMDGPU_HW_IP_NUM; ++hw_ip) {
+ 		if (!usage[hw_ip])
+ 			continue;
+ 
+-		seq_printf(m, "drm-engine-%s:\t%Ld ns\n", amdgpu_ip_name[hw_ip],
++		drm_printf(p, "drm-engine-%s:\t%Ld ns\n", amdgpu_ip_name[hw_ip],
+ 			   ktime_to_ns(usage[hw_ip]));
+ 	}
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h
+index e86834bfea1d..0398f5a159ef 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h
+@@ -37,6 +37,6 @@
+ #include "amdgpu_ids.h"
+ 
+ uint32_t amdgpu_get_ip_count(struct amdgpu_device *adev, int id);
+-void amdgpu_show_fdinfo(struct seq_file *m, struct file *f);
++void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file);
+ 
+ #endif
 -- 
 2.39.2
 
