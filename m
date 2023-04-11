@@ -4,58 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E59A9C77B70
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Apr 2023 14:46:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AFE3C77B6F
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Apr 2023 14:47:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AB6D10E578;
-	Tue, 11 Apr 2023 14:46:40 +0000 (UTC)
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [IPv6:2607:f8b0:4864:20::229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 068D310E576;
- Tue, 11 Apr 2023 14:46:38 +0000 (UTC)
-Received: by mail-oi1-x229.google.com with SMTP id w19so5563273oiv.13;
- Tue, 11 Apr 2023 07:46:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1681224398; x=1683816398;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=JrfRR7HhAFqhczXMVPJxrWKzrc2/IOvOKRMrdzOfWlc=;
- b=ZIqJisXFCpVkcd+4us40BxlfABS295EDrQYsXBfH8r4HjPC2tHL+jM+r3jxpVjTMH+
- BLB46FAMemCm0yTNM8sfvFJ6j7iiPUBqNmkb8WxokxUdIZ0TwkpVNr7yfE4clCFKQuNj
- sVVVioaG0fsIqo1v4kSqk9NwIl+McUrRV+rPYbgJAftiv3fXLtS23yZOdt7vUhG4FpzJ
- 3Z7ZNC7mefUVMOHtAnHXGPDqEF8RNSUsF2vdnUoey87pwkGDDMW9O1Mvdg4FxyohP8pL
- HHcXFcH2/5udxRoPmBE9zWm5wfbMcwEP6S0Rz7zRp0ecSzNc7xMsIXcxtJyPKeayibK4
- US2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681224398; x=1683816398;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=JrfRR7HhAFqhczXMVPJxrWKzrc2/IOvOKRMrdzOfWlc=;
- b=o5BGryvLFaS4WsBNycSCJZIxnfTAhM4DLa3BDyNbuZjAtSQOlDg10LwEaU0qXAq/SB
- AcQVSNNeK3T9PHNq7PXf/7UZLsFXBPNDdYsT7eOWIxiGY3MG37U1P9/he4XB3N3P0eEA
- mzmsl3p+0h7rRXZZUpZnqL0RVhHN2gzCyasw/RjTxL7BlD+CUooa289rUJuNZrDAMxKn
- TB+lXaqhp0UTNPDrvJHhg+gu+x3RPODKn6hwKJuFvGA+3KG6ACXYV5TB4heHutvCDuhQ
- 5wvFzarJVvg/++4U2MCaTxmlWznY8BC3ogbTSw3TS8cpVP6XcR7qgxvoeljqK5GsKHsy
- 4/Gw==
-X-Gm-Message-State: AAQBX9c0D2klODp46qJFAklAI5GQrnWvhf/S+yu7gANNrBbkZaToXUVy
- 7ov8+vUMpENf33cfIRtethJ4ZOEQITcelCol6z4=
-X-Google-Smtp-Source: AKy350YyAmf8dRnzbklcOFFfkDftOQv7P7qLqfumZ97TrhAv8Bn0J8jkhexehkE0CLfJ8OA0q6X/5den4E6MbNfC9EM=
-X-Received: by 2002:aca:1b19:0:b0:387:e26:4b6f with SMTP id
- b25-20020aca1b19000000b003870e264b6fmr2155450oib.3.1681224397797; Tue, 11 Apr
- 2023 07:46:37 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2E5E10E57B;
+	Tue, 11 Apr 2023 14:47:14 +0000 (UTC)
+Received: from mout.web.de (mout.web.de [212.227.15.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77D1810E245;
+ Tue, 11 Apr 2023 13:50:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de; s=s29768273;
+ t=1681221015; i=markus.elfring@web.de;
+ bh=QqBrh1iOG7Q4T2t0pkmEGvdBD1d8O9i9GYWCZGAT47g=;
+ h=X-UI-Sender-Class:Date:Subject:From:To:Cc:References:In-Reply-To;
+ b=K6zzEBWXsxSPB8XPajfrExmE1NNHZ4KP6iVFmus2wBQ0rmBPTYdrSxaYi4RfKihpT
+ rzCLvMmAorDLVby9zT5RYHOE+dSSyqgk9LrId8SMeFeYMjQlhP573CDN3INoyyIZj6
+ u0R37cj2oLma2/CrLudYSsPsvyaA+4fYB8MuFG6jhjgm8VNNRU9ATuCMjzzPyr7jk/
+ Uyi9s2X3+kBQRXeeqhwqkCLipnTZTofM3CQrpxeKcOlIgrrORwxS2pjEA950Fi2UcP
+ p1gnJruNKzQVT4jBK0pofhiBjYpJiDf9FGEIu3/9kP6oyyR+38Eub90LFSZJfat+D3
+ WQl7n6Wl9t43Q==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.178.21] ([94.31.80.83]) by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1Ml4B6-1qDpud2ScO-00ld3e; Tue, 11
+ Apr 2023 15:50:15 +0200
+Message-ID: <5341f677-4192-3c17-fb76-faddcf5ac9a1@web.de>
+Date: Tue, 11 Apr 2023 15:50:14 +0200
 MIME-Version: 1.0
-References: <20230331164041.1859088-1-trix@redhat.com>
- <DM6PR12MB26199298CA3AFC2736E8E9CDE4959@DM6PR12MB2619.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB26199298CA3AFC2736E8E9CDE4959@DM6PR12MB2619.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 11 Apr 2023 10:46:26 -0400
-Message-ID: <CADnq5_MK=2WeQ0MpM9g36B1z8mSRMV24Au0+sHdd__=mQDodfQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: remove unused num_of_active_display variable
-To: "Quan, Evan" <Evan.Quan@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Subject: [PATCH 5/5] drm/amd/display: Move an expression into a return
+ statement in dcn201_link_encoder_create()
+Content-Language: en-GB
+From: Markus Elfring <Markus.Elfring@web.de>
+To: kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Alan Liu <HaoPing.Liu@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Alexey Kodanev <aleksei.kodanev@bell-sw.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Bhanuprakash Modem <bhanuprakash.modem@intel.com>,
+ Candice Li <candice.li@amd.com>, Charlene Liu <charlene.liu@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ David Tadokoro <davidbtadokoro@usp.br>, Eryk Brol <eryk.brol@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>, hersen wu <hersenxs.wu@amd.com>,
+ Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, Jun Lei <jun.lei@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Mikita Lipski <mikita.lipski@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Stanley Yang <Stanley.Yang@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
+ Tom Rix <trix@redhat.com>, Victor Zhao <Victor.Zhao@amd.com>,
+ Wayne Lin <Wayne.Lin@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>,
+ Zhan Liu <zhan.liu@amd.com>
+References: <40c60719-4bfe-b1a4-ead7-724b84637f55@web.de>
+ <1a11455f-ab57-dce0-1677-6beb8492a257@web.de>
+ <2258ce64-2a14-6778-8319-b342b06a1f33@web.de>
+In-Reply-To: <2258ce64-2a14-6778-8319-b342b06a1f33@web.de>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:k4el8X+ATWGE1XAQw5UGkyMRjJ5All74JHlKkerIl79dJWrOxCn
+ 7GN2s7L3Bvap3zkoSW9jkSUD0g6BSw0Sa4NTWMnH5XbYYHjAIJCwwnbFL+XV9YqjBwygSjh
+ mNWO47vTH33VRRqJkPvREbx3aMRa1p9BjYk8Y6QhmznUv/ILmPjx15aeWJGkUxGPKZ1Tygh
+ DNk3+P8IesUjo0hDhbIgA==
+UI-OutboundReport: notjunk:1;M01:P0:mnPqPBJJIHA=;7vxqSL+DR2zreZ5Xn4j6gBqu/AK
+ DMOoX/QPTVG+hJiJmivXNmZuT8zEItsJcIjU3IiSZ1OM9mJOxXM9EhQXsW7ToYgeq9oU1KBW4
+ mTOf5gV64BQDYYsaZ9GLoHYnuPKAJIETUJqLuuQFHe1vgm4sy5aSr5X5WTorUsZC8FI4D41yy
+ DeaO3JSlhp5N9oZJ4f+qq6XErgTAQ3DlSBmc3BeVPeFs0WhzfZ+Fpe31XddgK8ewSvbguV2NH
+ 4XCG3I1FJzfEFPjzxwHFq0oAjLZEKr44/8A8VHW6yFqxYLD2vZWXRPo2KVhgTwpeeJOR9FvFf
+ wcW2pbE+cxi0+QvU09wAUS+Zx2SKoHDfmVqw03//OF1CxDaDMozyKWAt93Yy2NsTzTgF5z1S0
+ jZlN1dKaXYSgqvTXtEWFBF3s4eyZ8Al9jbSxcIwveD7uNUCilQ68TQ7jbX1MV/R55OloxjtNr
+ 4QoUDBVzwOuiqrKCyU61wPz5Kxhg2gActZ+5pzRmWQrKTTd6iTz1+rD9hMJeVTWTo6mjaVKqx
+ 0tikWwuKjlmWiV8nRmtFOOXIE0yeRLrZXOQg1r+7h+InOsXw1YF3HjorVds/gxW2QGcMPOZxw
+ A5afSj5swu+5Fg9CURpmoZFx9oFxNEroxfPyYXINzroxnsbQ3mHApGf3jvJFpWa5SjEPb4EV2
+ 7pCYdbDDpP/KxCJ0NKakpIWFkL+KcplkMzeceZG6ycQ3ICAQTGJHCo1soKR4C3KnxYceH8T5v
+ hlYXvrk1Txpw3sLOrufAO2Qu4KMOlm5ExH4og/tMjPOW/PzsXT/atRzXtqcrp6YaOurkaRsfk
+ HMEsRaEw+UPmHeLIBtv85qV0VExXp6iftOtHL8mxijJYoW0BtqGURRsv5SxMdzWuTY8Yls1mj
+ nipN0UQBsh3CW+SyCVU1h6tIhyKN7oXfAUv1awug4DRDnAw1VH+jmOVRs
+X-Mailman-Approved-At: Tue, 11 Apr 2023 14:47:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,95 +93,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Huang, Tim" <Tim.Huang@amd.com>, "Feng,
- Kenneth" <Kenneth.Feng@amd.com>,
- "andrealmeid@igalia.com" <andrealmeid@igalia.com>, "Wang,
- Yang\(Kevin\)" <KevinYang.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Tom Rix <trix@redhat.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "ndesaulniers@google.com" <ndesaulniers@google.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "nathan@kernel.org" <nathan@kernel.org>, "Limonciello,
- Mario" <Mario.Limonciello@amd.com>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Liu,
- Kun" <Kun.Liu2@amd.com>, "airlied@gmail.com" <airlied@gmail.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>,
- "llvm@lists.linux.dev" <llvm@lists.linux.dev>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, cocci@inria.fr
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Date: Tue, 11 Apr 2023 14:04:57 +0200
 
-On Sun, Apr 9, 2023 at 8:48=E2=80=AFPM Quan, Evan <Evan.Quan@amd.com> wrote=
-:
->
-> [AMD Official Use Only - General]
->
-> Reviewed-by: Evan Quan <evan.quan@amd.com>
->
-> > -----Original Message-----
-> > From: Tom Rix <trix@redhat.com>
-> > Sent: Saturday, April 1, 2023 12:41 AM
-> > To: Quan, Evan <Evan.Quan@amd.com>; Deucher, Alexander
-> > <Alexander.Deucher@amd.com>; Koenig, Christian
-> > <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>;
-> > airlied@gmail.com; daniel@ffwll.ch; nathan@kernel.org;
-> > ndesaulniers@google.com; Zhang, Hawking <Hawking.Zhang@amd.com>;
-> > Feng, Kenneth <Kenneth.Feng@amd.com>; Lazar, Lijo
-> > <Lijo.Lazar@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.com>;
-> > Huang, Tim <Tim.Huang@amd.com>; andrealmeid@igalia.com; Liu, Kun
-> > <Kun.Liu2@amd.com>; Limonciello, Mario <Mario.Limonciello@amd.com>
-> > Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; lin=
-ux-
-> > kernel@vger.kernel.org; llvm@lists.linux.dev; Tom Rix <trix@redhat.com>
-> > Subject: [PATCH] drm/amd/pm: remove unused num_of_active_display
-> > variable
-> >
-> > clang with W=3D1 reports
-> > drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:1700:6: error:
-> > variable
-> >   'num_of_active_display' set but not used [-Werror,-Wunused-but-set-
-> > variable]
-> >         int num_of_active_display =3D 0;
-> >             ^
-> > This variable is not used so remove it.
-> >
-> > Signed-off-by: Tom Rix <trix@redhat.com>
-> > ---
-> >  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 7 -------
-> >  1 file changed, 7 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> > b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> > index b5d64749990e..f93f7a9ed631 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> > @@ -1696,8 +1696,6 @@ static int smu_display_configuration_change(void
-> > *handle,
-> >                                           const struct
-> > amd_pp_display_configuration *display_config)  {
-> >       struct smu_context *smu =3D handle;
-> > -     int index =3D 0;
-> > -     int num_of_active_display =3D 0;
-> >
-> >       if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
-> >               return -EOPNOTSUPP;
-> > @@ -1708,11 +1706,6 @@ static int smu_display_configuration_change(void
-> > *handle,
-> >       smu_set_min_dcef_deep_sleep(smu,
-> >                                   display_config-
-> > >min_dcef_deep_sleep_set_clk / 100);
-> >
-> > -     for (index =3D 0; index < display_config-
-> > >num_path_including_non_display; index++) {
-> > -             if (display_config->displays[index].controller_id !=3D 0)
-> > -                     num_of_active_display++;
-> > -     }
-> > -
-> >       return 0;
-> >  }
-> >
-> > --
-> > 2.27.0
+The address of a data structure member was determined before
+a corresponding null pointer check in the implementation of
+the function =E2=80=9Cdcn201_link_encoder_create=E2=80=9D.
+
+Thus avoid the risk for undefined behaviour by moving the usage
+of an expression into a return statement.
+
+This issue was detected by using the Coccinelle software.
+
+Fixes: 3f68c01be9a2227de1e190317fe34a6fb835a094 ("drm/amd/display: add cya=
+n_skillfish display support")
+Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
+=2D--
+ drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c b/dri=
+vers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
+index 6ea70da28aaa..a1b44c7bd34b 100644
+=2D-- a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
+@@ -791,7 +791,6 @@ static struct link_encoder *dcn201_link_encoder_create=
+(
+ {
+ 	struct dcn20_link_encoder *enc20 =3D
+ 		kzalloc(sizeof(struct dcn20_link_encoder), GFP_ATOMIC);
+-	struct dcn10_link_encoder *enc10 =3D &enc20->enc10;
+
+ 	if (!enc20)
+ 		return NULL;
+@@ -804,8 +803,7 @@ static struct link_encoder *dcn201_link_encoder_create=
+(
+ 			&link_enc_hpd_regs[enc_init_data->hpd_source],
+ 			&le_shift,
+ 			&le_mask);
+-
+-	return &enc10->base;
++	return &enc20->enc10.base;
+ }
+
+ static struct clock_source *dcn201_clock_source_create(
+=2D-
+2.40.0
+
