@@ -4,83 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF320C77B74
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Apr 2023 13:49:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AC14C77B7C
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Apr 2023 13:49:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB27B10E55D;
-	Tue, 11 Apr 2023 13:49:20 +0000 (UTC)
-Received: from mout.web.de (mout.web.de [212.227.15.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C66610E536;
- Tue, 11 Apr 2023 13:48:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de; s=s29768273;
- t=1681220909; i=markus.elfring@web.de;
- bh=PmartcUcUfUvHCefd8IJ+WPgBwHOSel2Zds0LKRahh4=;
- h=X-UI-Sender-Class:Date:Subject:From:To:Cc:References:In-Reply-To;
- b=nrVQQa9ygHmJ/UTngS9Q+NhPtrZjxolEMDWtgwbBekoz+YGIiacMtU7RJ/LHhZTUD
- rcDD6Hzb+hOzDiWZCDBMtv/KWa73OeK//KPLPeGLhReyNrUNiEg0zR98N9BGai7OVf
- t3wXerofMNlLalhYNDijRHj+UWf8rTpw8zvsoQI38RuHMUIkkcs0LFvbqmrtbweuz9
- ALsCyQbRvaqbdChOM6aCQ1l2DxCh9TkDu12TH7wHeqpVP73xJt96Zuj9oIh2BQxfox
- KcXvsIerSHZPILuF6ghFjZnhS20XMxFu1OayLE/hAMpP3iahCKRPKbAP6lHtaVYHwI
- B2xa4j1XvPAKw==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from [192.168.178.21] ([94.31.80.83]) by smtp.web.de (mrweb005
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1MWi5s-1pskkP0uhk-00X2oX; Tue, 11
- Apr 2023 15:48:29 +0200
-Message-ID: <c06c97f8-7b5e-ccb7-e634-aab8ed450e7c@web.de>
-Date: Tue, 11 Apr 2023 15:48:27 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61EB010E560;
+	Tue, 11 Apr 2023 13:49:21 +0000 (UTC)
+Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
+ [IPv6:2607:f8b0:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9018D10E226;
+ Tue, 11 Apr 2023 10:49:41 +0000 (UTC)
+Received: by mail-pl1-x62a.google.com with SMTP id q2so12313510pll.7;
+ Tue, 11 Apr 2023 03:49:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1681210180; x=1683802180;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=IBq+Uus/FZgXLcP8xGrtvuI6hfCEGIicJ5yksbFAHOs=;
+ b=VP8SPdz6m7bZCqjSwbu2CWMhRIG43BNbcqdzzY7lI+mm1XgQkzJoznsPKHwRhbsMGR
+ KYzhqjfPAwtY8v6VwvJh72H3PD+8p6AzBCbYDZflR9rIzXLnpIOjS0e5auJMYOSvfpne
+ Jg0SO4gptkizxsgzz1qgvjQ5IxSvBh1QFBLpZ+ztV8uZiQlV8weiOAgIHibrfLgz0Yfe
+ yy0dUANC2umHn13hoAARAuhapAXPhTexD/2+22p9hmxDqPnNQx2UkYfILLDOxPVlYiV1
+ dpcgX82R8z+0y/xrGeeziqknvIHW6oSVk7QV6hBa+g89OeE5e91f2I/FbPGJG2beo4AI
+ o+vA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1681210180; x=1683802180;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=IBq+Uus/FZgXLcP8xGrtvuI6hfCEGIicJ5yksbFAHOs=;
+ b=TXt/enzA06Zc6C+0lPOYILrVmXv0OwdfnETrVa/s5mpnK6Vm+OAj0AI+5D0dnwRD/x
+ Jbc+BaiuMmgVOe+ka5rBNY4CPWGWHxj6dmJjEAHTbZoE20xJfOJT7k90r0i1MKCGTys/
+ R6HB6jeYGRhuWyarclMVnid3ySKsxK3B0EympP69kJ9npMumKyDfGJ0fqaaQW1FPCunN
+ tUbqWPl6Lh8dj4Y/BFEHHkW6LD0NrXiT5Q22XdPplZNYGIsPQRGbvJaVmfjdIgRDbtMQ
+ Vh3+UWHePUMnUuwWp/FEn+QUjXYJDv9bFEla1mST7u+G/TSTJb661BAvGL1cNd13hWgG
+ Yinw==
+X-Gm-Message-State: AAQBX9c6ODczH5hSZUcrkP1IQKcRvcdQF1H0Ia/FfAPJOoRKKxji+PtG
+ c+FDXdLAwwXgbX4nFeZ/2MHdPK/cd+4+/40GgUE=
+X-Google-Smtp-Source: AKy350bBaHnbfX5Z4+nwRR0UpaT9fDAZeLkAIJE04Q3LMr4Qeoz1k+1ZhYYkSfXpJw7gduNPvA9r6OY5zluuA05qVUQ=
+X-Received: by 2002:a17:90a:d3c8:b0:240:d397:e66f with SMTP id
+ d8-20020a17090ad3c800b00240d397e66fmr3918615pjw.6.1681210180619; Tue, 11 Apr
+ 2023 03:49:40 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: [PATCH 4/5] drm/amd/display: Delete a redundant statement in
- trigger_hotplug()
-Content-Language: en-GB
-From: Markus Elfring <Markus.Elfring@web.de>
-To: kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alan Liu <HaoPing.Liu@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Alex Hung <alex.hung@amd.com>,
- Alexey Kodanev <aleksei.kodanev@bell-sw.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Bhanuprakash Modem <bhanuprakash.modem@intel.com>,
- Candice Li <candice.li@amd.com>, Charlene Liu <charlene.liu@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
- David Tadokoro <davidbtadokoro@usp.br>, Eryk Brol <eryk.brol@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>, hersen wu <hersenxs.wu@amd.com>,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, Jun Lei <jun.lei@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Mikita Lipski <mikita.lipski@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Stanley Yang <Stanley.Yang@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- Tom Rix <trix@redhat.com>, Victor Zhao <Victor.Zhao@amd.com>,
- Wayne Lin <Wayne.Lin@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>,
- Zhan Liu <zhan.liu@amd.com>
-References: <40c60719-4bfe-b1a4-ead7-724b84637f55@web.de>
- <1a11455f-ab57-dce0-1677-6beb8492a257@web.de>
- <2258ce64-2a14-6778-8319-b342b06a1f33@web.de>
-In-Reply-To: <2258ce64-2a14-6778-8319-b342b06a1f33@web.de>
-Content-Type: text/plain; charset=UTF-8
+References: <50439958420f91cc97ad929437334bfb19ca4d90.1681208396.git.geert+renesas@glider.be>
+ <fd7c23298f2c62db85abc9114d12059ef5e5f330.1681208396.git.geert+renesas@glider.be>
+In-Reply-To: <fd7c23298f2c62db85abc9114d12059ef5e5f330.1681208396.git.geert+renesas@glider.be>
+From: Marc Dionne <marc.c.dionne@gmail.com>
+Date: Tue, 11 Apr 2023 07:49:29 -0300
+Message-ID: <CAB9dFds_C9hfwW+YBMbF8sakUwVXm4etVPSAXgXQpKMeTA9+yA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm: Spelling s/randevouz/rendez-vouz/
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:OjNaTpA6rVU38fiTJC0fNNG2t5tB53sqqQBlbcCU5z3ROHPDvcj
- T2gqQXeh8yKLTB4ZZgIdo37z2QE9Bu5ylSF4QIGa0tHspLI264JEP5rudggzyB+U+TjbEfW
- zi/siiBDU2A1X16WR39Av+5hKyI6irY6syLjtUH2HOIP+UU3FzGZ4tgGJTi9x3yo65L0s3S
- yunPLxXOdRyQzStwxTyIg==
-UI-OutboundReport: notjunk:1;M01:P0:7EabMdF49OI=;x9HznEdNHgVb/jUMFKku/XplEHV
- xT0XNK29XjKB1UDQ3hGxZ+JoLOhxjVL3VZK2wpb23SJaynAIAyB4utT7Du+0Durlf0cQM3a98
- bhLNqFrRg16PUADKH6PsG0H4gsDl2dDJeEdB5uGjfO35c55Yuwg0mdJ38g8pL+inZL0MkIQFl
- vh3HReLxJ/T5THBM4g1hMQ3OygjIZoZpZyVl9m1PkRyqw8KAED8HeXOTkOInAySM4A4f+Ej4b
- xTBwQLETNnsjMrwJNY0uTZF27D+cx2tCDRUWUaCc47+GuRcdC9noRXQk0EuM9jjuGvtqcB2ZO
- pRgV7plHQsGa0uvA3yYB9n/9RDFRm3dCTVgsJx99C6+3Qwvlz35gUKaJGfEz2+MxCvq0JnAYO
- cRGyP6qW/SXr7aRkQf3ullLO3rmQfboqy3bLbsoS4NLPPkY+pPUnLXJSpASa2fCgQgD/8ieHh
- rSnHM4rIeKwXSmGUI03sLTUgB05VQZ+m27SSR4UnDaIRMHcDa37iBwFfW7nn3uDLkRk7dHkqF
- IPbRodhPIaJN+9ScxT5Ebua2SXIv5vHnSYXp5XlVIHC8jdGq8I2zOB7H7j6QB1N0uAvp/CbFH
- js7q1LOoOv4O/VlT1pkh2bY/AVUTsEC4LMus/fadO2ZangeoXpiUGwJWjiMrGfHaUFdzcL0bH
- AjJfhwZ/fXWhWDH7fxxUgKiyiYZbSSX54NW+PJxf14Jwxl/SWlvwhXiBCgML1ajirOWON5SjK
- +gM32NaEXy+6Q2eTraOO2js2kTrq19pAPhae3ulbe2v5llno09GLPg9FmVEoznUfplXb4mIPC
- xWq2UOIj3/2G5+my4hZeBfCLCQzxnlLXt/HQaql9E/1sTRTmEXwmF6tiBcHhUOFHtrIfye+1H
- CC4E3E5IlJn8FL9NG+WpYfOYzVYkw9cmBFcxqczKMIh4KwBpK5VTLsDdJ
 X-Mailman-Approved-At: Tue, 11 Apr 2023 13:49:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,64 +68,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: LKML <linux-kernel@vger.kernel.org>, cocci@inria.fr
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Xinhui <Xinhui.Pan@amd.com>, Pan@rox.of.borg, intel-gfx@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ linux-kernel@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Date: Tue, 11 Apr 2023 13:26:35 +0200
-
-An immediate return is performed by this function after a null pointer
-was detected for the member =E2=80=9Cdc_link=E2=80=9D in the data
-structure =E2=80=9Camdgpu_dm_connector=E2=80=9D.
-This check was repeated within one if branch.
-
-Thus omit such a redundant statement.
-
-Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
-=2D--
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/d=
-rivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index a37d23a13d7b..4805a482dc49 100644
-=2D-- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -1278,9 +1278,6 @@ static ssize_t trigger_hotplug(struct file *f, const=
- char __user *buf,
-
- 		drm_kms_helper_connector_hotplug_event(connector);
- 	} else if (param[0] =3D=3D 0) {
--		if (!aconnector->dc_link)
--			goto unlock;
--
- 		link =3D aconnector->dc_link;
-
- 		if (link->local_sink) {
-=2D-
-2.40.0
-
-
-
-Am 11.04.23 um 15:36 schrieb Markus Elfring:
-> Date: Tue, 11 Apr 2023 14:36:36 +0200
+On Tue, Apr 11, 2023 at 7:44=E2=80=AFAM Geert Uytterhoeven
+<geert+renesas@glider.be> wrote:
 >
-> Some update suggestions were taken into account
-> from static source code analysis.
+> Fix a misspelling of "rendez-vouz".
 >
-> Markus Elfring (5)
->   amdgpu: Move a variable assignment behind a null pointer check in amdg=
-pu_ras_interrupt_dispatch()
->   display: Move three variable assignments behind condition checks in tr=
-igger_hotplug()
->   display: Delete three unnecessary variable initialisations in trigger_=
-hotplug()
->   display: Delete a redundant statement in trigger_hotplug()
->   display: Move an expression into a return statement in dcn201_link_enc=
-oder_create()
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> ---
+>  include/drm/task_barrier.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       |  3 ++-
->  .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 19 ++++++++++---------
->  .../amd/display/dc/dcn201/dcn201_resource.c   |  4 +---
->  3 files changed, 13 insertions(+), 13 deletions(-)
+> diff --git a/include/drm/task_barrier.h b/include/drm/task_barrier.h
+> index 217c1cf21c1ab7d5..59ead429acb2afb0 100644
+> --- a/include/drm/task_barrier.h
+> +++ b/include/drm/task_barrier.h
+> @@ -24,7 +24,7 @@
+>  #include <linux/atomic.h>
 >
+>  /*
+> - * Reusable 2 PHASE task barrier (randevouz point) implementation for N =
+tasks.
+> + * Reusable 2 PHASE task barrier (rendez-vouz point) implementation for =
+N tasks.
+>   * Based on the Little book of semaphores - https://greenteapress.com/wp=
+/semaphores/
+>   */
+>
+> --
+> 2.34.1
+
+Sorry for the drive by comment, but shouldn't this be "rendez-vous"
+(with an 's' rather than a 'z')?
+
+Marc
