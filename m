@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AFE3C77B6F
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Apr 2023 14:47:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F73FC76196
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Apr 2023 14:47:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2E5E10E57B;
-	Tue, 11 Apr 2023 14:47:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E85810E57C;
+	Tue, 11 Apr 2023 14:47:16 +0000 (UTC)
 Received: from mout.web.de (mout.web.de [212.227.15.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77D1810E245;
- Tue, 11 Apr 2023 13:50:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3732F10E573;
+ Tue, 11 Apr 2023 14:45:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de; s=s29768273;
- t=1681221015; i=markus.elfring@web.de;
- bh=QqBrh1iOG7Q4T2t0pkmEGvdBD1d8O9i9GYWCZGAT47g=;
- h=X-UI-Sender-Class:Date:Subject:From:To:Cc:References:In-Reply-To;
- b=K6zzEBWXsxSPB8XPajfrExmE1NNHZ4KP6iVFmus2wBQ0rmBPTYdrSxaYi4RfKihpT
- rzCLvMmAorDLVby9zT5RYHOE+dSSyqgk9LrId8SMeFeYMjQlhP573CDN3INoyyIZj6
- u0R37cj2oLma2/CrLudYSsPsvyaA+4fYB8MuFG6jhjgm8VNNRU9ATuCMjzzPyr7jk/
- Uyi9s2X3+kBQRXeeqhwqkCLipnTZTofM3CQrpxeKcOlIgrrORwxS2pjEA950Fi2UcP
- p1gnJruNKzQVT4jBK0pofhiBjYpJiDf9FGEIu3/9kP6oyyR+38Eub90LFSZJfat+D3
- WQl7n6Wl9t43Q==
+ t=1681224338; i=markus.elfring@web.de;
+ bh=gSkA26wrxyRy+QosZCxwgxJGwRdIBWtCkPnIMmQcM3U=;
+ h=X-UI-Sender-Class:Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=brOGIuIzL8jkpWV2+9PMLpz6rUpA6nUBkmosSyTchGco51wubdEShCyMBygLUCVQZ
+ SEUqgJvGs8vJBwtIn0rG5f4qJ1xjNjG0TUf8q0FM46r46ITTtByOWZqCAYGQZ013iD
+ HADwCgioc1cTyLAFTH/ajeWmqzsbn4igcRRKpkMc/vfBZ0MJvSLtXGA7NRXUs5teNV
+ G2O3ITOycm9NLkvi6iiuzyyVzuNBNwVJohXZ4rs3wFlHl73g3c2s726ldjOTCMrOY2
+ imlIhWOGy5zfzb3e11mSzJCqFApPAYUjlEUKz131d0nU4ymNQ/8FJw0aIQRJwH7hIh
+ szsQJhb6QUuYQ==
 X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
 Received: from [192.168.178.21] ([94.31.80.83]) by smtp.web.de (mrweb006
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1Ml4B6-1qDpud2ScO-00ld3e; Tue, 11
- Apr 2023 15:50:15 +0200
-Message-ID: <5341f677-4192-3c17-fb76-faddcf5ac9a1@web.de>
-Date: Tue, 11 Apr 2023 15:50:14 +0200
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MgANG-1qIp6y20B4-00hj3N; Tue, 11
+ Apr 2023 16:45:38 +0200
+Message-ID: <1c1e48c1-9812-721d-855d-4000f84f4f3a@web.de>
+Date: Tue, 11 Apr 2023 16:45:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.1
-Subject: [PATCH 5/5] drm/amd/display: Move an expression into a return
- statement in dcn201_link_encoder_create()
+Subject: Re: [PATCH 1/5] drm/amdgpu: Move a variable assignment behind a null
+ pointer check in amdgpu_ras_interrupt_dispatch()
 Content-Language: en-GB
-From: Markus Elfring <Markus.Elfring@web.de>
-To: kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alan Liu <HaoPing.Liu@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Alex Hung <alex.hung@amd.com>,
- Alexey Kodanev <aleksei.kodanev@bell-sw.com>,
+To: Felix Kuehling <felix.kuehling@amd.com>, kernel-janitors@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Alan Liu <HaoPing.Liu@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Alexey Kodanev <aleksei.kodanev@bell-sw.com>,
  Aurabindo Pillai <aurabindo.pillai@amd.com>,
  Bhanuprakash Modem <bhanuprakash.modem@intel.com>,
  Candice Li <candice.li@amd.com>, Charlene Liu <charlene.liu@amd.com>,
@@ -60,27 +59,30 @@ To: kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org,
 References: <40c60719-4bfe-b1a4-ead7-724b84637f55@web.de>
  <1a11455f-ab57-dce0-1677-6beb8492a257@web.de>
  <2258ce64-2a14-6778-8319-b342b06a1f33@web.de>
-In-Reply-To: <2258ce64-2a14-6778-8319-b342b06a1f33@web.de>
+ <0d4b92ab-f7c2-4f18-f3c3-c0f82ba47fc8@web.de>
+ <c265e914-4ba4-1af8-a504-21dd859f0226@amd.com>
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <c265e914-4ba4-1af8-a504-21dd859f0226@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:k4el8X+ATWGE1XAQw5UGkyMRjJ5All74JHlKkerIl79dJWrOxCn
- 7GN2s7L3Bvap3zkoSW9jkSUD0g6BSw0Sa4NTWMnH5XbYYHjAIJCwwnbFL+XV9YqjBwygSjh
- mNWO47vTH33VRRqJkPvREbx3aMRa1p9BjYk8Y6QhmznUv/ILmPjx15aeWJGkUxGPKZ1Tygh
- DNk3+P8IesUjo0hDhbIgA==
-UI-OutboundReport: notjunk:1;M01:P0:mnPqPBJJIHA=;7vxqSL+DR2zreZ5Xn4j6gBqu/AK
- DMOoX/QPTVG+hJiJmivXNmZuT8zEItsJcIjU3IiSZ1OM9mJOxXM9EhQXsW7ToYgeq9oU1KBW4
- mTOf5gV64BQDYYsaZ9GLoHYnuPKAJIETUJqLuuQFHe1vgm4sy5aSr5X5WTorUsZC8FI4D41yy
- DeaO3JSlhp5N9oZJ4f+qq6XErgTAQ3DlSBmc3BeVPeFs0WhzfZ+Fpe31XddgK8ewSvbguV2NH
- 4XCG3I1FJzfEFPjzxwHFq0oAjLZEKr44/8A8VHW6yFqxYLD2vZWXRPo2KVhgTwpeeJOR9FvFf
- wcW2pbE+cxi0+QvU09wAUS+Zx2SKoHDfmVqw03//OF1CxDaDMozyKWAt93Yy2NsTzTgF5z1S0
- jZlN1dKaXYSgqvTXtEWFBF3s4eyZ8Al9jbSxcIwveD7uNUCilQ68TQ7jbX1MV/R55OloxjtNr
- 4QoUDBVzwOuiqrKCyU61wPz5Kxhg2gActZ+5pzRmWQrKTTd6iTz1+rD9hMJeVTWTo6mjaVKqx
- 0tikWwuKjlmWiV8nRmtFOOXIE0yeRLrZXOQg1r+7h+InOsXw1YF3HjorVds/gxW2QGcMPOZxw
- A5afSj5swu+5Fg9CURpmoZFx9oFxNEroxfPyYXINzroxnsbQ3mHApGf3jvJFpWa5SjEPb4EV2
- 7pCYdbDDpP/KxCJ0NKakpIWFkL+KcplkMzeceZG6ycQ3ICAQTGJHCo1soKR4C3KnxYceH8T5v
- hlYXvrk1Txpw3sLOrufAO2Qu4KMOlm5ExH4og/tMjPOW/PzsXT/atRzXtqcrp6YaOurkaRsfk
- HMEsRaEw+UPmHeLIBtv85qV0VExXp6iftOtHL8mxijJYoW0BtqGURRsv5SxMdzWuTY8Yls1mj
- nipN0UQBsh3CW+SyCVU1h6tIhyKN7oXfAUv1awug4DRDnAw1VH+jmOVRs
+X-Provags-ID: V03:K1:c3lsOpjID8jL3Oq1OuNPlFupaKFJEUYs5sYP2WRi6EXZDxCr37j
+ g6Q3cZ8ic3h+AY9l5o4UhG6ZV0/3f8KSXLYfmSkNjbySIPuvxA87u35TK88Uqj/AvRleCTr
+ tqJfxF//FtccrMshElC69lFfdM3S8BuVwrOAohKlDyFQ+6p5bM3R70itICEUNfAuvWQYNpK
+ dra5I2bPfnIVrxsJJ1I5g==
+UI-OutboundReport: notjunk:1;M01:P0:8I9ibC6Rfw4=;NJe/3h/4+YM5um0qr1wjmVsIT/7
+ 21b9/fOj+8T4fEvYARG9rzpat6nBQlc9q0bjBLnkTpIUEqtYTv9rHGNysKu970aVIlJW28zMb
+ Qmjs4ZwvjWdt5xb381oVYjgmVxB7dnjtgBSjelPRmClzgq0gg9FTFGvVfyEDAyO9okNsHr2qm
+ zWp/qJyyu4YT7fyOiTV1q+CaKM7wLZnMSLV5MEKPVfhKJz0hWxTitStjvfN4D+Gbh17BBReFZ
+ c3YhCOwVbr2ZLFFJ9x3wYAvejc1Zagpi9YFd3XRXeo71cbh4h8e62UkZpE5KCuX/so/2E/ivc
+ R8GpvgjM5arti+QbyFBTW0jTGz7SpA0LRHQjpBDX2KA7hMIpQolxsyYlNLlIp+KV56B23sJ/M
+ JkEn61/6agnaV+vBvMY0wzgE5WJpGTNJpMXMcMH1jAiEHLYIcwLAZauWrUASbfnw+kjFswBls
+ AydHoiVKWsbweDsTBVVcpv75tmy77HcH62pFSYyICJ1KNcRe5o0OKphh1Skq4nBKyPHtfOm4e
+ zT0XfybGwnFMyfVUI4zfmdw0DzjYLiFQ4g4r67N8L+yvLoYIU/saCfykZkwNZliSZra1qhSYp
+ 2pNxafCEMCoklhLQ8CQ4UVsmdiEyKo/vsfeN6rr0drvrQAX1aT3PDnE3L43KHjhoJQ2s/OV55
+ LZT6XnUTlOH/0dBUYorHhnBc2XOJH50xk68OLnDG1nntzjUkOJtGurs9er03S+dnwjfJIMqY6
+ 6bA7nGP5pk10nDG9U0pmVMAhJCNA6f7Cr74qQW9DrzIqGt/hSFY5CMhC6007UDXsrgvRKy4Uj
+ RYFJfVX8S+FtaGP+9eu4WX4la2tTFErg9Ix9e3InRpP/fomO5UiOi0oekPTdrWTctNILKTpKn
+ e/0cUJIwqREI7lKO93a6O4HlGoPQAIDUiACDYTV0SNrD1ZZBipnlgvp9l
 X-Mailman-Approved-At: Tue, 11 Apr 2023 14:47:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,49 +99,34 @@ Cc: LKML <linux-kernel@vger.kernel.org>, cocci@inria.fr
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Date: Tue, 11 Apr 2023 14:04:57 +0200
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+>> @@ -1730,11 +1730,12 @@ int amdgpu_ras_interrupt_dispatch(struct amdgpu=
+_device *adev,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct ras_dispa=
+tch_if *info)
+>> =C2=A0 {
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct ras_manager *obj =3D amdgpu_ras_f=
+ind_obj(adev, &info->head);
+>> -=C2=A0=C2=A0=C2=A0 struct ras_ih_data *data =3D &obj->ih_data;
+>> +=C2=A0=C2=A0=C2=A0 struct ras_ih_data *data;
+> I'm curious, this only takes the address of obj->ih_data.
 
-The address of a data structure member was determined before
-a corresponding null pointer check in the implementation of
-the function =E2=80=9Cdcn201_link_encoder_create=E2=80=9D.
+Even if a null pointer would accidentally be returned by a call of
+the function =E2=80=9Camdgpu_ras_find_obj=E2=80=9D?
+https://elixir.bootlin.com/linux/v6.3-rc6/source/drivers/gpu/drm/amd/amdgp=
+u/amdgpu_ras.c#L618
 
-Thus avoid the risk for undefined behaviour by moving the usage
-of an expression into a return statement.
 
-This issue was detected by using the Coccinelle software.
+> It doesn't dereference the pointer until after the !obj check below.
 
-Fixes: 3f68c01be9a2227de1e190317fe34a6fb835a094 ("drm/amd/display: add cya=
-n_skillfish display support")
-Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
-=2D--
- drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+Does the used arrow operator indicate a pointer dereference?
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c b/dri=
-vers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
-index 6ea70da28aaa..a1b44c7bd34b 100644
-=2D-- a/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn201/dcn201_resource.c
-@@ -791,7 +791,6 @@ static struct link_encoder *dcn201_link_encoder_create=
-(
- {
- 	struct dcn20_link_encoder *enc20 =3D
- 		kzalloc(sizeof(struct dcn20_link_encoder), GFP_ATOMIC);
--	struct dcn10_link_encoder *enc10 =3D &enc20->enc10;
 
- 	if (!enc20)
- 		return NULL;
-@@ -804,8 +803,7 @@ static struct link_encoder *dcn201_link_encoder_create=
-(
- 			&link_enc_hpd_regs[enc_init_data->hpd_source],
- 			&le_shift,
- 			&le_mask);
--
--	return &enc10->base;
-+	return &enc20->enc10.base;
- }
+> How is this undefined behaviour?
 
- static struct clock_source *dcn201_clock_source_create(
-=2D-
-2.40.0
+I guess that another information source can be helpful for such an issue.
+https://wiki.sei.cmu.edu/confluence/display/c/EXP34-C.+Do+not+dereference+=
+null+pointers?focusedCommentId=3D405504153#comment-405504153
 
+Regards,
+Markus
