@@ -4,115 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E045BC7619A
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Apr 2023 08:06:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08350C7619A
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Apr 2023 08:10:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D5BC10E4D6;
-	Tue, 11 Apr 2023 08:06:02 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2050.outbound.protection.outlook.com [40.107.237.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C198410E4D6
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Apr 2023 08:05:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92D3610E4DC;
+	Tue, 11 Apr 2023 08:10:26 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2074.outbound.protection.outlook.com [40.107.94.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EE3F10E4DC
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Apr 2023 08:10:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mKaAqlifSAwK2LqiuV6vquqxsEff0p1qIHZV3QUsJkLjrnPWQpIo6UHMUUFEUelzY4ZJMiiMhvCwhqetR1SjRzv27BpdfDJbuhIBq2+Otqq1tCkWWlQVyexv5yaYeTobBx8j+tbZRZdvxV+dVESx1VpXsvy/hi/3OnDUqj1RhO739fXxL0zMLDiHLHSGcsDUgsglpqtXSkGcEj25RDSek1iHnRmWTK19UHUhZzoB6qhlUwtiasFuZBc1Zq7aa5PWVkqOjzkiFVR5bj5GArWs3hS3B0k6XtS3HH8c5tqdPnJzcyVwlna6wzNjxZvc62GfJugnXBs35tFFoIj476bwTw==
+ b=LFuM82p0e9sr0ULBexR6H/V5DK/SV3G4tnrfzbSXJDu58hsrl+vKOw2LrxJPDz3C7RB+BojApzuzDUsSiVMcQw8rASFLkRRZ9aclAyINIhGIM1VaEqMcZuYopEpaMWk3iBArHGR3kRWBXLwQbbyKW2xmu3CSZYkPJ8qob1Z+d+fzfzjaQavUed5ZTk78/bCP1GucjQNSzCC0qRvwKJ52k0BHd0LjmrUMBisF36E5bgXRE7M7VhL0zMTMokKB5BNL+4uOYKPPS8GuzqMzLPTMtxRkcJ06vrXY37aMy5G3DBne1l6xVo/ZLKx+MX86esKo1Xedoi+WYdjfvC+bPDJx/w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vPA0bkns9XDaY52PEQfqQasi1QskFGHWOCPxxH0cKzI=;
- b=AgzA9aFaFzj03xC8Ez4tsPj6iEmdA8q2lK1bExzMbz4Qiz/nhk+xayyIBI3E9e1L/zJHQEejTrfx7avCOXRR1fJ5o5jNg2l+EPyJWwOXRygcyciwBQtegu/3qoSyOP2ZyNSb/87AeV2ab14lbs/cnCCDalGaQaXSKIlj5O6EjDH1lxDsq4ylLi0CBMVm0vGg1FRTT4t327PuU98sDSfQFBfRj/p2LkXd6TxXhSeaxDfAHHrhRec72f3I0Zaqf1Catesm6GwYxi0OLn6mJ3CQjD4EkI57/6Pd4j/G2P80W3agZ3zFMnF/y05uBGWLI0ecM/jqhxd7vvWwQJ2KytO7TQ==
+ bh=g1WRXRxr870QKPLQg5BY4jkbh1h7n5nNlfdFbevwp7g=;
+ b=nFriNmwy5ClSGyvWhozqqTbD7zwd/mNP/VDIH/Ty010CT5YVIQ4TR3w8d//NcioK/PJNe+d1DGBpxIbPc2ET9pt+KBFhSeQQZTxyMvRYc57/JpFlnXcLjFIAEKHq1hD51c3RJRQOl+Z9gZ144VeTD5SR1Qpn02qSYoZo6mTMrg7NcRsVvmhbcTjH7X+I4ehEWNlZFQxh7/P7/AjK7z9G0NPj3R3obLSfTM2WHBKb144ZeAtYEN8WG6vfTWlQTkYH+b4R1qzYJKHVsI+0JdyT7CyGsk2B0M+7500iOKlHww22DAUzq1x8vQl8N/kp237C9PB04SRFJViBqntXs1bFDw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vPA0bkns9XDaY52PEQfqQasi1QskFGHWOCPxxH0cKzI=;
- b=46q0Fa8oryv+pjtnafFriO1VHiny4bMxd3M6VnVFCEo9kV/d8UolEsTJL/ecEX6TEpl2qNSacqCmAJwZVJDirLGehFdVE7IGCXPKcNIHqUH5kedHvv4wHwmWNKeXldskHSH6Ao6jUu4hmg+D61Tx3u03I2LVPWn1MDuIdTaQBks=
+ bh=g1WRXRxr870QKPLQg5BY4jkbh1h7n5nNlfdFbevwp7g=;
+ b=ckc/NPvIohMShitaed2LkOzaPC6Bf2ynaaJDES218egEJ46qAq1lzyt4vD0UUgUqnMxnQbdB23twW2aBaxNtmGWiwxiQ/GLxZ+FX2kVmZj77jvvD/yE4ZodAd8So2Bw9r85CDGAPMjAMWb0SVID4APpj6HywXTePLQ0abyKqE0k=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by DS7PR12MB8229.namprd12.prod.outlook.com (2603:10b6:8:ea::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.38; Tue, 11 Apr
- 2023 08:05:55 +0000
+ by MN0PR12MB6151.namprd12.prod.outlook.com (2603:10b6:208:3c5::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.34; Tue, 11 Apr
+ 2023 08:10:22 +0000
 Received: from BN8PR12MB3587.namprd12.prod.outlook.com
  ([fe80::4624:dc39:943e:6ae]) by BN8PR12MB3587.namprd12.prod.outlook.com
  ([fe80::4624:dc39:943e:6ae%5]) with mapi id 15.20.6277.036; Tue, 11 Apr 2023
- 08:05:55 +0000
-Message-ID: <a71557b1-312e-ad61-fee4-dcf2f7e97e68@amd.com>
-Date: Tue, 11 Apr 2023 10:05:50 +0200
+ 08:10:22 +0000
+Message-ID: <698f4bbc-6253-2b61-ba82-68f6e7164ef6@amd.com>
+Date: Tue, 11 Apr 2023 10:10:16 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
-Subject: Re: [PATCH v2 2/3] drm/amdgpu: Simplify amdgpu_hw_ip_info.
+Subject: Re: [PATCH v2 3/3] drm/amdgpu: Add support for querying the max ibs
+ in a submission. (v2)
 Content-Language: en-US
 To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, amd-gfx@lists.freedesktop.org
 References: <20230409185956.725016-1-bas@basnieuwenhuizen.nl>
- <20230409185956.725016-2-bas@basnieuwenhuizen.nl>
+ <20230409185956.725016-3-bas@basnieuwenhuizen.nl>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230409185956.725016-2-bas@basnieuwenhuizen.nl>
+In-Reply-To: <20230409185956.725016-3-bas@basnieuwenhuizen.nl>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0067.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9a::7) To BN8PR12MB3587.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR0P281CA0135.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:97::7) To BN8PR12MB3587.namprd12.prod.outlook.com
  (2603:10b6:408:43::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|DS7PR12MB8229:EE_
-X-MS-Office365-Filtering-Correlation-Id: f115fa07-38f6-4088-bb33-08db3a63933b
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|MN0PR12MB6151:EE_
+X-MS-Office365-Filtering-Correlation-Id: e7d1e301-648a-4b19-ea15-08db3a643251
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1FxyNd91NTyDWZSZ1YVFSU3bgV47v6Zxt3vQHJzcIVgDpLxd4LORxKeYWLBQDUcjq8+b7xrNG3AwDBHo/Wm9xH27Y9+evHaqau+BP7q/Y3rdsvfxh/d1YWaB4qhg6TqUHweryT+/hmfKe5HOL2A/Plb8T2djnVj19Duw6k7OXruqJ+9cgaULUgoQb/W7BdxBCQyRQuOEdHIR+vLZJb91YtA6/CT5V+1JFBcei2cfEXW3qyCWuEOVD9hRpLhI7Dpmey9mU1GzlgDntayVq1BwB/67zUZdCTaIcI3C31dBgzW+UjFOzmzAR5/EogoXBnPDGirhcbMyHUFWhtkEMRWdinQ0ybzi7TgGEgNUj/pYgpggISDBFhs0acDm6OQ4EKUkKJrZuSqknR7DtDxi2o6eSGOHVCV6od5MVi3kq4gXKZdRntxF1lvSDUBlIwIwWoVAuI5ugdchhBFYfA8rBFVEV5cdbFcEiCN8xwt3FeCxclkSWSvUybkzyDzKJcwL69B3AkkQwIseUUnSOu4W4a3LGZdKrZEcG2kzKRJW7YDpjwsYyxuChaWSZn4BlaXm83kUHmkhijBK5a+ZaqTdRBPEzGoiGrTYbAygFP9xQZ4ZjpPIqNQerAXUbObIbIb40gNZVXdK8XKU5zfcTAIhGJ+IUA==
+X-Microsoft-Antispam-Message-Info: HJLJ05cGLStXShRZOshgucUCByNsXCvG1zHTVMft1lG3f0zoYnlRuZeYbFExwGxU77Ot2ru5ax5CP/HGqaPC6egSHXNHEY8VONc6bmYTKXUNs+6LRchLIkfdDTa5BamQwawCIW27oxeoYw1XTFOm3p0z14Vq+HWMxUWZcGFVcdM9wOOh2jR5xwVIhP3JOb1whzFNjtEP1H8roFzwdqzcWOzBdfUBUQlSlwu57sDizsTP4vhSwgICwCnjlydthVlKbT0puSCB9Dx6XJCSRFvXoKqxiI/v6tf91yEzdLRwRegxqZ9MG1LFlaWen45a76cFM9M0Hazt0PiOQ3xuaFLkfIUBargzipI5GXIUKgNFq5LYX4LaTCxIsSRRuUXhUgq6Rv5Biubjt3biAtgOrF3Q4quotduCOvN3dJwJPDz5mi6B9hMA1d8EioDxcT0LqdNBNxBQfeqVzm14YTjEawxWyk/tV9hAEhjdcalZcQw5jox5HN9r+L4NQN8h7hQMxbxWq8ZO4V6HtNY1WzgUcTc13SpBEiqaHlhTb2pafc3JAYwdHpyLIkZIh/7b3sxjLakg+K2ZVfy1zVrmoxzVHREo5Cgr0vfX7qXT8DEZQ0qUsDY=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(136003)(396003)(366004)(346002)(376002)(451199021)(31686004)(478600001)(6666004)(86362001)(31696002)(83380400001)(36756003)(38100700002)(2616005)(2906002)(6486002)(26005)(316002)(186003)(6506007)(6512007)(5660300002)(41300700001)(8676002)(8936002)(4326008)(66476007)(66556008)(66946007)(43740500002)(45980500001);
+ SFS:(13230028)(4636009)(39860400002)(346002)(366004)(136003)(376002)(396003)(451199021)(2616005)(478600001)(966005)(6512007)(6506007)(26005)(6486002)(6666004)(41300700001)(316002)(66556008)(66476007)(4326008)(186003)(66946007)(31686004)(83380400001)(38100700002)(2906002)(5660300002)(36756003)(31696002)(86362001)(8936002)(8676002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZkErNlMyY2EvS3NPbW94Qnc4K3B2T3pSUy9iR3JsMGdITDNjdC82aThCYWU1?=
- =?utf-8?B?TzV5ZklVNXlqN2k4MlpZWHFRSDBpU2JiVFB0YnZWQ05UTEorWUNXQm5yUXdO?=
- =?utf-8?B?WTJuQ3k5VHlWbThtV2VEZ0dNVzg2NjkzR3JsRi9OUVlhNmNwamlOVWR2a3ZS?=
- =?utf-8?B?SXBrbzZxNWFkVG1rcU85Mm9OT3ptZ3BLT3JXQ0xNSS9xeDk0YUF3RFBaZ2or?=
- =?utf-8?B?SFV1cHp2R0RqSGRWL0Z6MDhxTHNHMDVuS0swcytDSVpRaEthbGJtVUoyRnN1?=
- =?utf-8?B?bm5jRS9nR09GOWZXa1ZyUWQ4YmZYQTRCaDhJVVNRWVlaRlVqT01WdFI3SlBS?=
- =?utf-8?B?Q3cvYmxmL2xtZWlwQmg5aDdJNWg4WlVaSC8yNmc2dXZVRnVubFZmNVErZy9U?=
- =?utf-8?B?eXFXcGM2ZlNQVTkxU3NPemRJVmdhNm40M0c1VUszdSs0SFdrcm5NUnVkRGNo?=
- =?utf-8?B?SmhMZ25JQXNPY21lSVRIRURaQVhFaFhGNWhCNVVtWHloNUJ2cTloaVM4aFlv?=
- =?utf-8?B?NmpVL2pDZm1SYkdiZWhrU24zSlJZQllhWVg2WHdTTVhpcmxNVHhPc0JqdExk?=
- =?utf-8?B?QTBuU0lGYnYxQk85QTArNW9TQ1diN2JpcnNIeldDc3lqTjFRU2M1bWUwRnc1?=
- =?utf-8?B?OFl6UG1JNVd3QnFIV0hoRWNZTzlaRlBPNno0Zk5XVnBsMkE3L0g1ZVl3c3FN?=
- =?utf-8?B?ZVowbnA5VnV6d3hrS0RlRkFXMi9FVnQ2eUQzRFFkQ0JQdjhXck5RZ0FVcGZt?=
- =?utf-8?B?aUgrNVBTaENCSzZMT1ZoSERCSGQ4clpWL0tSeXVFNEZpdVZsaHZCNEJBYTUw?=
- =?utf-8?B?R3FCSmxDcFBWUDV3aUJoZVJWNjZ0T2p6cTZqUCtyM0pMcndJL3E4WE03b1NI?=
- =?utf-8?B?WWNxakg5c1p0UE0ya1h4blRUNWJVWFpDeVNEQkgybmpKbHYrd0ZpclRmWWdJ?=
- =?utf-8?B?a3h5R2xQbWRJT2dOS2oyUWhSK1kzS2IwNVFIeWI3K2RRMTRwS21LRFphUTB4?=
- =?utf-8?B?K2FxUkU5MFFNRlpYQURKSW1IRyszQ2RxcGd5QkJ6dUZnRDVxeWp3SFkrTzBN?=
- =?utf-8?B?QUc4TVRaRFdOVEFVSnBtZVUxdmxXOThwdHR6TVF0TTljZUVmL2FHWkFCS3Qv?=
- =?utf-8?B?UVFBY2VORFo5WjJmRG9HYXRRRkZzaGZGQ3ZmcDlPa3J1U3BhQUo0eVlKVWFh?=
- =?utf-8?B?T3YxeDA3NEVERXhOZHNwVEFRdjNjVi9Ub0tkUER2b1lqdkMrMVZ4REgxbVBH?=
- =?utf-8?B?TXRXa3A0Vk1hMmcyOHE5enovc1ZGQTZOTElha3R6M3RrZ2ZqT0ExK0Zock1H?=
- =?utf-8?B?RGdjNHloYlplVmhyZHowcG1CRk1hRXRlRWR2VHRORnRWWjZhZWplbnV4YjNT?=
- =?utf-8?B?cE9vVnBlODlGRytIMVdEbnpVUGwxZlhUcWdKcitReEFTODdBbm1qUjVaeXFn?=
- =?utf-8?B?cDJaa1BITlRnZDhZd2ZxMFI2V0NLaEZOcVFmYzQ4ek96K1Y1MnRuSWl1SW9R?=
- =?utf-8?B?Tk05QmorYUpJREIxUnUxNEZpUmcrUmpRa3QrYmhmRk1DZlVxbjA2TUQ3TkN4?=
- =?utf-8?B?RnhPbU8vVnREb29UdzlYMGw5RWtlZXcxNGFzTmJEcVRxZkFmc0R4SmYwdE9J?=
- =?utf-8?B?dVJiNXpWUlB2Y2YwWE9KZTg0YnZJVGNjMkp4MGlrK2t0M3BhQWtBNGRwUmZK?=
- =?utf-8?B?RE1rOUZFMGsrNXhlTWcvbnB4cG5GcGs3czBYZDVWM2t2ODRtSTJBcThDVnJ1?=
- =?utf-8?B?bFBvSHFBWnNqaGtPYlZoQ004aURtVVQzL2lvNW5TQnVKQ0wyYjV2cmFQb1pL?=
- =?utf-8?B?bzE4MFZibm1NVXd6NVNEbXErTTE4bnZlWklxRWdzQU15bTJDVEFVRU1Ia3Rz?=
- =?utf-8?B?a2FHSFJhc0E1dE01SWpmVk5zNlVRVllHT1BFMm1aZU1GMUQrR1hjaFg0U1ZZ?=
- =?utf-8?B?ZFVSMXB1OUVrRGsrYW81aDViam9tM0dkSTNYQjIxTkVaRkdOU2tURUF4bjFZ?=
- =?utf-8?B?SzI1WXEvNkE2a1NuS2FscVQ2eTFwVFhYYmFpL2M4b0FaNDl3eURVckM3WWtZ?=
- =?utf-8?B?MHhoODhKWWRNNGl0V213U1NkVWZSdlY0bDNreU9NVzdJTm5VRW9CR2ozRWdt?=
- =?utf-8?Q?hdRE=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OE1HOENzNDYvZkNzSEFoR3Ayc0Jtb0hWZ2wwMUhOTE5GQ21Bb0NnVXVLN2Zn?=
+ =?utf-8?B?TFRTSnR1ejMvem0vVnpJUjBkaWF4U0ZtOHFFSWtWd2ZIUHRLTWlLdzNDSEcx?=
+ =?utf-8?B?aHRpbndETjlFQ1hJa2Z5clpOTWNPcVNZS3E2STNiY3BWa3NpaXljMFMzcVN1?=
+ =?utf-8?B?UzV0Z0JtdEUyMEhHVVhkWXQvSzNXcENYNVVlN05IeFRpck5ReHdNTjZDLyt6?=
+ =?utf-8?B?MDJGcVpYaEZOL05xeWlobDVXVVMwbTdLRS9yYmVwTVdjSUJLMHJvemdiUFJN?=
+ =?utf-8?B?WC85bFUvRVp6T1I3ekEzdzhFY3NVUW1sNlRLbjdGR2ZMclEyMjB5amxvMHBH?=
+ =?utf-8?B?cVJvMHZrZ3R2TzF5Sm9RSytkYkpWTG1UYTZqVkU2TlB4bFRWZVlUZlZ1OXRP?=
+ =?utf-8?B?TXNSU0VUMnVXSUxMU0Q2ZW5TczZCWGxWMHAvdmo2c2U4S29rTENxSEQ2R2hl?=
+ =?utf-8?B?WUJaZDBKRUhkOFg5K3BzTTNJb0JWby9GeUZrZGtlYk90U2VCLzh6VFoyRUZ6?=
+ =?utf-8?B?am9hRGxHa2o5a1dOWDdldVRBTDY0LzhKM0I2eHF1UTFHWkIvT3VpaFk5YXl0?=
+ =?utf-8?B?cnFtVGtzMWQvUmNRd01Uam5ac0Rnb2FOTHlvbWh5Z0F3YUN3cXlwWGZtU214?=
+ =?utf-8?B?c0FPNjVSVHBtbS9QS2RtZ3pOWjNjdnZubElwMmgrVkVuUzlBTnVXamF4ekFO?=
+ =?utf-8?B?NEE0R2xjTE9WZWZGOGZuVkYrZDU5NktDVFlhNm94bUpLbU5CTmpGUVliQksr?=
+ =?utf-8?B?ZzJNVTZONjJWY01sTFo1K2cweHZKQkt5VG9EaWZNT0orSHhlZnEwRWFkc2I4?=
+ =?utf-8?B?VlNpVWJISmlYc2xJamVSRjdxRWJvK0VIWUtiUXBBUVBjN3lVK0xOMVRHdVhs?=
+ =?utf-8?B?RUhlOHJDM0ViSE5LejE5RFkvZExoNGxnV3prcVUySlNhWDJaeVJ5VXBDVEFF?=
+ =?utf-8?B?UVRhMGZaVUp5SUdBY1JSUmJPanlCRUhBK2NUT2oxbG1FTi9PT1daeStqUGVJ?=
+ =?utf-8?B?TFlQbUIvN2N5eG9KeGYvblA2cjMzdDVmSDRaazJRSHdMRTAwMm8xNDFNdEUv?=
+ =?utf-8?B?S0tTenRhLzVydmViUmprL05oV25CdWhxamZHT2YwT0NQMlowS2lIMnAxTS93?=
+ =?utf-8?B?OVdReWFjL0N3cWxjRUI1R0NOSURzU3RlRnROMUgwM0pyWlhxZ1ovODJMMnBP?=
+ =?utf-8?B?SVdxOWVMZFJnRGxhOHQ3N3lFdDFjcjJ2M0U0aDdxUHF1OFA3RnJHSVNublhr?=
+ =?utf-8?B?a3ZJYkloajZGRmU3Q3c4aWZkc3FsZTAvSVJ1c1lsQ2NIWHVVOGF5TjQ3b3Jk?=
+ =?utf-8?B?VlgvK1lsbzVOQ24yVmh1UERkRUczSU1XNXVJenFIcU4ybUd1TjRKZjdoaDUx?=
+ =?utf-8?B?TElmWUtJRWdNakE1UDNISlRnbWh4eU81VTN5R1hSTUg2RXltWmdPQXkrWGha?=
+ =?utf-8?B?ZHZlQU5xbDlEME9aUHVYNjQ5TjR1TnVoNEJvQlE5TitBQmgxb2FjSnRadFJS?=
+ =?utf-8?B?NE5RT1NPREk1aWhGYWMzQUdKUUEyZUtVenZvTUJsdmZWWDBoWHlKbkJFM1Vr?=
+ =?utf-8?B?SzJsa2JSeU4vaDQ1UnlwbWlVQVllODZFZllkY1ltQlNsWE9qRFdVUS85LzRY?=
+ =?utf-8?B?UEc3KzQ0QmQxRDkyeUgrdGtlR0RESHdmSlF4Q2YzdzR1TVl0SldBdW9WN1ln?=
+ =?utf-8?B?V1ZDSWt0Smt5ZVpTVmt6Lzg2WmpZeDFhbzNZQi9BN2xMbllBc3FEOWVwaStP?=
+ =?utf-8?B?ZWsyczkrcFJ6OTB2UTR3YVd5bkpQY1QweGduUXB6Z3lob0lJeXdsT1BHRU81?=
+ =?utf-8?B?Skoza0xpTmNIc2Y4V0JsMFlqckFVWmlWMUdsV2VUU2xMNEtYdFhyNm1sc0xk?=
+ =?utf-8?B?MS8yU20xVFBLMGFSRW5JOGgxL0oraGZsYnk1UEtyVGhnZmZ2S0ZTeFlKSmZz?=
+ =?utf-8?B?ajZMZG5oeEM0cURNUHliMXp2a2wvczFwRDNVZDBpbitDbGp3OXlNbnE5Z1FH?=
+ =?utf-8?B?dXpHZG5mS3lYbHhENkMvb0FaT25Pbks4YVNVK3dBMUp6RDNGOHdpdkF4ZlZn?=
+ =?utf-8?B?V3h4U2ppOUgzVEhGSVhYNzg3VTYyU1hwKzhOelptUVB6Q0s4cHNhSlNjYU5P?=
+ =?utf-8?Q?KtCLtvYK374F2dUV5ErkPRU4b?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f115fa07-38f6-4088-bb33-08db3a63933b
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7d1e301-648a-4b19-ea15-08db3a643251
 X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Apr 2023 08:05:55.1992 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Apr 2023 08:10:22.0664 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: whA0qtYh7POxUE7iW85sLehkD8FgWRj48dHhBMMR9KjLG0a3EEc2qZX05FgeW8Mh
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8229
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0Dubcb8U0m1DZ/8duDfOusd2hPfFLN/lgS79hUyzdG1emTPPn0n4VvneYu/Qz/4G
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6151
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,160 +125,172 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, maraeo@gmail.com, timur.kristof@gmail.com
+Cc: alexander.deucher@amd.com, David Airlie <airlied@gmail.com>,
+ maraeo@gmail.com, timur.kristof@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Am 09.04.23 um 20:59 schrieb Bas Nieuwenhuizen:
-> We have a list of all rings, so no sense writing the same loop N
-> times. With how often this gets called and how small the ring list
-> is the performance of this shouldn't matter.
+> We need to introduce a new version of the info struct because
+> libdrm_amdgpu forgot any versioning info in amdgpu_query_hw_ip_info
+> so the mesa<->libdrm_amdgpu interface can't handle increasing the
+> size.
 >
-> Note that some of the loops included some checking wrt harvesting.
-> That is redundant now, as those rings never get initialized and
-> hence never added to the adev->rings array.
+> This info would be used by radv to figure out when we need to
+> split a submission into multiple submissions. radv currently has
+> a limit of 192 which seems to work for most gfx submissions, but
+> is way too high for e.g. compute or sdma.
 
-We intentionally removed that because we wanted to get rid of adev->ring 
-in the long term. Please don't bring it back.
+Why do you need so many IBs in the first place?
 
+You can use sub-IBs since R600 and newer hw even supports a JUMP command 
+to chain IBs together IIRC.
+
+For the kernel UAPI you only need separate IBs if you have separate 
+properties on them, E.g. preamble or submitting to a different engine.
+
+Everything else just needs additional CPU overhead in the IOCTL.
+
+Regards,
 Christian.
 
 >
+> Because the kernel handling is just fine we can just use the v2
+> everywhere and have the return_size do the versioning for us,
+> with userspace interpreting 0 as unknown.
+>
+> Userspace implementation:
+> https://gitlab.freedesktop.org/bnieuwenhuizen/drm/-/tree/ib-rejection
+> https://gitlab.freedesktop.org/bnieuwenhuizen/mesa/-/tree/ib-rejection
+>
+> v2: Use base member in the new struct.
+>
+> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2498
 > Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+> Cc: David Airlie <airlied@gmail.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 61 ++++++-------------------
->   1 file changed, 15 insertions(+), 46 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 31 ++++++++++++++-----------
+>   include/uapi/drm/amdgpu_drm.h           | 14 +++++++++++
+>   2 files changed, 31 insertions(+), 14 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> index 0efb38539d70..89689b940493 100644
+> index 89689b940493..5b575e1aef1a 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -366,7 +366,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
+> @@ -360,7 +360,7 @@ static int amdgpu_firmware_info(struct drm_amdgpu_info_firmware *fw_info,
+>   
+>   static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
+>   			     struct drm_amdgpu_info *info,
+> -			     struct drm_amdgpu_info_hw_ip *result)
+> +			     struct drm_amdgpu_info_hw_ip2 *result)
+>   {
+>   	uint32_t ib_start_alignment = 0;
 >   	uint32_t ib_size_alignment = 0;
->   	enum amd_ip_block_type type;
->   	unsigned int num_rings = 0;
-> -	unsigned int i, j;
-> +	unsigned int i;
->   
->   	if (info->query_hw_ip.ip_instance >= AMDGPU_HW_IP_INSTANCE_MAX_COUNT)
->   		return -EINVAL;
-> @@ -374,83 +374,49 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
->   	switch (info->query_hw_ip.type) {
->   	case AMDGPU_HW_IP_GFX:
->   		type = AMD_IP_BLOCK_TYPE_GFX;
-> -		for (i = 0; i < adev->gfx.num_gfx_rings; i++)
-> -			if (adev->gfx.gfx_ring[i].sched.ready)
-> -				++num_rings;
-> +
->   		ib_start_alignment = 32;
->   		ib_size_alignment = 32;
->   		break;
->   	case AMDGPU_HW_IP_COMPUTE:
->   		type = AMD_IP_BLOCK_TYPE_GFX;
-> -		for (i = 0; i < adev->gfx.num_compute_rings; i++)
-> -			if (adev->gfx.compute_ring[i].sched.ready)
-> -				++num_rings;
-> +
->   		ib_start_alignment = 32;
->   		ib_size_alignment = 32;
->   		break;
->   	case AMDGPU_HW_IP_DMA:
->   		type = AMD_IP_BLOCK_TYPE_SDMA;
-> -		for (i = 0; i < adev->sdma.num_instances; i++)
-> -			if (adev->sdma.instance[i].ring.sched.ready)
-> -				++num_rings;
-> +
->   		ib_start_alignment = 256;
->   		ib_size_alignment = 4;
->   		break;
->   	case AMDGPU_HW_IP_UVD:
->   		type = AMD_IP_BLOCK_TYPE_UVD;
-> -		for (i = 0; i < adev->uvd.num_uvd_inst; i++) {
-> -			if (adev->uvd.harvest_config & (1 << i))
-> -				continue;
->   
-> -			if (adev->uvd.inst[i].ring.sched.ready)
-> -				++num_rings;
-> -		}
->   		ib_start_alignment = 64;
->   		ib_size_alignment = 64;
->   		break;
->   	case AMDGPU_HW_IP_VCE:
->   		type = AMD_IP_BLOCK_TYPE_VCE;
-> -		for (i = 0; i < adev->vce.num_rings; i++)
-> -			if (adev->vce.ring[i].sched.ready)
-> -				++num_rings;
-> +
->   		ib_start_alignment = 4;
->   		ib_size_alignment = 1;
->   		break;
->   	case AMDGPU_HW_IP_UVD_ENC:
->   		type = AMD_IP_BLOCK_TYPE_UVD;
-> -		for (i = 0; i < adev->uvd.num_uvd_inst; i++) {
-> -			if (adev->uvd.harvest_config & (1 << i))
-> -				continue;
->   
-> -			for (j = 0; j < adev->uvd.num_enc_rings; j++)
-> -				if (adev->uvd.inst[i].ring_enc[j].sched.ready)
-> -					++num_rings;
-> -		}
->   		ib_start_alignment = 64;
->   		ib_size_alignment = 64;
->   		break;
->   	case AMDGPU_HW_IP_VCN_DEC:
->   		type = AMD_IP_BLOCK_TYPE_VCN;
-> -		for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
-> -			if (adev->vcn.harvest_config & (1 << i))
-> -				continue;
->   
-> -			if (adev->vcn.inst[i].ring_dec.sched.ready)
-> -				++num_rings;
-> -		}
->   		ib_start_alignment = 16;
->   		ib_size_alignment = 16;
->   		break;
->   	case AMDGPU_HW_IP_VCN_ENC:
->   		type = AMD_IP_BLOCK_TYPE_VCN;
-> -		for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
-> -			if (adev->vcn.harvest_config & (1 << i))
-> -				continue;
->   
-> -			for (j = 0; j < adev->vcn.num_enc_rings; j++)
-> -				if (adev->vcn.inst[i].ring_enc[j].sched.ready)
-> -					++num_rings;
-> -		}
->   		ib_start_alignment = 64;
->   		ib_size_alignment = 1;
->   		break;
-> @@ -458,13 +424,6 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
->   		type = (amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_JPEG)) ?
->   			AMD_IP_BLOCK_TYPE_JPEG : AMD_IP_BLOCK_TYPE_VCN;
->   
-> -		for (i = 0; i < adev->jpeg.num_jpeg_inst; i++) {
-> -			if (adev->jpeg.harvest_config & (1 << i))
-> -				continue;
-> -
-> -			if (adev->jpeg.inst[i].ring_dec.sched.ready)
-> -				++num_rings;
-> -		}
->   		ib_start_alignment = 16;
->   		ib_size_alignment = 16;
->   		break;
-> @@ -472,6 +431,16 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
+> @@ -431,6 +431,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
 >   		return -EINVAL;
 >   	}
 >   
-> +	for (i = 0; i < adev->num_rings; ++i) {
-> +		/* Note that this uses that ring types alias the equivalent
-> +		 * HW IP exposes to userspace.
-> +		 */
-> +		if (adev->rings[i]->funcs->type == info->query_hw_ip.type &&
-> +		    adev->rings[i]->sched.ready) {
-> +			++num_rings;
-> +		}
-> +	}
+> +	result->max_ibs = UINT_MAX;
+>   	for (i = 0; i < adev->num_rings; ++i) {
+>   		/* Note that this uses that ring types alias the equivalent
+>   		 * HW IP exposes to userspace.
+> @@ -438,6 +439,8 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
+>   		if (adev->rings[i]->funcs->type == info->query_hw_ip.type &&
+>   		    adev->rings[i]->sched.ready) {
+>   			++num_rings;
+> +			result->max_ibs = min(result->max_ibs,
+> +					      adev->rings[i]->max_ibs);
+>   		}
+>   	}
+>   
+> @@ -452,36 +455,36 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
+>   	num_rings = min(amdgpu_ctx_num_entities[info->query_hw_ip.type],
+>   			num_rings);
+>   
+> -	result->hw_ip_version_major = adev->ip_blocks[i].version->major;
+> -	result->hw_ip_version_minor = adev->ip_blocks[i].version->minor;
+> +	result->base.hw_ip_version_major = adev->ip_blocks[i].version->major;
+> +	result->base.hw_ip_version_minor = adev->ip_blocks[i].version->minor;
+>   
+>   	if (adev->asic_type >= CHIP_VEGA10) {
+>   		switch (type) {
+>   		case AMD_IP_BLOCK_TYPE_GFX:
+> -			result->ip_discovery_version = adev->ip_versions[GC_HWIP][0];
+> +			result->base.ip_discovery_version = adev->ip_versions[GC_HWIP][0];
+>   			break;
+>   		case AMD_IP_BLOCK_TYPE_SDMA:
+> -			result->ip_discovery_version = adev->ip_versions[SDMA0_HWIP][0];
+> +			result->base.ip_discovery_version = adev->ip_versions[SDMA0_HWIP][0];
+>   			break;
+>   		case AMD_IP_BLOCK_TYPE_UVD:
+>   		case AMD_IP_BLOCK_TYPE_VCN:
+>   		case AMD_IP_BLOCK_TYPE_JPEG:
+> -			result->ip_discovery_version = adev->ip_versions[UVD_HWIP][0];
+> +			result->base.ip_discovery_version = adev->ip_versions[UVD_HWIP][0];
+>   			break;
+>   		case AMD_IP_BLOCK_TYPE_VCE:
+> -			result->ip_discovery_version = adev->ip_versions[VCE_HWIP][0];
+> +			result->base.ip_discovery_version = adev->ip_versions[VCE_HWIP][0];
+>   			break;
+>   		default:
+> -			result->ip_discovery_version = 0;
+> +			result->base.ip_discovery_version = 0;
+>   			break;
+>   		}
+>   	} else {
+> -		result->ip_discovery_version = 0;
+> +		result->base.ip_discovery_version = 0;
+>   	}
+> -	result->capabilities_flags = 0;
+> -	result->available_rings = (1 << num_rings) - 1;
+> -	result->ib_start_alignment = ib_start_alignment;
+> -	result->ib_size_alignment = ib_size_alignment;
+> +	result->base.capabilities_flags = 0;
+> +	result->base.available_rings = (1 << num_rings) - 1;
+> +	result->base.ib_start_alignment = ib_start_alignment;
+> +	result->base.ib_size_alignment = ib_size_alignment;
+>   	return 0;
+>   }
+>   
+> @@ -536,7 +539,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>   		}
+>   		return copy_to_user(out, &ui32, min(size, 4u)) ? -EFAULT : 0;
+>   	case AMDGPU_INFO_HW_IP_INFO: {
+> -		struct drm_amdgpu_info_hw_ip ip = {};
+> +		struct drm_amdgpu_info_hw_ip2 ip = {};
+>   		int ret;
+>   
+>   		ret = amdgpu_hw_ip_info(adev, info, &ip);
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+> index b6eb90df5d05..6b9e35b6f747 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -1128,6 +1128,9 @@ struct drm_amdgpu_info_device {
+>   	__u32 enabled_rb_pipes_mask_hi;
+>   };
+>   
+> +/* The size of this struct cannot be increased for compatibility reasons, use
+> + * struct drm_amdgpu_info_hw_ip2 instead.
+> + */
+>   struct drm_amdgpu_info_hw_ip {
+>   	/** Version of h/w IP */
+>   	__u32  hw_ip_version_major;
+> @@ -1144,6 +1147,17 @@ struct drm_amdgpu_info_hw_ip {
+>   	__u32  ip_discovery_version;
+>   };
+>   
+> +struct drm_amdgpu_info_hw_ip2 {
+> +	/** Previous version of the struct */
+> +	struct drm_amdgpu_info_hw_ip  base;
+> +	/** The maximum number of IBs one can submit in a single submission
+> +	 * ioctl. (When using gang submit: this is per IP type)
+> +	 */
+> +	__u32  max_ibs;
+> +	/** padding to 64bit for arch differences */
+> +	__u32  pad;
+> +};
 > +
->   	for (i = 0; i < adev->num_ip_blocks; i++)
->   		if (adev->ip_blocks[i].version->type == type &&
->   		    adev->ip_blocks[i].status.valid)
+>   struct drm_amdgpu_info_num_handles {
+>   	/** Max handles as supported by firmware for UVD */
+>   	__u32  uvd_max_handles;
 
