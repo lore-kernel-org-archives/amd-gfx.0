@@ -4,59 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEFB1C77B6E
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 17:29:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 121A7C77B6E
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 17:52:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D50710E8C3;
-	Wed, 12 Apr 2023 17:29:49 +0000 (UTC)
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0857010E8C3
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 17:29:46 +0000 (UTC)
-Received: by mail-ot1-x32c.google.com with SMTP id
- i15-20020a9d610f000000b006a11f365d13so5134158otj.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 10:29:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681320586; x=1683912586;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=VfPCKUUE0rSU2xccAhhwsQ4SYMeE9xy9VKDTQq2J+/I=;
- b=h0MK+7IORafuS0JMJsi+I7pTu0ez22+axvnpuKgJHzxYhgZRAfXJm0JMinY2Dx/L89
- k+O8JYgXFImV6p83Bn6YwyHlORE5oQf4LVeRCyW8lkQCuijH02z6etlYMqOVpYf9nOHM
- ZlE9qyX/SWslpL5QrQeCFOiglLiPcFEL5LtUw3URharojJs9izNtLzIGrOq6dS8Tp9lg
- CUi3xXwPXpleb5T9GdKJB3KA9OD72dL5thN50YlIQTXy+F5MIXWjfWo9n9zWIqSB8xAS
- SwVBNr0bVOejGedFMLgvMh6XPiz9wD/hyitylQuxAcQ6gKNTk3LHEy6s6DJIlj9HF8ri
- U5OQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681320586; x=1683912586;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=VfPCKUUE0rSU2xccAhhwsQ4SYMeE9xy9VKDTQq2J+/I=;
- b=CB3O3f4KTaTX596Di4/sMvOeA1nXXctEspaCl3FZJxHoNhR7wrYmR7CwGCVepnPoYg
- RnNzFuGB3keUQV9iCpFEGSwDEV41WD9UEMHiM6ax4ruYkCemXa97IzvN2aKN9Zvw5Uhc
- j6lJa4es3vm+lORjFGTGg72F+YjV53qaXE98c3FRLuhFKBprlGv3b1SXjOATuoX7f6uu
- /b7UmYZ8YKUHx8s3ds+vNjndfTnBFMP/IH9M54eSYuRJ+HrHASwGWM+g+vfxwsJSIevq
- 60fbcvMv0Gd+tKX+aLREfRvExTcXmwYMf/TDeEbUAas9M+qgZOzRt0R0hyd2ViO7WGRG
- h8AQ==
-X-Gm-Message-State: AAQBX9fm2Ha1Lxsi+9ktEyJrCRBcJ3KuBI1peS+E9XwggYILbWo1EOFD
- BPtr3Z7mAnwcl9qhf4hautHup/r8jIrBnJ1UfD4=
-X-Google-Smtp-Source: AKy350Y7SXDAwsP8fXewh9qFud3onI/Uvvw70q3Ibstz0g5KecWwpyFZfLXuZMMRh4QIudsxZrBsir8tDfiZaPDXAK4=
-X-Received: by 2002:a9d:75d9:0:b0:69e:aa7:6b71 with SMTP id
- c25-20020a9d75d9000000b0069e0aa76b71mr1008476otl.3.1681320586052; Wed, 12 Apr
- 2023 10:29:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1267C10E8F2;
+	Wed, 12 Apr 2023 17:52:29 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E90810E821;
+ Wed, 12 Apr 2023 17:52:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1681321947; x=1712857947;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=TIYs4ZIk35TXWTPd2ztjdk8cMzBEHCggjBsOZcucAJ8=;
+ b=KRcFWHijGwE+zgye527VwBO1i/Oo0l0WYC0r/Q+1lm91quGtShYINpZA
+ bp5gkQtZ47zQ2RTWy46Co71ZOJExIDS6WdvFFsmbk7mZfhGvlkUc7Rc2D
+ Ld26xroDdA7ensFMUkMLkUeOJiNoLEeVt2g/4VZJKQqvVjIGCSlzI/+6B
+ tjEt6xBPW4BkjQUXLCOwU9SPj9fvbEbDEB4RdMj5paT/3Jn30bv4qpBZr
+ Zud8Vr2jsufhrpHtJ1DW3YvlRDBjIPAOYtupAdYNqIoFrEfs1J3HRZCx7
+ Aeah+wy/Bt8zPFBN6yEWbT4RQkoTUvob1xeNme2CAHA+BxHCjaf0d/LKA w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="345763364"
+X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="345763364"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Apr 2023 10:52:25 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="682575524"
+X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="682575524"
+Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
+ by orsmga007.jf.intel.com with ESMTP; 12 Apr 2023 10:52:20 -0700
+Received: from kbuild by b613635ddfff with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pmedo-000Xxf-0F;
+ Wed, 12 Apr 2023 17:52:20 +0000
+Date: Thu, 13 Apr 2023 01:51:55 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 7d8214bba44c1aa6a75921a09a691945d26a8d43
+Message-ID: <6436efbb.08+e+yEDqvRxvHDP%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-References: <20230405112921.3690452-1-aaron.liu@amd.com>
- <de75d47e-169c-3302-8501-f0bdf5323346@amd.com>
-In-Reply-To: <de75d47e-169c-3302-8501-f0bdf5323346@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 12 Apr 2023 13:29:34 -0400
-Message-ID: <CADnq5_M5uvtiVdwewi7JoTHVZQBHffzQZgsu3FAbbP0nXcYn7g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: skip kfd-iommu suspend/resume for S0ix
-To: "Limonciello, Mario" <mario.limonciello@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,54 +58,347 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Liang,
- Prike" <Prike.Liang@amd.com>, "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Liu,
- Aaron" <Aaron.Liu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: linux-hwmon@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ linux-acpi@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-wireless@vger.kernel.org,
+ linux-csky@vger.kernel.org, Linux Memory Management List <linux-mm@kvack.org>,
+ linux-bluetooth@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 5, 2023 at 6:06=E2=80=AFPM Limonciello, Mario
-<mario.limonciello@amd.com> wrote:
->
-> On 4/5/2023 06:29, Liu, Aaron wrote:
-> > GFX is in gfxoff mode during s0ix so we shouldn't need to
-> > actually execute kfd_iommu_suspend/kfd_iommu_resume operation.
-> >
-> > Signed-off-by: Aaron Liu <aaron.liu@amd.com>
-> > ---
-> Probably should add to this patch:
->
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2449
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 7d8214bba44c1aa6a75921a09a691945d26a8d43  Add linux-next specific files for 20230412
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Error/Warning reports:
 
->
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 +++++---
-> >   1 file changed, 5 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_device.c
-> > index 3b6b85d9e0be..5094be94fa06 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > @@ -3304,9 +3304,11 @@ static int amdgpu_device_ip_resume(struct amdgpu=
-_device *adev)
-> >   {
-> >          int r;
-> >
-> > -       r =3D amdgpu_amdkfd_resume_iommu(adev);
-> > -       if (r)
-> > -               return r;
-> > +       if (!adev->in_s0ix) {
-> > +               r =3D amdgpu_amdkfd_resume_iommu(adev);
-> > +               if (r)
-> > +                       return r;
-> > +       }
-> >
-> >          r =3D amdgpu_device_ip_resume_phase1(adev);
-> >          if (r)
-> > --
-> > 2.39.0
-> >
->
+https://lore.kernel.org/oe-kbuild-all/202303161521.jbGbaFjJ-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202304061839.hi01VPl1-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202304102354.Q4VOXGTE-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202304112044.8NzKpvxM-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202304121606.ltRFyuij-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202304121702.bav49HFN-lkp@intel.com
+
+Error/Warning: (recently discovered and may have been fixed)
+
+Error: failed to load BTF from vmlinux: No data available
+arch/arm/vfp/entry.S:27: undefined reference to `vfp_entry'
+arch/csky/abiv2/cacheflush.c:15:9: error: implicit declaration of function 'flush_tlb_page'; did you mean 'flush_anon_page'? [-Werror=implicit-function-declaration]
+diff: tools/arch/s390/include/uapi/asm/ptrace.h: No such file or directory
+drivers/bluetooth/hci_qca.c:1894:37: warning: unused variable 'qca_soc_data_wcn6855' [-Wunused-const-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_validation.c:351:13: warning: variable 'bw_needed' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_validation.c:352:25: warning: variable 'link' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h:62: warning: wrong kernel-doc identifier on line:
+drivers/gpu/drm/i915/i915_pmu.h:41: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+drivers/gpu/drm/i915/i915_request.h:176: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+drivers/gpu/drm/i915/i915_vma.h:145: warning: expecting prototype for i915_vma_offset(). Prototype was for i915_vma_size() instead
+drivers/net/wireless/legacy/ray_cs.c:628:17: warning: 'strncpy' specified bound 32 equals destination size [-Wstringop-truncation]
+drivers/tty/serial/samsung_tty.c:2034:10: error: implicit declaration of function 'of_device_get_match_data' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+drivers/tty/serial/samsung_tty.c:2034:10: warning: incompatible integer to pointer conversion returning 'int' from a function with result type 'const struct s3c24xx_serial_drv_data *' [-Wint-conversion]
+drivers/tty/serial/samsung_tty.c:2034:24: error: implicit declaration of function 'of_device_get_match_data'; did you mean 'device_get_match_data'? [-Werror=implicit-function-declaration]
+drivers/tty/serial/samsung_tty.c:2034:24: warning: returning 'int' from a function with return type 'const struct s3c24xx_serial_drv_data *' makes pointer from integer without a cast [-Wint-conversion]
+make[3]: *** No rule to make target 'zip.h', needed by '/tools/build/libbpf/sharedobjs/libbpf.o'.
+make[3]: *** No rule to make target 'zip.h', needed by '/tools/build/libbpf/staticobjs/libbpf.o'.
+make[4]: *** No rule to make target 'zip.h', needed by 'kselftest/net/tools/build/libbpf/sharedobjs/libbpf.o'.
+make[4]: *** No rule to make target 'zip.h', needed by 'kselftest/net/tools/build/libbpf/staticobjs/libbpf.o'.
+membarrier_test_impl.h:27:30: error: 'MEMBARRIER_CMD_GET_REGISTRATIONS' undeclared (first use in this function)
+mount_setattr_test.c:107:8: error: redefinition of 'struct mount_attr'
+thermal_nl.h:6:10: fatal error: netlink/netlink.h: No such file or directory
+thermometer.c:21:10: fatal error: libconfig.h: No such file or directory
+
+Unverified Error/Warning (likely false positive, please contact us if interested):
+
+drivers/acpi/property.c:985 acpi_data_prop_read_single() error: potentially dereferencing uninitialized 'obj'.
+drivers/crypto/intel/qat/qat_common/adf_cfg.c:262 adf_cfg_add_key_value_param() warn: argument 4 to %lx specifier is cast from pointer
+drivers/hwmon/pmbus/pmbus_core.c:3164:7-32: WARNING: Threaded IRQ with no primary handler requested without IRQF_ONESHOT (unless it is nested IRQ)
+drivers/soc/fsl/qe/tsa.c:140:26: sparse: sparse: incorrect type in argument 2 (different address spaces)
+drivers/soc/fsl/qe/tsa.c:150:27: sparse: sparse: incorrect type in argument 1 (different address spaces)
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|   `-- drivers-net-wireless-legacy-ray_cs.c:warning:strncpy-specified-bound-equals-destination-size
+|-- alpha-randconfig-c023-20230409
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- alpha-randconfig-r016-20230409
+|   |-- drivers-tty-serial-samsung_tty.c:error:implicit-declaration-of-function-of_device_get_match_data
+|   `-- drivers-tty-serial-samsung_tty.c:warning:returning-int-from-a-function-with-return-type-const-struct-s3c24xx_serial_drv_data-makes-pointer-from-integer-without-a-cast
+|-- alpha-randconfig-r023-20230410
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- arc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- arm-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- arm-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- arm-keystone_defconfig
+|   `-- arch-arm-vfp-entry.S:undefined-reference-to-vfp_entry
+|-- arm64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- csky-defconfig
+|   `-- arch-csky-abiv2-cacheflush.c:error:implicit-declaration-of-function-flush_tlb_page
+|-- csky-randconfig-r013-20230409
+|   `-- arch-csky-abiv2-cacheflush.c:error:implicit-declaration-of-function-flush_tlb_page
+|-- i386-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- i386-randconfig-m021
+|   |-- drivers-acpi-property.c-acpi_data_prop_read_single()-error:potentially-dereferencing-uninitialized-obj-.
+|   `-- drivers-crypto-intel-qat-qat_common-adf_cfg.c-adf_cfg_add_key_value_param()-warn:argument-to-lx-specifier-is-cast-from-pointer
+|-- ia64-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|   `-- drivers-net-wireless-legacy-ray_cs.c:warning:strncpy-specified-bound-equals-destination-size
+|-- ia64-buildonly-randconfig-r005-20230409
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- ia64-randconfig-c44-20230409
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- ia64-randconfig-m031-20230410
+|   `-- drivers-crypto-intel-qat-qat_common-adf_cfg.c-adf_cfg_add_key_value_param()-warn:argument-to-lx-specifier-is-cast-from-pointer
+|-- ia64-randconfig-r002-20230410
+|   |-- drivers-tty-serial-samsung_tty.c:error:implicit-declaration-of-function-of_device_get_match_data
+|   `-- drivers-tty-serial-samsung_tty.c:warning:returning-int-from-a-function-with-return-type-const-struct-s3c24xx_serial_drv_data-makes-pointer-from-integer-without-a-cast
+|-- loongarch-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- loongarch-defconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- loongarch-randconfig-r032-20230409
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- mips-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- mips-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- parisc-randconfig-r003-20230412
+|   |-- drivers-tty-serial-samsung_tty.c:error:implicit-declaration-of-function-of_device_get_match_data
+|   `-- drivers-tty-serial-samsung_tty.c:warning:returning-int-from-a-function-with-return-type-const-struct-s3c24xx_serial_drv_data-makes-pointer-from-integer-without-a-cast
+|-- parisc-randconfig-r034-20230410
+|   |-- drivers-tty-serial-samsung_tty.c:error:implicit-declaration-of-function-of_device_get_match_data
+|   `-- drivers-tty-serial-samsung_tty.c:warning:returning-int-from-a-function-with-return-type-const-struct-s3c24xx_serial_drv_data-makes-pointer-from-integer-without-a-cast
+|-- parisc-randconfig-s053-20230409
+|   |-- drivers-tty-serial-samsung_tty.c:error:implicit-declaration-of-function-of_device_get_match_data
+|   `-- drivers-tty-serial-samsung_tty.c:warning:returning-int-from-a-function-with-return-type-const-struct-s3c24xx_serial_drv_data-makes-pointer-from-integer-without-a-cast
+|-- powerpc-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- powerpc-randconfig-s033-20230411
+|   |-- drivers-soc-fsl-qe-tsa.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-const-noderef-__iomem-addr-got-void-noderef-__iomem-addr
+|   `-- drivers-soc-fsl-qe-tsa.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-noderef-__iomem-addr-got-void-noderef-__iomem-addr
+|-- riscv-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- riscv-randconfig-r042-20230410
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- s390-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- sparc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|   `-- drivers-net-wireless-legacy-ray_cs.c:warning:strncpy-specified-bound-equals-destination-size
+|-- sparc-randconfig-c041-20230409
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- x86_64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- x86_64-randconfig-c002
+|   `-- drivers-hwmon-pmbus-pmbus_core.c:WARNING:Threaded-IRQ-with-no-primary-handler-requested-without-IRQF_ONESHOT-(unless-it-is-nested-IRQ)
+`-- x86_64-randconfig-k001-20230410
+    |-- Error:failed-to-load-BTF-from-vmlinux:No-data-available
+    |-- diff:tools-arch-s390-include-uapi-asm-ptrace.h:No-such-file-or-directory
+    |-- make:No-rule-to-make-target-zip.h-needed-by-kselftest-net-tools-build-libbpf-sharedobjs-libbpf.o-.
+    |-- make:No-rule-to-make-target-zip.h-needed-by-kselftest-net-tools-build-libbpf-staticobjs-libbpf.o-.
+    |-- make:No-rule-to-make-target-zip.h-needed-by-tools-build-libbpf-sharedobjs-libbpf.o-.
+    |-- make:No-rule-to-make-target-zip.h-needed-by-tools-build-libbpf-staticobjs-libbpf.o-.
+    |-- membarrier_test_impl.h:error:MEMBARRIER_CMD_GET_REGISTRATIONS-undeclared-(first-use-in-this-function)
+    |-- mount_setattr_test.c:error:redefinition-of-struct-mount_attr
+    |-- thermal_nl.h:fatal-error:netlink-netlink.h:No-such-file-or-directory
+    `-- thermometer.c:fatal-error:libconfig.h:No-such-file-or-directory
+clang_recent_errors
+|-- hexagon-randconfig-r005-20230410
+|   `-- drivers-bluetooth-hci_qca.c:warning:unused-variable-qca_soc_data_wcn6855
+|-- i386-buildonly-randconfig-r004-20230410
+|   |-- drivers-tty-serial-samsung_tty.c:error:implicit-declaration-of-function-of_device_get_match_data-is-invalid-in-C99-Werror-Wimplicit-function-declaration
+|   `-- drivers-tty-serial-samsung_tty.c:warning:incompatible-integer-to-pointer-conversion-returning-int-from-a-function-with-result-type-const-struct-s3c24xx_serial_drv_data
+|-- x86_64-randconfig-a003-20230410
+|   `-- drivers-bluetooth-hci_qca.c:warning:unused-variable-qca_soc_data_wcn6855
+|-- x86_64-randconfig-a005-20230410
+|   |-- drivers-gpu-drm-i915-gt-uc-guc_capture_fwif.h:warning:wrong-kernel-doc-identifier-on-line:
+|   |-- drivers-gpu-drm-i915-i915_pmu.h:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   |-- drivers-gpu-drm-i915-i915_request.h:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+|   `-- drivers-gpu-drm-i915-i915_vma.h:warning:expecting-prototype-for-i915_vma_offset().-Prototype-was-for-i915_vma_size()-instead
+`-- x86_64-randconfig-r033-20230410
+    `-- drivers-bluetooth-hci_qca.c:warning:unused-variable-qca_soc_data_wcn6855
+
+elapsed time: 722m
+
+configs tested: 145
+configs skipped: 9
+
+tested configs:
+alpha                            allyesconfig   gcc  
+alpha                               defconfig   gcc  
+alpha                randconfig-r002-20230409   gcc  
+alpha                randconfig-r016-20230409   gcc  
+alpha                randconfig-r023-20230410   gcc  
+alpha                randconfig-r026-20230410   gcc  
+arc                              allyesconfig   gcc  
+arc                                 defconfig   gcc  
+arc                  randconfig-r005-20230411   gcc  
+arc                  randconfig-r005-20230412   gcc  
+arc                  randconfig-r033-20230409   gcc  
+arc                  randconfig-r036-20230410   gcc  
+arc                  randconfig-r043-20230409   gcc  
+arc                  randconfig-r043-20230410   gcc  
+arm                              allmodconfig   gcc  
+arm                              allyesconfig   gcc  
+arm          buildonly-randconfig-r001-20230409   clang
+arm          buildonly-randconfig-r005-20230410   clang
+arm                                 defconfig   gcc  
+arm                  randconfig-r012-20230409   clang
+arm                  randconfig-r046-20230409   clang
+arm                  randconfig-r046-20230410   clang
+arm64                            allyesconfig   gcc  
+arm64                               defconfig   gcc  
+arm64                randconfig-r001-20230410   clang
+arm64                randconfig-r004-20230411   gcc  
+arm64                randconfig-r016-20230410   gcc  
+arm64                randconfig-r022-20230410   gcc  
+csky                                defconfig   gcc  
+csky                 randconfig-r013-20230409   gcc  
+hexagon      buildonly-randconfig-r003-20230409   clang
+hexagon              randconfig-r005-20230410   clang
+hexagon              randconfig-r011-20230409   clang
+hexagon              randconfig-r041-20230409   clang
+hexagon              randconfig-r041-20230410   clang
+hexagon              randconfig-r045-20230409   clang
+hexagon              randconfig-r045-20230410   clang
+i386                             allyesconfig   gcc  
+i386         buildonly-randconfig-r003-20230410   clang
+i386         buildonly-randconfig-r004-20230410   clang
+i386                              debian-10.3   gcc  
+i386                                defconfig   gcc  
+i386                 randconfig-a001-20230410   clang
+i386                 randconfig-a002-20230410   clang
+i386                 randconfig-a003-20230410   clang
+i386                 randconfig-a004-20230410   clang
+i386                 randconfig-a005-20230410   clang
+i386                 randconfig-a006-20230410   clang
+i386                 randconfig-a011-20230410   gcc  
+i386                 randconfig-a012-20230410   gcc  
+i386                 randconfig-a013-20230410   gcc  
+i386                 randconfig-a014-20230410   gcc  
+i386                 randconfig-a015-20230410   gcc  
+i386                 randconfig-a016-20230410   gcc  
+ia64                             allmodconfig   gcc  
+ia64         buildonly-randconfig-r005-20230409   gcc  
+ia64                                defconfig   gcc  
+ia64                 randconfig-r002-20230410   gcc  
+ia64                 randconfig-r022-20230409   gcc  
+loongarch                        allmodconfig   gcc  
+loongarch                         allnoconfig   gcc  
+loongarch                           defconfig   gcc  
+loongarch            randconfig-r014-20230410   gcc  
+loongarch            randconfig-r024-20230409   gcc  
+loongarch            randconfig-r032-20230409   gcc  
+m68k                             allmodconfig   gcc  
+m68k                                defconfig   gcc  
+m68k                 randconfig-r001-20230412   gcc  
+m68k                 randconfig-r004-20230412   gcc  
+m68k                 randconfig-r031-20230410   gcc  
+m68k                 randconfig-r035-20230409   gcc  
+m68k                 randconfig-r035-20230410   gcc  
+microblaze           randconfig-r001-20230411   gcc  
+microblaze           randconfig-r002-20230412   gcc  
+mips                             allmodconfig   gcc  
+mips                             allyesconfig   gcc  
+mips                 randconfig-r011-20230410   clang
+mips                 randconfig-r021-20230409   clang
+mips                 randconfig-r032-20230410   gcc  
+nios2                               defconfig   gcc  
+nios2                randconfig-r002-20230411   gcc  
+nios2                randconfig-r003-20230411   gcc  
+nios2                randconfig-r014-20230409   gcc  
+openrisc     buildonly-randconfig-r004-20230409   gcc  
+parisc                              defconfig   gcc  
+parisc               randconfig-r003-20230412   gcc  
+parisc               randconfig-r006-20230412   gcc  
+parisc               randconfig-r015-20230409   gcc  
+parisc               randconfig-r023-20230409   gcc  
+parisc               randconfig-r034-20230410   gcc  
+parisc64                            defconfig   gcc  
+powerpc                          allmodconfig   gcc  
+powerpc                           allnoconfig   gcc  
+powerpc      buildonly-randconfig-r002-20230410   gcc  
+powerpc      buildonly-randconfig-r006-20230409   gcc  
+powerpc              randconfig-r006-20230409   clang
+riscv                            allmodconfig   gcc  
+riscv                             allnoconfig   gcc  
+riscv                               defconfig   gcc  
+riscv                randconfig-r001-20230409   clang
+riscv                randconfig-r003-20230410   clang
+riscv                randconfig-r004-20230409   clang
+riscv                randconfig-r006-20230411   gcc  
+riscv                randconfig-r024-20230410   gcc  
+riscv                randconfig-r042-20230409   gcc  
+riscv                randconfig-r042-20230410   gcc  
+riscv                          rv32_defconfig   gcc  
+s390                             allmodconfig   gcc  
+s390                             allyesconfig   gcc  
+s390         buildonly-randconfig-r002-20230409   gcc  
+s390                                defconfig   gcc  
+s390                 randconfig-r026-20230409   gcc  
+s390                 randconfig-r044-20230409   gcc  
+s390                 randconfig-r044-20230410   gcc  
+sh                               allmodconfig   gcc  
+sh                   randconfig-r004-20230410   gcc  
+sh                   randconfig-r012-20230410   gcc  
+sh                   randconfig-r013-20230410   gcc  
+sh                   randconfig-r025-20230409   gcc  
+sparc                               defconfig   gcc  
+sparc                randconfig-r031-20230409   gcc  
+sparc64              randconfig-r025-20230410   gcc  
+um                             i386_defconfig   gcc  
+um                           x86_64_defconfig   gcc  
+x86_64                            allnoconfig   gcc  
+x86_64                           allyesconfig   gcc  
+x86_64                              defconfig   gcc  
+x86_64                                  kexec   gcc  
+x86_64               randconfig-a001-20230410   clang
+x86_64               randconfig-a002-20230410   clang
+x86_64               randconfig-a003-20230410   clang
+x86_64               randconfig-a004-20230410   clang
+x86_64               randconfig-a005-20230410   clang
+x86_64               randconfig-a006-20230410   clang
+x86_64               randconfig-a011-20230410   gcc  
+x86_64               randconfig-a012-20230410   gcc  
+x86_64               randconfig-a013-20230410   gcc  
+x86_64               randconfig-a014-20230410   gcc  
+x86_64               randconfig-a015-20230410   gcc  
+x86_64               randconfig-a016-20230410   gcc  
+x86_64               randconfig-r006-20230410   clang
+x86_64               randconfig-r021-20230410   gcc  
+x86_64               randconfig-r033-20230410   clang
+x86_64                               rhel-8.3   gcc  
+xtensa               randconfig-r005-20230409   gcc  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
