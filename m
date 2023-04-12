@@ -4,114 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69949C7619A
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 08:31:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81BD8C77B6E
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 08:31:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDC2810E734;
-	Wed, 12 Apr 2023 08:31:25 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2064.outbound.protection.outlook.com [40.107.223.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C68710E734
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 08:31:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B54F10E73B;
+	Wed, 12 Apr 2023 08:31:52 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20601.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eae::601])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C6BE10E738
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 08:31:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KEsci26nhWnZwKMA3skiaKLKnEXAJ/xAJHY+zOGlNDcUdNTVlyJ5fzRhGdWdovfDWOuZ58WWcK4YgVVb7qBx7Q/YNEDmswQ5Rlfsz4xf4z4vKdhL2d1dxhlYghJkI2eL1Ln5HU4LfNEzVn8X592R2vSOw4+ufQvr63dwtIKr5ICKaVGVp7/X6IvPij13xee2KPDsmKjrWIYO5MUqhWowy9IM77XNahW+lhvPXSZujOurC48H4Yj5+ROIzEoF+17+r+txEDUQ20N2HDpew4dNBK6/qzdzh70pFWIKzon/KCu5JOw3nn1mkq96D4CdbVmNi9Thda/vUIeGvxeH3zBJbQ==
+ b=iQJZqKPdFad/rQb8lHh4uLosSIAAAKe/skHXhZX0XPVDPCn4dmrCvBSbIl7YHmg6qOTES/N3/6axQAEBo+EnsgLnl9+vhy6FJbACjhCFh5rnJrQz5g6DJbY94vnxScktq5MeZ9gPM+OrVrrgDu2RfIodZkGkH1ewokBXJStfYlkGCnmtoSrYsjPD3fzCbdtfAAXViqhvXaCwQAg+F8P1w6upZN6yRX77/Gdvspgcajul1lduQbgNsypTZ9a3PrfTeQuiqQXBTGXoh72y0QlwAiNaR0dmxIxIiwzO56hlPLF3PgWOUGXE64KQK89GCwJxIkj5+aLW0IrrZ6UID4hLeg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=haK7UuNoeyz0Dh87O2WntFHwONnuJVEAyB3fJcdQJOw=;
- b=PaYmkqJRAKITOL9A+XTob/wPjO/X3IMjgerpBx3FIluhiuXiV0ffdrPtMJLOdjJkGgFNQ4qXKfj/5KfdSy9yTGdN1ASsj2847F/XI6/2SwLvdqczuVPl6Lbqwh4RKiu2NRRhUapn3foG3OQUNKmiwV2LaigBwngfyrNOpjOQuDHWPqWYnag7ZhbcarfKzsEO1Ix1+1D1hffr3flgf4604mPFPA0mJPCJLIJaT1LDMHfvP41bltTPV62s+dC2tOlW2MUja/07YSYKSJdZ/mKjQhfEL/Vi5ErGI1uLX4tgOgnaIn3ACveNFg9r2Kfq6ru1BGodgUA/jBVN1U8WyKZYAQ==
+ bh=yaX6qO2rcnm6cet05CTIxSsi2bxtnA/rK3YXPdGR/dk=;
+ b=QAWde6javubFc1cwpTKs61oZ+XSk98G91CTLM/FDbH5ZACNbl5SXCU9sA1MjpuUiLgMqLLQfrragwQ0kfVksoYo9u6S2K9EL4u7QVRIUiTEWqcsH1cq9W5nmdwzBbBCOMiq+FHj/0pnilNILgjffUEVK1mxaWssNpe7HL/xHAO3Ksy8DxGGew+Nsvnl4fjKRqzCjrLVWQiQDZSI784AtXqGbZYM/guLl3ve0jpXOHysKE9EChHRycIPunjW+d49u53OJs6u0NCkt9zrQKrO/yeZny8djA7+pffOYOanP2gb/+//f4+foAoj8KhG7aQ+pkNSqG2zTBxo2AmbdTw3+mA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=haK7UuNoeyz0Dh87O2WntFHwONnuJVEAyB3fJcdQJOw=;
- b=WL7vhPRCMnhQlzNFSeNb5a9mzwxyuXyKWUa4LE72ti/bG2JKFBkjoi8RSPE3l3n8bPotsOHAde7H6K/iBXiDMafLqZAgfvhNxUd2SgkMM6B9wesAtRYbOgXZRLD+2hh+VrSrH56abSVTnYls12fwhyv61HOm+QDVemfLjV1dicA=
+ bh=yaX6qO2rcnm6cet05CTIxSsi2bxtnA/rK3YXPdGR/dk=;
+ b=XQhNPSaOJEZ86i4odjsNqqRPK+A9HPjS2bSxgQUCsjIbJNK9hMeJoHjfuHIWRR9c9Ly7DAuf05dfotvaQ9NVaxa7LY69+3JT/xodD96/Lwu2syn8fcOnuuJGeleN1Woa7ZI/s/Zsq4nSgjotjLhK37QLcQ1debnybKgvhjjbrGM=
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DS7PR12MB8249.namprd12.prod.outlook.com (2603:10b6:8:ea::16) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6277.35; Wed, 12 Apr 2023 08:31:22 +0000
+ SJ2PR12MB8133.namprd12.prod.outlook.com (2603:10b6:a03:4af::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.38; Wed, 12 Apr
+ 2023 08:31:43 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::f005:3ff3:4f85:d51c]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::f005:3ff3:4f85:d51c%5]) with mapi id 15.20.6277.036; Wed, 12 Apr 2023
- 08:31:21 +0000
+ 08:31:43 +0000
 From: "Quan, Evan" <Evan.Quan@amd.com>
 To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander"
  <Alexander.Deucher@amd.com>, "Zhang, Yifan" <Yifan1.Zhang@amd.com>
-Subject: RE: drm/amdgpu/gfx9: change the reference clock for raven/raven2
-Thread-Topic: drm/amdgpu/gfx9: change the reference clock for raven/raven2
-Thread-Index: Adls3Y+sz5H9A9DYT5SiI0Mz/SeAiAAOzOZA
-Date: Wed, 12 Apr 2023 08:31:21 +0000
-Message-ID: <DM6PR12MB2619F7BDC5706E527A096AF9E49B9@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <DM4PR12MB51527E447D080F457A43B415E39B9@DM4PR12MB5152.namprd12.prod.outlook.com>
-In-Reply-To: <DM4PR12MB51527E447D080F457A43B415E39B9@DM4PR12MB5152.namprd12.prod.outlook.com>
+Subject: RE: drm/amdgpu/gfx9: switch to golden tsc registers for raven/raven2
+Thread-Topic: drm/amdgpu/gfx9: switch to golden tsc registers for raven/raven2
+Thread-Index: Adls3RpnQ/cq4B8wTZCxajUc9u46LgAPA8zQ
+Date: Wed, 12 Apr 2023 08:31:43 +0000
+Message-ID: <DM6PR12MB2619340A18FC0FE1A304488BE49B9@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <DM4PR12MB515262B810158F1D3C6E8324E39B9@DM4PR12MB5152.namprd12.prod.outlook.com>
+In-Reply-To: <DM4PR12MB515262B810158F1D3C6E8324E39B9@DM4PR12MB5152.namprd12.prod.outlook.com>
 Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-04-12T08:31:18Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-04-12T08:31:41Z; 
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=5cc8049a-6845-4f25-8bc4-f1982198c770;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=92f783d2-82c1-4720-b37d-d74262cb2702;
  MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB2619:EE_|DS7PR12MB8249:EE_
-x-ms-office365-filtering-correlation-id: e415e119-13a1-4f66-4cac-08db3b304b8f
+x-ms-traffictypediagnostic: DM6PR12MB2619:EE_|SJ2PR12MB8133:EE_
+x-ms-office365-filtering-correlation-id: ee3bd8f4-baba-462d-8b27-08db3b3058d4
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: gv4fLyh7rQUxWnq8gDWah9VoigJEx4j1Xk0HR4hiIVrAQ+pov1XNpHHB/hbUFolCb/36S3xCfalcAUGwv9Z4YxRm1APubxsHz0SzVfhWWBs91CL53UR6HPLa1ECNEwMyxS3Yi/aDMDFM+7pzo7rJ36ijf1pKSrN22qiErDc7eSG72BXY9+JKRCDS5Rfv0K9709WAqe1QMjj+t4PtNwEBB4HdQ+R/oBKW9SsEviVkp2rz3rbp/JvRyucT9S6ODFfIFcHLI/wEtxzCnGd7jr2Cy0Aumhixeqite/uiZX/PEapexe99iZIz9aBff91cDawEVrumX03llhK8+YsnFvBrAsSrMQ5aZbV+mePi1rkaYxT2KV2Y6M4gszpUO5yTfY560+CWGES8UlcTi6k6HT8RHuhPdW0Udt/jToTG+6fK6raiNEr1eRIME6+tsnnxlkTeofc9D20K4t27TWxo4t9BMo0XmkmGa0lC2+UiVfPYakBOchrA5XkOZWSMYVShxfXFBCT7ApXoW6+VOtPXvSWjnhhjyDfthb/c2wM/nyB+p918FBgjtT+XIC1SsNGKGAY+4uONkyiniLW8ZPg0xBFDcTXYCp1JAxrWUbrArYp2JfAGKKpQlgUfPCPFZmDvArqa
+x-microsoft-antispam-message-info: hHVc2cBVGNsQQQSwUjcXMCdE+ofIcz3LoPdpykN9X5ku+3ioQ9nLI+/fj6d75stQMk6EE+wDTImzm4t8EWyWUZsFDyk2lYuUWFUQ7b5jr77hRuns7q0gp6WHlc2Svs/emqaJ82NYqd8ZlesUwmvuPODvtvmWLkfuCMnUUwJmF91w4ugDoS6pLVa2SD2lplDmGBf8LjiLm8RCa2LdN9fWAaFHtXfBaP4ncFXlKvLRniLvXHqmkg4GgADv6zf0+/KBKVBwisbJ1vxKFFkqZC7iYQCQZV1ACowQR0jcRwiIuSlocfQWdUO8l7i2gg5KgMMJmoGuLjW9t9Q7DsjOWXf6jwSWawBAzoHBDUHelADTsdcELa99pImoJuKtLnSaIbOsGWtAN2BWk8na5qs567E/C8eNaGVia1BnWuz/EpNMEnQEirqGhMlScrc4Itd6mQ+B7zoVQAX4QvkTchzJUnEHzLu9Ry4X8zWWdo01HTX9lVPUPnSB76YqINyMvQXwC5+YtcULcWnhSE/SVkg90iFrT2FEaDNXMohI8+G/tq5m+4sCfg21xhcRHTOXhjCPLCbOXB7Ew2ewLO6IhROZ+XozVjfvkuDg4bCz9+mb54Jt9Uv0rtloOPCTzwt7Mqn4lfPo
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(376002)(136003)(396003)(366004)(39860400002)(451199021)(55016003)(52536014)(8936002)(7696005)(5660300002)(86362001)(66446008)(66476007)(64756008)(66946007)(76116006)(8676002)(66556008)(33656002)(478600001)(38100700002)(110136005)(38070700005)(122000001)(6636002)(71200400001)(53546011)(2906002)(83380400001)(6506007)(9686003)(186003)(41300700001)(316002)(26005);
+ SFS:(13230028)(4636009)(366004)(396003)(376002)(39860400002)(136003)(346002)(451199021)(52536014)(8936002)(5660300002)(38070700005)(41300700001)(7696005)(33656002)(86362001)(478600001)(19627235002)(6636002)(110136005)(8676002)(66446008)(66556008)(66476007)(64756008)(71200400001)(76116006)(55016003)(316002)(83380400001)(66946007)(186003)(2906002)(38100700002)(122000001)(6506007)(9686003)(26005)(53546011);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?t9OzBa3AnyMtzfHEU8qqBg+m4cUfcUiXHu1J8RMV6xFrRat0o8lmLpeFwxVm?=
- =?us-ascii?Q?6h3rXkYyw/xKjsmeTqxjziDocXG3dQqRgJhoIWDDDnsbZzhYxb6A+nM+XUb2?=
- =?us-ascii?Q?h1gI9ygrbWpEdRm1YbFXIWZk/dkd8MMivMnFoFWOR0r2kvMKWb2Snf3h7M/X?=
- =?us-ascii?Q?yE5/MispBlEZQEorK3Vx9/gkxf7+e6TUmwrvnwGakuaMRTcbZI+ZHcE5yV6K?=
- =?us-ascii?Q?6fee78ChNRuXGNTcrXng3jAv7ohv11gA4XP4GdZ7Az9RoDw2pblY4SvdFn0O?=
- =?us-ascii?Q?f1OrP7NAI5zkqa7Neo7aFRIkF2WPwYIHZRpO7aLl9i1cUAV/CLLujZJWVJc4?=
- =?us-ascii?Q?BIv0xxnsKygHVxMTrequIs5AV3KFGxbV9XCcN3ASOVVvOPvhYiu0+A1ovFBk?=
- =?us-ascii?Q?yJDtO5PUH/cFBCw0jn/xn9lyEGRKqwDZSU5wxoTEBh7317gOhdTfbHBZwtWM?=
- =?us-ascii?Q?rlsfTZy/sddkF/vFU8Z8LCYlbhxkWkk/hTyoy0I7bHQUb+/YCapxyBK6515v?=
- =?us-ascii?Q?JYH+CizoYkQE3GpgsbjmDtFlmC8cZeb+21fuvJgHOlDCpmsguYMQBJgtHgfr?=
- =?us-ascii?Q?kA4ti+UkL6nmfOWAxn5Y+BY25jutX/Tx5HchcIVOkykC/4axSS/uIIxxWlDo?=
- =?us-ascii?Q?UkTIShArvCNEIz3a65Hj5e0ATUgRHy1QGw3TFXfYPlBKLicUCkzj36qL3kqH?=
- =?us-ascii?Q?IUTG/d6CucP5BUapox58+Q4Sk+lilCsEReT4Nww8MOvhjU6o+QGj7UdAROof?=
- =?us-ascii?Q?LclmThXe+sRY5P8kC7GQCIl/vf7eWByqHhVfTfh6HXszONQOWlUCPxVSZack?=
- =?us-ascii?Q?HJxZ47o144dgy7u2S8llJGbVqkjAgiyjKTth0k/zVDw8rngLPBqXoP+oPiv7?=
- =?us-ascii?Q?YtVC6RP+cOkJiMdyBhD+uJuC62CxAQXXnzz1YgW544VRU47ZcqyqjqoN3CPD?=
- =?us-ascii?Q?vepB9MNVXBkhZrXVDQgUbFZ7WmE+MIDN30+QsHI/C97dVkJRbm7+HSZ+DaPJ?=
- =?us-ascii?Q?yb9T4bsANuM3I09sGAYAXXy/riBR2HzT2zy83j8mQAoCea0+U1obtNy0ZSCC?=
- =?us-ascii?Q?liZhoIdWzvgi9LzuIbYjKuD78lbuPkOdIwOYp6lZBfxW31rKHp83MjZ8DSxU?=
- =?us-ascii?Q?o7XrmxuC1EKib87tsqHeO7GSY9YInQOsnj6y4bTZ2HfzcEbOBS+XQbV/6ZiN?=
- =?us-ascii?Q?LFyZaZ0MQcA1pM9cWipJFGSZF7Hg0TYSDtdyWWV+wRFxxB4x2M5U2qNllPTg?=
- =?us-ascii?Q?oNiO3cFcsiu/bv+OCr0x5X0AdNYmngKc7uMMWSmTfDUS2zYkwgAH81cHWUpS?=
- =?us-ascii?Q?UtLbPSpfORKp54PeNruAW/OeaTbDiWoInajF+o2w6FSNkbgtMOgOlI1bJus9?=
- =?us-ascii?Q?ASXEiyuodibhO+fX+LSSjTRQcR3xO2EiFQOa3SI1S+eQA85XlmtCNUh7dMEF?=
- =?us-ascii?Q?Ixg5piBH0WXoZKnM4gD+QnGlnA19E6w+USwFCikVb4JeVHgdB9fCIog6CLNO?=
- =?us-ascii?Q?PPC3P1AcFlThxGGMlXPneJGUd2KhuIuo2BQ8zxKBZ+Re3Xuq3Eh6owLlVQR8?=
- =?us-ascii?Q?RKdartFX3mhZsNtT0Fo=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?87pzs8hxXa64qGTGiwYvn7xQfSdL0wSWFixW9GO0JSjN6dRGuA532DmYBROP?=
+ =?us-ascii?Q?MjyK56JYPh9QaWEXehGLdpFiHYH4+VpsSkR0bun72ICr2ufgszr2FxpmV9XQ?=
+ =?us-ascii?Q?qgeYgbYjlb9mKqjAmK4ZnC5bp2m7PAfKZIAa1PYOOkl4pYm8YAGbiiwrKWuj?=
+ =?us-ascii?Q?ngZjllfsil6OqsoCwGayZ67i1jcDgJZLpoiUCfzbnCkiaiguJbs7NE9BiUA7?=
+ =?us-ascii?Q?AQOwQFWSZl5T2QoLxh+0FJv1og1L8A8xi3GRNsJs31zX2A9ZkDaMNVB2fn9Z?=
+ =?us-ascii?Q?0vrwEHxIIoFrYMzyX0FO5+E9l8g8xkZsyYkn9gu9IxDQV2g9AD+jKnq23b4w?=
+ =?us-ascii?Q?qt1uzN3jiw/m1mhnVjDl9TnFjMuuRU5gIzephTrerF5HXtSvp6knSYzg0tSp?=
+ =?us-ascii?Q?mfcw7hWvQmXPFDU4FQq6eo5fBJmxRUghQZbozAGg0crk7jcX90jL6RbNfkpC?=
+ =?us-ascii?Q?ZdyIfC1Ebvno/XoLYxCYRYLwwlX1wTeoJTiv/0rgdCE6w1fmch4CAKvV7oAV?=
+ =?us-ascii?Q?uE1NO/1Li+/YaKI87QT3bK0z0h45IqI5LJpKI+g3TnkXQvgDaxyQtePJrrnT?=
+ =?us-ascii?Q?rAwvkZvTfNG5BxnutOmNUWwQeHYlozaG+lVNSgPEhUq0+dK+pXwOOvXRvQ3f?=
+ =?us-ascii?Q?AzgeAalST8dFqggHDUgIAe8aLL9UEC72sXYPn1vXY0xDggIPgHb4QXvsHck7?=
+ =?us-ascii?Q?WNusZn97aJQYIi30CoJSm/yX+SjNuMFNgL2hf867AGEhgl6zmJCPg8z19Zy3?=
+ =?us-ascii?Q?DnJw4C6CugmkfNN56npw+WddQkL2mkVI830P8kPWVSnOd1ZLWtNnzWBkAI+X?=
+ =?us-ascii?Q?tg+2xojVnyRQRLxATQdwVYJRzoOG6g1fQ7ZdWiqpF2DvTDALw9vz2chkA2GC?=
+ =?us-ascii?Q?+ZdmMdG6leb5xWGsM7T7It25fdwG/c2lofSyOQIyfThGOhAbE/N9I3mk+lGw?=
+ =?us-ascii?Q?fcaQOqgJlKjbMzx4kfttxslyuLyPslWGWY3/yOtOVvk4Ub8s9rqC2Vk+mX6w?=
+ =?us-ascii?Q?7BmC7zo7nZXoSSqREooemOVcmvsfnlErBqaBkknEztY6GCUP+oC68LElrOHX?=
+ =?us-ascii?Q?LEBhmkRiBV49qLqAly2bjkfcryvz9Auf1zAg4JT68tB35QEPbSEEdbhWOKtZ?=
+ =?us-ascii?Q?/SrMFzqlPNccC222UVUtWRBkGROqRtg1S153AehFgLD8V9itr+CyztVVROND?=
+ =?us-ascii?Q?8Jbl1K/UtMkYfxXlshRf2qG5LlKB3IoQHk8qopctuK9WXVJ5vkiwCbjxRJFb?=
+ =?us-ascii?Q?UWSjPcBqtNxWxnQx3VVaQuMT71DXvRIN0wvf0SMuNlgktWZOOBZiSKZlcr+r?=
+ =?us-ascii?Q?aHLiuaRfpJh1m6uNRUgOqwC1h2S4JpQEGyzFRNpjZJzW+M/X+j0D+LJvW3Ka?=
+ =?us-ascii?Q?GtX/qBZMtLq5ew6q3s9ly5gpwD7KCq5pojhhP12HOLdKaHGr1zIJlZ7B/FK+?=
+ =?us-ascii?Q?gMgFnsPgS50P3ZiisYjHbH83SXUzohK190zqJLG+3VqVCSN1AMrnzfkFVgaG?=
+ =?us-ascii?Q?ggJyYSHD12xiNgAaLQ6ZmAmlRJ/i4s5L48H1BetfRQoYkKqI8OYBuFaFVbRK?=
+ =?us-ascii?Q?zgMsrn4hI5CMKr+yMMQ=3D?=
 Content-Type: multipart/alternative;
- boundary="_000_DM6PR12MB2619F7BDC5706E527A096AF9E49B9DM6PR12MB2619namp_"
+ boundary="_000_DM6PR12MB2619340A18FC0FE1A304488BE49B9DM6PR12MB2619namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e415e119-13a1-4f66-4cac-08db3b304b8f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Apr 2023 08:31:21.4915 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee3bd8f4-baba-462d-8b27-08db3b3058d4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Apr 2023 08:31:43.7347 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: CiBuzIGlpmiGwhERewK5PlJJMkLXzOoJxHdgb1YBas6l7O6EnCaOtdlLs8AoTfv/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8249
+X-MS-Exchange-CrossTenant-userprincipalname: U05/liK7Np/ejvDX7hHGMtEZE2wlkbLvLPJI41gt/UfAKrreBWvyAsuMSR/SGxHJ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8133
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,7 +127,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM6PR12MB2619F7BDC5706E527A096AF9E49B9DM6PR12MB2619namp_
+--_000_DM6PR12MB2619340A18FC0FE1A304488BE49B9DM6PR12MB2619namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -138,43 +139,95 @@ Either way, the patch is Reviewed-by: Evan Quan <evan.quan@amd.com>
 
 Evan
 From: Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>
-Sent: Wednesday, April 12, 2023 9:25 AM
+Sent: Wednesday, April 12, 2023 9:24 AM
 To: amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@am=
 d.com>; Quan, Evan <Evan.Quan@amd.com>; Zhang, Yifan <Yifan1.Zhang@amd.com>
-Subject: drm/amdgpu/gfx9: change the reference clock for raven/raven2
+Subject: drm/amdgpu/gfx9: switch to golden tsc registers for raven/raven2
 
 
 [AMD Official Use Only - General]
 
-    Due to switch to golden tsc register to get clock counter for raven/ ra=
-ven2.
-    Chang the reference clock from 25MHZ to 100MHZ.
+  Due to raven/raven2 maybe enable  sclk slow down,
+    they cannot get clock count by the RLC at the auto level of dpm perform=
+ance.
+    So switch to golden tsc register.
 
-    Signed-off-by: Jesse Zhang  Jesse.Zhang@amd.com<mailto:Jesse.Zhang@amd.=
-com>
+    Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com<mailto:Jesse.Zhang@amd.=
+com>>
+    Signed-off-by: Evan Quan <evan.quan@amd.com<mailto:evan.quan@amd.com>>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
-u/soc15.c
-index 7d04c39332ad..0367a97c606b 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -301,11 +301,10 @@ static u32 soc15_get_xclk(struct amdgpu_device *adev)
-        u32 reference_clock =3D adev->clock.spll.reference_freq;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v9_0.c
+index ae09fc1cfe6b..c99d9e642e51 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -149,6 +149,16 @@ MODULE_FIRMWARE("amdgpu/aldebaran_sjt_mec2.bin");
+#define mmGOLDEN_TSC_COUNT_LOWER_Renoir                0x0026
+#define mmGOLDEN_TSC_COUNT_LOWER_Renoir_BASE_IDX       1
 
-        if (adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(12, 0, 0) ||
--           adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(12, 0, 1))
--               return 10000;
--       if (adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(10, 0, 0) ||
-+           adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(12, 0, 1) ||
-+           adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(10, 0, 0) ||
-            adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(10, 0, 1))
--               return reference_clock / 4;
-+               return 10000;
++#define mmGOLDEN_TSC_COUNT_UPPER_Raven   0x007a
++#define mmGOLDEN_TSC_COUNT_UPPER_Raven_BASE_IDX 0
++#define mmGOLDEN_TSC_COUNT_LOWER_Raven   0x007b
++#define mmGOLDEN_TSC_COUNT_LOWER_Raven_BASE_IDX 0
++
++#define mmGOLDEN_TSC_COUNT_UPPER_Raven2   0x0068
++#define mmGOLDEN_TSC_COUNT_UPPER_Raven2_BASE_IDX 0
++#define mmGOLDEN_TSC_COUNT_LOWER_Raven2   0x0069
++#define mmGOLDEN_TSC_COUNT_LOWER_Raven2_BASE_IDX 0
++
+enum ta_ras_gfx_subblock {
+        /*CPC*/
+        TA_RAS_BLOCK__GFX_CPC_INDEX_START =3D 0,
+@@ -3988,6 +3998,36 @@ static uint64_t gfx_v9_0_get_gpu_clock_counter(struc=
+t amdgpu_device *adev)
+                preempt_enable();
+                clock =3D clock_lo | (clock_hi << 32ULL);
+                break;
++       case IP_VERSION(9, 1, 0):
++               preempt_disable();
++               clock_hi =3D RREG32_SOC15_NO_KIQ(PWR, 0, mmGOLDEN_TSC_COUNT=
+_UPPER_Raven);
++               clock_lo =3D RREG32_SOC15_NO_KIQ(PWR, 0, mmGOLDEN_TSC_COUNT=
+_LOWER_Raven);
++               hi_check =3D RREG32_SOC15_NO_KIQ(PWR, 0, mmGOLDEN_TSC_COUNT=
+_UPPER_Raven);
++               /* The PWR TSC clock frequency is 100MHz, which sets 32-bit=
+ carry over
++                * roughly every 42 seconds.
++                */
++               if (hi_check !=3D clock_hi) {
++                       clock_lo =3D RREG32_SOC15_NO_KIQ(PWR, 0, mmGOLDEN_T=
+SC_COUNT_LOWER_Raven);
++                       clock_hi =3D hi_check;
++               }
++               preempt_enable();
++               clock =3D clock_lo | (clock_hi << 32ULL);
++               break;
++       case IP_VERSION(9, 2, 2):
++               preempt_disable();
++               clock_hi =3D RREG32_SOC15_NO_KIQ(PWR, 0, mmGOLDEN_TSC_COUNT=
+_UPPER_Raven2);
++               clock_lo =3D RREG32_SOC15_NO_KIQ(PWR, 0, mmGOLDEN_TSC_COUNT=
+_LOWER_Raven2);
++               hi_check =3D RREG32_SOC15_NO_KIQ(PWR, 0, mmGOLDEN_TSC_COUNT=
+_UPPER_Raven2);
++               /* The PWR TSC clock frequency is 100MHz, which sets 32-bit=
+ carry over
++                * roughly every 42 seconds.
++                */
++               if (hi_check !=3D clock_hi) {
++                       clock_lo =3D RREG32_SOC15_NO_KIQ(PWR, 0, mmGOLDEN_T=
+SC_COUNT_LOWER_Raven2);
++                       clock_hi =3D hi_check;
++               }
++               preempt_enable();
++               clock =3D clock_lo | (clock_hi << 32ULL);
++               break;
+        default:
+                amdgpu_gfx_off_ctrl(adev, false);
+                mutex_lock(&adev->gfx.gpu_clock_mutex);
 
-        return reference_clock;
-}
-
---_000_DM6PR12MB2619F7BDC5706E527A096AF9E49B9DM6PR12MB2619namp_
+--_000_DM6PR12MB2619340A18FC0FE1A304488BE49B9DM6PR12MB2619namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -257,12 +310,12 @@ evan.quan@amd.com&gt;<o:p></o:p></p>
 0in 0in">
 <p class=3D"MsoNormal"><b>From:</b> Zhang, Jesse(Jie) &lt;Jesse.Zhang@amd.c=
 om&gt; <br>
-<b>Sent:</b> Wednesday, April 12, 2023 9:25 AM<br>
+<b>Sent:</b> Wednesday, April 12, 2023 9:24 AM<br>
 <b>To:</b> amd-gfx@lists.freedesktop.org; Deucher, Alexander &lt;Alexander.=
 Deucher@amd.com&gt;; Quan, Evan &lt;Evan.Quan@amd.com&gt;; Zhang, Yifan &lt=
 ;Yifan1.Zhang@amd.com&gt;<br>
-<b>Subject:</b> drm/amdgpu/gfx9: change the reference clock for raven/raven=
-2<o:p></o:p></p>
+<b>Subject:</b> drm/amdgpu/gfx9: switch to golden tsc registers for raven/r=
+aven2<o:p></o:p></p>
 </div>
 </div>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
@@ -270,59 +323,158 @@ Deucher@amd.com&gt;; Quan, Evan &lt;Evan.Quan@amd.com&gt;; Zhang, Yifan &lt=
 ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD Officia=
 l Use Only - General]</span><o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; Due to switch to golden tsc regis=
-ter to get clock counter for raven/ raven2.<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; Chang the reference clock from 25=
-MHZ to 100MHZ.<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; Due to raven/raven2 maybe enable&nbsp; sclk s=
+low down,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; they cannot get clock count by th=
+e RLC at the auto level of dpm performance.<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; So switch to golden tsc register.=
+<o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;Signed-off-by: Jesse Zhang&n=
-bsp; <a href=3D"mailto:Jesse.Zhang@amd.com">
-Jesse.Zhang@amd.com</a><o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;Signed-off-by: Jesse Zhang &=
+lt;<a href=3D"mailto:Jesse.Zhang@amd.com">Jesse.Zhang@amd.com</a>&gt;<o:p><=
+/o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; Signed-off-by: Evan Quan &lt;<a h=
+ref=3D"mailto:evan.quan@amd.com">evan.quan@amd.com</a>&gt;<o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/dr=
-ivers/gpu/drm/amd/amdgpu/soc15.c<o:p></o:p></p>
-<p class=3D"MsoNormal">index 7d04c39332ad..0367a97c606b 100644<o:p></o:p></=
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b=
+/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<o:p></o:p></p>
+<p class=3D"MsoNormal">index ae09fc1cfe6b..c99d9e642e51 100644<o:p></o:p></=
 p>
-<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/soc15.c<o:p></o:p><=
-/p>
-<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c<o:p></o:p><=
-/p>
-<p class=3D"MsoNormal">@@ -301,11 +301,10 @@ static u32 soc15_get_xclk(stru=
-ct amdgpu_device *adev)<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 refer=
-ence_clock =3D adev-&gt;clock.spll.reference_freq;<o:p></o:p></p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<o:p></o:=
+p></p>
+<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<o:p></o:=
+p></p>
+<p class=3D"MsoNormal">@@ -149,6 +149,16 @@ MODULE_FIRMWARE(&quot;amdgpu/al=
+debaran_sjt_mec2.bin&quot;);<o:p></o:p></p>
+<p class=3D"MsoNormal">#define mmGOLDEN_TSC_COUNT_LOWER_Renoir&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; 0x0026<o:p></o:p></p>
+<p class=3D"MsoNormal">#define mmGOLDEN_TSC_COUNT_LOWER_Renoir_BASE_IDX&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1<o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (=
-adev-&gt;ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(12, 0, 0) ||<o:p></o:p>=
-</p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; adev-&gt;ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(12, 0, 1))<o:=
-p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 10000;<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;i=
-p_versions[MP1_HWIP][0] =3D=3D IP_VERSION(10, 0, 0) ||<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; adev-&gt;ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(12, 0, 1) ||<=
+<p class=3D"MsoNormal">+#define mmGOLDEN_TSC_COUNT_UPPER_Raven&nbsp;&nbsp; =
+0x007a<o:p></o:p></p>
+<p class=3D"MsoNormal">+#define mmGOLDEN_TSC_COUNT_UPPER_Raven_BASE_IDX 0<o=
+:p></o:p></p>
+<p class=3D"MsoNormal">+#define mmGOLDEN_TSC_COUNT_LOWER_Raven&nbsp;&nbsp; =
+0x007b<o:p></o:p></p>
+<p class=3D"MsoNormal">+#define mmGOLDEN_TSC_COUNT_LOWER_Raven_BASE_IDX 0<o=
+:p></o:p></p>
+<p class=3D"MsoNormal">+<o:p></o:p></p>
+<p class=3D"MsoNormal">+#define mmGOLDEN_TSC_COUNT_UPPER_Raven2&nbsp;&nbsp;=
+ 0x0068<o:p></o:p></p>
+<p class=3D"MsoNormal">+#define mmGOLDEN_TSC_COUNT_UPPER_Raven2_BASE_IDX 0<=
 o:p></o:p></p>
+<p class=3D"MsoNormal">+#define mmGOLDEN_TSC_COUNT_LOWER_Raven2&nbsp;&nbsp;=
+ 0x0069<o:p></o:p></p>
+<p class=3D"MsoNormal">+#define mmGOLDEN_TSC_COUNT_LOWER_Raven2_BASE_IDX 0<=
+o:p></o:p></p>
+<p class=3D"MsoNormal">+<o:p></o:p></p>
+<p class=3D"MsoNormal">enum ta_ras_gfx_subblock {<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*CPC*/<o=
+:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TA_RAS_BL=
+OCK__GFX_CPC_INDEX_START =3D 0,<o:p></o:p></p>
+<p class=3D"MsoNormal">@@ -3988,6 +3998,36 @@ static uint64_t gfx_v9_0_get_=
+gpu_clock_counter(struct amdgpu_device *adev)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; preempt_enable();<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clock =3D clock_lo | (clock_hi &lt;&=
+lt; 32ULL);<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSIO=
+N(9, 1, 0):<o:p></o:p></p>
 <p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; adev-&gt;ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(10, 0, 0) ||<=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; preempt_disable();<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clock_hi =3D RREG32_SOC15_NO_KIQ(PWR, 0, =
+mmGOLDEN_TSC_COUNT_UPPER_Raven);<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clock_lo =3D RREG32_SOC15_NO_KIQ(PWR, 0, =
+mmGOLDEN_TSC_COUNT_LOWER_Raven);<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hi_check =3D RREG32_SOC15_NO_KIQ(PWR, 0, =
+mmGOLDEN_TSC_COUNT_UPPER_Raven);<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* The PWR TSC clock frequency is 100MHz,=
+ which sets 32-bit carry over<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * roughly every 42 seconds.<o:p></o=
+:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hi_check !=3D clock_hi) {<o:p></o:p><=
+/p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;clock_lo =3D RREG32_SOC15_NO_KIQ(PWR, 0, mmGOLDEN_TSC_COUNT_LOWER_Ra=
+ven);<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; clock_hi =3D hi_check;<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; preempt_enable();<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clock =3D clock_lo | (clock_hi &lt;&lt; 3=
+2ULL);<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case IP_VERSIO=
+N(9, 2, 2):<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; preempt_disable();<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clock_hi =3D RREG32_SOC15_NO_KIQ(PWR, 0, =
+mmGOLDEN_TSC_COUNT_UPPER_Raven2);<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clock_lo =3D RREG32_SOC15_NO_KIQ(PWR, 0, =
+mmGOLDEN_TSC_COUNT_LOWER_Raven2);<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hi_check =3D RREG32_SOC15_NO_KIQ(PWR, 0, =
+mmGOLDEN_TSC_COUNT_UPPER_Raven2);<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* The PWR TSC clock frequency is 100MHz,=
+ which sets 32-bit carry over<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * roughly every 42 seconds.<o:p></o=
+:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hi_check !=3D clock_hi) {<o:p></o:p><=
+/p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; clock_lo =3D RREG32_SOC15_NO_KIQ(PWR, 0, mmGOLDEN_TSC_COUNT_LOWER_Ra=
+ven2);<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; clock_hi =3D hi_check;<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; preempt_enable();<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clock =3D clock_lo | (clock_hi &lt;&lt; 3=
+2ULL);<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<=
 o:p></o:p></p>
 <p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; adev-&gt;ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(10, 0, 1=
-))<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return reference_clock / 4;<o:p></o:p></p=
->
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 10000;<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;retu=
-rn reference_clock;<o:p></o:p></p>
-<p class=3D"MsoNormal">}<o:p></o:p></p>
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_gfx_off_ctrl(adev, false);<o:=
+p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;gfx.gpu_clo=
+ck_mutex);<o:p></o:p></p>
 </div>
 </div>
 </body>
 </html>
 
---_000_DM6PR12MB2619F7BDC5706E527A096AF9E49B9DM6PR12MB2619namp_--
+--_000_DM6PR12MB2619340A18FC0FE1A304488BE49B9DM6PR12MB2619namp_--
