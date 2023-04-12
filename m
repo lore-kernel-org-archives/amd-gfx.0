@@ -4,85 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB5E0C7619A
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 07:58:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69949C7619A
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 08:31:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 916DC10E725;
-	Wed, 12 Apr 2023 07:58:32 +0000 (UTC)
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5A6510E725
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 07:58:29 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-3f080fc6994so3119165e9.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 00:58:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1681286308;
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Z8A/SdeLvzFiYWycVM7MmZyG7MQLHn+W0oQ+tEHhex8=;
- b=T/Wb7YjU5aBuJVC5H/Le0QeASrsAM5Y+Yz4YbR8hkU8w/0XnLd0rasqnJ7hGRdVC8P
- oppzMr8zvT/CfGiKFIVFq2l7bHIxgr06UTo06lCuME6VIF+ci/4/PwuUXDdiLOuq58Q3
- HG7bqLqHDcPnvUUTZ2CBWqpJTK4+5dCWOUOHE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681286308;
- h=in-reply-to:content-disposition:mime-version:references
- :mail-followup-to:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Z8A/SdeLvzFiYWycVM7MmZyG7MQLHn+W0oQ+tEHhex8=;
- b=jws/hXXYXVvMHWW8WfcXl8Ut/+OG9YfVt1HA8ze5MyLdJFOQA3uj2TaneVhtP2zjpA
- B1UsktinfnJD7gqAdqtEJUPojeASApXDxUxRTNgWy1n/hJepeneIufY2gZoGaflqdbgV
- TC7FEdLpVN6AcIDX7zqP51ktPhuIRTW7SS0VusxkFtVGJHK9XbL7pSWluGIIZqXbaLe9
- 6F2FbLr7j8p2k8/lLTOiZWRXrWV8B9MsvRxWasVjBl9VY2qb4QtGpRs1EcGsvc5NQ1aw
- tvxKc0gGEMFniLupO+sef2GS0QLo62awp0hWSXs8M2+mSiS1hdXmbtR8GulUNQJ3dLfJ
- Wf1w==
-X-Gm-Message-State: AAQBX9eS60naeMc6n7fbc1VFKMkBx5q03N3VBQm1AeWujYYsmi6NcNgs
- nD+S0E1WdowuU8HTk9QVu4ChXw==
-X-Google-Smtp-Source: AKy350ZsIHrp1fkw9kWTIB5j/yWw6Pd5Y3Xkw3e/8LffjM8p8HeHcKd/6YPLn/zhuKWDt5SRtcMz6A==
-X-Received: by 2002:a05:600c:c0e:b0:3f0:7652:dbb8 with SMTP id
- fm14-20020a05600c0c0e00b003f07652dbb8mr1328269wmb.2.1681286308313; 
- Wed, 12 Apr 2023 00:58:28 -0700 (PDT)
-Received: from phenom.ffwll.local (212-51-149-33.fiber7.init7.net.
- [212.51.149.33]) by smtp.gmail.com with ESMTPSA id
- 6-20020a05600c028600b003ee0d191539sm1457785wmk.10.2023.04.12.00.58.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Apr 2023 00:58:27 -0700 (PDT)
-Date: Wed, 12 Apr 2023 09:58:25 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Rob Clark <robdclark@gmail.com>
-Subject: Re: [PATCH v3 3/7] drm/amdgpu: Switch to fdinfo helper
-Message-ID: <ZDZkocmppPAGdkdv@phenom.ffwll.local>
-Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Christopher Healy <healych@amazon.com>,
- Emil Velikov <emil.l.velikov@gmail.com>,
- Rob Clark <robdclark@chromium.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- David Airlie <airlied@gmail.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>,
- Evan Quan <evan.quan@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Guchun Chen <guchun.chen@amd.com>,
- YiPeng Chai <YiPeng.Chai@amd.com>,
- Michel =?iso-8859-1?Q?D=E4nzer?= <mdaenzer@redhat.com>,
- Shashank Sharma <shashank.sharma@amd.com>,
- Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20230411225725.2032862-1-robdclark@gmail.com>
- <20230411225725.2032862-4-robdclark@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDC2810E734;
+	Wed, 12 Apr 2023 08:31:25 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2064.outbound.protection.outlook.com [40.107.223.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C68710E734
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 08:31:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KEsci26nhWnZwKMA3skiaKLKnEXAJ/xAJHY+zOGlNDcUdNTVlyJ5fzRhGdWdovfDWOuZ58WWcK4YgVVb7qBx7Q/YNEDmswQ5Rlfsz4xf4z4vKdhL2d1dxhlYghJkI2eL1Ln5HU4LfNEzVn8X592R2vSOw4+ufQvr63dwtIKr5ICKaVGVp7/X6IvPij13xee2KPDsmKjrWIYO5MUqhWowy9IM77XNahW+lhvPXSZujOurC48H4Yj5+ROIzEoF+17+r+txEDUQ20N2HDpew4dNBK6/qzdzh70pFWIKzon/KCu5JOw3nn1mkq96D4CdbVmNi9Thda/vUIeGvxeH3zBJbQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=haK7UuNoeyz0Dh87O2WntFHwONnuJVEAyB3fJcdQJOw=;
+ b=PaYmkqJRAKITOL9A+XTob/wPjO/X3IMjgerpBx3FIluhiuXiV0ffdrPtMJLOdjJkGgFNQ4qXKfj/5KfdSy9yTGdN1ASsj2847F/XI6/2SwLvdqczuVPl6Lbqwh4RKiu2NRRhUapn3foG3OQUNKmiwV2LaigBwngfyrNOpjOQuDHWPqWYnag7ZhbcarfKzsEO1Ix1+1D1hffr3flgf4604mPFPA0mJPCJLIJaT1LDMHfvP41bltTPV62s+dC2tOlW2MUja/07YSYKSJdZ/mKjQhfEL/Vi5ErGI1uLX4tgOgnaIn3ACveNFg9r2Kfq6ru1BGodgUA/jBVN1U8WyKZYAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=haK7UuNoeyz0Dh87O2WntFHwONnuJVEAyB3fJcdQJOw=;
+ b=WL7vhPRCMnhQlzNFSeNb5a9mzwxyuXyKWUa4LE72ti/bG2JKFBkjoi8RSPE3l3n8bPotsOHAde7H6K/iBXiDMafLqZAgfvhNxUd2SgkMM6B9wesAtRYbOgXZRLD+2hh+VrSrH56abSVTnYls12fwhyv61HOm+QDVemfLjV1dicA=
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ DS7PR12MB8249.namprd12.prod.outlook.com (2603:10b6:8:ea::16) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6277.35; Wed, 12 Apr 2023 08:31:22 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::f005:3ff3:4f85:d51c]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::f005:3ff3:4f85:d51c%5]) with mapi id 15.20.6277.036; Wed, 12 Apr 2023
+ 08:31:21 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Zhang, Yifan" <Yifan1.Zhang@amd.com>
+Subject: RE: drm/amdgpu/gfx9: change the reference clock for raven/raven2
+Thread-Topic: drm/amdgpu/gfx9: change the reference clock for raven/raven2
+Thread-Index: Adls3Y+sz5H9A9DYT5SiI0Mz/SeAiAAOzOZA
+Date: Wed, 12 Apr 2023 08:31:21 +0000
+Message-ID: <DM6PR12MB2619F7BDC5706E527A096AF9E49B9@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <DM4PR12MB51527E447D080F457A43B415E39B9@DM4PR12MB5152.namprd12.prod.outlook.com>
+In-Reply-To: <DM4PR12MB51527E447D080F457A43B415E39B9@DM4PR12MB5152.namprd12.prod.outlook.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-04-12T08:31:18Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=5cc8049a-6845-4f25-8bc4-f1982198c770;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR12MB2619:EE_|DS7PR12MB8249:EE_
+x-ms-office365-filtering-correlation-id: e415e119-13a1-4f66-4cac-08db3b304b8f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: gv4fLyh7rQUxWnq8gDWah9VoigJEx4j1Xk0HR4hiIVrAQ+pov1XNpHHB/hbUFolCb/36S3xCfalcAUGwv9Z4YxRm1APubxsHz0SzVfhWWBs91CL53UR6HPLa1ECNEwMyxS3Yi/aDMDFM+7pzo7rJ36ijf1pKSrN22qiErDc7eSG72BXY9+JKRCDS5Rfv0K9709WAqe1QMjj+t4PtNwEBB4HdQ+R/oBKW9SsEviVkp2rz3rbp/JvRyucT9S6ODFfIFcHLI/wEtxzCnGd7jr2Cy0Aumhixeqite/uiZX/PEapexe99iZIz9aBff91cDawEVrumX03llhK8+YsnFvBrAsSrMQ5aZbV+mePi1rkaYxT2KV2Y6M4gszpUO5yTfY560+CWGES8UlcTi6k6HT8RHuhPdW0Udt/jToTG+6fK6raiNEr1eRIME6+tsnnxlkTeofc9D20K4t27TWxo4t9BMo0XmkmGa0lC2+UiVfPYakBOchrA5XkOZWSMYVShxfXFBCT7ApXoW6+VOtPXvSWjnhhjyDfthb/c2wM/nyB+p918FBgjtT+XIC1SsNGKGAY+4uONkyiniLW8ZPg0xBFDcTXYCp1JAxrWUbrArYp2JfAGKKpQlgUfPCPFZmDvArqa
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(376002)(136003)(396003)(366004)(39860400002)(451199021)(55016003)(52536014)(8936002)(7696005)(5660300002)(86362001)(66446008)(66476007)(64756008)(66946007)(76116006)(8676002)(66556008)(33656002)(478600001)(38100700002)(110136005)(38070700005)(122000001)(6636002)(71200400001)(53546011)(2906002)(83380400001)(6506007)(9686003)(186003)(41300700001)(316002)(26005);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?t9OzBa3AnyMtzfHEU8qqBg+m4cUfcUiXHu1J8RMV6xFrRat0o8lmLpeFwxVm?=
+ =?us-ascii?Q?6h3rXkYyw/xKjsmeTqxjziDocXG3dQqRgJhoIWDDDnsbZzhYxb6A+nM+XUb2?=
+ =?us-ascii?Q?h1gI9ygrbWpEdRm1YbFXIWZk/dkd8MMivMnFoFWOR0r2kvMKWb2Snf3h7M/X?=
+ =?us-ascii?Q?yE5/MispBlEZQEorK3Vx9/gkxf7+e6TUmwrvnwGakuaMRTcbZI+ZHcE5yV6K?=
+ =?us-ascii?Q?6fee78ChNRuXGNTcrXng3jAv7ohv11gA4XP4GdZ7Az9RoDw2pblY4SvdFn0O?=
+ =?us-ascii?Q?f1OrP7NAI5zkqa7Neo7aFRIkF2WPwYIHZRpO7aLl9i1cUAV/CLLujZJWVJc4?=
+ =?us-ascii?Q?BIv0xxnsKygHVxMTrequIs5AV3KFGxbV9XCcN3ASOVVvOPvhYiu0+A1ovFBk?=
+ =?us-ascii?Q?yJDtO5PUH/cFBCw0jn/xn9lyEGRKqwDZSU5wxoTEBh7317gOhdTfbHBZwtWM?=
+ =?us-ascii?Q?rlsfTZy/sddkF/vFU8Z8LCYlbhxkWkk/hTyoy0I7bHQUb+/YCapxyBK6515v?=
+ =?us-ascii?Q?JYH+CizoYkQE3GpgsbjmDtFlmC8cZeb+21fuvJgHOlDCpmsguYMQBJgtHgfr?=
+ =?us-ascii?Q?kA4ti+UkL6nmfOWAxn5Y+BY25jutX/Tx5HchcIVOkykC/4axSS/uIIxxWlDo?=
+ =?us-ascii?Q?UkTIShArvCNEIz3a65Hj5e0ATUgRHy1QGw3TFXfYPlBKLicUCkzj36qL3kqH?=
+ =?us-ascii?Q?IUTG/d6CucP5BUapox58+Q4Sk+lilCsEReT4Nww8MOvhjU6o+QGj7UdAROof?=
+ =?us-ascii?Q?LclmThXe+sRY5P8kC7GQCIl/vf7eWByqHhVfTfh6HXszONQOWlUCPxVSZack?=
+ =?us-ascii?Q?HJxZ47o144dgy7u2S8llJGbVqkjAgiyjKTth0k/zVDw8rngLPBqXoP+oPiv7?=
+ =?us-ascii?Q?YtVC6RP+cOkJiMdyBhD+uJuC62CxAQXXnzz1YgW544VRU47ZcqyqjqoN3CPD?=
+ =?us-ascii?Q?vepB9MNVXBkhZrXVDQgUbFZ7WmE+MIDN30+QsHI/C97dVkJRbm7+HSZ+DaPJ?=
+ =?us-ascii?Q?yb9T4bsANuM3I09sGAYAXXy/riBR2HzT2zy83j8mQAoCea0+U1obtNy0ZSCC?=
+ =?us-ascii?Q?liZhoIdWzvgi9LzuIbYjKuD78lbuPkOdIwOYp6lZBfxW31rKHp83MjZ8DSxU?=
+ =?us-ascii?Q?o7XrmxuC1EKib87tsqHeO7GSY9YInQOsnj6y4bTZ2HfzcEbOBS+XQbV/6ZiN?=
+ =?us-ascii?Q?LFyZaZ0MQcA1pM9cWipJFGSZF7Hg0TYSDtdyWWV+wRFxxB4x2M5U2qNllPTg?=
+ =?us-ascii?Q?oNiO3cFcsiu/bv+OCr0x5X0AdNYmngKc7uMMWSmTfDUS2zYkwgAH81cHWUpS?=
+ =?us-ascii?Q?UtLbPSpfORKp54PeNruAW/OeaTbDiWoInajF+o2w6FSNkbgtMOgOlI1bJus9?=
+ =?us-ascii?Q?ASXEiyuodibhO+fX+LSSjTRQcR3xO2EiFQOa3SI1S+eQA85XlmtCNUh7dMEF?=
+ =?us-ascii?Q?Ixg5piBH0WXoZKnM4gD+QnGlnA19E6w+USwFCikVb4JeVHgdB9fCIog6CLNO?=
+ =?us-ascii?Q?PPC3P1AcFlThxGGMlXPneJGUd2KhuIuo2BQ8zxKBZ+Re3Xuq3Eh6owLlVQR8?=
+ =?us-ascii?Q?RKdartFX3mhZsNtT0Fo=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_DM6PR12MB2619F7BDC5706E527A096AF9E49B9DM6PR12MB2619namp_"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230411225725.2032862-4-robdclark@gmail.com>
-X-Operating-System: Linux phenom 6.1.0-7-amd64 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2619.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e415e119-13a1-4f66-4cac-08db3b304b8f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Apr 2023 08:31:21.4915 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: CiBuzIGlpmiGwhERewK5PlJJMkLXzOoJxHdgb1YBas6l7O6EnCaOtdlLs8AoTfv/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8249
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,126 +123,206 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
- Michel =?iso-8859-1?Q?D=E4nzer?= <mdaenzer@redhat.com>,
- YiPeng Chai <YiPeng.Chai@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- David Airlie <airlied@gmail.com>, Rob Clark <robdclark@chromium.org>,
- Guchun Chen <guchun.chen@amd.com>, Shashank Sharma <shashank.sharma@amd.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- linux-arm-msm@vger.kernel.org, Evan Quan <evan.quan@amd.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@intel.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Emil Velikov <emil.l.velikov@gmail.com>,
- Christopher Healy <healych@amazon.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- freedreno@lists.freedesktop.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 11, 2023 at 03:56:08PM -0700, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  3 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c | 16 ++++++----------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h |  2 +-
->  3 files changed, 9 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index f5ffca24def4..3611cfd5f076 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2752,7 +2752,7 @@ static const struct file_operations amdgpu_driver_kms_fops = {
->  	.compat_ioctl = amdgpu_kms_compat_ioctl,
->  #endif
->  #ifdef CONFIG_PROC_FS
-> -	.show_fdinfo = amdgpu_show_fdinfo
-> +	.show_fdinfo = drm_fop_show_fdinfo,
->  #endif
->  };
->  
-> @@ -2807,6 +2807,7 @@ static const struct drm_driver amdgpu_kms_driver = {
->  	.dumb_map_offset = amdgpu_mode_dumb_mmap,
->  	.fops = &amdgpu_driver_kms_fops,
->  	.release = &amdgpu_driver_release_kms,
-> +	.show_fdinfo = amdgpu_show_fdinfo,
->  
->  	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
->  	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-> index 99a7855ab1bc..c2fdd5e448d1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-> @@ -53,9 +53,8 @@ static const char *amdgpu_ip_name[AMDGPU_HW_IP_NUM] = {
->  	[AMDGPU_HW_IP_VCN_JPEG]	=	"jpeg",
->  };
->  
-> -void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
-> +void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
->  {
-> -	struct drm_file *file = f->private_data;
->  	struct amdgpu_device *adev = drm_to_adev(file->minor->dev);
->  	struct amdgpu_fpriv *fpriv = file->driver_priv;
->  	struct amdgpu_vm *vm = &fpriv->vm;
-> @@ -86,18 +85,15 @@ void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
->  	 * ******************************************************************
->  	 */
->  
-> -	seq_printf(m, "pasid:\t%u\n", fpriv->vm.pasid);
-> -	seq_printf(m, "drm-driver:\t%s\n", file->minor->dev->driver->name);
-> -	seq_printf(m, "drm-pdev:\t%04x:%02x:%02x.%d\n", domain, bus, dev, fn);
-> -	seq_printf(m, "drm-client-id:\t%Lu\n", vm->immediate.fence_context);
-> -	seq_printf(m, "drm-memory-vram:\t%llu KiB\n", vram_mem/1024UL);
-> -	seq_printf(m, "drm-memory-gtt: \t%llu KiB\n", gtt_mem/1024UL);
-> -	seq_printf(m, "drm-memory-cpu: \t%llu KiB\n", cpu_mem/1024UL);
-> +	drm_printf(p, "pasid:\t%u\n", fpriv->vm.pasid);
-> +	drm_printf(p, "drm-memory-vram:\t%llu KiB\n", vram_mem/1024UL);
-> +	drm_printf(p, "drm-memory-gtt: \t%llu KiB\n", gtt_mem/1024UL);
-> +	drm_printf(p, "drm-memory-cpu: \t%llu KiB\n", cpu_mem/1024UL);
+--_000_DM6PR12MB2619F7BDC5706E527A096AF9E49B9DM6PR12MB2619namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-random aside, but we're not super consistent here, some of these have an
-additional ' ' space.
+[AMD Official Use Only - General]
 
-I guess a next step would be a drm_fdinfo_printf(drm_printer *p, const
-char *name, const char *printf, ...) and maybe some specialized ones that
-dtrt for specific parameters, like drm_fdinfo_llu().
+Better to update the patch title with prefix as "drm/amdgpu:" instead of "d=
+rm/amdgpu/gfx9:".
+Either way, the patch is Reviewed-by: Evan Quan <evan.quan@amd.com>
 
-But that's for next one I guess :-)
--Daniel
+Evan
+From: Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>
+Sent: Wednesday, April 12, 2023 9:25 AM
+To: amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@am=
+d.com>; Quan, Evan <Evan.Quan@amd.com>; Zhang, Yifan <Yifan1.Zhang@amd.com>
+Subject: drm/amdgpu/gfx9: change the reference clock for raven/raven2
 
 
->  	for (hw_ip = 0; hw_ip < AMDGPU_HW_IP_NUM; ++hw_ip) {
->  		if (!usage[hw_ip])
->  			continue;
->  
-> -		seq_printf(m, "drm-engine-%s:\t%Ld ns\n", amdgpu_ip_name[hw_ip],
-> +		drm_printf(p, "drm-engine-%s:\t%Ld ns\n", amdgpu_ip_name[hw_ip],
->  			   ktime_to_ns(usage[hw_ip]));
->  	}
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h
-> index e86834bfea1d..0398f5a159ef 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h
-> @@ -37,6 +37,6 @@
->  #include "amdgpu_ids.h"
->  
->  uint32_t amdgpu_get_ip_count(struct amdgpu_device *adev, int id);
-> -void amdgpu_show_fdinfo(struct seq_file *m, struct file *f);
-> +void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file);
->  
->  #endif
-> -- 
-> 2.39.2
-> 
+[AMD Official Use Only - General]
 
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+    Due to switch to golden tsc register to get clock counter for raven/ ra=
+ven2.
+    Chang the reference clock from 25MHZ to 100MHZ.
+
+    Signed-off-by: Jesse Zhang  Jesse.Zhang@amd.com<mailto:Jesse.Zhang@amd.=
+com>
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
+u/soc15.c
+index 7d04c39332ad..0367a97c606b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -301,11 +301,10 @@ static u32 soc15_get_xclk(struct amdgpu_device *adev)
+        u32 reference_clock =3D adev->clock.spll.reference_freq;
+
+        if (adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(12, 0, 0) ||
+-           adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(12, 0, 1))
+-               return 10000;
+-       if (adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(10, 0, 0) ||
++           adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(12, 0, 1) ||
++           adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(10, 0, 0) ||
+            adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(10, 0, 1))
+-               return reference_clock / 4;
++               return 10000;
+
+        return reference_clock;
+}
+
+--_000_DM6PR12MB2619F7BDC5706E527A096AF9E49B9DM6PR12MB2619namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+p.msipheaderdf3d92d6, li.msipheaderdf3d92d6, div.msipheaderdf3d92d6
+	{mso-style-name:msipheaderdf3d92d6;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<div class=3D"WordSection1">
+<p class=3D"msipheaderdf3d92d6" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD Officia=
+l Use Only - General]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Better to update the patch title with prefix as &#82=
+20;drm/amdgpu:&#8221; instead of &#8220;drm/amdgpu/gfx9:&#8221;.<o:p></o:p>=
+</p>
+<p class=3D"MsoNormal">Either way, the patch is Reviewed-by: Evan Quan &lt;=
+evan.quan@amd.com&gt;<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Evan<o:p></o:p></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Zhang, Jesse(Jie) &lt;Jesse.Zhang@amd.c=
+om&gt; <br>
+<b>Sent:</b> Wednesday, April 12, 2023 9:25 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org; Deucher, Alexander &lt;Alexander.=
+Deucher@amd.com&gt;; Quan, Evan &lt;Evan.Quan@amd.com&gt;; Zhang, Yifan &lt=
+;Yifan1.Zhang@amd.com&gt;<br>
+<b>Subject:</b> drm/amdgpu/gfx9: change the reference clock for raven/raven=
+2<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"msipheaderdf3d92d6" style=3D"margin:0in"><span style=3D"font-si=
+ze:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue">[AMD Officia=
+l Use Only - General]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; Due to switch to golden tsc regis=
+ter to get clock counter for raven/ raven2.<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; Chang the reference clock from 25=
+MHZ to 100MHZ.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;Signed-off-by: Jesse Zhang&n=
+bsp; <a href=3D"mailto:Jesse.Zhang@amd.com">
+Jesse.Zhang@amd.com</a><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/dr=
+ivers/gpu/drm/amd/amdgpu/soc15.c<o:p></o:p></p>
+<p class=3D"MsoNormal">index 7d04c39332ad..0367a97c606b 100644<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/soc15.c<o:p></o:p><=
+/p>
+<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c<o:p></o:p><=
+/p>
+<p class=3D"MsoNormal">@@ -301,11 +301,10 @@ static u32 soc15_get_xclk(stru=
+ct amdgpu_device *adev)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 refer=
+ence_clock =3D adev-&gt;clock.spll.reference_freq;<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (=
+adev-&gt;ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(12, 0, 0) ||<o:p></o:p>=
+</p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; adev-&gt;ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(12, 0, 1))<o:=
+p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 10000;<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;i=
+p_versions[MP1_HWIP][0] =3D=3D IP_VERSION(10, 0, 0) ||<o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; adev-&gt;ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(12, 0, 1) ||<=
+o:p></o:p></p>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; adev-&gt;ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(10, 0, 0) ||<=
+o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; adev-&gt;ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(10, 0, 1=
+))<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return reference_clock / 4;<o:p></o:p></p=
+>
+<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 10000;<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;retu=
+rn reference_clock;<o:p></o:p></p>
+<p class=3D"MsoNormal">}<o:p></o:p></p>
+</div>
+</div>
+</body>
+</html>
+
+--_000_DM6PR12MB2619F7BDC5706E527A096AF9E49B9DM6PR12MB2619namp_--
