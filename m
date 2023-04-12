@@ -4,69 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2441DC77B6E
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 12:47:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CF33C7619A
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 12:53:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5DC810E7CF;
-	Wed, 12 Apr 2023 12:47:11 +0000 (UTC)
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [IPv6:2a00:1450:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 661A910E7CF
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 12:47:10 +0000 (UTC)
-Received: by mail-wm1-x334.google.com with SMTP id
- gw11-20020a05600c850b00b003f07d305b32so7209149wmb.4
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 05:47:10 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C3A210E5F6;
+	Wed, 12 Apr 2023 12:53:23 +0000 (UTC)
+Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com
+ [IPv6:2607:f8b0:4864:20::b2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24D6F10E5F6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 12:53:21 +0000 (UTC)
+Received: by mail-yb1-xb2c.google.com with SMTP id y69so18441199ybe.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 05:53:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681303629; x=1683895629;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=6YyIO2mzwWfZiRA9RYtOIj/OuYm9aBepvn8QW7KYdEA=;
- b=Yz/MhwzDgZfJdKFsy2E1X1PB5+jZiib0rgsk8dHrhJ9quvxsqfXay0PDqb+01PH+Hw
- YkxWOkRYhDQ/huE1QvmuY0jLeQs0MMcyNz5w/eieZLFZWVRNWwsnijW/nkM5mJwjYfYu
- PsGxr7pah+tbIj23uaUlLuYDzvG2I9TzL4YIZE0+f28p2grbyISNLwGcRYAvibauCd40
- ZSSBcvoEIpJ8gDxYtN1ihSOHCHVpwniSSu8s8Z6bwaY8fPQNAp+2HpE0Fp5iVo5bSY1H
- 1j5SYlmik0/3zNotYxpHw9dCJiyAA7sMDtDddNfC2Gwi6EiYrC8V6UBpaKlRPYZWVBdT
- 2piA==
+ d=basnieuwenhuizen.nl; s=google; t=1681303999; x=1683895999;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=KzP3pNOxHozEaWDS3tDFE0vhx9LM5NPXt/O117655y4=;
+ b=QR6XHwG5urcTUclqkDWps2Cwiq75QQWX9At0aP8+FUJCN8hBB+Y1gYACpNk+9lSnJc
+ 3kfW/zvHQIeGeswI3V9SPabVm40jdkAcF5IU19pznxJ+u5JuOL0C/c2GodWcmM/Trv+z
+ vNUhwX9KefAGM5GcUrpgHAzILM5iDntBV1EeT2AYxhHPOChIXMkeCqfRpxeaK/h8+ryd
+ pUS7hG4MWAuuOHB/O/OBdkHCgOMPXDvDwHg1MippFAkXYcR1/zebiICOLDDcBvJbp2tt
+ EZSv/KVDGX4pdW5Evr43Zs5GqBa0RSqRzauMM62sAbgVhPO9dyrj4DBkJLvYa/cxOWte
+ nang==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681303629; x=1683895629;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=6YyIO2mzwWfZiRA9RYtOIj/OuYm9aBepvn8QW7KYdEA=;
- b=Z7ilhm1tXDoScJjpBFRBZd4GQRRjlFdzuRiHA0sbZ4rNzbgs79DmNLoxa5Er/Kpc2i
- CyzdBwtE38EhPx/v4Iv6a8bhMh58J32UpsUVvllm8+9U84oM+B/loi21dYXjSqvkFQ/F
- y58IPS5C6BqDtAkpLS6Cf1fvqKUfDjMS+kW4RW3xvZSB5b2NQTfUMve8GqL5qmzDMSMV
- 6Ju8EKjGSODLATNhc6R2KUqtxlTqqBBwzlGc7DIPoGJIqKPcvgvFBJrMAAi78mGUeP+v
- M6E6VcOe9TgdfIk7bWHAIHGW5bTrCAeMY9p030zJS/pJhYvYv7NdsWh6TPSCbFgwdJcs
- SohA==
-X-Gm-Message-State: AAQBX9dfkrcyaXe7F7uXL6kJ+IwnyyDvzyK2SP+RJMIEMofNReWlrSPu
- 9mzZxoirW3uMl9KlDPsorxM=
-X-Google-Smtp-Source: AKy350aTA/8Ds10geoWg39NREIF1haNFZJnD5odwTx0tfzgWKq9B0El6evzMAI4U/Gphj3ZY82JJaw==
-X-Received: by 2002:a7b:c406:0:b0:3ee:42fd:7768 with SMTP id
- k6-20020a7bc406000000b003ee42fd7768mr12735047wmi.1.1681303628651; 
- Wed, 12 Apr 2023 05:47:08 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1256:79a0:fe02:9bb5:5deb:be0e?
- ([2a02:908:1256:79a0:fe02:9bb5:5deb:be0e])
- by smtp.gmail.com with ESMTPSA id
- t18-20020a7bc3d2000000b003f0373d077csm2237891wmj.47.2023.04.12.05.47.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Apr 2023 05:47:08 -0700 (PDT)
-Message-ID: <9077c624-53ba-55c4-d530-b6a987f83f20@gmail.com>
-Date: Wed, 12 Apr 2023 14:47:07 +0200
+ d=1e100.net; s=20210112; t=1681303999; x=1683895999;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=KzP3pNOxHozEaWDS3tDFE0vhx9LM5NPXt/O117655y4=;
+ b=r5/gbo7A01CzQo9PbkQybiMUnT3jbyExJLf9PfTnNLnEG0ScFoGD8C2UtMW1aoG07z
+ c6M+MV+FMkHR78nvIo59znhRxV8zyT9QqwAcsLvm3KJQ3PJ13EXS8ltglYTLJ3RUf2ZF
+ elfT5WN70qK4pGmirK1+Aphu4HXQbX0r7FOHZK7lht1HB77YXQACuSDdxROHgmiSz31s
+ fOGIvJaeUUkSABcmHXUdqQMeXSV2upc4RKwDWG6bF3C6OqQ9iflAlCaAIPUOgz5T4vxA
+ C78Bpe3asDcrCsYoLxDsTZeySjw5ovD5BwOorSdyGThLHVNebhKFwlFrV4N04xohz4di
+ foAQ==
+X-Gm-Message-State: AAQBX9fRWXDcUolFw1SiBmLUrj4Dx4fkWNDmqEiZH4yctvxEXw7UeNR4
+ +5Z5jrNEIFbev7Hqr4qV2rlohjHi88+FKkzQtDBAJgkNPoAlbfohOdU=
+X-Google-Smtp-Source: AKy350bH0smKIokdJdCU5ymRsNtxr5lo+y5857ylAqrZ+VtyCelKOr2aX2AiL9/Op7v4FQFWpRNEeg/i+Z7szM0vPFw=
+X-Received: by 2002:a25:e097:0:b0:b8e:dadc:a081 with SMTP id
+ x145-20020a25e097000000b00b8edadca081mr1872164ybg.5.1681303999708; Wed, 12
+ Apr 2023 05:53:19 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: Re: [PATCH v3 2/2] drm/amdgpu: Add support for querying the max ibs
- in a submission. (v3)
-Content-Language: en-US
-To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, amd-gfx@lists.freedesktop.org
 References: <20230412121827.1122035-1-bas@basnieuwenhuizen.nl>
- <20230412121827.1122035-2-bas@basnieuwenhuizen.nl>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20230412121827.1122035-2-bas@basnieuwenhuizen.nl>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ <4365dd57-f61d-9d19-79c8-697f0554fa26@gmail.com>
+In-Reply-To: <4365dd57-f61d-9d19-79c8-697f0554fa26@gmail.com>
+From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Date: Wed, 12 Apr 2023 14:50:57 +0200
+Message-ID: <CAP+8YyELApwVc06d29P4hRETdXJoXo2M_GqiKhsPie-MLsAe_Q@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] drm/amdgpu: Add a max ibs per submission limit.
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,63 +67,127 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, maraeo@gmail.com,
- timur.kristof@gmail.com
+Cc: alexander.deucher@amd.com, maraeo@gmail.com, christian.koenig@amd.com,
+ amd-gfx@lists.freedesktop.org, timur.kristof@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 12.04.23 um 14:18 schrieb Bas Nieuwenhuizen:
-> This info would be used by radv to figure out when we need to
-> split a submission into multiple submissions. radv currently has
-> a limit of 192 which seems to work for most gfx submissions, but
-> is way too high for e.g. compute or sdma.
+On Wed, Apr 12, 2023 at 2:46=E2=80=AFPM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
 >
-> Userspace is available at
-> https://gitlab.freedesktop.org/bnieuwenhuizen/mesa/-/commits/ib-rejection-v3
+> Am 12.04.23 um 14:18 schrieb Bas Nieuwenhuizen:
+> > And ensure each ring supports that many submissions. This makes
+> > sure that we don't get surprises after the submission has been
+> > scheduled where the ring allocation actually gets rejected.
+> >
+> > Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2498
+> > Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c   |  3 +++
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 25 +++++++++++++++++++++++=
++
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  1 +
+> >   3 files changed, 29 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_cs.c
+> > index 7af3041ccd0e..8362738974c8 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> > @@ -110,6 +110,9 @@ static int amdgpu_cs_p1_ib(struct amdgpu_cs_parser =
+*p,
+> >       if (r < 0)
+> >               return r;
+> >
+> > +     if (num_ibs[r] >=3D amdgpu_ring_max_ibs(chunk_ib->ip_type))
+> > +             return -EINVAL;
+> > +
+> >       ++(num_ibs[r]);
+> >       p->gang_leader_idx =3D r;
+> >       return 0;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_ring.c
+> > index dc474b809604..abd70d2f26f6 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> > @@ -49,6 +49,25 @@
+> >    * them until the pointers are equal again.
+> >    */
+> >
+> > +/**
+> > + * amdgpu_ring_max_ibs - Return max IBs that fit in a single submissio=
+n.
+> > + *
+> > + * @type: ring type for which to return the limit.
+> > + */
+> > +unsigned int amdgpu_ring_max_ibs(enum amdgpu_ring_type type)
+> > +{
+> > +     switch (type) {
+> > +     case AMDGPU_RING_TYPE_GFX:
+> > +     case AMDGPU_RING_TYPE_COMPUTE:
+> > +             /* gfx/compute are often used more extensively and radv
+> > +              * has historically assumed the limit was 192.
+> > +              */
+> > +             return 192;
+> > +     default:
+> > +             return 50;
+> > +     }
+> > +}
+> > +
+> >   /**
+> >    * amdgpu_ring_alloc - allocate space on the ring buffer
+> >    *
+> > @@ -182,6 +201,7 @@ int amdgpu_ring_init(struct amdgpu_device *adev, st=
+ruct amdgpu_ring *ring,
+> >       int sched_hw_submission =3D amdgpu_sched_hw_submission;
+> >       u32 *num_sched;
+> >       u32 hw_ip;
+> > +     unsigned int max_ibs_dw;
+> >
+> >       /* Set the hw submission limit higher for KIQ because
+> >        * it's used for a number of gfx/compute tasks by both
+> > @@ -290,6 +310,11 @@ int amdgpu_ring_init(struct amdgpu_device *adev, s=
+truct amdgpu_ring *ring,
+> >               return r;
+> >       }
+> >
+> > +     max_ibs_dw =3D ring->funcs->emit_frame_size +
+> > +                  amdgpu_ring_max_ibs(ring->funcs->type) * ring->funcs=
+->emit_ib_size;
+> > +     max_ibs_dw =3D (max_ibs_dw + ring->funcs->align_mask) & ~ring->fu=
+ncs->align_mask;
+> > +     max_dw =3D max(max_dw, max_ibs_dw);
 >
-> v3: Completely rewrote based on suggestion of making it a separate query.
->
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2498
-> Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+> I think something like "if (WARN_ON(max_ibs_dw > max_dw) max_dw =3D
+> max_ibs_dw;" would be more appropriate.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+I really like it this way because it automatically does the right
+thing. In comparison it is difficult getting the test matrix together
+for a WARN_ON on something that differs every generation, and I don't
+know what we'd gain from doing it that way?
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 9 +++++++++
->   include/uapi/drm/amdgpu_drm.h           | 2 ++
->   2 files changed, 11 insertions(+)
+
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> index 0efb38539d70..1a2e342af1c0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -1140,6 +1140,15 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->   		kfree(caps);
->   		return r;
->   	}
-> +	case AMDGPU_INFO_MAX_IBS: {
-> +		uint32_t max_ibs[AMDGPU_HW_IP_NUM];
-> +
-> +		for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
-> +			max_ibs[i] = amdgpu_ring_max_ibs(i);
-> +
-> +		return copy_to_user(out, max_ibs,
-> +				    min((size_t)size, sizeof(max_ibs))) ? -EFAULT : 0;
-> +	}
->   	default:
->   		DRM_DEBUG_KMS("Invalid request %d\n", info->query);
->   		return -EINVAL;
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-> index b6eb90df5d05..6981e59a9401 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -876,6 +876,8 @@ struct drm_amdgpu_cs_chunk_data {
->   	#define AMDGPU_INFO_VIDEO_CAPS_DECODE		0
->   	/* Subquery id: Encode */
->   	#define AMDGPU_INFO_VIDEO_CAPS_ENCODE		1
-> +/* Query the max number of IBs per gang per submission */
-> +#define AMDGPU_INFO_MAX_IBS			0x22
->   
->   #define AMDGPU_INFO_MMR_SE_INDEX_SHIFT	0
->   #define AMDGPU_INFO_MMR_SE_INDEX_MASK	0xff
-
+> Apart from that this looks really good to me,
+> Christian.
+>
+> > +
+> >       ring->ring_size =3D roundup_pow_of_two(max_dw * 4 * sched_hw_subm=
+ission);
+> >
+> >       ring->buf_mask =3D (ring->ring_size / 4) - 1;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_ring.h
+> > index 3989e755a5b4..e6e672727529 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > @@ -317,6 +317,7 @@ struct amdgpu_ring {
+> >   #define amdgpu_ring_patch_cond_exec(r,o) (r)->funcs->patch_cond_exec(=
+(r),(o))
+> >   #define amdgpu_ring_preempt_ib(r) (r)->funcs->preempt_ib(r)
+> >
+> > +unsigned int amdgpu_ring_max_ibs(enum amdgpu_ring_type type);
+> >   int amdgpu_ring_alloc(struct amdgpu_ring *ring, unsigned ndw);
+> >   void amdgpu_ring_ib_begin(struct amdgpu_ring *ring);
+> >   void amdgpu_ring_ib_end(struct amdgpu_ring *ring);
+>
