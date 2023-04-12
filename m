@@ -4,68 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0B2BC7619A
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 14:12:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7046DC7619A
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 14:29:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97B0710E814;
-	Wed, 12 Apr 2023 14:12:03 +0000 (UTC)
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A61710E814
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 14:12:01 +0000 (UTC)
-Received: by mail-wr1-x42c.google.com with SMTP id j1so15052249wrb.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 07:12:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681308719; x=1683900719;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=ptZR3bMJ9/PzGgqPrw3Jl+HR2DBTJ/21n1IiBsgEDs0=;
- b=JqDe2h/W4kiKT4QSq6TeiqNrK6LQsd7FdJl8IhnhjlkcxI/62qS/04Xuv/wqTZs4DM
- i1ZEw9OCXEmbQRFC4AZkZ514Weov8s9UmGp8rWic2lz9ZO2htHfAcXtDXv3SpoRJComL
- XPAmVo31lbA55QcIlauNnWbFQRRNpu1k9Fu3tXf7KMfKquL+hgQzqfgMBVSdiniiu14w
- gUaWxe4xnhrE614eWhICy4XJAWApP/wL+wt1mnEjHJbROqPVO5HbonZqdCks8J6tjR0R
- wbHV4bUydTiwyJrlwarkdVZhWM99PyRGJiXlIzVonrI0M3Ucc3DxTrfOT0zEenrCfc5q
- 0Tfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681308719; x=1683900719;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ptZR3bMJ9/PzGgqPrw3Jl+HR2DBTJ/21n1IiBsgEDs0=;
- b=6keBVa4P+y7OKDx9Es6VGx8j7kohcteoAtC5MwZvPTk0ZIP/vRcqTop5Smv8Qo0yab
- QN8p4yDjmY3pGDWm+Kxy1yCt8vqrTqvJJmPJGCowvE/+lqIj9EC4XkwGXjw4R1wsAYZa
- kglg0e99eYiWYVbn+lXx8X9HCZhC6/p+a2AfSGF8cowhQtRapc6O+2EguUMWFXxE+Pp6
- LILoIv03oNRHemBDbGba1WA1e/x/ZE0Ym2MCoaPMmcDeqpnXYBeMKOeq6jsyzwEXEkqS
- 20T4fkeb3vgTFUsvmI0WNKVHq7MWTbyaABC2Ibl2zqFz49EnHbshGOOtnGj6xvkg9IkG
- sqcw==
-X-Gm-Message-State: AAQBX9d5/Gcc0mQJGCWS164SRbtLmw/VpT7U4g6WqEkvBwJCkI2o3Qrb
- WT35cewQ3nQOPUxBG34Gjz0=
-X-Google-Smtp-Source: AKy350bWAAILW1pV6dxnpXfYHmzsynqZIYfNYdMgG4GjSIY2BajZFbz/fDK9SH8DVjZ8iyQXaAsYrA==
-X-Received: by 2002:a05:6000:10cb:b0:2ef:ac43:2f with SMTP id
- b11-20020a05600010cb00b002efac43002fmr8747577wrx.62.1681308718899; 
- Wed, 12 Apr 2023 07:11:58 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1256:79a0:fe02:9bb5:5deb:be0e?
- ([2a02:908:1256:79a0:fe02:9bb5:5deb:be0e])
- by smtp.gmail.com with ESMTPSA id
- z14-20020adfd0ce000000b002c55306f6edsm17258901wrh.54.2023.04.12.07.11.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Apr 2023 07:11:58 -0700 (PDT)
-Message-ID: <f653f458-c891-afda-f31d-c54e85e4656d@gmail.com>
-Date: Wed, 12 Apr 2023 16:11:57 +0200
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id D288610E82A;
+	Wed, 12 Apr 2023 14:29:35 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2062.outbound.protection.outlook.com [40.107.100.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53A8610E82A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 14:29:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YC/tslqid3iFj3/axj0BVa5XIV/rAna1Nqfqktro3Il76JqkXnk10C19KElPkaFBhz0zqNlNbJ7LO2dphAFSa58WSrKqh3WX7L/gAC/ZN/vr+2En5fRKFUGg97wny/MIjkwfaDEK/8FQYV32ESG0LICbERSab+F7CL/onxPZCPI4f7jCfAoQInilwElCcUvnsnpkWtiIxd6qx1djpsfXQZJYlzJAUqK6nFxXRkoG38ySKfiGuxqIPDJ4NX6/vM4qF3D1dwOR0jXFa6mqwShqaEPe+1djezBRqA6hzw571HT6PbReoy35j9883MKwRZcDPwzIPJYSSreotSMaj6Yz3Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RgXtISaIPnHFjK7YMfUmDp5kjDJuFAbE7Q7yoYRKi/8=;
+ b=NYqTK5EIYb4gXecoezDM0pisqdRomeJtmy4K+m/imiRYUBhLkwqyg9fZhA/6TdwO7s18dIACkLaoEHXikSKrq4kArLoNGsVXoIlrNkW5VNDFBeXB8xNL4zToC19AGsPZS2uMau28e3X41pqJ5uR0TS7FaMLH7wqqQmApRGGTeKdlOmcwBsy4jEz1EyjputZoTu4nLohbjSYaqiBocNxI9GB13KNU8+1It4w/hbswKKCYc7vNko37YuW6M7gIHeSARZpWMWUS/goJ2NlyVm9XvfPXzkRWEvRCuxziFNSIorsFcCltoUDLMx35tgWV56TQ8pcNMrXsMPMo0P6pauY1ww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RgXtISaIPnHFjK7YMfUmDp5kjDJuFAbE7Q7yoYRKi/8=;
+ b=JYQ4G6kq4yxmz347f4LPr5FrVFsEaB7A9CEeU4Ps+8DW91oTPlnY7iFwv7THFo+xJVfd+dTUX8hruRwy+aVW+K9p9kSeBdfZmGSa5E599AojkgF5Owj4eEG5ezh2tsXSDOMot+LAFk9tzbFwRWzAcHa5/1XDgJPflnFPlbwe148=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by SJ2PR12MB8062.namprd12.prod.outlook.com (2603:10b6:a03:4cb::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.30; Wed, 12 Apr
+ 2023 14:29:30 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::f170:8d72:ca64:bb26]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::f170:8d72:ca64:bb26%6]) with mapi id 15.20.6298.030; Wed, 12 Apr 2023
+ 14:29:30 +0000
+Message-ID: <c73fdd57-167c-7cde-204c-68355a3abd68@amd.com>
+Date: Wed, 12 Apr 2023 10:29:28 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: Re: [PATCH v3 1/2] drm/amdgpu: Add a max ibs per submission limit.
+ Thunderbird/102.8.0
+Subject: Re: [PATCH 1/3] drm/amdgpu: Add userptr bo support for mGPUs when
+ iommu is on
+To: Philip Yang <yangp@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ "Xiao, Shane" <shane.xiao@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Yang, Philip" <Philip.Yang@amd.com>
+References: <20230404095640.3277840-1-shane.xiao@amd.com>
+ <cd5efdb0-d6f6-8e91-353f-35906a1fe62f@amd.com>
+ <DM4PR12MB5261B08BE4730541920230F89D939@DM4PR12MB5261.namprd12.prod.outlook.com>
+ <c5bd045a-a5ff-36ea-ed9b-bc4732b50b16@gmail.com>
+ <539b143b-64fd-9108-1967-04e2ef27848e@amd.com>
+ <fe10d586-f547-d797-c084-08a4614bb0e1@amd.com>
 Content-Language: en-US
-To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-References: <20230412121827.1122035-1-bas@basnieuwenhuizen.nl>
- <4365dd57-f61d-9d19-79c8-697f0554fa26@gmail.com>
- <CAP+8YyELApwVc06d29P4hRETdXJoXo2M_GqiKhsPie-MLsAe_Q@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <CAP+8YyELApwVc06d29P4hRETdXJoXo2M_GqiKhsPie-MLsAe_Q@mail.gmail.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <fe10d586-f547-d797-c084-08a4614bb0e1@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4P288CA0015.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d4::15) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|SJ2PR12MB8062:EE_
+X-MS-Office365-Filtering-Correlation-Id: 81d503dc-d34d-4480-27f0-08db3b625391
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: KwBB6LwWkCFtVlAJBf7I5abhWWscdjgZNCcGiI4PcaGoF4DqSmys3/BKMnGv0wXfWxLIoLBkzJKiH0ApMppcYuBTfB9hgRD0vsKvdesO5qJWjCiUEqCGTlLZxe36r27bKW+BLmonOXjgOZYa04Yx7DuGQ41D0TE/ESM90eFwU5wozDTALWDsmznbQXPYy8/GgPOAgXTMvXc2mI9GcSZFUQe44wmjhRBKEk8h8VZwwbG3gk/cz32tdE7tSlNxgFLf8UC8mbNT8FU0qAhxZ2VHJlfXHugaDNDNekuun9kfkVXFohPXhnpUqJl77VQHgvMMtC3g0AwdtHkirwmvPio7vRBqqVmbk0/P57cdETAxuJnHFzsMaf5nBp1Kj9k/hTDyz/4bp1rhu2FYBsH5BfEdig8/UZiicYhbkxIMznzW18WALFRVZE6CMSZgzdGfXcZvWNmn6A2BiJU+rtipTsxlwWnp0pJMpxCfVpntpGwId1Zbu0X7ttUNGAtJ48bqF5gyvBsClYoCqjTAiODhOsOU3zocw8h0bNSKc0HxwMzcvOqXXX2y6VFDPd8r33NH+NckJSQgjQcf2rfPQ1RtmcLB7+aBLy9XT2OxUSZe3pDGSm94WSa7pCCgAaDPciOZdm7jIUjtBU0N+7NhuuN+4PvEsg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(376002)(346002)(39860400002)(136003)(366004)(451199021)(2616005)(44832011)(83380400001)(41300700001)(5660300002)(2906002)(31686004)(66574015)(38100700002)(8676002)(8936002)(186003)(53546011)(6506007)(6512007)(26005)(6486002)(110136005)(36756003)(66476007)(4326008)(66556008)(54906003)(86362001)(66946007)(31696002)(316002)(478600001)(6636002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SnVZV2dlSGhFODhLNUFVOWFnd2t3eGh1NjFZMTJUQ2dZamdKUXZVTEtHaWJj?=
+ =?utf-8?B?NFY0SW1XcFZydWdSUlNNb1VEVmxLL1Bxc0l5emlHMmdUb2ZhMDBWcEVaa29y?=
+ =?utf-8?B?b0FJWEVqRVBUV05LK1pjZnVRajdpbWRNcVpkZEE0Tll5UFhLL3JITGhDdjdh?=
+ =?utf-8?B?K3NOaHBWcFdkV2I1NG1LQVMxK0xuVER5enA1MEZ0ZXlmYVM4OW1aN0pFQi9z?=
+ =?utf-8?B?UE96dlltc25rV0planUwNldzdG94QUVKT0ZyR21NOWlMNEZVUUw3OXIxT0lv?=
+ =?utf-8?B?ZklFU01KV2JxNWdtMW4wYklWTWNpTzdZeHB1YTJhdlI3Y3puM25qSXVzRFh6?=
+ =?utf-8?B?Y1VDc2I0dEk0WTQvS3I4WnQrbDdyNEhBcm5CSVNOMy90OGplNHpjNVM5OEJF?=
+ =?utf-8?B?dnJoWmNGUTd3S05UYnk3RFlnZnkwSytFR3dtamI0eDZkMEZkMUVoR3ZiUnJV?=
+ =?utf-8?B?QmhGT0tWblVoWEkrZUdaNVZjYzhuZnlLSTY1NmxRREhDQmlrcXFrV0NjM1dJ?=
+ =?utf-8?B?VjExYWVkYzdhUmtnSGM5aTBqZGRJb1FGeWJLRWRaMWxraktQNE9DWHRrTUxD?=
+ =?utf-8?B?cnVCeDdoREFCdFQwcU0rT2ttUDFPU2xVRS9wUzA3Y0NpU1M0b2xmRVRHMXd5?=
+ =?utf-8?B?WXNYbEp5aVNJYkpyY01kd2lEajJPQ2tYb0Rld0J3SXZsU1Fscy9Ka3NOaFg4?=
+ =?utf-8?B?QlFzanNWT29ZakxEV3RlNzUreS93cE9wMGZhV0lHMXdNQ1A1WXJMQXVIbm8y?=
+ =?utf-8?B?MFp0Q0ZScElxMHc3TUtqd2NRbW80UzFkWDBaVW8ycDFWeFFDSWNKRk9mUDcx?=
+ =?utf-8?B?aUQwa0I2ZE1XeE5rWkgzZi8zQ3lPV1ZSYTFwVkt4N0xKQ1ZYVC95dko4K3RI?=
+ =?utf-8?B?R0czcUxVa09TT2dLQ3FOcG5EQVRMSm52bFUyTGkzcjQ3QVJ3SHBDdHNYc0l4?=
+ =?utf-8?B?OE1ta0pTS1FLYzBvV3NZYW5lNWlvRnU2MXIzcmppYUQydGZnODRxOEp1T1ZS?=
+ =?utf-8?B?b2lQTEIrKzJjRGhFQTNSSmZVV0RtekJYK3FJUEJSdzd1dUhFalh3b3R4eXFM?=
+ =?utf-8?B?bVBFWmlGRlVCYzBNTTNlcXZQWHhDYkIvR2dzUlFpaUY0cG9KNmpqNDBYWmY1?=
+ =?utf-8?B?d0NhK2VVNzFuelVvN2VaMExnVlI1MFE4dWNvVHgvVUp2TEFKWjBuL3h6OVN0?=
+ =?utf-8?B?NEhYRmZ4TEJXdzBnNWRNZldta1had3g1SzdDc2ovOTg0UlBpUjU0VWNWY2l0?=
+ =?utf-8?B?UjZ0VlZkQzZwN1BFbFJoSW8rMEVmTmNENEN2TzdOY25NSzRCcmdVSTZmb3ln?=
+ =?utf-8?B?Q1V3NW45NUVSNm9adXhCcjRLMU5WNzBXSnYrM2pKOWlYb29IWmliUjF4aExj?=
+ =?utf-8?B?ZTI3d1lrdXNXYUxsTnJ4M0hra1ZQRmZ2cGRBRkIvK09iK3RNU0EzdkZxTERy?=
+ =?utf-8?B?SGFSTDUxOEFsbkxTS3JibFplcnVrM2F5N09rMndqdjMzSmUreDVqUytpaEpy?=
+ =?utf-8?B?bGFodnZLa05RUU5MOG12Y256QW9mUU1wQnk0VyttYTNIMmgycDE2bTR0VXJR?=
+ =?utf-8?B?ZVZVclJoZVd6a0dJbERFUGhxZ01CNi95YWZPdSsvOGtjMTFKN1RYRk1RRjky?=
+ =?utf-8?B?RDRXSklTZkJ5TkVVNHdrOXZkcU51WnJVRUFoY0o4bWZKREdIeWJZTUxvTTE4?=
+ =?utf-8?B?SGlmZGRYdGIzNWhFdVUxVkEvSHdwY3QwdlpJaVJQalZpOU5QbjJmZzE2b3hE?=
+ =?utf-8?B?ZWpKaUJ0dXgrUmt0TXBWdnJReVBLSGZHNm84MzVDZUtHMzZIaDlOYnR4YlpO?=
+ =?utf-8?B?Sm5McVo1WHJ5dHdVM2pFL0dVemN5UHhIek04RXhTa2VrczJHNVFoTVE4UGVt?=
+ =?utf-8?B?RTEzUHFSbVdmTlI5Qmc2SEc3WkNmYlVQaDFOMk5CNFFCR0xDS0VoL1h1WU5m?=
+ =?utf-8?B?Y05JTnVtQnZXUTdyVnRDVUlOSDNCTEJQUmRDS3pKZTNFODRvNzJYRTJIYWhF?=
+ =?utf-8?B?UDQ5b290MnFNU3JPWDZLbXE2SkdVTTJQMmQwQzMvV2hUaG42dUMzczViOVk2?=
+ =?utf-8?B?dGJpOUFxK3h2alJhdDdTRk9JMW1HVzFGWktTelErWVI3WmFTaFpGYUh4K3hr?=
+ =?utf-8?Q?EEeRwS8/tAYywxd3KGUdK3r5/?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81d503dc-d34d-4480-27f0-08db3b625391
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2023 14:29:30.2144 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5fUV/vDFL1vQNPQZmCP3U4XaEkQMvlkvBZR1cwwn6mFcL55cONQbv7ACB2nfOOZGH0YFMfjQ3BCwzWTriAwqww==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8062
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,126 +134,160 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, maraeo@gmail.com, christian.koenig@amd.com,
- amd-gfx@lists.freedesktop.org, timur.kristof@gmail.com
+Cc: "Liu, Aaron" <Aaron.Liu@amd.com>, "Guo, Shikai" <Shikai.Guo@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 12.04.23 um 14:50 schrieb Bas Nieuwenhuizen:
-> On Wed, Apr 12, 2023 at 2:46 PM Christian König
-> <ckoenig.leichtzumerken@gmail.com> wrote:
->> Am 12.04.23 um 14:18 schrieb Bas Nieuwenhuizen:
->>> And ensure each ring supports that many submissions. This makes
->>> sure that we don't get surprises after the submission has been
->>> scheduled where the ring allocation actually gets rejected.
->>>
->>> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2498
->>> Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c   |  3 +++
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 25 ++++++++++++++++++++++++
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  1 +
->>>    3 files changed, 29 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>> index 7af3041ccd0e..8362738974c8 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>> @@ -110,6 +110,9 @@ static int amdgpu_cs_p1_ib(struct amdgpu_cs_parser *p,
->>>        if (r < 0)
->>>                return r;
->>>
->>> +     if (num_ibs[r] >= amdgpu_ring_max_ibs(chunk_ib->ip_type))
->>> +             return -EINVAL;
->>> +
->>>        ++(num_ibs[r]);
->>>        p->gang_leader_idx = r;
->>>        return 0;
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
->>> index dc474b809604..abd70d2f26f6 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
->>> @@ -49,6 +49,25 @@
->>>     * them until the pointers are equal again.
->>>     */
->>>
->>> +/**
->>> + * amdgpu_ring_max_ibs - Return max IBs that fit in a single submission.
->>> + *
->>> + * @type: ring type for which to return the limit.
->>> + */
->>> +unsigned int amdgpu_ring_max_ibs(enum amdgpu_ring_type type)
->>> +{
->>> +     switch (type) {
->>> +     case AMDGPU_RING_TYPE_GFX:
->>> +     case AMDGPU_RING_TYPE_COMPUTE:
->>> +             /* gfx/compute are often used more extensively and radv
->>> +              * has historically assumed the limit was 192.
->>> +              */
->>> +             return 192;
->>> +     default:
->>> +             return 50;
->>> +     }
->>> +}
->>> +
->>>    /**
->>>     * amdgpu_ring_alloc - allocate space on the ring buffer
->>>     *
->>> @@ -182,6 +201,7 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
->>>        int sched_hw_submission = amdgpu_sched_hw_submission;
->>>        u32 *num_sched;
->>>        u32 hw_ip;
->>> +     unsigned int max_ibs_dw;
->>>
->>>        /* Set the hw submission limit higher for KIQ because
->>>         * it's used for a number of gfx/compute tasks by both
->>> @@ -290,6 +310,11 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
->>>                return r;
->>>        }
->>>
->>> +     max_ibs_dw = ring->funcs->emit_frame_size +
->>> +                  amdgpu_ring_max_ibs(ring->funcs->type) * ring->funcs->emit_ib_size;
->>> +     max_ibs_dw = (max_ibs_dw + ring->funcs->align_mask) & ~ring->funcs->align_mask;
->>> +     max_dw = max(max_dw, max_ibs_dw);
->> I think something like "if (WARN_ON(max_ibs_dw > max_dw) max_dw =
->> max_ibs_dw;" would be more appropriate.
-> I really like it this way because it automatically does the right
-> thing. In comparison it is difficult getting the test matrix together
-> for a WARN_ON on something that differs every generation, and I don't
-> know what we'd gain from doing it that way?
 
-Especially the older hw generations are quite limited in the size of the 
-ring buffer.
+Am 2023-04-12 um 09:35 schrieb Philip Yang:
+>
+> On 2023-04-04 09:45, Felix Kuehling wrote:
+>> [+Philip]
+>>
+>> Am 2023-04-04 um 08:47 schrieb Christian König:
+>>
+>>> Am 04.04.23 um 12:56 schrieb Xiao, Shane:
+>>>> [AMD Official Use Only - General]
+>>>>
+>>>>> -----Original Message-----
+>>>>> From: Koenig, Christian <Christian.Koenig@amd.com>
+>>>>> Sent: Tuesday, April 4, 2023 6:27 PM
+>>>>> To: Xiao, Shane <shane.xiao@amd.com>; amd-gfx@lists.freedesktop.org;
+>>>>> Kuehling, Felix <Felix.Kuehling@amd.com>
+>>>>> Cc: Liu, Aaron <Aaron.Liu@amd.com>; Guo, Shikai <Shikai.Guo@amd.com>
+>>>>> Subject: Re: [PATCH 1/3] drm/amdgpu: Add userptr bo support for mGPUs
+>>>>> when iommu is on
+>>>>>
+>>>>> Am 04.04.23 um 11:56 schrieb Shane Xiao:
+>>>>>> For userptr bo with iommu on, multiple GPUs use same system 
+>>>>>> memory dma
+>>>>>> mapping address when both bo_adev and adev in identity mode or in 
+>>>>>> the
+>>>>>> same iommu group.
+>>>> Hi Christian,
+>>>>
+>>>>> WTF? Userptr BOs are not allowed to be exported/imported between 
+>>>>> different
+>>>>> GPUs.
+>>>>>
+>>>>> So how can the same userptr BO be used on different GPUs?
+>>>> If GPUs are all in iommu identity mode which means dma address are 
+>>>> the same as physical address,  all of the GPUs can see the system 
+>>>> memory directly.
+>>>>
+>>>> In such case, should we export/import the BO,  then create a new SG 
+>>>> BO for another GPU?
+>>>
+>>> Yes, absolutely. Each userptr BO is only meant to be used on one GPU.
+>>>
+>>> Even if you could use the same BO for multiple GPUs it's not 
+>>> necessary a good idea since you then have live time problems for 
+>>> example.
+>>>
+>>> E.g. what happens when one GPU is hot removed while the other one 
+>>> who imported the BO is still in use?
+>>>
+>>> Felix can you comment on that? My recollection was that we rather 
+>>> improve the storage of DMA addresses instead of duplicating the BOs 
+>>> over different GPUs.
+>>
+>> For KFD we currently enable sharing of userptr BOs between multiple 
+>> GPUs by creating a userptr BO for the first GPU, and creating 
+>> additional SG BOs using the same page list for additional GPUs. That 
+>> way we don't have to call hmm_range_fault N times and setup N MMU 
+>> notifiers for the same address range on an N GPU system. But we do 
+>> have to create N DMA mappings, which is facilitated by the SG BOs.
+>>
+>> We have a further optimization to not even store separate DMA 
+>> addresses per-GPU if they are a direct mapping. In that case we just 
+>> increase the reference count on the original userptr BO. (I agree 
+>> that we should also look into more efficient storage of DMA 
+>> addresses. However, last time we talked about this, you basically 
+>> told us that scatter gather tables are being deprecated, but I 
+>> haven't seen the alternative yet.)
+>>
+>> I think this patch fixes a potential issue with that optimization. 
+>> There is an implicit assumption, that the DMA addresses stored in the 
+>> original userptr BO are a direct mapping, so we can reuse them on 
+>> other GPUs that also use a direct mapping. But, we didn't actually 
+>> check that assumption. I think this patch fixes that for systems 
+>> where system memory is direct mapped on some but not all GPUs.
+>
+> We will need similar optimization in svm_range_dma_map to reuse the 
+> prange->dma_addr for GPUs on same iommu group or direct mapping.
 
-For example we had to split page table updates into smaller submissions 
-(and later moved it into IBs) because the SDMA couldn't handle a large 
-ring buffer (the limit was just 1MiB or something like that IIRC).
-
-I want to avoid that we unintentionally increase the submission limit to 
-more than some hw generation can do.
+Good point. Optimizing for direct mapping is easy: Just skip the dmamap. 
+Reusing the same dmamapping for multiple GPUs in the same IOMMU group is 
+a bit harder. First you need to identify all the GPUs that are in the 
+same group and then check if one of them already has a DMA mapping that 
+can be reused. I wonder how common this is, and whether it's worth the 
+trouble.
 
 Regards,
-Christian.
+   Felix
+
 
 >
+> Regards,
 >
->> Apart from that this looks really good to me,
->> Christian.
+> Philip
+>
 >>
->>> +
->>>        ring->ring_size = roundup_pow_of_two(max_dw * 4 * sched_hw_submission);
+>> This scenario should probably be called out explicitly in the patch 
+>> description. The condition is also getting pretty hard to read and 
+>> understand. Maybe move the both-direct-map-or-same-iommu-group 
+>> conditions into a helper function, say 
+>> "amdgpu_ttm_tt_get_usermm(mem->bo->tbo.ttm) && reuse_dmamap(adev, 
+>> bo_adev)".
+>>
+>> Regards,
+>>   Felix
+>>
+>>
 >>>
->>>        ring->buf_mask = (ring->ring_size / 4) - 1;
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->>> index 3989e755a5b4..e6e672727529 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->>> @@ -317,6 +317,7 @@ struct amdgpu_ring {
->>>    #define amdgpu_ring_patch_cond_exec(r,o) (r)->funcs->patch_cond_exec((r),(o))
->>>    #define amdgpu_ring_preempt_ib(r) (r)->funcs->preempt_ib(r)
+>>> Regards,
+>>> Christian.
 >>>
->>> +unsigned int amdgpu_ring_max_ibs(enum amdgpu_ring_type type);
->>>    int amdgpu_ring_alloc(struct amdgpu_ring *ring, unsigned ndw);
->>>    void amdgpu_ring_ib_begin(struct amdgpu_ring *ring);
->>>    void amdgpu_ring_ib_end(struct amdgpu_ring *ring);
-
+>>>>
+>>>>
+>>>> Best Regards,
+>>>> Shane
+>>>>
+>>>>> Regards,
+>>>>> Christian.
+>>>>>
+>>>>>> Signed-off-by: Shane Xiao <shane.xiao@amd.com>
+>>>>>> ---
+>>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 8 ++++----
+>>>>>>    1 file changed, 4 insertions(+), 4 deletions(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>>>>> index e7403f8e4eba..33cda358cb9e 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>>>>>> @@ -804,11 +804,11 @@ static int kfd_mem_attach(struct amdgpu_device
+>>>>> *adev, struct kgd_mem *mem,
+>>>>>>                 va + bo_size, vm);
+>>>>>>
+>>>>>>            if ((adev == bo_adev && !(mem->alloc_flags &
+>>>>> KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP)) ||
+>>>>>> - (amdgpu_ttm_tt_get_usermm(mem->bo->tbo.ttm) &&
+>>>>> adev->ram_is_direct_mapped) ||
+>>>>>> -            same_hive) {
+>>>>>> + (amdgpu_ttm_tt_get_usermm(mem->bo->tbo.ttm) &&
+>>>>> ((adev->ram_is_direct_mapped && bo_adev->ram_is_direct_mapped) ||
+>>>>>> + adev->dev->iommu_group == bo_adev->dev-
+>>>>>> iommu_group)) ||
+>>>>>> +same_hive){
+>>>>>>                /* Mappings on the local GPU, or VRAM mappings in
+>>>>> the
+>>>>>> -             * local hive, or userptr mapping IOMMU direct map
+>>>>> mode
+>>>>>> -             * share the original BO
+>>>>>> +             * local hive, or userptr mapping in the same dma
+>>>>>> +             * address space share the original BO
+>>>>>>                 */
+>>>>>>                attachment[i]->type = KFD_MEM_ATT_SHARED;
+>>>>>>                bo[i] = mem->bo;
+>>>
