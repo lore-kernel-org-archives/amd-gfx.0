@@ -4,119 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05A13C76196
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 01:25:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 859D1C77B6E
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 05:42:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8318D10E0B9;
-	Wed, 12 Apr 2023 01:25:08 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2049.outbound.protection.outlook.com [40.107.93.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B64E10E0B9
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 01:25:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA71010E164;
+	Wed, 12 Apr 2023 05:42:33 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on20606.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8c::606])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 184CA10E164
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 05:42:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QJcAJwvXoCvWUwkYU2s+ktWj7Ve8eGdMEONBt/He6dqzLBo6Eg8ZMUVO3OX6obE8Pm5iTPiZuJlFB/bZ6SaURM/CrnFCe0WS2RxKYGRjXzsa+nOUblOj7n+N1TthI1WoBoXErGfac58etrYFoJ35X8UsJqSwg2zYRA0MqaH11cSY9G5j3Dwoes9xxVqoe/rckUDiHDpmcpESQQ29AJfkU8wAcK5TJjYh2NEu0kPA/zaOyfRk2oiYISGyhU5hwRgXXoVevMQesxxAmg7YOaHC/EOllzeLy5DNOJnZ6tTXQZGQx2JQ6o3NzdyNsuCc//WQPPqcpjhWg1WSlPVPUDSAxA==
+ b=Paw8jrH9pGxMI9BJDPMsgH9fQLB2h8+Gwi5XvCm2RKLoxct7h53znz8lxj19GyOW/4e1mSdIEUhdRMj209+WWYErhXkUzoCutkuqrlUv9B+EekpJKLImqXUzijRzOKi996OivcVpAlH74EBusxZIj6Xg7BROEsljBtGRz1UobUgVRRZKTHUgRFAuBJyWH/QbaQbAiLwZQPiso0FfAG8KLlypYbDai25Usyz3RrG++DWfaXKJFlKgSnzbaJXrPyj4AMQFVzScPdSY1czoYtoZI+mKLYC9ArV85KRvYW1CGWvbulIUWPd5hsOY9BUcP09me31yrc9uqbxBCp1CjzhRow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7gDETDHzHikjqlNV5MxHrMWdmryZwU1kzpgA8w+jKGY=;
- b=mCKXni6ePPIu9o7duRVuVHKvBqPuUafoxxrS1wvLAw4P7sX+Gconx5IR5TDx/FcgY1FUsDhNkZLjgRjNZ7jgjuIbsP4+DAeT/essbtyeBzt8VpazhMrNcmb4qbZxPpOj6YJWDrX+rNIGGs+ROWrAYr+GoAcRwUQzVR9Ou2NURzOVvH1ri3kLJoEyAyOwAOWOh8/nNQvSPpKthckN3IlWUDLmaFdpS4pW81D7GFRYYy167MKj2vW38vT6tmQhl1WcwEqzceZvcGRSEric/pCyoAVas/fUpPU00fyU26VUZyq484d/9fja4o695I1wpVxnuXtrFs34s61OmBDlry0v5w==
+ bh=vfIGwTV5rahQn5nv9fqQ7QXIJ/8avwCrAkKimG6Ou8c=;
+ b=Yxa4k6b5p6FaIiAPtAN7KuKm4CnoPyB3nVrZ8T0OYYcRcGRqxBrYRmdqQ7EJ8eXdmQ7IJFPP5+BATS3gci4w9VVEXaZwQqgydkF3DwQ2bQKXqI+oAxPDNNMzOwDlOv0hgAM8/7TxcgAbdcmvvSSuTavnNZIyv+FSis8xQwT/I2EN1LsXQchgCfDTYQvC15zKO6QZKmnY/0ejLU5bBzl1EeS2F97cNcHLuMwcX/VsVYZMJHCh86M17lGftrRkXsrHQ5rjPXUE9QVOWizK2iZDkQ+EJ+jN4C/7g3jY7Yx1AaD13Qm0IUmG89sPjzA0XA4uJFJ0mA1Y5gPNZTKdEFBXEA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7gDETDHzHikjqlNV5MxHrMWdmryZwU1kzpgA8w+jKGY=;
- b=uBn3/R4GluWS3PRY7W92ZIxkfIvcvTEM3CErOCr231hVQ2lPkAMM8oImI6UoTMjJFDi73Tq+EnbLZePtuIR/Nh22A/qWkc+zz5DL6ROV/jH/Rv6KxDWu0bBDu+dFqA75Pr5oJZ41r1Ara6jWtCJi9rZiuLCbxPb6ek7X5lyXx8k=
-Received: from DM4PR12MB5152.namprd12.prod.outlook.com (2603:10b6:5:393::16)
- by BL1PR12MB5995.namprd12.prod.outlook.com (2603:10b6:208:39b::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.36; Wed, 12 Apr
- 2023 01:25:03 +0000
-Received: from DM4PR12MB5152.namprd12.prod.outlook.com
- ([fe80::388e:83b6:f2cd:cd42]) by DM4PR12MB5152.namprd12.prod.outlook.com
- ([fe80::388e:83b6:f2cd:cd42%9]) with mapi id 15.20.6298.030; Wed, 12 Apr 2023
- 01:25:03 +0000
-From: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher, 
- Alexander" <Alexander.Deucher@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>, 
- "Zhang, Yifan" <Yifan1.Zhang@amd.com>
-Subject: drm/amdgpu/gfx9: change the reference clock for raven/raven2
-Thread-Topic: drm/amdgpu/gfx9: change the reference clock for raven/raven2
-Thread-Index: Adls3Y+sz5H9A9DYT5SiI0Mz/SeAiA==
-Date: Wed, 12 Apr 2023 01:25:02 +0000
-Message-ID: <DM4PR12MB51527E447D080F457A43B415E39B9@DM4PR12MB5152.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-04-12T01:25:01Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=beb9939d-153b-4939-8ad8-327a5cb3a941;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2023-04-12T01:25:01Z
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: 5a6337b5-1ead-4c16-a9c2-68263bcb0b93
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
-authentication-results: dkim=none (message not signed)
+ bh=vfIGwTV5rahQn5nv9fqQ7QXIJ/8avwCrAkKimG6Ou8c=;
+ b=g6hB3UNoYULfNHOlNGUCxJNsrSBRDwaWBk2hZXlZNqAlpCSaTNOCz12t8B5rK4rzQrFXn5A+6dl65I0v+nz+nDxjncZDs32iRraqhw1gItLguOeXuU/lgYL5XpCWzT4hjTJYEzDnnKcm3IsDCv+ubxAB6x8G/fgrGMrKusmNIWc=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB5152:EE_|BL1PR12MB5995:EE_
-x-ms-office365-filtering-correlation-id: 5b87e476-e102-4fc7-1702-08db3af4bd9a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: kJ4cQwcDuX4fY/cm5PAMWr7XM74Lcrgx3uNjtzVIS3gNWIpNi9IQS+YJeW/H7+qSwfcrFZU/K0T3tPQDUkd9lFW0oX/wuUY4QMpM5nQtXJ4cyUz6JfJwmq/64r+BztuK+UplFSyMlUeO1c16XAuF4VR++EWMTaqCSZWojLHfr88k/s/3OryVb4JLTwjO4BAkStiax7QbcBN6MyT4VL1C7tg34/oKqKrssE+JvrvkJospJN/rt/CYpX8YX+/AbgwHGkMeIob9XYb5YV+0Bv33W8pkfSm50uBL+5g/dlboTnroqnHveYiSWQ8kJEzWcc0NB3UJzkyRmAUOR/OPznE+IJj/nE4gzWfo2+AmkP3O6zDNWL8xFUkj2vCoR7TGwiLhWM2Fq+6a6JQmSTqy3IquK+XCkZ9rKDQqNpl3JHmCMEAwtbPr1NomfWo9FoeMgsTdx1W/pvUBTGYtshgIo1tB9wke8nmix13c74g1etDvl7wG4epJxUbS6o4hJ8015L0AgzrYVGmp52Vfv68DrIqVDqsx5uhYOs+HKyuYSX1Q6WEhhCKtVaQ5e8twojvNGBJLyTwFnxAR52yUkp9/NoChvnYqC6rSSSi0Rp7sVfXa4f0Uu9/tu932xp+5XNMKzBCo
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5152.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(346002)(366004)(376002)(39860400002)(136003)(451199021)(6636002)(110136005)(33656002)(122000001)(478600001)(9686003)(6506007)(26005)(83380400001)(71200400001)(7696005)(41300700001)(316002)(66556008)(66476007)(64756008)(66446008)(186003)(66946007)(76116006)(38100700002)(5660300002)(52536014)(2906002)(4744005)(38070700005)(86362001)(8936002)(55016003)(8676002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?4yiDCXqMQkWnDPbiZqJ2faPveoQWEH5bDywC6Mf1ZMa9bKbjIiaa/srFi2SF?=
- =?us-ascii?Q?O5lRQAwxPEMwjgqyhRqo71kjoD1Y750DGj/5dFGS1YchnGfJzu8NXV89fLC0?=
- =?us-ascii?Q?mq+L0O/aVV0Ny5niA150rr6sA4n32bFn0qGoluXJ4BGKX25Hm542bRMU9+9h?=
- =?us-ascii?Q?QBNBU5HQUHQdvS0KhJ0sDxPZF5sPWnfdMc0/V2cXxROm8RRFl1G0zeDDLfDL?=
- =?us-ascii?Q?MTLzGSnPsqE1juyRoMwSH1RF2m7XtYhue5Ddy6+O+DcGxj/GXfraa3PAiogF?=
- =?us-ascii?Q?cFP1OUb3QDm/oSyXrHytiVIRHKN4/mg6gtkTDyBdrqPPli7XM0ntcpbhDhXF?=
- =?us-ascii?Q?b9gxjSK6jO3EYKGL/pWVTCmQRk5qG+23NMT5sMIAUQYel6G0ZFmEL/fL/XtP?=
- =?us-ascii?Q?0lsuz8pLJKjsR3MhmU+91mPkn3ZR8wW1Dt6O3/rhFj+lWL1UUH33Ci87TpB8?=
- =?us-ascii?Q?l1YVH7mwaoV2CvfLVPJk0A4gcBpIOkdAP64Opf+m388omuRG85CYLeMXMLxg?=
- =?us-ascii?Q?19phkrUs5KQxxxDoyOJtbDt+aO2y/0x6SRYOSnDcGWe2VElrYwGWXqEwoycO?=
- =?us-ascii?Q?bHE6U1m75cW3oRPK0m+XZrIOJ73z2OzOs4DgD4KKGw5A6nzpwmencpMyhI2N?=
- =?us-ascii?Q?VhEe0i0TKtMH4RyWqDSn29vYXSRF2B4AyglyYQMutVyUKYsY4oaq8tCc8XJ/?=
- =?us-ascii?Q?ptQVWzX3SAC5XPy7q2M9IMDlADStJgW/kZ9atNbpXmX3PDJ94RfV3N/bftZ+?=
- =?us-ascii?Q?Tl0KXuAB41QQzitkp0DV+oPjrE6DyJVPuCYDAk5IhKGD4W2TL2t9Sasa9hUj?=
- =?us-ascii?Q?moLnwNcZmnKjOL6Rnh7tdkuvvLGIQkUJvuiMglzl7B26NQQYjBV+ltDP/mZ5?=
- =?us-ascii?Q?AGKAdhCWh7KRPcgTkhRHWzlPfb2/Wz3ODAk+NvG6QhEp8Tl1zOAn2IlI0D3N?=
- =?us-ascii?Q?is4B5M6gUWGPOt4m7MmmO1UhzPX1fkgYgV5RK49EGRgqDKNubHRLA1mdpH5g?=
- =?us-ascii?Q?VtQPedK7/dl7pW6EBb0tclT0R8DFwm0tsHUHKZ50nQTRmxa0IrQ6EZNnsG9q?=
- =?us-ascii?Q?q9vrBIN/EWnDIwXwL5YSbPbG69ywLPFstNIQnH3s0MGe5upJhVRMTvp+HPDE?=
- =?us-ascii?Q?hJiTq+u1c3m7BVF4/uGjvNBZIbLjFsPAcq84MO/3WhJXggTvCf4TQyUzdKqu?=
- =?us-ascii?Q?TIPO5FakPJdvEYKArg6gQpUMj6KS4YmsF1mvvgEQJ4EvGt/7IqCQhKDpp/vr?=
- =?us-ascii?Q?xKJDOuIN3MomsV21A03htigPheRft+Vwlk7qOqz6Z/siXXdxY66x7QMIp6rn?=
- =?us-ascii?Q?Gc5hGq9oU6TsMQ2ZqDgw9FHiYzYmemLAwXS6tPMbQf7VK8PyaT/wlW37SSaj?=
- =?us-ascii?Q?2k4dMLYRTy/lh+hGWINdGSPMgllO9SzalFtMNst2phiWIY1W23Ky31bbsdA6?=
- =?us-ascii?Q?jcIv6dukmLF5oK23EsFl7RpC+iL63XbafD4gWdqVsvYSirpbzWZHfk44eSJF?=
- =?us-ascii?Q?SCphXRn4OKkV7pUwkQlWz2zBlFjqfJ+xjHMmw2hYU8RGU8j7vJceJzfe2dSm?=
- =?us-ascii?Q?DKglcWANoHsVSARNw+k=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_DM4PR12MB51527E447D080F457A43B415E39B9DM4PR12MB5152namp_"
+Received: from DM6PR12MB2602.namprd12.prod.outlook.com (2603:10b6:5:4a::11) by
+ IA1PR12MB8078.namprd12.prod.outlook.com (2603:10b6:208:3f1::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.35; Wed, 12 Apr
+ 2023 05:42:26 +0000
+Received: from DM6PR12MB2602.namprd12.prod.outlook.com
+ ([fe80::3c3:83f1:333c:fc17]) by DM6PR12MB2602.namprd12.prod.outlook.com
+ ([fe80::3c3:83f1:333c:fc17%5]) with mapi id 15.20.6298.028; Wed, 12 Apr 2023
+ 05:42:26 +0000
+Message-ID: <dd7593db-d9c7-1358-8549-87926a1ad721@amd.com>
+Date: Wed, 12 Apr 2023 00:42:22 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH] drm/amdkfd: Change WARN to pr_debug when same userptr BOs
+ got invalidated by mmu.
+Content-Language: en-US
+To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230410143605.334232-1-xiaogang.chen@amd.com>
+ <c48e62e2-fc71-c81b-8523-6fa9b99f1b14@amd.com>
+From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
+In-Reply-To: <c48e62e2-fc71-c81b-8523-6fa9b99f1b14@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: CH0PR07CA0001.namprd07.prod.outlook.com
+ (2603:10b6:610:32::6) To DM6PR12MB2602.namprd12.prod.outlook.com
+ (2603:10b6:5:4a::11)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2602:EE_|IA1PR12MB8078:EE_
+X-MS-Office365-Filtering-Correlation-Id: bc3f59b3-20d0-426c-c008-08db3b18b20a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: +C4CYz9EL2uiHSrv1lPrtLGLuUQZl5cyXbqMeYuW1Xgj1Oi9XyRdb0DZP3iWjRQ65VB57O9hLXc0gQz0ZCHhBk1oxfXegz5p7qTS6vTnyG1l2Q7v1mjJKi00gFLNIZm9+nID1Ct7RXyoS91pElAs8okAjj/Ist9SK4VwpZm4vUllkpBCG2zGgIpLz4DU67ZnKboIvA0l99EAyIHaH+KPN443LAazJC4Hd4y/ozaB+QBZUYgt0cR7k+TU8EdUhDK+46WV1EMt2kBafxL3wLGV5PKWQsQiW1dYGX33joTkFNQdYcJaWorBZzObTuOytdtv1s0d1SSGwsAQ8O5OM/zhSQv45NW6C7IwatqRly/yWSBswd0fBywANbt//YDmyBRg5ROfcL1u/NCVa/6x1jkaRohEfq3ampGwT8/zfxl5vV5tHQE5OPu1F4XD4bFssiJX5ENqbftwCjIqwv6yWqc5245fk7aXw6iXTr9iSwRhUBqQRwmJdO0sKNIf0LPrQf4Cok/P5gVKVDGVIJOXMt+Fe2fuDj+dHZ8vC/U6MLnOb/aLZeCS/Yex/YyxQhZhmAtH5smRGf0FebqMxUNOQ029AITHXwjyxWp4WGWztKsDVfOKBA0j0CKe4foGUnQuYZb6mVHGtLgDK6W1WDS+W9XqaA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2602.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(376002)(39860400002)(366004)(136003)(396003)(451199021)(86362001)(66556008)(66476007)(8676002)(66946007)(478600001)(26005)(31696002)(6506007)(6512007)(6486002)(2616005)(6666004)(36756003)(186003)(53546011)(316002)(83380400001)(5660300002)(38100700002)(2906002)(8936002)(31686004)(41300700001)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Vk5LeFZ3eFJrM1d5Wm10OUxhV2ltc1p2S1hsN3NHOVRzRWJyUTZOdmNXbkN0?=
+ =?utf-8?B?WTJBcDNER1dLY0p0MzhnVVZXWTFrY0hnZEVJMUtMaWdzdUNIdW80cFFiaGhK?=
+ =?utf-8?B?ZExHOUJOQWV0MG5lSTA4bis5cy8xeUJJY3hEWHZhNWQrQ3lndXl5YUdwK3A3?=
+ =?utf-8?B?ZTNLbHdjd0FlS2FDTFZoWFZ4MU5NM3RobDVDOCtWcFpDZ3VVbzl0UEE3RmE5?=
+ =?utf-8?B?UzF3MGNQRlVLQzNpbWM4eFlrenJXMDlIUnl6d2lBMll4ZUVERWJmRlJJMmNz?=
+ =?utf-8?B?ZkVmWEdMZ0hFQ0V0Y2IvM1doczlObnBjMVlWNDcyUGh1RitBRFNDWlhqUysv?=
+ =?utf-8?B?bVViZ1ZWS0ZrZGticnZ0TWxrZXFGWk5PdjNkeHZXVVNWL2YyMlRDVDBPUUhN?=
+ =?utf-8?B?VzNrbnl2bWFzUTVyVGRFQXJnWk9WNXZGTWhONm9CRDF5aEhsOUVFQnhINTdw?=
+ =?utf-8?B?UzlFbmFIRDY2cW1yZElNT1pud0Rhby8wT0xnYXpFMmw5bng1enoyNUlWUWlB?=
+ =?utf-8?B?V3FjeW5rcXM1K0o1ODJmZlhneEVMZjFiR3RsSllOUlkwdE1qSVFwdzN4UStJ?=
+ =?utf-8?B?ZG1uMkFtdTMySnMzQ2dKKzNISEhZOGRBTWMzandySG5XT2U2amV4MDEwSDg3?=
+ =?utf-8?B?czRxZnNQM3doY1ZqY2t6MXpEWlFlRFRRb3d3MGFoNlBENHNvclArQ3grUVpL?=
+ =?utf-8?B?ejg1czB6Y1hwK0dwSFR2WjgzNE95dWI2OEw2YTVPUm5hVDFWbE42SXExZmtl?=
+ =?utf-8?B?UVA4YlZsVkpjeS9GNXBoY05KdHJMbDR4RnBRVkhjZ2locVoxRDgyaElFQW1n?=
+ =?utf-8?B?MGw1WjhwSlJzUi9UQ3U5ak05RUxKWWsxcW9pYzEzWDBvUnVORHFUaTNYdnp3?=
+ =?utf-8?B?T2dDUHc3djhMTHA0eDd3Y2M1RHZHRG55WHNkMkpjMzB4VXNxczlOMHBIYTlp?=
+ =?utf-8?B?NmVhdm53UGpMcVYrVnh4V2kyN3NXSHppOE5DV0N1MFlyYi9BVHh0RzVtZWhQ?=
+ =?utf-8?B?eWxFVi9TbG5RNmFIQ1B0L1Z2OWJsVVRIMUpOcUF1NE5XakNBVlhJVmtYNnVj?=
+ =?utf-8?B?ZGtEdDlMYThqL1IyTnNETnZKcnRKNEpVVlNvQWUxditFK1hYMjJJT2EzVmxy?=
+ =?utf-8?B?UEx1ZzVOUkhrUTZ2RnI5a1NRdHlmdmZ0blh3M2xsWEZ0aGtmS2dEOHRxOWU3?=
+ =?utf-8?B?M3hpbm1VZnBqb2JZcTZCTmsxbkVPZ3Q0VTNuOHBqR2dzd2t6UktTcWR3anNQ?=
+ =?utf-8?B?cFVQVFFpcTJ4bDVCTkdIVGJ5ZDAyR2dJZUc5U3QyS2dYQnJoNVBSbFVyUVFr?=
+ =?utf-8?B?bkZsS1lYK2lOMlN1U2dQUWRPN3BwRjhVR1ErbUlad1lYcWV5T29aRDVQS25M?=
+ =?utf-8?B?SmlJT3N2SWh5YXpZQkhxY25wRkZvWFF6R0svMzd2N1hXckRHWVEwalFTYzJu?=
+ =?utf-8?B?aVRkNEo2V04reDVpOVZleG9UbGpydEs2N2JTZnpVTU9XWkppekRIbTM1UnNp?=
+ =?utf-8?B?SENDeGhkbGRCS3NGZ2NmbWdrYStJVVVmZ2lzSFpoVXRadWpPL1lvdVlHYm51?=
+ =?utf-8?B?dVRkd0hIVmJHLzNYVG1TcmUxR2wxUEYweU1Td1F5THlUd3JEeGFKc0JuMzdq?=
+ =?utf-8?B?ZUYrcmExeXNHSzRrVjBHQk1XRXJ2UXpoRWZxZ2RxTDdac3J2QU5ETmw4OEFM?=
+ =?utf-8?B?TitISXBHRWpNbnkydDBFTDhuNUg5ZmVFZ3l4VzFmbitxM25PQ3lZaXlPUkFu?=
+ =?utf-8?B?T25GRHpiNTU2dXZXNHpVaFVEZjFyT0FlTXZpaG50Z285RlhBMDlLQ242UDlE?=
+ =?utf-8?B?Y2VTc2NqRkNLa2pPOWhuclorL2NiejNndUZSUUE5eER4UitlK0FLa291dVoz?=
+ =?utf-8?B?NWhwUVpjWkNIeURWSDhSc1F3NGxrZEZNRkVYenpISlc0eldJOURBNUpBdUVk?=
+ =?utf-8?B?aGU3U1JJNWp4aHVuMjh2bmRtL1EvUkQyRGRtb0ZQOTVOMFZxc1RRejJsUW9H?=
+ =?utf-8?B?ejJwd25zM2gvWDBacWdDZTZxMmVXbFRqVGZMT2c2M1NDOFBmbFNkeW5OWGMx?=
+ =?utf-8?B?MmV6ME9pS2tNbHpFNVVNdjZZOS9EK2xxQnFsMGtCQ2NOSWJMZnF0Y2VVZW5G?=
+ =?utf-8?Q?a2q4=3D?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bc3f59b3-20d0-426c-c008-08db3b18b20a
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2602.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5152.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5b87e476-e102-4fc7-1702-08db3af4bd9a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Apr 2023 01:25:03.0024 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: PuiNE7vBJ7W9kyDDAkWInaes5Iow9+NfeSMimzeyU1HbMCL21YgX2bo1Y5cqCm+S1H7Ow/YRuGPwgjxJ6T+lDw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5995
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2023 05:42:25.6965 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: c0kLtZAT1+0tSte9QIuSPudpLzU+Z43o3YD0/FG2B+MOi4ZO+4NxoWPxjTs7l4Y0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8078
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,149 +129,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM4PR12MB51527E447D080F457A43B415E39B9DM4PR12MB5152namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
 
-[AMD Official Use Only - General]
-
-    Due to switch to golden tsc register to get clock counter for raven/ ra=
-ven2.
-    Chang the reference clock from 25MHZ to 100MHZ.
-    Signed-off-by: Jesse Zhang  Jesse.Zhang@amd.com<mailto:Jesse.Zhang@amd.=
-com>
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
-u/soc15.c
-index 7d04c39332ad..0367a97c606b 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -301,11 +301,10 @@ static u32 soc15_get_xclk(struct amdgpu_device *adev)
-        u32 reference_clock =3D adev->clock.spll.reference_freq;
-        if (adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(12, 0, 0) ||
--           adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(12, 0, 1))
--               return 10000;
--       if (adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(10, 0, 0) ||
-+           adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(12, 0, 1) ||
-+           adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(10, 0, 0) ||
-            adev->ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(10, 0, 1))
--               return reference_clock / 4;
-+               return 10000;
-        return reference_clock;
-}
-
---_000_DM4PR12MB51527E447D080F457A43B415E39B9DM4PR12MB5152namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On 4/10/2023 2:58 PM, Felix Kuehling wrote:
+> On 2023-04-10 10:36, Xiaogang.Chen wrote:
+>> From: Xiaogang Chen <xiaogang.chen@amd.com>
+>>
+>> During KFD restore evicted userptr BOs mmu invalidate callback may 
+>> invalidate
+>> same userptr BOs that have been just restored. When KFD restore 
+>> process detects
+>> it KFD will reschedule another validation process. It is not an 
+>> error. Change
+>> WARN to pr_debug, not put the BOs at userptr_valid_list, let next 
+>> scheduled
+>> delayed work validate them again.
 >
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
-break-word">
-<p class=3D"msipheaderdf3d92d6" align=3D"Left" style=3D"margin:0"><span sty=
-le=3D"font-size:10.0pt;font-family:Arial;color:#0000FF">[AMD Official Use O=
-nly - General]</span></p>
-<br>
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; Due to switch to golden tsc regis=
-ter to get clock counter for raven/ raven2.<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; Chang the reference clock from 25=
-MHZ to 100MHZ.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;Signed-off-by: Jesse Zhang&n=
-bsp; <a href=3D"mailto:Jesse.Zhang@amd.com">
-Jesse.Zhang@amd.com</a><o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p></o:p></p>
-<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/dr=
-ivers/gpu/drm/amd/amdgpu/soc15.c<o:p></o:p></p>
-<p class=3D"MsoNormal">index 7d04c39332ad..0367a97c606b 100644<o:p></o:p></=
-p>
-<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/soc15.c<o:p></o:p><=
-/p>
-<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c<o:p></o:p><=
-/p>
-<p class=3D"MsoNormal">@@ -301,11 +301,10 @@ static u32 soc15_get_xclk(stru=
-ct amdgpu_device *adev)<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 refer=
-ence_clock =3D adev-&gt;clock.spll.reference_freq;<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (=
-adev-&gt;ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(12, 0, 0) ||<o:p></o:p>=
-</p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; adev-&gt;ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(12, 0, 1))<o:=
-p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 10000;<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;i=
-p_versions[MP1_HWIP][0] =3D=3D IP_VERSION(10, 0, 0) ||<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; adev-&gt;ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(12, 0, 1) ||<=
-o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; adev-&gt;ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(10, 0, 0) ||<=
-o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; adev-&gt;ip_versions[MP1_HWIP][0] =3D=3D IP_VERSION(10, 0, 1=
-))<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return reference_clock / 4;<o:p></o:p></p=
+> The problem is not, that a concurrent MMU notifier invalidated the 
+> pages. The problem is, that the sequence number and the mem->inval 
+> flag disagree on this. In theory, both the sequence number and the 
+> mem->inval flag are updated by amdgpu_amdkfd_evict_userptr in the same 
+> critical section.
 >
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 10000;<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;retu=
-rn reference_clock;<o:p></o:p></p>
-<p class=3D"MsoNormal">}<o:p></o:p></p>
-</div>
-</body>
-</html>
+> When we validate the BO, we set mem->valid to true. If mem->valid gets 
+> set back to false later, the sequence number should also be updated so 
+> that amdgpu_ttm_tt_get_user_pages_done should return false. So 
+> mem->valid and the sequence number should agree on whether the memory 
+> is valid. However, these WARNs indicate that there is a mismatch. If 
+> that happens, it means something went wrong. Some of the code's 
+> assumptions are being violated and this justifies a WARN.
+>
+yes, mem->invalid change and mmu_interval_set_seq(mni, cur_seq) at 
+amdgpu_amdkfd_evict_userptr are under process_info->notifier_lock 
+protection, but mem->range->notifier_seq could be stale when mmu 
+notifier happens concurrently.
+> I think you mentioned that you only see the warnings with the DKMS 
+> driver. I suspect this is happening on some old get_user_pages code 
+> path, not the current hmm_range_fault-based one. I would recommend 
+> looking into this problem on the DKMS branch and addressing the 
+> problem there. This should not be fixed but removing legitimate WARNs 
+> on the upstream branch.
 
---_000_DM4PR12MB51527E447D080F457A43B415E39B9DM4PR12MB5152namp_--
+It happened with dkms driver with HAVE_AMDKCL_HMM_MIRROR_ENABLED 
+enabled, it is not old get_user_pages path. I retraced this part code. I 
+think there are two issues:
+
+1: amdgpu_ttm_tt_get_user_pages can fail(-EFAULT). If it failed we 
+should not set it valid(mem->invalid = 0). In this case mem has no 
+associated hmm range associated.
+
+2: mmu notifier can happen concurrently and update 
+mem->range->notifier->invalidate_seq, but not mem->range->notifier_seq. 
+That causes mem->range->notifier_seq stale when mem is in 
+process_info->userptr_inval_list and 
+amdgpu_amdkfd_restore_userptr_worker got interrupted. At next 
+rescheduled next attempt we use stale mem->range->notifier_seq to 
+compare with mem->range->notifier->invalidate_seq.
+
+I will send a patch based on amd-staging-drm-next and amd-staging-dkms-6.1.
+
+Regards
+
+Xiaogang
+
+>
+> Regards,
+>   Felix
+>
+>
+>>
+>> Signed-off-by: Xiaogang Chen <Xiaogang.Chen@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 13 ++++++++++---
+>>   1 file changed, 10 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> index 7b1f5933ebaa..d0c224703278 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> @@ -2581,11 +2581,18 @@ static int 
+>> confirm_valid_user_pages_locked(struct amdkfd_process_info *process_i
+>>             mem->range = NULL;
+>>           if (!valid) {
+>> -            WARN(!mem->invalid, "Invalid BO not marked invalid");
+>> +            if (!mem->invalid)
+>> +                pr_debug("Invalid BO not marked invalid\n");
+>> +
+>> +            ret = -EAGAIN;
+>> +            continue;
+>> +        }
+>> +
+>> +        if (mem->invalid) {
+>> +            pr_debug("Valid BO is marked invalid\n");
+>>               ret = -EAGAIN;
+>>               continue;
+>>           }
+>> -        WARN(mem->invalid, "Valid BO is marked invalid");
+>>             list_move_tail(&mem->validate_list.head,
+>>                      &process_info->userptr_valid_list);
+>> @@ -2648,7 +2655,7 @@ static void 
+>> amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
+>>           goto unlock_notifier_out;
+>>         if (confirm_valid_user_pages_locked(process_info)) {
+>> -        WARN(1, "User pages unexpectedly invalid");
+>> +        pr_debug("User pages unexpectedly invalid, reschedule 
+>> another attempt\n");
+>>           goto unlock_notifier_out;
+>>       }
