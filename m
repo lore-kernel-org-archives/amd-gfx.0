@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4E0BC77B72
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53264C77B6F
 	for <amd-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 16:26:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 825E610E8AD;
-	Wed, 12 Apr 2023 16:26:44 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2051.outbound.protection.outlook.com [40.107.92.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 555BF10E8AE
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 16:26:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E11FC10E8AF;
+	Wed, 12 Apr 2023 16:26:43 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2047.outbound.protection.outlook.com [40.107.237.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D21A10E8AD
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 16:26:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fj+mDkI1/vwLlxuZrZFZoeVyk7irQYNqsc5ulAx953F3X5ZJlOISUa+UWTTG50LQaFsciJJ8nIxp37RzFNa4GvO63/wRhNkPecSNCBUNW1shnedDNPpD4Jk2s/f5hd6rxT005KzBZDNVQPHhhPR6GOlpecskfHMC7PExDuY+V1nMHZg+Nlco6FWlxXuLQ/5FDzAOOw7Sj3JksPuWrLwJuKujxVPoog6tmkq7QFk3kb9GX1wcQl9DNUkmyN/FyUwS0Xv+c5N3TgUCSZArW96H0/3hiRDabs++YwCvwzQZUl+V39QcfHPI79kCdIEm2jNc667tnJ/cTVId1wZP+qUhQw==
+ b=oO5U9/sF1FOYkvRfYqXZLlx2cjJenEtulqWqvjbmMtXKvCQalzUPG5qABhYWe2Pt/yWbQXdoKS1KDFrjs5mIG8cZ032wbhawSNoXNPFWT+XylbJ/f8P4aYbancKgulUhG5b/UauxxEFBBAvPQfttTUfjWN6EvUo75sGDSQdezY4c6WoPSLQbA+u1JmbtoOGto8y5o4DAHUAtu47CUKeZk87bVZ7naZU2AGcd0FAmlbh/BRrR+aZSSueLIW9NcauIzI1rQHloGHm/54mKoygHTYXxmjaziMtvXyWvwGiFw0NklsKndHoIISMftsFu6aZhGnkMTb4Lm90SweE3m7iVvg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q3JbGtMFhoaRSYEPMJRWmHebQDcXO3uc11jJuEFqDvs=;
- b=QjYWUcv26dioxofSgcCV3qBvVkkTjUBxmN/0X6FhoceTYprMbUP3wWGsiIuYcFgaBgxyf6NcffjZVeQ7Ui7fol527psPUGfY2sPPUayC8d43Q8VlgVq9lNWnLY0uk1a0zBeSrbVxQDJOefnAuSUDgF8jXqEu6dqKqQIcVOdTW6g/tD//QfwSVcIViKj0cz0TudZ4e91YUuZTZpDs+dsL2SGAhK5BVO2bIPIZm/qFW8oQ4KuiWX3wgdq7/dpUe23ZAipYy+W1+5NY9lZtkzc9j7PLrp41yLVpAR8z02CnpJw6nlZOhL1n4wk9i7iUu3humFB3m6xGIKTHgZwcKKAYaA==
+ bh=zozvn29oJThU8VgwFBuNXgXT3SJTToIvajEyjtFKfUU=;
+ b=Y46kID8tcl4QwOL1InepQLAa2o2rK/d2f1b5YCBN2v1ocZZv6VW5WHq1R1XnHq6zpWRDW6uBcic1Unux0YiqLeE/nQPGE29UDdcq4IvmyAxLNT14b1kqEal2TYuJxOePu4xX+Jly9n+c27o/HbxBnXxUYlLQRH+1rXXRhyfBskjHgxdYnWo4wUG5xkyjvRHoBfX8iGIsm1N2AI1oC3r/UPxgiFxaPNDxBK+W67RjvVTY9ktZ7SrdrU8MT697x2avZKOCqgxYgXAfWlSIQdUa1OucpzWahobDGnjIfSFkhl2sdHJzpWuuJrAhpeKGRZpEU4QWnb/4670FdzcSiRz3bQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q3JbGtMFhoaRSYEPMJRWmHebQDcXO3uc11jJuEFqDvs=;
- b=KkldmTmtPTZpeZ7wuyMogps1sgLsk8MWfwOryHHQ8Hwv36MNWGBH+3fN7rI73M1ma/7wzn9vE18ySZf9YeKVmWrNpr9QHB8UCRnlqjsCzXDXzoSq96S5AyYqPScSD+uF3MNC5hm++CPlBiqLpg8cs0pf9kNoMNF+KXRoKGHKX+k=
-Received: from BN9PR03CA0423.namprd03.prod.outlook.com (2603:10b6:408:113::8)
- by CH2PR12MB4859.namprd12.prod.outlook.com (2603:10b6:610:62::14)
+ bh=zozvn29oJThU8VgwFBuNXgXT3SJTToIvajEyjtFKfUU=;
+ b=iU8kIubwRfLdNwUxOjdJArex7Ezsu4cSOn4eOya6UkFQD7rQkDTq7ApyKJCXquORc3ZSWWcU2PEFB27LWi3az3g3b+QpXQMdMcYxhNAFRf28INBawEb8p0rT7LgTzjXc6gc2MEzk6AHuFlGxCLG2sp4O/xa6QZtuu26k0vq8n8o=
+Received: from BL1PR13CA0066.namprd13.prod.outlook.com (2603:10b6:208:2b8::11)
+ by BY5PR12MB5016.namprd12.prod.outlook.com (2603:10b6:a03:1c5::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.38; Wed, 12 Apr
- 2023 16:26:39 +0000
-Received: from BL02EPF000100D3.namprd05.prod.outlook.com
- (2603:10b6:408:113:cafe::3f) by BN9PR03CA0423.outlook.office365.com
- (2603:10b6:408:113::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.30; Wed, 12 Apr
+ 2023 16:26:38 +0000
+Received: from BL02EPF000100D0.namprd05.prod.outlook.com
+ (2603:10b6:208:2b8:cafe::c9) by BL1PR13CA0066.outlook.office365.com
+ (2603:10b6:208:2b8::11) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.30 via Frontend
- Transport; Wed, 12 Apr 2023 16:26:39 +0000
+ Transport; Wed, 12 Apr 2023 16:26:37 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF000100D3.mail.protection.outlook.com (10.167.241.207) with Microsoft
+ BL02EPF000100D0.mail.protection.outlook.com (10.167.241.204) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6298.27 via Frontend Transport; Wed, 12 Apr 2023 16:26:39 +0000
+ 15.20.6298.27 via Frontend Transport; Wed, 12 Apr 2023 16:26:37 +0000
 Received: from MUN-L-SHSHARMA.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 12 Apr
- 2023 11:26:37 -0500
+ 2023 11:26:35 -0500
 From: Shashank Sharma <shashank.sharma@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2 10/12] drm/amdgpu: remove unused functions and variables
-Date: Wed, 12 Apr 2023 18:25:34 +0200
-Message-ID: <20230412162537.1357-11-shashank.sharma@amd.com>
+Subject: [PATCH v2 09/12] drm/amdgpu: use doorbell manager for kfd process
+ doorbells
+Date: Wed, 12 Apr 2023 18:25:33 +0200
+Message-ID: <20230412162537.1357-10-shashank.sharma@amd.com>
 X-Mailer: git-send-email 2.38.0.windows.1
 In-Reply-To: <20230412162537.1357-1-shashank.sharma@amd.com>
 References: <20230412162537.1357-1-shashank.sharma@amd.com>
@@ -68,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF000100D3:EE_|CH2PR12MB4859:EE_
-X-MS-Office365-Filtering-Correlation-Id: 24c0f2a1-e2e4-47f6-9393-08db3b72b171
+X-MS-TrafficTypeDiagnostic: BL02EPF000100D0:EE_|BY5PR12MB5016:EE_
+X-MS-Office365-Filtering-Correlation-Id: d58b1f81-2c85-41cb-4cfe-08db3b72b06b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: k8Y99ZUY9Yz3QCSLsDrl4+URfkn0OMTJkQz+VceKGOwZVBDpC3XKki0feCsc/BvwLbsaaTljQ3xaOra4CEDfPInaY1EK8mCbmO5AGkgZZ3f4yrsvobP2Q/1+FNdpWcQMVPfmmxFshhMZkOfwhx6HQH0SP7/4uEVhDxdBm8z7is/pxKAXXQClbr36ACnHKUhzqrqg4/CrYDtz7p5ZniLU6jGNRkCKbqBpewrJiq3vTzSe3BRJfcCHjhRCYZUPhfV82Tejhs8bwHM54vi6ixAl0/LKPQSQ2qeiZRlK7DchKN+gta34ygCLU3nJzt4LJS0GVgPtIWxZa4LVO3W5v/wrnidFpuYZRmwDv/RWxNCXZ6W/SePDPyafnB05mAqrqyrZIMQNjZcr+k8Pm2/D6GvI2aDFHaEA9YlCX5Kbc4Q932NYlSSkhj9VfI5jEFUBlp0FgLnd9fn31GOspQncvhrD8hKusSWkmFmyJZQgx2x8dzJQ2LIIe18UtIVpSkZDX35vJzUnjy5uZNrjoh00+1dtpBdlRrKLPs8+Fmig+evCFMxXOETxX3on8W2MOway4ORnLU9Kojqvwd8/ySn5FDkcBZDHVDY26tqjrfXULn7JWRo9Wr1wOxOtExSwuhW8bNn2WaeUuxAJy3YT22/yUIJHvgF21PAPX+c/Y5NoB37cx3WE2S7vfLseDh72nu1oSWIgMLQbS7cwrvJaM61QFHNULk++JWV3aSntXOUCCgnkBLM=
+X-Microsoft-Antispam-Message-Info: DECO6W9e+IM7QX8YvCs2o56k9yfxU94XYWkWx0yicqxWbe56Esybj26vNLBj/p9Rp2aKHBtoZKiWq6dIgaXigd5IUo19GgL7buyulhP2bdymA4R4pX9jn98yuNVJ1MqMmEfT8eHeiHdLuEz2R+ivzGn5kcMq+cj//v4Dfpjd+FBYtCemPmkX63CdYFJ7p6qUtQXnMYHRWoqQUraQ5Wy1gVgUi0AADPhu26MmUUjbyliSthYANKaRQ762T4UzwRiMtKHZU+5YTlsc4tHbYjuWhm7R8Vt6Ss5e4qFtAYHBj+vE2/wBHSqi7LBSJgPfVWBDgEffIYNreSSPK94Wtjne0TRlU5+mOvDGxPFJDEo+iVXOUTPTXDJq5KcdshdR/unHp792uWIOpjJXpE5FQHh89BbHhudkXaM8L64we0549CmDydDm6D20Ms3Qv+6BgNhrsZ8brkRO7nYUWR9EicXWXL/z0vdVF6v0TdyVoSw7Ksjs0DvjXg5LV0aqyerwIRrk4oj/NGyFu1EoW9DGADjOTzikEIHJ8dhJWVTuyZhGXKq7o+M8GxGiAqEVyh47LIEViHoYPrTN5N4QL9ERiXFbRQ7jwWcCI2cvnzrh4zjb3VlshpMIPc6kmLD1TYNg0H7hX0XXWreeMwIaVlCC29DbU0eG5MVqE+x0bf8kWJ2bRBQeJvF/doKBjoWk/sltNJFO6aiWgH2sH4MmWH7tWQdTRRtbrSOUSm7lqB/f5Y2rfqY=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(136003)(346002)(376002)(39860400002)(451199021)(46966006)(40470700004)(36840700001)(16526019)(186003)(426003)(336012)(41300700001)(26005)(1076003)(6666004)(81166007)(2616005)(7696005)(86362001)(47076005)(83380400001)(478600001)(54906003)(40460700003)(36860700001)(6916009)(5660300002)(44832011)(2906002)(82310400005)(70586007)(356005)(70206006)(4326008)(40480700001)(8676002)(82740400003)(36756003)(316002)(8936002)(36900700001);
+ SFS:(13230028)(4636009)(376002)(136003)(39860400002)(346002)(396003)(451199021)(40470700004)(36840700001)(46966006)(36860700001)(336012)(426003)(83380400001)(70206006)(70586007)(47076005)(2616005)(478600001)(7696005)(16526019)(26005)(186003)(54906003)(1076003)(44832011)(2906002)(36756003)(30864003)(5660300002)(81166007)(356005)(6916009)(82740400003)(4326008)(82310400005)(41300700001)(40460700003)(8936002)(8676002)(316002)(40480700001)(86362001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2023 16:26:39.2065 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 24c0f2a1-e2e4-47f6-9393-08db3b72b171
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2023 16:26:37.4721 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d58b1f81-2c85-41cb-4cfe-08db3b72b06b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF000100D3.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF000100D0.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4859
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB5016
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,103 +101,329 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: mukul.joshi@amd.com, Shashank Sharma <shashank.sharma@amd.com>,
- arvind.yadav@amd.com, Alex Deucher <alexander.deucher@amd.com>,
- contactshashanksharma@gmail.com, Christian Koenig <christian.koenig@amd.com>
+ Felix Kuehling <Felix.Kuehling@amd.com>, arvind.yadav@amd.com,
+ Alex Deucher <alexander.deucher@amd.com>, contactshashanksharma@gmail.com,
+ Christian Koenig <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch removes some variables and functions from KFD
-doorbell handling code, which are no more required since
-doorbell manager is handling doorbell calculations.
+This patch:
+- adds a doorbell object in kfd pdd structure.
+- allocates doorbells for a process while creating its pdd.
+- frees the doorbells with pdd destroy.
+- removes previous calls to allocate process doorbells as
+  its not required anymore.
+
+PS: This patch ensures that we don't break the existing KFD
+    functionality, but now KFD userspace library should also
+    create doorbell pages as AMDGPU GEM objects using libdrm
+    functions in userspace. The reference code for the same
+    is available with AMDGPU Usermode queue libdrm MR. Once
+    this is done, we will not need to create process doorbells
+    in kernel.
+
+V2: - Do not use doorbell wrapper API, use amdgpu_bo_create_kernel
+      instead (Alex).
+    - Do not use custom doorbell structure, instead use separate
+      variables for bo and doorbell_bitmap (Alex)
 
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 32 -----------------------
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h     | 12 ---------
- 2 files changed, 44 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 13 ----
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c |  8 +--
+ drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c     | 65 ++++++++++---------
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  9 ++-
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 21 +++---
+ .../amd/amdkfd/kfd_process_queue_manager.c    | 22 +++----
+ 6 files changed, 64 insertions(+), 74 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-index 718cfe9cb4f5..f4088cfd52db 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-@@ -193,38 +193,6 @@ void write_kernel_doorbell64(void __iomem *db, u64 value)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 6d291aa6386b..0e40756417e5 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -327,12 +327,6 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
+ 		goto err_bind_process;
  	}
- }
  
--unsigned int kfd_get_doorbell_dw_offset_in_bar(struct kfd_dev *kfd,
--					struct kfd_process_device *pdd,
--					unsigned int doorbell_id)
--{
--	/*
--	 * doorbell_base_dw_offset accounts for doorbells taken by KGD.
--	 * index * kfd_doorbell_process_slice/sizeof(u32) adjusts to
--	 * the process's doorbells. The offset returned is in dword
--	 * units regardless of the ASIC-dependent doorbell size.
--	 */
--	if (!kfd->shared_resources.enable_mes)
--		return kfd->doorbell_base_dw_offset +
--			pdd->doorbell_index
--			* kfd_doorbell_process_slice(kfd) / sizeof(u32) +
--			doorbell_id *
--			kfd->device_info.doorbell_size / sizeof(u32);
--	else
--		return amdgpu_mes_get_doorbell_dw_offset_in_bar(
--				(struct amdgpu_device *)kfd->adev,
--				pdd->doorbell_index, doorbell_id);
--}
+-	if (!pdd->doorbell_index &&
+-	    kfd_alloc_process_doorbells(dev, &pdd->doorbell_index) < 0) {
+-		err = -ENOMEM;
+-		goto err_alloc_doorbells;
+-	}
 -
--uint64_t kfd_get_number_elems(struct kfd_dev *kfd)
--{
--	uint64_t num_of_elems = (kfd->shared_resources.doorbell_aperture_size -
--				kfd->shared_resources.doorbell_start_offset) /
--					kfd_doorbell_process_slice(kfd) + 1;
+ 	/* Starting with GFX11, wptr BOs must be mapped to GART for MES to determine work
+ 	 * on unmapped queues for usermode queue oversubscription (no aggregated doorbell)
+ 	 */
+@@ -410,7 +404,6 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
+ 	if (wptr_bo)
+ 		amdgpu_amdkfd_free_gtt_mem(dev->adev, wptr_bo);
+ err_wptr_map_gart:
+-err_alloc_doorbells:
+ err_bind_process:
+ err_pdd:
+ 	mutex_unlock(&p->mutex);
+@@ -2163,12 +2156,6 @@ static int criu_restore_devices(struct kfd_process *p,
+ 			ret = PTR_ERR(pdd);
+ 			goto exit;
+ 		}
 -
--	return num_of_elems;
--
--}
--
- phys_addr_t kfd_get_process_doorbells(struct kfd_process_device *pdd)
- {
- 	struct amdgpu_device *adev = pdd->dev->adev;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index dfff77379acb..1bc6a8ed8cda 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -257,15 +257,6 @@ struct kfd_dev {
- 
- 	unsigned int id;		/* topology stub index */
- 
--	phys_addr_t doorbell_base;	/* Start of actual doorbells used by
--					 * KFD. It is aligned for mapping
--					 * into user mode
--					 */
--	size_t doorbell_base_dw_offset;	/* Offset from the start of the PCI
--					 * doorbell BAR to the first KFD
--					 * doorbell in dwords. GFX reserves
--					 * the segment before this offset.
--					 */
- 	u32 __iomem *doorbell_kernel_ptr; /* This is a pointer for a doorbells
- 					   * page used by kernel queue
- 					   */
-@@ -276,8 +267,6 @@ struct kfd_dev {
- 
- 	const struct kfd2kgd_calls *kfd2kgd;
- 	struct mutex doorbell_mutex;
--	DECLARE_BITMAP(doorbell_available_index,
--			KFD_MAX_NUM_OF_QUEUES_PER_PROCESS);
- 
- 	void *gtt_mem;
- 	uint64_t gtt_start_gpu_addr;
-@@ -754,7 +743,6 @@ struct kfd_process_device {
- 	struct attribute attr_evict;
- 
- 	struct kobject *kobj_stats;
--	unsigned int doorbell_index;
+-		if (!pdd->doorbell_index &&
+-		    kfd_alloc_process_doorbells(pdd->dev, &pdd->doorbell_index) < 0) {
+-			ret = -ENOMEM;
+-			goto exit;
+-		}
+ 	}
  
  	/*
- 	 * @cu_occupancy: Reports occupancy of Compute Units (CU) of a process
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index ecb4c3abc629..855bf8ce3f16 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -371,7 +371,7 @@ static int allocate_doorbell(struct qcm_process_device *qpd,
+ 			unsigned int found;
+ 
+ 			found = find_first_zero_bit(qpd->doorbell_bitmap,
+-						KFD_MAX_NUM_OF_QUEUES_PER_PROCESS);
++						    KFD_MAX_NUM_OF_QUEUES_PER_PROCESS);
+ 			if (found >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS) {
+ 				pr_debug("No doorbells available");
+ 				return -EBUSY;
+@@ -381,9 +381,9 @@ static int allocate_doorbell(struct qcm_process_device *qpd,
+ 		}
+ 	}
+ 
+-	q->properties.doorbell_off =
+-		kfd_get_doorbell_dw_offset_in_bar(dev, qpd_to_pdd(qpd),
+-					  q->doorbell_id);
++	q->properties.doorbell_off = amdgpu_doorbell_index_on_bar(dev->adev,
++								  qpd->proc_doorbells,
++								  q->doorbell_id);
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+index 82b4a56b0afc..718cfe9cb4f5 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+@@ -227,46 +227,47 @@ uint64_t kfd_get_number_elems(struct kfd_dev *kfd)
+ 
+ phys_addr_t kfd_get_process_doorbells(struct kfd_process_device *pdd)
+ {
+-	if (!pdd->doorbell_index) {
+-		int r = kfd_alloc_process_doorbells(pdd->dev,
+-						    &pdd->doorbell_index);
+-		if (r < 0)
+-			return 0;
+-	}
++	struct amdgpu_device *adev = pdd->dev->adev;
++	uint32_t first_db_index;
+ 
+-	return pdd->dev->doorbell_base +
+-		pdd->doorbell_index * kfd_doorbell_process_slice(pdd->dev);
++	first_db_index = amdgpu_doorbell_index_on_bar(adev, pdd->qpd.proc_doorbells, 0);
++	return adev->doorbell.base + first_db_index * sizeof(uint32_t);
+ }
+ 
+-int kfd_alloc_process_doorbells(struct kfd_dev *kfd, unsigned int *doorbell_index)
++int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *pdd)
+ {
+-	int r = 0;
+-
+-	if (!kfd->shared_resources.enable_mes)
+-		r = ida_simple_get(&kfd->doorbell_ida, 1,
+-				   kfd->max_doorbell_slices, GFP_KERNEL);
+-	else
+-		r = amdgpu_mes_alloc_process_doorbells(
+-				(struct amdgpu_device *)kfd->adev,
+-				doorbell_index);
++	int r;
++	struct qcm_process_device *qpd = &pdd->qpd;
+ 
+-	if (r > 0)
+-		*doorbell_index = r;
++	/* Allocate bitmap for dynamic doorbell allocation */
++	qpd->doorbell_bitmap = bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS,
++					     GFP_KERNEL);
++	if (!qpd->doorbell_bitmap) {
++		DRM_ERROR("Failed to allocate process doorbell bitmap\n");
++		return -ENOMEM;
++	}
+ 
+-	if (r < 0)
+-		pr_err("Failed to allocate process doorbells\n");
++	/* Allocate doorbells for this process */
++	r = amdgpu_bo_create_kernel(kfd->adev,
++				    kfd_doorbell_process_slice(kfd),
++				    PAGE_SIZE,
++				    AMDGPU_GEM_DOMAIN_DOORBELL,
++				    &qpd->proc_doorbells,
++				    NULL,
++				    NULL);
++	if (r) {
++		DRM_ERROR("Failed to allocate process doorbells\n");
++		bitmap_free(qpd->doorbell_bitmap);
++		return r;
++	}
+ 
+-	return r;
++	return 0;
+ }
+ 
+-void kfd_free_process_doorbells(struct kfd_dev *kfd, unsigned int doorbell_index)
++void kfd_free_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *pdd)
+ {
+-	if (doorbell_index) {
+-		if (!kfd->shared_resources.enable_mes)
+-			ida_simple_remove(&kfd->doorbell_ida, doorbell_index);
+-		else
+-			amdgpu_mes_free_process_doorbells(
+-					(struct amdgpu_device *)kfd->adev,
+-					doorbell_index);
+-	}
++	struct qcm_process_device *qpd = &pdd->qpd;
++
++	bitmap_free(qpd->doorbell_bitmap);
++	amdgpu_bo_free_kernel(&qpd->proc_doorbells, NULL, NULL);
+ }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 0b199eb6dc88..dfff77379acb 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -661,7 +661,10 @@ struct qcm_process_device {
+ 	uint64_t ib_base;
+ 	void *ib_kaddr;
+ 
+-	/* doorbell resources per process per device */
++	/* doorbells for kfd process */
++	struct amdgpu_bo *proc_doorbells;
++
++	/* bitmap for dynamic doorbell allocation from the bo */
+ 	unsigned long *doorbell_bitmap;
+ };
+ 
+@@ -1009,9 +1012,9 @@ unsigned int kfd_get_doorbell_dw_offset_in_bar(struct kfd_dev *kfd,
+ 					unsigned int doorbell_id);
+ phys_addr_t kfd_get_process_doorbells(struct kfd_process_device *pdd);
+ int kfd_alloc_process_doorbells(struct kfd_dev *kfd,
+-				unsigned int *doorbell_index);
++				 struct kfd_process_device *pdd);
+ void kfd_free_process_doorbells(struct kfd_dev *kfd,
+-				unsigned int doorbell_index);
++				 struct kfd_process_device *pdd);
+ /* GTT Sub-Allocator */
+ 
+ int kfd_gtt_sa_allocate(struct kfd_dev *kfd, unsigned int size,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 51b1683ac5c1..217ff72a97b0 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1037,10 +1037,9 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
+ 			free_pages((unsigned long)pdd->qpd.cwsr_kaddr,
+ 				get_order(KFD_CWSR_TBA_TMA_SIZE));
+ 
+-		bitmap_free(pdd->qpd.doorbell_bitmap);
+ 		idr_destroy(&pdd->alloc_idr);
+ 
+-		kfd_free_process_doorbells(pdd->dev, pdd->doorbell_index);
++		kfd_free_process_doorbells(pdd->dev, pdd);
+ 
+ 		if (pdd->dev->shared_resources.enable_mes)
+ 			amdgpu_amdkfd_free_gtt_mem(pdd->dev->adev,
+@@ -1453,11 +1452,6 @@ static int init_doorbell_bitmap(struct qcm_process_device *qpd,
+ 	if (!KFD_IS_SOC15(dev))
+ 		return 0;
+ 
+-	qpd->doorbell_bitmap = bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS,
+-					     GFP_KERNEL);
+-	if (!qpd->doorbell_bitmap)
+-		return -ENOMEM;
+-
+ 	/* Mask out doorbells reserved for SDMA, IH, and VCN on SOC15. */
+ 	pr_debug("reserved doorbell 0x%03x - 0x%03x\n", range_start, range_end);
+ 	pr_debug("reserved doorbell 0x%03x - 0x%03x\n",
+@@ -1499,9 +1493,15 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_dev *dev,
+ 	if (!pdd)
+ 		return NULL;
+ 
++	retval = kfd_alloc_process_doorbells(dev, pdd);
++	if (retval) {
++		pr_err("failed to allocate process doorbells\n");
++		goto err_free_pdd;
++	}
++
+ 	if (init_doorbell_bitmap(&pdd->qpd, dev)) {
+ 		pr_err("Failed to init doorbell for process\n");
+-		goto err_free_pdd;
++		goto err_free_db;
+ 	}
+ 
+ 	pdd->dev = dev;
+@@ -1529,7 +1529,7 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_dev *dev,
+ 						false);
+ 		if (retval) {
+ 			pr_err("failed to allocate process context bo\n");
+-			goto err_free_pdd;
++			goto err_free_db;
+ 		}
+ 		memset(pdd->proc_ctx_cpu_ptr, 0, AMDGPU_MES_PROC_CTX_SIZE);
+ 	}
+@@ -1541,6 +1541,9 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_dev *dev,
+ 
+ 	return pdd;
+ 
++err_free_db:
++	kfd_free_process_doorbells(pdd->dev, pdd);
++
+ err_free_pdd:
+ 	kfree(pdd);
+ 	return NULL;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 5137476ec18e..6c95586f08a6 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -344,17 +344,19 @@ int pqm_create_queue(struct process_queue_manager *pqm,
+ 		goto err_create_queue;
+ 	}
+ 
+-	if (q && p_doorbell_offset_in_process)
++	if (q && p_doorbell_offset_in_process) {
+ 		/* Return the doorbell offset within the doorbell page
+ 		 * to the caller so it can be passed up to user mode
+ 		 * (in bytes).
+-		 * There are always 1024 doorbells per process, so in case
+-		 * of 8-byte doorbells, there are two doorbell pages per
+-		 * process.
++		 * relative doorbell index = Absolute doorbell index -
++		 * absolute index of first doorbell in the page.
+ 		 */
+-		*p_doorbell_offset_in_process =
+-			(q->properties.doorbell_off * sizeof(uint32_t)) &
+-			(kfd_doorbell_process_slice(dev) - 1);
++		uint32_t first_db_index = amdgpu_doorbell_index_on_bar(pdd->dev->adev,
++									pdd->qpd.proc_doorbells, 0);
++
++		*p_doorbell_offset_in_process = (q->properties.doorbell_off
++						- first_db_index) * sizeof(uint32_t);
++	}
+ 
+ 	pr_debug("PQM After DQM create queue\n");
+ 
+@@ -858,12 +860,6 @@ int kfd_criu_restore_queue(struct kfd_process *p,
+ 		goto exit;
+ 	}
+ 
+-	if (!pdd->doorbell_index &&
+-	    kfd_alloc_process_doorbells(pdd->dev, &pdd->doorbell_index) < 0) {
+-		ret = -ENOMEM;
+-		goto exit;
+-	}
+-
+ 	/* data stored in this order: mqd, ctl_stack */
+ 	mqd = q_extra_data;
+ 	ctl_stack = mqd + q_data->mqd_size;
 -- 
 2.40.0
 
