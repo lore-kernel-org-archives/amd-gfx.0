@@ -4,41 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FEE7C77B6E
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 12:58:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00AF3C77B6E
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 12:58:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEFDD10E090;
-	Wed, 12 Apr 2023 12:58:30 +0000 (UTC)
-Received: from gandalf.ozlabs.org (mail.ozlabs.org
- [IPv6:2404:9400:2221:ea00::3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 709A610E2FA
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 12:34:30 +0000 (UTC)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4PxMbG3NBLz4xFv;
- Wed, 12 Apr 2023 22:34:18 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ellerman.id.au;
- s=201909; t=1681302860;
- bh=UkeH4F5iZRYI0CERsT9TqP3nJ65xS+EjA8sk8RC8NXw=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
- b=D5fApWiI4iWpuhSEPHX/pj3vuEB5E3d9W5uIEtrlJokW7xeV4OI3kndIViUjq6BxU
- gPY8TKEhKQXmcLw/Qa3mpfkbUyGjFbBF8+FTu8G59rUMDBz8UIru2WjulaPHf9bSiJ
- rMpbhrD6lh2+IxZRZXJZlaoU1pxVgtkp2vsWXb27LIOQvfnIXWBMD8NXtZhaMUvedl
- jTyqj7e0iDTH9Kp4c7nDXs1ADuvGRDJdLBgJUTzq+u0zCn6VdhFJulyH9ppDEsjMs7
- sDunwklz0oFYq+I8KUmGHop1g4hWa2DFvHzRtdAvQpMqM+RzjJrd1YUPlvmCiWz63N
- vOnGtXcAZtj/A==
-From: Michael Ellerman <mpe@ellerman.id.au>
-To: Hamza Mahfooz <hamza.mahfooz@amd.com>, linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH] powerpc/64: Always build with 128-bit long double
-In-Reply-To: <155c1057-d928-9037-9847-58cdbe7cf537@amd.com>
-References: <20230404102847.3303623-1-mpe@ellerman.id.au>
- <155c1057-d928-9037-9847-58cdbe7cf537@amd.com>
-Date: Wed, 12 Apr 2023 22:34:15 +1000
-Message-ID: <87leixi8jc.fsf@mpe.ellerman.id.au>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1009010E520;
+	Wed, 12 Apr 2023 12:58:31 +0000 (UTC)
+Received: from exchange.fintech.ru (e10edge.fintech.ru [195.54.195.159])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB7D210E7DE;
+ Wed, 12 Apr 2023 12:39:12 +0000 (UTC)
+Received: from Ex16-01.fintech.ru (10.0.10.18) by exchange.fintech.ru
+ (195.54.195.169) with Microsoft SMTP Server (TLS) id 14.3.498.0; Wed, 12 Apr
+ 2023 15:39:08 +0300
+Received: from [192.168.211.128] (10.0.253.138) by Ex16-01.fintech.ru
+ (10.0.10.18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Wed, 12 Apr
+ 2023 15:39:08 +0300
+Message-ID: <5d5b0b94-4dd4-2a95-a777-521b65f6f053@fintech.ru>
+Date: Wed, 12 Apr 2023 05:39:04 -0700
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH] radeon: avoid double free in ci_dpm_init()
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+References: <20230403182808.8699-1-n.zhandarovich@fintech.ru>
+ <BL1PR12MB51446866BAE5945297315399F79A9@BL1PR12MB5144.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
+In-Reply-To: <BL1PR12MB51446866BAE5945297315399F79A9@BL1PR12MB5144.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.0.253.138]
+X-ClientProxiedBy: Ex16-02.fintech.ru (10.0.10.19) To Ex16-01.fintech.ru
+ (10.0.10.18)
 X-Mailman-Approved-At: Wed, 12 Apr 2023 12:58:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,69 +48,126 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: segher@kernel.crashing.org, dan@danny.cz, daniel@octaforge.org,
- amd-gfx@lists.freedesktop.org, tpearson@raptorengineering.com,
- alexdeucher@gmail.com
+Cc: "lvc-project@linuxtesting.org" <lvc-project@linuxtesting.org>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hamza Mahfooz <hamza.mahfooz@amd.com> writes:
-> On 4/4/23 06:28, Michael Ellerman wrote:
->> The amdgpu driver builds some of its code with hard-float enabled,
->> whereas the rest of the kernel is built with soft-float.
->> 
->> When building with 64-bit long double, if soft-float and hard-float
->> objects are linked together, the build fails due to incompatible ABI
->> tags.
->> 
->> In the past there have been build errors in the amdgpu driver caused by
->> this, some of those were due to bad intermingling of soft & hard-float
->> code, but those issues have now all been fixed since commit c92b7fe0d92a
->> ("drm/amd/display: move remaining FPU code to dml folder").
->> 
->> However it's still possible for soft & hard-float objects to end up
->> linked together, if the amdgpu driver is built-in to the kernel along
->> with the test_emulate_step.c code, which uses soft-float. That happens
->> in an allyesconfig build.
->> 
->> Currently those build errors are avoided because the amdgpu driver is
->> gated on 128-bit long double being enabled. But that's not a detail the
->> amdgpu driver should need to be aware of, and if another driver starts
->> using hard-float the same problem would occur.
->> 
->> All versions of the 64-bit ABI specify that long-double is 128-bits.
->> However some compilers, notably the kernel.org ones, are built to use
->> 64-bit long double by default.
->> 
->> Apart from this issue of soft vs hard-float, the kernel doesn't care
->> what size long double is. In particular the kernel using 128-bit long
->> double doesn't impact userspace's ability to use 64-bit long double, as
->> musl does.
->> 
->> So always build the 64-bit kernel with 128-bit long double. That should
->> avoid any build errors due to the incompatible ABI tags. Excluding the
->> code that uses soft/hard-float, the vmlinux is identical with/without
->> the flag.
->> 
->> It does mean any code which is incorrectly intermingling soft &
->> hard-float code will build without error, so those bugs will need to be
->> caught by testing rather than at build time.
->> 
->> For more background see:
->>    - commit d11219ad53dc ("amdgpu: disable powerpc support for the newer display engine")
->>    - commit c653c591789b ("drm/amdgpu: Re-enable DCN for 64-bit powerpc")
->>    - https://lore.kernel.org/r/dab9cbd8-2626-4b99-8098-31fe76397d2d@app.fastmail.com
->> 
->> Signed-off-by: Michael Ellerman <mpe@ellerman.id.au>
->
-> Reviewed-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
 
-Thanks.
 
-> If you'd prefer to have this go through the amdgpu branch, please let
-> me know.
+On 4/11/23 14:11, Deucher, Alexander wrote:
+> [Public]
+> 
+>> -----Original Message-----
+>> From: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
+>> Sent: Monday, April 3, 2023 2:28 PM
+>> To: Deucher, Alexander <Alexander.Deucher@amd.com>
+>> Cc: Nikita Zhandarovich <n.zhandarovich@fintech.ru>; Koenig, Christian
+>> <Christian.Koenig@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; David
+>> Airlie <airlied@gmail.com>; Daniel Vetter <daniel@ffwll.ch>; amd-
+>> gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-
+>> kernel@vger.kernel.org; lvc-project@linuxtesting.org
+>> Subject: [PATCH] radeon: avoid double free in ci_dpm_init()
+>>
+>> There are several calls to ci_dpm_fini() in ci_dpm_init() when there occur
+>> errors in functions like r600_parse_extended_power_table().
+>> This is harmful as it can lead to double free situations: for instance,
+>> r600_parse_extended_power_table() will call for
+>> r600_free_extended_power_table() as will ci_dpm_fini(), both of which will
+>> try to free resources.
+>> Other drivers do not call *_dpm_fini functions from their respective
+>> *_dpm_init calls - neither should cpm_dpm_init().
+>>
+>> Fix this by removing extra calls to ci_dpm_fini().
+> 
+> You can't just drop the calls to fini().  You'll need to properly unwind to avoid leaking memory.
+> 
+> Alex
+>>>
+>> Found by Linux Verification Center (linuxtesting.org) with static analysis tool
+>> SVACE.
+>>
+>> Fixes: cc8dbbb4f62a ("drm/radeon: add dpm support for CI dGPUs (v2)")
+>> Cc: stable@vger.kernel.org
+>> Co-developed-by: Natalia Petrova <n.petrova@fintech.ru>
+>> Signed-off-by: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
+>>
+>> ---
+>>  drivers/gpu/drm/radeon/ci_dpm.c | 20 +++++---------------
+>>  1 file changed, 5 insertions(+), 15 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/radeon/ci_dpm.c
+>> b/drivers/gpu/drm/radeon/ci_dpm.c index 8ef25ab305ae..7b77d4c93f1d
+>> 100644
+>> --- a/drivers/gpu/drm/radeon/ci_dpm.c
+>> +++ b/drivers/gpu/drm/radeon/ci_dpm.c
+>> @@ -5677,28 +5677,20 @@ int ci_dpm_init(struct radeon_device *rdev)
+>>  	pi->pcie_lane_powersaving.min = 16;
+>>
+>>  	ret = ci_get_vbios_boot_values(rdev, &pi->vbios_boot_state);
+>> -	if (ret) {
+>> -		ci_dpm_fini(rdev);
+>> +	if (ret)
+>>  		return ret;
+>> -	}
+>>
+>>  	ret = r600_get_platform_caps(rdev);
+>> -	if (ret) {
+>> -		ci_dpm_fini(rdev);
+>> +	if (ret)
+>>  		return ret;
+>> -	}
+>>
+>>  	ret = r600_parse_extended_power_table(rdev);
+>> -	if (ret) {
+>> -		ci_dpm_fini(rdev);
+>> +	if (ret)
+>>  		return ret;
+>> -	}
+>>
+>>  	ret = ci_parse_power_table(rdev);
+>> -	if (ret) {
+>> -		ci_dpm_fini(rdev);
+>> +	if (ret)
+>>  		return ret;
+>> -	}
+>>
+>>  	pi->dll_default_on = false;
+>>  	pi->sram_end = SMC_RAM_END;
+>> @@ -5749,10 +5741,8 @@ int ci_dpm_init(struct radeon_device *rdev)
+>>  		kcalloc(4,
+>>  			sizeof(struct
+>> radeon_clock_voltage_dependency_entry),
+>>  			GFP_KERNEL);
+>> -	if (!rdev-
+>>> pm.dpm.dyn_state.vddc_dependency_on_dispclk.entries) {
+>> -		ci_dpm_fini(rdev);
+>> +	if (!rdev-
+>>> pm.dpm.dyn_state.vddc_dependency_on_dispclk.entries)
+>>  		return -ENOMEM;
+>> -	}
+>>  	rdev->pm.dpm.dyn_state.vddc_dependency_on_dispclk.count = 4;
+>>  	rdev-
+>>> pm.dpm.dyn_state.vddc_dependency_on_dispclk.entries[0].clk = 0;
+>>  	rdev-
+>>> pm.dpm.dyn_state.vddc_dependency_on_dispclk.entries[0].v = 0;
 
-I think it makes more sense to go via the powerpc tree, it will get more
-testing on powerpc that way.
 
-cheers
+I think you are correct when it comes to ensuring we deal with memory
+issues in ci_dpm_init().
+
+However, I could use some direction on how to deal with the problem of
+freeing only previously allocated resources. For instance, once
+ci_parse_power_table() fails, it is not clear what we should and should
+not free.
+
+I wanna point out that in this case I would like to fix both double and
+uninitialized free issues as it can also lead to undefined behavior.
+
+Thanks for your patience,
+Nikita
