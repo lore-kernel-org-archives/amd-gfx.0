@@ -4,93 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B85FC77B6E
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 06:15:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB5E0C7619A
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 07:58:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBE3C10E708;
-	Wed, 12 Apr 2023 06:15:36 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C733F10E325
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 06:15:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PNa0kqe85Kas9ujjLRgIJaDK3lZB6BBCpX/3uKfjVe/MRA5qFMxdLmEBjqCgEr/G9ugi9ArIGWVeRQjYdn5ypqI6wfZwfNuh0iT4eA4aWLusUMMApul+8sdh/pxF2zVtCp1S/QM68cR/AgSOmmyxCEGR3fm6m7eXUDvukr0WdxelKnZJNqkU/UnBPYEovMXiE5PgD0x3XQobkTlEk2l9vkT0oU6YQkrlJjGbb3+Ihjj0LeLFtnEksiLkRU9hnSgaeXqgnwCxfPnI/tfhJxbrVBgE44DCjGyZ2wY8q5GbvyAeqRxP4LJQXnN7CA3bhtnPviczgDOJm4KUre6cTy8OHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mVsPiyYq6GTG3VJThX45FddCAu0MOCvCNLUdWLdwOWI=;
- b=NC6t951kYKukH1gN/jbEmkyS5zdtK2QvwT3Amjm7BVXjKIybUP9QC92k3efT8TLqBwu/cjI950OvqN6ESIOM9c4sQAz9y7K5knqqME+IRqIuCSIgZE7UZmPGE8CQGxbsG6sMiPS39bMGQ8+eeQoNhvgrcjlMsNIxXhc+cEavCwMZrvYq5hOkcidCj9RG5imBnnxhCZrukGCLDMTt9Dbhiecu+I/vgXv5RD1k6l6xvyzP89a5h+WYrR17Q/iTm2hahlyDNpQNFa3gS1HiC5s6mFujkkxunS3MgDy2mIIWAZqqCCSjSpB8k9M2HaQvc9/apiCHn5twzxZ9sv3DIO+ONA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mVsPiyYq6GTG3VJThX45FddCAu0MOCvCNLUdWLdwOWI=;
- b=NFhIkx3BKW6Tn0X8MWwRTIPFYGz0uGztjyE0HyijaCnh0ueE8dCvUmaT9QIYvsp1g2yOHUI/aXh+8LITThliM/cjJp6uQTMMZleSGTOhmGL5r3hBKjWraQXiUiuMbuYU+AdnBVuDgO5dmb9vk+y4e4TychMjpG9i6iUncghDYgs=
-Received: from MW2PR16CA0012.namprd16.prod.outlook.com (2603:10b6:907::25) by
- SJ1PR12MB6051.namprd12.prod.outlook.com (2603:10b6:a03:48a::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.33; Wed, 12 Apr
- 2023 06:15:28 +0000
-Received: from CO1NAM11FT107.eop-nam11.prod.protection.outlook.com
- (2603:10b6:907:0:cafe::43) by MW2PR16CA0012.outlook.office365.com
- (2603:10b6:907::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.39 via Frontend
- Transport; Wed, 12 Apr 2023 06:15:28 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT107.mail.protection.outlook.com (10.13.175.97) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6298.30 via Frontend Transport; Wed, 12 Apr 2023 06:15:28 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 12 Apr
- 2023 01:15:26 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 12 Apr
- 2023 01:15:07 -0500
-Received: from Xiaogang-ROCM-Dev.attlocal.net (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Wed, 12 Apr 2023 01:15:01 -0500
-From: Xiaogang.Chen <xiaogang.chen@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdkfd: Fix some issues at userptr buffer validation
- process.
-Date: Wed, 12 Apr 2023 01:14:32 -0500
-Message-ID: <20230412061432.207610-1-xiaogang.chen@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 916DC10E725;
+	Wed, 12 Apr 2023 07:58:32 +0000 (UTC)
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5A6510E725
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 07:58:29 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-3f080fc6994so3119165e9.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 00:58:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1681286308;
+ h=in-reply-to:content-disposition:mime-version:references
+ :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Z8A/SdeLvzFiYWycVM7MmZyG7MQLHn+W0oQ+tEHhex8=;
+ b=T/Wb7YjU5aBuJVC5H/Le0QeASrsAM5Y+Yz4YbR8hkU8w/0XnLd0rasqnJ7hGRdVC8P
+ oppzMr8zvT/CfGiKFIVFq2l7bHIxgr06UTo06lCuME6VIF+ci/4/PwuUXDdiLOuq58Q3
+ HG7bqLqHDcPnvUUTZ2CBWqpJTK4+5dCWOUOHE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1681286308;
+ h=in-reply-to:content-disposition:mime-version:references
+ :mail-followup-to:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Z8A/SdeLvzFiYWycVM7MmZyG7MQLHn+W0oQ+tEHhex8=;
+ b=jws/hXXYXVvMHWW8WfcXl8Ut/+OG9YfVt1HA8ze5MyLdJFOQA3uj2TaneVhtP2zjpA
+ B1UsktinfnJD7gqAdqtEJUPojeASApXDxUxRTNgWy1n/hJepeneIufY2gZoGaflqdbgV
+ TC7FEdLpVN6AcIDX7zqP51ktPhuIRTW7SS0VusxkFtVGJHK9XbL7pSWluGIIZqXbaLe9
+ 6F2FbLr7j8p2k8/lLTOiZWRXrWV8B9MsvRxWasVjBl9VY2qb4QtGpRs1EcGsvc5NQ1aw
+ tvxKc0gGEMFniLupO+sef2GS0QLo62awp0hWSXs8M2+mSiS1hdXmbtR8GulUNQJ3dLfJ
+ Wf1w==
+X-Gm-Message-State: AAQBX9eS60naeMc6n7fbc1VFKMkBx5q03N3VBQm1AeWujYYsmi6NcNgs
+ nD+S0E1WdowuU8HTk9QVu4ChXw==
+X-Google-Smtp-Source: AKy350ZsIHrp1fkw9kWTIB5j/yWw6Pd5Y3Xkw3e/8LffjM8p8HeHcKd/6YPLn/zhuKWDt5SRtcMz6A==
+X-Received: by 2002:a05:600c:c0e:b0:3f0:7652:dbb8 with SMTP id
+ fm14-20020a05600c0c0e00b003f07652dbb8mr1328269wmb.2.1681286308313; 
+ Wed, 12 Apr 2023 00:58:28 -0700 (PDT)
+Received: from phenom.ffwll.local (212-51-149-33.fiber7.init7.net.
+ [212.51.149.33]) by smtp.gmail.com with ESMTPSA id
+ 6-20020a05600c028600b003ee0d191539sm1457785wmk.10.2023.04.12.00.58.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 12 Apr 2023 00:58:27 -0700 (PDT)
+Date: Wed, 12 Apr 2023 09:58:25 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Rob Clark <robdclark@gmail.com>
+Subject: Re: [PATCH v3 3/7] drm/amdgpu: Switch to fdinfo helper
+Message-ID: <ZDZkocmppPAGdkdv@phenom.ffwll.local>
+Mail-Followup-To: Rob Clark <robdclark@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Christopher Healy <healych@amazon.com>,
+ Emil Velikov <emil.l.velikov@gmail.com>,
+ Rob Clark <robdclark@chromium.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>,
+ Evan Quan <evan.quan@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Guchun Chen <guchun.chen@amd.com>,
+ YiPeng Chai <YiPeng.Chai@amd.com>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <mdaenzer@redhat.com>,
+ Shashank Sharma <shashank.sharma@amd.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20230411225725.2032862-1-robdclark@gmail.com>
+ <20230411225725.2032862-4-robdclark@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT107:EE_|SJ1PR12MB6051:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2e6c8ba4-3db2-422c-f65c-08db3b1d4fdf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +RfajrEbLR9gx1gWR72xHsE/HqEiD6408DW57dPS/WWvWShFzvC4uKdL/T+DVGcsfvgsRMqQrbWQthaD4R/O4ExgeGGn1pq+fnId2gt7ACozv93bOvTFpmmmocWFFKWaktaYuJZsJzL/BgPOnr+az+viiGzeXLRqJZCr7Us8vqumGrhikx8ea2dezP5980VH7JMg8NE8qvUsmDny1hyo31hzmvdSIBBc9SMO3fZ1QyOJmzNjkaiMNjl6qrPkvLyrhP+SqttZnKU5HFm1jJUgW0esgqBc7hy3XQwj6ixMP9xSxmH5XQUVFwhU2MmTv2Es+DkDEQ4vuxu2mGgDeipC75MlG2Fo+/3ZpAQRNNy6rt6oUC3ivlka+34KMg91WCH25pBpD7HTs/VTR5HG8Sykh3O9uljG0ccM//52mvYRe/47W+/EIDZtL+28xZFfM+Ii7r9MuzrPd+6y9SGZSfO4FHTTl/VzjMPcjD5aS0EHdTnik067u4Krml2uFVztvHoZWRM8VCiw7zmfgLFw80cMP1Eu0mg3JSxT5adwgRkgeenPCTiPqDdvHMZVZrEMF1Ttwl+hjMWklsPl9am/ezVFZdGOUufVmYWOPDgaiLGCVcruUeuV4U4xR6PL5UlpVPV943mpM6aTVR8PDexsIOOgWJm81tsN4gGaLmHzE0T/iD1vHjowQhqZULieh9mT1pKOVODRhLmG5vxl0keQ1zD88hEmkZiFP/zusoYK5H44KI4=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(39860400002)(396003)(346002)(136003)(451199021)(36840700001)(46966006)(40470700004)(336012)(40460700003)(54906003)(316002)(70206006)(6916009)(4326008)(41300700001)(86362001)(70586007)(36756003)(426003)(83380400001)(1076003)(2616005)(36860700001)(26005)(6666004)(47076005)(40480700001)(8936002)(2906002)(82310400005)(81166007)(5660300002)(478600001)(8676002)(82740400003)(186003)(356005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2023 06:15:28.1662 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2e6c8ba4-3db2-422c-f65c-08db3b1d4fdf
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT107.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6051
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230411225725.2032862-4-robdclark@gmail.com>
+X-Operating-System: Linux phenom 6.1.0-7-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,105 +94,126 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xiaogang
- Chen <Xiaogang.Chen@amd.com>, felix.kuehling@amd.com
+Cc: dri-devel@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <mdaenzer@redhat.com>,
+ YiPeng Chai <YiPeng.Chai@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ David Airlie <airlied@gmail.com>, Rob Clark <robdclark@chromium.org>,
+ Guchun Chen <guchun.chen@amd.com>, Shashank Sharma <shashank.sharma@amd.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ linux-arm-msm@vger.kernel.org, Evan Quan <evan.quan@amd.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@intel.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Emil Velikov <emil.l.velikov@gmail.com>,
+ Christopher Healy <healych@amazon.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ freedreno@lists.freedesktop.org,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Xiaogang Chen <xiaogang.chen@amd.com>
+On Tue, Apr 11, 2023 at 03:56:08PM -0700, Rob Clark wrote:
+> From: Rob Clark <robdclark@chromium.org>
+> 
+> Signed-off-by: Rob Clark <robdclark@chromium.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  3 ++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c | 16 ++++++----------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h |  2 +-
+>  3 files changed, 9 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index f5ffca24def4..3611cfd5f076 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -2752,7 +2752,7 @@ static const struct file_operations amdgpu_driver_kms_fops = {
+>  	.compat_ioctl = amdgpu_kms_compat_ioctl,
+>  #endif
+>  #ifdef CONFIG_PROC_FS
+> -	.show_fdinfo = amdgpu_show_fdinfo
+> +	.show_fdinfo = drm_fop_show_fdinfo,
+>  #endif
+>  };
+>  
+> @@ -2807,6 +2807,7 @@ static const struct drm_driver amdgpu_kms_driver = {
+>  	.dumb_map_offset = amdgpu_mode_dumb_mmap,
+>  	.fops = &amdgpu_driver_kms_fops,
+>  	.release = &amdgpu_driver_release_kms,
+> +	.show_fdinfo = amdgpu_show_fdinfo,
+>  
+>  	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
+>  	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> index 99a7855ab1bc..c2fdd5e448d1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> @@ -53,9 +53,8 @@ static const char *amdgpu_ip_name[AMDGPU_HW_IP_NUM] = {
+>  	[AMDGPU_HW_IP_VCN_JPEG]	=	"jpeg",
+>  };
+>  
+> -void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
+> +void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
+>  {
+> -	struct drm_file *file = f->private_data;
+>  	struct amdgpu_device *adev = drm_to_adev(file->minor->dev);
+>  	struct amdgpu_fpriv *fpriv = file->driver_priv;
+>  	struct amdgpu_vm *vm = &fpriv->vm;
+> @@ -86,18 +85,15 @@ void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
+>  	 * ******************************************************************
+>  	 */
+>  
+> -	seq_printf(m, "pasid:\t%u\n", fpriv->vm.pasid);
+> -	seq_printf(m, "drm-driver:\t%s\n", file->minor->dev->driver->name);
+> -	seq_printf(m, "drm-pdev:\t%04x:%02x:%02x.%d\n", domain, bus, dev, fn);
+> -	seq_printf(m, "drm-client-id:\t%Lu\n", vm->immediate.fence_context);
+> -	seq_printf(m, "drm-memory-vram:\t%llu KiB\n", vram_mem/1024UL);
+> -	seq_printf(m, "drm-memory-gtt: \t%llu KiB\n", gtt_mem/1024UL);
+> -	seq_printf(m, "drm-memory-cpu: \t%llu KiB\n", cpu_mem/1024UL);
+> +	drm_printf(p, "pasid:\t%u\n", fpriv->vm.pasid);
+> +	drm_printf(p, "drm-memory-vram:\t%llu KiB\n", vram_mem/1024UL);
+> +	drm_printf(p, "drm-memory-gtt: \t%llu KiB\n", gtt_mem/1024UL);
+> +	drm_printf(p, "drm-memory-cpu: \t%llu KiB\n", cpu_mem/1024UL);
 
-Notice userptr buffer restore process has following issues:
+random aside, but we're not super consistent here, some of these have an
+additional ' ' space.
 
-1: amdgpu_ttm_tt_get_user_pages can fail(-EFAULT). If it failed we should not set
-it valid(mem->invalid = 0). In this case mem has no associated hmm range or user_pages
-associated.
+I guess a next step would be a drm_fdinfo_printf(drm_printer *p, const
+char *name, const char *printf, ...) and maybe some specialized ones that
+dtrt for specific parameters, like drm_fdinfo_llu().
 
-2: mmu notifier can happen concurrently and update mem->range->notifier->invalidate_seq,
-but not mem->range->notifier_seq. That causes mem->range->notifier_seq stale
-when mem is in process_info->userptr_inval_list and amdgpu_amdkfd_restore_userptr_worker
-got interrupted. At next rescheduled next attempt we use stale mem->range->notifier_seq
-to compare with mem->range->notifier->invalidate_seq.
+But that's for next one I guess :-)
+-Daniel
 
-Signed-off-by: Xiaogang Chen <Xiaogang.Chen@amd.com>
----
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 45 +++++++++++++++----
- 1 file changed, 37 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 7b1f5933ebaa..6881f1b0844c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -2444,7 +2444,9 @@ static int update_invalid_user_pages(struct amdkfd_process_info *process_info,
- 			ret = -EAGAIN;
- 			goto unlock_out;
- 		}
--		mem->invalid = 0;
-+		 /* set mem valid if mem has hmm range associated */
-+		if (mem->range)
-+			mem->invalid = 0;
- 	}
- 
- unlock_out:
-@@ -2576,16 +2578,28 @@ static int confirm_valid_user_pages_locked(struct amdkfd_process_info *process_i
- 	list_for_each_entry_safe(mem, tmp_mem,
- 				 &process_info->userptr_inval_list,
- 				 validate_list.head) {
--		bool valid = amdgpu_ttm_tt_get_user_pages_done(
--				mem->bo->tbo.ttm, mem->range);
-+		/* Only check mem with hmm range associated */
-+		bool valid;
- 
--		mem->range = NULL;
--		if (!valid) {
--			WARN(!mem->invalid, "Invalid BO not marked invalid");
-+		if (mem->range) {
-+			valid = amdgpu_ttm_tt_get_user_pages_done(
-+					mem->bo->tbo.ttm, mem->range);
-+
-+			mem->range = NULL;
-+			if (!valid) {
-+				WARN(!mem->invalid, "Invalid BO not marked invalid");
-+				ret = -EAGAIN;
-+				continue;
-+			}
-+		} else
-+			/* keep mem without hmm range at userptr_inval_list */
-+			continue;
-+
-+		if (mem->invalid) {
-+			WARN(1, "Valid BO is marked invalid");
- 			ret = -EAGAIN;
- 			continue;
- 		}
--		WARN(mem->invalid, "Valid BO is marked invalid");
- 
- 		list_move_tail(&mem->validate_list.head,
- 			       &process_info->userptr_valid_list);
-@@ -2644,8 +2658,23 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
- 	 * reference counting inside KFD will handle this case.
- 	 */
- 	mutex_lock(&process_info->notifier_lock);
--	if (process_info->evicted_bos != evicted_bos)
-+	if (process_info->evicted_bos != evicted_bos) {
-+		/* mmu notifier interrupted amdgpu_amdkfd_restore_userptr_worker
-+		 * before reschedule next attempt update stale mem->range->notifier_seq
-+		 * inside userptr_inval_list
-+		 */
-+		struct kgd_mem *mem, *tmp_mem;
-+
-+		list_for_each_entry_safe(mem, tmp_mem,
-+				&process_info->userptr_inval_list,
-+				validate_list.head) {
-+
-+			if (mem->range)
-+				mem->range->notifier_seq = mem->range->notifier->invalidate_seq;
-+		}
-+
- 		goto unlock_notifier_out;
-+	}
- 
- 	if (confirm_valid_user_pages_locked(process_info)) {
- 		WARN(1, "User pages unexpectedly invalid");
+>  	for (hw_ip = 0; hw_ip < AMDGPU_HW_IP_NUM; ++hw_ip) {
+>  		if (!usage[hw_ip])
+>  			continue;
+>  
+> -		seq_printf(m, "drm-engine-%s:\t%Ld ns\n", amdgpu_ip_name[hw_ip],
+> +		drm_printf(p, "drm-engine-%s:\t%Ld ns\n", amdgpu_ip_name[hw_ip],
+>  			   ktime_to_ns(usage[hw_ip]));
+>  	}
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h
+> index e86834bfea1d..0398f5a159ef 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h
+> @@ -37,6 +37,6 @@
+>  #include "amdgpu_ids.h"
+>  
+>  uint32_t amdgpu_get_ip_count(struct amdgpu_device *adev, int id);
+> -void amdgpu_show_fdinfo(struct seq_file *m, struct file *f);
+> +void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file);
+>  
+>  #endif
+> -- 
+> 2.39.2
+> 
+
 -- 
-2.25.1
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
