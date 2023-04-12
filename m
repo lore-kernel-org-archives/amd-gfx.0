@@ -4,124 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE1CBC77B6E
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 13:35:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DC35C7619A
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 14:02:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42F3F10E7E5;
-	Wed, 12 Apr 2023 13:35:56 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2052.outbound.protection.outlook.com [40.107.237.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6C3310E7E5
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 13:35:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XfY6z0u5J4f79QiIuJuMqQGPgrStC9TV/MwnxQNmWLhJUpR8vZiOTlyksU0RIzBckSdAXHg5+Xg4WAN68d/kbY+ALvVksqweQ8xgiuD21Ca8y3NZsBG4jrGFkvAnaFDNVMpLQBdViSG08agG5ujgJk8w60aNkAaxflV1spdzYY2EZgL5ZkeExQMskMEPstkfipsrHZz3h9g1NSfHGiqDaEJ/5kXW6RllyQ6gV7IabCqK+c7O2O5317ck7TCaRJ6DkC9CwlDvFDHcYXRP/8NY/pKDLy0iCDpwy4M8i1irG8yb6lEHDUTb3vg3iloauNUuxHJ6iDo6HU8d+towJATz3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p2qb9ciP/XOF8krZ5JmIycmipHveG8EpIwr5668R9Cg=;
- b=Ip859Fc7lpfhq0xtQVOQnSHKEWX+qsUhwCFxRjx23bd0euPXPMuG+5ZWfwecoTUkbjli8fO3soH3DPZJYuns8bQmsgcHOn8VQLwSviVvvvXOzt1t0NBTT5cBy/d+8GbAXZYz+5DB7PotWTNaHLafIbuVes4pPziPbz8vkM69ssRfQx+vINJEXAADO3z+2HMfC9Kaq0HxIAeunHrDhTxZ0fBjbwNL28KrorEOvSgB05x9f7DTp1IlnucKKrq2d4HOSH707ugDjKImWNv+j60pgp5EkfuDAJI9dYRvr4VFzQIyqGtCnVxqUHFa/L0yM+ssjbMtMFioD8FEWX8BBYZ9kQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p2qb9ciP/XOF8krZ5JmIycmipHveG8EpIwr5668R9Cg=;
- b=UcHAsaUWacPKEbS9y3ameWenDofz3ZtRM7YCTbSWbI2OIBluSl9I5eTcEfRvwjD5ic1qzy53CjCLFKYXBlhFqciRNn0fds+EtpgshDr80u05Qe3dCGJWXDFgEFJ0CjhWxqxgHXEK+ff4PMzxlj4ouakISinbxnipWX/PanLtQ3Y=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by BL1PR12MB5801.namprd12.prod.outlook.com (2603:10b6:208:391::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.28; Wed, 12 Apr
- 2023 13:35:52 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::d7aa:1762:6797:7d61]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::d7aa:1762:6797:7d61%4]) with mapi id 15.20.6298.030; Wed, 12 Apr 2023
- 13:35:52 +0000
-Message-ID: <fe10d586-f547-d797-c084-08a4614bb0e1@amd.com>
-Date: Wed, 12 Apr 2023 09:35:48 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.1
-Subject: Re: [PATCH 1/3] drm/amdgpu: Add userptr bo support for mGPUs when
- iommu is on
-Content-Language: en-CA
-To: Felix Kuehling <felix.kuehling@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- "Xiao, Shane" <shane.xiao@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Yang, Philip" <Philip.Yang@amd.com>
-References: <20230404095640.3277840-1-shane.xiao@amd.com>
- <cd5efdb0-d6f6-8e91-353f-35906a1fe62f@amd.com>
- <DM4PR12MB5261B08BE4730541920230F89D939@DM4PR12MB5261.namprd12.prod.outlook.com>
- <c5bd045a-a5ff-36ea-ed9b-bc4732b50b16@gmail.com>
- <539b143b-64fd-9108-1967-04e2ef27848e@amd.com>
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <539b143b-64fd-9108-1967-04e2ef27848e@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0023.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::19) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8F0010E622;
+	Wed, 12 Apr 2023 14:02:08 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5BB210E610;
+ Wed, 12 Apr 2023 14:02:06 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E65A462B9B;
+ Wed, 12 Apr 2023 14:02:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC6EAC433AA;
+ Wed, 12 Apr 2023 14:02:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1681308125;
+ bh=PmoX6ElyNj8nnAlD2D0BUhsJ7+dyih1L4pLdR6zn1p0=;
+ h=Subject:From:To:Date:In-Reply-To:References:From;
+ b=SqJoXmeAJf09tjkUjSnJ2suT+FIMnLzGUpq+cqDJSetHWhl9p6ic2TkvZkZsQG/6z
+ uVFvbngFDpk3yCGWfprk8LUwDshV7ZG9bH3Gs4CBhC4dqVX7VThWpGIOVJ+5/pw3Z3
+ jbYvC+pg7IUHiay5M2UcjU1LBS00R8KPuSHgJ1UiWwXx1j9/O38+Tneg75KUu+LUae
+ 564cz+mnICVlscujIs/gDxQXKEmLa9qXa4l23UvswozRXxB0aesJLJgoIgzTj/ueiL
+ 9S9wEEIKGOEckn4pMe7E8JLO5Q2ZbqVI2WFwn+2t3XCiZVH3DwWgpI9GhQRQHni5AF
+ 7h3lIQ26LbCTw==
+Message-ID: <8110b7db7edd60cf052d027b858cfd27693cd6e4.camel@kernel.org>
+Subject: Re: NULL pointer dereference in drm_dp_add_payload_part2+0xca/0x100
+From: Jeff Layton <jlayton@kernel.org>
+To: amd-gfx <amd-gfx@lists.freedesktop.org>, dri-devel
+ <dri-devel@lists.freedesktop.org>, linux-kernel
+ <linux-kernel@vger.kernel.org>
+Date: Wed, 12 Apr 2023 10:02:03 -0400
+In-Reply-To: <fed2a3f9111713cc619cbd54d7c1be0987c7da7b.camel@kernel.org>
+References: <fed2a3f9111713cc619cbd54d7c1be0987c7da7b.camel@kernel.org>
+Content-Type: text/plain; charset="ISO-8859-15"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4 (3.46.4-1.fc37) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|BL1PR12MB5801:EE_
-X-MS-Office365-Filtering-Correlation-Id: d103af96-60be-4406-847c-08db3b5ad581
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Kqqv+cV9OAzq2N6UjARfeL3p8kB83vcCVFFiemoWP928ZmFJ8iiCRoq7sRreMnGsvbg0rUQhgRgWDH0OqfKYhaA5LroSMwWeDGveVfp+wPUljXJ/aO1fg0Qg1PB5Dgh4TDQWdGtwrWfbcVe/u9Pl0g7hJ3k3QpU/iUceD59Rls5ZiGQUvk/KTxsPetQelFUhhDZDzomspMO697mKFb83ywSpkl5UYuNbyYfnaIm0GMIKGjdaJHyrbXGVHklf/+1CQCPb1M7VYRYBscIHMD3rP7i+AsbwMTzEer/ENcs3VJw+uXdRDwdw26lskrit/W1vf6cT8YAURljQ/sxmMXTbSFbu2s48wxQXu00wx2ey+2QECBlpHTof5sAwxWOPeoNaZ8LyTGiDKYwF1Vn4OlIefQhr/QCpFpeENTSh94jf7ppGSHnnDnko9O+ETzyW2Hzd1rHFRT53WNONZQGzL5bH/0eMXrkj3+upRe7+epdnVIr1xGtk8YcfA8LfB4yoXB21MEmTPvdWTk/C954E0ImH3+e6wt0UCmz1c3Z3lKqB0CsZzsxQXd8sMF2HevSZdnyiRbgkwIg5WjlicVCAxngrKz+Y9I07kfWBd25qb3yAbItq7mgzoHQwmgQ9IwC/EbCHspmZti4rOO+HnovAm6pn7w==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(366004)(396003)(39860400002)(376002)(346002)(451199021)(478600001)(36756003)(6636002)(110136005)(54906003)(5660300002)(8676002)(8936002)(38100700002)(66476007)(66946007)(66556008)(2906002)(41300700001)(4326008)(26005)(31696002)(6512007)(316002)(53546011)(6506007)(186003)(2616005)(31686004)(83380400001)(66574015)(6486002)(6666004)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bFRQN0NNN0FQNnJnWDNIc1VyUGxWbEFVQVF5T3FMaTNETHRjRkg5dXpOeStM?=
- =?utf-8?B?TnpoT0cwbWlyRTkydzVrREFhbDlORkpZZUVDRC8yL1g5VnpBRkd1aERNdmF4?=
- =?utf-8?B?M1I0WEt4Ym9UcDFGVklwUjlZNmQyTHREM1VnQk5EL25DNUd1M2hXMnlpMjV0?=
- =?utf-8?B?cThubjhSNHRPZFNFQ1RJOWxWL0FiWWhJUDlwTmpMMC9tM2VkcUs4YnN3R1JZ?=
- =?utf-8?B?Ni9oZWtUdG9Zb1A2U1NlK2R1ZkNuRkc0OGhHeFA3VEpOWEZQMXZPZ1lIdnhq?=
- =?utf-8?B?VGV2b2Z3RjdaOFJSRVloV1FEVGtJcjRHeldZMjRnYThHMS9lMHZzbHozSk84?=
- =?utf-8?B?dDcyQmUyaFBLckNzb0xIS0VJbmhUY2NnQlZ2VXF3VnBTQ1djWkgzdTc3OXZB?=
- =?utf-8?B?NHo1NC9JT1B3V283SVlHQzlvY2dCc05yK0MrR3pXVFZRRG5IbkQxWUZQeUcx?=
- =?utf-8?B?c0xRK21jUnRyWkFLOEQwQjEyQlFDK0FIREtRcXdicTY2bjU4dFhLMmtkU29N?=
- =?utf-8?B?b2QrRVcwVjA5UkhzNU5MU1NjR2Nackk2akNOZ3duRVdIRU9vQUkwT25CdUNL?=
- =?utf-8?B?NTZEWnV1UkZ3SytaK0g1VzB1UVNlYWZITS9YTTU2Tk95Y3JEQVJlSjViVDFL?=
- =?utf-8?B?R2diMVhrTk9aSHpTOGJuMklUd2NleHdRT0tJdjJ3VmZMZ3d4U0tzZ1puSEda?=
- =?utf-8?B?SVF3WTkwZFUwMEdHQyt5MlVqRWZ4bDNOUmIxSHdPa2lCVDJaeFRiWXdrOXlT?=
- =?utf-8?B?WXVyRmg1YVlORmpzMUJkTmNuUnI5OFhPc1lwUVB5ZC8rSUp2cXBlSUJaQk16?=
- =?utf-8?B?cUk3bDh4dVhVdGpKVDViVzlWTThRM055V1hnbEYwYlJXNWFyMkNMMFA3dFdv?=
- =?utf-8?B?TFg2eGN5eEtDNzVKZitCVWRzUVl2ZDZ3SmNBdHpnWDh3TDRuMHNPcWZmS1dm?=
- =?utf-8?B?aHZHK01SeGs3aXU5RjNKUzg3NU9tL3JrS0g2NDJWZGVsbWsySjFCY2JIZSti?=
- =?utf-8?B?dmpQUzBVZzFYeWhPYXFscjNBbjVRaTlpZTZ4NjV0TEVxblZVQjdLUDIrMTg4?=
- =?utf-8?B?c0o1dFVTaU5STGNqeEFQSGFpMDJ5YkFqUm11WDVPeVRQK05DUHlicXBZNjZE?=
- =?utf-8?B?bmhHa0NzMW9wUDl2STU1R0RnL1lEU2d4WFp5K2UwVS9Cd1RHSWFKZjNYdW1i?=
- =?utf-8?B?K0ZER01ld2pQbmtsOUNYc3JXL3JCdFFuTGhKQ3c4eVVtSTRQdnhlMmZ2UVpu?=
- =?utf-8?B?dFlvbHVUWEgvb2JsaFFqUjVkTWs0eVJkZW0rN3MrVHpnQ215VUJUYWJjMHFV?=
- =?utf-8?B?OEJBa1lSb2NkZTJobVNiaUg0MTVIb2hOcXpleFR3L1BkTXRCWmVuVlMzTnJn?=
- =?utf-8?B?eWN4dzlxU1pGOUN1dGEvc2IwL250cm9HTWV5WFhjWmRhN2h3a2NjVXNFNmMy?=
- =?utf-8?B?TytHRHlJZy84cnN4S2EyWHltNWo5bjJ2NjIya0hVbnJYN1BMNlNzTEhlTkRR?=
- =?utf-8?B?UWdyQXQ0Ly9ia1BDVytkSGI1NmQ3Ri9OMzVPbGpybnBmS0hDVFRhbzJvWit5?=
- =?utf-8?B?REhsdTRTQjd3UkM0a1JpVytLUmZmSzdaSXJvaDM2MVByWTFzSXN0YUk0OU5V?=
- =?utf-8?B?TzVzVjhsME5pV09DSmx4V1VrNjlWMXlqYzBpTjVjNU5pTkQ3aGI3TkRoKzhD?=
- =?utf-8?B?M2wyNlhUTmRTQzRmNC9rNWVlOHk2WlZrMU90K1VWYzlsQjRsWk5Wd0tIVE4v?=
- =?utf-8?B?Vjl6azJFejF2NzJGM2Y2YzJRY25OUnVtelNIQ0g3ODM1MzVlL1RyTEd0bVdF?=
- =?utf-8?B?ZmJTZFJ5cUJodzUzem1LaFVETGw4d0xZOTdCcFh6TXU1YVRVbWJZMlhVY3VO?=
- =?utf-8?B?Zi9lR01Kb0xxTldQdVh3N2xuMldQUXVSRVNrQndhSk1POHFQMmlvcXVwM045?=
- =?utf-8?B?OExvdWpQQjJ3R1F1NFl1ZTUwenV3RnJGak1rUGtrbnM5R1h0ZzdxZzBrbHoz?=
- =?utf-8?B?NVR0SmNnOUFid1BqZE5JaFExVENIVEN5ejROM2RXOGxXcEhSQ2NIeHhQemVl?=
- =?utf-8?B?ckY1dGkyVVh0OE9xSWhVanlTb3hwZi9aQXROUzBBa0RQdVQ3VWVJbU1Lem1G?=
- =?utf-8?Q?rV80=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d103af96-60be-4406-847c-08db3b5ad581
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2023 13:35:52.0284 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZojJA+HbC97oURvLPc/EeShW9j1ntXjy/Fu4pyj4bHqsc+5Sc6rf6M1hcCEpb4A/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5801
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,145 +54,182 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Liu, Aaron" <Aaron.Liu@amd.com>, "Guo, Shikai" <Shikai.Guo@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Sat, 2023-04-08 at 07:46 -0400, Jeff Layton wrote:
+> I've hit some repeated crashes in drm_dp_add_payload_part2. Here's one
+> from this morning that occurred not long after booting the machine. I
+> hadn't even logged in yet -- it was still at a gdm prompt:
+>=20
+> Apr 08 05:34:20 tleilax kernel: amdgpu 0000:30:00.0: [drm] Failed to crea=
+te MST payload for port 0000000074d1d8eb: -5
+> Apr 08 05:34:20 tleilax kernel: BUG: kernel NULL pointer dereference, add=
+ress: 0000000000000008
+> Apr 08 05:34:20 tleilax kernel: #PF: supervisor read access in kernel mod=
+e
+> Apr 08 05:34:20 tleilax kernel: #PF: error_code(0x0000) - not-present pag=
+e
+> Apr 08 05:34:20 tleilax kernel: PGD 0 P4D 0=20
+> Apr 08 05:34:20 tleilax kernel: Oops: 0000 [#1] PREEMPT SMP NOPTI
+> Apr 08 05:34:20 tleilax kernel: CPU: 8 PID: 2278 Comm: gnome-shell Kdump:=
+ loaded Not tainted 6.2.9-200.fc37.x86_64 #1
+> Apr 08 05:34:20 tleilax kernel: Hardware name: Micro-Star International C=
+o., Ltd. MS-7A33/X370 SLI PLUS (MS-7A33), BIOS 3.JR 11/29/2019
+> Apr 08 05:34:20 tleilax kernel: RIP: 0010:drm_dp_add_payload_part2+0xca/0=
+x100 [drm_display_helper]
+> Apr 08 05:34:20 tleilax kernel: Code: 8b 7e 08 44 89 e9 4c 89 c2 48 c7 c6=
+ 60 d2 55 c0 e8 ab 69 54 c5 44 89 e8 5b 5d 41 5c 41 5d e9 2d 73 a2 c5 48 8b=
+ 80 60 05 00 00 <48> 8b 76 08 4c 8b 40 60 48 85 f6 74 04 48 8b 76 08 4>
+> Apr 08 05:34:20 tleilax kernel: RSP: 0018:ffffa4238a2db590 EFLAGS: 000102=
+46
+> Apr 08 05:34:20 tleilax kernel: RAX: ffff961550cac000 RBX: ffff961550cac0=
+00 RCX: ffffffffc055ca98
+> Apr 08 05:34:20 tleilax kernel: RDX: ffff9615a6326140 RSI: 00000000000000=
+00 RDI: ffff9615578a4568
+> Apr 08 05:34:20 tleilax kernel: RBP: 0000000000000001 R08: 00000000ffffff=
+fb R09: 0000000000000000
+> Apr 08 05:34:20 tleilax kernel: R10: 0000000000000002 R11: 00000000000001=
+00 R12: ffff9615578a4000
+> Apr 08 05:34:20 tleilax kernel: R13: ffff96154a5b8de0 R14: ffffffffc0d9d9=
+80 R15: ffff9615589c1f90
+> Apr 08 05:34:20 tleilax kernel: FS:  00007f1c8ad775c0(0000) GS:ffff96241f=
+000000(0000) knlGS:0000000000000000
+> Apr 08 05:34:20 tleilax kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 00000000=
+80050033
+> Apr 08 05:34:20 tleilax kernel: CR2: 0000000000000008 CR3: 000000012f9080=
+00 CR4: 00000000003506e0
+> Apr 08 05:34:20 tleilax kernel: Call Trace:
+> Apr 08 05:34:20 tleilax kernel:  <TASK>
+> Apr 08 05:34:20 tleilax kernel:  dm_helpers_dp_mst_send_payload_allocatio=
+n+0x83/0xb0 [amdgpu]
+> Apr 08 05:34:20 tleilax kernel:  dc_link_allocate_mst_payload+0x16d/0x280=
+ [amdgpu]
+> Apr 08 05:34:20 tleilax kernel:  core_link_enable_stream+0x8ec/0xa10 [amd=
+gpu]
+> Apr 08 05:34:20 tleilax kernel:  ? optc1_set_drr+0x136/0x1e0 [amdgpu]
+> Apr 08 05:34:20 tleilax kernel:  dce110_apply_ctx_to_hw+0x61b/0x670 [amdg=
+pu]
+> Apr 08 05:34:20 tleilax kernel:  dc_commit_state_no_check+0x39b/0xcd0 [am=
+dgpu]
+> Apr 08 05:34:20 tleilax kernel:  dc_commit_state+0x107/0x120 [amdgpu]
+> Apr 08 05:34:20 tleilax kernel:  amdgpu_dm_atomic_commit_tail+0x5bf/0x2d2=
+0 [amdgpu]
+> Apr 08 05:34:20 tleilax kernel:  ? cpufreq_this_cpu_can_update+0x12/0x60
+> Apr 08 05:34:20 tleilax kernel:  ? sugov_get_util+0x7e/0x90
+> Apr 08 05:34:20 tleilax kernel:  ? sugov_update_single_freq+0xb7/0x180
+> Apr 08 05:34:20 tleilax kernel:  ? _raw_spin_lock+0x13/0x40
+> Apr 08 05:34:20 tleilax kernel:  ? raw_spin_rq_lock_nested+0x1e/0x70
+> Apr 08 05:34:20 tleilax kernel:  ? psi_group_change+0x168/0x400
+> Apr 08 05:34:20 tleilax kernel:  ? _raw_spin_unlock+0x15/0x30
+> Apr 08 05:34:20 tleilax kernel:  ? finish_task_switch.isra.0+0x9b/0x300
+> Apr 08 05:34:20 tleilax kernel:  ? __switch_to+0x106/0x410
+> Apr 08 05:34:20 tleilax kernel:  ? __schedule+0x3d4/0x13c0
+> Apr 08 05:34:20 tleilax kernel:  ? dma_resv_get_fences+0x11b/0x220
+> Apr 08 05:34:20 tleilax kernel:  ? get_nohz_timer_target+0x18/0x190
+> Apr 08 05:34:20 tleilax kernel:  ? lock_timer_base+0x61/0x80
+> Apr 08 05:34:20 tleilax kernel:  ? _raw_spin_unlock_irqrestore+0x23/0x40
+> Apr 08 05:34:20 tleilax kernel:  ? __mod_timer+0x29e/0x3d0
+> Apr 08 05:34:20 tleilax kernel:  ? preempt_count_add+0x6a/0xa0
+> Apr 08 05:34:20 tleilax kernel:  ? _raw_spin_lock_irq+0x19/0x40
+> Apr 08 05:34:20 tleilax kernel:  ? _raw_spin_unlock_irq+0x1b/0x40
+> Apr 08 05:34:20 tleilax kernel:  ? wait_for_completion_timeout+0x13a/0x17=
+0
+> Apr 08 05:34:20 tleilax kernel:  ? wait_for_completion_interruptible+0x13=
+5/0x1e0
+> Apr 08 05:34:20 tleilax kernel:  ? __pfx_dma_fence_default_wait_cb+0x10/0=
+x10
+> Apr 08 05:34:20 tleilax kernel:  commit_tail+0x94/0x130
+> Apr 08 05:34:20 tleilax kernel:  drm_atomic_helper_commit+0x112/0x140
+> Apr 08 05:34:20 tleilax kernel:  drm_atomic_commit+0x96/0xc0
+> Apr 08 05:34:20 tleilax kernel:  ? __pfx___drm_printfn_info+0x10/0x10
+> Apr 08 05:34:20 tleilax kernel:  drm_mode_atomic_ioctl+0x959/0xb50
+> Apr 08 05:34:20 tleilax kernel:  ? __pfx_drm_mode_atomic_ioctl+0x10/0x10
+> Apr 08 05:34:20 tleilax kernel:  drm_ioctl_kernel+0xc9/0x170
+> Apr 08 05:34:20 tleilax kernel:  drm_ioctl+0x22f/0x410
+> Apr 08 05:34:20 tleilax kernel:  ? __pfx_drm_mode_atomic_ioctl+0x10/0x10
+> Apr 08 05:34:20 tleilax kernel:  amdgpu_drm_ioctl+0x4a/0x80 [amdgpu]
+> Apr 08 05:34:20 tleilax kernel:  __x64_sys_ioctl+0x90/0xd0
+> Apr 08 05:34:20 tleilax kernel:  do_syscall_64+0x5b/0x80
+> Apr 08 05:34:20 tleilax kernel:  ? __x64_sys_ioctl+0xa8/0xd0
+> Apr 08 05:34:20 tleilax kernel:  ? syscall_exit_to_user_mode+0x17/0x40
+> Apr 08 05:34:20 tleilax kernel:  ? do_syscall_64+0x67/0x80
+> Apr 08 05:34:20 tleilax kernel:  ? sched_clock_cpu+0xb/0xc0
+> Apr 08 05:34:20 tleilax kernel:  ? __irq_exit_rcu+0x3d/0x140
+> Apr 08 05:34:20 tleilax kernel:  entry_SYSCALL_64_after_hwframe+0x72/0xdc
+> Apr 08 05:34:20 tleilax kernel: RIP: 0033:0x7f1c8e723d6f
+> Apr 08 05:34:20 tleilax kernel: Code: 00 48 89 44 24 18 31 c0 48 8d 44 24=
+ 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10=
+ 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 18 48 8b 44 24 18 64 48 2b 0>
+> Apr 08 05:34:20 tleilax kernel: RSP: 002b:00007ffea61067d0 EFLAGS: 000002=
+46 ORIG_RAX: 0000000000000010
+> Apr 08 05:34:20 tleilax kernel: RAX: ffffffffffffffda RBX: 00005571af410f=
+b0 RCX: 00007f1c8e723d6f
+> Apr 08 05:34:20 tleilax kernel: RDX: 00007ffea6106870 RSI: 00000000c03864=
+bc RDI: 000000000000000a
+> Apr 08 05:34:20 tleilax kernel: RBP: 00007ffea6106870 R08: 00000000000000=
+11 R09: 0000000000000011
+> Apr 08 05:34:20 tleilax kernel: R10: 00005571ae320010 R11: 00000000000002=
+46 R12: 00000000c03864bc
+> Apr 08 05:34:20 tleilax kernel: R13: 000000000000000a R14: 00005571ae6ff1=
+40 R15: 00005571b0261950
+> Apr 08 05:34:20 tleilax kernel:  </TASK>
+> Apr 08 05:34:20 tleilax kernel: Modules linked in: rfcomm snd_seq_dummy s=
+nd_hrtimer rpcrdma rdma_cm iw_cm ib_cm ib_core xt_CHECKSUM xt_MASQUERADE xt=
+_conntrack ipt_REJECT nf_nat_tftp nf_conntrack_tftp nf_conntrack_netbi>
+> Apr 08 05:34:20 tleilax kernel:  videobuf2_memops rapl mxm_wmi videobuf2_=
+v4l2 wmi_bmof snd_pcm k10temp rfkill pcspkr videobuf2_common i2c_piix4 snd_=
+timer joydev videodev snd mc parport_pc soundcore parport gpio_amdpt g>
+> Apr 08 05:34:20 tleilax kernel: CR2: 0000000000000008
+> Apr 08 05:34:20 tleilax kernel: ---[ end trace 0000000000000000 ]---
+>=20
+> $ ./scripts/faddr2line --list /usr/lib/debug/lib/modules/6.2.9-200.fc37.x=
+86_64/kernel/drivers/gpu/drm/display/drm_display_helper.ko.debug drm_dp_add=
+_payload_part2+0xca/0x100
+> drm_dp_add_payload_part2+0xca/0x100:
+>=20
+> drm_dp_add_payload_part2 at /usr/src/debug/kernel-6.2.9/linux-6.2.9-200.f=
+c37.x86_64/drivers/gpu/drm/display/drm_dp_mst_topology.c:3407
+>  3402 	{
+>  3403 		int ret =3D 0;
+>  3404 =09
+>  3405 		/* Skip failed payloads */
+>  3406 		if (payload->vc_start_slot =3D=3D -1) {
+> > 3407<			drm_dbg_kms(state->dev, "Part 1 of payload creation for %s fail=
+ed, skipping part 2\n",
+>  3408 				    payload->port->connector->name);
+>  3409 			return -EIO;
+>  3410 		}
+>  3411 =09
+>  3412 		ret =3D drm_dp_create_payload_step2(mgr, payload);
+>=20
+> Since %rsi is NULL and the ->dev field is 8 bytes into the struct, I'm
+> guessing that means that "state" was NULL here.
+>=20
+> I'm assuming that the real bug is in the caller (and I'm happy to help
+> track that down), but would it make sense to allow this function to
+> gracefully handle a NULL state pointer? IOW something like this?
+>=20
+>      drm_dbg_kms(state ? state->dev : NULL, "Part 1 of payload creation f=
+or %s failed, skipping part 2\n",
+>=20
+> I think that would at least prevent this problem from crashing the machin=
+e.
+>=20
 
-On 2023-04-04 09:45, Felix Kuehling wrote:
-> [+Philip]
->
-> Am 2023-04-04 um 08:47 schrieb Christian König:
->
->> Am 04.04.23 um 12:56 schrieb Xiao, Shane:
->>> [AMD Official Use Only - General]
->>>
->>>> -----Original Message-----
->>>> From: Koenig, Christian <Christian.Koenig@amd.com>
->>>> Sent: Tuesday, April 4, 2023 6:27 PM
->>>> To: Xiao, Shane <shane.xiao@amd.com>; amd-gfx@lists.freedesktop.org;
->>>> Kuehling, Felix <Felix.Kuehling@amd.com>
->>>> Cc: Liu, Aaron <Aaron.Liu@amd.com>; Guo, Shikai <Shikai.Guo@amd.com>
->>>> Subject: Re: [PATCH 1/3] drm/amdgpu: Add userptr bo support for mGPUs
->>>> when iommu is on
->>>>
->>>> Am 04.04.23 um 11:56 schrieb Shane Xiao:
->>>>> For userptr bo with iommu on, multiple GPUs use same system memory 
->>>>> dma
->>>>> mapping address when both bo_adev and adev in identity mode or in the
->>>>> same iommu group.
->>> Hi Christian,
->>>
->>>> WTF? Userptr BOs are not allowed to be exported/imported between 
->>>> different
->>>> GPUs.
->>>>
->>>> So how can the same userptr BO be used on different GPUs?
->>> If GPUs are all in iommu identity mode which means dma address are 
->>> the same as physical address,  all of the GPUs can see the system 
->>> memory directly.
->>>
->>> In such case, should we export/import the BO,  then create a new SG 
->>> BO for another GPU?
->>
->> Yes, absolutely. Each userptr BO is only meant to be used on one GPU.
->>
->> Even if you could use the same BO for multiple GPUs it's not 
->> necessary a good idea since you then have live time problems for 
->> example.
->>
->> E.g. what happens when one GPU is hot removed while the other one who 
->> imported the BO is still in use?
->>
->> Felix can you comment on that? My recollection was that we rather 
->> improve the storage of DMA addresses instead of duplicating the BOs 
->> over different GPUs.
->
-> For KFD we currently enable sharing of userptr BOs between multiple 
-> GPUs by creating a userptr BO for the first GPU, and creating 
-> additional SG BOs using the same page list for additional GPUs. That 
-> way we don't have to call hmm_range_fault N times and setup N MMU 
-> notifiers for the same address range on an N GPU system. But we do 
-> have to create N DMA mappings, which is facilitated by the SG BOs.
->
-> We have a further optimization to not even store separate DMA 
-> addresses per-GPU if they are a direct mapping. In that case we just 
-> increase the reference count on the original userptr BO. (I agree that 
-> we should also look into more efficient storage of DMA addresses. 
-> However, last time we talked about this, you basically told us that 
-> scatter gather tables are being deprecated, but I haven't seen the 
-> alternative yet.)
->
-> I think this patch fixes a potential issue with that optimization. 
-> There is an implicit assumption, that the DMA addresses stored in the 
-> original userptr BO are a direct mapping, so we can reuse them on 
-> other GPUs that also use a direct mapping. But, we didn't actually 
-> check that assumption. I think this patch fixes that for systems where 
-> system memory is direct mapped on some but not all GPUs.
+FWIW, I patched my kernel with the above, and it did seem to save the
+box from crashing when this happened again:
 
-We will need similar optimization in svm_range_dma_map to reuse the 
-prange->dma_addr for GPUs on same iommu group or direct mapping.
+    [14357.953046] amdgpu 0000:30:00.0: [drm] Failed to create MST payload =
+for port 000000006d3a3885: -5
+    [14358.025845] [drm] DM_MST: stopping TM on aconnector: 00000000ef1bcb7=
+9 [id: 86]
+    [14358.593779] [drm] DM_MST: starting TM on aconnector: 00000000ef1bcb7=
+9 [id: 86]
 
-Regards,
+In this case, all of my windows got moved to the secondary monitor, but
+the machine stayed up and running. I think seems to mostly occur when
+the display goes to sleep.
 
-Philip
-
->
-> This scenario should probably be called out explicitly in the patch 
-> description. The condition is also getting pretty hard to read and 
-> understand. Maybe move the both-direct-map-or-same-iommu-group 
-> conditions into a helper function, say 
-> "amdgpu_ttm_tt_get_usermm(mem->bo->tbo.ttm) && reuse_dmamap(adev, 
-> bo_adev)".
->
-> Regards,
->   Felix
->
->
->>
->> Regards,
->> Christian.
->>
->>>
->>>
->>> Best Regards,
->>> Shane
->>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>> Signed-off-by: Shane Xiao <shane.xiao@amd.com>
->>>>> ---
->>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 8 ++++----
->>>>>    1 file changed, 4 insertions(+), 4 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->>>>> index e7403f8e4eba..33cda358cb9e 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
->>>>> @@ -804,11 +804,11 @@ static int kfd_mem_attach(struct amdgpu_device
->>>> *adev, struct kgd_mem *mem,
->>>>>                 va + bo_size, vm);
->>>>>
->>>>>            if ((adev == bo_adev && !(mem->alloc_flags &
->>>> KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP)) ||
->>>>> - (amdgpu_ttm_tt_get_usermm(mem->bo->tbo.ttm) &&
->>>> adev->ram_is_direct_mapped) ||
->>>>> -            same_hive) {
->>>>> + (amdgpu_ttm_tt_get_usermm(mem->bo->tbo.ttm) &&
->>>> ((adev->ram_is_direct_mapped && bo_adev->ram_is_direct_mapped) ||
->>>>> + adev->dev->iommu_group == bo_adev->dev-
->>>>> iommu_group)) ||
->>>>> +same_hive){
->>>>>                /* Mappings on the local GPU, or VRAM mappings in
->>>> the
->>>>> -             * local hive, or userptr mapping IOMMU direct map
->>>> mode
->>>>> -             * share the original BO
->>>>> +             * local hive, or userptr mapping in the same dma
->>>>> +             * address space share the original BO
->>>>>                 */
->>>>>                attachment[i]->type = KFD_MEM_ATT_SHARED;
->>>>>                bo[i] = mem->bo;
->>
+--=20
+Jeff Layton <jlayton@kernel.org>
