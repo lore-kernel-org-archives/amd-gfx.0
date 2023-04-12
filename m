@@ -4,121 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CC59C77B72
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 14:03:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0B2BC7619A
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 14:12:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3117910E033;
-	Wed, 12 Apr 2023 14:03:54 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2061f.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e89::61f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 906A510E033
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 14:03:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fel5pbnrlLeIWaSUUs0sEfXIrsZ+YDi1IuyJGmErHxZjKGKR7inQOFP+uHwXS5Fvjmd2vzbPOtX1S4V8H+oDydSNrlvC0bR7mUVnx/+On+7JuUveu+jVReqxckjqSeRkzaiaIF0l056qeZnIj9ftPzvWcJQpkeMZS84YfTJg3cbsWN447DTpbhAKDi4NEDPdFTfni+ci9QHjrrLBb/Uj9/Xr09nrBKm2YnVVSJcw0ynLEEjNIbVxLUp777S3Jrtl/SGTQWFKF926+8QGN6KKzCdrJ6NDY0KGCv0sQpWTXC2IgAcEcjoI4En05QPKh6LTdUa864gwLXNsXg45UFr3hg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3FdLm/GSXt0/tSI7vt3ivjh5x4r3JCdPW8sb4aKK7Nc=;
- b=JUv2kimtRr2/2QYOv3/qP7Ba0DmFKAr81LSzUjIrUbiyNymIFaeuUqWdnN7zjOZdEr0KmKa8M/ef4P6mlN3cqGBus+gmTo5NhX6MGqGl4rHCgpE7of+ioaupJG0gZJuY+FOp7JlkX5pY/7bebc/bf6q5/rHm9refg4xC0Nn7seOaF6PMmyCyeAQudAKoiJ9KiB9PVnbinAYZDP/x9J1MnPjb0r5aac0YF2zxFvMP7eYnfrm7rsemm3vwn6qy6eK+CmEW2U8Za5tkAWxl0W/K7KeWxhpiyZjT/eY5ach6CToMRJp12PjRDjQTjjKtV41kWdhs2Ni+7FRafKwTH7Yn2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3FdLm/GSXt0/tSI7vt3ivjh5x4r3JCdPW8sb4aKK7Nc=;
- b=vJaR1MFz0AnJJC/LfB7c66wbGiJNp0Pk1NjGa4Xmpu6Z0Jh7WDufQddcRuKRFtjzbCmkzvfvlVE4fDlh+EkHbVE2JgaZOazaUqL7qgFNN0N5qqdp1AHID0/gtcHR5pke1bt3eXPBmtyIrIXu39QxHYfg4591ZK74Pn5/WkNmCGM=
-Received: from BN9PR12MB5244.namprd12.prod.outlook.com (2603:10b6:408:101::17)
- by CH3PR12MB8260.namprd12.prod.outlook.com (2603:10b6:610:12a::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.38; Wed, 12 Apr
- 2023 14:03:49 +0000
-Received: from BN9PR12MB5244.namprd12.prod.outlook.com
- ([fe80::667e:c725:d563:d13a]) by BN9PR12MB5244.namprd12.prod.outlook.com
- ([fe80::667e:c725:d563:d13a%3]) with mapi id 15.20.6298.030; Wed, 12 Apr 2023
- 14:03:49 +0000
-From: "Gui, Jack" <Jack.Gui@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Gao, Likun" <Likun.Gao@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: drop temp programming for pagefault handling
-Thread-Topic: [PATCH] drm/amdgpu: drop temp programming for pagefault handling
-Thread-Index: AQHZbUdqgvLUTV4TB0OcU9E9At16Sa8ntIKg
-Date: Wed, 12 Apr 2023 14:03:48 +0000
-Message-ID: <BN9PR12MB5244DE365724DF67B9DB36548B9B9@BN9PR12MB5244.namprd12.prod.outlook.com>
-References: <20230412140148.28633-1-Hawking.Zhang@amd.com>
-In-Reply-To: <20230412140148.28633-1-Hawking.Zhang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-04-12T14:03:46Z; 
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=12e84b30-928c-4de4-b805-416a7d52287d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2023-04-12T14:03:46Z
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: f58621b5-2374-44cb-a6c7-b3e476439931
-msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5244:EE_|CH3PR12MB8260:EE_
-x-ms-office365-filtering-correlation-id: ab20a057-386d-491a-bbf4-08db3b5ebd30
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: d2Yu7ogkwJf9rW7TR0+CgWRCZDqbBPBAYRu+6ztkBtKAcNnrvfsOHDbzShHjx1yZb5IvvNfrI/sehXtqS+DXB9cYwQ1wVq7btN++XiKu4r4Ks9s0sDeeX9YzKMyecAIpFi9+uwscWsaskuNuA+nw+NvGQ7FMZepV+ziLIYMrTC57+en2kCvWRx9sjwIIaV91xbUyQC5Q6q6okoWZd8hF4XKZWIF6u44KpHgwRiYd4gInEy7vfrNfG/SX3VA9sHQ+EnYk2QKSa/Fhmyf83ezkeICdrLiCHzjA2pAf74h8RPEF4nGG/LjBVarmg7oKTbQ5Aa/rK7ROWAfK10UuR/gls5mOOCKZfT5Zaa2G0LpIrNo5Wb0ekrnQftlX1CBwZqaVlYNaloDYaONCHOjS6JjiurhajFvD1wOq/an8ZVDm9ryVp+K6EBN8ZpndzZ7n3YO7G39MmXdXJWVW7bgZzM0Y5eyOjLzjlpA4G60fQlfmfHlb02t+f4G5JQVFJJDuLOLxhs/t2NPxStsOMHsVFA1jIvqjeQLp21j2GEl7DJJGqvHZhxaGMXojdx7bc/WdRlKsoY8m8Z3m7ac7TaDiYoygCvxBcAA7+yorbto9X5UQWbcc4TnNa4k662i5c8cgngy1
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5244.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(366004)(136003)(346002)(376002)(396003)(451199021)(41300700001)(478600001)(76116006)(86362001)(316002)(6636002)(71200400001)(64756008)(8676002)(66946007)(66556008)(7696005)(110136005)(66476007)(66446008)(8936002)(52536014)(38070700005)(5660300002)(33656002)(186003)(122000001)(38100700002)(53546011)(6506007)(9686003)(2906002)(83380400001)(55016003)(26005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?y6sh84g7uxoQ7dU2LgYGAdk056JFzA5ST/MJBLgbQ+sj3lgMLI2eHBwCoQt4?=
- =?us-ascii?Q?7+AxPfBEmXyRHDPlM7cmEZ2nADR0cP64ydcZ8j86k7L0ZR9ZDh/TJpoML06k?=
- =?us-ascii?Q?G5ZZ7hTOoRRb0JLmR4ovxo/ZYv4+8VcNhrip8mGJOam6l1Bxh7zIFtG968Ea?=
- =?us-ascii?Q?X2+UiUpuVXxu3NoKp5xTtImrvBqoaHuB2uA8xHfCVPVAWP49QgC0azLCrnU8?=
- =?us-ascii?Q?V7JqnX6IPWzElt0Jt1jfnvb4mzFs7vPenC+gez0zczzCf0K6gVQiIkUk8flh?=
- =?us-ascii?Q?5Vy2H4ou4iGH6wlLkyxBhmTxWc98wk9d7+pVJm6nwkLDvDjPCi/Zvuc+dCLX?=
- =?us-ascii?Q?tUfPVRIZGM4K1NjPCEBTPKq5Qj9qd+ak22F21/yL5cvdR1jUuGvF+z9XLCDK?=
- =?us-ascii?Q?5u7ttALmushaD33nrJTDRy+FiMRT8RQ0TLoRASCKIUYe2mJhZ5O+OffSYhJq?=
- =?us-ascii?Q?3DvR+F16IHcbcKmWQMpPy/o4Cx9AjyOO/htN+b9EnAV/iID0aqEPMi29MnV6?=
- =?us-ascii?Q?kFBbK8rdrsb3u/PDFzCWDtcvmzV65hGscWZbllfa+dspui5SSbdzbngMNBTH?=
- =?us-ascii?Q?ptzquFeli6Xm2PZ662vzXbHaDw1QX8bXD8QbEnIL0AiRqisseH3qTCtol+Bx?=
- =?us-ascii?Q?QCTop22LiJrSyfyMn1KFoWklJyx243Ta3dR0KDBxpxY+v6cEEy6dWKwSne3N?=
- =?us-ascii?Q?87DX4MnyUCtPOowlhDwVPH9LInbqICQH3nbDoE6Tm1wHC7LdFfdDBMrxMKRy?=
- =?us-ascii?Q?qZxNIzuH0mu8xJ8AQaydl986zfBAFOYmR/oq/IWX69UzK+HGH8P9e+peKSAH?=
- =?us-ascii?Q?lwpO+uHgjVQS0hkEqyCQhzfce0I+09OPmV8JhQZ7QoRUYy1PpWaDyaRScX71?=
- =?us-ascii?Q?ulkAwYvC2xuktK8BPayR1IAxivUSzkXbRVPQEmFCoxpYRNpQh3DSWZaEvOG9?=
- =?us-ascii?Q?j+Lb1vaWMnX6kcfmLvbNSjZVastSb3SCXznikZOn9RGSy4zPXfk9nChgvSI9?=
- =?us-ascii?Q?Lw3xt/qabSUzLJQLkIqjGfZi2+aOY3n8I+8P8LMd0vLt3pSx1P8WSF/ptkwu?=
- =?us-ascii?Q?F1CsfIIwEpSmRVRlRSnYxLFdk08hVr+ECRzUJ1N+4mJYANv5yYY6pBxxlrjM?=
- =?us-ascii?Q?/tXnWDrA85iDzCHjZd0lSbEleOc/5fQ1j5a7v0IoWyzJKM0bZ+NQSOluG4iH?=
- =?us-ascii?Q?vuV68B41mUobFh+D6Os+oyDj2k1x0VHaoSg1ARKVb4ncHR16Q6Wz5ZD2NIPM?=
- =?us-ascii?Q?CRpKTVoOH0krBF6rrkqBLAdOcZgN7cGLCExzKy/rKI5sDjudQ/uSnV9EmzRG?=
- =?us-ascii?Q?Zj+T/q66G56762h3A3KFMQc8CCiUy9F7nJbd99rpNsVUkq8VisASU+LnGNGB?=
- =?us-ascii?Q?xt9HRnrjh+xvkpvCzPEG8KAupMuL3/kRKXXB6dKIXzlt2WNLpqMocCSWnBF1?=
- =?us-ascii?Q?2AwZ88QszT2XvBydbUrC0axhSnkFedMmErYXlj2xeFzxdQrTFaHjlwtEWtsb?=
- =?us-ascii?Q?hOC7TdAGtYtbT94IvMYf1oS9fDn7mjh1x7mseZfNz1V3om+9tUBhsI05uan2?=
- =?us-ascii?Q?amWIZt36VsKpSwi2AB0=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97B0710E814;
+	Wed, 12 Apr 2023 14:12:03 +0000 (UTC)
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A61710E814
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 14:12:01 +0000 (UTC)
+Received: by mail-wr1-x42c.google.com with SMTP id j1so15052249wrb.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 07:12:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1681308719; x=1683900719;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=ptZR3bMJ9/PzGgqPrw3Jl+HR2DBTJ/21n1IiBsgEDs0=;
+ b=JqDe2h/W4kiKT4QSq6TeiqNrK6LQsd7FdJl8IhnhjlkcxI/62qS/04Xuv/wqTZs4DM
+ i1ZEw9OCXEmbQRFC4AZkZ514Weov8s9UmGp8rWic2lz9ZO2htHfAcXtDXv3SpoRJComL
+ XPAmVo31lbA55QcIlauNnWbFQRRNpu1k9Fu3tXf7KMfKquL+hgQzqfgMBVSdiniiu14w
+ gUaWxe4xnhrE614eWhICy4XJAWApP/wL+wt1mnEjHJbROqPVO5HbonZqdCks8J6tjR0R
+ wbHV4bUydTiwyJrlwarkdVZhWM99PyRGJiXlIzVonrI0M3Ucc3DxTrfOT0zEenrCfc5q
+ 0Tfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1681308719; x=1683900719;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ptZR3bMJ9/PzGgqPrw3Jl+HR2DBTJ/21n1IiBsgEDs0=;
+ b=6keBVa4P+y7OKDx9Es6VGx8j7kohcteoAtC5MwZvPTk0ZIP/vRcqTop5Smv8Qo0yab
+ QN8p4yDjmY3pGDWm+Kxy1yCt8vqrTqvJJmPJGCowvE/+lqIj9EC4XkwGXjw4R1wsAYZa
+ kglg0e99eYiWYVbn+lXx8X9HCZhC6/p+a2AfSGF8cowhQtRapc6O+2EguUMWFXxE+Pp6
+ LILoIv03oNRHemBDbGba1WA1e/x/ZE0Ym2MCoaPMmcDeqpnXYBeMKOeq6jsyzwEXEkqS
+ 20T4fkeb3vgTFUsvmI0WNKVHq7MWTbyaABC2Ibl2zqFz49EnHbshGOOtnGj6xvkg9IkG
+ sqcw==
+X-Gm-Message-State: AAQBX9d5/Gcc0mQJGCWS164SRbtLmw/VpT7U4g6WqEkvBwJCkI2o3Qrb
+ WT35cewQ3nQOPUxBG34Gjz0=
+X-Google-Smtp-Source: AKy350bWAAILW1pV6dxnpXfYHmzsynqZIYfNYdMgG4GjSIY2BajZFbz/fDK9SH8DVjZ8iyQXaAsYrA==
+X-Received: by 2002:a05:6000:10cb:b0:2ef:ac43:2f with SMTP id
+ b11-20020a05600010cb00b002efac43002fmr8747577wrx.62.1681308718899; 
+ Wed, 12 Apr 2023 07:11:58 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1256:79a0:fe02:9bb5:5deb:be0e?
+ ([2a02:908:1256:79a0:fe02:9bb5:5deb:be0e])
+ by smtp.gmail.com with ESMTPSA id
+ z14-20020adfd0ce000000b002c55306f6edsm17258901wrh.54.2023.04.12.07.11.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 12 Apr 2023 07:11:58 -0700 (PDT)
+Message-ID: <f653f458-c891-afda-f31d-c54e85e4656d@gmail.com>
+Date: Wed, 12 Apr 2023 16:11:57 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5244.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab20a057-386d-491a-bbf4-08db3b5ebd30
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Apr 2023 14:03:48.9757 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ONcCGCLfFlUtBna7djNYxuk8p54xRJQVjcw107YnZnEFW1huQ9jInLtm/0o5vxY1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8260
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH v3 1/2] drm/amdgpu: Add a max ibs per submission limit.
+Content-Language: en-US
+To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+References: <20230412121827.1122035-1-bas@basnieuwenhuizen.nl>
+ <4365dd57-f61d-9d19-79c8-697f0554fa26@gmail.com>
+ <CAP+8YyELApwVc06d29P4hRETdXJoXo2M_GqiKhsPie-MLsAe_Q@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CAP+8YyELApwVc06d29P4hRETdXJoXo2M_GqiKhsPie-MLsAe_Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,68 +77,126 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: alexander.deucher@amd.com, maraeo@gmail.com, christian.koenig@amd.com,
+ amd-gfx@lists.freedesktop.org, timur.kristof@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+Am 12.04.23 um 14:50 schrieb Bas Nieuwenhuizen:
+> On Wed, Apr 12, 2023 at 2:46 PM Christian König
+> <ckoenig.leichtzumerken@gmail.com> wrote:
+>> Am 12.04.23 um 14:18 schrieb Bas Nieuwenhuizen:
+>>> And ensure each ring supports that many submissions. This makes
+>>> sure that we don't get surprises after the submission has been
+>>> scheduled where the ring allocation actually gets rejected.
+>>>
+>>> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2498
+>>> Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+>>> ---
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c   |  3 +++
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 25 ++++++++++++++++++++++++
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  1 +
+>>>    3 files changed, 29 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>>> index 7af3041ccd0e..8362738974c8 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>>> @@ -110,6 +110,9 @@ static int amdgpu_cs_p1_ib(struct amdgpu_cs_parser *p,
+>>>        if (r < 0)
+>>>                return r;
+>>>
+>>> +     if (num_ibs[r] >= amdgpu_ring_max_ibs(chunk_ib->ip_type))
+>>> +             return -EINVAL;
+>>> +
+>>>        ++(num_ibs[r]);
+>>>        p->gang_leader_idx = r;
+>>>        return 0;
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>> index dc474b809604..abd70d2f26f6 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>> @@ -49,6 +49,25 @@
+>>>     * them until the pointers are equal again.
+>>>     */
+>>>
+>>> +/**
+>>> + * amdgpu_ring_max_ibs - Return max IBs that fit in a single submission.
+>>> + *
+>>> + * @type: ring type for which to return the limit.
+>>> + */
+>>> +unsigned int amdgpu_ring_max_ibs(enum amdgpu_ring_type type)
+>>> +{
+>>> +     switch (type) {
+>>> +     case AMDGPU_RING_TYPE_GFX:
+>>> +     case AMDGPU_RING_TYPE_COMPUTE:
+>>> +             /* gfx/compute are often used more extensively and radv
+>>> +              * has historically assumed the limit was 192.
+>>> +              */
+>>> +             return 192;
+>>> +     default:
+>>> +             return 50;
+>>> +     }
+>>> +}
+>>> +
+>>>    /**
+>>>     * amdgpu_ring_alloc - allocate space on the ring buffer
+>>>     *
+>>> @@ -182,6 +201,7 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+>>>        int sched_hw_submission = amdgpu_sched_hw_submission;
+>>>        u32 *num_sched;
+>>>        u32 hw_ip;
+>>> +     unsigned int max_ibs_dw;
+>>>
+>>>        /* Set the hw submission limit higher for KIQ because
+>>>         * it's used for a number of gfx/compute tasks by both
+>>> @@ -290,6 +310,11 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+>>>                return r;
+>>>        }
+>>>
+>>> +     max_ibs_dw = ring->funcs->emit_frame_size +
+>>> +                  amdgpu_ring_max_ibs(ring->funcs->type) * ring->funcs->emit_ib_size;
+>>> +     max_ibs_dw = (max_ibs_dw + ring->funcs->align_mask) & ~ring->funcs->align_mask;
+>>> +     max_dw = max(max_dw, max_ibs_dw);
+>> I think something like "if (WARN_ON(max_ibs_dw > max_dw) max_dw =
+>> max_ibs_dw;" would be more appropriate.
+> I really like it this way because it automatically does the right
+> thing. In comparison it is difficult getting the test matrix together
+> for a WARN_ON on something that differs every generation, and I don't
+> know what we'd gain from doing it that way?
 
-Reviewed-by: Jack Gui <Jack.Gui@amd.com>
+Especially the older hw generations are quite limited in the size of the 
+ring buffer.
 
------Original Message-----
-From: Zhang, Hawking <Hawking.Zhang@amd.com>=20
-Sent: Wednesday, April 12, 2023 10:02 PM
-To: amd-gfx@lists.freedesktop.org; Gui, Jack <Jack.Gui@amd.com>; Gao, Likun=
- <Likun.Gao@amd.com>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: drop temp programming for pagefault handling
+For example we had to split page table updates into smaller submissions 
+(and later moved it into IBs) because the SDMA couldn't handle a large 
+ring buffer (the limit was just 1MiB or something like that IIRC).
 
-Was introduced as workaround. not needed anymore
+I want to avoid that we unintentionally increase the submission limit to 
+more than some hw generation can do.
 
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c | 22 ----------------------
- 1 file changed, 22 deletions(-)
+Regards,
+Christian.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfxhub_v3_0.c
-index be0d0f47415e..13712640fa46 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v3_0.c
-@@ -417,34 +417,12 @@ static void gfxhub_v3_0_set_fault_enable_default(stru=
-ct amdgpu_device *adev,
- 	tmp =3D REG_SET_FIELD(tmp, CP_DEBUG, CPG_UTCL1_ERROR_HALT_DISABLE, 1);
- 	WREG32_SOC15(GC, 0, regCP_DEBUG, tmp);
-=20
--	/**
--	 * Set GRBM_GFX_INDEX in broad cast mode
--	 * before programming GL1C_UTCL0_CNTL1 and SQG_CONFIG
--	 */
--	WREG32_SOC15(GC, 0, regGRBM_GFX_INDEX, regGRBM_GFX_INDEX_DEFAULT);
--
--	/**
--	 * Retry respond mode: RETRY
--	 * Error (no retry) respond mode: SUCCESS
--	 */
--	tmp =3D RREG32_SOC15(GC, 0, regGL1C_UTCL0_CNTL1);
--	tmp =3D REG_SET_FIELD(tmp, GL1C_UTCL0_CNTL1, RESP_MODE, 0);
--	tmp =3D REG_SET_FIELD(tmp, GL1C_UTCL0_CNTL1, RESP_FAULT_MODE, 0x2);
--	WREG32_SOC15(GC, 0, regGL1C_UTCL0_CNTL1, tmp);
--
- 	/* These registers are not accessible to VF-SRIOV.
- 	 * The PF will program them instead.
- 	 */
- 	if (amdgpu_sriov_vf(adev))
- 		return;
-=20
--	/* Disable SQ XNACK interrupt for all VMIDs */
--	tmp =3D RREG32_SOC15(GC, 0, regSQG_CONFIG);
--	tmp =3D REG_SET_FIELD(tmp, SQG_CONFIG, XNACK_INTR_MASK,
--			    SQG_CONFIG__XNACK_INTR_MASK_MASK >>
--			    SQG_CONFIG__XNACK_INTR_MASK__SHIFT);
--	WREG32_SOC15(GC, 0, regSQG_CONFIG, tmp);
--
- 	tmp =3D RREG32_SOC15(GC, 0, regGCVM_L2_PROTECTION_FAULT_CNTL);
- 	tmp =3D REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
- 			    RANGE_PROTECTION_FAULT_ENABLE_DEFAULT, value);
---=20
-2.34.1
+>
+>
+>> Apart from that this looks really good to me,
+>> Christian.
+>>
+>>> +
+>>>        ring->ring_size = roundup_pow_of_two(max_dw * 4 * sched_hw_submission);
+>>>
+>>>        ring->buf_mask = (ring->ring_size / 4) - 1;
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>>> index 3989e755a5b4..e6e672727529 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>>> @@ -317,6 +317,7 @@ struct amdgpu_ring {
+>>>    #define amdgpu_ring_patch_cond_exec(r,o) (r)->funcs->patch_cond_exec((r),(o))
+>>>    #define amdgpu_ring_preempt_ib(r) (r)->funcs->preempt_ib(r)
+>>>
+>>> +unsigned int amdgpu_ring_max_ibs(enum amdgpu_ring_type type);
+>>>    int amdgpu_ring_alloc(struct amdgpu_ring *ring, unsigned ndw);
+>>>    void amdgpu_ring_ib_begin(struct amdgpu_ring *ring);
+>>>    void amdgpu_ring_ib_end(struct amdgpu_ring *ring);
+
