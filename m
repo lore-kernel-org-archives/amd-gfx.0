@@ -4,58 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE274C7619A
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Apr 2023 02:49:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D298C77B6C
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Apr 2023 04:15:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CF0310EA13;
-	Thu, 13 Apr 2023 02:49:27 +0000 (UTC)
-Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
- [IPv6:2001:4860:4864:20::32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73FF610EA13
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Apr 2023 02:49:25 +0000 (UTC)
-Received: by mail-oa1-x32.google.com with SMTP id
- 586e51a60fabf-183f4efa98aso22336455fac.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 19:49:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681354163; x=1683946163;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=eV9+XNddzm1+UzfseBDE1svOoKVj42ndjWoyi9SZB0k=;
- b=L855lw4UYT4/CqlYHi1eQ4UPpa3XbGjHzFuwde/7vp5fkhFWoXi36/WHdeZXeZa2Hr
- 60s2tlDTV0M67DbJrEMJBTiUFIW2R0LHjw2Xe81v8LFb1gP7SQJR5sqxMFfh8UTMpAB3
- 8fyXRKPvRVZHnxeHEK6AIq1ipVpjCnMwwLGByVFrTh/WvKp3zYjNE4whhig7ATdnHpJj
- KjZ6h0q6bBcG5gRDw+P+rkDzwqUI9TR5JruIvAXOfh+lfaSmJsDNuDUh/Z931zXCa0m+
- iwGj9HkGs6+gtE4/jG1Wv/QZDbgv6U3fI91EyT0whs9EkxdOSGB+X6/1kduXFnaLYix8
- o2IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681354163; x=1683946163;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=eV9+XNddzm1+UzfseBDE1svOoKVj42ndjWoyi9SZB0k=;
- b=DFWaU6Rrybohtez3r1C0P+lHtSl25xOgu3Q8KXuqHvouZeZhUMNFHNhzHnl8Y4S6pi
- paYGYv5E/GzBuTH+GW8YPdDC0wKpMewei79yV9WXJC/9/edHXIx6viztRJ38Fn2qJszk
- kksGFbhSQ1OS8oaasYlHWNWyxpFh/nkVRwJSKDbluiXmeZVGXdGHpMBD8GeQT7SCrYSp
- Lu2mCMcApC5zfE8ReDZuO7nYJ2BItuaPY8tuKcc+TTFpcHgvMILpxW8MQQzwOIgMfsqn
- vcuKm16vhdLFvtN5eL+IFdMZu4fG2MW/IOAJ8PhElBXBA6TQNmrELSTGiP1exVdcEKjM
- XUKw==
-X-Gm-Message-State: AAQBX9fadTTKOszF3r0uGahPikLvFvkdeH5UPqpT9BBF6dEE5u13ak9p
- 5kV/NqcrxZ7KyG9aEknQF8QxQKb2HuQWqyXW0vM=
-X-Google-Smtp-Source: AKy350ZW6HmiT606YUHkEpmuR/jKulOsjFhfeMdO04ITWkUkc1tAf+5HVvYmj5Y71l8Q/FqQBUAjtD/nXWLS1Qvx5+8=
-X-Received: by 2002:a05:6870:390d:b0:184:2e38:c7af with SMTP id
- b13-20020a056870390d00b001842e38c7afmr556358oap.3.1681354163503; Wed, 12 Apr
- 2023 19:49:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B91E310EA29;
+	Thu, 13 Apr 2023 04:15:44 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BE4310EA22;
+ Thu, 13 Apr 2023 04:15:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1681359342; x=1712895342;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=Hud/tEH/bO4ykSDB5vwIzW+i0/5nC8j5l6CjYVfUw8w=;
+ b=QF4HoLYUhfssyjerYls7uMo2ZANkNYG4wHIHQDD11cvCuJ5LJqm0Gx0c
+ YiPsvimqYyb/6V7mGBfFCztLU558ThM4EaLw9BNLtlJmJLXUSyINOamdK
+ oQF5vUETeaC6CCuK8T6PLzNj0sc/c2umqnBPV/kk6GFH7H5ZgJGO2R3//
+ tJum1gMvcM+ER8IJuu6SXFYJG4D/lTnxMAtucje1qo+yBGMguSSyE89oR
+ iUPRG/DrOJNyFtKpuU1S7nGurVrwf9+FG5KdfVm4OgW7enBj/qQSlLN6d
+ BHURmaQbteuKFuP0UjYcQ58f2+TsFbmc7svnxV4jpi9JfoFTUwBgyd37x A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="406919611"
+X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="406919611"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Apr 2023 21:15:40 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="682736293"
+X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="682736293"
+Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
+ by orsmga007.jf.intel.com with ESMTP; 12 Apr 2023 21:15:34 -0700
+Received: from kbuild by b613635ddfff with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pmoMv-000YKr-2w;
+ Thu, 13 Apr 2023 04:15:33 +0000
+Date: Thu, 13 Apr 2023 12:15:09 +0800
+From: kernel test robot <lkp@intel.com>
+To: Nikita Zhandarovich <n.zhandarovich@fintech.ru>,
+ David Airlie <airlied@gmail.com>
+Subject: Re: [PATCH] video/hdmi: minor fixes for *_infoframe_init functions
+Message-ID: <202304131234.hT3mzkju-lkp@intel.com>
+References: <20230412152910.9486-1-n.zhandarovich@fintech.ru>
 MIME-Version: 1.0
-References: <20230413023406.3111352-1-li.ma@amd.com>
-In-Reply-To: <20230413023406.3111352-1-li.ma@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 12 Apr 2023 22:49:12 -0400
-Message-ID: <CADnq5_OyshRbebpyk-eZoz=akYf8RVN8+E2kjPp=jj8dEYQ3Cg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: reserve the old gc_11_0_*_mes.bin
-To: Li Ma <li.ma@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230412152910.9486-1-n.zhandarovich@fintech.ru>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,56 +60,108 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, yifan1.zhang@amd.com, xiaojian.du@amd.com,
- amd-gfx@lists.freedesktop.org, tim.huang@amd.com
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>, linux-fbdev@vger.kernel.org,
+ lvc-project@linuxtesting.org, Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Helge Deller <deller@gmx.de>,
+ llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-mediatek@lists.infradead.org,
+ amd-gfx@lists.freedesktop.org, Nikita Zhandarovich <n.zhandarovich@fintech.ru>,
+ oe-kbuild-all@lists.linux.dev, Matthias Brugger <matthias.bgg@gmail.com>,
+ intel-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 12, 2023 at 10:35=E2=80=AFPM Li Ma <li.ma@amd.com> wrote:
->
-> Fixes: 0f486b64b8d4 ("drm/amd/amdgpu: introduce gc_*_mes_2.bin v2")
-> Reserve the MOUDLE_FIRMWARE declaration of gc_11_0_*_mes.bin
-> to avoid falling back to old mes bin failure via autoload.
+Hi Nikita,
 
-typo.  Should read:
-to fix falling back to olad mes bin on failure via autoload.
+kernel test robot noticed the following build errors:
 
->
-> Signed-off-by: Li Ma <li.ma@amd.com>
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on tegra/for-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes linus/master v6.3-rc6 next-20230412]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-With the above fixed:
+url:    https://github.com/intel-lab-lkp/linux/commits/Nikita-Zhandarovich/video-hdmi-minor-fixes-for-_infoframe_init-functions/20230412-232947
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/20230412152910.9486-1-n.zhandarovich%40fintech.ru
+patch subject: [PATCH] video/hdmi: minor fixes for *_infoframe_init functions
+config: x86_64-randconfig-a005-20230410 (https://download.01.org/0day-ci/archive/20230413/202304131234.hT3mzkju-lkp@intel.com/config)
+compiler: clang version 14.0.6 (https://github.com/llvm/llvm-project f28c006a5895fc0e329fe15fead81e37457cb1d1)
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/36210f5b0ac3046f4c1c1d0c6e392eab40811699
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Nikita-Zhandarovich/video-hdmi-minor-fixes-for-_infoframe_init-functions/20230412-232947
+        git checkout 36210f5b0ac3046f4c1c1d0c6e392eab40811699
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=x86_64 olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash drivers/gpu/drm/i915/
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Link: https://lore.kernel.org/oe-kbuild-all/202304131234.hT3mzkju-lkp@intel.com/
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v11_0.c
-> index 7e8c15cd8dc2..45280f047180 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> @@ -32,14 +32,19 @@
->  #include "v11_structs.h"
->  #include "mes_v11_api_def.h"
->
-> +MODULE_FIRMWARE("amdgpu/gc_11_0_0_mes.bin");
->  MODULE_FIRMWARE("amdgpu/gc_11_0_0_mes_2.bin");
->  MODULE_FIRMWARE("amdgpu/gc_11_0_0_mes1.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_0_1_mes.bin");
->  MODULE_FIRMWARE("amdgpu/gc_11_0_1_mes_2.bin");
->  MODULE_FIRMWARE("amdgpu/gc_11_0_1_mes1.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_0_2_mes.bin");
->  MODULE_FIRMWARE("amdgpu/gc_11_0_2_mes_2.bin");
->  MODULE_FIRMWARE("amdgpu/gc_11_0_2_mes1.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_0_3_mes.bin");
->  MODULE_FIRMWARE("amdgpu/gc_11_0_3_mes_2.bin");
->  MODULE_FIRMWARE("amdgpu/gc_11_0_3_mes1.bin");
-> +MODULE_FIRMWARE("amdgpu/gc_11_0_4_mes.bin");
->  MODULE_FIRMWARE("amdgpu/gc_11_0_4_mes_2.bin");
->  MODULE_FIRMWARE("amdgpu/gc_11_0_4_mes1.bin");
->
-> --
-> 2.25.1
->
+All errors (new ones prefixed by >>):
+
+>> drivers/gpu/drm/i915/display/intel_hdmi.c:769:37: error: variable 'ret' is uninitialized when used here [-Werror,-Wuninitialized]
+           if (drm_WARN_ON(encoder->base.dev, ret))
+                                              ^~~
+   include/drm/drm_print.h:630:19: note: expanded from macro 'drm_WARN_ON'
+           drm_WARN((drm), (x), "%s",                                      \
+                            ^
+   include/drm/drm_print.h:620:7: note: expanded from macro 'drm_WARN'
+           WARN(condition, "%s %s: " format,                               \
+                ^~~~~~~~~
+   include/asm-generic/bug.h:131:25: note: expanded from macro 'WARN'
+           int __ret_warn_on = !!(condition);                              \
+                                  ^~~~~~~~~
+   drivers/gpu/drm/i915/display/intel_hdmi.c:756:9: note: initialize the variable 'ret' to silence this warning
+           int ret;
+                  ^
+                   = 0
+   1 error generated.
+
+
+vim +/ret +769 drivers/gpu/drm/i915/display/intel_hdmi.c
+
+b055c8f3ef9f7b drivers/gpu/drm/i915/intel_hdmi.c         Jesse Barnes        2011-07-08  748  
+fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  749  static bool
+fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  750  intel_hdmi_compute_spd_infoframe(struct intel_encoder *encoder,
+fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  751  				 struct intel_crtc_state *crtc_state,
+fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  752  				 struct drm_connector_state *conn_state)
+c0864cb39c6869 drivers/gpu/drm/i915/intel_hdmi.c         Jesse Barnes        2011-08-03  753  {
+7d1675dcb5a16c drivers/gpu/drm/i915/display/intel_hdmi.c Taylor, Clinton A   2022-11-29  754  	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  755  	struct hdmi_spd_infoframe *frame = &crtc_state->infoframes.spd.spd;
+5adaea799c1c2c drivers/gpu/drm/i915/intel_hdmi.c         Damien Lespiau      2013-08-06  756  	int ret;
+5adaea799c1c2c drivers/gpu/drm/i915/intel_hdmi.c         Damien Lespiau      2013-08-06  757  
+fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  758  	if (!crtc_state->has_infoframe)
+fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  759  		return true;
+c0864cb39c6869 drivers/gpu/drm/i915/intel_hdmi.c         Jesse Barnes        2011-08-03  760  
+fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  761  	crtc_state->infoframes.enable |=
+fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  762  		intel_hdmi_infoframe_enable(HDMI_INFOFRAME_TYPE_SPD);
+c0864cb39c6869 drivers/gpu/drm/i915/intel_hdmi.c         Jesse Barnes        2011-08-03  763  
+7d1675dcb5a16c drivers/gpu/drm/i915/display/intel_hdmi.c Taylor, Clinton A   2022-11-29  764  	if (IS_DGFX(i915))
+36210f5b0ac304 drivers/gpu/drm/i915/display/intel_hdmi.c Nikita Zhandarovich 2023-04-12  765  		hdmi_spd_infoframe_init(frame, "Intel", "Discrete gfx");
+7d1675dcb5a16c drivers/gpu/drm/i915/display/intel_hdmi.c Taylor, Clinton A   2022-11-29  766  	else
+36210f5b0ac304 drivers/gpu/drm/i915/display/intel_hdmi.c Nikita Zhandarovich 2023-04-12  767  		hdmi_spd_infoframe_init(frame, "Intel", "Integrated gfx");
+7d1675dcb5a16c drivers/gpu/drm/i915/display/intel_hdmi.c Taylor, Clinton A   2022-11-29  768  
+3a47ae201e0749 drivers/gpu/drm/i915/display/intel_hdmi.c Pankaj Bharadiya    2020-01-15 @769  	if (drm_WARN_ON(encoder->base.dev, ret))
+fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  770  		return false;
+fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  771  
+fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  772  	frame->sdi = HDMI_SPD_SDI_PC;
+fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  773  
+fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  774  	ret = hdmi_spd_infoframe_check(frame);
+3a47ae201e0749 drivers/gpu/drm/i915/display/intel_hdmi.c Pankaj Bharadiya    2020-01-15  775  	if (drm_WARN_ON(encoder->base.dev, ret))
+fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  776  		return false;
+fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  777  
+fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  778  	return true;
+c0864cb39c6869 drivers/gpu/drm/i915/intel_hdmi.c         Jesse Barnes        2011-08-03  779  }
+c0864cb39c6869 drivers/gpu/drm/i915/intel_hdmi.c         Jesse Barnes        2011-08-03  780  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
