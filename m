@@ -4,51 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D298C77B6C
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Apr 2023 04:15:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C175C77B61
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Apr 2023 07:07:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B91E310EA29;
-	Thu, 13 Apr 2023 04:15:44 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BE4310EA22;
- Thu, 13 Apr 2023 04:15:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681359342; x=1712895342;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=Hud/tEH/bO4ykSDB5vwIzW+i0/5nC8j5l6CjYVfUw8w=;
- b=QF4HoLYUhfssyjerYls7uMo2ZANkNYG4wHIHQDD11cvCuJ5LJqm0Gx0c
- YiPsvimqYyb/6V7mGBfFCztLU558ThM4EaLw9BNLtlJmJLXUSyINOamdK
- oQF5vUETeaC6CCuK8T6PLzNj0sc/c2umqnBPV/kk6GFH7H5ZgJGO2R3//
- tJum1gMvcM+ER8IJuu6SXFYJG4D/lTnxMAtucje1qo+yBGMguSSyE89oR
- iUPRG/DrOJNyFtKpuU1S7nGurVrwf9+FG5KdfVm4OgW7enBj/qQSlLN6d
- BHURmaQbteuKFuP0UjYcQ58f2+TsFbmc7svnxV4jpi9JfoFTUwBgyd37x A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="406919611"
-X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="406919611"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2023 21:15:40 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="682736293"
-X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="682736293"
-Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
- by orsmga007.jf.intel.com with ESMTP; 12 Apr 2023 21:15:34 -0700
-Received: from kbuild by b613635ddfff with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pmoMv-000YKr-2w;
- Thu, 13 Apr 2023 04:15:33 +0000
-Date: Thu, 13 Apr 2023 12:15:09 +0800
-From: kernel test robot <lkp@intel.com>
-To: Nikita Zhandarovich <n.zhandarovich@fintech.ru>,
- David Airlie <airlied@gmail.com>
-Subject: Re: [PATCH] video/hdmi: minor fixes for *_infoframe_init functions
-Message-ID: <202304131234.hT3mzkju-lkp@intel.com>
-References: <20230412152910.9486-1-n.zhandarovich@fintech.ru>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9504810EA35;
+	Thu, 13 Apr 2023 07:07:17 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0975810EA35
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Apr 2023 07:07:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mmoz48uiVMl11sz3/AZjarqxbx2FMHhIQLGfsEztv2TTSh9eXjNQ0mIyuo7crwKDK2R+sc1tCPrdCIFoGWPKjPy52pMV5ATjCbLgExruod4DuuMGa8/2aAtfgxYwtumC+lwOgwFmpdxUcA1ZNPeksMcKK2IxI0XnWAymAqZ1xy/4Mw2Sd3yEZRpfHKjSxi8JmArKuTAnQCt00Bi4Hk8Y4b373t/RbhXREsvBuQh2c0ub6R87J73TSmb3vFA4eJf2jti0+v1uM7eihM7x5vjeJrhLdx0+V+vefSwVqZ6LnHXzndN0aVVWzuCSEEmEi44fS1vXf4JuC5XYTBObtXYClg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iHHSB8MHuD0J2dxLTGJEbH+J9jjG0dO0K7PKI6A17Qo=;
+ b=hnE2WkWgNcdttbq3LroHrFbLt93u6mSuBy0z+9jkkn2KWIWwi5AJQpZ7Fv1mala/gg60cIvGix9hseCEW1CjFJ1Z1tJ3ratj10Ji8rTtZ8y45gFC6q+i0b0HvWy1uSrIeI/+PMu/EsLzSXO3JAlayfOZpc7Q6zs+/8Kt7DOOw1zS8LlaqM81V2mwEl5JDVFC0yLp1biHyNmx1Sl7dskCOQyRgdqzKgqZbxJyhW29X4RU8FbG/Z/tAVcj78kUie79vqjHolReJQv4rwOpPDTQGMFc4uO0GQKB1jCArYDo8A64HMs7xqZraIP/2f4ScfbfOIf+St2sdXXcQw1j625OCA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iHHSB8MHuD0J2dxLTGJEbH+J9jjG0dO0K7PKI6A17Qo=;
+ b=Pp9Ta1AT+49OgBX+MgoWtRY4ePT6IIi0x4cCD1hjCRB/NtLgmQrnu0gvgGvBTQODDjJ3DcfOuFoSg4lZRHlu4TcCDXVjCAJhiwg3Bcmb72xA7TptWwxZcG34E+JHUoydi0WkRzsS7qHmqKkgYWhnVgIYqV40sKRfQLeBbswnvBk=
+Received: from BN1PR10CA0013.namprd10.prod.outlook.com (2603:10b6:408:e0::18)
+ by PH8PR12MB7181.namprd12.prod.outlook.com (2603:10b6:510:22a::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.35; Thu, 13 Apr
+ 2023 07:07:13 +0000
+Received: from BN8NAM11FT075.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:e0:cafe::9a) by BN1PR10CA0013.outlook.office365.com
+ (2603:10b6:408:e0::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.32 via Frontend
+ Transport; Thu, 13 Apr 2023 07:07:12 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT075.mail.protection.outlook.com (10.13.176.208) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6298.31 via Frontend Transport; Thu, 13 Apr 2023 07:07:12 +0000
+Received: from amd.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 13 Apr
+ 2023 02:07:09 -0500
+From: Longlong Yao <Longlong.Yao@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: fix calltrace warning in amddrm_buddy_fini
+Date: Thu, 13 Apr 2023 15:06:10 +0800
+Message-ID: <20230413070610.45233-1-Longlong.Yao@amd.com>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230412152910.9486-1-n.zhandarovich@fintech.ru>
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT075:EE_|PH8PR12MB7181:EE_
+X-MS-Office365-Filtering-Correlation-Id: 194aed0f-8af8-4ec7-1012-08db3bedb49e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: i9v3ScSYyxp04RBRKvkZskHbLVRtlVvCISAnZGVzPwF1kBVsr+nwWjrafBJbb/qNA+3dCYU4wOqJs45Co0dXdVoVg4S5d5eAe7wM1dDrHTj6YI7T4Jy/JpaKASzuALbx13zPFb3lKZcMxH2xkhgcUp+gNNGJi3mB8Kv6NvjXOqsLNlxMK5GzZHsCB7TxMhqt4hGuIfLbH/ZmvBBZ8thfMEmoV1V1nOOUi1l2otQQsyUwAFB5zyW4pdp7xCYYC92iBwMq8KhnJ7vE9yIbANmKhM/jMikQKxn/7LVTdmDzIU7s42zfWgDNJhwRNNYYobco8VJpKt+ty2mQrQpKxK6hUyQxXLQJ4k8RHvyQdPRs2IoA/YD4YpznbtRggwP9v6eC3KcMe50ySWeoaxtfG3SiU/TM6ZWrHopP4JnJgcHcqkC0bHaGRv0hqvh5CqQpS6cquDg4nQMrQEsuBzxht5pVYOYwDJinq4J5GGPOYWUmi/5xK/SB41NRMtrkv7HesDldh5TbGrbcPuEuS8uXN1ilXEpNo+NEIliUfxshqOFpHjsVywNtoE9sEcfW7WUhEeSNy9kTzHNZbXRZrP1jfgv8W96uamCYEJGksg4BKv7m3nlGl9YNIhw3KekC2rmYI9Ck5vk1ZHwheJ7tgvXql8YLlMH2nCi6fStuC5s7M5ztUoY8WAYkP+l8sJUDS8wtjGUlH2X/6lLABxJ7prkZdD5XQQTvKREMXsL1PDaJSE0dh3k=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(346002)(136003)(376002)(39860400002)(451199021)(36840700001)(40470700004)(46966006)(40480700001)(7696005)(478600001)(16526019)(26005)(186003)(1076003)(316002)(336012)(36860700001)(2906002)(70206006)(70586007)(54906003)(6666004)(82310400005)(41300700001)(5660300002)(4326008)(8936002)(8676002)(6916009)(82740400003)(356005)(47076005)(83380400001)(81166007)(86362001)(36756003)(40460700003)(2616005)(426003)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2023 07:07:12.6134 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 194aed0f-8af8-4ec7-1012-08db3bedb49e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT075.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7181
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,108 +97,68 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>, linux-fbdev@vger.kernel.org,
- lvc-project@linuxtesting.org, Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Helge Deller <deller@gmx.de>,
- llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-mediatek@lists.infradead.org,
- amd-gfx@lists.freedesktop.org, Nikita Zhandarovich <n.zhandarovich@fintech.ru>,
- oe-kbuild-all@lists.linux.dev, Matthias Brugger <matthias.bgg@gmail.com>,
- intel-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Longlong Yao <Longlong.Yao@amd.com>, Feifei.Xu@amd.com, Guchun.Chen@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Nikita,
+The following call trace is observed when removing the amdgpu driver, which
+is caused by that BOs allocated for psp are not freed until removing.
 
-kernel test robot noticed the following build errors:
+[61811.450562] RIP: 0010:amddrm_buddy_fini.cold+0x29/0x47 [amddrm_buddy]
+[61811.450577] Call Trace:
+[61811.450577]  <TASK>
+[61811.450579]  amdgpu_vram_mgr_fini+0x135/0x1c0 [amdgpu]
+[61811.450728]  amdgpu_ttm_fini+0x207/0x290 [amdgpu]
+[61811.450870]  amdgpu_bo_fini+0x27/0xa0 [amdgpu]
+[61811.451012]  gmc_v9_0_sw_fini+0x4a/0x60 [amdgpu]
+[61811.451166]  amdgpu_device_fini_sw+0x117/0x520 [amdgpu]
+[61811.451306]  amdgpu_driver_release_kms+0x16/0x30 [amdgpu]
+[61811.451447]  devm_drm_dev_init_release+0x4d/0x80 [drm]
+[61811.451466]  devm_action_release+0x15/0x20
+[61811.451469]  release_nodes+0x40/0xb0
+[61811.451471]  devres_release_all+0x9b/0xd0
+[61811.451473]  __device_release_driver+0x1bb/0x2a0
+[61811.451476]  driver_detach+0xf3/0x140
+[61811.451479]  bus_remove_driver+0x6c/0xf0
+[61811.451481]  driver_unregister+0x31/0x60
+[61811.451483]  pci_unregister_driver+0x40/0x90
+[61811.451486]  amdgpu_exit+0x15/0x447 [amdgpu]
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on tegra/for-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes linus/master v6.3-rc6 next-20230412]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+For smu v13_0_2, if it supports xgmi, refer to commit f5c7e7797060255, it
+will run gpu recover in AMDGPU_RESET_FOR_DEVICE_REMOVE mode, which makes all
+devices in hive list have hw reset but no resume except the basic ip blocks,
+then other ip blocks will not call .hw_fini according to ip_block.status.hw.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Nikita-Zhandarovich/video-hdmi-minor-fixes-for-_infoframe_init-functions/20230412-232947
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20230412152910.9486-1-n.zhandarovich%40fintech.ru
-patch subject: [PATCH] video/hdmi: minor fixes for *_infoframe_init functions
-config: x86_64-randconfig-a005-20230410 (https://download.01.org/0day-ci/archive/20230413/202304131234.hT3mzkju-lkp@intel.com/config)
-compiler: clang version 14.0.6 (https://github.com/llvm/llvm-project f28c006a5895fc0e329fe15fead81e37457cb1d1)
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/36210f5b0ac3046f4c1c1d0c6e392eab40811699
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Nikita-Zhandarovich/video-hdmi-minor-fixes-for-_infoframe_init-functions/20230412-232947
-        git checkout 36210f5b0ac3046f4c1c1d0c6e392eab40811699
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=x86_64 olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash drivers/gpu/drm/i915/
+Since psp_free_shared_bufs just includes some software operations, so move
+it to psp_sw_fini.
 
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Link: https://lore.kernel.org/oe-kbuild-all/202304131234.hT3mzkju-lkp@intel.com/
+Signed-off-by: Longlong Yao <Longlong.Yao@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-All errors (new ones prefixed by >>):
-
->> drivers/gpu/drm/i915/display/intel_hdmi.c:769:37: error: variable 'ret' is uninitialized when used here [-Werror,-Wuninitialized]
-           if (drm_WARN_ON(encoder->base.dev, ret))
-                                              ^~~
-   include/drm/drm_print.h:630:19: note: expanded from macro 'drm_WARN_ON'
-           drm_WARN((drm), (x), "%s",                                      \
-                            ^
-   include/drm/drm_print.h:620:7: note: expanded from macro 'drm_WARN'
-           WARN(condition, "%s %s: " format,                               \
-                ^~~~~~~~~
-   include/asm-generic/bug.h:131:25: note: expanded from macro 'WARN'
-           int __ret_warn_on = !!(condition);                              \
-                                  ^~~~~~~~~
-   drivers/gpu/drm/i915/display/intel_hdmi.c:756:9: note: initialize the variable 'ret' to silence this warning
-           int ret;
-                  ^
-                   = 0
-   1 error generated.
-
-
-vim +/ret +769 drivers/gpu/drm/i915/display/intel_hdmi.c
-
-b055c8f3ef9f7b drivers/gpu/drm/i915/intel_hdmi.c         Jesse Barnes        2011-07-08  748  
-fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  749  static bool
-fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  750  intel_hdmi_compute_spd_infoframe(struct intel_encoder *encoder,
-fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  751  				 struct intel_crtc_state *crtc_state,
-fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  752  				 struct drm_connector_state *conn_state)
-c0864cb39c6869 drivers/gpu/drm/i915/intel_hdmi.c         Jesse Barnes        2011-08-03  753  {
-7d1675dcb5a16c drivers/gpu/drm/i915/display/intel_hdmi.c Taylor, Clinton A   2022-11-29  754  	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
-fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  755  	struct hdmi_spd_infoframe *frame = &crtc_state->infoframes.spd.spd;
-5adaea799c1c2c drivers/gpu/drm/i915/intel_hdmi.c         Damien Lespiau      2013-08-06  756  	int ret;
-5adaea799c1c2c drivers/gpu/drm/i915/intel_hdmi.c         Damien Lespiau      2013-08-06  757  
-fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  758  	if (!crtc_state->has_infoframe)
-fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  759  		return true;
-c0864cb39c6869 drivers/gpu/drm/i915/intel_hdmi.c         Jesse Barnes        2011-08-03  760  
-fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  761  	crtc_state->infoframes.enable |=
-fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  762  		intel_hdmi_infoframe_enable(HDMI_INFOFRAME_TYPE_SPD);
-c0864cb39c6869 drivers/gpu/drm/i915/intel_hdmi.c         Jesse Barnes        2011-08-03  763  
-7d1675dcb5a16c drivers/gpu/drm/i915/display/intel_hdmi.c Taylor, Clinton A   2022-11-29  764  	if (IS_DGFX(i915))
-36210f5b0ac304 drivers/gpu/drm/i915/display/intel_hdmi.c Nikita Zhandarovich 2023-04-12  765  		hdmi_spd_infoframe_init(frame, "Intel", "Discrete gfx");
-7d1675dcb5a16c drivers/gpu/drm/i915/display/intel_hdmi.c Taylor, Clinton A   2022-11-29  766  	else
-36210f5b0ac304 drivers/gpu/drm/i915/display/intel_hdmi.c Nikita Zhandarovich 2023-04-12  767  		hdmi_spd_infoframe_init(frame, "Intel", "Integrated gfx");
-7d1675dcb5a16c drivers/gpu/drm/i915/display/intel_hdmi.c Taylor, Clinton A   2022-11-29  768  
-3a47ae201e0749 drivers/gpu/drm/i915/display/intel_hdmi.c Pankaj Bharadiya    2020-01-15 @769  	if (drm_WARN_ON(encoder->base.dev, ret))
-fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  770  		return false;
-fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  771  
-fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  772  	frame->sdi = HDMI_SPD_SDI_PC;
-fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  773  
-fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  774  	ret = hdmi_spd_infoframe_check(frame);
-3a47ae201e0749 drivers/gpu/drm/i915/display/intel_hdmi.c Pankaj Bharadiya    2020-01-15  775  	if (drm_WARN_ON(encoder->base.dev, ret))
-fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  776  		return false;
-fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  777  
-fbf08556ed4344 drivers/gpu/drm/i915/intel_hdmi.c         Ville Syrjälä       2019-02-25  778  	return true;
-c0864cb39c6869 drivers/gpu/drm/i915/intel_hdmi.c         Jesse Barnes        2011-08-03  779  }
-c0864cb39c6869 drivers/gpu/drm/i915/intel_hdmi.c         Jesse Barnes        2011-08-03  780  
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 9d7e6e0e73ed..a496bf2fb199 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -520,6 +520,8 @@ static int psp_sw_fini(void *handle)
+ 	kfree(cmd);
+ 	cmd = NULL;
+ 
++	psp_free_shared_bufs(psp);
++
+ 	if (psp->km_ring.ring_mem)
+ 		amdgpu_bo_free_kernel(&adev->firmware.rbuf,
+ 				      &psp->km_ring.ring_mem_mc_addr,
+@@ -2655,8 +2657,6 @@ static int psp_hw_fini(void *handle)
+ 
+ 	psp_ring_destroy(psp, PSP_RING_TYPE__KM);
+ 
+-	psp_free_shared_bufs(psp);
+-
+ 	return 0;
+ }
+ 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+2.39.0
+
