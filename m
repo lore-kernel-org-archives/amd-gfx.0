@@ -4,116 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E754C77B6E
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Apr 2023 20:02:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B6EEC77B61
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Apr 2023 20:08:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0960E10EC1B;
-	Thu, 13 Apr 2023 20:02:19 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2084.outbound.protection.outlook.com [40.107.237.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DA6D10EC1B
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Apr 2023 20:02:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99FCE10EC25;
+	Thu, 13 Apr 2023 20:08:56 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2089.outbound.protection.outlook.com [40.107.244.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9378A10EC25
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Apr 2023 20:08:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SE8zsjRPajuoaB1me+UEfJPiGcqxfNCdnaSgLWL/68v4d7vWDeQde+9gMDNgMahtszkUBxtvbOPUREZzpDRQIMLTgillgCE+jhyIi3bcAwylDKWO7O9jAfLEdEXCUnx1DSkgTsZpMqln/wA5Fi0V5ORN8G4S8bUVSwuGZbmmhTJzacX6zOewLK0ezSGqs6wS8MXO22C+K+JrecHB5V8aAqkNXSfauTF4QswXt+c8hPLn34UUqlEyBP0vqMokE3Wa/aFItEa6icx1BhXhQyy74HOQIIcQGn2V8UmJz2AxcsFNtKlSdxM9VM10ZWpPOrRg0kMTW0rIM6yo41FvCIJrrA==
+ b=JNfsRN7VC1X7BDoH2LhrnLI4wZ7UO5kfih0VFbWmXnJM2KfFhKzEaFHZZ0JMKrIzvqn+KD66S99l/8GoSiDWQaC+U1cEHZZF6yJ5ce1o5Ir3tBcYDH/S3hJmjiEm1k2g+x2B5h7G5CYASMBeP03c6PQNwvEpop9DYtzOLR/igIbBQRJw67oq01H9LrOatGtMbqCXDm7EH+hs+EfXrPtYnkpEMSPWS/LMfxDLkqzYhqWXe2UCzHs/iWTRb9BVGyQ4fawqShS/IEOmVEGc30kmIoemTv85KmZsjtDmoP+rsP1Qa0IE1WFVOEX5fiD9uHKbEhin5p+wkytK+SKeimHP6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+yZropclhQzCQdEfaDQgPZRNsUTjPm/IC5e7Sb5mhg4=;
- b=hbCfrcLmiEA/jrkp1RgwaXnQSBOBkIxurxoFPrb03vOMTSWAibfCwnZrJ3yDtPCoq2TMqArxJLttAMuqgRsNWGoKkqD60KTDWb6EIr88fsaMQv4ljooeLjDg5IJMzSVPQDIwgWhhKkJysCaC0csCo6d5Enz/MeTo6KzeDKbGAXwRKsiDyF/aOv53ZaT21q64uxAbde2yQLLr84s15im19xOH9DAwjVYqc6QOqMh193UDH2iRfoUoWlqhe+MGimk7h0ZsX4Mp350T0EdCOp6xTaBI8jIdZfzT07eDSIy9GjZhkbnyXhj97um389wSjD5uVD7MXkRojWXCkgiwr3SkIA==
+ bh=T4kL15NnoNhyU++agUhQgmHkzQ+aiCcBFuMN6hlCDWw=;
+ b=TB9VsIkvpLKMgAHxI2h5N/9k5Gzp0RxksFkZOSbRtrNDhCPCxZVDlomY9gUahGnY0YfFQ6WWRte5cjTnrbPopZuJyhNaYJUK9AF2MbH2dr88eeSvq4Pa8t5MTLct+heDOhq+msTqM72HF/NOHP0Z3uLJQwHlvxCpeKCKqOO2q69RSFOT+dlpz426OtTfOqbuEIOVIPatfIwuJnq6X/x/9Y1xz3aHCoENCEUeSyXOnaPKr5XiqKlw7k5pmPhXCd9QxI9cUO/jieUjvUs/uzq//LChk/PWa1aaTxm7K+/lm8P/GnsdyMb34GXnQPF2FolXetePlEOVAWY5pMh6LkfO0w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+yZropclhQzCQdEfaDQgPZRNsUTjPm/IC5e7Sb5mhg4=;
- b=dJ0tpaK6s7OT6tFJ6hLo00wEs1k3XAcypxpqHL8/6AjExhVCJOS0+elPVVsiytFC0EIs72dJbhVnOqPZy5juRXorkNJPLRPSIIbh/DpZI70eSrCTUtbbuSgW9JnIRUJ4ZAkn+GrTc9k1CE9iuBqX9Y78ZSqJIX2BOZawdaQ+v+Q=
+ bh=T4kL15NnoNhyU++agUhQgmHkzQ+aiCcBFuMN6hlCDWw=;
+ b=q+nQfzw0IfOQl0wZF2C3V+sUVGv1elTn9iArHNq0ov9XmRRQc0uVl4Ay6EuUWl5vW7IdEu9J7GPZ4k0wA+X25jvQ2/vBwOL8WGbqlaPmdzrRQb+VvWMQpS24v+p7hvMjSxbb30yMlrd+AOgWve0Y9dzHqRicJ/OhfY4dwMxzVBY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
- by IA1PR12MB6580.namprd12.prod.outlook.com (2603:10b6:208:3a0::9)
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by MN2PR12MB4407.namprd12.prod.outlook.com (2603:10b6:208:260::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.30; Thu, 13 Apr
- 2023 20:02:13 +0000
-Received: from CH0PR12MB5284.namprd12.prod.outlook.com
- ([fe80::3e54:627b:ceee:ed2b]) by CH0PR12MB5284.namprd12.prod.outlook.com
- ([fe80::3e54:627b:ceee:ed2b%4]) with mapi id 15.20.6298.030; Thu, 13 Apr 2023
- 20:02:13 +0000
-Message-ID: <7ad99374-481f-d72c-c7cf-b50a7b6bdc07@amd.com>
-Date: Thu, 13 Apr 2023 16:02:10 -0400
+ 2023 20:08:52 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::f170:8d72:ca64:bb26]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::f170:8d72:ca64:bb26%6]) with mapi id 15.20.6298.030; Thu, 13 Apr 2023
+ 20:08:52 +0000
+Message-ID: <aa76e51f-8343-a1d0-a4a9-8f1329288535@amd.com>
+Date: Thu, 13 Apr 2023 16:08:50 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: Re: [PATCH] drm/amd/display: Add logging when DP link training Clock
- recovery is Successful
+ Thunderbird/102.10.0
+From: Felix Kuehling <felix.kuehling@amd.com>
+Subject: Re: [PATCH] drm/amdkfd: Fix some issues at userptr buffer validation
+ process.
+To: amd-gfx@lists.freedesktop.org, "Chen, Xiaogang" <Xiaogang.Chen@amd.com>
+References: <20230412061432.207610-1-xiaogang.chen@amd.com>
 Content-Language: en-US
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>
-References: <20230413195746.2369084-1-srinivasan.shanmugam@amd.com>
-From: Aurabindo Pillai <aurabindo.pillai@amd.com>
-In-Reply-To: <20230413195746.2369084-1-srinivasan.shanmugam@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20230412061432.207610-1-xiaogang.chen@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0160.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:e::33) To CH0PR12MB5284.namprd12.prod.outlook.com
- (2603:10b6:610:d7::13)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0014.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d1::6) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH0PR12MB5284:EE_|IA1PR12MB6580:EE_
-X-MS-Office365-Filtering-Correlation-Id: 18bb8c6b-5e4e-4c22-e126-08db3c59f8d6
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|MN2PR12MB4407:EE_
+X-MS-Office365-Filtering-Correlation-Id: 247b6966-f6c0-43d5-2faa-08db3c5ae6c4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sKgL7v2TmlOTGLZPLn3zXEvdKlHYy41bY6+zzNLFX0mEPxhMEtkTBZ0NaA11wq4tSoNmeEVwBHbV4IWpRCIPIT6KdnsNRTXyUXyrVWLbIDSpBwtq2oJ+VvUjKKVqnxNTBrxqrWkKGPVYqJPbiYPEtThPMF5quRuo0ruAIcJVD0krjMA2h6PXCAQFph1unm3UaedIKRY9LJG7YAmXsOATcqE6/9Az2ugKiWRgMAyS1RuLb8t2AUkaUcdFier3VZLcVCdmzL0/DqVmDlYYjthh4Pk+oSSKnUK7MD7Tz0YbbcDhZg/Mv2eOlP8ap+ZL2riZfyhyOiiEx3nNRD5/mYXP3S359vS5LNF6UoGjt9N80/Mup12jfFaJNYDV794X9pjvIRku2LVGNjCfa8V2bkcKv6+ouu/QzbW1v7AbKQDibyo7xMHqGvtECkZZlr0O5+hNokqYRmpBPDtGRFel8gt8IDgGbmcdy9eMlswXy9oRVZwh9LlbCxEFVCAthipdA+vMb2qNmmwtFER8Otupsxou5HFlx5a/GaV0RFc+GFNX0Rg4SFPladppp7zhMPFHtUb1ZKGNOIr74Ii2/TWntNSr6AN4ptDQfsSqYM5NuCnj2g+VsM/WfDeEpCTcPeD4/z48JfMI0qAk6Ev2KW894ezRJQ==
+X-Microsoft-Antispam-Message-Info: WuZSsI4GWqQDBzQXUsHybQlRQ3aRvJj0dhNJhn+yB9FC6CJVTYkyW/wNTRB30ao5DUibwuoetV2Ccl1Kw4d37iEzOGm/d07OswDj1e9jWKzUSkB2aoILf2bf2hsu8QxuGk9apLQKfFc5nc5VCdz4IziBQrKPnRo+eIO3GwOvSQrLLiG8bqB2u/kIqeZ4rSIjrkKh7KUf8IFY9ev/YctJ0oBec20THmnpkuIFs6FLjVpw3V07rjY3LcOKiyONT4RzjPDjpsuWu602qAkRNFgpOljte7KhEgholsS2HHVENgcAstEcbvB3yQOitYUeTyVR+0vECY9kJCB/34N6+MvT8DntXoBr0xytpEGkhydOXoioSRFicMqWbn/T/8NXJnvUctGI1yQTsVkI5frSjDheVkI1lGZJVr0MNVKm03ZBrgkniqnPpj6G/Sg0WazMMkZBgRRsr8982FHkI2P3BI62rn2ulSak5fGdgYDQxIvG9jY2imjQP9msbOSxY3YBSr+116toiUSjxKzfNNU54F05VkwQCUUauP3BT7sXRuSXHNTqfD28zuC2/RAaiFa4lZnPZuUPbcwQMIQ55YeFYugQ8DaknuWPUTjJbZOE1ddhZzfQ16MA5HkMraB5X4sLueaEmo5KL0KhEHIwxG7cLclUvw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(136003)(376002)(366004)(396003)(39860400002)(451199021)(316002)(41300700001)(26005)(6506007)(6512007)(53546011)(38100700002)(6486002)(31696002)(86362001)(2616005)(83380400001)(66556008)(66476007)(66946007)(36756003)(4326008)(186003)(110136005)(6636002)(8676002)(8936002)(5660300002)(2906002)(31686004)(44832011)(478600001)(45980500001)(43740500002);
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(376002)(346002)(396003)(366004)(39860400002)(451199021)(316002)(41300700001)(26005)(6512007)(6486002)(6506007)(36916002)(86362001)(38100700002)(186003)(31696002)(2616005)(36756003)(83380400001)(66476007)(66556008)(66946007)(37006003)(6636002)(8676002)(6862004)(8936002)(5660300002)(2906002)(31686004)(44832011)(478600001)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bk5mQ0FLeVB6eWxtRHZEWm1hUitCVk9YWCs2cDFOMjFPZlpqREpJblU1N1VS?=
- =?utf-8?B?VjkyWkgyUWwxUU1nL20zTE1MRSswT25TQkRndVVxVE10T1ZYclJDMXM3V2hi?=
- =?utf-8?B?ck1BaWdjdDdweWI4TUYxelFGN1R2RjRkSUVuNUVha20xdEhCeTZzUkdBMllu?=
- =?utf-8?B?QlpuZ3J0YTIrOHhHcWhVbFJ4OExCTHRpM0hCNmZ2elBCSkxsN1JLaFRwVUpq?=
- =?utf-8?B?bUZKaUM1WW9qdFZ2L3lyQ0NnR3lSQnNZNUlxeHl0M2pHUisySGNuaXc5S3dH?=
- =?utf-8?B?OWdJNE9EbFVmRVc1OWtudncxLzZtRGVPVDljcDJ1eWtjdEpzR3pTaTAvTGJI?=
- =?utf-8?B?d1IvL3hMV1UrODZxa0xBcms2Sno0bm5hRmh5bTNmVFVSTHpCdkRpejJoT2dU?=
- =?utf-8?B?YVhoOEc2SWYwZFEzc1pzYWJXUWlqYnFIUC85WC8wdmdjVHpQYVJYZG5hd2hO?=
- =?utf-8?B?dlljdlBQdUltVzNKdjhZUnQ5VXlCZDJXdE03R0xSbzVhMVFJMG4xRlprSjhw?=
- =?utf-8?B?UVFRUklpY3lPTGIwelRTTTByMURJRzNxMUdKRHIzakduSld2ZzJ3eWNRSUNj?=
- =?utf-8?B?clF6VW5oVURIbUR5cExWODNZdkhUSXVoWFlJSHo0SHI0TmRvSjlIRXJIR3Zo?=
- =?utf-8?B?eEIwTWlTVDViUzc2NHhKMHpOV1V0QWMzWTMzRXJ4ZC9nSnpCazd4NmlLTGVE?=
- =?utf-8?B?bXN1T3UrZHJuWEFTWmx1cFpobVBaWjVOaU5JeXVEbzdmNEJFZWlIMUZ1bko3?=
- =?utf-8?B?aVpoY0NDQ2wrdVkyTmlXTlFpT3QrQkc3RU5SUHVPL094YWJ0bWhQMlV3WDRD?=
- =?utf-8?B?YmZGOWp1cTRjWnZpdE0vSkh4WUVTSjNMK0krRENzZVduNStIYjM5MUFVWUhQ?=
- =?utf-8?B?NzhHclFwRmo0UHZycXFJWjFiS2QvTC9oRmcxc3BNWnJENVRqV1UrcmpyZWFI?=
- =?utf-8?B?NndFQlAxeWxmMitSSmUrOENQSGpPN21BdTkyL0pLVTdZTDB3TWg2bWoyVGhB?=
- =?utf-8?B?VHY2cFRxeXdzR3E1c3ZJWVYzUFhxWFMwbWlMaU9FeVNtMk91M0lmMDdxWXRN?=
- =?utf-8?B?Uk95bHA2a00rUUpRUU8vM05sd05XcDFKQmlqak5Ed0pxOFB6M3hwYUljMEhn?=
- =?utf-8?B?NXFZNEtpMkV1ZzJ1alFucUtJVmJlYWpnbXVrZUJORjZHTU8rcVRmWXVaOWlU?=
- =?utf-8?B?NkhoYXV3WWtianVNTGlTV3NiT2FBMWdTVzRFWmw5ay8zdTZJMXI4VzUzOVdY?=
- =?utf-8?B?SlArRm9rTE5VS2w4ci9Ud255MFhLdnk0ZWdGeUtQREgxRHFTbjNpaW54b3Uw?=
- =?utf-8?B?RGhSQjVYZHovcGZYVVFIWlFTd1VWNEJlamxGazZicEMrQmF3WnQ4M2lOZDdG?=
- =?utf-8?B?WEZmNjEwa2NXQjdLTFlHSTE3eEFxUlQ2UkRIL0dpU2ZDaW5ST2JCRHNkblFR?=
- =?utf-8?B?b1hScE1iNGlPbDhlVmFNZlVvY0NhaFZ1bm5nUzNoai9LZmVXTmF4bmJ5ajAv?=
- =?utf-8?B?Y3d0b1JRSUxUWUI0aEFKN05CcWJ0OTdUT1c0WnRIUEpTMlpHOS9TditCYmUr?=
- =?utf-8?B?RUxCbTB0Q0NuRU0xR1ZLU2J1VUUrQlQxTlJqVkZMa05QUW0wWnd6UFIxNitu?=
- =?utf-8?B?T0pwRlpvNnk4VEJTbndEWmk4cmNWVXlBS0g3SnQwZUJBREpIckxDdE5WbEVG?=
- =?utf-8?B?Q1A5SFdvZVJuWUlscXRZa2RRRktqdVpvZkwwTjQ3RzQ5RDcyNXFCRmVwK2ZJ?=
- =?utf-8?B?d3RpekJ1TkRDbk9KRTV1UWZOWUptWi9UTE9ONUo1d1JEK2tUdWplMnVtSVVl?=
- =?utf-8?B?RTdiaENSSU9VMm1iMVBOeGFEUVlVT0YycjJlSXh6RXpaVUtDZ2tGRUFlQmQv?=
- =?utf-8?B?MVZjLzBrVlhOQ2R4RlhPNzlhNU9jWWtXZmlVTSs2a2tndGJxa0NFUU9SOGpq?=
- =?utf-8?B?UERRMDl6WktHSEV1cE9yTjIwTDFMWFF6SXR0Vk5RSWNUMno4cDRRbG1tc2FH?=
- =?utf-8?B?NWU2YXlIbFlPcWFQUXhLSStUbFJFZGVXbXdMQVZkRXRBSzQrL3V3UzNNTlJz?=
- =?utf-8?B?Vm5KUnJpNlhxaG9mcFkyUFRPdXJwUytPYW1iMU1VTXJFcTM3ejVVa3BydWVJ?=
- =?utf-8?Q?9ykpXmS2v5/v55rVWtpJ/WZOO?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L0JoZEJsZjMwMWplT0NudnZ1SmtNRnowNENvUDZ4YzNkTlZLem50ZklETWtu?=
+ =?utf-8?B?L241RThOdlEwRnlqSk45S0tRR0UvbVlCNmtJLzBCSnFpOE5HRVQ1ZmdGNEpH?=
+ =?utf-8?B?K0g2eGlRZ2N2dHBvMzYzT0pYQTdJR0RCR0pxdVhaQnBELzN2SzkweEswcEJ0?=
+ =?utf-8?B?aUhvUlNRQUpmRkZrNlJKV1FZc3VlKzFCMHI0cDc1MmgrcVJMZkxJckVMYXFP?=
+ =?utf-8?B?d2VqVDFLTzdoNnFqSTVqSjA5c0JsOVFEOW9zakVEQ25RQ1N3aFRKbXVqanNt?=
+ =?utf-8?B?WmZEMkM2WVZyQW5oVjRybGNPMjR0eTNuR0hOdW00WEI1ZUpvc2RjNmZucDJ4?=
+ =?utf-8?B?a0JIdE90NlpCbTJwYnVCWmVZTC90cEFkNnZoQTZQY01JcEk0RGxPd29NcElt?=
+ =?utf-8?B?eDJPQVplQ25keEFJbXc3TGFMVFB5TUVRU2xWczFBQWxMUGs5b0tnUWtFRXpi?=
+ =?utf-8?B?Z3ExWlBicFZGeE5UK2ZaU1BtRmQ2QnVzRms4bWh0aGZMQ1lwRkhvR1BhcnhE?=
+ =?utf-8?B?NEYyZ1M5MG95aDEyRmdzbkRxM2xTWEdGZk01WS81NmNSdHgrR1NpYU9Ncmhz?=
+ =?utf-8?B?YjJjVW44SlBPY3FvWlNKTXdKMXJjZWVyTlBHQ2pJQTE4bFhsQnJKZlUzbUJt?=
+ =?utf-8?B?WlFzS2RtNWU1amlRTzYzbm41Y3JrenQ5TDdjMWw1NXF4b3FoQWNKWUF5Smo3?=
+ =?utf-8?B?ZnFwd3BXdW95eVVSSTZ1Y0xhOE0zTnN5c2dPck0ySlkrWnlLdzJNU0Qxcitz?=
+ =?utf-8?B?bWNpMzVuVElXdDdVTEd2NGZoUzJ1VDVRWFc3M2NCVFpWd2xVVk5SRjhmcEdm?=
+ =?utf-8?B?emYwdmJhLzE1Y0xjTDgybnBNY2ZSbnVFS1RTa2VoZkI0YjNKOW5oMTk4Q1Ux?=
+ =?utf-8?B?L3hOdHkvSisxNVkvN3hPMnIyN2N6MUNPblYwOWVhNG51eFl5RzhPVFFYN1hj?=
+ =?utf-8?B?eHJBVjZmOVBDVEgzNkZNK2FvcjVhYVo3NDN6cjgxc3RoMElzNXNoelkyVXBY?=
+ =?utf-8?B?QU1LeGJlWFBJbEhvSXd2clZUb1pnOXo3TVJ1Q0NiSk5KZlplMmpVV0kxU0RY?=
+ =?utf-8?B?WjltYlRHODF5czZtUTZSOUdHazVVY3h1bkxPWkZ3akZIMmdTL05OZEp3bFVm?=
+ =?utf-8?B?R2dXelFDNkoxMWdqb0tsSlk3U1VKTTdZNmM2dnhrUEFOR3JHM2prd0g2Qy9H?=
+ =?utf-8?B?ODR2NHVOS01uTlZqQWpzaDZjQ2NuaDJmOUw3aHZJYnc0MmIreWJnMTFDVVVr?=
+ =?utf-8?B?dXdUb0dIMU9ieXpWRFlIOEswN2F5SHMyZzZFYjcvT0d0TkI5SFFMZnFiSlJZ?=
+ =?utf-8?B?dThOV1h2RDNQNjdFVmordDI4YjBDdkxCMThVZlRCRStqdkEwTTgvQml1c3Vi?=
+ =?utf-8?B?TWhEUlUxWlAxb011bjhmRWZDYm1nbXhpeXA2TUVOWERYQW85ZFROUlhCS2Ru?=
+ =?utf-8?B?VEpwNFl1M1c4ay8yN215N1YyK2FoZWtDT0lSSEZqR1lldEI5cTVDb3dlZ2Rv?=
+ =?utf-8?B?cHJxbGdqZ0VwMFA1YytubGxqMHNGVmRZbjFBY0RuZG1CRDNMK1gzZWY2MjQ4?=
+ =?utf-8?B?aE1ZdlBkRjBIUzlIcitoWlc2Ny95M1BFUk9nb2crVFpVWGR6Qys4WnY2N2xN?=
+ =?utf-8?B?VldRNmFza0M0azI0M280VGNZcGhxbWFGU2pRWFZMcjBIMEdLR2JZQW95RGhJ?=
+ =?utf-8?B?bGNyQURMc2VXazVsdFBmR1A3K25ybm5raEtCTlhEU3B2bUZMeGt4aEQvUkNH?=
+ =?utf-8?B?V2c1cFBjWXdTcm11QWVTN3oxOGNEVlEyWTQ2THFyK2Z3K2dDLzdxNzdFeWVY?=
+ =?utf-8?B?blpOR3ZQeHNxVU5CVU8xQWtvUlFONWxnRDg1K3BkSmdkYytxeXI4OFR6U0sx?=
+ =?utf-8?B?U09rZXJYcjNVa3VPdHJyUnlUUUhxMVQ4Sm5maWNZU0J5VytpcXExNjFSVWFj?=
+ =?utf-8?B?SXVqam9ad1lReEJkT21Xak5nUldHbW1rZ2x1anlkSWRSTW1CL1QvbVd4SFJT?=
+ =?utf-8?B?elNzTDY0QmZFYXFRczFWczdVRTBtTmNINGJqMzdSK0ZHejY3TWlzeFFMUDBI?=
+ =?utf-8?B?UGhwV2VOR3VzRXlSZTVOeGRMUEhVNmpBaVJZYjRnS1ZrQTdodEJxUDV5Mzdu?=
+ =?utf-8?Q?40em3f8AzEtKrati5vvij1tZC?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18bb8c6b-5e4e-4c22-e126-08db3c59f8d6
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 247b6966-f6c0-43d5-2faa-08db3c5ae6c4
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2023 20:02:12.9022 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2023 20:08:52.0844 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HjGNVKMK49RLNInNHXYZRRl4hKoPXZ1IS7MF2a7yeA8C7OBYUWJLCdg0rRm/NV89vCqc/TEA/+TllX5aYAhjhw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6580
+X-MS-Exchange-CrossTenant-UserPrincipalName: JWRZpyiXfdimtoULARGAnsvGygDRc+eb2D24OsTLXF1YZrIWXtskseyJeaVCtwW46x8HT0bdNpx5IHh30KwPbA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4407
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,59 +125,144 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Am 2023-04-12 um 02:14 schrieb Xiaogang.Chen:
+> From: Xiaogang Chen<xiaogang.chen@amd.com>
+>
+> Notice userptr buffer restore process has following issues:
+>
+> 1: amdgpu_ttm_tt_get_user_pages can fail(-EFAULT). If it failed we should not set
+> it valid(mem->invalid = 0). In this case mem has no associated hmm range or user_pages
+> associated.
+
+We don't want to suspend the process indefinitely when this happens. 
+This can happen if usermode calls munmap before unregistering the 
+userptr. What we want to happen in this case is, the process should 
+resume. If it accesses the virtual address, it will result in a page 
+fault, which alerts the application to its mistake. If it doesn't access 
+the virtual address, then there is no harm.
+
+It's a good catch that there is no useful hmm_range in this case to 
+check validity, so we should not warn about it in 
+confirm_valid_user_pages_locked.
 
 
-On 4/13/23 15:57, Srinivasan Shanmugam wrote:
-> Log when Clock recovery is successful, as part of
-> DP link training process.
-> 
-> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> 2: mmu notifier can happen concurrently and update mem->range->notifier->invalidate_seq,
+> but not mem->range->notifier_seq. That causes mem->range->notifier_seq stale
+> when mem is in process_info->userptr_inval_list and amdgpu_amdkfd_restore_userptr_worker
+> got interrupted. At next rescheduled next attempt we use stale mem->range->notifier_seq
+> to compare with mem->range->notifier->invalidate_seq.
+
+amdgpu_hmm_range_get_pages updates mem->range->notifier_seq with the 
+current mem->range->notifier->invalidate_seq. If an eviction happens 
+after this, there is a collision and the range needs to be revalidated. 
+I think when you say "mem->range->notifier_seq is stale", it means there 
+was a collision. When this happens, mem->invalid should be set to true 
+at the same time. So confirm_valid_user_pages_locked should not complain 
+because mem->invalid and amdgpu_ttm_tt_get_user_pages_done should agree 
+that the range is invalid.
+
+"At next rescheduled next attempt we use stale 
+mem->range->notifier_seq": This is not really stale. The notifier_seq 
+indicates whether the pages returned by the last call to 
+amdgpu_hmm_range_get_pages are still valid. If it's "stale", it means an 
+invalidation (evict_userptr) happened and we need to 
+amdgpu_hmm_range_get_pages again. In theory, if an invalidation happened 
+since the last call, then mem->invalid should also be true. So again, 
+the sequence numbers and mem->invalid should agree and there should be 
+no warning.
+
+The warning messages printed in confirm_valid_user_pages_locked indicate 
+that there is a mismatch between the sequence numbers and mem->invalid. 
+As I understand it, such a mismatch should be impossible. Unless there 
+are some bad assumptions in the code. I haven't figured out what those 
+bad assumptions are yet. Other than the case for -EFAULT you pointed out 
+above.
+
+Regards,
+   Felix
+
+
+>
+> Signed-off-by: Xiaogang Chen<Xiaogang.Chen@amd.com>
 > ---
->   .../amd/display/dc/link/protocols/link_dp_training_8b_10b.c   | 4 +++-
->   .../drm/amd/display/dc/link/protocols/link_dp_training_dpia.c | 2 ++
->   2 files changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_8b_10b.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_8b_10b.c
-> index 41b38da9feb4..8ac4e879032c 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_8b_10b.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_8b_10b.c
-> @@ -225,8 +225,10 @@ enum link_training_result perform_8b_10b_clock_recovery_sequence(
->   				offset);
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 45 +++++++++++++++----
+>   1 file changed, 37 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index 7b1f5933ebaa..6881f1b0844c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -2444,7 +2444,9 @@ static int update_invalid_user_pages(struct amdkfd_process_info *process_info,
+>   			ret = -EAGAIN;
+>   			goto unlock_out;
+>   		}
+> -		mem->invalid = 0;
+> +		 /* set mem valid if mem has hmm range associated */
+> +		if (mem->range)
+> +			mem->invalid = 0;
+>   	}
 >   
->   		/* 5. check CR done*/
-> -		if (dp_is_cr_done(lane_count, dpcd_lane_status))
-> +		if (dp_is_cr_done(lane_count, dpcd_lane_status)) {
-> +			DC_LOG_HW_LINK_TRAINING("%s: Clock recovery OK\n", __func__);
->   			return LINK_TRAINING_SUCCESS;
+>   unlock_out:
+> @@ -2576,16 +2578,28 @@ static int confirm_valid_user_pages_locked(struct amdkfd_process_info *process_i
+>   	list_for_each_entry_safe(mem, tmp_mem,
+>   				 &process_info->userptr_inval_list,
+>   				 validate_list.head) {
+> -		bool valid = amdgpu_ttm_tt_get_user_pages_done(
+> -				mem->bo->tbo.ttm, mem->range);
+> +		/* Only check mem with hmm range associated */
+> +		bool valid;
+>   
+> -		mem->range = NULL;
+> -		if (!valid) {
+> -			WARN(!mem->invalid, "Invalid BO not marked invalid");
+> +		if (mem->range) {
+> +			valid = amdgpu_ttm_tt_get_user_pages_done(
+> +					mem->bo->tbo.ttm, mem->range);
+> +
+> +			mem->range = NULL;
+> +			if (!valid) {
+> +				WARN(!mem->invalid, "Invalid BO not marked invalid");
+> +				ret = -EAGAIN;
+> +				continue;
+> +			}
+> +		} else
+> +			/* keep mem without hmm range at userptr_inval_list */
+> +			continue;
+> +
+> +		if (mem->invalid) {
+> +			WARN(1, "Valid BO is marked invalid");
+>   			ret = -EAGAIN;
+>   			continue;
+>   		}
+> -		WARN(mem->invalid, "Valid BO is marked invalid");
+>   
+>   		list_move_tail(&mem->validate_list.head,
+>   			       &process_info->userptr_valid_list);
+> @@ -2644,8 +2658,23 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
+>   	 * reference counting inside KFD will handle this case.
+>   	 */
+>   	mutex_lock(&process_info->notifier_lock);
+> -	if (process_info->evicted_bos != evicted_bos)
+> +	if (process_info->evicted_bos != evicted_bos) {
+> +		/* mmu notifier interrupted amdgpu_amdkfd_restore_userptr_worker
+> +		 * before reschedule next attempt update stale mem->range->notifier_seq
+> +		 * inside userptr_inval_list
+> +		 */
+> +		struct kgd_mem *mem, *tmp_mem;
+> +
+> +		list_for_each_entry_safe(mem, tmp_mem,
+> +				&process_info->userptr_inval_list,
+> +				validate_list.head) {
+> +
+> +			if (mem->range)
+> +				mem->range->notifier_seq = mem->range->notifier->invalidate_seq;
 > +		}
+> +
+>   		goto unlock_notifier_out;
+> +	}
 >   
->   		/* 6. max VS reached*/
->   		if ((link_dp_get_encoding_format(&lt_settings->link_settings) ==
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_dpia.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_dpia.c
-> index ab4aafdb5e5c..4f4e899e5c46 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_dpia.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_dpia.c
-> @@ -401,6 +401,7 @@ static enum link_training_result dpia_training_cr_non_transparent(
->   
->   		/* Check if clock recovery successful. */
->   		if (dp_is_cr_done(lane_count, dpcd_lane_status)) {
-> +			DC_LOG_HW_LINK_TRAINING("%s: Clock recovery OK\n", __func__);
->   			result = LINK_TRAINING_SUCCESS;
->   			break;
->   		}
-> @@ -508,6 +509,7 @@ static enum link_training_result dpia_training_cr_transparent(
->   
->   		/* Check if clock recovery successful. */
->   		if (dp_is_cr_done(lane_count, dpcd_lane_status)) {
-> +			DC_LOG_HW_LINK_TRAINING("%s: Clock recovery OK\n", __func__);
->   			result = LINK_TRAINING_SUCCESS;
->   			break;
->   		}
-
-Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+>   	if (confirm_valid_user_pages_locked(process_info)) {
+>   		WARN(1, "User pages unexpectedly invalid");
