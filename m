@@ -4,69 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFD41C77B6E
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Apr 2023 11:35:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD409C77B6E
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Apr 2023 12:26:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88F7E10EAC6;
-	Thu, 13 Apr 2023 11:35:53 +0000 (UTC)
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [IPv6:2a00:1450:4864:20::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1B8F10EAC6
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Apr 2023 11:35:50 +0000 (UTC)
-Received: by mail-ej1-x62b.google.com with SMTP id xi5so36607062ejb.13
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Apr 2023 04:35:50 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BBCA10E297;
+	Thu, 13 Apr 2023 12:26:55 +0000 (UTC)
+Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com
+ [IPv6:2001:4860:4864:20::2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9966010EADD
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Apr 2023 12:26:53 +0000 (UTC)
+Received: by mail-oa1-x2e.google.com with SMTP id
+ 586e51a60fabf-1842cddca49so17802621fac.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Apr 2023 05:26:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681385748; x=1683977748;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=njyAvRzpSOXk7Mi8+Wyzd1bpSqXHuFg8jVFa2oxa9Lg=;
- b=N+6xK0/Sow9E0UuRMSdkEpn3+GOTDUabC36bMBc5SUKli54szsY9rqdOQ4RuiIfM3z
- xoom+NkEprYN3Ssq02AUHkcxZLkKPWZywJUoQLLfT9F+eZS3RAqxlaOsuD7Eel+g88yo
- rflewswigda3VeDpWLOCH+M76FJBpT0AnCCMG+upJjzh79UwiXomGvxpns4PVJbWngvq
- vcBXSK51YNPYcLzR03Pxjt6K5x0xlTF71OfkwDTjuUMMx+DfEvJWfQtCzgKC/kYEDyDd
- v/QM67G7iT8i0RQro1bNYLNxXPOZjyxg2D45LDdH06pFwrP0l2sKQ9yne1Z/BbyonmD9
- MnPA==
+ d=gmail.com; s=20221208; t=1681388811; x=1683980811;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4+PW/6zxqsjeDItmeDa1+vQktmJ7gpjXLSTkr+NmZiQ=;
+ b=rj7Vw7UlCWBqgbs4zA2GwW70vcIfE4k8fCYC0DzT6i+xlkXO6KOpADXhSznU5h+V/M
+ yw5mYBXXRiI5o6e+9/D29yhqPlk0nrQny6y4YaUisF5TQqPJ0dirikgxxeYtFaLqBOAS
+ JgvscWvJg0lhRGOUaUnLofBU3CYUHHVTCeImKrMzrXh/PO5jYfNJy0xiZ7wNI/AE4LMo
+ KFBpPuPHSFvczwdq6Yh7hFeTskV8WlW4Uz/WpXVuAHrkT6ih1euWIHOAAPdMSKVZuYFX
+ t2HRhE5di2J4/rxnSQAX8lZP8XuqjHwxWk9eZOQhoNmZHrO16SPYGjJ+cBpJyY+4FRek
+ NR+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681385748; x=1683977748;
- h=content-transfer-encoding:in-reply-to:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=njyAvRzpSOXk7Mi8+Wyzd1bpSqXHuFg8jVFa2oxa9Lg=;
- b=cJRxhq3Z7UAtcYOP0MTWDUJ1Ly2Aub2MFlYbDbNFuAwmZYhEitz1kIHWqesNTszpBn
- 70mRzcNU3ht8eBrAh68x0LoT5sZLg5q/bpooABnuUveDjJDAkptVOoy+h1QLFlmNnZq/
- 5gMLs6PfVhGIzLe+vjgbl2KBYuwH+Qo0hQvGlEzzNd7K75WtQ9RRtZzCxG53cQY+VGeq
- 7qfC4fN097ZkjwkVzYq4VivKA1bvw7lKGxwrhoji/GyhgE9QPVgHTy4cRErkYE9Vp/oQ
- rv4HtAoi9UfJbJhxjyUFtVGgycQIxQy8vnUwBTWZq6P7k+I+CGE3BZyc+HVMKZquwOpL
- yE5g==
-X-Gm-Message-State: AAQBX9fWfYs1FFhr0Nht0s5zMNb3UvbnuuBDNkQgvOOFnislU2t7myBE
- CDfLzXGYZBwUaYV4xfpuToA=
-X-Google-Smtp-Source: AKy350YpYKkeVPXOPG2B1RKpGd0Fvtj1N4cVwnteCg5Yn65cSg7LQbevcBK8YTijTgignte0TyMdTw==
-X-Received: by 2002:a17:907:7749:b0:94e:56c4:59f2 with SMTP id
- kx9-20020a170907774900b0094e56c459f2mr2243349ejc.26.1681385748548; 
- Thu, 13 Apr 2023 04:35:48 -0700 (PDT)
-Received: from [192.168.178.21] (p4fc2092b.dip0.t-ipconnect.de. [79.194.9.43])
- by smtp.gmail.com with ESMTPSA id
- y2-20020aa7c242000000b00504937654f8sm732971edo.21.2023.04.13.04.35.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 13 Apr 2023 04:35:47 -0700 (PDT)
-Message-ID: <6d32ae76-08fa-64a4-6726-2d55e8c9fc08@gmail.com>
-Date: Thu, 13 Apr 2023 13:35:46 +0200
+ d=1e100.net; s=20221208; t=1681388811; x=1683980811;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=4+PW/6zxqsjeDItmeDa1+vQktmJ7gpjXLSTkr+NmZiQ=;
+ b=Hr/FyQx04fIu1xtMXK/+UYdIs0TXcxBK4t+Fpl9uG4wV8pAuLBO/koMApz/pBM0PSE
+ hRE0uNen+ABo62zCDWO6LW/QTZxVbXMXiyUuVn6AKnygaMUKrr0/UjdLYcckwKSYq35D
+ ljMAHHJ2sFaX/GFbQOHdRXbak/ihjhwm/5hw7bSoH7jxEfS5SdNnB6UMyztFbMwjv0Av
+ rjFX3S2Oc6gUNlGbeudgOsU1EZ/i0lWbY+w/NHvLygN4qVdPZ4GVQjVvpl1+GkbyFzyr
+ DASDEFKNEuh2Y9qwVYQXoB5NwTsK/oDBeMhCTuyedKZd9olORmyRSuR2HzdY9mnsVCsJ
+ elAQ==
+X-Gm-Message-State: AAQBX9c2+KzMT0kiiVsMDswBH7PLKLKjsvQvvacKXI3kqmqj6EP+ZYB3
+ KZ78uPI7eRqUvs4JUjIoDqdhS6IDaAEwsntXaUw=
+X-Google-Smtp-Source: AKy350ZqvilMcDKL78aixttFNtnAU+T5kym1yHDi2eldtle/Rh71yd5Hodw/gXKPuBVsowaFA+KTu1ZFqnXfI2Dxz+E=
+X-Received: by 2002:a05:6870:390d:b0:184:2e38:c7af with SMTP id
+ b13-20020a056870390d00b001842e38c7afmr1223409oap.3.1681388811081; Thu, 13 Apr
+ 2023 05:26:51 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: Re: [PATCH] drm/amdgpu: Ignore KFD eviction fences invalidating
- preemptible DMABuf imports
-Content-Language: en-US
-To: Felix Kuehling <felix.kuehling@amd.com>,
- Eric Huang <jinhuieric.huang@amd.com>, amd-gfx@lists.freedesktop.org,
- "Koenig, Christian" <Christian.Koenig@amd.com>
-References: <20230412222511.236384-1-jinhuieric.huang@amd.com>
- <ce2de03d-27c5-a7ad-1a76-814cbd92f15e@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <ce2de03d-27c5-a7ad-1a76-814cbd92f15e@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20230330191750.1134210-1-alexander.deucher@amd.com>
+ <20230330191750.1134210-4-alexander.deucher@amd.com>
+ <CAAxE2A7nvmXdUaXESi4g6HVBFxk+dooz7tZYQfjGE8O2fKFi-w@mail.gmail.com>
+ <8a98b160-5276-54f5-d166-e12a572892e9@amd.com>
+ <CAAxE2A4LzFudfzTNRr290ORZvcF6-xzKiyNM6LZ3uiZDPerf5Q@mail.gmail.com>
+ <b1485943-5f0a-1a7e-f0a4-b35771b48a23@gmail.com>
+ <CAAxE2A6m346bTD7G=wMa=8OcRmk6OHui9N=Z9B5xHCS4VxxYwQ@mail.gmail.com>
+ <2897fa79-f0ef-1ddb-dc38-05ef429fe0d9@gmail.com>
+ <CAAxE2A5mf8J_1JJvgPgx-G07zcc3vcHOD6jWUXL8Mhx3g-Zufw@mail.gmail.com>
+ <0e2e1902-54e8-0626-c7ca-3f818f8792fb@gmail.com>
+In-Reply-To: <0e2e1902-54e8-0626-c7ca-3f818f8792fb@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 13 Apr 2023 08:26:39 -0400
+Message-ID: <CADnq5_MrY3QtU_--B=OYD+_+nx6jNyzJfOxBzfoPrmeLJC6h3Q@mail.gmail.com>
+Subject: Re: [PATCH 03/13] drm/amdgpu/UAPI: add new CS chunk for GFX shadow
+ buffers
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,57 +77,139 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 13.04.23 um 03:01 schrieb Felix Kuehling:
-> Am 2023-04-12 um 18:25 schrieb Eric Huang:
->> It is to avoid redundant eviction for KFD's DMAbuf import
->> bo when dmaunmapping DMAbuf. The DMAbuf import bo has
->> been set as AMDGPU_PL_PREEMPT in KFD when mapping.
+On Thu, Apr 13, 2023 at 7:32=E2=80=AFAM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> Ok, then we have a problem.
+>
+> Alex what do you think?
+
+If you program it to 0, FW skips the GDS backup I think so UMD's can
+decide whether they want to use it or not, depending on whether they
+use GDS.
+
+Alex
+
+
+>
+> Christian.
+>
+> Am 13.04.23 um 11:21 schrieb Marek Ol=C5=A1=C3=A1k:
+>
+> That's not why it was removed. It was removed because userspace doesn't u=
+se GDS memory and gds_va is always going to be 0.
+>
+> Firmware shouldn't use it because using it would increase preemption late=
+ncy.
+>
+> Marek
+>
+> On Sun, Apr 9, 2023, 11:21 Christian K=C3=B6nig <ckoenig.leichtzumerken@g=
+mail.com> wrote:
 >>
->> Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
->
-> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
->
-> I'd like to get an Acked-by from Christian as well before submitting 
-> this.
-
-I have to admit that I only partially followed the internal discussion, 
-but in general you need a *really* good explanation for this.
-
-E.g. add code comment and explain in the commit message extensively why 
-this is needed and why there are no alternatives.
-
-Regards,
-Christian.
-
->
-> Thanks,
->   Felix
->
->
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 7 ++++++-
->>   1 file changed, 6 insertions(+), 1 deletion(-)
+>> We removed the GDS information because they were unnecessary. The GDS si=
+ze was already part of the device info before we added the shadow info.
 >>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> index 2430f3e9f3a7..64795fe9eecb 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> @@ -526,7 +526,12 @@ static int amdgpu_bo_move(struct 
->> ttm_buffer_object *bo, bool evict,
->>       if ((old_mem->mem_type == TTM_PL_TT ||
->>            old_mem->mem_type == AMDGPU_PL_PREEMPT) &&
->>           new_mem->mem_type == TTM_PL_SYSTEM) {
->> -        r = ttm_bo_wait_ctx(bo, ctx);
->> +        if (old_mem->mem_type == AMDGPU_PL_PREEMPT)
->> +            r = amdgpu_bo_sync_wait(abo,
->> +                        AMDGPU_FENCE_OWNER_KFD,
->> +                        ctx->interruptible);
->> +        else
->> +            r = ttm_bo_wait_ctx(bo, ctx);
->>           if (r)
->>               return r;
-
+>> But as far as I know the firmware needs valid VAs for all three buffers =
+or won't work correctly.
+>>
+>> Christian.
+>>
+>> Am 06.04.23 um 17:01 schrieb Marek Ol=C5=A1=C3=A1k:
+>>
+>> There is no GDS shadowing info in the device info uapi, so userspace can=
+'t create any GDS buffer and thus can't have any GDS va. It's a uapi issue,=
+ not what firmware wants to do.
+>>
+>> Marek
+>>
+>> On Thu, Apr 6, 2023 at 6:31=E2=80=AFAM Christian K=C3=B6nig <ckoenig.lei=
+chtzumerken@gmail.com> wrote:
+>>>
+>>> That's what I thought as well, but Mitch/Hans insisted on that.
+>>>
+>>> We should probably double check internally.
+>>>
+>>> Christian.
+>>>
+>>> Am 06.04.23 um 11:43 schrieb Marek Ol=C5=A1=C3=A1k:
+>>>
+>>> GDS memory isn't used on gfx11. Only GDS OA is used.
+>>>
+>>> Marek
+>>>
+>>> On Thu, Apr 6, 2023 at 5:09=E2=80=AFAM Christian K=C3=B6nig <christian.=
+koenig@amd.com> wrote:
+>>>>
+>>>> Why that?
+>>>>
+>>>> This is the save buffer for GDS, not the old style GDS BOs.
+>>>>
+>>>> Christian.
+>>>>
+>>>> Am 06.04.23 um 09:36 schrieb Marek Ol=C5=A1=C3=A1k:
+>>>>
+>>>> gds_va is unnecessary.
+>>>>
+>>>> Marek
+>>>>
+>>>> On Thu, Mar 30, 2023 at 3:18=E2=80=AFPM Alex Deucher <alexander.deuche=
+r@amd.com> wrote:
+>>>>>
+>>>>> For GFX11, the UMD needs to allocate some shadow buffers
+>>>>> to be used for preemption.  The UMD allocates the buffers
+>>>>> and passes the GPU virtual address to the kernel since the
+>>>>> kernel will program the packet that specified these
+>>>>> addresses as part of its IB submission frame.
+>>>>>
+>>>>> v2: UMD passes shadow init to tell kernel when to initialize
+>>>>>     the shadow
+>>>>>
+>>>>> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>>>>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>>>>> ---
+>>>>>  include/uapi/drm/amdgpu_drm.h | 10 ++++++++++
+>>>>>  1 file changed, 10 insertions(+)
+>>>>>
+>>>>> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_=
+drm.h
+>>>>> index b6eb90df5d05..3d9474af6566 100644
+>>>>> --- a/include/uapi/drm/amdgpu_drm.h
+>>>>> +++ b/include/uapi/drm/amdgpu_drm.h
+>>>>> @@ -592,6 +592,7 @@ struct drm_amdgpu_gem_va {
+>>>>>  #define AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES 0x07
+>>>>>  #define AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_WAIT    0x08
+>>>>>  #define AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_SIGNAL  0x09
+>>>>> +#define AMDGPU_CHUNK_ID_CP_GFX_SHADOW   0x0a
+>>>>>
+>>>>>  struct drm_amdgpu_cs_chunk {
+>>>>>         __u32           chunk_id;
+>>>>> @@ -708,6 +709,15 @@ struct drm_amdgpu_cs_chunk_data {
+>>>>>         };
+>>>>>  };
+>>>>>
+>>>>> +#define AMDGPU_CS_CHUNK_CP_GFX_SHADOW_FLAGS_INIT_SHADOW         0x1
+>>>>> +
+>>>>> +struct drm_amdgpu_cs_chunk_cp_gfx_shadow {
+>>>>> +       __u64 shadow_va;
+>>>>> +       __u64 csa_va;
+>>>>> +       __u64 gds_va;
+>>>>> +       __u64 flags;
+>>>>> +};
+>>>>> +
+>>>>>  /*
+>>>>>   *  Query h/w info: Flag that this is integrated (a.h.a. fusion) GPU
+>>>>>   *
+>>>>> --
+>>>>> 2.39.2
+>>>>>
+>>>>
+>>>
+>>
+>
