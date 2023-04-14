@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74059C77B6E
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Apr 2023 15:54:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93BAAC77B72
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Apr 2023 15:54:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0BC510EDD2;
-	Fri, 14 Apr 2023 15:54:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0ED510EDCD;
+	Fri, 14 Apr 2023 15:54:33 +0000 (UTC)
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2073.outbound.protection.outlook.com [40.107.220.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEB4110EDD0
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Apr 2023 15:54:27 +0000 (UTC)
+ (mail-co1nam11on2059.outbound.protection.outlook.com [40.107.220.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9345210EDCD
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Apr 2023 15:54:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hDo1QVZ18IHYGggh7axOUu1iySgHWAj24UaYCU3oDQYwWc7gUw1+8nmXs6EDbbvHsKHaQVE2WoCUbJGt/GZ73aN8cfTpWoLyG3pUhll3aUOgDOmNFoKoOUdxmXtgC3bMIMqhCBchkrZMY4hwQ7h/AI+eE9k1/a4oDqgJLm8O/1fz6XzNeni/oC9oC9QUUGf5NuLrzp6oc3VSQzIl2H0wswBuM6sRIqg7qceBpDAX38/DiW714PuWl1ntKbM74yGVF2xCHHeJqi2b/CtGFn+wC89zviQW5wlqma5vaPFGFmLh2Xt6Lgkw3YHBpj2OjnTeQoiKtPK+HPBS2zL9uAo1YA==
+ b=jT/oG+8ZCJxZL29CVgwLAJroLZkzVaufXM+ze80scyr/erHMS5xbOGy7BcGzshPzLSErxo4H+1wDE+4kSE9idLahwRVGIHo00AeG3CfyjDPItTTq4g+OFhmfDGVATTrU930/78YhJfpCB0DRbO9UceBtuYS21xVlknVzUV1EkKNiiu6D3mh8w53DHgALZLdEDAMbp4upoXVB69B2zT57X6If31HN36w2IHHL537L/0IXIJX+wtVpDQQimHTOUuf88J/UDKtHiFRdZInmphOTaymXQ7nXLRp03eTHaaoiUCQkxlu2qnw+LPId767eC2Uq3yVoJyCUPOIcXKG8Fxmo3Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hZflXKhFCBoCKgq6GzHBrI0dhMdeqIDu/d2AFd+a8KE=;
- b=Gba//w2U8gQM9MY3UvmjM1BHPsTy6YCqvyPtFzWKagpcj3N6e86cWqiPE/rskt4vSozOXJcUAM1sgBbVXrxfEPThgbCpkDgev7z2Mgk8lclt9CIcRgSOhp2pzdZNbVF9d+4DQUJHKLY4amwGN38CfQPso4ngg45yQqZIO9/4Pz6KkZFcO+ZDDz4ZV+yEJHYETeEAKu8VqS6KZR2AJkGQzSfzw8zbPnUYirfY8+fs8X+hIiUAaSbXrbrjhSpddsRH+Dy9qcv723AXkhpEbTx8vrtosS2JTdQNVuB4D4whrMiz8VQED8mMj5quPmsfa0R53vXTtiRTqbBNX4bVxU7BAQ==
+ bh=WBiRaFCHL9jf1niFSexmomsEL4EgMIjCwsoeQT5pDL8=;
+ b=d/Y6j1/EGkwBqYoagN4iG7QUhkOSjn/+LCvaEVq5EdgFdjfYqlnIFUFOtzUjrIp4gCvx9qGezFM5A/R5HrNbFWzZx6uybFpBwITxaBTLFOtLdwzfoquhewr6TVFK1OTKainSJ0B+5pFuFm6CdsoGekJ+ZyoggkBTXXYJq3D7zZq/OoNiKiYYPuw0kgBpvRwG8WxOD11vKPAlQCqF7T7z8ubHXaxC3HNFRNTtrjGBNJDFlKtWMiUTEodAt1MFqKl9OHiOI3UmFj182dGZYVB5wpNjK3UkPdg6wIvVvFh+sdOzFDfYkCMJ34Qsh/qlhR/QsghUZMoebbRs7lBmYyM7ig==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hZflXKhFCBoCKgq6GzHBrI0dhMdeqIDu/d2AFd+a8KE=;
- b=f5BwWJcr6hUvA3bFu+aJs7MeKd5QTUDCD17FEVTGNgWycC8J+eQSsWTt1wPQ3awcsGN6D4TIvhliu9ITnkw8+H1JmaVsudQMewVMnfg1HIxDkc6ruy9hUAaZF7NQFT6SCbKCNpEPVgxAvLz4pdPggSWu8t7IhCMxwkqZOXEJXuM=
-Received: from BN0PR03CA0013.namprd03.prod.outlook.com (2603:10b6:408:e6::18)
- by SJ1PR12MB6050.namprd12.prod.outlook.com (2603:10b6:a03:48b::17)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=WBiRaFCHL9jf1niFSexmomsEL4EgMIjCwsoeQT5pDL8=;
+ b=ls96Hvjij7aGk+43z326XrB2jD2wBsvOCCYC64BLDVGlOy7KANhmVKlD3SCuMD10NwpGB6Mz7H1km1f9E8WS/BtwgmoKKPFvbmZPAmadxlAaYe+WgZjjQVUmfdT1FFuovSkYxloQoLUaZVEp6gzD1lxn4aZxsJE+kR9BCWrnTgc=
+Received: from BN9PR03CA0123.namprd03.prod.outlook.com (2603:10b6:408:fe::8)
+ by SJ1PR12MB6073.namprd12.prod.outlook.com (2603:10b6:a03:488::14) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.30; Fri, 14 Apr
- 2023 15:54:24 +0000
-Received: from BN8NAM11FT062.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e6:cafe::6b) by BN0PR03CA0013.outlook.office365.com
- (2603:10b6:408:e6::18) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 15:54:23 +0000
+Received: from BN8NAM11FT026.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:fe:cafe::c4) by BN9PR03CA0123.outlook.office365.com
+ (2603:10b6:408:fe::8) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.36 via Frontend
- Transport; Fri, 14 Apr 2023 15:54:24 +0000
+ Transport; Fri, 14 Apr 2023 15:54:23 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT062.mail.protection.outlook.com (10.13.177.34) with Microsoft SMTP
+ BN8NAM11FT026.mail.protection.outlook.com (10.13.177.51) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6298.36 via Frontend Transport; Fri, 14 Apr 2023 15:54:24 +0000
+ 15.20.6298.31 via Frontend Transport; Fri, 14 Apr 2023 15:54:22 +0000
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 14 Apr
- 2023 10:54:22 -0500
+ 2023 10:54:21 -0500
 From: Qingqing Zhuo <Qingqing.Zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 25/66] drm/amd/display: Adding support for VESA SCR
-Date: Fri, 14 Apr 2023 11:52:49 -0400
-Message-ID: <20230414155330.5215-26-Qingqing.Zhuo@amd.com>
+Subject: [PATCH 24/66] drm/amd/display: Add FAMS validation before trying to
+ use it
+Date: Fri, 14 Apr 2023 11:52:48 -0400
+Message-ID: <20230414155330.5215-25-Qingqing.Zhuo@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230414155330.5215-1-Qingqing.Zhuo@amd.com>
 References: <20230414155330.5215-1-Qingqing.Zhuo@amd.com>
@@ -68,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT062:EE_|SJ1PR12MB6050:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3a25eec2-aa62-4548-5a08-08db3d008513
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT026:EE_|SJ1PR12MB6073:EE_
+X-MS-Office365-Filtering-Correlation-Id: f9618665-0c6a-4d3d-e31b-08db3d00842a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LSm1wLaVsVJOfA8LTI5Hz34WUwews/mEV2OGv8gq4T2QelfkBqxRl6gODDCUsMAvYeHbbmaFaGZ/AAnVQwP6/rfGR5+/3wFvdmBcCsIJJrSsfWUtN61oa7fxIROSQ2a8McyIUK6oCPBSHgbJfRVh5djujQq52SNG0CuXQJBoyh9+HmpzxK56e+rS2UXTTb3ZkTxJqtIx116X8gYo9Qun4+L0JTBSA2QmJydEMSZ32IoyET62X+sBY5bOZ9W2i7ioSKDGR6/QovosY6BAQ/Rb2y8VENERsen/gZF16soCKDKPCoy0tEHMbDjwoe9FHlDtXb9hzXjbQBVWD4Rjw58UhA5eo3ae2ZCKgdCj19c860CgTLwZLc05lglZRHHgFo+InTxZbhofuAHWRfG5rVw7COz4JeYeV4u1iCmA7j61wsLh8VEprqEEW3lWY4hBte/f3fuSdhPTRQQQy8mG6dJBgjdeGmpCN+WUnCbM35Ooj+ndgCOYvhwaEYQ7baVjxKoqByYpQROeIpycjlVKxYQkksTint7X3GwxCkQ3DDV/IHtw7nlCvDezPaKbihSkzuk5Cx5wmPwNZyDt2DAogwqDpQmcIWr5fR6VbIuGlY4Xa+5QDRPSSihaGq9o/n3Jnck5etNs3MkBFXLHqJdOedHR8yRoyNGCzpNFyeU0fEgCma7bNTncm8umtWWu3HBJ3ryh/q3ZM2u5Qt5AccWzT7aTXql6Gi9A2vZ9gID5r5rmFhc=
+X-Microsoft-Antispam-Message-Info: PHKuMzvfEpOkVJeia3VvhEhJKmdPk8ZbSVWv0phWptq+Ljwjk43R21EPZ87ClFvneitcC9gcQzW9aWlcw7DI1O8qHmDPB48sTfC7/6AVtghivDRwKr4vMyULetI8uuW0/WF5dGO/h7MrEKXMp4yQ26D3yKmCScOjI4D4vtM2I4DPYN5UU08fTOcmZKg9pMbuGVeSTqbxP3wJO0IfZAm/GAiaI+lOYwxkVVrOnVvKvkB3bRYYDdS8e9/6LQry+zxCe8m78h+LWZ/vDnEzvLV2AAk7kgkW8bnh4z5Ys2WG7MHFNJ4334zoVq4bLiMY9OmN6XDMmjYxEOOUdDh/mDNMBDx/kj3cJ/Qf20dP+iYHQzFvAanOyz9yNifO6gruATlBaUTNWRBcDJ5PBuVrgqBE4XrJ0lFS8wr62MCFSWdcSku+scK5UzhEohtNV0CzjGa0HPu30J2OS0lQmjWT4cNGO36h6CKugT0Es5tx8cShb8FXz/ZSeyMDcvPjp7R2ppagwr/qLMwUK7cR5MWfqTB0BuaBEw/aMgR3ZZ608BcPvu6V+BU7VsU5pUTXguZQDnC7V3cyr3d8wVnaaSi+EnUMSCekT1N6n+AAEVmd0FnMfS2nR808KypjrLfPxjRYk/Suubn0JN868/TH4F2Wt0KRd9nQkvFO5yZJwdyLIkNcRowXFc1pOMP5KF7i383B9hbdnHZXJWgx8NLSV+wa+owEsbJ6oD6QNjFXJ3xoSaFQFpg=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(396003)(346002)(376002)(136003)(451199021)(46966006)(36840700001)(40470700004)(426003)(47076005)(83380400001)(2616005)(36860700001)(82310400005)(336012)(26005)(186003)(1076003)(36756003)(5660300002)(86362001)(16526019)(316002)(6666004)(478600001)(54906003)(4326008)(70206006)(6916009)(70586007)(81166007)(41300700001)(82740400003)(356005)(8676002)(8936002)(40460700003)(40480700001)(2906002)(36900700001);
+ SFS:(13230028)(4636009)(39860400002)(346002)(396003)(376002)(136003)(451199021)(46966006)(36840700001)(40470700004)(26005)(336012)(426003)(1076003)(54906003)(40480700001)(186003)(47076005)(83380400001)(2616005)(16526019)(36860700001)(40460700003)(6666004)(5660300002)(41300700001)(316002)(8936002)(82740400003)(82310400005)(8676002)(356005)(86362001)(81166007)(478600001)(70586007)(36756003)(4326008)(70206006)(6916009)(2906002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2023 15:54:24.4520 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a25eec2-aa62-4548-5a08-08db3d008513
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2023 15:54:22.9285 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9618665-0c6a-4d3d-e31b-08db3d00842a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT062.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT026.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6050
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6073
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,158 +100,89 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Anthony Koo <Anthony.Koo@amd.com>,
- Iswara Nagulendran <Iswara.Nagulendran@amd.com>, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, Alvin Lee <Alvin.Lee2@amd.com>,
  wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
  pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Iswara Nagulendran <Iswara.Nagulendran@amd.com>
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 
-[HOW&WHY]
-Write DPCD 721 bit 7 to high, and
-the appropriate luminance level
-to DPCD 734-736 if bit 4 from DPCD register
-734 is high, indicating that the panel
-luminance control is enabled from the panel side.
+To ensure that FAMS can be used, DC must check if there is VRR support.
+This commit adds the required configuration to ensure FAMS can be executed in the target system.
 
-Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
+Reviewed-by: Alvin Lee <Alvin.Lee2@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Signed-off-by: Iswara Nagulendran <Iswara.Nagulendran@amd.com>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc_dp_types.h  |  7 +++++
- .../dc/link/protocols/link_dp_capability.c    |  9 +++++-
- .../link/protocols/link_edp_panel_control.c   | 29 ++++++++++++++++---
- include/drm/display/drm_dp.h                  |  3 ++
- 4 files changed, 43 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c          | 6 ++++++
+ drivers/gpu/drm/amd/display/dc/dc_stream.h        | 1 +
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c | 7 ++++++-
+ drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 2 +-
+ 4 files changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-index 49aab1924665..4a7f6497dc5a 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
-@@ -566,6 +566,12 @@ struct dpcd_amd_device_id {
- 	uint8_t dal_version_byte2;
- };
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 9b2003a497b4..da6cf3ca372c 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -2604,6 +2604,12 @@ static enum surface_update_type check_update_surfaces_for_stream(
  
-+struct target_luminance_value {
-+	uint8_t byte0;
-+	uint8_t byte1;
-+	uint8_t byte2;
-+};
+ 		if (stream_update->mst_bw_update)
+ 			su_flags->bits.mst_bw = 1;
 +
- struct dpcd_source_backlight_set {
- 	struct  {
- 		uint8_t byte0;
-@@ -1225,6 +1231,7 @@ struct dpcd_caps {
- 	union dp_main_line_channel_coding_cap channel_coding_cap;
- 	union dp_sink_video_fallback_formats fallback_formats;
- 	union dp_fec_capability1 fec_cap1;
-+	bool panel_luminance_control;
- 	union dp_cable_id cable_id;
- 	uint8_t edp_rev;
- 	union edp_alpm_caps alpm_caps;
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-index eeaceed61bc4..50327a559a47 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-@@ -1449,7 +1449,8 @@ bool read_is_mst_supported(struct dc_link *link)
-  */
- static bool dpcd_read_sink_ext_caps(struct dc_link *link)
++		if (stream_update->stream && stream_update->stream->freesync_on_desktop &&
++			(stream_update->vrr_infopacket || stream_update->allow_freesync ||
++				stream_update->vrr_active_variable))
++			su_flags->bits.fams_changed = 1;
++
+ 		if (stream_update->crtc_timing_adjust && dc_extended_blank_supported(dc))
+ 			su_flags->bits.crtc_timing_adjust = 1;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+index 25284006019c..270282fbda4a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+@@ -131,6 +131,7 @@ union stream_update_flags {
+ 		uint32_t dsc_changed : 1;
+ 		uint32_t mst_bw : 1;
+ 		uint32_t crtc_timing_adjust : 1;
++		uint32_t fams_changed : 1;
+ 	} bits;
+ 
+ 	uint32_t raw;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c
+index c95f000b63b2..34b08d90dc1d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c
+@@ -301,7 +301,12 @@ static void optc3_wait_drr_doublebuffer_pending_clear(struct timing_generator *o
+ 
+ void optc3_set_vtotal_min_max(struct timing_generator *optc, int vtotal_min, int vtotal_max)
  {
--	uint8_t dpcd_data;
-+	uint8_t dpcd_data = 0;
-+	uint8_t edp_general_cap2 = 0;
- 
- 	if (!link)
- 		return false;
-@@ -1458,6 +1459,12 @@ static bool dpcd_read_sink_ext_caps(struct dc_link *link)
- 		return false;
- 
- 	link->dpcd_sink_ext_caps.raw = dpcd_data;
+-	optc1_set_vtotal_min_max(optc, vtotal_min, vtotal_max);
++	struct dc *dc = optc->ctx->dc;
 +
-+	if (core_link_read_dpcd(link, DP_EDP_GENERAL_CAP_2, &edp_general_cap2, 1) != DC_OK)
-+		return false;
-+
-+	link->dpcd_caps.panel_luminance_control = (edp_general_cap2 & DP_EDP_PANEL_LUMINANCE_CONTROL_CAPABLE) != 0;
-+
- 	return true;
++	if (dc->caps.dmub_caps.mclk_sw && !dc->debug.disable_fams)
++		dc_dmub_srv_drr_update_cmd(dc, optc->inst, vtotal_min, vtotal_max);
++	else
++		optc1_set_vtotal_min_max(optc, vtotal_min, vtotal_max);
  }
  
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-index d895046787bc..5ab2de12ccf8 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-@@ -164,14 +164,35 @@ bool edp_set_backlight_level_nits(struct dc_link *link,
- 	*(uint16_t *)&dpcd_backlight_set.backlight_transition_time_ms = (uint16_t)transition_time_in_ms;
- 
- 
--	if (core_link_write_dpcd(link, DP_SOURCE_BACKLIGHT_LEVEL,
-+	if (!link->dpcd_caps.panel_luminance_control) {
-+		if (core_link_write_dpcd(link, DP_SOURCE_BACKLIGHT_LEVEL,
- 			(uint8_t *)(&dpcd_backlight_set),
- 			sizeof(dpcd_backlight_set)) != DC_OK)
--		return false;
-+			return false;
- 
--	if (core_link_write_dpcd(link, DP_SOURCE_BACKLIGHT_CONTROL,
-+		if (core_link_write_dpcd(link, DP_SOURCE_BACKLIGHT_CONTROL,
- 			&backlight_control, 1) != DC_OK)
--		return false;
-+			return false;
-+	} else {
-+		const uint8_t backlight_enable = DP_EDP_PANEL_LUMINANCE_CONTROL_ENABLE;
-+		struct target_luminance_value *target_luminance = NULL;
-+
-+		//if target luminance value is greater than 24 bits, clip the value to 24 bits
-+		if (backlight_millinits > 0xFFFFFF)
-+			backlight_millinits = 0xFFFFFF;
-+
-+		target_luminance = (struct target_luminance_value *)&backlight_millinits;
-+
-+		if (core_link_write_dpcd(link, DP_EDP_BACKLIGHT_MODE_SET_REGISTER,
-+			&backlight_enable,
-+			sizeof(backlight_enable)) != DC_OK)
-+			return false;
-+
-+		if (core_link_write_dpcd(link, DP_EDP_PANEL_TARGET_LUMINANCE_VALUE,
-+			(uint8_t *)(target_luminance),
-+			sizeof(struct target_luminance_value)) != DC_OK)
-+			return false;
-+	}
- 
- 	return true;
- }
-diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
-index ed10e6b6f99d..f1be179c5f1f 100644
---- a/include/drm/display/drm_dp.h
-+++ b/include/drm/display/drm_dp.h
-@@ -973,6 +973,7 @@
- 
- #define DP_EDP_GENERAL_CAP_2		    0x703
- # define DP_EDP_OVERDRIVE_ENGINE_ENABLED		(1 << 0)
-+# define DP_EDP_PANEL_LUMINANCE_CONTROL_CAPABLE (1 << 4)
- 
- #define DP_EDP_GENERAL_CAP_3		    0x704    /* eDP 1.4 */
- # define DP_EDP_X_REGION_CAP_MASK			(0xf << 0)
-@@ -998,6 +999,7 @@
- # define DP_EDP_DYNAMIC_BACKLIGHT_ENABLE		(1 << 4)
- # define DP_EDP_REGIONAL_BACKLIGHT_ENABLE		(1 << 5)
- # define DP_EDP_UPDATE_REGION_BRIGHTNESS		(1 << 6) /* eDP 1.4 */
-+# define DP_EDP_PANEL_LUMINANCE_CONTROL_ENABLE  (1 << 7)
- 
- #define DP_EDP_BACKLIGHT_BRIGHTNESS_MSB     0x722
- #define DP_EDP_BACKLIGHT_BRIGHTNESS_LSB     0x723
-@@ -1022,6 +1024,7 @@
- 
- #define DP_EDP_DBC_MINIMUM_BRIGHTNESS_SET   0x732
- #define DP_EDP_DBC_MAXIMUM_BRIGHTNESS_SET   0x733
-+#define DP_EDP_PANEL_TARGET_LUMINANCE_VALUE 0x734
- 
- #define DP_EDP_REGIONAL_BACKLIGHT_BASE      0x740    /* eDP 1.4 */
- #define DP_EDP_REGIONAL_BACKLIGHT_0	    0x741    /* eDP 1.4 */
+ void optc3_tg_init(struct timing_generator *optc)
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+index 598fa1de54ce..1c55d3b01f53 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+@@ -360,7 +360,7 @@ union dmub_fw_boot_status {
+ 		uint32_t optimized_init_done : 1; /**< 1 if optimized init done */
+ 		uint32_t restore_required : 1; /**< 1 if driver should call restore */
+ 		uint32_t defer_load : 1; /**< 1 if VBIOS data is deferred programmed */
+-		uint32_t reserved : 1;
++		uint32_t fams_enabled : 1; /**< 1 if VBIOS data is deferred programmed */
+ 		uint32_t detection_required: 1; /**<  if detection need to be triggered by driver */
+ 		uint32_t hw_power_init_done: 1; /**< 1 if hw power init is completed */
+ 	} bits; /**< status bits */
 -- 
 2.34.1
 
