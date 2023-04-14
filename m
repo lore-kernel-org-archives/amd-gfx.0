@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18686C77B6E
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Apr 2023 15:54:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1D75C77B71
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Apr 2023 15:54:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67A7C10EDD4;
-	Fri, 14 Apr 2023 15:54:34 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2054.outbound.protection.outlook.com [40.107.92.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B7D010EDD3
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Apr 2023 15:54:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2372810EDD6;
+	Fri, 14 Apr 2023 15:54:38 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2075.outbound.protection.outlook.com [40.107.93.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FE0A10EDD2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Apr 2023 15:54:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Qp2SE/CD4pe7M71bQlR+V3HyCeIJMl6DEJXWDopKbiZBKO0THe8UMHK77XsI8sv/NaVdiNHciga+MI0Cu7o0Am4Nw3Sn7obhGte+ceUBTEkAzIKZmDI5zvqg6CSeCfX5hQtiBAP2lLF0owSopl5X5aEW51+sU98QElVSHX4puxg8fgM73cL5gGhSQvxIFOFP3iUrwyVFB3VX1OdCSQwTArjS1CHiPr9gUT+PtvXP4u8r/m+0IB+iq2SplXq3AVFrgbhKlosqLbs0tzlgSwDrrl92/dSEK2iuoXrFGLRgjBHKjpJi3jpQtqbUICtvTajiNgUVt8cQ1eFeILy/DdCJHw==
+ b=fyVXHZW9RwGEnC1Ky4btXfWRdAPAofa5oEjH1pw8KVLoCftZLsL0UVhx23yrJ68qb6t4paMWN3NpKvL3T8BxiJg/Qe3yaVXGCOUzqOeC422TykZCzVhF/ViXJ+Ve6ko4CLwi1E6rSusDGSRyDWhPZh/3PlINBAnkcIVadwmDx0Pb+kWl753ZxuwlcwuSoFnNj1LlX5YQ4K5RY0az6JVGliJhFoSH2cSqo5vZ1kP7ra0VRfInFAOT/uEOq2MuXM0aKvT8aFv61i6p6aJIaQk5ZXfpEV8VVC7+VL23CPwvv/eMb/mIgWRWzQALJRZyz0QyoXJZrKaj62T4nKxV+4iXVA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iL7LpkOz7b6edeVrRJD7bak0ASB0YrjO2n4FyUjJlMk=;
- b=nn2T6A10hfSRKcwm8acQZlRRWONJ/UgO6P/5do0o5vVjX9Zf21s9i7/2I2/xx7FXgtYy/bp5h44i6VwNpqDt/Q4w3ujcxrXFIK0kmcj9hUC4efZSIZd0siu0ng53Cx2N0dVBY22CsedgytNUPhgYA+FRJKW9r3OGRdr869+MU6LM7C1y2hyxrBw+GMe+MY67oO/ZA6j6I0vaW0kkR2pSDnor1UM/LI1diEuzFHPfnAlapxf0mMXE6jrMjVg+sJf2JlCpgt0qemN3WMi6umeePssM+dpbmMIZQAmvMjWE1NYr2mpMN3iJVkgj3fg7s931RY8xQK+Hd0wEgesSIte6ng==
+ bh=iF2PSD++zZ5oOXmIvIz31uEbUzQPNPcuWF/GDI3ihGI=;
+ b=cfcVLhCphk1t86vVPCPY0HxZmyUdxM6I2tHH33y/p3GJihvoLD0DWJdzExbiIXLDcBaqHHbkeCcC/B0uhhbViQsHxYvkaipWlyfSxbRE2J6Mu/skJOacpqWlEGBgqweHBNg5iTfV7Yb4ai853iPHUoP6+SnV+adySaq0/8uxTiJBZcw5Dfu0TiRN5MCssYWbsqgKb5rXD45NMyMLTNnV4BZKRGFr5ia5XlFDZ9l+LhwOOcsXKsR77zRo7L2FOCZfaXY0t8JO8phfbuvCeAfXaMu6sw1ig0cQIt6/iqO6+0Jhw0mOpIu3khK993YajbegI/YuMfbuqhiBdeTEVomiew==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iL7LpkOz7b6edeVrRJD7bak0ASB0YrjO2n4FyUjJlMk=;
- b=Z7QkHEpMRoxpbImQnm5LSaaOUeETueWTFKBY+vkFRfjkBi8z/bivHshIjg5+pYg16l8sSZdU5ZNkHX4Wf95Rd78AiHHcIR9g5zwTikypO84xho3T5jGqUDw7kjoStMemNvRbqI/PUaVGCdUEOUDIvIUK3l1jlQjqyQu5hYuIyJo=
-Received: from BN8PR12CA0036.namprd12.prod.outlook.com (2603:10b6:408:60::49)
- by CY8PR12MB7433.namprd12.prod.outlook.com (2603:10b6:930:53::22)
+ bh=iF2PSD++zZ5oOXmIvIz31uEbUzQPNPcuWF/GDI3ihGI=;
+ b=v+FPuXyPFJ+LBlaEFsPL4oVBZscpK7vhHp8TkHESBfDinN97oJ39zEn4Z7laxOaIQzpr1lFNt6r28zrAYD0mcdzGzIVQsuDDHd+0RF5iAMBiK/rl406ENfga5Bn6g5thLOUV0Ns0wjDyqBrmU4Q7OIQ/K40hC3QiKbSgdks7Kn0=
+Received: from BN0PR04CA0016.namprd04.prod.outlook.com (2603:10b6:408:ee::21)
+ by BL1PR12MB5175.namprd12.prod.outlook.com (2603:10b6:208:318::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.30; Fri, 14 Apr
- 2023 15:54:29 +0000
-Received: from BN8NAM11FT088.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:60:cafe::38) by BN8PR12CA0036.outlook.office365.com
- (2603:10b6:408:60::49) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 15:54:26 +0000
+Received: from BN8NAM11FT090.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:ee:cafe::bd) by BN0PR04CA0016.outlook.office365.com
+ (2603:10b6:408:ee::21) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.36 via Frontend
- Transport; Fri, 14 Apr 2023 15:54:29 +0000
+ Transport; Fri, 14 Apr 2023 15:54:26 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT088.mail.protection.outlook.com (10.13.177.81) with Microsoft SMTP
+ BN8NAM11FT090.mail.protection.outlook.com (10.13.177.105) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6298.36 via Frontend Transport; Fri, 14 Apr 2023 15:54:29 +0000
+ 15.20.6298.33 via Frontend Transport; Fri, 14 Apr 2023 15:54:25 +0000
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 14 Apr
- 2023 10:54:27 -0500
+ 2023 10:54:24 -0500
 From: Qingqing Zhuo <Qingqing.Zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 28/66] drm/amd/display: Set watermarks set D equal to A
-Date: Fri, 14 Apr 2023 11:52:52 -0400
-Message-ID: <20230414155330.5215-29-Qingqing.Zhuo@amd.com>
+Subject: [PATCH 26/66] drm/amd/display: DSC policy override when ODM combine
+ is forced
+Date: Fri, 14 Apr 2023 11:52:50 -0400
+Message-ID: <20230414155330.5215-27-Qingqing.Zhuo@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230414155330.5215-1-Qingqing.Zhuo@amd.com>
 References: <20230414155330.5215-1-Qingqing.Zhuo@amd.com>
@@ -68,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT088:EE_|CY8PR12MB7433:EE_
-X-MS-Office365-Filtering-Correlation-Id: 82b54342-19d8-4af3-8267-08db3d008811
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT090:EE_|BL1PR12MB5175:EE_
+X-MS-Office365-Filtering-Correlation-Id: d41b040b-b4d0-4c22-5424-08db3d0085fa
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ECywr8V+RRufB04tE3cT7c4AKAOu2yIyV6cpT2sZ5h/ZsTeabK6xPXy/vxkQkN44qpm8ZzZHNX+lmCRo85vCiuWL4v0pb1p2cuE7QUJ/rRXdw1oYnsqwuFNeTzZf06Iniv/IoFZYwt63jiHnkgncyDs23fRrxPINGdGmTsOnX9zGERICpNE3bdu0VMTy9nY+WodD2XEUqT3xpcHvNjbOFP5mXGU3mRwlFFv1v1+Vg1Be486iD1PHjf7QEpXyDWKVhNffRKLQbw7rlbqgSXMQnzVfCBkXCkdF8MpLi+4uwnmQZaGeBN/+ulI40n3eom3CbYF1nImZ36dihNCzFN0y9XswGPwRtKkygJd1h6+zH1h0tVPkcRgmXsF/GIglWB70HlRRQvTLplxQ53alK+kkGIDhjlxN6GLKIR1JSnIi6FmplZ/ah58UZlFl+NPFFCqT4tP1roP0OsuxiJLHGzHZdx/CAASODtwZCVQKjC+hGCgEppIXOtfL/jrDUFTLJhR7R5tbHtktnJZ2ZZypErve1agQ0i5217cUS/sYSc0wZEL2cO0HhfYv2q96890OxJ55akzqEDc/eiZQ3qHJrsZLLotdiBtahJNDCBY4WfEO2/sQ/3BOuCeGej/jTcx1FVMImXnj4Y9d2XiSXSnuLovejZzXjVRItFPvaybyMACXjtKWJPel8MPL0dQLtRV30s7+SHdmHH/nxmXqh41Nz1DICTVh/1gjCMyaj5cX6s4jiwo=
+X-Microsoft-Antispam-Message-Info: 1eG0RtqK2N/ZMP6fQ0F9/rQGTCYbTzHe1Gc58pRiVZzYIvJWYwCs08QN8ozM8uJNMyn7MJH66HR6mLNPX7YvbODClr4YrUdeZPnDFHiwcorkLmU03W0z74F8Dm5Cw1HeqoErYu6NNubDvwv7PcM3fNjcaWeKFM6jcrA3o/TV9jFBZn1Ktb0KAzAarsMFFkRL0KW3HJwE9T+22vzIPQcSghS7gkykL9b5LR0T4w/hXuDMz3MoDkIwNAuHA5Dx15ve3vu4IqJJXnlmIreTlemHPrxXJ0QwnQ4O2VeIS7jMPsXcZ9cNfHwB0NDJ/62IXfu/TJOlnTy9Q3e+rcx5FCKMjsMsZHtR/LHlPnDD0AFMf24ZCdCbagFRyAyjtuUO7ldr+2lpryUXp94gimQPjrm0tblGzLQpW9D7WpdlZET4cI+l6++ySMidalCzvqaAl9VKdCIyILgRaqL9aHvQ/NoIOESOm8MosurjfjMqaYfspM/5UQt5voRW5Lm9GkCdDa1/fPCN9U2OMHJl+nKcnUhLRc73pl9iRDobJADOCxGfp3R/Og1N7z4kj1UnrzhFUi7FiVvu3WAqmYxPuQaYocK8eIya+ry1EAbulKzKcszSikWBP4/T2eXXcH47VxOaqr0Rd7vwhnJPjzGqI9s85PZEwFyzDZttQ36GeFJg0vfkNNJXCbjV+05Z98ybCb3duhr9l0uk+S16h8nHYIKyCVJhCo7CgnUnywW5ipWKltv7z3A=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(136003)(39860400002)(346002)(376002)(451199021)(46966006)(40470700004)(36840700001)(86362001)(36756003)(82310400005)(2906002)(40480700001)(186003)(336012)(2616005)(6666004)(83380400001)(426003)(36860700001)(16526019)(47076005)(1076003)(26005)(82740400003)(478600001)(70586007)(4326008)(6916009)(70206006)(40460700003)(81166007)(356005)(8676002)(8936002)(41300700001)(54906003)(316002)(5660300002)(36900700001);
+ SFS:(13230028)(4636009)(39860400002)(346002)(376002)(136003)(396003)(451199021)(36840700001)(46966006)(40470700004)(86362001)(8936002)(36860700001)(40460700003)(2906002)(5660300002)(36756003)(316002)(81166007)(8676002)(40480700001)(6916009)(356005)(82310400005)(41300700001)(4326008)(82740400003)(83380400001)(336012)(426003)(70586007)(47076005)(2616005)(70206006)(54906003)(1076003)(26005)(186003)(478600001)(16526019)(6666004)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2023 15:54:29.4731 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 82b54342-19d8-4af3-8267-08db3d008811
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2023 15:54:25.9345 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d41b040b-b4d0-4c22-5424-08db3d0085fa
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT088.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT090.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7433
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5175
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,59 +102,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
  qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, Alvin Lee <Alvin.Lee2@amd.com>,
- wayne.lin@amd.com, Jun Lei <Jun.Lei@amd.com>, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com, wayne.lin@amd.com,
+ Nasir Osman <nasir.osman@amd.com>, Bhawanpreet.Lakha@amd.com,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>, agustin.gutierrez@amd.com,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <Alvin.Lee2@amd.com>
+From: Nasir Osman <nasir.osman@amd.com>
 
-[Description]
-- Since we do not use optimized watermark settings for MALL,
-  set D = A
-- PMFW uses Set D for d0i3.1, so driver should make D = A for the
-  time being
-- If we choose to optimize in the future we can set watermarks D
-  correctly
+[why]
+When we force ODM combine with DSC, we lose several
+8 bit and 10 bit modes in validation and thus
+not able to use HDR. This is due to the number of
+horizontal slices used in DSC not properly being
+accounted for currently when 2:1 ODM Combine is forced.
 
-Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+[how]
+Enforce at least two horizontal slices are used for DSC when
+ODM combine is forced.
+
+Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
+Signed-off-by: Nasir Osman <nasir.osman@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dc_dsc.h     |  1 +
+ drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c | 10 +++++++++-
+ 2 files changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-index 23a972f2885f..2f7723053042 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
-@@ -2062,6 +2062,7 @@ void dcn32_calculate_wm_and_dlg_fpu(struct dc *dc, struct dc_state *context,
- 	 * sr_enter_exit/sr_exit should be lower than used for DRAM (TBD after bringup or later, use as decided in Clk Mgr)
- 	 */
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dsc.h b/drivers/gpu/drm/amd/display/dc/dc_dsc.h
+index 0e92a322c2ed..9491b76d61f5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dsc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dsc.h
+@@ -58,6 +58,7 @@ struct dc_dsc_config_options {
+ 	uint32_t dsc_min_slice_height_override;
+ 	uint32_t max_target_bpp_limit_override_x16;
+ 	uint32_t slice_height_granularity;
++	uint32_t dsc_force_odm_hslice_override;
+ };
  
-+	/*
- 	if (dcn3_2_soc.num_states > 2) {
- 		vlevel_temp = 0;
- 		dcfclk = dc->clk_mgr->bw_params->clk_table.entries[0].dcfclk_mhz;
-@@ -2088,6 +2089,7 @@ void dcn32_calculate_wm_and_dlg_fpu(struct dc *dc, struct dc_state *context,
- 	context->bw_ctx.bw.dcn.watermarks.d.urgent_latency_ns = get_urgent_latency(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
- 	context->bw_ctx.bw.dcn.watermarks.d.cstate_pstate.fclk_pstate_change_ns = get_fclk_watermark(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
- 	context->bw_ctx.bw.dcn.watermarks.d.usr_retraining_ns = get_usr_retraining_watermark(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
-+	*/
- 
- 	/* Set C, for Dummy P-State:
- 	 * All clocks min.
-@@ -2189,6 +2191,9 @@ void dcn32_calculate_wm_and_dlg_fpu(struct dc *dc, struct dc_state *context,
- 		context->bw_ctx.bw.dcn.watermarks.a.usr_retraining_ns = get_usr_retraining_watermark(&context->bw_ctx.dml, pipes, pipe_cnt) * 1000;
+ bool dc_dsc_parse_dsc_dpcd(const struct dc *dc,
+diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+index 2bdc47615543..b9a05bb025db 100644
+--- a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
++++ b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+@@ -700,7 +700,7 @@ static int inc_num_slices(union dsc_enc_slice_caps slice_caps, int num_slices)
+ 		}
  	}
  
-+	/* Make set D = set A since we do not optimized watermarks for MALL */
-+	context->bw_ctx.bw.dcn.watermarks.d = context->bw_ctx.bw.dcn.watermarks.a;
-+
- 	for (i = 0, pipe_idx = 0; i < dc->res_pool->pipe_count; i++) {
- 		if (!context->res_ctx.pipe_ctx[i].stream)
- 			continue;
+-	if (new_num_slices == num_slices) // No biger number of slices found
++	if (new_num_slices == num_slices) // No bigger number of slices found
+ 		new_num_slices++;
+ 
+ 	return new_num_slices;
+@@ -952,6 +952,13 @@ static bool setup_dsc_config(
+ 		else
+ 			is_dsc_possible = false;
+ 	}
++	// When we force 2:1 ODM, we can't have 1 slice to divide amongst 2 separate DSC instances
++	// need to enforce at minimum 2 horizontal slices
++	if (options->dsc_force_odm_hslice_override) {
++		num_slices_h = fit_num_slices_up(dsc_common_caps.slice_caps, 2);
++		if (num_slices_h == 0)
++			is_dsc_possible = false;
++	}
+ 
+ 	if (!is_dsc_possible)
+ 		goto done;
+@@ -1163,6 +1170,7 @@ void dc_dsc_policy_set_disable_dsc_stream_overhead(bool disable)
+ void dc_dsc_get_default_config_option(const struct dc *dc, struct dc_dsc_config_options *options)
+ {
+ 	options->dsc_min_slice_height_override = dc->debug.dsc_min_slice_height_override;
++	options->dsc_force_odm_hslice_override = dc->debug.force_odm_combine;
+ 	options->max_target_bpp_limit_override_x16 = 0;
+ 	options->slice_height_granularity = 1;
+ }
 -- 
 2.34.1
 
