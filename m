@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94C97C77B6E
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Apr 2023 15:54:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 126EDC77B72
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Apr 2023 15:54:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E17FD10EDBA;
-	Fri, 14 Apr 2023 15:54:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EBB710EDC0;
+	Fri, 14 Apr 2023 15:54:09 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20614.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eaa::614])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 104BD10EDBD
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Apr 2023 15:54:04 +0000 (UTC)
+ (mail-dm6nam11on2072.outbound.protection.outlook.com [40.107.223.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 970EF10EDB8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Apr 2023 15:54:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mKVjbFOFbA+dMpZH4mjJmU72nFFfEOw0gsVelxDYpDwMycHSAOyA8Wk4rw70HnYq6GVTt/bQZ6U3W+mArjntHmtfTjFDEatRUlisXvGRLKUH6ve/Qhbel7Lq3kCZ17qQTKk8yiKV2qwoj+76/Twttwba5NaJeJK5cTOvdjeVbRUGQMpLv8WSz0HKKO4Gu+AGtAar8AUBrqHNgGcwJYEUIBV+HCuTxcJnnFQIF7b0sq3ZNadiz/7qegtaQWW00pmm/HhaxdA3FNV7fiVEftZ3OiDqjCzMaxNHZjnAk2F/kI4YGy4R10FnSYLtq11FHfC2n/gLjVMf30Hq9NTF4AhhEA==
+ b=INq71HWlM/M2ovs73vOSt/Tkv8KGEpb4B1SlAm2TilwQ9J4p4dBS++F06Yw6vmeIpPz+9AXBE2K6gI3Rv6XBq2QbjNqF00Jn27LauHiwEQK30JgXykYkz14L3QIZbNIvqB7eyqGRqzDEp0EDxbRo7bCZyoyu5ZmV0l4rQOGKlgWhPbJnqekrarcjGA+cU4G7TlxKe7vcD5vZsdSuSjdlLyLWKhEV327MaU1RLp/HhIMBHlOhScA+McoBXZXacyBgCMiMXpf2VQniVsMK98lvdlidz+vVzhHSd3OPU/d5fyoC0IsaxAVrCtvmaY2EKWghpao+sMkOClts9reO0Yg2Mw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sqe8odypAiYYSYIq/c2t6xmPhhmcxChZvm7kgQ6QuOw=;
- b=E8PU5ZHLteWhriMnQna5UARHbLWl4CHynRuE4eIia3EABuHOU4FZBl47JVyzM6tuo2QWICplMJR6ylDTPVTHjZmfVJykP3kyI2PerGqMK8F0s3ZB6HKXK+odVgnHjm/0Vt0SjVF9s9RVncnzfkme55oDO5Rbb9rgMpCTmod+BSTXkMVmdewVO1Qdc3aM0BjGE21HGCLekNyU0kbFbfIczJguDZU/Z8y6kEzR4Bk4uWh+spmGBMPL7oICk/bUNmDIflQhrFs6hdQwCnGvZx+oabAU8hFmlD88Z98yQU2fecZy3+ZnCMg7LY3a9wZgefMoYDyMT/5Ilyef01DmzDtNpA==
+ bh=K7pxOn9I2tT5oQ+HgBOvb7BlFYIGkQyb88i4UN/TX8o=;
+ b=VCA/7LUbersuphAeRXkyHmqw3gR9+9OFTm7kMHFJEbrD2JElDLpdzwMpU4okcEoRrhvSD1JsSPCm8xL0wTavcB9XoFMWkxSYO+BE2ft5lbyScOkkR9zPSx17AuifjIHFUhpSKIEWYl7bU04e8y4N2z8CZGrDCyDIpflQnnubmIgfyMfWIPiN+tRch6yICfqvVI/YIAYgjHLWCB11EY0E8P2qpYdKEnNBaDjtADpMhB0Be97fn/PHsRM7+C33ctfiKRnTCLHqPMKGBi0YmYEyCx1ZXge28+mi+fDWusNSTy5tml5XwCBBaDsCzewN9v8jD0/mgnBjHi0JZ/TXYqT5VQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sqe8odypAiYYSYIq/c2t6xmPhhmcxChZvm7kgQ6QuOw=;
- b=pCds5ZxualxTYlOnk4a7tUcv/KbEWcCohIa69nhfVP/eHLr5cfrBSsI3TjqoLC4Qead/0yZiIq6pFqireN0cw7trVyyb0wzlrsQpNs8enqhtkIgmBT/DI/eOJB/m444c5vRtLefGJSa2CGQlwmdMHBN9/J8L0/RUE9Fsv6ACSbM=
-Received: from DM6PR18CA0016.namprd18.prod.outlook.com (2603:10b6:5:15b::29)
- by CY8PR12MB8266.namprd12.prod.outlook.com (2603:10b6:930:79::5) with
+ bh=K7pxOn9I2tT5oQ+HgBOvb7BlFYIGkQyb88i4UN/TX8o=;
+ b=g2623/7mUVYKbHaDv7KPH+7+GLlewN3GhCRNT5JAgXLoLoVlPk+Da6hugGN/uh+h6ZdWgcOMhCGzJP5bRodhVZp1/82xiv+BGRtv0yj9arQloNwDjOdMNAP1hPS5Pxyw0vyl8Sc6LuFvKaHvRINtop56yRy5CWFABxQ0gK1nLnE=
+Received: from DS7PR03CA0117.namprd03.prod.outlook.com (2603:10b6:5:3b7::32)
+ by IA1PR12MB6556.namprd12.prod.outlook.com (2603:10b6:208:3a0::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.30; Fri, 14 Apr
- 2023 15:54:02 +0000
-Received: from DM6NAM11FT029.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:15b:cafe::ec) by DM6PR18CA0016.outlook.office365.com
- (2603:10b6:5:15b::29) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 15:54:03 +0000
+Received: from DM6NAM11FT036.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b7:cafe::e5) by DS7PR03CA0117.outlook.office365.com
+ (2603:10b6:5:3b7::32) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.36 via Frontend
- Transport; Fri, 14 Apr 2023 15:54:02 +0000
+ Transport; Fri, 14 Apr 2023 15:54:03 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -46,18 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT029.mail.protection.outlook.com (10.13.173.23) with Microsoft SMTP
+ DM6NAM11FT036.mail.protection.outlook.com (10.13.172.64) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6298.37 via Frontend Transport; Fri, 14 Apr 2023 15:54:02 +0000
+ 15.20.6298.32 via Frontend Transport; Fri, 14 Apr 2023 15:54:03 +0000
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 14 Apr
- 2023 10:54:00 -0500
+ 2023 10:54:01 -0500
 From: Qingqing Zhuo <Qingqing.Zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 10/66] drm/amd/display: Do not set drr on pipe commit
-Date: Fri, 14 Apr 2023 11:52:34 -0400
-Message-ID: <20230414155330.5215-11-Qingqing.Zhuo@amd.com>
+Subject: [PATCH 11/66] drm/amd/display: Block optimize on consecutive FAMS
+ enables
+Date: Fri, 14 Apr 2023 11:52:35 -0400
+Message-ID: <20230414155330.5215-12-Qingqing.Zhuo@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230414155330.5215-1-Qingqing.Zhuo@amd.com>
 References: <20230414155330.5215-1-Qingqing.Zhuo@amd.com>
@@ -69,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT029:EE_|CY8PR12MB8266:EE_
-X-MS-Office365-Filtering-Correlation-Id: 34b4440b-04fa-433c-776f-08db3d0077c4
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT036:EE_|IA1PR12MB6556:EE_
+X-MS-Office365-Filtering-Correlation-Id: a9df3da1-b9d0-4916-7551-08db3d00789e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1fxcaAEBL4XFjFIM+EaJKPcXTVnYxGQyjlJYUU26ZQhyl9k5owRp0YXvFYK0XdVDd4AzbEtmpStixk0P92vca8XZTidWOIVM2+jz8U8FQTfC/3jcHo8EhdAIun2sxMldVuYdyVHTn+gAt8C+oX5BoLlexHp+ubs5IGFIb7SU36NgF92m6bKqGpYcyKWRuhqQzvgiX0uZd/C9+RpFxURMmVb8euL3eKnWLIl2Gww7sm4oPF0wBMQAwjYJJmF+y8XhcHb0bxHA9qtaocRwVIdV+wQMX9rC8z49/iBm1vICSbTS93TuScj1yZy2V9h//rK68suhbvKL8Ravvvor32VaSd4cU+SbNaPqN6U8t4EfvaMC0lew8/+9LWW6G2+3Ub7f20Bj3Aa7PctBCiBc/TrYx+NWA4ekdlgLf47C86BDBgh/BB4LTRuRnGJXh/Fw4pEt1U/LBkDv6Pm5KB8H61DVt8posVxPWuNF9HefUCYiV7v/OWKO+P2oP3JYyFI0MK51vujFE3MCsSwdfCqEmcB+YvJ4pCVNSCxJldkkwj71/k+PXZh+ZZ8qKxVV0fydsDku7ZpK+TxritQRRKt2UwfKJajybeLRR9vylS9xigZ0FrSKtMfbtzj6C8k9ohsAAkuV0Ju64lh3ksrNxhkA1TKQpLsmFU80AXl5ITn/A+sKIvJXDlrHJEmmgIG9OmYa1pWu+gc6ov2XRoYEqwSk6jmUUftjGzJRv+iy5uneIl1Old8=
+X-Microsoft-Antispam-Message-Info: wri+Y4k3gsGy8S5Lp3NlTYB8C/W40cGlb34L08xOyyyJcvfcWZb5inbXxBKue6C5A+uVXwe756ZJJRKOVJLgmXeuwUqsFkW6A3Kz98G4H8m0VPrRSR0vSXZ9v8J9aR6dK32N632xO6RB2TEjJvMTsvZ/pt8cSUepJMn7jWMvJulwI1GG8z4vlQkfFCG8nGShUw0C+IebvOIT/30R1glGxYhb57sjRRfwqUqqyLfj+aH7slBh2qK+QrsJZeBeOFnY8/OvNYecXKal1Mjdggr1V62+9tgzyFLYvsH5XUg6n9b8gr6mF2OiEIv7m+Q3n6qO215XIo+38pSSDhzdgQG+GJbyFcsbFqdDmVE4KRGBkP1UbioB8KG5aUtfOWRWE7ntUBXD06nSxBw/ufJcUW3ZnrVFkxauMMzgelzhiSuavV/W3wJTQFMi6mTA5HrtW4TYQtJkrmWaWHEY0GCHr5SQJhXfQplJ8SDoj0Pb7Vk+L/GvT8hVS/WXbEoz+UG4OLVDByHBc93hIYt4+uHpyjcvo7oBO/2bStvagFeR8VkUU3etC6kcIg4OFS+jJhXbC01Kz3JF+dqbvm0ODXtowygdebhz3WB17SN0gou8afNFJr+NxKkfUFt4rDgAoA86HGiiMwAHAbOycs1URsjUSWkmYu61h5oYiFFQmQWrlc3aPcTv/ugANMeYRss7ZhIk12Ag8r1RKiEeEip5lO282jSMyTn/OJGIe37U3l//698D6t0=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(346002)(396003)(376002)(136003)(451199021)(46966006)(36840700001)(40470700004)(26005)(336012)(426003)(1076003)(54906003)(40480700001)(186003)(47076005)(83380400001)(2616005)(16526019)(36860700001)(40460700003)(6666004)(5660300002)(41300700001)(316002)(8936002)(82740400003)(82310400005)(8676002)(356005)(86362001)(81166007)(478600001)(70586007)(36756003)(4326008)(70206006)(6916009)(2906002)(36900700001);
+ SFS:(13230028)(4636009)(396003)(39860400002)(346002)(376002)(136003)(451199021)(40470700004)(46966006)(36840700001)(40460700003)(186003)(26005)(16526019)(1076003)(54906003)(40480700001)(478600001)(81166007)(356005)(2906002)(8676002)(8936002)(36860700001)(83380400001)(41300700001)(426003)(5660300002)(47076005)(2616005)(336012)(82310400005)(6916009)(4326008)(316002)(70206006)(70586007)(82740400003)(86362001)(6666004)(36756003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2023 15:54:02.0934 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34b4440b-04fa-433c-776f-08db3d0077c4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2023 15:54:03.5220 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9df3da1-b9d0-4916-7551-08db3d00789e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT029.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT036.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8266
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6556
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,61 +111,76 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Wesley Chalmers <Wesley.Chalmers@amd.com>
 
 [WHY]
-Writing to DRR registers such as OTG_V_TOTAL_MIN on the same frame as a
-pipe commit can cause underflow.
+It is possible to commit state multiple times in rapid succession with
+FAMS enabled; if each of these commits were to set optimized_required,
+then the user may see latency.
 
 [HOW]
-Move DMUB p-state delegate into optimze_bandwidth; enabling FAMS sets
+fw_based_mclk_switching is currently not used in dc->clk_mgr; use it
+to track whether the current state has FAMS enabled;
+if it has, then do not disable FAMS in prepare_bandwidth, and do not set
 optimized_required.
-
-This change expects that Freesync requests are blocked when
-optimized_required is true.
 
 Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Signed-off-by: Wesley Chalmers <Wesley.Chalmers@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c | 6 ++++++
- drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c | 7 +++++++
- 2 files changed, 13 insertions(+)
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |  3 +++
+ .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    | 22 ++++++++++++++++---
+ 2 files changed, 22 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-index 5403e9399a46..6ce10fd4bb1a 100644
+index 6ce10fd4bb1a..422fbf79da64 100644
 --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
 +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-@@ -2113,6 +2113,12 @@ void dcn20_optimize_bandwidth(
- 	if (hubbub->funcs->program_compbuf_size)
- 		hubbub->funcs->program_compbuf_size(hubbub, context->bw_ctx.bw.dcn.compbuf_size_kb, true);
+@@ -2117,6 +2117,9 @@ void dcn20_optimize_bandwidth(
+ 		dc_dmub_srv_p_state_delegate(dc,
+ 			true, context);
+ 		context->bw_ctx.bw.dcn.clk.p_state_change_support = true;
++		dc->clk_mgr->clks.fw_based_mclk_switching = true;
++	} else {
++		dc->clk_mgr->clks.fw_based_mclk_switching = false;
+ 	}
  
-+	if (context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching) {
-+		dc_dmub_srv_p_state_delegate(dc,
-+			true, context);
-+		context->bw_ctx.bw.dcn.clk.p_state_change_support = true;
-+	}
-+
  	dc->clk_mgr->funcs->update_clocks(
- 			dc->clk_mgr,
- 			context,
 diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-index 0e071fbc9154..0411867654dd 100644
+index 0411867654dd..8263a07f265f 100644
 --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
 +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-@@ -985,11 +985,18 @@ void dcn30_set_disp_pattern_generator(const struct dc *dc,
+@@ -983,9 +983,13 @@ void dcn30_set_disp_pattern_generator(const struct dc *dc,
+ }
+ 
  void dcn30_prepare_bandwidth(struct dc *dc,
-  	struct dc_state *context)
+- 	struct dc_state *context)
++	struct dc_state *context)
  {
-+	if (context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching) {
-+		dc->optimized_required = true;
-+		context->bw_ctx.bw.dcn.clk.p_state_change_support = false;
-+	}
-+
- 	if (dc->clk_mgr->dc_mode_softmax_enabled)
- 		if (dc->clk_mgr->clks.dramclk_khz <= dc->clk_mgr->bw_params->dc_mode_softmax_memclk * 1000 &&
- 				context->bw_ctx.bw.dcn.clk.dramclk_khz > dc->clk_mgr->bw_params->dc_mode_softmax_memclk * 1000)
+-	if (context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching) {
++	bool p_state_change_support = context->bw_ctx.bw.dcn.clk.p_state_change_support;
++	/* Any transition into an FPO config should disable MCLK switching first to avoid
++	 * driver and FW P-State synchronization issues.
++	 */
++	if (context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching || dc->clk_mgr->clks.fw_based_mclk_switching) {
+ 		dc->optimized_required = true;
+ 		context->bw_ctx.bw.dcn.clk.p_state_change_support = false;
+ 	}
+@@ -996,7 +1000,19 @@ void dcn30_prepare_bandwidth(struct dc *dc,
  			dc->clk_mgr->funcs->set_max_memclk(dc->clk_mgr, dc->clk_mgr->bw_params->clk_table.entries[dc->clk_mgr->bw_params->clk_table.num_entries - 1].memclk_mhz);
  
  	dcn20_prepare_bandwidth(dc, context);
-+
-+	dc_dmub_srv_p_state_delegate(dc, false, context);
++	/*
++	 * enabled -> enabled: do not disable
++	 * enabled -> disabled: disable
++	 * disabled -> enabled: don't care
++	 * disabled -> disabled: don't care
++	 */
++	if (!context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching)
++		dc_dmub_srv_p_state_delegate(dc, false, context);
+ 
+-	dc_dmub_srv_p_state_delegate(dc, false, context);
++	if (context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching || dc->clk_mgr->clks.fw_based_mclk_switching) {
++		/* After disabling P-State, restore the original value to ensure we get the correct P-State
++		 * on the next optimize. */
++		context->bw_ctx.bw.dcn.clk.p_state_change_support = p_state_change_support;
++	}
  }
  
 -- 
