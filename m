@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2637C77B72
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Apr 2023 15:55:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1569C77B6E
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Apr 2023 15:55:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A024F10EDE6;
-	Fri, 14 Apr 2023 15:55:04 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2057.outbound.protection.outlook.com [40.107.223.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01D2810EDE3
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Apr 2023 15:55:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8950D10EDE0;
+	Fri, 14 Apr 2023 15:55:06 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56C2110EDE0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Apr 2023 15:55:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=K1PBjWDDZrp+5a4MBDBg3ixPMKG65kjum3/qLe+9BLLE1VNlTdZ1KMOE62l1/Lj1QVN8PoPytqT2lRFiwZeyPgYZ+lX6bxJikYSIjbjhmXdx6Ol+ZfcvTRPaKEviHJ1louheqUJ4f6cJysc81mTlmleQ3lkN9Y7S0Cukbxz8WlDgRTHfGXomFcEawm/r6ukK2Vs10arumSaRVkI48sTtiG/GU0iUzCbWAxzod9E90z/tQuDPJPiqYJZ9TR7I/P1rcp5KPlUQWMzqKeO+4QQaDkvKsk1Jj7EKsoKNlZ56M5LBWi69P7g+WMm61p91kMbtt42Fs6r1uMFBJ0GyFbc+1g==
+ b=GW9UOLATR0aM3Tb/ECt/NL2lNH3MBrf3akUy8hwJRuZbccrZDb6hPTqJQNaNZwW1R7W5FEtYkPnkCHMoGN3sR3F9eAFfhDijwVR2ZM+nGJYoj117JT0ue5ztL92Nam9UGbCh96htLtpO3kIkR27DBQOCCWoh/ar0BQyzSzm2xazKBjex2bKhQbdCKW6/QVJ+aGXS7MS9wd+F1tHRZxGPYopNJ4qrdmre7l1316uAS5PPbIl5Y1kcnppIWmdf0hJLHrCoU/ckaCaFq/mIZid6Jq9B8irdWtyNosucXfWJn8geL3Rrgz2IRLDGdYoE+RKMOy4Be40IyudUcGiCfgaxnA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aOOJohuBEzEbJUk/OdKGaYTVxihepYZ3pmif3CzAbd0=;
- b=juEvf2Zr+L+hxyT8dpG8xibyKUICuW4kyBF2D1Jn8pWY1oBC+5ZyNbv1IeaakIuERTKLn/R6XjmDynPIf8G+eTw/f7ek8X51gL/CcKh9aODlDy6+uAKEAbYOMYSq4aXcks5gOwt3oGnibpKrqO5ekG+FoZboeRendaISwh57+/vxo/mzdVhKfK1vFiEzjWwQm0wc7EOtmTjeAZmEHvFUk77Am6RjbJdewhmHDWO42WuA4jBlIw8W6WyX62rmfj05bK8lZhb3G3UxM4gu8fxAS2bLHSwjXsnKub4IHtgLVzNKDjgYCcs4hCnolxAgeWRTedBGj342Xe6B9XTl+ChkFQ==
+ bh=ms78Cr21ELiOgKsBLRxaOcWUwV/x7IcTK3cQt/bK5vo=;
+ b=Uro5tDuOWCPBoCBibQEv5pP8E9ta1wlzgoVT0WtbxqjY4WAnsbcQKYGcxpnO94TrwQSTQYzuuRe5UsEKPS59KTH0lVtKxYZ5ztoQr/CnAaVUod1YooIxqnPgPKXTDGjd80EQGf9faXaagk71tPzNWJ1pYFJyX7UzRlKDXy/pEN2AujHycJuALp01kGFO6c26lxIRfAOUk2X+5+a8dviwDZ+wTyT5UyONpSEQiIOb0VTMmGOXwyLWEjTnk0LMScnVJmH1KKztdpuH76T9Ur1spucLIMekdjTMPz6nqc1WES8TXdnps7dGFhRk3ecadynFWLnvuHoWGdtUnNosZwv7hQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aOOJohuBEzEbJUk/OdKGaYTVxihepYZ3pmif3CzAbd0=;
- b=zptmfnhmoNBMiOrC5QFW8w7q19QPC+BoPeBk4odkErLS0n5LRIlg9a9ZPJi4Vn48J9zJft1LCCDSiRbxKc5U2i/vJ7rGfaaSXllndsH+zFaZxUtFwjHn1yhBeKOvFX+XwckB5O7cMdxjyIee6L3qSEHE5mx5lR9YT8KnPlS0+mo=
-Received: from BN9PR03CA0434.namprd03.prod.outlook.com (2603:10b6:408:113::19)
- by DM4PR12MB7575.namprd12.prod.outlook.com (2603:10b6:8:10d::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.30; Fri, 14 Apr
- 2023 15:55:01 +0000
+ bh=ms78Cr21ELiOgKsBLRxaOcWUwV/x7IcTK3cQt/bK5vo=;
+ b=CVoegE672+e07b+91ImYJQvR1D/azaZ1RgdN2tGEMvszPRXXOq0vwedbISW+HJzLUlB30qw9Pf3a4epUTn1+5BkMYy+CJc2fVdgakvUqKMtpXM0EJmUx0c03pJOGtUCYygpeS0qGbu12BOdD9c9t7gfS0gdS0kcfLPZrPb8UiIA=
+Received: from BN9PR03CA0431.namprd03.prod.outlook.com (2603:10b6:408:113::16)
+ by CY8PR12MB7682.namprd12.prod.outlook.com (2603:10b6:930:85::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.31; Fri, 14 Apr
+ 2023 15:55:02 +0000
 Received: from BN8NAM11FT003.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:113:cafe::ec) by BN9PR03CA0434.outlook.office365.com
- (2603:10b6:408:113::19) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:408:113:cafe::f4) by BN9PR03CA0431.outlook.office365.com
+ (2603:10b6:408:113::16) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.36 via Frontend
- Transport; Fri, 14 Apr 2023 15:55:01 +0000
+ Transport; Fri, 14 Apr 2023 15:55:02 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,17 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT003.mail.protection.outlook.com (10.13.177.90) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6298.37 via Frontend Transport; Fri, 14 Apr 2023 15:55:00 +0000
+ 15.20.6298.37 via Frontend Transport; Fri, 14 Apr 2023 15:55:02 +0000
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 14 Apr
- 2023 10:54:57 -0500
+ 2023 10:55:00 -0500
 From: Qingqing Zhuo <Qingqing.Zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 47/66] drm/amd/display: Do not clear GPINT register when
- releasing DMUB from reset
-Date: Fri, 14 Apr 2023 11:53:11 -0400
-Message-ID: <20230414155330.5215-48-Qingqing.Zhuo@amd.com>
+Subject: [PATCH 49/66] drm/amd/display: add support for low bpc
+Date: Fri, 14 Apr 2023 11:53:13 -0400
+Message-ID: <20230414155330.5215-50-Qingqing.Zhuo@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230414155330.5215-1-Qingqing.Zhuo@amd.com>
 References: <20230414155330.5215-1-Qingqing.Zhuo@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT003:EE_|DM4PR12MB7575:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0360d15d-f2b9-4c04-982b-08db3d009ad0
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT003:EE_|CY8PR12MB7682:EE_
+X-MS-Office365-Filtering-Correlation-Id: dc174676-3b3b-4605-ed02-08db3d009bab
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Bkxor3ehvaxdejPZcG/kIa5Mlm3w+TsrsYuqABk02MRlI2WgO+edSzFuqxv1GA90KgcG16h4uX1b1UaXMM4S6eipCslCBsNkRGtui7lOUkt7H7cahqELsUvsdOAisTJDeHE3J4PR0pBBlfvBBC/crNIjrsUPHicVHd9pl2rO59cG7/P9xSm4VJtWsrtU9+yAWVcp3m1g1kLO1TmZaDwmP0A2JXRRJdrL3DVBOlfICAFwnyvrL+HDRDzNNV0QKr9kAZYOGA9gEDHSmLDiEzjAIIHsRhDhVVNzk7eEfFrMFBfGjqBUc3HSSKocXGxn5ra35wt43ey5KenPummVvoPzGFHgy3qvQKWnFQndlYjTUY7+n4MZ5nvsHjQlKTNQafXqCLMM0v01M04TE2XbaW5YTSexKmnx+gz01Qy/NeejAI3SpF3xI1Up+6K0pbUypsrzCxIg0bwmcdtMdJlqD/usrHy/yb7FjR2kapzNYxDv0v1tksBiZaBdvtHGRuMjMZFDMl79prXdR5+5ga6LyHaSlAKJauOgnmdA8xYQx7FTesK9tS4/lmKjLqnkI1IW8nfl20gDdYJJ6xwLtBjwoDEa1pO3lSwBfv4L/h2kJa4rGITcBlKUM3Uvgo6m2tkUNiYCZUJ3RDeQRGDhoqGoBX/TLkb0F96fIr4keHR07woi9+q1fgpwsJlsnv+gNmYZvNwuYLAovDszH+Vo2+bBlxmpPScKqcMuRZomWljF8h35+XM=
+X-Microsoft-Antispam-Message-Info: Yu3qhOLWsciLyjn8S+sw1HwqZShbe7AUd1hT05UderZk29cZEfnzIZBmJxBN0BXYowJBUYuXQ9T7gb4QLOnlx5zBvuWIHOd5LCI0QVnVWHwz+VZ3Rt2mYDgUzDT7wxDlmPaQRz4OH8Jrj53gyADsjXoxZ6jLkKZZOe3CibF61pZ7iT287XgSdHW2pF03YCGo9A6ps/0OWQMC6TkokGD/aS5Gs83wQMwT/daQi9rY/3LT5QbzDDEQxNY7T75M2OZ6sEabUKC1g4T859q6GEIloEa9pq2TvQDYZLH0jQBnNhwv5JuGSxjPNemK2hoEwcuEduXyXYx6bZmYygkZfcqvmboOi0JdjF6XreAbJlDqxIbedVGmGN8uR2pR8mASjqppagMvHTAposz4hB/JtGqQEO+md62938/folk6uPpOU/qlJL4bPLUn6jBtuQzI8pZ+k/50EnEToHX3Brx/xpSwqT3tKbY5wJQHm1OfYDQ5xGNSlvndvx484gk6Zg4X6IH0o1w8YuUtuLQdfInsbWa0+0tk35ZHG6J8bsxK2M8jVtXfwq/UIBri1mIZKpjsRyPZWWQQXJOcu3aYGkvYfzO6IxJMRuQ+TcKxFK2lL4nNWSTsdestoPAosMZqsDFai0wZvzbe9z2vM1aR4GapqifHfBolguIrvNo9v0k/k+AYRC6MeDuZC7hbvIGxNWD9MISacvefeyhGWWbelM/JEU6Ca5oe77ydPT3I0knvSUopvjc=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(136003)(376002)(39860400002)(396003)(451199021)(36840700001)(46966006)(40470700004)(336012)(426003)(2616005)(47076005)(2906002)(40460700003)(82310400005)(36756003)(40480700001)(82740400003)(86362001)(356005)(81166007)(36860700001)(41300700001)(83380400001)(6916009)(6666004)(70586007)(316002)(70206006)(4326008)(8676002)(8936002)(5660300002)(54906003)(478600001)(26005)(1076003)(186003)(16526019)(36900700001);
+ SFS:(13230028)(4636009)(376002)(346002)(39860400002)(396003)(136003)(451199021)(36840700001)(46966006)(40470700004)(40480700001)(70206006)(6916009)(40460700003)(36860700001)(82740400003)(478600001)(41300700001)(8676002)(70586007)(356005)(316002)(8936002)(26005)(54906003)(4326008)(81166007)(5660300002)(426003)(2616005)(47076005)(16526019)(336012)(83380400001)(186003)(1076003)(6666004)(82310400005)(36756003)(2906002)(86362001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2023 15:55:00.9244 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0360d15d-f2b9-4c04-982b-08db3d009ad0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2023 15:55:02.3774 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc174676-3b3b-4605-ed02-08db3d009bab
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT003.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7575
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7682
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,39 +99,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Leo Li <sunpeng.li@amd.com>, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- solomon.chiu@amd.com, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
- pavle.kotarac@amd.com
+Cc: stylon.wang@amd.com, Dillon Varone <dillon.varone@amd.com>,
+ Sunpeng.Li@amd.com, Harry.Wentland@amd.com, qingqing.zhuo@amd.com,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, wayne.lin@amd.com,
+ Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 
-[Why & How]
-There's no need to clear GPINT register for DMUB
-when releasing it from reset. Fix that.
+[WHY&HOW]
+Low bpc timings are failing validation, port a patch to allow them to pass.
 
-Fixes: ac2e555e0a7f ("drm/amd/display: Add DMCUB source files and changes for DCN32/321")
-Reviewed-by: Leo Li <sunpeng.li@amd.com>
-Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Dillon Varone <dillon.varone@amd.com>
+Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c | 1 -
- 1 file changed, 1 deletion(-)
+ .../dc/dml/dcn32/display_mode_vba_util_32.c        | 14 +++++---------
+ 1 file changed, 5 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c
-index b45ac31ba555..a7d5607459ed 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c
-@@ -137,7 +137,6 @@ void dmub_dcn32_reset(struct dmub_srv *dmub)
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+index 61cc4904ade4..cad2bc3aea67 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
+@@ -1595,7 +1595,6 @@ double dml32_TruncToValidBPP(
+ 	unsigned int   NonDSCBPP0;
+ 	unsigned int   NonDSCBPP1;
+ 	unsigned int   NonDSCBPP2;
+-	unsigned int   NonDSCBPP3;
  
- void dmub_dcn32_reset_release(struct dmub_srv *dmub)
- {
--	REG_WRITE(DMCUB_GPINT_DATAIN1, 0);
- 	REG_UPDATE(MMHUBBUB_SOFT_RESET, DMUIF_SOFT_RESET, 0);
- 	REG_WRITE(DMCUB_SCRATCH15, dmub->psp_version & 0x001100FF);
- 	REG_UPDATE_2(DMCUB_CNTL, DMCUB_ENABLE, 1, DMCUB_TRACEPORT_EN, 1);
+ 	if (Format == dm_420) {
+ 		NonDSCBPP0 = 12;
+@@ -1604,10 +1603,9 @@ double dml32_TruncToValidBPP(
+ 		MinDSCBPP = 6;
+ 		MaxDSCBPP = 1.5 * DSCInputBitPerComponent - 1 / 16;
+ 	} else if (Format == dm_444) {
+-		NonDSCBPP0 = 18;
+-		NonDSCBPP1 = 24;
+-		NonDSCBPP2 = 30;
+-		NonDSCBPP3 = 36;
++		NonDSCBPP0 = 24;
++		NonDSCBPP1 = 30;
++		NonDSCBPP2 = 36;
+ 		MinDSCBPP = 8;
+ 		MaxDSCBPP = 3 * DSCInputBitPerComponent - 1.0 / 16;
+ 	} else {
+@@ -1661,9 +1659,7 @@ double dml32_TruncToValidBPP(
+ 			else
+ 				return dml_floor(16.0 * MaxLinkBPP, 1.0) / 16.0;
+ 		} else {
+-			if (MaxLinkBPP >= NonDSCBPP3)
+-				return NonDSCBPP3;
+-			else if (MaxLinkBPP >= NonDSCBPP2)
++			if (MaxLinkBPP >= NonDSCBPP2)
+ 				return NonDSCBPP2;
+ 			else if (MaxLinkBPP >= NonDSCBPP1)
+ 				return NonDSCBPP1;
+@@ -1674,7 +1670,7 @@ double dml32_TruncToValidBPP(
+ 		}
+ 	} else {
+ 		if (!((DSCEnable == false && (DesiredBPP == NonDSCBPP2 || DesiredBPP == NonDSCBPP1 ||
+-				DesiredBPP == NonDSCBPP0 || DesiredBPP == NonDSCBPP3)) ||
++				DesiredBPP <= NonDSCBPP0)) ||
+ 				(DSCEnable && DesiredBPP >= MinDSCBPP && DesiredBPP <= MaxDSCBPP)))
+ 			return BPP_INVALID;
+ 		else
 -- 
 2.34.1
 
