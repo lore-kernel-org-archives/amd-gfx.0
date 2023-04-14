@@ -4,89 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 092E7C77B6E
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Apr 2023 08:42:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80D43C77B72
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Apr 2023 11:26:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8435210EC92;
-	Fri, 14 Apr 2023 08:42:22 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20628.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe59::628])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65D7510EC88
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Apr 2023 08:42:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h+FENihdBMDOKT6Ws8uGYN6VJHsIfkcpg+QwF4MpzJv2zwO8Jhr9qRP4OxqCchP4vAFCnvuAMTuCtCJeeFAeI2GV7g/2SuMZoqagaxVp35vyKqK6YKyN+9wj7q0vCmAcOd6DgfO64uoAhJe3OiBCSFsnUyWgezaN3HjCD2gXUp9ycJo3XsGf6SnujViqVOlR1z3tr9DiZeX7hi/AdnOUDCWGBfYPUq4RWCVSFpMz1QwBcXihw4F1l8wfQQaYcdbZSiM77lZ73/xZpCqHqp71zfzopAW7yAGm1FMcKlzcK8UuKWHJiEUh8R1hLI/marHWqC06AU9Cc9gipXJ/m26M5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lbxER14o/E0ocW6DvQLGm6rUSJYMV3MmUWpbhqlhmV0=;
- b=KvlkI2OOheQ/2TBClCYKHysoc65teS7E/+vSbhOBoSn10M08Qxc9mBCIgsOkRJkJAjInOtcPu/MjkOcAyTgohMlIs+Nq3kKum/whffw6J3xoJxdoEDyn8GSqsV0cXs5J/l2Se5P331jpEoX1P8fHq4RgGPvlex9Beij1DOZBMs5NIyCyibFnFpE89tlIDR6GCCYMOZeMBcx2wN19T/Lm5SqMNvFF5zZCJDL4w8p+Mhhi1hoKetkvHbFZz3KkyfFwixRnzdLejeDNNhcHNwKSbJq2qxYwkMpgOjdfIBKPLSwupGpBRM35WVLhCB7vwlpyov6QRz/5IPRyRv7BjRcoPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lbxER14o/E0ocW6DvQLGm6rUSJYMV3MmUWpbhqlhmV0=;
- b=uCg9cCEUdqPVoDbnfSWegSRdgWguK1JsSM37j1DV2Wbu/pKv2Eal8yH3MIcjp36aWwWVdeuiosYFdUECvOMfquXEWmR9EuYkTLx8boSL5Lx9ydN6FcEjGTSluOM8D1SiFleXimkytC+hTc0cX+Y1EH3AB1vWXmAFC/v338oY5ns=
-Received: from DM6PR01CA0004.prod.exchangelabs.com (2603:10b6:5:296::9) by
- CH2PR12MB4037.namprd12.prod.outlook.com (2603:10b6:610:7a::20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6298.30; Fri, 14 Apr 2023 08:42:14 +0000
-Received: from DM6NAM11FT009.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:296:cafe::8e) by DM6PR01CA0004.outlook.office365.com
- (2603:10b6:5:296::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.36 via Frontend
- Transport; Fri, 14 Apr 2023 08:42:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT009.mail.protection.outlook.com (10.13.173.20) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6298.32 via Frontend Transport; Fri, 14 Apr 2023 08:42:14 +0000
-Received: from bare-server.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 14 Apr
- 2023 03:42:12 -0500
-From: Chong Li <chongli2@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: release gpu full access after
- "amdgpu_device_ip_late_init"
-Date: Fri, 14 Apr 2023 16:41:59 +0800
-Message-ID: <20230414084159.95965-1-chongli2@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4374710E16C;
+	Fri, 14 Apr 2023 11:26:14 +0000 (UTC)
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B0B210E16C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Apr 2023 11:26:12 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id
+ l10-20020a05600c1d0a00b003f04bd3691eso20607477wms.5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Apr 2023 04:26:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1681471570; x=1684063570;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=vrvyRh+C6WLhjgCiIMj8qeHMXW4W4xbl9Bqr5eOi0VY=;
+ b=RI+U5BkRWlaDdh/mqizkFmwceK5p3xI+UwxNf8rjUM9vVxUqS7Le55ryT/mZecIqPC
+ q+woO94Dt4zp4pHLGsn94kmljZZ8bBRPeOQ5OlmTQ7uOw52EnQqOT+XH+6A6xjU8N/rC
+ boISrVvwYV/gZkfg7bh3G65x5R8iohixx4aNvh9JJYOQP+gH6qeRtL5jC29VBNEHoUcB
+ j4oMcQKvD42yTr22C6Av6GbTkOGVvMdCMAoPf4Wf/XD2bedGpx+Z6oUrEnc3/NY2L1XU
+ gr1fOW4M1kxKnXeWjTAlNixrkR8x9voKvQmNKQne8Nx8byxKlMdGFKvzplqKblFT2RRn
+ gzww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1681471570; x=1684063570;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=vrvyRh+C6WLhjgCiIMj8qeHMXW4W4xbl9Bqr5eOi0VY=;
+ b=hTlkeybs62MP2KA/8aB9RFU3qq9fdGFV4pFgrbbUwKLXjuwC1qYBfaiZNKS5RhkDMX
+ 6I7s9sDfd7gSNqIiACRA/Nm6vEaPk0IYj95OcJe17MW47+ACnrlPhmrmEGjK6d5Du54h
+ Gx/6hKBIc6YWU0go6oURSfn74k5fNBTvq9P9E5Y8NveYtTxKGTRev+z0glBcNh0DrQJu
+ 3VaByoRXzDnQF9Tr82PHmCzLIhhPlUDGlZxgBSYA2+5W3l0sJKyEcSRpguuAkDdQncRz
+ 3Y/oFF31mD5iUY3ysmrnSYKOKNleS01Rv8QFsUe6lSSoS6FeBS0awrknuC6ckDMXc7Cr
+ +ecQ==
+X-Gm-Message-State: AAQBX9eISZ+ijj9SjdNYacMMLUPXT4DJJ3HHJrrvKdv1cW+smlI+lDN8
+ 17nzM4tIzDzRjT0NoQCG7g4=
+X-Google-Smtp-Source: AKy350YrOruKYfl9IENSFS5iOKC69aNcTe5HrS3yf68cABzyiSf2y+6uc6TVJzEEKerk/FN8ov/rUA==
+X-Received: by 2002:a7b:c4da:0:b0:3ea:f73e:9d8a with SMTP id
+ g26-20020a7bc4da000000b003eaf73e9d8amr4363745wmk.30.1681471570265; 
+ Fri, 14 Apr 2023 04:26:10 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1256:79a0:5357:4cbc:25bd:5ed5?
+ ([2a02:908:1256:79a0:5357:4cbc:25bd:5ed5])
+ by smtp.gmail.com with ESMTPSA id
+ f20-20020a1c6a14000000b003eae73f0fc1sm4107076wmc.18.2023.04.14.04.26.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 14 Apr 2023 04:26:09 -0700 (PDT)
+Message-ID: <3e744248-8359-9f8c-753a-0b01c688fbc2@gmail.com>
+Date: Fri, 14 Apr 2023 13:26:08 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH v4 1/3] drm/amdgpu: Increase GFX6 graphics ring size.
+Content-Language: en-US
+To: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, amd-gfx@lists.freedesktop.org
+References: <20230413142253.414333-1-bas@basnieuwenhuizen.nl>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20230413142253.414333-1-bas@basnieuwenhuizen.nl>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT009:EE_|CH2PR12MB4037:EE_
-X-MS-Office365-Filtering-Correlation-Id: 00d9924b-88f3-4d89-e1d7-08db3cc4259b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: EmQhJ/z4ICIgYc0TO8BuvKFRnVIbnldORDJCffIwnfncMyH6gp78krAOz4TW6+6cnh/cgzi7AN8P7U9iQEPBMlXiP6C3Qky1+nDTpw1Kd+tpd0mu/GobDwY8ivMBya4FQNnSKqDFHWPW5WAANnm/XFdYHrDoKdM9qj4xqUtFCfOvW3kfYQa5oXx7weBlUR8pSURXQ6J4BMAVc7ZwR2I2HYVKmGQV4F/bnLBDStgv7bXz8uvEvrWcHq8mPsJG8QkRo6gPJ2aU1ZgeQc9btQ3VL+OKmj/LQiKAaL8Yq0p+bfkPLxmNDjbkPRowwg3XmALkj/JVq2x2dIKm8BfX5fT2DYSEo5aOjSrghoFbLK8QkXJrzMjCSuGdHXBn+mI5xZyRk+W8I9P9vQvB3v8mSpjcgIaU0l1WFJ347Ix3UBfDUmDzlTWtxBd2V7gpVz7jUEq3ohn1X++TQrjQ8IQvwfSoXjWPItZNdscyD4pfgf/+41G3wy7a5yRIRSsGfsqpz9sLIaSLR3sy5wMRFeCxxpB9N5bjAdjEbxkbFeY+u6/Fje+NNFXvTINf0apP03hVJSJ4ZsC5gJBsNwWQ3w6+XYUUY6/rHGKyB2QfpuqXzKKrMzYME8sBUdTIP+/i21muWiHgO1zCbKJJrNuU2dkBdPWBuC3ZBeUPrin8J/HsKcySRtlqjp0rXRpw6qcL7Brx5odafLj6xm64V9RcjpK/1z3N+kV61uNeMWlxkq8eFy1Raj0=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(396003)(136003)(39860400002)(346002)(451199021)(46966006)(36840700001)(40470700004)(26005)(336012)(426003)(1076003)(40480700001)(186003)(47076005)(83380400001)(16526019)(2616005)(36860700001)(40460700003)(7696005)(6666004)(5660300002)(41300700001)(316002)(8676002)(8936002)(82740400003)(82310400005)(356005)(81166007)(478600001)(70586007)(4326008)(36756003)(70206006)(6916009)(2906002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2023 08:42:14.4505 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 00d9924b-88f3-4d89-e1d7-08db3cc4259b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT009.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4037
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,112 +76,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: chongli2@amd.com
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, maraeo@gmail.com,
+ timur.kristof@gmail.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[WHY]
- Function "amdgpu_irq_update()" called by "amdgpu_device_ip_late_init()" is an atomic context.
- We shouldn't access registers through KIQ since "msleep()" may be called in "amdgpu_kiq_rreg()".
+Am 13.04.23 um 16:22 schrieb Bas Nieuwenhuizen:
+> To ensure it supports 192 IBs per submission, so we can keep a
+> simplified IB limit in the follow up patch without having to
+> look at IP or GPU version.
+>
+> Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 
-[HOW]
- Move function "amdgpu_virt_release_full_gpu()" after function "amdgpu_device_ip_late_init()",
- to ensure that registers be accessed through RLCG instead of KIQ.
+I've took the time and double checked the docs and the maximum size of 
+the ring buffer on GFX6 is indeed only 1MiB.
 
-Call Trace:
-  <TASK>
-  show_stack+0x52/0x69
-  dump_stack_lvl+0x49/0x6d
-  dump_stack+0x10/0x18
-  __schedule_bug.cold+0x4f/0x6b
-  __schedule+0x473/0x5d0
-  ? __wake_up_klogd.part.0+0x40/0x70
-  ? vprintk_emit+0xbe/0x1f0
-  schedule+0x68/0x110
-  schedule_timeout+0x87/0x160
-  ? timer_migration_handler+0xa0/0xa0
-  msleep+0x2d/0x50
-  amdgpu_kiq_rreg+0x18d/0x1f0 [amdgpu]
-  amdgpu_device_rreg.part.0+0x59/0xd0 [amdgpu]
-  amdgpu_device_rreg+0x3a/0x50 [amdgpu]
-  amdgpu_sriov_rreg+0x3c/0xb0 [amdgpu]
-  gfx_v10_0_set_gfx_eop_interrupt_state.constprop.0+0x16c/0x190 [amdgpu]
-  gfx_v10_0_set_eop_interrupt_state+0xa5/0xb0 [amdgpu]
-  amdgpu_irq_update+0x53/0x80 [amdgpu]
-  amdgpu_irq_get+0x7c/0xb0 [amdgpu]
-  amdgpu_fence_driver_hw_init+0x58/0x90 [amdgpu]
-  amdgpu_device_init.cold+0x16b7/0x2022 [amdgpu]
+So even with this change sched_hw_submission can still go as high as 512 
+without problems (the default is 2 or 4 IIRC).
 
-Signed-off-by: Chong Li <chongli2@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 32 ++++++++++++----------
- 1 file changed, 17 insertions(+), 15 deletions(-)
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 051b9e231cf4..ee21a99ab4d4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2538,8 +2538,6 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
- 	amdgpu_fru_get_product_info(adev);
- 
- init_failed:
--	if (amdgpu_sriov_vf(adev))
--		amdgpu_virt_release_full_gpu(adev, true);
- 
- 	return r;
- }
-@@ -3856,18 +3854,6 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 
- 	r = amdgpu_device_ip_init(adev);
- 	if (r) {
--		/* failed in exclusive mode due to timeout */
--		if (amdgpu_sriov_vf(adev) &&
--		    !amdgpu_sriov_runtime(adev) &&
--		    amdgpu_virt_mmio_blocked(adev) &&
--		    !amdgpu_virt_wait_reset(adev)) {
--			dev_err(adev->dev, "VF exclusive mode timeout\n");
--			/* Don't send request since VF is inactive. */
--			adev->virt.caps &= ~AMDGPU_SRIOV_CAPS_RUNTIME;
--			adev->virt.ops = NULL;
--			r = -EAGAIN;
--			goto release_ras_con;
--		}
- 		dev_err(adev->dev, "amdgpu_device_ip_init failed\n");
- 		amdgpu_vf_error_put(adev, AMDGIM_ERROR_VF_AMDGPU_INIT_FAIL, 0, 0);
- 		goto release_ras_con;
-@@ -3936,8 +3922,10 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 				   msecs_to_jiffies(AMDGPU_RESUME_MS));
- 	}
- 
--	if (amdgpu_sriov_vf(adev))
-+	if (amdgpu_sriov_vf(adev)) {
-+		amdgpu_virt_release_full_gpu(adev, true);
- 		flush_delayed_work(&adev->delayed_init_work);
-+	}
- 
- 	r = sysfs_create_files(&adev->dev->kobj, amdgpu_dev_attributes);
- 	if (r)
-@@ -3977,6 +3965,20 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	return 0;
- 
- release_ras_con:
-+	if (amdgpu_sriov_vf(adev))
-+		amdgpu_virt_release_full_gpu(adev, true);
-+
-+	/* failed in exclusive mode due to timeout */
-+	if (amdgpu_sriov_vf(adev) &&
-+		!amdgpu_sriov_runtime(adev) &&
-+		amdgpu_virt_mmio_blocked(adev) &&
-+		!amdgpu_virt_wait_reset(adev)) {
-+		dev_err(adev->dev, "VF exclusive mode timeout\n");
-+		/* Don't send request since VF is inactive. */
-+		adev->virt.caps &= ~AMDGPU_SRIOV_CAPS_RUNTIME;
-+		adev->virt.ops = NULL;
-+		r = -EAGAIN;
-+	}
- 	amdgpu_release_ras_context(adev);
- 
- failed:
--- 
-2.34.1
+> ---
+>   drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+> index c41219e23151..d9ce4d1c50e4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+> @@ -3073,7 +3073,7 @@ static int gfx_v6_0_sw_init(void *handle)
+>   		ring = &adev->gfx.gfx_ring[i];
+>   		ring->ring_obj = NULL;
+>   		sprintf(ring->name, "gfx");
+> -		r = amdgpu_ring_init(adev, ring, 1024,
+> +		r = amdgpu_ring_init(adev, ring, 2048,
+>   				     &adev->gfx.eop_irq,
+>   				     AMDGPU_CP_IRQ_GFX_ME0_PIPE0_EOP,
+>   				     AMDGPU_RING_PRIO_DEFAULT, NULL);
 
