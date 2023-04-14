@@ -4,58 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D648C77B72
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Apr 2023 21:24:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A407CC77B71
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Apr 2023 21:42:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D721210E204;
-	Fri, 14 Apr 2023 21:24:05 +0000 (UTC)
-Received: from mail-yb1-xb31.google.com (mail-yb1-xb31.google.com
- [IPv6:2607:f8b0:4864:20::b31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A284710E204
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Apr 2023 21:24:04 +0000 (UTC)
-Received: by mail-yb1-xb31.google.com with SMTP id v7so18831697ybi.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Apr 2023 14:24:04 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E048F10EEB3;
+	Fri, 14 Apr 2023 21:42:06 +0000 (UTC)
+Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
+ [IPv6:2001:4860:4864:20::32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E9CF10EEAE;
+ Fri, 14 Apr 2023 21:42:04 +0000 (UTC)
+Received: by mail-oa1-x32.google.com with SMTP id
+ 586e51a60fabf-187bee46f9dso1932467fac.11; 
+ Fri, 14 Apr 2023 14:42:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=basnieuwenhuizen.nl; s=google; t=1681507443; x=1684099443;
+ d=gmail.com; s=20221208; t=1681508523; x=1684100523;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=aor8FFyPa7gdIkOwnvWaisVAAZm2/GU4s34Z7GeS0v0=;
- b=XBZ79kSigA7uWJAGHoOMXDXL28khvIW1NRes9F9/n5Ks71Bx5L8MYaCPQtnK0xZNm2
- nEUR7BYplJdywiYdbRL8+sgyJdUFliCIlL2EcRapoAp54FAlbjL0MzaSrjBfg6kP45O0
- bjliH5pi8/G749tizmlQ/f0MKzAz8YXOQM8H1IJw7B8o+o3qxZ7z9JfcNAjDKlkDkqti
- ayDKfLTxfPOfp5Kjc1ccMyVKw6i1OXSLPALp1iGrPwNX1rbumcOanxMXhKs1kActHD94
- oKIiLfUMGiJI0VvOGNBQ+vZFHUipXt6jbpHdfyNhubrKZ1zvjxdsuTtZPMGK3JdTIvmF
- XdnQ==
+ bh=b4dOlaJTaykyeAIOyyfVLZGC5xuxW3rGsW7rppv/Wag=;
+ b=ZDq3zZcfXjDTSo07fp7wicclRBZHzadQz9vs5jq4IAyiLTI1NVhqesyUWovSAox5UZ
+ iQmLxuF+VF9uU7PZE4HsPPsbAB5iTFH3FzhTjhEdCEN1Gt11srDM3kwIR8rJJSs0Y0zw
+ 3nGMPcZ0W1KgYG3rFi7G/RG6YaZeOJX1UbrUT1YZSCDa+VXSf4JEX+7lHEgic/WWm0Hd
+ X415fTY6j+w17SPMzjnESbV6fEZ9GphSXoeJNSNMN1oI7kJZTX8MalEZdw45V8H6Oans
+ oGRF8nA5EkNKZlH9TtpVN97jxrNsKHJdx/gbfusGR9eQZ8tFpY2V6H7NEDFmroDKbrYE
+ n6wA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681507443; x=1684099443;
+ d=1e100.net; s=20221208; t=1681508523; x=1684100523;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=aor8FFyPa7gdIkOwnvWaisVAAZm2/GU4s34Z7GeS0v0=;
- b=WnwXgnk0OnaPnM+ALw+oR8R864+NB64xAfa7dB8X0f2A+MxISkWUgS98n4h/9avjgU
- zJeE7mVRxB0/2mudqykw1XmVhDkOhaE0qFrpFQghZtTdW58R86ZegL3DsTkTmOfaLmci
- nQeuXX9i9pdTEh42IbgZJVfeJ4+R1IBPP8AYo3ng2pRlWeeQpIhPcE64QSEeHeOsE/CV
- Ero3nNWZQkRtI+VcUfwcBcZit+ROJQP9IzpBh1KVSwK1SX2l2Cwj9PqsaQMYOjUs1b9B
- aa1BQReuur/qHGzly3sJlvIorFbWwf3aPPiE2BOrWC6DvBpbrKDf5Bm/oX9x69aHFEKf
- KchQ==
-X-Gm-Message-State: AAQBX9dQWVeidqzSF1emv6YU51eIB/LbzFMKMnn/hvuAU/JqR2lv7lP1
- 8vZrsZfbfZ8nQPo/OLp4pf7v0bKmDpvsw0NU+ni6Ig==
-X-Google-Smtp-Source: AKy350YhveCapHcpE7HNXoImIqT1NRMUD8BJ7C62DBrmDihJBWuD+4ZcnvOdHt4vDD+9cvAwgRrL0evoRhJvFWRroqs=
-X-Received: by 2002:a25:d2ca:0:b0:b8f:2258:4d22 with SMTP id
- j193-20020a25d2ca000000b00b8f22584d22mr4714786ybg.2.1681507443294; Fri, 14
- Apr 2023 14:24:03 -0700 (PDT)
+ bh=b4dOlaJTaykyeAIOyyfVLZGC5xuxW3rGsW7rppv/Wag=;
+ b=e58+STetm9QNlJ2I2hPRbGumavGKDrj9tVGKe0PrjnKxlGkeGb4z9T+W2448/HEkMt
+ w5M2LPImLa9vJXYFvTx3PGgBsDNExaw3Gc95Ml/Ne2DB4QcWtQZ98cgwRFZwxP4t8YGl
+ jZUpSWSiCUK8ofKJQY+x/VYlw6ZU2Oqaice02jsBl7Zy/KAuEb/7FiPWsXVwyW3JHxKp
+ mB0vmPhnsy7cnrfo8dfPW9vg0CFMWkjIWakNVmIahN10N99qimFq87rbmgfdCXueTt2R
+ MqMzmvbth++Vv3NpbwsBI2ZuvaJI8f3P4z3BMmUdfruBERRW00gh9Tny7uhWG2qiBYs1
+ mxtQ==
+X-Gm-Message-State: AAQBX9fuHfb9YReBhmjig2SoP3H8jDzjhzGqCWnHYM12sAFhteAx35nG
+ mLa58jqwcvndGtGqZKV0DuBxlx2DxkGTKeYNXk0=
+X-Google-Smtp-Source: AKy350YetlReLD9YTsp7PoVpQ6ksQbwjAZG4Ya8Udcsx7KSPjxoP1YS+BEeO3W9f7u/w/4FndfFREsvGyGEyF+03as8=
+X-Received: by 2002:a05:6870:390d:b0:184:2e38:c7af with SMTP id
+ b13-20020a056870390d00b001842e38c7afmr3724017oap.3.1681508523173; Fri, 14 Apr
+ 2023 14:42:03 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230413142253.414333-1-bas@basnieuwenhuizen.nl>
- <20230413142253.414333-3-bas@basnieuwenhuizen.nl>
- <CADnq5_OAxFO0_7ZzkC5xoLHUzbjmv7+V37TrWUnadApv7GgOEQ@mail.gmail.com>
-In-Reply-To: <CADnq5_OAxFO0_7ZzkC5xoLHUzbjmv7+V37TrWUnadApv7GgOEQ@mail.gmail.com>
-From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Date: Fri, 14 Apr 2023 23:21:39 +0200
-Message-ID: <CAP+8YyFdNoDELSMhUqvVerJYiTZJ+n1jCfjBMMpt3qnOogBDmg@mail.gmail.com>
-Subject: Re: [PATCH v4 3/3] drm/amdgpu: Add support for querying the max ibs
- in a submission. (v3)
-To: Alex Deucher <alexdeucher@gmail.com>
+References: <20230414120344.3170942-1-trix@redhat.com>
+In-Reply-To: <20230414120344.3170942-1-trix@redhat.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 14 Apr 2023 17:41:51 -0400
+Message-ID: <CADnq5_N2j-ASAUS4Y9rmAnPyKzJ47bS4PD6y93041-dCttt8NA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: change pmfw_decoded_link_width, speed
+ variables to globals
+To: Tom Rix <trix@redhat.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -69,82 +68,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, maraeo@gmail.com, christian.koenig@amd.com,
- amd-gfx@lists.freedesktop.org, timur.kristof@gmail.com
+Cc: tim.huang@amd.com, lijo.lazar@amd.com, amd-gfx@lists.freedesktop.org,
+ kenneth.feng@amd.com, Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, mario.limonciello@amd.com, daniel@ffwll.ch,
+ alexander.deucher@amd.com, evan.quan@amd.com, airlied@gmail.com,
+ christian.koenig@amd.com, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 14, 2023 at 11:18=E2=80=AFPM Alex Deucher <alexdeucher@gmail.co=
-m> wrote:
->
-> On Thu, Apr 13, 2023 at 10:25=E2=80=AFAM Bas Nieuwenhuizen
-> <bas@basnieuwenhuizen.nl> wrote:
-> >
-> > This info would be used by radv to figure out when we need to
-> > split a submission into multiple submissions. radv currently has
-> > a limit of 192 which seems to work for most gfx submissions, but
-> > is way too high for e.g. compute or sdma.
-> >
-> > Userspace is available at
-> > https://gitlab.freedesktop.org/bnieuwenhuizen/mesa/-/commits/ib-rejecti=
-on-v3
-> >
-> > v3: Completely rewrote based on suggestion of making it a separate quer=
-y.
-> >
-> > Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2498
-> > Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
->
-> Maybe a 4th patch to bump the driver version?
+Applied.  Thanks!
 
-In the userspace I just make the query and put in some guessed values
-if it errors out,  which doesn't need the driver version enumeration.
+Alex
 
+On Fri, Apr 14, 2023 at 8:04=E2=80=AFAM Tom Rix <trix@redhat.com> wrote:
 >
-> Alex
+> gcc with W=3D1 reports
+> In file included from drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu13/smu_v1=
+3_0.c:36:
+> ./drivers/gpu/drm/amd/amdgpu/../pm/swsmu/inc/smu_v13_0.h:66:18: error:
+>   =E2=80=98pmfw_decoded_link_width=E2=80=99 defined but not used [-Werror=
+=3Dunused-const-variable=3D]
+>    66 | static const int pmfw_decoded_link_width[7] =3D {0, 1, 2, 4, 8, 1=
+2, 16};
+>       |                  ^~~~~~~~~~~~~~~~~~~~~~~
+> ./drivers/gpu/drm/amd/amdgpu/../pm/swsmu/inc/smu_v13_0.h:65:18: error:
+>   =E2=80=98pmfw_decoded_link_speed=E2=80=99 defined but not used [-Werror=
+=3Dunused-const-variable=3D]
+>    65 | static const int pmfw_decoded_link_speed[5] =3D {1, 2, 3, 4, 5};
+>       |                  ^~~~~~~~~~~~~~~~~~~~~~~
 >
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 9 +++++++++
-> >  include/uapi/drm/amdgpu_drm.h           | 2 ++
-> >  2 files changed, 11 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_kms.c
-> > index 0efb38539d70..1a2e342af1c0 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> > @@ -1140,6 +1140,15 @@ int amdgpu_info_ioctl(struct drm_device *dev, vo=
-id *data, struct drm_file *filp)
-> >                 kfree(caps);
-> >                 return r;
-> >         }
-> > +       case AMDGPU_INFO_MAX_IBS: {
-> > +               uint32_t max_ibs[AMDGPU_HW_IP_NUM];
-> > +
-> > +               for (i =3D 0; i < AMDGPU_HW_IP_NUM; ++i)
-> > +                       max_ibs[i] =3D amdgpu_ring_max_ibs(i);
-> > +
-> > +               return copy_to_user(out, max_ibs,
-> > +                                   min((size_t)size, sizeof(max_ibs)))=
- ? -EFAULT : 0;
-> > +       }
-> >         default:
-> >                 DRM_DEBUG_KMS("Invalid request %d\n", info->query);
-> >                 return -EINVAL;
-> > diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_dr=
-m.h
-> > index b6eb90df5d05..6981e59a9401 100644
-> > --- a/include/uapi/drm/amdgpu_drm.h
-> > +++ b/include/uapi/drm/amdgpu_drm.h
-> > @@ -876,6 +876,8 @@ struct drm_amdgpu_cs_chunk_data {
-> >         #define AMDGPU_INFO_VIDEO_CAPS_DECODE           0
-> >         /* Subquery id: Encode */
-> >         #define AMDGPU_INFO_VIDEO_CAPS_ENCODE           1
-> > +/* Query the max number of IBs per gang per submission */
-> > +#define AMDGPU_INFO_MAX_IBS                    0x22
-> >
-> >  #define AMDGPU_INFO_MMR_SE_INDEX_SHIFT 0
-> >  #define AMDGPU_INFO_MMR_SE_INDEX_MASK  0xff
-> > --
-> > 2.40.0
-> >
+> These variables are defined and used in smu_v13_0_7_ppt.c and smu_v13_0_0=
+_ppt.c.
+> There should be only one definition.  So define the variables as globals
+> in smu_v13_0.c
+>
+> Signed-off-by: Tom Rix <trix@redhat.com>
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h   | 4 ++--
+>  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c | 3 +++
+>  2 files changed, 5 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h b/drivers/gpu/d=
+rm/amd/pm/swsmu/inc/smu_v13_0.h
+> index 7944ce80e5c3..df3baaab0037 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+> @@ -62,8 +62,8 @@
+>  #define CTF_OFFSET_HOTSPOT             5
+>  #define CTF_OFFSET_MEM                 5
+>
+> -static const int pmfw_decoded_link_speed[5] =3D {1, 2, 3, 4, 5};
+> -static const int pmfw_decoded_link_width[7] =3D {0, 1, 2, 4, 8, 12, 16};
+> +extern const int pmfw_decoded_link_speed[5];
+> +extern const int pmfw_decoded_link_width[7];
+>
+>  #define DECODE_GEN_SPEED(gen_speed_idx)                (pmfw_decoded_lin=
+k_speed[gen_speed_idx])
+>  #define DECODE_LANE_WIDTH(lane_width_idx)      (pmfw_decoded_link_width[=
+lane_width_idx])
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu=
+/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> index 73175c993da9..393c6a7b9609 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+> @@ -85,6 +85,9 @@ MODULE_FIRMWARE("amdgpu/smu_13_0_10.bin");
+>  static const int link_width[] =3D {0, 1, 2, 4, 8, 12, 16};
+>  static const int link_speed[] =3D {25, 50, 80, 160};
+>
+> +const int pmfw_decoded_link_speed[5] =3D {1, 2, 3, 4, 5};
+> +const int pmfw_decoded_link_width[7] =3D {0, 1, 2, 4, 8, 12, 16};
+> +
+>  int smu_v13_0_init_microcode(struct smu_context *smu)
+>  {
+>         struct amdgpu_device *adev =3D smu->adev;
+> --
+> 2.27.0
+>
