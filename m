@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD4CBC77B71
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Apr 2023 15:54:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A279C77B6E
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Apr 2023 15:54:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDF9110EDC1;
-	Fri, 14 Apr 2023 15:54:09 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20610.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e88::610])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3607A10EDB8
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Apr 2023 15:54:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C364C10EDC3;
+	Fri, 14 Apr 2023 15:54:12 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2041.outbound.protection.outlook.com [40.107.243.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4700110EDBD
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Apr 2023 15:54:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KTboNeSQhQV/zkLfCm21batmOG6l3zBUAnBa2hILOvdhhfszRcSo7BfTD4Za4q5N1AVphNLgDZeUmdvXvJiWyOrplbyTP8ieNuuefy74Sw3E1wuzoS+gxJHyetR7/WaTuVJPH7ul0HI86kh8xCF7NCrhtEtGZYDbQiekQQ3ROY45rYNtmMU/hUs81OByWeV5M7Gh4tWi7fYUnPr4lcqwG3ml+NBMUCHMegzWE9sObnuMdQnm9a5rLRlySKJryX/QAMCkE+LnY5S6nXMBnps07Eschp9tMtU3KUGc7Uc6/kk662UVP5Eg11uouvEFx3WC6xrQO1FJrbzoctahAnivqQ==
+ b=HORNW32z7FnacHTYHpXTze8YlyCqRYPXJN7NW2o5QwN84wIeaLoFrUwC1sL/280Ci7ivz2r1hQxIyBOiTDkH8wEP1uixWyJSzF14bQ49VLI46xX2Y4fil8QNTADaY/yZwtrYJOGnNTkk2OTYkfpuZIn5xwVeeLjmoW0wbTboDyJZgW76r8cMcuxqLR7B8/3PoHmVjYuICeRRYrZHQKnkoPFHqlQ/ELzviXqno0k582chjtmBBfNoAXy1umyd20YeSq443fvmv0TkzoHD/Gcx0mzFwq+umw2vNwddAvUmIbzEQAsw9yvpXQGEPcMjSs0JLFzz+XJJdKuprw/GMVPDsQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KUComBYWZZDrkq17O88JQgJnn2p1nPaQh/vkC/H5k8o=;
- b=czM6uZxNYsLJfytx228mPDAjL1WsZUIWQCU2Y6LiRhC7SBxEXHJ72cfND3pyZTvJN2uz0JWvBKUISjwN8Ome+JtPTw4mhPGRn7gfxcjuq1f+x0IJAhjCzPBaARl6eNPdnK6wSP2kax+Og9v7owkw7Nlv+1s2JqwUF9/r5QaAVcfzg+uhWxcVucDOFTlkeNpPYeW8YXAuK8b8tZu8SIsu+cmZKVDUOkd/ZiCIqFwZ2/zWe8wuqLg5us5BaIEKuigJEQ+7iX5Fp9X3b5m+XWN/FfYx8NDj/N4z8+RkWgWQwVagr+uDv8lZvejMlgTaaj4TcKabU65GiE3tHzbgbm0ZqQ==
+ bh=O9k58SUjCnjYlkmV84Q7LLhebtc0cL9lKemgIOkeND0=;
+ b=kEGNCNFtrq5yIxOjsjEhIzG/vDnEm1FVK3UaPYT2YN0j1KvbrB5skSE0zcVOwOt8bHuT7PSU52S3MUSOXX9CGbx6LLvx2zWGS4G3qyVnVPys4m+Q7wfv3XQgW+Io50ahRYGIkN7oIUqGlkpqMeWKQmcIsPiW6hu9F2X1RlrXKop9ayTz8Nb3IaiUc41+8+TBRH9JkrbN6if2YWmEKF/F0TvJgl90AefPTcRKMu66Z6XlXITSplktfqodN5nuMZEC1D6c5qHyR54X5gbjbFqpheu3Ia4i56qDag+I2K+ZQF3odFvwLdkFRqXngn/Q3bUIKbp7l7tJPqCzoCyIgGqkiQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KUComBYWZZDrkq17O88JQgJnn2p1nPaQh/vkC/H5k8o=;
- b=UIr0ziPiMCf7srKc4XcbzjMs4YSUP9EqfmJ8ueBEshwTAk2aorWYe5xVVgEiFwLXFkglmZ7G8nDSoURVHAkASoNneY8BKFWF7IdgaGZsvtcblDHc1FD7iEMzYT/gdRTbBXZEGyS0j1geUif/dfdMdS2jFT6aLZs+dcn+4LwZFfA=
-Received: from DS7PR07CA0023.namprd07.prod.outlook.com (2603:10b6:5:3af::28)
- by PH8PR12MB6940.namprd12.prod.outlook.com (2603:10b6:510:1bf::8) with
+ bh=O9k58SUjCnjYlkmV84Q7LLhebtc0cL9lKemgIOkeND0=;
+ b=Y0PlzPVNuSxiCVVDTsMg71OKeKzvYFktoK03+UamATLEYTHzBEpRJaif9WzYiUic+i8fJFrsM3QK+vWzL6s+EAW+MxJx4wFa4lcfGL2NVI6j/Fwp+jOK5bEZT75/QLDWCWh07D8AedWpWSzYayL/e318Imzvvy/uCHkTGk85RsA=
+Received: from DS7PR03CA0096.namprd03.prod.outlook.com (2603:10b6:5:3b7::11)
+ by CY8PR12MB7588.namprd12.prod.outlook.com (2603:10b6:930:9b::7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.30; Fri, 14 Apr
- 2023 15:54:01 +0000
-Received: from DM6NAM11FT084.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3af:cafe::1) by DS7PR07CA0023.outlook.office365.com
- (2603:10b6:5:3af::28) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 15:54:05 +0000
+Received: from DM6NAM11FT036.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b7:cafe::89) by DS7PR03CA0096.outlook.office365.com
+ (2603:10b6:5:3b7::11) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.36 via Frontend
- Transport; Fri, 14 Apr 2023 15:54:01 +0000
+ Transport; Fri, 14 Apr 2023 15:54:05 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -46,19 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT084.mail.protection.outlook.com (10.13.172.132) with Microsoft SMTP
+ DM6NAM11FT036.mail.protection.outlook.com (10.13.172.64) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6298.37 via Frontend Transport; Fri, 14 Apr 2023 15:54:01 +0000
+ 15.20.6298.32 via Frontend Transport; Fri, 14 Apr 2023 15:54:04 +0000
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 14 Apr
- 2023 10:53:58 -0500
+ 2023 10:54:03 -0500
 From: Qingqing Zhuo <Qingqing.Zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 09/66] drm/amd/display: Fix ABM pipe/backlight issues when
- change backlight
-Date: Fri, 14 Apr 2023 11:52:33 -0400
-Message-ID: <20230414155330.5215-10-Qingqing.Zhuo@amd.com>
+Subject: [PATCH 12/66] drm/amd/display: Add missing WA and MCLK validation
+Date: Fri, 14 Apr 2023 11:52:36 -0400
+Message-ID: <20230414155330.5215-13-Qingqing.Zhuo@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230414155330.5215-1-Qingqing.Zhuo@amd.com>
 References: <20230414155330.5215-1-Qingqing.Zhuo@amd.com>
@@ -70,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT084:EE_|PH8PR12MB6940:EE_
-X-MS-Office365-Filtering-Correlation-Id: f4ee1242-00a6-492b-e8da-08db3d007726
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT036:EE_|CY8PR12MB7588:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d5ca570-6d20-4898-04e6-08db3d007975
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Jl2DGu5fEQ931kQISQr5JeLJN78yXHPw7twMXoFKN+quNlVKMuELVrNyillkx6EJF8ABgkXZ9kESHxGo3VKnCPUGkO5januMAp65PwgSozUu/ecpAsFH897VEw15ql5e9+Qoks4AgAeHEk1b3PiNxkvWHV2Oyu1BLXfECUtumVmue0KxEswAED94plSFXFcHS7r5oV4fDWOSS8UHtB08lYRRrwAb6gM+p7XMGr5U1Fwq2oz8siBXfg/VQUAMEm7JHk10HCLjeK09QK1kde5Cdi7rt1s3GbSR6lFD8a67lvBArjiRL4tI4idp+VYucbbO8p3CgqsPM4ls5g6qVd5DVLs/SrINsX/GQ7N5zLeup0uiWp1RBgo+b3DGAO8BgLu262VUQJlZTIA5aPgwxo97h6Z0bJHfxoeUAgQ35QRbK1FtuPQuduAk0Qc84dhhi8GVsvFuR2aRSWOV39/ZoA/jTaXVfbW7ps2fZ1rwVkHng2ZtSgWBP8js8fp1krEdHqnTXj3gI6EncNDimV65Qfc92TnPTKuxXd8NKzHD92ijvLnEE0MGRE9Cr6KilsGs+w5RWdT5LjBKGFHk++Cfu5SCdFmBatRtmsFMsRVHcwP5OZa7tcS+iQ3tfXVlw7qptTDWurbxYX6MtOlRGOWL+Vqd0JDI+z+FWAlmKJIQ/RjU2+F9l36ymyBWbOTvRy1R4AFj+KZyQoWi/eKTaRwRm2agvN9zAIcwif3yTUhqLRI0HxM=
+X-Microsoft-Antispam-Message-Info: lHJd5jzwO8lX4SxZztT8y4K2X8PjbZSVTuFE6w51p2e2f4SfDmSOmf8yUq/qud88ziuw0/3DI6yf5AhyAttPlYL/GXvcAz34jPkuYN0vrh9dUEEPYjXeOApR0zIuC9A90/vXCzZY28xZGvygm4/OzUmoweBMKFWVRfo60boCS6gwWTXf7fbxg8GtuA64YmQjZB4NylF7xKTADKAZE3RB1gOIsO5c4SJd6QsxGei1O5p9ZD1BB/SKYLnuhf9yOdDm8rVFhVBt/tWkuEOE83X8W/VvtxUhJE4Sm58L/awsaDpxQYkvAHdMiljIvskCNy12dIsB0Tk7yt0LnwSsSHY5YVfFAMrOFc2S5TDheA2pzi5cxFKjAYGn7WuDlWbnsu0MXdw/Vh9Tdqyq0My8jt2IFmAP4wM8xtbL/ncmKdlr5El62zTEuLs0CKTJ4jYArj0c/jlj/xISV9l744AUAG5+AWZbkhyvUOo6O03iXhIAOyAJpOjGxnP0gD5ZW1odhNa7yFQWZh4usQ57cmCWWvZhjNs+m1lc0f4c8Gkt2XrYjc0KFAAM3MPxQ2imf82vsTyrLSQXRITPvkzEXiKc5i/vIFykX43WWbv+i6wKJT45/RoWYdyJLWzLaxisrMNv5OgLR9/THuH1NSsO7JH5Z+zKI05kE0O0VFOl7ngEEH1fa8/fP08U1mO6+5BXs5ZSoI7DUKQawu7jgyYu60x+Vgn5d4Rvw7zK2/gAfjK7ue2q/Ss=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(39860400002)(346002)(376002)(136003)(451199021)(40470700004)(46966006)(36840700001)(40460700003)(186003)(26005)(16526019)(1076003)(54906003)(40480700001)(478600001)(81166007)(356005)(2906002)(8676002)(8936002)(36860700001)(83380400001)(41300700001)(426003)(5660300002)(47076005)(2616005)(336012)(82310400005)(6916009)(4326008)(316002)(70206006)(70586007)(82740400003)(86362001)(6666004)(36756003)(36900700001);
+ SFS:(13230028)(4636009)(396003)(39860400002)(346002)(136003)(376002)(451199021)(36840700001)(46966006)(40470700004)(2906002)(70586007)(8676002)(8936002)(70206006)(5660300002)(478600001)(41300700001)(40460700003)(316002)(83380400001)(426003)(82740400003)(36756003)(54906003)(336012)(6916009)(40480700001)(4326008)(26005)(86362001)(6666004)(186003)(1076003)(81166007)(16526019)(356005)(2616005)(36860700001)(82310400005)(47076005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2023 15:54:01.0765 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f4ee1242-00a6-492b-e8da-08db3d007726
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2023 15:54:04.9282 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d5ca570-6d20-4898-04e6-08db3d007975
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT084.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT036.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6940
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7588
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,128 +101,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
  qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Leon Huang <Leon.Huang1@amd.com>, solomon.chiu@amd.com,
- Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
- agustin.gutierrez@amd.com, pavle.kotarac@amd.com
+ solomon.chiu@amd.com, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
+ pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Leon Huang <Leon.Huang1@amd.com>
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 
-[Why]
-set ABM pipe/backlight gets some issues when abm callback func pointers
-are NULL. For some usecase, driver would like to control PWM level before
-ABM resource is ready. However, recent flow refactor of ABM didn't
-consider that use case.
+When the commit a983d2631869 (drm/amd/display: Don't set dram clock
+change requirement for SubVP) was merged, we missed some parts
+associated with the MCLK switch. This commit adds all the missing parts.
 
-[How]
-Rollback flow that sending inbox command to dmub directly when ABM
-function pointers aren't ready.
-
-Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Leon Huang <Leon.Huang1@amd.com>
+Fixes: a983d2631869 (drm/amd/display: Don't set dram clock change requirement for SubVP)
+Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- .../drm/amd/display/dc/dcn21/dcn21_hwseq.c    | 64 ++++++++++++++-----
- 1 file changed, 47 insertions(+), 17 deletions(-)
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c |  1 +
+ .../drm/amd/display/dc/dcn32/dcn32_resource.c  |  2 +-
+ .../drm/amd/display/dc/dml/dcn30/dcn30_fpu.c   | 18 +++++++++++++++++-
+ 3 files changed, 19 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hwseq.c
-index 2a182c2f57d6..1c6477d73c8e 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hwseq.c
-@@ -159,6 +159,25 @@ static bool dmub_abm_set_pipe(struct abm *abm, uint32_t otg_inst, uint32_t optio
- 	return true;
- }
- 
-+static void dmub_abm_set_backlight(struct dc_context *dc, uint32_t backlight_pwm_u16_16,
-+									uint32_t frame_ramp, uint32_t panel_inst)
-+{
-+	union dmub_rb_cmd cmd;
-+
-+	memset(&cmd, 0, sizeof(cmd));
-+	cmd.abm_set_backlight.header.type = DMUB_CMD__ABM;
-+	cmd.abm_set_backlight.header.sub_type = DMUB_CMD__ABM_SET_BACKLIGHT;
-+	cmd.abm_set_backlight.abm_set_backlight_data.frame_ramp = frame_ramp;
-+	cmd.abm_set_backlight.abm_set_backlight_data.backlight_user_level = backlight_pwm_u16_16;
-+	cmd.abm_set_backlight.abm_set_backlight_data.version = DMUB_CMD_ABM_CONTROL_VERSION_1;
-+	cmd.abm_set_backlight.abm_set_backlight_data.panel_mask = (0x01 << panel_inst);
-+	cmd.abm_set_backlight.header.payload_bytes = sizeof(struct dmub_cmd_abm_set_backlight_data);
-+
-+	dc_dmub_srv_cmd_queue(dc->dmub_srv, &cmd);
-+	dc_dmub_srv_cmd_execute(dc->dmub_srv);
-+	dc_dmub_srv_wait_idle(dc->dmub_srv);
-+}
-+
- void dcn21_set_abm_immediate_disable(struct pipe_ctx *pipe_ctx)
- {
- 	struct abm *abm = pipe_ctx->stream_res.abm;
-@@ -173,8 +192,12 @@ void dcn21_set_abm_immediate_disable(struct pipe_ctx *pipe_ctx)
- 	}
- 
- 	if (abm && panel_cntl) {
--		dmub_abm_set_pipe(abm, otg_inst, SET_ABM_PIPE_IMMEDIATELY_DISABLE,
--				panel_cntl->inst);
-+		if (abm->funcs && abm->funcs->set_pipe_ex) {
-+			abm->funcs->set_pipe_ex(abm, otg_inst, SET_ABM_PIPE_IMMEDIATELY_DISABLE,
-+			panel_cntl->inst);
-+		} else {
-+			dmub_abm_set_pipe(abm, otg_inst, SET_ABM_PIPE_IMMEDIATELY_DISABLE, panel_cntl->inst);
-+		}
- 		panel_cntl->funcs->store_backlight_level(panel_cntl);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+index db0974fe58ab..1f5ee5cde6e1 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+@@ -948,6 +948,7 @@ void dcn32_init_hw(struct dc *dc)
+ 	if (dc->ctx->dmub_srv) {
+ 		dc_dmub_srv_query_caps_cmd(dc->ctx->dmub_srv->dmub);
+ 		dc->caps.dmub_caps.psr = dc->ctx->dmub_srv->dmub->feature_caps.psr;
++		dc->caps.dmub_caps.mclk_sw = dc->ctx->dmub_srv->dmub->feature_caps.fw_assisted_mclk_switch;
  	}
  }
-@@ -191,8 +214,13 @@ void dcn21_set_pipe(struct pipe_ctx *pipe_ctx)
- 		return;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+index 0beb11d95eb7..a876e6eb6cd8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+@@ -2023,7 +2023,7 @@ int dcn32_populate_dml_pipes_from_context(
+ 	// In general cases we want to keep the dram clock change requirement
+ 	// (prefer configs that support MCLK switch). Only override to false
+ 	// for SubVP
+-	if (subvp_in_use)
++	if (context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching || subvp_in_use)
+ 		context->bw_ctx.dml.soc.dram_clock_change_requirement_final = false;
+ 	else
+ 		context->bw_ctx.dml.soc.dram_clock_change_requirement_final = true;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
+index 80972ee5e55b..a352c703e258 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
+@@ -368,7 +368,9 @@ void dcn30_fpu_update_soc_for_wm_a(struct dc *dc, struct dc_state *context)
+ 	dc_assert_fp_enabled();
+ 
+ 	if (dc->clk_mgr->bw_params->wm_table.nv_entries[WM_A].valid) {
+-		context->bw_ctx.dml.soc.dram_clock_change_latency_us = dc->clk_mgr->bw_params->wm_table.nv_entries[WM_A].dml_input.pstate_latency_us;
++		if (!context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching ||
++				context->bw_ctx.dml.soc.dram_clock_change_latency_us == 0)
++			context->bw_ctx.dml.soc.dram_clock_change_latency_us = dc->clk_mgr->bw_params->wm_table.nv_entries[WM_A].dml_input.pstate_latency_us;
+ 		context->bw_ctx.dml.soc.sr_enter_plus_exit_time_us = dc->clk_mgr->bw_params->wm_table.nv_entries[WM_A].dml_input.sr_enter_plus_exit_time_us;
+ 		context->bw_ctx.dml.soc.sr_exit_time_us = dc->clk_mgr->bw_params->wm_table.nv_entries[WM_A].dml_input.sr_exit_time_us;
+ 	}
+@@ -563,6 +565,20 @@ void dcn30_fpu_calculate_wm_and_dlg(
+ 		pipe_idx++;
  	}
  
--	if (abm && panel_cntl)
--		dmub_abm_set_pipe(abm, otg_inst, SET_ABM_PIPE_NORMAL, panel_cntl->inst);
-+	if (abm && panel_cntl) {
-+		if (abm->funcs && abm->funcs->set_pipe_ex) {
-+			abm->funcs->set_pipe_ex(abm, otg_inst, SET_ABM_PIPE_NORMAL, panel_cntl->inst);
-+		} else {
-+			dmub_abm_set_pipe(abm, otg_inst, SET_ABM_PIPE_NORMAL, panel_cntl->inst);
-+		}
-+	}
- }
- 
- bool dcn21_set_backlight_level(struct pipe_ctx *pipe_ctx,
-@@ -210,21 +238,23 @@ bool dcn21_set_backlight_level(struct pipe_ctx *pipe_ctx,
- 		return true;
- 	}
- 
--	if (abm && panel_cntl)
--		dmub_abm_set_pipe(abm, otg_inst, SET_ABM_PIPE_NORMAL, panel_cntl->inst);
-+	if (abm != NULL) {
-+		uint32_t otg_inst = pipe_ctx->stream_res.tg->inst;
- 
--	memset(&cmd, 0, sizeof(cmd));
--	cmd.abm_set_backlight.header.type = DMUB_CMD__ABM;
--	cmd.abm_set_backlight.header.sub_type = DMUB_CMD__ABM_SET_BACKLIGHT;
--	cmd.abm_set_backlight.abm_set_backlight_data.frame_ramp = frame_ramp;
--	cmd.abm_set_backlight.abm_set_backlight_data.backlight_user_level = backlight_pwm_u16_16;
--	cmd.abm_set_backlight.abm_set_backlight_data.version = DMUB_CMD_ABM_CONTROL_VERSION_1;
--	cmd.abm_set_backlight.abm_set_backlight_data.panel_mask = (0x01 << panel_cntl->inst);
--	cmd.abm_set_backlight.header.payload_bytes = sizeof(struct dmub_cmd_abm_set_backlight_data);
-+		if (abm && panel_cntl) {
-+			if (abm->funcs && abm->funcs->set_pipe_ex) {
-+				abm->funcs->set_pipe_ex(abm, otg_inst, SET_ABM_PIPE_NORMAL, panel_cntl->inst);
-+			} else {
-+				dmub_abm_set_pipe(abm, otg_inst, SET_ABM_PIPE_NORMAL, panel_cntl->inst);
++	// WA: restrict FPO to use first non-strobe mode (NV24 BW issue)
++	if (context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching &&
++			dc->dml.soc.num_chans <= 4 &&
++			context->bw_ctx.dml.vba.DRAMSpeed <= 1700 &&
++			context->bw_ctx.dml.vba.DRAMSpeed >= 1500) {
++
++		for (i = 0; i < dc->dml.soc.num_states; i++) {
++			if (dc->dml.soc.clock_limits[i].dram_speed_mts > 1700) {
++				context->bw_ctx.dml.vba.DRAMSpeed = dc->dml.soc.clock_limits[i].dram_speed_mts;
++				break;
 +			}
 +		}
 +	}
++
+ 	dcn20_calculate_dlg_params(dc, context, pipes, pipe_cnt, vlevel);
  
--	dc_dmub_srv_cmd_queue(dc->dmub_srv, &cmd);
--	dc_dmub_srv_cmd_execute(dc->dmub_srv);
--	dc_dmub_srv_wait_idle(dc->dmub_srv);
-+	if (abm && abm->funcs && abm->funcs->set_backlight_level_pwm)
-+		abm->funcs->set_backlight_level_pwm(abm, backlight_pwm_u16_16,
-+			frame_ramp, 0, panel_cntl->inst);
-+	else
-+		dmub_abm_set_backlight(dc, backlight_pwm_u16_16, frame_ramp, panel_cntl->inst);
- 
- 	return true;
- }
+ 	if (!pstate_en)
 -- 
 2.34.1
 
