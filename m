@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81054C77B6E
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Apr 2023 15:54:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D28A3C77B79
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Apr 2023 15:54:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF00310EDCE;
-	Fri, 14 Apr 2023 15:54:23 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2056.outbound.protection.outlook.com [40.107.244.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3CEF10EDCE
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Apr 2023 15:54:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E02B10EDCC;
+	Fri, 14 Apr 2023 15:54:25 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on20600.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8c::600])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E025D10EDC7
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Apr 2023 15:54:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ezRileaDfuEay7/i9o2uEDobr+Y5Pahnp/0uxCKy6w2Dbpa0Xj0T6EwKQHkeAkX7YfP06XC+x8Pbs+XyZ2jnhFY2ISBf+DGamXFg+M8tehgVkyqZzySg6ttjNyZNPH9PZanlBkXAZWsQeskLkkB29CmiOzIyW4dgRcMs8LG9IvQxFK/XxE2BsoyT5OijnxrhqUq64zqSEV3p2X4B7VnXkcw+gL+jST0ekOp9O1T5+Q6rrRfpIBPLJD9ffkynQG8WqS9g2RI/uOZZdM3vJX9H387L2J2fsh20g75ADVGTx1/KeeFC9W5DkqoCx5GYOQw+reEOd1G3ph6ITrgDdnUFRg==
+ b=Y1+glKVdnRnaW7tTp8fNiiR3jn1KrGFfEl2j1hc1bKBEs0BpygtcbIRtU7nEAenggSr/xZ6ApqDhCup4Le1441ykcCCHUooFJdupev4vuEhcs+mylUspH6ImaMObMejtWFXosjGmy9fqr/hl3WaE3LrWdOQrTZkl3qt76qRBhHl42VTT2DjvpuH55iwPMbxuyV8J0TcoDv/EL8cN7M4GSz96BItey3+/Jal5GOT+IP0x9OA4kz8Jx2XseGEeh2kx6xiBgzMB1imbQcqSAK5A2pRaCdJCvPWMvS09kCXBzwGHboVbugD8u3AOsQ9c9WBcpEkpDq8Q118ON1whGiaCnw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aTb3TCbRPzBXyaYWoHLcrYoWfxAGjI+CqFLYDXRYnMw=;
- b=Ukc146g09wFFD2jcfds1H5B0KXkGzyTlf28UQGNfBCh/p4OyD1NmjNTvEp4baBhA5kbdIN9NtikF/KDOWI/rYAnVGvFkaAU2ieYO+x94BUa+w0O70u/YQGHvSzXRrOokc+yIStpEErKgMVIxGyuUFmZSHaINLmDyHj7v3DoP1e8McWIWqrN3r2oeGBNJUt+wiYI54ZSs9s/LOvcFPiMZeivuMJ1+3UcxFX+mRP2q5IsNCyWnpKGQCXqbZG5cn5SKNX2nrDiF9VWlrx5bI7z9LQx+aoy0MN5SbEWKSlN/LDdPdOFCTGkupxgPLp0Z/ZdSOGt2++fHbJPl4M62j/YzYw==
+ bh=b7hxVqjxIl047XKznjuEIBZDu6284jpFDhFv7WnV8As=;
+ b=BOKYluSvbcDYN0bX5fP8/06eSf0V4u4poAGlt+LmEdnKXyJPOxQz51+wZEoOaIR6TxTebPRnZ2RAElcADXI73Y5xe22t4qhQmqnc7wfpCwOMZSQiJmjF9Vo5+Unc+caYa+qeIua0KqONp/L4KJM6q8WnTVQsCIBipSJiRkcDDiVsCDUmLypHUzM4nGoOxtx6pm6eiw0o7ci96KiCX9o5yhU1+nzJNJQ06+DMzw4Pq8ieD28qIIsTUmL5yivoyILVgWEkx8HJJJ2MoVx23RPXaqmGt2LVSlYb1ltxWwmzjv0ivdHbCrbn/w0MEoAQuz38CnvpSKT5P1hh4oAcUXV+Jg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aTb3TCbRPzBXyaYWoHLcrYoWfxAGjI+CqFLYDXRYnMw=;
- b=LVN2CgSHa7EWGu0vqG39DTs/NEZBTE3SAkFSwKa0A1wemuPjRuYohkxNTnbxxt38ha/vC+lNI4b/AAthAOKfyt+bkDpMaUdCIM/40s2zMIpYjVtdKzZpmPMtL4W9sGqBZ4zjiyn6vYSA2P7fmQsK34nnfQZnRb7RV0GKQf9G/8c=
-Received: from BN9PR03CA0126.namprd03.prod.outlook.com (2603:10b6:408:fe::11)
- by DM4PR12MB7720.namprd12.prod.outlook.com (2603:10b6:8:100::12) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=b7hxVqjxIl047XKznjuEIBZDu6284jpFDhFv7WnV8As=;
+ b=gtcnhf1gLe7VcKuzGKAxWii9PWeuEOA2zQZWv/XVGJdzOaKU8kSIjfTXsGLu/CzhAQlClca85XDpCS28iFg/MQNOWofx3ealulbEHiBoMyouyDxEcBYdNMA0ZZOwK4+O5UyR8O7NS42yMoDF4rg8lFpSCTUr8oGHxm3ZMQRnCAM=
+Received: from BN9PR03CA0808.namprd03.prod.outlook.com (2603:10b6:408:13f::33)
+ by PH7PR12MB7234.namprd12.prod.outlook.com (2603:10b6:510:205::16)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.30; Fri, 14 Apr
- 2023 15:54:20 +0000
-Received: from BN8NAM11FT025.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:fe:cafe::fc) by BN9PR03CA0126.outlook.office365.com
- (2603:10b6:408:fe::11) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 15:54:17 +0000
+Received: from BN8NAM11FT043.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13f:cafe::4f) by BN9PR03CA0808.outlook.office365.com
+ (2603:10b6:408:13f::33) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.36 via Frontend
- Transport; Fri, 14 Apr 2023 15:54:20 +0000
+ Transport; Fri, 14 Apr 2023 15:54:17 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +46,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT025.mail.protection.outlook.com (10.13.177.136) with Microsoft SMTP
+ BN8NAM11FT043.mail.protection.outlook.com (10.13.177.218) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6298.31 via Frontend Transport; Fri, 14 Apr 2023 15:54:20 +0000
+ 15.20.6298.36 via Frontend Transport; Fri, 14 Apr 2023 15:54:17 +0000
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 14 Apr
- 2023 10:54:18 -0500
+ 2023 10:54:15 -0500
 From: Qingqing Zhuo <Qingqing.Zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 22/66] drm/amd/display: drain dmub inbox if queue is full
-Date: Fri, 14 Apr 2023 11:52:46 -0400
-Message-ID: <20230414155330.5215-23-Qingqing.Zhuo@amd.com>
+Subject: [PATCH 20/66] drm/amd/display: Reduce SubVP + DRR stretch margin
+Date: Fri, 14 Apr 2023 11:52:44 -0400
+Message-ID: <20230414155330.5215-21-Qingqing.Zhuo@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230414155330.5215-1-Qingqing.Zhuo@amd.com>
 References: <20230414155330.5215-1-Qingqing.Zhuo@amd.com>
@@ -68,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT025:EE_|DM4PR12MB7720:EE_
-X-MS-Office365-Filtering-Correlation-Id: f7f4d3d5-20ae-466f-ac96-08db3d008276
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT043:EE_|PH7PR12MB7234:EE_
+X-MS-Office365-Filtering-Correlation-Id: 07590987-0d2b-4b34-7488-08db3d0080a4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: src5NE/UcW2kv6mjS9Seehs0KMiPwlPaVbsjVDcSLWtYjgQQbzQfvaCjHurt0Usl8qUa51J8l4Vj2k92mP27YY9CTPcpw2I/om37JdrcjiHMLBMKGUfvIokAwB82G9Sh+AqyL0vQrGFk5NOlpnDLuFa/RdS7AZxIeCzlxCW2509sPntyGrO4BFcUAe6OjHj9K25dApsplbZ4eaiqD6fNJtk9JCfAjIOQLsFJMUXxWz2gwu3wQPnoe/XactdbIFW1FDJTXRBk4WtU79VVC3CFhuOPI7XMIbRjehcPuW+Cnwb/YCyqwXDAFyhjSmke2n8gLwWeGIGTeLtwnrFQhTtJ5hxB9Qy9i+rI2vqsfO7BXXvlvEH+JfdH1V6XtkLPaPk4rRBfG2+nRANMeviapjo7RKcRCFU7mYyDl32WmuFDFhwvy9BNp0j9uvujQ0miAVwj/S7+uk33YZxJVmF5dDwJZ0fHSf8ZE3+zS/vRrfbxjbIwJkvkNB/jBiWx0Ok0N0CpXb1LavWNpLrPaJJT4mYJxsblO1g40jjgu1nYi5ZWn4zU9f+djQ1G2yd2rDo3dTIlBFzaN8B+lFEAMV5eFojIW5ZE+85TJha48/0KfS15IL0s7DMMIJZvw8Ke20/+thzuyJeYh/n6IUukEcOw9DPiYHoecPgVpRDdLFh7iaDWAtWxY4maZAPmngSpb0Eh53Bt14AFMAmlZkvvW25T95H7+GTqJyf+w0g6pKGxb0/271M=
+X-Microsoft-Antispam-Message-Info: t/RjE+NlyAMyeHZXOvNkuyuQQJPWigjzrpbswMXab6pnfid6bP+xRcOwXXUJqMgbM/8DnJhkWeVBobDcY6CPB4Ed6WLqnzVlkPmzyLiFarTO2HWCm8kueRSyo8iC/Rsn81xp1WSpUvI58dDhRhB6reLljyo0dD3oSCz/S8ase+dttAaAqtNnrfL2Fpv7NRQBknD7JG73QsDH0HVD/TrpN37L7P1P45g3pPycc8pmKguTHB+JuZvGoteh+mNK0YzeKWhQhGlTXsYzhqkTudUBZnEhcHLzsRpJcVW3GK3LzCFwUCSYN8dpxmMq3VdBlWGQL9YbBzqHinSJwrT4h/jsiNuWC4WAQ1bksttf2TqZM3VPxNe4ksD9SUuUfVz2Q2cKJ22IP/ypR5k7GWEiIvIZQHSBzeq/43uOl8+aUJtyn70BhTA57U2WuLDsHOiJ4JF7XjXj+pAXINq8SnBttQbcHi/sZKRtnuh7Mj4Bj02SMf6KOPYlRfPK6ZdfNJn1NI/510/IhpZMdu9b4OfwpgeqVc5kxUH2XF5sNwEXgzKlHXo+tLLrG5TDXT2AA28kIioc0t3Np1+APcxBYGlw0zJrQ3xcbr4bE5zFELMG5Cm3dKcLJkwgB27ZXVjwa4zraoUnQhhV9AzigHliixWTJMV+jorCS02T6yq58gQ6NZj8mYZWZFvOWrEmL0DN3rE2mLIoS1yoBsXmrLmTNlBNUFPTCO0dtu5M0QRyNkl3RTXl/OY=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(396003)(376002)(346002)(136003)(451199021)(40470700004)(46966006)(36840700001)(83380400001)(336012)(47076005)(2616005)(426003)(1076003)(16526019)(186003)(36756003)(26005)(36860700001)(6666004)(54906003)(478600001)(356005)(81166007)(316002)(5660300002)(70206006)(70586007)(6916009)(41300700001)(4326008)(82310400005)(82740400003)(2906002)(8936002)(8676002)(40460700003)(86362001)(40480700001)(36900700001);
+ SFS:(13230028)(4636009)(39860400002)(346002)(396003)(376002)(136003)(451199021)(46966006)(36840700001)(40470700004)(26005)(336012)(426003)(1076003)(54906003)(40480700001)(186003)(47076005)(83380400001)(2616005)(16526019)(36860700001)(40460700003)(6666004)(5660300002)(41300700001)(316002)(8936002)(82740400003)(82310400005)(8676002)(356005)(86362001)(81166007)(478600001)(70586007)(36756003)(4326008)(70206006)(6916009)(2906002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2023 15:54:20.0854 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f7f4d3d5-20ae-466f-ac96-08db3d008276
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2023 15:54:17.0144 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 07590987-0d2b-4b34-7488-08db3d0080a4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT025.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT043.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7720
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7234
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,49 +100,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Josip Pavic <Josip.Pavic@amd.com>, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
- wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>, agustin.gutierrez@amd.com,
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+ Michael Strauss <Michael.Strauss@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>,
+ wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
  pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Josip Pavic <Josip.Pavic@amd.com>
+From: Alvin Lee <Alvin.Lee2@amd.com>
 
-[Why & How]
-If dmub command queuing fails due to the inbox being full, flush the
-inbox and resubmit the comamnd. This was previously the default behavior
-but was lost in a refactor.
+[Description]
+- Having excessively large margin causes failure in the static
+  schedulability check in some cases for SubVP + DRR
+- 100us of DRR margin is sufficient based on a weeks worth of
+  stress testing on different display configs
 
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Reviewed-by: Michael Strauss <Michael.Strauss@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Signed-off-by: Josip Pavic <Josip.Pavic@amd.com>
+Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dc_stream.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-index 954cbfdbc3b6..eef43577508c 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-@@ -139,6 +139,15 @@ bool dc_dmub_srv_cmd_run_list(struct dc_dmub_srv *dc_dmub_srv, unsigned int coun
- 		// Queue command
- 		status = dmub_srv_cmd_queue(dmub, &cmd_list[i]);
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+index 181a3408cc61..25284006019c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+@@ -144,7 +144,7 @@ struct test_pattern {
+ 	unsigned int cust_pattern_size;
+ };
  
-+		if (status == DMUB_STATUS_QUEUE_FULL) {
-+			/* Execute and wait for queue to become empty again. */
-+			dmub_srv_cmd_execute(dmub);
-+			dmub_srv_wait_for_idle(dmub, 100000);
-+
-+			/* Requeue the command. */
-+			status = dmub_srv_cmd_queue(dmub, &cmd_list[i]);
-+		}
-+
- 		if (status != DMUB_STATUS_OK) {
- 			DC_ERROR("Error queueing DMUB command: status=%d\n", status);
- 			dc_dmub_srv_log_diagnostic_data(dc_dmub_srv);
+-#define SUBVP_DRR_MARGIN_US 600 // 600us for DRR margin (SubVP + DRR)
++#define SUBVP_DRR_MARGIN_US 100 // 100us for DRR margin (SubVP + DRR)
+ 
+ enum mall_stream_type {
+ 	SUBVP_NONE, // subvp not in use
 -- 
 2.34.1
 
