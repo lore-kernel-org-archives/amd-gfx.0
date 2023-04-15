@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04FC6C77B72
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AD81C77B70
 	for <amd-gfx@archiver.kernel.org>; Mon, 17 Apr 2023 07:30:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F8BE10E3A6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF5B910E3AA;
 	Mon, 17 Apr 2023 07:30:19 +0000 (UTC)
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [IPv6:2a00:1450:4864:20::334])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFA2510E224;
- Fri, 14 Apr 2023 23:27:20 +0000 (UTC)
-Received: by mail-wm1-x334.google.com with SMTP id
- n19-20020a05600c501300b003f064936c3eso15542675wmr.0; 
- Fri, 14 Apr 2023 16:27:20 -0700 (PDT)
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BD1310E034;
+ Sat, 15 Apr 2023 12:09:26 +0000 (UTC)
+Received: by mail-wm1-x32c.google.com with SMTP id q5so11555197wmo.4;
+ Sat, 15 Apr 2023 05:09:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681514839; x=1684106839;
+ d=gmail.com; s=20221208; t=1681560561; x=1684152561;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=d3R4ddapMeyDJ0P0S2alUCXwvGMhQM5Ib//pYtbrG/w=;
- b=OrhEO0qzchVPk1vo055ED54OMMZb8uC8IB6ty9ne32vA6q3p/i/Loy2O7ARogcpEXP
- VMVaphBrhp44h5SgSp3DZ86wOIgWT+rI9JuCyEHkx7RN6GDYQPpHsHBCjO6tnFVQMyyk
- /ZaQuxTZw3jQdBiWDsQEXE1uUxxaMRv7AZ4rX22q46xssdyqszybHP/3DqZ2pThrTZYp
- nQDLTIniF9Dx4toFV/cVOV+dNRjoeRZdONRyClaNL5yo6fOkNbB4dSCiRnE9kkJ7B/Gb
- KdRBGi7M2dCX4QLRY2yfCUnIJWmhHw+cyyRH+ios/xJgAd1HGi7TJIf6/qdIk1pzmf24
- lsdw==
+ bh=7bl5SFQ2vJygxB6ULQ7owEqW0w5QgVbsAK3PYNhUFh4=;
+ b=X3wx/SDN/wkZLlSRmWoO4XjoTTfufgaCgXTVI/8MBUXN3C5Kkoa6Jp85DZjC2wf04W
+ 5zmYu8D4+7x1XhIYxdSsCRIERvV0lFjGdN788237PxGzXXvNaYNGL4VtPXGRM957hh24
+ /Zmj3BNC7AwR1Eo8sblwN4P+Ze+O+oJrN1YeKxDSi7T796tpi4rBrqVu4ygIiSQ6V1ea
+ ntVuCJrPlMT0HzUauagKqw9sDcbJtmWoQD15O9UkaxHT6OvpdgMQmDMpIuRW3RLHxvLm
+ OFPvi6W6+FXczHkXNWBfzsZPOro21B2OrSa4OuRcmpQCbBgbpZ+S3Ye6U/TxjSSDu57M
+ mx2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681514839; x=1684106839;
+ d=1e100.net; s=20221208; t=1681560561; x=1684152561;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=d3R4ddapMeyDJ0P0S2alUCXwvGMhQM5Ib//pYtbrG/w=;
- b=C23aXa7Hrdq0+0xBW2d6XLgJnv1CjzT8iGCkQwtHfPvqf3kTWyMa30nOyB+Dr3fIdv
- zotcG54+HHlCtv1y/jf3xgadRDRmPlsw+oKaexSAGNNMbHv/M2hsfT60uYDMZTGEBEBE
- /AllG763i3/EPxI5X6hIqZkiPRqOFm9keR9g745rV1hA+0bzTp3y41DwdFf+WgQfyRNd
- 4K2w+yNcHdOc7JT3IUKib8fnU0VDXUUQD0IeHkagiO8ex00R0WcfaKQztjMgfC8Gmi3X
- knv53hoM9pkjbAgkX9oDfQ9PXRZGQ9SFA7J8WXIWZXdYSlouepy3Hi3kGzqMyzDLe2I7
- kdwg==
-X-Gm-Message-State: AAQBX9e1wMlgURa9Ddq/vVmHXcvDTfypNzTGH6qIKHu9BYRjmIgVEZx9
- 56m1CD9JpTStqVXfsioYdD4=
-X-Google-Smtp-Source: AKy350ZbMOF2GsyN1dBdwKcvm/6rU6eKdB1U1gytVyqtzlM1SYX7jaGUQR4cn/FTMHkx57m03U4cxA==
-X-Received: by 2002:a7b:c7cd:0:b0:3ed:a82d:dffb with SMTP id
- z13-20020a7bc7cd000000b003eda82ddffbmr5377441wmk.40.1681514838694; 
- Fri, 14 Apr 2023 16:27:18 -0700 (PDT)
-Received: from lucifer.home (host86-156-84-164.range86-156.btcentralplus.com.
- [86.156.84.164]) by smtp.googlemail.com with ESMTPSA id
- f17-20020adff8d1000000b002ef222822d5sm4546656wrq.74.2023.04.14.16.27.17
+ bh=7bl5SFQ2vJygxB6ULQ7owEqW0w5QgVbsAK3PYNhUFh4=;
+ b=R3zYBO9SMtDLoHkHLKSZNo2PlC+uSj1KE0li5hOlI7lxX+olP1WwlgrCh56EDaukz9
+ ibA7ixntymTzPNOg7kbNKtAI+QyXc83hpuIUnwPgUvbOYcd2rc0c1gPsjz3G/j+10Y+9
+ 4lkdN1WQTsCW9F9OF6+/UsC1SIbnwrh5gzdhXg7mxNeDKYHiG23Oop5OJXNZr2mKE1ul
+ s/P2cOGiiz031O10/PYWsTfROFgSyluRyhnpIs79U+HXsdlpP5CM+9zfRKcGOJ+lkHss
+ IqcSAFIjbmIaGx4eZNIzumXARf4jyFhe2EqYivrrk2g7kV4jwYXLJGQLLyxK7mtSt3Hf
+ ea3w==
+X-Gm-Message-State: AAQBX9fgiAkL+l7RCpz3wfE+fUGiPgInWMIjrECL6AnG2Sy7ya7Nwe03
+ zXbZLgpRn+GU1dwV4Wtud9s=
+X-Google-Smtp-Source: AKy350Yysqw/G21F2cEQ1bzpOiU/6gRNUP/bJK1jn3guibsBFaVe0RGWhuMX5MIUHG1wPs+pj7mvig==
+X-Received: by 2002:a05:600c:204c:b0:3f0:aeac:2f9c with SMTP id
+ p12-20020a05600c204c00b003f0aeac2f9cmr4917397wmg.7.1681560561281; 
+ Sat, 15 Apr 2023 05:09:21 -0700 (PDT)
+Received: from lucifer.home ([2a00:23c5:dc8c:8701:1663:9a35:5a7b:1d76])
+ by smtp.googlemail.com with ESMTPSA id
+ 15-20020a05600c230f00b003f16fdc6233sm134903wmo.47.2023.04.15.05.09.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Apr 2023 16:27:17 -0700 (PDT)
+ Sat, 15 Apr 2023 05:09:20 -0700 (PDT)
 From: Lorenzo Stoakes <lstoakes@gmail.com>
 To: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 1/7] mm/gup: remove unused vmas parameter from get_user_pages()
-Date: Sat, 15 Apr 2023 00:27:13 +0100
-Message-Id: <d40cb239d0ca01e51f7fc2a276398e8f4dedf9ff.1681508038.git.lstoakes@gmail.com>
+Subject: [PATCH v3 1/7] mm/gup: remove unused vmas parameter from
+ get_user_pages()
+Date: Sat, 15 Apr 2023 13:09:18 +0100
+Message-Id: <28967f170eceeebf2591a5e4370d0642e0516f9b.1681558407.git.lstoakes@gmail.com>
 X-Mailer: git-send-email 2.40.0
-In-Reply-To: <cover.1681508038.git.lstoakes@gmail.com>
-References: <cover.1681508038.git.lstoakes@gmail.com>
+In-Reply-To: <cover.1681558407.git.lstoakes@gmail.com>
+References: <cover.1681558407.git.lstoakes@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 17 Apr 2023 07:30:15 +0000
@@ -107,6 +107,7 @@ altogether.
 
 Signed-off-by: Lorenzo Stoakes <lstoakes@gmail.com>
 Suggested-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
  arch/x86/kernel/cpu/sgx/ioctl.c     | 2 +-
  drivers/gpu/drm/radeon/radeon_ttm.c | 2 +-
@@ -114,8 +115,8 @@ Suggested-by: Matthew Wilcox (Oracle) <willy@infradead.org>
  include/linux/mm.h                  | 3 +--
  mm/gup.c                            | 9 +++------
  mm/gup_test.c                       | 5 ++---
- virt/kvm/kvm_main.c                 | 4 ++--
- 7 files changed, 11 insertions(+), 16 deletions(-)
+ virt/kvm/kvm_main.c                 | 2 +-
+ 7 files changed, 10 insertions(+), 15 deletions(-)
 
 diff --git a/arch/x86/kernel/cpu/sgx/ioctl.c b/arch/x86/kernel/cpu/sgx/ioctl.c
 index 21ca0a831b70..5d390df21440 100644
@@ -157,7 +158,7 @@ index b836936e9747..378cf02a2aa1 100644
  	*paddr = page_to_phys(page);
  	put_page(page);
 diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 5d5ba1556ae9..faeed36c2d04 100644
+index 37554b08bb28..b14cc4972d0b 100644
 --- a/include/linux/mm.h
 +++ b/include/linux/mm.h
 @@ -2380,8 +2380,7 @@ long pin_user_pages_remote(struct mm_struct *mm,
@@ -227,7 +228,7 @@ index 8ae7307a1bb6..9ba8ea23f84e 100644
  		default:
  			ret = -EINVAL;
 diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index d255964ec331..2d2446df0900 100644
+index d255964ec331..7f31e0a4adb5 100644
 --- a/virt/kvm/kvm_main.c
 +++ b/virt/kvm/kvm_main.c
 @@ -2474,7 +2474,7 @@ static inline int check_user_page_hwpoison(unsigned long addr)
