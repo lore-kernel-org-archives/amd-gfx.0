@@ -4,66 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0025C77B7A
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Apr 2023 18:11:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F9FEC77B72
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Apr 2023 19:26:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 278AC10E113;
-	Mon, 17 Apr 2023 18:11:35 +0000 (UTC)
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F16AE10E58D;
- Mon, 17 Apr 2023 17:42:42 +0000 (UTC)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-3f1738d0d4cso6328315e9.1; 
- Mon, 17 Apr 2023 10:42:42 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D42CF10E149;
+	Mon, 17 Apr 2023 19:26:22 +0000 (UTC)
+Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
+ [IPv6:2607:f8b0:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA96210E149;
+ Mon, 17 Apr 2023 19:26:21 +0000 (UTC)
+Received: by mail-oi1-x22b.google.com with SMTP id bb20so12560294oib.12;
+ Mon, 17 Apr 2023 12:26:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681753359; x=1684345359;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=oIDH6QLW9GMl0SUIgFXpcL60wep3vko9cwbetNFih7Q=;
- b=hnZdPQ4bSnn7IM8OzetvjfY2BXRKa7KvAD32v0r1j4vHr6zQ/fo3vz25ufxSghM4FK
- TGiF9r8hUN3SJJxjj1v+CEteYAcnl5jtnABWOmagTdog0heWPB6OpJHpH5OOwFSj48+1
- IvLFwyylUzEuV/qqJGUF/i0plTiLfnFiw7ZppVPYaBqkUPJiEvd7M2wq05v3e8L+uOyf
- qN16CUGNuettXdrR5t0SHdfyZGuIV4Yizs/zfk1brEtR2cO+DNnQJyjVlUXikNvRQHGO
- LmVz54SWxenhz0ItD8BndOOMKVMN2ZGpM7xpQTuSRTs8yUoHTRHM1CrJ8mPR1E8f1Vsp
- OfTg==
+ d=gmail.com; s=20221208; t=1681759581; x=1684351581;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=JgR9yWNpXpcXRujoJTOWZN4Ac0PmAsb3IYAK2OBiNYA=;
+ b=A8POwEXBtxt+z9gTMk5vE9Iw0O2L50tlrIpIBNPihPRGY7iBhlfQHgpQV6cMdIguFV
+ Zc7g/Mr6qy2w/TL+uwD/XDpQIRYhH/ZwzlmUvA+j3NNU8FdP4OWsfnhrwwrL2pykM1bV
+ qEkfNp/kQFga0y8gsJYNwNPF5gOJRRBDyCQLoK9+GJLxNd8YZOVCUMBLxXMyYZjP63XF
+ /7n09KvbS0laZg1caprKHGE6Mm2+/UgcR4wfeTHxPXGqi0BAHGl64bQKA7VFgpIAYYa7
+ sBR5CsJrsBSSTKsK7OtL04IfWLFtkNo53bRHTAotAV7mhQtYwR9SOj+KjFuJum5Pha8g
+ jW3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681753359; x=1684345359;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=oIDH6QLW9GMl0SUIgFXpcL60wep3vko9cwbetNFih7Q=;
- b=OuicAMzOuiX28sjFB5aGZryedWz9br58PUYY0iISSjfxHh8mYfaJU8sPZYvyof7lCL
- 5GauLLCU40g7f48iqPhm1hobLdhEtj2/jvgwrqDiACisAcPJ5Xd8z9gdrjDN48TRTLBv
- eJR2y12+kMPEzdHcKpVZZq1jibp4ItWcXoijKfbdAh0qYFz3pGCOaYyo4w784n4vu9P6
- J5TyzkuikMAyf60fC9lqiGhvPZpGvMbpInYLeUc7Mq8YpcRQTNrHPtdBbT98q9ozbopy
- Py+W8xbs/8PnAgvsPg7pcoq8d7nWwkVaCcmKRpKg/Q8bWPbvEKVBT10bYoq+MIBVgd/j
- nH7g==
-X-Gm-Message-State: AAQBX9cN8f7dWsdUaDMEHyOR1ep5neepBXLdjeUx02yCbqUKPgJUmxMp
- v1eI4kR27Wfqaw60i+7F1/U=
-X-Google-Smtp-Source: AKy350aIJeioHbqYsZwsjs2wu7mqk/RIk0YjL7wRrWriUPu2VJKeMsMLs0JBPaKIE17WoXikYfOlwA==
-X-Received: by 2002:adf:f5c3:0:b0:2fb:be8b:133b with SMTP id
- k3-20020adff5c3000000b002fbbe8b133bmr912525wrp.25.1681753359042; 
- Mon, 17 Apr 2023 10:42:39 -0700 (PDT)
-Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
- [80.193.200.194]) by smtp.gmail.com with ESMTPSA id
- x17-20020a5d4911000000b002e55cc69169sm11024585wrq.38.2023.04.17.10.42.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Apr 2023 10:42:38 -0700 (PDT)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui.Pan@amd.com, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH][next] drm/amd/pm: Fix spelling mistake "aquire" -> "acquire"
-Date: Mon, 17 Apr 2023 18:42:37 +0100
-Message-Id: <20230417174237.52638-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.30.2
+ d=1e100.net; s=20221208; t=1681759581; x=1684351581;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=JgR9yWNpXpcXRujoJTOWZN4Ac0PmAsb3IYAK2OBiNYA=;
+ b=CzJLf1ZztKIFTHIqNhU3x9phIzOyKYB54+0Qvs+PRaujP90wr1lPWUmVuqxORuQb1j
+ r+da9tHZksT7+T5HtNKrw+mSecqViqg1yTujy8GtEggaRhUgEdoAgDHicUSWpivOw2aS
+ ePoLO1t3OQjJ/x4aY9k7uhyKvzKo98owVESF3Aztfn9XtqP6wM9+il71LXx+bVod6W8V
+ GkKprC/lDRuLQFagvWF3KjpkEq/qCIgsbGfi2eEyv9ghozsFuvE6r2/ci55urqQ2MV6B
+ 4+1SViJnCnfp0SNXyi8bpPVj97yxVyM3CD4X272qqJwKoO3Suh8UFykHG1rfi3LTuCSS
+ XZHA==
+X-Gm-Message-State: AAQBX9cMZxto9nu0j70qC8GhGPrz5oODE9bFCMV3QeHGx+dibheJ4LoK
+ S1+qu70MjPLTI5uwPJWsx9aMrfzwRNa2qITTk8M=
+X-Google-Smtp-Source: AKy350Z22GK6kLG6tHEeqc6xa37gCtz2jfI4yCVpFEw8uzuKlFwUL0hIMP6R+pDki+ZmMO2BdQwHr9XWxrdFNQRgufI=
+X-Received: by 2002:aca:f0c2:0:b0:38d:c10a:e7b6 with SMTP id
+ o185-20020acaf0c2000000b0038dc10ae7b6mr13624oih.3.1681759579651; Mon, 17 Apr
+ 2023 12:26:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 17 Apr 2023 18:11:33 +0000
+References: <20230417174237.52638-1-colin.i.king@gmail.com>
+In-Reply-To: <20230417174237.52638-1-colin.i.king@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 17 Apr 2023 15:26:08 -0400
+Message-ID: <CADnq5_MCRciy+zvVmJ0_HeAsYV-g9cMjNoyezhtZP77erFrGsw@mail.gmail.com>
+Subject: Re: [PATCH][next] drm/amd/pm: Fix spelling mistake "aquire" ->
+ "acquire"
+To: Colin Ian King <colin.i.king@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,30 +67,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Xinhui.Pan@amd.com, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There is a spelling mistake in the smu_i2c_bus_access prototype. Fix it.
+Applied.  Thanks!
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-index 5ce433e2c16a..f1580a26a850 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-+++ b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-@@ -359,7 +359,7 @@ struct pp_hwmgr_func {
- 	int (*set_ppfeature_status)(struct pp_hwmgr *hwmgr, uint64_t ppfeature_masks);
- 	int (*set_mp1_state)(struct pp_hwmgr *hwmgr, enum pp_mp1_state mp1_state);
- 	int (*asic_reset)(struct pp_hwmgr *hwmgr, enum SMU_ASIC_RESET_MODE mode);
--	int (*smu_i2c_bus_access)(struct pp_hwmgr *hwmgr, bool aquire);
-+	int (*smu_i2c_bus_access)(struct pp_hwmgr *hwmgr, bool acquire);
- 	int (*set_df_cstate)(struct pp_hwmgr *hwmgr, enum pp_df_cstate state);
- 	int (*set_xgmi_pstate)(struct pp_hwmgr *hwmgr, uint32_t pstate);
- 	int (*disable_power_features_for_compute_performance)(struct pp_hwmgr *hwmgr,
--- 
-2.30.2
-
+On Mon, Apr 17, 2023 at 1:42=E2=80=AFPM Colin Ian King <colin.i.king@gmail.=
+com> wrote:
+>
+> There is a spelling mistake in the smu_i2c_bus_access prototype. Fix it.
+>
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h b/drivers/gpu/d=
+rm/amd/pm/powerplay/inc/hwmgr.h
+> index 5ce433e2c16a..f1580a26a850 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
+> @@ -359,7 +359,7 @@ struct pp_hwmgr_func {
+>         int (*set_ppfeature_status)(struct pp_hwmgr *hwmgr, uint64_t ppfe=
+ature_masks);
+>         int (*set_mp1_state)(struct pp_hwmgr *hwmgr, enum pp_mp1_state mp=
+1_state);
+>         int (*asic_reset)(struct pp_hwmgr *hwmgr, enum SMU_ASIC_RESET_MOD=
+E mode);
+> -       int (*smu_i2c_bus_access)(struct pp_hwmgr *hwmgr, bool aquire);
+> +       int (*smu_i2c_bus_access)(struct pp_hwmgr *hwmgr, bool acquire);
+>         int (*set_df_cstate)(struct pp_hwmgr *hwmgr, enum pp_df_cstate st=
+ate);
+>         int (*set_xgmi_pstate)(struct pp_hwmgr *hwmgr, uint32_t pstate);
+>         int (*disable_power_features_for_compute_performance)(struct pp_h=
+wmgr *hwmgr,
+> --
+> 2.30.2
+>
