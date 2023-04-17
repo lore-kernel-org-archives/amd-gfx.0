@@ -4,58 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62582C77B76
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Apr 2023 19:34:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E523C77B76
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Apr 2023 20:51:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3710510E30A;
-	Mon, 17 Apr 2023 19:34:33 +0000 (UTC)
-Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
- [IPv6:2001:4860:4864:20::32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B09310E1EE;
- Mon, 17 Apr 2023 19:34:30 +0000 (UTC)
-Received: by mail-oa1-x32.google.com with SMTP id
- 586e51a60fabf-187878a90e6so17833227fac.0; 
- Mon, 17 Apr 2023 12:34:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681760069; x=1684352069;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5q1UADTLtxpaMg26Rskq3kK3zFrTI6WC2dwC06gJvSg=;
- b=IHqpf2sk6GocJcMUsxs7EfH25jwhs8pny+rgCsFkFVvee5zh6VW+fji3F7acj7NOGM
- NpBLJkBPE0evdOqIk9nHBFmZ0D/QICtqPzJ7acbSKBVgL0Q4CpBsvp2txsIQF2jQfMd1
- R+Otpjdk8UUdxApKTKmST3WGlH9msFY2to5R/93AHeg+a5vnsnAEAgZfU+Isv2tZ9GmS
- NG04Tkw+pn/Kisy0rasEpqktx3KY7CEKxoun7E4eXM528b7uY2tftG+4nDJ1T0yCXZhr
- 447bUjFW0u8MktcRXncryfD4L8+RdOntdBX3PiE6a3YBG/BrwIM39xxzgz0e831t7Z0X
- 2nBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681760069; x=1684352069;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=5q1UADTLtxpaMg26Rskq3kK3zFrTI6WC2dwC06gJvSg=;
- b=diYrEAykn8tiU3h544/1VlwBQVklwg84+mHUWiqneEuYKcnWGF5EbtIV6h6jW18SB0
- VhaeceM72xnXUlVLmKO7rlAFCcZzdsdbgTqoMmTjO4IoV4llVvLbCJZt5kk5GHCRGqdD
- wxsCztn4piHf3OUzOhbUju23Gs/0nMxhlRUxMrKShUYTBZHwem1kwqpK8uCRai47LMxk
- T9AZ8SErnryK7Pst1HcMLIu+4q/2BzmvCRK0/bxN+JVR48mN/z+o2U/ixcLxK3hGayR9
- JLBNDkc78r5bHcCjrIQcPkoLQi+KyrlcJsuZ4yoco6Apfh3W77Zn47xW+EuJOBSkV3NF
- baPA==
-X-Gm-Message-State: AAQBX9dPCKSJzpRMAELTKm9E8K3I28QkZ7RVg8uIQHDE9cBjojQIhhVO
- AVPdR5V+1e+CQ0qiRbJGjJDP6s5+AX1dSURRWX0=
-X-Google-Smtp-Source: AKy350Y6q2hi+cxptjOwoPFYriOiGtU+hYfqGDp+Z7d0toixkRxdfroHewDdXnL5ss2zptH/e+7WDkWHMI6tvpahUWU=
-X-Received: by 2002:a05:6870:32ca:b0:188:438:d4b6 with SMTP id
- r10-20020a05687032ca00b001880438d4b6mr515953oac.3.1681760069194; Mon, 17 Apr
- 2023 12:34:29 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E06910E5E9;
+	Mon, 17 Apr 2023 20:51:14 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20627.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8a::627])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A494C10E5E4;
+ Mon, 17 Apr 2023 20:51:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UjK14ZHPln6AExWIZaz1oGaeaMxr0H5ZO3u7DEwdWueHAapWqHI8LLqW9DmKWM8+oRiPdDqrB+3EUksX17HxR9vadiKj6ROvzaXvzdY3UESqfJjjEOQHhBMqqdoyN64XbibJgvOXUqozpnNt4FM2bBcoU9QhFGtJOmdSGGVlIJUAL28EovwxahEN2EKpLU8bcyMyPU8JDiVnazpgU7EOiB0/ovchT8c9DYlpgRoNj9vYlbLryNi8/mSYop0sFLUQiTbo9RdUWxJiQ9O6tVe/lPxySv1HfoSYPp+I4VQyDENymQ9Ba4oN3GBKez3I9GkyhCzD7PRsmzC7/oHwj1lOTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=K0GsZF7y+bnHqgUYW5tKSxc5X4Zu08FT9hlgc1adet4=;
+ b=asQLXyLKn0WrfEhQwF42e8MyYKpa5YrGAXeoJr8sg+81utmPrlXGRzLLxGrbN0GynjqLnfgPd4BXYXu2KIdI0F1j8+MQTG+oT7TDCD6xFr5QJ6MGtOyThRgfBM/O7Nc7TTNt40b9/6mcNIs9u/zYcYatl9Ow1415Epv/OrSnO2IfxLOX6v4HEecBssv0cTud+j+LeyPSs+0B+s1mbps874yqP/rH80gh50uLkv/ymyEPCJnu5eYQ6Sxe8CRNmWgbJPDE646AOHMNsBfslk6jorWgn4td++dejRXyP+GuLs6kXW/kyZrSAacw4zu4IqWjFak5JTAEsPMxxiBWXv9J2Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=K0GsZF7y+bnHqgUYW5tKSxc5X4Zu08FT9hlgc1adet4=;
+ b=G4YOd2mYGeS4IhMqF5dg+xGia7twuBpbNcAlEZfzhWI5/XzHxsc408MTiv4ePu2W4t65CbAIJ7yENghMFl1aYHEa5lVsVhoIsTh02WvKsSvaNNccvQHHGwBJ9EPFlKDVfOENO1cybf8JX3W5UPCJd1kmbP1DSeZl4e9dgctXyrg=
+Received: from CY5PR15CA0250.namprd15.prod.outlook.com (2603:10b6:930:66::24)
+ by CYYPR12MB8656.namprd12.prod.outlook.com (2603:10b6:930:c3::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.45; Mon, 17 Apr
+ 2023 20:51:09 +0000
+Received: from CY4PEPF0000B8EB.namprd05.prod.outlook.com
+ (2603:10b6:930:66:cafe::95) by CY5PR15CA0250.outlook.office365.com
+ (2603:10b6:930:66::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.46 via Frontend
+ Transport; Mon, 17 Apr 2023 20:51:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000B8EB.mail.protection.outlook.com (10.167.241.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6340.5 via Frontend Transport; Mon, 17 Apr 2023 20:51:09 +0000
+Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 17 Apr
+ 2023 15:51:07 -0500
+From: Hamza Mahfooz <hamza.mahfooz@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v2] drm/amd/display: fix flickering caused by S/G mode
+Date: Mon, 17 Apr 2023 16:52:19 -0400
+Message-ID: <20230417205220.420676-1-hamza.mahfooz@amd.com>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
-References: <20230413151228.19714-1-n.zhandarovich@fintech.ru>
-In-Reply-To: <20230413151228.19714-1-n.zhandarovich@fintech.ru>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 17 Apr 2023 15:34:18 -0400
-Message-ID: <CADnq5_MqJ7jnYrRus+HFy+Qk5F6b3627TN-gpxSbGgPdgfLkfw@mail.gmail.com>
-Subject: Re: [PATCH v2] radeon: avoid double free in ci_dpm_init()
-To: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000B8EB:EE_|CYYPR12MB8656:EE_
+X-MS-Office365-Filtering-Correlation-Id: e8c7a34b-f030-41a8-93ae-08db3f8578bd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: aYhbqXmYldpAGk7oizbPPWmSNNVNgV3tdwyoTF2CaJzIIzOHJX2Z/GaNGgqNsa8/QUQi2YqlD28Aegjd4GnOPzZ4GUmKM3bC6g/qJPC71qe9uqlJ7QxEJJNBAMK9OGpjMtUkCez7Rwp+K0Mvq0StBgMfa7PWoHUxBL3nGT+snyloxKZMXrNbMh4N2S1u2CA6GU6oZm2dJ9aigdKTKYlB3iqTn96j3d6UxloOhbsMw64LNnSy/U7HLHRBJK6yIk35zsvdI6I0G4GwGMwDItGYSaW9DBLBnpxqkvUuMuq5VpRAuiR0liTnxCR2KPMQ1SShJBpaCcj/xPggLich98mPcUIDd/YzrU6//XsCEcUw4uuQEsfTMWpjVug49kew9P4ESiKHaYI3KKpUuZIyf798tExXls03jIARphFlVbf5Q5ivWW6InakL7qdHFn3+27kKLGP04uuDyY5fDEQkOofkzes5eqDaa5k2HO8AlAYvgvrAdLnt3sHuArtpil2cFkAQd3GOFWQTQ4gZwR2N3gPStITOYeJ1XAyq8J0bjE1mk3CHhWd8Kcl9cSCeNlKDKT84Gydg1K9QHHtkmQAtFVXdWuvekxY/u4d/5o+VcNpYtEmuth55AyP860FdBg2BmYTVOgMjA+bveTYFAJi60kuwOkpnlKgV8IVxp6K2o9oh+sZxdbtJpBvAxsidwlfOoebzpmgBo/LT38RaLLaScyLo4w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(396003)(136003)(39860400002)(376002)(451199021)(46966006)(36840700001)(40470700004)(1076003)(26005)(82740400003)(356005)(316002)(41300700001)(81166007)(40460700003)(186003)(16526019)(478600001)(82310400005)(36756003)(6666004)(54906003)(966005)(70586007)(70206006)(86362001)(40480700001)(6916009)(4326008)(2616005)(36860700001)(5660300002)(8936002)(8676002)(47076005)(2906002)(83380400001)(426003)(44832011)(336012)(36900700001)(16060500005);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2023 20:51:09.0853 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8c7a34b-f030-41a8-93ae-08db3f8578bd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000B8EB.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8656
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,126 +98,82 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Natalia Petrova <n.petrova@fintech.ru>, lvc-project@linuxtesting.org, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Stylon Wang <stylon.wang@amd.com>, Luben Tuikov <luben.tuikov@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>, Rodrigo
+ Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Hans de Goede <hdegoede@redhat.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Hersen Wu <hersenxs.wu@amd.com>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, Harry
+ Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Thanks.  Applied!
+Currently, on a handful of ASICs. We allow the framebuffer for a given
+plane to exist in either VRAM or GTT. However, if the plane's new
+framebuffer is in a different memory domain than it's previous
+framebuffer, flipping between them can cause the screen to flicker. So,
+to fix this, don't perform an immediate flip in the aforementioned case.
 
-Alex
+Cc: stable@vger.kernel.org
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2354
+Fixes: 81d0bcf99009 ("drm/amdgpu: make display pinning more flexible (v2)")
+Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
+---
+v2: make a number of clarifications to the commit message and drop
+    locking.
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-On Thu, Apr 13, 2023 at 11:12=E2=80=AFAM Nikita Zhandarovich
-<n.zhandarovich@fintech.ru> wrote:
->
-> Several calls to ci_dpm_fini() will attempt to free resources that
-> either have been freed before or haven't been allocated yet. This
-> may lead to undefined or dangerous behaviour.
->
-> For instance, if r600_parse_extended_power_table() fails, it might
-> call r600_free_extended_power_table() as will ci_dpm_fini() later
-> during error handling.
->
-> Fix this by only freeing pointers to objects previously allocated.
->
-> Found by Linux Verification Center (linuxtesting.org) with static
-> analysis tool SVACE.
->
-> Fixes: cc8dbbb4f62a ("drm/radeon: add dpm support for CI dGPUs (v2)")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Natalia Petrova <n.petrova@fintech.ru>
-> Signed-off-by: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
-> ---
-> v2: free only resouces allocated prior, do not remove ci_dpm_fini()
-> or other deallocating calls altogether; fix commit message.
-> v1: https://lore.kernel.org/all/20230403182808.8699-1-n.zhandarovich@fint=
-ech.ru/
->
->  drivers/gpu/drm/radeon/ci_dpm.c | 28 ++++++++++++++++++++--------
->  1 file changed, 20 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/ci_dpm.c b/drivers/gpu/drm/radeon/ci_=
-dpm.c
-> index 8ef25ab305ae..b8f4dac68d85 100644
-> --- a/drivers/gpu/drm/radeon/ci_dpm.c
-> +++ b/drivers/gpu/drm/radeon/ci_dpm.c
-> @@ -5517,6 +5517,7 @@ static int ci_parse_power_table(struct radeon_devic=
-e *rdev)
->         u8 frev, crev;
->         u8 *power_state_offset;
->         struct ci_ps *ps;
-> +       int ret;
->
->         if (!atom_parse_data_header(mode_info->atom_context, index, NULL,
->                                    &frev, &crev, &data_offset))
-> @@ -5546,11 +5547,15 @@ static int ci_parse_power_table(struct radeon_dev=
-ice *rdev)
->                 non_clock_array_index =3D power_state->v2.nonClockInfoInd=
-ex;
->                 non_clock_info =3D (struct _ATOM_PPLIB_NONCLOCK_INFO *)
->                         &non_clock_info_array->nonClockInfo[non_clock_arr=
-ay_index];
-> -               if (!rdev->pm.power_state[i].clock_info)
-> -                       return -EINVAL;
-> +               if (!rdev->pm.power_state[i].clock_info) {
-> +                       ret =3D -EINVAL;
-> +                       goto err_free_ps;
-> +               }
->                 ps =3D kzalloc(sizeof(struct ci_ps), GFP_KERNEL);
-> -               if (ps =3D=3D NULL)
-> -                       return -ENOMEM;
-> +               if (ps =3D=3D NULL) {
-> +                       ret =3D -ENOMEM;
-> +                       goto err_free_ps;
-> +               }
->                 rdev->pm.dpm.ps[i].ps_priv =3D ps;
->                 ci_parse_pplib_non_clock_info(rdev, &rdev->pm.dpm.ps[i],
->                                               non_clock_info,
-> @@ -5590,6 +5595,12 @@ static int ci_parse_power_table(struct radeon_devi=
-ce *rdev)
->         }
->
->         return 0;
-> +
-> +err_free_ps:
-> +       for (i =3D 0; i < rdev->pm.dpm.num_ps; i++)
-> +               kfree(rdev->pm.dpm.ps[i].ps_priv);
-> +       kfree(rdev->pm.dpm.ps);
-> +       return ret;
->  }
->
->  static int ci_get_vbios_boot_values(struct radeon_device *rdev,
-> @@ -5678,25 +5689,26 @@ int ci_dpm_init(struct radeon_device *rdev)
->
->         ret =3D ci_get_vbios_boot_values(rdev, &pi->vbios_boot_state);
->         if (ret) {
-> -               ci_dpm_fini(rdev);
-> +               kfree(rdev->pm.dpm.priv);
->                 return ret;
->         }
->
->         ret =3D r600_get_platform_caps(rdev);
->         if (ret) {
-> -               ci_dpm_fini(rdev);
-> +               kfree(rdev->pm.dpm.priv);
->                 return ret;
->         }
->
->         ret =3D r600_parse_extended_power_table(rdev);
->         if (ret) {
-> -               ci_dpm_fini(rdev);
-> +               kfree(rdev->pm.dpm.priv);
->                 return ret;
->         }
->
->         ret =3D ci_parse_power_table(rdev);
->         if (ret) {
-> -               ci_dpm_fini(rdev);
-> +               kfree(rdev->pm.dpm.priv);
-> +               r600_free_extended_power_table(rdev);
->                 return ret;
->         }
->
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index da3045fdcb6d..fd1b323f0e85 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -7897,6 +7897,13 @@ static void amdgpu_dm_commit_cursors(struct drm_atomic_state *state)
+ 			amdgpu_dm_plane_handle_cursor_update(plane, old_plane_state);
+ }
+ 
++static inline uint32_t get_mem_type(struct drm_framebuffer *fb)
++{
++	struct amdgpu_bo *abo = gem_to_amdgpu_bo(fb->obj[0]);
++
++	return abo->tbo.resource ? abo->tbo.resource->mem_type : 0;
++}
++
+ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 				    struct dc_state *dc_state,
+ 				    struct drm_device *dev,
+@@ -7916,6 +7923,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 			to_dm_crtc_state(drm_atomic_get_old_crtc_state(state, pcrtc));
+ 	int planes_count = 0, vpos, hpos;
+ 	unsigned long flags;
++	uint32_t mem_type;
+ 	u32 target_vblank, last_flip_vblank;
+ 	bool vrr_active = amdgpu_dm_crtc_vrr_active(acrtc_state);
+ 	bool cursor_update = false;
+@@ -8035,13 +8043,17 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 			}
+ 		}
+ 
++		mem_type = get_mem_type(old_plane_state->fb);
++
+ 		/*
+ 		 * Only allow immediate flips for fast updates that don't
+-		 * change FB pitch, DCC state, rotation or mirroing.
++		 * change memory domain, FB pitch, DCC state, rotation or
++		 * mirroring.
+ 		 */
+ 		bundle->flip_addrs[planes_count].flip_immediate =
+ 			crtc->state->async_flip &&
+-			acrtc_state->update_type == UPDATE_TYPE_FAST;
++			acrtc_state->update_type == UPDATE_TYPE_FAST &&
++			(!mem_type || get_mem_type(fb) == mem_type);
+ 
+ 		timestamp_ns = ktime_get_ns();
+ 		bundle->flip_addrs[planes_count].flip_timestamp_in_us = div_u64(timestamp_ns, 1000);
+-- 
+2.40.0
+
