@@ -4,58 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39ECBC77B76
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Apr 2023 17:34:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0025C77B7A
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Apr 2023 18:11:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A791110E57E;
-	Mon, 17 Apr 2023 17:34:48 +0000 (UTC)
-Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
- [IPv6:2607:f8b0:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A021F10E097;
- Mon, 17 Apr 2023 17:34:46 +0000 (UTC)
-Received: by mail-oi1-x232.google.com with SMTP id bb20so12321757oib.12;
- Mon, 17 Apr 2023 10:34:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 278AC10E113;
+	Mon, 17 Apr 2023 18:11:35 +0000 (UTC)
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F16AE10E58D;
+ Mon, 17 Apr 2023 17:42:42 +0000 (UTC)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-3f1738d0d4cso6328315e9.1; 
+ Mon, 17 Apr 2023 10:42:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681752885; x=1684344885;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=eeGDsMuMU6qRe43N99vF2ssCtRufnnsTh9UIA9+QypE=;
- b=IDInwrW+xH9jdKHhQwGZ9AMx5IBZdTD6+1g3OhLs9BWIvByeuF8PqXlZYUpbq13ny8
- /CYUx0aSkCiH+tnQ1E70s+IGQ8WA2eqmH7hS/7MnAaKcHofmJ86YfSi1Y38FKGOCNdMA
- g3m+DAZpNsBcTuqDcyVLYTwgcWMeqR0Jb3MZD8ZYVQNxghqAIUU6r/lyLwqGDpf0w29g
- WjOwYOtrKN8/k4FPwJhoEp1I0+NGXF6sglPcQq3Qlo1TNlp6XLoWjB1IP4AI9+4i64bv
- UqXueR38VYZqbwHAIWrwo/ZOTqmMuybmySOdU86AU7kuz5YsH33MG6ug6/G30vMd7Pl4
- o6wQ==
+ d=gmail.com; s=20221208; t=1681753359; x=1684345359;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=oIDH6QLW9GMl0SUIgFXpcL60wep3vko9cwbetNFih7Q=;
+ b=hnZdPQ4bSnn7IM8OzetvjfY2BXRKa7KvAD32v0r1j4vHr6zQ/fo3vz25ufxSghM4FK
+ TGiF9r8hUN3SJJxjj1v+CEteYAcnl5jtnABWOmagTdog0heWPB6OpJHpH5OOwFSj48+1
+ IvLFwyylUzEuV/qqJGUF/i0plTiLfnFiw7ZppVPYaBqkUPJiEvd7M2wq05v3e8L+uOyf
+ qN16CUGNuettXdrR5t0SHdfyZGuIV4Yizs/zfk1brEtR2cO+DNnQJyjVlUXikNvRQHGO
+ LmVz54SWxenhz0ItD8BndOOMKVMN2ZGpM7xpQTuSRTs8yUoHTRHM1CrJ8mPR1E8f1Vsp
+ OfTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681752885; x=1684344885;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=eeGDsMuMU6qRe43N99vF2ssCtRufnnsTh9UIA9+QypE=;
- b=b5YT/Ns6gwI9Q7QJghb2FCMM/1LWttL7oFI8E6cOiAgeOvT/NS9Q3B0VjaumE/S+I7
- jL190HWqOD9zh0+8gVGqeJOqXF7NVv7AjGrVVpU32IyuvomLK9I6WBdkcWbJ6VNruZeg
- F3R6EFB0fixhprUjlIKqxEyWXsuJDWcmI85XlcH2Q7uinT3narVTChFP+nE2bQC7LiIL
- AHEt/N1OT8GiFJT9PclsFXPZztlQk03xuk4+Jqj4RXf3M/akoSuBIEyjtSgnBaRHqXnA
- DDc3a6aXqkgYTAAqzvdy+O1gJLQ9Rkc0KeYONI5gGu/5kbCk15z86aZq6e5sQsuazgtm
- p2RA==
-X-Gm-Message-State: AAQBX9fcXC685LpA2oJ1u975mcMoIBa3Rb7m3AmkJJtt9AhFcKflNVSf
- 7feXZ1G/rKztmoFee2xkqs7iLwP1Vr60HZuY6bJrQDJQ
-X-Google-Smtp-Source: AKy350bTrioIHzK5dr57vHhkLOTsyDawAXA2vhtRBswSuZM9nYlM43t4FGB7iGqblWvkCMZohmexiSP4DPey+QT8DqY=
-X-Received: by 2002:aca:ea8b:0:b0:38e:2135:697f with SMTP id
- i133-20020acaea8b000000b0038e2135697fmr426732oih.3.1681752885378; Mon, 17 Apr
- 2023 10:34:45 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1681753359; x=1684345359;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=oIDH6QLW9GMl0SUIgFXpcL60wep3vko9cwbetNFih7Q=;
+ b=OuicAMzOuiX28sjFB5aGZryedWz9br58PUYY0iISSjfxHh8mYfaJU8sPZYvyof7lCL
+ 5GauLLCU40g7f48iqPhm1hobLdhEtj2/jvgwrqDiACisAcPJ5Xd8z9gdrjDN48TRTLBv
+ eJR2y12+kMPEzdHcKpVZZq1jibp4ItWcXoijKfbdAh0qYFz3pGCOaYyo4w784n4vu9P6
+ J5TyzkuikMAyf60fC9lqiGhvPZpGvMbpInYLeUc7Mq8YpcRQTNrHPtdBbT98q9ozbopy
+ Py+W8xbs/8PnAgvsPg7pcoq8d7nWwkVaCcmKRpKg/Q8bWPbvEKVBT10bYoq+MIBVgd/j
+ nH7g==
+X-Gm-Message-State: AAQBX9cN8f7dWsdUaDMEHyOR1ep5neepBXLdjeUx02yCbqUKPgJUmxMp
+ v1eI4kR27Wfqaw60i+7F1/U=
+X-Google-Smtp-Source: AKy350aIJeioHbqYsZwsjs2wu7mqk/RIk0YjL7wRrWriUPu2VJKeMsMLs0JBPaKIE17WoXikYfOlwA==
+X-Received: by 2002:adf:f5c3:0:b0:2fb:be8b:133b with SMTP id
+ k3-20020adff5c3000000b002fbbe8b133bmr912525wrp.25.1681753359042; 
+ Mon, 17 Apr 2023 10:42:39 -0700 (PDT)
+Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
+ [80.193.200.194]) by smtp.gmail.com with ESMTPSA id
+ x17-20020a5d4911000000b002e55cc69169sm11024585wrq.38.2023.04.17.10.42.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Apr 2023 10:42:38 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui.Pan@amd.com, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH][next] drm/amd/pm: Fix spelling mistake "aquire" -> "acquire"
+Date: Mon, 17 Apr 2023 18:42:37 +0100
+Message-Id: <20230417174237.52638-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-References: <20230414193331.199598-1-hamza.mahfooz@amd.com>
- <4207e848-4e79-29a7-2bb0-44f74a2d62c7@amd.com>
-In-Reply-To: <4207e848-4e79-29a7-2bb0-44f74a2d62c7@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 17 Apr 2023 13:34:33 -0400
-Message-ID: <CADnq5_MRMjr3byW_qO==Ps+X9grYQ9FLYGFEnd_Jsu3FLQBzCw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: fix flickering caused by S/G mode
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 17 Apr 2023 18:11:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,135 +75,30 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stylon Wang <stylon.wang@amd.com>, dri-devel@lists.freedesktop.org,
- Leo Li <sunpeng.li@amd.com>, Qingqing Zhuo <qingqing.zhuo@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Hans de Goede <hdegoede@redhat.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Luben Tuikov <luben.tuikov@amd.com>, Hersen Wu <hersenxs.wu@amd.com>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Apr 17, 2023 at 1:59=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> Am 14.04.23 um 21:33 schrieb Hamza Mahfooz:
-> > Currently, we allow the framebuffer for a given plane to move between
-> > memory domains, however when that happens it causes the screen to
-> > flicker, it is even possible for the framebuffer to change memory
-> > domains on every plane update (causing a continuous flicker effect). So=
-,
-> > to fix this, don't perform an immediate flip in the aforementioned case=
-.
->
-> That sounds strongly like you just forget to wait for the move to finish!
+There is a spelling mistake in the smu_i2c_bus_access prototype. Fix it.
 
-It doesn't exhibit when we allow only gtt or only vram, only when
-switches between pools does it flicker.
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
+index 5ce433e2c16a..f1580a26a850 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
++++ b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
+@@ -359,7 +359,7 @@ struct pp_hwmgr_func {
+ 	int (*set_ppfeature_status)(struct pp_hwmgr *hwmgr, uint64_t ppfeature_masks);
+ 	int (*set_mp1_state)(struct pp_hwmgr *hwmgr, enum pp_mp1_state mp1_state);
+ 	int (*asic_reset)(struct pp_hwmgr *hwmgr, enum SMU_ASIC_RESET_MODE mode);
+-	int (*smu_i2c_bus_access)(struct pp_hwmgr *hwmgr, bool aquire);
++	int (*smu_i2c_bus_access)(struct pp_hwmgr *hwmgr, bool acquire);
+ 	int (*set_df_cstate)(struct pp_hwmgr *hwmgr, enum pp_df_cstate state);
+ 	int (*set_xgmi_pstate)(struct pp_hwmgr *hwmgr, uint32_t pstate);
+ 	int (*disable_power_features_for_compute_performance)(struct pp_hwmgr *hwmgr,
+-- 
+2.30.2
 
->
-> What is the order of things done here? E.g. who calls amdgpu_bo_pin()
-> and who waits for fences for finish signaling? Is that maybe just in the
-> wrong order?
->
-> Regards,
-> Christian.
->
-> >
-> > Cc: stable@vger.kernel.org
-> > Fixes: 81d0bcf99009 ("drm/amdgpu: make display pinning more flexible (v=
-2)")
-> > Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
-> > ---
-> >   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 41 ++++++++++++++++++=
--
-> >   1 file changed, 39 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/driver=
-s/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > index da3045fdcb6d..9a4e7408384a 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > @@ -7897,6 +7897,34 @@ static void amdgpu_dm_commit_cursors(struct drm_=
-atomic_state *state)
-> >                       amdgpu_dm_plane_handle_cursor_update(plane, old_p=
-lane_state);
-> >   }
-> >
-> > +static inline uint32_t get_mem_type(struct amdgpu_device *adev,
-> > +                                 struct drm_gem_object *obj,
-> > +                                 bool check_domain)
-> > +{
-> > +     struct amdgpu_bo *abo =3D gem_to_amdgpu_bo(obj);
-> > +     uint32_t mem_type;
-> > +
-> > +     if (unlikely(amdgpu_bo_reserve(abo, true)))
-> > +             return 0;
-> > +
-> > +     if (unlikely(dma_resv_reserve_fences(abo->tbo.base.resv, 1)))
-> > +             goto err;
-> > +
-> > +     if (check_domain &&
-> > +         amdgpu_display_supported_domains(adev, abo->flags) !=3D
-> > +         (AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT))
-> > +             goto err;
-> > +
-> > +     mem_type =3D abo->tbo.resource->mem_type;
-> > +     amdgpu_bo_unreserve(abo);
-> > +
-> > +     return mem_type;
-> > +
-> > +err:
-> > +     amdgpu_bo_unreserve(abo);
-> > +     return 0;
-> > +}
-> > +
-> >   static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
-> >                                   struct dc_state *dc_state,
-> >                                   struct drm_device *dev,
-> > @@ -7916,6 +7944,7 @@ static void amdgpu_dm_commit_planes(struct drm_at=
-omic_state *state,
-> >                       to_dm_crtc_state(drm_atomic_get_old_crtc_state(st=
-ate, pcrtc));
-> >       int planes_count =3D 0, vpos, hpos;
-> >       unsigned long flags;
-> > +     uint32_t mem_type;
-> >       u32 target_vblank, last_flip_vblank;
-> >       bool vrr_active =3D amdgpu_dm_crtc_vrr_active(acrtc_state);
-> >       bool cursor_update =3D false;
-> > @@ -8035,13 +8064,21 @@ static void amdgpu_dm_commit_planes(struct drm_=
-atomic_state *state,
-> >                       }
-> >               }
-> >
-> > +             mem_type =3D get_mem_type(dm->adev, old_plane_state->fb->=
-obj[0],
-> > +                                     true);
-> > +
-> >               /*
-> >                * Only allow immediate flips for fast updates that don't
-> > -              * change FB pitch, DCC state, rotation or mirroing.
-> > +              * change memory domain, FB pitch, DCC state, rotation or
-> > +              * mirroring.
-> >                */
-> >               bundle->flip_addrs[planes_count].flip_immediate =3D
-> >                       crtc->state->async_flip &&
-> > -                     acrtc_state->update_type =3D=3D UPDATE_TYPE_FAST;
-> > +                     acrtc_state->update_type =3D=3D UPDATE_TYPE_FAST =
-&&
-> > +                     (!mem_type || (mem_type && get_mem_type(dm->adev,
-> > +                                                             fb->obj[0=
-],
-> > +                                                             false) =
-=3D=3D
-> > +                                    mem_type));
-> >
-> >               timestamp_ns =3D ktime_get_ns();
-> >               bundle->flip_addrs[planes_count].flip_timestamp_in_us =3D=
- div_u64(timestamp_ns, 1000);
->
