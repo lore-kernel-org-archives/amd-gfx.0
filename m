@@ -4,60 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD566C6FD18
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 13:25:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5DA8C77B75
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 13:25:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C375610E9A4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9215510E9A2;
 	Wed, 19 Apr 2023 13:25:20 +0000 (UTC)
-Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com
- [IPv6:2607:f8b0:4864:20::1032])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34CBD10E074;
- Wed, 19 Apr 2023 04:24:37 +0000 (UTC)
-Received: by mail-pj1-x1032.google.com with SMTP id
- 98e67ed59e1d1-2472a3bfd23so1642106a91.3; 
- Tue, 18 Apr 2023 21:24:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681878276; x=1684470276;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=ZRDCjTOkWMGElxrmUMljuv7R6aYKvTg/GiQ2WWUQLjA=;
- b=P5QTikUGscbdQb7TFjUgKjgzxn/e9+eeyH2qxNQSgYuuAoEj9snd9v+RzKmYKdaFYB
- Z/F/DpJQo7e8vEFO5QQAdNK5pRF0eVSc2Z3LToHwQitYaPnV9WaYhsT+3QPwbYhyhWOo
- LLd698154Ty28I+Z3s6QzAars6oTGXtMF7Mwz23ALjlPE+FLwQNJQD57d2bRIjRKQo5K
- /eSJRxR5Num3TxuE6t60Tjk67JJ/vq5KGCBAlfuitq8wGNFR2BDk07PJ23mAZyYwBO0C
- /IzcPoTQ+SQ5jhA4iU8jpMFsg82p0U9KavFJC2lv3+aIkursUeNhKZ+71h5Piq67P6Qi
- 338g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681878276; x=1684470276;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ZRDCjTOkWMGElxrmUMljuv7R6aYKvTg/GiQ2WWUQLjA=;
- b=N4DjlJAKPjx8dxjrFctCUGI3/v8eaoV6mJBe3liJB/Jt1BKjdqM1ksxtuMbJnJLDS6
- HZRLQglOV+duusqIlm3zR7dja7G8MFvSbBEZUTUle0AdmiEKy/cYu/lY0CQJsmqzABPB
- KU5b9EW0KlpYdXJIXhUUfjRirgAa9cwa8u55epjETXHEJODtwmgE4g0wXiAETo9jA/b5
- pDoRl7E4IdD/ao29hM3YDBXCyhfvqwA9pElJFunjvnZEWGrWPB+2J1IAMe4jhQ10l33c
- 28AM8q7v7AWQzDo2Ign1txXNeQXDpv0JN9kFHjpbDkYAOusg0AiKdCC2+O5HFZnPA8Ow
- LZeQ==
-X-Gm-Message-State: AAQBX9fV130v4Z6Ku9FtXddA/UwVFBZRVE3Keh0DHpbzoToiy5V1h3ow
- eAkQJVieX8GKA1HVELJ05JU2vd3VZ2MvQAJ4DBs=
-X-Google-Smtp-Source: AKy350afI02Fa3Acq0DNx6nJUWrX6aI7RY4q/vg2eOyv/5uPkMM5pF1SRDx4yrymqaBjzv9oWxjrTg==
-X-Received: by 2002:a17:90a:fe8c:b0:246:f73c:3aba with SMTP id
- co12-20020a17090afe8c00b00246f73c3abamr1522019pjb.39.1681878276254; 
- Tue, 18 Apr 2023 21:24:36 -0700 (PDT)
-Received: from hackyzh-virtual-machine.localdomain ([58.34.53.146])
- by smtp.gmail.com with ESMTPSA id
- v8-20020a17090a088800b0024779068491sm380205pjc.26.2023.04.18.21.24.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Apr 2023 21:24:35 -0700 (PDT)
-From: hackyzh002 <hackyzh002@gmail.com>
-To: alexander.deucher@amd.com
-Subject: [PATCH 1/2] drm/radeon: Fix integer overflow in radeon_cs_parser_init
-Date: Wed, 19 Apr 2023 12:24:07 +0800
-Message-Id: <20230419042407.69001-1-hackyzh002@gmail.com>
-X-Mailer: git-send-email 2.34.1
+X-Greylist: delayed 403 seconds by postgrey-1.36 at gabe;
+ Tue, 18 Apr 2023 21:38:19 UTC
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org
+ [IPv6:2001:67c:2050:0:465::101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A10B10E2FC;
+ Tue, 18 Apr 2023 21:38:18 +0000 (UTC)
+Received: from smtp102.mailbox.org (unknown [10.196.197.102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4Q1HDH079Cz9t4K;
+ Tue, 18 Apr 2023 23:31:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1681853487;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=KC9FUxhkYIrJcl9CTNIj/+D5n5jqJvE6Q6ukjUkKjgU=;
+ b=iOhsPXPQBr3wHW9fEQnn1H5Xxrcndhu5PSan/o9ZRycMM4Pi+GvYMnmTNWAQLJDaCePnPl
+ xk+S7Sd0u1bL5nZdJy0Oip9iNqo4aARvkS6y4jN1qn+q2fCPFi61VwvK3zG91FijKdA22h
+ p7oon1un7Lgvm+DmIPno1GvR6hW2bcOpQx1KxYamqSvADPrcsxNDkSASG4ApgTSZJiZYfQ
+ V08WjFMwTKAUBx/em1qvSkGDJ+FyjzUa1Fq6xrPlO+STrAYJmpTOXlTGuRIokJd4ix07/s
+ fSZoQhrwFwrqQ5zQN5Z/YdcG9HuRXojtoCu0x6dzNZJNWibv1Gdx66nU8nl5fw==
+Date: Mon, 17 Apr 2023 20:48:09 +0200
+From: Harald Koenig <harald@mailbox.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Subject: Re: 2023 X.Org Foundation Membership deadline for voting in the
+ election
+Message-ID: <ZD2UabVlQOBVaVRO@hl.fritz.box>
+References: <ef4e39301a769ef83668074c341274e30db57f95.camel@igalia.com>
+ <2b861d289edaab1c53c031f72de192fcddf85b13.camel@igalia.com>
+ <20230417124502.GB19964@pendragon.ideasonboard.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230417124502.GB19964@pendragon.ideasonboard.com>
+X-MBO-RS-META: 7gitco355spy61a3k3zmf6tukn6cq3nt
+X-MBO-RS-ID: c488dba0842a997c9ba
 X-Mailman-Approved-At: Wed, 19 Apr 2023 13:25:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,45 +59,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, sumit.semwal@linaro.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, hackyzh002 <hackyzh002@gmail.com>, airlied@gmail.com,
- christian.koenig@amd.com, linux-media@vger.kernel.org
+Cc: xorg-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
+ board <board@foundation.x.org>, members@x.org, amd-gfx@lists.freedesktop.org,
+ mesa-dev@lists.freedesktop.org, events@lists.x.org,
+ Ricardo Garcia <rgarcia@igalia.com>, freedreno@lists.freedesktop.org,
+ libre-soc-dev@lists.libre-soc.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The type of size is unsigned, if size is 0x40000000, there will be an
-integer overflow, size will be zero after size *= sizeof(uint32_t),
-will cause uninitialized memory to be referenced later
+On Apr 17, Laurent Pinchart wrote:
 
-Signed-off-by: hackyzh002 <hackyzh002@gmail.com>
----
- drivers/gpu/drm/radeon/radeon_cs.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+> I don't know if I'm the only one affected by this issue, but I've just
+> received today two months of e-mails from x.org, including all the
+> reminders aboud membership renewal and election nomination period. This
+> isn't the first time this happens, and the last time I was told there
+> was no automated process to quick the mail queues when errors happen,
+> making mails pile up forever on x.org's side until someone handles it
+> manually. This is something you really want to automate, or at least
+> monitored.
 
-diff --git a/drivers/gpu/drm/radeon/radeon_cs.c b/drivers/gpu/drm/radeon/radeon_cs.c
-index 46a27ebf4..472c29050 100644
---- a/drivers/gpu/drm/radeon/radeon_cs.c
-+++ b/drivers/gpu/drm/radeon/radeon_cs.c
-@@ -270,7 +270,7 @@ int radeon_cs_parser_init(struct radeon_cs_parser *p, void *data)
- {
- 	struct drm_radeon_cs *cs = data;
- 	uint64_t *chunk_array_ptr;
--	unsigned size, i;
-+	u64 size, i;
- 	u32 ring = RADEON_CS_RING_GFX;
- 	s32 priority = 0;
- 
-@@ -347,7 +347,7 @@ int radeon_cs_parser_init(struct radeon_cs_parser *p, void *data)
- 				continue;
- 		}
- 
--		p->chunks[i].kdata = kvmalloc_array(size, sizeof(uint32_t), GFP_KERNEL);
-+		p->chunks[i].kdata = kvcalloc(size, sizeof(uint32_t), GFP_KERNEL);
- 		size *= sizeof(uint32_t);
- 		if (p->chunks[i].kdata == NULL) {
- 			return -ENOMEM;
+same here for me: looking into the mail header,
+both mails were stuck on server "gabe.freedesktop.org" 
+
+	Received: from gabe.freedesktop.org (localhost [127.0.0.1])
+	        by gabe.freedesktop.org (Postfix) with ESMTP id BD01310E459;
+	        Mon, 17 Apr 2023 11:42:45 +0000 (UTC)
+	X-Original-To: events@lists.x.org
+	Delivered-To: events@lists.x.org
+	Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	 by gabe.freedesktop.org (Postfix) with ESMTPS id 6C54510E162;
+	 Wed, 15 Feb 2023 15:58:10 +0000 (UTC)
+
+and	
+
+	Received: from gabe.freedesktop.org (localhost [127.0.0.1])
+	        by gabe.freedesktop.org (Postfix) with ESMTP id 6735010E46D;
+	        Mon, 17 Apr 2023 11:42:45 +0000 (UTC)
+	X-Original-To: events@lists.x.org
+	Delivered-To: events@lists.x.org
+	Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	 by gabe.freedesktop.org (Postfix) with ESMTPS id 98DB48953E;
+	 Mon, 13 Mar 2023 15:23:02 +0000 (UTC)
+
+
+
+Harald
 -- 
-2.34.1
-
+"I hope to die                                      ___       _____
+before I *have* to use Microsoft Word.",           0--,|    /OOOOOOO\
+Donald E. Knuth, 02-Oct-2001 in Tuebingen.        <_/  /  /OOOOOOOOOOO\
+                                                    \  \/OOOOOOOOOOOOOOO\
+                                                      \ OOOOOOOOOOOOOOOOO|//
+                                                       \/\/\/\/\/\/\/\/\/
+Harald Koenig                                           //  /     \\  \
+harald.koenig@mailbox.org                              ^^^^^       ^^^^^
