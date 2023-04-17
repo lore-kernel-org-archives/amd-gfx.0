@@ -4,89 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E523C77B76
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Apr 2023 20:51:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C52FC77B72
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Apr 2023 21:05:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E06910E5E9;
-	Mon, 17 Apr 2023 20:51:14 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20627.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8a::627])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A494C10E5E4;
- Mon, 17 Apr 2023 20:51:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UjK14ZHPln6AExWIZaz1oGaeaMxr0H5ZO3u7DEwdWueHAapWqHI8LLqW9DmKWM8+oRiPdDqrB+3EUksX17HxR9vadiKj6ROvzaXvzdY3UESqfJjjEOQHhBMqqdoyN64XbibJgvOXUqozpnNt4FM2bBcoU9QhFGtJOmdSGGVlIJUAL28EovwxahEN2EKpLU8bcyMyPU8JDiVnazpgU7EOiB0/ovchT8c9DYlpgRoNj9vYlbLryNi8/mSYop0sFLUQiTbo9RdUWxJiQ9O6tVe/lPxySv1HfoSYPp+I4VQyDENymQ9Ba4oN3GBKez3I9GkyhCzD7PRsmzC7/oHwj1lOTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K0GsZF7y+bnHqgUYW5tKSxc5X4Zu08FT9hlgc1adet4=;
- b=asQLXyLKn0WrfEhQwF42e8MyYKpa5YrGAXeoJr8sg+81utmPrlXGRzLLxGrbN0GynjqLnfgPd4BXYXu2KIdI0F1j8+MQTG+oT7TDCD6xFr5QJ6MGtOyThRgfBM/O7Nc7TTNt40b9/6mcNIs9u/zYcYatl9Ow1415Epv/OrSnO2IfxLOX6v4HEecBssv0cTud+j+LeyPSs+0B+s1mbps874yqP/rH80gh50uLkv/ymyEPCJnu5eYQ6Sxe8CRNmWgbJPDE646AOHMNsBfslk6jorWgn4td++dejRXyP+GuLs6kXW/kyZrSAacw4zu4IqWjFak5JTAEsPMxxiBWXv9J2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K0GsZF7y+bnHqgUYW5tKSxc5X4Zu08FT9hlgc1adet4=;
- b=G4YOd2mYGeS4IhMqF5dg+xGia7twuBpbNcAlEZfzhWI5/XzHxsc408MTiv4ePu2W4t65CbAIJ7yENghMFl1aYHEa5lVsVhoIsTh02WvKsSvaNNccvQHHGwBJ9EPFlKDVfOENO1cybf8JX3W5UPCJd1kmbP1DSeZl4e9dgctXyrg=
-Received: from CY5PR15CA0250.namprd15.prod.outlook.com (2603:10b6:930:66::24)
- by CYYPR12MB8656.namprd12.prod.outlook.com (2603:10b6:930:c3::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.45; Mon, 17 Apr
- 2023 20:51:09 +0000
-Received: from CY4PEPF0000B8EB.namprd05.prod.outlook.com
- (2603:10b6:930:66:cafe::95) by CY5PR15CA0250.outlook.office365.com
- (2603:10b6:930:66::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.46 via Frontend
- Transport; Mon, 17 Apr 2023 20:51:09 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000B8EB.mail.protection.outlook.com (10.167.241.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6340.5 via Frontend Transport; Mon, 17 Apr 2023 20:51:09 +0000
-Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 17 Apr
- 2023 15:51:07 -0500
-From: Hamza Mahfooz <hamza.mahfooz@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v2] drm/amd/display: fix flickering caused by S/G mode
-Date: Mon, 17 Apr 2023 16:52:19 -0400
-Message-ID: <20230417205220.420676-1-hamza.mahfooz@amd.com>
-X-Mailer: git-send-email 2.40.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB3A310E5FA;
+	Mon, 17 Apr 2023 21:05:31 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3A4D10E5FA;
+ Mon, 17 Apr 2023 21:05:29 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4726A62203;
+ Mon, 17 Apr 2023 21:05:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83730C433D2;
+ Mon, 17 Apr 2023 21:05:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1681765528;
+ bh=52CmbMWSGGlcsW0V31cEnaaOdCM0vYFCDeDCtkUevl0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=GwWfpxW4bU6LZiq+Q8pr5OqGmmUa/5KdN85Ai8A0eDaznC0OnH4A/r02FYwzR9bbP
+ UhmPxtE3k7+tEpJy4Zd3/k5hO0VYaF7pEK2HQMSvhmozzsh0Z8XZvHI5A4aWBRuTTm
+ YT3IhkxDLQ6tIEpCyfj6XN+AeyKunLeafgyNZNFatfXlZFw5PKgT7wYDzKaX1JsHqK
+ PgBc/4rOyZB1wrw3vEBeMDIIoZz0iEu7DNdQbe/H/VyYreGS6MHoYvIDMSpsWhJB81
+ vhor1cAGc+wKO53K7B0DQhVKVozvCy51HCNxi2hub53JvXOeVD2fXSUJTuevUKcW4N
+ ufmoTAICrFe1w==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+Subject: [PATCH] drm/radeon: move prototypes to header
+Date: Mon, 17 Apr 2023 23:04:50 +0200
+Message-Id: <20230417210523.2553531-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000B8EB:EE_|CYYPR12MB8656:EE_
-X-MS-Office365-Filtering-Correlation-Id: e8c7a34b-f030-41a8-93ae-08db3f8578bd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: aYhbqXmYldpAGk7oizbPPWmSNNVNgV3tdwyoTF2CaJzIIzOHJX2Z/GaNGgqNsa8/QUQi2YqlD28Aegjd4GnOPzZ4GUmKM3bC6g/qJPC71qe9uqlJ7QxEJJNBAMK9OGpjMtUkCez7Rwp+K0Mvq0StBgMfa7PWoHUxBL3nGT+snyloxKZMXrNbMh4N2S1u2CA6GU6oZm2dJ9aigdKTKYlB3iqTn96j3d6UxloOhbsMw64LNnSy/U7HLHRBJK6yIk35zsvdI6I0G4GwGMwDItGYSaW9DBLBnpxqkvUuMuq5VpRAuiR0liTnxCR2KPMQ1SShJBpaCcj/xPggLich98mPcUIDd/YzrU6//XsCEcUw4uuQEsfTMWpjVug49kew9P4ESiKHaYI3KKpUuZIyf798tExXls03jIARphFlVbf5Q5ivWW6InakL7qdHFn3+27kKLGP04uuDyY5fDEQkOofkzes5eqDaa5k2HO8AlAYvgvrAdLnt3sHuArtpil2cFkAQd3GOFWQTQ4gZwR2N3gPStITOYeJ1XAyq8J0bjE1mk3CHhWd8Kcl9cSCeNlKDKT84Gydg1K9QHHtkmQAtFVXdWuvekxY/u4d/5o+VcNpYtEmuth55AyP860FdBg2BmYTVOgMjA+bveTYFAJi60kuwOkpnlKgV8IVxp6K2o9oh+sZxdbtJpBvAxsidwlfOoebzpmgBo/LT38RaLLaScyLo4w==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(396003)(136003)(39860400002)(376002)(451199021)(46966006)(36840700001)(40470700004)(1076003)(26005)(82740400003)(356005)(316002)(41300700001)(81166007)(40460700003)(186003)(16526019)(478600001)(82310400005)(36756003)(6666004)(54906003)(966005)(70586007)(70206006)(86362001)(40480700001)(6916009)(4326008)(2616005)(36860700001)(5660300002)(8936002)(8676002)(47076005)(2906002)(83380400001)(426003)(44832011)(336012)(36900700001)(16060500005);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2023 20:51:09.0853 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8c7a34b-f030-41a8-93ae-08db3f8578bd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000B8EB.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8656
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,82 +52,153 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Stylon Wang <stylon.wang@amd.com>, Luben Tuikov <luben.tuikov@amd.com>,
- Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@gmail.com>,
- dri-devel@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>, Rodrigo
- Siqueira <Rodrigo.Siqueira@amd.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Hans de Goede <hdegoede@redhat.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Hersen Wu <hersenxs.wu@amd.com>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Harry
- Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, Arnd Bergmann <arnd@arndb.de>,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Currently, on a handful of ASICs. We allow the framebuffer for a given
-plane to exist in either VRAM or GTT. However, if the plane's new
-framebuffer is in a different memory domain than it's previous
-framebuffer, flipping between them can cause the screen to flicker. So,
-to fix this, don't perform an immediate flip in the aforementioned case.
+From: Arnd Bergmann <arnd@arndb.de>
 
-Cc: stable@vger.kernel.org
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2354
-Fixes: 81d0bcf99009 ("drm/amdgpu: make display pinning more flexible (v2)")
-Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
----
-v2: make a number of clarifications to the commit message and drop
-    locking.
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+Global functions in radeon_atpx_handler.c are not declared in a header
+but instead in each file using them. This risks the types getting out
+of sync and causes warnings:
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index da3045fdcb6d..fd1b323f0e85 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -7897,6 +7897,13 @@ static void amdgpu_dm_commit_cursors(struct drm_atomic_state *state)
- 			amdgpu_dm_plane_handle_cursor_update(plane, old_plane_state);
- }
+drivers/gpu/drm/radeon/radeon_atpx_handler.c:64:6: error: no previous prototype for 'radeon_has_atpx' [-Werror=missing-prototypes]
+drivers/gpu/drm/radeon/radeon_atpx_handler.c:68:6: error: no previous prototype for 'radeon_has_atpx_dgpu_power_cntl' [-Werror=missing-prototypes]
+drivers/gpu/drm/radeon/radeon_atpx_handler.c:72:6: error: no previous prototype for 'radeon_is_atpx_hybrid' [-Werror=missing-prototypes]
+drivers/gpu/drm/radeon/radeon_atpx_handler.c:76:6: error: no previous prototype for 'radeon_atpx_dgpu_req_power_for_displays' [-Werror=missing-prototypes]
+drivers/gpu/drm/radeon/radeon_atpx_handler.c:594:6: error: no previous prototype for 'radeon_register_atpx_handler' [-Werror=missing-prototypes]
+drivers/gpu/drm/radeon/radeon_atpx_handler.c:612:6: error: no previous prototype for 'radeon_unregister_atpx_handler' [-Werror=missing-prototypes]
+
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ drivers/gpu/drm/radeon/radeon.h              | 18 ++++++++++++++++++
+ drivers/gpu/drm/radeon/radeon_acpi.c         |  6 ------
+ drivers/gpu/drm/radeon/radeon_atpx_handler.c |  1 +
+ drivers/gpu/drm/radeon/radeon_device.c       |  8 --------
+ drivers/gpu/drm/radeon/radeon_drv.c          | 13 -------------
+ drivers/gpu/drm/radeon/radeon_kms.c          |  6 ------
+ 6 files changed, 19 insertions(+), 33 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/radeon.h
+index 8afb03bbce29..74fb4dfc3e5e 100644
+--- a/drivers/gpu/drm/radeon/radeon.h
++++ b/drivers/gpu/drm/radeon/radeon.h
+@@ -2964,6 +2964,24 @@ void radeon_irq_kms_set_irq_n_enabled(struct radeon_device *rdev,
+ void radeon_audio_component_init(struct radeon_device *rdev);
+ void radeon_audio_component_fini(struct radeon_device *rdev);
  
-+static inline uint32_t get_mem_type(struct drm_framebuffer *fb)
-+{
-+	struct amdgpu_bo *abo = gem_to_amdgpu_bo(fb->obj[0]);
++/* atpx handler */
++#if defined(CONFIG_VGA_SWITCHEROO)
++bool radeon_has_atpx(void);
++void radeon_register_atpx_handler(void);
++void radeon_unregister_atpx_handler(void);
++bool radeon_has_atpx_dgpu_power_cntl(void);
++bool radeon_is_atpx_hybrid(void);
++bool radeon_atpx_dgpu_req_power_for_displays(void);
++#else
++static inline bool radeon_has_atpx(void) { return false; }
++static inline void radeon_register_atpx_handler(void) {}
++static inline void radeon_unregister_atpx_handler(void) {}
++static inline bool radeon_has_atpx_dgpu_power_cntl(void) { return false; }
++static inline bool radeon_is_atpx_hybrid(void) { return false; }
++static inline bool radeon_atpx_dgpu_req_power_for_displays(void) { return false; }
++#endif
 +
-+	return abo->tbo.resource ? abo->tbo.resource->mem_type : 0;
-+}
 +
- static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 				    struct dc_state *dc_state,
- 				    struct drm_device *dev,
-@@ -7916,6 +7923,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 			to_dm_crtc_state(drm_atomic_get_old_crtc_state(state, pcrtc));
- 	int planes_count = 0, vpos, hpos;
- 	unsigned long flags;
-+	uint32_t mem_type;
- 	u32 target_vblank, last_flip_vblank;
- 	bool vrr_active = amdgpu_dm_crtc_vrr_active(acrtc_state);
- 	bool cursor_update = false;
-@@ -8035,13 +8043,17 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 			}
- 		}
+ #include "radeon_object.h"
  
-+		mem_type = get_mem_type(old_plane_state->fb);
-+
- 		/*
- 		 * Only allow immediate flips for fast updates that don't
--		 * change FB pitch, DCC state, rotation or mirroing.
-+		 * change memory domain, FB pitch, DCC state, rotation or
-+		 * mirroring.
- 		 */
- 		bundle->flip_addrs[planes_count].flip_immediate =
- 			crtc->state->async_flip &&
--			acrtc_state->update_type == UPDATE_TYPE_FAST;
-+			acrtc_state->update_type == UPDATE_TYPE_FAST &&
-+			(!mem_type || get_mem_type(fb) == mem_type);
+ #endif
+diff --git a/drivers/gpu/drm/radeon/radeon_acpi.c b/drivers/gpu/drm/radeon/radeon_acpi.c
+index 5771d1fcb073..695c673eb9f6 100644
+--- a/drivers/gpu/drm/radeon/radeon_acpi.c
++++ b/drivers/gpu/drm/radeon/radeon_acpi.c
+@@ -38,12 +38,6 @@
+ #include "radeon_acpi.h"
+ #include "radeon_pm.h"
  
- 		timestamp_ns = ktime_get_ns();
- 		bundle->flip_addrs[planes_count].flip_timestamp_in_us = div_u64(timestamp_ns, 1000);
+-#if defined(CONFIG_VGA_SWITCHEROO)
+-bool radeon_atpx_dgpu_req_power_for_displays(void);
+-#else
+-static inline bool radeon_atpx_dgpu_req_power_for_displays(void) { return false; }
+-#endif
+-
+ #define ACPI_AC_CLASS           "ac_adapter"
+ 
+ struct atif_verify_interface {
+diff --git a/drivers/gpu/drm/radeon/radeon_atpx_handler.c b/drivers/gpu/drm/radeon/radeon_atpx_handler.c
+index 6f93f54bf651..dfd30558f8e8 100644
+--- a/drivers/gpu/drm/radeon/radeon_atpx_handler.c
++++ b/drivers/gpu/drm/radeon/radeon_atpx_handler.c
+@@ -12,6 +12,7 @@
+ #include <linux/delay.h>
+ 
+ #include "radeon_acpi.h"
++#include "radeon.h"
+ 
+ struct radeon_atpx_functions {
+ 	bool px_params;
+diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
+index afbb3a80c0c6..180f8aa971b4 100644
+--- a/drivers/gpu/drm/radeon/radeon_device.c
++++ b/drivers/gpu/drm/radeon/radeon_device.c
+@@ -113,14 +113,6 @@ static const char radeon_family_name[][16] = {
+ 	"LAST",
+ };
+ 
+-#if defined(CONFIG_VGA_SWITCHEROO)
+-bool radeon_has_atpx_dgpu_power_cntl(void);
+-bool radeon_is_atpx_hybrid(void);
+-#else
+-static inline bool radeon_has_atpx_dgpu_power_cntl(void) { return false; }
+-static inline bool radeon_is_atpx_hybrid(void) { return false; }
+-#endif
+-
+ #define RADEON_PX_QUIRK_DISABLE_PX  (1 << 0)
+ 
+ struct radeon_px_quirk {
+diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
+index e4374814f0ef..d8d75b347678 100644
+--- a/drivers/gpu/drm/radeon/radeon_drv.c
++++ b/drivers/gpu/drm/radeon/radeon_drv.c
+@@ -128,19 +128,6 @@ int radeon_mode_dumb_create(struct drm_file *file_priv,
+ 			    struct drm_device *dev,
+ 			    struct drm_mode_create_dumb *args);
+ 
+-/* atpx handler */
+-#if defined(CONFIG_VGA_SWITCHEROO)
+-void radeon_register_atpx_handler(void);
+-void radeon_unregister_atpx_handler(void);
+-bool radeon_has_atpx_dgpu_power_cntl(void);
+-bool radeon_is_atpx_hybrid(void);
+-#else
+-static inline void radeon_register_atpx_handler(void) {}
+-static inline void radeon_unregister_atpx_handler(void) {}
+-static inline bool radeon_has_atpx_dgpu_power_cntl(void) { return false; }
+-static inline bool radeon_is_atpx_hybrid(void) { return false; }
+-#endif
+-
+ int radeon_no_wb;
+ int radeon_modeset = -1;
+ int radeon_dynclks = -1;
+diff --git a/drivers/gpu/drm/radeon/radeon_kms.c b/drivers/gpu/drm/radeon/radeon_kms.c
+index e0214cf1b43b..2a491381fb26 100644
+--- a/drivers/gpu/drm/radeon/radeon_kms.c
++++ b/drivers/gpu/drm/radeon/radeon_kms.c
+@@ -41,12 +41,6 @@
+ #include "radeon_drv.h"
+ #include "radeon_kms.h"
+ 
+-#if defined(CONFIG_VGA_SWITCHEROO)
+-bool radeon_has_atpx(void);
+-#else
+-static inline bool radeon_has_atpx(void) { return false; }
+-#endif
+-
+ /**
+  * radeon_driver_unload_kms - Main unload function for KMS.
+  *
 -- 
-2.40.0
+2.39.2
 
