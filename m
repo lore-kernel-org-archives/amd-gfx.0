@@ -4,44 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B8BAC77B76
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Apr 2023 22:08:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84063C77B76
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Apr 2023 06:09:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97CCC10E629;
-	Mon, 17 Apr 2023 22:08:47 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B16C10E2A2;
- Mon, 17 Apr 2023 22:08:45 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9512F6206E;
- Mon, 17 Apr 2023 22:08:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 797A3C433EF;
- Mon, 17 Apr 2023 22:08:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1681769324;
- bh=3mAYSO1Xzj3GFR1DXJ9WPdepWdVO++0QoAFLkNEoni4=;
- h=From:To:Cc:Subject:Date:From;
- b=N1EN8WNKF55QyT3laJHT+/Kw4zQ5N7uX8g3DlwvYfQ7/0cfZ46K8XsvVNQ8L5fY60
- MUSR3CaVwtZ0l2PB+CkQK/VWLRD9s8NVzwnFmjKupNxzrgPrSPfzYBtxFH6n3ban7q
- 9EEV54zWOyKKJeDUKFmPWQT5aqhdnecN3N0YR4ulCRr6pTTorsak/Ea78Rta8x48aA
- r2dxHnNJ0kUgYmJlv3OaBnSyBQzDdHfmoZn2aZsdCr8TD3is/1tTAXeXeREEWib8xB
- WHcSRhg94qymuET4cwJUkpxX9eJlsIS7fkRuuJkIy8IAv+iTFwgs2vprortCh+OVGq
- u55syr2dqTaIA==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Subject: [PATCH] [v2] drm/amd/display: fix is_timing_changed() prototype
-Date: Tue, 18 Apr 2023 00:07:18 +0200
-Message-Id: <20230417220827.3481168-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.39.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 203CD10E686;
+	Tue, 18 Apr 2023 06:09:38 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20623.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5a::623])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1552410E0CC;
+ Tue, 18 Apr 2023 06:09:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HaNof7xxhLZZbDywPGEluetHaptzDuggM+aP2fmzurFYUWagcI2FomtNADT8ozmvuUW4uhE/GtxraTo8haaNuOzZlQ89CNYkslsD1SDWXHSVtxIz721WXuT1Nbq/QchcxLZS4fUF58K9PefrcSapADgJPExoyixx/o6dLzcSqY8TsqrE+FIxV4Jeq9W9Oi07RpH4ARfN+7PjBfc3/fEGge1uyj5pgCzB3NPJBXGg8GvoDspEYSA8skm3Uxi0mbfZjS65YePgc8VzXHnKEuudzOjZGIhzuBaAt46d1Kb3+1HVmNWX1C2jI8T4mU71L4FB7hio3JTo2m1INGZT+2QdkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2DxxzEqJJeg6OhCgPivSQApLe6bdKKtl/Edk/R9xvnM=;
+ b=GejWL7HMC8EXHNidvcMXwiU/2MdA/mJkyggoYDbFkmhXW1bXSCdfLdseaZnuIHjm9EB0kRPoLGv/lRCunlcLtFvhDQqwiLpy/FX7mahc/VECpntIFPUQSOQnVx7vYiR+HsdAXduJvq+u2C2nzu0ewNOXVHeQOsgd27bH1SS7H/ETIpRxP96/2wTKeY0rO8lAJkuLNVBfrVAP92cqsj1u2aIyS7gYFK4kIKs3hpEPlPH28cWs1tK5lkw67lCZJVpvhdm8nkwkIef5UtP9kq7KRBIotBEYhZeaUBRRph6DuqxWB5C0mnYJJOXDOvCHHwHx/VIPeA9qPMvd4+vTRJMdNQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2DxxzEqJJeg6OhCgPivSQApLe6bdKKtl/Edk/R9xvnM=;
+ b=2GDSuMjVyfrTIgYTaWqBIEwQrrntL8x3vclBI9RhgevdtBDk4B/FrG0WE+Jgg4xqIXA0tnuHB/EXVlfvWZcrlP7M/XXoLLh8Mv9gIlvMXpwWQ0jqfw8LuvRcesB80YAdHMhNlnnpsv5rlhY+gGMr8FvLKVtp8bNyecIhXznkob0=
+Received: from DS7PR03CA0041.namprd03.prod.outlook.com (2603:10b6:5:3b5::16)
+ by IA0PR12MB7529.namprd12.prod.outlook.com (2603:10b6:208:441::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.45; Tue, 18 Apr
+ 2023 06:09:31 +0000
+Received: from DM6NAM11FT102.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b5:cafe::af) by DS7PR03CA0041.outlook.office365.com
+ (2603:10b6:5:3b5::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.47 via Frontend
+ Transport; Tue, 18 Apr 2023 06:09:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT102.mail.protection.outlook.com (10.13.173.172) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6319.20 via Frontend Transport; Tue, 18 Apr 2023 06:09:30 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 18 Apr
+ 2023 01:09:25 -0500
+Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Tue, 18 Apr 2023 01:09:22 -0500
+From: Wayne Lin <Wayne.Lin@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/dp_mst: Clear MSG_RDY flag before sending new message
+Date: Tue, 18 Apr 2023 14:09:05 +0800
+Message-ID: <20230418060905.4078976-1-Wayne.Lin@amd.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT102:EE_|IA0PR12MB7529:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2ba0c8c0-16aa-4f3d-9432-08db3fd37968
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: CyuAw7UX5yXL0oMmxfg9r0uF5Rg8lPfV2Mcb+btcyGbdTBko9SLQh71aosMyEu+bk4N3i/lj7C4mCBc+md4oEKzvx4pmyH1s4JdOPtCsxWM2GBZLuPsTN1EaVj0IQxZQM90SAdGQOgW5PoGkJvIkskrfyN59pM8tmN5flG8T61bTP0MhJuoFcoFoi1mnRP4yfEtkoLJXqhi+FF1jW03vtkJRmMMtLmkOKI7hf2L4ccl+ywD50x0fyrkl1ij3BG+PDtYwxM9idijRD9UhiTJ+UBBOiKxt7zl+Sw9J9c/t2VUMOFD5dKbmegYB8VRCS6y8xfwD61jhkjKil7kNBdBGAmV2sO8LxLt+FLVjvaSRh9iXvCy6lAxt1quuZmJwyKD9VlXZ2O0efbEMFYxJvcuY785MfMl6oNUHUKEm4NhtRfwq0TB3M5k9Y2CEdltdO9BuZaa+5zz99JMcbCSdgJz9o2qGdmu+j4z4fqyUxTuugc5u/cbEg9I2Bv1lja5K2hg7jjxHmEjYGr53hUqAODQkoCpvoc2THAU0InAAcGWAdKgybHga4vMySktFDwXCfVTWuVzk3J9sZZt6olfhYrq8k58nmUf+9slAjjuqyi5DzTHTiAfg4xwOeXGXteirjdKGalx+90ZgoV7ty4ou5t9NcUG99hgmF07fW331rfSXqfZI7DmmXGEKFtvkPCLGf4Vw+TnrSE3HLYhY9T65wwfQAi7QQSsTXIV6vmms8GfAd+Q=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(136003)(376002)(39860400002)(396003)(451199021)(36840700001)(40470700004)(46966006)(36756003)(8936002)(8676002)(40460700003)(5660300002)(2906002)(15650500001)(82310400005)(86362001)(40480700001)(478600001)(7696005)(6666004)(54906003)(110136005)(186003)(2616005)(36860700001)(1076003)(70586007)(70206006)(26005)(41300700001)(356005)(82740400003)(316002)(83380400001)(81166007)(4326008)(47076005)(426003)(336012)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Apr 2023 06:09:30.9822 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ba0c8c0-16aa-4f3d-9432-08db3fd37968
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT102.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7529
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,104 +98,121 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Aric Cyr <Aric.Cyr@amd.com>, dri-devel@lists.freedesktop.org,
- Roman Li <roman.li@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Jun Lei <Jun.Lei@amd.com>, David Airlie <airlied@gmail.com>,
- Mario Kleiner <mario.kleiner.de@gmail.com>, Wenjing Liu <wenjing.liu@amd.com>,
- amd-gfx@lists.freedesktop.org, Fangzhi Zuo <Jerry.Zuo@amd.com>,
- Aurabindo Pillai <Aurabindo.Pillai@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>,
- Jasdeep Dhillon <jdhillon@amd.com>, Alan Liu <HaoPing.Liu@amd.com>,
- Arnd Bergmann <arnd@arndb.de>, Alex Hung <alex.hung@amd.com>,
- hersen wu <hersenxs.wu@amd.com>, Qingqing Zhuo <qingqing.zhuo@amd.com>,
- linux-kernel@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- Wayne Lin <Wayne.Lin@amd.com>
+Cc: jani.nikula@intel.com, imre.deak@intel.com, stable@vger.kernel.org,
+ jerry.zuo@amd.com, Wayne Lin <Wayne.Lin@amd.com>, harry.wentland@amd.com,
+ ville.syrjala@linux.intel.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
+[Why & How]
+The sequence for collecting down_reply/up_request from source
+perspective should be:
 
-Three functions in the amdgpu display driver cause -Wmissing-prototype
-warnings:
+Request_n->repeat (get partial reply of Request_n->clear message ready
+flag to ack DPRX that the message is received) till all partial
+replies for Request_n are received->new Request_n+1.
 
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_resource.c:1858:6: error: no previous prototype for 'is_timing_changed' [-Werror=missing-prototypes]
+While assembling partial reply packets, reading out DPCD DOWN_REP
+Sideband MSG buffer + clearing DOWN_REP_MSG_RDY flag should be
+wrapped up as a complete operation for reading out a reply packet.
+Kicking off a new request before clearing DOWN_REP_MSG_RDY flag might
+be risky. e.g. If the reply of the new request has overwritten the
+DPRX DOWN_REP Sideband MSG buffer before source writing ack to clear
+DOWN_REP_MSG_RDY flag, source then unintentionally flushes the reply
+for the new request. Should handle the up request in the same way.
 
-is_timing_changed() is actually meant to be a global symbol, but needs
-a proper name and prototype.
+In drm_dp_mst_hpd_irq(), we don't clear MSG_RDY flag before caliing
+drm_dp_mst_kick_tx(). Fix that.
 
-Fixes: 17ce8a6907f7 ("drm/amd/display: Add dsc pre-validation in atomic check")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
+Cc: stable@vger.kernel.org
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 5 ++---
- drivers/gpu/drm/amd/display/dc/core/dc_resource.c           | 6 +++---
- drivers/gpu/drm/amd/display/dc/dc.h                         | 3 +++
- 3 files changed, 8 insertions(+), 6 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 ++
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 22 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_dp.c       |  3 +++
+ drivers/gpu/drm/nouveau/dispnv50/disp.c       |  2 ++
+ 4 files changed, 29 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 994ba426ca66..442511061178 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -45,8 +45,7 @@
- #endif
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 77277d90b6e2..5313a5656598 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3166,6 +3166,8 @@ static void dm_handle_mst_sideband_msg(struct amdgpu_dm_connector *aconnector)
+ 			for (retry = 0; retry < 3; retry++) {
+ 				uint8_t wret;
  
- #include "dc/dcn20/dcn20_resource.h"
--bool is_timing_changed(struct dc_stream_state *cur_stream,
--		       struct dc_stream_state *new_stream);
-+
- #define PEAK_FACTOR_X1000 1006
- 
- static ssize_t dm_dp_aux_transfer(struct drm_dp_aux *aux,
-@@ -1417,7 +1416,7 @@ int pre_validate_dsc(struct drm_atomic_state *state,
- 		struct dc_stream_state *stream = dm_state->context->streams[i];
- 
- 		if (local_dc_state->streams[i] &&
--		    is_timing_changed(stream, local_dc_state->streams[i])) {
-+		    dc_is_timing_changed(stream, local_dc_state->streams[i])) {
- 			DRM_INFO_ONCE("crtc[%d] needs mode_changed\n", i);
- 		} else {
- 			int ind = find_crtc_index_in_state_by_stream(state, stream);
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index 85d54bfb595c..344533623cb9 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -1855,7 +1855,7 @@ bool dc_add_all_planes_for_stream(
- 	return add_all_planes_for_stream(dc, stream, &set, 1, context);
- }
- 
--bool is_timing_changed(struct dc_stream_state *cur_stream,
-+bool dc_is_timing_changed(struct dc_stream_state *cur_stream,
- 		       struct dc_stream_state *new_stream)
++				/* MSG_RDY ack is done in drm*/
++				esi[1] &= ~(DP_DOWN_REP_MSG_RDY | DP_UP_REQ_MSG_RDY);
+ 				wret = drm_dp_dpcd_write(
+ 					&aconnector->dm_dp_aux.aux,
+ 					dpcd_addr + 1,
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index 51a46689cda7..02aad713c67c 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -4054,6 +4054,9 @@ int drm_dp_mst_hpd_irq(struct drm_dp_mst_topology_mgr *mgr, u8 *esi, bool *handl
  {
- 	if (cur_stream == NULL)
-@@ -1880,7 +1880,7 @@ static bool are_stream_backends_same(
- 	if (stream_a == NULL || stream_b == NULL)
- 		return false;
+ 	int ret = 0;
+ 	int sc;
++	const int tosend = 1;
++	int retries = 0;
++	u8 buf = 0;
+ 	*handled = false;
+ 	sc = DP_GET_SINK_COUNT(esi[0]);
  
--	if (is_timing_changed(stream_a, stream_b))
-+	if (dc_is_timing_changed(stream_a, stream_b))
- 		return false;
+@@ -4072,6 +4075,25 @@ int drm_dp_mst_hpd_irq(struct drm_dp_mst_topology_mgr *mgr, u8 *esi, bool *handl
+ 		*handled = true;
+ 	}
  
- 	if (stream_a->signal != stream_b->signal)
-@@ -3505,7 +3505,7 @@ bool pipe_need_reprogram(
- 	if (pipe_ctx_old->stream_res.stream_enc != pipe_ctx->stream_res.stream_enc)
- 		return true;
- 
--	if (is_timing_changed(pipe_ctx_old->stream, pipe_ctx->stream))
-+	if (dc_is_timing_changed(pipe_ctx_old->stream, pipe_ctx->stream))
- 		return true;
- 
- 	if (pipe_ctx_old->stream->dpms_off != pipe_ctx->stream->dpms_off)
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 23ee63b98dcd..e7ab6cb3769b 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -2225,4 +2225,7 @@ void dc_process_dmub_dpia_hpd_int_enable(const struct dc *dc,
- /* Disable acc mode Interfaces */
- void dc_disable_accelerated_mode(struct dc *dc);
- 
-+bool dc_is_timing_changed(struct dc_stream_state *cur_stream,
-+		       struct dc_stream_state *new_stream);
++	if (*handled) {
++		buf = esi[1] & (DP_DOWN_REP_MSG_RDY | DP_UP_REQ_MSG_RDY);
++		do {
++			ret = drm_dp_dpcd_write(mgr->aux,
++						DP_DEVICE_SERVICE_IRQ_VECTOR_ESI0,
++						&buf,
++						tosend);
 +
- #endif /* DC_INTERFACE_H_ */
++			if (ret == tosend)
++				break;
++
++			retries++;
++		} while (retries < 5);
++
++		if (ret != tosend)
++			drm_dbg_kms(mgr->dev, "failed to write dpcd 0x%x\n",
++				    DP_DEVICE_SERVICE_IRQ_VECTOR_ESI0);
++	}
++
+ 	drm_dp_mst_kick_tx(mgr);
+ 	return ret;
+ }
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index bf80f296a8fd..abec3de38b66 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -3939,6 +3939,9 @@ intel_dp_check_mst_status(struct intel_dp *intel_dp)
+ 		if (!memchr_inv(ack, 0, sizeof(ack)))
+ 			break;
+ 
++		/* MSG_RDY ack is done in drm*/
++		ack[1] &= ~(DP_DOWN_REP_MSG_RDY | DP_UP_REQ_MSG_RDY);
++
+ 		if (!intel_dp_ack_sink_irq_esi(intel_dp, ack))
+ 			drm_dbg_kms(&i915->drm, "Failed to ack ESI\n");
+ 	}
+diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+index edcb2529b402..e905987104ed 100644
+--- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
++++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+@@ -1336,6 +1336,8 @@ nv50_mstm_service(struct nouveau_drm *drm,
+ 		if (!handled)
+ 			break;
+ 
++		/* MSG_RDY ack is done in drm*/
++		esi[1] &= ~(DP_DOWN_REP_MSG_RDY | DP_UP_REQ_MSG_RDY);
+ 		rc = drm_dp_dpcd_write(aux, DP_SINK_COUNT_ESI + 1, &esi[1],
+ 				       3);
+ 		if (rc != 3) {
 -- 
-2.39.2
+2.37.3
 
