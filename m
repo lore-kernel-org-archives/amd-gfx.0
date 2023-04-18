@@ -4,58 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52D52C77B75
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 13:25:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2A65C77B73
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 13:25:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E7AD10E9A8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E3AB10E9A5;
 	Wed, 19 Apr 2023 13:25:21 +0000 (UTC)
-Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
- [IPv6:2607:f8b0:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47B0210E08A;
- Wed, 19 Apr 2023 04:52:17 +0000 (UTC)
-Received: by mail-pl1-x631.google.com with SMTP id
- d9443c01a7336-1a682eee3baso17167585ad.0; 
- Tue, 18 Apr 2023 21:52:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681879936; x=1684471936;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Ek00L1cc21EOyKRafT/BGo0L28SeYIDeaJNfXSoDXCk=;
- b=d+4BWM18QNx9T8dgCdsk3UsYNuvnf21SDCQFyquG/W2sADMBujm+iIWajisCKuKoxG
- R1VSJCKr1sX5EaaIxiWJ9XO0RVuA33BMi4vOnetn4QAV09WkxRK8PCOkuIi6ItRXhGKh
- q8A6NjgJujvmHHhkGqmnks1KiR23uvckaBpED9UuP27afZdSTNWqqCnJyt02KL3MDhJ7
- v909j7ReBDq8PNdCrjoqk7IwZdirR07mN/VwA4lJsdBY6K6u3pjpZIdiKGC0536W6i7q
- pzXBMTKpacWNp/o5Nj4/aCBbCz6k8k/EhmtDUpnzDe3V4oiVzNUPB2OYLhCtphGf28uy
- 9AGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681879936; x=1684471936;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Ek00L1cc21EOyKRafT/BGo0L28SeYIDeaJNfXSoDXCk=;
- b=jNroC2ETeu1eNDlogqwXe9cavjOQ/VnZU0TRXAZ2wsVM8gSsK3Gb/L/GpnXYHCxA98
- 9zBZrDnkLJIEUt/dJQbAi76enpT4nNVrOZKqy6Fy+yw2c9NYLVqVtReyjRlXHy4AJ331
- c9jM/u+7YQCnYGu7N9PObuYDCvQxC8Ul4Dm6owD22e6DIBFKfLuhN/394OviHBe4WSTv
- 752dAUh4GxnPo2MvFz3Z6W104UIMsU2OnuGLAQ3zQVOkcIH5sk9AnGWUfOMI+gpspCXJ
- J0qb3bAUArKlH3azMZkXf0jRRuI5u/2VsccUsakwOR6EAL3Q4G90YUycriKIKENdr5RQ
- Zz8w==
-X-Gm-Message-State: AAQBX9fZh4yfM0ko9VyA83C3mBHgey4i5cx1SLSMymMOGRY/0Z7bseSI
- jKFRlLyjzWYP6dEa56qL6J/2T1wjkD2e5FQjh+o=
-X-Google-Smtp-Source: AKy350aYkXkO5nxw+E17pu3EKWjttrdTBgY/iJvBuAu1+xFva4iSl0hDCqJM6NsevZ9568vkBqdsJg==
-X-Received: by 2002:a17:902:8503:b0:19e:500b:517a with SMTP id
- bj3-20020a170902850300b0019e500b517amr3719378plb.69.1681879936118; 
- Tue, 18 Apr 2023 21:52:16 -0700 (PDT)
-Received: from hackyzh-virtual-machine.localdomain ([58.34.53.146])
- by smtp.gmail.com with ESMTPSA id
- ix9-20020a170902f80900b001a64dbfc5d7sm10433184plb.145.2023.04.18.21.52.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Apr 2023 21:52:15 -0700 (PDT)
-From: hackyzh002 <hackyzh002@gmail.com>
-To: alexander.deucher@amd.com
-Subject: [PATCH 2/2] drm/amdgpu: Fix integer overflow in amdgpu_cs_pass1
-Date: Wed, 19 Apr 2023 12:51:57 +0800
-Message-Id: <20230419045157.69829-1-hackyzh002@gmail.com>
-X-Mailer: git-send-email 2.34.1
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C303C10E3BF
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Apr 2023 22:15:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:
+ Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=uA6P+8Hkrzo+D0+qPODF3BQfuZv/J+mQAU+Dzcl5MQc=; b=cmUMrnUeenYwfKDF4cFVPTRe/1
+ t6p9MLU/246fi5J2DzE4LPWbg9l8HOAPIGN1ON7xlUC9sa5TdiEP7Xh/U7W7tdxmgiMRl5h+gM+/y
+ zS0WFjqu/BoMzqU/N4Z/ZFAOLdd0K9YhY+Y7VGrlsSrGVocWr5VFcyWjNQE4xy/Ern0ChCQT9ClUX
+ KWFANSmSSoSqczAyu4lr+Te51N6U/7PDENDSmW69OaLXMfvT5NisC2psUppznHHrL6XGqJYdRmycz
+ ltXI/1sC893MKimUH7treA0yztdhQCSvTdt4Rdm3+PcirNOwQYu2N+0szUWhGgfDIozBHBqLlq3Q2
+ Xdsc6CuQ==;
+Received: from 201-92-79-199.dsl.telesp.net.br ([201.92.79.199] helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1potbo-004Qxi-6G; Wed, 19 Apr 2023 00:15:33 +0200
+From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+To: stable@vger.kernel.org
+Subject: [PATCH 6.1.y] drm/amdgpu/vcn: Disable indirect SRAM on Vangogh broken
+ BIOSes
+Date: Tue, 18 Apr 2023 19:15:22 -0300
+Message-Id: <20230418221522.1287942-1-gpiccoli@igalia.com>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 19 Apr 2023 13:25:18 +0000
@@ -70,45 +50,125 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, sumit.semwal@linaro.org,
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, hackyzh002 <hackyzh002@gmail.com>, airlied@gmail.com,
- christian.koenig@amd.com, linux-media@vger.kernel.org
+Cc: sashal@kernel.org, gregkh@linuxfoundation.org, kernel@gpiccoli.net,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ alexander.deucher@amd.com, James.Zhu@amd.com, leo.liu@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The type of size is unsigned int, if size is 0x40000000, there will
-be an integer overflow, size will be zero after size *= sizeof(uint32_t),
-will cause uninitialized memory to be referenced later.
+commit 542a56e8eb4467ae654eefab31ff194569db39cd upstream.
 
-Signed-off-by: hackyzh002 <hackyzh002@gmail.com>
+The VCN firmware loading path enables the indirect SRAM mode if it's
+advertised as supported. We might have some cases of FW issues that
+prevents this mode to working properly though, ending-up in a failed
+probe. An example below, observed in the Steam Deck:
+
+[...]
+[drm] failed to load ucode VCN0_RAM(0x3A)
+[drm] psp gfx command LOAD_IP_FW(0x6) failed and response status is (0xFFFF0000)
+amdgpu 0000:04:00.0: [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR* ring vcn_dec_0 test failed (-110)
+[drm:amdgpu_device_init.cold [amdgpu]] *ERROR* hw_init of IP block <vcn_v3_0> failed -110
+amdgpu 0000:04:00.0: amdgpu: amdgpu_device_ip_init failed
+amdgpu 0000:04:00.0: amdgpu: Fatal error during GPU init
+[...]
+
+Disabling the VCN block circumvents this, but it's a very invasive
+workaround that turns off the entire feature. So, let's add a quirk
+on VCN loading that checks for known problematic BIOSes on Vangogh,
+so we can proactively disable the indirect SRAM mode and allow the
+HW proper probe and VCN IP block to work fine.
+
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2385
+Fixes: 82132ecc5432 ("drm/amdgpu: enable Vangogh VCN indirect sram mode")
+Fixes: 9a8cc8cabc1e ("drm/amdgpu: enable Vangogh VCN indirect sram mode")
+Cc: stable@vger.kernel.org
+Cc: James Zhu <James.Zhu@amd.com>
+Cc: Leo Liu <leo.liu@amd.com>
+Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 08eced097..c17b3af85 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -192,7 +192,7 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
- 	uint64_t *chunk_array_user;
- 	uint64_t *chunk_array;
- 	uint32_t uf_offset = 0;
--	unsigned int size;
-+	uint64_t int size;
- 	int ret;
- 	int i;
+Hi folks, this was build/boot tested on Deck. I've also adjusted the
+context, function was reworked on 6.2.
+
+But what a surprise was for me not see this fix already in 6.1.y, since
+I've CCed stable, and the reason for that is really peculiar:
+
+
+$ git log -1 --pretty="%an <%ae>: %s" 82132ecc5432
+Leo Liu <leo.liu@amd.com>: drm/amdgpu: enable Vangogh VCN indirect sram mode
+
+$ git describe --contains 82132ecc5432
+v6.2-rc1~124^2~1^2~13
+
+
+$ git log -1 --pretty="%an <%ae>: %s" 9a8cc8cabc1e
+Leo Liu <leo.liu@amd.com>: drm/amdgpu: enable Vangogh VCN indirect sram mode
+
+$ git describe --contains 9a8cc8cabc1e
+v6.1-rc8~16^2^2
+
+
+This is quite strange for me, we have 2 commit hashes pointing to the *same*
+commit, and each one is present..in a different release !!?!
+Since I've marked this patch as fixing 82132ecc5432 originally, 6.1.y stable
+misses it, since it only contains 9a8cc8cabc1e (which is the same patch!).
+
+Alex, do you have an idea why sometimes commits from the AMD tree appear
+duplicate in mainline? Specially in different releases, this could cause
+some confusion I guess.
+
+Thanks in advance,
+
+
+Guilherme
+
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index ce64ca1c6e66..5c1193dd7d88 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -26,6 +26,7 @@
  
-@@ -235,7 +235,7 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
- 		size = p->chunks[i].length_dw;
- 		cdata = u64_to_user_ptr(user_chunk.chunk_data);
- 
--		p->chunks[i].kdata = kvmalloc_array(size, sizeof(uint32_t),
-+		p->chunks[i].kdata = kvcalloc(size, sizeof(uint32_t),
- 						    GFP_KERNEL);
- 		if (p->chunks[i].kdata == NULL) {
- 			ret = -ENOMEM;
+ #include <linux/firmware.h>
+ #include <linux/module.h>
++#include <linux/dmi.h>
+ #include <linux/pci.h>
+ #include <linux/debugfs.h>
+ #include <drm/drm_drv.h>
+@@ -84,6 +85,7 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
+ {
+ 	unsigned long bo_size;
+ 	const char *fw_name;
++	const char *bios_ver;
+ 	const struct common_firmware_header *hdr;
+ 	unsigned char fw_check;
+ 	unsigned int fw_shared_size, log_offset;
+@@ -159,6 +161,21 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
+ 		if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
+ 		    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
+ 			adev->vcn.indirect_sram = true;
++		/*
++		 * Some Steam Deck's BIOS versions are incompatible with the
++		 * indirect SRAM mode, leading to amdgpu being unable to get
++		 * properly probed (and even potentially crashing the kernel).
++		 * Hence, check for these versions here - notice this is
++		 * restricted to Vangogh (Deck's APU).
++		 */
++		bios_ver = dmi_get_system_info(DMI_BIOS_VERSION);
++
++		if (bios_ver && (!strncmp("F7A0113", bios_ver, 7) ||
++		     !strncmp("F7A0114", bios_ver, 7))) {
++			adev->vcn.indirect_sram = false;
++			dev_info(adev->dev,
++				"Steam Deck quirk: indirect SRAM disabled on BIOS %s\n", bios_ver);
++		}
+ 		break;
+ 	case IP_VERSION(3, 0, 16):
+ 		fw_name = FIRMWARE_DIMGREY_CAVEFISH;
 -- 
-2.34.1
+2.40.0
 
