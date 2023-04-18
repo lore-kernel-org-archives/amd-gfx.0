@@ -4,52 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2558AC77B75
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Apr 2023 17:44:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E921DC77B75
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Apr 2023 18:16:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4668B10E380;
-	Tue, 18 Apr 2023 17:44:38 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DE0A10E15C;
- Tue, 18 Apr 2023 17:44:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681839875; x=1713375875;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=P6qbNqbkC5sAe3IO2jo5u4p0ONmYkpo1JHbsKLgdse4=;
- b=KylfnfuScdqTjeSm7OXet943nGNtIUz6C6vRldekWdPc10XvOLsIqJzm
- 94ypDe9Z1vUb4aJV1aIe0+wnLmzxy+R1D9Ee8RaHjXk/ucmyVwoszAhFM
- hxbAEqBlvX0cJ8u8mCTjIswAEUT2B1e3YvqJ4F1A7wEZNvWe7s8J1AxzO
- pHjaOepAkGzheYy7Clf3vExL5xuYiYihxqw1WfF1z2dFVtW8SCGBwrCkp
- zTrS2rVsnM9RjEJ4p/VPapZF64byLi1oIbXm7Cy9vBgYt5afQxTA92xjQ
- XU3EzlReFt4g7TCRm0kFedtgy8CQYIKd2V/U9vpfgQNVwcQETZDMINJTh Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="410471702"
-X-IronPort-AV: E=Sophos;i="5.99,207,1677571200"; d="scan'208";a="410471702"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Apr 2023 10:44:33 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="668650554"
-X-IronPort-AV: E=Sophos;i="5.99,207,1677571200"; d="scan'208";a="668650554"
-Received: from ashfaqur-mobl1.ger.corp.intel.com (HELO intel.com)
- ([10.251.213.178])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Apr 2023 10:44:29 -0700
-Date: Tue, 18 Apr 2023 19:44:05 +0200
-From: Andi Shyti <andi.shyti@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AF0110E820;
+	Tue, 18 Apr 2023 18:16:14 +0000 (UTC)
+Received: from mail-out.aladdin-rd.ru (mail-out.aladdin-rd.ru [91.199.251.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D22D810E813;
+ Tue, 18 Apr 2023 18:13:06 +0000 (UTC)
+From: Daniil Dulov <D.Dulov@aladdin.ru>
 To: Andi Shyti <andi.shyti@linux.intel.com>
 Subject: Re: [PATCH] drm/amdkfd: Fix potential deallocation of previously
  deallocated memory.
-Message-ID: <ZD7W5aaslOXLg707@ashyti-mobl2.lan>
+Thread-Topic: [PATCH] drm/amdkfd: Fix potential deallocation of previously
+ deallocated memory.
+Thread-Index: AQHZccLCArZBbSPlkkChgaoDf69fTK8wjvMAgAAWVoCAAHM/AIAADGSAgAA6UR8=
+Date: Tue, 18 Apr 2023 18:12:48 +0000
+Message-ID: <PR3P193MB052467DAA1F33E3C7A128F6EF19D9@PR3P193MB0524.EURP193.PROD.OUTLOOK.COM>
 References: <20230418065521.453001-1-d.dulov@aladdin.ru>
  <ZD5ZFoEk92MNQpqD@ashyti-mobl2.lan>
  <d41669a1-9e18-defb-d0cc-d43d7be7d23e@kernel.org>
- <ZD7MgL619KVYKeTV@ashyti-mobl2.lan>
+ <ZD7MgL619KVYKeTV@ashyti-mobl2.lan>,<ZD7W5aaslOXLg707@ashyti-mobl2.lan>
+In-Reply-To: <ZD7W5aaslOXLg707@ashyti-mobl2.lan>
+Accept-Language: ru-RU, en-US
+Content-Language: ru-RU
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ZD7MgL619KVYKeTV@ashyti-mobl2.lan>
+X-Mailman-Approved-At: Tue, 18 Apr 2023 18:16:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,25 +45,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, lvc-project@linuxtesting.org,
- David Airlie <airlied@linux.ie>, Daniil Dulov <d.dulov@aladdin.ru>,
- linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
- Christian =?iso-8859-15?Q?K=F6nig?= <christian.koenig@amd.com>,
- Oak Zeng <oak.zeng@intel.com>, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "lvc-project@linuxtesting.org" <lvc-project@linuxtesting.org>,
+ David Airlie <airlied@linux.ie>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Oak Zeng <oak.zeng@intel.com>, Krzysztof Kozlowski <krzk@kernel.org>, Alex
+ Deucher <alexander.deucher@amd.com>,
+ =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> Daniil will you look into this?
-
-and, because this is a bug fix, if you do want to send a real
-fix, plase add to the commit message:
-
-Fixes: d1f8f0d17d40 ("drm/amdkfd: Move non-sdma mqd allocation out of init_mqd")
-Cc: Oak Zeng <oak.zeng@intel.com>
-Cc: <stable@vger.kernel.org> # v5.3+
-
-Andi
-
-PS: please note that Oak's e-mail has changed.
+VGhhbmsgeW91IGZvciB5b3VyIGZlZWRiYWNrISBJIHdpbGwgZG8gaXQgYXMgc29vbiBhcyBwb3Nz
+aWJsZS4NCg0KRGFuaWlsDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQrQntGC
+OiBBbmRpIFNoeXRpIDxhbmRpLnNoeXRpQGxpbnV4LmludGVsLmNvbT4NCtCe0YLQv9GA0LDQstC7
+0LXQvdC+OiDQstGC0L7RgNC90LjQuiwgMTgg0LDQv9GA0LXQu9GPIDIwMjMg0LMuLCAyMDo0NA0K
+0JrQvtC80YM6IEFuZGkgU2h5dGkgPGFuZGkuc2h5dGlAbGludXguaW50ZWwuY29tPg0K0JrQvtC/
+0LjRjzogS3J6eXN6dG9mIEtvemxvd3NraSA8a3J6a0BrZXJuZWwub3JnPjsgRGFuaWlsIER1bG92
+IDxELkR1bG92QGFsYWRkaW4ucnU+OyBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1k
+LmNvbT47IGx2Yy1wcm9qZWN0QGxpbnV4dGVzdGluZy5vcmcgPGx2Yy1wcm9qZWN0QGxpbnV4dGVz
+dGluZy5vcmc+OyBEYXZpZCBBaXJsaWUgPGFpcmxpZWRAbGludXguaWU+OyBsaW51eC1rZXJuZWxA
+dmdlci5rZXJuZWwub3JnIDxsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnPjsgYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcgPGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPjsgZHJp
+LWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZyA8ZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZz47IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT47IE9hayBaZW5n
+IDxvYWsuemVuZ0BpbnRlbC5jb20+OyBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmln
+QGFtZC5jb20+DQrQotC10LzQsDogUmU6IFtQQVRDSF0gZHJtL2FtZGtmZDogRml4IHBvdGVudGlh
+bCBkZWFsbG9jYXRpb24gb2YgcHJldmlvdXNseSBkZWFsbG9jYXRlZCBtZW1vcnkuDQoNCj4gRGFu
+aWlsIHdpbGwgeW91IGxvb2sgaW50byB0aGlzPw0KDQphbmQsIGJlY2F1c2UgdGhpcyBpcyBhIGJ1
+ZyBmaXgsIGlmIHlvdSBkbyB3YW50IHRvIHNlbmQgYSByZWFsDQpmaXgsIHBsYXNlIGFkZCB0byB0
+aGUgY29tbWl0IG1lc3NhZ2U6DQoNCkZpeGVzOiBkMWY4ZjBkMTdkNDAgKCJkcm0vYW1ka2ZkOiBN
+b3ZlIG5vbi1zZG1hIG1xZCBhbGxvY2F0aW9uIG91dCBvZiBpbml0X21xZCIpDQpDYzogT2FrIFpl
+bmcgPG9hay56ZW5nQGludGVsLmNvbT4NCkNjOiA8c3RhYmxlQHZnZXIua2VybmVsLm9yZz4gIyB2
+NS4zKw0KDQpBbmRpDQoNClBTOiBwbGVhc2Ugbm90ZSB0aGF0IE9haydzIGUtbWFpbCBoYXMgY2hh
+bmdlZC4NCg0K
