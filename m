@@ -4,90 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 432ACC77B71
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Apr 2023 06:55:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AC07C77B71
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Apr 2023 06:55:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D256510E1FD;
-	Tue, 18 Apr 2023 06:55:09 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2049.outbound.protection.outlook.com [40.107.244.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62F2010E1FD
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Apr 2023 06:55:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WvYC7RnwQeNU1fu9cZnH4K6vFCI1BHlrEcdlc7Kbip7r0cT+4E71prtNdsz9hPcdP3QYaPdwcxFdu8pqb5RDfSHQRdmIqXIKj8aU+hWOB4XygAwi0DSayWR+PSbpsf5+AF0NAay9fcpsN/2puctI+ViYziQcwjRKwXl4uRQQiWB4ZHFys6vF61kbXxpjCqx+BTgCoG71MXIc3AmwjmlfCRg5YXcoIku64NiRkDts1nhnqup+wnQmuJ1O0xxCRL7hNI3fgiLE6lmrmojd2DMg4EQclKV/JISZkaSRxeGE8bJkbYpETV0WDPrYjDHCXSdsoG0PfMH6H4ZVYMPDy0nH5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OGs3lO9y3RvKkWgF6LfYa3+LRZE/fuhh4VAaITywdog=;
- b=BHMT1ce7G8klEmLowDNzDQhFlx8m/QyL4raB2w7+fLWwOt/p+LzITCmbpJOWNoKAPwGrL2eRRe8Bd0O9D9b7LigvyFs3/0luBDx4DgieB5Lt3D4so4e1zeyrg5CdkFoSCfwTeiRUwn4joDVx7HipeKregaM/ILqv3bKaR1SmxYVtg/99F1u2jNTy8MyBzMtfEC+Zq6L5zYYY0+1YeJZKsIEnxjLT6vCbmlUoMvEivKmTHa6xbtuUfRueifEKLzVGDeV/R76wdu1W3MBvDjHNs5vhbIFrISINh1eX4lbLtglKVGBNj2BMGXbXHIXHTPBZieXpx+WTiRWUhrWs3jVt8A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OGs3lO9y3RvKkWgF6LfYa3+LRZE/fuhh4VAaITywdog=;
- b=aAos5gMBksFXNUwgmAekx4+MCtHVfko7TIdsJoSokYLDjZMZuFGIhT8J2DZx8+dzyQ+MdTSPNXyVKOvJddpOLdUOCo3ufGS1E+xeIh8vNUu+UZkcASSjDzhQHuK/fKEm99BeTBdqVN4E3rOYKIEDxsbYUC6p4ZIWrl+sNIGZ04E=
-Received: from MW3PR06CA0014.namprd06.prod.outlook.com (2603:10b6:303:2a::19)
- by CH2PR12MB5017.namprd12.prod.outlook.com (2603:10b6:610:36::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.45; Tue, 18 Apr
- 2023 06:55:05 +0000
-Received: from CO1NAM11FT043.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:2a:cafe::e9) by MW3PR06CA0014.outlook.office365.com
- (2603:10b6:303:2a::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.46 via Frontend
- Transport; Tue, 18 Apr 2023 06:55:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT043.mail.protection.outlook.com (10.13.174.193) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6319.20 via Frontend Transport; Tue, 18 Apr 2023 06:55:05 +0000
-Received: from shane-u20.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 18 Apr
- 2023 01:55:01 -0500
-From: Shane Xiao <shane.xiao@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <Alexander.Deucher@amd.com>,
- <hawking.zhang@amd.com>, <felix.kuehling@amd.com>
-Subject: [PATCH] drm/amdgpu: Enable doorbell selfring if resize BAR
- successfully
-Date: Tue, 18 Apr 2023 14:54:43 +0800
-Message-ID: <20230418065443.878721-1-shane.xiao@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6B7510E69F;
+	Tue, 18 Apr 2023 06:55:49 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57C7B10E2F7;
+ Tue, 18 Apr 2023 06:55:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1681800947; x=1713336947;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=cxF13p8SCEtnlzosb7qH6VytQ/OvmdwB769JK2OzYAg=;
+ b=ALf2YedzjWvXmkcSJWgQhI/v7/KeY6Zkz/RoQpI52bnQRhsUN1kivKll
+ XcW3COrYfttaUMdfufFLVaLTsiHN2ch8Y8t+MlEbA094Rf/SjSNmUQmnV
+ OZpQ7MiT0kiGvOO2TE1rSRBJMDdb4RUXU1gnNubB7hp/AfGzmBPjAWidu
+ ZdbVGPmldC4modP3kD7OYFbLIlwLUApcAeeK0BuyPNDHAY7AUCzLCPpDV
+ FezbSPnz0Z5B4PrOemFGHL1v409p1Ixrq/WOG5lb9VNtRcDt9BJti+njx
+ uJqPT6/Ay3Le9TP4TtCHcFY4cVX0ZP7jGeBVz3kbVKmFzC/t2mllHPGKG w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10683"; a="325432676"
+X-IronPort-AV: E=Sophos;i="5.99,206,1677571200"; d="scan'208";a="325432676"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Apr 2023 23:55:28 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10683"; a="815096197"
+X-IronPort-AV: E=Sophos;i="5.99,206,1677571200"; d="scan'208";a="815096197"
+Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
+ by orsmga004.jf.intel.com with ESMTP; 17 Apr 2023 23:55:24 -0700
+Received: from kbuild by b613635ddfff with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pofFL-000d4p-2b;
+ Tue, 18 Apr 2023 06:55:23 +0000
+Date: Tue, 18 Apr 2023 14:55:11 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 4aa1da8d99724f6c0b762b58a71cee7c5e2e109b
+Message-ID: <643e3ecf.IXV1BGGBUFf0iS6O%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT043:EE_|CH2PR12MB5017:EE_
-X-MS-Office365-Filtering-Correlation-Id: b1d63e19-46f8-461f-53b6-08db3fd9d71f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OF3TYkTF1c6uqiw13TNr3wMhwyn/H6MDfy61l+LL6Swr7ZbgzymPeUU6fUAxfV7/Q5qf79HKA416rsCvJJAhb3wsTisKn2i5Y0TiQGTwuqvmh+LogH/bKautbXBDMerTjDcMXh2jX6kmgZBPQubJEB4h27vTwBtkAJanHTJ3qmwt6cq7QugJHcg728n6MdvGdfinuUO7CVvhzw/fspiwnNgEmeDEonAgTbDnAg2sDzI61Q90PfiS9uQvnJK3mZCzn5KJcmiBENNVPaz/M2jJPi/pIYtaYVHPUEhvBUsi45tIZ6/ArXyPsm3KD4wlYgxjZNYmhFYHxaZhbPUijYIjNf9YQF2BXA5hXhJ33x8W9VBx2138aES7VKBmorELAAEn5vLvwsH0v/GyFL8HOiCy9ETL7rtr5kYOZnZR8hboc3JoH4WRBVOhIKzoSpsPM201SfSWVMn2fWhlkWgTSTq4KIyi7MhKMnoufvqOlxCIDUWKybMHmgQwN61zumqKn/2lfSNSJr+65lpKt5jJUdQOIbyv0mXVwdzfWz1B446MRs6n1rPlXKwn6WKqzFGfXaLRc+r4rJ8Pl528e+R1aHLyrDCuAaEvip5LazJrc3yRYLCG5ZBbTTW6WQreAdatM1bVZzV6uU5OL6pUC1rHwwxM9p27ycXkejKyrSJKqALUTZmHHRnN2IUwXIfjXN6HX0MjKesH//tc0eO83WgpoDHFCeD/EoaWBCf1CQxVvYwktg/pfxy4fwI9yyI6mbgzEnCf
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(136003)(346002)(396003)(39860400002)(451199021)(36840700001)(40470700004)(46966006)(336012)(6666004)(7696005)(478600001)(86362001)(110136005)(2616005)(47076005)(36756003)(426003)(36860700001)(40480700001)(26005)(83380400001)(1076003)(16526019)(186003)(40460700003)(82740400003)(356005)(70586007)(70206006)(81166007)(316002)(2906002)(4326008)(8936002)(5660300002)(8676002)(44832011)(41300700001)(82310400005)(54906003)(6636002)(36900700001)(2101003);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Apr 2023 06:55:05.1102 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b1d63e19-46f8-461f-53b6-08db3fd9d71f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT043.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB5017
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,99 +58,289 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xiaomeng Hou <Xiaomeng.Hou@amd.com>, Shane Xiao <shane.xiao@amd.com>,
- Aaron Liu <aaron.liu@amd.com>
+Cc: Linux Memory Management List <linux-mm@kvack.org>,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-xfs@vger.kernel.org, linux-acpi@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-The selfring doorbell aperture will change when we resize
-FB BAR successfully during gmc sw init, we should reorder
-the sequence of enabling doorbell selfring aperture.
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 4aa1da8d99724f6c0b762b58a71cee7c5e2e109b  Add linux-next specific files for 20230417
 
-[How]
-Move enable_doorbell_selfring_aperture from *_common_hw_init
-to *_common_late_init.
+Error/Warning reports:
 
-This fixes the potential issue that GPU ring its own
-doorbell when this device is in translated mode with
-iommu is on.
+https://lore.kernel.org/oe-kbuild-all/202304102354.Q4VOXGTE-lkp@intel.com
 
-Signed-off-by: Shane Xiao <shane.xiao@amd.com>
-Signed-off-by: Aaron Liu <aaron.liu@amd.com>
-Tested-by: Xiaomeng Hou <Xiaomeng.Hou@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/nv.c    | 4 +++-
- drivers/gpu/drm/amd/amdgpu/soc15.c | 4 +++-
- drivers/gpu/drm/amd/amdgpu/soc21.c | 4 +++-
- 3 files changed, 9 insertions(+), 3 deletions(-)
+Error/Warning: (recently discovered and may have been fixed)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index 47420b403871..f4c85634a4c8 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -535,7 +535,8 @@ static void nv_enable_doorbell_aperture(struct amdgpu_device *adev,
- 					bool enable)
- {
- 	adev->nbio.funcs->enable_doorbell_aperture(adev, enable);
--	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, enable);
-+	if (!enable)
-+		adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, false);
- }
- 
- const struct amdgpu_ip_block_version nv_common_ip_block =
-@@ -999,6 +1000,7 @@ static int nv_common_late_init(void *handle)
- 		}
- 	}
- 
-+	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, true);
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index bc5dd80f10c1..0202de79a389 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -623,7 +623,8 @@ static void soc15_enable_doorbell_aperture(struct amdgpu_device *adev,
- 					   bool enable)
- {
- 	adev->nbio.funcs->enable_doorbell_aperture(adev, enable);
--	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, enable);
-+	if (!enable)
-+		adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, false);
- }
- 
- const struct amdgpu_ip_block_version vega10_common_ip_block =
-@@ -1125,6 +1126,7 @@ static int soc15_common_late_init(void *handle)
- 	if (amdgpu_sriov_vf(adev))
- 		xgpu_ai_mailbox_get_irq(adev);
- 
-+	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, true);
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-index 514bfc705d5a..cd4619085d67 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -454,7 +454,8 @@ static void soc21_enable_doorbell_aperture(struct amdgpu_device *adev,
- 					bool enable)
- {
- 	adev->nbio.funcs->enable_doorbell_aperture(adev, enable);
--	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, enable);
-+	if (!enable)
-+		adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, false);
- }
- 
- const struct amdgpu_ip_block_version soc21_common_ip_block =
-@@ -764,6 +765,7 @@ static int soc21_common_late_init(void *handle)
- 			amdgpu_irq_get(adev, &adev->nbio.ras_err_event_athub_irq, 0);
- 	}
- 
-+	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, true);
- 	return 0;
- }
- 
+drivers/clk/clk-sp7021.c:316:8: warning: result of comparison of constant 18446744073709551615 with expression of type 'typeof (_Generic((_m), char: (unsigned char)0, unsigned char: (unsigned char)0, signed char: (unsigned char)0, unsigned short: (unsigned short)0, short: (unsigned short)0, unsigned int: (unsigned int)0, int: (unsigned int)0, unsigned long: (unsigned long)0, long: (unsigned long)0, unsigned long long: (unsigned long long)0, long long: (unsigned long long)0, default: (_m)))' (aka 'unsigned int') is always false [-Wtautological-constant-out-of-range-compare]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_validation.c:351:13: warning: variable 'bw_needed' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_validation.c:352:25: warning: variable 'link' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h:62: warning: wrong kernel-doc identifier on line:
+drivers/gpu/drm/i915/i915_pmu.h:41: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+drivers/gpu/drm/i915/i915_request.h:176: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+drivers/gpu/drm/i915/i915_vma.h:145: warning: expecting prototype for i915_vma_offset(). Prototype was for i915_vma_size() instead
+drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c:298:6: warning: variable 'ret' is uninitialized when used here [-Wuninitialized]
+nios2-linux-ld: phy-mtk-hdmi-mt8195.c:(.text+0x564): undefined reference to `__gesf2'
+nios2-linux-ld: phy-mtk-hdmi-mt8195.c:(.text+0x584): undefined reference to `__ltsf2'
+phy-mtk-hdmi-mt8195.c:(.text+0x550): undefined reference to `__floatunsisf'
+
+Unverified Error/Warning (likely false positive, please contact us if interested):
+
+drivers/acpi/property.c:985 acpi_data_prop_read_single() error: potentially dereferencing uninitialized 'obj'.
+fs/xfs/scrub/refcount.c: xfs_mount.h is included more than once.
+fs/xfs/scrub/refcount.c: xfs_trans_resv.h is included more than once.
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- arc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- arm-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- arm-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- arm64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- i386-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- i386-randconfig-m021-20230417
+|   `-- drivers-acpi-property.c-acpi_data_prop_read_single()-error:potentially-dereferencing-uninitialized-obj-.
+|-- ia64-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- ia64-randconfig-r002-20230416
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- loongarch-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- loongarch-defconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- loongarch-randconfig-r015-20230411
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- microblaze-randconfig-r001-20230416
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- mips-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- mips-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- mips-randconfig-c032-20230416
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- mips-randconfig-r015-20230417
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- nios2-randconfig-r014-20230413
+|   |-- nios2-linux-ld:phy-mtk-hdmi-mt8195.c:(.text):undefined-reference-to-__gesf2
+|   |-- nios2-linux-ld:phy-mtk-hdmi-mt8195.c:(.text):undefined-reference-to-__ltsf2
+|   `-- phy-mtk-hdmi-mt8195.c:(.text):undefined-reference-to-__floatunsisf
+|-- powerpc-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- riscv-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- s390-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- sparc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- sparc64-randconfig-r004-20230417
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+|-- x86_64-allnoconfig
+|   |-- fs-xfs-scrub-refcount.c:xfs_mount.h-is-included-more-than-once.
+|   `-- fs-xfs-scrub-refcount.c:xfs_trans_resv.h-is-included-more-than-once.
+|-- x86_64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
+`-- x86_64-randconfig-m001-20230417
+    `-- drivers-acpi-property.c-acpi_data_prop_read_single()-error:potentially-dereferencing-uninitialized-obj-.
+clang_recent_errors
+|-- arm-randconfig-r022-20230416
+|   `-- drivers-phy-mediatek-phy-mtk-hdmi-mt8195.c:warning:variable-ret-is-uninitialized-when-used-here
+|-- arm-randconfig-r024-20230416
+|   |-- drivers-clk-clk-sp7021.c:warning:result-of-comparison-of-constant-with-expression-of-type-typeof-(_Generic((_m)-char:(unsigned-char)-unsigned-char:(unsigned-char)-signed-char:(unsigned-char)-unsigned-
+|   `-- drivers-phy-mediatek-phy-mtk-hdmi-mt8195.c:warning:variable-ret-is-uninitialized-when-used-here
+|-- arm64-buildonly-randconfig-r005-20230416
+|   `-- drivers-phy-mediatek-phy-mtk-hdmi-mt8195.c:warning:variable-ret-is-uninitialized-when-used-here
+|-- powerpc-randconfig-r032-20230416
+|   `-- drivers-phy-mediatek-phy-mtk-hdmi-mt8195.c:warning:variable-ret-is-uninitialized-when-used-here
+|-- powerpc-randconfig-r033-20230416
+|   `-- drivers-phy-mediatek-phy-mtk-hdmi-mt8195.c:warning:variable-ret-is-uninitialized-when-used-here
+`-- x86_64-randconfig-a011-20230417
+    |-- drivers-gpu-drm-i915-gt-uc-guc_capture_fwif.h:warning:wrong-kernel-doc-identifier-on-line:
+    |-- drivers-gpu-drm-i915-i915_pmu.h:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+    |-- drivers-gpu-drm-i915-i915_request.h:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+    `-- drivers-gpu-drm-i915-i915_vma.h:warning:expecting-prototype-for-i915_vma_offset().-Prototype-was-for-i915_vma_size()-instead
+
+elapsed time: 724m
+
+configs tested: 143
+configs skipped: 17
+
+tested configs:
+alpha                            allyesconfig   gcc  
+alpha                               defconfig   gcc  
+alpha                randconfig-r001-20230417   gcc  
+alpha                randconfig-r016-20230415   gcc  
+alpha                randconfig-r036-20230417   gcc  
+arc                              allyesconfig   gcc  
+arc          buildonly-randconfig-r001-20230417   gcc  
+arc                                 defconfig   gcc  
+arc                  randconfig-r034-20230417   gcc  
+arc                  randconfig-r036-20230416   gcc  
+arc                  randconfig-r043-20230416   gcc  
+arc                  randconfig-r043-20230417   gcc  
+arm                              allmodconfig   gcc  
+arm                              allyesconfig   gcc  
+arm                                 defconfig   gcc  
+arm                  randconfig-r012-20230413   gcc  
+arm                  randconfig-r022-20230416   clang
+arm                  randconfig-r024-20230416   clang
+arm                  randconfig-r046-20230416   clang
+arm                  randconfig-r046-20230417   gcc  
+arm                           sama5_defconfig   gcc  
+arm                        shmobile_defconfig   gcc  
+arm64                            allyesconfig   gcc  
+arm64        buildonly-randconfig-r005-20230416   clang
+arm64        buildonly-randconfig-r005-20230417   gcc  
+arm64                               defconfig   gcc  
+arm64                randconfig-r031-20230417   gcc  
+csky         buildonly-randconfig-r006-20230416   gcc  
+csky                                defconfig   gcc  
+csky                 randconfig-r025-20230416   gcc  
+hexagon              randconfig-r012-20230411   clang
+hexagon              randconfig-r014-20230415   clang
+hexagon              randconfig-r032-20230417   clang
+hexagon              randconfig-r041-20230416   clang
+hexagon              randconfig-r041-20230417   clang
+hexagon              randconfig-r045-20230416   clang
+hexagon              randconfig-r045-20230417   clang
+i386                             allyesconfig   gcc  
+i386                              debian-10.3   gcc  
+i386                                defconfig   gcc  
+i386                 randconfig-a001-20230417   gcc  
+i386                 randconfig-a002-20230417   gcc  
+i386                 randconfig-a003-20230417   gcc  
+i386                 randconfig-a004-20230417   gcc  
+i386                 randconfig-a005-20230417   gcc  
+i386                 randconfig-a006-20230417   gcc  
+i386                 randconfig-a011-20230417   clang
+i386                 randconfig-a012-20230417   clang
+i386                 randconfig-a013-20230417   clang
+i386                 randconfig-a014-20230417   clang
+i386                 randconfig-a015-20230417   clang
+i386                 randconfig-a016-20230417   clang
+ia64                             allmodconfig   gcc  
+ia64                                defconfig   gcc  
+ia64                 randconfig-r002-20230416   gcc  
+ia64                 randconfig-r016-20230411   gcc  
+ia64                 randconfig-r024-20230417   gcc  
+ia64                 randconfig-r033-20230417   gcc  
+ia64                 randconfig-r035-20230416   gcc  
+loongarch                        allmodconfig   gcc  
+loongarch                         allnoconfig   gcc  
+loongarch                           defconfig   gcc  
+loongarch            randconfig-r012-20230417   gcc  
+loongarch            randconfig-r015-20230411   gcc  
+loongarch            randconfig-r022-20230417   gcc  
+m68k                             allmodconfig   gcc  
+m68k         buildonly-randconfig-r003-20230416   gcc  
+m68k         buildonly-randconfig-r006-20230417   gcc  
+m68k                                defconfig   gcc  
+m68k                 randconfig-r011-20230413   gcc  
+microblaze           randconfig-r001-20230416   gcc  
+microblaze           randconfig-r011-20230417   gcc  
+mips                             allmodconfig   gcc  
+mips                             allyesconfig   gcc  
+mips                  maltasmvp_eva_defconfig   gcc  
+mips                 randconfig-r015-20230417   gcc  
+mips                 randconfig-r026-20230417   gcc  
+nios2        buildonly-randconfig-r003-20230417   gcc  
+nios2                               defconfig   gcc  
+nios2                randconfig-r012-20230415   gcc  
+nios2                randconfig-r014-20230413   gcc  
+nios2                randconfig-r014-20230417   gcc  
+nios2                randconfig-r015-20230413   gcc  
+nios2                randconfig-r015-20230415   gcc  
+nios2                randconfig-r023-20230416   gcc  
+openrisc             randconfig-r006-20230416   gcc  
+openrisc             randconfig-r013-20230415   gcc  
+openrisc             randconfig-r021-20230416   gcc  
+parisc                              defconfig   gcc  
+parisc               randconfig-r013-20230411   gcc  
+parisc               randconfig-r026-20230416   gcc  
+parisc64                            defconfig   gcc  
+powerpc                          allmodconfig   gcc  
+powerpc                           allnoconfig   gcc  
+powerpc                        cell_defconfig   gcc  
+powerpc              randconfig-r031-20230416   clang
+powerpc              randconfig-r032-20230416   clang
+powerpc              randconfig-r033-20230416   clang
+powerpc              randconfig-r034-20230416   clang
+riscv                            allmodconfig   gcc  
+riscv                             allnoconfig   gcc  
+riscv                               defconfig   gcc  
+riscv                randconfig-r003-20230417   gcc  
+riscv                randconfig-r035-20230417   gcc  
+riscv                randconfig-r042-20230416   gcc  
+riscv                randconfig-r042-20230417   clang
+riscv                          rv32_defconfig   gcc  
+s390                             allmodconfig   gcc  
+s390                             allyesconfig   gcc  
+s390         buildonly-randconfig-r001-20230416   gcc  
+s390         buildonly-randconfig-r002-20230416   gcc  
+s390                                defconfig   gcc  
+s390                 randconfig-r013-20230413   clang
+s390                 randconfig-r044-20230416   gcc  
+s390                 randconfig-r044-20230417   clang
+sh                               allmodconfig   gcc  
+sh           buildonly-randconfig-r002-20230417   gcc  
+sh           buildonly-randconfig-r004-20230416   gcc  
+sh                        dreamcast_defconfig   gcc  
+sparc                            alldefconfig   gcc  
+sparc                               defconfig   gcc  
+sparc64              randconfig-r004-20230417   gcc  
+um                             i386_defconfig   gcc  
+um                           x86_64_defconfig   gcc  
+x86_64                            allnoconfig   gcc  
+x86_64                           allyesconfig   gcc  
+x86_64                              defconfig   gcc  
+x86_64                                  kexec   gcc  
+x86_64               randconfig-a001-20230417   gcc  
+x86_64               randconfig-a002-20230417   gcc  
+x86_64               randconfig-a003-20230417   gcc  
+x86_64               randconfig-a004-20230417   gcc  
+x86_64               randconfig-a005-20230417   gcc  
+x86_64               randconfig-a006-20230417   gcc  
+x86_64               randconfig-a011-20230417   clang
+x86_64               randconfig-a012-20230417   clang
+x86_64               randconfig-a013-20230417   clang
+x86_64               randconfig-a014-20230417   clang
+x86_64               randconfig-a015-20230417   clang
+x86_64               randconfig-a016-20230417   clang
+x86_64               randconfig-r016-20230417   clang
+x86_64                               rhel-8.3   gcc  
+xtensa               randconfig-r021-20230417   gcc  
+
 -- 
-2.25.1
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
