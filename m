@@ -4,89 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84063C77B76
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Apr 2023 06:09:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 432ACC77B71
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Apr 2023 06:55:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 203CD10E686;
-	Tue, 18 Apr 2023 06:09:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D256510E1FD;
+	Tue, 18 Apr 2023 06:55:09 +0000 (UTC)
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20623.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5a::623])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1552410E0CC;
- Tue, 18 Apr 2023 06:09:35 +0000 (UTC)
+ (mail-mw2nam12on2049.outbound.protection.outlook.com [40.107.244.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62F2010E1FD
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Apr 2023 06:55:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HaNof7xxhLZZbDywPGEluetHaptzDuggM+aP2fmzurFYUWagcI2FomtNADT8ozmvuUW4uhE/GtxraTo8haaNuOzZlQ89CNYkslsD1SDWXHSVtxIz721WXuT1Nbq/QchcxLZS4fUF58K9PefrcSapADgJPExoyixx/o6dLzcSqY8TsqrE+FIxV4Jeq9W9Oi07RpH4ARfN+7PjBfc3/fEGge1uyj5pgCzB3NPJBXGg8GvoDspEYSA8skm3Uxi0mbfZjS65YePgc8VzXHnKEuudzOjZGIhzuBaAt46d1Kb3+1HVmNWX1C2jI8T4mU71L4FB7hio3JTo2m1INGZT+2QdkA==
+ b=WvYC7RnwQeNU1fu9cZnH4K6vFCI1BHlrEcdlc7Kbip7r0cT+4E71prtNdsz9hPcdP3QYaPdwcxFdu8pqb5RDfSHQRdmIqXIKj8aU+hWOB4XygAwi0DSayWR+PSbpsf5+AF0NAay9fcpsN/2puctI+ViYziQcwjRKwXl4uRQQiWB4ZHFys6vF61kbXxpjCqx+BTgCoG71MXIc3AmwjmlfCRg5YXcoIku64NiRkDts1nhnqup+wnQmuJ1O0xxCRL7hNI3fgiLE6lmrmojd2DMg4EQclKV/JISZkaSRxeGE8bJkbYpETV0WDPrYjDHCXSdsoG0PfMH6H4ZVYMPDy0nH5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2DxxzEqJJeg6OhCgPivSQApLe6bdKKtl/Edk/R9xvnM=;
- b=GejWL7HMC8EXHNidvcMXwiU/2MdA/mJkyggoYDbFkmhXW1bXSCdfLdseaZnuIHjm9EB0kRPoLGv/lRCunlcLtFvhDQqwiLpy/FX7mahc/VECpntIFPUQSOQnVx7vYiR+HsdAXduJvq+u2C2nzu0ewNOXVHeQOsgd27bH1SS7H/ETIpRxP96/2wTKeY0rO8lAJkuLNVBfrVAP92cqsj1u2aIyS7gYFK4kIKs3hpEPlPH28cWs1tK5lkw67lCZJVpvhdm8nkwkIef5UtP9kq7KRBIotBEYhZeaUBRRph6DuqxWB5C0mnYJJOXDOvCHHwHx/VIPeA9qPMvd4+vTRJMdNQ==
+ bh=OGs3lO9y3RvKkWgF6LfYa3+LRZE/fuhh4VAaITywdog=;
+ b=BHMT1ce7G8klEmLowDNzDQhFlx8m/QyL4raB2w7+fLWwOt/p+LzITCmbpJOWNoKAPwGrL2eRRe8Bd0O9D9b7LigvyFs3/0luBDx4DgieB5Lt3D4so4e1zeyrg5CdkFoSCfwTeiRUwn4joDVx7HipeKregaM/ILqv3bKaR1SmxYVtg/99F1u2jNTy8MyBzMtfEC+Zq6L5zYYY0+1YeJZKsIEnxjLT6vCbmlUoMvEivKmTHa6xbtuUfRueifEKLzVGDeV/R76wdu1W3MBvDjHNs5vhbIFrISINh1eX4lbLtglKVGBNj2BMGXbXHIXHTPBZieXpx+WTiRWUhrWs3jVt8A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2DxxzEqJJeg6OhCgPivSQApLe6bdKKtl/Edk/R9xvnM=;
- b=2GDSuMjVyfrTIgYTaWqBIEwQrrntL8x3vclBI9RhgevdtBDk4B/FrG0WE+Jgg4xqIXA0tnuHB/EXVlfvWZcrlP7M/XXoLLh8Mv9gIlvMXpwWQ0jqfw8LuvRcesB80YAdHMhNlnnpsv5rlhY+gGMr8FvLKVtp8bNyecIhXznkob0=
-Received: from DS7PR03CA0041.namprd03.prod.outlook.com (2603:10b6:5:3b5::16)
- by IA0PR12MB7529.namprd12.prod.outlook.com (2603:10b6:208:441::18) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=OGs3lO9y3RvKkWgF6LfYa3+LRZE/fuhh4VAaITywdog=;
+ b=aAos5gMBksFXNUwgmAekx4+MCtHVfko7TIdsJoSokYLDjZMZuFGIhT8J2DZx8+dzyQ+MdTSPNXyVKOvJddpOLdUOCo3ufGS1E+xeIh8vNUu+UZkcASSjDzhQHuK/fKEm99BeTBdqVN4E3rOYKIEDxsbYUC6p4ZIWrl+sNIGZ04E=
+Received: from MW3PR06CA0014.namprd06.prod.outlook.com (2603:10b6:303:2a::19)
+ by CH2PR12MB5017.namprd12.prod.outlook.com (2603:10b6:610:36::17)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.45; Tue, 18 Apr
- 2023 06:09:31 +0000
-Received: from DM6NAM11FT102.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3b5:cafe::af) by DS7PR03CA0041.outlook.office365.com
- (2603:10b6:5:3b5::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.47 via Frontend
- Transport; Tue, 18 Apr 2023 06:09:31 +0000
+ 2023 06:55:05 +0000
+Received: from CO1NAM11FT043.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:2a:cafe::e9) by MW3PR06CA0014.outlook.office365.com
+ (2603:10b6:303:2a::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.46 via Frontend
+ Transport; Tue, 18 Apr 2023 06:55:05 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT102.mail.protection.outlook.com (10.13.173.172) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT043.mail.protection.outlook.com (10.13.174.193) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6319.20 via Frontend Transport; Tue, 18 Apr 2023 06:09:30 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6319.20 via Frontend Transport; Tue, 18 Apr 2023 06:55:05 +0000
+Received: from shane-u20.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 18 Apr
- 2023 01:09:25 -0500
-Received: from wayne-dev-lnx.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Tue, 18 Apr 2023 01:09:22 -0500
-From: Wayne Lin <Wayne.Lin@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/dp_mst: Clear MSG_RDY flag before sending new message
-Date: Tue, 18 Apr 2023 14:09:05 +0800
-Message-ID: <20230418060905.4078976-1-Wayne.Lin@amd.com>
-X-Mailer: git-send-email 2.37.3
+ 2023 01:55:01 -0500
+From: Shane Xiao <shane.xiao@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Alexander.Deucher@amd.com>,
+ <hawking.zhang@amd.com>, <felix.kuehling@amd.com>
+Subject: [PATCH] drm/amdgpu: Enable doorbell selfring if resize BAR
+ successfully
+Date: Tue, 18 Apr 2023 14:54:43 +0800
+Message-ID: <20230418065443.878721-1-shane.xiao@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT102:EE_|IA0PR12MB7529:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2ba0c8c0-16aa-4f3d-9432-08db3fd37968
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT043:EE_|CH2PR12MB5017:EE_
+X-MS-Office365-Filtering-Correlation-Id: b1d63e19-46f8-461f-53b6-08db3fd9d71f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CyuAw7UX5yXL0oMmxfg9r0uF5Rg8lPfV2Mcb+btcyGbdTBko9SLQh71aosMyEu+bk4N3i/lj7C4mCBc+md4oEKzvx4pmyH1s4JdOPtCsxWM2GBZLuPsTN1EaVj0IQxZQM90SAdGQOgW5PoGkJvIkskrfyN59pM8tmN5flG8T61bTP0MhJuoFcoFoi1mnRP4yfEtkoLJXqhi+FF1jW03vtkJRmMMtLmkOKI7hf2L4ccl+ywD50x0fyrkl1ij3BG+PDtYwxM9idijRD9UhiTJ+UBBOiKxt7zl+Sw9J9c/t2VUMOFD5dKbmegYB8VRCS6y8xfwD61jhkjKil7kNBdBGAmV2sO8LxLt+FLVjvaSRh9iXvCy6lAxt1quuZmJwyKD9VlXZ2O0efbEMFYxJvcuY785MfMl6oNUHUKEm4NhtRfwq0TB3M5k9Y2CEdltdO9BuZaa+5zz99JMcbCSdgJz9o2qGdmu+j4z4fqyUxTuugc5u/cbEg9I2Bv1lja5K2hg7jjxHmEjYGr53hUqAODQkoCpvoc2THAU0InAAcGWAdKgybHga4vMySktFDwXCfVTWuVzk3J9sZZt6olfhYrq8k58nmUf+9slAjjuqyi5DzTHTiAfg4xwOeXGXteirjdKGalx+90ZgoV7ty4ou5t9NcUG99hgmF07fW331rfSXqfZI7DmmXGEKFtvkPCLGf4Vw+TnrSE3HLYhY9T65wwfQAi7QQSsTXIV6vmms8GfAd+Q=
+X-Microsoft-Antispam-Message-Info: OF3TYkTF1c6uqiw13TNr3wMhwyn/H6MDfy61l+LL6Swr7ZbgzymPeUU6fUAxfV7/Q5qf79HKA416rsCvJJAhb3wsTisKn2i5Y0TiQGTwuqvmh+LogH/bKautbXBDMerTjDcMXh2jX6kmgZBPQubJEB4h27vTwBtkAJanHTJ3qmwt6cq7QugJHcg728n6MdvGdfinuUO7CVvhzw/fspiwnNgEmeDEonAgTbDnAg2sDzI61Q90PfiS9uQvnJK3mZCzn5KJcmiBENNVPaz/M2jJPi/pIYtaYVHPUEhvBUsi45tIZ6/ArXyPsm3KD4wlYgxjZNYmhFYHxaZhbPUijYIjNf9YQF2BXA5hXhJ33x8W9VBx2138aES7VKBmorELAAEn5vLvwsH0v/GyFL8HOiCy9ETL7rtr5kYOZnZR8hboc3JoH4WRBVOhIKzoSpsPM201SfSWVMn2fWhlkWgTSTq4KIyi7MhKMnoufvqOlxCIDUWKybMHmgQwN61zumqKn/2lfSNSJr+65lpKt5jJUdQOIbyv0mXVwdzfWz1B446MRs6n1rPlXKwn6WKqzFGfXaLRc+r4rJ8Pl528e+R1aHLyrDCuAaEvip5LazJrc3yRYLCG5ZBbTTW6WQreAdatM1bVZzV6uU5OL6pUC1rHwwxM9p27ycXkejKyrSJKqALUTZmHHRnN2IUwXIfjXN6HX0MjKesH//tc0eO83WgpoDHFCeD/EoaWBCf1CQxVvYwktg/pfxy4fwI9yyI6mbgzEnCf
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(136003)(376002)(39860400002)(396003)(451199021)(36840700001)(40470700004)(46966006)(36756003)(8936002)(8676002)(40460700003)(5660300002)(2906002)(15650500001)(82310400005)(86362001)(40480700001)(478600001)(7696005)(6666004)(54906003)(110136005)(186003)(2616005)(36860700001)(1076003)(70586007)(70206006)(26005)(41300700001)(356005)(82740400003)(316002)(83380400001)(81166007)(4326008)(47076005)(426003)(336012)(36900700001);
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(136003)(346002)(396003)(39860400002)(451199021)(36840700001)(40470700004)(46966006)(336012)(6666004)(7696005)(478600001)(86362001)(110136005)(2616005)(47076005)(36756003)(426003)(36860700001)(40480700001)(26005)(83380400001)(1076003)(16526019)(186003)(40460700003)(82740400003)(356005)(70586007)(70206006)(81166007)(316002)(2906002)(4326008)(8936002)(5660300002)(8676002)(44832011)(41300700001)(82310400005)(54906003)(6636002)(36900700001)(2101003);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Apr 2023 06:09:30.9822 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ba0c8c0-16aa-4f3d-9432-08db3fd37968
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Apr 2023 06:55:05.1102 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b1d63e19-46f8-461f-53b6-08db3fd9d71f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT102.eop-nam11.prod.protection.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT043.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7529
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB5017
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,121 +99,99 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, imre.deak@intel.com, stable@vger.kernel.org,
- jerry.zuo@amd.com, Wayne Lin <Wayne.Lin@amd.com>, harry.wentland@amd.com,
- ville.syrjala@linux.intel.com
+Cc: Xiaomeng Hou <Xiaomeng.Hou@amd.com>, Shane Xiao <shane.xiao@amd.com>,
+ Aaron Liu <aaron.liu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why & How]
-The sequence for collecting down_reply/up_request from source
-perspective should be:
+[Why]
+The selfring doorbell aperture will change when we resize
+FB BAR successfully during gmc sw init, we should reorder
+the sequence of enabling doorbell selfring aperture.
 
-Request_n->repeat (get partial reply of Request_n->clear message ready
-flag to ack DPRX that the message is received) till all partial
-replies for Request_n are received->new Request_n+1.
+[How]
+Move enable_doorbell_selfring_aperture from *_common_hw_init
+to *_common_late_init.
 
-While assembling partial reply packets, reading out DPCD DOWN_REP
-Sideband MSG buffer + clearing DOWN_REP_MSG_RDY flag should be
-wrapped up as a complete operation for reading out a reply packet.
-Kicking off a new request before clearing DOWN_REP_MSG_RDY flag might
-be risky. e.g. If the reply of the new request has overwritten the
-DPRX DOWN_REP Sideband MSG buffer before source writing ack to clear
-DOWN_REP_MSG_RDY flag, source then unintentionally flushes the reply
-for the new request. Should handle the up request in the same way.
+This fixes the potential issue that GPU ring its own
+doorbell when this device is in translated mode with
+iommu is on.
 
-In drm_dp_mst_hpd_irq(), we don't clear MSG_RDY flag before caliing
-drm_dp_mst_kick_tx(). Fix that.
-
-Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
-Cc: stable@vger.kernel.org
+Signed-off-by: Shane Xiao <shane.xiao@amd.com>
+Signed-off-by: Aaron Liu <aaron.liu@amd.com>
+Tested-by: Xiaomeng Hou <Xiaomeng.Hou@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 ++
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 22 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_dp.c       |  3 +++
- drivers/gpu/drm/nouveau/dispnv50/disp.c       |  2 ++
- 4 files changed, 29 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/nv.c    | 4 +++-
+ drivers/gpu/drm/amd/amdgpu/soc15.c | 4 +++-
+ drivers/gpu/drm/amd/amdgpu/soc21.c | 4 +++-
+ 3 files changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 77277d90b6e2..5313a5656598 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3166,6 +3166,8 @@ static void dm_handle_mst_sideband_msg(struct amdgpu_dm_connector *aconnector)
- 			for (retry = 0; retry < 3; retry++) {
- 				uint8_t wret;
- 
-+				/* MSG_RDY ack is done in drm*/
-+				esi[1] &= ~(DP_DOWN_REP_MSG_RDY | DP_UP_REQ_MSG_RDY);
- 				wret = drm_dp_dpcd_write(
- 					&aconnector->dm_dp_aux.aux,
- 					dpcd_addr + 1,
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index 51a46689cda7..02aad713c67c 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -4054,6 +4054,9 @@ int drm_dp_mst_hpd_irq(struct drm_dp_mst_topology_mgr *mgr, u8 *esi, bool *handl
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index 47420b403871..f4c85634a4c8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -535,7 +535,8 @@ static void nv_enable_doorbell_aperture(struct amdgpu_device *adev,
+ 					bool enable)
  {
- 	int ret = 0;
- 	int sc;
-+	const int tosend = 1;
-+	int retries = 0;
-+	u8 buf = 0;
- 	*handled = false;
- 	sc = DP_GET_SINK_COUNT(esi[0]);
- 
-@@ -4072,6 +4075,25 @@ int drm_dp_mst_hpd_irq(struct drm_dp_mst_topology_mgr *mgr, u8 *esi, bool *handl
- 		*handled = true;
- 	}
- 
-+	if (*handled) {
-+		buf = esi[1] & (DP_DOWN_REP_MSG_RDY | DP_UP_REQ_MSG_RDY);
-+		do {
-+			ret = drm_dp_dpcd_write(mgr->aux,
-+						DP_DEVICE_SERVICE_IRQ_VECTOR_ESI0,
-+						&buf,
-+						tosend);
-+
-+			if (ret == tosend)
-+				break;
-+
-+			retries++;
-+		} while (retries < 5);
-+
-+		if (ret != tosend)
-+			drm_dbg_kms(mgr->dev, "failed to write dpcd 0x%x\n",
-+				    DP_DEVICE_SERVICE_IRQ_VECTOR_ESI0);
-+	}
-+
- 	drm_dp_mst_kick_tx(mgr);
- 	return ret;
+ 	adev->nbio.funcs->enable_doorbell_aperture(adev, enable);
+-	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, enable);
++	if (!enable)
++		adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, false);
  }
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index bf80f296a8fd..abec3de38b66 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3939,6 +3939,9 @@ intel_dp_check_mst_status(struct intel_dp *intel_dp)
- 		if (!memchr_inv(ack, 0, sizeof(ack)))
- 			break;
  
-+		/* MSG_RDY ack is done in drm*/
-+		ack[1] &= ~(DP_DOWN_REP_MSG_RDY | DP_UP_REQ_MSG_RDY);
-+
- 		if (!intel_dp_ack_sink_irq_esi(intel_dp, ack))
- 			drm_dbg_kms(&i915->drm, "Failed to ack ESI\n");
+ const struct amdgpu_ip_block_version nv_common_ip_block =
+@@ -999,6 +1000,7 @@ static int nv_common_late_init(void *handle)
+ 		}
  	}
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-index edcb2529b402..e905987104ed 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-@@ -1336,6 +1336,8 @@ nv50_mstm_service(struct nouveau_drm *drm,
- 		if (!handled)
- 			break;
  
-+		/* MSG_RDY ack is done in drm*/
-+		esi[1] &= ~(DP_DOWN_REP_MSG_RDY | DP_UP_REQ_MSG_RDY);
- 		rc = drm_dp_dpcd_write(aux, DP_SINK_COUNT_ESI + 1, &esi[1],
- 				       3);
- 		if (rc != 3) {
++	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, true);
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+index bc5dd80f10c1..0202de79a389 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -623,7 +623,8 @@ static void soc15_enable_doorbell_aperture(struct amdgpu_device *adev,
+ 					   bool enable)
+ {
+ 	adev->nbio.funcs->enable_doorbell_aperture(adev, enable);
+-	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, enable);
++	if (!enable)
++		adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, false);
+ }
+ 
+ const struct amdgpu_ip_block_version vega10_common_ip_block =
+@@ -1125,6 +1126,7 @@ static int soc15_common_late_init(void *handle)
+ 	if (amdgpu_sriov_vf(adev))
+ 		xgpu_ai_mailbox_get_irq(adev);
+ 
++	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, true);
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+index 514bfc705d5a..cd4619085d67 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc21.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+@@ -454,7 +454,8 @@ static void soc21_enable_doorbell_aperture(struct amdgpu_device *adev,
+ 					bool enable)
+ {
+ 	adev->nbio.funcs->enable_doorbell_aperture(adev, enable);
+-	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, enable);
++	if (!enable)
++		adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, false);
+ }
+ 
+ const struct amdgpu_ip_block_version soc21_common_ip_block =
+@@ -764,6 +765,7 @@ static int soc21_common_late_init(void *handle)
+ 			amdgpu_irq_get(adev, &adev->nbio.ras_err_event_athub_irq, 0);
+ 	}
+ 
++	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, true);
+ 	return 0;
+ }
+ 
 -- 
-2.37.3
+2.25.1
 
