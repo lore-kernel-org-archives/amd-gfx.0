@@ -4,30 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12371C77B71
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Apr 2023 07:24:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DC36C77B71
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Apr 2023 08:47:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE69A10E6B3;
-	Tue, 18 Apr 2023 07:24:50 +0000 (UTC)
-X-Greylist: delayed 909 seconds by postgrey-1.36 at gabe;
- Tue, 18 Apr 2023 07:11:00 UTC
-Received: from mail-out.aladdin-rd.ru (mail-out.aladdin-rd.ru [91.199.251.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2BC210E0CA;
- Tue, 18 Apr 2023 07:10:59 +0000 (UTC)
-From: Daniil Dulov <d.dulov@aladdin.ru>
-To: Felix Kuehling <Felix.Kuehling@amd.com>
-Subject: [PATCH] drm/amdkfd: Fix potential deallocation of previously
+	by gabe.freedesktop.org (Postfix) with ESMTP id F31C610E707;
+	Tue, 18 Apr 2023 08:47:53 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 637DA10E717;
+ Tue, 18 Apr 2023 08:47:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1681807668; x=1713343668;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=nIqUHM4VZSEHuLUoyJ0ioNxn0jbGNhDyuLATbHCITwo=;
+ b=XgDmx8m3l2iqre7nLUN0J5PjVJQfkpAJXHxDWaQ1/Yq8hzD5J7hva6EA
+ NF732+M0/1D4ka62oZlgeKrLefueVnSIZWGG8L9pyY/oQyBVeue8ufeEe
+ YwIrWdqxrr2dNUB9v55R1Wrgofpn3rJHYCY2iNeIaBRf2glQgdoYSTw7H
+ hqGplyGJAc316AjEu9mnflpbM0jH6+wktcSvLkwkGUb1VATr+fGZ2GoEd
+ P7S8LlhCVxTvgzStXIqXlM6MyJ5dmbb9yixRtyzOaosXYsS+ohZB5deSA
+ LoIHgJD/iuxukxx7iXo1G8lJIbOJu+mA9ImDyPL/WCFbamjQ7TN0/zzuM A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10683"; a="346961092"
+X-IronPort-AV: E=Sophos;i="5.99,206,1677571200"; d="scan'208";a="346961092"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Apr 2023 01:47:47 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10683"; a="668433010"
+X-IronPort-AV: E=Sophos;i="5.99,206,1677571200"; d="scan'208";a="668433010"
+Received: from ashfaqur-mobl1.ger.corp.intel.com (HELO intel.com)
+ ([10.251.213.178])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Apr 2023 01:47:43 -0700
+Date: Tue, 18 Apr 2023 10:47:18 +0200
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: Daniil Dulov <d.dulov@aladdin.ru>
+Subject: Re: [PATCH] drm/amdkfd: Fix potential deallocation of previously
  deallocated memory.
-Date: Mon, 17 Apr 2023 23:55:21 -0700
-Message-ID: <20230418065521.453001-1-d.dulov@aladdin.ru>
-X-Mailer: git-send-email 2.25.1
+Message-ID: <ZD5ZFoEk92MNQpqD@ashyti-mobl2.lan>
+References: <20230418065521.453001-1-d.dulov@aladdin.ru>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.0.20.32]
-X-ClientProxiedBy: EXCH-2016-02.aladdin.ru (192.168.1.102) To
- EXCH-2016-01.aladdin.ru (192.168.1.101)
-X-Mailman-Approved-At: Tue, 18 Apr 2023 07:24:45 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230418065521.453001-1-d.dulov@aladdin.ru>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,39 +59,46 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: lvc-project@linuxtesting.org, David Airlie <airlied@linux.ie>,
- Daniil Dulov <d.dulov@aladdin.ru>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Oak Zeng <ozeng@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+ Felix Kuehling <Felix.Kuehling@amd.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>, Oak Zeng <ozeng@amd.com>,
+ Christian =?iso-8859-15?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Pointer mqd_mem_obj can be deallocated in kfd_gtt_sa_allocate().
-The function then returns non-zero value, which causes the second deallocation.
+Hi Daniil,
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+On Mon, Apr 17, 2023 at 11:55:21PM -0700, Daniil Dulov wrote:
+> Pointer mqd_mem_obj can be deallocated in kfd_gtt_sa_allocate().
+> The function then returns non-zero value, which causes the second deallocation.
+> 
+> Found by Linux Verification Center (linuxtesting.org) with SVACE.
+> 
+> Fixes: d1f8f0d17d40 ("drm/amdkfd: Move non-sdma mqd allocation out of init_mqd")
+> Signed-off-by: Daniil Dulov <d.dulov@aladdin.ru>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> index 3b6f5963180d..bce11c5b07d6 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> @@ -119,7 +119,8 @@ static struct kfd_mem_obj *allocate_mqd(struct kfd_dev *kfd,
+>  	}
+>  
+>  	if (retval) {
+> -		kfree(mqd_mem_obj);
+> +		if (mqd_mem_obj)
+> +			kfree(mqd_mem_obj);
 
-Fixes: d1f8f0d17d40 ("drm/amdkfd: Move non-sdma mqd allocation out of init_mqd")
-Signed-off-by: Daniil Dulov <d.dulov@aladdin.ru>
----
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+I think this is not needed. kfree() returns immediately if
+mqd_mem_obj is NULL.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-index 3b6f5963180d..bce11c5b07d6 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-@@ -119,7 +119,8 @@ static struct kfd_mem_obj *allocate_mqd(struct kfd_dev *kfd,
- 	}
- 
- 	if (retval) {
--		kfree(mqd_mem_obj);
-+		if (mqd_mem_obj)
-+			kfree(mqd_mem_obj);
- 		return NULL;
- 	}
- 
--- 
-2.25.1
+Andi
 
+>  		return NULL;
+>  	}
+>  
+> -- 
+> 2.25.1
