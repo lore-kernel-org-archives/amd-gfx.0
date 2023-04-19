@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7D58C6FD18
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 22:11:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96EA3C6FD18
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 22:12:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 467F810EB18;
-	Wed, 19 Apr 2023 22:11:44 +0000 (UTC)
-Received: from mail-oo1-xc34.google.com (mail-oo1-xc34.google.com
- [IPv6:2607:f8b0:4864:20::c34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E53E10EB18
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Apr 2023 22:11:41 +0000 (UTC)
-Received: by mail-oo1-xc34.google.com with SMTP id
- 006d021491bc7-545d82e1a1bso74193eaf.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Apr 2023 15:11:41 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C6F610EB20;
+	Wed, 19 Apr 2023 22:12:18 +0000 (UTC)
+Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
+ [IPv6:2001:4860:4864:20::2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D56810EB20
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Apr 2023 22:12:16 +0000 (UTC)
+Received: by mail-oa1-x2f.google.com with SMTP id
+ 586e51a60fabf-18b1f6caf03so8192fac.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Apr 2023 15:12:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681942300; x=1684534300;
+ d=gmail.com; s=20221208; t=1681942334; x=1684534334;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=xa3PtC8tpurPkv0BGUo0QfkmVrvHlLoI/fycx6+dgc4=;
- b=Ggonuq5zUz+iCy0DfzROJ+8qNc2k6pxu52oKnp54/5se/4+HVOyEytb/YTqN1AQX75
- J8lHUvVm2O6DwcNz24XIVnMqW9ku6tfCtkJoSEuzWl2V5iXpyzR9q+q2oCAvYg/REvqX
- +9QS7AIjuT+ENtOb4y0SmvK9CMklWS+vVnrwDidbatZMpCrIbFj2iu/xs3XjldM0oLbn
- cLQk2dVS3V49NuXZFbVUfa77LOp1PC34emlMqradEPzL++U96JOS+F+l6sGH5m72tT6Q
- OhsbiPilhXMmhzgvGA1BcR/AlLuzgz/YCUiHQPATEU2QeyHXgl1g3K5Qhal5Kd57+ULx
- mFMg==
+ bh=DaYvIj7AJ3gLs47b7MD93kLErM1YnNq2aIhul5kgSpE=;
+ b=pdd9ssdxuclnPGNN7iKB0+nPWmyIaSUozTRq2wb9AQix2cQnCXXlYOVmrDxVWrdiZq
+ sHHeeuP3cM4XhslekvjgXHYf6jcbT8LL5rYRcj6DdKWjXGlXy4Snw/Dmfs6n27pwAwmx
+ WZTrlaPlgctT1Mhy8f/ZQP1bOMggMX81lXyKlUrPMcrjjd0kGIXZFsZQM14AYkcCcaDS
+ rKgoYYhiueNJGHGuA4NFvzd2m/mZ2bdPUcjaczztcH75z7ugs72G6Hb6eLv1rTHlM5Dt
+ 3m5Z3/VxkEvEAArYDW5eTXZsb1SBzHWGwC60A9XXDgwM9+AeF9gRJTfs7YmFk7Non1kh
+ KrcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681942300; x=1684534300;
+ d=1e100.net; s=20221208; t=1681942334; x=1684534334;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=xa3PtC8tpurPkv0BGUo0QfkmVrvHlLoI/fycx6+dgc4=;
- b=j2B8ySnRd5ITRZO4XMTvc+nIyoFRuk4Bp8ZCZTMfHX//HIIaisgo4IPsErQpl4N1d3
- RgA0lTEETsanWRUxHgcdkr3FW+p1pdXkftCiBssgpX0ekbKVl1vP1BR2D+/sx7X3iC1I
- ZcXW2BIEliljlkZEzGevBq3i6zf9S8V89Tt6WafPu/7hDWRVphLikzuA7tcyFXN5Y2VW
- FCfQm/lzM5F3JZs1hIWzImsb3xnvMgq+TnHSeS0YzyMq0mJx1H2GY4KZVKWumEPH81Jv
- 68i0mb6xxr90+FBhAOEnQsZg/suJLosS4aaQC3b7MFWYLxU7SgiKTYboEadw3Pe0soTu
- KKCw==
-X-Gm-Message-State: AAQBX9cK6Jfyz1FH/JRKx9zuwQQQ/5kHdyac1P5cTZTkiJZLNtya5HcC
- OrI+wf7yc7iVw7aUMQWtfq/H/qu33WqsOUNYuszUBdZ3
-X-Google-Smtp-Source: AKy350ZlboijJF0qayioa7YgCbD0+ckiZ34nQXJIfEs0Kq1+Xouz16n/7XeMFgtLmS7aZajHEwg7BWbmoUEgGMMnxqA=
-X-Received: by 2002:a05:6870:b607:b0:17a:a59a:e931 with SMTP id
- cm7-20020a056870b60700b0017aa59ae931mr789107oab.11.1681942300241; Wed, 19 Apr
- 2023 15:11:40 -0700 (PDT)
+ bh=DaYvIj7AJ3gLs47b7MD93kLErM1YnNq2aIhul5kgSpE=;
+ b=NQMFWzju+bpm+VL0NVoEqoF80KII/JwQ+PgN04VkjKr4QSFVcM3Oum/wR6n7wyCq95
+ aoOkZo04WeaZmkXHaoZzD9WOuvV8Bof6RRr23v7rRwQsbsEL/5MqqKrwVFF7VNGydfNn
+ 9h9m3NIT3nadiP17Hhs5aA6n1YVyeRu0XSe4RgN4if/FMdCdtuo8ORFW6PdGUH4SZjJw
+ ool2/mWk+Ma4P23zyTXpteEJvz4ujgujf/wuxSFIuMKGw+Z+LeX6N+21YO5p1kBplwjP
+ q7rvwokKl3mJggp/ZyKfQJAmjE8NoFKvQ9TUMnvmW3Rin8W/o/Uc+cLCEsT7QFs1KUeL
+ eQYQ==
+X-Gm-Message-State: AAQBX9c3Rwmr8IIN9tSrKRPLwgyiQnN8Sc+xSamP6qA/LILTM+/p1Jyn
+ Qe2GzXZQTHIhrdixKTJiwvsQT9ong1vWXXBUVGGH7y8U
+X-Google-Smtp-Source: AKy350ZRm+sl0hSusCHXp2ag0ZLveD9sMgKKDddxcsJ4ZVa1Dp/eg2ZBbUQ1or4eY9rmTfHC41E0txxthJGbDLE83tA=
+X-Received: by 2002:a05:6870:b017:b0:184:525b:279b with SMTP id
+ y23-20020a056870b01700b00184525b279bmr644537oae.50.1681942334662; Wed, 19 Apr
+ 2023 15:12:14 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230330191750.1134210-1-alexander.deucher@amd.com>
- <20230330191750.1134210-10-alexander.deucher@amd.com>
-In-Reply-To: <20230330191750.1134210-10-alexander.deucher@amd.com>
+ <20230330191750.1134210-11-alexander.deucher@amd.com>
+In-Reply-To: <20230330191750.1134210-11-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 19 Apr 2023 18:11:29 -0400
-Message-ID: <CADnq5_NWpuXWh3DhYdSkHMLOaTo7xgaKk51bCt+HCmgNkDVPDg@mail.gmail.com>
-Subject: Re: [PATCH 09/13] drm/amdgpu: add get_gfx_shadow_info callback for
- gfx11
+Date: Wed, 19 Apr 2023 18:12:03 -0400
+Message-ID: <CADnq5_NeiPf1QH3y=P-eE16FZ74VX=Z0KajQminhfAU-QBeOPQ@mail.gmail.com>
+Subject: Re: [PATCH 10/13] drm/amdgpu: add support for new GFX shadow size
+ query
 To: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -78,66 +78,54 @@ Ping?
 On Thu, Mar 30, 2023 at 3:18=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
 .com> wrote:
 >
-> Used to get the size and alignment requirements for
-> the gfx shadow buffer for preemption.
+> Use the new callback to fetch the data.  Return an error if
+> not supported.  UMDs should use this query to check whether
+> shadow buffers are supported and if so what size they
+> should be.
 >
-> v2: use FW version check to determine whether to
->     return a valid size here
->     return an error if not supported (Alex)
-> v3: drop GDS (Alex)
-> v4: make amdgpu_gfx_shadow_info mandatory (Alex)
+> v2: return an error rather than a zerod structure.
+> v3: drop GDS, move into dev_info structure.  Data will be
+>     0 if not supported.
+> v4: drop local variable r
 >
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 22 ++++++++++++++++++++++
->  1 file changed, 22 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v11_0.c
-> index 1fc1e941f7df..7a5da13cffa0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -822,6 +822,27 @@ static void gfx_v11_0_select_me_pipe_q(struct amdgpu=
-_device *adev,
->         soc21_grbm_select(adev, me, pipe, q, vm);
->  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_kms.c
+> index 0efb38539d70..fd735df92b9a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -876,6 +876,19 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *=
+data, struct drm_file *filp)
+>                 dev_info->gl2c_cache_size =3D adev->gfx.config.gc_gl2c_pe=
+r_gpu;
+>                 dev_info->mall_size =3D adev->gmc.mall_size;
 >
-> +/* all sizes are in bytes */
-> +#define MQD_SHADOW_BASE_SIZE      73728
-> +#define MQD_SHADOW_BASE_ALIGNMENT 256
-> +#define MQD_FWWORKAREA_SIZE       484
-> +#define MQD_FWWORKAREA_ALIGNMENT  256
 > +
-> +static int gfx_v11_0_get_gfx_shadow_info(struct amdgpu_device *adev,
-> +                                        struct amdgpu_gfx_shadow_info *s=
-hadow_info)
-> +{
-> +       if (adev->gfx.cp_gfx_shadow) {
-> +               shadow_info->shadow_size =3D MQD_SHADOW_BASE_SIZE;
-> +               shadow_info->shadow_alignment =3D MQD_SHADOW_BASE_ALIGNME=
-NT;
-> +               shadow_info->csa_size =3D MQD_FWWORKAREA_SIZE;
-> +               shadow_info->csa_alignment =3D MQD_FWWORKAREA_ALIGNMENT;
-> +               return 0;
-> +       } else {
-> +               memset(shadow_info, 0, sizeof(struct amdgpu_gfx_shadow_in=
-fo));
-> +               return -ENOTSUPP;
-> +       }
-> +}
+> +               if (adev->gfx.funcs->get_gfx_shadow_info) {
+> +                       struct amdgpu_gfx_shadow_info shadow_info;
 > +
->  static const struct amdgpu_gfx_funcs gfx_v11_0_gfx_funcs =3D {
->         .get_gpu_clock_counter =3D &gfx_v11_0_get_gpu_clock_counter,
->         .select_se_sh =3D &gfx_v11_0_select_se_sh,
-> @@ -830,6 +851,7 @@ static const struct amdgpu_gfx_funcs gfx_v11_0_gfx_fu=
-ncs =3D {
->         .read_wave_vgprs =3D &gfx_v11_0_read_wave_vgprs,
->         .select_me_pipe_q =3D &gfx_v11_0_select_me_pipe_q,
->         .update_perfmon_mgcg =3D &gfx_v11_0_update_perf_clk,
-> +       .get_gfx_shadow_info =3D &gfx_v11_0_get_gfx_shadow_info,
->  };
->
->  static int gfx_v11_0_gpu_early_init(struct amdgpu_device *adev)
+> +                       ret =3D amdgpu_gfx_get_gfx_shadow_info(adev, &sha=
+dow_info);
+> +                       if (!ret) {
+> +                               dev_info->shadow_size =3D shadow_info.sha=
+dow_size;
+> +                               dev_info->shadow_alignment =3D shadow_inf=
+o.shadow_alignment;
+> +                               dev_info->csa_size =3D shadow_info.csa_si=
+ze;
+> +                               dev_info->csa_alignment =3D shadow_info.c=
+sa_alignment;
+> +                       }
+> +               }
+> +
+>                 ret =3D copy_to_user(out, dev_info,
+>                                    min((size_t)size, sizeof(*dev_info))) =
+? -EFAULT : 0;
+>                 kfree(dev_info);
 > --
 > 2.39.2
 >
