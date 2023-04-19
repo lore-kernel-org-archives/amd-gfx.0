@@ -4,49 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FF46C6FD18
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 08:13:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9951C77B73
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 08:14:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEF6E10E05E;
-	Wed, 19 Apr 2023 08:13:49 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC59710E050;
- Wed, 19 Apr 2023 08:13:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681892026; x=1713428026;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=NtG9yCpDsoVnQMDuNihHlz/T8n5B0GSOlfSlXJ6FE3k=;
- b=nvVrsRQpRoUlEv1cHkmcOSi5ULG7ZATFMBVt1gN9RjYnlSBVBuMNKNNs
- YzCacCs1ue2Gl23Y8wmIZhMPvgaXHxJyJdQqzvcgIn2V+DsI+M21NLr+z
- mQ3modxMZ51ZpNrFjs0NE3ScktOx/BjvzP+YeNgjcLWmco2vZc880jNXm
- lUUwZ/G1Lb2snIkRYqJviA5ALezb2ucL7+z2UMiJSzJ0Y9PY+peN0NlnK
- eR3ZtuQxuioRwWKi5o5y/BwWALpZ2uj9FYakNeKqY2xEJ49sXqNnhDVQ7
- a44gOHvAyqLd8OMww5a2Kt52aPdR0MilfJFzRrSCqK+zAvwd1rmbSC1cj w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="347241760"
-X-IronPort-AV: E=Sophos;i="5.99,208,1677571200"; d="scan'208";a="347241760"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2023 01:13:46 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="641673544"
-X-IronPort-AV: E=Sophos;i="5.99,208,1677571200"; d="scan'208";a="641673544"
-Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
- by orsmga003.jf.intel.com with ESMTP; 19 Apr 2023 01:13:43 -0700
-Received: from kbuild by b613635ddfff with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pp2wg-000ej9-2X;
- Wed, 19 Apr 2023 08:13:42 +0000
-Date: Wed, 19 Apr 2023 16:13:06 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: [linux-next:master] BUILD REGRESSION
- 67d5d9f013d6c3829383c08162939cabff14fccc
-Message-ID: <643fa292.aBkpazL95JxIhnL3%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38BC310E0DC;
+	Wed, 19 Apr 2023 08:14:28 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2045.outbound.protection.outlook.com [40.107.243.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 005AF10E075;
+ Wed, 19 Apr 2023 08:14:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KwfZYyJjAq302jSp+CWpjE3WqMLJ3a/Xs0D/uSry6yOvw0O+Jyf6QKiEoGKaR4FZdWrhQZ36WCsT3j25Ggai3Z/mcT1mHeLCPLmTFqnrbB1xPxkASSnYIXVn3L3pXEwJ/0KDwnBAcUGdytBYIjumTXf7EUaMwEbVs5+7wiEuLltRiAg6u80inCt2LlmWDfTOE0QVqRUMohAecyayctWEvf3m1o1K5FK4lStZGZpZ0urbobhbGwR/691IfLCXLUh8CG7MLTAqhElz4OTX+ozQfG3zYezPso8atD3QaA+AwjhLJ8UrDugejB7LIVrB7Nrb6ps+suC345teYcEQB8pdBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RwQmnwIgpAhqZXMH6soKHPk+fxmPTbQTFozueFZp1zE=;
+ b=n3eFIp0B1l9jwvbrmIyZoNFDgWdEfDMyUaLnefvibyhBXC1fPpFfLE+zRTUSouwj57mLdHRUbi5bZmilyGvaH7XKbNoMe/QcAPJrctEmPr37+nStrNUY+Ci4d4h1OteV/oV6+I56gQKmaRPLtn98KqZAEDU4egSmZ8AdGm2teYvDlQwUottWaNAfs/i+OVsMAldyAWZuLaZIS8a9kk92yqy0ltUJUXg7kOvOCFXlkqInjfaXIseWO5TGyAz8jYF4tS6L0mzkaijiqyAgwz0mUjiSPjDPdwc6gAtUa+3DyBH/RRTftcb4BnmbPQTUxWdhAqq5zNteQcNoZM+jcSVPHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RwQmnwIgpAhqZXMH6soKHPk+fxmPTbQTFozueFZp1zE=;
+ b=CKR7Vke9r3uHFWOR99neg436hm7WbC+AJc/QbUcpl0Wh4VSPfZr/PGSKsvurHszyq0HubiI9nRh5j6JI8NkNcOpyNKIF5v7p1POhBv9qmo63wbX9RFYByMX4NN40j8XbJVIAOeAuKxjQMeF36QCtPYdRBBbVE/nzDpiwBWQi7Ok=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by DM4PR12MB7696.namprd12.prod.outlook.com (2603:10b6:8:100::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.45; Wed, 19 Apr
+ 2023 08:14:22 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::d2f8:7388:39c1:bbed]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::d2f8:7388:39c1:bbed%3]) with mapi id 15.20.6319.020; Wed, 19 Apr 2023
+ 08:14:22 +0000
+Message-ID: <d2ecb01b-5895-da7e-60cf-787f9425115c@amd.com>
+Date: Wed, 19 Apr 2023 10:14:17 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Subject: Re: [PATCH 2/2] drm/amdgpu: Fix integer overflow in amdgpu_cs_pass1
+Content-Language: en-US
+To: hackyzh002 <hackyzh002@gmail.com>, alexander.deucher@amd.com
+References: <20230419045157.69829-1-hackyzh002@gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20230419045157.69829-1-hackyzh002@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0134.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:97::18) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|DM4PR12MB7696:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3329cc07-780d-4300-993e-08db40ae14e8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: DZbO3LC9o0A5zjAhcWVSMqNrP1a4pZAI71vWTF8e927RD9mOhgsIIWGkNFxEV7iYTV2TII4EiWSSQDWZzhqc6Hyi0DhW8rDJGKwzMwpE7HFwgRJoYj3Z7uvx+F7W5g5klo/+dZ8D/sK4AvwsYiN/T3npZcweDZpLKZrb2YgMRJaQdD67hU3erkW87Nkty9J7d+oylVVufD5FXUhDA5JRt5qttdLafr/3bwESvE3bTZAhRyrxMxX7iYZq8VPw4EviOOtTDEzm8XNxJ+Tnd6zSuKO5c0+k/mThWdrvXy5VUt6B/fPngtoKzS9sDDvC7L3pzyXBBzLxgaHAFHLHZDWoUU+PL3P1B82P1WF7sf9mMuoTVCuc0nsx7Ng1XIPots+bIN2GFds+M9YI9r02clbG5Cq/dK3efuA+difgqPHi768Sc4GUJu1l2tmu1za8bK7IHS/YpFAdTOcRbqMwVZGR8dX+JckCqgEKEvEJo+S82RA5L9TUQhwm/Xxtn3Gt3RskHNt9ANkINtn5VAuq98FppiNDA0JvC6TtsZGkwS6LYLxPsfnP6Zse1aziOf6cNz4HQC5VUGudZyAO5w2fH0eEjAb2ATy4H/pVGKdh098GeNke8lRRbtkIyC6jIRhdKB0wI/F9geesCA5DVFGtWl+gfw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(366004)(376002)(346002)(39860400002)(396003)(136003)(451199021)(478600001)(6666004)(38100700002)(8936002)(8676002)(316002)(4326008)(6636002)(41300700001)(66476007)(66556008)(66946007)(186003)(36756003)(2906002)(6506007)(83380400001)(6512007)(86362001)(31686004)(2616005)(5660300002)(31696002)(6486002)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SHUvR2lOSFZqbjNqK1RIL2R3WFdCb05WR0RDdTFzZlk0YmxibVZVQVN6VkhS?=
+ =?utf-8?B?N1I3aUlyYkM4bFFURHZTSDVyUW5QeGd6SWx4Z2tuN3laZm9YNkpJSHZHUmxx?=
+ =?utf-8?B?N3BOR3EwTnY1ckFTT09ZRlo2WEp5M2NLamVIa0FtR09sNmExTENkaytCMW5m?=
+ =?utf-8?B?WHdlQ0ZaLzY3b3JBU2ZycUtSd01YWUp6RG4zMkpudTMrNTV1NWg2ODFxQ09R?=
+ =?utf-8?B?WHYvT2VGY3U2MUZseFptSXR3d1lrRmRzTkhINkNlbEJmSlFaWFVpR1RlZVVx?=
+ =?utf-8?B?TXJyaVhvRVFwa0xXVS9ZSktnMnFueDg2WFRubGtYN2tGZks2emN5SUZpTTJm?=
+ =?utf-8?B?cWQ2aEM5MU4wd0hrbzE0NGFPRi9QRk1nQ3JiQnNvZWZOSzNrOFZCcy84RExj?=
+ =?utf-8?B?Nys0STZzZU9RbTRqMkFaT3hzQlc3aEVRdXJOZ0ZNZmpSV3lIZ2RhT3lVK2N0?=
+ =?utf-8?B?WGtoODQzSVBIRmNQNTdDa1Yyb0ZUc3lLTGgrbTZkNHhWTzJhT2U5bVhqN3JK?=
+ =?utf-8?B?QVdVYVpWbEo2OHJxa0VZREcvQzJ3bU1uaUhFeEh1S0M0aTRTbkRCZnIvS1dI?=
+ =?utf-8?B?R1p4MEFJbkFnVFRhVDJ5ZUJ6SGtJR05vbGc3NlJ1SzlUUGVSSFdleWxQMTRI?=
+ =?utf-8?B?RE1PdmdJYnlJNEJwdVVzOENsTllFbjFrVll2YXRtRGFVa2RPN3p4WVN4dmZj?=
+ =?utf-8?B?OW5vbmZabGYxM1VoZG5qbUs4RDZVS085RXNlZ0E3VkdyQWpRbkF3K254anBy?=
+ =?utf-8?B?M2NkTW9iUEdOWGtETGpYMDlIWTFUeUJhejVJbUZlTDlTS3RZdU83VXNsVDAx?=
+ =?utf-8?B?TmF5TXlkZ0phOVlvNkYzeWVEQ1dwYnAzajVxTkw2KzA3OXRPbnE5WlJPN1ZO?=
+ =?utf-8?B?eFBnTFJXeDlmZytWUVZKTHU5UnYrbEdib3FHUllqMHQvYzNyeWh3OXkxYkpZ?=
+ =?utf-8?B?by9ySjgyaThTN3JBZDZpMUFxUEJ2S2FzdEFCSG9xb2dMNWszY2UybjVEOXc1?=
+ =?utf-8?B?VTR2b3ArRDZ4NmxrZGhCbGtWZlZEWllXb0kybUhaK0RLUUl4WG01dWJsSG5L?=
+ =?utf-8?B?ejQyTjdHdGcwSE5zSnlxeGE0UWtFSE5lUWR4dS9tbXh0eGVuZHZiNjJPSExm?=
+ =?utf-8?B?Ry9DY0VvWGdpcHppU0g0L0xBZ2wyZGtxYWtXSjQ3bnZsSENBOUE3ODVNYkpV?=
+ =?utf-8?B?VnlyOHA0WXVhZy9vK0swc0wyWVBYblF2bDFyRitJYzhTVXB5RXJCK2RpL0Q5?=
+ =?utf-8?B?VVdibm8vY0Ztbm03NUhlSXErcit5LzNaZVhwKzZHUXlHWXJWZ1RWQkFpZGll?=
+ =?utf-8?B?aTI5WGtLakFrLzVTYkNuN1RnWHMza01EVnpqKytaOGNpalEwWXdPd05DWWpT?=
+ =?utf-8?B?cVFqT1liVWU3by9mTk5pMjE3S2tISGtqWWRYVk5ZSzZPbVJlQnpjRlkyL09V?=
+ =?utf-8?B?d2k3ZktiYWs1QU9hUjBDQXhTUXE0RVk1akVPZTdjNFI0c3FvWm1MK1dRcG05?=
+ =?utf-8?B?Q1g5Zlpxa0pkRklXN3FoaldYc1k0T3NIKzNrR2MvejVVaXJrOUpYM0FNSnFs?=
+ =?utf-8?B?RlVuRmFHR2cwRkR6dU5uWHBTV1REZHZnNnhEVHdjTmhnZnZMbS9GYnNxSmZR?=
+ =?utf-8?B?RHJSMWMwcjNiaEdLOFRQeFBjdnRocXJiUkkyeUlhMGZBMTVxTmxyNS8ycE0r?=
+ =?utf-8?B?SHpwWXFsRFMxVHhpamNieTB6cFIwRTZVSzBGbXllR0ZjZUFibmdUSXZCbmRu?=
+ =?utf-8?B?K1FjZ0lscFg3MU54QUQ5eXMrd0FxVEZCNmpmM01vUExGbmt5TVY4MWpDOGNJ?=
+ =?utf-8?B?NTZsdXF3R1hDL3pCYVlDb3BxUlFUdXBnUGxwbjErUTVKRFZRMldveW1CSlV4?=
+ =?utf-8?B?ZWhXU3ZqbUVRTEJWTGF6emRLSjNSeHdDUjdPUEZnazQrdzJ3ZmlRbnNLRG5J?=
+ =?utf-8?B?MTVRdnh6U2RQdHNqRVJVOU5tMGQzaG40VFNtM2p3ZjlDOVhxVm1TWnZiL0po?=
+ =?utf-8?B?WFJZVm1Id1h0OWx4WGFsLzBnTGVPdlNpUkVJcDhMR3pjZlJjRmZQVWtUMG5r?=
+ =?utf-8?B?MjRSQnczWDk0R2w1RHJFM2xmVUpCVHdqZHBpT2xtV1hDZm9Wa2VsTVJtazBl?=
+ =?utf-8?B?OS9GeUJUd3drZTZsdTA1dnpJMm5SaG96emtTQ0VpbGcyWGszT29QUDFiVk9r?=
+ =?utf-8?Q?Sj7HcuyMElwML+cUsxBZMQ/ZufWMpQBtBOjB6tzW0vKd?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3329cc07-780d-4300-993e-08db40ae14e8
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2023 08:14:22.5161 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Dffi/8MaqGTJPig6bYChpUJLya/GnkuHrCmfAYQZtQ6tE6P3BRtaeQ4EiHKpvT8A
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7696
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,261 +124,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
+Cc: Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, airlied@gmail.com,
+ sumit.semwal@linaro.org, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 67d5d9f013d6c3829383c08162939cabff14fccc  Add linux-next specific files for 20230418
+Am 19.04.23 um 06:51 schrieb hackyzh002:
+> The type of size is unsigned int, if size is 0x40000000, there will
+> be an integer overflow, size will be zero after size *= sizeof(uint32_t),
+> will cause uninitialized memory to be referenced later.
+>
+> Signed-off-by: hackyzh002 <hackyzh002@gmail.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> index 08eced097..c17b3af85 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -192,7 +192,7 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
+>   	uint64_t *chunk_array_user;
+>   	uint64_t *chunk_array;
+>   	uint32_t uf_offset = 0;
+> -	unsigned int size;
+> +	uint64_t int size;
 
-Error/Warning reports:
+This doesn't even seems to be compile tested. Please use size_t here.
 
-https://lore.kernel.org/oe-kbuild-all/202304102354.Q4VOXGTE-lkp@intel.com
+>   	int ret;
+>   	int i;
+>   
+> @@ -235,7 +235,7 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
+>   		size = p->chunks[i].length_dw;
+>   		cdata = u64_to_user_ptr(user_chunk.chunk_data);
+>   
+> -		p->chunks[i].kdata = kvmalloc_array(size, sizeof(uint32_t),
+> +		p->chunks[i].kdata = kvcalloc(size, sizeof(uint32_t),
+>   						    GFP_KERNEL);
 
-Error/Warning: (recently discovered and may have been fixed)
+And that is unnecessary.
 
-ERROR: modpost: "__floatundidf" [drivers/phy/mediatek/phy-mtk-hdmi-drv.ko] undefined!
-ERROR: modpost: "__gedf2" [drivers/phy/mediatek/phy-mtk-hdmi-drv.ko] undefined!
-ERROR: modpost: "__ltdf2" [drivers/phy/mediatek/phy-mtk-hdmi-drv.ko] undefined!
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_validation.c:351:13: warning: variable 'bw_needed' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/link_validation.c:352:25: warning: variable 'link' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h:62: warning: wrong kernel-doc identifier on line:
-drivers/gpu/drm/i915/i915_pmu.h:41: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
-drivers/gpu/drm/i915/i915_request.h:176: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
-drivers/gpu/drm/i915/i915_vma.h:145: warning: expecting prototype for i915_vma_offset(). Prototype was for i915_vma_size() instead
-drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c:298:6: warning: variable 'ret' is uninitialized when used here [-Wuninitialized]
-ld.lld: error: .btf.vmlinux.bin.o: unknown file type
+Regards,
+Christian.
 
-Error/Warning ids grouped by kconfigs:
 
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- arm-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- arm-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- arm64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- arm64-randconfig-r012-20230416
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- i386-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- ia64-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- loongarch-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- loongarch-defconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- mips-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- mips-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- powerpc-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- riscv-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- riscv-randconfig-r033-20230417
-|   |-- ERROR:__floatundidf-drivers-phy-mediatek-phy-mtk-hdmi-drv.ko-undefined
-|   |-- ERROR:__gedf2-drivers-phy-mediatek-phy-mtk-hdmi-drv.ko-undefined
-|   `-- ERROR:__ltdf2-drivers-phy-mediatek-phy-mtk-hdmi-drv.ko-undefined
-|-- s390-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-|-- sparc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-`-- x86_64-allyesconfig
-    |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-bw_needed-set-but-not-used
-    `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-link_validation.c:warning:variable-link-set-but-not-used
-clang_recent_errors
-|-- arm64-randconfig-r004-20230418
-|   `-- ld.lld:error:.btf.vmlinux.bin.o:unknown-file-type
-|-- powerpc-randconfig-r032-20230416
-|   `-- drivers-phy-mediatek-phy-mtk-hdmi-mt8195.c:warning:variable-ret-is-uninitialized-when-used-here
-`-- x86_64-randconfig-a011-20230417
-    |-- drivers-gpu-drm-i915-gt-uc-guc_capture_fwif.h:warning:wrong-kernel-doc-identifier-on-line:
-    |-- drivers-gpu-drm-i915-i915_pmu.h:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-    |-- drivers-gpu-drm-i915-i915_request.h:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
-    `-- drivers-gpu-drm-i915-i915_vma.h:warning:expecting-prototype-for-i915_vma_offset().-Prototype-was-for-i915_vma_size()-instead
 
-elapsed time: 726m
+>   		if (p->chunks[i].kdata == NULL) {
+>   			ret = -ENOMEM;
 
-configs tested: 151
-configs skipped: 15
-
-tested configs:
-alpha                            allyesconfig   gcc  
-alpha                               defconfig   gcc  
-arc                              allyesconfig   gcc  
-arc                                 defconfig   gcc  
-arc                  randconfig-r013-20230416   gcc  
-arc                  randconfig-r025-20230417   gcc  
-arc                  randconfig-r043-20230416   gcc  
-arc                  randconfig-r043-20230417   gcc  
-arc                  randconfig-r043-20230418   gcc  
-arm                              allmodconfig   gcc  
-arm                              allyesconfig   gcc  
-arm          buildonly-randconfig-r005-20230416   clang
-arm                                 defconfig   gcc  
-arm                  randconfig-r011-20230416   clang
-arm                  randconfig-r021-20230416   clang
-arm                  randconfig-r025-20230416   clang
-arm                  randconfig-r034-20230417   clang
-arm                  randconfig-r034-20230418   gcc  
-arm                  randconfig-r035-20230418   gcc  
-arm                  randconfig-r046-20230416   clang
-arm                  randconfig-r046-20230417   gcc  
-arm                  randconfig-r046-20230418   clang
-arm64                            allyesconfig   gcc  
-arm64                               defconfig   gcc  
-arm64                randconfig-r004-20230418   clang
-arm64                randconfig-r006-20230417   gcc  
-arm64                randconfig-r012-20230416   gcc  
-arm64                randconfig-r026-20230416   gcc  
-csky                                defconfig   gcc  
-csky                 randconfig-r016-20230417   gcc  
-csky                 randconfig-r023-20230416   gcc  
-csky                 randconfig-r035-20230417   gcc  
-hexagon              randconfig-r001-20230417   clang
-hexagon              randconfig-r041-20230416   clang
-hexagon              randconfig-r041-20230417   clang
-hexagon              randconfig-r041-20230418   clang
-hexagon              randconfig-r045-20230416   clang
-hexagon              randconfig-r045-20230417   clang
-hexagon              randconfig-r045-20230418   clang
-i386                             allyesconfig   gcc  
-i386                              debian-10.3   gcc  
-i386                                defconfig   gcc  
-i386                          randconfig-a001   gcc  
-i386                          randconfig-a002   clang
-i386                          randconfig-a003   gcc  
-i386                          randconfig-a004   clang
-i386                          randconfig-a005   gcc  
-i386                          randconfig-a006   clang
-i386                 randconfig-a011-20230417   clang
-i386                 randconfig-a012-20230417   clang
-i386                 randconfig-a013-20230417   clang
-i386                 randconfig-a014-20230417   clang
-i386                 randconfig-a015-20230417   clang
-i386                 randconfig-a016-20230417   clang
-i386                 randconfig-r023-20230417   clang
-ia64                             allmodconfig   gcc  
-ia64         buildonly-randconfig-r001-20230417   gcc  
-ia64         buildonly-randconfig-r005-20230418   gcc  
-ia64                                defconfig   gcc  
-ia64                 randconfig-r004-20230416   gcc  
-ia64                 randconfig-r005-20230416   gcc  
-ia64                 randconfig-r006-20230416   gcc  
-loongarch                        allmodconfig   gcc  
-loongarch                         allnoconfig   gcc  
-loongarch                           defconfig   gcc  
-m68k                             allmodconfig   gcc  
-m68k         buildonly-randconfig-r006-20230416   gcc  
-m68k                                defconfig   gcc  
-m68k                 randconfig-r005-20230418   gcc  
-m68k                 randconfig-r006-20230418   gcc  
-m68k                 randconfig-r014-20230417   gcc  
-m68k                 randconfig-r031-20230417   gcc  
-m68k                 randconfig-r033-20230418   gcc  
-m68k                 randconfig-r035-20230416   gcc  
-m68k                 randconfig-r036-20230417   gcc  
-microblaze   buildonly-randconfig-r004-20230418   gcc  
-microblaze   buildonly-randconfig-r006-20230418   gcc  
-microblaze           randconfig-r003-20230416   gcc  
-microblaze           randconfig-r021-20230417   gcc  
-microblaze           randconfig-r024-20230416   gcc  
-mips                             allmodconfig   gcc  
-mips                             allyesconfig   gcc  
-mips                 randconfig-r002-20230418   gcc  
-mips                 randconfig-r004-20230417   clang
-nios2        buildonly-randconfig-r001-20230416   gcc  
-nios2                               defconfig   gcc  
-nios2                randconfig-r005-20230417   gcc  
-nios2                randconfig-r022-20230417   gcc  
-openrisc             randconfig-r031-20230418   gcc  
-parisc       buildonly-randconfig-r003-20230416   gcc  
-parisc                              defconfig   gcc  
-parisc64                            defconfig   gcc  
-powerpc                          allmodconfig   gcc  
-powerpc                           allnoconfig   gcc  
-powerpc      buildonly-randconfig-r003-20230417   clang
-powerpc      buildonly-randconfig-r004-20230417   clang
-powerpc              randconfig-r016-20230416   gcc  
-powerpc              randconfig-r032-20230416   clang
-riscv                            allmodconfig   gcc  
-riscv                             allnoconfig   gcc  
-riscv        buildonly-randconfig-r001-20230418   gcc  
-riscv                               defconfig   gcc  
-riscv                randconfig-r002-20230417   gcc  
-riscv                randconfig-r015-20230416   gcc  
-riscv                randconfig-r033-20230417   gcc  
-riscv                randconfig-r034-20230416   clang
-riscv                randconfig-r042-20230416   gcc  
-riscv                randconfig-r042-20230417   clang
-riscv                randconfig-r042-20230418   gcc  
-riscv                          rv32_defconfig   gcc  
-s390                             allmodconfig   gcc  
-s390                             allyesconfig   gcc  
-s390         buildonly-randconfig-r004-20230416   gcc  
-s390                                defconfig   gcc  
-s390                 randconfig-r012-20230417   clang
-s390                 randconfig-r015-20230417   clang
-s390                 randconfig-r044-20230416   gcc  
-s390                 randconfig-r044-20230417   clang
-s390                 randconfig-r044-20230418   gcc  
-sh                               allmodconfig   gcc  
-sh           buildonly-randconfig-r002-20230416   gcc  
-sh           buildonly-randconfig-r005-20230417   gcc  
-sh                   randconfig-r001-20230418   gcc  
-sh                   randconfig-r003-20230417   gcc  
-sh                   randconfig-r031-20230416   gcc  
-sh                   randconfig-r036-20230416   gcc  
-sparc                               defconfig   gcc  
-sparc                randconfig-r032-20230417   gcc  
-sparc                randconfig-r036-20230418   gcc  
-sparc64      buildonly-randconfig-r002-20230417   gcc  
-sparc64      buildonly-randconfig-r003-20230418   gcc  
-um                             i386_defconfig   gcc  
-um                           x86_64_defconfig   gcc  
-x86_64                            allnoconfig   gcc  
-x86_64                           allyesconfig   gcc  
-x86_64                              defconfig   gcc  
-x86_64                                  kexec   gcc  
-x86_64               randconfig-a001-20230417   gcc  
-x86_64               randconfig-a002-20230417   gcc  
-x86_64               randconfig-a003-20230417   gcc  
-x86_64               randconfig-a004-20230417   gcc  
-x86_64               randconfig-a005-20230417   gcc  
-x86_64               randconfig-a006-20230417   gcc  
-x86_64               randconfig-a011-20230417   clang
-x86_64               randconfig-a012-20230417   clang
-x86_64               randconfig-a013-20230417   clang
-x86_64               randconfig-a014-20230417   clang
-x86_64               randconfig-a015-20230417   clang
-x86_64               randconfig-a016-20230417   clang
-x86_64                               rhel-8.3   gcc  
-xtensa               randconfig-r001-20230416   gcc  
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
