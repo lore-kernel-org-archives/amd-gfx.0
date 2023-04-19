@@ -4,115 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4A7BC77B73
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 10:24:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 255A6C77B7F
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 10:45:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8D8B10E0EB;
-	Wed, 19 Apr 2023 10:24:21 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2070.outbound.protection.outlook.com [40.107.220.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C74810E0EB
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Apr 2023 10:24:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Z05ZMFLuwqqSBQiSP4EeDtoS6KZe6x4ZqaIm19S5pERK94QwAALEC5u3nyB383/QFxSdKbdqRV/bGoWF/4dduQbrF+j59oosJgMksDg0gTxps3AKDpwbliiwPj2mygFFoZl/tYIrfPBJH2mbwMpv97FWIanYxUceBUkrXn4YNCqD5WRW+xjjRo8CrvQppw9ljVyxdQQ6+aVCbhdi4n/XUWEYES7RKKwY2xM2+3gAcC7hqDrbfiQuCDBy13RTVUdleZGiK9WrKdjm04BfQtBfNj8wiJhNdu2Ne6/u5cWlt+Witb96cBEsccNuC9a4tpb8ZSjxbEc0cmk4P3PoSVj9Iw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3UhlbafNdoFjaCGrQDmx1nXZLi0oZGul26QuoUXhZP8=;
- b=VMXJnzkGhq2/FXECkp1nm1OexjZzH95ojn4l2UUjO0B6PRB6ZrXtY1ggQrqLdONuJxg9KY3zdBQuXpECr2VbK8hwhRkZEO9Iq3Xh8I5g9lpqhKL38cS/AFYXWymsgLYcXjZs2T19zPnP3B6guxgmmD2jQYmDBGzPJRQGRmKts6Xc/RWh4rWyzccJkZ7GMoZ9IfZkeezV5f3/Ca0AhnNf/bvi0F0TQWbxkMGxk1FEeoth+OqrfMIpKF6cNtpJzGLKJpQmeHDAIGKMNKPmQZJeRzsxUpmaos74N/WnateXszJZC8wDfjK5f2sqeFwWumUleUF/3SrMK28ENeDf+/yZfg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3UhlbafNdoFjaCGrQDmx1nXZLi0oZGul26QuoUXhZP8=;
- b=AT8snoCRcSYYDiqPESyzr+Mty9FaaPZsuXQQJovpObkIdzO0wo8zDewjXi4QoCSTcAIxO9eEjyO2r6fuNeo9K8CMa5OjTZZpaT5g2WljlkTqF0hlirx6ul6Kuu5dvkXHAWVwBrTUGjiZhUVhvP0c2Y5N3dCDAB9cdsaB9Uu8P58=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by IA0PR12MB8350.namprd12.prod.outlook.com (2603:10b6:208:40d::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.22; Wed, 19 Apr
- 2023 10:24:15 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::95d1:b78d:686d:2ec6]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::95d1:b78d:686d:2ec6%6]) with mapi id 15.20.6319.022; Wed, 19 Apr 2023
- 10:24:15 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Li, Candice" <Candice.Li@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: Drop pcie_bif ras check from fatal error
- handler
-Thread-Topic: [PATCH] drm/amdgpu: Drop pcie_bif ras check from fatal error
- handler
-Thread-Index: AQHZcqMCb512mD0qj06rvlnIm7D0Tq8ybM+A
-Date: Wed, 19 Apr 2023 10:24:15 +0000
-Message-ID: <BN9PR12MB525799B54AFCDFEF7F40F713FC629@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20230419094003.804-1-candice.li@amd.com>
-In-Reply-To: <20230419094003.804-1-candice.li@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=040c0232-e162-45b6-b9f3-2872cb93bd0d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-04-19T10:23:54Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|IA0PR12MB8350:EE_
-x-ms-office365-filtering-correlation-id: 384a493d-19de-4fed-a5cc-08db40c039e6
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: jaJTBTI6gT1xRH2thLHVOs6UGFJ709eFII/F/WBLd4lXcuvQ0rLpeO7YTmw6D0sKXJq0P6PFPwGyO8icA4ABOKEBPuGeBQG1mchnEMY81VVdbnl7sPVQVdi9l+sfDJsi3Rw+VVywFZaZhQUv4Lh1SP22RXLEP5P9kbxrKObx4PvLKpaWQuZMIixdfvkp3cxwKJHfSKc/SzWlo8ey3+ubdHu/F37E80HrJQaKCCxH8iGHl6bJP8HH6ZWBa/fVxNicZS2irIXvVknaivyhRhUxoNU3n6qErYjC2CJJ7ZqV1+YsSGD41eb/S2dYtq0/taFdE4TQlQxN33BfxC1QI1iNSYwIiOBwvZC8BRARe1UTiqegibfkWOaADH1hJNXpGcXozoJlwGABtLgC19NnS0BKgBjA+PeNUwUuwJH51VGXl68j4fqktsK7tZ04v1L4rPMyeiV+rLHseZ83xhTKqBhsgSyIL1LZTlEqI8Bmx1ptz1yMrvrPtxfjmCFwa2TAJoj8v/u5Dem95M/AlnUR+P25EOVQvCfPkCWiojDzzcSE2s+r/+eNvL84OIrDtZgMr+FJnnWxpPVh0WTUoL/OybD8YCLopAErmL9OktCMyigYeuWjrcczAn/Tv//+ljQqTdaS
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(366004)(396003)(39860400002)(346002)(136003)(376002)(451199021)(110136005)(38070700005)(86362001)(33656002)(478600001)(122000001)(41300700001)(8936002)(8676002)(38100700002)(5660300002)(52536014)(2906002)(55016003)(64756008)(66446008)(66476007)(66556008)(66946007)(4326008)(316002)(76116006)(53546011)(6506007)(83380400001)(9686003)(26005)(186003)(7696005)(71200400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?zDdtTjgLuCZHwHOSUTL1YklKc2UjmALwyZf7fv8TIeBZ4Qo7vWahHEUocgnr?=
- =?us-ascii?Q?SNnpMvTBX0EuvU0bjeN7Pd2cFp/YSb4knSBzxQ/68aA4fi78LWq4/xopMrv3?=
- =?us-ascii?Q?JkpGWQDYRF8ZvL8HEi2ioJBIqd2Tf+JBylmLRmdaXR1m7uKUCF7+fH8vGjjy?=
- =?us-ascii?Q?vqn+mPKIb9gA0qBvMaaIlQfqvFqv+FG0tMl1OEfAmrjutWsU1ixARHjvI2mi?=
- =?us-ascii?Q?pT+5MDJN/iGDO1rFUuRU0d4ln2Z/k74keJXdqXk2H5fcfVYckCnn4waEbrU2?=
- =?us-ascii?Q?uiedG0puy5RuT7g/edYhIlGR7guzrb5VhLf2RAZCAfhjS3O9OiIGe2rQAt64?=
- =?us-ascii?Q?hkFtxwqHzcrexJeTrefh6HyPwu4Awo0UNsC7egenUymI4BAKjTDeQbkCRhu1?=
- =?us-ascii?Q?3YD90Y9gdQlUs9BaHvLYFeI131LrLS0gMhNNegZketoCt2CsSN0DNJD0IrY0?=
- =?us-ascii?Q?clqp7kMcA+M0+WnoadAkVNhUBpSrugGpDPysBBE0I2iyFUJKQ/9fKpTOzCTw?=
- =?us-ascii?Q?8rOKA1pAjgYiT2gPSoHI4gnZd9e0cEVZkptazUD/H5hIdoFU8dTLJVH/nwVS?=
- =?us-ascii?Q?Mq40JcLuG7u20Mpeh+kMRpDuibUn2Ngm48un4Pv/BBOF5vbQMiU5SsnOJQ8I?=
- =?us-ascii?Q?yG5DC2Tq5AMv6So9yWxpUnSGlSZDVbC2aLppvn5UXuQufonJlR7C75XFd2Xo?=
- =?us-ascii?Q?AKVypqpaE3VYiSo0vMVUGAW4EVN2GYwn+jBXxnrAm6elVsh3Riyzvbm0BiWl?=
- =?us-ascii?Q?6pLeFlVno0czmH0hTBD1LZbK6X8e9aRefdmBtZeDa/dLtTa8QCC/esmiKMQs?=
- =?us-ascii?Q?98V6SdZyJ9OWUIhTpRzqIbVlsGeE1+YMKg2YPYzcdxJQnK7iwV+n2ibgsjGr?=
- =?us-ascii?Q?EzatkLBpkw0SSL5vc7Kq5v8GZicvw69iiqYTaropnBKHG6AtBwv3sOydFcVR?=
- =?us-ascii?Q?bTTjDTQTynRYX/BdhwP22Kph6qDHhqHZWYspoHOy0Ff+huFqVQRQyYrTz9yy?=
- =?us-ascii?Q?9/OazAsWqzTWjwmTboH6hpJfUWAa+YgbLXCUFQvtgHz71RxiBFawU5z+Lnwz?=
- =?us-ascii?Q?U2CKRaFZL1zOiokeaj8CRJJOr8JO7tlspI2CoDTudF/nsyTqzo3/kbE1ehGI?=
- =?us-ascii?Q?OrWg9LVm1gyU4zYIiIe5R7Em2YUbelVngewo6lg70OsltEsGGkSWQUDXOBxp?=
- =?us-ascii?Q?dpPLaI2fBISmEyhrIX8ti5b1C6iNuOC0LTTf5Uf5LVDgeLpJOLMRLCGPw3Ir?=
- =?us-ascii?Q?Sqp2UYncyy3sZ6Ps/OQ/RRMHS7X/XLwI2tRPp+tn82n34EN469TZwv5SrkWV?=
- =?us-ascii?Q?X0s8UPJoHrEkyPyk9nC0U51MneNhkYEJYsCCtIXuzpyH3SPglGccm3gTA3c1?=
- =?us-ascii?Q?3pohw7NWEKxz2hEaDW/K+zr0Zyo/mggeAZQkQC8fnXt3vG5GcHJ/CnAdCrbl?=
- =?us-ascii?Q?BBqFhPTgqVttEhF9bA67E5oRDKXnUhm3UsHorlWXiEoO9/MrIshHF2pb+Cy0?=
- =?us-ascii?Q?fMtHAF140I/TZisfoBlSHf0ES8kLrMPgNqKcikM+P5s+LPwAng394To2E+1i?=
- =?us-ascii?Q?arroM4LHOfocBV1mV5g=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5481710E92B;
+	Wed, 19 Apr 2023 10:44:58 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BA0010E94F;
+ Wed, 19 Apr 2023 10:44:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1681901094; x=1713437094;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=XnfoaCcH3MWyJZkIKskW2BAZXpZylboTWI3thPO1+Yo=;
+ b=me3MM2yR1vA4gKDmHwaKjqX7Jky01LpNS2m/PfScoHBFQ8y78vl2BN4m
+ 5QIjZNB/fLUQF5ek+qdUGkN8DqiQsbedhDlJnIHHZ34R/dPJH6ZzSDlfL
+ ODUO5IPg67mASRDzZUFWVHESCQudreHPke4PcCbECbYBRhyDavnuhUv/i
+ 1AFIEhUpbNAZfkXR0bNB75aHWU8kqee6xsfQTnuh5DyN80OrHhTBFvaFt
+ dNar/lT7nGuEV+PZPbHTW9fq3UxcQJOTk+1bDiSp8Hl65FD/fcgJC0te0
+ UmnWwMzZ20HY7++KoQM1gzY8UH8NEQWpz4oS1BuKVC4s3LxyVezhvM5FE w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="325748503"
+X-IronPort-AV: E=Sophos;i="5.99,208,1677571200"; d="scan'208";a="325748503"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Apr 2023 03:44:52 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="691462456"
+X-IronPort-AV: E=Sophos;i="5.99,208,1677571200"; d="scan'208";a="691462456"
+Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
+ by orsmga002.jf.intel.com with ESMTP; 19 Apr 2023 03:44:48 -0700
+Received: from kbuild by b613635ddfff with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pp5It-000ep9-16;
+ Wed, 19 Apr 2023 10:44:47 +0000
+Date: Wed, 19 Apr 2023 18:44:37 +0800
+From: kernel test robot <lkp@intel.com>
+To: hackyzh002 <hackyzh002@gmail.com>, alexander.deucher@amd.com
+Subject: Re: [PATCH 2/2] drm/amdgpu: Fix integer overflow in amdgpu_cs_pass1
+Message-ID: <202304191814.1O8ppodq-lkp@intel.com>
+References: <20230419045157.69829-1-hackyzh002@gmail.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 384a493d-19de-4fed-a5cc-08db40c039e6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Apr 2023 10:24:15.1899 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: upRZgtXZDTl7TMJQsvuM5FUmTQFM07K/z+jZndTfVHbESVb5fZedb+2buh/i5s9P3QBUP1G3CnCQkxOhlqSIVg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8350
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230419045157.69829-1-hackyzh002@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,48 +58,212 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Li, Candice" <Candice.Li@amd.com>
+Cc: llvm@lists.linux.dev, Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, sumit.semwal@linaro.org,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, oe-kbuild-all@lists.linux.dev,
+ hackyzh002 <hackyzh002@gmail.com>, airlied@gmail.com, christian.koenig@amd.com,
+ linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+Hi hackyzh002,
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+kernel test robot noticed the following build errors:
 
-Regards,
-Hawking
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on linus/master v6.3-rc7 next-20230418]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Candice =
-Li
-Sent: Wednesday, April 19, 2023 17:40
-To: amd-gfx@lists.freedesktop.org
-Cc: Li, Candice <Candice.Li@amd.com>
-Subject: [PATCH] drm/amdgpu: Drop pcie_bif ras check from fatal error handl=
-er
+url:    https://github.com/intel-lab-lkp/linux/commits/hackyzh002/drm-amdgpu-Fix-integer-overflow-in-amdgpu_cs_pass1/20230419-125344
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/20230419045157.69829-1-hackyzh002%40gmail.com
+patch subject: [PATCH 2/2] drm/amdgpu: Fix integer overflow in amdgpu_cs_pass1
+config: arm64-buildonly-randconfig-r004-20230416 (https://download.01.org/0day-ci/archive/20230419/202304191814.1O8ppodq-lkp@intel.com/config)
+compiler: clang version 17.0.0 (https://github.com/llvm/llvm-project 437b7602e4a998220871de78afcb020b9c14a661)
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # install arm64 cross compiling tool for clang build
+        # apt-get install binutils-aarch64-linux-gnu
+        # https://github.com/intel-lab-lkp/linux/commit/c4a89869bcb6b68ad0e1eed0dd4f18c8cc7fbfc5
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review hackyzh002/drm-amdgpu-Fix-integer-overflow-in-amdgpu_cs_pass1/20230419-125344
+        git checkout c4a89869bcb6b68ad0e1eed0dd4f18c8cc7fbfc5
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=arm64 olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=arm64 SHELL=/bin/bash drivers/gpu/drm/amd/amdgpu/
 
-Some ASICs support fatal error event but do not support pcie_bif ras.
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Link: https://lore.kernel.org/oe-kbuild-all/202304191814.1O8ppodq-lkp@intel.com/
 
-Signed-off-by: Candice Li <candice.li@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+All errors (new ones prefixed by >>):
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ras.c
-index 3ab8a88789c8fe..22f401fd1901cb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1597,8 +1597,7 @@ static int amdgpu_ras_fs_fini(struct amdgpu_device *a=
-dev)  void amdgpu_ras_interrupt_fatal_error_handler(struct amdgpu_device *a=
-dev)  {
-        /* Fatal error events are handled on host side */
--       if (amdgpu_sriov_vf(adev) ||
--               !amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__PCIE_BIF))
-+       if (amdgpu_sriov_vf(adev))
-                return;
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c:195:11: error: cannot combine with previous 'type-name' declaration specifier
+           uint64_t int size;
+                    ^
+   1 error generated.
 
-        if (adev->nbio.ras &&
---
-2.17.1
 
+vim +195 drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+
+   184	
+   185	/* Copy the data from userspace and go over it the first time */
+   186	static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
+   187				   union drm_amdgpu_cs *cs)
+   188	{
+   189		struct amdgpu_fpriv *fpriv = p->filp->driver_priv;
+   190		unsigned int num_ibs[AMDGPU_CS_GANG_SIZE] = { };
+   191		struct amdgpu_vm *vm = &fpriv->vm;
+   192		uint64_t *chunk_array_user;
+   193		uint64_t *chunk_array;
+   194		uint32_t uf_offset = 0;
+ > 195		uint64_t int size;
+   196		int ret;
+   197		int i;
+   198	
+   199		chunk_array = kvmalloc_array(cs->in.num_chunks, sizeof(uint64_t),
+   200					     GFP_KERNEL);
+   201		if (!chunk_array)
+   202			return -ENOMEM;
+   203	
+   204		/* get chunks */
+   205		chunk_array_user = u64_to_user_ptr(cs->in.chunks);
+   206		if (copy_from_user(chunk_array, chunk_array_user,
+   207				   sizeof(uint64_t)*cs->in.num_chunks)) {
+   208			ret = -EFAULT;
+   209			goto free_chunk;
+   210		}
+   211	
+   212		p->nchunks = cs->in.num_chunks;
+   213		p->chunks = kvmalloc_array(p->nchunks, sizeof(struct amdgpu_cs_chunk),
+   214				    GFP_KERNEL);
+   215		if (!p->chunks) {
+   216			ret = -ENOMEM;
+   217			goto free_chunk;
+   218		}
+   219	
+   220		for (i = 0; i < p->nchunks; i++) {
+   221			struct drm_amdgpu_cs_chunk __user **chunk_ptr = NULL;
+   222			struct drm_amdgpu_cs_chunk user_chunk;
+   223			uint32_t __user *cdata;
+   224	
+   225			chunk_ptr = u64_to_user_ptr(chunk_array[i]);
+   226			if (copy_from_user(&user_chunk, chunk_ptr,
+   227					       sizeof(struct drm_amdgpu_cs_chunk))) {
+   228				ret = -EFAULT;
+   229				i--;
+   230				goto free_partial_kdata;
+   231			}
+   232			p->chunks[i].chunk_id = user_chunk.chunk_id;
+   233			p->chunks[i].length_dw = user_chunk.length_dw;
+   234	
+   235			size = p->chunks[i].length_dw;
+   236			cdata = u64_to_user_ptr(user_chunk.chunk_data);
+   237	
+   238			p->chunks[i].kdata = kvcalloc(size, sizeof(uint32_t),
+   239							    GFP_KERNEL);
+   240			if (p->chunks[i].kdata == NULL) {
+   241				ret = -ENOMEM;
+   242				i--;
+   243				goto free_partial_kdata;
+   244			}
+   245			size *= sizeof(uint32_t);
+   246			if (copy_from_user(p->chunks[i].kdata, cdata, size)) {
+   247				ret = -EFAULT;
+   248				goto free_partial_kdata;
+   249			}
+   250	
+   251			/* Assume the worst on the following checks */
+   252			ret = -EINVAL;
+   253			switch (p->chunks[i].chunk_id) {
+   254			case AMDGPU_CHUNK_ID_IB:
+   255				if (size < sizeof(struct drm_amdgpu_cs_chunk_ib))
+   256					goto free_partial_kdata;
+   257	
+   258				ret = amdgpu_cs_p1_ib(p, p->chunks[i].kdata, num_ibs);
+   259				if (ret)
+   260					goto free_partial_kdata;
+   261				break;
+   262	
+   263			case AMDGPU_CHUNK_ID_FENCE:
+   264				if (size < sizeof(struct drm_amdgpu_cs_chunk_fence))
+   265					goto free_partial_kdata;
+   266	
+   267				ret = amdgpu_cs_p1_user_fence(p, p->chunks[i].kdata,
+   268							      &uf_offset);
+   269				if (ret)
+   270					goto free_partial_kdata;
+   271				break;
+   272	
+   273			case AMDGPU_CHUNK_ID_BO_HANDLES:
+   274				if (size < sizeof(struct drm_amdgpu_bo_list_in))
+   275					goto free_partial_kdata;
+   276	
+   277				ret = amdgpu_cs_p1_bo_handles(p, p->chunks[i].kdata);
+   278				if (ret)
+   279					goto free_partial_kdata;
+   280				break;
+   281	
+   282			case AMDGPU_CHUNK_ID_DEPENDENCIES:
+   283			case AMDGPU_CHUNK_ID_SYNCOBJ_IN:
+   284			case AMDGPU_CHUNK_ID_SYNCOBJ_OUT:
+   285			case AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES:
+   286			case AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_WAIT:
+   287			case AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_SIGNAL:
+   288				break;
+   289	
+   290			default:
+   291				goto free_partial_kdata;
+   292			}
+   293		}
+   294	
+   295		if (!p->gang_size) {
+   296			ret = -EINVAL;
+   297			goto free_partial_kdata;
+   298		}
+   299	
+   300		for (i = 0; i < p->gang_size; ++i) {
+   301			ret = amdgpu_job_alloc(p->adev, vm, p->entities[i], vm,
+   302					       num_ibs[i], &p->jobs[i]);
+   303			if (ret)
+   304				goto free_all_kdata;
+   305		}
+   306		p->gang_leader = p->jobs[p->gang_leader_idx];
+   307	
+   308		if (p->ctx->vram_lost_counter != p->gang_leader->vram_lost_counter) {
+   309			ret = -ECANCELED;
+   310			goto free_all_kdata;
+   311		}
+   312	
+   313		if (p->uf_entry.tv.bo)
+   314			p->gang_leader->uf_addr = uf_offset;
+   315		kvfree(chunk_array);
+   316	
+   317		/* Use this opportunity to fill in task info for the vm */
+   318		amdgpu_vm_set_task_info(vm);
+   319	
+   320		return 0;
+   321	
+   322	free_all_kdata:
+   323		i = p->nchunks - 1;
+   324	free_partial_kdata:
+   325		for (; i >= 0; i--)
+   326			kvfree(p->chunks[i].kdata);
+   327		kvfree(p->chunks);
+   328		p->chunks = NULL;
+   329		p->nchunks = 0;
+   330	free_chunk:
+   331		kvfree(chunk_array);
+   332	
+   333		return ret;
+   334	}
+   335	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
