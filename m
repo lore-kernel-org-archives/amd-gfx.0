@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDC51C77B75
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 12:01:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 959BCC77B73
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 12:13:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5470010E163;
-	Wed, 19 Apr 2023 12:01:04 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9252910E163
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Apr 2023 12:01:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25AD410E182;
+	Wed, 19 Apr 2023 12:13:18 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2058.outbound.protection.outlook.com [40.107.96.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E67410E182
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Apr 2023 12:13:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eU63WfNRyF/QBoZgZlxoEETGmrIkwC6iOxavdsMGrtwm9cfC23SDITvriiPCRSbIypAua7vVhU7+YoH3lwwFeE0xY/bl/PLhj65jhzhGfnl2xLe+g8jfVB3mlZCt2IuOwI1mq7/rA4cemOOjsmp8RMIyO/wSNdvIJx7owzJdbTtt2x+xtFagiM3ELGu3KqaQ4DI3IV7xX2jkNH2WyGKzsgf4MaNU2nmW36JG57+HGZ2ThOTuwFX6xDcc410a3giNfWYhhkKB5/3P3L4jaCNtXbPnQSCwRWrRxMNDEz4zdd0/1miFnko9r2rQ7uqy326Y2mOXLnH/CqBffjTVBJCIJw==
+ b=Z8rgPQcSITjcRy/oWh3ZSQ1thcTIk4DlBuKeUYaKui5MT8YRAPk+0HKzHvUfV9YIQAiZxIbgaRMRDfAM58fYAJTwvhqZCF6VlcuI/h9zc8YoXL68L89LsGeTklouS5jZBoS+w6hD5m53jrNIMN/VvMsDj5PplWCHFKCYyOtWIP4PJyokfstRxs33nc9Prv5wBlUMOw9ui+zkUUz/04kcGbGoP8Ao2R+nt5d4vxXlV5pJ2ZFceuu6HZgpxZkcZ9MuqVF68FBJrZNWiMynK3cgUTJHEJ3K2uhJMs2xCEe0qHSpeocMIn6AKwscFLm26vUgVfk8a5vPcH0+UBq78k9z4w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p4Q3cXuxuhGMb3qcFErjOgaJFLLPEoNTrIQiVXZB3qM=;
- b=isXByK0shUGRv6TaXKfho/lYwiaaR0PgGeLCCIiE4OCNwfpsR5NqypKwWmBgdP9cnmIR87T5FXxoTeeQokthP6loDxCIRjYU4y4xEkCf9HRVVvVesxMIUWOBVrIiUtM6RRGjnlQU5JfQxGpX/p+UHE8zTym9bzmJ0JzUU7ZXzC8gsIgpEDeRToQgZ072XvZsU4NZ+3Mq7tGayIxx5Jea5QBOR5SG9zggZGE/+AKvsVTYobP+rd+ceuGX5IFjl1JGq3Nu5RjVDtL4uPYwtgE1eShjOwzTNwcj4Ii1ulPIj8aB+H7NiLeh32x1IPLbjjuvuN6cD+nB4TckWBL1usoxow==
+ bh=7cZ9zI7Mljsn8JuCQYo3aKl8cXWINhsqWGpCvZcXu90=;
+ b=hy1sgXdLoJ3B3dVYCiHAI0dPT2U5g4PY0uIUexxpWhqhsMHobRvWFA0o0DkwNp0LLaYjHYC9hHJY25U30ahOr6/0Q9nTyZD21vPGTiZHSxYngXhMJTyrBFl9iaxxsHE0MXsus6FPkXdEkzEAnI7lA8f78+BUg1mc9WQJH5bpGiVPo0fTNTE2vmxh2fNey3U2JRiiJEKjmuab0F1Gqw47sPVy8I2F+o2r4pM7j4vwP57+U6+o1J5xmwcujEFg9sz6rMvcVdf6iQsbQpIvVSjRriFu8jP0OY4sUROMRabb7wjr3WQ3zCrNQUUckI8wT322U+N0aKBdrnwjj9o70JOdEQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p4Q3cXuxuhGMb3qcFErjOgaJFLLPEoNTrIQiVXZB3qM=;
- b=OqQOLE9VQWyyEueKEFEr/hSv0gEG6XauuiAYjo97GhE3rVgHwM9YbfY50m+QJsYk5lKYnkWeU6D4WyDMrLXClFoIc0X2lZgtOELbhqxJHDtKiHeMkmQIUuHc1UgpZurkG38QKESCaQlA97Phwp3QD+O2bEQP2auT0Cm4NVtXF4Y=
-Received: from MW4PR03CA0185.namprd03.prod.outlook.com (2603:10b6:303:b8::10)
- by SA1PR12MB8093.namprd12.prod.outlook.com (2603:10b6:806:335::15)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=7cZ9zI7Mljsn8JuCQYo3aKl8cXWINhsqWGpCvZcXu90=;
+ b=OgsL3zxDv7CmPeAaZMj6ZqsgrEtdr3sf67J+aBN9Gz6n4jIdkqRR8iEQFf5fWiFQjeNrxH5O1KozFXvvugJmSGFon0xMpkdR8Mhp95ySUrRlHMsSMM/oPEsWFJS1a9p8D8h91dQFymrOT2hwftLs6x/hZWnZaXHedmqWklQMebI=
+Received: from MW4PR04CA0172.namprd04.prod.outlook.com (2603:10b6:303:85::27)
+ by DS0PR12MB8562.namprd12.prod.outlook.com (2603:10b6:8:164::13) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.45; Wed, 19 Apr
- 2023 12:01:00 +0000
-Received: from CO1NAM11FT113.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:b8:cafe::8f) by MW4PR03CA0185.outlook.office365.com
- (2603:10b6:303:b8::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.47 via Frontend
- Transport; Wed, 19 Apr 2023 12:01:00 +0000
+ 2023 12:13:14 +0000
+Received: from CO1NAM11FT072.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:85:cafe::e) by MW4PR04CA0172.outlook.office365.com
+ (2603:10b6:303:85::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.22 via Frontend
+ Transport; Wed, 19 Apr 2023 12:13:13 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,48 +45,48 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT113.mail.protection.outlook.com (10.13.174.180) with Microsoft SMTP
+ CO1NAM11FT072.mail.protection.outlook.com (10.13.174.106) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6319.23 via Frontend Transport; Wed, 19 Apr 2023 12:01:00 +0000
+ 15.20.6319.22 via Frontend Transport; Wed, 19 Apr 2023 12:13:13 +0000
 Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 19 Apr
- 2023 07:00:57 -0500
+ 2023 07:13:11 -0500
 From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: Jerry Zuo <jerry.zuo@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>
-Subject: [PATCH v4] drm/amd/display: Add logging when DP link training Channel
- EQ is Successful
-Date: Wed, 19 Apr 2023 17:30:39 +0530
-Message-ID: <20230419120039.162313-1-srinivasan.shanmugam@amd.com>
+To: Aurabindo Pillai <aurabindo.pillai@amd.com>, Jerry Zuo
+ <jerry.zuo@amd.com>, Yongqiang Sun <yongqiang.sun@amd.com>
+Subject: [PATCH] drm/amd/display: Remove unused variables in dcn21_hwseq.c
+Date: Wed, 19 Apr 2023 17:42:52 +0530
+Message-ID: <20230419121252.187132-1-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT113:EE_|SA1PR12MB8093:EE_
-X-MS-Office365-Filtering-Correlation-Id: 085d5133-478c-4c24-7c33-08db40cdbe00
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT072:EE_|DS0PR12MB8562:EE_
+X-MS-Office365-Filtering-Correlation-Id: d2996930-2247-4689-aba8-08db40cf731a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: G2JuwGl5/kNdSD4IW8vSHc2ljWlB380tnGgYbO6VVU/br0g7EqyOoQ+6azf9JQ5wJCvaLPmiHR19w7lGaNgH1sOEUhGpQcBmbEHxLWTgz6Ld+mnTjKNiDSLwqJMrH7m/tRAnFjyBYguMxM/QPUtc3qzUk8Q+riSmOMEV/HzIKDoFbIm8uMiVuPyAs7Cq6fIEFKCBTym0r7YswSJrPUrio3RY81/3BhS+ztyNhsgjdIL+si91+ozIG2mKvW9FfaHiKudthgWF8iOHrcoqYXL0Be/0FMoQWZ3faWCjC6jn6ZLs9UVR4+YtgxGs7uNGMjQ9nFuch+khz7DW5ncqof5pWxxoFeApIqNJ1NEOiRGtSkdFY5giKltVMUAktqGv5+2ZKgQNXMdn2tzw+vfl1lfRydgkJRSCGuBik219rfi2QHUpEa99oFgStKI/Pav1xbLgHA/9gpDG/pnNWnuuo+U3v6S2T2i0eysxFMjkWfLKaJ2PwOShz9TnZKovXBSS+J5b/jVi3Tm9YhjauMN4w3ON2Gzkry58Pqqg/Uc11dCcd10nGZ698XRCkOYHoxyAWIGUOcy8We7kLcqE7Yvz7vRRFYZknXZhkDI/HgGzj+8KEJgwvOO3OamuUih+NOlcE/D/HfdzE24aX3J9bINnUjvP/D+CSg5cm9d18TkozlYxZQGAyFXXRyayx5TE3KEr/8XcS2LoNxbCqUv3Q6z3fykXDG3gGRHRozJkzgHzIKMEnss=
+X-Microsoft-Antispam-Message-Info: l8TbpjAN9FUa+9TlyJy8LGxl7/VuLONL7rRN4Vp9a2lJcMrmALSSQqeG46G6KvEuPPGYtYxVkf90iouHhZAXMG2IUBoFgRyDZeONM5RFeUyhgxM3Sf3j5nPPIqWlZ0vYkRHAuxGrBN+abnb8HTZtukAs4j61PVn7odLsRxMxquq36giYHD00rpBHtOQpHEgD2f1f73EA3Zv1uEVwXALOr6bA+dvU/zZZlXi+JfGoMp5uNN7ELxv0H3tHi1PTgZjVyQypqQO5CSJhipG39/nSGe3UesqzGvQ51pk2BG+4C7lnFUieKFU8PNXAqF9u65FUAyhLiJOAwNbxaF6HU26GKU1Qt2Tov4BaHU9GpsN/+6Up5WtlDCJZ22WtEOM+/VQoX72WgSYzE5jyLiQ5+RPGoCUTqLO0QSamiT8N7124eSv6oKZo9suf3N8TEbleAP5WOZ1IX/MzTQq9DoeNYEQN/BWu4Tqv1a8oSWCoL4NjGINlPJPUvZCXNUd1/7TK5NsMKD2mNjmv7qLLzhQINSDz8e17YXkizLz1KYShEGXh2Kk0vtZIRJLhH3aYEBW6+XSJwCYQQIUg3juXwfn3aajsNKWJPV2hqrD2Ys41AN8xNH3TCF0jtgUbk7h10d7/e33mTZYu+6KkWpjulpQxeE2zM43Bd9O9exw9r3IcNf90cOZ6uV9EWe77ByaK+Ev/AwWtLY0YMquH4DMDcUq5VcismLZS+QyUSa7LfFO+8xGtP3U=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(346002)(39860400002)(396003)(136003)(451199021)(46966006)(36840700001)(40470700004)(478600001)(6666004)(8936002)(8676002)(316002)(82740400003)(4326008)(6636002)(41300700001)(70586007)(40480700001)(70206006)(81166007)(54906003)(110136005)(356005)(16526019)(40460700003)(186003)(36756003)(2906002)(1076003)(426003)(83380400001)(26005)(86362001)(336012)(47076005)(82310400005)(2616005)(36860700001)(5660300002)(7696005)(44832011)(36900700001);
+ SFS:(13230028)(4636009)(376002)(39860400002)(396003)(136003)(346002)(451199021)(46966006)(36840700001)(40470700004)(478600001)(6666004)(8936002)(8676002)(316002)(82740400003)(41300700001)(6636002)(4326008)(70586007)(70206006)(40480700001)(81166007)(54906003)(110136005)(356005)(186003)(40460700003)(2906002)(16526019)(36756003)(1076003)(26005)(83380400001)(426003)(86362001)(336012)(47076005)(82310400005)(2616005)(5660300002)(36860700001)(7696005)(44832011)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2023 12:01:00.1670 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 085d5133-478c-4c24-7c33-08db40cdbe00
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2023 12:13:13.5186 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2996930-2247-4689-aba8-08db40cf731a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT113.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT072.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8093
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8562
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,84 +98,43 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
  amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Log when Channel Equalization is successful.
+Fix the below compiler warning:
+
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn21/dcn21_hwseq.c:229:11: warning: unused variable ‘otg_inst’ [-Wunused-variable]
+  229 |  uint32_t otg_inst = pipe_ctx->stream_res.tg->inst;
+      |           ^~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn21/dcn21_hwseq.c:226:20: warning: unused variable ‘cmd’ [-Wunused-variable]
+  226 |  union dmub_rb_cmd cmd;
+      |                    ^~~
 
 Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>
-
+Cc: Jerry Zuo <jerry.zuo@amd.com>
+Cc: Yongqiang Sun <yongqiang.sun@amd.com>
 Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
+ drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hwseq.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-v2:
- - For consistency of the printed messages, either drop or keep  %s for both the
-   lines - it is dropped (Aurabindo)
- - For 128b/132b, moved the statements after EQ interlane alignment
-   is done.
-
-v3:
- - retained %s for both the lines, useful for better debugging
-
-v4:
- - move eq/cds messages after dp_perform_128b_132b_channel_eq_done_sequence
-   dp_perform_128b_132b_cds_done_sequence (Jerry)
-   
-
- .../dc/link/protocols/link_dp_training_128b_132b.c     | 10 ++++++++--
- .../dc/link/protocols/link_dp_training_8b_10b.c        |  4 ++++
- 2 files changed, 12 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_128b_132b.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_128b_132b.c
-index 23d380f09a21..db87cfe37b5c 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_128b_132b.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_128b_132b.c
-@@ -211,11 +211,17 @@ enum link_training_result dp_perform_128b_132b_link_training(
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hwseq.c
+index 55a464a39529..43463d08f21b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hwseq.c
+@@ -223,10 +223,8 @@ bool dcn21_set_backlight_level(struct pipe_ctx *pipe_ctx,
+ 		uint32_t backlight_pwm_u16_16,
+ 		uint32_t frame_ramp)
+ {
+-	union dmub_rb_cmd cmd;
+ 	struct dc_context *dc = pipe_ctx->stream->ctx;
+ 	struct abm *abm = pipe_ctx->stream_res.abm;
+-	uint32_t otg_inst = pipe_ctx->stream_res.tg->inst;
+ 	struct panel_cntl *panel_cntl = pipe_ctx->stream->link->panel_cntl;
  
- 	dpcd_set_link_settings(link, lt_settings);
- 
--	if (result == LINK_TRAINING_SUCCESS)
-+	if (result == LINK_TRAINING_SUCCESS) {
- 		result = dp_perform_128b_132b_channel_eq_done_sequence(link, link_res, lt_settings);
-+		if (result == LINK_TRAINING_SUCCESS)
-+			DC_LOG_HW_LINK_TRAINING("%s: Channel EQ done.\n", __func__);
-+	}
- 
--	if (result == LINK_TRAINING_SUCCESS)
-+	if (result == LINK_TRAINING_SUCCESS) {
- 		result = dp_perform_128b_132b_cds_done_sequence(link, link_res, lt_settings);
-+		if (result == LINK_TRAINING_SUCCESS)
-+			DC_LOG_HW_LINK_TRAINING("%s: CDS done.\n", __func__);
-+	}
- 
- 	return result;
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_8b_10b.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_8b_10b.c
-index 3889ebb2256b..2b4c15b0b407 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_8b_10b.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_8b_10b.c
-@@ -388,6 +388,8 @@ enum link_training_result dp_perform_8b_10b_link_training(
- 					link_res,
- 					lt_settings,
- 					repeater_id);
-+			if (status == LINK_TRAINING_SUCCESS)
-+				DC_LOG_HW_LINK_TRAINING("%s: Channel EQ done.\n", __func__);
- 
- 			repeater_training_done(link, repeater_id);
- 
-@@ -409,6 +411,8 @@ enum link_training_result dp_perform_8b_10b_link_training(
- 					link_res,
- 					lt_settings,
- 					DPRX);
-+			if (status == LINK_TRAINING_SUCCESS)
-+				DC_LOG_HW_LINK_TRAINING("%s: Channel EQ done.\n", __func__);
- 		}
- 	}
- 
+ 	if (dc->dc->res_pool->dmcu) {
 -- 
 2.25.1
 
