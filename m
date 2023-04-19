@@ -4,69 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E766C6FD18
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 08:40:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EB1AC77B73
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 08:59:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 832DE10E8C5;
-	Wed, 19 Apr 2023 08:40:17 +0000 (UTC)
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [IPv6:2a00:1450:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 115BA10E8D3;
- Wed, 19 Apr 2023 08:40:15 +0000 (UTC)
-Received: by mail-ej1-x630.google.com with SMTP id dm2so79718280ejc.8;
- Wed, 19 Apr 2023 01:40:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681893614; x=1684485614;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=11sl8AqwZce1ertKq6Ztt8iuR+fB42Oex6pJ+U7xw2I=;
- b=DxJtLunx5h16pRRZ84LYqFPi6EJHNEhDJ/4M06dgxM2ur0kqsRc/6YtsMxfHQkzoDi
- ylakpROJRFG1jWkLkiLWH6m6zs8oZIVmbqf6QE9Rh/UhnpnDwyUZLPXmRvssJpYoZDq4
- dA3oUTNV0tBOII15372NBzNp9bOvYkzlTfEGJZxIKEZikoq9gVKGcJkNHYO6vsl30gna
- Gw8nQ26WHKu+rcmyKVnUkkkfKQfl1+bOO1WVUamcinpol0p8Vo9pbY75wEeWdU0DqoDB
- dgYTurZ1swwpQk3ZMlRno2Rs8y2I93xbBQuelN2GGxgHUd1i/SzDDEWa3kQT/R19xDwt
- vpiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681893614; x=1684485614;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=11sl8AqwZce1ertKq6Ztt8iuR+fB42Oex6pJ+U7xw2I=;
- b=N9c98o6d0M7oHluSBScEO9SduYVysJCmuzjJFf+dbij9RTsO73smQGx6WQTnaI6USl
- ItXeEBUMxQ8+AXkRQ1g4inz/VHyW5fCCEM48WJEd1dKwj2dHMojAwc1Ggw7Bfb+thXpD
- bORB71SvbGcuwY9Nu7fa9EBhXU05r0OYhm/0gO8wLx7FKsAmgzrEafQ7HfXQbjgzcmOz
- 4QzedrOjeokXY8PV/XlpDWmYNn4Yxr+FnrNWXDJGhmROlvY4U1qX3E6n+VF+f1dLZK3D
- Hd5lHlGejq/WQjwn1CflBdGThZVH8grOUKMXbYpUlArDMRppYKK+gML65rjbwixVysc0
- M7aw==
-X-Gm-Message-State: AAQBX9eRzhIh4kW3SCxsvPEJ7GPQfTMUXOrkJaj/HNocbHgd6EKotEsF
- oILEVnHo+TeZiIMcqGyXJoc=
-X-Google-Smtp-Source: AKy350aFo85fWHrw1usKNUqmGwHdN9xEddgt1lB/ijvfifKCIrYYuxvdWJI7HS4UtLXKs9qddbPlAw==
-X-Received: by 2002:a17:906:9153:b0:94e:6504:d134 with SMTP id
- y19-20020a170906915300b0094e6504d134mr13768717ejw.42.1681893613729; 
- Wed, 19 Apr 2023 01:40:13 -0700 (PDT)
-Received: from ?IPV6:2a02:908:1256:79a0:6273:6c76:9697:9b4c?
- ([2a02:908:1256:79a0:6273:6c76:9697:9b4c])
- by smtp.gmail.com with ESMTPSA id
- qm5-20020a170907674500b0094e3ddcf153sm8949825ejc.115.2023.04.19.01.40.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Apr 2023 01:40:13 -0700 (PDT)
-Message-ID: <6703b9b2-539f-9a1b-82b8-244328472640@gmail.com>
-Date: Wed, 19 Apr 2023 10:40:12 +0200
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BA6410E1AB;
+	Wed, 19 Apr 2023 08:59:27 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2061f.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe59::61f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43FE810E1AB;
+ Wed, 19 Apr 2023 08:59:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZiBWOvSHQWxG8UPrJe5csHY0RWfeajI+7Qsh0E4Mlf4/pByJRmFqSC+wx2AUgpmhgIAIQWNq2GokemABnHlLrbSqPq8nPV5qHqIOAZ1FBML1paFH7eIp1jB+//QfYVNch0VI9pLsxxxIolkTbeL3oiJiV617dNjzSAPapmT8n+qNziPswQp+DsBYmjZqaGjQWZnhZG5bOcmfUbDtOnrcIH2GPZwFSyCO3xvcI8dUtHTf0WQaBc9i2pWuowR1gNJ0kzMwJuT8xQCzhqGNqhkHP7tCjGRY/ouwcpB0LaBxjG1hh6st08LCgI4/4c8ichXzdwQ/1rGdKSnO1knc1Ecdzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=k4iQ74Rd+sLxA7sWzlqQrXYdIH3XXH402mx7jcQab6E=;
+ b=m2TXpptw3OJvI6U8OPum/lQK0ofuqnR53X2F2YV0aTmjO4Jq17k5apxrSqS2fLsCl4Gz2G6LRv/ub3dgTiHBi4gEc/6/lYVRsgb6AcWS4VleRUSoJjtOuOauwoK9BZWNOo3BcISubmeuxTZwAp4AU/B6Q7q0WZOdsj7zebvfbIKV8hfMLfrhiroZRw+gRF1PpbpCH2z5ObnVBUSsArdZUyVXaLXh0QCgQx4/EkIyZUtAadBJG2IZdpqsaQo4en7174lRX8YLOA8pR+E4FoL+JWQX3wTJifjZJNi87Jmeim5+nncxe+3ywbriNsyl8aTikQB5nmYVmE5YI86zRIwiVg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=k4iQ74Rd+sLxA7sWzlqQrXYdIH3XXH402mx7jcQab6E=;
+ b=kt6C86WcGGNIV9Y4t1PdV8FnGTHQLt3YzHgBvpyEouhQuO4ChbDJJkBp/byfgbpF1pVqHa/ODB/VvalS3TK2otfx37nhRqBpktNj//8Mv5si266pxgmjLlSvOFZc90OfIQa7SDurvHQ6gQzWMbqU91ppQ2cGOiFYr/xKYQ6Ro9o=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by PH7PR12MB7844.namprd12.prod.outlook.com (2603:10b6:510:27b::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.45; Wed, 19 Apr
+ 2023 08:59:23 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::d2f8:7388:39c1:bbed]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::d2f8:7388:39c1:bbed%3]) with mapi id 15.20.6319.020; Wed, 19 Apr 2023
+ 08:59:23 +0000
+Message-ID: <655e2eb7-0cfa-a488-ddde-e2507073dced@amd.com>
+Date: Wed, 19 Apr 2023 10:59:18 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
-Subject: Re: [PATCH v4 1/6] mm/gup: remove unused vmas parameter from
- get_user_pages()
+Subject: Re: [PATCH v2 1/2] drm/radeon: Fix integer overflow in
+ radeon_cs_parser_init
 Content-Language: en-US
-To: Lorenzo Stoakes <lstoakes@gmail.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
-References: <cover.1681831798.git.lstoakes@gmail.com>
- <cd05b41d6d15ee9ff94273bc116ed3db3f5125bf.1681831798.git.lstoakes@gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <cd05b41d6d15ee9ff94273bc116ed3db3f5125bf.1681831798.git.lstoakes@gmail.com>
+To: hackyzh002 <hackyzh002@gmail.com>, alexander.deucher@amd.com
+References: <20230419085747.4720-1-hackyzh002@gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20230419085747.4720-1-hackyzh002@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0054.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:93::8) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|PH7PR12MB7844:EE_
+X-MS-Office365-Filtering-Correlation-Id: d1422192-4f3a-4493-12c4-08db40b45ed2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: m107qqvEtTV2qi//9x4itw3Fy8FoqJTmpk/JiMKjQrDn+FM3QE1XGFVxfp3WoEs9AMZ/YKycfwdeyZia5G8OmHqDzodBM2XfGVr6P5MPvmeofKdZWnUAk62PzoBC3nVjI/vfuwmarhamRMo5So2AcCbOJczPHJ88xOFBsEbXr+V5aI3/3J25aNSP1qCFayDb7jk5LhHXgNU3F1LrVzgsrRf9szDIVsM4RnyVjZhBLUFCoUTEwyQc3QNl4+xY34zmCADbhzOWNhl8ojUZMIEBfHQpYn5fSJmuw8G4jzPYVRj+36nwJol0DKJz8ydNtvsZzBJw5IMmo4EJeLMCOa+phwRBMx/MkbWO/9svQFn3XD0kLQUqrJnTOj3F5MM04sr1UDpywho+smTzEmIAhRxcOlDuqa/BRUMRxPxAdNjVL532M7d30kAFa+QvqvKJaTwMCBGAkY5c7GBpk7ZGFiq2Utr0hE0qIhoB4iW3jiV+26eEVsBxwCBxRpFIVI3g6eV1bbwvshu9u58bBaef+qgqN87wj3SuDzCNRXXmsFU6olVse0G30Sc3hrG77JI8S+BFmP6Qh2ukTBcdNAN2SJRj5qtcdyPGPB315i/n1wX7nFWWF7PCZg72dEAfNDFoJNvFug31hwVLqUavMHeaGNSaNg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(39860400002)(396003)(136003)(346002)(366004)(451199021)(66476007)(478600001)(6666004)(38100700002)(8936002)(8676002)(316002)(41300700001)(6636002)(4326008)(66946007)(66556008)(186003)(4744005)(2906002)(6512007)(36756003)(83380400001)(6506007)(86362001)(31696002)(2616005)(31686004)(5660300002)(6486002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YUJ4dHNGOVV3VjZtM2pEUUhLRDM4OEtjcm9LWWpXUEFMb2g1cXBCVHlEMlU2?=
+ =?utf-8?B?WHY3WGI0dVJYZXVQVCtrb2dKeThVeFM1ZmcyWk1XeG1jOURFeUM3UjNJanZ5?=
+ =?utf-8?B?TjV5bHo5SEpiT2ZkamlIS2IwRFc3ejJFYlIzS0tKZ3NDUWxJK3lhOVlHQndu?=
+ =?utf-8?B?VW9DWDNuQWZVS3BvamVpUTdqVnpUTkdCZTJ5S0RjeGZNQ0UvRk5oWnFaRDhm?=
+ =?utf-8?B?VnZLMTZ2bzZ6aEZvS3hOc2tRYU44cmVSeDIydGMya1hyQ25rZ09ZYktGRHlR?=
+ =?utf-8?B?K3FmMEVzVWxrZVRhQTlpNlMrQTYyUU02ZG9xNi8xV2tmTTNsd0ZnZi9KL1dZ?=
+ =?utf-8?B?UC9uTVVjT3ZlMCtsVDAycFR6SjFQMy9mU3FLMDNvRkhyc2VnNVNNc0tTNndn?=
+ =?utf-8?B?Qis5bWZIUlh6M29ta2JmMXIyOTByMk5nVVRxbDFUSEVMZXA0alBoRFFRaDUv?=
+ =?utf-8?B?YzliN2JXMld4MnpUbGZTa251ZDFwR1BVOHh3OE5iYmdkazNiVmI2VFRUSmMy?=
+ =?utf-8?B?eG4yTFh6TXYvaU1qWlhWOUhteTduempyWEc1K3lkaDlCYVI5YitsempNazRI?=
+ =?utf-8?B?NE8zakp0cFNhNFVjQ3VvWTJua2xWeDUwaVA4bW9UcTU3bkZoYjkrd2Zrc01R?=
+ =?utf-8?B?VExPVHlIWlRaMUkvOS8vZWt4UkNkOEptdlkwbHNsNTl4YkpDQjNVVGxuTW5W?=
+ =?utf-8?B?Q1pOVVdsMHZ0U09obzVualdwZkxrZkswTkk4UkNVTy9OMGgyell3cmZZMEtp?=
+ =?utf-8?B?bnpkMk5pdkxKRlB0dlNWeFhPNWxxTWRpMm5JV21XWUNURWcvWlVsS3R0UDNp?=
+ =?utf-8?B?N01ZQ1YyMUszMVBoVWJIbjF0ZHdaM25XZWkxQlkrS1ZFQm1PRU5jclRackoy?=
+ =?utf-8?B?bkdwQW5sc3k5d1RIajQyMy8xeUVQeFpsMm5TOExkYlh4TkNPaGNWcmZkUCtN?=
+ =?utf-8?B?QU5QUzJ5RHpaMFFaSVA4YjBKNU9Qd1BIcXFHRmpyQmhseDRMa2dYU2tscVZI?=
+ =?utf-8?B?V3B2eUY5YjhaZ0JiSHA4Z1hIWWMycm1QSHdlWlVEcktibUVILzZUei9RdlFB?=
+ =?utf-8?B?ekRTbFBGZzJnWU5LL3ZDSU44QTlHWVdYaXc5bnBRMGo0ZEZWVUxUR0R6VnNx?=
+ =?utf-8?B?dVZ2VXRvK1NiTFNsVWJZMmZJbVhaQUR5eUZoMUZoNzVaVzk4S2Z6OTBySDl4?=
+ =?utf-8?B?SHZVMUhaaUNiamRkczY1Nng3L3RhVlRDOHV5RzRIZzNtcERZdG8wSXpkejJO?=
+ =?utf-8?B?azJDWEhBV290MlE5eHZjRm45TjVQWG0rcXY4bk91VVhGVHpvM240aTRoUHB4?=
+ =?utf-8?B?bXVBOHJvM3htN3ZodkNFOTEwcXR6NHN0bzhFT3lnMVI2OHBDRFNRWEF6T0FL?=
+ =?utf-8?B?aFRxbStpQ3VFSDR2RzQ1TkZ6RW9FbW5FSFVidUJpR0ppV295aW5vakk1QlZl?=
+ =?utf-8?B?NE1DNDRnMCtLa1RCWGlGa3lJMElWUFN4OFhQTTRBcE9FQm9LdXoyWmlDNnJV?=
+ =?utf-8?B?S3Vab0YyaXlkcmVOMXROaFdMSUtLQjVXU0NnNHJ4V0lkZHlTQnMyTmNTZ3Ar?=
+ =?utf-8?B?VnQxR3NjRFNrbDU1eGhmL3hDbVg3R1dxU3JiSDdWQ2xzTGFoVEVHeDZGZFYx?=
+ =?utf-8?B?UjVHdmE4N0l2OHBRYlF2dFoza1dQeTIzeTUvbmprVEJBbnF6b0ZYU0JNRC9u?=
+ =?utf-8?B?QTlyK3d1K1NBaUREai9KL3pjVGhuejM0ZWczaVhXT3ZpWXptMGxOdk83L01s?=
+ =?utf-8?B?UnF2dzBiSEFiVytTK0VVN2xIelM4dU95d1BpYWI3ZnFhUHZQMTBHV254ZDM1?=
+ =?utf-8?B?czhHYXAySDQ5ejE4SlJhR2YyMHpXRUl6Rk45eXBQTU5DMnd1SE5uMGhVZHhC?=
+ =?utf-8?B?d0d5aHp0SlZCekhkNWk3clV1aUZ4YzhmOFBrZ3VOdjN1UWlIOFMzSWpoUzQ2?=
+ =?utf-8?B?THlPSFp5YXM4akdoRFhMRzVKYlFmclkwTnYyT0ZURlRkMHFkZndVc2JLYXha?=
+ =?utf-8?B?SFk4U2tMdHI1K0pkbUNWTDhqZGN2TUVyZmpRYS9GMTJENVZ0VWZvOVROTVVP?=
+ =?utf-8?B?N3YrWWdFVnloYzRMQXR1SXNXV2JUZDlZNVE0K2xEamFFK2FZTlRxeVYrODJX?=
+ =?utf-8?B?azdCVzZOMitPdmlZTTQrR3VKR2FrbHM2NjZzeWx3NFdWN094bWpqZnZESlRQ?=
+ =?utf-8?Q?1kvv0UHXfJiKxN6NOjlYLp+5XVy+7JibGBxwLm7XPMr7?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1422192-4f3a-4493-12c4-08db40b45ed2
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2023 08:59:23.4361 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WYyLFSR2l+wfcEg6uabcP2T6qlu+ASwwplWqlhzDvscMmTVYK3Rov+3RaAR22lF4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7844
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,182 +126,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dimitri Sivanich <dimitri.sivanich@hpe.com>, x86@kernel.org,
- kvm@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
- David Hildenbrand <david@redhat.com>, amd-gfx@lists.freedesktop.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Xinhui Pan <Xinhui.Pan@amd.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Matthew Wilcox <willy@infradead.org>, Jarkko Sakkinen <jarkko@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- dri-devel@lists.freedesktop.org, Jason Gunthorpe <jgg@nvidia.com>,
- "H . Peter Anvin" <hpa@zytor.com>, Daniel Vetter <daniel@ffwll.ch>,
- Thomas Gleixner <tglx@linutronix.de>, David Airlie <airlied@gmail.com>,
- linux-sgx@vger.kernel.org
+Cc: Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, airlied@gmail.com,
+ sumit.semwal@linaro.org, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 18.04.23 um 17:49 schrieb Lorenzo Stoakes:
-> No invocation of get_user_pages() uses the vmas parameter, so remove
-> it.
+Am 19.04.23 um 10:57 schrieb hackyzh002:
+> The type of size is unsigned, if size is 0x40000000, there will be an
+> integer overflow, size will be zero after size *= sizeof(uint32_t),
+> will cause uninitialized memory to be referenced later
 >
-> The GUP API is confusing and caveated. Recent changes have done much to
-> improve that, however there is more we can do. Exporting vmas is a prime
-> target as the caller has to be extremely careful to preclude their use
-> after the mmap_lock has expired or otherwise be left with dangling
-> pointers.
+> Signed-off-by: hackyzh002 <hackyzh002@gmail.com>
+> ---
+>   drivers/gpu/drm/radeon/radeon_cs.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> Removing the vmas parameter focuses the GUP functions upon their primary
-> purpose - pinning (and outputting) pages as well as performing the actions
-> implied by the input flags.
->
-> This is part of a patch series aiming to remove the vmas parameter
-> altogether.
+> diff --git a/drivers/gpu/drm/radeon/radeon_cs.c b/drivers/gpu/drm/radeon/radeon_cs.c
+> index 46a27ebf4..8e12b406e 100644
+> --- a/drivers/gpu/drm/radeon/radeon_cs.c
+> +++ b/drivers/gpu/drm/radeon/radeon_cs.c
+> @@ -270,7 +270,7 @@ int radeon_cs_parser_init(struct radeon_cs_parser *p, void *data)
+>   {
+>   	struct drm_radeon_cs *cs = data;
+>   	uint64_t *chunk_array_ptr;
+> -	unsigned size, i;
+> +	u64 size, i;
 
-Astonishing that there are so few users of the original get_user_pages() 
-API left.
+Ok, once more: Please only change the type of the "size" variable" and 
+not the type of "i".
 
->
-> Suggested-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-> Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Acked-by: David Hildenbrand <david@redhat.com>
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-> Signed-off-by: Lorenzo Stoakes <lstoakes@gmail.com>
-
-Acked-by: Christian König <christian.koenig@amd.com> for the radeon parts.
-
-Regards,
+Otherwise the patch looks good to me,
 Christian.
 
-> ---
->   arch/x86/kernel/cpu/sgx/ioctl.c     | 2 +-
->   drivers/gpu/drm/radeon/radeon_ttm.c | 2 +-
->   drivers/misc/sgi-gru/grufault.c     | 2 +-
->   include/linux/mm.h                  | 3 +--
->   mm/gup.c                            | 9 +++------
->   mm/gup_test.c                       | 5 ++---
->   virt/kvm/kvm_main.c                 | 2 +-
->   7 files changed, 10 insertions(+), 15 deletions(-)
->
-> diff --git a/arch/x86/kernel/cpu/sgx/ioctl.c b/arch/x86/kernel/cpu/sgx/ioctl.c
-> index 21ca0a831b70..5d390df21440 100644
-> --- a/arch/x86/kernel/cpu/sgx/ioctl.c
-> +++ b/arch/x86/kernel/cpu/sgx/ioctl.c
-> @@ -214,7 +214,7 @@ static int __sgx_encl_add_page(struct sgx_encl *encl,
->   	if (!(vma->vm_flags & VM_MAYEXEC))
->   		return -EACCES;
->   
-> -	ret = get_user_pages(src, 1, 0, &src_page, NULL);
-> +	ret = get_user_pages(src, 1, 0, &src_page);
->   	if (ret < 1)
->   		return -EFAULT;
->   
-> diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
-> index 1e8e287e113c..0597540f0dde 100644
-> --- a/drivers/gpu/drm/radeon/radeon_ttm.c
-> +++ b/drivers/gpu/drm/radeon/radeon_ttm.c
-> @@ -362,7 +362,7 @@ static int radeon_ttm_tt_pin_userptr(struct ttm_device *bdev, struct ttm_tt *ttm
->   		struct page **pages = ttm->pages + pinned;
->   
->   		r = get_user_pages(userptr, num_pages, write ? FOLL_WRITE : 0,
-> -				   pages, NULL);
-> +				   pages);
->   		if (r < 0)
->   			goto release_pages;
->   
-> diff --git a/drivers/misc/sgi-gru/grufault.c b/drivers/misc/sgi-gru/grufault.c
-> index b836936e9747..378cf02a2aa1 100644
-> --- a/drivers/misc/sgi-gru/grufault.c
-> +++ b/drivers/misc/sgi-gru/grufault.c
-> @@ -185,7 +185,7 @@ static int non_atomic_pte_lookup(struct vm_area_struct *vma,
->   #else
->   	*pageshift = PAGE_SHIFT;
->   #endif
-> -	if (get_user_pages(vaddr, 1, write ? FOLL_WRITE : 0, &page, NULL) <= 0)
-> +	if (get_user_pages(vaddr, 1, write ? FOLL_WRITE : 0, &page) <= 0)
->   		return -EFAULT;
->   	*paddr = page_to_phys(page);
->   	put_page(page);
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index 37554b08bb28..b14cc4972d0b 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -2380,8 +2380,7 @@ long pin_user_pages_remote(struct mm_struct *mm,
->   			   unsigned int gup_flags, struct page **pages,
->   			   struct vm_area_struct **vmas, int *locked);
->   long get_user_pages(unsigned long start, unsigned long nr_pages,
-> -			    unsigned int gup_flags, struct page **pages,
-> -			    struct vm_area_struct **vmas);
-> +		    unsigned int gup_flags, struct page **pages);
->   long pin_user_pages(unsigned long start, unsigned long nr_pages,
->   		    unsigned int gup_flags, struct page **pages,
->   		    struct vm_area_struct **vmas);
-> diff --git a/mm/gup.c b/mm/gup.c
-> index 1f72a717232b..7e454d6b157e 100644
-> --- a/mm/gup.c
-> +++ b/mm/gup.c
-> @@ -2251,8 +2251,6 @@ long get_user_pages_remote(struct mm_struct *mm,
->    * @pages:      array that receives pointers to the pages pinned.
->    *              Should be at least nr_pages long. Or NULL, if caller
->    *              only intends to ensure the pages are faulted in.
-> - * @vmas:       array of pointers to vmas corresponding to each page.
-> - *              Or NULL if the caller does not require them.
->    *
->    * This is the same as get_user_pages_remote(), just with a less-flexible
->    * calling convention where we assume that the mm being operated on belongs to
-> @@ -2260,16 +2258,15 @@ long get_user_pages_remote(struct mm_struct *mm,
->    * obviously don't pass FOLL_REMOTE in here.
->    */
->   long get_user_pages(unsigned long start, unsigned long nr_pages,
-> -		unsigned int gup_flags, struct page **pages,
-> -		struct vm_area_struct **vmas)
-> +		    unsigned int gup_flags, struct page **pages)
->   {
->   	int locked = 1;
->   
-> -	if (!is_valid_gup_args(pages, vmas, NULL, &gup_flags, FOLL_TOUCH))
-> +	if (!is_valid_gup_args(pages, NULL, NULL, &gup_flags, FOLL_TOUCH))
->   		return -EINVAL;
->   
->   	return __get_user_pages_locked(current->mm, start, nr_pages, pages,
-> -				       vmas, &locked, gup_flags);
-> +				       NULL, &locked, gup_flags);
->   }
->   EXPORT_SYMBOL(get_user_pages);
->   
-> diff --git a/mm/gup_test.c b/mm/gup_test.c
-> index 8ae7307a1bb6..9ba8ea23f84e 100644
-> --- a/mm/gup_test.c
-> +++ b/mm/gup_test.c
-> @@ -139,8 +139,7 @@ static int __gup_test_ioctl(unsigned int cmd,
->   						 pages + i);
->   			break;
->   		case GUP_BASIC_TEST:
-> -			nr = get_user_pages(addr, nr, gup->gup_flags, pages + i,
-> -					    NULL);
-> +			nr = get_user_pages(addr, nr, gup->gup_flags, pages + i);
->   			break;
->   		case PIN_FAST_BENCHMARK:
->   			nr = pin_user_pages_fast(addr, nr, gup->gup_flags,
-> @@ -161,7 +160,7 @@ static int __gup_test_ioctl(unsigned int cmd,
->   						    pages + i, NULL);
->   			else
->   				nr = get_user_pages(addr, nr, gup->gup_flags,
-> -						    pages + i, NULL);
-> +						    pages + i);
->   			break;
->   		default:
->   			ret = -EINVAL;
-> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-> index d255964ec331..7f31e0a4adb5 100644
-> --- a/virt/kvm/kvm_main.c
-> +++ b/virt/kvm/kvm_main.c
-> @@ -2474,7 +2474,7 @@ static inline int check_user_page_hwpoison(unsigned long addr)
->   {
->   	int rc, flags = FOLL_HWPOISON | FOLL_WRITE;
->   
-> -	rc = get_user_pages(addr, 1, flags, NULL, NULL);
-> +	rc = get_user_pages(addr, 1, flags, NULL);
->   	return rc == -EHWPOISON;
->   }
+>   	u32 ring = RADEON_CS_RING_GFX;
+>   	s32 priority = 0;
 >   
 
