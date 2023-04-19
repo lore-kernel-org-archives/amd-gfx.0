@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBD75C77B73
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 13:25:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E37C1C77B73
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 13:25:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 173E510E1B2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F0DA10E99D;
 	Wed, 19 Apr 2023 13:25:20 +0000 (UTC)
-Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
- [IPv6:2607:f8b0:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E859210E169;
- Wed, 19 Apr 2023 08:27:32 +0000 (UTC)
-Received: by mail-pf1-x42f.google.com with SMTP id
- d2e1a72fcca58-63b7588005fso2327424b3a.0; 
- Wed, 19 Apr 2023 01:27:32 -0700 (PDT)
+Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
+ [IPv6:2607:f8b0:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF81B10E958;
+ Wed, 19 Apr 2023 12:23:11 +0000 (UTC)
+Received: by mail-pl1-x635.google.com with SMTP id
+ d9443c01a7336-1a645fd0c6dso24472135ad.1; 
+ Wed, 19 Apr 2023 05:23:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681892852; x=1684484852;
+ d=gmail.com; s=20221208; t=1681906991; x=1684498991;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=DZ6u9/CgweQ6jEZks/xNcF/T3qE4BW1KJoYmfltjmnY=;
- b=jDdzGmKUWx25EHLZZrgXq7aDt3wKPN6KbvpQblP4OzUqawFkruB9AZ0pTXtxj5uflb
- 0Eg93b+jYxUjYMmYx/jMH4zSUgSvb3+F7scJZWp3r5jgRL+FYxXVDlT3UnX/DsD7JWyg
- 2qfZvuXWGG4yxj7YwEr76JeXl8kZVrx7j2kLXxEZs4Ak6V9SYdtll2nEamGBQ2zh4sF5
- g/c4562wmL3t06jZ6GIixFAYw2GwQaEHdKqyq+QRcx+tpC6GAqm5xe9aetaBF9Fdrr5i
- sTEuBvnoZQr7Pm+C8xZTSVDKZS0eBfi7066zLUowoXXFsrwf36jV7pidMne/kJfXRRKB
- nmqQ==
+ bh=vuo1R6zgWP4V7fxSrNGqI53skR4NUxsCW4UKtSQFHoQ=;
+ b=iHj2EFKwjqQG5zGuh91t/HLTjhn98+Tm/JgEUgdtKzQYUcMmigmjFwJZQ27nAG8Bnn
+ RHiWrB3TM8X4DXmmFUxo4NXSXOgDWYjPdgXCG/SYRg/5s9pd4KEAOJnc20QtgnF8qg52
+ AUf1b2vXcFFtExWm9wshnbebzGLoILPKk6KmWinlkzij5YLgVKCJ7g26LmkyIfbTFQqg
+ FLt59XmV42XHJ8E+dQGIJaHimuxqMmRFmogeMWa+pdUIzr2GIVnbyyyvr0DFJqmTfMVp
+ 0L9i+faJHasd1uXPnVTW5t6+PMtY5Nt+W/N4+KxTV6QfESQ7rL+ImLHb+Q4igKn6JFDk
+ v/TA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681892852; x=1684484852;
+ d=1e100.net; s=20221208; t=1681906991; x=1684498991;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=DZ6u9/CgweQ6jEZks/xNcF/T3qE4BW1KJoYmfltjmnY=;
- b=YTRZa1JHOpJ4oY/NLOJGqSiV3rgbhSQaI35VpKJ0C3dRH5scJZjgxlw0RkZkmes4+c
- FLLBAKgKA6u9+Q1ilNhALLBfP8gz3sl98yTRAtirNE2sXsCDPkabbcOtw+I+vWcLB6KL
- Pl81FQzGpVcI1zlnqoO1XOXPDtin2IEsfkE0f/lWmvLbZGMPyqwcTcpWC9JXMwQuH5OG
- J8/QYWQOz393KMJtLj9NYchFfQr2ZIpnyjHy4UVhxjBxJpbj+xRdxK00OBpCGiIuqEbW
- QEnOvq13mDQ5VUK1XreUNZPLIDDbH/W1SrcemJgjK41Knre6lhYR3HC+33pxxyAJku+c
- n+gQ==
-X-Gm-Message-State: AAQBX9div1ZTYFtzR81jz/ORjquURy8CWYDESpB63QEbxf72Xyb0LbPt
- eZXLFTB9Q+Fbi5CYUDJt1bk=
-X-Google-Smtp-Source: AKy350ag1YslGcDUesBAO6cVpS0tdiEfRtWuJuAlBJdYCw1S/UrhRm6CndcjR0xKt+ywr/rYXpxrtg==
-X-Received: by 2002:a17:903:708:b0:1a6:a375:cb49 with SMTP id
- kk8-20020a170903070800b001a6a375cb49mr3818668plb.39.1681892851691; 
- Wed, 19 Apr 2023 01:27:31 -0700 (PDT)
-Received: from hackyzh-virtual-machine.localdomain ([58.34.53.146])
+ bh=vuo1R6zgWP4V7fxSrNGqI53skR4NUxsCW4UKtSQFHoQ=;
+ b=WrnotGIsMckntjH0TzepvS/tzoDygc7LydLEvFUyitebFFddPGv5K7r/twz+NFa9XY
+ iTnWWHSQ08ML4KMKIffxO/CgclGzAZxBde3xmWNJZT2viavm881NMd3WriMLWC760fLX
+ KP2oYjdnYfInj5UJCCruJykEAKO1BlNsQ3ArtCiU0+ndaY8LYw4GrtT6EksdIBDv+B8F
+ /qyyNARskNOfV9ZehT8Hc35GcnsPdH0zG1a2nvSS1ghZTlCoupPgIwYy0jcOFH4u5Z3G
+ X6/iPVAdadYv9bgYRZoMfkylZ4F7nVcS92dZQ8+dpLjdZiUGkKNFCsMOd7N5RXIcSJ8y
+ Ny6g==
+X-Gm-Message-State: AAQBX9eVdDkXnePtSReVSY3rY4ROAkOrAyM63iWc0a57mKLmvRGKmxAm
+ u7ZeFsCw9hcqzb1fEAPxYRQ=
+X-Google-Smtp-Source: AKy350ZOvvzEVtaSNhWFtkSL5aX841ukA5rD+bJ6S5wFb5ZiUTOGTwRiL0CFdwfo4kCozHg/35yMcw==
+X-Received: by 2002:a17:902:c410:b0:1a1:f0ad:8657 with SMTP id
+ k16-20020a170902c41000b001a1f0ad8657mr7207596plk.37.1681906990803; 
+ Wed, 19 Apr 2023 05:23:10 -0700 (PDT)
+Received: from hackyzh-virtual-machine.localdomain ([112.64.53.154])
  by smtp.gmail.com with ESMTPSA id
- d19-20020a170902b71300b001a6ebc39fd9sm4411339pls.309.2023.04.19.01.27.28
+ l11-20020a170902d34b00b0019c32968271sm9053670plk.11.2023.04.19.05.23.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Apr 2023 01:27:31 -0700 (PDT)
+ Wed, 19 Apr 2023 05:23:10 -0700 (PDT)
 From: hackyzh002 <hackyzh002@gmail.com>
 To: alexander.deucher@amd.com
-Subject: [PATCH V2 2/2] drm/amdgpu: Fix integer overflow in amdgpu_cs_pass1
-Date: Wed, 19 Apr 2023 16:27:05 +0800
-Message-Id: <20230419082705.4110-1-hackyzh002@gmail.com>
+Subject: [PATCH v3 2/2] drm/amdgpu: Fix integer overflow in amdgpu_cs_pass1
+Date: Wed, 19 Apr 2023 20:22:33 +0800
+Message-Id: <20230419122233.3440-1-hackyzh002@gmail.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -84,11 +84,11 @@ will cause uninitialized memory to be referenced later.
 
 Signed-off-by: hackyzh002 <hackyzh002@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 08eced097..c17b3af85 100644
+index 08eced097..89bcacc65 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
 @@ -192,7 +192,7 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
@@ -100,15 +100,6 @@ index 08eced097..c17b3af85 100644
  	int ret;
  	int i;
  
-@@ -235,7 +235,7 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
- 		size = p->chunks[i].length_dw;
- 		cdata = u64_to_user_ptr(user_chunk.chunk_data);
- 
--		p->chunks[i].kdata = kvmalloc_array(size, sizeof(uint32_t),
-+		p->chunks[i].kdata = kvcalloc(size, sizeof(uint32_t),
- 						    GFP_KERNEL);
- 		if (p->chunks[i].kdata == NULL) {
- 			ret = -ENOMEM;
 -- 
 2.34.1
 
