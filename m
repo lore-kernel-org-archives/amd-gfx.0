@@ -4,59 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1A64C77B72
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 12:57:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95ABAC77B72
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 13:24:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29D7C10E2B8;
-	Thu, 20 Apr 2023 12:57:10 +0000 (UTC)
-Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com
- [IPv6:2607:f8b0:4864:20::c2f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39C5410E2B8
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 12:57:09 +0000 (UTC)
-Received: by mail-oo1-xc2f.google.com with SMTP id
- 006d021491bc7-5424b046c6bso237492eaf.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 05:57:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681995428; x=1684587428;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=1l+VkzWJYwo9Su3rCiFGuDRyaUZnbCgXEf0lkT1lQ/Y=;
- b=jP+fhpidMbUj2w8gNJd/1G+WJ6a3W0+hreMhFZasQwoCbHLGseACTOlOgsXzJoq6DA
- J9Ef0HKPnNDp4MdbdMCIP/X+u6Ji5JryhuTqTuOlS343PvkBqUO/hhJGZ6rND1sLH5Vv
- gQkPhHbLzHnNwauN3ibtAyz+Y5YtrTe0th7ozlIvn2cl+N/o6OhM6Bs4bCV0fpDSf/K4
- dqLsQEKFy5K/M4FtX6qRrPt3W1wC9BXGDy/YLKanJDTDVO8/qAdl9blsKhR5YIhVYDNp
- WHZRXJ3FKXev7QRTPQ/Scqtl+A6DacK0Y4qaZ72ebp51+hXk7W8fM/jdhLujCkNEz6Ad
- gd5w==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C04310EC47;
+	Thu, 20 Apr 2023 13:24:06 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BBB910EC45
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 13:21:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1681996894;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=pvqliZRx3bFZXXj3TRlgYVKcTGcdvhWSve5Bdh4PePw=;
+ b=WoCnfBBE+P1k9rg8mPjvCY4fRjclPLf0tgGglaFnOXWVhzWXxzY1dp2ppB8Fakk8EpwPer
+ qzCxktIY3XygTfVZaSRSp1X5a19Jc6oWFcMrtWDQf/hUxGP7jdRcyTR0OEdrwR4h2sRsRl
+ iP78zajLav1nfa9+Um44YWGEfBY0FIs=
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-383-J3is9vTsMl2WLYm6OrpQWA-1; Thu, 20 Apr 2023 09:21:33 -0400
+X-MC-Unique: J3is9vTsMl2WLYm6OrpQWA-1
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-3ef566e9879so4949171cf.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 06:21:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681995428; x=1684587428;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=1l+VkzWJYwo9Su3rCiFGuDRyaUZnbCgXEf0lkT1lQ/Y=;
- b=Q3OB34/StUsd5AoM9jkdU5pztX+KKIUhL8v1Y9+tV2tEONplVHQVVxAREMWdNPgZ7b
- oCvHYfnHRBw00V+Llse1oqRKMFX8pFqAn/S77ssnlMrDVMZY7JJc79IsIoM3NZZ34KpZ
- mHKfqtiqQIqGaIbxvmJBIPS1rJRkGfWBryCMNfR7LPTqUPryHvxLyQH/GzqbiPtNMijB
- E7YV1RnJd2FZ6b8oWC1eleeYmewv/Ghlbrz/lFIC2uYIZ09AK+eSaGVkZ/zVLMWtUOB2
- FLdRw914BbvIu8uqt3m9qD4s9m6EA7n+nnrnWdu+lVVwjB8uRUeuUu23y47huAMXDr4V
- DmKw==
-X-Gm-Message-State: AAQBX9cH4z2bbTG+OgU6PTm6bVg6a45ooPUXddz4bwqhJfyzEHTY5wng
- qjzdONkalCBEST0vCnuyxNx7nvM5lZOH+4l6sQE=
-X-Google-Smtp-Source: AKy350Y00aYeANR1a7LV4jUr9ZlW6/L1rmlGQMv9WvmMxGEXxMVyZAZud1Y8ZUULUGM9UGag/YI5ni5XuDIDO62nHP4=
-X-Received: by 2002:a05:6870:4603:b0:184:3a9:9c4d with SMTP id
- z3-20020a056870460300b0018403a99c4dmr926182oao.17.1681995427970; Thu, 20 Apr
- 2023 05:57:07 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1681996893; x=1684588893;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=pvqliZRx3bFZXXj3TRlgYVKcTGcdvhWSve5Bdh4PePw=;
+ b=XR67Cbjybw8H2dJaJzn9YMFqQuC1ycO5gGuRm3Ie2SiPlKIXNJkMa3hXd0wmPuOr+E
+ qKa+wxYG3bXr/IvCy+rTcman/I9R6AM1GqTda8J7MfmapGjTCMwDJTfL52Gbg2qbaeSP
+ ZRVer7m3ZcGdajdA5X7JDajLBHykIDic2C/K5d61KEzc+jscGX6AwYKWD+wYfaE1MTYi
+ xqOertXSpVGXxyc2bSNueYpArrUQFd5G6Zv9iFD7Af5hXL1Fh/sEjND6R34vn+CvfzYm
+ +f8qzhDGuDQt31vLfB6poL+WFkKd77LIUoSptUYtQ6nBp3BNH6sE4f829KdLuxsAhTJg
+ 6nBA==
+X-Gm-Message-State: AAQBX9f6zfE3w11bLakVPUIaAPO/Frzqaxpm8vt25aMCig9sBH8B3FvK
+ rKyr+Qy3uHuh2XcAnktaNLL3UK1UFuVq0jAUKgF157k7/QxDO8l0geD6VlJyiNHdHTg1aDOTKIh
+ aOT9yXVJfZTbhr+Z+xCo8VKym0w==
+X-Received: by 2002:a05:622a:1:b0:3ef:38a2:9fdb with SMTP id
+ x1-20020a05622a000100b003ef38a29fdbmr1373155qtw.60.1681996893053; 
+ Thu, 20 Apr 2023 06:21:33 -0700 (PDT)
+X-Google-Smtp-Source: AKy350auOzQ5hmP9e5U0LJ8lAJnmKf51VGzZATeBmsYh5r8XbqdU4pHx6XuM5qDCF95LyqUWmJx0nQ==
+X-Received: by 2002:a05:622a:1:b0:3ef:38a2:9fdb with SMTP id
+ x1-20020a05622a000100b003ef38a29fdbmr1373127qtw.60.1681996892824; 
+ Thu, 20 Apr 2023 06:21:32 -0700 (PDT)
+Received: from dell-per740-01.7a2m.lab.eng.bos.redhat.com
+ (nat-pool-bos-t.redhat.com. [66.187.233.206])
+ by smtp.gmail.com with ESMTPSA id
+ q2-20020a37f702000000b0074acdb873a7sm413158qkj.86.2023.04.20.06.21.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 Apr 2023 06:21:32 -0700 (PDT)
+From: Tom Rix <trix@redhat.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, Leon.Huang1@amd.com,
+ wenjing.liu@amd.com, qingqing.zhuo@amd.com
+Subject: [PATCH] drm/amd/display: return status of abm_feature_support
+Date: Thu, 20 Apr 2023 09:21:29 -0400
+Message-Id: <20230420132129.3888917-1-trix@redhat.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-References: <20230420091942.5981-1-Feifei.Xu@amd.com>
-In-Reply-To: <20230420091942.5981-1-Feifei.Xu@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 20 Apr 2023 08:56:56 -0400
-Message-ID: <CADnq5_OkR-34GappsZNH5sSrRFOJ36J5_cykreckErekz=bxSw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: extend the default timeout for kernel compute
- queues
-To: Feifei Xu <Feifei.Xu@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 20 Apr 2023 13:24:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,56 +84,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com
+Cc: Tom Rix <trix@redhat.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 20, 2023 at 5:19=E2=80=AFAM Feifei Xu <Feifei.Xu@amd.com> wrote=
-:
->
-> Extend to 120s. The default timeout value should also extend if compute
-> shader execution time extended. Otherwise some stress test will trigger
-> compute ring timeout in software.
+gcc with W=1 reports
+drivers/gpu/drm/amd/amdgpu/../display/dc/dce/dmub_abm.c:
+  In function ‘dmub_abm_set_event_ex’:
+drivers/gpu/drm/amd/amdgpu/../display/dc/dce/dmub_abm.c:138:22: error: variable
+  ‘feature_support’ set but not used [-Werror=unused-but-set-variable]
+  138 |         unsigned int feature_support;
+      |                      ^~~~~~~~~~~~~~~
 
-I think that's probably too long.  2 minutes is a long time to have a
-hung system.  I think we should rework the tests or use ROCm for long
-running test cases.
+This variable is not used so remove it.
+The status of amb_feature_support should have been returned, so
+set ret and return it.
 
-Alex
+Fixes: b8fe56375f78 ("drm/amd/display: Refactor ABM feature")
+Signed-off-by: Tom Rix <trix@redhat.com>
+---
+ drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
->
-> Signed-off-by: Feifei Xu <Feifei.Xu@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index e536886f6d42..1f98b4b0a549 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3475,7 +3475,7 @@ static int amdgpu_device_get_job_timeout_settings(s=
-truct amdgpu_device *adev)
->
->         /*
->          * By default timeout for non compute jobs is 10000
-> -        * and 60000 for compute jobs.
-> +        * and 120000 for compute jobs.
->          * In SR-IOV or passthrough mode, timeout for compute
->          * jobs are 60000 by default.
->          */
-> @@ -3485,7 +3485,7 @@ static int amdgpu_device_get_job_timeout_settings(s=
-truct amdgpu_device *adev)
->                 adev->compute_timeout =3D amdgpu_sriov_is_pp_one_vf(adev)=
- ?
->                                         msecs_to_jiffies(60000) : msecs_t=
-o_jiffies(10000);
->         else
-> -               adev->compute_timeout =3D  msecs_to_jiffies(60000);
-> +               adev->compute_timeout =3D  msecs_to_jiffies(120000);
->
->         if (strnlen(input, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH)) {
->                 while ((timeout_setting =3D strsep(&input, ",")) &&
-> --
-> 2.34.1
->
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
+index a66f83a61402..8f285c3be4c6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
+@@ -134,10 +134,9 @@ static bool dmub_abm_set_pipe_ex(struct abm *abm, uint32_t otg_inst, uint32_t op
+ static bool dmub_abm_set_event_ex(struct abm *abm, unsigned int full_screen, unsigned int video_mode,
+ 		unsigned int hdr_mode, unsigned int panel_inst)
+ {
+-	bool ret = false;
+-	unsigned int feature_support;
++	bool ret;
+ 
+-	feature_support = abm_feature_support(abm, panel_inst);
++	ret = abm_feature_support(abm, panel_inst);
+ 
+ 	return ret;
+ }
+-- 
+2.27.0
+
