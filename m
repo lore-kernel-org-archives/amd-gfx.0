@@ -4,46 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5CA0C77B72
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 12:43:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1A64C77B72
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 12:57:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8313710E2B4;
-	Thu, 20 Apr 2023 12:43:10 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE0E810E2B0
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 12:42:34 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A31AF60915;
- Thu, 20 Apr 2023 12:42:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA7ADC433EF;
- Thu, 20 Apr 2023 12:42:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1681994552;
- bh=J08Sn7rYTVyGUhrfk6mEoex3lK0bQFm0tFA0bQAHwTE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=lfpIDrHDJZBE2DCtkIPlLBUXRxiJv4FNUWgymd+cHHjhkMmYyIQ6SpFCd9GmNEN8R
- 1G6QGtCS1yS2fyCX6Uooe91MQ9c/bViQ3KbmfmtSv4ZFooJBqyZS5HCaTSKNXqFLWw
- 3S38BEi2AvRFS5hzh2Auz22DiKvOScuRLzJ0acU0=
-Date: Thu, 20 Apr 2023 14:42:29 +0200
-From: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Subject: Re: [PATCH 6.1.y] drm/amdgpu/vcn: Disable indirect SRAM on Vangogh
- broken BIOSes
-Message-ID: <ZEEzNSEq-15PxS8r@kroah.com>
-References: <20230418221522.1287942-1-gpiccoli@igalia.com>
- <BL1PR12MB514405B37FC8691CB24F9DADF7629@BL1PR12MB5144.namprd12.prod.outlook.com>
- <be4babae-4791-11f3-1f0f-a46480ce3db2@igalia.com>
- <BL1PR12MB51443694A5FEFA899704B3EBF7629@BL1PR12MB5144.namprd12.prod.outlook.com>
- <9b9a28f5-a71f-bb17-8783-314b1d30c51f@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29D7C10E2B8;
+	Thu, 20 Apr 2023 12:57:10 +0000 (UTC)
+Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com
+ [IPv6:2607:f8b0:4864:20::c2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39C5410E2B8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 12:57:09 +0000 (UTC)
+Received: by mail-oo1-xc2f.google.com with SMTP id
+ 006d021491bc7-5424b046c6bso237492eaf.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 05:57:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1681995428; x=1684587428;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1l+VkzWJYwo9Su3rCiFGuDRyaUZnbCgXEf0lkT1lQ/Y=;
+ b=jP+fhpidMbUj2w8gNJd/1G+WJ6a3W0+hreMhFZasQwoCbHLGseACTOlOgsXzJoq6DA
+ J9Ef0HKPnNDp4MdbdMCIP/X+u6Ji5JryhuTqTuOlS343PvkBqUO/hhJGZ6rND1sLH5Vv
+ gQkPhHbLzHnNwauN3ibtAyz+Y5YtrTe0th7ozlIvn2cl+N/o6OhM6Bs4bCV0fpDSf/K4
+ dqLsQEKFy5K/M4FtX6qRrPt3W1wC9BXGDy/YLKanJDTDVO8/qAdl9blsKhR5YIhVYDNp
+ WHZRXJ3FKXev7QRTPQ/Scqtl+A6DacK0Y4qaZ72ebp51+hXk7W8fM/jdhLujCkNEz6Ad
+ gd5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1681995428; x=1684587428;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=1l+VkzWJYwo9Su3rCiFGuDRyaUZnbCgXEf0lkT1lQ/Y=;
+ b=Q3OB34/StUsd5AoM9jkdU5pztX+KKIUhL8v1Y9+tV2tEONplVHQVVxAREMWdNPgZ7b
+ oCvHYfnHRBw00V+Llse1oqRKMFX8pFqAn/S77ssnlMrDVMZY7JJc79IsIoM3NZZ34KpZ
+ mHKfqtiqQIqGaIbxvmJBIPS1rJRkGfWBryCMNfR7LPTqUPryHvxLyQH/GzqbiPtNMijB
+ E7YV1RnJd2FZ6b8oWC1eleeYmewv/Ghlbrz/lFIC2uYIZ09AK+eSaGVkZ/zVLMWtUOB2
+ FLdRw914BbvIu8uqt3m9qD4s9m6EA7n+nnrnWdu+lVVwjB8uRUeuUu23y47huAMXDr4V
+ DmKw==
+X-Gm-Message-State: AAQBX9cH4z2bbTG+OgU6PTm6bVg6a45ooPUXddz4bwqhJfyzEHTY5wng
+ qjzdONkalCBEST0vCnuyxNx7nvM5lZOH+4l6sQE=
+X-Google-Smtp-Source: AKy350Y00aYeANR1a7LV4jUr9ZlW6/L1rmlGQMv9WvmMxGEXxMVyZAZud1Y8ZUULUGM9UGag/YI5ni5XuDIDO62nHP4=
+X-Received: by 2002:a05:6870:4603:b0:184:3a9:9c4d with SMTP id
+ z3-20020a056870460300b0018403a99c4dmr926182oao.17.1681995427970; Thu, 20 Apr
+ 2023 05:57:07 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20230420091942.5981-1-Feifei.Xu@amd.com>
+In-Reply-To: <20230420091942.5981-1-Feifei.Xu@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 20 Apr 2023 08:56:56 -0400
+Message-ID: <CADnq5_OkR-34GappsZNH5sSrRFOJ36J5_cykreckErekz=bxSw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: extend the default timeout for kernel compute
+ queues
+To: Feifei Xu <Feifei.Xu@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <9b9a28f5-a71f-bb17-8783-314b1d30c51f@igalia.com>
-X-Mailman-Approved-At: Thu, 20 Apr 2023 12:43:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,85 +68,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "sashal@kernel.org" <sashal@kernel.org>,
- "kernel@gpiccoli.net" <kernel@gpiccoli.net>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- "kernel-dev@igalia.com" <kernel-dev@igalia.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Zhu, James" <James.Zhu@amd.com>, "Liu,
- Leo" <Leo.Liu@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 20, 2023 at 09:36:28AM -0300, Guilherme G. Piccoli wrote:
-> On 19/04/2023 17:04, Deucher, Alexander wrote:
-> > [...]
-> >> So, let me check if I understood properly: there are 2 trees (-fixes a=
-nd -next),
-> >> and the problem is that their merge onto mainline happens apart and th=
-ere
-> >> are kind of duplicate commits, that were first merged on -fixes, then =
-"re-
-> >> merged" on -next, right?
-> >>
-> >=20
-> > Each subsystem works on new features, then when the merge window opens,=
- Linus pulls them into mainline.  At that point, mainline goes into RCs and=
- then mainline is bug fixes only.  Meanwhile in parallel, each subsystem is=
- working on new feature development for the next merge window (subsystem -n=
-ext trees).  The trees tend to lag behind mainline a bit.  Most developers =
-focus on them in support of upcoming features.  They are usually also where=
- bugs are fixed.  If a bug is fixed in the -next tree, what's the best way =
-to get it into mainline?  I guess ideally it would be fixed in mainline and=
- them mainline would be merged into everyone's -next branch, but that's not=
- always practical.  Often times new features depend on bug fixes and then y=
-ou'd end up stalling new development waiting for a back merge, or you'd hav=
-e to rebase your -next branches regularly so that they would shed any patch=
-es in mainline which is not great either.  We try and cherry-pick -x when w=
-e can to show the relationship.
-> >=20
-> >> Would be possible to clean the -next tree right before the merge, using
-> >> some script to find commits there that are going to be merged but are
-> >> already present? Then you'd have a -next-to-merge tree that is clean a=
-nd
-> >> doesn't present dups, avoiding this.
-> >=20
-> > There's no real way to clean it without rewriting history.  You'd basic=
-ally need to do regular backmerges and rebases of the -next trees.  Also th=
-en what do you do if you already have a feature in -next (say Dave or Danie=
-l have already pulled in my latest amdgpu PR for -next) and you realize tha=
-t one of those patches is an important bug fix for mainline?  If the drm -n=
-ext tree rebased then all of the other drm driver trees that feed into it w=
-ould need to rebase as well otherwise they'd have stale history.
-> >=20
-> > You also have the case of a fix in -next needing to land in mainline, b=
-ut due to differences in the trees, it needs backporting to apply properly.
-> >=20
-> >>
-> >> Disclaimer: I'm not a maintainer, maybe there are smart ways of doing =
-that or
-> >> perhaps my suggestion is silly and unfeasible heh But seems likely tha=
-t other
-> >> maintainers face this problem as well and came up with some solution -
-> >> avoiding the dups would be a good thing, IMO, if possible.
-> >=20
-> >=20
-> > No worries.  I agree.  I haven't seen anything so far that really addre=
-sses handles this effectively.
-> >=20
-> > Alex
->=20
-> Thanks a bunch Alex, I appreciate your time detailing the issue, which
-> seems...quite complex and annoying, indeed =3D{
+On Thu, Apr 20, 2023 at 5:19=E2=80=AFAM Feifei Xu <Feifei.Xu@amd.com> wrote=
+:
+>
+> Extend to 120s. The default timeout value should also extend if compute
+> shader execution time extended. Otherwise some stress test will trigger
+> compute ring timeout in software.
 
-And it drives me crazy, I hate seeing drm patches show up in my stable
-queue and I put them at the end of the list for this very reason.  I've
-complained about it for years, but oh well...
+I think that's probably too long.  2 minutes is a long time to have a
+hung system.  I think we should rework the tests or use ROCm for long
+running test cases.
 
-> @Greg, can you pick this one? Thanks!
+Alex
 
-Which "one" are you referring to here?
-
-confused,
-
-greg k-h
+>
+> Signed-off-by: Feifei Xu <Feifei.Xu@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index e536886f6d42..1f98b4b0a549 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -3475,7 +3475,7 @@ static int amdgpu_device_get_job_timeout_settings(s=
+truct amdgpu_device *adev)
+>
+>         /*
+>          * By default timeout for non compute jobs is 10000
+> -        * and 60000 for compute jobs.
+> +        * and 120000 for compute jobs.
+>          * In SR-IOV or passthrough mode, timeout for compute
+>          * jobs are 60000 by default.
+>          */
+> @@ -3485,7 +3485,7 @@ static int amdgpu_device_get_job_timeout_settings(s=
+truct amdgpu_device *adev)
+>                 adev->compute_timeout =3D amdgpu_sriov_is_pp_one_vf(adev)=
+ ?
+>                                         msecs_to_jiffies(60000) : msecs_t=
+o_jiffies(10000);
+>         else
+> -               adev->compute_timeout =3D  msecs_to_jiffies(60000);
+> +               adev->compute_timeout =3D  msecs_to_jiffies(120000);
+>
+>         if (strnlen(input, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH)) {
+>                 while ((timeout_setting =3D strsep(&input, ",")) &&
+> --
+> 2.34.1
+>
