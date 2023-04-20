@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E58CC77B76
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 23:50:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17596C7618E
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 23:50:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA10410ED50;
-	Thu, 20 Apr 2023 23:50:25 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E914A10ED50
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 23:50:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E58A10ED4B;
+	Thu, 20 Apr 2023 23:50:28 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2089.outbound.protection.outlook.com [40.107.244.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5558B10ED51
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 23:50:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P9h+9zQHeVnG+PyQG3DI7pkuhVDQvq3m8Q2zmxoXjdyVjUfrJlx0nC/flLmuTBjCAy8eXqMwtVRKdJSGMQlCfZek01zCvrbcWvxZZd61/acwVflUfQwiY7DP1bjU9xsv+xdSAv6b0jF8oZznInmQrBu+t7l3p1Gciv+B8+iv4CE7QkbxUKfkT0tbMgCyg45fS03LFO4mlMDPOUwPWAAwnjSyIupc9RgXD0TiLtBuNM6T9DbbP0rVKQJxbuLVdrFAfqJbR6ayKsD2HlF5JALe0soAawzN5EJMU45M5RZwzZpa25HPjSBaIwd0N1AdvAbZ+ljbYGNGkoBbKSlNeEYlRg==
+ b=ClF1ujGN17XJRRqrAdfacvL7ayYjDDbvS4IA0Yb5kc7zk6DflDu8X8uSdBJcOtddzyODCjkzhwfLEz5kYifKpn3jidCqKjDhk8/7zuggPz8rxL9vhH363I1uxnUQm9RitYqI65m6igofpWh7u/CpevlsdSY7caGyKYGAa+fdTm4cAT1TpZ1pbHbFlOgcO98tAfVIgMbPqrVYda9YAX60Rg0yrLKij1sNVXxrnT2b7UkkQ9IeGJoDM/WizZIXTcseF3LBlcLL2M7rXcYgwWrrWC0LAi5HENetJMd9KZRB4MQkXlAhonF9SXKPcvxfrVFlxqkEdEwMOUzFjqp31aF1fw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pNSWUkeU3eVePCWVClCJJQ9aLfEUZBtKNqpmSHl0m14=;
- b=S0v6UJUy9TCSKwQJN3RFvltey6jiVO385upV1PA+Kie0t+j4j5CQ+r7dn6Qs5gpO2UHZtAtrSai/Oh6dRiatB3KDIr18coOhhlcHwGjMD+wLL+VQF62IHk9/3N9dfrV43iF1p2qmBWUNrCwfP56RMlivjUojYkSapxWBJnhat+lUvXFgdfsNDu9sFRHfluZNklnYKNiAbxOeCd25yu/1IdrSz/ZKY6KPRM1aHjmn9XgKPLVrRAPrjfCD52tyjH6rPlEq5QO3Ox5IqSyx+gQldMR792JaWjo88t8AJ30rIj0JL+aEfGQGdwUDGO/nQE3ZjGyg+GIeTJJ+1GeU1IYMYw==
+ bh=H4aMKTJJUInnjLHT5hHqWMdpGywaagL+lzy0w2Pj+JM=;
+ b=SAS5vNzMPmhjwDyIc0KXl1OsAUWmvT8h4bBsFPk4zWmZ8LTPcoAupjuHtW2WHhxFRAHYxrz5sTpmhrCzzu/vaxwMTJ8qED79H6v7GBt1fy6IxFyk2ZICez+3SW/U54MsDBktDFigHQGWZ1gXXjvbEAcDoqwXgcGN3IEmZijg/Gxu8mF6Al6jJiS4rMwstZV+zIXZJ5aVEwp43BRXMSBYyEjQgOLq74+pYEg/MiAt/y6HviJjy5AW47U69ZGzSkA7zyMB5dj9sp6G5PcCyfmLKYfKedf3rKbkJMsamYWNxex8UNc6KLZtllfqGthuxVGVrnZKEjtV1nhg68uEH8ffqA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pNSWUkeU3eVePCWVClCJJQ9aLfEUZBtKNqpmSHl0m14=;
- b=eRBJpMWrwxhgxMkcv0DIXIsyV9FpQJsn1TOXd2qkzeBZg5UtvBziFfbxXkMNAHoOjhA/40CYrjYUmr/yIioKwx3ViTl6CRCRd2vcUEOnYWgkWjkWGAnMr0pnFtQqmJ4i4oJNvEllq9p63lwOqHm5sMV0hx6bi4i7fvZZirJlaE4=
-Received: from DS7PR03CA0210.namprd03.prod.outlook.com (2603:10b6:5:3b6::35)
- by CY8PR12MB7415.namprd12.prod.outlook.com (2603:10b6:930:5d::22) with
+ bh=H4aMKTJJUInnjLHT5hHqWMdpGywaagL+lzy0w2Pj+JM=;
+ b=auuaUAR1hymM14okGsMIOfDFED3qS6a8ykNbl9zPKLO1wfTcWXpt4fp3ydlz87OmSAM8G58RFcIY4xHTSkzY+MratJy8WsUbrwsF+Ad2PCxHsgVnu83viGXUYg6vMSM4gKAPd5IENhVwXk2O723fYjezQgc66OpuxSAxQ2jL11s=
+Received: from DM6PR02CA0100.namprd02.prod.outlook.com (2603:10b6:5:1f4::41)
+ by DS7PR12MB6189.namprd12.prod.outlook.com (2603:10b6:8:9a::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.36; Thu, 20 Apr
- 2023 23:50:20 +0000
-Received: from DM6NAM11FT037.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3b6:cafe::66) by DS7PR03CA0210.outlook.office365.com
- (2603:10b6:5:3b6::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.26 via Frontend
- Transport; Thu, 20 Apr 2023 23:50:20 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.45; Thu, 20 Apr
+ 2023 23:50:22 +0000
+Received: from DM6NAM11FT021.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:1f4:cafe::c0) by DM6PR02CA0100.outlook.office365.com
+ (2603:10b6:5:1f4::41) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.24 via Frontend
+ Transport; Thu, 20 Apr 2023 23:50:22 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT037.mail.protection.outlook.com (10.13.172.122) with Microsoft SMTP
+ DM6NAM11FT021.mail.protection.outlook.com (10.13.173.76) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6319.26 via Frontend Transport; Thu, 20 Apr 2023 23:50:20 +0000
+ 15.20.6319.25 via Frontend Transport; Thu, 20 Apr 2023 23:50:22 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 20 Apr
- 2023 18:50:17 -0500
+ 2023 18:50:19 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 07/21] drm/amd/display: Restore rptr/wptr for DMCUB as
- workaround
-Date: Thu, 20 Apr 2023 17:49:37 -0600
-Message-ID: <20230420234951.1772270-8-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 08/21] drm/amd/display: Limit DCN32 8 channel or less parts to
+ DPM1 for FPO
+Date: Thu, 20 Apr 2023 17:49:38 -0600
+Message-ID: <20230420234951.1772270-9-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230420234951.1772270-1-Rodrigo.Siqueira@amd.com>
 References: <20230420234951.1772270-1-Rodrigo.Siqueira@amd.com>
@@ -69,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT037:EE_|CY8PR12MB7415:EE_
-X-MS-Office365-Filtering-Correlation-Id: e0527620-c478-45c0-fab9-08db41fa0010
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT021:EE_|DS7PR12MB6189:EE_
+X-MS-Office365-Filtering-Correlation-Id: 519f6b55-536f-49cd-4fb1-08db41fa0134
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CINW6P/f1g1O9RLqomChPbG5nJ60HEXO++nrYJft4E5pcO9cQVEoXUrGU9XJHA9K6yBSBSgVdSnBvFEy/D7ZgDMdsGzyYhrMCIGhtKEi7JEwiRI5QN4LZ/55+TXQety88iPHJGYLPf1w0t9oE1HaIpdHYSNqTL4SDIqRaI/tQYOzkZzYe9lx8TyR9Wu86XPur9ADndQZ2O3R/91+2w1kGHnxtghAjX3+dD6DKjFBtumWeAB5uFxwKWa4Ak7UjS+Bmd/GfW5UC22tVcUkyKAVTAg061M45j/fspkXLAffNPXtHI8FkUEeJ+zi3tKlYuz6W8jjYZp97+lvPJM5CkeaFYetyXZdOGIIMVp/vwZZ5CPOKFRl2ZhY/T8ProFp2CVIVs6wg/OqrxAji7fV3m8V37dc9e+m7ngARkIDvhWIjUVDp9pwK1HBahaRWjphWSP8X8nJGFP4+rGFpJZ1ukJMESevpnUPznmY7qyQm8+8UhNQ8tGNujY1X8BMQPQ2qQSS3V0W3T8CKLy1EZNVoQ5bB60M3E7SeHGRHxVH8CfJHwNbsNTeGsBuLVWsvqnFSlvUBcba7Jghhzhb/jUzbC20kcOUdN0UdrzdhpwV0DZz0HQu9jzbWBnldvidE/bNAYApBFnQcTuxk+LbuDnJKyGAXN7g58so7ezGKOwu7YTWLuv7fZTDnfsBB7I1Pw6RkSsYR/8p3qlQc2YNPI6FpyrAPDJJYDkFkmtlUPYK8cJDsB4=
+X-Microsoft-Antispam-Message-Info: 06/bqFT3IKpPF+w3i3NO3FVoORi9SQIcMJic4DhB9iELx59qrS1382T8GI/dbIRIrn4EiM1HtP/1YMe/Zbl6pRYj1gN1s8PtkPBIM30MRfXLnlJ3vU4GMGyCbaFpqh1mNOF9MeSdnPUBrNqGatJuxY6LHFQ4jwl8h1qxIXV4LZWZHQnnV6e+g352P63h9wYTpYSbYKpN9dulJdunXmm+E7E6NbwUqMbAjovaeBFTY0pRtanTTIHWtBcMz4vFPj20tt8YZTXMUQWCPPdO3JfO8rre8JOobdqVUNCAwT3JSrBqtGPxV1q9P+4bOY4i2qq6sugqNMTrevjb8b1CBv5hvSJOJtO5dcHjU4D9oh2fCHHFfkblhsbPbRtc9DobrqUcIh94CXDDNtznnJnRONCcQoZ1UnwzFHlzRDrQ1kttA5hm9Go83nChImb9nJ6wpD5oi246l2kviS8r6gTjNA4YqATU9t6h2iFcf+iTtJzk6c6/KgMDxrogodXAjN6L1TVwU3gpFEwdU0IFH3VkfUrI7S2nc+Bvzo29dZf8CPF4He0e9SEknhFwb4UaNN61D/5qDguWCMhWjT0hSBWSYVSff2Kb8wr2WmRSVLhdhaqGEHFAyf0zpqcW0cJIYw/OiiGqG6IXCkCh+DKMw6VTaNVd4kcTX3P+oE/YKpSNGMMlVNUqQ6Re5WQq1hcZRczolRrqcWd4Efr/ifzRB6sQUumyb286xOZ5KeSa7RswA+7aS1U=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(376002)(346002)(396003)(136003)(451199021)(46966006)(40470700004)(36840700001)(478600001)(356005)(36756003)(336012)(83380400001)(81166007)(47076005)(40480700001)(82740400003)(26005)(426003)(86362001)(2616005)(316002)(2906002)(36860700001)(16526019)(186003)(5660300002)(1076003)(6666004)(4326008)(70206006)(8936002)(40460700003)(8676002)(41300700001)(6916009)(82310400005)(54906003)(70586007)(36900700001);
+ SFS:(13230028)(4636009)(136003)(39860400002)(376002)(346002)(396003)(451199021)(46966006)(40470700004)(36840700001)(83380400001)(47076005)(336012)(26005)(2616005)(426003)(36860700001)(1076003)(478600001)(6666004)(54906003)(82310400005)(4326008)(70206006)(70586007)(6916009)(316002)(86362001)(8676002)(36756003)(41300700001)(8936002)(5660300002)(186003)(16526019)(356005)(82740400003)(40460700003)(81166007)(2906002)(40480700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2023 23:50:20.1018 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e0527620-c478-45c0-fab9-08db41fa0010
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2023 23:50:22.0110 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 519f6b55-536f-49cd-4fb1-08db41fa0134
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT037.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT021.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7415
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6189
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,204 +101,80 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, "JinZe.Xu" <JinZe.Xu@amd.com>, Rodrigo.Siqueira@amd.com,
- roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
- wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>, agustin.gutierrez@amd.com,
- pavle.kotarac@amd.com
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ stable@vger.kernel.org, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+ Alvin Lee <Alvin.Lee2@amd.com>, wayne.lin@amd.com,
+ Saaem Rizvi <SyedSaaem.Rizvi@amd.com>, Bhawanpreet.Lakha@amd.com,
+ agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "JinZe.Xu" <JinZe.Xu@amd.com>
+From: Alvin Lee <Alvin.Lee2@amd.com>
 
-[Why]
-States may be desync after resume.
+- Due to hardware related QoS issues, we need to limit certain
+  SKUs with less memory channels to DPM1 and above.
+- At DPM0 + workload running, the urgent return latency can
+  exceed 15us (the expected maximum is 4us) which results in underflow
 
-[How]
-Sync sw state with hw state.
-
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Cc: stable@vger.kernel.org
+Reviewed-by: Saaem Rizvi <SyedSaaem.Rizvi@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: JinZe.Xu <JinZe.Xu@amd.com>
+Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
 ---
- drivers/gpu/drm/amd/display/dmub/dmub_srv.h     | 14 ++++++++++++++
- .../gpu/drm/amd/display/dmub/src/dmub_dcn20.c   |  5 +++++
- .../gpu/drm/amd/display/dmub/src/dmub_dcn20.h   |  2 ++
- .../gpu/drm/amd/display/dmub/src/dmub_dcn31.c   |  5 +++++
- .../gpu/drm/amd/display/dmub/src/dmub_dcn31.h   |  2 ++
- .../gpu/drm/amd/display/dmub/src/dmub_dcn32.c   |  5 +++++
- .../gpu/drm/amd/display/dmub/src/dmub_dcn32.h   |  2 ++
- drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c | 17 +++++++++++++++++
- 8 files changed, 52 insertions(+)
+ .../gpu/drm/amd/display/dc/dcn32/dcn32_resource.c |  2 ++
+ .../gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  | 15 +++++++++++++++
+ .../gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h  |  2 ++
+ 3 files changed, 19 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-index 719bf9bb168a..d35432c21856 100644
---- a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-+++ b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
-@@ -340,6 +340,8 @@ struct dmub_srv_hw_funcs {
- 	void (*setup_mailbox)(struct dmub_srv *dmub,
- 			      const struct dmub_region *inbox1);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+index 4f8286ae699b..0085ea78ea31 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
+@@ -1888,6 +1888,8 @@ bool dcn32_validate_bandwidth(struct dc *dc,
  
-+	uint32_t (*get_inbox1_wptr)(struct dmub_srv *dmub);
+ 	dc->res_pool->funcs->calculate_wm_and_dlg(dc, context, pipes, pipe_cnt, vlevel);
+ 
++	dcn32_override_min_req_memclk(dc, context);
 +
- 	uint32_t (*get_inbox1_rptr)(struct dmub_srv *dmub);
+ 	BW_VAL_TRACE_END_WATERMARKS();
  
- 	void (*set_inbox1_wptr)(struct dmub_srv *dmub, uint32_t wptr_offset);
-@@ -600,6 +602,18 @@ enum dmub_status dmub_srv_hw_init(struct dmub_srv *dmub,
-  */
- enum dmub_status dmub_srv_hw_reset(struct dmub_srv *dmub);
- 
-+/**
-+ * dmub_srv_sync_inbox1() - sync sw state with hw state
-+ * @dmub: the dmub service
-+ *
-+ * Sync sw state with hw state when resume from S0i3
-+ *
-+ * Return:
-+ *   DMUB_STATUS_OK - success
-+ *   DMUB_STATUS_INVALID - unspecified error
-+ */
-+enum dmub_status dmub_srv_sync_inbox1(struct dmub_srv *dmub);
-+
- /**
-  * dmub_srv_cmd_queue() - queues a command to the DMUB
-  * @dmub: the dmub service
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c
-index a6540e27044d..98dad0d47e72 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c
-@@ -282,6 +282,11 @@ void dmub_dcn20_setup_mailbox(struct dmub_srv *dmub,
- 	REG_WRITE(DMCUB_INBOX1_SIZE, inbox1->top - inbox1->base);
+ 	goto validate_out;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+index b8a2518faecc..ed7ea4c42412 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c
+@@ -2887,3 +2887,18 @@ void dcn32_set_clock_limits(const struct _vcs_dpi_soc_bounding_box_st *soc_bb)
+ 	dc_assert_fp_enabled();
+ 	dcn3_2_soc.clock_limits[0].dcfclk_mhz = 1200.0;
  }
- 
-+uint32_t dmub_dcn20_get_inbox1_wptr(struct dmub_srv *dmub)
++
++void dcn32_override_min_req_memclk(struct dc *dc, struct dc_state *context)
 +{
-+	return REG_READ(DMCUB_INBOX1_WPTR);
-+}
++	// WA: restrict FPO and SubVP to use first non-strobe mode (DCN32 BW issue)
++	if ((context->bw_ctx.bw.dcn.clk.fw_based_mclk_switching || dcn32_subvp_in_use(dc, context)) &&
++			dc->dml.soc.num_chans <= 8) {
++		int num_mclk_levels = dc->clk_mgr->bw_params->clk_table.num_entries_per_clk.num_memclk_levels;
 +
- uint32_t dmub_dcn20_get_inbox1_rptr(struct dmub_srv *dmub)
- {
- 	return REG_READ(DMCUB_INBOX1_RPTR);
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.h b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.h
-index c2e5831ac52c..1df128e57ed3 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.h
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.h
-@@ -202,6 +202,8 @@ void dmub_dcn20_setup_windows(struct dmub_srv *dmub,
- void dmub_dcn20_setup_mailbox(struct dmub_srv *dmub,
- 			      const struct dmub_region *inbox1);
- 
-+uint32_t dmub_dcn20_get_inbox1_wptr(struct dmub_srv *dmub);
-+
- uint32_t dmub_dcn20_get_inbox1_rptr(struct dmub_srv *dmub);
- 
- void dmub_dcn20_set_inbox1_wptr(struct dmub_srv *dmub, uint32_t wptr_offset);
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
-index c90b9ee42e12..ebf7aeec4029 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
-@@ -242,6 +242,11 @@ void dmub_dcn31_setup_mailbox(struct dmub_srv *dmub,
- 	REG_WRITE(DMCUB_INBOX1_SIZE, inbox1->top - inbox1->base);
- }
- 
-+uint32_t dmub_dcn31_get_inbox1_wptr(struct dmub_srv *dmub)
-+{
-+	return REG_READ(DMCUB_INBOX1_WPTR);
-+}
-+
- uint32_t dmub_dcn31_get_inbox1_rptr(struct dmub_srv *dmub)
- {
- 	return REG_READ(DMCUB_INBOX1_RPTR);
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.h b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.h
-index f6db6f89d45d..7d5c10ee539b 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.h
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.h
-@@ -204,6 +204,8 @@ void dmub_dcn31_setup_windows(struct dmub_srv *dmub,
- void dmub_dcn31_setup_mailbox(struct dmub_srv *dmub,
- 			      const struct dmub_region *inbox1);
- 
-+uint32_t dmub_dcn31_get_inbox1_wptr(struct dmub_srv *dmub);
-+
- uint32_t dmub_dcn31_get_inbox1_rptr(struct dmub_srv *dmub);
- 
- void dmub_dcn31_set_inbox1_wptr(struct dmub_srv *dmub, uint32_t wptr_offset);
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c
-index a7d5607459ed..21dd6cbdb106 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c
-@@ -266,6 +266,11 @@ void dmub_dcn32_setup_mailbox(struct dmub_srv *dmub,
- 	REG_WRITE(DMCUB_INBOX1_SIZE, inbox1->top - inbox1->base);
- }
- 
-+uint32_t dmub_dcn32_get_inbox1_wptr(struct dmub_srv *dmub)
-+{
-+	return REG_READ(DMCUB_INBOX1_WPTR);
-+}
-+
- uint32_t dmub_dcn32_get_inbox1_rptr(struct dmub_srv *dmub)
- {
- 	return REG_READ(DMCUB_INBOX1_RPTR);
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.h b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.h
-index 7d1a6eb4d665..f15336b6e22b 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.h
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.h
-@@ -206,6 +206,8 @@ void dmub_dcn32_setup_windows(struct dmub_srv *dmub,
- void dmub_dcn32_setup_mailbox(struct dmub_srv *dmub,
- 			      const struct dmub_region *inbox1);
- 
-+uint32_t dmub_dcn32_get_inbox1_wptr(struct dmub_srv *dmub);
-+
- uint32_t dmub_dcn32_get_inbox1_rptr(struct dmub_srv *dmub);
- 
- void dmub_dcn32_set_inbox1_wptr(struct dmub_srv *dmub, uint32_t wptr_offset);
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-index 67c53f7e589c..ea3bed70a229 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-@@ -166,6 +166,7 @@ static bool dmub_srv_hw_setup(struct dmub_srv *dmub, enum dmub_asic asic)
- 		funcs->backdoor_load = dmub_dcn20_backdoor_load;
- 		funcs->setup_windows = dmub_dcn20_setup_windows;
- 		funcs->setup_mailbox = dmub_dcn20_setup_mailbox;
-+		funcs->get_inbox1_wptr = dmub_dcn20_get_inbox1_wptr;
- 		funcs->get_inbox1_rptr = dmub_dcn20_get_inbox1_rptr;
- 		funcs->set_inbox1_wptr = dmub_dcn20_set_inbox1_wptr;
- 		funcs->is_supported = dmub_dcn20_is_supported;
-@@ -235,6 +236,7 @@ static bool dmub_srv_hw_setup(struct dmub_srv *dmub, enum dmub_asic asic)
- 		funcs->backdoor_load = dmub_dcn31_backdoor_load;
- 		funcs->setup_windows = dmub_dcn31_setup_windows;
- 		funcs->setup_mailbox = dmub_dcn31_setup_mailbox;
-+		funcs->get_inbox1_wptr = dmub_dcn31_get_inbox1_wptr;
- 		funcs->get_inbox1_rptr = dmub_dcn31_get_inbox1_rptr;
- 		funcs->set_inbox1_wptr = dmub_dcn31_set_inbox1_wptr;
- 		funcs->setup_out_mailbox = dmub_dcn31_setup_out_mailbox;
-@@ -273,6 +275,7 @@ static bool dmub_srv_hw_setup(struct dmub_srv *dmub, enum dmub_asic asic)
- 		funcs->backdoor_load_zfb_mode = dmub_dcn32_backdoor_load_zfb_mode;
- 		funcs->setup_windows = dmub_dcn32_setup_windows;
- 		funcs->setup_mailbox = dmub_dcn32_setup_mailbox;
-+		funcs->get_inbox1_wptr = dmub_dcn32_get_inbox1_wptr;
- 		funcs->get_inbox1_rptr = dmub_dcn32_get_inbox1_rptr;
- 		funcs->set_inbox1_wptr = dmub_dcn32_set_inbox1_wptr;
- 		funcs->setup_out_mailbox = dmub_dcn32_setup_out_mailbox;
-@@ -642,6 +645,20 @@ enum dmub_status dmub_srv_hw_init(struct dmub_srv *dmub,
- 	return DMUB_STATUS_OK;
- }
- 
-+enum dmub_status dmub_srv_sync_inbox1(struct dmub_srv *dmub)
-+{
-+	if (!dmub->sw_init)
-+		return DMUB_STATUS_INVALID;
-+
-+	if (dmub->hw_funcs.get_inbox1_rptr && dmub->hw_funcs.get_inbox1_wptr) {
-+		dmub->inbox1_rb.rptr = dmub->hw_funcs.get_inbox1_rptr(dmub);
-+		dmub->inbox1_rb.wrpt = dmub->hw_funcs.get_inbox1_wptr(dmub);
-+		dmub->inbox1_last_wptr = dmub->inbox1_rb.wrpt;
++		if (context->bw_ctx.dml.vba.DRAMSpeed <= dc->clk_mgr->bw_params->clk_table.entries[0].memclk_mhz * 16 &&
++				num_mclk_levels > 1) {
++			context->bw_ctx.dml.vba.DRAMSpeed = dc->clk_mgr->bw_params->clk_table.entries[1].memclk_mhz * 16;
++			context->bw_ctx.bw.dcn.clk.dramclk_khz = context->bw_ctx.dml.vba.DRAMSpeed * 1000 / 16;
++		}
 +	}
-+
-+	return DMUB_STATUS_OK;
 +}
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h
+index dcf512cd3072..a4206b71d650 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h
+@@ -80,6 +80,8 @@ void dcn32_assign_fpo_vactive_candidate(struct dc *dc, const struct dc_state *co
+ 
+ bool dcn32_find_vactive_pipe(struct dc *dc, const struct dc_state *context, uint32_t vactive_margin_req);
+ 
++void dcn32_override_min_req_memclk(struct dc *dc, struct dc_state *context);
 +
- enum dmub_status dmub_srv_hw_reset(struct dmub_srv *dmub)
- {
- 	if (!dmub->sw_init)
+ void dcn32_set_clock_limits(const struct _vcs_dpi_soc_bounding_box_st *soc_bb);
+ 
+ #endif
 -- 
 2.39.2
 
