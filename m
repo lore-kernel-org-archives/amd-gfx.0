@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49086C7618E
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 23:50:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01638C77B73
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 23:50:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B89B310ED45;
-	Thu, 20 Apr 2023 23:50:14 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2046.outbound.protection.outlook.com [40.107.237.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B1D410ED3F
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 23:50:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29BBC10ED48;
+	Thu, 20 Apr 2023 23:50:17 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2086.outbound.protection.outlook.com [40.107.92.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 622EB10ED44
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 23:50:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jXhWTYjFBsu2R7KhnQ9iY1cvAUaBYT+LJidb0E5l4BpcGTAA/Ip8Ug015OU483ARCK2O3F0sBcAzHuk7QuR7AZmmCHglOnK5Wb+YfSyNuYii3SL2V7+B9OROgd+Q1ePUE7KjlD9BS183pp6tvzCkBG2RNwdCYM4b1iwssLnwx43hy8jeMSZouuurC7LSdiUEP7n9h5tPlFnTX6st1z846p7ZE+PTzFSSRomk4X3mZttQoukgZQZci7cweWhDHgBwdxZmAha0tnmqDJDX2JwU9xUcWwkWmKoU9VRHM0BvzeKzOq8dwzq5l0yhdMNslcOgXXNieftQ20NRVODFSc5EGA==
+ b=oe/t9gcxuE+XKgHYsjH2zOu0JkLqKnedwHV6dH/NsxkKhX/cvHDH8k6R71G918Dc6zkH6OIdTRx5W6i2Sm+uqYvxo5ZSGPnbwmonWZvUAFgjez3Aydp9GAnYXoqOK/5Rj7Q9pn0J6aTWpSv6QXiGLReBR5VIDvEYzfRW5/UuEA2zie4FQuX6gfT38Y0Ssv/JI3zzep/mUA4MBATkfecSsuLBixGE5Oq5GHbF1l1bM6mCP1S3nTvp6giI1kHf/9fnV0N65tCOgVDYZBUapGe9sCGIOfwi3xXPFTCksNcJSfu4mF0ZUywf7hpkL54F+LBKqPcaW7FLrDxD51S/lg0/Dw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lcmN0RE0tI0gOrVeszHYZ+MfgTr5VorxMjcI1aaoXBI=;
- b=Pq7yXI2laZtodi2oVyPk+Pq0Qz5zUknFXJsASTqmwuzsUBfTvG9wTMisyodRUwLHl1sYbceDzGHUnLX1SPIbYA5qRmPxARvMKDwx4BylrFmrfUHYcSZf/a3lm+QgV4NcTpcYQHSwaUvOagX+hfphopRewQNzw5deQx2qNzksD/siKDgCXagnIdvVbUHacUNtmRjK5resxAyxH3LVOOLr/8fbX4tY5TNk+RVMEXewILdIsDDFabe46EDbEpy8326BozzIpY7kTu01tRu3M3T3OhXi7za1Br9AkX7IWIXJaCtlvzReX54vylYckJJyvpvbQYekPHvSioOIkLwm74JgEA==
+ bh=FoX18zDt77IvraDftm4Lor5QM14Tp0x5VqWE+GVC8Gw=;
+ b=TJ0pAMhxnj7s8cTdUR4m8wmTdxMsFtYI+xCnmT9sKE4AU7qYuLRkXKZ7Us3YbjeYtqW61QkSnNFZ+IHvisq2dQJMAmMOXGhOuB33YSoQip7eHp7bSBZccbN/UhikqjcWyHMvrxMF5JOEIyczFybLlMt6W5uCRlMqVvj0VToUPOK+8Fcw8z/BtHGLYtUk0Cpi5fVh4ULt/KEcXwgGBghOqcNm1pS88ifZmtq7j/fYZdnAf4GPAXE4habVzJi+j39Qpl3T7t7F5wd1rB7x2Wm/nyXhJFd7MAjXIuF7SkD7i7RTWz1+08wJ4CbRef7Y9wS4tuIqPBfjUsjVXEvWNgXktg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lcmN0RE0tI0gOrVeszHYZ+MfgTr5VorxMjcI1aaoXBI=;
- b=SO/V2tHA82p0pY66R9XxOB243D4R4oY3iA6VrqhnRIqXjBEUMYB0xmUij580gus4quWxAgqFtk6KGgEcu5vgPzYStkYC0T3QZDw5Yju7J4wk/J2dzM8Ppqw76zgA0mGT+TBH63T1aDm0kqPFa2X5qpJLgi/AEgC08/OBKe4UHNE=
-Received: from DM6PR01CA0019.prod.exchangelabs.com (2603:10b6:5:296::24) by
- BL0PR12MB4931.namprd12.prod.outlook.com (2603:10b6:208:17e::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.22; Thu, 20 Apr
- 2023 23:50:09 +0000
-Received: from DM6NAM11FT099.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:296:cafe::aa) by DM6PR01CA0019.outlook.office365.com
- (2603:10b6:5:296::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.25 via Frontend
- Transport; Thu, 20 Apr 2023 23:50:09 +0000
+ bh=FoX18zDt77IvraDftm4Lor5QM14Tp0x5VqWE+GVC8Gw=;
+ b=fHRbK3YPsx2I5xRBM6NOVdw+/39+jSUMosdQG+sIunr+wqfxgJlx6PfgeLDmE5uMpHnrcKCIIx8STkv+mV9k74sQO8wqOpUZ7m22xG4SjJvdMOh0TpZd5Z3qMpIl7oEyOc3IVgb4yFtFcFFdqC3kaiJ8WQ1QAm2LgdoJJobOFh4=
+Received: from DM6PR08CA0017.namprd08.prod.outlook.com (2603:10b6:5:80::30) by
+ DM4PR12MB6112.namprd12.prod.outlook.com (2603:10b6:8:aa::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6319.22; Thu, 20 Apr 2023 23:50:11 +0000
+Received: from DM6NAM11FT050.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:80:cafe::15) by DM6PR08CA0017.outlook.office365.com
+ (2603:10b6:5:80::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.24 via Frontend
+ Transport; Thu, 20 Apr 2023 23:50:11 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,19 +45,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT099.mail.protection.outlook.com (10.13.172.241) with Microsoft SMTP
+ DM6NAM11FT050.mail.protection.outlook.com (10.13.173.111) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6319.27 via Frontend Transport; Thu, 20 Apr 2023 23:50:08 +0000
+ 15.20.6319.25 via Frontend Transport; Thu, 20 Apr 2023 23:50:10 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 20 Apr
- 2023 18:50:06 -0500
+ 2023 18:50:08 -0500
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 01/21] drm/amd/display: assign edid_blob_ptr with edid from
- debugfs
-Date: Thu, 20 Apr 2023 17:49:31 -0600
-Message-ID: <20230420234951.1772270-2-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 02/21] drm/amd/display: Convert Delaying Aux-I Disable To
+ Monitor Patch
+Date: Thu, 20 Apr 2023 17:49:32 -0600
+Message-ID: <20230420234951.1772270-3-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230420234951.1772270-1-Rodrigo.Siqueira@amd.com>
 References: <20230420234951.1772270-1-Rodrigo.Siqueira@amd.com>
@@ -69,26 +69,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT099:EE_|BL0PR12MB4931:EE_
-X-MS-Office365-Filtering-Correlation-Id: 07e4a83c-38c9-4714-3f57-08db41f9f96b
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT050:EE_|DM4PR12MB6112:EE_
+X-MS-Office365-Filtering-Correlation-Id: 28138853-c19b-490b-697d-08db41f9fa96
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: JlaqLe8VC85tBsRY09kBU21R2IbjaX8IrgV2l74Lv8gJncMdlHOmC/90fqGBIj3BrHoLgSW62826pybZZ2OfEmi+zFycuxmxHHGdOtRiMZfxvvg/zjScefDtr8NRgaBLm3d/ogKx15OtAehxGUqzk3ZeNUv8tbDNSArcOUiw2mCI+16UzWbJM8KXWWjKSh0nzurzX6KrdTa2W9b3jGgPQANimAazfYi61CvtjX9BcwR7ZJDn9FAkNMsnOxXUrUXVUSx8MT9RY4KWhCokfVFmtUqT28xi62YfuRSXtOeWDSgV36VRDQWJC6NVixF4qc9ZlRvMQj2/Vh0Ms683fWzpEz7njdTDBdZwZfJLo5441XehtJTgk5pyCGNFTci+fpI/K4GegbqgNrtkrLL14qo3iZQmARsnjSspa+a5k97LZ7V+Klw1z/WhL2A2uim38oETGYAFwmD+effBVU+P0XkaD5jhTjE2SM5IAHuvJbOSwCRKw0GdV7G1AOx1Xbz3WXG7XMHp8KS8pN9YJGvdokh+WwRjbP17h2D31N7avcDf7LDwhGTLLXw8YMW79u4UAPfsAtqaM+mLkkIbc4fSLAM5+3Jvdl3gPvDCWFkG3URrJdBfoUQHZWdfqAEEBphupLgBRg6GNNAJW5LCe0doein4RiR1Q+7o7cvo9PBzJQqF8ol8VG4u/JX459BGTU2MmIrkBEDOI1MyG/LMiA66AwI7sv66IqFDILRRrej6/qBhmj8=
+X-Microsoft-Antispam-Message-Info: xTRVozVVEJxDVaRkB2Re9HKrjedU/UbistaYUI5Spvta2tmv1rZVZ83lh2Lsw0RiZGQtMBY56am4VB25zZlUaZKkYWMY/qmQB6hYUoD9p9v8M6gIiqMH3tTW1V45r2Ek+Urt1P/twz1FA36Ls3i6izFyhIZ2wmZrJYqrPqI+mwUBCje06qx1CCMqnQAz0+ZRgokPLdq0Dq8uCPAVFR3l1cbhgouPe7fGkRou1glXlqw0aHwABifUG25PdbemNFKNG/UOnTd2mzSxZEoKp7aA8NEK27qroJfEaD1EffMdhEoo9kodyCkmiqPj3g++tBE4TECKmjSNOMoW/c7Xitp/4sAxUbQpzQUGYcRWbsSE6yJK6dXMoNxj2XWPp/dJ5UqlpLqoqvlr5f6gsGWM8a3lzA4HAgU+o4aCKdDzDTwEyudndCu9unm71I8UpmNmWaKgJ6hBfovuRzRii/v+Llb/FKYY47vkWEKF5glu+Ikw+RbBygTn5wyXCmQgNGNauzn+vng93Nf90krqryZ6ULJv3SgflrMcT3LTrZOgnfejk9XzXelbn1NnkP6WFUykqA4Spj5R5G63yugU7+wdjYObBtIFhPfPFGphpb2D2vwNHZ8Qg4SGsTXtzLJq+9/iTh9nB475xt3C+x8d//1SGbDK47HU5ce8T6hp6T0uefV4SnL7YpkoIw8c3Ehph4IjxX3MfVJfecT7bysKsNI5DFNj37kVYmB3x6oEZHN+fFIIevw=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(39860400002)(346002)(396003)(376002)(451199021)(40470700004)(46966006)(36840700001)(82310400005)(36756003)(40480700001)(40460700003)(478600001)(54906003)(6666004)(356005)(41300700001)(81166007)(8936002)(8676002)(70586007)(70206006)(316002)(6916009)(4326008)(82740400003)(36860700001)(2616005)(83380400001)(47076005)(426003)(336012)(186003)(16526019)(1076003)(26005)(86362001)(2906002)(5660300002)(36900700001);
+ SFS:(13230028)(4636009)(346002)(39860400002)(376002)(136003)(396003)(451199021)(40470700004)(36840700001)(46966006)(36756003)(4326008)(316002)(6916009)(70206006)(70586007)(54906003)(478600001)(6666004)(40480700001)(82310400005)(8936002)(8676002)(5660300002)(41300700001)(2906002)(82740400003)(86362001)(81166007)(2616005)(47076005)(426003)(336012)(26005)(16526019)(40460700003)(1076003)(36860700001)(83380400001)(356005)(186003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2023 23:50:08.9493 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07e4a83c-38c9-4714-3f57-08db41f9f96b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2023 23:50:10.9099 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28138853-c19b-490b-697d-08db41f9fa96
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT099.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT050.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4931
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6112
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,59 +100,123 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chao-kai Wang <Stylon.Wang@amd.com>, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
- roman.li@amd.com, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
- Hersen Wu <hersenxs.wu@amd.com>, wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com,
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
+ solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
+ Michael Strauss <michael.strauss@amd.com>, wayne.lin@amd.com,
+ Jun Lei <Jun.Lei@amd.com>, Bhawanpreet.Lakha@amd.com,
  agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Hersen Wu <hersenxs.wu@amd.com>
+From: Michael Strauss <michael.strauss@amd.com>
 
-[Why] implementation change of drm_edid_override_set since linux
-kernel 6.1, edid from debugfs is saved into connector->edid_override
-immediatey, not saved to connector->edid_blob_ptr at the same time.
+[WHY]
+32ms delay was added to resolve issue with a specific sink, however this same
+delay also introduces erroneous link training failures with certain sink
+devices.
 
-[How] call new drm_edid function drm_connector_update_edid_property
-to assign connector->edid_blob_ptr with override edid from debugfs.
+[HOW]
+Only apply the 32ms delay for offending devices instead of globally.
 
-Reviewed-by: Chao-kai Wang <Stylon.Wang@amd.com>
+Reviewed-by: Jun Lei <Jun.Lei@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Signed-off-by: Hersen Wu <hersenxs.wu@amd.com>
+Signed-off-by: Michael Strauss <michael.strauss@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c   | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc.h             |  1 -
+ drivers/gpu/drm/amd/display/dc/dc_types.h       |  1 +
+ .../link_dp_training_fixed_vs_pe_retimer.c      | 17 +++++++++++------
+ 3 files changed, 12 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 76a776fd8437..e1565126ad2a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6372,11 +6372,20 @@ static void create_eml_sink(struct amdgpu_dm_connector *aconnector)
- 	struct edid *edid;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index b45974a2dec3..97747f5fde56 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -855,7 +855,6 @@ struct dc_debug_options {
+ 	bool force_usr_allow;
+ 	/* uses value at boot and disables switch */
+ 	bool disable_dtb_ref_clk_switch;
+-	uint32_t fixed_vs_aux_delay_config_wa;
+ 	bool extended_blank_optimization;
+ 	union aux_wake_wa_options aux_wake_wa;
+ 	uint32_t mst_start_top_delay;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
+index 34c848311455..150c19286d67 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
+@@ -196,6 +196,7 @@ struct dc_panel_patch {
+ 	unsigned int disable_fams;
+ 	unsigned int skip_avmute;
+ 	unsigned int mst_start_top_delay;
++	unsigned int delay_disable_aux_intercept_ms;
+ };
  
- 	if (!aconnector->base.edid_blob_ptr) {
--		DRM_ERROR("No EDID firmware found on connector: %s ,forcing to OFF!\n",
--				aconnector->base.name);
-+		/* if connector->edid_override valid, pass
-+		 * it to edid_override to edid_blob_ptr
-+		 */
-+		int count;
+ struct dc_edid_caps {
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_fixed_vs_pe_retimer.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_fixed_vs_pe_retimer.c
+index 5731c4b61f9f..fb6c938c6dab 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_fixed_vs_pe_retimer.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_fixed_vs_pe_retimer.c
+@@ -233,7 +233,8 @@ enum link_training_result dp_perform_fixed_vs_pe_training_sequence_legacy(
+ 			link->dpcd_caps.lttpr_caps.phy_repeater_cnt);
+ 	const uint8_t vendor_lttpr_write_data_intercept_en[4] = {0x1, 0x55, 0x63, 0x0};
+ 	const uint8_t vendor_lttpr_write_data_intercept_dis[4] = {0x1, 0x55, 0x63, 0x68};
+-	uint32_t pre_disable_intercept_delay_ms = link->dc->debug.fixed_vs_aux_delay_config_wa;
++	uint32_t pre_disable_intercept_delay_ms =
++			link->local_sink->edid_caps.panel_patch.delay_disable_aux_intercept_ms;
+ 	uint8_t vendor_lttpr_write_data_vs[4] = {0x1, 0x51, 0x63, 0x0};
+ 	uint8_t vendor_lttpr_write_data_pe[4] = {0x1, 0x52, 0x63, 0x0};
+ 	uint32_t vendor_lttpr_write_address = 0xF004F;
+@@ -259,7 +260,7 @@ enum link_training_result dp_perform_fixed_vs_pe_training_sequence_legacy(
  
--		aconnector->base.force = DRM_FORCE_OFF;
--		return;
-+		count = drm_edid_override_connector_update(&aconnector->base);
-+
-+		if (!aconnector->base.edid_blob_ptr) {
-+			DRM_ERROR("No EDID firmware found on connector: %s ,forcing to OFF!\n",
-+					aconnector->base.name);
-+
-+			aconnector->base.force = DRM_FORCE_OFF;
-+			return;
-+		}
+ 		/* Certain display and cable configuration require extra delay */
+ 		if (offset > 2)
+-			pre_disable_intercept_delay_ms = link->dc->debug.fixed_vs_aux_delay_config_wa * 2;
++			pre_disable_intercept_delay_ms = pre_disable_intercept_delay_ms * 2;
  	}
  
- 	edid = (struct edid *) aconnector->base.edid_blob_ptr->data;
+ 	/* Vendor specific: Reset lane settings */
+@@ -380,7 +381,8 @@ enum link_training_result dp_perform_fixed_vs_pe_training_sequence_legacy(
+ 						0);
+ 				/* Vendor specific: Disable intercept */
+ 				for (i = 0; i < max_vendor_dpcd_retries; i++) {
+-					msleep(pre_disable_intercept_delay_ms);
++					if (pre_disable_intercept_delay_ms != 0)
++						msleep(pre_disable_intercept_delay_ms);
+ 					dpcd_status = core_link_write_dpcd(
+ 							link,
+ 							vendor_lttpr_write_address,
+@@ -591,9 +593,11 @@ enum link_training_result dp_perform_fixed_vs_pe_training_sequence(
+ 	const uint8_t vendor_lttpr_write_data_adicora_eq1[4] = {0x1, 0x55, 0x63, 0x2E};
+ 	const uint8_t vendor_lttpr_write_data_adicora_eq2[4] = {0x1, 0x55, 0x63, 0x01};
+ 	const uint8_t vendor_lttpr_write_data_adicora_eq3[4] = {0x1, 0x55, 0x63, 0x68};
+-	uint32_t pre_disable_intercept_delay_ms = link->dc->debug.fixed_vs_aux_delay_config_wa;
+ 	uint8_t vendor_lttpr_write_data_vs[4] = {0x1, 0x51, 0x63, 0x0};
+ 	uint8_t vendor_lttpr_write_data_pe[4] = {0x1, 0x52, 0x63, 0x0};
++	uint32_t pre_disable_intercept_delay_ms =
++			link->local_sink->edid_caps.panel_patch.delay_disable_aux_intercept_ms;
++
+ 
+ 	uint32_t vendor_lttpr_write_address = 0xF004F;
+ 	enum link_training_result status = LINK_TRAINING_SUCCESS;
+@@ -618,7 +622,7 @@ enum link_training_result dp_perform_fixed_vs_pe_training_sequence(
+ 
+ 		/* Certain display and cable configuration require extra delay */
+ 		if (offset > 2)
+-			pre_disable_intercept_delay_ms = link->dc->debug.fixed_vs_aux_delay_config_wa * 2;
++			pre_disable_intercept_delay_ms = pre_disable_intercept_delay_ms * 2;
+ 	}
+ 
+ 	/* Vendor specific: Reset lane settings */
+@@ -739,7 +743,8 @@ enum link_training_result dp_perform_fixed_vs_pe_training_sequence(
+ 						0);
+ 				/* Vendor specific: Disable intercept */
+ 				for (i = 0; i < max_vendor_dpcd_retries; i++) {
+-					msleep(pre_disable_intercept_delay_ms);
++					if (pre_disable_intercept_delay_ms != 0)
++						msleep(pre_disable_intercept_delay_ms);
+ 					dpcd_status = core_link_write_dpcd(
+ 							link,
+ 							vendor_lttpr_write_address,
 -- 
 2.39.2
 
