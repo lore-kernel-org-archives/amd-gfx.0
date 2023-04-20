@@ -4,46 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02A55C77B73
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 15:03:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40CE1C77B76
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 15:20:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69EEF10E073;
-	Thu, 20 Apr 2023 15:03:52 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9213710EC81
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 15:02:57 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4D6CA61811;
- Thu, 20 Apr 2023 15:02:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F43BC4339B;
- Thu, 20 Apr 2023 15:02:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1682002975;
- bh=wLFf/3UduQT115De5anbj1jAUqCYioVOyfeOTB/iTsY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=bcK31wBsQF16z3QtPGxFKKaX3N/WLgvhK3ISNENMKF1GTMr1Dl06Ruqs0q055mAxk
- +nOXXUIjpU+YYq4a11Bde6shLjTP5wRDH6RzbQ+r5l84lA7Rxx69A6dySQpk7EV0AV
- auR3fIN1I82ivpdUumVHUt/pk4uVuvCNO1N3LZ6E=
-Date: Thu, 20 Apr 2023 17:02:49 +0200
-From: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Subject: Re: [PATCH 6.1.y] drm/amdgpu/vcn: Disable indirect SRAM on Vangogh
- broken BIOSes
-Message-ID: <ZEFUGSlqQu3v8ryf@kroah.com>
-References: <20230418221522.1287942-1-gpiccoli@igalia.com>
- <BL1PR12MB514405B37FC8691CB24F9DADF7629@BL1PR12MB5144.namprd12.prod.outlook.com>
- <be4babae-4791-11f3-1f0f-a46480ce3db2@igalia.com>
- <BL1PR12MB51443694A5FEFA899704B3EBF7629@BL1PR12MB5144.namprd12.prod.outlook.com>
- <9b9a28f5-a71f-bb17-8783-314b1d30c51f@igalia.com>
- <ZEEzNSEq-15PxS8r@kroah.com>
- <94b63d19-4151-c294-50eb-c325ea9c699f@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F33D10EC8C;
+	Thu, 20 Apr 2023 15:20:52 +0000 (UTC)
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [IPv6:2a00:1450:4864:20::634])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E802E10EC8C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 15:20:50 +0000 (UTC)
+Received: by mail-ej1-x634.google.com with SMTP id u3so7092330ejj.12
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 08:20:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1682004047; x=1684596047;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=QtRgV6Hyvs9zvyPHkZAUOpHMASjuqBKNlxOZR0/Ip/M=;
+ b=DAlfGRJCvFM/0ATGXaJrt+OpsiUPrWwyfWn9oDFoTkSGM//CPzIa4KPIXk9jYHKLsK
+ +ISGl2XEyHVHwwP+YVCirH75JEpOcZXM5FT5WG7wnfG2h26gwJG/PNk+3YkFtAbcI69Q
+ Z8M1XEVMeDKFbzWzpx1mgM4UBbna9ck2pdze1zbU0N5jRsUpAQJ696mOiw3MOSt5VGT0
+ HMczy44RfiuxWf7sdsfre/iKdR29e+l3X1Jh0mZhuIz4yZS+hvo+lE4xqAoZ+Q4DNp7I
+ yyMFOftOaWV6Lf9G6oQ89uOe9fIPTIdFZJ37Eu0SthY3EwC43lT5zqoZA/zxe4vokLkg
+ hJ5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1682004047; x=1684596047;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=QtRgV6Hyvs9zvyPHkZAUOpHMASjuqBKNlxOZR0/Ip/M=;
+ b=JkHG8Cq+N2RHTM1UpWOhdqxzlHVC5qNZtaiVLjK7hOimzGQosuD0dqiXXvBTXvJLLB
+ siK5IEHRDIaiEbEBYlkW9wWOLXkzwNWMCtUUPt4FMafRIkX4+WzGEED61mmRRoPoSu33
+ NeqyMpSyW0ayGwpLt1h05/CxgTaYiEgg2HxILBW4Ibt1LM8cDOxhfIaePyFPcv9sw8Kl
+ Rsn0097M/QYwF2YcGjG3QMiDyW3P8jMjNk0Un1J7sT6QxuT1/3nKBnd5BY873hEx/PeZ
+ qQJk+6YuCwd6SpLPQvsuoZZ+LRjxkxMwsUCvSXUiAq0AMKo93NKyVOyytC6DDandhcVI
+ xbmQ==
+X-Gm-Message-State: AAQBX9foXo2VIfOpbBl46eAXYhF9YhOi/BLVGipUa4r8nAQbS5r+4RLf
+ rmtToAkQsn8o0nw2cDCK3e4=
+X-Google-Smtp-Source: AKy350bO5V4AfxQwattXkuruCTXSnQK47SuDkuLdvt9hnjuL8nlttGZKhSVz5AxNc3OkmlC9kIJ+Dw==
+X-Received: by 2002:a17:906:4555:b0:94e:d43a:58d5 with SMTP id
+ s21-20020a170906455500b0094ed43a58d5mr1866962ejq.15.1682004047255; 
+ Thu, 20 Apr 2023 08:20:47 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1256:79a0:5c2:1427:6870:462b?
+ ([2a02:908:1256:79a0:5c2:1427:6870:462b])
+ by smtp.gmail.com with ESMTPSA id
+ gz6-20020a170906f2c600b0094ee2b8ab77sm838480ejb.73.2023.04.20.08.20.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 20 Apr 2023 08:20:46 -0700 (PDT)
+Message-ID: <49ef986d-46a5-0601-aacb-e2a3aaa126c0@gmail.com>
+Date: Thu, 20 Apr 2023 17:20:45 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <94b63d19-4151-c294-50eb-c325ea9c699f@igalia.com>
-X-Mailman-Approved-At: Thu, 20 Apr 2023 15:03:51 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Subject: Re: [PATCH] drm/amdgpu: extend the default timeout for kernel compute
+ queues
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>, Feifei Xu <Feifei.Xu@amd.com>
+References: <20230420091942.5981-1-Feifei.Xu@amd.com>
+ <CADnq5_OkR-34GappsZNH5sSrRFOJ36J5_cykreckErekz=bxSw@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <CADnq5_OkR-34GappsZNH5sSrRFOJ36J5_cykreckErekz=bxSw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,39 +77,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "sashal@kernel.org" <sashal@kernel.org>,
- "kernel@gpiccoli.net" <kernel@gpiccoli.net>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- "kernel-dev@igalia.com" <kernel-dev@igalia.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Zhu, James" <James.Zhu@amd.com>, "Liu,
- Leo" <Leo.Liu@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 20, 2023 at 09:59:17AM -0300, Guilherme G. Piccoli wrote:
-> On 20/04/2023 09:42, gregkh@linuxfoundation.org wrote:
-> > [...]
-> >> @Greg, can you pick this one? Thanks!
-> > 
-> > Which "one" are you referring to here?
-> > 
-> > confused,
-> > 
-> > greg k-h
-> 
-> This one, sent in this email thread.
+Am 20.04.23 um 14:56 schrieb Alex Deucher:
+> On Thu, Apr 20, 2023 at 5:19 AM Feifei Xu <Feifei.Xu@amd.com> wrote:
+>> Extend to 120s. The default timeout value should also extend if compute
+>> shader execution time extended. Otherwise some stress test will trigger
+>> compute ring timeout in software.
+> I think that's probably too long.  2 minutes is a long time to have a
+> hung system.  I think we should rework the tests or use ROCm for long
+> running test cases.
 
-I don't have "this email thread" anymore, remember, some of us get
-thousand+ emails a day...
+Yeah, agree. This came up multiple times now and even 60000 is way to 
+much actually.
 
-> The title of the patch is "drm/amdgpu/vcn: Disable indirect SRAM on
-> Vangogh broken BIOSes", target is 6.1.y and (one of the) upstream
-> hash(es) is 542a56e8eb44 heh
+You need to keep in mind that this has dependencies and it essentially 
+means that the system sometimes needs 60sec in case of a bug to become 
+responsible again.
 
-But that commit says it fixes a problem in the 6.2 tree, why is this
-relevant for 6.1.y?
+So clearly a NAK for this.
 
-thanks,
+Christian.
 
-greg k-h
+>
+> Alex
+>
+>> Signed-off-by: Feifei Xu <Feifei.Xu@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
+>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> index e536886f6d42..1f98b4b0a549 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> @@ -3475,7 +3475,7 @@ static int amdgpu_device_get_job_timeout_settings(struct amdgpu_device *adev)
+>>
+>>          /*
+>>           * By default timeout for non compute jobs is 10000
+>> -        * and 60000 for compute jobs.
+>> +        * and 120000 for compute jobs.
+>>           * In SR-IOV or passthrough mode, timeout for compute
+>>           * jobs are 60000 by default.
+>>           */
+>> @@ -3485,7 +3485,7 @@ static int amdgpu_device_get_job_timeout_settings(struct amdgpu_device *adev)
+>>                  adev->compute_timeout = amdgpu_sriov_is_pp_one_vf(adev) ?
+>>                                          msecs_to_jiffies(60000) : msecs_to_jiffies(10000);
+>>          else
+>> -               adev->compute_timeout =  msecs_to_jiffies(60000);
+>> +               adev->compute_timeout =  msecs_to_jiffies(120000);
+>>
+>>          if (strnlen(input, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH)) {
+>>                  while ((timeout_setting = strsep(&input, ",")) &&
+>> --
+>> 2.34.1
+>>
+
