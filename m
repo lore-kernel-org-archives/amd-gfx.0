@@ -4,74 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95ABAC77B72
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 13:24:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C80AC77B72
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 13:24:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C04310EC47;
-	Thu, 20 Apr 2023 13:24:06 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BBB910EC45
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 13:21:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1681996894;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=pvqliZRx3bFZXXj3TRlgYVKcTGcdvhWSve5Bdh4PePw=;
- b=WoCnfBBE+P1k9rg8mPjvCY4fRjclPLf0tgGglaFnOXWVhzWXxzY1dp2ppB8Fakk8EpwPer
- qzCxktIY3XygTfVZaSRSp1X5a19Jc6oWFcMrtWDQf/hUxGP7jdRcyTR0OEdrwR4h2sRsRl
- iP78zajLav1nfa9+Um44YWGEfBY0FIs=
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-383-J3is9vTsMl2WLYm6OrpQWA-1; Thu, 20 Apr 2023 09:21:33 -0400
-X-MC-Unique: J3is9vTsMl2WLYm6OrpQWA-1
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-3ef566e9879so4949171cf.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 06:21:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681996893; x=1684588893;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=pvqliZRx3bFZXXj3TRlgYVKcTGcdvhWSve5Bdh4PePw=;
- b=XR67Cbjybw8H2dJaJzn9YMFqQuC1ycO5gGuRm3Ie2SiPlKIXNJkMa3hXd0wmPuOr+E
- qKa+wxYG3bXr/IvCy+rTcman/I9R6AM1GqTda8J7MfmapGjTCMwDJTfL52Gbg2qbaeSP
- ZRVer7m3ZcGdajdA5X7JDajLBHykIDic2C/K5d61KEzc+jscGX6AwYKWD+wYfaE1MTYi
- xqOertXSpVGXxyc2bSNueYpArrUQFd5G6Zv9iFD7Af5hXL1Fh/sEjND6R34vn+CvfzYm
- +f8qzhDGuDQt31vLfB6poL+WFkKd77LIUoSptUYtQ6nBp3BNH6sE4f829KdLuxsAhTJg
- 6nBA==
-X-Gm-Message-State: AAQBX9f6zfE3w11bLakVPUIaAPO/Frzqaxpm8vt25aMCig9sBH8B3FvK
- rKyr+Qy3uHuh2XcAnktaNLL3UK1UFuVq0jAUKgF157k7/QxDO8l0geD6VlJyiNHdHTg1aDOTKIh
- aOT9yXVJfZTbhr+Z+xCo8VKym0w==
-X-Received: by 2002:a05:622a:1:b0:3ef:38a2:9fdb with SMTP id
- x1-20020a05622a000100b003ef38a29fdbmr1373155qtw.60.1681996893053; 
- Thu, 20 Apr 2023 06:21:33 -0700 (PDT)
-X-Google-Smtp-Source: AKy350auOzQ5hmP9e5U0LJ8lAJnmKf51VGzZATeBmsYh5r8XbqdU4pHx6XuM5qDCF95LyqUWmJx0nQ==
-X-Received: by 2002:a05:622a:1:b0:3ef:38a2:9fdb with SMTP id
- x1-20020a05622a000100b003ef38a29fdbmr1373127qtw.60.1681996892824; 
- Thu, 20 Apr 2023 06:21:32 -0700 (PDT)
-Received: from dell-per740-01.7a2m.lab.eng.bos.redhat.com
- (nat-pool-bos-t.redhat.com. [66.187.233.206])
- by smtp.gmail.com with ESMTPSA id
- q2-20020a37f702000000b0074acdb873a7sm413158qkj.86.2023.04.20.06.21.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Apr 2023 06:21:32 -0700 (PDT)
-From: Tom Rix <trix@redhat.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, Leon.Huang1@amd.com,
- wenjing.liu@amd.com, qingqing.zhuo@amd.com
-Subject: [PATCH] drm/amd/display: return status of abm_feature_support
-Date: Thu, 20 Apr 2023 09:21:29 -0400
-Message-Id: <20230420132129.3888917-1-trix@redhat.com>
-X-Mailer: git-send-email 2.27.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id A83C910EC48;
+	Thu, 20 Apr 2023 13:24:09 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA73510EC3C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 12:59:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=axhjz0+6MaGCesce83L143FhN0XhW/HEJLOOSR5/LzA=; b=LkUpH0AVeTFhyulj02sVVF+yb/
+ 9zO+PM7T+gdlh+/I/cTjawugl2bLxfoIAEiaxkaubYGGYFVGiJ1LF0hiWg3y27vtv5djCKdhzUYB0
+ bwqvolS5oIuIfm5c/fFuKCDwjvjTHB3Q43UAXKs+zFmpBos/EWLhhAYRFAsHlIvh0xHEQtXSYysjf
+ +qKckYRglS8hSfNaPxZZjkYIoOV4uhB/qrDkBWAggi+VZskPN/Y95TM6KRWaE6sjPVKGHP9sY2Sar
+ GSPpQhh6G5qeglhLUCsmdeqM0uWtttphxkHaK/8oBw4RvVpz34ozKtl8FXX7wCrNKFY/gJctZsTDD
+ FahM3iYA==;
+Received: from 201-92-79-199.dsl.telesp.net.br ([201.92.79.199]
+ helo=[192.168.1.60]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1ppTsj-006qty-3I; Thu, 20 Apr 2023 14:59:25 +0200
+Message-ID: <94b63d19-4151-c294-50eb-c325ea9c699f@igalia.com>
+Date: Thu, 20 Apr 2023 09:59:17 -0300
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH 6.1.y] drm/amdgpu/vcn: Disable indirect SRAM on Vangogh
+ broken BIOSes
+Content-Language: en-US
+To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
+References: <20230418221522.1287942-1-gpiccoli@igalia.com>
+ <BL1PR12MB514405B37FC8691CB24F9DADF7629@BL1PR12MB5144.namprd12.prod.outlook.com>
+ <be4babae-4791-11f3-1f0f-a46480ce3db2@igalia.com>
+ <BL1PR12MB51443694A5FEFA899704B3EBF7629@BL1PR12MB5144.namprd12.prod.outlook.com>
+ <9b9a28f5-a71f-bb17-8783-314b1d30c51f@igalia.com>
+ <ZEEzNSEq-15PxS8r@kroah.com>
+From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+In-Reply-To: <ZEEzNSEq-15PxS8r@kroah.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 20 Apr 2023 13:24:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,46 +60,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tom Rix <trix@redhat.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: "sashal@kernel.org" <sashal@kernel.org>,
+ "kernel@gpiccoli.net" <kernel@gpiccoli.net>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ "kernel-dev@igalia.com" <kernel-dev@igalia.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Zhu, James" <James.Zhu@amd.com>, "Liu,
+ Leo" <Leo.Liu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-gcc with W=1 reports
-drivers/gpu/drm/amd/amdgpu/../display/dc/dce/dmub_abm.c:
-  In function ‘dmub_abm_set_event_ex’:
-drivers/gpu/drm/amd/amdgpu/../display/dc/dce/dmub_abm.c:138:22: error: variable
-  ‘feature_support’ set but not used [-Werror=unused-but-set-variable]
-  138 |         unsigned int feature_support;
-      |                      ^~~~~~~~~~~~~~~
+On 20/04/2023 09:42, gregkh@linuxfoundation.org wrote:
+> [...]
+>> @Greg, can you pick this one? Thanks!
+> 
+> Which "one" are you referring to here?
+> 
+> confused,
+> 
+> greg k-h
 
-This variable is not used so remove it.
-The status of amb_feature_support should have been returned, so
-set ret and return it.
+This one, sent in this email thread.
 
-Fixes: b8fe56375f78 ("drm/amd/display: Refactor ABM feature")
-Signed-off-by: Tom Rix <trix@redhat.com>
----
- drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+The title of the patch is "drm/amdgpu/vcn: Disable indirect SRAM on
+Vangogh broken BIOSes", target is 6.1.y and (one of the) upstream
+hash(es) is 542a56e8eb44 heh
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
-index a66f83a61402..8f285c3be4c6 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
-@@ -134,10 +134,9 @@ static bool dmub_abm_set_pipe_ex(struct abm *abm, uint32_t otg_inst, uint32_t op
- static bool dmub_abm_set_event_ex(struct abm *abm, unsigned int full_screen, unsigned int video_mode,
- 		unsigned int hdr_mode, unsigned int panel_inst)
- {
--	bool ret = false;
--	unsigned int feature_support;
-+	bool ret;
- 
--	feature_support = abm_feature_support(abm, panel_inst);
-+	ret = abm_feature_support(abm, panel_inst);
- 
- 	return ret;
- }
--- 
-2.27.0
 
+Cheers,
+
+Guilherme
