@@ -4,59 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 677F8C77B73
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 11:57:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4693C77B76
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 11:58:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02D6610E253;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDAED10E27C;
 	Thu, 20 Apr 2023 11:57:59 +0000 (UTC)
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAAA410E253
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 11:57:56 +0000 (UTC)
-Received: by mail-ej1-x62f.google.com with SMTP id fy21so5704567ejb.9
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 04:57:56 -0700 (PDT)
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8567610E253
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 11:57:58 +0000 (UTC)
+Received: by mail-ej1-x62d.google.com with SMTP id dm2so5730847ejc.8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 04:57:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681991875; x=1684583875;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=gnGFSay68pYsYx3oU6R1xtr8le0FBIsjUWzvjxKwKGc=;
- b=S7PKbT1T4dr/p4M+EO2NYDKNlQqTWr+lyII2HmaGyj7aY4e366W2QE4XAtakII2thL
- eEMHx7Pb+7hGqhbBbTG2yBISdxv+BuwtmJJdQxg+SPBkDtVe3XL3leU4wWcaN4SzYL4Y
- nh9gXZZOmBn57gvfDrzauG5x8X1msAX463ouVM/sotMMm4vaZXAnadGdtwhWkEGqqGcR
- MoHGURgiEcODs6S7WSNt2L43MGIki1fTfno8f/HyExDiQHlVw4unwe9ImC3ddHvV9109
- VgxUy3jYEm7TXcDu7AIghBzXlXoP4+ogr/+0xZrL9WabeGgR7Tt/Cjs5NEOtt/Fs8MYg
- Wujg==
+ d=gmail.com; s=20221208; t=1681991876; x=1684583876;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=a6GCi1A7TjKrLwQuz1ZXDIR4idqtCYtlZDH/jTLuAfw=;
+ b=PeVLrSPFOy1eyghrsVudAlplST3XcyXRJk2BYWRrva2oSjGRlqAY6CIE5Nq0UgztP1
+ lpXIGJ6Ay8ii+qSH+cqlmuFizforkDWZZizzF0LKSQUOuvOwSf97GKPBqi08TLV/n+dU
+ mRs51ahm6dUDmIzVzuKqOdbTegpMmUIONAyzn1/Bb44nULpVy+DMR+SYubK61wUjyLEN
+ BvfeTudZi7CjvO6ZO8MveIMl6kR2zRIKt+vx9DSzfMppcOKPVmgstHbzrMQnGo0zCTmi
+ xuHhfB4DZy+nSbhM+0mBGYd4cmbEFlUuMTOPRagr6ovUpSdROun1HOHPTehpMdqY6hen
+ nN0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681991875; x=1684583875;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=gnGFSay68pYsYx3oU6R1xtr8le0FBIsjUWzvjxKwKGc=;
- b=RuV8SJvJSzjQ3rj/PgkMjrQpnVokHJqPQ6HWawdxRZPRGhXDzWFIcLoNGqiEjRZVmx
- 6AfRUUHCVevXmyKhd0jVPBxQMyxWU1dCJJiCipAjYm16pv7wPw8GdNdkVMhK/YQtrDwM
- mER2mKNOrQxRMUz+/Gq3UK4shEv3ken31PG8ZLN9JM+L6sJ2BCvA8QHlJIlUxH1xJ/qf
- ghPVxGOUHrKxQ2E3gFcYubFei9zNU9yR8WZQ4Y3gb+91dn8m4JHzYiGh+MmZ8buemLl4
- glt5Rjxvjt9PMyZlOGLDTpZzBZ0kz4IsPx5QYl74lE9AT11slvETcuOW2UN/10RK6/CA
- 8A1w==
-X-Gm-Message-State: AAQBX9fvkYYy3wIMUjkQVK/tcl3bpiqBspoJQ275s2JeEXR2YXHhm5M9
- AhLscEe6Gi75QCqPC3/kR36PlALepXGAUA==
-X-Google-Smtp-Source: AKy350bJzjr2zK6omDq0rblDCXodMU481e7uYik9Tzqi8XICNZOiGDjyolC5oT7jdFHstzDNyL+97w==
-X-Received: by 2002:a17:906:1504:b0:94a:a0d7:b7bc with SMTP id
- b4-20020a170906150400b0094aa0d7b7bcmr1415247ejd.10.1681991874820; 
- Thu, 20 Apr 2023 04:57:54 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1681991876; x=1684583876;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=a6GCi1A7TjKrLwQuz1ZXDIR4idqtCYtlZDH/jTLuAfw=;
+ b=hMFfAxUvWU0/uyeZaW4CAwpq92R0fE/aj2EZ3mIoCh6VwJOxBA7srup6hlBf6jrr/H
+ iTb4PXPkU9nbCNzjyDRirtoVdMW7XjgCtf8Vi2wuJdw+pYm4H6tcWEioBuMAvStf89n8
+ gfSWOPvqHYmCPhM82f+GG1W67y2dJU7fVT2rodMTRLdd3pC4hDwlwqamGQ86Bw/ckoQ9
+ ljVp8xKuN5WikRSfTKDSOr2sgt2jYcLUHSqdOvewUg6jlw3RPeSUBFftVN+fdODEwpY0
+ zOh47oAykjW7mveQKylRmQ/PQjPXE+vb1g5t2ZiATFjuV4zhnPAptBrKpA+jRm+s5bfs
+ ItbA==
+X-Gm-Message-State: AAQBX9c0opPIxXKqHVIxYoUT0ovrdr9Qa3tQoWO1oWyMfuzJz6+seIrg
+ 6LOj0ggFRnd7OdPNA7eHsk84EDA70hx2iQ==
+X-Google-Smtp-Source: AKy350YGZCAMi+nFTEFN/eOHpOkX0GMotq52KH2m4BWc4wENztOAEucIoMesBoRrtQ1IEngr5cQBTA==
+X-Received: by 2002:a17:906:1dd6:b0:94f:928a:af0f with SMTP id
+ v22-20020a1709061dd600b0094f928aaf0fmr1194252ejh.47.1681991875719; 
+ Thu, 20 Apr 2023 04:57:55 -0700 (PDT)
 Received: from able.fritz.box (p4fc2092b.dip0.t-ipconnect.de. [79.194.9.43])
  by smtp.gmail.com with ESMTPSA id
- l20-20020a170906645400b0095342bfb701sm689385ejn.16.2023.04.20.04.57.53
+ l20-20020a170906645400b0095342bfb701sm689385ejn.16.2023.04.20.04.57.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Apr 2023 04:57:54 -0700 (PDT)
+ Thu, 20 Apr 2023 04:57:55 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/8] drm/scheduler: properly forward fence errors
-Date: Thu, 20 Apr 2023 13:57:45 +0200
-Message-Id: <20230420115752.31470-1-christian.koenig@amd.com>
+Subject: [PATCH 2/8] drm/scheduler: add drm_sched_entity_error and use rcu for
+ last_scheduled
+Date: Thu, 20 Apr 2023 13:57:46 +0200
+Message-Id: <20230420115752.31470-2-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230420115752.31470-1-christian.koenig@amd.com>
+References: <20230420115752.31470-1-christian.koenig@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -75,133 +79,121 @@ Cc: luben.tuikov@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When a hw fence is signaled with an error properly forward that to the
-finished fence.
+Switch to using RCU handling for the last scheduled job and add a
+function to return the error code of it.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/scheduler/sched_entity.c |  4 +---
- drivers/gpu/drm/scheduler/sched_fence.c  |  4 +++-
- drivers/gpu/drm/scheduler/sched_main.c   | 18 ++++++++----------
- include/drm/gpu_scheduler.h              |  2 +-
- 4 files changed, 13 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/scheduler/sched_entity.c | 39 +++++++++++++++++++-----
+ include/drm/gpu_scheduler.h              |  3 +-
+ 2 files changed, 33 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index 15d04a0ec623..eaf71fe15ed3 100644
+index eaf71fe15ed3..d3f4ada6a68e 100644
 --- a/drivers/gpu/drm/scheduler/sched_entity.c
 +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -144,7 +144,7 @@ static void drm_sched_entity_kill_jobs_work(struct work_struct *wrk)
+@@ -72,7 +72,7 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
+ 	entity->num_sched_list = num_sched_list;
+ 	entity->priority = priority;
+ 	entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
+-	entity->last_scheduled = NULL;
++	RCU_INIT_POINTER(entity->last_scheduled, NULL);
+ 	RB_CLEAR_NODE(&entity->rb_tree_node);
+ 
+ 	if(num_sched_list)
+@@ -140,6 +140,27 @@ bool drm_sched_entity_is_ready(struct drm_sched_entity *entity)
+ 	return true;
+ }
+ 
++/**
++ * drm_sched_entity_error - return error of last scheduled job
++ * @entity: scheduler entity to check
++ *
++ * Opportunistically return the error of the last scheduled job. Result can
++ * change any time when new jobs are pushed to the hw.
++ */
++int drm_sched_entity_error(struct drm_sched_entity *entity)
++{
++	struct dma_fence *fence;
++	int r;
++
++	rcu_read_lock();
++	fence = rcu_dereference(entity->last_scheduled);
++	r = fence ? fence->error : 0;
++	rcu_read_unlock();
++
++	return r;
++}
++EXPORT_SYMBOL(drm_sched_entity_error);
++
+ static void drm_sched_entity_kill_jobs_work(struct work_struct *wrk)
  {
  	struct drm_sched_job *job = container_of(wrk, typeof(*job), work);
+@@ -191,7 +212,9 @@ static void drm_sched_entity_kill(struct drm_sched_entity *entity)
+ 	/* Make sure this entity is not used by the scheduler at the moment */
+ 	wait_for_completion(&entity->entity_idle);
  
--	drm_sched_fence_finished(job->s_fence);
-+	drm_sched_fence_finished(job->s_fence, -ESRCH);
- 	WARN_ON(job->s_fence->parent);
- 	job->sched->ops->free_job(job);
- }
-@@ -195,8 +195,6 @@ static void drm_sched_entity_kill(struct drm_sched_entity *entity)
+-	prev = dma_fence_get(entity->last_scheduled);
++	/* The entity is guaranteed to not be used by the scheduler */
++	prev = rcu_dereference_check(entity->last_scheduled, true);
++	dma_fence_get(prev);
  	while ((job = to_drm_sched_job(spsc_queue_pop(&entity->job_queue)))) {
  		struct drm_sched_fence *s_fence = job->s_fence;
  
--		dma_fence_set_error(&s_fence->finished, -ESRCH);
--
- 		dma_fence_get(&s_fence->finished);
- 		if (!prev || dma_fence_add_callback(prev, &job->finish_cb,
- 					   drm_sched_entity_kill_jobs_cb))
-diff --git a/drivers/gpu/drm/scheduler/sched_fence.c b/drivers/gpu/drm/scheduler/sched_fence.c
-index 7fd869520ef2..1a6bea98c5cc 100644
---- a/drivers/gpu/drm/scheduler/sched_fence.c
-+++ b/drivers/gpu/drm/scheduler/sched_fence.c
-@@ -53,8 +53,10 @@ void drm_sched_fence_scheduled(struct drm_sched_fence *fence)
- 	dma_fence_signal(&fence->scheduled);
- }
- 
--void drm_sched_fence_finished(struct drm_sched_fence *fence)
-+void drm_sched_fence_finished(struct drm_sched_fence *fence, int result)
- {
-+	if (result)
-+		dma_fence_set_error(&fence->finished, result);
- 	dma_fence_signal(&fence->finished);
- }
- 
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index fcd4bfef7415..649fac2e1ccb 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -257,7 +257,7 @@ drm_sched_rq_select_entity_fifo(struct drm_sched_rq *rq)
-  *
-  * Finish the job's fence and wake up the worker thread.
-  */
--static void drm_sched_job_done(struct drm_sched_job *s_job)
-+static void drm_sched_job_done(struct drm_sched_job *s_job, int result)
- {
- 	struct drm_sched_fence *s_fence = s_job->s_fence;
- 	struct drm_gpu_scheduler *sched = s_fence->sched;
-@@ -268,7 +268,7 @@ static void drm_sched_job_done(struct drm_sched_job *s_job)
- 	trace_drm_sched_process_job(s_fence);
- 
- 	dma_fence_get(&s_fence->finished);
--	drm_sched_fence_finished(s_fence);
-+	drm_sched_fence_finished(s_fence, result);
- 	dma_fence_put(&s_fence->finished);
- 	wake_up_interruptible(&sched->wake_up_worker);
- }
-@@ -282,7 +282,7 @@ static void drm_sched_job_done_cb(struct dma_fence *f, struct dma_fence_cb *cb)
- {
- 	struct drm_sched_job *s_job = container_of(cb, struct drm_sched_job, cb);
- 
--	drm_sched_job_done(s_job);
-+	drm_sched_job_done(s_job, f->error);
- }
- 
- /**
-@@ -533,12 +533,12 @@ void drm_sched_start(struct drm_gpu_scheduler *sched, bool full_recovery)
- 			r = dma_fence_add_callback(fence, &s_job->cb,
- 						   drm_sched_job_done_cb);
- 			if (r == -ENOENT)
--				drm_sched_job_done(s_job);
-+				drm_sched_job_done(s_job, fence->error);
- 			else if (r)
- 				DRM_DEV_ERROR(sched->dev, "fence add callback failed (%d)\n",
- 					  r);
- 		} else
--			drm_sched_job_done(s_job);
-+			drm_sched_job_done(s_job, 0);
+@@ -278,8 +301,8 @@ void drm_sched_entity_fini(struct drm_sched_entity *entity)
+ 		entity->dependency = NULL;
  	}
  
- 	if (full_recovery) {
-@@ -1010,15 +1010,13 @@ static int drm_sched_main(void *param)
- 			r = dma_fence_add_callback(fence, &sched_job->cb,
- 						   drm_sched_job_done_cb);
- 			if (r == -ENOENT)
--				drm_sched_job_done(sched_job);
-+				drm_sched_job_done(sched_job, fence->error);
- 			else if (r)
- 				DRM_DEV_ERROR(sched->dev, "fence add callback failed (%d)\n",
- 					  r);
- 		} else {
--			if (IS_ERR(fence))
--				dma_fence_set_error(&s_fence->finished, PTR_ERR(fence));
--
--			drm_sched_job_done(sched_job);
-+			drm_sched_job_done(sched_job, IS_ERR(fence) ?
-+					   PTR_ERR(fence) : 0);
- 		}
+-	dma_fence_put(entity->last_scheduled);
+-	entity->last_scheduled = NULL;
++	dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
++	RCU_INIT_POINTER(entity->last_scheduled, NULL);
+ }
+ EXPORT_SYMBOL(drm_sched_entity_fini);
  
- 		wake_up(&sched->job_scheduled);
+@@ -421,9 +444,9 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+ 	if (entity->guilty && atomic_read(entity->guilty))
+ 		dma_fence_set_error(&sched_job->s_fence->finished, -ECANCELED);
+ 
+-	dma_fence_put(entity->last_scheduled);
+-
+-	entity->last_scheduled = dma_fence_get(&sched_job->s_fence->finished);
++	dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
++	rcu_assign_pointer(entity->last_scheduled,
++			   dma_fence_get(&sched_job->s_fence->finished));
+ 
+ 	/*
+ 	 * If the queue is empty we allow drm_sched_entity_select_rq() to
+@@ -471,7 +494,7 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
+ 	 */
+ 	smp_rmb();
+ 
+-	fence = entity->last_scheduled;
++	fence = rcu_dereference_check(entity->last_scheduled, true);
+ 
+ 	/* stay on the same engine if the previous job hasn't finished */
+ 	if (fence && !dma_fence_is_signaled(fence))
 diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index ca857ec9e7eb..5c1df6b12ced 100644
+index 5c1df6b12ced..6084459b2def 100644
 --- a/include/drm/gpu_scheduler.h
 +++ b/include/drm/gpu_scheduler.h
-@@ -569,7 +569,7 @@ void drm_sched_fence_init(struct drm_sched_fence *fence,
- void drm_sched_fence_free(struct drm_sched_fence *fence);
+@@ -190,7 +190,7 @@ struct drm_sched_entity {
+ 	 * by the scheduler thread, can be accessed locklessly from
+ 	 * drm_sched_job_arm() iff the queue is empty.
+ 	 */
+-	struct dma_fence                *last_scheduled;
++	struct dma_fence __rcu		*last_scheduled;
  
- void drm_sched_fence_scheduled(struct drm_sched_fence *fence);
--void drm_sched_fence_finished(struct drm_sched_fence *fence);
-+void drm_sched_fence_finished(struct drm_sched_fence *fence, int result);
+ 	/**
+ 	 * @last_user: last group leader pushing a job into the entity.
+@@ -561,6 +561,7 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job);
+ void drm_sched_entity_set_priority(struct drm_sched_entity *entity,
+ 				   enum drm_sched_priority priority);
+ bool drm_sched_entity_is_ready(struct drm_sched_entity *entity);
++int drm_sched_entity_error(struct drm_sched_entity *entity);
  
- unsigned long drm_sched_suspend_timeout(struct drm_gpu_scheduler *sched);
- void drm_sched_resume_timeout(struct drm_gpu_scheduler *sched,
+ struct drm_sched_fence *drm_sched_fence_alloc(
+ 	struct drm_sched_entity *s_entity, void *owner);
 -- 
 2.34.1
 
