@@ -4,88 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1DF7C77B73
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 15:59:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D123C77B73
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 16:46:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C67B10EC94;
-	Thu, 20 Apr 2023 15:59:27 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2086.outbound.protection.outlook.com [40.107.96.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68D3910EC98
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 15:59:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g2BlfANmQR478Y3Bb3gJqmny9B3UcJBmCrhsT9vJDJsxSpL+MP7vsBsT0DeNTvXT/ikV0aJiKRFbzk3jrL0BjeN0goKeFdLEF0lxUD+8c3Rc+9D0Uj1al6M3A9wMsdhRVWE2wqypV7vGjr/SWL2Fw1JceBap71usl0uIx9nJcPBvliV1AbDqZr/yVkbdDNes7iXfIw2TxdYvyOw/NollC/1AT7Ale26IGgmSRk3AkN6o6Jp9eQd7T+vAA5NdH+7DNrQs/sMC8vWmmtIgKvcdteANKZbjlLxOmWM/rU/flXQrp43mKt57EXSz/JotMYgJfrJfdKlPEFCdumjtt2p3BA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gLCxxLj+J2a06+rguLbb5qkmegtV1Hzd0FE6TZB2Lzg=;
- b=VF1lLa0ZPLF6A2a41WN+NOLBtAsgUvw76mPgFe4llrPLSQudaJM2jyu207D0frVuVnHa6p0Uvi9hrJAgV7bO8jQ4oUFAsRErQMy/JITpKBAr80xftCyA8JSP7MGU7r3pm80sCD6xgzrlSjGosPNenYlJ0OjXzSbmLfJHurPcF3z1ToJnRJPh9QlX8pYruoZRvRyr9VyGUHSg2NoB6up0wnmHTx1f1StwXhl2lNW1i5tF7oMP0FPnNTBI6sqfxlMyJDPl9YUhtwk9vHAOr+qzatT92k3BPfEFOpJouctuMLZo3wyR4S4dIuy3WwVY10UuLOkM4slQk8Yp2twd1tzepA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gLCxxLj+J2a06+rguLbb5qkmegtV1Hzd0FE6TZB2Lzg=;
- b=HQUui6Sml+1G3Sln/NPpJXfDQafkY0qqP2KIz1j/wqM7l0DoHLgsuN0CRbW6YqYS/Ulf0VoZY4iav+OQ+VvFTCJ3/RcuU9ymoTPIOPViJbc8RROor4hQRcwemfwGEYpEGflmUUpGz51dfUFp7/BMKmgoi6Uo7s8tnmuB7yvDJgs=
-Received: from BN0PR04CA0194.namprd04.prod.outlook.com (2603:10b6:408:e9::19)
- by CY5PR12MB6177.namprd12.prod.outlook.com (2603:10b6:930:26::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.21; Thu, 20 Apr
- 2023 15:59:24 +0000
-Received: from BN8NAM11FT096.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e9:cafe::9c) by BN0PR04CA0194.outlook.office365.com
- (2603:10b6:408:e9::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.25 via Frontend
- Transport; Thu, 20 Apr 2023 15:59:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT096.mail.protection.outlook.com (10.13.177.195) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6319.25 via Frontend Transport; Thu, 20 Apr 2023 15:59:24 +0000
-Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 20 Apr
- 2023 10:59:23 -0500
-From: Hamza Mahfooz <hamza.mahfooz@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v4] drm/amd/display: fix flickering caused by S/G mode
-Date: Thu, 20 Apr 2023 12:00:36 -0400
-Message-ID: <20230420160036.130360-1-hamza.mahfooz@amd.com>
-X-Mailer: git-send-email 2.40.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0B3B10ECAC;
+	Thu, 20 Apr 2023 16:46:41 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1361210E2D4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 16:45:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=b5kcCTYB3xWmqfX++7dBuiTmOPd0bSp1WV/38bxkqE4=; b=ZY3ALqg32CEncgrK2yAZHjjH+T
+ a+CsSIU8/wzt/T82kIdy93XPQYBAdL3B1Mfecduvsk64zM2gGSM0JPRvl/Q11ibHS+qXU/st0nHUv
+ LZTkJ9WQRobenG/m/ATfiF4zDxKoR8Lc8llAd9tlyENipnfSHBFTZwWpWEl/+qeYTyD5CvuOr8OjF
+ +Gl97Ru83vGHpawyQeR2U+nf1kw8JHglNUILCz+IJiizB52ZgF/RYAQQHK3DmeH7Fv3TEoRtrCQQK
+ WHjJ6Hk2Tez8GuQzuEBEbz9IDOGbJFR19jQchtR6WUJRrdsZJDdeMeYBIhBalgVFpajSnS8y+ssG3
+ P/PM30OQ==;
+Received: from 201-92-79-199.dsl.telesp.net.br ([201.92.79.199]
+ helo=[192.168.1.60]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1ppXPj-0076s7-OB; Thu, 20 Apr 2023 18:45:44 +0200
+Message-ID: <2bd00709-02b3-c63c-3970-10d8906b5b1a@igalia.com>
+Date: Thu, 20 Apr 2023 13:45:36 -0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT096:EE_|CY5PR12MB6177:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4c8683c7-70b3-4ac4-6040-08db41b83636
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: MDicwTihXdtxTXwJPHbVTMKM7vo6PuBbchqY8t1Zcz2in9V1RzGQZWkx/Zzbg1t1klCHgJ++mwKUm/vS192HxM3EKZov2zhnbz7F+vPJJHjJ+P9XdXc96xF6YwxqmAvEjaIx3E7/+p6aDCwybzdmwAGLatUdw3613ZNkv3fnTHDf6rqdw6pnuu2eh0gGFgBkRKn2ekWn6s2hb4oIFNiaPxRnlwvBJC0m8EoeKzWbK3AGPvCqZgQVoJfDDfSyzGpCun0TBcqGnpSY5ugPuKfh5Drm4V0bydS/81UZ+H3DQQTW1Sadwuhi85Ig95UgirBte8YN3qaUNoIoBLdPID7s4v4Sc66ZlfnI31K36P6LzIt1DPOBRYtxnMEGYAFE9U2X8zBEEbBURr1q4Wd6/igcwPKyaufVTxzaB7FophKUtRYf6LAG2VOhNtcTMnS7aWmmm1+PfmISqwx/gg/dXpThj7ET3aG700KJUL/NRrtrDV4xQ77+js/4VS0D5lVeGoOTSHBfmrc46OyYDNPTvhu0ORMgXntGlEceLSLh/tMcdYrBf+EzhAZwy5kCBYbWJTfiQZsjv2HbJOiYUGyIkRZHNloIXsBDO979kEGUvFLBoGadyFckQhuaaz2fE5zqv7M07b6nVOGLwSI0AVctK/8m7lYLwLNhbQN/eDN6yuEDqcCm2yxu2tCeYJCOgCgXORGjqVwoQmaw+rnAbRPtLmLX0Q==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(346002)(136003)(396003)(376002)(451199021)(36840700001)(46966006)(40470700004)(5660300002)(40460700003)(44832011)(54906003)(478600001)(82740400003)(8936002)(40480700001)(41300700001)(8676002)(316002)(82310400005)(356005)(4326008)(81166007)(6916009)(70206006)(70586007)(1076003)(26005)(2906002)(186003)(16526019)(2616005)(36860700001)(36756003)(426003)(336012)(83380400001)(6666004)(47076005)(966005)(86362001)(36900700001)(16060500005);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2023 15:59:24.1909 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4c8683c7-70b3-4ac4-6040-08db41b83636
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT096.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6177
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH 6.1.y] drm/amdgpu/vcn: Disable indirect SRAM on Vangogh
+ broken BIOSes
+Content-Language: en-US
+To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
+References: <20230418221522.1287942-1-gpiccoli@igalia.com>
+ <BL1PR12MB514405B37FC8691CB24F9DADF7629@BL1PR12MB5144.namprd12.prod.outlook.com>
+ <be4babae-4791-11f3-1f0f-a46480ce3db2@igalia.com>
+ <BL1PR12MB51443694A5FEFA899704B3EBF7629@BL1PR12MB5144.namprd12.prod.outlook.com>
+ <9b9a28f5-a71f-bb17-8783-314b1d30c51f@igalia.com>
+ <ZEEzNSEq-15PxS8r@kroah.com>
+ <94b63d19-4151-c294-50eb-c325ea9c699f@igalia.com>
+ <ZEFUGSlqQu3v8ryf@kroah.com>
+ <caf5bfc9-89d2-1320-4386-2c026ec3afcc@igalia.com>
+ <ZEFgn4iY_swFKnc0@kroah.com>
+From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+In-Reply-To: <ZEFgn4iY_swFKnc0@kroah.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Thu, 20 Apr 2023 16:46:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,65 +64,31 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>, stable@vger.kernel.org,
- Roman Li <Roman.Li@amd.com>
+Cc: "sashal@kernel.org" <sashal@kernel.org>,
+ "kernel@gpiccoli.net" <kernel@gpiccoli.net>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ "kernel-dev@igalia.com" <kernel-dev@igalia.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Zhu, James" <James.Zhu@amd.com>, "Liu,
+ Leo" <Leo.Liu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Currently, on a handful of ASICs. We allow the framebuffer for a given
-plane to exist in either VRAM or GTT. However, if the plane's new
-framebuffer is in a different memory domain than it's previous
-framebuffer, flipping between them can cause the screen to flicker. So,
-to fix this, don't perform an immediate flip in the aforementioned case.
+On 20/04/2023 12:56, gregkh@linuxfoundation.org wrote:
+> [...]
+> That's 3000+ emails ago for me :)
 
-Cc: stable@vger.kernel.org
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2354
-Reviewed-by: Roman Li <Roman.Li@amd.com>
-Fixes: 81d0bcf99009 ("drm/amdgpu: make display pinning more flexible (v2)")
-Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
----
-v2: make a number of clarifications to the commit message and drop
-    locking.
-v3: use a stronger check
-v4: drop mem_type
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+/head_exploding
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index dfcb9815b5a8..76a776fd8437 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -7900,6 +7900,13 @@ static void amdgpu_dm_commit_cursors(struct drm_atomic_state *state)
- 			amdgpu_dm_plane_handle_cursor_update(plane, old_plane_state);
- }
- 
-+static inline uint32_t get_mem_type(struct drm_framebuffer *fb)
-+{
-+	struct amdgpu_bo *abo = gem_to_amdgpu_bo(fb->obj[0]);
-+
-+	return abo->tbo.resource ? abo->tbo.resource->mem_type : 0;
-+}
-+
- static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 				    struct dc_state *dc_state,
- 				    struct drm_device *dev,
-@@ -8042,11 +8049,13 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 
- 		/*
- 		 * Only allow immediate flips for fast updates that don't
--		 * change FB pitch, DCC state, rotation or mirroing.
-+		 * change memory domain, FB pitch, DCC state, rotation or
-+		 * mirroring.
- 		 */
- 		bundle->flip_addrs[planes_count].flip_immediate =
- 			crtc->state->async_flip &&
--			acrtc_state->update_type == UPDATE_TYPE_FAST;
-+			acrtc_state->update_type == UPDATE_TYPE_FAST &&
-+			get_mem_type(old_plane_state->fb) == get_mem_type(fb);
- 
- 		timestamp_ns = ktime_get_ns();
- 		bundle->flip_addrs[planes_count].flip_timestamp_in_us = div_u64(timestamp_ns, 1000);
--- 
-2.40.0
+this is > 1000 emails per day, wow...my sympathies to you heh
 
+> [...]
+>> tl;dr: the offender is present on 6.1.y, but this fix is not, hence I'm
+>> hereby requesting the merge. Some backport/context adjustment was
+>> necessary and it was properly tested in the Steam Deck.
+> 
+> Ok, we'll queue it up soon, thanks.
+> 
+> greg k-h
+
+Thanks =)
