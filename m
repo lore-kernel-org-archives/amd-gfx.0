@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A68EC77B76
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 11:58:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49866C77B73
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 11:58:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F0BE10EBFC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E5A210EC04;
 	Thu, 20 Apr 2023 11:58:03 +0000 (UTC)
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7372010E28A
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 11:58:01 +0000 (UTC)
-Received: by mail-ej1-x633.google.com with SMTP id sz19so5856369ejc.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 04:58:01 -0700 (PDT)
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [IPv6:2a00:1450:4864:20::632])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D21B310E253
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 11:57:58 +0000 (UTC)
+Received: by mail-ej1-x632.google.com with SMTP id kt6so5980126ejb.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 04:57:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681991879; x=1684583879;
+ d=gmail.com; s=20221208; t=1681991877; x=1684583877;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=LPWF50phvovWb6tYxEH8mMltpUSXFpLVUZZtI4Y7SjQ=;
- b=mimpfzQY9svs4sU+lAwtk1fUE7/Z0Xe0PqE+WBVuaBnpgYs2kZbyC2JmAqunKhN218
- jWcC2d1WLuxJaKvipMeNR35ugj3eXqyYlQesLOCEaFd4xFpiXaTCdQtwOANzGG+jLES2
- rmBe4YxJ4sR7GO48hEQmYkNrHh16qACWq0kJrfiBLWPvUBwGD/zlkr0vsONhLs4MzVV5
- Q+oGfjB+/I9dBhpdFShK3F6sYNMVB9F635X3qH/A6lIpsjeYZ2+YSY0KRVuwfBy0Nf+A
- 5vjKkRwMSZbKsWK4Q75X3k7ZQQrD5NYpTsikEA4Bg5sm5KC0izXdevJZf+mjhtswB0mY
- 2kRQ==
+ bh=8pUCIfL14thJxgsuQU0QiMkgd8dm1YXXT0nyxOGKO6c=;
+ b=SaQ3N86LxIGttQ0dqBBXB2T7IR9EZzK0flGsOg6uKLIvLr76NdyJcyHXSyK9kY0mON
+ SLYTf3vNpXmb9LP6k6IQgic3wE9pIA4CyN8LItFkP2tGMedvisGXF9bAdS6RSbQxtrVA
+ 5PpUyKv3OjXdZ6hPfqJbEo8sQI37oq8O1u5fzfn5+Gp1+JyKY++GGRjNR/S7tM2NQW9V
+ yvVboEvPeDwj7tgF8jqY4g05X17Qo+Fkgh9XUQlaAJxe+25/V68Fno6CU6JuEbJSf6zZ
+ 2XZeT5Vnm11avxZgxV/5zzNAwgaYIiaodIoQdrnwSgKROWIa/rqLfYCV5I19w/tZyitg
+ bGRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681991879; x=1684583879;
+ d=1e100.net; s=20221208; t=1681991877; x=1684583877;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=LPWF50phvovWb6tYxEH8mMltpUSXFpLVUZZtI4Y7SjQ=;
- b=Ut8NO+TkoQp7KkyOp2hEiTzrLrZ2OnbdCEWz44+Biwe8UlU8oe6keYFmi2JJoKF9JF
- ccG/qSDIKxPcjwyjHmLbW2wTtFZdBA2Cylzeq3cHrTkk2lf6F9n6Y9MuhykU5UcwcGu9
- rmU/LZhv88L53mx2yTdYzKi5Vl7EqxbRCvvHfa7If16ygzkeyr1PiQSTKr7kh+H/0KUL
- FUNRxRl8KTycvLmky+cWlSiKV5Q23lRPKpjeM6cKT3XhQ/qGnzDKnS1cLy8VFcHXqfEl
- RK6NvV6F1KYoHhsxiqbtF9sJWF9Hi7YH4lZW4COoBmdu9DwYr0FIxFH29ldQ4o4FKW4y
- EPNQ==
-X-Gm-Message-State: AAQBX9cKgra2moEdpQ8ehu35nrtVaP26/R369UsFjfkrbpHcjUf+Cw5/
- v6rWS0GA0bEB13WwFPRLUAtL3JkNVbCsTg==
-X-Google-Smtp-Source: AKy350YtzGRDTrzzBBy6apdmk32bYVAYELHBAnSL+HI9yvSo5Eplf+RoFsArlRUzuggcmFk6HpnuJQ==
-X-Received: by 2002:a17:906:17ce:b0:94f:1:8468 with SMTP id
- u14-20020a17090617ce00b0094f00018468mr1286765eje.17.1681991879335; 
- Thu, 20 Apr 2023 04:57:59 -0700 (PDT)
+ bh=8pUCIfL14thJxgsuQU0QiMkgd8dm1YXXT0nyxOGKO6c=;
+ b=aAuSkDyfJ8BAQDSMUDSi4IVnlSa0Z/mqxKiVeHFluuFV59KEoPWYZOnePGF29Qk889
+ A/MsvcpAWbnIeEYseNA3IF3D6yY5LyaP6H8r12b8cjoLA7h44mXzneSNFooaNDu9X6vE
+ eF4vWMv/JE/QyQQifrXaSs8clhVXrSCbBmiUdaL6r4MPjcdMN4H/Sep2l32TAi1wOnex
+ kSngNs28SwPnelCWBPTQAXJB19PToN1EP3eiIkp0RlQQZW9am6JdmPLJHPQllDyVPt36
+ fmd2/poGiOmA9FotvqM2DfLnpzxfhSyoiRm3KIToVn/S2TiDvbKTlHQc1EcYHBIrfVQv
+ EhJQ==
+X-Gm-Message-State: AAQBX9cg/uUxb1+WQDMiAh1475kahswUxyU8TpLpVvMXq9k3SjgoWmJJ
+ kWndGH6IQp6QZDrXaPQXaG1WTm8jK2rO+g==
+X-Google-Smtp-Source: AKy350ZG9HxTZKtKAv7dRs8VIw5uogyzMQCHNlttCoHIfUoUPe40RhnrGhZI097IKLnrm4F+D7S9Iw==
+X-Received: by 2002:a17:906:1c42:b0:930:2e3c:c6aa with SMTP id
+ l2-20020a1709061c4200b009302e3cc6aamr1386787ejg.49.1681991876739; 
+ Thu, 20 Apr 2023 04:57:56 -0700 (PDT)
 Received: from able.fritz.box (p4fc2092b.dip0.t-ipconnect.de. [79.194.9.43])
  by smtp.gmail.com with ESMTPSA id
- l20-20020a170906645400b0095342bfb701sm689385ejn.16.2023.04.20.04.57.58
+ l20-20020a170906645400b0095342bfb701sm689385ejn.16.2023.04.20.04.57.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Apr 2023 04:57:58 -0700 (PDT)
+ Thu, 20 Apr 2023 04:57:56 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 6/8] drm/amdgpu: abort submissions during prepare on error
-Date: Thu, 20 Apr 2023 13:57:50 +0200
-Message-Id: <20230420115752.31470-6-christian.koenig@amd.com>
+Subject: [PATCH 3/8] drm/amdgpu: add amdgpu_error_* debugfs file
+Date: Thu, 20 Apr 2023 13:57:47 +0200
+Message-Id: <20230420115752.31470-3-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230420115752.31470-1-christian.koenig@amd.com>
 References: <20230420115752.31470-1-christian.koenig@amd.com>
@@ -78,46 +78,96 @@ Cc: luben.tuikov@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Forward errors from previous submissions to this one.
+This allows us to insert some error codes into the bottom of the pipeline
+on an engine.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 24 +++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c  | 15 ++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h  |  1 +
+ 3 files changed, 40 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index 0a950c1c8782..5462f0406b02 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -256,16 +256,27 @@ amdgpu_job_prepare_job(struct drm_sched_job *sched_job,
- 	struct dma_fence *fence = NULL;
- 	int r;
- 
-+	/* Ignore soft recovered fences here */
-+	r = drm_sched_entity_error(s_entity);
-+	if (r && r != -ENODATA)
-+		goto error;
-+
- 	if (job->gang_submit)
- 		fence = amdgpu_device_switch_gang(ring->adev, job->gang_submit);
- 
- 	while (!fence && job->vm && !job->vmid) {
- 		r = amdgpu_vmid_grab(job->vm, ring, job, &fence);
--		if (r)
-+		if (r) {
- 			DRM_ERROR("Error getting VM ID (%d)\n", r);
-+			goto error;
-+		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+index f52d0ba91a77..877fae84b8ed 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+@@ -693,6 +693,30 @@ void amdgpu_fence_driver_clear_job_fences(struct amdgpu_ring *ring)
  	}
- 
- 	return fence;
-+
-+error:
-+	dma_fence_set_error(&job->base.s_fence->finished, r);
-+	return NULL;
  }
  
- static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
++/**
++ * amdgpu_fence_driver_set_error - set error code on fences
++ * @ring: the ring which contains the fences
++ * @error: the error code to set
++ *
++ * Set an error code to all the fences pending on the ring.
++ */
++void amdgpu_fence_driver_set_error(struct amdgpu_ring *ring, int error)
++{
++	struct amdgpu_fence_driver *drv = &ring->fence_drv;
++	unsigned long flags;
++
++	spin_lock_irqsave(&drv->lock, flags);
++	for (unsigned int i = 0; i <= drv->num_fences_mask; ++i) {
++		struct dma_fence *fence;
++
++		fence = rcu_dereference_protected(drv->fences[i],
++						  lockdep_is_held(&drv->lock));
++		if (fence && !dma_fence_is_signaled_locked(fence))
++			dma_fence_set_error(fence, error);
++	}
++	spin_unlock_irqrestore(&drv->lock, flags);
++}
++
+ /**
+  * amdgpu_fence_driver_force_completion - force signal latest fence of ring
+  *
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index f676c236b657..d3ad29d932b8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -507,6 +507,17 @@ static const struct file_operations amdgpu_debugfs_ring_fops = {
+ 	.llseek = default_llseek
+ };
+ 
++static int amdgpu_debugfs_ring_error(void *data, u64 val)
++{
++	struct amdgpu_ring *ring = data;
++
++	amdgpu_fence_driver_set_error(ring, val);
++	return 0;
++}
++
++DEFINE_DEBUGFS_ATTRIBUTE_SIGNED(amdgpu_debugfs_error_fops, NULL,
++				amdgpu_debugfs_ring_error, "%lld\n");
++
+ #endif
+ 
+ void amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
+@@ -522,6 +533,10 @@ void amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
+ 				 &amdgpu_debugfs_ring_fops,
+ 				 ring->ring_size + 12);
+ 
++	sprintf(name, "amdgpu_error_%s", ring->name);
++	debugfs_create_file(name, 0200, root, ring,
++			    &amdgpu_debugfs_error_fops);
++
+ #endif
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index e0d02cd8e63c..04ac055c3942 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -125,6 +125,7 @@ struct amdgpu_fence_driver {
+ extern const struct drm_sched_backend_ops amdgpu_sched_ops;
+ 
+ void amdgpu_fence_driver_clear_job_fences(struct amdgpu_ring *ring);
++void amdgpu_fence_driver_set_error(struct amdgpu_ring *ring, int error);
+ void amdgpu_fence_driver_force_completion(struct amdgpu_ring *ring);
+ 
+ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring);
 -- 
 2.34.1
 
