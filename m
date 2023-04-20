@@ -4,68 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D524C77B73
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 14:29:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C62CC77B72
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 14:29:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F29C910EC6B;
-	Thu, 20 Apr 2023 14:29:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D75CA10EC6C;
+	Thu, 20 Apr 2023 14:29:51 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4551110EC68
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 14:29:32 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F36510E0A7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 13:59:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1682000970;
+ s=mimecast20190719; t=1681999146;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding;
- bh=6BdrM5PAXOTQN54lsRvoJTmZEachvXpdp/asoBdEKLk=;
- b=aT8EZ86DUPAHN92fEAy6StOJsD1rcXTLvQr91jFB+EAptiLU6l5S08U0ftPfADA2emX4q3
- ovi9BtjmlLtpwc9ldxM6IxzFWc1sadE7bVJX3CvyzhOWyXRqbFzEmNwGpowV/9Crpqj7+a
- FodbhqWR2JlhuzYJ+zAp2R/JYbvkLrw=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=m4/JuEsZscBS1QEjsB4TfQCsUwFo0JrhZtOzYqZKIzY=;
+ b=FkDwRI9riU3gqUI/siICUB8tBA0mcKXRPB7GVCSqGoawFBG29zFUKPmjst1bWX21GYlza1
+ pbJ71+H4pqCJrb5izMl2C759pIxfra6ywDd1c2UqzkLQo4mHmOhSmSSIHtBlIDG7Jg55+P
+ yrr+wgzvWH7vhy1Q1ON3A/bqGrtQc9o=
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-570-yL32NlUUPJygqp6B3AAhPg-1; Thu, 20 Apr 2023 10:29:29 -0400
-X-MC-Unique: yL32NlUUPJygqp6B3AAhPg-1
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-5efc80e8485so10642426d6.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 07:29:29 -0700 (PDT)
+ us-mta-355-bTTkCIDpMGyRYDEG93m_dQ-1; Thu, 20 Apr 2023 09:59:05 -0400
+X-MC-Unique: bTTkCIDpMGyRYDEG93m_dQ-1
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-74e04fcc695so58177285a.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 06:59:05 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682000969; x=1684592969;
+ d=1e100.net; s=20221208; t=1681999145; x=1684591145;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=6BdrM5PAXOTQN54lsRvoJTmZEachvXpdp/asoBdEKLk=;
- b=Ooj6gyU+nfigMoHb+YILoU0VY3kzvrk49G5/tYscRjLoIWKyemzZ2xzX3c3KoCkRMM
- lVaIsQYG+wmePsq5/80NmkVhFA1f2InnzMYsbyIuqS615VKcaxaFLOP5Kkj+wlsyJB1t
- FUOFBnfAe+0n2/Id5/XTT5amPmvs9TqZXwGVFItss7xEJIV5FoHrjeLRewKBOXMC7SAC
- p/ZlJnwMAzRpki7XgxE6G1a0AN+eDERpLy/SL9YNNt/cOm3M94pVbwiKvAcXZaTYHeTB
- nOEVvMMAuJ7n1RU6nylnvSN3ySJ81p4XOkbOPnkxEyE+CZhrH8si9/9Tz2KG5KGkpWL8
- /j2Q==
-X-Gm-Message-State: AAQBX9f+nhPF+gEjLFm1xOOfHvo3Qa1Nq0WN5Idut6kZnc0rd9ngVv0w
- ydqDt2be0NLVF+WKhuXFhU1fWDtA9gfphSS0h2cDcDid6oXZMgrcruJ7taO+JkvIongkg/Vztlc
- 2Zf2rZ9Ey/CZfAK6pd6njfOj+uQ==
-X-Received: by 2002:a05:6214:301e:b0:56e:b557:2d4e with SMTP id
- ke30-20020a056214301e00b0056eb5572d4emr2242319qvb.6.1682000968837; 
- Thu, 20 Apr 2023 07:29:28 -0700 (PDT)
-X-Google-Smtp-Source: AKy350bh4jP9BRcxAXAQBGpztEZgR2c1DlH5MA0cabHVDBgEfStN28QcPkDWcM8pWXDcVwsX39FA5w==
-X-Received: by 2002:a05:6214:301e:b0:56e:b557:2d4e with SMTP id
- ke30-20020a056214301e00b0056eb5572d4emr2242276qvb.6.1682000968521; 
- Thu, 20 Apr 2023 07:29:28 -0700 (PDT)
+ bh=m4/JuEsZscBS1QEjsB4TfQCsUwFo0JrhZtOzYqZKIzY=;
+ b=iH2w2Z8ZlYRfIgDnlnyD/cynTFFz1FohEYadPABGDoBTlppj5qBhrkKxhIKQsJ8ugR
+ XffGiOPUz79w8OUBvKTP1psjkfv3ec0a5oTAI+U8jYlHX5tbkX5o+lOB5g6ewM16+Fh/
+ mAPHDS+kSp67Dl6Rx3kKCHpvZJiLwDZzgBN0dWcYS4PIjfkbtJyYS0nulJLkyeI84Oka
+ Y+DdLrmOLoq8Kn7GuwglhXn3R8ZgnnbTq6LfBob2YB3RPcTmyF7IoGOCAjAkvZs3c/jH
+ ZxJP4SnvFJKIckI9/KKtSjoJNwUHDbpxB/72sgwwb7V39bu3sqRvwIh7Dex63Nymf0d3
+ zGyw==
+X-Gm-Message-State: AAQBX9fY6QLYJrVG4cv43nTyyUU25AYlmo9ekrlXj7D7uX7UWGutUMYZ
+ NUaD9By3tkUQoyP78s0tCFPCG/em+mhFBiK/S/5munvPupBelg7SG3y6CCkJk1IXhxIXvwFotFS
+ 1DggWq9JLqcakNASnJ1Hzwl/vNA==
+X-Received: by 2002:a05:622a:18a9:b0:3e6:35ec:8a9f with SMTP id
+ v41-20020a05622a18a900b003e635ec8a9fmr2276780qtc.59.1681999145140; 
+ Thu, 20 Apr 2023 06:59:05 -0700 (PDT)
+X-Google-Smtp-Source: AKy350ZWmwkSKjotOboNJvMVMnZ/90aKxEW+jnR3KliISrG82OxoHSKFPujRz0mheXYNaiH8sWDnrA==
+X-Received: by 2002:a05:622a:18a9:b0:3e6:35ec:8a9f with SMTP id
+ v41-20020a05622a18a900b003e635ec8a9fmr2276737qtc.59.1681999144890; 
+ Thu, 20 Apr 2023 06:59:04 -0700 (PDT)
 Received: from dell-per740-01.7a2m.lab.eng.bos.redhat.com
  (nat-pool-bos-t.redhat.com. [66.187.233.206])
  by smtp.gmail.com with ESMTPSA id
- b27-20020a0cb3db000000b005e750d07153sm420904qvf.135.2023.04.20.07.29.27
+ z42-20020a05620a262a00b00745f3200f54sm430905qko.112.2023.04.20.06.59.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Apr 2023 07:29:28 -0700 (PDT)
+ Thu, 20 Apr 2023 06:59:04 -0700 (PDT)
 From: Tom Rix <trix@redhat.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, Hawking.Zhang@amd.com, le.ma@amd.com,
- Jack.Xiao@amd.com, YiPeng.Chai@amd.com, Lang.Yu@amd.com, Likun.Gao@amd.com,
- Arunpravin.PaneerSelvam@amd.com, andrealmeid@igalia.com
-Subject: [PATCH] drm/amdgpu: remove unused variable j
-Date: Thu, 20 Apr 2023 10:29:25 -0400
-Message-Id: <20230420142925.3890505-1-trix@redhat.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, Alvin.Lee2@amd.com, Jun.Lei@amd.com,
+ qingqing.zhuo@amd.com, Max.Tseng@amd.com, Josip.Pavic@amd.com,
+ Eric.Yang2@amd.com, aurabindo.pillai@amd.com
+Subject: [PATCH] drm/amd/display: return status of dmub_srv_get_fw_boot_status
+Date: Thu, 20 Apr 2023 09:59:01 -0400
+Message-Id: <20230420135901.3889747-1-trix@redhat.com>
 X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
@@ -90,95 +91,52 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 gcc with W=1 reports
-drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c: In function
-  ‘amdgpu_gfx_mqd_sw_fini’:
-drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:451:16: error: variable
-  ‘j’ set but not used [-Werror=unused-but-set-variable]
-  451 |         int i, j;
-      |                ^
-drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c: In function
-  ‘amdgpu_gfx_disable_kcq’:
-drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:486:13: error: variable
-  ‘j’ set but not used [-Werror=unused-but-set-variable]
-  486 |         int j;
-      |             ^
-drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c: In function
-  ‘amdgpu_gfx_enable_kcq’:
-drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:529:19: error: variable
-  ‘j’ set but not used [-Werror=unused-but-set-variable]
-  529 |         int r, i, j;
-      |                   ^
+drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.c:
+  In function ‘dc_dmub_srv_optimized_init_done’:
+drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.c:184:26:
+  error: variable ‘dmub’ set but not used [-Werror=unused-but-set-variable]
+  184 |         struct dmub_srv *dmub;
+      |                          ^~~~
 
-These variables are not used, so remove them.
+The return status is never set.
+It looks like a call to dmub_srv_get_fw_boot_status is missing.
 
+Fixes: 499e4b1c722e ("drm/amd/display: add mechanism to skip DCN init")
 Signed-off-by: Tom Rix <trix@redhat.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 14 ++++----------
- 1 file changed, 4 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index 7f5c60381103..ac6fd8620279 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -448,7 +448,7 @@ int amdgpu_gfx_mqd_sw_init(struct amdgpu_device *adev,
- void amdgpu_gfx_mqd_sw_fini(struct amdgpu_device *adev, int xcc_id)
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+index d15ec32243e2..36d936ab4300 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+@@ -182,14 +182,23 @@ bool dc_dmub_srv_cmd_run_list(struct dc_dmub_srv *dc_dmub_srv, unsigned int coun
+ bool dc_dmub_srv_optimized_init_done(struct dc_dmub_srv *dc_dmub_srv)
  {
- 	struct amdgpu_ring *ring = NULL;
--	int i, j;
-+	int i;
- 	struct amdgpu_kiq *kiq = &adev->gfx.kiq[xcc_id];
+ 	struct dmub_srv *dmub;
+-	union dmub_fw_boot_status status;
++	struct dc_context *dc_ctx;
++	union dmub_fw_boot_status boot_status;
++	enum dmub_status status;
  
- 	if (adev->asic_type >= CHIP_NAVI10 && amdgpu_async_gfx_ring) {
-@@ -462,7 +462,6 @@ void amdgpu_gfx_mqd_sw_fini(struct amdgpu_device *adev, int xcc_id)
- 	}
+ 	if (!dc_dmub_srv || !dc_dmub_srv->dmub)
+ 		return false;
  
- 	for (i = 0; i < adev->gfx.num_compute_rings; i++) {
--		j = i + xcc_id * adev->gfx.num_compute_rings;
- 		ring = &adev->gfx.compute_ring[i];
- 		kfree(adev->gfx.mec.mqd_backup[i]);
- 		amdgpu_bo_free_kernel(&ring->mqd_obj,
-@@ -483,7 +482,6 @@ int amdgpu_gfx_disable_kcq(struct amdgpu_device *adev, int xcc_id)
- 	struct amdgpu_kiq *kiq = &adev->gfx.kiq[xcc_id];
- 	struct amdgpu_ring *kiq_ring = &kiq->ring;
- 	int i, r = 0;
--	int j;
+ 	dmub = dc_dmub_srv->dmub;
++	dc_ctx = dc_dmub_srv->ctx;
++
++	status = dmub_srv_get_fw_boot_status(dmub, &boot_status);
++	if (status != DMUB_STATUS_OK) {
++		DC_ERROR("Error querying DMUB boot status: error=%d\n", status);
++		return false;
++	}
  
- 	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
- 		return -EINVAL;
-@@ -495,11 +493,9 @@ int amdgpu_gfx_disable_kcq(struct amdgpu_device *adev, int xcc_id)
- 		return -ENOMEM;
- 	}
+-	return status.bits.optimized_init_done;
++	return boot_status.bits.optimized_init_done;
+ }
  
--	for (i = 0; i < adev->gfx.num_compute_rings; i++) {
--		j = i + xcc_id * adev->gfx.num_compute_rings;
-+	for (i = 0; i < adev->gfx.num_compute_rings; i++)
- 		kiq->pmf->kiq_unmap_queues(kiq_ring, &adev->gfx.compute_ring[i],
- 					   RESET_QUEUES, 0, 0);
--	}
- 
- 	if (adev->gfx.kiq[0].ring.sched.ready && !adev->job_hang)
- 		r = amdgpu_ring_test_helper(kiq_ring);
-@@ -526,7 +522,7 @@ int amdgpu_gfx_enable_kcq(struct amdgpu_device *adev, int xcc_id)
- 	struct amdgpu_kiq *kiq = &adev->gfx.kiq[xcc_id];
- 	struct amdgpu_ring *kiq_ring = &kiq->ring;
- 	uint64_t queue_mask = 0;
--	int r, i, j;
-+	int r, i;
- 
- 	if (!kiq->pmf || !kiq->pmf->kiq_map_queues || !kiq->pmf->kiq_set_resources)
- 		return -EINVAL;
-@@ -562,10 +558,8 @@ int amdgpu_gfx_enable_kcq(struct amdgpu_device *adev, int xcc_id)
- 		queue_mask = ~0ULL;
- 
- 	kiq->pmf->kiq_set_resources(kiq_ring, queue_mask);
--	for (i = 0; i < adev->gfx.num_compute_rings; i++) {
--		j = i + xcc_id * adev->gfx.num_compute_rings;
-+	for (i = 0; i < adev->gfx.num_compute_rings; i++)
- 		kiq->pmf->kiq_map_queues(kiq_ring, &adev->gfx.compute_ring[i]);
--	}
- 
- 	r = amdgpu_ring_test_helper(kiq_ring);
- 	spin_unlock(&kiq->ring_lock);
+ bool dc_dmub_srv_notify_stream_mask(struct dc_dmub_srv *dc_dmub_srv,
 -- 
 2.27.0
 
