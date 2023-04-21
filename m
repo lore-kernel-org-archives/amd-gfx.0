@@ -4,120 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EE51C7618E
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 15:21:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FD93C7618E
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 15:40:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD5FF10EE48;
-	Fri, 21 Apr 2023 15:21:15 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2065.outbound.protection.outlook.com [40.107.93.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EADFD10EE3C
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Apr 2023 15:21:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D281610E19F;
+	Fri, 21 Apr 2023 15:40:22 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2061d.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8a::61d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 044E010E19F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Apr 2023 15:40:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mpVPvlTnXVnQQlwHlW7uhJjPPkGkEo5VCpyx8mswEeLWGq88sAvRu0H1yJPZyx1vd8My4rD1TXUv4aO7iDb1GcmyEi5KIftYtNZXTmL7PNbcfMZun+fYgjK/Zx9EQMBjfM9tzVKjjq5CWKIBDwTElK+XSr5mWziDEdNo2TbmTGiKkElfMj9LB1Cp46QbCpi9kUbT0T/1MJ9a/X7zZ+Tfe9Q0UKgj0elJtcZBvAp/YnChqWLRgkHu1eMNd5SKGXHfjcnvsBVo/NsakAko0wBC8CV3PLrMtZB74quiHuZf1p09guM3BpENBMa+gpv28ukZfDEjk6GJjfzhdutnWe+2Vg==
+ b=lp9g9pwptNNejv7JMLR6pB0paGF51QOBbI5khWEeOQkXK3ObNMSCc1XxoxJe0qzh2jQFWLgd5iGnR7Smj2RUxOOqkki50YiLJ8zpSGQowtR1PeVi4+S+sgA1MXoPO/eY7PLYbqcBebo+Um/kNxVWDqyrEX/46qgFi9c+oTV9gNgPLtE6Ctc9cobtsOEtVh9mXb7AlyWFd6hQJkBBmXQW9ZUFSUXYJFfaP9Q3froHfbAhG1Ed8s6oBNiUX7NY5yvazMhZw7Xruqt9hutKBXM2x85cctYcMERKwZI/VKVckT8JTzRHOprOzs26Izs1OvUNJjI8UP8aLLe+3AyySSXGAA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GS0goNjI7IwV0INb/DjX8htm8j0VQzSNfO4gl/5QTyI=;
- b=Vi1gnpQ9fM/IQKUEr3gNytK/RS/hi5Gwi64cwrUBhpDX45Au+AaZdXw/sOB7Mch7ZqqhonX7xdFTBsj3o7CeVqRAyHdznj5mWc17wS44gv+7gpWN3qqsjoJwd1idpxjKztRi+WhiE75n0CmYdDYuQ/PCMf0O0Zdk6j8Zri9fRluN0ifq6oB6wJA3JTgJVw5/O3FPCtW0Mp02Oo+G8kK2PDaa8PAWokbL94KnIOVio3irtDKdyWfqEdDN3QTxyGMmZQFJtnUMnMjpKuYI1dS4PDGxdZtLvAvx0S9rNrQ80lmMI6mo2jPCXqYk4BAEeJ6kbtn8SRPiRvau42/Z5Vz95g==
+ bh=bUPAhJRwFBLDhEYsOrOL/qFe75COEBTbSM+ObuiJmro=;
+ b=DoES8CiMJ6MOWzw+xVuN5EG/3bt+jTBr9KW6VhmttmTYucZqQtI4HSFaaSFDaZSKOKYq5gPxB8l44m3oPeqPef3KougTl2iHrqf/tHdhELd6Wu5Ofg06AQNX/8JSTIfnM5sM/WBXdAN+i60v4xwNunS/75R5Tu5oduJoqnz56dVIU4KySfZ967uQtmcNlLDe9IFb0yjbjJt1Geb2JE3HNXtiUO5axjYkBM2tLLeEwoT0cTfWGZatE8vA9ImW9iskdLyrfSUKsY9l4DiaiZt07MG013KQBecm2fAlhT4rBhpNETYVaETGKvwAJmymsVNiz7W/+Wv8qQkv2qtVdaYdJw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GS0goNjI7IwV0INb/DjX8htm8j0VQzSNfO4gl/5QTyI=;
- b=Dve83KHEV1KMbrngWjc5QNd1KHlVPx6chjr61T6h95iImRXesePiCs5JIC/4pDy1xzfVQJqS6AGW8H1ogRgT3cgVu7EgkFMK8vQtDBy1BmctxEu9QbC6M/5HOgKrz2G2QuYfuBO42pzywj5YSntoUeVm9TwN7pBLycHP5Vey5Rg=
-Received: from DS0PR12MB6534.namprd12.prod.outlook.com (2603:10b6:8:c1::19) by
- CH3PR12MB7596.namprd12.prod.outlook.com (2603:10b6:610:14b::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6319.21; Fri, 21 Apr 2023 15:21:11 +0000
-Received: from DS0PR12MB6534.namprd12.prod.outlook.com
- ([fe80::d28:1514:96a7:864e]) by DS0PR12MB6534.namprd12.prod.outlook.com
- ([fe80::d28:1514:96a7:864e%7]) with mapi id 15.20.6319.022; Fri, 21 Apr 2023
- 15:21:11 +0000
-From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
-To: "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 00/21] DC Patches April 20, 2023
-Thread-Topic: [PATCH 00/21] DC Patches April 20, 2023
-Thread-Index: AQHZc+LZJJ6V5hpRL0GNpiZElsiAba814bdQ
-Date: Fri, 21 Apr 2023 15:21:10 +0000
-Message-ID: <DS0PR12MB653451022BE5020C220A9B9F9C609@DS0PR12MB6534.namprd12.prod.outlook.com>
-References: <20230420234951.1772270-1-Rodrigo.Siqueira@amd.com>
-In-Reply-To: <20230420234951.1772270-1-Rodrigo.Siqueira@amd.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-04-21T15:21:09Z; 
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=abaae81a-9f88-4178-af91-c03e530f2c29;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_enabled: true
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_setdate: 2023-04-21T15:21:09Z
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_method: Privileged
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_name: Public-AIP 2.0
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_actionid: 0c8d02fb-3b07-4124-95a7-d5fc30408ac0
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_contentbits: 0
-authentication-results: dkim=none (message not signed)
+ bh=bUPAhJRwFBLDhEYsOrOL/qFe75COEBTbSM+ObuiJmro=;
+ b=lzUSlWHocYiZ0xIkPPD+wTBe33UqFvAua/isfIN0rhmlFqIOKVJkgZB+QWVvuOgIoFfEHqak78/32anZCw4sEFZ/eShLIjIHknyjp+cttwYG9sPgdZMq+Rj597sRc3sXU8yfbaLnzlZDK0PVlvXduzjyKVv51VfmkKC5IvDsUjQ=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS0PR12MB6534:EE_|CH3PR12MB7596:EE_
-x-ms-office365-filtering-correlation-id: fadbac30-978d-4939-624f-08db427c09bb
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: D28p16HZIVQTylF+QTgSlS0cAwkrLeJo76IYgoWg05mQ7ayk1lPyuZxxC9egGpKvSh946dPN+9LNemIF8hU1izkPA3sG0q//VexPfiZxiGytWY/6lz/S0PwQIgjUJ+02XEfgeG4LmD1BGZ6F2rp7yhTnPKAHU7srhORxLZ/FCMWDMgBk0CGDBlD3fVgEubkrQW6FSH6/5OKL6rrsYHEy0Ee2JcWWF5bxoqnzcVGqwqZ+5xMC+RZ/LXGcx5pHnpoVXcJx9LnlUMGVcAPfbmzNvQZQF7QYMU1O+RhU8QrZ4wAsV7Fm0zIaeHBk5vN2W0nUUjtZw30QCfAlCKZpyeEpquif5Hy4ozpmVgEWiOP+YF541/X0TgOnig7j1s6FTfZKb/ghOMlxh1Yjqt2sdSjZte1t0cfE0QJKLf1IRoKZWjHaF7wUa3ruIfStaDwlWqHiqCRinFWmd/pPl020PmwXcXtRQKg7K5Hy43AHjCclnXizsBaxW3P0Wht2WShW1Ess8mz3dOOC3nHTOjmmKXoomLOpfuagK4E1XCMOm7nrEA2TYnG0WFNJcqtbuD1QeBEIanN+Z8YA4AnYTul4mQzrLiBijAVl7ERiufByCwnpB4QHTbLYSSa7/mRXECY2HMdL
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6534.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(136003)(376002)(39860400002)(366004)(346002)(451199021)(26005)(5660300002)(38100700002)(52536014)(4326008)(122000001)(41300700001)(8676002)(8936002)(316002)(55016003)(6506007)(38070700005)(86362001)(9686003)(53546011)(2906002)(33656002)(7696005)(71200400001)(83380400001)(186003)(66556008)(110136005)(64756008)(66446008)(76116006)(66476007)(66946007)(54906003)(478600001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?LCQfw4qiE/zuRxg0aHPLI6evuW23lQdXk8PqQ8wabycC6+xFxmIbC//Dz3iu?=
- =?us-ascii?Q?yDIt86mpO6ymJb+B/3oPJvfTc+ywesxvjEARhjTmdNXIZQd8IpMUMmr/jgxk?=
- =?us-ascii?Q?aKQpUHqoWM/k1hEDrK15Pm27vdNfsEBY/t+wVp8spmgwl8uyE+FQfCvZMxh+?=
- =?us-ascii?Q?znez41/5F7OPikWUvFjcQeS7ujusGNF51ZNGw+oEcBPVuNSppc5dVjo4mZwg?=
- =?us-ascii?Q?jOthORSvNXLEJsZsuCoMbjzNg1dfnDbaelpHBfkyvNxCYmK75pB8u7dEz6bD?=
- =?us-ascii?Q?/5GxS9/v6dSfMHxodEokAGb3JhA2ftgur5myUdcVpdDqIp29nj4JbCa9peps?=
- =?us-ascii?Q?LXIZeZzdezyBA/erZtBoKHuBKkR8wX0Kgi7lepwyYyMuSKXBGCNOlkgS7J+E?=
- =?us-ascii?Q?nDn5O2owBAjDrK95E/HgkpWP+QLyK8jmcrm8ExRfiS853YqOK144wEgFr7wT?=
- =?us-ascii?Q?9MYKGT2I+Iq2Gc6lqSMHqTTgPHceFAik+Ie0YVHqfYqfbhan8PKesCKcZJ/7?=
- =?us-ascii?Q?FTSx+OwGG9NACUoDvMIMyEsod662GEIGrKtmzsyZFMM+iS5vd9Jg5XAWdXQ7?=
- =?us-ascii?Q?3X6gjUmCvqtSTMFj24i3OJB4dCQ0T56ZtABEWM9Zyv+wRS0ik/FRB8j0fuSg?=
- =?us-ascii?Q?Toa/VxPCP4JP16pCjQStefd8NhttyWyNw2mAZG8h/dzFN2gs4Bho85vxb4Dv?=
- =?us-ascii?Q?TBA88CmdUZQkFP0qkHp1ShDrk2Uj0UoKFXOcW9ru3K9nxgDLzg1FWX0wQODk?=
- =?us-ascii?Q?EtB7hq2mX6RVJfxDgOHv2su6s5ru9CrSd8ELUbGYZKpEoH9mJH/MrnQXXyLj?=
- =?us-ascii?Q?spv6qDQyXSgy61W4k02LGVnb29+/6/h/uVtZpdXwynkySZ+ZxNHvfrwjrmTQ?=
- =?us-ascii?Q?ddeUMjcjDhIEN6eueA8GT3QVIpHp9MNb9p4GzBsjRLtQRe4Em79kvfi85YxL?=
- =?us-ascii?Q?mjIWV9jOTG4nbCa+7/D02f+ukILkvlBKl+qfyt/+8MQjDLVqPaxkFYIgi54B?=
- =?us-ascii?Q?45UrCSHKjuBeemvMFNH3qeVSj5PE+FKGAlXfd6iEH+bl/K7pL77buqLHbOu5?=
- =?us-ascii?Q?pwXpQJuRgb0V7f4a2Ng4vTs1u8YghtxwpRwNyWJlmQ+VCDvpsOucJCb3kJjz?=
- =?us-ascii?Q?bzW/J7b9WbCrxvUN45xDptmQMBGaR72v+kRkreQ+gQG+63a+uBklSJEmoDrJ?=
- =?us-ascii?Q?ilzCtKBbeuMV8bpCxc5TDZdhuufGLHtUzBC3RQrX9MTD2DktZMreKS5Ks3ov?=
- =?us-ascii?Q?FqGR7ydoArLl4r3Q18efK5PPf7s0pMmbVS0Zh93Els0HbpyJp4A1EBoKvEOM?=
- =?us-ascii?Q?M2OaRiYPhehKwr3j8R15an4vcpVyS7KglXZAhs7TQ/mPM6r/QLJ/vPaIjiWE?=
- =?us-ascii?Q?kbJC9+yXUlu5yEa/SPRG3NC9p5rl0mYw04mXHZ2FOqqumHh/0jOAYssPOfEB?=
- =?us-ascii?Q?/isXQGD0/grTqcZ5ZMXEHh1PiZvpewlRuhIrYIuxiAq2daJPUoL98xhjTDAk?=
- =?us-ascii?Q?bh6fuCTiyfvSK6YSMtvnWFZa5x4J7PJWs7aRaLz/ykDDQtfvbWToqtPjv+x5?=
- =?us-ascii?Q?hBS8VIQh7vw0gH6svoc=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by IA1PR12MB6283.namprd12.prod.outlook.com (2603:10b6:208:3e5::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.22; Fri, 21 Apr
+ 2023 15:40:19 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::f170:8d72:ca64:bb26]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::f170:8d72:ca64:bb26%7]) with mapi id 15.20.6319.022; Fri, 21 Apr 2023
+ 15:40:19 +0000
+Message-ID: <53ad10b7-8a38-dfb6-2cb7-5961e6dac224@amd.com>
+Date: Fri, 21 Apr 2023 11:40:16 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Subject: Re: [PATCH] drm/amdkfd: Fix an issue at userptr buffer validation
+ process.
+Content-Language: en-US
+To: "Xiaogang.Chen" <xiaogang.chen@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230420222531.470189-1-xiaogang.chen@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20230420222531.470189-1-xiaogang.chen@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0228.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:66::28) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|IA1PR12MB6283:EE_
+X-MS-Office365-Filtering-Correlation-Id: 30959cfc-fb5b-4a5e-8d97-08db427eb5f5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: jxqTC8Vfih4YSWwljWXryzfciAtNqhKD50gtlGOtFL/YY/YDOrZ0bVdHIhxNZHDqPqzyI7CYahsqNF+cgZGthEqpMsG79vduPYBDyIsR4HAFAEZk4gVPIb4hx9Gx0SsSUYs1u7mBopnygD5pkUqDWIgqQfFqwZakIhaGHS9iXcvl27w4Bvq5laemcB+u/U05wEKb5kd80pa4v6zLIHb2ML+co+ddz1x69nZwIHP5/xkJUgrMZsHhPDZNQgN2rOLtDQpwleOtCZvWCsCF0WzRFmJLZyN+yDkJSz9PYnfxAcCu8HCaBnbx0yC56PFEAQ+M2q6ub+sLZMxFcc81oWu5/WtVVfa4JmVDNfrYkbYa9ydQ40fc608rd/bMVYUS77y3KESJ/Z/LSi6DTeSn+4RtVR938DueB1Dky9P3IiwMDW2TnNkDOCzXvU6bNCWcOXNBfyd7cyaogp5axXAB8V2XKW+ttsLG6Kq+RfVOI6UDXuMZ/FGI/Rlb/GpFsofWtFKtKpHDpIQ1DdudW7LQf7QwHs9Ktr5A5hpJ8DaM2/+LcNJW2dNubt6P60UFQh1ytPhLAvcjnOQ/YbG6EPULB1eHnHORZRfafsHajvjF7CbY7QqfQhmsOFga2PiUa7H7HFdCFiBmRKIRBsmAJhlwz0U/fA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(396003)(136003)(376002)(366004)(39860400002)(451199021)(2906002)(36756003)(5660300002)(8676002)(8936002)(38100700002)(31696002)(86362001)(44832011)(41300700001)(478600001)(31686004)(2616005)(186003)(6512007)(6506007)(53546011)(6666004)(6486002)(36916002)(66946007)(66556008)(83380400001)(316002)(66476007)(26005)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V2ZLZDIySExmNCtIejVNVWl2WGdWQ1A5dldrWnpHOVV0MktoakJqeUVhc1U2?=
+ =?utf-8?B?dnJaRGJtcFFhRFhodGlReWJHRGlqeGEwdWFpU2hidys1V1NCMHZZRU96VjN0?=
+ =?utf-8?B?SHFMRGk5WnBlZW1wbktiaEFTcmVwQlZVRnZCNWJNcHdzblpFODVDa3QyaWhn?=
+ =?utf-8?B?TmJaVTR0b1JTVU00eEJtSkVkUk5ybnlGSHorWEljVExGN2JKNVliVFpad3dt?=
+ =?utf-8?B?dFk3TnNHaDlUVE05T3hVNzJzVTRDTVFBSDNSWWxHUS9rTis2MDRObDc1a3J1?=
+ =?utf-8?B?Z1VwbklJWmU2NEpjQ0xFeU1NQlkyYTRnNzRjV05tSFZUMmFYRVJOUlBTVnZa?=
+ =?utf-8?B?S0xkWU51N0kvMW0zUUJhQjZWRXhIQWVZNTM0RDd3Q05qRjFQSloxVkRHYlV6?=
+ =?utf-8?B?ZHpsQkxGZG4rZEtzYXRQTm40SFNzTE9RV21yQ29rcjNWTUtxa0lxUURrdFFW?=
+ =?utf-8?B?RlZ5VlNPY3ZnN2dsNGRkcmlPc2VTakdBZjFlcGxBcHpIMkwrOUhzY3ArODli?=
+ =?utf-8?B?TVpxZExGRzhGakJCRjhrREJpK0I0YjczQ1YwSXRJUXpWY05IZ01MZDJCK3Z2?=
+ =?utf-8?B?SnpLaGgrZzhxQ0FCVVZzT3gzaFQvb09wL0d5THIrd1drQ1ZEdk9XVTEvanFx?=
+ =?utf-8?B?Z1M5K3VWV2t2cmhmOWwxUFNOZGI5OUdxNENYcjJFOXlNZk94cmVWSk9XR3Q3?=
+ =?utf-8?B?cTVuSFRUMW5QaWdwRXMweW1CYk56VVR5R3Z2YTVJaFhnTjVCVE9kcE1lbU1w?=
+ =?utf-8?B?WkdmSC9uZnZDTFdHdngzR084VnJFY2hUeEEyS21UN3VUUzVIV28rd05OMHl1?=
+ =?utf-8?B?dWttSzNkOUpObTVMR1B2bE0zenYxNjBCbnVZczlqdCswaEdLaVVXdVlQZmMr?=
+ =?utf-8?B?dnpEK2VsRWIyU3NBRXdlWjdxT0xlZmE5emtqWmQ5VEV0Q2gwWGJGbjFYR1oz?=
+ =?utf-8?B?ZDJuOUFNWGdSV2NFeFpFZXhCdVZVNERPY1RxbnJscjdrTXIxYUhPVUs2NTNP?=
+ =?utf-8?B?UVdjZ04xbFJ3Vzc0SU1GME51Wk9wN1p3MHcwdWdmQ3FyQStmQkM3dkpKdzFW?=
+ =?utf-8?B?bHUyK2ltdEdCcUlBNHQzajhBSUNUdzhyaTVubDlwaUJTYXZORnhWbmkxNG85?=
+ =?utf-8?B?eUdqdnM3U1RoUGpMVkdRRytvNHJRZUtjL3JOaTBRR0VOcHhnbDNOMXJxbkZp?=
+ =?utf-8?B?K0I3L3IyWC8wUEhPV2piZ2ZPbXJKSDBpbnhhVkFrWGdFMjhmR0VCeFpTbG9S?=
+ =?utf-8?B?MVZzTmw5U0d2V0pFMi95UWIwbjVNYTZrTkdZRTdQb09oSXoyWGx3RC92UXIy?=
+ =?utf-8?B?eHY0YUxadklQSGF3Q2ZXRDF3b0hobWR2TVkzdW5FZGU3cHBSekNRU3Y0cWJp?=
+ =?utf-8?B?N21OdnVYaDZiMWtWZnoxakFlRUhwVFFrNnZ3dkJPSklUc20zazJSbFZMNXYr?=
+ =?utf-8?B?RVpvTS82S0tYcldXOTVWVThVRWRBMytQcG52am5sM1lTT3dreXg1NStpSm90?=
+ =?utf-8?B?a1JJVDJWY291R1pzUWtBNHFnSGhsdVFQS0pqRzZraENUdUZTaDd0Z3lsV0JB?=
+ =?utf-8?B?VE5nUnhGS3krL2FMR0JnemxKRU5qSU1Ud2ErQkgvcG55Y3BWQnBaNE50WDhy?=
+ =?utf-8?B?aDVWLzhGSWFKWHNiaFg5T2thTWlWV3hFWnpJTjN6eTA5WHJiZk8vczU2eW5i?=
+ =?utf-8?B?WlRhMTBpa3ZzTWRoNDdDaFpiaU1JaTAzRG5GQ0o1UUs2U1QvVmJXZkt2MDJU?=
+ =?utf-8?B?ZFVVSmlNZTFCSzd1WWJqTC9PVWxsYU16ZkVhNzk4MHpHcXFhQnpsVFBIWk5j?=
+ =?utf-8?B?YUJMWnFydzgyWTY1MVFuMFZwdEV5Umdaa2lLNzZHckQray8yMDB4dXpjNFRp?=
+ =?utf-8?B?VTQyNVN2M0VWankzRjgvRXN5clJXQkJrUVZLRHhLeVpzUFRIWHM0T0xLOGFh?=
+ =?utf-8?B?K25aMWl2bFRVSjcyZzBNQ2t1OEpNNnZWT1lBaEJqUFdoZktaa3VtemtLdFhr?=
+ =?utf-8?B?cXhOTkpScHdLOFhicVYzL2doRTAzT3RrMG9qRVhBdFBjUzY3MUJQODhJSXNn?=
+ =?utf-8?B?b2hma2FPOWkvNExTdkNsTkhvYXUvelhNRUxZdXliL25hTllIcGdUTEQrZnBq?=
+ =?utf-8?Q?67tM8UVWsMZXmkJFhMwWfIvcb?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 30959cfc-fb5b-4a5e-8d97-08db427eb5f5
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6534.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fadbac30-978d-4939-624f-08db427c09bb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Apr 2023 15:21:10.9327 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: shiZWZiLmLHfPSD8YhqHK124atVpAczOm1aV6147WkgdnXRORJCGnoAIXWfNI14LDuu1nm74Ip1i+gdPObTa6A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7596
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2023 15:40:19.0515 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Z4C4+P3eEJ4deXOKW+DyLab9B5ydQjGb7Cfg2ZR/m0Gt4MuHCNY9GAXPTC1EA+Ledgotjik5LLPAjwaeqIqeLA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6283
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,191 +126,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Wang, Chao-kai \(Stylon\)" <Stylon.Wang@amd.com>, "Li,
- Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, "Zhuo,
- Qingqing \(Lillian\)" <Qingqing.Zhuo@amd.com>, "Li, Roman" <Roman.Li@amd.com>,
- "Chiu, 
- Solomon" <Solomon.Chiu@amd.com>, "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>,
- "Lin, Wayne" <Wayne.Lin@amd.com>, "Lakha,
- Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Gutierrez,
- Agustin" <Agustin.Gutierrez@amd.com>, "Kotarac, Pavle" <Pavle.Kotarac@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+On 2023-04-20 18:25, Xiaogang.Chen wrote:
+> From: Xiaogang Chen <xiaogang.chen@amd.com>
+>
+> amdgpu_ttm_tt_get_user_pages can fail(-EFAULT). If it failed mem has no associated
+> hmm range or user_pages associated. Keep it at process_info->userptr_inval_list and
+> mark mem->invalid until following scheduled attempts can valid it.
 
-Hi all,
-=20
-This week this patchset was tested on the following systems:
-=20
-Lenovo Thinkpad T14s Gen2, with AMD Ryzen 5 5650U=20
-Lenovo Thinkpad T13s Gen4 with AMD Ryzen 5 6600U
-Reference AMD RX6800
-=20
-These systems were tested on the following display types:=20
-eDP, (1080p 60hz [5650U]) (1920x1200 60hz [6600U]) (2560x1600 120hz[6600U])
-VGA and DVI (1680x1050 60HZ [DP to VGA/DVI, USB-C to DVI/VGA])
-DP/HDMI/USB-C (1440p 170hz, 4k 60hz, 4k 144hz [Includes USB-C to DP/HDMI ad=
-apters])
-=20
-MST tested with Startech MST14DP123DP and 2x 4k 60Hz displays
-DSC tested with Cable Matters 101075 (DP to 3x DP), and 201375 (USB-C to 3x=
- DP) with 3x 4k60 displays
-HP Hook G2 with 1 and 2 4k60 Displays
-=20
-The testing is a mix of automated and manual tests. Manual testing includes=
- (but is not limited to):
-Changing display configurations and settings
-Benchmark testing
-Feature testing (Freesync, etc.)
-=20
-Automated testing includes (but is not limited to):
-Script testing (scripts to automate some of the manual checks)
-IGT testing
-=20
-The patchset consists of the amd-staging-drm-next branch (Head commit - 329=
-fb1a32e80 drm/amd/display: 3.2.231) with new patches added on top of it. Th=
-is branch is used for both Ubuntu and Chrome OS testing (ChromeOS on a bi-w=
-eekly basis).
-=20
-=20
-Tested on Ubuntu 22.04.1 and Chrome OS
-=20
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-=20
-=20
-Thank you,
-=20
-Dan Wheeler
-Sr. Technologist | AMD
-SW Display
----------------------------------------------------------------------------=
----------------------------------------
-1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
-amd.com
+Thank you! This patch looks good to me. One more nit-pick inline.
 
------Original Message-----
-From: Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>=20
-Sent: April 20, 2023 7:50 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
-i@amd.com>; Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>; Siqueira, Rodri=
-go <Rodrigo.Siqueira@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd.com>=
-; Zhuo, Qingqing (Lillian) <Qingqing.Zhuo@amd.com>; Li, Roman <Roman.Li@amd=
-.com>; Lin, Wayne <Wayne.Lin@amd.com>; Wang, Chao-kai (Stylon) <Stylon.Wang=
-@amd.com>; Chiu, Solomon <Solomon.Chiu@amd.com>; Kotarac, Pavle <Pavle.Kota=
-rac@amd.com>; Gutierrez, Agustin <Agustin.Gutierrez@amd.com>; Wheeler, Dani=
-el <Daniel.Wheeler@amd.com>
-Subject: [PATCH 00/21] DC Patches April 20, 2023
 
-This DC patchset brings improvements in multiple areas. In summary, we
-highlight:
+>
+> Signed-off-by: Xiaogang Chen <Xiaogang.Chen@amd.com>
+> ---
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 28 ++++++++++++++-----
+>   1 file changed, 21 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index 7b1f5933ebaa..fad5183baf80 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -2444,7 +2444,9 @@ static int update_invalid_user_pages(struct amdkfd_process_info *process_info,
+>   			ret = -EAGAIN;
+>   			goto unlock_out;
+>   		}
+> -		mem->invalid = 0;
+> +		 /* set mem valid if mem has hmm range associated */
+> +		if (mem->range)
+> +			mem->invalid = 0;
+>   	}
+>   
+>   unlock_out:
+> @@ -2576,16 +2578,28 @@ static int confirm_valid_user_pages_locked(struct amdkfd_process_info *process_i
+>   	list_for_each_entry_safe(mem, tmp_mem,
+>   				 &process_info->userptr_inval_list,
+>   				 validate_list.head) {
+> -		bool valid = amdgpu_ttm_tt_get_user_pages_done(
+> -				mem->bo->tbo.ttm, mem->range);
+> +		/* Only check mem with hmm range associated */
+> +		bool valid;
+>   
+> -		mem->range = NULL;
+> -		if (!valid) {
+> -			WARN(!mem->invalid, "Invalid BO not marked invalid");
+> +		if (mem->range) {
 
-- Improvements in the SubVP feature
-- Keep disabling aux-i delay as 0
-- Add p-state debugging and improvements
-- Fix in secure display context creation
-- add an option to use custom backlight caps
-- Lowering min Z8 residency time
-- Restore rptr/wptr for DMCUB as a workaround
-- Update FW feature caps struct=20
+You can avoid unnecessary nesting and make this more readable by 
+inverting the condition:
 
-Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+		if (!mem->range)
+			continue;
 
-Alan Liu (1):
-  drm/amd/display: Fix in secure display context creation
+		valid = amdgpu_ttm_tt_get_user_pages_done(
+				mem->bo->tbo.ttm, mem->range);
+		...
 
-Alex Hung (1):
-  drm/amd/display: implement force function in amdgpu_dm_connector_funcs
+With that fixed, the patch is
 
-Alvin Lee (6):
-  drm/amd/display: Update FW feature caps struct
-  drm/amd/display: Limit DCN32 8 channel or less parts to DPM1 for FPO
-  drm/amd/display: Enable SubVP on PSR panels if single stream
-  drm/amd/display: For no plane case set pstate support in validation
-  drm/amd/display: Query GECC enable for SubVP disable
-  drm/amd/display: Enable SubVP for high refresh rate displays
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 
-Anthony Koo (1):
-  drm/amd/display: [FW Promotion] Release 0.0.163.0
 
-Aric Cyr (2):
-  drm/amd/display: 3.2.232
-  drm/amd/display: 3.2.233
-
-Dmytro Laktyushkin (1):
-  drm/amd/display: add pixel rate based CRB allocation support
-
-Gabe Teeger (1):
-  drm/amd/display: update extended blank for dcn314 onwards
-
-Hersen Wu (1):
-  drm/amd/display: assign edid_blob_ptr with edid from debugfs
-
-JinZe.Xu (1):
-  drm/amd/display: Restore rptr/wptr for DMCUB as workaround
-
-Josip Pavic (1):
-  drm/amd/display: add option to use custom backlight caps
-
-Leo (Hanghong) Ma (1):
-  drm/amd/display: Update scaler recout data for visual confirm
-
-Leo Chen (1):
-  drm/amd/display: Lowering min Z8 residency time
-
-Michael Strauss (2):
-  drm/amd/display: Convert Delaying Aux-I Disable To Monitor Patch
-  drm/amd/display: Keep disable aux-i delay as 0
-
-Sung Lee (1):
-  drm/amd/display: Add p-state debugging
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 56 ++++++++---  .../drm/am=
-d/display/amdgpu_dm/amdgpu_dm_crc.h |  2 +-  .../display/dc/clk_mgr/dcn30/d=
-cn30_clk_mgr.c  |  4 +-  .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  |  7=
- +-
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 21 ----
- .../gpu/drm/amd/display/dc/core/dc_resource.c | 18 ++++
- drivers/gpu/drm/amd/display/dc/dc.h           |  8 +-
- drivers/gpu/drm/amd/display/dc/dc_types.h     |  1 +
- .../drm/amd/display/dc/dcn10/dcn10_dpp_dscl.c | 18 +---
- .../drm/amd/display/dc/dcn20/dcn20_hubbub.c   |  5 +
- .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |  4 +-
- .../drm/amd/display/dc/dcn31/dcn31_hubbub.c   |  1 +
- .../amd/display/dc/dcn314/dcn314_resource.c   |  2 +-
- .../amd/display/dc/dcn315/dcn315_resource.c   | 97 ++++++++++++++++++-
- .../drm/amd/display/dc/dcn32/dcn32_hwseq.c    |  2 +
- .../drm/amd/display/dc/dcn32/dcn32_resource.c |  3 +  .../drm/amd/display/=
-dc/dcn32/dcn32_resource.h | 14 +++  .../display/dc/dcn32/dcn32_resource_hel=
-pers.c | 15 +++
- .../amd/display/dc/dcn321/dcn321_resource.c   |  1 +
- .../drm/amd/display/dc/dml/dcn20/dcn20_fpu.c  | 31 +++---  .../drm/amd/dis=
-play/dc/dml/dcn31/dcn31_fpu.c  | 25 ++++-  .../drm/amd/display/dc/dml/dcn31=
-/dcn31_fpu.h  |  3 +
- .../dc/dml/dcn31/display_mode_vba_31.c        | 39 +++++---
- .../dc/dml/dcn31/display_rq_dlg_calc_31.c     |  3 +-
- .../amd/display/dc/dml/dcn314/dcn314_fpu.c    | 14 ++-
- .../dc/dml/dcn314/display_rq_dlg_calc_314.c   | 16 +--
- .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  | 83 +++++++++++++++-  .../d=
-rm/amd/display/dc/dml/dcn32/dcn32_fpu.h  |  2 +
- .../dc/dml/dcn32/display_mode_vba_32.c        | 12 ++-
- .../amd/display/dc/dml/display_mode_structs.h |  3 +-  .../drm/amd/display=
-/dc/dml/display_mode_vba.c |  6 ++  .../gpu/drm/amd/display/dc/inc/hw/dchub=
-bub.h  |  1 +
- .../link_dp_training_fixed_vs_pe_retimer.c    | 23 +++--
- drivers/gpu/drm/amd/display/dmub/dmub_srv.h   | 17 +++-
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  4 +-
- .../gpu/drm/amd/display/dmub/src/dmub_dcn20.c |  5 +  .../gpu/drm/amd/disp=
-lay/dmub/src/dmub_dcn20.h |  2 +  .../gpu/drm/amd/display/dmub/src/dmub_dcn=
-31.c |  5 +  .../gpu/drm/amd/display/dmub/src/dmub_dcn31.h |  2 +  .../gpu/=
-drm/amd/display/dmub/src/dmub_dcn32.c |  8 ++  .../gpu/drm/amd/display/dmub=
-/src/dmub_dcn32.h |  3 +
- .../gpu/drm/amd/display/dmub/src/dmub_srv.c   | 17 ++++
- .../amd/display/modules/power/power_helpers.c | 43 ++++++++  .../amd/displ=
-ay/modules/power/power_helpers.h |  3 +
- 44 files changed, 518 insertions(+), 131 deletions(-)
-
---
-2.39.2
+> +			valid = amdgpu_ttm_tt_get_user_pages_done(
+> +					mem->bo->tbo.ttm, mem->range);
+> +
+> +			mem->range = NULL;
+> +			if (!valid) {
+> +				WARN(!mem->invalid, "Invalid BO not marked invalid");
+> +				ret = -EAGAIN;
+> +				continue;
+> +			}
+> +		} else
+> +			/* keep mem without hmm range at userptr_inval_list */
+> +			continue;
+> +
+> +		if (mem->invalid) {
+> +			WARN(1, "Valid BO is marked invalid");
+>   			ret = -EAGAIN;
+>   			continue;
+>   		}
+> -		WARN(mem->invalid, "Valid BO is marked invalid");
+>   
+>   		list_move_tail(&mem->validate_list.head,
+>   			       &process_info->userptr_valid_list);
