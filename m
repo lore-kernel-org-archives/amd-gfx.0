@@ -4,118 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 950E1C77B75
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 12:37:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56455C7618E
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 13:13:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E09010E0D6;
-	Fri, 21 Apr 2023 12:37:56 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2061d.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eaa::61d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B778610E0D6
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Apr 2023 12:37:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7503510E09A;
+	Fri, 21 Apr 2023 13:13:58 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on20609.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eab::609])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8567010E09A;
+ Fri, 21 Apr 2023 13:13:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=f8YiMfy4ARe2YigumihcOBEGjkqGF0cjkrXezvZmaCDxZNd8TF1xFL57kbdc2pdfkQeiaF3I05iN7Fb8Zqfq7DEXbl4HXZy5ZmLRv1/Nt2tnfc0VrIR23DvRpB86erdUQ0A175QBe0auJWGPibxfWdAlJynP/BgMzuUU+CdcwrLkfBzs9mtLlSqeUadlL0LQD7xqkUf/539DHEKmp6QVE3/wfSIzkYhljRyFz3m7KysYjRf4YE/lFIj5W0z5x0o3kgH8GfL4sngd8nRer+Mjepw7Z9807VT4gINT0riQgQWc/X9M3hhSFok+s0PAEVr8aTaNYcoxfiZ/mzDjt9i44Q==
+ b=dcU6c77J6KpRlyoyzu+9uwFE8N40YdnJOJ23LD9ULj45+ZCbC4+WLp/G5zrOzAs7hO9QIoH1n5YJ+QVT9TQacUAyWNPu7JAU5Tdh2RA/LYRvbjerr1fKBMPGym7kypOVoJX9/Bx0QK3Yt8eT2vTdLpgucr3aa+s298bPyjsjWdGmHSD+GltNh0AlDzorpF7dwFj+ei4Fl84JP2XHtPOh+qZPauP0vETQWZ80+p/HCnh39gUC+LgDPw8WRrrRoteCiok8/mj+oeK/42Jysak/9ERVEs26qQF6dBkYdWYqEp212CQh/CH0AgpDLGFUba3gHmNCOg4QoLgBNprBvY3L/w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M8cKEBIcXnYki0cIE+rhi0+rCY4ERRoYhivu2v6GBBE=;
- b=CwO5YfH0fWC8EPM5WbyjsfcI3edg3iqbFSprA9Bd1hr3qZLPuTa4Vpe5KQJdOHhkTLRLtdNYM8x7gtGxfII/biqhXA7MI8DsaIQ81VOrpLWtLBm7pJnocH1UIkks4jNh/JH/mM7IpkwPc2tSxQbNxFi/gtpg6C78F1w1M2Use8BsDrkI0TuM+LPcYw+72YzVikBEOAH6Ehz1MHQFw9NI8SyHA4TmlYm/X4BEqD2lgZzMbvECL/2uIOmeweesCZaNy38e2krfyipgSiuiJAZW0lKiG4C4kfC/ngT8J8J3QY8M9rEx9Cv+TTcpwgiomb/9Pu7U/0Pow20az+aHesGXug==
+ bh=ssuDPhmsX+dV466wBK+9NCr2IIo7ssZeaXVJgeCgIdU=;
+ b=JoGZCVAHnxrcfxT3OTuHBwI6Sv3votwyspR4ZZUBI8L6VImWtIu/2Sc68cp8y8NH9sucbS7IXJSrqhNvm6xqH0IOpqFl3fNFPvpNb2qfTt5ZbNtiNKd4j1WSUtmoFEi4AnzPOVR8J4pC4lyYvvuvCzIvk39IzLQ/w+rOPjklUBnNgN4Iisy/JiqcbChmGIVBLqGmk16uF0CTqW/Krdj52YfCFj45OFB3FASthUYZ387Fqi7HMJCTUM2M0y1V5wjcnksZIpS5joSwB+QwZ/6AY/xK5HmtsQHcxmcipzAJ0XSBmnkps29F54SvY+FH4StY2g308N5Nzc56a1y6+6dCDg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M8cKEBIcXnYki0cIE+rhi0+rCY4ERRoYhivu2v6GBBE=;
- b=CYvPhpeRNsgmqbiep1WtfPRdX/Bjq+UTpz3ffUczOcJxSHTDUTh9ScxROeV+8+AiJStd6CMy2LMAEeGlUMwhJlWsQa1mDYKyYn+h6YMnM1XfYZtYTcgec5aVLgTYfrfs4EwjjNmS17xRMaYH3WOxLmrgefi+Rqq1pYN7zDH+wAc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by DS0PR12MB7584.namprd12.prod.outlook.com (2603:10b6:8:13b::13) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=ssuDPhmsX+dV466wBK+9NCr2IIo7ssZeaXVJgeCgIdU=;
+ b=uJC4uVdpHJT45Xd0chzdO5LVOZxxvwON1mtQ70npq9bnan3j6C65UlEts0FbDTUg89woIssxRTOQCz4owZhqBJFhcDMVk4qxug7yO0Xt2ktt99DTOgv4KVGO3rP2a1Nk0RLJu30yGPf8Ntu1OzGY3VcjaUjCw1QWgs+3cPF/4nc=
+Received: from CO6PR12MB5489.namprd12.prod.outlook.com (2603:10b6:303:139::18)
+ by CH3PR12MB7690.namprd12.prod.outlook.com (2603:10b6:610:14e::20)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.22; Fri, 21 Apr
- 2023 12:37:51 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::d2f8:7388:39c1:bbed]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::d2f8:7388:39c1:bbed%3]) with mapi id 15.20.6319.022; Fri, 21 Apr 2023
- 12:37:50 +0000
-Message-ID: <40ef0a99-d159-d3ec-848f-efab6e702b56@amd.com>
-Date: Fri, 21 Apr 2023 14:37:45 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: [PATCH v3 2/6] drm/amdgpu: Implement a new userqueue fence driver
+ 2023 13:13:52 +0000
+Received: from CO6PR12MB5489.namprd12.prod.outlook.com
+ ([fe80::eb2a:87af:d22d:ccb]) by CO6PR12MB5489.namprd12.prod.outlook.com
+ ([fe80::eb2a:87af:d22d:ccb%5]) with mapi id 15.20.6319.022; Fri, 21 Apr 2023
+ 13:13:52 +0000
+From: "Lin, Wayne" <Wayne.Lin@amd.com>
+To: =?iso-8859-1?Q?Ville_Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Subject: RE: [PATCH] drm/dp_mst: Clear MSG_RDY flag before sending new message
+Thread-Topic: [PATCH] drm/dp_mst: Clear MSG_RDY flag before sending new message
+Thread-Index: AQHZcbxV7BqBioN1p0GeDL3gde3pDK8xGQoAgASm9EA=
+Date: Fri, 21 Apr 2023 13:13:52 +0000
+Message-ID: <CO6PR12MB54893CD6D3B839F5F78AC203FC609@CO6PR12MB5489.namprd12.prod.outlook.com>
+References: <20230418060905.4078976-1-Wayne.Lin@amd.com>
+ <ZD6isq36T+RQ7uNK@intel.com>
+In-Reply-To: <ZD6isq36T+RQ7uNK@intel.com>
+Accept-Language: en-US, zh-TW
 Content-Language: en-US
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20230420144714.124377-1-Arunpravin.PaneerSelvam@amd.com>
- <20230420144714.124377-3-Arunpravin.PaneerSelvam@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230420144714.124377-3-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0265.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b5::14) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|DS0PR12MB7584:EE_
-X-MS-Office365-Filtering-Correlation-Id: 86c33715-99be-4300-dbd2-08db42653848
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wTLLlZnON0E0pT8izW+SzLglEj1QWPAeFHQ48zYMBvTGpwwtyTWU8YHuYAOUHrnXrHHnGLCVl81ihYipSU7zlHTs2fAD5ISLbtgZYZgdfIat/JbQUW2ivzNBT22VjRwUt7B2/7Gy0jYtyhBwXMgPU9aODjpGZhuFbZ6xmhSbFVqNIvJwgy/xSJBFm9FduHNXD3ueirGO7/AolFOgptDW6HZvjDnhTj4lvSX27a+vsTOkpzWWtLg5y/zjwl1shLVs3jUvWH6uf/eF93EHuoFK7BlpN2iXxuveuGo3mkrUiUfT4hyRN1sdNZXuccvBAVtbRUrr8ksmtsTMIPt0Zt6kEYgIEnTLZRTSzcWQQfP2y2wgnYApaUEAuVBSB7UfNgSHWbF+kiBmJf86j/4s9F1rOEvrb8vYanPy5VwXtl7uG30q7Ig8xAKFzBZdRUHf8KnIITuy2Jhlw906MyIgVit3JG6EEOt0Nsy9fmZ+QbpjVfIninHhDl9rJIebdzmbIpqG8J8Xzs00vW/E0q0Ayw0Oob5SqwViqeJa4ihDjWb2VFjoAnOO7UGiRB1AMvXa7U9POYvkepy1UwtblpOwytKDm9nEGxZH1XlrVynwP19Znb4qg7bKe61W2RjwtFSx9OzoVr51NeN/GiNpio8Ox1sVCA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(366004)(396003)(136003)(39860400002)(346002)(451199021)(83380400001)(478600001)(2616005)(31686004)(6506007)(31696002)(6486002)(6512007)(6666004)(66476007)(66556008)(41300700001)(66946007)(4326008)(316002)(186003)(5660300002)(38100700002)(66899021)(8676002)(2906002)(8936002)(30864003)(86362001)(36756003)(45980500001)(43740500002);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-04-21T13:13:04Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=99b1f007-9036-4c33-8be6-3a728cb24061;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CO6PR12MB5489:EE_|CH3PR12MB7690:EE_
+x-ms-office365-filtering-correlation-id: b2328da4-fbfc-40bd-9f47-08db426a40b7
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: arhwg4IXJVdvlZL7Xr5QjD0rEdyGHnng3Kzzf0u6bpL5HBqYgkvXGrl5P4QpA3R/t5CY3bYt7R+HWsi0z+q0SufMZgWxJTOqtEz+G1putrMMdCDojbuHYGljP8y+NPbt4LVYFJTAJbS+SHfJ23KeTD4n85i0TK0Ohm5St1Myn3Y/Q2RN/K/nf0azMDX0y/2BNHUei9hUjWjbiGJsN9+HTdkx7h1A+HIb1CkaGZK3l1ehYWv8nT5F7uNiIy/mSns1qvj5B+NJYj1aHu0PtUqWS4Dh806VzezVuLd1g95fYHcS9GjDZ9CUF1S2W7e6qu89v8ZwAxXnkmY28ktQniKepfKS2QUBhIKMX8w2T57LTtXC75WVbUACV408z55kt0+zk1tN+7m7s/r749S/K0FptYchqSVApqrXjx/ZcrpKPO8L0HpK6UNBy7o1NLzRDfqDRHz+6Un9Q6QADpg21D57EI/YfnSpRLab7hBqQyesDAYGks/dWC4GWwo3yn/QIQisnUVppP7NBuPQ1LAS0AOCcnIqIYdAa88t48Nlucf37hT9mFO/gW73KVfvIWSfSM9xbYplnHGC8GfbXiHtvB2JIjVGFg4AX67MPH+ArQJbiVGbmcxANg42DWHu5EfSR9K0
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5489.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(396003)(136003)(39860400002)(366004)(376002)(451199021)(53546011)(9686003)(6506007)(26005)(55016003)(186003)(33656002)(54906003)(478600001)(71200400001)(5660300002)(7696005)(38100700002)(52536014)(4326008)(8676002)(2906002)(316002)(38070700005)(15650500001)(64756008)(6916009)(86362001)(66476007)(66556008)(66946007)(66446008)(76116006)(8936002)(41300700001)(122000001)(83380400001)(66574015);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ajZqK2preDBKam9wcEFZNDhoYU1wdnR1WHluU21JYkNFUURrTDZNaG9JaXFq?=
- =?utf-8?B?V3RKUFc1OWtlNGE4b2o5Nm9rQ2xpY2ltVjRTSHBNNW5rbjdQM3MyeUdZMUZk?=
- =?utf-8?B?eDNnV0xWMDN4WFZtbUpjbHVSZ3M4RDNqajBGQXM4S2h5d3pHdWVzZUM5aWdV?=
- =?utf-8?B?c1lTYkVjckVDaXJnVlMydkxXQXJwVSthNnhoOEdPY2tCcXBYaStEY29tREFL?=
- =?utf-8?B?N1Z4L0NoWGxOT3poRTBIQis4M1pSamsxdmh2YWlqWFBOM1ZXdXkzRTIwSlBE?=
- =?utf-8?B?OVpSV2Y2MUM2VGl2aklHUFZGd29zUWRGOVJMUk9rY3JkbUtkWEk2ZExWdTJz?=
- =?utf-8?B?TFV6TzdYMitHa1RyU2llZkVoeHppUmxJakpGdUYreWs4VW9WckwrZU9jajE5?=
- =?utf-8?B?ZjE5MDZCWmdQSTFCV2I5VC9pcDhqSE5jcXc5U2t4TUdhWHcxbGZGRFZGdUx1?=
- =?utf-8?B?VFE2eXB3Z05BRXNMYXo3aEhHN3cwVXRQa0RYWW9ENGNGY1VrUWVNejFjelRi?=
- =?utf-8?B?cnpwbjRoeE1LSmFHa3YzSkh4cnJOdndOd2lIYzFQQndsOFR6UjQ0TUUycjU0?=
- =?utf-8?B?MVZ6TTdCZ1hIQUkzOTdCYWlRcnd4cUoybHphTkdKSit1WFNPU005WUhMMjhU?=
- =?utf-8?B?VEtwakIwbHNvWG9XUDNpbzlQcFpESGRqSjdSR0E4aUo2bDdpWDZzNzNXWER5?=
- =?utf-8?B?bWp0U3ZNaXk4Q0NTeFRVNVdGNUZDZjJic0ZFMVRlNWZiTjBLN0RCTGI2ZWda?=
- =?utf-8?B?aFpQMWxEb2k0S1JWVXNWdCtoZjFaQ2YyeHVnVEx2cWdXTTlIN2lIVm5lSEly?=
- =?utf-8?B?V1lRd1dxa2R1TUJHWjNWOFVFVGdGZUk1eFdUTGM5V1Y5eEhQNXVxRTlFUDVs?=
- =?utf-8?B?OXVtZkZ5OFoyUi9xWFNQVFBhS0tGdVFPU0dDSW5DS2pmazhLSitGVWhVdG8y?=
- =?utf-8?B?MXdRSGZ5M2ZGa0M2YUROL1B4cTJNQnBJUkhvb0V0UU5hNTVTZS85aUpYQkNp?=
- =?utf-8?B?YjUvRmNLME1MK0pVMi9LRU10eDRaMWRIRkZKUWlacXdoaVZNcXM4UGp4Rlky?=
- =?utf-8?B?a2JZZCt1ZnBRTERCVVNNN0FIWGNWZHFlS1kwU09lU0hRcXprdTFhRXNpNjI1?=
- =?utf-8?B?YnBQRVVYa3F0YUFXTkxuekF4K1hNOUhnZDJjYVZRZDNCcXJ3ZmdPeHNmcVJR?=
- =?utf-8?B?WWk1OEx4UmlxVEdFanIvUUVzN1VKeDVkRXVWUnk3andTTDg2WHVWZENnMVEv?=
- =?utf-8?B?dWtNNnpldDJ0YmZEalRtMzJHRDB3SWFpdERxMmNqNFl6a05pdUVVc3lWZk9G?=
- =?utf-8?B?dk0xZUZvdVVoOWRGc255cFdUY2lzSEpubHNJdFJzU051UnU5dWFUYXVzME5R?=
- =?utf-8?B?MUQvalpQdlA2cERJODZLK2F0K0FsR0NLaFZnYnhWY2JrY2JtdnJjU1VpQUUx?=
- =?utf-8?B?K09XdXFOSkpIVE5wOUZ4ZDlLT1hCeWdZaTV3ZjQ4dlI3N3l5NHRtUzFMT2Rk?=
- =?utf-8?B?Qm5kckNpVHZhTk1GalFmQzdzS3ZocjRJb3ZyOHVGdCttajQzVXV5WGUxalow?=
- =?utf-8?B?WjRmQTFGWjduTU9NL1JJWjJmUm9HcFpCSllqV2lqQWllTXpQcnQyV3AxVUFH?=
- =?utf-8?B?dUhQWlB4cTF1MlUzeFZBaUEva1B2UXZGT01TbzdVUlFqdXNRU050aksvN2Vm?=
- =?utf-8?B?NExNOEdsdDdLNmw2dnhnMi8vc1k2bmhSV3ZsOXhLSmtOVzRqSGswSUM2eXA1?=
- =?utf-8?B?THRZTFNmblJZamVtMURDRjlkd2ozMnRsb0RuYzRlS1Q4dmF3bEx1c2ZoT2xX?=
- =?utf-8?B?ZEZVUldrRXQ4ZVhBeDEvRTYzZy9YN0J3SEJGVTRpUFVzYVdPeGpEeldJV0ph?=
- =?utf-8?B?YlNkVnlXb05YNjNVYWlYb25IVVNOOGQ3ZWhJNGo5cG84eEN1K2x0MnRCOGVO?=
- =?utf-8?B?L0pkdlhZUFQrbFdWZ3A2aTdEbWo5TW9FLzNEQ0tTM2JNYlIrWmtrNWNpamw4?=
- =?utf-8?B?em43dkxSSHMyWVloZUI1M213QlEwTG13WStoR1hMRFFpSU55emtnN3BoeG9W?=
- =?utf-8?B?ZFZObFlNZkhtTkhRS0dFS3paenh3S1dQeFRBV2FlTUtOcG9NeWE1cWF4ejJQ?=
- =?utf-8?B?UHo2R3htZzQxYjd6Y2VDRnJ6cDlpNDBmaUpIbEl4Z0lvUHczaGpueWI3amw0?=
- =?utf-8?Q?U0nAxGUggN9iA6UcTP7EMgVXxYndJzT6X3NOEs4LaLeT?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?bcBsLp+MWQpI+qfu8M0x0xhjBUUxWrFT0oc5IfM9wam9ThiHoJdt8yJtV8?=
+ =?iso-8859-1?Q?gPsWs5UB2Q4WgXwhIE+gNLwAi29DG1pgJl6fnrA4ONgLiUx6Z35qnp1/eO?=
+ =?iso-8859-1?Q?gpapA5AbeiimQmy0rkwarmZze0N2r4ipETy4b+YSz1XMVIPFM2IRSp6w/U?=
+ =?iso-8859-1?Q?69FrmXZHt1bQwSUxutP7fFbzjXd2b9+8vI0z1uRYO+Uk6IfgjZnBKvbgeJ?=
+ =?iso-8859-1?Q?Nyu/7jz49s/58KSEvyOxy38U+BJFgpwKFbuSGK6ODPc1IsdJuUhtEPkQV0?=
+ =?iso-8859-1?Q?c3kvhu09tZYtwHnfWxvMXwV3ulVLGRgG3Gg1GCszUcTjLyZAKICgMczgIf?=
+ =?iso-8859-1?Q?BGdG5G8P8keOASISrHqau7g/wP7RPNeEX9vsYdmWpgPFFErH16uBMdJDTb?=
+ =?iso-8859-1?Q?p+dVsZaOdeDzBshgE2NUPKZyOUoM8UF3uVrmRWG0pmpFT2S2fQgfEgsglU?=
+ =?iso-8859-1?Q?rIBSG5farja5vxHCgmXvs7V57uCe72fYM2dqZQWJ1WrMMw3NvW5UzBnj5M?=
+ =?iso-8859-1?Q?QMQFKAlvyk+UkHx6VpC0TemQK38NROfYNSt3LbUcSKFo3xY1hBDgvPuDQc?=
+ =?iso-8859-1?Q?jaS6Xs7bkjew0n518rQTWcr5Uo+ltRspt6yvJwaZiXCgZSNADL420Skk+S?=
+ =?iso-8859-1?Q?wMAcS2URrhfIFbHSanSUVgHY7GO9y/hrtk1Uyv9oUoF00i7A1BAC2QgUGo?=
+ =?iso-8859-1?Q?OvkVWbIfvWVMvUzmf4spkQ3BAPeVHTM+xMvCQbbPFuMBl1GcLhgLkedX4Y?=
+ =?iso-8859-1?Q?ZkOuYAr9IYPXUR8K0t4uNhXZWx8qcKfbT3fPWjy2o5eksYqCKUzaAOPBv8?=
+ =?iso-8859-1?Q?QTZS0qvvPqke8n9169lGronVuzQ4TwrggtS8t8dFVJM7dK6BNBJBedGJ4M?=
+ =?iso-8859-1?Q?EZ20UNEnihqTD0SYSv9ltx/ARv7Uy6kvmBsrX7aapLHfjxZQ1yzKOIJcXj?=
+ =?iso-8859-1?Q?2LXDS5yYfmyl4RnI6W+7zanr3oTQnwtiVgbwQqqa7qwwFEFBgyJVu0lr2e?=
+ =?iso-8859-1?Q?ChuMVb8JpP/zMOSjEdSrIJo46KERBZ1tlkjW2CxJYE0ommjKZ0kpXKlsZx?=
+ =?iso-8859-1?Q?7S7OTdCURX2wYQK7bh+B4WCMEEBJK1f7ME/Wb6sZHryqksGI49/3dtP1Qm?=
+ =?iso-8859-1?Q?7cGqOP+O4Bbd7jj9Zj7zrWhpWT7nf4wBq5pTyxI9uFYi9VulJLV39x3Ljd?=
+ =?iso-8859-1?Q?GbTAKu//ifGE6PFHc/JorrNdAdcjnZlKzN5Ht/Z1PL3cjaGJG82d5xyBND?=
+ =?iso-8859-1?Q?7o47pKdHLMeB1SkML1mxds3IQrAfUWSjKxayh3NqNg723yWoLwPdRfg6F6?=
+ =?iso-8859-1?Q?JsV5fPfSEpR6cvlLOfzHGPXOt/i8vmAcpFUsIt/Ra0y29WpcFpLcCrJyL/?=
+ =?iso-8859-1?Q?N0FQ2Qg2+M8kS/ibOBe78m5bOjv3ANri4S1NQqha8F8V6HQCDGlCbnrgPW?=
+ =?iso-8859-1?Q?jmdFjY91mU5sXnvtjukCrHXTvN0ctB+DJAASzxrpCL/2O98bUzX6uUE7Ug?=
+ =?iso-8859-1?Q?fXXGHufdjI5MQBRUakvktxrV6vjw6dZL4UR9NWIsFbpu2RdbXZRDausUNL?=
+ =?iso-8859-1?Q?MXSibTphIonO2DCAcY0T4kywQKqySnrD5PmtwQ2bRog9TojZOy6bOBjx2r?=
+ =?iso-8859-1?Q?qmOVwjoqDCKjU=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 86c33715-99be-4300-dbd2-08db42653848
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2023 12:37:50.7970 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: le0c6CI+BRyyzto+GWEodRDHwIxaYRJd8Rh4H7cmWK4Svlf96MrpgdY0xStbAPCu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7584
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5489.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b2328da4-fbfc-40bd-9f47-08db426a40b7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Apr 2023 13:13:52.2323 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: VxGGEwIhA8umIV6pHnu+Lpxjx1rgj2kjUnkK2z8vZ4wN0qxdOIH38FZoZ6sERlwzS37C9s7F59jYATzIJojNRQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7690
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,542 +124,194 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com
+Cc: "jani.nikula@intel.com" <jani.nikula@intel.com>,
+ "imre.deak@intel.com" <imre.deak@intel.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zuo,
+ Jerry" <Jerry.Zuo@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 20.04.23 um 16:47 schrieb Arunpravin Paneer Selvam:
-> Developed a userqueue fence driver for the userqueue process shared
-> BO synchronization.
->
-> Create a dma fence having write pointer as the seqno and allocate a
-> seq64 memory for each user queue process and feed this memory address
-> into the firmware/hardware, thus the firmware writes the read pointer
-> into the given address when the process completes it execution.
-> Compare wptr and rptr, if rptr >= wptr, signal the fences for the waiting
-> process to consume the buffers.
->
-> v2: Worked on review comments from Christian for the following
->      modifications
->
->      - Add wptr as sequence number into the fence
->      - Add a reference count for the fence driver
->      - Add dma_fence_put below the list_del as it might frees the userq fence.
->      - Trim unnecessary code in interrupt handler.
->      - Check dma fence signaled state in dma fence creation function for a
->        potential problem of hardware completing the job processing beforehand.
->      - Add necessary locks.
->      - Create a list and process all the unsignaled fences.
->      - clean up fences in destroy function.
->      - implement .signaled callback function
->
-> v3: Worked on review comments from Christian
->      - Modify naming convention for reference counted objects
->      - Fix fence driver reference drop issue
->      - Drop amdgpu_userq_fence_driver_process() function return value
+[Public]
 
-That looks really good, just two more comments below.
+Much appreciated, Ville and Jani!
 
->
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> ---
->   build.sh                                      |  11 +
->   drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   6 +
->   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 253 ++++++++++++++++++
->   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.h   |  64 +++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c |  19 ++
->   .../gpu/drm/amd/include/amdgpu_userqueue.h    |   1 +
->   7 files changed, 355 insertions(+), 1 deletion(-)
->   create mode 100755 build.sh
->   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
->
-> diff --git a/build.sh b/build.sh
-> new file mode 100755
-> index 000000000000..fddaff75dd2a
-> --- /dev/null
-> +++ b/build.sh
-> @@ -0,0 +1,11 @@
-> +#make -j16 modules M=drivers/gpu/drm/
-> +#make -j16 modules M=drivers/gpu/drm/selftests/
-> +make -j16 modules M=drivers/gpu/drm/amd/amdgpu/
-> +#make -j16 modules M=drivers/gpu/drm/ttm/
-> +#cp drivers/gpu/drm/drm.ko /lib/modules/$(uname -r)/kernel/drivers/gpu/drm/
-> +#cp drivers/gpu/drm/selftests/test-drm_buddy.ko /lib/modules/$(uname -r)/kernel/drivers/gpu/drm/selftests/
-> +#cp drivers/gpu/drm/amd/amdgpu/amdgpu.ko /lib/modules/$(uname -r)/kernel/drivers/gpu/drm/amd/amdgpu/
-> +#cp drivers/gpu/drm/ttm/ttm.ko /lib/modules/$(uname -r)/kernel/drivers/gpu/drm/ttm/
-> +#update-initramfs -c -k $(uname -r)
-> +#reboot
-> +
+To tackle this MST message ack event now, probably I could just pull out th=
+e=20
+drm_dp_mst_kick_tx() out of drm_dp_mst_hpd_irq() and make it the second=20
+step function to handle mst hpd irq? Would like to know your thoughts : )
 
-I strongly assume you didn't intentionally committed that, did you?
+Again, thanks for your time!
 
-Anyway, please remove :)
+Regards,
+Wayne Lin
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-> index d39504e65db1..8ed9be0d4818 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
-> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-> @@ -59,7 +59,7 @@ amdgpu-y += amdgpu_device.o amdgpu_doorbell_mgr.o amdgpu_kms.o \
->   	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o \
->   	amdgpu_fw_attestation.o amdgpu_securedisplay.o \
->   	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o \
-> -	amdgpu_ring_mux.o amdgpu_seq64.o
-> +	amdgpu_ring_mux.o amdgpu_seq64.o amdgpu_userq_fence.o
->   
->   amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 229976a2d0e7..e9c5047087d0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -53,6 +53,7 @@
->   #include "amdgpu_xgmi.h"
->   #include "amdgpu_reset.h"
->   #include "amdgpu_userqueue.h"
-> +#include "amdgpu_userq_fence.h"
->   
->   /*
->    * KMS wrapper.
-> @@ -2826,6 +2827,10 @@ static int __init amdgpu_init(void)
->   	if (r)
->   		goto error_fence;
->   
-> +	r = amdgpu_userq_fence_slab_init();
-> +	if (r)
-> +		goto error_fence;
-> +
->   	DRM_INFO("amdgpu kernel modesetting enabled.\n");
->   	amdgpu_register_atpx_handler();
->   	amdgpu_acpi_detect();
-> @@ -2850,6 +2855,7 @@ static void __exit amdgpu_exit(void)
->   	amdgpu_unregister_atpx_handler();
->   	amdgpu_sync_fini();
->   	amdgpu_fence_slab_fini();
-> +	amdgpu_userq_fence_slab_fini();
->   	mmu_notifier_synchronize();
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> new file mode 100644
-> index 000000000000..a03d12f83147
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> @@ -0,0 +1,253 @@
-> +// SPDX-License-Identifier: MIT
-> +/*
-> + * Copyright 2023 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +
-> +#include <linux/kref.h>
-> +#include <linux/slab.h>
-> +
-> +#include <drm/drm_syncobj.h>
-> +
-> +#include "amdgpu.h"
-> +#include "amdgpu_userq_fence.h"
-> +
-> +static struct kmem_cache *amdgpu_userq_fence_slab;
-> +
-> +int amdgpu_userq_fence_slab_init(void)
-> +{
-> +	amdgpu_userq_fence_slab = kmem_cache_create("amdgpu_userq_fence",
-> +						    sizeof(struct amdgpu_userq_fence),
-> +						    0,
-> +						    SLAB_HWCACHE_ALIGN,
-> +						    NULL);
-> +	if (!amdgpu_userq_fence_slab)
-> +		return -ENOMEM;
-> +
-> +	return 0;
-> +}
-> +
-> +void amdgpu_userq_fence_slab_fini(void)
-> +{
-> +	rcu_barrier();
-> +	kmem_cache_destroy(amdgpu_userq_fence_slab);
-> +}
-> +
-> +static inline struct amdgpu_userq_fence *to_amdgpu_userq_fence(struct dma_fence *f)
-> +{
-> +	struct amdgpu_userq_fence *__f = container_of(f, struct amdgpu_userq_fence, base);
-> +
-> +	if (!__f)
-> +		return NULL;
-> +
-> +	if (__f->base.ops == &amdgpu_userq_fence_ops)
-> +		return __f;
-> +
-> +	return NULL;
-> +}
-> +
-> +static u64 amdgpu_userq_fence_read(struct amdgpu_userq_fence_driver *fence_drv)
-> +{
-> +	return le64_to_cpu(*fence_drv->cpu_addr);
-> +}
-> +
-> +int amdgpu_userq_fence_driver_alloc(struct amdgpu_device *adev,
-> +				    struct amdgpu_usermode_queue *userq)
-> +{
-> +	struct amdgpu_userq_fence_driver *fence_drv;
-> +	int r;
-> +
-> +	fence_drv = userq->fence_drv;
-> +	if (!fence_drv)
-> +		return -EINVAL;
-> +
-> +	/* Acquire seq64 memory */
-> +	r = amdgpu_seq64_get(adev, &fence_drv->gpu_addr,
-> +			     &fence_drv->cpu_addr);
-> +	if (r)
-> +		return -ENOMEM;
-> +	
-> +	kref_init(&fence_drv->refcount);
-> +	INIT_LIST_HEAD(&fence_drv->fences);
-> +	spin_lock_init(&fence_drv->fence_list_lock);
-> +
-> +	fence_drv->adev = adev;
-> +	fence_drv->context = dma_fence_context_alloc(1);
-> +
-> +	get_task_comm(fence_drv->timeline_name, current);
-> +
-> +	return 0;
-> +}
-> +
-> +void amdgpu_userq_fence_driver_process(struct amdgpu_userq_fence_driver *fence_drv)
-> +{
-> +	struct amdgpu_userq_fence *userq_fence, *tmp;
-> +	struct dma_fence *fence;
-> +
-> +	if (!fence_drv)
-> +		return;
-> +
-> +	spin_lock(&fence_drv->fence_list_lock);
-> +	list_for_each_entry_safe(userq_fence, tmp, &fence_drv->fences, link) {
-> +		fence = &userq_fence->base;
-> +
-> +		if (amdgpu_userq_fence_read(fence_drv) >= fence->seqno) {
-> +			dma_fence_signal(fence);
-> +			list_del(&userq_fence->link);
-> +
-> +			dma_fence_put(fence);
-> +		} else {
-> +			break;
-> +		}
-> +	}
-> +	spin_unlock(&fence_drv->fence_list_lock);
-> +}
-> +
-> +void amdgpu_userq_fence_driver_destroy(struct kref *ref)
-> +{
-> +	struct amdgpu_userq_fence_driver *fence_drv = container_of(ref,
-> +					 struct amdgpu_userq_fence_driver,
-> +					 refcount);
-> +	struct amdgpu_device *adev = fence_drv->adev;
-> +	struct amdgpu_userq_fence *fence, *tmp;
-> +	struct dma_fence *f;
-> +	
-> +	spin_lock(&fence_drv->fence_list_lock);
-> +	list_for_each_entry_safe(fence, tmp, &fence_drv->fences, link) {
-> +		f = &fence->base;
-> +		
-> +		if (!dma_fence_is_signaled(f)) {
-> +			dma_fence_set_error(f, -ECANCELED);
-> +			dma_fence_signal(f);
-> +		}
-> +		
-> +		list_del(&fence->link);
-> +		dma_fence_put(f);
-> +	}
-> +	
-> +	WARN_ON_ONCE(!list_empty(&fence_drv->fences));
-> +	spin_unlock(&fence_drv->fence_list_lock);
-> +	
-> +	/* Free seq64 memory */
-> +	amdgpu_seq64_free(adev, fence_drv->gpu_addr);
-> +	kfree(fence_drv);
-> +}
-> +
-> +void amdgpu_userq_fence_driver_get(struct amdgpu_userq_fence_driver *fence_drv)
-> +{
-> +	kref_get(&fence_drv->refcount);
-> +}
-> +
-> +void amdgpu_userq_fence_driver_put(struct amdgpu_userq_fence_driver *fence_drv)
-> +{
-> +	kref_put(&fence_drv->refcount, amdgpu_userq_fence_driver_destroy);
-> +}
-> +
-> +int amdgpu_userq_fence_create(struct amdgpu_usermode_queue *userq,
-> +			      u64 seq, struct dma_fence **f)
-> +{
-> +	struct amdgpu_userq_fence_driver *fence_drv;
-> +	struct amdgpu_userq_fence *userq_fence;
-> +	struct dma_fence *fence;
-> +
-> +	fence_drv = userq->fence_drv;
-> +	if (!fence_drv)
-> +		return -EINVAL;
-> +
-> +	userq_fence = kmem_cache_alloc(amdgpu_userq_fence_slab, GFP_ATOMIC);
-> +	if (!userq_fence)
-> +		return -ENOMEM;
-> +
-> +	spin_lock_init(&userq_fence->lock);
-> +	INIT_LIST_HEAD(&userq_fence->link);
-> +	fence = &userq_fence->base;
-> +	userq_fence->fence_drv = fence_drv;
-> +
-> +	dma_fence_init(fence, &amdgpu_userq_fence_ops, &userq_fence->lock,
-> +		       fence_drv->context, seq);
-> +
-> +	amdgpu_userq_fence_driver_get(fence_drv);
-> +	dma_fence_get(fence);
-> +
-> +	spin_lock(&fence_drv->fence_list_lock);
-> +	/* Check if hardware has already processed the job */
-> +	if (!dma_fence_is_signaled(fence)) {
-> +		list_add_tail(&userq_fence->link, &fence_drv->fences);
-> +	} else {
-> +		dma_fence_put(fence);
-> +	}
-> +	spin_unlock(&fence_drv->fence_list_lock);
-> +
-> +	*f = fence;
-> +
-> +	return 0;
-> +}
-> +
-> +static const char *amdgpu_userq_fence_get_driver_name(struct dma_fence *f)
-> +{
-> +	return "amdgpu_userqueue_fence";
-> +}
-> +
-> +static const char *amdgpu_userq_fence_get_timeline_name(struct dma_fence *f)
-> +{
-> +	struct amdgpu_userq_fence *fence = to_amdgpu_userq_fence(f);
-> +
-> +	return fence->fence_drv->timeline_name;
-> +}
-> +
-> +static bool amdgpu_userq_fence_signaled(struct dma_fence *f)
-> +{
-> +	struct amdgpu_userq_fence *fence = to_amdgpu_userq_fence(f);
-> +	struct amdgpu_userq_fence_driver *fence_drv = fence->fence_drv;
-> +	u64 rptr, wptr;
-> +
-> +	rptr = amdgpu_userq_fence_read(fence_drv);
-> +	wptr = fence->base.seqno;
-> +
-> +	if (rptr >= wptr)
-> +		return true;
-> +
-> +	return false;
-> +}
-> +
-> +static void amdgpu_userq_fence_free(struct rcu_head *rcu)
-> +{
-> +	struct dma_fence *fence = container_of(rcu, struct dma_fence, rcu);
-> +	struct amdgpu_userq_fence *userq_fence = to_amdgpu_userq_fence(fence);
-> +	struct amdgpu_userq_fence_driver *fence_drv = userq_fence->fence_drv;
-> +
-> +	/* Release the fence driver reference */
-> +	amdgpu_userq_fence_driver_put(fence_drv);
-> +	kmem_cache_free(amdgpu_userq_fence_slab, userq_fence);
-> +}
-> +
-> +static void amdgpu_userq_fence_release(struct dma_fence *f)
-> +{
-> +	call_rcu(&f->rcu, amdgpu_userq_fence_free);
-> +}
-> +
-> +static const struct dma_fence_ops amdgpu_userq_fence_ops = {
-> +	.use_64bit_seqno = true,
-> +	.get_driver_name = amdgpu_userq_fence_get_driver_name,
-> +	.get_timeline_name = amdgpu_userq_fence_get_timeline_name,
-> +	.signaled = amdgpu_userq_fence_signaled,
-> +	.release = amdgpu_userq_fence_release,
-> +};
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
-> new file mode 100644
-> index 000000000000..7329b4e5dd30
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
-> @@ -0,0 +1,64 @@
-> +/* SPDX-License-Identifier: MIT */
-> +/*
-> + * Copyright 2023 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +
-> +#ifndef __AMDGPU_USERQ_FENCE_H__
-> +#define __AMDGPU_USERQ_FENCE_H__
-> +
-> +#include <linux/types.h>
-> +
-> +#include "amdgpu_userqueue.h"
-> +
-> +struct amdgpu_userq_fence {
-> +	struct dma_fence base;
-> +	/* userq fence lock */
-> +	spinlock_t lock;
-
-This one.
-
-> +	struct list_head link;
-> +	struct amdgpu_userq_fence_driver *fence_drv;
-> +};
-> +
-> +struct amdgpu_userq_fence_driver {
-> +	struct kref refcount;
-> +	u64 gpu_addr;
-> +	u64 *cpu_addr;
-> +	u64 context;
-> +	/* fence list lock */
-> +	spinlock_t fence_list_lock;
-
-And that one here should have better documentation.
-
-It's obvious what they are, so the existing doc doesn't help at all.
-
-What you need to document is why they are separate.
-
-> +	struct list_head fences;
-> +	struct amdgpu_device *adev;
-> +	char timeline_name[TASK_COMM_LEN];
-> +};
-> +
-> +static const struct dma_fence_ops amdgpu_userq_fence_ops;
-> +
-> +int amdgpu_userq_fence_slab_init(void);
-> +void amdgpu_userq_fence_slab_fini(void);
-> +int amdgpu_userq_fence_create(struct amdgpu_usermode_queue *userq,
-> +			      u64 seq, struct dma_fence **f);
-> +void amdgpu_userq_fence_driver_get(struct amdgpu_userq_fence_driver *fence_drv);
-> +void amdgpu_userq_fence_driver_put(struct amdgpu_userq_fence_driver *fence_drv);
-> +int amdgpu_userq_fence_driver_alloc(struct amdgpu_device *adev, struct amdgpu_usermode_queue *userq);
-> +void amdgpu_userq_fence_driver_process(struct amdgpu_userq_fence_driver *fence_drv);
-> +void amdgpu_userq_fence_driver_destroy(struct kref *ref);
-> +
-> +#endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> index fd4a2ca3302d..8918b176fdcb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-> @@ -24,6 +24,7 @@
->   #include "amdgpu.h"
->   #include "amdgpu_vm.h"
->   #include "amdgpu_userqueue.h"
-> +#include "amdgpu_userq_fence.h"
->   
->   static inline int
->   amdgpu_userqueue_index(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_queue *queue)
-> @@ -158,6 +159,8 @@ static int amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq
->       struct amdgpu_fpriv *fpriv = filp->driver_priv;
->       struct amdgpu_userq_mgr *uq_mgr = &fpriv->userq_mgr;
->       struct drm_amdgpu_userq_mqd *mqd_in = &args->in.mqd;
-> +    struct amdgpu_userq_fence_driver *fence_drv;
-> +    struct amdgpu_device *adev = uq_mgr->adev;
->       uint64_t index;
->       int r;
->   
-> @@ -173,6 +176,12 @@ static int amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq
->           return -ENOMEM;
->       }
->   
-> +    fence_drv = kzalloc(sizeof(struct amdgpu_userq_fence_driver), GFP_KERNEL);
-> +    if (!fence_drv) {
-> +	    DRM_ERROR("Failed to allocate memory for fence driver\n");
-> +	    return -ENOMEM;
-> +    }
-> +
-
-Why don't we have this kzalloc() inside amdgpu_userq_fence_driver_alloc() ?
-
-Christian.
-
->       mutex_lock(&uq_mgr->userq_mutex);
->       queue->userq_prop.wptr_gpu_addr = mqd_in->wptr_va;
->       queue->userq_prop.rptr_gpu_addr = mqd_in->rptr_va;
-> @@ -188,6 +197,13 @@ static int amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq
->           goto free_queue;
->       }
->   
-> +    queue->fence_drv = fence_drv;
-> +    r = amdgpu_userq_fence_driver_alloc(adev, queue);
-> +    if (r) {
-> +	    DRM_ERROR("Failed to alloc fence driver\n");
-> +	    goto free_fence_drv;
-> +    }
-> +
->       queue->userq_prop.doorbell_index = index;
->       queue->shadow_ctx_gpu_addr = mqd_in->shadow_va;
->       queue->queue_type = mqd_in->ip_type;
-> @@ -217,6 +233,8 @@ static int amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq
->       mutex_unlock(&uq_mgr->userq_mutex);
->       return 0;
->   
-> +free_fence_drv:
-> +    amdgpu_userq_fence_driver_put(queue->fence_drv);
->   free_queue:
->       mutex_unlock(&uq_mgr->userq_mutex);
->       kfree(queue);
-> @@ -238,6 +256,7 @@ static void amdgpu_userqueue_destroy(struct drm_file *filp, int queue_id)
->       mutex_lock(&uq_mgr->userq_mutex);
->       uq_mgr->userq_funcs[queue->queue_type]->mqd_destroy(uq_mgr, queue);
->       amdgpu_userqueue_free_index(uq_mgr, queue->queue_id);
-> +    amdgpu_userq_fence_driver_put(queue->fence_drv);
->       mutex_unlock(&uq_mgr->userq_mutex);
->       kfree(queue);
->   }
-> diff --git a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
-> index eaab7cf5fff6..eaea88539007 100644
-> --- a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
-> +++ b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
-> @@ -50,6 +50,7 @@ struct amdgpu_usermode_queue {
->   	struct amdgpu_mqd_prop userq_prop;
->   	struct amdgpu_userq_ctx_space mqd;
->   	struct amdgpu_userq_ctx_space fw_space;
-> +	struct amdgpu_userq_fence_driver *fence_drv;
->   };
->   
->   struct amdgpu_userq_funcs {
-
+> -----Original Message-----
+> From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+> Sent: Tuesday, April 18, 2023 10:01 PM
+> To: Lin, Wayne <Wayne.Lin@amd.com>
+> Cc: dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org;
+> lyude@redhat.com; imre.deak@intel.com; jani.nikula@intel.com; Wentland,
+> Harry <Harry.Wentland@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>;
+> stable@vger.kernel.org
+> Subject: Re: [PATCH] drm/dp_mst: Clear MSG_RDY flag before sending new
+> message
+>=20
+> On Tue, Apr 18, 2023 at 02:09:05PM +0800, Wayne Lin wrote:
+> > [Why & How]
+> > The sequence for collecting down_reply/up_request from source
+> > perspective should be:
+> >
+> > Request_n->repeat (get partial reply of Request_n->clear message ready
+> > flag to ack DPRX that the message is received) till all partial
+> > replies for Request_n are received->new Request_n+1.
+> >
+> > While assembling partial reply packets, reading out DPCD DOWN_REP
+> > Sideband MSG buffer + clearing DOWN_REP_MSG_RDY flag should be
+> wrapped
+> > up as a complete operation for reading out a reply packet.
+> > Kicking off a new request before clearing DOWN_REP_MSG_RDY flag might
+> > be risky. e.g. If the reply of the new request has overwritten the
+> > DPRX DOWN_REP Sideband MSG buffer before source writing ack to clear
+> > DOWN_REP_MSG_RDY flag, source then unintentionally flushes the reply
+> > for the new request. Should handle the up request in the same way.
+> >
+> > In drm_dp_mst_hpd_irq(), we don't clear MSG_RDY flag before caliing
+> > drm_dp_mst_kick_tx(). Fix that.
+> >
+> > Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
+> > Cc: stable@vger.kernel.org
+> > ---
+> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 ++
+> > drivers/gpu/drm/display/drm_dp_mst_topology.c | 22
+> +++++++++++++++++++
+> >  drivers/gpu/drm/i915/display/intel_dp.c       |  3 +++
+> >  drivers/gpu/drm/nouveau/dispnv50/disp.c       |  2 ++
+> >  4 files changed, 29 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > index 77277d90b6e2..5313a5656598 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > @@ -3166,6 +3166,8 @@ static void dm_handle_mst_sideband_msg(struct
+> amdgpu_dm_connector *aconnector)
+> >  			for (retry =3D 0; retry < 3; retry++) {
+> >  				uint8_t wret;
+> >
+> > +				/* MSG_RDY ack is done in drm*/
+> > +				esi[1] &=3D ~(DP_DOWN_REP_MSG_RDY |
+> DP_UP_REQ_MSG_RDY);
+> >  				wret =3D drm_dp_dpcd_write(
+> >  					&aconnector->dm_dp_aux.aux,
+> >  					dpcd_addr + 1,
+> > diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> > b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> > index 51a46689cda7..02aad713c67c 100644
+> > --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> > +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> > @@ -4054,6 +4054,9 @@ int drm_dp_mst_hpd_irq(struct
+> > drm_dp_mst_topology_mgr *mgr, u8 *esi, bool *handl  {
+> >  	int ret =3D 0;
+> >  	int sc;
+> > +	const int tosend =3D 1;
+> > +	int retries =3D 0;
+> > +	u8 buf =3D 0;
+> >  	*handled =3D false;
+> >  	sc =3D DP_GET_SINK_COUNT(esi[0]);
+> >
+> > @@ -4072,6 +4075,25 @@ int drm_dp_mst_hpd_irq(struct
+> drm_dp_mst_topology_mgr *mgr, u8 *esi, bool *handl
+> >  		*handled =3D true;
+> >  	}
+> >
+> > +	if (*handled) {
+> > +		buf =3D esi[1] & (DP_DOWN_REP_MSG_RDY |
+> DP_UP_REQ_MSG_RDY);
+> > +		do {
+> > +			ret =3D drm_dp_dpcd_write(mgr->aux,
+> > +
+> 	DP_DEVICE_SERVICE_IRQ_VECTOR_ESI0,
+> > +						&buf,
+> > +						tosend);
+> > +
+> > +			if (ret =3D=3D tosend)
+> > +				break;
+> > +
+> > +			retries++;
+> > +		} while (retries < 5);
+>=20
+> What's with this magic retry loop?
+>=20
+> Not sure I like the whole thing though. Splitting the irq ack semi-random=
+ly
+> between driver vs. multiple helpers doesn't feel great to me.
+>=20
+> As a whole the HPD_IRQ handling is a total mess atm. At some point I was
+> trying to sketch something a bit better for it. The approach I was thinki=
+ng was
+> something along the lines of:
+>=20
+>  u8 vector[...];
+>  drm_dp_read_irq_vector(vector);
+>  ... handle all irqs/etc., calling suitable helpers as needed
+> drm_dp_clear_irq_vector(vector);
+>=20
+> And I was also thinking that this drm_dp_*_irq_vector() stuff would alway=
+s
+> use the ESI layout, converting as needed from/to the old layout for pre-1=
+.2
+> (or whatever the cutoff was) devices.
+> That way drivers would just need the one codepath.
+>=20
+> > +
+> > +		if (ret !=3D tosend)
+> > +			drm_dbg_kms(mgr->dev, "failed to write dpcd
+> 0x%x\n",
+> > +				    DP_DEVICE_SERVICE_IRQ_VECTOR_ESI0);
+> > +	}
+> > +
+> >  	drm_dp_mst_kick_tx(mgr);
+> >  	return ret;
+> >  }
+> > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c
+> > b/drivers/gpu/drm/i915/display/intel_dp.c
+> > index bf80f296a8fd..abec3de38b66 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> > @@ -3939,6 +3939,9 @@ intel_dp_check_mst_status(struct intel_dp
+> *intel_dp)
+> >  		if (!memchr_inv(ack, 0, sizeof(ack)))
+> >  			break;
+> >
+> > +		/* MSG_RDY ack is done in drm*/
+> > +		ack[1] &=3D ~(DP_DOWN_REP_MSG_RDY |
+> DP_UP_REQ_MSG_RDY);
+> > +
+> >  		if (!intel_dp_ack_sink_irq_esi(intel_dp, ack))
+> >  			drm_dbg_kms(&i915->drm, "Failed to ack ESI\n");
+> >  	}
+> > diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> > b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> > index edcb2529b402..e905987104ed 100644
+> > --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> > +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> > @@ -1336,6 +1336,8 @@ nv50_mstm_service(struct nouveau_drm *drm,
+> >  		if (!handled)
+> >  			break;
+> >
+> > +		/* MSG_RDY ack is done in drm*/
+> > +		esi[1] &=3D ~(DP_DOWN_REP_MSG_RDY |
+> DP_UP_REQ_MSG_RDY);
+> >  		rc =3D drm_dp_dpcd_write(aux, DP_SINK_COUNT_ESI + 1,
+> &esi[1],
+> >  				       3);
+> >  		if (rc !=3D 3) {
+> > --
+> > 2.37.3
+>=20
+> --
+> Ville Syrj=E4l=E4
+> Intel
