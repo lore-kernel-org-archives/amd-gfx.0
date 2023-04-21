@@ -4,59 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC509C7618E
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 13:44:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EE51C7618E
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 15:21:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A72110E0F3;
-	Fri, 21 Apr 2023 13:44:33 +0000 (UTC)
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [IPv6:2607:f8b0:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 888BC10E0F3
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Apr 2023 13:44:31 +0000 (UTC)
-Received: by mail-oi1-x22e.google.com with SMTP id
- 5614622812f47-38dee9a7795so730243b6e.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Apr 2023 06:44:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1682084670; x=1684676670;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=b5GiThIa5VHUDDQyprtfHsvOOK5m9u3hVuQeB3lTJyQ=;
- b=rj4BcuqU8WFiY50mEpSghERD43aF3PoUD0BI0+VVhLtCs7S84fKatHEU22wH9EjATA
- QvYjiFcD2b+DfsNsjPgLNBwZCnJd0hn12xX0ar2OBXcyq9zAgYhP7qHFgjxXNDc4i130
- USs9b265LSrNqjiaJ95ZE5zJ9nJAfOoFOe+jRz3D4rcJSTvcH8jtQcMsDMHf7H+i0kqu
- V+oN6J12qQoAENSMAM4OWnn56VvZKWG2Ay8eX14yKVO/O99uEYfPWsIuG60CCPZ2pch3
- 0256a95y/dWrMZJlGdim6Qhly0JHxpEMFmJsbtAjFdhspZkaST0CkMs408d09JagMZdB
- o1eA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682084670; x=1684676670;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=b5GiThIa5VHUDDQyprtfHsvOOK5m9u3hVuQeB3lTJyQ=;
- b=QiUm4ro4ba0xjaxQcHmGe9uQz9rKJhalPo/BKmVs+IBNAleHYXfNYaFcycAjdKBkQr
- 6L9XUla8TsnyI8903sjYRQ+U01ThHFxfttUrZ8dR5E4R8dfWVui0tVnsjmvnL4RPpoNd
- EspcjKB9+B1r1ze5syd91p+d2g6Yj2P30YX4JjbDmYnTmdvf7vYAyIaLsW7bxD80k95x
- jYBf2eS5WPngN4HPx9lHHdw3twlMXzHkg9iJwmjQdKppnGFYXnIJV/7IzHnKQc7ltmrB
- yGOnhtfbYUWvX7FSuVC4NRwxzvKyiuTFzSt4Sr48r18pJuollni5/Dlkquo8GUqCvMst
- F0Mg==
-X-Gm-Message-State: AAQBX9fdoIq/1x/23Pudwb6MAHwYg7kvhS+aA/+jdyJfXTSzQEoC4yxe
- wygQbVnDUgJFiRKTU0m6Mlvph9JPscOSKUvQt2w=
-X-Google-Smtp-Source: AKy350b9Hbxp0J7C1NGhwGZOVAPBI7z0lB7ZtfANsRh8OGpjFitLnsJPCQ4h0P9HcNfYh3oul4afH/ttx+YgHqEvUqQ=
-X-Received: by 2002:a05:6808:16ab:b0:38c:17a7:5b7b with SMTP id
- bb43-20020a05680816ab00b0038c17a75b7bmr2570110oib.19.1682084670075; Fri, 21
- Apr 2023 06:44:30 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230421072835.842112-1-evan.quan@amd.com>
-In-Reply-To: <20230421072835.842112-1-evan.quan@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 21 Apr 2023 09:44:18 -0400
-Message-ID: <CADnq5_Os3Hm5p+K8uWJTrDMb=4++Oiq5BQT5QuQR5EPo6u_=6Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: conditionally disable pcie lane switching for
- some sienna_cichlid SKUs
-To: Evan Quan <evan.quan@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD5FF10EE48;
+	Fri, 21 Apr 2023 15:21:15 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2065.outbound.protection.outlook.com [40.107.93.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EADFD10EE3C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Apr 2023 15:21:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mpVPvlTnXVnQQlwHlW7uhJjPPkGkEo5VCpyx8mswEeLWGq88sAvRu0H1yJPZyx1vd8My4rD1TXUv4aO7iDb1GcmyEi5KIftYtNZXTmL7PNbcfMZun+fYgjK/Zx9EQMBjfM9tzVKjjq5CWKIBDwTElK+XSr5mWziDEdNo2TbmTGiKkElfMj9LB1Cp46QbCpi9kUbT0T/1MJ9a/X7zZ+Tfe9Q0UKgj0elJtcZBvAp/YnChqWLRgkHu1eMNd5SKGXHfjcnvsBVo/NsakAko0wBC8CV3PLrMtZB74quiHuZf1p09guM3BpENBMa+gpv28ukZfDEjk6GJjfzhdutnWe+2Vg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GS0goNjI7IwV0INb/DjX8htm8j0VQzSNfO4gl/5QTyI=;
+ b=Vi1gnpQ9fM/IQKUEr3gNytK/RS/hi5Gwi64cwrUBhpDX45Au+AaZdXw/sOB7Mch7ZqqhonX7xdFTBsj3o7CeVqRAyHdznj5mWc17wS44gv+7gpWN3qqsjoJwd1idpxjKztRi+WhiE75n0CmYdDYuQ/PCMf0O0Zdk6j8Zri9fRluN0ifq6oB6wJA3JTgJVw5/O3FPCtW0Mp02Oo+G8kK2PDaa8PAWokbL94KnIOVio3irtDKdyWfqEdDN3QTxyGMmZQFJtnUMnMjpKuYI1dS4PDGxdZtLvAvx0S9rNrQ80lmMI6mo2jPCXqYk4BAEeJ6kbtn8SRPiRvau42/Z5Vz95g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GS0goNjI7IwV0INb/DjX8htm8j0VQzSNfO4gl/5QTyI=;
+ b=Dve83KHEV1KMbrngWjc5QNd1KHlVPx6chjr61T6h95iImRXesePiCs5JIC/4pDy1xzfVQJqS6AGW8H1ogRgT3cgVu7EgkFMK8vQtDBy1BmctxEu9QbC6M/5HOgKrz2G2QuYfuBO42pzywj5YSntoUeVm9TwN7pBLycHP5Vey5Rg=
+Received: from DS0PR12MB6534.namprd12.prod.outlook.com (2603:10b6:8:c1::19) by
+ CH3PR12MB7596.namprd12.prod.outlook.com (2603:10b6:610:14b::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6319.21; Fri, 21 Apr 2023 15:21:11 +0000
+Received: from DS0PR12MB6534.namprd12.prod.outlook.com
+ ([fe80::d28:1514:96a7:864e]) by DS0PR12MB6534.namprd12.prod.outlook.com
+ ([fe80::d28:1514:96a7:864e%7]) with mapi id 15.20.6319.022; Fri, 21 Apr 2023
+ 15:21:11 +0000
+From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
+To: "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 00/21] DC Patches April 20, 2023
+Thread-Topic: [PATCH 00/21] DC Patches April 20, 2023
+Thread-Index: AQHZc+LZJJ6V5hpRL0GNpiZElsiAba814bdQ
+Date: Fri, 21 Apr 2023 15:21:10 +0000
+Message-ID: <DS0PR12MB653451022BE5020C220A9B9F9C609@DS0PR12MB6534.namprd12.prod.outlook.com>
+References: <20230420234951.1772270-1-Rodrigo.Siqueira@amd.com>
+In-Reply-To: <20230420234951.1772270-1-Rodrigo.Siqueira@amd.com>
+Accept-Language: en-CA, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-04-21T15:21:09Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=abaae81a-9f88-4178-af91-c03e530f2c29;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_enabled: true
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_setdate: 2023-04-21T15:21:09Z
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_method: Privileged
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_name: Public-AIP 2.0
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_actionid: 0c8d02fb-3b07-4124-95a7-d5fc30408ac0
+msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS0PR12MB6534:EE_|CH3PR12MB7596:EE_
+x-ms-office365-filtering-correlation-id: fadbac30-978d-4939-624f-08db427c09bb
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: D28p16HZIVQTylF+QTgSlS0cAwkrLeJo76IYgoWg05mQ7ayk1lPyuZxxC9egGpKvSh946dPN+9LNemIF8hU1izkPA3sG0q//VexPfiZxiGytWY/6lz/S0PwQIgjUJ+02XEfgeG4LmD1BGZ6F2rp7yhTnPKAHU7srhORxLZ/FCMWDMgBk0CGDBlD3fVgEubkrQW6FSH6/5OKL6rrsYHEy0Ee2JcWWF5bxoqnzcVGqwqZ+5xMC+RZ/LXGcx5pHnpoVXcJx9LnlUMGVcAPfbmzNvQZQF7QYMU1O+RhU8QrZ4wAsV7Fm0zIaeHBk5vN2W0nUUjtZw30QCfAlCKZpyeEpquif5Hy4ozpmVgEWiOP+YF541/X0TgOnig7j1s6FTfZKb/ghOMlxh1Yjqt2sdSjZte1t0cfE0QJKLf1IRoKZWjHaF7wUa3ruIfStaDwlWqHiqCRinFWmd/pPl020PmwXcXtRQKg7K5Hy43AHjCclnXizsBaxW3P0Wht2WShW1Ess8mz3dOOC3nHTOjmmKXoomLOpfuagK4E1XCMOm7nrEA2TYnG0WFNJcqtbuD1QeBEIanN+Z8YA4AnYTul4mQzrLiBijAVl7ERiufByCwnpB4QHTbLYSSa7/mRXECY2HMdL
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6534.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(136003)(376002)(39860400002)(366004)(346002)(451199021)(26005)(5660300002)(38100700002)(52536014)(4326008)(122000001)(41300700001)(8676002)(8936002)(316002)(55016003)(6506007)(38070700005)(86362001)(9686003)(53546011)(2906002)(33656002)(7696005)(71200400001)(83380400001)(186003)(66556008)(110136005)(64756008)(66446008)(76116006)(66476007)(66946007)(54906003)(478600001);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?LCQfw4qiE/zuRxg0aHPLI6evuW23lQdXk8PqQ8wabycC6+xFxmIbC//Dz3iu?=
+ =?us-ascii?Q?yDIt86mpO6ymJb+B/3oPJvfTc+ywesxvjEARhjTmdNXIZQd8IpMUMmr/jgxk?=
+ =?us-ascii?Q?aKQpUHqoWM/k1hEDrK15Pm27vdNfsEBY/t+wVp8spmgwl8uyE+FQfCvZMxh+?=
+ =?us-ascii?Q?znez41/5F7OPikWUvFjcQeS7ujusGNF51ZNGw+oEcBPVuNSppc5dVjo4mZwg?=
+ =?us-ascii?Q?jOthORSvNXLEJsZsuCoMbjzNg1dfnDbaelpHBfkyvNxCYmK75pB8u7dEz6bD?=
+ =?us-ascii?Q?/5GxS9/v6dSfMHxodEokAGb3JhA2ftgur5myUdcVpdDqIp29nj4JbCa9peps?=
+ =?us-ascii?Q?LXIZeZzdezyBA/erZtBoKHuBKkR8wX0Kgi7lepwyYyMuSKXBGCNOlkgS7J+E?=
+ =?us-ascii?Q?nDn5O2owBAjDrK95E/HgkpWP+QLyK8jmcrm8ExRfiS853YqOK144wEgFr7wT?=
+ =?us-ascii?Q?9MYKGT2I+Iq2Gc6lqSMHqTTgPHceFAik+Ie0YVHqfYqfbhan8PKesCKcZJ/7?=
+ =?us-ascii?Q?FTSx+OwGG9NACUoDvMIMyEsod662GEIGrKtmzsyZFMM+iS5vd9Jg5XAWdXQ7?=
+ =?us-ascii?Q?3X6gjUmCvqtSTMFj24i3OJB4dCQ0T56ZtABEWM9Zyv+wRS0ik/FRB8j0fuSg?=
+ =?us-ascii?Q?Toa/VxPCP4JP16pCjQStefd8NhttyWyNw2mAZG8h/dzFN2gs4Bho85vxb4Dv?=
+ =?us-ascii?Q?TBA88CmdUZQkFP0qkHp1ShDrk2Uj0UoKFXOcW9ru3K9nxgDLzg1FWX0wQODk?=
+ =?us-ascii?Q?EtB7hq2mX6RVJfxDgOHv2su6s5ru9CrSd8ELUbGYZKpEoH9mJH/MrnQXXyLj?=
+ =?us-ascii?Q?spv6qDQyXSgy61W4k02LGVnb29+/6/h/uVtZpdXwynkySZ+ZxNHvfrwjrmTQ?=
+ =?us-ascii?Q?ddeUMjcjDhIEN6eueA8GT3QVIpHp9MNb9p4GzBsjRLtQRe4Em79kvfi85YxL?=
+ =?us-ascii?Q?mjIWV9jOTG4nbCa+7/D02f+ukILkvlBKl+qfyt/+8MQjDLVqPaxkFYIgi54B?=
+ =?us-ascii?Q?45UrCSHKjuBeemvMFNH3qeVSj5PE+FKGAlXfd6iEH+bl/K7pL77buqLHbOu5?=
+ =?us-ascii?Q?pwXpQJuRgb0V7f4a2Ng4vTs1u8YghtxwpRwNyWJlmQ+VCDvpsOucJCb3kJjz?=
+ =?us-ascii?Q?bzW/J7b9WbCrxvUN45xDptmQMBGaR72v+kRkreQ+gQG+63a+uBklSJEmoDrJ?=
+ =?us-ascii?Q?ilzCtKBbeuMV8bpCxc5TDZdhuufGLHtUzBC3RQrX9MTD2DktZMreKS5Ks3ov?=
+ =?us-ascii?Q?FqGR7ydoArLl4r3Q18efK5PPf7s0pMmbVS0Zh93Els0HbpyJp4A1EBoKvEOM?=
+ =?us-ascii?Q?M2OaRiYPhehKwr3j8R15an4vcpVyS7KglXZAhs7TQ/mPM6r/QLJ/vPaIjiWE?=
+ =?us-ascii?Q?kbJC9+yXUlu5yEa/SPRG3NC9p5rl0mYw04mXHZ2FOqqumHh/0jOAYssPOfEB?=
+ =?us-ascii?Q?/isXQGD0/grTqcZ5ZMXEHh1PiZvpewlRuhIrYIuxiAq2daJPUoL98xhjTDAk?=
+ =?us-ascii?Q?bh6fuCTiyfvSK6YSMtvnWFZa5x4J7PJWs7aRaLz/ykDDQtfvbWToqtPjv+x5?=
+ =?us-ascii?Q?hBS8VIQh7vw0gH6svoc=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6534.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fadbac30-978d-4939-624f-08db427c09bb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Apr 2023 15:21:10.9327 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: shiZWZiLmLHfPSD8YhqHK124atVpAczOm1aV6147WkgdnXRORJCGnoAIXWfNI14LDuu1nm74Ip1i+gdPObTa6A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7596
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,170 +129,191 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Mario.Limonciello@amd.com,
- amd-gfx@lists.freedesktop.org
+Cc: "Wang, Chao-kai \(Stylon\)" <Stylon.Wang@amd.com>, "Li,
+ Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, "Zhuo,
+ Qingqing \(Lillian\)" <Qingqing.Zhuo@amd.com>, "Li, Roman" <Roman.Li@amd.com>,
+ "Chiu, 
+ Solomon" <Solomon.Chiu@amd.com>, "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>,
+ "Lin, Wayne" <Wayne.Lin@amd.com>, "Lakha,
+ Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Gutierrez,
+ Agustin" <Agustin.Gutierrez@amd.com>, "Kotarac, Pavle" <Pavle.Kotarac@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 21, 2023 at 3:30=E2=80=AFAM Evan Quan <evan.quan@amd.com> wrote=
-:
->
-> Disable the pcie lane switching for some sienna_cichlid SKUs since it
-> might not work well on some platforms.
->
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
-> Change-Id: Iea9ceaa146c8706768ee077c10e5d33bce9bc1c2
-> ---
->  .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 92 +++++++++++++++----
->  1 file changed, 74 insertions(+), 18 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/dr=
-ivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> index 4b91cdc3eaa0..e7223513e384 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> @@ -2067,33 +2067,94 @@ static int sienna_cichlid_display_disable_memory_=
-clock_switch(struct smu_context
->         return ret;
->  }
->
-> +static void sienna_cichlid_get_override_pcie_settings(struct smu_context=
- *smu,
-> +                                                     uint32_t *gen_speed=
-_override,
-> +                                                     uint32_t *lane_widt=
-h_override)
-> +{
-> +       struct amdgpu_device *adev =3D smu->adev;
-> +
-> +       *gen_speed_override =3D 0xff;
-> +       *lane_width_override =3D 0xff;
-> +
-> +       switch (adev->pdev->device) {
-> +       case 0x73A0:
-> +       case 0x73A1:
-> +       case 0x73A2:
-> +       case 0x73A3:
-> +       case 0x73AB:
-> +       case 0x73AE:
-> +               /* Bit 7:0: PCIE lane width, 1 to 7 corresponds is x1 to =
-x32 */
-> +               *lane_width_override =3D 6;
-> +               break;
-> +       case 0x73E0:
-> +       case 0x73E1:
-> +       case 0x73E3:
-> +               *lane_width_override =3D 4;
-> +               break;
-> +       case 0x7420:
-> +       case 0x7421:
-> +       case 0x7422:
-> +       case 0x7423:
-> +       case 0x7424:
-> +               *lane_width_override =3D 3;
-> +               break;
-> +       default:
-> +               break;
-> +       }
-> +}
+[Public]
 
-Why not just apply this to all SKUs?  Or use the pcie info we fetched
-at init time?
+Hi all,
+=20
+This week this patchset was tested on the following systems:
+=20
+Lenovo Thinkpad T14s Gen2, with AMD Ryzen 5 5650U=20
+Lenovo Thinkpad T13s Gen4 with AMD Ryzen 5 6600U
+Reference AMD RX6800
+=20
+These systems were tested on the following display types:=20
+eDP, (1080p 60hz [5650U]) (1920x1200 60hz [6600U]) (2560x1600 120hz[6600U])
+VGA and DVI (1680x1050 60HZ [DP to VGA/DVI, USB-C to DVI/VGA])
+DP/HDMI/USB-C (1440p 170hz, 4k 60hz, 4k 144hz [Includes USB-C to DP/HDMI ad=
+apters])
+=20
+MST tested with Startech MST14DP123DP and 2x 4k 60Hz displays
+DSC tested with Cable Matters 101075 (DP to 3x DP), and 201375 (USB-C to 3x=
+ DP) with 3x 4k60 displays
+HP Hook G2 with 1 and 2 4k60 Displays
+=20
+The testing is a mix of automated and manual tests. Manual testing includes=
+ (but is not limited to):
+Changing display configurations and settings
+Benchmark testing
+Feature testing (Freesync, etc.)
+=20
+Automated testing includes (but is not limited to):
+Script testing (scripts to automate some of the manual checks)
+IGT testing
+=20
+The patchset consists of the amd-staging-drm-next branch (Head commit - 329=
+fb1a32e80 drm/amd/display: 3.2.231) with new patches added on top of it. Th=
+is branch is used for both Ubuntu and Chrome OS testing (ChromeOS on a bi-w=
+eekly basis).
+=20
+=20
+Tested on Ubuntu 22.04.1 and Chrome OS
+=20
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+=20
+=20
+Thank you,
+=20
+Dan Wheeler
+Sr. Technologist | AMD
+SW Display
+---------------------------------------------------------------------------=
+---------------------------------------
+1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
+amd.com
 
-> +
-> +#define MAX(a, b)      ((a) > (b) ? (a) : (b))
+-----Original Message-----
+From: Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>=20
+Sent: April 20, 2023 7:50 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
+i@amd.com>; Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>; Siqueira, Rodri=
+go <Rodrigo.Siqueira@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd.com>=
+; Zhuo, Qingqing (Lillian) <Qingqing.Zhuo@amd.com>; Li, Roman <Roman.Li@amd=
+.com>; Lin, Wayne <Wayne.Lin@amd.com>; Wang, Chao-kai (Stylon) <Stylon.Wang=
+@amd.com>; Chiu, Solomon <Solomon.Chiu@amd.com>; Kotarac, Pavle <Pavle.Kota=
+rac@amd.com>; Gutierrez, Agustin <Agustin.Gutierrez@amd.com>; Wheeler, Dani=
+el <Daniel.Wheeler@amd.com>
+Subject: [PATCH 00/21] DC Patches April 20, 2023
 
-There is already a max macro in the kernel you can use.
+This DC patchset brings improvements in multiple areas. In summary, we
+highlight:
 
-> +
->  static int sienna_cichlid_update_pcie_parameters(struct smu_context *smu=
-,
->                                          uint32_t pcie_gen_cap,
->                                          uint32_t pcie_width_cap)
->  {
->         struct smu_11_0_dpm_context *dpm_context =3D smu->smu_dpm.dpm_con=
-text;
-> -
-> -       uint32_t smu_pcie_arg;
-> +       struct smu_11_0_pcie_table *pcie_table =3D &dpm_context->dpm_tabl=
-es.pcie_table;
-> +       uint32_t gen_speed_override, lane_width_override;
->         uint8_t *table_member1, *table_member2;
-> +       uint32_t min_gen_speed, max_gen_speed;
-> +       uint32_t min_lane_width, max_lane_width;
-> +       uint32_t smu_pcie_arg;
->         int ret, i;
->
->         GET_PPTABLE_MEMBER(PcieGenSpeed, &table_member1);
->         GET_PPTABLE_MEMBER(PcieLaneCount, &table_member2);
->
-> -       /* lclk dpm table setup */
-> -       for (i =3D 0; i < MAX_PCIE_CONF; i++) {
-> -               dpm_context->dpm_tables.pcie_table.pcie_gen[i] =3D table_=
-member1[i];
-> -               dpm_context->dpm_tables.pcie_table.pcie_lane[i] =3D table=
-_member2[i];
-> +       sienna_cichlid_get_override_pcie_settings(smu,
-> +                                                 &gen_speed_override,
-> +                                                 &lane_width_override);
-> +
-> +       /* PCIE gen speed override */
-> +       if (gen_speed_override !=3D 0xff) {
-> +               min_gen_speed =3D MIN(pcie_gen_cap, gen_speed_override);
-> +               max_gen_speed =3D MIN(pcie_gen_cap, gen_speed_override);
-> +       } else {
-> +               min_gen_speed =3D MAX(0, table_member1[0]);
-> +               max_gen_speed =3D MIN(pcie_gen_cap, table_member1[1]);
-> +               min_gen_speed =3D min_gen_speed > max_gen_speed ?
-> +                               max_gen_speed : min_gen_speed;
->         }
-> +       pcie_table->pcie_gen[0] =3D min_gen_speed;
-> +       pcie_table->pcie_gen[1] =3D max_gen_speed;
-> +
-> +       /* PCIE lane width override */
-> +       if (lane_width_override !=3D 0xff) {
-> +               min_lane_width =3D MIN(pcie_width_cap, lane_width_overrid=
-e);
-> +               max_lane_width =3D MIN(pcie_width_cap, lane_width_overrid=
-e);
-> +       } else {
-> +               min_lane_width =3D MAX(1, table_member2[0]);
-> +               max_lane_width =3D MIN(pcie_width_cap, table_member2[1]);
-> +               min_lane_width =3D min_lane_width > max_lane_width ?
-> +                                max_lane_width : min_lane_width;
-> +       }
-> +       pcie_table->pcie_lane[0] =3D min_lane_width;
-> +       pcie_table->pcie_lane[1] =3D max_lane_width;
->
->         for (i =3D 0; i < NUM_LINK_LEVELS; i++) {
-> -               smu_pcie_arg =3D (i << 16) |
-> -                       ((table_member1[i] <=3D pcie_gen_cap) ?
-> -                        (table_member1[i] << 8) :
-> -                        (pcie_gen_cap << 8)) |
-> -                       ((table_member2[i] <=3D pcie_width_cap) ?
-> -                        table_member2[i] :
-> -                        pcie_width_cap);
-> +               smu_pcie_arg =3D (i << 16 |
-> +                               pcie_table->pcie_gen[i] << 8 |
-> +                               pcie_table->pcie_lane[i]);
->
->                 ret =3D smu_cmn_send_smc_msg_with_param(smu,
->                                 SMU_MSG_OverridePcieParameters,
-> @@ -2101,11 +2162,6 @@ static int sienna_cichlid_update_pcie_parameters(s=
-truct smu_context *smu,
->                                 NULL);
->                 if (ret)
->                         return ret;
-> -
-> -               if (table_member1[i] > pcie_gen_cap)
-> -                       dpm_context->dpm_tables.pcie_table.pcie_gen[i] =
-=3D pcie_gen_cap;
-> -               if (table_member2[i] > pcie_width_cap)
-> -                       dpm_context->dpm_tables.pcie_table.pcie_lane[i] =
-=3D pcie_width_cap;
->         }
->
->         return 0;
-> --
-> 2.34.1
->
+- Improvements in the SubVP feature
+- Keep disabling aux-i delay as 0
+- Add p-state debugging and improvements
+- Fix in secure display context creation
+- add an option to use custom backlight caps
+- Lowering min Z8 residency time
+- Restore rptr/wptr for DMCUB as a workaround
+- Update FW feature caps struct=20
+
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+
+Alan Liu (1):
+  drm/amd/display: Fix in secure display context creation
+
+Alex Hung (1):
+  drm/amd/display: implement force function in amdgpu_dm_connector_funcs
+
+Alvin Lee (6):
+  drm/amd/display: Update FW feature caps struct
+  drm/amd/display: Limit DCN32 8 channel or less parts to DPM1 for FPO
+  drm/amd/display: Enable SubVP on PSR panels if single stream
+  drm/amd/display: For no plane case set pstate support in validation
+  drm/amd/display: Query GECC enable for SubVP disable
+  drm/amd/display: Enable SubVP for high refresh rate displays
+
+Anthony Koo (1):
+  drm/amd/display: [FW Promotion] Release 0.0.163.0
+
+Aric Cyr (2):
+  drm/amd/display: 3.2.232
+  drm/amd/display: 3.2.233
+
+Dmytro Laktyushkin (1):
+  drm/amd/display: add pixel rate based CRB allocation support
+
+Gabe Teeger (1):
+  drm/amd/display: update extended blank for dcn314 onwards
+
+Hersen Wu (1):
+  drm/amd/display: assign edid_blob_ptr with edid from debugfs
+
+JinZe.Xu (1):
+  drm/amd/display: Restore rptr/wptr for DMCUB as workaround
+
+Josip Pavic (1):
+  drm/amd/display: add option to use custom backlight caps
+
+Leo (Hanghong) Ma (1):
+  drm/amd/display: Update scaler recout data for visual confirm
+
+Leo Chen (1):
+  drm/amd/display: Lowering min Z8 residency time
+
+Michael Strauss (2):
+  drm/amd/display: Convert Delaying Aux-I Disable To Monitor Patch
+  drm/amd/display: Keep disable aux-i delay as 0
+
+Sung Lee (1):
+  drm/amd/display: Add p-state debugging
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 56 ++++++++---  .../drm/am=
+d/display/amdgpu_dm/amdgpu_dm_crc.h |  2 +-  .../display/dc/clk_mgr/dcn30/d=
+cn30_clk_mgr.c  |  4 +-  .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  |  7=
+ +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 21 ----
+ .../gpu/drm/amd/display/dc/core/dc_resource.c | 18 ++++
+ drivers/gpu/drm/amd/display/dc/dc.h           |  8 +-
+ drivers/gpu/drm/amd/display/dc/dc_types.h     |  1 +
+ .../drm/amd/display/dc/dcn10/dcn10_dpp_dscl.c | 18 +---
+ .../drm/amd/display/dc/dcn20/dcn20_hubbub.c   |  5 +
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |  4 +-
+ .../drm/amd/display/dc/dcn31/dcn31_hubbub.c   |  1 +
+ .../amd/display/dc/dcn314/dcn314_resource.c   |  2 +-
+ .../amd/display/dc/dcn315/dcn315_resource.c   | 97 ++++++++++++++++++-
+ .../drm/amd/display/dc/dcn32/dcn32_hwseq.c    |  2 +
+ .../drm/amd/display/dc/dcn32/dcn32_resource.c |  3 +  .../drm/amd/display/=
+dc/dcn32/dcn32_resource.h | 14 +++  .../display/dc/dcn32/dcn32_resource_hel=
+pers.c | 15 +++
+ .../amd/display/dc/dcn321/dcn321_resource.c   |  1 +
+ .../drm/amd/display/dc/dml/dcn20/dcn20_fpu.c  | 31 +++---  .../drm/amd/dis=
+play/dc/dml/dcn31/dcn31_fpu.c  | 25 ++++-  .../drm/amd/display/dc/dml/dcn31=
+/dcn31_fpu.h  |  3 +
+ .../dc/dml/dcn31/display_mode_vba_31.c        | 39 +++++---
+ .../dc/dml/dcn31/display_rq_dlg_calc_31.c     |  3 +-
+ .../amd/display/dc/dml/dcn314/dcn314_fpu.c    | 14 ++-
+ .../dc/dml/dcn314/display_rq_dlg_calc_314.c   | 16 +--
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  | 83 +++++++++++++++-  .../d=
+rm/amd/display/dc/dml/dcn32/dcn32_fpu.h  |  2 +
+ .../dc/dml/dcn32/display_mode_vba_32.c        | 12 ++-
+ .../amd/display/dc/dml/display_mode_structs.h |  3 +-  .../drm/amd/display=
+/dc/dml/display_mode_vba.c |  6 ++  .../gpu/drm/amd/display/dc/inc/hw/dchub=
+bub.h  |  1 +
+ .../link_dp_training_fixed_vs_pe_retimer.c    | 23 +++--
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h   | 17 +++-
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  4 +-
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn20.c |  5 +  .../gpu/drm/amd/disp=
+lay/dmub/src/dmub_dcn20.h |  2 +  .../gpu/drm/amd/display/dmub/src/dmub_dcn=
+31.c |  5 +  .../gpu/drm/amd/display/dmub/src/dmub_dcn31.h |  2 +  .../gpu/=
+drm/amd/display/dmub/src/dmub_dcn32.c |  8 ++  .../gpu/drm/amd/display/dmub=
+/src/dmub_dcn32.h |  3 +
+ .../gpu/drm/amd/display/dmub/src/dmub_srv.c   | 17 ++++
+ .../amd/display/modules/power/power_helpers.c | 43 ++++++++  .../amd/displ=
+ay/modules/power/power_helpers.h |  3 +
+ 44 files changed, 518 insertions(+), 131 deletions(-)
+
+--
+2.39.2
