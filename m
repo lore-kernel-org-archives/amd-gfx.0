@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B9E0C77B60
-	for <amd-gfx@archiver.kernel.org>; Sun, 23 Apr 2023 14:12:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 826ABC77B60
+	for <amd-gfx@archiver.kernel.org>; Sun, 23 Apr 2023 14:12:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DDD010E3BC;
-	Sun, 23 Apr 2023 14:12:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DA4E10E3CD;
+	Sun, 23 Apr 2023 14:12:21 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6790310E3BC;
- Sun, 23 Apr 2023 14:12:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7025110E331;
+ Sun, 23 Apr 2023 14:12:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -19,25 +19,26 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=Bm3Geo0t068sVPmTEYcYCE9oJGTq0xUkld/+z+807H0=; b=B1NZFih/nsbd8wN6emS12XMH6n
- cwfjEmV3Y44Dz3/Jj7ajJQ/7sbm69ggsPB1k5wAAeN0ByvwkioyXOW6e+ROOXLqvS5Fspi704K85n
- z+HQDTm53njLaBKNoTVb/TByZQ5C8JeVPvNR1IMFkNNu1QCT8vxEMWEi27nofoUNZZqYP48++6puT
- PyoEa9gUMyzc6wPhuEj6wxGZDC0ffLsJ8oUwacWdtHxZifgKqubO+L94NfMh7hBY1xND4hh6w2lmA
- acVUfeUsfjyMas0hFFMbpfHUpU5ImuCoznCUlPt/Gam7swjP8337OZHbrF989Pxb1NEMNx3yivn9r
- Xz+mnWFQ==;
+ bh=61KSS5+ykrC2EpBhN11Qk1hbuXSnyOrLMv+gxM8XJiM=; b=EBlbem39+WObZkXT6cpRxHLypm
+ sJSX69u+V+8TBPnkSJlNRH2ttHSacdtg9acvMnz/55ocsu8Koe3dKdyxugqLT+mOC+NnTEXXt1dKz
+ RQs6n6CDGQW0lJ4r5DOh133lEtV+qPnPSEb2hr3uCJwGA7ijCsDz4soKbSIEA5RuAU4DiUkw5i0dT
+ O/9CYFrOesSGjOPUk+BYFj7ICUN1USFkiHw3SF4VfEQd0TcILVY+Z/HCIPUWv9oiqI9adixNsMslC
+ 98FsXi0h9xA9AnU7MEcxaBA7ThvHTt0mcpwcSl7oVDiU0IQdpNRCRkou3+Tb8FUuwPUOoU8eSQauZ
+ HTuMR28Q==;
 Received: from nat-wifi.fi.muni.cz ([147.251.43.9] helo=killbill.fi.muni.cz)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1pqaRn-00ANVs-ED; Sun, 23 Apr 2023 16:12:11 +0200
+ id 1pqaRh-00ANVs-QW; Sun, 23 Apr 2023 16:12:05 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
  Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch
-Subject: [RFC PATCH 06/40] drm/amd/display: add 3D LUT driver-private props
-Date: Sun, 23 Apr 2023 13:10:18 -0100
-Message-Id: <20230423141051.702990-7-mwen@igalia.com>
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, daniel@ffwll.ch
+Subject: [RFC PATCH 04/40] drm/drm_mode_object: increase max objects to
+ accommodate new color props
+Date: Sun, 23 Apr 2023 13:10:16 -0100
+Message-Id: <20230423141051.702990-5-mwen@igalia.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230423141051.702990-1-mwen@igalia.com>
 References: <20230423141051.702990-1-mwen@igalia.com>
@@ -63,159 +64,32 @@ Cc: Sebastian Wick <sebastian.wick@redhat.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add CRTC 3D LUT for gamma correction using a 3D lookup table. A shaper
-lut must be set to shape the content for a non-linear space. That
-details should be handled by the driver according to HW color
-capabilities.
+In the next patches we are adding 17 new properties for color
+correction:
+- CRTC: 3D LUT+size, shaper LUT+size, regamma TF (5)
+- Plane: Degamma LUT+size+TF, HDR multiplier, shaper LUT+size+TF, 3D LUT+size, blend
+  LUT+size+TF (12)
+We still need to detach driver-private counter from DRM/KMS-generic, by
+now, increase max objs to 41.
 
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   | 14 +++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      | 11 ++++++++++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 13 ++++++++++++
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    | 20 +++++++++++++++++++
- 4 files changed, 58 insertions(+)
+ include/drm/drm_mode_object.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index 44c22cb87dde..2abe5fe87c10 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -1267,6 +1267,20 @@ amdgpu_display_create_color_properties(struct amdgpu_device *adev)
- 		return -ENOMEM;
- 	adev->mode_info.shaper_lut_size_property = prop;
- 
-+	prop = drm_property_create(adev_to_drm(adev),
-+				   DRM_MODE_PROP_BLOB,
-+				   "AMD_LUT3D", 0);
-+	if (!prop)
-+		return -ENOMEM;
-+	adev->mode_info.lut3d_property = prop;
-+
-+	prop = drm_property_create_range(adev_to_drm(adev),
-+					 DRM_MODE_PROP_IMMUTABLE,
-+					 "AMD_LUT3D_SIZE", 0, UINT_MAX);
-+	if (!prop)
-+		return -ENOMEM;
-+	adev->mode_info.lut3d_size_property = prop;
-+
- 	return 0;
- }
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-index 1fd3497af3b5..205fa4f5bea7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-@@ -357,6 +357,17 @@ struct amdgpu_mode_info {
- 	 * post-blending shaper LUT as supported by the driver (read-only).
- 	 */
- 	struct drm_property *shaper_lut_size_property;
-+	/**
-+	 * lut3d_property: CRTC property to set post-blending 3D LUT gamma
-+	 * correction; a shaper LUT can be used before applying 3D LUT to
-+	 * delinearize content.
-+	 */
-+	struct drm_property *lut3d_property;
-+	/**
-+	 * @lut3d_size_property: CRTC property for the size of post-blending 3D
-+	 * LUT as supported by the driver (read-only).
-+	 */
-+	struct drm_property *lut3d_size_property;
- #endif
+diff --git a/include/drm/drm_mode_object.h b/include/drm/drm_mode_object.h
+index 912f1e415685..7e4fb7536c6a 100644
+--- a/include/drm/drm_mode_object.h
++++ b/include/drm/drm_mode_object.h
+@@ -60,7 +60,7 @@ struct drm_mode_object {
+ 	void (*free_cb)(struct kref *kref);
  };
  
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index de63455896cc..09c3e1858b56 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -742,6 +742,15 @@ struct dm_crtc_state {
- 	 * of &struct drm_color_lut.
- 	 */
- 	struct drm_property_blob *shaper_lut;
-+	/**
-+	 * @lut3d:
-+	 *
-+	 * 3D Lookup table for converting pixel data. Position where it takes
-+	 * place depends on hw design, after @ctm or @gamma_lut. See
-+	 * drm_crtc_enable_color_mgmt(). The blob (if not NULL) is an array of
-+	 * &struct drm_color_lut.
-+	 */
-+	struct drm_property_blob *lut3d;
- #endif
- };
- 
-@@ -804,6 +813,10 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 
- void amdgpu_dm_trigger_timing_sync(struct drm_device *dev);
- 
-+/* 3D LUT max size is 17x17x17 */
-+#define MAX_COLOR_3DLUT_ENTRIES 4913
-+#define MAX_COLOR_3DLUT_BITDEPTH 12
-+/* 1D LUT degamma, regamma and shaper*/
- #define MAX_COLOR_LUT_ENTRIES 4096
- /* Legacy gamm LUT users such as X doesn't like large LUT sizes */
- #define MAX_COLOR_LEGACY_LUT_ENTRIES 256
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-index 503433e5cb38..0e1280228e6e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-@@ -231,6 +231,7 @@ static void dm_crtc_destroy_state(struct drm_crtc *crtc,
- 
- #ifdef CONFIG_STEAM_DECK
- 	drm_property_blob_put(cur->shaper_lut);
-+	drm_property_blob_put(cur->lut3d);
- #endif
- 	__drm_atomic_helper_crtc_destroy_state(state);
- 
-@@ -270,9 +271,12 @@ static struct drm_crtc_state *dm_crtc_duplicate_state(struct drm_crtc *crtc)
- 	/* TODO Duplicate dc_stream after objects are stream object is flattened */
- #ifdef CONFIG_STEAM_DECK
- 	state->shaper_lut = cur->shaper_lut;
-+	state->lut3d = cur->lut3d;
- 
- 	if (state->shaper_lut)
- 		drm_property_blob_get(state->shaper_lut);
-+	if (state->lut3d)
-+		drm_property_blob_get(state->lut3d);
- #endif
- 	return &state->base;
- }
-@@ -326,6 +330,11 @@ dm_crtc_additional_color_mgmt(struct drm_crtc *crtc)
- 		drm_object_attach_property(&crtc->base,
- 					   adev->mode_info.shaper_lut_size_property,
- 					   MAX_COLOR_LUT_ENTRIES);
-+		drm_object_attach_property(&crtc->base,
-+					   adev->mode_info.lut3d_property, 0);
-+		drm_object_attach_property(&crtc->base,
-+					   adev->mode_info.lut3d_size_property,
-+					   MAX_COLOR_3DLUT_ENTRIES);
- 	}
- }
- 
-@@ -381,6 +390,14 @@ amdgpu_dm_atomic_crtc_set_property(struct drm_crtc *crtc,
- 					&replaced);
- 		acrtc_state->base.color_mgmt_changed |= replaced;
- 		return ret;
-+	} else if (property == adev->mode_info.lut3d_property) {
-+		ret = atomic_replace_property_blob_from_id(crtc->dev,
-+					&acrtc_state->lut3d,
-+					val,
-+					-1, sizeof(struct drm_color_lut),
-+					&replaced);
-+		acrtc_state->base.color_mgmt_changed |= replaced;
-+		return ret;
- 	} else {
- 		drm_dbg_atomic(crtc->dev,
- 			       "[CRTC:%d:%s] unknown property [PROP:%d:%s]]\n",
-@@ -404,6 +421,9 @@ amdgpu_dm_atomic_crtc_get_property(struct drm_crtc *crtc,
- 	if (property == adev->mode_info.shaper_lut_property)
- 		*val = (acrtc_state->shaper_lut) ?
- 			acrtc_state->shaper_lut->base.id : 0;
-+	else if (property == adev->mode_info.lut3d_property)
-+		*val = (acrtc_state->lut3d) ?
-+			acrtc_state->lut3d->base.id : 0;
- 	else
- 		return -EINVAL;
- 
+-#define DRM_OBJECT_MAX_PROPERTY 24
++#define DRM_OBJECT_MAX_PROPERTY 47
+ /**
+  * struct drm_object_properties - property tracking for &drm_mode_object
+  */
 -- 
 2.39.2
 
