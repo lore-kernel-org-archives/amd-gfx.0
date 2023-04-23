@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59A06C77B73
-	for <amd-gfx@archiver.kernel.org>; Sun, 23 Apr 2023 14:14:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD9DDC6FD18
+	for <amd-gfx@archiver.kernel.org>; Sun, 23 Apr 2023 15:13:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7FEC10E420;
-	Sun, 23 Apr 2023 14:14:18 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79D9A10E421;
- Sun, 23 Apr 2023 14:14:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=DSe48vE9nywjx4G3xnygTop+WxvlePBvLA+a/JHlHUc=; b=JIxgWWwNV5I9b+JeGqYfWNgjd/
- 8rdv1Drcdv9QZIxwJVANyd5HLbtCLyJJIETXuvP3ivC1Y+Us68jrlyzzfufTze/73gCrizVxU9123
- opcPsg0fkAlNGppOPlNtzSPq2SYKd2lWiMnd3ZnN9T2pEo7lItOuqSSAdCqwC2kHLj0F9uDSgdqSV
- td0yVqEI81iD3lVIlbco7S03v3nAe1rBELF/dPEimmtFKifIBVZt+URe014F5pQ8kWa0kCbQC6Kpr
- C5K9Ke68c/8CTe677l0PGaTwnXYZmlBm4JVOkhN8HCgMmbvHNUtn8LyQ9bWi9+he4fShwiR1rd6GQ
- 9jsCqjeQ==;
-Received: from nat-wifi.fi.muni.cz ([147.251.43.9] helo=killbill.fi.muni.cz)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1pqaTl-00ANVs-MW; Sun, 23 Apr 2023 16:14:13 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
- Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch
-Subject: [RFC PATCH 40/40] drm/amd/display: allow newer DC hardware to use
- degamma ROM for PQ/HLG
-Date: Sun, 23 Apr 2023 13:10:52 -0100
-Message-Id: <20230423141051.702990-41-mwen@igalia.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230423141051.702990-1-mwen@igalia.com>
-References: <20230423141051.702990-1-mwen@igalia.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E6BA10E10F;
+	Sun, 23 Apr 2023 15:13:05 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A852610E0CE;
+ Sun, 23 Apr 2023 15:13:02 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 070AF60C89;
+ Sun, 23 Apr 2023 15:13:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B041C433D2;
+ Sun, 23 Apr 2023 15:12:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1682262780;
+ bh=AG9DJZKb5AXH2c0az9/0UlHgvcR2b85u+6yXwdK30HQ=;
+ h=Date:Cc:Subject:From:To:References:In-Reply-To:From;
+ b=BSRWhPBhfSM03HuvQb+y4p1ndshuPczQ3mHWCR+WA4fQ5nDNHEaWh8JqgK5D3rkgS
+ 2DJE+sYAWgM0a7xj8Zx4jYjguuU6825y+HjVRV1Qc9UkEnOBFaEfBcNUrWXU+y3Qgq
+ kgW7miXSbTIzjbjwUNrjqRDlfyc1qkiU8+MMAfcYBCYgiBwj9Yf/yEONL00FXIYo92
+ 4lcZ6kvGY+DRGol+2jEuvIsw9daS/r8WkkToPoPvxxoLRFeoES9rlKs6l81BxYBjoe
+ ypYWeO+bidGIy58+24pHa7wGcTJLrMzULDe8M2YyuGga4evpEa62pFaO4I76LM18e+
+ By/mijx/sgvtw==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 23 Apr 2023 18:12:54 +0300
+Message-Id: <CS48DTLH7UEG.1PX2N6DVS1UDR@suppilovahvero>
+Subject: Re: [PATCH v4 1/6] mm/gup: remove unused vmas parameter from
+ get_user_pages()
+From: "Jarkko Sakkinen" <jarkko@kernel.org>
+To: "Lorenzo Stoakes" <lstoakes@gmail.com>, <linux-mm@kvack.org>,
+ <linux-kernel@vger.kernel.org>, "Andrew Morton" <akpm@linux-foundation.org>
+X-Mailer: aerc 0.14.0
+References: <cover.1681831798.git.lstoakes@gmail.com>
+ <cd05b41d6d15ee9ff94273bc116ed3db3f5125bf.1681831798.git.lstoakes@gmail.com>
+In-Reply-To: <cd05b41d6d15ee9ff94273bc116ed3db3f5125bf.1681831798.git.lstoakes@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,163 +54,188 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>,
- Shashank Sharma <Shashank.Sharma@amd.com>, Alex Hung <alex.hung@amd.com>,
- Xaver Hugl <xaver.hugl@gmail.com>, linux-kernel@vger.kernel.org,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Joshua Ashton <joshua@froggi.es>, sungjoon.kim@amd.com
+Cc: Dimitri Sivanich <dimitri.sivanich@hpe.com>,
+ Matthew Wilcox <willy@infradead.org>, Arnd Bergmann <arnd@arndb.de>,
+ kvm@vger.kernel.org, David Hildenbrand <david@redhat.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, x86@kernel.org, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, dri-devel@lists.freedesktop.org,
+ Jason Gunthorpe <jgg@nvidia.com>, Ingo
+ Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>, "H . Peter
+ Anvin" <hpa@zytor.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ Thomas Gleixner <tglx@linutronix.de>, David Airlie <airlied@gmail.com>,
+ linux-sgx@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Joshua Ashton <joshua@froggi.es>
+On Tue Apr 18, 2023 at 6:49 PM EEST, Lorenzo Stoakes wrote:
+> No invocation of get_user_pages() uses the vmas parameter, so remove
+> it.
+>
+> The GUP API is confusing and caveated. Recent changes have done much to
+> improve that, however there is more we can do. Exporting vmas is a prime
+> target as the caller has to be extremely careful to preclude their use
+> after the mmap_lock has expired or otherwise be left with dangling
+> pointers.
+>
+> Removing the vmas parameter focuses the GUP functions upon their primary
+> purpose - pinning (and outputting) pages as well as performing the action=
+s
+> implied by the input flags.
+>
+> This is part of a patch series aiming to remove the vmas parameter
+> altogether.
+>
+> Suggested-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+> Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Acked-by: David Hildenbrand <david@redhat.com>
+> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+> Signed-off-by: Lorenzo Stoakes <lstoakes@gmail.com>
+> ---
+>  arch/x86/kernel/cpu/sgx/ioctl.c     | 2 +-
+>  drivers/gpu/drm/radeon/radeon_ttm.c | 2 +-
+>  drivers/misc/sgi-gru/grufault.c     | 2 +-
+>  include/linux/mm.h                  | 3 +--
+>  mm/gup.c                            | 9 +++------
+>  mm/gup_test.c                       | 5 ++---
+>  virt/kvm/kvm_main.c                 | 2 +-
+>  7 files changed, 10 insertions(+), 15 deletions(-)
+>
+> diff --git a/arch/x86/kernel/cpu/sgx/ioctl.c b/arch/x86/kernel/cpu/sgx/io=
+ctl.c
+> index 21ca0a831b70..5d390df21440 100644
+> --- a/arch/x86/kernel/cpu/sgx/ioctl.c
+> +++ b/arch/x86/kernel/cpu/sgx/ioctl.c
+> @@ -214,7 +214,7 @@ static int __sgx_encl_add_page(struct sgx_encl *encl,
+>  	if (!(vma->vm_flags & VM_MAYEXEC))
+>  		return -EACCES;
+> =20
+> -	ret =3D get_user_pages(src, 1, 0, &src_page, NULL);
+> +	ret =3D get_user_pages(src, 1, 0, &src_page);
+>  	if (ret < 1)
+>  		return -EFAULT;
+> =20
+> diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon=
+/radeon_ttm.c
+> index 1e8e287e113c..0597540f0dde 100644
+> --- a/drivers/gpu/drm/radeon/radeon_ttm.c
+> +++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+> @@ -362,7 +362,7 @@ static int radeon_ttm_tt_pin_userptr(struct ttm_devic=
+e *bdev, struct ttm_tt *ttm
+>  		struct page **pages =3D ttm->pages + pinned;
+> =20
+>  		r =3D get_user_pages(userptr, num_pages, write ? FOLL_WRITE : 0,
+> -				   pages, NULL);
+> +				   pages);
+>  		if (r < 0)
+>  			goto release_pages;
+> =20
+> diff --git a/drivers/misc/sgi-gru/grufault.c b/drivers/misc/sgi-gru/grufa=
+ult.c
+> index b836936e9747..378cf02a2aa1 100644
+> --- a/drivers/misc/sgi-gru/grufault.c
+> +++ b/drivers/misc/sgi-gru/grufault.c
+> @@ -185,7 +185,7 @@ static int non_atomic_pte_lookup(struct vm_area_struc=
+t *vma,
+>  #else
+>  	*pageshift =3D PAGE_SHIFT;
+>  #endif
+> -	if (get_user_pages(vaddr, 1, write ? FOLL_WRITE : 0, &page, NULL) <=3D =
+0)
+> +	if (get_user_pages(vaddr, 1, write ? FOLL_WRITE : 0, &page) <=3D 0)
+>  		return -EFAULT;
+>  	*paddr =3D page_to_phys(page);
+>  	put_page(page);
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index 37554b08bb28..b14cc4972d0b 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -2380,8 +2380,7 @@ long pin_user_pages_remote(struct mm_struct *mm,
+>  			   unsigned int gup_flags, struct page **pages,
+>  			   struct vm_area_struct **vmas, int *locked);
+>  long get_user_pages(unsigned long start, unsigned long nr_pages,
+> -			    unsigned int gup_flags, struct page **pages,
+> -			    struct vm_area_struct **vmas);
+> +		    unsigned int gup_flags, struct page **pages);
+>  long pin_user_pages(unsigned long start, unsigned long nr_pages,
+>  		    unsigned int gup_flags, struct page **pages,
+>  		    struct vm_area_struct **vmas);
+> diff --git a/mm/gup.c b/mm/gup.c
+> index 1f72a717232b..7e454d6b157e 100644
+> --- a/mm/gup.c
+> +++ b/mm/gup.c
+> @@ -2251,8 +2251,6 @@ long get_user_pages_remote(struct mm_struct *mm,
+>   * @pages:      array that receives pointers to the pages pinned.
+>   *              Should be at least nr_pages long. Or NULL, if caller
+>   *              only intends to ensure the pages are faulted in.
+> - * @vmas:       array of pointers to vmas corresponding to each page.
+> - *              Or NULL if the caller does not require them.
+>   *
+>   * This is the same as get_user_pages_remote(), just with a less-flexibl=
+e
+>   * calling convention where we assume that the mm being operated on belo=
+ngs to
+> @@ -2260,16 +2258,15 @@ long get_user_pages_remote(struct mm_struct *mm,
+>   * obviously don't pass FOLL_REMOTE in here.
+>   */
+>  long get_user_pages(unsigned long start, unsigned long nr_pages,
+> -		unsigned int gup_flags, struct page **pages,
+> -		struct vm_area_struct **vmas)
+> +		    unsigned int gup_flags, struct page **pages)
+>  {
+>  	int locked =3D 1;
+> =20
+> -	if (!is_valid_gup_args(pages, vmas, NULL, &gup_flags, FOLL_TOUCH))
+> +	if (!is_valid_gup_args(pages, NULL, NULL, &gup_flags, FOLL_TOUCH))
+>  		return -EINVAL;
+> =20
+>  	return __get_user_pages_locked(current->mm, start, nr_pages, pages,
+> -				       vmas, &locked, gup_flags);
+> +				       NULL, &locked, gup_flags);
+>  }
+>  EXPORT_SYMBOL(get_user_pages);
+> =20
+> diff --git a/mm/gup_test.c b/mm/gup_test.c
+> index 8ae7307a1bb6..9ba8ea23f84e 100644
+> --- a/mm/gup_test.c
+> +++ b/mm/gup_test.c
+> @@ -139,8 +139,7 @@ static int __gup_test_ioctl(unsigned int cmd,
+>  						 pages + i);
+>  			break;
+>  		case GUP_BASIC_TEST:
+> -			nr =3D get_user_pages(addr, nr, gup->gup_flags, pages + i,
+> -					    NULL);
+> +			nr =3D get_user_pages(addr, nr, gup->gup_flags, pages + i);
+>  			break;
+>  		case PIN_FAST_BENCHMARK:
+>  			nr =3D pin_user_pages_fast(addr, nr, gup->gup_flags,
+> @@ -161,7 +160,7 @@ static int __gup_test_ioctl(unsigned int cmd,
+>  						    pages + i, NULL);
+>  			else
+>  				nr =3D get_user_pages(addr, nr, gup->gup_flags,
+> -						    pages + i, NULL);
+> +						    pages + i);
+>  			break;
+>  		default:
+>  			ret =3D -EINVAL;
+> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+> index d255964ec331..7f31e0a4adb5 100644
+> --- a/virt/kvm/kvm_main.c
+> +++ b/virt/kvm/kvm_main.c
+> @@ -2474,7 +2474,7 @@ static inline int check_user_page_hwpoison(unsigned=
+ long addr)
+>  {
+>  	int rc, flags =3D FOLL_HWPOISON | FOLL_WRITE;
+> =20
+> -	rc =3D get_user_pages(addr, 1, flags, NULL, NULL);
+> +	rc =3D get_user_pages(addr, 1, flags, NULL);
+>  	return rc =3D=3D -EHWPOISON;
+>  }
+> =20
+> --=20
+> 2.40.0
 
-Need to funnel the color caps through to these functions so it can check
-that the hardware is capable.
 
-Signed-off-by: Joshua Ashton <joshua@froggi.es>
----
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 34 ++++++++++++-------
- 1 file changed, 21 insertions(+), 13 deletions(-)
+Acked-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index a034c0c0d383..f0b5f09b9146 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -336,6 +336,7 @@ static int amdgpu_dm_set_atomic_regamma(struct dc_stream_state *stream,
- /**
-  * __set_input_tf - calculates the input transfer function based on expected
-  * input space.
-+ * @caps: dc color capabilities
-  * @func: transfer function
-  * @lut: lookup table that defines the color space
-  * @lut_size: size of respective lut.
-@@ -343,7 +344,7 @@ static int amdgpu_dm_set_atomic_regamma(struct dc_stream_state *stream,
-  * Returns:
-  * 0 in case of success. -ENOMEM if fails.
-  */
--static int __set_input_tf(struct dc_transfer_func *func,
-+static int __set_input_tf(struct dc_color_caps *caps, struct dc_transfer_func *func,
- 			  const struct drm_color_lut *lut, uint32_t lut_size)
- {
- 	struct dc_gamma *gamma = NULL;
-@@ -360,7 +361,7 @@ static int __set_input_tf(struct dc_transfer_func *func,
- 		__drm_lut_to_dc_gamma(lut, gamma, false);
- 	}
- 
--	res = mod_color_calculate_degamma_params(NULL, func, gamma, gamma != NULL);
-+	res = mod_color_calculate_degamma_params(caps, func, gamma, gamma != NULL);
- 
- 	if (gamma)
- 		dc_gamma_release(&gamma);
-@@ -512,7 +513,7 @@ static int amdgpu_dm_atomic_blend_lut(const struct drm_color_lut *blend_lut,
- 		func_blend->tf = tf;
- 		func_blend->sdr_ref_white_level = 80; /* hardcoded for now */
- 
--		ret = __set_input_tf(func_blend, blend_lut, blend_size);
-+		ret = __set_input_tf(NULL, func_blend, blend_lut, blend_size);
- 	} else {
- 		func_blend->type = TF_TYPE_BYPASS;
- 		func_blend->tf = TRANSFER_FUNCTION_LINEAR;
-@@ -819,7 +820,8 @@ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc,
- }
- 
- static int map_crtc_degamma_to_dc_plane(struct dm_crtc_state *crtc,
--					struct dc_plane_state *dc_plane_state)
-+					struct dc_plane_state *dc_plane_state,
-+					struct dc_color_caps *caps)
- {
- 	const struct drm_color_lut *degamma_lut;
- 	enum dc_transfer_func_predefined tf = TRANSFER_FUNCTION_SRGB;
-@@ -874,7 +876,7 @@ static int map_crtc_degamma_to_dc_plane(struct dm_crtc_state *crtc,
- 			dc_plane_state->in_transfer_func->tf =
- 				TRANSFER_FUNCTION_LINEAR;
- 
--		r = __set_input_tf(dc_plane_state->in_transfer_func,
-+		r = __set_input_tf(caps, dc_plane_state->in_transfer_func,
- 				   degamma_lut, degamma_size);
- 		if (r)
- 			return r;
-@@ -887,7 +889,7 @@ static int map_crtc_degamma_to_dc_plane(struct dm_crtc_state *crtc,
- 		dc_plane_state->in_transfer_func->tf = tf;
- 
- 		if (tf != TRANSFER_FUNCTION_SRGB &&
--		    !mod_color_calculate_degamma_params(NULL,
-+		    !mod_color_calculate_degamma_params(caps,
- 			    dc_plane_state->in_transfer_func, NULL, false))
- 			return -ENOMEM;
- 	}
-@@ -898,7 +900,8 @@ static int map_crtc_degamma_to_dc_plane(struct dm_crtc_state *crtc,
- #ifdef CONFIG_STEAM_DECK
- static int
- __set_dm_plane_degamma(struct drm_plane_state *plane_state,
--		       struct dc_plane_state *dc_plane_state)
-+		       struct dc_plane_state *dc_plane_state,
-+		       struct dc_color_caps *color_caps)
- {
- 	struct dm_plane_state *dm_plane_state = to_dm_plane_state(plane_state);
- 	const struct drm_color_lut *degamma_lut;
-@@ -907,6 +910,9 @@ __set_dm_plane_degamma(struct drm_plane_state *plane_state,
- 	bool has_degamma_lut;
- 	int ret;
- 
-+	if (dc_plane_state->ctx && dc_plane_state->ctx->dc)
-+		color_caps = &dc_plane_state->ctx->dc->caps.color;
-+
- 	degamma_lut = __extract_blob_lut(dm_plane_state->degamma_lut, &degamma_size);
- 
- 	has_degamma_lut = degamma_lut &&
-@@ -928,8 +934,8 @@ __set_dm_plane_degamma(struct drm_plane_state *plane_state,
- 		dc_plane_state->in_transfer_func->type =
- 			TF_TYPE_DISTRIBUTED_POINTS;
- 
--		ret = __set_input_tf(dc_plane_state->in_transfer_func,
--				   degamma_lut, degamma_size);
-+		ret = __set_input_tf(color_caps, dc_plane_state->in_transfer_func,
-+				     degamma_lut, degamma_size);
- 		if (ret)
- 			return ret;
-        } else {
-@@ -945,7 +951,8 @@ __set_dm_plane_degamma(struct drm_plane_state *plane_state,
- 
- static int
- amdgpu_dm_plane_set_color_properties(struct drm_plane_state *plane_state,
--				     struct dc_plane_state *dc_plane_state)
-+				     struct dc_plane_state *dc_plane_state,
-+				     struct dc_color_caps *color_caps)
- {
- 	struct dm_plane_state *dm_plane_state = to_dm_plane_state(plane_state);
- 	enum drm_transfer_function shaper_tf = DRM_TRANSFER_FUNCTION_DEFAULT;
-@@ -1014,6 +1021,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
- 				      struct drm_plane_state *plane_state,
- 				      struct dc_plane_state *dc_plane_state)
- {
-+	struct dc_color_caps *color_caps = NULL;
- 	bool has_crtc_cm_degamma;
- 	int ret;
- 
-@@ -1025,11 +1033,11 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
- 	has_crtc_cm_degamma = (crtc->cm_has_degamma || crtc->cm_is_degamma_srgb);
- 
- #ifdef CONFIG_STEAM_DECK
--	ret = amdgpu_dm_plane_set_color_properties(plane_state, dc_plane_state);
-+	ret = amdgpu_dm_plane_set_color_properties(plane_state, dc_plane_state, color_caps);
- 	if(ret)
- 		return ret;
- 
--	ret = __set_dm_plane_degamma(plane_state, dc_plane_state);
-+	ret = __set_dm_plane_degamma(plane_state, dc_plane_state, color_caps);
- 	if (ret != -EINVAL)
- 		return ret;
- 
-@@ -1054,7 +1062,7 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
- 		 * linearize (implicit degamma) from sRGB/BT709 according to
- 		 * the input space.
- 		 */
--		ret = map_crtc_degamma_to_dc_plane(crtc, dc_plane_state);
-+		ret = map_crtc_degamma_to_dc_plane(crtc, dc_plane_state, color_caps);
- 		if (ret)
- 			return ret;
- 	}
--- 
-2.39.2
-
+BR, Jarkko
