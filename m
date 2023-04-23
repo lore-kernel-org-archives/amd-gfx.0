@@ -4,106 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6934DC77B76
-	for <amd-gfx@archiver.kernel.org>; Sun, 23 Apr 2023 07:05:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BC27C6FD18
+	for <amd-gfx@archiver.kernel.org>; Sun, 23 Apr 2023 14:11:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEE7D10E37F;
-	Sun, 23 Apr 2023 07:05:51 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2049.outbound.protection.outlook.com [40.107.237.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 582B210E37F
- for <amd-gfx@lists.freedesktop.org>; Sun, 23 Apr 2023 07:05:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QcaZoB5WmTgKpdC7LDoS2HQUuMyI0F8MGIQeXoulwSsaFlV/LJpbAJZfAj2m2PHgPljzYpqDMX0VHLUJMnio3zIS0/BLFmXEc67+G7v/5HoAyzLHntCJo8EQ8307VFIr2oe/3OGasZs0i/DcznjHuaD5TktImvR13RWQpfc7rPbo8W99U+LqCEAxZbxKddWDzqjXsM5P9EyA0l9g0YL3kg54b+xc7ZRnG153iPI7BCGHd5zxZA+zpv1k1Uizg/Kh9pE/p86pMeNc6JmidsLm6iTf6Ocw13tLhONKEozgn7NCs7j1pCblO4qloHJTBJ/WTJKS+v/Y40NHZT2QB9Bc7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FsK9T7l6aBELLpIXFxk4G1JmqyK8/A8mRMI9QbtfP3k=;
- b=aBO4E8kzyR7gT7K/12doGaWaZeVzb2l2PvC/r6zJs+UYyT2FAg7qt43gNbwzjxr/jP24hDtXbhXcKRNGmMF+oDNAu+4RVAfJBt7H5EzvKqjHeTGH0Rc/7XiflHMLcSc5RFo5BDLuC+v6isHrloxzUJEEGVSehgWjDdnzzfQugd8rZ8YsGjZ0ZLqfOdNP0OM25yDWLSd1HQG2WBIIgk/UzSiuCBmN5jHQSFUwYqRL68DDwUEPbhwqIhyBRF4OL0uzCh2IYG+KBp37e6BaonIAH01bRvbFofdRxhZcHBH4zxF5gk9QDb+845G9N4PAHUVRzZysro9ZgL/rlBIoY/0iAg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FsK9T7l6aBELLpIXFxk4G1JmqyK8/A8mRMI9QbtfP3k=;
- b=2STigDndsnNQKDEnDFMplNEIdI2foh89BuYpLAtk9l/TXjNPQkQa8GDcMuMykOUfeIr2VxTEAJ49zOq+0bLQsRuFVJTU/UYqhi8+0QjPFumM165gDipzFP/gA5sVjr1MGiBCoPIvJsV6BmM0AAj4FlHitaGyPv+Y52D42ytrHdU=
-Received: from DM6PR12MB3035.namprd12.prod.outlook.com (2603:10b6:5:3a::24) by
- IA1PR12MB7712.namprd12.prod.outlook.com (2603:10b6:208:420::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6319.22; Sun, 23 Apr 2023 07:05:44 +0000
-Received: from DM6PR12MB3035.namprd12.prod.outlook.com
- ([fe80::e92a:7e3b:f506:ee9f]) by DM6PR12MB3035.namprd12.prod.outlook.com
- ([fe80::e92a:7e3b:f506:ee9f%5]) with mapi id 15.20.6319.028; Sun, 23 Apr 2023
- 07:05:44 +0000
-From: "Wang, YuBiao" <YuBiao.Wang@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: put MQDs in VRAM
-Thread-Topic: [PATCH] drm/amdgpu: put MQDs in VRAM
-Thread-Index: AQHZc6EIl96KGRHKKky0jk8S93tRDK84ezag
-Date: Sun, 23 Apr 2023 07:05:44 +0000
-Message-ID: <DM6PR12MB303568F1C971F49793126FFDE5669@DM6PR12MB3035.namprd12.prod.outlook.com>
-References: <20230420155839.634172-1-alexander.deucher@amd.com>
-In-Reply-To: <20230420155839.634172-1-alexander.deucher@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB3035:EE_|IA1PR12MB7712:EE_
-x-ms-office365-filtering-correlation-id: 219d9b2f-1831-4637-d03f-08db43c927ff
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: CwrLlu7MoQh3jDFfiYg7rW1MHJrZOy9Ya1FqXsT78s6oJp9U5NmxHCQi5LFB8vOFwz3PA5NcWhT9EHYzFpsQfi4PGalDVkVwhGQCLk02IfSuAcn47D50a63ykfO9hVan1iybiEl3E+vEbUYuRL/OkKEZOfGLQDQWdCc+E6w7i43F2zkEVEWNCa3vCHnyqeOoapIvKl2gd599l9weuYl+A9REHUu6hQNvWdjCWfkEG2FZwu8t00O5nXv1sPT7ENXIIymMVdmy2hXO5zjxbsQykocAfq1o9+GDM7d5FStvEnlAuqaojKIMCUn0YUwz+0S272QN5JRPusPoqCrTdnmNaQZ0KIzvwnxaNs9CFyUhbFdjgJUvpZXwxG1CkEMel5vtftoqUifce0ZL2TyW8eqxZakdUSjzL8/xm4d9qVSoDoTr9YLU0hDn8vMzwRLLrC30jnWEDkkRz3RMB0IwmEY/0Xvx/HeT92noQPoMbDMaSifFwWmYYkNU4cE20KdWagLEhmy9JwEUjPG9ysh9ZhdSJ8DsnHbalo88o2538Wsca0wHGsYhVaoc/IsZ+GCae9dSFz8o/TLPhTxs4YC+bvtk2NM/j+xPn5hFpA3U3IkKpYq4wQAjKKHGSv8wXHv209Ju
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3035.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(136003)(346002)(39860400002)(396003)(366004)(451199021)(8676002)(7696005)(8936002)(71200400001)(38100700002)(5660300002)(33656002)(52536014)(55016003)(110136005)(41300700001)(122000001)(66946007)(76116006)(66476007)(66446008)(66556008)(478600001)(64756008)(4326008)(38070700005)(186003)(316002)(53546011)(86362001)(83380400001)(6506007)(26005)(2906002)(9686003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ouWUGj0QV3BZvkxOx3ecnHm1FbIAYLhiz5nkXg/uW57QiOZpkItxBEewPUqD?=
- =?us-ascii?Q?UINGoAWIjkwGDcV3lDTo0KJF0Va5VkImt4ivnZQH2bnQ2GQmbCWICOOmIJNC?=
- =?us-ascii?Q?kO7Or5br360x0R6sKXBy1J5xXGf+RJj9CsseCuzR/h3ep/+WwuFK0fAphEzR?=
- =?us-ascii?Q?qpnKuLjF5GFWXgy/htNSSyEO6f0vCXxQ3sBh6UxSQ+nHQYHjqHKCon2hLQ1k?=
- =?us-ascii?Q?grq4sLHJo71uaLSK73OI3eCjfFWgZ2HforghMd1aIqPjejAMbL1ev+IgFSxQ?=
- =?us-ascii?Q?As0WKJ5+0xesaVyuXwLvvYl0LCfElqhq3kk4DUw6qnx2hlPuNQiNwReTX2Jn?=
- =?us-ascii?Q?m18N3LZ6dpv78yhgOgBGQ05Anp7M6WjO589TBk6bG8bFiklHTdiBGxmvZuhO?=
- =?us-ascii?Q?A+6UpJLYOkySydcEm99orLBu4rhcwLFecSDEhY5rGmHHap5JgPaQuTN2MVts?=
- =?us-ascii?Q?MtUro1M7OILYbn3QhLb/cm4SdXNbdZu5Hth1C3iy6DLGr3AsnNpHxs+Au/lF?=
- =?us-ascii?Q?rTZsf/wqStL+aa6FkB3a8dWl/nFFgAZ1EdRWFsCOHEImbo42cQFjjsVQ4KvW?=
- =?us-ascii?Q?IVUSCvlUQO30i/hlBmbyYgjC6rXVCdnHTzLtm/ZROXLRPTjd3SJy5YhASg9R?=
- =?us-ascii?Q?F7iuaPCPR60YLBOl22VdNq49X5mMfZbGuNU6Au2HvAS35e3DGgInlzDD4zYv?=
- =?us-ascii?Q?ozDxR7AxrHWbVCuqC07nX6MMgLRhqiMOSrvmfRYZAW5Sp+z8L72bn3nKiqow?=
- =?us-ascii?Q?SmqF/RXwsAh1XC03RYwuJKtqIhD/45RBvJbR99Swxdau8635ow3iqb0nN6UJ?=
- =?us-ascii?Q?VtlhvIAqdwRvoDzoTY8kFzbd7JxSwSHY2NZLEb6TEbG10BhqcE/xBCTyYy6W?=
- =?us-ascii?Q?Rryh529Mn0z86sA0q63PArFbJ14X44Yqmpzsg/auZHU871IDKHmfd2NVCxd3?=
- =?us-ascii?Q?qOI7J1zMx0+2X+Gzp7qowLAm2r8SFPHqj+dKVu5vLrhIjuyp2LKwXzOC5lAl?=
- =?us-ascii?Q?tErIxvsRq/tVX2IIkqs0az1UwTDV8XNKHZ1XSZJPiyihEJkKtqfjFHd569ZB?=
- =?us-ascii?Q?+UsZgEO6uSgEATLTM1cu43Ly8j5NEcrVcK+Vqu2vGHEFKWGFOQSkIleYxAVe?=
- =?us-ascii?Q?MHArRndUPez64oBRx6QGqxLlg5VVRg7utx5Pfmjq2N7mtS42egFKpGPO0S2x?=
- =?us-ascii?Q?Uq8UXeb11H+UTIdPDa/3w31Niu+cIZbqg5ZV0j6j+DxygNHImwIECos9Rxu1?=
- =?us-ascii?Q?nFfHfeq3XdmSo4/wGxeNTnt4U1Qz503G0l/pnysvXALywadWfUTRtpZJeNoH?=
- =?us-ascii?Q?znKF4rc2jOcmOU/ybQZm6MMKUzBYY2FhnZDi97LWH4xev2HSLfV444wrLNjM?=
- =?us-ascii?Q?U0NzGWvPNqBP074npYQSo1I0bbR3NidxhbhGCbOaOy/4qTrpzHu/A/Dnggck?=
- =?us-ascii?Q?KG1vHOrsQvZyMJjHmWSSy7voCsiDCBHQd7EIaJ8hqnSTPJzIniAxlaQYLjL6?=
- =?us-ascii?Q?OXwsAGpBlccmOzfYdZMX6UXEOEgkdin3tOYwivgTFrm0ZorEq9BQZk+rZogA?=
- =?us-ascii?Q?xCNfpG/9vQnh8SqxBug=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FAC910E128;
+	Sun, 23 Apr 2023 14:11:55 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 389E810E128;
+ Sun, 23 Apr 2023 14:11:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:
+ Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=wW8cHrcAdLnS/PDlwOJdcqPUxh8bdVCQ3SzRIGLCfxs=; b=XAz/jF73XU1SqBH9nVYLpcd1w6
+ sDoQnFPuY/ozTMClZRmakVgFYAHyMDT3lcBD9OJjkY5lhKRxfPWjuAjJ+esMgX39XDayHmcDIFUzZ
+ UvaFr2nXy6IAKmfPR4XP5nWzuYwmOp7YQJB3mg967JQPIq6PEu6KRXs+ngn8bxkiD0KV8RBb8yrX7
+ rzygo1fUVSoSE5zUaABbCe+MpFyVm9yNBev9YZEZ7H2lWeph70jmNuAXlkEn4r3YkBET62LC8OLQP
+ gXHRA9ZEWhCroTF9vN3pPOB2dgs+k6bIA375afBZRAci9VzKrn8yNX/2XLcqUyTiIf/CxN/Wkf2dm
+ 1F9AwkDg==;
+Received: from nat-wifi.fi.muni.cz ([147.251.43.9] helo=killbill.fi.muni.cz)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1pqaRO-00ANVs-Gp; Sun, 23 Apr 2023 16:11:46 +0200
+From: Melissa Wen <mwen@igalia.com>
+To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
+ Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, christian.koenig@amd.com, daniel@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ Xinhui.Pan@amd.com
+Subject: [RFC PATCH 00/40] drm/amd/display: add AMD driver-specific properties
+ for color mgmt
+Date: Sun, 23 Apr 2023 13:10:12 -0100
+Message-Id: <20230423141051.702990-1-mwen@igalia.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3035.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 219d9b2f-1831-4637-d03f-08db43c927ff
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Apr 2023 07:05:44.1348 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: MkCqOl3X7VllcYMOfvVGsRwJeLxLrgLgfpiyCBEcXxeAFpl3NMcnDl/nFB6oKo3CJt1q9nEmareyJ0AG4/SaiA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7712
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,56 +54,181 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: Sebastian Wick <sebastian.wick@redhat.com>,
+ Shashank Sharma <Shashank.Sharma@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Xaver Hugl <xaver.hugl@gmail.com>, linux-kernel@vger.kernel.org,
+ Melissa Wen <mwen@igalia.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Joshua Ashton <joshua@froggi.es>, sungjoon.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Alex,
+Hi all,
 
-We might want to move the mes_v11_0's mqd to VRAM, too. According to my tes=
-t result, moving mes queue's mqd to vram will lead to better performance th=
-an only moving gfx&compute queues' mqd.
+Joshua Ashton and I (with the great collaboration of Harry Wentland -
+thanks) have been working on KMS color pipeline enhancement for Steam
+Deck/SteamOS by exposing the large set of color caps available in AMD
+display HW.
 
-Regards & Thanks,
-Yubiao
+This patchset results from this full-stack work, including pre-blending
+and post-blending new color properties. The first two patches fix
+quantization issues on shaper LUT programming. Just after, we have one
+patch that adds a config option to restrict AMD colo feature usage. The
+following 13 patches implement AMD driver-private color properties
+(pending detachment of property counter and plane color_mgmt_changed
+from DRM). Finally, the last 24 patches rework the AMD display manager
+and color management to support the properties exposed.
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex Deu=
-cher
-Sent: Thursday, April 20, 2023 11:59 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: put MQDs in VRAM
+In short, for pre-blending, we added the following:
+- plane degamma LUT and predefined transfer function;
+- plane HDR multiplier
+- plane shaper LUT/transfer function;
+- plane 3D LUT; and finally,
+- plane blend LUT/transfer function, just before blending.
 
-Reduces preemption latency.
+After blending, we already have DRM CRTC degamma/gamma LUTs and CTM,
+therefore, we extend CRTC color pipeline with the following:
+- CRTC shaper LUT/transfer function;
+- CRTC 3D LUT; and
+- CRTC gamma transfer function.
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 2 ++
- 1 file changed, 2 insertions(+)
+You can already find the AMD color capabilities and color management
+pipeline documented here:
+https://dri.freedesktop.org/docs/drm/gpu/amdgpu/display/display-manager.html#color-management-properties
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gfx.c
-index 60bb4bba1994..f52feee1d64d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -413,6 +413,7 @@ int amdgpu_gfx_mqd_sw_init(struct amdgpu_device *adev,
- 			ring =3D &adev->gfx.gfx_ring[i];
- 			if (!ring->mqd_obj) {
- 				r =3D amdgpu_bo_create_kernel(adev, mqd_size, PAGE_SIZE,
-+							    AMDGPU_GEM_DOMAIN_VRAM |
- 							    AMDGPU_GEM_DOMAIN_GTT, &ring->mqd_obj,
- 							    &ring->mqd_gpu_addr, &ring->mqd_ptr);
- 				if (r) {
-@@ -434,6 +435,7 @@ int amdgpu_gfx_mqd_sw_init(struct amdgpu_device *adev,
- 		ring =3D &adev->gfx.compute_ring[i + xcc_id * adev->gfx.num_compute_ring=
-s];
- 		if (!ring->mqd_obj) {
- 			r =3D amdgpu_bo_create_kernel(adev, mqd_size, PAGE_SIZE,
-+						    AMDGPU_GEM_DOMAIN_VRAM |
- 						    AMDGPU_GEM_DOMAIN_GTT, &ring->mqd_obj,
- 						    &ring->mqd_gpu_addr, &ring->mqd_ptr);
- 			if (r) {
---=20
-2.40.0
+In previous iterations, we tried to provide a generic solution for
+post-blending shaper and 3D LUT [1][2][3], and also Alex Hung worked on
+a pre-blending 3D LUT solution[4] extending plane color mgmt proposal
+from Uma Shankar [5]. However, we identified during our work [6] that
+AMD provides many other valuable capabilities that we don't find in
+other vendors, so we started to work on AMD driver-private color
+properties that better describe its color pipeline, enabling us to
+expose full AMD color capabilities on Deck HW.
+
+Our primary purpose is to avoid usage limitations of color calibration
+features provided by HW just because we don't have an interface for
+that. At the same time, a generic solution doesn't fit well since some
+of these capabilities seem AMD HW specific, such as hardcoded
+curve/predefined transfer function and shaper 1D LUTs sandwiching 3D
+LUT.
+
+So far, we keep these properties' usage under an AMD display config
+option (STEAM_DECK). However, we are fine with having them fully
+available to other DCN HW generations. In the current proposal, we are
+already checking ASICs before exposing a color feature. We can work on
+3D LUT resource acquisition details to fit them to DCN 3+ families that
+support them. Indeed, before moving to these config boundaries, we
+started working on an open solution for any AMD HW [7].
+
+The userspace case here is Gamescope which is the compositor for
+SteamOS. It's already using all of this functionality (although with a
+VALVE1_ prefix instead of AMD) to implement its color management
+pipeline right now:
+https://github.com/ValveSoftware/gamescope
+
+We are planning on shipping our color management support with gamut
+mapping, HDR, SDR on HDR, HDR on SDR, and much more in Steam OS 3.5. A
+brief overview of our color pipeline can be found here:
+https://github.com/ValveSoftware/gamescope/blob/master/src/docs/Steam%20Deck%20Display%20Pipeline.png
+
+We have also had some other userspace interests from Xaver Hugl (KDE) in
+experimenting with these properties for their HDR/color bring-up before
+a generic interface is settled on also.
+
+It still needs AMD-specific IGT tests; we are working on documentation
+and adding plane CTM support too. 
+
+We decided first to share our work to collect thoughts and open for
+discussion, even with missing refinements, since driver-private
+properties are not the usual DMR/KMS color management approach.
+
+Please, let us know your thoughts.
+
+Best Regards,
+
+Signed-off-by: Joshua Ashton <joshua@froggi.es>
+Signed-off-by: Melissa Wen<mwen@igalia.com>
+
+[1] https://lore.kernel.org/dri-devel/20220619223104.667413-1-mwen@igalia.com/
+[2] https://lore.kernel.org/amd-gfx/20220906164628.2361811-1-mwen@igalia.com/
+[3] https://lore.kernel.org/dri-devel/20230109143846.1966301-1-mwen@igalia.com/
+[4] https://lore.kernel.org/dri-devel/20221004211451.1475215-1-alex.hung@amd.com/
+[5] https://lore.kernel.org/dri-devel/20210906213904.27918-1-uma.shankar@intel.com/
+[6] https://gitlab.freedesktop.org/mwen/linux-amd/-/commits/amd-color-mgmt
+[7] https://gitlab.freedesktop.org/mwen/linux-amd/-/commits/amd-private-color-mgmt
+
+Harry Wentland (2):
+  drm/amd/display: fix segment distribution for linear LUTs
+  drm/amd/display: fix the delta clamping for shaper LUT
+
+Joshua Ashton (15):
+  drm/amd/display: add CRTC gamma TF to driver-private props
+  drm/amd/display: add plane degamma LUT driver-private props
+  drm/amd/display: add plane degamma TF driver-private property
+  drm/amd/display: add plane HDR multiplier driver-private property
+  drm/amd/display: add plane blend LUT and TF driver-private properties
+  drm/amd/display: copy 3D LUT settings from crtc state to stream_update
+  drm/amd/display: dynamically acquire 3DLUT resources for color changes
+  drm/amd/display: add CRTC regamma TF support
+  drm/amd/display: set sdr_ref_white_level to 80 for out_transfer_func
+  drm/amd/display: add support for plane degamma TF and LUT properties
+  drm/amd/display: add dc_fixpt_from_s3132 helper
+  drm/adm/display: add HDR multiplier support
+  drm/amd/display: handle empty LUTs in __set_input_tf
+  drm/amd/display: add DRM plane blend LUT and TF support
+  drm/amd/display: allow newer DC hardware to use degamma ROM for PQ/HLG
+
+Melissa Wen (23):
+  drm/amd/display: introduce Steam Deck color features to AMD display
+    driver
+  drm/drm_mode_object: increase max objects to accommodate new color
+    props
+  drm/amd/display: add shaper LUT driver-private props
+  drm/amd/display: add 3D LUT driver-private props
+  drm/drm_plane: track color mgmt changes per plane
+  drm/amd/display: move replace blob func to dm plane
+  drm/amd/display: add plane 3D LUT driver-private properties
+  drm/amd/display: add plane shaper LUT driver-private properties
+  drm/amd/display: add plane shaper TF driver-private property
+  drm/amd/display: add comments to describe DM crtc color mgmt behavior
+  drm/amd/display: encapsulate atomic regamma operation
+  drm/amd/display: update lut3d and shaper lut to stream
+  drm/amd/display: allow BYPASS 3D LUT but keep shaper LUT settings
+  drm/amd/display: handle MPC 3D LUT resources for a given context
+  drm/amd/display: add CRTC 3D LUT support to amd color pipeline
+  drm/amd/display: decouple steps to reuse in CRTC shaper LUT support
+  drm/amd/display: add CRTC shaper LUT support to amd color pipeline
+  drm/amd/display: add CRTC shaper TF support
+  drm/amd/display: mark plane as needing reset if plane color mgmt
+    changes
+  drm/amd/display: decouple steps for mapping CRTC degamma to DC plane
+  drm/amd/display: reject atomic commit if setting both plane and CRTC
+    degamma
+  drm/amd/display: add plane shaper/3D LUT and shaper TF support
+  drm/amd/display: copy dc_plane color settings to surface_updates
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   | 153 +++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |  92 +++
+ drivers/gpu/drm/amd/display/Kconfig           |   6 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  31 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 120 +++-
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 613 ++++++++++++++++--
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    | 124 +++-
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 238 +++++++
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.h   |   7 +
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  49 +-
+ drivers/gpu/drm/amd/display/dc/dc.h           |   8 +
+ .../amd/display/dc/dcn10/dcn10_cm_common.c    | 109 +++-
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |   5 +-
+ .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    |   9 +-
+ .../amd/display/dc/dcn301/dcn301_resource.c   |  26 +-
+ .../gpu/drm/amd/display/include/fixed31_32.h  |  12 +
+ drivers/gpu/drm/drm_atomic.c                  |   1 +
+ drivers/gpu/drm/drm_atomic_state_helper.c     |   1 +
+ include/drm/drm_mode_object.h                 |   2 +-
+ include/drm/drm_plane.h                       |   7 +
+ 20 files changed, 1509 insertions(+), 104 deletions(-)
+
+-- 
+2.39.2
 
