@@ -4,118 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE022C77B61
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Apr 2023 16:30:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 359CDC77B61
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Apr 2023 16:45:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DE6B10E052;
-	Mon, 24 Apr 2023 16:30:23 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2058.outbound.protection.outlook.com [40.107.101.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA6DB10E052;
- Mon, 24 Apr 2023 16:30:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bG1moTpbGFSE0C+R8lxnkYE5MbntjfK4hZhTL8sUAW7daeU4fD6hkkRueB+cGrKbUE+ujTSM9wsjN7shhnQGL/IYlxk1KsK+slJEcejKCnx3urJu+j9kDm5i1OACRE4bNAIYD1w9PW5RAguO0jn1amAfjynNC9JN/rl5emlArdHIPMcPRTy61gZnZyZmHn54K+m8Tp7Ks7cWEn4gt/YregruCuL3Fzjjz6yxkofnUXXlqnN++GItHeMD1hdYJjw6wV7KzqZFlm/tldUpG/vqwo55iPt8OPgI6csODzQN+tvCSOterWjVZ5nyMH/5glqtwJNtLoaGa5foHw4YnqrGyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LWWoMTJjFzvycKYu4bF4v39mniQ64a+5yTQoeYMd2uA=;
- b=iKCBhvGTnjbuL7PLRhC+rd5utJP/y+FUuJ6SjregVUApUBQ6oE0rPSsbjREa4xDbQuyN4R6/q/u2e2RkA95Hk+WmG0cBLAZzpvT0/6xgjw/0Y17RNjcZchdn/+NhP+hilhgjLO6qxrxQ3mEaIqY1iVy7Wp7F84IifkhUPrDi1NhbdlPxiMpZun2XJpoH19QdaEFq78O4NsI9ZNyl17gMXcjs2nEZMCGvZ/96p0gzG2yu7qeh9y+RxsS7tUJB9DI4H8rqPUCWj55/7mRFmWJi5ScbPJWk0PL8jPa2gV1qXYVyqDzlvZ9jWLRYMjJ91ASDnmuiLMZUDE1QeWsrWqCGuA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LWWoMTJjFzvycKYu4bF4v39mniQ64a+5yTQoeYMd2uA=;
- b=IjkafUTwJqB1lwhtvwzeEU/ktCjflKkE39zg6nL2excxZL7Kw0JBoA1onviIcXCGTy1NrH47yT6LEu297xWsF5nB8gJ9rMYByRVl/AuNcthdGEobW7nXS0YIJhQ9ysXHpYuJdsxcGuGtKRnVXm3WpeflK5LD9O711akTcuDZvsk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com (2603:10b6:8:a2::11) by
- PH8PR12MB6795.namprd12.prod.outlook.com (2603:10b6:510:1c6::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.33; Mon, 24 Apr
- 2023 16:30:14 +0000
-Received: from DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::fe53:2742:10f9:b8f1]) by DM4PR12MB6280.namprd12.prod.outlook.com
- ([fe80::fe53:2742:10f9:b8f1%9]) with mapi id 15.20.6319.022; Mon, 24 Apr 2023
- 16:30:14 +0000
-Message-ID: <d8f2fd5b-26ce-5b17-60f3-449b10e2b281@amd.com>
-Date: Mon, 24 Apr 2023 12:31:38 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: Re: [PATCH] drm/amd/display: return status of abm_feature_support
-Content-Language: en-US
-To: Tom Rix <trix@redhat.com>, harry.wentland@amd.com, sunpeng.li@amd.com,
- Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, Leon.Huang1@amd.com, wenjing.liu@amd.com,
- qingqing.zhuo@amd.com
-References: <20230420132129.3888917-1-trix@redhat.com>
-From: Hamza Mahfooz <hamza.mahfooz@amd.com>
-In-Reply-To: <20230420132129.3888917-1-trix@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0042.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:86::27) To DM4PR12MB6280.namprd12.prod.outlook.com
- (2603:10b6:8:a2::11)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9A5310E0D7;
+	Mon, 24 Apr 2023 16:45:33 +0000 (UTC)
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7E8710E0D7;
+ Mon, 24 Apr 2023 16:45:31 +0000 (UTC)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-505934ccc35so8067791a12.2; 
+ Mon, 24 Apr 2023 09:45:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1682354730; x=1684946730;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=hYQKcBjiiOyw2ggjeCgQ7QYIqIA61gJtV/vmnt8ad8M=;
+ b=ULL2efyQCdjXanu/dUzSuSMOIc9L4S49TsnWE+sH8GII/k2aWff+S8ByMMWrbChfiH
+ fCwFzNSmVwnnGJFTr7pgjIaczmOW1SYnWYPsjIvSDABiVB5cOpz2uPKiohYvdEBtoDA3
+ e8w9kxsj/kqECzPDM87S1fiQ848vJmJZFNns2DUipF/X88rvvfosMvPpDam9+jUlAeeA
+ lheH2m6oV+JK/69zmU96YAOaVHXJcQidAphgPcsXu7CWMQWv/AkkeUqJ3QLuuGmQBvFn
+ S49cRZRm8fM5Ax9OQ4liEDIYh4kX/ZVo3S7S+V6UOYFivPHXAkzU8QTpf83q38Nw+VQ/
+ RFGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1682354730; x=1684946730;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=hYQKcBjiiOyw2ggjeCgQ7QYIqIA61gJtV/vmnt8ad8M=;
+ b=f2jWipjRV9tGTEv5+4pQcI5VAQhYY3AVJ6+abMKOv+RGJh0Mbf9AzksAAcXXoVerNf
+ 8mJbuYSOwzomaxlR8XpxaGJJ0XHkEkV88BjWNP3L85dGQ0P9iI3dEfrz7JtfiAk+IGXb
+ F6vl1cFncQQqPdNd2QwN4+2HfxjyscqpaIj6u1B/1C11o0HFUKpuW3RLVJzUzvnrAnZP
+ BxmwkpxJHKQMcp07bVkO3cW8xOrqfuUR1xWYWmpg6R2tL6DH1SZ+uIN6RX8AEgNyY2hu
+ I7uCoIDcfO20ZgqzyuO9U7TfdCpms6j9oChqPXfbF8ClrHgjzYyQYSmZSVINhjrgjW4I
+ kjCw==
+X-Gm-Message-State: AAQBX9cCPhMyWA5S0OzaZ+bpwqjqyWjk1ngvE6ijc2eBd4cXOvLgKU9q
+ hMQ/aws4kWZYvy9k8QhG60WCkzDIC3Mcx2vFnQo=
+X-Google-Smtp-Source: AKy350ZlFwORCgTLSmzs+EI1IExUKbjPKP8+YyRmFYqxRHOLoSEEBcV3LV2mEjd7BP7H0a5BYkT/dG9oi/jVrTScG2Y=
+X-Received: by 2002:a05:6402:2c7:b0:4fa:3b3:c867 with SMTP id
+ b7-20020a05640202c700b004fa03b3c867mr12356495edx.17.1682354729833; Mon, 24
+ Apr 2023 09:45:29 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6280:EE_|PH8PR12MB6795:EE_
-X-MS-Office365-Filtering-Correlation-Id: ea75b61d-a288-4b37-fc18-08db44e12e4f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: yOP7U4Ey2863A1GVW5ieRtjBed+6kA3gEPyl4pdXdK27ymhSAVjQ6iSzsnhhpxSs+g54raHS0LsUMMWZh8h6Zh7kOP3KnmznyWsOpdZpk4q36iPc29WKEvIdpsXlLnHqoIglLBlbgeVNMoWzVl4IU3FO3gE3cmKtpxuau3bYBEtmBSRW5oZ5azw/YwmYlRfSTOuvH3fcX8e6tVUWftsxf4EFGY+4UbAUhR7grcvGc/a+9n5e7YTucAeD2b6fPWF+UoGIKan8h2aX6Xbjjrl3CsI1oGhh5BTEulrirp3xJcmalWSRoWs45q5sgMotimoKrMQzYQn+VBLWENPySOoxRt6rJNh9fEMBl/hz4nEQU0yErf707s6GD3UYu3EOCFZu6bDwY3OOkTN1HmbMkV8XsWODdvj56AulctUKYPZbtskN1sJW9n3pkt7INYu0aED8Nh3XaTF81iQFiwX10Nkj8u+HNPB8w+8JOE2HKMCiwsdEBoA135SmKIl60ZDlleU7AKYgYDDPVFxJZEVU9sG3PWI0xLoaS4pVhhe9auOjKt8+esnn0CwQ2kzFakAHUMP+zaPf9dGNZ5VgEh/vuoz7gA/b+o804uSPOQD2F02uOMYtSdbsy/7Fk6TpK7wcaKdPUEmCM/StBku06Foecf/SNaRAlZIu40a04/a85S1nypQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6280.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(366004)(376002)(346002)(39860400002)(136003)(396003)(451199021)(478600001)(31696002)(6636002)(86362001)(36756003)(186003)(53546011)(6486002)(26005)(6506007)(6512007)(6666004)(4326008)(66476007)(66556008)(316002)(44832011)(83380400001)(66946007)(2906002)(38100700002)(921005)(41300700001)(8676002)(8936002)(31686004)(5660300002)(2616005)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T2ZhazlvbGRYSEFhc0RyRzVvcUpOWXRKdVhVOHlsQ1UxTFJJRGJ1RTVDOWpP?=
- =?utf-8?B?ajZxeWdRY0dHVGRMUXRRSzlNUEZiRFg1bkVTa2lVeUFkM1Rza1ZENGczWXVi?=
- =?utf-8?B?b05mVkw0VVEwUEJ1THVEWElaaytrUzU2T21hQ0c1MnRCUUI4WWUxY3J1eXps?=
- =?utf-8?B?bytHL29GOHBsV3VhYXNUaWlOL29kVnhWZDR5eGpOcU91Ulg3ODNIR01pbk55?=
- =?utf-8?B?b1luYmlvUGI4NERyL084Q3dGdXY5aEtKZmMyVUU3dzZGR1dxYnRpODRVTzBL?=
- =?utf-8?B?S3Myd2ZRa2doRExubU1XdVNudkU2RnMxZ1BzWjVnZVJpb3RVTkY4OHFoUmI5?=
- =?utf-8?B?a1VFZkswWlZvWk9DNVlFUGpidXlJeFpLUFZFU2VXcUl2clpyZUZyNGZSMDBi?=
- =?utf-8?B?TUZyTVZQcEJOOVBSMGVOZ0oxM2k3b09oUTY2di85MWNLNGFXYzRFVEZxQW5p?=
- =?utf-8?B?VXZFekI1U3NHTGlQVzZFSEFhQWxuZmNIOWlGNCtiQjVjOEUwczh6bmxOalVs?=
- =?utf-8?B?R1VXaytjc1grSnhlMWhkU3N5N3RyL0xraDFZRVJGKzRCZklJLzZGSHJ3b0lp?=
- =?utf-8?B?c2QzYUhsY21OV0VPUFR2WGh0MER1Wlp4Zmk0Mi9lL3kvUFhTQmJabEg3enND?=
- =?utf-8?B?S3ozNUNicjI3aHplTTFrM2dLWlFmNnNoYnhDT2JUSUNJc29lOVRBNGF5S1d3?=
- =?utf-8?B?QVZHY1NlMm1xWFBoSzlqLzdRVzlhYXRzSG56QXkwV2c3aU8vczd4QmhacHBY?=
- =?utf-8?B?WW4ydlB2YWtKcWE1Y1dtbUhiQ1dmaDV0UGw3THFvZU9WOGYvdVpKYkdVaVNW?=
- =?utf-8?B?MTloaFBJOURwUFVZWHBKNnRpam1FbkhIa0hYR0tIc0NlN24xWHRFWDFoeXI1?=
- =?utf-8?B?QkxNUUwrcjZoQmVGUWJhckJNc1NXM0N4anJ1TnNLZTREN1NhYnlKN3NUSjJp?=
- =?utf-8?B?ZERLdmVUTVZJcTR3NkVOS1dZM3ducGprVFRRSVppL0RJVGF5M3Qva091UlRY?=
- =?utf-8?B?ZDNid3NLL3RGZXJpMFZ6ZHBBemNMaXBqZFhZVkwzZjE5QVRjeHphYVN2ZXFj?=
- =?utf-8?B?WHV2WTlqYlB2NlNkc3dvVXFXbE5rdnordXNCVUFCVEVLdldWSzVWRU5oeC9y?=
- =?utf-8?B?bU9vMzd0R2hEdFJUbmFsZnBhR3ZPWUhjMVhxR1pNSE1hMGRpMjFRVFd4SVpY?=
- =?utf-8?B?dmsvLzNVRVVIR1NpOE02b0M2Rzd3bFd0aEd6UkswbDJNRXp0dzVNRitYaG5G?=
- =?utf-8?B?eHZxSGVMUzdRN0Q1ZXpvZjhZTm1SdmxRNnY4c2lUM24zWDMva0h5YkhiMlEz?=
- =?utf-8?B?cG5kNTIvVW9KeDEyZ0w2VjhIMXlremxHQUZQWUZwVitZYmFwWGhtYmwrMGgr?=
- =?utf-8?B?SEJ3M0d0RG1WYUpwMzBNbFVJSHc1WTFHYmcyOTFyWDBnM2dQQndOU2djb2cw?=
- =?utf-8?B?cGVBYWdBVFFBRW1hSDlkVGhjN2liTVlScEIxbjFOUEZPK0Y4T2hDMEF6bmtl?=
- =?utf-8?B?UnlQSnZjd3E0UStEbzhLRU9BaXdzRzBEQTlNcDJNV0Rzcys3bEI2ZzFwVFNl?=
- =?utf-8?B?Rmh1bHQycmhSM09aVkNLalEzRUtrSGhTK0VGSWEvc3ZCclF5Wmc2M3ZKeUdx?=
- =?utf-8?B?R2wraDVGTllyQ0NnZTJUSWxHdFpuN0pBL0VqL3dhd1BFdWVYclBrM3hScjdC?=
- =?utf-8?B?MUljTkRkNW1UcFJkQm9aUnlJd2RZYjVoVERVRWZGKzhIOHVFTzljWk1BOWlB?=
- =?utf-8?B?UnIvREErUmd3VGNaR2hTUmNQSHhlWUhLVk1KcHI4OTFIRVg3bmI2Vm5mK0tJ?=
- =?utf-8?B?aVcvK1BScVphYlpQcko0N0dGa012V0pITmsyQ0xtOTc1OCtjS2phdUxScEc2?=
- =?utf-8?B?eG02VnEwUWlIdWRNdXg0bUI4elo3TndBT3FpYUN2S2xKT3FhZkZYZ0RJMDh0?=
- =?utf-8?B?UTNjOENTMEdXTmo4VzdMeTUyTURkd3VzY29kaklBVDlPdHc3Q0VrcElZclNJ?=
- =?utf-8?B?dWZMMktNcGcyN3pZUit2RUpuWThTZzZYTzc4M1VNZ0tzMXpIdnNoRXc5eEdB?=
- =?utf-8?B?em8zVEZuYkl1Uy9SVzVEMGFEMkJxOGM2eG5ta3pkMTVlK0dvVnFLd1VkYnJx?=
- =?utf-8?Q?kwS+FM3Gq8C0Y7nEY0eiZ3Fq2?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea75b61d-a288-4b37-fc18-08db44e12e4f
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6280.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2023 16:30:14.1229 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7d18Zj59d/oQHHwKKKSvfyjg5vhms5/KNv75ARlHPUQIcIdDYekgpPXKGHLuLtt9dlRU77QeKFA4/YhYeOxMiw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6795
+References: <20230424014324.218531-1-andrealmeid@igalia.com>
+ <d7264c5a-29b4-0fb3-153b-673a8a73d635@amd.com>
+In-Reply-To: <d7264c5a-29b4-0fb3-153b-673a8a73d635@amd.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Mon, 24 Apr 2023 12:45:16 -0400
+Message-ID: <CAAxE2A6Soq28ACV-m1OzG8CA-_VWp+N2wapsABzm2Nda=Qe+yA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Mark contexts guilty for any reset type
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: multipart/alternative; boundary="0000000000000ed65d05fa17bc24"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,52 +66,237 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, "Tuikov,
+ Luben" <Luben.Tuikov@amd.com>, dri-devel <dri-devel@lists.freedesktop.org>,
+ kernel-dev@igalia.com, "Deucher, Alexander" <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--0000000000000ed65d05fa17bc24
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 4/20/23 09:21, Tom Rix wrote:
-> gcc with W=1 reports
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dce/dmub_abm.c:
->    In function ‘dmub_abm_set_event_ex’:
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dce/dmub_abm.c:138:22: error: variable
->    ‘feature_support’ set but not used [-Werror=unused-but-set-variable]
->    138 |         unsigned int feature_support;
->        |                      ^~~~~~~~~~~~~~~
-> 
-> This variable is not used so remove it.
-> The status of amb_feature_support should have been returned, so
-> set ret and return it.
-> 
-> Fixes: b8fe56375f78 ("drm/amd/display: Refactor ABM feature")
-> Signed-off-by: Tom Rix <trix@redhat.com>
+Soft resets are fatal just as hard resets, but no reset is "always fatal".
+There are cases when apps keep working depending on which features are
+being used. It's still unsafe.
 
-Since set_abm_event() is never used. I would prefer if it was dropped
-entirely.
+Marek
 
-> ---
->   drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c | 5 ++---
->   1 file changed, 2 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
-> index a66f83a61402..8f285c3be4c6 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
-> @@ -134,10 +134,9 @@ static bool dmub_abm_set_pipe_ex(struct abm *abm, uint32_t otg_inst, uint32_t op
->   static bool dmub_abm_set_event_ex(struct abm *abm, unsigned int full_screen, unsigned int video_mode,
->   		unsigned int hdr_mode, unsigned int panel_inst)
->   {
-> -	bool ret = false;
-> -	unsigned int feature_support;
-> +	bool ret;
->   
-> -	feature_support = abm_feature_support(abm, panel_inst);
-> +	ret = abm_feature_support(abm, panel_inst);
->   
->   	return ret;
->   }
--- 
-Hamza
+On Mon, Apr 24, 2023, 03:03 Christian K=C3=B6nig <christian.koenig@amd.com>
+wrote:
 
+> Am 24.04.23 um 03:43 schrieb Andr=C3=A9 Almeida:
+> > When a DRM job timeout, the GPU is probably hang and amdgpu have some
+> > ways to deal with that, ranging from soft recoveries to full device
+> > reset. Anyway, when userspace ask the kernel the state of the context
+> > (via AMDGPU_CTX_OP_QUERY_STATE), the kernel reports that the device was
+> > reset, regardless if a full reset happened or not.
+> >
+> > However, amdgpu only marks a context guilty in the ASIC reset path. Thi=
+s
+> > makes the userspace report incomplete, given that on soft recovery path
+> > the guilty context is not told that it's the guilty one.
+> >
+> > Fix this by marking the context guilty for every type of reset when a
+> > job timeouts.
+>
+> The guilty handling is pretty much broken by design and only works
+> because we go through multiple hops of validating the entity after the
+> job has already been pushed to the hw.
+>
+> I think we should probably just remove that completely and use an
+> approach where we check the in flight submissions in the query state
+> IOCTL. See my other patch on the mailing list regarding that.
+>
+> Additional to that I currently didn't considered soft-recovered
+> submissions as fatal and continue accepting submissions from that
+> context, but already wanted to talk with Marek about that behavior.
+>
+> Regards,
+> Christian.
+>
+> >
+> > Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    | 8 +++++++-
+> >   2 files changed, 7 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > index ac78caa7cba8..ea169d1689e2 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -4771,9 +4771,6 @@ int amdgpu_device_pre_asic_reset(struct
+> amdgpu_device *adev,
+> >
+> >       amdgpu_fence_driver_isr_toggle(adev, false);
+> >
+> > -     if (job && job->vm)
+> > -             drm_sched_increase_karma(&job->base);
+> > -
+> >       r =3D amdgpu_reset_prepare_hwcontext(adev, reset_context);
+> >       /* If reset handler not implemented, continue; otherwise return *=
+/
+> >       if (r =3D=3D -ENOSYS)
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > index c3d9d75143f4..097ed8f06865 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> > @@ -51,6 +51,13 @@ static enum drm_gpu_sched_stat
+> amdgpu_job_timedout(struct drm_sched_job *s_job)
+> >       memset(&ti, 0, sizeof(struct amdgpu_task_info));
+> >       adev->job_hang =3D true;
+> >
+> > +     amdgpu_vm_get_task_info(ring->adev, job->pasid, &ti);
+> > +
+> > +     if (job && job->vm) {
+> > +             DRM_INFO("marking %s context as guilty", ti.process_name)=
+;
+> > +             drm_sched_increase_karma(&job->base);
+> > +     }
+> > +
+> >       if (amdgpu_gpu_recovery &&
+> >           amdgpu_ring_soft_recovery(ring, job->vmid,
+> s_job->s_fence->parent)) {
+> >               DRM_ERROR("ring %s timeout, but soft recovered\n",
+> > @@ -58,7 +65,6 @@ static enum drm_gpu_sched_stat
+> amdgpu_job_timedout(struct drm_sched_job *s_job)
+> >               goto exit;
+> >       }
+> >
+> > -     amdgpu_vm_get_task_info(ring->adev, job->pasid, &ti);
+> >       DRM_ERROR("ring %s timeout, signaled seq=3D%u, emitted seq=3D%u\n=
+",
+> >                 job->base.sched->name,
+> atomic_read(&ring->fence_drv.last_seq),
+> >                 ring->fence_drv.sync_seq);
+>
+>
+
+--0000000000000ed65d05fa17bc24
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">Soft resets are fatal just as hard resets, but no reset i=
+s &quot;always fatal&quot;. There are cases when apps keep working dependin=
+g on which features are being used. It&#39;s still unsafe.<div dir=3D"auto"=
+><div dir=3D"auto"><div dir=3D"auto"><div dir=3D"auto"><br></div><div dir=
+=3D"auto">Marek</div></div></div></div></div><br><div class=3D"gmail_quote"=
+><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Apr 24, 2023, 03:03 Christia=
+n K=C3=B6nig &lt;<a href=3D"mailto:christian.koenig@amd.com">christian.koen=
+ig@amd.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Am 24.04=
+.23 um 03:43 schrieb Andr=C3=A9 Almeida:<br>
+&gt; When a DRM job timeout, the GPU is probably hang and amdgpu have some<=
+br>
+&gt; ways to deal with that, ranging from soft recoveries to full device<br=
+>
+&gt; reset. Anyway, when userspace ask the kernel the state of the context<=
+br>
+&gt; (via AMDGPU_CTX_OP_QUERY_STATE), the kernel reports that the device wa=
+s<br>
+&gt; reset, regardless if a full reset happened or not.<br>
+&gt;<br>
+&gt; However, amdgpu only marks a context guilty in the ASIC reset path. Th=
+is<br>
+&gt; makes the userspace report incomplete, given that on soft recovery pat=
+h<br>
+&gt; the guilty context is not told that it&#39;s the guilty one.<br>
+&gt;<br>
+&gt; Fix this by marking the context guilty for every type of reset when a<=
+br>
+&gt; job timeouts.<br>
+<br>
+The guilty handling is pretty much broken by design and only works <br>
+because we go through multiple hops of validating the entity after the <br>
+job has already been pushed to the hw.<br>
+<br>
+I think we should probably just remove that completely and use an <br>
+approach where we check the in flight submissions in the query state <br>
+IOCTL. See my other patch on the mailing list regarding that.<br>
+<br>
+Additional to that I currently didn&#39;t considered soft-recovered <br>
+submissions as fatal and continue accepting submissions from that <br>
+context, but already wanted to talk with Marek about that behavior.<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+&gt;<br>
+&gt; Signed-off-by: Andr=C3=A9 Almeida &lt;<a href=3D"mailto:andrealmeid@ig=
+alia.com" target=3D"_blank" rel=3D"noreferrer">andrealmeid@igalia.com</a>&g=
+t;<br>
+&gt; ---<br>
+&gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ---<br>
+&gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_job.c=C2=A0 =C2=A0 | 8 +=
+++++++-<br>
+&gt;=C2=A0 =C2=A02 files changed, 7 insertions(+), 4 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_device.c<br>
+&gt; index ac78caa7cba8..ea169d1689e2 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&gt; @@ -4771,9 +4771,6 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_d=
+evice *adev,<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_fence_driver_isr_toggle(adev, false);=
+<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0if (job &amp;&amp; job-&gt;vm)<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0drm_sched_increase_ka=
+rma(&amp;job-&gt;base);<br>
+&gt; -<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amdgpu_reset_prepare_hwcontext(adev, r=
+eset_context);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* If reset handler not implemented, continu=
+e; otherwise return */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (r =3D=3D -ENOSYS)<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_job.c<br>
+&gt; index c3d9d75143f4..097ed8f06865 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c<br>
+&gt; @@ -51,6 +51,13 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(=
+struct drm_sched_job *s_job)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0memset(&amp;ti, 0, sizeof(struct amdgpu_task=
+_info));<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;job_hang =3D true;<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0amdgpu_vm_get_task_info(ring-&gt;adev, job-&gt;pa=
+sid, &amp;ti);<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (job &amp;&amp; job-&gt;vm) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DRM_INFO(&quot;markin=
+g %s context as guilty&quot;, ti.process_name);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0drm_sched_increase_ka=
+rma(&amp;job-&gt;base);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (amdgpu_gpu_recovery &amp;&amp;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_ring_soft_recovery(ring=
+, job-&gt;vmid, s_job-&gt;s_fence-&gt;parent)) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DRM_ERROR(&quot;=
+ring %s timeout, but soft recovered\n&quot;,<br>
+&gt; @@ -58,7 +65,6 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(s=
+truct drm_sched_job *s_job)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto exit;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0amdgpu_vm_get_task_info(ring-&gt;adev, job-&gt;pa=
+sid, &amp;ti);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0DRM_ERROR(&quot;ring %s timeout, signaled se=
+q=3D%u, emitted seq=3D%u\n&quot;,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0job-&gt;b=
+ase.sched-&gt;name, atomic_read(&amp;ring-&gt;fence_drv.last_seq),<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ring-&gt;=
+fence_drv.sync_seq);<br>
+<br>
+</blockquote></div>
+
+--0000000000000ed65d05fa17bc24--
