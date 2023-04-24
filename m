@@ -4,40 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84FC0C7618E
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Apr 2023 12:55:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2D69C77B61
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Apr 2023 12:55:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E71B110E1C7;
-	Mon, 24 Apr 2023 12:55:38 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AF9610E033
- for <amd-gfx@lists.freedesktop.org>; Sat, 22 Apr 2023 15:19:09 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E13C960B5C;
- Sat, 22 Apr 2023 15:19:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B66AAC433D2;
- Sat, 22 Apr 2023 15:19:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1682176745;
- bh=EPGp9mwptWpG5U63B+pnun33N1H599DB6CRsQ6ixZDM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=n264ezueVgts/7QaQfVrnGgt+FN9VvVhkEOk0Uzzmy9bt7owvdCsJNgYMzh3cyPmY
- bc6i+FSqxoBbbn3i5FEUSI5uTvY1/WHlx/K03nMUVbyq/TIs49+QD0scFGqNQew8Y2
- Z5MnYOmJKf1+uTKY54kf6TVafU9S+JTdqtkEpDA0=
-Date: Sat, 22 Apr 2023 17:19:02 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Subject: Re: [PATCH 6.1.y] drm/amdgpu/vcn: Disable indirect SRAM on Vangogh
- broken BIOSes
-Message-ID: <2023042255-cartel-semester-a707@gregkh>
-References: <20230418221522.1287942-1-gpiccoli@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B26310E4E8;
+	Mon, 24 Apr 2023 12:55:39 +0000 (UTC)
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [IPv6:2a00:1450:4864:20::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54D6010E448;
+ Mon, 24 Apr 2023 09:50:20 +0000 (UTC)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-94eff00bcdaso747886166b.1; 
+ Mon, 24 Apr 2023 02:50:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1682329818; x=1684921818;
+ h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=9Is2thnxMX0NfS0ATfXggVukIP4xt06PqoAtrJstbVw=;
+ b=Y863QaepaDFc/zBRlmtqWeoRVTVKKterbJixxWjJYjqZD4Oo5MOaqD2gUS2FjoyFcv
+ oOvOhGMxHoosA3Ja91da4xlxUK+eGWEqATjBaM/1ScTDlK1xQR03BfO3R/XIqW5a3G6d
+ XgsRpbBnJywGLuG0H1K8cp8TR/ojcU7g5jMHMmdOsp1rUDr2qFyCtuOq+Fb5/YhJL5L7
+ 8JKWOiqVL4DfyDFbfvYzBAvMyClfWeapNecihQbJ0pHJ4Jm5c3QIvsNWiwSygrRGyZUi
+ OdvcCMf87omaBkOx5i/vXXpJCKtMYqNX370sA5eJG56xieJ4RhcHN/SWlGZFrcQA4RvD
+ /+cQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1682329818; x=1684921818;
+ h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=9Is2thnxMX0NfS0ATfXggVukIP4xt06PqoAtrJstbVw=;
+ b=jAzXqp59EazZbcArhPG5j74Er2S6qiOcRjYCriAiVKN4J1MJWh05lLg+CHrlhEdiDU
+ l8XfWgpoOK0GHXTCxIDwbbap0AqcYs+Ec2CFPzFMU3SGRQmaLBckhfzcrsGPcL4Ac2Uz
+ daymeuazbBXKLxAjd6Za5IMR8jAqizd8/3I32fGeOZAK0PnlJ+Q+Zr95wNNUcIhnYNLb
+ 2CnQ4Zo1YtGP4l1xdgWsYpi3t/z0+ABmYAbljdRns9gMeBCMmwAIKuamHMXvlVGeF2MP
+ +YWsRIfmNHj0nTxcqx0doJyzqTfLFsWZrfrtHBFNVwcvDng2vrSqrRj+53amJI5pGoN9
+ DvoQ==
+X-Gm-Message-State: AAQBX9cHT2+NeV/Ix/0z3ciWr0mgNW15n+yZB/82vNeSdYNS41ICisZT
+ c0EiLxsqdL5uLGeLxZESdxNd9wmQgGr4mbsth6M=
+X-Google-Smtp-Source: AKy350a8PgtY0Rv9tw+XuKO2+y8O6JuUL4PcYTcSolhIOBGMSaCPgR6j0orK/qM1thAKjN0MD/AWnbDXvNKqyHQ0VBM=
+X-Received: by 2002:a17:906:8a44:b0:94f:553:6fd6 with SMTP id
+ gx4-20020a1709068a4400b0094f05536fd6mr9465953ejc.24.1682329818094; Mon, 24
+ Apr 2023 02:50:18 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230418221522.1287942-1-gpiccoli@igalia.com>
+From: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+Date: Mon, 24 Apr 2023 11:50:07 +0200
+Message-ID: <CAKXUXMziSWC9oGVQxCPs6U5GsnuA2KbKsobj1Feo_eNUn3e4dg@mail.gmail.com>
+Subject: In-flight collision: DRM_AMD_DC_DCN renaming
+To: Michael Ellerman <mpe@ellerman.id.au>,
+ Harry Wentland <harry.wentland@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+ kernel-janitors <kernel-janitors@vger.kernel.org>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 24 Apr 2023 12:55:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -50,51 +69,24 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sashal@kernel.org, kernel@gpiccoli.net, amd-gfx@lists.freedesktop.org,
- stable@vger.kernel.org, kernel-dev@igalia.com, alexander.deucher@amd.com,
- James.Zhu@amd.com, leo.liu@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 18, 2023 at 07:15:22PM -0300, Guilherme G. Piccoli wrote:
-> commit 542a56e8eb4467ae654eefab31ff194569db39cd upstream.
-> 
-> The VCN firmware loading path enables the indirect SRAM mode if it's
-> advertised as supported. We might have some cases of FW issues that
-> prevents this mode to working properly though, ending-up in a failed
-> probe. An example below, observed in the Steam Deck:
-> 
-> [...]
-> [drm] failed to load ucode VCN0_RAM(0x3A)
-> [drm] psp gfx command LOAD_IP_FW(0x6) failed and response status is (0xFFFF0000)
-> amdgpu 0000:04:00.0: [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR* ring vcn_dec_0 test failed (-110)
-> [drm:amdgpu_device_init.cold [amdgpu]] *ERROR* hw_init of IP block <vcn_v3_0> failed -110
-> amdgpu 0000:04:00.0: amdgpu: amdgpu_device_ip_init failed
-> amdgpu 0000:04:00.0: amdgpu: Fatal error during GPU init
-> [...]
-> 
-> Disabling the VCN block circumvents this, but it's a very invasive
-> workaround that turns off the entire feature. So, let's add a quirk
-> on VCN loading that checks for known problematic BIOSes on Vangogh,
-> so we can proactively disable the indirect SRAM mode and allow the
-> HW proper probe and VCN IP block to work fine.
-> 
-> Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/2385
-> Fixes: 82132ecc5432 ("drm/amdgpu: enable Vangogh VCN indirect sram mode")
-> Fixes: 9a8cc8cabc1e ("drm/amdgpu: enable Vangogh VCN indirect sram mode")
-> Cc: stable@vger.kernel.org
-> Cc: James Zhu <James.Zhu@amd.com>
-> Cc: Leo Liu <leo.liu@amd.com>
-> Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
-> 
-> Hi folks, this was build/boot tested on Deck. I've also adjusted the
-> context, function was reworked on 6.2.
-> 
-> But what a surprise was for me not see this fix already in 6.1.y, since
-> I've CCed stable, and the reason for that is really peculiar:
+Dear Michael, dear Harry, dear Alex,
 
-Now queued up, thanks.
+The commit 4652ae7a51b7 ("drm/amd/display: Rename DCN config to FP")
+renames config DRM_AMD_DC_DCN to config DRM_AMD_DC_FP. The concurrent
+commit 78f0929884d4 ("powerpc/64: Always build with 128-bit long
+double") overrides the renaming change for the select in config
+DRM_AMD_DC, and this leads to selecting the non-existent
+DRM_AMD_DC_DCN.
 
-greg k-h
+It is easy to fix, adjust this one line to the renaming and 'select
+DRM_AMD_DC_FP' once both commits are merged. For now, I am just
+reporting to let you know; probably, it is best to get a quick fix-up
+patch with -rc2, once all the changes landed in -rc1.
+
+
+Best regards,
+
+Lukas
