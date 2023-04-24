@@ -4,52 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E544C7618E
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Apr 2023 05:11:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DF6EC7618E
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Apr 2023 06:00:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C64810E05F;
-	Mon, 24 Apr 2023 05:11:45 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F14B910E05F;
- Mon, 24 Apr 2023 05:11:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1682313103; x=1713849103;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=spjPszczlRJ6WXEUahSzbZ8YRRmzgy2bt1wJgMDK6ng=;
- b=KpDrKQZdPXITCJ6Qvx7NAkvBgBVnETznq5jgHYTkWGg1Cy/Ws1B1ljbT
- BWQs2QRKWCFB0P8kjDvDX6Z5Ui82x2/ltJKptodx5yiAYRX3+ZORyblxq
- IbCa/pRCQUpcB33I4x/ZIrXoHW0MfGoEi7VVBBRj7Etov8y6CsarDDvLU
- thbR0/xf1NY7+BS2CqvEcN8vLqT1gB5KP8yVoKU7ld71cNe5JBrKePonx
- EESHbA5AmlUZFpzisfSUwGMVWklXviv2bEZBAU0+8ULsRFpxVefNunTzm
- VyZNCahLO3KzCifcCmHO4n1uxn/sJtKkTYsgVLZfNlzP1oo5QeCyjMwT3 A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10689"; a="374305763"
-X-IronPort-AV: E=Sophos;i="5.99,221,1677571200"; d="scan'208";a="374305763"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Apr 2023 22:11:43 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10689"; a="939171660"
-X-IronPort-AV: E=Sophos;i="5.99,221,1677571200"; d="scan'208";a="939171660"
-Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
- by fmsmga006.fm.intel.com with ESMTP; 23 Apr 2023 22:11:40 -0700
-Received: from kbuild by b613635ddfff with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pqoUF-000iHE-31;
- Mon, 24 Apr 2023 05:11:39 +0000
-Date: Mon, 24 Apr 2023 13:11:20 +0800
-From: kernel test robot <lkp@intel.com>
-To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/amdgpu: Mark contexts guilty for any reset type
-Message-ID: <202304241259.Qq0Dmlud-lkp@intel.com>
-References: <20230424014324.218531-1-andrealmeid@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D87E010E095;
+	Mon, 24 Apr 2023 06:00:25 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2051.outbound.protection.outlook.com [40.107.92.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37F0110E095
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Apr 2023 06:00:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Arq8M0BWsnqYBq11WZmCL4n5S0wZlp5ne9MmzgSybJb7QiSBVMt02EkJmWJvafG5I9OznuSwc/a45GiGwNz3DXk6onFrFTXDKkqamFdVFDhVgJiVzYFcevqR3cbDj02qy7zsNgs8yBiGhbUrK0Gj9nDjarFU6wmUH05eijFz4z1p1Tqefo5VCCTmDD84bHqCOBvjVyehg2LClHxGTEYDmbadNCAJ/f9c5ivS1U84fJ3xehFOsA4rJp0UQflOi2V3Ex8LsNe0HY54FS4PRi8F+BbWZ4S0Zeh4A5vtHwxB6FmYHGoAAeZelY84ywjFPHTr7kfz1ItDVp5/mmRsR88N3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=diuAdjUAl6NQ82JQQnNo4YhVuMke3j+FeAaouk0XXyg=;
+ b=hCmfbEj6SbsBD+lP3Zw5QaVP17lH3yl3rx9eAkX9VOPdnToIYb5KwQykWPii/vVK8A1/q8PAfxG9XnFk/QXi3FIxkexINpcPHJZUeqwE9b7HFpWqaD+b3s5yD9sfpcCa4Bpx1772/HJtBy5WWGDo2hPrMjNB6mJ/+PsvloZekFtw9BcrG4tpVXExz/jr6rwRELWkYB1cmFytYRphsAlhInaWGQgoOkmVbIaNhZoT+1vCrfaCIq3pw5yfI7FaYInTADh5jZERqdjCxKrQcxWK3NJ26yPlBowH7VT2o5XqWkLda/ilLv0t3otPmQLpSpHxh1zvuPoPgxn0btdFRWlCwA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=diuAdjUAl6NQ82JQQnNo4YhVuMke3j+FeAaouk0XXyg=;
+ b=fHynvxh4P9V7ZBfDrrDVhA613faCuxGtpl5xl1o1CZwlGGPObS0tf9iA76TU9FL3hS3qzOcfCRigcd8dqRYltvmGwgrdvckun5PMbNLgLz6pXICRUjuObliGK6D45x+Kcz4H+zfEvJPQ5zBCUCSwplMt8m2PkkPXLf2GrRbpC/s=
+Received: from CH2PR12MB4152.namprd12.prod.outlook.com (2603:10b6:610:a7::8)
+ by CY5PR12MB6059.namprd12.prod.outlook.com (2603:10b6:930:2c::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.33; Mon, 24 Apr
+ 2023 06:00:21 +0000
+Received: from CH2PR12MB4152.namprd12.prod.outlook.com
+ ([fe80::1372:f6c8:8479:a4b]) by CH2PR12MB4152.namprd12.prod.outlook.com
+ ([fe80::1372:f6c8:8479:a4b%3]) with mapi id 15.20.6319.033; Mon, 24 Apr 2023
+ 06:00:21 +0000
+From: "Xu, Feifei" <Feifei.Xu@amd.com>
+To: "Li, Lyndon" <Lyndon.Li@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 2/2] drm/amdgpu: Use the default reset when loading amdgpu
+ driver
+Thread-Topic: [PATCH 2/2] drm/amdgpu: Use the default reset when loading
+ amdgpu driver
+Thread-Index: AQHZdlBAlBEnCJjPSkGT5zvLzyF3Ba858vhg
+Date: Mon, 24 Apr 2023 06:00:20 +0000
+Message-ID: <CH2PR12MB4152CAA214495226D7C2A975FE679@CH2PR12MB4152.namprd12.prod.outlook.com>
+References: <20230424015805.78747-1-Lyndon.Li@amd.com>
+ <20230424015805.78747-2-Lyndon.Li@amd.com>
+In-Reply-To: <20230424015805.78747-2-Lyndon.Li@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-04-24T06:00:13Z; 
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=9a4b894d-1d76-4320-b8ae-4f58f81d70e4;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_enabled: true
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_setdate: 2023-04-24T06:00:13Z
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_method: Standard
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_name: General
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_actionid: 25f2e2c9-a49b-4a58-96e9-2b7d0d7c951d
+msip_label_4342314e-0df4-4b58-84bf-38bed6170a0f_contentbits: 0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH2PR12MB4152:EE_|CY5PR12MB6059:EE_
+x-ms-office365-filtering-correlation-id: f662b10b-8ecb-47dd-9ef5-08db44892fdd
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: RZNgZt5tr6stZ2InNQn9zLnllvH4h+awsbIqcX0PYdsVVjfwwl+e7jrCnjJT/TGFI3cI+C94nEKCvnPDmrcwEQPQh5Fhr1sIOIOdQUtAZ4yc+cQYCFvsGYOuRVPnxhnAwCAYPLNhVUjjLcZqdVX7Yd8h/lfkjtaOMWOxk7XmO/R5QydLysmXWumpu4wAtQpdjga0WRAvYGSMx6k90MbPdYF7cgQwO1x/YzxVq1/2/vvu1CraS+Wo/apHprMItLl2mr6J5w/tZMj0yzPkLHqOL3QHsFdVf82xkY8w6IKrR12TzIRK7RNdVlnItVs2aa6+7rXkB3SWrdfkuls78kEYlkpVN/yWGZZ6sq5OPvycx60y3JwuE5CL88vBVg468HyPYikVRQAszHz52WjlNm7p6XZXQW/FmgR1Driayo1zihlXD19tY1nJY+INy+BytLJIwHNrIQyWHL8eEeAA47TeGf1QafPnYxKyN+fCLEx2gj8UwnTAIGLado+brpbC5IWImr4PbBv5TSc+RISjcrY9n8UCeStFmBlJQV7Xrv/Ep8UZYov8WAKNdkleJimGdZSRkPTXVz6piOrVNSp9U8y9GdGnJOPMJf7Rb1kFhgxL9tyafh1f1vCVVw8zaARmRtr1
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB4152.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(39860400002)(366004)(376002)(346002)(396003)(451199021)(2906002)(76116006)(64756008)(66446008)(66476007)(66556008)(66946007)(316002)(4326008)(52536014)(8676002)(8936002)(5660300002)(38070700005)(41300700001)(33656002)(86362001)(55016003)(9686003)(26005)(186003)(122000001)(71200400001)(53546011)(38100700002)(478600001)(7696005)(83380400001)(6506007)(110136005)(54906003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?AuwbKfkggjkNrlXRy3Fjbu9z6Ja+sniQ7ragf1mnyeED9Fz2mxZS4R+GD8Fg?=
+ =?us-ascii?Q?93WIQckb7dlOihCG4DeGJpocZ+LG1TSjtU8EsO0CZtLY5rOH3WV3tZzvIRHg?=
+ =?us-ascii?Q?DevZ/WXFS1W0/GCF0WAVDcv8kSvpQr666tF59Rsa2eJPfrmMvgb5u9J302/2?=
+ =?us-ascii?Q?62rvpiBpCs5eCj5D5eV76z20dn+T4ydXOwrUKACKdD29Tw9g6bYDRPe1sXgk?=
+ =?us-ascii?Q?tWgct62U3mS402IsHin8avcjPcTiOnGPha03ggyQsVXu+j1wniYyz87aRs6t?=
+ =?us-ascii?Q?+sh5N/Ve+NbVcwpdJTeTz+DKEWf5lSnJPK98YJCy1GZlhMlaF7wu+Nax/PKF?=
+ =?us-ascii?Q?SHDUJOjphn9gU/WKhh4r8REAOSZ1rBqelIA2/tTggWDBfncm+aop0WUn2JPd?=
+ =?us-ascii?Q?M41EMS/cLroWCK3br3TudlDWw87uvTMs7nr/lwFd0KhS+dhWUbLKOHrt2/DX?=
+ =?us-ascii?Q?lO2L4WWOqcorQr0OIZwvYVuJqOcHA6cSDDQsH8MpP/U7nlpzXZ5N7bZndTwx?=
+ =?us-ascii?Q?gPfLU9PexwalvKOCeg2KFcXC7N7ds4R4dJWwFsVlmqPZVWhiZOWttIc7nvUU?=
+ =?us-ascii?Q?aWSzXaVgGscAnMndztOWoHGaJXv2XKm328E0J6dlj32TRIxBsYHg//21kHXr?=
+ =?us-ascii?Q?Do5NtXWCZZYGGnXaKxWE5T7uNXK0eidNy8g8cj1YZ/u0MX4CSke+MuQ1spOl?=
+ =?us-ascii?Q?YGXZskpZovyBL2/gO89a7jqEXhvf8tmtKdGYomQbZJnG2jDfBMPzc+N3fn5o?=
+ =?us-ascii?Q?1lvXMBfG5rIIWUCBRZKCAh1u6JqK67Ln90EWoOfDgO63HgX3iu5VcHZkM68C?=
+ =?us-ascii?Q?KOC+l4fcLTOBefNHalxf0bvbgjKJ339FTtuPE2sKsz18pUZ9zDoZWgnxVCcJ?=
+ =?us-ascii?Q?FxLehH2gOEUMnXasf6jwh2Krd57JATy7SxFBcgPDOOHDZp4yEpbxvyntmNt2?=
+ =?us-ascii?Q?qL1kdIp9dTJRHy5GdVFh/8r1+Vq7RM0D6KBFSKwaYJDIgVfDTclulXXvLcmb?=
+ =?us-ascii?Q?d1lyYLOrTgHIJuyaZolN3hajopR/4I01Uer+5teGvKOZsFMAz+TluhsakrrR?=
+ =?us-ascii?Q?iTVC4niUcGeA+T2yuOx3SaHp6TfB/Ldkf3JQKtWGc2PnCuJ0KIcaws3HeEjx?=
+ =?us-ascii?Q?5EDCsqtTB8pFZYg5yePEmxEfidbjiXeKs+pxuiob93MLzC6Biwg4u32ExgA/?=
+ =?us-ascii?Q?F74wC8SXJ3M6r2ajeq2ii0l19e/GKSsWlQXzVCWhEFibEVbG9WBiGM9vlxaI?=
+ =?us-ascii?Q?bd2nHqeXX4j4VWMpMQvwV6VtiG5wE5sr6XZHt4wPDAS3LZHLv1oVfZ5gJJe9?=
+ =?us-ascii?Q?8eUBXDUSB/8ZhAGmffKP8t/ss2ygy7Mal5lW5+ls/iqtnPFvkDbTnGAY2zI/?=
+ =?us-ascii?Q?aLVOBZqtCpvGSrns7ZtsgpDXG6dHeAkVZhL/1zDe2+IZVGvPd3Kb5WAZvnk4?=
+ =?us-ascii?Q?mCg9u3+Qbx9T17zUIF8Mla+I/EPh1i1k4joHTQh1t7ITniWMW1rFG3ccYhkj?=
+ =?us-ascii?Q?knm5OATMjkREGs/H94eGkJ3cohF42gbHXqUaxyqlH0WTIbx7GgiT8QmNRdT1?=
+ =?us-ascii?Q?/OuUBJO1QTKXdp7qwCo=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230424014324.218531-1-andrealmeid@igalia.com>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4152.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f662b10b-8ecb-47dd-9ef5-08db44892fdd
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Apr 2023 06:00:20.7036 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: UfhkhtWqZSLC3kNIyUbyaiHMdADQeNLRbwyMj9Z1KeUyJgGb096APUxz0sKh2njP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6059
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,129 +132,87 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
- 'Marek =?utf-8?B?T2zFocOhayc=?= <maraeo@gmail.com>, kernel-dev@igalia.com,
- oe-kbuild-all@lists.linux.dev, alexander.deucher@amd.com,
- christian.koenig@amd.com
+Cc: "Li, Lyndon" <Lyndon.Li@amd.com>, "Li, Yunxiang
+ \(Teddy\)" <Yunxiang.Li@amd.com>, "Zhao, Victor" <Victor.Zhao@amd.com>, "Feng,
+ Kenneth" <Kenneth.Feng@amd.com>, "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi André,
+[AMD Official Use Only - General]
 
-kernel test robot noticed the following build warnings:
+I think you might be refer to : mod parameter reset_method will not affect =
+the loading driver code path. If loading driver, it should use the default =
+reset which might be mode1/mode2 or BACO instead of the specific mode2.
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on drm/drm-next drm-exynos/exynos-drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.3 next-20230421]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Andr-Almeida/drm-amdgpu-Mark-contexts-guilty-for-any-reset-type/20230424-094534
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20230424014324.218531-1-andrealmeid%40igalia.com
-patch subject: [PATCH] drm/amdgpu: Mark contexts guilty for any reset type
-config: s390-allyesconfig (https://download.01.org/0day-ci/archive/20230424/202304241259.Qq0Dmlud-lkp@intel.com/config)
-compiler: s390-linux-gcc (GCC) 12.1.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/ea7b1d78b677fdcf5f4776e63de611a2681cd5fb
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Andr-Almeida/drm-amdgpu-Mark-contexts-guilty-for-any-reset-type/20230424-094534
-        git checkout ea7b1d78b677fdcf5f4776e63de611a2681cd5fb
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=s390 olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=s390 SHELL=/bin/bash drivers/gpu/drm/amd/amdgpu/
-
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Link: https://lore.kernel.org/oe-kbuild-all/202304241259.Qq0Dmlud-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c: In function 'amdgpu_device_pre_asic_reset':
->> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:4738:28: warning: variable 'job' set but not used [-Wunused-but-set-variable]
-    4738 |         struct amdgpu_job *job = NULL;
-         |                            ^~~
+With the confusing commit msg corrected. And adding comment before the code=
+ " r =3D amdgpu_asic_reset(adev);"
 
 
-vim +/job +4738 drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 
-5740682e66cef5 Monk Liu          2017-10-25  4733  
-e3c1b0712fdb03 shaoyunl          2021-02-16  4734  int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
-04442bf70debb1 Lijo Lazar        2021-03-16  4735  				 struct amdgpu_reset_context *reset_context)
-26bc534094ed45 Andrey Grodzovsky 2018-11-22  4736  {
-5c1e6fa49e8d8d Huang Rui         2021-12-16  4737  	int i, r = 0;
-04442bf70debb1 Lijo Lazar        2021-03-16 @4738  	struct amdgpu_job *job = NULL;
-04442bf70debb1 Lijo Lazar        2021-03-16  4739  	bool need_full_reset =
-04442bf70debb1 Lijo Lazar        2021-03-16  4740  		test_bit(AMDGPU_NEED_FULL_RESET, &reset_context->flags);
-04442bf70debb1 Lijo Lazar        2021-03-16  4741  
-04442bf70debb1 Lijo Lazar        2021-03-16  4742  	if (reset_context->reset_req_dev == adev)
-04442bf70debb1 Lijo Lazar        2021-03-16  4743  		job = reset_context->job;
-711826656bebb0 Monk Liu          2017-12-25  4744  
-b602ca5f31fe69 Tiecheng Zhou     2020-08-19  4745  	if (amdgpu_sriov_vf(adev)) {
-b602ca5f31fe69 Tiecheng Zhou     2020-08-19  4746  		/* stop the data exchange thread */
-b602ca5f31fe69 Tiecheng Zhou     2020-08-19  4747  		amdgpu_virt_fini_data_exchange(adev);
-b602ca5f31fe69 Tiecheng Zhou     2020-08-19  4748  	}
-b602ca5f31fe69 Tiecheng Zhou     2020-08-19  4749  
-9e225fb9e636b3 Andrey Grodzovsky 2022-06-18  4750  	amdgpu_fence_driver_isr_toggle(adev, true);
-9e225fb9e636b3 Andrey Grodzovsky 2022-06-18  4751  
-711826656bebb0 Monk Liu          2017-12-25  4752  	/* block all schedulers and reset given job's ring */
-0875dc9e80eb3b Chunming Zhou     2016-06-12  4753  	for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
-0875dc9e80eb3b Chunming Zhou     2016-06-12  4754  		struct amdgpu_ring *ring = adev->rings[i];
-0875dc9e80eb3b Chunming Zhou     2016-06-12  4755  
-51687759be93fb Chunming Zhou     2017-04-24  4756  		if (!ring || !ring->sched.thread)
-0875dc9e80eb3b Chunming Zhou     2016-06-12  4757  			continue;
-5740682e66cef5 Monk Liu          2017-10-25  4758  
-c530b02f39850a Jack Zhang        2021-05-12  4759  		/*clear job fence from fence drv to avoid force_completion
-c530b02f39850a Jack Zhang        2021-05-12  4760  		 *leave NULL and vm flush fence in fence drv */
-5c1e6fa49e8d8d Huang Rui         2021-12-16  4761  		amdgpu_fence_driver_clear_job_fences(ring);
-c530b02f39850a Jack Zhang        2021-05-12  4762  
-2200edac745a65 Chunming Zhou     2016-06-30  4763  		/* after all hw jobs are reset, hw fence is meaningless, so force_completion */
-2f9d4084cac96a Monk Liu          2017-10-16  4764  		amdgpu_fence_driver_force_completion(ring);
-2f9d4084cac96a Monk Liu          2017-10-16  4765  	}
-d38ceaf99ed015 Alex Deucher      2015-04-20  4766  
-9e225fb9e636b3 Andrey Grodzovsky 2022-06-18  4767  	amdgpu_fence_driver_isr_toggle(adev, false);
-9e225fb9e636b3 Andrey Grodzovsky 2022-06-18  4768  
-04442bf70debb1 Lijo Lazar        2021-03-16  4769  	r = amdgpu_reset_prepare_hwcontext(adev, reset_context);
-404b277bbe4945 Lijo Lazar        2021-03-26  4770  	/* If reset handler not implemented, continue; otherwise return */
-404b277bbe4945 Lijo Lazar        2021-03-26  4771  	if (r == -ENOSYS)
-404b277bbe4945 Lijo Lazar        2021-03-26  4772  		r = 0;
-404b277bbe4945 Lijo Lazar        2021-03-26  4773  	else
-04442bf70debb1 Lijo Lazar        2021-03-16  4774  		return r;
-04442bf70debb1 Lijo Lazar        2021-03-16  4775  
-1d721ed679db18 Andrey Grodzovsky 2019-04-18  4776  	/* Don't suspend on bare metal if we are not going to HW reset the ASIC */
-26bc534094ed45 Andrey Grodzovsky 2018-11-22  4777  	if (!amdgpu_sriov_vf(adev)) {
-26bc534094ed45 Andrey Grodzovsky 2018-11-22  4778  
-26bc534094ed45 Andrey Grodzovsky 2018-11-22  4779  		if (!need_full_reset)
-26bc534094ed45 Andrey Grodzovsky 2018-11-22  4780  			need_full_reset = amdgpu_device_ip_need_full_reset(adev);
-26bc534094ed45 Andrey Grodzovsky 2018-11-22  4781  
-360cd08196cabc Likun Gao         2022-12-21  4782  		if (!need_full_reset && amdgpu_gpu_recovery &&
-360cd08196cabc Likun Gao         2022-12-21  4783  		    amdgpu_device_ip_check_soft_reset(adev)) {
-26bc534094ed45 Andrey Grodzovsky 2018-11-22  4784  			amdgpu_device_ip_pre_soft_reset(adev);
-26bc534094ed45 Andrey Grodzovsky 2018-11-22  4785  			r = amdgpu_device_ip_soft_reset(adev);
-26bc534094ed45 Andrey Grodzovsky 2018-11-22  4786  			amdgpu_device_ip_post_soft_reset(adev);
-26bc534094ed45 Andrey Grodzovsky 2018-11-22  4787  			if (r || amdgpu_device_ip_check_soft_reset(adev)) {
-aac891685da661 Dennis Li         2020-08-20  4788  				dev_info(adev->dev, "soft reset failed, will fallback to full reset!\n");
-26bc534094ed45 Andrey Grodzovsky 2018-11-22  4789  				need_full_reset = true;
-26bc534094ed45 Andrey Grodzovsky 2018-11-22  4790  			}
-26bc534094ed45 Andrey Grodzovsky 2018-11-22  4791  		}
-26bc534094ed45 Andrey Grodzovsky 2018-11-22  4792  
-26bc534094ed45 Andrey Grodzovsky 2018-11-22  4793  		if (need_full_reset)
-26bc534094ed45 Andrey Grodzovsky 2018-11-22  4794  			r = amdgpu_device_ip_suspend(adev);
-04442bf70debb1 Lijo Lazar        2021-03-16  4795  		if (need_full_reset)
-04442bf70debb1 Lijo Lazar        2021-03-16  4796  			set_bit(AMDGPU_NEED_FULL_RESET, &reset_context->flags);
-04442bf70debb1 Lijo Lazar        2021-03-16  4797  		else
-04442bf70debb1 Lijo Lazar        2021-03-16  4798  			clear_bit(AMDGPU_NEED_FULL_RESET,
-04442bf70debb1 Lijo Lazar        2021-03-16  4799  				  &reset_context->flags);
-26bc534094ed45 Andrey Grodzovsky 2018-11-22  4800  	}
-26bc534094ed45 Andrey Grodzovsky 2018-11-22  4801  
-26bc534094ed45 Andrey Grodzovsky 2018-11-22  4802  	return r;
-26bc534094ed45 Andrey Grodzovsky 2018-11-22  4803  }
-26bc534094ed45 Andrey Grodzovsky 2018-11-22  4804  
+Reviewed-by: Feifei Xu <Feifei.Xu@amd.com>
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+-----Original Message-----
+From: lyndonli <Lyndon.Li@amd.com>=20
+Sent: Monday, April 24, 2023 9:58 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Liu, Shaoyun <Shaoyun.Liu@amd.com>; Zhao, Victor <Victor.Zhao@amd.com>;=
+ Feng, Kenneth <Kenneth.Feng@amd.com>; Xu, Feifei <Feifei.Xu@amd.com>; Li, =
+Yunxiang (Teddy) <Yunxiang.Li@amd.com>; Li, Lyndon <Lyndon.Li@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: Use the default reset when loading amdgpu =
+driver
+
+Below call trace and errors are observed when reloading amdgpu driver with =
+the module parameter reset_method=3D3.
+
+It should do a mode1 reset when loading the driver.
+
+[  +2.180243] [drm] psp gfx command ID_LOAD_TOC(0x20) failed and response s=
+tatus is (0x0) [  +0.000011] [drm:psp_hw_start [amdgpu]] *ERROR* Failed to =
+load toc [  +0.000890] [drm:psp_hw_start [amdgpu]] *ERROR* PSP tmr init fai=
+led!
+[  +0.020683] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to clear mem=
+ory with ring turned off.
+[  +0.000003] RIP: 0010:amdgpu_bo_release_notify+0x1ef/0x210 [amdgpu] [  +0=
+.000004] Call Trace:
+[  +0.000003]  <TASK>
+[  +0.000008]  ttm_bo_release+0x2c4/0x330 [amdttm] [  +0.000026]  amdttm_bo=
+_put+0x3c/0x70 [amdttm] [  +0.000020]  amdgpu_bo_free_kernel+0xe6/0x140 [am=
+dgpu] [  +0.000728]  psp_v11_0_ring_destroy+0x34/0x60 [amdgpu] [  +0.000826=
+]  psp_hw_init+0xe7/0x2f0 [amdgpu] [  +0.000813]  amdgpu_device_fw_loading+=
+0x1ad/0x2d0 [amdgpu] [  +0.000731]  amdgpu_device_init.cold+0x108e/0x2002 [=
+amdgpu] [  +0.001071]  ? do_pci_enable_device+0xe1/0x110 [  +0.000011]  amd=
+gpu_driver_load_kms+0x1a/0x160 [amdgpu] [  +0.000729]  amdgpu_pci_probe+0x1=
+79/0x3a0 [amdgpu]
+
+Signed-off-by: lyndonli <Lyndon.Li@amd.com>
+Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index e536886f6d42..9738e3660cf1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3578,6 +3578,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 	int r, i;
+ 	bool px =3D false;
+ 	u32 max_MBps;
++	int tmp;
+=20
+ 	adev->shutdown =3D false;
+ 	adev->flags =3D flags;
+@@ -3799,7 +3800,10 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 				}
+ 			}
+ 		} else {
++			tmp =3D amdgpu_reset_method;
++			amdgpu_reset_method =3D AMD_RESET_METHOD_NONE;
+ 			r =3D amdgpu_asic_reset(adev);
++			amdgpu_reset_method =3D tmp;
+ 			if (r) {
+ 				dev_err(adev->dev, "asic reset on init failed\n");
+ 				goto failed;
+--
+2.34.1
