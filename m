@@ -4,90 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CB85C7618E
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Apr 2023 17:39:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31C92C77B61
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Apr 2023 18:22:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9A2610E58F;
-	Mon, 24 Apr 2023 17:39:30 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2053.outbound.protection.outlook.com [40.107.237.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64C5110E5B8
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Apr 2023 17:39:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oUkqBqPq0qNpNkwOanRAXKqVjzTzm5GHTrz0a5BhHyKDJJjTJim4uKAnb6oyydwEeE21XbeA6xXWfj0hzGNdRHpOsZx8BxyKa3oXn57H2Wno8W1hzsr/Y9iN3Z467VnUl+InVhIZ9nFx9Z/fZ5Rq3blLvBfNFrYi4AhjnqWmu4ht0+BK+kQvnu9zK5eIFaB8JHHDlbRFJzTiG2ym1LdKbuzgn/Z325swP6JtNzv8MFS5K0TV2xp1DDMggXGeEsko0iP20+jSq5CjtGP7LVac5MaRA+biHdU9wfQketKv3bqagCfa1rqKSUkffXKMk8X8kDZPKXeItuw39rY3VZ+bBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d3kOnfUEHZVu7DW5f0kXtGeLYqDqSWZpC9FrGsu1F/U=;
- b=jAcgdi24l3TbGeNqJnNKfvW8tLzsrcba9spTZGK6LgSm5xkFWJLXRUv8IRq+d2Nu+2VjcrF2owk1eYDby+WNJ9TYTXFCqSQv6jamHjXGQelbF9dOYasoZr+fJFA7aNX6phtBf+uoNERFxKNoInYjiHTLD8Nq7EVMlyKrRyVbw6gknoy+56Y+TnY6enqgJ/JKKvUEQVGLECGbEGy0NaadPHY8eLPK8v3H9LdunnTh3Jh6OS943SypHB7Fl30YihA05v5r7p9t8n3m6dU7lDcplzeKWWkQwAVyU/+ixUsG09SJW5RUoym9O/qiLyVlgSRC0GtzH+z6Ro/QUhtqRYPaRg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d3kOnfUEHZVu7DW5f0kXtGeLYqDqSWZpC9FrGsu1F/U=;
- b=MrUqiwp9nYmfj/dl1tx8S5OtGGqLlqF3leOYFIu9iwmTGLqj6N/7TI3AkoYKcWkftxLBFvXeS0lRS/+/mCLdKosYYy5kNf/MkDhMoE03M4NJTOHJsAxXBqwqPn4kLHqj1efmzjA+BQWEnnOFGPk8CaaZaWGGQGaPbYLHTLHQGbM=
-Received: from MW4PR04CA0310.namprd04.prod.outlook.com (2603:10b6:303:82::15)
- by DS0PR12MB7558.namprd12.prod.outlook.com (2603:10b6:8:133::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.32; Mon, 24 Apr
- 2023 17:39:20 +0000
-Received: from CO1NAM11FT052.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:82:cafe::76) by MW4PR04CA0310.outlook.office365.com
- (2603:10b6:303:82::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.33 via Frontend
- Transport; Mon, 24 Apr 2023 17:39:20 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT052.mail.protection.outlook.com (10.13.174.225) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6340.19 via Frontend Transport; Mon, 24 Apr 2023 17:39:20 +0000
-Received: from MUN-L-SHSHARMA.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 24 Apr
- 2023 12:39:18 -0500
-From: Shashank Sharma <shashank.sharma@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH v4 09/10] drm/amdgpu: generate doorbell index for userqueue
-Date: Mon, 24 Apr 2023 19:38:34 +0200
-Message-ID: <20230424173836.1441-10-shashank.sharma@amd.com>
-X-Mailer: git-send-email 2.38.0.windows.1
-In-Reply-To: <20230424173836.1441-1-shashank.sharma@amd.com>
-References: <20230424173836.1441-1-shashank.sharma@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D955A10E5AF;
+	Mon, 24 Apr 2023 18:22:17 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1829B10E1D7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Apr 2023 18:14:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1682360057;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=1t7mmBoREyN++55SKMolHK6qsrf6grZmQqxd4DYClio=;
+ b=h/lPDZrJBtfpkhuRN5sCe2gsCblGHl7U8V4CdeIbrTqsqD1TZjWyb2OxGBEQOA6lSeD7rr
+ I0lTc+EbiyE4JEOQCKc4qs6e44RFiuFfiU9x7y2X5yHA4qFvpjKVHypuZUiGvW0FdXPfNc
+ RFjQFIEjCxL16bB0/eokc/QXQbZAH8E=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-249-KgwdVqlNMMOPIduXwvI4dg-1; Mon, 24 Apr 2023 14:14:15 -0400
+X-MC-Unique: KgwdVqlNMMOPIduXwvI4dg-1
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-5ef40d2af43so28479136d6.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Apr 2023 11:14:15 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1682360055; x=1684952055;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=1t7mmBoREyN++55SKMolHK6qsrf6grZmQqxd4DYClio=;
+ b=cpiCVHW0q4t3XWSZr51pwaC7lhhsfi6ncTljFTBQ/2ERsMxOa5rneLeUDuattzcZDV
+ v6dJkBS4RGj//F3mSzcb2LNHEwerW712m4ykbYUcOCbjkpGkmfCavn2+33nxVu6pIvIA
+ afXl1lRo6tReMTZGPgmmoGyU17eQW6vMzPS0CBHZ7PjINiYZZUUym/hp5WhcxG8WYzqK
+ ZT2GP1vFo8q/WtkrK6lNAa1KdQfQT06LjC6sGir89CQgqBl1Mh1dwEey1eL9tBNouuyL
+ jWc0W6A9YbqtzhIvYa/3/+WB7VGtzMa6tSqcPj6tqDjkrThGyKp/johITfxXoYhIQDMQ
+ 24ZQ==
+X-Gm-Message-State: AAQBX9eyiEIz810x3Px1/NZ7IRfeT1fqGo4U06EE5OqhV65KsitdwcA7
+ WttRBwhy9Q0lomvxt8DsWOGacUmGuzgvaB0zpsL2grOigu+fjXM59j2pol3jDvHGulWXc5JKEar
+ VxMMYMV0C7r6KS0xw7+PMi/sFoQ==
+X-Received: by 2002:ac8:5792:0:b0:3ef:5733:29e4 with SMTP id
+ v18-20020ac85792000000b003ef573329e4mr23695500qta.64.1682360054984; 
+ Mon, 24 Apr 2023 11:14:14 -0700 (PDT)
+X-Google-Smtp-Source: AKy350atGQDLcokpP+b8qwiVWcVt+lW3aoMSwbKlIc/IoMCQwMl5grguEKprAip97oqd3hMBQL6FWw==
+X-Received: by 2002:ac8:5792:0:b0:3ef:5733:29e4 with SMTP id
+ v18-20020ac85792000000b003ef573329e4mr23695447qta.64.1682360054621; 
+ Mon, 24 Apr 2023 11:14:14 -0700 (PDT)
+Received: from [192.168.1.31] (024-205-208-113.res.spectrum.com.
+ [24.205.208.113]) by smtp.gmail.com with ESMTPSA id
+ p141-20020a374293000000b0074de75f783fsm3757258qka.26.2023.04.24.11.14.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 24 Apr 2023 11:14:14 -0700 (PDT)
+Message-ID: <4ca4e590-a996-81ad-e088-d172f5a5a8ba@redhat.com>
+Date: Mon, 24 Apr 2023 11:14:10 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.10.0
+Subject: Re: [PATCH] drm/amd/display: return status of
+ dmub_srv_get_fw_boot_status
+To: Hamza Mahfooz <hamza.mahfooz@amd.com>, harry.wentland@amd.com,
+ sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, Alvin.Lee2@amd.com, Jun.Lei@amd.com, qingqing.zhuo@amd.com,
+ Max.Tseng@amd.com, Josip.Pavic@amd.com, Eric.Yang2@amd.com,
+ aurabindo.pillai@amd.com
+References: <20230420135901.3889747-1-trix@redhat.com>
+ <9910a5e3-a161-edfa-19d4-2bbf3bbf405f@amd.com>
+From: Tom Rix <trix@redhat.com>
+In-Reply-To: <9910a5e3-a161-edfa-19d4-2bbf3bbf405f@amd.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT052:EE_|DS0PR12MB7558:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8609a47a-7ccd-4ed1-e7e9-08db44ead5fe
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8u8b8RKYv0jVwk3thvKRfquKHKoUDWLtO/BDJD2GIfu/iimsjr7SDdBVVj1yM7BNXBu5QUK7j6I9wKpxhEIMVXUZal/4X7I3eGTUGSlXzdtj9LxKA8azr5lA06W5fEP4+OQxY7mfzzYGuPlxadx0SqX7PTKVTjEY6bVnX4eyykaL3k29NgQK+S0NE5c1byJWmGwcvl+tgXs+qOrezOBYOuprKdD+EqvpenbH35HmU/qKFOTgazZ46k7lk8eULkSuSRVkh89WnapGwqMuHBP5KTfjelprgx5IUBQsD11pNlC+aBr5+mxjgDTk/j4GaKuq0K1CGVtxcrfJUS2ANlLW7eF83vV2PR9bhHk1b01Jevaz+iERtPFhgaq0GEgq7bLjvrYh9wOKQmP57qye0kU0AiQh8KN+NTWliJUcpjciXJqqxxMzY32maDopfC+vcDdoaYLRqLj6uvbucDWRphQIqAx9pj8Phhmsf7z0mqlZobjE6a0M7760WflGQXspGBujfz/Wg6SXAzSq7BEDCPY/gBkRxbZyF8lFnlrUJfvFCbzjvfuFBAqyvFrtlqSIYfP7wv+8P4sgiFzrwA/leFDube7a0EP4EkVU975cXUn6Wo5h42lYstOU+IopDc7j0BP6Y3YsBryddWkKwiKuXfrkUls0lBTGcvXz62erk29w3GtCsO3LePeu+hQ5ZeybRnSd
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(136003)(39860400002)(376002)(346002)(451199021)(36840700001)(46966006)(40470700004)(26005)(1076003)(186003)(16526019)(40460700003)(40480700001)(6666004)(336012)(426003)(54906003)(86362001)(478600001)(8936002)(47076005)(8676002)(44832011)(82740400003)(5660300002)(316002)(70206006)(70586007)(4326008)(6916009)(81166007)(356005)(41300700001)(2906002)(2616005)(7696005)(966005)(82310400005)(36756003)(36860700001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2023 17:39:20.4939 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8609a47a-7ccd-4ed1-e7e9-08db44ead5fe
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT052.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7558
+X-Mailman-Approved-At: Mon, 24 Apr 2023 18:22:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,86 +92,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- Shashank Sharma <shashank.sharma@amd.com>, arvind.yadav@amd.com,
- Alex Deucher <alexander.deucher@amd.com>, contactshashanksharma@gmail.com,
- Christian Koenig <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The userspace sends us the doorbell object and the doobell index
-to be used for the usermode queue, but the FW expects the absolute
-doorbell index on the PCI BAR in the MQD. This patch adds a function
-to convert this relative doorbell index to the absolute doorbell index.
 
-This patch is dependent on the doorbell manager series being reviewed
-here: https://patchwork.freedesktop.org/series/115802/
+On 4/24/23 10:02 AM, Hamza Mahfooz wrote:
+>
+> On 4/20/23 09:59, Tom Rix wrote:
+>> gcc with W=1 reports
+>> drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.c:
+>>    In function ‘dc_dmub_srv_optimized_init_done’:
+>> drivers/gpu/drm/amd/amdgpu/../display/dc/dc_dmub_srv.c:184:26:
+>>    error: variable ‘dmub’ set but not used 
+>> [-Werror=unused-but-set-variable]
+>>    184 |         struct dmub_srv *dmub;
+>>        |                          ^~~~
+>>
+>> The return status is never set.
+>> It looks like a call to dmub_srv_get_fw_boot_status is missing.
+>>
+>> Fixes: 499e4b1c722e ("drm/amd/display: add mechanism to skip DCN init")
+>
+> What tree is this based on? I am unable to find that exact commit on
+> amd-staging-drm-next.
 
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian Koenig <christian.koenig@amd.com>
-Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 33 +++++++++++++++++++
- 1 file changed, 33 insertions(+)
+linux-next
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-index 385cd51b6c96..fbc9cb5c24ad 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
-@@ -44,6 +44,30 @@ amdgpu_userqueue_find(struct amdgpu_userq_mgr *uq_mgr, int qid)
- 	return idr_find(&uq_mgr->userq_idr, qid);
- }
- 
-+static uint64_t
-+amdgpu_userqueue_get_doorbell_index(struct amdgpu_userq_mgr *uq_mgr,
-+				    struct amdgpu_usermode_queue *queue,
-+				    struct drm_file *filp,
-+				    uint32_t doorbell_index)
-+{
-+	struct drm_gem_object *gobj;
-+	struct amdgpu_bo *db_bo;
-+	uint64_t index;
-+
-+	gobj = drm_gem_object_lookup(filp, queue->doorbell_handle);
-+	if (gobj == NULL) {
-+		DRM_ERROR("Can't find GEM object for doorbell\n");
-+		return -EINVAL;
-+	}
-+
-+	db_bo = amdgpu_bo_ref(gem_to_amdgpu_bo(gobj));
-+	drm_gem_object_put(gobj);
-+
-+	index = amdgpu_doorbell_index_on_bar(uq_mgr->adev, db_bo, doorbell_index);
-+	DRM_DEBUG_DRIVER("[Usermode queues] doorbell index=%lld\n", index);
-+	return index;
-+}
-+
- static int
- amdgpu_userqueue_map_gtt_bo_to_gart(struct amdgpu_device *adev, struct amdgpu_bo *bo)
- {
-@@ -133,6 +157,7 @@ static int amdgpu_userqueue_create_gfx(struct drm_file *filp, union drm_amdgpu_u
- 	struct amdgpu_fpriv *fpriv = filp->driver_priv;
- 	struct amdgpu_userq_mgr *uq_mgr = &fpriv->userq_mgr;
- 	struct drm_amdgpu_userq_mqd_gfx *mqd_in = &args->in.mqd.gfx;
-+	uint64_t index;
- 	int r;
- 
- 	/* Do we support usermode queues on this GFX IP ? */
-@@ -154,6 +179,14 @@ static int amdgpu_userqueue_create_gfx(struct drm_file *filp, union drm_amdgpu_u
- 	queue->userq_prop.hqd_base_gpu_addr = mqd_in->queue_va;
- 
- 	queue->doorbell_handle = mqd_in->doorbell_handle;
-+	index = amdgpu_userqueue_get_doorbell_index(uq_mgr, queue, filp, mqd_in->doorbell_offset);
-+	if (index == (uint64_t)-EINVAL) {
-+		DRM_ERROR("Invalid doorbell object\n");
-+		r = -EINVAL;
-+		goto free_queue;
-+	}
-+
-+	queue->userq_prop.doorbell_index = index;
- 	queue->queue_type = AMDGPU_HW_IP_GFX;
- 	queue->flags = mqd_in->flags;
- 	queue->vm = &fpriv->vm;
--- 
-2.40.0
+Tom
+
+
+>
+>> Signed-off-by: Tom Rix <trix@redhat.com>
+>> ---
+>>   drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c | 13 +++++++++++--
+>>   1 file changed, 11 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c 
+>> b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+>> index d15ec32243e2..36d936ab4300 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+>> @@ -182,14 +182,23 @@ bool dc_dmub_srv_cmd_run_list(struct 
+>> dc_dmub_srv *dc_dmub_srv, unsigned int coun
+>>   bool dc_dmub_srv_optimized_init_done(struct dc_dmub_srv *dc_dmub_srv)
+>>   {
+>>       struct dmub_srv *dmub;
+>> -    union dmub_fw_boot_status status;
+>> +    struct dc_context *dc_ctx;
+>> +    union dmub_fw_boot_status boot_status;
+>> +    enum dmub_status status;
+>>         if (!dc_dmub_srv || !dc_dmub_srv->dmub)
+>>           return false;
+>>         dmub = dc_dmub_srv->dmub;
+>> +    dc_ctx = dc_dmub_srv->ctx;
+>> +
+>> +    status = dmub_srv_get_fw_boot_status(dmub, &boot_status);
+>> +    if (status != DMUB_STATUS_OK) {
+>> +        DC_ERROR("Error querying DMUB boot status: error=%d\n", 
+>> status);
+>> +        return false;
+>> +    }
+>>   -    return status.bits.optimized_init_done;
+>> +    return boot_status.bits.optimized_init_done;
+>>   }
+>>     bool dc_dmub_srv_notify_stream_mask(struct dc_dmub_srv *dc_dmub_srv,
 
