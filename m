@@ -4,67 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82BFFC77B71
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Apr 2023 13:20:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 951B7C77B61
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Apr 2023 13:28:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B649110E291;
-	Tue, 25 Apr 2023 13:20:07 +0000 (UTC)
-Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com
- [IPv6:2607:f8b0:4864:20::732])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C21410E291;
- Tue, 25 Apr 2023 13:20:05 +0000 (UTC)
-Received: by mail-qk1-x732.google.com with SMTP id
- af79cd13be357-74e07d97aeaso55951685a.1; 
- Tue, 25 Apr 2023 06:20:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1682428804; x=1685020804;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dPg6SfS4S5qIc0SsszzUxTwFyGlk4cEDc8p3l837TIE=;
- b=eQ+e6K2lkYZ0Fjk6NVtmRuX3UFIkYNbg6i1iepkXkt0TZdh3pQcEBAD1IMUX5dqk9B
- Nb2s1G7G/AlOS7QkhIiSvRocQP7nAETk00MmDoNBFNtL1wyzQy8KuY4hi+j19Eldlk1X
- s3FBCrKo2Usp+nhxgWn1SgZvqdRkvIm2Q9KIF9db1EWePUsD/ejb3T64Hr0NeM5AEnVE
- vHa4EXTCITlQhg0BcI1+gdOHHj2y85Eo/zoLMsMCZnktDpAo1Jynl77OFUzDGzw4WRiQ
- GhoLjmeIyNf8h0kNFLKMJr3wKVtSfv6B2F9Fd/J+TP+qVp9f1qu0XpaUUckRtOQegyIh
- Uqnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682428804; x=1685020804;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=dPg6SfS4S5qIc0SsszzUxTwFyGlk4cEDc8p3l837TIE=;
- b=jLmuO1zSyn3ZPm8kdCFLJCl1VUv11rhD2L3unWZOekjs4wybaLw0V8F6CLywAcd7S+
- 3IYzhBHrnHUqSKuUJzefy3uuPWO5Tv4O/PEvuK/uZbP4Dda34OxDt6v8oFTbv7sJiiHR
- RDVzE46KtvzVg8A0Np+PhooLcrK6AMY78TUSrE0iWQ7TS4yH30uG1uUXnnQ2kAoR+i8w
- Qg0GXvvnw7EJVWGWF1Lxw7bgQmHtBNhotpfp1dq3h7IBHUcJ2zMd4g/w/k2eBls0DKmI
- wuzdZe43bwExyuIuWe9Ko9bCXa1dP234kt3Jvj1ZU0liJbIyrZX/cXVqesV3XVwqU35K
- atQQ==
-X-Gm-Message-State: AAQBX9dXmin2kCa8e4g3LWgM8L3C/CGigRlrvQ5eP2VGS6sgIo4VBwYI
- kngHiblEC2pE7CVXmd6n8ORnE7Sk48Gcam02FGU=
-X-Google-Smtp-Source: AKy350a/7JZDIj4H/GrXMI7M22X1M/RjssfVeGvA8EtJ684C37HhZs13O2yIZt3QZKKbwpPgZCSqGXXFxG7cmTNtcEM=
-X-Received: by 2002:a05:6214:4104:b0:5ef:5132:7af9 with SMTP id
- kc4-20020a056214410400b005ef51327af9mr25507916qvb.3.1682428803987; Tue, 25
- Apr 2023 06:20:03 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2950510E2A8;
+	Tue, 25 Apr 2023 13:28:09 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2061d.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5b::61d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E05610E2A8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Apr 2023 13:28:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cDUfEjR1FM5fTDQTnU7hhVln38nf2Kh/se6YLZRgN5nY+tm7g7zCzClQXHDCSPobnJNWk+lR3KCz9/I8PhJ4I3KPT5y8Q3ifOBFIHtOf+Yk9/qc8ATjmaLM2QJDw0lZlGYHVl6CodgwNBgUG/q0ec9M+q+zW6RLGvav8o096i0rEBGLl6ojYvnm1P1XvT42t9IsIm91+x64ueFk3Af31NDCBUlJLd3YSmrOXW40YrYGcpDly9CM9dN2SzsxjWbwzlZARvY/m7G5uLkX+H9RWYdLCIybq4PzBKzj4HaXNm8HPIIcHqX5Vp2oLxha4HM+Dc9LjYD+m/NJdeD4Kbs/0hw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hA7XJUztvi5257pqCJAjsmK8vdek5LxrILLV26ieDIs=;
+ b=fHDfECnND8th7b775F0V1glAe4xjjPIN5E1Q7LZangOcank63q1I5LudOueftHGD8m5UOfMjhId37kfRELCl3f/3kMH73hCB9/QtDwnwf8/TMR6F+jKK7aztt44A592akiC221obw3HkWMMBJR/Dus5bjfi284UuEMQPwWQIVY6wmdJsdiVGRgpE2J5bLuyzmQr/Kr2Q+CNCkypyclaNr4vCNlhd68vx/YztcrM9Gg2qRq/JM5CI9KM6wnzyrM3am5cn6YzJCAphfkDNWbVM2jYV5ONGhkdvseZKgTqeXuM7M+GJ6t9XB9GaDk2PGNZjfLVQF1H9ivL5TZ4Qnq3sww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hA7XJUztvi5257pqCJAjsmK8vdek5LxrILLV26ieDIs=;
+ b=XflgZVfLTgVV3g2S2ekDPWRV/h7sqobyVvaXfAwzaSRRwTMu4wgJB81bnNTt4mYkYqiV/TkaQlz5Nx5adtvBKV0i0WvA73E+GkgioLF4Pl1e2h/k0YKLyU7gW2Nifn45Zl7Nm8kK5M4SV64s36u4oHPqWeppPHL3ZYFfqy+aFko=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
+ by BY5PR12MB4292.namprd12.prod.outlook.com (2603:10b6:a03:212::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.34; Tue, 25 Apr
+ 2023 13:28:04 +0000
+Received: from MW4PR12MB5667.namprd12.prod.outlook.com
+ ([fe80::755d:fed:c4a:bf05]) by MW4PR12MB5667.namprd12.prod.outlook.com
+ ([fe80::755d:fed:c4a:bf05%6]) with mapi id 15.20.6340.020; Tue, 25 Apr 2023
+ 13:28:04 +0000
+Message-ID: <c3d4af85-20ce-a6f2-d4fd-525693d51bd3@amd.com>
+Date: Tue, 25 Apr 2023 15:27:56 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH v4 06/10] drm/amdgpu: set FW parameters in v11_struct
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <20230424173836.1441-1-shashank.sharma@amd.com>
+ <20230424173836.1441-7-shashank.sharma@amd.com>
+ <3ce3210e-bc0a-bcf5-a83f-629c1792ad43@amd.com>
+From: Shashank Sharma <shashank.sharma@amd.com>
+In-Reply-To: <3ce3210e-bc0a-bcf5-a83f-629c1792ad43@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0105.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a9::20) To MW4PR12MB5667.namprd12.prod.outlook.com
+ (2603:10b6:303:18a::10)
 MIME-Version: 1.0
-References: <CABXGCsPZxgpFzAVN=eFXu0WV+Jk0vB4rv4p+Jt31C841LcqV=A@mail.gmail.com>
- <CABXGCsO0sST8+MvQs=T1JP49ogRsaHPT9gMQZGJ3dY7v3m0H8g@mail.gmail.com>
- <CABXGCsOTEpJG_0NWdGXRvcXQ4iTav6AUJm-U4SQb-vVzjoL6rA@mail.gmail.com>
- <10b2570f-a297-d236-fa7b-2e001a4dff12@gmail.com>
- <CABXGCsPcPY8dqZm0aF4c1p0ZvMYHy+NksMrZi9xK0=WdE5_osA@mail.gmail.com>
- <d96519fb-9e12-5a81-a60b-384dcb286f28@gmail.com>
- <CABXGCsP2JQMtNjBROSLs2y612iLZuCyoe-uD6OScAWbKHBWsCA@mail.gmail.com>
- <b6ab0086-7d52-2a41-2f76-44694faed317@amd.com>
- <CABXGCsP+LSPE9fH4TW781w67ju=HrNMe9s0kigqBarketr_Qog@mail.gmail.com>
-In-Reply-To: <CABXGCsP+LSPE9fH4TW781w67ju=HrNMe9s0kigqBarketr_Qog@mail.gmail.com>
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Date: Tue, 25 Apr 2023 18:19:53 +0500
-Message-ID: <CABXGCsNSqJVv4Cerc3_P_59ioUZU2M7Z_TMp2yZKqe3si0QqyA@mail.gmail.com>
-Subject: Re: BUG: KASAN: null-ptr-deref in drm_sched_job_cleanup+0x96/0x290
- [gpu_sched]
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB5667:EE_|BY5PR12MB4292:EE_
+X-MS-Office365-Filtering-Correlation-Id: aea28e59-fc33-45ad-7cbc-08db4590e5d6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: YQGWgDmMYxDWiL0e3RpEkrv80hXWS2OxByfY156RzNMU1LcUfF937M7g6gBeprQk7IJiWXx5JLxh/YiqJHSGtM+ed6l/L8yMQbQhaDppNfww20o0BOycK0ZB+xh76K48IStG4TKdWYKV+IdXVun88LRGlOKoJvDPUF/jOvdeWVOR8Xi/XjounMcuIMAsdzTaujTw2EWEIHsEuQl72ulBP+/ab331DYWFoAy9a7/+EhVKgpEv7jqpVug7hQE7O3f74hRrgioFMm5edC1gHZho9Z0ojJqxytUIPJUDqzo9jDPX94rSR0nyzA0UBTjZ5z4f/lxPTC7pnJwvQBT+Tg8bhiuuLNk0FsXEjWAcfvhm73Si2xaIw+fuzSmqavD7By1IgojNJxAIDAYHcAFOi70xYoyEqZkxiCkYK45NPutimVBQd81Lomi3lsywEH5xJHatbiXYudFNiwlXiELhMXBfjDZt4penM04Z5S7dgYpMlIjqr4YY2D5GG9yYdRIPXbBCzMgIWOA1OAzw0VKFMjVgjMYpuYdEx1MOIhssStV5GnkyNJ9PECwHVBpXCP80XEV3GkHUdxZjMDXJv0wmvOAiP1wm0QTz5WaLYXBbNPy8RA/IpQhhAReu/MN+aRY6+FRsTQQ762yOFCwJ92BTJ7TVIA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(39860400002)(376002)(396003)(366004)(136003)(451199021)(478600001)(2616005)(83380400001)(53546011)(6512007)(26005)(6506007)(66556008)(6666004)(6486002)(66946007)(186003)(66574015)(31686004)(41300700001)(38100700002)(5660300002)(44832011)(316002)(4326008)(86362001)(31696002)(66476007)(2906002)(8676002)(8936002)(36756003)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c0FTL1J5OUZHVDVPZUFsWlFnSUJWbitmRExRcWEwYzl2T0thcVAvdWJxUTUw?=
+ =?utf-8?B?YlVBdGNCQ3dNSGRYRUhCR1N4TFB1by9IZG0vSk1RcW9IVWNYWDN5THhZZHZD?=
+ =?utf-8?B?VCtrZHRrTUVuUnRiTWNURkV1OWp0c0VIa3g0dDJZaFV3YXkvekFpZDVXVUJU?=
+ =?utf-8?B?UVBDaDJUT2QzUzJRY2xYZXY0K1pMOGxoSFdjQ1g4ajZSNi9RZS9jWDFQcDNN?=
+ =?utf-8?B?QnM1NTV3U0c2dDBlSk9YYzZWNFdDWURpeTdyb211ZnB2eDRjRU40Z3k0aUZt?=
+ =?utf-8?B?cGw1cXBnZVdCam5uM3JuM3FZMmNDZHJFNjVNcDRhMncxYlU1aTdTK3pYZlZj?=
+ =?utf-8?B?TWVueWVWcGM3M25BWDl6cW5zeE9GcFdOa2xNdjRUTWRBdzY1Rm1aZVVzQUZ4?=
+ =?utf-8?B?cUR6Z1Z5blcrU282dG12NDR5MGZtOENVSFQ5clViOE5kZFdxYmpRb2dGSDhN?=
+ =?utf-8?B?Q043WjlGTUJmMkh5eE9pVVhHVXNaeERHUy9YTG93V0lRUGtoTE9aMlZ0WU9V?=
+ =?utf-8?B?OG5PK0hBMU02V1FOL2Fkc2J1M3RjaGI3ZEpYUHM2YVFuYU9kSVlmKzZsQ1dF?=
+ =?utf-8?B?RVlHSjFBT1lDN0FENmxNVzZBZSt2VU01UEI0dm8raHhUcUd5TzVmd05YRUxj?=
+ =?utf-8?B?SmVJYnEwVHFMZGpVajB5dmY1WXVRdHE4S0hDYVkwWWI5dU1na3pLd0J4SlhL?=
+ =?utf-8?B?eDNRdXdlbytiTmJNY01TOHpRQXVBZ3BtKzRGN1VOVzVDcVFCQ0hMMDFNVE5V?=
+ =?utf-8?B?SUV2YzUybHlUTEJVL3lPYVdsUndJeHhGK0ZkVFBYejBxc3o5cjl2YURQUVNr?=
+ =?utf-8?B?UGtIM0hJLzdaMW43S0JOL2ZtdjdQMi9wSXh1WkhKQ3J2NkxCSjNCUzhMSmRH?=
+ =?utf-8?B?dk9CNEtzNFNCZXdMRlRDWTk1Tk0xQ3RUaG5Wdm9hWXNXQnBrZzA0Q1VBZFBN?=
+ =?utf-8?B?MDNOcXRVY0FrSnRUYzlTbUxJWnBTVGduTC82djhWS3BsZXVFZWxsUDFtQVo4?=
+ =?utf-8?B?NmFOVUNyR0cyekR6bnZ0TFBlZ3MyUXNqeFdpdVpPK3JhNHE5WDJQbzFpSTNv?=
+ =?utf-8?B?aFVxQndTQ25peXNLbXNsSE40eFV1b1hZaXdoQUp1TnBldjExckJpc2RpcWlo?=
+ =?utf-8?B?c0k3VHRzYXJuaUM3Mmp0enpYUHE2U080TktMdDBaYWJCWXRqTXlXQkQwdk9y?=
+ =?utf-8?B?RkkzRHBDQytMbE5lWmF0THUzOC9YTzFWVXljNnZ4eCtUYzU3M0ZzdnBXR2RY?=
+ =?utf-8?B?T0dtclVENDE4WjdaSDhPclRHT1pEUnpQekZOT3lzY2J0QVZMQjhhcnNzZXJZ?=
+ =?utf-8?B?R3pubUhBZzg1dC9MQVNkcUU2S0JkSkZ0K0diN29Ndmg1RkRmY0M3dUhUMSsv?=
+ =?utf-8?B?NU5jVWtDNjZ2dEFmUHh3dGtGNzJydXZIZkVVV0I4R1JtU2F3bERnYW9LOEtV?=
+ =?utf-8?B?VDl6Wnc0SGZWWWxuRERLejAvdXBDZTY3ekxiVXF2blN3ZHdET0NteVUzZ1BZ?=
+ =?utf-8?B?U25kRk8wVU1PTUZVOUt4K0kzOE9UeTk4MlFnYTJPQ2orc3oyY3k3aHdINk9t?=
+ =?utf-8?B?NDdlRkJIMUthRWZnalJJUk95dlFqWGV0dVY3djhsNkxUbTBVaDRNREkxaHEv?=
+ =?utf-8?B?NW9xTjlrekVXM0Rtc20yNnpibmJ1aU1RZFhMRGxzTGg4VUVjRnR1S0haSTZn?=
+ =?utf-8?B?bUphajdPN01pS3M5MmdXNFFUaUM1cThJWi81N1liblpuSjFtV2l5OW9McWY5?=
+ =?utf-8?B?UHFscHM1VFo1dnV3SW01OENnMWtDZ1JXdHBzbXUxL1kyUjB3bkJlM29rU3Ux?=
+ =?utf-8?B?YTNSbXl1cVRNY1FaRWN5S2lUckV6cUlCalpjcE1sbU9xL2dSUURKYVBFYVl2?=
+ =?utf-8?B?bUxUMG9qd2tseHRCZUR6TkN1dkd2ZHprQVhzR3paWUREL2VxZUN1UUNIM2F1?=
+ =?utf-8?B?cUdhUllZOXh2amlYdyswdFpBZ0NkQklicG1ieVBHTEZzaTNPRDBwYUY2RGlC?=
+ =?utf-8?B?VkMvS04vNllURExtRXNsSlE1QWwxdWR3U3U1eitCeHMwQnBIWDYxOCtTczZn?=
+ =?utf-8?B?aCtJeWFVV2NoQXlFdzV6YjIzQ01yVUFGYTdjR2hTSVFESFFuUkpjSzFPNytk?=
+ =?utf-8?Q?Ki428MdZkI50ADPHlkhcV/7hV?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: aea28e59-fc33-45ad-7cbc-08db4590e5d6
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2023 13:28:03.9867 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GG7Hw86mPGvqtPPChQkAwQG1MrUbdaNb/LooSpothYI/dqducOpwHICTzwGraYJw9E/Vk0WqpvH7IVJdW1ijVg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4292
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,187 +127,92 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Linux List Kernel Mailing <linux-kernel@vger.kernel.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ pierre-eric.pelloux-prayer@amd.com, contactshashanksharma@gmail.com,
+ arvind.yadav@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 20, 2023 at 3:32=E2=80=AFPM Mikhail Gavrilov
-<mikhail.v.gavrilov@gmail.com> wrote:
+
+On 25/04/2023 14:32, Christian König wrote:
+> Am 24.04.23 um 19:38 schrieb Shashank Sharma:
+>> From: Arvind Yadav <arvind.yadav@amd.com>
+>>
+>> This patch sets new parameters defined in v11_struct for
+>> usermode queue with the respective allocated gpu context
+>> space addresses.
+>>
+>> V4: Split the patch into two parts, keep only the set parameter
+>>      part in this series (Alex).
+>>
+>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>> Cc: Christian Koenig <christian.koenig@amd.com>
+>> Cc: Shashank Sharma <shashank.sharma@amd.com>
+>> Signed-off-by: Arvind Yadav <arvind.yadav@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 19 ++++++++++++++++++-
+>>   1 file changed, 18 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c 
+>> b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>> index f6b33faea86f..86de35292f69 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>> @@ -6411,6 +6411,21 @@ const struct amdgpu_ip_block_version 
+>> gfx_v11_0_ip_block =
+>>       .funcs = &gfx_v11_0_ip_funcs,
+>>   };
+>>   +static void gfx_v11_userq_set_ctx_space(struct amdgpu_userq_mgr 
+>> *uq_mgr,
+>> +                    struct amdgpu_usermode_queue *queue)
+>> +{
+>> +    struct v11_gfx_mqd *mqd = queue->mqd.cpu_ptr;
+>> +
+>> +    mqd->shadow_base_lo = queue->shadow_ctx_gpu_addr & 0xfffffffc;
+>> +    mqd->shadow_base_hi = upper_32_bits(queue->shadow_ctx_gpu_addr);
+>> +
+>> +    mqd->gds_bkup_base_lo = queue->gds_ctx_gpu_addr & 0xfffffffc;
+>> +    mqd->gds_bkup_base_hi = upper_32_bits(queue->gds_ctx_gpu_addr);
+>> +
+>> +    mqd->fw_work_area_base_lo = queue->fw_ctx_gpu_addr & 0xfffffffc;
+>> +    mqd->fw_work_area_base_lo = upper_32_bits(queue->fw_ctx_gpu_addr);
 >
-> Important don't give up.
-> https://youtu.be/25zhHBGIHJ8 [40 min]
-> https://youtu.be/utnDR26eYBY [50 min]
-> https://youtu.be/DJQ_tiimW6g [12 min]
-> https://youtu.be/Y6AH1oJKivA [6 min]
-> Yes the issue is everything reproducible, but time to time it not
-> happens at first attempt.
-> I also uploaded other videos which proves that the issue definitely
-> exists if someone will launch those games in turn.
-> Reproducibility is only a matter of time.
+> Mhm, first of all please use lower_32_bits() here instead of the mask.
 >
-> Anyway I didn't want you to spend so much time trying to reproduce it.
-> This monkey business fits me more than you.
-> It would be better if I could collect more useful info.
+Noted,
+> Then are you sure that is correct? The shadow, csa, gds are supposed 
+> to be VAs as far as I know, but you use MC addresses here.
 
-Christian,
-Did you manage to reproduce the problem?
+In my understanding, only the shadow area needs to be VA, which is true 
+here as its being allocated by the user. We have tested the code and we 
+did not see any problem yet, but I can cross check this and come back.
 
-At the weekend I faced with slab-use-after-free in amdgpu_vm_handle_moved.
-I didn't play in the games at this time.
-The Xwayland process was affected so it leads to desktop hang.
+- Shashank
 
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-BUG: KASAN: slab-use-after-free in amdgpu_vm_handle_moved+0x286/0x2d0 [amdg=
-pu]
-Read of size 8 at addr ffff888295c66190 by task Xwayland:cs0/173185
-
-CPU: 21 PID: 173185 Comm: Xwayland:cs0 Tainted: G        W    L
--------  ---  6.3.0-0.rc7.20230420gitcb0856346a60.59.fc39.x86_64+debug
-#1
-Hardware name: System manufacturer System Product Name/ROG STRIX
-X570-I GAMING, BIOS 4601 02/02/2023
-Call Trace:
- <TASK>
- dump_stack_lvl+0x76/0xd0
- print_report+0xcf/0x670
- ? amdgpu_vm_handle_moved+0x286/0x2d0 [amdgpu]
- ? amdgpu_vm_handle_moved+0x286/0x2d0 [amdgpu]
- kasan_report+0xa8/0xe0
- ? amdgpu_vm_handle_moved+0x286/0x2d0 [amdgpu]
- amdgpu_vm_handle_moved+0x286/0x2d0 [amdgpu]
- amdgpu_cs_ioctl+0x2b7e/0x5630 [amdgpu]
- ? __pfx___lock_acquire+0x10/0x10
- ? __pfx_amdgpu_cs_ioctl+0x10/0x10 [amdgpu]
- ? mark_lock+0x101/0x16e0
- ? __lock_acquire+0xe54/0x59f0
- ? __pfx_lock_release+0x10/0x10
- ? __pfx_amdgpu_cs_ioctl+0x10/0x10 [amdgpu]
- drm_ioctl_kernel+0x1fc/0x3d0
- ? __pfx_drm_ioctl_kernel+0x10/0x10
- drm_ioctl+0x4c5/0xaa0
- ? __pfx_amdgpu_cs_ioctl+0x10/0x10 [amdgpu]
- ? __pfx_drm_ioctl+0x10/0x10
- ? _raw_spin_unlock_irqrestore+0x66/0x80
- ? lockdep_hardirqs_on+0x81/0x110
- ? _raw_spin_unlock_irqrestore+0x4f/0x80
- amdgpu_drm_ioctl+0xd2/0x1b0 [amdgpu]
- __x64_sys_ioctl+0x131/0x1a0
- do_syscall_64+0x60/0x90
- ? do_syscall_64+0x6c/0x90
- ? lockdep_hardirqs_on+0x81/0x110
- ? do_syscall_64+0x6c/0x90
- ? lockdep_hardirqs_on+0x81/0x110
- ? do_syscall_64+0x6c/0x90
- ? lockdep_hardirqs_on+0x81/0x110
- ? do_syscall_64+0x6c/0x90
- ? lockdep_hardirqs_on+0x81/0x110
- entry_SYSCALL_64_after_hwframe+0x72/0xdc
-RIP: 0033:0x7ffb71b0892d
-Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10 c7 45 b0 10 00
-00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f 05 <89> c2
-3d 00 f0 ff ff 77 1a 48 8b 45 c8 64 48 2b 04 25 28 00 00 00
-RSP: 002b:00007ffb677fe840 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007ffb677fe9f8 RCX: 00007ffb71b0892d
-RDX: 00007ffb677fe900 RSI: 00000000c0186444 RDI: 000000000000000d
-RBP: 00007ffb677fe890 R08: 00007ffb677fea50 R09: 00007ffb677fe8e0
-R10: 0000556c4611bec0 R11: 0000000000000246 R12: 00007ffb677fe900
-R13: 00000000c0186444 R14: 000000000000000d R15: 00007ffb677fe9f8
- </TASK>
-
-Allocated by task 173181:
- kasan_save_stack+0x33/0x60
- kasan_set_track+0x25/0x30
- __kasan_kmalloc+0x8f/0xa0
- __kmalloc_node+0x65/0x160
- amdgpu_bo_create+0x31e/0xfb0 [amdgpu]
- amdgpu_bo_create_user+0xca/0x160 [amdgpu]
- amdgpu_gem_create_ioctl+0x398/0x980 [amdgpu]
- drm_ioctl_kernel+0x1fc/0x3d0
- drm_ioctl+0x4c5/0xaa0
- amdgpu_drm_ioctl+0xd2/0x1b0 [amdgpu]
- __x64_sys_ioctl+0x131/0x1a0
- do_syscall_64+0x60/0x90
- entry_SYSCALL_64_after_hwframe+0x72/0xdc
-
-Freed by task 173185:
- kasan_save_stack+0x33/0x60
- kasan_set_track+0x25/0x30
- kasan_save_free_info+0x2e/0x50
- __kasan_slab_free+0x10b/0x1a0
- slab_free_freelist_hook+0x11e/0x1d0
- __kmem_cache_free+0xc0/0x2e0
- ttm_bo_release+0x667/0x9e0 [ttm]
- amdgpu_bo_unref+0x35/0x70 [amdgpu]
- amdgpu_gem_object_free+0x73/0xb0 [amdgpu]
- drm_gem_handle_delete+0xe3/0x150
- drm_ioctl_kernel+0x1fc/0x3d0
- drm_ioctl+0x4c5/0xaa0
- amdgpu_drm_ioctl+0xd2/0x1b0 [amdgpu]
- __x64_sys_ioctl+0x131/0x1a0
- do_syscall_64+0x60/0x90
- entry_SYSCALL_64_after_hwframe+0x72/0xdc
-
-Last potentially related work creation:
- kasan_save_stack+0x33/0x60
- __kasan_record_aux_stack+0x97/0xb0
- __call_rcu_common.constprop.0+0xf8/0x1af0
- drm_sched_fence_release_scheduled+0xb8/0xe0 [gpu_sched]
- dma_resv_reserve_fences+0x4dc/0x7f0
- ttm_eu_reserve_buffers+0x3f6/0x1190 [ttm]
- amdgpu_cs_ioctl+0x204d/0x5630 [amdgpu]
- drm_ioctl_kernel+0x1fc/0x3d0
- drm_ioctl+0x4c5/0xaa0
- amdgpu_drm_ioctl+0xd2/0x1b0 [amdgpu]
- __x64_sys_ioctl+0x131/0x1a0
- do_syscall_64+0x60/0x90
- entry_SYSCALL_64_after_hwframe+0x72/0xdc
-
-Second to last potentially related work creation:
- kasan_save_stack+0x33/0x60
- __kasan_record_aux_stack+0x97/0xb0
- __call_rcu_common.constprop.0+0xf8/0x1af0
- drm_sched_fence_release_scheduled+0xb8/0xe0 [gpu_sched]
- amdgpu_ctx_add_fence+0x2b1/0x390 [amdgpu]
- amdgpu_cs_ioctl+0x44d0/0x5630 [amdgpu]
- drm_ioctl_kernel+0x1fc/0x3d0
- drm_ioctl+0x4c5/0xaa0
- amdgpu_drm_ioctl+0xd2/0x1b0 [amdgpu]
- __x64_sys_ioctl+0x131/0x1a0
- do_syscall_64+0x60/0x90
- entry_SYSCALL_64_after_hwframe+0x72/0xdc
-
-The buggy address belongs to the object at ffff888295c66000
- which belongs to the cache kmalloc-1k of size 1024
-The buggy address is located 400 bytes inside of
- freed 1024-byte region [ffff888295c66000, ffff888295c66400)
-
-The buggy address belongs to the physical page:
-page:00000000125ffbe3 refcount:1 mapcount:0 mapping:0000000000000000
-index:0x0 pfn:0x295c60
-head:00000000125ffbe3 order:3 entire_mapcount:0 nr_pages_mapped:0 pincount:=
-0
-anon flags: 0x17ffffc0010200(slab|head|node=3D0|zone=3D2|lastcpupid=3D0x1ff=
-fff)
-raw: 0017ffffc0010200 ffff88810004cdc0 0000000000000000 dead000000000001
-raw: 0000000000000000 0000000000100010 00000001ffffffff 0000000000000000
-page dumped because: kasan: bad access detected
-
-Memory state around the buggy address:
- ffff888295c66080: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff888295c66100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->ffff888295c66180: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                         ^
- ffff888295c66200: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff888295c66280: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
---=20
-Best Regards,
-Mike Gavrilov.
+>
+>
+> Christian.
+>
+>> +}
+>> +
+>>   static int gfx_v11_userq_create_ctx_space(struct amdgpu_userq_mgr 
+>> *uq_mgr,
+>>                         struct amdgpu_usermode_queue *queue)
+>>   {
+>> @@ -6484,12 +6499,14 @@ gfx_v11_userq_mqd_create(struct 
+>> amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode
+>>       queue->userq_prop.use_doorbell = true;
+>>       queue->userq_prop.mqd_gpu_addr = mqd->gpu_addr;
+>>       r = gfx_v11_mqd->init_mqd(adev, (void *)mqd->cpu_ptr, 
+>> &queue->userq_prop);
+>> -    amdgpu_bo_unreserve(mqd->obj);
+>>       if (r) {
+>> +        amdgpu_bo_unreserve(mqd->obj);
+>>           DRM_ERROR("Failed to init MQD for queue\n");
+>>           goto free_ctx;
+>>       }
+>>   +    gfx_v11_userq_set_ctx_space(uq_mgr, queue);
+>> +    amdgpu_bo_unreserve(mqd->obj);
+>>       DRM_DEBUG_DRIVER("MQD for queue %d created\n", queue->queue_id);
+>>       return 0;
+>
