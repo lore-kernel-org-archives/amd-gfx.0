@@ -4,90 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC624C77B61
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Apr 2023 18:52:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 818BCC6FD18
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Apr 2023 19:03:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FC7610E429;
-	Tue, 25 Apr 2023 18:52:18 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2062b.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5b::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4677410E104
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Apr 2023 18:52:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SmT1aGuGQ6+cn+mIRC2YLPtSxHQg3+JpGR/jl053SJuuxR6AxsFp6CbYFpi8IcVWcCSFqgahtSpxAgPIP4+rrFT6wTCcsjKpQlVQwM/US/tOt17uc9K6Gvai53gBtwFq22GRA8m2//rWdnWQsF0xFDdOzTY4Dk6kleeLo5sIrkShldQuAUTiYDIZJHxQk+sHApROD3pyfH1JuAYAlQIYT5nmUOOqk5C9MuI4mM9UVL1w4Jhb60LfJA12vkV/5O9GvW4V2eJ5XK9vWAChTJNLjMUPtUcMPZjWcjgcmoNgUjVbQgnrXBo+C74dG8MDaeajM+ZpQoeTn61vhG9iQtP3zQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rntZg3BvepshAEvT7nmCsAw5Ml/LtdwlWBqR3iB4Lvg=;
- b=PSJrZB8HpytLP5tWREFiuouCQcr09yz8qTb25YHra0CFIwzjfPA/YEWLRtgmnSbqM7FER6ulpPh/ayTYXlzAUkE2n85loRorckGmdU47l1oNAPpuQRYA9sFMkHESNbmE3GQuVWnKls66bibZcl81sJ01BN/oNfHlQ9MM1866Mqe61VlAtq/dq2qWIhBZXucXpiSFk9G25G6x9YCs7qs3QOvk7qGGXT6ZPnTSLVmfZmpmQkeGFXMOJHpiNmS5ZkHaKrWHrTvePYd//Su8o4EIl/xTu0stzBZNHwZ0pzd7xJVa3hG/frHKMYG933KwvuNMK3RxDXxefeI0Dfhrjve9Rg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rntZg3BvepshAEvT7nmCsAw5Ml/LtdwlWBqR3iB4Lvg=;
- b=LIYrQUUpo+Tqv4/wB64RK5LBZy0uYr22kGSQ6s9daJuCzglMzYBpJVCsgKdmirHCVo5bJ5oxX13zMHLiE9jxsXqGLLTsUTFxk3/ur9UlReQmmV0U/byS1OCK/sLgRiIb7uHL2oIpdp0DxUL2WdTZLWnQ1+umnRNpnGw1GxqEY18=
-Received: from BN0PR10CA0008.namprd10.prod.outlook.com (2603:10b6:408:143::27)
- by DS0PR12MB7747.namprd12.prod.outlook.com (2603:10b6:8:138::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.33; Tue, 25 Apr
- 2023 18:52:13 +0000
-Received: from BN8NAM11FT038.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:143:cafe::57) by BN0PR10CA0008.outlook.office365.com
- (2603:10b6:408:143::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.33 via Frontend
- Transport; Tue, 25 Apr 2023 18:52:13 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT038.mail.protection.outlook.com (10.13.176.246) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6340.21 via Frontend Transport; Tue, 25 Apr 2023 18:52:13 +0000
-Received: from TRX40-1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 25 Apr
- 2023 13:52:11 -0500
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amd/amdgpu: Fix style errors in amdgpu_display`.c
-Date: Wed, 26 Apr 2023 00:21:57 +0530
-Message-ID: <20230425185157.1736681-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EE1210E032;
+	Tue, 25 Apr 2023 19:03:39 +0000 (UTC)
+Received: from mail-oo1-xc29.google.com (mail-oo1-xc29.google.com
+ [IPv6:2607:f8b0:4864:20::c29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56FEC10E032
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Apr 2023 19:03:37 +0000 (UTC)
+Received: by mail-oo1-xc29.google.com with SMTP id
+ 006d021491bc7-546db536a6bso3289564eaf.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Apr 2023 12:03:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1682449416; x=1685041416;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=5Ig9961WYUcq/2wSfGAxA83Q9l4QpKmV75WkGyGZJOI=;
+ b=YPO1lyucYe38fADGJgLL0jOzB5xO2a/5YxbEML/LUEhqJYU+05HlLzNs/BAP6VhKxY
+ QSRIi6KnQGW89QWWAT6qfK3aB3c8mGhdDylIFDystacLqKaoZs+FLxQS3M1HqNeSTEU+
+ TQNSG+7iJ2pqqKifdZ13QWC2ltqgE3bqXI7zIBvnZs6uTyeANzb8dkLZ4ibaE8iQkWEq
+ DflL8OGsNsv+gyUXe3K9aNUXB7P4kR1wvl4GAHtkuWbtOD/yW9vzVkWiFbNbwwdXXete
+ Yb4ZpGWyctztgKKVbP3+0KoLh0uYLC6wGVwP3TxPGRd+6QCRae6K4K7VxbMgAqZErMxn
+ 5mdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1682449416; x=1685041416;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=5Ig9961WYUcq/2wSfGAxA83Q9l4QpKmV75WkGyGZJOI=;
+ b=WbQ/q0IGxOam9k1a4zG87JpELdZAYfmRlxy9Xad2xt71MoRw7Hpzj+w2hv66x9XIKq
+ nXkKNtyGXriviahEvGDEjApA595Q00Tdze0h69dGfoEgeAJTFxA6SjVxMXMtL4FlyjSD
+ BsnEDIi1A4/FwJrzHVa0XqmJoOBgO23hHePp24r4joZfQIvzW0jGoX9TtsDbx8n7yzlm
+ 5Bcpb+O3UaqSBAWg39VGFO/47c+v1HAhUi6Cuq/3+crNLK6FuQE5s8aSQdJ/O64S+U9o
+ 5cUuPpV5TcHKHGPFAEY5WjmquB4G4WM0fbWoWjTj2frv9novFs3u9GpdpHtfp7S2H0Ky
+ i5Dw==
+X-Gm-Message-State: AAQBX9fNtuUpIPjIC2VfOm+R8wjmRWVZejmzh5kmGNG0Re8aE4GNYsg9
+ /fwu1R9bT07KIzFeisKyituK161P25mkRS3O3WXOa2I+
+X-Google-Smtp-Source: AKy350ZZHGuce54orG0Eedw9l8g1bKVmvUVidNQueIMHwpTsU/svMdG0wPQ+tTXQTkPVB6g5sF0pu9/wfPei2Z8XveU=
+X-Received: by 2002:aca:3bc5:0:b0:386:ea33:7556 with SMTP id
+ i188-20020aca3bc5000000b00386ea337556mr8670400oia.49.1682449415891; Tue, 25
+ Apr 2023 12:03:35 -0700 (PDT)
 MIME-Version: 1.0
+References: <20230425185157.1736681-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20230425185157.1736681-1-srinivasan.shanmugam@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 25 Apr 2023 15:03:24 -0400
+Message-ID: <CADnq5_PEYyHbmDvX7xE_GKnfj-dYNyYw1erbjh0W8bQXTh-cHA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: Fix style errors in amdgpu_display`.c
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT038:EE_|DS0PR12MB7747:EE_
-X-MS-Office365-Filtering-Correlation-Id: d6c15421-0371-44a3-2ec4-08db45be2ebf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: G6LTydt5d1XZZpzCX4QLziu/HoinF4DXx/AIlQxRKP/o/8QYcEFh+usv9T7hZ/W0fvyzUfobBg4OoyCXkzZcbjLbvvLc6r6ePcxJgKFle8jhAE7HlgrqLkJG62a1EleB0j4CTKDnUYyLdy5buZJD6FJxWCxve1WI+kgRC2iU2J6cTYT8Z2ZOZT1kpYNCL9UyzMw06NY3pz/rb7qGxPWX+5wVEg42l2pcNat2eaMpQFr1ayKOGoWQmz8lq/z3Zy9TUlm2eV3u/ej5oiliHhEWbq0sr3WteADeXB5GMpm7Hv6wsHJRxlQLfq1bh5YxaLWh8XTBxvU80jTY1b4lRYm4Hnz5Qx+aKGw6WQ+xNNoLGMffbOARHlYEEp14jIEfF+TUEuJshlkgk6gJ0J7WBa43KYGNzasIUje2M2wQw0vFF07OHwM5UBx2D9+nOL23nT8lAtVpVWVslQQsoDnvLrV/Z0gnwuNdYBNO1tD6EjMwVfh6T8Ms3Izm+E332eHcf1EpHExdcEnShHiGavhxSIWEfCb/mYu2hFh+kLNJdLlwJny0s5Vv7jNQzggxitD+9JZhw95LWvue5IywfnoRPTL36Hk6ey4iqaY2/lG9UqBT96VQ81IiHHp0SwuTMESt4KUvfxNFibFW0u5Ndq6llOhMjY24il6bWPlgqGfcf+j+5Le/UHqeRNP0A2QtZgKvpnTWc/Bok8apr0hFo+Xam9WL+ji6GjsUvyIEcGXdt74gvUFVOf37bO6yp8jdevk9LDGdIuKTKi9WflytnEKOuzJGUO2cZsMCD+pYQH7vA7utrCQ=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(346002)(136003)(39860400002)(376002)(451199021)(40470700004)(46966006)(36840700001)(36756003)(8676002)(8936002)(54906003)(110136005)(40460700003)(478600001)(70586007)(6636002)(4326008)(70206006)(40480700001)(356005)(81166007)(44832011)(316002)(41300700001)(82740400003)(2906002)(5660300002)(2616005)(86362001)(36860700001)(186003)(16526019)(336012)(426003)(26005)(1076003)(7696005)(6666004)(83380400001)(47076005)(66574015)(82310400005)(21314003)(81973001)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2023 18:52:13.2972 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6c15421-0371-44a3-2ec4-08db45be2ebf
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT038.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7747
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,75 +67,90 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix following checkpatch errors in amdgpu_display.c
+On Tue, Apr 25, 2023 at 2:52=E2=80=AFPM Srinivasan Shanmugam
+<srinivasan.shanmugam@amd.com> wrote:
+>
+> Fix following checkpatch errors in amdgpu_display.c
+>
+> ERROR: spaces required around that '=3D' (ctx:VxW)
+> ERROR: that open brace { should be on the previous line
+> ERROR: else should follow close brace '}'
+>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
-ERROR: spaces required around that '=' (ctx:VxW)
-ERROR: that open brace { should be on the previous line
-ERROR: else should follow close brace '}'
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index 8632ab695a6c..389396eac222 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -97,7 +97,7 @@ static void amdgpu_display_flip_callback(struct dma_fence *f,
- static bool amdgpu_display_flip_handle_fence(struct amdgpu_flip_work *work,
- 					     struct dma_fence **f)
- {
--	struct dma_fence *fence= *f;
-+	struct dma_fence *fence = *f;
- 
- 	if (fence == NULL)
- 		return false;
-@@ -1251,21 +1251,21 @@ const struct drm_mode_config_funcs amdgpu_mode_funcs = {
- 	.fb_create = amdgpu_display_user_framebuffer_create,
- };
- 
--static const struct drm_prop_enum_list amdgpu_underscan_enum_list[] =
--{	{ UNDERSCAN_OFF, "off" },
-+static const struct drm_prop_enum_list amdgpu_underscan_enum_list[] = {
-+	{ UNDERSCAN_OFF, "off" },
- 	{ UNDERSCAN_ON, "on" },
- 	{ UNDERSCAN_AUTO, "auto" },
- };
- 
--static const struct drm_prop_enum_list amdgpu_audio_enum_list[] =
--{	{ AMDGPU_AUDIO_DISABLE, "off" },
-+static const struct drm_prop_enum_list amdgpu_audio_enum_list[] = {
-+	{ AMDGPU_AUDIO_DISABLE, "off" },
- 	{ AMDGPU_AUDIO_ENABLE, "on" },
- 	{ AMDGPU_AUDIO_AUTO, "auto" },
- };
- 
- /* XXX support different dither options? spatial, temporal, both, etc. */
--static const struct drm_prop_enum_list amdgpu_dither_enum_list[] =
--{	{ AMDGPU_FMT_DITHER_DISABLE, "off" },
-+static const struct drm_prop_enum_list amdgpu_dither_enum_list[] = {
-+	{ AMDGPU_FMT_DITHER_DISABLE, "off" },
- 	{ AMDGPU_FMT_DITHER_ENABLE, "on" },
- };
- 
-@@ -1495,8 +1495,7 @@ int amdgpu_display_get_crtc_scanoutpos(struct drm_device *dev,
- 		ret |= DRM_SCANOUTPOS_ACCURATE;
- 		vbl_start = vbl & 0x1fff;
- 		vbl_end = (vbl >> 16) & 0x1fff;
--	}
--	else {
-+	} else {
- 		/* No: Fake something reasonable which gives at least ok results. */
- 		vbl_start = mode->crtc_vdisplay;
- 		vbl_end = 0;
--- 
-2.25.1
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 17 ++++++++---------
+>  1 file changed, 8 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_display.c
+> index 8632ab695a6c..389396eac222 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> @@ -97,7 +97,7 @@ static void amdgpu_display_flip_callback(struct dma_fen=
+ce *f,
+>  static bool amdgpu_display_flip_handle_fence(struct amdgpu_flip_work *wo=
+rk,
+>                                              struct dma_fence **f)
+>  {
+> -       struct dma_fence *fence=3D *f;
+> +       struct dma_fence *fence =3D *f;
+>
+>         if (fence =3D=3D NULL)
+>                 return false;
+> @@ -1251,21 +1251,21 @@ const struct drm_mode_config_funcs amdgpu_mode_fu=
+ncs =3D {
+>         .fb_create =3D amdgpu_display_user_framebuffer_create,
+>  };
+>
+> -static const struct drm_prop_enum_list amdgpu_underscan_enum_list[] =3D
+> -{      { UNDERSCAN_OFF, "off" },
+> +static const struct drm_prop_enum_list amdgpu_underscan_enum_list[] =3D =
+{
+> +       { UNDERSCAN_OFF, "off" },
+>         { UNDERSCAN_ON, "on" },
+>         { UNDERSCAN_AUTO, "auto" },
+>  };
+>
+> -static const struct drm_prop_enum_list amdgpu_audio_enum_list[] =3D
+> -{      { AMDGPU_AUDIO_DISABLE, "off" },
+> +static const struct drm_prop_enum_list amdgpu_audio_enum_list[] =3D {
+> +       { AMDGPU_AUDIO_DISABLE, "off" },
+>         { AMDGPU_AUDIO_ENABLE, "on" },
+>         { AMDGPU_AUDIO_AUTO, "auto" },
+>  };
+>
+>  /* XXX support different dither options? spatial, temporal, both, etc. *=
+/
+> -static const struct drm_prop_enum_list amdgpu_dither_enum_list[] =3D
+> -{      { AMDGPU_FMT_DITHER_DISABLE, "off" },
+> +static const struct drm_prop_enum_list amdgpu_dither_enum_list[] =3D {
+> +       { AMDGPU_FMT_DITHER_DISABLE, "off" },
+>         { AMDGPU_FMT_DITHER_ENABLE, "on" },
+>  };
+>
+> @@ -1495,8 +1495,7 @@ int amdgpu_display_get_crtc_scanoutpos(struct drm_d=
+evice *dev,
+>                 ret |=3D DRM_SCANOUTPOS_ACCURATE;
+>                 vbl_start =3D vbl & 0x1fff;
+>                 vbl_end =3D (vbl >> 16) & 0x1fff;
+> -       }
+> -       else {
+> +       } else {
+>                 /* No: Fake something reasonable which gives at least ok =
+results. */
+>                 vbl_start =3D mode->crtc_vdisplay;
+>                 vbl_end =3D 0;
+> --
+> 2.25.1
+>
