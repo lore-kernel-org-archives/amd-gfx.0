@@ -4,89 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38AD8C6FD18
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Apr 2023 14:55:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBB4FC77B61
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Apr 2023 15:28:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 603EE10E0F4;
-	Tue, 25 Apr 2023 14:55:08 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2076.outbound.protection.outlook.com [40.107.220.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5561810E0F4
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Apr 2023 14:55:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=R5e3/JWJWqK6Hkz+iZNO7OTysMbKI+TEl6o2qEvRPs4/1jfbg1qimIOPRiHfvKt3AEiaMu76tBUEYccz+U7f54gmk3GD+IhjFxU5isa1ZZ1Ov4pyzVZd4pazlqwZZboHgSqoivLXXbKWy+uK5CI1GJ5JCyzgvNgjXQ8wcRXp1iKIn3Ehb5wN5LjiYHYs4aapjw/wdsXO3wSYuNxRnX7rmsET4cEmxIw9pOXtneL1NukIk220RqGXY2qAne6xnrVj6S9FeP6ivr/VWGDDr65NKLhvG6rqRLM4r1HChr3mCiHCzkt0r6Kt7u4rMelwElFsR9k4KbsjkVKObL13oDzozw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BYvGO8OXs+SmOncy9isbcGXtiEIZrU2Hg/lFcPWsMlg=;
- b=iX5ki2kM/rcHpaIv3W8FbIP6Ls8+pPcelHCHNFIZON39YwFg/kkDEl6fog3RNVhLy/wXOsHt9d7AoossbA7ihAW/d0tBk2HfZtgwsv6fU6edhgUPwA3dJAdjPhhymRU1K0CzhgzEUkD0vcD7ORdRaz8HBysF1wnvKmz5beLLbEbslAStdOAbqu+ZoCEFpjQJv4+WwSSFGIk8FWNf6/qGWzzKgODpFdYbVu+Uc6gWzfTBu+I3YqEOZaesN+cNAV8X5QXUFLwuqDQe09gy1sabuvPftG61bmLG9hBQ/LiWWEdN3U1L1c5AbVw8JlJ9+iyw9yHXG3ahzat+3b4yCalm3Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BYvGO8OXs+SmOncy9isbcGXtiEIZrU2Hg/lFcPWsMlg=;
- b=3TSh5iJLTSn83BPrrFVgUeufPLjrYM33OWx+SKxM+rvzEaIT2waMwJ7sULaMjbl+69Ly/y0QCLsbmuwFPmKFYtJab7miWHMctixZTx7Cs6fo/PcpJWgrQTU7PxCnOh2jwd40q0Ko0SKn5pY2VhoPzMB6xb1j2SvHmDD9yDcfOpQ=
-Received: from MW4PR04CA0063.namprd04.prod.outlook.com (2603:10b6:303:6b::8)
- by MW6PR12MB8736.namprd12.prod.outlook.com (2603:10b6:303:244::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.33; Tue, 25 Apr
- 2023 14:55:03 +0000
-Received: from CO1NAM11FT023.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:6b:cafe::47) by MW4PR04CA0063.outlook.office365.com
- (2603:10b6:303:6b::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.34 via Frontend
- Transport; Tue, 25 Apr 2023 14:55:03 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT023.mail.protection.outlook.com (10.13.175.35) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6340.20 via Frontend Transport; Tue, 25 Apr 2023 14:55:03 +0000
-Received: from shane-u20.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 25 Apr
- 2023 09:55:00 -0500
-From: Shane Xiao <shane.xiao@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>, <felix.kuehling@amd.com>, <hawking.zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: Enable doorbell selfring after resize FB BAR
-Date: Tue, 25 Apr 2023 22:54:44 +0800
-Message-ID: <20230425145444.1309838-1-shane.xiao@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BCC210E073;
+	Tue, 25 Apr 2023 15:28:12 +0000 (UTC)
+Received: from tretyak2.mcst.ru (tretyak2.mcst.ru [212.5.119.215])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C419A10E063;
+ Tue, 25 Apr 2023 15:14:40 +0000 (UTC)
+Received: from tretyak2.mcst.ru (localhost [127.0.0.1])
+ by tretyak2.mcst.ru (Postfix) with ESMTP id 940E810239C;
+ Tue, 25 Apr 2023 18:14:34 +0300 (MSK)
+Received: from frog.lab.sun.mcst.ru (frog.lab.sun.mcst.ru [172.16.4.50])
+ by tretyak2.mcst.ru (Postfix) with ESMTP id 8EDEC10239E;
+ Tue, 25 Apr 2023 18:13:49 +0300 (MSK)
+Received: from artemiev-i.lab.sun.mcst.ru (avior-1 [192.168.53.223])
+ by frog.lab.sun.mcst.ru (8.13.4/8.12.11) with ESMTP id 33PFDm1r001729;
+ Tue, 25 Apr 2023 18:13:48 +0300
+From: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
+To: David Airlie <airlied@gmail.com>
+Subject: [lvc-project] [PATCH] drm/radeon:  remove useless conditions
+Date: Tue, 25 Apr 2023 18:13:18 +0300
+Message-Id: <20230425151318.561432-1-Igor.A.Artemiev@mcst.ru>
+X-Mailer: git-send-email 2.39.0.152.ga5737674b6
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT023:EE_|MW6PR12MB8736:EE_
-X-MS-Office365-Filtering-Correlation-Id: d2aa0941-8049-4d46-b457-08db459d0d02
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: afXP1SRf+K6qdu97H3ivjP/vTIISlODJTmUxk2oTf+6ELhynbx1W6r+B06V0TCXRt2iBt8MsIjjKH/Dp4zhvyBHyrisizNYNTWQBISgXVosBLzrfj2ySM0SyJ6YYbz1fur7//rFsldY20PZueYjqjVpwpUcw5d25U1XZaOf/CDvPLxomOkUdgIuj0r0GFSUZYI5G/oxzNL6Z7ZtHJeCXlKGg3s0yTrmZjv30qs3AF/7mKqOG8LFIgIbSoNdIINvL/cKxAC+vz2H0irfTm+8C3CpX0f9EbK7PhyyrQwJ+ehQDl55MiEpLSGYwWXQlX1HQYTePPjL8emyMu1Isx+xac/bQGz0qXLX40lgGzZG4ayTJ8nR/zXuF53O+V12i/CuCzuApPe3ID274Xny9yZrXWyThWcnpNRk7WUU4paRIWU1gTsiLNzvvSgZ2hMjFV+j4X2CbK9pa9SEFfdRljiodXtqWtEbILO51pvVAFaSjb+uG0JuEdPQ927p6Otye664UDvu5YeqLIG7JBlSm9Yqav36dxZMXX8dJgtRa05AWVj9c6dh3wd28RSUwem0xK7b22sqLgK8+2MaVvwy2Opl5Gak1zEgD1/3kaU9PfMW800rcor/0bdozxmwtVDdTWW1DR8GejvGi3hNS5MaRidGgK4Lsb7hIWvvFVywv0A3VdOkhHA0cgG+8/PsH1CWkMuVQa9KepX4sXsd2uzKR915g756yMgvZ1is2z5y31FlM3lpv0w348p7HnuofI09MtHqC
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(376002)(346002)(136003)(39860400002)(451199021)(40470700004)(46966006)(36840700001)(82310400005)(41300700001)(5660300002)(8936002)(8676002)(83380400001)(47076005)(186003)(16526019)(26005)(1076003)(336012)(426003)(40480700001)(2616005)(36860700001)(40460700003)(86362001)(356005)(81166007)(82740400003)(4326008)(316002)(7696005)(36756003)(70586007)(70206006)(478600001)(6636002)(110136005)(6666004)(54906003)(2906002)(44832011)(36900700001)(2101003);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2023 14:55:03.1801 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d2aa0941-8049-4d46-b457-08db459d0d02
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT023.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8736
+X-Anti-Virus: Kaspersky Anti-Virus for Linux Mail Server 5.6.39/RELEASE,
+ bases: 20111107 #2745587, check: 20230425 notchecked
+X-AV-Checked: ClamAV using ClamSMTP
+X-Mailman-Approved-At: Tue, 25 Apr 2023 15:28:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,204 +44,129 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xiaomeng Hou <Xiaomeng.Hou@amd.com>, Shane Xiao <shane.xiao@amd.com>,
- Aaron Liu <aaron.liu@amd.com>
+Cc: lvc-project@linuxtesting.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Igor Artemiev <Igor.A.Artemiev@mcst.ru>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-The selfring doorbell aperture will change when resize FB
-BAR successfully during gmc sw init, we should reorder
-the sequence of enabling doorbell selfring aperture.
+Comparisons of 'table' and 'vddc_sclk_table' with NULL are useless
+since 'table' and 'vddc_sclk_table' are initialized by an addresses
+and cannot be NULL.
 
-[How]
-Move enable_doorbell_selfring_aperture from *_common_hw_init
-to *_common_late_init.
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-This fixes the potential issue that GPU ring its own
-doorbell when this device is in translated mode when
-iommu is on.
-
-v2: Remove *_enable_doorbell_aperture functions (Christian)
-v3: Add comments to note that why we need enable doorbell
-    selfring late (Christian)
-
-Signed-off-by: Shane Xiao <shane.xiao@amd.com>
-Signed-off-by: Aaron Liu <aaron.liu@amd.com>
-Tested-by: Xiaomeng Hou <Xiaomeng.Hou@amd.com>
+Signed-off-by: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
 ---
- drivers/gpu/drm/amd/amdgpu/nv.c    | 23 +++++++++++++----------
- drivers/gpu/drm/amd/amdgpu/soc15.c | 25 +++++++++++++++----------
- drivers/gpu/drm/amd/amdgpu/soc21.c | 23 +++++++++++++----------
- 3 files changed, 41 insertions(+), 30 deletions(-)
+ drivers/gpu/drm/radeon/kv_dpm.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index dabeeab2f2ad..3cc068974bcd 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -531,13 +531,6 @@ static void nv_program_aspm(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/radeon/kv_dpm.c b/drivers/gpu/drm/radeon/kv_dpm.c
+index f7735da07feb..17d312ceb6ec 100644
+--- a/drivers/gpu/drm/radeon/kv_dpm.c
++++ b/drivers/gpu/drm/radeon/kv_dpm.c
+@@ -399,7 +399,7 @@ static u32 kv_convert_vid2_to_vid7(struct radeon_device *rdev,
+ 		&rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk;
+ 	u32 i;
  
- }
+-	if (vddc_sclk_table && vddc_sclk_table->count) {
++	if (vddc_sclk_table->count) {
+ 		if (vid_2bit < vddc_sclk_table->count)
+ 			return vddc_sclk_table->entries[vid_2bit].v;
+ 		else
+@@ -421,7 +421,7 @@ static u32 kv_convert_vid7_to_vid2(struct radeon_device *rdev,
+ 		&rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk;
+ 	u32 i;
  
--static void nv_enable_doorbell_aperture(struct amdgpu_device *adev,
--					bool enable)
--{
--	adev->nbio.funcs->enable_doorbell_aperture(adev, enable);
--	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, enable);
--}
--
- const struct amdgpu_ip_block_version nv_common_ip_block =
- {
- 	.type = AMD_IP_BLOCK_TYPE_COMMON,
-@@ -999,6 +992,11 @@ static int nv_common_late_init(void *handle)
- 		}
- 	}
+-	if (vddc_sclk_table && vddc_sclk_table->count) {
++	if (vddc_sclk_table->count) {
+ 		for (i = 0; i < vddc_sclk_table->count; i++) {
+ 			if (vddc_sclk_table->entries[i].v == vid_7bit)
+ 				return i;
+@@ -561,7 +561,7 @@ static int kv_program_bootup_state(struct radeon_device *rdev)
+ 	struct radeon_clock_voltage_dependency_table *table =
+ 		&rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk;
  
-+	/* Enable selfring doorbell aperture late because doorbell BAR
-+	 * aperture will change if resize BAR successfully in gmc sw_init.
-+	 */
-+	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, true);
-+
- 	return 0;
- }
+-	if (table && table->count) {
++	if (table->count) {
+ 		for (i = pi->graphics_dpm_level_count - 1; i > 0; i--) {
+ 			if (table->entries[i].clk == pi->boot_pl.sclk)
+ 				break;
+@@ -666,7 +666,7 @@ static int kv_populate_uvd_table(struct radeon_device *rdev)
+ 	int ret;
+ 	u32 i;
  
-@@ -1038,7 +1036,7 @@ static int nv_common_hw_init(void *handle)
- 	if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(adev))
- 		adev->nbio.funcs->remap_hdp_registers(adev);
- 	/* enable the doorbell aperture */
--	nv_enable_doorbell_aperture(adev, true);
-+	adev->nbio.funcs->enable_doorbell_aperture(adev, true);
+-	if (table == NULL || table->count == 0)
++	if (table->count == 0)
+ 		return 0;
  
- 	return 0;
- }
-@@ -1047,8 +1045,13 @@ static int nv_common_hw_fini(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	pi->uvd_level_count = 0;
+@@ -737,7 +737,7 @@ static int kv_populate_vce_table(struct radeon_device *rdev)
+ 		&rdev->pm.dpm.dyn_state.vce_clock_voltage_dependency_table;
+ 	struct atom_clock_dividers dividers;
  
--	/* disable the doorbell aperture */
--	nv_enable_doorbell_aperture(adev, false);
-+	/* Disable the doorbell aperture and selfring doorbell aperture
-+	 * separately in hw_fini because nv_enable_doorbell_aperture
-+	 * has been removed and there is no need to delay disabling
-+	 * selfring doorbell.
-+	 */
-+	adev->nbio.funcs->enable_doorbell_aperture(adev, false);
-+	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, false);
+-	if (table == NULL || table->count == 0)
++	if (table->count == 0)
+ 		return 0;
  
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index 4d1487a9836c..3221522e71e8 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -619,13 +619,6 @@ static void soc15_program_aspm(struct amdgpu_device *adev)
- 		adev->nbio.funcs->program_aspm(adev);
- }
+ 	pi->vce_level_count = 0;
+@@ -800,7 +800,7 @@ static int kv_populate_samu_table(struct radeon_device *rdev)
+ 	int ret;
+ 	u32 i;
  
--static void soc15_enable_doorbell_aperture(struct amdgpu_device *adev,
--					   bool enable)
--{
--	adev->nbio.funcs->enable_doorbell_aperture(adev, enable);
--	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, enable);
--}
--
- const struct amdgpu_ip_block_version vega10_common_ip_block =
- {
- 	.type = AMD_IP_BLOCK_TYPE_COMMON,
-@@ -1125,6 +1118,11 @@ static int soc15_common_late_init(void *handle)
- 	if (amdgpu_sriov_vf(adev))
- 		xgpu_ai_mailbox_get_irq(adev);
+-	if (table == NULL || table->count == 0)
++	if (table->count == 0)
+ 		return 0;
  
-+	/* Enable selfring doorbell aperture late because doorbell BAR
-+	 * aperture will change if resize BAR successfully in gmc sw_init.
-+	 */
-+	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, true);
-+
- 	return 0;
- }
+ 	pi->samu_level_count = 0;
+@@ -866,7 +866,7 @@ static int kv_populate_acp_table(struct radeon_device *rdev)
+ 	int ret;
+ 	u32 i;
  
-@@ -1182,7 +1180,8 @@ static int soc15_common_hw_init(void *handle)
- 		adev->nbio.funcs->remap_hdp_registers(adev);
+-	if (table == NULL || table->count == 0)
++	if (table->count == 0)
+ 		return 0;
  
- 	/* enable the doorbell aperture */
--	soc15_enable_doorbell_aperture(adev, true);
-+	adev->nbio.funcs->enable_doorbell_aperture(adev, true);
-+
- 	/* HW doorbell routing policy: doorbell writing not
- 	 * in SDMA/IH/MM/ACV range will be routed to CP. So
- 	 * we need to init SDMA doorbell range prior
-@@ -1198,8 +1197,14 @@ static int soc15_common_hw_fini(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 	pi->acp_level_count = 0;
+@@ -922,7 +922,7 @@ static void kv_calculate_dfs_bypass_settings(struct radeon_device *rdev)
+ 	struct radeon_clock_voltage_dependency_table *table =
+ 		&rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk;
  
--	/* disable the doorbell aperture */
--	soc15_enable_doorbell_aperture(adev, false);
-+	/* Disable the doorbell aperture and selfring doorbell aperture
-+	 * separately in hw_fini because soc15_enable_doorbell_aperture
-+	 * has been removed and there is no need to delay disabling
-+	 * selfring doorbell.
-+	 */
-+	adev->nbio.funcs->enable_doorbell_aperture(adev, false);
-+	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, false);
-+
- 	if (amdgpu_sriov_vf(adev))
- 		xgpu_ai_mailbox_put_irq(adev);
+-	if (table && table->count) {
++	if (table->count) {
+ 		for (i = 0; i < pi->graphics_dpm_level_count; i++) {
+ 			if (pi->caps_enable_dfs_bypass) {
+ 				if (kv_get_clock_difference(table->entries[i].clk, 40000) < 200)
+@@ -1532,7 +1532,7 @@ static void kv_set_valid_clock_range(struct radeon_device *rdev,
+ 	struct radeon_clock_voltage_dependency_table *table =
+ 		&rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk;
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-index 7d59303ca2f9..0f82b8e83acb 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -450,13 +450,6 @@ static void soc21_program_aspm(struct amdgpu_device *adev)
- 		adev->nbio.funcs->program_aspm(adev);
- }
+-	if (table && table->count) {
++	if (table->count) {
+ 		for (i = 0; i < pi->graphics_dpm_level_count; i++) {
+ 			if ((table->entries[i].clk >= new_ps->levels[0].sclk) ||
+ 			    (i == (pi->graphics_dpm_level_count - 1))) {
+@@ -1905,7 +1905,7 @@ static int kv_get_high_voltage_limit(struct radeon_device *rdev, int *limit)
+ 		&rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk;
+ 	int i;
  
--static void soc21_enable_doorbell_aperture(struct amdgpu_device *adev,
--					bool enable)
--{
--	adev->nbio.funcs->enable_doorbell_aperture(adev, enable);
--	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, enable);
--}
--
- const struct amdgpu_ip_block_version soc21_common_ip_block =
- {
- 	.type = AMD_IP_BLOCK_TYPE_COMMON,
-@@ -764,6 +757,11 @@ static int soc21_common_late_init(void *handle)
- 			amdgpu_irq_get(adev, &adev->nbio.ras_err_event_athub_irq, 0);
- 	}
+-	if (table && table->count) {
++	if (table->count) {
+ 		for (i = table->count - 1; i >= 0; i--) {
+ 			if (pi->high_voltage_t &&
+ 			    (kv_convert_8bit_index_to_voltage(rdev, table->entries[i].v) <=
+@@ -2149,7 +2149,7 @@ static void kv_init_graphics_levels(struct radeon_device *rdev)
+ 	struct radeon_clock_voltage_dependency_table *table =
+ 		&rdev->pm.dpm.dyn_state.vddc_dependency_on_sclk;
  
-+	/* Enable selfring doorbell aperture late because doorbell BAR
-+	 * aperture will change if resize BAR successfully in gmc sw_init.
-+	 */
-+	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, true);
-+
- 	return 0;
- }
+-	if (table && table->count) {
++	if (table->count) {
+ 		u32 vid_2bit;
  
-@@ -797,7 +795,7 @@ static int soc21_common_hw_init(void *handle)
- 	if (adev->nbio.funcs->remap_hdp_registers)
- 		adev->nbio.funcs->remap_hdp_registers(adev);
- 	/* enable the doorbell aperture */
--	soc21_enable_doorbell_aperture(adev, true);
-+	adev->nbio.funcs->enable_doorbell_aperture(adev, true);
- 
- 	return 0;
- }
-@@ -806,8 +804,13 @@ static int soc21_common_hw_fini(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
--	/* disable the doorbell aperture */
--	soc21_enable_doorbell_aperture(adev, false);
-+	/* Disable the doorbell aperture and selfring doorbell aperture
-+	 * separately in hw_fini because soc21_enable_doorbell_aperture
-+	 * has been removed and there is no need to delay disabling
-+	 * selfring doorbell.
-+	 */
-+	adev->nbio.funcs->enable_doorbell_aperture(adev, false);
-+	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, false);
- 
- 	if (amdgpu_sriov_vf(adev)) {
- 		xgpu_nv_mailbox_put_irq(adev);
+ 		pi->graphics_dpm_level_count = 0;
 -- 
-2.25.1
+2.30.2
 
