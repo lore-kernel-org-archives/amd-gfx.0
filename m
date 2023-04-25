@@ -4,120 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 506D8C77B71
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Apr 2023 12:08:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89049C6FD18
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Apr 2023 12:14:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C3DC10E23F;
-	Tue, 25 Apr 2023 12:08:28 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2063.outbound.protection.outlook.com [40.107.93.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C917210E0AA;
- Tue, 25 Apr 2023 12:08:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 273A810E0CF;
+	Tue, 25 Apr 2023 12:14:25 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2060.outbound.protection.outlook.com [40.107.96.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6177610E0CF
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Apr 2023 12:14:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=H1+pV6aaiWVQlANhbZob0vMkcBzaJFa+tu1XPL5v+nDwtyKx6J2FHhuACrTjqxw7IB6iBpfItgDDeGp7X4Tjy2uH4gEnFGwF50tcLlb0QUQsTO3Eq4C3sfRbAX/jOv7a9cKezTHeLrNYfUEeB4Vwntnkzr5RtWHN+agsscx4tlgdRYTPTCdVUZZSOgMbqtQVmE9xShP/mVALJJDCh7dmy6Vjk/WoauDiAYceCSBV3poN0USJmoY3AyDsdTF0FXbVeOrRSitvSG6usJDEe7/E8o6DwbiRNlg7XGMjxFdN/M6AQcuKx3FwXqhggeBvdydjpy3CSVikhTnIv+kUW/Rmmw==
+ b=kcoQWI4ZUXd7iUHrIIEcR/QxNWBRByKY5xao3e67ooboWUIMBKvNNJpFovxmhx9FNQ7avE8c38FKay7uwqcEq659w1ukpI41DHBGz1QiRgOWEROCXeK9Wa29xfhoxNoOItbEtQ0TzF9G12xnzk0e/wngXxDY0T8MIXdY8Q6j++7xDH8xHJVDysH3u5Ht7Ein5nCVbDkgU4GEJVxD0ZTBETGTY19MVpCDNTryjHQA79IWVd94qwxkMoXUNNy4JBX6oH97RMAgzRoVOOgSaqlPSsF0/UmZtUCwPmBprOLVgG/i3mugSdWpWGJA4Z7cMHcjS1/HvtrjRoUhPIRzTLjfBw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RFiHgNk5cdVBlnENELUwb8m8wq4wzavmBSip69j4HEE=;
- b=OKLMLxPiNFqx/wBcSyL2K2ck+FmZV6STu5pGsb9I3DhjonvXYr937GX8coBvGUiVxbrddr4gvvFrP9TQWGoBE8NTI3T7gpoLG6Pw+G2TEJ5dt7ryvOIKGSRQCZgLzUhkeoltvFG3HX6fA9EsVnmDr+V9GbXD+RUc7k3BXvZFw7reaO2ru2za9eo9sfOU2z06Edhopl+yVLqTDC5bHScELJYgTukRGHkxW/QVaRS+23b4X+eUNBRQ37KHBcfwc/6EX7R7YAmdHxZK/lq8+1Lh8YP+1CDWBrOaTexBHjXXerVS8RFkICiLbvQlWK2SgmUWDe/PnQQBrNjasODz9oOx+g==
+ bh=PNpBLLXshaGzeeO+vYBM36MWcowtp7/9H4enCuatsV8=;
+ b=J508tmYme1rw9GerF2zJbS3wfMzaiE4I4UL0HaYy1fGx2gmAq8lZnpGQ24cmAc7Nule09ewGPZUnyjIwLfxUpEiylprw42WZBB2i3rwgn+mJZQBLfM9eWTurKgqFNctVzjJYTgDR9gbl7BPhcrJhoyexOEA4a7SY85yoQAkXfoBXflK4ULVTeof4p9gzsWy1ebkJyEXxl1hMsWZD2r9CU/NN09Y54bp9liuMFboIj4lBcnqifzWO6pfrlNMT5R53ZZRSXTl7BKvuD8M5ymhPn0vQAuw7scrRPQlRQk6oydj50++jQC09UQz/SAso3h8cBe9Y1geam7DlWAb+UBMMjQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RFiHgNk5cdVBlnENELUwb8m8wq4wzavmBSip69j4HEE=;
- b=TfZh+BEeEySJiXt9ppIs/7z+LYSJyeDNZAuOUv7Nlvm7RGc4hmVsxYKng3kJDcmSmPJhgOzTnR32u4mlBqPsGdKo8Z1aJzdcV4ZeYEzHnaO4QL9ZeHWcpHC+Gso1n4BJHsNe31aNdNKP64QWY8ks8uGyg0vmdz5Vz99/ey4GhqI=
+ bh=PNpBLLXshaGzeeO+vYBM36MWcowtp7/9H4enCuatsV8=;
+ b=Ll4Vm7EAINoBxIeRUGxqIirlAoOt/xhrQhIcnf+frx82nMQPedML8Lh5QQIspYxuCJfJH1tk8D1YR6BudW67cLFV7YbowICyf/zHMB6pFDJ0M+awcdVHi6spWcLtCAcpdvZhogRPYn+QXliKRWecICOyukz67o3vt/k71fIb+lM=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by MW4PR12MB7440.namprd12.prod.outlook.com (2603:10b6:303:223::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.34; Tue, 25 Apr
- 2023 12:08:22 +0000
+ by DS7PR12MB8292.namprd12.prod.outlook.com (2603:10b6:8:e2::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.33; Tue, 25 Apr
+ 2023 12:14:19 +0000
 Received: from BN8PR12MB3587.namprd12.prod.outlook.com
  ([fe80::d2f8:7388:39c1:bbed]) by BN8PR12MB3587.namprd12.prod.outlook.com
  ([fe80::d2f8:7388:39c1:bbed%3]) with mapi id 15.20.6319.034; Tue, 25 Apr 2023
- 12:08:22 +0000
-Content-Type: multipart/alternative;
- boundary="------------4vF7ICTgBsvDR9cJbedLp4R0"
-Message-ID: <19406ec5-79d6-e9e6-fbdd-eb2f4a872fc4@amd.com>
-Date: Tue, 25 Apr 2023 14:08:16 +0200
+ 12:14:19 +0000
+Message-ID: <c5b6ed37-7488-c693-0607-39fa16bcf32a@amd.com>
+Date: Tue, 25 Apr 2023 14:14:14 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
-Subject: Re: [PATCH] drm/amdgpu: Mark contexts guilty for any reset type
+Subject: Re: [PATCH v4 03/10] drm/amdgpu: add new IOCTL for usermode queue
 Content-Language: en-US
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
-References: <20230424014324.218531-1-andrealmeid@igalia.com>
- <d7264c5a-29b4-0fb3-153b-673a8a73d635@amd.com>
- <CAAxE2A6Soq28ACV-m1OzG8CA-_VWp+N2wapsABzm2Nda=Qe+yA@mail.gmail.com>
- <784561bb-0937-befc-3774-892d6f6a4318@mailbox.org>
- <CAAxE2A6iuuVA7zjHM8YcTGMpEWuYV=hGRR1YW6W-qXHwAg9w7w@mail.gmail.com>
+To: Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230424173836.1441-1-shashank.sharma@amd.com>
+ <20230424173836.1441-4-shashank.sharma@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CAAxE2A6iuuVA7zjHM8YcTGMpEWuYV=hGRR1YW6W-qXHwAg9w7w@mail.gmail.com>
-X-ClientProxiedBy: FR3P281CA0093.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a1::13) To BN8PR12MB3587.namprd12.prod.outlook.com
+In-Reply-To: <20230424173836.1441-4-shashank.sharma@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0264.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b5::19) To BN8PR12MB3587.namprd12.prod.outlook.com
  (2603:10b6:408:43::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|MW4PR12MB7440:EE_
-X-MS-Office365-Filtering-Correlation-Id: 13abe155-0c9e-462d-5959-08db4585c3b3
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|DS7PR12MB8292:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7071a939-e6ce-419d-6f9f-08db45869898
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kbIdbURekwNNaJ5EkJ4m6icv6sUCT9X2JFU1S8N4t1jCs/jLfaS3FGd6BLhz1OFd22ikuqswYXV25V22ytvwFbG5twiG10C68h7ci/8/hb3FiZDiL6T2QQcp+TfsuUPncECcbt9VPAoYumgLVOGlZkdTBToWhULuOrZHcmRLbC+TLUaikVNmRo8iUdlOS4KlMHC8UF4DXltEv59lqgufS77mdg39fzbDpGfl0fdGvRvt9aIES7hGZpfTnikkta1kXHePVG1HNdoFujoIaVD0ZvSGkp4yEjt0gzwKo3wNLKlcJCdjHulHQL5nhV7eOIeqrCCCrLAZQxmxiX3LkSp1SRyFJ65r/dGrGqhiLCz+veVRpv5vO4u4vnaLU+eRJjSujtZT8ZqSLZPmatDlxUijrrshpw5jsUW1Ryz3E7pOsQm7ZFHTeuiBVjIMca21CGTBePeKtN1nFMWj6O/dNMCyu4T1akhN2NpSNtGawbopcM+GahGURrdnE7jpLLc43akKF+dv/XuJsLV4Ivuynuaw4jyR5YvFkof8ikRD2H/xPSuhcEqtLKf8W+ZRxwyDHVatZLdNYkIIiHHK8A1SLFeIsQsybTSdk3EtwSzoGbnpSoq1pzPEcrefOtcV4MseQdnIipZiNKoYDvteWk5VkmY/rw==
+X-Microsoft-Antispam-Message-Info: IvK59tY0S9BpBOxx+SEq0C/Eo8MgEQFZqb4dmU+1ViNqldxnYsCeB7n7bVuayaAl5K/bQlPeUo1YUPUjS6jozWSTpg1F7MeFKnPdj2+Fz6d0avWiKQsPBe4lnf7xXATnXwP3YvsAcmVrFS/un31sxsWsW/JfzVgBS560mUCWgZUBaVmrmKAD60/FGytpp9ck9o2l+jZISQhEIQjdrtkhcefXjMkd+lns7YxlZRHi0tRLlf0Xb8R09HUIcyT64UR1uAJy5KPp8TCDP/NwJG+o4XgRTEKMOxePaGwW2yBZcpJd+des1v1Tz0ytRR1mWIibSuqZzRtnmQcoF9bYFB7DawlQ8j+/ro82IagOgOWjN61YAyMxFOXX0oTWVNIbHhtkmjdxQ7ZcTSLxQTazmJim4OOvgws02CR5Zlm+KtQ1oTXJU2lV1rt89ycaPfPcapX+WZ6/HO7JK3oAjlBcsMK1uLnEqjhWlGsqJUD02IqPDuvj+7u5XA34s68PUIMKGZXmmUH3M/0tfupBPvvi308PN5rmijBV+x1C5DzNqVMuFLAXPuni208UvT369fhQHu+NoYRz4q54VsOkpm5WUE9WO6UFm2PpxxO6vHOTk9IcQ+1NjyBXc8nNr97iueSzwbtSCl48IbnJjJLAAnbFbAeUkA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(396003)(376002)(39860400002)(346002)(366004)(451199021)(36756003)(110136005)(54906003)(31696002)(86362001)(478600001)(38100700002)(41300700001)(8936002)(8676002)(2906002)(166002)(4326008)(66476007)(66556008)(316002)(66946007)(5660300002)(186003)(6512007)(6506007)(53546011)(966005)(31686004)(83380400001)(2616005)(6486002)(33964004)(6666004)(45980500001)(43740500002);
+ SFS:(13230028)(4636009)(396003)(366004)(39860400002)(376002)(136003)(346002)(451199021)(6506007)(6512007)(2616005)(36756003)(83380400001)(186003)(38100700002)(66946007)(31696002)(86362001)(478600001)(66556008)(66476007)(31686004)(8676002)(8936002)(5660300002)(6486002)(41300700001)(2906002)(4326008)(6666004)(316002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cE1tYmhqSmo4NzZOYlFldG50OVQ1Z2ZzeGY0SWMvbXdMRnp1aVRGaC9EVHZl?=
- =?utf-8?B?MHk0K0gxazBneE5FWFNmTm54T3RiSTNQWHkzS2RaVWkxWk52SGJHeUwvd0xX?=
- =?utf-8?B?dWY3eHZleG1FdzFiWDI0YmR6NmxCQzdhWlZUaFVBUTVEeG1Cbzd3UVM5cVVt?=
- =?utf-8?B?a1hLKzMrYjVvRnFHMnRIQ2YrVFVRcHdyclJzUjVaSE51WFBJRDNKc0xINHVV?=
- =?utf-8?B?TFZhcHJLYm16RnI5eTB1NnVmLzVrV1ZVV2hYWnBxNWlrd1hiVUV5MU93RFBI?=
- =?utf-8?B?TTlwMlcrd1lzWFVFUTZ0K1FSZytlWHl0MVJqT2ZNY1V1MjRGanhDVUNZdHN0?=
- =?utf-8?B?ZFQ2THp0MFpPbjBxWG1oR1l6aWdPZytNRVNnd0tuUlg5MlRmT09VZGlsc21p?=
- =?utf-8?B?MGx0c2s3WTVjL3owMmc4UEFJZU8xTVhLZVJOV0pEcWRZYXllSFlFaDJWYUtj?=
- =?utf-8?B?NHp6M0NkQ0ZHUm9pc29JTW1qZksyd1BHekN3SEsrOHVYckpmRnFwUGd0NDMw?=
- =?utf-8?B?WU4xWkR6MzJaaU4xdEFEekszeWZPZTYvdTZoZHdGWExGVFpTK2ZxUkZTWXBp?=
- =?utf-8?B?aXNtVHdZd0dKaHV0VHZ2VXdpWTk1TFFjY2w4cFhuY3h3QlFScjBpVmpxVlFK?=
- =?utf-8?B?Y25QdnVzbGNONDc1NnJ6SSsvY3cxTHVxM2tpMEljOWZoamZLQk5rRVpnc2V2?=
- =?utf-8?B?TnJYSEUyMzB6cER2L3c5b1hSOVZ6YjgrU3ErNElqMG5kVGw2M3QrQlN4QktN?=
- =?utf-8?B?ejlYY29WejNtaTJrd0sxN1NTdFE5eTVzWHRPblBtU01HaFVocDJtZ3ZFM0hx?=
- =?utf-8?B?dmxoSXdpV1plOVYyN2dCdlNkN1NNcVdSN3lpZk9obG42bEtrYkxWdjRscGc0?=
- =?utf-8?B?YWw0cmZsc0I1MmhlODNwUXZ5TUJ5OE1WWnlIazF1b2UyenFoRW0yNW4wbWEr?=
- =?utf-8?B?eXVjaWMxSWsvdDI3b09ERGFkTHNETGF3RzNoamxha3JQN0hxYWNnZmZmYkpj?=
- =?utf-8?B?NWFDampHVHQrcjcvckF6SGp1SDlJZWZwK1JsYm5QUjY0TUUzRW1DWW5ITkgr?=
- =?utf-8?B?RTF0RnAvMXl1cnd3VVNZL0VnUWd4K1VkaVpHR3BCaWJFQ0s1KzRMV3hpM2dZ?=
- =?utf-8?B?NGQ5bkM5MmdOZXQxVm54di8rUlhJK2FBL2ZkQ3VXQXVJSnNkMCttSmJDdFo2?=
- =?utf-8?B?SFNvTHFKVnZsaHc2bWQyQTduZU1uaTJGdnVWSFBmcjRKR3BBVzVTOFVDMTdl?=
- =?utf-8?B?V1cwZTFRMlA4ditCZ3VlRm02cm5HZlQ0Zk80NzI1aTBxWWtEbVdNSFdFZ0xY?=
- =?utf-8?B?a1hrTXNxWHZTamk0cW4xTUFDT2FNejh0UWdQMFM1ek5aZnBqYkozTkVtcEVZ?=
- =?utf-8?B?WUswUnFrUDcxZjlueER0aEdMRUZxMDlZNkw0TTIwdXI5c1B2c3NuNHZ5Z2Vs?=
- =?utf-8?B?dEc2bCtvZUN2S1hzVnBlQWRjWmV2Nk5sMHpwS3BDVXlvdGhSdWp4ZTE3ajll?=
- =?utf-8?B?WEVTWkpKcEFEbzVCM3NNeHJSdTVoTmFRaHdmVnBuc3J1VWoyU0lQM3lJREJF?=
- =?utf-8?B?V0ZENmMyc3ozRStSUE4wMkliNGw5NURqSWxBR0FpMUo5Nm9USDA2aHBWNkhJ?=
- =?utf-8?B?K0EwbDY5QURRUnMwYmlTOFBCdDdSNUs3ajRCSE9JTDJ3b3F3QUpiTVR4bFFK?=
- =?utf-8?B?ZzhOVVNvMEpVQnBPbnRlWWdvN1ZJa1JwWWIwb3ZvaVN5Vmo1RnY2TXZ2azVm?=
- =?utf-8?B?YXVnWm9lUE55TndlN09lem5GZHl4eWRMLzg3cDQ1UTNpRjBWeWlacS9iTnY4?=
- =?utf-8?B?TXcvRG0rcnQzNHFtWjJjRWd4cWFUY1dMYzh1bVZrMGZUNkZTYzRvYjhVaGZU?=
- =?utf-8?B?Ky9tL1FwU3VLVVVTdkw5cDFBTEt0NXlkMDhkU09DWWlUMlR6NzBPU0NNWmRV?=
- =?utf-8?B?aitLYkc0cFJ4U1V5Q01zUkhxZzBTK255RXowL2JWTUdseDBMTlQrQk84ZHJT?=
- =?utf-8?B?RHJQdy9vSHc2cUg3ZWM4bkIwYXlkSmpiNkdZTTRnVTBzMWVCT1RQNllObjh0?=
- =?utf-8?B?SDlsOVNNdFFyTFpTWEtwMkcvd2FXbEJmODF5b0w5TW9peWNwQVBERFY3THpy?=
- =?utf-8?B?N2s3WjI1Zmh3MkplY3hLVXdaeXhBeUdGUjFXYzgrVTBGWEtLM0Q0TDlhOFFO?=
- =?utf-8?Q?19+DmF7ffQAKP7oIBW/Pl9aXy/eKtGK/pyP9oghsd4xb?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZjI4c0NoUEEzTzR3TDhaNTcyVmVDNDNtY1A1RHZad09Fakx3OVB5WmRKeVcz?=
+ =?utf-8?B?dWI1WENLSjZwd3pxdGUwOVFMT3M5bzhOcVdyYnpMTEdqREpVZVMxOEs0QXFG?=
+ =?utf-8?B?Y1l5Ymp3eXM3QnRtcXIxb0xSWDFraXAzOEFsR09KbjR0aWlnbTVlbEkzS2lw?=
+ =?utf-8?B?elVKMGg2ZHhLRjR5bHBEVzIzN1VRaFNmTTBqOHVrL2pFVWkxVlowcWNoSXNq?=
+ =?utf-8?B?M0s2Qnplc3hDbmVDczZhUE0xVVo0VHJneFJCM1llNFQ1d1lFOTBDU3BPbWJF?=
+ =?utf-8?B?SVR1aDNBTDY3eElOTENmemIrQnFmcnBiR2lYWlg4YWFOZjhlb2MzWFVUVXl2?=
+ =?utf-8?B?eXJmVlJiUVp1Z2k0UTVGM28yeml6V2hLZE5hZkg0c3hwaENmMng1dmpsa2hq?=
+ =?utf-8?B?dGJ5eElxc3MrNDd2eWl6SWJzeDlwQUZFSTdrbFg2MzdUOUlqLzlFRDhPbk9V?=
+ =?utf-8?B?ZGNXZFVTbEs5dEhDeDRGVlhFNUJ6QmFNUG4zNU5hdUNCYXJmdlpnSTd3QUQx?=
+ =?utf-8?B?MVhWMUQ0UktGOHJpUUJ4ZTc2eWtzOUVxcnFQTFpqOEI1c1EyUUY1dlJmU0hx?=
+ =?utf-8?B?d3BaUk9ScVcyN2FqVGdtNEp1ZWowSktJaDJOamFsRXJSWC95eGJ4Q2ozN09E?=
+ =?utf-8?B?dG5CcW4vdk9HVE81MzhpNXowb2p0ZU00K3I0ZWhxam5mMVEzTHRUY3B2OXF3?=
+ =?utf-8?B?UmNFd0lqMGFzZUNyU1FlakNPQnRuRmFlL21YMnZodXMzMDZaQ2pjMHRVaFVR?=
+ =?utf-8?B?b2FtRjNVM3Y3UkZQSlN3cHk0T0JpMzRWZDFsSlpVKzJGdWcrWkhKUUpWcjkz?=
+ =?utf-8?B?dm9ZWFFrMzUvQmpxc0xkUVhnMW9XZU5LLzJ1VFJQR1pzNEFPU213ZzNnNlZN?=
+ =?utf-8?B?QU02S1lsNlM3U0drQ3V6UHFUWXZRTjVTNVlzUGtvcUN5MDVmZzJ5M0IyQzRE?=
+ =?utf-8?B?THFOZlE1cnJjQ2xVaHluM3loaHJtRlQvM0w1eDRCRDl2Mk9nS3JKMDYxRitu?=
+ =?utf-8?B?NDlYT3FreVBEbXdnNXRIZ2grTVl4VXArZzJWT1AxTm5NWlN0Z25YcFpBUURB?=
+ =?utf-8?B?SVBuN1ZIc1RKTEIwMmZqRnNYeWJnVFMxOVZTeWcvNG90QWZsMDJHaTdhTXI2?=
+ =?utf-8?B?KzJPRGNDUjZSVVUyTmFDQWYrcEd1VkZTUU1RYjl3S1VLb1dMQjhiekZkVzJX?=
+ =?utf-8?B?VnFpMkQ5TUs4bDRxUXphb01hbjRyMmFRZ0FlSkJ0NFFBR3ppL1VJVDk1cDRx?=
+ =?utf-8?B?Z2pNZyt1RlhwVDdvcXN2WlBQUmZMYjh6V0xjQmRYemFPRXBQRDZabXFnWXZn?=
+ =?utf-8?B?bzJTanZCZG5WcDdzQWRTN3FudkpPZUFYN0t3N0VvQzNiWEpaMXMzT3FzN2Vk?=
+ =?utf-8?B?OC9aNkwrd0tweUlYMFg4TlQ1UHJlaW00aDFxTWZCeTcxRERURTh3clpxLzRX?=
+ =?utf-8?B?QVVrb0JZbmcrSEZZN1hxLzVDNytVd2hvRWllVFVld3FtSks4R3FCT3IyWTNm?=
+ =?utf-8?B?d3RRaVNOcnFWUzhoTFIwMFNtYXlvVUpWQW9vTUM4YnY3NTJsdWtSeE54emtI?=
+ =?utf-8?B?eFpKRWFXeVBWendyTlBHbjJaU2pGeEZCZm0yaVVmU2krM1VvMnFJT0lVdHI1?=
+ =?utf-8?B?TUZNMFdyRWtKRkRPVGYrSG42TW5mLy8yaE1NZXZEeXFid3F6a0RtR0FrZEVa?=
+ =?utf-8?B?MnlSY2wyOWJ1R3BSVjh2cUdvQTdKVTZXbCt5Tlg2ejNkZWVBaEgwYTF3Tm1t?=
+ =?utf-8?B?Mm56djB5Tm8wWG5tdFpTbHZ2RmZhQWVrdW1EN1QvSEdIN2pPb0owOVk3SlY1?=
+ =?utf-8?B?ZExUSVpISlFNSzZja0g3Z21FdHBybzhITFBRTVR0cGJIcmdlVFFlOGsrZmdR?=
+ =?utf-8?B?c1hoVHpyeTdIQVdoTjZyYkxXcXBicHVONzM5dVZzVDFRMTIrMzJxdW5vWG5v?=
+ =?utf-8?B?MTRLd2o1MW9ibDMwWWVFKzQ5elgwM3QyOGhCRmlZYUZLNnJGcWRGT3BLYWlS?=
+ =?utf-8?B?R1N4YTBYdE5FZDBJeVRWeUNyekVNZldDZ1d4SC9qVzBMcmlUMkpFS3F1N25s?=
+ =?utf-8?B?cDg3RVlITnQ5WHJISnRXUUZQUGtNcHlpNGxJNk1TU1ZuTEQ2UjBDLzZxMEVj?=
+ =?utf-8?B?bi93WndmYXowR28wUGhmM1hTd240cGhBWDI0NThJSGY2OFBqMHhpUHRmbllX?=
+ =?utf-8?Q?ab/R6qW973KLwERZrgD31mfNBZ4BvQZXUc7QXfu5CxbO?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 13abe155-0c9e-462d-5959-08db4585c3b3
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7071a939-e6ce-419d-6f9f-08db45869898
 X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2023 12:08:22.1607 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2023 12:14:19.3847 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8BAV6dUPL9izeICW+Gn3CDOlRIwJ4mGPBP+vyes+FR76SzpKrTcXd8ElXwquY2Ji
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7440
+X-MS-Exchange-CrossTenant-UserPrincipalName: sNlLpmensl37/3C5X76b7pxeiNnUsJJHhK0r54fhUEm+HOfSJuqIgAm6gf12o3cQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8292
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,151 +125,226 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, "Tuikov,
- Luben" <Luben.Tuikov@amd.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, kernel-dev@igalia.com,
- "Deucher, Alexander" <alexander.deucher@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ pierre-eric.pelloux-prayer@amd.com, contactshashanksharma@gmail.com,
+ arvind.yadav@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------4vF7ICTgBsvDR9cJbedLp4R0
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Am 24.04.23 um 19:38 schrieb Shashank Sharma:
+> This patch adds:
+> - A new IOCTL function to create and destroy
+> - A new structure to keep all the user queue data in one place.
+> - A function to generate unique index for the queue.
+>
+> V1: Worked on review comments from RFC patch series:
+>    - Alex: Keep a list of queues, instead of single queue per process.
+>    - Christian: Use the queue manager instead of global ptrs,
+>             Don't keep the queue structure in amdgpu_ctx
+>
+> V2: Worked on review comments:
+>   - Christian:
+>     - Formatting of text
+>     - There is no need for queuing of userqueues, with idr in place
+>   - Alex:
+>     - Remove use_doorbell, its unnecessary
+>     - Reuse amdgpu_mqd_props for saving mqd fields
+>
+>   - Code formatting and re-arrangement
+>
+> V3:
+>   - Integration with doorbell manager
+>
+> V4:
+>   - Accommodate MQD union related changes in UAPI (Alex)
+>   - Do not set the queue size twice (Bas)
+>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian Koenig <christian.koenig@amd.com>
+> Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 126 ++++++++++++++++++
+>   .../gpu/drm/amd/include/amdgpu_userqueue.h    |   2 +
+>   3 files changed, 129 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 2d6bcfd727c8..229976a2d0e7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -2749,6 +2749,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
+>   	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_VA, amdgpu_gem_va_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+>   	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_OP, amdgpu_gem_op_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+>   	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_USERPTR, amdgpu_gem_userptr_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+> +	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ, amdgpu_userq_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+>   };
+>   
+>   static const struct drm_driver amdgpu_kms_driver = {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> index effc0c7c02cf..333f31efbe7b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> @@ -23,6 +23,132 @@
+>    */
+>   
+>   #include "amdgpu.h"
+> +#include "amdgpu_vm.h"
+> +#include "amdgpu_userqueue.h"
+> +
+> +static inline int
+> +amdgpu_userqueue_index(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_queue *queue)
 
-Well signaling that something happened is not the question. We do this 
-for both soft as well as hard resets.
+Maybe call that handle instead of index. And I don't think you actually 
+need those wrapper functions, see below.
 
-The question is if errors result in blocking further submissions with 
-the same context or not.
+> +{
+> +	return idr_alloc(&uq_mgr->userq_idr, queue, 1, AMDGPU_MAX_USERQ, GFP_KERNEL);
+> +}
+> +
+> +static inline void
+> +amdgpu_userqueue_free_index(struct amdgpu_userq_mgr *uq_mgr, int queue_id)
+> +{
+> +	idr_remove(&uq_mgr->userq_idr, queue_id);
+> +}
+> +
+> +static struct amdgpu_usermode_queue *
+> +amdgpu_userqueue_find(struct amdgpu_userq_mgr *uq_mgr, int qid)
+> +{
+> +	return idr_find(&uq_mgr->userq_idr, qid);
+> +}
+> +
+> +static int amdgpu_userqueue_create_gfx(struct drm_file *filp, union drm_amdgpu_userq *args)
+> +{
+> +	struct amdgpu_usermode_queue *queue;
+> +	struct amdgpu_fpriv *fpriv = filp->driver_priv;
+> +	struct amdgpu_userq_mgr *uq_mgr = &fpriv->userq_mgr;
+> +	struct drm_amdgpu_userq_mqd_gfx *mqd_in = &args->in.mqd.gfx;
+> +	int r;
+> +
+> +	/* Do we support usermode queues on this GFX IP ? */
+> +	if (!uq_mgr->userq_funcs[AMDGPU_HW_IP_GFX]) {
+> +		DRM_ERROR("Usermode queue is not supported for this GFX IP\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	queue = kzalloc(sizeof(struct amdgpu_usermode_queue), GFP_KERNEL);
+> +	if (!queue) {
+> +		DRM_ERROR("Failed to allocate memory for queue\n");
+> +		return -ENOMEM;
+> +	}
+> +
+> +	mutex_lock(&uq_mgr->userq_mutex);
+> +	queue->userq_prop.wptr_gpu_addr = mqd_in->wptr_va;
+> +	queue->userq_prop.rptr_gpu_addr = mqd_in->rptr_va;
+> +	queue->userq_prop.queue_size = mqd_in->queue_size;
+> +	queue->userq_prop.hqd_base_gpu_addr = mqd_in->queue_va;
+> +
+> +	queue->doorbell_handle = mqd_in->doorbell_handle;
+> +	queue->queue_type = AMDGPU_HW_IP_GFX;
+> +	queue->flags = mqd_in->flags;
+> +	queue->vm = &fpriv->vm;
+> +	queue->queue_id = amdgpu_userqueue_index(uq_mgr, queue);
 
-In case of a hard reset and potential loss of state we have to kill the 
-context, otherwise a follow up submission would just lockup the hardware 
-once more.
+It is usually good practice to *not* store those handles inside the 
+object they refer to, background is that this always creates a circle 
+reference (handle->object, object->handle).
 
-In case of a soft reset I think we can keep the context alive, this way 
-even applications without robustness handling can keep work.
+Additional to that I would move registering the userspace handle out of 
+this function.
 
-You potentially still get some corruption, but at least not your 
-compositor killed.
+> +	if (queue->queue_id < 0) {
+> +		DRM_ERROR("Failed to allocate a queue id\n");
+> +		r = queue->queue_id;
+> +		goto free_queue;
+> +	}
+> +
+> +	args->out.queue_id = queue->queue_id;
+> +	args->out.flags = 0;
+> +	mutex_unlock(&uq_mgr->userq_mutex);
+> +	return 0;
+> +
+> +free_queue:
+> +	mutex_unlock(&uq_mgr->userq_mutex);
+> +	kfree(queue);
+> +	return r;
+> +}
+> +
+> +static int amdgpu_userqueue_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+> +{
+> +	u32 ip_type = args->in.ip_type;
+> +
+> +	switch (ip_type) {
+> +	case AMDGPU_HW_IP_GFX:
+> +		return amdgpu_userqueue_create_gfx(filp, args);
+> +	default:
+> +		DRM_ERROR("Usermode queue is not supported for this IP (%u)\n", ip_type);
+> +	}
+
+Instead insert the idr_alloc() or more generally handle alloc here.
 
 Christian.
 
-Am 25.04.23 um 13:07 schrieb Marek Olšák:
-> That supposedly depends on the compositor. There may be compositors 
-> for very specific cases (e.g. Steam Deck) that handle resets very 
-> well, and those would like to be properly notified of all resets 
-> because that's how they get the best outcome, e.g. no corruption. A 
-> soft reset that is unhandled by userspace may result in persistent 
-> corruption.
->
-> Marek
->
-> On Tue, Apr 25, 2023 at 6:27 AM Michel Dänzer 
-> <michel.daenzer@mailbox.org> wrote:
->
->     On 4/24/23 18:45, Marek Olšák wrote:
->     > Soft resets are fatal just as hard resets, but no reset is
->     "always fatal". There are cases when apps keep working depending
->     on which features are being used. It's still unsafe.
->
->     Agreed, in theory.
->
->     In practice, from a user PoV, right now there's pretty much 0
->     chance of the user session surviving if the GPU context in certain
->     critical processes (e.g. the Wayland compositor or Xwayland) hits
->     a fatal reset. There's a > 0 chance of it surviving after a soft
->     reset. There's ongoing work towards making user-space components
->     more robust against fatal resets, but it's taking time. Meanwhile,
->     I suspect most users would take the > 0 chance.
->
->
->     -- 
->     Earthling Michel Dänzer            | https://redhat.com
->     Libre software enthusiast          |         Mesa and Xwayland
->     developer
->
+> +
+> +	return -EINVAL;
+> +}
+> +
+> +static void amdgpu_userqueue_destroy(struct drm_file *filp, int queue_id)
+> +{
+> +	struct amdgpu_fpriv *fpriv = filp->driver_priv;
+> +	struct amdgpu_userq_mgr *uq_mgr = &fpriv->userq_mgr;
+> +	struct amdgpu_usermode_queue *queue;
+> +
+> +	queue = amdgpu_userqueue_find(uq_mgr, queue_id);
+> +	if (!queue) {
+> +		DRM_DEBUG_DRIVER("Invalid queue id to destroy\n");
+> +		return;
+> +	}
+> +
+> +	mutex_lock(&uq_mgr->userq_mutex);
+> +	amdgpu_userqueue_free_index(uq_mgr, queue->queue_id);
+> +	mutex_unlock(&uq_mgr->userq_mutex);
+> +	kfree(queue);
+> +}
+> +
+> +int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
+> +		       struct drm_file *filp)
+> +{
+> +	union drm_amdgpu_userq *args = data;
+> +	int r = 0;
+> +
+> +	switch (args->in.op) {
+> +	case AMDGPU_USERQ_OP_CREATE:
+> +		r = amdgpu_userqueue_create(filp, args);
+> +		if (r)
+> +			DRM_ERROR("Failed to create usermode queue\n");
+> +		break;
+> +
+> +	case AMDGPU_USERQ_OP_FREE:
+> +		amdgpu_userqueue_destroy(filp, args->in.queue_id);
+> +		break;
+> +
+> +	default:
+> +		DRM_ERROR("Invalid user queue op specified: %d\n", args->in.op);
+> +		return -EINVAL;
+> +	}
+> +
+> +	return r;
+> +}
+> +
+>   
+>   int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct amdgpu_device *adev)
+>   {
+> diff --git a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
+> index 6fe5d8d73f37..8d8f6b3bcda5 100644
+> --- a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
+> +++ b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
+> @@ -43,6 +43,8 @@ struct amdgpu_userq_funcs {
+>   	void (*mqd_destroy)(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_queue *uq);
+>   };
+>   
+> +int amdgpu_userq_ioctl(struct drm_device *dev, void *data, struct drm_file *filp);
+> +
+>   int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct amdgpu_device *adev);
+>   
+>   void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr);
 
---------------4vF7ICTgBsvDR9cJbedLp4R0
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    Well signaling that something happened is not the question. We do
-    this for both soft as well as hard resets.<br>
-    <br>
-    The question is if errors result in blocking further submissions
-    with the same context or not.<br>
-    <br>
-    In case of a hard reset and potential loss of state we have to kill
-    the context, otherwise a follow up submission would just lockup the
-    hardware once more.<br>
-    <br>
-    In case of a soft reset I think we can keep the context alive, this
-    way even applications without robustness handling can keep work.<br>
-    <br>
-    You potentially still get some corruption, but at least not your
-    compositor killed.<br>
-    <br>
-    Christian.<br>
-    <br>
-    <div class="moz-cite-prefix">Am 25.04.23 um 13:07 schrieb Marek
-      Olšák:<br>
-    </div>
-    <blockquote type="cite" cite="mid:CAAxE2A6iuuVA7zjHM8YcTGMpEWuYV=hGRR1YW6W-qXHwAg9w7w@mail.gmail.com">
-      
-      <div dir="ltr">
-        <div>That supposedly depends on the compositor. There may be
-          compositors for very specific cases (e.g. Steam Deck) that
-          handle resets very well, and those would like to be properly
-          notified of all resets because that's how they get the best
-          outcome, e.g. no corruption. A soft reset that is unhandled by
-          userspace may result in persistent corruption.</div>
-        <div><br>
-        </div>
-        <div>Marek<br>
-        </div>
-      </div>
-      <br>
-      <div class="gmail_quote">
-        <div dir="ltr" class="gmail_attr">On Tue, Apr 25, 2023 at
-          6:27 AM Michel Dänzer &lt;<a href="mailto:michel.daenzer@mailbox.org" target="_blank" moz-do-not-send="true" class="moz-txt-link-freetext">michel.daenzer@mailbox.org</a>&gt;
-          wrote:<br>
-        </div>
-        <blockquote class="gmail_quote" style="margin:0px 0px 0px
-          0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On
-          4/24/23 18:45, Marek Olšák wrote:<br>
-          &gt; Soft resets are fatal just as hard resets, but no reset
-          is &quot;always fatal&quot;. There are cases when apps keep working
-          depending on which features are being used. It's still unsafe.<br>
-          <br>
-          Agreed, in theory.<br>
-          <br>
-          In practice, from a user PoV, right now there's pretty much 0
-          chance of the user session surviving if the GPU context in
-          certain critical processes (e.g. the Wayland compositor or
-          Xwayland) hits a fatal reset. There's a &gt; 0 chance of it
-          surviving after a soft reset. There's ongoing work towards
-          making user-space components more robust against fatal resets,
-          but it's taking time. Meanwhile, I suspect most users would
-          take the &gt; 0 chance.<br>
-          <br>
-          <br>
-          -- <br>
-          Earthling Michel Dänzer&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="https://redhat.com" rel="noreferrer" target="_blank" moz-do-not-send="true" class="moz-txt-link-freetext">https://redhat.com</a><br>
-          Libre software enthusiast&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Mesa and Xwayland
-          developer<br>
-          <br>
-        </blockquote>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------4vF7ICTgBsvDR9cJbedLp4R0--
