@@ -4,117 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE698C77B61
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Apr 2023 11:24:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37E64C6FD18
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Apr 2023 12:03:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80A9E10E230;
-	Tue, 25 Apr 2023 11:24:13 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20601.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eae::601])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF65610E27D
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Apr 2023 11:24:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF90210E0B6;
+	Tue, 25 Apr 2023 12:03:35 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2062.outbound.protection.outlook.com [40.107.223.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0587510E0B6
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Apr 2023 12:03:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nbaZWpwKiGXowxQ3a3uFEmPl9YZw/OWdJndOuIAgnPPh3nvlhP/QgxFQKja+rBhJ+16t04ByMwC7WjX0pXXdu4bGE5iMMHuRR6xr5GIiGjyHXkex5CdeuFmmes6pcnaobvZ/JxKxKnasQhEqEiBRSDOldtIcPr8Ydweqo5LCPIn9OUXPWtOaFhiAFkkLiFn273I8Zp22q/NhEssBy/uNjLj4Oyq16F5fCwsLdYUr3plBnNOL3BV9K0+GadurdWprQAUErtjpA4mSNoL7Ql4eeFa0d4D3b2jCG/JX6E+lt/QCP+vP4gu0oAp4/jEZz9kWW5XdFq2cdWq+MuIG9qGugg==
+ b=hQfI9HaIcYRAxzYQlPcpbIRCPlBcKIK+aQlFmT9zm2kXMZdG6apsbXP/8ifYXwnQmWySwZPhVkEJ2Kbst70w6BNCOYUw8qS37MYg2z3+3f0H67VDr1XIbTTX/PGjgAMnuWzsziO22Pm0HhbfRGkR+UFQr4BraaOXe53SxJfdE/Q4nelOfhmGreKzo9rbFcct97YJd8RxN33Xfoijza0/sbOXJdJuoyeMS+rrAuOaS0nFKT4gGxPg7o3yD2raQnqp9M+d8o6QJj+H5d4808Z/J5k87oKi15ZDhoch1xAeVltsgijghLNkC1hrMB62WePXQCBu1/Zd40M3rZVrNBxJtQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wLb55ChEYYQ15tuStffZY91gODrHbELNKgrJL2i2Sz0=;
- b=IKKFZ8xrt7jnQ9HvzxlfEApDyCeP3kuO2cpci59P4gnLjTZNh1FrEzdv02Rz6lMRzn1D+NTnnBJNWbZ43evG3YXI4LhEUYd9RlkOmWsmSrI7uhkJ4G7+Uh+jIRaXChhoC/RUm1YoS7wPp2MYSELUSGMmXx5nzo/5YqkdNmdEV8TtO6NdKOPty41zIXedUn1bxZNwlt458tIMzwHXKlAEBG+6fVRtwJil2d9kmV5IzaLP15ma/ZWSMq8KQi3nwgROWmIWb7SkPe/+C37AP2bKB6OcNhHb8vi1zQgIcl5h1U7LaSipIOzUPa9MIs4goDn0xVqRPd+Qv2+fKw0ZMp/ZLw==
+ bh=nuuZ1Wa83W8MFKxuGKL++6uHwgxidqs3AZwHNLbs2jQ=;
+ b=F2rN8ccXrdmgTgpA2BFIv4ljKgZ7nkUAYPxKJZ9FGmIxU+OhuXxe9DCtF82T9Nwoi88SAPXRdcaGI7wxWkcdEYOUydp6PV3FCTjUDObjw3EJZPYencqj+e19Ipube1fYi6nSI/lTBD9OyBLS7xdZ65HsKc0FqabHG6EISQoAy/95E8OzGzal3Vj9uzfEFwG/DXEk51hxGqy5YHFSK/8Z6DwJ8BIeI8HieE1ih8AAB9Uim2InyAO9yebScqNPFR27cIa8SpkBtb56zjOvWM2B26v4bs4uxaex/DhKjnnTQOmFgLtZieeUHVzQ2oo6lQBabzC+HTeUNFLqEOoubTFnEQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wLb55ChEYYQ15tuStffZY91gODrHbELNKgrJL2i2Sz0=;
- b=11udgpSEe9yDUjW7Huc3jea4fgdQetfFgmvI0vv5+hk5/r09b3lZZov6zo/s6Pk87g3l6T5gv6w8z2k+3sIZHodyUJ5mEWM9qqzOBQjV4n0dyjN/wOVhRLa/h9XLMrCiakjZEv37sfbNgZViOWnU+RRLlBaPk9wweiKtOzFldDg=
+ bh=nuuZ1Wa83W8MFKxuGKL++6uHwgxidqs3AZwHNLbs2jQ=;
+ b=vNiS4uY7CQ6iy/mAlVk/i+y4nEUKdPHCxTgz8ko9zq851OE4tS0hyxcRklIOIb5ycz9/ljpoMGgFjvQegXE8DT1BJ3VuZCpoJsBSF2TBWCPNQ4xniSsSEdtw0Td6jzYx9dw0RVZ0IMB897KqJrBwIEsMaNgoQTWbxh0dPmaMM34=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by MN6PR12MB8566.namprd12.prod.outlook.com (2603:10b6:208:47c::18)
+ by BL0PR12MB4947.namprd12.prod.outlook.com (2603:10b6:208:17d::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.33; Tue, 25 Apr
- 2023 11:24:09 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.34; Tue, 25 Apr
+ 2023 12:03:31 +0000
 Received: from BN8PR12MB3587.namprd12.prod.outlook.com
  ([fe80::d2f8:7388:39c1:bbed]) by BN8PR12MB3587.namprd12.prod.outlook.com
  ([fe80::d2f8:7388:39c1:bbed%3]) with mapi id 15.20.6319.034; Tue, 25 Apr 2023
- 11:24:09 +0000
-Message-ID: <8bc39831-79ee-36b4-0951-d665a93428b9@amd.com>
-Date: Tue, 25 Apr 2023 13:24:03 +0200
+ 12:03:31 +0000
+Message-ID: <ca24f91d-9de9-7434-a6e2-e764f2f9ab34@amd.com>
+Date: Tue, 25 Apr 2023 14:03:25 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
-Subject: Re: [PATCH] drm/amdgpu: Enable doorbell selfring after resize FB BAR
+Subject: Re: [PATCH v4 02/10] drm/amdgpu: add usermode queue base code
 Content-Language: en-US
-To: Shane Xiao <shane.xiao@amd.com>, amd-gfx@lists.freedesktop.org,
- alexander.deucher@amd.com, felix.kuehling@amd.com, hawking.zhang@amd.com
-References: <20230425101613.1277792-1-shane.xiao@amd.com>
+To: Shashank Sharma <shashank.sharma@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230424173836.1441-1-shashank.sharma@amd.com>
+ <20230424173836.1441-3-shashank.sharma@amd.com>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230425101613.1277792-1-shane.xiao@amd.com>
+In-Reply-To: <20230424173836.1441-3-shashank.sharma@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0134.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:94::18) To BN8PR12MB3587.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR2P281CA0143.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:98::16) To BN8PR12MB3587.namprd12.prod.outlook.com
  (2603:10b6:408:43::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|MN6PR12MB8566:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1332e736-4202-42dd-1046-08db457f965c
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|BL0PR12MB4947:EE_
+X-MS-Office365-Filtering-Correlation-Id: dc220cfc-2fa6-4071-30ff-08db4585165b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: spD2tStUEsTs7wy6zJtxP9JESOK9AWDBrEgTeJ6TqSx+4dqn49RZ87l41Ni20ThsooAtBYQ5qy8H3cwhj/43RpOInxnEhmzeGwhf0ahBqMlGlgkGv5kIrr44v8kE6Ek9H72E3Xr90RzT9Eo1ltGiKAP6iHNiNcP/sOXchzHAre0+eqpZS96Jv48i0ZdgLGaz6dVyAOavC+hgagKQCxqSl+nRpVIJ/J03ZKoITEZMRJWdl487bgeCEi2aAVBIlKbz1o0WKjlvUfk+rsp8BnQEAK0RopltWrag0PIrpvO/9mjx1xR16Aaf4Nuo3wOcAsQPckXaKRA8GUyJDEE6ah8/TlHLB+chihkhdvTYaIVoxGyWzf2kOqOKJOnKQtmbM8cspyqXhWmrYA+rOARxSTMwHDRjJsZ9NOgVLBTWh0zeqrB142MRN8r6zbrrH8/U4WA+Pj7XCmdsMhiTPLfpN0H426QB5IWL+P7BrGiz3m7/Vna5pwCnWYTpnrnniBO9+SluUpgDlctzUfUc4tp03NN/IKqRKbobIaURAe6v04aB9TMUOgPMNz4OZLtni9zAY6siA2IcZFwu/mDcXNozl9slJnjMy4ci32UOHLk6kOXbiVjKx5CTgM+5U9qMGfiOWu9O5qvsoUiup55rKLA43UiJCQ==
+X-Microsoft-Antispam-Message-Info: HQif3PGcOqizfpDCxJrjbKiVRLLMSj4Ah6o/J21C6to79DufbMERuk8cZ51I34JanIyv61anq5ar9OhzxPBnkThm6HgpLjQNLZ7pkglusKKkLEG/TAoXWMSPHwB5e18OuJlI4PztsWB6gvdTIuvUFlqa0ickUHWCMoYEnGMf+Fi3AqgM+wAYX3B2KHbVJTEuQV+9Mv4LbiQ11gk68x2x0Fo3ks1edoWNQziQaXgmWoMWZF+Mir3z1E/wKVzigB+iS7FDmTnd+2+u10yoR6uUZOzRpWbnyZbDEkDHGmP4/h00csj85RUVgIolBVImFvM6WZIehGSHv7nfnpdO9+tsGjfioBTguDLeVFKNvftDhtIFYU8Bf2jSzJ9vlTrdGcA+2Zf79Gu4z4mhUQw60nr6/6NyMkY7J+6/C/YemNxjRExlLrbDeyouIHd8QRP7uEsQLv8WavY8vm1cv+r56fdNtn8sPTIlxO6fYM4s+pHw03pbBVizONaAsnadxmVp/FRCHOOlMpjs78vo4qSTqP+TLrEIRxgzjkBrQPBtqAHEldLVUdbw3ZaJN+m1HlSD+w+ln3nMhRwaAed3pvSDxievvFMiS4Nvik4l/cBDYJ2CrzE=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(366004)(346002)(396003)(136003)(39860400002)(451199021)(36756003)(8676002)(8936002)(54906003)(478600001)(66476007)(66556008)(6636002)(66946007)(4326008)(316002)(41300700001)(2906002)(38100700002)(5660300002)(2616005)(86362001)(186003)(31686004)(6506007)(6512007)(31696002)(6486002)(6666004)(83380400001)(45980500001)(43740500002);
+ SFS:(13230028)(4636009)(346002)(39860400002)(376002)(396003)(366004)(136003)(451199021)(478600001)(2616005)(83380400001)(6512007)(6506007)(66556008)(6666004)(6486002)(66946007)(186003)(31686004)(41300700001)(38100700002)(5660300002)(316002)(66899021)(4326008)(86362001)(31696002)(66476007)(2906002)(8676002)(8936002)(36756003)(45980500001)(43740500002);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YmlNYkpqY1ZMcHZIK1ZjeCt1d2c1L0xZdEx5Z25HZDNIWld3OVFwMFgrakUr?=
- =?utf-8?B?RXZ6WGwwNDRYa3RqQWxvaEZ0bUlIZVU5eGt1enJiR1VyVTdIdlV6dFhVVEdK?=
- =?utf-8?B?RFpJWjB5dndsOE1ZZkxDSGU4em9Uc2xFUDBwSlgxNkxEYXUyaTcvVi9IbmdR?=
- =?utf-8?B?ZzUrR2lNajBBV1ovOThOTTVKSE9sMUtSMVVScmJsWklHVzJCUHBERExvQ3Ur?=
- =?utf-8?B?UXNodjUyR3o5VUxTZnRHUGpaYmtqNHJFQit5VUw5bm9kanNLclhFcjVHbnVB?=
- =?utf-8?B?WXpZUCtjY1hac2RnRnllUmlzSmFxZ0xUWXlJYzgxTGsyQVo1WGtBeHdxZUdp?=
- =?utf-8?B?NThZaVdKUVdIeDFDNzFoNk9MSG9qS0ZnTzUzWGMyNTNwMzRpb3g1L3pMRVBW?=
- =?utf-8?B?YWtGYVNOSnVvK2JmTkUyckpaZm51LzlJZzRXaG1VQTVJeW9KR3lTN3Jwcmx5?=
- =?utf-8?B?NWtEOEdiMHBYT01La0JQd2xDY3N6d2dka0tZc0xBZjhwRDdpSm9IQ3N6Qkxv?=
- =?utf-8?B?K2pkZmQ1Mis4d0M4Y1FGajZ1aHU3Ukt4LzF2My9CTVZ0WCtpNU1VNFUxWFNM?=
- =?utf-8?B?UGFOZFRIQkx5QUlDYUVKZGF6WTRHdUR5bzJLQnAySis0V1lKbUcrbi9QMmpj?=
- =?utf-8?B?K1VORVRKQ0tsbmQ5d2Y1OHp6amNMbFBxMlV2djFKZDkrcUNtYTBGN3RRUmJI?=
- =?utf-8?B?T1ErbFRrMk5zR0tmcHFhUlNvZWdxT2t4cE5KejZWbDhab2EyMEJWUnlvTmJn?=
- =?utf-8?B?ZzEzbWtTSWFGTVFYL2U4S1NYalVtcEUwZ2Q2OTBBNnNFT0NFdThQUHovLzdy?=
- =?utf-8?B?WmIzNVNPT0RNS3BtM3I4MjdsT2lOalFab05vY01CakdseXFydm4weko4MjA4?=
- =?utf-8?B?TkVYdnpKV2w0cE1BeDJDQml2eFlBcTk3ZjlZWktlTDdoMHhZc3VVVjZvb1ZS?=
- =?utf-8?B?ME1UVXVzYy9IZWFPQjBPcVh6VkhjbmNwRk93ZkNkTmwwUDRsbnZReUtEMTNO?=
- =?utf-8?B?NzBBLy9UVVE2LzI1RGZNbTJxaDRyMHpjR2d5emROOGF1OHkzTnYwRHdzQ0Vy?=
- =?utf-8?B?b1EyTVVvSmJOVVBqY3FwLzN5Q3NtaU5MUDdEbzRTL3JRWGFETklMaVlRYjNM?=
- =?utf-8?B?OHZwWjMrZjRRSjBHdGhsK2MzQlRWb09YODUwUXZDaU02dlpxdWFKSjN4STU4?=
- =?utf-8?B?R0lzUFlWMGxMazhjRGQ1NEFEc2s0aXAxZzN1ZzF0aWQwdDBoTHBBMVdIamtX?=
- =?utf-8?B?Tlg5d2JOTG50bFJMd0xOQzBwOWZEOExYUVhrVkczTU82OEZPQmpPNUppMVhW?=
- =?utf-8?B?V1B4Wmg3ck5DZnZ1ZlQwWGVSakM4Y0d5cXhXei9wMG5sUDJsRjhWd3hMQURk?=
- =?utf-8?B?L1FzckpKendKSUlCZGoyK3ByTllwZzBwdml6NCtHT1VBT1MyWUIxVUNXTXQx?=
- =?utf-8?B?VThRTTlMYWhoUEJNVzM0bGRKUEk3TGxpL0dzMml3clcxRmRyaGxDY1ZwQWhp?=
- =?utf-8?B?emN6Lzk3QmlZMGlhR0c4M0c4QTZVeWpZRVlZUXhNRFdZdTlReFVLMnJ2S2Zy?=
- =?utf-8?B?dEsvclhrMlBsU0VHUDBabEcxQ3NmaGpyV3VLVWVIVzMrNjVnZHRSbExwakdm?=
- =?utf-8?B?dE5zbXAzOVkrR0lvaDJldDRzbU0wUmRTUTdPbExobVR3R1J0ZkdHTlN6eUg5?=
- =?utf-8?B?dU5VWDlhT1JWR0YxcldWWnM3aGYzVWZIeWNnWmxWUWpXUDhrL1Yvd0czMkh0?=
- =?utf-8?B?b2hYZ25LOWt3ZVlId2ViTWtoS2g5dFA3b2t0OVdwbmZHa0RvdFR0L2g2Uk1i?=
- =?utf-8?B?U0poOGpYSzgya1M0d2lRazVSangrdEZVNXppNHdMNmlGeWVVNTJvNGxrQmxu?=
- =?utf-8?B?VW1OdTBoaThQbzNZRFcyanNoN241MTMyc0JsOEYrcmo5SDlsMStmOFpVVlFr?=
- =?utf-8?B?Z2V0UzBzblNnVjJGaUJ2S2l4OS9Zd3VxV0ZyRy94V3kzT3B4Z2tCK1h2NFJP?=
- =?utf-8?B?Mm1DRzJSaVdraXpBeHNlZ1lUOGd6UzZoUnJhZzc3dFhFTlhERW5vaFNDRFls?=
- =?utf-8?B?dDhTZkZwanQwazZyajZqOVhMTnc4UnprczcwSlVkRlJCTUxoMmlwdGVBTGJ5?=
- =?utf-8?B?dW5obzZwZHoxQUVIWUEwQzF3bkhVamU3bGV3dzcxaHBuQW5xdWhGUkptYzZL?=
- =?utf-8?Q?C7eMZJgvXX2EB69GOQOk0z41oPWsI/YbfSFpUMga3Fcj?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d0MwWE9KTGdVWXJQanB6UGNLT1lhRmg0NXpDM01lekhVa1JaN2JEWldtbWN5?=
+ =?utf-8?B?dDhyVFZyRnFKaUNiay9rbjJEb0QwSzVRalV3SThreEtZcS9YRWZPWi9Pb0dJ?=
+ =?utf-8?B?L1RYUVZXSHRxYmhKYTkvNCtjaDh2UEdSUGt3QVhsaEZieVZnOHBuVFlMdkRZ?=
+ =?utf-8?B?aHZ2ai8wL1EweUY4Vnh0cStScHdYKyt5ZVFFUDZUdGNsUEFSOTkvRXVDNnY4?=
+ =?utf-8?B?dWZwbHJkWm5JL1ZFMC8xZXRsUjZSQ1hBaXMzekZxVWI4dExGeTFLeS9XNGdh?=
+ =?utf-8?B?RnpyQU5BK05ZUFJCOTQzdGplMFhlRHBPdHRZQnlwTVBDR3F1T1FDSmc2RHBs?=
+ =?utf-8?B?bEV1SHlxNWhVMm01b2sxVkJ0K1pEZ1VRWmI2YmZqV1V2UzQ1ZlgwWEZkd3h5?=
+ =?utf-8?B?MWRZK1JxMTRyS3Y5OWpMZjdlTXF4d2NvcGsvbDA5U2l4QnBkS0J3NFNRL3ZE?=
+ =?utf-8?B?b3dJaEV3NjRVR1luQlN6MDlBZ3NoYnV6K3lrNC8wT21rdlBnQmNjRm1vb3g2?=
+ =?utf-8?B?WWp1NzVGdHM2TlM3bnEvaGlqUjRFT1JHYUVWS2RNTTZ3d2lTQzFGdWllVU03?=
+ =?utf-8?B?ZXVGRHZDNWt0aGw4VVNCbHdxdExvS2FFb0FkSWF3SHh2dWdWVm1OU3JRVHlT?=
+ =?utf-8?B?NFkvdDNxMlRkUXl1c05PcjRKQWsrNUtZYXlCK0k0Z1VrSEpMSjZLeGxYTHBU?=
+ =?utf-8?B?MVJ6VnAyN1F0NGZCdE1aRHlIU1FVbGVzYTdpZDNHRVpxUDU4azFKNmJpREQx?=
+ =?utf-8?B?WWN4cnB4Mlh0UVovOWFYVWxKdFU4Y3Q0bThTVE9oU3pIUnJWMU5MNzV2Q2Z1?=
+ =?utf-8?B?SG92OS84aElCN2pvYmJvaG10QjZJcGFnZGJERFROdG1JZ3Z5MTRWZVhEK21E?=
+ =?utf-8?B?ZGxLUERXMW4wdVRKWG1vMXlWNXhmR1FKbG9ubDRGUGFPdEhyMXo2dE16L3pj?=
+ =?utf-8?B?VTUvdmtBWjloeWFJeG82MmpqUlN3c2NzS2t3Z3Q5WVhteWw4NkY1YUlKZWlE?=
+ =?utf-8?B?SndCR084Tmo2RUJyWW5kV1ZTalRNNDgxaVNOaUlKZ0ZYREhFa0kyb05vNGFK?=
+ =?utf-8?B?NElhdkFHWWJnaWV1cS95ZzREVkQvOTZvd2lRNmtPcVFWQmdOOSt5aEkyaHV3?=
+ =?utf-8?B?bDlzQ0oxZ3hPWnZiUnRPWHdzNDRuUEJYeTFyNis2STVrUURMQXRyVDZsT3I5?=
+ =?utf-8?B?ZWM0QUhSNmtLS2xDYmRwZXFSWmFQZHVKcVd2ZmdCVzRZdlRiRnJjWW92eld6?=
+ =?utf-8?B?TE50MC83by9FTzRxb3ZsSkNzQXhNTHJxL2VqcnRFcDBjZkdXa3BTbVU1a29K?=
+ =?utf-8?B?R2xJMnlEV2lCaGVCYkVZMlN3ZFpJQUpPdktlR2xqM1AxWHk0QXpHVDNGVUNJ?=
+ =?utf-8?B?clFxcllFdUtpdmsrY2d3c1dsYjlDWTJQUVk1Yk5PYWpob0g1REZOVm5IWXl1?=
+ =?utf-8?B?ZjIzTG8yRW9iRWJJSm5vNDFIY2FCTFlnSUFyY3FYUVFXNENHZGpKdys1RVJD?=
+ =?utf-8?B?T0RXcmxicTJTZXFHaUsxM0FyaXFQQmdFbGMyeThVUFd1aXJpenVtNHp6UVFv?=
+ =?utf-8?B?OThoOW8wQzN4NXJZNEZ2N2p5T1F4akdhLzlTbTJZVHJaQXB2WXVRSitjMXM2?=
+ =?utf-8?B?eWx3b29HQ2EvamxNMlozR0hYMEQrZkdndDc0ZmRPUGt0OUZ1Ri9NNFBsc2to?=
+ =?utf-8?B?V3ltajhBVkhUMUNzRUVTSFJtcXVQZTdVZFpEN1ArQUZqT2lJSnRNYzViL2Z0?=
+ =?utf-8?B?WlJrQU1qM3Jra0l1YVpubUJxWWFJT2JPSytWSkNQdktRUGxoQlJOUjMwVEMy?=
+ =?utf-8?B?eVZieElHd3QzR2YyOElCN2tJRDVPc1lDVTZaZ2FWZ3d6TFdVMkZHd2dyNEtE?=
+ =?utf-8?B?V3NjeC9XS2JoanRaektRdDFEK0lVTWpZVGU4UWhzZlB4S3hPb25iSDF0VXU2?=
+ =?utf-8?B?a0QvckFJbGt0bEJXSE9OVWtySmk4aVdRMzZBdU1NTHFhTklZY3Y2b0RtaUhC?=
+ =?utf-8?B?bWRZRURqNityRS8rQ1hramt6M3dwNGtJd3VtTW5hb1huazlLWm54SW1ZNFRp?=
+ =?utf-8?B?bDRDNmE0QjR5SW9HbU1Ya0FvNW9UYXhKSEtZUWxKK0hTVWdFcDdoYjlOTW5Z?=
+ =?utf-8?B?RktlSUlSS2hkVWl0WEc4S0FiR0w3d3I1L1c0NWc2cEphQ3VJekVta21ZVWZK?=
+ =?utf-8?Q?M/2bDBPHiZXTV4gk9cDqun4asW1hCer0pqNvvC8uNNdU?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1332e736-4202-42dd-1046-08db457f965c
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc220cfc-2fa6-4071-30ff-08db4585165b
 X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2023 11:24:09.0051 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2023 12:03:31.3420 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RLbI6OYvepiR/heZcTtBNkhq93+1JSq5QOT88uCvjfYEusZBgOAx6M672QGYk1Z+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8566
+X-MS-Exchange-CrossTenant-UserPrincipalName: nrioRmbQ8+776vhWZLzijFzRZuB7Fe0QIdR1Y3OE3pw7PDwnDzcHlDgv4u9KOi9p
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4947
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,196 +125,255 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xiaomeng Hou <Xiaomeng.Hou@amd.com>, Aaron Liu <aaron.liu@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ pierre-eric.pelloux-prayer@amd.com, contactshashanksharma@gmail.com,
+ arvind.yadav@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 25.04.23 um 12:16 schrieb Shane Xiao:
-> [Why]
-> The selfring doorbell aperture will change when resize FB
-> BAR successfully during gmc sw init, we should reorder
-> the sequence of enabling doorbell selfring aperture.
+
+
+Am 24.04.23 um 19:38 schrieb Shashank Sharma:
+> From: Shashank Sharma <contactshashanksharma@gmail.com>
 >
-> [How]
-> Move enable_doorbell_selfring_aperture from *_common_hw_init
-> to *_common_late_init.
+> This patch adds skeleton code for amdgpu usermode queue. It contains:
+> - A new files with init functions of usermode queues.
+> - A queue context manager in driver private data.
 >
-> This fixes the potential issue that GPU ring its own
-> doorbell when this device is in translated mode when
-> iommu is on.
+> V1: Worked on design review comments from RFC patch series:
+> (https://patchwork.freedesktop.org/series/112214/)
+> - Alex: Keep a list of queues, instead of single queue per process.
+> - Christian: Use the queue manager instead of global ptrs,
+>             Don't keep the queue structure in amdgpu_ctx
 >
-> v2:
->    1. Remove *_enable_doorbell_aperture functions
+> V2:
+>   - Reformatted code, split the big patch into two
 >
-> Signed-off-by: Shane Xiao <shane.xiao@amd.com>
-> Signed-off-by: Aaron Liu <aaron.liu@amd.com>
-> Tested-by: Xiaomeng Hou <Xiaomeng.Hou@amd.com>
+> V3:
+> - Integration with doorbell manager
+>
+> V4:
+> - Align the structure member names to the largest member's column
+>    (Luben)
+> - Added SPDX license (Luben)
+>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian Koenig <christian.koenig@amd.com>
+> Signed-off-by: Shashank Sharma <contactshashanksharma@gmail.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/nv.c    | 17 +++++++----------
->   drivers/gpu/drm/amd/amdgpu/soc15.c | 19 +++++++++----------
->   drivers/gpu/drm/amd/amdgpu/soc21.c | 17 +++++++----------
->   3 files changed, 23 insertions(+), 30 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/Makefile           |  2 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h           | 10 +++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |  6 +++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 40 +++++++++++++++
+>   .../gpu/drm/amd/include/amdgpu_userqueue.h    | 50 +++++++++++++++++++
+>   6 files changed, 108 insertions(+), 1 deletion(-)
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+>   create mode 100644 drivers/gpu/drm/amd/include/amdgpu_userqueue.h
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-> index dabeeab2f2ad..cb39d556c23d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-> @@ -531,13 +531,6 @@ static void nv_program_aspm(struct amdgpu_device *adev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+> index 798d0e9a60b7..764801cc8203 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> @@ -210,6 +210,8 @@ amdgpu-y += \
+>   # add amdkfd interfaces
+>   amdgpu-y += amdgpu_amdkfd.o
 >   
->   }
+> +# add usermode queue
+> +amdgpu-y += amdgpu_userqueue.o
 >   
-> -static void nv_enable_doorbell_aperture(struct amdgpu_device *adev,
-> -					bool enable)
-> -{
-> -	adev->nbio.funcs->enable_doorbell_aperture(adev, enable);
-> -	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, enable);
-> -}
-> -
->   const struct amdgpu_ip_block_version nv_common_ip_block =
->   {
->   	.type = AMD_IP_BLOCK_TYPE_COMMON,
-> @@ -999,6 +992,9 @@ static int nv_common_late_init(void *handle)
->   		}
->   	}
+>   ifneq ($(CONFIG_HSA_AMD),)
+>   AMDKFD_PATH := ../amdkfd
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 6b74df446694..c5f9af0e74ee 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -438,6 +438,14 @@ struct amdgpu_sa_manager {
+>   	uint32_t		align;
+>   };
 >   
-> +	/* enable selfring doorbell aperture */
-
-Documenting *what* you do is usually a bad idea since that should be 
-obvious. You need to document *why* you do it.
-
-In other words maybe change the comment to /* Enable this late because 
-doorbell BAR location can change during hw_init */.
-
-> +	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, true);
+> +/* Gfx usermode queues */
+> +struct amdgpu_userq_mgr {
+> +	struct idr userq_idr;
+> +	struct mutex userq_mutex;
+> +	struct amdgpu_device *adev;
+> +	const struct amdgpu_userq_funcs *userq_funcs[AMDGPU_HW_IP_NUM];
+> +};
 > +
->   	return 0;
->   }
+
+Please but that into amdgpu_userqueue.h as well. We want to decommission 
+amdgpu.h over time.
+
+>   /* sub-allocation buffer */
+>   struct amdgpu_sa_bo {
+>   	struct list_head		olist;
+> @@ -470,7 +478,6 @@ struct amdgpu_flip_work {
+>   	bool				async;
+>   };
 >   
-> @@ -1038,7 +1034,7 @@ static int nv_common_hw_init(void *handle)
->   	if (adev->nbio.funcs->remap_hdp_registers && !amdgpu_sriov_vf(adev))
->   		adev->nbio.funcs->remap_hdp_registers(adev);
->   	/* enable the doorbell aperture */
-> -	nv_enable_doorbell_aperture(adev, true);
-> +	adev->nbio.funcs->enable_doorbell_aperture(adev, true);
+> -
+>   /*
+>    * file private structure
+>    */
+> @@ -482,6 +489,7 @@ struct amdgpu_fpriv {
+>   	struct mutex		bo_list_lock;
+>   	struct idr		bo_list_handles;
+>   	struct amdgpu_ctx_mgr	ctx_mgr;
+> +	struct amdgpu_userq_mgr	userq_mgr;
+>   };
 >   
->   	return 0;
->   }
-> @@ -1047,8 +1043,9 @@ static int nv_common_hw_fini(void *handle)
+>   int amdgpu_file_to_fpriv(struct file *filp, struct amdgpu_fpriv **fpriv);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index b4f2d61ea0d5..2d6bcfd727c8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -52,6 +52,7 @@
+>   #include "amdgpu_ras.h"
+>   #include "amdgpu_xgmi.h"
+>   #include "amdgpu_reset.h"
+> +#include "amdgpu_userqueue.h"
+>   
+>   /*
+>    * KMS wrapper.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index 7aa7e52ca784..e1b6e658d51d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -43,6 +43,7 @@
+>   #include "amdgpu_gem.h"
+>   #include "amdgpu_display.h"
+>   #include "amdgpu_ras.h"
+> +#include "amdgpu_userqueue.h"
+>   
+>   void amdgpu_unregister_gpu_instance(struct amdgpu_device *adev)
 >   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> @@ -1187,6 +1188,10 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
 >   
-> -	/* disable the doorbell aperture */
-> -	nv_enable_doorbell_aperture(adev, false);
-> +	/* disable the doorbell aperture and selfring doorbell aperture*/
+>   	amdgpu_ctx_mgr_init(&fpriv->ctx_mgr, adev);
+>   
+> +	r = amdgpu_userq_mgr_init(&fpriv->userq_mgr, adev);
+> +	if (r)
+> +		DRM_WARN("Can't setup usermode queues, use legacy workload submission only\n");
+> +
+>   	file_priv->driver_priv = fpriv;
+>   	goto out_suspend;
+>   
+> @@ -1254,6 +1259,7 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
+>   
+>   	amdgpu_ctx_mgr_fini(&fpriv->ctx_mgr);
+>   	amdgpu_vm_fini(adev, &fpriv->vm);
+> +	amdgpu_userq_mgr_fini(&fpriv->userq_mgr);
+>   
+>   	if (pasid)
+>   		amdgpu_pasid_free_delayed(pd->tbo.base.resv, pasid);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> new file mode 100644
+> index 000000000000..effc0c7c02cf
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> @@ -0,0 +1,40 @@
+> +// SPDX-License-Identifier: MIT
+> +/*
+> + * Copyright 2023 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
+> +
+> +#include "amdgpu.h"
+> +
+> +int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct amdgpu_device *adev)
+> +{
+> +	mutex_init(&userq_mgr->userq_mutex);
+> +	idr_init_base(&userq_mgr->userq_idr, 1);
+> +	userq_mgr->adev = adev;
+> +
+> +	return 0;
+> +}
+> +
+> +void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr)
+> +{
+> +	idr_destroy(&userq_mgr->userq_idr);
+> +	mutex_destroy(&userq_mgr->userq_mutex);
+> +}
+> diff --git a/drivers/gpu/drm/amd/include/amdgpu_userqueue.h b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
+> new file mode 100644
+> index 000000000000..6fe5d8d73f37
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/include/amdgpu_userqueue.h
+> @@ -0,0 +1,50 @@
+> +/* SPDX-License-Identifier: MIT */
+> +/*
+> + * Copyright 2023 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + *
+> + */
+> +
+> +#ifndef AMDGPU_USERQUEUE_H_
+> +#define AMDGPU_USERQUEUE_H_
+> +
+> +#include "amdgpu.h"
 
-Same here and all other places as well.
+Please don't include amdgpu.h here.
 
-Apart from that looks good to me,
+Most structures can be forward defined, only amdgpu_mqd_prop is really 
+needed and that should be included separately.
+
 Christian.
 
-> +	adev->nbio.funcs->enable_doorbell_aperture(adev, false);
-> +	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, false);
->   
->   	return 0;
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> index 4d1487a9836c..2db021f6e8ac 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> @@ -619,13 +619,6 @@ static void soc15_program_aspm(struct amdgpu_device *adev)
->   		adev->nbio.funcs->program_aspm(adev);
->   }
->   
-> -static void soc15_enable_doorbell_aperture(struct amdgpu_device *adev,
-> -					   bool enable)
-> -{
-> -	adev->nbio.funcs->enable_doorbell_aperture(adev, enable);
-> -	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, enable);
-> -}
-> -
->   const struct amdgpu_ip_block_version vega10_common_ip_block =
->   {
->   	.type = AMD_IP_BLOCK_TYPE_COMMON,
-> @@ -1125,6 +1118,9 @@ static int soc15_common_late_init(void *handle)
->   	if (amdgpu_sriov_vf(adev))
->   		xgpu_ai_mailbox_get_irq(adev);
->   
-> +	/* enable selfring doorbell aperture */
-> +	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, true);
+> +#define AMDGPU_MAX_USERQ 512
 > +
->   	return 0;
->   }
->   
-> @@ -1182,7 +1178,8 @@ static int soc15_common_hw_init(void *handle)
->   		adev->nbio.funcs->remap_hdp_registers(adev);
->   
->   	/* enable the doorbell aperture */
-> -	soc15_enable_doorbell_aperture(adev, true);
-> +	adev->nbio.funcs->enable_doorbell_aperture(adev, true);
+> +struct amdgpu_usermode_queue {
+> +	int			queue_id;
+> +	int			queue_type;
+> +	uint64_t		doorbell_handle;
+> +	uint64_t		flags;
+> +	struct amdgpu_mqd_prop	userq_prop;
+> +	struct amdgpu_userq_mgr *userq_mgr;
+> +	struct amdgpu_vm	*vm;
+> +};
 > +
->   	/* HW doorbell routing policy: doorbell writing not
->   	 * in SDMA/IH/MM/ACV range will be routed to CP. So
->   	 * we need to init SDMA doorbell range prior
-> @@ -1198,8 +1195,10 @@ static int soc15_common_hw_fini(void *handle)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   
-> -	/* disable the doorbell aperture */
-> -	soc15_enable_doorbell_aperture(adev, false);
-> +	/* disable the doorbell aperture and selfring doorbell aperture */
-> +	adev->nbio.funcs->enable_doorbell_aperture(adev, false);
-> +	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, false);
+> +struct amdgpu_userq_funcs {
+> +	int  (*mqd_create)(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_queue *uq);
+> +	void (*mqd_destroy)(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_queue *uq);
+> +};
 > +
->   	if (amdgpu_sriov_vf(adev))
->   		xgpu_ai_mailbox_put_irq(adev);
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-> index 7d59303ca2f9..21d11b7c510e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-> @@ -450,13 +450,6 @@ static void soc21_program_aspm(struct amdgpu_device *adev)
->   		adev->nbio.funcs->program_aspm(adev);
->   }
->   
-> -static void soc21_enable_doorbell_aperture(struct amdgpu_device *adev,
-> -					bool enable)
-> -{
-> -	adev->nbio.funcs->enable_doorbell_aperture(adev, enable);
-> -	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, enable);
-> -}
-> -
->   const struct amdgpu_ip_block_version soc21_common_ip_block =
->   {
->   	.type = AMD_IP_BLOCK_TYPE_COMMON,
-> @@ -764,6 +757,9 @@ static int soc21_common_late_init(void *handle)
->   			amdgpu_irq_get(adev, &adev->nbio.ras_err_event_athub_irq, 0);
->   	}
->   
-> +	/* enable selfring doorbell aperture */
-> +	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, true);
+> +int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct amdgpu_device *adev);
 > +
->   	return 0;
->   }
->   
-> @@ -797,7 +793,7 @@ static int soc21_common_hw_init(void *handle)
->   	if (adev->nbio.funcs->remap_hdp_registers)
->   		adev->nbio.funcs->remap_hdp_registers(adev);
->   	/* enable the doorbell aperture */
-> -	soc21_enable_doorbell_aperture(adev, true);
-> +	adev->nbio.funcs->enable_doorbell_aperture(adev, true);
->   
->   	return 0;
->   }
-> @@ -806,8 +802,9 @@ static int soc21_common_hw_fini(void *handle)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   
-> -	/* disable the doorbell aperture */
-> -	soc21_enable_doorbell_aperture(adev, false);
-> +	/* disable the doorbell aperture and selfring doorbell aperture */
-> +	adev->nbio.funcs->enable_doorbell_aperture(adev, false);
-> +	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, false);
->   
->   	if (amdgpu_sriov_vf(adev)) {
->   		xgpu_nv_mailbox_put_irq(adev);
+> +void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr);
+> +
+> +#endif
 
