@@ -4,58 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 818BCC6FD18
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Apr 2023 19:03:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8C26C6FD18
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Apr 2023 19:12:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EE1210E032;
-	Tue, 25 Apr 2023 19:03:39 +0000 (UTC)
-Received: from mail-oo1-xc29.google.com (mail-oo1-xc29.google.com
- [IPv6:2607:f8b0:4864:20::c29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56FEC10E032
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Apr 2023 19:03:37 +0000 (UTC)
-Received: by mail-oo1-xc29.google.com with SMTP id
- 006d021491bc7-546db536a6bso3289564eaf.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Apr 2023 12:03:37 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7967610E50C;
+	Tue, 25 Apr 2023 19:12:04 +0000 (UTC)
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [IPv6:2a00:1450:4864:20::52a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAD0810E50C;
+ Tue, 25 Apr 2023 19:12:02 +0000 (UTC)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-506bdf29712so46398278a12.0; 
+ Tue, 25 Apr 2023 12:12:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1682449416; x=1685041416;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5Ig9961WYUcq/2wSfGAxA83Q9l4QpKmV75WkGyGZJOI=;
- b=YPO1lyucYe38fADGJgLL0jOzB5xO2a/5YxbEML/LUEhqJYU+05HlLzNs/BAP6VhKxY
- QSRIi6KnQGW89QWWAT6qfK3aB3c8mGhdDylIFDystacLqKaoZs+FLxQS3M1HqNeSTEU+
- TQNSG+7iJ2pqqKifdZ13QWC2ltqgE3bqXI7zIBvnZs6uTyeANzb8dkLZ4ibaE8iQkWEq
- DflL8OGsNsv+gyUXe3K9aNUXB7P4kR1wvl4GAHtkuWbtOD/yW9vzVkWiFbNbwwdXXete
- Yb4ZpGWyctztgKKVbP3+0KoLh0uYLC6wGVwP3TxPGRd+6QCRae6K4K7VxbMgAqZErMxn
- 5mdQ==
+ d=gmail.com; s=20221208; t=1682449921; x=1685041921;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=koLeSmQ6T/ZFSMFTMgeC2b39G3yHJgYS3Qiqh6oZeic=;
+ b=LF8VcsekifJXXCm99CHUj2iA+9fYU5z2FXaVTdQ/Sq2Y70r8jm0Gokbf2kIWnUHnrZ
+ j6VjkimmlLu7jKC+9KiZhfwsYHc3boCRbcI33IlhxZynci8j4uNjfV6tP16PBUc9rQ7y
+ GHwAmcdCwimzH+ZrCnCUWUiVSOOGCIkdb9dEtpV8CEiaziPMEBV8+pTeKVlD+xzY80Qt
+ TEJ7zpqlZHsIJnhlzYUbzOjDx4T/DLQ6IdGB/Kyg+YWsJ6Fy/buhDxwNWw0UJ6M/fZqe
+ 5+ScluLTyIsBWqTwAupyjjwqqTcjc0A3x9BLeTC5I8RMletAYfGW+odItxWYfvw8Y/uk
+ 8VQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682449416; x=1685041416;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=5Ig9961WYUcq/2wSfGAxA83Q9l4QpKmV75WkGyGZJOI=;
- b=WbQ/q0IGxOam9k1a4zG87JpELdZAYfmRlxy9Xad2xt71MoRw7Hpzj+w2hv66x9XIKq
- nXkKNtyGXriviahEvGDEjApA595Q00Tdze0h69dGfoEgeAJTFxA6SjVxMXMtL4FlyjSD
- BsnEDIi1A4/FwJrzHVa0XqmJoOBgO23hHePp24r4joZfQIvzW0jGoX9TtsDbx8n7yzlm
- 5Bcpb+O3UaqSBAWg39VGFO/47c+v1HAhUi6Cuq/3+crNLK6FuQE5s8aSQdJ/O64S+U9o
- 5cUuPpV5TcHKHGPFAEY5WjmquB4G4WM0fbWoWjTj2frv9novFs3u9GpdpHtfp7S2H0Ky
- i5Dw==
-X-Gm-Message-State: AAQBX9fNtuUpIPjIC2VfOm+R8wjmRWVZejmzh5kmGNG0Re8aE4GNYsg9
- /fwu1R9bT07KIzFeisKyituK161P25mkRS3O3WXOa2I+
-X-Google-Smtp-Source: AKy350ZZHGuce54orG0Eedw9l8g1bKVmvUVidNQueIMHwpTsU/svMdG0wPQ+tTXQTkPVB6g5sF0pu9/wfPei2Z8XveU=
-X-Received: by 2002:aca:3bc5:0:b0:386:ea33:7556 with SMTP id
- i188-20020aca3bc5000000b00386ea337556mr8670400oia.49.1682449415891; Tue, 25
- Apr 2023 12:03:35 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1682449921; x=1685041921;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=koLeSmQ6T/ZFSMFTMgeC2b39G3yHJgYS3Qiqh6oZeic=;
+ b=dCrF1CwefHH1mDAij5kd4FVL2TrVKEYfrYxtK4LMDAW8JvmXX3QAR4ZlszUDNNT3na
+ /l+wYIgvaR50OUhXJAc1+NLYx+OHMQ7TgKiMAyo/yO1MT3ZP4j8VJpZynp8N7FMqWYL/
+ ibWKIev8l8sSLr3AaOMJ+s5Snl73lVax0IQEItdpkbjXR2HFXF0uakhOtISyfqF1LhvM
+ gRUvk4TK8JoQpD4cPWNbna/7AcVEvnl8ONK71VFGV+FguXvfoOT2MIrWXWhmaauWnbka
+ r8M5MmHMapGRBuuCSfNZ99ZJWXIEm1yLUco3ot7iBalqg531vjusNgbyoz1KPXWimJ3z
+ Tqhg==
+X-Gm-Message-State: AC+VfDwqrYuC+saguWdDSq/RyyRXFA6fhBWH9NuC99245aPoB/W7SO1y
+ jVf8hf/1BT20MRElTzUhKvo7woAHb6Eq1J7nyc8=
+X-Google-Smtp-Source: ACHHUZ57E9PmqEm7V5OyMvmjXnRK6oJMyiSPsnGN6MxKcIMgafM7cCJgZElgN+VtLKcZINF2U8O2byrAaWZEV4/3XRM=
+X-Received: by 2002:a05:6402:1911:b0:506:72f8:eb10 with SMTP id
+ e17-20020a056402191100b0050672f8eb10mr29497edz.0.1682449920665; Tue, 25 Apr
+ 2023 12:12:00 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230425185157.1736681-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20230425185157.1736681-1-srinivasan.shanmugam@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 25 Apr 2023 15:03:24 -0400
-Message-ID: <CADnq5_PEYyHbmDvX7xE_GKnfj-dYNyYw1erbjh0W8bQXTh-cHA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/amdgpu: Fix style errors in amdgpu_display`.c
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+References: <20230424014324.218531-1-andrealmeid@igalia.com>
+ <d7264c5a-29b4-0fb3-153b-673a8a73d635@amd.com>
+ <CAAxE2A6Soq28ACV-m1OzG8CA-_VWp+N2wapsABzm2Nda=Qe+yA@mail.gmail.com>
+ <784561bb-0937-befc-3774-892d6f6a4318@mailbox.org>
+ <CAAxE2A6iuuVA7zjHM8YcTGMpEWuYV=hGRR1YW6W-qXHwAg9w7w@mail.gmail.com>
+ <19406ec5-79d6-e9e6-fbdd-eb2f4a872fc4@amd.com>
+ <5262c73e-e77c-91f7-e49e-a9c3571e2cc9@mailbox.org>
+ <f5bf590a-5d3f-03f2-531c-057cf8760000@amd.com>
+In-Reply-To: <f5bf590a-5d3f-03f2-531c-057cf8760000@amd.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Tue, 25 Apr 2023 15:11:47 -0400
+Message-ID: <CAAxE2A4capwpc40F49cgZBC9jJisODqNjTe0cM_pS7si5EkW3g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Mark contexts guilty for any reset type
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: multipart/alternative; boundary="000000000000dfabe605fa2de571"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,90 +72,155 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, "Tuikov,
+ Luben" <Luben.Tuikov@amd.com>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, kernel-dev@igalia.com,
+ "Deucher, Alexander" <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 25, 2023 at 2:52=E2=80=AFPM Srinivasan Shanmugam
-<srinivasan.shanmugam@amd.com> wrote:
->
-> Fix following checkpatch errors in amdgpu_display.c
->
-> ERROR: spaces required around that '=3D' (ctx:VxW)
-> ERROR: that open brace { should be on the previous line
-> ERROR: else should follow close brace '}'
->
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+--000000000000dfabe605fa2de571
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+The last 3 comments in this thread contain arguments that are false and
+were specifically pointed out as false 6 comments ago: Soft resets are just
+as fatal as hard resets. There is nothing better about soft resets. If the
+VRAM is lost completely, that's a different story, and if the hard reset is
+100% unreliable, that's also a different story, but other than those two
+outliers, there is no difference between the two from the user point view.
+Both can repeatedly hang if you don't prevent the app that caused the hang
+from using the GPU even if the app is not robust. The robustness context
+type doesn't matter here. By definition, no guilty app can continue after a
+reset, and no innocent apps affected by a reset can continue either because
+those can now hang too. That's how destructive all resets are. Personal
+anecdotes that the soft reset is better are just that, anecdotes.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 17 ++++++++---------
->  1 file changed, 8 insertions(+), 9 deletions(-)
+Marek
+
+On Tue, Apr 25, 2023, 08:44 Christian K=C3=B6nig <christian.koenig@amd.com>
+wrote:
+
+> Am 25.04.23 um 14:14 schrieb Michel D=C3=A4nzer:
+> > On 4/25/23 14:08, Christian K=C3=B6nig wrote:
+> >> Well signaling that something happened is not the question. We do this
+> for both soft as well as hard resets.
+> >>
+> >> The question is if errors result in blocking further submissions with
+> the same context or not.
+> >>
+> >> In case of a hard reset and potential loss of state we have to kill th=
+e
+> context, otherwise a follow up submission would just lockup the hardware
+> once more.
+> >>
+> >> In case of a soft reset I think we can keep the context alive, this wa=
+y
+> even applications without robustness handling can keep work.
+> >>
+> >> You potentially still get some corruption, but at least not your
+> compositor killed.
+> > Right, and if there is corruption, the user can restart the session.
+> >
+> >
+> > Maybe a possible compromise could be making soft resets fatal if user
+> space enabled robustness for the context, and non-fatal if not.
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_display.c
-> index 8632ab695a6c..389396eac222 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> @@ -97,7 +97,7 @@ static void amdgpu_display_flip_callback(struct dma_fen=
-ce *f,
->  static bool amdgpu_display_flip_handle_fence(struct amdgpu_flip_work *wo=
-rk,
->                                              struct dma_fence **f)
->  {
-> -       struct dma_fence *fence=3D *f;
-> +       struct dma_fence *fence =3D *f;
+> Well that should already be mostly the case. If an application has
+> enabled robustness it should notice that something went wrong and act
+> appropriately.
 >
->         if (fence =3D=3D NULL)
->                 return false;
-> @@ -1251,21 +1251,21 @@ const struct drm_mode_config_funcs amdgpu_mode_fu=
-ncs =3D {
->         .fb_create =3D amdgpu_display_user_framebuffer_create,
->  };
+> The only thing we need to handle is for applications without robustness
+> in case of a hard reset or otherwise it will trigger an reset over and
+> over again.
 >
-> -static const struct drm_prop_enum_list amdgpu_underscan_enum_list[] =3D
-> -{      { UNDERSCAN_OFF, "off" },
-> +static const struct drm_prop_enum_list amdgpu_underscan_enum_list[] =3D =
-{
-> +       { UNDERSCAN_OFF, "off" },
->         { UNDERSCAN_ON, "on" },
->         { UNDERSCAN_AUTO, "auto" },
->  };
+> Christian.
 >
-> -static const struct drm_prop_enum_list amdgpu_audio_enum_list[] =3D
-> -{      { AMDGPU_AUDIO_DISABLE, "off" },
-> +static const struct drm_prop_enum_list amdgpu_audio_enum_list[] =3D {
-> +       { AMDGPU_AUDIO_DISABLE, "off" },
->         { AMDGPU_AUDIO_ENABLE, "on" },
->         { AMDGPU_AUDIO_AUTO, "auto" },
->  };
+> >
+> >
+> >> Am 25.04.23 um 13:07 schrieb Marek Ol=C5=A1=C3=A1k:
+> >>> That supposedly depends on the compositor. There may be compositors
+> for very specific cases (e.g. Steam Deck) that handle resets very well, a=
+nd
+> those would like to be properly notified of all resets because that's how
+> they get the best outcome, e.g. no corruption. A soft reset that is
+> unhandled by userspace may result in persistent corruption.
+> >
 >
->  /* XXX support different dither options? spatial, temporal, both, etc. *=
-/
-> -static const struct drm_prop_enum_list amdgpu_dither_enum_list[] =3D
-> -{      { AMDGPU_FMT_DITHER_DISABLE, "off" },
-> +static const struct drm_prop_enum_list amdgpu_dither_enum_list[] =3D {
-> +       { AMDGPU_FMT_DITHER_DISABLE, "off" },
->         { AMDGPU_FMT_DITHER_ENABLE, "on" },
->  };
 >
-> @@ -1495,8 +1495,7 @@ int amdgpu_display_get_crtc_scanoutpos(struct drm_d=
-evice *dev,
->                 ret |=3D DRM_SCANOUTPOS_ACCURATE;
->                 vbl_start =3D vbl & 0x1fff;
->                 vbl_end =3D (vbl >> 16) & 0x1fff;
-> -       }
-> -       else {
-> +       } else {
->                 /* No: Fake something reasonable which gives at least ok =
-results. */
->                 vbl_start =3D mode->crtc_vdisplay;
->                 vbl_end =3D 0;
-> --
-> 2.25.1
+
+--000000000000dfabe605fa2de571
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div>The last 3 comments in this thread contain arguments=
+ that are false and were specifically pointed out as false 6 comments ago: =
+Soft resets are just as fatal as hard resets. There is nothing better about=
+ soft resets. If the VRAM is lost completely, that&#39;s a different story,=
+ and if the hard reset is 100% unreliable, that&#39;s also a different stor=
+y, but other than those two outliers, there is no difference between the tw=
+o from the user point view. Both can repeatedly hang if you don&#39;t preve=
+nt the app that caused the hang from using the GPU even if the app is not r=
+obust. The robustness context type doesn&#39;t matter here. By definition, =
+no guilty app can continue after a reset, and no innocent apps affected by =
+a reset can continue either because those can now hang too. That&#39;s how =
+destructive all resets are. Personal anecdotes that the soft reset is bette=
+r are just that, anecdotes.</div><div dir=3D"auto"><br></div><div dir=3D"au=
+to">Marek</div><div dir=3D"auto"><br><div class=3D"gmail_quote" dir=3D"auto=
+"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Apr 25, 2023, 08:44 Christi=
+an K=C3=B6nig &lt;<a href=3D"mailto:christian.koenig@amd.com" rel=3D"norefe=
+rrer noreferrer" target=3D"_blank">christian.koenig@amd.com</a>&gt; wrote:<=
+br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;borde=
+r-left:1px #ccc solid;padding-left:1ex">Am 25.04.23 um 14:14 schrieb Michel=
+ D=C3=A4nzer:<br>
+&gt; On 4/25/23 14:08, Christian K=C3=B6nig wrote:<br>
+&gt;&gt; Well signaling that something happened is not the question. We do =
+this for both soft as well as hard resets.<br>
+&gt;&gt;<br>
+&gt;&gt; The question is if errors result in blocking further submissions w=
+ith the same context or not.<br>
+&gt;&gt;<br>
+&gt;&gt; In case of a hard reset and potential loss of state we have to kil=
+l the context, otherwise a follow up submission would just lockup the hardw=
+are once more.<br>
+&gt;&gt;<br>
+&gt;&gt; In case of a soft reset I think we can keep the context alive, thi=
+s way even applications without robustness handling can keep work.<br>
+&gt;&gt;<br>
+&gt;&gt; You potentially still get some corruption, but at least not your c=
+ompositor killed.<br>
+&gt; Right, and if there is corruption, the user can restart the session.<b=
+r>
+&gt;<br>
+&gt;<br>
+&gt; Maybe a possible compromise could be making soft resets fatal if user =
+space enabled robustness for the context, and non-fatal if not.<br>
+<br>
+Well that should already be mostly the case. If an application has <br>
+enabled robustness it should notice that something went wrong and act <br>
+appropriately.<br>
+<br>
+The only thing we need to handle is for applications without robustness <br=
 >
+in case of a hard reset or otherwise it will trigger an reset over and <br>
+over again.<br>
+<br>
+Christian.<br>
+<br>
+&gt;<br>
+&gt;<br>
+&gt;&gt; Am 25.04.23 um 13:07 schrieb Marek Ol=C5=A1=C3=A1k:<br>
+&gt;&gt;&gt; That supposedly depends on the compositor. There may be compos=
+itors for very specific cases (e.g. Steam Deck) that handle resets very wel=
+l, and those would like to be properly notified of all resets because that&=
+#39;s how they get the best outcome, e.g. no corruption. A soft reset that =
+is unhandled by userspace may result in persistent corruption.<br>
+&gt;<br>
+<br>
+</blockquote></div></div></div>
+
+--000000000000dfabe605fa2de571--
