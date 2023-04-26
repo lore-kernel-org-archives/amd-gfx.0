@@ -4,54 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECB2FC7618E
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Apr 2023 09:52:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4AE3C7618E
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Apr 2023 10:29:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D6A210E8DB;
-	Wed, 26 Apr 2023 09:51:59 +0000 (UTC)
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FA9210E8DB;
- Wed, 26 Apr 2023 09:51:56 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4Q5vKN4DmGz9shS;
- Wed, 26 Apr 2023 11:51:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1682502712;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Pi1+yq2ekKSgxL5M2BKRF64dsgqTeeiFapJCZNKczms=;
- b=C9OEzOCreatLMtPJ+jtDU1ggcLGqaw+2LBAr2Z0pHYomiQyvcbyAOHMEBbLXy0zPwZzLUP
- Ix88v55gwl4URqbnxFuzed96vZU8Hd55K3+upO9T4rCt9mRzgjop62aIg/KOFgYIp+rHLw
- EN3w5K2pB3VvyPOEnIXon8WRdCpNROPljbN1kWFa1VogQZJ62STMnlBj3GKK2J5/icwF2J
- jcNInKb+MO+nOejgcaudd3cxd1h2GtLlU9zGOLZoIzounzGm0iAVE8PFx7XJ78H0hi4+9w
- Zm3ijx5Va7O3hHdjEXkyO2sDhHUJztGAaCuhNn0BQyAkaRA7AYLE1BIJPFsSsw==
-Message-ID: <9087ef09-e617-dcf3-343e-162f79dc3e51@mailbox.org>
-Date: Wed, 26 Apr 2023 11:51:50 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04D0510E8CE;
+	Wed, 26 Apr 2023 10:29:46 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F04810E114;
+ Wed, 26 Apr 2023 10:29:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=DM3mT3NAGmLIBN+c7mlAY0UgW1Wga2RSFg/1z5l/gHIN8hk3/6Vs0RLyARIGSTC8RR9daYnxSP92LUA7b9qQUS2lVvUknLldJTNWaN2/3+Vz0Vvzm6ArgSMyEbYrFEiY2vKl1culqETYr0wnFLnEC4D+yXrrpKzAdmORGV4Gqkrc4tUUBMKC/cpabXW3KntWljUAHXHaeb0q3U/XLLqogZ7rk3OlqzwLAa56pkMBfGHUXtefJ/beuCqTTsOdgaZO6td2Ys8rlrxNuG/jKo9D0MH/PkZqF2gFXLtzUQwUYbAgGYS5yPMJ/Y5Z6ZjA1bOlI8ioP/IhVcxBkhZNvpPJSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OS4s3SFUBI15+YziQEswE+UrIXuNAKgj439Dl4HbZdU=;
+ b=Hwia+BmkNJgagAEvROsGrhFHjNoO4unRMaKG0Fp6leVJ/+rRQnR2RGNlkcZmCDZYEY4ZoiMv+pZsCT20SmWTmEszhKekg7sUpk43YtTENDx4JICJXk8ZQU41ATkj7S2wvH6KIvC0h+DUTB0WsMEa5w9Z9v7EaN8BgRGEGJOgAimYDhnXpQRSJISB5372kxDYqLvSDmsX68JBXPb1lobil4PxGGieLg2XPxkrKCqB9qjr1mg+yPg4aEYkPHqcAjlq2Yu3n75UJp/CvGJDVEax4CXga1wUW8IdrsDzHuXvCOeBa662skaWN5/yFC8I4rofFmSHZsVo7+aZ8oGzPsf6hQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OS4s3SFUBI15+YziQEswE+UrIXuNAKgj439Dl4HbZdU=;
+ b=IwKw5F+DOf1Pw0b5T6UrJJHyK6luOcuKFzkCKCY17hcx4bVnTBsdPVxMjwd0dzdmp4eTQDHib9lxl7tzRiGMladNZPUP3XZgwkQPpHVE/5a5g4StKmSkwDRebki6sL56mAz9jbyXPz577kr/xZOXH3KvBQvN3vse67LXybWsOoY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by PH0PR12MB8799.namprd12.prod.outlook.com (2603:10b6:510:28e::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.21; Wed, 26 Apr
+ 2023 10:29:39 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::d2f8:7388:39c1:bbed]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::d2f8:7388:39c1:bbed%3]) with mapi id 15.20.6319.034; Wed, 26 Apr 2023
+ 10:29:39 +0000
+Message-ID: <b76af325-0b4d-25bf-a009-fbbbb3f99146@amd.com>
+Date: Wed, 26 Apr 2023 12:29:32 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Subject: Re: [PATCH] drm/amdgpu: add a missing lock for AMDGPU_SCHED
+Content-Language: en-US
+To: Chia-I Wu <olvaffe@gmail.com>, dri-devel@lists.freedesktop.org
+References: <20230426004831.650908-1-olvaffe@gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20230426004831.650908-1-olvaffe@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0163.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b3::17) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
-Subject: Re: [PATCH] drm/amdgpu: Mark contexts guilty for any reset type
-Content-Language: de-CH-frami, en-CA
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-References: <20230424014324.218531-1-andrealmeid@igalia.com>
- <d7264c5a-29b4-0fb3-153b-673a8a73d635@amd.com>
- <CAAxE2A6Soq28ACV-m1OzG8CA-_VWp+N2wapsABzm2Nda=Qe+yA@mail.gmail.com>
- <784561bb-0937-befc-3774-892d6f6a4318@mailbox.org>
- <CAAxE2A6iuuVA7zjHM8YcTGMpEWuYV=hGRR1YW6W-qXHwAg9w7w@mail.gmail.com>
- <19406ec5-79d6-e9e6-fbdd-eb2f4a872fc4@amd.com>
- <5262c73e-e77c-91f7-e49e-a9c3571e2cc9@mailbox.org>
- <f5bf590a-5d3f-03f2-531c-057cf8760000@amd.com>
- <CAAxE2A4capwpc40F49cgZBC9jJisODqNjTe0cM_pS7si5EkW3g@mail.gmail.com>
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@mailbox.org>
-In-Reply-To: <CAAxE2A4capwpc40F49cgZBC9jJisODqNjTe0cM_pS7si5EkW3g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: 33jn9k1t3rxidepdiwr1xgfh7r7i69ff
-X-MBO-RS-ID: 5e7fcf1a1e18bd88dee
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|PH0PR12MB8799:EE_
+X-MS-Office365-Filtering-Correlation-Id: 946d3186-916a-47f1-6c2d-08db464123b2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: +nKgQolhmzZNEit+34y2Py3cWqJXQ4sQPBVNxE7tDMBk9pNLnNp/U7O1T6/GLwtFcBOBqtGSvOnrv05GRpfiQYxXIzo6bhlIGAtrV5mainnb8LeOQBvWRn0XQskXeNc11rEv1cwqx432bm0uAYU0UVxmJkFMakguzJJLZ6HBzdP31K9Z/m/gcmiQwHdeLfFoDI1CEzdwZ/TRHtRKhehOF3RhC51IdQY+uaiBPYICfJ0jh7m31GRAkdnmr0JceI60w+dbIIk4o6JvcNmBB3CaY6K+owrtx1POa3uX1Kb/kF48LSACwMRlsySAwYj11weauund7VFvWsU6cZCu2f4yl5Z6059t4ljn7qTH2lySs3XRTqrPv1gIOAtz5tYQVBreaPOT9A2gKQ0k9GUS9ev32HqjJtyztKOh0V3yBfhbJ6SGnmYVbssaqEXNjQm5ewqKWlk7Vd/8ptP8MJbpaHIkT/+lrHFrr5/iA6M/UJP5m2JP/0JpXnVREeRJql6oYJomlUZbKPtrZojFTuPucCavPNaNfSdz3RAnob810i+u+0LENzfTV2RUMg9i2cFGxPReoeDK491UN5k0RvZ6Su9msfGe6kZK1m4O4SuoJvyWXbBjSa8qKAlaE/bTaky7OS81tP3xZmhL8zBRBj6uW0EKyw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(136003)(346002)(396003)(366004)(376002)(451199021)(36756003)(86362001)(31696002)(54906003)(478600001)(6666004)(6486002)(8936002)(38100700002)(8676002)(41300700001)(66476007)(66556008)(66946007)(316002)(2616005)(4326008)(83380400001)(186003)(31686004)(26005)(6512007)(6506007)(2906002)(5660300002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WFAzZ0NTcFVDSFZrdEQrUE90Z0Y2UXJkbWx5TzVSd1pzRkp5ME5SUkVZYkpU?=
+ =?utf-8?B?VU43UFcrUTVNMWVEeTVNakJ3aU02elI0bDdISXd5RGNtMi9aZmRGeFZBS0pj?=
+ =?utf-8?B?VjgzSGVGQndoOE84ZHk4MlhuNXRUSWJqTHRrblBoNkV6bm5rWm5jeXkzbmh4?=
+ =?utf-8?B?bGxWdEpjUWk2Mm8yU2JhVmxmNmZma0J4V3BUMXlmTUt3Q3Byd014dnBWWVVh?=
+ =?utf-8?B?bmVqUWFMSTVmUS83MDI5U1lUU0tCRk5LcU00VG1TRnZnajVubGx2alczYWpU?=
+ =?utf-8?B?MitlM2lhUkp2REF5cHUwSDAxdi9FWjJLcDNWa210M0RSWGZKZXAxc0tVaU81?=
+ =?utf-8?B?TnBHYVVnOU05TFV4YWdZaWJZQjQrM1hVU21Icy8wa0dVSitTOG5waEszc3BH?=
+ =?utf-8?B?cVBlSnhZV000dU1URk02ZkNoaG10bFV2Q1hneTc0ekQzZjVyUFROOE1hK1Ry?=
+ =?utf-8?B?ampQMWMra2h4YWovbWVpMnhZNCtYendpdTEvam9CTDhxRCtqczZpbFBBd3V3?=
+ =?utf-8?B?RS95TExCTisvdXAycG9iWnZvRko1aHlza0o4NWI4QTlHYS9hOTJ6eGRiZkRt?=
+ =?utf-8?B?SjJoR3AvSk9FL1ZUcFF4Yy9CcS9jV1lwL3VPUUFJWDAvUk5qNHJDenNUanlY?=
+ =?utf-8?B?c0FsSjJLUWFDQkZVSnplam5xUGtwQTV1VytFemVYSzJ6cU0vQVkxaW9qazBS?=
+ =?utf-8?B?cEd6MUtTcFZCNURlQ1NQM1c2dmJGMzE1WE1qdThmZ2xWOXQxZmw4emR3ZlR6?=
+ =?utf-8?B?b0lDbUNJRlpucGY1MkFIdDJKbG0vMjRBRmxHcHJHcThIUEJERm4xZFdsdVJX?=
+ =?utf-8?B?c2k4QnBhRTBsWURZZ0lGbVkvTDgvbHZSMTNGazQ4T3BPSTI4dnl1eEF0NGd0?=
+ =?utf-8?B?Slc2Y2tWZm1ieHFvT2R6VzQ4NmhBbTRnWDJIK2dRbnFBQUp0dTdTNUludCta?=
+ =?utf-8?B?TzFGUWMrWXB3a24yK2tUZWVXWUtBS1ZmV1JybXlkOTh6Z2h6RUtFM2pZeVVs?=
+ =?utf-8?B?eGJ3eE9DT3lTeFVhOCt5V0t6aUtXbWZHS05pUm9pTUlhanY5N3ZyRnk1QUh4?=
+ =?utf-8?B?dXhJSk5iUmJSRlJNRlFXUmxLSFNUZ1BBMmlUR1BCUjN1UDlaN3BZQmRLbTg3?=
+ =?utf-8?B?WUFsS0hnM00wanZjSTZSeWZ6NnJWT2R1clRpUnhQelVCMUpDVTVHMkdISGhv?=
+ =?utf-8?B?ejcwekRMZ0w4VUZHWTVKQjNJTzZNdTRvUVJYM3BEOGlSVTUyWkxleGRPd3RG?=
+ =?utf-8?B?WHNJWWQ5bnBCYm0xellqbHlETnBUcUVHRXNFQzdJZHJ6bGdLbG5ESGNhUUtZ?=
+ =?utf-8?B?ZnhDQS9IN081blBHQlFRVWxka0luVFBwYy9jR0ZRaWVzcUVTYTM2Q1BVL3hG?=
+ =?utf-8?B?dlFRVlI4NWRZbTI1cWhwZ1ZqTmRMV3NabG0vS2NoaE1JVy83d0FWYkRrS2lz?=
+ =?utf-8?B?UkR6ZjZ2VGMyOTJwcWxiVmVmL20xb1BqOU82dnNhMEJnZGlhQzd6SGlaU2hM?=
+ =?utf-8?B?MGVqdVk2RWV3YzY1WkFFMG5Mbi84S05zTExMMmMzakZ4U3E3S2EwRTZpY0R6?=
+ =?utf-8?B?MWJXTWZxZGYvRmx5d1B3ZTNadDNSUWVyTk1LSW5LSWdpOUZtUWdBQUVaSjRW?=
+ =?utf-8?B?Vyt0enA1U2tkZEh4akRuSnJIUlhBVjB6TC8rZzcxcHVKdm5hWE9IZHl1enVU?=
+ =?utf-8?B?eVFXbEFMdS9FSjM5YXI5UHZ1emhBQnZDY0lieTh1REZDRTJMR1dyVDNkdzhV?=
+ =?utf-8?B?TkI3R3VEODJEZVQyNlViUWN3YldQMktrSWttbExWQW44c2pOTXprQWtPd0Zs?=
+ =?utf-8?B?dnJRb3BHc3VkVU1WaEhETFpsV20yS2w3cDlzOEhGM21tZlZzRTdRYkxvYlJq?=
+ =?utf-8?B?b2doaWVLeDM4QlRFSXFINjRDQ0lwMDRaRHplajFyYThTVXBhbGJDTng1ODI1?=
+ =?utf-8?B?TVRTdWw1TERqekQyMkMyZ0JMV2RpSXRzL0VvZlN4dTQ0L1NGb0pwd1FkWXpu?=
+ =?utf-8?B?WWV2Nm5JbkswYzBMWUpIM2RDWGN4YzdiaGRJbVV1aEZ3WEUwS3hJS0U2REVS?=
+ =?utf-8?B?SkljYmx1V09kdnU3dDdubG5iSUp2dllGT241dTJ6K2hwUnpZK1ZuSXRpYklS?=
+ =?utf-8?Q?pUjCEmPrLbAxG/KkGCXFq/Kul?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 946d3186-916a-47f1-6c2d-08db464123b2
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2023 10:29:39.1300 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: X0OkgdJ2HUjcdkCf2cMxZq/OfWv7fFGRA3hblIRN5yc9lEM2MnA/Jf9IeMIm02cO
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8799
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,25 +123,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, "Tuikov,
- Luben" <Luben.Tuikov@amd.com>, dri-devel <dri-devel@lists.freedesktop.org>,
- kernel-dev@igalia.com, "Deucher, Alexander" <alexander.deucher@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 4/25/23 21:11, Marek Olšák wrote:
-> The last 3 comments in this thread contain arguments that are false and were specifically pointed out as false 6 comments ago: Soft resets are just as fatal as hard resets. There is nothing better about soft resets. If the VRAM is lost completely, that's a different story, and if the hard reset is 100% unreliable, that's also a different story, but other than those two outliers, there is no difference between the two from the user point view. Both can repeatedly hang if you don't prevent the app that caused the hang from using the GPU even if the app is not robust. The robustness context type doesn't matter here. By definition, no guilty app can continue after a reset, and no innocent apps affected by a reset can continue either because those can now hang too. That's how destructive all resets are. Personal anecdotes that the soft reset is better are just that, anecdotes.
+Am 26.04.23 um 02:48 schrieb Chia-I Wu:
 
-You're trying to frame the situation as black or white, but reality is shades of grey.
+Good catch, but you need some commit message here. Something like "Need 
+to hold the lock while iterating the idr to make sure no context is 
+destroyed." should be sufficient.
 
+Apart from that looks good to me.
 
-There's a similar situation with kernel Oopsen: In principle it's not safe to continue executing the kernel after it hits an Oops, since it might be in an inconsistent state, which could result in any kind of misbehaviour. Still, the default behaviour is to continue executing, and in most cases it turns out fine. Users which cannot accept the residual risk can choose to make the kernel panic when it hits an Oops (either via CONFIG_PANIC_ON_OOPS at build time, or via oops=panic on the kernel command line). A kernel panic means that the machine basically freezes from a user PoV, which would be worse as the default behaviour for most users (because it would e.g. incur a higher risk of losing filesystem data).
+Regards,
+Christian.
 
-
--- 
-Earthling Michel Dänzer            |                  https://redhat.com
-Libre software enthusiast          |         Mesa and Xwayland developer
+> Signed-off-by: Chia-I Wu <olvaffe@gmail.com>
+> Cc: stable@vger.kernel.org
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c | 6 +++++-
+>   1 file changed, 5 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
+> index e9b45089a28a6..863b2a34b2d64 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
+> @@ -38,6 +38,7 @@ static int amdgpu_sched_process_priority_override(struct amdgpu_device *adev,
+>   {
+>   	struct fd f = fdget(fd);
+>   	struct amdgpu_fpriv *fpriv;
+> +	struct amdgpu_ctx_mgr *mgr;
+>   	struct amdgpu_ctx *ctx;
+>   	uint32_t id;
+>   	int r;
+> @@ -51,8 +52,11 @@ static int amdgpu_sched_process_priority_override(struct amdgpu_device *adev,
+>   		return r;
+>   	}
+>   
+> -	idr_for_each_entry(&fpriv->ctx_mgr.ctx_handles, ctx, id)
+> +	mgr = &fpriv->ctx_mgr;
+> +	mutex_lock(&mgr->lock);
+> +	idr_for_each_entry(&mgr->ctx_handles, ctx, id)
+>   		amdgpu_ctx_priority_override(ctx, priority);
+> +	mutex_unlock(&mgr->lock);
+>   
+>   	fdput(f);
+>   	return 0;
 
