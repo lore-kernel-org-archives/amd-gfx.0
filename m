@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03829C77B60
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Apr 2023 21:22:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74DF4C77B7C
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Apr 2023 21:22:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8F3410EA37;
-	Wed, 26 Apr 2023 21:22:11 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20609.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eab::609])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19AED10E34B
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5528110EA35;
+	Wed, 26 Apr 2023 21:22:12 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2060.outbound.protection.outlook.com [40.107.93.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1E0210EA29
  for <amd-gfx@lists.freedesktop.org>; Wed, 26 Apr 2023 21:22:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=i9DNA1h82ltpHGeG2oCt1UXBIitixRQpK5Jin0EbeELegB/eoeYOANRUhkAV3J2wPpS0kHVceyrBgnA4h81Ah3F+28j6mz/IumENWjy0BbtgaLofsdMDPsDkfFo/+oZ6kE8Y7fsgvhagT0cUT83MlCjS9RKUwwIXOArovrTAs6vLhYsWSza2K4Rq31lyxvK2Nh3oHrVQbRfVBc6ZtJX7ecRqS9qzNxqtvySMdTI6+T8aQq9aS/lEGwrgbmpj9ItfXSzt7SBLLrO/UKMzbqUtZKhKc57cki+GF80n/jizOU7+kO7POnwFY4v55yCV/6yrEZilmTPVw4nOPhdw+BEu3g==
+ b=KlAvQI2SfE8PZN4o9v3yRtWzSu5uc0R5JF66Gw5UVb5Rv7DUJdj6968AYl8ISRJy3xx9oa7vjkA/gFqJ/jvlrd9j13hcCxEl3oRqTw9Dmfb4BA+ZD8FnrXPaEzby/FeBuC9Kq0nb7UGiVqUi5DxMGsP65oWHLqlY8Ja6dUgBHfU4+URnG1ZtvC1I0DrApvFaC2a7wtm+7g9zkUnpX6V9ggEYOtQDVNgheBdWu7DggL1b7PYOSI/YbRramtQn5AGWtIqxFh/bti6R1sfIneEDgnWJA7mFoVw2KGdvwUQSxmHL6LI7ZVUjOTqWSWH25Ivx5nzZNssTeHU2IUzjFOv6jA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Wh8wagtu8NsJwCxeRkqQcDsX2JK6BFr5qZN1TBVdOpY=;
- b=b/Xpe76yHRPuWys7iYOrayjFSbimITtXY/I1Ums5NtxYXLoUS1JtATs/R0+G7jCvayKhjbECXHpmkW+wizYqQPKbrAoTiyxFfb+2izU3nqXdJqq1U4FVNf2U9IfUiyWNsYBIQU18SGpMjieNqizLsRqnc6Ak3ZDU6CQ8vxP7iMjUXFiFsYq5JaGYKnKx22/LkY0QBqS8YURWn705DGdx91qtw4UP/eWr+cZ2JUG8VQg/NmYolGnEjnCUFZ/0fS26qFuk00dKfqvy9m0FmUVB5/fHbtV4qPFe8E79KYS8nV8sa1UKx74jtlShIOp43ss6JHCn3kRLhere/lRZ5abXgQ==
+ bh=UVSmqldU2wCFPxOlh4MCWAe1aJYaivQYIcSHfbfWtOw=;
+ b=Q+7F+9uAPk1oWl+PYc0ownhurBkimSyUggN56Du+8JZUWwPpCgmZLJOOc2I909jTpsxtPfiHVk3ZxqnbfGKvdtpEXW8tp3O9/gd7y39P8zIHgHPCDtM7Y7d+7YYmqu1KPaZi7WhVjMb8HKGIp6Evh9OydKRnsSJOw/Zz5Z+hrdr+XpXP8fTT/NLgf9/qG8jMcpHddwOYDtIrbyPNeQ0cEHstUBYy8FOOJlznFgugmQf2+uvm0+KSBUJ+fQSh2WXBpN8LZTsEehszQyYsjizXNXzqZ3FWhZEGpUEmYc3jgYKcX4fwGRoWtgNnX9b2CkZbSd44WciCFSAuApY3wvuFIA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Wh8wagtu8NsJwCxeRkqQcDsX2JK6BFr5qZN1TBVdOpY=;
- b=ISqhFKcxqou7Itz7sTiAeo7bduEq3EvWaHvECL21OzWLEBXyfWwt/nfyD//j48+JDrewkm6P7WxeMLmGWKNAyFc+cQK/Od2Lk3O97WeqNfpJ4GlNWMTVhIL4NqWXvH/PwulUQAAa7I1StTfRAlSsh2KL2J1WauhthmuAR84tYH0=
-Received: from DS7P222CA0022.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::25) by
- PH0PR12MB7094.namprd12.prod.outlook.com (2603:10b6:510:21d::18) with
+ bh=UVSmqldU2wCFPxOlh4MCWAe1aJYaivQYIcSHfbfWtOw=;
+ b=Twlsx7BAOhOj3POTePB2LKqL/8JP4pVjw4xlqiX7VBaZqdPfZgJBkx5V0EBJMEuWT36/kmhdeoSSEuiA6wtN2556xGZwSOlf7nOEAkkQS6p1svTk8semgAgYh3gcJh/iwxAOplq72lR9GWQLOT09Z9Y3L6OSK8QGyield6LTEiU=
+Received: from DS7P222CA0028.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::21) by
+ SJ0PR12MB7476.namprd12.prod.outlook.com (2603:10b6:a03:48d::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.34; Wed, 26 Apr
- 2023 21:22:03 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.45; Wed, 26 Apr
+ 2023 21:22:01 +0000
 Received: from DM6NAM11FT076.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:2e:cafe::18) by DS7P222CA0022.outlook.office365.com
- (2603:10b6:8:2e::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.20 via Frontend
- Transport; Wed, 26 Apr 2023 21:22:02 +0000
+ (2603:10b6:8:2e:cafe::5a) by DS7P222CA0028.outlook.office365.com
+ (2603:10b6:8:2e::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.21 via Frontend
+ Transport; Wed, 26 Apr 2023 21:22:01 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DM6NAM11FT076.mail.protection.outlook.com (10.13.173.204) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6340.22 via Frontend Transport; Wed, 26 Apr 2023 21:22:02 +0000
+ 15.20.6340.22 via Frontend Transport; Wed, 26 Apr 2023 21:22:01 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 26 Apr
- 2023 16:22:01 -0500
+ 2023 16:22:00 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 05/12] drm/amdgpu/gfx11: use generic [en/dis]able_kgq() helpers
-Date: Wed, 26 Apr 2023 17:21:36 -0400
-Message-ID: <20230426212143.7696-5-alexander.deucher@amd.com>
+Subject: [PATCH 03/12] drm/amdgpu: add [en/dis]able_kgq() functions
+Date: Wed, 26 Apr 2023 17:21:34 -0400
+Message-ID: <20230426212143.7696-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.40.0
 In-Reply-To: <20230426212143.7696-1-alexander.deucher@amd.com>
 References: <20230426212143.7696-1-alexander.deucher@amd.com>
@@ -69,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT076:EE_|PH0PR12MB7094:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4dac698f-48cf-4792-0acc-08db469c4725
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT076:EE_|SJ0PR12MB7476:EE_
+X-MS-Office365-Filtering-Correlation-Id: f0df8b10-890b-4406-f01d-08db469c4663
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vQ7Psq8IhPSaj9LcGRX0C08/BuYULJmUNXFt0/HROAKv5BKaUL8i/eT/UgSCBB2W4QNX2wu9o48wpaeH/KXSw3yK89lDxcYBsDgzNa1ccW68i5v5jGlOgMiwSu5+bl8U6NSh3bG+JRVMzHwD+NMFqgM5Hlujy3Zl55CzA7trVVhVfSVc3Z8BQgCbh7qrA2PpsJYbuxxS5zEjBu2kmgZZ6KWbPRBDn6on8daURWasrLzYHXqQcX680cOrtlLqcYZl3UvI3Lp6YibSeFM5zXMoi5HtZPjzDe07miFFYBxLooDbwg0c2qj2sDKPP2UYA2gkVhGOMg00I4EASpiBIgK0h7dZE8Tu1Yqh8e6XQnDeAP8ER2wPzbhSK1jWMl27SU5XXWcZ44TUbNu3jOqJQEMVDSMl183Hak3u66DAVmV+5DbCfgg6gaooboQ+5REQDdlOnPuYGt5Fi3UtL57qaU+ByiPsRpRs/lNXBe8hka9Ck22F+JSWl4cOC7ymrF4eCI+PgTB/hkRzjzdTKAtuP4X46KnoZC3tQXWophrfm7vw3AzVv2zvA4w1YYyIhhyD2D1Yd5vaK2sTZygUNGBJb+FJ1vgFSweroo6UofMPnw6lWcdm6fIsf6txNoNrjta15KuqhYDFrGtsTQIomi2MYiQUraa2l2+qIwONuG8R1kSEb2ds9ZOBysA4Kz5TsEk1cQwQV2P62ib12w6OMM2sc2Kw6ad/QiepyhAtAxmXbYE7PHvRbTVqOU7RwTtMV5PSodeU
+X-Microsoft-Antispam-Message-Info: GWwjcCJqLY4dzBIEcrLgJi3581BamTVPhuyEQQdY1IiYXVn1XYZb7GfEsv35C+cRljP++ZXNz+/sVfQW6yvACgfbglrj+YDVT7MK/i1IkIT9Jb0eWvo68Kyh6jlMzIPQILD/tI1ObT6i9cZfVVfjmPAoFulmkutk3RQyRm4eLszcR4ErNoOvXYF6XItYKouV1FZJSsqytjsOfbZD4rLdW3SdXqPK1Y5l6GRqi1n1g41hxkqizi98sW8lTnVJEjyjMd0n83Dfd7fGlsUtn0RhHDY0pGQpwBFimsYjnOyEkkCstvGIEWCwkzugL6VitpgEaj7Yx6YK198axvM08oK/+VGdUXV/tOlFkpcQ3KqAI6uaK3wBZRGlnf+5wDvIS3RYmzVFuy3yXcK0WezzniaD3OPfG9fxILvdHsj7HiDYKMFiubtSrCKErBHlrt5OFSvDyzs6Pu9lzk1gDJx8aHRo92ol9nsT/1vGoToA2sZZaYgtGEw/AEp7370etPlwTYw8v+/eI92YB8+Oz66hVleYcI7uUB3KG0FkLXWMiUbH0dn0DOO+qBUm1agvVC9hbwum02xhySiefSUtkFg2dd1z1E6dg5yGCOpkXxUHkmwlTDBUoloSX64dV/ZsEWEIhTX+hiQgfzV8Kzas1TwiUp9tyb3PnIy8N41DxQ03+IDNiOcj91kbAh8fDD1uo6xAT/C9OG2/BLmOJ8s3zaDfmbtq0YMUaXfBwPjvEeWfmxcynqg=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(396003)(39860400002)(376002)(136003)(451199021)(40470700004)(36840700001)(46966006)(186003)(426003)(336012)(70586007)(81166007)(356005)(41300700001)(83380400001)(6666004)(7696005)(47076005)(2616005)(16526019)(70206006)(1076003)(26005)(36860700001)(54906003)(478600001)(40480700001)(82310400005)(4326008)(6916009)(316002)(82740400003)(5660300002)(40460700003)(36756003)(2906002)(86362001)(8676002)(8936002)(41533002)(36900700001);
+ SFS:(13230028)(4636009)(346002)(396003)(136003)(39860400002)(376002)(451199021)(36840700001)(40470700004)(46966006)(40460700003)(2906002)(8936002)(8676002)(5660300002)(36756003)(82310400005)(86362001)(40480700001)(7696005)(6666004)(26005)(54906003)(1076003)(478600001)(36860700001)(2616005)(83380400001)(47076005)(336012)(426003)(186003)(70206006)(16526019)(316002)(82740400003)(356005)(70586007)(6916009)(4326008)(41300700001)(81166007)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2023 21:22:02.4728 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4dac698f-48cf-4792-0acc-08db469c4725
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2023 21:22:01.2073 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0df8b10-890b-4406-f01d-08db469c4663
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT076.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7094
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7476
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,95 +104,115 @@ Cc: Alex Deucher <alexander.deucher@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-And remove the duplicate local variants.
+To replace the IP specific variants which are largely
+duplicate.
 
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 49 ++------------------------
- 1 file changed, 2 insertions(+), 47 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 68 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 +
+ 2 files changed, 70 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index 646003b2faf8..d36d365cb582 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -3710,28 +3710,6 @@ static int gfx_v11_0_gfx_init_queue(struct amdgpu_ring *ring)
- 	return 0;
- }
- 
--static int gfx_v11_0_kiq_enable_kgq(struct amdgpu_device *adev)
--{
--	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
--	struct amdgpu_ring *kiq_ring = &adev->gfx.kiq[0].ring;
--	int r, i;
--
--	if (!kiq->pmf || !kiq->pmf->kiq_map_queues)
--		return -EINVAL;
--
--	r = amdgpu_ring_alloc(kiq_ring, kiq->pmf->map_queues_size *
--					adev->gfx.num_gfx_rings);
--	if (r) {
--		DRM_ERROR("Failed to lock KIQ (%d).\n", r);
--		return r;
--	}
--
--	for (i = 0; i < adev->gfx.num_gfx_rings; i++)
--		kiq->pmf->kiq_map_queues(kiq_ring, &adev->gfx.gfx_ring[i]);
--
--	return amdgpu_ring_test_helper(kiq_ring);
--}
--
- static int gfx_v11_0_cp_async_gfx_ring_resume(struct amdgpu_device *adev)
- {
- 	int r, i;
-@@ -3755,7 +3733,7 @@ static int gfx_v11_0_cp_async_gfx_ring_resume(struct amdgpu_device *adev)
- 			goto done;
- 	}
- 
--	r = gfx_v11_0_kiq_enable_kgq(adev);
-+	r = amdgpu_gfx_enable_kgq(adev, 0);
- 	if (r)
- 		goto done;
- 
-@@ -4392,29 +4370,6 @@ static int gfx_v11_0_hw_init(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 60bb4bba1994..0560568b3925 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -518,6 +518,39 @@ int amdgpu_gfx_disable_kcq(struct amdgpu_device *adev, int xcc_id)
  	return r;
  }
  
--static int gfx_v11_0_kiq_disable_kgq(struct amdgpu_device *adev)
--{
--	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
--	struct amdgpu_ring *kiq_ring = &kiq->ring;
--	int i, r = 0;
--
--	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
--		return -EINVAL;
--
--	if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size *
--					adev->gfx.num_gfx_rings))
--		return -ENOMEM;
--
--	for (i = 0; i < adev->gfx.num_gfx_rings; i++)
--		kiq->pmf->kiq_unmap_queues(kiq_ring, &adev->gfx.gfx_ring[i],
--					   PREEMPT_QUEUES, 0, 0);
--
--	if (adev->gfx.kiq[0].ring.sched.ready)
--		r = amdgpu_ring_test_helper(kiq_ring);
--
--	return r;
--}
--
- static int gfx_v11_0_hw_fini(void *handle)
++int amdgpu_gfx_disable_kgq(struct amdgpu_device *adev, int xcc_id)
++{
++	struct amdgpu_kiq *kiq = &adev->gfx.kiq[xcc_id];
++	struct amdgpu_ring *kiq_ring = &kiq->ring;
++	int i, r = 0;
++	int j;
++
++	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
++		return -EINVAL;
++
++	spin_lock(&kiq->ring_lock);
++	if (amdgpu_gfx_is_master_xcc(adev, xcc_id)) {
++		if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size *
++						adev->gfx.num_gfx_rings)) {
++			spin_unlock(&kiq->ring_lock);
++			return -ENOMEM;
++		}
++
++		for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
++			j = i + xcc_id * adev->gfx.num_gfx_rings;
++			kiq->pmf->kiq_unmap_queues(kiq_ring,
++						   &adev->gfx.gfx_ring[i],
++						   PREEMPT_QUEUES, 0, 0);
++		}
++	}
++
++	if (adev->gfx.kiq[0].ring.sched.ready && !adev->job_hang)
++		r = amdgpu_ring_test_helper(kiq_ring);
++	spin_unlock(&kiq->ring_lock);
++
++	return r;
++}
++
+ int amdgpu_queue_mask_bit_to_set_resource_bit(struct amdgpu_device *adev,
+ 					int queue_bit)
  {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-@@ -4426,7 +4381,7 @@ static int gfx_v11_0_hw_fini(void *handle)
+@@ -589,6 +622,41 @@ int amdgpu_gfx_enable_kcq(struct amdgpu_device *adev, int xcc_id)
+ 	return r;
+ }
  
- 	if (!adev->no_hw_access) {
- 		if (amdgpu_async_gfx_ring) {
--			r = gfx_v11_0_kiq_disable_kgq(adev);
-+			r = amdgpu_gfx_disable_kgq(adev, 0);
- 			if (r)
- 				DRM_ERROR("KGQ disable failed\n");
- 		}
++int amdgpu_gfx_enable_kgq(struct amdgpu_device *adev, int xcc_id)
++{
++	struct amdgpu_kiq *kiq = &adev->gfx.kiq[xcc_id];
++	struct amdgpu_ring *kiq_ring = &kiq->ring;
++	int r, i, j;
++
++	if (!kiq->pmf || !kiq->pmf->kiq_map_queues)
++		return -EINVAL;
++
++	spin_lock(&kiq->ring_lock);
++	/* No need to map kcq on the slave */
++	if (amdgpu_gfx_is_master_xcc(adev, xcc_id)) {
++		r = amdgpu_ring_alloc(kiq_ring, kiq->pmf->map_queues_size *
++						adev->gfx.num_gfx_rings);
++		if (r) {
++			DRM_ERROR("Failed to lock KIQ (%d).\n", r);
++			spin_unlock(&adev->gfx.kiq[0].ring_lock);
++			return r;
++		}
++
++		for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
++			j = i + xcc_id * adev->gfx.num_gfx_rings;
++			kiq->pmf->kiq_map_queues(kiq_ring,
++						 &adev->gfx.gfx_ring[i]);
++		}
++	}
++
++	r = amdgpu_ring_test_helper(kiq_ring);
++	spin_unlock(&kiq->ring_lock);
++	if (r)
++		DRM_ERROR("KCQ enable failed\n");
++
++	return r;
++}
++
+ /* amdgpu_gfx_off_ctrl - Handle gfx off feature enable/disable
+  *
+  * @adev: amdgpu_device pointer
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index f1a2ce7b6aca..2755f00ac19a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -433,6 +433,8 @@ int amdgpu_gfx_mqd_sw_init(struct amdgpu_device *adev,
+ void amdgpu_gfx_mqd_sw_fini(struct amdgpu_device *adev, int xcc_id);
+ int amdgpu_gfx_disable_kcq(struct amdgpu_device *adev, int xcc_id);
+ int amdgpu_gfx_enable_kcq(struct amdgpu_device *adev, int xcc_id);
++int amdgpu_gfx_disable_kgq(struct amdgpu_device *adev, int xcc_id);
++int amdgpu_gfx_enable_kgq(struct amdgpu_device *adev, int xcc_id);
+ 
+ void amdgpu_gfx_compute_queue_acquire(struct amdgpu_device *adev);
+ void amdgpu_gfx_graphics_queue_acquire(struct amdgpu_device *adev);
 -- 
 2.40.0
 
