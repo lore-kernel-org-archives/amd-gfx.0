@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 454EDC77B78
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Apr 2023 16:27:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5665BC77B78
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Apr 2023 16:28:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D40E110E20C;
-	Wed, 26 Apr 2023 16:27:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4A2410E31B;
+	Wed, 26 Apr 2023 16:28:01 +0000 (UTC)
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20607.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5a::607])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F9B310E20C
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Apr 2023 16:27:54 +0000 (UTC)
+ (mail-mw2nam12on2078.outbound.protection.outlook.com [40.107.244.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9423510E31B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Apr 2023 16:28:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HVXIMTYYA3RwMX0t8gRr0eZIwD2x33KsD6NijxEJQY37lkR+Kq1h2QVqCtry/MhOGYg/iqrXHxtNMx8symJhE7i0gzisocuTO2ou5Wbm2ETQ9Pbg8y3tfQbrgtngo2eLyJYzcALevZtcPrpSOaQ7aznNVoLwtYsb9um3BfkFNp+ulXuNOPs3zr8vvWahzzq/4rOKOYqBC8pC3H6x7P3byexySUI+J0ZL8cwgVyBzWHZ8eQ/8r8YBv0tnyOeZgr1BfcinoboAnWkIpKae5Apl1aRZL78J61M5OB/Zqepsl1MnJNR3v0MgvSj/63uqbxaRlHFJ+COdv8+u55gbCPDS+g==
+ b=T1m9bzo8BQaItSorCWRtYwS1mdpX5qDr2LCh9453j6bwJm1kYsuY4dJA2rkeCntMHw9nFymhCD3dWd5TEFNuhUGhOjZH3DlVK7xMpAiyRUdpNklvYBycZloevwirag8qFk52D/2TecfY5ESTGcspBqgYrDTgcgFVymUfZCJ+/3wG8sAKzNftdEnEfXW2elTEAO64JS2ygZjIDxIGrvEJDNDN7t6u1DwwuxmXajCdX+B0Tc80ufRu4z0waVK8PHTlJlLuIdTdC8UR2pJ010MKvr8zaoxPzs7ulmnwQ1zRMwIatZ62j/zLx97Cx+9Tylb5vdBFCranajAWJwf1ze9c9Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WqJIfFnPLzCjX11kPmnhyZTOYkw0ppBW2n9QbpgZtLY=;
- b=MOK7cYlGp04DGxr5ocojr1Bm7a+brs7OvNdLl3AD2GIbPccqpYY98mpK5xFtusRCaR8784aFxAE86Qzt2gzR7QG1KlJULZ0Z8XBUpMYQUVNmIsjcHGBgDLtR0VVTCaR7+soeHvhCEUQjcXC4Rk4wU7fJyRJNj/wWpRajHrgAPSU4W1ZSFSoGktkmgjTc89wrlTvEBpLllwPCkSzVKzosoRgSIsCQ1SIYHk+XbCV8dmEogAGGZDLPnrCBjIDpHy74brwF1mQYod3AIShtnDBV2f2QelMd0FkCGnj3HXgib4hNJjMdXljySyGscG5Os1XqiGRThr6kF6L8uQZV1USeLw==
+ bh=ylb7n5VioOAdBS8yah+fIR8ZVC8bAiBDTShHZo1BJdQ=;
+ b=DBO2UNrj+s380BUbcz+L7wSn4JhEzRLzFBKnRPYwZzBVTZIYt/bUdFjcht3dOQ3tbH9Tt6KCMJzfuqXDDZ2tNpbjP1moIsxUnjDWjBW4vBUQ6p3lizdHm0gew8xvgGwryPTSnWKir2m2p4MqwbyyI8ZTuOPDZvZE9mmsCFrT/pU8yqqSnOrajRxFlhgoyKJ+8OTgeCDMp6iP0CroepkgjxYBtnZHESLE8aqBJ2RwfXYZ/ULhCwjp4Q2aK94v+tYpVRDi34+cbTnK5VRQ9zba0Z3P81FFHuAN0q6Jog5RU4nDjhTQEfJmqiwc4FscZ6wZ1BpnZaVqFYYxkXW01FwOEQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WqJIfFnPLzCjX11kPmnhyZTOYkw0ppBW2n9QbpgZtLY=;
- b=uhuDLYNsYxA+E2uTlIDmvqcL9/4+Ns9cLF872WEHlJsRLNQLruSnptJoRmrfgB5HuoExvB7lJGMRRcFQ8Dz7tp48cjtt0ixAjizK1km2/QiqODfoLh1g0H5Y3GmS0GmnkFtGhqsn6M05FS5vf8yfE30J2b5EaHgqE9bNQBURcHg=
-Received: from DS7PR03CA0358.namprd03.prod.outlook.com (2603:10b6:8:55::7) by
- MW4PR12MB6899.namprd12.prod.outlook.com (2603:10b6:303:208::20) with
+ bh=ylb7n5VioOAdBS8yah+fIR8ZVC8bAiBDTShHZo1BJdQ=;
+ b=DSxd52h27M8g3H58e0wH8FtIZABHb5/zaVEJy4609g35qAG0L1ceuE6qGl13xEBgDXnoA0KoZ0Tnf3ctcfYq+TJUxg76/DXBn0oPn0uI4UEFZq6pmC6aB8G43um5VjjPI6yYeL4q7zBmtBU5VnBkEd50V1dlOwmgAkC12PznwiI=
+Received: from DS7PR03CA0175.namprd03.prod.outlook.com (2603:10b6:5:3b2::30)
+ by SJ1PR12MB6364.namprd12.prod.outlook.com (2603:10b6:a03:452::6) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.21; Wed, 26 Apr
- 2023 16:27:50 +0000
-Received: from DS1PEPF0000E638.namprd02.prod.outlook.com
- (2603:10b6:8:55:cafe::a) by DS7PR03CA0358.outlook.office365.com
- (2603:10b6:8:55::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.33; Wed, 26 Apr
+ 2023 16:27:55 +0000
+Received: from DS1PEPF0000E63B.namprd02.prod.outlook.com
+ (2603:10b6:5:3b2:cafe::37) by DS7PR03CA0175.outlook.office365.com
+ (2603:10b6:5:3b2::30) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.21 via Frontend
- Transport; Wed, 26 Apr 2023 16:27:49 +0000
+ Transport; Wed, 26 Apr 2023 16:27:55 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -46,22 +45,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DS1PEPF0000E638.mail.protection.outlook.com (10.167.17.70) with Microsoft
+ DS1PEPF0000E63B.mail.protection.outlook.com (10.167.17.73) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6340.19 via Frontend Transport; Wed, 26 Apr 2023 16:27:49 +0000
+ 15.20.6340.19 via Frontend Transport; Wed, 26 Apr 2023 16:27:55 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 26 Apr
- 2023 11:27:49 -0500
+ 2023 11:27:54 -0500
 Received: from alan-new-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Wed, 26 Apr 2023 11:27:45 -0500
+ Transport; Wed, 26 Apr 2023 11:27:50 -0500
 From: Alan Liu <HaoPing.Liu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/8] drm/amd/display: Workaround wrong HDR colorimetry with
- some receivers
-Date: Thu, 27 Apr 2023 00:27:05 +0800
-Message-ID: <20230426162712.895717-2-HaoPing.Liu@amd.com>
+Subject: [PATCH 2/8] drm/amd/display: Change default Z8 watermark values
+Date: Thu, 27 Apr 2023 00:27:06 +0800
+Message-ID: <20230426162712.895717-3-HaoPing.Liu@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230426162712.895717-1-HaoPing.Liu@amd.com>
 References: <20230426162712.895717-1-HaoPing.Liu@amd.com>
@@ -70,26 +68,26 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0000E638:EE_|MW4PR12MB6899:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2cd5b5af-8607-4937-2387-08db46732d30
+X-MS-TrafficTypeDiagnostic: DS1PEPF0000E63B:EE_|SJ1PR12MB6364:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7a3ffd0a-76da-41ee-de54-08db467330b8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: J/JAQuDc88/OaDA8wr3LceNkvBr6QhwMJYMZIuYiqB5RKOZbnTVhTHfetSEzPXt/YDuNtaT0A794Exn6t2Leu0SxjyQg0TSRwhcV6LsXldkc5KGJnzVgDO2hdEpVDJQZ7k9vlwzVtueLaXGkjCvpmAoOiP8ON748GrYCGC8YYGLadpWqbYicBLyn4JAbIrYZWtQXilo26TO/Q+Jf7Zn5CW7jTTffLvP8ibwG3tZG+kWSbAI52yKVu9+kLDJ0kESraKNRm8NzIB7whyFPaIBRUWWDA8KyCMPLsw/wNYKPJtKYLudSkk6xafWtCQ7lEY3JiWetvC0lGh5cFIbKM9hnqxicUVkrpu7ZC89W5YJHNmCIohbCmGwKRCUEJGASIJ01H8Eca/Sh3JqaB+nRg8ZoyC44+pEpeKvt4MWq8wgNZvu/l23xxqrlpzmofKavwNhPGZSCcTlhQH5ByBOevU6fBTL0Gnvl0LMgHdnDqdE8l/ZXVG4rBgrIuXw7k3SMphMN336fhUHCfsbbdPPeZfnVhzE6abCaFiIW5PZmMx7P0zvDclnQtvyro27BWsjNWT3jKqrRNflnPLxjHfBB3MOBxhgb4tSuBRcP4lx90pYNtgltllDrqgNSUb5Y6I83K+AsriDj2JHiHqwbIE2Xvy9Pe3Fsh/4rGSfDbT43LEC6UZCe7oSiFDinrEdCwt1M1nOzc9FFazyTECjhRbnC/brfRp7h1xruAGa5jDP3X5BYpKI=
+X-Microsoft-Antispam-Message-Info: Vgw6/jx3BOWJExeEeHdDPKacniNCF61vwCy2rP7QTus1jqXgcl6VzT4FKj5RM6Q0s/RsPeWYvN5iphAWZO5iZyQiwU23mSiBupuSmRb8M7Yxb84MOt4OHO91lausxxcuKJEIqgFApL1d81ITQjz1EFMa567rHb6RMBz+oViXodUNO61G4pgGOGS0RzWA4jWK27+vJ5+bTcVIqEnu6WlZyh7gbw2AkSN/CtDLH8ztK3sNP67PzUVHKyr+aHm1yiKqwez15TRfCkWa1gLusMxbcGqFnWgo9+iqX08ydanc+V/J36rH1xgsG887Se9fEpmxiBqf5pyk1+Gc74wsq1TukduSbAI3Mdu/Pl4oQb7SCVx0bA3l9UECsrFOAJND3nSmQN2iE7sdmU1n1UUBhGclq0rtrFEsno0V6Oc3dt7V2CCoqe8ZT5qwwP/IryDya+wDsi+TpvemcnPxD/SQduw9ox/GpTqWA+AwteqOK3srjCdEYQbNDiQ1NadEiOavqHtefHF/51iSA4VpCg7MowdzUbTdBjHiG4Dp3TfFd25gAE0htyySBT8ufzjOcXCbS8+mJC+i7fkmGZn1f23qqnBvoh0Y6XjSmBdQHOa7fumxe63oVZPZ+trkXFXxs4YFOmaoJ6ScMBfsJJG5zYbRpg2xfc67MR8ZKoBvpj3qJuOAEruHwMOp2Y8XRpttELrC4TruTCSxUIte0f0BvNXDb94MQ7nFEFYJdlq6Vx7M4Hvuag4=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(396003)(376002)(39860400002)(346002)(451199021)(40470700004)(36840700001)(46966006)(47076005)(82310400005)(36756003)(86362001)(2906002)(40480700001)(7696005)(6666004)(36860700001)(186003)(83380400001)(336012)(426003)(2616005)(1076003)(26005)(6916009)(4326008)(70586007)(70206006)(478600001)(40460700003)(81166007)(316002)(5660300002)(356005)(82740400003)(54906003)(41300700001)(8676002)(8936002)(36900700001);
+ SFS:(13230028)(4636009)(396003)(39860400002)(376002)(346002)(136003)(451199021)(40470700004)(36840700001)(46966006)(1076003)(26005)(356005)(40480700001)(336012)(426003)(2616005)(83380400001)(36756003)(36860700001)(47076005)(82740400003)(186003)(40460700003)(70206006)(81166007)(54906003)(86362001)(70586007)(6916009)(478600001)(8676002)(8936002)(7696005)(5660300002)(41300700001)(2906002)(82310400005)(4326008)(6666004)(316002)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2023 16:27:49.5588 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2cd5b5af-8607-4937-2387-08db46732d30
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2023 16:27:55.4881 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a3ffd0a-76da-41ee-de54-08db467330b8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000E638.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0000E63B.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6899
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6364
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,64 +99,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stylon.wang@amd.com, Ilya Bakoulin <Ilya.Bakoulin@amd.com>,
- Aric Cyr <Aric.Cyr@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com, roman.li@amd.com,
- Alan Liu <HaoPing.Liu@amd.com>, solomon.chiu@amd.com, Aurabindo.Pillai@amd.com,
- wayne.lin@amd.com, Bhawanpreet.Lakha@amd.com, agustin.gutierrez@amd.com,
- pavle.kotarac@amd.com
+Cc: stylon.wang@amd.com, Alan Liu <HaoPing.Liu@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, qingqing.zhuo@amd.com, Rodrigo.Siqueira@amd.com,
+ roman.li@amd.com, stable@vger.kernel.org,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, Mario
+ Limonciello <mario.limonciello@amd.com>, wayne.lin@amd.com,
+ Alex Deucher <alexander.deucher@amd.com>, Bhawanpreet.Lakha@amd.com,
+ Leo Chen <sancchen@amd.com>, agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
+From: Leo Chen <sancchen@amd.com>
 
-[Why]
-Some scalers do not pick up color space updates unless the DP link
-is disabled/re-enabled which can result in incorrect/washed out
-HDR colors in some cases.
+[Why & How]
+Previous Z8 watermark values were causing flickering and OTC underflow.
+Updating Z8 watermark values based on the measurement.
 
-[How]
-Call set_dpms_on to disable the link, re-train and re-enable with the
-updated output color space.
-
-Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
+Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
 Acked-by: Alan Liu <HaoPing.Liu@amd.com>
-Signed-off-by: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
+Signed-off-by: Leo Chen <sancchen@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 7 +++++++
- drivers/gpu/drm/amd/display/dc/dc.h      | 1 +
- 2 files changed, 8 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 1fe040544051..7b68ff0f9c4a 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -3268,6 +3268,13 @@ static void commit_planes_do_stream_update(struct dc *dc,
- 						dc->hwss.prepare_bandwidth(dc, dc->current_state);
- 					dc->link_srv->set_dpms_on(dc->current_state, pipe_ctx);
- 				}
-+			} else if (pipe_ctx->stream->link->wa_flags.blank_stream_on_ocs_change && stream_update->output_color_space
-+					&& !stream->dpms_off && dc_is_dp_signal(pipe_ctx->stream->signal)) {
-+				/*
-+				 * Workaround for firmware issue in some receivers where they don't pick up
-+				 * correct output color space unless DP link is disabled/re-enabled
-+				 */
-+				dc->link_srv->set_dpms_on(dc->current_state, pipe_ctx);
- 			}
- 
- 			if (stream_update->abm_level && pipe_ctx->stream_res.abm) {
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 4424e7abb801..892e3adb99d9 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -1506,6 +1506,7 @@ struct dc_link {
- 		/* Forced DPIA into TBT3 compatibility mode. */
- 		bool dpia_forced_tbt3_mode;
- 		bool dongle_mode_timing_override;
-+		bool blank_stream_on_ocs_change;
- 	} wa_flags;
- 	struct link_mst_stream_allocation_table mst_stream_alloc_table;
- 
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c
+index 19370b872a91..1d00eb9e73c6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c
+@@ -149,8 +149,8 @@ static struct _vcs_dpi_soc_bounding_box_st dcn3_14_soc = {
+ 	.num_states = 5,
+ 	.sr_exit_time_us = 16.5,
+ 	.sr_enter_plus_exit_time_us = 18.5,
+-	.sr_exit_z8_time_us = 210.0,
+-	.sr_enter_plus_exit_z8_time_us = 310.0,
++	.sr_exit_z8_time_us = 268.0,
++	.sr_enter_plus_exit_z8_time_us = 393.0,
+ 	.writeback_latency_us = 12.0,
+ 	.dram_channel_width_bytes = 4,
+ 	.round_trip_ping_latency_dcfclk_cycles = 106,
 -- 
 2.34.1
 
