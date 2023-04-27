@@ -4,64 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 899D4C77B73
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Apr 2023 17:54:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2B3FC77B73
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Apr 2023 18:34:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 461B810E30F;
-	Thu, 27 Apr 2023 17:54:05 +0000 (UTC)
-Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
- [IPv6:2607:f8b0:4864:20::430])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFE8610E0E0;
- Thu, 27 Apr 2023 17:54:03 +0000 (UTC)
-Received: by mail-pf1-x430.google.com with SMTP id
- d2e1a72fcca58-64115eef620so6796613b3a.1; 
- Thu, 27 Apr 2023 10:54:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1682618043; x=1685210043;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=kTwA5Igpbrlnqx2MFioiqClnnk3fWCd7F6gKiXvsizg=;
- b=F02JosDYSh6gH8BbBVyLQpfSS+7jFCWgel+AjYaRMDX6D8xc/HdFGNUw/LP4VfuhKO
- FBGI+ypyvSemxnMhgbXmZhIj0XAsFs578Ow2DPZX6tr0p6k0r7tRA0tkDLWNgoI66t14
- ChadQMBb4p5jszCF567xmG+p0QDKicYptfWnC10WXOjeNrcro5Kl4r0qSGiZ7igOJ9yw
- ur+tS0pDFIXAvtNgVWdz84HVxOS7GQZpK/ZRRCoMAELIQdgaEAUBJ8h113jxpNcWYFbz
- 1Qb9YqiCSLdpHjJTq8V4AyQXpEjLA0vl/xdhw7dWvJ6JZymB4bWO37FZtlgp47OJClNi
- NuJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682618043; x=1685210043;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=kTwA5Igpbrlnqx2MFioiqClnnk3fWCd7F6gKiXvsizg=;
- b=f1fP1LBhsUWSgT5qeaWHrBfS8VxNER7I+Ii8pN0sN4HORSsWlJarX3d34jkIVt5alP
- L/CqPozrCAxRaNqg0XIuAntA3ipQO8WDgXQyeYHSvikYqM9BNnCfG6KuIZeApfOBO0qx
- 1uXNOeMJKvoh4L7uuNEsKvewyPuJEIQKy1mCs65T6d7KRQ+JX+knsv0Er67t33Qc/RUe
- k0mIZKEP83viXRutm8VaBF0i+MYxIIfS/hihf/5gbVsXvCIXrA1LyIO0vckmUEWeQlUb
- d1v4dYFukn4gViBynI6nYcrB7O6vDJr2yg6+0hBuGhIyw8UuVJv8HqT5TV0bwiie4a2K
- T+6A==
-X-Gm-Message-State: AC+VfDxAPYWzYlk+B2Gxqd8GQ4gB/8vU2L+9Ykctk1ZpzLmcBFE6PBnY
- zdFryToI+7q26SlsGJBvOlkmPIy6iLY=
-X-Google-Smtp-Source: ACHHUZ6LNNj8gqJAFOABkk08xjTsf/iTgKG8pNsMVfNLhyxs19frA15VFo4R4M5e8URgVw6J5vEgMw==
-X-Received: by 2002:a17:90a:cb81:b0:249:7ad3:e843 with SMTP id
- a1-20020a17090acb8100b002497ad3e843mr3282208pju.16.1682618043189; 
- Thu, 27 Apr 2023 10:54:03 -0700 (PDT)
-Received: from localhost ([2a00:79e1:abd:4a00:61b:48ed:72ab:435b])
- by smtp.gmail.com with ESMTPSA id
- ls17-20020a17090b351100b0023a9564763bsm13396089pjb.29.2023.04.27.10.54.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Apr 2023 10:54:02 -0700 (PDT)
-From: Rob Clark <robdclark@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Subject: [PATCH v2 4/9] drm/amdgpu: Switch to fdinfo helper
-Date: Thu, 27 Apr 2023 10:53:28 -0700
-Message-Id: <20230427175340.1280952-5-robdclark@gmail.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230427175340.1280952-1-robdclark@gmail.com>
-References: <20230427175340.1280952-1-robdclark@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5769510E32F;
+	Thu, 27 Apr 2023 18:34:52 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2046.outbound.protection.outlook.com [40.107.220.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37C8A10E32F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Apr 2023 18:34:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=i7v9XDNbVaJSdilyi2XDrp97UD/IpeqC7vA2ILSu9EaJ3i5f4W7kZe8m0ujK4FQSTwB6DB7hpS8UTVVh9GW+iLO+d7K4UCzS2AFvUbBKMx6wNpuITdOVSZAtTNb+4LSrZEsFSJ6hoBbe1gfUKOmL9aco9gNenz0KetmgtF7LUhGz0ttaP8cuzxo6m61gCPsuvBF+Qs9Xdh0xr15ggWSJE3XN3ECGNvZLpUEfOZLQ/vJt/Nw6Qpbf4DkreuGN7ybwQlqfc+ir+uN+cyd0ihIzatBStme0V5EKzUoBz4SkBDert9ZwPD4J9a2xehOSfEb+iZDLyt8QlYHQ3MOIqw1yUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=i10LtPLovxbfVtQcHnOp9FtaYYGiLxc1mQ0d4X9o/DM=;
+ b=F4IjVvWsqBCWEEJGD7LQOMLHdnyGOakryCaBZ9coqW5jhjl2J5td8h/VlqgoXxRmQhAPXjGs7stjWUMGJ4tNS1lVSztgnS4UPRUPnPVg2pWQ+bboifzI+5MiPi+bXYK4CclZbWQbu6/tjZqJ0XIXD5SH+VCzRoDYz3SEgU54Od3rqdCOl5wXr+CdaXo5qAX6y3SjdKEbrzgsOlyIzTw5QGD5dVYoetwvXTVlJ3wox9EBn47TfU3+RM002Drb1oaFSqyDfjdDGjyGA5/0HvsuNN/8vI0UtA5xC9gfuOoDFc/0IVcZThXbJpjPScIJxhBpUh3fpSCt9fwgBtWOs22/ww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=i10LtPLovxbfVtQcHnOp9FtaYYGiLxc1mQ0d4X9o/DM=;
+ b=Dur7ZaB54wT8ElphIfHcRz/4Nr99HP/ienPzM++WkSAqpiK+qFES4k4VQVA11lOkTRrqsIoT36nH4cvjnWyv+Zyk+zXxPrl9+aN39e+MzGWin0BFGUffXLqUa8Bq4oclsoqwvhtL/5Vyf1KgapS8ormwIFFWqlJaEJ63umjqaIo=
+Received: from DS7PR03CA0257.namprd03.prod.outlook.com (2603:10b6:5:3b3::22)
+ by MN2PR12MB4551.namprd12.prod.outlook.com (2603:10b6:208:263::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.34; Thu, 27 Apr
+ 2023 18:34:46 +0000
+Received: from DM6NAM11FT067.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b3:cafe::a3) by DS7PR03CA0257.outlook.office365.com
+ (2603:10b6:5:3b3::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.23 via Frontend
+ Transport; Thu, 27 Apr 2023 18:34:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT067.mail.protection.outlook.com (10.13.172.76) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6340.23 via Frontend Transport; Thu, 27 Apr 2023 18:34:46 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 27 Apr
+ 2023 13:34:45 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amdgpu: drop invalid IP revision
+Date: Thu, 27 Apr 2023 14:34:28 -0400
+Message-ID: <20230427183429.599578-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT067:EE_|MN2PR12MB4551:EE_
+X-MS-Office365-Filtering-Correlation-Id: 06cf8d03-c94b-4372-55ad-08db474e13bd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: mcooVEKUZzJv4lVHUIhoi2zQUa5ulzBWOHv8H7xsxzfMtmlf48vhKvTJJR+Lsb0FSGuH196rOeR7byTmTjxLAkqP3NeAfCvl5NEZ40JoEzz1poa0svw2ku3AcC0p4zb3K4uVd7uwlB52Su9JcuA097nTUKNBguzF+5I73YiDITdYisUhAzvGnny78M9ej05khAhydDerTKFfY1hN0pKj83SmIvShOfNlWCgfTrWo2C/06PhigHBX50kHH7VJ0+SzeOWvnomYADeSh2zcTovQGRIeWlKTQt/k4TAbNMuMcyaRbt82ubEgaN50YTARoEwtS+Ol4I92sH4oKcbogD507MFtIwmnaTWSxa+Szf6AsAp9xyvGlXVJep59kQsVPGpByheX5TfWsZC1DeQYd34zTDGI7m/jWWgoTbypRm4n/P5kMrAYlfaHPo6YSDh1llJDm+nVhxn+p3aPBiV0jLA3hX4dD016lrki0mNgoyxn+8rA4ItHek6G5EI5bvXZ3HDm1fveg5/HhxKuxXIsDw0Hcd9GNsefWWi5AUj6rPwTpxWK6xN9YxZXBsG6sjA1garwQCAHpMPtnrIsfoBMfxQRWW/9PFVBfR6jO+dHvP3TZNZ5FF0NFj1IZbhwUbQ5M8ABF/KzeOxklaHa5f7JOo8FIlhjQZOG5bXCaL2UHg03KwTOzR9fPGSGZlnrbLyvVSD8gHs9HKaKGT7bD9trQMtKDeDrG1o2AG8M2gyt01EmekE=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(346002)(396003)(39860400002)(376002)(451199021)(36840700001)(40470700004)(46966006)(16526019)(186003)(40480700001)(40460700003)(86362001)(478600001)(82310400005)(7696005)(36756003)(6666004)(2906002)(4744005)(8936002)(82740400003)(5660300002)(8676002)(70206006)(4326008)(6916009)(70586007)(81166007)(1076003)(356005)(26005)(316002)(41300700001)(336012)(426003)(2616005)(36860700001)(47076005)(83380400001)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2023 18:34:46.6472 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06cf8d03-c94b-4372-55ad-08db474e13bd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT067.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4551
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,108 +97,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lijo Lazar <lijo.lazar@amd.com>, open list <linux-kernel@vger.kernel.org>,
- =?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>,
- YiPeng Chai <YiPeng.Chai@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- David Airlie <airlied@gmail.com>, Rob Clark <robdclark@chromium.org>,
- Guchun Chen <guchun.chen@amd.com>, Shashank Sharma <shashank.sharma@amd.com>,
- "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@intel.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Emil Velikov <emil.l.velikov@gmail.com>,
- Christopher Healy <healych@amazon.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- freedreno@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Rob Clark <robdclark@chromium.org>
+This was already fixed and dropped in:
+commit baf3f8f37406 ("drm/amdgpu: handle SRIOV VCN revision parsing")
+commit c40bdfb2ffa4 ("drm/amdgpu: fix incorrect VCN revision in SRIOV")
+But seems to have been accidently been left around in a merge.
 
-Signed-off-by: Rob Clark <robdclark@chromium.org>
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  3 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c | 16 ++++++----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h |  2 +-
- 3 files changed, 9 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index f5ffca24def4..6c0e0c614b94 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2752,7 +2752,7 @@ static const struct file_operations amdgpu_driver_kms_fops = {
- 	.compat_ioctl = amdgpu_kms_compat_ioctl,
- #endif
- #ifdef CONFIG_PROC_FS
--	.show_fdinfo = amdgpu_show_fdinfo
-+	.show_fdinfo = drm_show_fdinfo,
- #endif
- };
- 
-@@ -2807,6 +2807,7 @@ static const struct drm_driver amdgpu_kms_driver = {
- 	.dumb_map_offset = amdgpu_mode_dumb_mmap,
- 	.fops = &amdgpu_driver_kms_fops,
- 	.release = &amdgpu_driver_release_kms,
-+	.show_fdinfo = amdgpu_show_fdinfo,
- 
- 	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
- 	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-index 99a7855ab1bc..c2fdd5e448d1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-@@ -53,9 +53,8 @@ static const char *amdgpu_ip_name[AMDGPU_HW_IP_NUM] = {
- 	[AMDGPU_HW_IP_VCN_JPEG]	=	"jpeg",
- };
- 
--void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
-+void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
- {
--	struct drm_file *file = f->private_data;
- 	struct amdgpu_device *adev = drm_to_adev(file->minor->dev);
- 	struct amdgpu_fpriv *fpriv = file->driver_priv;
- 	struct amdgpu_vm *vm = &fpriv->vm;
-@@ -86,18 +85,15 @@ void amdgpu_show_fdinfo(struct seq_file *m, struct file *f)
- 	 * ******************************************************************
- 	 */
- 
--	seq_printf(m, "pasid:\t%u\n", fpriv->vm.pasid);
--	seq_printf(m, "drm-driver:\t%s\n", file->minor->dev->driver->name);
--	seq_printf(m, "drm-pdev:\t%04x:%02x:%02x.%d\n", domain, bus, dev, fn);
--	seq_printf(m, "drm-client-id:\t%Lu\n", vm->immediate.fence_context);
--	seq_printf(m, "drm-memory-vram:\t%llu KiB\n", vram_mem/1024UL);
--	seq_printf(m, "drm-memory-gtt: \t%llu KiB\n", gtt_mem/1024UL);
--	seq_printf(m, "drm-memory-cpu: \t%llu KiB\n", cpu_mem/1024UL);
-+	drm_printf(p, "pasid:\t%u\n", fpriv->vm.pasid);
-+	drm_printf(p, "drm-memory-vram:\t%llu KiB\n", vram_mem/1024UL);
-+	drm_printf(p, "drm-memory-gtt: \t%llu KiB\n", gtt_mem/1024UL);
-+	drm_printf(p, "drm-memory-cpu: \t%llu KiB\n", cpu_mem/1024UL);
- 	for (hw_ip = 0; hw_ip < AMDGPU_HW_IP_NUM; ++hw_ip) {
- 		if (!usage[hw_ip])
- 			continue;
- 
--		seq_printf(m, "drm-engine-%s:\t%Ld ns\n", amdgpu_ip_name[hw_ip],
-+		drm_printf(p, "drm-engine-%s:\t%Ld ns\n", amdgpu_ip_name[hw_ip],
- 			   ktime_to_ns(usage[hw_ip]));
- 	}
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h
-index e86834bfea1d..0398f5a159ef 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h
-@@ -37,6 +37,6 @@
- #include "amdgpu_ids.h"
- 
- uint32_t amdgpu_get_ip_count(struct amdgpu_device *adev, int id);
--void amdgpu_show_fdinfo(struct seq_file *m, struct file *f);
-+void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file);
- 
- #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 0ba013275dc1..76ceca05452e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -1939,7 +1939,6 @@ static int amdgpu_discovery_set_mm_ip_blocks(struct amdgpu_device *adev)
+ 		case IP_VERSION(3, 1, 1):
+ 		case IP_VERSION(3, 1, 2):
+ 		case IP_VERSION(3, 0, 2):
+-		case IP_VERSION(3, 0, 192):
+ 			amdgpu_device_ip_block_add(adev, &vcn_v3_0_ip_block);
+ 			if (!amdgpu_sriov_vf(adev))
+ 				amdgpu_device_ip_block_add(adev, &jpeg_v3_0_ip_block);
 -- 
-2.39.2
+2.40.0
 
