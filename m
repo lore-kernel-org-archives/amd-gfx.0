@@ -4,90 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1273FC77B7E
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Apr 2023 03:30:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CABE8C7EE21
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Apr 2023 05:37:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE61910EA7E;
-	Thu, 27 Apr 2023 03:30:52 +0000 (UTC)
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20625.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8d::625])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D2FD10EA7A;
- Thu, 27 Apr 2023 03:30:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MXEXjLa91Kdj1cOB5rbZuJgDm72xIGpcrNk2MtkRmtGVA2i50vor8Q7NjIRXsar5SRkFz4s0xjidBMAKZmQduIGXI33uLv3sisbOWqHhXnMKu9LAqGlNfYZ1sWAgWcZSju2EMXj0KlpWdp6EkCTF9RoMp404UHXsHHdAu5hhQAp6yaE/N7QFWaiFmyOZyv2aRZCW0oDL34tuKJhHmCLPZfuSq9F8++8kjoD3rIgNQfqULoJ092gOK4il5siWKjDTBcEJUwiUQDioMvUZth6CqmfkUeP5AO8XRK/yFUfo5saGoiilTIulNDwCZ36PA2qgz1uVoYeIMRSy0VRg36PcXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GAKSgdvJsDIVaqiHLip41YB9fxC47D787sfsyoWr/gg=;
- b=jxc4hI2FpGSZOI53t4hT7ff4ixo5elNDb44foJ+ikiSbLF1uvRunfsQqrJLymvCTaUKPWKN3hEC8XHJctuo6fAOsRL4RPfxYtvBLhefaY8PiWGwgenRWYMW8CrzZeaMPV5qjL+j/tR37gh07+aGz9stZ2c8fBgPLJNdld5Ef9ozQWdchFwGXn7LkPjGZvc6t0D8+hfBoSItoqB07U8UWebLYK2n5aoOoCOuvqQw/id3WfK3ilGp864YmPqx2i6nUmIq6VJxY73+8E4xFFmKAYsDM5wtUe1Qxf4DMEeEOdRlYXx+KNpHYbAEFcCQhnyxtcxBKstsFblUboM9I3rodDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GAKSgdvJsDIVaqiHLip41YB9fxC47D787sfsyoWr/gg=;
- b=LkCre7QtcVxc7VvkzTYNE0CYW2IFNS+hPfn1KE23GGh4JTZhuCgReERxqzWqz4Ko4o7/CGKWzM6YtkjWIi34+ot9CJaDVgVi/3UUsf9h+x8tL3ubGV5+Kj/5QtbAg41330I7h0MriD8STs4Fv6tCUJ/IlrIVPF02dd9QUvrTOQs=
-Received: from DM5PR08CA0049.namprd08.prod.outlook.com (2603:10b6:4:60::38) by
- CH0PR12MB8506.namprd12.prod.outlook.com (2603:10b6:610:18a::6) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6340.22; Thu, 27 Apr 2023 03:30:43 +0000
-Received: from DM6NAM11FT108.eop-nam11.prod.protection.outlook.com
- (2603:10b6:4:60:cafe::80) by DM5PR08CA0049.outlook.office365.com
- (2603:10b6:4:60::38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.21 via Frontend
- Transport; Thu, 27 Apr 2023 03:30:43 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT108.mail.protection.outlook.com (10.13.172.95) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6340.22 via Frontend Transport; Thu, 27 Apr 2023 03:30:43 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 26 Apr
- 2023 22:30:42 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <daniel.vetter@ffwll.ch>
-Subject: [pull] amdgpu drm-fixes-6.4
-Date: Wed, 26 Apr 2023 23:30:12 -0400
-Message-ID: <20230427033012.7668-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.40.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT108:EE_|CH0PR12MB8506:EE_
-X-MS-Office365-Filtering-Correlation-Id: a6b3367a-a2eb-4aae-bf3a-08db46cfc828
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Sm4dicrvrvvSmbMtZD0hVHczh7j7ldNJOKcuLjYWeUvJgtm20roaBWGS5wZ0cgXLgf2SsyCKMiHcz58vT8ggC3UBrKYa+wy8OXST1x4/uwP/kxjCh2WEkFFJE9A/MqIE03KlyiGiVeUDTIb8Z72Pi1tHWhY7Chu1Opd41WUNLWuuEMxae4ikXDMVO8V74PDigg9nR4jQr/HmvgWWLWzm9d6Ho9mtDOyJktomXkAIgtf+ZBONboyu8utVOf+WMJSqVby5NXBdG0fQnza/fYIl3h4zPCmvviYwmP8HlAKSI6ifsD/oTcbMFkDZ/sJ+aQKv3hihNzHMdccf2QzusV4026d0dMaDsd4J2Ry61cJWmJ55g+WuZeY48fAVviiOtllUKGbeoDKDi1rbAO36RvPtKnl6Y9EgLeJPQ3TK5+DvkRIadrDPFqqugtcZL3PvBwwgAlorRTmguWmU58M82UsM4YAl4OlLi46oyRgwiS9gyDIlpoG3VOF4dSzGb7C+4er+B7+k68H8eAfnKHtY9NS6aFx9FBa0cNJfmZwHZBYig2b7FrORDRgsnKHNacw7XlGqGRRVu73FBbKBoL1050gt347p2j1AIzJFwRCrod5sPA0FhGI6iHDCKweF2jmlRqvC3rG1XZfgWzl+qV87/ZYnNAEPhurT8F8QMToU/kpgRywrW9sDS29kWoZqBiDcVSDb
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(376002)(39860400002)(396003)(346002)(451199021)(40470700004)(36840700001)(46966006)(86362001)(36756003)(82310400005)(2906002)(40460700003)(40480700001)(7696005)(36860700001)(6666004)(16526019)(2616005)(47076005)(83380400001)(336012)(186003)(426003)(1076003)(26005)(966005)(4326008)(70206006)(110136005)(70586007)(478600001)(356005)(316002)(82740400003)(5660300002)(41300700001)(8676002)(81166007)(8936002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2023 03:30:43.2564 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6b3367a-a2eb-4aae-bf3a-08db46cfc828
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT108.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8506
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36F3510E1FF;
+	Thu, 27 Apr 2023 05:37:19 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 342B010E1FF
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Apr 2023 05:37:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1682573836; x=1714109836;
+ h=date:from:to:cc:subject:message-id;
+ bh=0zmSFm72B70qH6+SvJN8flTFFQSMt/vIt0/G0ZTd3fk=;
+ b=EudFD/ymGx/pbfJF7A+4HJjU6kjwXVlS8gVXEG7RqB0MK7Lm9w1QFP/6
+ 40Skx/tyklY2LcjPHPu85D79JYKBsXrb+ylDsPQgK2ALCCtFzXv+LHMe9
+ AnidQhGpH1+3z55bTkGwcVF/BBqdG/d6IPFZNTGGJfU2kUThunrXXXQj6
+ VeKF4sP6sPOAlk0GcLk/Q4LOAx1u2Em/fdEBYutxmrI2b8BmQDCF9HarX
+ v2MwUiH30svCf4RcbOG50H+P2V2luHkxM9psZCIJb8YLb8NOK1qcAdhzs
+ NQgyl2/00thRD+5wIwsBczgxbHqVN1iXVplBbAsgvyU+UgMsOgHfYC5C3 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="346094788"
+X-IronPort-AV: E=Sophos;i="5.99,230,1677571200"; d="scan'208";a="346094788"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Apr 2023 22:37:15 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="758936933"
+X-IronPort-AV: E=Sophos;i="5.99,230,1677571200"; d="scan'208";a="758936933"
+Received: from lkp-server01.sh.intel.com (HELO 1e0e07564161) ([10.239.97.150])
+ by fmsmga008.fm.intel.com with ESMTP; 26 Apr 2023 22:37:12 -0700
+Received: from kbuild by 1e0e07564161 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pruJb-00001h-1n;
+ Thu, 27 Apr 2023 05:37:11 +0000
+Date: Thu, 27 Apr 2023 13:36:54 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD SUCCESS WITH WARNING
+ b7455b10da762f2d447678c88e37cc1eb6cb45ee
+Message-ID: <20230427053654.lVx1R%lkp@intel.com>
+User-Agent: s-nail v14.9.24
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,143 +54,316 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: linux-watchdog@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+ linux-acpi@vger.kernel.org, amd-gfx@lists.freedesktop.org, qat-linux@intel.com,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ Mark Brown <broonie@kernel.org>, linux-ext4@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: b7455b10da762f2d447678c88e37cc1eb6cb45ee  Add linux-next specific files for 20230426
 
-Fixes for 6.4.  A bit bigger than usual since it's two weeks worth.  Mostly
-display fixes.
+Warning reports:
 
-The following changes since commit e82c98f2ca439356d5595ba8c9cd782f993f6f8c:
+https://lore.kernel.org/oe-kbuild-all/202304210303.nlMI0sRQ-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202304210349.DykCi88S-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202304220119.94Pw6YsD-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202304270438.mwnBZp1A-lkp@intel.com
 
-  Merge tag 'amd-drm-next-6.4-2023-04-14' of https://gitlab.freedesktop.org/agd5f/linux into drm-next (2023-04-17 10:54:59 +1000)
+Warning: (recently discovered and may have been fixed)
 
-are available in the Git repository at:
+drivers/base/regmap/regcache-maple.c:113:23: warning: 'lower_index' is used uninitialized [-Wuninitialized]
+drivers/base/regmap/regcache-maple.c:113:36: warning: 'lower_last' is used uninitialized [-Wuninitialized]
+drivers/bluetooth/btnxpuart.c:1332:34: warning: unused variable 'nxpuart_of_match_table' [-Wunused-const-variable]
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:6339:6: warning: no previous prototype for 'amdgpu_dm_connector_funcs_force' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:6395:21: warning: variable 'count' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:458:16: warning: variable 'j' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c:1078:6: warning: no previous prototype for 'gfx_v9_4_3_disable_gpa_mode' [-Wmissing-prototypes]
+drivers/watchdog/starfive-wdt.c:584:34: warning: unused variable 'starfive_wdt_match' [-Wunused-const-variable]
+fs/ext4/super.c:1262:13: warning: unused variable 'i' [-Wunused-variable]
+fs/ext4/super.c:1262:6: warning: unused variable 'i' [-Wunused-variable]
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.4-2023-04-26
+Unverified Warning (likely false positive, please contact us if interested):
 
-for you to fetch changes up to d893f39320e1248d1c97fde0d6e51e5ea008a76b:
+drivers/acpi/property.c:985 acpi_data_prop_read_single() error: potentially dereferencing uninitialized 'obj'.
+drivers/crypto/intel/qat/qat_common/adf_cfg.c:262 adf_cfg_add_key_value_param() warn: argument 4 to %lx specifier is cast from pointer
 
-  drm/amd/display: Lowering min Z8 residency time (2023-04-26 22:53:58 -0400)
+Warning ids grouped by kconfigs:
 
-----------------------------------------------------------------
-amd-drm-fixes-6.4-2023-04-26:
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- arc-allyesconfig
+|   |-- drivers-base-regmap-regcache-maple.c:warning:lower_index-is-used-uninitialized
+|   |-- drivers-base-regmap-regcache-maple.c:warning:lower_last-is-used-uninitialized
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- arc-randconfig-r012-20230426
+|   |-- drivers-base-regmap-regcache-maple.c:warning:lower_index-is-used-uninitialized
+|   `-- drivers-base-regmap-regcache-maple.c:warning:lower_last-is-used-uninitialized
+|-- arc-randconfig-r021-20230426
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- arc-randconfig-r043-20230426
+|   |-- drivers-base-regmap-regcache-maple.c:warning:lower_index-is-used-uninitialized
+|   `-- drivers-base-regmap-regcache-maple.c:warning:lower_last-is-used-uninitialized
+|-- arc-randconfig-s053-20230426
+|   |-- drivers-base-regmap-regcache-maple.c:warning:lower_index-is-used-uninitialized
+|   `-- drivers-base-regmap-regcache-maple.c:warning:lower_last-is-used-uninitialized
+|-- arm-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- arm-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- arm64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- i386-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- i386-randconfig-a003
+|   `-- fs-ext4-super.c:warning:unused-variable-i
+|-- i386-randconfig-a014
+|   `-- fs-ext4-super.c:warning:unused-variable-i
+|-- i386-randconfig-a016
+|   `-- fs-ext4-super.c:warning:unused-variable-i
+|-- i386-randconfig-c021
+|   `-- fs-ext4-super.c:warning:unused-variable-i
+|-- i386-randconfig-m021
+|   |-- drivers-acpi-property.c-acpi_data_prop_read_single()-error:potentially-dereferencing-uninitialized-obj-.
+|   `-- drivers-crypto-intel-qat-qat_common-adf_cfg.c-adf_cfg_add_key_value_param()-warn:argument-to-lx-specifier-is-cast-from-pointer
+|-- ia64-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- ia64-randconfig-c041-20230426
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- ia64-randconfig-r006-20230426
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- loongarch-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- loongarch-defconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- mips-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- mips-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- powerpc-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- riscv-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- riscv-randconfig-r042-20230426
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- s390-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- s390-randconfig-r011-20230426
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- s390-randconfig-r044-20230426
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- sparc-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- sparc-randconfig-c44-20230426
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- x86_64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- x86_64-randconfig-a002
+|   `-- fs-ext4-super.c:warning:unused-variable-i
+`-- x86_64-randconfig-m001
+    `-- drivers-acpi-property.c-acpi_data_prop_read_single()-error:potentially-dereferencing-uninitialized-obj-.
+clang_recent_errors
+|-- hexagon-randconfig-r035-20230426
+|   |-- drivers-bluetooth-btnxpuart.c:warning:unused-variable-nxpuart_of_match_table
+|   `-- drivers-watchdog-starfive-wdt.c:warning:unused-variable-starfive_wdt_match
+|-- i386-randconfig-a002
+|   `-- fs-ext4-super.c:warning:unused-variable-i
+|-- x86_64-randconfig-a012
+|   `-- fs-ext4-super.c:warning:unused-variable-i
+`-- x86_64-randconfig-a014
+    `-- fs-ext4-super.c:warning:unused-variable-i
 
-amdgpu:
-- SR-IOV fixes
-- DCN 3.2 fixes
-- DC mclk handling fixes
-- eDP fixes
-- SubVP fixes
-- HDCP regression fix
-- DSC fixes
-- DC FP fixes
-- DCN 3.x fixes
-- Display flickering fix when switching between vram and gtt
-- Z8 power saving fix
-- Fix hang when skipping modeset
+elapsed time: 734m
 
-----------------------------------------------------------------
-Alex Hung (1):
-      drm/amd/display: allow edp updates for virtual signal
+configs tested: 121
+configs skipped: 8
 
-Alvin Lee (1):
-      drm/amd/display: Reduce SubVP + DRR stretch margin
+tested configs:
+alpha                            allyesconfig   gcc  
+alpha                               defconfig   gcc  
+arc                              alldefconfig   gcc  
+arc                              allyesconfig   gcc  
+arc                                 defconfig   gcc  
+arc                  randconfig-r002-20230426   gcc  
+arc                  randconfig-r012-20230426   gcc  
+arc                  randconfig-r013-20230426   gcc  
+arc                  randconfig-r021-20230426   gcc  
+arc                  randconfig-r043-20230426   gcc  
+arm                              allmodconfig   gcc  
+arm                              allyesconfig   gcc  
+arm                         bcm2835_defconfig   clang
+arm                                 defconfig   gcc  
+arm                  randconfig-r046-20230426   clang
+arm                           stm32_defconfig   gcc  
+arm                       versatile_defconfig   clang
+arm64                            allyesconfig   gcc  
+arm64                               defconfig   gcc  
+csky                                defconfig   gcc  
+csky                 randconfig-r032-20230426   gcc  
+hexagon              randconfig-r035-20230426   clang
+hexagon              randconfig-r041-20230426   clang
+hexagon              randconfig-r045-20230426   clang
+i386                             allyesconfig   gcc  
+i386                              debian-10.3   gcc  
+i386                                defconfig   gcc  
+i386                          randconfig-a001   gcc  
+i386                          randconfig-a002   clang
+i386                          randconfig-a003   gcc  
+i386                          randconfig-a004   clang
+i386                          randconfig-a005   gcc  
+i386                          randconfig-a006   clang
+i386                          randconfig-a011   clang
+i386                          randconfig-a012   gcc  
+i386                          randconfig-a013   clang
+i386                          randconfig-a014   gcc  
+i386                          randconfig-a015   clang
+i386                          randconfig-a016   gcc  
+ia64                             allmodconfig   gcc  
+ia64                                defconfig   gcc  
+ia64                 randconfig-r006-20230426   gcc  
+loongarch                        allmodconfig   gcc  
+loongarch                         allnoconfig   gcc  
+loongarch                           defconfig   gcc  
+loongarch            randconfig-r022-20230426   gcc  
+loongarch            randconfig-r036-20230426   gcc  
+m68k                             allmodconfig   gcc  
+m68k                                defconfig   gcc  
+m68k                 randconfig-r015-20230426   gcc  
+microblaze           randconfig-r024-20230426   gcc  
+mips                             allmodconfig   gcc  
+mips                             allyesconfig   gcc  
+mips         buildonly-randconfig-r006-20230426   gcc  
+mips                  cavium_octeon_defconfig   clang
+mips                      pic32mzda_defconfig   clang
+mips                 randconfig-r031-20230426   gcc  
+mips                 randconfig-r033-20230426   gcc  
+nios2        buildonly-randconfig-r001-20230426   gcc  
+nios2                               defconfig   gcc  
+openrisc     buildonly-randconfig-r002-20230426   gcc  
+openrisc                    or1ksim_defconfig   gcc  
+openrisc             randconfig-r001-20230426   gcc  
+openrisc             randconfig-r025-20230426   gcc  
+openrisc             randconfig-r034-20230426   gcc  
+parisc                              defconfig   gcc  
+parisc               randconfig-r005-20230426   gcc  
+parisc64                            defconfig   gcc  
+powerpc                      acadia_defconfig   clang
+powerpc                          allmodconfig   gcc  
+powerpc                           allnoconfig   gcc  
+powerpc                       ebony_defconfig   clang
+powerpc                 linkstation_defconfig   gcc  
+powerpc                 mpc837x_rdb_defconfig   gcc  
+powerpc                  mpc885_ads_defconfig   clang
+powerpc              randconfig-r004-20230426   clang
+powerpc              randconfig-r023-20230426   gcc  
+riscv                            allmodconfig   gcc  
+riscv                             allnoconfig   gcc  
+riscv                               defconfig   gcc  
+riscv             nommu_k210_sdcard_defconfig   gcc  
+riscv                randconfig-r042-20230426   gcc  
+riscv                          rv32_defconfig   gcc  
+s390                             allmodconfig   gcc  
+s390                             allyesconfig   gcc  
+s390                                defconfig   gcc  
+s390                 randconfig-r011-20230426   gcc  
+s390                 randconfig-r044-20230426   gcc  
+s390                       zfcpdump_defconfig   gcc  
+sh                               allmodconfig   gcc  
+sh           buildonly-randconfig-r004-20230426   gcc  
+sh                                  defconfig   gcc  
+sh                        edosk7760_defconfig   gcc  
+sh                          sdk7786_defconfig   gcc  
+sh                           se7206_defconfig   gcc  
+sh                           se7705_defconfig   gcc  
+sh                           se7721_defconfig   gcc  
+sh                           se7780_defconfig   gcc  
+sparc                               defconfig   gcc  
+sparc64              randconfig-r003-20230426   gcc  
+um                             i386_defconfig   gcc  
+um                           x86_64_defconfig   gcc  
+x86_64                            allnoconfig   gcc  
+x86_64                           allyesconfig   gcc  
+x86_64                              defconfig   gcc  
+x86_64                                  kexec   gcc  
+x86_64                        randconfig-a001   clang
+x86_64                        randconfig-a002   gcc  
+x86_64                        randconfig-a003   clang
+x86_64                        randconfig-a004   gcc  
+x86_64                        randconfig-a005   clang
+x86_64                        randconfig-a006   gcc  
+x86_64                        randconfig-a011   gcc  
+x86_64                        randconfig-a012   clang
+x86_64                        randconfig-a013   gcc  
+x86_64                        randconfig-a014   clang
+x86_64                        randconfig-a015   gcc  
+x86_64                        randconfig-a016   clang
+x86_64                               rhel-8.3   gcc  
+xtensa               randconfig-r016-20230426   gcc  
+xtensa                    smp_lx200_defconfig   gcc  
 
-Aurabindo Pillai (5):
-      drm/amd/display: Fix hang when skipping modeset
-      drm/amd/display: remove incorrect early return
-      drm/amd/display: Fixes for dcn32_clk_mgr implementation
-      drm/amd/display: Do not clear GPINT register when releasing DMUB from reset
-      drm/amd/display: Update bounding box values for DCN321
-
-Chong Li (1):
-      drm/amdgpu: release gpu full access after "amdgpu_device_ip_late_init"
-
-Cruise Hung (1):
-      drm/amd/display: Reset OUTBOX0 r/w pointer on DMUB reset
-
-Hamza Mahfooz (1):
-      drm/amd/display: fix flickering caused by S/G mode
-
-Hersen Wu (3):
-      drm/amd/display: fix memleak in aconnector->timing_requested
-      drm/amd/display: fix access hdcp_workqueue assert
-      drm/amd/display: Return error code on DSC atomic check failure
-
-Igor Kravchenko (1):
-      drm/amd/display: Set min_width and min_height capability for DCN30
-
-Jane Jian (1):
-      drm/amdgpu/vcn: fix mmsch ctx table size
-
-Jasdeep Dhillon (1):
-      drm/amd/display: Isolate remaining FPU code in DCN32
-
-Jingwen Zhu (1):
-      drm/amd/display: Improvement for handling edp link training fails
-
-Josip Pavic (1):
-      drm/amd/display: copy dmub caps to dc on dcn31
-
-Leo Chen (1):
-      drm/amd/display: Lowering min Z8 residency time
-
-Michael Mityushkin (1):
-      drm/amd/display: Apply correct panel mode when reinitializing hardware
-
-Rodrigo Siqueira (8):
-      drm/amd/display: Update bouding box values for DCN32
-      drm/amd/display: Add missing mclk update
-      drm/amd/display: Adjust code identation and other minor details
-      drm/amd/display: Set maximum VStartup if is DCN201
-      drm/amd/display: Set dp_rate to dm_dp_rate_na by default
-      drm/amd/display: Remove wrong assignment of DP link rate
-      drm/amd/display: Use pointer in the memcpy
-      drm/amd/display: Add missing WA and MCLK validation
-
-Tianci Yin (1):
-      drm/amd/display: Disable migration to ensure consistency of per-CPU variable
-
-Tom Rix (2):
-      drm/amd/pm: change pmfw_decoded_link_width, speed variables to globals
-      drm/amd/display: set variable dccg314_init storage-class-specifier to static
-
-Wesley Chalmers (2):
-      drm/amd/display: Do not set drr on pipe commit
-      drm/amd/display: Block optimize on consecutive FAMS enables
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  32 ++--
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c             |   2 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  34 +++-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |   1 -
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  17 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c     |   2 +
- .../amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c   |   5 +
- drivers/gpu/drm/amd/display/dc/core/dc_resource.c  |   3 +
- drivers/gpu/drm/amd/display/dc/dc.h                |   1 +
- drivers/gpu/drm/amd/display/dc/dc_stream.h         |   2 +-
- .../amd/display/dc/dce110/dce110_hw_sequencer.c    |  19 ++-
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c |   9 ++
- drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c |  25 ++-
- .../gpu/drm/amd/display/dc/dcn30/dcn30_resource.c  |   4 +-
- drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c |   4 +
- .../gpu/drm/amd/display/dc/dcn314/dcn314_dccg.c    |   2 +-
- .../drm/amd/display/dc/dcn314/dcn314_resource.c    |   2 +-
- drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c |   1 +
- .../gpu/drm/amd/display/dc/dcn32/dcn32_resource.c  |  46 +++---
- .../gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c   | 178 +++++++++++----------
- .../gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c   |  18 ++-
- .../gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.c   |  17 +-
- .../gpu/drm/amd/display/dc/dml/dcn32/dcn32_fpu.h   |   2 +
- .../gpu/drm/amd/display/dc/dml/dcn321/dcn321_fpu.c |  24 +--
- drivers/gpu/drm/amd/display/dc/link/link_dpms.c    |   5 +
- .../display/dc/link/protocols/link_dp_training.c   |   5 +-
- .../dc/link/protocols/link_edp_panel_control.c     |   1 +
- drivers/gpu/drm/amd/display/dmub/src/dmub_dcn32.c  |   3 +-
- drivers/gpu/drm/amd/display/include/signal_types.h |   1 +
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h       |   4 +-
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c     |   3 +
- 31 files changed, 300 insertions(+), 172 deletions(-)
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
