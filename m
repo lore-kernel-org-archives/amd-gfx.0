@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD930C77B73
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Apr 2023 12:39:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADD4BC77B7C
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Apr 2023 12:40:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B52110E34E;
-	Thu, 27 Apr 2023 12:39:11 +0000 (UTC)
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [IPv6:2a00:1450:4864:20::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDD5A10EAD1;
- Thu, 27 Apr 2023 07:44:53 +0000 (UTC)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-94f0dd117dcso1207363166b.3; 
- Thu, 27 Apr 2023 00:44:53 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A57C210EB4C;
+	Thu, 27 Apr 2023 12:40:07 +0000 (UTC)
+Received: from mail-oo1-xc34.google.com (mail-oo1-xc34.google.com
+ [IPv6:2607:f8b0:4864:20::c34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC7F810EB44;
+ Thu, 27 Apr 2023 12:40:04 +0000 (UTC)
+Received: by mail-oo1-xc34.google.com with SMTP id
+ 006d021491bc7-547303fccefso5989258eaf.3; 
+ Thu, 27 Apr 2023 05:40:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1682581491; x=1685173491;
+ d=gmail.com; s=20221208; t=1682599203; x=1685191203;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=yN4Wi6us9tqsW8wES8TfgapwiSQM5W3hLxG1tm9HFuk=;
- b=Z/MeeZiHBqR8BxiSLLgHCC/EH/QJKBpmBB+s+TiEbkHjNHGfQk8bgl3fEdk6cTAb8s
- i5Rgr7ATOP4iz9wyQn6Aecx1h53Y7H/iWCEF3Xs1jE6x40FOT7R87qeSkCvdCDsnX3oM
- o7J6sMW/R47q/Q95xro8n92wplp3kDXiWD2xJr75vZTJrwQUwzjwYHPZkolBOMlHwZC6
- LeTwzxCIf4xH76inLIaInXPJhcTfXWNcXkwUyGxuN7+aEVNRnjZhgEnXr73M0Vyo7AoP
- XYXo7mO5TFHAHW606Dt5BMF5OXx3j7KHPy0Q5SU2Njjve624+FyCJcm5dvnNRJ2HorOy
- 4yNQ==
+ bh=J6ET9XLS5jM/TyHq4+UE6o4i1yy/wsCl/8+/RTLOHqY=;
+ b=msyOC8BBuy7I5069cJ9Fs6UeK9SnEiNiykDGApouWwIVmp6W+w4i7EI0BD6bwq45Te
+ Mv8ooCvRm5eCzKziAc0k3FmoE9HbIC5yDZUY+pqJzuVCHk7IWnWr9+mXvwTTuj9l0Ncz
+ CMRlMc3859WHiODGKv/+0U7vSrJpu/RWfAH+SyiwNgsOLmX1BVdKgnoAV2YMsITtsmPL
+ iFdrpSLUmvyTf8WJnrfeTYpIh//v5KGODvIhdeuaNW1lM1XD3gmrZ34un2ub2iJvj1wM
+ LXVyWM9yoKcEjEPrVn+zY9Fu3t3uKe4w/r4/5m/2yU76S0mRQPAZCd3XfuQMVJwWXUBL
+ bGLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682581491; x=1685173491;
+ d=1e100.net; s=20221208; t=1682599203; x=1685191203;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=yN4Wi6us9tqsW8wES8TfgapwiSQM5W3hLxG1tm9HFuk=;
- b=A80gGCMLNXPI9ZEkAbJo+tDV/wyB10r79dQ49irn/G5//2XqY/R+aA5pbqYtY/Ndbo
- vvgffKHOr5WCObkwIyWZLQUGp+xpKjht6VfZ/b9p4BiIa4SD6OReF+iBCQ/RQXvtMQ6g
- xv3DBcN3T9Aiy0QODcy4PUht94XgJ+0CTB6eJiIsS5xLsE/Golnq9B5spE1PxlddkjQO
- X5RnhOJdjY2i74GZ5oxismcXT4U1AITMMKSMY6YfvIusMzh/lJ26fZCwU/NIH2g29Aig
- ECauaccqu+1feAVFJx+0Gz6dH2oqzXnbvB8lhGJ8VQs2wFqWmRUAKoZYXQRZa4v2Gbs1
- klqA==
-X-Gm-Message-State: AC+VfDzEFRKeRSI5Is9bKlFbpnAwLwqA6BLgCBXwT3P17+KgrbrlZFjE
- cuJmhelvjbrU/yT0RvaCSSXKPbFP+zNlRhIk4rQ=
-X-Google-Smtp-Source: ACHHUZ7Ivm3w6KJmjlpirXR7ZF+N4Jh+ldZEPc5yzcTHChvJ2LMc/imtrzBOL4rDvKcbf9E6AyOGILa+jzdbdHALb4Q=
-X-Received: by 2002:a17:907:961b:b0:94e:6a24:9463 with SMTP id
- gb27-20020a170907961b00b0094e6a249463mr909190ejc.28.1682581491617; Thu, 27
- Apr 2023 00:44:51 -0700 (PDT)
+ bh=J6ET9XLS5jM/TyHq4+UE6o4i1yy/wsCl/8+/RTLOHqY=;
+ b=Yz1Ddq70Lq77aJFIDwhT+ssCyGtSpAd3Uy2PQO31h4gXdhuV9odZ2aoF0C1ct6tJQh
+ Gmus6Szb2CgI6t+8bzUGaMF7QthTZuKlEjxXirCkOxfYg4f0uv5bTlY64jiEL/7+YY/+
+ UGeqdnzvIYjoqNIYBvEOd8HYFMDgck52ZtPdaOJA8fisw5tIowr+bgUrpOC4qnAwgaj0
+ 62MvrSCwazibHDW58uxuNIUkGYOc0mCaJbzNRl2DENFs+8WnRFzT0mY0KjwJ7IBUtsfF
+ 3qFmF5Znh73UIpGIU0/Zw+a2clmA+3d3ALrOdK9umWPs+y0JNKq/W/5iTdIq2+jb378a
+ ViTQ==
+X-Gm-Message-State: AC+VfDymsXYhV8lxd4Ypcp6RxqdOW+Sx2bNhHfk2c3XIz87Tp4+z/7Xx
+ caoKnyLwY+h5WQcgXN/zyRYUd767uHGIG9Wq8b0=
+X-Google-Smtp-Source: ACHHUZ5+5nq8G0fdCC1+vwj+KmJkfoWFgNBUEKtOzD2dq9+mpvse2ZJ72PF955P7xK8j8473xqe+Z9K5Jz67W2iX7LQ=
+X-Received: by 2002:aca:1307:0:b0:38e:2879:735b with SMTP id
+ e7-20020aca1307000000b0038e2879735bmr563675oii.34.1682599203057; Thu, 27 Apr
+ 2023 05:40:03 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230419122233.3440-1-hackyzh002@gmail.com>
-In-Reply-To: <20230419122233.3440-1-hackyzh002@gmail.com>
-From: whitehat002 whitehat002 <hackyzh002@gmail.com>
-Date: Thu, 27 Apr 2023 15:44:39 +0800
-Message-ID: <CAF6NKda1Jy_wfxaVqWt-o75f1BO-o4JXHY9HS9_JtJ2FHztMmQ@mail.gmail.com>
+ <CAF6NKda1Jy_wfxaVqWt-o75f1BO-o4JXHY9HS9_JtJ2FHztMmQ@mail.gmail.com>
+In-Reply-To: <CAF6NKda1Jy_wfxaVqWt-o75f1BO-o4JXHY9HS9_JtJ2FHztMmQ@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 27 Apr 2023 08:39:51 -0400
+Message-ID: <CADnq5_MfynMAPU8c-Lq1X_dcDOdRpjW6i=m-Qo8zsZZ=dO-62w@mail.gmail.com>
 Subject: Re: [PATCH v3 2/2] drm/amdgpu: Fix integer overflow in amdgpu_cs_pass1
-To: alexander.deucher@amd.com
+To: whitehat002 whitehat002 <hackyzh002@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Thu, 27 Apr 2023 12:39:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,45 +69,54 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Xinhui.Pan@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, sumit.semwal@linaro.org,
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
  linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, airlied@gmail.com, christian.koenig@amd.com,
- linux-media@vger.kernel.org
+ daniel@ffwll.ch, alexander.deucher@amd.com, airlied@gmail.com,
+ sumit.semwal@linaro.org, linux-media@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-hello
-What is the current status of this patch, has it been applied?
+As per my prior reply, it has been applied.
 
+Thanks,
 
-hackyzh002 <hackyzh002@gmail.com> =E4=BA=8E2023=E5=B9=B44=E6=9C=8819=E6=97=
-=A5=E5=91=A8=E4=B8=89 20:23=E5=86=99=E9=81=93=EF=BC=9A
+Alex
+
+On Thu, Apr 27, 2023 at 8:39=E2=80=AFAM whitehat002 whitehat002
+<hackyzh002@gmail.com> wrote:
 >
-> The type of size is unsigned int, if size is 0x40000000, there will
-> be an integer overflow, size will be zero after size *=3D sizeof(uint32_t=
-),
-> will cause uninitialized memory to be referenced later.
+> hello
+> What is the current status of this patch, has it been applied?
 >
-> Signed-off-by: hackyzh002 <hackyzh002@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_cs.c
-> index 08eced097..89bcacc65 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -192,7 +192,7 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p=
-,
->         uint64_t *chunk_array_user;
->         uint64_t *chunk_array;
->         uint32_t uf_offset =3D 0;
-> -       unsigned int size;
-> +       size_t size;
->         int ret;
->         int i;
->
-> --
-> 2.34.1
->
+> hackyzh002 <hackyzh002@gmail.com> =E4=BA=8E2023=E5=B9=B44=E6=9C=8819=E6=
+=97=A5=E5=91=A8=E4=B8=89 20:23=E5=86=99=E9=81=93=EF=BC=9A
+> >
+> > The type of size is unsigned int, if size is 0x40000000, there will
+> > be an integer overflow, size will be zero after size *=3D sizeof(uint32=
+_t),
+> > will cause uninitialized memory to be referenced later.
+> >
+> > Signed-off-by: hackyzh002 <hackyzh002@gmail.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_cs.c
+> > index 08eced097..89bcacc65 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> > @@ -192,7 +192,7 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser =
+*p,
+> >         uint64_t *chunk_array_user;
+> >         uint64_t *chunk_array;
+> >         uint32_t uf_offset =3D 0;
+> > -       unsigned int size;
+> > +       size_t size;
+> >         int ret;
+> >         int i;
+> >
+> > --
+> > 2.34.1
+> >
