@@ -4,115 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF860C77B73
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Apr 2023 16:36:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5D92C77B61
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Apr 2023 17:54:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11ECA10E37E;
-	Thu, 27 Apr 2023 16:36:08 +0000 (UTC)
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2062e.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8b::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79FAA10E309
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Apr 2023 16:36:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KiETMJLfOylRVAhK3Ugx2csCLXJMur1K9kQlCNxowteVyRQGio+px3MooWXczBnYuzeL4aEE9VZX+HXkjwzOApg5NcjXywTN4oPq8JzIBQRxv2h50SAxvkRpbdUPUUS8a8PDxx8oxy1fe/3haV78HJNAb9444Zvx25rkFXbb+KiPzqxnOpPefLDE+Eq4TxSXZ5Dj89stJVzJGfrcBmiMU4ar/eI7EuJi1EUMLz9mznQG+ItaP7QVqEyEm5b7rX2VXGTv2lPCpc3L5fb9iRBKiv1HLcJ6WxcyutkT2NIXY3K3aZwJUo4KNLZDDWIEXtLzrPsiAW48RZ3Fd9RSMsIr1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2W0m9NnAF1y3LdZODDTBx8xFZ9f6c8vB4lz3DSZILiA=;
- b=fs1A3zirNYLJCHkJhtri2CUfLrGmBAuDa+8x3g+6AHeBob/4xbwCegIEl6dKovDlaz8efo5fLQu1k6vdO3mrIm9Z6bXVu9b2V2gy51kKDcPw7Mf7MwJVN7FiQNcNUO3HpE1Rqk5UeGkWj1dlPo50fkbW477q0yf1oy84nOGz9mpMTCU+54viwlYPHY3HQhbGzvywcG+6ik7K5q6BTnAJ/GliA2vw9LxTB4JXJnx+xXUHnQjSf972JbYyQ5wkxWv/bS/5Gscr6N+od6mJX1zQtndSCVykjAIOIIQI2LBGdKNQIss8B9m1dNeP7zH8glT9DDv87mdRRCxRNMN8vKhUSw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2W0m9NnAF1y3LdZODDTBx8xFZ9f6c8vB4lz3DSZILiA=;
- b=OAsFhblCRhKgw7fH0clnxpI/IvQ444UdGsVM3RAHBZIrIWCyc8nHTsdlHV8gOjFZOvweLmmLYFbS6LWyRpSz6P9WaTCjpRFtrIosP1jOeQ2bT/vlHSC/A7OvmV3zf39Tk3U14h1xSQJpikcKYJ6gzE+akUqqy1Vj0WpoXJHQT+w=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by IA0PR12MB8693.namprd12.prod.outlook.com (2603:10b6:208:48e::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.33; Thu, 27 Apr
- 2023 16:36:01 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::f170:8d72:ca64:bb26]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::f170:8d72:ca64:bb26%6]) with mapi id 15.20.6340.022; Thu, 27 Apr 2023
- 16:36:01 +0000
-Message-ID: <a893e01c-af20-e591-35cf-6ec708cb9cfb@amd.com>
-Date: Thu, 27 Apr 2023 11:35:59 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH] drm/amdkfd: Optimize svm range map to GPU with XNACK on
-Content-Language: en-US
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20230424193808.10383-1-Philip.Yang@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <20230424193808.10383-1-Philip.Yang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1PR13CA0408.namprd13.prod.outlook.com
- (2603:10b6:208:2c2::23) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA02610E11D;
+	Thu, 27 Apr 2023 17:53:56 +0000 (UTC)
+Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
+ [IPv6:2607:f8b0:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C21F10E03D;
+ Thu, 27 Apr 2023 17:53:54 +0000 (UTC)
+Received: by mail-pl1-x62b.google.com with SMTP id
+ d9443c01a7336-1a6ebc66ca4so65434515ad.3; 
+ Thu, 27 Apr 2023 10:53:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1682618033; x=1685210033;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=r7JtrQ77CpqZ0uEy+tIG0NqsG9JuxMjN6QjQNJWIquU=;
+ b=L2bWeqrCC2L70jQ2hEirudGn7k+FZL2/87Mjs90rkz/kPRRuHWp6OiKbwdmlBlX/lI
+ rkJPrrzgxTF9LmSz7fRYLdTbO+rw1Itx49QaPkeH1pcM8AGz8Mbl/TYzqrMjSv+PP9Yr
+ juW+tM4VrneECMDFdvPAiowOHNsTnWWzSaBiUd4dk9h1+gpxpCEgFqcGd4S2Qp9y5D7G
+ E8nKq2Pms1ySTlONLegg6nDtIYKDbri6qtn89WuFB18GyL525Sh8tMpvU2NFnKevpObc
+ pmmeeirnLl8gT35Xg3qMCAok75nL8tV69ANpVarFaES/aSTLsQb32vaxf+LpVPu5JiA3
+ 83OA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1682618033; x=1685210033;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=r7JtrQ77CpqZ0uEy+tIG0NqsG9JuxMjN6QjQNJWIquU=;
+ b=GKTLCz9bdpSOaGSMTJB0iYLu9uHQHFMFSbErSrJ4PixX7NsCos7aR7UQpzUYM+jNDa
+ P+iWVFYh3b9w8j+0Enc8/u9CKUBjhV3wY3eCv7QyzofQw8GdKv0Mpy08zDAaOncoQrvN
+ djpYrkw356h0H+NL5R+MN91Oafz6m+Zcs2ZdM2F5QvcDyEAMzoPWqoHgmyGV5YS07mW0
+ AaLycI23JnD9dYxhXzaFmYK6PP515trh77StjjnCvzd/9SbPaurBpbAfYbOUG9E9QmKY
+ u0ubJFH5OaChMhRpbITGjph844UTbo7fB90/EB9PyQErIzVbtJMKIIUClB5DwYt6NcJ2
+ pCcA==
+X-Gm-Message-State: AC+VfDyPRJAGmz2RAozohrJmy7m/VokdRH22o0TKjSdj92/P2lvrrtSJ
+ a4IzLBnRk2H5/viMqyfDV2Vey7CTwOc=
+X-Google-Smtp-Source: ACHHUZ4LVPkiCnSflLuvp4CIOCxMflamTbbG8UY5vbds8WnhLBlUH54sQOFejjE+V3wGmE+MZojirg==
+X-Received: by 2002:a17:902:f689:b0:1a6:6d1d:bbf4 with SMTP id
+ l9-20020a170902f68900b001a66d1dbbf4mr3149993plg.11.1682618032836; 
+ Thu, 27 Apr 2023 10:53:52 -0700 (PDT)
+Received: from localhost ([2a00:79e1:abd:4a00:61b:48ed:72ab:435b])
+ by smtp.gmail.com with ESMTPSA id
+ az1-20020a170902a58100b0019cbe436b87sm11971018plb.81.2023.04.27.10.53.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Apr 2023 10:53:52 -0700 (PDT)
+From: Rob Clark <robdclark@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Subject: [PATCH v2 0/9] drm: fdinfo memory stats
+Date: Thu, 27 Apr 2023 10:53:24 -0700
+Message-Id: <20230427175340.1280952-1-robdclark@gmail.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|IA0PR12MB8693:EE_
-X-MS-Office365-Filtering-Correlation-Id: 76c9ded0-d8c2-4e6f-6894-08db473d7c98
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: hgvfAf+aAdlDWR9jP4bVuQehtN0sLXTXbCGKaNZHAosAs7H6FeEjPFrXAajPY8K42n3naXeoFKywN+B/9flR7RnT3UJ1BA0/cIdeSSYvPyC0qSlInAiQ5Ymv5XcVnFw7QeGyhm8Fm7Ud7peYFEX4MSM/qmRG6ZYXOMe2ZtS2U8tmUDfnxwzmXfgqldhQZvpHh/cgmEj9eKOvAIGyHC+4aTG/6+6COXwk1rObVSkBoXRj5zVZ9RVp8KBtnU6mlsHmZZ9YYYRgWYcfon+bCDXU3+/lulk58GA1Hqps2SfTaKx3e7ccDnbQYzRezQmxXZVqqWFsBlp21V0z5wZvC5P8zYW/sszSN0JrsUevOl3pHgElLPAR/YGj506dbYsEpcQd/x+C4ZOaVPbmVZPV0V7JzIG24KI3xFkyYx8CUquygbSZcFwlG+pCkWHMNeWPFJ4SsOhB0JmCqGG4UT1YqZp9UIjo2MxB2b4prnNZh2Sy9IHhLF3LJTw1CLpvkfS6TeB0Jf+ZHHQJ3wHG1N7ltWy9UFwbtqroC22opo+h5SZa2HFWgosk38fDLXriCvrIWKNAcK1RZ4QaOmW15sqbXNrWwUEVcCsXvoi8K7EZ43z2rgBJM0M2MsuyuQqGhkMKdGdJ4J4W+VkPMwsI4rC3dzcV0Q==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(366004)(39860400002)(396003)(346002)(376002)(136003)(451199021)(53546011)(6512007)(26005)(6506007)(2616005)(83380400001)(36756003)(186003)(38100700002)(66946007)(31696002)(86362001)(478600001)(66476007)(31686004)(8676002)(8936002)(66556008)(44832011)(6486002)(5660300002)(2906002)(41300700001)(316002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YXp0NDJUQytvSVRxaFNvaTBBMVRQbmd6aU50NXJoWG8zenovbld1c3lYelZs?=
- =?utf-8?B?enZPQXNNbTdVdFZhOFp4UGtQMW50U0pYMkVGcjhuZFF1eDBFcUEzMjM3eHVi?=
- =?utf-8?B?M21XNlZVVlArcEhqQTBDOEdMbGdsdDZXVnNscGZRMnJicUxsWFl2WStPTE02?=
- =?utf-8?B?d1h4ZXNiVzA1MGxibnA5am9rMlRJMWlrZG1DanVmRmRHcUNyUzR4b09VSGFE?=
- =?utf-8?B?eTAzZnpERjVnVS9GaE5YT1VUeWpaSTh2WGdvTm1Td1hSVjZKQ1hQY2RHQm1M?=
- =?utf-8?B?VTBocDMvMFVWb05Jb3g5TVA4VmVtZS9WemVUektZZmYweFA2RmJ0eDcyRjF1?=
- =?utf-8?B?S3FSTWRYVUx4cmUvcVlvSmxrbGQzRnZaSGZuL09VMDZFNGhES1dvSTNqMHo5?=
- =?utf-8?B?RTlha08vUXRSbzhObTFFWEJtQktrdURLbEs1dmFPK0VQQzZORVZCMHV0c3NO?=
- =?utf-8?B?L2Z3c2pWVklNQ1J6bXd4UTFaSkRvZWJBZ1RvNHAzS1RmaHlzTjdLSnZyYzQ0?=
- =?utf-8?B?a0VzV2lnSkZId3ZQbm5uZEJsSURFSVYxeGorVFBhRkJ1Ti9LWll3TjhoNUMw?=
- =?utf-8?B?ZE9oYnBzV1NuQ2VlT2hqK2FVWTZWSGpNdGZ1WlFRRjRTZXhkVmV5MjJqUVho?=
- =?utf-8?B?T2ltWmtzMlRQNDIwdnV6cG1YdklPd2ZkaTlmSkxpSDVsQlYzSHZ5SVZQNU1K?=
- =?utf-8?B?L3ZiWnF2K0VwQkt4dnVBTnNEUU5ISERxWG5rMnFCRDJ0S095a2lFUW5EdzFO?=
- =?utf-8?B?cENFZ0s5akR4ekpabXRvZ0E0SUtJcE1aQ3ordlhBVDdid25hTWM3QjdmK3ZD?=
- =?utf-8?B?MnRxakNJbEN5RS9MRklnU3FnV09LRm1oTnlMRVhHNkhiQkt4RUtUcDZFUktq?=
- =?utf-8?B?SEN3UzQvODVScmo1a3M1Uk5iSXoxQmM2cElEeVZMUXZSMVJmdTM5M04xaHVI?=
- =?utf-8?B?anBqY0hjdEIyRTByblFjcjF2VnZKN0dGVXVhZkhMcGFMdUtjYnBtSXB3ZlVG?=
- =?utf-8?B?TGFkbmhHMHNXM3AwR0JkRm5iUG1Td2FSMEVjYmdHUnpNUzVGb1pTaDhIbmN6?=
- =?utf-8?B?ZHNrS1ZUTjdqWk5YMGRvMy92UXU1YTl2SFB1aDVrbUZWV0tqVnpCcGMyMkhH?=
- =?utf-8?B?UzBGVmpEV01GK0xYckZRTUx1dE1tV2pWMjNEblVGd05lYnIwb1QrNkNSWVdy?=
- =?utf-8?B?MllabEQzODRMR1lyb1FjMVF4cTZVSThlQkVQWEdCL3RrajZ3a1lQN3l0dXdV?=
- =?utf-8?B?ZVRQSkdyQXBUNmQvK0FaNklCdjR5Q1lOZ1h5UUpWMm02TytRamNUeFdnQ2xh?=
- =?utf-8?B?ZlFENUFZU3JtY21zbVZsR3NQSDFnWjloMFlpUDVVdy9sUWtaVWJwUlliQ3hl?=
- =?utf-8?B?MEY1QmM3Y2MyWjhsK1N0UWJZTUg0MGNQdXk3YUxlaDI0Y1F4UTNCSHNLbk0r?=
- =?utf-8?B?Ukx2emxSQlpTR0dHTFlaTG5LdXl4QndVYnpyeE9PclRMZ1prb0I3VGc4L1Zm?=
- =?utf-8?B?dmVXV1kwWXJaQk90OVJ2RzRpZldtN1RnOTBWR3F3dFdnNUZHNEVnQnE2L1Zt?=
- =?utf-8?B?elNWVElyT2FOTkptUFREaHZGTVI0RWFEU2s3WGtIc3paVUt4eU1ldVdvbUpr?=
- =?utf-8?B?d2k1MUZTSEp2Y3N3TkF5K0FQbnNYQlhGWmxHQ3Jod3pXWUZpQUN5dUVRM1Vz?=
- =?utf-8?B?eXBjT1N4UVBPTkV2Mkp5Ulp1dVNRbmc5UHp1KzVRK2hkQS9vMmQ0OGpFdnhS?=
- =?utf-8?B?SHFodTl6V0NxdzVvME0vZ2dSZzlmcjZFSjBmTHkyNGpQQzRXbTJOTjB2TDNE?=
- =?utf-8?B?Z2JmUm9XZE1NQnRkTE1iZVc3VlhOb0V6d3h5ckJicHJMVG04ZGdhRmFCQjhG?=
- =?utf-8?B?eHhBTUNQYlY2YXZWeUlkYnJrZUtiUDZ6dEJNNVZSTGY5Ym9PRndRMFhvb2RZ?=
- =?utf-8?B?R1J4SEM4T1hvZEdpTHpiWjdscEh1dkQrZHkwS3ZxbWJRTzVMNnJvWkFHd2V2?=
- =?utf-8?B?S2h0SUpXLzdTbjh6VVl0N2lxdGdOSkpPRktEcGRjclgrVU5HdGN1Q1NBY2U4?=
- =?utf-8?B?NUdZaUtiOTRxV25pS2ZEdXFsMi9ML2RvQmJKdVVCQ3Vib2R3aUhOZDc1VmpD?=
- =?utf-8?Q?fJqrOd6TJwXFq2+5bdYxj0tm7?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 76c9ded0-d8c2-4e6f-6894-08db473d7c98
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2023 16:36:01.3902 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: E8JBVCV8WKV2bS12PL9KKJvk+ynJtLzg4nhPEme+sYJsBCrOGvFrzqEcTR0tbcD6Q1oEYfUPXaJU/DAVk8et2w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8693
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,41 +70,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ =?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>,
+ YiPeng Chai <YiPeng.Chai@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Rob Clark <robdclark@chromium.org>, Guchun Chen <guchun.chen@amd.com>,
+ Shashank Sharma <shashank.sharma@amd.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ Luca Weiss <luca@z3ntu.xyz>, Chia-I Wu <olvaffe@gmail.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Sean Paul <sean@poorly.run>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Elliot Berman <quic_eberman@quicinc.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
+ Emil Velikov <emil.l.velikov@gmail.com>,
+ Christopher Healy <healych@amazon.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ freedreno@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Rob Clark <robdclark@chromium.org>
 
-On 2023-04-24 14:38, Philip Yang wrote:
-> With XNACK on if svm_range_set_attr set the range access or
-> access_in_place attribute, we don't call svm_range_validate_and_map to
-> update GPU mapping. This avoids prefaulting the range pages on system
-> memory if the range is not prefetch to VRAM and not mapped to GPUs.
->
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index 129ef44f41e9..af7594b1b4c6 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -734,7 +734,9 @@ svm_range_apply_attrs(struct kfd_process *p, struct svm_range *prange,
->   		case KFD_IOCTL_SVM_ATTR_ACCESS:
->   		case KFD_IOCTL_SVM_ATTR_ACCESS_IN_PLACE:
->   		case KFD_IOCTL_SVM_ATTR_NO_ACCESS:
-> -			*update_mapping = true;
-> +			if (!p->xnack_enabled)
-> +				*update_mapping = true;
-> +
+Similar motivation to other similar recent attempt[1].  But with an
+attempt to have some shared code for this.  As well as documentation.
 
-For NO_ACCESS we need to update the mapping to ensure that the PTEs are 
-invalidated. For ACCESS or ACCESS_IN_PLACE we can leave it for a page fault.
+It is probably a bit UMA-centric, I guess devices with VRAM might want
+some placement stats as well.  But this seems like a reasonable start.
 
-Regards,
-   Felix
+Basic gputop support: https://patchwork.freedesktop.org/series/116236/
+And already nvtop support: https://github.com/Syllo/nvtop/pull/204
+
+I've combined the separate series to add comm/cmdline override onto
+the end of this, simply out of convenience (they would otherwise
+conflict in a bunch of places).
+
+v2: Extend things to allow for multiple regions other than just system
+    "memory", make drm_show_memory_stats() a helper so that, drivers
+    can use it or not based on their needs (but in either case, re-
+    use drm_print_memory_stats()
+
+[1] https://patchwork.freedesktop.org/series/112397/
 
 
->   			gpuidx = kfd_process_gpuidx_from_gpuid(p,
->   							       attrs[i].value);
->   			if (attrs[i].type == KFD_IOCTL_SVM_ATTR_NO_ACCESS) {
+Rob Clark (9):
+  drm/docs: Fix usage stats typos
+  drm: Add common fdinfo helper
+  drm/msm: Switch to fdinfo helper
+  drm/amdgpu: Switch to fdinfo helper
+  drm: Add fdinfo memory stats
+  drm/msm: Add memory stats to fdinfo
+  drm/doc: Relax fdinfo string constraints
+  drm/fdinfo: Add comm/cmdline override fields
+  drm/msm: Wire up comm/cmdline override for fdinfo
+
+ Documentation/gpu/drm-usage-stats.rst      | 109 +++++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c |  16 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.h |   2 +-
+ drivers/gpu/drm/drm_file.c                 | 147 +++++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c    |  24 +++-
+ drivers/gpu/drm/msm/msm_drv.c              |  15 ++-
+ drivers/gpu/drm/msm/msm_gem.c              |  15 +++
+ drivers/gpu/drm/msm/msm_gpu.c              |   2 -
+ drivers/gpu/drm/msm/msm_gpu.h              |  10 ++
+ include/drm/drm_drv.h                      |   7 +
+ include/drm/drm_file.h                     |  42 ++++++
+ include/drm/drm_gem.h                      |  30 +++++
+ 13 files changed, 375 insertions(+), 47 deletions(-)
+
+-- 
+2.39.2
+
