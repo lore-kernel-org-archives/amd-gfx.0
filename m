@@ -4,89 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A35DC77B60
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Apr 2023 15:57:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99F66C77B61
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Apr 2023 16:11:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2621910E3D8;
-	Fri, 28 Apr 2023 15:57:40 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2060d.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eab::60d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8425E10E3D8
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Apr 2023 15:57:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Hwlobjb0y2QLXg/5JmjmCU5tr5anOVnF0O3x1VcJaYxehFwsq71N8DfAYeG/U9lNv2AW1kqkZRBKIILGNywhaQ3dquqFskBtl9ZYH9XrLoJToD4vTAOS24MtTLJdp1C69NoJ6UQFJY3VtyzfQkjsBNyhtptex426Z8ArOgd2O6pBH7pcse9mre10njWErNL9Si0RM/OQzi2+cQk4PIF5KGXid4eGUpeFAJ5ZAuHVaUqW9Htdy4TYnDW7TgmJwmEunwkOn4Z7WlSRWAB5aGXF74WDHFYZ9TGUUU/gPwti37OuFTjyORvmMyhBakMZyJs8U8zuM0Q6M1rminwGiBs46w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LQWKnS0LUEfZxpYznGqJsyP6ycn7VcNYZ9nh2q6j58k=;
- b=J2aYDPoFaAkj5GWfAO3Xyzig9oRg/3ktIXv8GLDQaE50fOBPrs4T7tuYpRIB8G1//retBtmvyP90p+FLookjt3ynn2JfHE52ljMbyL2g83MKKaJeuj/A1yYpxEfuSnLIsCNDmFZBVrG6Dg1j1tU8yAggJOtlvDO8KoIcbnu7XXURzGoYFT7bdk/4CjYvUE6ZQ16D2Zt06PFeAH27rsEOXe1eDEaHUDkRXpnzorv6i8+9xwjuJLBEUPb3J9VurXBQvC508BFnHegkGQzLl16TKRUNoduqvX/zox+Wg1nYZTvWauNrQD7nM+/KmD6tkdENQFlT5KEnn8v4ZWo4u/EpIA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LQWKnS0LUEfZxpYznGqJsyP6ycn7VcNYZ9nh2q6j58k=;
- b=MSQpZOpB41X4Qa+3A1Yd3qIlTmEK0nvZtT0MKJ8HCupExXYs7E19Ibib1WMZSKhwlYOd4z3jybZwlXMjnpXsrtUYV1EbfOpFbzMMK18uKLR2nbxggVjRc8bm+lGLFNk1p+mqz2FcL25gf1gzDI8rY8JRUKs3xmTf+GmcVYSLPm0=
-Received: from MW4P221CA0023.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::28)
- by LV2PR12MB6015.namprd12.prod.outlook.com (2603:10b6:408:14f::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.20; Fri, 28 Apr
- 2023 15:57:32 +0000
-Received: from CO1NAM11FT088.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8b:cafe::55) by MW4P221CA0023.outlook.office365.com
- (2603:10b6:303:8b::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.24 via Frontend
- Transport; Fri, 28 Apr 2023 15:57:31 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT088.mail.protection.outlook.com (10.13.175.131) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6340.24 via Frontend Transport; Fri, 28 Apr 2023 15:57:31 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 28 Apr
- 2023 10:57:27 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: put MQDs in VRAM
-Date: Fri, 28 Apr 2023 11:57:14 -0400
-Message-ID: <20230428155714.1141266-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.40.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 236A610E0CE;
+	Fri, 28 Apr 2023 16:11:45 +0000 (UTC)
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 241F310E0CE
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Apr 2023 16:11:43 +0000 (UTC)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-2f833bda191so6263431f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Apr 2023 09:11:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=froggi.es; s=google; t=1682698301; x=1685290301;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:user-agent:subject:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=RS656tvRpdWSP+KRo8s/RT9TN9u+3dfrwJSy0U4kWG0=;
+ b=SX6+5UPo6PMGE0VrjJHn+1cNNEOB7vjBKnxmoCzVYJgQvg/wHd6ZyKALVfxGOL99ih
+ cM788q0a2ZUTJxwAZiryToedH0h4pwvPtD2vAeNWKPdMxSco2T0W/3yAmkChGe/umXbx
+ 1+bZWbhcuBDd3/IxfEDZbdfvhbsrIuMtJh+WZ4w+V4eSi9tK2FY/2BxWewJiplodlD6b
+ 7v/n+Dm0hDeroEKSLqVDK8UuH/hS4JQxJ0X26b+lsWgX62NbkHQpsnJePLMkZmTcOkqM
+ 79MNcRj00Tk04O7RKbu/TwvJaOh+qFnfDqiaRJYr48SfqN0uFL1xhkDw2wsvgvERlQnO
+ UhLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1682698301; x=1685290301;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:user-agent:subject:to:from:date:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=RS656tvRpdWSP+KRo8s/RT9TN9u+3dfrwJSy0U4kWG0=;
+ b=RFYlQWc2J3xTGRpq/WY/yCZP/Y2gWakpNA0Uy2xSPq7Gf28zAOzx9Nfx8isFXgb6J2
+ 1BQUGn6FCEwSBazkk0ibYU/kntWeYw9VF2eWPXCoZpQfShwoA+IfXgHrm0PJW66ibzPZ
+ PW0nbysPut9vJcKBJcBG9inq29/Yr4Y1O1f25jS0C16bo1nlHBMAOpXxbvq7GdFZ8hNE
+ 72yxB5YTdrRZC+7qOh3G4T/tGvCarU8cATM9wdJg8Rq4g7GgPvz0Z3LLLLjw0JC9lOo0
+ NWPHRI9Ue2L8s3DkJFjuacmboiot/fwJWDGvV/IYY59Ec4l8z2JOdVwAeWSrgqBnvKhy
+ WOWw==
+X-Gm-Message-State: AC+VfDxvszW9EY7GqFTvzBAH6w3OD4HR/4UYgHj4YZh/g6ibdU2mJzko
+ kK7Hb5zr7dN9UcGJw8CIUoocBb5wwSARaxmyV4oS5Q==
+X-Google-Smtp-Source: ACHHUZ5MyTE5eFaG7QzXOMZCR3qWjXXUEgqaaAIhsbHrxAq4QvVhXr268yZ6MgAfPXpqtmtRLu2wCQ==
+X-Received: by 2002:adf:e707:0:b0:2fe:ca6e:edb with SMTP id
+ c7-20020adfe707000000b002feca6e0edbmr4605956wrm.39.1682698301147; 
+ Fri, 28 Apr 2023 09:11:41 -0700 (PDT)
+Received: from [127.0.0.1]
+ (darl-09-b2-v4wan-165404-cust288.vm5.cable.virginm.net. [86.17.61.33])
+ by smtp.gmail.com with ESMTPSA id
+ e18-20020adffc52000000b002efacde3fc7sm21369816wrs.35.2023.04.28.09.11.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 28 Apr 2023 09:11:40 -0700 (PDT)
+Date: Fri, 28 Apr 2023 17:11:37 +0100
+From: Joshua Ashton <joshua@froggi.es>
+To: amd-gfx@lists.freedesktop.org,
+ =?UTF-8?Q?Marek_Ol=C5=A1=C3=A1k?= <maraeo@gmail.com>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+Subject: =?US-ASCII?Q?Re=3A_drm/amd/display=3A_disable_display_DCC_w?=
+ =?US-ASCII?Q?ith_retiling_due_to_worse_power_consumption?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <CAAxE2A6hmv1vjTE4zWoomwjSP3ssF-8CGU5t29m-WOBjbtU37Q@mail.gmail.com>
+References: <CAAxE2A6hmv1vjTE4zWoomwjSP3ssF-8CGU5t29m-WOBjbtU37Q@mail.gmail.com>
+Message-ID: <1311F54B-10AE-4492-BB7C-F4BEC9676983@froggi.es>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT088:EE_|LV2PR12MB6015:EE_
-X-MS-Office365-Filtering-Correlation-Id: c144152d-2a18-4b18-44c8-08db48014623
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Ck2PagHWJPkoIe6/b95OSFJ5FjroRsysLUdXhUFGS1XsBO4fMUTdXEmkiAN+ZxF4nYdKEDKUdb3E7kRGtuvXFCfcvc0GDawztjAUU2fwFTRDKdupgGh1Fey519z/605epGfjeunM4x6XCt6SBmne4SdMchTbh95u2kVbyg0KrI0oBZYCXBtmVRGxT9cEIyHaYRBjDx3E5G4cxBDxztShQVNHlul8RGq20xzAjJ43lZr5mpHwqDjk3W6sUwDRmtNm4zwuScXEeMyz/O9FLroPBY0XeEYPPVqO33b5zBPRYHHbJeEjL4Bxl08TRuGAe6t5jS82Kon4TJrzpmtdOZmlKecLGjxN8rAC80gS4CL/H8skHp/xFVGO+kqhRkABYKnuhZprqU9O8IwRR5lMZjtilsd8UizyuuaMoQXlzQIseh4oGH/Q6QBglDZjYZ/7JMv+nlcROa89GkJx5UIDbeeyMI8L4HNLQrTST/2G9RRVRvUclaT5OQal8rv9hxX9XXPqjuX2MfkXr8aE1Ssy4+KxKo5SlllG/U/TjRExO34nH92HVxYbxn+ej995rC9FR4aiEyaRQEMELFKGC2AP8fZXErJuiY00kQmHJWLzhazsFL9aPPNWWYBzMYXkPK/UI6VVpWJ5AP1MsXvCIo9Et3n3m0OjsNAF23XdGgnIk+w/jWjAivpQByvoU0hmGo/ZrYbsB95xHLj2fxVcPvcg2pciAlfPmV1PQ+EG6p3PXdOi0oA=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(396003)(346002)(136003)(376002)(451199021)(40470700004)(46966006)(36840700001)(40480700001)(316002)(186003)(1076003)(82310400005)(26005)(16526019)(2616005)(5660300002)(336012)(70206006)(70586007)(426003)(83380400001)(36860700001)(2906002)(36756003)(6916009)(6666004)(82740400003)(4326008)(86362001)(356005)(41300700001)(478600001)(7696005)(81166007)(47076005)(8676002)(8936002)(40460700003)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2023 15:57:31.0378 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c144152d-2a18-4b18-44c8-08db48014623
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT088.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB6015
+Content-Type: multipart/alternative;
+ boundary=----F3TZ4M8HTLNGTTVUR179LCBBXRV89X
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,83 +78,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reduces preemption latency.
-Only enable this for gfx10 and 11 for now
-to avoid changing behavior on gfx 8 and 9.
+------F3TZ4M8HTLNGTTVUR179LCBBXRV89X
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-v2: move MES MQDs into VRAM as well (YuBiao)
-v3: enable on gfx10, 11 only (Alex)
-v4: minor style changes, document why gfx10/11 only (Alex)
+I really don't think the kernel isn't the right place to do this=2E
+Is there any reason to not just disable it from the Mesa side?
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 9 +++++++--
- drivers/gpu/drm/amd/amdgpu/mes_v10_1.c  | 1 +
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  | 1 +
- 3 files changed, 9 insertions(+), 2 deletions(-)
+We can already disable displayable DCC there, so I don't see why you are e=
+ven touching the kernel=2E
+It makes it infinitely harder for anyone to evaluate perf and power tradeo=
+ffs if you disable it at this level=2E
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index 90f5d302d5f3..b91be56ba773 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -382,6 +382,11 @@ int amdgpu_gfx_mqd_sw_init(struct amdgpu_device *adev,
- 	int r, i, j;
- 	struct amdgpu_kiq *kiq = &adev->gfx.kiq[xcc_id];
- 	struct amdgpu_ring *ring = &kiq->ring;
-+	u32 domain = AMDGPU_GEM_DOMAIN_GTT;
-+
-+	/* Only enable on gfx10 and 11 for now to avoid changing behavior on older chips */
-+	if (adev->ip_versions[GC_HWIP][0] >= IP_VERSION(10, 0, 0))
-+		domain |= AMDGPU_GEM_DOMAIN_VRAM;
- 
- 	/* create MQD for KIQ */
- 	if (!adev->enable_mes_kiq && !ring->mqd_obj) {
-@@ -413,7 +418,7 @@ int amdgpu_gfx_mqd_sw_init(struct amdgpu_device *adev,
- 			ring = &adev->gfx.gfx_ring[i];
- 			if (!ring->mqd_obj) {
- 				r = amdgpu_bo_create_kernel(adev, mqd_size, PAGE_SIZE,
--							    AMDGPU_GEM_DOMAIN_GTT, &ring->mqd_obj,
-+							    domain, &ring->mqd_obj,
- 							    &ring->mqd_gpu_addr, &ring->mqd_ptr);
- 				if (r) {
- 					dev_warn(adev->dev, "failed to create ring mqd bo (%d)", r);
-@@ -435,7 +440,7 @@ int amdgpu_gfx_mqd_sw_init(struct amdgpu_device *adev,
- 		ring = &adev->gfx.compute_ring[j];
- 		if (!ring->mqd_obj) {
- 			r = amdgpu_bo_create_kernel(adev, mqd_size, PAGE_SIZE,
--						    AMDGPU_GEM_DOMAIN_GTT, &ring->mqd_obj,
-+						    domain, &ring->mqd_obj,
- 						    &ring->mqd_gpu_addr, &ring->mqd_ptr);
- 			if (r) {
- 				dev_warn(adev->dev, "failed to create ring mqd bo (%d)", r);
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
-index 0599f8a6813e..4560476c7c31 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
-@@ -901,6 +901,7 @@ static int mes_v10_1_mqd_sw_init(struct amdgpu_device *adev,
- 		return 0;
- 
- 	r = amdgpu_bo_create_kernel(adev, mqd_size, PAGE_SIZE,
-+				    AMDGPU_GEM_DOMAIN_VRAM |
- 				    AMDGPU_GEM_DOMAIN_GTT, &ring->mqd_obj,
- 				    &ring->mqd_gpu_addr, &ring->mqd_ptr);
- 	if (r) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index e853bcb892fc..3adb450eec07 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -999,6 +999,7 @@ static int mes_v11_0_mqd_sw_init(struct amdgpu_device *adev,
- 		return 0;
- 
- 	r = amdgpu_bo_create_kernel(adev, mqd_size, PAGE_SIZE,
-+				    AMDGPU_GEM_DOMAIN_VRAM |
- 				    AMDGPU_GEM_DOMAIN_GTT, &ring->mqd_obj,
- 				    &ring->mqd_gpu_addr, &ring->mqd_ptr);
- 	if (r) {
--- 
-2.40.0
+The whole power vs perf trade is also not a big deal on dGPUs compared to =
+APUs=2E Probably needs a better heuristic either way to avoid regressing pe=
+rf=2E
 
+- Joshie =F0=9F=90=B8=E2=9C=A8
+
+On 28 April 2023 10:47:17 BST, "Marek Ol=C5=A1=C3=A1k" <maraeo@gmail=2Ecom=
+> wrote:
+>Hi,
+>
+>It's attached for review=2E
+>
+>Thanks,
+>Marek
+
+------F3TZ4M8HTLNGTTVUR179LCBBXRV89X
+Content-Type: text/html;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html><head></head><body>I really don't think the kernel isn't the right pl=
+ace to do this=2E<br>Is there any reason to not just disable it from the Me=
+sa side?<br><br>We can already disable displayable DCC there, so I don't se=
+e why you are even touching the kernel=2E<br>It makes it infinitely harder =
+for anyone to evaluate perf and power tradeoffs if you disable it at this l=
+evel=2E<br><br>The whole power vs perf trade is also not a big deal on dGPU=
+s compared to APUs=2E Probably needs a better heuristic either way to avoid=
+ regressing perf=2E<br><br>- Joshie =F0=9F=90=B8=E2=9C=A8<br><br><div class=
+=3D"gmail_quote">On 28 April 2023 10:47:17 BST, "Marek Ol=C5=A1=C3=A1k" &lt=
+;maraeo@gmail=2Ecom&gt; wrote:<blockquote class=3D"gmail_quote" style=3D"ma=
+rgin: 0pt 0pt 0pt 0=2E8ex; border-left: 1px solid rgb(204, 204, 204); paddi=
+ng-left: 1ex;">
+<div dir=3D"ltr"><div>Hi,</div><div><br></div><div>It's attached for revie=
+w=2E<br></div><div><br></div><div>Thanks,<br></div><div>Marek<br></div></di=
+v>
+</blockquote></div></body></html>
+------F3TZ4M8HTLNGTTVUR179LCBBXRV89X--
