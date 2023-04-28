@@ -4,61 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03333C77B61
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Apr 2023 20:14:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC454C77B61
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Apr 2023 21:45:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 885BA10E038;
-	Fri, 28 Apr 2023 20:14:25 +0000 (UTC)
-Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
- [IPv6:2607:f8b0:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C7C810E038
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Apr 2023 20:14:23 +0000 (UTC)
-Received: by mail-pf1-x433.google.com with SMTP id
- d2e1a72fcca58-63b52ad6311so487159b3a.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Apr 2023 13:14:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=froggi.es; s=google; t=1682712862; x=1685304862;
- h=cc:to:subject:message-id:date:from:references:in-reply-to
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=gVvjlYX04ghoIiz4f/Eogrsl+1MfNZuBDjy1sqk8FYU=;
- b=ETM+50nYrYT+WV2bA5LEmww8ccW1WmJu2E01NfkgXMTdQSrntk9YNFYgfi3wnX/3hX
- UZAbwQzwNDjqg66ZDvPtp6PhrYJO5BOsUigi49IMjL2yzeH4+r/iD3+oOjkdbAfxKAzY
- v1lYG/WEqU7fgVaw9EqL5q+wIS9F0TB9XL5Q6mFhk3/iQao3EkxSUaLLhdi4tgjg0tk8
- kg1IAuf0T/12Rx7ZfPIciI6JdMIL5a41J/EMJ7lMns31T+ZOlF6ELy20KXWYBdhrfMO1
- JvOwUAKNlDQgj0uYpdFH9jNabJAw81dO3VXQPpyZlUt+PvLKty6yXibW7XsnaNwUhWn0
- IJdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682712862; x=1685304862;
- h=cc:to:subject:message-id:date:from:references:in-reply-to
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=gVvjlYX04ghoIiz4f/Eogrsl+1MfNZuBDjy1sqk8FYU=;
- b=MgVQV+bIDKQ/lrtr4bbS+zYztORhIjYCBucU/1b26M0wTaUGnTGBPgQq8l3GEEwEhg
- GbK25pLeFI1rC+DAHG5S9wkHkZOfShi2ol1UUznGFT7SXvp78G+k9RuVURo20pA5rDWq
- d1ujmnKoJHhzm36o5za+0VHrggV9eqX6GfTb4NRF/at62/R+8N6VO2KSVOzfXI7vjAHi
- /WkWvj0+PdsA4EG+HM+kkeMtkphPDaZsbFHfpETjuZzl09QJBOXI1BAbT/P5KnypPSo2
- 0hP6yjZW2vEG4uae/lZvTEtUUljo27VtXoj2tnfc2L0sl+v+b+SCGkvWH7RKCObF6rjv
- KyQQ==
-X-Gm-Message-State: AC+VfDypct6MyhCRw3ybM2i8X4P6mikOO4c0ryMMBRPrbUaWC6DPAFUu
- wx0p/XG6qCM0L7qK9C6gqczNSP7Y5LgZGQxCMmR7aw==
-X-Google-Smtp-Source: ACHHUZ7nBrPe+a3mwX3HbAEKFlX8ekx41+sSw91huU0ZFZGWsXDFnlWnJOad5yLOo0pb50l/KkPSDYq70Y9+CmkpRD0=
-X-Received: by 2002:a17:90b:1b44:b0:247:4c4b:f4eb with SMTP id
- nv4-20020a17090b1b4400b002474c4bf4ebmr6761742pjb.21.1682712862591; Fri, 28
- Apr 2023 13:14:22 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 442E610EDF2;
+	Fri, 28 Apr 2023 21:45:17 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2074.outbound.protection.outlook.com [40.107.243.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27C9510E161
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Apr 2023 21:45:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AmbYnZIKerI50xG5NLncO8008BMHXvACs85DQP5xQmnm/tZRqDWpTIPzEmlN0FR/Ys3F6NHdXgpRwUSc/futuGD7JAPECKXs/wOEZqpgG2mZT6YDA855UYRdiuzJuJxgnWer01ZFnG4Fs8ivQoipEpy8MnCFKTLlM0zGZHh5BQZALKr59jwgm3bRErQCrAXO5x3Er1H0ErNoR1c1z8xgp3cqzCegTrgOenf5QdQyNQcnPHxf+sNAmvfS98la5hUbGmi+9OG4QBFGl5/hlBeRBvjs5537dU67qZ0btJeoQZ0YuQAWcgiOCXA1Y4wKaXFJmJHgponiZxipsfmedvgVoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=S8KmkbOSglmzJtzJ32orpR89NPhrqxoLByJu5K71Uvg=;
+ b=fmVPVZZeXXPvReFsFWh7C8h7VRVW86Sw8UTGfVONSn2gw4iovPqR7Yta/ugqOPHfX3eQCEufBphZ7SofIXkow1VaSag1zaXUmn3DobN/Hi+GCA/ymeCB/+SnW/6Sxs0NBDvqTMd9EkTTgLiGkqxkrBoW6RTEjwgTj5S8o5y1MHjRvKRu/LRBhFn7S2YAsg0xTknrgHC+fBxQRRKXGqpKtMBBxnBbH0tX8WwP4UVYwxwLtPaxcp5kFCYWOjif7v78Ocnk7PsgxuNcO7vqij79UP3fcvZI31wUQnNv30O2Ty05vl41JUujK/OwGCcG86qp2u8gG49rD/sxevafYVwN/Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=S8KmkbOSglmzJtzJ32orpR89NPhrqxoLByJu5K71Uvg=;
+ b=NWZsa4EpQDjPlX5m38NwMnT2M6KahI1x6yn2TI6YGTWhNcnkp7luzFiYQdGGXisR88CHTeZuQ80r/fPF3UbPmmBu41O/r+bCi8m21SlNmlQU42inGcxMHsZZ1xw+cUyyQNzOPTrvsvQ4nGzWnGyGJkdGKYl1oifQUfHC+kYhHWE=
+Received: from CYZPR20CA0007.namprd20.prod.outlook.com (2603:10b6:930:a2::7)
+ by SJ2PR12MB8035.namprd12.prod.outlook.com (2603:10b6:a03:4c7::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.22; Fri, 28 Apr
+ 2023 21:45:12 +0000
+Received: from CY4PEPF0000C96F.namprd02.prod.outlook.com
+ (2603:10b6:930:a2:cafe::5d) by CYZPR20CA0007.outlook.office365.com
+ (2603:10b6:930:a2::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.24 via Frontend
+ Transport; Fri, 28 Apr 2023 21:45:12 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000C96F.mail.protection.outlook.com (10.167.242.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6340.21 via Frontend Transport; Fri, 28 Apr 2023 21:45:11 +0000
+Received: from AUS-LX-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 28 Apr
+ 2023 16:45:09 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: Kazlauskas Nicholas <Nicholas.Kazlauskas@amd.com>
+Subject: [PATCH] drm/amd: Downgrade message about watermarks table after s0i3
+ to debug
+Date: Fri, 28 Apr 2023 16:44:59 -0500
+Message-ID: <20230428214459.1237-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Received: by 2002:a05:7300:642a:b0:b2:10f6:1d2e with HTTP; Fri, 28 Apr 2023
- 13:14:22 -0700 (PDT)
-In-Reply-To: <CAAxE2A58Wp-2z3CKadQfgGkAZA2emH5Z3Z0_soiZEPNmKhkuBA@mail.gmail.com>
-References: <CAAxE2A6hmv1vjTE4zWoomwjSP3ssF-8CGU5t29m-WOBjbtU37Q@mail.gmail.com>
- <1311F54B-10AE-4492-BB7C-F4BEC9676983@froggi.es>
- <CAAxE2A58Wp-2z3CKadQfgGkAZA2emH5Z3Z0_soiZEPNmKhkuBA@mail.gmail.com>
-From: Joshua Ashton <joshua@froggi.es>
-Date: Fri, 28 Apr 2023 21:14:22 +0100
-Message-ID: <CAEZNXZC+qbD2JJgV7gTYdNH-SNKhNBbzQKNDyzje0mPKjhSJYg@mail.gmail.com>
-Subject: Re: drm/amd/display: disable display DCC with retiling due to worse
- power consumption
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Content-Type: multipart/alternative; boundary="0000000000006f230305fa6b1e0c"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000C96F:EE_|SJ2PR12MB8035:EE_
+X-MS-Office365-Filtering-Correlation-Id: 53328690-c489-41fd-5368-08db4831d835
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 8T6BA5rQPfXa0prpxLZLjPriuEDcp39zDrUYWExD6cdpMGvwKnX+8njZS9USYqd1mPLrT7drwYsBw+i0UqIU8vsqKYEao3AQIZjJkjZV+jVjG/7fUqGKBQWH9MF+GUNALCPqtua3T5YdGV4Tt7uw18ROn/UDCHWPIjVf4BWQtugeOAGlDzwM/R/LfhzBAKaZSUN3iyzweSGqoRIt72SevYRKKyXOIqMXaly/VuX6+ZnOxXAirzE2lilmUTSqd6s0zE9wdhdq34PhlbBZqoBlFHhdG3GQw1l2ID74xT8hStgjOrclA2IDcM9/v5dzyKbsBJb4iPUSdPwp8WEBO70BYocnr54k6KJD2HfekmSDf6X7DJwMNn87V5zrxigL9SW28gWNdVMZj4wQcrcVT+n9v68ZmEheuDTH5Sye3DvA0mqeUXV06hOA7X3ayv+8TkSsVaItlCEoSOAMseCmFNS+gnm02Pkr7cOYBNeQOjCUBch0ABIOMNfQMVGQyHttZIhi91A+hUSIIX3QvOxN6ZjBd6tc6L3Qs+amCng7lQ0y8+gWzYsA3U3YT44RqNSLG2syLIvoy1qhZrtn+Fu+e1Pqbj8XYHt0WKGHBZ8/SCgpb06N7Kmb8BC0yTeUiv6ULBZwF1JDodxlpF/cfQUVwAWBtN3p5iyLoAEvcLs7FkzCCGm/TXnuH6tqIHCXLHqGKDJx1GwOmJDn85ceS7h69hGCEiDwXXhFVSpLmvl4DKUCobk=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(136003)(346002)(376002)(39860400002)(451199021)(36840700001)(40470700004)(46966006)(478600001)(40460700003)(54906003)(426003)(83380400001)(37006003)(47076005)(2616005)(36860700001)(356005)(16526019)(186003)(36756003)(86362001)(40480700001)(81166007)(82310400005)(26005)(336012)(6666004)(1076003)(7696005)(316002)(8936002)(41300700001)(4326008)(6636002)(8676002)(70586007)(82740400003)(44832011)(2906002)(70206006)(15650500001)(5660300002)(6862004)(19627235002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2023 21:45:11.9934 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 53328690-c489-41fd-5368-08db4831d835
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000C96F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8035
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,93 +98,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000006f230305fa6b1e0c
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This message shows up on s0i3 resume for DCN31 and DCN314 platforms but
+it has been decided that this flow won't be changed and the message is
+expected behavior.
 
-I mean I would also like power and perf numbers for Vangogh given you
-referenced 10.3.
+Downgrade the message to debug.
 
-Generic "power consumption is better" isn't enough to convince me that this
-is the right call.
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c   | 2 +-
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-- Joshie =F0=9F=90=B8=E2=9C=A8
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c
+index 0827c7df28557..32279c5db7248 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn31/dcn31_smu.c
+@@ -130,7 +130,7 @@ static int dcn31_smu_send_msg_with_param(struct clk_mgr_internal *clk_mgr,
+ 	if (result == VBIOSSMC_Result_Failed) {
+ 		if (msg_id == VBIOSSMC_MSG_TransferTableDram2Smu &&
+ 		    param == TABLE_WATERMARKS)
+-			DC_LOG_WARNING("Watermarks table not configured properly by SMU");
++			DC_LOG_DEBUG("Watermarks table not configured properly by SMU");
+ 		else
+ 			ASSERT(0);
+ 		REG_WRITE(MP1_SMN_C2PMSG_91, VBIOSSMC_Result_OK);
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c
+index 0765334f08259..07baa10a86473 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_smu.c
+@@ -145,7 +145,7 @@ static int dcn314_smu_send_msg_with_param(struct clk_mgr_internal *clk_mgr,
+ 	if (result == VBIOSSMC_Result_Failed) {
+ 		if (msg_id == VBIOSSMC_MSG_TransferTableDram2Smu &&
+ 		    param == TABLE_WATERMARKS)
+-			DC_LOG_WARNING("Watermarks table not configured properly by SMU");
++			DC_LOG_DEBUG("Watermarks table not configured properly by SMU");
+ 		else if (msg_id == VBIOSSMC_MSG_SetHardMinDcfclkByFreq ||
+ 			 msg_id == VBIOSSMC_MSG_SetMinDeepSleepDcfclk)
+ 			DC_LOG_WARNING("DCFCLK_DPM is not enabled by BIOS");
+-- 
+2.25.1
 
-On Friday, 28 April 2023, Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com> wrote:
-> I thought the same thing initially, but then realized that's not how
-modifiers were designed to work.
-> Mesa should expose all modifiers it wants to allow for 3D and it doesn't
-care which ones are displayable.
-> The kernel should expose all modifiers it wants to allow for display.
-> With that, Mesa can still use theoretically displayable DCC, but it will
-only be used for anything that's not the display.
-> We can, of course, disable it in Mesa instead to get the same effect.
-> We would need perf numbers for dGPUs to be able to tell whether it's
-beneficial with the cost of DCC retiling.
-> Marek
->
-> On Fri, Apr 28, 2023, 12:11 Joshua Ashton <joshua@froggi.es> wrote:
->>
->> I really don't think the kernel isn't the right place to do this.
->> Is there any reason to not just disable it from the Mesa side?
->>
->> We can already disable displayable DCC there, so I don't see why you are
-even touching the kernel.
->> It makes it infinitely harder for anyone to evaluate perf and power
-tradeoffs if you disable it at this level.
->>
->> The whole power vs perf trade is also not a big deal on dGPUs compared
-to APUs. Probably needs a better heuristic either way to avoid regressing
-perf.
->>
->> - Joshie =F0=9F=90=B8=E2=9C=A8
->>
->> On 28 April 2023 10:47:17 BST, "Marek Ol=C5=A1=C3=A1k" <maraeo@gmail.com=
-> wrote:
->>>
->>> Hi,
->>> It's attached for review.
->>>
->>> Thanks,
->>> Marek
->
-
---0000000000006f230305fa6b1e0c
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-I mean I would also like power and perf numbers for Vangogh given you refer=
-enced 10.3.<br><br>Generic &quot;power consumption is better&quot; isn&#39;=
-t enough to convince me that this is the right call.<br><br>- Joshie =F0=9F=
-=90=B8=E2=9C=A8<br><br>On Friday, 28 April 2023, Marek Ol=C5=A1=C3=A1k &lt;=
-<a href=3D"mailto:maraeo@gmail.com">maraeo@gmail.com</a>&gt; wrote:<br>&gt;=
- I thought the same thing initially, but then realized that&#39;s not how m=
-odifiers were designed to work.<br>&gt; Mesa should expose all modifiers it=
- wants to allow for 3D and it doesn&#39;t care which ones are displayable.<=
-br>&gt; The kernel should expose all modifiers it wants to allow for displa=
-y.<br>&gt; With that, Mesa can still use theoretically displayable DCC, but=
- it will only be used for anything that&#39;s not the display.<br>&gt; We c=
-an, of course, disable it in Mesa instead to get the same effect.<br>&gt; W=
-e would need perf numbers for dGPUs to be able to tell whether it&#39;s ben=
-eficial with the cost of DCC retiling.<br>&gt; Marek<br>&gt;<br>&gt; On Fri=
-, Apr 28, 2023, 12:11 Joshua Ashton &lt;<a href=3D"mailto:joshua@froggi.es"=
->joshua@froggi.es</a>&gt; wrote:<br>&gt;&gt;<br>&gt;&gt; I really don&#39;t=
- think the kernel isn&#39;t the right place to do this.<br>&gt;&gt; Is ther=
-e any reason to not just disable it from the Mesa side?<br>&gt;&gt;<br>&gt;=
-&gt; We can already disable displayable DCC there, so I don&#39;t see why y=
-ou are even touching the kernel.<br>&gt;&gt; It makes it infinitely harder =
-for anyone to evaluate perf and power tradeoffs if you disable it at this l=
-evel.<br>&gt;&gt;<br>&gt;&gt; The whole power vs perf trade is also not a b=
-ig deal on dGPUs compared to APUs. Probably needs a better heuristic either=
- way to avoid regressing perf.<br>&gt;&gt;<br>&gt;&gt; - Joshie =F0=9F=90=
-=B8=E2=9C=A8<br>&gt;&gt;<br>&gt;&gt; On 28 April 2023 10:47:17 BST, &quot;M=
-arek Ol=C5=A1=C3=A1k&quot; &lt;<a href=3D"mailto:maraeo@gmail.com">maraeo@g=
-mail.com</a>&gt; wrote:<br>&gt;&gt;&gt;<br>&gt;&gt;&gt; Hi,<br>&gt;&gt;&gt;=
- It&#39;s attached for review.<br>&gt;&gt;&gt;<br>&gt;&gt;&gt; Thanks,<br>&=
-gt;&gt;&gt; Marek<br>&gt;
-
---0000000000006f230305fa6b1e0c--
