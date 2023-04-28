@@ -4,126 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3734EC77B61
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Apr 2023 19:58:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A204AC77B61
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Apr 2023 02:54:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BFBD10E0D4;
-	Thu, 27 Apr 2023 19:58:02 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2053.outbound.protection.outlook.com [40.107.244.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99A6210E09F
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Apr 2023 19:58:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B7F910E398;
+	Fri, 28 Apr 2023 02:54:18 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on20602.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e83::602])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3205A10E398
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Apr 2023 02:54:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CqKMoo3lWZKX1sKFiMLKtIq3EtOEAW3Z8v16LYZxaP+NOYQD+vbfqa5MBZKtQTFyyO3yOAo39NkttNH0WvxuWVDRRJxMGG6FeY0Gb9KPL0wIpIn2PGkdPPGxK7mVcFY43OpFGdSC3LQp7CBDP/Kb01P2m61OhGQSkHomNbU8aWmDMIw+gzTdENiVh3hx1SbragiNKGbSqYO+6tFcgtiBAcChtP1J9mgFOqAnA+YlgBhP70VewMbV3T1UV6r+tSERj2EU83uqgu0rxkMvBqr3sh+WhJoFfeXTO8AtLgw5f67x1nPwM8GAkt7087eWDsDDJjS2iGkClFtcqI/ZRiwkew==
+ b=V07b5QTHICPpZffX7shoGuWbcd+93WybHB+X31lLUwFepPXKwgJHfTY+1sw/H7ZWCw4wRjyXL38lc1Qy/bAZMXU2iApptKZHRzmBlMjWOO/UCeeSW734sLgAD2R1NV668jKvKmKRl5ZO6/FFHFAamrpUJa78Gkke9TzmB2QM0U23ni59Tb/Kr5f4VJFM5XmUEO/K77cnoGae+9+76vAbApPr13/f8nSm3jPx8+qUvGwvql7A5swd65LfyST8qTTxEaO35Ur9bPiXcu/Cp+bK6YnTpysICnQb8QicFkJgndiea4oOMHX5nW07VfXFFsgdGXyWOCIkUFl3I567ne3Utw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/aqPCjsNecVpqgS6Eb0yNBGuubBlirGllyOd4ZyuaLU=;
- b=d6AMYFOgFMe4bWX/0JJ214Knm+p2lLkPFSZzrkzuHK0EmXEKVG0yK+TG0w4R3uqPquKv3tqJSD7hJJUQV+ozHogezZLop9OAvHoSMQ9JniD9oYho87WkPpjLoadRTsZJu6ZApGcZ1uLpbP2BVBU17G0GbnNLyn4GcvdbbQaGw3WKQP9AUPwExDpvJxxR87oylLeA1sD2/1CdgFiJFAUhvt1nwPrpLjaSAZjiB1YK7T6N4ZKSVMciG0DpDDlDKnHB9MkXRdrkEdA/9wuMiUIYVes2MPNYBQomLdkKWtB6MHh4ncAG4jmfXruztiepTWPNnzCx0kGGMdarxGXpTSvBHw==
+ bh=mUApAwMLElfvraqQ9Vpb9tt/Y5oLB8sTcxnl0BoTgEc=;
+ b=E9lLsGDNjjHuhvHSAo/27UB0prgsRYuzW7dDCmi5qnYBJ7q7mhyYywnYX7OQdNT0Yp9lhz9ZJvAF6tu4Hli5XbxyLQpKyCg53lO3zx1gx2cD9+vL0suKSE9VJ52TW+EodWK8b3HNs0tbPzxQ92rmo/MxOlTKQobVxUpoy7RncIxsHPWVrbEkVvJvP6+Mk0YRRvvIFnR297SK9YC8uHo7d7mJ6EapZKiud0E+yzc3OobZwMxBGPXDmnPA2zxKviYeD8ypn0Tn6qZWviecBmpzptFphVfanpwy2NmstnyFmsDUj2H9iBcxL6R6GPRh1tW0MoHhb0BZA82Kdv3Lyn6ANA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/aqPCjsNecVpqgS6Eb0yNBGuubBlirGllyOd4ZyuaLU=;
- b=m8cvMNg+sUizL8H0Ai+/tk9glMd7uAiAqyEMqb0DkpKL8mq9GBlJsdnOVoXsQ0ZNz1qaUyOdPOTY3lbkH3165NA0et/guXGCNBCISZM3Iz2mgzkLGHnkyqcbLS8gQAeVmWgAXGr9u476Btbjtb4m2TdsgtLsiwAbF2/os7MMg58=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5336.namprd12.prod.outlook.com (2603:10b6:208:314::8)
- by SA1PR12MB6895.namprd12.prod.outlook.com (2603:10b6:806:24e::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.21; Thu, 27 Apr
- 2023 19:57:58 +0000
-Received: from BL1PR12MB5336.namprd12.prod.outlook.com
- ([fe80::459:bcc0:b905:31a9]) by BL1PR12MB5336.namprd12.prod.outlook.com
- ([fe80::459:bcc0:b905:31a9%4]) with mapi id 15.20.6340.022; Thu, 27 Apr 2023
- 19:57:58 +0000
-Message-ID: <56d9dd1c-2028-76ca-3f74-d37ad1733264@amd.com>
-Date: Thu, 27 Apr 2023 15:57:54 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: [PATCH] drm/amdgpu: Ignore KFD eviction fences invalidating
- preemptible DMABuf imports
-To: Felix Kuehling <felix.kuehling@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx@lists.freedesktop.org
-References: <20230412222511.236384-1-jinhuieric.huang@amd.com>
- <ce2de03d-27c5-a7ad-1a76-814cbd92f15e@amd.com>
- <6d32ae76-08fa-64a4-6726-2d55e8c9fc08@gmail.com>
- <7df3dfd1-d89c-1f24-c3b9-789e1bedf138@amd.com>
- <73c8c82e-907a-1666-b05b-4ba257363a01@amd.com>
- <8b8d22bd-0eff-2f81-9267-07c4c4d058d1@amd.com>
- <04b2fcfc-90d8-5398-9ccf-58dfd178d73b@amd.com>
- <19238e6c-86db-6a00-ea83-e69b7384eeba@amd.com>
- <008e334c-d62a-bca7-6465-3cccea7f0c17@amd.com>
+ bh=mUApAwMLElfvraqQ9Vpb9tt/Y5oLB8sTcxnl0BoTgEc=;
+ b=PU3odca6hTZu11p8lKxxaA5EkshBI3XS6muXC/EL+2JwitPQnAHi/JEkM5xuYqJjcIJ48m20lyOF8MMCKmAb9xUNEh20vpAyF2zetCLXDHuFn27Gs1xTxXRCMqI8roUtzJQvU4Tcrqurm4Kt0aHKGoerF2kK7rPp5onRXLx7K6Q=
+Received: from DM4PR12MB5248.namprd12.prod.outlook.com (2603:10b6:5:39c::15)
+ by DM4PR12MB5133.namprd12.prod.outlook.com (2603:10b6:5:390::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.23; Fri, 28 Apr
+ 2023 02:54:11 +0000
+Received: from DM4PR12MB5248.namprd12.prod.outlook.com
+ ([fe80::b40e:bce2:11f3:2a3f]) by DM4PR12MB5248.namprd12.prod.outlook.com
+ ([fe80::b40e:bce2:11f3:2a3f%4]) with mapi id 15.20.6340.021; Fri, 28 Apr 2023
+ 02:54:11 +0000
+From: "Liu, Aaron" <Aaron.Liu@amd.com>
+To: "Hou, Xiaomeng (Matthew)" <Xiaomeng.Hou@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: remove pasid_src field from IV entry
+Thread-Topic: [PATCH] drm/amdgpu: remove pasid_src field from IV entry
+Thread-Index: AQHZeNhOSlkJfnS9KkG7U97L++V6zq9ABEtw
+Date: Fri, 28 Apr 2023 02:54:11 +0000
+Message-ID: <DM4PR12MB524818FF0E65A15836CA0814F06B9@DM4PR12MB5248.namprd12.prod.outlook.com>
+References: <20230427071634.1484586-1-Xiaomeng.Hou@amd.com>
+In-Reply-To: <20230427071634.1484586-1-Xiaomeng.Hou@amd.com>
+Accept-Language: zh-CN, en-US
 Content-Language: en-US
-From: Eric Huang <jinhuieric.huang@amd.com>
-In-Reply-To: <008e334c-d62a-bca7-6465-3cccea7f0c17@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH0PR03CA0414.namprd03.prod.outlook.com
- (2603:10b6:610:11b::32) To BL1PR12MB5336.namprd12.prod.outlook.com
- (2603:10b6:208:314::8)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5336:EE_|SA1PR12MB6895:EE_
-X-MS-Office365-Filtering-Correlation-Id: ec21f93a-5d1e-4075-e63d-08db4759b2dd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: gjAh8lC6w/++xl7DkZMrMH0dzC7QvKUydoawa1kf1tzEyWMOBxaexl/hL5UQ8M9dSOFWg9h7hQa4JZ0FufSAoJMfH1ZoR+CW/VD6EWi5MdP/bq5O1ebEIKAf/N3M0/2DAx2Jk6uNpf8ImtPoxPrANZTpVLA946dZrb0XAaMOzanlwmdU5p+WbYopK2JGjpBl4QEfkl2KXnto+LVhiEG0aXL19Ob4swTfSWj5mbyWu4KwTLfDtYXAqatKroYAcil+s+PwTsHG2OsYHwNrupVDQNup3jwaDEq38DeFHhD64Jgn+Ug4X3Ubtyv/c8GW/ziwyso6W/6TJqJN9DwsTBJ3L5dVS1MefAnWJz6hgylkcXSP4UIbf3nZwtI5mzcysVsXfnFuBUg+ybxED22UsUeCzv5wbWd76WaaJJ+H+zWFspDdGmyyVD3LKZf5diQI1PWlLzYPw9OsFMrqCKfVYwiPRPezQJWcwLWCGFx9QtRW3uSBtnoKSU/xTaM9qz6MwN8RB+HPCe1pswjpm1QGnAShiCKtF2FX83uWNPDd12KZcom2I74WQBOOUqeSmV2jPBfmbBPMe84NRuVRF/uDqS2409JAu6uUn6NxSAoaCzGaEXkXnXEO+oBpBrdecTbK+qqO7jDAOiSBMiU3rfhQhsmoiw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5336.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(39860400002)(346002)(376002)(366004)(136003)(451199021)(66476007)(8936002)(5660300002)(86362001)(8676002)(38100700002)(316002)(66946007)(31696002)(66556008)(41300700001)(2906002)(6666004)(36756003)(6486002)(2616005)(31686004)(6506007)(6512007)(53546011)(26005)(186003)(66574015)(110136005)(83380400001)(478600001)(43740500002)(45980500001);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=d8217fbd-523b-4a8b-8643-ce79262bc157;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-04-28T02:41:54Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB5248:EE_|DM4PR12MB5133:EE_
+x-ms-office365-filtering-correlation-id: 575599bb-aac1-490e-c0e4-08db4793d832
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: PMYaN0Ucd3JS0WRMLl8Jk/sjIlZSh9ZWAtxbwV6RKFmT5BnnjLXyk8yJPGRJczEnbXhjdhzPkHIx2riVBYe0xfHdfvz/oagcPqZH0Ms1ZQHahJq2Cf42hfCBu1Wqt9/bIDT5eZmh43iHF8NWWNkVMvyAXhB2v50WaFWds4VOJo5y5hNMdxHUMZo8cvjq98Deb2dZgTy9dmNWoLlPayfcaZgYz1dNlBc2+0M4JDxDG4TLTxDjWN/mz1BIjycZcemupo3UO+i1Hf9vA22j81b5G3VKcHTYRpwjgFMTf/9WNV9PToHqnjLjR2ACNPLFoVtc4kYrioiamk3VgFoMeSiRy+8mRT4B7s4jSRZIB6Hjtf3dnrGlO2vWb0eIPAaH6gj5vyB8/spKPenqwuKsph27we6/mkbpKz2MKly37CzJ7OLxfrwkygrq9M0VTGainvQ42zynrr3kRdKXCt7huoX70BIoJWBQ7wDJmlrw1YQbIZ29WgIev02MjlIPJgioxjcjMe60J2zX5Apu8CAumWnnzYvOLfhq1DXX02uIH1wajF6yBb91/8HCIvfTyUGzE32bN1bz5p9c7g+ZVphc+vTp9y9VO7eNX5MNSFCnzEz363Et0EHFZurGvdyde8ZP3WZ/
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5248.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(366004)(136003)(39860400002)(346002)(376002)(451199021)(478600001)(110136005)(7696005)(66556008)(66946007)(64756008)(66446008)(76116006)(4326008)(26005)(33656002)(6506007)(9686003)(53546011)(8676002)(8936002)(38100700002)(41300700001)(186003)(86362001)(122000001)(5660300002)(52536014)(66476007)(55016003)(54906003)(316002)(38070700005)(2906002)(83380400001)(71200400001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?LzkzdFZyRVpTSCtQQnZRa0k2eGxCa2hyYU1MRHNrZ2tSaHAyNDFFODdSOTdm?=
- =?utf-8?B?dzF3THVEUG9HZFdRNjVaSlMwVjRjNzQ4RHZnV2t0L3RMclFydlM5M1IvSWM2?=
- =?utf-8?B?YmovZHd0ZWkyaDZhZm81RThzalNaV08zSWNDSlY3ZlVkUlpBZFo1VkNESnN0?=
- =?utf-8?B?NU1vYS9jRTd4ZGRaU091K1V6WWF4Q3Q3OWRLdFJWWGIyMEJSSGNyM2FXcnhi?=
- =?utf-8?B?Tm1LMEh6ODdVbmljNzFPelVnTTk5OHNML2xRSUV1WlViMEVrRDBNNXUzbEtB?=
- =?utf-8?B?QnRLck1PZllNWjA2cGlXU3J5YTNaVDUwa0YyQm1weTJwOUlrcW5GNlZFMlRH?=
- =?utf-8?B?aXJQQ3lrYmdselRuQTNJbkkrOUhWYkQxZEcrUUJHemFOMlF5YWhqb0dqN3Q5?=
- =?utf-8?B?Z3FqMEJnNkFzOGMxNDhTamU5V0FMNTc0NlplUVJ4bFppaS96MUV5QWQ0aml0?=
- =?utf-8?B?VUppRWEydXFCZmhzd2syOWdOZStwNXpYYVVDdkFlV2RTalozeE1FTTJkOXp4?=
- =?utf-8?B?ekk0d2xDTzV0QmlYOFBES1NtRFVuUWZVeUJ5Sk9wNnI1dkdiZ1RKQ29pV2R4?=
- =?utf-8?B?RjRlOHRtZk91OG40M0NTd1pNOStlYjBLdE44TUNaanAzUE9oOU9SUlRMeDdy?=
- =?utf-8?B?VGxPZ3IyU3dTNkY5UkhPOUFvN2NJSXV5VHd1eTd4Z2NYWUt1UUp3WFBzWGhx?=
- =?utf-8?B?cVlFaEhZVkMxQUFnQ25ydUw3eEw0cEZXcmVLbFZQTXQ4Tm5pM0FtdVNON2hz?=
- =?utf-8?B?amZaMzNkVHJOcUdlWVR3d0VtY0pMWGYwWGo3S2piRjFiTUI3ZlZYTjFvdTRY?=
- =?utf-8?B?bncvNjgwbkNkWEdyNW9OMCtORHMrSnBkUzBqdFVnVUtPVFlzOUx4ODMwQkxw?=
- =?utf-8?B?NHZ5NnhKSFNHYmZSVnhNc0h0aERvcW5lTng4cnI5c1pmcnFMUWxJZW1MYkRK?=
- =?utf-8?B?ZnJvTENIL29ORW5wTFpHZGZnSEsvUlY5SDJHdG92SmtNRmZWRElvNTZQKzJN?=
- =?utf-8?B?N2JoNWUrcU1BNWRGalVnQkUya2t3ckxWNjFMOEJKZFM1Qks2Q1BsR0hML0R2?=
- =?utf-8?B?bHRwY0hlaGJudUt0Rkd1eEJBd20wUlJhNGZ0Sm15bnFiaktEQkhqQTVqdnBM?=
- =?utf-8?B?RzRJYzJMNWFLSHF1eEoxeFR6ZEM0cmxaQWFGT09SME1OREdNZGh4bmFUWWpR?=
- =?utf-8?B?bUorbGxJVzNqNlYvcnFUK1h2SGR0c0Z3aXVlUUYxZzJJTVF6aWdydGs1bXR4?=
- =?utf-8?B?OUVMbG1JeEt5ZENZc2UwSlRJazVTMVpyQktkUjMvenJkcXRIakR0SSsrOWV6?=
- =?utf-8?B?Vm1uNlRXQ0M3RXFOMzhyTWRVN0pOZVhFWnlFNjJZWXNISkdSMnJzSUZiNG1o?=
- =?utf-8?B?NXdJSTg3N0NGYlRFVFdLSnV0d3U0VUFiK0pSYXBadXZCMkpON2RuVm1JUlNO?=
- =?utf-8?B?Q1JzRllrVzBKdkpScHVEdVBtRUZNTVQ1R3F3angySDJ1aGloSktRSmt5dERk?=
- =?utf-8?B?SW1QeU01QmZzZ3FJNlhkYVBhbWw0ZTRnMVFnQy9jSWlxcGc3M05waDlZb2dx?=
- =?utf-8?B?T1FwWXhGOFIvRU9JaWpLN093c0tjanB6cm5KeU4yMEtuZTFWdjFNZExKOEUw?=
- =?utf-8?B?dS92a0tmRTJ1b28zZGJESlo3bmREeExDMUkyTjJsTEc2TUhYWmI0OFNodFA2?=
- =?utf-8?B?NTBxNFYvd0VOR2Q1RWhNSGM0aGJHaFJiSHBzSXpJVUR4K0tBQUsxRFNJOVRM?=
- =?utf-8?B?MkJ2a0h0c3NTQjRXSVhHaTNDOGgrZTFJNEtSd2dmQzNzR0RzckFJeTYwVzhZ?=
- =?utf-8?B?Q2NheDZ2TDN6bndqbHl4c2JrSTJ6L0dPOGhuMVRxUTQvYklKV0xhZEl0clJl?=
- =?utf-8?B?OVF5L0tpaDRrVkFyQUNhWkRUQm03YkV3MHZ5eXhaN3NZUktYRmJtUCtSYUw0?=
- =?utf-8?B?WmhCd3hQSHQraE5sYUhMRENZQzBBQkd6MVFiZkZEdytzRnBYWDZtdFN0UnBD?=
- =?utf-8?B?ak16SllBU2FGNTJ5a29mdVEyczhRYUtTZW1PREZ2dFJYTS9TTUplLzhTVjNF?=
- =?utf-8?B?UGVpMGVjUUdHRHcvaHBlamZTRDVJSStLTzRiVFppTVBRT0pLWlJweTJtZk1B?=
- =?utf-8?Q?dt++iIv/iSGpPMol2UFougOoY?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?F1Dfbvfb7GInhIiLEz3IDrW/ziFtYyymW+DZeT6KF1OVtIpLh+EktvNR+Za9?=
+ =?us-ascii?Q?DTnlcF/UX6IoT5YihPKbMf3fTDtAw1ojVwI5vlD9RQkVFxNB8pht8ZWcaSC0?=
+ =?us-ascii?Q?U4o+dwym4y5jylXn2dj7vq7sZHvov7SuJz5y1jMuEo1AE9YOetmfkNXN/CNH?=
+ =?us-ascii?Q?N08OkZNro3WY7qSDgeCFdynIkil8VllTYAUSnx0wHSA/Zmx7m/FPBYyK5ROd?=
+ =?us-ascii?Q?ArFFW8k3DK2CZSlcwbRGR8bc/f5vDGhsY4bhWnVQ0GUqXvZYiXv/0Ccxdr26?=
+ =?us-ascii?Q?Vvsoz/CVn4G/sSosR6tbhf+A64ScuLicJUvsWBVoBrFNmBat6PFX3qJ7dRCO?=
+ =?us-ascii?Q?gtjtb4/UuLnUpzHQrf/pmiFnYQDKcVR3U7TODj1AjMUbLtyH8O1wRt3IxDhz?=
+ =?us-ascii?Q?a+wrxVyM73bGbihxZ0QFIXq9IqQAMW7mzfMI1L8pqLHxVwlQ/qteCZ5UqLXK?=
+ =?us-ascii?Q?O8+DP1k94a1Ng1zD0js3fltyi3PqPnmJQmdmsoa8kpjxm1A6yxbIZKW3zoEQ?=
+ =?us-ascii?Q?ybmIe8BNaZnllrrA/yUQva1XPwOlW8K/C6F6O8HmjdJYGL6NONwemk6w6uXI?=
+ =?us-ascii?Q?t4mqei/hyPVIMCP0BJUqwrrmdZsfztSX1aa4dBemI5/2kf2RfK+NEmeS4dDR?=
+ =?us-ascii?Q?hc/qq5IJ9VtDYpu1d9icMA3KC3MYJRE+fKW2y2LxpXEnVVERgNkhB9MA83yT?=
+ =?us-ascii?Q?lcpFTyHmWyCHAgOjh2gdnsAnqpORx0Yy15KOE3dahs8BbMd9JYDFRwFWzHJ7?=
+ =?us-ascii?Q?qeeWKe7XQACzOXuXp/r7CNcFUCtuFwFmfMJi8XNs/i8fCWb6o4PcUVJRgBF0?=
+ =?us-ascii?Q?+yBrVGpYQe1fRtCAQEyi0r8T1iKZPPsMg42d/BGkjQ12Au49+ZwZDeQpZ64y?=
+ =?us-ascii?Q?xOGzP/zdTSSiWvoxSONlN9zK/4CXX8CkBrIl5EufsXxypHGQhZeFgZ+LUyCB?=
+ =?us-ascii?Q?CXLHcD0UfyyWBxULiYiePlnubVKECPk8fgwOZFfYb3yJilPoze+N/wSWNyvL?=
+ =?us-ascii?Q?NahAUJjrSFVMqAoAy7Q3mIUMGIxDLuvLODmI68Vvq4XeFQv0Fju7Ef6PToXN?=
+ =?us-ascii?Q?/wcTzS0lvKQytLopQYwsOTZ/M7QPjuU0MxYdBOA2qFJZ4PPU1+QLpeZydfU+?=
+ =?us-ascii?Q?GxleK53NNcvTVKshJWwAlI2hPbl0guDkip1/hR/4Zl+WC/67Evn/UeB7tg8J?=
+ =?us-ascii?Q?ZuLEbuQqRqdIbN6nroirD5AQD2oKEBLaF+8OOBbyXRBOBDL5ElQl29v7SF7J?=
+ =?us-ascii?Q?bawjdCp3cTV2K1UL29IgBsR6mJRYUsFRsTz+fR0/b/6OXmgrO9hYu7vZ0qMo?=
+ =?us-ascii?Q?mq3WhYgdirp1Sofs07hL5m61mLyestxAQrYe5j3wiJ8bQovSSbEWjraLLRKM?=
+ =?us-ascii?Q?h5dpt3m3cn2jFEgPEfdotvP+vuayjUxJuOdR38FmS8uk1ae1qGNSpjr2AGSq?=
+ =?us-ascii?Q?nePh3Zmz37cDfWTuRmceYL1NC7ltRWg4s3NNFNtKqysZgty9KYh10LM9ORyd?=
+ =?us-ascii?Q?YGroaDVLQjGwYZ+ejAI2wBN5Px62EgahPiJtQtkBRITVLcKVdbaph+sf/szx?=
+ =?us-ascii?Q?PK7lzWWnUPINA5AHfkE=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec21f93a-5d1e-4075-e63d-08db4759b2dd
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5336.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2023 19:57:58.3291 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: r1h9a/fb0SAHH6TxgjnIWffcbP8OA2xHp7NlEBW8ssFPZMgBCqJJ5MSXtpspqM3rshBtYowcNGEzF2gzcMUIWw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6895
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5248.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 575599bb-aac1-490e-c0e4-08db4793d832
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Apr 2023 02:54:11.5481 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8fSt5qxSx5Q+5ZAD/KLcuQfxoTb434rxs2Sp7kfdS7yepkivnKrF1OsX4zht2Lax
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5133
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,186 +123,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Ji,
+ Ruili" <Ruili.Ji@amd.com>, "Hou, Xiaomeng \(Matthew\)" <Xiaomeng.Hou@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Felix,
+[AMD Official Use Only - General]
 
-I tested your patch on mGPU systems. It doesn't break any KFD eviction 
-tests, because tests don't allocate DMABuf import, that doesn't trigger 
-it's eviction fence. The only thing the patch affects is in re-mapping 
-DMABuf imports that the eviction will still be triggered.
+Good catch!
+The PASID_SRC bit is only used in IH_COOKIE which is sent as register write=
+ to the IH by IH_client.
+But in the interrupt packet from IH to driver, the corresponding bit is alw=
+ays reserved. PASID_SRC is not to be used for driver.
 
-I have an idea that we probably can remove eviction fence for GTT bo, 
-because currently the only way to trigger the eviction fence is by 
-calling ttm_bo_validate for CPU domain in kfd_mem_dmaunmap_dmabuf. Do 
-you know there is other case to trigger GTT bo's eviction?
+Reviewed-by: Aaron Liu <aaron.liu@amd.com>
 
-Regards,
-Eric
-
-On 2023-04-26 22:21, Felix Kuehling wrote:
-> Hi Eric,
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+> Xiaomeng Hou
+> Sent: Thursday, April 27, 2023 3:17 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Ji, Ruili
+> <Ruili.Ji@amd.com>; Hou, Xiaomeng (Matthew) <Xiaomeng.Hou@amd.com>;
+> Koenig, Christian <Christian.Koenig@amd.com>
+> Subject: [PATCH] drm/amdgpu: remove pasid_src field from IV entry
 >
-> Can you try if the attached patch fixes the problem without breaking 
-> the eviction tests on a multi-GPU PCIe P2P system?
+> PASID_SRC is not actually present in the Interrupt Packet, the field is t=
+aken as
+> reserved bits now. So remove it from IV entry to avoid misuse.
 >
-> Thanks,
->   Felix
+> Signed-off-by: Xiaomeng Hou <Xiaomeng.Hou@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c  | 1 -
+> drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h | 1 -
+>  2 files changed, 2 deletions(-)
 >
->
-> On 2023-04-26 13:02, Christian König wrote:
->> Am 26.04.23 um 18:58 schrieb Felix Kuehling:
->>>
->>> On 2023-04-26 9:03, Christian König wrote:
->>>> Am 25.04.23 um 16:11 schrieb Eric Huang:
->>>>> Hi Christian,
->>>>>
->>>>> What do you think about Felix's explanation?
->>>>
->>>> That's unfortunately not something we can do here.
->>>>
->>>>>
->>>>> Regards,
->>>>> Eric
->>>>>
->>>>> On 2023-04-13 09:28, Felix Kuehling wrote:
->>>>>> Am 2023-04-13 um 07:35 schrieb Christian König:
->>>>>>> Am 13.04.23 um 03:01 schrieb Felix Kuehling:
->>>>>>>> Am 2023-04-12 um 18:25 schrieb Eric Huang:
->>>>>>>>> It is to avoid redundant eviction for KFD's DMAbuf import
->>>>>>>>> bo when dmaunmapping DMAbuf. The DMAbuf import bo has
->>>>>>>>> been set as AMDGPU_PL_PREEMPT in KFD when mapping.
->>>>>>>>>
->>>>>>>>> Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
->>>>>>>>
->>>>>>>> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
->>>>>>>>
->>>>>>>> I'd like to get an Acked-by from Christian as well before 
->>>>>>>> submitting this.
->>>>>>>
->>>>>>> I have to admit that I only partially followed the internal 
->>>>>>> discussion, but in general you need a *really* good explanation 
->>>>>>> for this.
->>>>>>>
->>>>>>> E.g. add code comment and explain in the commit message 
->>>>>>> extensively why this is needed and why there are no alternatives.
->>>>>>
->>>>>> OK. I'll give it a shot:
->>>>>>
->>>>>>    This code path is used among other things when invalidating 
->>>>>> DMABuf
->>>>>>    imports. These imports share a reservation object with the 
->>>>>> exported
->>>>>>    BO. Waiting on all the fences in this reservation will trigger 
->>>>>> KFD
->>>>>>    eviction fences unnecessarily, for example when a DMABuf 
->>>>>> import for
->>>>>>    a DMA mapping on a secondary GPU is being unmapped explicitly. 
->>>>>> Only
->>>>>>    moving the original exported BO requires stopping KFD user mode
->>>>>>    queues. If the invalidation is triggered through a move notifier
->>>>>>    from the exported BO, then moving the original BO already 
->>>>>> triggered
->>>>>>    the eviction fence and we don't need to wait for it again on 
->>>>>> the import.
->>>>>>
->>>>>>    We can identify DMABuf imports in KFD for secondary GPU DMA 
->>>>>> mappings
->>>>>>    by the mem_type AMDGPU_PL_PREEMPT. In this case, use a wait
->>>>>>    operation that ignores KFD eviction fences.
->>>>>>
->>>>>> How does this sound?
->>>>
->>>> To be honest like quite a bad idea. Why in the world are imported 
->>>> BOs moved from GTT to SYSTEM in the first place?
->>>
->>> As I understand it, the way to update SG tables in  SG BOs (e.g. 
->>> userptr and dmabuf imports) is to move them back and forth between 
->>> system and GTT domains. If we left the import in the GTT domain all 
->>> the time, we would have no way to update it, e.g. after an eviction. 
->>> Currently the move to the system domain is done in the unmap code path.
->>>
->>> Before memory is freed, we also need to unmap it from GPUVM, 
->>> including the DMABuf imports on remote GPUs. For the above reason 
->>> that currently includes moving the import to the system domain. If 
->>> we removed that from the unmap code path, we'd need to do the move 
->>> to system somewhere else, maybe in the mapping/validation path.
->>>
->>>
->>>>
->>>> The only reason for this I can think of is that the DMA mappings 
->>>> become invalid for some reasons and in this case waiting for the 
->>>> KFD fence is actually the absolutely right thing to do.
->>>
->>> In this case the reason the only reason for unmapping the memory is 
->>> that we're about to free the memory and its DMABuf imports on other 
->>> GPUs. This is coming from the application with a promise "I'm no 
->>> longer accessing the memory". We don't need to wait for fences here. 
->>> We only need to invalidate the PTEs to make sure that any further 
->>> buggy access by the application will fault.
->>
->> Well in this case just free the BO and it's bo_va structure. The core 
->> handling should take care of clearing all the freed up regions.
->>
->> As for updating the SG of a BO you indeed need to move it from GTT to 
->> SYSTEM and back, but in this case we should either indeed wait for 
->> the KFD fence since page tables in between the operation still have 
->> the old entries or we should destroy the BO and create a new one. The 
->> later would overwrite the PTEs with invalid entries first and then 
->> fill in new valid ones.
->>
->> Regards,
->> Christian.
->>
->>>
->>> Regards,
->>>   Felix
->>>
->>>
->>>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>>>
->>>>>> Regards,
->>>>>>   Felix
->>>>>>
->>>>>>
->>>>>>>
->>>>>>> Regards,
->>>>>>> Christian.
->>>>>>>
->>>>>>>>
->>>>>>>> Thanks,
->>>>>>>>   Felix
->>>>>>>>
->>>>>>>>
->>>>>>>>> ---
->>>>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 7 ++++++-
->>>>>>>>>   1 file changed, 6 insertions(+), 1 deletion(-)
->>>>>>>>>
->>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c 
->>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->>>>>>>>> index 2430f3e9f3a7..64795fe9eecb 100644
->>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->>>>>>>>> @@ -526,7 +526,12 @@ static int amdgpu_bo_move(struct 
->>>>>>>>> ttm_buffer_object *bo, bool evict,
->>>>>>>>>       if ((old_mem->mem_type == TTM_PL_TT ||
->>>>>>>>>            old_mem->mem_type == AMDGPU_PL_PREEMPT) &&
->>>>>>>>>           new_mem->mem_type == TTM_PL_SYSTEM) {
->>>>>>>>> -        r = ttm_bo_wait_ctx(bo, ctx);
->>>>>>>>> +        if (old_mem->mem_type == AMDGPU_PL_PREEMPT)
->>>>>>>>> +            r = amdgpu_bo_sync_wait(abo,
->>>>>>>>> +                        AMDGPU_FENCE_OWNER_KFD,
->>>>>>>>> +                        ctx->interruptible);
->>>>>>>>> +        else
->>>>>>>>> +            r = ttm_bo_wait_ctx(bo, ctx);
->>>>>>>>>           if (r)
->>>>>>>>>               return r;
->>>>>>>
->>>>>
->>>>
->>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+> index d58353c89e59..fceb3b384955 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
+> @@ -271,7 +271,6 @@ void amdgpu_ih_decode_iv_helper(struct
+> amdgpu_device *adev,
+>       entry->timestamp_src =3D dw[2] >> 31;
+>       entry->pasid =3D dw[3] & 0xffff;
+>       entry->node_id =3D (dw[3] >> 16) & 0xff;
+> -     entry->pasid_src =3D dw[3] >> 31;
+>       entry->src_data[0] =3D dw[4];
+>       entry->src_data[1] =3D dw[5];
+>       entry->src_data[2] =3D dw[6];
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h
+> index 7a8e686bdd41..1c747ac4129a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h
+> @@ -54,7 +54,6 @@ struct amdgpu_iv_entry {
+>       unsigned timestamp_src;
+>       unsigned pasid;
+>       unsigned node_id;
+> -     unsigned pasid_src;
+>       unsigned src_data[AMDGPU_IRQ_SRC_DATA_MAX_SIZE_DW];
+>       const uint32_t *iv_entry;
+>  };
+> --
+> 2.25.1
 
