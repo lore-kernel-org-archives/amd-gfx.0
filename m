@@ -4,61 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DD96C77B60
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Apr 2023 22:36:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D768C77B60
+	for <amd-gfx@archiver.kernel.org>; Sat, 29 Apr 2023 09:50:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7C4D10E0C8;
-	Fri, 28 Apr 2023 22:36:50 +0000 (UTC)
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E336E10E0C8
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Apr 2023 22:36:47 +0000 (UTC)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-50a145a0957so21761538a12.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Apr 2023 15:36:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1682721404; x=1685313404;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=6u7vWbDEdsZCmMhd1BUoLyG7yfvP8R7ElBDMPSTEIBc=;
- b=qIFd9r1Rh0/NWvGbzMStmaH3kXzFxi5suyH5FPFMlIns8+tLVQf33NRxFaZ369UEGI
- /kuQ3pgQtOMfosdiDySYfiQu4CpnwIYhB/BgrHTkvWj0hdODnMQolkeqOslWXoaIee/f
- G36c7fXnbynf24Wkcd4RqtyTzPTyQSnUKTTF85vr/Acx8Pe+YYUjY6mkyc91o/f1e9Ee
- q7nECu7aY4f8rRsdaAzy0TsHu1Jcle2mFfFi1Qu+6v38M9k+Lzzli63FgRP46Cj2vElT
- p5uSkmHwhMbLolkjQfkmAd+c5licWHKg5q8PfBqvjPzrrLIuuhOQnp20xXsLaObHpXYz
- C+Ng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682721404; x=1685313404;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=6u7vWbDEdsZCmMhd1BUoLyG7yfvP8R7ElBDMPSTEIBc=;
- b=dCkGvYU5GxedyqUwxyHDWwaeJvQNVP95HlnPBgtXkHdqvKj+mBsVdmH76cXAEWzdQE
- SA4QbxzEzRhVmBI3yZ0C1ITFulEKdcUWrwj2E5ruLpqf6ezDrZRdfaYcbFJWvXfQN8Cn
- v8iZDgc1ll3+d4Cb3cjGtCeq2Plr5hx5/18cnSYX6R0og8r+sk9wY3+2t3gouERowH6M
- n05ycEKa6wuVJu25x2Cs+CwoNs6HtuHt8oALSPyo3QbXS/0EGEVtW5AsOSJ+A+ZlMA43
- gxCvP1/+SngR+BMrRZDSRT55uo3yzEZWq1uNF+s6cm4DED+6X9O9FmKzaxO2Do/Hv4Zy
- FRog==
-X-Gm-Message-State: AC+VfDzWJ8ljt01KBnO4iW6kI2invv3/BAPko6nlk6w+IOfixpX9+l9x
- qll+AhT2BwekUWEW/ngUIwl/OVYMGkHrCKuus8k=
-X-Google-Smtp-Source: ACHHUZ4RsS8AXSRodUWkpLu9K0itxmZnEoYrzYW5yTXGIZQcOzvAaWz9Fvb5KnYsp7fG8Sz3AQP7Wj6FrNIyy1xLEKk=
-X-Received: by 2002:a17:906:1e90:b0:953:5ff8:8b17 with SMTP id
- e16-20020a1709061e9000b009535ff88b17mr10754020ejj.2.1682721403643; Fri, 28
- Apr 2023 15:36:43 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAAxE2A6hmv1vjTE4zWoomwjSP3ssF-8CGU5t29m-WOBjbtU37Q@mail.gmail.com>
- <1311F54B-10AE-4492-BB7C-F4BEC9676983@froggi.es>
- <CAAxE2A58Wp-2z3CKadQfgGkAZA2emH5Z3Z0_soiZEPNmKhkuBA@mail.gmail.com>
- <CAEZNXZC+qbD2JJgV7gTYdNH-SNKhNBbzQKNDyzje0mPKjhSJYg@mail.gmail.com>
-In-Reply-To: <CAEZNXZC+qbD2JJgV7gTYdNH-SNKhNBbzQKNDyzje0mPKjhSJYg@mail.gmail.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Fri, 28 Apr 2023 18:36:32 -0400
-Message-ID: <CAAxE2A55+Rmdz63P8JETkvsLX6DSLFvpBwNoiE_pdsKjpdpCLg@mail.gmail.com>
-Subject: Re: drm/amd/display: disable display DCC with retiling due to worse
- power consumption
-To: Joshua Ashton <joshua@froggi.es>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Content-Type: multipart/alternative; boundary="00000000000085299105fa6d1bfb"
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA53910E05E;
+	Sat, 29 Apr 2023 09:50:05 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1110A10E0A5;
+ Sat, 29 Apr 2023 09:50:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1682761804; x=1714297804;
+ h=date:from:to:cc:subject:message-id;
+ bh=q+q01XihLIZMN87CGIlJre2cmsXELrPDxhixmGWphmk=;
+ b=j/WPy+pSTpQptZbAjmFcSi4+F8N1cXSZMGu1Yb9nSp8YyJaZrUE74Flu
+ N7mCH1DpQRI886Et39SDzoWuJjppsaXcCrt89TCPvTwj08hrFSOX7XcMA
+ lvoi3bE255LzmQTbS/iwm77zDxI7dIKue9vkHkzdZ4HRxbgtjBH6w+Vrn
+ rJDmPTRuCcpNE10iJ+pqIJzE+4DPfddBJtv1H4+igeFb1dhYfu7znMzVR
+ QCb7ulaQJf9IWJwkIY+FnaZUfPznMSQVnTGb0WEvGvPn7JMcnl9NDzgDE
+ wHpzA7lOTM9Imvl2NXpHD+TOPk9RKvLph3L3Vmajkfu/U3H21Tkd/2kB9 w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10694"; a="347956030"
+X-IronPort-AV: E=Sophos;i="5.99,237,1677571200"; d="scan'208";a="347956030"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2023 02:50:02 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10694"; a="672525080"
+X-IronPort-AV: E=Sophos;i="5.99,237,1677571200"; d="scan'208";a="672525080"
+Received: from lkp-server01.sh.intel.com (HELO 5bad9d2b7fcb) ([10.239.97.150])
+ by orsmga006.jf.intel.com with ESMTP; 29 Apr 2023 02:49:59 -0700
+Received: from kbuild by 5bad9d2b7fcb with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pshDK-00012b-1T;
+ Sat, 29 Apr 2023 09:49:58 +0000
+Date: Sat, 29 Apr 2023 17:49:20 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Subject: [linux-next:master] BUILD REGRESSION
+ 92e815cf07ed24ee1c51b122f24ffcf2964b4b13
+Message-ID: <20230429094920.iD_ex%lkp@intel.com>
+User-Agent: s-nail v14.9.24
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,118 +54,322 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+Cc: linux-acpi@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---00000000000085299105fa6d1bfb
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 92e815cf07ed24ee1c51b122f24ffcf2964b4b13  Add linux-next specific files for 20230428
 
-On Fri, Apr 28, 2023, 16:14 Joshua Ashton <joshua@froggi.es> wrote:
+Error/Warning reports:
 
-> I mean I would also like power and perf numbers for Vangogh given you
-> referenced 10.3.
->
-> Generic "power consumption is better" isn't enough to convince me that
-> this is the right call.
->
+https://lore.kernel.org/oe-kbuild-all/202304102354.Q4VOXGTE-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202304220119.94Pw6YsD-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202304291308.YpmrjzVV-lkp@intel.com
 
-Raphael and Mendocino have worse power consumption with retiled displayable
-DCC and modifiers, and that can also be due to how retiling is implemented
-for modifiers.
+Error/Warning: (recently discovered and may have been fixed)
 
-Marek
+ERROR: modpost: "__floatunsisf" [drivers/phy/mediatek/phy-mtk-hdmi-drv.ko] undefined!
+ERROR: modpost: "__gesf2" [drivers/phy/mediatek/phy-mtk-hdmi-drv.ko] undefined!
+ERROR: modpost: "__ltsf2" [drivers/phy/mediatek/phy-mtk-hdmi-drv.ko] undefined!
+drivers/base/regmap/regcache-maple.c:113:23: warning: 'lower_index' is used uninitialized [-Wuninitialized]
+drivers/base/regmap/regcache-maple.c:113:36: warning: 'lower_last' is used uninitialized [-Wuninitialized]
+drivers/bluetooth/btnxpuart.c:1332:34: warning: unused variable 'nxpuart_of_match_table' [-Wunused-const-variable]
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:6339:6: warning: no previous prototype for 'amdgpu_dm_connector_funcs_force' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:6395:21: warning: variable 'count' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c:458:16: warning: variable 'j' set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c:1078:6: warning: no previous prototype for 'gfx_v9_4_3_disable_gpa_mode' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c:1078:6: warning: no previous prototype for function 'gfx_v9_4_3_disable_gpa_mode' [-Wmissing-prototypes]
+drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c:48:38: warning: unused variable 'golden_settings_gc_9_4_3' [-Wunused-const-variable]
+drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h:62: warning: wrong kernel-doc identifier on line:
+drivers/gpu/drm/i915/i915_pmu.h:41: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+drivers/gpu/drm/i915/i915_request.h:176: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+drivers/gpu/drm/i915/i915_vma.h:145: warning: expecting prototype for i915_vma_offset(). Prototype was for i915_vma_size() instead
+drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c:298:6: warning: variable 'ret' is uninitialized when used here [-Wuninitialized]
+loongarch64-linux-ld: trace.c:(.init.text+0x16e8): undefined reference to `ftrace_stub_direct_tramp'
+nios2-linux-ld: phy-mtk-hdmi-mt8195.c:(.text+0x5c0): undefined reference to `__gesf2'
+nios2-linux-ld: phy-mtk-hdmi-mt8195.c:(.text+0x5f0): undefined reference to `__ltsf2'
+nios2-linux-ld: phy-mtk-hdmi-mt8195.c:(.text+0x63c): undefined reference to `__gesf2'
+nios2-linux-ld: phy-mtk-hdmi-mt8195.c:(.text+0x65c): undefined reference to `__ltsf2'
+phy-mtk-hdmi-mt8195.c:(.text+0x5ac): undefined reference to `__floatunsisf'
+phy-mtk-hdmi-mt8195.c:(.text+0x628): undefined reference to `__floatunsisf'
+trace.c:(.init.text+0x16e4): undefined reference to `ftrace_stub_direct_tramp'
 
+Unverified Error/Warning (likely false positive, please contact us if interested):
 
-> - Joshie =F0=9F=90=B8=E2=9C=A8
->
-> On Friday, 28 April 2023, Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com> wrote:
-> > I thought the same thing initially, but then realized that's not how
-> modifiers were designed to work.
-> > Mesa should expose all modifiers it wants to allow for 3D and it doesn'=
-t
-> care which ones are displayable.
-> > The kernel should expose all modifiers it wants to allow for display.
-> > With that, Mesa can still use theoretically displayable DCC, but it wil=
-l
-> only be used for anything that's not the display.
-> > We can, of course, disable it in Mesa instead to get the same effect.
-> > We would need perf numbers for dGPUs to be able to tell whether it's
-> beneficial with the cost of DCC retiling.
-> > Marek
-> >
-> > On Fri, Apr 28, 2023, 12:11 Joshua Ashton <joshua@froggi.es> wrote:
-> >>
-> >> I really don't think the kernel isn't the right place to do this.
-> >> Is there any reason to not just disable it from the Mesa side?
-> >>
-> >> We can already disable displayable DCC there, so I don't see why you
-> are even touching the kernel.
-> >> It makes it infinitely harder for anyone to evaluate perf and power
-> tradeoffs if you disable it at this level.
-> >>
-> >> The whole power vs perf trade is also not a big deal on dGPUs compared
-> to APUs. Probably needs a better heuristic either way to avoid regressing
-> perf.
-> >>
-> >> - Joshie =F0=9F=90=B8=E2=9C=A8
-> >>
-> >> On 28 April 2023 10:47:17 BST, "Marek Ol=C5=A1=C3=A1k" <maraeo@gmail.c=
-om> wrote:
-> >>>
-> >>> Hi,
-> >>> It's attached for review.
-> >>>
-> >>> Thanks,
-> >>> Marek
-> >
+drivers/acpi/property.c:985 acpi_data_prop_read_single() error: potentially dereferencing uninitialized 'obj'.
 
---00000000000085299105fa6d1bfb
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Error/Warning ids grouped by kconfigs:
 
-<div dir=3D"auto"><div><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D=
-"gmail_attr">On Fri, Apr 28, 2023, 16:14 Joshua Ashton &lt;<a href=3D"mailt=
-o:joshua@froggi.es">joshua@froggi.es</a>&gt; wrote:<br></div><blockquote cl=
-ass=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;p=
-adding-left:1ex">I mean I would also like power and perf numbers for Vangog=
-h given you referenced 10.3.<br><br>Generic &quot;power consumption is bett=
-er&quot; isn&#39;t enough to convince me that this is the right call.<br></=
-blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">Raphae=
-l and Mendocino have worse power consumption with retiled displayable DCC a=
-nd modifiers, and that can also be due to how retiling is implemented for m=
-odifiers.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Marek</div><di=
-v dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><bloc=
-kquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #cc=
-c solid;padding-left:1ex"><br>- Joshie =F0=9F=90=B8=E2=9C=A8<br><br>On Frid=
-ay, 28 April 2023, Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:maraeo@gmail=
-.com" target=3D"_blank" rel=3D"noreferrer">maraeo@gmail.com</a>&gt; wrote:<=
-br>&gt; I thought the same thing initially, but then realized that&#39;s no=
-t how modifiers were designed to work.<br>&gt; Mesa should expose all modif=
-iers it wants to allow for 3D and it doesn&#39;t care which ones are displa=
-yable.<br>&gt; The kernel should expose all modifiers it wants to allow for=
- display.<br>&gt; With that, Mesa can still use theoretically displayable D=
-CC, but it will only be used for anything that&#39;s not the display.<br>&g=
-t; We can, of course, disable it in Mesa instead to get the same effect.<br=
->&gt; We would need perf numbers for dGPUs to be able to tell whether it&#3=
-9;s beneficial with the cost of DCC retiling.<br>&gt; Marek<br>&gt;<br>&gt;=
- On Fri, Apr 28, 2023, 12:11 Joshua Ashton &lt;<a href=3D"mailto:joshua@fro=
-ggi.es" target=3D"_blank" rel=3D"noreferrer">joshua@froggi.es</a>&gt; wrote=
-:<br>&gt;&gt;<br>&gt;&gt; I really don&#39;t think the kernel isn&#39;t the=
- right place to do this.<br>&gt;&gt; Is there any reason to not just disabl=
-e it from the Mesa side?<br>&gt;&gt;<br>&gt;&gt; We can already disable dis=
-playable DCC there, so I don&#39;t see why you are even touching the kernel=
-.<br>&gt;&gt; It makes it infinitely harder for anyone to evaluate perf and=
- power tradeoffs if you disable it at this level.<br>&gt;&gt;<br>&gt;&gt; T=
-he whole power vs perf trade is also not a big deal on dGPUs compared to AP=
-Us. Probably needs a better heuristic either way to avoid regressing perf.<=
-br>&gt;&gt;<br>&gt;&gt; - Joshie =F0=9F=90=B8=E2=9C=A8<br>&gt;&gt;<br>&gt;&=
-gt; On 28 April 2023 10:47:17 BST, &quot;Marek Ol=C5=A1=C3=A1k&quot; &lt;<a=
- href=3D"mailto:maraeo@gmail.com" target=3D"_blank" rel=3D"noreferrer">mara=
-eo@gmail.com</a>&gt; wrote:<br>&gt;&gt;&gt;<br>&gt;&gt;&gt; Hi,<br>&gt;&gt;=
-&gt; It&#39;s attached for review.<br>&gt;&gt;&gt;<br>&gt;&gt;&gt; Thanks,<=
-br>&gt;&gt;&gt; Marek<br>&gt;
-</blockquote></div></div></div>
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- alpha-randconfig-c041-20230428
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- alpha-randconfig-r016-20230428
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- arc-allyesconfig
+|   |-- drivers-base-regmap-regcache-maple.c:warning:lower_index-is-used-uninitialized
+|   |-- drivers-base-regmap-regcache-maple.c:warning:lower_last-is-used-uninitialized
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- arc-hsdk_defconfig
+|   |-- drivers-base-regmap-regcache-maple.c:warning:lower_index-is-used-uninitialized
+|   `-- drivers-base-regmap-regcache-maple.c:warning:lower_last-is-used-uninitialized
+|-- arc-randconfig-r004-20230428
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- arc-randconfig-r043-20230428
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- arm-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- arm-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- arm64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- i386-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- i386-randconfig-m021
+|   `-- drivers-acpi-property.c-acpi_data_prop_read_single()-error:potentially-dereferencing-uninitialized-obj-.
+|-- ia64-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- loongarch-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|   |-- loongarch64-linux-ld:trace.c:(.init.text):undefined-reference-to-ftrace_stub_direct_tramp
+|   `-- trace.c:(.init.text):undefined-reference-to-ftrace_stub_direct_tramp
+|-- loongarch-defconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- microblaze-randconfig-c023-20230428
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- mips-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- mips-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- nios2-buildonly-randconfig-r001-20230428
+|   |-- nios2-linux-ld:phy-mtk-hdmi-mt8195.c:(.text):undefined-reference-to-__gesf2
+|   |-- nios2-linux-ld:phy-mtk-hdmi-mt8195.c:(.text):undefined-reference-to-__ltsf2
+|   `-- phy-mtk-hdmi-mt8195.c:(.text):undefined-reference-to-__floatunsisf
+|-- nios2-randconfig-r001-20230428
+|   |-- nios2-linux-ld:phy-mtk-hdmi-mt8195.c:(.text):undefined-reference-to-__gesf2
+|   |-- nios2-linux-ld:phy-mtk-hdmi-mt8195.c:(.text):undefined-reference-to-__ltsf2
+|   `-- phy-mtk-hdmi-mt8195.c:(.text):undefined-reference-to-__floatunsisf
+|-- nios2-randconfig-r013-20230428
+|   |-- ERROR:__floatunsisf-drivers-phy-mediatek-phy-mtk-hdmi-drv.ko-undefined
+|   |-- ERROR:__gesf2-drivers-phy-mediatek-phy-mtk-hdmi-drv.ko-undefined
+|   `-- ERROR:__ltsf2-drivers-phy-mediatek-phy-mtk-hdmi-drv.ko-undefined
+|-- openrisc-randconfig-r034-20230428
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- powerpc-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- riscv-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- riscv-randconfig-c44-20230428
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- s390-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+|-- x86_64-allyesconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:no-previous-prototype-for-amdgpu_dm_connector_funcs_force
+|   |-- drivers-gpu-drm-amd-amdgpu-..-display-amdgpu_dm-amdgpu_dm.c:warning:variable-count-set-but-not-used
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_gfx.c:warning:variable-j-set-but-not-used
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-gfx_v9_4_3_disable_gpa_mode
+`-- x86_64-randconfig-m001
+    `-- drivers-acpi-property.c-acpi_data_prop_read_single()-error:potentially-dereferencing-uninitialized-obj-.
+clang_recent_errors
+|-- arm-randconfig-r046-20230428
+|   `-- drivers-phy-mediatek-phy-mtk-hdmi-mt8195.c:warning:variable-ret-is-uninitialized-when-used-here
+|-- arm64-buildonly-randconfig-r004-20230428
+|   |-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:no-previous-prototype-for-function-gfx_v9_4_3_disable_gpa_mode
+|   `-- drivers-gpu-drm-amd-amdgpu-gfx_v9_4_3.c:warning:unused-variable-golden_settings_gc_9_4_3
+|-- hexagon-randconfig-r045-20230428
+|   `-- drivers-bluetooth-btnxpuart.c:warning:unused-variable-nxpuart_of_match_table
+`-- i386-allmodconfig
+    |-- drivers-gpu-drm-i915-gt-uc-guc_capture_fwif.h:warning:wrong-kernel-doc-identifier-on-line:
+    |-- drivers-gpu-drm-i915-i915_pmu.h:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+    |-- drivers-gpu-drm-i915-i915_request.h:warning:This-comment-starts-with-but-isn-t-a-kernel-doc-comment.-Refer-Documentation-doc-guide-kernel-doc.rst
+    `-- drivers-gpu-drm-i915-i915_vma.h:warning:expecting-prototype-for-i915_vma_offset().-Prototype-was-for-i915_vma_size()-instead
 
---00000000000085299105fa6d1bfb--
+elapsed time: 964m
+
+configs tested: 115
+configs skipped: 5
+
+tested configs:
+alpha                            allyesconfig   gcc  
+alpha        buildonly-randconfig-r003-20230428   gcc  
+alpha                               defconfig   gcc  
+alpha                randconfig-r016-20230428   gcc  
+alpha                randconfig-r032-20230428   gcc  
+arc                              allyesconfig   gcc  
+arc                                 defconfig   gcc  
+arc                            hsdk_defconfig   gcc  
+arc                  randconfig-r004-20230428   gcc  
+arc                  randconfig-r043-20230428   gcc  
+arc                           tb10x_defconfig   gcc  
+arm                              allmodconfig   gcc  
+arm                              allyesconfig   gcc  
+arm                                 defconfig   clang
+arm                                 defconfig   gcc  
+arm                        mvebu_v7_defconfig   gcc  
+arm                  randconfig-r022-20230428   clang
+arm                  randconfig-r046-20230428   clang
+arm                           stm32_defconfig   gcc  
+arm64                            allyesconfig   gcc  
+arm64        buildonly-randconfig-r004-20230428   clang
+arm64                               defconfig   gcc  
+csky                                defconfig   gcc  
+csky                 randconfig-r035-20230428   gcc  
+hexagon                          alldefconfig   clang
+hexagon              randconfig-r006-20230428   clang
+hexagon              randconfig-r041-20230428   clang
+hexagon              randconfig-r045-20230428   clang
+i386                             allyesconfig   gcc  
+i386                              debian-10.3   gcc  
+i386                                defconfig   gcc  
+i386                          randconfig-a001   gcc  
+i386                          randconfig-a002   clang
+i386                          randconfig-a003   gcc  
+i386                          randconfig-a004   clang
+i386                          randconfig-a005   gcc  
+i386                          randconfig-a006   clang
+i386                          randconfig-a011   clang
+i386                          randconfig-a012   gcc  
+i386                          randconfig-a013   clang
+i386                          randconfig-a014   gcc  
+i386                          randconfig-a015   clang
+i386                          randconfig-a016   gcc  
+ia64                             allmodconfig   gcc  
+ia64                                defconfig   gcc  
+loongarch                        allmodconfig   gcc  
+loongarch                         allnoconfig   gcc  
+loongarch                           defconfig   gcc  
+m68k                             allmodconfig   gcc  
+m68k                                defconfig   gcc  
+microblaze   buildonly-randconfig-r005-20230428   gcc  
+microblaze                          defconfig   gcc  
+mips                             allmodconfig   gcc  
+mips                             allyesconfig   gcc  
+mips                  cavium_octeon_defconfig   clang
+mips                 randconfig-r012-20230428   clang
+mips                 randconfig-r023-20230428   clang
+nios2        buildonly-randconfig-r001-20230428   gcc  
+nios2                               defconfig   gcc  
+nios2                randconfig-r001-20230428   gcc  
+nios2                randconfig-r013-20230428   gcc  
+openrisc             randconfig-r033-20230428   gcc  
+openrisc             randconfig-r034-20230428   gcc  
+openrisc                       virt_defconfig   gcc  
+parisc                              defconfig   gcc  
+parisc               randconfig-r003-20230428   gcc  
+parisc               randconfig-r014-20230428   gcc  
+parisc64                            defconfig   gcc  
+powerpc                          allmodconfig   gcc  
+powerpc                           allnoconfig   gcc  
+powerpc                     kmeter1_defconfig   clang
+powerpc                 mpc8315_rdb_defconfig   clang
+powerpc                 mpc837x_rdb_defconfig   gcc  
+powerpc                  mpc885_ads_defconfig   clang
+powerpc              randconfig-r024-20230428   gcc  
+riscv                            allmodconfig   gcc  
+riscv                             allnoconfig   gcc  
+riscv        buildonly-randconfig-r002-20230428   gcc  
+riscv                               defconfig   gcc  
+riscv                randconfig-r002-20230428   clang
+riscv                randconfig-r026-20230428   gcc  
+riscv                randconfig-r042-20230428   gcc  
+riscv                          rv32_defconfig   gcc  
+s390                             allmodconfig   gcc  
+s390                             allyesconfig   gcc  
+s390                                defconfig   gcc  
+s390                 randconfig-r044-20230428   gcc  
+sh                               allmodconfig   gcc  
+sh                   randconfig-r021-20230428   gcc  
+sh                          rsk7264_defconfig   gcc  
+sh                        sh7763rdp_defconfig   gcc  
+sparc                               defconfig   gcc  
+sparc                randconfig-r015-20230428   gcc  
+sparc                randconfig-r031-20230428   gcc  
+sparc64              randconfig-r011-20230428   gcc  
+sparc64              randconfig-r025-20230428   gcc  
+um                             i386_defconfig   gcc  
+um                           x86_64_defconfig   gcc  
+x86_64                            allnoconfig   gcc  
+x86_64                           allyesconfig   gcc  
+x86_64                              defconfig   gcc  
+x86_64                                  kexec   gcc  
+x86_64                        randconfig-a001   clang
+x86_64                        randconfig-a002   gcc  
+x86_64                        randconfig-a003   clang
+x86_64                        randconfig-a004   gcc  
+x86_64                        randconfig-a005   clang
+x86_64                        randconfig-a006   gcc  
+x86_64                        randconfig-a011   gcc  
+x86_64                        randconfig-a012   clang
+x86_64                        randconfig-a013   gcc  
+x86_64                        randconfig-a014   clang
+x86_64                        randconfig-a015   gcc  
+x86_64                        randconfig-a016   clang
+x86_64                               rhel-8.3   gcc  
+xtensa               randconfig-r005-20230428   gcc  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
