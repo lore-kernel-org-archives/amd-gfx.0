@@ -4,112 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B1B4C77B61
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 May 2023 16:10:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A227C77B73
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 May 2023 18:11:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F95E10E0B0;
-	Mon,  1 May 2023 16:10:20 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2059.outbound.protection.outlook.com [40.107.220.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9487C10E0B0
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 May 2023 16:10:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 948D110E0BE;
+	Mon,  1 May 2023 18:11:25 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2053.outbound.protection.outlook.com [40.107.92.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C32710E0BE
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 May 2023 18:11:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PS0KApXOSsUBJUrF9xKEPb5c2kdas7HmjwXmbhoC8l91pLAXvIXRhj9ssrrH2x9a+71+LAzZtRqE0w6QmFjSZ6UNtSte01yRdZcTLysdIuY4xx+AuVkREowida3HakeWdRCYzuZMoVLdfJgN0EWMVBxbzkKiDdKXuZ2Z2vrIPfptXcLMA8ls+yHKUiUagecypDCHQWEg6gkq155cg0N5D+7WNCMuE4Uc0hVAlPLaGt3UoGU20G9Jc4WvugC/C5bqDMbFqUeu6Hnw+8v+JXOF3dYc6LRbpKKr41xeyMudlbYXSNXgkPAjRIYwpL4ARPpojhnakcCpAMKa4dsy8QC5VA==
+ b=Kf7x7bWodKk6qoQxQ76fH6auvJIMLwwJqAIkxO/gDjx27aXXfHhLrwNOCzk7E15RE3db/eYr/wB8qxhstphMzTB2WkG76Tn0p2UGRNseon0WnD7rocqHhitaCcs9zC1N4P5QvmRqcSi6U+WBqSOyYdNKfWQexTevdJpU9p9/14m6VTasJv1V+Jp+AZSbR16ys/jAcJwfIGNDRpEVZx3p4vQOCq/ZU0Nv/pNe0I2/6e3fl/X+bDaq3Ezyyv0KRsTJzkZ+HAiZ+1vTJkuOnxwAWtBJ7kIickyZExRjYHfbn3Yzyt428PygjjJHtAKRtN43KZ2NPKXBl6T4bjCaebMYmg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IvO887ZpFrrL2ec8uAd+y4zKSUm/70kR2WUMza6ITSg=;
- b=QZPMlbF3dV1sirdrLKMCjii3/Lcw4CWOXUVXjWwarnxJRlgmO96Gnbi7hrtormlLajIkaRgZf7XnI3D+skyDEUIxEEwjy2qA7LOTalhNHhgtn/Xops0lyyr3c/6ZUUVgT7sLy+8DFTr6oWbwNUlmEOL4AWnywY1Ja3gMd4Td56nDU4xWbtViFsz/0jll1oj9GYGsUtyXSeiYf3cUES2U/LtqfWiR8kKaHzZAQYVmJsUDKEezEtPBXSTD+1dqernWoE0w5strSvyn+tBH8RfnKh+49U9/BkN355zsl1oc9nSVAPO0FbSxp/scspkepszJOgppu+pSQm1FAwmzRgQtwg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=/4pLJLL75D07F411u2px/gyKi02TQxEXzzl63m0Q0Ts=;
+ b=mkVD1nHXPDx9ztfZOuyEvcGamig72RCFsOOvqhUx7OtgkJ/0bhqV9ZIE01wg4rDxoKHy5QEzvUkrVTyE8LLPdUFB7r8MokfenH1olh6djLwdOyi73Kla+Yc52qfo4Q6FCS+3oHwonUeQPCaqFV/z6rwK92zgwMPS4QkM8o83Ul6Kdd7buto++bkIeBTmh7mRXd0heK2mDbKrMLkvlvi2zq/hRMn8TTK3PI6nzMjbO4jC8oIBgCDGLiQLlmupZdcZrrq8RCyf5CtvZClD9H+AQQX/BkYvYihu1ybhsXZYjN/S3TG13YGHZ/h9/jr3a+annDs4L7oBWF5LPCk1OayCAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IvO887ZpFrrL2ec8uAd+y4zKSUm/70kR2WUMza6ITSg=;
- b=oa9+stbB0lxklTQpHCHsBILYZ/VHZgmYLS7LpEb+cUEvZPHyN/wvm21+0vwnEfdaxeZSuvyShTH3/6IPvFJHiov9oD/z/Mj3I/mApKYMCIKGUPaKBlxSjsrreVQFeH6OMAl0vkpX2NtBeaSC9ayicH58wAbMrCA6YJWlVn2QIy8=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by DM4PR12MB7647.namprd12.prod.outlook.com (2603:10b6:8:105::6) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=/4pLJLL75D07F411u2px/gyKi02TQxEXzzl63m0Q0Ts=;
+ b=YUIrxMgiBndurGjJU1LEYLio4Pvr9lRXsuL1N7d9Iw/9e1RPxQhxTvJwxT+7jNaNNmx7r18GA9qYGSZ3CmbscfG+swOLNbMDEAr9ox8F9VJvq0+2iTPf4Py/69Mv1eyZy6+uRDmHRmtCPayCdSYX7YoHMBp/NkzV1++zLrd7CSw=
+Received: from BL0PR02CA0132.namprd02.prod.outlook.com (2603:10b6:208:35::37)
+ by SA1PR12MB8886.namprd12.prod.outlook.com (2603:10b6:806:375::6)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.30; Mon, 1 May
- 2023 16:10:15 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::28fa:232b:593e:5836]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::28fa:232b:593e:5836%6]) with mapi id 15.20.6340.030; Mon, 1 May 2023
- 16:10:15 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Thai, Thong" <Thong.Thai@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: drm/amdgpu/nv: update VCN 3 max HEVC encoding resolution
-Thread-Topic: drm/amdgpu/nv: update VCN 3 max HEVC encoding resolution
-Thread-Index: AQHZfESJFY0pDrS15ECdIDz4egfIpq9Flh7p
-Date: Mon, 1 May 2023 16:10:15 +0000
-Message-ID: <BL1PR12MB514476FEF33C69404E0E89EEF76E9@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <0503f2b2-08e6-df7e-fe79-2300634a605d@amd.com>
-In-Reply-To: <0503f2b2-08e6-df7e-fe79-2300634a605d@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=True;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-05-01T16:10:15.350Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|DM4PR12MB7647:EE_
-x-ms-office365-filtering-correlation-id: e6c0f44e-e800-45bf-403f-08db4a5e8d10
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Kq+RlqVN4mDtlTwBL1rHpHpjp80FuUS7rrBOs4/LTksDE9lWlC5XEYWM+tkq+eDDD+u6mIo6cZiGuF8FUKnGR68W6GLnnO8b0R0Mwmo5jr9nwyBZU3yJWtngWml9ALz3HdHR5WpqivTdmeRAc9N5GbkANwrzTsLNcNAW3uUE63A4HzN7qt3Kcuqv8SrI0E1mIW9BN6fUwC1ly4D2bzUndMwbBTE6bWt8ob37e59Uwhl9pqNoiP1cA1fBQEQaT3rdcGqCi6sva5xtHe0jfpR/a6IbmljqxyerdnIIJWKvmB/uLLVlc9ygS5zmQSRvkZGd8BGgXgP4srb6LxCLuX0WcPXq7LCdlJMga+HX2wWPVKNpes5CaQCXMnT1ifc3A1JYB3sy5di/URPcEX0z84MVl+YF8uJSrBLM9YWcmrfEue7uoEA0GRgzHqG+r9CpwPLRUGmX/+uEbu0wnURsPxak8LTmET5c3Pm0HBIU/fLR5H+ERk+FfIDLNn7fOKfrMM8qviJXT2C48baKX+RXn/8ydjRx8tr1zqIb5O5/lXpesDnV/mhJif4hRdMwDe6JX2TJTeTD5IDBk3GrwLqdx2d+hp+hoy/cfn2ZWz1as1/V1r4=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(366004)(39860400002)(376002)(136003)(396003)(451199021)(15650500001)(4744005)(33656002)(52536014)(83380400001)(19627405001)(2906002)(5660300002)(41300700001)(8676002)(186003)(316002)(9686003)(26005)(8936002)(53546011)(6506007)(66946007)(64756008)(66476007)(66556008)(76116006)(66446008)(38070700005)(110136005)(86362001)(7696005)(71200400001)(122000001)(38100700002)(478600001)(55016003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?nV/P3VijUjBZv1L1rb2M048jtU9C/HjUtMVVQHGGC/md52A9DiVmeIDB5Aeu?=
- =?us-ascii?Q?c/DKIsADVVWsZvRicUQcfmb3DYiNp/0ll8WehmbposkBGz82+5MZ9PVqgBNx?=
- =?us-ascii?Q?84i52lr8ggPsYgzcYBv/u/L/WCwbg/1ibzELFeCm9zw0YI1HgCIYk0g6teX9?=
- =?us-ascii?Q?tAt+pjd+bD3LxF3tQEOquCrqcy3HNo1K2VvZTu23/I9puKM/UWwzgfP0kZkV?=
- =?us-ascii?Q?Jij0kQnhtsBspAXMiFkIra6iEIiQPKkKnEQ0tN0y44/d4jTQCxo4AA3sbcUW?=
- =?us-ascii?Q?gPCD3oEuqO+fJzC+lsyqugNVgYbFo8lh027Jg7jn0nGz4eZS7KpSybjOtoWN?=
- =?us-ascii?Q?vkg1pnSpRfdHneyMvLV/FiGwgYNWj4BscRW5VBzyoNM+uxxzibk1P1jdCA39?=
- =?us-ascii?Q?mSSTQHqjh8EXNrRSZppfgKgPqt+xa6EB0bMQ4fmwK6RDx2tDmLuFAzWyYnZ1?=
- =?us-ascii?Q?HJ5xkBn7979JEbBeXv9yASQ8qAcmAXaLX5z695dzcEJtt9KH/hLtqyLqJND3?=
- =?us-ascii?Q?hw9ZG2+/qbuCMLWGG7ufN7dURxM2GeFjKInQthViubiywgFog6gXJmi29Lsq?=
- =?us-ascii?Q?wjqnPV9OW5NkNCn8RVL0X6uhE4b06nYP0G3BENk36VgDRyzO/moLnLMFUhD3?=
- =?us-ascii?Q?nUPjkDFG3UA7P4yoEZeF02WPdmhKjq6Mh0BGYx/M7jBdvtgYxfDPI1Qp2+hq?=
- =?us-ascii?Q?bC6BuX2TAsa2rIGMQvQabW3nkJCuIGBB+yt1t+oZCN3sVdll6JBahe27NF++?=
- =?us-ascii?Q?vZ1j8X74rTl2XxDrBjCV+1xcBuA3LdUTiM9YFsNAzpPmZcMBI17UHppbL4ef?=
- =?us-ascii?Q?B/j8kVszg3OrXe8kRTbtHPx+FecDcMTSRIq5QUAtMwkmLm2iDKNEyOIIPZtT?=
- =?us-ascii?Q?USOdDJjgkqM1pPFLPo+EfrCDIxz/kuT26lADuwDB70pm0NJBnkL8x4Nbu365?=
- =?us-ascii?Q?k/8cWPs2dECLFLE4NK+Ka+gMsYujdPHb7vcz/g2DNgEobLSh+4byhMYJLIvb?=
- =?us-ascii?Q?1REMqD06odIVSMl70KxV7FdOez5+hUyuJzmD3IK42XZ1SuFaoQJiQChRYwm2?=
- =?us-ascii?Q?SRuzh8u3u6dtImL5FFY35NETjy/i9UDzV+lxkFVigJG8g+izLsmStThJjUxF?=
- =?us-ascii?Q?NpDRqSOkl9OI/ZTSUkQ5LBXc2CG+pkPNGTb2LOjCaQPbSf0iY0Ui4BAitaC3?=
- =?us-ascii?Q?mfYR3YDj0hwarA9Hd74BLYswuCOmvXX3xS/lFai3TS0Y2A5DBbdLx7PPg3Ht?=
- =?us-ascii?Q?u+vDCKyE0bojBPlhzTnrNBEOx8PdVzq5kYxt/X4f+ST5tyf3XQ+9+8eNHPGm?=
- =?us-ascii?Q?qZ5tpHEe8i1sXC3RouHhoOxbOLrcUCBWdL48p1f9r0ZyY3/XsTf9nstGYvtB?=
- =?us-ascii?Q?8qfZwAxkSCOSwrlvenspt8tUxZLP+eqE1/RJhWqxnPJ3zPjPf0vIUoeBDGaC?=
- =?us-ascii?Q?3TgZ85QkWFviSv3WP0+bGAj2fI/hEOOcZX2ikRfps/oJFzJ6XWoevwshGawr?=
- =?us-ascii?Q?1JNNLARLWJuzKUoRB3C5MNac+GaXZDoe2q2eWoWkUNVotlrqUX8ifRJZlUsd?=
- =?us-ascii?Q?0PeHJYmeFmy1YLZfJm8=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB514476FEF33C69404E0E89EEF76E9BL1PR12MB5144namp_"
+ 2023 18:11:21 +0000
+Received: from BL02EPF000145B9.namprd05.prod.outlook.com
+ (2603:10b6:208:35:cafe::b2) by BL0PR02CA0132.outlook.office365.com
+ (2603:10b6:208:35::37) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.31 via Frontend
+ Transport; Mon, 1 May 2023 18:11:20 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF000145B9.mail.protection.outlook.com (10.167.241.209) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6340.16 via Frontend Transport; Mon, 1 May 2023 18:11:20 +0000
+Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 1 May
+ 2023 13:11:18 -0500
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Add new ATOM capability option
+Date: Mon, 1 May 2023 12:10:13 -0600
+Message-ID: <20230501181013.1202531-1-Rodrigo.Siqueira@amd.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF000145B9:EE_|SA1PR12MB8886:EE_
+X-MS-Office365-Filtering-Correlation-Id: de2ff090-f9bf-4894-926f-08db4a6f775a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 8HE4ksF4ZhcLqF7/70QFqGbGpaxri7VBKJuJ/u88+3GKWvLlGaCSAzSMnqXmYFUwlzs1VxuZuoZ/K/uIVDUA8PFoP1jGkDQlxwi5pcjvBbxPZzmhjip3jNTJHTLAgTmOnlyum6I77frMSjq9au8K38Se/XVGPhhz9O3b5LNUds1pJBmbuQfLztvgcxxL7vf8rWxU0UCVQOe0DWtUbtSCXaozxWYizcqbFFGfp/CPm9ymI+LLGK30iT+OxKT9prhIvWKC0ypy8WgLa6UWcyd0eQQOjrEEZBx6bXvhGaGsaoNFpUhbz9UquoAPF0MweamdZprb8qnskP8JTcWMnir/5Zd8gAQzEjeDuZ7pzI03L1aQVmG1L2bctZg/KKEnY8O+4eT2jC0PIcvvxRIqpWobZtJHmE80oOTh0skZzZx7S23jcy416CadyDeYR08JS84XV4ErTy4rDNMA5JrTwAhf11xE1WxlmC/JCZwLWiNuXHKZ+o3EgXzAJrXPvOgyPL9puRwhpADbB7VCy+03NVzVyVyaf493Uhmh+zQkSTTceIUi0MFBE5Xxo49r43G9779o29OxTCTq40eFSPdGaCwnow8i7NrT2FqC1GcyKAxV4AuFzT5xBvHKqkSoq4RqbYOnYfnSrRzuFezCG1nmcoCurej7bWEIbVlDICC+ust6KrQfp3k3BD5vSPT6CP64XcR7F7jk6MygUsvg6GtoWjj3oFIv8ye1jwp3G1w/zy48KBM=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(346002)(396003)(39860400002)(136003)(451199021)(46966006)(36840700001)(40470700004)(356005)(8936002)(8676002)(41300700001)(5660300002)(47076005)(86362001)(81166007)(82740400003)(40460700003)(1076003)(26005)(70206006)(6916009)(70586007)(426003)(4326008)(6666004)(2616005)(478600001)(40480700001)(36860700001)(54906003)(336012)(36756003)(316002)(2906002)(16526019)(186003)(82310400005)(36900700001);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e6c0f44e-e800-45bf-403f-08db4a5e8d10
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 May 2023 16:10:15.7086 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: XU/x6Advy10+7u+clYSLONhKuP97KxHWEUKVxLhe14eK9nVHSurCxeT/43mxk/RmQKSViksegLzWSgBZk5S9pg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7647
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 May 2023 18:11:20.6838 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: de2ff090-f9bf-4894-926f-08db4a6f775a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF000145B9.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8886
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,94 +97,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Aurabindo
+ Pillai <Aurabindo.Pillai@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ George Shen <George.Shen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB514476FEF33C69404E0E89EEF76E9BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Add ATOM_CONNECTOR_CAP_NOT_SUPPORT_DP_PLUS_PLUS in enum
+atom_connector_caps_def to better identify if passive DP to HDMI dongle
+is supported.
 
-[AMD Official Use Only - General]
+Cc: George Shen <George.Shen@amd.com>
+Cc: Aurabindo Pillai <Aurabindo.Pillai@amd.com>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+---
+ drivers/gpu/drm/amd/include/atomfirmware.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Thong Th=
-ai <thong.thai@amd.com>
-Sent: Monday, May 1, 2023 11:49 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Subject: drm/amdgpu/nv: update VCN 3 max HEVC encoding resolution
+diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/amd/include/atomfirmware.h
+index bbe1337a8cee..c77b46898c08 100644
+--- a/drivers/gpu/drm/amd/include/atomfirmware.h
++++ b/drivers/gpu/drm/amd/include/atomfirmware.h
+@@ -845,6 +845,7 @@ enum atom_connector_caps_def
+ {
+   ATOM_CONNECTOR_CAP_INTERNAL_DISPLAY         = 0x01,        //a cap bit to indicate that this non-embedded display connector is an internal display
+   ATOM_CONNECTOR_CAP_INTERNAL_DISPLAY_BL      = 0x02,        //a cap bit to indicate that this internal display requires BL control from GPU, refers to lcd_info for BL PWM freq 
++  ATOM_CONNECTOR_CAP_NOT_SUPPORT_DP_PLUS_PLUS = 0x8,        // a cap bit to indicate that redriver on this connector doesn't support DP++ Dual Mode (i.e. passive DP to HDMI dongles)
+ };
+ 
+ struct atom_disp_connector_caps_record
+-- 
+2.39.2
 
-    drm/amdgpu/nv: update VCN 3 max HEVC encoding resolution
-
-     Update the maximum resolution reported for HEVC encoding on VCN 3
-     devices to reflect its 8K encoding capability.
-
-     v2: Also update the max height for H.264 encoding to match spec.
-     (Ruijing)
-
-Attached for review.
-
-Thanks,
-
-Thong Thai
-
---_000_BL1PR12MB514476FEF33C69404E0E89EEF76E9BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0000FF;margin:5pt;" ali=
-gn=3D"Left">
-[AMD Official Use Only - General]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
-Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Thong Thai &lt;thong.thai@amd=
-.com&gt;<br>
-<b>Sent:</b> Monday, May 1, 2023 11:49 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Subject:</b> drm/amdgpu/nv: update VCN 3 max HEVC encoding resolution</f=
-ont>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">&nbsp;&nbsp;&nbsp; drm/amdgpu/nv: update VCN 3 max=
- HEVC encoding resolution<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp; Update the maximum resolution reported for HEVC en=
-coding on VCN 3<br>
-&nbsp;&nbsp;&nbsp;&nbsp; devices to reflect its 8K encoding capability.<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp; v2: Also update the max height for H.264 encoding =
-to match spec.<br>
-&nbsp;&nbsp;&nbsp;&nbsp; (Ruijing)<br>
-<br>
-Attached for review.<br>
-<br>
-Thanks,<br>
-<br>
-Thong Thai<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BL1PR12MB514476FEF33C69404E0E89EEF76E9BL1PR12MB5144namp_--
