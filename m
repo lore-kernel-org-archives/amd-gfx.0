@@ -4,38 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B04AFC77B73
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 May 2023 03:03:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC8E6C77B7F
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 May 2023 03:04:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DC6E10E283;
-	Mon,  1 May 2023 03:03:41 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D713310E283;
- Mon,  1 May 2023 03:03:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B12B10E2A8;
+	Mon,  1 May 2023 03:04:21 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC00310E2A8;
+ Mon,  1 May 2023 03:04:19 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5E7B16112D;
- Mon,  1 May 2023 03:03:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C59B7C433EF;
- Mon,  1 May 2023 03:03:35 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 780366119D;
+ Mon,  1 May 2023 03:04:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6874EC433D2;
+ Mon,  1 May 2023 03:04:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1682910218;
- bh=u4uXahRZ1oEWMPtWpsDRehFwjvVF4mBJHFq7K0vkIXA=;
+ s=k20201202; t=1682910258;
+ bh=I1RDRwSrhMW4Pm7vbL2yMdXLt24MC9wUztj0zXrXlac=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ZJftMhwSWL8oxoD7BReBKCdoK12XWoXSKIjhPSjhwTXJt55c7o7yMpu8lPZP0SMHU
- eV/N4Z68E5JtJxCF3Zqtml/KCuJLqv5uNjen1l/HLBgFMRD99iVJqY0zWcN5L4dG8S
- 1kJFfyNjxObbkJxip79tRs/+IdWCw2kiy3WYuoWIVvA76wG1+uyhMEWRCsbr+QajAr
- oGq437aripHHompW+97H2s2/u4fUGfbMV9plEbusf7fS6UFAs+cq1VNwrUjDds9OI8
- 2U9yWw5LTJ6FUFYk/P0qwiGXGgx+4FRpeMRtXd4Cl7TJzdpO65ItKeOi4qPK2XmUOx
- /e2OZsRBUdbWA==
+ b=dAIC2t2WrfD0qZMd0dFai+sstaAqzM+WTa3CIN9I+C6w97YvVzwFES+441n9NHO9E
+ fFK8/gMnx9/nZyhli/Jz/4rS6KUitBPFU7Ilvj/ldskf8Sav4CE5535nK7gZ9lvP9B
+ zZ4gz5CetnzLotUeFDFsWOZtAhOEhYZWkyCTXvB7WhxO/dCLqETTcV5Og8mK2zzOFI
+ lPcXsw/lMVlusf5muVFb0/Pb/mUT3auQT2rDD/BGSyYItgDyp18qIqT/9j26vBSEO8
+ 2XcJCc05yayn6XGBUOAfcqSk84ZECnX+EpNdhpXRsE/GS5tA+mlxDlXHkjryItLyHY
+ PR7GXzmsuaceg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 19/33] drm/amd/display: fixed dcn30+ underflow
- issue
-Date: Sun, 30 Apr 2023 23:02:13 -0400
-Message-Id: <20230501030227.3254266-19-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 29/33] drm/amd/display: Correct DML calculation to
+ follow HW SPEC
+Date: Sun, 30 Apr 2023 23:02:23 -0400
+Message-Id: <20230501030227.3254266-29-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230501030227.3254266-1-sashal@kernel.org>
 References: <20230501030227.3254266-1-sashal@kernel.org>
@@ -54,87 +55,98 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: felipe.clark@amd.com, aric.cyr@amd.com, wenjing.liu@amd.com,
- dri-devel@lists.freedesktop.org, Jun.Lei@amd.com, airlied@gmail.com,
- Jimmy.Kizito@amd.com, Sasha Levin <sashal@kernel.org>, Charlene.Liu@amd.com,
- Rodrigo.Siqueira@amd.com, Syed.Hassan@amd.com, amd-gfx@lists.freedesktop.org,
- aurabindo.pillai@amd.com, Alvin Lee <Alvin.Lee2@amd.com>,
- harry.wentland@amd.com, Brian.Chang@amd.com, sunpeng.li@amd.com,
- duncan.ma@amd.com, mwen@igalia.com, Daniel Wheeler <daniel.wheeler@amd.com>,
- Martin Leung <Martin.Leung@amd.com>, Ayush Gupta <ayugupta@amd.com>,
- sungjoon.kim@amd.com, Dillon.Varone@amd.com, Wesley.Chalmers@amd.com,
- Qingqing Zhuo <qingqing.zhuo@amd.com>, Xinhui.Pan@amd.com, daniel@ffwll.ch,
+Cc: aric.cyr@amd.com, dri-devel@lists.freedesktop.org, mairacanal@riseup.net,
+ hamza.mahfooz@amd.com, Jun Lei <Jun.Lei@amd.com>, airlied@gmail.com,
+ Sasha Levin <sashal@kernel.org>, Charlene.Liu@amd.com,
+ Rodrigo.Siqueira@amd.com, amd-gfx@lists.freedesktop.org, alex.hung@amd.com,
+ aurabindo.pillai@amd.com, alvin.lee2@amd.com, harry.wentland@amd.com,
+ sunpeng.li@amd.com, nathan@kernel.org, Daniel Wheeler <daniel.wheeler@amd.com>,
+ Paul Hsieh <Paul.Hsieh@amd.com>, Dillon.Varone@amd.com,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, Xinhui.Pan@amd.com,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>, daniel@ffwll.ch,
  Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ayush Gupta <ayugupta@amd.com>
+From: Paul Hsieh <Paul.Hsieh@amd.com>
 
-[ Upstream commit 37403ced9f2873fab7f39ab4ac963bbb33fb0bc0 ]
+[ Upstream commit 385c3e4c29e1d4ce8f68687a8c84621e4c0e0416 ]
 
 [Why]
-Observing underflow on dcn30+ system config at 4k144hz
+In 2560x1600@240p eDP panel, driver use lowest voltage level
+to play 1080p video cause underflow. According to HW SPEC,
+the senario should use high voltage level.
 
 [How]
-We set the UCLK hardmax on AC/DC switch if softmax is enabled
-and also on boot. While booting up the UCLK Hardmax is set
-to softmax before the init sequence and the init sequence
-resets the hardmax to UCLK max which enables P-state switching.
-Just added a conditional check to avoid setting hardmax on init.
+ChromaPre value is zero when bandwidth validation.
+Correct ChromaPre calculation.
 
-Reviewed-by: Alvin Lee <Alvin.Lee2@amd.com>
-Reviewed-by: Martin Leung <Martin.Leung@amd.com>
+Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Reviewed-by: Jun Lei <Jun.Lei@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Signed-off-by: Ayush Gupta <ayugupta@amd.com>
+Signed-off-by: Paul Hsieh <Paul.Hsieh@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c | 3 ++-
- drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c | 2 +-
- drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c | 2 +-
- 3 files changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c  | 2 +-
+ drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c  | 2 +-
+ .../gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c    | 2 +-
+ drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c  | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-index c20e9f76f0213..a1b312483d7f1 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
-@@ -629,7 +629,8 @@ void dcn30_init_hw(struct dc *dc)
- 	if (dc->clk_mgr->funcs->notify_wm_ranges)
- 		dc->clk_mgr->funcs->notify_wm_ranges(dc->clk_mgr);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
+index 49da8119b28e9..861f32b3248e7 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
+@@ -4866,7 +4866,7 @@ void dml30_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 							v->DETBufferSizeCThisState[k],
+ 							&v->UrgentBurstFactorCursorPre[k],
+ 							&v->UrgentBurstFactorLumaPre[k],
+-							&v->UrgentBurstFactorChroma[k],
++							&v->UrgentBurstFactorChromaPre[k],
+ 							&v->NoUrgentLatencyHidingPre[k]);
+ 				}
  
--	if (dc->clk_mgr->funcs->set_hard_max_memclk)
-+	//if softmax is enabled then hardmax will be set by a different call
-+	if (dc->clk_mgr->funcs->set_hard_max_memclk && !dc->clk_mgr->dc_mode_softmax_enabled)
- 		dc->clk_mgr->funcs->set_hard_max_memclk(dc->clk_mgr);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+index 77094035a26af..cf8f3d690fa66 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+@@ -5189,7 +5189,7 @@ void dml31_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 							v->DETBufferSizeCThisState[k],
+ 							&v->UrgentBurstFactorCursorPre[k],
+ 							&v->UrgentBurstFactorLumaPre[k],
+-							&v->UrgentBurstFactorChroma[k],
++							&v->UrgentBurstFactorChromaPre[k],
+ 							&v->NotUrgentLatencyHidingPre[k]);
+ 				}
  
- 	if (dc->res_pool->hubbub->funcs->force_pstate_change_control)
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
-index bdf101547484a..d4ee533deff32 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
-@@ -284,7 +284,7 @@ void dcn31_init_hw(struct dc *dc)
- 	if (dc->clk_mgr->funcs->notify_wm_ranges)
- 		dc->clk_mgr->funcs->notify_wm_ranges(dc->clk_mgr);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
+index 69516cfdbc64a..4998b211ccac7 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn314/display_mode_vba_314.c
+@@ -5286,7 +5286,7 @@ void dml314_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_
+ 							v->DETBufferSizeCThisState[k],
+ 							&v->UrgentBurstFactorCursorPre[k],
+ 							&v->UrgentBurstFactorLumaPre[k],
+-							&v->UrgentBurstFactorChroma[k],
++							&v->UrgentBurstFactorChromaPre[k],
+ 							&v->NotUrgentLatencyHidingPre[k]);
+ 				}
  
--	if (dc->clk_mgr->funcs->set_hard_max_memclk)
-+	if (dc->clk_mgr->funcs->set_hard_max_memclk && !dc->clk_mgr->dc_mode_softmax_enabled)
- 		dc->clk_mgr->funcs->set_hard_max_memclk(dc->clk_mgr);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
+index 820042f6aaca5..23819b9056c99 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_32.c
+@@ -3332,7 +3332,7 @@ void dml32_ModeSupportAndSystemConfigurationFull(struct display_mode_lib *mode_l
+ 							/* Output */
+ 							&mode_lib->vba.UrgentBurstFactorCursorPre[k],
+ 							&mode_lib->vba.UrgentBurstFactorLumaPre[k],
+-							&mode_lib->vba.UrgentBurstFactorChroma[k],
++							&mode_lib->vba.UrgentBurstFactorChromaPre[k],
+ 							&mode_lib->vba.NotUrgentLatencyHidingPre[k]);
+ 				}
  
- 	if (dc->res_pool->hubbub->funcs->force_pstate_change_control)
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-index 1a85509c12f23..a32e21ada8555 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
-@@ -970,7 +970,7 @@ void dcn32_init_hw(struct dc *dc)
- 	if (dc->clk_mgr->funcs->notify_wm_ranges)
- 		dc->clk_mgr->funcs->notify_wm_ranges(dc->clk_mgr);
- 
--	if (dc->clk_mgr->funcs->set_hard_max_memclk)
-+	if (dc->clk_mgr->funcs->set_hard_max_memclk && !dc->clk_mgr->dc_mode_softmax_enabled)
- 		dc->clk_mgr->funcs->set_hard_max_memclk(dc->clk_mgr);
- 
- 	if (dc->res_pool->hubbub->funcs->force_pstate_change_control)
 -- 
 2.39.2
 
