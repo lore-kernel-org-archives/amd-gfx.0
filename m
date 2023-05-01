@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50490C77B60
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 May 2023 03:06:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0460AC77B60
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 May 2023 03:06:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2FFF10E2CD;
-	Mon,  1 May 2023 03:06:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FD7E10E2D3;
+	Mon,  1 May 2023 03:06:39 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3EAC10E2CC;
- Mon,  1 May 2023 03:06:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 095C210E2D0;
+ Mon,  1 May 2023 03:06:37 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 66D9C61765;
- Mon,  1 May 2023 03:06:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35589C4339B;
- Mon,  1 May 2023 03:06:13 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 6EFB3617E1;
+ Mon,  1 May 2023 03:06:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 431B3C433EF;
+ Mon,  1 May 2023 03:06:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1682910374;
+ s=k20201202; t=1682910396;
  bh=YPvELhmPw/DxVGQuv/5qTcS6D7urEQkVjvxtiTCqZok=;
  h=From:To:Cc:Subject:Date:From;
- b=M2KXsLwEH+OJ/IulXGZ6CPi7iFvAkPZRlHiImJU5a7RoMvznQbEcpuGxeK1z0y5T7
- qUmhwkxP+e5T6ueUD0FxAs2bBcWmd52KPh1+SIiLnqmLNwVHP2QVLJr02zhHCJkbbh
- /jqHLi5nIez2rTNYX0WBPOHQI+Sp+N3LA3EBI4y9K93olRQHKTXZwaigTuCgAPqh8q
- M8EiGUwiYyVUXakwlxQtIHM+qJqP1U7ruqUrt2VPicvtAimpdkYr0+ogn9gP3Ajsop
- 5Orh4i7y9cj5mmoTnNabDk1zqmVbTIDsY1Qv3yRkSp4rPR5RIQiSX98PDFU8ZfmjhV
- HJjgvxH4W3HUA==
+ b=h/VC0GoShzE0wWzDeQbMGYTeNknMh2rR402Tf600flUy7Y0QtFBgKFGpCgEQN2MQv
+ 1HrMfbe6h/LOPNl02g5cLr+TJ2RT3pfj0P+iF2ypIffLtkTYskIrwwWWE1i4MVIggc
+ XuJCA4c91U/ErK+5W11EMfPi1hXSziw+geWUald6yPpFjJy2vHwSf0zlJyh+t7L7UL
+ yl+SCYffLLfJCaf+5adOnowaghAEMsNqdaxokHHCVSamjV72TxbqHebnSBy2qAPc0I
+ vmaCip+Y5XVhzUtXXeQrfRmbxPfZ8nP7gIZjnI/e6h/EYkhbFLyU67t7TV9YPuMEA5
+ 2HL/UPmmwhjsA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 1/9] drm/amd/display: Use DC_LOG_DC in the
+Subject: [PATCH AUTOSEL 4.19 1/9] drm/amd/display: Use DC_LOG_DC in the
  trasform pixel function
-Date: Sun, 30 Apr 2023 23:06:01 -0400
-Message-Id: <20230501030611.3255082-1-sashal@kernel.org>
+Date: Sun, 30 Apr 2023 23:06:23 -0400
+Message-Id: <20230501030633.3255202-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 X-stable: review
