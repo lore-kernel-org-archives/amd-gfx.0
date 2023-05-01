@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9406DC77B60
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 May 2023 03:03:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B04AFC77B73
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 May 2023 03:03:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E656410E29B;
-	Mon,  1 May 2023 03:03:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DC6E10E283;
+	Mon,  1 May 2023 03:03:41 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5354410E29B;
- Mon,  1 May 2023 03:02:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D713310E283;
+ Mon,  1 May 2023 03:03:39 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B48276112D;
- Mon,  1 May 2023 03:02:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79DDCC4339E;
- Mon,  1 May 2023 03:02:56 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5E7B16112D;
+ Mon,  1 May 2023 03:03:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C59B7C433EF;
+ Mon,  1 May 2023 03:03:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1682910178;
- bh=8L0YUmQisuwdiCTcNyYLilgshNpv6wm2b+pOlg6m8to=;
+ s=k20201202; t=1682910218;
+ bh=u4uXahRZ1oEWMPtWpsDRehFwjvVF4mBJHFq7K0vkIXA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dImSPO4nj5nZPLlhQKZwiDlNbpwU3yOdL2vUOif2c6L4+u7ci4a7w3VVNlL9re/zG
- ucIjiaHYyWnAW7lj4nFHO410UL7HQ+ztpxVkXZwn4xiCu+i4+e/iE11Q3wBu1kDwO6
- esdOSezcXxrplV4oVqodQU/3ptr97CoaZABMpklCnfhX+vzedfwFNLRl+SI2Smq74Z
- P/11ZJRoN4/yMnVeVgRse4YanDGhJp2CIpsGd1mboS9L78I6IGMRQTfNnEk0Y+45Xb
- XBabOaTV74Xi9OdPXO8RMbhpnmO4tGgGspbg+4NOenHt/FgobIp2syUu2l7dt5vTXx
- fX15KAOVKWByw==
+ b=ZJftMhwSWL8oxoD7BReBKCdoK12XWoXSKIjhPSjhwTXJt55c7o7yMpu8lPZP0SMHU
+ eV/N4Z68E5JtJxCF3Zqtml/KCuJLqv5uNjen1l/HLBgFMRD99iVJqY0zWcN5L4dG8S
+ 1kJFfyNjxObbkJxip79tRs/+IdWCw2kiy3WYuoWIVvA76wG1+uyhMEWRCsbr+QajAr
+ oGq437aripHHompW+97H2s2/u4fUGfbMV9plEbusf7fS6UFAs+cq1VNwrUjDds9OI8
+ 2U9yWw5LTJ6FUFYk/P0qwiGXGgx+4FRpeMRtXd4Cl7TJzdpO65ItKeOi4qPK2XmUOx
+ /e2OZsRBUdbWA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 06/33] drm/amd/display: Use DC_LOG_DC in the
- trasform pixel function
-Date: Sun, 30 Apr 2023 23:02:00 -0400
-Message-Id: <20230501030227.3254266-6-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 19/33] drm/amd/display: fixed dcn30+ underflow
+ issue
+Date: Sun, 30 Apr 2023 23:02:13 -0400
+Message-Id: <20230501030227.3254266-19-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230501030227.3254266-1-sashal@kernel.org>
 References: <20230501030227.3254266-1-sashal@kernel.org>
@@ -54,116 +54,87 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, sunpeng.li@amd.com, airlied@gmail.com,
- Qingqing Zhuo <qingqing.zhuo@amd.com>, Xinhui.Pan@amd.com,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- Daniel Wheeler <daniel.wheeler@amd.com>, dri-devel@lists.freedesktop.org,
- daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
- harry.wentland@amd.com, christian.koenig@amd.com
+Cc: felipe.clark@amd.com, aric.cyr@amd.com, wenjing.liu@amd.com,
+ dri-devel@lists.freedesktop.org, Jun.Lei@amd.com, airlied@gmail.com,
+ Jimmy.Kizito@amd.com, Sasha Levin <sashal@kernel.org>, Charlene.Liu@amd.com,
+ Rodrigo.Siqueira@amd.com, Syed.Hassan@amd.com, amd-gfx@lists.freedesktop.org,
+ aurabindo.pillai@amd.com, Alvin Lee <Alvin.Lee2@amd.com>,
+ harry.wentland@amd.com, Brian.Chang@amd.com, sunpeng.li@amd.com,
+ duncan.ma@amd.com, mwen@igalia.com, Daniel Wheeler <daniel.wheeler@amd.com>,
+ Martin Leung <Martin.Leung@amd.com>, Ayush Gupta <ayugupta@amd.com>,
+ sungjoon.kim@amd.com, Dillon.Varone@amd.com, Wesley.Chalmers@amd.com,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, Xinhui.Pan@amd.com, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+From: Ayush Gupta <ayugupta@amd.com>
 
-[ Upstream commit 7222f5841ff49709ca666b05ff336776e0664a20 ]
+[ Upstream commit 37403ced9f2873fab7f39ab4ac963bbb33fb0bc0 ]
 
-[Why & How]
-DC now uses a new commit sequence which is more robust since it
-addresses cases where we need to reorganize pipes based on planes and
-other parameters. As a result, this new commit sequence reset the DC
-state by cleaning plane states and re-creating them accordingly with the
-need. For this reason, the dce_transform_set_pixel_storage_depth can be
-invoked after a plane state is destroyed and before its re-creation. In
-this situation and on DCE devices, DC will hit a condition that will
-trigger a dmesg log that looks like this:
+[Why]
+Observing underflow on dcn30+ system config at 4k144hz
 
-Console: switching to colour frame buffer device 240x67
-------------[ cut here ]------------
-[..]
-Hardware name: System manufacturer System Product Name/PRIME X370-PRO, BIOS 5603 07/28/2020
-RIP: 0010:dce_transform_set_pixel_storage_depth+0x3f8/0x480 [amdgpu]
-[..]
-RSP: 0018:ffffc9000202b850 EFLAGS: 00010293
-RAX: ffffffffa081d100 RBX: ffff888110790000 RCX: 000000000000000c
-RDX: ffff888100bedbf8 RSI: 0000000000001a50 RDI: ffff88810463c900
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000007
-R10: 0000000000000001 R11: 0000000000000f00 R12: ffff88810f500010
-R13: ffff888100bedbf8 R14: ffff88810f515688 R15: 0000000000000000
-FS:  00007ff0159249c0(0000) GS:ffff88840e940000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ff01528e550 CR3: 0000000002a10000 CR4: 00000000003506e0
-Call Trace:
- <TASK>
- ? dm_write_reg_func+0x21/0x80 [amdgpu 340dadd3f7c8cf4be11cf0bdc850245e99abe0e8]
- dc_stream_set_dither_option+0xfb/0x130 [amdgpu 340dadd3f7c8cf4be11cf0bdc850245e99abe0e8]
- amdgpu_dm_crtc_configure_crc_source+0x10b/0x190 [amdgpu 340dadd3f7c8cf4be11cf0bdc850245e99abe0e8]
- amdgpu_dm_atomic_commit_tail+0x20a8/0x2a90 [amdgpu 340dadd3f7c8cf4be11cf0bdc850245e99abe0e8]
- ? free_unref_page_commit+0x98/0x170
- ? free_unref_page+0xcc/0x150
- commit_tail+0x94/0x120
- drm_atomic_helper_commit+0x10f/0x140
- drm_atomic_commit+0x94/0xc0
- ? drm_plane_get_damage_clips.cold+0x1c/0x1c
- drm_client_modeset_commit_atomic+0x203/0x250
- drm_client_modeset_commit_locked+0x56/0x150
- drm_client_modeset_commit+0x21/0x40
- drm_fb_helper_lastclose+0x42/0x70
- amdgpu_driver_lastclose_kms+0xa/0x10 [amdgpu 340dadd3f7c8cf4be11cf0bdc850245e99abe0e8]
- drm_release+0xda/0x110
- __fput+0x89/0x240
- task_work_run+0x5c/0x90
- do_exit+0x333/0xae0
- do_group_exit+0x2d/0x90
- __x64_sys_exit_group+0x14/0x20
- do_syscall_64+0x5b/0x80
- ? exit_to_user_mode_prepare+0x1e/0x140
- entry_SYSCALL_64_after_hwframe+0x44/0xae
-RIP: 0033:0x7ff016ceaca1
-Code: Unable to access opcode bytes at RIP 0x7ff016ceac77.
-RSP: 002b:00007ffe7a2357e8 EFLAGS: 00000246 ORIG_RAX: 00000000000000e7
-RAX: ffffffffffffffda RBX: 00007ff016e15a00 RCX: 00007ff016ceaca1
-RDX: 000000000000003c RSI: 00000000000000e7 RDI: 0000000000000000
-RBP: 0000000000000000 R08: ffffffffffffff78 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007ff016e15a00
-R13: 0000000000000000 R14: 00007ff016e1aee8 R15: 00007ff016e1af00
- </TASK>
+[How]
+We set the UCLK hardmax on AC/DC switch if softmax is enabled
+and also on boot. While booting up the UCLK Hardmax is set
+to softmax before the init sequence and the init sequence
+resets the hardmax to UCLK max which enables P-state switching.
+Just added a conditional check to avoid setting hardmax on init.
 
-Since this issue only happens in a transition state on DC, this commit
-replace BREAK_TO_DEBUGGER with DC_LOG_DC.
-
-Reviewed-by: Harry Wentland <Harry.Wentland@amd.com>
+Reviewed-by: Alvin Lee <Alvin.Lee2@amd.com>
+Reviewed-by: Martin Leung <Martin.Leung@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Ayush Gupta <ayugupta@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dce/dce_transform.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c | 3 ++-
+ drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c | 2 +-
+ drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c | 2 +-
+ 3 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c b/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c
-index d9fd4ec60588f..670d5ab9d9984 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c
-@@ -1009,7 +1009,7 @@ static void dce_transform_set_pixel_storage_depth(
- 		color_depth = COLOR_DEPTH_101010;
- 		pixel_depth = 0;
- 		expan_mode  = 1;
--		BREAK_TO_DEBUGGER();
-+		DC_LOG_DC("The pixel depth %d is not valid, set COLOR_DEPTH_101010 instead.", depth);
- 		break;
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+index c20e9f76f0213..a1b312483d7f1 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+@@ -629,7 +629,8 @@ void dcn30_init_hw(struct dc *dc)
+ 	if (dc->clk_mgr->funcs->notify_wm_ranges)
+ 		dc->clk_mgr->funcs->notify_wm_ranges(dc->clk_mgr);
  
-@@ -1023,8 +1023,7 @@ static void dce_transform_set_pixel_storage_depth(
- 	if (!(xfm_dce->lb_pixel_depth_supported & depth)) {
- 		/*we should use unsupported capabilities
- 		 *  unless it is required by w/a*/
--		DC_LOG_WARNING("%s: Capability not supported",
--			__func__);
-+		DC_LOG_DC("%s: Capability not supported", __func__);
- 	}
- }
+-	if (dc->clk_mgr->funcs->set_hard_max_memclk)
++	//if softmax is enabled then hardmax will be set by a different call
++	if (dc->clk_mgr->funcs->set_hard_max_memclk && !dc->clk_mgr->dc_mode_softmax_enabled)
+ 		dc->clk_mgr->funcs->set_hard_max_memclk(dc->clk_mgr);
  
+ 	if (dc->res_pool->hubbub->funcs->force_pstate_change_control)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
+index bdf101547484a..d4ee533deff32 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn31/dcn31_hwseq.c
+@@ -284,7 +284,7 @@ void dcn31_init_hw(struct dc *dc)
+ 	if (dc->clk_mgr->funcs->notify_wm_ranges)
+ 		dc->clk_mgr->funcs->notify_wm_ranges(dc->clk_mgr);
+ 
+-	if (dc->clk_mgr->funcs->set_hard_max_memclk)
++	if (dc->clk_mgr->funcs->set_hard_max_memclk && !dc->clk_mgr->dc_mode_softmax_enabled)
+ 		dc->clk_mgr->funcs->set_hard_max_memclk(dc->clk_mgr);
+ 
+ 	if (dc->res_pool->hubbub->funcs->force_pstate_change_control)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+index 1a85509c12f23..a32e21ada8555 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_hwseq.c
+@@ -970,7 +970,7 @@ void dcn32_init_hw(struct dc *dc)
+ 	if (dc->clk_mgr->funcs->notify_wm_ranges)
+ 		dc->clk_mgr->funcs->notify_wm_ranges(dc->clk_mgr);
+ 
+-	if (dc->clk_mgr->funcs->set_hard_max_memclk)
++	if (dc->clk_mgr->funcs->set_hard_max_memclk && !dc->clk_mgr->dc_mode_softmax_enabled)
+ 		dc->clk_mgr->funcs->set_hard_max_memclk(dc->clk_mgr);
+ 
+ 	if (dc->res_pool->hubbub->funcs->force_pstate_change_control)
 -- 
 2.39.2
 
