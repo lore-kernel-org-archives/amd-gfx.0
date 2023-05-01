@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDCBEC77B60
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 May 2023 03:04:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15F99C77B73
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 May 2023 03:04:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F8EF10E2B2;
-	Mon,  1 May 2023 03:04:30 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44EE410E2B2;
- Mon,  1 May 2023 03:04:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A124E10E2B6;
+	Mon,  1 May 2023 03:04:45 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9610810E2B6;
+ Mon,  1 May 2023 03:04:43 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A4BB56119D;
- Mon,  1 May 2023 03:04:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F03CC433D2;
- Mon,  1 May 2023 03:04:26 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 17D7E61137;
+ Mon,  1 May 2023 03:04:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E847BC433EF;
+ Mon,  1 May 2023 03:04:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1682910268;
- bh=+toHp4X0nOCv1qRh+pB6iNACVsP45WsBsc8cECZa6UU=;
+ s=k20201202; t=1682910282;
+ bh=8L0YUmQisuwdiCTcNyYLilgshNpv6wm2b+pOlg6m8to=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=D/0tHyaqu5xyYH2IsRPlMOf41xWKCXRAqygm5UdAksD0rO79w7jPcdJIzbI7ge3fF
- /42t4EAXuewVVX3WgxPKDlBfOqPVe+lQL56wn2b6HYbneYFbatK9U1ehU+Kmpz9O5s
- dc/gEXZvwWb95MkL9SNbvjW36CXAxThLkepbtWPBVIUfaq7QNX2Df6QkayVriNBnfc
- SxqRbsKwwTSJ5q7HVEzEt/LJQZGNfe7q7YGffXRe1jFLi4V8A+2MAEm1lc0+GZCtT+
- KPN0+RlBYLwA9jTJqhXLq4V1ivMkhAvaE8Fv+vlkYuJB3Ucck7m4F73dTXrvd5KVc8
- OikpTH9SvUQ5Q==
+ b=tplJoeYyLVdY2jkT87fxuRdaiN9nRu1OMWvB4nvl0d5Ibwe6D7kXby6ijA/jq0q5s
+ ZvMRb91rRYhMm+I7tHoNFyDsd42l/SApbHSvM1pdkMwQQenaKTypw5hGL2rbrJ5571
+ TYDSk2vS0mZEGhbNK2xd+Hffmsa1tcT0XAO8pCdn3YRUhSD4D/5K16As1RjfL23mGS
+ Ur6Lp/zuYYkvNDyynDIv1XwjGp+FH1Yi81oIjU7jSPxg7es9AKSjxrECwWyVoVSjAD
+ nOdMR4ItHM2hnaE4cW/QqQSEr1tachdH3r8uFpHdvjhYVts8u8pV4duLtuCcOVNrUU
+ Jk30/VA9oUjsg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 31/33] drm/amdgpu: Fix sdma v4 sw fini error
-Date: Sun, 30 Apr 2023 23:02:25 -0400
-Message-Id: <20230501030227.3254266-31-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 02/17] drm/amd/display: Use DC_LOG_DC in the
+ trasform pixel function
+Date: Sun, 30 Apr 2023 23:04:19 -0400
+Message-Id: <20230501030435.3254695-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230501030227.3254266-1-sashal@kernel.org>
-References: <20230501030227.3254266-1-sashal@kernel.org>
+In-Reply-To: <20230501030435.3254695-1-sashal@kernel.org>
+References: <20230501030435.3254695-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -54,55 +54,116 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Jack.Xiao@amd.com, lijo.lazar@amd.com,
- lyndonli <Lyndon.Li@amd.com>, dri-devel@lists.freedesktop.org,
- Xinhui.Pan@amd.com, amd-gfx@lists.freedesktop.org, le.ma@amd.com,
- Prike.Liang@amd.com, ye.xingchen@zte.com.cn, mario.limonciello@amd.com,
- daniel@ffwll.ch, Feifei Xu <Feifei.Xu@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- airlied@gmail.com, christian.koenig@amd.com, Hawking.Zhang@amd.com
+Cc: Sasha Levin <sashal@kernel.org>, sunpeng.li@amd.com, airlied@gmail.com,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, Xinhui.Pan@amd.com,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Wheeler <daniel.wheeler@amd.com>, dri-devel@lists.freedesktop.org,
+ daniel@ffwll.ch, Alex Deucher <alexander.deucher@amd.com>,
+ harry.wentland@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: lyndonli <Lyndon.Li@amd.com>
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 
-[ Upstream commit 5e08e9c742a00384e5abe74bd40cf4dc15cb3a2e ]
+[ Upstream commit 7222f5841ff49709ca666b05ff336776e0664a20 ]
 
-Fix sdma v4 sw fini error for sdma 4.2.2 to
-solve the following general protection fault
+[Why & How]
+DC now uses a new commit sequence which is more robust since it
+addresses cases where we need to reorganize pipes based on planes and
+other parameters. As a result, this new commit sequence reset the DC
+state by cleaning plane states and re-creating them accordingly with the
+need. For this reason, the dce_transform_set_pixel_storage_depth can be
+invoked after a plane state is destroyed and before its re-creation. In
+this situation and on DCE devices, DC will hit a condition that will
+trigger a dmesg log that looks like this:
 
-[  +0.108196] general protection fault, probably for non-canonical
-address 0xd5e5a4ae79d24a32: 0000 [#1] PREEMPT SMP PTI
-[  +0.000018] RIP: 0010:free_fw_priv+0xd/0x70
-[  +0.000022] Call Trace:
-[  +0.000012]  <TASK>
-[  +0.000011]  release_firmware+0x55/0x80
-[  +0.000021]  amdgpu_ucode_release+0x11/0x20 [amdgpu]
-[  +0.000415]  amdgpu_sdma_destroy_inst_ctx+0x4f/0x90 [amdgpu]
-[  +0.000360]  sdma_v4_0_sw_fini+0xce/0x110 [amdgpu]
+Console: switching to colour frame buffer device 240x67
+------------[ cut here ]------------
+[..]
+Hardware name: System manufacturer System Product Name/PRIME X370-PRO, BIOS 5603 07/28/2020
+RIP: 0010:dce_transform_set_pixel_storage_depth+0x3f8/0x480 [amdgpu]
+[..]
+RSP: 0018:ffffc9000202b850 EFLAGS: 00010293
+RAX: ffffffffa081d100 RBX: ffff888110790000 RCX: 000000000000000c
+RDX: ffff888100bedbf8 RSI: 0000000000001a50 RDI: ffff88810463c900
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000007
+R10: 0000000000000001 R11: 0000000000000f00 R12: ffff88810f500010
+R13: ffff888100bedbf8 R14: ffff88810f515688 R15: 0000000000000000
+FS:  00007ff0159249c0(0000) GS:ffff88840e940000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ff01528e550 CR3: 0000000002a10000 CR4: 00000000003506e0
+Call Trace:
+ <TASK>
+ ? dm_write_reg_func+0x21/0x80 [amdgpu 340dadd3f7c8cf4be11cf0bdc850245e99abe0e8]
+ dc_stream_set_dither_option+0xfb/0x130 [amdgpu 340dadd3f7c8cf4be11cf0bdc850245e99abe0e8]
+ amdgpu_dm_crtc_configure_crc_source+0x10b/0x190 [amdgpu 340dadd3f7c8cf4be11cf0bdc850245e99abe0e8]
+ amdgpu_dm_atomic_commit_tail+0x20a8/0x2a90 [amdgpu 340dadd3f7c8cf4be11cf0bdc850245e99abe0e8]
+ ? free_unref_page_commit+0x98/0x170
+ ? free_unref_page+0xcc/0x150
+ commit_tail+0x94/0x120
+ drm_atomic_helper_commit+0x10f/0x140
+ drm_atomic_commit+0x94/0xc0
+ ? drm_plane_get_damage_clips.cold+0x1c/0x1c
+ drm_client_modeset_commit_atomic+0x203/0x250
+ drm_client_modeset_commit_locked+0x56/0x150
+ drm_client_modeset_commit+0x21/0x40
+ drm_fb_helper_lastclose+0x42/0x70
+ amdgpu_driver_lastclose_kms+0xa/0x10 [amdgpu 340dadd3f7c8cf4be11cf0bdc850245e99abe0e8]
+ drm_release+0xda/0x110
+ __fput+0x89/0x240
+ task_work_run+0x5c/0x90
+ do_exit+0x333/0xae0
+ do_group_exit+0x2d/0x90
+ __x64_sys_exit_group+0x14/0x20
+ do_syscall_64+0x5b/0x80
+ ? exit_to_user_mode_prepare+0x1e/0x140
+ entry_SYSCALL_64_after_hwframe+0x44/0xae
+RIP: 0033:0x7ff016ceaca1
+Code: Unable to access opcode bytes at RIP 0x7ff016ceac77.
+RSP: 002b:00007ffe7a2357e8 EFLAGS: 00000246 ORIG_RAX: 00000000000000e7
+RAX: ffffffffffffffda RBX: 00007ff016e15a00 RCX: 00007ff016ceaca1
+RDX: 000000000000003c RSI: 00000000000000e7 RDI: 0000000000000000
+RBP: 0000000000000000 R08: ffffffffffffff78 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 00007ff016e15a00
+R13: 0000000000000000 R14: 00007ff016e1aee8 R15: 00007ff016e1af00
+ </TASK>
 
-Signed-off-by: lyndonli <Lyndon.Li@amd.com>
-Reviewed-by: Likun Gao <Likun.Gao@amd.com>
-Reviewed-by: Feifei Xu <Feifei.Xu@amd.com>
+Since this issue only happens in a transition state on DC, this commit
+replace BREAK_TO_DEBUGGER with DC_LOG_DC.
+
+Reviewed-by: Harry Wentland <Harry.Wentland@amd.com>
+Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dce/dce_transform.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-index 4d780e4430e78..bc073b4c94703 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-@@ -1908,7 +1908,7 @@ static int sdma_v4_0_sw_fini(void *handle)
- 			amdgpu_ring_fini(&adev->sdma.instance[i].page);
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c b/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c
+index d9fd4ec60588f..670d5ab9d9984 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c
+@@ -1009,7 +1009,7 @@ static void dce_transform_set_pixel_storage_depth(
+ 		color_depth = COLOR_DEPTH_101010;
+ 		pixel_depth = 0;
+ 		expan_mode  = 1;
+-		BREAK_TO_DEBUGGER();
++		DC_LOG_DC("The pixel depth %d is not valid, set COLOR_DEPTH_101010 instead.", depth);
+ 		break;
  	}
  
--	if (adev->ip_versions[SDMA0_HWIP][0] == IP_VERSION(4, 2, 0) ||
-+	if (adev->ip_versions[SDMA0_HWIP][0] == IP_VERSION(4, 2, 2) ||
-             adev->ip_versions[SDMA0_HWIP][0] == IP_VERSION(4, 4, 0))
- 		amdgpu_sdma_destroy_inst_ctx(adev, true);
- 	else
+@@ -1023,8 +1023,7 @@ static void dce_transform_set_pixel_storage_depth(
+ 	if (!(xfm_dce->lb_pixel_depth_supported & depth)) {
+ 		/*we should use unsupported capabilities
+ 		 *  unless it is required by w/a*/
+-		DC_LOG_WARNING("%s: Capability not supported",
+-			__func__);
++		DC_LOG_DC("%s: Capability not supported", __func__);
+ 	}
+ }
+ 
 -- 
 2.39.2
 
