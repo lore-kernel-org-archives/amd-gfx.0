@@ -4,44 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A458C77B73
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 May 2023 18:58:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2208FC7EE21
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 May 2023 19:25:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FA0B10E43E;
-	Mon,  1 May 2023 18:58:48 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52BAE10E260;
- Mon,  1 May 2023 18:58:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=YEdOtdbcHwlpnBf3DukWHazJczyGepCiUzsZWgTu7yE=; b=dWAH8Mkv/D7whegou8NnfURdnk
- QJuu/BFYkVD4SbytFwh1IaQoMvagK3hE3DXuJHX8saatNM6CHRWJdYLNp/NfkOC0SvOZtXzORZIhB
- E0FyrlEUTu56SqBT5LbpmUbcLPKeG5xrKsu2wV15l88dHCjCaer6gtkIS+/5FUnv6OUWHPDJ/DL3L
- GCU15JzlKbPUXT/S1E8YZkNmxccxdFYfKhfWJh5+75N3sopW2C51liYpQeQ3UjDrLrBrcGXK7gfiZ
- YIU36XGlYLRZDLVT0roSQeeB15+0hCVxEZ7cyNdG+VsDIlIyb33rJ3KeFJrhrTLnSQEPn/Fa0BQG+
- LUcxu2vA==;
-Received: from [179.113.250.147] (helo=steammachine.lan)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1ptYjS-00H3BT-1f; Mon, 01 May 2023 20:58:42 +0200
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 1/1] drm/amdgpu: Add interface to dump guilty IB on GPU
- hang
-Date: Mon,  1 May 2023 15:57:47 -0300
-Message-Id: <20230501185747.33519-2-andrealmeid@igalia.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230501185747.33519-1-andrealmeid@igalia.com>
-References: <20230501185747.33519-1-andrealmeid@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56AD210E336;
+	Mon,  1 May 2023 19:25:02 +0000 (UTC)
+Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
+ [IPv6:2607:f8b0:4864:20::22b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9633710E274;
+ Mon,  1 May 2023 19:24:59 +0000 (UTC)
+Received: by mail-oi1-x22b.google.com with SMTP id
+ 5614622812f47-38e3a1a07c8so1852405b6e.0; 
+ Mon, 01 May 2023 12:24:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1682969098; x=1685561098;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3bLR1GbZyZQUdq7br0qZHdQ9hAXjjgioO0YDBrhDkvo=;
+ b=pXZA61PiZhaZlnA+xdKWkmYbzFs3eWCrQJ8H26eQPJ5EhIP9vceeHgFdijexnZeuTa
+ zva8i2qX3O/jIS293YZUCi9hSKEDvKIr9QntcEczJtJMLZHLPseq6Pc+LhuaQjXE1jtr
+ HTBBHUMRKOj9byGzHQle9Tj3/52RtiZysg4sEmcXgo9JTUdFi4z1TFYZ8gs4epy+6Is3
+ eALRJ0e8JNELbb4zriVyatIA7YEVoCNem8b8UpsZDAdd8q8IrQJ9KisngOuHKQOJ/VYI
+ Vm9e0XMNcHfMIHM+WLwX4trfGehb9Ko+g8LocHXn1uIkMwXFd6loNHHdPEubWnGSUJ4J
+ bqqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1682969098; x=1685561098;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=3bLR1GbZyZQUdq7br0qZHdQ9hAXjjgioO0YDBrhDkvo=;
+ b=YROw3o0iZFNYrkauGXf33ntVAj8JcLHaHNjzTa7cJzxookSxlWz48sOBm+/u2kIcul
+ cw2Q4khyuG44YJHKRDf9t8t4w+kbU7hCtkmfVQdAkjjwabzPgdlbjnEqInEIu/GQoSE2
+ JVSeCBT6d50yCeniFzDVyiBxHxOHQW5GrfZruI7mro0i7raeZkYCStffXbtM5G2KQ4p8
+ f8ZlSC3mDwDgbutpoWRykpZE749yw6T2hlgWQ4kBW5B5QUFGfuDrtu9LcJLS64vjbW2C
+ lvsSCqLiHqQusi1j+YfGfHbFgx+e495ICJksBy3nIbWtHBYTsHe5trImI54/SiRGKrxT
+ 3KGQ==
+X-Gm-Message-State: AC+VfDxoRijYBUmc7k+qPVge67LzlPGFUXlzZYaL5KKS30vvhaA/YOrT
+ v57PUTTkfLdqy7DQGbkFrZBevVxW13T439SlTOTGXCHzaBY=
+X-Google-Smtp-Source: ACHHUZ59tWI8+zhOkYkZ6pl9dhM5SsMozl6Skp/3tRe2BBRCrTjJMg8N/8iR0vG+rgDark0GOGaqZmsDR2BrWi16Wxg=
+X-Received: by 2002:a05:6808:2342:b0:38d:ed4a:52eb with SMTP id
+ ef2-20020a056808234200b0038ded4a52ebmr6825147oib.38.1682969098214; Mon, 01
+ May 2023 12:24:58 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20230501185747.33519-1-andrealmeid@igalia.com>
+In-Reply-To: <20230501185747.33519-1-andrealmeid@igalia.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 1 May 2023 15:24:46 -0400
+Message-ID: <CADnq5_NXj4W44F_etRQ7HWdVTnf5zARCM3Y_o3EiwWiHj8QMpA@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/1] Add AMDGPU_INFO_GUILTY_APP ioctl
+To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,176 +68,73 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: pierre-eric.pelloux-prayer@amd.com,
- =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
- =?UTF-8?q?=27Marek=20Ol=C5=A1=C3=A1k=27?= <maraeo@gmail.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- michel.daenzer@mailbox.org, Samuel Pitoiset <samuel.pitoiset@gmail.com>,
+ Samuel Pitoiset <samuel.pitoiset@gmail.com>,
+ =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ michel.daenzer@mailbox.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  kernel-dev@igalia.com, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
  alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add an interface to point out to userspace the guilty indirect buffer
-when a GPU reset happens, so the usermode driver can dump just the right
-IB for debug investigation.
+On Mon, May 1, 2023 at 2:58=E2=80=AFPM Andr=C3=A9 Almeida <andrealmeid@igal=
+ia.com> wrote:
+>
+> Currently UMD hasn't much information on what went wrong during a GPU res=
+et. To
+> help with that, this patch proposes a new IOCTL that can be used to query
+> information about the resources that caused the hang.
 
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  3 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  |  3 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c  |  3 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c  |  7 ++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  1 +
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   | 29 ++++++++++++++++++++++++
- include/uapi/drm/amdgpu_drm.h            |  7 ++++++
- 7 files changed, 52 insertions(+), 1 deletion(-)
+If we went with the IOCTL, we'd want to limit this to the guilty process.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 02b827785e39..89345e49ba20 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1050,6 +1050,9 @@ struct amdgpu_device {
- 
- 	bool                            job_hang;
- 	bool                            dc_enabled;
-+
-+	/* TODO: Maybe this should be a per-ring info */
-+	struct drm_amdgpu_info_guilty_app	info;
- };
- 
- static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index b400d598b75a..818bcd2c9b5d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -110,9 +110,10 @@
-  *   3.52.0 - Add AMDGPU_IDS_FLAGS_CONFORMANT_TRUNC_COORD, add device_info fields:
-  *            tcp_cache_size, num_sqc_per_wgp, sqc_data_cache_size, sqc_inst_cache_size,
-  *            gl1c_cache_size, gl2c_cache_size, mall_size, enabled_rb_pipes_mask_hi
-+ *   3.53.0 - Add AMDGPU_INFO_GUILTY_APP IOCTL
-  */
- #define KMS_DRIVER_MAJOR	3
--#define KMS_DRIVER_MINOR	52
-+#define KMS_DRIVER_MINOR	53
- #define KMS_DRIVER_PATCHLEVEL	0
- 
- unsigned int amdgpu_vram_limit = UINT_MAX;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index c3d9d75143f4..a15162f8c812 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -48,6 +48,9 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 		return DRM_GPU_SCHED_STAT_ENODEV;
- 	}
- 
-+	if (ring->funcs->get_reset_data)
-+		ring->funcs->get_reset_data(ring, job);
-+
- 	memset(&ti, 0, sizeof(struct amdgpu_task_info));
- 	adev->job_hang = true;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index a5bae7eb993a..dc6cc94b6847 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -1149,6 +1149,13 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		return copy_to_user(out, max_ibs,
- 				    min((size_t)size, sizeof(max_ibs))) ? -EFAULT : 0;
- 	}
-+	case AMDGPU_INFO_GUILTY_APP: {
-+		struct drm_amdgpu_info_guilty_app info;
-+		info.ib_addr = adev->info.ib_addr;
-+		info.vmid = adev->info.vmid;
-+		info.ib_size = adev->info.ib_size;
-+		return copy_to_user(out, &info, min((size_t)size, sizeof(info))) ? -EFAULT : 0;
-+	}
- 	default:
- 		DRM_DEBUG_KMS("Invalid request %d\n", info->query);
- 		return -EINVAL;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-index 8eca6532ed19..0993c7ec74c6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -227,6 +227,7 @@ struct amdgpu_ring_funcs {
- 	int (*preempt_ib)(struct amdgpu_ring *ring);
- 	void (*emit_mem_sync)(struct amdgpu_ring *ring);
- 	void (*emit_wave_limit)(struct amdgpu_ring *ring, bool enable);
-+	void (*get_reset_data)(struct amdgpu_ring *ring, struct amdgpu_job *job);
- };
- 
- struct amdgpu_ring {
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 8bd07ff59671..12763ff8c83c 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -9226,6 +9226,34 @@ static void gfx_v10_0_emit_mem_sync(struct amdgpu_ring *ring)
- 	amdgpu_ring_write(ring, gcr_cntl); /* GCR_CNTL */
- }
- 
-+static void gfx_v10_0_get_reset_data(struct amdgpu_ring *ring,
-+				     struct amdgpu_job *job)
-+{
-+	int i;
-+
-+	struct amdgpu_device *adev = ring->adev;
-+	u64 ib_addr;
-+	u32 ib_addr_lo;
-+
-+	ib_addr = RREG32_SOC15(GC, 0, mmCP_IB1_BASE_HI);
-+	ib_addr = ib_addr << 32;
-+	ib_addr_lo = RREG32_SOC15(GC, 0, mmCP_IB1_BASE_LO);
-+	ib_addr += ib_addr_lo;
-+
-+	adev->info.ib_addr = ib_addr;
-+	adev->info.vmid = job->vmid;
-+
-+	for (i = 0; i < job->num_ibs; i++) {
-+		if (lower_32_bits(job->ibs[i].gpu_addr) == ib_addr_lo) {
-+			adev->info.ib_size = job->ibs[i].length_dw;
-+			break;
-+		}
-+	}
-+
-+	DRM_INFO("Guilty app info: IB addr 0x%llx IB size 0x%x VM id %u",
-+		  adev->info.ib_addr, adev->info.ib_size, adev->info.vmid);
-+}
-+
- static const struct amd_ip_funcs gfx_v10_0_ip_funcs = {
- 	.name = "gfx_v10_0",
- 	.early_init = gfx_v10_0_early_init,
-@@ -9297,6 +9325,7 @@ static const struct amdgpu_ring_funcs gfx_v10_0_ring_funcs_gfx = {
- 	.emit_reg_write_reg_wait = gfx_v10_0_ring_emit_reg_write_reg_wait,
- 	.soft_recovery = gfx_v10_0_ring_soft_recovery,
- 	.emit_mem_sync = gfx_v10_0_emit_mem_sync,
-+	.get_reset_data = gfx_v10_0_get_reset_data,
- };
- 
- static const struct amdgpu_ring_funcs gfx_v10_0_ring_funcs_compute = {
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index 6981e59a9401..4136d04bfb57 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -878,6 +878,7 @@ struct drm_amdgpu_cs_chunk_data {
- 	#define AMDGPU_INFO_VIDEO_CAPS_ENCODE		1
- /* Query the max number of IBs per gang per submission */
- #define AMDGPU_INFO_MAX_IBS			0x22
-+#define AMDGPU_INFO_GUILTY_APP			0x23
- 
- #define AMDGPU_INFO_MMR_SE_INDEX_SHIFT	0
- #define AMDGPU_INFO_MMR_SE_INDEX_MASK	0xff
-@@ -1195,6 +1196,12 @@ struct drm_amdgpu_info_video_caps {
- 	struct drm_amdgpu_info_video_codec_info codec_info[AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_COUNT];
- };
- 
-+struct drm_amdgpu_info_guilty_app {
-+	__u64 ib_addr;
-+	__u32 ib_size;
-+	__u32 vmid;
-+};
-+
- /*
-  * Supported GPU families
-  */
--- 
-2.40.1
+>
+> The goal of this RFC is to gather feedback about this interface. The mesa=
+ part
+> can be found at https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests=
+/22785
+>
+> The current implementation is racy, meaning that if two resets happens (e=
+ven on
+> different rings), the app will get the last reset information available, =
+rather
+> than the one that is looking for. Maybe this can be fixed with a ring_id
+> parameter to query the information for a specific ring, but this also req=
+uires
+> an interface to tell the UMD which ring caused it.
 
+I think you'd want engine type or something like that so mesa knows
+how to interpret the IB info.  You could store the most recent info in
+the fd priv for the guilty app.  E.g., see what I did for tracking GPU
+page fault into:
+https://gitlab.freedesktop.org/agd5f/linux/-/commits/gpu_fault_info_ioctl
+
+>
+> I know that devcoredump is also used for this kind of information, but I =
+believe
+> that using an IOCTL is better for interfacing Mesa + Linux rather than pa=
+rsing
+> a file that its contents are subjected to be changed.
+
+Can you elaborate a bit on that?  Isn't the whole point of devcoredump
+to store this sort of information?
+
+Alex
+
+
+>
+> Andr=C3=A9 Almeida (1):
+>   drm/amdgpu: Add interface to dump guilty IB on GPU hang
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  3 +++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  |  3 ++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c  |  3 +++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c  |  7 ++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  1 +
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   | 29 ++++++++++++++++++++++++
+>  include/uapi/drm/amdgpu_drm.h            |  7 ++++++
+>  7 files changed, 52 insertions(+), 1 deletion(-)
+>
+> --
+> 2.40.1
+>
