@@ -4,60 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A852C77B73
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 May 2023 18:48:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFCD0C77B7F
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 May 2023 18:58:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9C8610E20C;
-	Mon,  1 May 2023 18:48:09 +0000 (UTC)
-Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
- [IPv6:2607:f8b0:4864:20::32e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C8A810E20C;
- Mon,  1 May 2023 18:48:08 +0000 (UTC)
-Received: by mail-ot1-x32e.google.com with SMTP id
- 46e09a7af769-6a5f9c1200eso1084797a34.1; 
- Mon, 01 May 2023 11:48:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1682966887; x=1685558887;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=C5TiKpdAanfe72qJPMfhQiBumiXfFbxq5ufhiPMCXmM=;
- b=Tpt7grdpC48UPehD4adOVN14BtzAM9UVejuJiPKH/hbSy3T4AbDYXo2929ln2JFrQT
- 5sVhb67G8bM3vqUZZd8XMXfegB488whixnh4/4Ex3LMZef+2Dt6WZHWxl5kuOXLmLyyq
- +H2JDPn4x65XOmlQe8EH8/DfVxXBQyMA1XCX6cNMqCqZaCbogH0s31i4rDfdXQ3qE9nM
- 3KgGNj3PN7gwI6tnazzMoI8p8ckjxvWI4U2J50o+kAOyK8rIv94uLSf/OUc1duKkaWjP
- fsfN2vyPgwim5t6NDQh0/L1eaQ1NE61GGD/VOVApy5w3i33Ndhe8phBZvdtEXLiAogQD
- 3shg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682966887; x=1685558887;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=C5TiKpdAanfe72qJPMfhQiBumiXfFbxq5ufhiPMCXmM=;
- b=R85AwAldyfuh4h68nfaIeyVuGBycguM2ZSiBIEEGZYNhZ68EWP89n4rABEKc1T3ns3
- fZ7+Wvge6WmfG9wxXu6/+kqRSU6EB88iqvwQwwqf2dNlYUYTHP8yM6Wfrizn/dZU9zYe
- rYg0fIex2YiqSm5Kr9aMMpKx3HHBmqARTPDudoExO899SnUfGYDJM/+HhC7PwF/l5a/a
- drLKndNFT4hiO0QJIq2q/0ME8dc0WKZmOTribMizqo2OlMdHWTTVcdpdjr6OMOsqUjK1
- Tro1kDan5tf50+Zvn6rD7SWZEO1LGWRtv65wCh1qG3+W3DMxwH4Duo9kS6yidLdvyKz+
- su/g==
-X-Gm-Message-State: AC+VfDxaYWbaTCmtF8fsK3CoQQnveS/GP2k99gsY7Y2zCthOZt2Dj1HY
- MjCPLmo+UGNrZJo9JCeNF/EGDGka33IZwGSh6bkYAWl2
-X-Google-Smtp-Source: ACHHUZ7R6+RO/CQaS1NWrl2sAiTEIe5IvBhrmW42hW7dOltu3PhX62jT76DunSb1MTRDQB70S756Ua0QkYOgElZxzVs=
-X-Received: by 2002:a05:6808:3096:b0:390:983c:4ab1 with SMTP id
- bl22-20020a056808309600b00390983c4ab1mr5998321oib.42.1682966887139; Mon, 01
- May 2023 11:48:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CF8610E43D;
+	Mon,  1 May 2023 18:58:45 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4A9710E260;
+ Mon,  1 May 2023 18:58:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-Id:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=hZemwKqI+XbJvZCmRaGMFa4GqKWtdAWoykUnIAnqKOI=; b=eOZ/Xgo+w1avvUZ+ctjJLSHe4R
+ 3PO7t7pJxOMDpP1SwWDO6KhBpE+vxfmaAhSWlRNyAuX5KyzvoUPDibdD1c525ZUoBDeOBOIGkkry2
+ pMBeT1wsv4GaR+MrbEZX945Y5c8d2bbWGzEoKZdR5Dh1TXA2IWFPDY5zV2fRHHIMIlpoUw2ynbljK
+ N1gRQypiTIe1M/BZLxs+yQ3ZUtltDY4tbFNF2gjufV/DRkcV5wD8xMLk20NuoB9rj2akR9zi3pjUE
+ muA/hWG58TT2ZlG4mnehsuEIWGGBAIbEAj4ZKGwUfZwaEq/qaEk0eBr3fIki9pJQ9/9YDH/qZzMwY
+ 1AxjAfRg==;
+Received: from [179.113.250.147] (helo=steammachine.lan)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1ptYjO-00H3BT-Q4; Mon, 01 May 2023 20:58:39 +0200
+From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 0/1] Add AMDGPU_INFO_GUILTY_APP ioctl
+Date: Mon,  1 May 2023 15:57:46 -0300
+Message-Id: <20230501185747.33519-1-andrealmeid@igalia.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-References: <46a7eb80-5f09-4f6a-4fd3-9550dafd497c@felixrichter.tech>
- <CADnq5_Nuu7hAFR6A8SqaENA_CUV_F3J1qgCwE=Yn_1rY-n5GLg@mail.gmail.com>
- <9525dac3-05d9-3943-c43a-e5b475e6088b@felixrichter.tech>
-In-Reply-To: <9525dac3-05d9-3943-c43a-e5b475e6088b@felixrichter.tech>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 1 May 2023 14:47:56 -0400
-Message-ID: <CADnq5_OsjBMOy4rT3z+y2zznW_28fOALbB=YPteiCmo=_V2N7g@mail.gmail.com>
-Subject: Re: PROBLEM: AMD Ryzen 9 7950X iGPU - Blinking Issue
-To: Felix Richter <judge@felixrichter.tech>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,53 +50,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
+ =?UTF-8?q?=27Marek=20Ol=C5=A1=C3=A1k=27?= <maraeo@gmail.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ michel.daenzer@mailbox.org, Samuel Pitoiset <samuel.pitoiset@gmail.com>,
+ kernel-dev@igalia.com, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ alexander.deucher@amd.com, christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 1, 2023 at 2:44=E2=80=AFPM Felix Richter <judge@felixrichter.te=
-ch> wrote:
->
-> On 01.05.23 15:27, Alex Deucher wrote:
-> > On Mon, May 1, 2023 at 3:20=E2=80=AFAM Felix Richter <judge@felixrichte=
-r.tech> wrote:
-> >> Hi,
-> >>
-> >> I am running into an issue with the integrated GPU of the Ryzen 9 7950=
-X. It seems to be a regression from kernel version 6.1 to 6.2.
-> >> The bug materializes in from of my monitor blinking, meaning it turns =
-full white shortly. This happens very often so that the system becomes unpl=
-easant to use.
-> >>
-> >> I am running the Archlinux Kernel:
-> >> The Issue happens on the bleeding edge kernel: 6.2.13
-> >> Switching back to the LTS kernel resolves the issue: 6.1.26
-> >>
-> >> I have two monitors attached to the system. One 42 inch 4k Display and=
- a 24 inch 1080p Display and am running sway as my desktop.
-> >>
-> >> Let me know if there is more information I could provide to help narro=
-w down the issue.
-> > It's related to scatter/gather display.  As a workaround, you can
-> > disable scatter/gather display by setting amd.sg_display=3D0 on the
-> > kernel command line in grub.  It's fixed properly in:
-> > https://gitlab.freedesktop.org/agd5f/linux/-/commit/08da182175db4c7f808=
-50354849d95f2670e8cd9
-> > Which should land in Linus' tree this week.
-> >
-> > Alex
->
-> Thank you for your quick response. Sadly I have to report that using the
-> workaround kernel parameter did not resolve the issue for me. The
-> monitor still
-> turns full white although less frequently. I'll be sure to look out for
-> the update once it hits mainline ;)
+Currently UMD hasn't much information on what went wrong during a GPU reset. To
+help with that, this patch proposes a new IOCTL that can be used to query
+information about the resources that caused the hang.
 
-If the module parameter didn't help then perhaps you are seeing some
-other issue.  Can you bisect?
+The goal of this RFC is to gather feedback about this interface. The mesa part
+can be found at https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/22785
 
-Alex
+The current implementation is racy, meaning that if two resets happens (even on
+different rings), the app will get the last reset information available, rather
+than the one that is looking for. Maybe this can be fixed with a ring_id
+parameter to query the information for a specific ring, but this also requires
+an interface to tell the UMD which ring caused it.
 
->
-> Kind regards,
-> Felix
+I know that devcoredump is also used for this kind of information, but I believe
+that using an IOCTL is better for interfacing Mesa + Linux rather than parsing
+a file that its contents are subjected to be changed.
+
+André Almeida (1):
+  drm/amdgpu: Add interface to dump guilty IB on GPU hang
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  3 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  |  3 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c  |  3 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c  |  7 ++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  1 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   | 29 ++++++++++++++++++++++++
+ include/uapi/drm/amdgpu_drm.h            |  7 ++++++
+ 7 files changed, 52 insertions(+), 1 deletion(-)
+
+-- 
+2.40.1
+
