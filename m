@@ -4,60 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A9CFC77B7C
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 May 2023 19:27:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3E7AC77B73
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 May 2023 20:52:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CA1010E274;
-	Mon,  1 May 2023 19:27:15 +0000 (UTC)
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D888610E274;
- Mon,  1 May 2023 19:27:13 +0000 (UTC)
-Received: by mail-oi1-x22a.google.com with SMTP id
- 5614622812f47-38e0a003abdso1868710b6e.3; 
- Mon, 01 May 2023 12:27:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1682969233; x=1685561233;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LhcRiR9DgObJ3GdLW40F4CvWyOT47X9xzO/pYnogYMs=;
- b=F+ArsapDPq5RZ5zvaLU8u/e8hoBxlXH+1e5bvV+7sRKgY2lt+OVswEqd+6+q3vwcMT
- DD1dr/M0LUiTbZ/SXXSrAfWbpT8S9AZhldRaVMGjtnn4oGZxUhEJhhGeIu+2NyIWeibI
- HkX42Ip6LIIO+FwTNPTR8DMs8gndfdHTmCsvtqGCuBO2EiwdBvqqF3K7n6w3/33pi8b2
- PHGud4U1BsLOO772C8Cdr1nnGSzQG13uQOmHeoQCDlsTSImNzoNXicj6JlLbrNm2LR4Y
- N4KzensikeGi+QLHXRQbduF33qAu/HgypysHJLG32i4L/AG4ia24T6JZPAn7u5SZ5k67
- ls+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682969233; x=1685561233;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=LhcRiR9DgObJ3GdLW40F4CvWyOT47X9xzO/pYnogYMs=;
- b=CJkzOAbE9IbabglokIsjr+S3FO119hwDOP0ditRCQCYLUHUI/b0i9ETWPaboBA62X+
- IrMNjekycCl0AQLjI3KV/o8d+A8oQKKhtbi7SUjdQP14t3AGmH0zBuV+HLB+bp6O7ppP
- ogoGizmdQ428MFladtTLKHhz0h3i9tT0DUAbJ6dd1LVkJZ4GWWaLYEP6Fl5UJ0QhIUPa
- sgZL7QbVG6h0NMkjkMU/mHNr2iZrjlMv1MZ2UPymOg/qsbas5yQHP04+hh99Zx++PFiX
- qrdb/Q0T8ScwYtHQjwdaYvGA3UpplQ17S1S4ZDjAN1fSgfISravCHKUhokhq3vTzDiu0
- b9QA==
-X-Gm-Message-State: AC+VfDzNkagDcNSwsApWnkeL7EO1U8af78/96kz96F66AD1oRBsZkhX5
- vBw652pyVL3Cc+C1qJgQGSTqMHpr/I3vXckH4rk=
-X-Google-Smtp-Source: ACHHUZ6xi1EGGZS+pR4jOWXxsMTWfZUKBLyQolBoK28Ao042gAqUYxDmtKJIRBIDUGtitG6OtXEsGEdErhhPmk4Ixfo=
-X-Received: by 2002:a05:6808:98c:b0:38b:e6:3d95 with SMTP id
- a12-20020a056808098c00b0038b00e63d95mr6718432oic.40.1682969232681; Mon, 01
- May 2023 12:27:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3133010E324;
+	Mon,  1 May 2023 20:52:51 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2046.outbound.protection.outlook.com [40.107.223.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E86EA10E324
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 May 2023 20:52:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Srx6+neXAAnZO8KBkv1EDtBqsLa7AnsxIaUimBZgZipFR2CPlwQWq/IrOTluaVWXkACaDHZ7ppK/tDe7KTsfRQHQV8Z5zEmSApaHrt0+QPpXScMA1cj+W2DM7m4Eu4NmKFEPXWjkVUipVcutkC7MLBE3TCydPN/O5n1BwYLzw9Kp5pMxTyOVc1p5wZwm2KUPTI5EuLTpBOCASzZfQoEIS491SXNzytEdl0niACbIleJ/yYTTp/bAQsSiZ20TcQDY4m7bXUBjYRTcvgguAW/jBWe28IGlHhCxEAgqYQ3uF/boGUyYmFiQfWpoNWUDL00uWlxnyLVqfqUcGEn/bplKSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2Pw5RjpkQ3E+nmjne2X9N6omaLZp4uda66QUU2vvrWU=;
+ b=dRt3hAv63eOfur133PgYyRYW43/hFdctR3FtfAJHlITkl37gc6+6uNK4n4OWM9cKRKA4MWd0AgT8ELJE1OlRok39z/CB2nlCLZZfthNacGY1kaY42hZYLDe5wVuDTZ3Vn/qjvEgR9PEKB66ezTWYxVY9Q5Hq+snWnB3hVleQmTC3Q8DyAseI4R0Q8fuBRy91wzeX9qSTYt84GxFVpQnVlqYVh4Q8UCIVT8NJ8HIz2nAqvizv4cvXLAvIfw/VJSxeSnWKrcSGgbi/RVxQ/PK2OxH2hSpltrA1iYeNictRkQo/0DWv8stlmMCLH/0Dq9XVU/mpXHaEJ22Ltm7hnx1eTQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2Pw5RjpkQ3E+nmjne2X9N6omaLZp4uda66QUU2vvrWU=;
+ b=gLbDwIpaBhTs6rQu/9L7FB5WwdzmtTdaZtORAdLk7vkvP4f+v3sYcqTsodXeKe6LnrwlrjG2sGXs7/6ZIuqNRSlIqQH0fIpomCYD+x5jw6X3yae0UBPdUcZC13GfYlthj23Ioz3vQ0iUbuAphUjV/2ZiU05vVDAFpVdh3mcJz3Y=
+Received: from MW4P220CA0007.NAMP220.PROD.OUTLOOK.COM (2603:10b6:303:115::12)
+ by CY5PR12MB6156.namprd12.prod.outlook.com (2603:10b6:930:24::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.30; Mon, 1 May
+ 2023 20:52:47 +0000
+Received: from CO1NAM11FT072.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:115:cafe::8) by MW4P220CA0007.outlook.office365.com
+ (2603:10b6:303:115::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.30 via Frontend
+ Transport; Mon, 1 May 2023 20:52:47 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT072.mail.protection.outlook.com (10.13.174.106) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6363.20 via Frontend Transport; Mon, 1 May 2023 20:52:47 +0000
+Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 1 May
+ 2023 15:52:46 -0500
+From: Felix Kuehling <Felix.Kuehling@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdkfd: Don't trigger evictions unmapping dmabuf
+ attachments
+Date: Mon, 1 May 2023 16:52:27 -0400
+Message-ID: <20230501205227.2402326-1-Felix.Kuehling@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20230501185747.33519-1-andrealmeid@igalia.com>
- <20230501185747.33519-2-andrealmeid@igalia.com>
-In-Reply-To: <20230501185747.33519-2-andrealmeid@igalia.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 1 May 2023 15:27:01 -0400
-Message-ID: <CADnq5_OBf9W-VikF-Psd87YXxB9=rE5qCnM8FfE13RKkR7Y51A@mail.gmail.com>
-Subject: Re: [RFC PATCH 1/1] drm/amdgpu: Add interface to dump guilty IB on
- GPU hang
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT072:EE_|CY5PR12MB6156:EE_
+X-MS-Office365-Filtering-Correlation-Id: d19c3076-8f40-4b7e-98d6-08db4a8604e9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: EVDkPz4N02juBUNtTV2baoBZ9jJvfvFYeQeUXsH5jfXnhXfCtcxghXwO7eQOG6W2r8/sDya4cgRHfgumYTDjpW326tTwvGLl3ht0SXOHXy8VKMhApE/znNoUCvgQeAjlFffVZiXrgwmWzH7azsOLwLbFOJRmKgUIA7OFmn91qVaboOwaNkUxRObo7OxUgsoU8LkzHaVttOX+llVsxjVhkg0hE9QvNC33+SZQBhxL9Yh14C8o7Ztyvn8Y2LaCfxZI7WVMnIUwsawQm0sYJGlIxWZEuTbLA36WeOiwXUdj8h+X59fth2J6qKppY9/riLOVamSmZfQSCNE4GBsZHJQfMUNXPlXUeLjgJmgBPOg1ODI40Qecx9iLTix6YB9lIO2zrbIPMSQKxGZTSGLno6pJ9KEbh4Ogs8wuK9A/abyorvUJD0K1PPqy6ETI2crCzRLhLE+comMNHEhtWuwchYE2UkKDmo3eOptXiku0m5yDbQ/2d/t2/8ap3GYPnPI6AYG+XvLk4fmHYjxm8sS1g/XAG+rly3aVqWlUwMArt6HZjj8CZcPPhgZwX1FFHA+p+97T8wisNc0XLIbKfVaLEqfLLHj9/tCnr4K6PE6CnpNu/uDowiH4vQwl1tx8hRackrG95tbFG4qRQjjLNHnIvPbbrcVLlQycCipSF6R9MHJUDO8TiTc15+ViN9bH3r5TtHatllBgA61RtwjhOy00DjoJu7FOWtk1DgCQ00Gd6laWFZc=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(39860400002)(136003)(346002)(376002)(451199021)(36840700001)(46966006)(40470700004)(40480700001)(40460700003)(316002)(1076003)(82310400005)(26005)(426003)(336012)(41300700001)(2616005)(47076005)(83380400001)(186003)(16526019)(478600001)(70206006)(36860700001)(70586007)(4326008)(7696005)(6666004)(6916009)(356005)(82740400003)(81166007)(36756003)(2906002)(5660300002)(86362001)(8936002)(8676002)(36900700001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 May 2023 20:52:47.0141 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d19c3076-8f40-4b7e-98d6-08db4a8604e9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT072.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6156
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,208 +98,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: pierre-eric.pelloux-prayer@amd.com,
- Samuel Pitoiset <samuel.pitoiset@gmail.com>,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- michel.daenzer@mailbox.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: Eric Huang <jinhuieric.huang@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 1, 2023 at 2:58=E2=80=AFPM Andr=C3=A9 Almeida <andrealmeid@igal=
-ia.com> wrote:
->
-> Add an interface to point out to userspace the guilty indirect buffer
-> when a GPU reset happens, so the usermode driver can dump just the right
-> IB for debug investigation.
->
-> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  3 +++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  |  3 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c  |  3 +++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c  |  7 ++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  1 +
->  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   | 29 ++++++++++++++++++++++++
->  include/uapi/drm/amdgpu_drm.h            |  7 ++++++
->  7 files changed, 52 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
-dgpu/amdgpu.h
-> index 02b827785e39..89345e49ba20 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1050,6 +1050,9 @@ struct amdgpu_device {
->
->         bool                            job_hang;
->         bool                            dc_enabled;
-> +
-> +       /* TODO: Maybe this should be a per-ring info */
-> +       struct drm_amdgpu_info_guilty_app       info;
->  };
->
->  static inline struct amdgpu_device *drm_to_adev(struct drm_device *ddev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index b400d598b75a..818bcd2c9b5d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -110,9 +110,10 @@
->   *   3.52.0 - Add AMDGPU_IDS_FLAGS_CONFORMANT_TRUNC_COORD, add device_in=
-fo fields:
->   *            tcp_cache_size, num_sqc_per_wgp, sqc_data_cache_size, sqc_=
-inst_cache_size,
->   *            gl1c_cache_size, gl2c_cache_size, mall_size, enabled_rb_pi=
-pes_mask_hi
-> + *   3.53.0 - Add AMDGPU_INFO_GUILTY_APP IOCTL
->   */
->  #define KMS_DRIVER_MAJOR       3
-> -#define KMS_DRIVER_MINOR       52
-> +#define KMS_DRIVER_MINOR       53
->  #define KMS_DRIVER_PATCHLEVEL  0
->
->  unsigned int amdgpu_vram_limit =3D UINT_MAX;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_job.c
-> index c3d9d75143f4..a15162f8c812 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -48,6 +48,9 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(stru=
-ct drm_sched_job *s_job)
->                 return DRM_GPU_SCHED_STAT_ENODEV;
->         }
->
-> +       if (ring->funcs->get_reset_data)
-> +               ring->funcs->get_reset_data(ring, job);
-> +
->         memset(&ti, 0, sizeof(struct amdgpu_task_info));
->         adev->job_hang =3D true;
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_kms.c
-> index a5bae7eb993a..dc6cc94b6847 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -1149,6 +1149,13 @@ int amdgpu_info_ioctl(struct drm_device *dev, void=
- *data, struct drm_file *filp)
->                 return copy_to_user(out, max_ibs,
->                                     min((size_t)size, sizeof(max_ibs))) ?=
- -EFAULT : 0;
->         }
-> +       case AMDGPU_INFO_GUILTY_APP: {
-> +               struct drm_amdgpu_info_guilty_app info;
-> +               info.ib_addr =3D adev->info.ib_addr;
-> +               info.vmid =3D adev->info.vmid;
-> +               info.ib_size =3D adev->info.ib_size;
-> +               return copy_to_user(out, &info, min((size_t)size, sizeof(=
-info))) ? -EFAULT : 0;
-> +       }
->         default:
->                 DRM_DEBUG_KMS("Invalid request %d\n", info->query);
->                 return -EINVAL;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_ring.h
-> index 8eca6532ed19..0993c7ec74c6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> @@ -227,6 +227,7 @@ struct amdgpu_ring_funcs {
->         int (*preempt_ib)(struct amdgpu_ring *ring);
->         void (*emit_mem_sync)(struct amdgpu_ring *ring);
->         void (*emit_wave_limit)(struct amdgpu_ring *ring, bool enable);
-> +       void (*get_reset_data)(struct amdgpu_ring *ring, struct amdgpu_jo=
-b *job);
->  };
->
->  struct amdgpu_ring {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v10_0.c
-> index 8bd07ff59671..12763ff8c83c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -9226,6 +9226,34 @@ static void gfx_v10_0_emit_mem_sync(struct amdgpu_=
-ring *ring)
->         amdgpu_ring_write(ring, gcr_cntl); /* GCR_CNTL */
->  }
->
-> +static void gfx_v10_0_get_reset_data(struct amdgpu_ring *ring,
-> +                                    struct amdgpu_job *job)
-> +{
-> +       int i;
-> +
-> +       struct amdgpu_device *adev =3D ring->adev;
-> +       u64 ib_addr;
-> +       u32 ib_addr_lo;
-> +
-> +       ib_addr =3D RREG32_SOC15(GC, 0, mmCP_IB1_BASE_HI);
-> +       ib_addr =3D ib_addr << 32;
-> +       ib_addr_lo =3D RREG32_SOC15(GC, 0, mmCP_IB1_BASE_LO);
-> +       ib_addr +=3D ib_addr_lo;
+Don't move DMABuf attachments for PCIe P2P mappings to the SYSTEM domain
+when unmapping. This avoids triggering eviction fences unnecessarily.
+Instead do the move to SYSTEM and back to GTT when mapping these
+attachments to ensure the SG table gets updated after evictions.
 
-You'll need to disable gfxoff when you access these otherwise you can
-hang the GPU if you read them when gfx is off.  See
-amdgpu_gfx_off_ctrl().
+This may still trigger unnecessary evictions if user mode unmaps and
+remaps the same BO. However, this is unlikely in real applications.
 
-Alex
+Cc: Eric Huang <jinhuieric.huang@amd.com>
+Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
-> +
-> +       adev->info.ib_addr =3D ib_addr;
-> +       adev->info.vmid =3D job->vmid;
-> +
-> +       for (i =3D 0; i < job->num_ibs; i++) {
-> +               if (lower_32_bits(job->ibs[i].gpu_addr) =3D=3D ib_addr_lo=
-) {
-> +                       adev->info.ib_size =3D job->ibs[i].length_dw;
-> +                       break;
-> +               }
-> +       }
-> +
-> +       DRM_INFO("Guilty app info: IB addr 0x%llx IB size 0x%x VM id %u",
-> +                 adev->info.ib_addr, adev->info.ib_size, adev->info.vmid=
-);
-> +}
-> +
->  static const struct amd_ip_funcs gfx_v10_0_ip_funcs =3D {
->         .name =3D "gfx_v10_0",
->         .early_init =3D gfx_v10_0_early_init,
-> @@ -9297,6 +9325,7 @@ static const struct amdgpu_ring_funcs gfx_v10_0_rin=
-g_funcs_gfx =3D {
->         .emit_reg_write_reg_wait =3D gfx_v10_0_ring_emit_reg_write_reg_wa=
-it,
->         .soft_recovery =3D gfx_v10_0_ring_soft_recovery,
->         .emit_mem_sync =3D gfx_v10_0_emit_mem_sync,
-> +       .get_reset_data =3D gfx_v10_0_get_reset_data,
->  };
->
->  static const struct amdgpu_ring_funcs gfx_v10_0_ring_funcs_compute =3D {
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.=
-h
-> index 6981e59a9401..4136d04bfb57 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -878,6 +878,7 @@ struct drm_amdgpu_cs_chunk_data {
->         #define AMDGPU_INFO_VIDEO_CAPS_ENCODE           1
->  /* Query the max number of IBs per gang per submission */
->  #define AMDGPU_INFO_MAX_IBS                    0x22
-> +#define AMDGPU_INFO_GUILTY_APP                 0x23
->
->  #define AMDGPU_INFO_MMR_SE_INDEX_SHIFT 0
->  #define AMDGPU_INFO_MMR_SE_INDEX_MASK  0xff
-> @@ -1195,6 +1196,12 @@ struct drm_amdgpu_info_video_caps {
->         struct drm_amdgpu_info_video_codec_info codec_info[AMDGPU_INFO_VI=
-DEO_CAPS_CODEC_IDX_COUNT];
->  };
->
-> +struct drm_amdgpu_info_guilty_app {
-> +       __u64 ib_addr;
-> +       __u32 ib_size;
-> +       __u32 vmid;
-> +};
-> +
->  /*
->   * Supported GPU families
->   */
-> --
-> 2.40.1
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 1002c7834386..bb8e6f6793c0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -530,6 +530,12 @@ kfd_mem_dmamap_dmabuf(struct kfd_mem_attachment *attachment)
+ {
+ 	struct ttm_operation_ctx ctx = {.interruptible = true};
+ 	struct amdgpu_bo *bo = attachment->bo_va->base.bo;
++	int ret;
++
++	amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_CPU);
++	ret = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
++	if (ret)
++		return ret;
+ 
+ 	amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_GTT);
+ 	return ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
+@@ -662,11 +668,10 @@ kfd_mem_dmaunmap_userptr(struct kgd_mem *mem,
+ static void
+ kfd_mem_dmaunmap_dmabuf(struct kfd_mem_attachment *attachment)
+ {
+-	struct ttm_operation_ctx ctx = {.interruptible = true};
+-	struct amdgpu_bo *bo = attachment->bo_va->base.bo;
+-
+-	amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_CPU);
+-	ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
++	/* This is a no-op. We don't want to trigger eviction fences when
++	 * unmapping DMABufs. Therefore the invalidation (moving to system
++	 * domain) is done in kfd_mem_dmamap_dmabuf.
++	 */
+ }
+ 
+ /**
+-- 
+2.34.1
+
