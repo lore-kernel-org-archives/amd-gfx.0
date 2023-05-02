@@ -4,89 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1171BC77B73
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 May 2023 16:50:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14D47C77B73
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 May 2023 18:41:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADC4810E22A;
-	Tue,  2 May 2023 16:50:55 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2066.outbound.protection.outlook.com [40.107.244.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4637110E22A;
- Tue,  2 May 2023 16:50:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QrNYeWDNwLph7ZDRcJC1QeayR/XBpXJA229v9YGdbXgeBoUO1JS6k0vv974VQ66u3Aj5fQYJbPTRa0epM5KLPcQW4bTVa/SDuaWa31At5Eiy2PmLqiGB4sPENvmETVtJ9RRA9vDMhW8CNoEixzBhGYgp1/2mJAI1mKhgyy5JZkvM9qxAoI/ky3CAFRwu6bgFdFyKSfznf2rsd8n4hlzhP/aHLUpvkywoB27wXEPSoOOyrtI9pPA/21WaV5SQICnDsNdWzOc0jeq1YL2KC7d4RwEufYMEb1yuaoqWeJnchmKBn9k07wH/Tg85fqZpm+gOxi959Nb5EUlv5EuvaU332w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KoAr4RID1kt0f/l3uo3sZQa9js1EK/IxPQlQw5Q+cEw=;
- b=G/Kr7QA61Ri35SciBhi2Ioh14wzrXKkHAJ9/hGfVs1M/HeARnYmY/eM0LoTb1Rq65boI2hXM0H3LzcvvlNZla8Py7U6OPjr8LrcJqHYye71gvmVx0ALWR5IPNxX88xJK3wodvh5yrTlCeh5AeFCM5VZEPmzXS3KfibaGYAgqYLqssdNP8GU3HE9VAgrkTc7p7HIJWsJ+iypj0eOK0EHAwJCLaeMGyCjBjXL6+IuB8hc4x65Kso3Pf4ZGVEhKfTnAYeO7K56W5BylxlEA+cYCocHu8f9NnbXKrTsPhMp3KsL1L1OId2hxuHrwctRhDxbEVhDIxp312mApxGkJhRvfrg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KoAr4RID1kt0f/l3uo3sZQa9js1EK/IxPQlQw5Q+cEw=;
- b=OhPd6edOMHEEwMfpSbTYQglCoAsSUffSEL4hiHJ0LnkIoRqzt+fMs3GZq56eXSvWCu1fNlHmscK88mbNuVgreDkl+LzDtFpPZuONXb0mtuHh9zwFfolpMqb2K/5HLMifZeThSmrkrvAgu0OYzhxt6a6nSrG6vdxPwNz/w7aYsCw=
-Received: from DS7P222CA0010.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::6) by
- PH8PR12MB7205.namprd12.prod.outlook.com (2603:10b6:510:227::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.26; Tue, 2 May
- 2023 16:50:50 +0000
-Received: from DM6NAM11FT091.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:2e:cafe::df) by DS7P222CA0010.outlook.office365.com
- (2603:10b6:8:2e::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.20 via Frontend
- Transport; Tue, 2 May 2023 16:50:50 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT091.mail.protection.outlook.com (10.13.173.108) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6363.20 via Frontend Transport; Tue, 2 May 2023 16:50:50 +0000
-Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 2 May
- 2023 11:50:48 -0500
-From: Hamza Mahfooz <hamza.mahfooz@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: fix an amdgpu_irq_put() issue in
- gmc_v9_0_hw_fini()
-Date: Tue, 2 May 2023 12:51:54 -0400
-Message-ID: <20230502165155.200068-1-hamza.mahfooz@amd.com>
-X-Mailer: git-send-email 2.40.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7928810E039;
+	Tue,  2 May 2023 18:41:40 +0000 (UTC)
+Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
+ [IPv6:2001:4860:4864:20::2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E160310E199;
+ Tue,  2 May 2023 18:41:38 +0000 (UTC)
+Received: by mail-oa1-x2f.google.com with SMTP id
+ 586e51a60fabf-1929818d7faso2387313fac.0; 
+ Tue, 02 May 2023 11:41:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1683052897; x=1685644897;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=hf1nbzeuxmrGxLaFcPyheg0k5dWdb1WOfd2ZRdkYljQ=;
+ b=KxeIaJ5ERi3qpXkG7StBVWrCgfKWYGTQEffwvsexwDN6wcdaPQypAcRb/2E1KcFelb
+ MFbAvi9kBRKKYqqvfmqSvk8S99xdjVslYe9la0xPVS3BSlTV6Lx9SO7WLCbc8tShBWed
+ BqF/ivzqM3oaWdLC0bSJ2AoQ+TPoEOOEsBB9J1JZjXcmXprKd9yrz77PREK4wh3MKmC6
+ U+gzhXorbHoLY3HtVpTVqRmnXXWkBCpOni/30+kl98eWeHdUr20pyBNA40FW0kJAPHso
+ vtBUx4ZTBGDvvQdUmTl4F4Dn00UfGIl/IJfaxLfkwCTTnZz95uELwo/aJKy+pZ2l/t7l
+ D3ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1683052897; x=1685644897;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=hf1nbzeuxmrGxLaFcPyheg0k5dWdb1WOfd2ZRdkYljQ=;
+ b=iEM6KLC6d2XkjJd7WLBZ5qChG6Rrlro3+PXA8JHqKJK/XhruETK1DpAybT8PLMp/cb
+ l3DIdA4l/SI2DuaSb3FMDESz06uiu5yjtpje1g7RjZ01XsavaXWOz4PUyXVRFlKWXAlO
+ 7x1DSig4EYSWGyUIrbntkPFgUQ7dortM15WoZoAryDmdX4qA7JskvJxIxeyGw6Zz4SzP
+ BNrERBn5WCVqr4Bg4SrvPx05IMHnxgcTPulLdxHdeFTUJnQCSd8RtFTxJJnR04AkLjzQ
+ RcFlOMBzwoDYEH7oLSC3m5XhHFVpB0A5IkHkohLJ3ztmBLXkl/LngTMOlNTKxLKwCBE8
+ vt1g==
+X-Gm-Message-State: AC+VfDxHXr1pSyyDml0I8bDkzsNJW5CfhZ1Dk0HZf4Y4kB2Y6AQoPzHC
+ YUgtHABNyYreEuh7aHuQQ0gi6GtZjVkhsmNei+Y=
+X-Google-Smtp-Source: ACHHUZ5X2/HRVRvl4XTgw9Ypc8uxuXeVf2u4SdNBz2aaUltGtzBCGXH7gqJ3Rb96O/BTPxXvRuCT7eNhfQ6bDam+jmY=
+X-Received: by 2002:aca:de05:0:b0:38e:c54f:5b55 with SMTP id
+ v5-20020acade05000000b0038ec54f5b55mr10037022oig.1.1683052897468; Tue, 02 May
+ 2023 11:41:37 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT091:EE_|PH8PR12MB7205:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9ace7366-b3a0-4aaf-57c1-08db4b2d627e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: rdE4lF7/sE37SxqjEu/rO1roshIt1y4gNZqy939nBnutKNHMWqDRhglbbhsNUtCECdh/KC2X4s03RjhvGcH48/EiWs80U7AwQC4nO1HbCuh6NdCczitPo0eYs0ndYp6ILUxFuR8yQMYtgP+7x1qdo60R7mVOraY5Xnm+OfbLXS1UVLDEgQz9jroog5gwt0AlFoqL2fvjdzb4ngMGHN+wov110YOqQ178/5MAkQoN2SnGkvK7N9LSzeEntPAnzHMK8CdEBEbGS2PhRa9vAXuSJOHXTvr/c4pAnUdT6ijPLhxv6mkRjp53V/bwxAIV2SYotFIzzA2HxghxKJgdZKGWTWNgbeeNZzuw3vbrozJvcVue+oAIJ3R4LnYrdoaMybqLu/FVmkOYm0DwclabeeMOF3s88jCeE7eUmFH8e4tns+CgCwM2uvVGqfdc7rdZgJEMRlRRW7ofgaK983TdK1cGb/IYvno+GBKpq1BndSM4Gxm7rxXqh4KPrOl/A65F86pN7eg50tb6iF+0TLvewh7Qyat8pFRSfn3kNwiVG09HCzXCaqUrsba3ns7L9AQnvAK7Ds6XLdUWgPVIuXkEUiAwu/8+Pl4ZzjJxuyK3hILM55Ppp2Ik6FIQO60+i42tVtelIvl/PeAEfc28coXC4WXdsQgZD0NeyifmJ1iDk5aiuAU7v9NGt6/1B6W0TPd3t/+c83xHTIOnMIUVt8rSSkiKgQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(136003)(39860400002)(376002)(346002)(451199021)(36840700001)(46966006)(40470700004)(82310400005)(83380400001)(47076005)(36860700001)(2616005)(70586007)(70206006)(356005)(81166007)(5660300002)(36756003)(41300700001)(40460700003)(82740400003)(4326008)(316002)(478600001)(186003)(26005)(16526019)(6916009)(54906003)(1076003)(336012)(2906002)(44832011)(8676002)(86362001)(8936002)(40480700001)(426003)(6666004)(966005)(16060500005)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2023 16:50:50.0178 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ace7366-b3a0-4aaf-57c1-08db4b2d627e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT091.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7205
+References: <20230501185747.33519-1-andrealmeid@igalia.com>
+ <CADnq5_NXj4W44F_etRQ7HWdVTnf5zARCM3Y_o3EiwWiHj8QMpA@mail.gmail.com>
+ <6ab2ff76-4518-6fac-071e-5d0d5adc4fcd@igalia.com>
+ <cb3d2590-a1f8-fe7e-0bba-638ee80719af@amd.com>
+ <CAFF-SiV0=WNmRW-D9uYUuj68Zq0APxtGLya9KR6FfZ7v0Zf2RQ@mail.gmail.com>
+ <fcca2934-a556-797c-535d-a66fc67bbe30@amd.com>
+ <85c538b01efb6f3fa6ff05ed1a0bc3ff87df7a61.camel@gmail.com>
+ <CADnq5_NHtFbwT=x8u7GYc4ESL_HVFzjgtOd3AnVFBYMrjZq55w@mail.gmail.com>
+ <c54414482b685af0991a6b095cbfb7534d998afc.camel@gmail.com>
+In-Reply-To: <c54414482b685af0991a6b095cbfb7534d998afc.camel@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 2 May 2023 14:41:25 -0400
+Message-ID: <CADnq5_MSY=j9AobDk7ACevur4Hwvw_ub7g16Mfm7ymMJqwVNfQ@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/1] Add AMDGPU_INFO_GUILTY_APP ioctl
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,43 +75,202 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Liu <HaoPing.Liu@amd.com>, Mukul Joshi <mukul.joshi@amd.com>,
- Tao Zhou <tao.zhou1@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Le Ma <le.ma@amd.com>, Stanley
- Yang <Stanley.Yang@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: "Pelloux-Prayer, Pierre-Eric" <pierre-eric.pelloux-prayer@amd.com>,
+ Samuel Pitoiset <samuel.pitoiset@gmail.com>,
+ =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
+ =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
+ michel.daenzer@mailbox.org, linux-kernel@vger.kernel.org,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, kernel-dev@igalia.com,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-As made mention of, in commit 9128e6babf10 ("drm/amdgpu: fix
-amdgpu_irq_put call trace in gmc_v10_0_hw_fini") and commit c094b8923bdd
-("drm/amdgpu: fix amdgpu_irq_put call trace in gmc_v11_0_hw_fini"). It
-is meaningless to call amdgpu_irq_put() for gmc.ecc_irq. So, remove it
-from gmc_v9_0_hw_fini().
+On Tue, May 2, 2023 at 11:22=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@g=
+mail.com> wrote:
+>
+> On Tue, 2023-05-02 at 09:45 -0400, Alex Deucher wrote:
+> > On Tue, May 2, 2023 at 9:35=E2=80=AFAM Timur Krist=C3=B3f
+> > <timur.kristof@gmail.com> wrote:
+> > >
+> > > Hi,
+> > >
+> > > On Tue, 2023-05-02 at 13:14 +0200, Christian K=C3=B6nig wrote:
+> > > > >
+> > > > > Christian K=C3=B6nig <christian.koenig@amd.com> ezt =C3=ADrta (id=
+=C5=91pont:
+> > > > > 2023.
+> > > > > m=C3=A1j. 2., Ke 9:59):
+> > > > >
+> > > > > > Am 02.05.23 um 03:26 schrieb Andr=C3=A9 Almeida:
+> > > > > >  > Em 01/05/2023 16:24, Alex Deucher escreveu:
+> > > > > >  >> On Mon, May 1, 2023 at 2:58=E2=80=AFPM Andr=C3=A9 Almeida
+> > > > > > <andrealmeid@igalia.com>
+> > > > > >  >> wrote:
+> > > > > >  >>>
+> > > > > >  >>> I know that devcoredump is also used for this kind of
+> > > > > > information,
+> > > > > >  >>> but I believe
+> > > > > >  >>> that using an IOCTL is better for interfacing Mesa +
+> > > > > > Linux
+> > > > > > rather
+> > > > > >  >>> than parsing
+> > > > > >  >>> a file that its contents are subjected to be changed.
+> > > > > >  >>
+> > > > > >  >> Can you elaborate a bit on that?  Isn't the whole point
+> > > > > > of
+> > > > > > devcoredump
+> > > > > >  >> to store this sort of information?
+> > > > > >  >>
+> > > > > >  >
+> > > > > >  > I think that devcoredump is something that you could use
+> > > > > > to
+> > > > > > submit to
+> > > > > >  > a bug report as it is, and then people can read/parse as
+> > > > > > they
+> > > > > > want,
+> > > > > >  > not as an interface to be read by Mesa... I'm not sure
+> > > > > > that
+> > > > > > it's
+> > > > > >  > something that I would call an API. But I might be wrong,
+> > > > > > if
+> > > > > > you know
+> > > > > >  > something that uses that as an API please share.
+> > > > > >  >
+> > > > > >  > Anyway, relying on that for Mesa would mean that we would
+> > > > > > need
+> > > > > > to
+> > > > > >  > ensure stability for the file content and format, making
+> > > > > > it
+> > > > > > less
+> > > > > >  > flexible to modify in the future and probe to bugs, while
+> > > > > > the
+> > > > > > IOCTL is
+> > > > > >  > well defined and extensible. Maybe the dump from Mesa +
+> > > > > > devcoredump
+> > > > > >  > could be complementary information to a bug report.
+> > > > > >
+> > > > > >  Neither using an IOCTL nor devcoredump is a good approach
+> > > > > > for
+> > > > > > this since
+> > > > > >  the values read from the hw register are completely
+> > > > > > unreliable.
+> > > > > > They
+> > > > > >  could not be available because of GFXOFF or they could be
+> > > > > > overwritten or
+> > > > > >  not even updated by the CP in the first place because of a
+> > > > > > hang
+> > > > > > etc....
+> > > > > >
+> > > > > >  If you want to track progress inside an IB what you do
+> > > > > > instead
+> > > > > > is to
+> > > > > >  insert intermediate fence write commands into the IB. E.g.
+> > > > > > something
+> > > > > >  like write value X to location Y when this executes.
+> > > > > >
+> > > > > >  This way you can not only track how far the IB processed,
+> > > > > > but
+> > > > > > also in
+> > > > > >  which stages of processing we where when the hang occurred.
+> > > > > > E.g.
+> > > > > > End of
+> > > > > >  Pipe, End of Shaders, specific shader stages etc...
+> > > > > >
+> > > > > >
+> > > > >
+> > > > > Currently our biggest challenge in the userspace driver is
+> > > > > debugging "random" GPU hangs. We have many dozens of bug
+> > > > > reports
+> > > > > from users which are like: "play the game for X hours and it
+> > > > > will
+> > > > > eventually hang the GPU". With the currently available tools,
+> > > > > it is
+> > > > > impossible for us to tackle these issues. Andr=C3=A9's proposal
+> > > > > would be
+> > > > > a step in improving this situation.
+> > > > >
+> > > > > We already do something like what you suggest, but there are
+> > > > > multiple problems with that approach:
+> > > > >
+> > > > > 1. we can only submit 1 command buffer at a time because we
+> > > > > won't
+> > > > > know which IB hanged
+> > > > > 2. we can't use chaining because we don't know where in the IB
+> > > > > it
+> > > > > hanged
+> > > > > 3. it needs userspace to insert (a lot of) extra commands such
+> > > > > as
+> > > > > extra synchronization and memory writes
+> > > > > 4. It doesn't work when GPU recovery is enabled because the
+> > > > > information is already gone when we detect the hang
+> > > > >
+> > > >  You can still submit multiple IBs and even chain them. All you
+> > > > need
+> > > > to do is to insert into each IB commands which write to an extra
+> > > > memory location with the IB executed and the position inside the
+> > > > IB.
+> > > >
+> > > >  The write data command allows to write as many dw as you want
+> > > > (up to
+> > > > multiple kb). The only potential problem is when you submit the
+> > > > same
+> > > > IB multiple times.
+> > > >
+> > > >  And yes that is of course quite some extra overhead, but I think
+> > > > that should be manageable.
+> > >
+> > > Thanks, this sounds doable and would solve the limitation of how
+> > > many
+> > > IBs are submitted at a time. However it doesn't address the problem
+> > > that enabling this sort of debugging will still have extra
+> > > overhead.
+> > >
+> > > I don't mean the overhead from writing a couple of dwords for the
+> > > trace, but rather, the overhead from needing to emit flushes or top
+> > > of
+> > > pipe events or whatever else we need so that we can tell which
+> > > command
+> > > hung the GPU.
+> > >
+> > > >
+> > > > > In my opinion, the correct solution to those problems would be
+> > > > > if
+> > > > > the kernel could give userspace the necessary information about
+> > > > > a
+> > > > > GPU hang before a GPU reset.
+> > > > >
+> > > >  The fundamental problem here is that the kernel doesn't have
+> > > > that
+> > > > information either. We know which IB timed out and can
+> > > > potentially do
+> > > > a devcoredump when that happens, but that's it.
+> > >
+> > >
+> > > Is it really not possible to know such a fundamental thing as what
+> > > the
+> > > GPU was doing when it hung? How are we supposed to do any kind of
+> > > debugging without knowing that?
+> > >
+> > > I wonder what AMD's Windows driver team is doing with this problem,
+> > > surely they must have better tools to deal with GPU hangs?
+> >
+> > For better or worse, most teams internally rely on scan dumps via
+> > JTAG
+> > which sort of limits the usefulness outside of AMD, but also gives
+> > you
+> > the exact state of the hardware when it's hung so the hardware teams
+> > prefer it.
+> >
+>
+> How does this approach scale? It's not something we can ask users to
+> do, and even if all of us in the radv team had a JTAG device, we
+> wouldn't be able to play every game that users experience random hangs
+> with.
 
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2522
-Fixes: 3029c855d79f ("drm/amdgpu: Fix desktop freezed after gpu-reset")
-Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 1 -
- 1 file changed, 1 deletion(-)
+It doesn't scale or lend itself particularly well to external
+development, but that's the current state of affairs.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 290804a06e05..6ae5cee9b64b 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1999,7 +1999,6 @@ static int gmc_v9_0_hw_fini(void *handle)
- 	if (adev->mmhub.funcs->update_power_gating)
- 		adev->mmhub.funcs->update_power_gating(adev, false);
- 
--	amdgpu_irq_put(adev, &adev->gmc.ecc_irq, 0);
- 	amdgpu_irq_put(adev, &adev->gmc.vm_fault, 0);
- 
- 	return 0;
--- 
-2.40.0
-
+Alex
