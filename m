@@ -4,64 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35EDBC77B73
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 May 2023 13:45:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2C79C77B73
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 May 2023 13:50:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF49410E55D;
-	Tue,  2 May 2023 13:45:19 +0000 (UTC)
-Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
- [IPv6:2607:f8b0:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EFA010E286;
- Tue,  2 May 2023 13:45:17 +0000 (UTC)
-Received: by mail-ot1-x332.google.com with SMTP id
- 46e09a7af769-6a438f0d9c9so2682184a34.1; 
- Tue, 02 May 2023 06:45:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1683035116; x=1685627116;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=M8MTHJ52iLYQD5hklUS87Ar+YGmPytygVAeYV0UnYw0=;
- b=gYOWyPkt4QQAkSbtqPXdKGoGuU5TqFuXt5BI8IYWr4O97at9XkZOF9GUL6M0yxJ3t8
- KuFcLSVV8ZgFDgojs0nVoUPKEIpOXgstyVO5lHyJvkqwRHHcbQIKrgeG8QPCoAq8Ck2k
- LC0A1cr4NF5sVli9HXrbR6TcZaM7sh+7T9gHKH39ADFdeW4k9D02WsBK+Iar9iJbu3jI
- 3W7e9KpIsevBjuyGNewuizv6IZ9oG+txj4WAGckJXMLBYov4NAk0hmn8Q2NVB8Wh0Q8/
- DHB8BrMl9dY+9uH5ex0YReP7Dz6+B2xgm/Iz+FZqkzUZP3IwyDVfomVbn3+LDPD3GUDy
- BaqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683035116; x=1685627116;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=M8MTHJ52iLYQD5hklUS87Ar+YGmPytygVAeYV0UnYw0=;
- b=Ab+YgRuW4+ZG0fKrsNd85fJwErU971z8lE0goyqY5hekTtVCiavfRW8BIeciHka/VH
- 7lIXSUiDUYIt02oX9/OrzMgKMervq+0k101TEDDVgbaQTgwMDxKUH0M2o9AyooSTP2tz
- JI17jGD5fsuFAZ1CSC5pO/7QCexWoGOKXgk6cROwDnF557u9Fo6cP8hfzoxlcNf1iKnZ
- HwO1pY9wZbizKlmrKdCglEd3gmq/eFw8Ob+ErJ1IMpZhLfKcfGvbHylhV99vT6/uCX0x
- iTVDoou6BdKlWJD4F5qvb0B4P76r1KbwRMNBqaJXF6dzOv88cpmE2KgE9vw27b6F3mQM
- luYA==
-X-Gm-Message-State: AC+VfDxs0FyaDDuyEMfo72jeNGfkcrUdgU7nXbJgXgK26/CWZHO2Ne3q
- 9scvFdB/H6DmWONxSOlaOfD0HqBi4+xIEKL3hJU=
-X-Google-Smtp-Source: ACHHUZ4ChQ+Ujphil3bnlZK25JwgSAA0QglzMgdEbCBRYR+E7nBTcEI62kwCTYWU1AwTEa3KQIPD+F2XaGSfPbmLYmA=
-X-Received: by 2002:a05:6808:159a:b0:392:3ba:3a28 with SMTP id
- t26-20020a056808159a00b0039203ba3a28mr6660179oiw.11.1683035116619; Tue, 02
- May 2023 06:45:16 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BDC610E552;
+	Tue,  2 May 2023 13:50:21 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2048.outbound.protection.outlook.com [40.107.93.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC0EB10E552
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 May 2023 13:50:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Z685VVzvPGojLz4+xdgGz8tm0XbD9BtQv5QGgEp61CPa9ajlDzeFYGS6dm2YaMn1XrfetTJKqiH2ndG54gJpJ9o3NRu0LZv+aNASnYqz2vox+VYIBNV7PkNTUwxqQySLExnDlAHte0JgKA/VR+1LgRosqNTQZFHZz06R/7H9pMRIjLOjOkfQvNTRnmWex9wlhJAvSDBST6Ajw+7wmwDhbEpBHeYiiozGomOQt7SNbbY+cNXdArnXf8kJMSk5RdBNwXcpEB2yE2m7IGepL0ZT9+PtqvTVVIJtfRIUqSjDEZCEGXdIsXFDvyX2hkZaFbFd2MZF2ErV0n+XhOoP4RKgkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bG+rimHJvLECP2w42G8vnpIxSgEbw3T9O5TYNWKy8Hg=;
+ b=SrOOTBJE3b/6DFGNNZS2vzfbOfTL8qcc786rgDXpbenSaESn0l2Qb7RtMfxL2LuOuhojHR4S8NCyKW/tWy+H3OYk2l/cX8g1JElAPU3QOcSW98DSvYGQiRfjlF/vpPGRobR3sMbXB4wuUXvyvRiDS68vJaMrTSpbNiT99p5m+E/qqYu4OvDZgs0Ey1UCeiYuRXsdRf4uVi+ivfdLsTIWk7HKX4jXw+ZrFjn2qOYBO7EQxQ1bL5LsRAByKz59HIFnhqexQBwIVvAb73HPUIl4WhEMZu43ExYDGPirvmKkqCDsz0ATCqus8bPL/lq/4VSJPTKHWSMeuKGRDRIsb2Xj8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bG+rimHJvLECP2w42G8vnpIxSgEbw3T9O5TYNWKy8Hg=;
+ b=cKnRHSBxjf9/XePDXJzdfUn91dI+1jJRPejSqWgyVsg77r+DuUF4tJ4ywS0N93CMGKd3A28RpMUkO24bzJjr7HKlkAlJFpCAV6AvE7erJvSwSNA0umzBhmpxITulh8OyRGKJDlD1+AfDz5fMwXjM7uguzJl0VmrgRoG7Sc1Szsc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4250.namprd12.prod.outlook.com (2603:10b6:5:21a::9) by
+ MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.31; Tue, 2 May
+ 2023 13:50:16 +0000
+Received: from DM6PR12MB4250.namprd12.prod.outlook.com
+ ([fe80::636d:c8bf:601a:75f7]) by DM6PR12MB4250.namprd12.prod.outlook.com
+ ([fe80::636d:c8bf:601a:75f7%7]) with mapi id 15.20.6340.031; Tue, 2 May 2023
+ 13:50:16 +0000
+Date: Tue, 2 May 2023 21:50:03 +0800
+From: Lang Yu <Lang.Yu@amd.com>
+To: Yifan Zhang <yifan1.zhang@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: set gfx9 onwards APU atomics support to be
+ true
+Message-ID: <ZFEVC3Q+PSKFJ1e+@lang-desktop>
+References: <20230430020220.1266699-1-yifan1.zhang@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230430020220.1266699-1-yifan1.zhang@amd.com>
+X-ClientProxiedBy: SG2PR02CA0118.apcprd02.prod.outlook.com
+ (2603:1096:4:92::34) To DM6PR12MB4250.namprd12.prod.outlook.com
+ (2603:10b6:5:21a::9)
 MIME-Version: 1.0
-References: <20230501185747.33519-1-andrealmeid@igalia.com>
- <CADnq5_NXj4W44F_etRQ7HWdVTnf5zARCM3Y_o3EiwWiHj8QMpA@mail.gmail.com>
- <6ab2ff76-4518-6fac-071e-5d0d5adc4fcd@igalia.com>
- <cb3d2590-a1f8-fe7e-0bba-638ee80719af@amd.com>
- <CAFF-SiV0=WNmRW-D9uYUuj68Zq0APxtGLya9KR6FfZ7v0Zf2RQ@mail.gmail.com>
- <fcca2934-a556-797c-535d-a66fc67bbe30@amd.com>
- <85c538b01efb6f3fa6ff05ed1a0bc3ff87df7a61.camel@gmail.com>
-In-Reply-To: <85c538b01efb6f3fa6ff05ed1a0bc3ff87df7a61.camel@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 2 May 2023 09:45:05 -0400
-Message-ID: <CADnq5_NHtFbwT=x8u7GYc4ESL_HVFzjgtOd3AnVFBYMrjZq55w@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/1] Add AMDGPU_INFO_GUILTY_APP ioctl
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4250:EE_|MN2PR12MB4488:EE_
+X-MS-Office365-Filtering-Correlation-Id: e6dd5d6d-6136-4092-4166-08db4b142879
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: nFk6psNFDg6HEmfUVntpH1WUgX4SqtBIlXIdy/wl498F3rgxMfdA8BpKsDt7xxkEWehAPH674WZFBLFFzBhDDRACC8rq/e7PYN/X/RuQCV2mp2f8U/RhHCdOCIlian1xKYCplMXtzGW5aNOMMDEvjsR0y+VA/j6bZ0HTfupVzHkxgB8Vzo9MquidAWwJcFK6Yttlh4KGdeR64syvrIK2ah3xj7rzmPsEObgfqOC3vLs6HR0QP8jde0AD/1c3EYgksZZXurW3G8oDbR7xL1ciPkoh2+07bjqm+r6GW1dee9KroBFKoKGumHtxnTGpgaUQcEif8Quk+++bEf4caMPewh4V7y/LM60pbH9bq/x/VOLScpxEFIBqUZN4TsKXTQ+v97UWmeC6FaVa7pRxgLEObEWWHB4W7zEoJiKWmR6HiijEdwkCUSixBXzVPSHI19Q1+WcBujVDH3Kd3o2LXd58JprbTI1498kjO62FYWRhOj4jgovJnTviuGygGx0i5sxtXpp9HHaaF6xjyfPoLvwK9eKWHxjR0pTug26o781L+ksJpSvp8fx1rDRa6VmnGSq0
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4250.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(7916004)(4636009)(396003)(376002)(346002)(39860400002)(136003)(366004)(451199021)(9686003)(6512007)(186003)(26005)(6506007)(66556008)(316002)(66946007)(4326008)(6636002)(66476007)(2906002)(478600001)(6666004)(6486002)(8676002)(8936002)(33716001)(6862004)(5660300002)(41300700001)(38100700002)(86362001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?RQD0hfcSNKabvRQVaN56E/IL93TSQ23gtj6OJotWrsTokC/SopUV+DSukkAC?=
+ =?us-ascii?Q?1MHlXdW+iY5MzxgicZv5XuDM0DN69GjeenygO3EjurvhPLXU+9u1QOwx4GIv?=
+ =?us-ascii?Q?kRvz2AX2Xnd/9IsnXndiIshvyATiqgadAp1dqdF6fb+o64YuxzkSHseeekQf?=
+ =?us-ascii?Q?bJK2Iu3FO2N1EIwJAda8H+M+hiM5gDj4lnmxtlNvT2VeR3wLBjaZLnnd2xos?=
+ =?us-ascii?Q?8MxfKnS4URPQvCldgHXexqxzE5h7f9c2swMiVRRnMN6qL2GVclbvJwlal63j?=
+ =?us-ascii?Q?T6iPuec4aL/o2diN5TU4+pLu5Po5j03ceZ8Li+wy78J5QrWpxZN2ZT5oiR5a?=
+ =?us-ascii?Q?ciFsp1WUwqtUDAUuESw1hqWoK7vjxbKKYW1AT3M5LKt4TuDV2WLAXvNZS1FB?=
+ =?us-ascii?Q?CSdmOaMcEjjCBWCANel+WLqtcKrDknA7R0HkQ2Wr0O7lo8jianV4g0RfNQff?=
+ =?us-ascii?Q?EEFIv7I9xPPq+2ZZmkv0gPb54vU8NKeAW8ANdwt0Q2XzZzfl5NNr7WpQ3ldm?=
+ =?us-ascii?Q?SKInxZinG6Dp3BWdONxmKsO/1lACr4b7yFrx0HvD8D39d+C6W181DmVUTpSq?=
+ =?us-ascii?Q?v1ZVP4EF3uZLOC4V22yCswQCeONOh3v6TiT7v6spmfaDTBqA9ibrDQ0GAryi?=
+ =?us-ascii?Q?Vigj+gkenx7syStQuMhllr8kQukP9aS8UG4+5zw4R1ndRAAlMC2K60aNjg0Q?=
+ =?us-ascii?Q?H2d2sduAC1CiSc1I8QXkYJCC1p2MS1S2noABRItb5UUJUOH9yB79nakUjbrL?=
+ =?us-ascii?Q?ewKzSzG8/8gKU65jpWJNFaHT7U3cb5QFa172TK/GAmds9sHy9XLjA9eB7pep?=
+ =?us-ascii?Q?rJSogGcPpGO8pcXJgXU4TMLrZBD87DzAeaJGkDy98g/YhQ9F+Grl5qf9Td+E?=
+ =?us-ascii?Q?3VBsArs5g00KE+1W6HowzHz8K0PvMWGxu+JSiL+Pl4jAKe3TYlbiawQxg2/E?=
+ =?us-ascii?Q?6WXNbmlfdZyU6OOqqRr644cBOAPVUx24846O3LJo1iYlnjWQO5qLc8K5aGyC?=
+ =?us-ascii?Q?ZSZOEZ0t3kn/GQA0Ug1OkzOaGaeM2oGXr/JDZTBemcv969uG70mXOMZkC8On?=
+ =?us-ascii?Q?Yb9zN3lDYZ9Wv5kZZBMqhuOBmQAab0wBXQJdQV9hibOb6vbR8DwuGz/k/NaG?=
+ =?us-ascii?Q?xK5HX+l8PPvZ32ayZpegZTLpreUwVNsuetBUqKCKCziItmjIZXG+8EUUX6Ob?=
+ =?us-ascii?Q?fs5PnPp/kbLiarwEP61h5TBawd+/PA4VJCu/Q1iJx2OBffP0xvv9mkkmyJ2E?=
+ =?us-ascii?Q?O7SXmFhN/Rev5ruztMDb6yIEQRCBJiw12Eoau9r+u2/11kTsOCOCo6B0MC5T?=
+ =?us-ascii?Q?YFbNAV5sJmSNeBRahPuKNl+L+v/qx/r+qr65fqW51pSdgfACsBuCA6ERlC11?=
+ =?us-ascii?Q?sxW/Ex7S7gVNIrdjHOK3KH/h5BucfoJzP4s+/Xq1w8RPDVJSjPGPwyQhfu97?=
+ =?us-ascii?Q?ayf5g2vIdDnm+54n+dYSaSHGld3aL6QuuoZClpmbF/196ejiO3UJ7G5VFsh5?=
+ =?us-ascii?Q?bMINl5D2gJXSIAcoPWlL9qmyCWso4dhwgbqtZVOaOL/3+ILYwVEvkLlOAKhQ?=
+ =?us-ascii?Q?UJ5TvwCMcwpUmoOpzQ6+2dZFCtIAok8ed8VL5PPg?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e6dd5d6d-6136-4092-4166-08db4b142879
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4250.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2023 13:50:15.8874 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jiRxtM5McZ02xfTSVKjsF7WNDtmKn96ZhGR8R4yoaawS0AkdX63dA+8EUX4ptAy1lUOsXYWFasuXpfDC4TUabA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4488
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,152 +112,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pelloux-Prayer, Pierre-Eric" <pierre-eric.pelloux-prayer@amd.com>,
- Samuel Pitoiset <samuel.pitoiset@gmail.com>,
- =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- michel.daenzer@mailbox.org, linux-kernel@vger.kernel.org,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, kernel-dev@igalia.com,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, "Deucher,
- Alexander" <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alexander.Deucher@amd.com, Felix.Kuehling@amd.com, Christian.Koenig@amd.com,
+ amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, May 2, 2023 at 9:35=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@gm=
-ail.com> wrote:
->
-> Hi,
->
-> On Tue, 2023-05-02 at 13:14 +0200, Christian K=C3=B6nig wrote:
-> > >
-> > > Christian K=C3=B6nig <christian.koenig@amd.com> ezt =C3=ADrta (id=C5=
-=91pont: 2023.
-> > > m=C3=A1j. 2., Ke 9:59):
-> > >
-> > > > Am 02.05.23 um 03:26 schrieb Andr=C3=A9 Almeida:
-> > > >  > Em 01/05/2023 16:24, Alex Deucher escreveu:
-> > > >  >> On Mon, May 1, 2023 at 2:58=E2=80=AFPM Andr=C3=A9 Almeida
-> > > > <andrealmeid@igalia.com>
-> > > >  >> wrote:
-> > > >  >>>
-> > > >  >>> I know that devcoredump is also used for this kind of
-> > > > information,
-> > > >  >>> but I believe
-> > > >  >>> that using an IOCTL is better for interfacing Mesa + Linux
-> > > > rather
-> > > >  >>> than parsing
-> > > >  >>> a file that its contents are subjected to be changed.
-> > > >  >>
-> > > >  >> Can you elaborate a bit on that?  Isn't the whole point of
-> > > > devcoredump
-> > > >  >> to store this sort of information?
-> > > >  >>
-> > > >  >
-> > > >  > I think that devcoredump is something that you could use to
-> > > > submit to
-> > > >  > a bug report as it is, and then people can read/parse as they
-> > > > want,
-> > > >  > not as an interface to be read by Mesa... I'm not sure that
-> > > > it's
-> > > >  > something that I would call an API. But I might be wrong, if
-> > > > you know
-> > > >  > something that uses that as an API please share.
-> > > >  >
-> > > >  > Anyway, relying on that for Mesa would mean that we would need
-> > > > to
-> > > >  > ensure stability for the file content and format, making it
-> > > > less
-> > > >  > flexible to modify in the future and probe to bugs, while the
-> > > > IOCTL is
-> > > >  > well defined and extensible. Maybe the dump from Mesa +
-> > > > devcoredump
-> > > >  > could be complementary information to a bug report.
-> > > >
-> > > >  Neither using an IOCTL nor devcoredump is a good approach for
-> > > > this since
-> > > >  the values read from the hw register are completely unreliable.
-> > > > They
-> > > >  could not be available because of GFXOFF or they could be
-> > > > overwritten or
-> > > >  not even updated by the CP in the first place because of a hang
-> > > > etc....
-> > > >
-> > > >  If you want to track progress inside an IB what you do instead
-> > > > is to
-> > > >  insert intermediate fence write commands into the IB. E.g.
-> > > > something
-> > > >  like write value X to location Y when this executes.
-> > > >
-> > > >  This way you can not only track how far the IB processed, but
-> > > > also in
-> > > >  which stages of processing we where when the hang occurred. E.g.
-> > > > End of
-> > > >  Pipe, End of Shaders, specific shader stages etc...
-> > > >
-> > > >
-> > >
-> > > Currently our biggest challenge in the userspace driver is
-> > > debugging "random" GPU hangs. We have many dozens of bug reports
-> > > from users which are like: "play the game for X hours and it will
-> > > eventually hang the GPU". With the currently available tools, it is
-> > > impossible for us to tackle these issues. Andr=C3=A9's proposal would=
- be
-> > > a step in improving this situation.
-> > >
-> > > We already do something like what you suggest, but there are
-> > > multiple problems with that approach:
-> > >
-> > > 1. we can only submit 1 command buffer at a time because we won't
-> > > know which IB hanged
-> > > 2. we can't use chaining because we don't know where in the IB it
-> > > hanged
-> > > 3. it needs userspace to insert (a lot of) extra commands such as
-> > > extra synchronization and memory writes
-> > > 4. It doesn't work when GPU recovery is enabled because the
-> > > information is already gone when we detect the hang
-> > >
-> >  You can still submit multiple IBs and even chain them. All you need
-> > to do is to insert into each IB commands which write to an extra
-> > memory location with the IB executed and the position inside the IB.
-> >
-> >  The write data command allows to write as many dw as you want (up to
-> > multiple kb). The only potential problem is when you submit the same
-> > IB multiple times.
-> >
-> >  And yes that is of course quite some extra overhead, but I think
-> > that should be manageable.
->
-> Thanks, this sounds doable and would solve the limitation of how many
-> IBs are submitted at a time. However it doesn't address the problem
-> that enabling this sort of debugging will still have extra overhead.
->
-> I don't mean the overhead from writing a couple of dwords for the
-> trace, but rather, the overhead from needing to emit flushes or top of
-> pipe events or whatever else we need so that we can tell which command
-> hung the GPU.
->
-> >
-> > > In my opinion, the correct solution to those problems would be if
-> > > the kernel could give userspace the necessary information about a
-> > > GPU hang before a GPU reset.
-> > >
-> >  The fundamental problem here is that the kernel doesn't have that
-> > information either. We know which IB timed out and can potentially do
-> > a devcoredump when that happens, but that's it.
->
->
-> Is it really not possible to know such a fundamental thing as what the
-> GPU was doing when it hung? How are we supposed to do any kind of
-> debugging without knowing that?
->
-> I wonder what AMD's Windows driver team is doing with this problem,
-> surely they must have better tools to deal with GPU hangs?
+On 04/30/ , Yifan Zhang wrote:
+> APUs w/ gfx9 onwards doesn't reply on PCIe atomics, rather
+> it is internal path w/ native atomic support. Set have_atomics_support
+> to true.
+> 
+> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
 
-For better or worse, most teams internally rely on scan dumps via JTAG
-which sort of limits the usefulness outside of AMD, but also gives you
-the exact state of the hardware when it's hung so the hardware teams
-prefer it.
+Reviewed-by: Lang Yu <lang.yu@amd.com>
 
-Alex
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index b57e7776055b..750eaffa81ba 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -3757,6 +3757,12 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>  		adev->have_atomics_support = ((struct amd_sriov_msg_pf2vf_info *)
+>  			adev->virt.fw_reserve.p_pf2vf)->pcie_atomic_ops_support_flags ==
+>  			(PCI_EXP_DEVCAP2_ATOMIC_COMP32 | PCI_EXP_DEVCAP2_ATOMIC_COMP64);
+> +	/* APUs w/ gfx9 onwards doesn't reply on PCIe atomics, rather it is a
+> +	 * internal path natively support atomics, set have_atomics_support to true.
+> +	 */
+> +	else if ((adev->flags & AMD_IS_APU) &&
+> +		(adev->ip_versions[GC_HWIP][0] > IP_VERSION(9, 0, 0)))
+> +		adev->have_atomics_support = true;
+>  	else
+>  		adev->have_atomics_support =
+>  			!pci_enable_atomic_ops_to_root(adev->pdev,
+> -- 
+> 2.37.3
+> 
