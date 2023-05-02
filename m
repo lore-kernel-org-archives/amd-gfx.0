@@ -4,62 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DF7CC77B73
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 May 2023 04:26:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE8C3C7EE23
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 May 2023 07:48:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AAD810E116;
-	Tue,  2 May 2023 04:26:47 +0000 (UTC)
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [IPv6:2a00:1450:4864:20::534])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E54BA10E116
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 May 2023 04:26:44 +0000 (UTC)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-50bcae898b2so1963847a12.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 May 2023 21:26:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1683001601; x=1685593601;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=SUJaDOxRbZ3HeQBlL5k0NbCaiph3lc885HP8EQT3Ihw=;
- b=aZAp7UWJ9PkFb10GZOxWtmPzZKRgGhjtYEjbtkGy/sJXzM7RwgrxijIPamgio15S5L
- BW4e/oRiRXKq5JrRoBfxUFi4b8f90bPaNptVXhrvJooqUARQdtETsoCWchhrZBgPRVm4
- mwzehbLNhzK0AEQfZfwXKdM6IkkVET6+qfVHJMWQfF0eKG3LRpT1PQxCA0P6hS5Ki/z5
- s9f2TcUQrAgiCSP/vnoIN61kwDX9COj/gHGBYFV7CQbv7QT4q7GFG00BcvYxARIl4OON
- h+VwLllLOeO4FT/qfzQ4GB6KpwJuigGf2rH2NufWl+xQhYBPgGqqnbVrEtOehJq4x2Wd
- LwOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683001601; x=1685593601;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=SUJaDOxRbZ3HeQBlL5k0NbCaiph3lc885HP8EQT3Ihw=;
- b=dIQzJz/sX4UC6DCUxD0+uvFRhMnFj2t8jXl9nk6snTstVxeBDwrRffU4u0C6VdrosZ
- MMXlpeLSBW+U2ZIBIysI5oph9hWA2flxvy/LMjfaxt72MZTNZ7JC9OyFDL/xGOpnquPq
- xVRr+si4osC6YCZHHsHEjcebAL4e2b5iMPLXzH6MZHKgQ/S2iowxIicTXAvgWvb1zY7g
- 4Eu5PuaqPnCtdhq2niMI447u9A6sr3MFO6T97xwK0hkNEQo7fpQjaaDRoyHL1EzlllWr
- f+UmdTeh06xCZwBCiRFVoo2dRbTccFrCcd9O8ZwZ1+SqugRZAE9UvM+OOHmW47do6fUY
- LJsA==
-X-Gm-Message-State: AC+VfDyGUJPP2NWgW5sBeUGksj5dPGxJAKWP3nK6TnM+fIgHjhC3y7xr
- Q4+SJN0Czu+jy2WWsVxJSKAB0IX7HuALB65nhz4=
-X-Google-Smtp-Source: ACHHUZ5yZ111ITSNpXuz5tWuqeuDVAHz+LeIekEtkd4au31tByMG52itaxSkp1dcPWHpv9aZVUSI1ZeFcfEgwr15uec=
-X-Received: by 2002:a17:907:2d28:b0:948:d1af:3a11 with SMTP id
- gs40-20020a1709072d2800b00948d1af3a11mr14832075ejc.50.1683001601013; Mon, 01
- May 2023 21:26:41 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5083410E4A8;
+	Tue,  2 May 2023 07:48:52 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2076.outbound.protection.outlook.com [40.107.243.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AEAC10E158;
+ Tue,  2 May 2023 07:48:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gIIsQG0x4Tr0g2CtbZ+/CPqmnXNW6YJgBIlfzujf8dix5dYhZMlg+Gl+faHfKT515LGx0pkUO/QUpFfLDqsvMvYswSGKFuh3RwxptTjtAdDPgnLEvKsp5DnYLpTz3N4ZBOAUT/yxMdmCFaIwp9ZsOTkYY5iAnrcR8zJr0KL8rD3AMkKHE83daI5fUtthqaE8uS/qAUMsU8+nPiyFLemVzoZHMnOJaUAzfNtvAhvsP8qDIw2P30C63gOuLhflLVX2DcwoKP8dUttE+mOj7+RHPcYM09DxzmhrJCcNaGNuRpT3CajO+82B8uu1rQDlw18rpBGlr3087byRKOhR50KDXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xZ1dIpeC2xifxL4gCYqlYmGzaIFthiCj9ABc5qTELtM=;
+ b=KSK7YhWMg0YNnS0iv2C9rd3XYfD9PjnZE22q40Nxw21CcXQtGGj5C+JEHbGnSj37mnmjxsZCb1jGeRuKjlNGYbn8NAKGb7KN+BtnLc4/bd7If0NuAkAFdHu1Rjx0B/MQ21oqo60VB45It/562HMyNJ4nZAxhsKVorWFO6DHqwzIwV/xKLDROvc1QQw2EHJX2l3/QUVIFkvmxXjLcWxmApQ6XiE1Lqy3CHnnBEYEyXmrw3iDo7bbjqtcfIo49sn8hNpvkPGiCK7zmBKUHXa7zxlazhTwtsizUQH4rwxY0dc4MT9kguq5oYo8M2PSMVWZnCR7cLYIVHl5y8KvWPcVNhQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xZ1dIpeC2xifxL4gCYqlYmGzaIFthiCj9ABc5qTELtM=;
+ b=KIotCLMNs6cHBy30My7YKd/w2oTY1VCOY/F6DnpThGFylD7xZiKoAepfFn91vZUVv83+JRVq5UA34xSwoQmfKRvzpXClrxrUIGl+pRMV/9phiTmp3XvbGI5zZe+fETIO7ANyaDshvXG9T3Za4P1fwQc7v+b8ZuXfcHmzi65UJ4Q=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by CH3PR12MB8852.namprd12.prod.outlook.com (2603:10b6:610:17d::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.31; Tue, 2 May
+ 2023 07:48:47 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::d2f8:7388:39c1:bbed]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::d2f8:7388:39c1:bbed%3]) with mapi id 15.20.6340.031; Tue, 2 May 2023
+ 07:48:47 +0000
+Message-ID: <31380dad-1206-5f3c-ab7d-1f448c6a7cb3@amd.com>
+Date: Tue, 2 May 2023 09:48:41 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Subject: Re: [RFC PATCH 0/1] Add AMDGPU_INFO_GUILTY_APP ioctl
+Content-Language: en-US
+To: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20230501185747.33519-1-andrealmeid@igalia.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20230501185747.33519-1-andrealmeid@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0058.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:49::19) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
-References: <CAAxE2A6hmv1vjTE4zWoomwjSP3ssF-8CGU5t29m-WOBjbtU37Q@mail.gmail.com>
- <1311F54B-10AE-4492-BB7C-F4BEC9676983@froggi.es>
- <CAAxE2A58Wp-2z3CKadQfgGkAZA2emH5Z3Z0_soiZEPNmKhkuBA@mail.gmail.com>
- <CAEZNXZC+qbD2JJgV7gTYdNH-SNKhNBbzQKNDyzje0mPKjhSJYg@mail.gmail.com>
- <CAAxE2A55+Rmdz63P8JETkvsLX6DSLFvpBwNoiE_pdsKjpdpCLg@mail.gmail.com>
-In-Reply-To: <CAAxE2A55+Rmdz63P8JETkvsLX6DSLFvpBwNoiE_pdsKjpdpCLg@mail.gmail.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Tue, 2 May 2023 00:26:04 -0400
-Message-ID: <CAAxE2A7eEBenTiBTBn7QKjSqfCSWvNdw1zWSWV_tVZVDWg+5zg@mail.gmail.com>
-Subject: Re: drm/amd/display: disable display DCC with retiling due to worse
- power consumption
-To: Joshua Ashton <joshua@froggi.es>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Content-Type: multipart/alternative; boundary="00000000000095bc4f05faae5883"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|CH3PR12MB8852:EE_
+X-MS-Office365-Filtering-Correlation-Id: 57e8c9c0-86c9-4945-1943-08db4ae1a8e3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: tVKiBs66G0JeRVbGGF8C6JlaegfiMSS8OLmhRgqZTaJDNQvMskbxWU80HXvMR16QXgxas5gGNQU/Xx26aoJpo+OETZ7lhpPCrySb2kCIvmLiRImdD18/520V1HVeoVXWCp4SDCW6A8vBhUJbOhC2lgAa55ahU7Bf3KTmgWEPeVDOgFKIwyH9v/YM15mLNTElIpAAH6RFgFDiSlXSJkVRVcOxN/m6DRlrcxbAeLfXkfJgcInJSPdO3o53cdBz1N3Ct7xBwb1X760gVqc5ZoaM/HFPo8qLgXkEaS4gnZtih09L6TtLiPvlLu0wkm4IwgmFYwNp7MkymcjOqod3X+cNPp7HY0H19zzBl1MS3OZWynB/zh77UTG9GnT68wUVbOvmFcQSlCTmDV9oMXNu0dabRwyKKYde2mb+PXK0a8sHS2UKniTxY43UFypdSJ6u5w4u3S1TvcJDnaQ7lHe1hYdAZ94llT8Y5uDHQZLTJHhyO3o+J8OwJwqa46sAGxux52kjHrvzJtCZ45yfkef/wT3opC1cv7NtVsnfxB8qRs874YQHQrFWFr1G+7+4Sdx+on6H2l2oAPSfzFiF5wauGdruMsiE0DlOrJ7/fn6NkSBUI9U=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(366004)(39860400002)(376002)(346002)(396003)(136003)(451199021)(2906002)(38100700002)(41300700001)(7416002)(8676002)(8936002)(5660300002)(36756003)(86362001)(31696002)(6486002)(6666004)(966005)(54906003)(6506007)(478600001)(6512007)(31686004)(2616005)(83380400001)(186003)(66946007)(66556008)(4326008)(66476007)(316002)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K1RNSlFXd2pDb1dVYXBEZSsrMFFkY1ZGSWx4bnMzbExNNExKajBhYk1nR2lr?=
+ =?utf-8?B?YUN0ZEllMjJVVm1qVUdzKzV0S1NQS09IVzZYWlJiZjU1Z25lT0RyenNYM3lN?=
+ =?utf-8?B?Nk1iZkswVEs4Wk5iU3NNeFlwUnZQc1NqNGloSGJuaXdGOUZoZllwVFBWSll4?=
+ =?utf-8?B?RzMzQ1pOb2k0dUwwL25JKzJCM1VTQnFnQWxCYWpYbGhRTWtTVGhCNHVVaTBJ?=
+ =?utf-8?B?aEVBUUFVbVV6RitSSDBQSFZWS2s0V2l3RXNCTVBZOTFVY001L0RVc0luenIw?=
+ =?utf-8?B?MFRja1ZwbXl1U0tGQm5KRlRtNFgwRFNpbW1xZkhpdjh3elJOV3RWbEpXanRU?=
+ =?utf-8?B?OEZhMmkvRzFoK29MeFlTU2tmZjh1bEtPQlB2ZHd4SnVlNFZkbFNXWlU0TDR2?=
+ =?utf-8?B?eTNOVzJ1MjM3Sys4TG9heXcrYVhZdFF1NFlETnhhdGFhVzI5RmM4VkhrbjJZ?=
+ =?utf-8?B?Sjd5d2hTUlRUM1dxQllkUnRDdWZsQXh2b1crMytNVGFoaER5cUM3WFptSEha?=
+ =?utf-8?B?Ynk2NS9lTUFJQVBZZXpoU09GR2NjVjFDZk9mTUhmbEYyemVjVGRLNFc4Vmdm?=
+ =?utf-8?B?cHhxbkJQV0gvVGNLWC9ZYytXMlpxK294aGdxNUxaWVloam9CWkl3aG9NNE1p?=
+ =?utf-8?B?WWYwV0xLbjJsU0d2aVdOZUNYbzlvbzU3azZpMFJvRHJRbmhHVWptNFlTTDUz?=
+ =?utf-8?B?aXZ1bUszTmxYdTRHbUtadlFOd1dnM25RSjFHSGVJZ1BQMksvR0NFN29yT05Z?=
+ =?utf-8?B?S0xOTXBJZUZMOEl4YTlUVGZCMDFVcHlKa2hmOURjMHRpclVwdkpHRGsrRVNM?=
+ =?utf-8?B?SXcrU3BRZmpxeUVLU2VwUHVwWXM0aHBzZkpQR2hsaUt1VGdGak04ZlRseHRq?=
+ =?utf-8?B?T05aM29iUVpXU24vUjZIcWVnbXBDbFY4UFZFUTNOQ0RQTndvOWt3NTdHNEpM?=
+ =?utf-8?B?MXl0eEpJc0ZBTE1hMzJZZkg0THVWaGRCbGs5UFVpVEZxbmVZTVhGUmQxWnVS?=
+ =?utf-8?B?WWVxQkgyUUVzeXZvZW1TendTNlJxK0xDcTFodWY2V2d2ZGp3SnFCQ3ZUT0RB?=
+ =?utf-8?B?Q1lXUXBqOUlrbXBISEdnNk5GNFZBWm1nUEdtbmdGQkFhbTN3UDFWZFJaeEhh?=
+ =?utf-8?B?eUJCTzZvZnpYWjhLbElVVkUzRVVBdDdKckRNaXgvZU16RUJkeEtpNlVoZHZY?=
+ =?utf-8?B?bE95SXE4Y3VCZE51UGY3K3RQTCt5TDI5bkxHOFFTU2kvZFZJZWM3K0tIMGVE?=
+ =?utf-8?B?QzlNWlk1NTRWQzMrQ05NNGZqeDdGd0tCYzdxU20vektjMEpSVGRyNXNocjh2?=
+ =?utf-8?B?Y0RtL21GV1hDMnNPQ09QVmVJcElON3h0cWxyZHRFdWltdnZMcGlabG9ncXlM?=
+ =?utf-8?B?eUtKUkE4dC9lWC9lS3VKTnh5UUR2b3RrZzRGb1I3TTRIUTFXTTFPeWpxVVZz?=
+ =?utf-8?B?NjhzZkk1Y1YzYmZBYzQ5RzBKOGxlMGpOQVkwS2tlbDRtWTV3SDFUVkNRVy95?=
+ =?utf-8?B?T3hObXp4d1phYk9PZ2NtYUxEamNXSG1JNHc4ZkkyVExVNkJkMGhFbnVJUDVG?=
+ =?utf-8?B?Q010UU1ZbTBKWHg1K2REc05TNXFZWmtiYXh1M0FjL2JZRzRidHVHK0FteC94?=
+ =?utf-8?B?NkhMNUVWYW91djYrOG90amw3S1hSRHBNM3puYzNBdU5KT08yRFZ3WGV3RFA1?=
+ =?utf-8?B?RmtSbXVZRnMrODZLNU9pQ3RXZFNQbzk4dSt2Zkt4czYycXBYY1FpOU5vQ2RV?=
+ =?utf-8?B?c1ZJcStESFV2eStIdFNncnJySWdBU2pEcy9pVUorZFluSjE1VnNBOHZJcmcw?=
+ =?utf-8?B?MjA3U1NXdU04OUd5SG5mQWNOMUR3M0hKLzJwWmg4UUNuTTd4dnpmSVpSYmQw?=
+ =?utf-8?B?Q0hma2grdlR6dStpeG9XTFFWYWVRYkV6eHFvMWdzZ3BxcWpjaURoOUNIbzFl?=
+ =?utf-8?B?SEpCYmZtZUoxZEFWNWlDZ2o3b1Y0dFZPRDJ5bU1vV2d2QjJHWThEY0pRUEMv?=
+ =?utf-8?B?RHdWOUFKK2JPWkdwOXVXTEExNUc1d1lTTU5Nc3hiTGk2RVlMNnRWT2dvL2Er?=
+ =?utf-8?B?NTBrQTNnaVE4ejhDR0c4bGZOTTZva3VSdDcrQnpFb05kUnZROVpqZ3NQbXY4?=
+ =?utf-8?B?MCtWVGV6Y09QNnA4S0s4YjZUVUxneWdvNXJoWmNFdThKbzVGUHJld1NsT1Zi?=
+ =?utf-8?Q?SO/6xgeTVhrOGW7ZhsMq9uKAG5qWHzpz5aAGK6M7LRYW?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 57e8c9c0-86c9-4945-1943-08db4ae1a8e3
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2023 07:48:46.8600 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wsIBSAaBAS5CcCHLtFMDDlGJUmt2s16plP2Cwjg0t3/jUcX+hGhz/jcZGEikpqMY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8852
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,140 +126,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+Cc: pierre-eric.pelloux-prayer@amd.com,
+ =?UTF-8?B?J01hcmVrIE9sxaHDoWsn?= <maraeo@gmail.com>,
+ =?UTF-8?Q?Timur_Krist=c3=b3f?= <timur.kristof@gmail.com>,
+ michel.daenzer@mailbox.org, Samuel Pitoiset <samuel.pitoiset@gmail.com>,
+ kernel-dev@igalia.com, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ alexander.deucher@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---00000000000095bc4f05faae5883
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Well first of all don't expose the VMID to userspace.
 
-We're going to do this in Mesa instead:
-https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/22771
+The UMD doesn't know (and shouldn't know) which VMID is used for a 
+submission since this is dynamically assigned and can change at any time.
 
-Marek
+For debugging there is an interface to use an reserved VMID for your 
+debugged process which allows to associate logs, tracepoints and hw 
+dumps with the stuff executed by this specific process.
 
-On Fri, Apr 28, 2023 at 6:36=E2=80=AFPM Marek Ol=C5=A1=C3=A1k <maraeo@gmail=
-.com> wrote:
+Then we already have a feedback mechanism in the form of the error 
+number in the fence. What we still need is an IOCTL to query that.
 
-> On Fri, Apr 28, 2023, 16:14 Joshua Ashton <joshua@froggi.es> wrote:
+Regarding how far processing inside the IB was when the issue was 
+detected, intermediate debug fences are much more reliable than asking 
+the kernel for that.
+
+Regards,
+Christian.
+
+Am 01.05.23 um 20:57 schrieb André Almeida:
+> Currently UMD hasn't much information on what went wrong during a GPU reset. To
+> help with that, this patch proposes a new IOCTL that can be used to query
+> information about the resources that caused the hang.
 >
->> I mean I would also like power and perf numbers for Vangogh given you
->> referenced 10.3.
->>
->> Generic "power consumption is better" isn't enough to convince me that
->> this is the right call.
->>
+> The goal of this RFC is to gather feedback about this interface. The mesa part
+> can be found at https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/22785
 >
-> Raphael and Mendocino have worse power consumption with retiled
-> displayable DCC and modifiers, and that can also be due to how retiling i=
-s
-> implemented for modifiers.
+> The current implementation is racy, meaning that if two resets happens (even on
+> different rings), the app will get the last reset information available, rather
+> than the one that is looking for. Maybe this can be fixed with a ring_id
+> parameter to query the information for a specific ring, but this also requires
+> an interface to tell the UMD which ring caused it.
 >
-> Marek
+> I know that devcoredump is also used for this kind of information, but I believe
+> that using an IOCTL is better for interfacing Mesa + Linux rather than parsing
+> a file that its contents are subjected to be changed.
 >
+> André Almeida (1):
+>    drm/amdgpu: Add interface to dump guilty IB on GPU hang
 >
->> - Joshie =F0=9F=90=B8=E2=9C=A8
->>
->> On Friday, 28 April 2023, Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com> wrote=
-:
->> > I thought the same thing initially, but then realized that's not how
->> modifiers were designed to work.
->> > Mesa should expose all modifiers it wants to allow for 3D and it
->> doesn't care which ones are displayable.
->> > The kernel should expose all modifiers it wants to allow for display.
->> > With that, Mesa can still use theoretically displayable DCC, but it
->> will only be used for anything that's not the display.
->> > We can, of course, disable it in Mesa instead to get the same effect.
->> > We would need perf numbers for dGPUs to be able to tell whether it's
->> beneficial with the cost of DCC retiling.
->> > Marek
->> >
->> > On Fri, Apr 28, 2023, 12:11 Joshua Ashton <joshua@froggi.es> wrote:
->> >>
->> >> I really don't think the kernel isn't the right place to do this.
->> >> Is there any reason to not just disable it from the Mesa side?
->> >>
->> >> We can already disable displayable DCC there, so I don't see why you
->> are even touching the kernel.
->> >> It makes it infinitely harder for anyone to evaluate perf and power
->> tradeoffs if you disable it at this level.
->> >>
->> >> The whole power vs perf trade is also not a big deal on dGPUs compare=
-d
->> to APUs. Probably needs a better heuristic either way to avoid regressin=
-g
->> perf.
->> >>
->> >> - Joshie =F0=9F=90=B8=E2=9C=A8
->> >>
->> >> On 28 April 2023 10:47:17 BST, "Marek Ol=C5=A1=C3=A1k" <maraeo@gmail.=
-com> wrote:
->> >>>
->> >>> Hi,
->> >>> It's attached for review.
->> >>>
->> >>> Thanks,
->> >>> Marek
->> >
->
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  3 +++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  |  3 ++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c  |  3 +++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c  |  7 ++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  1 +
+>   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   | 29 ++++++++++++++++++++++++
+>   include/uapi/drm/amdgpu_drm.h            |  7 ++++++
+>   7 files changed, 52 insertions(+), 1 deletion(-)
 >
 
---00000000000095bc4f05faae5883
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>We&#39;re going to do this in Mesa instead: <a href=
-=3D"https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/22771">https:=
-//gitlab.freedesktop.org/mesa/mesa/-/merge_requests/22771</a></div><div><br=
-></div><div>Marek<br></div></div><br><div class=3D"gmail_quote"><div dir=3D=
-"ltr" class=3D"gmail_attr">On Fri, Apr 28, 2023 at 6:36=E2=80=AFPM Marek Ol=
-=C5=A1=C3=A1k &lt;<a href=3D"mailto:maraeo@gmail.com">maraeo@gmail.com</a>&=
-gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
-px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div =
-dir=3D"auto"><div><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmai=
-l_attr">On Fri, Apr 28, 2023, 16:14 Joshua Ashton &lt;<a href=3D"mailto:jos=
-hua@froggi.es" target=3D"_blank">joshua@froggi.es</a>&gt; wrote:<br></div><=
-blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
-eft:1px solid rgb(204,204,204);padding-left:1ex">I mean I would also like p=
-ower and perf numbers for Vangogh given you referenced 10.3.<br><br>Generic=
- &quot;power consumption is better&quot; isn&#39;t enough to convince me th=
-at this is the right call.<br></blockquote></div></div><div dir=3D"auto"><b=
-r></div><div dir=3D"auto">Raphael and Mendocino have worse power consumptio=
-n with retiled displayable DCC and modifiers, and that can also be due to h=
-ow retiling is implemented for modifiers.</div><div dir=3D"auto"><br></div>=
-<div dir=3D"auto">Marek</div><div dir=3D"auto"><br></div><div dir=3D"auto">=
-<div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margi=
-n:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex=
-"><br>- Joshie =F0=9F=90=B8=E2=9C=A8<br><br>On Friday, 28 April 2023, Marek=
- Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:maraeo@gmail.com" rel=3D"noreferrer"=
- target=3D"_blank">maraeo@gmail.com</a>&gt; wrote:<br>&gt; I thought the sa=
-me thing initially, but then realized that&#39;s not how modifiers were des=
-igned to work.<br>&gt; Mesa should expose all modifiers it wants to allow f=
-or 3D and it doesn&#39;t care which ones are displayable.<br>&gt; The kerne=
-l should expose all modifiers it wants to allow for display.<br>&gt; With t=
-hat, Mesa can still use theoretically displayable DCC, but it will only be =
-used for anything that&#39;s not the display.<br>&gt; We can, of course, di=
-sable it in Mesa instead to get the same effect.<br>&gt; We would need perf=
- numbers for dGPUs to be able to tell whether it&#39;s beneficial with the =
-cost of DCC retiling.<br>&gt; Marek<br>&gt;<br>&gt; On Fri, Apr 28, 2023, 1=
-2:11 Joshua Ashton &lt;<a href=3D"mailto:joshua@froggi.es" rel=3D"noreferre=
-r" target=3D"_blank">joshua@froggi.es</a>&gt; wrote:<br>&gt;&gt;<br>&gt;&gt=
-; I really don&#39;t think the kernel isn&#39;t the right place to do this.=
-<br>&gt;&gt; Is there any reason to not just disable it from the Mesa side?=
-<br>&gt;&gt;<br>&gt;&gt; We can already disable displayable DCC there, so I=
- don&#39;t see why you are even touching the kernel.<br>&gt;&gt; It makes i=
-t infinitely harder for anyone to evaluate perf and power tradeoffs if you =
-disable it at this level.<br>&gt;&gt;<br>&gt;&gt; The whole power vs perf t=
-rade is also not a big deal on dGPUs compared to APUs. Probably needs a bet=
-ter heuristic either way to avoid regressing perf.<br>&gt;&gt;<br>&gt;&gt; =
-- Joshie =F0=9F=90=B8=E2=9C=A8<br>&gt;&gt;<br>&gt;&gt; On 28 April 2023 10:=
-47:17 BST, &quot;Marek Ol=C5=A1=C3=A1k&quot; &lt;<a href=3D"mailto:maraeo@g=
-mail.com" rel=3D"noreferrer" target=3D"_blank">maraeo@gmail.com</a>&gt; wro=
-te:<br>&gt;&gt;&gt;<br>&gt;&gt;&gt; Hi,<br>&gt;&gt;&gt; It&#39;s attached f=
-or review.<br>&gt;&gt;&gt;<br>&gt;&gt;&gt; Thanks,<br>&gt;&gt;&gt; Marek<br=
->&gt;
-</blockquote></div></div></div>
-</blockquote></div>
-
---00000000000095bc4f05faae5883--
