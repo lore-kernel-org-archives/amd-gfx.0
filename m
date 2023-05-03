@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77180C77B7F
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 May 2023 17:09:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C100C77B7F
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 May 2023 17:15:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0365B10E012;
-	Wed,  3 May 2023 17:09:27 +0000 (UTC)
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [IPv6:2a00:1450:4864:20::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CF2C10E012;
- Wed,  3 May 2023 17:09:25 +0000 (UTC)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-94f910ea993so894170666b.3; 
- Wed, 03 May 2023 10:09:25 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B4A310E31D;
+	Wed,  3 May 2023 17:15:50 +0000 (UTC)
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [IPv6:2a00:1450:4864:20::52f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 905B310E31C;
+ Wed,  3 May 2023 17:15:48 +0000 (UTC)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-50be0d835aaso2684857a12.3; 
+ Wed, 03 May 2023 10:15:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1683133763; x=1685725763;
+ d=gmail.com; s=20221208; t=1683134146; x=1685726146;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=QfrsQP/ikOqgrJewjhj8voQfxGZ5ZbgHv6TQvu1DUz0=;
- b=X0rc5IPpCTAaC/7DxwhyJcmlj6B0v33g6QgJ1whRGgsG39Mo16UN5L7SO2NXkpXwnX
- Wo6SWVnXXa03bDyB1mVrExDpxVuVciT8WFKzjDsOkwLUe30ns2tV3h6XoeLD4ZPBySVB
- ETkLkBP00S9JaC8CRqa0di1ieGDYHHZ02saDm9LydKir5jz2xqqUy79p72bYUp64LPlh
- 2NVhS3scCG+FjtAx2ERVJq/8LJrkprViRoNKZE3W7tF0K/qOkg8nu0b3+3HKMOnBHcyz
- xqM6wpmiYkU4DbJuYTkSQKk0Dbgc76lTJnx/ZyDdY1IGg3n0Q07pZf4TZDgarvTAUbun
- iT4A==
+ bh=UkWRJ4WvLupY8b4Or5dWZFd7gbIoS6XiiBFRsPFFK7s=;
+ b=bskn8h54J4iOEaWPS/REffFO6fW+V3pb5dLGWI6YtoYfaFZJQBOPo2sr8aoO/N9acf
+ lRfezDNuxcBlzOWM4baEfW2jkoHhsX0LQxNt/TjzpzWDq7nxUBeT+hbCemYKC20Z2GCz
+ oTSqUoMncW8LGtJ9u01BQ6koRvFyAtBNbq+nbvt4ExRWECnfQ5IOXKaWXuBBQTt95A6y
+ Smo1tb8RmnYvb2Q1bD0ubjcZU/Zrlz81HbBMp8/L2VbI/pKvYJRKX6/MBoIF+XL6DLUM
+ B1gxOYvNQusev03yEcFVxb9u4ss0DUhYD4fbcywCu0NBchmpKOfPmkiPzNxRRGZl/46D
+ ZsxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683133763; x=1685725763;
+ d=1e100.net; s=20221208; t=1683134146; x=1685726146;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=QfrsQP/ikOqgrJewjhj8voQfxGZ5ZbgHv6TQvu1DUz0=;
- b=I/UQ8uZQ/qLLRLoSqbwMT8eGBg3OQlMLO8cOntvBedY3JHz7pJgOOH2cUvSzt6pQqi
- +Bb8vyjD5S0mOrxbAnwFDKTH+CisWZ0kyPBuIYeVPd6IR+pDgbUmdYBw1FB+kDGTV1z/
- le+CBCQ/f9LYqN2mRBwZjFEBkjABrogeQs1skswd/laBH75yG5NjmLVnCrCM7pUlzXFw
- FBoDplQZJQgqotb56CuozgkKFqb8jjThlP6Xw2HZ1TFRQvHz7Xr7TDoEC7Y5+p3l8fHV
- pW6sDybxzAJCIWk6iKAvfC/d2Y8D8zeNRdgRZIws3QnxUS6Inx6d5v00Nkpw+qPpxbsK
- kEBg==
-X-Gm-Message-State: AC+VfDwjJ00YIXrGzH5JBk07Ag5wWR37Q1KaTeUwG6TnkRkOwQPq0mZk
- 9sFtq2PBjSVnoT8dsx+pYqY5HQdXU4nmrb8AY1Ch288f
-X-Google-Smtp-Source: ACHHUZ4pSAmHT9sBzj02KdsO2hoKgB08DR1N7DEBk/xoKE2GhomyD+mLAZj1P1nz5pWmVR64p39Uy6P5turtNTAlpGY=
-X-Received: by 2002:a17:907:1c8f:b0:94a:5a9e:9da0 with SMTP id
- nb15-20020a1709071c8f00b0094a5a9e9da0mr4050289ejc.77.1683133763343; Wed, 03
- May 2023 10:09:23 -0700 (PDT)
+ bh=UkWRJ4WvLupY8b4Or5dWZFd7gbIoS6XiiBFRsPFFK7s=;
+ b=EbXV+/7J983pglx6oJr/pxBMCj9vMeMDLOelaqylXGftxPHhr6zBFtHKocn/bHcUJy
+ Ic+KpCH2PX+rkSHRj3mYtq/LFJFtCP0aIuFSDEl5hOTn039Tdw3p7yY7xGpo/kjBH72L
+ DtJGa6H+BF8nku/tjBD2z8GtbQ9SR13y2ZSumUJC10vnfCGnlcfkqc4srkIa+LzAi/ip
+ Q2/waPQpdp7xI21R+0EZOBNBxKxU5GHX3hWfGxq/jtPaFOI4newg2jDZSQ1bdMTsL2LM
+ V+VIEYDk+xORg0zX4ReBps6RkguGK5/hlrnOYuEn/+/dnXVI+/jv/M4jXdWNxchsywl3
+ 5k9w==
+X-Gm-Message-State: AC+VfDwUnkd+BLyIYt1tVIyX07B7hTnVz0nzxMaFS1wMrAxQiBaniMgl
+ 3KvTJBM2IgTQIzMGm8HuHoqtuCBRkmCRhtq2svA=
+X-Google-Smtp-Source: ACHHUZ5C3QLrwpY/SuM2XaEn9o/juAuPRVyqp7y5QOSg73F3g0uvFw6SHzlyx5cdrAhAVjTG+/NPvhmkuUR/8tqaUYc=
+X-Received: by 2002:a17:907:3609:b0:885:a62c:5a5c with SMTP id
+ bk9-20020a170907360900b00885a62c5a5cmr3458979ejc.46.1683134146573; Wed, 03
+ May 2023 10:15:46 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230501185747.33519-1-andrealmeid@igalia.com>
  <CADnq5_NXj4W44F_etRQ7HWdVTnf5zARCM3Y_o3EiwWiHj8QMpA@mail.gmail.com>
@@ -59,13 +59,14 @@ References: <20230501185747.33519-1-andrealmeid@igalia.com>
  <57fa0ee4-de4f-3797-f817-d05f72541d0e@gmail.com>
  <2bf162d0-6112-8370-8828-0e0b21ac22ba@amd.com>
  <76bd16ac-9251-c71f-8da3-4c4c14d3bdcf@gmail.com>
-In-Reply-To: <76bd16ac-9251-c71f-8da3-4c4c14d3bdcf@gmail.com>
+ <CAAxE2A7wzrt9m0LifB=vPFr7aEtwyh9zzDDh9DkZJux2A4kKqw@mail.gmail.com>
+In-Reply-To: <CAAxE2A7wzrt9m0LifB=vPFr7aEtwyh9zzDDh9DkZJux2A4kKqw@mail.gmail.com>
 From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Wed, 3 May 2023 13:08:46 -0400
-Message-ID: <CAAxE2A7wzrt9m0LifB=vPFr7aEtwyh9zzDDh9DkZJux2A4kKqw@mail.gmail.com>
+Date: Wed, 3 May 2023 13:15:10 -0400
+Message-ID: <CAAxE2A7fCj5bbU7HJxA57dpSw72jzz3M6rGjYmk33nT2Bpuo4Q@mail.gmail.com>
 Subject: Re: [RFC PATCH 0/1] Add AMDGPU_INFO_GUILTY_APP ioctl
 To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: multipart/alternative; boundary="00000000000012d9b805facd1e9a"
+Content-Type: multipart/alternative; boundary="000000000000ea76a205facd34f4"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,179 +91,203 @@ Cc: "Pelloux-Prayer, Pierre-Eric" <pierre-eric.pelloux-prayer@amd.com>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---00000000000012d9b805facd1e9a
+--000000000000ea76a205facd34f4
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-GPU hangs are pretty common post-bringup. They are not common per user, but
-if we gather all hangs from all users, we can have lots and lots of them.
-
-GPU hangs are indeed not very debuggable. There are however some things we
-can do:
-- Identify the hanging IB by its VA (the kernel should know it)
-- Read and parse the IB to detect memory corruption.
-- Print active waves with shader disassembly if SQ isn't hung (often it's
-not).
-
-Determining which packet the CP is stuck on is tricky. The CP has 2 engines
-(one frontend and one backend) that work on the same command buffer. The
-frontend engine runs ahead, executes some packets and forwards others to
-the backend engine. Only the frontend engine has the command buffer VA
-somewhere. The backend engine only receives packets from the frontend
-engine via a FIFO, so it might not be possible to tell where it's stuck if
-it's stuck.
-
-When the gfx pipeline hangs outside of shaders, making a scandump seems to
-be the only way to have a chance at finding out what's going wrong, and
-only AMD-internal versions of hw can be scanned.
+WRITE_DATA with ENGINE=3DPFP will execute the packet on the frontend engine=
+,
+while ENGINE=3DME will execute the packet on the backend engine.
 
 Marek
 
-On Wed, May 3, 2023 at 11:23=E2=80=AFAM Christian K=C3=B6nig <
-ckoenig.leichtzumerken@gmail.com> wrote:
+On Wed, May 3, 2023 at 1:08=E2=80=AFPM Marek Ol=C5=A1=C3=A1k <maraeo@gmail.=
+com> wrote:
 
-> Am 03.05.23 um 17:08 schrieb Felix Kuehling:
-> > Am 2023-05-03 um 03:59 schrieb Christian K=C3=B6nig:
-> >> Am 02.05.23 um 20:41 schrieb Alex Deucher:
-> >>> On Tue, May 2, 2023 at 11:22=E2=80=AFAM Timur Krist=C3=B3f
-> >>> <timur.kristof@gmail.com> wrote:
-> >>>> [SNIP]
-> >>>>>>>> In my opinion, the correct solution to those problems would be
-> >>>>>>>> if
-> >>>>>>>> the kernel could give userspace the necessary information about
-> >>>>>>>> a
-> >>>>>>>> GPU hang before a GPU reset.
-> >>>>>>>>
-> >>>>>>>   The fundamental problem here is that the kernel doesn't have
-> >>>>>>> that
-> >>>>>>> information either. We know which IB timed out and can
-> >>>>>>> potentially do
-> >>>>>>> a devcoredump when that happens, but that's it.
-> >>>>>>
-> >>>>>> Is it really not possible to know such a fundamental thing as what
-> >>>>>> the
-> >>>>>> GPU was doing when it hung? How are we supposed to do any kind of
-> >>>>>> debugging without knowing that?
-> >>
-> >> Yes, that's indeed something at least I try to figure out for years
-> >> as well.
-> >>
-> >> Basically there are two major problems:
-> >> 1. When the ASIC is hung you can't talk to the firmware engines any
-> >> more and most state is not exposed directly, but just through some
-> >> fw/hw interface.
-> >>     Just take a look at how umr reads the shader state from the SQ.
-> >> When that block is hung you can't do that any more and basically have
-> >> no chance at all to figure out why it's hung.
-> >>
-> >>     Same for other engines, I remember once spending a week figuring
-> >> out why the UVD block is hung during suspend. Turned out to be a
-> >> debugging nightmare because any time you touch any register of that
-> >> block the whole system would hang.
-> >>
-> >> 2. There are tons of things going on in a pipeline fashion or even
-> >> completely in parallel. For example the CP is just the beginning of a
-> >> rather long pipeline which at the end produces a bunch of pixels.
-> >>     In almost all cases I've seen you ran into a problem somewhere
-> >> deep in the pipeline and only very rarely at the beginning.
-> >>
-> >>>>>>
-> >>>>>> I wonder what AMD's Windows driver team is doing with this problem=
-,
-> >>>>>> surely they must have better tools to deal with GPU hangs?
-> >>>>> For better or worse, most teams internally rely on scan dumps via
-> >>>>> JTAG
-> >>>>> which sort of limits the usefulness outside of AMD, but also gives
-> >>>>> you
-> >>>>> the exact state of the hardware when it's hung so the hardware team=
+> GPU hangs are pretty common post-bringup. They are not common per user,
+> but if we gather all hangs from all users, we can have lots and lots of
+> them.
+>
+> GPU hangs are indeed not very debuggable. There are however some things w=
+e
+> can do:
+> - Identify the hanging IB by its VA (the kernel should know it)
+> - Read and parse the IB to detect memory corruption.
+> - Print active waves with shader disassembly if SQ isn't hung (often it's
+> not).
+>
+> Determining which packet the CP is stuck on is tricky. The CP has 2
+> engines (one frontend and one backend) that work on the same command
+> buffer. The frontend engine runs ahead, executes some packets and forward=
 s
-> >>>>> prefer it.
-> >>>>>
-> >>>> How does this approach scale? It's not something we can ask users to
-> >>>> do, and even if all of us in the radv team had a JTAG device, we
-> >>>> wouldn't be able to play every game that users experience random han=
-gs
-> >>>> with.
-> >>> It doesn't scale or lend itself particularly well to external
-> >>> development, but that's the current state of affairs.
-> >>
-> >> The usual approach seems to be to reproduce a problem in a lab and
-> >> have a JTAG attached to give the hw guys a scan dump and they can
-> >> then tell you why something didn't worked as expected.
-> >
-> > That's the worst-case scenario where you're debugging HW or FW issues.
-> > Those should be pretty rare post-bringup. But are there hangs caused
-> > by user mode driver or application bugs that are easier to debug and
-> > probably don't even require a GPU reset? For example most VM faults
-> > can be handled without hanging the GPU. Similarly, a shader in an
-> > endless loop should not require a full GPU reset. In the KFD compute
-> > case, that's still preemptible and the offending process can be killed
-> > with Ctrl-C or debugged with rocm-gdb.
+> others to the backend engine. Only the frontend engine has the command
+> buffer VA somewhere. The backend engine only receives packets from the
+> frontend engine via a FIFO, so it might not be possible to tell where it'=
+s
+> stuck if it's stuck.
 >
-> We also have infinite loop in shader abort for gfx and page faults are
-> pretty rare with OpenGL (a bit more often with Vulkan) and can be
-> handled gracefully on modern hw (they just spam the logs).
+> When the gfx pipeline hangs outside of shaders, making a scandump seems t=
+o
+> be the only way to have a chance at finding out what's going wrong, and
+> only AMD-internal versions of hw can be scanned.
 >
-> The majority of the problems is unfortunately that we really get hard
-> hangs because of some hw issues. That can be caused by unlucky timing,
-> power management or doing things in an order the hw doesn't expected.
+> Marek
 >
-> Regards,
-> Christian.
+> On Wed, May 3, 2023 at 11:23=E2=80=AFAM Christian K=C3=B6nig <
+> ckoenig.leichtzumerken@gmail.com> wrote:
 >
-> >
-> > It's more complicated for graphics because of the more complex
-> > pipeline and the lack of CWSR. But it should still be possible to do
-> > some debugging without JTAG if the problem is in SW and not HW or FW.
-> > It's probably worth improving that debugability without getting
-> > hung-up on the worst case.
-> >
-> > Maybe user mode graphics queues will offer a better way of recovering
-> > from these kinds of bugs, if the graphics pipeline can be unstuck
-> > without a GPU reset, just by killing the offending user mode queue.
-> >
-> > Regards,
-> >   Felix
-> >
-> >
-> >>
-> >> And yes that absolutely doesn't scale.
-> >>
-> >> Christian.
-> >>
-> >>>
-> >>> Alex
-> >>
->
->
+>> Am 03.05.23 um 17:08 schrieb Felix Kuehling:
+>> > Am 2023-05-03 um 03:59 schrieb Christian K=C3=B6nig:
+>> >> Am 02.05.23 um 20:41 schrieb Alex Deucher:
+>> >>> On Tue, May 2, 2023 at 11:22=E2=80=AFAM Timur Krist=C3=B3f
+>> >>> <timur.kristof@gmail.com> wrote:
+>> >>>> [SNIP]
+>> >>>>>>>> In my opinion, the correct solution to those problems would be
+>> >>>>>>>> if
+>> >>>>>>>> the kernel could give userspace the necessary information about
+>> >>>>>>>> a
+>> >>>>>>>> GPU hang before a GPU reset.
+>> >>>>>>>>
+>> >>>>>>>   The fundamental problem here is that the kernel doesn't have
+>> >>>>>>> that
+>> >>>>>>> information either. We know which IB timed out and can
+>> >>>>>>> potentially do
+>> >>>>>>> a devcoredump when that happens, but that's it.
+>> >>>>>>
+>> >>>>>> Is it really not possible to know such a fundamental thing as wha=
+t
+>> >>>>>> the
+>> >>>>>> GPU was doing when it hung? How are we supposed to do any kind of
+>> >>>>>> debugging without knowing that?
+>> >>
+>> >> Yes, that's indeed something at least I try to figure out for years
+>> >> as well.
+>> >>
+>> >> Basically there are two major problems:
+>> >> 1. When the ASIC is hung you can't talk to the firmware engines any
+>> >> more and most state is not exposed directly, but just through some
+>> >> fw/hw interface.
+>> >>     Just take a look at how umr reads the shader state from the SQ.
+>> >> When that block is hung you can't do that any more and basically have
+>> >> no chance at all to figure out why it's hung.
+>> >>
+>> >>     Same for other engines, I remember once spending a week figuring
+>> >> out why the UVD block is hung during suspend. Turned out to be a
+>> >> debugging nightmare because any time you touch any register of that
+>> >> block the whole system would hang.
+>> >>
+>> >> 2. There are tons of things going on in a pipeline fashion or even
+>> >> completely in parallel. For example the CP is just the beginning of a
+>> >> rather long pipeline which at the end produces a bunch of pixels.
+>> >>     In almost all cases I've seen you ran into a problem somewhere
+>> >> deep in the pipeline and only very rarely at the beginning.
+>> >>
+>> >>>>>>
+>> >>>>>> I wonder what AMD's Windows driver team is doing with this proble=
+m,
+>> >>>>>> surely they must have better tools to deal with GPU hangs?
+>> >>>>> For better or worse, most teams internally rely on scan dumps via
+>> >>>>> JTAG
+>> >>>>> which sort of limits the usefulness outside of AMD, but also gives
+>> >>>>> you
+>> >>>>> the exact state of the hardware when it's hung so the hardware tea=
+ms
+>> >>>>> prefer it.
+>> >>>>>
+>> >>>> How does this approach scale? It's not something we can ask users t=
+o
+>> >>>> do, and even if all of us in the radv team had a JTAG device, we
+>> >>>> wouldn't be able to play every game that users experience random
+>> hangs
+>> >>>> with.
+>> >>> It doesn't scale or lend itself particularly well to external
+>> >>> development, but that's the current state of affairs.
+>> >>
+>> >> The usual approach seems to be to reproduce a problem in a lab and
+>> >> have a JTAG attached to give the hw guys a scan dump and they can
+>> >> then tell you why something didn't worked as expected.
+>> >
+>> > That's the worst-case scenario where you're debugging HW or FW issues.
+>> > Those should be pretty rare post-bringup. But are there hangs caused
+>> > by user mode driver or application bugs that are easier to debug and
+>> > probably don't even require a GPU reset? For example most VM faults
+>> > can be handled without hanging the GPU. Similarly, a shader in an
+>> > endless loop should not require a full GPU reset. In the KFD compute
+>> > case, that's still preemptible and the offending process can be killed
+>> > with Ctrl-C or debugged with rocm-gdb.
+>>
+>> We also have infinite loop in shader abort for gfx and page faults are
+>> pretty rare with OpenGL (a bit more often with Vulkan) and can be
+>> handled gracefully on modern hw (they just spam the logs).
+>>
+>> The majority of the problems is unfortunately that we really get hard
+>> hangs because of some hw issues. That can be caused by unlucky timing,
+>> power management or doing things in an order the hw doesn't expected.
+>>
+>> Regards,
+>> Christian.
+>>
+>> >
+>> > It's more complicated for graphics because of the more complex
+>> > pipeline and the lack of CWSR. But it should still be possible to do
+>> > some debugging without JTAG if the problem is in SW and not HW or FW.
+>> > It's probably worth improving that debugability without getting
+>> > hung-up on the worst case.
+>> >
+>> > Maybe user mode graphics queues will offer a better way of recovering
+>> > from these kinds of bugs, if the graphics pipeline can be unstuck
+>> > without a GPU reset, just by killing the offending user mode queue.
+>> >
+>> > Regards,
+>> >   Felix
+>> >
+>> >
+>> >>
+>> >> And yes that absolutely doesn't scale.
+>> >>
+>> >> Christian.
+>> >>
+>> >>>
+>> >>> Alex
+>> >>
+>>
+>>
 
---00000000000012d9b805facd1e9a
+--000000000000ea76a205facd34f4
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div>GPU hangs are pretty common post-bringup. They are no=
-t common per user, but if we gather all hangs from all users, we can have l=
-ots and lots of them.</div><div><br></div><div>GPU hangs are indeed not ver=
-y debuggable. There are however some things we can do:</div><div>- Identify=
- the hanging IB by its VA (the kernel should know it)</div><div>- Read and =
-parse the IB to detect memory corruption.<br></div><div>- Print active wave=
-s with shader disassembly if SQ isn&#39;t hung (often it&#39;s not).<br></d=
-iv><div><br></div><div>Determining which packet the CP is stuck on is trick=
-y. The CP has 2 engines (one frontend and one backend) that work on the sam=
-e command buffer. The frontend engine runs ahead, executes some packets and=
- forwards others to the backend engine. Only the frontend engine has the co=
-mmand buffer VA somewhere. The backend engine only receives packets from th=
-e frontend engine via a FIFO, so it might not be possible to tell where it&=
-#39;s stuck if it&#39;s stuck.</div><div></div><div></div><div><br></div><d=
-iv>When the gfx pipeline hangs outside of shaders, making a scandump seems =
-to be the only way to have a chance at finding out what&#39;s going wrong, =
-and only AMD-internal versions of hw can be scanned.<br></div><div><br></di=
-v><div>Marek<br></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr"=
- class=3D"gmail_attr">On Wed, May 3, 2023 at 11:23=E2=80=AFAM Christian K=
-=C3=B6nig &lt;<a href=3D"mailto:ckoenig.leichtzumerken@gmail.com">ckoenig.l=
-eichtzumerken@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_=
-quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
-204);padding-left:1ex">Am 03.05.23 um 17:08 schrieb Felix Kuehling:<br>
+<div dir=3D"ltr"><div>WRITE_DATA with ENGINE=3DPFP will execute the packet =
+on the frontend engine, while ENGINE=3DME will execute the packet on the ba=
+ckend engine.</div><div><br></div><div>Marek<br></div></div><br><div class=
+=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, May 3, 2023 =
+at 1:08=E2=80=AFPM Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:maraeo@gmail=
+.com">maraeo@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_q=
+uote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,2=
+04);padding-left:1ex"><div dir=3D"ltr"><div>GPU hangs are pretty common pos=
+t-bringup. They are not common per user, but if we gather all hangs from al=
+l users, we can have lots and lots of them.</div><div><br></div><div>GPU ha=
+ngs are indeed not very debuggable. There are however some things we can do=
+:</div><div>- Identify the hanging IB by its VA (the kernel should know it)=
+</div><div>- Read and parse the IB to detect memory corruption.<br></div><d=
+iv>- Print active waves with shader disassembly if SQ isn&#39;t hung (often=
+ it&#39;s not).<br></div><div><br></div><div>Determining which packet the C=
+P is stuck on is tricky. The CP has 2 engines (one frontend and one backend=
+) that work on the same command buffer. The frontend engine runs ahead, exe=
+cutes some packets and forwards others to the backend engine. Only the fron=
+tend engine has the command buffer VA somewhere. The backend engine only re=
+ceives packets from the frontend engine via a FIFO, so it might not be poss=
+ible to tell where it&#39;s stuck if it&#39;s stuck.</div><div></div><div><=
+/div><div><br></div><div>When the gfx pipeline hangs outside of shaders, ma=
+king a scandump seems to be the only way to have a chance at finding out wh=
+at&#39;s going wrong, and only AMD-internal versions of hw can be scanned.<=
+br></div><div><br></div><div>Marek<br></div></div><br><div class=3D"gmail_q=
+uote"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, May 3, 2023 at 11:23=E2=
+=80=AFAM Christian K=C3=B6nig &lt;<a href=3D"mailto:ckoenig.leichtzumerken@=
+gmail.com" target=3D"_blank">ckoenig.leichtzumerken@gmail.com</a>&gt; wrote=
+:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.=
+8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Am 03.05.23 um=
+ 17:08 schrieb Felix Kuehling:<br>
 &gt; Am 2023-05-03 um 03:59 schrieb Christian K=C3=B6nig:<br>
 &gt;&gt; Am 02.05.23 um 20:41 schrieb Alex Deucher:<br>
 &gt;&gt;&gt; On Tue, May 2, 2023 at 11:22=E2=80=AFAM Timur Krist=C3=B3f <br=
@@ -418,5 +443,6 @@ r>
 &gt;&gt;<br>
 <br>
 </blockquote></div>
+</blockquote></div>
 
---00000000000012d9b805facd1e9a--
+--000000000000ea76a205facd34f4--
