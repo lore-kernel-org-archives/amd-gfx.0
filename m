@@ -4,67 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFD7DC7EE26
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 May 2023 11:52:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01350C7EE23
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 May 2023 12:08:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8B9D10E376;
-	Thu,  4 May 2023 11:52:23 +0000 (UTC)
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [IPv6:2a00:1450:4864:20::534])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D18E910E370;
- Thu,  4 May 2023 11:52:20 +0000 (UTC)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-50bcb229adaso707169a12.2; 
- Thu, 04 May 2023 04:52:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1683201139; x=1685793139;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=KkmUe0CqpwmdzexlbgKMQgf7BUdCFWwkTbwJ+ohSZec=;
- b=Bcl64TUSAQrZOZqG0KKypSonTOZT8ZPexUkHO978fG0Iq53YLEhJ8qdezb/cUkug77
- PNQDsHiGzSVo62UUyj8GS3CqFca+Reyz3wWyRhl6fNAa250qQlDrfyVZ8LUnxUzSNYzy
- 40nWDdcTGfXJDi6heO/LeirIg0QyHDri5eBLsQBPydwOZgt5kaClxzpJomvbUCpybnFE
- oyImuP2cHzI5Kel6dxRaCr03qjDqAxqBcPIguqjApqhhMKJ3Bhn8lRFF7o6MMZliFtTt
- h6FeOQgDAjs6UdvbgOAI/rKwQ68r88A+03i/qOr53M+4C1ENxpQ9+WbnrJXLUXOH0uDb
- N9PA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683201139; x=1685793139;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=KkmUe0CqpwmdzexlbgKMQgf7BUdCFWwkTbwJ+ohSZec=;
- b=XvSdkwym0ih1AusoNepzuD0iP+9p4vQOGY6D3q0qkdEOqFlzwg11942HgFoWs7E+nk
- oaGyN8iV7vqCGW1XWNphf2gqavve1gfqdCjUYJGOTwvLzPzhEL//liSsJrjjK7ceqtEq
- nNXxN99wXuKmQ3GTpuo3bMhjzBHbA3v5Ia4BXrfXaKueqx9fWttpnL1xHpOkNYeXNwy2
- qVwHxZBoChbI+KSO8PPix7V38TMqdA80AKLaQ467G+cpr1yInyg38xvycM76ZggxHj9x
- t4QWKkXUGiMu+V7WQ4NDyPtM63bcoVZzF0GumY5iJRzUjanhGbfh/rgqYNx3XRAL/HEy
- ITew==
-X-Gm-Message-State: AC+VfDwPJXMzatFfKIGyx1bJ8aRw+IXYC+zpenUt9Mug+WwxhFivaMku
- hHhazs6zo5cIvLNAXTz/G492HkJ60dY=
-X-Google-Smtp-Source: ACHHUZ53quiCxXIx1Jp+j4LKNtR9rwTCB8fResGiRJybdMbBKlu2FgGxsD21q8PbV+KN3BWr0Sbr7g==
-X-Received: by 2002:a17:907:8a22:b0:94f:2efa:a3eb with SMTP id
- sc34-20020a1709078a2200b0094f2efaa3ebmr6554407ejc.33.1683201138578; 
- Thu, 04 May 2023 04:52:18 -0700 (PDT)
-Received: from able.fritz.box (p4fc2092b.dip0.t-ipconnect.de. [79.194.9.43])
- by smtp.gmail.com with ESMTPSA id
- hx27-20020a170906847b00b009659ecdf29fsm1061741ejc.1.2023.05.04.04.52.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 May 2023 04:52:18 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: francois.dugast@intel.com, felix.kuehling@amd.com,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 970F410E36A;
+	Thu,  4 May 2023 12:08:12 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC2A110E296;
+ Thu,  4 May 2023 12:08:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=tPow+oGVqtat0jltpQX+EehYyhY9mTztu6MtA4PYDRo=; b=OQOYd02ky4mDot0wc6xSkYf5Mg
+ eCE0fBHtF5nriR7TEqRpPFv3x+7h2ERJmOwnrYlP5eg9lcMGGSP3uXKtv0xSQdqRCofHzhZC07EFt
+ 1Cm6blFq/lIl6pQsJW2ivVlj18koB9QumbANTE/anPauaCtfMHkYmeRf37eWwM9lfJVKaja8Xo+gF
+ BQ6MF8gdjz0BQKRIEBU4KlBPZCRS4Kqv2ZFVtza9+SlSd9kqcD8dQnsjZHS7Ua8NjFJsu2HH7dFdp
+ WS9MCWhjQwIMk+Iri3k4PHJsFKgwvU0s9UgHGehikQppeevQK5CynSo4ajjJ+wD3CkrtAEaeClf5T
+ OFzMggeg==;
+Received: from [177.34.168.16] (helo=[192.168.0.4])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1puXka-0015yz-Er; Thu, 04 May 2023 14:07:56 +0200
+Message-ID: <c5171667-75e2-7b7c-38a6-19d256445c38@igalia.com>
+Date: Thu, 4 May 2023 09:07:49 -0300
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Subject: Re: [PATCH 02/13] drm: add drm_exec selftests v2
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ francois.dugast@intel.com, felix.kuehling@amd.com,
  arunpravin.paneerselvam@amd.com, thomas_os@shipmail.org, dakr@redhat.com,
  luben.tuikov@amd.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH 13/13] drm: remove drm_gem_(un)lock_reservations
-Date: Thu,  4 May 2023 13:51:59 +0200
-Message-Id: <20230504115159.2245-14-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230504115159.2245-1-christian.koenig@amd.com>
 References: <20230504115159.2245-1-christian.koenig@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+ <20230504115159.2245-3-christian.koenig@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Ma=c3=adra_Canal?= <mcanal@igalia.com>
+In-Reply-To: <20230504115159.2245-3-christian.koenig@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,135 +61,167 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Not used any more.
+Hi Christian,
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/drm_gem.c              | 78 --------------------------
- drivers/gpu/drm/scheduler/sched_main.c |  5 +-
- include/drm/drm_gem.h                  |  4 --
- 3 files changed, 2 insertions(+), 85 deletions(-)
+It would be nice if you use the KUnit macros, instead of pr_info.
 
-diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index 1a5a2cd0d4ec..6666cd411002 100644
---- a/drivers/gpu/drm/drm_gem.c
-+++ b/drivers/gpu/drm/drm_gem.c
-@@ -1214,84 +1214,6 @@ void drm_gem_vunmap_unlocked(struct drm_gem_object *obj, struct iosys_map *map)
- }
- EXPORT_SYMBOL(drm_gem_vunmap_unlocked);
- 
--/**
-- * drm_gem_lock_reservations - Sets up the ww context and acquires
-- * the lock on an array of GEM objects.
-- *
-- * Once you've locked your reservations, you'll want to set up space
-- * for your shared fences (if applicable), submit your job, then
-- * drm_gem_unlock_reservations().
-- *
-- * @objs: drm_gem_objects to lock
-- * @count: Number of objects in @objs
-- * @acquire_ctx: struct ww_acquire_ctx that will be initialized as
-- * part of tracking this set of locked reservations.
-- */
--int
--drm_gem_lock_reservations(struct drm_gem_object **objs, int count,
--			  struct ww_acquire_ctx *acquire_ctx)
--{
--	int contended = -1;
--	int i, ret;
--
--	ww_acquire_init(acquire_ctx, &reservation_ww_class);
--
--retry:
--	if (contended != -1) {
--		struct drm_gem_object *obj = objs[contended];
--
--		ret = dma_resv_lock_slow_interruptible(obj->resv,
--								 acquire_ctx);
--		if (ret) {
--			ww_acquire_fini(acquire_ctx);
--			return ret;
--		}
--	}
--
--	for (i = 0; i < count; i++) {
--		if (i == contended)
--			continue;
--
--		ret = dma_resv_lock_interruptible(objs[i]->resv,
--							    acquire_ctx);
--		if (ret) {
--			int j;
--
--			for (j = 0; j < i; j++)
--				dma_resv_unlock(objs[j]->resv);
--
--			if (contended != -1 && contended >= i)
--				dma_resv_unlock(objs[contended]->resv);
--
--			if (ret == -EDEADLK) {
--				contended = i;
--				goto retry;
--			}
--
--			ww_acquire_fini(acquire_ctx);
--			return ret;
--		}
--	}
--
--	ww_acquire_done(acquire_ctx);
--
--	return 0;
--}
--EXPORT_SYMBOL(drm_gem_lock_reservations);
--
--void
--drm_gem_unlock_reservations(struct drm_gem_object **objs, int count,
--			    struct ww_acquire_ctx *acquire_ctx)
--{
--	int i;
--
--	for (i = 0; i < count; i++)
--		dma_resv_unlock(objs[i]->resv);
--
--	ww_acquire_fini(acquire_ctx);
--}
--EXPORT_SYMBOL(drm_gem_unlock_reservations);
--
- /**
-  * drm_gem_lru_init - initialize a LRU
-  *
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index b09cdacfd062..2d8249148926 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -794,9 +794,8 @@ EXPORT_SYMBOL(drm_sched_job_add_resv_dependencies);
-  * @write: whether the job might write the object (so we need to depend on
-  * shared fences in the reservation object).
-  *
-- * This should be called after drm_gem_lock_reservations() on your array of
-- * GEM objects used in the job but before updating the reservations with your
-- * own fences.
-+ * This should be called after locking your GEM objects used in the job but
-+ * before updating the reservations with your own fences.
-  *
-  * Returns:
-  * 0 on success, or an error on failing to expand the array.
-diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-index b8efd836edef..7e027688a83d 100644
---- a/include/drm/drm_gem.h
-+++ b/include/drm/drm_gem.h
-@@ -476,10 +476,6 @@ int drm_gem_objects_lookup(struct drm_file *filp, void __user *bo_handles,
- struct drm_gem_object *drm_gem_object_lookup(struct drm_file *filp, u32 handle);
- long drm_gem_dma_resv_wait(struct drm_file *filep, u32 handle,
- 				    bool wait_all, unsigned long timeout);
--int drm_gem_lock_reservations(struct drm_gem_object **objs, int count,
--			      struct ww_acquire_ctx *acquire_ctx);
--void drm_gem_unlock_reservations(struct drm_gem_object **objs, int count,
--				 struct ww_acquire_ctx *acquire_ctx);
- int drm_gem_dumb_map_offset(struct drm_file *file, struct drm_device *dev,
- 			    u32 handle, u64 *offset);
- 
--- 
-2.34.1
+On 5/4/23 08:51, Christian König wrote:
+> Largely just the initial skeleton.
+> 
+> v2: add array test as well
+> 
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> ---
+>   drivers/gpu/drm/Kconfig               |  1 +
+>   drivers/gpu/drm/tests/Makefile        |  3 +-
+>   drivers/gpu/drm/tests/drm_exec_test.c | 96 +++++++++++++++++++++++++++
+>   3 files changed, 99 insertions(+), 1 deletion(-)
+>   create mode 100644 drivers/gpu/drm/tests/drm_exec_test.c
+> 
+> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> index 2dc81eb062eb..068e574e234e 100644
+> --- a/drivers/gpu/drm/Kconfig
+> +++ b/drivers/gpu/drm/Kconfig
+> @@ -80,6 +80,7 @@ config DRM_KUNIT_TEST
+>   	select DRM_BUDDY
+>   	select DRM_EXPORT_FOR_TESTS if m
+>   	select DRM_KUNIT_TEST_HELPERS
+> +	select DRM_EXEC
+>   	default KUNIT_ALL_TESTS
+>   	help
+>   	  This builds unit tests for DRM. This option is not useful for
+> diff --git a/drivers/gpu/drm/tests/Makefile b/drivers/gpu/drm/tests/Makefile
+> index bca726a8f483..ba7baa622675 100644
+> --- a/drivers/gpu/drm/tests/Makefile
+> +++ b/drivers/gpu/drm/tests/Makefile
+> @@ -17,6 +17,7 @@ obj-$(CONFIG_DRM_KUNIT_TEST) += \
+>   	drm_modes_test.o \
+>   	drm_plane_helper_test.o \
+>   	drm_probe_helper_test.o \
+> -	drm_rect_test.o
+> +	drm_rect_test.o	\
+> +	drm_exec_test.o
+>   
+>   CFLAGS_drm_mm_test.o := $(DISABLE_STRUCTLEAK_PLUGIN)
+> diff --git a/drivers/gpu/drm/tests/drm_exec_test.c b/drivers/gpu/drm/tests/drm_exec_test.c
+> new file mode 100644
+> index 000000000000..26aa13e62d22
+> --- /dev/null
+> +++ b/drivers/gpu/drm/tests/drm_exec_test.c
+> @@ -0,0 +1,96 @@
+> +// SPDX-License-Identifier: MIT
+> +/*
+> + * Copyright © 2019 Intel Corporation
+> + */
+> +
+> +#define pr_fmt(fmt) "drm_exec: " fmt
+> +
+> +#include <kunit/test.h>
+> +
+> +#include <linux/module.h>
+> +#include <linux/prime_numbers.h>
+> +
+> +#include <drm/drm_exec.h>
+> +#include <drm/drm_device.h>
+> +#include <drm/drm_gem.h>
+> +
+> +#include "../lib/drm_random.h"
+> +
+> +static struct drm_device dev;
+> +
+> +static void drm_exec_sanitycheck(struct kunit *test)
+> +{
+> +	struct drm_exec exec;
+> +
+> +	drm_exec_init(&exec, true);
+> +	drm_exec_fini(&exec);
+> +	pr_info("%s - ok!\n", __func__);
 
+Here you could use KUNIT_SUCCEED(test).
+
+> +}
+> +
+> +static void drm_exec_lock1(struct kunit *test)
+
+Is there a reason to call the function drm_exec_lock1 instead of
+just drm_exec_lock?
+
+> +{
+> +	struct drm_gem_object gobj = { };
+> +	struct drm_exec exec;
+> +	int ret;
+> +
+> +	drm_gem_private_object_init(&dev, &gobj, PAGE_SIZE);
+> +
+> +	drm_exec_init(&exec, true);
+> +	drm_exec_while_not_all_locked(&exec) {
+> +		ret = drm_exec_prepare_obj(&exec, &gobj, 1);
+> +		drm_exec_continue_on_contention(&exec);
+> +		if (ret) {
+> +			drm_exec_fini(&exec);
+> +			pr_err("%s - err %d!\n", __func__, ret);
+
+Here you could use KUNIT_FAIL. Same for the other function.
+
+Actually, it would be better if you created a function `exit`
+associated with the test suite, where you would call drm_exec_fini,
+and checked the ret variable with KUNIT_EXPECT_EQ(test, ret, 0) in
+the test.
+
+> +			return;
+> +		}
+> +	}
+> +	drm_exec_fini(&exec);
+> +	pr_info("%s - ok!\n", __func__);
+> +}
+> +
+> +static void drm_exec_lock_array(struct kunit *test)
+> +{
+> +	struct drm_gem_object gobj1 = { };
+> +	struct drm_gem_object gobj2 = { };
+> +	struct drm_gem_object *array[] = { &gobj1, &gobj2 };
+> +	struct drm_exec exec;
+> +	int ret;
+> +
+> +	drm_gem_private_object_init(&dev, &gobj1, PAGE_SIZE);
+> +	drm_gem_private_object_init(&dev, &gobj2, PAGE_SIZE);
+> +
+> +	drm_exec_init(&exec, true);
+> +	ret = drm_exec_prepare_array(&exec, array, ARRAY_SIZE(array), 0);
+> +	if (ret) {
+> +		drm_exec_fini(&exec);
+> +		pr_err("%s - err %d!\n", __func__, ret);
+> +		return;
+> +	}
+> +	drm_exec_fini(&exec)> +	pr_info("%s - ok!\n", __func__);
+> +}
+> +
+> +static int drm_exec_suite_init(struct kunit_suite *suite)
+> +{
+> +	kunit_info(suite, "Testing DRM exec manager\n");
+
+Isn't this already clear by the name of the test?
+
+Best Regards,
+- Maíra Canal
+
+> +	return 0;
+> +}
+> +
+> +static struct kunit_case drm_exec_tests[] = {
+> +	KUNIT_CASE(drm_exec_sanitycheck),
+> +	KUNIT_CASE(drm_exec_lock1),
+> +	KUNIT_CASE(drm_exec_lock_array),
+> +	{}
+> +};
+> +
+> +static struct kunit_suite drm_exec_test_suite = {
+> +	.name = "drm_exec",
+> +	.suite_init = drm_exec_suite_init,
+> +	.test_cases = drm_exec_tests,
+> +};
+> +
+> +kunit_test_suite(drm_exec_test_suite);
+> +
+> +MODULE_AUTHOR("AMD");
+> +MODULE_LICENSE("GPL and additional rights");
