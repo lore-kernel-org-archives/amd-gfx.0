@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72490C7EE26
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 May 2023 11:52:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D87A9C7EE21
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 May 2023 11:52:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D29D610E226;
-	Thu,  4 May 2023 11:52:13 +0000 (UTC)
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [IPv6:2a00:1450:4864:20::52d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3198410E154;
- Thu,  4 May 2023 11:52:11 +0000 (UTC)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-50bc0ced1d9so571023a12.0; 
- Thu, 04 May 2023 04:52:10 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9C5C10E150;
+	Thu,  4 May 2023 11:52:17 +0000 (UTC)
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [IPv6:2a00:1450:4864:20::532])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFD5310E288;
+ Thu,  4 May 2023 11:52:14 +0000 (UTC)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-50bc3a2d333so539461a12.0; 
+ Thu, 04 May 2023 04:52:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1683201129; x=1685793129;
+ d=gmail.com; s=20221208; t=1683201133; x=1685793133;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=o1N8U/01wRT8HTMCbcIfBbQAAUu9NYYmhpQRQDgVHEM=;
- b=XxJgVL7bf0XXuVvrkVczDIuWBKnrwNFdJisTSHwAUmdmtkYqa8+bwxjBQ3jv3IsmCy
- S8aKGnRlMzFfitJzhCqjfqhN60DgKh43oNa5KL89BUJG/AoaOE4XwQITCQ+KnbAAKorS
- 4RH4GutbMZxmjgyVMk4o6yEWby7ODGHDshyurCYlyjZ5NKK5CHLD/vFPVcyPUZsmaS+W
- MKSnvWja9ST56k9wu9fwP4KOsqI3s3nKmhpQKDeeeNdgn2WtNG3OZbId3gE4jLHuYiqX
- SiWIigwvohE/ihilyXerGhEmyoNxyfSoDKEdpDZwhiU4mTsDZagwm8VDYNtjj4vyMf5Y
- hTBQ==
+ :reply-to; bh=nPc3C+fkaElM6Acph6qLW7E5RxlxIjkPmnkGZYlX+24=;
+ b=bbPp/1IdLCk67moE2PoHp9ekOd8Sf2PElpxzKaVke6OEHi4KRQFMFlIQWJmuoLSgLM
+ JgAGVJ5/iWJdoiRc42Y9WkTR/HWNHpaZkgPId2XaxmxtZaEJMO7NndfiQDpUM5ljMKdp
+ f8PQ3yfZF5JD/vIjY7IwURUrk4JmhyjmlMrhXpo8Yd7B3ZqF+AIl9rVvRY5FmiguiZB7
+ ITjRKINfv+RX5s0ACc1/lK+r4eNXtsr9OJN3rngX7UcePCy90SiMMvwf4abnjh/xR+HD
+ n1XrYQaRdEm1I0u6DkZ8IouAj+torqddVf6zY/43GyUA2A55cHjt6WzPrjG7XLjN3ejR
+ DoRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683201129; x=1685793129;
+ d=1e100.net; s=20221208; t=1683201133; x=1685793133;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=o1N8U/01wRT8HTMCbcIfBbQAAUu9NYYmhpQRQDgVHEM=;
- b=KwX4iLARU5OJ3Hlb24FVnSA9vZBtTqRq3C0vpAx0kwRGjkbvGlzfyxPUnOz7S8ekwz
- UjKRE+Gw++yw6I+kVnRt4ArG2eVk7DT7pEGrr5xN/3Zeok4Fq1RjeEpGN44jbi1PaYMz
- C9IiKFjzIjeZDVVvAsMlTx7D+bH4Et5s1ZkPabuLhkfVQkeYW9K9ITMAsR3zkJC2Bp4s
- 8jukb10cxU1+6vIRISYOSzztcuQs9g9dAeEbIYhdwdgWV4l5+SHNLW+HGQQ0Vou70/oP
- vEJX+vXoyUJIy/qgYiYxKzTmgdUViOoWiYifN/nZ5v1p5tW2dYQnoU5kErjKNdHTT62+
- wPig==
-X-Gm-Message-State: AC+VfDwdPdYZksrI7fzmSkc57zYtSISL1Sr2HoLUvKbPs1r34S2ff+qu
- v6wLc9tfBS5gav3Jt0UDtv4=
-X-Google-Smtp-Source: ACHHUZ6cszBdpJ6HDRGrOYMg9P7j4xv4uDqRHc916zGgjNDpUR6mWGZi8WfzYmbl0f4Bx34+SsCBWA==
-X-Received: by 2002:a17:907:9720:b0:94a:76f6:8e52 with SMTP id
- jg32-20020a170907972000b0094a76f68e52mr6437901ejc.35.1683201129228; 
- Thu, 04 May 2023 04:52:09 -0700 (PDT)
+ bh=nPc3C+fkaElM6Acph6qLW7E5RxlxIjkPmnkGZYlX+24=;
+ b=T1S5X7vuDriqiSZdhAEf0N5NifOECHXnjlx3jqyYSvmNLg2lKK7KlQ7/zG2HZJWCPU
+ QsUe8/Z5mTnJVB90anaitQ7+UhHHmYFUsytWDihLXVy0uk3E6RD01VL89LQIIfDxII1j
+ JexBS6dhJi7NUxPxBWanJQX8pLt8118OsNbWa3an0c4X/5BCiiqmqI0hnlUg5TtLuYaw
+ AiNut1pP6PNGK2dB64FesoR1ZHoL/EEvOrtFn1o+EnjhSqTjtAmrOedEr4Xn473RsuuX
+ Cwui12k3q9qgmUeaUV6j3gtBiBOvmmH3POCctiW177pVcdLKhm3h3kzmTJHM21P/X8pm
+ f7FQ==
+X-Gm-Message-State: AC+VfDwzlYsiUd2hxkxMZLLybYVICEKvp6d7qQb02Kn7w+UZGi6L3Aeu
+ uW60qGSt9DKTrR0Cbya3cWQ=
+X-Google-Smtp-Source: ACHHUZ6GQxM8VYf02ejZFx6c9tGIhe+xoXsPGr4MOP7i1ACvtjKHKc6vOrqyixh+4exIRNxED/dCFg==
+X-Received: by 2002:a17:907:928a:b0:94a:5c6d:3207 with SMTP id
+ bw10-20020a170907928a00b0094a5c6d3207mr7169227ejc.44.1683201132922; 
+ Thu, 04 May 2023 04:52:12 -0700 (PDT)
 Received: from able.fritz.box (p4fc2092b.dip0.t-ipconnect.de. [79.194.9.43])
  by smtp.gmail.com with ESMTPSA id
- hx27-20020a170906847b00b009659ecdf29fsm1061741ejc.1.2023.05.04.04.52.08
+ hx27-20020a170906847b00b009659ecdf29fsm1061741ejc.1.2023.05.04.04.52.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 May 2023 04:52:08 -0700 (PDT)
+ Thu, 04 May 2023 04:52:12 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -57,9 +57,9 @@ To: francois.dugast@intel.com, felix.kuehling@amd.com,
  arunpravin.paneerselvam@amd.com, thomas_os@shipmail.org, dakr@redhat.com,
  luben.tuikov@amd.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH 05/13] drm/amdgpu: use drm_exec for MES testing
-Date: Thu,  4 May 2023 13:51:51 +0200
-Message-Id: <20230504115159.2245-6-christian.koenig@amd.com>
+Subject: [PATCH 08/13] drm/qxl: switch to using drm_exec
+Date: Thu,  4 May 2023 13:51:54 +0200
+Message-Id: <20230504115159.2245-9-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230504115159.2245-1-christian.koenig@amd.com>
 References: <20230504115159.2245-1-christian.koenig@amd.com>
@@ -80,175 +80,201 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Start using the new component here as well.
+Just a straightforward conversion without any optimization.
+
+Only compile tested for now.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 86 +++++++++++--------------
- 1 file changed, 39 insertions(+), 47 deletions(-)
+ drivers/gpu/drm/qxl/Kconfig       |  1 +
+ drivers/gpu/drm/qxl/qxl_drv.h     |  7 ++--
+ drivers/gpu/drm/qxl/qxl_release.c | 67 ++++++++++++++++---------------
+ 3 files changed, 39 insertions(+), 36 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index f0f00466b59f..bfa9006600dd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -22,6 +22,7 @@
-  */
+diff --git a/drivers/gpu/drm/qxl/Kconfig b/drivers/gpu/drm/qxl/Kconfig
+index ca3f51c2a8fe..9c8e433be33e 100644
+--- a/drivers/gpu/drm/qxl/Kconfig
++++ b/drivers/gpu/drm/qxl/Kconfig
+@@ -5,6 +5,7 @@ config DRM_QXL
+ 	select DRM_KMS_HELPER
+ 	select DRM_TTM
+ 	select DRM_TTM_HELPER
++	select DRM_EXEC
+ 	select CRC32
+ 	help
+ 	  QXL virtual GPU for Spice virtualization desktop integration.
+diff --git a/drivers/gpu/drm/qxl/qxl_drv.h b/drivers/gpu/drm/qxl/qxl_drv.h
+index ea993d7162e8..3e732648b332 100644
+--- a/drivers/gpu/drm/qxl/qxl_drv.h
++++ b/drivers/gpu/drm/qxl/qxl_drv.h
+@@ -38,12 +38,12 @@
  
- #include <linux/firmware.h>
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_encoder.h>
 +#include <drm/drm_exec.h>
+ #include <drm/drm_gem_ttm_helper.h>
+ #include <drm/drm_ioctl.h>
+ #include <drm/drm_gem.h>
+ #include <drm/qxl_drm.h>
+ #include <drm/ttm/ttm_bo.h>
+-#include <drm/ttm/ttm_execbuf_util.h>
+ #include <drm/ttm/ttm_placement.h>
  
- #include "amdgpu_mes.h"
- #include "amdgpu.h"
-@@ -1131,34 +1132,29 @@ int amdgpu_mes_ctx_map_meta_data(struct amdgpu_device *adev,
- 				 struct amdgpu_mes_ctx_data *ctx_data)
- {
- 	struct amdgpu_bo_va *bo_va;
--	struct ww_acquire_ctx ticket;
--	struct list_head list;
--	struct amdgpu_bo_list_entry pd;
--	struct ttm_validate_buffer csa_tv;
- 	struct amdgpu_sync sync;
-+	struct drm_exec exec;
- 	int r;
+ #include "qxl_dev.h"
+@@ -101,7 +101,8 @@ struct qxl_gem {
+ };
  
- 	amdgpu_sync_create(&sync);
--	INIT_LIST_HEAD(&list);
--	INIT_LIST_HEAD(&csa_tv.head);
- 
--	csa_tv.bo = &ctx_data->meta_data_obj->tbo;
--	csa_tv.num_shared = 1;
--
--	list_add(&csa_tv.head, &list);
--	amdgpu_vm_get_pd_bo(vm, &list, &pd);
--
--	r = ttm_eu_reserve_buffers(&ticket, &list, true, NULL);
--	if (r) {
--		DRM_ERROR("failed to reserve meta data BO: err=%d\n", r);
--		return r;
-+	drm_exec_init(&exec, false);
-+	drm_exec_while_not_all_locked(&exec) {
-+		r = drm_exec_prepare_obj(&exec,
-+					 &ctx_data->meta_data_obj->tbo.base,
-+					 0);
-+		if (likely(!r))
-+			r = amdgpu_vm_lock_pd(vm, &exec);
-+		drm_exec_continue_on_contention(&exec);
-+                if (unlikely(r))
-+			goto error_fini_exec;
- 	}
- 
- 	bo_va = amdgpu_vm_bo_add(adev, vm, ctx_data->meta_data_obj);
- 	if (!bo_va) {
--		ttm_eu_backoff_reservation(&ticket, &list);
- 		DRM_ERROR("failed to create bo_va for meta data BO\n");
--		return -ENOMEM;
-+		r = -ENOMEM;
-+		goto error_fini_exec;
- 	}
- 
- 	r = amdgpu_vm_bo_map(adev, bo_va, ctx_data->meta_data_gpu_addr, 0,
-@@ -1168,33 +1164,35 @@ int amdgpu_mes_ctx_map_meta_data(struct amdgpu_device *adev,
- 
- 	if (r) {
- 		DRM_ERROR("failed to do bo_map on meta data, err=%d\n", r);
--		goto error;
-+		goto error_del_bo_va;
- 	}
- 
- 	r = amdgpu_vm_bo_update(adev, bo_va, false);
- 	if (r) {
- 		DRM_ERROR("failed to do vm_bo_update on meta data\n");
--		goto error;
-+		goto error_del_bo_va;
- 	}
- 	amdgpu_sync_fence(&sync, bo_va->last_pt_update);
- 
- 	r = amdgpu_vm_update_pdes(adev, vm, false);
- 	if (r) {
- 		DRM_ERROR("failed to update pdes on meta data\n");
--		goto error;
-+		goto error_del_bo_va;
- 	}
- 	amdgpu_sync_fence(&sync, vm->last_update);
- 
- 	amdgpu_sync_wait(&sync, false);
--	ttm_eu_backoff_reservation(&ticket, &list);
-+	drm_exec_fini(&exec);
- 
- 	amdgpu_sync_free(&sync);
- 	ctx_data->meta_data_va = bo_va;
- 	return 0;
- 
--error:
-+error_del_bo_va:
- 	amdgpu_vm_bo_del(adev, bo_va);
--	ttm_eu_backoff_reservation(&ticket, &list);
-+
-+error_fini_exec:
-+	drm_exec_fini(&exec);
- 	amdgpu_sync_free(&sync);
- 	return r;
- }
-@@ -1205,34 +1203,28 @@ int amdgpu_mes_ctx_unmap_meta_data(struct amdgpu_device *adev,
- 	struct amdgpu_bo_va *bo_va = ctx_data->meta_data_va;
- 	struct amdgpu_bo *bo = ctx_data->meta_data_obj;
- 	struct amdgpu_vm *vm = bo_va->base.vm;
--	struct amdgpu_bo_list_entry vm_pd;
--	struct list_head list, duplicates;
--	struct dma_fence *fence = NULL;
+ struct qxl_bo_list {
 -	struct ttm_validate_buffer tv;
++	struct qxl_bo		*bo;
++	struct list_head	list;
+ };
+ 
+ struct qxl_crtc {
+@@ -151,7 +152,7 @@ struct qxl_release {
+ 	struct qxl_bo *release_bo;
+ 	uint32_t release_offset;
+ 	uint32_t surface_release_id;
 -	struct ww_acquire_ctx ticket;
--	long r = 0;
--
--	INIT_LIST_HEAD(&list);
--	INIT_LIST_HEAD(&duplicates);
--
--	tv.bo = &bo->tbo;
--	tv.num_shared = 2;
--	list_add(&tv.head, &list);
--
--	amdgpu_vm_get_pd_bo(vm, &list, &vm_pd);
--
--	r = ttm_eu_reserve_buffers(&ticket, &list, false, &duplicates);
--	if (r) {
--		dev_err(adev->dev, "leaking bo va because "
--			"we fail to reserve bo (%ld)\n", r);
--		return r;
-+	struct dma_fence *fence;
-+	struct drm_exec exec;
-+	long r;
-+
-+	drm_exec_init(&exec, false);
-+	drm_exec_while_not_all_locked(&exec) {
-+		r = drm_exec_prepare_obj(&exec,
-+					 &ctx_data->meta_data_obj->tbo.base,
-+					 0);
-+		if (likely(!r))
-+			r = amdgpu_vm_lock_pd(vm, &exec);
-+		drm_exec_continue_on_contention(&exec);
-+                if (unlikely(r))
-+			goto out_unlock;
++	struct drm_exec	exec;
+ 	struct list_head bos;
+ };
+ 
+diff --git a/drivers/gpu/drm/qxl/qxl_release.c b/drivers/gpu/drm/qxl/qxl_release.c
+index 368d26da0d6a..da7cd9cd58f9 100644
+--- a/drivers/gpu/drm/qxl/qxl_release.c
++++ b/drivers/gpu/drm/qxl/qxl_release.c
+@@ -121,13 +121,11 @@ qxl_release_free_list(struct qxl_release *release)
+ {
+ 	while (!list_empty(&release->bos)) {
+ 		struct qxl_bo_list *entry;
+-		struct qxl_bo *bo;
+ 
+ 		entry = container_of(release->bos.next,
+-				     struct qxl_bo_list, tv.head);
+-		bo = to_qxl_bo(entry->tv.bo);
+-		qxl_bo_unref(&bo);
+-		list_del(&entry->tv.head);
++				     struct qxl_bo_list, list);
++		qxl_bo_unref(&entry->bo);
++		list_del(&entry->list);
+ 		kfree(entry);
+ 	}
+ 	release->release_bo = NULL;
+@@ -172,8 +170,8 @@ int qxl_release_list_add(struct qxl_release *release, struct qxl_bo *bo)
+ {
+ 	struct qxl_bo_list *entry;
+ 
+-	list_for_each_entry(entry, &release->bos, tv.head) {
+-		if (entry->tv.bo == &bo->tbo)
++	list_for_each_entry(entry, &release->bos, list) {
++		if (entry->bo == bo)
+ 			return 0;
  	}
  
- 	amdgpu_vm_bo_del(adev, bo_va);
- 	if (!amdgpu_vm_ready(vm))
- 		goto out_unlock;
+@@ -182,9 +180,8 @@ int qxl_release_list_add(struct qxl_release *release, struct qxl_bo *bo)
+ 		return -ENOMEM;
  
--	r = dma_resv_get_singleton(bo->tbo.base.resv, DMA_RESV_USAGE_BOOKKEEP, &fence);
-+	r = dma_resv_get_singleton(bo->tbo.base.resv, DMA_RESV_USAGE_BOOKKEEP,
-+				   &fence);
- 	if (r)
- 		goto out_unlock;
- 	if (fence) {
-@@ -1251,7 +1243,7 @@ int amdgpu_mes_ctx_unmap_meta_data(struct amdgpu_device *adev,
- out_unlock:
- 	if (unlikely(r < 0))
- 		dev_err(adev->dev, "failed to clear page tables (%ld)\n", r);
--	ttm_eu_backoff_reservation(&ticket, &list);
-+	drm_exec_fini(&exec);
- 
- 	return r;
+ 	qxl_bo_ref(bo);
+-	entry->tv.bo = &bo->tbo;
+-	entry->tv.num_shared = 0;
+-	list_add_tail(&entry->tv.head, &release->bos);
++	entry->bo = bo;
++	list_add_tail(&entry->list, &release->bos);
+ 	return 0;
  }
+ 
+@@ -221,21 +218,27 @@ int qxl_release_reserve_list(struct qxl_release *release, bool no_intr)
+ 	if (list_is_singular(&release->bos))
+ 		return 0;
+ 
+-	ret = ttm_eu_reserve_buffers(&release->ticket, &release->bos,
+-				     !no_intr, NULL);
+-	if (ret)
+-		return ret;
+-
+-	list_for_each_entry(entry, &release->bos, tv.head) {
+-		struct qxl_bo *bo = to_qxl_bo(entry->tv.bo);
+-
+-		ret = qxl_release_validate_bo(bo);
+-		if (ret) {
+-			ttm_eu_backoff_reservation(&release->ticket, &release->bos);
+-			return ret;
++	drm_exec_init(&release->exec, !no_intr);
++	drm_exec_while_not_all_locked(&release->exec) {
++		list_for_each_entry(entry, &release->bos, list) {
++			ret = drm_exec_prepare_obj(&release->exec,
++						   &entry->bo->tbo.base,
++						   1);
++			drm_exec_break_on_contention(&release->exec);
++			if (ret)
++				goto error;
+ 		}
+ 	}
++
++	list_for_each_entry(entry, &release->bos, list) {
++		ret = qxl_release_validate_bo(entry->bo);
++		if (ret)
++			goto error;
++	}
+ 	return 0;
++error:
++	drm_exec_fini(&release->exec);
++	return ret;
+ }
+ 
+ void qxl_release_backoff_reserve_list(struct qxl_release *release)
+@@ -245,7 +248,7 @@ void qxl_release_backoff_reserve_list(struct qxl_release *release)
+ 	if (list_is_singular(&release->bos))
+ 		return;
+ 
+-	ttm_eu_backoff_reservation(&release->ticket, &release->bos);
++	drm_exec_fini(&release->exec);
+ }
+ 
+ int qxl_alloc_surface_release_reserved(struct qxl_device *qdev,
+@@ -404,18 +407,18 @@ void qxl_release_unmap(struct qxl_device *qdev,
+ 
+ void qxl_release_fence_buffer_objects(struct qxl_release *release)
+ {
+-	struct ttm_buffer_object *bo;
+ 	struct ttm_device *bdev;
+-	struct ttm_validate_buffer *entry;
++	struct qxl_bo_list *entry;
+ 	struct qxl_device *qdev;
++	struct qxl_bo *bo;
+ 
+ 	/* if only one object on the release its the release itself
+ 	   since these objects are pinned no need to reserve */
+ 	if (list_is_singular(&release->bos) || list_empty(&release->bos))
+ 		return;
+ 
+-	bo = list_first_entry(&release->bos, struct ttm_validate_buffer, head)->bo;
+-	bdev = bo->bdev;
++	bo = list_first_entry(&release->bos, struct qxl_bo_list, list)->bo;
++	bdev = bo->tbo.bdev;
+ 	qdev = container_of(bdev, struct qxl_device, mman.bdev);
+ 
+ 	/*
+@@ -426,14 +429,12 @@ void qxl_release_fence_buffer_objects(struct qxl_release *release)
+ 		       release->id | 0xf0000000, release->base.seqno);
+ 	trace_dma_fence_emit(&release->base);
+ 
+-	list_for_each_entry(entry, &release->bos, head) {
++	list_for_each_entry(entry, &release->bos, list) {
+ 		bo = entry->bo;
+ 
+-		dma_resv_add_fence(bo->base.resv, &release->base,
++		dma_resv_add_fence(bo->tbo.base.resv, &release->base,
+ 				   DMA_RESV_USAGE_READ);
+-		ttm_bo_move_to_lru_tail_unlocked(bo);
+-		dma_resv_unlock(bo->base.resv);
++		ttm_bo_move_to_lru_tail_unlocked(&bo->tbo);
+ 	}
+-	ww_acquire_fini(&release->ticket);
++	drm_exec_fini(&release->exec);
+ }
+-
 -- 
 2.34.1
 
