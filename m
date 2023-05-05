@@ -4,33 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70C9EC77B7C
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 May 2023 07:22:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CC5FC77B75
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 May 2023 08:11:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6D6D10E57D;
-	Fri,  5 May 2023 07:22:36 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7512410E560;
- Fri,  5 May 2023 04:45:44 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id CFEC16127C;
- Fri,  5 May 2023 04:45:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4396C433EF;
- Fri,  5 May 2023 04:45:40 +0000 (UTC)
-From: Huacai Chen <chenhuacai@loongson.cn>
-To: Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Pan@freedesktop.org, Xinhui <Xinhui.Pan@amd.com>,
-	David Airlie <airlied@linux.ie>
-Subject: [PATCH] drm/amdgpu/display: Enable DC_FP for LoongArch
-Date: Fri,  5 May 2023 12:44:55 +0800
-Message-Id: <20230505044455.3184791-1-chenhuacai@loongson.cn>
-X-Mailer: git-send-email 2.39.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2F8310E598;
+	Fri,  5 May 2023 08:11:02 +0000 (UTC)
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CA7810E598
+ for <amd-gfx@lists.freedesktop.org>; Fri,  5 May 2023 08:11:00 +0000 (UTC)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-956ff2399c9so255554366b.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 05 May 2023 01:11:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1683274259; x=1685866259;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=gnxp5iBU/3iR+6ORSZ9KVphOqADi4ujwfzj0fyUI8gY=;
+ b=U9fvUxO/me2fcxAE4IYqVQlgZNIYfIcXtJ26wq6MG514VlKj5GoG8ntC1ccLjkVGaR
+ aUb82gB84+WT/pdKR2t5eflugmcf4yK0eosVafRvJLSzd/VPE7szSpHfTdFJOorqwqI+
+ DKSiqf+xz57/wLrnONPgl06liFkg0DTrdTVJM6YiSF7s97IDL+xpBwNfyDjecO21cQWo
+ fmXsBzywXAbr04a0z2jnD1fltWC+poKPld8/+KEuafOr9iKY+XMwtRj7ZD/PBrRqzWLo
+ IA8MppipILjGgXSUkhcHvNUTyUHGdmTBmpi++gGBkGH3J43tHGMITvNJddVDceohUM/S
+ FCHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1683274259; x=1685866259;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=gnxp5iBU/3iR+6ORSZ9KVphOqADi4ujwfzj0fyUI8gY=;
+ b=G9l2k/WbIlMzsj32eNOtG5CmjYkA4ZoT7667lkBZk8rkqxb/SmecHY/vMXSZEbf6Zc
+ /YHrAQHEuU2EWE++jddI0IPyzCl1UmXxgxkdO9a9rD8Kdy6AOE/v2trRNEBuDhfMv4Va
+ JWXMN9Ze06B+qI70GkUUK2S37BqaZDZvR2VPg0M2h1x1r+tfF7ED5e74dlURotby8yWq
+ mVEnHn6wo9N6WQ7o+2GrjtqPUYC2q5lHla9NnA/EZ8MzBwtvwHzqrHYIi4rwMeACxvoZ
+ Jc0OfM1Nfth+116AaEVgCcQHs5lPdjHgxpEBIPNNEmOd5fHqA4vG3OTaGRTjohdbsrbY
+ X4AA==
+X-Gm-Message-State: AC+VfDw77Gv9nYxd3br2Xoos0v+MwQ9AWR8sj3XQ5TGmiSaphVNt+f4K
+ uTT7yqxSvoUSZS6eI4MsacM=
+X-Google-Smtp-Source: ACHHUZ7VZBZAqud53Ltb/jHhtpg20cFvYPYhPVhaM/Nm7QEfvA+W587pWzM48thei6cBdm2mMfqABQ==
+X-Received: by 2002:a17:907:2ce3:b0:94f:2d38:896b with SMTP id
+ hz3-20020a1709072ce300b0094f2d38896bmr412935ejc.53.1683274258579; 
+ Fri, 05 May 2023 01:10:58 -0700 (PDT)
+Received: from ?IPV6:2a02:908:1256:79a0:e2f8:820b:7a40:97ca?
+ ([2a02:908:1256:79a0:e2f8:820b:7a40:97ca])
+ by smtp.gmail.com with ESMTPSA id
+ og6-20020a1709071dc600b00965e839f56bsm303745ejc.182.2023.05.05.01.10.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 05 May 2023 01:10:57 -0700 (PDT)
+Message-ID: <8f895857-9597-6cdf-5c4a-2fb4abd252c3@gmail.com>
+Date: Fri, 5 May 2023 10:10:56 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 05 May 2023 07:22:34 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Subject: Re: [PATCH 2/2] drm/amdgpu: adjust vmhub flush tlb iteration to fit
+ the new GFXHUB/MMHUB layout
+Content-Language: en-US
+To: Yifan Zhang <yifan1.zhang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20230504155023.1415369-1-yifan1.zhang@amd.com>
+ <20230504155023.1415369-2-yifan1.zhang@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20230504155023.1415369-2-yifan1.zhang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,83 +78,106 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, loongson-kernel@lists.loongnix.cn,
- amd-gfx@lists.freedesktop.org, WANG Xuerui <kernel@xen0n.name>,
- Xuefeng Li <lixuefeng@loongson.cn>, Huacai Chen <chenhuacai@loongson.cn>
+Cc: Alexander.Deucher@amd.com, le.ma@amd.com, christian.koenig@amd.com,
+ Hawking.Zhang@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now LoongArch provides kernel_fpu_begin() and kernel_fpu_end() so we can
-enable DC_FP for DCN devices.
 
-Signed-off-by: WANG Xuerui <kernel@xen0n.name>
-Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
----
- drivers/gpu/drm/amd/display/Kconfig            | 2 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c | 6 ++++--
- drivers/gpu/drm/amd/display/dc/dml/Makefile    | 5 +++++
- 3 files changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
-index 2d8e55e29637..49df073962d5 100644
---- a/drivers/gpu/drm/amd/display/Kconfig
-+++ b/drivers/gpu/drm/amd/display/Kconfig
-@@ -8,7 +8,7 @@ config DRM_AMD_DC
- 	depends on BROKEN || !CC_IS_CLANG || X86_64 || SPARC64 || ARM64
- 	select SND_HDA_COMPONENT if SND_HDA_CORE
- 	# !CC_IS_CLANG: https://github.com/ClangBuiltLinux/linux/issues/1752
--	select DRM_AMD_DC_FP if (X86 || (PPC64 && ALTIVEC) || (ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG))
-+	select DRM_AMD_DC_FP if (X86 || LOONGARCH || (PPC64 && ALTIVEC) || (ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG))
- 	help
- 	  Choose this option if you want to use the new display engine
- 	  support for AMDGPU. This adds required support for Vega and
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-index 1743ca0a3641..86f4c0e04654 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-@@ -33,6 +33,8 @@
- #include <asm/cputable.h>
- #elif defined(CONFIG_ARM64)
- #include <asm/neon.h>
-+#elif defined(CONFIG_LOONGARCH)
-+#include <asm/fpu.h>
- #endif
- 
- /**
-@@ -88,7 +90,7 @@ void dc_fpu_begin(const char *function_name, const int line)
- 	*pcpu += 1;
- 
- 	if (*pcpu == 1) {
--#if defined(CONFIG_X86)
-+#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
- 		kernel_fpu_begin();
- #elif defined(CONFIG_PPC64)
- 		if (cpu_has_feature(CPU_FTR_VSX_COMP)) {
-@@ -127,7 +129,7 @@ void dc_fpu_end(const char *function_name, const int line)
- 	pcpu = get_cpu_ptr(&fpu_recursion_depth);
- 	*pcpu -= 1;
- 	if (*pcpu <= 0) {
--#if defined(CONFIG_X86)
-+#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
- 		kernel_fpu_end();
- #elif defined(CONFIG_PPC64)
- 		if (cpu_has_feature(CPU_FTR_VSX_COMP)) {
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-index 01db035589c5..542962a93e8f 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-@@ -38,6 +38,11 @@ ifdef CONFIG_ARM64
- dml_rcflags := -mgeneral-regs-only
- endif
- 
-+ifdef CONFIG_LOONGARCH
-+dml_ccflags := -mabi=lp64s -mfpu=64
-+dml_rcflags := -msoft-float
-+endif
-+
- ifdef CONFIG_CC_IS_GCC
- ifneq ($(call gcc-min-version, 70100),y)
- IS_OLD_GCC = 1
--- 
-2.39.1
+Am 04.05.23 um 17:50 schrieb Yifan Zhang:
+> tlb flush has to be changed for the new mmhub layout
+>
+> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c | 16 ++++++++++++----
+>   drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c   | 10 +++++++---
+>   2 files changed, 19 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+> index 01cb89ffbd56..2383db399c95 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+> @@ -160,6 +160,7 @@ void amdgpu_gart_unbind(struct amdgpu_device *adev, uint64_t offset,
+>   	/* Starting from VEGA10, system bit must be 0 to mean invalid. */
+>   	uint64_t flags = 0;
+>   	int idx;
+> +	struct amdgpu_vmhub *hub;
+
+Please always define variables as local as possible. E.g. in this case 
+not in the function but rather in the loop.
+
+Apart from that it's good practice to keep defines like i, r, idx etc.. 
+last. Some upstream maintainer even enforce reverse xmas tree ordering.
+
+Regards,
+Christian.
+
+
+>   
+>   	if (!adev->gart.ptr)
+>   		return;
+> @@ -182,8 +183,11 @@ void amdgpu_gart_unbind(struct amdgpu_device *adev, uint64_t offset,
+>   	}
+>   	mb();
+>   	amdgpu_device_flush_hdp(adev, NULL);
+> -	for (i = 0; i < adev->num_vmhubs; i++)
+> -		amdgpu_gmc_flush_gpu_tlb(adev, 0, i, 0);
+> +	for (i = 0; i < AMDGPU_MAX_VMHUBS; i++) {
+> +		hub = &adev->vmhub[i];
+> +		if (hub->vmhub_funcs)
+> +			amdgpu_gmc_flush_gpu_tlb(adev, 0, i, 0);
+> +	}
+>   
+>   	drm_dev_exit(idx);
+>   }
+> @@ -258,14 +262,18 @@ void amdgpu_gart_bind(struct amdgpu_device *adev, uint64_t offset,
+>   void amdgpu_gart_invalidate_tlb(struct amdgpu_device *adev)
+>   {
+>   	int i;
+> +	struct amdgpu_vmhub *hub;
+>   
+>   	if (!adev->gart.ptr)
+>   		return;
+>   
+>   	mb();
+>   	amdgpu_device_flush_hdp(adev, NULL);
+> -	for (i = 0; i < adev->num_vmhubs; i++)
+> -		amdgpu_gmc_flush_gpu_tlb(adev, 0, i, 0);
+> +	for (i = 0; i < AMDGPU_MAX_VMHUBS; i++) {
+> +		hub = &adev->vmhub[i];
+> +		if (hub->vmhub_funcs)
+> +			amdgpu_gmc_flush_gpu_tlb(adev, 0, i, 0);
+> +	}
+>   }
+>   
+>   /**
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> index 90cf79f8ddde..3ee7f5e067fb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+> @@ -331,6 +331,7 @@ static int gmc_v11_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+>   	bool ret;
+>   	struct amdgpu_ring *ring = &adev->gfx.kiq[0].ring;
+>   	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
+> +	struct amdgpu_vmhub *hub;
+>   
+>   	if (amdgpu_emu_mode == 0 && ring->sched.ready) {
+>   		spin_lock(&adev->gfx.kiq[0].ring_lock);
+> @@ -362,9 +363,12 @@ static int gmc_v11_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+>   				&queried_pasid);
+>   		if (ret	&& queried_pasid == pasid) {
+>   			if (all_hub) {
+> -				for (i = 0; i < adev->num_vmhubs; i++)
+> -					gmc_v11_0_flush_gpu_tlb(adev, vmid,
+> -							i, flush_type);
+> +				for (i = 0; i < AMDGPU_MAX_VMHUBS; i++) {
+> +					hub = &adev->vmhub[i];
+> +					if (hub->vmhub_funcs)
+> +						gmc_v11_0_flush_gpu_tlb(adev, vmid,
+> +								i, flush_type);
+> +				}
+>   			} else {
+>   				gmc_v11_0_flush_gpu_tlb(adev, vmid,
+>   						AMDGPU_GFXHUB(0), flush_type);
 
