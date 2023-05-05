@@ -4,58 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2317C77B75
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 May 2023 18:52:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B280C7EE2A
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 May 2023 19:51:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D40EB10E65D;
-	Fri,  5 May 2023 18:52:33 +0000 (UTC)
-Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
- [IPv6:2001:4860:4864:20::36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0C4110E65B;
- Fri,  5 May 2023 18:52:31 +0000 (UTC)
-Received: by mail-oa1-x36.google.com with SMTP id
- 586e51a60fabf-1929818d7faso19366758fac.0; 
- Fri, 05 May 2023 11:52:31 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5ACB810E668;
+	Fri,  5 May 2023 19:51:04 +0000 (UTC)
+Received: from mail-pf1-x42e.google.com (mail-pf1-x42e.google.com
+ [IPv6:2607:f8b0:4864:20::42e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F7BF10E665;
+ Fri,  5 May 2023 19:51:02 +0000 (UTC)
+Received: by mail-pf1-x42e.google.com with SMTP id
+ d2e1a72fcca58-64115eef620so22092048b3a.1; 
+ Fri, 05 May 2023 12:51:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1683312751; x=1685904751;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dQlh7hwy8Rr71ndzr8IXQ2O4Z+8GiQ3wjDKifhmGZKk=;
- b=E8J9EkJmCdiaIbLv9WeS4FyBHdjAGW1ivVH922O6IG/KHQ+GWABODvcLsbrsOjlX+8
- jmz8FucV+1MjreVT7ePMPY4TPRmFVSUMdil40ELN5pFNuKGcOPMGfmylPneeSXFMgGlJ
- Sc0MqwKXM6O2gt7cuKfeCzJF8rgxG/o5MHjaWql39tLUC76hdIl3ixhJJcegbXJsMBPr
- MqhTHdbTiFZ/bDFYcI5avxssz1+OREpwhkUzsw3YXZo83yCikWNWKoyGQ2NCOENdvxNk
- wHOuj2/TLQOu1ujieikwh2oMlaCisM5kXuce7/4NcgaucFclyfLV49abP5f5fg5sK1e2
- wBIQ==
+ d=gmail.com; s=20221208; t=1683316261; x=1685908261;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
+ :reply-to; bh=9VTfSz0yyeWdPF85h+AGQ/vGWi6fRSpfJvLR0EPjDWQ=;
+ b=YzCXidzcvcJPIoxaBZ+1nS64ayb4z2Nf/LW7iWyUN9Mns5/BbiJOUSxxUH/670nETy
+ MIs5soNpscb526ENU8VjKh6AdiDPRH98QzW13/BUp9S+rDbjVHfd3KCVMKP9SEX3qgfA
+ K1ywoVkU2tKVOeJIyZdnfV9SFvQ+jCeepatv589ecD3xCxWZvUiuoMFaAVK0Vw+XLPIa
+ VpXQlYmhF33TSjEjtEeLUKbnUMQd2SJy9bedok132XO7Har+gUApfjkynV5S5dUx+MDg
+ ftBonzsxuMC4noRNfzT1bUaXe150dGe63LYuU5IwhhM4dL63Q7uC6ix1Fn5ZgosyQkuN
+ bSEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683312751; x=1685904751;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20221208; t=1683316261; x=1685908261;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:sender:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=dQlh7hwy8Rr71ndzr8IXQ2O4Z+8GiQ3wjDKifhmGZKk=;
- b=Ky+mY1Htq2mMpB52CM/ZCY69zak06In1BunTBmdu22j99Ia8RKtKCgMjLzZ70Nhy7L
- 7I+ybBHnmT+imS15fLYC4Oh4As9PU3a3uG8os8qH0UrZirQJKbpkZbEHbgnviI/Ofgcz
- r/JM5aabKRAo0E3+3p8vFLgZsmJLFd2rVbQRIcNBKb562GDDNBhnIqCYGDgdvpiioJWv
- JX2H+omK2bI4w0bBcz/+BZAPTfUiK7FBn4P4NE+HoqONmV2gg6pvFayuBsktFrmTLNtj
- xE6egQMIcjgFGaEjOMVQtgOkx6Ioo7IuGw8rgCq/VIBzsGVv4gyrQNhhq7wlLnZtHGAX
- 1mAQ==
-X-Gm-Message-State: AC+VfDyacv3Zrbq74jtGQyFFcdCwFyC60rU0eyTS+GivswekVLsBhkJT
- uc+my7F84LfPyhPGfgp6faa6iG7GrNvOQAqvY5au4N42
-X-Google-Smtp-Source: ACHHUZ4KSAMKrpB7g3tdha8+8kCikJkc+x2QDoGbrD2V+fMbOCekB2puciNwrRCx5znIv93cIN0qfUOUl0POUWAqZmE=
-X-Received: by 2002:a05:6871:809:b0:192:6deb:f704 with SMTP id
- q9-20020a056871080900b001926debf704mr3329406oap.18.1683312730700; Fri, 05 May
- 2023 11:52:10 -0700 (PDT)
+ bh=9VTfSz0yyeWdPF85h+AGQ/vGWi6fRSpfJvLR0EPjDWQ=;
+ b=Q1G5IM2gqq9mNJoL/04GBdoos83fCFCWEBkY+Jceq0Zpf69oVQhZuM+ow1m69cOUbW
+ 9tmVPdyHsSCgpuiLW0ogji+7wmSN5TftaNflxdg5umEDGwVBUiIXW04WMyCS3koTWuwo
+ x37VuIZbfUyV1dfWNSsQtm4Aoo3+lsUTffvw1NbDL/jxzA3YLXee6tLsO9KphD8xRvKe
+ c0oNws0O+2AYpMv5dxZFOnfocVJeYwV7+FFkoBG+i9LTJkLy8PvHCOKgEW9nNxFnU7Te
+ SdywNzpI0WsAxfMt0/dJFhEKMShgDFQcYQ2JN4FS+MUxPcinaDo5riGUqab+FSHxxlHq
+ DFiw==
+X-Gm-Message-State: AC+VfDy5A5eKwMiTbC8if4be8Zs5onA4175M/Rp6BJaG6BJTDg2HedEI
+ 1TyID0hzkTAHTmgyOkizpLY=
+X-Google-Smtp-Source: ACHHUZ4bkyJhNlajHLHjulTevnzyI8SPsU3iBUFjjRbWKMZ5Oh2cdTySHlBCCO1k0lGiFMNc3urMIg==
+X-Received: by 2002:a05:6a00:298e:b0:63c:b3be:9784 with SMTP id
+ cj14-20020a056a00298e00b0063cb3be9784mr7723066pfb.3.1683316260908; 
+ Fri, 05 May 2023 12:51:00 -0700 (PDT)
+Received: from localhost
+ (2603-800c-1a02-1bae-a7fa-157f-969a-4cde.res6.spectrum.com.
+ [2603:800c:1a02:1bae:a7fa:157f:969a:4cde])
+ by smtp.gmail.com with ESMTPSA id
+ c13-20020aa7880d000000b0063d2bb0d10asm1965319pfo.113.2023.05.05.12.51.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 05 May 2023 12:51:00 -0700 (PDT)
+Date: Fri, 5 May 2023 09:50:59 -1000
+From: Tejun Heo <tj@kernel.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Subject: Re: [RFC PATCH 0/4]  Add support for DRM cgroup memory accounting.
+Message-ID: <ZFVeI2DKQXddKDNl@slm.duckdns.org>
+References: <20230503083500.645848-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-References: <20230505073731.5348-1-jiapeng.chong@linux.alibaba.com>
-In-Reply-To: <20230505073731.5348-1-jiapeng.chong@linux.alibaba.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 5 May 2023 14:51:59 -0400
-Message-ID: <CADnq5_OoAwf1-+2BaTPt8y_RJLbzTTZ+D7=tpeQx-Mf9XGgvAg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: remove unneeded semicolon
-To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230503083500.645848-1-maarten.lankhorst@linux.intel.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,46 +73,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Xinhui.Pan@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
+Cc: Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- christian.koenig@amd.com
+ amd-gfx@lists.freedesktop.org, Zefan Li <lizefan.x@bytedance.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, cgroups@vger.kernel.org,
+ David Airlie <airlied@gmail.com>, intel-xe@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Hello,
 
-Alex
+On Wed, May 03, 2023 at 10:34:56AM +0200, Maarten Lankhorst wrote:
+> RFC as I'm looking for comments.
+> 
+> For long running compute, it can be beneficial to partition the GPU memory
+> between cgroups, so each cgroup can use its maximum amount of memory without
+> interfering with other scheduled jobs. Done properly, this can alleviate the
+> need for eviction, which might result in a job being terminated if the GPU
+> doesn't support mid-thread preemption or recoverable page faults.
+> 
+> This is done by adding a bunch of knobs to cgroup:
+> drm.capacity: Shows maximum capacity of each resource region.
+> drm.max: Display or limit max amount of memory.
+> drm.current: Current amount of memory in use.
+> 
+> TTM has not been made cgroup aware yet, so instead of evicting from
+> the current cgroup to stay within the cgroup limits, it simply returns
+> the error -ENOSPC to userspace.
+> 
+> I've used Tvrtko's cgroup controller series as a base, but it implemented
+> scheduling weight, not memory accounting, so I only ended up keeping the
+> base patch.
+> 
+> Xe is not upstream yet, so the driver specific patch will only apply on
+> https://gitlab.freedesktop.org/drm/xe/kernel
 
-On Fri, May 5, 2023 at 3:43=E2=80=AFAM Jiapeng Chong
-<jiapeng.chong@linux.alibaba.com> wrote:
->
-> No functional modification involved.
->
-> ./drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c:146:2-3: Unneeded semicolon.
->
-> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=3D4871
-> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c b/drivers/gpu/drm/amd=
-/amdgpu/nbio_v7_9.c
-> index 24d12075ca3a..a331a59c49e3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-> @@ -143,7 +143,7 @@ static void nbio_v7_9_sdma_doorbell_range(struct amdg=
-pu_device *adev, int instan
->                 break;
->         default:
->                 break;
-> -       };
-> +       }
->
->         return;
->  }
-> --
-> 2.20.1.7.g153144c
->
+Some high-level feedbacks.
+
+* There have been multiple attempts at this but the track record is kinda
+  poor. People don't seem to agree what should constitute DRM memory and how
+  they should be accounted / controlled.
+
+* I like Tvrtko's scheduling patchset because it exposes a generic interface
+  which makes sense regardless of hardware details and then each driver can
+  implement the configured control in whatever way they can. However, even
+  for that, there doesn't seem much buy-in from other drivers.
+
+* This proposal seems narrowly scoped trying to solve a specific problem
+  which may not translate to different hardware configurations. Please let
+  me know if I got that wrong, but if that's the case, I think a better and
+  easier approach might be just being a part of the misc controller. That
+  doesn't require much extra code and should be able to provide everything
+  necessary for statically limiting specific resources.
+
+Thanks.
+
+-- 
+tejun
