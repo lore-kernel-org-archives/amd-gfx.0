@@ -4,60 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43241C77B75
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 May 2023 18:43:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2317C77B75
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 May 2023 18:52:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B9A310E07F;
-	Fri,  5 May 2023 18:43:54 +0000 (UTC)
-Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
- [IPv6:2607:f8b0:4864:20::332])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A592510E07F;
- Fri,  5 May 2023 18:43:51 +0000 (UTC)
-Received: by mail-ot1-x332.google.com with SMTP id
- 46e09a7af769-6a981550a5bso823366a34.3; 
- Fri, 05 May 2023 11:43:51 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D40EB10E65D;
+	Fri,  5 May 2023 18:52:33 +0000 (UTC)
+Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
+ [IPv6:2001:4860:4864:20::36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0C4110E65B;
+ Fri,  5 May 2023 18:52:31 +0000 (UTC)
+Received: by mail-oa1-x36.google.com with SMTP id
+ 586e51a60fabf-1929818d7faso19366758fac.0; 
+ Fri, 05 May 2023 11:52:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1683312230; x=1685904230;
+ d=gmail.com; s=20221208; t=1683312751; x=1685904751;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=v4pdblOCKvKljvd3lXygquACLsd/IRc8PSSb+NugNm4=;
- b=dtGMDmpQZB7SRB5s+WIyYisoEeoycbf5CnNbQJWztU8WhxxcWc5bk7wGfk5KFpnTjw
- lMpJ+FCsFCuLhVFVCAL5rVgzTfNosUyDMKXkA9i3gDCLUwD5n8JfUNKvQQg215KrLZn9
- n92CzLCHf01nnhiT8CwlAv6vHZMO+Deb0FZNCgQO9QdM99e+fKJ4S2ZnTRxPDD+krraO
- LWzjJqjIk7F4xVrDUdhCf5yNlcFTf45Na0B/1xanpvMYXSoU4sGA4bKrejQuSy15eMay
- 1OvT8qf2xePKI5h91QEbjhZFMGwbiWVQsus0LVHsl76izfUyrMMIyywbBVf0VcviLVhV
- dxOA==
+ bh=dQlh7hwy8Rr71ndzr8IXQ2O4Z+8GiQ3wjDKifhmGZKk=;
+ b=E8J9EkJmCdiaIbLv9WeS4FyBHdjAGW1ivVH922O6IG/KHQ+GWABODvcLsbrsOjlX+8
+ jmz8FucV+1MjreVT7ePMPY4TPRmFVSUMdil40ELN5pFNuKGcOPMGfmylPneeSXFMgGlJ
+ Sc0MqwKXM6O2gt7cuKfeCzJF8rgxG/o5MHjaWql39tLUC76hdIl3ixhJJcegbXJsMBPr
+ MqhTHdbTiFZ/bDFYcI5avxssz1+OREpwhkUzsw3YXZo83yCikWNWKoyGQ2NCOENdvxNk
+ wHOuj2/TLQOu1ujieikwh2oMlaCisM5kXuce7/4NcgaucFclyfLV49abP5f5fg5sK1e2
+ wBIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683312230; x=1685904230;
+ d=1e100.net; s=20221208; t=1683312751; x=1685904751;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=v4pdblOCKvKljvd3lXygquACLsd/IRc8PSSb+NugNm4=;
- b=Jhm4jRdiX7YoOaPH6H5OctihgIE6sSyhtBc5hFciu/ahsooeYKH+T7TbgxWpB4GNFm
- lGvBbsg8atBsqvkt6v3h59YiVJ7WOsI49U8g2fNYv4igUPobTCq50VRPHhaE17AahvFC
- m1pHXy4c+p89ijXi4bHg706wdPWoj1OfyFCOY/sioQ3sjJoU0n5TzjSwIN0cYPZFvp54
- 006x4dB2B5nDbtS0qE/rlb7l0Hrn7hCLnAyTsy5VP3ZuDpq9WO8cH5Sdt0HCVvVnldeu
- xnzm7/fBu/Yihu1QgOZATVHNH/+cNzgca7L+XiPiZiTfjaPYad4ZrmE30bNPI6uN/6iq
- 2VrA==
-X-Gm-Message-State: AC+VfDwD2nCpS/6Zq+KzQHzHNI5Jcils/EiS1/zoYiaLHVVSRcIZgVcW
- OpbuFAI+aoMxQ29ut8ujFOji8nE52U3JiuFhPO4=
-X-Google-Smtp-Source: ACHHUZ6OEsPLmLXH+0imumMZMd/9cYH7numkoemynqIkDrGNQbO1s4IhcThFhobrH1P+ewfUAEHyKvvD2+O9XQNSrT0=
-X-Received: by 2002:a05:6808:150:b0:387:2833:619f with SMTP id
- h16-20020a056808015000b003872833619fmr999985oie.15.1683312230136; Fri, 05 May
- 2023 11:43:50 -0700 (PDT)
+ bh=dQlh7hwy8Rr71ndzr8IXQ2O4Z+8GiQ3wjDKifhmGZKk=;
+ b=Ky+mY1Htq2mMpB52CM/ZCY69zak06In1BunTBmdu22j99Ia8RKtKCgMjLzZ70Nhy7L
+ 7I+ybBHnmT+imS15fLYC4Oh4As9PU3a3uG8os8qH0UrZirQJKbpkZbEHbgnviI/Ofgcz
+ r/JM5aabKRAo0E3+3p8vFLgZsmJLFd2rVbQRIcNBKb562GDDNBhnIqCYGDgdvpiioJWv
+ JX2H+omK2bI4w0bBcz/+BZAPTfUiK7FBn4P4NE+HoqONmV2gg6pvFayuBsktFrmTLNtj
+ xE6egQMIcjgFGaEjOMVQtgOkx6Ioo7IuGw8rgCq/VIBzsGVv4gyrQNhhq7wlLnZtHGAX
+ 1mAQ==
+X-Gm-Message-State: AC+VfDyacv3Zrbq74jtGQyFFcdCwFyC60rU0eyTS+GivswekVLsBhkJT
+ uc+my7F84LfPyhPGfgp6faa6iG7GrNvOQAqvY5au4N42
+X-Google-Smtp-Source: ACHHUZ4KSAMKrpB7g3tdha8+8kCikJkc+x2QDoGbrD2V+fMbOCekB2puciNwrRCx5znIv93cIN0qfUOUl0POUWAqZmE=
+X-Received: by 2002:a05:6871:809:b0:192:6deb:f704 with SMTP id
+ q9-20020a056871080900b001926debf704mr3329406oap.18.1683312730700; Fri, 05 May
+ 2023 11:52:10 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230505113233.3813801-1-chenhuacai@loongson.cn>
- <c4146636-2321-b271-b480-b8693169c119@amd.com>
- <70129238-a589-1d70-a7f2-50a35b4ee897@xen0n.name>
- <CADnq5_N+G5M6OkT-exM_Bot7OXPopVax5hyLERoTRb70ns8v0w@mail.gmail.com>
- <fcdd2774-f8ab-9e5d-6274-d9d326cb6fbb@xen0n.name>
-In-Reply-To: <fcdd2774-f8ab-9e5d-6274-d9d326cb6fbb@xen0n.name>
+References: <20230505073731.5348-1-jiapeng.chong@linux.alibaba.com>
+In-Reply-To: <20230505073731.5348-1-jiapeng.chong@linux.alibaba.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 5 May 2023 14:43:38 -0400
-Message-ID: <CADnq5_Myf7EJrBOswenvEF7ANjj0LP2Yva4ZAGpUyW4GJLE=3w@mail.gmail.com>
-Subject: Re: [PATCH V2] drm/amdgpu/display: Enable DC_FP for LoongArch
-To: WANG Xuerui <kernel@xen0n.name>
+Date: Fri, 5 May 2023 14:51:59 -0400
+Message-ID: <CADnq5_OoAwf1-+2BaTPt8y_RJLbzTTZ+D7=tpeQx-Mf9XGgvAg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: remove unneeded semicolon
+To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -71,57 +67,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pan@freedesktop.org, David Airlie <airlied@linux.ie>,
- dri-devel@lists.freedesktop.org, Xinhui <Xinhui.Pan@amd.com>,
- amd-gfx@lists.freedesktop.org, loongson-kernel@lists.loongnix.cn,
- Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Xuefeng Li <lixuefeng@loongson.cn>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Huacai Chen <chenhuacai@loongson.cn>
+Cc: Xinhui.Pan@amd.com, Abaci Robot <abaci@linux.alibaba.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 5, 2023 at 2:39=E2=80=AFPM WANG Xuerui <kernel@xen0n.name> wrot=
-e:
->
-> On 5/6/23 02:00, Alex Deucher wrote:
-> > On Fri, May 5, 2023 at 1:57=E2=80=AFPM WANG Xuerui <kernel@xen0n.name> =
-wrote:
-> >> <snip>
-> >> On a side note, I had to modprobe amdgpu with runpm=3D0, otherwise my
-> >> dmesg gets flooded with PSP getting resumed every 8~10 seconds or so. =
-I
-> >> currently have none of the connectors plugged in. I didn't notice any
-> >> similar reports on the Internet so I don't know if it's due to platfor=
-m
-> >> quirks or not.
-> > That might just be part of the normal suspend/resume process.  If it
-> > happens at regular intervals, it sounds like something is waking the
-> > GPU at a regular interval.  We should probably remove that message to
-> > avoid it being too chatty, but you may want to check what is waking it
-> > so much as doing so sort of negates the value of runtime power
-> > management.
->
-> Ah. This is extremely helpful as I'm immediately able to confirm it's
-> node_exporter trying to access the hwmon readings (I have a monitoring
-> infra for all my devboxes). Every sufficiently spaced read from say
-> temp1_input wakes up the GPU. Not many people have their boxes working
-> like this I guess... but at least we could probably reduce the log spam
-> a bit if it's not feasible to get GPU metrics while avoiding to resume
-> it? (Currently it's 25 lines per resume, mostly SMU resume logs and ring
-
-Well, there are no metrics to pull because the GPU is powered down
-when in runtime suspend.
+Applied.  Thanks!
 
 Alex
 
-> info.)
+On Fri, May 5, 2023 at 3:43=E2=80=AFAM Jiapeng Chong
+<jiapeng.chong@linux.alibaba.com> wrote:
 >
-> And of course this is not a big deal, I can always work around it
-> locally. Thanks for the hint again.
+> No functional modification involved.
 >
+> ./drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c:146:2-3: Unneeded semicolon.
+>
+> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+> Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=3D4871
+> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c b/drivers/gpu/drm/amd=
+/amdgpu/nbio_v7_9.c
+> index 24d12075ca3a..a331a59c49e3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
+> @@ -143,7 +143,7 @@ static void nbio_v7_9_sdma_doorbell_range(struct amdg=
+pu_device *adev, int instan
+>                 break;
+>         default:
+>                 break;
+> -       };
+> +       }
+>
+>         return;
+>  }
 > --
-> WANG "xen0n" Xuerui
->
-> Linux/LoongArch mailing list: https://lore.kernel.org/loongarch/
+> 2.20.1.7.g153144c
 >
