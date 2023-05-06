@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E23DC77B75
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 May 2023 13:14:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48A51C7EE2C
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 May 2023 13:14:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7AC210E289;
-	Mon,  8 May 2023 13:14:33 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 316EF10E123;
- Mon,  8 May 2023 06:46:05 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D44210E28D;
+	Mon,  8 May 2023 13:14:34 +0000 (UTC)
+Received: from mailbox.box.xen0n.name (mail.xen0n.name [115.28.160.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FE3B10E06C;
+ Sat,  6 May 2023 14:15:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=xen0n.name; s=mail;
+ t=1683382500; bh=Sk09wyQy5/FQtij63zDaOgIadfEpa+myOBVzxsk5bmM=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=CpLYV/T4z4PgUQ9VcG/QpNyjw7V9VB15VBlKEOfRxi7e8a0IVhEHDwSCg3/PhvlGZ
+ bK7k6BlI5IWeh+cIPkTA9oI5Yu8/XwYI+7MkRORXB5j5Ql4YsehYZj1KST05GGht5b
+ 0dcaryZDyjadD9JCk9ZHPQ6zqLTHvWaFNTxvhnSg=
+Received: from [100.100.33.167] (unknown [220.248.53.61])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 1957861F20;
- Mon,  8 May 2023 06:46:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C95DC433EF;
- Mon,  8 May 2023 06:46:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1683528363;
- bh=4kJuHiKvil1lM32oKHLaU29Oj9tb02eWzRjkbqti0CM=;
- h=Subject:To:Cc:From:Date:From;
- b=zC21WlN91KBZTO0DSOx+YO1wLp/x+/ILYWrd0PCbezoayOa08Yr0iO7HE7wSUTVE+
- iR+jGS+nboSCwENDX8bmPsYf2HtEOYQX/vveOQaoqlXMLdgE7bYqpD6eyHHMFoEfKD
- AU8pz8weGbCF3coQZIFW38b0weJpOV61ZiAX58Xg=
-Subject: Patch "drm/amd/display (gcc13): fix enum mismatch" has been added to
- the 6.1-stable tree
-To: Rodrigo.Siqueira@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, daniel@ffwll.ch, dri-devel@lists.freedesktop.org,
- gregkh@linuxfoundation.org, harry.wentland@amd.com, jirislaby@kernel.org,
- mliska@suse.cz, sunpeng.li@amd.com
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 08 May 2023 08:46:00 +0200
-Message-ID: <2023050800-leggings-pointed-d172@gregkh>
+ by mailbox.box.xen0n.name (Postfix) with ESMTPSA id 5309760106;
+ Sat,  6 May 2023 22:15:00 +0800 (CST)
+Message-ID: <e6da1c1d-8c4a-920f-07a9-86679d579500@xen0n.name>
+Date: Sat, 6 May 2023 22:14:59 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.10.1
+Subject: Re: [PATCH V2] drm/amdgpu/display: Enable DC_FP for LoongArch
+Content-Language: en-US
+To: Huacai Chen <chenhuacai@loongson.cn>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Xinhui <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>
+References: <20230505113233.3813801-1-chenhuacai@loongson.cn>
+From: WANG Xuerui <kernel@xen0n.name>
+In-Reply-To: <20230505113233.3813801-1-chenhuacai@loongson.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 08 May 2023 13:14:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,97 +53,127 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable-commits@vger.kernel.org
+Cc: loongson-kernel@lists.loongnix.cn, Xuefeng Li <lixuefeng@loongson.cn>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 2023/5/5 19:32, Huacai Chen wrote:
+> Now LoongArch provides kernel_fpu_begin() and kernel_fpu_end() in commit
+> 2b3bd32ea3a22ea2d ("LoongArch: Provide kernel fpu functions"), so we can
+> enable DC_FP for DCN devices.
 
-This is a note to let you know that I've just added the patch titled
+Some grammatical fixes and paraphrasing:
 
-    drm/amd/display (gcc13): fix enum mismatch
+"LoongArch now provides kernel_fpu_{begin,end} that are used like the 
+x86 counterparts in commit 2b3bd32ea3a22ea2d ("LoongArch: Provide kernel 
+fpu functions"), so we can now implement DRM_AMD_DC_FP on LoongArch for 
+supporting more DCN devices."
 
-to the 6.1-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+> 
+> Signed-off-by: WANG Xuerui <kernel@xen0n.name>
+> Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
 
-The filename of the patch is:
-     drm-amd-display-gcc13-fix-enum-mismatch.patch
-and it can be found in the queue-6.1 subdirectory.
+I just finished my tests according to the link above and all seems fine.
 
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
+* Board: A2101 (Loongson 3A5000 with LS7A1000 bridge)
+   - with the firmware provided at [1]
+* GPU: RX 6400 (PowerColor ITX RX6400 4GB GDDR6)
+* Display: Dell P2317H (connected via DisplayPort)
+* Kernel: next-20230505 with this patch (with the conflict resolved)
+* Sysroot: up-to-date Gentoo/LoongArch
 
+I've tested:
 
-From 545094d993f4639482018becda5f2a47d126f0ab Mon Sep 17 00:00:00 2001
-From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
-Date: Mon, 31 Oct 2022 12:42:47 +0100
-Subject: drm/amd/display (gcc13): fix enum mismatch
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+* Desktop sessions: Xfce4, Plasma Wayland
+* Hot-plugging
+   - at tty, at sddm, inside Plasma Wayland session, multiple times each
+* Changing resolutions
+* kms_flip tests: every non-skipped case passed (I can't test 
+dual-monitor right now)
 
-From: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+[1]: https://github.com/loongson/Firmware/tree/main/5000Series/PC/A2101
 
-commit 545094d993f4639482018becda5f2a47d126f0ab upstream.
+Hence it's:
 
-rn_vbios_smu_set_dcn_low_power_state() produces a valid warning with
-gcc-13:
-  drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.c:237:6: error: conflicting types for 'rn_vbios_smu_set_dcn_low_power_state' due to enum/integer mismatch; have 'void(struct clk_mgr_internal *, enum dcn_pwr_state)'
-  drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.h:36:6: note: previous declaration of 'rn_vbios_smu_set_dcn_low_power_state' with type 'void(struct clk_mgr_internal *, int)'
+Tested-by: WANG Xuerui <kernel@xen0n.name>
 
-I.e. the type of the 2nd parameter of
-rn_vbios_smu_set_dcn_low_power_state() in the declaration is int, while
-the definition spells enum dcn_pwr_state. Synchronize them to the
-latter (and add a forward enum declaration).
+> ---
+> V2: Update commit message to add the commit which provides kernel fpu
+>      functions.
+> 
+>   drivers/gpu/drm/amd/display/Kconfig            | 2 +-
+>   drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c | 6 ++++--
+>   drivers/gpu/drm/amd/display/dc/dml/Makefile    | 5 +++++
+>   3 files changed, 10 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
+> index 2d8e55e29637..49df073962d5 100644
+> --- a/drivers/gpu/drm/amd/display/Kconfig
+> +++ b/drivers/gpu/drm/amd/display/Kconfig
+> @@ -8,7 +8,7 @@ config DRM_AMD_DC
+>   	depends on BROKEN || !CC_IS_CLANG || X86_64 || SPARC64 || ARM64
+>   	select SND_HDA_COMPONENT if SND_HDA_CORE
+>   	# !CC_IS_CLANG: https://github.com/ClangBuiltLinux/linux/issues/1752
+> -	select DRM_AMD_DC_FP if (X86 || (PPC64 && ALTIVEC) || (ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG))
+> +	select DRM_AMD_DC_FP if (X86 || LOONGARCH || (PPC64 && ALTIVEC) || (ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG))
+>   	help
+>   	  Choose this option if you want to use the new display engine
+>   	  support for AMDGPU. This adds required support for Vega and
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+> index 1743ca0a3641..86f4c0e04654 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+> @@ -33,6 +33,8 @@
+>   #include <asm/cputable.h>
+>   #elif defined(CONFIG_ARM64)
+>   #include <asm/neon.h>
+> +#elif defined(CONFIG_LOONGARCH)
+> +#include <asm/fpu.h>
+>   #endif
+>   
+>   /**
+> @@ -88,7 +90,7 @@ void dc_fpu_begin(const char *function_name, const int line)
+>   	*pcpu += 1;
+>   
+>   	if (*pcpu == 1) {
+> -#if defined(CONFIG_X86)
+> +#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
+>   		kernel_fpu_begin();
 
-Cc: Martin Liska <mliska@suse.cz>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.h |    4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+And with the conflict here with linux-next resolved then we may be good 
+to go.
 
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.h
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.h
-@@ -26,6 +26,8 @@
- #ifndef DAL_DC_RN_CLK_MGR_VBIOS_SMU_H_
- #define DAL_DC_RN_CLK_MGR_VBIOS_SMU_H_
- 
-+enum dcn_pwr_state;
-+
- int rn_vbios_smu_get_smu_version(struct clk_mgr_internal *clk_mgr);
- int rn_vbios_smu_set_dispclk(struct clk_mgr_internal *clk_mgr, int requested_dispclk_khz);
- int rn_vbios_smu_set_dprefclk(struct clk_mgr_internal *clk_mgr);
-@@ -33,7 +35,7 @@ int rn_vbios_smu_set_hard_min_dcfclk(str
- int rn_vbios_smu_set_min_deep_sleep_dcfclk(struct clk_mgr_internal *clk_mgr, int requested_min_ds_dcfclk_khz);
- void rn_vbios_smu_set_phyclk(struct clk_mgr_internal *clk_mgr, int requested_phyclk_khz);
- int rn_vbios_smu_set_dppclk(struct clk_mgr_internal *clk_mgr, int requested_dpp_khz);
--void rn_vbios_smu_set_dcn_low_power_state(struct clk_mgr_internal *clk_mgr, int display_count);
-+void rn_vbios_smu_set_dcn_low_power_state(struct clk_mgr_internal *clk_mgr, enum dcn_pwr_state);
- void rn_vbios_smu_enable_48mhz_tmdp_refclk_pwrdwn(struct clk_mgr_internal *clk_mgr, bool enable);
- void rn_vbios_smu_enable_pme_wa(struct clk_mgr_internal *clk_mgr);
- int rn_vbios_smu_is_periodic_retraining_disabled(struct clk_mgr_internal *clk_mgr);
+>   #elif defined(CONFIG_PPC64)
+>   		if (cpu_has_feature(CPU_FTR_VSX_COMP)) {
+> @@ -127,7 +129,7 @@ void dc_fpu_end(const char *function_name, const int line)
+>   	pcpu = get_cpu_ptr(&fpu_recursion_depth);
+>   	*pcpu -= 1;
+>   	if (*pcpu <= 0) {
+> -#if defined(CONFIG_X86)
+> +#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
+>   		kernel_fpu_end();
+>   #elif defined(CONFIG_PPC64)
+>   		if (cpu_has_feature(CPU_FTR_VSX_COMP)) {
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> index 01db035589c5..542962a93e8f 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> @@ -38,6 +38,11 @@ ifdef CONFIG_ARM64
+>   dml_rcflags := -mgeneral-regs-only
+>   endif
+>   
+> +ifdef CONFIG_LOONGARCH
+> +dml_ccflags := -mfpu=64
+> +dml_rcflags := -msoft-float
+> +endif
+> +
+>   ifdef CONFIG_CC_IS_GCC
+>   ifneq ($(call gcc-min-version, 70100),y)
+>   IS_OLD_GCC = 1
 
+-- 
+WANG "xen0n" Xuerui
 
-Patches currently in stable-queue which might be from jirislaby@kernel.org are
+Linux/LoongArch mailing list: https://lore.kernel.org/loongarch/
 
-queue-6.1/linux-vt_buffer.h-allow-either-builtin-or-modular-fo.patch
-queue-6.1/net-wwan-t7xx-do-not-compile-with-werror.patch
-queue-6.1/bonding-gcc13-synchronize-bond_-a-t-lb_xmit-types.patch
-queue-6.1/drm-amd-display-gcc13-fix-enum-mismatch.patch
-queue-6.1/wifi-ath11k-synchronize-ath11k_mac_he_gi_to_nl80211_he_gi-s-return-type.patch
-queue-6.1/thunderbolt-use-correct-type-in-tb_port_is_clx_enabled-prototype.patch
-queue-6.1/sfc-gcc13-synchronize-ef100_enqueue_skb-s-return-type.patch
-queue-6.1/block-blk-iocost-gcc13-keep-large-values-in-a-new-enum.patch
-queue-6.1/wireguard-timers-cast-enum-limits-members-to-int-in-prints.patch
