@@ -4,92 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21E69C7EE22
-	for <amd-gfx@archiver.kernel.org>; Sat,  6 May 2023 09:04:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 830D4C77B75
+	for <amd-gfx@archiver.kernel.org>; Sat,  6 May 2023 09:44:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8015610E209;
-	Sat,  6 May 2023 09:04:05 +0000 (UTC)
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on20625.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8c::625])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E465410E209
- for <amd-gfx@lists.freedesktop.org>; Sat,  6 May 2023 09:04:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lGHadGfopZK7LzrreUOSZuNbDAMuAMV79TKB/0mpS9zJuZRy2NRzTWB9BPYAjlsM2FRtKJePDQhoroj5RXKCIP3wi/z4pI6AF4hlwGENfC6ITrtO4wfcbrvifWDbaMdhGFsuURu71y3WDXJLhtAgNo4WLPGn5NNYMiLJEy7f82mKM0B6aikJDxJ85rIzVOaK5wpe/6yxqc9dmf97VVMXHWdBHooDXXeMmt2xqgRm8LrqZfGUsUgQKIxC7bbT/QjU8ZOoL8lFZE6H5VNl7oWLfBQFYzmmqHwoj6KRfzyl0ulGlYW3BvDmOKEkQ6Gy6CuktsrCS1/Iw2nu4bh3/V6Sfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DODiyF2in30heVgZU6iB8STUr3QnkHibB+VCDu7NxTk=;
- b=JNWix4IXYBWSjYxdPp5n7PToQxCVtI1zi0o0fjf0ZlgRHKqxX9QBDzuaz98+p8FEmOZj0qEsioGok5v4BDy7AUq0TeqdMi2eMRyL5TXQrP4HIgOI46NaIHsooZJv0pFGgMHj9lardK9ar3LK+MUlL/zYXJF/8UTb6LSOl3QfyKmy72N4BefGbMYKe6TYYQ/gpOnCFgWj3bBfFa/k7MrmtFCFGX2U5mz35MaE+n+WTJ33+AJdBEBKC7/hri+noxth2e4cboyFMxCEEJU5UT2gECDVjhPPzCJ0hqWCAh+e1oRPoECx7Pwalb4D+70rNXCtEQ89F2+frcWOUGHiRtYmDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DODiyF2in30heVgZU6iB8STUr3QnkHibB+VCDu7NxTk=;
- b=HkD1bsdI94Ndk3bcJ8nr1vRQ4pmEYidQX0EByCnQpoASoNkv3vDQoTDXzKlSbcDOrRpa9Lfy3AQFt2sxSuEC2YYnWkqu4Bvs1zldy4yLbInufOTFkrhKiBeOOSr46eA1HC1Qmml2aeAwVfH/n1yKc34AE9FI+HdN8nj+qllVtvE=
-Received: from MW4PR03CA0172.namprd03.prod.outlook.com (2603:10b6:303:8d::27)
- by SA0PR12MB4416.namprd12.prod.outlook.com (2603:10b6:806:99::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.27; Sat, 6 May
- 2023 09:03:59 +0000
-Received: from CO1NAM11FT055.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8d:cafe::41) by MW4PR03CA0172.outlook.office365.com
- (2603:10b6:303:8d::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.29 via Frontend
- Transport; Sat, 6 May 2023 09:03:59 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT055.mail.protection.outlook.com (10.13.175.129) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6363.29 via Frontend Transport; Sat, 6 May 2023 09:03:58 +0000
-Received: from guchchen-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.34; Sat, 6 May 2023 04:03:56 -0500
-From: Guchun Chen <guchun.chen@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>,
- <hawking.zhang@amd.com>, <lijo.lazar@amd.com>, <Tao.Zhou1@amd.com>,
- <christian.koenig@amd.com>
-Subject: [PATCH] drm/amdgpu: disable sdma ecc irq only when sdma RAS is
- enabled in suspend
-Date: Sat, 6 May 2023 17:03:36 +0800
-Message-ID: <20230506090336.1879435-1-guchun.chen@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 381B410E21E;
+	Sat,  6 May 2023 09:44:14 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B9C810E21E;
+ Sat,  6 May 2023 09:44:12 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D734B617DA;
+ Sat,  6 May 2023 09:44:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48BE8C433EF;
+ Sat,  6 May 2023 09:44:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1683366251;
+ bh=s0+RfNWr+TLp1ad23c3839ZRXIqxy+rpgj2HhTOrNlg=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=hM42AUku2J94Dz5WzmbfH0DMoirBiFdeFb0CbzWmfXp/sIBM+aC+7mPJJoR7T3/+/
+ /0iske3I904oqAzHPi3eRCuW1/6E+q40459KwNFXaC0hXptj3MDTNZoQJ1/ZMnW8iz
+ 8trSD73Yfh6OUcDslY414qxh86UMJv0SyBofOBzLwEcMEfbhG/AZYavbxaNOBFMvnv
+ H+abpLFQn2VpzWsIxQBjBJeDALnrKua3jLUdQQNdOgTvQXGOj7d/69+zTCo8MDIJB/
+ rD0tRcLTQ1aSpFgiQZqhXji968VktZGpLoL/WNtxlcy+ObcYCV+ZyN09L5Up12A+PN
+ mL1l9zg43K+Sw==
+Received: by mail-ej1-f50.google.com with SMTP id
+ a640c23a62f3a-94a342f7c4cso474795766b.0; 
+ Sat, 06 May 2023 02:44:11 -0700 (PDT)
+X-Gm-Message-State: AC+VfDydk4zYNPeo4jWUNvlHI5XynoLNsrdblxdY8z9QxKbVjrLbmwoq
+ JR0oZQkSuNMxV7ih/QPhL6alVGoPPetOBSxeInM=
+X-Google-Smtp-Source: ACHHUZ54iFv1HU2+WzijOjEnOykbKbagnNFBG2BYdzsg+mJ+vVUD1cIPC/thMIqtKN3t2phtiXNjr1CCPwDXGRrLEDE=
+X-Received: by 2002:a17:907:3686:b0:94f:2852:1d2b with SMTP id
+ bi6-20020a170907368600b0094f28521d2bmr2879598ejc.72.1683366249473; Sat, 06
+ May 2023 02:44:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT055:EE_|SA0PR12MB4416:EE_
-X-MS-Office365-Filtering-Correlation-Id: 595e6498-2b14-49fe-a6e8-08db4e10d442
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: biaUxWX5V2uVqI7BTYY+uv/8buE5AHuFqraNpPgWbBhmpfjV41QoTZWJXIUV9h0KLahy6weIt/QYoUW0JhTkaACWl6TRPIJE/DIOfHgkQ5GaAYkCNGvYdmxVHWOa0nR+gkkaYrgOFOfIX5rqMHgQKzh1IUeaybebjs1mCBao2V9c0/IG02dyvdIRHzpCYgYU5gr/Ba5a8hyIyiNvNgaVFZYmnb/noVhpbsn3hEG/i1ltCi5mRbVeZVgjkRcPb5Y0IokK4JLwwLU5LFafVITH/kWHewJoQzkJfLftRiXzEXNdIgA86RQr9vqD4LjjTtnufEUA3O3zV1wnCCZwesJc2xxyshmu3tBgubZqch8nKw7rgsa2yBr7up7WZ/s396v5jWsQOfyOG6u+0MnveZTosrW3egpHkXjHkQBAhg/nlnFb859TMpgfQqGKryWKxB7ldqS+oxvVwUtaQ4hvC+2Ar+eRVv/zM6A4/VORRFIed+Ft3conh2/MMv9YqygT0QRU8ziEVjibfeAxhj20J9cS8VZ0KdPa3+WtQCBo7gc5kLE6eVp7y1H8dvdNGPSPdTtkIrwlP5shaOmiNkC660bSulkHqq5VNOLb5Q3Tvkqff9d7o6oEh5t3AFhzRW3XXgYstcYn6b8sJie5fk/bWVfjer0LMNDBYBDOhQ0JsxBI8lPhREVLnF9kFdQFtNymyNwcHDPPy45KwInM1kCkqDNktQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(39860400002)(346002)(376002)(136003)(451199021)(36840700001)(40470700004)(46966006)(86362001)(36756003)(110136005)(316002)(6636002)(4326008)(70586007)(70206006)(7696005)(966005)(6666004)(478600001)(41300700001)(40480700001)(82740400003)(82310400005)(8676002)(8936002)(5660300002)(2906002)(15650500001)(44832011)(16526019)(356005)(81166007)(186003)(1076003)(2616005)(26005)(36860700001)(426003)(336012)(47076005)(83380400001)(40460700003)(36900700001)(2101003);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2023 09:03:58.8919 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 595e6498-2b14-49fe-a6e8-08db4e10d442
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT055.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4416
+References: <20230505113233.3813801-1-chenhuacai@loongson.cn>
+ <c4146636-2321-b271-b480-b8693169c119@amd.com>
+In-Reply-To: <c4146636-2321-b271-b480-b8693169c119@amd.com>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Sat, 6 May 2023 17:43:59 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H5jna_XN_b6yj7WrfcX-jMqXmg9wM_8TFPisXgqYyRH8Q@mail.gmail.com>
+Message-ID: <CAAhV-H5jna_XN_b6yj7WrfcX-jMqXmg9wM_8TFPisXgqYyRH8Q@mail.gmail.com>
+Subject: Re: [PATCH V2] drm/amdgpu/display: Enable DC_FP for LoongArch
+To: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,60 +61,122 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Guchun Chen <guchun.chen@amd.com>
+Cc: Pan@freedesktop.org, David Airlie <airlied@linux.ie>,
+ Xinhui <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org,
+ loongson-kernel@lists.loongnix.cn, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>, WANG Xuerui <kernel@xen0n.name>,
+ Xuefeng Li <lixuefeng@loongson.cn>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Huacai Chen <chenhuacai@loongson.cn>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-sdma_v4_0_ip is shared on a few asics, but in sdma_v4_0_hw_fini,
-driver unconditionally disables ecc_irq which is only enabled on
-those asics enabling sdma ecc. This will introduce a warning in
-suspend cycle on those chips with sdma ip v4.0, while without
-sdma ecc. So this patch correct this.
+Hi, Hamza,
 
-[ 7283.166354] RIP: 0010:amdgpu_irq_put+0x45/0x70 [amdgpu]
-[ 7283.167001] RSP: 0018:ffff9a5fc3967d08 EFLAGS: 00010246
-[ 7283.167019] RAX: ffff98d88afd3770 RBX: 0000000000000001 RCX: 0000000000000000
-[ 7283.167023] RDX: 0000000000000000 RSI: ffff98d89da30390 RDI: ffff98d89da20000
-[ 7283.167025] RBP: ffff98d89da20000 R08: 0000000000036838 R09: 0000000000000006
-[ 7283.167028] R10: ffffd5764243c008 R11: 0000000000000000 R12: ffff98d89da30390
-[ 7283.167030] R13: ffff98d89da38978 R14: ffffffff999ae15a R15: ffff98d880130105
-[ 7283.167032] FS:  0000000000000000(0000) GS:ffff98d996f00000(0000) knlGS:0000000000000000
-[ 7283.167036] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[ 7283.167039] CR2: 00000000f7a9d178 CR3: 00000001c42ea000 CR4: 00000000003506e0
-[ 7283.167041] Call Trace:
-[ 7283.167046]  <TASK>
-[ 7283.167048]  sdma_v4_0_hw_fini+0x38/0xa0 [amdgpu]
-[ 7283.167704]  amdgpu_device_ip_suspend_phase2+0x101/0x1a0 [amdgpu]
-[ 7283.168296]  amdgpu_device_suspend+0x103/0x180 [amdgpu]
-[ 7283.168875]  amdgpu_pmops_freeze+0x21/0x60 [amdgpu]
-[ 7283.169464]  pci_pm_freeze+0x54/0xc0
+On Fri, May 5, 2023 at 9:37=E2=80=AFPM Hamza Mahfooz <hamza.mahfooz@amd.com=
+> wrote:
+>
+>
+> Hey Huacai,
+>
+> On 5/5/23 07:32, Huacai Chen wrote:
+> > Now LoongArch provides kernel_fpu_begin() and kernel_fpu_end() in commi=
+t
+> > 2b3bd32ea3a22ea2d ("LoongArch: Provide kernel fpu functions"), so we ca=
+n
+> > enable DC_FP for DCN devices.
+>
+> Have you had the chance to test how well this is working on actual
+> hardware, or was it only compile tested? If it was only compile tested,
+> it would be great if you could run some tests. Please see the following
+> for more details:
+> https://lore.kernel.org/amd-gfx/8eb69dfb-ae35-dbf2-3f82-e8cc00e5389a@amd.=
+com/
+I have tested hotplug, resolution changing and kms_flip in IGT, all of
+them works fine.
 
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2522
-
-Signed-off-by: Guchun Chen <guchun.chen@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-index b5affba22156..8b8ddf050266 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-@@ -1903,9 +1903,11 @@ static int sdma_v4_0_hw_fini(void *handle)
- 		return 0;
- 	}
- 
--	for (i = 0; i < adev->sdma.num_instances; i++) {
--		amdgpu_irq_put(adev, &adev->sdma.ecc_irq,
--			       AMDGPU_SDMA_IRQ_INSTANCE0 + i);
-+	if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__SDMA)) {
-+		for (i = 0; i < adev->sdma.num_instances; i++) {
-+			amdgpu_irq_put(adev, &adev->sdma.ecc_irq,
-+				       AMDGPU_SDMA_IRQ_INSTANCE0 + i);
-+		}
- 	}
- 
- 	sdma_v4_0_ctx_switch_enable(adev, false);
--- 
-2.25.1
-
+Huacai
+>
+> >
+> > Signed-off-by: WANG Xuerui <kernel@xen0n.name>
+> > Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+> > ---
+> > V2: Update commit message to add the commit which provides kernel fpu
+> >      functions.
+> >
+> >   drivers/gpu/drm/amd/display/Kconfig            | 2 +-
+> >   drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c | 6 ++++--
+> >   drivers/gpu/drm/amd/display/dc/dml/Makefile    | 5 +++++
+> >   3 files changed, 10 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/=
+display/Kconfig
+> > index 2d8e55e29637..49df073962d5 100644
+> > --- a/drivers/gpu/drm/amd/display/Kconfig
+> > +++ b/drivers/gpu/drm/amd/display/Kconfig
+> > @@ -8,7 +8,7 @@ config DRM_AMD_DC
+> >       depends on BROKEN || !CC_IS_CLANG || X86_64 || SPARC64 || ARM64
+> >       select SND_HDA_COMPONENT if SND_HDA_CORE
+> >       # !CC_IS_CLANG: https://github.com/ClangBuiltLinux/linux/issues/1=
+752
+> > -     select DRM_AMD_DC_FP if (X86 || (PPC64 && ALTIVEC) || (ARM64 && K=
+ERNEL_MODE_NEON && !CC_IS_CLANG))
+> > +     select DRM_AMD_DC_FP if (X86 || LOONGARCH || (PPC64 && ALTIVEC) |=
+| (ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG))
+> >       help
+> >         Choose this option if you want to use the new display engine
+> >         support for AMDGPU. This adds required support for Vega and
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/g=
+pu/drm/amd/display/amdgpu_dm/dc_fpu.c
+> > index 1743ca0a3641..86f4c0e04654 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
+> > @@ -33,6 +33,8 @@
+> >   #include <asm/cputable.h>
+> >   #elif defined(CONFIG_ARM64)
+> >   #include <asm/neon.h>
+> > +#elif defined(CONFIG_LOONGARCH)
+> > +#include <asm/fpu.h>
+> >   #endif
+> >
+> >   /**
+> > @@ -88,7 +90,7 @@ void dc_fpu_begin(const char *function_name, const in=
+t line)
+> >       *pcpu +=3D 1;
+> >
+> >       if (*pcpu =3D=3D 1) {
+> > -#if defined(CONFIG_X86)
+> > +#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
+> >               kernel_fpu_begin();
+> >   #elif defined(CONFIG_PPC64)
+> >               if (cpu_has_feature(CPU_FTR_VSX_COMP)) {
+> > @@ -127,7 +129,7 @@ void dc_fpu_end(const char *function_name, const in=
+t line)
+> >       pcpu =3D get_cpu_ptr(&fpu_recursion_depth);
+> >       *pcpu -=3D 1;
+> >       if (*pcpu <=3D 0) {
+> > -#if defined(CONFIG_X86)
+> > +#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
+> >               kernel_fpu_end();
+> >   #elif defined(CONFIG_PPC64)
+> >               if (cpu_has_feature(CPU_FTR_VSX_COMP)) {
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/=
+drm/amd/display/dc/dml/Makefile
+> > index 01db035589c5..542962a93e8f 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> > +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> > @@ -38,6 +38,11 @@ ifdef CONFIG_ARM64
+> >   dml_rcflags :=3D -mgeneral-regs-only
+> >   endif
+> >
+> > +ifdef CONFIG_LOONGARCH
+> > +dml_ccflags :=3D -mfpu=3D64
+> > +dml_rcflags :=3D -msoft-float
+> > +endif
+> > +
+> >   ifdef CONFIG_CC_IS_GCC
+> >   ifneq ($(call gcc-min-version, 70100),y)
+> >   IS_OLD_GCC =3D 1
+> --
+> Hamza
+>
