@@ -4,42 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55EE6C7EE26
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E23DC77B75
 	for <amd-gfx@archiver.kernel.org>; Mon,  8 May 2023 13:14:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F19A710E28B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7AC210E289;
 	Mon,  8 May 2023 13:14:33 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8852A10E1F3;
- Mon,  8 May 2023 10:27:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 316EF10E123;
+ Mon,  8 May 2023 06:46:05 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D9EBE6261D;
- Mon,  8 May 2023 10:27:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCF13C433D2;
- Mon,  8 May 2023 10:27:53 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1957861F20;
+ Mon,  8 May 2023 06:46:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C95DC433EF;
+ Mon,  8 May 2023 06:46:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1683541674;
- bh=U3AASTqeuFKaMjf51fir0o9dcPQyM3LFthotgOzvu8Y=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=c5BMRx5Mej+vT62oiTpIgGM9bNV+mka2PSa2STXRBjCOk+2xjlhcIJhcBz1qsgSIJ
- zoQQ63pI4H3dehpqSjDdkE6NBNInWAG2kvuvDWjfxNFzQNiixn6p76YPuwgkjBPhli
- LqUUtoNMa3prbgN4durSYmEDb96mOSAR/uEJuNnA=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Subject: [PATCH 6.2 190/663] drm/amd/display/dc/dce60/Makefile: Fix previous
- attempt to silence known override-init warnings
-Date: Mon,  8 May 2023 11:40:16 +0200
-Message-Id: <20230508094434.581372976@linuxfoundation.org>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230508094428.384831245@linuxfoundation.org>
-References: <20230508094428.384831245@linuxfoundation.org>
-User-Agent: quilt/0.67
+ s=korg; t=1683528363;
+ bh=4kJuHiKvil1lM32oKHLaU29Oj9tb02eWzRjkbqti0CM=;
+ h=Subject:To:Cc:From:Date:From;
+ b=zC21WlN91KBZTO0DSOx+YO1wLp/x+/ILYWrd0PCbezoayOa08Yr0iO7HE7wSUTVE+
+ iR+jGS+nboSCwENDX8bmPsYf2HtEOYQX/vveOQaoqlXMLdgE7bYqpD6eyHHMFoEfKD
+ AU8pz8weGbCF3coQZIFW38b0weJpOV61ZiAX58Xg=
+Subject: Patch "drm/amd/display (gcc13): fix enum mismatch" has been added to
+ the 6.1-stable tree
+To: Rodrigo.Siqueira@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com, daniel@ffwll.ch, dri-devel@lists.freedesktop.org,
+ gregkh@linuxfoundation.org, harry.wentland@amd.com, jirislaby@kernel.org,
+ mliska@suse.cz, sunpeng.li@amd.com
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 08 May 2023 08:46:00 +0200
+Message-ID: <2023050800-leggings-pointed-d172@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-Mailman-Approved-At: Mon, 08 May 2023 13:14:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -52,37 +54,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Lee Jones <lee@kernel.org>,
- Leo Li <sunpeng.li@amd.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Mauro Rossi <issor.oruam@gmail.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, patches@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>, Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: stable-commits@vger.kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Lee Jones <lee@kernel.org>
 
-[ Upstream commit 4082b9f5ead4966797dddcfef0905d59e5a83873 ]
+This is a note to let you know that I've just added the patch titled
 
-Fixes the following W=1 kernel build warning(s):
+    drm/amd/display (gcc13): fix enum mismatch
 
- drivers/gpu/drm/amd/amdgpu/../display/dc/dce60/dce60_resource.c:157:21: note: in expansion of macro ‘mmCRTC1_DCFE_MEM_LIGHT_SLEEP_CNTL’
- drivers/gpu/drm/amd/amdgpu/../display/dc/dce/dce_transform.h:170:9: note: in expansion of macro ‘SRI’
- drivers/gpu/drm/amd/amdgpu/../display/dc/dce60/dce60_resource.c:183:17: note: in expansion of macro ‘XFM_COMMON_REG_LIST_DCE60’
- drivers/gpu/drm/amd/amdgpu/../display/dc/dce60/dce60_resource.c:188:17: note: in expansion of macro ‘transform_regs’
- drivers/gpu/drm/amd/amdgpu/../include/asic_reg/dce/dce_6_0_d.h:722:43: warning: initialized field overwritten [-Woverride-init]
- drivers/gpu/drm/amd/amdgpu/../display/dc/dce60/dce60_resource.c:157:21: note: in expansion of macro ‘mmCRTC2_DCFE_MEM_LIGHT_SLEEP_CNTL’
- drivers/gpu/drm/amd/amdgpu/../display/dc/dce/dce_transform.h:170:9: note: in expansion of macro ‘SRI’
- drivers/gpu/drm/amd/amdgpu/../display/dc/dce60/dce60_resource.c:183:17: note: in expansion of macro ‘XFM_COMMON_REG_LIST_DCE60’
- drivers/gpu/drm/amd/amdgpu/../display/dc/dce60/dce60_resource.c:189:17: note: in expansion of macro ‘transform_regs’
- drivers/gpu/drm/amd/amdgpu/../include/asic_reg/dce/dce_6_0_d.h:722:43: note: (near initialization for ‘xfm_regs[2].DCFE_MEM_LIGHT_SLEEP_CN
+to the 6.1-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
-[100 lines snipped for brevity]
+The filename of the patch is:
+     drm-amd-display-gcc13-fix-enum-mismatch.patch
+and it can be found in the queue-6.1 subdirectory.
 
-Fixes: ceb3cf476a441 ("drm/amd/display/dc/dce60/Makefile: Ignore -Woverride-init warning")
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
+
+
+From 545094d993f4639482018becda5f2a47d126f0ab Mon Sep 17 00:00:00 2001
+From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+Date: Mon, 31 Oct 2022 12:42:47 +0100
+Subject: drm/amd/display (gcc13): fix enum mismatch
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+From: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+
+commit 545094d993f4639482018becda5f2a47d126f0ab upstream.
+
+rn_vbios_smu_set_dcn_low_power_state() produces a valid warning with
+gcc-13:
+  drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.c:237:6: error: conflicting types for 'rn_vbios_smu_set_dcn_low_power_state' due to enum/integer mismatch; have 'void(struct clk_mgr_internal *, enum dcn_pwr_state)'
+  drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.h:36:6: note: previous declaration of 'rn_vbios_smu_set_dcn_low_power_state' with type 'void(struct clk_mgr_internal *, int)'
+
+I.e. the type of the 2nd parameter of
+rn_vbios_smu_set_dcn_low_power_state() in the declaration is int, while
+the definition spells enum dcn_pwr_state. Synchronize them to the
+latter (and add a forward enum declaration).
+
+Cc: Martin Liska <mliska@suse.cz>
 Cc: Harry Wentland <harry.wentland@amd.com>
 Cc: Leo Li <sunpeng.li@amd.com>
 Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
@@ -91,31 +105,46 @@ Cc: "Christian König" <christian.koenig@amd.com>
 Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
 Cc: David Airlie <airlied@gmail.com>
 Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Mauro Rossi <issor.oruam@gmail.com>
 Cc: amd-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org
-Signed-off-by: Lee Jones <lee@kernel.org>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpu/drm/amd/display/dc/dce60/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.h |    4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce60/Makefile b/drivers/gpu/drm/amd/display/dc/dce60/Makefile
-index dda596fa1cd76..fee331accc0e7 100644
---- a/drivers/gpu/drm/amd/display/dc/dce60/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dce60/Makefile
-@@ -23,7 +23,7 @@
- # Makefile for the 'controller' sub-component of DAL.
- # It provides the control and status of HW CRTC block.
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.h
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.h
+@@ -26,6 +26,8 @@
+ #ifndef DAL_DC_RN_CLK_MGR_VBIOS_SMU_H_
+ #define DAL_DC_RN_CLK_MGR_VBIOS_SMU_H_
  
--CFLAGS_AMDDALPATH)/dc/dce60/dce60_resource.o = $(call cc-disable-warning, override-init)
-+CFLAGS_$(AMDDALPATH)/dc/dce60/dce60_resource.o = $(call cc-disable-warning, override-init)
- 
- DCE60 = dce60_timing_generator.o dce60_hw_sequencer.o \
- 	dce60_resource.o
--- 
-2.39.2
++enum dcn_pwr_state;
++
+ int rn_vbios_smu_get_smu_version(struct clk_mgr_internal *clk_mgr);
+ int rn_vbios_smu_set_dispclk(struct clk_mgr_internal *clk_mgr, int requested_dispclk_khz);
+ int rn_vbios_smu_set_dprefclk(struct clk_mgr_internal *clk_mgr);
+@@ -33,7 +35,7 @@ int rn_vbios_smu_set_hard_min_dcfclk(str
+ int rn_vbios_smu_set_min_deep_sleep_dcfclk(struct clk_mgr_internal *clk_mgr, int requested_min_ds_dcfclk_khz);
+ void rn_vbios_smu_set_phyclk(struct clk_mgr_internal *clk_mgr, int requested_phyclk_khz);
+ int rn_vbios_smu_set_dppclk(struct clk_mgr_internal *clk_mgr, int requested_dpp_khz);
+-void rn_vbios_smu_set_dcn_low_power_state(struct clk_mgr_internal *clk_mgr, int display_count);
++void rn_vbios_smu_set_dcn_low_power_state(struct clk_mgr_internal *clk_mgr, enum dcn_pwr_state);
+ void rn_vbios_smu_enable_48mhz_tmdp_refclk_pwrdwn(struct clk_mgr_internal *clk_mgr, bool enable);
+ void rn_vbios_smu_enable_pme_wa(struct clk_mgr_internal *clk_mgr);
+ int rn_vbios_smu_is_periodic_retraining_disabled(struct clk_mgr_internal *clk_mgr);
 
 
+Patches currently in stable-queue which might be from jirislaby@kernel.org are
 
+queue-6.1/linux-vt_buffer.h-allow-either-builtin-or-modular-fo.patch
+queue-6.1/net-wwan-t7xx-do-not-compile-with-werror.patch
+queue-6.1/bonding-gcc13-synchronize-bond_-a-t-lb_xmit-types.patch
+queue-6.1/drm-amd-display-gcc13-fix-enum-mismatch.patch
+queue-6.1/wifi-ath11k-synchronize-ath11k_mac_he_gi_to_nl80211_he_gi-s-return-type.patch
+queue-6.1/thunderbolt-use-correct-type-in-tb_port_is_clx_enabled-prototype.patch
+queue-6.1/sfc-gcc13-synchronize-ef100_enqueue_skb-s-return-type.patch
+queue-6.1/block-blk-iocost-gcc13-keep-large-values-in-a-new-enum.patch
+queue-6.1/wireguard-timers-cast-enum-limits-members-to-int-in-prints.patch
