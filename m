@@ -4,121 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B838C77B7D
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 May 2023 02:29:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 990D3C77B7F
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 May 2023 09:48:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5D2210E0C0;
-	Mon,  8 May 2023 02:29:55 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2074.outbound.protection.outlook.com [40.107.243.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F212D10E0C0
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 May 2023 02:29:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1926C10E1CC;
+	Mon,  8 May 2023 09:48:38 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2043.outbound.protection.outlook.com [40.107.244.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10ED910E1CC;
+ Mon,  8 May 2023 09:48:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IzQD4sCAo28krp2DqiXownk0xzoLRcXxK/Hx9E57iHixntVXsKzVE4xQTbkfdZ+pgCYVaYcWF7/XcZvkxo16mEWCFMMoUPnLra7IVhXv79NyJDC9OTt4JLwvMv1F2IIzHJhR+UEFr/KwKbPIkGv0JMROexN/kvDhLkrU1drSgt/5HEDJHkpet887knnDBpHg9ckqOorZDEPe9093APo+anEVmdeXyPyh+KTaShn7Oda4fVTR3+z21PlD8L6lkuiDrJ567lZBJ4bWpSJ5M0/v/4F4rkeTpAALwBuKTtJ5qaHUyvIf8vaqqneAR4Pc7qhYDTj/WHuFJ2sZjUpIuwHgUg==
+ b=Gnk2Gh2zVBHpqKa02qIDVuCsYqijzIsDsYko/S+8TsEZBH28FaPzGta3hVSFJEgbZ5RYMDFEzuqLa0BoryIjU7BIlaYTnlbtC8jMHfIYzPRufOscT8//vtsBC6TJenb67z1a0RzkEMT8V8SFsq1RJikFLwkfrKqVqxRNpAGDvaaqQO49fSQO2fWaoM20iiB2M2/NRubxGizWlrJIAvKL645YOO43Jqi2thXXHlmiWlZJrNPZAna4Ep1di8YkINKMDGtI79SjqfJSqPe2izuiLvsw88fCRCaXc7hs7LLtgb2xwnXjEt/ETP/Lw3UZrv9dSiXKCPG9IK2yWqmZczEE3g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=irKgavOaGGckvSJKZ9Xtaj15azjnSo+wvwzyaqW/r6k=;
- b=ehsBwTHPQb6tQxG7DC26NRFNiajAUttJn8bx0MzxNa12oIFvv73Iun5JkrxjloKxGg2KS/f4Ns0N/L9sl3h7ZIiu7v6ym41kzkUwJB06YOJWUe27Z1lnKdFhLtNFDwqI6GMdywG4rniTgZmoRmJZ5nHvJyns0rf+B5os/Fnk8IC39zxF94gCHnOb1PCJSUQFSouO07VfcGJCzrR3ECQPfn/CgQHFxeuIw/iDv/0XbeH1CwY9YCApiwMAaxvOmTx8Soxk/8qzDK73umMKFU4NtdTIL7s7jzap4LRLzlLLCKv7+kGYcmh2ydi5RQPf5aaC7j1pH1LvyTPy7RypSZ8UmA==
+ bh=lc/0zy+FSqQI3daOAv4yOK7705Yt4kUSZb3YIMuxDEk=;
+ b=bbNZKT/CvUm2AHFwoJZbdM5BOXFIQHeMau0WMD4rSgL6wkjPcqy/p11MfAxOo33eYoGb1WOhnouBsaAJzTEHWJdE+b/T38H16SBS+I7Wv3NT3vgbqZQpcfrHcyFjRkucxrT4tIu5LknyDR2M6SGR8FykQS9ATBhTG9kYYxnbVVYS4oSIJv9cUGbNLux5ZXiTafISsvm+Alp48KFbDXlxvYaLNRDtSklgTOvot5lXRL+shH8ZTA8W6RxArrTUIYOzXGjrD1xwG9AJAymXoJ0Kzd9dUzHkNulEi+a2xocbvozDFgpcVluE4zlum4fU0wgG36B5p5xwqP7iFacmMMIOpw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=irKgavOaGGckvSJKZ9Xtaj15azjnSo+wvwzyaqW/r6k=;
- b=X0TYQXCJatgoYb9iPpumozMlCfaXsZKQauAuI4Mijwex99IUGKu5VKLlPTtzO4CCDz9B5gbBKMZs+Ou6xdaqYlbwWYHUT/etVwSeEypN+mrDBJ4ZpqXxQ84AguRwnUvsOZTU9KnCIAeLkhm9qcIUKxpyqunbnM3v/sh+248aTf4=
-Received: from DM5PR12MB2469.namprd12.prod.outlook.com (2603:10b6:4:af::38) by
- BL0PR12MB4931.namprd12.prod.outlook.com (2603:10b6:208:17e::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.32; Mon, 8 May
- 2023 02:29:50 +0000
-Received: from DM5PR12MB2469.namprd12.prod.outlook.com
- ([fe80::c7b1:f457:da06:8bc8]) by DM5PR12MB2469.namprd12.prod.outlook.com
- ([fe80::c7b1:f457:da06:8bc8%3]) with mapi id 15.20.6363.027; Mon, 8 May 2023
- 02:29:49 +0000
-From: "Chen, Guchun" <Guchun.Chen@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Zhou1, Tao"
- <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, "Zhang, Horatio"
- <Hongkun.Zhang@amd.com>
-Subject: RE: [PATCH] drm/amdgpu/gfx: disable cp_ecc_error_irq only when gfx
- ras is enabled in suspend
-Thread-Topic: [PATCH] drm/amdgpu/gfx: disable cp_ecc_error_irq only when gfx
- ras is enabled in suspend
-Thread-Index: AQHZgBSE6EX3QO+jBEGJ9Ykj/RQvCq9PpdKAgAACDYCAAAEvEA==
-Date: Mon, 8 May 2023 02:29:49 +0000
-Message-ID: <DM5PR12MB24697E4981CE12DC8F57DEE7F1719@DM5PR12MB2469.namprd12.prod.outlook.com>
-References: <20230506121543.1891418-1-guchun.chen@amd.com>
- <DM5PR12MB17706A2DDE5E7EF810AD6E81B0719@DM5PR12MB1770.namprd12.prod.outlook.com>
- <BN9PR12MB5257FE4DAF4864FD5A06716DFC719@BN9PR12MB5257.namprd12.prod.outlook.com>
-In-Reply-To: <BN9PR12MB5257FE4DAF4864FD5A06716DFC719@BN9PR12MB5257.namprd12.prod.outlook.com>
-Accept-Language: en-US
+ bh=lc/0zy+FSqQI3daOAv4yOK7705Yt4kUSZb3YIMuxDEk=;
+ b=kmD98vA+T56i08Z4i6Pm+s0ZwodGgUVfbYpWXNcmcj7S1d0fK1m7EfL9/ICCBZrxA1Anyp2i54uDlkaDmUMZv5F4NBicYoPI3aWQ8bF+94j4gexKm1fgLW5ZCVeHnxxVhlgUuuUonnKHBK6OKtyko8DlUavtqzh6svZIqbosnUI=
+Received: from CO6PR12MB5489.namprd12.prod.outlook.com (2603:10b6:303:139::18)
+ by IA0PR12MB8352.namprd12.prod.outlook.com (2603:10b6:208:3dd::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.29; Mon, 8 May
+ 2023 09:48:33 +0000
+Received: from CO6PR12MB5489.namprd12.prod.outlook.com
+ ([fe80::131c:69fe:91d8:db7d]) by CO6PR12MB5489.namprd12.prod.outlook.com
+ ([fe80::131c:69fe:91d8:db7d%7]) with mapi id 15.20.6363.032; Mon, 8 May 2023
+ 09:48:33 +0000
+From: "Lin, Wayne" <Wayne.Lin@amd.com>
+To: "lyude@redhat.com" <lyude@redhat.com>, "jani.nikula@intel.com"
+ <jani.nikula@intel.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH v2] drm/dp_mst: Clear MSG_RDY flag before sending new
+ message
+Thread-Topic: [PATCH v2] drm/dp_mst: Clear MSG_RDY flag before sending new
+ message
+Thread-Index: AQHZeNn8+E0QEEuY3UCLaVyy+/niaq9QMZbA
+Date: Mon, 8 May 2023 09:48:33 +0000
+Message-ID: <CO6PR12MB5489A03BAAE9F84E39352767FC719@CO6PR12MB5489.namprd12.prod.outlook.com>
+References: <20230427072850.100887-1-Wayne.Lin@amd.com>
+In-Reply-To: <20230427072850.100887-1-Wayne.Lin@amd.com>
+Accept-Language: en-US, zh-TW
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=966fe96e-4a39-4d44-87c6-0f221f7b5db3;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=0;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-05-08T02:22:59Z;
- MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-05-08T09:47:43Z; 
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=b5dca29a-2972-4890-bed2-a4ad7e215fe7;
+ MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM5PR12MB2469:EE_|BL0PR12MB4931:EE_
-x-ms-office365-filtering-correlation-id: a35c6450-10f2-409c-3e1a-08db4f6c18f0
+x-ms-traffictypediagnostic: CO6PR12MB5489:EE_|IA0PR12MB8352:EE_
+x-ms-office365-filtering-correlation-id: ba3f28ae-2e42-4797-0d5e-08db4fa96313
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: V3VwbF6st7eDW9pc3SbeJ9ssPSnDUkDNT5tGpku+73TAuRju5hWdtEu8lB/6kiAipRH6BM95x73LAPGWK1/wVfNjYlhEBxSGTPRNMzAOEZooCaRMQEXpIVZV+w7p7A4CI6CQEiDyrXOCAeeJUJMyGtoFrR9GiHM2ANCP2Co1mmk0M9sBLl36rQC59pwvOpEmfrIfFwczkcGZ8sSC3yXC/7QWO/rEQYQrdolQCl8aZsyc6haa34pFFHkSChagaedjkLhgE3VAll3o6CP4L46ySg/tfmo5mGUotYaZJErn0TlADFttoIyS6xRNDKi1sI2xD0vv4xWRuFPwbE2v4LAlobcjmeLXHSs4dPRuO8RI0ljIu7x3Mq+FSQz55dwiBLXhQZRRsH+ERI+zWqCQU/q8JgI79H4YyGO2yM72afnR2rmi3+4PyFn+R/sIJuDU/DDJ1Mj1lGR5BJPhvvsVQ34VKmjwRN5A+6g/2ENtHytOSvFCbNNnW2CdMpN22ykmoQ85tGKFKV2iuOAnlNva6h6uygyEEVZyKykd558s78s0Cui5fxtLQDsIboq+6FS9sPsCp+YJoWgYdR1CPimnQfBXmA==
+x-microsoft-antispam-message-info: rJKMrwOMwNy/3PHTtU638bxLNfQ3mGT1ZqZnyt1BzAEHzMVKSTuiOupJM6CamQknXHG6qjve/y3b94CQ4GZieNE1PduDzjteUhvryL/Kkr4wrKFvHkTomfRYoWSWgPGvZLr98+u/F7YIg8Qh5HZPzgkGB2FhVwKhheU4xtwOgd2OBOyIcAORSloQRIieAwx5kfNxu9H5ZYasyULQE/2ooqme1szWtpGmHEc03fdPks13lo8HAOqxYQC8qBa067gE4eDwIU5XIFceiBTztk72ZuCnlyc9M67ai1U4VaPw0QER1tsr6FSWTZLdTMVD7ioNcA5YdrgY+iFwuSvGOQ3fmYzrgEfCJ4QJpZueM9mjY9wTgmdFrDheYg1tYLALFe5ZxVXlZjKqwWHrKeLTZH9iIzQimhs04HmDZvEXH+tv8ET16vuw7vAaVJ+MV/faw4OmMZ/Rq11H0D7x96/HBmOImH8LHfEXtgXVbP0AQRenNK3zrOdwghLnpE79t8M2EjQDne7panvXC2mUUWKzmItDB+1tVdsvoewxbaX9NJBOSvGv1Q94eWY/wPGYXytJTmdkQg614mFrrJZs34vYahBqlE+kl7E+V0vRhmIAkE8XOrDF79bN+1Tth5hA8b+IU9A2
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2469.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(39850400004)(366004)(396003)(346002)(136003)(376002)(451199021)(26005)(6506007)(53546011)(9686003)(7696005)(966005)(83380400001)(55016003)(33656002)(122000001)(38100700002)(86362001)(38070700005)(921005)(186003)(15650500001)(110136005)(478600001)(2906002)(5660300002)(64756008)(66446008)(66476007)(66556008)(6636002)(316002)(8936002)(8676002)(41300700001)(66946007)(52536014)(76116006)(71200400001);
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5489.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(396003)(376002)(39860400002)(346002)(366004)(451199021)(122000001)(86362001)(186003)(55236004)(53546011)(9686003)(26005)(6506007)(15650500001)(38070700005)(38100700002)(83380400001)(71200400001)(33656002)(54906003)(110136005)(66946007)(478600001)(66556008)(66446008)(66476007)(7696005)(64756008)(4326008)(8676002)(8936002)(316002)(52536014)(55016003)(41300700001)(5660300002)(76116006)(2906002);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?tb2qz2EpjIlZTynzPJnlAkvzrmHVW60/woxPnNwsi9yD4PjXHPwwTaMVIHIn?=
- =?us-ascii?Q?Xlzo4V8IxBwa81Ojw9EbUVfegxMne3P4bPSvtYqfIPme6HIu7hdSL/VHA12m?=
- =?us-ascii?Q?O7jlaAs2Ly5cbqh3rN9QXan+54NJ5rFliyUIWbIS31q4oVldJy1cB5OSxiR2?=
- =?us-ascii?Q?qW1uQk1q02wnNUT9Pdt3xfxF7H9Mm+YsYf6K1BZmKAi9bgRrt969EWafuZjW?=
- =?us-ascii?Q?NmwnYmRNQDrTP4Ja4zUHQeh57+VHQjmZ37axOIMayfvvJd29tNHwaNcelxKy?=
- =?us-ascii?Q?afR/2qLsbdfgkHoTAaSOh5PIqyzUzidLA4H9WbY5IiIPSFHWzNNwlFZIHPjQ?=
- =?us-ascii?Q?s8LLmN/Q3Vyrm+y1VRSAqYBMsqYjWlZ+SEuajfHbXEo+QNLabpbcJMyxG1nC?=
- =?us-ascii?Q?K8UdMlX6CP0rdpry2b1fv1QAlvHsn6T491OG+jnIwdg8Ltfc924XAA34UhX9?=
- =?us-ascii?Q?5+yH8Rg2j77rz7cMO4BkVqn9PigIzLMSTtI721I6+x0/wFcQdWm4ffUOheLR?=
- =?us-ascii?Q?klsBND4DldnXcxtw0pNh+tXtQIR5G7YW4jVy2iFFL9lKz7EA14UVSFrxionp?=
- =?us-ascii?Q?z9CMs3oj1rYW+QbfBORMl7gox2LqNipOKwdIOvkC93tfgqhrICRINPVjNPWN?=
- =?us-ascii?Q?JzKEP3+e81MzvpXqKtwva6qpkqBEmzZ0CqdkcVV5M0ZDIppByJRbf2jAHcfm?=
- =?us-ascii?Q?kjXEuFiNI4zvRPjsZVMiPLV79IjWCmNBBKNzmzzPJfk0TxCsDJtwPkIfHjoF?=
- =?us-ascii?Q?MP6foKYxCcS5zkUrKV157Doop5CCbDFiqA2I9oNZx1CIZ/jFoNstvCoWb+1k?=
- =?us-ascii?Q?OHcXvKcjot7Jwi9XMymCxSHvL1ILE2/at3c6YRWZZ4xz+rv12ydP1wtutlF3?=
- =?us-ascii?Q?/5cNpGKXOOQLxtlE/gtnoM3FODbK9cpckkmooDH8axtygATFI0aSIGXo5vh1?=
- =?us-ascii?Q?YVHhlF0W6GZo3Eu7xHMVa0zQNxlORHHRNN2wmor1COsLkUhfKaWfO1IgHBpd?=
- =?us-ascii?Q?aW+dqhGMDvFsSLEMxg1EfvSTn8YlEYMrU/HhIzXYC//U1kUUeIuyxx1118QO?=
- =?us-ascii?Q?0xEfZZfiR3OVNhKJJLfCX577IMuknpp6FcN/Fsv5o0FOT5Ej2Hvl2H+NFsad?=
- =?us-ascii?Q?7l8GAWG5BCRCynmjeciS/GVg7UtD25oZu5dfOHw2bOgT3B4MSFA3SPMHCHKI?=
- =?us-ascii?Q?joHc+swb9duHa2tCpFoJFmwglVKytsrghgFxTq5kj/TtkFvY+7A3ASPJF8Cv?=
- =?us-ascii?Q?l2YnktZVNSrzIPIMBAorc7g6CgquqcXuJfkTwgnKGbFyVM85d8CCEKHDAwqZ?=
- =?us-ascii?Q?aJGJFEd6XbSEPQUsbtfeWkmskE7nfRMBfCXQ9EEbJ8FxKO8UBTB1lKi8wiNH?=
- =?us-ascii?Q?TQbYqMKxd1e5bD+04IZyfCFTWyAlJXUApgOe6eiHijnir3Js4UgJRKjqdS1v?=
- =?us-ascii?Q?EtSadtsbS6TOh85b6gWVn9OSM9ZphRarEVOT9b9JbwcxPmqUeipugnkBN8Yu?=
- =?us-ascii?Q?GC/W+a5MZlwfoWjwBoKH3wEv+jGB+ygzhZT1qOcXVBUHdZJ+nwlIpZKa6sPy?=
- =?us-ascii?Q?mVYUJ9sM3Cqmf+DhTdg=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?7OpuEZMvPNEPjFrRPfduWxyGeNYusYPDVhZTeZ3Wm3BKEOVGw/2gBmML7Nnl?=
+ =?us-ascii?Q?2i6LX530MR5zPGC/e9TPn7qbcmwe122sDV5XKF+4BkZ2yFqnUJx+eS4DkYYa?=
+ =?us-ascii?Q?OyW5lw+t/ZdXtlLOZrBaC8atxlILxpegU6CdLwktcKaoCsz+C7NtlWUwRvSQ?=
+ =?us-ascii?Q?9TtistyVUKgFgdkEg/XJjnljZCDEHjBKUat/RO5PtCM0nt/NE6Iwfq7WQLtg?=
+ =?us-ascii?Q?M//7DakzJVG+E4j//kN3RN2HaMMkn/T2+L+BawTJK3K00W3T759LytOFv+cg?=
+ =?us-ascii?Q?mo7NIvciXfFPry5iE7B5HO0RpeCdMckHEBwt2aHvgj6rzstjM0B5sR3cgVR0?=
+ =?us-ascii?Q?Q61Lgoa6UD7Cm7fP9yAksPwOdKPQR8Y67l8W/HMim4k+XVzhwFFmK1Ra2KMQ?=
+ =?us-ascii?Q?SP4yqU/5JAEcVkytZ0f73RMUIDjWitT/rgDKSMfAolCAvyQ8BYNEtZ31GxNj?=
+ =?us-ascii?Q?6ljkd5Wgzc5mnCjgyWrml4LvO5Cj/KmxqqtJTgrIxQGNfMkdVaYcd8ay7nci?=
+ =?us-ascii?Q?1crSw0vne909/k7mYRgSNXfjtvEenMPVTYFx7gepzddaSHt+zgi/+YVg6RJX?=
+ =?us-ascii?Q?/uEDjCD3yEyI1lRro3SoexYxUPmiWwweIQcJBCJQ5gyqa/gAtdpUF9NvEK5X?=
+ =?us-ascii?Q?rGPHK8Ju/utYk3md5819WMuxrIAHOnDQhT+xpVEAWzt5jRqqL47OJhk8OdQP?=
+ =?us-ascii?Q?4JfdsSZsr/1xUcWVZO4TZ14p7zcDxcinZn2MHePHi+fpCaUqJvhhRUpwUewU?=
+ =?us-ascii?Q?tNZbje8HyUzhOosr5QKdgnENOvXfjD9oooj4SH64k8hwcJQy7gmCGWAQk/j3?=
+ =?us-ascii?Q?tR5fO6AbEUkX49hRiVPXL+347IYyCNTflDgL7+ETsYVs+67a5y5UcZhsnWze?=
+ =?us-ascii?Q?U5lnBTwNZhPQtYsZD18sJy8+0QPbABLN9HYszvbZhmjzpDgn5VabWT820okt?=
+ =?us-ascii?Q?t0q+2gYHCUC00CGQiWbro9bzvAs6ZJpDTS31Zy4NxnU6zyV13s1s3UhH5ixE?=
+ =?us-ascii?Q?kcC6CWSsgwPK7K8fziBgtit/EoWyCyhkd3zjN4ykZ2IIUORc5tyBdRM3DfjK?=
+ =?us-ascii?Q?x2OWCTldjOTCUyyIMk5U0pPYeQewNxX/85yOYROoihgC91ItHLu/dL9y0u4+?=
+ =?us-ascii?Q?fFZhrSbl9DqTTjieLaPQu/60GPVA4HyCzDy0NncjsmlKYGySxv6qnSIIGEpA?=
+ =?us-ascii?Q?ZY2mF8+VSlefUdZl/acAE/erYMzvN+PVlCnsbOX1ey2DVHerYNv7VJkhhBXS?=
+ =?us-ascii?Q?xULS9qVj2NwCKp0pqrtNg22g3r94DLOmxMtHpW/A+nITkji38EnZ99OGy2qu?=
+ =?us-ascii?Q?K2haWJn5iwmyGquOoA1GfVROhutp6j3EGNyhJavYoPRurKs71pNOQAXegSv2?=
+ =?us-ascii?Q?ghDywTPpk9qxUtXlqxQa+8Vww6uVMyMCYWSrZoXrem1fZotYKAmzyi3+c3Vc?=
+ =?us-ascii?Q?M/P/2f3jTmcNZj4ygVHa5JBv/vL0z/OP+e8UqpUz+bFJf0zB+h5HBpeIqsL4?=
+ =?us-ascii?Q?gvwFC8fQGKvvTlDpgjS/DPNZUMW44AKXsQDOEkkwwNhvIdUlXT6M6lZ3f/Yw?=
+ =?us-ascii?Q?q3wd8ipckMz38YEAhz0=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2469.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a35c6450-10f2-409c-3e1a-08db4f6c18f0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 May 2023 02:29:49.6294 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5489.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba3f28ae-2e42-4797-0d5e-08db4fa96313
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 May 2023 09:48:33.3165 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: HsSme3/4sh6VA71eo/y4MkLjY2jB03kslpp1bHn7G0yTbrSA/c/NAI+xxzsgisZ0en8HbueZOs45++yjsCGp6A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4931
+X-MS-Exchange-CrossTenant-userprincipalname: bdsQtarM7g3E4x4Sbc0zfmdEXNANDAdVz6pPMr/TAze0C4/l6uU9Rk8lDrptgEUv1KKdDSXa8gPdaMadBYYGCg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8352
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,143 +126,252 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ "imre.deak@intel.com" <imre.deak@intel.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, "Zuo, Jerry" <Jerry.Zuo@amd.com>,
+ "ville.syrjala@linux.intel.com" <ville.syrjala@linux.intel.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - General]
+[Public]
 
-Thanks for the info, Hawking. Yes, I just recalled Horatio had a solution i=
-n gfx11 to fix such warnings. I will provide patch set v2 to handle gfx v9 =
-only.
+Hi Lyude and Jani,
+
+Could you help to review please? Thanks for your time!
 
 Regards,
-Guchun
-
+Wayne Lin
 > -----Original Message-----
-> From: Zhang, Hawking <Hawking.Zhang@amd.com>
-> Sent: Monday, May 8, 2023 10:23 AM
-> To: Zhou1, Tao <Tao.Zhou1@amd.com>; Chen, Guchun
-> <Guchun.Chen@amd.com>; amd-gfx@lists.freedesktop.org; Deucher,
-> Alexander <Alexander.Deucher@amd.com>; Lazar, Lijo
-> <Lijo.Lazar@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>;
-> Zhang, Horatio <Hongkun.Zhang@amd.com>
-> Subject: RE: [PATCH] drm/amdgpu/gfx: disable cp_ecc_error_irq only when
-> gfx ras is enabled in suspend
->
-> [AMD Official Use Only - General]
->
-> Add @Zhang, Horatio
->
-> Gfx11 should be addressed by Horatio's patch, not sure he committed yet.
-> The solution is retiring cp_ecc_irq funcs since gfx11 doesn't rely on the=
- irq for
-> any software ras feature.
->
-> Gfx9 could still add RAS block check since we have legacy ras feature tha=
-t
-> needs the interrupt.
->
-> Hi Horatio,
->
-> Did you commit your fix yet?
->
-> Regards,
-> Hawking
->
-> -----Original Message-----
-> From: Zhou1, Tao <Tao.Zhou1@amd.com>
-> Sent: Monday, May 8, 2023 10:16
-> To: Chen, Guchun <Guchun.Chen@amd.com>; amd-
-> gfx@lists.freedesktop.org; Deucher, Alexander
-> <Alexander.Deucher@amd.com>; Zhang, Hawking
-> <Hawking.Zhang@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Koenig,
-> Christian <Christian.Koenig@amd.com>
-> Subject: RE: [PATCH] drm/amdgpu/gfx: disable cp_ecc_error_irq only when
-> gfx ras is enabled in suspend
->
-> [AMD Official Use Only - General]
->
-> Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
->
-> > -----Original Message-----
-> > From: Chen, Guchun <Guchun.Chen@amd.com>
-> > Sent: Saturday, May 6, 2023 8:16 PM
-> > To: amd-gfx@lists.freedesktop.org; Deucher, Alexander
-> > <Alexander.Deucher@amd.com>; Zhang, Hawking
-> <Hawking.Zhang@amd.com>;
-> > Lazar, Lijo <Lijo.Lazar@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>;
-> > Koenig, Christian <Christian.Koenig@amd.com>
-> > Cc: Chen, Guchun <Guchun.Chen@amd.com>
-> > Subject: [PATCH] drm/amdgpu/gfx: disable cp_ecc_error_irq only when
-> > gfx ras is enabled in suspend
-> >
-> > cp_ecc_error_irq is only enabled when gfx ras is assert.
-> > So in gfx_v9_0_hw_fini, interrupt disablement for cp_ecc_error_irq
-> > should be executed under such condition, otherwise, an amdgpu_irq_put
-> > calltrace will occur.
-> >
-> > [ 7283.170322] RIP: 0010:amdgpu_irq_put+0x45/0x70 [amdgpu] [
-> > 7283.170964]
-> > RSP: 0018:ffff9a5fc3967d00 EFLAGS: 00010246 [ 7283.170967] RAX:
-> > ffff98d88afd3040 RBX: ffff98d89da20000 RCX: 0000000000000000 [
-> > 7283.170969] RDX: 0000000000000000 RSI: ffff98d89da2bef8 RDI:
-> > ffff98d89da20000 [ 7283.170971] RBP: ffff98d89da20000 R08:
-> > ffff98d89da2ca18 R09: 0000000000000006 [ 7283.170973] R10:
-> > ffffd5764243c008 R11: 0000000000000000 R12: 0000000000001050 [
-> > 7283.170975] R13: ffff98d89da38978 R14: ffffffff999ae15a R15:
-> > ffff98d880130105 [ 7283.170978] FS:  0000000000000000(0000)
-> > GS:ffff98d996f00000(0000) knlGS:0000000000000000 [ 7283.170981] CS:
-> > 0010
-> > DS: 0000 ES: 0000 CR0: 0000000080050033 [ 7283.170983] CR2:
-> > 00000000f7a9d178 CR3: 00000001c42ea000 CR4: 00000000003506e0 [
-> > 7283.170986] Call Trace:
-> > [ 7283.170988]  <TASK>
-> > [ 7283.170989]  gfx_v9_0_hw_fini+0x1c/0x6d0 [amdgpu] [ 7283.171655]
-> > amdgpu_device_ip_suspend_phase2+0x101/0x1a0 [amdgpu]
-> [ 7283.172245]
-> > amdgpu_device_suspend+0x103/0x180 [amdgpu] [ 7283.172823]
-> > amdgpu_pmops_freeze+0x21/0x60 [amdgpu] [ 7283.173412]
-> > pci_pm_freeze+0x54/0xc0 [ 7283.173419]  ?
-> > __pfx_pci_pm_freeze+0x10/0x10 [ 7283.173425]
-> > dpm_run_callback+0x98/0x200 [ 7283.173430]
-> > __device_suspend+0x164/0x5f0
-> >
-> > Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2522
-> >
-> > Signed-off-by: Guchun Chen <guchun.chen@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 3 ++-
-> > drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c  | 3 ++-
-> >  2 files changed, 4 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> > b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> > index ecf8ceb53311..f6bc62a94099 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> > @@ -4442,7 +4442,8 @@ static int gfx_v11_0_hw_fini(void *handle)
-> >     struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-> >     int r;
-> >
-> > -   amdgpu_irq_put(adev, &adev->gfx.cp_ecc_error_irq, 0);
-> > +   if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__GFX))
-> > +           amdgpu_irq_put(adev, &adev->gfx.cp_ecc_error_irq, 0);
-> >     amdgpu_irq_put(adev, &adev->gfx.priv_reg_irq, 0);
-> >     amdgpu_irq_put(adev, &adev->gfx.priv_inst_irq, 0);
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > index ae09fc1cfe6b..c54d05bdc2d8 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > @@ -3751,7 +3751,8 @@ static int gfx_v9_0_hw_fini(void *handle)  {
-> >     struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-> >
-> > -   amdgpu_irq_put(adev, &adev->gfx.cp_ecc_error_irq, 0);
-> > +   if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__GFX))
-> > +           amdgpu_irq_put(adev, &adev->gfx.cp_ecc_error_irq, 0);
-> >     amdgpu_irq_put(adev, &adev->gfx.priv_reg_irq, 0);
-> >     amdgpu_irq_put(adev, &adev->gfx.priv_inst_irq, 0);
-> >
-> > --
-> > 2.25.1
+> From: Wayne Lin <Wayne.Lin@amd.com>
+> Sent: Thursday, April 27, 2023 3:29 PM
+> To: dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org
+> Cc: lyude@redhat.com; ville.syrjala@linux.intel.com; jani.nikula@intel.co=
+m;
+> imre.deak@intel.com; Wentland, Harry <Harry.Wentland@amd.com>; Zuo,
+> Jerry <Jerry.Zuo@amd.com>; Lin, Wayne <Wayne.Lin@amd.com>;
+> stable@vger.kernel.org
+> Subject: [PATCH v2] drm/dp_mst: Clear MSG_RDY flag before sending new
+> message
+>=20
+> [Why]
+> The sequence for collecting down_reply from source perspective should
+> be:
+>=20
+> Request_n->repeat (get partial reply of Request_n->clear message ready
+> flag to ack DPRX that the message is received) till all partial replies f=
+or
+> Request_n are received->new Request_n+1.
+>=20
+> Now there is chance that drm_dp_mst_hpd_irq() will fire new down request
+> in the tx queue when the down reply is incomplete. Source is restricted t=
+o
+> generate interveleaved message transactions so we should avoid it.
+>=20
+> Also, while assembling partial reply packets, reading out DPCD DOWN_REP
+> Sideband MSG buffer + clearing DOWN_REP_MSG_RDY flag should be
+> wrapped up as a complete operation for reading out a reply packet.
+> Kicking off a new request before clearing DOWN_REP_MSG_RDY flag might
+> be risky. e.g. If the reply of the new request has overwritten the DPRX
+> DOWN_REP Sideband MSG buffer before source writing one to clear
+> DOWN_REP_MSG_RDY flag, source then unintentionally flushes the reply for
+> the new request. Should handle the up request in the same way.
+>=20
+> [How]
+> Separete drm_dp_mst_hpd_irq() into 2 steps. After acking the MST IRQ
+> event, driver calls drm_dp_mst_hpd_irq_step2() and might trigger
+> drm_dp_mst_kick_tx() only when there is no on going message transaction.
+>=20
+> Changes since v1:
+> * Reworked on review comments received
+> -> Adjust the fix to let driver explicitly kick off new down request
+> when mst irq event is handled and acked
+> -> Adjust the commit message
+>=20
+> Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
+> Cc: stable@vger.kernel.org
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  8 ++---
+> drivers/gpu/drm/display/drm_dp_mst_topology.c | 35
+> ++++++++++++++++---
+>  drivers/gpu/drm/i915/display/intel_dp.c       |  5 ++-
+>  drivers/gpu/drm/nouveau/dispnv50/disp.c       |  5 ++-
+>  include/drm/display/drm_dp_mst_helper.h       |  4 +--
+>  5 files changed, 45 insertions(+), 12 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 1ad67c2a697e..48bdcb2ee9b1 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -3259,10 +3259,9 @@ static void dm_handle_mst_sideband_msg(struct
+> amdgpu_dm_connector *aconnector)
+>  		DRM_DEBUG_DRIVER("ESI %02x %02x %02x\n", esi[0], esi[1],
+> esi[2]);
+>  		/* handle HPD short pulse irq */
+>  		if (aconnector->mst_mgr.mst_state)
+> -			drm_dp_mst_hpd_irq(
+> -				&aconnector->mst_mgr,
+> -				esi,
+> -				&new_irq_handled);
+> +			drm_dp_mst_hpd_irq_step1(&aconnector-
+> >mst_mgr,
+> +						 esi,
+> +						 &new_irq_handled);
+>=20
+>  		if (new_irq_handled) {
+>  			/* ACK at DPCD to notify down stream */ @@ -3281,6
+> +3280,7 @@ static void dm_handle_mst_sideband_msg(struct
+> amdgpu_dm_connector *aconnector)
+>  					break;
+>  			}
+>=20
+> +			drm_dp_mst_hpd_irq_step2(&aconnector-
+> >mst_mgr);
+>  			/* check if there is new irq to be handled */
+>  			dret =3D drm_dp_dpcd_read(
+>  				&aconnector->dm_dp_aux.aux,
+> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> index 70df29fe92db..2e0a38a6509c 100644
+> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> @@ -4045,7 +4045,7 @@ static int drm_dp_mst_handle_up_req(struct
+> drm_dp_mst_topology_mgr *mgr)  }
+>=20
+>  /**
+> - * drm_dp_mst_hpd_irq() - MST hotplug IRQ notify
+> + * drm_dp_mst_hpd_irq_step1() - MST hotplug IRQ notify
+>   * @mgr: manager to notify irq for.
+>   * @esi: 4 bytes from SINK_COUNT_ESI
+>   * @handled: whether the hpd interrupt was consumed or not @@ -4055,7
+> +4055,7 @@ static int drm_dp_mst_handle_up_req(struct
+> drm_dp_mst_topology_mgr *mgr)
+>   * topology manager will process the sideband messages received as a res=
+ult
+>   * of this.
+>   */
+> -int drm_dp_mst_hpd_irq(struct drm_dp_mst_topology_mgr *mgr, u8 *esi,
+> bool *handled)
+> +int drm_dp_mst_hpd_irq_step1(struct drm_dp_mst_topology_mgr *mgr,
+> u8
+> +*esi, bool *handled)
+>  {
+>  	int ret =3D 0;
+>  	int sc;
+> @@ -4077,11 +4077,38 @@ int drm_dp_mst_hpd_irq(struct
+> drm_dp_mst_topology_mgr *mgr, u8 *esi, bool *handl
+>  		*handled =3D true;
+>  	}
+>=20
+> -	drm_dp_mst_kick_tx(mgr);
+>  	return ret;
+>  }
+> -EXPORT_SYMBOL(drm_dp_mst_hpd_irq);
+> +EXPORT_SYMBOL(drm_dp_mst_hpd_irq_step1);
+> +
+> +/**
+> + * drm_dp_mst_hpd_irq_step2() - MST hotplug IRQ 2nd part handling
+> + * @mgr: manager to notify irq for.
+> + *
+> + * This should be called from the driver when mst irq event is handled
+> + * and acked. Note that new down request should only be sent when
+> + * previous message transaction is done. Source is not supposed to
+> +generate
+> + * interleaved message transactions.
+> + */
+> +void drm_dp_mst_hpd_irq_step2(struct drm_dp_mst_topology_mgr *mgr)
+> {
+> +	struct drm_dp_sideband_msg_tx *txmsg;
+> +	bool skip =3D false;
+>=20
+> +	mutex_lock(&mgr->qlock);
+> +	txmsg =3D list_first_entry_or_null(&mgr->tx_msg_downq,
+> +					 struct drm_dp_sideband_msg_tx,
+> next);
+> +	/* If last transaction is not completed yet*/
+> +	if (!txmsg ||
+> +	    txmsg->state =3D=3D DRM_DP_SIDEBAND_TX_START_SEND ||
+> +	    txmsg->state =3D=3D DRM_DP_SIDEBAND_TX_SENT)
+> +		skip =3D true;
+> +	mutex_unlock(&mgr->qlock);
+> +
+> +	if (!skip)
+> +		drm_dp_mst_kick_tx(mgr);
+> +}
+> +EXPORT_SYMBOL(drm_dp_mst_hpd_irq_step2);
+>  /**
+>   * drm_dp_mst_detect_port() - get connection status for an MST port
+>   * @connector: DRM connector for this port diff --git
+> a/drivers/gpu/drm/i915/display/intel_dp.c
+> b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 75070eb07d4b..9a9a5aec9534 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -3803,7 +3803,7 @@ intel_dp_mst_hpd_irq(struct intel_dp *intel_dp,
+> u8 *esi, u8 *ack)  {
+>  	bool handled =3D false;
+>=20
+> -	drm_dp_mst_hpd_irq(&intel_dp->mst_mgr, esi, &handled);
+> +	drm_dp_mst_hpd_irq_step1(&intel_dp->mst_mgr, esi, &handled);
+>  	if (handled)
+>  		ack[1] |=3D esi[1] & (DP_DOWN_REP_MSG_RDY |
+> DP_UP_REQ_MSG_RDY);
+>=20
+> @@ -3880,6 +3880,9 @@ intel_dp_check_mst_status(struct intel_dp
+> *intel_dp)
+>=20
+>  		if (!intel_dp_ack_sink_irq_esi(intel_dp, ack))
+>  			drm_dbg_kms(&i915->drm, "Failed to ack ESI\n");
+> +
+> +		if (ack[1] & (DP_DOWN_REP_MSG_RDY |
+> DP_UP_REQ_MSG_RDY))
+> +			drm_dp_mst_hpd_irq_step2(&intel_dp->mst_mgr);
+>  	}
+>=20
+>  	return link_ok;
+> diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> index ed9d374147b8..00c36fcc8afd 100644
+> --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> @@ -1332,12 +1332,15 @@ nv50_mstm_service(struct nouveau_drm *drm,
+>  			break;
+>  		}
+>=20
+> -		drm_dp_mst_hpd_irq(&mstm->mgr, esi, &handled);
+> +		drm_dp_mst_hpd_irq_step1(&mstm->mgr, esi, &handled);
+>  		if (!handled)
+>  			break;
+>=20
+>  		rc =3D drm_dp_dpcd_write(aux, DP_SINK_COUNT_ESI + 1,
+> &esi[1],
+>  				       3);
+> +
+> +		drm_dp_mst_hpd_irq_step2(&mstm->mgr);
+> +
+>  		if (rc !=3D 3) {
+>  			ret =3D false;
+>  			break;
+> diff --git a/include/drm/display/drm_dp_mst_helper.h
+> b/include/drm/display/drm_dp_mst_helper.h
+> index 32c764fb9cb5..6c08ba765d5a 100644
+> --- a/include/drm/display/drm_dp_mst_helper.h
+> +++ b/include/drm/display/drm_dp_mst_helper.h
+> @@ -815,8 +815,8 @@ void drm_dp_mst_topology_mgr_destroy(struct
+> drm_dp_mst_topology_mgr *mgr);  bool drm_dp_read_mst_cap(struct
+> drm_dp_aux *aux, const u8 dpcd[DP_RECEIVER_CAP_SIZE]);  int
+> drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr
+> *mgr, bool mst_state);
+>=20
+> -int drm_dp_mst_hpd_irq(struct drm_dp_mst_topology_mgr *mgr, u8 *esi,
+> bool *handled);
+> -
+> +int drm_dp_mst_hpd_irq_step1(struct drm_dp_mst_topology_mgr *mgr,
+> u8
+> +*esi, bool *handled); void drm_dp_mst_hpd_irq_step2(struct
+> +drm_dp_mst_topology_mgr *mgr);
+>=20
+>  int
+>  drm_dp_mst_detect_port(struct drm_connector *connector,
+> --
+> 2.37.3
