@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48A51C7EE2C
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 May 2023 13:14:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90053C77B7F
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 May 2023 13:14:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D44210E28D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 314CF10E293;
 	Mon,  8 May 2023 13:14:34 +0000 (UTC)
-Received: from mailbox.box.xen0n.name (mail.xen0n.name [115.28.160.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FE3B10E06C;
- Sat,  6 May 2023 14:15:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=xen0n.name; s=mail;
- t=1683382500; bh=Sk09wyQy5/FQtij63zDaOgIadfEpa+myOBVzxsk5bmM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=CpLYV/T4z4PgUQ9VcG/QpNyjw7V9VB15VBlKEOfRxi7e8a0IVhEHDwSCg3/PhvlGZ
- bK7k6BlI5IWeh+cIPkTA9oI5Yu8/XwYI+7MkRORXB5j5Ql4YsehYZj1KST05GGht5b
- 0dcaryZDyjadD9JCk9ZHPQ6zqLTHvWaFNTxvhnSg=
-Received: from [100.100.33.167] (unknown [220.248.53.61])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F35C10E230;
+ Mon,  8 May 2023 11:34:29 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mailbox.box.xen0n.name (Postfix) with ESMTPSA id 5309760106;
- Sat,  6 May 2023 22:15:00 +0800 (CST)
-Message-ID: <e6da1c1d-8c4a-920f-07a9-86679d579500@xen0n.name>
-Date: Sat, 6 May 2023 22:14:59 +0800
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0BDE1632A4;
+ Mon,  8 May 2023 11:34:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCEC9C4339E;
+ Mon,  8 May 2023 11:34:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1683545668;
+ bh=U3AASTqeuFKaMjf51fir0o9dcPQyM3LFthotgOzvu8Y=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=DhRk6G+iMuWY0VKHW/AMJSzcI5/ZSXkheLWhue/ZLYfwvuT6GTylhfQl8id9b12V1
+ i0VQ9Esgv/4IL7WtUqziB9ZoA7Xn8cgEDRX6V7PazuVCIye+a0aaNBWxYXp0sCWfEM
+ GWAKEu0gyN1iBxnsLIobxDOjgNMwQ24BRn7ARM4M=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Subject: [PATCH 5.15 114/371] drm/amd/display/dc/dce60/Makefile: Fix previous
+ attempt to silence known override-init warnings
+Date: Mon,  8 May 2023 11:45:15 +0200
+Message-Id: <20230508094816.555754628@linuxfoundation.org>
+X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230508094811.912279944@linuxfoundation.org>
+References: <20230508094811.912279944@linuxfoundation.org>
+User-Agent: quilt/0.67
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.10.1
-Subject: Re: [PATCH V2] drm/amdgpu/display: Enable DC_FP for LoongArch
-Content-Language: en-US
-To: Huacai Chen <chenhuacai@loongson.cn>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Xinhui <Xinhui.Pan@amd.com>, David Airlie <airlied@linux.ie>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>
-References: <20230505113233.3813801-1-chenhuacai@loongson.cn>
-From: WANG Xuerui <kernel@xen0n.name>
-In-Reply-To: <20230505113233.3813801-1-chenhuacai@loongson.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 08 May 2023 13:14:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -53,127 +52,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: loongson-kernel@lists.loongnix.cn, Xuefeng Li <lixuefeng@loongson.cn>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: Sasha Levin <sashal@kernel.org>, Lee Jones <lee@kernel.org>,
+ Leo Li <sunpeng.li@amd.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Mauro Rossi <issor.oruam@gmail.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, patches@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2023/5/5 19:32, Huacai Chen wrote:
-> Now LoongArch provides kernel_fpu_begin() and kernel_fpu_end() in commit
-> 2b3bd32ea3a22ea2d ("LoongArch: Provide kernel fpu functions"), so we can
-> enable DC_FP for DCN devices.
+From: Lee Jones <lee@kernel.org>
 
-Some grammatical fixes and paraphrasing:
+[ Upstream commit 4082b9f5ead4966797dddcfef0905d59e5a83873 ]
 
-"LoongArch now provides kernel_fpu_{begin,end} that are used like the 
-x86 counterparts in commit 2b3bd32ea3a22ea2d ("LoongArch: Provide kernel 
-fpu functions"), so we can now implement DRM_AMD_DC_FP on LoongArch for 
-supporting more DCN devices."
+Fixes the following W=1 kernel build warning(s):
 
-> 
-> Signed-off-by: WANG Xuerui <kernel@xen0n.name>
-> Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+ drivers/gpu/drm/amd/amdgpu/../display/dc/dce60/dce60_resource.c:157:21: note: in expansion of macro ‘mmCRTC1_DCFE_MEM_LIGHT_SLEEP_CNTL’
+ drivers/gpu/drm/amd/amdgpu/../display/dc/dce/dce_transform.h:170:9: note: in expansion of macro ‘SRI’
+ drivers/gpu/drm/amd/amdgpu/../display/dc/dce60/dce60_resource.c:183:17: note: in expansion of macro ‘XFM_COMMON_REG_LIST_DCE60’
+ drivers/gpu/drm/amd/amdgpu/../display/dc/dce60/dce60_resource.c:188:17: note: in expansion of macro ‘transform_regs’
+ drivers/gpu/drm/amd/amdgpu/../include/asic_reg/dce/dce_6_0_d.h:722:43: warning: initialized field overwritten [-Woverride-init]
+ drivers/gpu/drm/amd/amdgpu/../display/dc/dce60/dce60_resource.c:157:21: note: in expansion of macro ‘mmCRTC2_DCFE_MEM_LIGHT_SLEEP_CNTL’
+ drivers/gpu/drm/amd/amdgpu/../display/dc/dce/dce_transform.h:170:9: note: in expansion of macro ‘SRI’
+ drivers/gpu/drm/amd/amdgpu/../display/dc/dce60/dce60_resource.c:183:17: note: in expansion of macro ‘XFM_COMMON_REG_LIST_DCE60’
+ drivers/gpu/drm/amd/amdgpu/../display/dc/dce60/dce60_resource.c:189:17: note: in expansion of macro ‘transform_regs’
+ drivers/gpu/drm/amd/amdgpu/../include/asic_reg/dce/dce_6_0_d.h:722:43: note: (near initialization for ‘xfm_regs[2].DCFE_MEM_LIGHT_SLEEP_CN
 
-I just finished my tests according to the link above and all seems fine.
+[100 lines snipped for brevity]
 
-* Board: A2101 (Loongson 3A5000 with LS7A1000 bridge)
-   - with the firmware provided at [1]
-* GPU: RX 6400 (PowerColor ITX RX6400 4GB GDDR6)
-* Display: Dell P2317H (connected via DisplayPort)
-* Kernel: next-20230505 with this patch (with the conflict resolved)
-* Sysroot: up-to-date Gentoo/LoongArch
+Fixes: ceb3cf476a441 ("drm/amd/display/dc/dce60/Makefile: Ignore -Woverride-init warning")
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Mauro Rossi <issor.oruam@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Signed-off-by: Lee Jones <lee@kernel.org>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/display/dc/dce60/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I've tested:
-
-* Desktop sessions: Xfce4, Plasma Wayland
-* Hot-plugging
-   - at tty, at sddm, inside Plasma Wayland session, multiple times each
-* Changing resolutions
-* kms_flip tests: every non-skipped case passed (I can't test 
-dual-monitor right now)
-
-[1]: https://github.com/loongson/Firmware/tree/main/5000Series/PC/A2101
-
-Hence it's:
-
-Tested-by: WANG Xuerui <kernel@xen0n.name>
-
-> ---
-> V2: Update commit message to add the commit which provides kernel fpu
->      functions.
-> 
->   drivers/gpu/drm/amd/display/Kconfig            | 2 +-
->   drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c | 6 ++++--
->   drivers/gpu/drm/amd/display/dc/dml/Makefile    | 5 +++++
->   3 files changed, 10 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
-> index 2d8e55e29637..49df073962d5 100644
-> --- a/drivers/gpu/drm/amd/display/Kconfig
-> +++ b/drivers/gpu/drm/amd/display/Kconfig
-> @@ -8,7 +8,7 @@ config DRM_AMD_DC
->   	depends on BROKEN || !CC_IS_CLANG || X86_64 || SPARC64 || ARM64
->   	select SND_HDA_COMPONENT if SND_HDA_CORE
->   	# !CC_IS_CLANG: https://github.com/ClangBuiltLinux/linux/issues/1752
-> -	select DRM_AMD_DC_FP if (X86 || (PPC64 && ALTIVEC) || (ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG))
-> +	select DRM_AMD_DC_FP if (X86 || LOONGARCH || (PPC64 && ALTIVEC) || (ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG))
->   	help
->   	  Choose this option if you want to use the new display engine
->   	  support for AMDGPU. This adds required support for Vega and
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-> index 1743ca0a3641..86f4c0e04654 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-> @@ -33,6 +33,8 @@
->   #include <asm/cputable.h>
->   #elif defined(CONFIG_ARM64)
->   #include <asm/neon.h>
-> +#elif defined(CONFIG_LOONGARCH)
-> +#include <asm/fpu.h>
->   #endif
->   
->   /**
-> @@ -88,7 +90,7 @@ void dc_fpu_begin(const char *function_name, const int line)
->   	*pcpu += 1;
->   
->   	if (*pcpu == 1) {
-> -#if defined(CONFIG_X86)
-> +#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
->   		kernel_fpu_begin();
-
-And with the conflict here with linux-next resolved then we may be good 
-to go.
-
->   #elif defined(CONFIG_PPC64)
->   		if (cpu_has_feature(CPU_FTR_VSX_COMP)) {
-> @@ -127,7 +129,7 @@ void dc_fpu_end(const char *function_name, const int line)
->   	pcpu = get_cpu_ptr(&fpu_recursion_depth);
->   	*pcpu -= 1;
->   	if (*pcpu <= 0) {
-> -#if defined(CONFIG_X86)
-> +#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
->   		kernel_fpu_end();
->   #elif defined(CONFIG_PPC64)
->   		if (cpu_has_feature(CPU_FTR_VSX_COMP)) {
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> index 01db035589c5..542962a93e8f 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> @@ -38,6 +38,11 @@ ifdef CONFIG_ARM64
->   dml_rcflags := -mgeneral-regs-only
->   endif
->   
-> +ifdef CONFIG_LOONGARCH
-> +dml_ccflags := -mfpu=64
-> +dml_rcflags := -msoft-float
-> +endif
-> +
->   ifdef CONFIG_CC_IS_GCC
->   ifneq ($(call gcc-min-version, 70100),y)
->   IS_OLD_GCC = 1
-
+diff --git a/drivers/gpu/drm/amd/display/dc/dce60/Makefile b/drivers/gpu/drm/amd/display/dc/dce60/Makefile
+index dda596fa1cd76..fee331accc0e7 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce60/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dce60/Makefile
+@@ -23,7 +23,7 @@
+ # Makefile for the 'controller' sub-component of DAL.
+ # It provides the control and status of HW CRTC block.
+ 
+-CFLAGS_AMDDALPATH)/dc/dce60/dce60_resource.o = $(call cc-disable-warning, override-init)
++CFLAGS_$(AMDDALPATH)/dc/dce60/dce60_resource.o = $(call cc-disable-warning, override-init)
+ 
+ DCE60 = dce60_timing_generator.o dce60_hw_sequencer.o \
+ 	dce60_resource.o
 -- 
-WANG "xen0n" Xuerui
+2.39.2
 
-Linux/LoongArch mailing list: https://lore.kernel.org/loongarch/
+
 
