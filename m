@@ -4,37 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F5ADC7EE26
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA3E5C77B75
 	for <amd-gfx@archiver.kernel.org>; Mon,  8 May 2023 13:14:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CADC10E2B9;
-	Mon,  8 May 2023 13:14:35 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47F1A10E1D8;
- Mon,  8 May 2023 09:58:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0539510E2A1;
+	Mon,  8 May 2023 13:14:36 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC3F610E21F;
+ Mon,  8 May 2023 11:04:11 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 32EDA62289;
- Mon,  8 May 2023 09:58:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 184E3C433D2;
- Mon,  8 May 2023 09:58:50 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id DBB1462A9B;
+ Mon,  8 May 2023 11:04:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95EA6C433D2;
+ Mon,  8 May 2023 11:04:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1683539930;
+ s=korg; t=1683543850;
  bh=U3AASTqeuFKaMjf51fir0o9dcPQyM3LFthotgOzvu8Y=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lN1Ut02THPBG6IPl0ysFWUgC1TNdhSrgGwXlVSgOqlHHUSOasTZlrzkkEg7r5JpnR
- nVY7+LRV94FRZ178GVj23six586HzCPepdNWFlcO5+uMy34KpC0AV03HU97u48DIx9
- auYtomh19tsiRW6z00lAsgOcfGR84Xufy7PWp4Fk=
+ b=ozEJUJrp+6y2w8/8ON9al7hwpnvPukEwpMlaB7p2H4dT6AfewETt65p4RinId8CCU
+ eQDnSPI1X3mTDnzni+nvLKsg2l2cqs16Cw0lH7wiwhkS3Qs9G4wEPUqPUjhIh0DA9a
+ Lb+AEbjO6pZjZHmLoW3lwT5jPzMogGYVRm70j+Ng=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.1 184/611] drm/amd/display/dc/dce60/Makefile: Fix previous
+Subject: [PATCH 6.3 222/694] drm/amd/display/dc/dce60/Makefile: Fix previous
  attempt to silence known override-init warnings
-Date: Mon,  8 May 2023 11:40:26 +0200
-Message-Id: <20230508094428.352057176@linuxfoundation.org>
+Date: Mon,  8 May 2023 11:40:57 +0200
+Message-Id: <20230508094439.566331883@linuxfoundation.org>
 X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230508094421.513073170@linuxfoundation.org>
-References: <20230508094421.513073170@linuxfoundation.org>
+In-Reply-To: <20230508094432.603705160@linuxfoundation.org>
+References: <20230508094432.603705160@linuxfoundation.org>
 User-Agent: quilt/0.67
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
