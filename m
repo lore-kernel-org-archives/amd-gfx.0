@@ -4,31 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A72F6C77B75
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 May 2023 13:14:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE572C7EE22
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 May 2023 13:14:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D29810E29C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEB0A10E29F;
 	Mon,  8 May 2023 13:14:34 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4075710E109;
- Mon,  8 May 2023 03:10:36 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E56F10E1E5;
+ Mon,  8 May 2023 10:18:05 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3E5C960DFE;
- Mon,  8 May 2023 03:10:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDA6BC433EF;
- Mon,  8 May 2023 03:10:31 +0000 (UTC)
-From: Huacai Chen <chenhuacai@loongson.cn>
-To: Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Pan@freedesktop.org, Xinhui <Xinhui.Pan@amd.com>,
-	David Airlie <airlied@linux.ie>
-Subject: [PATCH V3] drm/amdgpu/display: Enable DC_FP for LoongArch
-Date: Mon,  8 May 2023 11:09:41 +0800
-Message-Id: <20230508030941.476694-1-chenhuacai@loongson.cn>
-X-Mailer: git-send-email 2.39.1
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 92B5C624E3;
+ Mon,  8 May 2023 10:18:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ECEAC4339C;
+ Mon,  8 May 2023 10:18:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1683541084;
+ bh=W4hZw9M6ovAMzEaquCs9lcNPtFYHjVZFJSAMrw3tZh4=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=NjkOR++rzoqVCUfSaYpXYF0QcDjtdyvO1dc6lunf6vv7O7MQTSaotvKsTmjcKjUGw
+ i9NSk4s+xFgglVG5d801oi6oA7550q4qo+5ukw/mGVwOD2Mfuvk5xpQr7U/o11xXD1
+ NJyUCt8Gb4//2mQuoUmVz9K/Q27OpLWr65wGdn4g=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Subject: [PATCH 6.1 609/611] drm/amd/display (gcc13): fix enum mismatch
+Date: Mon,  8 May 2023 11:47:31 +0200
+Message-Id: <20230508094441.697916770@linuxfoundation.org>
+X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230508094421.513073170@linuxfoundation.org>
+References: <20230508094421.513073170@linuxfoundation.org>
+User-Agent: quilt/0.67
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 08 May 2023 13:14:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -42,89 +51,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, loongson-kernel@lists.loongnix.cn,
- amd-gfx@lists.freedesktop.org, WANG Xuerui <kernel@xen0n.name>,
- Xuefeng Li <lixuefeng@loongson.cn>, Huacai Chen <chenhuacai@loongson.cn>
+Cc: "Jiri Slaby \(SUSE\)" <jirislaby@kernel.org>, Leo Li <sunpeng.li@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ patches@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Martin Liska <mliska@suse.cz>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-LoongArch now provides kernel_fpu_begin() and kernel_fpu_end() that are
-used like the x86 counterparts in commit 2b3bd32ea3a22ea2d ("LoongArch:
-Provide kernel fpu functions"), so we can enable DC_FP on LoongArch for 
-supporting more DCN devices.
+From: Jiri Slaby (SUSE) <jirislaby@kernel.org>
 
-Signed-off-by: WANG Xuerui <kernel@xen0n.name>
-Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+commit 545094d993f4639482018becda5f2a47d126f0ab upstream.
+
+rn_vbios_smu_set_dcn_low_power_state() produces a valid warning with
+gcc-13:
+  drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.c:237:6: error: conflicting types for 'rn_vbios_smu_set_dcn_low_power_state' due to enum/integer mismatch; have 'void(struct clk_mgr_internal *, enum dcn_pwr_state)'
+  drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.h:36:6: note: previous declaration of 'rn_vbios_smu_set_dcn_low_power_state' with type 'void(struct clk_mgr_internal *, int)'
+
+I.e. the type of the 2nd parameter of
+rn_vbios_smu_set_dcn_low_power_state() in the declaration is int, while
+the definition spells enum dcn_pwr_state. Synchronize them to the
+latter (and add a forward enum declaration).
+
+Cc: Martin Liska <mliska@suse.cz>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
-V2: Update commit message to add the commit which provides kernel fpu
-    functions.
-V3: Update commit message again and rebase on the latest code.
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.h |    4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
- drivers/gpu/drm/amd/display/Kconfig            | 2 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c | 6 ++++--
- drivers/gpu/drm/amd/display/dc/dml/Makefile    | 5 +++++
- 3 files changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
-index 2d8e55e29637..49df073962d5 100644
---- a/drivers/gpu/drm/amd/display/Kconfig
-+++ b/drivers/gpu/drm/amd/display/Kconfig
-@@ -8,7 +8,7 @@ config DRM_AMD_DC
- 	depends on BROKEN || !CC_IS_CLANG || X86_64 || SPARC64 || ARM64
- 	select SND_HDA_COMPONENT if SND_HDA_CORE
- 	# !CC_IS_CLANG: https://github.com/ClangBuiltLinux/linux/issues/1752
--	select DRM_AMD_DC_FP if (X86 || (PPC64 && ALTIVEC) || (ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG))
-+	select DRM_AMD_DC_FP if (X86 || LOONGARCH || (PPC64 && ALTIVEC) || (ARM64 && KERNEL_MODE_NEON && !CC_IS_CLANG))
- 	help
- 	  Choose this option if you want to use the new display engine
- 	  support for AMDGPU. This adds required support for Vega and
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-index c42aa947c969..172aa10a8800 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c
-@@ -33,6 +33,8 @@
- #include <asm/cputable.h>
- #elif defined(CONFIG_ARM64)
- #include <asm/neon.h>
-+#elif defined(CONFIG_LOONGARCH)
-+#include <asm/fpu.h>
- #endif
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.h
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.h
+@@ -26,6 +26,8 @@
+ #ifndef DAL_DC_RN_CLK_MGR_VBIOS_SMU_H_
+ #define DAL_DC_RN_CLK_MGR_VBIOS_SMU_H_
  
- /**
-@@ -88,7 +90,7 @@ void dc_fpu_begin(const char *function_name, const int line)
- 	*pcpu += 1;
- 
- 	if (*pcpu == 1) {
--#if defined(CONFIG_X86)
-+#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
- 		migrate_disable();
- 		kernel_fpu_begin();
- #elif defined(CONFIG_PPC64)
-@@ -128,7 +130,7 @@ void dc_fpu_end(const char *function_name, const int line)
- 	pcpu = get_cpu_ptr(&fpu_recursion_depth);
- 	*pcpu -= 1;
- 	if (*pcpu <= 0) {
--#if defined(CONFIG_X86)
-+#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
- 		kernel_fpu_end();
- 		migrate_enable();
- #elif defined(CONFIG_PPC64)
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-index 01db035589c5..77cf5545c94c 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-@@ -38,6 +38,11 @@ ifdef CONFIG_ARM64
- dml_rcflags := -mgeneral-regs-only
- endif
- 
-+ifdef CONFIG_LOONGARCH
-+dml_ccflags := -mfpu=64
-+dml_rcflags := -msoft-float
-+endif
++enum dcn_pwr_state;
 +
- ifdef CONFIG_CC_IS_GCC
- ifneq ($(call gcc-min-version, 70100),y)
- IS_OLD_GCC = 1
--- 
-2.39.1
+ int rn_vbios_smu_get_smu_version(struct clk_mgr_internal *clk_mgr);
+ int rn_vbios_smu_set_dispclk(struct clk_mgr_internal *clk_mgr, int requested_dispclk_khz);
+ int rn_vbios_smu_set_dprefclk(struct clk_mgr_internal *clk_mgr);
+@@ -33,7 +35,7 @@ int rn_vbios_smu_set_hard_min_dcfclk(str
+ int rn_vbios_smu_set_min_deep_sleep_dcfclk(struct clk_mgr_internal *clk_mgr, int requested_min_ds_dcfclk_khz);
+ void rn_vbios_smu_set_phyclk(struct clk_mgr_internal *clk_mgr, int requested_phyclk_khz);
+ int rn_vbios_smu_set_dppclk(struct clk_mgr_internal *clk_mgr, int requested_dpp_khz);
+-void rn_vbios_smu_set_dcn_low_power_state(struct clk_mgr_internal *clk_mgr, int display_count);
++void rn_vbios_smu_set_dcn_low_power_state(struct clk_mgr_internal *clk_mgr, enum dcn_pwr_state);
+ void rn_vbios_smu_enable_48mhz_tmdp_refclk_pwrdwn(struct clk_mgr_internal *clk_mgr, bool enable);
+ void rn_vbios_smu_enable_pme_wa(struct clk_mgr_internal *clk_mgr);
+ int rn_vbios_smu_is_periodic_retraining_disabled(struct clk_mgr_internal *clk_mgr);
+
 
