@@ -4,62 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84FCDC7EE24
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01DE2C7EE2D
 	for <amd-gfx@archiver.kernel.org>; Tue,  9 May 2023 16:52:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2317110E39C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96DA810E39D;
 	Tue,  9 May 2023 16:52:30 +0000 (UTC)
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49D2D10E39C
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 May 2023 16:52:29 +0000 (UTC)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-965aa9d1d19so170457966b.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 09 May 2023 09:52:29 -0700 (PDT)
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F01810E39C
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 May 2023 16:52:28 +0000 (UTC)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-94a342f4c8eso147437266b.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 09 May 2023 09:52:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=basnieuwenhuizen.nl; s=google; t=1683651147; x=1686243147;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=j8C6kI3O8xJ4OMDBXMXJHiolbzb7+spDbFFSs8vfTZI=;
- b=Q+TjRvaJyVbSCqV85WTwPRbVKeoYtAQtHV6v42tDbetID8k5156VT/4epB9bBEHY4J
- mnbk/QnSCQfxxUyb/aTfkUB/Kwvesg/P9d/9xb/6G/uqEaZ0TQPllGMnX573v8X7cbyG
- 6+xwzgg8EFrnnh0ISuPJKelUAgUAtefCO3PLHoeYlGqWWmcEueoAszXbm3v4ozxcH+Fd
- jWV9/toGrC0jFLSEoVchCXVmQ3AtESscdzrLlbOhG6/iMPhtx6HYaKOLSNJcZiyLWfan
- 7Ev4SZOiqSVIBjAtJ4QoPDtFtvXjcdozyF+yJ5IQneq66DSffQz7bwVYFV1fiuyeUVTF
- exFg==
+ d=basnieuwenhuizen.nl; s=google; t=1683651146; x=1686243146;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=l/zUwg17n6MbxLvNCKWDWOw/93Sm5viSmoaLZsakTHs=;
+ b=RMAcYjnYOvfULPo74tvtG4tvqGL/bM/xxQuqHqRGbOy0Jn8GUjRrSIARYXQ9mBvzHq
+ 7+og5NMtjIVGRY+Z6NO+v5fa6B8iLMUspI8dL69D69ebA1+HxoNkVAfYYxUKkyeMaQty
+ +7gFQBL1n56amwNghi0WxuA6asGffywaLPH1fZZf2RYrs6L6yaV+jsXjVrxnZVUDJ2J5
+ 9+Gihdd3e9gk6+d3BXqI2YmZIz9AHGNdllfmqbbdgqZ9htCy7z58IF4lsizBQbLelEtz
+ DmCBGtxFjJYvIzLWyAMHbbkv0PplSx3YQlLIcOhZ9mNU/zVtunDs7dwNocqMeeJSt5pE
+ vUeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683651147; x=1686243147;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=j8C6kI3O8xJ4OMDBXMXJHiolbzb7+spDbFFSs8vfTZI=;
- b=OUnl5Q2FVofujPKNqQ7wT4IPTu+748y9qRk7KMVU0x7oFGxVLU81Paz84htPhTWzD6
- iBS/OP95wQnpv8TzWbOHrOQoQ+wjMAQZSBY/pcR8tnzuSoSpDvlefQTU7m0GRR7rI9iD
- 5+o9auMyhJi2G8ICGSgCsoyu3uhFZl2UJyJLb+LdYKi8kFvA5LimSi4nmy8zWKAQhS19
- FHkwEi4bpI8IJHP3p7Phrj/Oh5oJ930ZiK8kXLOiGSe4WKirj+5I3noMCwV+yoUzFnDT
- 0BSohxTbSJwRHdHHHPxePTGX0OAYEUjXL+jMIFcLYnlg3y6K+ubOrqc8RqeXWQeGVuL+
- 1FQA==
-X-Gm-Message-State: AC+VfDzVHlMoBsG8SmtvckaBLdf27rowRkhVcV5caPjXUBE3Bxfq+V3C
- nUKBPvE0PM0HGOgzFbkTgaaIju49TJiF1Kcr66I=
-X-Google-Smtp-Source: ACHHUZ7UHieBpcGaYR6cmBR+quqtacxaDEQcDwTrb+BuI9TguC3R4YbZdsCB3QiHdaMxnrnZObT9qg==
-X-Received: by 2002:a17:906:2d2:b0:965:9c7d:df92 with SMTP id
- 18-20020a17090602d200b009659c7ddf92mr12742354ejk.2.1683651146716; 
- Tue, 09 May 2023 09:52:26 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1683651146; x=1686243146;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=l/zUwg17n6MbxLvNCKWDWOw/93Sm5viSmoaLZsakTHs=;
+ b=CbIjyLYKy4MUyHI2XtKFcelLtUkb8+BVjdVHLNoLFx6PGW+nP4bR6EK7DzFz3PZjFr
+ F3GcnlLe5ro0WfN852Sm4Fhu673UuXYgfhzgHGmtJRAdW9vJV/BgT2dGtz4/J9/rp/Tr
+ XsfFrGErmKSOeVF1Cgoil2jq7c6OrxgKFP9r7s7/elkSDFuL5j2dR0+nxn4os97KpaMi
+ 95EPzQ8l2SHgvpL6Svf3U6Tu5XispAoBZDLrfuPi1W3ZTDLuqpmXVnNTO5ulqJwMWl32
+ yDUezzpS6gYfGDXg8G+X8BFm1NGUcCqrO8wYNXBaD6ZSi56t8V+0j6ik3Xtl0aU07QZm
+ 161w==
+X-Gm-Message-State: AC+VfDyyonYM+Ygt8mq8fCPDBdBPqde7luLwYPHKSynQDYp+su01J3gu
+ p01s4JWcOBQfoEOjXX7Vz3BJdkMCL5yFORyRSLo=
+X-Google-Smtp-Source: ACHHUZ5XlzCK/w/vp8GnSFk7HVy3Wt2+aUDz/RLAJfq6mvoU+BZbk23D9ec4G3DpAsM4uooox/Kzvw==
+X-Received: by 2002:a17:906:1d4:b0:953:2918:71e7 with SMTP id
+ 20-20020a17090601d400b00953291871e7mr10892017ejj.5.1683651145815; 
+ Tue, 09 May 2023 09:52:25 -0700 (PDT)
 Received: from bas-workstation.. ([2a02:aa12:a781:180::a8])
  by smtp.gmail.com with ESMTPSA id
- tk13-20020a170907c28d00b0094f185d82dcsm1521337ejc.21.2023.05.09.09.52.25
+ tk13-20020a170907c28d00b0094f185d82dcsm1521337ejc.21.2023.05.09.09.52.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 May 2023 09:52:26 -0700 (PDT)
+ Tue, 09 May 2023 09:52:25 -0700 (PDT)
 From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/amdgpu/gfx11: Adjust gfxoff before powergating on
- gfx11 as well
-Date: Tue,  9 May 2023 18:49:47 +0200
-Message-Id: <20230509164947.455753-2-bas@basnieuwenhuizen.nl>
+Subject: [PATCH 1/2] drm/amdgpu/gfx10: Disable gfxoff before disabling
+ powergating.
+Date: Tue,  9 May 2023 18:49:46 +0200
+Message-Id: <20230509164947.455753-1-bas@basnieuwenhuizen.nl>
 X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230509164947.455753-1-bas@basnieuwenhuizen.nl>
-References: <20230509164947.455753-1-bas@basnieuwenhuizen.nl>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -74,32 +71,36 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Alex Deucher <alexander.deucher@amd.com>,
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+ "Guilherme G . Piccoli" <gpiccoli@igalia.com>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Otherwise we get a full system lock (looks like a FW mess).
 
-(Bas: speculative change to mirror gfx10/gfx9)
+Copied the order from the GFX9 powergating code.
 
-Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
+Fixes: 366468ff6c34 ("drm/amdgpu: Allow GfxOff on Vangogh as default")
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2545
+Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Tested-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 8 +++++++-
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 8 +++++++-
  1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index f09e2558e73b..3585edd07db5 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -5084,8 +5084,14 @@ static int gfx_v11_0_set_powergating_state(void *handle,
- 		break;
- 	case IP_VERSION(11, 0, 1):
- 	case IP_VERSION(11, 0, 4):
-+		if (!enable)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 2e0234b43f43..1d164ed2a714 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -8036,8 +8036,14 @@ static int gfx_v10_0_set_powergating_state(void *handle,
+ 	case IP_VERSION(10, 3, 3):
+ 	case IP_VERSION(10, 3, 6):
+ 	case IP_VERSION(10, 3, 7):
++                if (!enable)
 +			amdgpu_gfx_off_ctrl(adev, false);
 +
- 		gfx_v11_cntl_pg(adev, enable);
+ 		gfx_v10_cntl_pg(adev, enable);
 -		amdgpu_gfx_off_ctrl(adev, enable);
 +
 +		if (enable)
