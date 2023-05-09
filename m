@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6675AC7EE26
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 May 2023 22:04:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0E63C77B7C
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 May 2023 22:04:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABC4C10E3D9;
-	Tue,  9 May 2023 22:04:44 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2083.outbound.protection.outlook.com [40.107.95.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC5BF10E3D9
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 May 2023 22:04:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C79A10E3DB;
+	Tue,  9 May 2023 22:04:46 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2087.outbound.protection.outlook.com [40.107.92.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1783710E3D8
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 May 2023 22:04:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iu7l0E0Lfvf2Q/HSBsnqlEgtRWxvHlEZ7USrlDNpkadq+2OgAiKEc0qXl81eRY8W6xdbLr9wGZT9bLvgry7dOHOIyHxl04eguxleyeyKDsciOczK+QP35aB+TK/d94jO9Z52/OYL3Q+Fm2FyEzXacITL6z66seXsZorFgCJgJq5RyZgMJNPmg3klGMVUcje3r7iM6IfTgXIo7g/IaaCbilPyeIlBKKjpXm3oJdt0Qqc41G5WNye2/M+ziDpeYWqb0wBHTe2WwEqddV+/oo25PXb2VVzsMiQAi8MEkyzpFcYW6LvzqMJJjpKYX9dpWBw469WfhqeuQ4ibjNQtY8MhbQ==
+ b=NQmobhCsXSldjH08Xmbru+xdCt5SUyIwzIxzhp7P5QA43jn1qeSM3MpOAXXcB34cmAhUcEHzub3VhV3lDGSQlDYzShft50YqgqBEaWlFcMzwYP66S+pvYgRX65MAGggVLSd+6uTKACOV9bsdmkjQpLeTB+IHNHPvLl+4QO7q1Qr2bJbHdLIBaUnDtkBowEG2tlIviN8h9tvGO23S8ENgssSwBHqWMZAn4LX4NZzOUSe0fRz93W1eUdyfwQ5X80FZe2SoL7MM/V2aaUXoqQyTemIkgR8sU0z+b6wDVOpa5h7lujif7ZdMlzWnshm/LCuYMWn1Y+Y2LhIUsJWm3E20hQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cQRQVYWhQ3ufvvJd6JPNaweC4J40TXcqc8drTtgSG3I=;
- b=RR5DJoAHPfVlxfOxd9fzp08AXI0IR17LI8wVsipXO7YAERanz5jOHVxOF7mg9od2EOJppPKLmiNL0zFlMtQxPW9F515c6JRM1MJeeJ+cW+s3HTdgCFmOqoqgMyt+wY9b/B36951y8d4/sZEymg4G1dx5vbAo2rdLWSqmzC1m6z6OIYA/jRkkbBHimCF5BvekWdS9Lxtkpsp5bW1jsrhj4jTaXevq6fvJCuGjLUZNupq2PsbjE+q8bHjFJJkWlqXiznBigdK1RlzXPDBh/fzP0nr7yBjfQA29OBTGH6WAQQ/3mGBumiYOyd1UiEatAkVTvzMqqdeH8HNp/4+fOSnJvA==
+ bh=+yO8q2ockn+ORt0atc1FyGH9kKxXaOSf0ZdPGwlTTt0=;
+ b=bOExW4WfiudnTjBKtDaFVWyliOB9sQwFRlh1xoJJdOOiATJnxt3i+SwbntKiEBxZh/3EJ/tuaInvsgflZ7JPrn6XoJphi9wVFzku8vVmiMRH40lGPpe20TO3iKF1cqdla1E15M6eJmSpuMUN4T2FK205XJnusS5ddR19VZFdDNdu7tXjl2FJzyzysXauq0sls+4zBAmYGZdAfb/4PcS7VvT43teT0+A14PgAXU4MYD/A5i3CRIoEobgHHClSAZ8kjatpdDjDqGUS+Qnm0xXgACfXbdTQY77LXWZgtsKb3/x3NQRz+8YZISrmI424BPoL7f1ziPQlduSVXzRLh7CnfA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cQRQVYWhQ3ufvvJd6JPNaweC4J40TXcqc8drTtgSG3I=;
- b=hThM7JVgNPrMZbJgUB0R6Jq2T6R+iPPspFQdqrjjIEt7oHjRhRpcZ7H9d5APvEAo4fOyg8IFGUXlTb/wl+YqH4ebfssWXYUl5bqdrPZDsArY0t9czEKWKjR4n6k0XD6az6hZmLdoA6k9vsEpjlgEj1smnHKvvWQE8/IQL7vfqE0=
-Received: from BN9PR03CA0129.namprd03.prod.outlook.com (2603:10b6:408:fe::14)
- by PH8PR12MB7232.namprd12.prod.outlook.com (2603:10b6:510:224::14)
+ bh=+yO8q2ockn+ORt0atc1FyGH9kKxXaOSf0ZdPGwlTTt0=;
+ b=xVoFTgQwQkXhD2aCD9qN9xMJqrgNBHo9XlvGP6fEHNE+BMYlFhDazXACxMbl3zrsju13EYATOZ+2qXiITk/NefKQZS13R4HZBWzgmuZHKkJKq9cKcWOTg22rxwgN+b4Pj+CYQ7VqBqzcaA9QH2OxUuu30tZRLKHd3XmvUwckzFg=
+Received: from BN9PR03CA0142.namprd03.prod.outlook.com (2603:10b6:408:fe::27)
+ by MW4PR12MB5628.namprd12.prod.outlook.com (2603:10b6:303:185::5)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.18; Tue, 9 May
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.33; Tue, 9 May
  2023 22:04:39 +0000
 Received: from BN8NAM11FT088.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:fe:cafe::19) by BN9PR03CA0129.outlook.office365.com
- (2603:10b6:408:fe::14) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:408:fe:cafe::73) by BN9PR03CA0142.outlook.office365.com
+ (2603:10b6:408:fe::27) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.33 via Frontend
  Transport; Tue, 9 May 2023 22:04:39 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
@@ -47,17 +47,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT088.mail.protection.outlook.com (10.13.177.81) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6387.18 via Frontend Transport; Tue, 9 May 2023 22:04:38 +0000
+ 15.20.6387.18 via Frontend Transport; Tue, 9 May 2023 22:04:39 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 9 May
  2023 17:04:38 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/3] drm/amdgpu: Handle VRAM dependencies on GFXIP9.4.3
-Date: Tue, 9 May 2023 18:01:42 -0400
-Message-ID: <20230509220144.474723-1-alexander.deucher@amd.com>
+Subject: [PATCH 2/3] drm/amdgpu: Implement new dummy vram manager
+Date: Tue, 9 May 2023 18:01:43 -0400
+Message-ID: <20230509220144.474723-2-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230509220144.474723-1-alexander.deucher@amd.com>
+References: <20230509220144.474723-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT088:EE_|PH8PR12MB7232:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7133f2b3-e279-45c8-0f8a-08db50d9623b
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT088:EE_|MW4PR12MB5628:EE_
+X-MS-Office365-Filtering-Correlation-Id: 50c72a8a-d632-497e-e280-08db50d96290
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DJsbKZlTjfVXLEDCMkTV17LpwCo7ql+kqhx6CCITJfBNrJMbp/zH9X83MNMg5Js+rKfVTn6xt5VSJE4HpN10dy36zU41l+gqz1nf7IGG8vnZAj9HThZfwi5fHPfP/sUzgzdOxBAP13NHjUrh+1Bm1GDs36sSFDmXkdlfv8yv9ccBb62ASTRFgElLhiG3+IloHFvycjTjnRgnT3P+FaZmIUE6cl/7WErwNEa6mUesRbRSHMNngcLIni4fEhNvWCJO7BR+SJCd1gCwEPDTlqe62VSOwwkAcr5P9tqcN9xr/QfIVLZyMhk2xr6OGjxOXsyqX6KEITFTWQ9GtacJ9E1qBDbAv1lwUUvvUtpsLY9T4bqq1z2/yTPMZLAnHO9BdQCzCHb9gS9wYSF9nL1PEt5ho8GYHbL1PAVZgnuaScz8Nh1SioO+1zb+HS/pOU4ArRsrwpsKkP0vFF7g3xTIRh9SG9ac8VYx5RDzVNVMxOqXyGiyPw2OUYBwHdUh0ilcu429fNPVYi/m+/z5LAYOcQbGFCHTnt7VkVQYRVFXPvIpKllaZZTdMiMY6Nvz31HdWPBP1FGdH8iL9YDya4rwcvVrk0PivGXfWH0dMbtRNe9OVSccMgQ5eUG2oaH94jQGJi0Sz0ISPvXcwxuFjekhFATVMhcmWEOa9Yp/tRdh5o5Ll28/55c98Nvei3NkMBi0yPeucrZ7vLg0qrMFkhEgX5Ie/Rhlb2aBpAjLGZlZIhlgQ6W38F8/9jLM9KSaWNBCVNI6zf20O2tGy/TBojyf92LjIw==
+X-Microsoft-Antispam-Message-Info: KI96BJfdUSXhqSH8FzMEEtqIsFVAsGTb59nrQJijDyfI92NzVtVKp/LHD6HCP0M4JhNxQfaJdIzs5FvvsRz03ooYQwl2sZ4rJ8HDOOlAWmqBkPx7xsZIjLEMSDJtiUfJLytQNPmhi/mxi4GtmrQf5uCrSDdEo0M/3rRDD16i1U4Jy4WjXItkyR6xPOVmLHcPMrVOf3+llnIEFQSYEl4XlatiPnTX4SHSc7DQYJOV2hzpO8LGeXUzDINeUmIMPqrjqLr/EWvZANfwXuWmOkaXbShEnuJqG3nj82J0q1VBkhYUkmZ88PwWo4p8ySS8rxLvxbl3ZtbrCsykkvWNRN67r3exmSWm/GBF0RJf2HqnAuZXttL+VP95qD7J8JSSAPH8Xy+1IssdX5yYCM7RwqwUW2EAgktyiypPgdiY49YXD0ntFblF2YDUBa3o4/y0e7pJ5tQOxhaVBeJDKkO7wvFkP/L9bA5ZnoarsU1VlAx3ERs4tQcXdjWr2Osou/K0qob2f6zXzBdatOluO3ITFpV070PDzkpXXIXYpDM0IEVEMRxokDZppn5mdSIIshRHKrStr6TiNNsz/Aiiv5RpmhTkCfDauu2H9kf6UQboyMq2AogsJ9iyCf51G+lTsro+dOqW6E/ApuJxMpcWSZQE0ev6jELIALuW8s5goivpfKhOoM3rVTwT5VLyWHeFmVZvLDqb2BS1UQMLSCmGvr5FxkPqEma/0zBT7/fcQ85Ad4ZHkf0=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(346002)(376002)(136003)(39860400002)(451199021)(36840700001)(46966006)(40470700004)(6666004)(2616005)(2906002)(30864003)(16526019)(478600001)(186003)(36756003)(40460700003)(7696005)(40480700001)(26005)(41300700001)(1076003)(356005)(316002)(82740400003)(83380400001)(81166007)(47076005)(54906003)(4326008)(6916009)(70586007)(70206006)(5660300002)(8676002)(36860700001)(426003)(336012)(86362001)(8936002)(82310400005)(36900700001);
+ SFS:(13230028)(4636009)(39860400002)(396003)(346002)(136003)(376002)(451199021)(36840700001)(40470700004)(46966006)(86362001)(36756003)(316002)(54906003)(6666004)(70206006)(4326008)(6916009)(70586007)(7696005)(478600001)(40480700001)(356005)(82740400003)(2906002)(82310400005)(5660300002)(8936002)(41300700001)(8676002)(81166007)(16526019)(186003)(2616005)(36860700001)(1076003)(26005)(83380400001)(47076005)(336012)(426003)(40460700003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2023 22:04:38.8751 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7133f2b3-e279-45c8-0f8a-08db50d9623b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2023 22:04:39.4376 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 50c72a8a-d632-497e-e280-08db50d96290
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT088.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7232
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5628
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,382 +100,127 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Alex Deucher <alexander.deucher@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
  Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 
-[For 1P NPS1 mode driver bringup]
-
-Changes required to initialize the amdgpu driver with frontdoor firmware
-loading and discovery=2 with the native mode SBIOS that enables CPU GPU
-unified interleaved memory.
-
-sudo modprobe amdgpu discovery=2
-
-Once PSP TMR region is reported via the ACPI interface, the dependency
-on the ip_discovery.bin will be removed.
-
-Choice of where to allocate driver table is given to each IP version. In
-general, both GTT and VRAM domains will be considered. If one of the
-tables has a strict restriction for VRAM domain, then only VRAM domain
-is considered.
+This adds dummy vram manager to support ASICs that do not have a
+dedicated or carvedout vram domain.
 
 Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-(lijo: Modified the handling for SMU Tables)
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |  6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 89 +++++++++++--------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c     |  7 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c       |  3 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         |  9 +-
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  6 ++
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c         |  5 ++
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 10 ++-
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  |  6 +-
- 11 files changed, 99 insertions(+), 47 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 67 ++++++++++++++++++--
+ 1 file changed, 60 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 9abf940dbac1..bb7e9ab27a4c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -2291,8 +2291,9 @@ int amdgpu_amdkfd_gpuvm_import_dmabuf(struct amdgpu_device *adev,
- 	(*mem)->dmabuf = dma_buf;
- 	(*mem)->bo = bo;
- 	(*mem)->va = va;
--	(*mem)->domain = (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM) ?
-+	(*mem)->domain = (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM) && !adev->gmc.is_app_apu ?
- 		AMDGPU_GEM_DOMAIN_VRAM : AMDGPU_GEM_DOMAIN_GTT;
-+
- 	(*mem)->mapped_to_gpu_memory = 0;
- 	(*mem)->process_info = avm->process_info;
- 	add_kgd_mem_to_kfd_bo_list(*mem, avm->process_info, false);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index 7c9b788ae0a9..a5c4f98f8cd1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -1044,7 +1044,7 @@ static const char *amdgpu_vram_names[] = {
- int amdgpu_bo_init(struct amdgpu_device *adev)
- {
- 	/* On A+A platform, VRAM can be mapped as WB */
--	if (!adev->gmc.xgmi.connected_to_cpu) {
-+	if (!adev->gmc.xgmi.connected_to_cpu && !adev->gmc.is_app_apu) {
- 		/* reserve PAT memory space to WC for VRAM */
- 		int r = arch_io_reserve_memtype_wc(adev->gmc.aper_base,
- 				adev->gmc.aper_size);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 863fa331e6ff..4395c53d09d8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -476,7 +476,8 @@ static int psp_sw_init(void *handle)
- 		return ret;
- 
- 	ret = amdgpu_bo_create_kernel(adev, PSP_FENCE_BUFFER_SIZE, PAGE_SIZE,
--				      AMDGPU_GEM_DOMAIN_VRAM,
-+				      AMDGPU_GEM_DOMAIN_VRAM |
-+				      AMDGPU_GEM_DOMAIN_GTT,
- 				      &psp->fence_buf_bo,
- 				      &psp->fence_buf_mc_addr,
- 				      &psp->fence_buf);
-@@ -484,7 +485,8 @@ static int psp_sw_init(void *handle)
- 		goto failed1;
- 
- 	ret = amdgpu_bo_create_kernel(adev, PSP_CMD_BUFFER_SIZE, PAGE_SIZE,
--				      AMDGPU_GEM_DOMAIN_VRAM,
-+				      AMDGPU_GEM_DOMAIN_VRAM |
-+				      AMDGPU_GEM_DOMAIN_GTT,
- 				      &psp->cmd_buf_bo, &psp->cmd_buf_mc_addr,
- 				      (void **)&psp->cmd_buf_mem);
- 	if (ret)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 4fb93f367b99..2bdd6bcad506 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1712,15 +1712,20 @@ static int amdgpu_ttm_reserve_tmr(struct amdgpu_device *adev)
- 		ctx->init = PSP_MEM_TRAIN_RESERVE_SUCCESS;
- 	}
- 
--	ret = amdgpu_bo_create_kernel_at(adev,
--					 adev->gmc.real_vram_size - adev->mman.discovery_tmr_size,
--					 adev->mman.discovery_tmr_size,
--					 &adev->mman.discovery_memory,
--					 NULL);
--	if (ret) {
--		DRM_ERROR("alloc tmr failed(%d)!\n", ret);
--		amdgpu_bo_free_kernel(&adev->mman.discovery_memory, NULL, NULL);
--		return ret;
-+	if (!adev->gmc.is_app_apu) {
-+		ret = amdgpu_bo_create_kernel_at(adev,
-+						 adev->gmc.real_vram_size -
-+						 adev->mman.discovery_tmr_size,
-+						 adev->mman.discovery_tmr_size,
-+						 &adev->mman.discovery_memory,
-+						 NULL);
-+		if (ret) {
-+			DRM_ERROR("alloc tmr failed(%d)!\n", ret);
-+			amdgpu_bo_free_kernel(&adev->mman.discovery_memory, NULL, NULL);
-+			return ret;
-+		}
-+	} else {
-+		DRM_DEBUG_DRIVER("backdoor fw loading path for PSP TMR, no reservation needed\n");
- 	}
- 
- 	return 0;
-@@ -1769,10 +1774,12 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
- 		adev->mman.aper_base_kaddr = ioremap_cache(adev->gmc.aper_base,
- 				adev->gmc.visible_vram_size);
- 
--	else
-+	else if (!adev->gmc.is_app_apu)
- #endif
- 		adev->mman.aper_base_kaddr = ioremap_wc(adev->gmc.aper_base,
- 				adev->gmc.visible_vram_size);
-+	else
-+		DRM_DEBUG_DRIVER("No need to ioremap when real vram size is 0\n");
- #endif
- 
- 	/*
-@@ -1807,23 +1814,32 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
- 	 * This is used for VGA emulation and pre-OS scanout buffers to
- 	 * avoid display artifacts while transitioning between pre-OS
- 	 * and driver.  */
--	r = amdgpu_bo_create_kernel_at(adev, 0, adev->mman.stolen_vga_size,
--				       &adev->mman.stolen_vga_memory,
--				       NULL);
--	if (r)
--		return r;
--	r = amdgpu_bo_create_kernel_at(adev, adev->mman.stolen_vga_size,
--				       adev->mman.stolen_extended_size,
--				       &adev->mman.stolen_extended_memory,
--				       NULL);
--	if (r)
--		return r;
--	r = amdgpu_bo_create_kernel_at(adev, adev->mman.stolen_reserved_offset,
--				       adev->mman.stolen_reserved_size,
--				       &adev->mman.stolen_reserved_memory,
--				       NULL);
--	if (r)
--		return r;
-+	if (!adev->gmc.is_app_apu) {
-+		r = amdgpu_bo_create_kernel_at(adev, 0,
-+					       adev->mman.stolen_vga_size,
-+					       &adev->mman.stolen_vga_memory,
-+					       NULL);
-+		if (r)
-+			return r;
-+
-+		r = amdgpu_bo_create_kernel_at(adev, adev->mman.stolen_vga_size,
-+					       adev->mman.stolen_extended_size,
-+					       &adev->mman.stolen_extended_memory,
-+					       NULL);
-+
-+		if (r)
-+			return r;
-+
-+		r = amdgpu_bo_create_kernel_at(adev,
-+					       adev->mman.stolen_reserved_offset,
-+					       adev->mman.stolen_reserved_size,
-+					       &adev->mman.stolen_reserved_memory,
-+					       NULL);
-+		if (r)
-+			return r;
-+	} else {
-+		DRM_DEBUG_DRIVER("Skipped stolen memory reservation\n");
-+	}
- 
- 	DRM_INFO("amdgpu: %uM of VRAM memory ready\n",
- 		 (unsigned) (adev->gmc.real_vram_size / (1024 * 1024)));
-@@ -1870,7 +1886,6 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
- 		DRM_ERROR("Failed initializing oa heap.\n");
- 		return r;
- 	}
--
- 	if (amdgpu_bo_create_kernel(adev, PAGE_SIZE, PAGE_SIZE,
- 				AMDGPU_GEM_DOMAIN_GTT,
- 				&adev->mman.sdma_access_bo, NULL,
-@@ -1891,13 +1906,15 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
- 
- 	amdgpu_ttm_training_reserve_vram_fini(adev);
- 	/* return the stolen vga memory back to VRAM */
--	amdgpu_bo_free_kernel(&adev->mman.stolen_vga_memory, NULL, NULL);
--	amdgpu_bo_free_kernel(&adev->mman.stolen_extended_memory, NULL, NULL);
--	/* return the IP Discovery TMR memory back to VRAM */
--	amdgpu_bo_free_kernel(&adev->mman.discovery_memory, NULL, NULL);
--	if (adev->mman.stolen_reserved_size)
--		amdgpu_bo_free_kernel(&adev->mman.stolen_reserved_memory,
--				      NULL, NULL);
-+	if (!adev->gmc.is_app_apu) {
-+		amdgpu_bo_free_kernel(&adev->mman.stolen_vga_memory, NULL, NULL);
-+		amdgpu_bo_free_kernel(&adev->mman.stolen_extended_memory, NULL, NULL);
-+		/* return the IP Discovery TMR memory back to VRAM */
-+		amdgpu_bo_free_kernel(&adev->mman.discovery_memory, NULL, NULL);
-+		if (adev->mman.stolen_reserved_size)
-+			amdgpu_bo_free_kernel(&adev->mman.stolen_reserved_memory,
-+					      NULL, NULL);
-+	}
- 	amdgpu_bo_free_kernel(&adev->mman.sdma_access_bo, NULL,
- 					&adev->mman.sdma_access_ptr);
- 	amdgpu_ttm_fw_reserve_vram_fini(adev);
-@@ -1939,7 +1956,7 @@ void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev, bool enable)
- 	int r;
- 
- 	if (!adev->mman.initialized || amdgpu_in_reset(adev) ||
--	    adev->mman.buffer_funcs_enabled == enable)
-+	    adev->mman.buffer_funcs_enabled == enable || adev->gmc.is_app_apu)
- 		return;
- 
- 	if (enable) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-index df63dc3bca18..bc5d126b600b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-@@ -512,7 +512,12 @@ int amdgpu_vm_pt_create(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 
- 	bp.size = amdgpu_vm_pt_size(adev, level);
- 	bp.byte_align = AMDGPU_GPU_PAGE_SIZE;
--	bp.domain = AMDGPU_GEM_DOMAIN_VRAM;
-+
-+	if (!adev->gmc.is_app_apu)
-+		bp.domain = AMDGPU_GEM_DOMAIN_VRAM;
-+	else
-+		bp.domain = AMDGPU_GEM_DOMAIN_GTT;
-+
- 	bp.domain = amdgpu_bo_get_preferred_domain(adev, bp.domain);
- 	bp.flags = AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS |
- 		AMDGPU_GEM_CREATE_CPU_GTT_USWC;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index 1f1268cd5e09..42877c4505f1 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -459,7 +459,8 @@ static int gfx_v9_4_3_mec_init(struct amdgpu_device *adev)
- 		adev->gfx.num_compute_rings * num_xcc * GFX9_MEC_HPD_SIZE;
- 	if (mec_hpd_size) {
- 		r = amdgpu_bo_create_reserved(adev, mec_hpd_size, PAGE_SIZE,
--					      AMDGPU_GEM_DOMAIN_VRAM,
-+					      AMDGPU_GEM_DOMAIN_VRAM |
-+					      AMDGPU_GEM_DOMAIN_GTT,
- 					      &adev->gfx.mec.hpd_eop_obj,
- 					      &adev->gfx.mec.hpd_eop_gpu_addr,
- 					      (void **)&hpd);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 18116e92e33a..d95205b4277e 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1593,8 +1593,13 @@ static int gmc_v9_0_mc_init(struct amdgpu_device *adev)
- 	int r;
- 
- 	/* size in MB on si */
--	adev->gmc.mc_vram_size =
--		adev->nbio.funcs->get_memsize(adev) * 1024ULL * 1024ULL;
-+	if (!adev->gmc.is_app_apu) {
-+		adev->gmc.mc_vram_size =
-+			adev->nbio.funcs->get_memsize(adev) * 1024ULL * 1024ULL;
-+	} else {
-+		DRM_DEBUG("Set mc_vram_size = 0 for APP APU\n");
-+		adev->gmc.mc_vram_size = 0;
-+	}
- 	adev->gmc.real_vram_size = adev->gmc.mc_vram_size;
- 
- 	if (!(adev->flags & AMD_IS_APU) &&
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 82749405be79..8c86d69938ea 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1026,6 +1026,12 @@ bool kfd_dev_is_large_bar(struct kfd_node *dev)
- 	if (dev->kfd->local_mem_info.local_mem_size_private == 0 &&
- 	    dev->kfd->local_mem_info.local_mem_size_public > 0)
- 		return true;
-+
-+	if (dev->kfd->local_mem_info.local_mem_size_public == 0 && dev->kfd->adev->gmc.is_app_apu) {
-+		pr_debug("APP APU, Consider like a large bar system\n");
-+		return true;
-+	}
-+
- 	return false;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+index 43d6a9d6a538..89d35d194f2c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+@@ -370,6 +370,45 @@ int amdgpu_vram_mgr_query_page_status(struct amdgpu_vram_mgr *mgr,
+ 	return ret;
  }
  
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index 16475921587b..1aaf933f9f48 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -30,6 +30,9 @@
- #include "amdgpu.h"
- #include "amdgpu_amdkfd.h"
- 
-+/* Fixme: Fake 32GB for 1PNPS1 mode bringup */
-+#define DUMMY_VRAM_SIZE 31138512896
++static void amdgpu_dummy_vram_mgr_debug(struct ttm_resource_manager *man,
++				  struct drm_printer *printer)
++{
++	DRM_DEBUG_DRIVER("Dummy vram mgr debug\n");
++}
 +
- /* GPU Processor ID base for dGPUs for which VCRAT needs to be created.
-  * GPU processor ID are expressed with Bit[31]=1.
-  * The base is set to 0x8000_0000 + 0x1000 to avoid collision with GPU IDs
-@@ -1053,6 +1056,8 @@ static int kfd_parse_subtype_mem(struct crat_subtype_memory *mem,
++static bool amdgpu_dummy_vram_mgr_compatible(struct ttm_resource_manager *man,
++				       struct ttm_resource *res,
++				       const struct ttm_place *place,
++				       size_t size)
++{
++	DRM_DEBUG_DRIVER("Dummy vram mgr compatible\n");
++	return false;
++}
++
++static bool amdgpu_dummy_vram_mgr_intersects(struct ttm_resource_manager *man,
++				       struct ttm_resource *res,
++				       const struct ttm_place *place,
++				       size_t size)
++{
++	DRM_DEBUG_DRIVER("Dummy vram mgr intersects\n");
++	return true;
++}
++
++static void amdgpu_dummy_vram_mgr_del(struct ttm_resource_manager *man,
++				struct ttm_resource *res)
++{
++	DRM_DEBUG_DRIVER("Dummy vram mgr deleted\n");
++}
++
++static int amdgpu_dummy_vram_mgr_new(struct ttm_resource_manager *man,
++			       struct ttm_buffer_object *tbo,
++			       const struct ttm_place *place,
++			       struct ttm_resource **res)
++{
++	DRM_DEBUG_DRIVER("Dummy vram mgr new\n");
++	return -ENOSPC;
++}
++
+ /**
+  * amdgpu_vram_mgr_new - allocate new ranges
+  *
+@@ -817,6 +856,14 @@ static void amdgpu_vram_mgr_debug(struct ttm_resource_manager *man,
+ 	mutex_unlock(&mgr->lock);
+ }
  
- 			props->heap_type = heap_type;
- 			props->flags = flags;
-+			if (size_in_bytes == 0)
-+				size_in_bytes = DUMMY_VRAM_SIZE; /* Fixme: TBD */
- 			props->size_in_bytes = size_in_bytes;
- 			props->width = width;
++static const struct ttm_resource_manager_func amdgpu_dummy_vram_mgr_func = {
++	.alloc	= amdgpu_dummy_vram_mgr_new,
++	.free	= amdgpu_dummy_vram_mgr_del,
++	.intersects = amdgpu_dummy_vram_mgr_intersects,
++	.compatible = amdgpu_dummy_vram_mgr_compatible,
++	.debug	= amdgpu_dummy_vram_mgr_debug
++};
++
+ static const struct ttm_resource_manager_func amdgpu_vram_mgr_func = {
+ 	.alloc	= amdgpu_vram_mgr_new,
+ 	.free	= amdgpu_vram_mgr_del,
+@@ -841,17 +888,22 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
+ 	ttm_resource_manager_init(man, &adev->mman.bdev,
+ 				  adev->gmc.real_vram_size);
  
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 5633c5797e85..7cf56587d320 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -804,11 +804,20 @@ static int smu_init_fb_allocations(struct smu_context *smu)
- 		}
+-	man->func = &amdgpu_vram_mgr_func;
+-
+-	err = drm_buddy_init(&mgr->mm, man->size, PAGE_SIZE);
+-	if (err)
+-		return err;
+-
+ 	mutex_init(&mgr->lock);
+ 	INIT_LIST_HEAD(&mgr->reservations_pending);
+ 	INIT_LIST_HEAD(&mgr->reserved_pages);
+ 	mgr->default_page_size = PAGE_SIZE;
+ 
++	if (!adev->gmc.is_app_apu) {
++		man->func = &amdgpu_vram_mgr_func;
++
++		err = drm_buddy_init(&mgr->mm, man->size, PAGE_SIZE);
++		if (err)
++			return err;
++	} else {
++		man->func = &amdgpu_dummy_vram_mgr_func;
++		DRM_INFO("Setup dummy vram mgr\n");
++	}
++
+ 	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
+ 	ttm_resource_manager_set_used(man, true);
+ 	return 0;
+@@ -886,7 +938,8 @@ void amdgpu_vram_mgr_fini(struct amdgpu_device *adev)
+ 		drm_buddy_free_list(&mgr->mm, &rsv->allocated);
+ 		kfree(rsv);
  	}
+-	drm_buddy_fini(&mgr->mm);
++	if (!adev->gmc.is_app_apu)
++		drm_buddy_fini(&mgr->mm);
+ 	mutex_unlock(&mgr->lock);
  
-+	driver_table->domain = AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT;
- 	/* VRAM allocation for driver table */
- 	for (i = 0; i < SMU_TABLE_COUNT; i++) {
- 		if (tables[i].size == 0)
- 			continue;
- 
-+		/* If one of the tables has VRAM domain restriction, keep it in
-+		 * VRAM
-+		 */
-+		if ((tables[i].domain &
-+		    (AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT)) ==
-+			    AMDGPU_GEM_DOMAIN_VRAM)
-+			driver_table->domain = AMDGPU_GEM_DOMAIN_VRAM;
-+
- 		if (i == SMU_TABLE_PMSTATUSLOG)
- 			continue;
- 
-@@ -818,7 +827,6 @@ static int smu_init_fb_allocations(struct smu_context *smu)
- 
- 	driver_table->size = max_table_size;
- 	driver_table->align = PAGE_SIZE;
--	driver_table->domain = AMDGPU_GEM_DOMAIN_VRAM;
- 
- 	ret = amdgpu_bo_create_kernel(adev,
- 				      driver_table->size,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index ea8f3d6fb98b..8969b3ff5c8f 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -220,10 +220,12 @@ static int smu_v13_0_6_tables_init(struct smu_context *smu)
- 			       PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
- 
- 	SMU_TABLE_INIT(tables, SMU_TABLE_SMU_METRICS, sizeof(MetricsTable_t),
--		       PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
-+		       PAGE_SIZE,
-+		       AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT);
- 
- 	SMU_TABLE_INIT(tables, SMU_TABLE_I2C_COMMANDS, sizeof(SwI2cRequest_t),
--		       PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
-+		       PAGE_SIZE,
-+		       AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT);
- 
- 	smu_table->metrics_table = kzalloc(sizeof(MetricsTable_t), GFP_KERNEL);
- 	if (!smu_table->metrics_table)
+ 	ttm_resource_manager_cleanup(man);
 -- 
 2.40.1
 
