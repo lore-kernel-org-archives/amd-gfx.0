@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62AA4C77B75
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 May 2023 22:21:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1927FC7EE22
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 May 2023 22:21:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF2D910E436;
-	Tue,  9 May 2023 22:21:48 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F124510E42E
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 May 2023 22:21:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6C0D10E433;
+	Tue,  9 May 2023 22:21:50 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2086.outbound.protection.outlook.com [40.107.243.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A28010E430
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 May 2023 22:21:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cJPxOLbjTVbhYCJhDaxPFAZVLwbSSRLg9sL6VciRp2cSKwLwAVFENs37Ld+yjSbkxjxJUUNPExFtnDpO56xzZpSWsM68GzizQcF3MCiN7N++RRDNbPquh/SvnhlgbjSAuQBquWtsqMFBl46KE/I5CpZTlkCQUvjB5aqr6cvwtJoAKsoo0GpbGGpPKgZ0Mpo18A+9v4pyPhi/Zeer0FsyySG66vdwquZKCY50UPkqJbbCBmRwXFU87SeDHXpQ6uRGpdxhyAraNCT2gIxs94XBXOcaENId9PvSrHSICPAACFJPTzJ3YgnnnZ4b8KDB9Tk3o5MnQ3dJq2QwIyn59RionQ==
+ b=XiGrBMXVFUhDMH63cBeN+xdHDBhv2e2MBHaesdTBWwVK1xdUhjjwGkxV7cv5zsybQKG51DOkA8OpebcEytYq3p0US2SM7XvYbqpnKwduNb6CNSNKVwnHVwekXrCUJnv9SCWv7sMIsuoj0E9bL7GVNV+37TvJg7qxxPRb+7k1NnXuze5QOkcbw5vVLNdQ7mgupQ2E13soNKdFKB72ivoJocST6tuf/A2vmn1VT6gXpGpDU7LDrbyD/eFGEFHCjKE7sMejZCx/firNpgZ92Ik1GsC1UUN07ggNi6b896pTDcZuZnQPLZIMBGIgcn0evS+2BlMc3dLlI4W809STsiKaIw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=87LxMeIw106hDqGevO//VPz473fPJIUIhLKUBjXXzxY=;
- b=YKizhSPsPj34s/Js/0S62kxnHrLIwO0VZgQmNspEtd55wRNXoPylXq8fjDKcqaII2CQfxTTmkCJ8Xh2WUSQb2ZS0jwJGxRiz39bOnNOSqf3EIrqhivAaXBS0pClbHKksWMjeRN/mnAEhKF3Fngj7Z+BuKrxake0V5iixWtCOTgf717Pu5S3RDoCZRHOqS3GC1pnuyuU2wpERiz56pun/KLHmYVbbWUu2lFUjS91UPO+v+RQEVfrRjf9T2RsuTQK1EHrDmMEctNAIfGXeKr1j+h7yp3f7wu2xcJC0AuR6qmA8c5Qazu/PrwKnRTZoimvUIUxj/tI08J2WVtBCdqHSgA==
+ bh=VMEL+CcILPTa7sEUOnGb5jih0M/gSb5qQvPUjW+MdG4=;
+ b=nEHdXWxMfdZ97IavwO5h87WOn8a5gbi6HsdyYRGWvAZO4N9y5g+9zEm77/pAmTRe9//VKoFDk2q1i3OAPGkg0hVBJnil0Nk6qp9JwGxGj+Pj3m05txFnSv/vah8LC8gpDkUukwq9x/IndfNFqbgO2YTBwcwwL0TIv/bNBhC8PGEoq7wZy6PhOUgrUdXT46ivbMx6R7C942vmBHFMTbAxcDmWWPNOvESSX9CXpOwZqvLFEr5tgT1eDFf2SvvjELEzcwDMyoFarLePSwYSV1RjW58ivztfHL1IaIEqWZzUMNCq1c21913KPa7+Lhz+sN8E5zO4sHaBHZVi1h7kOawB/w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=87LxMeIw106hDqGevO//VPz473fPJIUIhLKUBjXXzxY=;
- b=fRZTbDC0T9EotuAVIIK56nKSqob+bT7fiQztDljycH2dTpYwOIQdmK82wJUmvG7VIJiv2AdIQKQ7Qbpf7jM0rmqvCkSpqjWiXEVQUuuM9xmo3ofjkFBAXxv/qEGdPM/WKJ2MBsPwdCb+o2AJupI6mm0qeRaaHeZACDMh0Zu4rAk=
-Received: from BN8PR15CA0009.namprd15.prod.outlook.com (2603:10b6:408:c0::22)
- by PH0PR12MB5645.namprd12.prod.outlook.com (2603:10b6:510:140::11)
+ bh=VMEL+CcILPTa7sEUOnGb5jih0M/gSb5qQvPUjW+MdG4=;
+ b=mz0dtudYbjoAzv80LAN9D+xAQshJSirIOXR+zH05izen8l+F8o28knTAuSspeA9LcgIQM/CbMH4KhWR/c/AEdG/NyTFLNyPvwkj+Vv1zPx1gUCwz3TzxGLU5vnEF6QhsBEutQjexLDldQLEw7GDQHcsihFYiBN/7lHAHK89b52E=
+Received: from BN8PR15CA0015.namprd15.prod.outlook.com (2603:10b6:408:c0::28)
+ by IA1PR12MB7686.namprd12.prod.outlook.com (2603:10b6:208:422::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.18; Tue, 9 May
- 2023 22:21:42 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.32; Tue, 9 May
+ 2023 22:21:45 +0000
 Received: from BN8NAM11FT114.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:c0:cafe::b3) by BN8PR15CA0009.outlook.office365.com
- (2603:10b6:408:c0::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.34 via Frontend
- Transport; Tue, 9 May 2023 22:21:41 +0000
+ (2603:10b6:408:c0:cafe::ac) by BN8PR15CA0015.outlook.office365.com
+ (2603:10b6:408:c0::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.33 via Frontend
+ Transport; Tue, 9 May 2023 22:21:45 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT114.mail.protection.outlook.com (10.13.177.46) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6387.18 via Frontend Transport; Tue, 9 May 2023 22:21:41 +0000
+ 15.20.6387.18 via Frontend Transport; Tue, 9 May 2023 22:21:44 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 9 May
- 2023 17:21:40 -0500
+ 2023 17:21:43 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 5/9] drm/amdgpu: Re-enable VCN RAS if DPG is enabled
-Date: Tue, 9 May 2023 18:21:22 -0400
-Message-ID: <20230509222126.477847-5-alexander.deucher@amd.com>
+Subject: [PATCH 9/9] drm/amdgpu: Adjust the sequence to query ras error info
+Date: Tue, 9 May 2023 18:21:26 -0400
+Message-ID: <20230509222126.477847-9-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230509222126.477847-1-alexander.deucher@amd.com>
 References: <20230509222126.477847-1-alexander.deucher@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT114:EE_|PH0PR12MB5645:EE_
-X-MS-Office365-Filtering-Correlation-Id: e7b7eeee-cdfb-4942-ca12-08db50dbc3e8
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT114:EE_|IA1PR12MB7686:EE_
+X-MS-Office365-Filtering-Correlation-Id: f2a2df1b-6497-446d-4750-08db50dbc5d6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: qtW0vZlPrq7wNMacJHfVMXvfMRqg1s7Rnd4StdEYOqevc7ohuGz7T6EC8dvvCXC7r8xp+6obqU5TpSMmHm5/cray2GC/TpmLyVWl2Xv2jgS6RxUZwym7ayp+o3P52HZAZ2RGWTB7TOlRHs7qqDKumDG5g2Vct3BfOvfUfetLLYi4OSxMDW3YFifttu4IgZ1KynXAKKWtCqOe/E1Ze8CkAppSn/KtsHaHkDFN4D3nwsOZyBKt+R5dEFGK+W6de7zJBVOaOWOsadRtSp0jwnluu+Pv1mOYnqHKJHeHMPTQSwIBDCcSXPdFHKbvaYpUkU1bxOsAqeMFlY/mc3fTs0yj+6HpxNFAMZugCs2ZAasv5kHrJjxQxzAW0KmQwjnXyXVnIxRCeM8+79FHcvEZ9Y4LVYKyAYhr5yL1wXv6k+CqypcyQvPGmHY4HBCUc6IrWXJzGPi+5Vo/YJhMmRuDAESQqTmfd/eCCA3BZ7nU9yiDksEfMB7hGPZgd2BBV6/mmrIgRbOQazcUa8UNePsl7/8f+vUQhQgZHpyAlnEsEZp7l2R3hhZYdug2RtYDD1cGqFI9e/SBuWUhmkmHwOELBzBg6M1IXIOq1AYq7GIBQUa/ceq/o89Ub3iubZ6PAlz+gRpobpj/2B0fKfHJ+zfUohuiJfCNCKE+oGMV8aK08WFf1Cax7xVAVKG/i4qjuFqz6dBAu9BGQPhuTKI88rFYK/lH7YSyhhO1PgA90uwyni3abQEDyagULQEgvbVnpMscnT3sxUQAciaj/iUeqxNEVRH3rw==
+X-Microsoft-Antispam-Message-Info: 5wEbXP3EjCC2cPciURFItLYvdLhaR/6CXf9bK3acdclf3z/YWeZnbeVK17ILOaN5qir1CaGUPyEcVB2s/czjpXNjaFtJKHUFJYJ3sxpOYVjkf1V8iu/QHA+Dldum01o7IZIKgQPnYutAZbrTkenUyu+Y3S3lsdQvtmY9MJJbPvzUqNbFVgAvTQgSV6fJ8srMva0uy6WB3cvEIZX4KoNiUb+qrlNlxV0kRJEpDGFDMXQPIbkI3CsQ0as/+M5D+hPnxePw8srZY8fOxKBSBhoRvoYXCyj+bhUFVQi2OOYI8TU2AieaYjL7FgXQLs4k+7pGhJT1egCGwWo1bY4RzPCaHHIjIT55+z/FK9Gc6/Sseje2UVvosMpy2F6eh/slErbSMSLBCKVou8VHyrJyJZaK6E45ijRtd/0foUl5//JuJ+9UfD/Ij83CRCVLOWyFhWshxIMejWiwpACVLXfQKYrMDgr+98SgIA48EjyEM7W5eOfAg6RxGDmgpJUjr0hdrOCf3KeFlawvmTD1P1Ll1T/ldb2F2POYyMhHvsLsWWgK6JDOWrWLtDYI8kXR4c8BXeo/FQuZEEK7Kk83DWQymGLbJcjzEuNQa143xV+64ox4Bua78H3FHce+BlKWkNuch9Ixc7tFtzCLSuOJ7C+AxZYn5JjoqQ17lQ3FXJmdie3QcCKMAcMV0OlpHINP2TdRWo4gVzQahTyA4BxHGNofRg33UeAS3pyJOQxZQ/fsLywoiMU=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(136003)(396003)(346002)(39860400002)(451199021)(46966006)(36840700001)(40470700004)(83380400001)(86362001)(47076005)(40460700003)(36860700001)(186003)(16526019)(336012)(426003)(2616005)(26005)(40480700001)(1076003)(81166007)(356005)(82740400003)(8676002)(8936002)(316002)(36756003)(41300700001)(5660300002)(7696005)(6666004)(70586007)(4326008)(6916009)(70206006)(478600001)(54906003)(82310400005)(2906002)(36900700001);
+ SFS:(13230028)(4636009)(346002)(396003)(39860400002)(136003)(376002)(451199021)(46966006)(36840700001)(40470700004)(336012)(426003)(40460700003)(16526019)(2616005)(186003)(2906002)(47076005)(83380400001)(36860700001)(36756003)(82310400005)(86362001)(356005)(81166007)(40480700001)(82740400003)(7696005)(8676002)(41300700001)(316002)(8936002)(6666004)(5660300002)(54906003)(70206006)(4326008)(70586007)(6916009)(478600001)(1076003)(26005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2023 22:21:41.7461 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e7b7eeee-cdfb-4942-ca12-08db50dbc3e8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2023 22:21:44.9802 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f2a2df1b-6497-446d-4750-08db50dbc5d6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT114.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5645
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7686
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,65 +106,56 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Hawking Zhang <Hawking.Zhang@amd.com>
 
-VCN RAS enablement sequence needs to be added in
-DPG HW init sequence.
+It turns out STATUS_VALID_FLAG needs to be checked
+ahead of any other fields. ADDRESS_VALID_FLAG and
+ERR_INFO_VALID_FLAG only manages ADDRESS and ERR_INFO
+field respectively. driver should continue poll
+ERR CNT field even ERR_INFO_VALD_FLAG is not set.
 
 Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 27 ++++++++++++++++++++++++-
- 1 file changed, 26 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-index 7558095ecf6a..c77ceaf53dcd 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-@@ -52,7 +52,8 @@ static int vcn_v4_0_3_pause_dpg_mode(struct amdgpu_device *adev,
- 		int inst_idx, struct dpg_pause_state *new_state);
- static void vcn_v4_0_3_unified_ring_set_wptr(struct amdgpu_ring *ring);
- static void vcn_v4_0_3_set_ras_funcs(struct amdgpu_device *adev);
--
-+static void vcn_v4_0_3_enable_ras(struct amdgpu_device *adev,
-+				  int inst_idx, bool indirect);
- /**
-  * vcn_v4_0_3_early_init - set function pointers
-  *
-@@ -769,6 +770,8 @@ static int vcn_v4_0_3_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, b
- 	WREG32_SOC15_DPG_MODE(inst_idx, SOC15_DPG_MODE_OFFSET(
- 		VCN, 0, regUVD_LMI_CTRL2), tmp, 0, indirect);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 5ae89602a116..64f80e8cbd63 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -3164,7 +3164,8 @@ bool amdgpu_ras_inst_get_err_cnt_field(struct amdgpu_device *adev,
  
-+	vcn_v4_0_3_enable_ras(adev, inst_idx, indirect);
+ 	if ((reg_entry->flags & AMDGPU_RAS_ERR_INFO_VALID) &&
+ 	    !REG_GET_FIELD(err_status_hi_data, ERR_STATUS_HI, ERR_INFO_VALID_FLAG))
+-		return false;
++		/* keep the check here in case we need to refer to the result later */
++		dev_dbg(adev->dev, "Invalid err_info field\n");
+ 
+ 	/* read err count */
+ 	*err_cnt = REG_GET_FIELD(err_status_hi_data, ERR_STATUS, ERR_CNT);
+@@ -3187,17 +3188,17 @@ void amdgpu_ras_inst_query_ras_error_count(struct amdgpu_device *adev,
+ 	uint32_t i, j;
+ 
+ 	for (i = 0; i < reg_list_size; i++) {
++		/* query memory_id from err_status_lo */
++		if (!amdgpu_ras_inst_get_memory_id_field(adev, &reg_list[i],
++							 instance, &memory_id))
++			continue;
 +
- 	/* enable master interrupt */
- 	WREG32_SOC15_DPG_MODE(inst_idx, SOC15_DPG_MODE_OFFSET(
- 		VCN, 0, regUVD_MASTINT_EN),
-@@ -1514,3 +1517,25 @@ static void vcn_v4_0_3_set_ras_funcs(struct amdgpu_device *adev)
- {
- 	adev->vcn.ras = &vcn_v4_0_3_ras;
- }
-+
-+static void vcn_v4_0_3_enable_ras(struct amdgpu_device *adev,
-+				  int inst_idx, bool indirect)
-+{
-+	uint32_t tmp;
-+
-+	if (!amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__VCN))
-+		return;
-+
-+	tmp = VCN_RAS_CNTL__VCPU_VCODEC_REARM_MASK |
-+	      VCN_RAS_CNTL__VCPU_VCODEC_IH_EN_MASK |
-+	      VCN_RAS_CNTL__VCPU_VCODEC_PMI_EN_MASK |
-+	      VCN_RAS_CNTL__VCPU_VCODEC_STALL_EN_MASK;
-+	WREG32_SOC15_DPG_MODE(inst_idx,
-+			      SOC15_DPG_MODE_OFFSET(VCN, 0, regVCN_RAS_CNTL),
-+			      tmp, 0, indirect);
-+
-+	tmp = UVD_SYS_INT_EN__RASCNTL_VCPU_VCODEC_EN_MASK;
-+	WREG32_SOC15_DPG_MODE(inst_idx,
-+			      SOC15_DPG_MODE_OFFSET(VCN, 0, regUVD_SYS_INT_EN),
-+			      tmp, 0, indirect);
-+}
+ 		/* query err_cnt from err_status_hi */
+ 		if (!amdgpu_ras_inst_get_err_cnt_field(adev, &reg_list[i],
+ 						       instance, &err_cnt) ||
+ 		    !err_cnt)
+ 			continue;
+ 
+-		/* query memory_id from err_status_lo */
+-		if (!amdgpu_ras_inst_get_memory_id_field(adev, &reg_list[i],
+-							 instance, &memory_id))
+-			continue;
+-
+ 		*err_count += err_cnt;
+ 
+ 		/* log the errors */
 -- 
 2.40.1
 
