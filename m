@@ -4,91 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 619EBC7EE24
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 May 2023 10:23:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47777C77B7C
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 May 2023 11:06:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D66B10E382;
-	Tue,  9 May 2023 10:22:59 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2068.outbound.protection.outlook.com [40.107.96.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 650FF10E381
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 May 2023 10:22:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XLeMvVNMPJgjvnjCrjl+SdEYrsLFcLLgXZrR8vcEjdKBs3u3HCPb2Y99xrdgTAh2r5bsmaBYSGxwmP8mnleJW8tQt3O6PoKorw/UN02PVPhFC0/4bwLgnzi+Ofxkpfoccuru4u8qLkZJWIzJUCHOv4lg5tFrXXiTl3dPgs9P1Rb9ya7aNX4Cd9ksbGd9Tayn4LaZJki5qzw32VFfZZPo0q/DCgwG3/htyCahuil3/594lF6en5TJHF4nASq7NWWbBF0Qt/Lf8BsHfgS0VIfn9/qlULHL64z6Rj6ctzida2zFgrxc0s0ZsKkTDpfZvPLzQLzBcGDPWlva1N1PX0RqcA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Uf4QoH9yId1KMKVjffsvjFGZLUeZm5Gfbp/dprviE8Y=;
- b=oJBj5AHPV8odezve5SgXsu6GwuI+XzRukQEbvNL22tXmqdYj7F4XAIzeaEvDt7nyEGwBd2qS2khpVKohpJg4hKxrBGZsrHPTb/F3yhFdrFXEgjmLR74OdnCsqdkitao7LG1OGNt3frwJuCm7b+MY4fYdAIwBIK9ewIaMYIm0gG531LjKX6WfRHUAfAaj+h8m68uLawaA+aRFSCZyMYHtN2o3/17yqLUo1SUvEf8+arjZIFJgc0y5Av8QcSZjxNVAlzYTmLyowk1pYVLBGjgUmSQs4lm5nZYlHwte+GEJ9dr5V5FBCez6ibzAyihn1u76NqsJNi46HIT1zGGmXopB/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Uf4QoH9yId1KMKVjffsvjFGZLUeZm5Gfbp/dprviE8Y=;
- b=YkY93QrDmtmX5rNGIJlq8LE+VfGuBco1LuMzsVB8H2omNNmGWdqw5fNelrYzgDhsxGZ19nkL+UnHaE66ndWLfSoLpgzmLRnEIK+ncGo0E0ZtfF1ZX6WzHNGEz9X057fDfvYq9nAnfC3gHwzfogxJmoujnWZIYJlCzF4o8ekIMIU=
-Received: from DM6PR02CA0055.namprd02.prod.outlook.com (2603:10b6:5:177::32)
- by MW4PR12MB7483.namprd12.prod.outlook.com (2603:10b6:303:212::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.33; Tue, 9 May
- 2023 10:22:54 +0000
-Received: from DM6NAM11FT091.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:177:cafe::f4) by DM6PR02CA0055.outlook.office365.com
- (2603:10b6:5:177::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.18 via Frontend
- Transport; Tue, 9 May 2023 10:22:54 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT091.mail.protection.outlook.com (10.13.173.108) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6363.33 via Frontend Transport; Tue, 9 May 2023 10:22:54 +0000
-Received: from amdoffice.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 9 May
- 2023 05:22:52 -0500
-From: ZhenGuo Yin <zhenguo.yin@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/2] drm/scheduler: avoid infinite loop if entity's dependency
- is a scheduled error fence
-Date: Tue, 9 May 2023 18:22:39 +0800
-Message-ID: <20230509102239.2935744-2-zhenguo.yin@amd.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20230509102239.2935744-1-zhenguo.yin@amd.com>
-References: <20230509102239.2935744-1-zhenguo.yin@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0D5010E385;
+	Tue,  9 May 2023 11:06:10 +0000 (UTC)
+X-Greylist: delayed 382 seconds by postgrey-1.36 at gabe;
+ Tue, 09 May 2023 11:06:07 UTC
+Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D88C710E385
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 May 2023 11:06:07 +0000 (UTC)
+Received: from [192.168.1.137] ([213.144.156.170])
+ by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
+ 01202305091259413226; Tue, 09 May 2023 12:59:41 +0200
+Message-ID: <9deeb132-a317-7419-e9da-cbc0a379c0eb@daenzer.net>
+Date: Tue, 9 May 2023 12:59:39 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Content-Language: en-CA
+To: Qingqing Zhuo <Qingqing.Zhuo@amd.com>, amd-gfx@lists.freedesktop.org,
+ Wesley Chalmers <Wesley.Chalmers@amd.com>
+References: <20230414155330.5215-11-Qingqing.Zhuo@amd.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: [PATCH 10/66] drm/amd/display: Do not set drr on pipe commit
+In-Reply-To: <20230414155330.5215-11-Qingqing.Zhuo@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT091:EE_|MW4PR12MB7483:EE_
-X-MS-Office365-Filtering-Correlation-Id: 63efb3e9-9d74-40b2-f75a-08db50775a0c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nOJmeRc2XXqW/eOkE26VofWs9PVNQ1Y0o8Wwha5zReTUpGxDPfaXXd6gOjnrlfMdIdGq3AewdwTdcRs0MENG3guAAPMudpPc85CYACZY1nXJLdV5IZy9li9br/SY8WDKxShrWR6I5IbqfIkwgSgzI6rUKzdugnQAipVXRki2Dw08oNVZrdXsTJxwUmMr/+46wTUcwNtl7iPMrj3FyfOhGAfkTZ4w2rwIE8YKL0qZ7jY7VR40xM3wyes3X0NAj8YpwJCmnDeW+dOhkUovk6D7Xx/UKzzFKAq4WL/g6BCNfI+pbsNOZF7qttEHTd7G59LMrjl8Bego3XPDhOyQ16TTxERxoB8Zt4jIVK/zcaIkkOI1SqMl4XwjlocoCJf7UehxjH5GR2H3m0MprN+leFOqj/AWPFrgaHszcvYwNMSJRLjwCNCM6g1vhb4PTum/udMK6EiKwALS8NdFHEmo/ndVvTD8RxWSn4r3eYUft3XjCSifaFC2G6uIahAk56LRSIyZRNTpZRsKY2HzL5VmyrE5RX+C2KrC6iBHGIfVuEA+VQmsYqXYIb8GIjaOyKvzCJGdTuJwTBNXsVAyDhOHH9yLgqcWaaXbIdf32EojO497H/7XqppyHSBjERPL2L4IjVSO44vBawzbSN3fUKHhg8rU9NuB7ajOsZrxV1pr4X0v0UMGecZdvbx+8iklAdS9/RE1ELXJomTtiqK7/iSYF9XHDktQ5vcBAfMo4oVhCoSEeXk=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(39860400002)(136003)(396003)(346002)(451199021)(46966006)(36840700001)(40470700004)(40460700003)(2906002)(16526019)(36860700001)(83380400001)(86362001)(82740400003)(82310400005)(356005)(36756003)(81166007)(426003)(336012)(2616005)(40480700001)(47076005)(70586007)(6916009)(70206006)(4326008)(316002)(5660300002)(41300700001)(54906003)(7696005)(6666004)(8676002)(1076003)(26005)(186003)(478600001)(8936002)(36900700001);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2023 10:22:54.4405 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 63efb3e9-9d74-40b2-f75a-08db50775a0c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT091.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7483
+X-CTCH: RefID="str=0001.0A782F1F.645A279D.002E,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
+ Spam="Unknown"; VOD="Unknown"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,38 +44,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: ZhenGuo Yin <zhenguo.yin@amd.com>, jingwen.chen@amd.com, monk.liu@amd.com,
- christian.koenig@amd.com
+Cc: stylon.wang@amd.com, Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com,
+ Rodrigo.Siqueira@amd.com, roman.li@amd.com, solomon.chiu@amd.com,
+ Aurabindo.Pillai@amd.com, wayne.lin@amd.com, Harry.Wentland@amd.com,
+ agustin.gutierrez@amd.com, pavle.kotarac@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-drm_sched_entity_add_dependency_cb ignores the scheduled fence and return false.
-If entity's dependency is a schedulerd error fence and drm_sched_stop is called
-due to TDR, drm_sched_entity_pop_job will wait for the dependency infinitely.
+On 4/14/23 17:52, Qingqing Zhuo wrote:
+> From: Wesley Chalmers <Wesley.Chalmers@amd.com>
+> 
+> [WHY]
+> Writing to DRR registers such as OTG_V_TOTAL_MIN on the same frame as a
+> pipe commit can cause underflow.
+> 
+> [HOW]
+> Move DMUB p-state delegate into optimze_bandwidth; enabling FAMS sets
+> optimized_required.
+> 
+> This change expects that Freesync requests are blocked when
+> optimized_required is true.
+> 
+> Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> Signed-off-by: Wesley Chalmers <Wesley.Chalmers@amd.com>
+I bisected a regression to this change, see below for the symptoms. Reverting this patch (and the following patch "drm/amd/display: Block optimize on consecutive FAMS enables", which depends on it) on top of the DRM changes merged for 6.4-rc1 avoids the regression.
 
-[How]
-Do not wait or ignore the scheduled error fence, add drm_sched_entity_wakeup
-callback for the dependency with scheduled error fence.
+Maybe "Freesync requests are blocked when optimized_required is true" isn't ensured as needed?
 
-Signed-off-by: ZhenGuo Yin <zhenguo.yin@amd.com>
----
- drivers/gpu/drm/scheduler/sched_entity.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index d3f4ada6a68e..96e173b0a6c6 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -384,7 +384,7 @@ static bool drm_sched_entity_add_dependency_cb(struct drm_sched_entity *entity)
- 	}
- 
- 	s_fence = to_drm_sched_fence(fence);
--	if (s_fence && s_fence->sched == sched &&
-+	if (!fence->error && s_fence && s_fence->sched == sched &&
- 	    !test_bit(DRM_SCHED_FENCE_DONT_PIPELINE, &fence->flags)) {
- 
- 		/*
+The symptoms are that the monitor (Samsung Odyssey Neo G9, 5120x1440@240/VRR, connected to Navi 21 via DisplayPort) blanks and the GPU hangs while starting the Steam game Assetto Corsa Competizione (via Proton 7.0).
+
+Example dmesg excerpt:
+
+ amdgpu 0000:0c:00.0: [drm] *ERROR* [CRTC:82:crtc-0] flip_done timed out
+ NMI watchdog: Watchdog detected hard LOCKUP on cpu 6
+ [...]
+ RIP: 0010:amdgpu_device_rreg.part.0+0x2f/0xf0 [amdgpu]
+ Code: 41 54 44 8d 24 b5 00 00 00 00 55 89 f5 53 48 89 fb 4c 3b a7 60 0b 00 00 73 6a 83 e2 02 74 29 4c 03 a3 68 0b 00 00 45 8b 24 24 <48> 8b 43 08 0f b7 70 3e 66 90 44 89 e0 5b 5d 41 5c 31 d2 31 c9 31
+ RSP: 0000:ffffb39a119dfb88 EFLAGS: 00000086
+ RAX: ffffffffc0eb96a0 RBX: ffff9e7963dc0000 RCX: 0000000000007fff
+ RDX: 0000000000000000 RSI: 0000000000004ff6 RDI: ffff9e7963dc0000
+ RBP: 0000000000004ff6 R08: ffffb39a119dfc40 R09: 0000000000000010
+ R10: ffffb39a119dfc40 R11: ffffb39a119dfc44 R12: 00000000000e05ae
+ R13: 0000000000000000 R14: ffff9e7963dc0010 R15: 0000000000000000
+ FS:  000000001012f6c0(0000) GS:ffff9e805eb80000(0000) knlGS:000000007fd40000
+ CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+ CR2: 00000000461ca000 CR3: 00000002a8a20000 CR4: 0000000000350ee0
+ Call Trace:
+  <TASK>
+  dm_read_reg_func+0x37/0xc0 [amdgpu]
+  generic_reg_get2+0x22/0x60 [amdgpu]
+  optc1_get_crtc_scanoutpos+0x6a/0xc0 [amdgpu]
+  dc_stream_get_scanoutpos+0x74/0x90 [amdgpu]
+  dm_crtc_get_scanoutpos+0x82/0xf0 [amdgpu]
+  amdgpu_display_get_crtc_scanoutpos+0x91/0x190 [amdgpu]
+  ? dm_read_reg_func+0x37/0xc0 [amdgpu]
+  amdgpu_get_vblank_counter_kms+0xb4/0x1a0 [amdgpu]
+  dm_pflip_high_irq+0x213/0x2f0 [amdgpu]
+  amdgpu_dm_irq_handler+0x8a/0x200 [amdgpu]
+  amdgpu_irq_dispatch+0xd4/0x220 [amdgpu]
+  amdgpu_ih_process+0x7f/0x110 [amdgpu]
+  amdgpu_irq_handler+0x1f/0x70 [amdgpu]
+  __handle_irq_event_percpu+0x46/0x1b0
+  handle_irq_event+0x34/0x80
+  handle_edge_irq+0x9f/0x240
+  __common_interrupt+0x66/0x110
+  common_interrupt+0x5c/0xd0
+  asm_common_interrupt+0x22/0x40
+
+
 -- 
-2.35.1
+Earthling Michel Dänzer            |                  https://redhat.com
+Libre software enthusiast          |         Mesa and Xwayland developer
 
