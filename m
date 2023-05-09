@@ -4,120 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 469BDC77B75
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 May 2023 21:25:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B758BC77B75
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 May 2023 01:27:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AFD310E2FC;
-	Mon,  8 May 2023 21:25:04 +0000 (UTC)
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2083.outbound.protection.outlook.com [40.107.95.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 703BD10E300;
- Mon,  8 May 2023 21:25:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E93DF10E314;
+	Tue,  9 May 2023 01:27:56 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2043.outbound.protection.outlook.com [40.107.92.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11D9310E314
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 May 2023 01:27:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WWMMjrx9v36eEasjpSWc+SVSuyAaV3i3/laQQy6mXJTyinRIbl/uRVTAZFGiV7uRqDK36M3Ud957zDXx7PpccmGj1Uqk+BTNEKjiWjKJX4f1k+2knNw/v+6yjVxpGJtMnoHurN/zVjK2oNSuqrSPmkhY/U7YOqRqJrjEOPY3+kA1jL9rVpoaUjot9t1qrC0ULaLmzNM2Hu9OikEXIuZPtoBReMLgyAh/JiaO/EVkIiyGJPy4HZGlrCsBcjgQQcR3zB17ipnJoos0Ba9umAcytFoIX0S4LI2IlD3bRTnjDqFP2VpKDgqB8fP/whx0dOi7ZPIWaANCpMUKqqztmihuzg==
+ b=DwVEsujvzFTz00DotBCTsFIbbNPP8hH1+XU4Il06w5Bn3MEh249YGIS1RCFDF/h5dyM0fQ4YAcFXyEo6cRVeqWMKOCGvTiTX8oTipBuorL/MEnI6VksFrfr3M/iOW41YDZVbRreXAZY76XJrpjXXXMi44j1/3//3QHD/mnkMH6uZS5xLtRECChjsev6RHvwbcFNGgJDdHj9pz854g0lMJVJAo+ar8vwTS7aKIw9l8H3M4A9vmnuwVjT9QJswhyySJj0wmG2dN9pV7vJfcVKSF8lgSeru/ah0OdRWbsPsfvdu6YXV//+OxhWDC/EkcwzW+9iFH8++vq9s3wiuD45reQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kRGcyF83YOKnZFKCoUEYo3LbQ0ptPvSLS6v0uW1K9eQ=;
- b=RhE8XS5ErZnHmoh9mdBXFUHp+o/qXPRP+NYNJy/BOpXhqIa+1qISxvLtlX1foWngObnGYq5SxL/6OQce9cDATGPD3tvYEAJnvJwxvhOa8w8Yrz3lA2kcyup16xFaM7P/VKoUX2r9FymCVv8T6u7ZiywJ0Q3lSTnmLDmFXBum9DrXuCLI2ur5c7N6WguMD8OOcyV84NNAQLsldG3MzSGnAr7LL3CZH7S+5cr9BQMsGbK4UEoGyT54cq2DIX54JpK2uvELUk6tnzrnIrphhJBPCQ/U/elHYlXAqwnU0s+VS4/yS0Y7ER+nEBBN1sWLIs04Yi3uqxs2q+WESHfyi8Bevw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=vWBN3KsQ711OwJcvIJs+oqv1hVq9BPNhz+LsggQW/xI=;
+ b=f9cqerl8tB3sWkkeiB27Q7CcB2tvVWqtk10H92tMpe1D/twZQlSdl7cFhY7slGPfZP3deWSdWCTQ4Ui25nZrh/Ooq0WzCBlK5n8ujtWXFdFzTieEJNkUQohe3kiUush2smyeZaY4WdQGn43DaJ37cyXhW6W62wjJ01CSHR9tU6v3IrwUNZI2r8S3B8qiQoqRhSZUzjm6ljrY2EYpXPc2UxVWbCWtEl82dnIrHclFerg+2AXBjOirD6mtSujokV06WcDt+gGIpOAc/GPiUng3g+fE3+rMbeC5jM4wLOHBlWeUclGeiXpqEQBQRKrMY59hphqiiybhEBhkfrfGrVdz6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kRGcyF83YOKnZFKCoUEYo3LbQ0ptPvSLS6v0uW1K9eQ=;
- b=h/JIcchC2Nh9Do0M+LXRu0axvpJD6H3Cj78+EOgdA305dY2XFfX5F4qZMBg5vEQDZVPl5tPvFfpo0uvkB+buDAz7LYNSsznUDfK6PVuIItB8kUsWpe0SCbiZhILwnRidDvvLcItBzb5jyZZlAwopbiAJoxhYqnkEPEMwIzIyvVI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by BL1PR12MB5269.namprd12.prod.outlook.com (2603:10b6:208:30b::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.32; Mon, 8 May
- 2023 21:25:00 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::dd26:a6b5:1d41:ac27]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::dd26:a6b5:1d41:ac27%6]) with mapi id 15.20.6363.032; Mon, 8 May 2023
- 21:25:00 +0000
-Message-ID: <5bbd49b6-ad09-607f-521d-96f9d8eb3b20@amd.com>
-Date: Mon, 8 May 2023 17:24:55 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.1
-From: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [RFC PATCH 12/40] drm/amd/display: add plane HDR multiplier
- driver-private property
-To: Melissa Wen <mwen@igalia.com>, amd-gfx@lists.freedesktop.org,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, sunpeng.li@amd.com,
- Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch
-References: <20230423141051.702990-1-mwen@igalia.com>
- <20230423141051.702990-13-mwen@igalia.com>
-Content-Language: en-US
-In-Reply-To: <20230423141051.702990-13-mwen@igalia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR01CA0004.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01::12)
- To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+ bh=vWBN3KsQ711OwJcvIJs+oqv1hVq9BPNhz+LsggQW/xI=;
+ b=yBl1eFT8+Q38EyQAO3amDqrxR1OwdK/64GGb2lGDmn8FAU7iA/wOUsLqc9k9cLc7ZbLl+UHiOzo3yPg2weRZt2GXK0qhYExl9acNWwcmmIoMaKXP7UJ69m+DX7Ga3kzuPNwBkgRK0K0RXzwJIRktiJGNGW0K6+Y1gkLisVasoRw=
+Received: from MN2PR16CA0051.namprd16.prod.outlook.com (2603:10b6:208:234::20)
+ by PH7PR12MB6787.namprd12.prod.outlook.com (2603:10b6:510:1ad::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.32; Tue, 9 May
+ 2023 01:27:51 +0000
+Received: from BL02EPF000145BB.namprd05.prod.outlook.com
+ (2603:10b6:208:234:cafe::55) by MN2PR16CA0051.outlook.office365.com
+ (2603:10b6:208:234::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.32 via Frontend
+ Transport; Tue, 9 May 2023 01:27:51 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF000145BB.mail.protection.outlook.com (10.167.241.211) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6387.18 via Frontend Transport; Tue, 9 May 2023 01:27:51 +0000
+Received: from guchchen-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.34; Mon, 8 May 2023 20:27:48 -0500
+From: Guchun Chen <guchun.chen@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>,
+ <hawking.zhang@amd.com>, <lijo.lazar@amd.com>, <evan.quan@amd.com>,
+ <christian.koenig@amd.com>, <xinhui.pan@amd.com>
+Subject: [PATCH] drm/amdgpu: disable sdma ecc irq only when sdma RAS is
+ enabled in suspend
+Date: Tue, 9 May 2023 09:27:34 +0800
+Message-ID: <20230509012734.2095928-1-guchun.chen@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|BL1PR12MB5269:EE_
-X-MS-Office365-Filtering-Correlation-Id: e2389ca5-10ff-4947-eb82-08db500aadbc
+X-MS-TrafficTypeDiagnostic: BL02EPF000145BB:EE_|PH7PR12MB6787:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6841075e-35fd-4e54-f2e2-08db502c9b22
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nFEmj4Ju1jUtZvOe4c8QEILNuK2zNND516/YdV4F0hI/yA49/TMNOgFKoqxqJpwAF3+GJAv4GYQW5LnGw1plere+Xet0NV/gWVr0jGWGJPgTlXcqGDpSo3C3BYYwyaT+6TgnzI6ssAr19+DtDeIPK5SWj6MO9n0QzrALU6pzNxM5X1ExJisdGG+qxAsDGzAZG6jbR5fFlFnpjPROh4q2MtvyiX3+nUlt+NzJMHE0jtTCCMHcX3aPfDiZufXiBkJCjFSTgEo/LHryjvjWXsN3vhgk8WdJjfEhpGdQlCv/uXSd842mq7FMpyEKJxmkJeF2VAQ8O7u/WJO7Cphj2GEZiT+3gBgfJwaqmDxHPfmkMsY9E7ScbnwSg2uqaTP5n1Eda6Ib3zqHX0l/gFz8nqPdmxoG/Ab5KgaUBcrIE/eoS0xUipNMnlnkdo41qEzYG0dj4sPWbOvSCnYkTjBWj5NE6PvtH8eTytjwqxdYnAyxYHn9Rjh7I6Rrbykd8r2Q8m2eVjHHMfbTXAxbV1ZZrcvyPQRgiNpWPgm/s17mXMbmZ90P2uUW2q5ZQ+bea34rRuGATuWv68mCxBsuXQQ7qq1Ro3Cqzyf4T+qBW2XGmD2B6q7lZd8NCL7PysHHVHnlO6XsRZOTDQoFtnV/93Lc9mYM8f6+kPLGghudisoUeOycihQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(136003)(346002)(366004)(376002)(39860400002)(451199021)(83380400001)(2616005)(478600001)(6666004)(110136005)(54906003)(6486002)(6506007)(26005)(53546011)(186003)(6512007)(44832011)(2906002)(38100700002)(36756003)(66476007)(66946007)(41300700001)(66556008)(4326008)(8936002)(921005)(5660300002)(31696002)(86362001)(8676002)(316002)(31686004)(43740500002)(45980500001);
+X-Microsoft-Antispam-Message-Info: RifYE44cgaIcIfi7UrHoJP1zoYk8RQpRTPzUpXVqTL9u7MmPmDTpVAMSWG2onjDGfOPB5iuz2Q7JjcnKkPeAjN8GD6h+oFBifwIkoDtwBQZUdOHmzOTBHsXOQVD2b8pzyzLnzQODgsrrDU/cBQ/qkNHPW0ev+9FbIop9MG6GVUbKZS2G2AIL24GZYjKXzth+3GS7jOe2rWNQTt5UklxVoGjk0h4doRZVQyJOoFl+vXxIPMQttTAGaN6rgjtDcaZt0vidQ8XsOwss467SQkGjotNb17KibyIc/HoJ9p/E0s0dJaGAzZB4M3ZWeHq/TyOsexYEF5lfuD3AUG+W3G/5RN17NQXVZYNfuwPu9QjkSkcjKyEz0fqqdZEiK0Aj8r1KnUEinYA8W5qxkZYCe3kb3sX9eA3pySITXr4xlSgFsqkPI9lZ/MNlqYrG3IUrVKdVoT5oNpHxuczjGVmafiwDDTEfAycv2yq5MY8sr6YCJI+gVkmi8ROFh7aIL3AnaPPStQDF1mjWPtB0wvCScba8I9tow860lMzNhw69DqEYo2NTrebS/pDJR9RPn/YmNGIYVw+SHwXmqlKoA9IeMo3Q3pFHdXeHo/5qOoHcUikd+5YoxMmA833riHO4ZpwmokZS8E4ri4pfov9W43Wgm2TmeXiu0+npWKgG7Zm9If5Zb61yrEQ+ydu2v5zSkMcNnMqeye2KGZN1RQZHpMsVXfMyDQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(376002)(396003)(39860400002)(346002)(451199021)(40470700004)(46966006)(36840700001)(54906003)(4326008)(2906002)(5660300002)(8936002)(478600001)(316002)(6636002)(8676002)(15650500001)(41300700001)(16526019)(110136005)(6666004)(70586007)(44832011)(70206006)(7696005)(966005)(1076003)(26005)(186003)(82740400003)(47076005)(40460700003)(2616005)(36756003)(36860700001)(426003)(336012)(83380400001)(40480700001)(82310400005)(356005)(86362001)(81166007)(36900700001)(2101003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RGlxdWpJdEcrVStCYzI2czI4eks4WUdSbFVuZm1YeUhhb2RVaGxhaW5DbE90?=
- =?utf-8?B?b0R2QzdPU1ZDMVl6eXVVQWVyOE15em9iTDFKUU5HOFJLaDJXbUgvS09DRm82?=
- =?utf-8?B?bC8yVGFaMDQzc09mR2FZc2UzRVErT3lNMEZKWkQ3Vnp3L3h2dmJ1WW0yZFI2?=
- =?utf-8?B?QlI1SnF5em40ZndUV0xwOUs3SmtQTTE3Y0VTTWd4Wmk2OVFHZTlFOW5uWUxa?=
- =?utf-8?B?blAxeDAveDkvdExUZURxcllHazZqaEN5S1AyempBTkVmbmkxcHZwU0hrOXph?=
- =?utf-8?B?WXJ2Qktyd21ET3BQSGdPVTFDRXdZdUJSSnM5MmY3QVU3RzUzWFhHMFRZbDF5?=
- =?utf-8?B?RmkxT1RoV2dWZXR6QkJJTnQ1UC8zdVg0QmluSW9DQnFlb3c2NGZDNUw2d2Yr?=
- =?utf-8?B?ZUxCZDF2Y1FZR2daOVVsTjZIdWEzb0xjZzdoaEJlVU5BUk1HUElSNW8zcGhZ?=
- =?utf-8?B?SUlKczM1N2ttRFphMjIyOXdzdFNTWm1xVUVLMDFJL1dwRGs5UnZ0SFc1dXhC?=
- =?utf-8?B?bUUxcEhlV0hwdUR4S0tFMElFTnFDbEd4cW9EcU9HZmVvNndnRWdHakhRaFNK?=
- =?utf-8?B?MVFWMTFxRTZYRE5jOWtyUVZ2L0lwY0xSUXFnWXJrWjFuaE5zV1Vib0d1cElP?=
- =?utf-8?B?Q2RscEs5MFBrMEE4L3E3QkJ3MFpFTzRNdHdjeW1vT3dzN0EreWMzSXZjT0VN?=
- =?utf-8?B?a0RONC83QWdQT3d3VEFiNGtWQ3NtWmcvOFp5QTFJTHVDaGgyR0sySnVOWTJ2?=
- =?utf-8?B?Qm9zbGZ1T1hDcVFrbm9YK0FuMnE3K2ZjRlAvVjlQcVNLR2l4NDAxM1IwVlM3?=
- =?utf-8?B?MnJybXpodUhieHJ3YVFpMXc4dFBrQVdnZ2RYMGRTb0tBWFhZTlZ2TzVXSDBk?=
- =?utf-8?B?OUczSVFQSklhVG1Mb1ZYa0xKdHNTblJzc2s2bHd5NHNFMXpBQ3NoR0cvcG1B?=
- =?utf-8?B?THQ4ay9TelFBa1FrMkY4dFB6Z1pETE1tMFl3UkhlL2FzRzlTdU9pczc3ZjNp?=
- =?utf-8?B?RTlMZGdCYzZicWVSaHcxd3VOQ241NHY3U3g5Ri9YRkFsUEoyK2tYOHNwbnBG?=
- =?utf-8?B?YWdNejMzWGZCMndhZVBBMnE5clZObERuOWFxVjJFNnQ4dnZDbFh3YzVKNmxx?=
- =?utf-8?B?alcyU3cwYk1nWTlKcUlJc0RoWm0vZkZ2enc2S1U4aWhZc0Nyd2xBVUlwMkR4?=
- =?utf-8?B?VEx3TGM2YktUZ29DL1J2RjhRb1RPMzFPQ0tENWdaUGhRMXVnWXF0TndCdTIv?=
- =?utf-8?B?WXplWXY0OFBGNU5TSmVqOVdtUC9yaFJKU3JCZmh4ZmR2c1oyZW14K3ErWnkr?=
- =?utf-8?B?a09yVVIvVGdUeEpNNDRzNldlSUNpWmhYNzBaRDlTc1lvc0tMYURoaDF0b0JE?=
- =?utf-8?B?c1dHSE93ZU52WlJHdGp4ZWhReWpWQUVHU2l6cDMrenJzeHF4aFdYbnp1b1JH?=
- =?utf-8?B?U1QxQjVZcGFNckRDV2dFWURSbnFkZXE2S3BrYmlyTkJVcVhKRmNNNDlidy9H?=
- =?utf-8?B?bmgyd2R5aTMrczZ5ZmgvNFhPeEx0R1Y2V0ZvK2FlNVFtYi93dFYwNmJLZndz?=
- =?utf-8?B?aHBYZnZuVVlVa3Z6TmpXcnlwZjZHaGhXZnRkOGRta2UycmdiT0dSS01ScHFp?=
- =?utf-8?B?SldQWDdRLzBjc292MHhVZm9vYUZDMXRLWCtCYWdxTnFXdHYxYnNHaWJRdjZ2?=
- =?utf-8?B?WGExclM5QzgzTUg5ZWJqanN1d0N4L2xWQ0VEVUxsTE5SU3Vnb0RZZkF2eWZ4?=
- =?utf-8?B?dDVEc2YzeHBOa21ReUhRT2c4UFdvai9OZXQ5aTNBNytOcTQyT0g3cFp3dmZC?=
- =?utf-8?B?amZZZVIreXVSSGVteWdtakNIdEtJeGVTbEkvOVU0aG9tcE1lK1g5N1BFRWoz?=
- =?utf-8?B?VHdXZ1JmbVhUYTl4MDljSkNXVjA0UDlXSGVQc2tBK3dRVGJDenRYWDRPMUpV?=
- =?utf-8?B?UGhIRUVBYXBMdlhaazdHZUdOMVZScEgxTEZBR1p5TG84VVFzM25mLzlyWHcz?=
- =?utf-8?B?dVB6cTJtWFhBbG55VDMycE01VUdhYnZuQU81Ny9YdTBSVnVRYkNsc1YzUXZJ?=
- =?utf-8?B?Mnltc1FMNU10Z1FVTllzYlV0WHJRSXgxU1NIWm5Bc01YS1dkdkVWNndoUW82?=
- =?utf-8?Q?9LrZu8gd3v5aimcX0BJACdBhO?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e2389ca5-10ff-4947-eb82-08db500aadbc
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2023 21:24:59.9992 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2023 01:27:51.4130 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6841075e-35fd-4e54-f2e2-08db502c9b22
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YTqd+Nd3WYmmYqPPKfofpKUSEQ1qbD++SgAAlRlUpGZxDUI+YNFYcTta4TL4J9Pj6oUOeUFjb091DNIgwjZyeQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5269
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF000145BB.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6787
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,166 +100,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>,
- Shashank Sharma <Shashank.Sharma@amd.com>, Alex Hung <alex.hung@amd.com>,
- Xaver Hugl <xaver.hugl@gmail.com>, linux-kernel@vger.kernel.org,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Joshua Ashton <joshua@froggi.es>, sungjoon.kim@amd.com
+Cc: Tao Zhou <tao.zhou1@amd.com>, Guchun Chen <guchun.chen@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+sdma_v4_0_ip is shared on a few asics, but in sdma_v4_0_hw_fini,
+driver unconditionally disables ecc_irq which is only enabled on
+those asics enabling sdma ecc. This will introduce a warning in
+suspend cycle on those chips with sdma ip v4.0, while without
+sdma ecc. So this patch correct this.
 
+[ 7283.166354] RIP: 0010:amdgpu_irq_put+0x45/0x70 [amdgpu]
+[ 7283.167001] RSP: 0018:ffff9a5fc3967d08 EFLAGS: 00010246
+[ 7283.167019] RAX: ffff98d88afd3770 RBX: 0000000000000001 RCX: 0000000000000000
+[ 7283.167023] RDX: 0000000000000000 RSI: ffff98d89da30390 RDI: ffff98d89da20000
+[ 7283.167025] RBP: ffff98d89da20000 R08: 0000000000036838 R09: 0000000000000006
+[ 7283.167028] R10: ffffd5764243c008 R11: 0000000000000000 R12: ffff98d89da30390
+[ 7283.167030] R13: ffff98d89da38978 R14: ffffffff999ae15a R15: ffff98d880130105
+[ 7283.167032] FS:  0000000000000000(0000) GS:ffff98d996f00000(0000) knlGS:0000000000000000
+[ 7283.167036] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[ 7283.167039] CR2: 00000000f7a9d178 CR3: 00000001c42ea000 CR4: 00000000003506e0
+[ 7283.167041] Call Trace:
+[ 7283.167046]  <TASK>
+[ 7283.167048]  sdma_v4_0_hw_fini+0x38/0xa0 [amdgpu]
+[ 7283.167704]  amdgpu_device_ip_suspend_phase2+0x101/0x1a0 [amdgpu]
+[ 7283.168296]  amdgpu_device_suspend+0x103/0x180 [amdgpu]
+[ 7283.168875]  amdgpu_pmops_freeze+0x21/0x60 [amdgpu]
+[ 7283.169464]  pci_pm_freeze+0x54/0xc0
 
-On 4/23/23 10:10, Melissa Wen wrote:
-> From: Joshua Ashton <joshua@froggi.es>
-> 
-> Multiplier to 'gain' the plane. When PQ is decoded using the fixed func
-> transfer function to the internal FP16 fb, 1.0 -> 80 nits (on AMD at
-> least) When sRGB is decoded, 1.0 -> 1.0.  Therefore, 1.0 multiplier = 80
-> nits for SDR content. So if you want, 203 nits for SDR content, pass in
-> (203.0 / 80.0).
-> 
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2522
 
-Is gamescope intending to use this?
+Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-Harry
-
-> Co-developed-by: Melissa Wen <mwen@igalia.com>
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
-> Signed-off-by: Joshua Ashton <joshua@froggi.es>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  6 +++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |  4 +++
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 12 +++++++++
->  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 25 ++++++++++++++-----
->  4 files changed, 41 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> index 24595906dab1..dd658f162f6f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> @@ -1326,6 +1326,12 @@ amdgpu_display_create_color_properties(struct amdgpu_device *adev)
->  		return -ENOMEM;
->  	adev->mode_info.plane_degamma_tf_property = prop;
->  
-> +	prop = drm_property_create_range(adev_to_drm(adev),
-> +					 0, "AMD_PLANE_HDR_MULT", 0, UINT_MAX);
-> +	if (!prop)
-> +		return -ENOMEM;
-> +	adev->mode_info.plane_hdr_mult_property = prop;
-> +
->  	return 0;
->  }
->  #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> index ab9ce6f26c90..65a9d62ffbe4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> @@ -387,6 +387,10 @@ struct amdgpu_mode_info {
->  	 * linearize content with or without LUT.
->  	 */
->  	struct drm_property *plane_degamma_tf_property;
-> +	/**
-> +	 * @plane_hdr_mult_property:
-> +	 */
-> +	struct drm_property *plane_hdr_mult_property;
->  #endif
->  };
->  
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> index 005632c1c9ec..bb7307b9cfd5 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> @@ -51,6 +51,7 @@
->  
->  #define AMDGPU_DMUB_NOTIFICATION_MAX 5
->  
-> +#define AMDGPU_HDR_MULT_DEFAULT (0x100000000LL)
->  /*
->  #include "include/amdgpu_dal_power_if.h"
->  #include "amdgpu_dm_irq.h"
-> @@ -736,6 +737,17 @@ struct dm_plane_state {
->  	 * linearize.
->  	 */
->  	enum drm_transfer_function degamma_tf;
-> +	/**
-> +	 * @hdr_mult:
-> +	 *
-> +	 * Multiplier to 'gain' the plane.  When PQ is decoded using the fixed
-> +	 * func transfer function to the internal FP16 fb, 1.0 -> 80 nits (on
-> +	 * AMD at least). When sRGB is decoded, 1.0 -> 1.0, obviously.
-> +	 * Therefore, 1.0 multiplier = 80 nits for SDR content.  So if you
-> +	 * want, 203 nits for SDR content, pass in (203.0 / 80.0).  Format is
-> +	 * S31.32 sign-magnitude.
-> +	 */
-> +	__u64 hdr_mult;
->  #endif
->  };
->  
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index 5b458cc0781c..57169dae8b3d 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> @@ -1321,8 +1321,10 @@ static void dm_drm_plane_reset(struct drm_plane *plane)
->  		__drm_atomic_helper_plane_reset(plane, &amdgpu_state->base);
->  
->  #ifdef CONFIG_STEAM_DECK
-> -	if (amdgpu_state)
-> +	if (amdgpu_state) {
->  		amdgpu_state->degamma_tf = DRM_TRANSFER_FUNCTION_DEFAULT;
-> +		amdgpu_state->hdr_mult = AMDGPU_HDR_MULT_DEFAULT;
-> +	}
->  #endif
->  }
->  
-> @@ -1424,11 +1426,11 @@ static void dm_drm_plane_destroy_state(struct drm_plane *plane,
->  #ifdef CONFIG_STEAM_DECK
->  int
->  amdgpu_dm_replace_property_blob_from_id(struct drm_device *dev,
-> -					       struct drm_property_blob **blob,
-> -					       uint64_t blob_id,
-> -					       ssize_t expected_size,
-> -					       ssize_t expected_elem_size,
-> -					       bool *replaced)
-> +					struct drm_property_blob **blob,
-> +					uint64_t blob_id,
-> +					ssize_t expected_size,
-> +					ssize_t expected_elem_size,
-> +					bool *replaced)
->  {
->  	struct drm_property_blob *new_blob = NULL;
->  
-> @@ -1482,6 +1484,10 @@ dm_plane_attach_color_mgmt_properties(struct amdgpu_display_manager *dm,
->  					   dm->adev->mode_info.plane_degamma_tf_property,
->  					   DRM_TRANSFER_FUNCTION_DEFAULT);
->  	}
-> +	/* HDR MULT is always available */
-> +	drm_object_attach_property(&plane->base,
-> +				   dm->adev->mode_info.plane_hdr_mult_property,
-> +				   AMDGPU_HDR_MULT_DEFAULT);
->  }
->  
->  static int
-> @@ -1507,6 +1513,11 @@ dm_atomic_plane_set_property(struct drm_plane *plane,
->  			dm_plane_state->degamma_tf = val;
->  			dm_plane_state->base.color_mgmt_changed = 1;
->  		}
-> +	} else if (property == adev->mode_info.plane_hdr_mult_property) {
-> +		if (dm_plane_state->hdr_mult != val) {
-> +			dm_plane_state->hdr_mult = val;
-> +			dm_plane_state->base.color_mgmt_changed = 1;
-> +		}
->  	} else {
->  		drm_dbg_atomic(plane->dev,
->  			       "[PLANE:%d:%s] unknown property [PROP:%d:%s]]\n",
-> @@ -1533,6 +1544,8 @@ dm_atomic_plane_get_property(struct drm_plane *plane,
->  			dm_plane_state->degamma_lut->base.id : 0;
->  	} else if (property == adev->mode_info.plane_degamma_tf_property) {
->  		*val = dm_plane_state->degamma_tf;
-> +	} else if (property == adev->mode_info.plane_hdr_mult_property) {
-> +		*val = dm_plane_state->hdr_mult;
->  	} else {
->  		return -EINVAL;
->  	}
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+index b5affba22156..8b8ddf050266 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+@@ -1903,9 +1903,11 @@ static int sdma_v4_0_hw_fini(void *handle)
+ 		return 0;
+ 	}
+ 
+-	for (i = 0; i < adev->sdma.num_instances; i++) {
+-		amdgpu_irq_put(adev, &adev->sdma.ecc_irq,
+-			       AMDGPU_SDMA_IRQ_INSTANCE0 + i);
++	if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__SDMA)) {
++		for (i = 0; i < adev->sdma.num_instances; i++) {
++			amdgpu_irq_put(adev, &adev->sdma.ecc_irq,
++				       AMDGPU_SDMA_IRQ_INSTANCE0 + i);
++		}
+ 	}
+ 
+ 	sdma_v4_0_ctx_switch_enable(adev, false);
+-- 
+2.25.1
 
