@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BFA7C7EE22
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 May 2023 22:18:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB4DDC77B75
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 May 2023 22:18:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAF2B10E425;
-	Tue,  9 May 2023 22:18:50 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2074.outbound.protection.outlook.com [40.107.93.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96BD310E425
+	by gabe.freedesktop.org (Postfix) with ESMTP id 490FF10E429;
+	Tue,  9 May 2023 22:18:52 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAAFE10E428
  for <amd-gfx@lists.freedesktop.org>; Tue,  9 May 2023 22:18:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=J74TdUWgTWGwnlGtwIUFGTppLH239TbMfdRix5PS2yVhLOUAw30aEFx488nXV8wO3m3vLRtm1lk2fpPsL251audO0eX3uRn8XrehXvVMn/qsPsrnynaOB3h5KOugtdTOj0TxjP3Rrh/1j1l8ywLXTWI4sk1QLMGi6zrlCqCD2eMZ2Cdu7Nhap2vldI4berOpdb0NmpoMBShPEL922HLVF2Z5Lt1eJ2YDbQRfUiEmyDEj2VDHKyWYYe0Vd/4Kj4BE0CV8kNVh5yXZ+RcFEsJgKno3/RoqH6ijMsvjBebaKQSFzSjoyrsi3vv5SK5pP/ddHcY/uFykyRQh5AykE69Mtw==
+ b=NIzQuef9okVSNadvbQgKxxWzi/F6u6A3yviALeNehYXgA/YY78j9P8cTVMtyZvepC1I9lortJT3KN9/vYpCq8ow0WsYwtaoBC51YCr4QDuxZKi/PP4+pXdpt0zi1Xf4924S343qSGKkDNjoz082d+ivF2nfc/wLEFPOjc53uZJbkpj0BtSj5aqaT1SxuBgLXEyFr9Cu9mYncpuq7CLyTgc9fY5mQBqN3UOPYSg6F/fc+K3Eb+LjrKc77K9TYcZGtMxzUgklWYFyP6QkfK0pQjNkw0YWc9dyBDJDWnMB6MhKvXsJSVF7F7P8SCLVtW5pXtha/bzmWJTEEps1HqdnrVA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QyA/hnzGZdUx1C4LKTMMHPbPxG/MTWiNsSPux5DVyF8=;
- b=bE1IQ0XFZKe3Dao9LhUJvicQBfSpvwqOYtK9KVOcfa1CgUid9MRNp8L8TN70LylqJRN+mJh/XqXJwePJqnex0POrpeW4qNv7Atw7m6G/pVxCtccP4T5eeAM8TVnyFBuXMg9DOfI2trhnYv9ckvet/27/bWcoOlQg2NZsrcZ1AvpIC78oKFDXisWCujVBESH/JX7cEeWMyaRGGuv2eFQ92dObJ2CzfAMMNXaHTqb4ggin73U1kmD+fORyzpoQXfGBg+fYrBg223z+FaQILZ9Fq2qJzlHAxeAF+BEfWs7qI7opatKX3YUiKfFxKSoIYbRSezfrS4vTYQ5oCRf+3KO6kQ==
+ bh=mk3GGYCKIiHoqRd3abkN2z9+WWnoTwZT/j0looaav1w=;
+ b=Ru6G4U6WlygQKOlXPERr4pvf1AI5t7EaKxrFcd/5Q2bPaExYgUW5cH8CgGrULzvoNb4PwoVk34jB4UBI6MNNOMYnZ/GjgTlcZ23cNPe+ixsejkw/ltGhSri46eLUtH2t4Q+/3434aAGTLoqQ77soI6Yl0t8PwBQyWopeWbW+oh8N8nMq6iLa57v3rSMqVsbh3BG6FbPU7Lvz9KYKjcCtjIgeNMJ7KenIH3ebt79fAVFlqMh4SItMCOdnjwSdDRz0FgrwYgKa5KHJ00qScX/MOWnCC0/HViH3KS4NVEaymGsBnhKJHk1uPMsC/sqhYTjJMFVDDg+QQddKGmL3J2+7zg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QyA/hnzGZdUx1C4LKTMMHPbPxG/MTWiNsSPux5DVyF8=;
- b=hyoTpcZEQfEWug3YO1ode4yYiMgZ6H6VNQIT5DTYrW3kxqHZzqgCx8DfBm9FHmFCZWIoSOL9O56vtXxrNfbgvbiNjcpwPdK5h37HR4yp8m/TdLXuDZjMSbbVoCsf2yrLJtNPScMcift7+LYaJ+TfNFrYe7imNC/GTM/rMprQpX8=
-Received: from MW4PR04CA0279.namprd04.prod.outlook.com (2603:10b6:303:89::14)
- by SJ0PR12MB6990.namprd12.prod.outlook.com (2603:10b6:a03:449::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.29; Tue, 9 May
+ bh=mk3GGYCKIiHoqRd3abkN2z9+WWnoTwZT/j0looaav1w=;
+ b=zT/ujXKL4QaU7zQCZRjpFNBw81XtbYMmQmR0GeU29PEVMN35+vBV7dfYF2sQooMnja4KJdDGhfvA4xnzKJonNZFVzvlQVDCHFMySMh1HX6s5sv1qP5fSKNKTrImIjEqJpF3eKq2SQ2OewIHWComxFH8MmFJtdvUuyYo6vAWjoeM=
+Received: from MW4PR04CA0285.namprd04.prod.outlook.com (2603:10b6:303:89::20)
+ by DM4PR12MB7717.namprd12.prod.outlook.com (2603:10b6:8:103::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.33; Tue, 9 May
  2023 22:18:45 +0000
 Received: from CO1NAM11FT068.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:89:cafe::90) by MW4PR04CA0279.outlook.office365.com
- (2603:10b6:303:89::14) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:303:89:cafe::de) by MW4PR04CA0285.outlook.office365.com
+ (2603:10b6:303:89::20) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.33 via Frontend
  Transport; Tue, 9 May 2023 22:18:45 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
@@ -51,12 +51,12 @@ Received: from SATLEXMB04.amd.com (165.204.84.17) by
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 9 May
- 2023 17:18:44 -0500
+ 2023 17:18:43 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 3/3] drm/amdgpu: Add PSP spatial parition interface
-Date: Tue, 9 May 2023 18:18:30 -0400
-Message-ID: <20230509221830.477324-3-alexander.deucher@amd.com>
+Subject: [PATCH 2/3] drm/amdgpu: Return error on invalid compute mode
+Date: Tue, 9 May 2023 18:18:29 -0400
+Message-ID: <20230509221830.477324-2-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230509221830.477324-1-alexander.deucher@amd.com>
 References: <20230509221830.477324-1-alexander.deucher@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT068:EE_|SJ0PR12MB6990:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6c688cb8-496b-4533-8c11-08db50db5b0b
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT068:EE_|DM4PR12MB7717:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9d2c8939-5d22-43ec-1b5a-08db50db5ab8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dn/ePKHgo56tBHb5m3SBVT1RX1aRSBKUiYGtBcBK1ePlzUswIczR1hjO22P7+ZwFWi8ruFEUOck/mlpTSc4+TMcQF6o5amERF9OAx6glO9XgHPBHw/M8ZKRDgtD4lkeybvieMbUGST9luuaSKa69TWLRqETo7dBLeGXkFrHhNUq4b2bOUPAYodt2O+967vb+XwZVYKu1oS/VECWbL26A4OIJDl2auEm153jferoEaVYXZLNm0IzvYTHBAslGkRNlPzRFzpy7qJuw0KM9UCylypln8kFuVQ8abFlF0qP4dkh3dFkwr1HMpXAOkgdAPE/i5BWgvaNpK6JXVUujrk6oql1bqfpBXW78v0IsLT3YPiRzHSQIBde054xqZYRdtSZqylChW8M4KZ7pcjhu8m6pAKt68FnNAzeYLaeIYlCLMcGllKeTG692C3JeJlxAtiK9a7BJaZkrIk4XLlG9ZrFHCUApecUuewlPaHrGWVa7PxtGrTFhtKGfeK3Lx5IBYjSrCj5osp8JFMkP9EOsUu+k8vEv1kisJp4V8D5NNMa6KDxGWNnNbBPkyvd04CVNHrNtHyKIWGriA5cvyoKac5xsRp3Stmw4grExtEbY/zltbjH0lJMkhtBP4WYW8EVJ810vOlZ63vRm1Tdmj9GDHZcWkebUlCdSLtvmddsKR6vcfAJRIbx7NGX3TZHwRdJN4MgsyK8PLeaSbPWbOkw/tyjYWXe/cNqkrYyad/n5yCGWzyg=
+X-Microsoft-Antispam-Message-Info: 0w1PqtSnKFILUbx5rdNRpTtDmcz0aji1r1Vt7crZUp4onnCoDFT8OMpiHeI8kKuEGtdx7xWP+wybjcQ2aDgUS5Rye7GHZxVo7T4k/zGKqllOgd9q6sfyt1bHNtsDfW7ZG6KYbkiVolWGPY8fqBS+i15GsxZ6mT6W1eMOQtlrXCkLvHmCsbdiyzmtBYgyqgYQHzZ1STXYk55P8w+7jQTuo+AskxIOs2InygIxaygXf594p4yZus+yJZrMAVU2gmFuhvJe9uq/OPMm2C8tI+55q2ejjCNw+rh4NEOhBifRBECD2Qav5J+N/1sJw3HUb3T4x1GQ7V55btATL/0T3NDEO5cmcvK50YrZZ8bR4Ls7yTQsNdkZ0avUyRXT0l7dU/QemcM6QNkDcxKzgt6vAoUgBkHTdFweOEkPmGMDIUpyYq076mYX0PcX9A/vC8wpA/VgWslYBz11RspukcduZRoL5XodAipyT/euHlgLxI5lxYp8YOC9Ajza5q1DJHMNnSpyJ/l6UIG0w99XrnSHdjJRYP4PW+8bbqKsfgkOio44YeCEUT6MaFKJNPBJ4G5Xkzre8zWtAnSD/XetscG/39SpYfnKic6CFaM+heE4GZlzTOBracPr/IcuGOEc91YCcR2z48WrpBQ696x5k8Mfj9AQWmX9TiJt2UOXzX6vRfMZ5cKuJS1aT1Ok+gWif+s8vuyZq9CraP28fGtasRaju2gCNxF3N8++yfpZFHQcZOWOegI=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(376002)(136003)(39860400002)(346002)(451199021)(36840700001)(46966006)(40470700004)(8676002)(5660300002)(54906003)(82310400005)(4326008)(1076003)(26005)(478600001)(86362001)(2906002)(8936002)(36756003)(186003)(316002)(16526019)(2616005)(83380400001)(426003)(336012)(70206006)(70586007)(6916009)(47076005)(6666004)(7696005)(36860700001)(40460700003)(40480700001)(81166007)(41300700001)(356005)(82740400003)(36900700001);
+ SFS:(13230028)(4636009)(376002)(136003)(346002)(396003)(39860400002)(451199021)(36840700001)(40470700004)(46966006)(6666004)(6916009)(5660300002)(316002)(41300700001)(81166007)(82310400005)(4326008)(82740400003)(356005)(70206006)(26005)(86362001)(70586007)(54906003)(1076003)(2906002)(8936002)(8676002)(186003)(16526019)(7696005)(36860700001)(36756003)(478600001)(47076005)(83380400001)(40460700003)(426003)(336012)(2616005)(40480700001)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2023 22:18:45.7038 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6c688cb8-496b-4533-8c11-08db50db5b0b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2023 22:18:45.1413 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d2c8939-5d22-43ec-1b5a-08db50db5ab8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT068.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6990
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7717
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,103 +99,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Le Ma <le.ma@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Lijo Lazar <lijo.lazar@amd.com>
 
-Add PSP ring command interface for spatial partitioning.
+Return error if an invalid compute partition mode is requested.
 
 Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Reviewed-by: Le Ma <le.ma@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 21 +++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |  2 ++
- drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h |  9 +++++++++
- 3 files changed, 32 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/aqua_vanjaram_reg_init.c | 8 ++++++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c             | 6 +++++-
+ 2 files changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index ea47012795e7..d62746b596f5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -991,6 +991,27 @@ static int psp_rl_load(struct amdgpu_device *adev)
- 	return ret;
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram_reg_init.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram_reg_init.c
+index a165b51e9e58..848049db00ab 100644
+--- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram_reg_init.c
++++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram_reg_init.c
+@@ -328,10 +328,14 @@ static int aqua_vanjaram_switch_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr,
+ 	adev = xcp_mgr->adev;
+ 	num_xcc = NUM_XCC(adev->gfx.xcc_mask);
  
-+int psp_spatial_partition(struct psp_context *psp, int mode)
-+{
-+	struct psp_gfx_cmd_resp *cmd;
-+	int ret;
-+
-+	if (amdgpu_sriov_vf(psp->adev))
-+		return 0;
-+
-+	cmd = acquire_psp_cmd_buf(psp);
-+
-+	cmd->cmd_id = GFX_CMD_ID_SRIOV_SPATIAL_PART;
-+	cmd->cmd.cmd_spatial_part.mode = mode;
-+
-+	dev_info(psp->adev->dev, "Requesting %d paritions through PSP", mode);
-+	ret = psp_cmd_submit_buf(psp, NULL, cmd, psp->fence_buf_mc_addr);
-+
-+	release_psp_cmd_buf(psp);
-+
-+	return ret;
-+}
-+
- static int psp_asd_initialize(struct psp_context *psp)
- {
- 	int ret;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-index cf4f60c66122..0a409da749d1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -519,6 +519,8 @@ int psp_load_fw_list(struct psp_context *psp,
- 		     struct amdgpu_firmware_info **ucode_list, int ucode_count);
- void psp_copy_fw(struct psp_context *psp, uint8_t *start_addr, uint32_t bin_size);
+-	if (mode == AMDGPU_AUTO_COMPUTE_PARTITION_MODE)
++	if (mode == AMDGPU_AUTO_COMPUTE_PARTITION_MODE) {
+ 		mode = __aqua_vanjaram_get_auto_mode(xcp_mgr);
+-	else if (!__aqua_vanjaram_is_valid_mode(xcp_mgr, mode))
++	} else if (!__aqua_vanjaram_is_valid_mode(xcp_mgr, mode)) {
++		dev_err(adev->dev,
++			"Invalid compute partition mode requested, requested: %s, available memory partitions: %d",
++			amdgpu_gfx_compute_mode_desc(mode), adev->gmc.num_mem_partitions);
+ 		return -EINVAL;
++	}
  
-+int psp_spatial_partition(struct psp_context *psp, int mode);
+ 	if (adev->kfd.init_complete)
+ 		flags |= AMDGPU_XCP_OPS_KFD;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+index 81ab3cd2f229..d0ddcd751432 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -1933,7 +1933,11 @@ static int gfx_v9_4_3_cp_resume(struct amdgpu_device *adev)
+ 	if (amdgpu_xcp_query_partition_mode(adev->xcp_mgr,
+ 					    AMDGPU_XCP_FL_NONE) ==
+ 	    AMDGPU_UNKNOWN_COMPUTE_PARTITION_MODE)
+-		amdgpu_xcp_switch_partition_mode(adev->xcp_mgr, amdgpu_user_partt_mode);
++		r = amdgpu_xcp_switch_partition_mode(adev->xcp_mgr,
++						     amdgpu_user_partt_mode);
 +
- int is_psp_fw_valid(struct psp_bin_desc bin);
++	if (r)
++		return r;
  
- int amdgpu_psp_sysfs_init(struct amdgpu_device *adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h b/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
-index 22c775f39119..18917df785ec 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
-@@ -102,6 +102,7 @@ enum psp_gfx_cmd_id
-     GFX_CMD_ID_LOAD_TOC           = 0x00000020,   /* Load TOC and obtain TMR size */
-     GFX_CMD_ID_AUTOLOAD_RLC       = 0x00000021,   /* Indicates all graphics fw loaded, start RLC autoload */
-     GFX_CMD_ID_BOOT_CFG           = 0x00000022,   /* Boot Config */
-+    GFX_CMD_ID_SRIOV_SPATIAL_PART = 0x00000027,   /* Configure spatial partitioning mode */
- };
- 
- /* PSP boot config sub-commands */
-@@ -338,6 +339,13 @@ struct psp_gfx_cmd_boot_cfg
-     uint32_t                        boot_config_valid;    /* dynamic boot configuration valid bits bitmask */
- };
- 
-+struct psp_gfx_cmd_sriov_spatial_part {
-+	uint32_t mode;
-+	uint32_t override_ips;
-+	uint32_t override_xcds_avail;
-+	uint32_t override_this_aid;
-+};
-+
- /* All GFX ring buffer commands. */
- union psp_gfx_commands
- {
-@@ -351,6 +359,7 @@ union psp_gfx_commands
-     struct psp_gfx_cmd_setup_tmr        cmd_setup_vmr;
-     struct psp_gfx_cmd_load_toc         cmd_load_toc;
-     struct psp_gfx_cmd_boot_cfg         boot_cfg;
-+    struct psp_gfx_cmd_sriov_spatial_part cmd_spatial_part;
- };
- 
- struct psp_gfx_uresp_reserved
+ 	num_xcc = NUM_XCC(adev->gfx.xcc_mask);
+ 	for (i = 0; i < num_xcc; i++) {
 -- 
 2.40.1
 
