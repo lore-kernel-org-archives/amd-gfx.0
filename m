@@ -4,91 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79689C7EE23
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 May 2023 22:23:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF0D0C7EE23
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 May 2023 22:56:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EACFD10E43F;
-	Tue,  9 May 2023 22:22:59 +0000 (UTC)
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2060a.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eb2::60a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AF3610E43B
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 May 2023 22:22:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7348310E440;
+	Tue,  9 May 2023 22:55:57 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2044.outbound.protection.outlook.com [40.107.92.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30C6810E43C;
+ Tue,  9 May 2023 22:55:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PFPwRCBHtBDJ0dvnqimzWONI101oA9zO3lPmJVTIleN/JBxiz8jvhKFxYyI0yMkEsaeUNJbNqmLXuMOCdKFZ2e4HR0Kc9b4pWJcbgoubiEoSbepJpoW0PKGunZ615/0YhRjGqB9khdsku/5NdCJpBQJlpDBiVC8BIhh7QOrL1do1X0220zL01p4NjmbXkd4G+Jlp1iB/aEK817xqLtl1GN9Re3gSYwF04iXNsOqTVAbNDdykejo+5Fsnh0h5lu4cve3Tb7hT2Y1UiETVv2hN3ubHPcD3gIdxeah7nae/mSjCWRlm9hmutoxuVmYsR8feWU8/+XVPk+FEQBZ4EJc8kg==
+ b=MTMUZ8BJBOJPOZnTzfvs1Vb/aUGBxh6+RXeux6rAMNR9uv443R10Sm2XQVXfd9sSpzCwt7POl8nfwCMTbF/ro+xpfK1wC77YfAL8XAjHH+IO0ZQ+FZjqptHIZGYKLEZmMUxI1jaeUgI/C8ilIOSA5UG2rZxZhBf0ZVNWZQPtV8OBX2X3ZEv287D7qlgqBb541yKidqi7BYqk5py/lKyvddhY5nRdyAJ55sdaOAAbcCJ/CoKOpe5apyd7DbxIGw+3yjtfba3FOMxGZrojuMM5bRmh+SVRuwptifSKbrlkrjEgG1XWW6/MU0W0sJjEG/rxeZEa5/DlZMb2xTjCSWZxTw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wzSRdsbTS06i0sDNCyxmbwzhhks3kRjAYtj9afnAmpI=;
- b=kLSO9tViflyq3RFMK+UDU477C3pMyluan0I8KvC2XqbRcPHXxho+aDZyoRbl9BBaNudNljYRD6PdZNrGUGPprtb+A+xmbW0CC5jIh+2ElrZ84HBQdVdKFTKdLUxzGnsELiEf0hYTzuAWbF4rxIRb1bC1dDxvPd0M/qr3vRXzCK4quMFG9vY567m9Yf02GjuvMNQusRYHXUiZdQobMn88AL4bb5XNPQggpUFZSJQ5PfamHB8X252Qa6LsKHfaPackYPAAbtJUr6NNhNfIT9z65CTB7XzVXFb2OKs81M33uS0Sl6RqjE/BkR3PX5WIOkh8aKtS9xa1HX+46zfYZ+AP4A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=wcwkuP9fq45XHaoRgsYGy4XSJw1WXH0JSGS4LoSTWMU=;
+ b=IGF2YSqWEyE9RILDKXipXNXM6M34yYOsQGxpaDTHpL71K/4r0cOGbDx4aq71A1glUG7yzpmRCNmxkD3UDC692JjV2rvCJGf16ByhIUrIgAgkUZ0hU/C78ljfo+vk/1/wuEIIGDhU+ZfRoKGPDmWYYyynTzhNC/ITe4RDNtHWpzyvq7KjiPFq6Gju7YqPIeVmBt/qAUR/KC8MtFjEKoOlSKtYdK96zMWJLRy9zOUXiC81QNgILKCASxF0JCCWtmxC3Xfbiv4FMUbZZMh9UWFpFcND/OnY/WDIjWlC1xtikU9vv0WvuxiWeEMCMt+gI6ZMO14zBv8rDlgW2zOgPHmdCQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wzSRdsbTS06i0sDNCyxmbwzhhks3kRjAYtj9afnAmpI=;
- b=lxYa4bfeZfqRAi0H+U5RgjBIi+nf/mnzF0Wkxp1pXvHSmUWsB2m6no6lWMVcioNqCGbiUV3iy+aIC99T/aSLAyrtwCqrsvt5Z/TptxRfzf/rQpf6JOb/vRqulZxyCE0nVaF5206OD3QsGCcMbbQ5U1c+iWdmdeLEhVpbNzyKUsg=
-Received: from BN0PR04CA0071.namprd04.prod.outlook.com (2603:10b6:408:ea::16)
- by DS0PR12MB9058.namprd12.prod.outlook.com (2603:10b6:8:c6::10) with
+ bh=wcwkuP9fq45XHaoRgsYGy4XSJw1WXH0JSGS4LoSTWMU=;
+ b=hupzyo2vMUk/QboGooSwJMqo7qXchTV9Z1B1QR7Dmw6Qvyk/uFEqO73Z3FRmkhTa+8xB+KuYSFli108EVBHKOzyKrSdZL+OP/amgzUq598t9ihCVX5Kj5i2prmc0g2j5/UtKs7um9ljdB4lUCXCRzqWdrCAigawjSHF9m7GyAzs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by DM6PR12MB4975.namprd12.prod.outlook.com (2603:10b6:5:1bd::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.33; Tue, 9 May
- 2023 22:22:53 +0000
-Received: from BN8NAM11FT013.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ea:cafe::29) by BN0PR04CA0071.outlook.office365.com
- (2603:10b6:408:ea::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.18 via Frontend
- Transport; Tue, 9 May 2023 22:22:52 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT013.mail.protection.outlook.com (10.13.176.182) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6387.18 via Frontend Transport; Tue, 9 May 2023 22:22:52 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 9 May
- 2023 17:22:51 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 4/6] drm/amdkfd: Move pgmap to amdgpu_kfd_dev structure
-Date: Tue, 9 May 2023 18:22:35 -0400
-Message-ID: <20230509222237.478097-4-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230509222237.478097-1-alexander.deucher@amd.com>
-References: <20230509222237.478097-1-alexander.deucher@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.32; Tue, 9 May
+ 2023 22:55:50 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::4666:2db3:db1e:810c]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::4666:2db3:db1e:810c%6]) with mapi id 15.20.6387.018; Tue, 9 May 2023
+ 22:55:50 +0000
+Message-ID: <c46e0ec2-87cc-83a8-c371-a7b11ba8ea2f@amd.com>
+Date: Tue, 9 May 2023 18:55:45 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.1
+Subject: Re: [RFC PATCH 12/40] drm/amd/display: add plane HDR multiplier
+ driver-private property
+Content-Language: en-US
+To: Joshua Ashton <joshua@froggi.es>
+References: <20230423141051.702990-1-mwen@igalia.com>
+ <20230423141051.702990-13-mwen@igalia.com>
+ <5bbd49b6-ad09-607f-521d-96f9d8eb3b20@amd.com>
+ <20230509163701.57lf22phumicqv37@mail.igalia.com>
+ <CAEZNXZAfq_6EZHBhBXjMPwOuU10rwKe3SPJpz1hetux=HRF4CQ@mail.gmail.com>
+ <fc308aca-4ecf-7db9-3491-9ede18ee5562@amd.com>
+ <CAEZNXZAFjn2zOEr33qZvEC5h-P4OowJ7sB8MVhBHAzntXBDgjw@mail.gmail.com>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <CAEZNXZAFjn2zOEr33qZvEC5h-P4OowJ7sB8MVhBHAzntXBDgjw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT3PR01CA0040.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:82::26) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT013:EE_|DS0PR12MB9058:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8013fceb-2beb-4374-c532-08db50dbee29
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|DM6PR12MB4975:EE_
+X-MS-Office365-Filtering-Correlation-Id: 35065936-1543-4b2a-15f1-08db50e088d0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: BL9BkNhbuIAZxiqtU9hR9SRvlQzaCN6DIayS/fb/TrKvsO8n45UQ0iyIzmTQAGx0UKBfWjfP3HmXXBWffwp2GzmkNVQIDo3RXMQaiAjfpJl4JqI0HWPuzVcEHG5SORWBCFx95fJgwpgEtvN/pFpy4SCoulDaE3UNS2qJG6tmvLza+gGP0TG1rE3zXw9PgyN9qNVadt0gXggsBs+ou6geJzQh/qS80OLYy+FAxRFwGp9ZvgL/xhEKpB1hfB+a92PER2xTyKCHCqQoPw60dNnIgxWBjRckyTBWM8+tqJ32g5uCajfy88MgvX4wgNYu2cVaY+tYFlmx1ybjk6qcXZYUqLCFrWaVWQtmmfbT9RU3dmOBUp+pLHqb0SuAzCRkn/OGjlVziLsBp9hQrB4wArKXg8g58stGgUL49exkqeHyy9WIIgRKo1Hoqy9xP0gJXKTdaA/nMYstf9pMTDnoq2N8Vyb05JqQKG7Xc+F5VwctL/UNb4i5g0vAaBMRs8gd/CZlvGuR7DPlvO+rRPhdcrruO1bW5Lj9kpqV2NYxRIZVKR+LH69wMLtMerIf+lupm7ynsSFsWDlRR5xpUmplbEyaH91dsfpLB5YDsmmOT4XxqhDsUy9lYWv4hNcUXGde/CuOygWRqFbt4aBXtUAQQNVnbz1wvA+kNeILU9GoSx0jlSC1TbetTtOdi6ZQbQhwypysI2yh0SEsZDdTLGhzC368hI9u0L/Ld9HdReLnhfjMlc4=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(396003)(346002)(136003)(376002)(451199021)(46966006)(36840700001)(40470700004)(2906002)(40460700003)(41300700001)(8936002)(8676002)(5660300002)(36756003)(82310400005)(40480700001)(7696005)(6666004)(26005)(1076003)(478600001)(86362001)(36860700001)(336012)(83380400001)(2616005)(47076005)(426003)(16526019)(186003)(316002)(82740400003)(356005)(6916009)(70206006)(70586007)(81166007)(54906003)(4326008)(36900700001);
+X-Microsoft-Antispam-Message-Info: qbkH9WZnnJtTpi/MkDI5gDFx0VIdnIsfEK2ShqfDq7KqSmDD5if2wSZU3Kks4EmCo/mqL+4OoC3xaV3KNvAQjSxaHyIsvxcmfoArOEz/dnII8ctiz/gACZ3pYppBWMEXQtLDGhMSjzJ2a4qU0CMxgBu4rJYq4gBlxcq0ZJYXpR/3hD4Nb+88xf7Xat4nTutL0j/cGN12vLbTapTg7kL66adLupjXI0pG7yYNhH9r6xgZ3bqcBsT2kpFsv3A/KgF5vjvSiXr22po5HId/HEKVPC9ZOROfgM46JEOZuE+5jP50zXJWB2ls73vdddqDxIFMME/sko+962tDY3+tsefN4hKiUwpLXuTpUlnsA8kHZhpSUOhcdlV/VXoYHqHmJJ+0G93lG78AFrYijCGnebbitd5jmZ6jdooxCHV+J0H6xdti2FP3UdTTo5XRr7yINEFHytZ0dSXbrn3ilEOE66wS/mD0DlyDblrJpBgVK6hAILerIoI0HTkws/WcYdBi0+PxTnGNV7GCPXtna/3t/MTxCGbh4bpI8hH3DE51yQcMGD76W3SVe7cr2ZtEP5/7U4RjO84y30OvLpjbeZeL6OeMrdnhSq8uI1VEUf85QAzKiOTOnnPRiop1fxSM2C6VyhUCE7VsCfXUyNHgIX9Ir2qkdw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(366004)(346002)(396003)(376002)(136003)(451199021)(5660300002)(54906003)(31686004)(6486002)(41300700001)(8936002)(8676002)(6666004)(316002)(26005)(6506007)(6512007)(44832011)(66476007)(478600001)(66556008)(4326008)(66946007)(6916009)(53546011)(83380400001)(186003)(2616005)(2906002)(31696002)(86362001)(38100700002)(36756003)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M0N1ZWdmOEx1MWhiVEtqdWt3VDhaV3QvOHdISDEwWUJOVEpobWdoTU1tanMy?=
+ =?utf-8?B?RThCUGRtMXgvam11L0tsV1ZDMTlsN1QyVkI3NXNsdmFjZVpjMWkyRXE1RzQ2?=
+ =?utf-8?B?bWNXODhaRXhiL2FyL1M0anVqMW5ncUh6NUdOdWQ0clV3RzhxVFJYaHVNM3hX?=
+ =?utf-8?B?OXNSeU41N1RlM29kc2VwZFlhN3hCT1BCR2Y4d2hzYjcwMllLYXJXbVhIU3g3?=
+ =?utf-8?B?QUxxTXJDS1hISlFLRDgzWllyMk55RDdPcVdiQVBOZUJEeEJRYlNKR3FObllP?=
+ =?utf-8?B?NHJmVnM0SWJ2TzJIckFYSmZaMVNkTW5iZzM0aHpTR0tzZW50YVNqVHNXL3Y4?=
+ =?utf-8?B?bFArZTdnZHhJUlk1SjlzaEZreEZyc3R5RTFLK1BoUkFCWWk2bFZDcUdNMjNx?=
+ =?utf-8?B?Tmtrc25HSTEwL1VTVVNtNlNwTjZycEdONk9acWVEQXZ5MzBrTXlhczZPWnI5?=
+ =?utf-8?B?eGVoWjdIRDVQZVJyR0hHN1hmYXlhbmJGRHRrTzg1UDlTTzY3b2MzSlMyb0du?=
+ =?utf-8?B?UU43MXUxUFhSOVZCNHJTb2FTV3YyRXdzUWJEU3ZMcWxNTmZ4RHVjbnFPaEJ2?=
+ =?utf-8?B?UUtQd3h4TnZXeS85UDhOOFY0RS81QnNnTDJlZmt5YWZ5UmM5cEVrYVFUSitX?=
+ =?utf-8?B?YXZEK1MzbHJPaEVFSUUzMTJDM3cwMnJ5NlNlWXV6UmNQR3ZGc3ZDNjVjVVYx?=
+ =?utf-8?B?enFxUkgvQ0haRUs1R2dROFRLK0hVeW90eVl2TG0xWi9QOGtya0I3TlpyaDdo?=
+ =?utf-8?B?S1FDazFVT0l5blFSYStndWIyNVdhUDhmc3JudUVjOVRNWWlkWWYxbDZaUUxW?=
+ =?utf-8?B?T0pRamlrWGZ6V1V1eFRzN3phU0c1cjZ0ZWZtODlWalNpcDIyV01xQlQ4cndr?=
+ =?utf-8?B?TkZndHFpV1pFLzZ4QzFKajZmY0ZaSzczR0h4UEUwSld4UlN6YkRxZCtwRUtx?=
+ =?utf-8?B?WlRkd1VXL0tQaGNWOFJzdTF4bzZzV0tVb1A4bXFsWDdrMDNuREtCM2xma1pL?=
+ =?utf-8?B?UERFT0hiZ1NXUXlucEtnSXZFN3JubVNhUk5Zc2JOelNhUHFLcnJqMThGR3cz?=
+ =?utf-8?B?QUc2ZXpmWnJRb0lSOFRGc2ZJbFRqMW44TWpPY0VHcHpWZytzMmxPRGdxbjdw?=
+ =?utf-8?B?eFg5RXZwNmNwanBtQmlIUkViYW4zS2huV3BWb2RaM3dhZVROV1dYV3RReHlI?=
+ =?utf-8?B?KzA2N1JIUUtrK1EveU0xcnVFcDZ6QVdyOE1VTEtCR3djYUtHSnhiUmdYbHpZ?=
+ =?utf-8?B?bnFOSUNmbC9UQlNLNGxwdTJIWms1QWxlM2xabWNjZGhqOW1KTXFWemtIeGh1?=
+ =?utf-8?B?dHYwd2ZqcGs4Um9HTW5RdUFuaUttNDVCK0RMNkFVbTJRYWExSEM5S2VUVlh6?=
+ =?utf-8?B?aG1jckg3VUI4M2wzQ2xlSFp0M1JibFJNZFV2cTJUQkxSK1JVVUloNjZPMG82?=
+ =?utf-8?B?bWFia0NmMWlNWXBmQmpZaHBCNi8yOTBKOWdtblQ3MERjZTVCOTl6WDMyc2Ew?=
+ =?utf-8?B?UXdrMG5zQTRlYmhLNTVqeC95QWdSbEh3Q2ZCRVEyL05oYVdHWktSaVp0SXp1?=
+ =?utf-8?B?cVVtcHNIQ2t3RnZCTnovbm9JY0xXeEhwblpqRzB2VTdKYXgrdWp6enZxejFs?=
+ =?utf-8?B?WmsrVjNqSEtFSElzcnBjaFlSS29kMXB6b3lyZkVsdTBUOGZJb1U1cU1PaXc3?=
+ =?utf-8?B?ZTNvVzdxYUF6TFhkc0R1V2k5YXdjR0tNT1RibUhXaTU1QW8rVGprYkswMk1i?=
+ =?utf-8?B?ZTBxUVZLM21IUEVneUFQRlE1N214K2t4MjJTSmtEWFN5UUdaMVA2dEVDSjhn?=
+ =?utf-8?B?Q1AzaEc2WklaRjl3MUlsOGlkS3hzNS9tQWVOaSt5RE0yQ0dBczVTQ09hSFlF?=
+ =?utf-8?B?ajNzMWp5TEhiSUl3dVhibWg2aEVPTk5TWkljUDJuSENyUzBTajBwRk5uUjcr?=
+ =?utf-8?B?R0NyRzBXdXQrUCtiUk81Yktpc1p1Qkd2NktZb3E4Q0F2OEFFWmc3Qzlrek9Q?=
+ =?utf-8?B?QVVjbWd3S2FxKzZBemc3b2JmdXdEWThPZlRXNjgzMkcxWHc3Z1JvajJUVmJx?=
+ =?utf-8?B?cmpXSFNRQ3k3MnMyUk9tVEM4dEhLOURpQWxUaW1kcnFmNklQOUtnUzFQUFds?=
+ =?utf-8?Q?tqzLDqcTbqfkQZaK3Oqd6Ndhh?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2023 22:22:52.6363 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8013fceb-2beb-4374-c532-08db50dbee29
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35065936-1543-4b2a-15f1-08db50e088d0
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2023 22:55:50.3462 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT013.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9058
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1NE+QMtMKlNNssXjzIT41qvB3BTCHS+pcyKuuz/acO86nWi5b46XGuxU8RGpxpF3R9U0Nb0/SpzsrCQllmYWMg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4975
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,168 +130,211 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Philip Yang <Philip.Yang@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: Sebastian Wick <sebastian.wick@redhat.com>,
+ Shashank Sharma <Shashank.Sharma@amd.com>, sunpeng.li@amd.com,
+ linux-kernel@vger.kernel.org, Xinhui.Pan@amd.com,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Xaver Hugl <xaver.hugl@gmail.com>,
+ dri-devel@lists.freedesktop.org,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Melissa Wen <mwen@igalia.com>, Alex Hung <alex.hung@amd.com>,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch,
+ Alex Deucher <alexander.deucher@amd.com>, airlied@gmail.com,
+ christian.koenig@amd.com, sungjoon.kim@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Philip Yang <Philip.Yang@amd.com>
 
-VRAM pgmap resource is allocated every time when switching compute
-partitions because kfd_dev is re-initialized by post_partition_switch,
-As a result, it causes memory region resource leaking and system
-memory usage accounting unbalanced.
 
-pgmap resource should be allocated and registered only once when loading
-driver and freed when unloading driver, move it from kfd_dev to
-amdgpu_kfd_dev.
+On 5/9/23 16:35, Joshua Ashton wrote:
+> FWIW, we technically do use it right now, but it is always set to 1 in S.31.32.
+> 
+> Before we used shaper + 3D LUT we did use it for scaling SDR content,
+> but given we always have a shaper + 3D LUT it made sense for us to
+> roll that into there.
+> 
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h | 4 ++++
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c   | 8 ++++----
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h      | 3 ---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c       | 6 +++---
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h       | 4 ++--
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c  | 2 +-
- 6 files changed, 14 insertions(+), 13 deletions(-)
+Ah, that's good. No problem then.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 9cc28fe32cdb..844cc366ad7c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -30,6 +30,7 @@
- #include <linux/kthread.h>
- #include <linux/workqueue.h>
- #include <linux/mmu_notifier.h>
-+#include <linux/memremap.h>
- #include <kgd_kfd_interface.h>
- #include <drm/ttm/ttm_execbuf_util.h>
- #include "amdgpu_sync.h"
-@@ -101,6 +102,9 @@ struct amdgpu_kfd_dev {
- 	uint64_t vram_used_aligned;
- 	bool init_complete;
- 	struct work_struct reset_work;
-+
-+	/* HMM page migration MEMORY_DEVICE_PRIVATE mapping */
-+	struct dev_pagemap pgmap;
- };
- 
- enum kgd_engine_type {
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index 42e599912e52..199d32c7c289 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -206,7 +206,7 @@ svm_migrate_copy_done(struct amdgpu_device *adev, struct dma_fence *mfence)
- unsigned long
- svm_migrate_addr_to_pfn(struct amdgpu_device *adev, unsigned long addr)
- {
--	return (addr + adev->kfd.dev->pgmap.range.start) >> PAGE_SHIFT;
-+	return (addr + adev->kfd.pgmap.range.start) >> PAGE_SHIFT;
- }
- 
- static void
-@@ -236,7 +236,7 @@ svm_migrate_addr(struct amdgpu_device *adev, struct page *page)
- 	unsigned long addr;
- 
- 	addr = page_to_pfn(page) << PAGE_SHIFT;
--	return (addr - adev->kfd.dev->pgmap.range.start);
-+	return (addr - adev->kfd.pgmap.range.start);
- }
- 
- static struct page *
-@@ -990,14 +990,14 @@ static const struct dev_pagemap_ops svm_migrate_pgmap_ops = {
- 
- int svm_migrate_init(struct amdgpu_device *adev)
- {
--	struct kfd_dev *kfddev = adev->kfd.dev;
-+	struct amdgpu_kfd_dev *kfddev = &adev->kfd;
- 	struct dev_pagemap *pgmap;
- 	struct resource *res = NULL;
- 	unsigned long size;
- 	void *r;
- 
- 	/* Page migration works on Vega10 or newer */
--	if (!KFD_IS_SOC15(kfddev))
-+	if (!KFD_IS_SOC15(kfddev->dev))
- 		return -EINVAL;
- 
- 	pgmap = &kfddev->pgmap;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 02a90fd7f646..214d950f948e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -378,9 +378,6 @@ struct kfd_dev {
- 
- 	int noretry;
- 
--	/* HMM page migration MEMORY_DEVICE_PRIVATE mapping */
--	struct dev_pagemap pgmap;
--
- 	struct kfd_node *nodes[MAX_KFD_NODES];
- 	unsigned int num_nodes;
- };
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 8a1075eed5b4..83f8e4e50315 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -173,7 +173,7 @@ svm_range_dma_map_dev(struct amdgpu_device *adev, struct svm_range *prange,
- 
- 			addr[i] = (hmm_pfns[i] << PAGE_SHIFT) +
- 				   bo_adev->vm_manager.vram_base_offset -
--				   bo_adev->kfd.dev->pgmap.range.start;
-+				   bo_adev->kfd.pgmap.range.start;
- 			addr[i] |= SVM_RANGE_VRAM_DOMAIN;
- 			pr_debug_ratelimited("vram address: 0x%llx\n", addr[i]);
- 			continue;
-@@ -2826,7 +2826,7 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
- 	bool migration = false;
- 	int r = 0;
- 
--	if (!KFD_IS_SVM_API_SUPPORTED(adev->kfd.dev)) {
-+	if (!KFD_IS_SVM_API_SUPPORTED(adev)) {
- 		pr_debug("device does not support SVM\n");
- 		return -EFAULT;
- 	}
-@@ -3111,7 +3111,7 @@ int svm_range_list_init(struct kfd_process *p)
- 	spin_lock_init(&svms->deferred_list_lock);
- 
- 	for (i = 0; i < p->n_pdds; i++)
--		if (KFD_IS_SVM_API_SUPPORTED(p->pdds[i]->dev->kfd))
-+		if (KFD_IS_SVM_API_SUPPORTED(p->pdds[i]->dev->adev))
- 			bitmap_set(svms->bitmap_supported, i, 1);
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-index 7515ddade3ae..021def496f5a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-@@ -200,8 +200,8 @@ void svm_range_list_lock_and_flush_work(struct svm_range_list *svms, struct mm_s
- /* SVM API and HMM page migration work together, device memory type
-  * is initialized to not 0 when page migration register device memory.
-  */
--#define KFD_IS_SVM_API_SUPPORTED(dev) ((dev)->pgmap.type != 0 ||\
--				       (dev)->adev->gmc.is_app_apu)
-+#define KFD_IS_SVM_API_SUPPORTED(adev) ((adev)->kfd.pgmap.type != 0 ||\
-+					(adev)->gmc.is_app_apu)
- 
- void svm_range_bo_unref_async(struct svm_range_bo *svm_bo);
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index d2a42b6b1fa8..6d6243b978e1 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -2021,7 +2021,7 @@ int kfd_topology_add_device(struct kfd_node *gpu)
- 		dev->node_props.capability |= (dev->gpu->adev->ras_enabled != 0) ?
- 			HSA_CAP_RASEVENTNOTIFY : 0;
- 
--	if (KFD_IS_SVM_API_SUPPORTED(dev->gpu->adev->kfd.dev))
-+	if (KFD_IS_SVM_API_SUPPORTED(dev->gpu->adev))
- 		dev->node_props.capability |= HSA_CAP_SVMAPI_SUPPORTED;
- 
- 	kfd_debug_print_topology();
--- 
-2.40.1
+Harry
+
+> On Tue, 9 May 2023 at 20:00, Harry Wentland <harry.wentland@amd.com> wrote:
+>>
+>> On 5/9/23 12:54, Joshua Ashton wrote:
+>>> We currently do not have a use for this as we settled on per-plane 3D
+>>> LUT + Shaper, but we might end up wanting to use in our scRGB stack
+>>> someday so I would like to keep it.
+>>>
+>>
+>> uAPI should always have a userspace that uses it. But if we go
+>> and put it behind an #ifdef anyways I don't mind taking this
+>> if we foresee use for it in the near future. A gamescope experiment
+>> showing how this can be used to scale sRGB planes would be great.
+>> I assume that's sort of how you intend to use it.
+>>
+>> Harry
+>>
+>>> On Tue, 9 May 2023 at 16:37, Melissa Wen <mwen@igalia.com> wrote:
+>>>>
+>>>> On 05/08, Harry Wentland wrote:
+>>>>>
+>>>>>
+>>>>> On 4/23/23 10:10, Melissa Wen wrote:
+>>>>>> From: Joshua Ashton <joshua@froggi.es>
+>>>>>>
+>>>>>> Multiplier to 'gain' the plane. When PQ is decoded using the fixed func
+>>>>>> transfer function to the internal FP16 fb, 1.0 -> 80 nits (on AMD at
+>>>>>> least) When sRGB is decoded, 1.0 -> 1.0.  Therefore, 1.0 multiplier = 80
+>>>>>> nits for SDR content. So if you want, 203 nits for SDR content, pass in
+>>>>>> (203.0 / 80.0).
+>>>>>>
+>>>>>
+>>>>> Is gamescope intending to use this?
+>>>>
+>>>> I don't think so. Again, I'll double check and drop it accordingly.
+>>>>
+>>>> Melissa
+>>>>
+>>>>>
+>>>>> Harry
+>>>>>
+>>>>>> Co-developed-by: Melissa Wen <mwen@igalia.com>
+>>>>>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>>>>>> Signed-off-by: Joshua Ashton <joshua@froggi.es>
+>>>>>> ---
+>>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  6 +++++
+>>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |  4 +++
+>>>>>>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 12 +++++++++
+>>>>>>  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 25 ++++++++++++++-----
+>>>>>>  4 files changed, 41 insertions(+), 6 deletions(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+>>>>>> index 24595906dab1..dd658f162f6f 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+>>>>>> @@ -1326,6 +1326,12 @@ amdgpu_display_create_color_properties(struct amdgpu_device *adev)
+>>>>>>             return -ENOMEM;
+>>>>>>     adev->mode_info.plane_degamma_tf_property = prop;
+>>>>>>
+>>>>>> +   prop = drm_property_create_range(adev_to_drm(adev),
+>>>>>> +                                    0, "AMD_PLANE_HDR_MULT", 0, UINT_MAX);
+>>>>>> +   if (!prop)
+>>>>>> +           return -ENOMEM;
+>>>>>> +   adev->mode_info.plane_hdr_mult_property = prop;
+>>>>>> +
+>>>>>>     return 0;
+>>>>>>  }
+>>>>>>  #endif
+>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+>>>>>> index ab9ce6f26c90..65a9d62ffbe4 100644
+>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+>>>>>> @@ -387,6 +387,10 @@ struct amdgpu_mode_info {
+>>>>>>      * linearize content with or without LUT.
+>>>>>>      */
+>>>>>>     struct drm_property *plane_degamma_tf_property;
+>>>>>> +   /**
+>>>>>> +    * @plane_hdr_mult_property:
+>>>>>> +    */
+>>>>>> +   struct drm_property *plane_hdr_mult_property;
+>>>>>>  #endif
+>>>>>>  };
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+>>>>>> index 005632c1c9ec..bb7307b9cfd5 100644
+>>>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+>>>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+>>>>>> @@ -51,6 +51,7 @@
+>>>>>>
+>>>>>>  #define AMDGPU_DMUB_NOTIFICATION_MAX 5
+>>>>>>
+>>>>>> +#define AMDGPU_HDR_MULT_DEFAULT (0x100000000LL)
+>>>>>>  /*
+>>>>>>  #include "include/amdgpu_dal_power_if.h"
+>>>>>>  #include "amdgpu_dm_irq.h"
+>>>>>> @@ -736,6 +737,17 @@ struct dm_plane_state {
+>>>>>>      * linearize.
+>>>>>>      */
+>>>>>>     enum drm_transfer_function degamma_tf;
+>>>>>> +   /**
+>>>>>> +    * @hdr_mult:
+>>>>>> +    *
+>>>>>> +    * Multiplier to 'gain' the plane.  When PQ is decoded using the fixed
+>>>>>> +    * func transfer function to the internal FP16 fb, 1.0 -> 80 nits (on
+>>>>>> +    * AMD at least). When sRGB is decoded, 1.0 -> 1.0, obviously.
+>>>>>> +    * Therefore, 1.0 multiplier = 80 nits for SDR content.  So if you
+>>>>>> +    * want, 203 nits for SDR content, pass in (203.0 / 80.0).  Format is
+>>>>>> +    * S31.32 sign-magnitude.
+>>>>>> +    */
+>>>>>> +   __u64 hdr_mult;
+>>>>>>  #endif
+>>>>>>  };
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+>>>>>> index 5b458cc0781c..57169dae8b3d 100644
+>>>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+>>>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+>>>>>> @@ -1321,8 +1321,10 @@ static void dm_drm_plane_reset(struct drm_plane *plane)
+>>>>>>             __drm_atomic_helper_plane_reset(plane, &amdgpu_state->base);
+>>>>>>
+>>>>>>  #ifdef CONFIG_STEAM_DECK
+>>>>>> -   if (amdgpu_state)
+>>>>>> +   if (amdgpu_state) {
+>>>>>>             amdgpu_state->degamma_tf = DRM_TRANSFER_FUNCTION_DEFAULT;
+>>>>>> +           amdgpu_state->hdr_mult = AMDGPU_HDR_MULT_DEFAULT;
+>>>>>> +   }
+>>>>>>  #endif
+>>>>>>  }
+>>>>>>
+>>>>>> @@ -1424,11 +1426,11 @@ static void dm_drm_plane_destroy_state(struct drm_plane *plane,
+>>>>>>  #ifdef CONFIG_STEAM_DECK
+>>>>>>  int
+>>>>>>  amdgpu_dm_replace_property_blob_from_id(struct drm_device *dev,
+>>>>>> -                                          struct drm_property_blob **blob,
+>>>>>> -                                          uint64_t blob_id,
+>>>>>> -                                          ssize_t expected_size,
+>>>>>> -                                          ssize_t expected_elem_size,
+>>>>>> -                                          bool *replaced)
+>>>>>> +                                   struct drm_property_blob **blob,
+>>>>>> +                                   uint64_t blob_id,
+>>>>>> +                                   ssize_t expected_size,
+>>>>>> +                                   ssize_t expected_elem_size,
+>>>>>> +                                   bool *replaced)
+>>>>>>  {
+>>>>>>     struct drm_property_blob *new_blob = NULL;
+>>>>>>
+>>>>>> @@ -1482,6 +1484,10 @@ dm_plane_attach_color_mgmt_properties(struct amdgpu_display_manager *dm,
+>>>>>>                                        dm->adev->mode_info.plane_degamma_tf_property,
+>>>>>>                                        DRM_TRANSFER_FUNCTION_DEFAULT);
+>>>>>>     }
+>>>>>> +   /* HDR MULT is always available */
+>>>>>> +   drm_object_attach_property(&plane->base,
+>>>>>> +                              dm->adev->mode_info.plane_hdr_mult_property,
+>>>>>> +                              AMDGPU_HDR_MULT_DEFAULT);
+>>>>>>  }
+>>>>>>
+>>>>>>  static int
+>>>>>> @@ -1507,6 +1513,11 @@ dm_atomic_plane_set_property(struct drm_plane *plane,
+>>>>>>                     dm_plane_state->degamma_tf = val;
+>>>>>>                     dm_plane_state->base.color_mgmt_changed = 1;
+>>>>>>             }
+>>>>>> +   } else if (property == adev->mode_info.plane_hdr_mult_property) {
+>>>>>> +           if (dm_plane_state->hdr_mult != val) {
+>>>>>> +                   dm_plane_state->hdr_mult = val;
+>>>>>> +                   dm_plane_state->base.color_mgmt_changed = 1;
+>>>>>> +           }
+>>>>>>     } else {
+>>>>>>             drm_dbg_atomic(plane->dev,
+>>>>>>                            "[PLANE:%d:%s] unknown property [PROP:%d:%s]]\n",
+>>>>>> @@ -1533,6 +1544,8 @@ dm_atomic_plane_get_property(struct drm_plane *plane,
+>>>>>>                     dm_plane_state->degamma_lut->base.id : 0;
+>>>>>>     } else if (property == adev->mode_info.plane_degamma_tf_property) {
+>>>>>>             *val = dm_plane_state->degamma_tf;
+>>>>>> +   } else if (property == adev->mode_info.plane_hdr_mult_property) {
+>>>>>> +           *val = dm_plane_state->hdr_mult;
+>>>>>>     } else {
+>>>>>>             return -EINVAL;
+>>>>>>     }
+>>>>>
+>>>>>
+>>
 
