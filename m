@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFF39C7EE23
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 May 2023 22:20:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4431DC7EE22
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 May 2023 22:20:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E07010E428;
-	Tue,  9 May 2023 22:20:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D4EC10E42B;
+	Tue,  9 May 2023 22:20:37 +0000 (UTC)
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2042.outbound.protection.outlook.com [40.107.220.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3739D10E405
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 May 2023 22:20:33 +0000 (UTC)
+ (mail-co1nam11on2053.outbound.protection.outlook.com [40.107.220.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF0C710E405
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 May 2023 22:20:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kzp41N9aVxSj34vV+EJ2qwhIJnEi6e7307L6VuWOaa+4ltnjAW7q3LbR7CZu0/Z2mo2YH8U6eSo1pqATKvgTnCYEUJTA3Jin6z94Q/COQpRZpQB6tASX9yI+B1cBm0UC8GI76qUEgLuCkOeQAjzXzlmQkEdwlAiOz942cE0gZM8craFXKgh1/PuNr69Xy+kaL9OR2R5r8dkTpsa70Flhf89gcZXsEmfn+6fdEpUEiIigNlii7XFBH+ncUQzAx3dN5+nGC3hZ2jRozAkO+ieyCdf91GOyisaEhFglJYzyeC20FoUU3bsXoaqZtSXBIRbokQ4N20KvSG+oCXlyJvxFIw==
+ b=Y6qCRBPGlQVlwBaOz/i99GobsmELCN6zqUovuh+RrhQwPy5K85PAY6+6AYPig0ZXbGH/3FcShWe19FmCa/bELNGA3hU5Wk9Hy+RXO/b58GWUiiIebd2GRsmQU0Txh6Vw1VHCs6gx1eYJpwiBH5p29ch3CHjiQ4n4eTyngiYD8cRyZorWdMHotio2pCcyDfLRNACqWeWCEgGa/VQS5XWrCj3wf8jF49AJ0M+jj1qusuH2tT6yF9/g5gDrdmgzXmCqSHdxcyLw09n4EBuQ3Wvlf+k2FIDl5w3TotxXrvDNYQqEgzO+l0ZexIMEJAL8EZ+RWW9/Ubm9N26WnhNDeaOsMw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Umg8wqMbj3e8Aq5Hw7pupcMXG6LMqUs0aoWRa0Fg/o8=;
- b=d8ICaZQFiEiJvkYf6zd4q0CVF1NP5eSMxIZkOyLAG9l+k5G0e8o7Jg543p08rj4luxtb/1lZq7bbxNa4iJzJ06mDfu2QKJM+3KUrwnyPaD3WQ3B4vJwej+EwjPpO3HikzlE9TOTzWcq8o+5udAroaCd2uH6Vx4xxP7TbQrwAbfcKvbn6okjTUZ8K6xLhEqlIzds+FAAf+3dYBlMDGHVNsX6qtj9XWjvjstDQAaV0oFehZZ+6Mg884oEq6MBrUsOewyiDWTI2HIizcxEFgScTAEUcXdqaP4fNaIta1zaziO1fEyk6JvvMW+l5j8JpSe4YgrXHeRhPdFEdXRENfP6hKw==
+ bh=G5a5ZljVJQ/BOlVJce6Bm7nVuPgYVfsJGtn8zPnbGck=;
+ b=KTQNWzXH3AbZyvPUBpq2hfjHDg5PW5fjDq/XujE9onJZXr5Ip6/wgiG7JKlMqQgT3fFuWO4g/nHpP05nx7T1v2Wj4Q6EyBfbcipnQRsTiqwbhQd6DHtnmZwnDm7MpszDSVTGWd1bLurZiZO0vVvxMc5uKCjXfbm6TlOO6//HyhmP/kQPYOiX828oSsvKDyJbtO9wEb4IoYkT+oPN+QQbGLkeTgz1BC40ETHBoURVrMf/QOg3hrEbG0CvLEl3r70voiGQ6oRChJxywo35xJ1ebbNXgffGSQwsDrlkclaQjnx9ZqP0+0/wkjHBHXjUvRO3V6pwdIdEcOm3TXwTNDB9Ww==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Umg8wqMbj3e8Aq5Hw7pupcMXG6LMqUs0aoWRa0Fg/o8=;
- b=EDDcxOz8Pb7yJX361WxR99ukODIhZLgFYq1EpOQDL0mOwBepWuYjURbwtfI5vBc6RdOBOCRQmvYmgiLrplKhS7a5dKqzADsDbQIFDDFi9paGnwXWLwxXFnJvWQ12F/hxQQOf1MUSNIW285Hgle1pMZD55jSIvAecH5r6ncy4fag=
-Received: from MW2PR16CA0031.namprd16.prod.outlook.com (2603:10b6:907::44) by
- CH3PR12MB8460.namprd12.prod.outlook.com (2603:10b6:610:156::15) with
+ bh=G5a5ZljVJQ/BOlVJce6Bm7nVuPgYVfsJGtn8zPnbGck=;
+ b=MRUxx5NrWRp2tD6QPu+8bzXkRVDHtE3CkZTioP4sPZpG9861UP0KXOlTR6k6Q2XqvEVLoDklJfPRfj06vakFUDfWMh6yKzqMzmWS4YtSxSnGDSgLozUoFq0YIZOBUxNZ0ulDLirnZ2wOLz1cAEZaP61DIDgpEO35BU1xY6c2SCg=
+Received: from MW2PR16CA0009.namprd16.prod.outlook.com (2603:10b6:907::22) by
+ BL1PR12MB5995.namprd12.prod.outlook.com (2603:10b6:208:39b::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.32; Tue, 9 May
- 2023 22:20:31 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.33; Tue, 9 May
+ 2023 22:20:30 +0000
 Received: from CO1NAM11FT027.eop-nam11.prod.protection.outlook.com
- (2603:10b6:907:0:cafe::20) by MW2PR16CA0031.outlook.office365.com
- (2603:10b6:907::44) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.33 via Frontend
- Transport; Tue, 9 May 2023 22:20:31 +0000
+ (2603:10b6:907:0:cafe::c8) by MW2PR16CA0009.outlook.office365.com
+ (2603:10b6:907::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.34 via Frontend
+ Transport; Tue, 9 May 2023 22:20:30 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT027.mail.protection.outlook.com (10.13.174.224) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6387.19 via Frontend Transport; Tue, 9 May 2023 22:20:31 +0000
+ 15.20.6387.19 via Frontend Transport; Tue, 9 May 2023 22:20:30 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 9 May
- 2023 17:20:27 -0500
+ 2023 17:20:26 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 4/4] drm/amdgpu: Checked if the pointer NULL before use it.
-Date: Tue, 9 May 2023 18:20:11 -0400
-Message-ID: <20230509222011.477547-4-alexander.deucher@amd.com>
+Subject: [PATCH 3/4] drm/amdgpu: Set memory partitions to 1 for SRIOV.
+Date: Tue, 9 May 2023 18:20:10 -0400
+Message-ID: <20230509222011.477547-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230509222011.477547-1-alexander.deucher@amd.com>
 References: <20230509222011.477547-1-alexander.deucher@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT027:EE_|CH3PR12MB8460:EE_
-X-MS-Office365-Filtering-Correlation-Id: b67558c5-104c-46f5-6a7c-08db50db99df
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT027:EE_|BL1PR12MB5995:EE_
+X-MS-Office365-Filtering-Correlation-Id: 66ce2eb7-f744-471f-ec2e-08db50db993a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ZyNJpYWhnc+Kpass3XhOtu33y77JZBIo0h36kcHAIqGDR9Isjt2Yx/QVeMoJbFyTwN7cgOAeYIHOqlDc8qr09k4iVJmR/lcptVmpNx6amPhOalnhg+lGgTp2wwdMEA2bib6PHcF2yHUUCWDxGaV2MYG7SsSUa1NcD15MzZIAicEY/AbuxDM5afpDM+UvXG/U8y/3FgIZR22yKzUZeBQi8snecLfr+7YxQvNHz02uM6/Z+ifBnyj16UXOeXxKbdlQYOSJXE6tsXxsEyHd1K9UfYEFOsbfONy+Zv9IXDDGdzPV6H4T+P+z66j6Vl8Mr6Y4nEgQwh+aZ8jItGxAeogNTPouLGV8QNMgnRYPQEnDkAifvoDGPOwMMDa6HOtrtOzptGzyT8EZmxdi2IM12eaC2O7R0jMtxccj/hBik2bOXbg6qnY3EfENLVaM5HMNJbDGQU0V9PC+5jOpW04Kw3Xw5WHPYQC1uG6Mb1mTt/iwAGgfF84FBJkHgbeWQNzQY00nl1DtJUxUCqqyL46fcOZpjLrDLxAWKlsMr3TlbKOoLHfQjhiEXinkwfRAsymUCf9eFJ/p2G+OCh66f+oegYDxO5sQZpVKljAqtYksJV14rgG0ebys22GekjVKdyxpV8xKXAHX2x5u0f92K6JbAKVOylGeJBk260JnczBR+KntMb9P712ici1mxDsBHQsczsW1t19NQccEQfGg6/lLczlE8T5vrauNkiLH5JYDQJd35h4=
+X-Microsoft-Antispam-Message-Info: IKpp97lu5kngMOoGly6vNMdWi+ZelJORQByVonb4PVmPLPEA+Eb5eKy9/z5vCnfjXu0LJbMvM5jWnG2eax648TceQwyPhGsIgvlMMOQRKtQBr9Ww99NXku03b1CYST9psYQn3gTf53hiKigFPtFF+kkpEN9LEuZdlGe8lNVVGMzXoufYSAW6JNH7RIL40BppXsPRgsMXmTg9jZduvw8wvU3SqQY7x7i5cBZg8PUkb/Pg5pP/xLVc/uSquqEezzEN0ad3pmfyquMWxb+5BUFBp+28XGcnqluoYmIdepykUOPKQ//nF36liNGWFJEfSUg2RJnXlJfUX2a3sg5F+O/bifbQOSJl19SvKaqyI1wt77PBJnQy5IG5zRt+JlnbQx2qGHKwf44rnByWknVjxiF1VfFOc4ifTN+4qrjNICDZMvQx1WISHdMbO1rFxhcLf3hVzFgGaQitbeqlANTTuREjkV6OXCi2ykp2/mGqiMb/x8vtTvkhPCHpQxzKlgqA1mFN62Ejh3GWe4qik6E5VtU7sKT88JWPodjJ6kR83ikbOIYG1FqNSFiaLykpSNsgH8G4k+PxTwQcLG/wijXsi/mBYJQ8jBFs5wltoALcNDLmD9r66XWn+6+0DOJc4rGSmAqyeqt0ELDCE4rcjFxJ/J/pBMWEGG8knBbx1PWwv+x+MbWxi9q6gJ8NmBDozyn5XAXFkioJjKHg3nmU9VyK4NTlII4cs18iFPqTwukbYpjmsq8=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(396003)(376002)(39860400002)(136003)(451199021)(40470700004)(36840700001)(46966006)(36860700001)(26005)(47076005)(1076003)(186003)(16526019)(478600001)(336012)(83380400001)(426003)(2616005)(6666004)(40460700003)(8676002)(7696005)(82310400005)(81166007)(316002)(86362001)(41300700001)(356005)(5660300002)(40480700001)(36756003)(6916009)(70206006)(8936002)(70586007)(82740400003)(4326008)(54906003)(2906002)(36900700001);
+ SFS:(13230028)(4636009)(346002)(136003)(396003)(376002)(39860400002)(451199021)(40470700004)(36840700001)(46966006)(5660300002)(41300700001)(70206006)(82310400005)(6916009)(86362001)(70586007)(4326008)(316002)(356005)(36860700001)(8936002)(83380400001)(8676002)(81166007)(54906003)(426003)(2616005)(336012)(47076005)(82740400003)(478600001)(26005)(186003)(40460700003)(1076003)(16526019)(2906002)(6666004)(40480700001)(7696005)(36756003)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2023 22:20:31.1266 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b67558c5-104c-46f5-6a7c-08db50db99df
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2023 22:20:30.0486 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66ce2eb7-f744-471f-ec2e-08db50db993a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT027.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8460
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5995
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,70 +100,51 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Alex Deucher <alexander.deucher@amd.com>, Gavin Wan <Gavin.Wan@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Zhigang Luo <Zhigang.Luo@amd.com>
+ Zhigang Luo <zhigang.luo@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Gavin Wan <Gavin.Wan@amd.com>
 
-For SRIOV on some parts, the host driver does not post VBIOS. So the guest
-cannot get bios information. Therefore, adev->virt.fw_reserve.p_pf2vf
-and adev->mode_info.atom_context are NULL.
+For SRIOV, the memory partitions are set on host drover. Each VF only
+has one memory partition. We need set the memory partitions to 1 on
+guest driver for SRIOV.
+
+V2: sqaush in fix ("drm/amdgpu: Fix memory range info of GC 9.4.3 VFs")
 
 Signed-off-by: Gavin Wan <Gavin.Wan@amd.com>
-Reviewed-by: Zhigang Luo <Zhigang.Luo@amd.com>
-Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Acked-by: Zhigang Luo <zhigang.luo@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 20 ++++++++++++--------
- 1 file changed, 12 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 5d62e0d5cc11..c2136accd523 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3854,21 +3854,24 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	}
- 
- 	/* enable PCIE atomic ops */
--	if (amdgpu_sriov_vf(adev))
--		adev->have_atomics_support = ((struct amd_sriov_msg_pf2vf_info *)
--			adev->virt.fw_reserve.p_pf2vf)->pcie_atomic_ops_support_flags ==
--			(PCI_EXP_DEVCAP2_ATOMIC_COMP32 | PCI_EXP_DEVCAP2_ATOMIC_COMP64);
-+	if (amdgpu_sriov_vf(adev)) {
-+		if (adev->virt.fw_reserve.p_pf2vf)
-+			adev->have_atomics_support = ((struct amd_sriov_msg_pf2vf_info *)
-+						      adev->virt.fw_reserve.p_pf2vf)->pcie_atomic_ops_support_flags ==
-+				(PCI_EXP_DEVCAP2_ATOMIC_COMP32 | PCI_EXP_DEVCAP2_ATOMIC_COMP64);
- 	/* APUs w/ gfx9 onwards doesn't reply on PCIe atomics, rather it is a
- 	 * internal path natively support atomics, set have_atomics_support to true.
- 	 */
--	else if ((adev->flags & AMD_IS_APU) &&
--		(adev->ip_versions[GC_HWIP][0] > IP_VERSION(9, 0, 0)))
-+	} else if ((adev->flags & AMD_IS_APU) &&
-+		   (adev->ip_versions[GC_HWIP][0] > IP_VERSION(9, 0, 0))) {
- 		adev->have_atomics_support = true;
--	else
-+	} else {
- 		adev->have_atomics_support =
- 			!pci_enable_atomic_ops_to_root(adev->pdev,
- 					  PCI_EXP_DEVCAP2_ATOMIC_COMP32 |
- 					  PCI_EXP_DEVCAP2_ATOMIC_COMP64);
-+	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 394644d9d559..f000e0e89bd0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1346,6 +1346,9 @@ gmc_v9_0_get_memory_partition(struct amdgpu_device *adev, u32 *supp_modes)
+ static enum amdgpu_memory_partition
+ gmc_v9_0_query_memory_partition(struct amdgpu_device *adev)
+ {
++	if (amdgpu_sriov_vf(adev))
++		return AMDGPU_NPS1_PARTITION_MODE;
 +
- 	if (!adev->have_atomics_support)
- 		dev_info(adev->dev, "PCIE atomic ops is not supported\n");
+ 	return gmc_v9_0_get_memory_partition(adev, NULL);
+ }
  
-@@ -3884,7 +3887,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	amdgpu_reset_init(adev);
+@@ -1897,7 +1900,10 @@ static int gmc_v9_0_init_mem_ranges(struct amdgpu_device *adev)
+ 	else
+ 		gmc_v9_0_init_sw_mem_ranges(adev, adev->gmc.mem_partitions);
  
- 	/* detect if we are with an SRIOV vbios */
--	amdgpu_device_detect_sriov_bios(adev);
-+	if (adev->bios)
-+		amdgpu_device_detect_sriov_bios(adev);
- 
- 	/* check if we need to reset the asic
- 	 *  E.g., driver was not cleanly unloaded previously, etc.
+-	valid = gmc_v9_0_validate_partition_info(adev);
++	if (amdgpu_sriov_vf(adev))
++		valid = true;
++	else
++		valid = gmc_v9_0_validate_partition_info(adev);
+ 	if (!valid) {
+ 		/* TODO: handle invalid case */
+ 		dev_WARN(adev->dev,
 -- 
 2.40.1
 
