@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2C3FC7EE22
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 May 2023 22:07:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 377CFC7EE2E
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 May 2023 22:07:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B865B10E3FB;
-	Tue,  9 May 2023 22:07:37 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2050.outbound.protection.outlook.com [40.107.244.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F1E410E3F8
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 May 2023 22:07:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80DA010E3F7;
+	Tue,  9 May 2023 22:07:39 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2062b.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eab::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F3A810E3FB
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 May 2023 22:07:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KWGpIHrUJiN5V2ErFq5IVaaPhcqn9MJbeerOjHvkPE7/nWnGye+uxkJnd4Qdmhti02me9kNjEwpc5b9ZkYDtXV/XRExYzOb8Ei65snRr+bmTiJT1KCXbp7hc+Bn3IpCqpudzcQPoQF3Sxaylm20cynDuywm33RRJwqiRwbfxtDwmLGZCC3D8BjOdfCkdDAe/GVDDZoH82F84JTyah4K/lxjIQF3iZTN0pse/PXuM8FLdukEXtviOz1IfY3ejuJyNfFN6coDnppAGL698r4VIxNp+z8LfLyhBmYJFdCc7/Evw/RHy6sj6NA6HP7noh3VLz/ysUgo2/26dhsiSH6hDHQ==
+ b=jdsPFyg9CMI+nY4NG+dLLsTODu4xXIGkAArZSajHPdQB1PG0IAUOMP3mJtDjLOH5MsHoSaY/LAC0AI+9Bwrqq5wLQAag5ejTO681pVE/c40Sxe1BF1JuxpZPU7vdF+ZRQVDsZcMrB8IwFc+8JMxdTKfiP1FvEDorELRRd2Y3QRo5WlPWejhuQzXxGdCfdylAJ4JiPFP/Vs6p6OVdpVq/jfB1+pqT7j8Ht/qfLSux8kKpFQMZ0E7XVunzp20odW5ALDQyK6ZQfK89icnXIm42/B2MGGTYftfU+GLJqq8mDqRBYgjv8F7LJLJGGfQDb3NYXdxyqtNmnspLOnoc+iLLZw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3YKo/ZTs4V/+yVXVS4AFFkLPdhjHpmz9z61fSTGhl6w=;
- b=ma7yN++uEWQ1zkP+GTD5+lFGOWC4VxwN9S4Q3+MPiuVe/hQ0B2fwcntB8i8UpuVjNotMCosCJ4qXCtVtIKQrXKxAbji8j6ej+dd+0j9fX8EEcn+TCnuFI9jzGt7kSDgkyL1vtnk1JLl0SH4fDqr9s7qUm8dRLD6WSFjWkMs2RZYgO+9vNwbL/PrwWE7eMRxGApAW48ptILbqyNp9c3ejpsuxI3EbARM947aCcSdzBEVittzC/m8pXfNHLmPzN6VUINMJrw7bPSzyO7IfqJ6uUhoP1rItpZti8DFJ746855KBr8R3GxzK6NDWX2QTk5xcuMW4zAE0dGPU2LO/Moku4Q==
+ bh=uwFWlyLk+O+yGbxnF8aW/6Xv041BGnvspIF5LbOOSoE=;
+ b=Es5A4+cbW0ZtpIwdASQ6S+MjkYAlSYH2SlGWSSzSp4RDO7pl558CE8YGP7jikEokymfiwezcJQVeQiQjYxCfck6xQ5+2I1Lly8/I0ltgRgkCJ3kJfbtF3iZxKoQhosXUetA/7gwj/kwSn3T4iP4EJB+QK1DsnYWqsxHcaiuZgUMIGTDVCBKrhf2WFlar6S5BbdJNczxiuKDxxZMaDlnUkHWieeNzhNcyXJmqZ2RWajT8J0+2Gls9l4vK9/9sxyc+BI+HSH66KjMduCRxOi6kXw5SQROXGq9ERcI2d8qvGYsFe+OQQHuyPAEU5uCIKfOHwcWxIDIwnXrUz+1aGcXuuw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3YKo/ZTs4V/+yVXVS4AFFkLPdhjHpmz9z61fSTGhl6w=;
- b=c6XGQVTQU2SjX+8ZSXDw5cm/yyoYxsqtlNWjqUQpQktLfXqsPF3HpCrP9QH5lpw5GJ2Dt+8Y7HphJO+9b9qMCON2MOXDXYHgH/jjDlzSguqHizqi9mXjG9UjPcOZMX3w05UEjTBmfUxQzJKfbY5Yeg4FNTLg8QAZx0aJKR+J1cA=
-Received: from BN9PR03CA0425.namprd03.prod.outlook.com (2603:10b6:408:113::10)
- by BL1PR12MB5189.namprd12.prod.outlook.com (2603:10b6:208:308::20)
+ bh=uwFWlyLk+O+yGbxnF8aW/6Xv041BGnvspIF5LbOOSoE=;
+ b=ES03gytUS6QlLi22LfSD1M9O5pbBtdc7ODBKgVtxKTgsSynxC2lOMc9NSqrHSVMc/pki1dHWgBDks8B6R8A8kG2tKUJ5yPWZBvqMHDM08Ax0usTiNQt9kT2DdqTeWdnjWAkm89nFHcpLNvL0yV9+GFNEVoE+Hu9qaNUkwoOIqHc=
+Received: from BN9PR03CA0437.namprd03.prod.outlook.com (2603:10b6:408:113::22)
+ by PH8PR12MB7205.namprd12.prod.outlook.com (2603:10b6:510:227::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.33; Tue, 9 May
- 2023 22:07:31 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.29; Tue, 9 May
+ 2023 22:07:30 +0000
 Received: from BN8NAM11FT107.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:113:cafe::d3) by BN9PR03CA0425.outlook.office365.com
- (2603:10b6:408:113::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.33 via Frontend
- Transport; Tue, 9 May 2023 22:07:31 +0000
+ (2603:10b6:408:113:cafe::ea) by BN9PR03CA0437.outlook.office365.com
+ (2603:10b6:408:113::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.18 via Frontend
+ Transport; Tue, 9 May 2023 22:07:30 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +48,17 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT107.mail.protection.outlook.com (10.13.176.149) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6387.18 via Frontend Transport; Tue, 9 May 2023 22:07:31 +0000
+ 15.20.6387.18 via Frontend Transport; Tue, 9 May 2023 22:07:30 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 9 May
- 2023 17:07:30 -0500
+ 2023 17:07:29 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 08/12] drm/amd/pm: Expose mem temperature for GC version 9.4.3
-Date: Tue, 9 May 2023 18:07:10 -0400
-Message-ID: <20230509220714.475369-8-alexander.deucher@amd.com>
+Subject: [PATCH 07/12] drm/amd/pm: Update hw mon attributes for GC version
+ 9.4.3
+Date: Tue, 9 May 2023 18:07:09 -0400
+Message-ID: <20230509220714.475369-7-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230509220714.475369-1-alexander.deucher@amd.com>
 References: <20230509220714.475369-1-alexander.deucher@amd.com>
@@ -68,26 +70,26 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT107:EE_|BL1PR12MB5189:EE_
-X-MS-Office365-Filtering-Correlation-Id: 82f0b098-b8a3-4a44-ec1a-08db50d9c91a
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT107:EE_|PH8PR12MB7205:EE_
+X-MS-Office365-Filtering-Correlation-Id: e4221f28-abf5-44ae-91e3-08db50d9c89c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Kh9F4kjAQTB4Ja/nzxHME8Bm+L9IhbkEQAFIE/nKgkkFhCkxF45KHu6Q5OJoCcMEPYsWXdLuJ+aj5Awr9FP45Sc25lkSK2YWnHcH1m84YH/5MdAQLl9dxphgzAtfgv/tDuDEFeUTuzkdgVuaAa9/SpxJl09m+3txTX7QQEEgDChJioWOvsC1ahW0Zzp+BIMirOvVJZwIr3kn0e4VGIHqzbBMhQxz8ORyybTcbQIFji6Mk56qUOV2PcJkKsQMHB9CtmSJRGDlddHnOY4h6lkpU4k/LsNqUbcQCgOAk2dMYMwvcCscfOeG1qh3f37AbEB6BjRv6kFNcGsEX9jqAm5Sd8xuqiaO7T87TjQXKyfX5c+So3qEPTTZqjqCRlZiCMP5e/Mzwx9cBgdpl/UwNmBf0OnbzMQ9BgO26IxugfgrKdrOt5iLk19g4siFwvfOKa66tkS7MtqJpL3qYidIB0kD2j7bEPEK6Hb9LmoAkWp01JusQ+2JSYO6p+yuQie47qK0DtxP7V0B/AXE4kgban0/lr2IE7Jm4Fhyd2rVjidQ4zFsa2FMZAhd1Oj3QDQGO5uYO0XNyeCawVJB/O8f9Exz8bHZQowvV5KHfXAa6Kkk6fbK1+oIvrfl2sJH/4i1sXAd7OhwgPOYhNx9NRWCF0/aFCNMwty7iOnx4Ewt4EZ9nBd1shw0AYWlillWOiQRAH8neo8giYX3Otsenpnrjb4fwyXkMC17ySxynXZLTxcPIqs=
+X-Microsoft-Antispam-Message-Info: pKC5ZpAhbv/8W+EL2v4TqhXeM3dT8R24GTf1S+r31cqd1nL0U5gDstIbd0AUFxseRxdP/Nnk5d4rKtzQmPb7lu3Wj5g4E/0nYm5C2zY6KawfXpEqkxu1ON5g1E5a6fM+wHu5JSaek2oxelSY+WejbiLtooYWQj8QdEuYu8GnZcHYK7RodiKeTjuR1EQE7AN69jmwLasjBqNcIIn8MAGgvP/uOnAu0atiDyl5olC8EX+n4hq8lXvoVDF4NDKpMH0P57qbLyA1gH5l3i/yIW+Y7yWo7HCZ2GOJK7PpWE637A2f2HTnDat6B7VubNCy36Mxbzy1/uIBUhhNvUvFlbh84M4LGFFsCdOfy3CmXDZ1+GmL4a6u36mYKB6yrVpD+wnbsTKII1Z97swFW/TDdzh7Ut0f61KPknroAX3gTvJaA+F9SEs8chi821t2rbpgYyd8z/NCyYffKzEia728SyeOJ/LckUIOaDsmGd3S193NXP5ezMI/jFlUQFAlkmf1qIkDBDmYXYpMGXcTeeHblIZHhqxfm1UzEnX2ThT/VCFXiO/XrxPVZotEXeVVOWResfOFexnuxKf3+sJ/C7C79kmViKU3JD3n1nYeLRFIE6FruVXtfp/0E5aSjjW7gudDibXPTBHWEbGaYnU8WFkXBHBLhwQB57EVe8Gy4K1ewUK6Q1EpN/xrDVVQ3b9p4N60Km/aLEvWX6x1a3cyaXi8744KrAfSqwHq5jIjpFGe7Ua6PNM=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(136003)(39860400002)(396003)(346002)(451199021)(40470700004)(36840700001)(46966006)(70206006)(70586007)(478600001)(54906003)(356005)(82740400003)(81166007)(6916009)(36860700001)(4326008)(316002)(47076005)(41300700001)(83380400001)(7696005)(426003)(336012)(6666004)(82310400005)(2616005)(40460700003)(86362001)(8936002)(5660300002)(8676002)(40480700001)(26005)(1076003)(2906002)(186003)(16526019)(36756003)(36900700001);
+ SFS:(13230028)(4636009)(136003)(39860400002)(396003)(346002)(376002)(451199021)(36840700001)(46966006)(40470700004)(70206006)(70586007)(356005)(26005)(36756003)(186003)(16526019)(8936002)(8676002)(41300700001)(1076003)(81166007)(7696005)(6666004)(82310400005)(5660300002)(6916009)(316002)(83380400001)(15650500001)(4326008)(478600001)(36860700001)(40460700003)(82740400003)(2906002)(54906003)(40480700001)(336012)(426003)(47076005)(86362001)(2616005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2023 22:07:31.4854 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 82f0b098-b8a3-4a44-ec1a-08db50d9c91a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2023 22:07:30.6417 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e4221f28-abf5-44ae-91e3-08db50d9c89c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT107.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5189
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7205
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,45 +108,102 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Asad Kamal <asad.kamal@amd.com>
 
-Add mem temperature as part of hw mon attributes for GC version 9.4.3
+Update hw mon attributes for GC Version 9.4.3 to valid ones
+on APU and Non APU systems
+
+v2: Group checks along existing one
+Added power limit & mclock for gc version 9.4.3
 
 Signed-off-by: Asad Kamal <asad.kamal@amd.com>
 Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/pm/amdgpu_pm.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c | 36 +++++++++++++++++++++---------
+ 1 file changed, 25 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index 385d83eb8706..40100b77b2d9 100644
+index 58c2246918fd..385d83eb8706 100644
 --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
 +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -3449,10 +3449,12 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
- 	if (((adev->flags & AMD_IS_APU) || gc_ver < IP_VERSION(9, 0, 0)) &&
- 	    (gc_ver != IP_VERSION(9, 4, 3)) &&
- 	    (attr == &sensor_dev_attr_temp2_input.dev_attr.attr ||
--	     attr == &sensor_dev_attr_temp2_label.dev_attr.attr))
-+	     attr == &sensor_dev_attr_temp2_label.dev_attr.attr ||
-+	     attr == &sensor_dev_attr_temp3_input.dev_attr.attr ||
-+	     attr == &sensor_dev_attr_temp3_label.dev_attr.attr))
+@@ -3362,7 +3362,8 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
  		return 0;
  
--	/* Only hotspot temperature for gc 9,4,3*/
-+	/* hotspot temperature for gc 9,4,3*/
- 	if ((gc_ver == IP_VERSION(9, 4, 3)) &&
- 	    (attr == &sensor_dev_attr_temp1_input.dev_attr.attr ||
- 	     attr == &sensor_dev_attr_temp1_label.dev_attr.attr))
-@@ -3467,9 +3469,7 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
- 	     attr == &sensor_dev_attr_temp3_crit_hyst.dev_attr.attr ||
+ 	/* Skip crit temp on APU */
+-	if ((adev->flags & AMD_IS_APU) && (adev->family >= AMDGPU_FAMILY_CZ) &&
++	if ((((adev->flags & AMD_IS_APU) && (adev->family >= AMDGPU_FAMILY_CZ)) ||
++	    (gc_ver == IP_VERSION(9, 4, 3))) &&
+ 	    (attr == &sensor_dev_attr_temp1_crit.dev_attr.attr ||
+ 	     attr == &sensor_dev_attr_temp1_crit_hyst.dev_attr.attr))
+ 		return 0;
+@@ -3395,9 +3396,10 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
+ 	      attr == &sensor_dev_attr_pwm1_enable.dev_attr.attr)) /* can't manage state */
+ 		effective_mode &= ~S_IWUSR;
+ 
+-	/* In the case of APUs, this is only implemented on Vangogh */
++	/* not implemented yet for APUs other than GC 10.3.1 (vangogh) and 9.4.3 */
+ 	if (((adev->family == AMDGPU_FAMILY_SI) ||
+-	     ((adev->flags & AMD_IS_APU) && (gc_ver != IP_VERSION(10, 3, 1)))) &&
++	     ((adev->flags & AMD_IS_APU) && (gc_ver != IP_VERSION(10, 3, 1)) &&
++	      (gc_ver != IP_VERSION(9, 4, 3)))) &&
+ 	    (attr == &sensor_dev_attr_power1_cap_max.dev_attr.attr ||
+ 	     attr == &sensor_dev_attr_power1_cap_min.dev_attr.attr ||
+ 	     attr == &sensor_dev_attr_power1_cap.dev_attr.attr ||
+@@ -3426,25 +3428,39 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
+ 		return 0;
+ 
+ 	if ((adev->family == AMDGPU_FAMILY_SI ||	/* not implemented yet */
+-	     adev->family == AMDGPU_FAMILY_KV) &&	/* not implemented yet */
++	     adev->family == AMDGPU_FAMILY_KV ||	/* not implemented yet */
++	     (gc_ver == IP_VERSION(9, 4, 3))) &&
+ 	    (attr == &sensor_dev_attr_in0_input.dev_attr.attr ||
+ 	     attr == &sensor_dev_attr_in0_label.dev_attr.attr))
+ 		return 0;
+ 
+-	/* only APUs have vddnb */
+-	if (!(adev->flags & AMD_IS_APU) &&
++	/* only APUs other than gc 9,4,3 have vddnb */
++	if ((!(adev->flags & AMD_IS_APU) || (gc_ver == IP_VERSION(9, 4, 3))) &&
+ 	    (attr == &sensor_dev_attr_in1_input.dev_attr.attr ||
+ 	     attr == &sensor_dev_attr_in1_label.dev_attr.attr))
+ 		return 0;
+ 
+-	/* no mclk on APUs */
+-	if ((adev->flags & AMD_IS_APU) &&
++	/* no mclk on APUs other than gc 9,4,3*/
++	if (((adev->flags & AMD_IS_APU) && (gc_ver != IP_VERSION(9, 4, 3))) &&
+ 	    (attr == &sensor_dev_attr_freq2_input.dev_attr.attr ||
+ 	     attr == &sensor_dev_attr_freq2_label.dev_attr.attr))
+ 		return 0;
+ 
+-	/* only SOC15 dGPUs support hotspot and mem temperatures */
+ 	if (((adev->flags & AMD_IS_APU) || gc_ver < IP_VERSION(9, 0, 0)) &&
++	    (gc_ver != IP_VERSION(9, 4, 3)) &&
++	    (attr == &sensor_dev_attr_temp2_input.dev_attr.attr ||
++	     attr == &sensor_dev_attr_temp2_label.dev_attr.attr))
++		return 0;
++
++	/* Only hotspot temperature for gc 9,4,3*/
++	if ((gc_ver == IP_VERSION(9, 4, 3)) &&
++	    (attr == &sensor_dev_attr_temp1_input.dev_attr.attr ||
++	     attr == &sensor_dev_attr_temp1_label.dev_attr.attr))
++		return 0;
++
++	/* only SOC15 dGPUs support hotspot and mem temperatures */
++	if (((adev->flags & AMD_IS_APU) || gc_ver < IP_VERSION(9, 0, 0) ||
++	    (gc_ver == IP_VERSION(9, 4, 3))) &&
+ 	    (attr == &sensor_dev_attr_temp2_crit.dev_attr.attr ||
+ 	     attr == &sensor_dev_attr_temp2_crit_hyst.dev_attr.attr ||
+ 	     attr == &sensor_dev_attr_temp3_crit.dev_attr.attr ||
+@@ -3452,9 +3468,7 @@ static umode_t hwmon_attributes_visible(struct kobject *kobj,
  	     attr == &sensor_dev_attr_temp1_emergency.dev_attr.attr ||
  	     attr == &sensor_dev_attr_temp2_emergency.dev_attr.attr ||
--	     attr == &sensor_dev_attr_temp3_emergency.dev_attr.attr ||
--	     attr == &sensor_dev_attr_temp3_input.dev_attr.attr ||
--	     attr == &sensor_dev_attr_temp3_label.dev_attr.attr))
-+	     attr == &sensor_dev_attr_temp3_emergency.dev_attr.attr))
+ 	     attr == &sensor_dev_attr_temp3_emergency.dev_attr.attr ||
+-	     attr == &sensor_dev_attr_temp2_input.dev_attr.attr ||
+ 	     attr == &sensor_dev_attr_temp3_input.dev_attr.attr ||
+-	     attr == &sensor_dev_attr_temp2_label.dev_attr.attr ||
+ 	     attr == &sensor_dev_attr_temp3_label.dev_attr.attr))
  		return 0;
  
- 	/* only Vangogh has fast PPT limit and power labels */
 -- 
 2.40.1
 
