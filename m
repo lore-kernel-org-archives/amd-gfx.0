@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A366FC7EE25
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 May 2023 21:24:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F649C7EE24
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 May 2023 21:24:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34D9510E53C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFFB810E53B;
 	Wed, 10 May 2023 21:24:03 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2045.outbound.protection.outlook.com [40.107.243.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1019B10E531
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 May 2023 21:23:55 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2063.outbound.protection.outlook.com [40.107.220.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5DAE10E52C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 May 2023 21:23:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DVXX37yCnRE/hckyySCTd6ISZIATDpc3BRp/FPsF/K2jMencFlKMd+J4yuur+OlshOL7ICDL2aeO6Ho4yWPIZpf9TYpKp1WBrpzL0pESXMdauZp+HTknO6dTg/0yogcGu/p4na/mndxMZmYJpMXvY5OpiwFMGN5XjZ2Z2XMsC/Dp0qBU//w6t8Vbu9RJCf1PbVtZLB93QNLBAZsOC+YD2kpGlKdZigqV0gcoo9/hDMgVQZkCg1DQH61K3P9CzRK5yeBayfKkEt3NcBLu9O6XGy7nShUvXMsuDy55sG80VxNPEpBy1YUfEnjwVXRCoFJhC+YD6rrQ5RAfzw45MaJRPw==
+ b=JOELjg6z9jPlQdV6OQ/4YZVohmu4Sn++ld9PV1uavj3YmPI4NrjcwQZToq4s7QQtFDMLQp9WH51oRzvgf99GSApgYb3d92SIIQVjLshUfktlusxNU8eeTrQmh0O8lC7t2dHaD4Qc0BAmzdcGKUCn5XcW1q6a1jocHzCU9no7h6O23F/N4F3sxaOLqocRGQjZv/uv6N8G8r2z0q53i/kZ9JayXts/9bYgrRubQfPLROGQjvNb7+wYUNTTGbpq16bacbwX8UC9JH44ymLVo3q3PyJyVBQOTIJQzR9o3Pr75ru09ggWxmbY26vZxhrsO81F/iDMRWjwyiI3nVLoumXzRQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kID54BFuKrRVjdRtuNV25e6TMeV4hE0L1s1SQk3mOKQ=;
- b=L1J+/NVPP4N1Y0YajpDgPTk+W5ZQ3iqsV6S3VXUqGpya0tTtxPf0b5of/r8Gufq8WtAkf0je53PDAXnl6Tmzgtg1a1io1jgrlCzzgKUB6K3MHtgTWnQYpvpN4mXH7+659ktyDLnZ+nydqTf2rN7vn4eCIwt5Yt1z35nTNsTFOJ0fUvHFNf8q5deUY8UmmxUysocT5TZDxpfIgQKxckL0oHdt5VdWVW4OP27LkmZU1frXG09JCLjopQ0/J+8ESpVmpyYaigAkOjHbm7ykYMt+Key748HWydRkbBzIriOGfoM9Mk5D7vUWDQU96//5/cIM6+wsQCJn85A+amUvPEexsQ==
+ bh=Fj96sqvQv4B9ygL/UD6Pkuul4R6eqhIb3mGUDyodRx4=;
+ b=IyDXlB9BEJuOhE6VX4oRK346G/54lc1EI8foRux33Doaea6NjrRXDfrTD/5E5zvXL+FtlfhafM6C57TheDPLe/qoAwRT4i3ySPw+t0hB3hWsrnN0RweckZJKjgqj3NQMZJZhNonVMSsWgJEpwKrViTotSZqMqzpN8BQ3oOPf1rZjcyfujTUb+BAA9cJ60jF9YNHi7rpk01v1nansVZIRysrVYFE/U+1nxGSAXS0PmmAiqhr5Vd3UdPoSkOk6nao7eF7yRg2HSs1w4Yx5PMem029cPkVx6a0ifr98zMSMkjCanXE0YdPNUGqH+eII2zpcD6E4u2LEJpsKk9+nJ81Gsw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kID54BFuKrRVjdRtuNV25e6TMeV4hE0L1s1SQk3mOKQ=;
- b=db6dVsizcZDnl9mdfz2FtQq03cPF5jyqGe6jkSGwVe0MwOllIGLUlv70JwcV/lwBzX7D/faLEbA/2DQ/cjQ2JMr+GsONgltbeFlfgywa8dyFgBOh3UXBGpKPrDn/VKQ/Vg5FLqb/kurvOjqFLe1akPRMVAUeb15RTpr0hBWJCVE=
+ bh=Fj96sqvQv4B9ygL/UD6Pkuul4R6eqhIb3mGUDyodRx4=;
+ b=FRax58QZTeex6bMd4zZFXsxnjbDqeWXcDe3Qhtwt9LvSotgjevQXGCAtjxdHcbMJ1ujnoMhau3U5HqYNvnei+o0Y0kOSJtGrNE3iHg74XL2rOTqsUr3uWlxrNPReOCogbSjpXcq9KqhGdbq9PUBv4U9uACwTsQoZpLcfSD5AXd8=
 Received: from MW4PR03CA0069.namprd03.prod.outlook.com (2603:10b6:303:b6::14)
- by DM4PR12MB8522.namprd12.prod.outlook.com (2603:10b6:8:18f::7) with
+ by DM6PR12MB4386.namprd12.prod.outlook.com (2603:10b6:5:28f::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.19; Wed, 10 May
- 2023 21:23:53 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.33; Wed, 10 May
+ 2023 21:23:57 +0000
 Received: from CO1NAM11FT014.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:b6:cafe::ef) by MW4PR03CA0069.outlook.office365.com
+ (2603:10b6:303:b6:cafe::d0) by MW4PR03CA0069.outlook.office365.com
  (2603:10b6:303:b6::14) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.20 via Frontend
- Transport; Wed, 10 May 2023 21:23:53 +0000
+ Transport; Wed, 10 May 2023 21:23:57 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -47,16 +47,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT014.mail.protection.outlook.com (10.13.175.99) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6387.21 via Frontend Transport; Wed, 10 May 2023 21:23:53 +0000
+ 15.20.6387.21 via Frontend Transport; Wed, 10 May 2023 21:23:57 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 10 May
- 2023 16:23:51 -0500
+ 2023 16:23:54 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 08/29] drm/amdgpu: run partition schedule if it is supported
-Date: Wed, 10 May 2023 17:23:12 -0400
-Message-ID: <20230510212333.2071373-8-alexander.deucher@amd.com>
+Subject: [PATCH 14/29] drm/amdgpu: Add memory partition mem_id to amdgpu_bo
+Date: Wed, 10 May 2023 17:23:18 -0400
+Message-ID: <20230510212333.2071373-14-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230510212333.2071373-1-alexander.deucher@amd.com>
 References: <20230510212333.2071373-1-alexander.deucher@amd.com>
@@ -68,26 +68,26 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT014:EE_|DM4PR12MB8522:EE_
-X-MS-Office365-Filtering-Correlation-Id: c36ccce5-344a-4a1b-e809-08db519cdb1b
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT014:EE_|DM6PR12MB4386:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3bccc95b-7198-43d0-8fab-08db519cdd5a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wib3xYGlxV8nhmMamoQ9JzxzWbQGPwgz99gTthtu9qYxH98N/CN3zZM84t3y4A93tl/5QLQmjye62ZC3hBgKxZcJ45OGgowad0ldmC7phHAyTf/0o/kB4IvIB7Nf8AO9R8BffII3+Jw6HnrJirp4hRbSWYhqX0SnyGTrgdUd1CwY/9oJdiW77mej5nS+hlZcsVyBitJdOwJfxuSkZPIbS33Rnuqlbqt8mgEmL/GfQ3eFizl6yRmp1eIjOS19uqQ7lL9gqvDsrrJq9bgXyisG68KF4sNfaBOAf54mPbPtVDKj96jio4GDKkNIH93DO3BIi4MrAlSaTGW6Al3lm45O8oEferY5PcaNvd8hCx2sMilU73FaVFEWTd6t9aPvy3jp5dxmAq/xWAWuc8KGzUS8sUtPUMzM7hzkJIGJuCXsYw5w2e1Jm8nLm03KmP8wCZe4Cu8+dZiv0i9ZVmGvDlbG3ErzA1s7m7EVaKyEhcs/pzIQfVAi7LEGa/a9HY8vkdtU6aNQMN7x3YCulun6ZbwwB08YdjMbuK2/cokikQUk5JUogXb2c2K+qHSei3zyVwkWv5NUZZ7jZlOwnkZTd5wh2von8USz13qD5K9pch6U6eYwT7Ob5eww1LGn0Ec18F7eBDenmU2gHbejrlYfwrvjEPdXzkm718mcT581UvOGvqi3Xms9PwnMV5SsvkYqwhWKdWJ+X6bayjza/6n790nTQLwbZTeCcl1PNDIJVq2PPwGqhWRs3OsIs3y/SP+arKt7tgeq7KYTbBGMYBBQBkcllA==
+X-Microsoft-Antispam-Message-Info: yJVSbnhYDwOCCUrYEpYEglzLD1eEsTvYCCaLgJHf93gjNWhyiJTlIUqTDOWnjl3Wbx01wS1sFOfNIJv5DDaMBffJKVfHU35X5Z/llXtqBY52hPG3fR9kLJju4xu3VXK/2hc3atCF8/eXuX59oOWw3s6kqmzkhQGh9pB04BXHxA9vc0Z8Dh/wIkus1bvWSUKCVjpnTRSXC4AdYq9tV1oJm1ezqLH4LdZOxk3PJRN+aHChn2uZ/FWwQCc8l4DN6Q7cH9MzjwRjpppXU5irj1UYvnxWLlSGybwvPhm02aLnx4BEyzPQ/wXTH40x4QDY8/U8M4cv46cPzN2qFmQdpxcimOqWZBFfmhosqfnpslyQ6xeK/WjT3mra2mow2Zqee85pfBBo/3RLwWtCIIGwzD0VezoFwALr0hpcGCscKlsY3kY3qTw2rjfdljebPjqzuJZP66baBAQy2RnWFI+5YDkL3JY/Zc3ThnNzwgvG3foUHR2KjG0F+nhSZAfGaGchS31U6KJosf3dZDqRQBytTUjycsU5jI991T5pAphQLtNtyGAcEcL+IfDRyK9vdCjKT60+qoJt7t4PdmSfGitVj7HZEX0ANhRf+8bhNYO+950cMBPXkqxbD4zCA8iThboRMEXjPidIFGfOhHJ1Tv/LWy774/dlMkMFDrXUeL4wkBytge6vVoSKXFMGJ7U4jw6VJpRDfXJUsQoq7xip+BIsDMhUtgZjYnuv05MeIcviKI4HYUs=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(346002)(396003)(376002)(39860400002)(451199021)(40470700004)(36840700001)(46966006)(5660300002)(8676002)(8936002)(41300700001)(86362001)(70206006)(70586007)(2906002)(6916009)(316002)(4326008)(82740400003)(54906003)(478600001)(82310400005)(81166007)(6666004)(7696005)(40460700003)(356005)(426003)(2616005)(47076005)(16526019)(186003)(1076003)(26005)(336012)(40480700001)(36756003)(83380400001)(36860700001)(36900700001);
+ SFS:(13230028)(4636009)(396003)(39860400002)(376002)(136003)(346002)(451199021)(46966006)(40470700004)(36840700001)(47076005)(81166007)(26005)(356005)(1076003)(86362001)(70206006)(70586007)(40480700001)(2906002)(40460700003)(336012)(4326008)(316002)(6916009)(8676002)(5660300002)(8936002)(41300700001)(478600001)(82310400005)(54906003)(83380400001)(82740400003)(426003)(7696005)(6666004)(2616005)(36756003)(36860700001)(186003)(16526019)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 May 2023 21:23:53.4281 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c36ccce5-344a-4a1b-e809-08db519cdb1b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 May 2023 21:23:57.1786 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3bccc95b-7198-43d0-8fab-08db519cdd5a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT014.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8522
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4386
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,48 +99,166 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lijo Lazar <lijo.lazar@amd.com>, Alex
- Deucher <alexander.deucher@amd.com>, James Zhu <James.Zhu@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Philip Yang <Philip.Yang@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: James Zhu <James.Zhu@amd.com>
+From: Philip Yang <Philip.Yang@amd.com>
 
-Run partition schedule if it is supported during ctx init entity.
+Add mem_id_plus1 parameter to amdgpu_gem_object_create and pass it to
+amdgpu_bo_create. For dGPU mode allocation, mem_id is used by VRAM
+manager to get the memory partition fpfn, lpfn from xcp manager. For APU
+native mode allocation, mem_id is used to get NUMA node id from xcp
+manager, then pass to TTM as numa pool id to alloc memory from the
+specific NUMA node. mem_id -1 means for entire VRAM or any NUMA nodes.
 
-Signed-off-by: James Zhu <James.Zhu@amd.com>
-Acked-by: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c      | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c          | 9 +++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h          | 3 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c       | 3 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h       | 5 +++++
+ 6 files changed, 17 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-index 06d68a08251a..e579bb054a58 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-@@ -222,8 +222,19 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip,
- 	drm_prio = amdgpu_ctx_to_drm_sched_prio(ctx_prio);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 12149b317b88..6d0c25e34af1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -289,7 +289,7 @@ create_dmamap_sg_bo(struct amdgpu_device *adev,
  
- 	hw_ip = array_index_nospec(hw_ip, AMDGPU_HW_IP_NUM);
--	scheds = adev->gpu_sched[hw_ip][hw_prio].sched;
--	num_scheds = adev->gpu_sched[hw_ip][hw_prio].num_scheds;
-+
-+	if (!(adev)->xcp_mgr) {
-+		scheds = adev->gpu_sched[hw_ip][hw_prio].sched;
-+		num_scheds = adev->gpu_sched[hw_ip][hw_prio].num_scheds;
-+	} else {
-+		struct amdgpu_fpriv *fpriv;
-+
-+		fpriv = container_of(ctx->ctx_mgr, struct amdgpu_fpriv, ctx_mgr);
-+		r = amdgpu_xcp_select_scheds(adev, hw_ip, hw_prio, fpriv,
-+						&num_scheds, &scheds);
-+		if (r)
-+			goto cleanup_entity;
-+	}
+ 	ret = amdgpu_gem_object_create(adev, mem->bo->tbo.base.size, 1,
+ 			AMDGPU_GEM_DOMAIN_CPU, AMDGPU_GEM_CREATE_PREEMPTIBLE | flags,
+-			ttm_bo_type_sg, mem->bo->tbo.base.resv, &gem_obj);
++			ttm_bo_type_sg, mem->bo->tbo.base.resv, &gem_obj, 0);
  
- 	/* disable load balance if the hw engine retains context among dependent jobs */
- 	if (hw_ip == AMDGPU_HW_IP_VCN_ENC ||
+ 	amdgpu_bo_unreserve(mem->bo);
+ 
+@@ -1720,7 +1720,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+ 			va, (*mem)->aql_queue ? size << 1 : size, domain_string(alloc_domain));
+ 
+ 	ret = amdgpu_gem_object_create(adev, aligned_size, 1, alloc_domain, alloc_flags,
+-				       bo_type, NULL, &gobj);
++				       bo_type, NULL, &gobj, 0);
+ 	if (ret) {
+ 		pr_debug("Failed to create BO on domain %s. ret %d\n",
+ 			 domain_string(alloc_domain), ret);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+index e97b1eef2c9d..8b162f05d1fd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -335,7 +335,7 @@ amdgpu_dma_buf_create_obj(struct drm_device *dev, struct dma_buf *dma_buf)
+ 
+ 	ret = amdgpu_gem_object_create(adev, dma_buf->size, PAGE_SIZE,
+ 				       AMDGPU_GEM_DOMAIN_CPU, flags,
+-				       ttm_bo_type_sg, resv, &gobj);
++				       ttm_bo_type_sg, resv, &gobj, 0);
+ 	if (ret)
+ 		goto error;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 6936cd63df42..01029b495f5a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -97,7 +97,7 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
+ 			     int alignment, u32 initial_domain,
+ 			     u64 flags, enum ttm_bo_type type,
+ 			     struct dma_resv *resv,
+-			     struct drm_gem_object **obj)
++			     struct drm_gem_object **obj, int8_t mem_id_plus1)
+ {
+ 	struct amdgpu_bo *bo;
+ 	struct amdgpu_bo_user *ubo;
+@@ -115,6 +115,7 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
+ 	bp.flags = flags;
+ 	bp.domain = initial_domain;
+ 	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
++	bp.mem_id_plus1 = mem_id_plus1;
+ 
+ 	r = amdgpu_bo_create_user(adev, &bp, &ubo);
+ 	if (r)
+@@ -335,7 +336,7 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
+ retry:
+ 	r = amdgpu_gem_object_create(adev, size, args->in.alignment,
+ 				     initial_domain,
+-				     flags, ttm_bo_type_device, resv, &gobj);
++				     flags, ttm_bo_type_device, resv, &gobj, 0);
+ 	if (r && r != -ERESTARTSYS) {
+ 		if (flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED) {
+ 			flags &= ~AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
+@@ -404,7 +405,7 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
+ 
+ 	/* create a gem object to contain this object in */
+ 	r = amdgpu_gem_object_create(adev, args->size, 0, AMDGPU_GEM_DOMAIN_CPU,
+-				     0, ttm_bo_type_device, NULL, &gobj);
++				     0, ttm_bo_type_device, NULL, &gobj, 0);
+ 	if (r)
+ 		return r;
+ 
+@@ -930,7 +931,7 @@ int amdgpu_mode_dumb_create(struct drm_file *file_priv,
+ 	domain = amdgpu_bo_get_preferred_domain(adev,
+ 				amdgpu_display_supported_domains(adev, flags));
+ 	r = amdgpu_gem_object_create(adev, args->size, 0, domain, flags,
+-				     ttm_bo_type_device, NULL, &gobj);
++				     ttm_bo_type_device, NULL, &gobj, 0);
+ 	if (r)
+ 		return -ENOMEM;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+index 637bf51dbf06..646c4fcc8e40 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+@@ -43,8 +43,7 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long size,
+ 			     int alignment, u32 initial_domain,
+ 			     u64 flags, enum ttm_bo_type type,
+ 			     struct dma_resv *resv,
+-			     struct drm_gem_object **obj);
+-
++			     struct drm_gem_object **obj, int8_t mem_id_plus1);
+ int amdgpu_mode_dumb_create(struct drm_file *file_priv,
+ 			    struct drm_device *dev,
+ 			    struct drm_mode_create_dumb *args);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index c6214db42bda..155b62971a33 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -574,6 +574,9 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
+ 
+ 	bo->flags = bp->flags;
+ 
++	/* bo->mem_id -1 means any partition */
++	bo->mem_id = bp->mem_id_plus1 - 1;
++
+ 	if (!amdgpu_bo_support_uswc(bo->flags))
+ 		bo->flags &= ~AMDGPU_GEM_CREATE_CPU_GTT_USWC;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+index 8fdfa739a4f2..521a432348a0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+@@ -56,6 +56,8 @@ struct amdgpu_bo_param {
+ 	bool				no_wait_gpu;
+ 	struct dma_resv			*resv;
+ 	void				(*destroy)(struct ttm_buffer_object *bo);
++	/* memory partition number plus 1, 0 means any partition */
++	int8_t				mem_id_plus1;
+ };
+ 
+ /* bo virtual addresses in a vm */
+@@ -108,6 +110,9 @@ struct amdgpu_bo {
+ 	struct mmu_interval_notifier	notifier;
+ #endif
+ 	struct kgd_mem                  *kfd_bo;
++
++	/* memory partition number, -1 means any partition */
++	int8_t				mem_id;
+ };
+ 
+ struct amdgpu_bo_user {
 -- 
 2.40.1
 
