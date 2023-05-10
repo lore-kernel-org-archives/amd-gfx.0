@@ -4,49 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B981C77B7C
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 May 2023 12:20:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B3D5C77B7D
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 May 2023 12:44:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 105A610E489;
-	Wed, 10 May 2023 12:20:41 +0000 (UTC)
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [80.237.130.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5006610E1D2;
- Wed, 10 May 2023 09:51:07 +0000 (UTC)
-Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1pwgTP-0000gz-7f; Wed, 10 May 2023 11:51:03 +0200
-Message-ID: <9cf29c20-5b82-89bb-0927-e6f66b3bd8d5@leemhuis.info>
-Date: Wed, 10 May 2023 11:51:01 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71BFD10E493;
+	Wed, 10 May 2023 12:44:09 +0000 (UTC)
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [IPv6:2607:f8b0:4864:20::236])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 545FA10E493
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 May 2023 12:44:08 +0000 (UTC)
+Received: by mail-oi1-x236.google.com with SMTP id
+ 5614622812f47-394021fb9c1so796154b6e.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 10 May 2023 05:44:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1683722647; x=1686314647;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=wTa0hFCTzD176cuen+1SYddOaH5Eb8zq9V0V9arc5iE=;
+ b=HRtE0kUHTPz6pxPVQolVwddOS9JzxIGU1/Hxlk4wDr2xALl0Uvf9KwpKuv0Sq7OwtM
+ URGIQ1Sr1+SeLGR12EDzURGEiispnyEE2IxIBN6JmW0Zqn6tBlar88gcPfGLbmErMBaC
+ 3kq/K4BJmwURefucyW4nuLwY45alQxQTCZEDltSZcHVYlPaTwArPv25AEiBw4f30d21T
+ 1PN/Qo/bC9x2maLawixyO37/6DxIXwi6Z6yA5afK8pwn6zGSVxPkhbqbRUD3eQqUYdnY
+ eYqj4m0azjTIowKwj3psiGzUmZQi5QiBn+2e7k5w/iXumubf7JsIIDKovu0SQ71SBAuZ
+ omhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1683722647; x=1686314647;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=wTa0hFCTzD176cuen+1SYddOaH5Eb8zq9V0V9arc5iE=;
+ b=BB3HN+aKOL0+luBvYgzdT7s0+vP+hl7aQmnDz9KB8UeVJGPLQAeaR6qqoqIvZgqkdO
+ y08F0X6XZwaF/wU/MheSiIPVTgMwCpgQ2BWBdNm9He26z0ozCsJIJf3hX+nWOdm9Cmaz
+ JCqNFaG27L6lSlVRbQ0VO2Izj8XKhsX8iVpg8T5MWzAvq27ONPmEePzcSHwQMNTzk99r
+ ZAUF+bHL2MGxu3FKHKI6vFfq5/QNui+GhL8jz3y2/K2gkH9WVY4vBf6hk2weUbcmYPAg
+ KrPHvMQn2JVOQc8+TEquFNOtBwNyq5vImTHgZ/riuwBnMg31QJqX7itgvCsvMhFPf5vC
+ 0xsg==
+X-Gm-Message-State: AC+VfDxNYlSWPS0s7x/2OcjRgfLnAsYZH7Y1hKMP7pUPXcKy52Cpwxvw
+ roMsThRrPNxL3IkFZ9RDJfToYUpdw94qBRUsBUc=
+X-Google-Smtp-Source: ACHHUZ72Jqf7fw3KLfq27rX6UJfz3wr7ChKDGo0xvn16RRy92UCooOILe7PojJfocJlrFeunZHKIuNE5S7Xj7jitvjs=
+X-Received: by 2002:a05:6808:3a86:b0:38d:fdf2:962e with SMTP id
+ fb6-20020a0568083a8600b0038dfdf2962emr3094393oib.23.1683722646907; Wed, 10
+ May 2023 05:44:06 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: Fwd: Kernel 5.11 crashes when it boots, it produces black screen.
-Content-Language: en-US, de-DE
-To: Bagas Sanjaya <bagasdotme@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Le Ma <le.ma@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- YiPeng Chai <YiPeng.Chai@amd.com>, "Jiadong.Zhu" <Jiadong.Zhu@amd.com>,
- Yang Wang <KevinYang.Wang@amd.com>, Candice Li <candice.li@amd.com>,
- Xiaojian Du <Xiaojian.Du@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- Linux AMDGPU <amd-gfx@lists.freedesktop.org>,
- Linux DRI Development <dri-devel@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Regressions <regressions@lists.linux.dev>
-References: <c2168e4f-4d47-0d5d-a1b7-d237f0760df8@gmail.com>
-From: "Linux regression tracking (Thorsten Leemhuis)"
- <regressions@leemhuis.info>
-In-Reply-To: <c2168e4f-4d47-0d5d-a1b7-d237f0760df8@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1683712267;
- 44f10e44; 
-X-HE-SMSGID: 1pwgTP-0000gz-7f
-X-Mailman-Approved-At: Wed, 10 May 2023 12:20:39 +0000
+References: <20230510083730.1919231-1-yifan1.zhang@amd.com>
+In-Reply-To: <20230510083730.1919231-1-yifan1.zhang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 10 May 2023 08:43:54 -0400
+Message-ID: <CADnq5_O+pcpYSMy6VxuS6h7k8D+3UpQMDQdBBcj2Xjy-upPU8A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: change gfx 11.0.4 external_id range
+To: Yifan Zhang <yifan1.zhang@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,60 +67,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
-Cc: "Azamat S. Kalimoulline" <turtle@bazon.ru>,
- max <kernel-ODwfxu5zp4@maxxor.org>
+Cc: Tim.Huang@amd.com, Xiaojian.Du@amd.com, amd-gfx@lists.freedesktop.org,
+ Yogesh.Mohanmarimuthu@amd.com, Mario.Limonciello@amd.com,
+ Alexander.Deucher@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi!
-
-On 10.05.23 10:26, Bagas Sanjaya wrote:
-> 
-> I noticed a regression report on Bugzilla ([1]). As many developers don't
-> have a look on it, I decided to forward it by email. See the report
-> for the full thread.
-> 
-> Quoting from the report:
-> 
->>  Azamat S. Kalimoulline 2021-04-06 15:45:08 UTC
->>
->> Same as in https://bugzilla.kernel.org/show_bug.cgi?id=212133, but not StoneyRidge related. I have same issue in 5.11.9 kernel, but on Renoir architecture. I have AMD Ryzen 5 PRO 4650U with Radeon Graphics. Same stuck on loading initial ramdisk. modprobe.blacklist=amdgpu 3` didn't help to boot. Same stuck. Also iommu=off and acpi=off too. 5.10.26 boots fine. I boot via efi and I have no option boot without it.
-> 
-> Azamat, can you try reproducing this issue on latest mainline?
+On Wed, May 10, 2023 at 4:38=E2=80=AFAM Yifan Zhang <yifan1.zhang@amd.com> =
+wrote:
 >
-> [1]: https://bugzilla.kernel.org/show_bug.cgi?id=212579
+> gfx 11.0.4 range starts from 0x80.
+>
+> Fixes: 311d52367d0a ("drm/amdgpu: add soc21 common ip block support for G=
+C 11.0.4")
+>
+> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
 
-Bagas, thx for all your help with regression tracking, much appreciated
-(side note, as I'm curious for a while already: what is your motivation?
-Just want to help? But whatever, any help is great!).
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-That being said: I'm not sure if I like what you did in this particular
-case, as developers might start getting annoyed by regression tracking
-if we throw too many bug reports of lesser quality before their feet --
-and then they might start to ignore us, which we really need to prevent.
-
-That's why I would not have forwarded that report at this point of time,
-mainly for these reasons:
-
- * The initial report is quite old already, as it fall through the
-cracks (not good, but happens; sorry Azamat!). Hence in this case it
-would definitely be better to *first* ask the reporter to check if the
-problem still happens with latest mainline (or at least latest stable)
-before involving the kernel developers, as it might have been fixed
-already.
-
- * This might not be a amdgpu bug at all; in fact the other bug the
-reporter mentioned was an iommu thing. Hence this might be one of those
-regressions where a bisection is the only way to get down to the
-problem. Sure, sending a few developers a quick inquiry along the lines
-of "do you maybe have an idea what's up there" is fine, but that's not
-what you did in your mail. Your list of recipients is also quite long;
-that's risky: if you do that too often, as then they might start
-ignoring mail from you.
-
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
---
-Everything you wanna know about Linux kernel regression tracking:
-https://linux-regtracking.leemhuis.info/about/#tldr
-If I did something stupid, please tell me, as explained on that page.
+> ---
+>  drivers/gpu/drm/amd/amdgpu/soc21.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amd=
+gpu/soc21.c
+> index 0f82b8e83acb..6bff936a6e55 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+> @@ -711,7 +711,7 @@ static int soc21_common_early_init(void *handle)
+>                         AMD_PG_SUPPORT_VCN_DPG |
+>                         AMD_PG_SUPPORT_GFX_PG |
+>                         AMD_PG_SUPPORT_JPEG;
+> -               adev->external_rev_id =3D adev->rev_id + 0x1;
+> +               adev->external_rev_id =3D adev->rev_id + 0x80;
+>                 break;
+>
+>         default:
+> --
+> 2.37.3
+>
